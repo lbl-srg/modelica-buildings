@@ -83,8 +83,8 @@ First implementation
 <p>
 This block serves as the controller for the hot side of the ETS.
 See 
-<a href=\"modelica://Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.BaseClasses.SideHotCold\">
-Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.BaseClasses.SideHotCold</a>
+<a href=\"modelica://Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.BaseClasses.PartialSideHotCold\">
+Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.BaseClasses.PartialSideHotCold</a>
 for the computation of the demand signal <code>yDem</code>.
 The other control signals are computed as follows.
 </p>
@@ -115,7 +115,7 @@ ambient source control signals is greater than zero.
 </ul>
 <p>
 <img alt=\"Sequence chart for hot side\"
-src=\"modelica://Buildings/Resources/Images/Applications/DHC/EnergyTransferStations/Combined/Generation5/Controls/BaseClasses/HotColdSide.png\"/>
+src=\"modelica://Buildings/Resources/Images/Applications/DHC/EnergyTransferStations/Combined/Generation5/Controls/SideHot1.png\"/>
 </p>
 </html>"));
 end SideHot1;

@@ -151,9 +151,9 @@ First implementation
 <p>
 This block implements the control logic for the borefield system.
 The main control signal <code>u</code> is yielded by the hot side
-or cold side controller, see
-<a href=\"modelica://Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.BaseClasses.SideHotCold\">
-Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.BaseClasses.SideHotCold</a>.
+or cold side controller, see for instance 
+<a href=\"modelica://Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.SideHot\">
+Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.SideHot</a>.
 </p>
 <p>
 The system is enabled when
@@ -182,5 +182,11 @@ loop output and the previously mapped signal being used to modulate the
 valve.
 </li>
 </ul>
+<p>
+Note that the first control signal for the valve is needed to stabilize 
+the control of the system when the mass flow rate required to meet 
+the heat or cold rejection demand is below the flow rate corresponding 
+to the minimum pump speed.
+</p>
 </html>"));
 end Borefield;

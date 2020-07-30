@@ -16,8 +16,8 @@ model ChillerBorefield
       constrainedby Controls.BaseClasses.PartialSupervisory,
     nSysHea=1,
     nSouAmb=if have_borFie then 2 else 1,
-    dT2HexSet=abs(T_b2Hex_nominal - T_a2Hex_nominal) .* {1 + 1/datChi.COP_nominal,
-        1},
+    dT2HexSet=abs(T_b2Hex_nominal - T_a2Hex_nominal) .*
+      {1 + 1/datChi.COP_nominal, 1},
     VTanHeaWat=datChi.PLRMin*datChi.mCon_flow_nominal*5*60/1000,
     VTanChiWat=datChi.PLRMin*datChi.mEva_flow_nominal*5*60/1000,
     colChiWat(mCon_flow_nominal={colAmbWat.mDis_flow_nominal,datChi.mEva_flow_nominal}),
@@ -206,10 +206,41 @@ First implementation
 </li>
 </ul>
 </html>", info="<html>
-
 <p>
-<img alt=\"Sequence chart\"
-src=\"modelica://Buildings/Resources/Images/Applications/DHC/EnergyTransferStations/Combined/Generation5/ChillerBorefield.png\"/>
+This model represents an energy transfer station as described in the shematics
+below.
+</p>
+<ul>
+<li>
+The heating and cooling functions are ensured by a heat recovery chiller, see
+<a href=\"modelica://Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Subsystems.Chiller\">
+Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Subsystems.Chiller</a>
+for the operating principles and modeling assumptions.
+</li>
+<li>
+The supervisory controller ensures the load balancing between the condenser side
+and the evaporator side of the chiller by controlling in sequence an optional
+geothermal borefield (priority system), the district heat exchanger (second
+priority system), and ultimately the chiller, by resetting down the chilled 
+water supply temperature, see 
+<a href=\"modelica://Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.Supervisory\">
+Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.Supervisory</a>
+for a detailed description.
+</li>
+</ul>
+<p>
+Note that the heating and cooling enable signals (<code>uHea</code> and <code>uCoo</code>)
+connected to this model should be switched off when the building has no 
+corresponding demand (for instance, when the maximum of the demand signal 
+from the terminal unit controllers is zero).
+This will significantly improve the system performance as it is a 
+necessary condition for the chiller to be operated at a lower lift, see
+<a href=\"modelica://Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.Reset\">
+Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.Reset</a>
+</p>
+<p>
+<img alt=\"System schematics\"
+src=\"modelica://Buildings/Resources/Images/Applications/DHC/EnergyTransferStations/Combined/Generation5/ChillerBorefield.png\"/>.
 </p>
 </html>"));
 end ChillerBorefield;

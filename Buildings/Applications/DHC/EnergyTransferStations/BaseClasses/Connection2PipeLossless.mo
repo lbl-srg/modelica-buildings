@@ -1,6 +1,6 @@
 within Buildings.Applications.DHC.EnergyTransferStations.BaseClasses;
-model Connection2Pipe
-  "Model of a connection to a collector/distributor"
+model Connection2PipeLossless
+  "Model of a lossless connection to a collector/distributor"
   extends Networks.BaseClasses.PartialConnection2Pipe(
     redeclare model Model_pipDis =
       Buildings.Fluid.FixedResistances.LosslessPipe,
@@ -10,8 +10,8 @@ annotation (
 Documentation(
 info="<html>
 <p>
-This is a model of a connection with a two-pipe distribution network using 
-as pipe model a fixed hydraulic resistance with no heat loss .
+This is a model of a connection for a two-pipe system using 
+a pipe model with no flow resistance, no heat loss and no transport delay. 
 </p>
 </html>",
 revisions=
@@ -23,4 +23,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end Connection2Pipe;
+end Connection2PipeLossless;

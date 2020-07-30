@@ -62,6 +62,18 @@
          transform="scale(0.6)" />
     </marker>
     <marker
+       style="overflow:visible"
+       id="marker6308"
+       refX="0"
+       refY="0"
+       orient="auto">
+      <path
+         transform="scale(0.6)"
+         style="fill:none;fill-rule:evenodd;stroke:#b3b3b3;stroke-width:1pt;stroke-opacity:1"
+         d="m -5.4129913,-5.0456926 c 2.76,0 4.99999999,2.24 4.99999999,5.00000002 0,2.75999998 -2.23999999,4.99999998 -4.99999999,4.99999998"
+         id="path6306" />
+    </marker>
+    <marker
        orient="auto"
        refY="0"
        refX="0"
@@ -209,6 +221,18 @@
        orient="auto"
        refY="0"
        refX="0"
+       id="marker3092"
+       style="overflow:visible">
+      <path
+         id="path3090"
+         d="m -5.4129913,-5.0456926 c 2.76,0 4.99999999,2.24 4.99999999,5.00000002 0,2.75999998 -2.23999999,4.99999998 -4.99999999,4.99999998"
+         style="fill:none;fill-rule:evenodd;stroke:#b3b3b3;stroke-width:1pt;stroke-opacity:1"
+         transform="scale(0.6)" />
+    </marker>
+    <marker
+       orient="auto"
+       refY="0"
+       refX="0"
        id="marker2860"
        style="overflow:visible">
       <path
@@ -216,6 +240,30 @@
          d="m -5.4129913,-5.0456926 c 2.76,0 4.99999999,2.24 4.99999999,5.00000002 0,2.75999998 -2.23999999,4.99999998 -4.99999999,4.99999998"
          style="fill:none;fill-rule:evenodd;stroke:#b3b3b3;stroke-width:1pt;stroke-opacity:1"
          transform="scale(0.6)" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="marker2640"
+       refX="0"
+       refY="0"
+       orient="auto">
+      <path
+         transform="scale(0.6)"
+         style="fill:none;fill-rule:evenodd;stroke:#b3b3b3;stroke-width:1pt;stroke-opacity:1"
+         d="m -5.4129913,-5.0456926 c 2.76,0 4.99999999,2.24 4.99999999,5.00000002 0,2.75999998 -2.23999999,4.99999998 -4.99999999,4.99999998"
+         id="path2638" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="CurveOut"
+       refX="0"
+       refY="0"
+       orient="auto">
+      <path
+         transform="scale(0.6)"
+         style="fill:none;fill-rule:evenodd;stroke:#b3b3b3;stroke-width:1pt;stroke-opacity:1"
+         d="m -5.4129913,-5.0456926 c 2.76,0 4.99999999,2.24 4.99999999,5.00000002 0,2.75999998 -2.23999999,4.99999998 -4.99999999,4.99999998"
+         id="path1919" />
     </marker>
     <marker
        style="overflow:visible"
@@ -1286,6 +1334,27 @@
            x="663.06122"
            id="tspan1532">T</tspan></text>
     </g>
+    <g
+       transform="translate(-155.19152,59.731463)"
+       id="use3061">
+      <ellipse
+         ry="4.7500153"
+         rx="4.875"
+         transform="rotate(90)"
+         style="fill:#000000;fill-opacity:0;stroke:#4d4d4d;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="ellipse1538"
+         cx="2097.1582"
+         cy="-665.25" />
+      <text
+         id="text1542"
+         y="2099.9302"
+         x="663.06122"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.66667px;line-height:1.25;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke:#4d4d4d;stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none"
+         xml:space="preserve"><tspan
+           y="2099.9302"
+           x="663.06122"
+           id="tspan1540">T</tspan></text>
+    </g>
     <use
        x="0"
        y="0"
@@ -1765,35 +1834,10 @@
        style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#TriangleOutL)"
        d="m 790,2197.1583 h 10"
        id="path5158" />
-    <g
-       transform="translate(-5.05848,0.14363387)"
-       id="g2860">
-      <g
-         id="use3061"
-         transform="translate(-155.19152,59.731463)">
-        <ellipse
-           cy="-665.25"
-           cx="2097.1582"
-           id="ellipse1538"
-           style="fill:#000000;fill-opacity:0;stroke:#4d4d4d;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-           transform="rotate(90)"
-           rx="4.875"
-           ry="4.7500153" />
-        <text
-           xml:space="preserve"
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.66667px;line-height:1.25;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke:#4d4d4d;stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none"
-           x="663.06122"
-           y="2099.9302"
-           id="text1542"><tspan
-             id="tspan1540"
-             x="663.06122"
-             y="2099.9302">T</tspan></text>
-      </g>
-      <path
-         id="path5174"
-         d="m 510,2152.1583 v -5"
-         style="fill:none;stroke:#4d4d4d;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
-    </g>
+    <path
+       style="fill:none;stroke:#4d4d4d;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 510,2152.1583 v -5"
+       id="path5174" />
     <path
        style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:#4d4d4d;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stop-color:#000000"
        d="m 505.16039,2102.1583 v 5"
@@ -2063,16 +2107,28 @@
        style="fill:none;fill-rule:evenodd;stroke:#b3b3b3;stroke-width:0.5;stroke-miterlimit:3.9;stop-color:#000000" />
     <path
        id="path1586-0-7"
-       d="m 305,2377.1583 v 40 h 60"
+       d="m 310,2377.1583 v 40 h 55"
        style="display:inline;fill:none;fill-rule:evenodd;stroke:#b3b3b3;stroke-width:0.5;stroke-miterlimit:3.9;stop-color:#000000" />
     <path
+       id="path1588-4-5"
+       d="m 330,2417.1583 10,-40"
+       style="display:inline;fill:none;fill-rule:evenodd;stroke:#b3b3b3;stroke-width:0.5;stroke-miterlimit:3.9;stop-color:#000000" />
+    <path
+       id="path1590-6-5"
+       d="m 355,2417.1583 10,-40"
+       style="display:inline;fill:none;fill-rule:evenodd;stroke:#b3b3b3;stroke-width:0.5;stroke-miterlimit:3.9;marker-mid:url(#TriangleInL);stop-color:#000000" />
+    <path
        style="display:inline;fill:none;fill-rule:evenodd;stroke:#b3b3b3;stroke-width:0.5;stroke-miterlimit:3.9;stop-color:#000000"
-       d="m 325,2417.1583 20,-40"
+       d="m 340,2417.1583 10,-40"
        id="path1590-6-5-3" />
     <path
        style="display:inline;fill:none;fill-rule:evenodd;stroke:#b3b3b3;stroke-width:0.5;stroke-miterlimit:3.9;stop-color:#000000"
-       d="m 305,2417.1583 20,-40"
+       d="m 315,2417.1583 10,-40 h 15"
        id="path1588-4-5-5" />
+    <path
+       id="path1687"
+       d="m 350,2377.1583 h 15"
+       style="fill:none;fill-rule:evenodd;stroke:#b3b3b3;stroke-width:0.5;stroke-miterlimit:3.9;stop-color:#000000" />
     <path
        id="path1691"
        d="m 370,2377.1583 h 10 v 55 h 110 v -5"
@@ -2083,23 +2139,23 @@
        style="fill:none;fill-rule:evenodd;stroke:#b3b3b3;stroke-width:0.5;stroke-miterlimit:3.9;stop-color:#000000" />
     <text
        id="text1697"
-       y="2396.95"
-       x="309.27408"
-       style="font-size:6.66667px;line-height:1.25;font-family:Arial;-inkscape-font-specification:'Arial, Normal'"
-       xml:space="preserve"><tspan
-         style="fill:#b3b3b3"
-         y="2396.95"
-         x="309.27408"
-         id="tspan1695">1</tspan></text>
-    <text
-       id="text1701"
        y="2397.1582"
-       x="331"
+       x="325"
        style="font-size:6.66667px;line-height:1.25;font-family:Arial;-inkscape-font-specification:'Arial, Normal'"
        xml:space="preserve"><tspan
          style="fill:#b3b3b3"
          y="2397.1582"
-         x="331"
+         x="325"
+         id="tspan1695">1</tspan></text>
+    <text
+       id="text1701"
+       y="2397.1582"
+       x="350"
+       style="font-size:6.66667px;line-height:1.25;font-family:Arial;-inkscape-font-specification:'Arial, Normal'"
+       xml:space="preserve"><tspan
+         style="fill:#b3b3b3"
+         y="2397.1582"
+         x="350"
          id="tspan1699">2</tspan></text>
     <text
        id="text1705"
@@ -2160,7 +2216,7 @@
          style="fill:#b3b3b3"
          y="2347.0117"
          x="329.10187"
-         id="tspan1562">Chiller reset</tspan></text>
+         id="tspan1562">Lift reduction</tspan></text>
     <use
        style="display:inline;stroke:#4d4d4d"
        height="100%"
@@ -2182,12 +2238,12 @@
     <text
        xml:space="preserve"
        style="font-size:6.66667px;line-height:1.25;font-family:Arial;-inkscape-font-specification:'Arial, Normal';display:inline"
-       x="296.89807"
+       x="299.07257"
        y="2373.5945"
        id="text1564-5"><tspan
          style="fill:#b3b3b3"
          id="tspan1562-4"
-         x="296.89807"
+         x="299.07257"
          y="2373.5945">Ambient source control</tspan></text>
     <text
        id="text6376-7"
@@ -2202,12 +2258,23 @@
          y="2288.176"
          x="730.59241">or pump </tspan></text>
     <rect
+       y="2167.1582"
+       x="460"
+       height="30"
+       width="50"
+       id="rect1648"
+       style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#b3b3b3;stroke-width:0.5;stroke-miterlimit:3.9;stroke-dasharray:none;stop-color:#000000" />
+    <rect
        style="display:inline;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#b3b3b3;stroke-width:0.5;stroke-miterlimit:3.9;stroke-dasharray:none;stop-color:#000000"
        id="rect1648-3"
        width="50"
        height="30"
        x="525"
        y="2167.1582" />
+    <path
+       id="path1667"
+       d="m 510,2182.1583 h 15"
+       style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#b3b3b3;stroke-width:0.5;stroke-miterlimit:3.9;stroke-dasharray:none;marker-start:url(#CurveOut);marker-end:url(#marker3092);stop-color:#000000" />
     <path
        id="path1671"
        d="m 575,2182.1583 h 10 v -85 h 5.15445"
@@ -2222,8 +2289,18 @@
        style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#b3b3b3;stroke-width:0.5;stroke-miterlimit:3.9;stroke-dasharray:none;stop-color:#000000" />
     <path
        id="path1677"
-       d="m 370,2347.1583 h 5 v -66.3421 -79.6816 -7.9167 -11.0596 h 150"
+       d="m 370,2342.1583 h 5 v -61.3421 -79.6816 -7.9167 -11.0596 h 85"
        style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#b3b3b3;stroke-width:0.5;stroke-miterlimit:3.9;stroke-dasharray:none;marker-start:url(#marker5004);marker-end:url(#marker4126);stop-color:#000000" />
+    <text
+       id="text1681"
+       y="2172.1582"
+       x="465"
+       style="font-size:6.66667px;line-height:1.25;font-family:Arial;-inkscape-font-specification:'Arial, Normal'"
+       xml:space="preserve"><tspan
+         style="fill:#b3b3b3"
+         y="2172.1582"
+         x="465"
+         id="tspan1679">Chiller reset</tspan></text>
     <text
        id="text1685"
        y="2172.1582"
@@ -2234,6 +2311,14 @@
          y="2172.1582"
          x="530"
          id="tspan1683">Chiller control</tspan></text>
+    <path
+       id="path1688"
+       d="m 495,2177.1583 v 15 l 13.58326,-0.1594"
+       style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#b3b3b3;stroke-width:0.5;stroke-miterlimit:3.9;stroke-dasharray:none;stop-color:#000000" />
+    <path
+       id="path1690"
+       d="m 495,2182.1583 13.45851,7.5266"
+       style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#b3b3b3;stroke-width:0.5;stroke-miterlimit:3.9;stroke-dasharray:none;stop-color:#000000" />
     <path
        id="path1692"
        d="m 315,2137.1583 -30,0 v 200"
@@ -2249,16 +2334,16 @@
     <text
        xml:space="preserve"
        style="font-size:6.66667px;line-height:1.25;font-family:Arial;-inkscape-font-specification:'Arial, Normal';display:inline"
-       x="296.6637"
+       x="298.8382"
        y="2359.1831"
        id="text1564-4"><tspan
          style="fill:#b3b3b3"
          id="tspan1562-9"
-         x="296.6637"
+         x="298.8382"
          y="2359.1831">Chiller on/off command</tspan></text>
     <path
        id="path1716"
-       d="m 525,2192.1583 h -5 v 0 H 385 v 165 h -15"
+       d="m 525,2192.1583 h -5 v 10 l -135,0 v 155 l -15,0"
        style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#b3b3b3;stroke-width:0.5;stroke-miterlimit:3.9;stroke-dasharray:none;marker-start:url(#marker3602);marker-end:url(#marker5320);stop-color:#000000" />
     <text
        id="text1720"
@@ -2282,6 +2367,38 @@
          y="2192.1582"
          x="530"
          id="tspan1722">0/1</tspan></text>
+    <path
+       id="path2212"
+       d="m 505,2157.1583 h -20 v 10"
+       style="opacity:1;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#b3b3b3;stroke-width:0.5;stroke-miterlimit:3.9;stroke-dasharray:none;marker-end:url(#marker2640);stop-color:#000000" />
+    <path
+       id="path6304"
+       d="m 370,2347.1583 h 10 v -146.0237 -7.8529 -1.1234 h 80"
+       style="opacity:1;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#b3b3b3;stroke-width:0.5;stroke-miterlimit:3.9;stroke-dasharray:none;marker-start:url(#marker6308);marker-end:url(#marker6308);stop-color:#000000" />
+    <text
+       id="text6768"
+       y="2182.1582"
+       x="460"
+       style="font-size:6.66667px;line-height:1.25;font-family:Arial;-inkscape-font-specification:'Arial, Normal'"
+       xml:space="preserve"><tspan
+         style="fill:#b3b3b3;font-style:italic"
+         y="2182.1582"
+         x="460"
+         id="tspan6766"> CHWST<tspan
+   id="tspan6794"
+   style="font-size:65%;baseline-shift:sub;fill:#b3b3b3;font-style:italic">SP</tspan></tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:6.66667px;line-height:1.25;font-family:Arial;-inkscape-font-specification:'Arial, Normal';display:inline"
+       x="460"
+       y="2192.1582"
+       id="text6768-1"><tspan
+         style="fill:#b3b3b3;font-style:italic"
+         id="tspan6766-0"
+         x="460"
+         y="2192.1582"> HHWST<tspan
+   id="tspan6792"
+   style="font-size:65%;baseline-shift:sub;fill:#b3b3b3;font-style:italic">SP</tspan></tspan></text>
     <text
        id="text1564-5-6"
        y="2371.9304"
@@ -2391,30 +2508,6 @@
        id="path2120"
        d="m 470,2227.1583 v 5"
        style="fill:none;fill-rule:evenodd;stroke:#b3b3b3;stroke-width:0.5;stroke-miterlimit:3.9;stop-color:#000000" />
-    <path
-       id="path1588-4-5-5-8"
-       d="m 345,2417.1583 20,-40"
-       style="display:inline;fill:none;fill-rule:evenodd;stroke:#b3b3b3;stroke-width:0.5;stroke-miterlimit:3.9;stop-color:#000000" />
-    <text
-       xml:space="preserve"
-       style="font-size:6.66667px;line-height:1.25;font-family:Arial;-inkscape-font-specification:'Arial, Normal'"
-       x="350.75"
-       y="2397.4082"
-       id="text2291"><tspan
-         id="tspan2289"
-         x="350.75"
-         y="2397.4082"
-         style="fill:#b3b3b3">3</tspan></text>
-    <text
-       id="text3758"
-       y="2347.0002"
-       x="322.75"
-       style="font-size:6.66667px;line-height:1.25;font-family:Arial;-inkscape-font-specification:'Arial, Normal'"
-       xml:space="preserve"><tspan
-         style="fill:#b3b3b3"
-         y="2347.0002"
-         x="322.75"
-         id="tspan3756">3</tspan></text>
   </g>
   <g
      transform="translate(-210,-2066.8689)"

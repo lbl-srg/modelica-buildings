@@ -82,5 +82,27 @@ equation
   connect(valDis.y, swi1.u3) annotation (Line(points={{52,-40},{64,-40},{64,-8},
           {70,-8}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+        coordinateSystem(preserveAspectRatio=false)),
+    Documentation(info="<html>
+<p>
+This is an update of 
+<a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.LimPID\">
+Buildings.Controls.OBC.CDL.Continuous.LimPID</a>
+with an additional Boolean input representing an enable signal.
+</p>
+<ul>
+<li>
+When enabled, the controller output is identical to
+<a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.LimPID\">
+Buildings.Controls.OBC.CDL.Continuous.LimPID</a>
+(and the controller integral term is reset to zero at 
+enabling time).
+</li>
+<li>
+When disabled, the controller output is zero (and the set point
+is replaced by the measurement signal to avoid any
+time integration of the control error).
+</li>
+</ul>
+</html>"));
 end LimPIDEnable;

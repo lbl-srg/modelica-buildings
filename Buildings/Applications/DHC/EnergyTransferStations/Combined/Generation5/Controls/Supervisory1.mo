@@ -19,10 +19,10 @@ model Supervisory1 "Supervisory controller"
     annotation (Dialog(enable=
       controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
       controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
-  parameter Modelica.SIunits.Temperature THeaWatSupSetMin=THeaWatSupSetMin(
+  parameter Modelica.SIunits.Temperature THeaWatSupSetMin(
       displayUnit="degC")
     "Minimum value of heating water supply temperature set-point";
-  parameter Modelica.SIunits.Temperature TChiWatSupSetMax=TChiWatSupSetMax(
+  parameter Modelica.SIunits.Temperature TChiWatSupSetMax(
       displayUnit="degC")
     "Maximum value of chilled water supply temperature set-point";
 
@@ -86,13 +86,13 @@ equation
           {140,100}}, color={255,0,255}));
   connect(conColSid.yDem, yCoo) annotation (Line(points={{12,-44},{90,-44},{90,80},
           {140,80}}, color={255,0,255}));
-  connect(uHea, conHotSid.uHeaCoo) annotation (Line(points={{-140,110},{-40,110},
+  connect(uHea, conHotSid.uHeaCoo) annotation (Line(points={{-140,100},{-40,100},
           {-40,58},{-12,58}}, color={255,0,255}));
-  connect(uCoo, conColSid.uHeaCoo) annotation (Line(points={{-140,90},{-60,90},{
+  connect(uCoo, conColSid.uHeaCoo) annotation (Line(points={{-140,80},{-60,80},{
           -60,-42},{-12,-42}}, color={255,0,255}));
-  connect(uCoo, resTSup.uCoo) annotation (Line(points={{-140,90},{-100,90},{-100,
+  connect(uCoo, resTSup.uCoo) annotation (Line(points={{-140,80},{-100,80},{-100,
           -97},{-82,-97}}, color={255,0,255}));
-  connect(uHea, resTSup.uHea) annotation (Line(points={{-140,110},{-96,110},{-96,
+  connect(uHea, resTSup.uHea) annotation (Line(points={{-140,100},{-96,100},{-96,
           -92},{-82,-92}}, color={255,0,255}));
   connect(THeaWatSupPreSet, resTSup.THeaWatSupPreSet) annotation (Line(points={{
           -140,40},{-106,40},{-106,-103},{-82,-103}}, color={0,0,127}));
@@ -130,8 +130,8 @@ This block implements the supervisory control functions of the ETS.
 <li>
 It provides the tank demand signals to enable the chiller system, 
 based on the logic described in
-<a href=\"modelica://Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.BaseClasses.SideHotCold\">
-Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.BaseClasses.SideHotCold</a>.
+<a href=\"modelica://Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.BaseClasses.PartialSideHotCold\">
+Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.BaseClasses.PartialSideHotCold</a>.
 </li>
 <li>
 It resets the heating water and chilled water supply temperature
@@ -139,7 +139,7 @@ based on the logic described in
 <a href=\"modelica://Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.Reset\">
 Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.Reset</a>.
 Note that this resetting logic is meant to operate the chiller at low lift.
-The chilled water supply temperature may be reset down by
+The chilled water supply temperature may be also reset down by
 <a href=\"modelica://Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.Chiller\">
 Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.Chiller</a>
 to maintain the heating water supply temperature set point. 
@@ -148,8 +148,11 @@ but it has a negative impact on the lift.
 </li>
 <li>
 It controls the systems serving as ambient sources based on the logic described in
-<a href=\"modelica://Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.BaseClasses.SideHotCold\">
-Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.BaseClasses.SideHotCold</a>.
+<a href=\"modelica://Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.SideCold1\">
+Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.SideCold1</a>
+and
+<a href=\"modelica://Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.SideHot1\">
+Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.SideHot1</a>.
 The systems are controlled based on the
 maximum of the control signals yielded by the hot side and cold side controllers.
 </li>

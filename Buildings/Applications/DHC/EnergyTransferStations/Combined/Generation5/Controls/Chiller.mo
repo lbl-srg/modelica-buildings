@@ -230,7 +230,7 @@ condenser and evaporator pumps.
 </p>
 <p>
 The system is enabled if any of the input control signals <code>uHea</code>
-and <code>uCoo</code> is true.
+or <code>uCoo</code> is true.
 When enabled,
 </p>
 <ul>
@@ -241,10 +241,14 @@ the condenser and evaporator pumps are operated at constant speed,
 the condenser (resp. evaporator) mixing valve is modulated with a PI
 loop controlling the minimum (resp. maximum) inlet temperature,
 </li>
-<li>
-if there is an actual heating demand, the chilled water supply temperature 
-is reset with a PI loop controlling the heating water supply temperature.
+</ul>
+<p>
+Optionally, a chilled water supply temperature reset can be activated.
+In this case, if there is an actual heating demand, the chilled water 
+supply temperature is reset with a PI loop controlling the heating 
+water supply temperature.
 This has two effects, which occur in sequence.
+</p>
 <ol>
 <li>
 First a \"false load\" is generated on the evaporator: the part load ratio
@@ -257,13 +261,12 @@ water tank is fully recirculated.
 Then the temperature difference accross the evaporator reaches back its
 original value (for an unvarying building load). 
 However, the evaporator inlet temperature (corresponding to the tank top
-temperature) is now lowered. This will eventually trigger the cold 
-rejection by the cold side controller, see
-<a href=\"modelica://Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.BaseClasses.SideHotCold\">
-Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.BaseClasses.SideHotCold</a>.
+temperature) is now lowered. This will eventually trigger a cold 
+rejection demand by 
+<a href=\"modelica://Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.SideCold1\">
+Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.SideCold1</a>.
 The ambient sources are then used to \"false load\" the chiller.
 </li>
 </ol>
-</ul>
 </html>"));
 end Chiller;

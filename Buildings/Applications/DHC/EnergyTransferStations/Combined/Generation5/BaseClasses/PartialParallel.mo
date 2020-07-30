@@ -1,6 +1,6 @@
 within Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.BaseClasses;
 model PartialParallel
-  "Partial ETS model with district heat exchanger and parallel connection for production systems"
+  "Partial ETS model with district heat exchanger and parallel connection of production systems"
   extends DHC.EnergyTransferStations.BaseClasses.PartialETS(
     final have_heaWat=true,
     final have_chiWat=true,
@@ -306,26 +306,67 @@ annotation (Icon(coordinateSystem(preserveAspectRatio=false)),
         defaultComponentName="ets",
 Documentation(info="<html>
 <p>
-This a base model providing the hydronic configuration for the energy transfer  
-station.
-
-connect con.yAmb[nSouAmb], int.u
-
-colChiWat and colHeaWat connection index starts with 1 for the connection with the chiller
-and ends with nConChiWat and nConHeaWat for the last connection before the buffer 
-tank which corresponds to the ambient water loop. 
-
-
-When extending this class 
-
-nAuxCoo and colChiWat.mCon_flow_nominal must be updated if an additional cooling equipment is modeled,
-
-nAuxHea and colHeaWat.mCon_flow_nominal must be updated if an additional heating equipment is modeled,
-
-nSouAmb and colAmbWat.mCon_flow_nominal must be updated if an additional ambient source is modeled.
+This is a base model providing the hydronic configuration for an energy transfer  
+station as described in the schematics below. 
+It is typically used to integrate systems providing both heating water and chilled
+water, such as heat recovery chillers. 
+Furthermore, it can be connected to an adjustable number (<code>nSouAmb</code>)
+of systems serving as ambient sources (in addition to the district heat exchanger).
 </p>
-
-
+<ul>
+<li>
+The connection to the district loop is realized with a heat exchanger, according
+to the operating principles described in
+<a href=\"modelica://Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Subsystems.HeatExchanger\">
+Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Subsystems.HeatExchanger</a>.
+</li>
+<li>
+The connection of the heating water and chilled water production systems
+and of the systems serving as ambient sources (at least the district heat exchanger)
+is realized in parallel.
+</li>
+<li>
+A replaceable partial class is used to represent a supervisory controller, which
+must be replaced by a control block providing at least the control signals
+listed in
+<a href=\"modelica://Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.BaseClasses.PartialSupervisory\">
+Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.BaseClasses.PartialSupervisory</a>.
+</li>
+</ul>
+<p>
+Models that extend from this base class must
+</p>
+<ul>
+<li>
+specify the number of systems serving as ambient sources <code>nSouAmb</code>,
+the number of heating water production systems <code>nSysHea</code>, and
+the number of chilled water production systems <code>nSysCoo</code> 
+(by default <code>nSysCoo=nSysHea</code> which corresponds to a
+configuration where both productions are ensured by the same system, such
+as a heat recovery chiller),
+</li>
+<li>
+modify the parameter binding with the nominal mass flow rate of each connection
+to each collector/distributor model, namely the parameter 
+<code>mCon_flow_nominal</code> (array) of the components <code>colChiWat</code>,
+<code>colHeaWat</code> and <code>colAmbWat</code>. 
+The connection index <code>1</code> for <code>colChiWat</code> and
+<code>colHeaWat</code> is reserved for the connection with the ambient source
+circuit. It increases with the distance from the buffer tank.
+The connection index <code>1</code> for <code>colAmbWat</code> is 
+reserved for the connection with the district heat exchanger.
+Note that the order of the connections has no impact on the 
+flow distribution as the connections are in parallel.
+</li>
+</ul>
+<p>
+Note that this hydronic layout is not compatible with a compressor-less cooling
+mode using only the district heat exchanger.
+</p>
+<p>
+<img alt=\"Sequence chart\"
+src=\"modelica://Buildings/Resources/Images/Applications/DHC/EnergyTransferStations/Combined/Generation5/BaseClasses/PartialParallel.png\"/>
+</p>
 </html>",
 revisions="<html>
 <ul>

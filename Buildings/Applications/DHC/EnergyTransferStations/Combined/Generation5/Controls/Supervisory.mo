@@ -68,13 +68,13 @@ equation
           140,100}},  color={255,0,255}));
   connect(conCol.yDem, yCoo) annotation (Line(points={{12,-44},{20,-44},{20,80},
           {140,80}}, color={255,0,255}));
-  connect(uHea, conHot.uHeaCoo) annotation (Line(points={{-140,110},{-40,110},{
+  connect(uHea, conHot.uHeaCoo) annotation (Line(points={{-140,100},{-40,100},{
           -40,58},{-12,58}}, color={255,0,255}));
   connect(THeaWatTop, conHot.TTop) annotation (Line(points={{-140,20},{-20,20},
           {-20,46},{-12,46}}, color={0,0,127}));
   connect(THeaWatBot, conHot.TBot) annotation (Line(points={{-140,0},{-16,0},{
           -16,42},{-12,42}}, color={0,0,127}));
-  connect(uCoo, conCol.uHeaCoo) annotation (Line(points={{-140,90},{-60,90},{
+  connect(uCoo, conCol.uHeaCoo) annotation (Line(points={{-140,80},{-60,80},{
           -60,-42},{-12,-42}}, color={255,0,255}));
   connect(max1.y, yAmb) annotation (Line(points={{72,0},{100,0},{100,0},{140,0}},
         color={0,0,127}));
@@ -86,9 +86,9 @@ equation
           {-140,-40},{-112,-40},{-112,-108},{-82,-108}}, color={0,0,127}));
   connect(THeaWatSupPreSet, resTSup.THeaWatSupPreSet) annotation (Line(points={
           {-140,40},{-108,40},{-108,-103},{-82,-103}}, color={0,0,127}));
-  connect(uHea, resTSup.uHea) annotation (Line(points={{-140,110},{-100,110},{
+  connect(uHea, resTSup.uHea) annotation (Line(points={{-140,100},{-100,100},{
           -100,-92},{-82,-92}}, color={255,0,255}));
-  connect(uCoo, resTSup.uCoo) annotation (Line(points={{-140,90},{-104,90},{
+  connect(uCoo, resTSup.uCoo) annotation (Line(points={{-140,80},{-104,80},{
           -104,-97},{-82,-97}}, color={255,0,255}));
   connect(conHot.yIsoAmb, yIsoCon) annotation (Line(points={{12,44},{60,44},{60,
           40},{140,40}}, color={0,0,127}));
@@ -116,24 +116,33 @@ This block implements the supervisory control functions of the ETS.
 </p>
 <ul>
 <li>
-It controls the hot and cold sides based on the logic described in
-<a href=\"modelica://Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.BaseClasses.SideHotCold\">
-Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.BaseClasses.SideHotCold</a>.
-The systems serving as ambient sources for the ETS are controlled based on the
-maximum of the control signals yielded by the hot and cold side controllers.
+It provides the tank demand signals to enable the chiller system, 
+based on the logic described in
+<a href=\"modelica://Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.BaseClasses.PartialSideHotCold\">
+Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.BaseClasses.PartialSideHotCold</a>.
 </li>
 <li>
 It resets the heating water and chilled water supply temperature
 based on the logic described in
 <a href=\"modelica://Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.Reset\">
 Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.Reset</a>.
-Note that this resetting logic is meant to optimize the lift of the chiller.
-The chiller water supply temperature may be reset down by
+Note that this resetting logic is meant to operate the chiller at low lift.
+The chilled water supply temperature may be also reset down by
 <a href=\"modelica://Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.SideHot\">
 Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.SideHot</a>
-to maintain the heating water supply temperature. This second resetting logic
-is required for the heating function of the unit, but it has a negative
-impact on the lift.
+to maintain the heating water supply temperature set point. 
+This second resetting logic is required for the heating function of the unit, 
+but it has a negative impact on the lift.
+</li>
+<li>
+It controls the systems serving as ambient sources based on the logic described in
+<a href=\"modelica://Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.SideCold\">
+Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.SideCold</a>
+and
+<a href=\"modelica://Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.SideHot\">
+Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.SideHot</a>.
+The systems are controlled based on the
+maximum of the control signals yielded by the hot side and cold side controllers.
 </li>
 </ul>
 </html>"));

@@ -119,7 +119,9 @@ equation
     Documentation(info="<html>
 <p>
 This block computes the Boolean signals enabling heat and cold 
-rejection.
+rejection in the supervisory control block
+<a href=\"modelica://Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.Supervisory1\">
+Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.Supervisory1</a>.
 </p>
 <p>
 Cold rejection is enabled if
@@ -131,8 +133,8 @@ there is a heating demand, with no simultaneous cooling demand, or
 <li>
 there is a simultaneous heating and cooling demand, and the temperature
 difference (negative) representative of the demand for heat or cold rejection (see
-<a href=\"modelica://Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.BaseClasses.SideHotCold\">
-Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.BaseClasses.SideHotCold</a>)
+<a href=\"modelica://Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.BaseClasses.PartialSideHotCold\">
+Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.BaseClasses.PartialSideHotCold</a>)
 is lower (higher in absolute value) for the chilled water tank than for 
 the heating water tank.
 </li>
@@ -147,8 +149,8 @@ there is a cooling demand, with no simultaneous heating demand, or
 <li>
 there is a simultaneous heating and cooling demand, and the temperature
 difference (negative) representative of the demand for heat or cold rejection (see
-<a href=\"modelica://Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.BaseClasses.SideHotCold\">
-Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.BaseClasses.SideHotCold</a>)
+<a href=\"modelica://Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.BaseClasses.PartialSideHotCold\">
+Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.BaseClasses.PartialSideHotCold</a>)
 is lower (higher in absolute value) for the heating water tank than for 
 the chilled water tank, and cold rejection is disabled.
 </li>

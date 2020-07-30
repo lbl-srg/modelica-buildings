@@ -8,14 +8,32 @@ model CollectorDistributor
     final allowFlowReversal=true,
     show_heaFlo=false,
     final iConDpSen=-1,
-    redeclare Connection2Pipe con[nCon],
+    redeclare Connection2PipeLossless con[nCon],
     redeclare model Model_pipDis = Fluid.FixedResistances.LosslessPipe);
   annotation (
   defaultComponentName="colDis", Documentation(info="<html>
 <p>
-mDis_flow_nominal is not final as it can be set to a higher value than
-sum(mCon_flow_nominal) in case of U-tube with primary recirculation.
+This model represents a collector/distributor which connects
+<code>nCon</code> hydronic circuits in parallel.
+The pressure drop between each connection is assumed negligible
+compared to the pressure drop in each circuit, and is set to zero
+in the model.
+By default,
 </p>
+<ul>
+<li>
+there is no bypass flow (which can be added later by connecting 
+the ports <code>port_bDisSup</code> and <code>port_aDisRet</code>),
+</li>
+<li>
+the nominal distribution mass flow rate 
+<code>mDis_flow_nominal</code> is equal to the sum 
+of the nominal mass flow rate in each circuit. 
+However, this parameter assigment is not final and it can be set 
+for instance to a higher value to represent a primary overflow 
+in a supply through loop.
+</li>
+</ul>
 </html>"),
 Documentation(
 revisions="<html>

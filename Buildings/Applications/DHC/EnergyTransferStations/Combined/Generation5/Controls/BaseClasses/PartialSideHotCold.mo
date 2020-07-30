@@ -191,11 +191,11 @@ for more than 60 s (which indicates that the tank is fully loaded).
 </li>
 <li>
 Control signals for ambient sources <code>yAmb</code> (array)<br/>
-Blocks that extend this base controller must compute this signals.
+Blocks that extend this base class must compute these signals.
 </li>
 <li>
 Control signals for condenser and evaporator loops isolation valves <code>yIsoAmb</code><br/>
-Blocks that extend this base controller must compute this signals.
+Blocks that extend this base class must compute these signals.
 </li>
 </ul>
 </html>"));

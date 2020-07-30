@@ -315,8 +315,9 @@ equation
     annotation (Line(points={{11,9},{14,9},{14,0},{220,0}}, color={0,0,127}));
   connect(add2.y, PPum)
     annotation (Line(points={{182,-140},{220,-140}}, color={0,0,127}));
-  connect(pumEva.P, add2.u2) annotation (Line(points={{-111,-51},{-120,-51},{-120,
-          -140},{150,-140},{150,-146},{158,-146}}, color={0,0,127}));
+  connect(pumEva.P, add2.u2) annotation (Line(points={{-111,-51},{-120,-51},{
+          -120,-140},{140,-140},{140,-146},{158,-146}},
+                                                   color={0,0,127}));
   connect(pumCon.P, add2.u1) annotation (Line(points={{-89,69},{-60,69},{-60,-134},
           {158,-134}}, color={0,0,127}));
   connect(con.yChi, booToRea.u) annotation (Line(points={{-48,148},{-36,148},{-36,

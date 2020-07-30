@@ -85,35 +85,7 @@ First implementation
 </ul>
 </html>", info="<html>
 <p>
-This block implements the supervisory control functions of the ETS.
+This is a base class for the ETS supervisory controller.
 </p>
-<ul>
-<li>
-It provides the tank demand signals to enable the chiller system, 
-based on the logic described in
-<a href=\"modelica://Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.BaseClasses.SideHotCold\">
-Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.BaseClasses.SideHotCold</a>.
-</li>
-<li>
-It resets the heating water and chilled water supply temperature
-based on the logic described in
-<a href=\"modelica://Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.Reset\">
-Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.Reset</a>.
-Note that this resetting logic is meant to operate the chiller at low lift.
-The chilled water supply temperature may be reset down by
-<a href=\"modelica://Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.Chiller\">
-Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.Chiller</a>
-to maintain the heating water supply temperature set point. 
-This second resetting logic is required for the heating function of the unit, 
-but it has a negative impact on the lift.
-</li>
-<li>
-It controls the systems serving as ambient sources based on the logic described in
-<a href=\"modelica://Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.BaseClasses.SideHotCold\">
-Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.BaseClasses.SideHotCold</a>.
-The systems are controlled based on the
-maximum of the control signals yielded by the hot side and cold side controllers.
-</li>
-</ul>
 </html>"));
 end PartialSupervisory;

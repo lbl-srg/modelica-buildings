@@ -149,7 +149,7 @@ First implementation
 </html>", info="<html>
 <p>
 This controller is composed of a set of instances of 
-<a href=\\\"modelica://Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.LimPlay\\\">
+<a href=\"modelica://Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.LimPlay\">
 Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.LimPlay</a>
 connected in sequence and separated with a dead band.
 More precisely, the set point input signal of each controller is given by
@@ -163,7 +163,7 @@ For <code>i > 1</code>, <code>u_s[i] = u_s[i-1] + dea + hys</code>
 </li>
 </ul>
 <p>
-Optionally, a boolean input signal can be used as an enable signal.
+Optionally, a Boolean input signal can be used as an enable signal.
 </p>
 <ul>
 <li>

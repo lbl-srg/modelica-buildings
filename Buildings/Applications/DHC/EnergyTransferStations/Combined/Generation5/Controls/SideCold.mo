@@ -35,11 +35,11 @@ model SideCold "Control block for cold side"
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-40,-120})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant f1[nSouAmb](each
-      final k=0) "f1"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant f1[nSouAmb](each final
+            k=0) "f1"
     annotation (Placement(transformation(extent={{10,-150},{30,-130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant f2[nSouAmb](each
-      final k=1) "f2"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant f2[nSouAmb](each final
+            k=1) "f2"
     annotation (Placement(transformation(extent={{10,-70},{30,-50}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant x2[nSouAmb](final k={(
         i) for i in 1:nSouAmb}) "x2"
@@ -158,8 +158,8 @@ First implementation
 <p>
 This block serves as the controller for the cold side of the ETS.
 See 
-<a href=\"modelica://Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.BaseClasses.SideHotCold\">
-Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.BaseClasses.SideHotCold</a>
+<a href=\"modelica://Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.BaseClasses.PartialSideHotCold\">
+Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.BaseClasses.PartialSideHotCold</a>
 for the computation of the demand signal <code>yDem</code>.
 The other control signals are computed as follows.
 </p>
@@ -174,7 +174,8 @@ is processed as follows.
 A controller is used to track the chilled water
 supply temperature (CHWST) set point. 
 This controller is enabled if the chilled water
-tank is in demand.
+tank is in demand. It yields a control signal value between 
+<code>0</code> and <code>nSouAmb</code>.
 Note that a proportional-only controller is required 
 as the chiller model includes an idealized control of the CHWST.
 Therefore, an integral term cannot numerically decrease as
