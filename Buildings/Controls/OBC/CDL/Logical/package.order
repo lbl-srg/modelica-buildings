@@ -17,6 +17,7 @@ Or3
 Pre
 Switch
 Timer
+Timer_reset
 Toggle
 TriggeredTrapezoid
 TrueDelay
