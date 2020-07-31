@@ -162,7 +162,7 @@ equation
              __Dymola_Commands(
   file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/Examples/EquationFitReversible_CoolingClosedLoop.mos"
         "Simulate and plot"),
-         experiment(Tolerance=1e-6, StopTime=1200),
+         experiment(Tolerance=1e-6, StopTime=2500),
 Documentation(info="<html>
 <p>
 Example that simulates the performance of
