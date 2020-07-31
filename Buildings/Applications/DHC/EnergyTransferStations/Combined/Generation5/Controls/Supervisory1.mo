@@ -124,7 +124,9 @@ First implementation
 </ul>
 </html>", info="<html>
 <p>
-This block implements the supervisory control functions of the ETS.
+This block implements the supervisory control functions of the ETS model
+<a href=\"modelica://Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.ChillerBorefield1\">
+Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.ChillerBorefield1</a>.
 </p>
 <ul>
 <li>

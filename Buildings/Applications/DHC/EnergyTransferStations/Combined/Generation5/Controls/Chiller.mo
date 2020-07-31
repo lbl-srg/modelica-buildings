@@ -230,7 +230,7 @@ condenser and evaporator pumps.
 </p>
 <p>
 The system is enabled if any of the input control signals <code>uHea</code>
-or <code>uCoo</code> is true.
+or <code>uCoo</code> is <code>true</code>.
 When enabled,
 </p>
 <ul>
@@ -239,7 +239,7 @@ the condenser and evaporator pumps are operated at constant speed,
 </li>
 <li>
 the condenser (resp. evaporator) mixing valve is modulated with a PI
-loop controlling the minimum (resp. maximum) inlet temperature,
+loop controlling the minimum (resp. maximum) inlet temperature.
 </li>
 </ul>
 <p>
@@ -258,7 +258,7 @@ This is true until the volume of the evaporator loop and the chilled
 water tank is fully recirculated.
 </li>
 <li>
-Then the temperature difference accross the evaporator reaches back its
+Then the temperature difference across the evaporator reaches back its
 original value (for an unvarying building load).
 However, the evaporator inlet temperature (corresponding to the tank top
 temperature) is now lowered. This will eventually trigger a cold

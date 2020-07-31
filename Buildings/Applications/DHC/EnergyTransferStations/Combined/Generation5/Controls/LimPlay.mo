@@ -218,10 +218,10 @@ signal <code>u_s</code> defines the set point tracked by each controller.
 </p>
 <ul>
 <li>
-The \"low\" controller tracks <code>u_s - hys / 2</code>.
+The \"low\" controller tracks <code>u_s-hys/2</code>.
 </li>
 <li>
-The \"high\" controller tracks <code>u_s + hys / 2</code>.
+The \"high\" controller tracks <code>u_s+hys/2</code>.
 </li>
 </ul>
 <p>
@@ -241,7 +241,8 @@ right controller output.
 In between, the output is equal to the output of the previously active controller.
 </li>
 <li>
-This logic is illustrated below, and is reversed if <code>reverseActing</code> is true.
+This logic is illustrated below, and is reversed if <code>reverseActing</code> is
+<code>true</code>.
 </li>
 </ul>
 <p>
@@ -249,10 +250,10 @@ Optionally, a Boolean input signal can be used as an enable signal.
 </p>
 <ul>
 <li>
-When the enable signal is false, the controller output is zero.
+When the enable signal is <code>false</code>, the controller output is zero.
 </li>
 <li>
-When the enable signal is true, the controller output is as described above.
+When the enable signal is <code>true</code>, the controller output is as described above.
 </li>
 </ul>
 <p>

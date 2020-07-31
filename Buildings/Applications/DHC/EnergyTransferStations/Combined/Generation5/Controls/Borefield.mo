@@ -1,5 +1,5 @@
 within Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls;
-model Borefield "Controller for borefield system"
+model Borefield "Borefield controller"
   extends Modelica.Blocks.Icons.Block;
 
   parameter Modelica.SIunits.Temperature TBorWatEntMax(displayUnit="degC")
@@ -163,7 +163,7 @@ The system is enabled when
 the main control signal is greater than zero,
 </li>
 <li>
-the return position of one ambient loop isolation valve is greater than 90%.
+the return position of at least one isolation valve is greater than 90%.
 </li>
 </ul>
 <p>

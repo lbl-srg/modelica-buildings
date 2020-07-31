@@ -148,7 +148,9 @@ First implementation
 </ul>
 </html>", info="<html>
 <p>
-This block serves as the controller for the hot side of the ETS.
+This block serves as the controller for the hot side of the ETS in
+<a href=\"modelica://Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.Supervisory\">
+Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.Supervisory</a>.
 See
 <a href=\"modelica://Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.BaseClasses.PartialSideHotCold\">
 Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.BaseClasses.PartialSideHotCold</a>
@@ -166,7 +168,7 @@ at the heating water supply temperature set point plus a dead band
 The controller yields a control signal value between
 <code>0</code> and <code>nSouAmb</code>. The systems serving as
 ambient sources are then controlled in sequence by mapping the controller
-outpout to a <code>nSouAmb</code>-array of signals between
+output to a <code>nSouAmb</code>-array of signals between
 <code>0</code> and <code>1</code>.
 </li>
 <li>

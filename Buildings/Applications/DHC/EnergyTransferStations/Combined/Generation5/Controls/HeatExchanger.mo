@@ -1,6 +1,6 @@
 within Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls;
 model HeatExchanger
-  "Controller for district heat exchanger secondary loop"
+  "District heat exchanger controller"
   extends Modelica.Blocks.Icons.Block;
 
   parameter Boolean have_val1Hex
@@ -252,8 +252,8 @@ First implementation
 </ul>
 </html>", info="<html>
 <p>
-This block implements the control logic for the district heat exchanger system,
-which realizes the interface between the building and the district systems.
+This block implements the control logic for the district heat exchanger,
+which realizes the interface between the building system and the district system.
 </p>
 <p>
 The input signal <code>u</code> is yielded by the hot side or cold side controller,
@@ -261,7 +261,7 @@ see for instance
 <a href=\"modelica://Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.SideHot\">
 Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.SideHot</a>.
 The primary and secondary circuits are enabled to operate if the input signal
-is greater than zero and the return position of one ambient loop isolation valve
+is greater than zero and the return position of at least one isolation valve
 is greater than 90%.
 When enabled,
 </p>

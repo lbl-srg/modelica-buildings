@@ -80,7 +80,9 @@ First implementation
 </ul>
 </html>", info="<html>
 <p>
-This block serves as the controller for the cold side of the ETS.
+This block serves as the controller for the cold side of the ETS in
+<a href=\"modelica://Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.Supervisory1\">
+Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.Supervisory1</a>.
 See
 <a href=\"modelica://Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.BaseClasses.PartialSideHotCold\">
 Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.BaseClasses.PartialSideHotCold</a>
@@ -93,7 +95,7 @@ Control signals for ambient sources <code>yAmb</code> (array)<br/>
 The systems serving as ambient sources are
 <ul>
 <li>
-enabled if the cold rejection mode signal is true, see
+enabled if the cold rejection mode signal is <code>true</code>, see
 <a href=\"modelica://Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.RejectionMode\">
 Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.RejectionMode</a>,
 </li>
@@ -106,7 +108,7 @@ illustrated on the figure below.
 </li>
 </ul>
 <li>
-Control signals for the evaporato loop isolation valve <code>yIsoAmb</code><br/>
+Control signal for the evaporator loop isolation valve <code>yIsoAmb</code><br/>
 
 The valve is commanded to be fully open whenever the maximum of the
 ambient source control signals is greater than zero.

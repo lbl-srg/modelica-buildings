@@ -207,7 +207,7 @@ First implementation
 </ul>
 </html>", info="<html>
 <p>
-This model represents an energy transfer station as described in the shematics
+This model represents an energy transfer station as illustrated in the schematics
 below.
 </p>
 <ul>
@@ -216,6 +216,8 @@ The heating and cooling functions are ensured by a heat recovery chiller, see
 <a href=\"modelica://Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Subsystems.Chiller\">
 Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Subsystems.Chiller</a>
 for the operating principles and modeling assumptions.
+The condenser and evaporator loops are equipped with 
+constant speed pumps.
 </li>
 <li>
 The supervisory controller ensures the load balancing between the condenser side
@@ -226,17 +228,20 @@ water supply temperature, see
 <a href=\"modelica://Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.Supervisory\">
 Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.Supervisory</a>
 for a detailed description.
+The borefield and district heat exchanger loops are equipped with 
+variable speed pumps.
 </li>
 </ul>
 <p>
 Note that the heating and cooling enable signals (<code>uHea</code> and <code>uCoo</code>)
-connected to this model should be switched off when the building has no
-corresponding demand (for instance, when the maximum of the demand signal
-from the terminal unit controllers is zero).
+connected to this model should be switched to <code>false</code> when the 
+building has no corresponding demand (for instance, when the maximum of 
+the demand signal from the terminal unit controllers is zero).
 This will significantly improve the system performance as it is a
 necessary condition for the chiller to be operated at a lower lift, see
 <a href=\"modelica://Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.Reset\">
-Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.Reset</a>
+Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.Reset</a>.
+<br/>
 </p>
 <p>
 <img alt=\"System schematics\"

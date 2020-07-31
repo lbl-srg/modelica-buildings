@@ -155,7 +155,9 @@ First implementation
 </ul>
 </html>", info="<html>
 <p>
-This block serves as the controller for the cold side of the ETS.
+This block serves as the controller for the cold side of the ETS in 
+<a href=\"modelica://Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.Supervisory\">
+Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.Supervisory</a>.
 See
 <a href=\"modelica://Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.BaseClasses.PartialSideHotCold\">
 Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.BaseClasses.PartialSideHotCold</a>

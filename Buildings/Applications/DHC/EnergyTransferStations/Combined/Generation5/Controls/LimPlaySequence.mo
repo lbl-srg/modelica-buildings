@@ -156,10 +156,10 @@ More precisely, the set point input signal of each controller is given by
 </p>
 <ul>
 <li>
-<code>u_s[1] = u_s + dea + hys / 2</code>
+<code>u_s[1] = u_s+dea+hys/2</code>
 </li>
 <li>
-For <code>i > 1</code>, <code>u_s[i] = u_s[i-1] + dea + hys</code>
+For <code>i>1</code>, <code>u_s[i] = u_s[i-1]+dea+hys</code>
 </li>
 </ul>
 <p>
@@ -167,11 +167,11 @@ Optionally, a Boolean input signal can be used as an enable signal.
 </p>
 <ul>
 <li>
-When the enable signal is false, each controller output is zero.
+When the enable signal is <code>false</code>, each controller output is zero.
 </li>
 <li>
-When the enable signal is true, the first controller is enabled.
-The controller <code>i</code> (with <code>i > 1</code>) is enabled if
+When the enable signal is <code>true</code>, the first controller is enabled.
+The controller <code>i</code> (with <code>i>1</code>) is enabled if
 the output of the controller <code>i-1</code> exceeds
 the threshold value <code>yThr</code>.
 This allows enforcing a control in sequence of several systems,

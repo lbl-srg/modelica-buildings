@@ -311,7 +311,7 @@ station as described in the schematics below.
 It is typically used to integrate systems providing both heating water and chilled
 water, such as heat recovery chillers.
 Furthermore, it can be connected to an adjustable number (<code>nSouAmb</code>)
-of systems serving as ambient sources (in addition to the district heat exchanger).
+of systems serving as ambient sources (including the district heat exchanger).
 </p>
 <ul>
 <li>
@@ -322,8 +322,7 @@ Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Subsystem
 </li>
 <li>
 The connection of the heating water and chilled water production systems
-and of the systems serving as ambient sources (at least the district heat exchanger)
-is realized in parallel.
+and of the systems serving as ambient sources is realized in parallel.
 </li>
 <li>
 A replaceable partial class is used to represent a supervisory controller, which
@@ -334,7 +333,7 @@ Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.
 </li>
 </ul>
 <p>
-Models that extend from this base class must
+Models that extend this base class must
 </p>
 <ul>
 <li>

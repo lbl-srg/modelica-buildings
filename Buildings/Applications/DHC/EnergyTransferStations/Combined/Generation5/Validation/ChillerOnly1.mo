@@ -22,8 +22,8 @@ First implementation
 </html>", info="<html>
 <p>
 This model validates
-<a href=\"modelica://Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.ChillerBorefield\">
-Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.ChillerBorefield</a>
+<a href=\"modelica://Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.ChillerBorefield1\">
+Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.ChillerBorefield1</a>
 in a system configuration with no geothermal borefield.
 </p>
 <ul>

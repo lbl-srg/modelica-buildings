@@ -91,10 +91,10 @@ This block implements the supervisory reset of the heating water
 and chilled water supply temperature.
 The heating water (resp. chilled water) supply temperature is
 reset down (resp. up) whenever the heating (resp. cooling) demand signal
-yielded by the building automation system is false.
+yielded by the building automation system is <code>false</code>.
 This enables operating the chiller at a reduced lift whenever
 there is no requirement on the water temperature supplied to the
-building systems.
+building system.
 </p>
 </html>"));
 end Reset;

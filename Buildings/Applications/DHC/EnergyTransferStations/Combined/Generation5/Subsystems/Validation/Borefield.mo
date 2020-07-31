@@ -1,6 +1,6 @@
 within Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Subsystems.Validation;
 model Borefield
-  "Validation of the base subsystem model with heat recovery chiller"
+  "Validation of the base subsystem model with geothermal borefield"
   extends Modelica.Icons.Example;
 
   package Medium = Buildings.Media.Water "Medium model";
