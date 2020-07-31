@@ -1,9 +1,0 @@
-compareVars :=
-  {
-    "ETSCon.reqHea",
-    "ETSCon.reqCoo",
-    "ETSCon.conHotSid.rejFulLoa",
-    "ETSCon.conColSid.rejFulLoa",
-    "ETSCon.valHea",
-    "ETSCon.valCoo"
-  };

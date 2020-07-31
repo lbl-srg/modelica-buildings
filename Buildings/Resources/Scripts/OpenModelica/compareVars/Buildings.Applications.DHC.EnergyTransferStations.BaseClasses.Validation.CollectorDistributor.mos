@@ -1,0 +1,12 @@
+compareVars :=
+  {
+    "senT1Sup.T",
+    "senT1Ret.T",
+    "senT2_1Sup.T",
+    "senT2_1Ret.T",
+    "senT2_2Sup.T",
+    "senT2_2Ret.T",
+    "senMasFlo1.m_flow",
+    "senMasFlo2_1.m_flow",
+    "senMasFlo2_2.m_flow"
+  };

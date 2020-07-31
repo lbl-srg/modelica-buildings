@@ -1,7 +1,0 @@
-compareVars :=
-  {
-    "pumCon.reqHea",
-    "pumCon.reqCoo",
-    "pumCon.yPumCon",
-    "pumCon.yPumEva"
-  };
