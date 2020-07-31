@@ -704,15 +704,7 @@ a second secondary circuit which flow rate is constant, equal to 0.5 times
 <code>m_flow_nominal</code>.
 </li>
 </ol>
-</html>"),
-  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-260,-560},{260,440}})),
-  __Dymola_Commands(
-file="modelica://Buildings/Resources/Scripts/Dymola/Applications/DHC/EnergyTransferStations/BaseClasses/Validation/CollectorDistributor.mos"
-"Simulate and plot"),
-    experiment(
-      StopTime=5000,
-      Tolerance=1e-06),
-Documentation(
+</html>",
 revisions="<html>
 <ul>
 <li>
@@ -720,5 +712,12 @@ July 31, 2020, by Antoine Gautier:<br/>
 First implementation
 </li>
 </ul>
-</html>"));
+</html>"),
+  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-260,-560},{260,440}})),
+  __Dymola_Commands(
+file="modelica://Buildings/Resources/Scripts/Dymola/Applications/DHC/EnergyTransferStations/BaseClasses/Validation/CollectorDistributor.mos"
+"Simulate and plot"),
+    experiment(
+      StopTime=5000,
+      Tolerance=1e-06));
 end CollectorDistributor;
