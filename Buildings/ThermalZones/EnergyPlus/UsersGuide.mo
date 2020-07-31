@@ -108,20 +108,19 @@ The units that are used in the output <code>y</code> of this block
 are reported to the Modelica log file.
 </p>
 <!-- .................................................................... -->
-<h4>EnergyPlus warm-up computation</h4>
+<h4>EnergyPlus warm-up</h4>
 <p>
 In Spawn there can be both connected and unconnected zones defined in the EnergyPlus input file.
-The key difference is that connected zones have a corresponding zone model
-defined in Modelica that facilities communication
-between the EnergyPlus based zone heat balance model and the Modelica based control and HVAC system models.
-Unconnected zones are unconditioned spaces which are defined entirely within the EnergyPlus input file,
+Connected zones have a corresponding zone model
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus.ThermalZone\">
+Buildings.ThermalZones.EnergyPlus.ThermalZone</a>
+in Modelica that communicates with the EnergyPlus zone heat balance model.
+Unconnected zones are thermal zones which are defined entirely within the EnergyPlus input file,
 and for these zones the conventional EnergyPlus algorithms are used to simulate the zone conditions,
-including the air temperature and humidity.
-In contrast connected zones generally have HVAC and control systems defined in Modelica,
-and the zone air temperature and humidity is not managed by the conventional EnergyPlus algorithms,
-but instead by a Modelica based algorithm.
-During the initialization of a new simulation it is necessary to compute beginning values
-for the zone air conditions as well as the conditions of any thermal mass within the walls.
+including the air temperature and humidity, which are free floating.
+In contrast, for connected zones, Modelica models the temperature and humidity.
+During the initialization of a new simulation it is necessary to compute initial values
+for the zone air conditions as well as the conditions of any thermal mass, such as for walls, floors and ceilings.
 Conventionally, EnergyPlus handles this requirement using a warmup period,
 and in Spawn the traditional EnergyPlus warmup algorithm is employed
 to initialize unconnected zones.
@@ -154,23 +153,22 @@ remain nearly the same between two successive iterations.
 </li>
 </ol>
 <p>
-Spawn initializes unconnected zones using the warmup algorithm that was just described,
-however connected zones are treated differently than in a conventional EnergyPlus simulation
-because initial zone air properties are predefined in the Modelica zone model.
-During Spawn warmup the following steps occur:
+Spawn initializes unconnected zones using the warmup algorithm that was just described.
+However, connected zones are treated differently than in a conventional EnergyPlus simulation
+because initial zone air properties are specified in the Modelica zone model.
+During Spawn warmup, the following steps occur:
 </p>
 <ol>
 <li>
 <p>
 All wall surface temperatures are initialized to <i>23</i>&deg;C
-just as they are in a conventional EnergyPlus warmup period,
-however as in EnergyPlus during the first and subsequent warmup iterations
-the exterior walls will be subject to the ambient conditions defined by the weather file,
-therefore exterior surface temperatures will not remain fixed at their <i>23</i>&deg;C
+just as they are in a conventional EnergyPlus warmup period.
+However, as in EnergyPlus, during the warmup iterations,
+the exterior walls will be subject to the ambient conditions defined by the weather file.
+Therefore, exterior surface temperatures will not remain fixed at their <i>23</i>&deg;C
 initial condition during the warmup process.
-Similarly, internal wall surfaces will be exposed to the zone air temperature
-therefore internal surfaces shall approach a quasi-steady state at the conclusion of warmup and
-will not remain at the initialized value.
+Similarly, room-facing wall surfaces will be exposed to the zone temperature, and
+therefore approach a quasi-steady state at the conclusion of warmup.
 </p>
 </li>
 <li>
@@ -203,14 +201,14 @@ during the warmup day remain nearly the same between two successive iterations.
 </li>
 </ol>
 <p>
-The Spawn warmup procedure is still invoked even if there are no unconnected zones defined in the model,
-however in this case the warmup convergence criteria will be met after only two iterations of the warmup day
+The Spawn warmup procedure is still invoked even if there are no unconnected zones defined in the model.
+However, in this case the warmup convergence criteria will be met after only two iterations of the warmup day
 because all zone temperature and humidity values are fixed to the initial values defined in Modelica.
 It is possible for startup transients to still exist after Spawn warmup due thermal mass
-in the wall materials not being fully \"soaked\" by the initial boundary conditions
+in the wall materials not being fully exposed to the surface boundary conditions
 defined by the outdoor environment and the initial zone air conditions.
 A future enhancement may define a new warmup convergence criteria that takes into account
-the internal wall temperature.
+the internal wall temperatures.
 </p>
 <!-- .................................................................... -->
 <h4>Notes for Dymola</h4>
