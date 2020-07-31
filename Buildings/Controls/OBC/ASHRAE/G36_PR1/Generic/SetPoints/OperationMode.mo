@@ -8,12 +8,12 @@ block OperationMode "Block that outputs the operation mode"
     "Maximum cool-down or warm-up time";
   parameter Real TZonFreProOn(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")=277.15
     "Threshold temperature to activate the freeze protection mode";
   parameter Real TZonFreProOff(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")=280.15
     "Threshold temperature to end the freeze protection mode";
 
@@ -63,14 +63,14 @@ block OperationMode "Block that outputs the operation mode"
       iconTransformation(extent={{-140,-60},{-100,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZonMax(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Maximum zone temperature"
     annotation (Placement(transformation(extent={{-400,-100},{-360,-60}}),
       iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZonMin(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Minimum zone temperature"
     annotation (Placement(transformation(extent={{-400,-140},{-360,-100}}),
@@ -543,8 +543,8 @@ equation
     annotation (Line(points={{-58,160},{-52,160}}, color={255,0,255}));
   connect(and2.y, edg1.u)
     annotation (Line(points={{-58,250},{-50,250}}, color={255,0,255}));
-  connect(edg1.y, truFalHol.u) annotation (Line(points={{-26,250},{-22,250}},
-                     color={255,0,255}));
+  connect(edg1.y, truFalHol.u)
+    annotation (Line(points={{-26,250},{-22,250}},color={255,0,255}));
   connect(lat2.y, or5.u1) annotation (Line(points={{-78,-190},{-40,-190},{-40,
           -332},{-22,-332}}, color={255,0,255}));
   connect(lat1.y, or5.u2) annotation (Line(points={{-78,-90},{-50,-90},{-50,
@@ -577,60 +577,72 @@ equation
     annotation (Line(points={{-198,30},{-162,30}}, color={255,0,255}));
   connect(or2.y, lat.u)
     annotation (Line(points={{-138,30},{-102,30}}, color={255,0,255}));
-  connect(uSetBac, or2.u2) annotation (Line(points={{-380,-20},{-180,-20},{-180,
-          22},{-162,22}}, color={255,0,255}));
+  connect(uSetBac, or2.u2)
+    annotation (Line(points={{-380,-20},{-180,-20},{-180,22},{-162,22}},
+      color={255,0,255}));
   connect(or4.y, or7.u1)
     annotation (Line(points={{-198,-190},{-162,-190}}, color={255,0,255}));
   connect(or7.y, lat2.u)
     annotation (Line(points={{-138,-190},{-102,-190}}, color={255,0,255}));
-  connect(uSetUp, or7.u2) annotation (Line(points={{-380,-240},{-180,-240},{
-          -180,-198},{-162,-198}}, color={255,0,255}));
-  connect(uOcc, swi2.u2) annotation (Line(points={{-380,370},{-350,370},{-350,
-          320},{120,320},{120,190},{138,190}}, color={255,0,255}));
-  connect(truFalHol.y, and4.u2) annotation (Line(points={{2,250},{10,250},{10,
-          262},{18,262}}, color={255,0,255}));
-  connect(hys4.y, and4.u1) annotation (Line(points={{-98,250},{-90,250},{-90,
-          270},{18,270}}, color={255,0,255}));
-  connect(truFalHol1.y, and1.u2) annotation (Line(points={{2,160},{10,160},{10,
-          172},{18,172}}, color={255,0,255}));
-  connect(hys5.y, and1.u1) annotation (Line(points={{-98,160},{-90,160},{-90,
-          180},{18,180}}, color={255,0,255}));
-  connect(uHigOccCoo, and2.u2) annotation (Line(points={{-380,230},{-90,230},{
-          -90,242},{-82,242}}, color={255,0,255}));
-  connect(maxWarCooTime.y, add3.u2) annotation (Line(points={{-318,200},{-310,
-          200},{-310,244},{-302,244}}, color={0,0,127}));
-  connect(maxWarCooTime.y, add4.u1) annotation (Line(points={{-318,200},{-310,
-          200},{-310,156},{-302,156}}, color={0,0,127}));
-  connect(maxWarUpTim, add4.u2) annotation (Line(points={{-380,180},{-340,180},
-          {-340,144},{-302,144}}, color={0,0,127}));
-  connect(maxCooDowTim, add3.u1) annotation (Line(points={{-380,280},{-340,280},
-          {-340,256},{-302,256}}, color={0,0,127}));
+  connect(uSetUp, or7.u2)
+    annotation (Line(points={{-380,-240},{-180,-240},{-180,-198},{-162,-198}},
+      color={255,0,255}));
+  connect(uOcc, swi2.u2)
+    annotation (Line(points={{-380,370},{-350,370},{-350,320},{120,320},{120,190},
+      {138,190}}, color={255,0,255}));
+  connect(truFalHol.y, and4.u2)
+    annotation (Line(points={{2,250},{10,250},{10,262},{18,262}}, color={255,0,255}));
+  connect(hys4.y, and4.u1)
+    annotation (Line(points={{-98,250},{-90,250},{-90,270},{18,270}},
+      color={255,0,255}));
+  connect(truFalHol1.y, and1.u2)
+    annotation (Line(points={{2,160},{10,160},{10,172},{18,172}}, color={255,0,255}));
+  connect(hys5.y, and1.u1)
+    annotation (Line(points={{-98,160},{-90,160},{-90,180},{18,180}},
+      color={255,0,255}));
+  connect(uHigOccCoo, and2.u2)
+    annotation (Line(points={{-380,230},{-90,230},{-90,242},{-82,242}},
+      color={255,0,255}));
+  connect(maxWarCooTime.y, add3.u2)
+    annotation (Line(points={{-318,200},{-310,200},{-310,244},{-302,244}},
+      color={0,0,127}));
+  connect(maxWarCooTime.y, add4.u1)
+    annotation (Line(points={{-318,200},{-310,200},{-310,156},{-302,156}},
+      color={0,0,127}));
+  connect(maxWarUpTim, add4.u2)
+    annotation (Line(points={{-380,180},{-340,180},{-340,144},{-302,144}},
+      color={0,0,127}));
+  connect(maxCooDowTim, add3.u1)
+    annotation (Line(points={{-380,280},{-340,280},{-340,256},{-302,256}},
+      color={0,0,127}));
   connect(add3.y, hys2.u)
     annotation (Line(points={{-278,250},{-262,250}}, color={0,0,127}));
   connect(add4.y, hys3.u)
     annotation (Line(points={{-278,150},{-262,150}}, color={0,0,127}));
   connect(uEndSetBac, endSetBac.u)
     annotation (Line(points={{-380,-50},{-162,-50}}, color={255,0,255}));
-  connect(endSetBac.y, lat.clr) annotation (Line(points={{-138,-50},{-120,-50},{
-          -120,24},{-102,24}}, color={255,0,255}));
+  connect(endSetBac.y, lat.clr)
+    annotation (Line(points={{-138,-50},{-120,-50},{-120,24},{-102,24}},
+      color={255,0,255}));
   connect(uEndSetUp, endSetUp.u)
     annotation (Line(points={{-380,-270},{-162,-270}}, color={255,0,255}));
-  connect(endSetUp.y, lat2.clr) annotation (Line(points={{-138,-270},{-120,-270},
-          {-120,-196},{-102,-196}}, color={255,0,255}));
+  connect(endSetUp.y, lat2.clr)
+    annotation (Line(points={{-138,-270},{-120,-270},{-120,-196},{-102,-196}},
+      color={255,0,255}));
   connect(uOpeWin, intGreThr1.u)
     annotation (Line(points={{-380,90},{-262,90}}, color={255,127,0}));
   connect(intGreThr1.y, and3.u1)
     annotation (Line(points={{-238,90},{158,90}}, color={255,0,255}));
-  connect(totColZon, addInt6.u2) annotation (Line(points={{-380,30},{-350,30},{-350,
-          -6},{-332,-6}}, color={255,127,0}));
-  connect(uOpeWin, addInt6.u1) annotation (Line(points={{-380,90},{-340,90},{-340,
-          6},{-332,6}}, color={255,127,0}));
+  connect(totColZon, addInt6.u2)
+    annotation (Line(points={{-380,30},{-350,30},{-350,-6},{-332,-6}}, color={255,127,0}));
+  connect(uOpeWin, addInt6.u1)
+    annotation (Line(points={{-380,90},{-340,90},{-340,6},{-332,6}}, color={255,127,0}));
   connect(addInt6.y, allCol.u1)
     annotation (Line(points={{-308,0},{-282,0}}, color={255,127,0}));
-  connect(totHotZon, addInt7.u2) annotation (Line(points={{-380,-190},{-350,-190},
-          {-350,-226},{-332,-226}}, color={255,127,0}));
-  connect(uOpeWin, addInt7.u1) annotation (Line(points={{-380,90},{-340,90},{-340,
-          -214},{-332,-214}}, color={255,127,0}));
+  connect(totHotZon, addInt7.u2)
+    annotation (Line(points={{-380,-190},{-350,-190},{-350,-226},{-332,-226}}, color={255,127,0}));
+  connect(uOpeWin, addInt7.u1)
+    annotation (Line(points={{-380,90},{-340,90},{-340,-214},{-332,-214}}, color={255,127,0}));
   connect(addInt7.y, allHot.u1)
     annotation (Line(points={{-308,-220},{-282,-220}}, color={255,127,0}));
 

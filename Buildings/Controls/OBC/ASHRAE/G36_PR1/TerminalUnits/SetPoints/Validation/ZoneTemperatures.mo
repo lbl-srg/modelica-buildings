@@ -2,65 +2,80 @@ within Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.SetPoints.Validation;
 model ZoneTemperatures "Validate block for zone set point"
   Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.SetPoints.ZoneTemperatures
     TZonSet(
-    have_occSen=true,
-    sinAdj=false,
-    cooAdj=true,
-    have_winSen=true,
-    heaAdj=true) "Block that determines the thermal zone setpoints"
+    final have_occSen=true,
+    final sinAdj=false,
+    final cooAdj=true,
+    final have_winSen=true,
+    final heaAdj=true) "Block that determines the thermal zone setpoints"
     annotation (Placement(transformation(extent={{100,52},{120,80}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TZonCooSetOcc(k=297.15)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TZonCooSetOcc(
+    final k=297.15)
     "Occupied cooling setpoint"
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TZonHeaSetOcc(k=293.15)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TZonHeaSetOcc(
+    final k=293.15)
     "Occupied heating setpoint"
     annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TZonCooSetUno(k=303.15)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TZonCooSetUno(
+    final k=303.15)
     "Unoccupied cooling setpoint"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TZonHeaSetUno(k=287.15)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TZonHeaSetUno(
+    final k=287.15)
     "Unoccupied heating setpoint"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine cooSetAdj(freqHz=1/28800)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine cooSetAdj(
+    final freqHz=1/28800)
     "Cooling setpoint adjustment"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine heaSetAdj(freqHz=1/28800, amplitude=0.5)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine heaSetAdj(
+    final freqHz=1/28800,
+    final amplitude=0.5)
     "Heating setpoint adjustment"
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant cooDemLimLev(k=0)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant cooDemLimLev(
+    final k=0)
     "Cooling demand limit level"
     annotation (Placement(transformation(extent={{-120,-70},{-100,-50}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant heaDemLimLev(k=0)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant heaDemLimLev(
+    final k=0)
     "Heating demand limit level"
     annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ram(duration=28800)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ram(
+    final duration=28800)
     "Generate ramp output"
     annotation (Placement(transformation(extent={{-120,-100},{-100,-80}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(threshold=0.75)
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
+    final threshold=0.75)
     "Check if input is greater than 0.75"
     annotation (Placement(transformation(extent={{-80,-100},{-60,-80}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt(
-    integerTrue=1,
-    integerFalse=7)
+    final integerTrue=1,
+    final integerFalse=7)
     "Convert boolean input to integer output"
     annotation (Placement(transformation(extent={{0,-100},{20,-80}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse winSta(
-    period=14400,
-    startTime=1200)
+    final period=14400,
+    final startTime=1200)
     "Generate signal indicating window status"
     annotation (Placement(transformation(extent={{60,-30},{80,-10}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse occSta(
-    period=14400,
-    width=0.95)
+    final period=14400,
+    final width=0.95)
     "Generate signal indicating occupancy status"
     annotation (Placement(transformation(extent={{60,10},{80,30}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1 "Logical not"
     annotation (Placement(transformation(extent={{-40,-100},{-20,-80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerAdj(k=0) "Zero adjustment"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerAdj(
+    final k=0)
+    "Zero adjustment"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi1 "Switch to zero adjustment when window is open"
+  Buildings.Controls.OBC.CDL.Logical.Switch swi1
+    "Switch to zero adjustment when window is open"
     annotation (Placement(transformation(extent={{-20,-30},{0,-10}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi2 "Switch to zero adjustment when window is open"
+  Buildings.Controls.OBC.CDL.Logical.Switch swi2
+    "Switch to zero adjustment when window is open"
     annotation (Placement(transformation(extent={{-20,10},{0,30}})));
 
 equation

@@ -3,27 +3,27 @@ block ZoneStatus "Block that outputs zone temperature status"
 
   parameter Real THeaSetOcc(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")=293.15
     "Occupied heating setpoint";
   parameter Real THeaSetUno(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")=285.15
     "Unoccupied heating setpoint";
   parameter Real TCooSetOcc(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")=297.15
     "Occupied cooling setpoint";
   parameter Real TCooSetUno(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")=303.15
     "Unoccupied cooling setpoint";
   parameter Real bouLim(
     final unit="K",
-    final displayUnit="K",
+    displayUnit="K",
     final quantity="TemperatureDifference",
     final min=0.5) = 1
     "Threshold of temperature difference for indicating the end of setback or setup mode";
@@ -54,7 +54,7 @@ block ZoneStatus "Block that outputs zone temperature status"
       iconTransformation(extent={{-140,-60},{-100,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZon(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature") "Single zone temperature"
     annotation (Placement(transformation(extent={{-200,-70},{-160,-30}}),
         iconTransformation(extent={{-140,-100},{-100,-60}})));
@@ -70,7 +70,7 @@ block ZoneStatus "Block that outputs zone temperature status"
         iconTransformation(extent={{100,90},{140,130}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput THeaSetOn(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature") "Occupied heating setpoint"
     annotation (Placement(transformation(extent={{160,110},{200,150}}),
         iconTransformation(extent={{100,60},{140,100}})));
@@ -80,7 +80,7 @@ block ZoneStatus "Block that outputs zone temperature status"
         iconTransformation(extent={{100,40},{140,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TCooSetOn(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Occupied cooling setpoint temperature"
     annotation (Placement(transformation(extent={{160,30},{200,70}}),
@@ -91,7 +91,7 @@ block ZoneStatus "Block that outputs zone temperature status"
         iconTransformation(extent={{100,-10},{140,30}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput THeaSetOff(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature") "Unoccupied heating setpoint"
     annotation (Placement(transformation(extent={{160,-60},{200,-20}}),
         iconTransformation(extent={{100,-40},{140,0}})));
@@ -105,7 +105,7 @@ block ZoneStatus "Block that outputs zone temperature status"
         iconTransformation(extent={{100,-80},{140,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TCooSetOff(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature") "Unoccupied cooling setpoint"
     annotation (Placement(transformation(extent={{160,-180},{200,-140}}),
         iconTransformation(extent={{100,-110},{140,-70}})));

@@ -126,6 +126,13 @@ with ASHRAE Guideline 36 control sequence.
 </html>", revisions="<html>
 <ul>
 <li>
+June 30, 2020, by Jianjun  Hu:<br/>
+Updated AHU controller which applies the sequence of specifying operating mode
+according to G36 official release.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1893\"># 1893</a>.
+</li>
+<li>
 June 22, 2020, by Michael Wetter:<br/>
 Removed non-used occupant density.
 </li>

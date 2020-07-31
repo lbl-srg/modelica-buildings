@@ -21,22 +21,40 @@ block ZoneTemperatures
     "Flag, set to true to exempt individual zone from demand limit setpoint adjustment"
     annotation(Dialog(group="Setpoint adjustable setting"));
 
-  parameter Real TZonCooOnMax=300.15
+  parameter Real TZonCooOnMax(
+    final unit="K",
+    displayUnit="degC",
+    final quantity="ThermodynamicTemperature")=300.15
     "Maximum cooling setpoint during on"
     annotation(Dialog(group="Setpoints limits setting"));
-  parameter Real TZonCooOnMin=295.15
+  parameter Real TZonCooOnMin(
+    final unit="K",
+    displayUnit="degC",
+    final quantity="ThermodynamicTemperature")=295.15
     "Minimum cooling setpoint during on"
     annotation(Dialog(group="Setpoints limits setting"));
-  parameter Real TZonHeaOnMax=295.15
+  parameter Real TZonHeaOnMax(
+    final unit="K",
+    displayUnit="degC",
+    final quantity="ThermodynamicTemperature")=295.15
     "Maximum heating setpoint during on"
     annotation(Dialog(group="Setpoints limits setting"));
-  parameter Real TZonHeaOnMin=291.15
+  parameter Real TZonHeaOnMin(
+    final unit="K",
+    displayUnit="degC",
+    final quantity="ThermodynamicTemperature")=291.15
     "Minimum heating setpoint during on"
     annotation(Dialog(group="Setpoints limits setting"));
-  parameter Real TZonCooSetWinOpe=322.15
+  parameter Real TZonCooSetWinOpe(
+    final unit="K",
+    displayUnit="degC",
+    final quantity="ThermodynamicTemperature")=322.15
     "Cooling setpoint when window is open"
     annotation(Dialog(group="Setpoints limits setting", enable=have_winSen));
-  parameter Real TZonHeaSetWinOpe=277.15
+  parameter Real TZonHeaSetWinOpe(
+    final unit="K",
+    displayUnit="degC",
+    final quantity="ThermodynamicTemperature")=277.15
     "Heating setpoint when window is open"
     annotation(Dialog(group="Setpoints limits setting", enable=have_winSen));
 
@@ -61,42 +79,42 @@ block ZoneTemperatures
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZonCooSetOcc(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Occupied zone cooling setpoint"
     annotation (Placement(transformation(extent={{-460,510},{-420,550}}),
         iconTransformation(extent={{-140,70},{-100,110}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZonHeaSetOcc(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Occupied zone heating setpoint"
     annotation (Placement(transformation(extent={{-460,430},{-420,470}}),
         iconTransformation(extent={{-140,20},{-100,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZonCooSetUno(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Unoccupied zone cooling setpoint"
     annotation (Placement(transformation(extent={{-460,470},{-420,510}}),
         iconTransformation(extent={{-140,50},{-100,90}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZonHeaSetUno(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Unoccupied zone heating setpoint"
     annotation (Placement(transformation(extent={{-460,390},{-420,430}}),
         iconTransformation(extent={{-140,0},{-100,40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput setAdj(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature") if (cooAdj or sinAdj)
     "Setpoint adjustment value"
     annotation (Placement(transformation(extent={{-460,330},{-420,370}}),
         iconTransformation(extent={{-140,-30},{-100,10}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput heaSetAdj(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature") if heaAdj
     "Heating setpoint adjustment value"
     annotation (Placement(transformation(extent={{-460,250},{-420,290}}),
@@ -124,13 +142,13 @@ block ZoneTemperatures
       iconTransformation(extent={{-20,-20},{20,20}},origin={-120,-130})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TZonCooSet(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")  "Cooling setpoint temperature"
     annotation (Placement(transformation(extent={{340,-20},{380,20}}),
         iconTransformation(extent={{100,60},{140,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TZonHeaSet(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")  "Heating setpoint temperature"
     annotation (Placement(transformation(extent={{340,-120},{380,-80}}),
         iconTransformation(extent={{100,-20},{140,20}})));
