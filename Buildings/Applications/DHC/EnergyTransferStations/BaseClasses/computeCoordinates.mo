@@ -1,5 +1,6 @@
 within Buildings.Applications.DHC.EnergyTransferStations.BaseClasses;
 function computeCoordinates
+  "Coordinates of evenly distributed boreholes given the number of boreholes"
   input Integer nBorHol
     "Number of boreholes";
   input Modelica.SIunits.Distance dxy = 6
@@ -25,5 +26,12 @@ July 31, 2020, by Antoine Gautier:<br/>
 First implementation
 </li>
 </ul>
+</html>", info="<html>
+<p>
+This function computes the coordinates of boreholes evenly
+distributed along the <code>x</code> and <code>y</code> axis,
+given the number of boreholes (which must be the square of 
+an integer).
+</p>
 </html>"));
 end computeCoordinates;

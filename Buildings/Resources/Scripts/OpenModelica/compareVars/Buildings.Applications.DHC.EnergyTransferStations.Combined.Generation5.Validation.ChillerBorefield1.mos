@@ -40,7 +40,7 @@ compareVars :=
     "ets.chi.senTConLvg.T",
     "ets.chi.senTEvaEnt.T",
     "ets.chi.senTEvaLvg.T",
-    "ets.chi.THeaWatSupSet",
+    "ets.conSup.THeaWatSupSet",
     "ets.chi.chi.TSet",
     "ets.chi.chi.COP"
   };

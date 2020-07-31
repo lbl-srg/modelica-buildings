@@ -25,10 +25,10 @@ compareVars :=
     "ets.valIsoEva.y_actual",
     "ets.valIsoCon.y_actual",
     "ets.chi.chi.PLR2",
-    "ets.hex.conHex.T1HexWatEnt",
-    "ets.hex.conHex.T1HexWatLvg",
-    "ets.hex.conHex.T2HexWatEnt",
-    "ets.hex.conHex.T2HexWatLvg",
+    "ets.hex.senT1HexWatEnt.T",
+    "ets.hex.senT1HexWatLvg.T",
+    "ets.hex.senT2HexWatEnt.T",
+    "ets.hex.senT2HexWatLvg.T",
     "ets.hex.conHex.absDelT2.y",
     "ets.hex.conHex.setAct.y",
     "ets.QChiWat_flow_nominal",
@@ -37,7 +37,7 @@ compareVars :=
     "ets.chi.senTConLvg.T",
     "ets.chi.senTEvaEnt.T",
     "ets.chi.senTEvaLvg.T",
-    "ets.chi.THeaWatSupSet",
+    "ets.conSup.THeaWatSupSet",
     "ets.chi.chi.TSet",
     "ets.chi.chi.COP"
   };

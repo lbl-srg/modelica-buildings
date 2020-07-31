@@ -49,7 +49,7 @@ createPlot(id=2, y={"ets.chi.chi.PLR2"},
     autoreplot=true,
     grid=true,
     color=true);
-createPlot(id=3, y={"ets.hex.conHex.T1HexWatEnt", "ets.hex.conHex.T1HexWatLvg", "ets.hex.conHex.T2HexWatEnt", "ets.hex.conHex.T2HexWatLvg"},
+createPlot(id=3, y={"ets.hex.senT1HexWatEnt.T", "ets.hex.senT1HexWatLvg.T", "ets.hex.senT2HexWatEnt.T", "ets.hex.senT2HexWatLvg.T"},
     position={51, 53, 545, 518},
     autoscale=true,
     autoerase=true,
@@ -74,7 +74,7 @@ plotExpression(apply( -ChillerOnlyExamples.loaHea.Q_flow), false, "-loaHea.Q_flo
 createPlot(
     id=5,
     position={96, 100, 549, 372},
-    y={"ets.chi.senTConEnt.T", "ets.chi.senTConLvg.T", "ets.chi.senTEvaEnt.T",  "ets.chi.senTEvaLvg.T", "ets.chi.THeaWatSupSet", "ets.chi.chi.TSet"},
+    y={"ets.chi.senTConEnt.T", "ets.chi.senTConLvg.T", "ets.chi.senTEvaEnt.T",  "ets.chi.senTEvaLvg.T", "ets.conSup.THeaWatSupSet", "ets.chi.chi.TSet"},
     grid=true);
 createPlot(
     id=5,

@@ -23,7 +23,7 @@ createPlot(
     subPlot=3);
 createPlot(
     id=1,
-    y={"hexPum.conHex.y1Hex", "hexPum.conHex.y2Hex"},
+    y={"hexPum.conHex.y1Hex", "hexPum.conHex.yVal2Hex", "hexPum.conHex.yPum2Hex"},
     grid=true,
     subPlot=4);
 createPlot(
@@ -43,6 +43,6 @@ createPlot(
     subPlot=3);
 createPlot(
     id=2,
-    y={"hexVal.conHex.y1Hex", "hexVal.conHex.y2Hex"},
+    y={"hexVal.conHex.y1Hex", "hexVal.conHex.yVal2Hex", "hexVal.conHex.yPum2Hex"},
     grid=true,
     subPlot=4);

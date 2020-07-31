@@ -11,7 +11,8 @@ compareVars :=
     "hexPum.conHex.absDelT2.y",
     "hexPum.conHex.setAct.y",
     "hexPum.conHex.y1Hex",
-    "hexPum.conHex.y2Hex",
+    "hexPum.conHex.yVal2Hex",
+    "hexPum.conHex.yPum2Hex",
     "senT1InlVal.T",
     "senT1OutVal.T",
     "senT2InlVal.T",
@@ -23,5 +24,6 @@ compareVars :=
     "hexVal.conHex.absDelT2.y",
     "hexVal.conHex.setAct.y",
     "hexVal.conHex.y1Hex",
-    "hexVal.conHex.y2Hex"
+    "hexVal.conHex.yVal2Hex",
+    "hexVal.conHex.yPum2Hex"
   };

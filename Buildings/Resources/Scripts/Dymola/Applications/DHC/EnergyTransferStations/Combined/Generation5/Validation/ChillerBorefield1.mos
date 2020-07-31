@@ -73,7 +73,7 @@ plotExpression(apply( -ChillerBorefield1.loaHea.Q_flow), false, "-loaHea.Q_flow"
 createPlot(
     id=5,
     position={96, 100, 549, 372},
-    y={"ets.chi.senTConEnt.T", "ets.chi.senTConLvg.T", "ets.chi.senTEvaEnt.T",  "ets.chi.senTEvaLvg.T", "ets.chi.THeaWatSupSet", "ets.chi.chi.TSet"},
+    y={"ets.chi.senTConEnt.T", "ets.chi.senTConLvg.T", "ets.chi.senTEvaEnt.T",  "ets.chi.senTEvaLvg.T", "ets.conSup.THeaWatSupSet", "ets.chi.chi.TSet"},
     grid=true);
 createPlot(
     id=5,

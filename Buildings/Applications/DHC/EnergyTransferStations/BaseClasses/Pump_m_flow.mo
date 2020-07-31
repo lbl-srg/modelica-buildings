@@ -18,5 +18,10 @@ model Pump_m_flow "Pump with prescribed mass flow rate"
           lineColor={0,0,0},
           pattern=LinePattern.None,
           fillPattern=FillPattern.HorizontalCylinder,
-          fillColor={255,255,255})}));
+          fillColor={255,255,255})}), Documentation(info="<html>
+<p>
+This is a steady-state model of a pump with ideally controlled 
+mass flow rate as input signal, and not heat added to the medium.
+</p>
+</html>"));
 end Pump_m_flow;
