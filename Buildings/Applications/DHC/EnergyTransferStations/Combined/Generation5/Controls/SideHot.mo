@@ -142,14 +142,14 @@ Documentation(
 revisions="<html>
 <ul>
 <li>
-July xx, 2020, by Antoine Gautier:<br/>
+July 31, 2020, by Antoine Gautier:<br/>
 First implementation
 </li>
 </ul>
 </html>", info="<html>
 <p>
 This block serves as the controller for the hot side of the ETS.
-See 
+See
 <a href=\"modelica://Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.BaseClasses.PartialSideHotCold\">
 Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.BaseClasses.PartialSideHotCold</a>
 for the computation of the demand signal <code>yDem</code>.
@@ -161,12 +161,12 @@ Control signals for ambient sources <code>yAmb</code> (array)<br/>
 
 The controller for heat rejection is always enabled.
 It maintains the temperature at the bottom of the heating water tank
-at the heating water supply temperature set point plus a dead band 
-<code>dTDea</code>. 
-The controller yields a control signal value between 
+at the heating water supply temperature set point plus a dead band
+<code>dTDea</code>.
+The controller yields a control signal value between
 <code>0</code> and <code>nSouAmb</code>. The systems serving as
 ambient sources are then controlled in sequence by mapping the controller
-outpout to a <code>nSouAmb</code>-array of signals between 
+outpout to a <code>nSouAmb</code>-array of signals between
 <code>0</code> and <code>1</code>.
 </li>
 <li>
@@ -176,18 +176,18 @@ The controller for cold rejection is enabled if the heating water
 tank is in demand and the condenser loop isolation valve is commanded
 to be closed (see below).
 It maintains the temperature at the top of the heating water tank
-at the heating water supply temperature set point. 
-The controller yields a control signal value between 
+at the heating water supply temperature set point.
+The controller yields a control signal value between
 <code>0</code> and <code>nSouAmb+1</code>.
-It is used to control in sequence the systems serving as ambient 
+It is used to control in sequence the systems serving as ambient
 sources and ultimately to reset the chilled water supply temperature,
-see 
+see
 <a href=\"modelica://Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.SideCold\">
 Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.SideCold</a>.
 </li>
 <li>
 Control signal for the condenser loop isolation valve <code>yIsoAmb</code><br/>
-The valve is commanded to be fully open whenever the controller 
+The valve is commanded to be fully open whenever the controller
 for heat rejection yields an output signal greater than zero
 (with a true hold of 300s to avoid short cycling).
 </li>

@@ -22,15 +22,15 @@ By default,
 </p>
 <ul>
 <li>
-there is no bypass flow (which can be added later by connecting 
+there is no bypass flow (which can be added later by connecting
 the ports <code>port_bDisSup</code> and <code>port_aDisRet</code>),
 </li>
 <li>
-the nominal distribution mass flow rate 
-<code>mDis_flow_nominal</code> is equal to the sum 
-of the nominal mass flow rate in each circuit. 
-However, this parameter assigment is not final and it can be set 
-for instance to a higher value to represent a primary overflow 
+the nominal distribution mass flow rate
+<code>mDis_flow_nominal</code> is equal to the sum
+of the nominal mass flow rate in each circuit.
+However, this parameter assigment is not final and it can be set
+for instance to a higher value to represent a primary overflow
 in a supply through loop.
 </li>
 </ul>
@@ -39,7 +39,7 @@ Documentation(
 revisions="<html>
 <ul>
 <li>
-July xx, 2020, by Antoine Gautier:<br/>
+July 31, 2020, by Antoine Gautier:<br/>
 First implementation
 </li>
 </ul>

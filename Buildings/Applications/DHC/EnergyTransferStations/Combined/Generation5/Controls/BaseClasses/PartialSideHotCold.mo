@@ -100,7 +100,7 @@ partial block PartialSideHotCold "Base control block for hor or cold side"
     annotation (Placement(transformation(extent={{-70,70},{-50,90}})));
   Buildings.Controls.OBC.CDL.Logical.And and2 "And"
     annotation (Placement(transformation(extent={{110,90},{130,110}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput e(each final unit="1")
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput e(final unit="K")
     "Error" annotation (Placement(transformation(extent={{180,-20},{220,20}}),
         iconTransformation(extent={{100,0},{140,40}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant deaBan(k=if
@@ -161,7 +161,7 @@ Documentation(
 revisions="<html>
 <ul>
 <li>
-July xx, 2020, by Antoine Gautier:<br/>
+July 31, 2020, by Antoine Gautier:<br/>
 First implementation
 </li>
 </ul>

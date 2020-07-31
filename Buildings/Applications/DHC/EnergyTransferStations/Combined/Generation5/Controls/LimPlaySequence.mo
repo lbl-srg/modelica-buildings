@@ -142,13 +142,13 @@ Documentation(
 revisions="<html>
 <ul>
 <li>
-July xx, 2020, by Antoine Gautier:<br/>
+July 31, 2020, by Antoine Gautier:<br/>
 First implementation
 </li>
 </ul>
 </html>", info="<html>
 <p>
-This controller is composed of a set of instances of 
+This controller is composed of a set of instances of
 <a href=\"modelica://Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.LimPlay\">
 Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.LimPlay</a>
 connected in sequence and separated with a dead band.
@@ -156,7 +156,7 @@ More precisely, the set point input signal of each controller is given by
 </p>
 <ul>
 <li>
-<code>u_s[1] = u_s + dea + hys / 2</code> 
+<code>u_s[1] = u_s + dea + hys / 2</code>
 </li>
 <li>
 For <code>i > 1</code>, <code>u_s[i] = u_s[i-1] + dea + hys</code>
@@ -167,17 +167,17 @@ Optionally, a Boolean input signal can be used as an enable signal.
 </p>
 <ul>
 <li>
-When the enable signal is false, each controller output is zero. 
+When the enable signal is false, each controller output is zero.
 </li>
 <li>
 When the enable signal is true, the first controller is enabled.
-The controller <code>i</code> (with <code>i > 1</code>) is enabled if 
-the output of the controller <code>i-1</code> exceeds 
+The controller <code>i</code> (with <code>i > 1</code>) is enabled if
+the output of the controller <code>i-1</code> exceeds
 the threshold value <code>yThr</code>.
 This allows enforcing a control in sequence of several systems,
-independently from the other control parameters (such as the dead band, 
+independently from the other control parameters (such as the dead band,
 the gain or the integral time constant).
-To disable this feature, simply set <code>yThr</code> equal to 
+To disable this feature, simply set <code>yThr</code> equal to
 <code>yMin</code> (the default).
 </li>
 </ul>

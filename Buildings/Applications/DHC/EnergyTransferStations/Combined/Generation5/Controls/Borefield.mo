@@ -143,7 +143,7 @@ Documentation(
 revisions="<html>
 <ul>
 <li>
-July xx, 2020, by Antoine Gautier:<br/>
+July 31, 2020, by Antoine Gautier:<br/>
 First implementation
 </li>
 </ul>
@@ -151,7 +151,7 @@ First implementation
 <p>
 This block implements the control logic for the borefield system.
 The main control signal <code>u</code> is yielded by the hot side
-or cold side controller, see for instance 
+or cold side controller, see for instance
 <a href=\"modelica://Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.SideHot\">
 Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.SideHot</a>.
 </p>
@@ -171,21 +171,21 @@ When the system is enabled,
 </p>
 <ul>
 <li>
-the input signal is mapped to modulate in sequence the mixing valve 
-(from full bypass to closed bypass for a control signal varying between 
-0% and 30%) and the pump speed (from the minimum to the maximum value 
+the input signal is mapped to modulate in sequence the mixing valve
+(from full bypass to closed bypass for a control signal varying between
+0% and 30%) and the pump speed (from the minimum to the maximum value
 for a control signal varying between 30% and 100%),
 </li>
 <li>
 a PI loop tracks the maximum inlet temperature, the minimum between this
-loop output and the previously mapped signal being used to modulate the 
+loop output and the previously mapped signal being used to modulate the
 valve.
 </li>
 </ul>
 <p>
-Note that the first control signal for the valve is needed to stabilize 
-the control of the system when the mass flow rate required to meet 
-the heat or cold rejection demand is below the flow rate corresponding 
+Note that the first control signal for the valve is needed to stabilize
+the control of the system when the mass flow rate required to meet
+the heat or cold rejection demand is below the flow rate corresponding
 to the minimum pump speed.
 </p>
 </html>"));

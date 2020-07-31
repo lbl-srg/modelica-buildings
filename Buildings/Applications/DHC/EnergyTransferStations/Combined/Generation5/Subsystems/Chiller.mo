@@ -352,7 +352,7 @@ annotation (
 revisions="<html>
 <ul>
 <li>
-July xx, 2020, by Antoine Gautier:<br/>
+July 31, 2020, by Antoine Gautier:<br/>
 First implementation
 </li>
 </ul>
@@ -366,12 +366,12 @@ condenser inlet temperature (resp. maximum evaporator inlet temperature).
 The system is controlled based on the logic described in
 <a href=\"modelica://Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.Chiller\">
 Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.Chiller</a>.
-The pump flow rate is considered proportional to the pump speed 
-under the assumption of a constant flow resistance for both the condenser 
+The pump flow rate is considered proportional to the pump speed
+under the assumption of a constant flow resistance for both the condenser
 and the evaporator loops. This assumption is justified
-by the connection of the loops to the buffer tanks, and the additional 
-assumption that the bypass branch of the mixing valves is balanced 
-with the direct branch.  
+by the connection of the loops to the buffer tanks, and the additional
+assumption that the bypass branch of the mixing valves is balanced
+with the direct branch.
 </p>
 </html>"));
 end Chiller;

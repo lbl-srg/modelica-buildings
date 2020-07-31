@@ -206,14 +206,14 @@ equation
 revisions="<html>
 <ul>
 <li>
-July xx, 2020, by Antoine Gautier:<br/>
+July 31, 2020, by Antoine Gautier:<br/>
 First implementation
 </li>
 </ul>
 </html>", info="<html>
 <p>
 This is a controller composed of two P or PI controllers and a hysteresis block.
-The width of the hysteresis <code>hys</code>, together with the set point input 
+The width of the hysteresis <code>hys</code>, together with the set point input
 signal <code>u_s</code> defines the set point tracked by each controller.
 </p>
 <ul>
@@ -249,7 +249,7 @@ Optionally, a Boolean input signal can be used as an enable signal.
 </p>
 <ul>
 <li>
-When the enable signal is false, the controller output is zero. 
+When the enable signal is false, the controller output is zero.
 </li>
 <li>
 When the enable signal is true, the controller output is as described above.

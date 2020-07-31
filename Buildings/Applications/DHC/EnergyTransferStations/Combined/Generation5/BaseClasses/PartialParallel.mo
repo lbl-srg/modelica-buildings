@@ -306,10 +306,10 @@ annotation (Icon(coordinateSystem(preserveAspectRatio=false)),
         defaultComponentName="ets",
 Documentation(info="<html>
 <p>
-This is a base model providing the hydronic configuration for an energy transfer  
-station as described in the schematics below. 
+This is a base model providing the hydronic configuration for an energy transfer
+station as described in the schematics below.
 It is typically used to integrate systems providing both heating water and chilled
-water, such as heat recovery chillers. 
+water, such as heat recovery chillers.
 Furthermore, it can be connected to an adjustable number (<code>nSouAmb</code>)
 of systems serving as ambient sources (in addition to the district heat exchanger).
 </p>
@@ -340,22 +340,22 @@ Models that extend from this base class must
 <li>
 specify the number of systems serving as ambient sources <code>nSouAmb</code>,
 the number of heating water production systems <code>nSysHea</code>, and
-the number of chilled water production systems <code>nSysCoo</code> 
+the number of chilled water production systems <code>nSysCoo</code>
 (by default <code>nSysCoo=nSysHea</code> which corresponds to a
 configuration where both productions are ensured by the same system, such
 as a heat recovery chiller),
 </li>
 <li>
 modify the parameter binding with the nominal mass flow rate of each connection
-to each collector/distributor model, namely the parameter 
+to each collector/distributor model, namely the parameter
 <code>mCon_flow_nominal</code> (array) of the components <code>colChiWat</code>,
-<code>colHeaWat</code> and <code>colAmbWat</code>. 
+<code>colHeaWat</code> and <code>colAmbWat</code>.
 The connection index <code>1</code> for <code>colChiWat</code> and
 <code>colHeaWat</code> is reserved for the connection with the ambient source
 circuit. It increases with the distance from the buffer tank.
-The connection index <code>1</code> for <code>colAmbWat</code> is 
+The connection index <code>1</code> for <code>colAmbWat</code> is
 reserved for the connection with the district heat exchanger.
-Note that the order of the connections has no impact on the 
+Note that the order of the connections has no impact on the
 flow distribution as the connections are in parallel.
 </li>
 </ul>
@@ -371,7 +371,7 @@ src=\"modelica://Buildings/Resources/Images/Applications/DHC/EnergyTransferStati
 revisions="<html>
 <ul>
 <li>
-July xx, 2020, by Antoine Gautier:<br/>
+July 31, 2020, by Antoine Gautier:<br/>
 First implementation
 </li>
 </ul>

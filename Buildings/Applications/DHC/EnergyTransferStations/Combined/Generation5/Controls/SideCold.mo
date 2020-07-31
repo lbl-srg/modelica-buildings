@@ -149,14 +149,14 @@ Documentation(
 revisions="<html>
 <ul>
 <li>
-July xx, 2020, by Antoine Gautier:<br/>
+July 31, 2020, by Antoine Gautier:<br/>
 First implementation
 </li>
 </ul>
 </html>", info="<html>
 <p>
 This block serves as the controller for the cold side of the ETS.
-See 
+See
 <a href=\"modelica://Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.BaseClasses.PartialSideHotCold\">
 Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.BaseClasses.PartialSideHotCold</a>
 for the computation of the demand signal <code>yDem</code>.
@@ -171,30 +171,30 @@ is processed as follows.
 <ul>
 <li>
 A controller is used to track the chilled water
-supply temperature (CHWST) set point. 
+supply temperature (CHWST) set point.
 This controller is enabled if the chilled water
-tank is in demand. It yields a control signal value between 
+tank is in demand. It yields a control signal value between
 <code>0</code> and <code>nSouAmb</code>.
-Note that a proportional-only controller is required 
+Note that a proportional-only controller is required
 as the chiller model includes an idealized control of the CHWST.
 Therefore, an integral term cannot numerically decrease as
 the chilled water supply temperature never drops below its set point.
 </li>
 <li>
-The systems serving as ambient sources are then controlled in sequence 
-by mapping the minimum between the CHWST control loop output and the 
-part of the cold rejection signal between <code>0</code> 
+The systems serving as ambient sources are then controlled in sequence
+by mapping the minimum between the CHWST control loop output and the
+part of the cold rejection signal between <code>0</code>
 and <code>nSouAmb</code> to a <code>nSouAmb</code>-array
-of signals between <code>0</code> and <code>1</code>. 
+of signals between <code>0</code> and <code>1</code>.
 </li>
 </ul>
 <li>
 Chilled water supply temperature set point <code>TChiWatSupSet</code><br/>
 
-The remaining part of the cold rejection signal between 
+The remaining part of the cold rejection signal between
 <code>nSouAmb</code> and <code>nSouAmb+1</code> is used
 to reset the CHWST set point between a maximum value provided
-as a block input variable, and a minimum value provided as a 
+as a block input variable, and a minimum value provided as a
 parameter.
 </li>
 <li>

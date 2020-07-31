@@ -106,7 +106,7 @@ Documentation(
 revisions="<html>
 <ul>
 <li>
-July xx, 2020, by Antoine Gautier:<br/>
+July 31, 2020, by Antoine Gautier:<br/>
 First implementation
 </li>
 </ul>
@@ -116,7 +116,7 @@ This block implements the supervisory control functions of the ETS.
 </p>
 <ul>
 <li>
-It provides the tank demand signals to enable the chiller system, 
+It provides the tank demand signals to enable the chiller system,
 based on the logic described in
 <a href=\"modelica://Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.BaseClasses.PartialSideHotCold\">
 Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.BaseClasses.PartialSideHotCold</a>.
@@ -130,8 +130,8 @@ Note that this resetting logic is meant to operate the chiller at low lift.
 The chilled water supply temperature may be also reset down by
 <a href=\"modelica://Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.SideHot\">
 Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.SideHot</a>
-to maintain the heating water supply temperature set point. 
-This second resetting logic is required for the heating function of the unit, 
+to maintain the heating water supply temperature set point.
+This second resetting logic is required for the heating function of the unit,
 but it has a negative impact on the lift.
 </li>
 <li>

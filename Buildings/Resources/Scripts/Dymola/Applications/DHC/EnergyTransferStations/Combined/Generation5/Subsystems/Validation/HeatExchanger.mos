@@ -5,7 +5,7 @@ simulateModel("Buildings.Applications.DHC.EnergyTransferStations.Combined.Genera
     method="Cvode",
     tolerance=1e-6,
     stopTime=5000,
-    resultFile="HeatExchanger");
+    resultFile="HeatExchangerValidation");
 createPlot(
     id=1,
     position={21, 19, 542, 623},

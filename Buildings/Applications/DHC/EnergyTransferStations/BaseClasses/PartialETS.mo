@@ -151,7 +151,7 @@ initial equation
   if have_heaWat then
     assert(QHeaWat_flow_nominal > Modelica.Constants.eps,
       "In " + getInstanceName() +
-      ": Design heat flow rate for heating water production must be strictly 
+      ": Design heat flow rate for heating water production must be strictly
       positive. Obtained QHeaWat_flow_nominal = " +
       String(QHeaWat_flow_nominal));
   end if;
@@ -173,7 +173,7 @@ revisions=
 "<html>
 <ul>
 <li>
-July xx, 2020, by Antoine Gautier:<br/>
+July 31, 2020, by Antoine Gautier:<br/>
 First implementation.
 </li>
 </ul>

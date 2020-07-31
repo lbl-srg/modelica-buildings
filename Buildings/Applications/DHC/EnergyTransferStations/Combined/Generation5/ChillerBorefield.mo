@@ -201,7 +201,7 @@ Documentation(
 revisions="<html>
 <ul>
 <li>
-July xx, 2020, by Antoine Gautier:<br/>
+July 31, 2020, by Antoine Gautier:<br/>
 First implementation
 </li>
 </ul>
@@ -221,8 +221,8 @@ for the operating principles and modeling assumptions.
 The supervisory controller ensures the load balancing between the condenser side
 and the evaporator side of the chiller by controlling in sequence an optional
 geothermal borefield (priority system), the district heat exchanger (second
-priority system), and ultimately the chiller, by resetting down the chilled 
-water supply temperature, see 
+priority system), and ultimately the chiller, by resetting down the chilled
+water supply temperature, see
 <a href=\"modelica://Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.Supervisory\">
 Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.Supervisory</a>
 for a detailed description.
@@ -230,10 +230,10 @@ for a detailed description.
 </ul>
 <p>
 Note that the heating and cooling enable signals (<code>uHea</code> and <code>uCoo</code>)
-connected to this model should be switched off when the building has no 
-corresponding demand (for instance, when the maximum of the demand signal 
+connected to this model should be switched off when the building has no
+corresponding demand (for instance, when the maximum of the demand signal
 from the terminal unit controllers is zero).
-This will significantly improve the system performance as it is a 
+This will significantly improve the system performance as it is a
 necessary condition for the chiller to be operated at a lower lift, see
 <a href=\"modelica://Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.Reset\">
 Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.Reset</a>

@@ -74,14 +74,14 @@ Documentation(
 revisions="<html>
 <ul>
 <li>
-July xx, 2020, by Antoine Gautier:<br/>
+July 31, 2020, by Antoine Gautier:<br/>
 First implementation
 </li>
 </ul>
 </html>", info="<html>
 <p>
 This block serves as the controller for the cold side of the ETS.
-See 
+See
 <a href=\"modelica://Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.BaseClasses.PartialSideHotCold\">
 Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.BaseClasses.PartialSideHotCold</a>
 for the computation of the demand signal <code>yDem</code>.
@@ -101,7 +101,7 @@ Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.
 controlled in sequence with an instance of
 <a href=\"modelica://Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.LimPlaySequence\">
 Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.LimPlaySequence</a>
-limiting the decrease in the temperature measured at the top of the tank as 
+limiting the decrease in the temperature measured at the top of the tank as
 illustrated on the figure below.
 </li>
 </ul>

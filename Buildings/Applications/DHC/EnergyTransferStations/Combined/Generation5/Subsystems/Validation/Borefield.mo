@@ -85,13 +85,13 @@ equation
 revisions="<html>
 <ul>
 <li>
-July xx, 2020, by Antoine Gautier:<br/>
+July 31, 2020, by Antoine Gautier:<br/>
 First implementation
 </li>
 </ul>
 </html>", info="<html>
 <p>
-This model validates 
+This model validates
 <a href=\"modelica://Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Subsystems.Borefield\">
 Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Subsystems.Borefield</a>.
 </p>

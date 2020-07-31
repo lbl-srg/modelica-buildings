@@ -300,13 +300,13 @@ equation
 revisions="<html>
 <ul>
 <li>
-July xx, 2020, by Antoine Gautier:<br/>
+July 31, 2020, by Antoine Gautier:<br/>
 First implementation
 </li>
 </ul>
 </html>", info="<html>
 <p>
-This is a model for a district heat exchanger system with a variable speed 
+This is a model for a district heat exchanger system with a variable speed
 pump on the secondary side, and a variable speed pump (in case of a passive
 network) or a two-way modulating valve (in case of an active network)
 on the primary side.
@@ -315,7 +315,7 @@ on the primary side.
 The system is controlled based on the logic described in
 <a href=\"modelica://Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.HeatExchanger\">
 Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.HeatExchanger</a>.
-The pump flow rate is considered proportional to the pump speed 
+The pump flow rate is considered proportional to the pump speed
 under the assumption of a constant flow resistance in both the primary and
 the secondary loops.
 </p>

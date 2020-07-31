@@ -81,19 +81,19 @@ Documentation(
 revisions="<html>
 <ul>
 <li>
-July xx, 2020, by Antoine Gautier:<br/>
+July 31, 2020, by Antoine Gautier:<br/>
 First implementation
 </li>
 </ul>
 </html>", info="<html>
 <p>
-This block implements the supervisory reset of the heating water 
+This block implements the supervisory reset of the heating water
 and chilled water supply temperature.
-The heating water (resp. chilled water) supply temperature is 
-reset down (resp. up) whenever the heating (resp. cooling) demand signal  
+The heating water (resp. chilled water) supply temperature is
+reset down (resp. up) whenever the heating (resp. cooling) demand signal
 yielded by the building automation system is false.
-This enables operating the chiller at a reduced lift whenever 
-there is no requirement on the water temperature supplied to the 
+This enables operating the chiller at a reduced lift whenever
+there is no requirement on the water temperature supplied to the
 building systems.
 </p>
 </html>"));

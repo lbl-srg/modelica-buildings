@@ -246,7 +246,7 @@ annotation (Diagram(
 revisions="<html>
 <ul>
 <li>
-July xx, 2020, by Antoine Gautier:<br/>
+July 31, 2020, by Antoine Gautier:<br/>
 First implementation
 </li>
 </ul>
@@ -256,28 +256,28 @@ This block implements the control logic for the district heat exchanger system,
 which realizes the interface between the building and the district systems.
 </p>
 <p>
-The input signal <code>u</code> is yielded by the hot side or cold side controller, 
+The input signal <code>u</code> is yielded by the hot side or cold side controller,
 see for instance
 <a href=\"modelica://Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.SideHot\">
 Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.SideHot</a>.
 The primary and secondary circuits are enabled to operate if the input signal
-is greater than zero and the return position of one ambient loop isolation valve 
+is greater than zero and the return position of one ambient loop isolation valve
 is greater than 90%.
 When enabled,
 </p>
 <ul>
 <li>
 the secondary circuit is controlled based on the input signal <code>u</code>,
-which is mapped to modulate in sequence the mixing valve 
-(from full bypass to closed bypass for a control signal varying between 
-0% and 30%) and the pump speed (from the minimum to the maximum value 
+which is mapped to modulate in sequence the mixing valve
+(from full bypass to closed bypass for a control signal varying between
+0% and 30%) and the pump speed (from the minimum to the maximum value
 for a control signal varying between 30% and 100%),
 </li>
 <li>
-the primary pump speed (or valve opening) is modulated with 
+the primary pump speed (or valve opening) is modulated with
 a PI loop controlling the temperature difference on the secondary side.
 A set point (and gain) scheduling logic is implemented to allow changing the
-control parameters based on the active rejection mode (heat or cold rejection) 
+control parameters based on the active rejection mode (heat or cold rejection)
 of the ETS.
 </li>
 </ul>

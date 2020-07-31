@@ -254,18 +254,18 @@ Documentation(
 revisions="<html>
 <ul>
 <li>
-July xx, 2020, by Antoine Gautier:<br/>
+July 31, 2020, by Antoine Gautier:<br/>
 First implementation
 </li>
 </ul>
 </html>", info="<html>
 <p>
-This model validates 
+This model validates
 <a href=\"modelica://Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Subsystems.HeatExchanger\">
 Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Subsystems.HeatExchanger</a>
-in a configuration where the primary flow rate is modulated by means of a 
-two-way valve (see <code>hexVal</code>), and in a configuration where the 
-primary flow rate is modulated by means of a variable speed pump 
+in a configuration where the primary flow rate is modulated by means of a
+two-way valve (see <code>hexVal</code>), and in a configuration where the
+primary flow rate is modulated by means of a variable speed pump
 (see <code>hexPum</code>).
 </p>
 </html>"));

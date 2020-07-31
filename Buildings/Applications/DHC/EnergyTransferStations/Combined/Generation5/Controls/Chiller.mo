@@ -219,13 +219,13 @@ annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100}
 revisions="<html>
 <ul>
 <li>
-July xx, 2020, by Antoine Gautier:<br/>
+July 31, 2020, by Antoine Gautier:<br/>
 First implementation
 </li>
 </ul>
 </html>", info="<html>
 <p>
-This is a controller for the chiller system, which includes the dedicated 
+This is a controller for the chiller system, which includes the dedicated
 condenser and evaporator pumps.
 </p>
 <p>
@@ -244,25 +244,25 @@ loop controlling the minimum (resp. maximum) inlet temperature,
 </ul>
 <p>
 Optionally, a chilled water supply temperature reset can be activated.
-In this case, if there is an actual heating demand, the chilled water 
-supply temperature is reset with a PI loop controlling the heating 
+In this case, if there is an actual heating demand, the chilled water
+supply temperature is reset with a PI loop controlling the heating
 water supply temperature.
 This has two effects, which occur in sequence.
 </p>
 <ol>
 <li>
 First a \"false load\" is generated on the evaporator: the part load ratio
-of the chiller increases, and so does the heat flow rate rejected by the 
-condenser. 
-This is true until the volume of the evaporator loop and the chilled 
-water tank is fully recirculated. 
+of the chiller increases, and so does the heat flow rate rejected by the
+condenser.
+This is true until the volume of the evaporator loop and the chilled
+water tank is fully recirculated.
 </li>
 <li>
 Then the temperature difference accross the evaporator reaches back its
-original value (for an unvarying building load). 
+original value (for an unvarying building load).
 However, the evaporator inlet temperature (corresponding to the tank top
-temperature) is now lowered. This will eventually trigger a cold 
-rejection demand by 
+temperature) is now lowered. This will eventually trigger a cold
+rejection demand by
 <a href=\"modelica://Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.SideCold1\">
 Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.SideCold1</a>.
 The ambient sources are then used to \"false load\" the chiller.
