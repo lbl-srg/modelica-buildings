@@ -7,28 +7,27 @@ block Controller
   parameter Real TZonHeaOn(
     final unit="K",
     final displayUnit="degC",
-    final quantity="ThermodynamicTemperature")=293.15
+    final quantity="ThermodynamicTemperature")
     "Heating setpoint during on"
     annotation (Dialog(group="Zone setpoints"));
   parameter Real TZonHeaOff(
     final unit="K",
     final displayUnit="degC",
-    final quantity="ThermodynamicTemperature")=285.15
+    final quantity="ThermodynamicTemperature")
     "Heating setpoint during off"
     annotation (Dialog(group="Zone setpoints"));
   parameter Real TZonCooOn(
     final unit="K",
     final displayUnit="degC",
-    final quantity="ThermodynamicTemperature")=297.15
+    final quantity="ThermodynamicTemperature")
     "Cooling setpoint during on"
     annotation (Dialog(group="Zone setpoints"));
   parameter Real TZonCooOff(
     final unit="K",
     final displayUnit="degC",
-    final quantity="ThermodynamicTemperature")=303.15
+    final quantity="ThermodynamicTemperature")
     "Cooling setpoint during off"
     annotation (Dialog(group="Zone setpoints"));
-
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeCoo=
      Buildings.Controls.OBC.CDL.Types.SimpleController.PI "Type of controller"
     annotation (Dialog(group="Cooling loop signal"));
@@ -49,7 +48,6 @@ block Controller
     annotation (Dialog(group="Cooling loop signal",
       enable=controllerTypeCoo == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
           or controllerTypeCoo == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
-
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeHea=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
@@ -71,29 +69,27 @@ block Controller
     annotation (Dialog(group="Heating loop signal",
       enable=controllerTypeHea == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
           or controllerTypeHea == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
-
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeCooCoi=
-    Buildings.Controls.OBC.CDL.Types.SimpleController.P
+    Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
-    annotation(Dialog(group="Cooling coil loop signal"));
-  parameter Real kCooCoi(final unit="1/K")=1.0
-    "Gain for cooling coil control loop signal"
-    annotation(Dialog(group="Cooling coil loop signal"));
+    annotation(Dialog(group="Cooling coil signal"));
+  parameter Real kCooCoi(final unit="1/K")=0.1
+    "Gain for cooling coil control signal"
+    annotation(Dialog(group="Cooling coil signal"));
   parameter Real TiCooCoil(
     final unit="s",
     final quantity="Time")=900
-    "Time constant of integrator block for cooling coil control loop signal"
-    annotation(Dialog(group="Cooling coil loop signal",
+    "Time constant of integrator block for cooling coil control signal"
+    annotation(Dialog(group="Cooling coil signal",
     enable=controllerTypeCooCoi == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
         or controllerTypeCooCoi == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   parameter Real TdCooCoil(
     final unit="s",
     final quantity="Time")=0.1
-    "Time constant of derivative block for cooling coil control loop signal"
-    annotation (Dialog(group="Cooling coil loop signal",
+    "Time constant of derivative block for cooling coil control signal"
+    annotation (Dialog(group="Cooling coil signal",
       enable=controllerTypeCooCoi == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
           or controllerTypeCooCoi == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
-
   parameter Real TSupSetMax(
     final unit="K",
     final displayUnit="degC",
@@ -115,7 +111,6 @@ block Controller
   parameter Real yCooMax(min=0, max=1, unit="1") = 1
     "Maximum fan speed for cooling"
     annotation (Dialog(tab="VAV Setpoints",group="Speed"));
-
   parameter Real VOutPerAre_flow(final unit="m3/(s.m2)") = 3e-4
     "Outdoor air rate per unit area"
     annotation(Dialog(tab="Outside Air Flow", group="Nominal condition"));
@@ -186,7 +181,6 @@ block Controller
     final unit="1") = 0.9
     "Upper limit of controller output uTSup at which the dampers are at their limits"
     annotation(Dialog(tab="Economizer", group="General"));
-
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeFre=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
@@ -210,13 +204,9 @@ block Controller
        enable=use_TMix and
            (controllerTypeFre == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
            or controllerTypeFre == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
-  parameter Real TFreSet(
-    final unit="K",
-    final displayUnit="degC",
-    final quantity="ThermodynamicTemperature")=277.15
+  parameter Real TFreSet=277.15
     "Lower limit for mixed air temperature for freeze protection, used if use_TMix=true"
      annotation(Dialog(tab="Economizer", group="Freeze protection", enable=use_TMix));
-
   parameter Real VOutMin_flow(
     final unit="m3/s",
     final quantity="VolumeFlowRate")=1.0
@@ -290,32 +280,38 @@ block Controller
   parameter Real TZonCooOnMax(
     final unit="K",
     final displayUnit="degC",
-    final quantity="ThermodynamicTemperature")=300.15 "Maximum cooling setpoint during on"
+    final quantity = "ThermodynamicTemperature")=300.15
+    "Maximum cooling setpoint during on"
     annotation (Dialog(tab="Adjust temperature setpoint", group="Limits"));
   parameter Real TZonCooOnMin(
     final unit="K",
     final displayUnit="degC",
-    final quantity="ThermodynamicTemperature")=295.15 "Minimum cooling setpoint during on"
+    final quantity = "ThermodynamicTemperature")=295.15
+    "Minimum cooling setpoint during on"
     annotation (Dialog(tab="Adjust temperature setpoint", group="Limits"));
   parameter Real TZonHeaOnMax(
     final unit="K",
     final displayUnit="degC",
-    final quantity="ThermodynamicTemperature")=295.15 "Maximum heating setpoint during on"
+    final quantity = "ThermodynamicTemperature")=295.15
+    "Maximum heating setpoint during on"
     annotation (Dialog(tab="Adjust temperature setpoint", group="Limits"));
   parameter Real TZonHeaOnMin(
     final unit="K",
     final displayUnit="degC",
-    final quantity="ThermodynamicTemperature")=291.15 "Minimum heating setpoint during on"
+    final quantity = "ThermodynamicTemperature")=291.15
+    "Minimum heating setpoint during on"
     annotation (Dialog(tab="Adjust temperature setpoint", group="Limits"));
   parameter Real TZonCooSetWinOpe(
     final unit="K",
     final displayUnit="degC",
-    final quantity="ThermodynamicTemperature")=322.15 "Cooling setpoint when window is open"
+    final quantity = "ThermodynamicTemperature")=322.15
+    "Cooling setpoint when window is open"
     annotation (Dialog(tab="Adjust temperature setpoint", group="Limits"));
   parameter Real TZonHeaSetWinOpe(
     final unit="K",
     final displayUnit="degC",
-    final quantity="ThermodynamicTemperature")=277.15 "Heating setpoint when window is open"
+    final quantity = "ThermodynamicTemperature")=277.15
+    "Heating setpoint when window is open"
     annotation (Dialog(tab="Adjust temperature setpoint", group="Limits"));
   parameter Real incTSetDem_1=0.56
     "Cooling setpoint increase value (degC) when cooling demand limit level 1 is imposed"
@@ -523,7 +519,8 @@ block Controller
     final decTSetDem_2=decTSetDem_2,
     final decTSetDem_3=decTSetDem_3,
     final uLow=uLow,
-    final uHigh=uHigh)                 "Zone setpoint and operation mode"
+    final uHigh=uHigh)
+    "Zone setpoint and operation mode"
     annotation (Placement(transformation(extent={{-140,150},{-120,170}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.SetPoints.Supply
     setPoiVAV(
@@ -548,7 +545,8 @@ block Controller
     final controllerType=controllerTypeHea,
     final k=kHea,
     final Ti=TiHea,
-    final Td=TdHea) "Zone heating control signal"
+    final Td=TdHea)
+    "Zone heating control signal"
     annotation (Placement(transformation(extent={{-80,210},{-60,230}})));
   Buildings.Controls.OBC.CDL.Continuous.Average ave
     "Average of zone heating and cooling setpoint"
@@ -582,7 +580,8 @@ block Controller
     final use_enthalpy=use_enthalpy,
     final use_fixed_plus_differential_drybulb=use_fixed_plus_differential_drybulb,
     final yFanMin=0,
-    final yFanMax=1) "Economizer control sequence"
+    final yFanMax=1)
+    "Economizer control sequence"
     annotation (Placement(transformation(extent={{120,-50},{140,-30}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.SetPoints.OutsideAirFlow
     outAirSetPoi(
@@ -606,7 +605,8 @@ block Controller
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu
     "Check if current operation mode is unoccupied mode"
     annotation (Placement(transformation(extent={{-100,-240},{-80,-220}})));
-  Buildings.Controls.OBC.CDL.Logical.Not switch "If in unoccupied mode, switch off"
+  Buildings.Controls.OBC.CDL.Logical.Not switch
+    "If in unoccupied mode, switch off"
     annotation (Placement(transformation(extent={{-70,-240},{-50,-220}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.CoolingCoil cooCoi(
     final controllerTypeCooCoi=controllerTypeCooCoi, kCooCoi=kCooCoi)
@@ -617,7 +617,8 @@ block Controller
     "Window status"
     annotation (Placement(transformation(extent={{-180,-140},{-160,-120}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold havOcc(
-    final threshold=0.5) if have_occSen "Check if there is occupant"
+    final threshold=0.5) if have_occSen
+    "Check if there is occupant"
     annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
 
 equation
@@ -672,8 +673,7 @@ equation
           -210},{-220,-210}}, color={0,0,127}));
   connect(conEco.yHeaCoi, yHeaCoi) annotation (Line(points={{141,-36},{174,-36},
           {174,-50},{220,-50}}, color={0,0,127}));
-  connect(cooCoi.yCooCoi, yCooCoi)
-    annotation (Line(points={{142,-120},{178,-120},{178,-110},{220,-110}},
+  connect(cooCoi.yCooCoi, yCooCoi)   annotation (Line(points={{142,-120},{178,-120},{178,-110},{220,-110}},
           color={0,0,127}));
   connect(switch.y, cooCoi.uSupFan) annotation (Line(points={{-48,-230},{60,-230},
           {60,-128},{118,-128}},  color={255,0,255}));
@@ -760,7 +760,7 @@ annotation (defaultComponentName="conVAV",
         fillColor={255,255,255},
         fillPattern=FillPattern.Solid),
         Text(
-          extent={{-220,340},{200,260}},
+          extent={{-204,354},{216,274}},
           textString="%name",
           lineColor={0,0,255}),
         Text(
