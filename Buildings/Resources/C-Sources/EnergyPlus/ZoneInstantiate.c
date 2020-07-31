@@ -54,7 +54,7 @@ void ZoneInstantiate(
   /* if (bui->nZon == 1)
     ModelicaFormatError("*** Entering loadFMU_setupExperiment_enterInitializationMode, ptrBui=%p", bui);// with nZon=%d", bui->nZon); */
   if (bui == NULL){
-    ModelicaFormatError("Pointer bui is NULL in ZoneInstantiate for %s. For Dymola 2020x, make sure you set 'Hidden.AvoidDoubleComputation=true'. See Buildings.Experimental.EnergyPlus.UsersGuide.", modelicaName);
+    ModelicaFormatError("Pointer bui is NULL in ZoneInstantiate for %s. For Dymola 2020x, make sure you set 'Hidden.AvoidDoubleComputation=true'. See Buildings.ThermalZones.EnergyPlus.UsersGuide.", modelicaName);
   }
   if (bui->fmu == NULL){
     /* EnergyPlus is not yet loaded.
@@ -65,8 +65,6 @@ void ZoneInstantiate(
        is the last constructor to be called.
     */
     loadFMU_setupExperiment_enterInitializationMode(bui, startTime);
-    if (FMU_EP_VERBOSITY >= MEDIUM)
-      ModelicaFormatMessage("FMU for %s is now allocated at %p.\n", modelicaName, bui->fmu);
   }
 
   if (FMU_EP_VERBOSITY >= MEDIUM)

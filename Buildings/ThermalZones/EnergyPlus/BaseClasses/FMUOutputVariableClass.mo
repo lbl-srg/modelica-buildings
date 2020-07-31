@@ -1,7 +1,9 @@
 within Buildings.ThermalZones.EnergyPlus.BaseClasses;
 class FMUOutputVariableClass
   "Class used to couple the FMU to retrieve output variables"
-extends ExternalObject;
+  extends Modelica.Icons.BasesPackage;
+  extends ExternalObject;
+
   function constructor
     "Construct to connect to an output variable in EnergyPlus"
     extends Modelica.Icons.Function;
@@ -12,8 +14,8 @@ extends ExternalObject;
       "Name of the Modelica instance that requests this output variable";
     input String idfName "Name of the IDF";
     input String weaName "Name of the weather file";
-    input String outputKey "EnergyPlus key of the output variable";
-    input String outputName "EnergyPlus name of the output variable as in the EnergyPlus .rdd or .mdd file";
+    input String name "EnergyPlus name of the output variable as in the EnergyPlus .rdd or .mdd file";
+    input String componentKey "EnergyPlus key of the output variable";
     input Boolean usePrecompiledFMU "Set to true to use precompiled FMU with name specified by input fmuName";
     input String fmuName
       "Specify if a pre-compiled FMU should be used instead of EnergyPlus (mainly for development)";
@@ -27,8 +29,8 @@ extends ExternalObject;
       modelicaNameOutputVariable,
       idfName,
       weaName,
-      outputKey,
-      outputName,
+      name,
+      componentKey,
       usePrecompiledFMU,
       fmuName,
       buildingsLibraryRoot,

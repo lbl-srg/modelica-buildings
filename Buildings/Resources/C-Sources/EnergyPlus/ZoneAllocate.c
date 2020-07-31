@@ -94,6 +94,14 @@ void* ZoneAllocate(
   if ( zone == NULL )
     ModelicaError("Not enough memory in ZoneAllocate.c. to allocate zone.");
 
+  /* Some tools such as OpenModelica may optimize the code resulting in initialize()
+     not being called. Hence, we set a flag so we can force it to be called in exchange()
+     in case it is not called in initialize().
+     This behavior was observed when simulating Buildings.ThermalZones.EnergyPlus.BaseClasses.Validation.FMUZoneAdapter
+  */
+  zone->isInstantiated = fmi2False;
+  zone->isInitialized = fmi2False;
+
   /* Assign the Modelica instance name */
   mallocString(strlen(modelicaNameThermalZone)+1, "Not enough memory in ZoneAllocate.c. to allocate Modelica instance name.", &(zone->modelicaNameThermalZone));
   strcpy(zone->modelicaNameThermalZone, modelicaNameThermalZone);
@@ -192,14 +200,6 @@ void* ZoneAllocate(
       ModelicaFormatMessage("Zone ptr is at %p\n", zone);
     }
   }
-
-  /* Some tools such as OpenModelica may optimize the code resulting in initialize()
-     not being called. Hence, we set a flag so we can force it to be called in exchange()
-     in case it is not called in initialize().
-     This behavior was observed when simulating Buildings.Experimental.EnergyPlus.BaseClasses.Validation.FMUZoneAdapter
-  */
-  zone->isInstantiated = fmi2False;
-  zone->isInitialized = fmi2False;
 
   if (FMU_EP_VERBOSITY >= MEDIUM)
     ModelicaFormatMessage("Exiting allocation for %s with zone ptr at %p and building ptr at %p", modelicaNameThermalZone, zone, zone->ptrBui);

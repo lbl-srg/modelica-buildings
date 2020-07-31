@@ -10,29 +10,34 @@
 #include "BuildingInstantiate.h"
 
 #include <stdio.h>
+#ifdef _MSC_VER
+#include <windows.h>
+#define R_OK 4
+#define W_OK 2
+#define X_OK 1
+#define F_OK 0
+#else
 #include <unistd.h>
 #include <execinfo.h>
+#endif
+
+#ifdef __linux__
+#include <execinfo.h>
+#endif
+
 #include <sys/types.h> /* To create directory */
 #include <sys/stat.h>  /* To create directory */
-#include <unistd.h>    /* To use stat to check for directory */
+/* #include <unistd.h> */   /* To use stat to check for directory */
 #include <errno.h>
 
 #include "fmilib.h"
 #include "FMI2/fmi2FunctionTypes.h"
 
-void writeFormatLog(unsigned int level, const char *fmt, ...);
+#define SPAWN_LOGGER_BUFFER_LENGTH 1000
 
-void writeLog(unsigned int level, const char* msg);
+void writeFormatLog(const char *fmt, ...);
 
-void logStringArray(unsigned int level,
-                    const char* msg,
-                    const char** array,
-                    size_t n);
-
-void logValueReferenceArray(unsigned int level,
-                            const char* msg,
-                            const fmi2ValueReference* array,
-                            size_t n);
+void writeLog(const char* msg);
 
 void mallocSpawnReals(const size_t n, spawnReals** r);
 
@@ -43,8 +48,6 @@ void setVariables(FMUBuilding* bui, const char* modelicaInstanceName, const spaw
 void getVariables(FMUBuilding* bui, const char* modelicaInstanceName, spawnReals* ptrReals);
 
 double do_event_iteration(FMUBuilding* bui, const char* modelicaInstanceName);
-
-void fmilogger(jm_callbacks* c, jm_string module, jm_log_level_enu_t log_level, jm_string message);
 
 void saveAppend(char* *buffer, const char *toAdd, size_t *bufLen);
 
@@ -61,6 +64,7 @@ char* getFileNameWithoutExtension(const char* idfName);
 void getSimulationTemporaryDirectory(const char* modelicaNameBuilding, char** dirNam);
 
 void buildVariableName(
+  const char* modelicaInstanceName,
   const char* firstPart,
   const char* secondPart,
   char* *ptrFullName);

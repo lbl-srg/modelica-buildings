@@ -37,7 +37,7 @@ static char* SEPARATOR = "/";
 typedef enum {instantiationMode, initializationMode, eventMode, continuousTimeMode} FMUMode;
 
 static int FMU_EP_VERBOSITY = 1; /* Verbosity */
-enum verbosity {QUIET = 4, MEDIUM = 5, TIMESTEP = 6};
+enum verbosity {ERRORS = 1, WARNINGS = 2, QUIET = 3, MEDIUM = 4, TIMESTEP = 5};
 
 typedef struct FMUBuilding
 {
@@ -50,6 +50,9 @@ typedef struct FMUBuilding
   fmi2Byte* weather;
   fmi2Integer nZon; /* Number of zones that use this FMU */
   void** zones; /* Pointers to all zones*/
+
+  fmi2Integer nInputVariables; /* Number of input variables that this FMU has */
+  void** inputVariables; /* Pointers to all input variables */
 
   fmi2Integer nOutputVariables; /* Number of output variables that this FMU has */
   void** outputVariables; /* Pointers to all output variables */
@@ -96,6 +99,23 @@ typedef struct FMUZone
 } FMUZone;
 
 
+typedef struct FMUInputVariable
+{
+  FMUBuilding* ptrBui;              /* Pointer to building with this input variable */
+  char* modelicaNameInputVariable; /* Name of the Modelica instance of this zone */
+  char* name;                       /* Name of this schedule or EMS actuator in the idf file */
+  char* componentType;              /* Component type in the idf file if actuator, else void pointer */
+  char* controlType;                /* Control type in the idf file if actuator, else void pointer */
+  char* unit;                       /* Unit specified in the Modelica model */
+  bool valueReferenceIsSet;         /* Flag, set to true after value references are set,
+                                       and used to check for Dymola 2020x whether the flag 'Hidden.AvoidDoubleComputation=true' is set */
+  spawnReals* inputs;               /* Outputs (vector with 1 element) */
+
+  fmi2Boolean isInstantiated;       /* Flag set to true when the input variable has been completely instantiated */
+  fmi2Boolean isInitialized;        /* Flag set to true after the input variable has executed a get call in the initializion mode
+                                       of the FMU */
+} FMUInputVariable;
+
 typedef struct FMUOutputVariable
 {
   FMUBuilding* ptrBui;              /* Pointer to building with this output variable */
@@ -109,10 +129,10 @@ typedef struct FMUOutputVariable
 
   bool printUnit;                   /* Flag whether unit diagnostics should be printed */
 
-  fmi2Boolean isInstantiated; /* Flag set to true when the output variable has been completely instantiated */
-  fmi2Boolean isInitialized;  /* Flag set to true after the output variable has executed a get call in the initializion mode
-                                 of the FMU */
-  size_t count;                     /* Counter for how many Modelica instances uses this output variable */
+  fmi2Boolean isInstantiated;       /* Flag set to true when the output variable has been completely instantiated */
+  fmi2Boolean isInitialized;        /* Flag set to true after the output variable has executed a get call in the initializion mode
+                                       of the FMU */
+  size_t count;                     /* Counter for how many Modelica instances use this output variable */
 } FMUOutputVariable;
 
 #endif
