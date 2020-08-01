@@ -29,6 +29,7 @@
 #include <sys/stat.h>  /* To create directory */
 /* #include <unistd.h> */   /* To use stat to check for directory */
 #include <errno.h>
+#include <math.h> /* For isnan */
 
 #include "fmilib.h"
 #include "FMI2/fmi2FunctionTypes.h"
@@ -42,6 +43,8 @@ void writeLog(const char* msg);
 void mallocSpawnReals(const size_t n, spawnReals** r);
 
 void mallocString(size_t nChar, const char *error_message, char** str);
+
+char* fmuModeToString(FMUMode mode);
 
 void setVariables(FMUBuilding* bui, const char* modelicaInstanceName, const spawnReals* ptrReals);
 

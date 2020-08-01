@@ -10,7 +10,6 @@
 #define Buildings_BuildingInstantiate_c
 
 #include "EnergyPlusFMU.h"
-#include "cryptographicsHash.h"
 
 #include <stdlib.h>
 #include <string.h>

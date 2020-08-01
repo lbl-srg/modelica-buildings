@@ -1,8 +1,9 @@
 #ifndef CRYPTOGRAPHICSHASH_H
 #define CRYPTOGRAPHICSHASH_H
 
+#include "EnergyPlusTypes.h"
 /*
-   SHA-1 in C
+   Implementation is based on SHA-1 in C
    By Steve Reid <steve@edmweb.com>
    100% Public Domain
  */
@@ -40,5 +41,7 @@ void SHA1(
     char *hash_out,
     const char *str,
     int len);
+
+const char* cryptographicsHash(const char* str);
 
 #endif /* CRYPTOGRAPHICSHASH_H */
