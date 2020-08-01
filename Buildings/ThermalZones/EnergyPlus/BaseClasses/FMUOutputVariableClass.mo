@@ -62,9 +62,8 @@ First implementation.
 
     input FMUOutputVariableClass adapter;
     external "C" OutputVariableFree(adapter)
-        annotation (
-          IncludeDirectory="modelica://Buildings/Resources/C-Sources/EnergyPlus",
-          Include="#include \"OutputVariableFree.c\"");
+      annotation (Library={"ModelicaBuildingsEnergyPlus", "fmilib_shared", "dl"});
+      // dl provides dlsym to load EnergyPlus dll, which is needed by OpenModelica compiler
 
   annotation(Documentation(info="<html>
 <p>

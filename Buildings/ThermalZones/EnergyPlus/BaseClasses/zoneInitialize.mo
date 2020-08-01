@@ -13,7 +13,6 @@ function zoneInitialize "Initialization for an EnergyPlus thermal zone"
       annotation (Library={"ModelicaBuildingsEnergyPlus", "fmilib_shared", "dl"});
       // dl provides dlsym to load EnergyPlus dll, which is needed by OpenModelica compiler
 
-
   annotation (Documentation(info="<html>
 <p>
 External function to obtain parameters from the EnergyPlus FMU.
