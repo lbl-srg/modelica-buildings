@@ -36,11 +36,9 @@ class FMUOutputVariableClass
       buildingsLibraryRoot,
       verbosity,
       printUnit)
-        annotation (
-          IncludeDirectory="modelica://Buildings/Resources/C-Sources/EnergyPlus",
-          Include="#include \"OutputVariableAllocate.c\"",
-          Library={"fmilib_shared", "dl"});
-          // dl provides dlsym to load EnergyPlus dll, which is needed by OpenModelica compiler
+      annotation (Library={"ModelicaBuildingsEnergyPlus", "fmilib_shared", "dl"});
+      // dl provides dlsym to load EnergyPlus dll, which is needed by OpenModelica compiler
+
 
     annotation (Documentation(info="<html>
 <p>

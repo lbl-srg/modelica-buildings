@@ -41,11 +41,9 @@ class FMUInputVariableClass
       fmuName,
       buildingsLibraryRoot,
       verbosity)
-        annotation (
-          IncludeDirectory="modelica://Buildings/Resources/C-Sources/EnergyPlus",
-          Include="#include \"InputVariableAllocate.c\"",
-          Library={"fmilib_shared", "dl"});
-          // dl provides dlsym to load EnergyPlus dll, which is needed by OpenModelica compiler
+      annotation (Library={"ModelicaBuildingsEnergyPlus", "fmilib_shared", "dl"});
+      // dl provides dlsym to load EnergyPlus dll, which is needed by OpenModelica compiler
+
 
     annotation (Documentation(info="<html>
 <p>

@@ -6,7 +6,6 @@
  */
 
 #include "ZoneInstantiate.h"
-#include "BuildingInstantiate.c" /* Include c file, otherwise Modelica won't compile it */
 #include "EnergyPlusFMU.h"
 
 #include <stdlib.h>

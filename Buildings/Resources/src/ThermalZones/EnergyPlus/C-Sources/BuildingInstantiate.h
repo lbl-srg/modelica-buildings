@@ -8,7 +8,7 @@
 
 #include "EnergyPlusFMU.h"
 #include "EnergyPlusUtil.h"
-#include "../cryptographicsHash.h"
+#include <cryptographicsHash.h>
 
 #include <stdio.h>
 #ifdef _MSC_VER
@@ -20,6 +20,8 @@
 
 #include "fmilib.h"
 #include "JM/jm_portability.h"
+
+void buildJSONKeyValue(char* *buffer, size_t level, const char* key, const char* value, bool addComma, size_t* size);
 
 void generateAndInstantiateBuilding(FMUBuilding* bui);
 
