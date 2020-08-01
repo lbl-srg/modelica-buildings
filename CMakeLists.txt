@@ -6,7 +6,12 @@
 ##################################################################
 cmake_policy(SET CMP0048 NEW)
 
-project( Modelica-Buildings VERSION 5.1.0 )
+project( Modelica-Buildings
+  VERSION 8.0.0
+  DESCRIPTION "Modelica Buildings Library"
+  LANGUAGES C
+)
+
 cmake_minimum_required(VERSION 3.8)
 
 # find_package(Java REQUIRED)
@@ -63,7 +68,7 @@ endif()
 #  PATTERN CMakeLists.txt EXCLUDE
 #)
 
-  add_library( ModelicaBuildingsEnergyPlus SHARED
+add_library( ModelicaBuildingsEnergyPlus SHARED
   Buildings/Resources/src/ThermalZones/EnergyPlus/C-Sources/InputVariableExchange.c
   Buildings/Resources/src/ThermalZones/EnergyPlus/C-Sources/EnergyPlusUtil.c
   Buildings/Resources/src/ThermalZones/EnergyPlus/C-Sources/OutputVariableFree.c
@@ -82,7 +87,6 @@ endif()
   Buildings/Resources/src/ThermalZones/EnergyPlus/C-Sources/OutputVariableInstantiate.c
 )
 
-
 target_include_directories( ModelicaBuildingsEnergyPlus
   PRIVATE Buildings/Resources/src/ThermalZones/EnergyPlus/C-Sources
 )
@@ -90,6 +94,7 @@ target_include_directories( ModelicaBuildingsEnergyPlus
 target_link_libraries( ModelicaBuildingsEnergyPlus
   ${MODELICA_LIBS}
 )
+
 target_link_libraries(ModelicaBuildingsEnergyPlus dl)
 
 set(BUILDINGS_INSTALL_DIR "${BUILDINGS_INSTALL_PREFIX}/Resources/Library/${PLATFORM_INSTALL_PREFIX}/")
