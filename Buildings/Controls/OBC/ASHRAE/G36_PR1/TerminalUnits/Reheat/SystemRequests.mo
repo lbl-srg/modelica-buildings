@@ -392,6 +392,10 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.GreaterEqual greEqu1
     "Check if discharge airflow is less than 70% of setpoint"
     annotation (Placement(transformation(extent={{-60,-110},{-40,-90}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant damRes(
+    final k=true)
+    "Dammy reset input to timer that does not accumulate time"
+    annotation (Placement(transformation(extent={{-60,370},{-40,390}})));
 
 equation
   connect(add2.y, hys.u)
@@ -413,9 +417,8 @@ equation
     annotation (Line(points={{-38,300},{-20,300},{-20,264},{-110,264},{-110,268.2}},
       color={255,0,255}));
   connect(lat.y, edg.u)
-    annotation (Line(points={{-38,340},{-20,340},{-20,318},{-80,318},{-80,300},{
-          -62,300}},
-      color={255,0,255}));
+    annotation (Line(points={{-38,340},{-20,340},{-20,318},{-80,318},{-80,300},
+      {-62,300}}, color={255,0,255}));
   connect(edg.y, lat1.clr)
     annotation (Line(points={{-38,300},{-20,300},{-20,264},{58,264}}, color={255,0,255}));
   connect(modTim.y, gre1.u1)
@@ -677,6 +680,8 @@ equation
   connect(greEqu1.y, and4.u2)
     annotation (Line(points={{-38,-100},{0,-100},{0,-108},{38,-108}},
       color={255,0,255}));
+  connect(damRes.y, tim.reset) annotation (Line(points={{-38,380},{-30,380},{-30,
+          332},{-2,332}}, color={255,0,255}));
 
 annotation (
   defaultComponentName="sysReqRehBox",
