@@ -77,7 +77,7 @@ block Controller "Head pressure controller"
 
   parameter Modelica.SIunits.TemperatureDifference hysDt = 1
     "Deadband temperature used in hysteresis block"
-    annotation(Evaluate=true, Dialog(tab="Waterside economizer", group="Hysteresis"));
+    annotation(Evaluate=true, Dialog(tab="Advanced", group="Waterside economizer"));
 
   parameter Real step=0.02 "Tuning step"
     annotation(Evaluate=true, Dialog(tab="Waterside economizer", group="Tuning"));
@@ -96,7 +96,43 @@ block Controller "Head pressure controller"
     "Economizer enable time needed to allow increase of the tuning parameter"
     annotation(Evaluate=true, Dialog(tab="Waterside economizer", group="Tuning"));
 
-  //
+  // Plant enable
+
+  parameter Boolean have_WSE = true
+    "Flag to indicate if the plant has waterside economizer"
+    annotation (Dialog(group="Plant enable"));
+
+  parameter Real schTab[4,2] = [0,1; 6*3600,1; 19*3600,1; 24*3600,1]
+    "Plant enabling schedule allowing operators to lock out the plant during off-hour"
+    annotation (Dialog(group="Plant enable"));
+
+  parameter Modelica.SIunits.Temperature TChiLocOut=277.5
+    "Outdoor air lockout temperature below which the chiller plant should be disabled"
+    annotation (Dialog(group="Plant enable"));
+
+  parameter Real plaThrTim(
+    final unit="s",
+    final quantity="Time")=15*60
+      "Threshold time to check status of chiller plant"
+    annotation (Dialog(group="Plant enable"));
+
+  parameter Real reqThrTim(
+    final unit="s",
+    final quantity="Time")=3*60
+      "Threshold time to check current chiller plant request"
+    annotation (Dialog(group="Plant enable"));
+
+  parameter Integer ignReq = 0
+    "Ignorable chiller plant requests"
+    annotation (Dialog(group="Plant enable"));
+
+  parameter Real locDt = 1
+    "Offset temperature for lockout chiller"
+    annotation(Evaluate=true, Dialog(tab="Advanced", group="Plant enable"));
+
+
+
+
 
 
   CDL.Interfaces.BooleanInput uChiIsoVal[nChi] if isHeadered
@@ -312,7 +348,14 @@ block Controller "Head pressure controller"
     final wseOnTimInc=wseOnTimInc)
     annotation (Placement(transformation(extent={{-580,230},{-520,290}})));
 
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.PlantEnable plaEna
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.PlantEnable plaEna(
+    final have_WSE=have_WSE,
+    final schTab=schTab,
+    final TChiLocOut=TChiLocOut,
+    final plaThrTim=plaThrTim,
+    final reqThrTim=reqThrTim,
+    final ignReq=ignReq,
+    final locDt=locDt)
     annotation (Placement(transformation(extent={{-660,-380},{-618,-338}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.ControllerTwo equRot
