@@ -261,8 +261,50 @@ block Controller "Head pressure controller"
   final parameter Integer pumInd[nPum]={i for i in 1:nPumf}
     "Pump index, {1,2,...,n}";
 
-  // Condenser water pumps
+  // Chilled water plant reset
 
+  parameter Real holTim(
+    final unit="s",
+    final quantity="Time",
+    final displayUnit="h")=900
+    "Time to fix plant reset value";
+
+  parameter Real iniSet = 0 "Initial setpoint"
+    annotation (Dialog(tab="Plant Reset", group="Trim and respond parameters"));
+
+  parameter Real minSet = 0 "Minimum setpoint"
+    annotation (Dialog(tab="Plant Reset", group="Trim and respond parameters"));
+
+  parameter Real maxSet = 1 "Maximum setpoint"
+    annotation (Dialog(tab="Plant Reset", group="Trim and respond parameters"));
+
+  parameter Real delTim(
+    final unit="s",
+    final quantity="Time",
+    final displayUnit="h")=900
+    "Delay time after which trim and respond is activated"
+    annotation (Dialog(tab="Plant Reset", group="Trim and respond parameters"));
+
+  parameter Real samplePeriod(
+    final unit="s",
+    final quantity="Time")=300
+    "Sample period time"
+    annotation (Dialog(tab="Plant Reset", group="Trim and respond parameters"));
+
+  parameter Integer numIgnReq = 2
+    "Number of ignored requests"
+    annotation (Dialog(tab="Plant Reset", group="Trim and respond parameters"));
+
+  parameter Real triAmo = -0.02 "Trim amount"
+    annotation (Dialog(tab="Plant Reset", group="Trim and respond parameters"));
+
+  parameter Real resAmo = 0.03
+    "Respond amount (must be opposite in to triAmo)"
+    annotation (Dialog(tab="Plant Reset", group="Trim and respond parameters"));
+
+  parameter Real maxRes = 0.07
+    "Maximum response per time interval (same sign as resAmo)"
+    annotation (Dialog(tab="Plant Reset", group="Trim and respond parameters"));
 
   CDL.Interfaces.BooleanInput uChiIsoVal[nChi] if isHeadered
     "Chilled water isolation valve status"
@@ -475,6 +517,7 @@ block Controller "Head pressure controller"
     final step=step,
     final wseOnTimDec=wseOnTimDec,
     final wseOnTimInc=wseOnTimInc)
+    "Waterside economizer (WSE) enable/disable status"
     annotation(Placement(transformation(extent={{-580,230},{-520,290}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.PlantEnable plaEna(
@@ -485,6 +528,7 @@ block Controller "Head pressure controller"
     final reqThrTim=reqThrTim,
     final ignReq=ignReq,
     final locDt=locDt)
+    "Sequence to enable and disable plant"
     annotation(Placement(transformation(extent={{-660,-380},{-618,-338}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.ControllerTwo equRot
@@ -501,6 +545,7 @@ block Controller "Head pressure controller"
     final minChiLif=minChiLif,
     final k=kHeaPreCon,
     final Ti=TiHeaPreCon)
+    "Head pressure controller"
     annotation(Placement(transformation(extent={{-480,130},{-420,190}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.MinimumFlowBypass.Controller minBypValCon(
@@ -515,6 +560,7 @@ block Controller "Head pressure controller"
     final Td=TdMinFloBypCon,
     final yMax=yMaxFloBypCon,
     final yMin=yMinFloBypCon)
+    "Controller for chilled water minimum flow bypass valve"
     annotation(Placement(transformation(extent={{-580,-170},{-440,-30}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.ChilledWater.Controller chiWatPumCon(
@@ -533,9 +579,22 @@ block Controller "Head pressure controller"
     final Ti=TiChiWatPum,
     final Td=TdChiWatPum,
     final minLocDp=minLocDp)
+    "Sequences to control chilled water pumps in primary-only plant system"
     annotation(Placement(transformation(extent={{322,436},{382,496}})));
 
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.SetPoints.ChilledWaterPlantReset chiWatPlaRes
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.SetPoints.ChilledWaterPlantReset chiWatPlaRes(
+    final nPum=nChiWatPum,
+    final holTim=holTim,
+    final iniSet=iniSet,
+    final minSet=minset,
+    final maxSet=maxSet,
+    final delTim=delTim,
+    final samplePeriod=samplePeriod,
+    final numIgnReq=numIgnReq,
+    final triAmo=triAmo,
+    final resAmo=resAmo,
+    final maxRes=maxRes)
+    "Sequences to generate chilled water plant reset"
     annotation(Placement(transformation(extent={{-560,-320},{-480,-240}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.SetPoints.ChilledWaterSupply chiWatSupSet
@@ -832,7 +891,8 @@ equation
           -649.75},{-790,-400},{-820,-400}}, color={0,0,127}));
   connect(uChiLoa, towCon.chiLoa) annotation(Line(points={{-820,150},{-746,150},
           {-746,-406.75},{-356.8,-406.75}}, color={0,0,127}));
-    annotation(Evaluate=true, Dialog(tab="Advanced", group="Tuning"),
+    annotation (Dialog(tab="Plant Reset", group="Time parameter"),
+               Evaluate=true, Dialog(tab="Advanced", group="Tuning"),
   defaultComponentName="chiPlaCon",
   Icon(coordinateSystem(extent={{-800,-740},{800,740}}),
        graphics={
