@@ -17,7 +17,7 @@ cmake_minimum_required(VERSION 3.8)
 # find_package(Java REQUIRED)
 # include(UseJava)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -ldl")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CMAKE_BUILD_TYPE}")
 
 set( BUILDINGS_INSTALL_PREFIX "${CMAKE_SOURCE_DIR}/Buildings")
 
@@ -42,20 +42,22 @@ endif()
 
 # Set target directories.
 # NOTE: always add quotes to protect spaces in path when setting new variables.
-if (WINDOWS)
-    if(CMAKE_SYSTEM_PROCESSOR MATCHES ".*64$")
+if (WIN32) # True also on 64 bit Windows
+    if(CMAKE_SIZEOF_VOID_P EQUAL 8)
         set(PLATFORM_INSTALL_PREFIX win64)
     else()
         set(PLATFORM_INSTALL_PREFIX win32)
     endif()
-elseif(LINUX)
-    if(CMAKE_SYSTEM_PROCESSOR MATCHES ".*64$")
+elseif(APPLE)
+    set(PLATFORM_INSTALL_PREFIX darwin64)
+elseif(UNIX)
+    if(CMAKE_SIZEOF_VOID_P EQUAL 8)
         set(PLATFORM_INSTALL_PREFIX linux64)
     else()
         set(PLATFORM_INSTALL_PREFIX linux32)
     endif()
-elseif(MACOSX)
-    set(PLATFORM_INSTALL_PREFIX darwin64)
+else()
+    message(FATAL_ERROR "OS unknown!")
 endif()
 
 if (LINUX)
@@ -93,9 +95,8 @@ target_include_directories( ModelicaBuildingsEnergyPlus
 
 target_link_libraries( ModelicaBuildingsEnergyPlus
   ${MODELICA_LIBS}
+  ${CMAKE_DL_LIBS}
 )
-
-target_link_libraries(ModelicaBuildingsEnergyPlus dl)
 
 set(BUILDINGS_INSTALL_DIR "${BUILDINGS_INSTALL_PREFIX}/Resources/Library/${PLATFORM_INSTALL_PREFIX}/")
 message("Installing to: ${BUILDINGS_INSTALL_DIR}")
