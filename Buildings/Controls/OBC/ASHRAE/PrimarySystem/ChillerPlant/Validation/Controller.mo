@@ -2,7 +2,7 @@ within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Validation;
 model Controller "Validation head pressure controller"
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Controller chiPlaCon
-    annotation (Placement(transformation(extent={{-150,-64},{10,84}})));
+    annotation (Placement(transformation(extent={{-150,-24},{10,124}})));
 equation
 
 annotation (

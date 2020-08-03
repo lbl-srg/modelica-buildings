@@ -113,7 +113,7 @@ block Controller "Head pressure controller"
     "Minimum head pressure control valve position"
     annotation(Dialog(enable= (not ((not have_WSE) and (not fixSpePum))), tab="Head pressure", group="Limits"));
 
-  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=
+  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeHeaPre=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI "Type of controller"
     annotation(Dialog(tab="Head pressure", group="Loop signal", enable=not have_HeaPreConSig));
 
@@ -121,11 +121,11 @@ block Controller "Head pressure controller"
     "Minimum allowable lift at minimum load for chiller"
     annotation(Dialog(tab="Head pressure", group="Loop signal", enable=not have_HeaPreConSig));
 
-  parameter Real k=1
+  parameter Real kHeaPreCon=1
     "Gain of controller"
     annotation(Dialog(tab="Head pressure", group="Loop signal", enable=not have_HeaPreConSig));
 
-  parameter Real Ti(
+  parameter Real TiHeaPreCon(
     final unit="s",
     final quantity="Time")=0.5
     "Time constant of integrator block"
@@ -134,13 +134,56 @@ block Controller "Head pressure controller"
 
   // Minimum flow bypass
 
+  parameter Integer nChi
+    "Total number of chillers"
+    annotation(Dialog(group="Plant configuration"));
 
+  parameter Boolean isParallelChiller
+    "Flag: true means that the plant has parallel chillers"
+    annotation(Dialog(group="Plant configuration"));
 
+  parameter Real byPasSetTim(
+    final unit="s",
+    final quantity="Time")
+    "Time constant for resetting minimum bypass flow"
+    annotation(Dialog(tab="Minimum flow bypass"));
 
+  parameter Modelica.SIunits.VolumeFlowRate minFloSet[nChi]
+    "Minimum chilled water flow through each chiller"
+    annotation(Dialog(tab="Minimum flow bypass"));
 
+  parameter Modelica.SIunits.VolumeFlowRate maxFloSet[nChi]
+    "Maximum chilled water flow through each chiller"
+    annotation(Dialog(tab="Minimum flow bypass"));
 
+  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeMinFloByp=
+    Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+    "Type of controller"
+    annotation (Dialog(tab="Minimum flow bypass", group="Controller"));
 
+  parameter Real kMinFloBypCon=1
+    "Gain of controller"
+    annotation (Dialog(tab="Minimum flow bypass", group="Controller"));
 
+  parameter Real TiMinFloBypCon(
+    final unit="s",
+    final quantity="Time")=0.5 "Time constant of integrator block"
+    annotation (Dialog(tab="Minimum flow bypass",
+    group="Controller", enable=controllerType==Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
+                               controllerType==Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+
+  parameter Real TdMinFloBypCon(
+    final unit="s",
+    final quantity="Time")=0 "Time constant of derivative block"
+    annotation (Dialog(tab="Minimum flow bypass",
+    group="Controller", enable=controllerType==Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
+                                                  controllerType==Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+
+  parameter Real yMax=1 "Upper limit of output"
+    annotation (Dialog(tab="Minimum flow bypass", group="Controller"));
+
+  parameter Real yMin=0.1 "Lower limit of output"
+    annotation (Dialog(tab="Minimum flow bypass", group="Controller"));
 
 
   CDL.Interfaces.BooleanInput uChiIsoVal[nChi] if isHeadered
@@ -370,10 +413,30 @@ block Controller "Head pressure controller"
     annotation(Placement(transformation(extent={{-340,648},{-300,688}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure.Controller heaPreCon(
-      haveHeaPreConSig=false, have_WSE=true)
+    final fixSpePum=fixSpePum,
+    final have_HeaPreConSig=false,
+    final have_WSE=true,
+    final minTowSpe=minTowSpe,
+    final minConWatPumSpe=minConWatPumSpe,
+    final minHeaPreValPos=minHeaPreValPos,
+    final controllerType=controllerTypeHeaPre,
+    final minChiLif=minChiLif,
+    final k=kHeaPreCon,
+    final Ti=TiHeaPreCon)
     annotation(Placement(transformation(extent={{-480,130},{-420,190}})));
 
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.MinimumFlowBypass.Controller minBypValCon
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.MinimumFlowBypass.Controller minBypValCon(
+    final nChi=nChi,
+    final isParallelChiller=isParallelChiller,
+    final byPasSetTim=byPasSetTim,
+    final minFloSet=minFloSet,
+    final maxFloSet=maxFloSet,
+    final controllerType=controllerTypeMinFloByp,
+    final k=controllerType,
+    final Ti=TiMinFloBypCon,
+    final Td=TdMinFloBypCon,
+    final yMax=yMaxFloBypCon,
+    final yMin=yMinFloBypCon)
     annotation(Placement(transformation(extent={{-580,-170},{-440,-30}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.ChilledWater.Controller chiWatPumCon
