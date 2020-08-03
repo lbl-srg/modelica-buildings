@@ -95,11 +95,11 @@ block Controller "Head pressure controller"
 
   parameter Boolean fixSpePum = true
     "Flag indicating if the plant has fixed speed condenser water pumps"
-    annotation(Dialog(group="Plant configuration", enable=not have_WSE));
+    annotation(Dialog(group="Pumps configuration", enable=not have_WSE));
 
   parameter Boolean have_HeaPreConSig = false
     "Flag indicating if there is head pressure control signal from chiller controller"
-    annotation(Dialog(tab="Head pressure", group="Configuration"));
+    annotation(Dialog(tab="Head pressure", group="Head pressure control configuration"));
 
   parameter Real minTowSpe=0.1
     "Minimum cooling tower fan speed"
@@ -136,11 +136,11 @@ block Controller "Head pressure controller"
 
   parameter Integer nChi
     "Total number of chillers"
-    annotation(Dialog(group="Plant configuration"));
+    annotation(Dialog(group="Chillers configuration"));
 
   parameter Boolean isParallelChiller
     "Flag: true means that the plant has parallel chillers"
-    annotation(Dialog(group="Plant configuration"));
+    annotation(Dialog(group="Chillers configuration"));
 
   parameter Real byPasSetTim(
     final unit="s",
@@ -184,6 +184,84 @@ block Controller "Head pressure controller"
 
   parameter Real yMin=0.1 "Lower limit of output"
     annotation (Dialog(tab="Minimum flow bypass", group="Controller"));
+
+  // Chilled water pumps
+
+  parameter Boolean isHeaderedChiWatPum = true
+    "Flag of headered chilled water pumps design: true=headered, false=dedicated"
+    annotation (Dialog(group="Pumps configuration"));
+
+  parameter Boolean have_LocalSensorChiWatPum = false
+    "Flag of local DP sensor: true=local DP sensor hardwired to controller"
+    annotation (Dialog(group="Pumps configuration"));
+
+  parameter Integer nChiWatPum = 2
+    "Total number of chilled water pumps"
+    annotation (Dialog(group="Pumps configuration"));
+
+  parameter Integer nSenChiWatPum=2
+    "Total number of remote differential pressure sensors"
+    annotation (Dialog(group="Pumps configuration"));
+
+  parameter Real minChiWatPumPumSpe=0.1
+    "Minimum pump speed"
+    annotation (Dialog(tab="Chilled water pumps", group="Speed controller"));
+
+  parameter Real maxPChiWatPumumSpe=1
+    "Maximum pump speed"
+    annotation (Dialog(tab="Chilled water pumps", group="Speed controller"));
+
+  parameter Integer nPum_nominal(
+    final max=nPum,
+    final min=1)=nPum
+    "Total number of pumps that operate at design conditions"
+    annotation (Dialog(tab="Chilled water pumps", group="Nominal conditions"));
+
+  parameter Real VChiWat_flow_nominal(
+    final unit="m3/s",
+    final quantity="VolumeFlowRate",
+    final min=1e-6)=0.5
+    "Total plant design chilled water flow rate"
+    annotation (Dialog(tab="Chilled water pumps", group="Nominal conditions"));
+
+  parameter Real maxLocDp(
+    final unit="Pa",
+    final quantity="PressureDifference")=15*6894.75
+    "Maximum chilled water loop local differential pressure setpoint"
+    annotation (Dialog(tab="Chilled water pumps", group="Pump speed control when there is local DP sensor", enable=have_LocalSensorChiWatPum));
+
+  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeChiWatPum=
+    Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+    "Type of controller"
+    annotation (Dialog(tab="Chilled water pumps", group="Speed controller"));
+
+  parameter Real kChiWatPum=1 "Gain of controller"
+    annotation (Dialog(tab="Chilled water pumps", group="Speed controller"));
+
+  parameter Real TiChiWatPum(
+    final unit="s",
+    final quantity="Time",
+    final displayUnit="h")=0.5 "Time constant of integrator block"
+      annotation (Dialog(group="Speed controller"));
+
+  parameter Real TdChiWatPum(
+    final unit="s",
+    final quantity="Time",
+    final displayUnit="h")=0.1 "Time constant of derivative block"
+      annotation (Dialog(tab="Chilled water pumps", group="Speed controller",
+    enable=
+      controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
+      controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+
+  final parameter Real minLocDp(
+    final unit="Pa",
+    final quantity="PressureDifference")=5*6894.75
+    "Minimum chilled water loop local differential pressure setpoint"
+    annotation (Dialog(tab="Chilled water pumps", group="Pump speed control when there is local DP sensor", enable=have_LocalSensor));
+  final parameter Integer pumInd[nPum]={i for i in 1:nPumf}
+    "Pump index, {1,2,...,n}";
+
+  // Condenser water pumps
 
 
   CDL.Interfaces.BooleanInput uChiIsoVal[nChi] if isHeadered
@@ -439,7 +517,22 @@ block Controller "Head pressure controller"
     final yMin=yMinFloBypCon)
     annotation(Placement(transformation(extent={{-580,-170},{-440,-30}})));
 
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.ChilledWater.Controller chiWatPumCon
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.ChilledWater.Controller chiWatPumCon(
+    final isHeadered=isHeaderedChiWatPum,
+    final have_LocalSensor=have_LocalSensorChiWatPum,
+    final nChi=nChi,
+    final nPum=nChiWatPum,
+    final nSen=nSenChiWatPum,
+    final minPumSpe=minChiWatPumSpe,
+    final maxPumSpe=maxChiWatPumSpe,
+    final nPum_nominal=nPum_nominal,
+    final VChiWat_flow_nominal=VChiWat_flow_nominal,
+    final maxLocDp=maxLocDp,
+    final controllerType=controllerTypeChiWatPum,
+    final k=kChiWatPum,
+    final Ti=TiChiWatPum,
+    final Td=TdChiWatPum,
+    final minLocDp=minLocDp)
     annotation(Placement(transformation(extent={{322,436},{382,496}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.SetPoints.ChilledWaterPlantReset chiWatPlaRes
