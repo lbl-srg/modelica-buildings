@@ -34,6 +34,71 @@ block Controller "Head pressure controller"
   parameter Modelica.SIunits.Time Ti=0.5 "Time constant of integrator block"
     annotation (Dialog(tab="Loop signal", group="PID controller", enable=not haveHeaPreConSig));
 
+
+
+  // Economizer controller parameters
+
+  parameter Real holdPeriod(
+    final unit="s",
+    final quantity="Time",
+    final displayUnit="h")=1200
+    "WSE minimum on or off time"
+    annotation(Evaluate=true, Dialog(tab="Waterside economizer", group="Enable parameters"));
+
+  parameter Real delDis(
+    final unit="s",
+    final quantity="Time")=120
+    "Delay disable time period"
+    annotation(Evaluate=true, Dialog(tab="Waterside economizer", group="Enable parameters"));
+
+  parameter Modelica.SIunits.TemperatureDifference TOffsetEna=2
+    "Temperature offset between the chilled water return upstream of WSE and the predicted WSE output"
+    annotation(Evaluate=true, Dialog(tab="Waterside economizer", group="Enable parameters"));
+
+  parameter Modelica.SIunits.TemperatureDifference TOffsetDis=1
+    "Temperature offset between the chilled water return upstream and downstream WSE"
+    annotation(Evaluate=true, Dialog(tab="Waterside economizer", group="Enable parameters"));
+
+  parameter Modelica.SIunits.TemperatureDifference heaExcAppDes=2
+    "Design heat exchanger approach"
+    annotation(Evaluate=true, Dialog(tab="Waterside economizer", group="Design parameters"));
+
+  parameter Modelica.SIunits.TemperatureDifference cooTowAppDes=2
+    "Design cooling tower approach"
+    annotation(Evaluate=true, Dialog(tab="Waterside economizer", group="Design parameters"));
+
+  parameter Modelica.SIunits.Temperature TOutWetDes=288.15
+    "Design outdoor air wet bulb temperature"
+    annotation(Evaluate=true, Dialog(tab="Waterside economizer", group="Design parameters"));
+
+  parameter Modelica.SIunits.VolumeFlowRate VHeaExcDes_flow=0.015
+    "Desing heat exchanger chilled water volume flow rate"
+    annotation(Evaluate=true, Dialog(tab="Waterside economizer", group="Design parameters"));
+
+  parameter Modelica.SIunits.TemperatureDifference hysDt = 1
+    "Deadband temperature used in hysteresis block"
+    annotation(Evaluate=true, Dialog(tab="Waterside economizer", group="Hysteresis"));
+
+  parameter Real step=0.02 "Tuning step"
+    annotation(Evaluate=true, Dialog(tab="Waterside economizer", group="Tuning"));
+
+  parameter Real wseOnTimDec(
+    final unit="s",
+    final quantity="Time",
+    final displayUnit="h") = 3600
+    "Economizer enable time needed to allow decrease of the tuning parameter"
+    annotation(Evaluate=true, Dialog(tab="Waterside economizer", group="Tuning"));
+
+  parameter Real wseOnTimInc(
+    final unit="s",
+    final quantity="Time",
+    final displayUnit="h") = 1800
+    "Economizer enable time needed to allow increase of the tuning parameter"
+    annotation(Evaluate=true, Dialog(tab="Waterside economizer", group="Tuning"));
+
+  //
+
+
   CDL.Interfaces.BooleanInput uChiIsoVal[nChi] if isHeadered
     "Chilled water isolation valve status"
     annotation (Placement(transformation(extent={{-840,480},{-800,520}}),
@@ -232,7 +297,19 @@ block Controller "Head pressure controller"
     annotation (Placement(transformation(extent={{800,-400},{840,-360}}),
       iconTransformation(extent={{100,130},{140,170}})));
 
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizer.Controller wseSta
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizer.Controller wseSta(
+    final holdPeriod=holdPeriod,
+    final delDis=delDis,
+    final TOffsetEna=TOffsetEna,
+    final TOffsetDis=TOffsetDis,
+    final heaExcAppDes=heaExcAppDes,
+    final cooTowAppDes=cooTowAppDes,
+    final TOutWetDes=TOutWetDes,
+    final VHeaExcDes_flow=VHeaExcDes_flow,
+    final hysDt=hysDt,
+    final step=step,
+    final wseOnTimDec=wseOnTimDec,
+    final wseOnTimInc=wseOnTimInc)
     annotation (Placement(transformation(extent={{-580,230},{-520,290}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.PlantEnable plaEna
@@ -549,7 +626,7 @@ equation
           -649.75},{-790,-400},{-820,-400}}, color={0,0,127}));
   connect(uChiLoa, towCon.chiLoa) annotation (Line(points={{-820,150},{-746,150},
           {-746,-406.75},{-356.8,-406.75}}, color={0,0,127}));
-annotation (
+    annotation (Evaluate=true, Dialog(tab="Advanced", group="Tuning"),
   defaultComponentName="chiPlaCon",
   Icon(coordinateSystem(extent={{-800,-740},{800,740}}),
        graphics={
