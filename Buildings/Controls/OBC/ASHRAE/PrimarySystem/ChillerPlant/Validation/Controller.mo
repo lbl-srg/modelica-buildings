@@ -1,6 +1,8 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Validation;
 model Controller "Validation head pressure controller"
 
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Controller chiPlaCon
+    annotation (Placement(transformation(extent={{-150,-64},{10,84}})));
 equation
 
 annotation (
@@ -14,7 +16,7 @@ fixme
 </html>", revisions="<html>
 <ul>
 <li>
-April 2, 2019, by Jianjun Hu:<br/>
+August 30, 2020, by Milica Grahovac:<br/>
 First implementation.
 </li>
 </ul>
