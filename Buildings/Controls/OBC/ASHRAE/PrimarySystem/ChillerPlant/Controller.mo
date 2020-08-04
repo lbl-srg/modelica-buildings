@@ -131,7 +131,6 @@ block Controller "Head pressure controller"
     "Time constant of integrator block"
     annotation(Dialog(tab="Head pressure", group="Loop signal", enable=not have_HeaPreConSig));
 
-
   // Minimum flow bypass
 
   parameter Integer nChi
@@ -306,10 +305,34 @@ block Controller "Head pressure controller"
     "Maximum response per time interval (same sign as resAmo)"
     annotation (Dialog(tab="Plant Reset", group="Trim and respond parameters"));
 
-  // Chilled wate supply
+  // Chilled water supply
 
-  // fixme note to *mg minSet and maxSet are the same
+  parameter Modelica.SIunits.PressureDifference dpChiWatPumMin(
+    final min=0,
+    displayUnit="Pa") = 34473.8
+    "Minimum chilled water pump differential static pressure, default 5 psi"
+    annotation (Dialog(tab="Plant Reset", group="Chilled water supply"));
 
+  parameter Modelica.SIunits.PressureDifference dpChiWatPumMax(
+    final min=dpChiWatPumMin,
+    displayUnit="Pa")
+    "Maximum chilled water pump differential static pressure"
+    annotation (Dialog(tab="Plant Reset", group="Chilled water supply"));
+
+  parameter Modelica.SIunits.ThermodynamicTemperature TChiWatSupMin(
+    displayUnit="K")
+    "Minimum chilled water supply temperature"
+    annotation (Dialog(tab="Plant Reset", group="Chilled water supply"));
+
+  parameter Modelica.SIunits.ThermodynamicTemperature TChiWatSupMax(
+    final min=TChiWatSupMin,
+    displayUnit="K") = 288.706
+    "Maximum chilled water supply temperature, default 60 degF"
+    annotation (Dialog(tab="Plant Reset", group="Chilled water supply"));
+
+  parameter Real halSet = 0.5
+    "Half plant reset value"
+    annotation (Dialog(tab="Plant Reset", group="Chilled water supply"));
 
   CDL.Interfaces.BooleanInput uChiIsoVal[nChi] if isHeadered
     "Chilled water isolation valve status"
@@ -585,7 +608,7 @@ block Controller "Head pressure controller"
     final Td=TdChiWatPum,
     final minLocDp=minLocDp)
     "Sequences to control chilled water pumps in primary-only plant system"
-    annotation(Placement(transformation(extent={{322,436},{382,496}})));
+    annotation(Placement(transformation(extent={{320,440},{380,500}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.SetPoints.ChilledWaterPlantReset chiWatPlaRes(
     final nPum=nChiWatPum,
@@ -602,7 +625,14 @@ block Controller "Head pressure controller"
     "Sequences to generate chilled water plant reset"
     annotation(Placement(transformation(extent={{-560,-320},{-480,-240}})));
 
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.SetPoints.ChilledWaterSupply chiWatSupSet
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.SetPoints.ChilledWaterSupply chiWatSupSet(
+    final dpChiWatPumSet=dpChiWatPumSet,
+    final dpChiWatPumMax=dpChiWatPumMax,
+    final TChiWatSupMin=TChiWatSupMin,
+    final TChiWatSupMax=TChiWatSupMax,
+    final minSet=minset,
+    final maxSet=maxSet,
+    final halSet=halSet)
     "Sequences to generate setpoints of chilled water supply temperature and the pump differential static pressure"
     annotation(Placement(transformation(extent={{-362,502},{-282,582}})));
 
@@ -818,13 +848,13 @@ equation
           -9.2},{62,-9.2},{62,-90},{-334,-90},{-334,126},{-760,126},{-760,-20},{
           -820,-20}},  color={0,0,127}));
   connect(uChiWatPum, chiWatPumCon.uChiWatPum) annotation(Line(points={{-820,350},
-          {-760,350},{-760,484},{316,484}},        color={255,0,255}));
+          {-760,350},{-760,488},{314,488}},        color={255,0,255}));
   connect(uChiIsoVal, chiWatPumCon.uChiIsoVal) annotation(Line(points={{-820,500},
-          {-780,500},{-780,460},{316,460}},      color={255,0,255}));
+          {-780,500},{-780,464},{314,464}},      color={255,0,255}));
   connect(VChiWat_flow, chiWatPumCon.VChiWat_flow) annotation(Line(points={{-820,
-          -20},{-754,-20},{-754,454},{316,454}},      color={0,0,127}));
+          -20},{-754,-20},{-754,458},{314,458}},      color={0,0,127}));
   connect(dpChiWat_remote, chiWatPumCon.dpChiWat_remote) annotation(Line(
-        points={{-820,-150},{-766,-150},{-766,442},{316,442}},
+        points={{-820,-150},{-766,-150},{-766,446},{314,446}},
                                                            color={0,0,127}));
   connect(heaPreCon.yHeaPreConVal, yHeaPreConVal) annotation(Line(points={{-417,
           160},{-280,160},{-280,-136},{760,-136},{760,-320},{820,-320}},  color=
@@ -860,8 +890,8 @@ equation
   connect(dowProCon.yDesConWatPumSpe, heaPreCon.desConWatPumSpe) annotation (
       Line(points={{257.6,-73.8},{294,-73.8},{294,-76},{366,-76},{366,-144},{-420,
           -144},{-420,48},{-502,48},{-502,154},{-486,154}},      color={0,0,127}));
-  connect(yChiWatPum, chiWatPumCon.yChiWatPum) annotation(Line(points={{820,
-          410},{620,410},{620,412},{420,412},{420,466},{388,466}}, color={255,0,
+  connect(yChiWatPum, chiWatPumCon.yChiWatPum) annotation(Line(points={{820,410},
+          {620,410},{620,412},{420,412},{420,470},{386,470}},      color={255,0,
           255}));
   connect(heaPreCon.yConWatPumSpeSet, dowProCon.uConWatPumSpeSet) annotation (
       Line(points={{-417,142},{-304,142},{-304,-96.6},{166.4,-96.6}}, color={0,
@@ -870,10 +900,10 @@ equation
       Line(points={{-417,142},{-338,142},{-338,194},{120,194},{120,294},{156.4,294},
           {156.4,293.6}},
         color={0,0,127}));
-  connect(chiWatPumCon.yPumSpe, yChiPumSpe) annotation(Line(points={{388,442},
-          {498,442},{498,140},{820,140}}, color={0,0,127}));
+  connect(chiWatPumCon.yPumSpe, yChiPumSpe) annotation(Line(points={{386,446},{498,
+          446},{498,140},{820,140}},      color={0,0,127}));
   connect(chiWatSupSet.dpChiWatPumSet, chiWatPumCon.dpChiWatSet) annotation (
-      Line(points={{-274,566},{300,566},{300,436},{316,436}}, color={0,0,127}));
+      Line(points={{-274,566},{300,566},{300,440},{314,440}}, color={0,0,127}));
   connect(uChiAva, staSetCon.uChiAva) annotation(Line(points={{-820,440},{-668,
           440},{-668,128.188},{-167.6,128.188}},       color={255,0,255}));
   connect(minBypValCon.yValPos, yValPos) annotation(Line(points={{-426,-100},{
@@ -882,8 +912,8 @@ equation
   connect(staSetCon.yDow, minBypValCon.uStaDow) annotation(Line(points={{-28.4,
           128.188},{-6,128.188},{-6,-196},{-622,-196},{-622,-163},{-594,-163}},
         color={255,0,255}));
-  connect(towCon.uConWatPumSpe, uConWatPumSpe) annotation(Line(points={{-356.8,
-          -555.25},{-580.4,-555.25},{-580.4,-310},{-820,-310}}, color={0,0,127}));
+  connect(towCon.uConWatPumSpe, uConWatPumSpe) annotation(Line(points={{-356.8,-555.25},
+          {-580.4,-555.25},{-580.4,-310},{-820,-310}},          color={0,0,127}));
   connect(staSetCon.ySta, towCon.uChiStaSet) annotation(Line(points={{-28.4,-22.9375},
           {-30,-22.9375},{-30,-326},{-420,-326},{-420,-595.75},{-356.8,-595.75}},
         color={255,127,0}));
@@ -897,6 +927,8 @@ equation
           -649.75},{-790,-400},{-820,-400}}, color={0,0,127}));
   connect(uChiLoa, towCon.chiLoa) annotation(Line(points={{-820,150},{-746,150},
           {-746,-406.75},{-356.8,-406.75}}, color={0,0,127}));
+  connect(uChi, minBypValCon.uChi) annotation (Line(points={{-820,470},{-770,470},
+          {-770,468},{-656,468},{-656,-121},{-594,-121}}, color={255,0,255}));
     annotation (Dialog(tab="Plant Reset", group="Time parameter"),
                Evaluate=true, Dialog(tab="Advanced", group="Tuning"),
   defaultComponentName="chiPlaCon",
