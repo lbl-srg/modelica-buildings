@@ -30,7 +30,7 @@ block RoomMixingBox "Controller for room mixing box"
     "Measured air mass flow rate into the room"
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}}),
         iconTransformation(extent={{-140,-60},{-100,-20}})));
-  Buildings.Controls.OBC.CDL.Continuous.LimPID conFloRat(
+  Buildings.Controls.OBC.CDL.Continuous.LimPIDNoReset conFloRat(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     Td=60,
     k=0.1,
