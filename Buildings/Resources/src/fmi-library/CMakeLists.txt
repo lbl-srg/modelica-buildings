@@ -92,9 +92,18 @@ add_custom_command(TARGET ${FMI_LIBRARY}
   COMMENT "Copying to Modelica library directory '${so_install_path}'"
 )
 
-# Copy the header and doc files
-file(REMOVE_RECURSE "${CMAKE_CURRENT_SOURCE_DIR}/include")
+# Copy the doc and header files
 file(REMOVE_RECURSE "${CMAKE_CURRENT_SOURCE_DIR}/doc")
+file(REMOVE_RECURSE "${CMAKE_CURRENT_SOURCE_DIR}/include")
+
+add_custom_command(TARGET ${FMI_LIBRARY}
+  POST_BUILD
+  COMMAND "${CMAKE_COMMAND}" -E copy_directory
+        "${CMAKE_CURRENT_SOURCE_DIR}/build/fmi-library-modelon/src/install/doc"
+        "${CMAKE_CURRENT_SOURCE_DIR}/doc"
+  COMMENT "Copying doc files to ${CMAKE_CURRENT_SOURCE_DIR}/doc"
+)
+
 add_custom_command(TARGET ${FMI_LIBRARY}
   POST_BUILD
   COMMAND "${CMAKE_COMMAND}" -E copy_directory
@@ -105,8 +114,8 @@ add_custom_command(TARGET ${FMI_LIBRARY}
 
 add_custom_command(TARGET ${FMI_LIBRARY}
   POST_BUILD
-  COMMAND "${CMAKE_COMMAND}" -E copy_directory
-        "${CMAKE_CURRENT_SOURCE_DIR}/build/fmi-library-modelon/src/install/doc"
-        "${CMAKE_CURRENT_SOURCE_DIR}/doc"
-  COMMENT "Copying doc files to ${CMAKE_CURRENT_SOURCE_DIR}/doc"
+  COMMAND "${CMAKE_COMMAND}" -E copy
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/fmilib_config.h"
+        "${CMAKE_CURRENT_SOURCE_DIR}/include"
+  COMMENT "Copied platform independent custom header file ${CMAKE_CURRENT_SOURCE_DIR}/src/fmilib_config.h"
 )
