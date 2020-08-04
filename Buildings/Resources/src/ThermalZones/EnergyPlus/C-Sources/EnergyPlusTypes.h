@@ -18,7 +18,11 @@
 #define WINDOWS 0
 #define HANDLE void *
 /* See http://www.yolinux.com/TUTORIALS/LibraryArchives-StaticAndDynamic.html */
+
+#ifndef  _GNU_SOURCE
 #define _GNU_SOURCE
+#endif
+
 #include <dlfcn.h>
 #endif
 
@@ -38,6 +42,11 @@ typedef enum {instantiationMode, initializationMode, eventMode, continuousTimeMo
 
 static int FMU_EP_VERBOSITY = 1; /* Verbosity */
 enum verbosity {ERRORS = 1, WARNINGS = 2, QUIET = 3, MEDIUM = 4, TIMESTEP = 5};
+
+extern void ModelicaMessage(const char *string);
+extern void ModelicaError(const char *string);
+extern void ModelicaFormatMessage(const char *string, ...);
+extern void ModelicaFormatError(const char *string, ...);
 
 typedef struct FMUBuilding
 {

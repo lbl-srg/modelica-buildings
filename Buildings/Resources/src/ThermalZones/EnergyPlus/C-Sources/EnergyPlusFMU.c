@@ -9,8 +9,6 @@
 #ifndef Buildings_EnergyPlusFMU_c
 #define Buildings_EnergyPlusFMU_c
 
-#include "EnergyPlusUtil.c"
-
 #include <stdlib.h>
 #include <string.h>
 #ifdef _MSC_VER

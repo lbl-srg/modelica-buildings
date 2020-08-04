@@ -1,11 +1,10 @@
 /*
  * Modelica external function to intialize EnergyPlus.
  *
- * Michael Wetter, LBNL                  5/22/2020
+ * Michael Wetter, LBNL                  10/9/19
  */
 
-#include "InputVariableInstantiate.h"
-#include "BuildingInstantiate.c" /* Include c file, otherwise Modelica won't compile it */
+#include "OutputVariableInstantiate.h"
 #include "EnergyPlusFMU.h"
 
 #include <stdlib.h>
@@ -14,16 +13,16 @@
 
 /* This function is called for each output variable in the 'initial equation section'
 */
-void InputVariableInstantiate(
+void OutputVariableInstantiate(
     void* object,
     double startTime){
   fmi2_status_t status;
-  FMUInputVariable* var = (FMUInputVariable*) object;
+  FMUOutputVariable* var = (FMUOutputVariable*) object;
   FMUBuilding* bui = var->ptrBui;
 
   if (FMU_EP_VERBOSITY >= MEDIUM){
-    ModelicaFormatMessage("Entered InputVariableInstantiate for %s.\n",
-      var->modelicaNameInputVariable);
+    ModelicaFormatMessage("Entered OutputVariableInstantiate for %s.\n",
+      var->modelicaNameOutputVariable);
   }
   if (bui->fmu == NULL){
     /* EnergyPlus is not yet loaded.
@@ -37,7 +36,7 @@ void InputVariableInstantiate(
   }
   if (! var->valueReferenceIsSet){
     ModelicaFormatError("Value reference is not set for %s. For Dymola 2020x, make sure you set 'Hidden.AvoidDoubleComputation=true'. See Buildings.ThermalZones.EnergyPlus.UsersGuide.",
-      var->modelicaNameInputVariable);
+      var->modelicaNameOutputVariable);
   }
   /* Set flag to indicate that this output variable has been properly initialized */
   var->isInstantiated = fmi2True;

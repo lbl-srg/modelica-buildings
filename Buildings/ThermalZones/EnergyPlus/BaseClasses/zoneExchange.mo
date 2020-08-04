@@ -31,9 +31,8 @@ function zoneExchange "Exchange the values with the EnergyPlus thermal zone"
   external "C" ZoneExchange(adapter, initialCall,
     T, X, mInlet_flow, TAveInlet, QGaiRad_flow, AFlo, tModel,
     TRad, QCon_flow, dQCon_flow, QLat_flow, QPeo_flow, tNext)
-      annotation (
-        IncludeDirectory="modelica://Buildings/Resources/C-Sources/EnergyPlus",
-        Include="#include \"ZoneExchange.c\"");
+      annotation (Library={"ModelicaBuildingsEnergyPlus", "fmilib_shared", "dl"});
+      // dl provides dlsym to load EnergyPlus dll, which is needed by OpenModelica compiler
 
   annotation (Documentation(info="<html>
 <p>

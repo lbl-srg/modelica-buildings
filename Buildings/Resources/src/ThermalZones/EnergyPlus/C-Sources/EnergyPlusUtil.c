@@ -14,14 +14,6 @@
 #include <string.h>
 #include <stdio.h>
 
-/* Use windows.h only for Windows */
-#ifdef _WIN32
-#include <windows.h>
-#else
-#define _GNU_SOURCE
-#include <dlfcn.h>
-#endif
-
 /* This write statement is experimental to flush the write statements
    to a file. It is useful to debug if segmentation faults happen.
 */

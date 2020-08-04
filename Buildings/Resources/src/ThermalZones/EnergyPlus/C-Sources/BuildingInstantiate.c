@@ -15,7 +15,7 @@
 #include <string.h>
 #include <stdio.h>
 #include <stdbool.h>
-#include "../cryptographicsHash.c"
+
 
 void buildJSONKeyValue(char* *buffer, size_t level, const char* key, const char* value, bool addComma, size_t* size){
   size_t i;
