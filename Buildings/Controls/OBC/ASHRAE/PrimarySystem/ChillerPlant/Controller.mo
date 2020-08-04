@@ -272,10 +272,10 @@ block Controller "Head pressure controller"
   parameter Real iniSet = 0 "Initial setpoint"
     annotation (Dialog(tab="Plant Reset", group="Trim and respond parameters"));
 
-  parameter Real minSet = 0 "Minimum setpoint"
+  parameter Real minSet = 0 "Minimum plant reset value"
     annotation (Dialog(tab="Plant Reset", group="Trim and respond parameters"));
 
-  parameter Real maxSet = 1 "Maximum setpoint"
+  parameter Real maxSet = 1 "Maximum plant reset value"
     annotation (Dialog(tab="Plant Reset", group="Trim and respond parameters"));
 
   parameter Real delTim(
@@ -305,6 +305,11 @@ block Controller "Head pressure controller"
   parameter Real maxRes = 0.07
     "Maximum response per time interval (same sign as resAmo)"
     annotation (Dialog(tab="Plant Reset", group="Trim and respond parameters"));
+
+  // Chilled wate supply
+
+  // fixme note to *mg minSet and maxSet are the same
+
 
   CDL.Interfaces.BooleanInput uChiIsoVal[nChi] if isHeadered
     "Chilled water isolation valve status"
@@ -598,7 +603,8 @@ block Controller "Head pressure controller"
     annotation(Placement(transformation(extent={{-560,-320},{-480,-240}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.SetPoints.ChilledWaterSupply chiWatSupSet
-    annotation(Placement(transformation(extent={{-358,494},{-278,574}})));
+    "Sequences to generate setpoints of chilled water supply temperature and the pump differential static pressure"
+    annotation(Placement(transformation(extent={{-362,502},{-282,582}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.SetPoints.SetpointController staSetCon(have_WSE=
         true)
@@ -662,8 +668,8 @@ equation
   connect(chiWatSupResReq, plaEna.chiWatSupResReq) annotation(Line(points={{-820,
           250},{-710,250},{-710,-350.6},{-664.2,-350.6}},  color={255,127,0}));
   connect(chiWatSupSet.TChiWatSupSet, staSetCon.TChiWatSupSet) annotation(Line(
-        points={{-270,510},{-260,510},{-260,140},{-220,140},{-220,81.6875},{
-          -167.6,81.6875}},                                     color={0,0,127}));
+        points={{-274,518},{-260,518},{-260,140},{-220,140},{-220,81.6875},{-167.6,
+          81.6875}},                                            color={0,0,127}));
   connect(TChiWatSup, staSetCon.TChiWatSup) annotation(Line(points={{-820,-90},
           {-716,-90},{-716,-84},{-612,-84},{-612,70.0625},{-167.6,70.0625}},
                                                  color={0,0,127}));
@@ -689,14 +695,14 @@ equation
         points={{-820,250},{-680,250},{-680,-280},{-568,-280}},   color={255,
           127,0}));
   connect(chiWatPlaRes.yChiWatPlaRes, chiWatSupSet.uChiWatPlaRes) annotation (
-      Line(points={{-472,-280},{-406,-280},{-406,534},{-366,534}},
+      Line(points={{-472,-280},{-406,-280},{-406,542},{-370,542}},
                                                                 color={0,0,127}));
   connect(dpChiWatPum, staSetCon.dpChiWatPum) annotation(Line(points={{-820,-120},
           {-730,-120},{-730,12},{-448,12},{-448,11.9375},{-167.6,11.9375}},
                                                     color={0,0,127}));
   connect(chiWatSupSet.dpChiWatPumSet, staSetCon.dpChiWatPumSet) annotation (
-      Line(points={{-270,558},{-240,558},{-240,76},{-204,76},{-204,0.3125},{
-          -167.6,0.3125}},                                         color={0,0,
+      Line(points={{-274,566},{-240,566},{-240,76},{-204,76},{-204,0.3125},{-167.6,
+          0.3125}},                                                color={0,0,
           127}));
   connect(uChi, towCon.uChi) annotation(Line(points={{-820,470},{-688,470},{-688,
           -420.25},{-356.8,-420.25}},   color={255,0,255}));
@@ -829,8 +835,8 @@ equation
           -90},{-606,112},{-398,112},{-398,-460.75},{-356.8,-460.75}},
         color={0,0,127}));
   connect(chiWatSupSet.TChiWatSupSet, towCon.TChiWatSupSet) annotation(Line(
-        points={{-270,510},{-266,510},{-266,-70},{-384,-70},{-384,-474.25},{
-          -356.8,-474.25}},
+        points={{-274,518},{-306,518},{-306,-82},{-424,-82},{-424,-474.25},{-356.8,
+          -474.25}},
         color={0,0,127}));
   connect(staSetCon.ySta, towCon.uChiSta) annotation(Line(points={{-28.4,
           -22.9375},{4,-22.9375},{4,-104},{-408,-104},{-408,-582.25},{-356.8,
@@ -867,7 +873,7 @@ equation
   connect(chiWatPumCon.yPumSpe, yChiPumSpe) annotation(Line(points={{388,442},
           {498,442},{498,140},{820,140}}, color={0,0,127}));
   connect(chiWatSupSet.dpChiWatPumSet, chiWatPumCon.dpChiWatSet) annotation (
-      Line(points={{-270,558},{300,558},{300,436},{316,436}}, color={0,0,127}));
+      Line(points={{-274,566},{300,566},{300,436},{316,436}}, color={0,0,127}));
   connect(uChiAva, staSetCon.uChiAva) annotation(Line(points={{-820,440},{-668,
           440},{-668,128.188},{-167.6,128.188}},       color={255,0,255}));
   connect(minBypValCon.yValPos, yValPos) annotation(Line(points={{-426,-100},{
