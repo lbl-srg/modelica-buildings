@@ -91,6 +91,7 @@ add_library( ModelicaBuildingsEnergyPlus SHARED
 
 target_include_directories( ModelicaBuildingsEnergyPlus
   PRIVATE Buildings/Resources/src/ThermalZones/EnergyPlus/C-Sources
+  PRIVATE Buildings/Resources/src/fmi-library/include
 )
 
 target_link_libraries( ModelicaBuildingsEnergyPlus
