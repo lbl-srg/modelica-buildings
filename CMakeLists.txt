@@ -65,10 +65,6 @@ add_definitions(-D_GNU_SOURCE)
 message("Added GNU_SOURCE")
 endif()
 
-#install( DIRECTORY Buildings/
-#  DESTINATION ${BUILDINGS_INSTALL_PREFIX}
-#  PATTERN CMakeLists.txt EXCLUDE
-#)
 
 add_library( ModelicaBuildingsEnergyPlus SHARED
   Buildings/Resources/src/ThermalZones/EnergyPlus/C-Sources/InputVariableExchange.c
