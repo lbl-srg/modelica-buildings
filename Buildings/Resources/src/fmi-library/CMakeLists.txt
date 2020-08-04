@@ -94,7 +94,6 @@ add_custom_command(TARGET ${FMI_LIBRARY}
 
 # Copy the doc and header files
 file(REMOVE_RECURSE "${CMAKE_CURRENT_SOURCE_DIR}/doc")
-file(REMOVE_RECURSE "${CMAKE_CURRENT_SOURCE_DIR}/include")
 
 add_custom_command(TARGET ${FMI_LIBRARY}
   POST_BUILD
@@ -115,7 +114,15 @@ add_custom_command(TARGET ${FMI_LIBRARY}
 add_custom_command(TARGET ${FMI_LIBRARY}
   POST_BUILD
   COMMAND "${CMAKE_COMMAND}" -E copy
-        "${CMAKE_CURRENT_SOURCE_DIR}/src/fmilib_config.h"
-        "${CMAKE_CURRENT_SOURCE_DIR}/include"
-  COMMENT "Copied platform independent custom header file ${CMAKE_CURRENT_SOURCE_DIR}/src/fmilib_config.h"
+         "${CMAKE_CURRENT_SOURCE_DIR}/include/fmilib_config.h"
+         "${CMAKE_CURRENT_SOURCE_DIR}/include/fmilib_config-${PLATFORM_INSTALL_PREFIX}.h"
+  COMMENT "Copying platform specific include file to ${CMAKE_CURRENT_SOURCE_DIR}/include/fmilib_config-${PLATFORM_INSTALL_PREFIX}.h"
+)
+
+add_custom_command(TARGET ${FMI_LIBRARY}
+  POST_BUILD
+  COMMAND "${CMAKE_COMMAND}" -E copy
+         "${CMAKE_CURRENT_SOURCE_DIR}/src/fmilib_config.h"
+         "${CMAKE_CURRENT_SOURCE_DIR}/include/fmilib_config.h"
+  COMMENT "Copying portable include file to ${CMAKE_CURRENT_SOURCE_DIR}/include"
 )
