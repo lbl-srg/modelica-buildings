@@ -254,7 +254,7 @@ model System5
  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetBoiRet(k=TBoiRet_min)
     "Temperature setpoint for boiler return"
     annotation (Placement(transformation(extent={{120,-270},{140,-250}})));
-  Buildings.Controls.OBC.CDL.Continuous.LimPID conPIDBoi(
+  Buildings.Controls.OBC.CDL.Continuous.LimPIDNoReset conPIDBoi(
     Td=1,
     Ti=120,
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
@@ -264,12 +264,11 @@ model System5
 //--------------------------------------------------------------------------------//
 
 //----------------------Step 3: Radiator loop valve control-----------------------//
-  Buildings.Controls.OBC.CDL.Continuous.LimPID conPIDRad(
+  Buildings.Controls.OBC.CDL.Continuous.LimPIDNoReset conPIDRad(
     Td=1,
     Ti=120,
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
-    k=0.1)
-           "Controller for valve in radiator loop"
+    k=0.1) "Controller for valve in radiator loop"
     annotation (Placement(transformation(extent={{-180,-20},{-160,0}})));
 //--------------------------------------------------------------------------------//
   Buildings.Controls.OBC.CDL.Continuous.Line TSetSup

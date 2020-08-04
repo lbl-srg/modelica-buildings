@@ -426,17 +426,15 @@ block Controller
     final yCooMax=yCooMax)
     "Supply air set point and fan signal for single zone VAV system"
     annotation (Placement(transformation(extent={{40,180},{60,200}})));
-  Buildings.Controls.OBC.CDL.Continuous.LimPID cooPI(
+  Buildings.Controls.OBC.CDL.Continuous.LimPIDWithReset cooPI(
     final reverseActing=false,
     final controllerType=controllerTypeCoo,
     final k=kCoo,
     final Ti=TiCoo,
-    final Td=TdCoo,
-    final reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter)
+    final Td=TdCoo)
     "Zone cooling control signal"
     annotation (Placement(transformation(extent={{-50,150},{-30,170}})));
-  Buildings.Controls.OBC.CDL.Continuous.LimPID heaPI(
-    final reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter,
+  Buildings.Controls.OBC.CDL.Continuous.LimPIDWithReset heaPI(
     final controllerType=controllerTypeHea,
     final k=kHea,
     final Ti=TiHea,

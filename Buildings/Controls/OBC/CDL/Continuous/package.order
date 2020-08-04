@@ -6,7 +6,6 @@ Atan2
 Average
 ChangeSign
 Cos
-Derivative
 Division
 Exp
 Feedback
@@ -23,7 +22,8 @@ LessEqual
 LessEqualThreshold
 LessThreshold
 LimPID
-LimPID_NoDer
+LimPIDNoReset
+LimPIDWithReset
 Limiter
 Line
 Log

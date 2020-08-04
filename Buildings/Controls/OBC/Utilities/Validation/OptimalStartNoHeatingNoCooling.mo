@@ -30,7 +30,7 @@ model OptimalStartNoHeatingNoCooling
   Buildings.Controls.OBC.CDL.Continuous.Add add1
     "Reset temperature from unoccupied to occupied for optimal start period"
     annotation (Placement(transformation(extent={{140,0},{160,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.LimPID conPID1(
+  Buildings.Controls.OBC.CDL.Continuous.LimPIDNoReset conPID1(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     Ti=3,
     reverseActing=false) "PI control for space cooling"
@@ -46,7 +46,7 @@ model OptimalStartNoHeatingNoCooling
   Buildings.Controls.OBC.CDL.Continuous.Add add2
     "Reset temperature from unoccupied to occupied for optimal start period"
     annotation (Placement(transformation(extent={{140,40},{160,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.LimPID conPID(
+  Buildings.Controls.OBC.CDL.Continuous.LimPIDNoReset conPID(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     Ti=3) "PI control for space heating"
     annotation (Placement(transformation(extent={{180,40},{200,60}})));
@@ -61,13 +61,13 @@ model OptimalStartNoHeatingNoCooling
     startTime(displayUnit="d") = 604800)
     "Range of outdoor dry bulb temperature"
     annotation (Placement(transformation(extent={{-210,-60},{-190,-40}})));
-  CDL.Conversions.BooleanToReal TSetHea(
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal TSetHea(
     realTrue=273.15 + 21,
     realFalse=273.15 + 15,
     y(final unit="K", displayUnit="degC"))
     "Room temperature set point for heating"
     annotation (Placement(transformation(extent={{80,-70},{100,-50}})));
-  CDL.Conversions.BooleanToReal TSetCoo(
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal TSetCoo(
     realTrue=273.15 + 24,
     realFalse=273.15 + 30,
     y(final unit="K", displayUnit="degC"))
