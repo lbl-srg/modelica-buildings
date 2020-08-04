@@ -81,13 +81,13 @@ ExternalProject_Add(
 
 ##################################################################################
 # Copy the library which is used by the Modelica compiler.
-set(so_install_path "${CMAKE_CURRENT_SOURCE_DIR}/../../Library/${PLATFORM_INSTALL_PREFIX}/libfmilib_shared.so")
+set(so_install_path "${CMAKE_CURRENT_SOURCE_DIR}/../../Library/${PLATFORM_INSTALL_PREFIX}/libfmilib_shared${CMAKE_SHARED_LIBRARY_SUFFIX}")
 
 file(REMOVE "${so_install_path}")
 add_custom_command(TARGET ${FMI_LIBRARY}
   POST_BUILD
   COMMAND "${CMAKE_COMMAND}" -E copy
-     "fmi-library-modelon/src/install/lib/libfmilib_shared.so"
+     "fmi-library-modelon/src/install/lib/libfmilib_shared${CMAKE_SHARED_LIBRARY_SUFFIX}"
      "${so_install_path}"
   COMMENT "Copying to Modelica library directory '${so_install_path}'"
 )
