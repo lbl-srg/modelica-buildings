@@ -76,26 +76,37 @@ ExternalProject_Add(
 #  [INSTALL_DIR dir]           # Installation prefix
 #  INSTALL_COMMAND   ""
 #--Test step------------------
-   TEST_AFTER_INSTALL 0        # Add test step executed after install step
+   TEST_AFTER_INSTALL 1        # Add test step executed after install step
   )
 
 ##################################################################################
 # Copy the library which is used by the Modelica compiler.
+set(so_install_path "${CMAKE_CURRENT_SOURCE_DIR}/../../Library/${PLATFORM_INSTALL_PREFIX}/libfmilib_shared.so")
+
+file(REMOVE "${so_install_path}")
 add_custom_command(TARGET ${FMI_LIBRARY}
   POST_BUILD
   COMMAND "${CMAKE_COMMAND}" -E copy
      "fmi-library-modelon/src/install/lib/libfmilib_shared.so"
-     "${CMAKE_CURRENT_SOURCE_DIR}/../../../Library/${PLATFORM_INSTALL_PREFIX}/libfmilib_shared.so"
-  COMMENT "Copying to Modelica library directory '${CMAKE_CURRENT_SOURCE_DIR}/../../../Library/${PLATFORM_INSTALL_PREFIX}/libfmilib_shared.so'")
+     "${so_install_path}"
+  COMMENT "Copying to Modelica library directory '${so_install_path}'"
+)
 
-# Copy header files which are used to build the Modelica-EnergyPlus interface.
-foreach(dir_name include doc)
+# Copy the header and doc files
+file(REMOVE_RECURSE "${CMAKE_CURRENT_SOURCE_DIR}/include")
+file(REMOVE_RECURSE "${CMAKE_CURRENT_SOURCE_DIR}/doc")
+add_custom_command(TARGET ${FMI_LIBRARY}
+  POST_BUILD
+  COMMAND "${CMAKE_COMMAND}" -E copy_directory
+        "${CMAKE_CURRENT_SOURCE_DIR}/build/fmi-library-modelon/src/install/include"
+        "${CMAKE_CURRENT_SOURCE_DIR}/include"
+  COMMENT "Copying include files to ${CMAKE_CURRENT_SOURCE_DIR}/include"
+)
 
-  file(REMOVE_RECURSE ${CMAKE_CURRENT_SOURCE_DIR}/${dir_name})
-  file(MAKE_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/${dir_name})
-  file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/build/fmi-library-modelon/src/install/${dir_name} DESTINATION ${CMAKE_CURRENT_SOURCE_DIR})
-  message(Copied header files to ${CMAKE_CURRENT_SOURCE_DIR}/${dir_name})
-endforeach(dir_name)
-
-
-
+add_custom_command(TARGET ${FMI_LIBRARY}
+  POST_BUILD
+  COMMAND "${CMAKE_COMMAND}" -E copy_directory
+        "${CMAKE_CURRENT_SOURCE_DIR}/build/fmi-library-modelon/src/install/doc"
+        "${CMAKE_CURRENT_SOURCE_DIR}/doc"
+  COMMENT "Copying doc files to ${CMAKE_CURRENT_SOURCE_DIR}/doc"
+)
