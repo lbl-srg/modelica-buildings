@@ -1,17 +1,23 @@
 within Buildings.Controls.OBC.CDL.Continuous;
 block Greater "Output y is true, if input u1 is greater than input u2"
 
-  Interfaces.RealInput u1 "Connector of first Real input signal"
+  parameter Real h(final min=0)=0 "Hysteresis, set positive value to enable";
+
+  parameter Boolean pre_y_start=false "Value of pre(y) at initial time"
+    annotation(Dialog(tab="Advanced"));
+
+
+  Interfaces.RealInput u1 "Input u1"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
 
-  Interfaces.RealInput u2 "Connector of second Real input signal"
+  Interfaces.RealInput u2 "Input u2"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
 
-  Interfaces.BooleanOutput y "Connector of Boolean output signal"
+  Interfaces.BooleanOutput y "Output y"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation
-  y = u1 > u2;
+  y = if h < 1E-10 then u1 > u2 else (not pre(y) and u1 > u2 or pre(y) and u1 >= u2-h);
 
 annotation (
   defaultComponentName="gre",
@@ -39,15 +45,33 @@ annotation (
         Text(
           extent={{-150,150},{150,110}},
           textString="%name",
-          lineColor={0,0,255})}),
+          lineColor={0,0,255}),
+        Text(extent={{-48,38},{57,78}},
+          textString="%h",
+          visible=h >= 1E-10,
+          lineColor={0,0,0})}),
   Documentation(info="<html>
 <p>
 Block that outputs <code>true</code> if the Real input <code>u1</code>
 is greater than the Real input <code>u2</code>.
 Otherwise the output is <code>false</code>.
 </p>
+<p>
+The parameter <code>h</code> can be used to specify a hysteresis.
+If <i> &gt; 0</i> then the output switches to true if <i>u<sub>1</sub> &gt; u<sub>2</sub></i>,
+and it switches to <code>false</code> if <i>u<sub>1</sub> &gt; u<sub>2</sub>-h</i>.
+</p>
+<p>
+Hysteresis should be specified to avoid frequent switching. In real controllers, this could be
+due to sensor noise. In simulation, this could be due to numerical noise.
+</p>
 </html>", revisions="<html>
 <ul>
+<li>
+August 5, 2020, by Michael Wetter:<br/>
+Added hysteresis.<br/>
+This is for <a href=\\\"https://github.com/lbl-srg/modelica-buildings/issues/2076\\\">issue 2076</a>.
+</li>
 <li>
 January 3, 2017, by Michael Wetter:<br/>
 First implementation, based on the implementation of the
