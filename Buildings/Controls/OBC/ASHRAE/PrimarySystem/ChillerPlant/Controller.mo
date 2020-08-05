@@ -350,25 +350,25 @@ block Controller "Head pressure controller"
 
   parameter Modelica.SIunits.Power chiDesCap[nChi]
     "Design chiller capacities vector"
-    annotation (Dialog(tab="General", group="Chiller configuration"));
+    annotation (Dialog(tab="General", group="Chillers configuration"));
 
   parameter Modelica.SIunits.Power chiMinCap[nChi]
     "Chiller minimum cycling loads vector"
-    annotation (Dialog(tab="General", group="Chiller configuration"));
+    annotation (Dialog(tab="General", group="Chillers configuration"));
 
   parameter Integer chiTyp[nChi]={
     Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes.positiveDisplacement,
     Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes.variableSpeedCentrifugal}
     "Chiller type. Recommended staging order: positive displacement, variable speed centrifugal, constant speed centrifugal"
-    annotation (Dialog(tab="General", group="Chiller configuration"));
+    annotation (Dialog(tab="General", group="Chillers configuration"));
 
   parameter Integer nSta = 3
     "Number of chiller stages"
-    annotation (Dialog(tab="General", group="Chiller configuration"));
+    annotation (Dialog(tab="General", group="Staging configuration"));
 
   parameter Integer staMat[nSta, nChi] = {{1,0},{0,1},{1,1}}
     "Staging matrix with stage as row index and chiller as column index"
-    annotation (Dialog(tab="General", group="Chiller configuration"));
+    annotation (Dialog(tab="General", group="Staging configuration"));
 
   parameter Real avePer(
     final unit="s",
@@ -968,9 +968,9 @@ equation
           {334,396.2},{334,148},{372,148}},        color={255,0,255}));
   connect(dowProCon.yStaPro, chaProUpDown.u2) annotation(Line(points={{257.6,40.2},
           {334,40.2},{334,140},{372,140}},       color={255,0,255}));
-  connect(chaProUpDown.y, staSetCon.chaPro) annotation(Line(points={{396,148},{
-          406,148},{406,-112},{-194,-112},{-194,140},{-180,140},{-180,139.812},
-          {-167.6,139.812}},
+  connect(chaProUpDown.y, staSetCon.chaPro) annotation(Line(points={{396,148},{406,
+          148},{406,-112},{-194,-112},{-194,140},{-180,140},{-180,139.812},{-167.6,
+          139.812}},
         color={255,0,255}));
   connect(uChi, dowProCon.uChi) annotation(Line(points={{-820,470},{-700,470},{
           -700,-184},{-358,-184},{-358,-150},{40,-150},{40,-1.6},{166.4,-1.6}},
@@ -1096,13 +1096,13 @@ equation
           446},{498,140},{820,140}},      color={0,0,127}));
   connect(chiWatSupSet.dpChiWatPumSet, chiWatPumCon.dpChiWatSet) annotation (
       Line(points={{-274,566},{300,566},{300,440},{314,440}}, color={0,0,127}));
-  connect(uChiAva, staSetCon.uChiAva) annotation(Line(points={{-820,440},{-668,
-          440},{-668,128.188},{-167.6,128.188}},       color={255,0,255}));
+  connect(uChiAva, staSetCon.uChiAva) annotation(Line(points={{-820,440},{-668,440},
+          {-668,128.188},{-167.6,128.188}},            color={255,0,255}));
   connect(minBypValCon.yValPos, yValPos) annotation(Line(points={{-426,-100},{
           -362,-100},{-362,-258},{220,-258},{220,-442},{822,-442}}, color={0,0,
           127}));
-  connect(staSetCon.yDow, minBypValCon.uStaDow) annotation(Line(points={{-28.4,
-          128.188},{-6,128.188},{-6,-196},{-622,-196},{-622,-163},{-594,-163}},
+  connect(staSetCon.yDow, minBypValCon.uStaDow) annotation(Line(points={{-28.4,128.188},
+          {-6,128.188},{-6,-196},{-622,-196},{-622,-163},{-594,-163}},
         color={255,0,255}));
   connect(towCon.uConWatPumSpe, uConWatPumSpe) annotation(Line(points={{-356.8,-555.25},
           {-580.4,-555.25},{-580.4,-310},{-820,-310}},          color={0,0,127}));
