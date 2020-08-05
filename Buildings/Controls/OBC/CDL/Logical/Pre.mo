@@ -26,6 +26,10 @@ equation
           extent={{-90,40},{90,-40}},
           lineColor={0,0,0},
           textString="pre"),
+        Text(
+          extent={{-150,150},{150,110}},
+          lineColor={0,0,255},
+          textString="%name"),
         Ellipse(
           extent={{71,7},{85,-7}},
           lineColor=DynamicSelect({235,235,235}, if y then {0,255,0}

@@ -36,7 +36,11 @@ annotation (
         Text(
           extent={{-6,-24},{66,-72}},
           lineColor={192,192,192},
-          textString="log10")}),
+          textString="log10"),
+        Text(
+          extent={{226,60},{106,10}},
+          lineColor={0,0,0},
+          textString=DynamicSelect("", String(y, leftjustified=false, significantDigits=3)))}),
     Documentation(info="<html>
 <p>
 Block that outputs <code>y = log10(u)</code>,
@@ -57,6 +61,10 @@ zero or negative.
 
 </html>", revisions="<html>
 <ul>
+<li>
+March 2, 2020, by Michael Wetter:<br/>
+Changed icon to display dynamically the output value.
+</li>
 <li>
 January 3, 2017, by Michael Wetter:<br/>
 First implementation, based on the implementation of the

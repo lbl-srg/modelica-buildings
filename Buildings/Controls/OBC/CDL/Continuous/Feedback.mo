@@ -26,6 +26,10 @@ where
 </html>", revisions="<html>
 <ul>
 <li>
+March 2, 2020, by Michael Wetter:<br/>
+Changed icon to display dynamically the output value.
+</li>
+<li>
 January 3, 2017, by Michael Wetter:<br/>
 First implementation, based on the implementation of the
 Modelica Standard Library.
@@ -41,7 +45,7 @@ Modelica Standard Library.
           fillPattern=FillPattern.Solid,
           extent={{-20,-20},{20,20}}),
         Line(points={{-100,0},{-20,0}},color={0,0,127}),
-        Line(points={{20,0},{80,0}}, color={0,0,127}),
+        Line(points={{20,0},{100,0}},color={0,0,127}),
         Line(points={{0,-20},{0,-100}},color={0,0,127}),
         Text(extent={{-14,-112},{74,-38}},
                                         textString="-"),
@@ -51,5 +55,9 @@ Modelica Standard Library.
           textString="%name"),
         Text(extent={{-100,-4},{-40,56}},
           textString="+",
-          lineColor={0,0,0})}));
+          lineColor={0,0,0}),
+        Text(
+          extent={{226,60},{106,10}},
+          lineColor={0,0,0},
+          textString=DynamicSelect("", String(y, leftjustified=false, significantDigits=3)))}));
 end Feedback;

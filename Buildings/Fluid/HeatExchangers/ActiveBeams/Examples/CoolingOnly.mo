@@ -34,11 +34,10 @@ model CoolingOnly
     "Outdoor air temperature"
     annotation (Placement(transformation(extent={{-110,-110},{-90,-90}})));
   Buildings.Controls.Continuous.LimPID conPID(
-    reverseAction=true,
+    reverseActing=false,
     Td=0,
     k=0.5,
     Ti=70,
-    controllerType=Modelica.Blocks.Types.SimpleController.PI,
     yMax=0.094) "Controller"
          annotation (Placement(transformation(extent={{-70,-20},{-50,0}})));
   Sources.MassFlowSource_T pum(
@@ -112,14 +111,14 @@ equation
 <p>
 This example tests the implementation of <a href=\"modelica://Buildings.Fluid.HeatExchangers.ActiveBeams.Cooling\">
 Buildings.Fluid.HeatExchangers.ActiveBeams.Cooling</a>.
-An air volume is maintained at a temperature below <i>25&circ;</i>C by a controller
+An air volume is maintained at a temperature below <i>25&deg;</i>C by a controller
 that regulates the water flow rate in the active beam.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
 May 15, 2019, by Jianjun Hu:<br/>
-Replaced fluid source. This is for 
+Replaced fluid source. This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1072\"> #1072</a>.
 </li>
 <li>

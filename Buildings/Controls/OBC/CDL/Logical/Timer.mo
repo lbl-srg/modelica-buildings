@@ -2,32 +2,50 @@ within Buildings.Controls.OBC.CDL.Logical;
 block Timer
   "Timer measuring the time from the time instant where the Boolean input became true"
 
-  parameter Boolean reset = true
-    "Set to true for reseting timer to zero when input becomes false";
+  parameter Boolean accumulate = false
+    "If true, accumulate time until Boolean input 'reset' becomes true, otherwise reset timer whenever u becomes true";
 
-  Interfaces.BooleanInput u "Connector of Boolean input signal"
+  Interfaces.BooleanInput u "Connector for signal that switches timer on if true, and off if false"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Interfaces.RealOutput y "Connector of Real output signal"
+  Interfaces.BooleanInput reset if accumulate
+    "Connector for signal that sets timer to zero if it switches to true"
+    annotation (Placement(transformation(extent={{-140,-90},{-100,-50}}),
+      iconTransformation(extent={{-140,-100},{-100,-60}})));
+  Interfaces.RealOutput y(
+    final quantity="Time",
+    final unit="s") "Timer output"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected
-  discrete Modelica.SIunits.Time entryTime
-    "Time instant when u became true";
-  discrete Real yAcc "Accumulated time up to last change to true";
+  discrete Modelica.SIunits.Time entryTime "Time instant when u became true";
+  discrete Modelica.SIunits.Time yAcc "Accumulated time up to last change to true";
+  Interfaces.BooleanInput reset_internal(
+    final start=false,
+    final fixed=true) "Internal connector";
 
 initial equation
   pre(entryTime) = 0;
   yAcc = 0;
+
 equation
-  when u then
+  connect(reset, reset_internal);
+  if not accumulate then
+    reset_internal = false;
+  end if;
+
+  when u and (not edge(reset_internal)) then
+    entryTime = time;
+  elsewhen reset_internal then
     entryTime = time;
   end when;
 
-  when (not u) then
+  when reset_internal then
+    yAcc = 0;
+  elsewhen (not u) then
     yAcc = pre(y);
   end when;
 
-  if reset then
+  if not accumulate then
     y = if u then time - entryTime else 0.0;
   else
     y = if u then yAcc + (time - entryTime) else yAcc;
@@ -38,25 +56,25 @@ annotation (
     Icon(
       coordinateSystem(preserveAspectRatio=true,
         extent={{-100.0,-100.0},{100.0,100.0}}),
-        graphics={                       Rectangle(
+        graphics={Rectangle(
           extent={{-100,100},{100,-100}},
           fillColor={210,210,210},
           lineThickness=5.0,
           fillPattern=FillPattern.Solid,
           borderPattern=BorderPattern.Raised),
-      Line(points={{-66,-70},{82,-70}},
+      Line(points={{-66,-60},{82,-60}},
         color={192,192,192}),
       Line(points={{-58,68},{-58,-80}},
         color={192,192,192}),
       Polygon(lineColor={192,192,192},
         fillColor={192,192,192},
         fillPattern=FillPattern.Solid,
-        points={{90.0,-70.0},{68.0,-62.0},{68.0,-78.0},{90.0,-70.0}}),
+        points={{90,-60},{68,-52},{68,-68},{90,-60}}),
       Polygon(lineColor={192,192,192},
         fillColor={192,192,192},
         fillPattern=FillPattern.Solid,
         points={{-58,90},{-66,68},{-50,68},{-58,90}}),
-      Line(points={{-56,-70},{-38,-70},{-38,-26},{40,-26},{40,-70},{68,-70}},
+      Line(points={{-56,-60},{-38,-60},{-38,-16},{40,-16},{40,-60},{68,-60}},
         color={255,0,255}),
       Line(points={{-58,0},{-40,0},{40,90},{40,0},{68,0}},
         color={0,0,127}),
@@ -70,32 +88,39 @@ annotation (
               235,235}),
           fillColor=DynamicSelect({235,235,235}, if u then {0,255,0} else {235,
               235,235}),
-          fillPattern=FillPattern.Solid)}),
+          fillPattern=FillPattern.Solid),
+        Text(
+          extent={{-88,-58},{88,-98}},
+          lineColor={217,67,180},
+          textString="accumulate: %accumulate")}),
     Documentation(info="<html>
 <p>
-Block that represents a timer.
+Timer with option to accumulate time until it is reset by an input signal.
 </p>
 <p>
-When the Boolean input <code>u</code> becomes true, the timer is 
-started and the output <code>y</code> is the time from the time instant where
-<code>u</code> became true. 
+Each time the Boolean input <code>u</code> becomes true, the timer runs, otherwise
+it is dormant.
+If the parameter <code>accumulate</code> is <code>false</code>, the timer is set to zero each time the
+input <code>u</code> becomes <code>false</code>.
+If <code>accumulate = true</code>, an input <code>reset</code> is enabled, the timer accumulates time,
+and the timer is set to zero only when the value of the input <code>reset</code> becomes <code>true</code>.
 </p>
-<ul>
-<li>
-If parameter <code>reset</code> is true, once the input becomes false, 
-the timer is stopped and the output is reset to zero. 
-</li>
-<li>
-If parameter <code>reset</code> is false, once the input becomes false,
-the timer will not fully stopped but hold the accumulated true input time.
-</li>
-</ul>
 </html>", revisions="<html>
 <ul>
 <li>
+November 8, 2019, by Michael Wetter:<br/>
+Revised implementation. This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1221\">issue 1221</a>.
+</li>
+<li>
+July 23, 2018, by Jianjun Hu:<br/>
+Added conditional boolean input for cumulative time measuring. This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1221\">issue 1221</a>.
+</li>
+<li>
 July 18, 2018, by Jianjun Hu:<br/>
-Update implementation to output accumulated true input time.  This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1212\">issue 1212</a>
+Updated implementation to output accumulated true input time.  This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1212\">issue 1212</a>.
 </li>
 <li>
 January 3, 2017, by Michael Wetter:<br/>

@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "conBoiRet.TSet",
+    "conBoiRet.TRet",
+    "conBoiRet.yVal"
+  };

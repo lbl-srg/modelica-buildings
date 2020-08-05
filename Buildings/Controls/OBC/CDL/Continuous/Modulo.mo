@@ -44,7 +44,11 @@ equation
         Line(points={{50,2},{102,2},{100,2}}, color={0,0,127}),
         Ellipse(fillPattern=FillPattern.Solid, extent={{11,-18},{21,-8}}),
         Line(points={{-24,-20},{26,24}}),
-        Ellipse(fillPattern=FillPattern.Solid, extent={{-21,12},{-11,22}})}),
+        Ellipse(fillPattern=FillPattern.Solid, extent={{-21,12},{-11,22}}),
+        Text(
+          extent={{226,60},{106,10}},
+          lineColor={0,0,0},
+          textString=DynamicSelect("", String(y, leftjustified=false, significantDigits=3)))}),
     Documentation(info="<html>
 <p>
 Block that outputs <code>y = mod(u1/u2)</code>,
@@ -53,6 +57,10 @@ where
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 2, 2020, by Michael Wetter:<br/>
+Changed icon to display dynamically the output value.
+</li>
 <li>
 March 15, 2017, by Jianjun Hu:<br/>
 First implementation, based on the implementation of the

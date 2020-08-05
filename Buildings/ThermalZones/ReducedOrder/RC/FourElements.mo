@@ -10,7 +10,7 @@ model FourElements "Thermal Zone with four elements for exterior walls,
     annotation(Dialog(group="Roof"));
   parameter Integer nRoof(min = 1) "Number of RC-elements of roof"
     annotation(Dialog(group="Roof"));
-  parameter Modelica.SIunits.ThermalResistance RRoof[nExt](
+  parameter Modelica.SIunits.ThermalResistance RRoof[nRoof](
     each min=Modelica.Constants.small)
     "Vector of resistances of roof, from inside to outside"
     annotation(Dialog(group="Roof"));
@@ -18,7 +18,7 @@ model FourElements "Thermal Zone with four elements for exterior walls,
     min=Modelica.Constants.small)
     "Resistance of remaining resistor RRoofRem between capacity n and outside"
     annotation(Dialog(group="Roof"));
-  parameter Modelica.SIunits.HeatCapacity CRoof[nExt](
+  parameter Modelica.SIunits.HeatCapacity CRoof[nRoof](
     each min=Modelica.Constants.small)
     "Vector of heat capacities of roof, from inside to outside"
     annotation(Dialog(group="Roof"));
@@ -197,6 +197,11 @@ equation
   textString="4")}),
   Documentation(revisions="<html>
   <ul>
+  <li>
+  December 9, 2019, by Moritz Lauster:<br/>
+  Changes <code>nExt</code> to <code>nRoof</code> for
+  <code>RRoof</code> and <code>CRoof</code>
+  </li>
   <li>
   July 11, 2019, by Katharina Brinkmann:<br/>
   Renamed <code>alphaRoof</code> to <code>hConRoof</code>,

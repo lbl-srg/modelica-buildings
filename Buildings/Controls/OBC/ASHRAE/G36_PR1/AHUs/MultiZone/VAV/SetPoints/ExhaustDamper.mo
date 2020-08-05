@@ -2,8 +2,9 @@ within Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints;
 block ExhaustDamper
   "Control of actuated exhaust air dampers without fans"
 
-  parameter Modelica.SIunits.PressureDifference dpBuiSet(
-    displayUnit="Pa",
+  parameter Real dpBuiSet(
+    final unit="Pa",
+    final quantity="PressureDifference",
     max=30) = 12
     "Building static pressure difference relative to ambient (positive to pressurize the building)";
   parameter Real k(min=0, unit="1") = 0.5
@@ -39,9 +40,7 @@ block ExhaustDamper
     annotation (Placement(transformation(extent={{-30,50},{-10,70}})));
   Buildings.Controls.OBC.CDL.Continuous.LimPID conP(
     final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
-    final k=k,
-    yMax=1,
-    yMin=0) "Building static pressure controller"
+    final k=k) "Building static pressure controller"
     annotation (Placement(transformation(extent={{40,50},{60,70}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi
     "Check if exhaust damper should be activated"

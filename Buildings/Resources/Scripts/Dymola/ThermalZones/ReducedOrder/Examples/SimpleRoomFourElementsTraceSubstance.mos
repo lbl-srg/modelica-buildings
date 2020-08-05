@@ -1,0 +1,23 @@
+simulateModel("Buildings.ThermalZones.ReducedOrder.Examples.SimpleRoomFourElementsTraceSubstance", tolerance=1e-6, stopTime=604800, method="CVode", resultFile="SimpleRoomFourElementsTraceSubstance");
+createPlot(id = 1,
+ position = {55, 50, 697, 502},
+ x = "time",
+ y = {"thermalZoneFourElements.TAir"},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ grid = true,
+ color = true,
+ leftTitleType = 1,
+ bottomTitleType = 1);
+ createPlot(id = 2,
+ position = {55, 50, 697, 502},
+ x = "time",
+ y = {"thermalZoneFourElements.volAir.C[1]"},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ grid = true,
+ color = true,
+ leftTitleType = 1,
+ bottomTitleType = 1);

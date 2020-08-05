@@ -4,6 +4,9 @@ partial model Carnot
     m1_flow_nominal = QCon_flow_nominal/cp1_default/dTCon_nominal,
     m2_flow_nominal = QEva_flow_nominal/cp2_default/dTEva_nominal);
 
+  constant Boolean homotopyInitialization = true "= true, use homotopy method"
+    annotation(HideResult=true);
+
   parameter Modelica.SIunits.HeatFlowRate QEva_flow_nominal(max=0)
     "Nominal cooling heat flow rate (QEva_flow_nominal < 0)"
     annotation (Dialog(group="Nominal condition"));
@@ -57,9 +60,6 @@ partial model Carnot
   parameter Modelica.SIunits.TemperatureDifference TAppEva_nominal(min=0) = if cp2_default < 1500 then 5 else 2
     "Temperature difference between refrigerant and working fluid outlet in evaporator"
     annotation (Dialog(group="Efficiency"));
-
-  parameter Boolean homotopyInitialization=true "= true, use homotopy method"
-    annotation (Dialog(tab="Advanced"));
 
   parameter Boolean from_dp1=false
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
@@ -229,6 +229,9 @@ initial equation
          a=a, x=1)-1) < 0.01, "Efficiency curve is wrong. Need etaPL(y=1)=1.");
   assert(etaCarnot_nominal_internal < 1,   "Parameters lead to etaCarnot_nominal > 1. Check parameters.");
 
+  assert(homotopyInitialization, "In " + getInstanceName() +
+    ": The constant homotopyInitialization has been modified from its default value. This constant will be removed in future releases.",
+    level = AssertionLevel.warning);
 
 equation
   connect(port_a2, eva.port_a)
@@ -381,6 +384,12 @@ and the part load ratio are set up.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 14, 2020, by Michael Wetter:<br/>
+Changed <code>homotopyInitialization</code> to a constant.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1341\">Buildings, #1341</a>.
+</li>
 <li>
 September 12, 2019, by Michael Wetter:<br/>
 Corrected value of <code>evaluate_etaPL</code> and how it is used.

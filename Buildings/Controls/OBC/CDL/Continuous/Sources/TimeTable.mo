@@ -19,6 +19,9 @@ protected
   final parameter Integer nout=size(table, 2)-1
     "Dimension of output vector";
 
+  parameter Modelica.SIunits.Time t0(fixed=false)
+    "First sample time instant";
+
   // CDL uses different enumerations for smoothness and for extrapolation
   // than the Modelica Standard Library. Hence, we cast the CDL
   // enumeration to the MSL enumaration.
@@ -37,14 +40,18 @@ protected
                         else
                           Modelica.Blocks.Types.Extrapolation.Periodic,
     final offset=offset,
-    final startTime=0,
+    final startTime=if (extrapolation == Types.Extrapolation.Periodic) then integer(t0/86400)*86400 else 0,
     final timeScale=timeScale) "Time table"
     annotation (Placement(transformation(extent={{-12,-10},{8,10}})));
+
+initial equation
+  t0=time;
 
 equation
   connect(tab.y, y) annotation (Line(points={{9,0},{120,0}}, color={0,0,127}));
 
 annotation (
+defaultComponentName = "timTab",
 Documentation(info="<html>
 <p>
 Block that outputs values of a time table.
@@ -103,6 +110,12 @@ values are extrapolated. The following settings are allowed:
       <code>(max(table[:, 1]-min(table[:, 1]))*timeScale)</code>.</td>
 </tr>
 </table>
+
+<p>
+If <code>extrapolation === CDL.Types.Periodic</code>, then the above example
+would give a schedule with periodicity of one day. The simulation can start at any time,
+whether it is a multiple of a day or not, and positive or negative.
+</p>
 
 <p>
 The value of the parameter <code>offset</code> is added to the tabulated
@@ -211,6 +224,17 @@ of <i>0.5</i> seconds outputs
 revisions="<html>
 <ul>
 <li>
+March 13, 2020, by Michael Wetter:<br/>
+Corrected implementation so that the table also works if the simulation
+starts at a negative time.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1834\">issue 1834</a>.
+</li>
+<li>
+March 2, 2020, by Michael Wetter:<br/>
+Changed icon to display dynamically the output value.
+</li>
+<li>
 March 14, 2017, by Michael Wetter:<br/>
 Refactored and simplified implementation.
 </li>
@@ -247,5 +271,11 @@ Initial CDL implementation.
       fillColor={255,215,136},
       fillPattern=FillPattern.Solid,
       extent={{-48.0,-50.0},{2.0,70.0}}),
-    Line(points={{-48.0,-50.0},{-48.0,70.0},{52.0,70.0},{52.0,-50.0},{-48.0,-50.0},{-48.0,-20.0},{52.0,-20.0},{52.0,10.0},{-48.0,10.0},{-48.0,40.0},{52.0,40.0},{52.0,70.0},{2.0,70.0},{2.0,-51.0}})}));
+    Line(points={{-48.0,-50.0},{-48.0,70.0},{52.0,70.0},{52.0,-50.0},
+        {-48.0,-50.0},{-48.0,-20.0},{52.0,-20.0},{52.0,10.0},{-48.0,10.0},
+        {-48.0,40.0},{52.0,40.0},{52.0,70.0},{2.0,70.0},{2.0,-51.0}}),
+        Text(
+          extent={{226,60},{106,10}},
+          lineColor={0,0,0},
+          textString=DynamicSelect("", if (nout==1) then String(y[1], leftjustified=false, significantDigits=3) else ""))}));
 end TimeTable;

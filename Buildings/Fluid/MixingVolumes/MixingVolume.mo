@@ -245,14 +245,9 @@ Buildings.Fluid.MixingVolumes.BaseClasses.ClosedVolume</a>.
 </ul>
 </html>"),
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}), graphics={Ellipse(
-          extent={{-100,98},{100,-102}},
-          lineColor={0,0,0},
-          fillPattern=FillPattern.Sphere,
-          fillColor={170,213,255}), Text(
-          extent={{-58,14},{58,-18}},
-          lineColor={0,0,0},
-          textString="V=%V"),         Text(
+            100}}),
+      graphics={
+      Text(
           extent={{-152,100},{148,140}},
           textString="%name",
           lineColor={0,0,255})}));

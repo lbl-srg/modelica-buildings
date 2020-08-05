@@ -5,6 +5,9 @@ model GlassLayer "Model for a glass layer of a window assembly"
     final rhoIR_a=1-absIR_a-tauIR,
     final rhoIR_b=1-absIR_b-tauIR);
 
+  constant Boolean homotopyInitialization = true "= true, use homotopy method"
+    annotation(HideResult=true);
+
   parameter Modelica.SIunits.Length x "Material thickness";
 
   parameter Modelica.SIunits.ThermalConductivity k "Thermal conductivity";
@@ -29,8 +32,7 @@ model GlassLayer "Model for a glass layer of a window assembly"
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={0,-110})));
-  parameter Boolean homotopyInitialization = true "= true, use homotopy method"
-    annotation(Evaluate=true, Dialog(tab="Advanced"));
+
 protected
  Real T4_a(min=1E8, unit="K4", start=293.15^4, nominal=1E10)
     "4th power of temperature at surface a";
@@ -42,6 +44,12 @@ protected
     "Emissive power of surface b";
  final parameter Modelica.SIunits.ThermalResistance R = x/2/k/A
     "Thermal resistance from surface of glass to center of glass";
+
+initial equation
+  assert(homotopyInitialization, "In " + getInstanceName() +
+    ": The constant homotopyInitialization has been modified from its default value. This constant will be removed in future releases.",
+    level = AssertionLevel.warning);
+
 equation
   // Heat balance of surface node
   // These equations are from Window 6 Technical report, (2.1-14) to (2.1-17)
@@ -102,6 +110,12 @@ The heat flow <code>QAbs_flow</code> is added at the center of the glass.
 <br/>
 </html>", revisions="<html>
 <ul>
+<li>
+April 14, 2020, by Michael Wetter:<br/>
+Changed <code>homotopyInitialization</code> to a constant.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1341\">IBPSA, #1341</a>.
+</li>
 <li>
 October 24, 2016, by Michael Wetter:<br/>
 Removed declarations of <code>A</code>,

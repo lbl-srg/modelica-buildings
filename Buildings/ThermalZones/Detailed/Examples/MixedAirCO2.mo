@@ -36,8 +36,7 @@ model MixedAirCO2
     Ti=120,
     yMax=10,
     yMin=0,
-    reverseAction=true,
-    controllerType=Modelica.Blocks.Types.SimpleController.PI)
+    reverseActing=false)
     "PI controller for fresh air supply, with negative minimum because of reverse action"
     annotation (Placement(transformation(extent={{-80,-130},{-60,-110}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addFlo(
@@ -66,8 +65,8 @@ equation
           {-70,-150},{-70,-132}}, color={0,0,127}));
   connect(conPI.y,addFlo. u)
     annotation (Line(points={{-59,-120},{-52,-120}}, color={0,0,127}));
-  connect(addFlo.y, bou.m_flow_in) annotation (Line(points={{-29,-120},{-16,-120},
-          {-16,-112},{-10,-112}},
+  connect(addFlo.y, bou.m_flow_in) annotation (Line(points={{-28,-120},{-16,-120},
+          {-16,-112},{-12,-112}},
                                color={0,0,127}));
   annotation (
   Documentation(info="<html>
@@ -121,13 +120,11 @@ experiment(StopTime=86400, Tolerance=1e-06),
         Text(
           extent={{-164,-86},{-92,-108}},
           lineColor={0,0,0},
-          fontSize=12,
           horizontalAlignment=TextAlignment.Left,
           textString="Feedback control for fresh air"),
         Text(
-          extent={{84,-22},{156,-44}},
+          extent={{84,-22},{140,-42}},
           lineColor={0,0,0},
-          fontSize=12,
           horizontalAlignment=TextAlignment.Left,
           textString="CO2 sensor for room air")}));
 end MixedAirCO2;

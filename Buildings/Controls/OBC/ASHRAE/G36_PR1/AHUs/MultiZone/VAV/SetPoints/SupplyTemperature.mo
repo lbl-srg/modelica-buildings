@@ -2,59 +2,105 @@ within Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints;
 block SupplyTemperature
   "Supply air temperature setpoint for multi zone system"
 
-  parameter Modelica.SIunits.Temperature TSupSetMin = 285.15
+  parameter Real TSupSetMin(
+    final unit="K",
+    final displayUnit="degC",
+    final quantity="ThermodynamicTemperature") = 285.15
     "Lowest cooling supply air temperature setpoint"
     annotation (Dialog(group="Temperatures"));
-  parameter Modelica.SIunits.Temperature TSupSetMax = 291.15
+  parameter Real TSupSetMax(
+    final unit="K",
+    final displayUnit="degC",
+    final quantity="ThermodynamicTemperature") = 291.15
     "Highest cooling supply air temperature setpoint. It is typically 18 degC (65 degF) 
     in mild and dry climates, 16 degC (60 degF) or lower in humid climates"
     annotation (Dialog(group="Temperatures"));
-  parameter Modelica.SIunits.Temperature TSupSetDes = 286.15
+  parameter Real TSupSetDes(
+    final unit="K",
+    final displayUnit="degC",
+    final quantity="ThermodynamicTemperature") = 286.15
     "Nominal supply air temperature setpoint"
     annotation (Dialog(group="Temperatures"));
-  parameter Modelica.SIunits.Temperature TOutMin = 289.15
+  parameter Real TOutMin(
+    final unit="K",
+    final displayUnit="degC",
+    final quantity="ThermodynamicTemperature") = 289.15
     "Lower value of the outdoor air temperature reset range. Typically value is 16 degC (60 degF)"
     annotation (Dialog(group="Temperatures"));
-  parameter Modelica.SIunits.Temperature TOutMax = 294.15
+  parameter Real TOutMax(
+    final unit="K",
+    final displayUnit="degC",
+    final quantity="ThermodynamicTemperature") = 294.15
     "Higher value of the outdoor air temperature reset range. Typically value is 21 degC (70 degF)"
     annotation (Dialog(group="Temperatures"));
-  parameter Modelica.SIunits.Temperature iniSet = maxSet
+  parameter Real TSupWarUpSetBac(
+    final unit="K",
+    final displayUnit="degC",
+    final quantity="ThermodynamicTemperature")=308.15
+    "Supply temperature in warm up and set back mode"
+    annotation (Dialog(group="Temperatures"));
+  parameter Real iniSet(
+    final unit="K",
+    final displayUnit="degC",
+    final quantity="ThermodynamicTemperature") = maxSet
     "Initial setpoint"
     annotation (Dialog(group="Trim and respond logic"));
-  parameter Modelica.SIunits.Temperature maxSet = TSupSetMax
+  parameter Real maxSet(
+    final unit="K",
+    final displayUnit="degC",
+    final quantity="ThermodynamicTemperature") = TSupSetMax
     "Maximum setpoint"
     annotation (Dialog(group="Trim and respond logic"));
-  parameter Modelica.SIunits.Temperature minSet = TSupSetDes
+  parameter Real minSet(
+    final unit="K",
+    final displayUnit="degC",
+    final quantity="ThermodynamicTemperature") = TSupSetDes
     "Minimum setpoint"
     annotation (Dialog(group="Trim and respond logic"));
-  parameter Modelica.SIunits.Time delTim = 600
+  parameter Real delTim(
+    final unit="s",
+    final quantity="Time") = 600
     "Delay timer"
     annotation(Dialog(group="Trim and respond logic"));
-  parameter Modelica.SIunits.Time samplePeriod(min=1E-3) = 120
+  parameter Real samplePeriod(
+    final unit="s",
+    final quantity="Time",
+    final min=1E-3) = 120
     "Sample period of component"
     annotation(Dialog(group="Trim and respond logic"));
   parameter Integer numIgnReq = 2
     "Number of ignorable requests for TrimResponse logic"
     annotation(Dialog(group="Trim and respond logic"));
-  parameter Modelica.SIunits.TemperatureDifference triAmo = 0.1
+  parameter Real triAmo(
+    final unit="K",
+    final displayUnit="K",
+    final quantity="TemperatureDifference") = 0.1
     "Trim amount"
     annotation (Dialog(group="Trim and respond logic"));
-  parameter Modelica.SIunits.TemperatureDifference resAmo = -0.2
+  parameter Real resAmo(
+    final unit="K",
+    final displayUnit="K",
+    final quantity="TemperatureDifference") = -0.2
     "Response amount"
     annotation (Dialog(group="Trim and respond logic"));
-  parameter Modelica.SIunits.TemperatureDifference maxRes = -0.6
+  parameter Real maxRes(
+    final unit="K",
+    final displayUnit="K",
+    final quantity="TemperatureDifference") = -0.6
     "Maximum response per time interval"
     annotation (Dialog(group="Trim and respond logic"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TOut(
     final unit="K",
-    quantity="ThermodynamicTemperature")
+    final displayUnit="degC",
+    final quantity="ThermodynamicTemperature")
     "Outdoor air temperature"
     annotation (Placement(transformation(extent={{-180,40},{-140,80}}),
         iconTransformation(extent={{-140,20},{-100,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZonSetAve(
     final unit="K",
-    quantity="ThermodynamicTemperature")
+    final displayUnit="degC",
+    final quantity="ThermodynamicTemperature")
     "Average of heating and cooling setpoint"
     annotation (Placement(transformation(extent={{-180,70},{-140,110}}),
         iconTransformation(extent={{-140,60},{-100,100}})));
@@ -72,7 +118,8 @@ block SupplyTemperature
         iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TSupSet(
     final unit="K",
-    quantity="ThermodynamicTemperature")
+    final displayUnit="degC",
+    final quantity="ThermodynamicTemperature")
     "Setpoint for supply air temperature"
     annotation (Placement(transformation(extent={{140,-20},{180,20}}),
         iconTransformation(extent={{100,-20},{140,20}})));
@@ -109,7 +156,8 @@ protected
   Buildings.Controls.OBC.CDL.Logical.And and1
     "Check if it is in Warmup or Setback mode"
     annotation (Placement(transformation(extent={{20,-100},{40,-80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSupWarUpSetBac(k=35 + 273.15)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant supTemWarUpSetBac(k=
+        TSupWarUpSetBac)
     "Supply temperature setpoint under warm-up and setback mode"
     annotation (Placement(transformation(extent={{20,-130},{40,-110}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi1
@@ -119,8 +167,8 @@ protected
     "If operation mode is setup or cool-down, setpoint shall be TSupSetMin"
     annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
   Buildings.Controls.OBC.CDL.Continuous.Limiter TDea(
-    uMax=24 + 273.15,
-    uMin=21 + 273.15)
+    uMax=297.15,
+    uMin=294.15)
     "Limiter that outputs the dead band value for the supply air temperature"
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi3
@@ -159,7 +207,7 @@ equation
   connect(and1.y, swi1.u2)
     annotation (Line(points={{42,-90},{60,-90},{60,-50},{78,-50}},
       color={255,0,255}));
-  connect(TSupWarUpSetBac.y, swi1.u1)
+  connect(supTemWarUpSetBac.y, swi1.u1)
     annotation (Line(points={{42,-120},{68,-120},{68,-42},{78,-42}},
       color={0,0,127}));
   connect(and2.y, swi2.u2)
@@ -215,7 +263,7 @@ equation
     annotation (Line(points={{-160,-30},{-120,-30},{-120,38},{-102,38}},
       color={255,0,255}));
   connect(maxSupTemRes.y, lin.f1)
-    annotation (Line(points={{-79,30},{-60,30},{-60,54},{18,54}},
+    annotation (Line(points={{-78,30},{-60,30},{-60,54},{18,54}},
       color={0,0,127}));
   connect(swi3.y, TSupSet)
     annotation (Line(points={{102,0},{160,0}},   color={0,0,127}));
@@ -335,7 +383,7 @@ Supply air temperature setpoint <code>TSupSet</code> shall be <code>TSupSetMin</
 </p>
 <h4>During Setback and Warmup modes (<code>uOpeMod=4</code>, <code>uOpeMod=5</code>)</h4>
 <p>
-Supply air temperature setpoint <code>TSupSet</code> shall be <code>35&deg;C</code>.
+Supply air temperature setpoint <code>TSupSet</code> shall be <code>TSupWarUpSetBac</code>.
 </p>
 
 <h4>Valves control</h4>
@@ -347,6 +395,11 @@ coil (if applicable) or chilled water valves.
 </html>",
 revisions="<html>
 <ul>
+<li>
+March 12, 2020, by Jianjun Hu:<br/>
+Propagated supply temperature setpoint of warmup and setback mode.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1829\">#1829</a>.
+</li>
 <li>
 July 11, 2017, by Jianjun Hu:<br/>
 First implementation.

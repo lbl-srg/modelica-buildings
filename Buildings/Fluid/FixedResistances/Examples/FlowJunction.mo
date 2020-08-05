@@ -111,7 +111,7 @@ Removed import statement.
 October 14, 2017 by Michael Wetter:<br/>
 Updated documentation and added to Annex 60 library.<br/>
 This is for
-<a href=\"modelica://https://github.com/ibpsa/modelica-ibpsa/issues/451\">issue 451</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/451\">issue 451</a>.
 </li>
 <li>
 July 20, 2007 by Michael Wetter:<br/>

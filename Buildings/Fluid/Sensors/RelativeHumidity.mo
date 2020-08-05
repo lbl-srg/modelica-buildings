@@ -35,7 +35,11 @@ annotation (defaultComponentName="senRelHum",
           extent={{160,-30},{60,-60}},
           lineColor={0,0,0},
           textString="phi"),
-        Line(points={{70,0},{100,0}}, color={0,0,127})}),
+        Line(points={{70,0},{100,0}}, color={0,0,127}),
+        Text(
+          extent={{180,90},{60,40}},
+          lineColor={0,0,0},
+          textString=DynamicSelect("", String(phi, leftjustified=false, significantDigits=2)))}),
   Documentation(info="<html>
 <p>
 This model outputs the relative humidity of the fluid connected to its port.
@@ -53,6 +57,12 @@ prior to using this model with one fluid port.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 21, 2020, by Michael Wetter:<br/>
+Changed icon to display its operating state.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1294\">#1294</a>.
+</li>
 <li>
 January 26, 2016 by Michael Wetter:<br/>
 Added <code>quantity</code> attribute for mass fraction variables.<br/>

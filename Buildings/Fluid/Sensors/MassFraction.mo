@@ -30,7 +30,11 @@ annotation (defaultComponentName="senMasFra",
           extent={{160,-30},{60,-60}},
           lineColor={0,0,0},
           textString="X"),
-        Line(points={{70,0},{100,0}}, color={0,0,127})}),
+        Line(points={{70,0},{100,0}}, color={0,0,127}),
+        Text(
+          extent={{180,90},{60,40}},
+          lineColor={0,0,0},
+          textString=DynamicSelect("", String(X, leftjustified=false, significantDigits=3)))}),
   Documentation(info="<html>
 <p>
 This model outputs the mass fraction of the fluid connected to its port.
@@ -44,6 +48,12 @@ prior to using this model with one fluid port.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 25, 2020, by Michael Wetter:<br/>
+Changed icon to display its operating state.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1294\">#1294</a>.
+</li>
 <li>
 January 26, 2016, by Michael Wetter:<br/>
 Corrected wrong assignment

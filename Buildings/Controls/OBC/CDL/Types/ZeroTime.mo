@@ -1,6 +1,7 @@
 within Buildings.Controls.OBC.CDL.Types;
 type ZeroTime = enumeration(
     UnixTimeStamp "Thu, 01 Jan 1970 00:00:00 local time",
+    UnixTimeStampGMT "Thu, 01 Jan 1970 00:00:00 GMT",
     Custom "User specified local time",
     NY2010 "New year 2010, 00:00:00 local time",
     NY2011 "New year 2011, 00:00:00 local time",
@@ -13,7 +14,7 @@ type ZeroTime = enumeration(
     NY2018 "New year 2018, 00:00:00 local time",
     NY2019 "New year 2019, 00:00:00 local time",
     NY2020 "New year 2020, 00:00:00 local time")
-  "Enumerationset the date corresponding to time = 0"
+  "Enumeration to set the date corresponding to time = 0"
   annotation (Documentation(info="<html>
 <p>
 Type for choosing how to set the reference time in

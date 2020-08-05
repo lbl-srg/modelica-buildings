@@ -23,6 +23,9 @@ LessEqual
 LessEqualThreshold
 LessThreshold
 LimPID
+LimPIDInitialDerivativeOutput
+LimPIDInitialState
+LimPIDWithReset
 Limiter
 Line
 Log

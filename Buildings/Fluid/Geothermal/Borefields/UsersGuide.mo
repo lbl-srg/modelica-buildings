@@ -32,8 +32,7 @@ resistance matches the specified value.
 <li>
 User-defined vertical discretization of boreholes are supported.
 However, the borehole wall temperature
-is identical for each borehole and along the
-depth, as the ground temperature response model only computes the average borehole wall temperature
+is identical for each borehole, as the ground temperature response model only computes the average borehole wall temperature
 for all boreholes combined.
 </li>
 <li>
@@ -163,9 +162,6 @@ The conductivity, capacitance and density of the grout and pipe material are con
 There is no heat extraction or injection prior to the simulation start.
 </li>
 <li>
-The undisturbed ground temperature is the same all along the length of the boreholes.
-</li>
-<li>
 All of the boreholes in the borefield have uniform dimensions (including the pipe dimensions).
 </li>
 <li>
@@ -174,8 +170,9 @@ Inside the boreholes, the non-advective heat transfer is only in the radial dire
 </ul>
 <p>
 The borefield models are constructed in two main parts: the borehole(s) and the ground heat transfer.
-The former is modeled as a vertical discretization of borehole segments, all of them sharing a common
-uniform borehole wall temperature. The thermal effects of the circulating fluid (including the convection resistance),
+The former is modeled as a vertical discretization of borehole segments, where a uniform temperature increase or decrease
+(due to heat injection or extraction) is superimposed to the far-field ground temperature to obtain the borehole wall
+temperature. The thermal effects of the circulating fluid (including the convection resistance),
 of the pipes and of the filling material are all taken into consideration, which allows modeling
 short-term thermal effects in the borehole. The borehole segments do not take into account axial effects,
 thus only radial (horizontal) effects are considered within the borehole(s). The thermal

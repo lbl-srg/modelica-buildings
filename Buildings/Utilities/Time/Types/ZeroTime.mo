@@ -1,6 +1,7 @@
 within Buildings.Utilities.Time.Types;
 type ZeroTime = enumeration(
     UnixTimeStamp "Thu, 01 Jan 1970 00:00:00 local time",
+    UnixTimeStampGMT "Thu, 01 Jan 1970 00:00:00 GMT",
     Custom "User specified local time",
     NY2010 "New year 2010, 00:00:00 local time",
     NY2011 "New year 2011, 00:00:00 local time",
@@ -24,6 +25,14 @@ Buildings.Utilities.Time.CalendarTime</a>.
 For example, <code>Buildings.Utilities.Time.Types.TimeReference.NY2016</code>
 means that if the Modelica built-in variable <code>time=0</code>, it is
 January 1, 2016, 0:00:00 local time.
+</p>
+<p>
+When using <code>Buildings.Utilities.Time.Types.ZeroTime.UnixTimeStampGMT</code>,
+<code>time</code> is defined with respect to GMT. This is different from the use
+of <code>time</code> in the weather data reader
+<a href=\"modelica://Buildings.BoundaryConditions.WeatherData.ReaderTMY3\">
+Buildings.BoundaryConditions.WeatherData.ReaderTMY3</a>, as the weather data reader assumes
+that <code>time</code> is expressed in local time.
 </p>
 </html>", revisions="<html>
 <ul>

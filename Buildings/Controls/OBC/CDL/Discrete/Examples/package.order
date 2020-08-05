@@ -1,8 +1,8 @@
 DayType
 FirstOrderHold
-MovingMean
 Sampler
 TriggeredMax
+TriggeredMovingMean
 TriggeredSampler
 UnitDelay
 ZeroOrderHold

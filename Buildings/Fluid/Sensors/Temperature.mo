@@ -28,6 +28,12 @@ prior to using this model with one fluid port.
 revisions="<html>
 <ul>
 <li>
+February 21, 2020, by Michael Wetter:<br/>
+Changed icon to display its operating state.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1294\">#1294</a>.
+</li>
+<li>
 September 29, 2009, by Michael Wetter:<br/>
 First implementation.
 Implementation is based on <code>Modelica.Fluid</code>.
@@ -98,5 +104,9 @@ Implementation is based on <code>Modelica.Fluid</code>.
           extent={{-150,110},{150,150}},
           textString="%name",
           lineColor={0,0,255}),
-        Line(points={{12,0},{60,0}}, color={0,0,127})}));
+        Line(points={{12,0},{60,0}}, color={0,0,127}),
+        Text(
+          extent={{180,90},{60,40}},
+          lineColor={0,0,0},
+          textString=DynamicSelect("", String(T-273.15, format=".1f")))}));
 end Temperature;

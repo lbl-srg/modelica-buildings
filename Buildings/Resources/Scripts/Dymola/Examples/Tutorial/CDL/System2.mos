@@ -1,0 +1,2 @@
+simulateModel("Buildings.Examples.Tutorial.CDL.System2", startTime=1296000, stopTime=1382400, method="Cvode", tolerance=1e-06, resultFile="ControlDescriptionLanguageSystem2");
+createPlot(id=1, position={35, 35, 912, 543}, y={"senTOut.T", "boi.T", "temSup.T", "temRet.T", "temRoo.T"}, range={0.0, 2.0, -20.0, 50.0}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}, {0,0,0}}, timeUnit="h", displayUnits={"degC", "degC", "degC", "degC", "degC"});

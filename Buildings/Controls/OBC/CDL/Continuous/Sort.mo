@@ -43,6 +43,10 @@ controller to access the position of the dampers that are most open.
 revisions="<html>
 <ul>
 <li>
+March 2, 2020, by Michael Wetter:<br/>
+Changed icon to display dynamically the output value.
+</li>
+<li>
 September 22, 2017, by Michael Wetter:<br/>
 Reimplemented function to make it work with OpenModelica.
 </li>

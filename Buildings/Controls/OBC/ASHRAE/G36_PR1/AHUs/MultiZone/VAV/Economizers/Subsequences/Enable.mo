@@ -5,22 +5,32 @@ block Enable
   parameter Boolean use_enthalpy = true
     "Set to true to evaluate outdoor air enthalpy in addition to temperature"
     annotation(Dialog(group="Conditional"));
-  parameter Modelica.SIunits.TemperatureDifference delTOutHis=1
+  parameter Real delTOutHis(
+    final unit="K",
+    final displayUnit="K",
+    final quantity="TemperatureDifference")=1
     "Delta between the temperature hysteresis high and low limit"
-    annotation(Evaluate=true, Dialog(tab="Advanced", group="Hysteresis"));
-  parameter Modelica.SIunits.SpecificEnergy delEntHis=1000
+    annotation(Dialog(tab="Advanced", group="Hysteresis"));
+  parameter Real delEntHis(
+    final unit="J/kg",
+    final quantity="SpecificEnergy")=1000
     "Delta between the enthalpy hysteresis high and low limits"
-    annotation(Evaluate=true, Dialog(tab="Advanced", group="Hysteresis", enable = use_enthalpy));
-  parameter Modelica.SIunits.Time retDamFulOpeTim=180
+    annotation(Dialog(tab="Advanced", group="Hysteresis", enable = use_enthalpy));
+  parameter Real retDamFulOpeTim(
+    final unit="s",
+    final quantity="Time")=180
     "Time period to keep RA damper fully open before releasing it for minimum outdoor airflow control
     at disable to avoid pressure fluctuations"
-    annotation(Evaluate=true, Dialog(tab="Advanced", group="Delays at disable"));
-  parameter Modelica.SIunits.Time disDel=15
+    annotation(Dialog(tab="Advanced", group="Delays at disable"));
+  parameter Real disDel(
+    final unit="s",
+    final quantity="Time")=15
     "Short time delay before closing the OA damper at disable to avoid pressure fluctuations"
-    annotation(Evaluate=true, Dialog(tab="Advanced", group="Delays at disable"));
+    annotation(Dialog(tab="Advanced", group="Delays at disable"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TOut(
     final unit="K",
+    final displayUnit="degC",
     final quantity = "ThermodynamicTemperature")
     "Outdoor air temperature"
     annotation (Placement(transformation(extent={{-320,250},{-280,290}}),
@@ -33,6 +43,7 @@ block Enable
         iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TOutCut(
     final unit="K",
+    final displayUnit="degC",
     final quantity = "ThermodynamicTemperature")
     "OA temperature high limit cutoff. For differential dry bulb temeprature condition use return air temperature measurement"
     annotation (Placement(transformation(extent={{-320,210},{-280,250}}),
@@ -109,15 +120,21 @@ block Enable
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol(
     trueHoldDuration=600) "10 min on/off delay"
     annotation (Placement(transformation(extent={{0,200},{20,220}})));
-  CDL.Logical.And andEnaDis "Logical and that checks freeze protection stage and zone state"
+  Buildings.Controls.OBC.CDL.Logical.And andEnaDis
+    "Logical and that checks freeze protection stage and zone state"
     annotation (Placement(transformation(extent={{40,30},{60,50}})));
 
 protected
-  final parameter Modelica.SIunits.TemperatureDifference TOutHigLimCutHig = 0
+  final parameter Real TOutHigLimCutHig(
+    final unit="K",
+    final displayUnit="K",
+    final quantity="TemperatureDifference")= 0
     "Hysteresis high limit cutoff";
   final parameter Real TOutHigLimCutLow = TOutHigLimCutHig - delTOutHis
     "Hysteresis low limit cutoff";
-  final parameter Modelica.SIunits.SpecificEnergy hOutHigLimCutHig = 0
+  final parameter Real hOutHigLimCutHig(
+    final unit="J/kg",
+    final quantity="SpecificEnergy")= 0
     "Hysteresis block high limit cutoff";
   final parameter Real hOutHigLimCutLow = hOutHigLimCutHig - delEntHis
     "Hysteresis block low limit cutoff";

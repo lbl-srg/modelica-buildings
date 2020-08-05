@@ -2,14 +2,18 @@ within Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.SetPoints;
 block OutsideAirFlow
   "Output the minimum outdoor airflow rate setpoint for systems with a single zone"
 
-  parameter Real VOutPerAre_flow(final unit="m3/(s.m2)") = 3e-4
+  parameter Real VOutPerAre_flow(
+    final unit="m3/(s.m2)") = 3e-4
     "Outdoor air rate per unit area"
     annotation(Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.VolumeFlowRate VOutPerPer_flow = 2.5e-3
+  parameter Real VOutPerPer_flow(
+    final unit="m3/s",
+    final quantity="VolumeFlowRate")= 2.5e-3
     "Outdoor air rate per person"
     annotation(Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Area AFlo
-    "Floor area"
+  parameter Real AFlo(
+    final unit="m2",
+    final quantity="Area") "Floor area"
     annotation(Dialog(group="Nominal condition"));
   parameter Boolean have_occSen
     "Set to true if zones have occupancy sensor";
@@ -19,13 +23,17 @@ block OutsideAirFlow
     "Zone air distribution effectiveness during heating";
   parameter Real zonDisEffCoo(final unit="1") = 1.0
     "Zone air distribution effectiveness during cooling";
-  parameter Real uLow(final unit="K",
-    quantity="ThermodynamicTemperature") = -0.5
+  parameter Real uLow(
+    final unit="K",
+    final displayUnit="K",
+    final quantity="TemperatureDifference") = -0.5
     "If zone space temperature minus supply air temperature is less than uLow,
      then it should use heating supply air distribution effectiveness"
     annotation (Dialog(tab="Advanced"));
-  parameter Real uHig(final unit="K",
-    quantity="ThermodynamicTemperature") = 0.5
+  parameter Real uHig(
+    final unit="K",
+    final displayUnit="K",
+    final quantity="TemperatureDifference") = 0.5
     "If zone space temperature minus supply air temperature is more than uHig,
      then it should use cooling supply air distribution effectiveness"
     annotation (Dialog(tab="Advanced"));
@@ -36,14 +44,14 @@ block OutsideAirFlow
         iconTransformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZon(
     final unit="K",
-    displayUnit="degC",
-    quantity="ThermodynamicTemperature") "Measured zone air temperature"
+    final displayUnit="degC",
+    final quantity="ThermodynamicTemperature") "Measured zone air temperature"
     annotation (Placement(transformation(extent={{-240,-60},{-200,-20}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TDis(
     final unit="K",
-    displayUnit="degC",
-    quantity="ThermodynamicTemperature") "Measured discharge air temperature"
+    final displayUnit="degC",
+    final quantity="ThermodynamicTemperature") "Measured discharge air temperature"
     annotation (Placement(transformation(extent={{-240,-100},{-200,-60}}),
         iconTransformation(extent={{-140,-50},{-100,-10}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uOpeMod
@@ -61,7 +69,7 @@ block OutsideAirFlow
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput VOutMinSet_flow(
     min=0,
     final unit="m3/s",
-    quantity="VolumeFlowRate") "Effective minimum outdoor airflow setpoint"
+    final quantity="VolumeFlowRate") "Effective minimum outdoor airflow setpoint"
     annotation (Placement(transformation(extent={{200,-20},{240,20}}),
         iconTransformation(extent={{100,-20},{140,20}})));
 

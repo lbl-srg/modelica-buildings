@@ -172,7 +172,11 @@ equation
           pattern=LinePattern.None,
           lineColor={0,0,0},
           fillColor={0,0,0},
-          fillPattern=FillPattern.Solid)}),
+          fillPattern=FillPattern.Solid),
+    Text(
+      extent={{226,60},{106,10}},
+      lineColor={0,0,0},
+      textString=DynamicSelect("", String(y, leftjustified=false, significantDigits=3)))}),
     Documentation(info="<html>
 <p>
 Block that outputs <code>y = a + b u</code>,
@@ -193,6 +197,10 @@ If the limits are used, then this block requires <code>x1 &lt; x2</code>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 2, 2020, by Michael Wetter:<br/>
+Changed icon to display dynamically the output value.
+</li>
 <li>
 March 25, 2018, by Michael Wetter:<br/>
 Improved documentation, icon and added warning if the limits are used and

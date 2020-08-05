@@ -25,7 +25,7 @@ partial model PartialOpenLoop
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
       computeWetBulbTemperature=false,
       filNam=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/DRYCOLD.mos"))
-    annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
+    annotation (Placement(transformation(extent={{-140,70},{-120,90}})));
   Modelica.Blocks.Continuous.Integrator EFan "Total fan energy"
     annotation (Placement(transformation(extent={{40,-50},{60,-30}})));
   Modelica.Blocks.Continuous.Integrator EHea "Total heating energy"
@@ -38,11 +38,11 @@ partial model PartialOpenLoop
     annotation (Placement(transformation(extent={{40,-140},{60,-120}})));
 
   BoundaryConditions.WeatherData.Bus weaBus annotation (Placement(
-        transformation(extent={{-50,60},{-10,100}}), iconTransformation(extent=
+        transformation(extent={{-108,70},{-90,90}}), iconTransformation(extent=
             {{-250,-2},{-230,18}})));
 equation
   connect(weaDat.weaBus, weaBus) annotation (Line(
-      points={{-60,80},{-30,80}},
+      points={{-120,80},{-99,80}},
       color={255,204,51},
       thickness=0.5), Text(
       textString="%second",
@@ -55,11 +55,11 @@ equation
           6,-2},{10,-2},{40,-2}},  color={0,127,255}));
 
   connect(hvac.weaBus, weaBus) annotation (Line(
-      points={{-36,17.8},{-36,80},{-30,80}},
+      points={{-36,17.8},{-36,80},{-99,80}},
       color={255,204,51},
       thickness=0.5));
   connect(zon.weaBus, weaBus) annotation (Line(
-      points={{46,18},{42,18},{42,80},{-30,80}},
+      points={{46,18},{46,80},{-99,80}},
       color={255,204,51},
       thickness=0.5));
 
@@ -82,13 +82,7 @@ equation
   connect(EPum.y, EHVAC.u[4]) annotation (Line(points={{61,-130},{74,-130},{74,
           -75.25},{80,-75.25}}, color={0,0,127}));
   annotation (
-    experiment(
-      StopTime=504800,
-      Interval=3600,
-      Tolerance=1e-06),
-      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Air/Systems/SingleZone/VAV/Examples/ChillerDXHeatingEconomizer.mos"
-        "Simulate and plot"),
-     Documentation(info="<html>
+Documentation(info="<html>
 <p>
 The thermal zone is based on the BESTEST Case 600 envelope, while the HVAC
 system is based on a conventional VAV system with air cooled chiller and
@@ -96,6 +90,10 @@ economizer.  See documentation for the specific models for more information.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 27, 2019, by David Blum:<br/>
+Removed <code>experiment</code> annotation.
+</li>
 <li>
 July 29, 2019, by David Blum:<br/>
 First implementation.

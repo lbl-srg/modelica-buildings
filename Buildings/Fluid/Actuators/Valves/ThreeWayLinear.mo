@@ -1,8 +1,10 @@
 within Buildings.Fluid.Actuators.Valves;
 model ThreeWayLinear "Three way valve with linear characteristics"
     extends BaseClasses.PartialThreeWayValve(
-      redeclare TwoWayLinear res1,
-      redeclare TwoWayLinear res3);
+      redeclare TwoWayLinear res1(
+        final l=l[1]),
+      redeclare TwoWayLinear res3(
+        final l=l[2]));
 
 equation
   connect(inv.y, res3.y) annotation (Line(points={{-62.6,46},{20,46},{20,-50},{
@@ -35,6 +37,14 @@ for the implementation of the regularization near the origin.
 </html>",
 revisions="<html>
 <ul>
+<li>
+November 5, 2019, by Michael Wetter:<br/>
+Moved assignment of leakage from <a href=\"modelica://Buildings.Fluid.Actuators.BaseClasses.PartialThreeWayValve\">
+Buildings.Fluid.Actuators.BaseClasses.PartialThreeWayValve</a>
+to the parent classes.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1227\">#1227</a>.
+</li>
 <li>
 February 20, 2012 by Michael Wetter:<br/>
 Renamed parameter <code>dp_nominal</code> to <code>dpValve_nominal</code>,

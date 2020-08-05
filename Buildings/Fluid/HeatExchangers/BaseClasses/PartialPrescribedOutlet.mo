@@ -5,6 +5,8 @@ partial model PartialPrescribedOutlet
   extends Buildings.Fluid.Interfaces.TwoPortFlowResistanceParameters(
     final computeFlowResistance=(abs(dp_nominal) > Modelica.Constants.eps));
 
+  constant Boolean homotopyInitialization = true "= true, use homotopy method"
+    annotation(HideResult=true);
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal
     "Nominal mass flow rate, used for regularization near zero flow"
@@ -13,9 +15,6 @@ partial model PartialPrescribedOutlet
   parameter Modelica.SIunits.Time tau(min=0) = 10
     "Time constant at nominal flow rate (used if energyDynamics or massDynamics not equal Modelica.Fluid.Types.Dynamics.SteadyState)"
     annotation(Dialog(tab = "Dynamics"));
-
-  parameter Boolean homotopyInitialization = true "= true, use homotopy method"
-    annotation(Evaluate=true, Dialog(tab="Advanced"));
 
 protected
   Buildings.Fluid.FixedResistances.PressureDrop preDro(
@@ -38,6 +37,11 @@ protected
     final m_flow_nominal=m_flow_nominal,
     final tau=tau) "Model to set outlet conditions"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
+initial equation
+  assert(homotopyInitialization, "In " + getInstanceName() +
+    ": The constant homotopyInitialization has been modified from its default value. This constant will be removed in future releases.",
+    level = AssertionLevel.warning);
+
 equation
   connect(port_a, preDro.port_a) annotation (Line(
       points={{-100,0},{-50,0}},
@@ -75,6 +79,12 @@ and connect its input signals, in they are enabled.
 </html>",
 revisions="<html>
 <ul>
+<li>
+April 14, 2020, by Michael Wetter:<br/>
+Changed <code>homotopyInitialization</code> to a constant.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1341\">Buildings, #1341</a>.
+</li>
 <li>
 May 3, 2017, by Michael Wetter:<br/>
 Updated protected model for

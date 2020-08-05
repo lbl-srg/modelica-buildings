@@ -1,7 +1,7 @@
 simulateModel("Buildings.BoundaryConditions.WeatherData.BaseClasses.Examples.CheckTemperature", startTime=0, tolerance=1e-6, stopTime=8640000, method="dassl", resultFile="CheckTemperature");
 createPlot(id = 1,
  position = {7, 7, 746, 517},
- y = {"cheTemDryBul.TOut", "cheTemDewPoi.TOut"},
+ y = {" cheTemDryBul.TDryBul", "cheTemDewPoi.TDewPoi"},
  range = {0, 90000.0, 100000.0, -20000.0},
  autoscale = true,
  autoerase = true,

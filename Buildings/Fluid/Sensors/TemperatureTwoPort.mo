@@ -117,7 +117,11 @@ annotation (defaultComponentName="senTem",
           lineColor={0,0,0},
           fillPattern=FillPattern.Solid,
           fillColor={0,0,0},
-          visible=transferHeat)}),
+          visible=transferHeat),
+        Text(
+         extent={{-20,120},{-140,70}},
+          lineColor={0,0,0},
+          textString=DynamicSelect("", String(T-273.15, format=".1f")))}),
     Documentation(info="<html>
 <p>
 This model outputs the temperature of the medium in the flow
@@ -156,8 +160,14 @@ the mass flow rate on should set <code>transferHeat=false</code>.
 </html>", revisions="<html>
 <ul>
 <li>
+February 21, 2020, by Michael Wetter:<br/>
+Changed icon to display its operating state.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1294\">#1294</a>.
+</li>
+<li>
 October 23, 2017 by Filip Jorissen:<br/>
-Revised implementation of equations 
+Revised implementation of equations
 when <code>transferHeat=true</code>.
 See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/840\">#840</a>.
 </li>

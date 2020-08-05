@@ -11,7 +11,7 @@ model Case940 "Case 900, but with heating schedule"
       annualHea(Min=0.793*3.6e9, Max=1.411*3.6e9, Mean=1.160*3.6e9),
       annualCoo(Min=-2.079*3.6e9, Max=-3.241*3.6e9, Mean=-2.578*3.6e9),
       peakHea(Min=3.980*1000, Max=6.428*1000, Mean=5.494*1000),
-      peakCoo(Min=-2.886*1000, Max=-3.871*1000, Mean=-1.340*1000)));
+      peakCoo(Min=-2.886*1000, Max=-3.871*1000, Mean=-3.390*1000)));
 
     annotation (
        __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Validation/BESTEST/Cases9xx/Case940.mos"

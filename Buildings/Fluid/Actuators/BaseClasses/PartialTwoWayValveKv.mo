@@ -36,35 +36,7 @@ equation
       end if;
     end if; // homotopyInitialization
  end if; // linearized
-  annotation (Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},
-            {100,100}}),       graphics={
-        Polygon(
-          points={{2,-2},{-76,60},{-76,-60},{2,-2}},
-          lineColor={0,0,0},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid),
-        Polygon(
-          points={{-50,40},{0,-2},{54,40},{54,40},{-50,40}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Polygon(
-          points={{-52,-42},{0,-4},{60,40},{60,-42},{-52,-42}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Polygon(
-          points={{0,-2},{82,60},{82,-60},{0,-2}},
-          lineColor={0,0,0},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Line(
-          points={{0,40},{0,-4}}),
-        Line(
-          visible=not use_inputFilter,
-          points={{0,100},{0,40}})}),
+  annotation (
 Documentation(info="<html>
 <p>
 Partial model for valves with different opening characteristics,
@@ -84,6 +56,11 @@ Buildings.Fluid.Actuators.Valves.TwoWayLinear</a>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+October 25, 2019, by Jianjun Hu:<br/>
+Removed icon graphics annotation. This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1225\">#1225</a>.
+</li>
 <li>
 March 24, 2017, by Michael Wetter:<br/>
 Renamed <code>filteredInput</code> to <code>use_inputFilter</code>.<br/>

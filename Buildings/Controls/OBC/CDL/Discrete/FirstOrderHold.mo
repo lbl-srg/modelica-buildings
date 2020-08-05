@@ -69,7 +69,11 @@ equation
                   {0.0,63.0},{21.0,20.0},{41.0,10.0},{60.0,20.0}},
         color={0,0,127}),
       Line(points={{60.0,20.0},{81.0,10.0}},
-        color={0,0,127})}),
+        color={0,0,127}),
+      Text(
+        extent={{226,60},{106,10}},
+        lineColor={0,0,0},
+        textString=DynamicSelect("", String(y, leftjustified=false, significantDigits=3)))}),
     Documentation(info="<html>
 <p>
 Block that outputs the extrapolation through the
@@ -77,6 +81,10 @@ values of the last two sampled input signals.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 2, 2020, by Michael Wetter:<br/>
+Changed icon to display dynamically the output value.
+</li>
 <li>
 September 14, 2017, by Michael Wetter:<br/>
 Removed parameter <code>startTime</code> to allow model to work

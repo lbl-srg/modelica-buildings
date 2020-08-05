@@ -17,8 +17,8 @@ function shaGFunction
   "SHA1 encryption of the g-function arguments";
 
 protected
-  String formatStrGen =  "1.3e" "String format for general parameters";
-  String formatStrCoo =  ".2f" "String format for coordinate";
+  constant String formatStrGen =  "1.3e" "String format for general parameters";
+  constant String formatStrCoo =  ".2f" "String format for coordinate";
 algorithm
   sha := Buildings.Utilities.Cryptographics.sha(String(nBor, format=formatStrGen));
   sha := Buildings.Utilities.Cryptographics.sha(sha + String(hBor, format=formatStrGen));
@@ -55,6 +55,11 @@ The SHA1 encryption is computed using
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 1, 2019 by Michael Wetter:<br/>
+Declared string as a constant due to JModelica's tigther type checking.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/pull/1230\">#1230</a>.
+</li>
 <li>
 September 11, 2018, by Michael Wetter:<br/>
 Refactored implementation to avoid buffer overflow.

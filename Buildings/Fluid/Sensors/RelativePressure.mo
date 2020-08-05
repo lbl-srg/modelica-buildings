@@ -65,7 +65,11 @@ equation
           points={{22,18},{62,3},{22,-12},{22,18}},
           lineColor={0,128,255},
           fillColor={0,128,255},
-          fillPattern=FillPattern.Solid)}),
+          fillPattern=FillPattern.Solid),
+        Text(
+          extent={{-20,-56},{-140,-106}},
+          lineColor={0,0,0},
+          textString=DynamicSelect("", String(p_rel, leftjustified=false, significantDigits=3)))}),
     Documentation(info="<html>
 <p>
 The relative pressure <code>port_a.p - port_b.p</code> is determined between
@@ -76,6 +80,12 @@ through the sensor is allowed.
 </html>",
 revisions="<html>
 <ul>
+<li>
+February 25, 2020, by Michael Wetter:<br/>
+Changed icon to display its operating state.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1294\">#1294</a>.
+</li>
 <li>
 January 18, 2019, by Jianjun Hu:<br/>
 Limited the media choice.

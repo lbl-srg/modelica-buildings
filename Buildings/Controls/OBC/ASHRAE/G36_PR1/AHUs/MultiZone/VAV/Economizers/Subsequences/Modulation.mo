@@ -6,25 +6,27 @@ block Modulation
     final max=0,
     final unit="1")=-0.25
     "Lower limit of controller input when outdoor damper opens (see diagram)"
-    annotation (Evaluate=true,Dialog(tab="Commissioning", group="Controller"));
+    annotation (Dialog(tab="Commissioning", group="Controller"));
   parameter Real uMax(
     final min=0,
     final unit="1")=+0.25
     "Upper limit of controller input when return damper is closed (see diagram)"
-    annotation (Evaluate=true,Dialog(tab="Commissioning", group="Controller"));
+    annotation (Dialog(tab="Commissioning", group="Controller"));
   parameter Real uOutDamMax(
     final min=-1,
     final max=1,
     final unit="1") = (uMin + uMax)/2
     "Maximum loop signal for the OA damper to be fully open"
-    annotation (Evaluate=true, Dialog(tab="Commissioning", group="Controller"));
+    annotation (Dialog(tab="Commissioning", group="Controller"));
   parameter Real uRetDamMin(
     final min=-1,
     final max=1,
     final unit="1") = (uMin + uMax)/2
     "Minimum loop signal for the RA damper to be fully open"
-    annotation (Evaluate=true, Dialog(tab="Commissioning", group="Controller"));
-  parameter Modelica.SIunits.Time samplePeriod = 300
+    annotation (Dialog(tab="Commissioning", group="Controller"));
+  parameter Real samplePeriod(
+     final unit="s",
+     final quantity="Time")= 300
     "Sample period of component, used to limit the rate of change of the dampers (to avoid quick opening that can result in frost)";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uTSup(final unit="1")

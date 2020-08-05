@@ -3,7 +3,7 @@ model TwoWayPressureIndependent "Model of a pressure-independent two way valve"
   extends Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve(
             final linearized = false,
             from_dp=true,
-            phi=l + y_actual*(1 - l));
+            phi=max(0, l + y_actual*(1 - l)));
 
   parameter Real l2(min=1e-10) = 0.01
     "Gain for mass flow increase if pressure is above nominal pressure"
@@ -150,35 +150,6 @@ equation
     end if;
   end if;
   annotation (defaultComponentName="val",
-  Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},
-            {100,100}}),       graphics={
-        Polygon(
-          points={{2,-2},{-76,60},{-76,-60},{2,-2}},
-          lineColor={0,0,0},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid),
-        Polygon(
-          points={{-50,40},{0,-2},{54,40},{54,40},{-50,40}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Polygon(
-          points={{-52,-42},{0,-4},{60,40},{60,-42},{-52,-42}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Polygon(
-          points={{0,-2},{82,60},{82,-60},{0,-2}},
-          lineColor={0,0,0},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Line(
-          points={{0,40},{0,-4}}),
-        Line(
-          visible=not use_inputFilter,
-          points={{0,100},{0,40}})}),
 Documentation(info="<html>
 <p>
 Two way valve with a pressure-independent valve opening characteristic.
@@ -248,6 +219,19 @@ can serve both puroposes.
 </html>",
 revisions="<html>
 <ul>
+<li>
+November 9, 2019, by Filip Jorissen:<br/>
+Guarded the computation of <code>phi</code> using
+<code>max(0, . )</code> to avoid
+negative phi.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1223\">
+issue 1223</a>.
+</li>
+<li>
+October 25, 2019, by Jianjun Hu:<br/>
+Removed icon graphics annotation. This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1225\">#1225</a>.
+</li>
 <li>
 April 14, 2017, by Filip Jorissen:<br/>
 Revised implementation using <code>cubicHermite</code>

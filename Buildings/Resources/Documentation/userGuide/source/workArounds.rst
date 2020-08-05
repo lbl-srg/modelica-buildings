@@ -46,8 +46,8 @@ The default value is ``raiseTime=120`` seconds.
           closed loop control performance.
 
 For further information, see the
-`User's Guide of the flow machine package <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Movers_UsersGuide.html>`_, and the
-`User's Guide of the actuator package <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Actuators_UsersGuide.html>`_.
+`User's Guide of the flow machine package <https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Movers_UsersGuide.html>`_, and the
+`User's Guide of the actuator package <https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Actuators_UsersGuide.html>`_.
 
 
 
@@ -55,7 +55,7 @@ Breaking algebraic loops
 ------------------------
 
 In fluid flow systems, flow junctions where mass flow rates separate and mix can couple non-linear systems of equations. This leads to larger systems of coupled equations that need to be solved, which often causes larger computing time and can sometimes cause convergence problems.
-To decouple these systems of equations, in the model of a flow splitter or mixer (model `Buildings.Fluid.FixedResistances.PressureDrop <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.PressureDrop>`_), or in models for fans or pumps (such as the model `Buildings.Fluid.Movers.SpeedControlled_y <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.SpeedControlled_y>`_), the parameter ``dynamicBalance`` can be set to ``true``. This adds a control volume at the fluid junction that can decouple the system of equations.
+To decouple these systems of equations, in the model of a flow splitter or mixer (model `Buildings.Fluid.FixedResistances.PressureDrop <https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.PressureDrop>`_), or in models for fans or pumps (such as the model `Buildings.Fluid.Movers.SpeedControlled_y <https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.SpeedControlled_y>`_), the parameter ``dynamicBalance`` can be set to ``true``. This adds a control volume at the fluid junction that can decouple the system of equations.
 
 Reducing nonlinear equations of serially connected flow resistances
 -------------------------------------------------------------------
@@ -130,13 +130,13 @@ The valve model then computes the pressure drop using :math:`\bar k` and the sam
 Thus, the composite model has the same :term:`valve authority` and mass flow rate, but a nonlinear equation can be avoided.
 
 For more details, see the
-`User's Guide of the actuator package <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Actuators_UsersGuide.html>`_.
+`User's Guide of the actuator package <https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Actuators_UsersGuide.html>`_.
 
 
 
 Prescribed mass flow rate
 -------------------------
-For some system models, the mass flow rate can be prescribed by using an idealized pump or fan (model `Buildings.Fluid.Movers.FlowControlled_m_flow <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.FlowControlled_m_flow>`_) or a source element that outputs the required mass flow rate (such as the model `Buildings.Fluid.Sources.MassFlowSource_T <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.MassFlowSource_T>`_). Using these models avoids having to compute the intersection of the fan curve and the flow resistance. In some situations, this can lead to faster and more robust simulation.
+For some system models, the mass flow rate can be prescribed by using an idealized pump or fan (model `Buildings.Fluid.Movers.FlowControlled_m_flow <https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.FlowControlled_m_flow>`_) or a source element that outputs the required mass flow rate (such as the model `Buildings.Fluid.Sources.MassFlowSource_T <https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.MassFlowSource_T>`_). Using these models avoids having to compute the intersection of the fan curve and the flow resistance. In some situations, this can lead to faster and more robust simulation.
 
 
 Avoiding overspecified initialization problems

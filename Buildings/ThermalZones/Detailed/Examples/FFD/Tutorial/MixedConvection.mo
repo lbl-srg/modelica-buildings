@@ -135,8 +135,8 @@ with the FFD program by simulating ventilation with mixed convection in an empty
 </p>
 <h4>Case Description</h4>
 <p>
-The temperature of the floor is fixed at <i>30</i>&circ;C and the temperature of the walls and the ceiling are fixed
-at <i>10</i>&circ;C. The supply air temperature is fixed at <i>10</i>&circ;C.
+The temperature of the floor is fixed at <i>30</i>&deg;C and the temperature of the walls and the ceiling are fixed
+at <i>10</i>&deg;C. The supply air temperature is fixed at <i>10</i>&deg;C.
 </p>
 <p>
 Figure (a) shows the schematic of the FFD simulation and Figure (b) shows the velocity vectors and temperatures on the X-Z plane at <i>Y = 0.5</i> m as simulated by the FFD.
@@ -352,7 +352,7 @@ Put the files <code>MixedConvection.ffd</code>, <code>MixedConvection.dat</code>
 directory <code>Buildings/Resources/Data/ThermalZones/Detailed/Examples/FFD/Tutorial/</code>.
 </li>
 <li>
-Set the simulation stop time of the Modelica model to <code>180</code> seconds and choose, for example, the Radau solver.
+Set the simulation stop time of the Modelica model to <code>180</code> seconds and choose, for example, the CVode solver.
 </li>
 <li>
 Translate the model and start the simulation.

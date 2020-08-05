@@ -8,14 +8,15 @@ model DuctStaticPressureSetpoint "Computes the duct static pressure setpoint"
   parameter Real k=0.1 "Gain of controller";
   parameter Modelica.SIunits.Time Ti=60 "Time constant of integrator block";
   parameter Modelica.SIunits.Time Td=60 "Time constant of derivative block";
-  parameter Modelica.Blocks.Types.SimpleController controllerType=Modelica.Blocks.Types.SimpleController.PID
+  parameter Modelica.Blocks.Types.SimpleController controllerType=Modelica.Blocks.Types.SimpleController.PI
     "Type of controller";
-                           Buildings.Controls.Continuous.LimPID limPID(
+  Buildings.Controls.Continuous.LimPID limPID(
     controllerType=controllerType,
     k=k,
     Ti=Ti,
     Td=Td,
-    initType=Modelica.Blocks.Types.InitPID.InitialState)
+    initType=Modelica.Blocks.Types.InitPID.InitialState,
+    reverseActing=false)
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
 protected
   Buildings.Utilities.Math.Max max(final nin=nin)
