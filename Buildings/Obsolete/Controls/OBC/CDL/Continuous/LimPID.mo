@@ -466,6 +466,13 @@ American Society of Heating Refrigerating and Air-Conditioning Engineers Inc. At
 revisions="<html>
 <ul>
 <li>
+August 4, 2020, by Jianjun Hu:<br/>
+Moved the block to 
+<a href=\"modelica://Buildings.Obsolete.Controls.OBC.CDL.Continous\">Buildings.Obsolete.Controls.OBC.CDL.Continous</a>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2056\">issue 2056</a>.
+</li>
+<li>
 June 1, 2020, by Michael Wetter:<br/>
 Corrected wrong convention of reverse and direct action.<br/>
 This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1365\">issue 1365</a>.

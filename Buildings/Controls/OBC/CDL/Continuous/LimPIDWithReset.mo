@@ -483,41 +483,9 @@ Thus,
 </ul>
 <h5>Reset of the controller output</h5>
 <p>
-The controller can be configured to enable an input port that allows resetting the controller
-output. The controller output can be reset as follows:
-</p>
-<ul>
-  <li>
-  If <code>reset = Buildings.Types.Reset.Disabled</code>, which is the default,
-  then the controller output is never reset.
-  </li>
-  <li>
-  If <code>reset = Buildings.Types.Reset.Parameter</code>, then a boolean
-  input signal <code>trigger</code> is enabled. Whenever the value of
-  this input changes from <code>false</code> to <code>true</code>,
-  the controller output is reset by setting <code>y</code>
-  to the value of the parameter <code>y_reset</code>.
-  </li>
-  <li>
-  If <code>reset = Buildings.Types.Reset.Input</code>, then a boolean
-  input signal <code>trigger</code> and a real input signal <code>y_reset_in</code>
-  are enabled. Whenever the value of
-  <code>trigger</code> changes from <code>false</code> to <code>true</code>,
-  the controller output is reset by setting the value of <code>y</code>
-  to <code>y_reset_in</code>.
-  </li>
-</ul>
-<p>
-Note that this controller implements an integrator anti-windup. Therefore,
-for most applications, keeping the default setting of
-<code>reset = Buildings.Types.Reset.Disabled</code> is sufficient.
-However, if the controller is used in conjuction with equipment that is being
-switched on, better control performance may be achieved by resetting the controller
-output when the equipment is switched on.
-This is in particular the case in situations
-where the equipment control input should continuously increase as the equipment is
-switched on, such as a light dimmer that may slowly increase the luminance, or
-a variable speed drive of a motor that should continuously increase the speed.
+Whenever the value of boolean input signal <code>trigger</code> changes from
+<code>false</code> to <code>true</code>, the controller output is reset by setting
+<code>y</code> to the value of the parameter <code>y_reset</code>.
 </p>
 <h4>References</h4>
 <p>
@@ -525,10 +493,16 @@ R. Montgomery and R. McDowall (2008).
 \"Fundamentals of HVAC Control Systems.\"
 American Society of Heating Refrigerating and Air-Conditioning Engineers Inc. Atlanta, GA.
 </p>
-
 </html>",
 revisions="<html>
 <ul>
+<li>
+August 4, 2020, by Jianjun Hu:<br/>
+Implemented inside the derivative calculation and removed the input <code>y_reset_in</code>.
+The controller output could only be reset to the value specified by the parameter
+<code>y_reset</code>.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2056\">issue 2056</a>.
+</li>
 <li>
 June 1, 2020, by Michael Wetter:<br/>
 Corrected wrong convention of reverse and direct action.<br/>

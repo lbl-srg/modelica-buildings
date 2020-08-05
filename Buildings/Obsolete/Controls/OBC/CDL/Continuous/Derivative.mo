@@ -47,6 +47,13 @@ If <code>k=0</code>, the block reduces to <code>y=0</code>.
 </html>", revisions="<html>
 <ul>
 <li>
+August 4, 2020, by Jianjun Hu:<br/>
+Moved the block to 
+<a href=\"modelica://Buildings.Obsolete.Controls.OBC.CDL.Continous\">Buildings.Obsolete.Controls.OBC.CDL.Continous</a>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2056\">issue 2056</a>.
+</li>
+<li>
 April 21, 2020, by Michael Wetter:<br/>
 Removed option to not set the initialization method or to set the initial state.
 The new implementation only allows to set the initial output, from which
