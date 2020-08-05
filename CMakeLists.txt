@@ -19,9 +19,9 @@ cmake_minimum_required(VERSION 3.8)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CMAKE_BUILD_TYPE}")
 
-set( BUILDINGS_INSTALL_PREFIX "${CMAKE_SOURCE_DIR}/Buildings")
+set(BUILDINGS_INSTALL_PREFIX "${CMAKE_SOURCE_DIR}/Buildings")
 
-set( CMAKE_INSTALL_PREFIX "${BUILDINGS_INSTALL_PREFIX}/Resources/Library/${PLATFORM_INSTALL_PREFIX}/" )
+set(CMAKE_INSTALL_PREFIX "${BUILDINGS_INSTALL_PREFIX}/Resources/Library/${PLATFORM_INSTALL_PREFIX}/" )
 
 # Output build system directories.
 message("CMake source directory is: ${CMAKE_SOURCE_DIR}")
@@ -65,7 +65,6 @@ add_definitions(-D_GNU_SOURCE)
 message("Added GNU_SOURCE")
 endif()
 
-
 add_library( ModelicaBuildingsEnergyPlus SHARED
   Buildings/Resources/src/ThermalZones/EnergyPlus/C-Sources/InputVariableExchange.c
   Buildings/Resources/src/ThermalZones/EnergyPlus/C-Sources/EnergyPlusUtil.c
@@ -90,9 +89,11 @@ target_include_directories( ModelicaBuildingsEnergyPlus
   PRIVATE Buildings/Resources/src/fmi-library/include
 )
 
+#link_directories(${CMAKE_SOURCE_DIR}/Buildings/Resources/Library/darwin64)
+
 target_link_libraries( ModelicaBuildingsEnergyPlus
-  ${MODELICA_LIBS}
-  ${CMAKE_DL_LIBS}
+#  PRIVATE libfmilib_shared
+  PRIVATE ${CMAKE_DL_LIBS}
 )
 
 set(BUILDINGS_INSTALL_DIR "${BUILDINGS_INSTALL_PREFIX}/Resources/Library/${PLATFORM_INSTALL_PREFIX}/")
