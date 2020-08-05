@@ -2,21 +2,24 @@ within Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.BaseClasses;
 block ZoneWithAHUG36
   "A single zone building with an air handling system"
 
-  package MediumA = Buildings.Media.Air "Buildings library air media package";
-  package MediumW = Buildings.Media.Water "Buildings library air media package";
+  package MediumA = Buildings.Media.Air (extraPropertiesNames={"CO2"})
+    "Buildings library air media package";
+  package MediumW = Buildings.Media.Water
+    "Buildings library water media package";
   parameter Modelica.SIunits.Temperature TSupChi_nominal=279.15
     "Design value for chiller leaving water temperature";
-  parameter Modelica.SIunits.Angle lat=41.98*3.14159/180 "Latitude of the site location";
   parameter Modelica.SIunits.Volume VRoo = 4555.7 "Space volume of the floor";
-  parameter Modelica.SIunits.MassFlowRate mAir_flow_nominal = VRoo*4.2*1.2/3600
+  parameter Modelica.SIunits.MassFlowRate mAir_flow_nominal = VRoo*5*1.2/3600
     "Design air flow rate";
-  parameter Modelica.SIunits.HeatFlowRate QHea_flow_nominal = mAir_flow_nominal*1006*(16.7 - 8.5)
+  parameter Modelica.SIunits.HeatFlowRate QHea_flow_nominal = mAir_flow_nominal*1006*(50-8.5)
     "Design heating flow rate";
   parameter Modelica.SIunits.HeatFlowRate QCoo_flow_nominal = -QHea_flow_nominal
     "Design cooling flow rate";
 
-  Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.Controller controller1(
+  Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.Controller con(
     have_winSen=false,
+    TZonHeaOn=293.15,
+    TZonCooOff=303.15,
     controllerTypeCoo=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
     kCoo=1,
     yHeaMax=0.2,
@@ -32,17 +35,17 @@ block ZoneWithAHUG36
     TSupSetMax=323.15,
     TSupSetMin=285.15) "VAV controller"
     annotation (Placement(transformation(extent={{-66,-36},{-26,12}})));
-  ThermalZones.Detailed.Validation.BaseClasses.SingleZoneFloor singleZoneFloor1(
-      redeclare package Medium = MediumA, lat=lat)
+  ThermalZones.Detailed.Validation.BaseClasses.SingleZoneFloor sinZonFlo(
+      redeclare package Medium = MediumA, lat=weaDat.lat) "Single zone floor"
     annotation (Placement(transformation(extent={{76,-24},{116,16}})));
-  Buildings.Air.Systems.SingleZone.VAV.ChillerDXHeatingEconomizer hvac1(
+  Buildings.Air.Systems.SingleZone.VAV.ChillerDXHeatingEconomizer hvac(
     redeclare package MediumA = MediumA,
     redeclare package MediumW = MediumW,
     mAir_flow_nominal=mAir_flow_nominal,
     etaHea_nominal=0.99,
     QHea_flow_nominal=QHea_flow_nominal,
     QCoo_flow_nominal=QCoo_flow_nominal,
-    TSupChi_nominal=TSupChi_nominal)
+    TSupChi_nominal=TSupChi_nominal) "HVAC system"
     annotation (Placement(transformation(extent={{20,-28},{60,12}})));
   Controls.OBC.CDL.Continuous.Hysteresis hysChiPla1(uLow=-1, uHigh=0)
     "Hysteresis with delay to switch on cooling"
@@ -51,7 +54,8 @@ block ZoneWithAHUG36
     "Control error on room temperature for cooling"
     annotation (Placement(transformation(extent={{-76,-80},{-56,-60}})));
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
-        Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
+    Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"),
+    computeWetBulbTemperature=false)
     "Weather data"
     annotation (Placement(transformation(extent={{-20,70},{0,90}})));
   BoundaryConditions.WeatherData.Bus weaBus annotation (Placement(
@@ -70,11 +74,10 @@ block ZoneWithAHUG36
     "Cool-down time retrieved from optimal cool-down block"
     annotation (Placement(transformation(extent={{-180,20},{-140,60}}),
         iconTransformation(extent={{-140,-2},{-100,38}})));
-  Controls.OBC.CDL.Interfaces.RealOutput TSupCoo(
+  Controls.OBC.CDL.Interfaces.RealOutput TZon(
     final unit="K",
     final displayUnit="degC",
-    final quantity="ThermodynamicTemperature")
-    "Cooling supply air temperature setpoint"
+    final quantity="ThermodynamicTemperature") "Zone air temperature"
     annotation (Placement(transformation(extent={{140,-20},{180,20}}),
         iconTransformation(extent={{100,-20},{140,20}})));
   Controls.OBC.CDL.Interfaces.RealInput tNexOcc(final unit="s", final quantity="Time")
@@ -89,21 +92,20 @@ protected
     "Set point for chiller temperature"
     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
 equation
-  connect(controller1.yFan,hvac1. uFan) annotation (Line(points={{-24,-0.92308},
-          {-20,-0.92308},{-20,10},{18,10}}, color={0,0,127}));
-  connect(controller1.yHeaCoi,hvac1. uHea) annotation (Line(points={{-24,
-          -17.5385},{-16,-17.5385},{-16,4},{18,4}},   color={0,0,127}));
-  connect(controller1.yOutDamPos,hvac1. uEco) annotation (Line(points={{-24,-27.6923},
-          {-12,-27.6923},{-12,-10},{18,-10}},         color={0,0,127}));
-  connect(hvac1.TSup,controller1. TSup) annotation (Line(points={{61,-16},{64,
-          -16},{64,-42},{-76,-42},{-76,-10.1538},{-68,-10.1538}},    color={0,0,
-          127}));
-  connect(hvac1.TMix,controller1. TMix) annotation (Line(points={{61,-12},{68,-12},
-          {68,-38},{-74,-38},{-74,-15.6923},{-68,-15.6923}}, color={0,0,127}));
-  connect(hvac1.TRet,controller1. TCut) annotation (Line(points={{61,-14},{66,
-          -14},{66,-40},{-78,-40},{-78,-12.9231},{-68,-12.9231}},    color={0,0,
-          127}));
-  connect(weaBus,singleZoneFloor1. weaBus) annotation (Line(
+  connect(con.yFan, hvac.uFan) annotation (Line(points={{-24,-0.92308},{-20,-0.92308},
+          {-20,10},{18,10}}, color={0,0,127}));
+  connect(con.yHeaCoi, hvac.uHea) annotation (Line(points={{-24,-17.5385},{-16,
+          -17.5385},{-16,4},{18,4}},
+                           color={0,0,127}));
+  connect(con.yOutDamPos, hvac.uEco) annotation (Line(points={{-24,-27.6923},{-12,
+          -27.6923},{-12,-10},{18,-10}}, color={0,0,127}));
+  connect(hvac.TSup, con.TSup) annotation (Line(points={{61.2,-16},{64,-16},{64,
+          -42},{-76,-42},{-76,-10.1538},{-68,-10.1538}}, color={0,0,127}));
+  connect(hvac.TMix, con.TMix) annotation (Line(points={{61.2,-12},{68,-12},{68,
+          -38},{-74,-38},{-74,-15.6923},{-68,-15.6923}}, color={0,0,127}));
+  connect(hvac.TRet, con.TCut) annotation (Line(points={{61.2,-14},{66,-14},{66,
+          -40},{-78,-40},{-78,-12.9231},{-68,-12.9231}}, color={0,0,127}));
+  connect(weaBus, sinZonFlo.weaBus) annotation (Line(
       points={{60,80},{82.8,80},{82.8,13}},
       color={255,204,51},
       thickness=0.5), Text(
@@ -111,21 +113,21 @@ equation
       index=-1,
       extent={{-3,6},{-3,6}},
       horizontalAlignment=TextAlignment.Right));
-  connect(controller1.yCooCoi,hvac1. uCooVal) annotation (Line(points={{-24,
-          -23.0769},{-14,-23.0769},{-14,-3},{18,-3}},   color={0,0,127}));
-  connect(hvac1.supplyAir,singleZoneFloor1. ports[1]) annotation (Line(points={{60,0},{
-          76,0},{76,-16},{83.8,-16}},                  color={0,127,255}));
-  connect(hvac1.returnAir,singleZoneFloor1. ports[2]) annotation (Line(points={{60,-8},
-          {74,-8},{74,-16},{85.8,-16}},                color={0,127,255}));
+  connect(con.yCooCoi, hvac.uCooVal) annotation (Line(points={{-24,-23.0769},{
+          -14,-23.0769},{-14,-3},{18,-3}},
+                                       color={0,0,127}));
+  connect(hvac.supplyAir, sinZonFlo.ports[1]) annotation (Line(points={{60.2,0},
+          {76,0},{76,-16},{83.8,-16}}, color={0,127,255}));
+  connect(hvac.returnAir, sinZonFlo.ports[2]) annotation (Line(points={{60.2,-8},
+          {74,-8},{74,-16},{85.8,-16}}, color={0,127,255}));
   connect(errTRooCoo1.y,hysChiPla1. u)
     annotation (Line(points={{-57,-70},{-52,-70}},   color={0,0,127}));
-  connect(hysChiPla1.y,hvac1. chiOn) annotation (Line(points={{-28,-70},{-10,-70},
-          {-10,-18},{18,-18}},       color={255,0,255}));
-  connect(controller1.TZonCooSet,errTRooCoo1. u2) annotation (Line(points={{-24,-12},
-          {-20,-12},{-20,-84},{-66,-84},{-66,-78}},           color={0,0,127}));
-  connect(controller1.TOut, weaBus.TDryBul) annotation (Line(points={{-68,
-          11.0769},{-84,11.0769},{-84,26},{60,26},{60,80}},      color={0,0,127}),
-      Text(
+  connect(hysChiPla1.y, hvac.chiOn) annotation (Line(points={{-28,-70},{-10,-70},
+          {-10,-18},{18,-18}}, color={255,0,255}));
+  connect(con.TZonCooSet, errTRooCoo1.u2) annotation (Line(points={{-24,-12},{-20,
+          -12},{-20,-84},{-66,-84},{-66,-78}}, color={0,0,127}));
+  connect(con.TOut, weaBus.TDryBul) annotation (Line(points={{-68,11.0769},{-84,
+          11.0769},{-84,26},{60,26},{60,80}}, color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{-6,3},{-6,3}},
@@ -138,31 +140,30 @@ equation
       index=1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
-  connect(weaDat.weaBus, hvac1.weaBus) annotation (Line(
-      points={{0,80},{24,80},{24,9.8}},
+  connect(weaDat.weaBus, hvac.weaBus) annotation (Line(
+      points={{0,80},{24.2,80},{24.2,9.8}},
       color={255,204,51},
       thickness=0.5));
-  connect(errTRooCoo1.u1, controller1.TZon) annotation (Line(points={{-74,-70},{
-          -82,-70},{-82,0},{-68,0}}, color={0,0,127}));
-  connect(TSetSupChiConst.y, hvac1.TSetChi) annotation (Line(points={{-39,50},{-8,
-          50},{-8,-24},{18,-24},{18,-23}}, color={0,0,127}));
-  connect(singleZoneFloor1.TRooAir, controller1.TZon) annotation (Line(points={{
-          113,6.2},{120,6.2},{120,-90},{-82,-90},{-82,0},{-68,0},{-68,8.88178e-16}},
-        color={0,0,127}));
-  connect(demLim.y, controller1.uCooDemLimLev) annotation (Line(points={{-98,-50},
-          {-90,-50},{-90,-5.53846},{-68,-5.53846}}, color={255,127,0}));
-  connect(demLim.y, controller1.uHeaDemLimLev) annotation (Line(points={{-98,-50},
-          {-90,-50},{-90,-7.38462},{-68,-7.38462}}, color={255,127,0}));
-  connect(cooDowTim, controller1.warUpTim) annotation (Line(points={{-160,40},{-120,
-          40},{-120,8.30769},{-68,8.30769}}, color={0,0,127}));
-  connect(warUpTim, controller1.cooDowTim) annotation (Line(points={{-160,10},{-128,
-          10},{-128,5.53846},{-68,5.53846}}, color={0,0,127}));
-  connect(singleZoneFloor1.TRooAir, TSupCoo) annotation (Line(points={{113,6.2},
-          {120,6.2},{120,0},{160,0}}, color={0,0,127}));
-  connect(tNexOcc, controller1.tNexOcc) annotation (Line(points={{-160,-20},{-132,
-          -20},{-132,2.76923},{-68,2.76923}}, color={0,0,127}));
-  connect(uOcc, controller1.uOcc) annotation (Line(points={{-160,-50},{-130,-50},
-          {-130,-2.76923},{-68,-2.76923}}, color={255,0,255}));
+  connect(errTRooCoo1.u1, con.TZon) annotation (Line(points={{-74,-70},{-82,-70},
+          {-82,0},{-68,0}}, color={0,0,127}));
+  connect(TSetSupChiConst.y, hvac.TSetChi) annotation (Line(points={{-39,50},{-8,
+          50},{-8,-26},{18,-26}}, color={0,0,127}));
+  connect(sinZonFlo.TRooAir, con.TZon) annotation (Line(points={{113,6.2},{120,6.2},
+          {120,-90},{-82,-90},{-82,0},{-68,0},{-68,8.88178e-16}}, color={0,0,127}));
+  connect(demLim.y, con.uCooDemLimLev) annotation (Line(points={{-98,-50},{-90,-50},
+          {-90,-5.53846},{-68,-5.53846}}, color={255,127,0}));
+  connect(demLim.y, con.uHeaDemLimLev) annotation (Line(points={{-98,-50},{-90,-50},
+          {-90,-7.38462},{-68,-7.38462}}, color={255,127,0}));
+  connect(cooDowTim, con.warUpTim) annotation (Line(points={{-160,40},{-120,40},
+          {-120,8.30769},{-68,8.30769}}, color={0,0,127}));
+  connect(warUpTim, con.cooDowTim) annotation (Line(points={{-160,10},{-128,10},
+          {-128,5.53846},{-68,5.53846}}, color={0,0,127}));
+  connect(sinZonFlo.TRooAir, TZon) annotation (Line(points={{113,6.2},{120,6.2},
+          {120,0},{160,0}}, color={0,0,127}));
+  connect(tNexOcc, con.tNexOcc) annotation (Line(points={{-160,-20},{-132,-20},{
+          -132,2.76923},{-68,2.76923}}, color={0,0,127}));
+  connect(uOcc, con.uOcc) annotation (Line(points={{-160,-50},{-130,-50},{-130,-2.76923},
+          {-68,-2.76923}}, color={255,0,255}));
   annotation (defaultComponentName="zonAHUG36",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={
                                 Rectangle(

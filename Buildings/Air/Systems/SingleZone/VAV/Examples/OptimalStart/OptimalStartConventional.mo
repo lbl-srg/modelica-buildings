@@ -46,8 +46,10 @@ model OptimalStartConventional
     "New heating setpoint schedule for room"
     annotation (Placement(transformation(extent={{40,68},{60,88}})));
   BaseClasses.ZoneWithAHUConventional zonAHUCon1
+    "Model of a single zone with AHU and controller"
     annotation (Placement(transformation(extent={{80,50},{100,70}})));
   BaseClasses.ZoneWithAHUConventional zonAHUCon2
+    "Model of a single zone with AHU and controller"
     annotation (Placement(transformation(extent={{80,-70},{100,-50}})));
 equation
   connect(TSetHeaOn.y, optSta.TSetZonHea) annotation (Line(points={{-79,70},{-72,
@@ -65,19 +67,23 @@ equation
   connect(optSta.optOn, booToRea.u) annotation (Line(points={{-18,66},{-6,66},{-6,
           46},{-2,46}},           color={255,0,255}));
   connect(add4.y, zonAHUCon1.TSetRooHea) annotation (Line(points={{62,78},{72,
-          78},{72,65.2},{78,65.2}}, color={0,0,127}));
+          78},{72,66},{78,66}},     color={0,0,127}));
   connect(add3.y, zonAHUCon1.TSetRooCoo) annotation (Line(points={{62,44},{72,
-          44},{72,55},{78,55}}, color={0,0,127}));
-  connect(TSetRooHea.y[1], zonAHUCon2.TSetRooHea) annotation (Line(points={{-18,
-          -50},{54,-50},{54,-54.8},{78,-54.8}}, color={0,0,127}));
-  connect(TSetRooCoo.y[1], zonAHUCon2.TSetRooCoo) annotation (Line(points={{-18,
-          -80},{54,-80},{54,-65},{78,-65}}, color={0,0,127}));
+          44},{72,60},{78,60}}, color={0,0,127}));
+  connect(TSetRooHea.y[1], zonAHUCon2.TSetRooHea) annotation (Line(points={{-18,-50},
+          {54,-50},{54,-54},{78,-54}},          color={0,0,127}));
+  connect(TSetRooCoo.y[1], zonAHUCon2.TSetRooCoo) annotation (Line(points={{-18,-80},
+          {54,-80},{54,-60},{78,-60}},      color={0,0,127}));
   connect(zonAHUCon1.TRoo, optSta.TZon) annotation (Line(points={{102,60},{104,
           60},{104,30},{-58,30},{-58,67},{-42,67}}, color={0,0,127}));
   connect(optSta.optOn, booToRea1.u) annotation (Line(points={{-18,66},{-6,66},{
           -6,80},{-2,80}}, color={255,0,255}));
   connect(booToRea1.y, add4.u2) annotation (Line(points={{22,80},{24,80},{24,72},
           {38,72}}, color={0,0,127}));
+  connect(occSch.occupied, zonAHUCon1.uOcc) annotation (Line(points={{-79,-12},
+          {-56,-12},{-56,20},{76,20},{76,54},{78,54}}, color={255,0,255}));
+  connect(occSch.occupied, zonAHUCon2.uOcc) annotation (Line(points={{-79,-12},
+          {-56,-12},{-56,20},{76,20},{76,-66},{78,-66}}, color={255,0,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}})),                                        Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-120,-100},{120,100}}),
@@ -107,7 +113,7 @@ equation
           fillPattern=FillPattern.Solid,
           textString="System without optimal start")}),
     experiment(
-      StopTime=604800,
+      StopTime=31536000,
       Tolerance=1e-06,
       __Dymola_Algorithm="Dassl"),
       __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Air/Systems/SingleZone/VAV/Examples/Guideline36.mos"
