@@ -1,7 +1,7 @@
 within Buildings.Controls.OBC.CDL.Continuous;
 block Greater "Output y is true, if input u1 is greater than input u2"
 
-  parameter Real h(final min=0)=0 "Hysteresis, set positive value to enable";
+  parameter Real h(final min=0)=0 "Hysteresis";
 
   parameter Boolean pre_y_start=false "Value of pre(y) at initial time"
     annotation(Dialog(tab="Advanced"));
@@ -15,6 +15,9 @@ block Greater "Output y is true, if input u1 is greater than input u2"
 
   Interfaces.BooleanOutput y "Output y"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
+
+initial equation
+  assert(h >= 0, "Hysteresis must not be negative");
 
 equation
   y = if h < 1E-10 then u1 > u2 else (not pre(y) and u1 > u2 or pre(y) and u1 >= u2-h);
@@ -53,17 +56,20 @@ annotation (
   Documentation(info="<html>
 <p>
 Block that outputs <code>true</code> if the Real input <code>u1</code>
-is greater than the Real input <code>u2</code>.
-Otherwise the output is <code>false</code>.
+is greater than the Real input <code>u2</code>, optionally within a hysteresis <code>h</code>.
 </p>
 <p>
-The parameter <code>h</code> can be used to specify a hysteresis.
-If <i> &gt; 0</i> then the output switches to true if <i>u<sub>1</sub> &gt; u<sub>2</sub></i>,
+The parameter <code>h</code> is used to specify a hysteresis.
+If <i>h &gt; 0</i>, then the output switches to <code>true</code> if <i>u<sub>1</sub> &gt; u<sub>2</sub></i>,
 and it switches to <code>false</code> if <i>u<sub>1</sub> &gt; u<sub>2</sub>-h</i>.
 </p>
 <p>
-Hysteresis should be specified to avoid frequent switching. In real controllers, this could be
-due to sensor noise. In simulation, this could be due to numerical noise.
+Enabling hysteresis can avoid frequent switching.
+Adding hysteresis is recommended in real controllers to guard against sensor noise, and
+in simulation to guard against numerical noise. Numerical noise can be present if
+an input depends on a state variable or a quantity that requires an iterative solution, such as
+a temperature or a mass flow rate of an HVAC system.
+To disable hysteresis, set <code>h=0</code>.
 </p>
 </html>", revisions="<html>
 <ul>
