@@ -112,7 +112,7 @@ and the timer is set to zero only when the value of the input <code>reset</code>
 <ul>
 <li>
 July 31, 2020, by Jianjun Hu:<br/>
-Changed the reset input to be a fixed input. This is for
+Fixed the reset input. This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2056\">issue 2056</a>.
 </li>
 <li>

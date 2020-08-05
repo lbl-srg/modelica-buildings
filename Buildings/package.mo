@@ -222,6 +222,16 @@ The following <b style=\"color:blue\">new components</b> have been added
 to <b style=\"color:blue\">existing</b> libraries:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.Controls.Continuous</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.Continuous.LimPIDWithReset
+    </td>
+    <td valign=\"top\">Implemented inside the derivative calculation and removed the input <code>y_reset_in</code>.
+                       The controller output could only be reset to the value specified by the parameter
+                       <code>y_reset</code>.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2056\">issue 2056</a>.</td>
+</tr>
 <tr><td colspan=\"2\"><b>xxx</b>
     </td>
 </tr>
@@ -265,8 +275,15 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">non-backward compatible</b> way:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
- <tr><td colspan=\"2\"><b>Buildings.Controls.Continuous</b>
+<tr><td colspan=\"2\"><b>Buildings.Controls.Continuous</b>
     </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.Continuous.LimPID
+    </td>
+    <td valign=\"top\">Removed the conditional inputs <code>trigger</code> and <code>y_rest_in</code>,
+                       implemented inside the derivative calculation. The controller that has the
+                       conditional inputs has been moved to <code>Building.Obsolete.Controls.OBC.CDL.Continuous</code>.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2056\">issue 2056</a>.</td>
 </tr>
 <tr><td valign=\"top\">Buildings.Controls.Continuous.LimPID<br/>
                        Buildings.Controls.Continuous.PIDHysteresis<br/>
