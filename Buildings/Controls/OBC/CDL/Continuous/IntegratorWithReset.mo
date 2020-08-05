@@ -98,7 +98,7 @@ has been copied into this model rather than extended.
 <ul>
 <li>
 August 3, 2020, by Jianjun:<br/>
-Changed the input <code>y_reset_in</code> to be fixed.
+Fixed the input <code>y_reset_in</code>.
 <br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2056\">issue 2056</a>.

@@ -37,10 +37,10 @@ model Timer "Validation model for the Timer block"
     final period=2,
     final startTime=0.5)  "Block that outputs cyclic on and off"
     annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
-
-  Sources.Constant                                 con(k=false)
-                    "Block that outputs cyclic on and off"
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(
+    final k=false) "Block that outputs cyclic on and off"
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
+
 equation
   connect(booPul.y, resetTimer.u)
     annotation (Line(points={{-18,80},{18,80}}, color={255,0,255}));

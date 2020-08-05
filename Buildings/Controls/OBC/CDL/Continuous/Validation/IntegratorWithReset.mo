@@ -4,11 +4,13 @@ model IntegratorWithReset "Test model for integrator with reset"
   Buildings.Controls.OBC.CDL.Continuous.IntegratorWithReset intDef
     "Integrator with default values"
     annotation (Placement(transformation(extent={{0,60},{20,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.IntegratorWithReset intWitRes1(final
-      y_start=5, final k=0.5) "Integrator with reset"
+  Buildings.Controls.OBC.CDL.Continuous.IntegratorWithReset intWitRes1(
+    final y_start=5,
+    final k=0.5) "Integrator with reset"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
-  Buildings.Controls.OBC.CDL.Continuous.IntegratorWithReset intWitRes2(final
-      y_start=-5, final k=0.5) "Integrator with reset and y_reset = 2"
+  Buildings.Controls.OBC.CDL.Continuous.IntegratorWithReset intWitRes2(
+    final y_start=-5,
+    final k=0.5) "Integrator with reset and y_reset = 2"
     annotation (Placement(transformation(extent={{0,-20},{20,0}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant cons(
@@ -38,8 +40,7 @@ equation
   connect(booleanPulse.y, intWitRes2.trigger)
     annotation (Line(points={{-38,-70},{10,-70},{10,-22}}, color={255,0,255}));
   connect(ramp.y, intWitRes2.y_reset_in) annotation (Line(points={{-38,-30},{
-          -14,-30},{-14,-18},{-2,-18}},
-                                     color={0,0,127}));
+          -14,-30},{-14,-18},{-2,-18}}, color={0,0,127}));
   connect(cons.y, intDef.u) annotation (Line(points={{-38,70},{-2,70}},
                       color={0,0,127}));
   connect(ramp.y, intWitRes1.y_reset_in) annotation (Line(points={{-38,-30},{-14,
@@ -48,7 +49,8 @@ equation
           {-14,62},{-2,62}}, color={0,0,127}));
   connect(sampleTrigger.y, intDef.trigger) annotation (Line(points={{-38,10},{-26,
           10},{-26,52},{10,52},{10,58}}, color={255,0,255}));
-          annotation (
+
+annotation (
   experiment(StopTime=1.0, Tolerance=1e-06),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Continuous/Validation/IntegratorWithReset.mos"
         "Simulate and plot"),

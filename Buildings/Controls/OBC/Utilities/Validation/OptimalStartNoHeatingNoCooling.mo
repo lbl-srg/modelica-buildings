@@ -2,8 +2,9 @@ within Buildings.Controls.OBC.Utilities.Validation;
 model OptimalStartNoHeatingNoCooling
   "Validation model for the block OptimalStart for the case with no preheating nor precooling"
 
-  Buildings.Controls.OBC.Utilities.OptimalStart optSta(computeHeating=false,
-      computeCooling=false) "Optimal start for both heating and cooling system"
+  Buildings.Controls.OBC.Utilities.OptimalStart optSta(
+    computeHeating=false,
+    computeCooling=false) "Optimal start for both heating and cooling system"
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
   Modelica.Blocks.Continuous.Integrator TRoo(k = 0.0000004, y_start = 19 + 273.15)
     "Room air temperature" annotation (
@@ -35,8 +36,9 @@ model OptimalStartNoHeatingNoCooling
     Ti=3,
     reverseActing=false) "PI control for space cooling"
     annotation (Placement(transformation(extent={{180,0},{200,20}})));
-  Buildings.Controls.SetPoints.OccupancySchedule occSch(occupancy=3600*{7,19},period=24*3600)
-    "Daily schedule"
+  Buildings.Controls.SetPoints.OccupancySchedule occSch(
+    occupancy=3600*{7,19},
+    period=24*3600) "Daily schedule"
     annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum(nin=3) "Sum heat gains"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
@@ -46,8 +48,9 @@ model OptimalStartNoHeatingNoCooling
   Buildings.Controls.OBC.CDL.Continuous.Add add2
     "Reset temperature from unoccupied to occupied for optimal start period"
     annotation (Placement(transformation(extent={{140,40},{160,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.LimPID conPID(controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
-      Ti=3) "PI control for space heating"
+  Buildings.Controls.OBC.CDL.Continuous.LimPID conPID(
+    controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
+    Ti=3) "PI control for space heating"
     annotation (Placement(transformation(extent={{180,40},{200,60}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain QHea(k=2000)
     "Heat injection in the zone"

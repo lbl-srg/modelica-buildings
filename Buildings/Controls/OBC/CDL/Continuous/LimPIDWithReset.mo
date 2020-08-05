@@ -75,9 +75,9 @@ block LimPIDWithReset
   Buildings.Controls.OBC.CDL.Continuous.Feedback controlError "Control error (set point - measurement)"
     annotation (Placement(transformation(extent={{-200,-10},{-180,10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.IntegratorWithReset I(final k=1/Ti,
-      final y_start=xi_start) if
-                               with_I "Integral term"
+  Buildings.Controls.OBC.CDL.Continuous.IntegratorWithReset I(
+    final k=1/Ti,
+    final y_start=xi_start) if with_I "Integral term"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 
   Derivative D(
