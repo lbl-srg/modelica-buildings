@@ -159,13 +159,13 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yResSig(final k=y_reset) if
     with_I
     "Signal for y_reset"
-    annotation (Placement(transformation(extent={{-180,-80},{-160,-60}})));
+    annotation (Placement(transformation(extent={{-180,-90},{-160,-70}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain divK(final k=1/k) if with_I
     "Division by k for integrator reset"
-    annotation (Placement(transformation(extent={{-120,-80},{-100,-60}})));
+    annotation (Placement(transformation(extent={{-120,-90},{-100,-70}})));
   Buildings.Controls.OBC.CDL.Continuous.Feedback addRes if with_I
    "Adder for integrator reset"
-    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
+    annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant cheYMinMax(
     final k=yMin < yMax)
     "Check for values of yMin and yMax"
@@ -329,13 +329,13 @@ equation
   connect(addPID.u2, I.y) annotation (Line(points={{38,84},{34,84},{34,0},{-18,0}},
         color={0,0,127}));
   connect(divK.y, addRes.u1)
-    annotation (Line(points={{-98,-70},{-82,-70}}, color={0,0,127}));
-  connect(addRes.u2, addPD.y) annotation (Line(points={{-70,-82},{-70,-108},{28,
+    annotation (Line(points={{-98,-80},{-82,-80}}, color={0,0,127}));
+  connect(addRes.u2, addPD.y) annotation (Line(points={{-70,-92},{-70,-108},{28,
           -108},{28,114},{22,114}}, color={0,0,127}));
-  connect(addRes.y, I.y_reset_in) annotation (Line(points={{-58,-70},{-52,-70},
+  connect(addRes.y, I.y_reset_in) annotation (Line(points={{-58,-80},{-52,-80},
           {-52,-8},{-42,-8}},
                color={0,0,127}));
-  connect(divK.u, yResSig.y) annotation (Line(points={{-122,-70},{-158,-70}},
+  connect(divK.u, yResSig.y) annotation (Line(points={{-122,-80},{-158,-80}},
                             color={0,0,127}));
   connect(antWinErr.u1, gainPID.y) annotation (Line(points={{160,60},{110,60},{110,
           90},{102,90}}, color={0,0,127}));
