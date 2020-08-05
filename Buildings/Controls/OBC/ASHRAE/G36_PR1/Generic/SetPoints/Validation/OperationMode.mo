@@ -145,12 +145,10 @@ equation
           {100,86},{118,86}}, color={255,0,255}));
 
 annotation (
-  experiment(
-      StopTime=172800,
-      Tolerance=1e-06),
+  experiment(StopTime=172800, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36_PR1/Generic/SetPoints/Validation/OperationMode.mos"
         "Simulate and plot"),
-    Documentation(info="<html>
+  Documentation(info="<html>
 <p>
 This example validates
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.OperationMode\">
@@ -175,8 +173,8 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
-         graphics={
+  Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
+     graphics={
         Ellipse(lineColor = {75,138,73},
                 fillColor={255,255,255},
                 fillPattern = FillPattern.Solid,
@@ -186,5 +184,5 @@ First implementation.
                 pattern = LinePattern.None,
                 fillPattern = FillPattern.Solid,
                 points = {{-36,60},{64,0},{-36,-60},{-36,60}})}),
-    Diagram(coordinateSystem(extent={{-160,-160},{160,180}})));
+  Diagram(coordinateSystem(extent={{-160,-160},{160,180}})));
 end OperationMode;

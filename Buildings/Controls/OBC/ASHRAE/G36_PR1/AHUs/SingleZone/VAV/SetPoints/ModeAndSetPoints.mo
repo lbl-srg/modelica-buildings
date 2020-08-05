@@ -5,25 +5,25 @@ block ModeAndSetPoints "Output zone setpoint with operation mode selection"
   parameter Boolean have_occSen "Check if the zone has occupancy sensor";
   parameter Real THeaSetOcc(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")=293.15
     "Occupied heating setpoint"
     annotation (Dialog(group="Setpoints"));
   parameter Real THeaSetUno(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")=285.15
     "Unoccupied heating setpoint"
     annotation (Dialog(group="Setpoints"));
   parameter Real TCooSetOcc(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")=297.15
     "Occupied cooling setpoint"
     annotation (Dialog(group="Setpoints"));
   parameter Real TCooSetUno(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")=303.15
     "Unoccupied cooling setpoint"
     annotation (Dialog(group="Setpoints"));
@@ -41,36 +41,36 @@ block ModeAndSetPoints "Output zone setpoint with operation mode selection"
     annotation (Dialog(tab="Setpoints adjustment", group="Adjustable settings"));
   parameter Real TZonCooOnMax(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")=300.15
     "Maximum cooling setpoint during on"
     annotation (Dialog(tab="Setpoints adjustment", group="Limits"));
   parameter Real TZonCooOnMin(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")=295.15
     "Minimum cooling setpoint during on"
     annotation (Dialog(tab="Setpoints adjustment", group="Limits"));
   parameter Real TZonHeaOnMax(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")=295.15
     "Maximum heating setpoint during on"
     annotation (Dialog(tab="Setpoints adjustment", group="Limits"));
   parameter Real TZonHeaOnMin(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")=291.15
     "Minimum heating setpoint during on"
     annotation (Dialog(tab="Setpoints adjustment", group="Limits"));
   parameter Real TZonCooSetWinOpe(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")=322.15 "Cooling setpoint when window is open"
     annotation (Dialog(tab="Setpoints adjustment", group="Limits"));
   parameter Real TZonHeaSetWinOpe(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")=277.15  "Heating setpoint when window is open"
     annotation (Dialog(tab="Setpoints adjustment", group="Limits"));
   parameter Real incTSetDem_1=0.56
@@ -106,13 +106,13 @@ block ModeAndSetPoints "Output zone setpoint with operation mode selection"
     annotation (Dialog(tab="Advanced", group="Operation mode"));
   parameter Real TZonFreProOn(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")=277.15
     "Threshold temperature to activate the freeze protection mode"
     annotation (Dialog(tab="Advanced", group="Operation mode"));
   parameter Real TZonFreProOff(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")=280.15
     "Threshold temperature to end the freeze protection mode"
     annotation (Dialog(tab="Advanced", group="Operation mode"));
@@ -134,7 +134,7 @@ block ModeAndSetPoints "Output zone setpoint with operation mode selection"
       iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZon(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Zone temperature"
     annotation (Placement(transformation(extent={{-200,90},{-160,130}}),
@@ -173,14 +173,14 @@ block ModeAndSetPoints "Output zone setpoint with operation mode selection"
       iconTransformation(extent={{100,60},{140,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TZonCooSet(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Cooling setpoint temperature"
     annotation (Placement(transformation(extent={{160,-80},{200,-40}}),
       iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TZonHeaSet(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Heating setpoint temperature"
     annotation (Placement(transformation(extent={{160,-180},{200,-140}}),
@@ -439,8 +439,9 @@ This version is for a single zone only to be used in the Single Zone VAV sequenc
 <ul>
 <li>
 June 16, 2020, by Jianjun Hu:<br/>
-Reimplemented to use the upgraded implementation of specifying operation mode,
-according to ASHRAE G36 official release.
+Moved from TerminalUnits.ModeAndSetPoints,
+reimplemented to use the operating mode specified according to ASHRAE G36 official
+release and changed the heating and cooling demand limit level to be inputs.
 </li>
 <li>
 October 24, 2018, by David Blum:<br/>

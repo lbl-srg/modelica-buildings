@@ -561,7 +561,7 @@ This is for
 </li>
 <li>
 June 15, 2020, by Jianjun Hu:<br/>
-Upgraded operation mode selection sequence according to G36 official release.
+Upgraded sequence of specifying operating mode according to G36 official release.
 </li>
 <li>
 April 20, 2020, by Jianjun Hu:<br/>
