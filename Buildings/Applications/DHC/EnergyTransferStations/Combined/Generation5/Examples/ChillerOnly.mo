@@ -81,7 +81,7 @@ is considered to vary linearly with the load (with no inferior limit).
 <li>
 The Boolean enable signals for heating and cooling typically provided
 by the building automation system are here computed
-as false if the load if lower than 1% of the nominal load for more than 300s.
+as falseif the load is lower than 1% of the nominal load for more than 300s.
 </li>
 <li>
 Simplified chiller performance data are used, which only represent a linear
