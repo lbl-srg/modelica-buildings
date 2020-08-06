@@ -96,11 +96,11 @@ protected
     final uHigh=0,
     final uLow=-60) "Hysteresis to activate the optimal start"
     annotation (Placement(transformation(extent={{330,-90},{350,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.LessEqualThreshold lesEquThr(
+  Buildings.Obsolete.Controls.OBC.CDL.Continuous.LessEqualThreshold lesEquThr(
     final threshold=1E-15)
     "Avoid zero division"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.LessEqualThreshold lesEquThr1(
+  Buildings.Obsolete.Controls.OBC.CDL.Continuous.LessEqualThreshold lesEquThr1(
     final threshold=1E-15)
     "Avoid zero division"
     annotation (Placement(transformation(extent={{140,-10},{160,10}})));
@@ -161,7 +161,7 @@ protected
     annotation (Placement(transformation(extent={{0,-90},{20,-70}})));
   Buildings.Controls.OBC.CDL.Continuous.Modulo mod "Get the modulo"
     annotation (Placement(transformation(extent={{40,-70},{60,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.LessEqualThreshold lesEquThr2(
+  Buildings.Obsolete.Controls.OBC.CDL.Continuous.LessEqualThreshold lesEquThr2(
     final threshold=1E-06)
   "Get the instant when the simulation time arrives at midnight"
     annotation (Placement(transformation(extent={{80,-70},{100,-50}})));

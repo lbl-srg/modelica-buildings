@@ -196,10 +196,10 @@ protected
     annotation (Placement(transformation(extent={{60,260},{80,280}})));
   Buildings.Controls.OBC.CDL.Logical.Timer tim "Calculate time"
     annotation (Placement(transformation(extent={{0,330},{20,350}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterEqual gre
+  Buildings.Obsolete.Controls.OBC.CDL.Continuous.GreaterEqual gre
     "Check if the suppression time has passed"
     annotation (Placement(transformation(extent={{60,330},{80,350}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterEqual gre1
+  Buildings.Obsolete.Controls.OBC.CDL.Continuous.GreaterEqual gre1
     "Check if current model time is greater than the sample period"
     annotation (Placement(transformation(extent={{-80,400},{-60,420}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys2(
@@ -386,10 +386,10 @@ protected
     final samplePeriod=samplePeriod)
     "Sample input signal, as the output signal will go to the trim and respond which also samples at samplePeriod"
     annotation (Placement(transformation(extent={{-160,80},{-140,100}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterEqual greEqu
+  Buildings.Obsolete.Controls.OBC.CDL.Continuous.GreaterEqual greEqu
     "Check if discharge airflow is less than 50% of setpoint"
     annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterEqual greEqu1
+  Buildings.Obsolete.Controls.OBC.CDL.Continuous.GreaterEqual greEqu1
     "Check if discharge airflow is less than 70% of setpoint"
     annotation (Placement(transformation(extent={{-60,-110},{-40,-90}})));
 

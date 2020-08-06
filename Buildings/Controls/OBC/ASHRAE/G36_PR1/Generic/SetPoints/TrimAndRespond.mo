@@ -36,7 +36,7 @@ block TrimAndRespond "Block to inplement trim and respond logic"
     final delayOnInit=true)
     "Send an on signal after some delay time"
     annotation (Placement(transformation(extent={{-200,160},{-180,180}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greThr
+  Buildings.Obsolete.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greThr
     "Check if the real requests is more than ignored requests setting"
     annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
   Buildings.Controls.OBC.CDL.Logical.Switch netRes "Net setpoint reset value"
@@ -72,13 +72,13 @@ block TrimAndRespond "Block to inplement trim and respond logic"
     final samplePeriod=samplePeriod)
     "Sample number of requests"
     annotation (Placement(transformation(extent={{-160,-60},{-140,-40}})));
-  Buildings.Controls.OBC.CDL.Continuous.LessEqualThreshold lesEquThr1
+  Buildings.Obsolete.Controls.OBC.CDL.Continuous.LessEqualThreshold lesEquThr1
     "Check if trim and response amount have same sign"
     annotation (Placement(transformation(extent={{-120,-110},{-100,-90}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr
+  Buildings.Obsolete.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr
     "Check if trim and response amount have opposite sign"
     annotation (Placement(transformation(extent={{-120,-180},{-100,-160}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr1
+  Buildings.Obsolete.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr1
     "Check if response amount have positive sign"
     annotation (Placement(transformation(extent={{20,-160},{40,-140}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain gai(

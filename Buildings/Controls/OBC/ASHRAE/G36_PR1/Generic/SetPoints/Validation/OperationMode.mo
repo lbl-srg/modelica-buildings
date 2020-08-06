@@ -53,7 +53,7 @@ model OperationMode "Validate block for selecting operation mode"
   Buildings.Controls.OBC.CDL.Continuous.Gain gai(k=24*3600)
     "Begin time of each day"
     annotation (Placement(transformation(extent={{-40,210},{-20,230}})));
-  Buildings.Controls.OBC.CDL.Continuous.LessEqual lesEqu
+  Buildings.Obsolete.Controls.OBC.CDL.Continuous.LessEqual lesEqu
     "Check if it is beginning of next day"
     annotation (Placement(transformation(extent={{0,210},{20,230}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar1(
@@ -78,29 +78,29 @@ model OperationMode "Validate block for selecting operation mode"
     final p=occSta, final k=1)
     "Left time to next occupancy"
     annotation (Placement(transformation(extent={{40,130},{60,150}})));
-  Buildings.Controls.OBC.CDL.Continuous.LessEqual lesEqu1
+  Buildings.Obsolete.Controls.OBC.CDL.Continuous.LessEqual lesEqu1
     "Check if current time has already passed occupancy start time"
     annotation (Placement(transformation(extent={{0,90},{20,110}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi1 "Time to next occupancy"
     annotation (Placement(transformation(extent={{120,90},{140,110}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold occ(
+  Buildings.Obsolete.Controls.OBC.CDL.Continuous.GreaterEqualThreshold occ(
     final threshold=0.5) "Occupied status"
     annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.OperationMode opeModSel(final
       have_winSen=true, final numZon=1) "Operation mode selection"
     annotation (Placement(transformation(extent={{130,0},{150,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterEqual greEqu
+  Buildings.Obsolete.Controls.OBC.CDL.Continuous.GreaterEqual greEqu
     "True when zone occupied heating setpoint temperature is larger than zone temperature"
     annotation (Placement(transformation(extent={{40,-50},{60,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterEqual greEqu1
+  Buildings.Obsolete.Controls.OBC.CDL.Continuous.GreaterEqual greEqu1
     "True when zone occupied heating setpoint temperature is larger than zone temperature"
     annotation (Placement(transformation(extent={{40,-100},{60,-80}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterEqual greEqu2
+  Buildings.Obsolete.Controls.OBC.CDL.Continuous.GreaterEqual greEqu2
     "True when the zone temperature is lower than unoccupied heating setpoint"
     annotation (Placement(transformation(extent={{40,-170},{60,-150}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt "Convert boolean to integer"
     annotation (Placement(transformation(extent={{80,-170},{100,-150}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterEqual greEqu3
+  Buildings.Obsolete.Controls.OBC.CDL.Continuous.GreaterEqual greEqu3
     "True when the zone temperature is lower than unoccupied heating setpoint"
     annotation (Placement(transformation(extent={{40,-210},{60,-190}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt1 "Convert boolean to integer"

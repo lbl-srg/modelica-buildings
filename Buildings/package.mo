@@ -273,8 +273,7 @@ have been <b style=\"color:blue\">improved</b> in a
 </tr>
 <tr><td valign=\"top\">Buildings.Controls.Continuous.LimPID<br/>
                        Buildings.Controls.Continuous.PIDHysteresis<br/>
-                       Buildings.Controls.Continuous.PIDHysteresisTimer<br/>
-                       Buildings.Controls.OBC.CDL.Continuous.LimPID
+                       Buildings.Controls.Continuous.PIDHysteresisTimer
     </td>
     <td valign=\"top\">Corrected wrong convention of reverse and direct action.
                        The previous parameter <code>reverseAction</code> with a default of <code>false</code>
@@ -285,6 +284,35 @@ have been <b style=\"color:blue\">improved</b> in a
                        industry convention is that reverse action means that the control output
                        changes in reverse to the measurement signal.<br/>
                        This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1365\">IBPSA, #1365</a>.<br/>
+                       For Dymola, a conversion script makes this change.</td>
+                       </tr>
+ <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL.Continuous</b>
+    </td>
+    </tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.LimPID
+    </td>
+    <td valign=\"top\">Corrected wrong convention of reverse and direct action.
+                       The previous parameter <code>reverseAction</code> with a default of <code>false</code>
+                       has been removed, and
+                       a new parameter <code>reverseActing</code> with a default of <code>true</code>
+                       has been added. This was done because the previous implementation wrongly interpreted reverse action
+                       as the control output changing in reverse to the change in control error, but the
+                       industry convention is that reverse action means that the control output
+                       changes in reverse to the measurement signal.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1365\">IBPSA, #1365</a>.<br/>
+                       For Dymola, a conversion script makes this change.</td>
+                       </tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold<br/>
+                       Buildings.Controls.OBC.CDL.Continuous.GreaterEqual<br/>
+                       Buildings.Controls.OBC.CDL.Continuous.LessEqualThreshold<br/>
+                       Buildings.Controls.OBC.CDL.Continuous.LessEqual
+    </td>
+    <td valign=\"top\">Moved blocks to obsolete package. Instead of these blocks, use the ones that
+                       do not contain the word <code>Equal</code>
+                       in their name. This was done because for real-valued, measured quantities, there is
+                       no reason to distinguish between weak and strict inequality
+                       (due to sensor noise, or within a simulation, due to solver noise or rounding errors).<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2076\">#2076</a>.<br/>
                        For Dymola, a conversion script makes this change.</td>
 </tr>
 </table>

@@ -261,7 +261,7 @@ block ZoneTemperatures
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler heaSetSam
     "Sample current heating setpoint when zone becomes unpopulated by 5 minutes"
     annotation (Placement(transformation(extent={{40,-320},{60,-300}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greThr(threshold=300)
+  Buildings.Obsolete.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greThr(threshold=300)
     "Check whether the zone has been unpopulated for 5 minutes continuously during occupied mode"
     annotation (Placement(transformation(extent={{-160,-280},{-140,-260}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add1 "Adjust heating setpoint"
@@ -379,13 +379,13 @@ protected
     annotation (Placement(transformation(extent={{-220,-420},{-200,-400}})));
   Buildings.Controls.OBC.CDL.Logical.Not not5  "Other than occupied mode"
     annotation (Placement(transformation(extent={{-280,-400},{-260,-380}})));
-  Buildings.Controls.OBC.CDL.Continuous.LessEqual lesEqu
+  Buildings.Obsolete.Controls.OBC.CDL.Continuous.LessEqual lesEqu
     "Check if occupied cooling setpoint is less than unoccupied one"
     annotation (Placement(transformation(extent={{20,-550},{40,-530}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterEqual greEqu1
+  Buildings.Obsolete.Controls.OBC.CDL.Continuous.GreaterEqual greEqu1
     "Check if occupied heating setpoint is greater than unoccupied one"
     annotation (Placement(transformation(extent={{20,-610},{40,-590}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterEqual greEqu2
+  Buildings.Obsolete.Controls.OBC.CDL.Continuous.GreaterEqual greEqu2
     "Check whether heating setpoint exceeds cooling setpoint minus 0.56 degC"
     annotation (Placement(transformation(extent={{220,-590},{240,-570}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi

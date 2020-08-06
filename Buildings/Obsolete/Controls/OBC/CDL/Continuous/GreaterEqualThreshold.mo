@@ -1,6 +1,7 @@
-within Buildings.Controls.OBC.CDL.Continuous;
+within Buildings.Obsolete.Controls.OBC.CDL.Continuous;
 block GreaterEqualThreshold
   "Output y is true, if input u is greater or equal than threshold"
+  extends Modelica.Icons.ObsoleteModel;
 
   parameter Real threshold=0 "Threshold for comparison";
 
@@ -15,6 +16,7 @@ equation
 
 annotation (
   defaultComponentName="greEquThr",
+  obsolete = "Obsolete model, use Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold instead",
   Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
             {100,100}}), graphics={
         Text(
@@ -53,6 +55,10 @@ Otherwise the output is <code>false</code>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+August 6, 2020, by Michael Wetter:<br/>
+Moved block to obsolete package.
+</li>
 <li>
 January 3, 2017, by Michael Wetter:<br/>
 First implementation, based on the implementation of the

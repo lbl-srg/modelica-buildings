@@ -1,6 +1,7 @@
-within Buildings.Controls.OBC.CDL.Continuous;
+within Buildings.Obsolete.Controls.OBC.CDL.Continuous;
 block GreaterEqual
   "Output y is true, if input u1 is greater or equal than input u2"
+  extends Modelica.Icons.ObsoleteModel;
 
   Interfaces.RealInput u1 "Connector of first Real input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
@@ -16,6 +17,7 @@ equation
 
 annotation (
   defaultComponentName="greEqu",
+  obsolete = "Obsolete model, use Buildings.Controls.OBC.CDL.Continuous.Greater instead",
   Icon(coordinateSystem(preserveAspectRatio=false,extent={{-100,
             -100},{100,100}}), graphics={
         Rectangle(
@@ -52,6 +54,10 @@ Otherwise the output is <code>false</code>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+August 6, 2020, by Michael Wetter:<br/>
+Moved block to obsolete package.
+</li>
 <li>
 January 3, 2017, by Michael Wetter:<br/>
 First implementation, based on the implementation of the
