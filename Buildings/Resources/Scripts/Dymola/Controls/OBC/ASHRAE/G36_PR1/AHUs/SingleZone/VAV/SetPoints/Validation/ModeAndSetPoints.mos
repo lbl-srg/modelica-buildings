@@ -1,7 +1,7 @@
-simulateModel("Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Validation.ModeAndSetPoints", method="Cvode", stopTime=86400, tolerance=1e-06, resultFile="ZoneModSetPoints");
+simulateModel("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.SetPoints.Validation.ModeAndSetPoints", method="Cvode", stopTime=86400, tolerance=1e-06, resultFile="ZoneModSetPoints");
 createPlot(id=1, position={10, 15, 390, 750}, subPlot=1, y={"setPoi.setAdj","setPoi.heaSetAdj"}, range={0.0, 0.05, -0.2, 0.6}, grid=true, colors={{28,108,200},{0,140,72}});
-createPlot(id=1, position={10, 15, 390, 750}, subPlot=2, y={"TZon1.y","TZon2.y","setPoi.TZonHeaOn","setPoi.TZonCooOn"}, range={0.0, 0.05, -0.2, 0.6}, grid=true, colors={{28,108,200},{0,140,72},{238,46,47},{238,46,47}});
+createPlot(id=1, position={10, 15, 390, 750}, subPlot=2, y={"TZon1.y","TZon2.y","setPoi.THeaSetOcc","setPoi.TCooSetOcc"}, range={0.0, 0.05, -0.2, 0.6}, grid=true, colors={{28,108,200},{0,140,72},{238,46,47},{238,46,47}});
 createPlot(id=2, position={410, 15, 390, 750}, subPlot=1, y={"setPoi.TZonCooSet","setPoi.TZonHeaSet"}, range={0.0, 0.05, -0.2, 0.6}, grid=true, colors={{28,108,200},{0,140,72}});
 createPlot(id=2, position={410, 15, 390, 750}, subPlot=2, y={"setPoi.yOpeMod"}, range={0.0, 0.05, -0.2, 0.6}, grid=true, colors={{28,108,200}});
-createPlot(id=3, position={810, 15, 390, 750}, subPlot=1, y={"setPoi1.uOccSen","setPoi1.uWinSta"}, range={0.0, 0.05, -0.2, 0.6}, grid=true, colors={{28,108,200},{0,140,72}});
+createPlot(id=3, position={810, 15, 390, 750}, subPlot=1, y={"setPoi1.uOccSen","setPoi1.uWin"}, range={0.0, 0.05, -0.2, 0.6}, grid=true, colors={{28,108,200},{0,140,72}});
 createPlot(id=3, position={810, 15, 390, 750}, subPlot=2, y={"setPoi1.TZonCooSet","setPoi1.TZonHeaSet"}, range={0.0, 0.05, -0.2, 0.6}, grid=true, colors={{28,108,200},{0,140,72}});
