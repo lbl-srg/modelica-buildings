@@ -69,7 +69,7 @@ annotation (
   Documentation(info="<html>
 <p>
 Block that outputs <code>true</code> if the Real input <code>u</code>
-is greater than the parameter <code>threshold/code>, optionally within a hysteresis <code>h</code>.
+is greater than the parameter <code>threshold</code>, optionally within a hysteresis <code>h</code>.
 </p>
 <p>
 The parameter <code>h</code> is used to specify a hysteresis.
@@ -90,7 +90,7 @@ To disable hysteresis, set <code>h=0</code>.
 <li>
 August 5, 2020, by Michael Wetter:<br/>
 Added hysteresis.<br/>
-This is for <a href=\\\"https://github.com/lbl-srg/modelica-buildings/issues/2076\\\">issue 2076</a>.
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2076\">issue 2076</a>.
 </li>
 <li>
 January 3, 2017, by Michael Wetter:<br/>

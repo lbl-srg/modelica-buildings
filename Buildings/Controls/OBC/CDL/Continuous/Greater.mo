@@ -94,7 +94,7 @@ To disable hysteresis, set <code>h=0</code>.
 <li>
 August 5, 2020, by Michael Wetter:<br/>
 Added hysteresis.<br/>
-This is for <a href=\\\"https://github.com/lbl-srg/modelica-buildings/issues/2076\\\">issue 2076</a>.
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2076\">issue 2076</a>.
 </li>
 <li>
 January 3, 2017, by Michael Wetter:<br/>
