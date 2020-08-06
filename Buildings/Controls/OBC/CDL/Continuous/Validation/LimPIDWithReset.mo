@@ -6,8 +6,8 @@ model LimPIDWithReset
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.ModelTime modTim "Model time"
     annotation (Placement(transformation(extent={{-90,-70},{-70,-50}})));
-  Buildings.Obsolete.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr(
-      threshold=1) "Outputs true after t=1"
+  Buildings.Obsolete.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greThr(threshold
+      =1) "Outputs true after t=1"
     annotation (Placement(transformation(extent={{-52,-70},{-32,-50}})));
 
   Buildings.Controls.OBC.CDL.Continuous.LimPID limPIDPar(
@@ -72,12 +72,12 @@ equation
     annotation (Line(points={{58,70},{42,70}}, color={0,0,127}));
   connect(intWitRes1.y, limPIDPar.u_m) annotation (Line(points={{82,70},{90,70},
           {90,50},{30,50},{30,58}}, color={0,0,127}));
-  connect(modTim.y, greEquThr.u)
-    annotation (Line(points={{-68,-60},{-54,-60}},   color={0,0,127}));
-  connect(greEquThr.y, setPoi.u) annotation (Line(points={{-30,-60},{-28,-60},{
-          -28,-30},{-22,-30}},    color={255,0,255}));
-  connect(greEquThr.y, limPIDPar.trigger) annotation (Line(points={{-30,-60},{8,
-          -60},{8,50},{24,50},{24,58}},  color={255,0,255}));
+  connect(modTim.y, greThr.u)
+    annotation (Line(points={{-68,-60},{-54,-60}}, color={0,0,127}));
+  connect(greThr.y, setPoi.u) annotation (Line(points={{-30,-60},{-28,-60},{-28,
+          -30},{-22,-30}}, color={255,0,255}));
+  connect(greThr.y, limPIDPar.trigger) annotation (Line(points={{-30,-60},{8,-60},
+          {8,50},{24,50},{24,58}}, color={255,0,255}));
   connect(intWitRes2.u, limPIDInp.y)
     annotation (Line(points={{58,30},{42,30}}, color={0,0,127}));
   connect(intWitRes2.y, limPIDInp.u_m) annotation (Line(points={{82,30},{90,30},
@@ -94,8 +94,8 @@ equation
     annotation (Line(points={{58,-30},{42,-30}}, color={0,0,127}));
   connect(intWitRes3.y, limPIPar.u_m) annotation (Line(points={{82,-30},{90,-30},
           {90,-50},{30,-50},{30,-42}}, color={0,0,127}));
-  connect(greEquThr.y, limPIPar.trigger) annotation (Line(points={{-30,-60},{8,
-          -60},{8,-50},{24,-50},{24,-42}},  color={255,0,255}));
+  connect(greThr.y, limPIPar.trigger) annotation (Line(points={{-30,-60},{8,-60},
+          {8,-50},{24,-50},{24,-42}}, color={255,0,255}));
   connect(intWitRes4.u, limPIInp.y)
     annotation (Line(points={{58,-70},{42,-70}}, color={0,0,127}));
   connect(intWitRes4.y, limPIInp.u_m) annotation (Line(points={{82,-70},{90,-70},
@@ -106,11 +106,10 @@ equation
   connect(limPIInp.y_reset_in, resVal.y) annotation (Line(points={{18,-78},{14,
           -78},{14,22},{-18,22}},
                                 color={0,0,127}));
-  connect(greEquThr.y, limPIInp.trigger) annotation (Line(points={{-30,-60},{8,
-          -60},{8,-90},{24,-90},{24,-82}},  color={255,0,255}));
-  connect(limPIDInp.trigger, greEquThr.y) annotation (Line(points={{24,18},{24,
-          10},{8,10},{8,-60},{-30,-60}},
-                                       color={255,0,255}));
+  connect(greThr.y, limPIInp.trigger) annotation (Line(points={{-30,-60},{8,-60},
+          {8,-90},{24,-90},{24,-82}}, color={255,0,255}));
+  connect(limPIDInp.trigger, greThr.y) annotation (Line(points={{24,18},{24,10},
+          {8,10},{8,-60},{-30,-60}}, color={255,0,255}));
  annotation (
  experiment(
       StopTime=10,
