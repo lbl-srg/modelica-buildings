@@ -49,7 +49,7 @@ protected
 protected
   Controls.OBC.CDL.Logical.Timer timer
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
-  Obsolete.Controls.OBC.CDL.Continuous.GreaterEqualThreshold timeDel(final threshold=per.timeDelayCool)
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold timeDel(final threshold=per.timeDelayCool)
     "Check if the time of  plant in cool-down mode has been longer than the
     specified delay time"
     annotation (Placement(transformation(extent={{30,0},{50,20}})));

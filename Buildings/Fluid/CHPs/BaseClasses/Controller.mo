@@ -135,7 +135,7 @@ protected
     final k=per.coolDownOptional)
     "Check if cool-down mode is optional"
     annotation (Placement(transformation(extent={{60,-190},{80,-170}})));
-  Buildings.Obsolete.Controls.OBC.CDL.Continuous.GreaterEqualThreshold timeDel(
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold timeDel(
     final threshold=per.timeDelayCool)
     "Check if the time of  plant in cool-down mode has been longer than the
     specified delay time"
