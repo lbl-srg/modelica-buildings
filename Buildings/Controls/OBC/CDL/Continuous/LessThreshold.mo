@@ -24,7 +24,8 @@ equation
   annotation (
         defaultComponentName="lesThr",
         Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
-            {100,100}}), graphics={
+            {100,100}}),
+  graphics={
         Rectangle(
           extent={{-100,100},{100,-100}},
           lineColor={0,0,0},
@@ -33,27 +34,37 @@ equation
           fillPattern=FillPattern.Solid,
           borderPattern=BorderPattern.Raised),
         Ellipse(
-          extent={{71,7},{85,-7}},
+          extent={{73,7},{87,-7}},
           lineColor=DynamicSelect({235,235,235}, if y then {0,255,0}
                else {235,235,235}),
           fillColor=DynamicSelect({235,235,235}, if y then {0,255,0}
                else {235,235,235}),
           fillPattern=FillPattern.Solid),
-        Text(
-          extent={{-150,-140},{150,-110}},
-          lineColor={0,0,0},
-          textString="%threshold"),
+        Line(
+          points={{-16,10},{2,2},{-16,-8}},
+          thickness=0.5),
         Text(
           extent={{-150,150},{150,110}},
-          lineColor={0,0,255},
-          textString="%name"),
-        Line(
-          points={{-10,20},{-54,0},{-10,-18}},
-          thickness=0.5),
-        Text(extent={{-48,38},{57,78}},
-          textString="%h",
-          visible=h >= 1E-10,
-          lineColor={0,0,0})}),
+          textString="%name",
+          lineColor={0,0,255}),
+        Text(extent={{-64,62},{62,92}},
+          lineColor={0,0,0},
+          textString="h=%h"),
+        Text(extent={{-88,-18},{-21,24}},
+          lineColor={0,0,0},
+          textString=DynamicSelect("", String(u, leftjustified=false, significantDigits=3))),
+        Text(extent={{4,-18},{71,24}},
+          lineColor={0,0,0},
+          textString="%threshold",
+          visible=h < 1E-10),
+        Text(extent={{22,20},{89,62}},
+          lineColor=DynamicSelect({0,0,0}, if y then {135,135,135} else {0,0,0}),
+          textString=DynamicSelect("", String(threshold, leftjustified=false, significantDigits=3)),
+          visible=h >= 1E-10),
+        Text(extent={{20,-56},{87,-14}},
+          lineColor=DynamicSelect({0,0,0}, if not y then {135,135,135} else {0,0,0}),
+          textString=DynamicSelect("", String(threshold+h, leftjustified=false, significantDigits=3)),
+          visible=h >= 1E-10)}),
 Documentation(info="<html>
 <p>
 Block that outputs <code>true</code> if the Real input <code>u</code>

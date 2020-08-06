@@ -25,7 +25,8 @@ equation
 annotation (
   defaultComponentName="les",
   Icon(coordinateSystem(preserveAspectRatio=false,extent={{-100,
-            -100},{100,100}}), graphics={
+            -100},{100,100}}),
+  graphics={
         Rectangle(
           extent={{-100,100},{100,-100}},
           lineColor={0,0,0},
@@ -40,19 +41,36 @@ annotation (
           fillColor=DynamicSelect({235,235,235}, if y then {0,255,0}
                else {235,235,235}),
           fillPattern=FillPattern.Solid),
-        Ellipse(extent={{32,10},{52,-10}}, lineColor={0,0,127}),
-        Line(points={{-100,-80},{42,-80},{42,0}}, color={0,0,127}),
+        Line(points={{-100,-80},{42,-80},{42,-62}},
+             color={0,0,127}),
         Line(
-          points={{-6,18},{-50,-2},{-6,-20}},
+          points={{18,14},{-12,2},{18,-8}},
           thickness=0.5),
         Text(
           extent={{-150,150},{150,110}},
           textString="%name",
           lineColor={0,0,255}),
-        Text(extent={{-48,38},{57,78}},
-          textString="%h",
-          visible=h >= 1E-10,
-          lineColor={0,0,0})}),
+        Text(extent={{-64,62},{62,92}},
+          lineColor={0,0,0},
+          textString="h=%h"),
+        Text(extent={{-88,-18},{-21,24}},
+          lineColor={0,0,0},
+          textString=DynamicSelect("", String(u1, leftjustified=false, significantDigits=3))),
+        Text(extent={{-86,-76},{-19,-34}},
+          lineColor={0,0,0},
+          textString=DynamicSelect("", String(u2, leftjustified=false, significantDigits=3))),
+        Text(extent={{22,20},{89,62}},
+          lineColor=DynamicSelect({235,235,235}, if y then {135,135,135} else {0,0,0}),
+          textString=DynamicSelect("", String(u2, leftjustified=false, significantDigits=3)),
+          visible=h >= 1E-10),
+        Text(extent={{22,20},{89,62}},
+          lineColor=DynamicSelect({235,235,235}, if y then {135,135,135} else {0,0,0}),
+          textString=DynamicSelect("", String(u2, leftjustified=false, significantDigits=3)),
+          visible=h >= 1E-10),
+        Text(extent={{20,-56},{87,-14}},
+          lineColor=DynamicSelect({235,235,235}, if not y then {135,135,135} else {0,0,0}),
+          textString=DynamicSelect("", String(u2+h, leftjustified=false, significantDigits=3)),
+          visible=h >= 1E-10)}),
   Documentation(info="<html>
 <p>
 Block that outputs <code>true</code> if the Real input <code>u1</code>
