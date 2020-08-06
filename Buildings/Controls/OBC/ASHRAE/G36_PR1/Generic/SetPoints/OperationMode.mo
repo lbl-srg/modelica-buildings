@@ -98,12 +98,11 @@ protected
     annotation (Placement(transformation(extent={{-20,200},{0,220}})));
   Buildings.Controls.OBC.CDL.Logical.Switch corWarUpTim "Corrected warm-up period"
     annotation (Placement(transformation(extent={{-20,160},{0,180}})));
-  Buildings.Controls.OBC.CDL.Integers.GreaterThreshold intGreThr(
-    final threshold=4) "Check if the number of cold zones is not less than than 5"
+  Buildings.Controls.OBC.CDL.Integers.GreaterThreshold intGreThr(final t=4)
+    "Check if the number of cold zones is not less than than 5"
     annotation (Placement(transformation(extent={{-180,-20},{-160,0}})));
-  Buildings.Controls.OBC.CDL.Integers.GreaterThreshold intGreThr1(
-    final threshold=numZon - 1)
-    "Check if all zones are cold zone"
+  Buildings.Controls.OBC.CDL.Integers.GreaterThreshold intGreThr1(final t=
+        numZon - 1) "Check if all zones are cold zone"
     annotation (Placement(transformation(extent={{-180,-50},{-160,-30}})));
   Buildings.Controls.OBC.CDL.Logical.FallingEdge falEdg
     "Check if the unoccupied heating setpoint becomes lower than minimum zone temperature: true to false"
@@ -194,11 +193,11 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Latch lat4
     "Hold true when it should be in cool-down mode"
     annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
-  Buildings.Controls.OBC.CDL.Integers.GreaterThreshold intGreThr2(
-    final threshold=4) "Check if the number of hot zones is not less than than 5"
+  Buildings.Controls.OBC.CDL.Integers.GreaterThreshold intGreThr2(final t=4)
+    "Check if the number of hot zones is not less than than 5"
     annotation (Placement(transformation(extent={{-180,-220},{-160,-200}})));
-  Buildings.Controls.OBC.CDL.Integers.GreaterThreshold intGreThr3(
-    final threshold=numZon - 1) "Check if all zones are hot zone"
+  Buildings.Controls.OBC.CDL.Integers.GreaterThreshold intGreThr3(final t=
+        numZon - 1) "Check if all zones are hot zone"
     annotation (Placement(transformation(extent={{-180,-250},{-160,-230}})));
   Buildings.Controls.OBC.CDL.Integers.Add addInt "Sum of two integer inputs"
     annotation (Placement(transformation(extent={{300,190},{320,210}})));
@@ -291,9 +290,8 @@ protected
     annotation (Placement(transformation(extent={{120,150},{140,170}})));
   Buildings.Controls.OBC.CDL.Logical.Not not5 "Logical not"
     annotation (Placement(transformation(extent={{60,-160},{80,-140}})));
-  Buildings.Controls.OBC.CDL.Integers.GreaterThreshold notOcc(
-    final threshold=1) if have_winSen
-    "Check if the operation mode is other than occupied mode"
+  Buildings.Controls.OBC.CDL.Integers.GreaterThreshold notOcc(final t=1) if
+    have_winSen "Check if the operation mode is other than occupied mode"
     annotation (Placement(transformation(extent={{200,20},{220,40}})));
   Buildings.Controls.OBC.CDL.Logical.And and3 if have_winSen
     "True if window open during modes other than occupied mode"
