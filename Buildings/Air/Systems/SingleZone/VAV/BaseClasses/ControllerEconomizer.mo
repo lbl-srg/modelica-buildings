@@ -57,7 +57,6 @@ model ControllerEconomizer "Controller for economizer"
     final unit="1")
     "Minimum outside air fraction"
     annotation (Placement(transformation(extent={{-120,-30},{-100,-10}})));
-
   Modelica.Blocks.Interfaces.RealOutput yOutAirFra(
     final unit="1")
     "Control signal for outside air fraction"
@@ -113,6 +112,7 @@ model ControllerEconomizer "Controller for economizer"
     annotation (Placement(transformation(extent={{100,-90},{120,-70}})));
   Modelica.Blocks.Logical.Not not1 "No economizer"
     annotation (Placement(transformation(extent={{40,-100},{60,-80}})));
+
 equation
   connect(Limiter.limit2, minOAFra) annotation (Line(points={{58,-8},{-20,-8},{
           -20,-8},{-94,-8},{-94,-20},{-110,-20},{-110,-20}},
@@ -155,7 +155,8 @@ equation
           {30,-70},{30,-90},{38,-90}}, color={255,0,255}));
   connect(hysChiPla.y, or1.u1) annotation (Line(points={{82,-50},{88,-50},{88,
           -64},{62,-64},{62,-80},{68,-80}}, color={255,0,255}));
-  annotation (
+
+   annotation (
   defaultComponentName="conEco",
   Documentation(info="<html>
 <p>

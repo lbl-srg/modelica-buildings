@@ -76,6 +76,7 @@ model ControllerHeatingFan "Controller for heating coil and fan signal"
     final unit="1")
     "Control signal for heating coil"
     annotation (Placement(transformation(extent={{100,-50},{120,-30}})));
+
   Controls.Continuous.LimPID conHeaCoi(
     final controllerType=controllerTypeHea,
     final k=kHea,
@@ -108,6 +109,7 @@ equation
           -60},{30,28}},                        color={0,0,127}));
   connect(conFan.y, yFan)   annotation (Line(points={{41,40},{41,40},{110,40}},
                                                    color={0,0,127}));
+
   annotation (
   defaultComponentName="conHeaFan",
   Documentation(info="<html>

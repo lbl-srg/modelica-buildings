@@ -17,7 +17,6 @@ model ChillerDXHeatingEconomizerController
   parameter Modelica.SIunits.Temperature TSetSupAir
     "Cooling supply air temperature setpoint"
     annotation(Dialog(group="Air design"));
-
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeHea=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
@@ -40,7 +39,6 @@ model ChillerDXHeatingEconomizerController
     annotation (Dialog(group="Heating coil signal",
       enable=controllerTypeHea == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
           or controllerTypeHea == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
-
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeCoo=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
@@ -61,7 +59,6 @@ model ChillerDXHeatingEconomizerController
     annotation (Dialog(group="Cooling coil signal",
     enable=controllerTypeCoo == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
         or controllerTypeCoo == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
-
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeFan=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
@@ -83,7 +80,6 @@ model ChillerDXHeatingEconomizerController
     annotation (Dialog(group="Fan control signal",
     enable=controllerTypeFan == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
         or controllerTypeFan == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
-
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeEco=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
@@ -156,7 +152,6 @@ model ChillerDXHeatingEconomizerController
     "Measured outside air temperature"
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}}),
         iconTransformation(extent={{-128,-44},{-100,-16}})));
-
   Modelica.Blocks.Interfaces.RealOutput yHea(
     final unit="1") "Control signal for heating coil"
     annotation (Placement(transformation(extent={{100,44},{120,64}}),
@@ -233,14 +228,17 @@ model ChillerDXHeatingEconomizerController
     annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swiFan "Switch fan on"
     annotation (Placement(transformation(extent={{70,120},{90,140}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysHea(uLow=0.01, uHigh=0.05)
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysHea(
+    final uLow=0.01,
+    final uHigh=0.05)
     "Hysteresis for heating"
     annotation (Placement(transformation(extent={{-30,120},{-10,140}})));
   Buildings.Controls.OBC.CDL.Logical.MultiOr orFan(nu=3)
     "Switch fan on if heating, cooling, or occupied"
     annotation (Placement(transformation(extent={{40,94},{60,114}})));
-  Modelica.Blocks.Logical.And and1
+  Modelica.Blocks.Logical.And and1 "Logical and"
     annotation (Placement(transformation(extent={{70,-40},{90,-20}})));
+
 protected
   Modelica.Blocks.Sources.Constant TSetSupChiConst(
     final k=TSupChi_nominal)
@@ -326,6 +324,7 @@ equation
           {39,75}}, color={0,0,127}));
   connect(TOut, conEco.TOut) annotation (Line(points={{-120,-40},{-66,-40},{-66,
           8},{-18,8},{-18,65},{39,65}}, color={0,0,127}));
+
   annotation (
   defaultComponentName="conChiDXHeaEco",
   Icon(graphics={Line(points={{-100,-100},{0,2},{-100,100}}, color=

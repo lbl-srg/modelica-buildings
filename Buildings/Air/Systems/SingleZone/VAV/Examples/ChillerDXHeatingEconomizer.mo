@@ -23,7 +23,6 @@ model ChillerDXHeatingEconomizer
     TSupChi_nominal=TSupChi_nominal,
     TSetSupAir=286.15) "Controller for single zone VAV system"
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
-
   Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable TSetRooHea(
     table=[
       0,       15 + 273.15;
@@ -47,6 +46,7 @@ model ChillerDXHeatingEconomizer
   Buildings.Controls.SetPoints.OccupancySchedule occSch(occupancy=3600*{8,18})
     "Occupancy schedule"
     annotation (Placement(transformation(extent={{-152,-44},{-132,-24}})));
+
 equation
   connect(TSetRooHea.y[1], con.TSetRooHea)   annotation (Line(points={{-130,50},{-110,50},{-110,8.6},{-101.4,8.6}},
                                                    color={0,0,127}));
@@ -87,6 +87,7 @@ equation
       index=-1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
+
   annotation (
     experiment(
       StopTime=504800,

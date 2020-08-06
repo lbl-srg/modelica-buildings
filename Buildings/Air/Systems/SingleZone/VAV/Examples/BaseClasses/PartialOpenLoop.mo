@@ -2,9 +2,10 @@ within Buildings.Air.Systems.SingleZone.VAV.Examples.BaseClasses;
 partial model PartialOpenLoop
   "Partial model of a single zone variable air volume flow system and thermal zone"
 
-  package MediumA = Buildings.Media.Air(extraPropertiesNames={"CO2"}) "Buildings library air media package with CO2";
-  package MediumW = Buildings.Media.Water "Buildings library air media package";
-
+  package MediumA = Buildings.Media.Air(extraPropertiesNames={"CO2"})
+    "Buildings library air media package with CO2";
+  package MediumW = Buildings.Media.Water
+    "Buildings library air media package";
   parameter Modelica.SIunits.Temperature TSupChi_nominal=279.15
     "Design value for chiller leaving water temperature";
 
@@ -26,7 +27,8 @@ partial model PartialOpenLoop
     annotation (Placement(transformation(extent={{40,-20},{80,20}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
       computeWetBulbTemperature=false,
-      filNam=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/DRYCOLD.mos"))
+      filNam=Modelica.Utilities.Files.loadResource(
+      "modelica://Buildings/Resources/weatherdata/DRYCOLD.mos"))
     "Weather data"
     annotation (Placement(transformation(extent={{-140,70},{-120,90}})));
   Modelica.Blocks.Continuous.Integrator EFan
@@ -49,6 +51,7 @@ partial model PartialOpenLoop
     annotation (Placement(
         transformation(extent={{-88,70},{-70,90}}),  iconTransformation(extent=
             {{-250,-2},{-230,18}})));
+
 equation
   connect(weaDat.weaBus, weaBus) annotation (Line(
       points={{-120,80},{-79,80}},
@@ -85,6 +88,7 @@ equation
           -71.75},{80,-71.75}}, color={0,0,127}));
   connect(EPum.y, EHVAC.u[4]) annotation (Line(points={{61,-130},{74,-130},{74,
           -75.25},{80,-75.25}}, color={0,0,127}));
+
   annotation (
 Documentation(info="<html>
 <p>

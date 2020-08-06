@@ -1,6 +1,7 @@
 within Buildings.Air.Systems.SingleZone.VAV;
 model ChillerDXHeatingEconomizer
-  "HVAC system model with a dry cooling coil, air-cooled chiller, electric heating coil, variable speed fan, and mixing box with economizer control."
+  "HVAC system model with a dry cooling coil, air-cooled chiller, electric heating coil, 
+   variable speed fan, and mixing box with economizer control."
   replaceable package MediumA = Buildings.Media.Air "Medium model for air"
       annotation (choicesAllMatching = true);
   replaceable package MediumW = Buildings.Media.Water "Medium model for water"
@@ -59,7 +60,6 @@ model ChillerDXHeatingEconomizer
     "Control signal for economizer"
     annotation (Placement(transformation(extent={{-240,-60},{-200,-20}}),
         iconTransformation(extent={{-240,-60},{-200,-20}})));
-
   Modelica.Fluid.Interfaces.FluidPort_a supplyAir(
     redeclare final package Medium = MediumA) "Supply air"
     annotation (Placement(transformation(extent={{192,50},{212,70}}),
@@ -274,59 +274,6 @@ model ChillerDXHeatingEconomizer
     final tau=0)
     "Sensor for trace substance"
     annotation (Placement(transformation(extent={{40,-50},{20,-30}})));
-equation
-  connect(fanSup.port_b, totalRes.port_a)    annotation (Line(points={{-10,40},{10,40}},  color={0,127,255}));
-  connect(fanSup.P, PFan) annotation (Line(points={{-9,49},{-6,49},{-6,160},{212,
-          160}},             color={0,0,127}));
-  connect(eff.y, QHea_flow) annotation (Line(points={{141,120},{176,120},{176,140},
-          {212,140}}, color={0,0,127}));
-  connect(weaBus, out.weaBus) annotation (Line(
-      points={{-180,40},{-140,40},{-140,40.2}},
-      color={255,204,51},
-      thickness=0.5), Text(
-      textString="%first",
-      index=-1,
-      extent={{-6,3},{-6,3}}));
-  connect(senTMixAir.port_b, fanSup.port_a)   annotation (Line(points={{-40,40},{-30,40}},          color={0,127,255}));
-  connect(heaCoi.Q_flow, eff.u) annotation (Line(points={{73,46},{80,46},{80,
-          120},{118,120}},                        color={0,0,127}));
-  connect(heaCoi.port_b, cooCoi.port_a2)    annotation (Line(points={{72,40},{90,40}}, color={0,127,255}));
-  connect(cooCoi.port_b2, senTSup.port_a)    annotation (Line(points={{110,40},{128,40}},          color={0,127,255}));
-  connect(cooCoi.port_b1, ideVal.port_1) annotation (Line(
-      points={{90,28},{86,28},{86,19.8}},
-      color={0,0,255},
-      thickness=0.5));
-  connect(chi.port_b2, pumChiWat.port_a) annotation (Line(points={{110,-162},{120,
-          -162},{120,-100}},            color={0,0,255},
-      thickness=0.5));
-  connect(souChiWat.ports[1], chi.port_a1) annotation (Line(points={{128,-174},
-          {128,-174},{110,-174}},       color={0,127,255}));
-  connect(chi.port_b1, out.ports[1]) annotation (Line(points={{90,-174},{-116,
-          -174},{-116,42.6667},{-120,42.6667}},                  color={0,127,255}));
-  connect(weaBus.TDryBul, souChiWat.T_in) annotation (Line(
-      points={{-180,40},{-180,-208},{160,-208},{160,-170},{150,-170}},
-      color={255,204,51},
-      thickness=0.5), Text(
-      textString="%first",
-      index=-1,
-      extent={{-6,3},{-6,3}}));
-  connect(pumChiWat.P, PPum) annotation (Line(points={{111,-79},{111,-52},{180,-52},
-          {180,100},{212,100}},    color={0,0,127}));
-  connect(chi.P, PCoo) annotation (Line(points={{89,-177},{84,-177},{84,-128},{98,
-          -128},{98,-50},{178,-50},{178,120},{212,120}},
-        color={0,0,127}));
-  connect(ideVal.port_2, chi.port_a2)    annotation (Line(points={{86,0.2},{86,-162},{90,-162}},
-                                                          color={0,127,255}));
-  connect(cooCoi.port_a1, pumChiWat.port_b) annotation (Line(points={{110,28},{120,
-          28},{120,-80}},              color={0,127,255}));
-  connect(cooCoi.port_a1, ideVal.port_3) annotation (Line(points={{110,28},{120,
-          28},{120,10},{90,10}}, color={0,127,255}));
-  connect(bouPreChi.ports[1], chi.port_a2) annotation (Line(points={{70,-162},{90,
-          -162}},              color={0,127,255}));
-  connect(totalRes.port_b, heaCoi.port_a)    annotation (Line(points={{30,40},{52,40}}, color={0,127,255}));
-  connect(senTSup.port_b, supplyAir) annotation (Line(points={{148,40},{174,40},
-          {174,60},{202,60}}, color={0,127,255}));
-  connect(gaiFan.y, fanSup.m_flow_in)    annotation (Line(points={{-59,140},{-20,140},{-20,52}}, color={0,0,127}));
 
 protected
   model IdealValve
@@ -336,20 +283,21 @@ protected
     annotation (choicesAllMatching = true);
     parameter Modelica.SIunits.MassFlowRate m_flow_nominal
     "Design chilled water supply flow";
-    Modelica.Fluid.Interfaces.FluidPort_a port_1(redeclare package Medium =
-          Medium) annotation (Placement(transformation(extent={{50,88},
+    Modelica.Fluid.Interfaces.FluidPort_a port_1(
+      redeclare package Medium = Medium) annotation (Placement(transformation(extent={{50,88},
               {70,108}}), iconTransformation(extent={{50,88},{70,108}})));
-    Modelica.Fluid.Interfaces.FluidPort_b port_2(redeclare package Medium =
-          Medium) annotation (Placement(transformation(extent={{50,-108},
+    Modelica.Fluid.Interfaces.FluidPort_b port_2(
+      redeclare package Medium = Medium) annotation (Placement(transformation(extent={{50,-108},
               {70,-88}}), iconTransformation(extent={{50,-108},{70,-88}})));
-    Modelica.Fluid.Interfaces.FluidPort_a port_3(redeclare package Medium =
-          Medium) annotation (Placement(transformation(extent={{90,-10},
+    Modelica.Fluid.Interfaces.FluidPort_a port_3(
+      redeclare package Medium = Medium) annotation (Placement(transformation(extent={{90,-10},
               {110,10}}), iconTransformation(extent={{90,-10},{110,10}})));
     Modelica.Blocks.Interfaces.RealInput y(min=0, max=1) annotation (Placement(
           transformation(extent={{-120,-10},{-100,10}}),
           iconTransformation(extent={{-120,-10},{-100,10}})));
-    Fluid.Sensors.MassFlowRate senMasFlo(redeclare package Medium = Medium,
-        allowFlowReversal=false)
+    Fluid.Sensors.MassFlowRate senMasFlo(
+      redeclare package Medium = Medium,
+      allowFlowReversal=false)
       "Mass flow rate sensor" annotation (Placement(transformation(
           extent={{10,-10},{-10,10}},
           rotation=90,
@@ -361,7 +309,7 @@ protected
       m_flow_small=m_flow_nominal*1E-5,
       show_V_flow=false,
       allowFlowReversal=false)
-                        "Prescribed mass flow rate for the bypass" annotation (
+      "Prescribed mass flow rate for the bypass" annotation (
         Placement(transformation(
           extent={{-10,10},{10,-10}},
           rotation=180,
@@ -418,7 +366,60 @@ protected
             fillColor={0,0,0},
             fillPattern=FillPattern.Solid)}));
   end IdealValve;
+
 equation
+  connect(fanSup.port_b, totalRes.port_a)    annotation (Line(points={{-10,40},{10,40}},  color={0,127,255}));
+  connect(fanSup.P, PFan) annotation (Line(points={{-9,49},{-6,49},{-6,160},{212,
+          160}},             color={0,0,127}));
+  connect(eff.y, QHea_flow) annotation (Line(points={{141,120},{176,120},{176,140},
+          {212,140}}, color={0,0,127}));
+  connect(weaBus, out.weaBus) annotation (Line(
+      points={{-180,40},{-140,40},{-140,40.2}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      textString="%first",
+      index=-1,
+      extent={{-6,3},{-6,3}}));
+  connect(senTMixAir.port_b, fanSup.port_a)   annotation (Line(points={{-40,40},{-30,40}},          color={0,127,255}));
+  connect(heaCoi.Q_flow, eff.u) annotation (Line(points={{73,46},{80,46},{80,
+          120},{118,120}},                        color={0,0,127}));
+  connect(heaCoi.port_b, cooCoi.port_a2)    annotation (Line(points={{72,40},{90,40}}, color={0,127,255}));
+  connect(cooCoi.port_b2, senTSup.port_a)    annotation (Line(points={{110,40},{128,40}},          color={0,127,255}));
+  connect(cooCoi.port_b1, ideVal.port_1) annotation (Line(
+      points={{90,28},{86,28},{86,19.8}},
+      color={0,0,255},
+      thickness=0.5));
+  connect(chi.port_b2, pumChiWat.port_a) annotation (Line(points={{110,-162},{120,
+          -162},{120,-100}},            color={0,0,255},
+      thickness=0.5));
+  connect(souChiWat.ports[1], chi.port_a1) annotation (Line(points={{128,-174},
+          {128,-174},{110,-174}},       color={0,127,255}));
+  connect(chi.port_b1, out.ports[1]) annotation (Line(points={{90,-174},{-116,
+          -174},{-116,42.6667},{-120,42.6667}},                  color={0,127,255}));
+  connect(weaBus.TDryBul, souChiWat.T_in) annotation (Line(
+      points={{-180,40},{-180,-208},{160,-208},{160,-170},{150,-170}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      textString="%first",
+      index=-1,
+      extent={{-6,3},{-6,3}}));
+  connect(pumChiWat.P, PPum) annotation (Line(points={{111,-79},{111,-52},{180,-52},
+          {180,100},{212,100}},    color={0,0,127}));
+  connect(chi.P, PCoo) annotation (Line(points={{89,-177},{84,-177},{84,-128},{98,
+          -128},{98,-50},{178,-50},{178,120},{212,120}},
+        color={0,0,127}));
+  connect(ideVal.port_2, chi.port_a2)    annotation (Line(points={{86,0.2},{86,-162},{90,-162}},
+                                                          color={0,127,255}));
+  connect(cooCoi.port_a1, pumChiWat.port_b) annotation (Line(points={{110,28},{120,
+          28},{120,-80}},              color={0,127,255}));
+  connect(cooCoi.port_a1, ideVal.port_3) annotation (Line(points={{110,28},{120,
+          28},{120,10},{90,10}}, color={0,127,255}));
+  connect(bouPreChi.ports[1], chi.port_a2) annotation (Line(points={{70,-162},{90,
+          -162}},              color={0,127,255}));
+  connect(totalRes.port_b, heaCoi.port_a)    annotation (Line(points={{30,40},{52,40}}, color={0,127,255}));
+  connect(senTSup.port_b, supplyAir) annotation (Line(points={{148,40},{174,40},
+          {174,60},{202,60}}, color={0,127,255}));
+  connect(gaiFan.y, fanSup.m_flow_in)    annotation (Line(points={{-59,140},{-20,140},{-20,52}}, color={0,0,127}));
   connect(booToInt.y, pumChiWat.m_flow_in)   annotation (Line(points={{81,-90},{108,-90}}, color={0,0,127}));
   connect(booToInt.u, chiOn) annotation (Line(points={{58,-90},{40,-90},{40,-120},
           {-220,-120}}, color={255,0,255}));
@@ -450,6 +451,7 @@ equation
   connect(senTRetAir.port_a, senTraSub.port_b)    annotation (Line(points={{-20,-40},{20,-40}}, color={0,127,255}));
   connect(senTraSub.port_a, returnAir)   annotation (Line(points={{40,-40},{120,-40},{120,-20},{202,-20}},
                                                   color={0,127,255}));
+
   annotation (defaultComponentName="chiDXHeaEco",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-200,-220},
             {200,180}}), graphics={

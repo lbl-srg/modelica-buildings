@@ -24,12 +24,14 @@ model ControllerHeatingFan "Validate the block ControllerHeatingFan"
     offset=21 + 273.15)
     "Zone temperature"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
+
 equation
   connect(zonHeaSet.y, conHeaFan.TSetRooHea) annotation (Line(points={{-39,30},{
           -20,30},{0,30},{0,6},{19,6}}, color={0,0,127}));
   connect(zonCooSet.y, conHeaFan.TSetRooCoo)    annotation (Line(points={{-39,0},{19,0}},        color={0,0,127}));
   connect(zonTem.y, conHeaFan.TRoo) annotation (Line(points={{-39,-30},{-20,-30},
           {0,-30},{0,-6},{19,-6}}, color={0,0,127}));
+
   annotation (
   experiment(StopTime=604800,  Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Air/Systems/SingleZone/VAV/BaseClasses/Validation/ControllerHeatingFan.mos"

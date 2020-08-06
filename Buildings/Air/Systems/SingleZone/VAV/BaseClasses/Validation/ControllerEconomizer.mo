@@ -1,6 +1,7 @@
 within Buildings.Air.Systems.SingleZone.VAV.BaseClasses.Validation;
 model ControllerEconomizer "Validate the block ControllerEconomizer"
   extends Modelica.Icons.Example;
+
   Buildings.Air.Systems.SingleZone.VAV.BaseClasses.ControllerEconomizer conEco
     "Controller for economizer"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
@@ -31,6 +32,7 @@ model ControllerEconomizer "Validate the block ControllerEconomizer"
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
   Modelica.Blocks.Sources.BooleanConstant cooSta(k=true) "Cooling status"
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
+
 equation
   connect(mixAirTemSet.y, conEco.TMixSet) annotation (Line(points={{-59,80},{-20,
           80},{20,80},{20,8},{39,8}}, color={0,0,127}));
@@ -44,7 +46,8 @@ equation
           {10,-50},{10,-5},{39,-5}}, color={0,0,127}));
   connect(cooSta.y, conEco.cooSta) annotation (Line(points={{-59,-80},{30,-80},{
           30,-8},{39,-8}}, color={255,0,255}));
-  annotation (
+
+   annotation (
   experiment(StopTime=604800,  Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Air/Systems/SingleZone/VAV/BaseClasses/Validation/ControllerEconomizer.mos"
         "Simulate and plot"),
