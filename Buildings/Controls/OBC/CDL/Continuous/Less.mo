@@ -18,9 +18,9 @@ block Less "Output y is true, if input u1 is less than input u2"
 
 initial equation
   assert(h >= 0, "Hysteresis must not be negative");
-
+  pre(y) = pre_y_start;
 equation
-  y = if h < 1E-10 then u1 < u2 else (not pre(y) and u1 < u2 or pre(y) and u1 <= u2-h);
+  y = if h < 1E-10 then u1 < u2 else (not pre(y) and u1 < u2 or pre(y) and u1 <= u2+h);
 
 annotation (
   defaultComponentName="les",
