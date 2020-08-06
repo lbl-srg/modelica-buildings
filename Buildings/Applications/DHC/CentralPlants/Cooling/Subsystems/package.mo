@@ -1,4 +1,10 @@
 within Buildings.Applications.DHC.CentralPlants.Cooling;
-package Subsystems "Subsystem models for district cooling plant"
+package Subsystems "Package of models for subsystems of cooling plants"
   extends Modelica.Icons.VariantsPackage;
+
+annotation (preferredView="info", Documentation(info="<html>
+<p>
+This package contains models for subsystems composing central cooling plants.
+</p>
+</html>"));
 end Subsystems;

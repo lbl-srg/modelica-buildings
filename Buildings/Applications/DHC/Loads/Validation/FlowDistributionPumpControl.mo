@@ -12,20 +12,21 @@ model FlowDistributionPumpControl
   parameter Integer nLoa=5
     "Number of served loads"
     annotation(Evaluate=true);
-  parameter Modelica.SIunits.Temperature T_aHeaWat_nominal(
-    min=273.15, displayUnit="degC") = 273.15 + 40
+  parameter Real facSca=10
+    "Scaling factor to be applied to each extensive quantity"
+    annotation(Dialog(group="Scaling"));
+  parameter Modelica.SIunits.MassFlowRate mLoaHea_flow_nominal=1
+    "Load side mass flow rate at nominal conditions in heating mode"
+    annotation(Dialog(group="Nominal condition"));
+  parameter Modelica.SIunits.Temperature T_aHeaWat_nominal=273.15 + 40
     "Heating water inlet temperature at nominal conditions"
     annotation(Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.Temperature T_bHeaWat_nominal(
     min=273.15, displayUnit="degC") = T_aHeaWat_nominal - 5
     "Heating water outlet temperature at nominal conditions"
     annotation(Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Temperature T_aLoaHea_nominal(
-    min=273.15, displayUnit="degC") = 273.15 + 20
+  parameter Modelica.SIunits.Temperature T_aLoaHea_nominal=273.15 + 20
     "Load side inlet temperature at nominal conditions in heating mode"
-    annotation(Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.MassFlowRate mLoaHea_flow_nominal(min=0) = 10
-    "Load side mass flow rate at nominal conditions in heating mode"
     annotation(Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.Time tau = 120
     "Time constant of fluid temperature variation at nominal flow rate"
@@ -36,8 +37,11 @@ model FlowDistributionPumpControl
     "Pressure drop between each connected unit at nominal conditions (supply line)";
   parameter Modelica.SIunits.PressureDifference dpSet=max(terUniHea.dp_nominal)
     "Pressure difference set point";
+  final parameter Modelica.SIunits.MassFlowRate mCon_flow_nominal[nLoa]=
+    terUniHea.mHeaWat_flow_nominal * facSca
+    "Nominal mass flow rate in each connection line";
   final parameter Modelica.SIunits.MassFlowRate m_flow_nominal=
-    sum(terUniHea.mHeaWat_flow_nominal)
+    sum(mCon_flow_nominal)
     "Nominal mass flow rate in the distribution line";
   final parameter Modelica.SIunits.PressureDifference dp_nominal=
     max(terUniHea.dp_nominal) + 2 * nLoa * 5000
@@ -45,12 +49,13 @@ model FlowDistributionPumpControl
   final parameter Modelica.SIunits.HeatFlowRate QHea_flow_nominal=
     Experimental.DistrictHeatingCooling.SubStations.VaporCompression.BaseClasses.getPeakLoad(
       string="#Peak space heating load",
-      filNam=Modelica.Utilities.Files.loadResource(filNam))
+      filNam=Modelica.Utilities.Files.loadResource(filNam)) / facSca
     "Design heating heat flow rate (>=0)"
     annotation (Dialog(group="Nominal condition"));
   BaseClasses.FanCoil2PipeHeatingValve terUniHea[nLoa](
     redeclare each final package Medium1 = Medium1,
     redeclare each final package Medium2 = Medium2,
+    each final facSca=facSca,
     each final QHea_flow_nominal=QHea_flow_nominal,
     each final mLoaHea_flow_nominal=mLoaHea_flow_nominal,
     each final T_aHeaWat_nominal=T_aHeaWat_nominal,
@@ -70,8 +75,9 @@ model FlowDistributionPumpControl
     smoothness=Modelica.Blocks.Types.Smoothness.MonotoneContinuousDerivative1)
     "Reader for thermal loads (y[1] is cooling load, y[2] is heating load)"
     annotation (Placement(transformation(extent={{-180,20},{-160,40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTSet(k=293.15,
-      y(final unit="K", displayUnit="degC"))
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTSet(
+    k=20+273.15,
+    y(final unit="K", displayUnit="degC"))
     "Minimum temperature set point"
     annotation (Placement(transformation(extent={{-180,60},{-160,80}})));
   Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep(nout=nLoa)
@@ -82,13 +88,12 @@ model FlowDistributionPumpControl
     annotation (Placement(transformation(extent={{-128,20},{-108,40}})));
   BaseClasses.Distribution2Pipe dis(
     redeclare final package Medium = Medium1,
-    nCon=nLoa,
-    allowFlowReversal=false,
-    iConDpSen=nLoa,
-    mDis_flow_nominal={sum(terUniHea[i:nLoa].mHeaWat_flow_nominal) for i in 1:
-        nLoa},
-    mCon_flow_nominal=terUniHea.mHeaWat_flow_nominal,
-    dpDis_nominal=dpDis_nominal) "Distribution network"
+    final nCon=nLoa,
+    final allowFlowReversal=false,
+    final iConDpSen=nLoa,
+    final mDis_flow_nominal=m_flow_nominal,
+    final mCon_flow_nominal=mCon_flow_nominal,
+    final dpDis_nominal=dpDis_nominal) "Distribution network"
     annotation (Placement(transformation(extent={{40,-180},{80,-160}})));
   Fluid.Movers.FlowControlled_dp pumCstDp(
     redeclare package Medium = Medium1,
@@ -98,7 +103,8 @@ model FlowDistributionPumpControl
     addPowerToMedium=false,
     nominalValuesDefineDefaultPressureCurve=true,
     use_inputFilter=false,
-    dp_nominal=dp_nominal)
+    dp_nominal=dp_nominal,
+    prescribeSystemPressure=true)
     "Pump controlled to track a pressure drop over the last connected load"
     annotation (Placement(transformation(extent={{-10,-170},{10,-150}})));
   Fluid.MixingVolumes.MixingVolume vol(
@@ -111,14 +117,15 @@ model FlowDistributionPumpControl
     nPorts=2)
     "Volume for fluid stream"
      annotation (Placement(transformation(extent={{-59,-160},{-39,-140}})));
-  Fluid.Sources.Boundary_pT           supHeaWat1(
+  Fluid.Sources.Boundary_pT supHeaWat1(
     redeclare package Medium = Medium1,
     use_T_in=true,
-    nPorts=3) "Heating water source" annotation (Placement(transformation(
+    nPorts=3)
+    "Heating water source" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-130,0})));
-  Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution disCstDp(
+  Buildings.Applications.DHC.Loads.FlowDistribution disCstDp(
     redeclare package Medium = Medium1,
     m_flow_nominal=m_flow_nominal,
     have_pum=true,
@@ -126,7 +133,7 @@ model FlowDistributionPumpControl
     dp_nominal=dp_nominal,
     dpDis_nominal=dpDis_nominal,
     dpMin=dpSet,
-    mUni_flow_nominal=terUniHea1.mHeaWat_flow_nominal,
+    mUni_flow_nominal=mCon_flow_nominal,
     nPorts_a1=nLoa,
     nPorts_b1=nLoa)
     "Distribution system with pump controlled to track a pressure drop over the last connected unit"
@@ -138,21 +145,10 @@ model FlowDistributionPumpControl
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={150,0})));
-  Buildings.Controls.Continuous.LimPID conPID(controllerType=Modelica.Blocks.Types.SimpleController.PI)
-    "PI controller tracking the pressure drop over the last connected unit"
-    annotation (Placement(transformation(extent={{-110,-110},{-90,-90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain gai(k=dp_nominal) "Scaling"
-    annotation (Placement(transformation(extent={{-80,-110},{-60,-90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain gai1(k=1/dpSet) "Scaling"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={-100,-130})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant one(k=1)
-    "Constant one"
-    annotation (Placement(transformation(extent={{-180,-110},{-160,-90}})));
   BaseClasses.FanCoil2PipeHeating terUniHea1 [nLoa](
     redeclare each final package Medium1 = Medium1,
     redeclare each final package Medium2 = Medium2,
+    each final facSca=facSca,
     each final QHea_flow_nominal=QHea_flow_nominal,
     each final mLoaHea_flow_nominal=mLoaHea_flow_nominal,
     each final T_aHeaWat_nominal=T_aHeaWat_nominal,
@@ -185,6 +181,7 @@ model FlowDistributionPumpControl
   BaseClasses.FanCoil2PipeHeating terUniHea2 [nLoa](
     redeclare each final package Medium1 = Medium1,
     redeclare each final package Medium2 = Medium2,
+    each final facSca=facSca,
     each final QHea_flow_nominal=QHea_flow_nominal,
     each final mLoaHea_flow_nominal=mLoaHea_flow_nominal,
     each final T_aHeaWat_nominal=T_aHeaWat_nominal,
@@ -193,19 +190,19 @@ model FlowDistributionPumpControl
     each final have_speVar=false)
     "Heating terminal unit"
     annotation (Placement(transformation(extent={{-10,118},{10,138}})));
-  Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution disCstSpe(
+  Buildings.Applications.DHC.Loads.FlowDistribution disCstSpe(
     redeclare package Medium = Medium1,
     m_flow_nominal=m_flow_nominal,
     have_pum=true,
     typCtr=Buildings.Applications.DHC.Loads.Types.PumpControlType.ConstantSpeed,
+
     dp_nominal=dp_nominal,
     dpDis_nominal=dpDis_nominal,
     dpMin=dpSet,
-    mUni_flow_nominal=terUniHea1.mHeaWat_flow_nominal,
+    mUni_flow_nominal=mCon_flow_nominal,
     nPorts_a1=5,
     nPorts_b1=5) "Distribution system with pump controlled at constant speed"
     annotation (Placement(transformation(extent={{-10,70},{10,90}})));
-
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant THeaWatSup(k=
         T_aHeaWat_nominal) "Heating water supply temperature"
     annotation (Placement(transformation(extent={{-180,-10},{-160,10}})));
@@ -216,6 +213,9 @@ model FlowDistributionPumpControl
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-130,-180})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant setDp(k=dpSet)
+    "Pressure difference set-point"
+    annotation (Placement(transformation(extent={{-180,-140},{-160,-120}})));
 protected
   parameter Medium1.ThermodynamicState sta_default=Medium1.setState_pTX(
       T=Medium1.T_default,
@@ -247,16 +247,6 @@ equation
           {120,-60},{120,2.66667},{140,2.66667}}, color={0,127,255}));
   connect(supHeaWat1.ports[1], disCstDp.port_a) annotation (Line(points={{-120,
           2.66667},{-100,2.66667},{-100,-60},{-10,-60}}, color={0,127,255}));
-  connect(conPID.y, gai.u)
-    annotation (Line(points={{-89,-100},{-82,-100}}, color={0,0,127}));
-  connect(gai.y, pumCstDp.dp_in)
-    annotation (Line(points={{-58,-100},{0,-100},{0,-148}}, color={0,0,127}));
-  connect(dis.dp, gai1.u) annotation (Line(points={{81,-167},{120,-167},{120,-190},
-          {-100,-190},{-100,-142}},             color={0,0,127}));
-  connect(gai1.y, conPID.u_m) annotation (Line(points={{-100,-118},{-100,-112}},
-                       color={0,0,127}));
-  connect(one.y, conPID.u_s)
-    annotation (Line(points={{-158,-100},{-112,-100}}, color={0,0,127}));
   connect(terUniHea1.port_bHeaWat, disCstDp.ports_a1) annotation (Line(points={{10,
           -20.3333},{20,-20.3333},{20,-54},{10,-54}},     color={0,127,255}));
   connect(disCstDp.ports_b1, terUniHea1.port_aHeaWat) annotation (Line(points={{-10,-54},
@@ -265,7 +255,7 @@ equation
           70},{-40,-7},{-10.8333,-7}},
                                      color={0,0,127}));
   connect(reaRep1.y, terUniHea1.QReqHea_flow) annotation (Line(points={{-106,30},
-          {-46,30},{-46,-14},{-30,-14},{-30,-13.6667},{-10.8333,-13.6667}},
+          {-46,30},{-46,-13.6667},{-10.8333,-13.6667},{-10.8333,-13.6667}},
         color={0,0,127}));
   connect(terUniHea1.mReqHeaWat_flow, disCstDp.mReq_flow) annotation (Line(
         points={{10.8333,-15.3333},{26,-15.3333},{26,-80},{-20,-80},{-20,-64},{
@@ -296,7 +286,7 @@ equation
   connect(reaRep.y, terUniHea2.TSetHea) annotation (Line(points={{-106,70},{-40,
           70},{-40,132},{-10.8333,132},{-10.8333,133}}, color={0,0,127}));
   connect(reaRep1.y, terUniHea2.QReqHea_flow) annotation (Line(points={{-106,30},
-          {-46,30},{-46,126},{-30,126},{-30,126.333},{-10.8333,126.333}}, color=
+          {-46,30},{-46,126},{-10.8333,126},{-10.8333,126.333}},          color=
          {0,0,127}));
   connect(disCstSpe.mReqTot_flow, pipPre.m_flow_in) annotation (Line(points={{
           11,76},{40,76},{40,200},{-4,200},{-4,188}}, color={0,0,127}));
@@ -310,6 +300,10 @@ equation
           0},{-152,-176},{-142,-176}}, color={0,0,127}));
   connect(minTSet.y, reaRep.u)
     annotation (Line(points={{-158,70},{-130,70}}, color={0,0,127}));
+  connect(dis.dp, pumCstDp.dpMea) annotation (Line(points={{81,-167},{120,-167},
+          {120,-190},{-20,-190},{-20,-140},{-8,-140},{-8,-148}}, color={0,0,127}));
+  connect(setDp.y, pumCstDp.dp_in)
+    annotation (Line(points={{-158,-130},{0,-130},{0,-148}}, color={0,0,127}));
     annotation (
 Documentation(
 info="<html>

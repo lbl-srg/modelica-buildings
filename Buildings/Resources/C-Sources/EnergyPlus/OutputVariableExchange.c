@@ -59,7 +59,9 @@ void OutputVariableExchange(
 
     if (outVar->printUnit){
       if (outVar->outputs->units[0]) /* modelDescription.xml defines unit */
-        ModelicaFormatMessage("Output %s.y has in Modelica the unit %s.\n", outVar->modelicaNameOutputVariable, outVar->outputs->units[0]);
+        ModelicaFormatMessage("Output %s.y has in Modelica the unit %s.\n",
+          outVar->modelicaNameOutputVariable,
+          fmi2_import_get_unit_name(outVar->outputs->units[0]));      
       else
         ModelicaFormatMessage("Output %s.y has same unit as EnergyPlus, but EnergyPlus does not define the unit of this output.\n",
           outVar->modelicaNameOutputVariable);

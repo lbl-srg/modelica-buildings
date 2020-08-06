@@ -20,7 +20,11 @@ partial model PartialTerminalUnit "Partial model for HVAC terminal unit"
     "Set to true to allow flow reversal on the load side"
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
   parameter Real facSca = 1
-    "Scaling factor to be applied to each extensive quantity";
+    "Scaling factor to be applied to each extensive quantity"
+    annotation(Dialog(group="Scaling"));
+  parameter Boolean have_scaLoa = true
+    "Set to true to apply the scaling factor to the heat or mass flow rate on the load side"
+    annotation(Dialog(group="Scaling"));
   parameter Boolean have_watHea = false
     "Set to true if the system has a heating water based heat exchanger"
     annotation(Evaluate=true);
@@ -360,6 +364,26 @@ partial model PartialTerminalUnit "Partial model for HVAC terminal unit"
     final allowFlowReversal=allowFlowReversal) if have_watCoo
     "Mass flow rate scaling"
     annotation (Placement(transformation(extent={{160,-190},{180,-170}})));
+  Fluid.BaseClasses.MassFlowRateMultiplier scaLoaMasFloOut(
+    redeclare final package Medium = Medium2,
+    final k=if have_scaLoa then facSca else 1,
+    final allowFlowReversal=allowFlowReversalLoa) if have_fluPor
+    "Load side mass flow rate scaling"
+    annotation (Placement(transformation(extent={{-160,-10},{-180,10}})));
+  Fluid.BaseClasses.MassFlowRateMultiplier scaLoaMasFloInl(
+    redeclare final package Medium = Medium2,
+    final k=if have_scaLoa then 1/facSca else 1,
+    final allowFlowReversal=allowFlowReversalLoa) if have_fluPor
+    "Load side mass flow rate scaling"
+    annotation (Placement(transformation(extent={{180,-10},{160,10}})));
+  Fluid.HeatExchangers.RadiantSlabs.BaseClasses.HeatFlowRateMultiplier
+    scaHeaFloCon(k=if have_scaLoa then facSca else 1) if have_heaPor
+    "Convective heat flow rate scaling"
+    annotation (Placement(transformation(extent={{160,30},{180,50}})));
+  Fluid.HeatExchangers.RadiantSlabs.BaseClasses.HeatFlowRateMultiplier
+    scaHeaFloRad(k=if have_scaLoa then facSca else 1) if have_heaPor
+    "Radiative heat flow rate scaling"
+    annotation (Placement(transformation(extent={{160,-50},{180,-30}})));
 protected
   parameter Modelica.SIunits.SpecificHeatCapacity cpHeaWat_nominal=
     Medium1.specificHeatCapacityCp(
@@ -408,6 +432,14 @@ equation
   connect(scaChiWatFloOut.port_b, port_bChiWat)
     annotation (Line(points={{180, -180},{192,-180},{192,-180},{200,-180}},
       color={0,127,255}));
+  connect(scaLoaMasFloOut.port_b, port_bLoa)
+    annotation (Line(points={{-180,0},{-200,0}}, color={0,127,255}));
+  connect(port_aLoa, scaLoaMasFloInl.port_a)
+    annotation (Line(points={{200,0},{180,0}}, color={0,127,255}));
+  connect(scaHeaFloCon.port_b, heaPorCon)
+    annotation (Line(points={{180,40},{200,40}}, color={191,0,0}));
+  connect(scaHeaFloRad.port_b, heaPorRad)
+    annotation (Line(points={{180,-40},{200,-40}}, color={191,0,0}));
 annotation (
   defaultComponentName="ter",
   Documentation(info="<html>
@@ -501,10 +533,24 @@ pressure difference at the terminal unit boundaries when the fan is off.
 <p>
 Scaling is implemented by means of a scaling factor <code>facSca</code> being
 applied on each extensive quantity (mass and heat flow rate, electric power),
-except the fluid mass flow rate (at fluid ports) on the load side.
-This allows modeling multiple identical units serving multiple identical rooms
-with a unique instance of a terminal unit model, connected to a unique
-instance of a room model.
+except the heat or mass flow rate on the load side depending on 
+the value of <code>have_scaLoa</code>.
+</p>
+<ul>
+<li>
+If <code>have_scaLoa</code> is <code>true</code> (default), then the heat or mass flow rate 
+on the load side is scaled. This allows modeling, with a single instance, 
+multiple identical units serving an aggregated load, for instance, 
+a thermal zone representing several rooms.
+</li>
+<li>
+If <code>have_scaLoa</code> is <code>false</code>, then the heat or mass flow rate 
+on the load side is not scaled. This allows modeling, with a single instance, 
+multiple identical units serving multiple identical rooms, for instance, 
+with only one zone model representing a single room.
+</li>
+</ul>
+<p>
 The scaling factor type is real (not integer) to allow idealized modeling of
 a set of terminal units based on manufacturer data, while still being able to
 size the full set based on a peak load.

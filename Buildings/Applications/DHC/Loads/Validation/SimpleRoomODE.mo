@@ -43,7 +43,7 @@ model SimpleRoomODE "Validation of the model SimpleRoomODE"
   HeatTransfer.Sources.PrescribedHeatFlow prescribedHeatFlow1
     "Prescribed heat flow rate"
     annotation (Placement(transformation(extent={{82,70},{62,90}})));
-  Buildings.Applications.DHC.Loads.BaseClasses.SimpleRoomODE rooOdeHea(
+  Buildings.Applications.DHC.Loads.SimpleRoomODE rooOdeHea(
     TOutHea_nominal=273.15,
     TIndHea_nominal=293.15,
     QHea_flow_nominal=QHea_flow_nominal,
@@ -52,14 +52,15 @@ model SimpleRoomODE "Validation of the model SimpleRoomODE"
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxTSet(k=297.15,
       y(final unit="K", displayUnit="degC")) "Maximum temperature set point"
     annotation (Placement(transformation(extent={{-140,-170},{-120,-150}})));
-  Buildings.Controls.Continuous.LimPID conCoo(controllerType=Modelica.Blocks.Types.SimpleController.PI,
+  Buildings.Controls.Continuous.LimPID conCoo(
+    controllerType=Modelica.Blocks.Types.SimpleController.PI,
     Ti=10,
-      reverseAction=true) "PI controller tracking the room maximum temperature"
+    reverseActing=false) "PI controller tracking the room maximum temperature"
     annotation (Placement(transformation(extent={{30,-110},{50,-90}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain gai2(k=QCoo_flow_nominal)
     "Scaling"
     annotation (Placement(transformation(extent={{60,-110},{80,-90}})));
-  Buildings.Applications.DHC.Loads.BaseClasses.SimpleRoomODE rooOdeCoo(
+  Buildings.Applications.DHC.Loads.SimpleRoomODE rooOdeCoo(
     TOutHea_nominal=273.15,
     TIndHea_nominal=293.15,
     QHea_flow_nominal=QHea_flow_nominal,
@@ -186,7 +187,8 @@ First implementation.
 </li>
 </ul>
 </html>"),
-  __Dymola_Commands(file="Resources/Scripts/Dymola/Applications/DHC/Loads/Validation/SimpleRoomODE.mos"
-  "Simulate and plot"),
+  __Dymola_Commands(file=
+"modelica://Buildings/Resources/Scripts/Dymola/Applications/DHC/Loads/Validation/SimpleRoomODE.mos"
+"Simulate and plot"),
     Diagram(coordinateSystem(extent={{-180,-200},{180,200}})));
 end SimpleRoomODE;

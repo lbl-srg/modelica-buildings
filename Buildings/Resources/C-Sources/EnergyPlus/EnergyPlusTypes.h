@@ -48,7 +48,6 @@ typedef struct FMUBuilding
   char* modelicaNameBuilding; /* Name of the Modelica instance of this zone */
   fmi2Byte* idfName; /* if usePrecompiledFMU == true, the user-specified fmu name, else the idf name */
   fmi2Byte* weather;
-  fmi2Byte* idd;
   fmi2Integer nZon; /* Number of zones that use this FMU */
   void** zones; /* Pointers to all zones*/
 

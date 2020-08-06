@@ -1,20 +1,22 @@
 within Buildings.Controls.OBC.CDL.Continuous.Validation;
 model LimPID "Test model for LimPID controller"
   Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse pulse(period=0.25)
+    "Setpoint"
     annotation (Placement(transformation(extent={{-90,14},{-70,34}})));
   Buildings.Controls.OBC.CDL.Continuous.LimPID limPID(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PID,
     Ti=1,
     Td=1,
-    yMin=-1)
+    yMin=-1) "PID controller"
           annotation (Placement(transformation(extent={{-30,40},{-10,60}})));
   Buildings.Controls.OBC.CDL.Continuous.LimPID limPIDOri(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PID,
     Ti=1,
     Td=1,
-    yMin=-1)
+    yMin=-1) "PID controller"
           annotation (Placement(transformation(extent={{-30,74},{-10,94}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant const(k=0.5)
+    "Measurement data"
     annotation (Placement(transformation(extent={{-90,-22},{-70,-2}})));
 
   Buildings.Controls.OBC.CDL.Continuous.LimPID limPI(
@@ -22,6 +24,7 @@ model LimPID "Test model for LimPID controller"
     Td=1,
     yMin=-1,
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI)
+    "PI controller"
     annotation (Placement(transformation(extent={{-30,2},{-10,22}})));
 
   Buildings.Controls.OBC.CDL.Continuous.LimPID limPD(
@@ -29,6 +32,7 @@ model LimPID "Test model for LimPID controller"
     Td=1,
     yMin=-1,
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PD)
+    "PD controller"
     annotation (Placement(transformation(extent={{-30,-30},{-10,-10}})));
 
   Buildings.Controls.OBC.CDL.Continuous.LimPID limP(
@@ -36,6 +40,7 @@ model LimPID "Test model for LimPID controller"
     Td=1,
     yMin=-1,
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.P)
+    "P controller"
     annotation (Placement(transformation(extent={{-30,-60},{-10,-40}})));
 
   Buildings.Controls.OBC.CDL.Continuous.LimPID noLimPID(
@@ -44,6 +49,7 @@ model LimPID "Test model for LimPID controller"
     yMax=1e15,
     yMin=-1e15,
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PID)
+    "PID controller with no output limit"
     annotation (Placement(transformation(extent={{-30,-90},{-10,-70}})));
 
 equation
