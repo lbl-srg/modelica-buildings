@@ -17,7 +17,7 @@ block CoolingCoilValve "Cooling coil valve position control sequence"
     "Recorded outdoor air temperature cooling threshold"
     annotation(Evaluate=true, Dialog(group="Enable"));
 
-  parameter Modelica.SIunits.Temperature TOutDelta = 2 * (5/9) - 32 * (5/9) + 273.15
+  parameter Modelica.SIunits.Temperature TOutDelta = 2 * (5/9)
     "Recorded outdoor air temperature cooling threshold hysteresis delta"
     annotation(Evaluate=true, Dialog(group="Enable"));
 
@@ -119,6 +119,13 @@ block CoolingCoilValve "Cooling coil valve position control sequence"
     "Defines lower limit of the cooling valve signal at low range SATs"
     annotation (Placement(transformation(extent={{80,-30},{100,-10}})));
 
+  Controls.OBC.CDL.Continuous.GreaterThreshold TOutThr(threshold=TOutCooCut, h=
+        TOutDelta)
+    "Determines whether the outdoor air temperature is below a treshold"
+    annotation (Placement(transformation(extent={{-110,-30},{-90,-10}})));
+  Controls.OBC.CDL.Continuous.GreaterThreshold uFanFeeThr(threshold=FanFeeCut,
+      h=FanFeeDelta) "Checks if the fan status is above a threshold"
+    annotation (Placement(transformation(extent={{-110,-70},{-90,-50}})));
 protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yCooValMin(
     final k=uMin)
@@ -129,18 +136,6 @@ protected
     final k=uMax)
     "Minimal control loop signal limit when supply air temperature is at a defined low limit"
     annotation (Placement(transformation(extent={{40,-100},{60,-80}})));
-
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis TOutThr(
-    final uLow = TOutCooCut - TOutDelta,
-    final uHigh = TOutCooCut)
-    "Determines whether the outdoor air temperature is below a treashold"
-    annotation (Placement(transformation(extent={{-110,-30},{-90,-10}})));
-
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis uFanFeeThr(
-    final uLow=FanFeeCut - FanFeeDelta,
-    final uHigh= FanFeeCut)
-    "Checks if the fan status is above a threshold"
-    annotation (Placement(transformation(extent={{-110,-70},{-90,-50}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSupMin(
     final k=TSupHigLim)
@@ -171,49 +166,49 @@ protected
     annotation (Placement(transformation(extent={{40,74},{60,94}})));
 
 equation
-  connect(TOut, TOutThr.u)
-    annotation (Line(points={{-140,-20},{-112,-20}}, color={0,0,127}));
-  connect(TOutThr.y, andIntErr.u1)
-    annotation (Line(points={{-89,-20},{-86,-20},{-86,-52},{-72,-52}}, color={255,0,255}));
   connect(TSup, higLim.u)
     annotation (Line(points={{-140,40},{20,40},{20,-20},{78,-20}}, color={0,0,127}));
   connect(yCooVal,min. y)
-    annotation (Line(points={{130,0},{114,0},{114,30},{101,30}},color={0,0,127}));
+    annotation (Line(points={{130,0},{114,0},{114,30},{102,30}},color={0,0,127}));
   connect(TSupMax.y, higLim.x2)
-    annotation (Line(points={{61,-50},{64,-50},{64,-24},{68,-24},{68,-24},{78,-24}},
+    annotation (Line(points={{62,-50},{64,-50},{64,-24},{68,-24},{68,-24},{78,-24}},
     color={0,0,127}));
   connect(yCooValMax.y, higLim.f2)
-    annotation (Line(points={{61,-90},{70,-90},{70,-28},{78,-28}}, color={0,0,127}));
+    annotation (Line(points={{62,-90},{70,-90},{70,-28},{78,-28}}, color={0,0,127}));
   connect(higLim.y,min. u2)
-    annotation (Line(points={{101,-20},{106,-20},{106,0},{70,0},{70,24},{78,24}}, color={0,0,127}));
+    annotation (Line(points={{102,-20},{106,-20},{106,0},{70,0},{70,24},{78,24}}, color={0,0,127}));
   connect(TSupSet, limPI.u_s)
     annotation (Line(points={{-140,90},{-92,90},{-92,90},{-42,90}}, color={0,0,127}));
   connect(TSup, limPI.u_m)
     annotation (Line(points={{-140,40},{-30,40},{-30,78}}, color={0,0,127}));
-  connect(andIntErr.u2, uFanFeeThr.y)
-    annotation (Line(points={{-72,-60},{-89,-60}}, color={255,0,255}));
-  connect(uFanFee, uFanFeeThr.u)
-    annotation (Line(points={{-140,-60},{-112,-60}}, color={0,0,127}));
   connect(andIntErr.y, cha.u)
-    annotation (Line(points={{-49,-60},{-42,-60}}, color={255,0,255}));
+    annotation (Line(points={{-48,-60},{-42,-60}}, color={255,0,255}));
   connect(cha.y, limPI.trigger)
-    annotation (Line(points={{-19,-60},{-16,-60},{
-          -16,20},{-38,20},{-38,78}}, color={255,0,255}));
+    annotation (Line(points={{-18,-60},{-16,-60},{-16,20},{-36,20},{-36,78}},
+                                      color={255,0,255}));
   connect(TSupMin.y, higLim.x1)
-    annotation (Line(points={{21,-50},{26,-50},{26,-12},{78,-12}},color={0,0,127}));
+    annotation (Line(points={{22,-50},{26,-50},{26,-12},{78,-12}},color={0,0,127}));
   connect(yCooValMin.y, higLim.f1)
-    annotation (Line(points={{21,-90},{30,-90},{30,-16},{78,-16}},
+    annotation (Line(points={{22,-90},{30,-90},{30,-16},{78,-16}},
     color={0,0,127}));
   connect(uFanSta, andIntErr.u3) annotation (Line(points={{-140,-100},{-82,-100},
           {-82,-68},{-72,-68}}, color={255,0,255}));
-  connect(andIntErr.y, booToRea.u) annotation (Line(points={{-49,-60},{-46,-60},
+  connect(andIntErr.y, booToRea.u) annotation (Line(points={{-48,-60},{-46,-60},
           {-46,-20},{-42,-20}},color={255,0,255}));
-  connect(limPI.y, pro.u1) annotation (Line(points={{-19,90},{38,90}},
+  connect(limPI.y, pro.u1) annotation (Line(points={{-18,90},{38,90}},
                 color={0,0,127}));
-  connect(booToRea.y, pro.u2) annotation (Line(points={{-19,-20},{0,-20},{0,78},
+  connect(booToRea.y, pro.u2) annotation (Line(points={{-18,-20},{0,-20},{0,78},
           {38,78}},color={0,0,127}));
   connect(min.u1, pro.y)
-    annotation (Line(points={{78,36},{72,36},{72,84},{61,84}},color={0,0,127}));
+    annotation (Line(points={{78,36},{72,36},{72,84},{62,84}},color={0,0,127}));
+  connect(TOut, TOutThr.u)
+    annotation (Line(points={{-140,-20},{-112,-20}}, color={0,0,127}));
+  connect(TOutThr.y, andIntErr.u1) annotation (Line(points={{-88,-20},{-80,-20},
+          {-80,-52},{-72,-52}}, color={255,0,255}));
+  connect(uFanFee, uFanFeeThr.u)
+    annotation (Line(points={{-140,-60},{-112,-60}}, color={0,0,127}));
+  connect(andIntErr.u2, uFanFeeThr.y)
+    annotation (Line(points={{-72,-60},{-88,-60}}, color={255,0,255}));
   annotation (
     defaultComponentName = "cooVal",
     Icon(graphics={
@@ -268,6 +263,10 @@ the ALC EIKON control sequence implementation in one of LBNL buildings.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+August 6, 2020, by Michael Wetter:<br/>
+Replaced hysteresis with new inequality block.
+</li>
 <li>
 April 09, 2018, by Milica Grahovac:<br/>
 First implementation.
