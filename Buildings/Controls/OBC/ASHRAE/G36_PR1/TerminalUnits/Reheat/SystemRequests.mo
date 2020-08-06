@@ -196,10 +196,10 @@ protected
     annotation (Placement(transformation(extent={{60,260},{80,280}})));
   Buildings.Controls.OBC.CDL.Logical.Timer tim "Calculate time"
     annotation (Placement(transformation(extent={{0,330},{20,350}})));
-  Buildings.Obsolete.Controls.OBC.CDL.Continuous.GreaterEqual gre
+  Buildings.Controls.OBC.CDL.Continuous.Greater gre
     "Check if the suppression time has passed"
     annotation (Placement(transformation(extent={{60,330},{80,350}})));
-  Buildings.Obsolete.Controls.OBC.CDL.Continuous.GreaterEqual gre1
+  Buildings.Controls.OBC.CDL.Continuous.Greater gre1
     "Check if current model time is greater than the sample period"
     annotation (Placement(transformation(extent={{-80,400},{-60,420}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys2(
@@ -386,10 +386,10 @@ protected
     final samplePeriod=samplePeriod)
     "Sample input signal, as the output signal will go to the trim and respond which also samples at samplePeriod"
     annotation (Placement(transformation(extent={{-160,80},{-140,100}})));
-  Buildings.Obsolete.Controls.OBC.CDL.Continuous.GreaterEqual greEqu
+  Buildings.Controls.OBC.CDL.Continuous.Greater greDis50
     "Check if discharge airflow is less than 50% of setpoint"
     annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
-  Buildings.Obsolete.Controls.OBC.CDL.Continuous.GreaterEqual greEqu1
+  Buildings.Controls.OBC.CDL.Continuous.Greater greDis70
     "Check if discharge airflow is less than 70% of setpoint"
     annotation (Placement(transformation(extent={{-60,-110},{-40,-90}})));
 
@@ -660,23 +660,18 @@ equation
   connect(add3.u2, TZon)
     annotation (Line(points={{-102,134},{-150,134},{-150,170},{-200,170}},
       color={0,0,127}));
-  connect(greEqu.u1, gai1.y)
+  connect(greDis50.u1, gai1.y)
     annotation (Line(points={{-62,-40},{-78,-40}}, color={0,0,127}));
-  connect(greEqu.u2, sampler1.y)
-    annotation (Line(points={{-62,-48},{-72,-48},{-72,-70},{-138,-70}},
-      color={0,0,127}));
-  connect(greEqu.y, and3.u2)
-    annotation (Line(points={{-38,-40},{0,-40},{0,-48},{38,-48}},
-      color={255,0,255}));
-  connect(gai2.y, greEqu1.u1)
-    annotation (Line(points={{-78,-88},{-76,-88},{-76,-100},{-62,-100}},
-      color={0,0,127}));
-  connect(sampler1.y, greEqu1.u2)
-    annotation (Line(points={{-138,-70},{-132,-70},{-132,-108},{-62,-108}},
-      color={0,0,127}));
-  connect(greEqu1.y, and4.u2)
-    annotation (Line(points={{-38,-100},{0,-100},{0,-108},{38,-108}},
-      color={255,0,255}));
+  connect(greDis50.u2, sampler1.y) annotation (Line(points={{-62,-48},{-72,-48},
+          {-72,-70},{-138,-70}}, color={0,0,127}));
+  connect(greDis50.y, and3.u2) annotation (Line(points={{-38,-40},{0,-40},{0,-48},
+          {38,-48}}, color={255,0,255}));
+  connect(gai2.y, greDis70.u1) annotation (Line(points={{-78,-88},{-76,-88},{-76,
+          -100},{-62,-100}}, color={0,0,127}));
+  connect(sampler1.y, greDis70.u2) annotation (Line(points={{-138,-70},{-132,-70},
+          {-132,-108},{-62,-108}}, color={0,0,127}));
+  connect(greDis70.y, and4.u2) annotation (Line(points={{-38,-100},{0,-100},{0,-108},
+          {38,-108}}, color={255,0,255}));
 
 annotation (
   defaultComponentName="sysReqRehBox",
