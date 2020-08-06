@@ -1,11 +1,11 @@
 within Buildings.Controls.OBC.CDL.Continuous;
 block Less "Output y is true, if input u1 is less than input u2"
 
-  parameter Real h(final min=0)=0 "Hysteresis";
+  parameter Real h(final min=0)=0 "Hysteresis"
+    annotation(Evaluate=true);
 
   parameter Boolean pre_y_start=false "Value of pre(y) at initial time"
     annotation(Dialog(tab="Advanced"));
-
 
   Interfaces.RealInput u1 "Input u1"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
