@@ -6,8 +6,8 @@ model LimPIDWithReset
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.ModelTime modTim "Model time"
     annotation (Placement(transformation(extent={{-90,-70},{-70,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(threshold
-      =1) "Outputs true after t=1"
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(t=1)
+    "Outputs true after t=1"
     annotation (Placement(transformation(extent={{-52,-70},{-32,-50}})));
 
   Buildings.Controls.OBC.CDL.Continuous.LimPID limPIDPar(

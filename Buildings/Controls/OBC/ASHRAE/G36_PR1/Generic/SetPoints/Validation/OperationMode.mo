@@ -82,8 +82,8 @@ model OperationMode "Validate block for selecting operation mode"
     annotation (Placement(transformation(extent={{0,90},{20,110}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi1 "Time to next occupancy"
     annotation (Placement(transformation(extent={{120,90},{140,110}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold occ(
-    final threshold=0.5) "Occupied status"
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold occ(final t=0.5)
+    "Occupied status"
     annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.OperationMode opeModSel(final
       have_winSen=true, final numZon=1) "Operation mode selection"

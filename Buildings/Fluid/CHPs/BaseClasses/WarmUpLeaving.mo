@@ -39,8 +39,8 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Timer timer if warmUpByTimeDelay
     "Count the time since the warm-up mode is activated"
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold timeDel(
-    final threshold=timeDelayStart) if warmUpByTimeDelay
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold timeDel(final t=
+        timeDelayStart) if warmUpByTimeDelay
     "Check if it has been in warm-up mode by longer than specified time"
     annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysTem(uLow=-0.5, uHigh=0) if

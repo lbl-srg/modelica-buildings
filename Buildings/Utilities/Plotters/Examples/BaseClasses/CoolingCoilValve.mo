@@ -119,12 +119,12 @@ block CoolingCoilValve "Cooling coil valve position control sequence"
     "Defines lower limit of the cooling valve signal at low range SATs"
     annotation (Placement(transformation(extent={{80,-30},{100,-10}})));
 
-  Controls.OBC.CDL.Continuous.GreaterThreshold TOutThr(threshold=TOutCooCut, h=
+  Controls.OBC.CDL.Continuous.GreaterThreshold TOutThr(t=TOutCooCut, h=
         TOutDelta)
     "Determines whether the outdoor air temperature is below a treshold"
     annotation (Placement(transformation(extent={{-110,-30},{-90,-10}})));
-  Controls.OBC.CDL.Continuous.GreaterThreshold uFanFeeThr(threshold=FanFeeCut,
-      h=FanFeeDelta) "Checks if the fan status is above a threshold"
+  Controls.OBC.CDL.Continuous.GreaterThreshold uFanFeeThr(t=FanFeeCut, h=
+        FanFeeDelta) "Checks if the fan status is above a threshold"
     annotation (Placement(transformation(extent={{-110,-70},{-90,-50}})));
 protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yCooValMin(

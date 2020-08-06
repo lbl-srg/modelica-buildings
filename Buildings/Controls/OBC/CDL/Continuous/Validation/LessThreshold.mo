@@ -1,12 +1,9 @@
 within Buildings.Controls.OBC.CDL.Continuous.Validation;
 model LessThreshold "Validation model for the LessThreshold block"
-  Buildings.Controls.OBC.CDL.Continuous.LessThreshold les(
-    threshold=0.5)
+  Buildings.Controls.OBC.CDL.Continuous.LessThreshold les(t=0.5)
     "Less block, without hysteresis"
     annotation (Placement(transformation(extent={{-10,20},{10,40}})));
-  Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesHys(
-    threshold=0.5,
-    h=0.2)
+  Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesHys(t=0.5, h=0.2)
     "Less block, with hysteresis"
     annotation (Placement(transformation(extent={{-10,-30},{10,-10}})));
   Sources.TimeTable ram(table=[0,0; 1,0; 2,1; 3,1; 4,0; 5,0])

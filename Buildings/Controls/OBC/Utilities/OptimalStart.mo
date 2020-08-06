@@ -93,7 +93,7 @@ block OptimalStart
     final uHigh=uHigh) if computeCooling
     "Optimal start time for cooling system"
     annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
-  CDL.Continuous.GreaterThreshold hysSta(threshold=60, h=60)
+  CDL.Continuous.GreaterThreshold hysSta(t=60, h=60)
     "Hysteresis to activate the optimal start boolean output"
     annotation (Placement(transformation(extent={{-70,-10},{-50,10}})));
 protected

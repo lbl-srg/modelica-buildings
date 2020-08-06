@@ -36,7 +36,7 @@ model ZoneTemperatures "Validate block for zone set point"
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ram(duration=28800)
     "Generate ramp output"
     annotation (Placement(transformation(extent={{-140,-100},{-120,-80}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(threshold=0.75)
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(t=0.75)
     "Check if input is greater than 0.75"
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt(

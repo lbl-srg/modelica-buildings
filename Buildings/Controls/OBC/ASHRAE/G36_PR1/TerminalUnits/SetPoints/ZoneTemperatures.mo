@@ -261,7 +261,7 @@ block ZoneTemperatures
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler heaSetSam
     "Sample current heating setpoint when zone becomes unpopulated by 5 minutes"
     annotation (Placement(transformation(extent={{40,-320},{60,-300}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(threshold=300)
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(t=300)
     "Check whether the zone has been unpopulated for 5 minutes continuously during occupied mode"
     annotation (Placement(transformation(extent={{-160,-280},{-140,-260}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add1 "Adjust heating setpoint"

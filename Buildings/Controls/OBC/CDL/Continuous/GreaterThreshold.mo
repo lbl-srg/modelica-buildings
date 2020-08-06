@@ -2,7 +2,7 @@ within Buildings.Controls.OBC.CDL.Continuous;
 block GreaterThreshold
   "Output y is true, if input u is greater than threshold"
 
-  parameter Real threshold=0 "Threshold for comparison";
+  parameter Real t=0 "Threshold for comparison";
 
   parameter Real h(final min=0)=0 "Hysteresis"
     annotation(Evaluate=true);
@@ -20,7 +20,8 @@ initial equation
   assert(h >= 0, "Hysteresis must not be negative");
   pre(y) = pre_y_start;
 equation
-  y = if h < 1E-10 then u > threshold else (not pre(y) and u > threshold or pre(y) and u >= threshold-h);
+  y =if h < 1E-10 then u > t else (not pre(y) and u > t or pre(y) and u >= t -
+    h);
 
 annotation (
   defaultComponentName="greThr",
@@ -56,25 +57,25 @@ annotation (
           textString=DynamicSelect("", String(u, leftjustified=false, significantDigits=3))),
         Text(extent={{4,-18},{71,24}},
           lineColor={0,0,0},
-          textString="%threshold",
+          textString="%t",
           visible=h < 1E-10),
         Text(extent={{22,20},{89,62}},
           lineColor=DynamicSelect({0,0,0}, if y then {135,135,135} else {0,0,0}),
-          textString=DynamicSelect("", String(threshold, leftjustified=false, significantDigits=3)),
+          textString=DynamicSelect("", String(t, leftjustified=false, significantDigits=3)),
           visible=h >= 1E-10),
         Text(extent={{20,-56},{87,-14}},
           lineColor=DynamicSelect({0,0,0}, if not y then {135,135,135} else {0,0,0}),
-          textString=DynamicSelect("", String(threshold-h, leftjustified=false, significantDigits=3)),
+          textString=DynamicSelect("", String(t-h, leftjustified=false, significantDigits=3)),
           visible=h >= 1E-10)}),
   Documentation(info="<html>
 <p>
 Block that outputs <code>true</code> if the Real input <code>u</code>
-is greater than the parameter <code>threshold</code>, optionally within a hysteresis <code>h</code>.
+is greater than a threshold <code>t</code>, optionally within a hysteresis <code>h</code>.
 </p>
 <p>
 The parameter <code>h</code> is used to specify a hysteresis.
 If <i>h &gt; 0</i>, then the output switches to <code>true</code> if <i>u &gt; t</i>,
-where <i>t</i> is the parameter <code>threshold</code>,
+where <i>t</i> is the threshold,
 and it switches to <code>false</code> if <i>u &gt; t-h</i>.
 </p>
 <p>

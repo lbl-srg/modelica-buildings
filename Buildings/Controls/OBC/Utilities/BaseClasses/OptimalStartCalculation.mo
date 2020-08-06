@@ -96,11 +96,11 @@ protected
     final uHigh=0,
     final uLow=-60) "Hysteresis to activate the optimal start"
     annotation (Placement(transformation(extent={{330,-90},{350,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesThr(final
-      threshold=1E-15) "Avoid zero division"
+  Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesThr(final t=1E-15)
+    "Avoid zero division"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesThr1(final
-      threshold=1E-15) "Avoid zero division"
+  Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesThr1(final t=1E-15)
+    "Avoid zero division"
     annotation (Placement(transformation(extent={{140,-10},{160,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxStaTim(
     final k=tOptMax)
@@ -159,16 +159,14 @@ protected
     annotation (Placement(transformation(extent={{0,-90},{20,-70}})));
   Buildings.Controls.OBC.CDL.Continuous.Modulo mod "Get the modulo"
     annotation (Placement(transformation(extent={{40,-70},{60,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesEquThr2(
-    final threshold=1E-06)
-  "Get the instant when the simulation time arrives at midnight"
+  Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesEquThr2(final t=1E-06)
+    "Get the instant when the simulation time arrives at midnight"
     annotation (Placement(transformation(extent={{80,-70},{100,-50}})));
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triSam4
   "Get the sampled optimal start time at the same time each day"
     annotation (Placement(transformation(extent={{250,-10},{270,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
-    final threshold=thrOptOn)
-  "The threshold for optOn signal becomes true"
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(final t=
+        thrOptOn) "The threshold for optOn signal becomes true"
     annotation (Placement(transformation(extent={{320,-10},{340,10}})));
   Buildings.Controls.OBC.CDL.Logical.And and2 "Logical and"
     annotation (Placement(transformation(extent={{360,-40},{380,-20}})));

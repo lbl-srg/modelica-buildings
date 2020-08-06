@@ -90,8 +90,8 @@ model ControlsVerification_CoolingCoilValve
     "Cooling valve position control sequence"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(threshold
-      =0.5) "Converter to boolean"
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(t=0.5)
+    "Converter to boolean"
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Gain percConv(k=0.01)

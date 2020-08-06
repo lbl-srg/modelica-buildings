@@ -37,8 +37,8 @@ protected
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.Abs abs1 if use_powerRateLimit "Absolute value"
     annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold maxRat(
-    final threshold=dPEleMax) if use_powerRateLimit
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold maxRat(final t=
+        dPEleMax) if use_powerRateLimit
     "Check if demand rate is more than the maximum rate"
     annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis maxPow(

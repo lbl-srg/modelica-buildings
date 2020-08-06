@@ -137,8 +137,7 @@ block ActiveAirFlow
     annotation (Placement(transformation(extent={{80,-410},{100,-390}})));
   Buildings.Controls.OBC.CDL.Logical.Not not2 if have_winSen "Logical not"
     annotation (Placement(transformation(extent={{-240,-510},{-220,-490}})));
-  CDL.Continuous.GreaterThreshold                  greThr(threshold=0.75, h=0.5)
-    if                                    have_occSen
+  CDL.Continuous.GreaterThreshold greThr(t=0.75, h=0.5) if have_occSen
     "Check if the zone becomes unpopulated"
     annotation (Placement(transformation(extent={{-140,-290},{-120,-270}})));
 
