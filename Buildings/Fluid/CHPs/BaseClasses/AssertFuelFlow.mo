@@ -24,7 +24,8 @@ protected
     "Check if fuel mass flow rate is changing too much"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Modelica.Blocks.Continuous.Derivative floChaRat(
-    final x_start=0) "Rate at which fuel mass flow rate changes"
+    final initType=Modelica.Blocks.Types.Init.InitialOutput)
+    "Rate at which fuel mass flow rate changes"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Abs abs1 "Absolute value"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));

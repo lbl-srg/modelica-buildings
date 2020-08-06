@@ -32,7 +32,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Not not2 if use_powerRateLimit "Logical Nand"
     annotation (Placement(transformation(extent={{40,-50},{60,-30}})));
   Modelica.Blocks.Continuous.Derivative demRat(
-    final x_start=0) if use_powerRateLimit
+    final initType=Modelica.Blocks.Types.Init.InitialOutput) if use_powerRateLimit
     "Power demand rate"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.Abs abs1 if use_powerRateLimit "Absolute value"
