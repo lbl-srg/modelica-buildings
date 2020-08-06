@@ -26,19 +26,19 @@ model ControllerEconomizer "Controller for economizer"
 
   Modelica.Blocks.Interfaces.RealInput TMixSet(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Mixed air setpoint temperature"
     annotation (Placement(transformation(extent={{-120,70},{-100,90}})));
   Modelica.Blocks.Interfaces.RealInput TMix(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Measured mixed air temperature"
     annotation (Placement(transformation(extent={{-120,40},{-100,60}})));
   Modelica.Blocks.Interfaces.RealInput TOut(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Measured outside air temperature"
     annotation (Placement(
@@ -47,7 +47,7 @@ model ControllerEconomizer "Controller for economizer"
     annotation (Placement(transformation(extent={{-120,-90},{-100,-70}})));
   Modelica.Blocks.Interfaces.RealInput TRet(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Return air temperature"
     annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
@@ -126,38 +126,29 @@ equation
   connect(and1.y, switch1.u2) annotation (Line(points={{41.5,-50},{48,-50},{48,
           -6},{10,-6},{10,20},{18,20}},
                                      color={255,0,255}));
-  connect(con.u_s, TMixSet)
-    annotation (Line(points={{-92,80},{-92,80},{-110,80}}, color={0,0,127}));
-  connect(TMix, con.u_m)
-    annotation (Line(points={{-110,50},{-80,50},{-80,68}}, color={0,0,127}));
+  connect(con.u_s, TMixSet)   annotation (Line(points={{-92,80},{-92,80},{-110,80}}, color={0,0,127}));
+  connect(TMix, con.u_m)    annotation (Line(points={{-110,50},{-80,50},{-80,68}}, color={0,0,127}));
   connect(con.y, switch1.u1) annotation (Line(points={{-69,80},{12,80},{12,28},
           {18,28}}, color={0,0,127}));
   connect(TOut, feedback.u2) annotation (Line(points={{-110,-50},{-40,-50},{-40,
           -36}}, color={0,0,127}));
   connect(feedback.u1, TMix) annotation (Line(points={{-48,-28},{-80,-28},{-80,
           50},{-110,50}}, color={0,0,127}));
-  connect(Limiter.y, yOutAirFra)
-    annotation (Line(points={{81,0},{110,0}}, color={0,0,127}));
-  connect(feedback.y, hysTMix.u)
-    annotation (Line(points={{-31,-28},{-28,-28},{-28,-50},{-22,-50}},
+  connect(Limiter.y, yOutAirFra)    annotation (Line(points={{81,0},{110,0}}, color={0,0,127}));
+  connect(feedback.y, hysTMix.u)   annotation (Line(points={{-31,-28},{-28,-28},{-28,-50},{-22,-50}},
                                                    color={0,0,127}));
-  connect(feedback1.u1, TRet)
-    annotation (Line(points={{-68,30},{-88,30},{-88,20},{-110,20}},
+  connect(feedback1.u1, TRet)   annotation (Line(points={{-68,30},{-88,30},{-88,20},{-110,20}},
                                                   color={0,0,127}));
-  connect(feedback1.u2,TOut)
-    annotation (Line(points={{-60,22},{-60,-50},{-110,-50}}, color={0,0,127}));
-  connect(feedback1.y, hysCooPot.u)
-    annotation (Line(points={{-51,30},{-42,30}}, color={0,0,127}));
+  connect(feedback1.u2,TOut)    annotation (Line(points={{-60,22},{-60,-50},{-110,-50}}, color={0,0,127}));
+  connect(feedback1.y, hysCooPot.u)   annotation (Line(points={{-51,30},{-42,30}}, color={0,0,127}));
   connect(hysCooPot.y, and1.u[1]) annotation (Line(points={{-18,30},{6,30},{6,
           -45.3333},{20,-45.3333}}, color={255,0,255}));
-  connect(hysTMix.y, and1.u[2])
-    annotation (Line(points={{2,-50},{20,-50},{20,-50}}, color={255,0,255}));
+  connect(hysTMix.y, and1.u[2])    annotation (Line(points={{2,-50},{20,-50},{20,-50}}, color={255,0,255}));
   connect(cooSta, and1.u[3]) annotation (Line(points={{-110,-80},{6,-80},{6,
           -54.6667},{20,-54.6667}}, color={255,0,255}));
   connect(Limiter.y, hysChiPla.u) annotation (Line(points={{81,0},{90,0},{90,
           -20},{52,-20},{52,-50},{58,-50}}, color={0,0,127}));
-  connect(or1.y, yCoiSta)
-    annotation (Line(points={{91,-80},{110,-80}}, color={255,0,255}));
+  connect(or1.y, yCoiSta)    annotation (Line(points={{91,-80},{110,-80}}, color={255,0,255}));
   connect(not1.y, or1.u2) annotation (Line(points={{61,-90},{64,-90},{64,-88},{
           68,-88}}, color={255,0,255}));
   connect(and1.y, not1.u) annotation (Line(points={{41.5,-50},{48,-50},{48,-70},

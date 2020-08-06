@@ -106,7 +106,7 @@ model ChillerDXHeatingEconomizerController
 
   Modelica.Blocks.Interfaces.RealInput TRoo(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature") "Zone temperature measurement"
   annotation (Placement(
         transformation(
@@ -115,7 +115,7 @@ model ChillerDXHeatingEconomizerController
           origin={-114,-58})));
   Modelica.Blocks.Interfaces.RealInput TSetRooCoo(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Zone cooling setpoint temperature" annotation (Placement(transformation(
         extent={{20,-20},{-20,20}},
@@ -126,7 +126,7 @@ model ChillerDXHeatingEconomizerController
         origin={-114,58})));
   Modelica.Blocks.Interfaces.RealInput TSetRooHea(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Zone heating setpoint temperature" annotation (Placement(transformation(
         extent={{20,-20},{-20,20}},
@@ -137,21 +137,21 @@ model ChillerDXHeatingEconomizerController
         origin={-114,86})));
   Modelica.Blocks.Interfaces.RealInput TMix(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Measured mixed air temperature"
     annotation (Placement(transformation(extent={{-140,0},{-100,40}}),
         iconTransformation(extent={{-128,16},{-100,44}})));
   Modelica.Blocks.Interfaces.RealInput TSup(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Measured supply air temperature after the cooling coil"
     annotation (Placement(transformation(extent={{-140,-130},{-100,-90}}),
         iconTransformation(extent={{-128,-100},{-100,-72}})));
   Modelica.Blocks.Interfaces.RealInput TOut(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Measured outside air temperature"
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}}),
@@ -176,7 +176,7 @@ model ChillerDXHeatingEconomizerController
         iconTransformation(extent={{100,-30},{120,-10}})));
   Modelica.Blocks.Interfaces.RealOutput TSetSupChi(
     final unit="K",
-    final displayUnit="degC")
+    displayUnit="degC")
     "Set point for chiller leaving water temperature"
     annotation (Placement(transformation(extent={{100,-100},{120,-80}}),
         iconTransformation(extent={{100,-100},{120,-80}})));

@@ -23,7 +23,7 @@ model ChillerDXHeatingEconomizer
     "Design capacity of cooling coil"
     annotation(Dialog(group="Cooling design"));
   parameter Modelica.SIunits.PressureDifference dp_nominal(
-    final displayUnit="Pa") = 500
+    displayUnit="Pa") = 500
     "Design pressure drop of flow leg with fan"
     annotation(Dialog(group="Air design"));
   final parameter Modelica.SIunits.MassFlowRate mChiEva_flow_nominal=
@@ -50,7 +50,7 @@ model ChillerDXHeatingEconomizer
         iconTransformation(extent={{-240,10},{-200,50}})));
   Modelica.Blocks.Interfaces.RealInput TSetChi(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Set point for leaving chilled water temperature"
     annotation (Placement(transformation(extent={{-240,-220},{-200,-180}}),
@@ -86,13 +86,13 @@ model ChillerDXHeatingEconomizer
         iconTransformation(extent={{202,90},{222,110}})));
   Modelica.Blocks.Interfaces.RealOutput TMix(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Mixed air temperature" annotation (Placement(transformation(extent={{202,-70},
             {222,-50}}), iconTransformation(extent={{202,-70},{222,-50}})));
   Modelica.Blocks.Interfaces.RealOutput TSup(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Supply air temperature after coils"
     annotation (Placement(transformation(extent={{202,-110},{222,-90}}),
@@ -264,7 +264,7 @@ model ChillerDXHeatingEconomizer
     annotation (Placement(transformation(extent={{-20,-50},{-40,-30}})));
   Modelica.Blocks.Interfaces.RealOutput TRet(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Return air temperature" annotation (Placement(transformation(extent={{202,-90},
             {222,-70}}),       iconTransformation(extent={{202,-90},{222,-70}})));
