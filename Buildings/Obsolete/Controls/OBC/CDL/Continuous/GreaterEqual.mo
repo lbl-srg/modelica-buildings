@@ -3,13 +3,13 @@ block GreaterEqual
   "Output y is true, if input u1 is greater or equal than input u2"
   extends Modelica.Icons.ObsoleteModel;
 
-  Interfaces.RealInput u1 "Connector of first Real input signal"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput u1 "Connector of first Real input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
 
-  Interfaces.RealInput u2 "Connector of second Real input signal"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput u2 "Connector of second Real input signal"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
 
-  Interfaces.BooleanOutput y "Connector of Boolean output signal"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y "Connector of Boolean output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation
