@@ -1,18 +1,17 @@
 within Buildings.Applications.DHC.CentralPlants.Cooling.Controls;
 model ChillerStage "Stage controller for chillers"
+  extends Modelica.Blocks.Icons.Block;
 
   parameter Modelica.SIunits.Time tWai "Waiting time";
-
   parameter Modelica.SIunits.Power QEva_nominal
-    "Nominal cooling capaciaty (negative means cooling)";
-
+    "Nominal cooling capaciaty (negative)";
   parameter Modelica.SIunits.Power  criPoiLoa = 0.55*QEva_nominal
     "Critical point of cooling load for switching one chiller on or off";
-
   parameter Modelica.SIunits.Power  dQ = 0.25*QEva_nominal
     "Deadband for critical point of cooling load";
 
-  Modelica.Blocks.Interfaces.RealInput QLoa(unit="W") "Total cooling load, negative"
+  Modelica.Blocks.Interfaces.RealInput QLoa(unit="W",max=0)
+    "Total cooling load, negative"
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
   Modelica.Blocks.Interfaces.BooleanInput on "On signal of the chillers"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
@@ -25,13 +24,14 @@ model ChillerStage "Stage controller for chillers"
         rotation=-90,
         origin={-50,70})));
   Modelica.StateGraph.StepWithSignal oneOn(nOut=2, nIn=2)
-    "One chiller is on"
+    "Status of one chiller on"
     annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
         origin={-50,0})));
-  Modelica.StateGraph.StepWithSignal twoOn "Two chillers are on"
+  Modelica.StateGraph.StepWithSignal twoOn
+    "Status of two chillers on"
     annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
@@ -68,26 +68,33 @@ model ChillerStage "Stage controller for chillers"
   Modelica.StateGraph.Transition oneToOff(
     condition=on == false,
     enableTimer=true,
-    waitTime=tWai) "Transition from one chiller to off"
+    waitTime=tWai) "Condition of transition from one chiller to off"
     annotation (Placement(
         transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={-20,40})));
   inner Modelica.StateGraph.StateGraphRoot stateGraphRoot
+    "State graph root"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
   Modelica.Blocks.Tables.CombiTable1Ds combiTable1Ds(table=[0,0,0; 1,1,0; 2,1,1])
+    "Table for interpretation of chiller on/off status output"
     annotation (Placement(transformation(extent={{70,-10},{90,10}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt(
     final integerTrue=1, final integerFalse=0)
+    "Boolean to real"
     annotation (Placement(transformation(extent={{30,-40},{50,-20}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt1(
-    final integerFalse=0, final integerTrue=2)
+    final integerTrue=2, final integerFalse=0)
+    "Boolean to real"
     annotation (Placement(transformation(extent={{30,-80},{50,-60}})));
   Buildings.Controls.OBC.CDL.Integers.Add addInt
+    "Adding up integer signals"
     annotation (Placement(transformation(extent={{70,-60},{90,-40}})));
   Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea
+    "Integer to real"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
+
 equation
   connect(off.outPort[1], offToOne.inPort) annotation (Line(points={{-50,59.5},{
           -50,44}},               color={0,0,0}));
@@ -120,20 +127,26 @@ equation
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),           Icon(coordinateSystem(
           preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics={
-                                Rectangle(
-        extent={{-100,-100},{100,100}},
-        lineColor={0,0,127},
-        fillColor={255,255,255},
-        fillPattern=FillPattern.Solid), Text(
+                                        Text(
         extent={{-150,150},{150,110}},
         textString="%name",
         lineColor={0,0,255})}),
     Documentation(revisions="<html>
 <ul>
 <li>
-March 19, 2014 by Sen Huang:<br/>
+August 6, 2020 by Jing Wang:<br/>
 First implementation.
 </li>
 </ul>
+</html>", info="<html>
+<p>This model implements staging control logic of two chillers according to the measured total cooling load. The control logic is as follows:</p>
+<ul>
+<li>When the input signal changes from off to on, one chiller is turned on.</li>
+<li>When the total cooling load exceeds 80&percnt; (adjustable) of one chiller&apos;s nominal capacity, a second chiller is turned on.</li>
+<li>When the total cooling load drops below 60&percnt; (adjustable) of one chiller&apos;s nominal capacity (i.e., 30&percnt; each chiller), the second chiller is turned off. </li>
+<li>When the input signal changes from on to off, the operating chiller is turned off.</li>
+<li>Parameter tWai assures a transitional time is kept between each operation.</li>
+</ul>
+<p><br>It is assumed that both chillers have the same capacity of QEva_nominal.</p>
 </html>"));
 end ChillerStage;

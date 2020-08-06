@@ -2,6 +2,7 @@ within Buildings.Applications.DHC.CentralPlants.Cooling.Controls.Validation;
 model ChilledWaterPumpSpeed
   "Example to test the chilled water pump speed controller"
   extends Modelica.Icons.Example;
+
   Buildings.Applications.DHC.CentralPlants.Cooling.Controls.ChilledWaterPumpSpeed
     chiWatPumSpe(
     dpSetPoi=68900,
@@ -14,21 +15,31 @@ model ChilledWaterPumpSpeed
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Blocks.Sources.Constant dpMea(k=0.6*chiWatPumSpe.dpSetPoi)
     "Measured demand side pressure difference"
-    annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
+    annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
   Modelica.Blocks.Sources.Pulse mFloTot(
     amplitude=0.4*chiWatPumSpe.m_flow_nominal,
     period=300,
     offset=0.5*chiWatPumSpe.m_flow_nominal,
     startTime=150) "Total chilled water mass flow rate"
-    annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
+    annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
 equation
-  connect(dpMea.y, chiWatPumSpe.dpMea) annotation (Line(points={{-39,-20},{-30,
-          -20},{-30,-4},{-12,-4}}, color={0,0,127}));
-  connect(mFloTot.y, chiWatPumSpe.masFloPum) annotation (Line(points={{-39,20},
-          {-30,20},{-30,4},{-12,4}}, color={0,0,127}));
+  connect(dpMea.y, chiWatPumSpe.dpMea) annotation (Line(points={{-39,-30},{-30,
+          -30},{-30,-4},{-12,-4}}, color={0,0,127}));
+  connect(mFloTot.y, chiWatPumSpe.masFloPum) annotation (Line(points={{-39,30},
+          {-30,30},{-30,4},{-12,4}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     __Dymola_Commands(file=
           "Resources/Scripts/Dymola/Applications/DHC/CentralPlants/Cooling/Controls/Validation/ChilledWaterPumpSpeed.mos"
-        "Simulate and Plot"));
+        "Simulate and Plot"),
+    Documentation(revisions="<html>
+<ul>
+<li>
+August 6, 2020 by Jing Wang:<br/>
+First implementation.
+</li>
+</ul>
+</html>", info="<html>
+<p>This model validates the variable speed pump control logic implemented in <a href=\"modelica://Buildings.Applications.DHC.CentralPlants.Cooling.Controls.ChilledWaterPumpSpeed\">Buildings.Applications.DHC.CentralPlants.Cooling.Controls.ChilledWaterPumpSpeed</a>.</p>
+</html>"));
 end ChilledWaterPumpSpeed;
