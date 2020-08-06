@@ -2,7 +2,7 @@ within Buildings.Controls.OBC.CDL.Continuous;
 block GreaterEqualThreshold
   "Output y is true, if input u is greater or equal than threshold"
 
-  parameter Real threshold=0 "Comparison with respect to threshold";
+  parameter Real threshold=0 "Threshold for comparison";
 
   Interfaces.RealInput u "Connector of Real input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));

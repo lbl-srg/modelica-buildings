@@ -1,16 +1,26 @@
 within Buildings.Controls.OBC.CDL.Continuous;
 block LessThreshold "Output y is true, if input u is less than threshold"
 
-  parameter Real threshold=0 "Comparison with respect to threshold";
+  parameter Real threshold=0 "Threshold for comparison";
 
-  Interfaces.RealInput u "Connector of Real input signal"
+  parameter Real h(final min=0)=0 "Hysteresis"
+    annotation(Evaluate=true);
+
+  parameter Boolean pre_y_start=false "Value of pre(y) at initial time"
+    annotation(Dialog(tab="Advanced"));
+
+  Interfaces.RealInput u "Input"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
 
-  Interfaces.BooleanOutput y "Connector of Boolean output signal"
+  Interfaces.BooleanOutput y "Output"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
+initial equation
+  assert(h >= 0, "Hysteresis must not be negative");
+  pre(y) = pre_y_start;
 equation
-  y = u < threshold;
+  y = if h < 1E-10 then u < threshold else (not pre(y) and u < threshold or pre(y) and u <= threshold+h);
+
   annotation (
         defaultComponentName="lesThr",
         Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
@@ -39,15 +49,37 @@ equation
           textString="%name"),
         Line(
           points={{-10,20},{-54,0},{-10,-18}},
-          thickness=0.5)}),
+          thickness=0.5),
+        Text(extent={{-48,38},{57,78}},
+          textString="%h",
+          visible=h >= 1E-10,
+          lineColor={0,0,0})}),
 Documentation(info="<html>
 <p>
-Block that outputs <code>true</code> if the Real input is less than
-the parameter <code>threshold</code>.
-Otherwise the output is <code>false</code>.
+Block that outputs <code>true</code> if the Real input <code>u</code>
+is less than the parameter <code>threshold</code>, optionally within a hysteresis <code>h</code>.
+</p>
+<p>
+The parameter <code>h</code> is used to specify a hysteresis.
+If <i>h &gt; 0</i>, then the output switches to <code>true</code> if <i>u &lt; t</i>,
+where <i>t</i> is the parameter <code>threshold</code>,
+and it switches to <code>false</code> if <i>u &lt; t+h</i>.
+</p>
+<p>
+Enabling hysteresis can avoid frequent switching.
+Adding hysteresis is recommended in real controllers to guard against sensor noise, and
+in simulation to guard against numerical noise. Numerical noise can be present if
+an input depends on a state variable or a quantity that requires an iterative solution, such as
+a temperature or a mass flow rate of an HVAC system.
+To disable hysteresis, set <i>h=0</i>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+August 5, 2020, by Michael Wetter:<br/>
+Added hysteresis.<br/>
+This is for <a href=\\\"https://github.com/lbl-srg/modelica-buildings/issues/2076\\\">issue 2076</a>.
+</li>
 <li>
 January 3, 2017, by Michael Wetter:<br/>
 First implementation, based on the implementation of the
