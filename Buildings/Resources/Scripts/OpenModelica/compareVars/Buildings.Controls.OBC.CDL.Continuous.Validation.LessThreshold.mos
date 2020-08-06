@@ -1,7 +1,7 @@
 compareVars :=
   {
     "les.u",
-    "les.threshold",
+    "les.t",
     "les.y",
     "lesHys.y"
   };

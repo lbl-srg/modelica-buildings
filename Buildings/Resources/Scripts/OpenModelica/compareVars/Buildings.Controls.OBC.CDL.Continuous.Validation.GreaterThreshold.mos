@@ -1,7 +1,7 @@
 compareVars :=
   {
     "gre.u",
-    "gre.threshold",
+    "gre.t",
     "gre.y",
     "greHys.y"
   };
