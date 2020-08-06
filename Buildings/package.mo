@@ -238,6 +238,17 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">backward compatible</b> way:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL.Continuous</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.Greater<br/>
+                       Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold<br/>
+                       Buildings.Controls.OBC.CDL.Continuous.Less<br/>
+                       Buildings.Controls.OBC.CDL.Continuous.LessThreshold
+    </td>
+    <td valign=\"top\">Added option to specify a hysteresis, which by default is set to <i>0</i>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.HeatExchangers.RadiantSlabs</b>
     </td>
 </tr>
@@ -247,14 +258,6 @@ have been <b style=\"color:blue\">improved</b> in a
                        and changed print statement to an assertion with assertion level set to warning.<br/>
                        This is for
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2009\">issue 2009</a>.
-    </td>
-</tr>
-<tr><td colspan=\"2\"><b>xxx</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">xxx
-    </td>
-    <td valign=\"top\">xxx.
     </td>
 </tr>
 </table>
