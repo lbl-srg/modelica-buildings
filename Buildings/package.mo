@@ -222,24 +222,33 @@ The following <b style=\"color:blue\">new components</b> have been added
 to <b style=\"color:blue\">existing</b> libraries:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>Buildings.Controls.Continuous</b>
+<tr><td colspan=\"2\"><b>Buildings.Controls.OBC</b>
+    </td>
+</tr>                   
+<tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.GroupStatus
+    </td>
+    <td valign=\"top\">Find minimum and maximum values regarding the status of zones in one group. This is needed
+                       for specifying the group operating mode according to ASHRAE Guideline 36, May 2020 version.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1893\">issue 1893</a>.
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Controls.Continuous.LimPIDWithReset
+<tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.SetPoints.ModeAndSetPoints
+    </td>
+    <td valign=\"top\">Moved from Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.ModeAndSetPoints,
+                       reimplemented to use the operating mode specified according to ASHRAE G36 official release and changed
+                       the heating and cooling demand limit level to be inputs.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1893\">issue 1893</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.LimPIDWithReset
     </td>
     <td valign=\"top\">Implemented inside the derivative calculation and removed the input <code>y_reset_in</code>.
                        The controller output could only be reset to the value specified by the parameter
                        <code>y_reset</code>.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2056\">issue 2056</a>.</td>
 </tr>
-<tr><td colspan=\"2\"><b>xxx</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">xxx
-    </td>
-    <td valign=\"top\">xxx.
-    </td>
-    </tr>
 </table>
 <!-- Backward compatible changes -->
 <p>
@@ -248,6 +257,17 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">backward compatible</b> way:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.Air</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Air.Systems.SingleZone.VAV.Examples.Guideline36
+    </td>
+    <td valign=\"top\">Updated AHU controller which applies the sequence of specifying operating mode
+                       according to G36 official release.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1893\">issue 1893</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.HeatExchangers.RadiantSlabs</b>
     </td>
 </tr>
@@ -257,6 +277,16 @@ have been <b style=\"color:blue\">improved</b> in a
                        and changed print statement to an assertion with assertion level set to warning.<br/>
                        This is for
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2009\">issue 2009</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Examples</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Examples.VAVReheat.Guideline36
+    </td>
+    <td valign=\"top\">Upgraded sequence of specifying operating mode according to G36 official release.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1893\">issue 1893</a>.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>xxx</b>
@@ -278,13 +308,6 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td colspan=\"2\"><b>Buildings.Controls.Continuous</b>
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Controls.Continuous.LimPID
-    </td>
-    <td valign=\"top\">Removed the conditional inputs <code>trigger</code> and <code>y_rest_in</code>,
-                       implemented inside the derivative calculation. The controller that has the
-                       conditional inputs has been moved to <code>Building.Obsolete.Controls.OBC.CDL.Continuous</code>.<br/>
-                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2056\">issue 2056</a>.</td>
-</tr>
 <tr><td valign=\"top\">Buildings.Controls.Continuous.LimPID<br/>
                        Buildings.Controls.Continuous.PIDHysteresis<br/>
                        Buildings.Controls.Continuous.PIDHysteresisTimer<br/>
@@ -300,6 +323,30 @@ have been <b style=\"color:blue\">improved</b> in a
                        changes in reverse to the measurement signal.<br/>
                        This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1365\">IBPSA, #1365</a>.<br/>
                        For Dymola, a conversion script makes this change.</td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Controls.OBC</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.Controller
+    </td>
+    <td valign=\"top\">Updated the block of specifying operating mode and setpoints.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1893\">issue 1893</a>.
+    </td>
+</tr>                
+<tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.OperationMode
+    </td>
+    <td valign=\"top\">Upgraded the sequence according to ASHRAE Guideline 36, May 2020 version.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1893\">issue 1893</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.LimPID
+    </td>
+    <td valign=\"top\">Removed the conditional inputs <code>trigger</code> and <code>y_rest_in</code>,
+                       implemented inside the derivative calculation. The controller that has the
+                       conditional inputs has been moved to <code>Building.Obsolete.Controls.OBC.CDL.Continuous</code>.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2056\">issue 2056</a>.</td>
 </tr>
 </table>
 <!-- Errors that have been fixed -->
