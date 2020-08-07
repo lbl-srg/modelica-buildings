@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.CDL.Continuous.Validation;
-model LimPID "Test model for LimPID controller"
+model PID "Test model for PID controller"
   Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse pulse(period=0.25)
     "Setpoint"
     annotation (Placement(transformation(extent={{-90,14},{-70,34}})));
@@ -91,7 +91,7 @@ equation
                            color={0,0,127}));
  annotation (
  experiment(StopTime=1.0, Tolerance=1e-06),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Continuous/Validation/LimPID.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Continuous/Validation/PID.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
@@ -136,4 +136,4 @@ Added documentation.
                 pattern = LinePattern.None,
                 fillPattern = FillPattern.Solid,
                 points = {{-36,60},{64,0},{-36,-60},{-36,60}})}));
-end LimPID;
+end PID;

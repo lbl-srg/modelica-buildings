@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.CDL.Continuous.Validation;
-model LimPIDWithReset
+model PIDWithReset
   "Test model for LimPID controller with reset trigger"
 
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal setPoi "Set point"
@@ -121,7 +121,7 @@ equation
  experiment(
       StopTime=10,
       Tolerance=1e-06),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Continuous/Validation/LimPIDWithReset.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Continuous/Validation/PIDWithReset.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
@@ -152,4 +152,4 @@ First implementation.
                 fillPattern = FillPattern.Solid,
                 points = {{-36,60},{64,0},{-36,-60},{-36,60}})}),
     Diagram(coordinateSystem(extent={{-100,-100},{100,100}})));
-end LimPIDWithReset;
+end PIDWithReset;

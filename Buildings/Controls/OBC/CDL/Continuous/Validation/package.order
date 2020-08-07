@@ -21,10 +21,6 @@ Less
 LessEqual
 LessEqualThreshold
 LessThreshold
-LimPID
-LimPIDInitialDerivativeOutput
-LimPIDInitialState
-LimPIDWithReset
 Limiter
 Line
 Log
@@ -41,6 +37,10 @@ MultiMax
 MultiMin
 MultiSum
 NumberOfRequests
+PID
+PIDInitialDerivativeOutput
+PIDInitialState
+PIDWithReset
 Product
 Round
 Sin

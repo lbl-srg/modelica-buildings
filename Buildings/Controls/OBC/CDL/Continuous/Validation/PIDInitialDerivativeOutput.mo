@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.CDL.Continuous.Validation;
-model LimPIDInitialDerivativeOutput
+model PIDInitialDerivativeOutput
   "Test model for LimPID controller with initial output specified"
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant ySet(k=0.75)
@@ -33,7 +33,7 @@ equation
  experiment(
       StopTime=0.2,
       Tolerance=1e-06),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Continuous/Validation/LimPIDInitialDerivativeOutput.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Continuous/Validation/PIDInitialDerivativeOutput.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
@@ -68,4 +68,4 @@ First implementation.
                 fillPattern = FillPattern.Solid,
                 points = {{-36,60},{64,0},{-36,-60},{-36,60}})}),
     Diagram(coordinateSystem(extent={{-100,-100},{100,100}})));
-end LimPIDInitialDerivativeOutput;
+end PIDInitialDerivativeOutput;
