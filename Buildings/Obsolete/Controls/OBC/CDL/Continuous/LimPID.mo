@@ -1,6 +1,8 @@
 within Buildings.Obsolete.Controls.OBC.CDL.Continuous;
 block LimPID
   "P, PI, PD, and PID controller with limited output, anti-windup compensation and setpoint weighting"
+  extends Modelica.Icons.ObsoleteModel;
+
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=
          Buildings.Controls.OBC.CDL.Types.SimpleController.PI "Type of controller";
   parameter Real k(
@@ -293,7 +295,8 @@ equation
           -12}}, color={255,0,255}));
   connect(zer.y, I.y_reset_in) annotation (Line(points={{-78,-40},{-52,-40},{-52,
           -8},{-42,-8}}, color={0,0,127}));
-annotation (defaultComponentName="conPID",
+ annotation (defaultComponentName="conPID",
+  obsolete = "Obsolete model, use Buildings.Controls.OBC.CDL.Continuous.PID instead",
   Icon(
     coordinateSystem(extent={{-100,-100},{100,100}}),
       graphics={

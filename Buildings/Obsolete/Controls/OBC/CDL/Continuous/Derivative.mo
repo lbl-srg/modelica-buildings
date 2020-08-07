@@ -1,5 +1,7 @@
 within Buildings.Obsolete.Controls.OBC.CDL.Continuous;
 block Derivative "Block that approximates the derivative of the input"
+  extends Modelica.Icons.ObsoleteModel;
+
   parameter Real k(unit="1") = 1 "Gains";
   parameter Modelica.SIunits.Time T(min=1E-60)=0.01
     "Time constant (T>0 required)";
@@ -30,6 +32,7 @@ equation
 
 annotation (
   defaultComponentName="der",
+  obsolete = "This model is obsolete",
   Documentation(info="<html>
 <p>
 This blocks defines the transfer function between the
