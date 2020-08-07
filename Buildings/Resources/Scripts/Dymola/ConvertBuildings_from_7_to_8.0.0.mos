@@ -16,3 +16,6 @@ convertClass(
 convertClass(
     "Buildings.Controls.OBC.CDL.Continuous.LimPID",
     "Buildings.Obsolete.Controls.OBC.CDL.Continuous.LimPID");
+convertClass(
+    "Buildings.Controls.OBC.CDL.Types.Reset",
+    "Buildings.Obsolete.Controls.OBC.CDL.Types.Reset");
