@@ -102,6 +102,10 @@ model GroupStatus
     final period=600,
     final offset=273.15 + 19) "Zone 2 temperature"
     annotation (Placement(transformation(extent={{-100,-170},{-80,-150}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant damRes(
+    final k=true)
+    "Dammy reset input to timer that does not accumulate time"
+    annotation (Placement(transformation(extent={{-140,110},{-120,130}})));
 
 equation
   connect(ramp2.y,sin2. u)
@@ -162,6 +166,10 @@ equation
           -160},{38,24},{118,24}}, color={0,0,127}));
   connect(winSta.y, zonGroSta.uWin) annotation (Line(points={{-38,-180},{40,-180},
           {40,21},{118,21}}, color={255,0,255}));
+  connect(damRes.y, tim.reset) annotation (Line(points={{-118,120},{-110,120},{-110,
+          84},{-28,84},{-28,132},{-22,132}}, color={255,0,255}));
+  connect(damRes.y, tim1.reset) annotation (Line(points={{-118,120},{-110,120},{
+          -110,84},{-28,84},{-28,92},{-22,92}}, color={255,0,255}));
 
 annotation (
   experiment(StopTime=3600, Tolerance=1e-6),

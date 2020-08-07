@@ -213,14 +213,14 @@ model System7
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetBoiRet(k=TBoiRet_min)
     "Temperature setpoint for boiler return"
     annotation (Placement(transformation(extent={{120,-270},{140,-250}})));
-  Buildings.Controls.OBC.CDL.Continuous.LimPID conPIDBoi(
+  Buildings.Controls.OBC.CDL.Continuous.PID conPIDBoi(
     Td=1,
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     k=0.1,
     Ti=120,
     reverseActing=false) "Controller for valve in boiler loop"
     annotation (Placement(transformation(extent={{160,-270},{180,-250}})));
-  Buildings.Controls.OBC.CDL.Continuous.LimPID conPIDRad(
+  Buildings.Controls.OBC.CDL.Continuous.PID conPIDRad(
     Td=1,
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     k=0.1,
