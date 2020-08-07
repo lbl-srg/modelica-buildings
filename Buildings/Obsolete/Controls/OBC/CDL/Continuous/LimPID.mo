@@ -46,7 +46,7 @@ block LimPID
         controllerType==Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   parameter Boolean reverseActing = true
     "Set to true for reverse acting, or false for direct acting control action";
-  parameter Buildings.Controls.OBC.CDL.Types.Reset reset = Buildings.Controls.OBC.CDL.Types.Reset.Disabled
+  parameter Buildings.Obsolete.Controls.OBC.CDL.Types.Reset reset = Buildings.Obsolete.Controls.OBC.CDL.Types.Reset.Disabled
     "Type of controller output reset"
     annotation(Evaluate=true,
       Dialog(
@@ -56,7 +56,7 @@ block LimPID
   parameter Real y_reset=xi_start
     "Value to which the controller output is reset if the boolean trigger has a rising edge, used if reset == CDL.Types.Reset.Parameter"
     annotation(Dialog(enable=
-      reset == Buildings.Controls.OBC.CDL.Types.Reset.Parameter and
+      reset == Buildings.Obsolete.Controls.OBC.CDL.Types.Reset.Parameter and
       (controllerType==Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
       controllerType==Buildings.Controls.OBC.CDL.Types.SimpleController.PID), group="Integrator reset"));
 
@@ -75,17 +75,17 @@ block LimPID
         iconTransformation(extent={{100,-20},{140,20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput y_reset_in if
-       reset == Buildings.Controls.OBC.CDL.Types.Reset.Input
+       reset == Buildings.Obsolete.Controls.OBC.CDL.Types.Reset.Input
     "Input signal for state to which integrator is reset, enabled if reset = CDL.Types.Reset.Input"
     annotation (Placement(transformation(extent={{-260,-120},{-220,-80}}),
-    visible=reset == Buildings.Controls.OBC.CDL.Types.Reset.Input,
+    visible=reset == Buildings.Obsolete.Controls.OBC.CDL.Types.Reset.Input,
       iconTransformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput trigger if
-       reset <> Buildings.Controls.OBC.CDL.Types.Reset.Disabled
+       reset <> Buildings.Obsolete.Controls.OBC.CDL.Types.Reset.Disabled
     "Resets the controller output when trigger becomes true"
     annotation (Placement(transformation(extent={{-20,-20},{20,20}},
         rotation=90, origin={-160,-200}),
-     visible=reset <> Buildings.Controls.OBC.CDL.Types.Reset.Disabled,
+     visible=reset <> Buildings.Obsolete.Controls.OBC.CDL.Types.Reset.Disabled,
       iconTransformation(extent={{-20,-20},{20,20}}, rotation=90, origin={-60,-120})));
 
   Buildings.Controls.OBC.CDL.Continuous.Feedback controlError "Control error (set point - measurement)"
@@ -182,15 +182,15 @@ protected
       Placement(transformation(extent={{180,-30},{160,-10}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yResSig(final k=y_reset) if
-      reset == Buildings.Controls.OBC.CDL.Types.Reset.Parameter
+      reset == Buildings.Obsolete.Controls.OBC.CDL.Types.Reset.Parameter
     "Signal for y_reset"
     annotation (Placement(transformation(extent={{-180,-80},{-160,-60}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain divK(final k=1/k) if
-       reset <> Buildings.Controls.OBC.CDL.Types.Reset.Disabled
+       reset <> Buildings.Obsolete.Controls.OBC.CDL.Types.Reset.Disabled
     "Division by k for integrator reset"
     annotation (Placement(transformation(extent={{-120,-80},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Continuous.Feedback addRes if
-      reset <> Buildings.Controls.OBC.CDL.Types.Reset.Disabled
+      reset <> Buildings.Obsolete.Controls.OBC.CDL.Types.Reset.Disabled
    "Adder for integrator reset"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
 
@@ -203,11 +203,11 @@ protected
     "Assertion on yMin and yMax"
     annotation (Placement(transformation(extent={{160,-160},{180,-140}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant noTri(final k=false) if
-       reset == Buildings.Controls.OBC.CDL.Types.Reset.Disabled
+       reset == Buildings.Obsolete.Controls.OBC.CDL.Types.Reset.Disabled
     "No trigger when reset is disabled"
     annotation (Placement(transformation(extent={{-120,-130},{-100,-110}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(final k=0) if
-    reset == Buildings.Controls.OBC.CDL.Types.Reset.Disabled
+    reset == Buildings.Obsolete.Controls.OBC.CDL.Types.Reset.Disabled
     "Reset input to integrator when the reset is disabled"
     annotation (Placement(transformation(extent={{-100,-50},{-80,-30}})));
 
