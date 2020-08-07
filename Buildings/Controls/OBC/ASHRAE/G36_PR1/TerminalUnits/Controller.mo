@@ -344,7 +344,7 @@ block Controller "Controller for room VAV box"
     final Ti=TiHea,
     final Td=TdHea,
     final yMax=1,
-    final yMin=0)                                           "Heating loop signal"
+    final yMin=0) "Heating loop signal"
     annotation (Placement(transformation(extent={{-110,150},{-90,170}})));
   Buildings.Controls.OBC.CDL.Continuous.LimPIDWithReset conCooLoo(
     final controllerType=controllerTypeCoo,
@@ -353,7 +353,7 @@ block Controller "Controller for room VAV box"
     final Td=TdCoo,
     final yMax=1,
     final yMin=0,
-    reverseActing=false)                                    "Cooling loop signal"
+    reverseActing=false) "Cooling loop signal"
     annotation (Placement(transformation(extent={{-110,110},{-90,130}})));
 
 protected
