@@ -164,8 +164,6 @@ block Derivative "Block that approximates the derivative of the input"
   parameter Real k(unit="1") = 1 "Gains";
   parameter Modelica.SIunits.Time T(min=1E-60)=0.01
     "Time constant (T>0 required)";
-  parameter Real x_start=0 "Initial or guess value of state"
-    annotation (Dialog(group="Initialization"));
   parameter Real y_start=0 "Initial value of output (= state)"
     annotation(Dialog(group="Initialization"));
   Interfaces.RealInput u "Connector of Real input signal"
@@ -207,6 +205,10 @@ If <code>k=0</code>, the block reduces to <code>y=0</code>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+August 7, 2020, by Michael Wetter:<br/>
+Moved to protected block in PID controller because the derivative block is no longer part of CDL.
+</li>
 <li>
 April 21, 2020, by Michael Wetter:<br/>
 Removed option to not set the initialization method or to set the initial state.
@@ -251,9 +253,6 @@ Modelica Standard Library.
     points = {{-55.333,87.333},{-19.333,-40.667},{86.667,-52.667}},
     color = {0,0,127},
     smooth = Smooth.Bezier),
-  Text(lineColor={192,192,192},
-    extent={{-30.0,14.0},{86.0,60.0}},
-    textString="DT1"),
   Text(extent={{-150.0,-150.0},{150.0,-110.0}},
     textString="k=%k"),
   Text(
@@ -460,16 +459,17 @@ Thus,
 <h5>Reset of the controller output</h5>
 <p>
 Note that this controller implements an integrator anti-windup. Therefore,
-for most applications, the controller output does not need to be resetted.
+for most applications, the controller output does not need to be reset.
 However, if the controller is used in conjuction with equipment that is being
 switched on, better control performance may be achieved by resetting the controller
 output when the equipment is switched on. This is in particular the case in situations
 where the equipment control input should continuously increase as the equipment is
 switched on, such as a light dimmer that may slowly increase the luminance, or
 a variable speed drive of a motor that should continuously increase the speed. In
-this case, the controller that can reset the output should be used, 
+this case, the controller
 <a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.LimPIDWithReset\">
-Buildings.Controls.OBC.CDL.Continuous.LimPIDWithReset</a>.
+Buildings.Controls.OBC.CDL.Continuous.LimPIDWithReset</a>
+that can reset the output should be used.
 </p>
 <h4>References</h4>
 <p>
@@ -482,8 +482,8 @@ revisions="<html>
 <ul>
 <li>
 August 4, 2020, by Jianjun Hu:<br/>
-Removed the conditional inputs <code>trigger</code> and <code>y_rest_in</code>,
-implemented inside the derivative calculation.<br/>
+Removed the conditional inputs <code>trigger</code> and <code>y_rest_in</code>.
+Refactored to internally implement the derivative block.<br/>
 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2056\">issue 2056</a>.
 </li>
 <li>
