@@ -1,5 +1,7 @@
-within Buildings.Controls.OBC.CDL.Continuous;
+within Buildings.Obsolete.Controls.OBC.CDL.Continuous;
 block Derivative "Block that approximates the derivative of the input"
+  extends Modelica.Icons.ObsoleteModel;
+
   parameter Real k(unit="1") = 1 "Gains";
   parameter Modelica.SIunits.Time T(min=1E-60)=0.01
     "Time constant (T>0 required)";
@@ -7,9 +9,9 @@ block Derivative "Block that approximates the derivative of the input"
     annotation (Dialog(group="Initialization"));
   parameter Real y_start=0 "Initial value of output (= state)"
     annotation(Dialog(group="Initialization"));
-  Interfaces.RealInput u "Connector of Real input signal"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput u "Connector of Real input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Interfaces.RealOutput y "Connector of Real output signal"
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput y "Connector of Real output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
   output Real x "State of block";
@@ -30,6 +32,7 @@ equation
 
 annotation (
   defaultComponentName="der",
+  obsolete = "This model is obsolete",
   Documentation(info="<html>
 <p>
 This blocks defines the transfer function between the
@@ -46,6 +49,13 @@ If <code>k=0</code>, the block reduces to <code>y=0</code>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+August 4, 2020, by Jianjun Hu:<br/>
+Moved the block to 
+<a href=\"modelica://Buildings.Obsolete.Controls.OBC.CDL.Continous\">Buildings.Obsolete.Controls.OBC.CDL.Continous</a>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2056\">issue 2056</a>.
+</li>
 <li>
 April 21, 2020, by Michael Wetter:<br/>
 Removed option to not set the initialization method or to set the initial state.

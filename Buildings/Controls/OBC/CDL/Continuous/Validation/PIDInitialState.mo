@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.CDL.Continuous.Validation;
-model LimPIDInitialState
+model PIDInitialState
   "Test model for LimPID controller with initial state specified"
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant ySet(k=0.75)
@@ -9,12 +9,12 @@ model LimPIDInitialState
     "Measured value"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.LimPID limPID(
+  Buildings.Controls.OBC.CDL.Continuous.PID limPID(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PID,
     k=3,
     xi_start=0.25) "PID controller"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
-  Buildings.Controls.OBC.CDL.Continuous.LimPID limPI(
+  Buildings.Controls.OBC.CDL.Continuous.PID limPI(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     k=3,
     xi_start=0.25) "PI controller"
@@ -33,13 +33,13 @@ equation
  experiment(
       StopTime=1,
       Tolerance=1e-06),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Continuous/Validation/LimPIDInitialState.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Continuous/Validation/PIDInitialState.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
 Validation test for the block
-<a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.LimPID\">
-Buildings.Controls.OBC.CDL.Continuous.LimPID</a>.
+<a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.PID\">
+Buildings.Controls.OBC.CDL.Continuous.PID</a>.
 </p>
 <p>
 This model validates setting the initial state of the controller to a specified value.
@@ -75,4 +75,4 @@ First implementation.
                 fillPattern = FillPattern.Solid,
                 points = {{-36,60},{64,0},{-36,-60},{-36,60}})}),
     Diagram(coordinateSystem(extent={{-100,-100},{100,100}})));
-end LimPIDInitialState;
+end PIDInitialState;
