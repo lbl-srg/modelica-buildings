@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.CDL.Continuous;
-block LimPIDWithReset
+block PIDWithReset
   "P, PI, PD, and PID controller with limited output, anti-windup compensation and setpoint weighting"
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=
          Buildings.Controls.OBC.CDL.Types.SimpleController.PI "Type of controller";
@@ -589,4 +589,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end LimPIDWithReset;
+end PIDWithReset;

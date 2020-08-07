@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.CDL.Continuous;
-block LimPID
+block PID
   "P, PI, PD, and PID controller with limited output, anti-windup compensation and setpoint weighting"
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=
          Buildings.Controls.OBC.CDL.Types.SimpleController.PI "Type of controller";
@@ -467,8 +467,8 @@ where the equipment control input should continuously increase as the equipment 
 switched on, such as a light dimmer that may slowly increase the luminance, or
 a variable speed drive of a motor that should continuously increase the speed. In
 this case, the controller
-<a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.LimPIDWithReset\">
-Buildings.Controls.OBC.CDL.Continuous.LimPIDWithReset</a>
+<a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.PIDWithReset\">
+Buildings.Controls.OBC.CDL.Continuous.PIDWithReset</a>
 that can reset the output should be used.
 </p>
 <h4>References</h4>
@@ -574,4 +574,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end LimPID;
+end PID;

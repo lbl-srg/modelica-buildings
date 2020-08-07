@@ -3,13 +3,13 @@ model LimPID "Test model for LimPID controller"
   Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse pulse(period=0.25)
     "Setpoint"
     annotation (Placement(transformation(extent={{-90,14},{-70,34}})));
-  Buildings.Controls.OBC.CDL.Continuous.LimPID limPID(
+  Buildings.Controls.OBC.CDL.Continuous.PID limPID(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PID,
     Ti=1,
     Td=1,
     yMin=-1) "PID controller"
     annotation (Placement(transformation(extent={{-30,40},{-10,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.LimPID limPIDOri(
+  Buildings.Controls.OBC.CDL.Continuous.PID limPIDOri(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PID,
     Ti=1,
     Td=1,
@@ -19,7 +19,7 @@ model LimPID "Test model for LimPID controller"
     "Measurement data"
     annotation (Placement(transformation(extent={{-90,-22},{-70,-2}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.LimPID limPI(
+  Buildings.Controls.OBC.CDL.Continuous.PID limPI(
     Ti=1,
     Td=1,
     yMin=-1,
@@ -27,7 +27,7 @@ model LimPID "Test model for LimPID controller"
     "PI controller"
     annotation (Placement(transformation(extent={{-30,2},{-10,22}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.LimPID limPD(
+  Buildings.Controls.OBC.CDL.Continuous.PID limPD(
     Ti=1,
     Td=1,
     yMin=-1,
@@ -35,7 +35,7 @@ model LimPID "Test model for LimPID controller"
     "PD controller"
     annotation (Placement(transformation(extent={{-30,-30},{-10,-10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.LimPID limP(
+  Buildings.Controls.OBC.CDL.Continuous.PID limP(
     Ti=1,
     Td=1,
     yMin=-1,
@@ -43,7 +43,7 @@ model LimPID "Test model for LimPID controller"
     "P controller"
     annotation (Placement(transformation(extent={{-30,-60},{-10,-40}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.LimPID noLimPID(
+  Buildings.Controls.OBC.CDL.Continuous.PID noLimPID(
     Ti=1,
     Td=1,
     yMax=1e15,
@@ -96,8 +96,8 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/O
     Documentation(info="<html>
 <p>
 Validation test for the block
-<a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.LimPID\">
-Buildings.Controls.OBC.CDL.Continuous.LimPID</a>.
+<a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.PID\">
+Buildings.Controls.OBC.CDL.Continuous.PID</a>.
 </p>
 <p>
 The model <code>limPIDOri</code> is the original

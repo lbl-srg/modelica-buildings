@@ -21,8 +21,6 @@ Less
 LessEqual
 LessEqualThreshold
 LessThreshold
-LimPID
-LimPIDWithReset
 Limiter
 Line
 Log
@@ -38,6 +36,8 @@ MultiMax
 MultiMin
 MultiSum
 NumberOfRequests
+PID
+PIDWithReset
 Product
 Round
 Sin

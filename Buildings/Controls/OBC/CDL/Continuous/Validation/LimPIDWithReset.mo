@@ -10,7 +10,7 @@ model LimPIDWithReset
       threshold=1) "Outputs true after t=1"
     annotation (Placement(transformation(extent={{-52,-70},{-32,-50}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.LimPIDWithReset limPIDPar(
+  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset limPIDPar(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PID,
     k=1,
     Ti=1,
@@ -21,7 +21,7 @@ model LimPIDWithReset
   Buildings.Controls.OBC.CDL.Continuous.IntegratorWithReset intWitRes1
     "Integrator whose output should be brought to the set point"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.LimPIDWithReset limPIDInp(
+  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset limPIDInp(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PID,
     k=1,
     Ti=1,
@@ -36,7 +36,7 @@ model LimPIDWithReset
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant resVal(k=0)
     "Reset value"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.LimPIDWithReset limPIPar(
+  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset limPIPar(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     k=1,
     Ti=1,
@@ -47,7 +47,7 @@ model LimPIDWithReset
   Buildings.Controls.OBC.CDL.Continuous.IntegratorWithReset intWitRes3
     "Integrator whose output should be brought to the set point"
     annotation (Placement(transformation(extent={{60,-40},{80,-20}})));
-  Buildings.Controls.OBC.CDL.Continuous.LimPIDWithReset limPIInp(
+  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset limPIInp(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     k=1,
     Ti=1,
@@ -126,8 +126,8 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/O
     Documentation(info="<html>
 <p>
 Validation test for the block
-<a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.LimPID\">
-Buildings.Controls.OBC.CDL.Continuous.LimPID</a>.
+<a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.PID\">
+Buildings.Controls.OBC.CDL.Continuous.PID</a>.
 </p>
 <p>
 This model validates the controller for different settings of the control output reset.

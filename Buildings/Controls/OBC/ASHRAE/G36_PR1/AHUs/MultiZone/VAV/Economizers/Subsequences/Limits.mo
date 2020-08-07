@@ -112,7 +112,7 @@ block Limits
     annotation (Placement(transformation(extent={{180,-110},{220,-70}}),
         iconTransformation(extent={{100,-100},{140,-60}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.LimPIDWithReset damLimCon(
+  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset damLimCon(
     final controllerType=controllerType,
     final k=k,
     final Ti=Ti,

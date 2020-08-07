@@ -116,7 +116,7 @@ block SupplyFan  "Block to control multi zone VAV AHU supply fan"
     final resAmo=resAmo,
     final maxRes=maxRes) "Static pressure setpoint reset using trim and respond logic"
     annotation (Placement(transformation(extent={{-130,-60},{-110,-40}})));
-  Buildings.Controls.OBC.CDL.Continuous.LimPIDWithReset conSpe(
+  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset conSpe(
     final controllerType=controllerType,
     final k=k,
     final Ti=Ti,

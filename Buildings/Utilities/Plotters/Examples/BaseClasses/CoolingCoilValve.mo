@@ -102,7 +102,7 @@ block CoolingCoilValve "Cooling coil valve position control sequence"
     annotation (Placement(transformation(extent={{120,-10},{140,10}}),
       iconTransformation(extent={{100,-10},{120,10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.LimPIDWithReset limPI(
+  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset limPI(
     final reverseActing=reverseActing,
     final k=k,
     final Ti = Ti,

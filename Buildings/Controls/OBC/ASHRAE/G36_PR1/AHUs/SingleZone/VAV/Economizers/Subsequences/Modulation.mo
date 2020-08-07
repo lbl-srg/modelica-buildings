@@ -95,7 +95,7 @@ block Modulation "Outdoor and return air damper position modulation sequence for
     annotation (Placement(transformation(extent={{120,-10},{140,10}}),
       iconTransformation(extent={{100,-10},{120,10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.LimPIDWithReset uTSup(
+  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset uTSup(
     final controllerType=controllerType,
     final k=k,
     final Ti=Ti,

@@ -57,7 +57,7 @@ block RoomVAV "Controller for room VAV box"
     annotation (Placement(transformation(extent={{100,-80},{120,-60}}),
         iconTransformation(extent={{100,-60},{120,-40}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.LimPID conHea(
+  Buildings.Controls.OBC.CDL.Continuous.PID conHea(
     yMax=yMax,
     Td=TdHea,
     yMin=yMin,
@@ -66,7 +66,7 @@ block RoomVAV "Controller for room VAV box"
     controllerType=heaController,
     Ni=10) "Controller for heating"
     annotation (Placement(transformation(extent={{30,-80},{50,-60}})));
-  Buildings.Controls.OBC.CDL.Continuous.LimPID conCoo(
+  Buildings.Controls.OBC.CDL.Continuous.PID conCoo(
     yMax=yMax,
     Td=TdCoo,
     k=kCoo,

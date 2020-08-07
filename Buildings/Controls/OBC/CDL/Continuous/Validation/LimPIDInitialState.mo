@@ -9,12 +9,12 @@ model LimPIDInitialState
     "Measured value"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.LimPID limPID(
+  Buildings.Controls.OBC.CDL.Continuous.PID limPID(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PID,
     k=3,
     xi_start=0.25) "PID controller"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
-  Buildings.Controls.OBC.CDL.Continuous.LimPID limPI(
+  Buildings.Controls.OBC.CDL.Continuous.PID limPI(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     k=3,
     xi_start=0.25) "PI controller"
@@ -38,8 +38,8 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/O
     Documentation(info="<html>
 <p>
 Validation test for the block
-<a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.LimPID\">
-Buildings.Controls.OBC.CDL.Continuous.LimPID</a>.
+<a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.PID\">
+Buildings.Controls.OBC.CDL.Continuous.PID</a>.
 </p>
 <p>
 This model validates setting the initial state of the controller to a specified value.

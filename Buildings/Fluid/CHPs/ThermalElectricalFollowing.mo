@@ -143,7 +143,7 @@ model ThermalElectricalFollowing
     "Heat transfer to the surrounding"
     annotation (Placement(transformation(extent={{-10,10},{10,-10}},
       rotation=180, origin={-60,-140})));
-  Buildings.Controls.OBC.CDL.Continuous.LimPIDWithReset cooWatCon(
+  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset cooWatCon(
     final controllerType=watOutCon,
     final k=k,
     final Ti=Ti,

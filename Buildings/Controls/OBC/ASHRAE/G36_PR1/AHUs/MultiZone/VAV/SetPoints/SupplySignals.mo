@@ -71,7 +71,7 @@ block SupplySignals "Multizone VAV AHU coil valve positions"
         iconTransformation(extent={{100,20},{140,60}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.LimPIDWithReset conTSup(
+  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset conTSup(
     final controllerType=controllerType,
     final k=kTSup,
     final Ti=TiTSup,
