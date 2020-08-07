@@ -17,15 +17,17 @@ block Greater "Output y is true, if input u1 is greater than input u2"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected
-  final parameter Boolean haveHysteresis = h >= 1E-10 "True if the block has no hysteresis"
+  final parameter Boolean haveHysteresis = h >= 1E-10
+  "True if the block has no hysteresis"
   annotation(Evaluate=true);
 
   GreaterWithHysteresis greHys(
      final h=h,
-     final pre_y_start=pre_y_start) if
-        haveHysteresis "Greater block with hysteresis"
+     final pre_y_start=pre_y_start) if haveHysteresis
+        "Block with hysteresis"
     annotation (Placement(transformation(extent={{-10,20},{10,40}})));
-  GreaterNoHysteresis greNoHys if not haveHysteresis "Greater block without hysteresis"
+  GreaterNoHysteresis greNoHys if not haveHysteresis
+    "Block without hysteresis"
      annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
 
 
@@ -93,8 +95,6 @@ protected
   end GreaterWithHysteresis;
 
 equation
-
-
   connect(u1, greHys.u1) annotation (Line(points={{-120,0},{-66,0},{-66,30},{-12,
           30}}, color={0,0,127}));
   connect(u2, greHys.u2) annotation (Line(points={{-120,-80},{-60,-80},{-60,22},

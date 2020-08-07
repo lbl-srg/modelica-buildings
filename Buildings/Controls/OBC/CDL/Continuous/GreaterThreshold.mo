@@ -16,12 +16,94 @@ block GreaterThreshold
   Interfaces.BooleanOutput y "Output"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
-initial equation
-  assert(h >= 0, "Hysteresis must not be negative");
-  pre(y) = pre_y_start;
+protected
+  final parameter Boolean haveHysteresis = h >= 1E-10
+  "True if the block has no hysteresis"
+  annotation(Evaluate=true);
+
+  GreaterWithHysteresis greHys(
+     final h=h,
+     final t=t,
+     final pre_y_start=pre_y_start) if haveHysteresis
+        "Block with hysteresis"
+    annotation (Placement(transformation(extent={{-10,20},{10,40}})));
+  GreaterNoHysteresis greNoHys(
+      final t=t) if not haveHysteresis
+    "Block without hysteresis"
+     annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
+
+
+  block GreaterNoHysteresis "Greater block without hysteresis"
+
+    parameter Real t=0 "Threshold for comparison";
+
+    Interfaces.RealInput u "Input u"
+      annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
+
+    Interfaces.BooleanOutput y "Output y"
+      annotation (Placement(transformation(extent={{100,-20},{140,20}})));
+  equation
+    y = u > t;
+    annotation (Icon(graphics={
+          Rectangle(
+            extent={{-100,100},{100,-100}},
+            lineColor={0,0,0},
+            lineThickness=5.0,
+            fillColor={210,210,210},
+            fillPattern=FillPattern.Solid,
+            borderPattern=BorderPattern.Raised),
+          Text(
+            extent={{-150,150},{150,110}},
+            textString="%name",
+            lineColor={0,0,255})}));
+  end GreaterNoHysteresis;
+
+  block GreaterWithHysteresis "Greater block without hysteresis"
+
+    parameter Real t=0 "Threshold for comparison";
+
+    parameter Real h(final min=0)=0 "Hysteresis"
+      annotation(Evaluate=true);
+
+    parameter Boolean pre_y_start=false "Value of pre(y) at initial time"
+      annotation(Dialog(tab="Advanced"));
+
+    Interfaces.RealInput u "Input u"
+      annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
+
+    Interfaces.BooleanOutput y "Output y"
+      annotation (Placement(transformation(extent={{100,-20},{140,20}})));
+  initial equation
+    assert(h >= 0, "Hysteresis must not be negative");
+    pre(y) = pre_y_start;
+  equation
+    y = (not pre(y) and u > t or pre(y) and u >= t-h);
+    annotation (Icon(graphics={
+          Rectangle(
+            extent={{-100,100},{100,-100}},
+            lineColor={0,0,0},
+            lineThickness=5.0,
+            fillColor={210,210,210},
+            fillPattern=FillPattern.Solid,
+            borderPattern=BorderPattern.Raised),
+          Text(
+            extent={{-150,150},{150,110}},
+            textString="%name",
+            lineColor={0,0,255}),
+          Text(extent={{-64,62},{62,92}},
+            lineColor={0,0,0},
+            textString="h=%h")}));
+  end GreaterWithHysteresis;
+
 equation
-  y =if h < 1E-10 then u > t else (not pre(y) and u > t or pre(y) and u >= t -
-    h);
+  connect(u, greHys.u) annotation (Line(points={{-120,0},{-66,0},{-66,30},{-12,
+          30}}, color={0,0,127}));
+  connect(greHys.y, y) annotation (Line(points={{12,30},{60,30},{60,0},{120,0}},
+        color={255,0,255}));
+  connect(u, greNoHys.u) annotation (Line(points={{-120,0},{-66,0},{-66,-30},{
+          -12,-30}}, color={0,0,127}));
+  connect(greNoHys.y, y) annotation (Line(points={{12,-30},{60,-30},{60,0},{120,
+          0}}, color={255,0,255}));
 
 annotation (
   defaultComponentName="greThr",
