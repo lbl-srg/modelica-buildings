@@ -1,7 +1,7 @@
 within Buildings.Controls.OBC.ASHRAE.G36.VentilationZones.Title24.SetPoints.Validation;
 model ZonaAbsOAMin "Validates zone minimum outdoor air setpoint"
 
-  Buildings.Controls.OBC.ASHRAE.G36.VentilationZones.Title24.SetPoints.ZonaAbsOAMin
+  Buildings.Controls.OBC.ASHRAE.G36.VentilationZones.Title24.SetPoints.ZoneAbsoluteMinimumOutdoorAirflow
     exhDamPos "Block of controlling actuated exhaust damper without fan"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant supFan(k=true)
