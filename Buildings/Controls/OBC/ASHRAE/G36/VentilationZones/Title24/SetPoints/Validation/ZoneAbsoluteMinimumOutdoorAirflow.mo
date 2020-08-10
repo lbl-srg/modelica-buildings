@@ -1,5 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.G36.VentilationZones.Title24.SetPoints.Validation;
-model ZonaAbsOAMin "Validates zone minimum outdoor air setpoint"
+model ZoneAbsoluteMinimumOutdoorAirflow
+  "Validates zone absolute outdoor airflow setpoint"
 
   Buildings.Controls.OBC.ASHRAE.G36.VentilationZones.Title24.SetPoints.ZoneAbsoluteMinimumOutdoorAirflow
     exhDamPos "Block of controlling actuated exhaust damper without fan"
@@ -50,4 +51,4 @@ First implementation.
                 pattern = LinePattern.None,
                 fillPattern = FillPattern.Solid,
                 points = {{-36,60},{64,0},{-36,-60},{-36,60}})}));
-end ZonaAbsOAMin;
+end ZoneAbsoluteMinimumOutdoorAirflow;
