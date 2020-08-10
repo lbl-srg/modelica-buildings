@@ -142,7 +142,8 @@ model SimpleHouse
     annotation (Placement(transformation(extent={{-60,-36},{-40,-16}})));
   Modelica.Blocks.Math.BooleanToInteger booleanToInt "Boolean to integer"
     annotation (Placement(transformation(extent={{-16,-144},{4,-124}})));
-  Controls.Continuous.LimPID conDam(controllerType=Modelica.Blocks.Types.SimpleController.P,
+  Controls.Continuous.LimPID conDam(
+      controllerType=Modelica.Blocks.Types.SimpleController.P,
       yMin=0.1) "Controller for damper"
     annotation (Placement(transformation(extent={{-20,80},{0,100}})));
   Modelica.Blocks.Sources.Constant TSetRoo(k=273.15 + 24)

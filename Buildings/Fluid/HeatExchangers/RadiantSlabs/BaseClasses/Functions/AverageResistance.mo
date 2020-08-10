@@ -1,6 +1,7 @@
 within Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Functions;
 function AverageResistance
   "Average fictitious resistance for plane that contains the pipes"
+  extends Modelica.Icons.Function;
   input Modelica.SIunits.Distance disPip "pipe distance";
   input Modelica.SIunits.Diameter dPipOut "pipe outside diameter";
   input Modelica.SIunits.ThermalConductivity k
@@ -24,13 +25,13 @@ algorithm
 
   if sysTyp == Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.SystemType.Floor then
     alpha := kIns/dIns;
-    if alpha >= 1.212 then
-       Modelica.Utilities.Streams.print("Warning: In RadiantAverageResistance, require alpha = kIns/dIns >= 1.212 W/(m2.K).\n" +
+    assert(alpha < 1.212,
+           "Warning: In RadiantAverageResistance, require alpha = kIns/dIns <= 1.212 W/(m2.K).\n" +
                      "   Obtained alpha = " + String(alpha) + " W/(m2.K)\n" +
                      "            kIns = " + String(kIns) + " W/(m.K)\n" +
                      "            dIns = " + String(dIns) + " m\n" +
-                     "            For these values, the radiant slab model is outside its valid range.\n");
-    end if;
+                     "            For these values, the radiant slab model is outside its valid range.\n",
+                     level=AssertionLevel.warning);
     infSum := - sum(((alpha/k*disPip - 2*Modelica.Constants.pi*s)/
                     (alpha/k*disPip + 2*Modelica.Constants.pi*s))
                     *Modelica.Math.exp(-4*Modelica.Constants.pi*s*dIns/disPip)/s for s in 1:100);
@@ -56,7 +57,7 @@ Documentation(info="<html>
 <p>
 This function computes a fictitious thermal resistance between the pipe outer wall
 and a fictitious, average temperature of the plane that contains the pipes.
-The equation is the same as is implemented in TRNSYS 17.
+The equation is the same as is implemented in TRNSYS 17 Type 56 active layer component, manual page 197-201.
 Different equations are used for
 </p>
 <ul>
@@ -84,6 +85,13 @@ For a fully dynamic model, a finite element method for the radiant slab would ne
 </html>",
 revisions="<html>
 <ul>
+<li>
+June 16, 2020, by Ettore Zanetti and Michael Wetter:<br/>
+Corrected inequality test on <code>alpha</code>,
+and changed print statement to an assertion with assertion level set to warning.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2009\">issue 2009</a>.
+</li>
 <li>
 April 17, 2012, by Michael Wetter:<br/>
 Added term <code>1/s</code> in computation of <code>infSum</code>.

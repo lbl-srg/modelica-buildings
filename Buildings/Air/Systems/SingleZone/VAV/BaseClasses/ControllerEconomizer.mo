@@ -58,7 +58,7 @@ model ControllerEconomizer "Controller for economizer"
     annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
   Controls.Continuous.LimPID con(
     final k=kEco,
-    final reverseAction=true,
+    final reverseActing=false,
     final yMax=Modelica.Constants.inf,
     final yMin=-Modelica.Constants.inf,
     controllerType=Modelica.Blocks.Types.SimpleController.P)
