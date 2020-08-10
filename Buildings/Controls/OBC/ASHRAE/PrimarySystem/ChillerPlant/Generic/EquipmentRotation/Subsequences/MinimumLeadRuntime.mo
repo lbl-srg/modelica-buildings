@@ -9,7 +9,7 @@ block MinimumLeadRuntime
   parameter Real minLeaRuntime(
     final unit="s",
     final quantity="Time",
-    final displayUnit="h") = 864000
+    displayUnit="h") = 864000
     "Minimum cumulative runtime period for a current lead device before rotation may occur";
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uDevSta[nDev]

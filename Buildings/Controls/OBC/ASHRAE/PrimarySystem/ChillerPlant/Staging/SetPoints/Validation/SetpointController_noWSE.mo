@@ -33,7 +33,7 @@ protected
   parameter Real minStaRuntime(
     final unit="s",
     final quantity="Time",
-    final displayUnit="h")=900
+    displayUnit="h")=900
       "Minimum stage runtime";
 
   parameter Modelica.SIunits.VolumeFlowRate aveVChiWat_flow = 0.05

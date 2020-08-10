@@ -4,22 +4,22 @@ block ModeAndSetPoints
 
   parameter Real TZonHeaOn(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")=293.15
     "Heating setpoint during on";
   parameter Real TZonHeaOff(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")=285.15
     "Heating setpoint during off";
   parameter Real TZonCooOn(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")=297.15
     "Cooling setpoint during on";
   parameter Real TZonCooOff(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")=303.15
     "Cooling setpoint during off";
   parameter Real preWarCooTim(
@@ -29,19 +29,19 @@ block ModeAndSetPoints
     annotation (Dialog(tab="Operation mode", group="Parameters"));
   parameter Real bouLim(
     final unit="K",
-    final displayUnit="K",
+    displayUnit="K",
     final quantity="TemperatureDifference")=1.1
     "Value limit to indicate the end of setback/setup mode"
     annotation (Dialog(tab="Operation mode", group="Parameters"));
   parameter Real TZonFreProOn(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")=277.55
     "Threshold zone temperature value to activate freeze protection mode"
     annotation (Dialog(tab="Operation mode", group="Parameters"));
   parameter Real TZonFreProOff(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")=280.35
     "Threshold zone temperature value to finish the freeze protection mode"
     annotation (Dialog(tab="Operation mode", group="Parameters"));
@@ -70,73 +70,73 @@ block ModeAndSetPoints
     annotation (Dialog(tab="Setpoint adjust", group="Adjustable settings"));
   parameter Real TZonCooOnMax(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")=300.15
     "Maximum cooling setpoint during on"
     annotation (Dialog(tab="Setpoint adjust", group="Limits"));
   parameter Real TZonCooOnMin(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")=295.15
     "Minimum cooling setpoint during on"
     annotation (Dialog(tab="Setpoint adjust", group="Limits"));
   parameter Real TZonHeaOnMax(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")=295.15
     "Maximum heating setpoint during on"
     annotation (Dialog(tab="Setpoint adjust", group="Limits"));
   parameter Real TZonHeaOnMin(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")=291.15
     "Minimum heating setpoint during on"
     annotation (Dialog(tab="Setpoint adjust", group="Limits"));
   parameter Real TZonCooSetWinOpe(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")=322.15
     "Cooling setpoint when window is open"
     annotation (Dialog(tab="Setpoint adjust", group="Limits"));
   parameter Real TZonHeaSetWinOpe(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")=277.15
     "Heating setpoint when window is open"
     annotation (Dialog(tab="Setpoint adjust", group="Limits"));
   parameter Real incTSetDem_1(
     final unit="K",
-    final displayUnit="K",
+    displayUnit="K",
     final quantity="TemperatureDifference")=0.56
     "Cooling setpoint increase value when cooling demand limit level 1 is imposed"
     annotation (Dialog(tab="Setpoint adjust", group="Demands settings"));
   parameter Real incTSetDem_2(
     final unit="K",
-    final displayUnit="K",
+    displayUnit="K",
     final quantity="TemperatureDifference")=1.1
     "Cooling setpoint increase value when cooling demand limit level 2 is imposed"
     annotation (Dialog(tab="Setpoint adjust", group="Demands settings"));
   parameter Real incTSetDem_3(
     final unit="K",
-    final displayUnit="K",
+    displayUnit="K",
     final quantity="TemperatureDifference")=2.2
     "Cooling setpoint increase value when cooling demand limit level 3 is imposed"
     annotation (Dialog(tab="Setpoint adjust", group="Demands settings"));
   parameter Real decTSetDem_1(
     final unit="K",
-    final displayUnit="K",
+    displayUnit="K",
     final quantity="TemperatureDifference")=0.56
     "Heating setpoint decrease value when heating demand limit level 1 is imposed"
     annotation (Dialog(tab="Setpoint adjust", group="Demands settings"));
   parameter Real decTSetDem_2(
     final unit="K",
-    final displayUnit="K",
+    displayUnit="K",
     final quantity="TemperatureDifference")=1.1
     "Heating setpoint decrease value when heating demand limit level 2 is imposed"
     annotation (Dialog(tab="Setpoint adjust", group="Demands settings"));
   parameter Real decTSetDem_3(
     final unit="K",
-    final displayUnit="K",
+    displayUnit="K",
     final quantity="TemperatureDifference")=2.2
     "Heating setpoint decrease value when heating demand limit level 3 is imposed"
     annotation (Dialog(tab="Setpoint adjust", group="Demands settings"));

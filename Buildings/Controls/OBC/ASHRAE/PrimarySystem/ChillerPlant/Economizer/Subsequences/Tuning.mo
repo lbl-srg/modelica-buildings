@@ -7,13 +7,13 @@ block Tuning
   parameter Real wseOnTimDec(
     final unit="s",
     final quantity="Time",
-    final displayUnit="h")=3600
+    displayUnit="h")=3600
       "Economizer enable time needed to allow decrease of the tuning parameter";
 
   parameter Real wseOnTimInc(
     final unit="s",
     final quantity="Time",
-    final displayUnit="h")=1800
+    displayUnit="h")=1800
       "Economizer enable time needed to allow increase of the tuning parameter";
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWseSta "WSE enable disable status"

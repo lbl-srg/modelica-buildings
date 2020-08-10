@@ -9,12 +9,12 @@ block OperationMode "Block that outputs the operation mode"
     "Maximum cool-down or warm-up time";
   parameter Real TZonFreProOn(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature") = 277.55
     "Threshold zone temperature value to activate freeze protection mode";
   parameter Real TZonFreProOff(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature") = 280.35
     "Threshold zone temperature value to finish the freeze protection mode";
 
@@ -60,14 +60,14 @@ block OperationMode "Block that outputs the operation mode"
         iconTransformation(extent={{-140,-60},{-100,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZonMax(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Maximum zone temperature"
     annotation (Placement(transformation(extent={{-300,-130},{-260,-90}}),
         iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZonMin(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Minimum zone temperature"
     annotation (Placement(transformation(extent={{-300,-170},{-260,-130}}),

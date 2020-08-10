@@ -16,12 +16,12 @@ block Speed_primary_remoteDp
   parameter Real Ti(
     final unit="s",
     final quantity="Time",
-    final displayUnit="h")=0.5 "Time constant of integrator block"
+    displayUnit="h")=0.5 "Time constant of integrator block"
       annotation(Dialog(group="Speed controller"));
   parameter Real Td(
     final unit="s",
     final quantity="Time",
-    final displayUnit="h")=0.1 "Time constant of derivative block"
+    displayUnit="h")=0.1 "Time constant of derivative block"
       annotation (Dialog(group="Speed controller",
       enable=
       controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PD or

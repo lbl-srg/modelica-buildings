@@ -6,12 +6,12 @@ block HeadControl
   parameter Real thrTimEnb(
     final unit="s",
     final quantity="Time",
-    final displayUnit="h")=10
+    displayUnit="h")=10
     "Threshold time to enable head pressure control after condenser water pump being reset";
   parameter Real waiTim(
     final unit="s",
     final quantity="Time",
-    final displayUnit="h") = 30
+    displayUnit="h") = 30
     "Waiting time after enabling next head pressure control";
   parameter Boolean heaStaCha = true
     "Flag to indicate if head pressure control of next chiller should be ON or OFF: true = in stage-up process so it should be ON";

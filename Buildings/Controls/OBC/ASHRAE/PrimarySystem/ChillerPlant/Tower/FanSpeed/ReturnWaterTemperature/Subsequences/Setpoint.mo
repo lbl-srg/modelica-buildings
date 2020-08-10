@@ -6,12 +6,12 @@ block Setpoint "Calculate condener return water temperature setpoint"
     "Minimum LIFT of each chiller";
   parameter Real TConWatRet_nominal[nChi](
      each final unit="K",
-     each final displayUnit="degC",
+     each displayUnit="degC",
      final quantity=fill("ThermodynamicTemperature", nChi))= {303.15, 303.15}
     "Design condenser water return temperature (condenser leaving) of each chiller";
   parameter Real TChiWatSupMin[nChi](
      each final unit="K",
-     each final displayUnit="degC",
+     each displayUnit="degC",
      final quantity=fill("ThermodynamicTemperature", nChi)) = {278.15, 278.15}
     "Minimum chilled water supply temperature of each chiller";
   parameter Real iniPlaTim(final quantity="Time", final unit="s")= 600
@@ -33,7 +33,7 @@ block Setpoint "Calculate condener return water temperature setpoint"
       iconTransformation(extent={{-140,10},{-100,50}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSupSet(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Chilled water supply setpoint temperature"
     annotation (Placement(transformation(extent={{-220,-70},{-180,-30}}),
@@ -44,7 +44,7 @@ block Setpoint "Calculate condener return water temperature setpoint"
       iconTransformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TConWatRetSet(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Condenser water return temperature setpoint"
     annotation (Placement(transformation(extent={{180,-130},{220,-90}}),

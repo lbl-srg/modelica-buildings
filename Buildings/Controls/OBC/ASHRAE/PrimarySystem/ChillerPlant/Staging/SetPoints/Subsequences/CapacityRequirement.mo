@@ -10,7 +10,7 @@ block CapacityRequirement
   parameter Real holPer(
     final unit="s",
     final quantity="Time",
-    final displayUnit="h")=900
+    displayUnit="h")=900
     "Time period for the value hold at stage change";
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput chaPro

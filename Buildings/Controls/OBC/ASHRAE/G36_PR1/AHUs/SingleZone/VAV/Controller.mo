@@ -3,25 +3,25 @@ block Controller
   "Single Zone AHU controller that composes subsequences for controlling fan speed, economizer, and supply air temperature"
   parameter Real TZonHeaOn(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")=293.15
     "Heating setpoint during on"
     annotation (Dialog(group="Zone setpoints"));
   parameter Real TZonHeaOff(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")=285.15
     "Heating setpoint during off"
     annotation (Dialog(group="Zone setpoints"));
   parameter Real TZonCooOn(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")=297.15
     "Cooling setpoint during on"
     annotation (Dialog(group="Zone setpoints"));
   parameter Real TZonCooOff(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")=303.15
     "Cooling setpoint during off"
     annotation (Dialog(group="Zone setpoints"));
@@ -93,13 +93,13 @@ block Controller
 
   parameter Real TSupSetMax(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Maximum supply air temperature for heating"
     annotation (Dialog(tab="VAV Setpoints",group="Temperature limits"));
   parameter Real TSupSetMin(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Minimum supply air temperature for cooling"
     annotation (Dialog(tab="VAV Setpoints",group="Temperature limits"));
@@ -151,7 +151,7 @@ block Controller
     annotation(Dialog(tab="Economizer", group="General"));
   parameter Real delTOutHis(
     final unit="K",
-    final displayUnit="K",
+    displayUnit="K",
     final quantity="TemperatureDifference")=1
     "Delta between the temperature hysteresis high and low limit"
     annotation(Dialog(tab="Economizer", group="Advanced"));
@@ -218,7 +218,7 @@ block Controller
            or controllerTypeFre == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
   parameter Real TFreSet(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")=277.15
     "Lower limit for mixed air temperature for freeze protection, used if use_TMix=true"
      annotation(Dialog(tab="Economizer", group="Freeze protection", enable=use_TMix));
@@ -284,7 +284,7 @@ block Controller
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TOut(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity = "ThermodynamicTemperature")
     "Outside air temperature"
     annotation (Placement(transformation(extent={{-240,220},{-200,260}}),
@@ -295,7 +295,7 @@ block Controller
         iconTransformation(extent={{-240,180},{-200,220}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZon(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity = "ThermodynamicTemperature")
     "Measured zone temperatures"
     annotation (Placement(transformation(extent={{-240,140},{-200,180}}),
@@ -306,21 +306,21 @@ block Controller
         iconTransformation(extent={{-240,100},{-200,140}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TCut(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Economizer high limit cutoff. Fixed dry bulb or differential dry bulb temeprature"
     annotation (Placement(transformation(extent={{-240,60},{-200,100}}),
         iconTransformation(extent={{-240,60},{-200,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSup(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity = "ThermodynamicTemperature")
     "Measured supply air temperature"
     annotation (Placement(transformation(extent={{-240,20},{-200,60}}),
         iconTransformation(extent={{-240,20},{-200,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TMix(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity = "ThermodynamicTemperature") if use_TMix
     "Measured mixed air temperature, used for freeze protection if use_TMix is true"
     annotation (Placement(transformation(extent={{-240,-20},{-200,20}}),
@@ -346,7 +346,7 @@ block Controller
         iconTransformation(extent={{-240,-180},{-200,-140}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TRet(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature") if
        use_fixed_plus_differential_drybulb
     "Used only for fixed plus differential dry bulb temperature high limit cutoff"
@@ -359,14 +359,14 @@ block Controller
         iconTransformation(extent={{-240,-260},{-200,-220}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TSupHeaEco(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity = "ThermodynamicTemperature")
     "Temperature setpoint for heating coil and for economizer"
     annotation (Placement(transformation(extent={{200,230},{220,250}}),
         iconTransformation(extent={{200,200},{240,240}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TSupCoo(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity = "ThermodynamicTemperature")
     "Cooling supply air temperature setpoint"
     annotation (Placement(transformation(extent={{200,170},{220,190}}),
@@ -379,14 +379,14 @@ block Controller
         iconTransformation(extent={{200,100},{240,140}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TZonHeaSet(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity = "ThermodynamicTemperature")
     "Zone heating setpoint temperature"
     annotation (Placement(transformation(extent={{200,50},{220,70}}),
         iconTransformation(extent={{200,40},{240,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TZonCooSet(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity = "ThermodynamicTemperature")  "Zone cooling setpoint temperature"
     annotation (Placement(transformation(extent={{200,-10},{220,10}}),
         iconTransformation(extent={{200,-20},{240,20}})));

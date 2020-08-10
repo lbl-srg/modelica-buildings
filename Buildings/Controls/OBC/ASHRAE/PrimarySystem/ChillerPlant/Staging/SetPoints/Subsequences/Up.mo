@@ -9,26 +9,26 @@ block Up "Generates a stage up signal"
   parameter Real effConTruDelay(
     final unit="s",
     final quantity="Time",
-    final displayUnit="h")=900
+    displayUnit="h")=900
       "Enable delay for efficiency condition";
 
   parameter Real faiSafTruDelay(
     final unit="s",
     final quantity="Time",
-    final displayUnit="h")=900
+    displayUnit="h")=900
       "Enable delay for failsafe condition";
 
   parameter Real shortTDelay(
     final unit="s",
     final quantity="Time",
-    final displayUnit="h")=600
+    displayUnit="h")=600
       "Short enable delay for staging from zero to first available stage up"
     annotation(Evaluate=true, Dialog(enable=have_WSE));
 
   parameter Real longTDelay(
     final unit="s",
     final quantity="Time",
-    final displayUnit="h")=1200
+    displayUnit="h")=1200
       "Long enable delay for staging from zero to first available stage up"
     annotation(Evaluate=true, Dialog(enable=have_WSE));
 
