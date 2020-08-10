@@ -1,46 +1,44 @@
 within Buildings.Controls.OBC.ASHRAE.G36.VentilationZones.Title24.SetPoints;
-block ZonaAbsOAMin "Zone minimum outdor air setpoint"
+block ZonaAbsOAMin "Zone minimum outdor air setpoints"
 
-  parameter Real minExhDamPos(
-    min=0,
-    max=1,
-    final unit="1") = 0.2
-    "Exhaust damper position maintaining building static pressure at setpoint when the system is at minPosMin"
-    annotation(Dialog(group="Nominal parameters"));
-  parameter Real maxExhDamPos(
-    min=0,
-    max=1,
-    final unit="1") = 0.9
-    "Exhaust damper position maintaining building static pressure at setpoint when outdoor air damper is fully open and fan speed is at cooling maximum"
-    annotation(Dialog(group="Nominal parameters"));
-  parameter Real minOutPosMin(
-    min=0,
-    max=1,
-    final unit="1") = 0.4
-    "Outdoor air damper position when fan operating at minimum speed to supply minimum outdoor air flow"
-    annotation(Dialog(group="Nominal parameters"));
-  parameter Real outDamPhyPosMax(
-    min=0,
-    max=1,
-    final unit="1")=1
-    "Physical or at the comissioning fixed maximum position of the outdoor air damper"
-    annotation(Dialog(group="Nominal parameters"));
+  parameter Boolean have_winSwi "The zone has a window switch";
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uSupFan "Supply fan status"
-    annotation (Placement(transformation(extent={{-140,-70},{-100,-30}}),
-        iconTransformation(extent={{-140,-80},{-100,-40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uOutDamPos(
-    min=0,
-    max=1,
-    final unit="1")
-    "Outdoor air damper position"
+  parameter Boolean have_occSen  "The zone has occupancy sensor";
+
+  parameter Boolean have_CO2Sen "The zone has CO2 sensor";
+
+  parameter Real VAreMin_flow(
+    final min=0,
+    final unit="m3/s",
+    final quantity="VolumeFlowRate")
+    "Zone minimum outdoor airflow for building area, per California Title 24 prescribed airflow-per-area requirements"
+    annotation(Dialog(enable=have_occSen));
+
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWin if have_winSwi
+    "Window status, true if open, false if closed"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
-        iconTransformation(extent={{-140,40},{-100,80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yExhDamPos(
-    min=0,
-    max=1,
-    final unit="1") "Exhaust damper position"
+        iconTransformation(extent={{-240,-120},{-200,-80}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uOcc if have_occSen
+    "True if the zone is populated, that is the occupancy sensor senses the presence of people"
+    annotation (Placement(transformation(extent={{-140,-60},{-100,-20}}),
+        iconTransformation(extent={{-240,80},{-200,120}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput VOutMinZonDes_flow(
+    final min=0,
+    final unit="m3/s",
+    final quantity="VolumeFlowRate") if not (have_winSwi or have_occSen or have_CO2Sen)
+    "Outdoor air volume flow setpoint used in AHU sequeces"
+    annotation (Placement(transformation(extent={{100,-70},{140,-30}}),
+        iconTransformation(extent={{100,-20},{140,20}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput VOutMinZonAbs_flow(
+    final min=0,
+    final unit="m3/s",
+    final quantity="VolumeFlowRate")
+    "Outdoor air volume flow setpoint used in terminal-unit sequeces"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
+
 
 equation
 
