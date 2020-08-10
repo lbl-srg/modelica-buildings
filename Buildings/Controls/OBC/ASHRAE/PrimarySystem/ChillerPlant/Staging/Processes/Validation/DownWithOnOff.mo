@@ -84,12 +84,6 @@ protected
     final samplePeriod=10)
     "Output the input signal with a zero order hold"
     annotation (Placement(transformation(extent={{180,110},{200,130}})));
-  Buildings.Controls.OBC.CDL.Logical.Pre chiOneHea(final pre_u_start=false)
-    "Chiller one head pressure control"
-    annotation (Placement(transformation(extent={{100,-100},{120,-80}})));
-  Buildings.Controls.OBC.CDL.Logical.Pre chiTwoHea(final pre_u_start=true)
-    "Chiller two head pressure control"
-    annotation (Placement(transformation(extent={{100,-140},{120,-120}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerOpe2(
     final k=0) "Closed isolation valve"
     annotation (Placement(transformation(extent={{-200,-220},{-180,-200}})));
@@ -203,18 +197,6 @@ equation
   connect(chiWatFlo1.y, dowProCon.VChiWat_flow)
     annotation (Line(points={{-178,-90},{-76,-90},{-76,86},{18,86}},
       color={0,0,127}));
-  connect(dowProCon.yChiHeaCon[1], chiOneHea.u)
-    annotation (Line(points={{42,76},{66,76},{66,-90},{98,-90}},
-      color={255,0,255}));
-  connect(dowProCon.yChiHeaCon[2], chiTwoHea.u)
-    annotation (Line(points={{42,78},{68,78},{68,-130},{98,-130}},
-      color={255,0,255}));
-  connect(chiOneHea.y, dowProCon.uChiHeaCon[1])
-    annotation (Line(points={{122,-90},{140,-90},{140,-110},{-48,-110},{-48,79},
-          {18,79}}, color={255,0,255}));
-  connect(chiTwoHea.y, dowProCon.uChiHeaCon[2])
-    annotation (Line(points={{122,-130},{140,-130},{140,-150},{-46,-150},{-46,81},
-          {18,81}}, color={255,0,255}));
   connect(zerOpe2.y, IsoValOne.u3)
     annotation (Line(points={{-178,-210},{-160,-210},{-160,-218},{-122,-218}},
       color={0,0,127}));

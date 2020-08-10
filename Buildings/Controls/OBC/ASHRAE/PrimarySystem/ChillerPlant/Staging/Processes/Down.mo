@@ -110,10 +110,6 @@ block Down
     "Current chiller stage, it would the same as chiller stage setpoint when it is not in staging process"
     annotation (Placement(transformation(extent={{-320,140},{-280,180}}),
       iconTransformation(extent={{-140,10},{-100,50}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChiHeaCon[nChi]
-    "Chillers head pressure control status"
-    annotation (Placement(transformation(extent={{-320,110},{-280,150}}),
-      iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uChiWatIsoVal[nChi](
     final min=fill(0, nChi),
     final max=fill(1, nChi),
@@ -182,7 +178,7 @@ block Down
       iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yChiHeaCon[nChi]
     "Chiller head pressure control enabling status"
-    annotation (Placement(transformation(extent={{280,-130},{320,-90}}),
+    annotation (Placement(transformation(extent={{280,-120},{320,-80}}),
       iconTransformation(extent={{100,-50},{140,-10}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yLeaPum
     "Lead pump status"
@@ -260,7 +256,7 @@ protected
     final relSpeDif=relSpeDif)
     "Enabling next condenser water pump or change pump speed"
     annotation (Placement(transformation(extent={{140,-192},{160,-172}})));
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.MinimumFlowBypass.Subsequences.FlowSetpoint
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.MinimumFlowBypass.FlowSetpoint
     minChiWatFlo(
     final nChi=nChi,
     final isParallelChiller=isParallelChiller,
@@ -347,14 +343,14 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Latch lat4
     "Maintain ON signal when chiller head pressure control has been disabled"
     annotation (Placement(transformation(extent={{200,-140},{220,-120}})));
+  Buildings.Controls.OBC.CDL.Logical.Pre chiHeaCon[nChi]
+    "Chiller head pressure control enabling status"
+    annotation (Placement(transformation(extent={{-240,70},{-220,90}})));
 
 equation
   connect(nexChi.yEnaSmaChi,dowSta. nexEnaChi)
     annotation (Line(points={{-18,311},{30,311},{30,226},{58,226}},
       color={255,127,0}));
-  connect(dowSta.uChiHeaCon, uChiHeaCon)
-    annotation (Line(points={{58,224},{-100,224},{-100,130},{-300,130}},
-      color={255,0,255}));
   connect(dowSta.uChiWatIsoVal, uChiWatIsoVal)
     annotation (Line(points={{58,222},{-60,222},{-60,100},{-300,100}},
       color={0,0,127}));
@@ -423,9 +419,6 @@ equation
       color={255,0,255}));
   connect(booRep1.y, logSwi.u2)
     annotation (Line(points={{82,-70},{138,-70}}, color={255,0,255}));
-  connect(uChiHeaCon, logSwi.u3)
-    annotation (Line(points={{-300,130},{-100,130},{-100,-90},{120,-90},{120,-78},
-          {138,-78}},       color={255,0,255}));
   connect(dowSta.yChiHeaCon, logSwi.u1)
     annotation (Line(points={{82,232},{100,232},{100,-62},{138,-62}},
       color={255,0,255}));
@@ -472,7 +465,7 @@ equation
     annotation (Line(points={{82,224},{180,224},{180,220},{300,220}},
       color={255,0,255}));
   connect(disChiIsoVal.yChiWatIsoVal, yChiWatIsoVal)
-    annotation (Line(points={{222,54},{260,54},{260,40},{300,40}},
+    annotation (Line(points={{222,54},{250,54},{250,40},{300,40}},
       color={0,0,127}));
   connect(lat.y, minBypSet.chaPro)
     annotation (Line(points={{-158,350},{-140,350},{-140,328},{-260,328},
@@ -549,7 +542,7 @@ equation
     annotation (Line(points={{162,-173},{220,-173},{220,-150},{300,-150}},
       color={255,0,255}));
   connect(disHeaCon.yChiHeaCon, yChiHeaCon)
-    annotation (Line(points={{222,-106},{260,-106},{260,-110},{300,-110}},
+    annotation (Line(points={{222,-106},{260,-106},{260,-100},{300,-100}},
       color={255,0,255}));
   connect(minBypSet.yMinBypRes, pre.u)
     annotation (Line(points={{122,-370},{158,-370}}, color={255,0,255}));
@@ -647,6 +640,12 @@ equation
     annotation (Line(points={{-300,160},{-150,160},{-150,-165},{98,-165}},
       color={255,127,0}));
 
+  connect(chiHeaCon.y, logSwi.u3) annotation (Line(points={{-218,80},{-100,80},{
+          -100,-90},{120,-90},{120,-78},{138,-78}}, color={255,0,255}));
+  connect(chiHeaCon.y, dowSta.uChiHeaCon) annotation (Line(points={{-218,80},{-100,
+          80},{-100,224},{58,224}}, color={255,0,255}));
+  connect(disHeaCon.yChiHeaCon, chiHeaCon.u) annotation (Line(points={{222,-106},
+          {260,-106},{260,110},{-250,110},{-250,80},{-242,80}}, color={255,0,255}));
 annotation (
   defaultComponentName="dowProCon",
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-280,-400},{280,400}})),
@@ -694,10 +693,6 @@ annotation (
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="VChiWat_flow"),
-        Text(
-          extent={{-96,6},{-44,-6}},
-          lineColor={255,0,255},
-          textString="uChiHeaCon"),
         Text(
           extent={{-98,-24},{-38,-36}},
           lineColor={0,0,127},

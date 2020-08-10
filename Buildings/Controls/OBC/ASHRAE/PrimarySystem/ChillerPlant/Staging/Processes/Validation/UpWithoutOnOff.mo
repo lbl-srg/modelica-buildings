@@ -142,8 +142,6 @@ equation
           {140,-90},{80,-90},{80,-110},{98,-110}}, color={0,0,127}));
   connect(zerOrdHol2.y, upProCon.uConWatPumSpe) annotation (Line(points={{122,-110},
           {130,-110},{130,-134},{18,-134},{18,57},{38,57}},color={0,0,127}));
-  connect(chiStaRet.y, upProCon.uChiHeaCon) annotation (Line(points={{122,70},{
-          140,70},{140,40},{20,40},{20,54},{38,54}}, color={255,0,255}));
   connect(staUp.y, booRep.u) annotation (Line(points={{-78,110},{-70,110},{-70,-220},
           {-62,-220}}, color={255,0,255}));
   connect(booRep.y, IsoVal.u2) annotation (Line(points={{-38,-220},{-30,-220},{-30,

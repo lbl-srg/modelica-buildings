@@ -137,9 +137,6 @@ equation
   connect(chiWatFlo.y, dowProCon.VChiWat_flow)
     annotation (Line(points={{-118,-100},{-26,-100},{-26,76},{38,76}},
       color={0,0,127}));
-  connect(pre2.y, dowProCon.uChiHeaCon)
-    annotation (Line(points={{122,40},{140,40},{140,0},{12,0},{12,70},{38,70}},
-      color={255,0,255}));
   connect(staDow.y, booRep.u)
     annotation (Line(points={{-78,130},{-70,130},{-70,-200},{-62,-200}},
       color={255,0,255}));

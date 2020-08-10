@@ -82,12 +82,6 @@ protected
     annotation (Placement(transformation(extent={{-120,-230},{-100,-210}})));
   Buildings.Controls.OBC.CDL.Logical.Switch IsoValTwo "Logical switch"
     annotation (Placement(transformation(extent={{-120,-270},{-100,-250}})));
-  Buildings.Controls.OBC.CDL.Logical.Pre chiOneHea(final pre_u_start=true)
-    "Chiller one head pressure control"
-    annotation (Placement(transformation(extent={{80,-110},{100,-90}})));
-  Buildings.Controls.OBC.CDL.Logical.Pre chiTwoHea(final pre_u_start=false)
-    "Chiller two head pressure control"
-    annotation (Placement(transformation(extent={{80,-150},{100,-130}})));
   Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold zerOrdHol3(
     final samplePeriod=20)
     "Output the input signal with a zero order hold"
@@ -214,14 +208,6 @@ equation
           {120,-20},{120,-40},{-38,-40},{-38,92},{18,92}},      color={0,0,127}));
   connect(conPumSpe.y, upProCon.uConWatPumSpe) annotation (Line(points={{102,-60},
           {120,-60},{120,-80},{-36,-80},{-36,89},{18,89}},   color={0,0,127}));
-  connect(upProCon.yChiHeaCon[1], chiOneHea.u) annotation (Line(points={{42,90},
-          {52,90},{52,-100},{78,-100}},color={255,0,255}));
-  connect(upProCon.yChiHeaCon[2], chiTwoHea.u) annotation (Line(points={{42,92},
-          {50,92},{50,-140},{78,-140}},  color={255,0,255}));
-  connect(chiOneHea.y, upProCon.uChiHeaCon[1]) annotation (Line(points={{102,-100},
-          {120,-100},{120,-120},{-34,-120},{-34,85},{18,85}},color={255,0,255}));
-  connect(chiTwoHea.y, upProCon.uChiHeaCon[2]) annotation (Line(points={{102,-140},
-          {120,-140},{120,-160},{-32,-160},{-32,87},{18,87}},   color={255,0,255}));
   connect(IsoValOne.y, upProCon.uChiWatIsoVal[1]) annotation (Line(points={{-98,
           -220},{-30,-220},{-30,82},{18,82}},   color={0,0,127}));
   connect(IsoValTwo.y, upProCon.uChiWatIsoVal[2]) annotation (Line(points={{-98,

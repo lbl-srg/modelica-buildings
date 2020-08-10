@@ -551,7 +551,7 @@ equation
   connect(staDow.y, yDow) annotation (Line(points={{-78,-230},{-60,-230},{-60,
           40},{138,40}}, color={255,0,255}));
   annotation (defaultComponentName = "staSetCon",
-        Icon(coordinateSystem(extent={{-100,-160},{100,160}}, initialScale=0.2),
+        Icon(coordinateSystem(extent={{-100,-220},{100,200}}, initialScale=0.2),
         graphics={
         Rectangle(
         extent={{-100,-220},{100,200}},
@@ -573,47 +573,47 @@ equation
           pattern=LinePattern.Dash,
           textString="TChiWatSup"),
         Text(
-          extent={{-96,-182},{-50,-200}},
+          extent={{-96,-182},{-40,-198}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TWsePre"),
         Text(
-          extent={{-100,-166},{-32,-176}},
+          extent={{-98,-160},{-24,-178}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TChiWatRet"),
         Text(
-          extent={{-96,-196},{-32,-224}},
+          extent={{-98,-196},{-14,-222}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TChiWat_flow"),
         Text(
-          extent={{-96,-122},{-12,-158}},
+          extent={{-96,-128},{8,-152}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="uTowFanSpeMax"),
         Text(
-          extent={{-94,-50},{-4,-90}},
+          extent={{-94,-60},{0,-82}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="dpChiWatPumSet"),
         Text(
-          extent={{-94,-34},{-26,-64}},
+          extent={{-96,-38},{-10,-58}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="dpChiWatPum"),
         Text(
-          extent={{-96,-12},{-56,-28}},
+          extent={{-96,-12},{-48,-30}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="uLifMin"),
         Text(
-          extent={{-96,12},{-52,-10}},
+          extent={{-96,12},{-46,-6}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="uLifMax"),
         Text(
-          extent={{-100,26},{-70,14}},
+          extent={{-100,32},{-68,14}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="uLif"),
@@ -623,22 +623,22 @@ equation
           pattern=LinePattern.Dash,
           textString="uSta
 "),     Text(
-          extent={{-94,202},{-48,180}},
+          extent={{-98,200},{-46,180}},
           lineColor={217,67,180},
           pattern=LinePattern.Dash,
           textString="uWseSta"),
         Text(
-          extent={{-94,180},{-58,164}},
+          extent={{-100,180},{-50,164}},
           lineColor={217,67,180},
           pattern=LinePattern.Dash,
           textString="chaPro"),
         Text(
-          extent={{-96,138},{-66,126}},
+          extent={{-96,142},{-68,120}},
           lineColor={217,67,180},
           pattern=LinePattern.Dash,
           textString="uPla"),
         Text(
-          extent={{-94,160},{-48,142}},
+          extent={{-96,160},{-44,142}},
           lineColor={217,67,180},
           pattern=LinePattern.Dash,
           textString="uChiAva"),
@@ -658,7 +658,7 @@ equation
           pattern=LinePattern.Dash,
           textString="yChiSet[]"),
         Text(
-          extent={{-96,-110},{-44,-128}},
+          extent={{-98,-110},{-48,-126}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="uTunPar"),
@@ -678,7 +678,7 @@ equation
           pattern=LinePattern.Dash,
           textString="yChaDowEdg"),
         Text(
-          extent={{-16,-156},{92,-202}},
+          extent={{-12,-154},{96,-200}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="yOpeParLoaRatMin"),

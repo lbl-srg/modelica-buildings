@@ -133,10 +133,6 @@ block Up "Sequence for control devices when there is stage-up command"
     "Current condenser water pump speed"
     annotation (Placement(transformation(extent={{-280,-120},{-240,-80}}),
       iconTransformation(extent={{-140,-130},{-100,-90}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChiHeaCon[nChi]
-    "Chillers head pressure control status"
-    annotation (Placement(transformation(extent={{-280,-150},{-240,-110}}),
-      iconTransformation(extent={{-140,-160},{-100,-120}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uChiWatIsoVal[nChi](
     final min=fill(0, nChi),
     final max=fill(1, nChi),
@@ -213,14 +209,13 @@ protected
     final chiDemRedFac=chiDemRedFac,
     final holChiDemTim=holChiDemTim) "Limit chiller demand"
     annotation (Placement(transformation(extent={{-80,160},{-60,180}})));
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.MinimumFlowBypass.Subsequences.FlowSetpoint
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.MinimumFlowBypass.FlowSetpoint
     minChiWatFlo(
     final nChi=nChi,
     final isParallelChiller=isParallelChiller,
     final byPasSetTim=byPasSetTim,
     final minFloSet=minFloSet,
-    final maxFloSet=maxFloSet)
-    "Minimum chilled water flow setpoint"
+    final maxFloSet=maxFloSet) "Minimum chilled water flow setpoint"
     annotation (Placement(transformation(extent={{20,80},{40,100}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.ResetMinBypass
     minBypSet(
@@ -311,6 +306,9 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Latch lat5
     "Maintain ON signal when chilled water isolation valve has been open"
     annotation (Placement(transformation(extent={{100,-180},{120,-160}})));
+  Buildings.Controls.OBC.CDL.Logical.Pre chiHeaCon[nChi]
+    "Chiller head pressure control enabling status"
+    annotation (Placement(transformation(extent={{-140,-150},{-120,-130}})));
 
 equation
   connect(lat.y,chiDemRed.uDemLim)
@@ -352,9 +350,6 @@ equation
   connect(nexChi.yNexEnaChi, enaHeaCon.nexChaChi)
     annotation (Line(points={{-58,229},{-36,229},{-36,-94},{58,-94}},
       color={255,127,0}));
-  connect(enaHeaCon.uChiHeaCon, uChiHeaCon)
-    annotation (Line(points={{58,-98},{-48,-98},{-48,-130},{-260,-130}},
-      color={255,0,255}));
   connect(nexChi.yNexEnaChi, enaChiIsoVal.nexChaChi)
     annotation (Line(points={{-58,229},{-36,229},{-36,-142},{58,-142}},
       color={255,127,0}));
@@ -381,9 +376,6 @@ equation
       color={0,0,127}));
   connect(uConWatReq, endUp.uConWatReq)
     annotation (Line(points={{-260,-10},{-164,-10},{-164,-224},{18,-224}},
-      color={255,0,255}));
-  connect(uChiHeaCon, endUp.uChiHeaCon)
-    annotation (Line(points={{-260,-130},{-48,-130},{-48,-226},{18,-226}},
       color={255,0,255}));
   connect(VChiWat_flow, endUp.VChiWat_flow)
     annotation (Line(points={{-260,100},{-156,100},{-156,-228},{18,-228}},
@@ -553,6 +545,12 @@ equation
   connect(uChiSta, enaNexCWP.uChiSta) annotation (Line(points={{-260,30},{-180,30},
           {-180,35},{-2,35}}, color={255,127,0}));
 
+  connect(logSwi.y, chiHeaCon.u) annotation (Line(points={{222,-80},{230,-80},{230,
+          -200},{-180,-200},{-180,-140},{-142,-140}}, color={255,0,255}));
+  connect(chiHeaCon.y, endUp.uChiHeaCon) annotation (Line(points={{-118,-140},{-48,
+          -140},{-48,-226},{18,-226}}, color={255,0,255}));
+  connect(chiHeaCon.y, enaHeaCon.uChiHeaCon) annotation (Line(points={{-118,-140},
+          {-48,-140},{-48,-98},{58,-98}}, color={255,0,255}));
 annotation (
   defaultComponentName="upProCon",
   Diagram(coordinateSystem(preserveAspectRatio=false,
@@ -598,10 +596,6 @@ annotation (
           extent={{-100,-44},{-64,-56}},
           lineColor={255,0,255},
           textString="uWSE"),
-        Text(
-          extent={{-96,-134},{-44,-146}},
-          lineColor={255,0,255},
-          textString="uChiHeaCon"),
         Text(
           extent={{-98,-184},{-48,-196}},
           lineColor={255,0,255},
