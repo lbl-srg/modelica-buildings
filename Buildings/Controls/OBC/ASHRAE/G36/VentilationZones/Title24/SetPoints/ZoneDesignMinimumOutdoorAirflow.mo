@@ -25,12 +25,12 @@ block ZoneDesignMinimumOutdoorAirflow
   CDL.Interfaces.BooleanInput uWin if have_winSwi
     "Window status, true if open, false if closed"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
-        iconTransformation(extent={{-240,-120},{-200,-80}})));
+        iconTransformation(extent={{-140,-100},{-100,-60}})));
 
   CDL.Interfaces.BooleanInput uOcc if have_occSen
     "True if the zone is populated, that is the occupancy sensor senses the presence of people"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),
-        iconTransformation(extent={{-240,80},{-200,120}})));
+        iconTransformation(extent={{-140,60},{-100,100}})));
 
   CDL.Interfaces.RealOutput VOutMinZonDes_flow(
     final min=0,
@@ -41,16 +41,16 @@ block ZoneDesignMinimumOutdoorAirflow
         iconTransformation(extent={{100,-20},{140,20}})));
 
   CDL.Continuous.Sources.Constant zero(
-    final k=0) if have_winSwi "Zero flow"
+    final k=0) "Zero flow"
     annotation (Placement(transformation(extent={{0,60},{20,80}})));
 
   CDL.Continuous.Sources.Constant VAreMin(
-    final k=VAreMin_flow) if not (have_winSwi or have_occSen)
+    final k=VAreMin_flow)
     "Zone minimum outdoor airflow for building area, per California Title 24 prescribed airflow-per-area requirements"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
 
   CDL.Continuous.Sources.Constant VOccMin(
-    final k=VOccMin_flow) if not (have_winSwi or have_occSen)
+    final k=VOccMin_flow)
     "Zone minimum outdoor airflow for occupants, per California Title 24 prescribed airflow-per-occupant requirements"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
 
@@ -59,7 +59,7 @@ block ZoneDesignMinimumOutdoorAirflow
 
   CDL.Logical.Switch swi1
     "Switch "
-    annotation (Placement(transformation(extent={{40,-70},{60,-50}})));
+    annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
 
   CDL.Continuous.Max max1
     "Maximum"
@@ -69,12 +69,11 @@ block ZoneDesignMinimumOutdoorAirflow
     "Zone minimum outdoor airflow for building area gain"
     annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
 
-  CDL.Logical.Sources.Constant con(
-    final k=true) if not (have_winSwi or have_occSen)
+  CDL.Logical.Sources.Constant tru(final k=true) if not (have_winSwi and have_occSen)
     "True signal"
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
 
-  CDL.Logical.Not not1 if not (have_winSwi or have_occSen)
+  CDL.Logical.Not not1 if not have_winSwi
     "Logical not"
     annotation (Placement(transformation(extent={{-40,-90},{-20,-70}})));
 
@@ -93,18 +92,19 @@ equation
   connect(max1.y, swi.u3) annotation (Line(points={{-18,60},{-10,60},{-10,22},{38,
           22}}, color={0,0,127}));
   connect(uOcc, swi1.u2)
-    annotation (Line(points={{-120,-60},{38,-60}}, color={255,0,255}));
+    annotation (Line(points={{-120,-60},{-42,-60},{-42,-50},{38,-50}},
+                                                   color={255,0,255}));
   connect(VAreMin.y, gai.u) annotation (Line(points={{-58,40},{-50,40},{-50,-20},
           {-42,-20}}, color={0,0,127}));
-  connect(gai.y, swi1.u3) annotation (Line(points={{-18,-20},{0,-20},{0,-68},{38,
-          -68}}, color={0,0,127}));
+  connect(gai.y, swi1.u3) annotation (Line(points={{-18,-20},{0,-20},{0,-58},{38,
+          -58}}, color={0,0,127}));
   connect(max1.y, swi1.u1) annotation (Line(points={{-18,60},{-10,60},{-10,0},{20,
-          0},{20,-52},{38,-52}}, color={0,0,127}));
-  connect(swi1.y, VOutMinZonDes_flow) annotation (Line(points={{62,-60},{80,-60},
+          0},{20,-42},{38,-42}}, color={0,0,127}));
+  connect(swi1.y, VOutMinZonDes_flow) annotation (Line(points={{62,-50},{80,-50},
           {80,0},{120,0}}, color={0,0,127}));
-  connect(con.y, swi1.u2) annotation (Line(points={{-58,-80},{-50,-80},{-50,-60},
-          {38,-60}}, color={255,0,255}));
-  connect(con.y, not1.u)
+  connect(tru.y, swi1.u2) annotation (Line(points={{-58,-80},{-50,-80},{-50,-50},
+          {38,-50}}, color={255,0,255}));
+  connect(tru.y, not1.u)
     annotation (Line(points={{-58,-80},{-42,-80}}, color={255,0,255}));
   connect(not1.y, swi.u2) annotation (Line(points={{-18,-80},{10,-80},{10,30},{38,
           30}}, color={255,0,255}));
