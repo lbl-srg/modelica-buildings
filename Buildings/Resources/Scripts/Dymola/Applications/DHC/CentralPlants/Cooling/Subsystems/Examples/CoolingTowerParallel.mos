@@ -1,0 +1,32 @@
+// Simulate
+simulateModel("Buildings.Applications.DHC.CentralPlants.Cooling.Subsystems.Examples.CoolingTowerParallel", startTime=15552000, stopTime=15724800, method="dassl", tolerance=1e-06, resultFile="CoolingTowerParallel");
+// Plot commands
+removePlots(false);
+createPlot(id=1, 
+    position={21, 7, 758, 606}, 
+	y={"cooTowPar.TWetBul", "cooTowPar.sta_a.T", "cooTowPar.sta_b.T"}, 
+	range={4320.0, 4368.0, 0.0, 40.0}, 
+	grid=true,
+    filename="CoolingTowerParallel.mat",	
+	colors={{0,140,72}, {28,108,200}, {238,46,47}}, 
+	timeUnit="h", 
+	displayUnits={"degC", "degC", "degC"});
+createPlot(id=1, 
+    position={21, 7, 758, 198}, 
+	y={"conFan.u_s", "conFan.u_m"}, 
+	range={4320.0, 4368.0, 17.0, 21.0}, 
+	grid=true, 
+	subPlot=2, 
+	colors={{28,108,200}, {238,46,47}}, 
+	timeUnit="h", 
+	displayUnits={"degC", "degC"});
+createPlot(id=1, 
+    position={21, 7, 758, 199}, 
+	y={"onOffCon.reference", "onOffCon.u"}, 
+	range={4320.0, 4368.0, 19.0, 24.0}, 
+	grid=true, 
+	subPlot=3, 
+	colors={{28,108,200}, {238,46,47}}, 
+	timeUnit="h", 
+	displayUnits={"degC", "degC"});
+

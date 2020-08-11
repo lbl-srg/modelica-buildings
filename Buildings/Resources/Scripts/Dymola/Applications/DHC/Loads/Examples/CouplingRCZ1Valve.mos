@@ -6,7 +6,7 @@ simulateModel("Buildings.Applications.DHC.Loads.Examples.CouplingRCZ1Valve",
     resultFile="CouplingRCZ1Valve");
 createPlot(
     id=1,
-    position={10, 20, 670, 900},
+    position={1, 20, 492, 682},
     y={"bui.maxTSet.y", "bui.minTSet.y",  "bui.thermalZoneOneElement.TAir"},
     autoscale=true,
     grid=true
@@ -25,33 +25,38 @@ createPlot(
 );
 createPlot(
     id=2,
-    position={700, 20, 670, 900},
-    y={"supHeaWat.T_in", "bui.disFloHea.TSup", "bui.terUni.T_aHeaWat_nominal"},
+    position={499, 20, 510, 682},
+    y={"supHeaWat.T_in", "bui.disFloHea.senTSup.T", "bui.terUni.T_aHeaWat_nominal"},
     autoscale=true,
     grid=true
 );
 createPlot(
     id=2,
-    y={"bui.disFloHea.mReq_flow[1]", "bui.disFloHea.mAct_flow[1].y", "bui.terUni.mHeaWat_flow_nominal"},
+    y={"bui.disFloHea.mReq_flow[1]", "bui.disFloHea.mAct_flow[1].y", "bui.disFloHea.m_flow_nominal"},
     grid=true,
     subPlot=2
 );
 createPlot(
     id=2,
-    y={"bui.terUni.QActHea_flow", "bui.terUni.QHea_flow_nominal"},
+    y={"bui.terUni.QActHea_flow"},
     grid=true,
     subPlot=3
 );
+plotExpression(
+    apply(CouplingRCZ1Valve.bui.terUni.facSca*CouplingRCZ1Valve.bui.terUni.QHea_flow_nominal),
+    false,
+    "facSca*QHea_flow_nominal",
+    2);
 createPlot(
     id=3,
-    position={1400, 20, 670, 900},
-    y={"supChiWat.T_in",  "bui.disFloCoo.TSup", "bui.terUni.T_aChiWat_nominal"},
+    position={1016, 21, 485, 681},
+    y={"supChiWat.T_in",  "bui.disFloCoo.senTSup.T", "bui.terUni.T_aChiWat_nominal"},
     autoscale=true,
     grid=true
 );
 createPlot(
     id=3,
-    y={"bui.disFloCoo.mReq_flow[1]", "bui.disFloCoo.mAct_flow[1].y", "bui.terUni.mChiWat_flow_nominal"},
+    y={"bui.disFloCoo.mReq_flow[1]", "bui.disFloCoo.mAct_flow[1].y", "bui.disFloCoo.m_flow_nominal"},
     grid=true,
     subPlot=2
 );
@@ -61,5 +66,9 @@ createPlot(
     grid=true,
     subPlot=3
 );
-plotExpression(apply(-1*CouplingRCZ1Valve[end].bui.terUni.QCoo_flow_nominal), false, "-1*bui.terUni.QCoo_flow_nominal", 3);
+plotExpression(
+    apply(CouplingRCZ1Valve.bui.terUni.facSca*CouplingRCZ1Valve.bui.terUni.QCoo_flow_nominal),
+    false,
+    "facSca*QCoo_flow_nominal",
+    3);
 

@@ -10,7 +10,7 @@ model OneZone "Validation model for one zone"
 
   inner Buildings.ThermalZones.EnergyPlus.Building building(
     idfName = Modelica.Utilities.Files.loadResource(
-      "modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus/Validation/RefBldgSmallOfficeNew2004_Chicago.idf"),
+      "modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus/Validation/SingleFamilyHouse_TwoSpeed_ZoneAirBalance/SingleFamilyHouse_TwoSpeed_ZoneAirBalance.idf"),
     weaName = Modelica.Utilities.Files.loadResource(
       "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"),
     fmuName = Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/src/ThermalZones/EnergyPlus/FMUs/Zones1.fmu"),
@@ -23,8 +23,8 @@ model OneZone "Validation model for one zone"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
   ThermalZone zon(
     redeclare package Medium = Medium,
-    zoneName="Core_ZN",
-    nPorts = 2) "Thermal zone (core zone of the office building with 5 zones)"
+    zoneName="LIVING ZONE",
+    nPorts = 2) "Thermal zone"
     annotation (Placement(transformation(extent={{20,-20},{60,20}})));
   Fluid.FixedResistances.PressureDrop duc(
     redeclare package Medium = Medium,
@@ -64,9 +64,9 @@ equation
   connect(freshAir.ports[1], duc.port_b)
     annotation (Line(points={{-20,-40},{-10,-40}}, color={0,127,255}));
   connect(duc.port_a, zon.ports[1]) annotation (Line(points={{10,-40},{38,-40},{
-          38,-19.2}},  color={0,127,255}));
+          38,-19.1}},  color={0,127,255}));
   connect(bou.ports[1], zon.ports[2]) annotation (Line(points={{-20,-80},{42,-80},
-          {42,-19.2}},      color={0,127,255}));
+          {42,-19.1}},      color={0,127,255}));
   annotation (Documentation(info="<html>
 <p>
 Simple test case for one building with one thermal zone in which the room air temperature

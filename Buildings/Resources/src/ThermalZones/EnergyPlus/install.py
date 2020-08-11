@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 #######################################################
 # Script the installs spawn, which generates
 # an FMU with the EnergyPlus envelope model
@@ -6,7 +6,7 @@
 import os
 
 import tarfile
-import urllib
+import urllib.request, urllib.parse, urllib.error
 import shutil
 
 src="https://spawn.s3.amazonaws.com/latest/Spawn-latest-Linux.tar.gz"
@@ -16,10 +16,10 @@ des_dir=os.path.abspath(os.path.join(file_path, "..", "..", "..", "..", "Resourc
 tar_fil="spawn.tar.gz"
 
 # Download the file
-urllib.urlretrieve(src, tar_fil)
+urllib.request.urlretrieve(src, tar_fil)
 
 # Find the name of the spawn executable
-fil_dic = {"bin/spawn": "", "README.md": "", "lib/libepfmi.so": ""}
+fil_dic = {"bin/spawn": "", "README.md": "", "lib/libepfmi.so": "", "etc/Energy+.idd": ""}
 
 tar = tarfile.open(tar_fil)
 for key in fil_dic:
@@ -47,7 +47,7 @@ for key in fil_dic:
 
 #    print("Renaming {} to {}".format(fil_dic[key], des_fil))
     os.rename(fil_dic[key], des_fil)
-    print("Wrote {}".format(des_fil))
+    print(("Wrote {}".format(des_fil)))
 
 # Delete the created empty directories
 top = fil_dic["README.md"].split(os.path.sep)[0]

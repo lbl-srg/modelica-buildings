@@ -7,23 +7,23 @@ partial model PartialBuilding "Partial class for building model"
       choice(redeclare package Medium =
         Buildings.Media.Antifreeze.PropyleneGlycolWater (
           property_T=293.15, X_a=0.40) "Propylene glycol water, 40% mass fraction")));
-  parameter Integer nPorts_a = 0
-    "Number of inlet fluid ports on source side"
+  parameter Integer nPorts_aHeaWat = 0
+    "Number of heating water inlet ports"
      annotation(Evaluate=true, Dialog(connectorSizing=true));
-  parameter Integer nPorts_b = 0
-    "Number of outlet fluid ports on source side"
+  parameter Integer nPorts_bHeaWat = 0
+    "Number of heating water outlet ports"
      annotation(Evaluate=true, Dialog(connectorSizing=true));
-  parameter Boolean have_heaLoa = true
-    "Set to true if the building has heating loads"
+  parameter Integer nPorts_aChiWat = 0
+    "Number of chilled water inlet ports"
+     annotation(Evaluate=true, Dialog(connectorSizing=true));
+  parameter Integer nPorts_bChiWat = 0
+    "Number of chilled water outlet ports"
+     annotation(Evaluate=true, Dialog(connectorSizing=true));
+  parameter Boolean have_watHea = true
+    "Set to true if the building has water based heating system"
     annotation(Evaluate=true);
-  parameter Boolean have_cooLoa = true
-    "Set to true if the building has cooling loads"
-    annotation(Evaluate=true);
-  parameter Boolean have_fan = true
-    "Set to true if the power drawn by fan motors is computed"
-    annotation(Evaluate=true);
-  parameter Boolean have_pum = true
-    "Set to true if the power drawn by pump motors is computed"
+  parameter Boolean have_watCoo = true
+    "Set to true if the building has water based cooling system"
     annotation(Evaluate=true);
   parameter Boolean have_eleHea = true
     "Set to true if the building has decentralized electric heating equipment"
@@ -31,11 +31,23 @@ partial model PartialBuilding "Partial class for building model"
   parameter Boolean have_eleCoo = true
     "Set to true if the building has decentralized electric cooling equipment"
     annotation(Evaluate=true);
+  parameter Boolean have_fan = true
+    "Set to true if the power drawn by fan motors is computed"
+    annotation(Evaluate=true);
+  parameter Boolean have_pum = true
+    "Set to true if the power drawn by pump motors is computed"
+    annotation(Evaluate=true);
   parameter Boolean have_weaBus = true
     "Set to true for weather bus"
     annotation(Evaluate=true);
   parameter Boolean allowFlowReversal=false
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
+    annotation(Dialog(tab="Assumptions"), Evaluate=true);
+  final parameter Boolean have_heaLoa = have_watHea or have_eleHea
+    "Set to true if the building has heating loads"
+    annotation(Evaluate=true);
+  final parameter Boolean have_cooLoa = have_watCoo or have_eleCoo
+    "Set to true if the building has cooling loads"
     annotation(Evaluate=true);
   // IO CONNECTORS
   Buildings.BoundaryConditions.WeatherData.Bus weaBus if have_weaBus
@@ -43,20 +55,38 @@ partial model PartialBuilding "Partial class for building model"
     annotation (Placement(
     transformation(extent={{-16,284},{18,316}}),
     iconTransformation(extent={{-16,198},{18,230}})));
-  Modelica.Fluid.Interfaces.FluidPorts_a ports_a[nPorts_a](
+  Modelica.Fluid.Interfaces.FluidPorts_a ports_aHeaWat[nPorts_aHeaWat](
     redeclare each package Medium = Medium,
     each m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
-    each h_outflow(start=Medium.h_default, nominal=Medium.h_default))
-    "Source side inlet ports"
-      annotation (Placement(transformation(extent={{-310, -40},{-290,40}}),
-        iconTransformation(extent={{-310,-220},{-290,-140}})));
-  Modelica.Fluid.Interfaces.FluidPorts_b ports_b[nPorts_b](
+    each h_outflow(start=Medium.h_default, nominal=Medium.h_default)) if
+    have_watHea
+    "Heating water inlet ports"
+    annotation (Placement(transformation(extent={{-310,-100},{-290,-20}}),
+      iconTransformation(extent={{-310,-100},{-290,-20}})));
+  Modelica.Fluid.Interfaces.FluidPorts_b ports_bHeaWat[nPorts_bHeaWat](
     redeclare each package Medium = Medium,
     each m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
-    each h_outflow(start=Medium.h_default, nominal=Medium.h_default))
-    "Source side outlet ports"
-      annotation (Placement(transformation(extent={{290, -40},{310,40}}),
-        iconTransformation(extent={{290,-220},{310,-140}})));
+    each h_outflow(start=Medium.h_default, nominal=Medium.h_default)) if
+    have_watHea
+    "Heating water outlet ports"
+    annotation (Placement(transformation(extent={{290,-100},{310,-20}}),
+      iconTransformation(extent={{290,-100},{310,-20}})));
+  Modelica.Fluid.Interfaces.FluidPorts_a ports_aChiWat[nPorts_aChiWat](
+    redeclare each package Medium = Medium,
+    each m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
+    each h_outflow(start=Medium.h_default, nominal=Medium.h_default)) if
+    have_watCoo
+    "Chilled water inlet ports"
+    annotation (Placement(transformation(extent={{-310,-300},{-290,-220}}),
+      iconTransformation(extent={{-310,-220},{-290,-140}})));
+  Modelica.Fluid.Interfaces.FluidPorts_b ports_bChiWat[nPorts_bChiWat](
+    redeclare each package Medium = Medium,
+    each m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
+    each h_outflow(start=Medium.h_default, nominal=Medium.h_default)) if
+    have_watCoo
+    "Chilled water outlet ports"
+    annotation (Placement(transformation(extent={{290,-300},{310,-220}}),
+      iconTransformation(extent={{290,-220},{310,-140}})));
   Modelica.Blocks.Interfaces.RealOutput QHea_flow(
     final quantity="HeatFlowRate", final unit="W") if have_heaLoa
     "Total heating heat flow rate transferred to the loads (>=0)"
@@ -90,10 +120,14 @@ partial model PartialBuilding "Partial class for building model"
     annotation (Placement(transformation(extent={{300,60},{340,100}}),
       iconTransformation(extent={{300,40},{340,80}})));
 initial equation
-  assert(nPorts_a == nPorts_b,
+  assert(nPorts_aHeaWat == nPorts_bHeaWat,
     "In " + getInstanceName() +
-    ": The numbers of source side inlet ports (" + String(nPorts_a) +
-    ") and outlet ports (" + String(nPorts_b) + ") must be equal.");
+    ": The numbers of heating water inlet ports (" + String(nPorts_aHeaWat) +
+    ") and outlet ports (" + String(nPorts_bHeaWat) + ") must be equal.");
+  assert(nPorts_aChiWat == nPorts_bChiWat,
+    "In " + getInstanceName() +
+    ": The numbers of chilled water inlet ports (" + String(nPorts_aChiWat) +
+    ") and outlet ports (" + String(nPorts_bChiWat) + ") must be equal.");
 annotation (
   defaultComponentName="bui",
   Documentation(info="<html>
@@ -138,25 +172,13 @@ First implementation.
         fillColor={255,255,255},
         fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{10,-172},{290,-188}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={0,0,255},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-290,-188},{-10,-172}},
+          extent={{20,-188},{300,-172}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={255,0,0},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{10,-214},{290,-198}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={255,0,0},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-290,-198},{-10,-214}},
+          extent={{-300,-172},{-20,-188}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={0,0,255},
@@ -171,13 +193,13 @@ First implementation.
           lineColor={0,0,255},
           textString="%name"),
         Rectangle(
-          extent={{10,-146},{290,-162}},
+          extent={{20,-52},{300,-68}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={0,0,255},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{-290,-162},{-10,-146}},
+          extent={{-300,-68},{-20,-52}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={255,0,0},

@@ -5,7 +5,7 @@ model Compressor "Controller for compressor speed"
   parameter Modelica.SIunits.Time Ti=240 "Time constant of integrator block";
   parameter Real yMax=1 "Upper limit of output";
   parameter Real yMin=0 "Lower limit of output";
-  parameter Boolean reverseAction=true
+  parameter Boolean reverseActing=false
     "Set to true for throttling the water flow rate through a cooling coil controller";
 
   Buildings.Controls.Continuous.LimPID dxSpe(
@@ -15,7 +15,7 @@ model Compressor "Controller for compressor speed"
     final Ti=Ti,
     final yMax=yMax,
     final yMin=yMin,
-    reverseAction=reverseAction,
+    reverseActing=reverseActing,
     reset=Buildings.Types.Reset.Parameter,
     y_reset=yMin) "Controller for variable speed DX coil"
     annotation (Placement(transformation(extent={{-40,50},{-20,70}})));

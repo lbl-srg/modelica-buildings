@@ -1,0 +1,39 @@
+﻿// Simulate
+simulateModel("Buildings.Applications.DHC.Examples.Heating.Generation1.BaseClasses.Examples.BuildingTimeSeriesHeatingTableMatrix", stopTime=86400, method="dassl", resultFile="BuildingTimeSeriesHeatingTableMatrix");
+// Plot
+createPlot(id=1, position={15, 10, 395, 496}, 
+  y={"bld.Q_flow"}, 
+  range={0.0, 25.0, 0.0, 250.0}, 
+  grid=true, 
+  colors={{28,108,200}}, 
+  timeUnit="h", 
+  displayUnits={"kW"},
+  filename="BuildingTimeSeriesHeatingTableMatrix.mat");
+createPlot(id=1, position={15, 10, 395, 246}, 
+  y={"bld.ets.m_flow"}, 
+  range={0.0, 25.0, 0.02, 0.12}, 
+  grid=true, 
+  subPlot=2, 
+  colors={{28,108,200}},
+  timeUnit="h");
+createPlot(id=2, position={417, 11, 460, 497}, 
+  y={"bld.ets.sta_a.T", "bld.ets.sta_b.T"}, 
+  range={0.0, 24.0, 179.5, 182.5}, 
+  grid=true, 
+  colors={{28,108,200}, {238,46,47}}, 
+  timeUnit="h", 
+  displayUnits={"degC", "degC"});
+createPlot(id=2, position={417, 11, 460, 246}, 
+  y={"bld.ets.sta_a.p", "bld.ets.sta_b.p"}, 
+  range={0.0, 24.0, 8.5, 11.5}, 
+  grid=true, 
+  subPlot=2, 
+  colors={{28,108,200}, {238,46,47}}, 
+  timeUnit="h", 
+  displayUnits={"bar", "bar"});
+createPlot(id=3, position={888, 10, 622, 494}, 
+  y={"bld.ets.port_a.h_outflow", "bld.ets.port_b.h_outflow", "bld.ets.hex.dh"}, 
+  range={0.0, 24.0, -3000000.0, 3000000.0}, 
+  grid=true, 
+  colors={{28,108,200}, {238,46,47}, {0,140,72}}, 
+  timeUnit="h");

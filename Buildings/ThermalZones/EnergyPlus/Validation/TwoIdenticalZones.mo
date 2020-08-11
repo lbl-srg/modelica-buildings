@@ -4,7 +4,7 @@ model TwoIdenticalZones "Validation model with two identical zones"
 
   inner Building building(
     idfName=Modelica.Utilities.Files.loadResource(
-    "modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus/Validation/TwoIdenticalZones.idf"),
+    "modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus/Validation/TwoIdenticalZones/TwoIdenticalZones.idf"),
     weaName=Modelica.Utilities.Files.loadResource(
         "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
     "Building level declarations"
@@ -20,7 +20,7 @@ model TwoIdenticalZones "Validation model with two identical zones"
   // Models for cross validation
   Modelica.Blocks.Sources.CombiTimeTable datRea(
     tableOnFile=true,
-    fileName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus/Validation/TwoIdenticalZones.dat"),
+    fileName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus/Validation/TwoIdenticalZones/TwoIdenticalZones.dat"),
     smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments,
     tableName="EnergyPlus",
     columns=2:5,
