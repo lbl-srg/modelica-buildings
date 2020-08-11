@@ -18,12 +18,12 @@ block ZoneAbsoluteMinimumOutdoorAirflow
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWin if have_winSwi
     "Window status, true if open, false if closed"
     annotation (Placement(transformation(extent={{-140,30},{-100,70}}),
-        iconTransformation(extent={{-240,-120},{-200,-80}})));
+        iconTransformation(extent={{-140,0},{-100,40}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uOcc if have_occSen
     "True if the zone is populated, that is the occupancy sensor senses the presence of people"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
-        iconTransformation(extent={{-240,80},{-200,120}})));
+        iconTransformation(extent={{-140,60},{-100,100}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VOutMinZonDes_flow(
     final min=0,
@@ -31,7 +31,7 @@ block ZoneAbsoluteMinimumOutdoorAirflow
     final quantity="VolumeFlowRate") if not (have_winSwi or have_occSen or have_CO2Sen)
     "Outdoor air volume flow setpoint used in AHU sequeces"
     annotation (Placement(transformation(extent={{-140,-70},{-100,-30}}),
-        iconTransformation(extent={{100,-20},{140,20}})));
+        iconTransformation(extent={{-140,-80},{-100,-40}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput VOutMinZonAbs_flow(
     final min=0,
