@@ -1,660 +1,747 @@
 within Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints;
 block OperationMode "Block that outputs the operation mode"
 
-  parameter Boolean have_winSen
-    "Check if the zone has window status sensor"
-    annotation(Dialog(group="Sensors"));
   parameter Integer numZon(min=1) "Number of zones";
-  parameter Real preWarCooTim(unit="s") = 10800
+  parameter Real preWarCooTim(
+    final unit="s",
+    final quantity="Time") = 10800
     "Maximum cool-down or warm-up time";
   parameter Real TZonFreProOn(
     final unit="K",
-    final displayUnit="degC",
-    final quantity="ThermodynamicTemperature") = 277.55
-    "Threshold zone temperature value to activate freeze protection mode";
+    displayUnit="degC",
+    final quantity="ThermodynamicTemperature")=277.15
+    "Threshold temperature to activate the freeze protection mode";
   parameter Real TZonFreProOff(
     final unit="K",
-    final displayUnit="degC",
-    final quantity="ThermodynamicTemperature") = 280.35
-    "Threshold zone temperature value to finish the freeze protection mode";
+    displayUnit="degC",
+    final quantity="ThermodynamicTemperature")=280.15
+    "Threshold temperature to end the freeze protection mode";
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uOcc
     "Zone occupancy status: true=occupied, false=unoccupied"
-    annotation (Placement(transformation(extent={{-300,310},{-260,350}}),
-        iconTransformation(extent={{-140,100},{-100,140}})));
+    annotation (Placement(transformation(extent={{-400,350},{-360,390}}),
+      iconTransformation(extent={{-140,120},{-100,160}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput tNexOcc(
     final unit="s",
     final quantity="Time")
     "Time to next occupied period"
-    annotation (Placement(transformation(extent={{-300,270},{-260,310}}),
-        iconTransformation(extent={{-140,80},{-100,120}})));
+    annotation (Placement(transformation(extent={{-400,310},{-360,350}}),
+      iconTransformation(extent={{-140,100},{-100,140}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput maxCooDowTim(
     final unit="s",
     final quantity="Time") "Maximum cool-down time among all the zones"
-    annotation (Placement(transformation(extent={{-300,210},{-260,250}}),
-        iconTransformation(extent={{-140,60},{-100,100}})));
+    annotation (Placement(transformation(extent={{-400,260},{-360,300}}),
+      iconTransformation(extent={{-140,80},{-100,120}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHigOccCoo
+    "True when there is zone with the temperature being higher than the occupied cooling setpoint"
+    annotation (Placement(transformation(extent={{-400,210},{-360,250}}),
+      iconTransformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput maxWarUpTim(
     final unit="s",
     final quantity="Time") "Maximum warm-up time among all the zones"
-    annotation (Placement(transformation(extent={{-300,130},{-260,170}}),
-        iconTransformation(extent={{-140,40},{-100,80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput occHeaHigMin
-    "True when the occupied heating setpoint temperature is higher than the minimum zone temperature"
-    annotation (Placement(transformation(extent={{-300,90},{-260,130}}),
-        iconTransformation(extent={{-140,20},{-100,60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput maxHigOccCoo
-    "True when the maximum zone temperature is higher than the occupied cooling setpoint"
-    annotation (Placement(transformation(extent={{-300,60},{-260,100}}),
-        iconTransformation(extent={{-140,0},{-100,40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWinSta if have_winSen
-    "Window status: true=open, false=close"
-    annotation (Placement(transformation(extent={{-300,30},{-260,70}}),
-        iconTransformation(extent={{-140,-20},{-100,20}})));
+    annotation (Placement(transformation(extent={{-400,160},{-360,200}}),
+      iconTransformation(extent={{-140,40},{-100,80}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uOccHeaHig
+    "True when there is zone with the temperature being lower than the occupied heating setpoint"
+    annotation (Placement(transformation(extent={{-400,110},{-360,150}}),
+      iconTransformation(extent={{-140,20},{-100,60}})));
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uOpeWin
+    "Total number of zones with opening window"
+    annotation (Placement(transformation(extent={{-400,70},{-360,110}}),
+      iconTransformation(extent={{-140,0},{-100,40}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput totColZon
     "Total number of cold zone"
-    annotation (Placement(transformation(extent={{-300,-30},{-260,10}}),
-        iconTransformation(extent={{-140,-40},{-100,0}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput unoHeaHigMin
-    "True when the unoccupied heating setpoint is higher than minimum zone temperature"
-    annotation (Placement(transformation(extent={{-300,-90},{-260,-50}}),
-        iconTransformation(extent={{-140,-60},{-100,-20}})));
+    annotation (Placement(transformation(extent={{-400,10},{-360,50}}),
+      iconTransformation(extent={{-140,-20},{-100,20}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uSetBac
+    "True when the average zone temperature falls below the average unoccupied heating setpoint"
+    annotation (Placement(transformation(extent={{-400,-40},{-360,0}}),
+      iconTransformation(extent={{-140,-40},{-100,0}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uEndSetBac
+    "True when the setback mode could end"
+    annotation (Placement(transformation(extent={{-400,-70},{-360,-30}}),
+      iconTransformation(extent={{-140,-60},{-100,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZonMax(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Maximum zone temperature"
-    annotation (Placement(transformation(extent={{-300,-130},{-260,-90}}),
-        iconTransformation(extent={{-140,-80},{-100,-40}})));
+    annotation (Placement(transformation(extent={{-400,-100},{-360,-60}}),
+      iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZonMin(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Minimum zone temperature"
-    annotation (Placement(transformation(extent={{-300,-170},{-260,-130}}),
-        iconTransformation(extent={{-140,-100},{-100,-60}})));
+    annotation (Placement(transformation(extent={{-400,-140},{-360,-100}}),
+      iconTransformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput totHotZon
     "Total number of hot zone"
-    annotation (Placement(transformation(extent={{-300,-230},{-260,-190}}),
-        iconTransformation(extent={{-140,-120},{-100,-80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput maxHigUnoCoo
-    "True when the maximum zone temperature is higher than unoccupied cooling setpoint"
-    annotation (Placement(transformation(extent={{-300,-290},{-260,-250}}),
-        iconTransformation(extent={{-140,-140},{-100,-100}})));
+    annotation (Placement(transformation(extent={{-400,-210},{-360,-170}}),
+      iconTransformation(extent={{-140,-120},{-100,-80}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uSetUp
+    "True when the average zone temperature rises above the average unoccupied cooling setpoint"
+    annotation (Placement(transformation(extent={{-400,-260},{-360,-220}}),
+      iconTransformation(extent={{-140,-140},{-100,-100}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uEndSetUp
+    "True when the setup mode could end"
+    annotation (Placement(transformation(extent={{-400,-290},{-360,-250}}),
+      iconTransformation(extent={{-140,-160},{-100,-120}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yOpeMod
     "Operation mode"
-    annotation (Placement(transformation(extent={{460,-40},{500,0}}),
-        iconTransformation(extent={{100,-20},{140,20}})));
+    annotation (Placement(transformation(extent={{360,-18},{400,22}}),
+      iconTransformation(extent={{100,-20},{140,20}})));
 
 protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant occModInd(
     final k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.occupied)
     "Occupied mode "
-    annotation (Placement(transformation(extent={{200,300},{220,320}})));
+    annotation (Placement(transformation(extent={{100,340},{120,360}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant unoPerInd(
     final k=0)
     "Index to indicate unoccupied period"
-    annotation (Placement(transformation(extent={{100,250},{120,270}})));
+    annotation (Placement(transformation(extent={{0,340},{20,360}})));
   Buildings.Controls.OBC.CDL.Logical.Switch corCooDowTim "Corrected cool down period"
-    annotation (Placement(transformation(extent={{-20,200},{0,220}})));
+    annotation (Placement(transformation(extent={{-220,240},{-200,260}})));
   Buildings.Controls.OBC.CDL.Logical.Switch corWarUpTim "Corrected warm-up period"
-    annotation (Placement(transformation(extent={{-20,160},{0,180}})));
+    annotation (Placement(transformation(extent={{-200,140},{-180,160}})));
   Buildings.Controls.OBC.CDL.Integers.GreaterThreshold intGreThr(
     final threshold=4) "Check if the number of cold zones is not less than than 5"
-    annotation (Placement(transformation(extent={{-180,-20},{-160,0}})));
-  Buildings.Controls.OBC.CDL.Integers.GreaterThreshold intGreThr1(
-    final threshold=numZon - 1)
-    "Check if all zones are cold zone"
-    annotation (Placement(transformation(extent={{-180,-50},{-160,-30}})));
-  Buildings.Controls.OBC.CDL.Logical.FallingEdge falEdg
-    "Check if the unoccupied heating setpoint becomes lower than minimum zone temperature: true to false"
-    annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
+    annotation (Placement(transformation(extent={{-280,20},{-260,40}})));
   Buildings.Controls.OBC.CDL.Logical.Latch lat
     "If all zone temperature are higher than unoccupied heating setpoint by a given limit, then the setback mode should be off"
-    annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
+    annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
   Buildings.Controls.OBC.CDL.Logical.Latch lat1
     "If all zone temperature are higher than threshold temperature of ending freeze protection, then freeze protection setback mode should be off"
-    annotation (Placement(transformation(extent={{-40,-120},{-20,-100}})));
+    annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
   Buildings.Controls.OBC.CDL.Logical.Latch lat2
     "If all zone temperature are lower than unoccupied cooling setpoint by a given limit, then the setup mode should be off"
-    annotation (Placement(transformation(extent={{-40,-220},{-20,-200}})));
-  Buildings.Controls.OBC.CDL.Logical.FallingEdge falEdg1
-    "Check if the unoccupied cooling setpoint becomes higher than maximum zone temperature: true to false"
-    annotation (Placement(transformation(extent={{-100,-260},{-80,-240}})));
+    annotation (Placement(transformation(extent={{-100,-200},{-80,-180}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys2(
     final pre_y_start=true,
     final uHigh=0,
     final uLow=-60)
     "Hysteresis that outputs if the maximum cool-down time is more than the allowed cool-down time"
-    annotation (Placement(transformation(extent={{-100,200},{-80,220}})));
+    annotation (Placement(transformation(extent={{-260,240},{-240,260}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys3(
     final pre_y_start=true,
     final uHigh=0,
     final uLow=-60)
     "Hysteresis that outputs if the maximum warm-up time is more than allowed warm-up time"
-    annotation (Placement(transformation(extent={{-100,160},{-80,180}})));
+    annotation (Placement(transformation(extent={{-260,140},{-240,160}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add5(
     final k1=-1)
     "Calculate differential between time-to-next-occupancy and the cool-down time"
-    annotation (Placement(transformation(extent={{40,210},{60,230}})));
+    annotation (Placement(transformation(extent={{-160,240},{-140,260}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys4(
     final pre_y_start=false,
     final uHigh=0,
     final uLow=-60)
-    "Hysteresis to activate the cool-down model"
-    annotation (Placement(transformation(extent={{80,210},{100,230}})));
+    "Hysteresis to check if the cooldown mode could be activated"
+    annotation (Placement(transformation(extent={{-120,240},{-100,260}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys5(
     final pre_y_start=false,
     final uHigh=0,
     final uLow=-60)
     "Hysteresis to activate the warm-up model"
-    annotation (Placement(transformation(extent={{80,170},{100,190}})));
+    annotation (Placement(transformation(extent={{-120,150},{-100,170}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add6(
     final k1=-1)
     "Calculate differential between time-to-next-occupancy and the warm-up time"
-    annotation (Placement(transformation(extent={{40,170},{60,190}})));
+    annotation (Placement(transformation(extent={{-160,150},{-140,170}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys9(
     final pre_y_start=false,
     final uLow=-0.1,
     final uHigh=0.1)
     "Hysteresis that outputs if any zone temperature is lower than freeze protection threshold temperature"
-    annotation (Placement(transformation(extent={{-140,-120},{-120,-100}})));
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
-    final p=TZonFreProOn,
-    final k=-1)
-    "Calculate differential between minimum zone temperature and freeze protection threshold temperature"
-    annotation (Placement(transformation(extent={{-180,-120},{-160,-100}})));
+    annotation (Placement(transformation(extent={{-180,-100},{-160,-80}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys10(
     final pre_y_start=false,
     final uLow=-0.1,
     final uHigh=0.1)
     "Hysteresis that outputs if all zone temperature are higher than threshold temperature of ending freeze protection"
-    annotation (Placement(transformation(extent={{-140,-160},{-120,-140}})));
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar1(
-    final k=1,
-    final p=(-1)*TZonFreProOff)
-    "Calculate differential between maximum zone temperature and threshold temperature of ending freeze protection"
-    annotation (Placement(transformation(extent={{-180,-160},{-160,-140}})));
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar2(
-    final p=preWarCooTim,
-    final k=-1)
-    "Calculate the differential between maximum cool down time and the allowed maximum cool down time"
-    annotation (Placement(transformation(extent={{-140,200},{-120,220}})));
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar3(
-    final p=preWarCooTim,
-    final k=-1)
-    "Calculate the differential between maximum warm-up time and the allowed maximum warm-up time"
-    annotation (Placement(transformation(extent={{-140,160},{-120,180}})));
+    annotation (Placement(transformation(extent={{-180,-140},{-160,-120}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxWarCooTime(
     final k=preWarCooTim)
     "Allowed maximum warm-up or cool-down time"
-    annotation (Placement(transformation(extent={{-200,180},{-180,200}})));
-  Buildings.Controls.OBC.CDL.Logical.Latch lat3
-    "Hold true when it should be in warm-up mode"
-    annotation (Placement(transformation(extent={{-100,100},{-80,120}})));
-  Buildings.Controls.OBC.CDL.Logical.Latch lat4
-    "Hold true when it should be in cool-down mode"
-    annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
+    annotation (Placement(transformation(extent={{-340,190},{-320,210}})));
   Buildings.Controls.OBC.CDL.Integers.GreaterThreshold intGreThr2(
     final threshold=4) "Check if the number of hot zones is not less than than 5"
-    annotation (Placement(transformation(extent={{-180,-220},{-160,-200}})));
-  Buildings.Controls.OBC.CDL.Integers.GreaterThreshold intGreThr3(
-    final threshold=numZon - 1) "Check if all zones are hot zone"
-    annotation (Placement(transformation(extent={{-180,-250},{-160,-230}})));
+    annotation (Placement(transformation(extent={{-280,-200},{-260,-180}})));
   Buildings.Controls.OBC.CDL.Integers.Add addInt "Sum of two integer inputs"
-    annotation (Placement(transformation(extent={{300,190},{320,210}})));
+    annotation (Placement(transformation(extent={{240,280},{260,300}})));
   Buildings.Controls.OBC.CDL.Integers.Add addInt1 "Sum of two integer inputs"
-    annotation (Placement(transformation(extent={{360,240},{380,260}})));
+    annotation (Placement(transformation(extent={{276,304},{296,324}})));
   Buildings.Controls.OBC.CDL.Integers.Add addInt2 "Sum of two integer inputs"
-    annotation (Placement(transformation(extent={{240,-90},{260,-70}})));
+    annotation (Placement(transformation(extent={{140,-50},{160,-30}})));
   Buildings.Controls.OBC.CDL.Integers.Add addInt3 "Sum of two integer inputs"
-    annotation (Placement(transformation(extent={{280,-200},{300,-180}})));
+    annotation (Placement(transformation(extent={{200,-180},{220,-160}})));
   Buildings.Controls.OBC.CDL.Integers.Add addInt4 "Sum of two integer inputs"
-    annotation (Placement(transformation(extent={{320,-290},{340,-270}})));
+    annotation (Placement(transformation(extent={{260,-320},{280,-300}})));
   Buildings.Controls.OBC.CDL.Integers.Add addInt5 "Sum of two integer inputs"
-    annotation (Placement(transformation(extent={{420,-30},{440,-10}})));
+    annotation (Placement(transformation(extent={{320,-8},{340,12}})));
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger occMod
     "Convert Real number to Integer number"
-    annotation (Placement(transformation(extent={{300,270},{320,290}})));
+    annotation (Placement(transformation(extent={{200,310},{220,330}})));
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger setBacMod
     "Convert Real number to Integer number"
-    annotation (Placement(transformation(extent={{200,-20},{220,0}})));
+    annotation (Placement(transformation(extent={{100,20},{120,40}})));
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger freProSetBacMod
     "Convert Real number to Integer number"
-    annotation (Placement(transformation(extent={{200,-120},{220,-100}})));
+    annotation (Placement(transformation(extent={{100,-100},{120,-80}})));
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger setUpMod
     "Convert Real number to Integer number"
-    annotation (Placement(transformation(extent={{200,-220},{220,-200}})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt1(
-    final integerTrue=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.warmUp)
+    annotation (Placement(transformation(extent={{100,-200},{120,-180}})));
+  Buildings.Controls.OBC.CDL.Logical.Edge edg
+    "Get the moment when the warm up time starts "
+    annotation (Placement(transformation(extent={{-50,150},{-30,170}})));
+  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol(
+    final trueHoldDuration=preWarCooTim)
+    "Hold the start time true signal"
+    annotation (Placement(transformation(extent={{-20,240},{0,260}})));
+  Buildings.Controls.OBC.CDL.Logical.Edge edg1
+    "Get the moment when cool down time starts"
+    annotation (Placement(transformation(extent={{-48,240},{-28,260}})));
+  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol1(
+    final trueHoldDuration=preWarCooTim)
+    "Hold the start time true signal"
+    annotation (Placement(transformation(extent={{-20,150},{0,170}})));
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea1(
+    final realTrue=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.warmUp)
     "Convert Boolean to Integer number"
-    annotation (Placement(transformation(extent={{260,170},{280,190}})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt(
-    final integerTrue=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.coolDown)
+    annotation (Placement(transformation(extent={{80,170},{100,190}})));
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea(
+    final realTrue=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.coolDown)
     "Convert Boolean to Integer number"
-    annotation (Placement(transformation(extent={{260,210},{280,230}})));
+    annotation (Placement(transformation(extent={{80,260},{100,280}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt3(
     final integerTrue=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.unoccupied)
     "Convert Boolean to Integer "
-    annotation (Placement(transformation(extent={{220,-340},{240,-320}})));
+    annotation (Placement(transformation(extent={{120,-370},{140,-350}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea6(
     final realTrue=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.setUp)
     "Convert Boolean to Real "
-    annotation (Placement(transformation(extent={{60,-220},{80,-200}})));
+    annotation (Placement(transformation(extent={{-20,-200},{0,-180}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea4(
     final realTrue=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.freezeProtection)
     "Convert Boolean to Real "
-    annotation (Placement(transformation(extent={{60,-120},{80,-100}})));
+    annotation (Placement(transformation(extent={{-20,-100},{0,-80}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea3(
     final realTrue=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.setBack)
     "Convert Boolean to Real "
-    annotation (Placement(transformation(extent={{60,-20},{80,0}})));
+    annotation (Placement(transformation(extent={{-20,20},{0,40}})));
   Buildings.Controls.OBC.CDL.Utilities.Assert assMes(
     final message="Level 3 alarm: freeze protection setback")
     "Generate alarm message"
-    annotation (Placement(transformation(extent={{100,-160},{120,-140}})));
+    annotation (Placement(transformation(extent={{100,-140},{120,-120}})));
   Buildings.Controls.OBC.CDL.Logical.Not not2 "Logical not"
-   annotation (Placement(transformation(extent={{180,-340},{200,-320}})));
-  Buildings.Controls.OBC.CDL.Logical.And and1 "Check if the warm-up time should be activated"
-    annotation (Placement(transformation(extent={{200,170},{220,190}})));
-  Buildings.Controls.OBC.CDL.Logical.And and2 "Check if the cool-down time should be activated"
-    annotation (Placement(transformation(extent={{200,210},{220,230}})));
+   annotation (Placement(transformation(extent={{80,-370},{100,-350}})));
+  Buildings.Controls.OBC.CDL.Logical.And and1 "Warm-up period"
+    annotation (Placement(transformation(extent={{20,170},{40,190}})));
+  Buildings.Controls.OBC.CDL.Logical.And and2
+    "Get the start of the cool-down time"
+    annotation (Placement(transformation(extent={{-80,240},{-60,260}})));
   Buildings.Controls.OBC.CDL.Logical.Or or1
     "Check if the number of cold zone is more than 5 or all zones are cold"
-    annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
+    annotation (Placement(transformation(extent={{-220,20},{-200,40}})));
   Buildings.Controls.OBC.CDL.Logical.Or3 or3
-    "Check if it is in Occupied, Cool-down, or Warm-up mode"
-    annotation (Placement(transformation(extent={{0,20},{20,40}})));
+    "Check if it is in occupied, cooldown, or warm-up mode"
+    annotation (Placement(transformation(extent={{-140,60},{-120,80}})));
   Buildings.Controls.OBC.CDL.Logical.Or or4
-    "Check if the number of hot zone is more than 5 or all zones are cold"
-    annotation (Placement(transformation(extent={{-100,-220},{-80,-200}})));
+    "Check if the number of hot zone is more than 5 or all zones are hot"
+    annotation (Placement(transformation(extent={{-220,-200},{-200,-180}})));
   Buildings.Controls.OBC.CDL.Logical.Or3 or5
     "Check if it is in Setback, Setback_freezeProtection, or Setup mode"
-    annotation (Placement(transformation(extent={{60,-320},{80,-300}})));
+    annotation (Placement(transformation(extent={{-20,-350},{0,-330}})));
   Buildings.Controls.OBC.CDL.Logical.Or or6
     "Check if it is in any of the 6 modes except unoccupied mode"
-    annotation (Placement(transformation(extent={{120,-340},{140,-320}})));
+    annotation (Placement(transformation(extent={{40,-370},{60,-350}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi
     "Switch between occupied mode index and unoccupied period index"
-    annotation (Placement(transformation(extent={{260,270},{280,290}})));
+    annotation (Placement(transformation(extent={{160,310},{180,330}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi3
     "If the Cool-down, warm-up, or Occupied mode is on, then setback mode should not be activated."
-    annotation (Placement(transformation(extent={{160,-20},{180,0}})));
+    annotation (Placement(transformation(extent={{60,20},{80,40}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi4
     "If the Cool-down, warm-up, or Occupied mode is on, then freeze protection setback mode should not be activated."
-    annotation (Placement(transformation(extent={{160,-120},{180,-100}})));
+    annotation (Placement(transformation(extent={{60,-100},{80,-80}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi5
     "If the Cool-down, warm-up, or Occupied mode is on, then setup mode should not be activated."
-    annotation (Placement(transformation(extent={{160,-220},{180,-200}})));
-  Buildings.Controls.OBC.CDL.Logical.Not not3 "Logical not"
-    annotation (Placement(transformation(extent={{120,190},{140,210}})));
-  Buildings.Controls.OBC.CDL.Logical.Not not4 "Logical not"
-    annotation (Placement(transformation(extent={{120,150},{140,170}})));
+    annotation (Placement(transformation(extent={{60,-200},{80,-180}})));
   Buildings.Controls.OBC.CDL.Logical.Not not5 "Logical not"
-    annotation (Placement(transformation(extent={{60,-160},{80,-140}})));
+    annotation (Placement(transformation(extent={{-20,-140},{0,-120}})));
   Buildings.Controls.OBC.CDL.Integers.GreaterThreshold notOcc(
-    final threshold=1) if have_winSen
+    final threshold=1)
     "Check if the operation mode is other than occupied mode"
-    annotation (Placement(transformation(extent={{200,20},{220,40}})));
-  Buildings.Controls.OBC.CDL.Logical.And and3 if have_winSen
+    annotation (Placement(transformation(extent={{100,60},{120,80}})));
+  Buildings.Controls.OBC.CDL.Logical.And and3
     "True if window open during modes other than occupied mode"
-    annotation (Placement(transformation(extent={{260,40},{280,60}})));
-  Buildings.Controls.OBC.CDL.Logical.Not not1 if have_winSen "Logical not"
-    annotation (Placement(transformation(extent={{300,40},{320,60}})));
+    annotation (Placement(transformation(extent={{160,80},{180,100}})));
+  Buildings.Controls.OBC.CDL.Logical.Not not1 "Logical not"
+    annotation (Placement(transformation(extent={{200,80},{220,100}})));
   Buildings.Controls.OBC.CDL.Utilities.Assert winOpe(
-    final message="Level 4 alarm: window open during modes other than occupied mode") if
-       have_winSen
+    final message="Level 4 alarm: window open during modes other than occupied mode")
     "Generate alarm message when window open during modes other than occupied mode"
-    annotation (Placement(transformation(extent={{340,40},{360,60}})));
+    annotation (Placement(transformation(extent={{240,80},{260,100}})));
+  Buildings.Controls.OBC.CDL.Logical.Switch swi1
+    "If occupied mode is on, then cool down mode should not be activated"
+    annotation (Placement(transformation(extent={{140,270},{160,290}})));
+  Buildings.Controls.OBC.CDL.Conversions.RealToInteger setBacMod1
+    "Convert Real number to Integer number"
+    annotation (Placement(transformation(extent={{180,270},{200,290}})));
+  Buildings.Controls.OBC.CDL.Logical.Switch swi2
+    "If occupied mode is on, then warm-up mode should not be activated."
+    annotation (Placement(transformation(extent={{140,180},{160,200}})));
+  Buildings.Controls.OBC.CDL.Conversions.RealToInteger setBacMod2
+    "Convert Real number to Integer number"
+    annotation (Placement(transformation(extent={{180,180},{200,200}})));
+  Buildings.Controls.OBC.CDL.Logical.And and4 "Cool-down period"
+    annotation (Placement(transformation(extent={{20,260},{40,280}})));
+  Buildings.Controls.OBC.CDL.Logical.And and5
+    "Get the start of the warm-up time"
+    annotation (Placement(transformation(extent={{-80,150},{-60,170}})));
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant totZon(
+    final k=numZon) "Total number of zones"
+    annotation (Placement(transformation(extent={{-340,-340},{-320,-320}})));
+  Buildings.Controls.OBC.CDL.Integers.Equal allCol
+    "Check if all zones are cold zone"
+    annotation (Placement(transformation(extent={{-280,-10},{-260,10}})));
+  Buildings.Controls.OBC.CDL.Integers.Equal allHot
+    "Check if all zones are hot zone"
+    annotation (Placement(transformation(extent={{-280,-230},{-260,-210}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant actFreProTem(
+    final k=TZonFreProOn)
+    "Threshold temperature to activate the freeze protection mode"
+    annotation (Placement(transformation(extent={{-280,-110},{-260,-90}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant endFreProTem(
+    final k=TZonFreProOff)
+    "Threshold temperature to end the freeze protection mode"
+    annotation (Placement(transformation(extent={{-280,-150},{-260,-130}})));
+  Buildings.Controls.OBC.CDL.Continuous.Add add2(
+    final k1=-1)
+    "Calculate differential between minimum zone temperature and freeze protection threshold temperature"
+    annotation (Placement(transformation(extent={{-220,-100},{-200,-80}})));
+  Buildings.Controls.OBC.CDL.Continuous.Add add1(
+    final k2=-1)
+    "Calculate differential between maximum zone temperature and threshold temperature of ending freeze protection"
+    annotation (Placement(transformation(extent={{-220,-140},{-200,-120}})));
+  Buildings.Controls.OBC.CDL.Logical.Or or2
+    "Enough cold zone or the low average zone temperature"
+    annotation (Placement(transformation(extent={{-160,20},{-140,40}})));
+  Buildings.Controls.OBC.CDL.Logical.Or or7
+    "Enough hot zone or the high average zone temperature"
+    annotation (Placement(transformation(extent={{-160,-200},{-140,-180}})));
+  Buildings.Controls.OBC.CDL.Continuous.Add add3(
+    final k1=-1)
+    "Calculate the difference between maximum cool down time and the allowed maximum cool down time"
+    annotation (Placement(transformation(extent={{-300,240},{-280,260}})));
+  Buildings.Controls.OBC.CDL.Continuous.Add add4(
+    final k2=-1)
+    "Calculate the differential between maximum warm-up time and the allowed maximum warm-up time"
+    annotation (Placement(transformation(extent={{-300,140},{-280,160}})));
+  Buildings.Controls.OBC.CDL.Logical.Edge endSetBac
+    "End setback mode when the input becomes true"
+    annotation (Placement(transformation(extent={{-160,-60},{-140,-40}})));
+  Buildings.Controls.OBC.CDL.Logical.Edge endSetUp
+    "End setup mode when the input becomes true"
+    annotation (Placement(transformation(extent={{-160,-280},{-140,-260}})));
+  Buildings.Controls.OBC.CDL.Integers.GreaterThreshold intGreThr1(
+    final  threshold=1) "Check if there is any zone with opening window"
+    annotation (Placement(transformation(extent={{-260,80},{-240,100}})));
+  Buildings.Controls.OBC.CDL.Integers.Add addInt6
+    "Total cold zone and zones with opening window"
+    annotation (Placement(transformation(extent={{-330,-10},{-310,10}})));
+  Buildings.Controls.OBC.CDL.Integers.Add addInt7
+    "Total hot zone and zones with opening window"
+    annotation (Placement(transformation(extent={{-330,-230},{-310,-210}})));
 
 equation
   connect(swi.y, occMod.u)
-    annotation (Line(points={{282,280},{298,280}},
+    annotation (Line(points={{182,320},{198,320}},
       color={0,0,127}));
   connect(occModInd.y, swi.u1)
-    annotation (Line(points={{222,310},{240,310},{240,288},{258,288}},
+    annotation (Line(points={{122,350},{140,350},{140,328},{158,328}},
       color={0,0,127}, pattern=LinePattern.Dash));
   connect(unoPerInd.y, swi.u3)
-    annotation (Line(points={{122,260},{150,260},{150,272},{258,272}},
+    annotation (Line(points={{22,350},{50,350},{50,312},{158,312}},
       color={0,0,127}, pattern=LinePattern.Dash));
   connect(intGreThr.y, or1.u1)
-    annotation (Line(points={{-158,-10},{-102,-10}},
+    annotation (Line(points={{-258,30},{-222,30}},
       color={255,0,255}));
-  connect(intGreThr1.y, or1.u2)
-    annotation (Line(points={{-158,-40},{-120,-40},{-120,-18},{-102,-18}},
-      color={255,0,255}));
-  connect(or1.y, lat.u)
-    annotation (Line(points={{-78,-10},{-42,-10}},
-      color={255,0,255}));
-  connect(falEdg.y, lat.clr)
-    annotation (Line(points={{-78,-50},{-60,-50},{-60,-16},{-42,-16}},
-                  color={255,0,255}));
   connect(lat.y, booToRea3.u)
-    annotation (Line(points={{-18,-10},{58,-10}},
+    annotation (Line(points={{-78,30},{-22,30}},
       color={255,0,255}));
   connect(unoPerInd.y, swi3.u1)
-    annotation (Line(points={{122,260},{150,260},{150,-2},{158,-2}},
+    annotation (Line(points={{22,350},{50,350},{50,38},{58,38}},
       color={0,0,127}, pattern=LinePattern.Dash));
   connect(or3.y, swi3.u2)
-    annotation (Line(points={{22,30},{140,30},{140,-10},{158,-10}},
+    annotation (Line(points={{-118,70},{40,70},{40,30},{58,30}},
       color={255,0,255}));
   connect(lat1.y, booToRea4.u)
-    annotation (Line(points={{-18,-110},{58,-110}},  color={255,0,255}));
+    annotation (Line(points={{-78,-90},{-22,-90}},   color={255,0,255}));
   connect(or3.y, swi4.u2)
-    annotation (Line(points={{22,30},{140,30},{140,-110},{158,-110}},
-                     color={255,0,255}));
+    annotation (Line(points={{-118,70},{40,70},{40,-90},{58,-90}},
+      color={255,0,255}));
   connect(unoPerInd.y, swi4.u1)
-    annotation (Line(points={{122,260},{150,260},{150,-102},{158,-102}},
+    annotation (Line(points={{22,350},{50,350},{50,-82},{58,-82}},
       color={0,0,127}, pattern=LinePattern.Dash));
-  connect(or4.y, lat2.u)
-    annotation (Line(points={{-78,-210},{-42,-210}}, color={255,0,255}));
-  connect(falEdg1.y, lat2.clr)
-    annotation (Line(points={{-78,-250},{-60,-250},{-60,-216},{-42,-216}},
-                              color={255,0,255}));
   connect(lat2.y, booToRea6.u)
-    annotation (Line(points={{-18,-210},{58,-210}},
+    annotation (Line(points={{-78,-190},{-22,-190}},
       color={255,0,255}));
   connect(or3.y, swi5.u2)
-    annotation (Line(points={{22,30},{140,30},{140,-210},{158,-210}},
-                              color={255,0,255}));
+    annotation (Line(points={{-118,70},{40,70},{40,-190},{58,-190}},
+      color={255,0,255}));
   connect(unoPerInd.y, swi5.u1)
-    annotation (Line(points={{122,260},{150,260},{150,-202},{158,-202}},
+    annotation (Line(points={{22,350},{50,350},{50,-182},{58,-182}},
       color={0,0,127},  pattern=LinePattern.Dash));
   connect(swi3.y, setBacMod.u)
-    annotation (Line(points={{182,-10},{198,-10}},
+    annotation (Line(points={{82,30},{98,30}},
       color={0,0,127}));
   connect(swi4.y, freProSetBacMod.u)
-    annotation (Line(points={{182,-110},{198,-110}}, color={0,0,127}));
+    annotation (Line(points={{82,-90},{98,-90}}, color={0,0,127}));
   connect(swi5.y, setUpMod.u)
-    annotation (Line(points={{182,-210},{198,-210}},
+    annotation (Line(points={{82,-190},{98,-190}},
       color={0,0,127}));
-  connect(lat.y, or5.u1)
-    annotation (Line(points={{-18,-10},{10,-10},{10,-302},{58,-302}},
-                   color={255,0,255}));
-  connect(lat1.y, or5.u2)
-    annotation (Line(points={{-18,-110},{0,-110},{0,-310},{58,-310}},
-                              color={255,0,255}));
-  connect(lat2.y, or5.u3)
-    annotation (Line(points={{-18,-210},{20,-210},{20,-318},{58,-318}},
-                              color={255,0,255}));
   connect(or5.y, or6.u1)
-    annotation (Line(points={{82,-310},{100,-310},{100,-330},{118,-330}},
-      color={255,0,255}));
-  connect(or3.y, or6.u2)
-    annotation (Line(points={{22,30},{40,30},{40,-338},{118,-338}},
+    annotation (Line(points={{2,-340},{20,-340},{20,-360},{38,-360}},
       color={255,0,255}));
   connect(or6.y, not2.u)
-    annotation (Line(points={{142,-330},{178,-330}},
+    annotation (Line(points={{62,-360},{78,-360}},
       color={255,0,255}));
   connect(not2.y,booToInt3. u)
-    annotation (Line(points={{202,-330},{218,-330}},
+    annotation (Line(points={{102,-360},{118,-360}},
       color={255,0,255}));
-  connect(and2.y, booToInt.u)
-    annotation (Line(points={{222,220},{258,220}}, color={255,0,255}));
-  connect(and1.y, booToInt1.u)
-    annotation (Line(points={{222,180},{258,180}}, color={255,0,255}));
-  connect(and2.y, or3.u2)
-    annotation (Line(points={{222,220},{230,220},{230,100},{-20,100},{-20,30},{-2,
-          30}},
-      color={255,0,255}));
+  connect(and1.y,booToRea1. u)
+    annotation (Line(points={{42,180},{78,180}}, color={255,0,255}));
   connect(and1.y, or3.u1)
-    annotation (Line(points={{222,180},{240,180},{240,90},{-10,90},{-10,38},{-2,
-          38}},
-      color={255,0,255}));
+    annotation (Line(points={{42,180},{68,180},{68,112},{-190,112},{-190,78},
+      {-142,78}}, color={255,0,255}));
   connect(uOcc, swi.u2)
-    annotation (Line(points={{-280,330},{-220,330},{-220,280},{258,280}},
+    annotation (Line(points={{-380,370},{-350,370},{-350,320},{158,320}},
       color={255,0,255}));
   connect(uOcc, or3.u3)
-    annotation (Line(points={{-280,330},{-220,330},{-220,22},{-2,22}},
+    annotation (Line(points={{-380,370},{-350,370},{-350,62},{-142,62}},
       color={255,0,255}));
   connect(hys2.y, corCooDowTim.u2)
-    annotation (Line(points={{-78,210},{-22,210}},          color={255,0,255}));
+    annotation (Line(points={{-238,250},{-222,250}}, color={255,0,255}));
   connect(hys3.y, corWarUpTim.u2)
-    annotation (Line(points={{-78,170},{-22,170}},          color={255,0,255}));
+    annotation (Line(points={{-238,150},{-202,150}}, color={255,0,255}));
   connect(add5.y, hys4.u)
-    annotation (Line(points={{62,220},{78,220}},            color={0,0,127}));
-  connect(hys4.y, and2.u1)
-    annotation (Line(points={{102,220},{198,220}},
-      color={255,0,255}));
+    annotation (Line(points={{-138,250},{-122,250}}, color={0,0,127}));
   connect(tNexOcc, add5.u1)
-    annotation (Line(points={{-280,290},{20,290},{20,226},{38,226}},
+    annotation (Line(points={{-380,330},{-170,330},{-170,256},{-162,256}},
       color={0,0,127}));
   connect(corCooDowTim.y, add5.u2)
-    annotation (Line(points={{2,210},{30,210},{30,214},{38,214}},
+    annotation (Line(points={{-198,250},{-180,250},{-180,244},{-162,244}},
       color={0,0,127}));
   connect(tNexOcc, add6.u1)
-    annotation (Line(points={{-280,290},{20,290},{20,186},{38,186}},
+    annotation (Line(points={{-380,330},{-170,330},{-170,166},{-162,166}},
       color={0,0,127}));
   connect(corWarUpTim.y, add6.u2)
-    annotation (Line(points={{2,170},{20,170},{20,174},{38,174}},
+    annotation (Line(points={{-178,150},{-170,150},{-170,154},{-162,154}},
       color={0,0,127}));
   connect(add6.y, hys5.u)
-    annotation (Line(points={{62,180},{78,180}},            color={0,0,127}));
-  connect(hys5.y, and1.u1)
-    annotation (Line(points={{102,180},{198,180}}, color={255,0,255}));
-  connect(addPar.y, hys9.u)
-    annotation (Line(points={{-158,-110},{-142,-110}},       color={0,0,127}));
+    annotation (Line(points={{-138,160},{-122,160}}, color={0,0,127}));
   connect(hys9.y, lat1.u)
-    annotation (Line(points={{-118,-110},{-42,-110}},
-                                                    color={255,0,255}));
-  connect(addPar1.y, hys10.u)
-    annotation (Line(points={{-158,-150},{-142,-150}},
-                                                   color={0,0,127}));
+    annotation (Line(points={{-158,-90},{-102,-90}},  color={255,0,255}));
   connect(hys10.y, lat1.clr)
-    annotation (Line(points={{-118,-150},{-80,-150},{-80,-116},{-42,-116}},
+    annotation (Line(points={{-158,-130},{-120,-130},{-120,-96},{-102,-96}},
       color={255,0,255}));
-  connect(addPar2.y, hys2.u)
-    annotation (Line(points={{-118,210},{-102,210}},
-                                                   color={0,0,127}));
-  connect(addPar3.y, hys3.u)
-    annotation (Line(points={{-118,170},{-102,170}},
-                                                   color={0,0,127}));
   connect(maxWarCooTime.y, corCooDowTim.u3)
-    annotation (Line(points={{-178,190},{-60,190},{-60,202},{-22,202}},
+    annotation (Line(points={{-318,200},{-230,200},{-230,242},{-222,242}},
       color={0,0,127}));
   connect(maxWarCooTime.y, corWarUpTim.u3)
-    annotation (Line(points={{-178,190},{-60,190},{-60,162},{-22,162}},
+    annotation (Line(points={{-318,200},{-230,200},{-230,142},{-202,142}},
       color={0,0,127}));
   connect(booToRea3.y, swi3.u3)
-    annotation (Line(points={{82,-10},{100,-10},{100,-18},{158,-18}},
+    annotation (Line(points={{2,30},{30,30},{30,22},{58,22}},
       color={0,0,127}));
   connect(booToRea4.y, swi4.u3)
-    annotation (Line(points={{82,-110},{100,-110},{100,-118},{158,-118}},
+    annotation (Line(points={{2,-90},{20,-90},{20,-98},{58,-98}},
       color={0,0,127}));
   connect(booToRea6.y, swi5.u3)
-    annotation (Line(points={{82,-210},{100,-210},{100,-218},{158,-218}},
+    annotation (Line(points={{2,-190},{20,-190},{20,-198},{58,-198}},
       color={0,0,127}));
-  connect(lat3.y, and1.u2)
-    annotation (Line(points={{-78,110},{188,110},{188,172},{198,172}},
-      color={255,0,255}));
-  connect(lat4.y, and2.u2)
-    annotation (Line(points={{-78,80},{-30,80},{-30,120},{180,120},{180,212},{198,
-          212}},
-      color={255,0,255}));
-  connect(hys4.y, not3.u)
-    annotation (Line(points={{102,220},{110,220},{110,200},{118,200}},
-      color={255,0,255}));
-  connect(hys5.y, not4.u)
-    annotation (Line(points={{102,180},{110,180},{110,160},{118,160}},
-      color={255,0,255}));
-  connect(not4.y, lat3.clr)
-    annotation (Line(points={{142,160},{160,160},{160,140},{-140,140},{-140,104},
-          {-102,104}},
-                color={255,0,255}));
-  connect(not3.y, lat4.clr)
-    annotation (Line(points={{142,200},{170,200},{170,130},{-160,130},{-160,74},
-          {-102,74}},
-                color={255,0,255}));
   connect(lat1.y, not5.u)
-    annotation (Line(points={{-18,-110},{0,-110},{0,-150},{58,-150}},
+    annotation (Line(points={{-78,-90},{-50,-90},{-50,-130},{-22,-130}},
       color={255,0,255}));
   connect(not5.y, assMes.u)
-    annotation (Line(points={{82,-150},{98,-150}},   color={255,0,255}));
-  connect(maxCooDowTim, addPar2.u) annotation (Line(points={{-280,230},{-160,230},
-          {-160,210},{-142,210}}, color={0,0,127}));
-  connect(maxCooDowTim, corCooDowTim.u1) annotation (Line(points={{-280,230},{-60,
-          230},{-60,218},{-22,218}}, color={0,0,127}));
-  connect(maxWarUpTim, addPar3.u) annotation (Line(points={{-280,150},{-160,150},
-          {-160,170},{-142,170}}, color={0,0,127}));
-  connect(maxWarUpTim, corWarUpTim.u1) annotation (Line(points={{-280,150},{-40,
-          150},{-40,178},{-22,178}}, color={0,0,127}));
-  connect(occHeaHigMin, lat3.u)
-    annotation (Line(points={{-280,110},{-102,110}}, color={255,0,255}));
-  connect(maxHigOccCoo, lat4.u)
-    annotation (Line(points={{-280,80},{-102,80}}, color={255,0,255}));
-  connect(unoHeaHigMin, falEdg.u) annotation (Line(points={{-280,-70},{-120,-70},
-          {-120,-50},{-102,-50}}, color={255,0,255}));
-  connect(TZonMax, addPar.u)
-    annotation (Line(points={{-280,-110},{-182,-110}}, color={0,0,127}));
-  connect(TZonMin, addPar1.u)
-    annotation (Line(points={{-280,-150},{-182,-150}}, color={0,0,127}));
-  connect(maxHigUnoCoo, falEdg1.u) annotation (Line(points={{-280,-270},{-120,-270},
-          {-120,-250},{-102,-250}}, color={255,0,255}));
+    annotation (Line(points={{2,-130},{98,-130}},  color={255,0,255}));
+  connect(maxCooDowTim, corCooDowTim.u1) annotation (Line(points={{-380,280},{
+          -230,280},{-230,258},{-222,258}}, color={0,0,127}));
+  connect(maxWarUpTim, corWarUpTim.u1) annotation (Line(points={{-380,180},{
+          -220,180},{-220,158},{-202,158}}, color={0,0,127}));
   connect(totColZon, intGreThr.u)
-    annotation (Line(points={{-280,-10},{-182,-10}}, color={255,127,0}));
-  connect(totColZon, intGreThr1.u) annotation (Line(points={{-280,-10},{-220,-10},
-          {-220,-40},{-182,-40}}, color={255,127,0}));
+    annotation (Line(points={{-380,30},{-282,30}},   color={255,127,0}));
   connect(totHotZon, intGreThr2.u)
-    annotation (Line(points={{-280,-210},{-182,-210}}, color={255,127,0}));
-  connect(totHotZon, intGreThr3.u) annotation (Line(points={{-280,-210},{-220,
-          -210},{-220,-240},{-182,-240}},
-                                    color={255,127,0}));
+    annotation (Line(points={{-380,-190},{-282,-190}}, color={255,127,0}));
   connect(intGreThr2.y, or4.u1)
-    annotation (Line(points={{-158,-210},{-102,-210}}, color={255,0,255}));
-  connect(intGreThr3.y, or4.u2) annotation (Line(points={{-158,-240},{-120,-240},
-          {-120,-218},{-102,-218}}, color={255,0,255}));
-  connect(booToInt.y, addInt.u1) annotation (Line(points={{282,220},{290,220},{290,
-          206},{298,206}}, color={255,127,0}));
-  connect(booToInt1.y, addInt.u2) annotation (Line(points={{282,180},{290,180},{
-          290,194},{298,194}}, color={255,127,0}));
-  connect(occMod.y, addInt1.u1) annotation (Line(points={{322,280},{340,280},{340,
-          256},{358,256}}, color={255,127,0}));
-  connect(addInt.y, addInt1.u2) annotation (Line(points={{322,200},{340,200},{340,
-          244},{358,244}}, color={255,127,0}));
-  connect(setBacMod.y, addInt2.u1) annotation (Line(points={{222,-10},{230,-10},
-          {230,-74},{238,-74}}, color={255,127,0}));
-  connect(freProSetBacMod.y, addInt2.u2) annotation (Line(points={{222,-110},{230,
-          -110},{230,-86},{238,-86}}, color={255,127,0}));
-  connect(setUpMod.y, addInt3.u2) annotation (Line(points={{222,-210},{260,-210},
-          {260,-196},{278,-196}}, color={255,127,0}));
-  connect(addInt2.y, addInt3.u1) annotation (Line(points={{262,-80},{270,-80},{270,
-          -184},{278,-184}}, color={255,127,0}));
-  connect(addInt3.y, addInt4.u1) annotation (Line(points={{302,-190},{310,-190},
-          {310,-274},{318,-274}}, color={255,127,0}));
-  connect(booToInt3.y, addInt4.u2) annotation (Line(points={{242,-330},{300,-330},
-          {300,-286},{318,-286}}, color={255,127,0}));
-  connect(addInt1.y, addInt5.u1) annotation (Line(points={{382,250},{400,250},{400,
-          -14},{418,-14}}, color={255,127,0}));
-  connect(addInt4.y, addInt5.u2) annotation (Line(points={{342,-280},{400,-280},
-          {400,-26},{418,-26}}, color={255,127,0}));
+    annotation (Line(points={{-258,-190},{-222,-190}}, color={255,0,255}));
+  connect(setBacMod.y, addInt2.u1) annotation (Line(points={{122,30},{130,30},{
+          130,-34},{138,-34}},  color={255,127,0}));
+  connect(freProSetBacMod.y, addInt2.u2) annotation (Line(points={{122,-90},{
+          130,-90},{130,-46},{138,-46}}, color={255,127,0}));
+  connect(setUpMod.y, addInt3.u2) annotation (Line(points={{122,-190},{180,-190},
+          {180,-176},{198,-176}}, color={255,127,0}));
+  connect(addInt2.y, addInt3.u1) annotation (Line(points={{162,-40},{180,-40},{
+          180,-164},{198,-164}}, color={255,127,0}));
+  connect(addInt3.y, addInt4.u1) annotation (Line(points={{222,-170},{240,-170},
+          {240,-304},{258,-304}}, color={255,127,0}));
+  connect(booToInt3.y, addInt4.u2) annotation (Line(points={{142,-360},{200,
+          -360},{200,-316},{258,-316}}, color={255,127,0}));
   connect(addInt5.y, yOpeMod)
-    annotation (Line(points={{442,-20},{480,-20}}, color={255,127,0}));
-  connect(uWinSta, and3.u1)
-    annotation (Line(points={{-280,50},{258,50}}, color={255,0,255}));
-  connect(notOcc.y, and3.u2) annotation (Line(points={{222,30},{240,30},{240,42},
-          {258,42}}, color={255,0,255}));
+    annotation (Line(points={{342,2},{380,2}}, color={255,127,0}));
+  connect(notOcc.y, and3.u2) annotation (Line(points={{122,70},{140,70},{140,82},
+          {158,82}}, color={255,0,255}));
   connect(and3.y, not1.u)
-    annotation (Line(points={{282,50},{298,50}}, color={255,0,255}));
-  connect(addInt5.y, notOcc.u) annotation (Line(points={{442,-20},{450,-20},{450,
-          10},{180,10},{180,30},{198,30}}, color={255,127,0}));
+    annotation (Line(points={{182,90},{198,90}}, color={255,0,255}));
+  connect(addInt5.y, notOcc.u) annotation (Line(points={{342,2},{350,2},{350,50},
+          {80,50},{80,70},{98,70}},        color={255,127,0}));
   connect(not1.y, winOpe.u)
-    annotation (Line(points={{322,50},{338,50}}, color={255,0,255}));
+    annotation (Line(points={{222,90},{238,90}}, color={255,0,255}));
+  connect(booToRea.y, swi1.u3) annotation (Line(points={{102,270},{110,270},{
+          110,272},{138,272}}, color={0,0,127}));
+  connect(uOcc, swi1.u2) annotation (Line(points={{-380,370},{-350,370},{-350,
+          320},{120,320},{120,280},{138,280}}, color={255,0,255}));
+  connect(swi1.y, setBacMod1.u)
+    annotation (Line(points={{162,280},{178,280}}, color={0,0,127}));
+  connect(setBacMod1.y, addInt.u1) annotation (Line(points={{202,280},{220,280},
+          {220,296},{238,296}}, color={255,127,0}));
+  connect(addInt.y, addInt1.u2) annotation (Line(points={{262,290},{268,290},{
+          268,308},{274,308}}, color={255,127,0}));
+  connect(occMod.y, addInt1.u1)
+    annotation (Line(points={{222,320},{274,320}}, color={255,127,0}));
+  connect(addInt1.y, addInt5.u1) annotation (Line(points={{298,314},{306,314},{
+          306,8},{318,8}}, color={255,127,0}));
+  connect(addInt4.y, addInt5.u2) annotation (Line(points={{282,-310},{306,-310},
+          {306,-4},{318,-4}}, color={255,127,0}));
+  connect(booToRea1.y, swi2.u3) annotation (Line(points={{102,180},{110,180},{
+          110,182},{138,182}}, color={0,0,127}));
+  connect(unoPerInd.y, swi1.u1)
+    annotation (Line( points={{22,350},{50,350},{50,288},{138,288}},
+      color={0,0,127}, pattern=LinePattern.Dash));
+  connect(unoPerInd.y, swi2.u1)
+    annotation (Line(points={{22,350},{50,350},{50,198},{138,198}},
+      color={0,0,127}, pattern=LinePattern.Dash));
+  connect(swi2.y, setBacMod2.u)
+    annotation (Line(points={{162,190},{178,190}}, color={0,0,127}));
+  connect(setBacMod2.y, addInt.u2) annotation (Line(points={{202,190},{230,190},
+          {230,284},{238,284}}, color={255,127,0}));
+  connect(and4.y, booToRea.u)
+    annotation (Line(points={{42,270},{78,270}},   color={255,0,255}));
+  connect(and4.y, or3.u2) annotation (Line(points={{42,270},{60,270},{60,120},{
+          -200,120},{-200,70},{-142,70}},color={255,0,255}));
+  connect(hys4.y, and2.u1)
+    annotation (Line(points={{-98,250},{-82,250}}, color={255,0,255}));
+  connect(uOccHeaHig, and5.u2) annotation (Line(points={{-380,130},{-90,130},{
+          -90,152},{-82,152}}, color={255,0,255}));
+  connect(hys5.y, and5.u1)
+    annotation (Line(points={{-98,160},{-82,160}}, color={255,0,255}));
+  connect(truFalHol1.u, edg.y)
+    annotation (Line(points={{-22,160},{-28,160}}, color={255,0,255}));
+  connect(and5.y, edg.u)
+    annotation (Line(points={{-58,160},{-52,160}}, color={255,0,255}));
+  connect(and2.y, edg1.u)
+    annotation (Line(points={{-58,250},{-50,250}}, color={255,0,255}));
+  connect(edg1.y, truFalHol.u)
+    annotation (Line(points={{-26,250},{-22,250}},color={255,0,255}));
+  connect(lat2.y, or5.u1) annotation (Line(points={{-78,-190},{-40,-190},{-40,
+          -332},{-22,-332}}, color={255,0,255}));
+  connect(lat1.y, or5.u2) annotation (Line(points={{-78,-90},{-50,-90},{-50,
+          -340},{-22,-340}}, color={255,0,255}));
+  connect(lat.y, or5.u3) annotation (Line(points={{-78,30},{-60,30},{-60,-348},
+          {-22,-348}}, color={255,0,255}));
+  connect(or3.y, or6.u2) annotation (Line(points={{-118,70},{-70,70},{-70,-368},
+          {38,-368}}, color={255,0,255}));
+  connect(allCol.y, or1.u2) annotation (Line(points={{-258,0},{-240,0},{-240,22},
+          {-222,22}}, color={255,0,255}));
+  connect(allHot.y, or4.u2) annotation (Line(points={{-258,-220},{-240,-220},{
+          -240,-198},{-222,-198}}, color={255,0,255}));
+  connect(totZon.y, allCol.u2) annotation (Line(points={{-318,-330},{-300,-330},
+          {-300,-8},{-282,-8}},   color={255,127,0}));
+  connect(totZon.y, allHot.u2) annotation (Line(points={{-318,-330},{-300,-330},
+          {-300,-228},{-282,-228}}, color={255,127,0}));
+  connect(add2.y, hys9.u)
+    annotation (Line(points={{-198,-90},{-182,-90}},   color={0,0,127}));
+  connect(add1.y, hys10.u)
+    annotation (Line(points={{-198,-130},{-182,-130}}, color={0,0,127}));
+  connect(actFreProTem.y, add2.u2) annotation (Line(points={{-258,-100},{-240,-100},
+          {-240,-96},{-222,-96}},       color={0,0,127}));
+  connect(TZonMax, add2.u1) annotation (Line(points={{-380,-80},{-240,-80},{
+          -240,-84},{-222,-84}}, color={0,0,127}));
+  connect(TZonMin, add1.u1) annotation (Line(points={{-380,-120},{-240,-120},{
+          -240,-124},{-222,-124}}, color={0,0,127}));
+  connect(endFreProTem.y, add1.u2) annotation (Line(points={{-258,-140},{-240,-140},
+          {-240,-136},{-222,-136}},       color={0,0,127}));
+  connect(or1.y, or2.u1)
+    annotation (Line(points={{-198,30},{-162,30}}, color={255,0,255}));
+  connect(or2.y, lat.u)
+    annotation (Line(points={{-138,30},{-102,30}}, color={255,0,255}));
+  connect(uSetBac, or2.u2)
+    annotation (Line(points={{-380,-20},{-180,-20},{-180,22},{-162,22}},
+      color={255,0,255}));
+  connect(or4.y, or7.u1)
+    annotation (Line(points={{-198,-190},{-162,-190}}, color={255,0,255}));
+  connect(or7.y, lat2.u)
+    annotation (Line(points={{-138,-190},{-102,-190}}, color={255,0,255}));
+  connect(uSetUp, or7.u2)
+    annotation (Line(points={{-380,-240},{-180,-240},{-180,-198},{-162,-198}},
+      color={255,0,255}));
+  connect(uOcc, swi2.u2)
+    annotation (Line(points={{-380,370},{-350,370},{-350,320},{120,320},{120,190},
+      {138,190}}, color={255,0,255}));
+  connect(truFalHol.y, and4.u2)
+    annotation (Line(points={{2,250},{10,250},{10,262},{18,262}}, color={255,0,255}));
+  connect(hys4.y, and4.u1)
+    annotation (Line(points={{-98,250},{-90,250},{-90,270},{18,270}},
+      color={255,0,255}));
+  connect(truFalHol1.y, and1.u2)
+    annotation (Line(points={{2,160},{10,160},{10,172},{18,172}}, color={255,0,255}));
+  connect(hys5.y, and1.u1)
+    annotation (Line(points={{-98,160},{-90,160},{-90,180},{18,180}},
+      color={255,0,255}));
+  connect(uHigOccCoo, and2.u2)
+    annotation (Line(points={{-380,230},{-90,230},{-90,242},{-82,242}},
+      color={255,0,255}));
+  connect(maxWarCooTime.y, add3.u2)
+    annotation (Line(points={{-318,200},{-310,200},{-310,244},{-302,244}},
+      color={0,0,127}));
+  connect(maxWarCooTime.y, add4.u1)
+    annotation (Line(points={{-318,200},{-310,200},{-310,156},{-302,156}},
+      color={0,0,127}));
+  connect(maxWarUpTim, add4.u2)
+    annotation (Line(points={{-380,180},{-340,180},{-340,144},{-302,144}},
+      color={0,0,127}));
+  connect(maxCooDowTim, add3.u1)
+    annotation (Line(points={{-380,280},{-340,280},{-340,256},{-302,256}},
+      color={0,0,127}));
+  connect(add3.y, hys2.u)
+    annotation (Line(points={{-278,250},{-262,250}}, color={0,0,127}));
+  connect(add4.y, hys3.u)
+    annotation (Line(points={{-278,150},{-262,150}}, color={0,0,127}));
+  connect(uEndSetBac, endSetBac.u)
+    annotation (Line(points={{-380,-50},{-162,-50}}, color={255,0,255}));
+  connect(endSetBac.y, lat.clr)
+    annotation (Line(points={{-138,-50},{-120,-50},{-120,24},{-102,24}},
+      color={255,0,255}));
+  connect(uEndSetUp, endSetUp.u)
+    annotation (Line(points={{-380,-270},{-162,-270}}, color={255,0,255}));
+  connect(endSetUp.y, lat2.clr)
+    annotation (Line(points={{-138,-270},{-120,-270},{-120,-196},{-102,-196}},
+      color={255,0,255}));
+  connect(uOpeWin, intGreThr1.u)
+    annotation (Line(points={{-380,90},{-262,90}}, color={255,127,0}));
+  connect(intGreThr1.y, and3.u1)
+    annotation (Line(points={{-238,90},{158,90}}, color={255,0,255}));
+  connect(totColZon, addInt6.u2)
+    annotation (Line(points={{-380,30},{-350,30},{-350,-6},{-332,-6}}, color={255,127,0}));
+  connect(uOpeWin, addInt6.u1)
+    annotation (Line(points={{-380,90},{-340,90},{-340,6},{-332,6}}, color={255,127,0}));
+  connect(addInt6.y, allCol.u1)
+    annotation (Line(points={{-308,0},{-282,0}}, color={255,127,0}));
+  connect(totHotZon, addInt7.u2)
+    annotation (Line(points={{-380,-190},{-350,-190},{-350,-226},{-332,-226}}, color={255,127,0}));
+  connect(uOpeWin, addInt7.u1)
+    annotation (Line(points={{-380,90},{-340,90},{-340,-214},{-332,-214}}, color={255,127,0}));
+  connect(addInt7.y, allHot.u1)
+    annotation (Line(points={{-308,-220},{-282,-220}}, color={255,127,0}));
 
 annotation (
   defaultComponentName = "opeModSel",
   Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-260,-360},{460,360}}),
+        coordinateSystem(preserveAspectRatio=false, extent={{-360,-380},{360,380}}),
         graphics={
         Rectangle(
-          extent={{-258,-282},{458,-358}},
+          extent={{-358,-282},{358,-378}},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
         Rectangle(
-          extent={{-258,-202},{458,-278}},
+          extent={{-358,-182},{358,-278}},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
         Rectangle(
-          extent={{-258,-82},{458,-158}},
+          extent={{-358,-82},{358,-158}},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
         Rectangle(
-          extent={{-258,-2},{458,-78}},
+          extent={{-358,38},{358,-58}},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
         Rectangle(
-          extent={{-258,188},{458,112}},
+          extent={{-358,198},{358,122}},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
         Rectangle(
-          extent={{-258,268},{458,192}},
+          extent={{-358,298},{358,222}},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
         Rectangle(
-          extent={{-258,348},{458,272}},
+          extent={{-358,378},{358,312}},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
         Text(
-          extent={{336,332},{426,314}},
+          extent={{236,372},{326,354}},
           lineColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           textString="Occupied mode"),
         Text(
-          extent={{296,-32},{380,-54}},
+          extent={{158,10},{242,-12}},
           lineColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           textString="Setback mode"),
         Text(
-          extent={{324,-224},{396,-246}},
+          extent={{150,-226},{222,-248}},
           lineColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           textString="Setup mode"),
         Text(
-          extent={{314,-308},{418,-338}},
+          extent={{214,-338},{318,-368}},
           lineColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           textString="Unoccupied mode"),
         Text(
-          extent={{280,-114},{452,-142}},
+          extent={{180,-94},{352,-122}},
           lineColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           textString="Freeze protection setback mode"),
         Text(
-          extent={{250,170},{338,146}},
+          extent={{164,174},{252,150}},
           lineColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           textString="Warm-up mode"),
         Text(
-          extent={{188,262},{276,234}},
+          extent={{248,258},{336,230}},
           lineColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           textString="Cool-down mode")}),
-   Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
+   Icon(coordinateSystem(extent={{-100,-160},{100,160}}),
         graphics={
         Rectangle(
-        extent={{-100,-100},{100,100}},
+        extent={{-100,-160},{100,160}},
         lineColor={0,0,127},
         fillColor={255,255,255},
         fillPattern=FillPattern.Solid),
         Text(
-          extent={{-98,80},{-52,68}},
+          extent={{-98,108},{-44,96}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="maxCooDowTim"),
         Text(
-          extent={{-98,64},{-56,54}},
+          extent={{-98,66},{-50,56}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="maxWarUpTim"),
@@ -664,144 +751,194 @@ annotation (
           pattern=LinePattern.Dash,
           textString="yOpeMod"),
         Text(
-          extent={{-120,144},{100,106}},
+          extent={{-120,200},{100,160}},
           lineColor={0,0,255},
           textString="%name"),
         Text(
-          extent={{-98,94},{-74,82}},
+          extent={{-100,128},{-68,112}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="tNexOcc"),
         Text(
-          extent={{-100,104},{-82,96}},
+          extent={{-100,144},{-82,136}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="uOcc"),
         Text(
-          extent={{-98,42},{-50,30}},
+          extent={{-98,88},{-50,76}},
           lineColor={255,0,255},
           pattern=LinePattern.Dash,
-          textString="occHeaHigMin"),
+          textString="uHigOccCoo"),
         Text(
-          extent={{-98,24},{-48,12}},
+          extent={{-98,46},{-48,34}},
           lineColor={255,0,255},
           pattern=LinePattern.Dash,
-          textString="maxHigOccCoo"),
+          textString="uOccHeaHig"),
         Text(
-          extent={{-98,-14},{-60,-24}},
+          extent={{-98,6},{-60,-4}},
           lineColor={255,127,0},
           pattern=LinePattern.Dash,
           textString="totColZon"),
         Text(
-          extent={{-98,-32},{-48,-44}},
+          extent={{-98,-34},{-52,-46}},
           lineColor={255,0,255},
           pattern=LinePattern.Dash,
-          textString="unoHeaHigMin"),
+          textString="uEndSetBac"),
         Text(
-          extent={{-98,-56},{-70,-64}},
+          extent={{-98,-54},{-64,-64}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TZonMax"),
         Text(
-          extent={{-100,-76},{-70,-84}},
+          extent={{-98,-74},{-64,-84}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TZonMin"),
         Text(
-          extent={{-98,-96},{-66,-104}},
+          extent={{-98,-94},{-62,-104}},
           lineColor={255,127,0},
           pattern=LinePattern.Dash,
           textString="totHotZon"),
         Text(
-          extent={{-98,-112},{-48,-124}},
+          extent={{-98,-134},{-52,-146}},
           lineColor={255,0,255},
           pattern=LinePattern.Dash,
-          textString="maxHigUnoCoo"),
+          textString="uEndSetUp"),
         Text(
-          visible=have_winSen,
-          extent={{-98,8},{-68,-4}},
+          extent={{-98,-14},{-66,-26}},
           lineColor={255,0,255},
           pattern=LinePattern.Dash,
-          textString="uWinSta")}),
+          textString="uSetBac"),
+        Text(
+          extent={{-98,-114},{-66,-126}},
+          lineColor={255,0,255},
+          pattern=LinePattern.Dash,
+          textString="uSetUp"),
+        Text(
+          extent={{-100,26},{-62,16}},
+          lineColor={255,127,0},
+          pattern=LinePattern.Dash,
+          textString="uOpeWin")}),
    Documentation(info="<html>
 <p>
-This block outputs VAV system operation mode. It is implemented according to
-ASHRAE guideline G36, PART 5.C.6 (zone group operating modes).
-The block has the modes listed below.
+This block outputs VAV system operating mode. It is implemented according to
+ASHRAE guideline G36, section 5.4.3, section 5.4.4, section 5.4.5 and section 5.4.6.
 </p>
-<h4>Occupied Mode</h4>
 <p>
-A Zone Group is in the <i>occupied mode</i> when
+Note that, from the user's point of view, schedules can be a set for individual zones,
+or they can be set for an entire zone group, depending on how the user interface is
+implemented. From the point of view of the BAS, individual zone schedules are
+superimposed to create a zone-group schedule, which then drives system behavior.
+</p>
+<ol>
+<li>
+All zones in each zone group shall be in the same zone-group operating mode. If one
+zone in a zone group is placed in any zone-group operating mode other than unoccupied
+mode (due to override, sequence logic, or scheduled occupancy), all zones in that
+group shall enter that mode.
+</li>
+<li>
+A zone group may be in only one mode at a given time.
+</li>
+</ol>
+<p>
+Each zone group shall have the operating modes shown below.
+</p>
+<h5>Occupied Mode</h5>
+<p>
+A zone group is in the <i>occupied mode</i> when
 occupancy input <code>uOcc</code> is true. This input shall be retrieved from
 other sequences that specifies occupancy variation and time remaining to the
-next occupied period <code>tNexOcc</code>.
+next occupied period <code>tNexOcc</code>. A zone group could be in the occupied
+mode when any of the following is true:
 </p>
-<h4>Warmup Mode</h4>
+<ul>
+<li>
+The time of day is between the zone group's scheduled occupied start and stop times.
+</li>
+<li>
+The schedules have been overriden by the occupant override system.
+</li>
+<li>
+Any zone local override timer is nonzero.
+</li>
+</ul>
+<h5>Warm-up Mode</h5>
 <p>
-Warmup mode shall start based on the zone with the longest calculated warm up
-time <code>warUpTim</code> requirement, but no earlier than 3 hours before
-the start of the scheduled occupied period, and shall end at the scheduled
-occupied start time. Zones where the window switch indicates that a window
-is open shall be ignored. Note that for each zone, the optimal warm-up time
-<code>warUpTim</code> shall be obtained from an <i>Optimal Start</i>
-sequences, computed in a separate block.
-The figure below shows the sequence.
+Warm-up mode shall start based on the zone with the longest calculated warm-up
+time <code>maxWarUpTim</code> requirement, but no earlier than 3 hours
+(<code>preWarCooTim</code>) before the start of the scheduled occupied period,
+and shall end at the scheduled occupied start time. Zones where the window switch
+indicates that a window is open shall be ignored. Note that for each zone, 
+the optimal warm-up time shall be obtained from an <i>Optimal Start</i> sequences,
+computed in a separate block. The figure below shows the sequence.
 </p>
 <p align=\"center\">
 <img alt=\"Image of warm-up mode definition\"
 src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/Generic/OperationMode/Warm-upModeDefinition.png\"/>
 </p>
-<h4>Cool-Down Mode</h4>
+<h5>Cooldown Mode</h5>
 <p>
-Cool-down mode shall start based on the zone with the longest calculated
-cool-down time <code>cooDowTim</code> requirement, but no earlier than 3 hours
-before the start of the scheduled occupied period, and shall end at the
-scheduled occupied start time. Zones where the window switch indicates that a
-window is open shall be ignored. Note that the each zone <code>cooDowTim</code>
-shall be obtained from an <i>Optimal Start</i> sequences, computed in a
-separate block.
+Cooldown mode shall start based on the zone with the longest calculated
+cooldown time <code>maxCooDowTim</code> requirement, but no earlier than 3 hours
+(<code>preWarCooTim</code>) before the start of the scheduled occupied period,
+and shall end at the scheduled occupied start time. Zones where the window switch
+indicates that a window is open shall be ignored. Note that for each zone,
+the optimal cooldown time shall be obtained from an <i>Optimal Start</i> sequences,
+computed in a separate block.
 </p>
 <p align=\"center\">
 <img alt=\"Image of cool-down mode definition\"
 src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/Generic/OperationMode/Cool-downModeDefinition.png\"/>
 </p>
-<h4>Setback Mode</h4>
+<h5>Setback Mode</h5>
 <p>
 During <i>unoccupied mode</i>, if any 5 zones (or all zones, if fewer than 5)
-in the zone group fall below their unoccupied heating setpoints
-<code>TZonHeaSetUno</code>, the zone group shall enter <i>setback mode</i> until
-all spaces in the zone group are <i>1.1</i> &deg;C (<i>2</i> &deg;F) above their
-unoccupied setpoints.
+in the zone group fall below their unoccupied heating setpoints, or if the average
+zone temperature of the zone group falls below the average unoccupied heating setpoint
+(<code>uSetBac</code> becomes true), the zone group shall enter <i>setback mode</i> until
+all spaces in the zone group are <i>1</i> &deg;C (<i>2</i> &deg;F) above their
+unoccupied setpoints (<code>uEndSetBac</code> becomes true).
 </p>
 <p align=\"center\">
 <img alt=\"Image of setback mode definition\"
 src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/Generic/OperationMode/SetbackModeDefinition.png\"/>
 </p>
-<h4>Freeze Protection Setback Mode</h4>
+<h5>Freeze Protection Setback Mode</h5>
 <p>
-During <i>unoccupied Mode</i>, if any single zone falls below <i>4.4</i> &deg;C
+During <i>unoccupied Mode</i>, if any single zone falls below <i>4</i> &deg;C
 (<i>40</i> &deg;F), the zone group shall enter <i>setback mode</i> until all zones
-are above <i>7.2</i> &deg;C (<i>45</i> &deg;F), and a Level 3 alarm
-<code>yFreProSta</code> shall be set.
+are above <i>7</i> &deg;C (<i>45</i> &deg;F), and a Level 3 alarm shall be set.
 </p>
-<h4>Setup Mode</h4>
+<h5>Setup Mode</h5>
 <p>
 During <i>unoccupied mode</i>, if any 5 zones (or all zones, if fewer than 5)
-in the zone group rise above their unoccupied cooling setpoints <code>TZonCooSetUno</code>,
-the zone group shall enter <i>setup mode</i> until all spaces in the zone group
-are <i>1.1</i> &deg;C (<i>2</i> &deg;F) below their unoccupied setpoints. Zones
-where the window switch indicates that a window is open shall be ignored.
+in the zone group rise above their unoccupied cooling setpoints, or if the average
+zone temperature of the zone group rises above the average unoccupied cooling setpoint
+(<code>uSetUp</code> becomes true), the zone group shall enter <i>setup mode</i> until
+all spaces in the zone group are <i>1</i> &deg;C (<i>2</i> &deg;F) below their
+unoccupied setpoints. Zones where the window switch indicates that a window is
+open shall be ignored.
 </p>
 <p align=\"center\">
 <img alt=\"Image of setup mode definition\"
 src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/Generic/OperationMode/SetupModeDefinition.png\"/>
 </p>
-<h4>Unoccupied Mode</h4>
+<h5>Unoccupied Mode</h5>
 <p>
 <i>Unoccupied mode</i> shall be active if the zone group is not in any other mode.
 </p>
 </html>",revisions="<html>
 <ul>
+<li>
+June 15, 2020, by Jianjun Hu:<br/>
+Upgraded the sequence according to ASHRAE Guideline 36, May 2020 version.
+</li>
+<li>
+April 29, 2020, by Kun Zhang:<br/>
+Fixed bug related to activation of warm-up and cool down mode.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1893\">#1893</a>.
+</li>
 <li>
 March 09, 2020, by Jianjun Hu:<br/>
 Reimplemented to remove the vector-valued calculations.<br/>
