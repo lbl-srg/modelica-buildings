@@ -132,6 +132,14 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Latch lat
     "True when it is not in process"
     annotation (Placement(transformation(extent={{120,210},{140,230}})));
+  Buildings.Controls.OBC.CDL.Logical.Pre chiOneHea(
+    final pre_u_start=false)
+    "Chiller one head pressure control"
+    annotation (Placement(transformation(extent={{100,-100},{120,-80}})));
+  Buildings.Controls.OBC.CDL.Logical.Pre chiTwoHea(
+    final pre_u_start=true)
+    "Chiller two head pressure control"
+    annotation (Placement(transformation(extent={{100,-140},{120,-120}})));
 
 equation
   connect(booPul1.y, staDow1.u)
@@ -164,7 +172,7 @@ equation
     annotation (Line(points={{42,91},{60,91},{60,40},{98,40}},
       color={255,0,255}));
   connect(dowProCon.yChi[2], chiTwoSta.u)
-    annotation (Line(points={{42,93},{62,93},{62,0},{98,0}},     color={255,0,255}));
+    annotation (Line(points={{42,93},{62,93},{62,0},{98,0}}, color={255,0,255}));
   connect(chiOneSta.y, chiLoa2[1].u2)
     annotation (Line(points={{122,40},{130,40},{130,120},{138,120}},
       color={255,0,255}));
@@ -219,7 +227,7 @@ equation
     annotation (Line(points={{122,-170},{140,-170},{140,-190},{-140,-190},{-140,
           -242},{-122,-242}},   color={0,0,127}));
   connect(IsoValOne.y, dowProCon.uChiWatIsoVal[1])
-    annotation (Line(points={{-98,-210},{-44,-210},{-44,76},{18,76}},   color={0,0,127}));
+    annotation (Line(points={{-98,-210},{-44,-210},{-44,76},{18,76}}, color={0,0,127}));
   connect(IsoValTwo.y, dowProCon.uChiWatIsoVal[2])
     annotation (Line(points={{-98,-250},{-42,-250},{-42,78},{18,78}},
       color={0,0,127}));
@@ -292,6 +300,14 @@ equation
           {-140,-104},{-140,-150},{-122,-150}}, color={255,0,255}));
   connect(sta.y, dowProCon.uChiSta) annotation (Line(points={{-58,-150},{-50,-150},
           {-50,83},{18,83}}, color={255,127,0}));
+  connect(dowProCon.yChiHeaCon[1], chiOneHea.u) annotation (Line(points={{42,76},
+          {58,76},{58,-90},{98,-90}}, color={255,0,255}));
+  connect(dowProCon.yChiHeaCon[2], chiTwoHea.u) annotation (Line(points={{42,78},
+          {56,78},{56,-130},{98,-130}}, color={255,0,255}));
+  connect(chiOneHea.y, dowProCon.uChiHeaCon[1]) annotation (Line(points={{122,-90},
+          {140,-90},{140,-60},{-32,-60},{-32,79},{18,79}}, color={255,0,255}));
+  connect(chiTwoHea.y, dowProCon.uChiHeaCon[2]) annotation (Line(points={{122,-130},
+          {140,-130},{140,-112},{-34,-112},{-34,81},{18,81}}, color={255,0,255}));
 
 annotation (
  experiment(StopTime=1500, Tolerance=1e-06),

@@ -215,6 +215,8 @@ equation
           {-80,-180},{-80,-160},{-62,-160}}, color={255,0,255}));
   connect(sta.y, dowProCon.uChiSta) annotation (Line(points={{2,-160},{10,-160},
           {10,73},{38,73}}, color={255,127,0}));
+  connect(pre2.y, dowProCon.uChiHeaCon) annotation (Line(points={{122,40},{140,40},
+          {140,0},{12,0},{12,70},{38,70}}, color={255,0,255}));
 
 annotation (
  experiment(StopTime=1500, Tolerance=1e-06),

@@ -133,6 +133,10 @@ block Up "Sequence for control devices when there is stage-up command"
     "Current condenser water pump speed"
     annotation (Placement(transformation(extent={{-280,-120},{-240,-80}}),
       iconTransformation(extent={{-140,-130},{-100,-90}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChiHeaCon[nChi]
+    "Chillers head pressure control status"
+    annotation (Placement(transformation(extent={{-280,-150},{-240,-110}}),
+      iconTransformation(extent={{-140,-160},{-100,-120}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uChiWatIsoVal[nChi](
     final min=fill(0, nChi),
     final max=fill(1, nChi),
@@ -306,9 +310,6 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Latch lat5
     "Maintain ON signal when chilled water isolation valve has been open"
     annotation (Placement(transformation(extent={{100,-180},{120,-160}})));
-  Buildings.Controls.OBC.CDL.Logical.Pre chiHeaCon[nChi]
-    "Chiller head pressure control enabling status"
-    annotation (Placement(transformation(extent={{-140,-150},{-120,-130}})));
 
 equation
   connect(lat.y,chiDemRed.uDemLim)
@@ -544,13 +545,11 @@ equation
           250},{-104,31},{-2,31}}, color={255,127,0}));
   connect(uChiSta, enaNexCWP.uChiSta) annotation (Line(points={{-260,30},{-180,30},
           {-180,35},{-2,35}}, color={255,127,0}));
+  connect(enaHeaCon.uChiHeaCon, uChiHeaCon) annotation (Line(points={{58,-98},{-48,
+          -98},{-48,-130},{-260,-130}}, color={255,0,255}));
+  connect(uChiHeaCon, endUp.uChiHeaCon) annotation (Line(points={{-260,-130},{-48,
+          -130},{-48,-226},{18,-226}}, color={255,0,255}));
 
-  connect(logSwi.y, chiHeaCon.u) annotation (Line(points={{222,-80},{230,-80},{230,
-          -200},{-180,-200},{-180,-140},{-142,-140}}, color={255,0,255}));
-  connect(chiHeaCon.y, endUp.uChiHeaCon) annotation (Line(points={{-118,-140},{-48,
-          -140},{-48,-226},{18,-226}}, color={255,0,255}));
-  connect(chiHeaCon.y, enaHeaCon.uChiHeaCon) annotation (Line(points={{-118,-140},
-          {-48,-140},{-48,-98},{58,-98}}, color={255,0,255}));
 annotation (
   defaultComponentName="upProCon",
   Diagram(coordinateSystem(preserveAspectRatio=false,
@@ -676,7 +675,11 @@ annotation (
         Text(
           extent={{-98,26},{-56,14}},
           lineColor={255,127,0},
-          textString="uChiSta")}),
+          textString="uChiSta"),
+        Text(
+          extent={{-98,-134},{-48,-146}},
+          lineColor={255,0,255},
+          textString="uChiHeaCon")}),
 Documentation(info="<html>
 <p>
 Block that controls devices when there is a stage-up command. This sequence is for

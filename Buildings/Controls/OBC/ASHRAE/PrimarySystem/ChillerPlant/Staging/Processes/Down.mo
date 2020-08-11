@@ -110,6 +110,10 @@ block Down
     "Current chiller stage, it would the same as chiller stage setpoint when it is not in staging process"
     annotation (Placement(transformation(extent={{-320,140},{-280,180}}),
       iconTransformation(extent={{-140,10},{-100,50}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChiHeaCon[nChi]
+    "Chillers head pressure control status"
+    annotation (Placement(transformation(extent={{-320,110},{-280,150}}),
+      iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uChiWatIsoVal[nChi](
     final min=fill(0, nChi),
     final max=fill(1, nChi),
@@ -343,9 +347,6 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Latch lat4
     "Maintain ON signal when chiller head pressure control has been disabled"
     annotation (Placement(transformation(extent={{200,-140},{220,-120}})));
-  Buildings.Controls.OBC.CDL.Logical.Pre chiHeaCon[nChi]
-    "Chiller head pressure control enabling status"
-    annotation (Placement(transformation(extent={{-240,70},{-220,90}})));
 
 equation
   connect(nexChi.yEnaSmaChi,dowSta. nexEnaChi)
@@ -639,13 +640,11 @@ equation
   connect(uChiSta, disNexCWP.uChiSta)
     annotation (Line(points={{-300,160},{-150,160},{-150,-165},{98,-165}},
       color={255,127,0}));
+  connect(dowSta.uChiHeaCon, uChiHeaCon) annotation (Line(points={{58,224},{-100,
+          224},{-100,130},{-300,130}}, color={255,0,255}));
+  connect(uChiHeaCon, logSwi.u3) annotation (Line(points={{-300,130},{-100,130},
+          {-100,-90},{120,-90},{120,-78},{138,-78}}, color={255,0,255}));
 
-  connect(chiHeaCon.y, logSwi.u3) annotation (Line(points={{-218,80},{-100,80},{
-          -100,-90},{120,-90},{120,-78},{138,-78}}, color={255,0,255}));
-  connect(chiHeaCon.y, dowSta.uChiHeaCon) annotation (Line(points={{-218,80},{-100,
-          80},{-100,224},{58,224}}, color={255,0,255}));
-  connect(disHeaCon.yChiHeaCon, chiHeaCon.u) annotation (Line(points={{222,-106},
-          {260,-106},{260,110},{-250,110},{-250,80},{-242,80}}, color={255,0,255}));
 annotation (
   defaultComponentName="dowProCon",
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-280,-400},{280,400}})),
@@ -779,7 +778,11 @@ annotation (
         Text(
           extent={{-98,34},{-62,24}},
           lineColor={255,127,0},
-          textString="uChiSta")}),
+          textString="uChiSta"),
+        Text(
+          extent={{-98,6},{-44,-6}},
+          lineColor={255,0,255},
+          textString="uChiHeaCon")}),
 Documentation(info="<html>
 <p>
 Block that controls devices when there is a stage-down command. This sequence is for
