@@ -26,7 +26,7 @@ model HeatingPlantOpenLoop
   parameter Modelica.SIunits.Power Q_flow_nominal= 9000E3
     "Nominal heat flow rate";
 
-  Generation1.HeatingPlant pla(
+  HeatingPlant pla(
     redeclare package Medium_a = MediumWat,
     redeclare package Medium_b = MediumSte,
     mPla_flow_nominal=m_flow_nominal,
@@ -88,8 +88,8 @@ equation
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
   __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Applications/DHC/CentralPlants/Heating/Generation1/Examples/HeatingPlantOpenLoop.mos"
-        "Simulate and plot"),
+    "modelica://Buildings/Resources/Scripts/Dymola/Applications/DHC/CentralPlants/Gen1st/Heating/Examples/HeatingPlantOpenLoop.mos"
+    "Simulate and plot"),
   experiment(
     StartTime=0,
     StopTime=10800,

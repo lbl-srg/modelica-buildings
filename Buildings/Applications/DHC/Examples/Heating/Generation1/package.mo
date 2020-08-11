@@ -147,18 +147,17 @@ package Generation1 "Package of example models for first generation DH systems"
       Modelica.Fluid.Types.Dynamics.SteadyState
       "Type of energy balance: steady state";
 
-    Buildings.Applications.DHC.CentralPlants.Heating.Generation1.HeatingPlant
-      pla(
-      redeclare package Medium_a = MediumWat,
-      redeclare package Medium_b = MediumSte,
-      mPla_flow_nominal=mConPlaDis_flow_nominal,
-      QPla_flow_nominal=QPla_flow_nominal,
-      pOut_nominal=pSte,
-      dp_nominal=6000,
-      effCur=Buildings.Fluid.Types.EfficiencyCurves.Constant,
-      a={0.9},
-      show_T=true)
-      annotation (Placement(transformation(extent={{-80,-120},{-60,-100}})));
+  Buildings.Applications.DHC.CentralPlants.Heating.Generation1.HeatingPlant pla(
+    redeclare package Medium_a = MediumWat,
+    redeclare package Medium_b = MediumSte,
+    mPla_flow_nominal=mConPlaDis_flow_nominal,
+    QPla_flow_nominal=QPla_flow_nominal,
+    pOut_nominal=pSte,
+    dp_nominal=6000,
+    effCur=Buildings.Fluid.Types.EfficiencyCurves.Constant,
+    a={0.9},
+    show_T=true)
+    annotation (Placement(transformation(extent={{-80,-120},{-60,-100}})));
     Buildings.Applications.DHC.Examples.Heating.Generation1.BaseClasses.BuildingTimeSeriesHeating
       bld1(
       redeclare package Medium_a = MediumSte,

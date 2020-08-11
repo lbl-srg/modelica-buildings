@@ -1,4 +1,4 @@
-within Buildings.Applications.DHC.Examples.FirstGeneration;
+within Buildings.Applications.DHC.Examples.Heating.Generation1;
 model HeatingSystemSmall
   "Generic first generation district heating system"
   extends Modelica.Icons.Example;
@@ -81,7 +81,7 @@ model HeatingSystemSmall
     Modelica.Fluid.Types.Dynamics.SteadyState
     "Type of energy balance: steady state";
 
-  Buildings.Applications.DHC.CentralPlants.Gen1st.Heating.HeatingPlant pla(
+  Buildings.Applications.DHC.CentralPlants.Heating.Generation1.HeatingPlant pla(
     redeclare package Medium_a = MediumWat,
     redeclare package Medium_b = MediumSte,
     mPla_flow_nominal=mConPla_flow_nominal,
@@ -92,7 +92,7 @@ model HeatingSystemSmall
     a={0.9},
     show_T=true)
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
-  Buildings.Applications.DHC.Examples.FirstGeneration.BaseClasses.BuildingTimeSeriesHeating
+  Buildings.Applications.DHC.Examples.Heating.Generation1.BaseClasses.BuildingTimeSeriesHeating
     bld1(
     redeclare package Medium_a = MediumSte,
     redeclare package Medium_b = MediumWat,
@@ -107,7 +107,7 @@ model HeatingSystemSmall
     show_T=true)
     annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
 
-  Buildings.Applications.DHC.Examples.FirstGeneration.BaseClasses.BuildingTimeSeriesHeating
+  Buildings.Applications.DHC.Examples.Heating.Generation1.BaseClasses.BuildingTimeSeriesHeating
     bld2(
     redeclare package Medium_a = MediumSte,
     redeclare package Medium_b = MediumWat,
