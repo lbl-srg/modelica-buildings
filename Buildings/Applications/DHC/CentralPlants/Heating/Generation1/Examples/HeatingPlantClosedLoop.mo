@@ -28,7 +28,7 @@ model HeatingPlantClosedLoop
   parameter Modelica.SIunits.Power Q_flow_nominal= 9000E3
     "Nominal heat flow rate";
 
-  HeatingPlant pla(
+  Buildings.Applications.DHC.CentralPlants.Heating.Generation1.HeatingPlant pla(
     redeclare package Medium_a = MediumWat,
     redeclare package Medium_b = MediumSte,
     mPla_flow_nominal=m_flow_nominal,
@@ -42,14 +42,14 @@ model HeatingPlantClosedLoop
   Modelica.Blocks.Sources.Ramp ramp(duration(displayUnit="min") = 1200,
       startTime(displayUnit="h"))
     annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
-  EnergyTransferStations.Heating1stGenIdeal ets(
+  Buildings.Applications.DHC.EnergyTransferStations.Heating.Generation1.Heating1stGenIdeal ets(
     redeclare package Medium_a = MediumSte,
     redeclare package Medium_b = MediumWat,
     m_flow_nominal=m_flow_nominal,
     Q_flow_nominal=Q_flow_nominal,
     pSte_nominal=pSte) "Energy transfer station"
     annotation (Placement(transformation(extent={{40,-20},{60,0}})));
-  Fluid.FixedResistances.Pipe pip(
+  Buildings.Fluid.FixedResistances.Pipe pip(
     redeclare package Medium = MediumWat,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     p_start=pSte,
@@ -85,7 +85,7 @@ equation
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
   __Dymola_Commands(file=
-    "modelica://Buildings/Resources/Scripts/Dymola/Applications/DHC/CentralPlants/Gen1st/Heating/Examples/HeatingPlantClosedLoop.mos"
+    "modelica://Buildings/Resources/Scripts/Dymola/Applications/DHC/CentralPlants/Heating/Generation1/Examples/HeatingPlantClosedLoop.mos"
     "Simulate and plot"),
   experiment(
       StopTime=86400,

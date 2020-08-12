@@ -88,7 +88,7 @@ equation
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
   __Dymola_Commands(file=
-    "modelica://Buildings/Resources/Scripts/Dymola/Applications/DHC/CentralPlants/Gen1st/Heating/Examples/HeatingPlantOpenLoop.mos"
+    "modelica://Buildings/Resources/Scripts/Dymola/Applications/DHC/CentralPlants/Heating/Generation1/Examples/HeatingPlantOpenLoop.mos"
     "Simulate and plot"),
   experiment(
     StartTime=0,

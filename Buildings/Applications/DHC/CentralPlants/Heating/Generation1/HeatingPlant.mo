@@ -75,20 +75,20 @@ model HeatingPlant "First generation district heating plant"
     displayUnit="kW") "Total heat transfer rate of boiler"
     annotation (Placement(transformation(extent={{100,70},{120,90}}),
         iconTransformation(extent={{100,70},{120,90}})));
-  Fluid.FixedResistances.PressureDrop dp(
+  Buildings.Fluid.FixedResistances.PressureDrop dp(
     redeclare package Medium = Medium_a,
     m_flow_nominal=mPla_flow_nominal,
     show_T=show_T,
     dp_nominal(displayUnit="Pa") = dp_nominal)
                                   "Pressure drop in pipe network"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-  Fluid.Sensors.MassFlowRate mSen_flow(redeclare package Medium = Medium_a)
+  Buildings.Fluid.Sensors.MassFlowRate mSen_flow(redeclare package Medium = Medium_a)
     annotation (Placement(transformation(extent={{32,-70},{12,-50}})));
-  Fluid.Sensors.SpecificEnthalpyTwoPort hSen_b(redeclare package Medium =
+  Buildings.Fluid.Sensors.SpecificEnthalpyTwoPort hSen_b(redeclare package Medium =
         Medium_b, m_flow_nominal=mPla_flow_nominal)
     "Specific enthalpy sensor, medium b"
     annotation (Placement(transformation(extent={{50,-10},{70,10}})));
-  Fluid.Sensors.SpecificEnthalpyTwoPort hSen_a(redeclare package Medium =
+  Buildings.Fluid.Sensors.SpecificEnthalpyTwoPort hSen_a(redeclare package Medium =
         Medium_a, m_flow_nominal=mPla_flow_nominal)
     "Specific enthalpy sensor, medium a"
     annotation (Placement(transformation(extent={{70,-70},{50,-50}})));
@@ -99,7 +99,7 @@ model HeatingPlant "First generation district heating plant"
   Modelica.Blocks.Math.Gain PLR(k=1/QPla_flow_nominal)
     "Measured part load ratio"
     annotation (Placement(transformation(extent={{-32,-40},{-52,-20}})));
-  Fluid.Sources.Boundary_pT exp(
+  Buildings.Fluid.Sources.Boundary_pT exp(
     redeclare package Medium = Medium_b,
     p=pOut_nominal,
     T=TOut_nominal,

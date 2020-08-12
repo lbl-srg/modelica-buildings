@@ -76,7 +76,7 @@ model BuildingTimeSeriesHeating
     timeScale=timeScale)
     "Heating demand"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
-  Buildings.Applications.DHC.EnergyTransferStations.Heating1stGenIdeal ets(
+  Buildings.Applications.DHC.EnergyTransferStations.Heating.Generation1.Heating1stGenIdeal ets(
     redeclare final package Medium_a = Medium_a,
     redeclare final package Medium_b = Medium_b,
     m_flow_nominal=m_flow_nominal,

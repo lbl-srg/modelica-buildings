@@ -26,17 +26,17 @@ model Heating1stGenIdeal
   parameter Modelica.SIunits.Power Q_flow_nominal= 200E3
     "Nominal heat flow rate";
 
-  Fluid.Sources.Boundary_pT           watSin(redeclare package Medium =
-        MediumWat,
+  Buildings.Fluid.Sources.Boundary_pT watSin(redeclare package Medium =
+    MediumWat,
     nPorts=1) "Water sink"
     annotation (Placement(transformation(extent={{90,-10},{70,10}})));
-  Fluid.Sources.Boundary_pT           souSte(
+  Buildings.Fluid.Sources.Boundary_pT souSte(
     redeclare package Medium = MediumSte,
     p(displayUnit="Pa") = pSte,
     T=TSte,
     nPorts=1) "Steam source"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-  Buildings.Applications.DHC.EnergyTransferStations.Heating1stGenIdeal ets(
+  Buildings.Applications.DHC.EnergyTransferStations.Heating.Generation1.Heating1stGenIdeal ets(
     redeclare package Medium_a = MediumSte,
     redeclare package Medium_b = MediumWat,
     m_flow_nominal=m_flow_nominal,
@@ -44,7 +44,7 @@ model Heating1stGenIdeal
     pSte_nominal=pSte) "Ideal heating energy transfer station"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Blocks.Sources.TimeTable QHea(table=Q_flow_profile,
-                           timeScale=3600) "Heating demand"
+    timeScale=3600) "Heating demand"
     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
 equation
   connect(souSte.ports[1], ets.port_a)
@@ -56,6 +56,6 @@ equation
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
   experiment(Tolerance=1e-6, StopTime=8600),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Applications/DHC/EnergyTransferStations/Examples/Heating1stGenIdeal.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Applications/DHC/EnergyTransferStations/Heating/Generation1/Examples/Heating1stGenIdeal.mos"
         "Simulate and plot"));
 end Heating1stGenIdeal;

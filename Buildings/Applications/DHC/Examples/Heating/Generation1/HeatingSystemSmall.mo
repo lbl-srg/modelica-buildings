@@ -161,7 +161,7 @@ equation
                           Diagram(coordinateSystem(preserveAspectRatio=false,
           extent={{-150,-150},{150,150}})),
   __Dymola_Commands(file=
-    "modelica://Buildings/Resources/Scripts/Dymola/Applications/DHC/Examples/FirstGeneration/HeatingSystem.mos"
+    "modelica://Buildings/Resources/Scripts/Dymola/Applications/DHC/Examples/Heating/Generation1/HeatingSystemSmall.mos"
     "Simulate and plot"),
   experiment(
       StopTime=86400,

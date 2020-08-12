@@ -54,7 +54,7 @@ model Connection1stGen6PipeSections
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90,
         origin={10,10})));
-  Buildings.Applications.DHC.Examples.FirstGeneration.BaseClasses.BuildingTimeSeriesHeating
+  Buildings.Applications.DHC.Examples.Heating.Generation1.BaseClasses.BuildingTimeSeriesHeating
     bld1(
     redeclare package Medium_a = MediumSte,
     redeclare package Medium_b = MediumWat,
@@ -65,7 +65,7 @@ model Connection1stGen6PipeSections
     show_T=true) "Building"
     annotation (Placement(transformation(extent={{-40,6},{-20,26}})));
 
-  Buildings.Applications.DHC.Examples.FirstGeneration.BaseClasses.BuildingTimeSeriesHeating
+  Buildings.Applications.DHC.Examples.Heating.Generation1.BaseClasses.BuildingTimeSeriesHeating
     bld2(
     redeclare package Medium_a = MediumSte,
     redeclare package Medium_b = MediumWat,
@@ -75,7 +75,7 @@ model Connection1stGen6PipeSections
     timeScale=3600,
     show_T=true) "Building"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
-  CentralPlants.Gen1st.Heating.HeatingPlant pla(
+  Buildings.Applications.DHC.CentralPlants.Heating.Generation1.HeatingPlant pla(
     redeclare package Medium_a = MediumWat,
     redeclare package Medium_b = MediumSte,
     mPla_flow_nominal=mDis_flow_nominal,

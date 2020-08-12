@@ -50,10 +50,10 @@ model Connection1stGen4PipeSections
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90,
         origin={10,10})));
-  Fluid.Sources.Boundary_pT watDisSin(redeclare package Medium = MediumWat,
+  Buildings.Fluid.Sources.Boundary_pT watDisSin(redeclare package Medium = MediumWat,
       nPorts=1) "Water district sink"
     annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
-  Buildings.Applications.DHC.Examples.FirstGeneration.BaseClasses.BuildingTimeSeriesHeating
+  Buildings.Applications.DHC.Examples.Heating.Generation1.BaseClasses.BuildingTimeSeriesHeating
     bld1(
     redeclare package Medium_a = MediumSte,
     redeclare package Medium_b = MediumWat,
@@ -63,13 +63,13 @@ model Connection1stGen4PipeSections
     timeScale=3600)    "Building"
     annotation (Placement(transformation(extent={{-40,6},{-20,26}})));
 
-  Fluid.Sources.Boundary_pT steDisSou(
+  Buildings.Fluid.Sources.Boundary_pT steDisSou(
     redeclare package Medium = MediumSte,
     p=pSte,
     T=TSte,
     nPorts=1) "Steam district source"
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
-  Buildings.Applications.DHC.Examples.FirstGeneration.BaseClasses.BuildingTimeSeriesHeating
+  Buildings.Applications.DHC.Examples.Heating.Generation1.BaseClasses.BuildingTimeSeriesHeating
     bld2(
     redeclare package Medium_a = MediumSte,
     redeclare package Medium_b = MediumWat,

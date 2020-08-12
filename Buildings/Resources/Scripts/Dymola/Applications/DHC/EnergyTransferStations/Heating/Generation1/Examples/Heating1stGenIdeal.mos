@@ -1,5 +1,5 @@
 ﻿// Simulate
-simulateModel("Buildings.Applications.DHC.EnergyTransferStations.Examples.Heating1stGenIdeal", stopTime=8600, method="dassl", tolerance=1e-06, resultFile="Heating1stGenIdeal");
+simulateModel("Buildings.Applications.DHC.EnergyTransferStations.Heating.Generation1.Examples.Heating1stGenIdeal", stopTime=8600, method="dassl", tolerance=1e-06, resultFile="Heating1stGenIdeal");
 // Plot
 createPlot(id=1, position={15, 10, 435, 427}, 
   y={"ets.Q_flow"}, 
