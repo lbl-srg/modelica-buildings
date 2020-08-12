@@ -2,6 +2,24 @@ within Buildings.Controls.OBC.ASHRAE.G36.VentilationZones.Title24.SetPoints.Vali
 model ZoneAbsoluteMinimumOutdoorAirflow
   "Validates zone absolute outdoor airflow setpoint"
 
+  Buildings.Controls.OBC.ASHRAE.G36.VentilationZones.Title24.SetPoints.ZoneAbsoluteMinimumOutdoorAirflow
+    VOutMinZonAbs(have_winSwi=true)
+    annotation (Placement(transformation(extent={{0,100},{20,120}})));
+  Buildings.Controls.OBC.ASHRAE.G36.VentilationZones.Title24.SetPoints.ZoneAbsoluteMinimumOutdoorAirflow
+    VOutMinZonAbs1(have_winSwi=true, have_occSen=true)
+    annotation (Placement(transformation(extent={{0,60},{20,80}})));
+  Buildings.Controls.OBC.ASHRAE.G36.VentilationZones.Title24.SetPoints.ZoneAbsoluteMinimumOutdoorAirflow
+    VOutMinZonAbs2(have_occSen=true)
+    annotation (Placement(transformation(extent={{0,20},{20,40}})));
+  Buildings.Controls.OBC.ASHRAE.G36.VentilationZones.Title24.SetPoints.ZoneAbsoluteMinimumOutdoorAirflow
+    VOutMinZonAbs3
+    annotation (Placement(transformation(extent={{0,-20},{20,0}})));
+  Buildings.Controls.OBC.ASHRAE.G36.VentilationZones.Title24.SetPoints.ZoneAbsoluteMinimumOutdoorAirflow
+    VOutMinZonAbs4(have_occSen=true, have_CO2Sen=true)
+    annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
+  Buildings.Controls.OBC.ASHRAE.G36.VentilationZones.Title24.SetPoints.ZoneAbsoluteMinimumOutdoorAirflow
+    VOutMinZonAbs5(have_winSwi=true, have_CO2Sen=true)
+    annotation (Placement(transformation(extent={{0,-100},{20,-80}})));
 equation
 
 annotation (
@@ -22,7 +40,8 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Icon(graphics={
+    Icon(coordinateSystem(extent={{-100,-140},{100,140}}),
+         graphics={
         Ellipse(lineColor = {75,138,73},
                 fillColor={255,255,255},
                 fillPattern = FillPattern.Solid,
@@ -31,5 +50,6 @@ First implementation.
                 fillColor = {75,138,73},
                 pattern = LinePattern.None,
                 fillPattern = FillPattern.Solid,
-                points = {{-36,60},{64,0},{-36,-60},{-36,60}})}));
+                points = {{-36,60},{64,0},{-36,-60},{-36,60}})}),
+    Diagram(coordinateSystem(extent={{-100,-140},{100,140}})));
 end ZoneAbsoluteMinimumOutdoorAirflow;
