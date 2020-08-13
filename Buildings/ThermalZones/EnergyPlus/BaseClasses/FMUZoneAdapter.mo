@@ -2,7 +2,7 @@ within Buildings.ThermalZones.EnergyPlus.BaseClasses;
 block FMUZoneAdapter "Block that interacts with this EnergyPlus zone"
   extends Modelica.Blocks.Icons.Block;
 
-  constant String spawnLinuxExecutable
+  parameter String spawnLinuxExecutable
     "Path to the spawn executable"
     annotation(HideResult=true);
 
