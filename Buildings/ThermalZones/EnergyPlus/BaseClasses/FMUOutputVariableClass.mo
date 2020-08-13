@@ -19,7 +19,8 @@ class FMUOutputVariableClass
     input Boolean usePrecompiledFMU "Set to true to use precompiled FMU with name specified by input fmuName";
     input String fmuName
       "Specify if a pre-compiled FMU should be used instead of EnergyPlus (mainly for development)";
-    input String buildingsLibraryRoot "Root directory of the Buildings library (used to find the spawn executable)";
+    input String spawnLinuxExecutable
+      "Path to the spawn executable";
     input Buildings.ThermalZones.EnergyPlus.Types.Verbosity verbosity "Verbosity of EnergyPlus output";
     input Boolean printUnit "Set to true to print unit of OutputVariable objects to log file";
     output FMUOutputVariableClass adapter;
@@ -33,7 +34,7 @@ class FMUOutputVariableClass
       componentKey,
       usePrecompiledFMU,
       fmuName,
-      buildingsLibraryRoot,
+      spawnLinuxExecutable,
       verbosity,
       printUnit)
       annotation (Library={"ModelicaBuildingsEnergyPlus", "fmilib_shared", "dl"});

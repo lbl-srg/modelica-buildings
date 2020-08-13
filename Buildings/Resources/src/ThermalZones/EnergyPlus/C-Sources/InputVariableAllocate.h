@@ -22,7 +22,7 @@ void* InputVariableAllocate(
   const char* unit,
   int usePrecompiledFMU,
   const char* fmuName,
-  const char* buildingsLibraryRoot,
+  const char* spawnLinuxExecutable,
   const int verbosity);
 
 #endif

@@ -28,7 +28,7 @@ size_t AllocateBuildingDataStructure(
   const char* weaName,
   int usePrecompiledFMU,
   const char* fmuName,
-  const char* buildingsLibraryRoot){
+  const char* spawnLinuxExecutable){
 
   const size_t nFMU = getBuildings_nFMU();
   const size_t strLenWea = strlen(weaName);
@@ -69,8 +69,8 @@ size_t AllocateBuildingDataStructure(
   strcpy(Buildings_FMUS[nFMU]->modelicaNameBuilding, modelicaNameBuilding);
 
   /* Assign the Buildings library root */
-  mallocString((strlen(buildingsLibraryRoot)+1), "Not enough memory in EnergyPlusFMU.c. to allocate buildingsLibraryRoot.", &(Buildings_FMUS[nFMU]->buildingsLibraryRoot));
-  strcpy(Buildings_FMUS[nFMU]->buildingsLibraryRoot, buildingsLibraryRoot);
+  mallocString((strlen(spawnLinuxExecutable)+1), "Not enough memory in EnergyPlusFMU.c. to allocate spawnLinuxExecutable.", &(Buildings_FMUS[nFMU]->spawnLinuxExecutable));
+  strcpy(Buildings_FMUS[nFMU]->spawnLinuxExecutable, spawnLinuxExecutable);
 
   /* Assign the idfName name */
   if (usePrecompiledFMU){
@@ -299,8 +299,8 @@ void FMUBuildingFree(FMUBuilding* ptrBui){
       fmi_import_free_context(ptrBui->context);
     }
 
-    if (ptrBui->buildingsLibraryRoot != NULL)
-      free(ptrBui->buildingsLibraryRoot);
+    if (ptrBui->spawnLinuxExecutable != NULL)
+      free(ptrBui->spawnLinuxExecutable);
     if (ptrBui->modelicaNameBuilding != NULL)
       free(ptrBui->modelicaNameBuilding);
     if (ptrBui->idfName != NULL)

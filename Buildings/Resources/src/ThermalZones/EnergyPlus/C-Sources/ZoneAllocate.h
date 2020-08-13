@@ -18,7 +18,7 @@ void* ZoneAllocate(
   const char* zoneName,
   int usePrecompiledFMU,
   const char* fmuName,
-  const char* buildingsLibraryRoot,
+  const char* spawnLinuxExecutable,
   const int verbosity);
 
 #endif

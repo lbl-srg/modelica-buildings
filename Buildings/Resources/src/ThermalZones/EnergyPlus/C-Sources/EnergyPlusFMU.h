@@ -26,7 +26,7 @@ size_t AllocateBuildingDataStructure(
   const char* weaName,
   int usePrecompiledFMU,
   const char* fmuName,
-  const char* buildingsLibraryRoot);
+  const char* spawnLinuxExecutable);
 
 void AddZoneToBuilding(FMUZone* ptrZone);
 

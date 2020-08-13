@@ -40,7 +40,7 @@ protected
       unit=Buildings.ThermalZones.EnergyPlus.BaseClasses.getUnitAsString(unit),
       usePrecompiledFMU=usePrecompiledFMU,
       fmuName=fmuName,
-      buildingsLibraryRoot=Buildings.ThermalZones.EnergyPlus.BaseClasses.buildingsLibraryRoot,
+      spawnLinuxExecutable=spawnLinuxExecutable,
       verbosity=verbosity)
    "Class to communicate with EnergyPlus";
 

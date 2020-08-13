@@ -19,7 +19,7 @@ void* OutputVariableAllocate(
   const char* componentKey,
   int usePrecompiledFMU,
   const char* fmuName,
-  const char* buildingsLibraryRoot,
+  const char* spawnLinuxExecutable,
   const int verbosity,
   int printUnit);
 

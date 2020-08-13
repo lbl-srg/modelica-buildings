@@ -53,7 +53,7 @@ typedef struct FMUBuilding
   fmi2_import_t* fmu;
   fmi_import_context_t* context;
   const char* GUID;
-  char* buildingsLibraryRoot; /* Root directory of Buildings library */
+  char* spawnLinuxExecutable; /* Path to Spawn executable */
   char* modelicaNameBuilding; /* Name of the Modelica instance of this zone */
   fmi2Byte* idfName; /* if usePrecompiledFMU == true, the user-specified fmu name, else the idf name */
   fmi2Byte* weather;

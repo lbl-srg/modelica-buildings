@@ -327,7 +327,7 @@ void generateFMU(
   const char* precompiledFMUPath,
   const char* FMUPath,
   const char* modelicaBuildingsJsonFile,
-  const char* buildingsLibraryRoot){
+  const char* spawnLinuxExecutable){
   /* Generate the FMU */
   char* cmd;
   char* cmdFla;
@@ -362,19 +362,17 @@ void generateFMU(
     if( access(modelicaBuildingsJsonFile, F_OK ) == -1 ) {
       ModelicaFormatError("Requested to use json file '%s' which does not exist.", modelicaBuildingsJsonFile);
     }
-    cmd = "/Resources/bin/spawn-linux64/bin/spawn";
     optionFlags = " --no-compress "; /* Flag for command */
     outputFlag = " --output-path "; /* Flag for command */
     createFlag = " --create "; /* Flag for command */
-    len = strlen(buildingsLibraryRoot) + strlen(cmd) + strlen(optionFlags)
+    len = strlen(spawnLinuxExecutable) + strlen(optionFlags)
       + strlen(outputFlag) + strlen("\"") + strlen(FMUPath) + strlen("\"")
       + strlen(createFlag) + strlen("\"") + strlen(modelicaBuildingsJsonFile) + strlen("\"")
       + 1;
 
     mallocString(len, "Failed to allocate memory in generateFMU().", &fulCmd);
     memset(fulCmd, '\0', len);
-    strcpy(fulCmd, buildingsLibraryRoot); /* This is for example /mtn/shared/Buildings */
-    strcat(fulCmd, cmd);
+    strcpy(fulCmd, spawnLinuxExecutable);
     /* Check if the executable exists */
     if( access(fulCmd, F_OK ) == -1 ) {
       ModelicaFormatError("Executable '%s' does not exist.", fulCmd);
@@ -636,7 +634,7 @@ void generateAndInstantiateBuilding(FMUBuilding* bui){
       bui->precompiledFMUAbsPat,
       bui->fmuAbsPat,
       modelicaBuildingsJsonFile,
-      bui->buildingsLibraryRoot);
+      bui->spawnLinuxExecutable);
   free(modelicaBuildingsJsonFile);
 
   if( access( bui->fmuAbsPat, F_OK ) == -1 ) {

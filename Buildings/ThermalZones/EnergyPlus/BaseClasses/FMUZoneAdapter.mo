@@ -2,8 +2,8 @@ within Buildings.ThermalZones.EnergyPlus.BaseClasses;
 block FMUZoneAdapter "Block that interacts with this EnergyPlus zone"
   extends Modelica.Blocks.Icons.Block;
 
-  constant String buildingsLibraryRoot
-    "Root directory of the Buildings library (used to find the spawn executable"
+  constant String spawnLinuxExecutable
+    "Path to the spawn executable"
     annotation(HideResult=true);
 
   constant String modelicaNameBuilding
@@ -92,7 +92,7 @@ protected
       zoneName=zoneName,
       usePrecompiledFMU=usePrecompiledFMU,
       fmuName=fmuName,
-      buildingsLibraryRoot=buildingsLibraryRoot,
+      spawnLinuxExecutable=spawnLinuxExecutable,
       verbosity=verbosity)
     "Class to communicate with EnergyPlus";
 

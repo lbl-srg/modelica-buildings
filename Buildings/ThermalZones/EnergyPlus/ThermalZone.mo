@@ -83,7 +83,6 @@ model ThermalZone "Model to connect to an EnergyPlus thermal zone"
             220,110}})));
 
   Buildings.ThermalZones.EnergyPlus.BaseClasses.FMUZoneAdapter fmuZon(
-    final buildingsLibraryRoot=Buildings.ThermalZones.EnergyPlus.BaseClasses.buildingsLibraryRoot,
     final modelicaNameBuilding=modelicaNameBuilding,
     final modelicaNameThermalZone=modelicaNameThermalZone,
     final idfName=idfName,
@@ -92,6 +91,7 @@ model ThermalZone "Model to connect to an EnergyPlus thermal zone"
     final nFluPor=nPorts,
     final usePrecompiledFMU=usePrecompiledFMU,
     final fmuName=fmuName,
+    final spawnLinuxExecutable=spawnLinuxExecutable,
     final verbosity=verbosity) "FMU zone adapter"
     annotation (Placement(transformation(extent={{80,100},{100,120}})));
 

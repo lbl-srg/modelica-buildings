@@ -53,7 +53,7 @@ void* ZoneAllocate(
   const char* zoneName,
   int usePrecompiledFMU,
   const char* fmuName,
-  const char* buildingsLibraryRoot,
+  const char* spawnLinuxExecutable,
   const int verbosity){
   /* Note: The idfName is needed to unpack the fmu so that the valueReference
      for the zone with zoneName can be obtained */
@@ -70,7 +70,7 @@ void* ZoneAllocate(
 
   if (FMU_EP_VERBOSITY >= MEDIUM){
     ModelicaFormatMessage("Entered ZoneAllocate for zone %s.\n", modelicaNameThermalZone);
-    ModelicaFormatMessage("Buildings library root is at %s\n", buildingsLibraryRoot);
+    ModelicaFormatMessage("Spawn executable is at %s\n", spawnLinuxExecutable);
   }
 
   /* Dymola 2019FD01 calls in some cases the allocator twice. In this case, simply return the previously instanciated zone pointer */
@@ -186,7 +186,7 @@ void* ZoneAllocate(
       weaName,
       usePrecompiledFMU,
       fmuName,
-      buildingsLibraryRoot);
+      spawnLinuxExecutable);
     zone->ptrBui = getBuildingsFMU(i);
 
     AddZoneToBuilding(zone);
