@@ -14,6 +14,8 @@
 #include <string.h>
 #include <stdio.h>
 
+int FMU_EP_VERBOSITY = 1; /* Verbosity */
+
 void mallocString(const size_t nChar, const char *error_message, char** str, void (*SpawnFormatError)(const char *string, ...)){
   *str = malloc(nChar * sizeof(char));
   if ( *str == NULL )
