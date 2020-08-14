@@ -9,7 +9,8 @@ model OneZone "Validation model for one zone"
     weaName = Modelica.Utilities.Files.loadResource(
       "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"),
     usePrecompiledFMU=false,
-    showWeatherData=false)
+    showWeatherData=false,
+    verbosity=Buildings.ThermalZones.EnergyPlus.Types.Verbosity.Verbose)
     "Building model"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
 
