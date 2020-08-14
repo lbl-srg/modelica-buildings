@@ -14,6 +14,8 @@
 #include <string.h>
 #include <stdio.h>
 
+int FMU_EP_VERBOSITY = 1; /* Verbosity */
+
 /* This write statement is experimental to flush the write statements
    to a file. It is useful to debug if segmentation faults happen.
 */
