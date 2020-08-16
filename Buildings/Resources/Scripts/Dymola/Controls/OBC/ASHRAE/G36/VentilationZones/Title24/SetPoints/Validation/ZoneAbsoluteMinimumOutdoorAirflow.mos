@@ -1,0 +1,28 @@
+simulateModel("Buildings.Controls.OBC.ASHRAE.G36.VentilationZones.Title24.SetPoints.Validation.ZoneAbsoluteMinimumOutdoorAirflow", method="Cvode", stopTime=600, tolerance=1e-06, resultFile="ZoneAbsoluteMinimumOutdoorAirflow1");
+
+createPlot(id=1, position={10, 10, 1200, 800}, subPlot=1, y={"VOutMinZonAbs.have_winSwi", "VOutMinZonAbs.have_occSen", "VOutMinZonAbs.have_CO2Sen"}, grid=true, colors={{238,46,47},{238,46,47},{127,127,127}});
+createPlot(id=1, position={10, 10, 1200, 800}, subPlot=2, y={"VOutMinZonAbs.uWin"}, grid=true, colors={{238,46,47}});
+createPlot(id=1, position={10, 10, 1200, 800}, subPlot=3, y={"VOutMinZonAbs.VOutMinZonDes_flow"}, grid=true, colors={{238,46,47}});
+createPlot(id=1, position={10, 10, 1200, 800}, subPlot=4, y={"VOutMinZonAbs.VOutMinZonAbs_flow"}, grid=true, colors={{238,46,47}});
+
+createPlot(id=2, position={20, 20, 1200, 800}, subPlot=1, y={"VOutMinZonAbs1.have_winSwi", "VOutMinZonAbs1.have_occSen", "VOutMinZonAbs1.have_CO2Sen"}, grid=true, colors={{238,46,47},{238,46,47},{127,127,127}});
+createPlot(id=2, position={20, 20, 1200, 800}, subPlot=2, y={"VOutMinZonAbs1.uOcc", "VOutMinZonAbs1.uWin"}, grid=true, colors={{238,46,47},{127,127,127}});
+createPlot(id=2, position={20, 20, 1200, 800}, subPlot=3, y={"VOutMinZonAbs1.VOutMinZonDes_flow"}, grid=true, colors={{238,46,47}});
+createPlot(id=2, position={20, 20, 1200, 800}, subPlot=4, y={"VOutMinZonAbs1.VOutMinZonAbs_flow"}, grid=true, colors={{238,46,47}});
+
+createPlot(id=3, position={30, 30, 1200, 800}, subPlot=1, y={"VOutMinZonAbs2.have_winSwi", "VOutMinZonAbs2.have_occSen", "VOutMinZonAbs2.have_CO2Sen"}, grid=true, colors={{238,46,47},{238,46,47},{127,127,127}});
+createPlot(id=3, position={30, 30, 1200, 800}, subPlot=2, y={"VOutMinZonAbs2.uOcc"}, grid=true, colors={{238,46,47}});
+createPlot(id=3, position={30, 30, 1200, 800}, subPlot=3, y={"VOutMinZonAbs2.VOutMinZonDes_flow"}, grid=true, colors={{238,46,47}});
+createPlot(id=3, position={30, 30, 1200, 800}, subPlot=4, y={"VOutMinZonAbs2.VOutMinZonAbs_flow"}, grid=true, colors={{238,46,47}});
+
+createPlot(id=4, position={40, 40, 1200, 800}, subPlot=1, y={"VOutMinZonAbs3.have_winSwi", "VOutMinZonAbs3.have_occSen", "VOutMinZonAbs3.have_CO2Sen"}, grid=true, colors={{238,46,47},{238,46,47},{127,127,127}});
+createPlot(id=4, position={40, 40, 1200, 800}, subPlot=2, y={"VOutMinZonAbs3.VOutMinZonDes_flow"}, grid=true, colors={{238,46,47}});
+createPlot(id=4, position={40, 40, 1200, 800}, subPlot=3, y={"VOutMinZonAbs3.VOutMinZonAbs_flow"}, grid=true, colors={{238,46,47}});
+
+createPlot(id=5, position={50, 50, 1200, 800}, subPlot=1, y={"VOutMinZonAbs4.have_winSwi", "VOutMinZonAbs4.have_occSen", "VOutMinZonAbs4.have_CO2Sen"}, grid=true, colors={{238,46,47},{238,46,47},{127,127,127}});
+createPlot(id=5, position={50, 50, 1200, 800}, subPlot=2, y={"VOutMinZonAbs4.uOcc"}, grid=true, colors={{238,46,47}});
+createPlot(id=5, position={50, 50, 1200, 800}, subPlot=3, y={"VOutMinZonAbs4.VOutMinZonAbs_flow"}, grid=true, colors={{238,46,47}});
+
+createPlot(id=6, position={60, 60, 1200, 800}, subPlot=1, y={"VOutMinZonAbs5.have_winSwi", "VOutMinZonAbs5.have_occSen", "VOutMinZonAbs5.have_CO2Sen"}, grid=true, colors={{238,46,47},{238,46,47},{127,127,127}});
+createPlot(id=6, position={60, 60, 1200, 800}, subPlot=2, y={"VOutMinZonAbs5.uWin"}, grid=true, colors={{238,46,47}});
+createPlot(id=6, position={60, 60, 1200, 800}, subPlot=3, y={"VOutMinZonAbs5.VOutMinZonAbs_flow"}, grid=true, colors={{238,46,47}});

@@ -120,6 +120,7 @@ annotation (
             100}})),
  Documentation(info="<html>
 <p>
+<code>VOutMinZonDes_flow</code> is used in air handler sequences. 
 Per section 5.2.1.4.b.2. zone design minimum outdoor airflow <code>VOutMinZonDes_flow</code> equals the following:  
 </p>
 <ul>

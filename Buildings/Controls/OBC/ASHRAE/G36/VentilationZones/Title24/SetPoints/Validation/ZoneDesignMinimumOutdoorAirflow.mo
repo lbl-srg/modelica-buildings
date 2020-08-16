@@ -4,16 +4,20 @@ model ZoneDesignMinimumOutdoorAirflow
 
   Buildings.Controls.OBC.ASHRAE.G36.VentilationZones.Title24.SetPoints.ZoneDesignMinimumOutdoorAirflow
     VOutMinZonDes
+    "Determines zone design minimum outdoor air setpoint for a zone with a window switch"
     annotation (Placement(transformation(extent={{20,60},{40,80}})));
   Buildings.Controls.OBC.ASHRAE.G36.VentilationZones.Title24.SetPoints.ZoneDesignMinimumOutdoorAirflow
     VOutMinZonDes1(have_winSwi=false, have_occSen=true)
+    "Determines zone design minimum outdoor air setpoint for a zone with an occupancy sensor"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
   Buildings.Controls.OBC.ASHRAE.G36.VentilationZones.Title24.SetPoints.ZoneDesignMinimumOutdoorAirflow
     VOutMinZonDes2(have_winSwi=true, have_occSen=true)
+    "Determines zone design minimum outdoor air setpoint for a zone with both a window switch and an occupancy sensor"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
   Buildings.Controls.OBC.ASHRAE.G36.VentilationZones.Title24.SetPoints.ZoneDesignMinimumOutdoorAirflow
     VOutMinZonDes3(have_winSwi=false,
                    have_occSen=false)
+    "Determines zone design minimum outdoor air setpoint for a zone without both a window switch and an occupancy sensor"
     annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
   CDL.Logical.Sources.Pulse occSig(period=60) "Occupancy signal"
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
@@ -40,8 +44,8 @@ annotation (
   Documentation(info="<html>
 <p>
 This example validates
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.SetPoints.ExhaustDamper\">
-Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.SetPoints.ExhaustDamper</a>.
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.VentilationZones.Title24.SetPoints.ZoneDesignMinimumOutdoorAirflow\">
+Buildings.Controls.OBC.ASHRAE.G36.VentilationZones.Title24.SetPoints.ZoneDesignMinimumOutdoorAirflow</a>.
 </p>
 </html>", revisions="<html>
 <ul>

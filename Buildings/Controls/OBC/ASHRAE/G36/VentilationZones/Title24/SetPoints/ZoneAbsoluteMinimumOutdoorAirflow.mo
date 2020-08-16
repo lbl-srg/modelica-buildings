@@ -15,7 +15,7 @@ block ZoneAbsoluteMinimumOutdoorAirflow
   parameter Real VAreMin_flow(
     final min=0,
     final unit="m3/s",
-    final quantity="VolumeFlowRate")
+    final quantity="VolumeFlowRate") = 0.2
     "Zone minimum outdoor airflow for building area, per California Title 24 prescribed airflow-per-area requirements"
     annotation(Dialog(enable=have_occSen));
 
@@ -32,7 +32,7 @@ block ZoneAbsoluteMinimumOutdoorAirflow
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VOutMinZonDes_flow(
     final min=0,
     final unit="m3/s",
-    final quantity="VolumeFlowRate") if not (have_winSwi or have_occSen or have_CO2Sen)
+    final quantity="VolumeFlowRate") if not have_CO2Sen
     "Outdoor air volume flow setpoint used in AHU sequeces"
     annotation (Placement(transformation(extent={{-180,-90},{-140,-50}}),
         iconTransformation(extent={{-140,-80},{-100,-40}})));
@@ -80,8 +80,8 @@ block ZoneAbsoluteMinimumOutdoorAirflow
     "Switch"
     annotation (Placement(transformation(extent={{0,-100},{20,-80}})));
 
-  CDL.Logical.Sources.Constant fal1(
-    final k=have_CO2Sen) "Boolean signal"
+  CDL.Logical.Sources.Constant CO2Sen(final k=have_CO2Sen)
+    "True if the zone has a CO2 sensor"
     annotation (Placement(transformation(extent={{-60,-130},{-40,-110}})));
 
   CDL.Continuous.Sources.Constant zero1(
@@ -103,8 +103,8 @@ equation
           {-42,0}},   color={0,0,127}));
   connect(gai.y,swi1. u3) annotation (Line(points={{-18,0},{0,0},{0,-48},{38,-48}},
                  color={0,0,127}));
-  connect(swi1.y,swi. u3) annotation (Line(points={{62,-40},{70,-40},{70,10},{30,
-          10},{30,42},{38,42}}, color={0,0,127}));
+  connect(swi1.y,swi. u3) annotation (Line(points={{62,-40},{70,-40},{70,0},{30,
+          0},{30,42},{38,42}},  color={0,0,127}));
   connect(fal.y,swi. u2) annotation (Line(points={{-18,30},{0,30},{0,50},{38,50}},
         color={255,0,255}));
   connect(tru.y,swi1. u2) annotation (Line(points={{-18,-40},{38,-40}},
@@ -113,8 +113,8 @@ equation
           38,-32}}, color={0,0,127}));
   connect(VAreMin.y, swi2.u1) annotation (Line(points={{-98,70},{-80,70},{-80,
           -82},{-2,-82}},     color={0,0,127}));
-  connect(fal1.y, swi2.u2) annotation (Line(points={{-38,-120},{-20,-120},{-20,-90},
-          {-2,-90}}, color={255,0,255}));
+  connect(CO2Sen.y, swi2.u2) annotation (Line(points={{-38,-120},{-20,-120},{-20,
+          -90},{-2,-90}}, color={255,0,255}));
   connect(swi.y, VOutMinZonAbs_flow) annotation (Line(points={{62,50},{100,50},{
           100,0},{160,0}}, color={0,0,127}));
   connect(VOutMinZonDes_flow, swi2.u3) annotation (Line(points={{-160,-70},{-100,
@@ -136,17 +136,31 @@ annotation (
             140}})),
  Documentation(info="<html>
 <p>
-fixme
+<code>VOutMinZonAbs_flow</code> is used in air handler and terminal unit sequences.
+Per section 5.2.1.4.b.1. zone absolute minimum outdoor airflow <code>VOutMinZonAbs_flow</code> equals the following:  
 </p>
-
-<p align=\"center\">
-<img alt=\"Image of the exhaust damper control chart for single zone AHU\"
-src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/AHUs/SingleZone/VAV/SetPoints/ExhaustDamper.png\"/>
-</p>
+<ul>
+<li>
+Zero, if the zone has a window switch as indicated by <code>have_winSwi</code> parameter and the window is open, 
+that is the <code>uWin</code> input is <code>true</code>
+</li>
+<li>
+<code>FraVAreMin</code> fraction of zone minimum outdoor airflow for building area <code>VAreMin_flow</code> if the zone has an 
+occupancy sensor as indicated by <code>have_occSen</code> parameter and is unpopulated, 
+that is the <code>uOcc</code> input is <code>false</code>
+</li>
+<li>
+<code>VAreMin_flow</code> if the zone has a CO2 sensor, that is <code>have_CO2Sen</code> parameter is <code>true</code></li>
+<li>
+Zone design minimum outdoor airflow <code>VOutMinZonDes_flow</code> otherwise. <code>VOutMinZonDes_flow</code> is an output from 
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.VentilationZones.Title24.SetPoints.ZoneDesignMinimumOutdoorAirflow\">
+Buildings.Controls.OBC.ASHRAE.G36.VentilationZones.Title24.SetPoints.ZoneDesignMinimumOutdoorAirflow</a>.
+</li>
+</ul>
 </html>", revisions="<html>
 <ul>
 <li>
-Jun 20, 2020, by Milica Grahovac:<br/>
+August 10, 2020, by Milica Grahovac:<br/>
 First implementation.
 </li>
 </ul>
