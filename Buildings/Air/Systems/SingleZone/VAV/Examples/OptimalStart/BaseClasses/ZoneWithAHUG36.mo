@@ -9,19 +9,19 @@ block ZoneWithAHUG36
   parameter Modelica.SIunits.Temperature TSupChi_nominal=279.15
     "Design value for chiller leaving water temperature";
   parameter Modelica.SIunits.Volume VRoo = 4555.7 "Space volume of the floor";
-  parameter Modelica.SIunits.MassFlowRate mAir_flow_nominal = VRoo*5*1.2/3600
+  parameter Modelica.SIunits.MassFlowRate mAir_flow_nominal = VRoo*4*1.2/3600
     "Design air flow rate";
-  parameter Modelica.SIunits.HeatFlowRate QHea_flow_nominal = mAir_flow_nominal*1006*(50-8.5)
+  parameter Modelica.SIunits.HeatFlowRate QHea_flow_nominal = 126000
     "Design heating flow rate";
-  parameter Modelica.SIunits.HeatFlowRate QCoo_flow_nominal = -QHea_flow_nominal
+  parameter Modelica.SIunits.HeatFlowRate QCoo_flow_nominal = -110000
     "Design cooling flow rate";
 
   Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.Controller con(
     have_winSen=false,
     TZonHeaOn=293.15,
     TZonCooOff=303.15,
-    controllerTypeCoo=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
-    kCoo=1,
+    kCoo=4,
+    kCooCoi=1,
     yHeaMax=0.2,
     AFlo=1663,
     VOutMin_flow=0.5,

@@ -74,7 +74,7 @@ equation
           {54,-50},{54,-54},{78,-54}},          color={0,0,127}));
   connect(TSetRooCoo.y[1], zonAHUCon2.TSetRooCoo) annotation (Line(points={{-18,-80},
           {54,-80},{54,-60},{78,-60}},      color={0,0,127}));
-  connect(zonAHUCon1.TRoo, optSta.TZon) annotation (Line(points={{102,60},{104,
+  connect(zonAHUCon1.TZon, optSta.TZon) annotation (Line(points={{102,60},{104,
           60},{104,30},{-58,30},{-58,67},{-42,67}}, color={0,0,127}));
   connect(optSta.optOn, booToRea1.u) annotation (Line(points={{-18,66},{-6,66},{
           -6,80},{-2,80}}, color={255,0,255}));
@@ -115,7 +115,7 @@ equation
     experiment(
       StopTime=31536000,
       Tolerance=1e-06,
-      __Dymola_Algorithm="Dassl"),
+      __Dymola_Algorithm="Cvode"),
       __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Air/Systems/SingleZone/VAV/Examples/Guideline36.mos"
         "Simulate and plot"),
       Documentation(info="<html>

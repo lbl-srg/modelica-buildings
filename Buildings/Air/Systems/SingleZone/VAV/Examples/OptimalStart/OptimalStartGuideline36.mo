@@ -45,7 +45,7 @@ equation
           {20,76},{20,56},{38,56}}, color={0,0,127}));
   connect(optStaCoo.tOpt, zonAHUG36_1.cooDowTim) annotation (Line(points={{2,34},
           {20,34},{20,51.8},{38,51.8}}, color={0,0,127}));
-  connect(zonAHUG36_1.TSupCoo, optStaHea.TZon) annotation (Line(points={{62,50},
+  connect(zonAHUG36_1.TZon, optStaHea.TZon) annotation (Line(points={{62,50},
           {64,50},{64,14},{-32,14},{-32,69},{-22,69}}, color={0,0,127}));
   connect(con.y, zonAHUG36_2.warUpTim) annotation (Line(points={{2,-70},{8,-70},
           {8,-64},{38,-64}}, color={0,0,127}));
@@ -85,10 +85,10 @@ equation
           fillPattern=FillPattern.Solid,
           textString="System with optimal start")}),
     experiment(
-      StopTime=604800,
+      StopTime=31536000,
       Tolerance=1e-06,
       __Dymola_Algorithm="Cvode"),
-      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Air/Systems/SingleZone/VAV/Examples/Guideline36.mos"
+      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Air/Systems/SingleZone/VAV/Examples/OptimalStart/OptimalStartGuideline36.mos"
         "Simulate and plot"),
       Documentation(info="<html>
 <p>
