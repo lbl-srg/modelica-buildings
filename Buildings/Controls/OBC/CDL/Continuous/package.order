@@ -6,7 +6,6 @@ Atan2
 Average
 ChangeSign
 Cos
-Derivative
 Division
 Exp
 Feedback
@@ -18,7 +17,6 @@ HysteresisWithHold
 IntegratorWithReset
 Less
 LessThreshold
-LimPID
 Limiter
 Line
 Log
@@ -34,6 +32,8 @@ MultiMax
 MultiMin
 MultiSum
 NumberOfRequests
+PID
+PIDWithReset
 Product
 Round
 Sin

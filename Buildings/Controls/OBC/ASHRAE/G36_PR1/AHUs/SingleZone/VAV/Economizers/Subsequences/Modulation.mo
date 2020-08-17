@@ -95,12 +95,11 @@ block Modulation "Outdoor and return air damper position modulation sequence for
     annotation (Placement(transformation(extent={{120,-10},{140,10}}),
       iconTransformation(extent={{100,-10},{120,10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.LimPID uTSup(
+  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset uTSup(
     final controllerType=controllerType,
     final k=k,
     final Ti=Ti,
     final Td=Td,
-    final reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter,
     final yMax=1,
     final yMin=0)
     "Contoller that outputs a signal based on the error between the measured SAT and SAT heating setpoint"
@@ -138,10 +137,12 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant uMaxHeaCoi(final k=1)
     "Maximal control loop signal for the heating coil"
     annotation (Placement(transformation(extent={{-60,90},{-40,110}})));
-  CDL.Logical.Switch enaDis "Enable or disable the heating coil"
+  Buildings.Controls.OBC.CDL.Logical.Switch enaDis "Enable or disable the heating coil"
     annotation (Placement(transformation(extent={{76,30},{96,50}})));
-  CDL.Continuous.Sources.Constant Off(final k=0) "Off signal for heating coil"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant Off(
+    final k=0) "Off signal for heating coil"
     annotation (Placement(transformation(extent={{6,-90},{26,-70}})));
+
 equation
   connect(retDamMaxLimSig.y,retDamPos. x2)
     annotation (Line(points={{-38,-24},{-12,-24},{-12,-4},{20,-4}},                 color={0,0,127}));
@@ -195,8 +196,8 @@ equation
     annotation (Line(points={{44,0},{130,0}}, color={0,0,127}));
   connect(outDamPos.y, yOutDamPos)
     annotation (Line(points={{46,-40},{130,-40}}, color={0,0,127}));
-  connect(uSupFan, uTSup.trigger) annotation (Line(points={{-140,-110},{-98,
-          -110},{-98,68}}, color={255,0,255}));
+  connect(uSupFan, uTSup.trigger) annotation (Line(points={{-140,-110},{-96,-110},
+          {-96,68}},       color={255,0,255}));
   annotation (
     defaultComponentName = "mod",
     Icon(graphics={

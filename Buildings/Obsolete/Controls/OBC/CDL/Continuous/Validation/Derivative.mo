@@ -1,4 +1,4 @@
-within Buildings.Controls.OBC.CDL.Continuous.Validation;
+within Buildings.Obsolete.Controls.OBC.CDL.Continuous.Validation;
 model Derivative "Validation model for the Derivative block"
   Buildings.Controls.OBC.CDL.Continuous.Cos cos1
     "Block that outputs the cosine of the input"
@@ -9,7 +9,7 @@ model Derivative "Validation model for the Derivative block"
     height=6.283*5) "Block that generates ramp signal"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Derivative der1(
+  Buildings.Obsolete.Controls.OBC.CDL.Continuous.Derivative der1(
     y_start=-10) "Approximate the derivative of the input"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 
@@ -20,13 +20,13 @@ equation
     annotation (Line(points={{12,0},{38,0}},        color={0,0,127}));
   annotation (
   experiment(StopTime=2.0, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Continuous/Validation/Derivative.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Obsolete/Controls/OBC/CDL/Continuous/Validation/Derivative.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
 Validation test for the block
-<a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.Derivative\">
-Buildings.Controls.OBC.CDL.Continuous.Derivative</a>.
+<a href=\"modelica://Buildings.Obsolete.Controls.OBC.CDL.Continuous.Derivative\">
+Buildings.Obsolete.Controls.OBC.CDL.Continuous.Derivative</a>.
 </p>
 <p>
 The input <code>u</code> varies from <i>0.0</i> to <i>+5*6.283</i>.

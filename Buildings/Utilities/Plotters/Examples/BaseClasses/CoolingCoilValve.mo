@@ -17,7 +17,7 @@ block CoolingCoilValve "Cooling coil valve position control sequence"
     "Recorded outdoor air temperature cooling threshold"
     annotation(Evaluate=true, Dialog(group="Enable"));
 
-  parameter Modelica.SIunits.Temperature TOutDelta = 2 * (5/9)
+  parameter Modelica.SIunits.Temperature TOutDelta = 2 * (5/9) - 32 * (5/9) + 273.15
     "Recorded outdoor air temperature cooling threshold hysteresis delta"
     annotation(Evaluate=true, Dialog(group="Enable"));
 
@@ -102,14 +102,13 @@ block CoolingCoilValve "Cooling coil valve position control sequence"
     annotation (Placement(transformation(extent={{120,-10},{140,10}}),
       iconTransformation(extent={{100,-10},{120,10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.LimPID limPI(
+  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset limPI(
     final reverseActing=reverseActing,
     final k=k,
     final Ti = Ti,
     final yMax=1,
     final yMin=0,
-    final y_reset=0,
-    final reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter)
+    final y_reset=0)
     "Custom PI controller"
     annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
 
@@ -119,13 +118,6 @@ block CoolingCoilValve "Cooling coil valve position control sequence"
     "Defines lower limit of the cooling valve signal at low range SATs"
     annotation (Placement(transformation(extent={{80,-30},{100,-10}})));
 
-  Controls.OBC.CDL.Continuous.GreaterThreshold TOutThr(t=TOutCooCut, h=
-        TOutDelta)
-    "Determines whether the outdoor air temperature is below a treshold"
-    annotation (Placement(transformation(extent={{-110,-30},{-90,-10}})));
-  Controls.OBC.CDL.Continuous.GreaterThreshold uFanFeeThr(t=FanFeeCut, h=
-        FanFeeDelta) "Checks if the fan status is above a threshold"
-    annotation (Placement(transformation(extent={{-110,-70},{-90,-50}})));
 protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yCooValMin(
     final k=uMin)
@@ -136,6 +128,18 @@ protected
     final k=uMax)
     "Minimal control loop signal limit when supply air temperature is at a defined low limit"
     annotation (Placement(transformation(extent={{40,-100},{60,-80}})));
+
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis TOutThr(
+    final uLow = TOutCooCut - TOutDelta,
+    final uHigh = TOutCooCut)
+    "Determines whether the outdoor air temperature is below a treashold"
+    annotation (Placement(transformation(extent={{-110,-30},{-90,-10}})));
+
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis uFanFeeThr(
+    final uLow=FanFeeCut - FanFeeDelta,
+    final uHigh= FanFeeCut)
+    "Checks if the fan status is above a threshold"
+    annotation (Placement(transformation(extent={{-110,-70},{-90,-50}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSupMin(
     final k=TSupHigLim)
@@ -166,6 +170,10 @@ protected
     annotation (Placement(transformation(extent={{40,74},{60,94}})));
 
 equation
+  connect(TOut, TOutThr.u)
+    annotation (Line(points={{-140,-20},{-112,-20}}, color={0,0,127}));
+  connect(TOutThr.y, andIntErr.u1)
+    annotation (Line(points={{-88,-20},{-86,-20},{-86,-52},{-72,-52}}, color={255,0,255}));
   connect(TSup, higLim.u)
     annotation (Line(points={{-140,40},{20,40},{20,-20},{78,-20}}, color={0,0,127}));
   connect(yCooVal,min. y)
@@ -181,6 +189,10 @@ equation
     annotation (Line(points={{-140,90},{-92,90},{-92,90},{-42,90}}, color={0,0,127}));
   connect(TSup, limPI.u_m)
     annotation (Line(points={{-140,40},{-30,40},{-30,78}}, color={0,0,127}));
+  connect(andIntErr.u2, uFanFeeThr.y)
+    annotation (Line(points={{-72,-60},{-88,-60}}, color={255,0,255}));
+  connect(uFanFee, uFanFeeThr.u)
+    annotation (Line(points={{-140,-60},{-112,-60}}, color={0,0,127}));
   connect(andIntErr.y, cha.u)
     annotation (Line(points={{-48,-60},{-42,-60}}, color={255,0,255}));
   connect(cha.y, limPI.trigger)
@@ -201,14 +213,6 @@ equation
           {38,78}},color={0,0,127}));
   connect(min.u1, pro.y)
     annotation (Line(points={{78,36},{72,36},{72,84},{62,84}},color={0,0,127}));
-  connect(TOut, TOutThr.u)
-    annotation (Line(points={{-140,-20},{-112,-20}}, color={0,0,127}));
-  connect(TOutThr.y, andIntErr.u1) annotation (Line(points={{-88,-20},{-80,-20},
-          {-80,-52},{-72,-52}}, color={255,0,255}));
-  connect(uFanFee, uFanFeeThr.u)
-    annotation (Line(points={{-140,-60},{-112,-60}}, color={0,0,127}));
-  connect(andIntErr.u2, uFanFeeThr.y)
-    annotation (Line(points={{-72,-60},{-88,-60}}, color={255,0,255}));
   annotation (
     defaultComponentName = "cooVal",
     Icon(graphics={
@@ -263,10 +267,6 @@ the ALC EIKON control sequence implementation in one of LBNL buildings.
 </p>
 </html>", revisions="<html>
 <ul>
-<li>
-August 6, 2020, by Michael Wetter:<br/>
-Replaced hysteresis with new inequality block.
-</li>
 <li>
 April 09, 2018, by Milica Grahovac:<br/>
 First implementation.

@@ -394,6 +394,10 @@ protected
   CDL.Continuous.Less                           les2
     "Check if discharge airflow is less than 70% of setpoint"
     annotation (Placement(transformation(extent={{-60,-110},{-40,-90}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant damRes(
+    final k=true)
+    "Dammy reset input to timer that does not accumulate time"
+    annotation (Placement(transformation(extent={{-60,370},{-40,390}})));
 
   CDL.Logical.Not notLes1
                          "Inversion of output signal"
@@ -419,9 +423,8 @@ equation
     annotation (Line(points={{-38,300},{-20,300},{-20,264},{-110,264},{-110,268.2}},
       color={255,0,255}));
   connect(lat.y, edg.u)
-    annotation (Line(points={{-38,340},{-20,340},{-20,318},{-80,318},{-80,300},{
-          -62,300}},
-      color={255,0,255}));
+    annotation (Line(points={{-38,340},{-20,340},{-20,318},{-80,318},{-80,300},
+      {-62,300}}, color={255,0,255}));
   connect(edg.y, lat1.clr)
     annotation (Line(points={{-38,300},{-20,300},{-20,264},{58,264}}, color={255,0,255}));
   connect(modTim.y, gre1.u1)
@@ -660,12 +663,32 @@ equation
       color={0,0,127}));
   connect(les1.u1, gai1.y)
     annotation (Line(points={{-62,-40},{-78,-40}}, color={0,0,127}));
+<<<<<<< HEAD
   connect(les1.u2, sampler1.y) annotation (Line(points={{-62,-48},{-72,-48},{-72,
           -70},{-138,-70}}, color={0,0,127}));
   connect(gai2.y, les2.u1) annotation (Line(points={{-78,-88},{-76,-88},{-76,-100},
           {-62,-100}}, color={0,0,127}));
   connect(sampler1.y, les2.u2) annotation (Line(points={{-138,-70},{-132,-70},{
           -132,-108},{-62,-108}}, color={0,0,127}));
+=======
+  connect(greEqu.u2, sampler1.y)
+    annotation (Line(points={{-62,-48},{-72,-48},{-72,-70},{-138,-70}},
+      color={0,0,127}));
+  connect(greEqu.y, and3.u2)
+    annotation (Line(points={{-38,-40},{0,-40},{0,-48},{38,-48}},
+      color={255,0,255}));
+  connect(gai2.y, greEqu1.u1)
+    annotation (Line(points={{-78,-88},{-76,-88},{-76,-100},{-62,-100}},
+      color={0,0,127}));
+  connect(sampler1.y, greEqu1.u2)
+    annotation (Line(points={{-138,-70},{-132,-70},{-132,-108},{-62,-108}},
+      color={0,0,127}));
+  connect(greEqu1.y, and4.u2)
+    annotation (Line(points={{-38,-100},{0,-100},{0,-108},{38,-108}},
+      color={255,0,255}));
+  connect(damRes.y, tim.reset) annotation (Line(points={{-38,380},{-30,380},{-30,
+          332},{-2,332}}, color={255,0,255}));
+>>>>>>> master
 
   connect(tim.y, les.u1)
     annotation (Line(points={{22,340},{40,340}}, color={0,0,127}));
