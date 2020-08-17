@@ -1197,6 +1197,10 @@ equation
   connect(chiMinFloSet.y, minBypValCon.VChiWatSet_flow) annotation (Line(points=
          {{642,150},{700,150},{700,-100},{-580,-100},{-580,-156},{-564,-156}},
         color={0,0,127}));
+  connect(heaCon.y, upProCon.uChiHeaCon) annotation (Line(points={{682,280},{
+          700,280},{700,240},{230,240},{230,284},{272,284}}, color={255,0,255}));
+  connect(heaCon.y, dowProCon.uChiHeaCon) annotation (Line(points={{682,280},{
+          700,280},{700,240},{230,240},{230,-220},{272,-220}}, color={255,0,255}));
     annotation (Dialog(tab="Plant Reset", group="Time parameter"),
                Evaluate=true, Dialog(tab="Advanced", group="Tuning"),
   defaultComponentName="chiPlaCon",
