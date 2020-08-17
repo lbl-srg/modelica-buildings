@@ -6,26 +6,26 @@ block Controller
   parameter Boolean have_occSen  "Set to true if zones have occupancy sensor";
   parameter Real TZonHeaOn(
     final unit="K",
-    final displayUnit="degC",
-    final quantity="ThermodynamicTemperature")
+    displayUnit="degC",
+    final quantity="ThermodynamicTemperature")=293.15
     "Heating setpoint during on"
     annotation (Dialog(group="Zone setpoints"));
   parameter Real TZonHeaOff(
     final unit="K",
-    final displayUnit="degC",
-    final quantity="ThermodynamicTemperature")
+    displayUnit="degC",
+    final quantity="ThermodynamicTemperature")=285.15
     "Heating setpoint during off"
     annotation (Dialog(group="Zone setpoints"));
   parameter Real TZonCooOn(
     final unit="K",
-    final displayUnit="degC",
-    final quantity="ThermodynamicTemperature")
+    displayUnit="degC",
+    final quantity="ThermodynamicTemperature")=297.15
     "Cooling setpoint during on"
     annotation (Dialog(group="Zone setpoints"));
   parameter Real TZonCooOff(
     final unit="K",
-    final displayUnit="degC",
-    final quantity="ThermodynamicTemperature")
+    displayUnit="degC",
+    final quantity="ThermodynamicTemperature")=303.15
     "Cooling setpoint during off"
     annotation (Dialog(group="Zone setpoints"));
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeCoo=
@@ -92,13 +92,13 @@ block Controller
           or controllerTypeCooCoi == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   parameter Real TSupSetMax(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Maximum supply air temperature for heating"
     annotation (Dialog(tab="VAV Setpoints",group="Temperature limits"));
   parameter Real TSupSetMin(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Minimum supply air temperature for cooling"
     annotation (Dialog(tab="VAV Setpoints",group="Temperature limits"));
@@ -204,7 +204,10 @@ block Controller
        enable=use_TMix and
            (controllerTypeFre == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
            or controllerTypeFre == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
-  parameter Real TFreSet=277.15
+  parameter Real TFreSet(
+    final unit="K",
+    displayUnit="degC",
+    final quantity="ThermodynamicTemperature")=277.15
     "Lower limit for mixed air temperature for freeze protection, used if use_TMix=true"
      annotation(Dialog(tab="Economizer", group="Freeze protection", enable=use_TMix));
   parameter Real VOutMin_flow(
@@ -279,39 +282,33 @@ block Controller
     annotation (Dialog(tab="Adjust temperature setpoint", group="General"));
   parameter Real TZonCooOnMax(
     final unit="K",
-    final displayUnit="degC",
-    final quantity = "ThermodynamicTemperature")=300.15
-    "Maximum cooling setpoint during on"
+    displayUnit="degC",
+    final quantity="ThermodynamicTemperature")=300.15 "Maximum cooling setpoint during on"
     annotation (Dialog(tab="Adjust temperature setpoint", group="Limits"));
   parameter Real TZonCooOnMin(
     final unit="K",
-    final displayUnit="degC",
-    final quantity = "ThermodynamicTemperature")=295.15
-    "Minimum cooling setpoint during on"
+    displayUnit="degC",
+    final quantity="ThermodynamicTemperature")=295.15 "Minimum cooling setpoint during on"
     annotation (Dialog(tab="Adjust temperature setpoint", group="Limits"));
   parameter Real TZonHeaOnMax(
     final unit="K",
-    final displayUnit="degC",
-    final quantity = "ThermodynamicTemperature")=295.15
-    "Maximum heating setpoint during on"
+    displayUnit="degC",
+    final quantity="ThermodynamicTemperature")=295.15 "Maximum heating setpoint during on"
     annotation (Dialog(tab="Adjust temperature setpoint", group="Limits"));
   parameter Real TZonHeaOnMin(
     final unit="K",
-    final displayUnit="degC",
-    final quantity = "ThermodynamicTemperature")=291.15
-    "Minimum heating setpoint during on"
+    displayUnit="degC",
+    final quantity="ThermodynamicTemperature")=291.15 "Minimum heating setpoint during on"
     annotation (Dialog(tab="Adjust temperature setpoint", group="Limits"));
   parameter Real TZonCooSetWinOpe(
     final unit="K",
-    final displayUnit="degC",
-    final quantity = "ThermodynamicTemperature")=322.15
-    "Cooling setpoint when window is open"
+    displayUnit="degC",
+    final quantity="ThermodynamicTemperature")=322.15 "Cooling setpoint when window is open"
     annotation (Dialog(tab="Adjust temperature setpoint", group="Limits"));
   parameter Real TZonHeaSetWinOpe(
     final unit="K",
-    final displayUnit="degC",
-    final quantity = "ThermodynamicTemperature")=277.15
-    "Heating setpoint when window is open"
+    displayUnit="degC",
+    final quantity="ThermodynamicTemperature")=277.15 "Heating setpoint when window is open"
     annotation (Dialog(tab="Adjust temperature setpoint", group="Limits"));
   parameter Real incTSetDem_1=0.56
     "Cooling setpoint increase value (degC) when cooling demand limit level 1 is imposed"
@@ -340,7 +337,7 @@ block Controller
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TOut(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity = "ThermodynamicTemperature")
     "Outside air temperature"
     annotation (Placement(transformation(extent={{-240,230},{-200,270}}),
@@ -363,7 +360,7 @@ block Controller
         iconTransformation(extent={{-240,140},{-200,180}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZon(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity = "ThermodynamicTemperature")
     "Measured zone temperatures"
     annotation (Placement(transformation(extent={{-240,110},{-200,150}}),
@@ -382,21 +379,21 @@ block Controller
         iconTransformation(extent={{-240,30},{-200,70}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSup(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity = "ThermodynamicTemperature")
     "Measured supply air temperature"
     annotation (Placement(transformation(extent={{-240,-10},{-200,30}}),
         iconTransformation(extent={{-240,0},{-200,40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TCut(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Economizer high limit cutoff. Fixed dry bulb or differential dry bulb temeprature"
     annotation (Placement(transformation(extent={{-240,-40},{-200,0}}),
         iconTransformation(extent={{-240,-30},{-200,10}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TMix(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity = "ThermodynamicTemperature") if use_TMix
     "Measured mixed air temperature, used for freeze protection if use_TMix is true"
     annotation (Placement(transformation(extent={{-240,-70},{-200,-30}}),
@@ -422,7 +419,7 @@ block Controller
         iconTransformation(extent={{-240,-190},{-200,-150}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TRet(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature") if
        use_fixed_plus_differential_drybulb
     "Used only for fixed plus differential dry bulb temperature high limit cutoff"
@@ -435,14 +432,14 @@ block Controller
         iconTransformation(extent={{-240,-270},{-200,-230}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TSupHeaEco(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity = "ThermodynamicTemperature")
     "Temperature setpoint for heating coil and for economizer"
     annotation (Placement(transformation(extent={{200,230},{240,270}}),
         iconTransformation(extent={{200,200},{240,240}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TSupCoo(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity = "ThermodynamicTemperature")
     "Cooling supply air temperature setpoint"
     annotation (Placement(transformation(extent={{200,170},{240,210}}),
@@ -455,14 +452,14 @@ block Controller
         iconTransformation(extent={{200,100},{240,140}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TZonHeaSet(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity = "ThermodynamicTemperature")
     "Heating setpoint temperature"
     annotation (Placement(transformation(extent={{200,90},{240,130}}),
       iconTransformation(extent={{200,40},{240,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TZonCooSet(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity = "ThermodynamicTemperature")
     "Cooling setpoint temperature"
     annotation (Placement(transformation(extent={{200,40},{240,80}}),
@@ -531,17 +528,15 @@ block Controller
     final yCooMax=yCooMax)
     "Supply air set point and fan signal for single zone VAV system"
     annotation (Placement(transformation(extent={{40,180},{60,200}})));
-  Buildings.Controls.OBC.CDL.Continuous.LimPID cooPI(
+  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset cooPI(
     final reverseActing=false,
     final controllerType=controllerTypeCoo,
     final k=kCoo,
     final Ti=TiCoo,
-    final Td=TdCoo,
-    final reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter)
+    final Td=TdCoo)
     "Zone cooling control signal"
-    annotation (Placement(transformation(extent={{-40,150},{-20,170}})));
-  Buildings.Controls.OBC.CDL.Continuous.LimPID heaPI(
-    final reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter,
+    annotation (Placement(transformation(extent={{-50,150},{-30,170}})));
+  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset heaPI(
     final controllerType=controllerTypeHea,
     final k=kHea,
     final Ti=TiHea,
@@ -986,6 +981,11 @@ Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.ModeAndSetPoints</a>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+June 20, 2020, by Jianjun Hu:<br/>
+Updated the block of specifying operating mode and setpoints.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1893\">#1893</a>.
+</li>
 <li>
 March 10, 2020, by Jianjun Hu:<br/>
 Replaced the block for calculating the operation mode and setpoint temperature with the one

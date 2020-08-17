@@ -33,7 +33,7 @@ model OptimalStartHeatingCooling
   Buildings.Controls.OBC.CDL.Continuous.Add add1
     "Reset temperature from unoccupied to occupied for optimal start period"
     annotation (Placement(transformation(extent={{140,0},{160,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.LimPID conPID1(
+  Buildings.Controls.OBC.CDL.Continuous.PID conPID1(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     Ti=3,
     reverseActing=false) "PI control for space cooling"
@@ -53,7 +53,7 @@ model OptimalStartHeatingCooling
   Buildings.Controls.OBC.CDL.Continuous.Add add2
     "Reset temperature from unoccupied to occupied for optimal start period"
     annotation (Placement(transformation(extent={{140,40},{160,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.LimPID conPID(
+  Buildings.Controls.OBC.CDL.Continuous.PID conPID(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     Ti=3) "PI control for space heating"
     annotation (Placement(transformation(extent={{180,40},{200,60}})));

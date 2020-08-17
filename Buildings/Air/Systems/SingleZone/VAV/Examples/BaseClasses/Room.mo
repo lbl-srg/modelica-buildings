@@ -3,7 +3,6 @@ model Room
   "BESTest Case 600 with fluid ports for air HVAC and internal load"
 
   replaceable package MediumA = Buildings.Media.Air "Medium model";
-
   parameter Modelica.SIunits.MassFlowRate mAir_flow_nominal
     "Design airflow rate of system";
   parameter Modelica.SIunits.Angle lat "Building latitude";
@@ -241,6 +240,7 @@ model Room
   Modelica.Blocks.Math.BooleanToReal booToRea
     "Convert Boolean to Real signal"
     annotation (Placement(transformation(extent={{-30,150},{-10,170}})));
+
 protected
   Modelica.Blocks.Math.Product pro1
     "Product for internal gain"
@@ -257,6 +257,7 @@ protected
   Modelica.Blocks.Math.Product pro4
     "Product for internal gain"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
+
 equation
   connect(mul.y, roo.qGai_flow) annotation (Line(
       points={{23.1,91},{28,91},{28,10.4},{31.92,10.4}},
@@ -345,6 +346,7 @@ equation
           {-12,54},{-12,36},{-2,36}}, color={0,0,127}));
   connect(pro4.y, roo.C_flow[1]) annotation (Line(points={{21,30},{26,30},{26,
           3.64},{31.92,3.64}}, color={0,0,127}));
+
   annotation (
 defaultComponentName="roo",
 Documentation(info="<html>

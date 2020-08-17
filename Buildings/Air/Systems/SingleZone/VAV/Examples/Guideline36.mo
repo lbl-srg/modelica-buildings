@@ -51,6 +51,7 @@ model Guideline36
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant cooWarTim(final k=0)
     "Cooldown and warm-up time"
     annotation (Placement(transformation(extent={{-180,40},{-160,60}})));
+
 protected
   Modelica.Blocks.Sources.Constant TSetSupChiConst(final k=TSupChi_nominal)
     "Set point for chiller temperature"
@@ -106,6 +107,7 @@ equation
           50},{-142,13.5385},{-122,13.5385}}, color={0,0,127}));
   connect(con.yCooCoi, hvac.uCooVal) annotation (Line(points={{-78,-15.0769},{
           -58,-15.0769},{-58,5},{-42,5}}, color={0,0,127}));
+
   annotation (Diagram(coordinateSystem(extent={{-200,-160},{120,100}})),
     experiment(
       StopTime=864000,
@@ -125,6 +127,13 @@ with ASHRAE Guideline 36 control sequence.
 July 27, 2020, by Kun Zhang:<br/>
 Changed parameters of PID and design outdoor airflow and damper parameters.<br/>
 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1608\">issue 1608</a>.
+</li>
+<li>
+June 30, 2020, by Jianjun  Hu:<br/>
+Updated AHU controller which applies the sequence of specifying operating mode
+according to G36 official release.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1893\"># 1893</a>.
 </li>
 <li>
 June 22, 2020, by Michael Wetter:<br/>

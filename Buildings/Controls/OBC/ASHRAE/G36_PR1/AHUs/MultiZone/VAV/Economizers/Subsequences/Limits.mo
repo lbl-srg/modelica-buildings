@@ -112,22 +112,19 @@ block Limits
     annotation (Placement(transformation(extent={{180,-110},{220,-70}}),
         iconTransformation(extent={{100,-100},{140,-60}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.LimPID damLimCon(
+  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset damLimCon(
     final controllerType=controllerType,
     final k=k,
     final Ti=Ti,
     final Td=Td,
     final yMax=yMax,
-    final yMin=yMin,
-    reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter)
+    final yMin=yMin)
     "Damper position limit controller"
     annotation (Placement(transformation(extent={{-140,180},{-120,200}})));
 
 protected
-  parameter Real yMin=0 "Lower limit of control loop signal"
-    annotation (Dialog(tab="Commissioning", group="Controller"));
-  parameter Real yMax=1 "Upper limit of control loop signal"
-    annotation (Dialog(tab="Commissioning", group="Controller"));
+  parameter Real yMin=0 "Lower limit of control loop signal";
+  parameter Real yMax=1 "Upper limit of control loop signal";
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant outDamPhyPosMinSig(
     final k=outDamPhyPosMin)
     "Physically fixed minimum position of the outdoor air damper. This is the initial position of the economizer damper"

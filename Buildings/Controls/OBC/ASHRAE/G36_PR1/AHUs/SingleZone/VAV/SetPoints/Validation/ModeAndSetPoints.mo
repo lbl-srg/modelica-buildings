@@ -162,6 +162,10 @@ Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.SetPoints.ModeAndSetPo
 </html>", revisions="<html>
 <ul>
 <li>
+June 16, 2020, by Jianjun Hu:<br/>
+Moved from TerminalUnits.Validation.ModeAndSetPoints to here.
+</li>
+<li>
 October 30, 2017, by Jianjun Hu:<br/>
 First implementation.
 </li>

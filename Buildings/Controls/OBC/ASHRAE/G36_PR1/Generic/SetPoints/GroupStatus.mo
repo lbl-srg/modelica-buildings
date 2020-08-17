@@ -47,7 +47,7 @@ block GroupStatus "Block that outputs the zone group status"
       iconTransformation(extent={{-140,-30},{-100,10}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaSetOff[numZon](
     final unit=fill("K", numZon),
-    final displayUnit=fill("degC", numZon),
+    displayUnit=fill("degC", numZon),
     final quantity=fill("ThermodynamicTemperature", numZon))
     "Zone unoccupied heating setpoint"
     annotation (Placement(transformation(extent={{-140,-40},{-100,0}}),
@@ -62,7 +62,7 @@ block GroupStatus "Block that outputs the zone group status"
       iconTransformation(extent={{-140,-110},{-100,-70}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TCooSetOff[numZon](
     final unit=fill("K", numZon),
-    final displayUnit=fill("degC", numZon),
+    displayUnit=fill("degC", numZon),
     final quantity=fill("ThermodynamicTemperature", numZon))
     "Zone unoccupied cooling setpoint"
     annotation (Placement(transformation(extent={{-140,-170},{-100,-130}}),
@@ -73,7 +73,7 @@ block GroupStatus "Block that outputs the zone group status"
       iconTransformation(extent={{-140,-150},{-100,-110}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZon[numZon](
     final unit=fill("K", numZon),
-    final displayUnit=fill("degC", numZon),
+    displayUnit=fill("degC", numZon),
     final quantity=fill("ThermodynamicTemperature", numZon)) "Zone temperature"
     annotation (Placement(transformation(extent={{-140,-240},{-100,-200}}),
       iconTransformation(extent={{-140,-190},{-100,-150}})));
@@ -134,14 +134,14 @@ block GroupStatus "Block that outputs the zone group status"
       iconTransformation(extent={{100,-110},{140,-70}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TZonMax(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Maximum zone temperature in the zone group"
     annotation (Placement(transformation(extent={{100,-240},{140,-200}}),
       iconTransformation(extent={{100,-150},{140,-110}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TZonMin(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Minimum zone temperature in the zone group"
     annotation (Placement(transformation(extent={{100,-280},{140,-240}}),
