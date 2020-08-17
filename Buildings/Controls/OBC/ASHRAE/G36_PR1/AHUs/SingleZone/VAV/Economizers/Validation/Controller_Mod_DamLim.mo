@@ -26,7 +26,7 @@ model Controller_Mod_DamLim
 protected
   parameter Real TOutCutoff(
     final unit="K",
-    displayUnit="degC",
+    final displayUnit="degC",
     final quantity="ThermodynamicTemperature")=297.15
     "Outdoor temperature high limit cutoff";
   parameter Real hOutCutoff(
@@ -35,12 +35,12 @@ protected
     "Outdoor air enthalpy high limit cutoff";
   parameter Real TSupSet(
     final unit="K",
-    displayUnit="degC",
+    final displayUnit="degC",
     final quantity="ThermodynamicTemperature")=291.15
     "Supply air temperature Heating setpoint";
   parameter Real TSup(
     final unit="K",
-    displayUnit="degC",
+    final displayUnit="degC",
     final quantity="ThermodynamicTemperature")=290.15
     "Measured supply air temperature";
   parameter Real yFanMin(

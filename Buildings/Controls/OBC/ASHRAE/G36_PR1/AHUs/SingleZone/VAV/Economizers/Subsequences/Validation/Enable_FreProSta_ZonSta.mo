@@ -12,7 +12,7 @@ model Enable_FreProSta_ZonSta
 protected
   final parameter Real TOutCutoff(
     final unit="K",
-    displayUnit="degC",
+    final displayUnit="degC",
     final quantity = "ThermodynamicTemperature")=297.15
     "Outdoor temperature high limit cutoff";
   final parameter Real hOutCutoff(

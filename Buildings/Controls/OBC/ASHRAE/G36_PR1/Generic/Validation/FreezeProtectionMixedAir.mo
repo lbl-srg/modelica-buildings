@@ -4,7 +4,7 @@ model FreezeProtectionMixedAir
 
   parameter Real TFreSet(
     final unit="K",
-    displayUnit="degC",
+    final displayUnit="degC",
     final quantity="ThermodynamicTemperature")= 273.15 + 4
     "Freeze protection set point temperature";
 
