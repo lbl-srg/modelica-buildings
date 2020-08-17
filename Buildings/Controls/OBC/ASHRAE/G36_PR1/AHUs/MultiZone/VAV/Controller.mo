@@ -32,7 +32,7 @@ block Controller
 
   parameter Real delTOutHis(
     final unit="K",
-    final displayUnit="K",
+    displayUnit="K",
     final quantity="TemperatureDifference")=1
     "Delta between the temperature hysteresis high and low limit"
     annotation (Dialog(tab="Economizer"));
@@ -134,7 +134,7 @@ block Controller
 
   parameter Real TFreSet(
      final unit="K",
-     final displayUnit="degC",
+     displayUnit="degC",
      final quantity="ThermodynamicTemperature")= 279.15
     "Lower limit for mixed air temperature for freeze protection, used if use_TMix=true"
      annotation(Dialog(group="Economizer freeze protection", enable=use_TMix));
@@ -163,21 +163,21 @@ block Controller
   // ----------- parameters for fan speed control  -----------
   parameter Real pIniSet(
     final unit="Pa",
-    final displayUnit="Pa",
+    displayUnit="Pa",
     final quantity="PressureDifference")=60
     "Initial pressure setpoint for fan speed control"
     annotation (Dialog(tab="Fan speed", group="Trim and respond for reseting duct static pressure setpoint"));
 
   parameter Real pMinSet(
     final unit="Pa",
-    final displayUnit="Pa",
+    displayUnit="Pa",
     final quantity="PressureDifference")=25
     "Minimum pressure setpoint for fan speed control"
     annotation (Dialog(tab="Fan speed", group="Trim and respond for reseting duct static pressure setpoint"));
 
   parameter Real pMaxSet(
     final unit="Pa",
-    final displayUnit="Pa",
+    displayUnit="Pa",
     final quantity="PressureDifference")=400
     "Maximum pressure setpoint for fan speed control"
     annotation (Dialog(tab="Fan speed", group="Trim and respond for reseting duct static pressure setpoint"));
@@ -194,21 +194,21 @@ block Controller
 
   parameter Real pTriAmo(
     final unit="Pa",
-    final displayUnit="Pa",
+    displayUnit="Pa",
     final quantity="PressureDifference")=-12.0
     "Trim amount for fan speed control"
     annotation (Dialog(tab="Fan speed", group="Trim and respond for reseting duct static pressure setpoint"));
 
   parameter Real pResAmo(
     final unit="Pa",
-    final displayUnit="Pa",
+    displayUnit="Pa",
     final quantity="PressureDifference")=15
     "Respond amount (must be opposite in to triAmo) for fan speed control"
     annotation (Dialog(tab="Fan speed", group="Trim and respond for reseting duct static pressure setpoint"));
 
   parameter Real pMaxRes(
     final unit="Pa",
-    final displayUnit="Pa",
+    displayUnit="Pa",
     final quantity="PressureDifference")=32
     "Maximum response per time interval (same sign as resAmo) for fan speed control"
     annotation (Dialog(tab="Fan speed", group="Trim and respond for reseting duct static pressure setpoint"));
@@ -256,56 +256,56 @@ block Controller
   // ----------- parameters for supply air temperature control  -----------
   parameter Real TSupSetMin(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")=285.15
     "Lowest cooling supply air temperature setpoint"
     annotation (Dialog(tab="Supply air temperature", group="Temperature limits"));
 
   parameter Real TSupSetMax(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")=291.15
     "Highest cooling supply air temperature setpoint. It is typically 18 degC (65 degF) in mild and dry climates, 16 degC (60 degF) or lower in humid climates"
     annotation (Dialog(tab="Supply air temperature", group="Temperature limits"));
 
   parameter Real TSupSetDes(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")=286.15
     "Nominal supply air temperature setpoint"
     annotation (Dialog(tab="Supply air temperature", group="Temperature limits"));
 
   parameter Real TOutMin(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")=289.15
     "Lower value of the outdoor air temperature reset range. Typically value is 16 degC (60 degF)"
     annotation (Dialog(tab="Supply air temperature", group="Temperature limits"));
 
   parameter Real TOutMax(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")=294.15
     "Higher value of the outdoor air temperature reset range. Typically value is 21 degC (70 degF)"
     annotation (Dialog(tab="Supply air temperature", group="Temperature limits"));
 
   parameter Real iniSetSupTem(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")=supTemSetPoi.maxSet
     "Initial setpoint for supply temperature control"
     annotation (Dialog(tab="Supply air temperature", group="Trim and respond for reseting TSup setpoint"));
 
   parameter Real maxSetSupTem(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")=supTemSetPoi.TSupSetMax
     "Maximum setpoint for supply temperature control"
     annotation (Dialog(tab="Supply air temperature", group="Trim and respond for reseting TSup setpoint"));
 
   parameter Real minSetSupTem(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")=supTemSetPoi.TSupSetDes
     "Minimum setpoint for supply temperature control"
     annotation (Dialog(tab="Supply air temperature", group="Trim and respond for reseting TSup setpoint"));
@@ -322,21 +322,21 @@ block Controller
 
   parameter Real triAmoSupTem(
     final unit="K",
-    final displayUnit="K",
+    displayUnit="K",
     final quantity="TemperatureDifference")=0.1
     "Trim amount for supply temperature control"
     annotation (Dialog(tab="Supply air temperature", group="Trim and respond for reseting TSup setpoint"));
 
   parameter Real resAmoSupTem(
     final unit="K",
-    final displayUnit="K",
+    displayUnit="K",
     final quantity="TemperatureDifference")=-0.2
     "Response amount for supply temperature control"
     annotation (Dialog(tab="Supply air temperature", group="Trim and respond for reseting TSup setpoint"));
 
   parameter Real maxResSupTem(
     final unit="K",
-    final displayUnit="K",
+    displayUnit="K",
     final quantity="TemperatureDifference")=-0.6
     "Maximum response per time interval for supply temperature control"
     annotation (Dialog(tab="Supply air temperature", group="Trim and respond for reseting TSup setpoint"));
@@ -376,7 +376,7 @@ block Controller
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZonHeaSet(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Zone air temperature heating setpoint"
     annotation (Placement(transformation(extent={{-240,280},{-200,320}}),
@@ -384,7 +384,7 @@ block Controller
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZonCooSet(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Zone air temperature cooling setpoint"
     annotation (Placement(transformation(extent={{-240,250},{-200,290}}),
@@ -392,14 +392,14 @@ block Controller
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TOut(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature") "Outdoor air temperature"
     annotation (Placement(transformation(extent={{-240,220},{-200,260}}),
         iconTransformation(extent={{-240,260},{-200,300}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput ducStaPre(
     final unit="Pa",
-    final displayUnit="Pa")
+    displayUnit="Pa")
     "Measured duct static pressure"
     annotation (Placement(transformation(extent={{-240,190},{-200,230}}),
         iconTransformation(extent={{-240,230},{-200,270}})));
@@ -459,7 +459,7 @@ block Controller
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSup(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Measured supply air temperature"
     annotation (Placement(transformation(extent={{-240,-50},{-200,-10}}),
@@ -467,7 +467,7 @@ block Controller
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TOutCut(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "OA temperature high limit cutoff. For differential dry bulb temeprature condition use return air temperature measurement"
     annotation (Placement(transformation(extent={{-240,-80},{-200,-40}}),
@@ -496,7 +496,7 @@ block Controller
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TMix(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity = "ThermodynamicTemperature") if use_TMix
     "Measured mixed air temperature, used for freeze protection if use_TMix=true"
     annotation (Placement(transformation(extent={{-240,-200},{-200,-160}}),
@@ -537,7 +537,7 @@ block Controller
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TSupSet(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Setpoint for supply air temperature"
     annotation (Placement(transformation(extent={{200,160},{240,200}}),

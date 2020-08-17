@@ -10,13 +10,13 @@ block DownStart "Sequence for starting stage-down process"
   parameter Real holChiDemTim(
     final unit="s",
     final quantity="Time",
-    final displayUnit="h")=300
+    displayUnit="h")=300
     "Maximum time to wait for the actual demand less than percentage of current load"
     annotation (Dialog(group="Demand limit"));
   parameter Real byPasSetTim(
     final unit="s",
     final quantity="Time",
-    final displayUnit="h")
+    displayUnit="h")
     "Time constant for resetting minimum bypass flow"
     annotation (Dialog(group="Reset CHW minimum flow setpoint"));
   parameter Modelica.SIunits.VolumeFlowRate minFloSet[nChi]
@@ -28,25 +28,25 @@ block DownStart "Sequence for starting stage-down process"
   parameter Real aftByPasSetTim(
     final unit="s",
     final quantity="Time",
-    final displayUnit="h")=60
+    displayUnit="h")=60
     "Time after setpoint achieved"
     annotation (Dialog(group="Reset bypass"));
   parameter Real waiTim(
     final unit="s",
     final quantity="Time",
-    final displayUnit="h")=30
+    displayUnit="h")=30
     "Waiting time after enabling next head pressure control"
     annotation (Dialog(group="Head pressure control"));
   parameter Real chaChiWatIsoTim(
     final unit="s",
     final quantity="Time",
-    final displayUnit="h")
+    displayUnit="h")
     "Time to slowly change isolation valve, should be determined in the field"
     annotation (Dialog(group="Chilled water isolation valve"));
   parameter Real proOnTim(
     final unit="s",
     final quantity="Time",
-    final displayUnit="h")=300
+    displayUnit="h")=300
     "Enabled chiller operation time to indicate if it is proven on"
     annotation (Dialog(group="Disable last chiller"));
   parameter Real relFloDif=0.05
@@ -57,7 +57,7 @@ block DownStart "Sequence for starting stage-down process"
     "Stage down status: true=stage-down"
     annotation (Placement(transformation(extent={{-200,190},{-160,230}}),
       iconTransformation(extent={{-140,80},{-100,120}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uOpeParLoaRatMin(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput yOpeParLoaRatMin(
     final min=0,
     final max=1,
     final unit="1")
@@ -309,7 +309,7 @@ equation
   connect(disChi.yReaDemLim, yReaDemLim)
     annotation (Line(points={{22,-158},{60,-158},{60,-140},{200,-140}},
       color={255,0,255}));
-  connect(uOpeParLoaRatMin,chiDemRed.uOpeParLoaRatMin)
+  connect(yOpeParLoaRatMin, chiDemRed.yOpeParLoaRatMin)
     annotation (Line(points={{-180,180},{-110,180},{-110,171},{-22,171}},
       color={0,0,127}));
   connect(uStaDow, chiDemRed.uStaDow)

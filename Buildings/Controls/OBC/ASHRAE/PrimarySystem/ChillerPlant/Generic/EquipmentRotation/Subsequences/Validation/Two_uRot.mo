@@ -12,12 +12,12 @@ model Two_uRot
 
 protected
   Buildings.Controls.OBC.CDL.Logical.Sources.SampleTrigger rotation(period(
-    final displayUnit="h") = 86400, startTime=7200)
+    displayUnit="h") = 86400, startTime=7200)
                                     "Rotation trigger"
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.SampleTrigger rotation1(period(
-    final displayUnit="h") = 172800, startTime=7200)
+    displayUnit="h") = 172800, startTime=7200)
                                      "Rotation trigger"
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
 

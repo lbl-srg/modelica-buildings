@@ -18,13 +18,13 @@ block Up "Sequence for control devices when there is stage-up command"
   parameter Real holChiDemTim(
     final unit="s",
     final quantity="Time",
-    final displayUnit="h")=300
+    displayUnit="h")=300
     "Maximum time to wait for the actual demand less than percentage of current load"
     annotation (Dialog(group="Limit chiller demand"));
   parameter Real byPasSetTim(
     final unit="s",
     final quantity="Time",
-    final displayUnit="h")=300
+    displayUnit="h")=300
     "Time to reset minimum bypass flow"
     annotation (Dialog(group="Reset CHW minimum flow setpoint"));
   parameter Modelica.SIunits.VolumeFlowRate minFloSet[nChi]={0.0089,0.0089}
@@ -36,7 +36,7 @@ block Up "Sequence for control devices when there is stage-up command"
   parameter Real aftByPasSetTim(
     final unit="s",
     final quantity="Time",
-    final displayUnit="h")=60
+    displayUnit="h")=60
     "Time to allow loop to stabilize after resetting minimum chilled water flow setpoint"
     annotation (Dialog(group="Reset bypass"));
   parameter Real staVec[totSta]={0,0.5,1,1.5,2,2.5}
@@ -51,25 +51,25 @@ block Up "Sequence for control devices when there is stage-up command"
   parameter Real thrTimEnb(
     final unit="s",
     final quantity="Time",
-    final displayUnit="h")=10
+    displayUnit="h")=10
     "Threshold time to enable head pressure control after condenser water pump being reset"
     annotation (Dialog(group="Enable head pressure control"));
   parameter Real waiTim(
     final unit="s",
     final quantity="Time",
-    final displayUnit="h")=30
+    displayUnit="h")=30
     "Waiting time after enabling next head pressure control"
     annotation (Dialog(group="Enable head pressure control"));
   parameter Real chaChiWatIsoTim(
     final unit="s",
     final quantity="Time",
-    final displayUnit="h")=300
+    displayUnit="h")=300
     "Time to slowly change isolation valve, should be determined in the field"
     annotation (Dialog(group="Enable CHW isolation valve"));
   parameter Real proOnTim(
     final unit="s",
     final quantity="Time",
-    final displayUnit="h")=300
+    displayUnit="h")=300
     "Threshold time to check after newly enabled chiller being operated"
     annotation (Dialog(group="Enable next chiller",enable=have_PonyChiller));
   parameter Real relSpeDif = 0.05
@@ -439,7 +439,7 @@ equation
   connect(con.y, chiDemRed.uStaDow)
     annotation (Line(points={{-178,80},{-96,80},{-96,168},{-82,168}},
       color={255,0,255}));
-  connect(con1.y,chiDemRed.uOpeParLoaRatMin)
+  connect(con1.y, chiDemRed.yOpeParLoaRatMin)
     annotation (Line(points={{-178,140},{-140,140},{-140,171},{-82,171}},
       color={0,0,127}));
   connect(uChi, minChiWatFlo.uChi)

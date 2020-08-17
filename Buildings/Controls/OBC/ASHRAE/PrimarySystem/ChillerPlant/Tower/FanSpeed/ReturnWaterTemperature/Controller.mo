@@ -15,19 +15,19 @@ block Controller
     annotation (Dialog(tab="Setpoint"));
   parameter Real TConWatSup_nominal[nChi](
     each final unit="K",
-    each final displayUnit="degC",
+    each displayUnit="degC",
     final quantity=fill("ThermodynamicTemperature", nChi))={293.15,293.15}
     "Design condenser water supply temperature (condenser entering) of each chiller"
     annotation (Dialog(tab="Setpoint"));
   parameter Real TConWatRet_nominal[nChi](
     each final unit="K",
-    each final displayUnit="degC",
+    each displayUnit="degC",
     final quantity=fill("ThermodynamicTemperature", nChi))={303.15, 303.15}
     "Design condenser water return temperature (condenser leaving) of each chiller"
     annotation (Dialog(tab="Setpoint"));
   parameter Real TChiWatSupMin[nChi](
     each final unit="K",
-    each final displayUnit="degC",
+    each displayUnit="degC",
     final quantity=fill("ThermodynamicTemperature", nChi)) = {278.15, 278.15}
     "Lowest chilled water supply temperature of each chiller"
     annotation (Dialog(tab="Setpoint"));
@@ -145,7 +145,7 @@ block Controller
       iconTransformation(extent={{-240,-20},{-200,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSupSet(
     final quantity="ThermodynamicTemperature",
-    final displayUnit="degC",
+    displayUnit="degC",
     final unit="K") "Chilled water supply setpoint temperature"
     annotation (Placement(transformation(extent={{-200,-100},{-160,-60}}),
       iconTransformation(extent={{-240,-80},{-200,-40}})));
@@ -155,7 +155,7 @@ block Controller
       iconTransformation(extent={{-240,-110},{-200,-70}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TConWatRet(
     final quantity="ThermodynamicTemperature",
-    final displayUnit="degC",
+    displayUnit="degC",
     final unit="K") "Condenser water return temperature"
     annotation (Placement(transformation(extent={{-200,-180},{-160,-140}}),
       iconTransformation(extent={{-240,-140},{-200,-100}})));
@@ -167,7 +167,7 @@ block Controller
       iconTransformation(extent={{-240,-170},{-200,-130}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TConWatSup(
     final quantity="ThermodynamicTemperature",
-    final displayUnit="degC",
+    displayUnit="degC",
     final unit="K") if not closeCoupledPlant
     "Condenser water supply temperature"
     annotation (Placement(transformation(extent={{-200,-300},{-160,-260}}),

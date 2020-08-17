@@ -10,13 +10,13 @@ block Down "Generates a stage down signal"
   parameter Real parLoaRatDelay(
     final unit="s",
     final quantity="Time",
-    final displayUnit="h")=900
+    displayUnit="h")=900
       "Enable delay for operating and staging part load ratio condition";
 
   parameter Real faiSafTruDelay(
     final unit="s",
     final quantity="Time",
-    final displayUnit="h")=900
+    displayUnit="h")=900
       "Enable delay for failsafe condition";
 
   parameter Modelica.SIunits.TemperatureDifference faiSafTDif = 1

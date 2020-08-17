@@ -6,7 +6,7 @@ block ChilledWaterPlantReset
   parameter Real holTim(
     final unit="s",
     final quantity="Time",
-    final displayUnit="h")=900
+    displayUnit="h")=900
       "Time to fix plant reset value";
   parameter Real iniSet = 0 "Initial setpoint"
     annotation (Dialog(group="Trim and respond parameters"));
@@ -17,7 +17,7 @@ block ChilledWaterPlantReset
   parameter Real delTim(
     final unit="s",
     final quantity="Time",
-    final displayUnit="h")=900
+    displayUnit="h")=900
       "Delay time after which trim and respond is activated"
     annotation (Dialog(group="Trim and respond parameters"));
   parameter Real samplePeriod(

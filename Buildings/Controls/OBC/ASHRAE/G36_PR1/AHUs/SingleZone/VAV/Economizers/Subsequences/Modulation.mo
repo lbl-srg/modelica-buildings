@@ -33,14 +33,14 @@ block Modulation "Outdoor and return air damper position modulation sequence for
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSup(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity = "ThermodynamicTemperature")
     "Measured supply air temperature"
     annotation (Placement(transformation(extent={{-160,90},{-120,130}}),
         iconTransformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaSupSet(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity = "ThermodynamicTemperature") "Supply air temperature heating setpoint"
     annotation (Placement(transformation(extent={{-160,60},{-120,100}}),
         iconTransformation(extent={{-140,40},{-100,80}})));

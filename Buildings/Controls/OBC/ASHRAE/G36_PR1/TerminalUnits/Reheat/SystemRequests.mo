@@ -13,25 +13,25 @@ block SystemRequests
 
   parameter Real errTZonCoo_1(
     final unit="K",
-    final displayUnit="K",
+    displayUnit="K",
     final quantity="TemperatureDifference")=2.8
     "Limit value of difference between zone temperature and cooling setpoint
     for generating 3 cooling SAT reset requests";
   parameter Real errTZonCoo_2(
     final unit="K",
-    final displayUnit="K",
+    displayUnit="K",
     final quantity="TemperatureDifference")=1.7
     "Limit value of difference between zone temperature and cooling setpoint
     for generating 2 cooling SAT reset requests";
   parameter Real errTDis_1(
     final unit="K",
-    final displayUnit="K",
+    displayUnit="K",
     final quantity="TemperatureDifference")=17
     "Limit value of difference between discharge air temperature and its setpoint
     for generating 3 hot water reset requests";
   parameter Real errTDis_2(
     final unit="K",
-    final displayUnit="K",
+    displayUnit="K",
     final quantity="TemperatureDifference")=8.3
     "Limit value of difference between discharge air temperature and its setpoint
     for generating 2 hot water reset requests";
@@ -54,14 +54,14 @@ block SystemRequests
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZon(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Zone temperature"
     annotation (Placement(transformation(extent={{-220,150},{-180,190}}),
         iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZonCooSet(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Zone cooling setpoint temperature"
     annotation (Placement(transformation(extent={{-220,420},{-180,460}}),
@@ -94,14 +94,14 @@ block SystemRequests
         iconTransformation(extent={{-140,-40},{-100,0}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TDisHeaSet(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature") if have_heaWatCoi
     "Discharge airflow setpoint temperature for heating"
     annotation (Placement(transformation(extent={{-220,-230},{-180,-190}}),
         iconTransformation(extent={{-140,-60},{-100,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TDis(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature") if have_heaWatCoi
     "Measured discharge airflow temperature"
     annotation (Placement(transformation(extent={{-220,-310},{-180,-270}}),
