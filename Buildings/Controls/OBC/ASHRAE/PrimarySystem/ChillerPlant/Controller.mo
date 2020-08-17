@@ -3,7 +3,10 @@ block Controller "Head pressure controller"
 
   // Economizer controller parameters
 
-  parameter Real holdPeriod=1200
+  parameter Real holdPeriod(
+    final unit="s",
+    final quantity="Time",
+    displayUnit="h")=1200
     "WSE minimum on or off time"
     annotation(Evaluate=true, Dialog(tab="Waterside economizer", group="Enable parameters"));
 
@@ -44,11 +47,17 @@ block Controller "Head pressure controller"
   parameter Real step=0.02 "Tuning step"
     annotation(Evaluate=true, Dialog(tab="Waterside economizer", group="Tuning"));
 
-  parameter Real wseOnTimDec=3600
+  parameter Real wseOnTimDec(
+    final unit="s",
+    final quantity="Time",
+    displayUnit="h")=3600
     "Economizer enable time needed to allow decrease of the tuning parameter"
     annotation(Evaluate=true, Dialog(tab="Waterside economizer", group="Tuning"));
 
-  parameter Real wseOnTimInc=1800
+  parameter Real wseOnTimInc(
+    final unit="s",
+    final quantity="Time",
+    displayUnit="h")=1800
     "Economizer enable time needed to allow increase of the tuning parameter"
     annotation(Evaluate=true, Dialog(tab="Waterside economizer", group="Tuning"));
 
@@ -228,12 +237,16 @@ block Controller "Head pressure controller"
   parameter Real kChiWatPum=1 "Gain of controller"
     annotation (Dialog(tab="Chilled water pumps", group="Speed controller"));
 
-  parameter Real TiChiWatPum=0.5
-                               "Time constant of integrator block"
+  parameter Real TiChiWatPum(
+    final unit="s",
+    final quantity="Time",
+    displayUnit="h")=0.5  "Time constant of integrator block"
       annotation (Dialog(group="Speed controller"));
 
-  parameter Real TdChiWatPum=0.1
-                               "Time constant of derivative block"
+  parameter Real TdChiWatPum(
+    final unit="s",
+    final quantity="Time",
+    displayUnit="h")=0.1 "Time constant of derivative block"
       annotation (Dialog(tab="Chilled water pumps", group="Speed controller",
     enable=
       controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
@@ -249,7 +262,10 @@ block Controller "Head pressure controller"
 
   // Chilled water plant reset
 
-  parameter Real holTim=900
+  parameter Real holTim(
+    final unit="s",
+    final quantity="Time",
+    displayUnit="h")=900
     "Time to fix plant reset value";
 
   parameter Real iniSet = 0 "Initial setpoint"
@@ -261,7 +277,10 @@ block Controller "Head pressure controller"
   parameter Real maxSet = 1 "Maximum plant reset value"
     annotation (Dialog(tab="Plant Reset", group="Trim and respond parameters"));
 
-  parameter Real delTim=900
+  parameter Real delTim(
+    final unit="s",
+    final quantity="Time",
+    displayUnit="h")=900
     "Delay time after which trim and respond is activated"
     annotation (Dialog(tab="Plant Reset", group="Trim and respond parameters"));
 
@@ -357,27 +376,45 @@ block Controller "Head pressure controller"
       "Time period for the capacity requirement rolling average"
     annotation (Dialog(tab="Staging", group="Hold and delay parameters"));
 
-  parameter Real delayStaCha=900
+  parameter Real delayStaCha(
+    final unit="s",
+    final quantity="Time",
+    displayUnit="h")=900
       "Hold period for each stage change"
     annotation (Dialog(tab="Staging", group="Hold and delay parameters"));
 
-  parameter Real parLoaRatDelay=900
+  parameter Real parLoaRatDelay(
+    final unit="s",
+    final quantity="Time",
+    displayUnit="h")=900
       "Enable delay for operating and staging part load ratio condition"
     annotation (Dialog(tab="Staging", group="Hold and delay parameters"));
 
-  parameter Real faiSafTruDelay=900
+  parameter Real faiSafTruDelay(
+    final unit="s",
+    final quantity="Time",
+    displayUnit="h")=900
       "Enable delay for failsafe condition"
     annotation (Dialog(tab="Staging", group="Hold and delay parameters"));
 
-  parameter Real effConTruDelay=900
+  parameter Real effConTruDelay(
+    final unit="s",
+    final quantity="Time",
+    displayUnit="h")=900
       "Enable delay for efficiency condition"
     annotation (Dialog(tab="Staging", group="Hold and delay parameters"));
 
-  parameter Real shortTDelay=600
+  parameter Real shortTDelay(
+    final unit="s",
+    final quantity="Time",
+    displayUnit="h")=600
       "Short enable delay for staging from zero to first available stage up"
     annotation(Evaluate=true, Dialog(enable=have_WSE, tab="Staging", group="Hold and delay parameters"));
 
-  parameter Real longTDelay=1200
+  parameter Real longTDelay(
+    final unit="s",
+    final quantity="Time",
+    displayUnit="h")=1200
       "Long enable delay for staging from zero to first available stage up"
     annotation(Evaluate=true, Dialog(enable=have_WSE, tab="Staging", group="Hold and delay parameters"));
 
@@ -1137,8 +1174,8 @@ equation
   connect(desConWatPumSpe.y, repDesConTem.u)
     annotation (Line(points={{642,200},{658,200}}, color={0,0,127}));
   connect(repDesConTem.y, heaPreCon.desConWatPumSpe) annotation (Line(points={{
-          682,200},{700,200},{700,234},{-432,234},{-432,196},{-424,196}}, color
-        ={0,0,127}));
+          682,200},{700,200},{700,234},{-432,234},{-432,196},{-424,196}}, color=
+         {0,0,127}));
   connect(heaPreCon.uHeaPreCon, uHeaPreCon) annotation (Line(points={{-424,180},
           {-520,180},{-520,200},{-820,200}}, color={0,0,127}));
   connect(heaPreCon.yMaxTowSpeSet, towCon.uMaxTowSpeSet) annotation (Line(
@@ -1157,8 +1194,8 @@ equation
           {368,384},{580,384},{580,158},{618,158}}, color={0,0,127}));
   connect(dowProCon.yChiWatMinFloSet, chiMinFloSet.u3) annotation (Line(points=
           {{368,-296},{450,-296},{450,142},{618,142}}, color={0,0,127}));
-  connect(chiMinFloSet.y, minBypValCon.VChiWatSet_flow) annotation (Line(points
-        ={{642,150},{700,150},{700,-100},{-580,-100},{-580,-156},{-564,-156}},
+  connect(chiMinFloSet.y, minBypValCon.VChiWatSet_flow) annotation (Line(points=
+         {{642,150},{700,150},{700,-100},{-580,-100},{-580,-156},{-564,-156}},
         color={0,0,127}));
     annotation (Dialog(tab="Plant Reset", group="Time parameter"),
                Evaluate=true, Dialog(tab="Advanced", group="Tuning"),

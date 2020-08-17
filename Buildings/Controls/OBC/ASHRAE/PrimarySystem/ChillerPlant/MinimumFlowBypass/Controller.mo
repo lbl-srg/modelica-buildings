@@ -2,8 +2,11 @@
 block Controller
   "Controller for chilled water minimum flow bypass valve"
 
-  parameter Integer nChi "Total number of chillers";
-  parameter Modelica.SIunits.VolumeFlowRate minFloSet[nChi]
+  parameter Integer nChi=2 "Total number of chillers";
+  parameter Real minFloSet[nChi](
+    final min=fill(0,nChi),
+    final unit=fill("m3/s",nChi),
+    quantity=fill("VolumeFlowRate",nChi))
     "Minimum chilled water flow through each chiller";
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
