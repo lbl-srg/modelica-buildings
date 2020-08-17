@@ -656,7 +656,7 @@ annotation (
         fillPattern=FillPattern.Solid,
         borderPattern=BorderPattern.Raised),
         Text(
-          extent={{-120,260},{120,200}},
+          extent={{-120,240},{120,200}},
           lineColor={0,0,255},
           textString="%name"),
         Rectangle(

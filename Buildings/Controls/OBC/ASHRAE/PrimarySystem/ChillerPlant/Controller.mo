@@ -1148,7 +1148,7 @@ equation
     annotation (Line(points={{642,280},{658,280}}, color={255,0,255}));
   connect(VChiWat_flow, upProCon.VChiWat_flow) annotation (Line(points={{-820,-20},
           {-760,-20},{-760,370.4},{272,370.4}}, color={0,0,127}));
-  connect(heaCon.y, heaPreCon.uHeaPreEna) annotation (Line(points={{682,280},{
+  connect(heaCon.y,heaPreCon.uChiHeaCon)  annotation (Line(points={{682,280},{
           700,280},{700,240},{-470,240},{-470,220},{-424,220}}, color={255,0,
           255}));
   connect(wseSta.y, booRep.u) annotation (Line(points={{-538,330},{-500,330},{
