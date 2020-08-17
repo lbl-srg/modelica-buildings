@@ -8,10 +8,10 @@ block ZoneTemperatures
     "Check if the zone has window status sensor"
     annotation(Dialog(group="Sensors"));
 
-  parameter Boolean cooAdj=false
+  parameter Boolean cooAdj = false
     "Flag, set to true if both cooling and heating setpoint are adjustable separately"
     annotation(Dialog(group="Setpoint adjustable setting"));
-  parameter Boolean heaAdj=false
+  parameter Boolean heaAdj = false
     "Flag, set to true if heating setpoint is adjustable"
     annotation(Dialog(group="Setpoint adjustable setting"));
   parameter Boolean sinAdj = false
@@ -83,78 +83,79 @@ block ZoneTemperatures
     final quantity="ThermodynamicTemperature")
     "Occupied zone cooling setpoint"
     annotation (Placement(transformation(extent={{-460,510},{-420,550}}),
-        iconTransformation(extent={{-140,70},{-100,110}})));
+        iconTransformation(extent={{-240,110},{-200,150}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZonHeaSetOcc(
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Occupied zone heating setpoint"
     annotation (Placement(transformation(extent={{-460,430},{-420,470}}),
-        iconTransformation(extent={{-140,20},{-100,60}})));
+        iconTransformation(extent={{-240,28},{-200,68}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZonCooSetUno(
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Unoccupied zone cooling setpoint"
     annotation (Placement(transformation(extent={{-460,470},{-420,510}}),
-        iconTransformation(extent={{-140,50},{-100,90}})));
+        iconTransformation(extent={{-240,68},{-200,108}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZonHeaSetUno(
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Unoccupied zone heating setpoint"
     annotation (Placement(transformation(extent={{-460,390},{-420,430}}),
-        iconTransformation(extent={{-140,0},{-100,40}})));
+        iconTransformation(extent={{-240,-10},{-200,30}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput setAdj(
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature") if (cooAdj or sinAdj)
     "Setpoint adjustment value"
     annotation (Placement(transformation(extent={{-460,330},{-420,370}}),
-        iconTransformation(extent={{-140,-30},{-100,10}})));
+        iconTransformation(extent={{-240,-50},{-200,-10}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput heaSetAdj(
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature") if heaAdj
     "Heating setpoint adjustment value"
     annotation (Placement(transformation(extent={{-460,250},{-420,290}}),
-        iconTransformation(extent={{-140,-50},{-100,-10}})));
+        iconTransformation(extent={{-240,-90},{-200,-50}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uOpeMod
     "AHU operation mode status signal"
     annotation (Placement(transformation(extent={{-460,610},{-420,650}}),
-        iconTransformation(extent={{-140,110},{-100,150}})));
+        iconTransformation(extent={{-240,160},{-200,200}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uCooDemLimLev
     "Cooling demand limit level"
     annotation (Placement(transformation(extent={{-460,110},{-420,150}}),
-        iconTransformation(extent={{-140,-80},{-100,-40}})));
+        iconTransformation(extent={{-240,-160},{-200,-120}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uHeaDemLimLev
     "Heating demand limit level"
     annotation (Placement(transformation(extent={{-460,-110},{-420,-70}}),
-        iconTransformation(extent={{-140,-100},{-100,-60}})));
+        iconTransformation(extent={{-240,-200},{-200,-160}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uOccSen if have_occSen
     "Occupancy sensor (occupied=true, unoccupied=false)"
     annotation (Placement(transformation(extent={{-20,-20},{20,20}},
       origin={-440,-270}),iconTransformation(
-      extent={{-20,-20},{20,20}},origin={-120,-110})));
+      extent={{-20,-20},{20,20}},origin={-60,-220},rotation=90)));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWinSta if have_winSen
     "Window status (open=true, close=false)"
     annotation (Placement(transformation(extent={{-460,-430},{-420,-390}}),
-      iconTransformation(extent={{-20,-20},{20,20}},origin={-120,-130})));
+      iconTransformation(extent={{-20,-20},{20,20}},rotation=90,
+      origin={60,-220})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TZonCooSet(
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")  "Cooling setpoint temperature"
     annotation (Placement(transformation(extent={{340,-20},{380,20}}),
-        iconTransformation(extent={{100,60},{140,100}})));
+        iconTransformation(extent={{200,60},{240,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TZonHeaSet(
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")  "Heating setpoint temperature"
     annotation (Placement(transformation(extent={{340,-120},{380,-80}}),
-        iconTransformation(extent={{100,-20},{140,20}})));
+        iconTransformation(extent={{200,-20},{240,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yAla "Alarm level"
     annotation (Placement(transformation(extent={{340,-410},{380,-370}}),
-        iconTransformation(extent={{100,-100},{140,-60}})));
+        iconTransformation(extent={{200,-100},{240,-60}})));
 
   Buildings.Controls.OBC.CDL.Logical.Or or2
     "Check if there is cooling/heating demand limit being imposed"
@@ -521,10 +522,6 @@ protected
     annotation (Placement(transformation(extent={{120,-180},{140,-160}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add8 "Add real inputs"
     annotation (Placement(transformation(extent={{160,-140},{180,-120}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant damRes(
-    final k=true)
-    "Dammy reset input to timer that does not accumulate time"
-    annotation (Placement(transformation(extent={{-280,-320},{-260,-300}})));
 
 equation
   connect(uOpeMod, intEqu.u1)
@@ -1076,6 +1073,7 @@ equation
       color={0,0,127}));
   connect(reaToInt.y, yAla)
     annotation (Line(points={{182,-390},{360,-390}}, color={255,127,0}));
+
   connect(pro6.y, add3.u1) annotation (Line(points={{102,150},{110,150},{110,
           134},{118,134}}, color={0,0,127}));
   connect(pro.y, add3.u2) annotation (Line(points={{102,110},{110,110},{110,122},
@@ -1104,93 +1102,95 @@ equation
           -136},{158,-136}}, color={0,0,127}));
   connect(add8.y, swi11.u3) annotation (Line(points={{182,-130},{190,-130},{190,
           -138},{218,-138}}, color={0,0,127}));
-  connect(damRes.y, tim.reset) annotation (Line(points={{-258,-310},{-240,-310},
-          {-240,-278},{-222,-278}}, color={255,0,255}));
 annotation (
   defaultComponentName="TZonSet",
-  Icon(coordinateSystem(extent={{-100,-140},{100,140}}),
+  Icon(coordinateSystem(extent={{-200,-200},{200,200}}),
        graphics={
         Rectangle(
-        extent={{-100,-140},{100,140}},
+        extent={{-200,-200},{200,200}},
         lineColor={0,0,127},
         fillColor={255,255,255},
         fillPattern=FillPattern.Solid),
         Text(
-          extent={{-96,100},{-30,82}},
+          extent={{-196,146},{-118,116}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TZonCooSetOcc"),
         Text(
-          extent={{-96,52},{-28,32}},
+          extent={{-194,62},{-112,38}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TZonHeaSetOcc"),
         Text(
-          extent={{-96,28},{-30,12}},
+          extent={{-194,22},{-114,0}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TZonHeaSetUno"),
         Text(
-          extent={{-96,76},{-30,62}},
+          extent={{-192,106},{-112,74}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TZonCooSetUno"),
         Text(
           visible=heaAdj,
-          extent={{-100,-24},{-48,-36}},
+          extent={{-196,-58},{-126,-78}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="heaSetAdj"),
         Text(
           visible=cooAdj or sinAdj,
-          extent={{-100,0},{-66,-14}},
+          extent={{-194,-16},{-152,-34}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="setAdj"),
         Text(
-          extent={{-100,138},{-50,126}},
-          lineColor={255,127,0},
+          extent={{-194,190},{-130,172}},
+          lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="uOpeMod"),
         Text(
-          extent={{-96,-50},{-20,-68}},
-          lineColor={255,127,0},
+          extent={{-190,-122},{-88,-156}},
+          lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="uCooDemLimLev"),
         Text(
-          extent={{-96,-72},{-24,-88}},
-          lineColor={255,127,0},
+          extent={{-192,-170},{-92,-190}},
+          lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="uHeaDemLimLev"),
         Text(
-          extent={{-19.5,6},{19.5,-6}},
-          lineColor={255,0,255},
+          extent={{-28.5,8.5},{28.5,-8.5}},
+          lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          origin={-77.5,-110},
-          textString="uOccSen"),
+          textString="uOccSen",
+          visible = have_occSen,
+          origin={-60.5,-164.5},
+          rotation=90),
         Text(
-          extent={{-19,8.5},{19,-8.5}},
-          lineColor={255,0,255},
+          extent={{-26.5,9.5},{26.5,-9.5}},
+          lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          origin={-79,-129.5},
-          textString="uWinSta"),
+          textString="uWinSta",
+          visible = have_winSen,
+          origin={60.5,-164.5},
+          rotation=90),
         Text(
-          extent={{72,-74},{100,-86}},
-          lineColor={255,127,0},
+          extent={{158,-68},{200,-86}},
+          lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="yAla"),
         Text(
-          extent={{50,88},{98,72}},
+          extent={{142,86},{194,70}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TZonCooSet"),
         Text(
-          extent={{46,10},{96,-8}},
+          extent={{142,10},{196,-8}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TZonHeaSet"),
         Text(
-          extent={{-120,180},{100,140}},
+          extent={{-156,286},{124,208}},
           lineColor={0,0,255},
           textString="%name")}),
   Diagram(coordinateSystem(
@@ -1221,7 +1221,7 @@ annotation (
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
         Rectangle(
-          extent={{-412,-224},{330,-362}},
+          extent={{-412,-228},{330,-366}},
           lineColor={0,0,0},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
@@ -1257,7 +1257,7 @@ annotation (
           fillPattern=FillPattern.Solid,
           textString="Local setpoints adjustment"),
         Text(
-          extent={{-254,-290},{-2,-384}},
+          extent={{-288,-264},{-36,-358}},
           lineColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,

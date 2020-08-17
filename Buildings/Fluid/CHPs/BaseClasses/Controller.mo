@@ -132,21 +132,19 @@ protected
     final waitTime=waitTime) "Run in warm-up mode"
     annotation (Placement(transformation(extent={{30,-10},{50,10}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant optCooDow(
-    final k=per.coolDownOptional) "Check if cool-down mode is optional"
+    final k=per.coolDownOptional)
+    "Check if cool-down mode is optional"
     annotation (Placement(transformation(extent={{60,-190},{80,-170}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold timeDel(
     final threshold=per.timeDelayCool)
     "Check if the time of  plant in cool-down mode has been longer than the
     specified delay time"
     annotation (Placement(transformation(extent={{180,-190},{200,-170}})));
-  Buildings.Controls.OBC.CDL.Logical.Timer timer "Timer"
+  Buildings.Controls.OBC.CDL.Logical.Timer timer
+    "Timer"
     annotation (Placement(transformation(extent={{152,-190},{172,-170}})));
   Buildings.Controls.OBC.CDL.Logical.Not noGo "Plant should not run"
     annotation (Placement(transformation(extent={{40,90},{60,110}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant damRes(
-    final k=true)
-    "Dammy reset input to timer that does not accumulate time"
-    annotation (Placement(transformation(extent={{100,-200},{120,-180}})));
 
 equation
   if plaOff.active then
@@ -277,9 +275,6 @@ equation
           60},{-144,-208},{206,-208}}, color={255,0,255}));
   connect(noGo.y, transition9.condition) annotation (Line(points={{62,100},{80,100},
           {80,60},{-144,60},{-144,-140},{90,-140},{90,-92}}, color={255,0,255}));
-  connect(damRes.y, timer.reset) annotation (Line(points={{122,-190},{140,-190},
-          {140,-188},{150,-188}}, color={255,0,255}));
-
 annotation (
     defaultComponentName="conMai",
     Diagram(coordinateSystem(extent={{-260,-220},{260,220}})),

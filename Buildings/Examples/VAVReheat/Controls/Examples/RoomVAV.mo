@@ -2,8 +2,7 @@ within Buildings.Examples.VAVReheat.Controls.Examples;
 model RoomVAV "Test model for the room VAV controller"
   extends Modelica.Icons.Example;
 
-  Buildings.Examples.VAVReheat.Controls.RoomVAV vavBoxCon(ratVFloMin=0.15,
-      ratVFloHea=0.3)
+  Buildings.Examples.VAVReheat.Controls.RoomVAV vavBoxCon
     "VAV terminal unit single maximum controller"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant heaSet(k=273.15 + 21)

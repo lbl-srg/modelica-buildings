@@ -18,13 +18,18 @@ model Merkel "Test model for cooling tower using the Merkel theory"
     "Setpoint for leaving temperature"
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.PID conFan(
+  Controls.OBC.CDL.Continuous.LimPID conFan(
     k=1,
     Ti=60,
     Td=10,
     reverseActing=false,
-    u_s(unit="K", displayUnit="degC"),
-    u_m(unit="K", displayUnit="degC")) "Controller for tower fan"
+    u_s(
+      unit="K",
+      displayUnit="degC"),
+    u_m(
+      unit="K",
+      displayUnit="degC"))
+    "Controller for tower fan"
     annotation (Placement(transformation(extent={{-30,-20},{-10,0}})));
 
 equation

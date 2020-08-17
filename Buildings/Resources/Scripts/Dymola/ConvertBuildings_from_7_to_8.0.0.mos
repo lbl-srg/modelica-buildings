@@ -8,14 +8,3 @@ convertClear();
 convertModifiers("Buildings.Controls.Continuous.LimPID", {"reverseAction"}, {"reverseActing=not %reverseAction%"});
 convertModifiers("Buildings.Controls.Continuous.PIDHysteresis", {"reverseAction"}, {"reverseActing=not %reverseAction%"});
 convertModifiers("Buildings.Controls.Continuous.PIDHysteresisTimer", {"reverseAction"}, {"reverseActing=not %reverseAction%"});
-
-// Conversion for https://github.com/lbl-srg/modelica-buildings/issues/2056
-convertClass(
-    "Buildings.Controls.OBC.CDL.Continuous.Derivative",
-    "Buildings.Obsolete.Controls.OBC.CDL.Continuous.Derivative");
-convertClass(
-    "Buildings.Controls.OBC.CDL.Continuous.LimPID",
-    "Buildings.Obsolete.Controls.OBC.CDL.Continuous.LimPID");
-convertClass(
-    "Buildings.Controls.OBC.CDL.Types.Reset",
-    "Buildings.Obsolete.Controls.OBC.CDL.Types.Reset");

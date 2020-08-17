@@ -1,13 +1,14 @@
 within Buildings.Controls.OBC.CDL.Logical;
 block Timer
   "Timer measuring the time from the time instant where the Boolean input became true"
+
   parameter Boolean accumulate = false
     "If true, accumulate time until Boolean input 'reset' becomes true, otherwise reset timer whenever u becomes true";
 
   Interfaces.BooleanInput u "Connector for signal that switches timer on if true, and off if false"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Interfaces.BooleanInput reset
-    "Connector for signal that sets timer to zero if it switches to true. The input value will be ignored if the timer does not accumulate time"
+  Interfaces.BooleanInput reset if accumulate
+    "Connector for signal that sets timer to zero if it switches to true"
     annotation (Placement(transformation(extent={{-140,-90},{-100,-50}}),
       iconTransformation(extent={{-140,-100},{-100,-60}})));
   Interfaces.RealOutput y(
@@ -27,19 +28,18 @@ initial equation
   yAcc = 0;
 
 equation
+  connect(reset, reset_internal);
   if not accumulate then
-    reset_internal = true;
-  else
-    reset_internal = reset;
+    reset_internal = false;
   end if;
 
   when u and (not edge(reset_internal)) then
     entryTime = time;
-  elsewhen reset then
+  elsewhen reset_internal then
     entryTime = time;
   end when;
 
-  when reset then
+  when reset_internal then
     yAcc = 0;
   elsewhen (not u) then
     yAcc = pre(y);
@@ -88,7 +88,11 @@ annotation (
               235,235}),
           fillColor=DynamicSelect({235,235,235}, if u then {0,255,0} else {235,
               235,235}),
-          fillPattern=FillPattern.Solid)}),
+          fillPattern=FillPattern.Solid),
+        Text(
+          extent={{-88,-58},{88,-98}},
+          lineColor={217,67,180},
+          textString="accumulate: %accumulate")}),
     Documentation(info="<html>
 <p>
 Timer with option to accumulate time until it is reset by an input signal.
@@ -96,25 +100,13 @@ Timer with option to accumulate time until it is reset by an input signal.
 <p>
 Each time the Boolean input <code>u</code> becomes true, the timer runs, otherwise
 it is dormant.
-</p>
-<ul>
-<li>
 If the parameter <code>accumulate</code> is <code>false</code>, the timer is set to zero each time the
-input <code>u</code> becomes <code>false</code>. The value of input <code>reset</code>
-will be ignored.
-</li>
-<li>
-If the parameter <code>accumulate</code> is <code>true</code>, the timer accumulates time,
+input <code>u</code> becomes <code>false</code>.
+If <code>accumulate = true</code>, an input <code>reset</code> is enabled, the timer accumulates time,
 and the timer is set to zero only when the value of the input <code>reset</code> becomes <code>true</code>.
-</li>
-</ul>
+</p>
 </html>", revisions="<html>
 <ul>
-<li>
-July 31, 2020, by Jianjun Hu:<br/>
-Fixed the reset input. This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2056\">issue 2056</a>.
-</li>
 <li>
 November 8, 2019, by Michael Wetter:<br/>
 Revised implementation. This is for

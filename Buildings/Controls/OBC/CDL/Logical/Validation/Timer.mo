@@ -1,19 +1,22 @@
 within Buildings.Controls.OBC.CDL.Logical.Validation;
 model Timer "Validation model for the Timer block"
 
-  Buildings.Controls.OBC.CDL.Logical.Timer resetTimer(accumulate=false)
-    "Timer will reset"
+  Buildings.Controls.OBC.CDL.Logical.Timer resetTimer "Timer will reset"
     annotation (Placement(transformation(extent={{20,70},{40,90}})));
-  Buildings.Controls.OBC.CDL.Logical.Timer accuTimer
+  Buildings.Controls.OBC.CDL.Logical.Timer accuTimer(
+    final accumulate=true)
     "Reset timer based on boolean input"
     annotation (Placement(transformation(extent={{20,30},{40,50}})));
-  Buildings.Controls.OBC.CDL.Logical.Timer accuTimer1
+  Buildings.Controls.OBC.CDL.Logical.Timer accuTimer1(
+    final accumulate=true)
     "Reset timer based on boolean input"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
-  Buildings.Controls.OBC.CDL.Logical.Timer accuTimer2
+  Buildings.Controls.OBC.CDL.Logical.Timer accuTimer2(
+    final accumulate=true)
     "Reset timer based on boolean input"
     annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
-  Buildings.Controls.OBC.CDL.Logical.Timer accuTimer3
+  Buildings.Controls.OBC.CDL.Logical.Timer accuTimer3(
+    final accumulate=true)
     "Reset timer based on boolean input"
     annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
 
@@ -37,9 +40,6 @@ model Timer "Validation model for the Timer block"
     final period=2,
     final startTime=0.5)  "Block that outputs cyclic on and off"
     annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(
-    final k=false) "Block that outputs cyclic on and off"
-    annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
 
 equation
   connect(booPul.y, resetTimer.u)
@@ -69,8 +69,6 @@ equation
   connect(booPul2.y, accuTimer2.u)
     annotation (Line(points={{-18,-40},{18,-40}}, color={255,0,255}));
 
-  connect(con.y, resetTimer.reset) annotation (Line(points={{-58,60},{-10,60},{
-          -10,72},{18,72}}, color={255,0,255}));
 annotation (
   experiment(StopTime=5.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Logical/Validation/Timer.mos"

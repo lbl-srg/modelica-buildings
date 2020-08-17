@@ -20,13 +20,13 @@ block FreezeProtectionMixedAir "Freeze protection based on mixed air temperature
 
   parameter Real TFreSet(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")= 279.15
     "Lower limit for mixed air temperature for freeze protection";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TMix(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity = "ThermodynamicTemperature")
     "Mixed air temperature measurement"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
@@ -42,7 +42,7 @@ block FreezeProtectionMixedAir "Freeze protection based on mixed air temperature
     final max=1) "Inverse freeze protection control signal, 1 if no frost, 0 if TMix below TFreSet"
     annotation (Placement(transformation(extent={{100,10},{140,50}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.PID con(
+  Buildings.Controls.OBC.CDL.Continuous.LimPID con(
     final controllerType=controllerType,
     final k=k,
     final Ti=Ti,

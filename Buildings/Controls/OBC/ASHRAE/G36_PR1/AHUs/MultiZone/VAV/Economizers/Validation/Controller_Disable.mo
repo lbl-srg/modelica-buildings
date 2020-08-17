@@ -37,7 +37,7 @@ model Controller_Disable
 protected
   final parameter Real TOutCutoff(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")=297.15
     "Outdoor temperature high limit cutoff";
   final parameter Real hOutCutoff(
