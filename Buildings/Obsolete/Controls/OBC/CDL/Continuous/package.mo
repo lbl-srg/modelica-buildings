@@ -1,5 +1,5 @@
 within Buildings.Obsolete.Controls.OBC.CDL;
-package Continuous "fixme: add brief description"
+package Continuous "Package with obsolete models of the Control Description Language"
   extends Modelica.Icons.Package;
 annotation (preferredView="info",
 Documentation(info="<html>
