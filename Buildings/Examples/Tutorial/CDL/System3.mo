@@ -84,8 +84,8 @@ In this new block, we used a constant output signal
 <a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.Sources.Constant\">
 Buildings.Controls.OBC.CDL.Continuous.Sources.Constant</a>
 and a PID controller
-<a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.LimPID\">
-Buildings.Controls.OBC.CDL.Continuous.LimPID</a>,
+<a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.PID\">
+Buildings.Controls.OBC.CDL.Continuous.PID</a>,
 which we configured as a PI-controller.
 </p>
 <p>

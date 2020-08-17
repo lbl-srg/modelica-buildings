@@ -521,6 +521,10 @@ protected
     annotation (Placement(transformation(extent={{120,-180},{140,-160}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add8 "Add real inputs"
     annotation (Placement(transformation(extent={{160,-140},{180,-120}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant damRes(
+    final k=true)
+    "Dammy reset input to timer that does not accumulate time"
+    annotation (Placement(transformation(extent={{-280,-320},{-260,-300}})));
 
 equation
   connect(uOpeMod, intEqu.u1)
@@ -1072,7 +1076,6 @@ equation
       color={0,0,127}));
   connect(reaToInt.y, yAla)
     annotation (Line(points={{182,-390},{360,-390}}, color={255,127,0}));
-
   connect(pro6.y, add3.u1) annotation (Line(points={{102,150},{110,150},{110,
           134},{118,134}}, color={0,0,127}));
   connect(pro.y, add3.u2) annotation (Line(points={{102,110},{110,110},{110,122},
@@ -1101,6 +1104,8 @@ equation
           -136},{158,-136}}, color={0,0,127}));
   connect(add8.y, swi11.u3) annotation (Line(points={{182,-130},{190,-130},{190,
           -138},{218,-138}}, color={0,0,127}));
+  connect(damRes.y, tim.reset) annotation (Line(points={{-258,-310},{-240,-310},
+          {-240,-278},{-222,-278}}, color={255,0,255}));
 annotation (
   defaultComponentName="TZonSet",
   Icon(coordinateSystem(extent={{-100,-140},{100,140}}),
@@ -1216,7 +1221,7 @@ annotation (
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
         Rectangle(
-          extent={{-412,-228},{330,-366}},
+          extent={{-412,-224},{330,-362}},
           lineColor={0,0,0},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
@@ -1252,7 +1257,7 @@ annotation (
           fillPattern=FillPattern.Solid,
           textString="Local setpoints adjustment"),
         Text(
-          extent={{-288,-264},{-36,-358}},
+          extent={{-254,-290},{-2,-384}},
           lineColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,

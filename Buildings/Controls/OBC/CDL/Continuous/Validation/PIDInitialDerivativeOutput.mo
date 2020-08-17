@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.CDL.Continuous.Validation;
-model LimPIDInitialDerivativeOutput
+model PIDInitialDerivativeOutput
   "Test model for LimPID controller with initial output specified"
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant ySet(k=0.75)
@@ -9,13 +9,12 @@ model LimPIDInitialDerivativeOutput
     "Measured value"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.LimPID limPID(
+  Buildings.Controls.OBC.CDL.Continuous.PID limPID(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PID,
     k=3,
-    yd_start=0.2)
-            "PID controller"
+    yd_start=0.2) "PID controller"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
-  Buildings.Controls.OBC.CDL.Continuous.LimPID limPD(
+  Buildings.Controls.OBC.CDL.Continuous.PID limPD(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PD,
     k=3,
     yd_start=0.2) "PD controller"
@@ -34,20 +33,20 @@ equation
  experiment(
       StopTime=0.2,
       Tolerance=1e-06),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Continuous/Validation/LimPIDInitialDerivativeOutput.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Continuous/Validation/PIDInitialDerivativeOutput.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
 Validation test for the block
-<a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.LimPID\">
-Buildings.Controls.OBC.CDL.Continuous.LimPID</a>.
+<a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.PID\">
+Buildings.Controls.OBC.CDL.Continuous.PID</a>.
 </p>
 <p>
 This model validates setting the initial output of the controller to a specified value.
 Note that the control error must be zero for the initial output to be at the specified value.
 See the description of
-<a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.LimPID\">
-Buildings.Controls.OBC.CDL.Continuous.LimPID</a>.
+<a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.PID\">
+Buildings.Controls.OBC.CDL.Continuous.PID</a>.
 </p>
 </html>", revisions="<html>
 <ul>
@@ -69,4 +68,4 @@ First implementation.
                 fillPattern = FillPattern.Solid,
                 points = {{-36,60},{64,0},{-36,-60},{-36,60}})}),
     Diagram(coordinateSystem(extent={{-100,-100},{100,100}})));
-end LimPIDInitialDerivativeOutput;
+end PIDInitialDerivativeOutput;
