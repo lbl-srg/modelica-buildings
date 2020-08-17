@@ -49,42 +49,42 @@ block SetpointController
   parameter Real delayStaCha(
     final unit="s",
     final quantity="Time",
-    final displayUnit="h")=900
+    displayUnit="h")=900
       "Hold period for each stage change"
     annotation (Dialog(tab="Time parameters", group="Hold and delay parameters"));
 
   parameter Real parLoaRatDelay(
     final unit="s",
     final quantity="Time",
-    final displayUnit="h")=900
+    displayUnit="h")=900
       "Enable delay for operating and staging part load ratio condition"
     annotation (Dialog(tab="Time parameters", group="Hold and delay parameters"));
 
   parameter Real faiSafTruDelay(
     final unit="s",
     final quantity="Time",
-    final displayUnit="h")=900
+    displayUnit="h")=900
       "Enable delay for failsafe condition"
     annotation (Dialog(tab="Time parameters", group="Hold and delay parameters"));
 
   parameter Real effConTruDelay(
     final unit="s",
     final quantity="Time",
-    final displayUnit="h")=900
+    displayUnit="h")=900
       "Enable delay for efficiency condition"
     annotation (Dialog(tab="Time parameters", group="Hold and delay parameters"));
 
   parameter Real shortTDelay(
     final unit="s",
     final quantity="Time",
-    final displayUnit="h")=600
+    displayUnit="h")=600
       "Short enable delay for staging from zero to first available stage up"
     annotation(Evaluate=true, Dialog(enable=have_WSE, tab="Time parameters", group="Hold and delay parameters"));
 
   parameter Real longTDelay(
     final unit="s",
     final quantity="Time",
-    final displayUnit="h")=1200
+    displayUnit="h")=1200
       "Long enable delay for staging from zero to first available stage up"
     annotation(Evaluate=true, Dialog(enable=have_WSE, tab="Time parameters", group="Hold and delay parameters"));
 

@@ -55,19 +55,19 @@ block Controller "Tower fan speed control"
     annotation (Dialog(tab="Return temperature control", group="Setpoint"));
   parameter Real TConWatSup_nominal[nChi](
     each final unit="K",
-    each final displayUnit="degC",
+    each displayUnit="degC",
     final quantity=fill("ThermodynamicTemperature", nChi))={293.15,293.15}
     "Design condenser water supply temperature (condenser entering) of each chiller"
     annotation (Dialog(tab="Return temperature control", group="Setpoint"));
   parameter Real TConWatRet_nominal[nChi](
     each final unit="K",
-    each final displayUnit="degC",
+    each displayUnit="degC",
     final quantity=fill("ThermodynamicTemperature", nChi))={303.15,303.15}
     "Design condenser water return temperature (condenser leaving) of each chiller"
     annotation (Dialog(tab="Return temperature control", group="Setpoint"));
   parameter Real TChiWatSupMin[nChi](
     each final unit="K",
-    each final displayUnit="degC",
+    each displayUnit="degC",
     final quantity=fill("ThermodynamicTemperature", nChi))={278.15,278.15}
     "Lowest chilled water supply temperature of each chiller"
     annotation (Dialog(tab="Return temperature control", group="Setpoint"));
@@ -160,14 +160,14 @@ block Controller "Tower fan speed control"
        iconTransformation(extent={{-140,80},{-100,120}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSup(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature") if have_WSE
     "Chilled water supply temperature"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
       iconTransformation(extent={{-140,50},{-100,90}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSupSet(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Chilled water supply temperature setpoint"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
@@ -194,7 +194,7 @@ block Controller "Tower fan speed control"
       iconTransformation(extent={{-140,-130},{-100,-90}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TConWatRet(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature") "Condenser water return temperature"
     annotation (Placement(transformation(extent={{-140,-140},{-100,-100}}),
       iconTransformation(extent={{-140,-160},{-100,-120}})));
@@ -206,7 +206,7 @@ block Controller "Tower fan speed control"
       iconTransformation(extent={{-140,-190},{-100,-150}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TConWatSup(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature") if not closeCoupledPlant
     "Condenser water supply temperature"
     annotation (Placement(transformation(extent={{-140,-180},{-100,-140}}),

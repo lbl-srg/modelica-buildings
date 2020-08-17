@@ -19,25 +19,25 @@ block Down
   parameter Real holChiDemTim(
     final unit="s",
     final quantity="Time",
-    final displayUnit="h")=300
+    displayUnit="h")=300
     "Maximum time to wait for the actual demand less than percentage of current load"
     annotation (Dialog(group="Disable last chiller", enable=have_PonyChiller));
   parameter Real waiTim(
     final unit="s",
     final quantity="Time",
-    final displayUnit="h")=30
+    displayUnit="h")=30
     "Waiting time after enabling next head pressure control"
     annotation (Dialog(group="Disable last chiller", enable=have_PonyChiller));
   parameter Real proOnTim(
     final unit="s",
     final quantity="Time",
-    final displayUnit="h")=300
+    displayUnit="h")=300
     "Enabled chiller operation time to indicate if it is proven on"
     annotation (Dialog(group="Disable last chiller", enable=have_PonyChiller));
   parameter Real chaChiWatIsoTim(
     final unit="s",
     final quantity="Time",
-    final displayUnit="h")
+    displayUnit="h")
     "Time to slowly change isolation valve, should be determined in the field"
     annotation (Dialog(group="Disable CHW isolation valve"));
   parameter Real staVec[totSta]
@@ -52,7 +52,7 @@ block Down
   parameter Real byPasSetTim(
     final unit="s",
     final quantity="Time",
-    final displayUnit="h")
+    displayUnit="h")
     "Time to reset minimum by-pass flow"
     annotation (Dialog(group="Reset CHW minimum flow setpoint"));
   parameter Modelica.SIunits.VolumeFlowRate minFloSet[nChi]
@@ -64,7 +64,7 @@ block Down
   parameter Real aftByPasSetTim(
     final unit="s",
     final quantity="Time",
-    final displayUnit="h")=60
+    displayUnit="h")=60
     "Time to allow loop to stabilize after resetting minimum chilled water flow setpoint"
     annotation (Dialog(group="Reset bypass"));
   parameter Real relSpeDif = 0.05

@@ -5,7 +5,7 @@ block EfficiencyCondition
   parameter Real effConTruDelay(
     final unit="s",
     final quantity="Time",
-    final displayUnit="h")=900
+    displayUnit="h")=900
       "Enable delay";
 
   parameter Real sigDif = 0.05

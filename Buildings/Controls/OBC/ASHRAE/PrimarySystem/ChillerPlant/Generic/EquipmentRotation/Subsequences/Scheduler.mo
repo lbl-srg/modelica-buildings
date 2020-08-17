@@ -21,7 +21,7 @@ block Scheduler
   parameter Real rotationPeriod(
     final unit="s",
     final quantity="Time",
-    final displayUnit="h") = 1209600
+    displayUnit="h") = 1209600
     "Rotation time period measured from simulation start"
     annotation(Dialog(group="Calendar", enable=simTimSta));
 

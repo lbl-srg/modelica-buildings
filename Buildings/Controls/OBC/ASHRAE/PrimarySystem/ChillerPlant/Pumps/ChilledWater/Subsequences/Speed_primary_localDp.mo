@@ -7,13 +7,13 @@ block Speed_primary_localDp
     "Total number of chilled water pumps";
   parameter Real minLocDp(
     final unit="Pa",
-    final displayUnit="Pa",
+    displayUnit="Pa",
     final quantity="PressureDifference",
     final min=0)=5*6894.75
     "Minimum chilled water loop local differential pressure setpoint";
   parameter Real maxLocDp(
     final unit="Pa",
-    final displayUnit="Pa",
+    displayUnit="Pa",
     final quantity="PressureDifference",
     final min=minLocDp) = 15*6894.75
     "Maximum chilled water loop local differential pressure setpoint";

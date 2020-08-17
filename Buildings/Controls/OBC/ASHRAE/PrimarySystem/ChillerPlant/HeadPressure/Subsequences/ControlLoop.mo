@@ -20,14 +20,14 @@ block ControlLoop
       iconTransformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TConWatRet(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Measured condenser water return temperature"
     annotation (Placement(transformation(extent={{-140,-40},{-100,0}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSup(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Measured chilled water supply temperature"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}}),

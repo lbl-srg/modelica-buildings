@@ -24,7 +24,7 @@ model Controller "Define current operation mode"
       iconTransformation(extent={{-140,-10},{-100,30}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TEng(
     final unit="K",
-    final displayUnit="degC") if not per.warmUpByTimeDelay
+    displayUnit="degC") if not per.warmUpByTimeDelay
     "Engine temperature"
     annotation (Placement(transformation(extent={{-300,-20},{-260,20}}),
       iconTransformation(extent={{-140,-40},{-100,0}})));

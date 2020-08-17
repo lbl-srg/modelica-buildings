@@ -42,7 +42,7 @@ block Zone
 
   parameter Real uLow(
     final unit="K",
-    final displayUnit="K",
+    displayUnit="K",
     final quantity="ThermodynamicTemperature") = -0.5
     "If zone space temperature minus supply air temperature is less than uLow,
      then it should use heating supply air distribution effectiveness"
@@ -50,7 +50,7 @@ block Zone
 
   parameter Real uHig(
     final unit="K",
-    final displayUnit="K",
+    displayUnit="K",
     final quantity="ThermodynamicTemperature") = 0.5
     "If zone space temperature minus supply air temperature is more than uHig,
      then it should use cooling supply air distribution effectiveness"
@@ -77,14 +77,14 @@ block Zone
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZon(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature") "Measured zone air temperature"
     annotation (Placement(transformation(extent={{-200,-150},{-160,-110}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TDis(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature") "Measured discharge air temperature"
     annotation (Placement(transformation(extent={{-200,-190},{-160,-150}}),
       iconTransformation(extent={{-140,-50},{-100,-10}})));

@@ -9,7 +9,7 @@ block Controller "Multi zone VAV AHU economizer control sequence"
     "Set to true to use G36 freeze protection";
   parameter Real delTOutHis(
     final unit="K",
-    final displayUnit="K",
+    displayUnit="K",
     final quantity="TemperatureDifference")=1
     "Delta between the temperature hysteresis high and low limit"
     annotation (Dialog(tab="Advanced", group="Hysteresis"));
@@ -58,7 +58,7 @@ block Controller "Multi zone VAV AHU economizer control sequence"
 
   parameter Real TFreSet(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")= 279.15
     "Lower limit for mixed air temperature for freeze protection, used if use_TMix=true"
      annotation(Dialog(group="Freeze protection", enable=use_TMix));
@@ -139,12 +139,12 @@ block Controller "Multi zone VAV AHU economizer control sequence"
     annotation (Placement(transformation(extent={{-200,20},{-160,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TOut(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature") "Outdoor air (OA) temperature"
     annotation (Placement(transformation(extent={{-200,130},{-160,170}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TOutCut(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "OA temperature high limit cutoff. For differential dry bulb temeprature condition use return air temperature measurement"
     annotation (Placement(transformation(extent={{-200,100},{-160,140}})));
@@ -159,7 +159,7 @@ block Controller "Multi zone VAV AHU economizer control sequence"
     annotation (Placement(transformation(extent={{-200,50},{-160,90}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TMix(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity = "ThermodynamicTemperature") if use_TMix
     "Measured mixed air temperature, used for freeze protection"
     annotation (Placement(transformation(extent={{-200,-70},{-160,-30}})));

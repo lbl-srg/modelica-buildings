@@ -15,7 +15,7 @@ block Controller "Single zone VAV AHU economizer control sequence"
 
   parameter Real delTOutHis(
     final unit="K",
-    final displayUnit="K",
+    displayUnit="K",
     final quantity="TemperatureDifference")=1
     "Delta between the temperature hysteresis high and low limit"
     annotation(Dialog(tab="Advanced", group="Hysteresis"));
@@ -90,7 +90,7 @@ block Controller "Single zone VAV AHU economizer control sequence"
 
   parameter Real TFreSet(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature") = 277.15
     "Lower limit for mixed air temperature for freeze protection, used if use_TMix=true"
      annotation(Dialog(group="Freeze protection", enable=use_TMix));
@@ -166,35 +166,35 @@ block Controller "Single zone VAV AHU economizer control sequence"
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaSupSet(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity = "ThermodynamicTemperature")
     "Supply air temperature heating setpoint"
     annotation (Placement(transformation(extent={{-160,10},{-140,30}}),
       iconTransformation(extent={{-120,-12},{-100,8}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSup(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity = "ThermodynamicTemperature")
     "Measured supply air temperature"
     annotation (Placement(transformation(extent={{-160,30},{-140,50}}),
       iconTransformation(extent={{-120,4},{-100,24}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TOut(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity = "ThermodynamicTemperature")
     "Outdoor air temperature"
     annotation (Placement(transformation(extent={{-160,130},{-140,150}}),
       iconTransformation(extent={{-120,84},{-100,104}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TCut(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Outdoor air temperature high limit cutoff. For differential dry bulb temeprature condition use return air temperature measurement"
     annotation (Placement(transformation(extent={{-160,110},{-140,130}}),
         iconTransformation(extent={{-120,68},{-100,88}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TRet(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature") if
        use_fixed_plus_differential_drybulb
     "Used only for fixed plus differential dry bulb temperature high limit cutoff"
@@ -213,7 +213,7 @@ block Controller "Single zone VAV AHU economizer control sequence"
         iconTransformation(extent={{-120,20},{-100,40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TMix(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity = "ThermodynamicTemperature") if use_TMix
     "Measured mixed air temperature, used for freeze protection"
     annotation (Placement(transformation(extent={{-160,-50},{-140,-30}}),

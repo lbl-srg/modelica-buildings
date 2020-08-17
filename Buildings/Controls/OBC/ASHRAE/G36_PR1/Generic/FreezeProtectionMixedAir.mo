@@ -20,13 +20,13 @@ block FreezeProtectionMixedAir "Freeze protection based on mixed air temperature
 
   parameter Real TFreSet(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")= 279.15
     "Lower limit for mixed air temperature for freeze protection";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TMix(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity = "ThermodynamicTemperature")
     "Mixed air temperature measurement"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
