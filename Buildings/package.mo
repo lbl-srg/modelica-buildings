@@ -242,6 +242,18 @@ to <b style=\"color:blue\">existing</b> libraries:
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1893\">issue 1893</a>.
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.PID
+    </td>
+    <td valign=\"top\">New implementation of the PID controller.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2056\">issue 2056</a>.</td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.PIDWithReset
+    </td>
+    <td valign=\"top\">New implementation of the PID controller with output reset based on a boolean trigger.
+                       This implementation allows to reset the output of the controller
+                       to a parameter value. (Resetting it to an input was never used and is now removed for simplicity.)<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2056\">issue 2056</a>.</td>
+</tr>                       
 </table>
 <!-- Backward compatible changes -->
 <p>
@@ -333,6 +345,13 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1893\">issue 1893</a>.
     </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.LimPID
+    </td>
+    <td valign=\"top\">Moved model to <code>Building.Obsolete.Controls.OBC.CDL.Continuous</code>.<br/>
+                       Instead of this model, use the new model <code>Buildings.Controls.Continuous.PID</code> or
+                       <code>Buildings.Controls.Continuous.PIDWithReset</code>.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2056\">issue 2056</a>.</td>
 </tr>
 </table>
 <!-- Errors that have been fixed -->

@@ -42,7 +42,7 @@ block FreezeProtectionMixedAir "Freeze protection based on mixed air temperature
     final max=1) "Inverse freeze protection control signal, 1 if no frost, 0 if TMix below TFreSet"
     annotation (Placement(transformation(extent={{100,10},{140,50}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.LimPID con(
+  Buildings.Controls.OBC.CDL.Continuous.PID con(
     final controllerType=controllerType,
     final k=k,
     final Ti=Ti,

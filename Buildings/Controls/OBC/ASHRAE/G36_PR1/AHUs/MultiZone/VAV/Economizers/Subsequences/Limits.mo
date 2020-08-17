@@ -112,14 +112,13 @@ block Limits
     annotation (Placement(transformation(extent={{180,-110},{220,-70}}),
         iconTransformation(extent={{100,-100},{140,-60}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.LimPID damLimCon(
+  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset damLimCon(
     final controllerType=controllerType,
     final k=k,
     final Ti=Ti,
     final Td=Td,
     final yMax=yMax,
-    final yMin=yMin,
-    reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter)
+    final yMin=yMin)
     "Damper position limit controller"
     annotation (Placement(transformation(extent={{-140,180},{-120,200}})));
 
