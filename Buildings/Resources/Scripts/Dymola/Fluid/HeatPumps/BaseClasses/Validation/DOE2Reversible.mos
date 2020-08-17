@@ -1,0 +1,14 @@
+simulateModel("Buildings.Fluid.HeatPumps.BaseClasses.Validation.DOE2Reversible", method="CVode", tolerance=1e-6, stopTime=2600,
+resultFile="DOE2ReversibleMethod");
+createPlot(id = 1,
+   position = {60, 10, 640, 480},
+   y = {"doe2.Q1_flow", "doe2.Q2_flow"},
+   autoscale = true,
+   autoerase = true,
+   autoreplot = true,
+   grid = true,
+   color = true,
+   leftTitleType = 1,
+   bottomTitleType = 1);
+
+

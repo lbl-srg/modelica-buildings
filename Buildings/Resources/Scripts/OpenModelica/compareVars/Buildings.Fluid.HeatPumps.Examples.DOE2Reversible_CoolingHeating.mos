@@ -1,0 +1,17 @@
+compareVars :=
+  {
+    "TRoo.T",
+    "TRooSet.y",
+    "heaPum.uMod",
+    "heaPum.Q1_flow",
+    "heaPum.Q2_flow",
+    "heaPum.P",
+    "heaPum.thePer.EIRFT",
+    "heaPum.thePer.EIRFPLR",
+    "heaPum.thePer.capFunT",
+    "heaPum.COPCoo",
+    "heaPum.COPHea",
+    "heaPum.thePer.PLR1",
+    "heaPum.thePer.PLR2",
+    "heaPum.thePer.CR"
+  };

@@ -1,0 +1,5 @@
+compareVars :=
+  {
+    "doe2.Q1_flow",
+    "doe2.Q2_flow"
+  };

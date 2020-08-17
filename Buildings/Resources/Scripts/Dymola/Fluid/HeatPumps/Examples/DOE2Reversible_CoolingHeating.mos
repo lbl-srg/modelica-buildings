@@ -1,0 +1,7 @@
+simulateModel("Buildings.Fluid.HeatPumps.Examples.DOE2Reversible_CoolingHeating", stopTime=7200, method="Cvode", tolerance=1e-06, resultFile="DOE2Reversible_CoolingHeating");
+createPlot(id=1, position={35, 35, 1994, 1280}, y={"TRoo.T", "TRooSet.y"}, range={0.0, 7200.0, 19.8, 20.2}, grid=true, colors={{28,108,200}, {238,46,47}}, displayUnits={"degC", "degC"});
+createPlot(id=1, position={35, 35, 1994, 210}, y={"heaPum.uMod"}, range={0.0, 7200.0, -2.0, 2.0}, grid=true, subPlot=2, colors={{28,108,200}});
+createPlot(id=1, position={35, 35, 1994, 210}, y={"heaPum.Q1_flow", "heaPum.Q2_flow", "heaPum.P"}, range={0.0, 7200.0, -50000.0, 50000.0}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}, {0,140,72}});
+createPlot(id=1, position={35, 35, 1994, 210}, y={"heaPum.thePer.EIRFT", "heaPum.thePer.EIRFPLR", "heaPum.thePer.capFunT"}, range={0.0, 7200.0, -2.0, 4.0}, grid=true, subPlot=4, colors={{28,108,200}, {238,46,47}, {0,140,72}});
+createPlot(id=1, position={35, 35, 1994, 210}, y={"heaPum.COPCoo", "heaPum.COPHea"}, range={0.0, 7200.0, -5.0, 10.0}, grid=true, subPlot=5, colors={{28,108,200}, {238,46,47}});
+createPlot(id=1, position={35, 35, 1994, 210}, y={"heaPum.thePer.PLR1", "heaPum.thePer.PLR2", "heaPum.thePer.CR"}, range={0.0, 7200.0, -1.0, 2.0}, grid=true, subPlot=6, colors={{28,108,200}, {238,46,47}, {0,140,72}});

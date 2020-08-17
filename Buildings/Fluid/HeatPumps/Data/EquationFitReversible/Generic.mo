@@ -13,7 +13,7 @@ record Generic
   parameter Modelica.SIunits.PressureDifference dpHeaSou_nominal(min=0) = 30000
    "Nominal pressure drop at load heat exchanger side at hea.mSou_flow";
 
-  final parameter Boolean reverseCycle=coo.P > Modelica.Constants.eps
+  final parameter Boolean canCool = coo.P > Modelica.Constants.eps
     "= true, if the heat pump can be reversed to also operate in cooling mode"
       annotation(Evaluate=true);
 

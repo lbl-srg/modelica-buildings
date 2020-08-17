@@ -1,0 +1,11 @@
+compareVars :=
+  {
+    "chiDOE2.Q1_flow",
+    "chiDOE2.Q2_flow",
+    "chiDOE2.P",
+    "chiDOE2.sta_a1.T",
+    "chiDOE2.sta_b1.T",
+    "chiDOE2.sta_a2.T",
+    "chiDOE2.sta_b2.T",
+    "chiDOE2.COPCoo"
+  };
