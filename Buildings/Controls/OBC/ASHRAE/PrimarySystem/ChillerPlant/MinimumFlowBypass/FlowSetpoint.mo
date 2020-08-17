@@ -1,4 +1,4 @@
-within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.MinimumFlowBypass.Subsequences;
+﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.MinimumFlowBypass;
 block FlowSetpoint "Chilled water minimum flow setpoint"
 
   parameter Integer nChi = 3
@@ -8,7 +8,7 @@ block FlowSetpoint "Chilled water minimum flow setpoint"
   parameter Real byPasSetTim(
     final unit="s",
     final quantity="Time")=300
-      "Time constant for resetting minimum bypass flow";
+    "Time constant for resetting minimum bypass flow";
   parameter Modelica.SIunits.VolumeFlowRate minFloSet[nChi] = {0.005, 0.005, 0.005}
     "Minimum chilled water flow through each chiller";
   parameter Modelica.SIunits.VolumeFlowRate maxFloSet[nChi] = {0.025, 0.025, 0.025}

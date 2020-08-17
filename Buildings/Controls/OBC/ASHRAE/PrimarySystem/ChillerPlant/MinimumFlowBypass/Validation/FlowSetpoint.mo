@@ -1,25 +1,19 @@
-within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.MinimumFlowBypass.Subsequences.Validation;
+within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.MinimumFlowBypass.Validation;
 model FlowSetpoint
   "Validation sequence of specifying minimum bypass flow setpoint"
 
   parameter Integer nChi=3 "Total number of chillers";
 
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.MinimumFlowBypass.Subsequences.FlowSetpoint
-    staUpMinFlo(
-    final nChi=nChi,
-    final byPasSetTim=1.5)
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.MinimumFlowBypass.FlowSetpoint
+    staUpMinFlo(final nChi=nChi, final byPasSetTim=1.5)
     "Minimum flow setpoint when there is stage up command"
     annotation (Placement(transformation(extent={{120,170},{140,190}})));
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.MinimumFlowBypass.Subsequences.FlowSetpoint
-    onOffStaUpMinFlo(
-    final nChi=nChi,
-    final byPasSetTim=1.5)
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.MinimumFlowBypass.FlowSetpoint
+    onOffStaUpMinFlo(final nChi=nChi, final byPasSetTim=1.5)
     "Minimum flow setpoint when there is stage up command and the change requires one chiller off and another chiller on"
     annotation (Placement(transformation(extent={{120,-10},{140,10}})));
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.MinimumFlowBypass.Subsequences.FlowSetpoint
-    staDowMinFlo(
-    final nChi=nChi,
-    final byPasSetTim=1.5)
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.MinimumFlowBypass.FlowSetpoint
+    staDowMinFlo(final nChi=nChi, final byPasSetTim=1.5)
     "Minimum flow setpoint when there is stage down command"
     annotation (Placement(transformation(extent={{120,-170},{140,-150}})));
 
@@ -183,13 +177,13 @@ equation
 
 annotation (
  experiment(StopTime=4.0, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/MinimumFlowBypass/Subsequences/Validation/FlowSetpoint.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/MinimumFlowBypass/Validation/FlowSetpoint.mos"
     "Simulate and plot"),
   Documentation(info="<html>
 <p>
 This example validates
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.MinimumFlowBypass.Subsequences.FlowSetpoint\">
-Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.MinimumFlowBypass.Subsequences.FlowSetpoint</a>.
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.MinimumFlowBypass.FlowSetpoint\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.MinimumFlowBypass.FlowSetpoint</a>.
 </p>
 </html>", revisions="<html>
 <ul>
