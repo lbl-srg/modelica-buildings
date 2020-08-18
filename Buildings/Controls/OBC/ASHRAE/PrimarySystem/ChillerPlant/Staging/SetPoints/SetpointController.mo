@@ -187,7 +187,8 @@ block SetpointController
 
   parameter Real effConSigDif(
     final min=0,
-    final max=1) = 0.05
+    final max=1,
+    final unit="1") = 0.05
     "Signal hysteresis deadband"
     annotation (Dialog(tab="Conditionals", group="Value comparison parameters"));
 

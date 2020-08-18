@@ -1,4 +1,4 @@
-within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.MinimumFlowBypass;
+﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.MinimumFlowBypass;
 block Controller
   "Controller for chilled water minimum flow bypass valve"
 
@@ -12,12 +12,12 @@ block Controller
   parameter Real minFloSet[nChi](
     final unit=fill("m3/s", nChi),
     final quantity=fill("VolumeFlowRate", nChi),
-    final displayUnit=fill("m3/s", nChil))
+    displayUnit=fill("m3/s", nChi))
     "Minimum chilled water flow through each chiller";
   parameter Real maxFloSet[nChi](
     final unit=fill("m3/s", nChi),
     final quantity=fill("VolumeFlowRate", nChi),
-    final displayUnit=fill("m3/s", nChil)
+    displayUnit=fill("m3/s", nChi))
     "Maximum chilled water flow through each chiller";
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI

@@ -63,7 +63,9 @@ block Controller "Waterside economizer (WSE) enable/disable status"
       "Desing heat exchanger chilled water volume flow rate"
     annotation(Dialog(group="Design parameters"));
 
-  parameter Real step=0.02 "Tuning step"
+  parameter Real step(
+    final unit="1")=0.02
+    "Incremental step used to reduce or increase the water-side economizer tuning parameter"
     annotation (Evaluate=true, Dialog(tab="Advanced", group="Tuning"));
 
   parameter Real wseOnTimDec(

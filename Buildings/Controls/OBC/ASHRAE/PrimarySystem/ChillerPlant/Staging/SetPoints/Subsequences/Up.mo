@@ -70,7 +70,10 @@ block Up "Generates a stage up signal"
     displayUnit="Pa")=0.5 * 6895
       "Pressure difference hysteresis deadband";
 
-  parameter Real effConSigDif = 0.05
+  parameter Real effConSigDif(
+    final min=0,
+    final max=1,
+    final unit="1") = 0.05
     "Signal hysteresis deadband";
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uAvaCur

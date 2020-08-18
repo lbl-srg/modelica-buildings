@@ -26,13 +26,13 @@ block UpEnd "Sequence for ending stage-up process"
   parameter Real minFloSet[nChi](
     final unit=fill("m3/s", nChi),
     final quantity=fill("VolumeFlowRate", nChi),
-    final displayUnit=fill("m3/s", nChil))
+    displayUnit=fill("m3/s", nChi))
     "Minimum chilled water flow through each chiller"
     annotation (Dialog(group="Reset CHW minimum flow setpoint"));
   parameter Real maxFloSet[nChi](
     final unit=fill("m3/s", nChi),
     final quantity=fill("VolumeFlowRate", nChi),
-    final displayUnit=fill("m3/s", nChil)
+    displayUnit=fill("m3/s", nChi))
     "Maximum chilled water flow through each chiller"
     annotation (Dialog(group="Reset CHW minimum flow setpoint"));
   parameter Real aftByPasSetTim(
