@@ -11,13 +11,15 @@ block Configurator "Configures chiller staging"
      final unit=fill("W",nChi),
      final quantity=fill("Power",nChi),
      displayUnit=fill("W",nChi))
-    "Design chiller capacities vector";
+    "Design chiller capacities vector"
+    annotation (Evaluate=true);
 
   parameter Real chiMinCap[nChi](
      final unit=fill("W",nChi),
      final quantity=fill("Power",nChi),
      displayUnit=fill("W",nChi))
-    "Chiller minimum cycling loads vector";
+    "Chiller minimum cycling loads vector"
+    annotation (Evaluate=true);
 
   parameter Integer chiTyp[nChi]={
     Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes.positiveDisplacement,

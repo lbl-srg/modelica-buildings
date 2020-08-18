@@ -13,13 +13,14 @@ block FlowSetpoint "Chilled water minimum flow setpoint"
     final unit=fill("m3/s",nChi),
     final quantity=fill("VolumeFlowRate",nChi),
     displayUnit=fill("m3/s",nChi))={0.005, 0.005, 0.005}
-      "Minimum chilled water flow through each chiller";
+      "Minimum chilled water flow through each chiller"
+      annotation (Evaluate=true);
   parameter Real maxFloSet[nChi](
     final unit=fill("m3/s",nChi),
     final quantity=fill("VolumeFlowRate",nChi),
     displayUnit=fill("m3/s",nChi))={0.025, 0.025, 0.025}
-      "Maximum chilled water flow through each chiller";
-
+      "Maximum chilled water flow through each chiller"
+      annotation (Evaluate=true);
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uStaUp
     "Stage up logical signal"
     annotation (Placement(transformation(extent={{-480,400},{-440,440}}),

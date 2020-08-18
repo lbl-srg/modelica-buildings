@@ -6,17 +6,20 @@ block Setpoint "Calculate condener return water temperature setpoint"
     final unit=fill("K",nChi),
     final quantity=fill("TemperatureDifference",nChi),
     displayUnit=fill("degC",nChi))={12, 12}
-      "Minimum LIFT of each chiller";
+      "Minimum LIFT of each chiller"
+      annotation (Evaluate=true);
   parameter Real TConWatRet_nominal[nChi](
     final unit=fill("K",nChi),
     final quantity=fill("ThermodynamicTemperature",nChi),
     displayUnit=fill("degC",nChi))= {303.15, 303.15}
-    "Design condenser water return temperature (condenser leaving) of each chiller";
+    "Design condenser water return temperature (condenser leaving) of each chiller"
+    annotation (Evaluate=true);
   parameter Real TChiWatSupMin[nChi](
     final unit=fill("K",nChi),
     final quantity=fill("ThermodynamicTemperature",nChi),
     displayUnit=fill("degC",nChi)) = {278.15, 278.15}
-    "Minimum chilled water supply temperature of each chiller";
+    "Minimum chilled water supply temperature of each chiller"
+    annotation (Evaluate=true);
   parameter Real iniPlaTim(final quantity="Time", final unit="s")= 600
     "Time to hold return temperature to initial setpoint after plant being enabled"
     annotation (Dialog(tab="Advanced"));

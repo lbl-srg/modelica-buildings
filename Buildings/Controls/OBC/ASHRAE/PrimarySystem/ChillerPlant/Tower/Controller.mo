@@ -66,25 +66,25 @@ block Controller "Cooling tower controller"
     final unit=fill("K",nChi),
     final quantity=fill("TemperatureDifference",nChi),
     displayUnit=fill("degC",nChi))={12,12} "Minimum LIFT of each chiller"
-      annotation (Dialog(tab="Fan speed", group="Return temperature control"));
+      annotation (Evaluate=true, Dialog(tab="Fan speed", group="Return temperature control"));
   parameter Real TConWatSup_nominal[nChi](
     final unit=fill("K",nChi),
     final quantity=fill("ThermodynamicTemperature",nChi),
     displayUnit=fill("degC",nChi))={293.15,293.15}
     "Condenser water supply temperature (condenser entering) of each chiller"
-    annotation (Dialog(tab="Fan speed", group="Return temperature control"));
+    annotation (Evaluate=true, Dialog(tab="Fan speed", group="Return temperature control"));
   parameter Real TConWatRet_nominal[nChi](
     final unit=fill("K",nChi),
     final quantity=fill("ThermodynamicTemperature",nChi),
     displayUnit=fill("degC",nChi))={303.15,303.15}
     "Condenser water return temperature (condenser leaving) of each chiller"
-    annotation (Dialog(tab="Fan speed", group="Return temperature control"));
+    annotation (Evaluate=true, Dialog(tab="Fan speed", group="Return temperature control"));
   parameter Real TChiWatSupMin[nChi](
     final unit=fill("K",nChi),
     final quantity=fill("ThermodynamicTemperature",nChi),
     displayUnit=fill("degC",nChi))={278.15,278.15}
     "Lowest chilled water supply temperature oc each chiller"
-    annotation (Dialog(tab="Fan speed", group="Return temperature control"));
+    annotation (Evaluate=true, Dialog(tab="Fan speed", group="Return temperature control"));
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController couPlaCon=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of coupled plant controller"
@@ -93,12 +93,16 @@ block Controller "Cooling tower controller"
   parameter Real kCouPla=1 "Gain of controller"
     annotation (Dialog(tab="Fan speed", group="Return temperature control",
                        enable=closeCoupledPlant));
-  parameter Real TiCouPla(final unit="s", final quantity="Time")=0.5
+  parameter Real TiCouPla(
+    final unit="s",
+    final quantity="Time")=0.5
     "Time constant of integrator block"
     annotation (Dialog(tab="Fan speed", group="Return temperature control",
                        enable=closeCoupledPlant and (couPlaCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
                                                      couPlaCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
-  parameter Real TdCouPla(final unit="s", final quantity="Time")=0.1
+  parameter Real TdCouPla(
+    final unit="s",
+    final quantity="Time")=0.1
     "Time constant of derivative block"
     annotation (Dialog(tab="Fan speed", group="Return temperature control",
                        enable=closeCoupledPlant and (couPlaCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
