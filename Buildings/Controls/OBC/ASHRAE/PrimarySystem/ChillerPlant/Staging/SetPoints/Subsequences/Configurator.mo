@@ -7,8 +7,16 @@ block Configurator "Configures chiller staging"
   parameter Integer nChi = 2
     "Number of chillers";
 
+  parameter Real chiDesCap[nChi](
+     final unit=fill("W",nChi),
+     final quantity=fill("Power",nChi),
+     displayUnit=fill("W",nChi))
     "Design chiller capacities vector";
 
+  parameter Real chiMinCap[nChi](
+     final unit=fill("W",nChi),
+     final quantity=fill("Power",nChi),
+     displayUnit=fill("W",nChi))
     "Chiller minimum cycling loads vector";
 
   parameter Integer chiTyp[nChi]={
@@ -157,10 +165,10 @@ protected
     annotation (Placement(transformation(extent={{100,-160},{120,-140}})));
 
   Buildings.Controls.OBC.CDL.Utilities.Assert assMes(
-    final message="It could be that the chillers are not being staged in an order 
-    recommended by ASHRAE RP1711 or Guideline 36. 
+    final message="It could be that the chillers are not being staged in an order
+    recommended by ASHRAE RP1711 or Guideline 36.
     Please make sure to follow the recommendation that is:
-    any positive displacement machines first, 
+    any positive displacement machines first,
     any variable speed centrifugal next and any constant speed centrifugal last.")
     "Assert block"
     annotation (Placement(transformation(extent={{180,-160},{200,-140}})));
@@ -246,8 +254,8 @@ equation
 Documentation(info="<html>
 <p>
 This subsequence is not directly specified in 1711 as it provides
-a side calculation pertaining to generalization of the staging 
-sequences for any number of chillers and stages provided by the 
+a side calculation pertaining to generalization of the staging
+sequences for any number of chillers and stages provided by the
 user.
 </p>
 <p>
@@ -255,22 +263,22 @@ Given the staging matrix input parameter <code>staMat</code> the staging configu
 </p>
 <ul>
 <li>
-Stage availability vector <code>yAva</code> from the chiller availability <code>uChiAva</code> 
+Stage availability vector <code>yAva</code> from the chiller availability <code>uChiAva</code>
 input vector according to RP-1711 March 2020 Draft section 5.2.4.13<br/>
 </li>
 <li>
-Design stage capacity vector <code>yDesCap</code> from the design chiller capacity vector 
+Design stage capacity vector <code>yDesCap</code> from the design chiller capacity vector
 input parameter <code>chiDesCap</code>.
-The chillers need to be tagged in order of ascending chiller capacity if unequally sized. This is 
+The chillers need to be tagged in order of ascending chiller capacity if unequally sized. This is
 according to 3.1.1.4.1 1711 March 2020 Draft, otherwise a warning is thrown.<br/>
 </li>
 <li>
-Minimum stage capacity vector <code>yMinCap</code> from the chiller minimum cycling load input 
+Minimum stage capacity vector <code>yMinCap</code> from the chiller minimum cycling load input
 parameter <code>chiMinCap</code> according to section 3.1.1.5.1, 1711 March 2020 Draft.<br/>
 </li>
 <li>
-Stage type vector <code>yTyp</code> from the chiller type vector input parameter 
-<code>uChiTyp</code>, as listed in section 5.2.4.14, 1711 March 2020 Draft. Chiller types are defined in 
+Stage type vector <code>yTyp</code> from the chiller type vector input parameter
+<code>uChiTyp</code>, as listed in section 5.2.4.14, 1711 March 2020 Draft. Chiller types are defined in
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes\">
 Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes</a>.<br/>
 Stage type is, based on the chiller types in that stage and in the recommended staging order:<br/>
@@ -285,7 +293,7 @@ Variable speed centirfugal, for any stage with any variable speed chiller(s) and
 Constant speed centirfugal, for any stage with any constant speed centrifugal chiller(s)<br/>
 </li>
 </ul>
-This stage type is used in the 
+This stage type is used in the
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.SetPoints.Subsequences.PartLoadRatios\">
 Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.SetPoints.Subsequences.PartLoadRatios</a>
 subsequence to determine the stage up and down part load ratios.

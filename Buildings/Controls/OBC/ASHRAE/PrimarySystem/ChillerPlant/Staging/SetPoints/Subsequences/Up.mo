@@ -34,40 +34,40 @@ block Up "Generates a stage up signal"
 
   parameter Real faiSafTDif(
     final unit="K",
-    final quantity="ThermodynamicTemperature",
+    final quantity="TemperatureDifference",
     displayUnit="degC")=1
       "Offset between the chilled water supply temperature and its setpoint";
 
   parameter Real TDifHys(
     final unit="K",
-    final quantity="ThermodynamicTemperature",
+    final quantity="TemperatureDifference",
     displayUnit="degC")=1
       "Hysteresis deadband for temperature";
 
   parameter Real smallTDif(
     final unit="K",
-    final quantity="ThermodynamicTemperature",
+    final quantity="TemperatureDifference",
     displayUnit="degC")=1
       "Offset between the chilled water supply temperature and its setpoint for the long condition"
     annotation(Evaluate=true, Dialog(enable=have_WSE));
 
   parameter Real largeTDif(
     final unit="K",
-    final quantity="ThermodynamicTemperature",
+    final quantity="TemperatureDifference",
     displayUnit="degC")=2
       "Offset between the chilled water supply temperature and its setpoint for the short condition"
     annotation(Evaluate=true, Dialog(enable=have_WSE));
 
   parameter Real faiSafDpDif(
-    final unit="pa",
+    final unit="Pa",
     final quantity="PressureDifference",
-    displayUnit="pa")=2 * 6895
+    displayUnit="Pa")=2 * 6895
       "Offset between the chilled water differential pressure and its setpoint";
 
   parameter Real dpDifHys(
-    final unit="pa",
+    final unit="Pa",
     final quantity="PressureDifference",
-    displayUnit="pa")=0.5 * 6895
+    displayUnit="Pa")=0.5 * 6895
       "Pressure difference hysteresis deadband";
 
   parameter Real effConSigDif = 0.05
@@ -279,8 +279,8 @@ equation
         coordinateSystem(preserveAspectRatio=false,
         extent={{-160,-200},{160,140}})),
 Documentation(info="<html>
-<p>Outputs a boolean stage up signal <code>y</code> based on the 
-various plant operation conditions that get provided as input signals. 
+<p>Outputs a boolean stage up signal <code>y</code> based on the
+various plant operation conditions that get provided as input signals.
 Implemented according to 1711 March 2020 Draft, section 5.2.4.15.
  and applies to primary-only plant with and without a WSE.
 </p>
@@ -299,7 +299,7 @@ Failsafe condition is true.
 </li>
 </ul>
 <p>
-If <code>have_WSE</code> boolean flag is true, staging up from WSE only to the first available 
+If <code>have_WSE</code> boolean flag is true, staging up from WSE only to the first available
 stage occurs when the chilled water supply temperature is sufficienctly above its setpoint
 for either a shorter or a longer time period
 </p>

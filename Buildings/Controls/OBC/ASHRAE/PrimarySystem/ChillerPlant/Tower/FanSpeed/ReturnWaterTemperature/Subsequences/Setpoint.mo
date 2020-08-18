@@ -3,19 +3,19 @@ block Setpoint "Calculate condener return water temperature setpoint"
 
   parameter Integer nChi = 2 "Total number of chillers";
   parameter Real LIFT_min[nChi](
-    final unit="K",
-    final quantity="ThermodynamicTemperature",
-    displayUnit="degC")={12, 12}
+    final unit=fill("K",nChi),
+    final quantity=fill("TemperatureDifference",nChi),
+    displayUnit=fill("degC",nChi))={12, 12}
       "Minimum LIFT of each chiller";
   parameter Real TConWatRet_nominal[nChi](
-     each final unit="K",
-     each displayUnit="degC",
-     final quantity=fill("ThermodynamicTemperature", nChi))= {303.15, 303.15}
+    final unit=fill("K",nChi),
+    final quantity=fill("ThermodynamicTemperature",nChi),
+    displayUnit=fill("degC",nChi))= {303.15, 303.15}
     "Design condenser water return temperature (condenser leaving) of each chiller";
   parameter Real TChiWatSupMin[nChi](
-     each final unit="K",
-     each displayUnit="degC",
-     final quantity=fill("ThermodynamicTemperature", nChi)) = {278.15, 278.15}
+    final unit=fill("K",nChi),
+    final quantity=fill("ThermodynamicTemperature",nChi),
+    displayUnit=fill("degC",nChi)) = {278.15, 278.15}
     "Minimum chilled water supply temperature of each chiller";
   parameter Real iniPlaTim(final quantity="Time", final unit="s")= 600
     "Time to hold return temperature to initial setpoint after plant being enabled"
@@ -31,7 +31,7 @@ block Setpoint "Calculate condener return water temperature setpoint"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uOpeParLoaRat(
     final unit="1",
     final min=0,
-    final max=1) "Current plant partial load ratio" 
+    final max=1) "Current plant partial load ratio"
     annotation (Placement(transformation(extent={{-220,0},{-180,40}}),
       iconTransformation(extent={{-140,10},{-100,50}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSupSet(
@@ -224,7 +224,7 @@ Documentation(info="<html>
 Block that ouputs condenser water return temperature setpoint <code>TConWatRetSet</code>
 for the tower fan speed control to maintain the return temperature at setpoint. This
 implementation is for plants with parallel chiller plants only. It is based on
-ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II – Central 
+ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II – Central
 Plants and Hydronic Systems (Draft on March 23, 2020), section 5.2.12.2, item 2.d and m.
 </p>
 <p>
@@ -254,8 +254,8 @@ in the above equation shall reset dynamically to equal the highest <code>LIFT_mi
 of enabled chillers.
 </li>
 <li>
-For plants with parallel chillers only, where chillers have different design 
-condenser water return temperature<code>TConWatRet_nominal</code> and minimum 
+For plants with parallel chillers only, where chillers have different design
+condenser water return temperature<code>TConWatRet_nominal</code> and minimum
 chilled water supply temperature <code>TChiWatSupMin</code> values, the LIFT_max
 shall be calculated for each chiller and the lowest value used in the above logic.
 </li>

@@ -13,26 +13,26 @@ block FailsafeCondition
 
   parameter Real TDif(
     final unit="K",
-    final quantity="ThermodynamicTemperature",
+    final quantity="TemperatureDifference",
     displayUnit="degC")=1
       "Offset between the chilled water supply temperature and its setpoint";
 
   parameter Real TDifHys(
     final unit="K",
-    final quantity="ThermodynamicTemperature",
+    final quantity="TemperatureDifference",
     displayUnit="degC")=1
       "Temperature hysteresis deadband";
 
   parameter Real dpDif(
-    final unit="pa",
+    final unit="Pa",
     final quantity="PressureDifference",
-    displayUnit="pa")=2 * 6895
+    displayUnit="Pa")=2 * 6895
       "Offset between the chilled water differential pressure and its setpoint";
 
   parameter Real dpDifHys(
-    final unit="pa",
+    final unit="Pa",
     final quantity="PressureDifference",
-    displayUnit="pa")=0.5 * 6895
+    displayUnit="Pa")=0.5 * 6895
       "Pressure difference hysteresis deadband";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWatPumSet(

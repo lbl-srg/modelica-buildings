@@ -10,14 +10,14 @@ block Initial "Outputs the initial stage"
 
   parameter Real heaExcAppDes(
     final unit="K",
-    final quantity="ThermodynamicTemperature",
+    final quantity="TemperatureDifference",
     displayUnit="degC")=2
       "Design heat exchanger approach"
     annotation (Dialog(group="Waterside economizer", enable=have_WSE));
 
   parameter Real cooTowAppDes(
     final unit="K",
-    final quantity="ThermodynamicTemperature",
+    final quantity="TemperatureDifference",
     displayUnit="degC")=2
       "Design cooling tower approach"
     annotation (Dialog(group="Waterside economizer", enable=have_WSE));

@@ -16,7 +16,7 @@ block Controller "Head pressure controller"
     annotation (Dialog(group="Plant", enable=not have_WSE));
   parameter Real minChiLif(
     final unit="K",
-    final quantity="ThermodynamicTemperature",
+    final quantity="TemperatureDifference",
     displayUnit="degC")=10
       "Minimum allowable lift at minimum load for chiller"
     annotation (Dialog(tab="Loop signal", enable=not have_HeaPreConSig));

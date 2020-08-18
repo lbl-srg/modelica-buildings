@@ -131,57 +131,57 @@ block SetpointController
 
   parameter Real smallTDif(
     final unit="K",
-    final quantity="ThermodynamicTemperature",
+    final quantity="TemperatureDifference",
     displayUnit="degC")=1
       "Offset between the chilled water supply temperature and its setpoint for the long condition"
     annotation(Evaluate=true, Dialog(enable=have_WSE, tab="Conditionals", group="Value comparison parameters"));
 
   parameter Real largeTDif(
     final unit="K",
-    final quantity="ThermodynamicTemperature",
+    final quantity="TemperatureDifference",
     displayUnit="degC")=2
       "Offset between the chilled water supply temperature and its setpoint for the short condition"
     annotation(Evaluate=true, Dialog(enable=have_WSE, tab="Conditionals", group="Value comparison parameters"));
 
   parameter Real faiSafTDif(
     final unit="K",
-    final quantity="ThermodynamicTemperature",
+    final quantity="TemperatureDifference",
     displayUnit="degC")=1
       "Offset between the chilled water supply temperature and its setpoint for the failsafe condition"
     annotation (Dialog(tab="Conditionals", group="Value comparison parameters"));
 
   parameter Real dpDif(
-    final unit="pa",
+    final unit="Pa",
     final quantity="PressureDifference",
-    displayUnit="pa")=2 * 6895
+    displayUnit="Pa")=2 * 6895
       "Offset between the chilled water pump diferential static pressure and its setpoint"
     annotation (Dialog(tab="Conditionals", group="Value comparison parameters"));
 
   parameter Real TDif(
     final unit="K",
-    final quantity="ThermodynamicTemperature",
+    final quantity="TemperatureDifference",
     displayUnit="degC")=1
       "Offset between the chilled water supply temperature and its setpoint for staging down to WSE only"
     annotation (Dialog(tab="Conditionals", group="Value comparison parameters"));
 
   parameter Real TDifHys(
     final unit="K",
-    final quantity="ThermodynamicTemperature",
+    final quantity="TemperatureDifference",
     displayUnit="degC")=1
       "Hysteresis deadband for temperature"
     annotation (Dialog(tab="Conditionals", group="Value comparison parameters"));
 
   parameter Real faiSafDpDif(
-    final unit="pa",
+    final unit="Pa",
     final quantity="PressureDifference",
-    displayUnit="pa")=2 * 6895
+    displayUnit="Pa")=2 * 6895
       "Offset between the chilled water differential pressure and its setpoint"
     annotation (Dialog(tab="Conditionals", group="Value comparison parameters"));
 
   parameter Real dpDifHys(
-    final unit="pa",
+    final unit="Pa",
     final quantity="PressureDifference",
-    displayUnit="pa")=0.5 * 6895
+    displayUnit="Pa")=0.5 * 6895
       "Pressure difference hysteresis deadband"
     annotation (Dialog(tab="Conditionals", group="Value comparison parameters"));
 
@@ -230,21 +230,21 @@ block SetpointController
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uLifMin(
     final unit="K",
-    final quantity="ThermodynamicTemperature") if anyVsdCen
+    final quantity="TemperatureDifference") if anyVsdCen
     "Minimum chiller lift"
     annotation (Placement(transformation(extent={{-442,-30},{-402,10}}),
         iconTransformation(extent={{-140,80},{-100,120}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uLif(
     final unit="K",
-    final quantity="ThermodynamicTemperature") if anyVsdCen
+    final quantity="TemperatureDifference") if anyVsdCen
     "Chiller lift"
     annotation (Placement(transformation(extent={{-442,30},{-402,70}}),
         iconTransformation(extent={{-140,120},{-100,160}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uLifMax(
     final unit="K",
-    final quantity="ThermodynamicTemperature") if anyVsdCen
+    final quantity="TemperatureDifference") if anyVsdCen
     "Maximum chiller lift"
     annotation (Placement(transformation(extent={{-442,0},{-402,40}}),
         iconTransformation(extent={{-140,100},{-100,140}})));

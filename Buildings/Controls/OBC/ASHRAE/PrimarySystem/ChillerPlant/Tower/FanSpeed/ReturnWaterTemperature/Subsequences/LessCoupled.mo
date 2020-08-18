@@ -19,15 +19,15 @@ block LessCoupled
     "Threshold time to hold the initial temperature difference at the plant initial stage"
     annotation (Dialog(group="Return water temperature controller"));
   parameter Real TConWatSup_nominal[nChi](
-    each final unit="K",
-    each displayUnit="degC",
-    final quantity=fill("ThermodynamicTemperature", nChi)) = {293.15, 293.15}
+    final unit=fill("K",nChi),
+    final quantity=fill("ThermodynamicTemperature",nChi),
+    displayUnit=fill("degC",nChi)) = {293.15, 293.15}
     "Design condenser water supply temperature (condenser entering) of each chiller"
     annotation (Dialog(group="Return water temperature controller"));
   parameter Real TConWatRet_nominal[nChi](
-    each final unit="K",
-    each displayUnit="degC",
-    final quantity=fill("ThermodynamicTemperature", nChi)) = {303.15, 303.15}
+    final unit=fill("K",nChi),
+    final quantity=fill("ThermodynamicTemperature",nChi),
+    displayUnit=fill("degC",nChi)) = {303.15, 303.15}
     "Design condenser water return temperature (condenser leaving) of each chiller"
     annotation (Dialog(group="Return water temperature controller"));
 
@@ -327,14 +327,14 @@ annotation (
 Documentation(info="<html>
 <p>
 Block that outputs cooling tower fan speed <code>yFanSpe</code> based on the control
-of condenser water return temperature for the plant that is not closed coupled. 
-This is implemented according to ASHRAE RP-1711 Advanced Sequences of Operation for 
-HVAC Systems Phase II – Central Plants and Hydronic Systems (Draft on March 23, 
+of condenser water return temperature for the plant that is not closed coupled.
+This is implemented according to ASHRAE RP-1711 Advanced Sequences of Operation for
+HVAC Systems Phase II – Central Plants and Hydronic Systems (Draft on March 23,
 2020), section 5.2.12.2, item 2.g-i.
 </p>
 <ul>
 <li>
-When any condenser water pump is proven on (<code>uConWatPumSpe</code> &gt; 0), 
+When any condenser water pump is proven on (<code>uConWatPumSpe</code> &gt; 0),
 condenser water supply temperature setpoint <code>TConWatSupSet</code> shall be
 set equal to the condenser water return temperature setpoint <code>TConWatRetSet</code>
 minus a temperature difference. The temperature difference is the 5 minute rolling
@@ -348,14 +348,14 @@ of the enabled chiller for 5 minutes (<code>iniPlaTim</code>).
 <li>
 When any condenser water pump is proven on (<code>uConWatPumSpe</code> &gt; 0),
 condenser water supply temperature <code>TConWatSup</code> shall be maintained at
-setpoint by a direct acting PID loop. The loop output shall be mapped to the 
+setpoint by a direct acting PID loop. The loop output shall be mapped to the
 variable tower speed. Reset the tower speed from minimum tower speed <code>fanSpeMin</code>
 at 0% loop output to 100% speed at 100% loop output.
 </li>
 <li>
 Tower speed <code>yFanSpe</code> shall be the lowest value of tower speed
-from loop mapping, maximum cooling tower speed setpoint from each chiller head 
-pressure control loop <code>uMaxTowSpeSet</code>, and tower maximum speed that reset 
+from loop mapping, maximum cooling tower speed setpoint from each chiller head
+pressure control loop <code>uMaxTowSpeSet</code>, and tower maximum speed that reset
 based on plant partial load ratio <code>plrTowMaxSpe</code>. All operating fans shall
 receive the same speed signal.
 </li>

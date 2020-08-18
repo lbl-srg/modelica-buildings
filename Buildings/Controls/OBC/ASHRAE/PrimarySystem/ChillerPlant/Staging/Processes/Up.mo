@@ -28,15 +28,15 @@ block Up "Sequence for control devices when there is stage-up command"
     "Time to reset minimum bypass flow"
     annotation (Dialog(group="Reset CHW minimum flow setpoint"));
   parameter Real minFloSet[nChi](
-    final unit="m3/s",
-    final quantity="VolumeFlowRate",
-    displayUnit="m3/s")={0.0089,0.0089}
+    final unit=fill("m3/s",nChi),
+    final quantity=fill("VolumeFlowRate",nChi),
+    displayUnit=fill("m3/s",nChi))={0.0089,0.0089}
       "Minimum chilled water flow through each chiller"
     annotation (Dialog(group="Reset CHW minimum flow setpoint"));
   parameter Real maxFloSet[nChi](
-    final unit="m3/s",
-    final quantity="VolumeFlowRate",
-    displayUnit="m3/s")={0.025,0.025}
+    final unit=fill("m3/s",nChi),
+    final quantity=fill("VolumeFlowRate",nChi),
+    displayUnit=fill("m3/s",nChi))={0.025,0.025}
       "Maximum chilled water flow through each chiller"
     annotation (Dialog(group="Reset CHW minimum flow setpoint"));
   parameter Real aftByPasSetTim(
@@ -695,22 +695,22 @@ Block that controls devices when there is a stage-up command. This sequence is f
 water-cooled primary-only parallel chiller plants with headered chilled water pumps
 and headered condenser water pumps, or air-cooled primary-only parallel chiller
 plants with headered chilled water pumps.
-This development is based on ASHRAE RP-1711 Advanced Sequences of Operation for 
+This development is based on ASHRAE RP-1711 Advanced Sequences of Operation for
 HVAC Systems Phase II – Central Plants and Hydronic Systems (Draft version, March 2020),
 section 5.2.4.16, which specifies the step-by-step control of
 devices during chiller staging up process.
 </p>
 <ol>
 <li>
-Identify the chiller(s) that should be enabled (and disabled, if <code>have_PonyChiller=true</code>). 
+Identify the chiller(s) that should be enabled (and disabled, if <code>have_PonyChiller=true</code>).
 This is implemented in block <code>nexChi</code>. See
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.NextChiller\">
 Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.NextChiller</a>
 for more decriptions.
 </li>
 <li>
-Command operating chillers to reduce demand to 75% (<code>chiDemRedFac</code>) of 
-their current load (<code>uChiLoa</code>). Wait until actual demand &lt; 80% of 
+Command operating chillers to reduce demand to 75% (<code>chiDemRedFac</code>) of
+their current load (<code>uChiLoa</code>). Wait until actual demand &lt; 80% of
 current load up to a maximum of 5 minutes (<code>holChiDemTim</code>) before proceeding.
 This is implemented in block <code>chiDemRed</code>. See
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.ReduceDemand\">
@@ -722,13 +722,13 @@ Reset the minimum chilled water flow setpoint,
 <ul>
 <li>
 For any stage change during which a smaller chiller is disabled and a larger chiller
-is enabled, slowly change (<code>byPasSetTim</code>) the minimum chilled water flow 
-setpoint to the one that includes both chillers are enabled. After new setpoint is 
+is enabled, slowly change (<code>byPasSetTim</code>) the minimum chilled water flow
+setpoint to the one that includes both chillers are enabled. After new setpoint is
 achieved, wait 1 minute (<code>aftByPasSetTim</code>) to allow loop to stabilize.
 </li>
 <li>
-For any other stage change, reset ((<code>byPasSetTim</code>)) the minimum chilled 
-water flow setpoint to the one that includes the new chiller. After new setpoint is 
+For any other stage change, reset ((<code>byPasSetTim</code>)) the minimum chilled
+water flow setpoint to the one that includes the new chiller. After new setpoint is
 achieved, wait 1 minute (<code>aftByPasSetTim</code>) to allow loop to stabilize.
 </li>
 </ul>
@@ -740,7 +740,7 @@ Block <code>minBypSet</code> checks if the new setpoint is achieved
 Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.ResetMinBypass</a>).
 </li>
 <li>
-Start the next condenser water pump and/or change condenser water pump speed 
+Start the next condenser water pump and/or change condenser water pump speed
 to that required of the new stage. Wait 10 seconds (<code>thrTimEnb</code>).
 Block <code>enaNexCWP</code> identifies chiller stage for the condenser water pump
 control
@@ -758,7 +758,7 @@ Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subse
 for more decriptions.
 </li>
 <li>
-Slowly (<code>chaChiWatIsoTim</code>) open chilled water isolation valve of the chiller 
+Slowly (<code>chaChiWatIsoTim</code>) open chilled water isolation valve of the chiller
 being enabled. The valve timing should be determined in the fields.
 This is implemented in block <code>enaChiIsoVal</code>. See
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.CHWIsoVal\">
@@ -769,14 +769,14 @@ for more decriptions.
 End the staging up process:
 <ul>
 <li>
-If the stage change does not require one chiller enabled and another chiller disabled, 
+If the stage change does not require one chiller enabled and another chiller disabled,
 start the next stage chiller after the isolation valve is fully open.
 </li>
 <li>
-If the stage change does require one chiller enabled and another chiller disabled, 
+If the stage change does require one chiller enabled and another chiller disabled,
 starting the next stage chiller after the isolation valve is fully open, then shut off
 the smaller chiller, close the chiller's chilled water isolation valve, disable
-the head pressure control loop, and change the minimum chilled water flow setpoint 
+the head pressure control loop, and change the minimum chilled water flow setpoint
 to the one for the new stage.
 </li>
 <li>
