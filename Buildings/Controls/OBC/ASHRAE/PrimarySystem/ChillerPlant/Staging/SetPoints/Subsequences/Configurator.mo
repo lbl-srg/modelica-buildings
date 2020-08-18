@@ -7,10 +7,8 @@ block Configurator "Configures chiller staging"
   parameter Integer nChi = 2
     "Number of chillers";
 
-  parameter Modelica.SIunits.Power chiDesCap[nChi]
     "Design chiller capacities vector";
 
-  parameter Modelica.SIunits.Power chiMinCap[nChi]
     "Chiller minimum cycling loads vector";
 
   parameter Integer chiTyp[nChi]={

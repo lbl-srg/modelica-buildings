@@ -27,11 +27,17 @@ block Up "Sequence for control devices when there is stage-up command"
     displayUnit="h")=300
     "Time to reset minimum bypass flow"
     annotation (Dialog(group="Reset CHW minimum flow setpoint"));
-  parameter Modelica.SIunits.VolumeFlowRate minFloSet[nChi]={0.0089,0.0089}
-    "Minimum chilled water flow through each chiller"
+  parameter Real minFloSet[nChi](
+    final unit="m3/s",
+    final quantity="VolumeFlowRate",
+    displayUnit="m3/s")={0.0089,0.0089}
+      "Minimum chilled water flow through each chiller"
     annotation (Dialog(group="Reset CHW minimum flow setpoint"));
-  parameter Modelica.SIunits.VolumeFlowRate maxFloSet[nChi]={0.025,0.025}
-    "Maximum chilled water flow through each chiller"
+  parameter Real maxFloSet[nChi](
+    final unit="m3/s",
+    final quantity="VolumeFlowRate",
+    displayUnit="m3/s")={0.025,0.025}
+      "Maximum chilled water flow through each chiller"
     annotation (Dialog(group="Reset CHW minimum flow setpoint"));
   parameter Real aftByPasSetTim(
     final unit="s",

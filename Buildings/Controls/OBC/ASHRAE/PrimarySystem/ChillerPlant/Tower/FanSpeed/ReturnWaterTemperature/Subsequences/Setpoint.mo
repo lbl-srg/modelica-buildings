@@ -2,8 +2,11 @@
 block Setpoint "Calculate condener return water temperature setpoint"
 
   parameter Integer nChi = 2 "Total number of chillers";
-  parameter Modelica.SIunits.TemperatureDifference LIFT_min[nChi] = {12, 12}
-    "Minimum LIFT of each chiller";
+  parameter Real LIFT_min[nChi](
+    final unit="K",
+    final quantity="ThermodynamicTemperature",
+    displayUnit="degC")={12, 12}
+      "Minimum LIFT of each chiller";
   parameter Real TConWatRet_nominal[nChi](
      each final unit="K",
      each displayUnit="degC",

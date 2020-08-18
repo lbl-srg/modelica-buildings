@@ -51,8 +51,11 @@ block Controller "Tower fan speed control"
     annotation (Dialog(tab="WSE Enabled", group="WSE-only",
                        enable=have_WSE and (chiWatCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
                                             chiWatCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
-  parameter Modelica.SIunits.TemperatureDifference LIFT_min[nChi]={12,12} "Minimum LIFT of each chiller"
-    annotation (Dialog(tab="Return temperature control", group="Setpoint"));
+  parameter Real LIFT_min[nChi](
+    final unit="K",
+    final quantity="ThermodynamicTemperature",
+    displayUnit="degC")={12,12} "Minimum LIFT of each chiller"
+      annotation (Dialog(tab="Return temperature control", group="Setpoint"));
   parameter Real TConWatSup_nominal[nChi](
     each final unit="K",
     each displayUnit="degC",

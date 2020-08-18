@@ -32,25 +32,43 @@ block Up "Generates a stage up signal"
       "Long enable delay for staging from zero to first available stage up"
     annotation(Evaluate=true, Dialog(enable=have_WSE));
 
-  parameter Modelica.SIunits.TemperatureDifference faiSafTDif = 1
-    "Offset between the chilled water supply temperature and its setpoint";
+  parameter Real faiSafTDif(
+    final unit="K",
+    final quantity="ThermodynamicTemperature",
+    displayUnit="degC")=1
+      "Offset between the chilled water supply temperature and its setpoint";
 
-  parameter Modelica.SIunits.TemperatureDifference TDifHys = 1
-    "Hysteresis deadband for temperature";
+  parameter Real TDifHys(
+    final unit="K",
+    final quantity="ThermodynamicTemperature",
+    displayUnit="degC")=1
+      "Hysteresis deadband for temperature";
 
-  parameter Modelica.SIunits.TemperatureDifference smallTDif = 1
-    "Offset between the chilled water supply temperature and its setpoint for the long condition"
+  parameter Real smallTDif(
+    final unit="K",
+    final quantity="ThermodynamicTemperature",
+    displayUnit="degC")=1
+      "Offset between the chilled water supply temperature and its setpoint for the long condition"
     annotation(Evaluate=true, Dialog(enable=have_WSE));
 
-  parameter Modelica.SIunits.TemperatureDifference largeTDif = 2
-    "Offset between the chilled water supply temperature and its setpoint for the short condition"
+  parameter Real largeTDif(
+    final unit="K",
+    final quantity="ThermodynamicTemperature",
+    displayUnit="degC")=2
+      "Offset between the chilled water supply temperature and its setpoint for the short condition"
     annotation(Evaluate=true, Dialog(enable=have_WSE));
 
-  parameter Modelica.SIunits.PressureDifference faiSafDpDif = 2 * 6895
-    "Offset between the chilled water differential pressure and its setpoint";
+  parameter Real faiSafDpDif(
+    final unit="pa",
+    final quantity="PressureDifference",
+    displayUnit="pa")=2 * 6895
+      "Offset between the chilled water differential pressure and its setpoint";
 
-  parameter Modelica.SIunits.PressureDifference dpDifHys = 0.5 * 6895
-    "Pressure difference hysteresis deadband";
+  parameter Real dpDifHys(
+    final unit="pa",
+    final quantity="PressureDifference",
+    displayUnit="pa")=0.5 * 6895
+      "Pressure difference hysteresis deadband";
 
   parameter Real effConSigDif = 0.05
     "Signal hysteresis deadband";

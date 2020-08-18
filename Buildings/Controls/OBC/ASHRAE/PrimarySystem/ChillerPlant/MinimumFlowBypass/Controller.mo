@@ -9,9 +9,15 @@ block Controller
     final unit="s",
     final quantity="Time")
     "Time constant for resetting minimum bypass flow";
-  parameter Modelica.SIunits.VolumeFlowRate minFloSet[nChi]
+  parameter Real minFloSet[nChi](
+    final unit=fill("m3/s", nChi),
+    final quantity=fill("VolumeFlowRate", nChi),
+    final displayUnit=fill("m3/s", nChil))
     "Minimum chilled water flow through each chiller";
-  parameter Modelica.SIunits.VolumeFlowRate maxFloSet[nChi]
+  parameter Real maxFloSet[nChi](
+    final unit=fill("m3/s", nChi),
+    final quantity=fill("VolumeFlowRate", nChi),
+    final displayUnit=fill("m3/s", nChil)
     "Maximum chilled water flow through each chiller";
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI

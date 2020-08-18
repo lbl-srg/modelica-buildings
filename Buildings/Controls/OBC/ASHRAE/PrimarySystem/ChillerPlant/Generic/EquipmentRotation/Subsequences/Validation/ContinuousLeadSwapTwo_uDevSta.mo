@@ -2,8 +2,11 @@ within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.Equipmen
 model ContinuousLeadSwapTwo_uDevSta
   "Validation sequence for lead device swap at continuous lead operation"
 
-  parameter Modelica.SIunits.Temperature aveTWetBul = 288.15
-    "Chilled water supply set temperature";
+  parameter Real aveTWetBul(
+    final unit="K",
+    final quantity="ThermodynamicTemperature",
+    displayUnit="degC")=288.15
+      "Chilled water supply set temperature";
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.ContinuousLeadSwapTwo leaSwa
     "Makes sure the new lead device is proven on before passing on the lead role"

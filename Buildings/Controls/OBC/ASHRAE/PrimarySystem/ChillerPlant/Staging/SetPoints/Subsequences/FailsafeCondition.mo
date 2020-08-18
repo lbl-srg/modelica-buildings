@@ -11,17 +11,29 @@ block FailsafeCondition
     displayUnit="h")=900
       "Enable delay";
 
-  parameter Modelica.SIunits.TemperatureDifference TDif = 1
-    "Offset between the chilled water supply temperature and its setpoint";
+  parameter Real TDif(
+    final unit="K",
+    final quantity="ThermodynamicTemperature",
+    displayUnit="degC")=1
+      "Offset between the chilled water supply temperature and its setpoint";
 
-  parameter Modelica.SIunits.TemperatureDifference TDifHys = 1
-    "Temperature hysteresis deadband";
+  parameter Real TDifHys(
+    final unit="K",
+    final quantity="ThermodynamicTemperature",
+    displayUnit="degC")=1
+      "Temperature hysteresis deadband";
 
-  parameter Modelica.SIunits.PressureDifference dpDif = 2 * 6895
-    "Offset between the chilled water differential pressure and its setpoint";
+  parameter Real dpDif(
+    final unit="pa",
+    final quantity="PressureDifference",
+    displayUnit="pa")=2 * 6895
+      "Offset between the chilled water differential pressure and its setpoint";
 
-  parameter Modelica.SIunits.PressureDifference dpDifHys = 0.5 * 6895
-    "Pressure difference hysteresis deadband";
+  parameter Real dpDifHys(
+    final unit="pa",
+    final quantity="PressureDifference",
+    displayUnit="pa")=0.5 * 6895
+      "Pressure difference hysteresis deadband";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWatPumSet(
     final unit="Pa",

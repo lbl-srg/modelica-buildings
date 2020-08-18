@@ -18,11 +18,17 @@ block SetpointController
     "Number of chillers"
     annotation (Dialog(tab="General", group="Chiller configuration parameters"));
 
-  parameter Modelica.SIunits.Power chiDesCap[nChi]
+  parameter Real chiDesCap[nChi](
+     final unit=fill("W",nChi),
+     final quantity=fill("Power",nChi),
+     displayUnit=fill("W",nChi))
     "Design chiller capacities vector"
     annotation (Dialog(tab="General", group="Chiller configuration parameters"));
 
-  parameter Modelica.SIunits.Power chiMinCap[nChi]
+  parameter Real chiMinCap[nChi](
+     final unit=fill("W",nChi),
+     final quantity=fill("Power",nChi),
+     displayUnit=fill("W",nChi))
     "Chiller minimum cycling loads vector"
     annotation (Dialog(tab="General", group="Chiller configuration parameters"));
 
@@ -123,36 +129,60 @@ block SetpointController
     "Maximum stage up or down part load ratio for variable speed centrifugal stage types"
     annotation(Evaluate=true, Dialog(enable=anyVsdCen, tab="Conditionals", group="Staging part load ratio parameters"));
 
-  parameter Modelica.SIunits.TemperatureDifference smallTDif = 1
-    "Offset between the chilled water supply temperature and its setpoint for the long condition"
+  parameter Real smallTDif(
+    final unit="K",
+    final quantity="ThermodynamicTemperature",
+    displayUnit="degC")=1
+      "Offset between the chilled water supply temperature and its setpoint for the long condition"
     annotation(Evaluate=true, Dialog(enable=have_WSE, tab="Conditionals", group="Value comparison parameters"));
 
-  parameter Modelica.SIunits.TemperatureDifference largeTDif = 2
-    "Offset between the chilled water supply temperature and its setpoint for the short condition"
+  parameter Real largeTDif(
+    final unit="K",
+    final quantity="ThermodynamicTemperature",
+    displayUnit="degC")=2
+      "Offset between the chilled water supply temperature and its setpoint for the short condition"
     annotation(Evaluate=true, Dialog(enable=have_WSE, tab="Conditionals", group="Value comparison parameters"));
 
-  parameter Modelica.SIunits.TemperatureDifference faiSafTDif = 1
-    "Offset between the chilled water supply temperature and its setpoint for the failsafe condition"
+  parameter Real faiSafTDif(
+    final unit="K",
+    final quantity="ThermodynamicTemperature",
+    displayUnit="degC")=1
+      "Offset between the chilled water supply temperature and its setpoint for the failsafe condition"
     annotation (Dialog(tab="Conditionals", group="Value comparison parameters"));
 
-  parameter Modelica.SIunits.PressureDifference dpDif = 2 * 6895
-    "Offset between the chilled water pump diferential static pressure and its setpoint"
+  parameter Real dpDif(
+    final unit="pa",
+    final quantity="PressureDifference",
+    displayUnit="pa")=2 * 6895
+      "Offset between the chilled water pump diferential static pressure and its setpoint"
     annotation (Dialog(tab="Conditionals", group="Value comparison parameters"));
 
-  parameter Modelica.SIunits.TemperatureDifference TDif = 1
-    "Offset between the chilled water supply temperature and its setpoint for staging down to WSE only"
+  parameter Real TDif(
+    final unit="K",
+    final quantity="ThermodynamicTemperature",
+    displayUnit="degC")=1
+      "Offset between the chilled water supply temperature and its setpoint for staging down to WSE only"
     annotation (Dialog(tab="Conditionals", group="Value comparison parameters"));
 
-  parameter Modelica.SIunits.TemperatureDifference TDifHys = 1
-    "Hysteresis deadband for temperature"
+  parameter Real TDifHys(
+    final unit="K",
+    final quantity="ThermodynamicTemperature",
+    displayUnit="degC")=1
+      "Hysteresis deadband for temperature"
     annotation (Dialog(tab="Conditionals", group="Value comparison parameters"));
 
-  parameter Modelica.SIunits.PressureDifference faiSafDpDif = 2 * 6895
-    "Offset between the chilled water differential pressure and its setpoint"
+  parameter Real faiSafDpDif(
+    final unit="pa",
+    final quantity="PressureDifference",
+    displayUnit="pa")=2 * 6895
+      "Offset between the chilled water differential pressure and its setpoint"
     annotation (Dialog(tab="Conditionals", group="Value comparison parameters"));
 
-  parameter Modelica.SIunits.PressureDifference dpDifHys = 0.5 * 6895
-    "Pressure difference hysteresis deadband"
+  parameter Real dpDifHys(
+    final unit="pa",
+    final quantity="PressureDifference",
+    displayUnit="pa")=0.5 * 6895
+      "Pressure difference hysteresis deadband"
     annotation (Dialog(tab="Conditionals", group="Value comparison parameters"));
 
   parameter Real effConSigDif(

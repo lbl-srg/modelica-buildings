@@ -62,8 +62,11 @@ block Controller "Cooling tower controller"
                                           chiWatCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
 
   // Fan speed control: controlling condenser return water temperature when WSE is not enabled
-  parameter Modelica.SIunits.TemperatureDifference LIFT_min[nChi]={12,12} "Minimum LIFT of each chiller"
-    annotation (Dialog(tab="Fan speed", group="Return temperature control"));
+  parameter Real LIFT_min[nChi](
+    final unit="K",
+    final quantity="ThermodynamicTemperature",
+    displayUnit="degC")={12,12} "Minimum LIFT of each chiller"
+      annotation (Dialog(tab="Fan speed", group="Return temperature control"));
   parameter Real TConWatSup_nominal[nChi](
     each final unit="K",
     each displayUnit="degC",

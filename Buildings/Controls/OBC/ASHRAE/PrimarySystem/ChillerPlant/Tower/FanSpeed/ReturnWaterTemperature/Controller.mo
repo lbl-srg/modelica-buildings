@@ -11,8 +11,11 @@ block Controller
      final unit="W",
      final quantity="Power")= 1e6 "Plant design capacity";
   parameter Real fanSpeMin=0.1 "Minimum tower fan speed";
-  parameter Modelica.SIunits.TemperatureDifference LIFT_min[nChi]={12,12} "Minimum LIFT of each chiller"
-    annotation (Dialog(tab="Setpoint"));
+  parameter Real LIFT_min[nChi](
+    final unit="K",
+    final quantity="ThermodynamicTemperature",
+    displayUnit="degC")={12,12} "Minimum LIFT of each chiller"
+      annotation (Dialog(tab="Setpoint"));
   parameter Real TConWatSup_nominal[nChi](
     each final unit="K",
     each displayUnit="degC",

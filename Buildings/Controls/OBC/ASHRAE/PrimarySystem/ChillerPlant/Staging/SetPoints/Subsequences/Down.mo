@@ -19,19 +19,31 @@ block Down "Generates a stage down signal"
     displayUnit="h")=900
       "Enable delay for failsafe condition";
 
-  parameter Modelica.SIunits.TemperatureDifference faiSafTDif = 1
-    "Offset between the chilled water supply temperature and its setpoint for the failsafe condition";
+  parameter Real faiSafTDif(
+    final unit="K",
+    final quantity="ThermodynamicTemperature",
+    displayUnit="degC")=1
+      "Offset between the chilled water supply temperature and its setpoint for the failsafe condition";
 
-  parameter Modelica.SIunits.TemperatureDifference TDif = 1
-    "Offset between the chilled water supply temperature and its setpoint"
+  parameter Real TDif(
+    final unit="K",
+    final quantity="ThermodynamicTemperature",
+    displayUnit="degC")=1
+      "Offset between the chilled water supply temperature and its setpoint"
     annotation(Evaluate=true, Dialog(enable=have_WSE));
 
-  parameter Modelica.SIunits.TemperatureDifference TDifHys = 1
-    "Hysteresis deadband for temperature"
+  parameter Real TDifHys(
+    final unit="K",
+    final quantity="ThermodynamicTemperature",
+    displayUnit="degC")=1
+      "Hysteresis deadband for temperature"
     annotation(Evaluate=true, Dialog(enable=have_WSE));
 
-  parameter Modelica.SIunits.PressureDifference faiSafDpDif = 2 * 6895
-    "Offset between the chilled water pump differential static pressure and its setpoint";
+  parameter Real faiSafDpDif(
+    final unit="pa",
+    final quantity="PressureDifference",
+    displayUnit="pa")=2 * 6895
+      "Offset between the chilled water pump differential static pressure and its setpoint";
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWseSta if have_WSE
     "WSE status"

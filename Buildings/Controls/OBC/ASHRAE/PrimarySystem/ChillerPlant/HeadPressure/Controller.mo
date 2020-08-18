@@ -14,8 +14,11 @@ block Controller "Head pressure controller"
   parameter Boolean fixSpePum = true
     "Flag indicating if the plant has fixed speed condenser water pumps"
     annotation (Dialog(group="Plant", enable=not have_WSE));
-  parameter Modelica.SIunits.TemperatureDifference minChiLif=10
-    "Minimum allowable lift at minimum load for chiller"
+  parameter Real minChiLif(
+    final unit="K",
+    final quantity="ThermodynamicTemperature",
+    displayUnit="degC")=10
+      "Minimum allowable lift at minimum load for chiller"
     annotation (Dialog(tab="Loop signal", enable=not have_HeaPreConSig));
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI "Type of controller"

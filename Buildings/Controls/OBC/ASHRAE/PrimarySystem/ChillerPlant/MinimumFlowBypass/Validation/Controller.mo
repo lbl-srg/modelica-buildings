@@ -14,12 +14,30 @@ model Controller "Validate control of minimum bypass valve"
     annotation (Placement(transformation(extent={{100,-70},{120,-50}})));
 
 protected
-  final parameter Modelica.SIunits.VolumeFlowRate minFloChiOne = 0.005;
-  final parameter Modelica.SIunits.VolumeFlowRate minFloChiTwo = 0.005;
-  final parameter Modelica.SIunits.VolumeFlowRate minFloChiThr = 0.005;
-  final parameter Modelica.SIunits.VolumeFlowRate maxFloChiOne = 0.025;
-  final parameter Modelica.SIunits.VolumeFlowRate maxFloChiTwo = 0.025;
-  final parameter Modelica.SIunits.VolumeFlowRate maxFloChiThr = 0.025;
+  final parameter Real minFloChiOne(
+    final unit="m3/s",
+    final quantity="VolumeFlowRate",
+    displayUnit="m3/s")=0.005;
+  final parameter Real minFloChiTwo(
+    final unit="m3/s",
+    final quantity="VolumeFlowRate",
+    displayUnit="m3/s")=0.005;
+  final parameter Real minFloChiThr(
+    final unit="m3/s",
+    final quantity="VolumeFlowRate",
+    displayUnit="m3/s")=0.005;
+  final parameter Real maxFloChiOne(
+    final unit="m3/s",
+    final quantity="VolumeFlowRate",
+    displayUnit="m3/s")=0.025;
+  final parameter Real maxFloChiTwo(
+    final unit="m3/s",
+    final quantity="VolumeFlowRate",
+    displayUnit="m3/s")=0.025;
+  final parameter Real maxFloChiThr(
+    final unit="m3/s",
+    final quantity="VolumeFlowRate",
+    displayUnit="m3/s")=0.025;
   Buildings.Controls.OBC.CDL.Logical.Not not2 "Logical not"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse upDev(

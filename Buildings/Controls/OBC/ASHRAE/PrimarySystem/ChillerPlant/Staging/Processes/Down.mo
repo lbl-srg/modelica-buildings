@@ -55,10 +55,8 @@ block Down
     displayUnit="h")
     "Time to reset minimum by-pass flow"
     annotation (Dialog(group="Reset CHW minimum flow setpoint"));
-  parameter Modelica.SIunits.VolumeFlowRate minFloSet[nChi]
     "Minimum chilled water flow through each chiller"
     annotation (Dialog(group="Reset CHW minimum flow setpoint"));
-  parameter Modelica.SIunits.VolumeFlowRate maxFloSet[nChi]
     "Maximum chilled water flow through each chiller"
     annotation (Dialog(group="Reset CHW minimum flow setpoint"));
   parameter Real aftByPasSetTim(
