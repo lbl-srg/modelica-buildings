@@ -8,9 +8,9 @@ block Up "Sequence for control devices when there is stage-up command"
     "True: have waterside economizer";
   parameter Boolean have_PonyChiller=false
     "True: have pony chiller";
-  parameter Boolean isParallelChiller=true
+  parameter Boolean is_parChi=true
     "True: the plant has parallel chillers";
-  parameter Boolean isHeadered=true
+  parameter Boolean is_heaPum=true
     "True: headered condenser water pumps";
   parameter Real chiDemRedFac=0.75
     "Demand reducing factor of current operating chillers"
@@ -216,7 +216,7 @@ protected
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.MinimumFlowBypass.FlowSetpoint
     minChiWatFlo(
     final nChi=nChi,
-    final isParallelChiller=isParallelChiller,
+    final is_parChi=is_parChi,
     final byPasSetTim=byPasSetTim,
     final minFloSet=minFloSet,
     final maxFloSet=maxFloSet) "Minimum chilled water flow setpoint"
@@ -233,7 +233,7 @@ protected
     annotation (Placement(transformation(extent={{0,30},{20,50}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.CondenserWater.Controller
     conWatPumCon(
-    final isHeadered=isHeadered,
+    final is_heaPum=is_heaPum,
     final have_WSE=have_WSE,
     final nChi=nChi,
     final totSta=totSta,
@@ -262,7 +262,7 @@ protected
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.UpEnd
     endUp(
     final nChi=nChi,
-    final isParallelChiller=isParallelChiller,
+    final is_parChi=is_parChi,
     final chaChiWatIsoTim=chaChiWatIsoTim,
     final maxFloSet=maxFloSet,
     final proOnTim=proOnTim,

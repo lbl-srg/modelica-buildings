@@ -2,7 +2,7 @@
 block DownStart "Sequence for starting stage-down process"
 
   parameter Integer nChi "Total number of chillers";
-  parameter Boolean isParallelChiller=true
+  parameter Boolean is_parChi=true
     "Flag: true means that the plant has parallel chillers";
   parameter Real chiDemRedFac=0.75
     "Demand reducing factor of current operating chillers"
@@ -173,7 +173,7 @@ protected
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.MinimumFlowBypass.FlowSetpoint
     minChiWatSet(
     final nChi=nChi,
-    final isParallelChiller=isParallelChiller,
+    final is_parChi=is_parChi,
     final maxFloSet=maxFloSet,
     final byPasSetTim=byPasSetTim,
     final minFloSet=minFloSet) "Reset minimum chilled water flow setpoint"

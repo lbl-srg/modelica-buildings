@@ -4,7 +4,7 @@ block Down "Generates a stage down signal"
   parameter Boolean have_WSE = true
     "true = plant has a WSE, false = plant does not have WSE";
 
-  parameter Boolean serChi = false
+  parameter Boolean is_serChi = false
     "true = series chillers plant; false = parallel chillers plant";
 
   parameter Real parLoaRatDelay(
@@ -71,14 +71,14 @@ block Down "Generates a stage down signal"
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWatPumSet(
     final unit="Pa",
-    final quantity="PressureDifference") if not serChi
+    final quantity="PressureDifference") if not is_serChi
     "Chilled water pump differential static pressure setpoint"
     annotation (Placement(transformation(extent={{-220,90},{-180,130}}),
       iconTransformation(extent={{-140,30},{-100,70}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWatPum(
     final unit="Pa",
-    final quantity="PressureDifference") if not serChi
+    final quantity="PressureDifference") if not is_serChi
     "Chilled water pump differential static pressure"
     annotation (Placement(transformation(extent={{-220,50},{-180,90}}),
     iconTransformation(extent={{-140,10},{-100,50}})));
@@ -101,7 +101,7 @@ block Down "Generates a stage down signal"
 
 protected
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.SetPoints.Subsequences.FailsafeCondition faiSafCon(
-    final serChi=serChi,
+    final is_serChi=is_serChi,
     final faiSafTruDelay=faiSafTruDelay,
     final TDif=TDif,
     final dpDif=faiSafDpDif)

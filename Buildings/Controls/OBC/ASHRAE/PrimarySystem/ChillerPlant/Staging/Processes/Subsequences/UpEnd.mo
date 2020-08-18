@@ -2,7 +2,7 @@
 block UpEnd "Sequence for ending stage-up process"
 
   parameter Integer nChi "Total number of chillers";
-  parameter Boolean isParallelChiller=true
+  parameter Boolean is_parChi=true
     "True: the plant has parallel chillers";
 
   parameter Real proOnTim(
@@ -143,7 +143,7 @@ protected
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.MinimumFlowBypass.FlowSetpoint
     minChiWatSet(
     final nChi=nChi,
-    final isParallelChiller=isParallelChiller,
+    final is_parChi=is_parChi,
     final byPasSetTim=byPasSetTim,
     final minFloSet=minFloSet,
     final maxFloSet=maxFloSet) "Reset minimum chilled water flow setpoint"

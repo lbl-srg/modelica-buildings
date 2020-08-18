@@ -6,7 +6,7 @@ block SetpointController
     "true = plant has a WSE, false = plant does not have WSE"
     annotation (Dialog(tab="General", group="Plant configuration parameters"));
 
-  parameter Boolean serChi = false
+  parameter Boolean is_serChi = false
     "true = series chillers plant; false = parallel chillers plant"
     annotation (Dialog(tab="General", group="Plant configuration parameters"));
 
@@ -242,14 +242,14 @@ block SetpointController
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWatPumSet(
     final unit="Pa",
-    final quantity="PressureDifference") if not serChi
+    final quantity="PressureDifference") if not is_serChi
     "Chilled water pump differential static pressure setpoint"
     annotation (Placement(transformation(extent={{-442,200},{-402,240}}),
       iconTransformation(extent={{-140,-90},{-100,-50}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWatPum(
     final unit="Pa",
-    final quantity="PressureDifference") if not serChi
+    final quantity="PressureDifference") if not is_serChi
     "Chilled water pump differential static pressure"
     annotation (Placement(transformation(extent={{-442,170},{-402,210}}),
     iconTransformation(extent={{-140,-70},{-100,-30}})));
@@ -310,7 +310,7 @@ block SetpointController
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.SetPoints.Subsequences.Up staUp(
     final have_WSE=have_WSE,
-    final serChi=serChi,
+    final is_serChi=is_serChi,
     final effConTruDelay=effConTruDelay,
     final faiSafTruDelay=faiSafTruDelay,
     final shortTDelay=shortTDelay,
@@ -326,7 +326,7 @@ block SetpointController
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.SetPoints.Subsequences.Down staDow(
     final have_WSE=have_WSE,
-    final serChi=serChi,
+    final is_serChi=is_serChi,
     final parLoaRatDelay=parLoaRatDelay,
     final faiSafTruDelay=faiSafTruDelay,
     final faiSafTDif=faiSafTDif,
