@@ -9,9 +9,9 @@ block Down
     "True: have waterside economizer";
   parameter Boolean have_PonyChiller=false
     "True: have pony chiller";
-  parameter Boolean isParallelChiller=true
+  parameter Boolean is_parChi=true
     "True: the plant has parallel chillers";
-  parameter Boolean isHeadered=true
+  parameter Boolean is_heaPum=true
     "True: headered condenser water pumps";
   parameter Real chiDemRedFac=0.75
     "Demand reducing factor of current operating chillers"
@@ -182,7 +182,7 @@ block Down
       iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yChiHeaCon[nChi]
     "Chiller head pressure control enabling status"
-    annotation (Placement(transformation(extent={{280,-130},{320,-90}}),
+    annotation (Placement(transformation(extent={{280,-120},{320,-80}}),
       iconTransformation(extent={{100,-50},{140,-10}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yLeaPum
     "Lead pump status"
@@ -217,7 +217,7 @@ protected
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.DownStart
     dowSta(
     final nChi=nChi,
-    final isParallelChiller=isParallelChiller,
+    final is_parChi=is_parChi,
     final chiDemRedFac=chiDemRedFac,
     final holChiDemTim=holChiDemTim,
     final minFloSet=minFloSet,
@@ -250,7 +250,7 @@ protected
     annotation (Placement(transformation(extent={{100,-170},{120,-150}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.CondenserWater.Controller
     conWatPumCon(
-    final isHeadered=isHeadered,
+    final is_heaPum=is_heaPum,
     final have_WSE=have_WSE,
     final nChi=nChi,
     final totSta=totSta,
@@ -260,10 +260,10 @@ protected
     final relSpeDif=relSpeDif)
     "Enabling next condenser water pump or change pump speed"
     annotation (Placement(transformation(extent={{140,-192},{160,-172}})));
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.MinimumFlowBypass.Subsequences.FlowSetpoint
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.MinimumFlowBypass.FlowSetpoint
     minChiWatFlo(
     final nChi=nChi,
-    final isParallelChiller=isParallelChiller,
+    final is_parChi=is_parChi,
     final maxFloSet=maxFloSet,
     final byPasSetTim=byPasSetTim,
     final minFloSet=minFloSet) "Minimum chilled water flow setpoint"
@@ -352,9 +352,6 @@ equation
   connect(nexChi.yEnaSmaChi,dowSta. nexEnaChi)
     annotation (Line(points={{-18,311},{30,311},{30,226},{58,226}},
       color={255,127,0}));
-  connect(dowSta.uChiHeaCon, uChiHeaCon)
-    annotation (Line(points={{58,224},{-100,224},{-100,130},{-300,130}},
-      color={255,0,255}));
   connect(dowSta.uChiWatIsoVal, uChiWatIsoVal)
     annotation (Line(points={{58,222},{-60,222},{-60,100},{-300,100}},
       color={0,0,127}));
@@ -423,9 +420,6 @@ equation
       color={255,0,255}));
   connect(booRep1.y, logSwi.u2)
     annotation (Line(points={{82,-70},{138,-70}}, color={255,0,255}));
-  connect(uChiHeaCon, logSwi.u3)
-    annotation (Line(points={{-300,130},{-100,130},{-100,-90},{120,-90},{120,-78},
-          {138,-78}},       color={255,0,255}));
   connect(dowSta.yChiHeaCon, logSwi.u1)
     annotation (Line(points={{82,232},{100,232},{100,-62},{138,-62}},
       color={255,0,255}));
@@ -472,7 +466,7 @@ equation
     annotation (Line(points={{82,224},{180,224},{180,220},{300,220}},
       color={255,0,255}));
   connect(disChiIsoVal.yChiWatIsoVal, yChiWatIsoVal)
-    annotation (Line(points={{222,54},{260,54},{260,40},{300,40}},
+    annotation (Line(points={{222,54},{250,54},{250,40},{300,40}},
       color={0,0,127}));
   connect(lat.y, minBypSet.chaPro)
     annotation (Line(points={{-158,350},{-140,350},{-140,328},{-260,328},
@@ -549,7 +543,7 @@ equation
     annotation (Line(points={{162,-173},{220,-173},{220,-150},{300,-150}},
       color={255,0,255}));
   connect(disHeaCon.yChiHeaCon, yChiHeaCon)
-    annotation (Line(points={{222,-106},{260,-106},{260,-110},{300,-110}},
+    annotation (Line(points={{222,-106},{260,-106},{260,-100},{300,-100}},
       color={255,0,255}));
   connect(minBypSet.yMinBypRes, pre.u)
     annotation (Line(points={{122,-370},{158,-370}}, color={255,0,255}));
@@ -646,6 +640,10 @@ equation
   connect(uChiSta, disNexCWP.uChiSta)
     annotation (Line(points={{-300,160},{-150,160},{-150,-165},{98,-165}},
       color={255,127,0}));
+  connect(dowSta.uChiHeaCon, uChiHeaCon) annotation (Line(points={{58,224},{-100,
+          224},{-100,130},{-300,130}}, color={255,0,255}));
+  connect(uChiHeaCon, logSwi.u3) annotation (Line(points={{-300,130},{-100,130},
+          {-100,-90},{120,-90},{120,-78},{138,-78}}, color={255,0,255}));
 
 annotation (
   defaultComponentName="dowProCon",
@@ -658,7 +656,7 @@ annotation (
         fillPattern=FillPattern.Solid,
         borderPattern=BorderPattern.Raised),
         Text(
-          extent={{-120,260},{120,200}},
+          extent={{-120,240},{120,200}},
           lineColor={0,0,255},
           textString="%name"),
         Rectangle(
@@ -695,11 +693,7 @@ annotation (
           pattern=LinePattern.Dash,
           textString="VChiWat_flow"),
         Text(
-          extent={{-96,6},{-44,-6}},
-          lineColor={255,0,255},
-          textString="uChiHeaCon"),
-        Text(
-          extent={{-98,-22},{-38,-34}},
+          extent={{-98,-24},{-38,-36}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="uChiWatIsoVal"),
@@ -784,7 +778,11 @@ annotation (
         Text(
           extent={{-100,38},{-58,26}},
           lineColor={255,127,0},
-          textString="uChiSta")}),
+          textString="uChiSta"),
+        Text(
+          extent={{-98,6},{-44,-6}},
+          lineColor={255,0,255},
+          textString="uChiHeaCon")}),
 Documentation(info="<html>
 <p>
 Block that controls devices when there is a stage-down command. This sequence is for

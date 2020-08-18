@@ -44,7 +44,7 @@ protected
     annotation (Placement(transformation(extent={{-60,-90},{-40,-70}})));
 
 equation
-  connect(booPul.y, enaWSE.uHeaPreEna)
+  connect(booPul.y,enaWSE.uChiHeaCon)
     annotation (Line(points={{-98,100},{20,100},{20,90},{58,90}}, color={255,0,255}));
   connect(TConWatRet.y, enaWSE.TConWatRet)
     annotation (Line(points={{-98,60},{-20,60},{-20,86},{58,86}}, color={0,0,127}));
@@ -54,7 +54,7 @@ equation
     annotation (Line(points={{-98,-20},{10,-20},{10,78},{58,78}}, color={0,0,127}));
   connect(runWSE.y, enaWSE.uWSE)
     annotation (Line(points={{-98,-60},{0,-60},{0,74},{58,74}}, color={255,0,255}));
-  connect(booPul.y, disWSE.uHeaPreEna)
+  connect(booPul.y,disWSE.uChiHeaCon)
     annotation (Line(points={{-98,100},{20,100},{20,-50},{58,-50}}, color={255,0,255}));
   connect(TConWatRet.y, disWSE.TConWatRet)
     annotation (Line(points={{-98,60},{-20,60},{-20,-54},{58,-54}}, color={0,0,127}));
@@ -66,9 +66,9 @@ equation
     annotation (Line(points={{-98,-60},{-80,-60},{-80,-80},{-62,-80}}, color={255,0,255}));
   connect(not1.y, disWSE.uWSE)
     annotation (Line(points={{-38,-80},{-28,-80},{-28,-66},{58,-66}}, color={255,0,255}));
-  connect(booPul.y, conSpePum.uHeaPreEna)
+  connect(booPul.y,conSpePum.uChiHeaCon)
     annotation (Line(points={{-98,100},{20,100},{20,50},{98,50}}, color={255,0,255}));
-  connect(booPul.y, varSpePum.uHeaPreEna)
+  connect(booPul.y,varSpePum.uChiHeaCon)
     annotation (Line(points={{-98,100},{20,100},{20,-90},{98,-90}}, color={255,0,255}));
   connect(TConWatRet.y, conSpePum.TConWatRet)
     annotation (Line(points={{-98,60},{-20,60},{-20,46},{98,46}}, color={0,0,127}));
