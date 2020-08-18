@@ -8,9 +8,9 @@ block Up "Sequence for control devices when there is stage-up command"
     "True: have waterside economizer";
   parameter Boolean have_PonyChiller=false
     "True: have pony chiller";
-  parameter Boolean isParallelChiller=true
+  parameter Boolean is_parChi=true
     "True: the plant has parallel chillers";
-  parameter Boolean isHeadered=true
+  parameter Boolean is_heaPum=true
     "True: headered condenser water pumps";
   parameter Real chiDemRedFac=0.75
     "Demand reducing factor of current operating chillers"
@@ -219,14 +219,13 @@ protected
     final chiDemRedFac=chiDemRedFac,
     final holChiDemTim=holChiDemTim) "Limit chiller demand"
     annotation (Placement(transformation(extent={{-80,160},{-60,180}})));
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.MinimumFlowBypass.Subsequences.FlowSetpoint
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.MinimumFlowBypass.FlowSetpoint
     minChiWatFlo(
     final nChi=nChi,
-    final isParallelChiller=isParallelChiller,
+    final is_parChi=is_parChi,
     final byPasSetTim=byPasSetTim,
     final minFloSet=minFloSet,
-    final maxFloSet=maxFloSet)
-    "Minimum chilled water flow setpoint"
+    final maxFloSet=maxFloSet) "Minimum chilled water flow setpoint"
     annotation (Placement(transformation(extent={{20,80},{40,100}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.ResetMinBypass
     minBypSet(
@@ -240,7 +239,7 @@ protected
     annotation (Placement(transformation(extent={{0,30},{20,50}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.CondenserWater.Controller
     conWatPumCon(
-    final isHeadered=isHeadered,
+    final is_heaPum=is_heaPum,
     final have_WSE=have_WSE,
     final nChi=nChi,
     final totSta=totSta,
@@ -269,7 +268,7 @@ protected
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.UpEnd
     endUp(
     final nChi=nChi,
-    final isParallelChiller=isParallelChiller,
+    final is_parChi=is_parChi,
     final chaChiWatIsoTim=chaChiWatIsoTim,
     final maxFloSet=maxFloSet,
     final proOnTim=proOnTim,
@@ -358,9 +357,6 @@ equation
   connect(nexChi.yNexEnaChi, enaHeaCon.nexChaChi)
     annotation (Line(points={{-58,229},{-36,229},{-36,-94},{58,-94}},
       color={255,127,0}));
-  connect(enaHeaCon.uChiHeaCon, uChiHeaCon)
-    annotation (Line(points={{58,-98},{-48,-98},{-48,-130},{-260,-130}},
-      color={255,0,255}));
   connect(nexChi.yNexEnaChi, enaChiIsoVal.nexChaChi)
     annotation (Line(points={{-58,229},{-36,229},{-36,-142},{58,-142}},
       color={255,127,0}));
@@ -387,9 +383,6 @@ equation
       color={0,0,127}));
   connect(uConWatReq, endUp.uConWatReq)
     annotation (Line(points={{-260,-10},{-164,-10},{-164,-224},{18,-224}},
-      color={255,0,255}));
-  connect(uChiHeaCon, endUp.uChiHeaCon)
-    annotation (Line(points={{-260,-130},{-48,-130},{-48,-226},{18,-226}},
       color={255,0,255}));
   connect(VChiWat_flow, endUp.VChiWat_flow)
     annotation (Line(points={{-260,100},{-156,100},{-156,-228},{18,-228}},
@@ -558,6 +551,10 @@ equation
           250},{-104,31},{-2,31}}, color={255,127,0}));
   connect(uChiSta, enaNexCWP.uChiSta) annotation (Line(points={{-260,30},{-180,30},
           {-180,35},{-2,35}}, color={255,127,0}));
+  connect(enaHeaCon.uChiHeaCon, uChiHeaCon) annotation (Line(points={{58,-98},{-48,
+          -98},{-48,-130},{-260,-130}}, color={255,0,255}));
+  connect(uChiHeaCon, endUp.uChiHeaCon) annotation (Line(points={{-260,-130},{-48,
+          -130},{-48,-226},{18,-226}}, color={255,0,255}));
 
 annotation (
   defaultComponentName="upProCon",
@@ -571,7 +568,7 @@ annotation (
         fillPattern=FillPattern.Solid,
         borderPattern=BorderPattern.Raised),
         Text(
-          extent={{-120,260},{120,200}},
+          extent={{-120,240},{120,200}},
           lineColor={0,0,255},
           textString="%name"),
         Rectangle(
@@ -604,10 +601,6 @@ annotation (
           extent={{-100,-44},{-64,-56}},
           lineColor={255,0,255},
           textString="uWSE"),
-        Text(
-          extent={{-96,-134},{-44,-146}},
-          lineColor={255,0,255},
-          textString="uChiHeaCon"),
         Text(
           extent={{-98,-184},{-48,-196}},
           lineColor={255,0,255},
@@ -688,7 +681,11 @@ annotation (
         Text(
           extent={{-98,26},{-56,14}},
           lineColor={255,127,0},
-          textString="uChiSta")}),
+          textString="uChiSta"),
+        Text(
+          extent={{-98,-134},{-48,-146}},
+          lineColor={255,0,255},
+          textString="uChiHeaCon")}),
 Documentation(info="<html>
 <p>
 Block that controls devices when there is a stage-up command. This sequence is for

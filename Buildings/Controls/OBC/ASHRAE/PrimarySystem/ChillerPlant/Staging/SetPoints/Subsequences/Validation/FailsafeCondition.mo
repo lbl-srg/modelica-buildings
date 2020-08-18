@@ -12,7 +12,7 @@ model FailsafeCondition "Validate failsafe condition sequence"
     annotation (Placement(transformation(extent={{120,80},{140,100}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.SetPoints.Subsequences.FailsafeCondition
-    faiSafCon2(final serChi=true)
+    faiSafCon2(final is_serChi=true)
     "Failsafe condition to test for the chilled water supply temperature input for series chillers plant"
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
 
