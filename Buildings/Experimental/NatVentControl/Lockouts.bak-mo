@@ -1,0 +1,415 @@
+within Buildings.Experimental.NatVentControl;
+package Lockouts "Blocks to lock out natural ventilation control sequence"
+  model AllLockouts "All lockouts combined"
+    DryBulbLockout DryBulbLockout1
+      annotation (Placement(transformation(extent={{-80,66},{-60,86}})));
+    ManualOverrideLockout ManualOverrideLockout1
+      annotation (Placement(transformation(extent={{-80,36},{-60,56}})));
+    OccupancyLockout OccupancyLockout1
+      annotation (Placement(transformation(extent={{-78,4},{-58,24}})));
+    RainLockout RainLockout1
+      annotation (Placement(transformation(extent={{-76,-32},{-56,-12}})));
+    WetBulbLockout WetBulbLockout1
+      annotation (Placement(transformation(extent={{-78,-62},{-58,-42}})));
+    WindLockout WindLockout1
+      annotation (Placement(transformation(extent={{-78,-96},{-58,-76}})));
+    annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+          Polygon(
+            points={{-82,46},{-82,-76},{78,-76},{78,46},{-82,46}},
+            lineColor={28,108,200},
+            lineThickness=1),
+          Rectangle(
+            extent={{-56,46},{-62,86}},
+            lineColor={28,108,200},
+            lineThickness=1),
+          Rectangle(
+            extent={{-62,92},{58,86}},
+            lineColor={28,108,200},
+            lineThickness=1),
+          Rectangle(
+            extent={{58,46},{52,86}},
+            lineColor={28,108,200},
+            lineThickness=1),
+          Text(
+            extent={{-24,48},{26,-48}},
+            lineColor={28,108,200},
+            textString="A")}), Diagram(coordinateSystem(preserveAspectRatio=
+              false)));
+  end AllLockouts;
+
+  block DryBulbLockout
+    "Locks out natural ventilation if outdoor air dry bulb temperature is below a user-specified threshhold"
+    parameter Real TOADB(min=0,
+      final unit="K",
+      final displayUnit="K",
+      final quantity="Temperature")=288.7 "Outdoor air temperature below which nat vent is not allowed";
+
+    Controls.OBC.CDL.Continuous.Hysteresis hys(
+      uLow=0,
+      uHigh=0.1,
+      pre_y_start=true)
+      "Tests if VAV setpoint minus wet bulb temp is greater than user-specified tolerance (typically 8 F). If so, window can open. If not, window must be closed."
+      annotation (Placement(transformation(extent={{-20,20},{0,40}})));
+    Controls.OBC.CDL.Continuous.Add add2
+      annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
+    Controls.OBC.CDL.Continuous.ChangeSign           chaSig
+      "Negates room temperature setpoint"
+      annotation (Placement(transformation(extent={{-90,60},{-70,80}})));
+    Controls.OBC.CDL.Logical.And and2
+      annotation (Placement(transformation(extent={{60,20},{80,40}})));
+    Controls.OBC.CDL.Continuous.Hysteresis hys1(
+      uLow=TOADBLo,
+      uHigh=TOADB,
+      pre_y_start=false)
+      annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
+    Controls.OBC.CDL.Logical.Not not1
+      annotation (Placement(transformation(extent={{20,20},{40,40}})));
+    Controls.OBC.CDL.Interfaces.RealInput TDryBul
+      "Outdoor air dry bulb temperature"
+      annotation (Placement(transformation(extent={{-140,-30},{-100,10}}),
+          iconTransformation(extent={{-140,20},{-100,60}})));
+    Controls.OBC.CDL.Interfaces.BooleanOutput natVenSigOAT
+      "True if natural ventilation allowed; otherwise false" annotation (
+        Placement(transformation(extent={{100,-10},{140,30}}), iconTransformation(
+            extent={{100,-20},{140,20}})));
+    Controls.OBC.CDL.Interfaces.RealInput TStaSetWin
+      "Thermostat setpoint temperature used in window control" annotation (
+        Placement(transformation(extent={{-140,30},{-100,70}}),
+          iconTransformation(extent={{-140,-60},{-100,-20}})));
+  protected
+      parameter Real TOADBLo(min=0,
+      final unit="K",
+      final displayUnit="K",
+      final quantity="TemperatureDifference")=TOADB*0.99  "Lower hysteresis limit";
+  equation
+    connect(add2.y,hys. u)
+      annotation (Line(points={{-38,30},{-22,30}},color={0,0,127}));
+    connect(TStaSetWin, chaSig.u) annotation (Line(points={{-120,50},{-94,50},{-94,
+            70},{-92,70}}, color={0,0,127}));
+    connect(TDryBul,add2. u2) annotation (Line(points={{-120,-10},{-82,-10},{-82,24},
+            {-62,24}},color={0,0,127}));
+    connect(chaSig.y,add2. u1) annotation (Line(points={{-68,70},{-66,70},{-66,36},
+            {-62,36}}, color={0,0,127}));
+    connect(TDryBul,hys1. u) annotation (Line(points={{-120,-10},{-82,-10},{-82,-50},
+            {-2,-50}}, color={0,0,127}));
+    connect(hys1.y,and2. u2) annotation (Line(points={{22,-50},{48,-50},{48,22},{58,
+            22}}, color={255,0,255}));
+    connect(hys.y,not1. u)
+      annotation (Line(points={{2,30},{18,30}}, color={255,0,255}));
+    connect(not1.y,and2. u1)
+      annotation (Line(points={{42,30},{58,30}}, color={255,0,255}));
+    connect(and2.y,natVenSigOAT)  annotation (Line(points={{82,30},{90,30},{90,10},
+            {120,10}}, color={255,0,255}));
+
+    annotation (defaultComponentName = "DryBulbLockout", Documentation(info="<html>
+  <p>
+  This block locks out natural ventilation if the dry bulb temperature is below a user-specified threshhold or above the air temperature setpoint for the room.
+</p>
+</html>"),   Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+          Polygon(
+            points={{-76,40},{-76,-82},{84,-82},{84,40},{-76,40}},
+            lineColor={28,108,200},
+            lineThickness=1),
+          Rectangle(
+            extent={{-50,40},{-56,80}},
+            lineColor={28,108,200},
+            lineThickness=1),
+          Rectangle(
+            extent={{-56,86},{64,80}},
+            lineColor={28,108,200},
+            lineThickness=1),
+          Rectangle(
+            extent={{64,40},{58,80}},
+            lineColor={28,108,200},
+            lineThickness=1),
+          Text(
+            extent={{-18,42},{32,-54}},
+            lineColor={28,108,200},
+            textString="W")}), Diagram(coordinateSystem(preserveAspectRatio=false)));
+  end DryBulbLockout;
+
+  block ManualOverrideLockout
+    "Locks out natural ventilation if manual override is on"
+    Controls.OBC.CDL.Interfaces.BooleanInput manOvrSig
+      "True if manual override; false if not" annotation (Placement(
+          transformation(extent={{-140,-10},{-100,30}}), iconTransformation(
+            extent={{-140,-20},{-100,20}})));
+    Controls.OBC.CDL.Logical.Not not1
+      annotation (Placement(transformation(extent={{0,0},{20,20}})));
+    Controls.OBC.CDL.Interfaces.BooleanOutput natVenSigManOvr annotation (
+        Placement(transformation(extent={{100,-10},{140,30}}), iconTransformation(
+            extent={{100,-20},{140,20}})));
+  equation
+    connect(manOvrSig, not1.u)
+      annotation (Line(points={{-120,10},{-2,10}}, color={255,0,255}));
+    connect(not1.y, natVenSigManOvr)
+      annotation (Line(points={{22,10},{120,10}}, color={255,0,255}));
+    annotation (defaultComponentName = "ManualOverrideLockout",Documentation(info="<html>
+  <p>
+  This block locks out natural ventilation if a manual override is specified. 
+</p>
+</html>"),  Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+          Polygon(
+            points={{-80,40},{-80,-82},{80,-82},{80,40},{-80,40}},
+            lineColor={28,108,200},
+            lineThickness=1),
+          Rectangle(
+            extent={{-54,40},{-60,80}},
+            lineColor={28,108,200},
+            lineThickness=1),
+          Rectangle(
+            extent={{-60,86},{60,80}},
+            lineColor={28,108,200},
+            lineThickness=1),
+          Rectangle(
+            extent={{60,40},{54,80}},
+            lineColor={28,108,200},
+            lineThickness=1),
+          Text(
+            extent={{-22,42},{28,-54}},
+            lineColor={28,108,200},
+            textString="M")}), Diagram(coordinateSystem(preserveAspectRatio=false)));
+  end ManualOverrideLockout;
+
+  block OccupancyLockout
+    "Locks out natural ventilation if room is unoccupied and night flush mode is off"
+    Controls.OBC.CDL.Interfaces.BooleanInput occSig
+      "True if room is occupied; false if not" annotation (Placement(
+          transformation(extent={{-140,30},{-100,70}}), iconTransformation(extent={{-140,
+              -50},{-100,-10}})));
+    Controls.OBC.CDL.Interfaces.BooleanOutput natVenSigOcc
+      "True if nat vent allowed, false if nat vent locked out" annotation (
+        Placement(transformation(extent={{100,-10},{140,30}}), iconTransformation(
+            extent={{100,-20},{140,20}})));
+    Controls.OBC.CDL.Interfaces.BooleanInput nitFluSig
+      "True if night flush mode on; false if not" annotation (Placement(
+          transformation(extent={{-140,-50},{-100,-10}}), iconTransformation(
+            extent={{-140,8},{-100,48}})));
+    Controls.OBC.CDL.Logical.Or or2
+      annotation (Placement(transformation(extent={{0,0},{20,20}})));
+  equation
+    connect(occSig, or2.u1) annotation (Line(points={{-120,50},{-60,50},{-60,10},{
+            -2,10}}, color={255,0,255}));
+    connect(nitFluSig, or2.u2) annotation (Line(points={{-120,-30},{-62,-30},{-62,
+            2},{-2,2}}, color={255,0,255}));
+    connect(or2.y, natVenSigOcc)
+      annotation (Line(points={{22,10},{120,10}}, color={255,0,255}));
+    annotation (defaultComponentName = "OccupancyLockout", Documentation(info="<html>
+  <p>
+  This block locks out natural ventilation if the building is unoccupied, unless night flush mode is on. 
+</p>
+</html>"),  Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+          Polygon(
+            points={{-80,40},{-80,-82},{80,-82},{80,40},{-80,40}},
+            lineColor={28,108,200},
+            lineThickness=1),
+          Rectangle(
+            extent={{-54,40},{-60,80}},
+            lineColor={28,108,200},
+            lineThickness=1),
+          Rectangle(
+            extent={{-60,86},{60,80}},
+            lineColor={28,108,200},
+            lineThickness=1),
+          Rectangle(
+            extent={{60,40},{54,80}},
+            lineColor={28,108,200},
+            lineThickness=1),
+          Text(
+            extent={{-22,42},{28,-54}},
+            lineColor={28,108,200},
+            textString="O")}), Diagram(coordinateSystem(preserveAspectRatio=false)));
+  end OccupancyLockout;
+
+  block RainLockout "Locks out natural ventilation if rain is detected"
+     parameter Real TiRai(min=0,
+      final unit="s",
+      final displayUnit="s",
+      final quantity="Time")=1800  "Time for which natural ventilation is locked out after rain is detected";
+    Controls.OBC.CDL.Interfaces.BooleanInput raiSig
+      "True if it is raining; false if not" annotation (Placement(transformation(
+            extent={{-140,-10},{-100,30}}), iconTransformation(extent={{-140,
+              -20},{-100,20}})));
+    Controls.OBC.CDL.Interfaces.BooleanOutput natVenSigRai annotation (Placement(
+          transformation(extent={{100,-10},{140,30}}), iconTransformation(extent={{100,-20},
+              {140,20}})));
+    Controls.OBC.CDL.Logical.Not not1
+      annotation (Placement(transformation(extent={{40,0},{60,20}})));
+    Controls.OBC.CDL.Logical.TrueFalseHold truFalHol(trueHoldDuration=TiRai,
+        falseHoldDuration=0)
+      annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
+  equation
+    connect(not1.y, natVenSigRai)
+      annotation (Line(points={{62,10},{120,10}}, color={255,0,255}));
+    connect(raiSig, truFalHol.u)
+      annotation (Line(points={{-120,10},{-42,10}}, color={255,0,255}));
+    connect(truFalHol.y, not1.u)
+      annotation (Line(points={{-18,10},{38,10}}, color={255,0,255}));
+    annotation (defaultComponentName = "RainLockout",Documentation(info="<html>
+  <p>
+  This block locks out natural ventilation for a user-specified amount of time if rain is detected. 
+</p>
+</html>"),  Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+          Polygon(
+            points={{-80,40},{-80,-82},{80,-82},{80,40},{-80,40}},
+            lineColor={28,108,200},
+            lineThickness=1),
+          Rectangle(
+            extent={{-54,40},{-60,80}},
+            lineColor={28,108,200},
+            lineThickness=1),
+          Rectangle(
+            extent={{-60,86},{60,80}},
+            lineColor={28,108,200},
+            lineThickness=1),
+          Rectangle(
+            extent={{60,40},{54,80}},
+            lineColor={28,108,200},
+            lineThickness=1),
+          Text(
+            extent={{-22,42},{28,-54}},
+            lineColor={28,108,200},
+            textString="R")}), Diagram(coordinateSystem(preserveAspectRatio=false)));
+  end RainLockout;
+
+  block WetBulbLockout "Locks out natural ventilation based on outdoor air wet bulb temperature"
+    parameter Real TWBDiff(min=0,
+      final unit="K",
+      final displayUnit="K",
+      final quantity="TemperatureDifference")=4.44 "Allowable difference between outdoor air wet bulb temperature and room air temperature setpoint: OA WB +  this difference must be less than room air temperature setpoint";
+    Controls.OBC.CDL.Continuous.Add add2
+      annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
+    Controls.OBC.CDL.Interfaces.RealInput TStaSetWin
+      "Thermostat setpoint temperature used in window control" annotation (
+        Placement(transformation(extent={{-140,10},{-100,50}}),
+          iconTransformation(extent={{-140,-50},{-100,-10}})));
+    Controls.OBC.CDL.Interfaces.RealInput TWetBul
+      "Outdoor air wet bulb temperature"
+      annotation (Placement(transformation(extent={{-140,-50},{-100,-10}}),
+          iconTransformation(extent={{-140,10},{-100,50}})));
+    Controls.OBC.CDL.Continuous.Hysteresis hys(
+      uLow=TWBDiffLo,
+      uHigh=TWBDiff,
+      pre_y_start=true)
+      "Tests if room air setpoint minus wet bulb temp is greater than user-specified tolerance (typically 8 F). If so, window can open. If not, window must be closed."
+      annotation (Placement(transformation(extent={{0,0},{20,20}})));
+    Controls.OBC.CDL.Logical.Not not1
+      annotation (Placement(transformation(extent={{40,0},{60,20}})));
+    Controls.OBC.CDL.Interfaces.BooleanOutput natVenSigWB
+      "True if natural ventilation allowed; otherwise false" annotation (
+        Placement(transformation(extent={{100,-10},{140,30}}), iconTransformation(
+            extent={{100,-18},{140,22}})));
+    Controls.OBC.CDL.Continuous.ChangeSign           chaSig
+      "Negates wet bulb temperature"
+      annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
+  protected
+            parameter Real TWBDiffLo(min=0,
+      final unit="K",
+      final displayUnit="K",
+      final quantity="TemperatureDifference")=TWBDiff*0.99  "Lower hysteresis limit";
+  equation
+    connect(add2.y,hys. u)
+      annotation (Line(points={{-18,10},{-2,10}}, color={0,0,127}));
+    connect(hys.y,not1. u)
+      annotation (Line(points={{22,10},{38,10}},color={255,0,255}));
+    connect(not1.y, natVenSigWB)
+      annotation (Line(points={{62,10},{120,10}}, color={255,0,255}));
+    connect(chaSig.y, add2.u2) annotation (Line(points={{-58,-10},{-50,-10},{-50,4},
+            {-42,4}}, color={0,0,127}));
+    connect(TStaSetWin, add2.u1) annotation (Line(points={{-120,30},{-82,30},{-82,
+            16},{-42,16}}, color={0,0,127}));
+    connect(TWetBul, chaSig.u) annotation (Line(points={{-120,-30},{-102,-30},{-102,
+            -10},{-82,-10}}, color={0,0,127}));
+    annotation (defaultComponentName = "WetBulbLockout",Documentation(info="<html>
+  <p>
+  This block locks out natural ventilation if the wet bulb temperature is too high. 
+  The user specifies a tolerance, and the wet bulb temperature must be below the room setpoint minus the tolerance in order for natural ventilation to be permitted. 
+</p>
+</html>"),  Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+          Polygon(
+            points={{-80,40},{-80,-82},{80,-82},{80,40},{-80,40}},
+            lineColor={28,108,200},
+            lineThickness=1),
+          Rectangle(
+            extent={{-54,40},{-60,80}},
+            lineColor={28,108,200},
+            lineThickness=1),
+          Rectangle(
+            extent={{-60,86},{60,80}},
+            lineColor={28,108,200},
+            lineThickness=1),
+          Rectangle(
+            extent={{60,40},{54,80}},
+            lineColor={28,108,200},
+            lineThickness=1),
+          Text(
+            extent={{-40,32},{44,-42}},
+            lineColor={28,108,200},
+            textString="B")}), Diagram(coordinateSystem(preserveAspectRatio=false)));
+  end WetBulbLockout;
+
+  block WindLockout
+    "Locks out natural ventilation due to high wind speed"
+     parameter Real TWinHiLim(min=0,
+      final unit="m/s",
+      final displayUnit="m/s",
+      final quantity="Velocity")=8.94 "Wind speed above which window must be closed";
+    Controls.OBC.CDL.Continuous.Hysteresis hys(
+      uLow=TWinHiLimLo,
+      uHigh=TWinHiLim,
+      pre_y_start=true)
+      "Tests if wind speed is above 20 mph (8.94 m/s); if so, locks out nat vent"
+      annotation (Placement(transformation(extent={{-20,0},{0,20}})));
+    Controls.OBC.CDL.Interfaces.RealInput winSpe
+      "Wind speed perpendicular to window" annotation (Placement(transformation(
+            extent={{-140,-10},{-100,30}}), iconTransformation(extent={{-140,
+              -20},{-100,20}})));
+    Controls.OBC.CDL.Logical.Not not1
+      annotation (Placement(transformation(extent={{20,0},{40,20}})));
+    Controls.OBC.CDL.Interfaces.BooleanOutput natVenSigWin
+      "True if natural ventilation allowed; otherwise false" annotation (
+        Placement(transformation(extent={{100,-10},{140,30}}), iconTransformation(
+            extent={{100,-20},{140,20}})));
+  protected
+      parameter Real TWinHiLimLo(min=0,
+      final unit="m/s",
+      final displayUnit="m/s",
+      final quantity="Velocity")=TWinHiLim*0.99  "Lower hysteresis limit";
+  equation
+    connect(winSpe, hys.u)
+      annotation (Line(points={{-120,10},{-22,10}}, color={0,0,127}));
+    connect(hys.y, not1.u)
+      annotation (Line(points={{2,10},{18,10}}, color={255,0,255}));
+    connect(not1.y, natVenSigWin)
+      annotation (Line(points={{42,10},{120,10}}, color={255,0,255}));
+    annotation (defaultComponentName = "WindLockout",Documentation(info="<html>
+  <p>
+  This block locks out natural ventilation if wind speed is greater than a user-specified amount (typically 20 mph).
+</p>
+</html>"),  Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+          Polygon(
+            points={{-80,60},{-80,-62},{80,-62},{80,60},{-80,60}},
+            lineColor={28,108,200},
+            lineThickness=1),
+          Rectangle(
+            extent={{-54,60},{-60,100}},
+            lineColor={28,108,200},
+            lineThickness=1),
+          Rectangle(
+            extent={{-60,106},{60,100}},
+            lineColor={28,108,200},
+            lineThickness=1),
+          Rectangle(
+            extent={{60,60},{54,100}},
+            lineColor={28,108,200},
+            lineThickness=1),
+          Text(
+            extent={{-22,62},{28,-34}},
+            lineColor={28,108,200},
+            textString="W")}), Diagram(coordinateSystem(preserveAspectRatio=false)));
+  end WindLockout;
+
+  package Validation "Validation models for natural ventilation lockouts"
+
+  end Validation;
+end Lockouts;
