@@ -75,7 +75,8 @@ model Connection1stGen6PipeSections
     timeScale=3600,
     show_T=true) "Building"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
-  Buildings.Applications.DHC.CentralPlants.Heating.Generation1.HeatingPlant pla(
+  Buildings.Applications.DHC.CentralPlants.Heating.Generation1.HeatingPlantIdeal
+    pla(
     redeclare package Medium_a = MediumWat,
     redeclare package Medium_b = MediumSte,
     mPla_flow_nominal=mDis_flow_nominal,

@@ -147,7 +147,8 @@ package Generation1 "Package of example models for first generation DH systems"
       Modelica.Fluid.Types.Dynamics.SteadyState
       "Type of energy balance: steady state";
 
-  Buildings.Applications.DHC.CentralPlants.Heating.Generation1.HeatingPlant pla(
+  Buildings.Applications.DHC.CentralPlants.Heating.Generation1.HeatingPlantIdeal
+    pla(
     redeclare package Medium_a = MediumWat,
     redeclare package Medium_b = MediumSte,
     mPla_flow_nominal=mConPlaDis_flow_nominal,

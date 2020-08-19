@@ -81,7 +81,8 @@ model HeatingSystemSmall
     Modelica.Fluid.Types.Dynamics.SteadyState
     "Type of energy balance: steady state";
 
-  Buildings.Applications.DHC.CentralPlants.Heating.Generation1.HeatingPlant pla(
+  Buildings.Applications.DHC.CentralPlants.Heating.Generation1.HeatingPlantIdeal
+    pla(
     redeclare package Medium_a = MediumWat,
     redeclare package Medium_b = MediumSte,
     mPla_flow_nominal=mConPla_flow_nominal,
