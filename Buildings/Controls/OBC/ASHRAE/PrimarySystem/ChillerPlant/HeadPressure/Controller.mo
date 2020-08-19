@@ -14,8 +14,11 @@ block Controller "Head pressure controller"
   parameter Boolean fixSpePum = true
     "Flag indicating if the plant has fixed speed condenser water pumps"
     annotation (Dialog(group="Plant", enable=not have_WSE));
-  parameter Modelica.SIunits.TemperatureDifference minChiLif=10
-    "Minimum allowable lift at minimum load for chiller"
+  parameter Real minChiLif(
+    final unit="K",
+    final quantity="TemperatureDifference",
+    displayUnit="degC")=10
+      "Minimum allowable lift at minimum load for chiller"
     annotation (Dialog(tab="Loop signal", enable=not have_HeaPreConSig));
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI "Type of controller"
@@ -27,8 +30,8 @@ block Controller "Head pressure controller"
     final quantity="Time")=0.5 "Time constant of integrator block"
     annotation (Dialog(tab="Loop signal", group="PID controller", enable=not have_HeaPreConSig));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHeaPreEna
-    "Status of head pressure control: true = ON, false = OFF"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChiHeaCon
+    "Chillers head pressure control status: true = ON, false = OFF"
     annotation (Placement(transformation(extent={{-140,100},{-100,140}}),
       iconTransformation(extent={{-140,80},{-100,120}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TConWatRet(
@@ -120,23 +123,23 @@ equation
     annotation (Line(points={{-22,90},{-120,90}}, color={0,0,127}));
   connect(chiHeaPreLoo.TChiWatSup, TChiWatSup)
     annotation (Line(points={{-22,82},{-40,82},{-40,60},{-120,60}}, color={0,0,127}));
-  connect(chiHeaPreLoo.uHeaPreEna, uHeaPreEna)
+  connect(chiHeaPreLoo.uHeaPreEna,uChiHeaCon)
     annotation (Line(points={{-22,98},{-80,98},{-80,120},{-120,120}},
       color={255,0,255}));
   connect(chiHeaPreLoo.yHeaPreCon, noWSE.uHeaPreCon)
     annotation (Line(points={{1,90},{20,90},{20,60},{38,60}}, color={0,0,127}));
   connect(chiHeaPreLoo.yHeaPreCon, withWSE.uHeaPreCon)
     annotation (Line(points={{1,90},{20,90},{20,-22},{38,-22}}, color={0,0,127}));
-  connect(uHeaPreEna, noWSE.uHeaPreEna)
+  connect(uChiHeaCon, noWSE.uHeaPreEna)
     annotation (Line(points={{-120,120},{-80,120},{-80,44},{38,44}},
       color={255,0,255}));
   connect(withWSE.uWSE, uWSE)
     annotation (Line(points={{38,-34},{-20,-34},{-20,-20},{-120,-20}},
       color={255,0,255}));
-  connect(uHeaPreEna, withWSE.uHeaPreEna)
+  connect(uChiHeaCon, withWSE.uHeaPreEna)
     annotation (Line(points={{-120,120},{-80,120},{-80,-38},{38,-38}},
       color={255,0,255}));
-  connect(uHeaPreEna, swi.u2)
+  connect(uChiHeaCon, swi.u2)
     annotation (Line(points={{-120,120},{-80,120},{-80,-100},{-22,-100}},
       color={255,0,255}));
   connect(uHeaPreCon, swi.u1)

@@ -1,8 +1,12 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure.Subsequences;
 block ControlLoop
   "Sequence to generate head pressure control signal if it is not available from the chiller controller"
-  parameter Modelica.SIunits.TemperatureDifference minChiLif(final min=1e-5)=10
-    "Minimum allowable lift at minimum load for chiller";
+  parameter Real minChiLif(
+    final min=1e-5,
+    final unit="K",
+    final quantity="TemperatureDifference",
+    displayUnit="degC") = 10
+      "Minimum allowable lift at minimum load for chiller";
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"

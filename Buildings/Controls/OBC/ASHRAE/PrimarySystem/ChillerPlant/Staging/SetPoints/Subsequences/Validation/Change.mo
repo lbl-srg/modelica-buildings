@@ -36,11 +36,17 @@ model Change
     annotation (Placement(transformation(extent={{0,-240},{20,-220}})));
 
 protected
-  parameter Modelica.SIunits.Temperature TChiWatSupSet = 285.15
-  "Chilled water supply set temperature";
+  parameter Real TChiWatSupSet(
+    final unit="K",
+    final quantity="ThermodynamicTemperature",
+    displayUnit="degC")=285.15
+    "Chilled water supply set temperature";
 
-  parameter Modelica.SIunits.Temperature aveTChiWatRet = 288.15
-  "Average measured chilled water return temperature";
+  parameter Real aveTChiWatRet(
+    final unit="K",
+    final quantity="ThermodynamicTemperature",
+    displayUnit="degC")=288.15
+    "Average measured chilled water return temperature";
 
   parameter Real minStaRuntime(
     final unit="s",
@@ -48,8 +54,11 @@ protected
     displayUnit="h")=900
       "Minimum stage runtime";
 
-  parameter Modelica.SIunits.VolumeFlowRate aveVChiWat_flow = 0.05
-    "Average measured chilled water flow rate";
+  parameter Real aveVChiWat_flow(
+    final unit="m3/s",
+    final quantity="VolumeFlowRate",
+    displayUnit="m3/s")=0.05
+      "Average measured chilled water flow rate";
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable timeTable(
     final table=[0,0; 600,0; 600,1; 1200,1; 1200,0; 2500,0; 2500,1; 3700,1; 3700,0; 4300,
