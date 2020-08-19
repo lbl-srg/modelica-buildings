@@ -17,16 +17,16 @@ block Less "Output y is true, if input u1 is less than input u2"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected
-  final parameter Boolean haveHysteresis = h >= 1E-10
+  final parameter Boolean have_hysteresis = h >= 1E-10
   "True if the block has no hysteresis"
   annotation(Evaluate=true);
 
   LessWithHysteresis lesHys(
      final h=h,
-     final pre_y_start=pre_y_start) if haveHysteresis
+     final pre_y_start=pre_y_start) if have_hysteresis
         "Block with hysteresis"
     annotation (Placement(transformation(extent={{-10,20},{10,40}})));
-  LessNoHysteresis lesNoHys if not haveHysteresis
+  LessNoHysteresis lesNoHys if not have_hysteresis
     "Block without hysteresis"
      annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
 
