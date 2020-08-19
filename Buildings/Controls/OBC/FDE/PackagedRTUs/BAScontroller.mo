@@ -5,7 +5,7 @@ block BAScontroller
   parameter Real pBldgSPset(
   final unit="Pa",
   final displayUnit="Pa",
-  final quantity="PressureDifference")=0.005
+  final quantity="PressureDifference")=15.0
   "Building differential static pressure set point"
   annotation (Dialog(group="System and building parameters"));
 
@@ -37,14 +37,14 @@ block BAScontroller
   parameter Real maxDDSPset(
   final unit="Pa",
   final displayUnit="Pa",
-  final quantity="PressureDifference")=5e-3
+  final quantity="PressureDifference")=500
   "Maximum down duct static pressure reset value"
   annotation (Dialog(tab="Supply fan", group="Down duct pressure limits"));
 
   parameter Real minDDSPset(
   final unit="Pa",
   final displayUnit="Pa",
-  final quantity="PressureDifference")=1.25e-3
+  final quantity="PressureDifference")=125
   "Minimum down duct static pressure reset value"
   annotation (Dialog(tab="Supply fan", group="Down duct pressure limits"));
 
@@ -128,8 +128,8 @@ block BAScontroller
     annotation (Placement(transformation(extent={{-94,6},{-74,26}})));
 
 equation
-  connect(operatingMode.yOcc,minOAset.occ)  annotation (Line(points={{-4,51.4},{
-          12,51.4},{12,78.8},{26.8,78.8}},  color={255,0,255}));
+  connect(operatingMode.yOcc,minOAset.occ)  annotation (Line(points={{-4,51.4},
+          {12,51.4},{12,79},{26.8,79}},     color={255,0,255}));
   connect(operatingMode.ySBC,tSupSet.sbc)  annotation (Line(points={{-4,46},{12,
           46},{12,13.6},{26.2,13.6}},             color={255,0,255}));
   connect(operatingMode.ySBH,tSupSet.sbh)  annotation (Line(points={{-4,41},{8,41},
@@ -138,14 +138,14 @@ equation
           80},{-120,80}},            color={255,0,255}));
   connect(tSupSet.highSpaceT, highSpaceT) annotation (Line(points={{26.2,2.8},{-20,
           2.8},{-20,-54},{-120,-54}},             color={0,0,127}));
-  connect(dDSPset.mostOpenDam, mostOpenDam) annotation (Line(points={{-11.4,-80},
-          {-120,-80}},                                      color={0,0,127}));
-  connect(minOAset.yMinOAflowSet, yMinOAflowSet) annotation (Line(points={{36.64,
-          78.8},{82,78.8},{82,78},{120,78}}, color={0,0,127}));
+  connect(dDSPset.mostOpenDam, mostOpenDam) annotation (Line(points={{-11.4,
+          -81.6},{-66,-81.6},{-66,-80},{-120,-80}},         color={0,0,127}));
+  connect(minOAset.yMinOAflowSet, yMinOAflowSet) annotation (Line(points={{41.44,
+          79},{82,79},{82,78},{120,78}},     color={0,0,127}));
   connect(tSupSet.ySATset, ySATset) annotation (Line(points={{47.8,13},{55.1,13},
           {55.1,-26},{120,-26}},           color={0,0,127}));
-  connect(dDSPset.yDDSPset, yDDSPset) annotation (Line(points={{1.9,-78.08},{58,
-          -78.08},{58,-78},{120,-78}},
+  connect(dDSPset.yDDSPset, yDDSPset) annotation (Line(points={{5.4,-80},{58,
+          -80},{58,-78},{120,-78}},
                                  color={0,0,127}));
   connect(BldgSPset.y, yBldgSPset)
     annotation (Line(points={{52,-52},{120,-52}}, color={0,0,127}));
@@ -173,7 +173,10 @@ equation
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
             100,100}}), graphics={Rectangle(extent={{-100,100},{100,-100}},
             lineColor={179,151,128},
-          radius=10),                Text(
+          radius=10,
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+                                     Text(
           extent={{-90,184},{90,80}},
           lineColor={28,108,200},
           textStyle={TextStyle.Bold},
@@ -238,17 +241,27 @@ equation
             {100,100}})),
     Documentation(info="<html>
 <p>
-Block that is applied for variable volume packaged rooftop air handling units operated through a combination of BAS controller and factory controller
- serving terminal air units. It outputs the operating mode (occupied, setback heating, or setback cooling), supply air temperature set point,
- down duct static pressure set point, building differential static pressure set point, and minimum outside air flow set point.
+Block that is applied for variable volume packaged rooftop air handling units
+ operated through a combination of BAS controller and factory controller
+ serving terminal air units. It outputs the operating mode (occupied, setback
+ heating, or setback cooling), supply air temperature set point,
+ down duct static pressure set point, building differential static pressure
+ set point, and minimum outside air flow set point.
 </p>
 <p>
-The building differential static pressure set point (<code>yBldgSPset</code>) is a fixed value. The remaining outputs are calculated in four subsequences.
+The building differential static pressure set point (<code>yBldgSPset</code>)
+ is a fixed value. The remaining outputs are calculated in four subsequences.
 </p>
 <h4>Operating Mode</h4>
 <p>
-The operating mode sequence monitors the occupied schedule for the unit (<code>Occ</code>), setback cooling requests from terminal units (<code>SBCreq</code>), and setback heating requests (<code>SBHreq</code>) from terminal units.
-The operating mode sequence outputs the active occupied mode (<code>yOcc</code>), setback cooling mode (<code>ySBC</code>), or setback heating mode (<code>ySBH</code>).
+The operating mode sequence monitors the occupied schedule for the unit (
+<code>Occ</code>),setback cooling requests from terminal units 
+(<code>SBCreq</code>),and setback heating requests 
+(<code>SBHreq</code>) from terminal units.
+The operating mode sequence outputs the active occupied mode 
+(<code>yOcc</code>),setback cooling mode 
+(<code>ySBC</code>), or setback heating mode 
+(<code>ySBH</code>).
 
 See
 <a href=\"modelica://Buildings.Controls.OBC.FDE.PackagedRTUs.OperatingMode\">
@@ -257,8 +270,11 @@ for more details.
 </p>
 <h4>Supply Air Temperature Set Point</h4>
 <p>
-The supply air temperature sequence monitors terminal unit cooling requests (<code>totCoolReqs</code>), setback cooling mode (<code>SBC</code>), and setback heating mode (<code>SBH</code>).
-The supply air temperature sequence outputs the active supply air temperature set point (<code>ySATset</code>).
+The supply air temperature sequence monitors terminal unit cooling requests 
+(<code>totCoolReqs</code>),setback cooling mode 
+(<code>SBC</code>), and setback heating mode 
+(<code>SBH</code>). The supply air temperature sequence outputs the active 
+supply air temperature set point (<code>ySATset</code>).
 
 See
 <a href=\"modelica://Buildings.Controls.OBC.FDE.PackagedRTUs.TSupSet\">

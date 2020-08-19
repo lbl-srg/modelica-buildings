@@ -1,19 +1,28 @@
 within Buildings.Controls.OBC.FDE.PackagedRTUs.Validation;
-model DDSPsetSimulation
-  "Simulates changing most open damper position to reset down duct static pressure set point."
-  DDSPset dDSPset(conPID(
+model DDSPset "This model simulates DDSPset"
+  Buildings.Controls.OBC.FDE.PackagedRTUs.DDSPset ddspst(
+  conPID(
       k=0.0000001,
       Ti=0.0025,
       reverseAction=true))
     annotation (Placement(transformation(extent={{28,4},{42,20}})));
-  CDL.Continuous.Sources.Sine                        mostOpenDamGen(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine mostOpenDamGen(
     amplitude=15,
     freqHz=1/4120,
-    offset=85) annotation (Placement(transformation(extent={{-40,14},{-20,34}})));
+    offset=85)
+    annotation (Placement(transformation(extent={{-40,14},{-20,34}})));
 equation
-  connect(dDSPset.mostOpenDam, mostOpenDamGen.y) annotation (Line(points={{26.2,
-          10.4},{4,10.4},{4,24},{-18,24}}, color={0,0,127}));
+  connect(dspst.mostOpenDam, mostOpenDamGen.y)
+  annotation (Line(
+  points={{26.6,10.4},{4,10.4},{4,24},{-18,24}},
+  color={0,0,127}));
   annotation (
+    experiment(
+      StopTime=5760,
+      Tolerance=1e-06,
+      __Dymola_Algorithm="Dassl"),
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/FDE/PackagedRTUs/Validation/DDSPset.mos"
+        "Simulate and plot"),
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Ellipse(lineColor = {75,138,73},
                 fillColor={255,255,255},
@@ -32,5 +41,14 @@ This example simulates
 <a href=\"modelica://Buildings.Controls.OBC.FDE.PackagedRTUs.DDSPset\">
 Buildings.Controls.OBC.FDE.PackagedRTUs.DDSPset</a>.
 </p>
-</html>"));
-end DDSPsetSimulation;
+</html>", revisions="<html>
+<ul>
+<li>August 16, 2020, by Henry Nickels:<br/>
+Added 'experiment' annotation.</li>
+<li>July 28, 2020, by Henry Nickels:<br/>
+First implementation. 
+</li>
+</ul>
+</html>
+"));
+end DDSPset;

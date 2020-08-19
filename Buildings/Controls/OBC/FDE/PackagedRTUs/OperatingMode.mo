@@ -228,21 +228,28 @@ number of terminal unit setback
 cooling or heating requests exceed
 calculated percentage of terminal units.")}),
     Documentation(info="<html>
-<p>Selection of the operating mode performed by the BAS and transmitted to the factory controller. </p>
+<p>Selection of the operating mode performed by the BAS
+ and transmitted to the factory controller. </p>
 <h4>Occupied Mode</h4>
 <p>The normal occupied mode 
 (<code>yOcc</code>) is selected when indicated by the RTU occupancy schedule 
 (<code>Occ</code>) or when occupancy overrides from the terminal units 
 (<code>OccReq</code>) exceed a percentage 
-(<code>TUpcnt</code> default 15%) of the total number of terminal units (<code>TotalTU</code>).</p>
+(<code>TUpcnt</code> default 15%) of the total number
+ of terminal units (<code>TotalTU</code>).</p>
 <h4>Setback Cooling Mode</h4>
 <p>The setback cooling mode 
-(<code>ySBC</code>) is selected when occupied mode is not active and setback cooling requests from the terminal units 
+(<code>ySBC</code>) is selected when occupied mode is not active and 
+setback cooling requests from the terminal units 
 (<code>SBCreq</code>) exceed a percentage 
-(<code>TUpcnt</code> default 15%) of the total number of terminal units (<code>TotalTU</code>).</p>
+(<code>TUpcnt</code> default 15%) of the total number of terminal units 
+(<code>TotalTU</code>).</p>
 <h4>Setback Heating Mode</h4>
-<p>The setback heating mode (<code>ySBH</code>) is selected when occupied mode is not active and setback heating requests from the terminal units 
-(<code>SBHreq</code>) exceed a percentage (<code>TUpcnt</code> default 15%) of the total number of terminal units (<code>TotalTU</code>).</p>
+<p>The setback heating mode (<code>ySBH</code>) is selected when occupied mode is 
+not active and setback heating requests from the terminal units 
+(<code>SBHreq</code>) exceed a percentage 
+(<code>TUpcnt</code> default 15%) of the total number of terminal units 
+(<code>TotalTU</code>).</p>
 </html>",
       revisions="<html>
 <ul>

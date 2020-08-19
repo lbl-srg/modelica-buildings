@@ -27,25 +27,26 @@ block TSupSet
     final displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Highest space temperature reported from all terminal units"
-    annotation (Placement(transformation(extent={{-140,-88},{-100,-48}}),
+    annotation (Placement(transformation(extent={{-140,-108},{-100,-68}}),
         iconTransformation(extent={{-140,-88},{-100,-48}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput sbc
     "True when setback cooling mode active"
     annotation (Placement(
-        transformation(extent={{-140,-16},{-100,24}}), iconTransformation(
+        transformation(extent={{-140,-62},{-100,-22}}),iconTransformation(
           extent={{-140,-16},{-100,24}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput sbh
     "True when setback heating mode active"
     annotation (Placement(
-        transformation(extent={{-140,-52},{-100,-12}}), iconTransformation(
+        transformation(extent={{-142,-140},{-102,-100}}),
+                                                        iconTransformation(
           extent={{-140,-52},{-100,-12}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput TotalTU
     "Total number of terminal units"
-    annotation (Placement(transformation(extent={{-140,56},{-100,96}}),
+    annotation (Placement(transformation(extent={{-140,12},{-100,52}}),
         iconTransformation(extent={{-140,56},{-100,96}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput totCoolReqs
     "Total terminal unit cooling requests"
-    annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
+    annotation (Placement(transformation(extent={{-140,-24},{-100,16}}),
         iconTransformation(extent={{-140,20},{-100,60}})));
 
   // ---output---
@@ -54,7 +55,7 @@ block TSupSet
     final displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Calculated supply air temperature set point"
-    annotation (Placement(transformation(extent={{100,-20},{140,20}}),
+    annotation (Placement(transformation(extent={{120,-140},{160,-100}}),
         iconTransformation(extent={{100,-20},{140,20}})));
 
   Buildings.Controls.OBC.CDL.Continuous.LimPID conPI(
@@ -86,21 +87,21 @@ block TSupSet
     annotation (Placement(transformation(extent={{58,-52},{78,-32}})));
   Buildings.Controls.OBC.CDL.Continuous.Add subtract(k1=-1, k2=+1)
     "subtract offset from input"
-    annotation (Placement(transformation(extent={{-32,-110},{-12,-90}})));
+    annotation (Placement(transformation(extent={{-32,-86},{-12,-66}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant fixedOffset(
     final k=10)
     "fixed 10 degree offset from highest space temperature"
-    annotation (Placement(transformation(extent={{-72,-104},{-52,-84}})));
+    annotation (Placement(transformation(extent={{-72,-80},{-52,-60}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi1
-    annotation (Placement(transformation(extent={{90,-172},{110,-152}})));
+    annotation (Placement(transformation(extent={{90,-130},{110,-110}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minPAR(
     k=minSATset)
     "Minimum supply air temperature set point"
-    annotation (Placement(transformation(extent={{-16,-32},{4,-12}})));
+    annotation (Placement(transformation(extent={{-16,-30},{4,-10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant heatPAR(
     final k=HeatSet)
     "Unoccupied mode supply air temperature heating set point"
-    annotation (Placement(transformation(extent={{42,-190},{62,-170}})));
+    annotation (Placement(transformation(extent={{42,-148},{62,-128}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxPAR(
     final k=maxSATset)
     "Maximum supply air temperature set point"
@@ -115,7 +116,7 @@ block TSupSet
   Buildings.Controls.OBC.CDL.Logical.Not not1
     annotation (Placement(transformation(extent={{-46,-52},{-26,-32}})));
   Buildings.Controls.OBC.CDL.Logical.Not not2
-    annotation (Placement(transformation(extent={{0,-172},{20,-152}})));
+    annotation (Placement(transformation(extent={{0,-130},{20,-110}})));
 equation
   connect(conPI.y, Treset.u)
     annotation (Line(points={{-20,32},{20,32}},  color={0,0,127}));
@@ -127,52 +128,49 @@ equation
     annotation (Line(points={{44,32},{52,32},{52,-34},{56,-34}},
                                                             color={0,0,127}));
   connect(fixedOffset.y, subtract.u1)
-    annotation (Line(points={{-50,-94},{-34,-94}}, color={0,0,127}));
-  connect(subtract.u2, highSpaceT) annotation (Line(points={{-34,-106},{-46,-106},
-          {-46,-68},{-120,-68}},        color={0,0,127}));
-  connect(swi.u3, subtract.y) annotation (Line(points={{56,-50},{0,-50},{0,-100},
-          {-10,-100}},         color={0,0,127}));
+    annotation (Line(points={{-50,-70},{-34,-70}}, color={0,0,127}));
+  connect(subtract.u2, highSpaceT) annotation (Line(points={{-34,-82},{-46,-82},
+          {-46,-88},{-120,-88}},        color={0,0,127}));
+  connect(swi.u3, subtract.y) annotation (Line(points={{56,-50},{0,-50},{0,-76},
+          {-10,-76}},          color={0,0,127}));
   connect(swi1.y, ySATset)
-    annotation (Line(points={{112,-162},{116,-162},{116,0},{120,0}},
-                                                     color={0,0,127}));
-  connect(Treset.f2, minPAR.y) annotation (Line(points={{20,24},{14,24},{14,-22},
-          {6,-22}},   color={0,0,127}));
-  connect(swi1.u3, heatPAR.y) annotation (Line(points={{88,-170},{82,-170},{82,
-          -180},{64,-180}},
+    annotation (Line(points={{112,-120},{140,-120}}, color={0,0,127}));
+  connect(Treset.f2, minPAR.y) annotation (Line(points={{20,24},{14,24},{14,-20},
+          {6,-20}},   color={0,0,127}));
+  connect(swi1.u3, heatPAR.y) annotation (Line(points={{88,-128},{82,-128},{82,
+          -138},{64,-138}},
                        color={0,0,127}));
   connect(maxPAR.y, Treset.f1) annotation (Line(points={{6,52},{10,52},{10,36},{
           20,36}},   color={0,0,127}));
   connect(TotalTU, intToRea.u)
-    annotation (Line(points={{-120,76},{-110,76},{-110,32},{-100,32}},
-                                                  color={255,127,0}));
+    annotation (Line(points={{-120,32},{-100,32}},color={255,127,0}));
   connect(intToRea.y,gai. u)
     annotation (Line(points={{-76,32},{-74,32}}, color={0,0,127}));
   connect(conPI.u_s, gai.y)
     annotation (Line(points={{-44,32},{-50,32}}, color={0,0,127}));
   connect(intToRea1.u, totCoolReqs)
-    annotation (Line(points={{-74,-4},{-98,-4},{-98,40},{-120,40}},
-                                                  color={255,127,0}));
+    annotation (Line(points={{-74,-4},{-120,-4}}, color={255,127,0}));
   connect(conPI.u_m, intToRea1.y) annotation (Line(points={{-32,20},{-32,-4},
           {-50,-4}}, color={0,0,127}));
   connect(sbc, not1.u)
-    annotation (Line(points={{-120,4},{-78,4},{-78,-42},{-48,-42}},
-                                                    color={255,0,255}));
+    annotation (Line(points={{-120,-42},{-48,-42}}, color={255,0,255}));
   connect(swi.u2, not1.y) annotation (Line(points={{56,-42},{-24,-42}},
                     color={255,0,255}));
   connect(sbh, not2.u)
-    annotation (Line(points={{-120,-32},{-88,-32},{-88,-162},{-2,-162}},
-                                                      color={255,0,255}));
-  connect(swi1.u2, not2.y) annotation (Line(points={{88,-162},{22,-162}},
+    annotation (Line(points={{-122,-120},{-2,-120}},  color={255,0,255}));
+  connect(swi1.u2, not2.y) annotation (Line(points={{88,-120},{22,-120}},
                            color={255,0,255}));
-  connect(swi.y, swi1.u1) annotation (Line(points={{80,-42},{84,-42},{84,-154},
-          {88,-154}}, color={0,0,127}));
+  connect(swi.y, swi1.u1) annotation (Line(points={{80,-42},{84,-42},{84,-112},
+          {88,-112}}, color={0,0,127}));
   annotation (defaultComponentName="TSupSet",
         Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}),
             graphics={
         Rectangle(extent={{-100,100},{100,-100}},
           lineColor={179,151,128},
-          radius=30),
+          radius=30,
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
         Text(
           extent={{-38,138},{46,94}},
           lineColor={28,108,200},
@@ -256,7 +254,7 @@ of terminal unit cooling requests.",
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid),
         Text(
-          extent={{6,-86},{62,-106}},
+          extent={{-98,-20},{-42,-40}},
           lineColor={0,0,0},
           lineThickness=0.5,
           fillColor={215,215,215},
@@ -274,7 +272,7 @@ minus a constant 10 degrees.",
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid),
         Text(
-          extent={{-86,-170},{-30,-190}},
+          extent={{-96,-122},{-40,-142}},
           lineColor={0,0,0},
           lineThickness=0.5,
           fillColor={215,215,215},
@@ -294,17 +292,28 @@ redundant to SBC and SBH. Changed cooling reset set point to percentage of total
 </ul>
 </html>",
       info="<html>
-      <p>Calculation of the supply air temperature set point performed by the BAS and 
-      transmitted to the factory controller. </p>
+<p>Calculation of the supply air temperature set point performed 
+by the BAS and transmitted to the factory controller. </p>
 <h4>Cooling Requests Reset</h4>
-<p>During normal occupied mode operation, the supply air temperature set point is reset between minimum (<span style=\"font-family: Courier New;\">minSATsp</span>) and maximum (<span style=\"font-family: Courier New;\">maxSATsp</span>) values based on terminal unit cooling requests. </p>
-<p>The total number of terminal unit cooling requests (<span style=\"font-family: Courier New;\">totCoolReqs</span>) is a network input that totalizes all requests from terminal units. The cooling request set point is calculated as a percentage of the total number of terminal units 
-(<span style=\"font-family: Courier New;\">TotalTU</span>) served by the RTU (e.g. 15% of 80 terminal units = 12 cool request set point). The set point and requests are evaluated by a PI loop which outputs a value that increases from 0-1 as cooling requests increase.</p>
-<p>The PI loop output is input to a linear converter that outputs the reset set point (<span style=\"font-family: Courier New;\">ySATsetpoint</span>).</p>
+<p>During normal occupied mode operation, the supply air temperature set point is reset between minimum 
+(<code>minSATsp</code>) and maximum 
+(<code>maxSATsp</code>) values based on terminal unit cooling requests. </p>
+<p>The total number of terminal unit cooling requests 
+(<code>totCoolReqs</code>) is a network input that totalizes all requests from terminal units. 
+The cooling request set point is calculated as a percentage of the total number of terminal units 
+(<code>TotalTU</code>) served by the RTU (e.g. 15% of 80 terminal units = 12 cool request set point). 
+The set point and requests are evaluated by a PI loop which outputs a value that increases from 0-1 as cooling requests increase.</p>
+<p>The PI loop output is input to a linear converter that outputs the reset set point 
+(<code>ySATsetpoint</code>).</p>
 <h4>Setback Cooling</h4>
-<p>During setback cooling mode (<span style=\"font-family: Courier New;\">SBC</span>) the supply air temperature set point is calculated from the highest space temperature (<span style=\"font-family: Courier New;\">highSpaceT</span>) less a fixed offset of ten degrees. (e.g. highest reported space temperature of (25 degC + 273.15K) &ndash; 10 = (15 degC + 273.15K) supply temperature set point). The fixed value offset should be based on the unit cooling capacity per hour. </p>
+<p>During setback cooling mode (<code>SBC</code>) the supply air temperature set point is calculated from the highest space temperature 
+(<code>highSpaceT</code>) less a fixed offset of ten degrees. 
+(e.g. highest reported space temperature of (25 degC) - 10 = (15 degC) supply temperature set point). 
+The fixed value offset should be based on the unit cooling capacity per hour. </p>
 <h4>Setback Heating</h4>
-<p>During setback heating mode (<span style=\"font-family: Courier New;\">SBH</span>) the supply air temperature set point is commanded to a fixed value (<span style=\"font-family: Courier New;\">UnOcHtSetpt</span>), usually around (35 degC + 273.15K) depending on the unit heating capacity. </p>
+<p>During setback heating mode 
+(<code>SBH</code>) the supply air temperature set point is commanded to a fixed value 
+(<code>UnOcHtSetpt</code>), usually around (35 degC) depending on the unit heating capacity. </p>
 </html>"),
     experiment(
       StopTime=1200,

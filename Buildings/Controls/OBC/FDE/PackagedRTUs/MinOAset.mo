@@ -46,7 +46,10 @@ equation
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}), graphics={Rectangle(extent={{-100,100},{100,-100}},
             lineColor={179,151,128},
-          radius=20),                Text(
+          radius=20,
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+                                     Text(
           extent={{-22,124},{22,96}},
           lineColor={28,108,200},
           lineThickness=0.5,
@@ -121,6 +124,10 @@ point.",  horizontalAlignment=TextAlignment.Left),
 </ul>
 </html>",
       info="<html>
-<p>If operating mode is occupied (<code>Occ</code>) select minimum outside air flow set point (<code>minOAflowStpt</code>), otherwise select zero flow set point. Decision made by the BAS and transmitted to the factory controller (<code>yminOAflowStpt</code>). </p>
+<p>If operating mode is occupied 
+(<code>Occ</code>) select minimum outside air flow set point 
+(<code>minOAflowStpt</code>), otherwise select zero flow set point. Decision made by the BAS 
+and transmitted to the factory controller 
+(<code>yminOAflowStpt</code>). </p>
 </html>"));
 end MinOAset;

@@ -96,7 +96,9 @@ equation
             100}}), graphics={
         Rectangle(extent={{-100,100},{100,-100}},
                                               lineColor={179,151,128},
-          radius=20),                                                  Text(
+          radius=20,
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),                              Text(
           extent={{-20,126},{26,98}},
           lineColor={28,108,200},
           fillColor={179,151,128},
@@ -174,9 +176,17 @@ values to keep the most open
 terminal unit damper at
 90 percent open.")}),
     Documentation(info="<html>
-<p>Calculation of the down duct static pressure set point performed by the BAS and transmitted to the factory controller. </p>
+<p>Calculation of the down duct static pressure set point performed 
+by the BAS and transmitted to the factory controller. </p>
 <h4>Down Duct Static Pressure Set Point Reset</h4>
-<p>This algorithm is intended to reset the down duct static pressure set point (<code>yDDSPstpt</code>) to maintain the most open terminal unit damper position (<code>mostOpenDam</code>) at 90% open (i.e. The terminal unit air flow set point is satisfied with its primary air damper 90% open). The down duct static pressure set point is reset between minimum (<code>minDDSPset</code>) and maximum (<code>maxDDSPset</code>) values determined by TAB. </p>
+<p>This algorithm is intended to reset the down duct static pressure set point 
+(<code>yDDSPstpt</code>) to maintain the most open
+ terminal unit damper position 
+(<code>mostOpenDam</code>) at 90% open (i.e. The terminal unit air flow set point is satisfied
+ with its primary air damper 90% open). The down duct static pressure
+ set point is reset between minimum 
+(<code>minDDSPset</code>) and maximum 
+(<code>maxDDSPset</code>) values determined by TAB. </p>
 </html>", revisions="<html>
 <ul>
 <li>May 29, 2020, by Henry Nickels:<br>Internalize min and max setpoints as parameters.</li>

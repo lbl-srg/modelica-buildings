@@ -82,9 +82,12 @@ Buildings.Controls.OBC.FDE.PackagedRTUs.OperatingMode</a>.
 </p>
 </html>",revisions="<html>
 <ul>
+<li>August 16, 2020, by Henry Nickels:<br/>
+Added 'experiment' annotation.</li>
 <li>July 28, 2020, by Henry Nickels:<br/>
 First implementation. 
 </li>
 </ul>
-</html>"));
+</html>
+"));
 end OperatingMode;
