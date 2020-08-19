@@ -1,5 +1,5 @@
 within Buildings.Applications.DHC.CentralPlants.Heating.Generation1.Examples;
-model HeatingPlantOpenLoop
+model HeatingPlantIdealOpenLoop
   "Example model for the first generation heating plant"
   extends Modelica.Icons.Example;
 
@@ -26,7 +26,7 @@ model HeatingPlantOpenLoop
   parameter Modelica.SIunits.Power Q_flow_nominal= 9000E3
     "Nominal heat flow rate";
 
-  HeatingPlant pla(
+  HeatingPlantIdeal pla(
     redeclare package Medium_a = MediumWat,
     redeclare package Medium_b = MediumSte,
     mPla_flow_nominal=m_flow_nominal,
@@ -88,10 +88,10 @@ equation
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
   __Dymola_Commands(file=
-    "modelica://Buildings/Resources/Scripts/Dymola/Applications/DHC/CentralPlants/Heating/Generation1/Examples/HeatingPlantOpenLoop.mos"
+    "modelica://Buildings/Resources/Scripts/Dymola/Applications/DHC/CentralPlants/Heating/Generation1/Examples/HeatingPlantIdealOpenLoop.mos"
     "Simulate and plot"),
   experiment(
     StartTime=0,
     StopTime=10800,
     Tolerance=1e-06));
-end HeatingPlantOpenLoop;
+end HeatingPlantIdealOpenLoop;

@@ -1,5 +1,6 @@
 within Buildings.Applications.DHC.CentralPlants.Heating.Generation1;
-model HeatingPlant "First generation district heating plant"
+model HeatingPlantIdeal
+  "An ideal first generation district heating plant with one boiler"
 
   replaceable package Medium_a =
       Modelica.Media.Interfaces.PartialMedium
@@ -84,11 +85,13 @@ model HeatingPlant "First generation district heating plant"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   Buildings.Fluid.Sensors.MassFlowRate mSen_flow(redeclare package Medium = Medium_a)
     annotation (Placement(transformation(extent={{32,-70},{12,-50}})));
-  Buildings.Fluid.Sensors.SpecificEnthalpyTwoPort hSen_b(redeclare package Medium =
+  Buildings.Fluid.Sensors.SpecificEnthalpyTwoPort hSen_b(redeclare package
+      Medium =
         Medium_b, m_flow_nominal=mPla_flow_nominal)
     "Specific enthalpy sensor, medium b"
     annotation (Placement(transformation(extent={{50,-10},{70,10}})));
-  Buildings.Fluid.Sensors.SpecificEnthalpyTwoPort hSen_a(redeclare package Medium =
+  Buildings.Fluid.Sensors.SpecificEnthalpyTwoPort hSen_a(redeclare package
+      Medium =
         Medium_a, m_flow_nominal=mPla_flow_nominal)
     "Specific enthalpy sensor, medium a"
     annotation (Placement(transformation(extent={{70,-70},{50,-50}})));
@@ -228,4 +231,4 @@ equation
           extent={{-149,-114},{151,-154}},
           lineColor={0,0,255},
           textString="%name")}), Diagram(coordinateSystem(preserveAspectRatio=false)));
-end HeatingPlant;
+end HeatingPlantIdeal;
