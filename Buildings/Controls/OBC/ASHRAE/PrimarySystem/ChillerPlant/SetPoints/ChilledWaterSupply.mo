@@ -2,12 +2,16 @@
 block ChilledWaterSupply
   "Sequences to generate setpoints of chilled water supply temperature and the pump differential static pressure"
 
-  parameter Modelica.SIunits.PressureDifference dpChiWatPumMin(
+  parameter Real dpChiWatPumMin(
     final min=0,
+    final unit="Pa",
+    final quantity="PressureDifference",
     displayUnit="Pa") = 34473.8
     "Minimum chilled water pump differential static pressure, default 5 psi";
-  parameter Modelica.SIunits.PressureDifference dpChiWatPumMax(
+  parameter Real dpChiWatPumMax(
     final min=dpChiWatPumMin,
+    final unit="Pa",
+    final quantity="PressureDifference",
     displayUnit="Pa")
     "Maximum chilled water pump differential static pressure";
   parameter Modelica.SIunits.ThermodynamicTemperature TChiWatSupMin(
@@ -196,11 +200,11 @@ setpoint"),
           textString="0.5")}),
 Documentation(info="<html>
 <p>
-Block that output setpoints for the chilled water supply of primary-only and 
+Block that output setpoints for the chilled water supply of primary-only and
 primary-secondary systems serving differential pressure controlled pumps.
-The outputs include supply temperature setpoint <code>TChiWatSupSet</code> 
-and pump differential pressure setpoint <code>dpChiWatPumSet</code>, according 
-to ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II – 
+The outputs include supply temperature setpoint <code>TChiWatSupSet</code>
+and pump differential pressure setpoint <code>dpChiWatPumSet</code>, according
+to ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II –
 Central Plants and Hydronic Systems (Draft 6 on July 25, 2019), section 5.2.5.2.
 </p>
 <p>

@@ -2,7 +2,7 @@
 block DownStart "Sequence for starting stage-down process"
 
   parameter Integer nChi "Total number of chillers";
-  parameter Boolean isParallelChiller=true
+  parameter Boolean is_parChi=true
     "Flag: true means that the plant has parallel chillers";
   parameter Real chiDemRedFac=0.75
     "Demand reducing factor of current operating chillers"
@@ -19,12 +19,18 @@ block DownStart "Sequence for starting stage-down process"
     displayUnit="h")
     "Time constant for resetting minimum bypass flow"
     annotation (Dialog(group="Reset CHW minimum flow setpoint"));
-  parameter Modelica.SIunits.VolumeFlowRate minFloSet[nChi]
+  parameter Real minFloSet[nChi](
+    final unit=fill("m3/s", nChi),
+    final quantity=fill("VolumeFlowRate", nChi),
+    displayUnit=fill("m3/s", nChi))
     "Minimum chilled water flow through each chiller"
-    annotation (Dialog(group="Reset CHW minimum flow setpoint"));
-  parameter Modelica.SIunits.VolumeFlowRate maxFloSet[nChi]
+    annotation (Evaluate=true, Dialog(group="Reset CHW minimum flow setpoint"));
+  parameter Real maxFloSet[nChi](
+    final unit=fill("m3/s", nChi),
+    final quantity=fill("VolumeFlowRate", nChi),
+    displayUnit=fill("m3/s", nChi))
     "Maximum chilled water flow through each chiller"
-    annotation (Dialog(group="Reset CHW minimum flow setpoint"));
+    annotation (Evaluate=true, Dialog(group="Reset CHW minimum flow setpoint"));
   parameter Real aftByPasSetTim(
     final unit="s",
     final quantity="Time",
@@ -173,7 +179,7 @@ protected
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.MinimumFlowBypass.FlowSetpoint
     minChiWatSet(
     final nChi=nChi,
-    final isParallelChiller=isParallelChiller,
+    final is_parChi=is_parChi,
     final maxFloSet=maxFloSet,
     final byPasSetTim=byPasSetTim,
     final minFloSet=minFloSet) "Reset minimum chilled water flow setpoint"
@@ -498,21 +504,21 @@ annotation (
 Documentation(info="<html>
 <p>
 Block that controls devices at the first step of chiller staging down process.
-This development is based on ASHRAE RP-1711 Advanced Sequences of Operation for 
+This development is based on ASHRAE RP-1711 Advanced Sequences of Operation for
 HVAC Systems Phase II – Central Plants and Hydronic Systems (Draft version, March 2020),
-section 5.2.4.17, item 1 and 2. The sections specifies the first step of 
+section 5.2.4.17, item 1 and 2. The sections specifies the first step of
 staging down process.
 </p>
 <p>
 For the stage-down process that requires a smaller chiller being enabled and a
-larger chiller being disabled (<code>uOnOff=true</code>): 
+larger chiller being disabled (<code>uOnOff=true</code>):
 </p>
 <ol>
 <li>
-Command operating chilers to reduce demand to 75% (<code>chiDemRedFac</code>) of 
-their current load or a percentage equal to current stage minimum cycling operative 
-partial load ratio (<code>yOpeParLoaRatMin</code>), whichever is greater. Wait until acutal 
-demand &lt; 80% of current load up to a maximum of 5 minutes (<code>holChiDemTim</code>) 
+Command operating chilers to reduce demand to 75% (<code>chiDemRedFac</code>) of
+their current load or a percentage equal to current stage minimum cycling operative
+partial load ratio (<code>yOpeParLoaRatMin</code>), whichever is greater. Wait until acutal
+demand &lt; 80% of current load up to a maximum of 5 minutes (<code>holChiDemTim</code>)
 before proceeding. This is implemented in block <code>chiDemRed</code>. See
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.ReduceDemand\">
 Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.ReduceDemand</a>
@@ -520,8 +526,8 @@ for more decriptions.
 </li>
 <li>
 Slowly change the minimum chilled water flow setpoint to that approriate for the
-stage transition (<code>minChiWatSet</code>). After new setpoint is achieved, wait 
-1 minutes (<code>aftByPasSetTim</code>) to allow loop to stabilize (<code>minBypRes</code>). 
+stage transition (<code>minChiWatSet</code>). After new setpoint is achieved, wait
+1 minutes (<code>aftByPasSetTim</code>) to allow loop to stabilize (<code>minBypRes</code>).
 See
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.MinimumFlowBypass.Subsequences.FlowSetpoint\">
 Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.MinimumFlowBypass.Subsequences.FlowSetpoint</a>
@@ -531,7 +537,7 @@ Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subse
 for more decriptions.
 </li>
 <li>
-Enable head pressure control for the chiller being enabled. Wait 30 seconds (<code>waiTim</code>). 
+Enable head pressure control for the chiller being enabled. Wait 30 seconds (<code>waiTim</code>).
 It is implemented in block <code>enaHeaCon</code>, see
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.HeadControl\">
 Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.HeadControl</a>
@@ -539,8 +545,8 @@ for more decriptions.
 </li>
 <li>
 Slowly open chilled water isolation valve of the smaller chiller being enabled.
-Determine valve timing <code>chaChiWatIsoTim</code> in the field as that required 
-to prevent nuisance trips. 
+Determine valve timing <code>chaChiWatIsoTim</code> in the field as that required
+to prevent nuisance trips.
 It is implemented in block <code>enaChiIsoVal</code>, see
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.CHWIsoVal\">
 Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.CHWIsoVal</a>
@@ -548,9 +554,9 @@ for more decriptions.
 </li>
 <li>
 Start the smaller chiller after its chilled water isolation valve is fully open.
-Wait 5 minutes (<code>proOnTim</code>) after the newly enabled chiller to prove that 
-it is operating correctly, then shut off the larger chiller and release the demand 
-limit (<code>yReaDemLim=true</code>). 
+Wait 5 minutes (<code>proOnTim</code>) after the newly enabled chiller to prove that
+it is operating correctly, then shut off the larger chiller and release the demand
+limit (<code>yReaDemLim=true</code>).
 It is implemented in block <code>disChi</code>, see
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.DisableChiller\">
 Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.DisableChiller</a>

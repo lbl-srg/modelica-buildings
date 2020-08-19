@@ -15,11 +15,17 @@ model CapacityRequirement
     annotation (Placement(transformation(extent={{120,0},{140,20}})));
 
 protected
-  parameter Modelica.SIunits.Temperature TChiWatSupSet = 285.15
-  "Chilled water supply set temperature";
+  parameter Real TChiWatSupSet(
+    final unit="K",
+    final quantity="ThermodynamicTemperature",
+    displayUnit="degC")=285.15
+    "Chilled water supply set temperature";
 
-  parameter Modelica.SIunits.Temperature aveTChiWatRet = 288.15
-  "Average measured chilled water return temperature";
+  parameter Real aveTChiWatRet(
+    final unit="K",
+    final quantity="ThermodynamicTemperature",
+    displayUnit="degC")=288.15
+    "Average measured chilled water return temperature";
 
   parameter Real aveVChiWat_flow(
     final quantity="VolumeFlowRate",

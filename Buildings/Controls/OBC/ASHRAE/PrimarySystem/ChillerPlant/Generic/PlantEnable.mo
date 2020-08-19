@@ -7,8 +7,11 @@ block PlantEnable "Sequence to enable and disable plant"
   parameter Real schTab[4,2] = [0,1; 6*3600,1; 19*3600,1; 24*3600,1]
     "Plant enabling schedule allowing operators to lock out the plant during off-hour";
 
-  parameter Modelica.SIunits.Temperature TChiLocOut=277.5
-    "Outdoor air lockout temperature below which the chiller plant should be disabled";
+  parameter Real TChiLocOut(
+    final unit="K",
+    final quantity="ThermodynamicTemperature",
+    displayUnit="degC")=277.5
+      "Outdoor air lockout temperature below which the chiller plant should be disabled";
 
   parameter Real plaThrTim(
     final unit="s",

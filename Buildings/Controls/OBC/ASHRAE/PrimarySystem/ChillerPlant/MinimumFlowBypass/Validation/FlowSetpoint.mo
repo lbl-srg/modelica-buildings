@@ -5,27 +5,36 @@ model FlowSetpoint
   parameter Integer nChi=3 "Total number of chillers";
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.MinimumFlowBypass.FlowSetpoint
-    staUpMinFlo(final nChi=nChi, final byPasSetTim=1.5)
+    staUpMinFlo(
+    final nChi=nChi,
+    final byPasSetTim=1.5)
     "Minimum flow setpoint when there is stage up command"
     annotation (Placement(transformation(extent={{120,170},{140,190}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.MinimumFlowBypass.FlowSetpoint
-    onOffStaUpMinFlo(final nChi=nChi, final byPasSetTim=1.5)
+    onOffStaUpMinFlo(
+    final nChi=nChi,
+    final byPasSetTim=1.5)
     "Minimum flow setpoint when there is stage up command and the change requires one chiller off and another chiller on"
     annotation (Placement(transformation(extent={{120,-10},{140,10}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.MinimumFlowBypass.FlowSetpoint
-    staDowMinFlo(final nChi=nChi, final byPasSetTim=1.5)
+    staDowMinFlo(
+    final nChi=nChi,
+    final byPasSetTim=1.5)
     "Minimum flow setpoint when there is stage down command"
     annotation (Placement(transformation(extent={{120,-170},{140,-150}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant noOnOff(final k=false)
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant noOnOff(
+    final k=false)
     "No chiller on/off during the stage change"
     annotation (Placement(transformation(extent={{-140,50},{-120,70}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse staCha(
-    final width=0.25, final period=4) "Stage up command"
+    final width=0.25,
+    final period=4) "Stage up command"
     annotation (Placement(transformation(extent={{-140,190},{-120,210}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse upDev(
-    final width=0.3, final period=4)
+    final width=0.3,
+    final period=4)
     "Status of upflow device"
     annotation (Placement(transformation(extent={{-140,160},{-120,180}})));
   Buildings.Controls.OBC.CDL.Logical.Switch enaChi "Next enabling chiller"
@@ -45,7 +54,8 @@ protected
     annotation (Placement(transformation(extent={{-140,-70},{-120,-50}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse enaNexChi(
-    final width=0.8, final period=4)
+    final width=0.8,
+    final period=4)
     "Enable next chiller"
     annotation (Placement(transformation(extent={{-140,-30},{-120,-10}})));
   Buildings.Controls.OBC.CDL.Logical.Not not3 "Logical not"

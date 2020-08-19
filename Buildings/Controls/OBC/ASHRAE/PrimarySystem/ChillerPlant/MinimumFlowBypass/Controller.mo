@@ -7,7 +7,8 @@ block Controller
     final min=fill(0,nChi),
     final unit=fill("m3/s",nChi),
     quantity=fill("VolumeFlowRate",nChi))
-    "Minimum chilled water flow through each chiller";
+    "Minimum chilled water flow through each chiller"
+    annotation (evaluate=true);
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
