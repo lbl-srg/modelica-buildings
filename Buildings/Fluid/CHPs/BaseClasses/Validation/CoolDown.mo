@@ -52,8 +52,7 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold timeDel(
     final t=per.timeDelayCool,
     final h=0)
-    "Check if the time of  plant in cool-down mode has been longer than the
-    specified delay time"
+    "Check if the time of  plant in cool-down mode has been longer than the specified delay time"
     annotation (Placement(transformation(extent={{30,0},{50,20}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant damRes(
     final k=true)
