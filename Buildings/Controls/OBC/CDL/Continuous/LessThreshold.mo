@@ -124,7 +124,7 @@ equation
                else {235,235,235}),
           fillPattern=FillPattern.Solid),
         Line(
-          points={{-16,10},{2,2},{-16,-8}},
+          points={{2,10},{-16,2},{2,-8}},
           thickness=0.5),
         Text(
           extent={{-150,150},{150,110}},
