@@ -1,7 +1,7 @@
 within Buildings.ThermalZones.Detailed.FLEXLAB.Data.Constructions.GlazingSystems;
 record RadiantGlaSB70XL =
   Buildings.HeatTransfer.Data.GlazingSystems.Generic (
-  final glass={Buildings.HeatTransfer.Data.Glasses.SB70XL(),
+  final glass={Buildings.HeatTransfer.Data.Glasses.ID101(),
    Buildings.HeatTransfer.Data.Glasses.ID101()},
   final gas = {Buildings.HeatTransfer.Data.Gases.Air(x=0.0127)},
   UFra=1.4)

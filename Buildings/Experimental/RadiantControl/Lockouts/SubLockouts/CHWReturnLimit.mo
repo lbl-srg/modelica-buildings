@@ -20,7 +20,7 @@ block CHWReturnLimit "Locks out cooling if chilled water return temperature is b
     annotation (Placement(transformation(extent={{60,0},{80,20}})));
   Controls.OBC.CDL.Interfaces.RealInput TWater "Slab water temperature"
     annotation (Placement(transformation(extent={{-140,0},{-100,40}})));
-  Controls.OBC.CDL.Interfaces.BooleanOutput coolingSignal_CHWReturn
+  Controls.OBC.CDL.Interfaces.BooleanOutput cooSigCHWRet
     "True if water temperature is above low threshhold, false if not"
     annotation (Placement(transformation(extent={{100,-10},{140,30}})));
   Modelica.Blocks.Sources.Constant TWaLo(k=TWaLoSet)
@@ -29,7 +29,7 @@ block CHWReturnLimit "Locks out cooling if chilled water return temperature is b
 equation
   connect(truHol.y, not6.u)
     annotation (Line(points={{42,10},{58,10}}, color={255,0,255}));
-  connect(not6.y, coolingSignal_CHWReturn)
+  connect(not6.y, cooSigCHWRet)
     annotation (Line(points={{82,10},{120,10}}, color={255,0,255}));
   connect(TWater, les2.u1) annotation (Line(points={{-120,20},{-72,20},{-72,
           10},{-22,10}}, color={0,0,127}));
@@ -37,7 +37,7 @@ equation
           -26,2},{-22,2}}, color={0,0,127}));
   connect(les2.y, truHol.u)
     annotation (Line(points={{2,10},{18,10}}, color={255,0,255}));
-  annotation (Documentation(info="<html>
+  annotation (defaultComponentName = "CHWReturnLimit",Documentation(info="<html>
 <p>
 If chilled water return temperature is below a user-specified threshold, cooling is locked out for a user-specified amount of time (typically 0.5 hours). 
 </p>

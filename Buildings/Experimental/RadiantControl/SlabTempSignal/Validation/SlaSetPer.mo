@@ -13,10 +13,10 @@ model SlaSetPer "Validation model for slab setpoint for a perimeter zone"
         1468800,299.8172222; 1555200,302.5944444])
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
   SlabSetPerim slabSetPerim
-    annotation (Placement(transformation(extent={{0,20},{20,40}})));
+    annotation (Placement(transformation(extent={{-4,20},{16,40}})));
 equation
-  connect(timeTable.y, slabSetPerim.TFor) annotation (Line(points={{-39,
-          30},{-24,30},{-24,43},{-10.2,43}}, color={0,0,127}));
+  connect(timeTable.y, slabSetPerim.TFor) annotation (Line(points={{-39,30},{
+          -24,30},{-24,30},{-4,30}},         color={0,0,127}));
   annotation (Documentation(info="<html>
 <p>
 This validates the slab setpoint for a perimeter zone based on forecast OAT.

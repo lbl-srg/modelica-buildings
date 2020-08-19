@@ -1,0 +1,2 @@
+simulateModel("Buildings.Experimental.RadiantControl.SlabTempSignal.OutputOnly.Validation.ForHiChi", stopTime=172800, method="dassl",  tolerance=1E-06, resultFile="ForHiChi");
+createPlot(id=1, position={55, 50, 1186, 817}, y={"forecastHighChicago.TForecastHigh"}, range={0.0, 90000.0, 0.0, 300.0}, grid=true, filename="ForHiChi.mat", colors={{28,108,200}});

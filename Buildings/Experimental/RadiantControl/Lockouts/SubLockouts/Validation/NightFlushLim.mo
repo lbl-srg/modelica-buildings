@@ -5,9 +5,8 @@ model NightFlushLim "Validation model for night flush"
   NightFlush nightFlush
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
 equation
-  connect(booleanPulse3.y, nightFlush.nightFlushSignal) annotation (
-      Line(points={{-39,8},{-20,8},{-20,10},{-2.2,10}}, color={255,0,
-          255}));
+  connect(booleanPulse3.y, nightFlush.nitFluSig) annotation (Line(points={{-39,
+          8},{-20,8},{-20,10},{-2.2,10}}, color={255,0,255}));
   annotation (Documentation(info="<html>
 <p>
 Validates the night flush lockout. Validates that heating is locked out if night flush mode is on. 

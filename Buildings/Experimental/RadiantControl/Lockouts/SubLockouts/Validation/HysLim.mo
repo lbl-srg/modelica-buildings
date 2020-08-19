@@ -32,17 +32,22 @@ model HysLim "Validation model for hysteresis lockout"
     annotation (Placement(transformation(extent={{200,-80},{220,-60}})));
   Modelica.Blocks.Sources.BooleanPulse booleanPulse3(period=43000)
     annotation (Placement(transformation(extent={{200,-40},{220,-20}})));
-  HysteresisLimit hysteresisLimit(TiHea=TimHea, TiCoo=TimCoo)
-    annotation (Placement(transformation(extent={{-20,20},{0,40}})));
-  HysteresisLimit hysteresisLimit1(TiHea=TimHea, TiCoo=TimCoo)
+  Buildings.Obsolete.HysteresisLimitOld hysteresisLimit(TiHea=TimHea, TiCoo=
+        TimCoo) annotation (Placement(transformation(extent={{-20,20},{0,40}})));
+  Buildings.Obsolete.HysteresisLimitOld hysteresisLimit1(TiHea=TimHea, TiCoo=
+        TimCoo)
     annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
-  HysteresisLimit hysteresisLimit2(TiHea=TimHea, TiCoo=TimCoo)
+  Buildings.Obsolete.HysteresisLimitOld hysteresisLimit2(TiHea=TimHea, TiCoo=
+        TimCoo)
     annotation (Placement(transformation(extent={{120,20},{140,40}})));
-  HysteresisLimit hysteresisLimit3(TiHea=TimHea, TiCoo=TimCoo)
+  Buildings.Obsolete.HysteresisLimitOld hysteresisLimit3(TiHea=TimHea, TiCoo=
+        TimCoo)
     annotation (Placement(transformation(extent={{118,-60},{138,-40}})));
-  HysteresisLimit hysteresisLimit4(TiHea=TimHea, TiCoo=TimCoo)
+  Buildings.Obsolete.HysteresisLimitOld hysteresisLimit4(TiHea=TimHea, TiCoo=
+        TimCoo)
     annotation (Placement(transformation(extent={{260,20},{280,40}})));
-  HysteresisLimit hysteresisLimit5(TiHea=TimHea, TiCoo=TimCoo)
+  Buildings.Obsolete.HysteresisLimitOld hysteresisLimit5(TiHea=TimHea, TiCoo=
+        TimCoo)
     annotation (Placement(transformation(extent={{262,-58},{282,-38}})));
 equation
   connect(booleanConstant.y, hysteresisLimit.heatingSignal) annotation (

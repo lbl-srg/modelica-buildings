@@ -14,12 +14,13 @@ model Err "Validation model for slab temperature error block"
   Controls.OBC.CDL.Continuous.Sources.Constant TSlaStpt(k=TSlabStpt)
     "Temperature above high limit"
     annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
-  Error error annotation (Placement(transformation(extent={{0,0},{20,20}})));
+  Error error annotation (Placement(transformation(extent={{6,4},{26,24}})));
 equation
-  connect(sin.y, error.TSla) annotation (Line(points={{-18,30},{-10,30},{-10,11},
-          {-2,11}}, color={0,0,127}));
-  connect(TSlaStpt.y, error.TSlaSet) annotation (Line(points={{-18,-10},{-12,-10},
-          {-12,7},{-2,7}}, color={0,0,127}));
+  connect(sin.y, error.TSla) annotation (Line(points={{-18,30},{-10,30},{-10,15},
+          {4,15}},  color={0,0,127}));
+  connect(TSlaStpt.y, error.TSlaSet) annotation (Line(points={{-18,-10},{-12,
+          -10},{-12,11},{4,11}},
+                           color={0,0,127}));
   annotation (Documentation(info="<html>
 <p>
 This validates the slab error model, ie the difference between the slab temperature and its setpoint.

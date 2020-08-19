@@ -24,41 +24,75 @@ model DeaCon "Validation model for deadband control"
     phase(displayUnit="rad"),
     offset=0)
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
-  DeadbandControlErrSwi deadbandControlErrSwi(
+  Buildings.Experimental.RadiantControl.SlabTempSignal.DeadbandControlErrSwi
+    deadbandControlErrSwi(
     TDeaRel=TemDeaRel,
     TDeaNor=TemDeaNor,
     k=LastOcc,
     off_within_deadband=OffTru)
-    annotation (Placement(transformation(extent={{0,40},{20,60}})));
-  DeadbandControlErrSwi deadbandControlErrSwi1(
+    annotation (Placement(transformation(extent={{-20,40},{0,60}})));
+  Buildings.Experimental.RadiantControl.SlabTempSignal.DeadbandControlErrSwi
+    deadbandControlErrSwi1(
     TDeaRel=TemDeaRel,
     TDeaNor=TemDeaNor,
     k=LastOcc,
     off_within_deadband=OffFal)
-    annotation (Placement(transformation(extent={{0,0},{20,20}})));
-  DeadbandControlErrSwi deadbandControlErrSwi2(
+    annotation (Placement(transformation(extent={{-20,0},{0,20}})));
+  Buildings.Experimental.RadiantControl.SlabTempSignal.DeadbandControlErrSwi
+    deadbandControlErrSwi2(
     TDeaRel=TemDeaRel,
     TDeaNor=TemDeaNor,
     k=LastOcc,
     off_within_deadband=OffTru)
-    annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
-  DeadbandControlErrSwi deadbandControlErrSwi3(
+    annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
+  Buildings.Experimental.RadiantControl.SlabTempSignal.DeadbandControlErrSwi
+    deadbandControlErrSwi3(
     TDeaRel=TemDeaRel,
     TDeaNor=TemDeaNor,
     k=LastOcc,
     off_within_deadband=OffFal)
-    annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
+    annotation (Placement(transformation(extent={{-20,-80},{0,-60}})));
+  DeadbandControlErrSwi deadbandControlErrSwiTest(
+    TDeaRel=TemDeaRel,
+    TDeaNor=TemDeaNor,
+    k=LastOcc,
+    off_within_deadband=OffTru)
+    annotation (Placement(transformation(extent={{50,60},{80,92}})));
+  DeadbandControlErrSwi deadbandControlErrSwiTestFAL(
+    TDeaRel=TemDeaRel,
+    TDeaNor=TemDeaNor,
+    k=LastOcc,
+    off_within_deadband=OffFal)
+    annotation (Placement(transformation(extent={{50,8},{80,40}})));
+  DeadbandControlErrSwi deadbandControlErrSwiTest1(
+    TDeaRel=TemDeaRel,
+    TDeaNor=TemDeaNor,
+    k=LastOcc,
+    off_within_deadband=OffTru)
+    annotation (Placement(transformation(extent={{50,-40},{80,-8}})));
+  DeadbandControlErrSwi deadbandControlErrSwiTestFAL1(
+    TDeaRel=TemDeaRel,
+    TDeaNor=TemDeaNor,
+    k=LastOcc,
+    off_within_deadband=OffFal)
+    annotation (Placement(transformation(extent={{50,-92},{80,-60}})));
 equation
-  connect(sin.y, deadbandControlErrSwi.slabTempError) annotation (Line(
-        points={{-38,30},{-24,30},{-24,52.8},{-10,52.8}}, color={0,0,127}));
-  connect(sin1.y, deadbandControlErrSwi2.slabTempError) annotation (Line(
-        points={{-38,-50},{-24,-50},{-24,-27.2},{-10,-27.2}}, color={0,0,
-          127}));
-  connect(sin1.y, deadbandControlErrSwi3.slabTempError) annotation (Line(
-        points={{-38,-50},{-24,-50},{-24,-67.2},{-10,-67.2}}, color={0,0,
-          127}));
-  connect(sin.y, deadbandControlErrSwi1.slabTempError) annotation (Line(
-        points={{-38,30},{-24,30},{-24,12.8},{-10,12.8}}, color={0,0,127}));
+  connect(sin.y, deadbandControlErrSwi.slaTemErr) annotation (Line(points={{-38,
+          30},{-24,30},{-24,40.8},{-21.7333,40.8}}, color={0,0,127}));
+  connect(sin1.y, deadbandControlErrSwi2.slaTemErr) annotation (Line(points={{-38,
+          -50},{-24,-50},{-24,-39.2},{-21.7333,-39.2}}, color={0,0,127}));
+  connect(sin1.y, deadbandControlErrSwi3.slaTemErr) annotation (Line(points={{-38,
+          -50},{-24,-50},{-24,-79.2},{-21.7333,-79.2}}, color={0,0,127}));
+  connect(sin.y, deadbandControlErrSwi1.slaTemErr) annotation (Line(points={{-38,
+          30},{-24,30},{-24,0.8},{-21.7333,0.8}}, color={0,0,127}));
+  connect(sin.y, deadbandControlErrSwiTest.slaTemErr) annotation (Line(points={
+          {-38,30},{20,30},{20,61.28},{47.4,61.28}}, color={0,0,127}));
+  connect(sin.y, deadbandControlErrSwiTestFAL.slaTemErr) annotation (Line(
+        points={{-38,30},{20,30},{20,9.28},{47.4,9.28}}, color={0,0,127}));
+  connect(sin1.y, deadbandControlErrSwiTest1.slaTemErr) annotation (Line(points=
+         {{-38,-50},{22,-50},{22,-38.72},{47.4,-38.72}}, color={0,0,127}));
+  connect(sin1.y, deadbandControlErrSwiTestFAL1.slaTemErr) annotation (Line(
+        points={{-38,-50},{22,-50},{22,-90.72},{47.4,-90.72}}, color={0,0,127}));
   annotation (Documentation(info="<html>
 <p>
 This validates the deadband control, which determines whether the slab is in heating or in cooling. 

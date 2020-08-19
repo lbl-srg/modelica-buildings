@@ -1,12 +1,6 @@
 within Buildings.Experimental.RadiantControl.SlabTempSignal;
-block SlabSetPerim "Determines slab temperature setpoint for perimeter zones from forecast outdoor air high temperature"
-  Controls.OBC.CDL.Logical.Sources.Pulse           booPul1(period=86400,
-      startTime=0)
-    "Pulse each day at midnight triggering sample of forecast outdoor air high temperature"
-    annotation (Placement(transformation(extent={{-82,80},{-62,100}})));
-  Controls.OBC.CDL.Discrete.TriggeredSampler           triSam
-    "Samples forecast high at midnight each day"
-    annotation (Placement(transformation(extent={{-80,120},{-60,140}})));
+block SlabSetPerim
+  "Determines slab temperature setpoint for perimeter zones from forecast outdoor air high temperature"
   Controls.SetPoints.Table           tabSlab(table=[274.8166667,302.5944444;
         274.8167222,300.9277778; 280.3722222,300.9277778; 280.3727778,
         300.9277778; 285.9277778,300.9277778; 285.9283333,298.7055556;
@@ -16,35 +10,30 @@ block SlabSetPerim "Determines slab temperature setpoint for perimeter zones fro
         295.9277778,295.3722222; 295.9278333,292.5944444; 299.8166667,
         292.5944444; 299.8172222,291.4833333; 302.5944444,291.4833333])
     "Slab setpoint lookup table"
-    annotation (Placement(transformation(extent={{-122,22},{-164,64}})));
-  Modelica.Blocks.Discrete.ZeroOrderHold zeroOrderHold(samplePeriod=86400,
-      startTime=0) "Holds slab setpoint for a day"
-    annotation (Placement(transformation(extent={{104,-2},{124,18}})));
+    annotation (Placement(transformation(extent={{-20,-62},{-62,-20}})));
   Controls.OBC.CDL.Interfaces.RealInput TFor
     "High temperature for the day, as forecasted one day prior"
-    annotation (Placement(transformation(extent={{-222,110},{-182,150}})));
+    annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Controls.OBC.CDL.Interfaces.RealOutput TSlaSetPer
     "Slab temperature setpoint, determined based on forecast outdoor air high temperature"
-    annotation (Placement(transformation(extent={{180,30},{220,70}})));
+    annotation (Placement(transformation(extent={{100,-20},{140,20}})));
+  Controls.OBC.CDL.Discrete.Sampler sam(samplePeriod=86400)
+    annotation (Placement(transformation(extent={{-42,-2},{-22,18}})));
 equation
-  connect(triSam.y,tabSlab. u) annotation (Line(points={{-58,130},{46,130},
-          {46,43},{-117.8,43}},
-                              color={0,0,127}));
-  connect(booPul1.y, triSam.trigger) annotation (Line(points={{-60,90},{-60,
-          118.2},{-70,118.2}}, color={255,0,255}));
-  connect(tabSlab.y, zeroOrderHold.u) annotation (Line(points={{-166.1,43},
-          {-166.1,-44},{102,-44},{102,8}}, color={0,0,127}));
-  connect(TFor, triSam.u)
-    annotation (Line(points={{-202,130},{-82,130}}, color={0,0,127}));
-  connect(zeroOrderHold.y, TSlaSetPer) annotation (Line(points={{125,8},{154,8},
-          {154,50},{200,50}}, color={0,0,127}));
-  annotation (Documentation(info="<html>
+  connect(sam.y, tabSlab.u) annotation (Line(points={{-20,8},{0,8},{0,-41},{-15.8,
+          -41}}, color={0,0,127}));
+  connect(TFor, sam.u) annotation (Line(points={{-120,0},{-92,0},{-92,8},{-44,8}},
+        color={0,0,127}));
+  connect(tabSlab.y, TSlaSetPer) annotation (Line(points={{-64.1,-41},{-84,-41},
+          {-84,-80},{78,-80},{78,0},{120,0}}, color={0,0,127}));
+  annotation (defaultComponentName = "SlabSetPerim",Documentation(info="<html>
 <p>
-This determines the slab temperature setpoint for a perimeter zone from the forecast high OAT.
+This determines the slab temperature setpoint for a perimeter zone from the forecast high OAT. Temperature setpoint is selected from a lookup table. 
+Note that this setpoint is determined differently than the setpoint for core zones, which is set to a constant value throughout the year (typically 70F). 
 </p>
 </html>"),Icon(coordinateSystem(
         preserveAspectRatio=true,
-        extent={{-100,-100},{100,100}}), graphics={
+        extent={{-120,-100},{100,100}}), graphics={
         Text(
           lineColor={0,0,255},
           extent={{-150,110},{150,150}},
@@ -71,15 +60,15 @@ This determines the slab temperature setpoint for a perimeter zone from the fore
           lineColor={0,0,0},
           textString="duration=%duration"),
         Line(points={{31,38},{86,38}}),
-       Text(
-          extent={{-72,78},{102,6}},
-          lineColor={0,0,0},
-          fillColor={0,0,0},
+        Text(
+        extent={{-90,60},{90,-60}},
+        lineColor={0,0,0},
+        fillColor={0,0,0},
         fillPattern=FillPattern.Solid,
         textString="Sp"),
         Text(
-          extent={{226,60},{106,10}},
+          extent={{-56,90},{48,-60}},
           lineColor={0,0,0},
           textString=DynamicSelect("", String(y, leftjustified=false, significantDigits=3)))}), Diagram(coordinateSystem(
-          preserveAspectRatio=false, extent={{-180,-100},{180,180}})));
+          preserveAspectRatio=false, extent={{-100,-100},{100,100}})));
 end SlabSetPerim;

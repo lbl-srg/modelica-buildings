@@ -328,11 +328,10 @@ Fluid.Movers.FlowControlled_m_flow           pumHot(
     k=LastOcc,
     off_within_deadband=OffTru)
     annotation (Placement(transformation(extent={{-400,-100},{-380,-80}})));
-  Experimental.RadiantControl.SlabTempSignal.SlabSetPerim slabSetPerim
+  SlabTempSignal.SlabSetPerim slabSetPerim
     annotation (Placement(transformation(extent={{-520,-60},{-500,-40}})));
-  Experimental.RadiantControl.SlabTempSignal.OutputOnly.ForecastHighChicago
-    forecastHighChicago
-    annotation (Placement(transformation(extent={{-582,-62},{-562,-42}})));
+  SlabTempSignal.Validation.BaseClasses.ForecastHighChicago forecastHighChicago
+    annotation (Placement(transformation(extent={{-586,-64},{-566,-44}})));
 equation
   connect(TBel.port, conBel1.port_a) annotation (Line(points={{82,-50},{20,-50}},
                                 color={191,0,0}));
@@ -421,33 +420,35 @@ equation
           255}));
   connect(temRet.port_b, sin.ports[1]) annotation (Line(points={{52,8},{104,8},{
           104,14},{156,14}}, color={0,127,255}));
-  connect(controlPlusLockouts.heatingSignal, booToReaHtgPump.u) annotation (
-      Line(points={{-370,-85},{-316,-85},{-316,-70},{-262,-70}}, color={255,0,255}));
-  connect(controlPlusLockouts.heatingSignal, booToReaHtgValveOn.u) annotation (
-      Line(points={{-370,-85},{-316,-85},{-316,-112},{-262,-112}}, color={255,0,
+  connect(controlPlusLockouts.htgSig, booToReaHtgPump.u) annotation (Line(
+        points={{-380,-85.6},{-316,-85.6},{-316,-70},{-262,-70}}, color={255,0,
           255}));
-  connect(controlPlusLockouts.coolingSignal, booToReaClgPump.u) annotation (
-      Line(points={{-370,-91},{-366,-91},{-366,-320},{-100,-320},{-100,-90},{-64,
-          -90}}, color={255,0,255}));
-  connect(controlPlusLockouts.coolingSignal, booToReaClgValve.u) annotation (
-      Line(points={{-370,-91},{-366,-91},{-366,-320},{-100,-320},{-100,-130},{-64,
-          -130}}, color={255,0,255}));
-  connect(NightFlushLockout.y, controlPlusLockouts.nightFlushLockout)
-    annotation (Line(points={{-457,-130},{-430,-130},{-430,-94.8},{-402.2,
-          -94.8}},
+  connect(controlPlusLockouts.htgSig, booToReaHtgValveOn.u) annotation (Line(
+        points={{-380,-85.6},{-316,-85.6},{-316,-112},{-262,-112}}, color={255,
+          0,255}));
+  connect(controlPlusLockouts.clgSig, booToReaClgPump.u) annotation (Line(
+        points={{-380,-93},{-366,-93},{-366,-320},{-100,-320},{-100,-90},{-64,-90}},
         color={255,0,255}));
+  connect(controlPlusLockouts.clgSig, booToReaClgValve.u) annotation (Line(
+        points={{-380,-93},{-366,-93},{-366,-320},{-100,-320},{-100,-130},{-64,
+          -130}}, color={255,0,255}));
+  connect(NightFlushLockout.y, controlPlusLockouts.nitFluSig) annotation (Line(
+        points={{-457,-130},{-430,-130},{-430,-90},{-401.818,-90}}, color={255,
+          0,255}));
   connect(temRet.T, controlPlusLockouts.TWaRet) annotation (Line(points={{41,-2},
-          {41,230},{-462,230},{-462,-91},{-402,-91}}, color={0,0,127}));
+          {41,230},{-462,230},{-462,-98},{-401.818,-98}},
+                                                      color={0,0,127}));
   connect(temRoom.T, controlPlusLockouts.TRooAir) annotation (Line(points={{61,230},
-          {-464,230},{-464,-87.2},{-402,-87.2}}, color={0,0,127}));
+          {-464,230},{-464,-94},{-401.818,-94}}, color={0,0,127}));
   connect(temSlabTop.T, controlPlusLockouts.TSla) annotation (Line(points={{-82,44},
-          {-464,44},{-464,-82},{-402,-82}},     color={0,0,127}));
+          {-464,44},{-464,-82},{-401.818,-82}}, color={0,0,127}));
   connect(forecastHighChicago.TForecastHigh, slabSetPerim.TFor) annotation (
-      Line(points={{-560,-51.8},{-556,-51.8},{-556,-56},{-540,-56},{-540,-37},{
-          -530.2,-37}},                                                color={0,
+      Line(points={{-564,-53.8},{-556,-53.8},{-556,-56},{-540,-56},{-540,-50},{
+          -520,-50}},                                                  color={0,
           0,127}));
   connect(slabSetPerim.TSlaSetPer, controlPlusLockouts.TSlaSet) annotation (
-      Line(points={{-490,-45},{-468,-45},{-468,-84.6},{-402,-84.6}}, color={0,0,
+      Line(points={{-498.182,-50},{-468,-50},{-468,-86},{-401.818,-86}},
+                                                                     color={0,0,
           127}));
   annotation (Documentation(info="<html>
 <p>
@@ -455,7 +456,7 @@ This models a radiant slab serving a perimeter zone as per current control schem
 </p>
 </html>"),
     experiment(Tolerance=1e-6, StopTime=31536000),
-    Icon(coordinateSystem(extent={{-600,-380},{300,380}}),
+    Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
          graphics={
         Ellipse(
           lineColor={75,138,73},

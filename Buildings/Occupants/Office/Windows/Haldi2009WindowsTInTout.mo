@@ -1,4 +1,4 @@
-within Buildings.Occupants.Office.Windows;
+﻿within Buildings.Occupants.Office.Windows;
 model Haldi2009WindowsTInTout "A model to predict occupants' window behavior with indoor and outdoor temperature"
   extends Modelica.Blocks.Icons.DiscreteBlock;
   parameter Real AOpenIn = 0.263 "Slope of indoor temp of the logistic relation for the opening probability";

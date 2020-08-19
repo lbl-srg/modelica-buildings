@@ -327,7 +327,7 @@ Fluid.Movers.FlowControlled_m_flow           pumHot(
     nPorts=2,
     redeclare package Medium = MediumA)
     annotation (Placement(transformation(extent={{-224,332},{-184,372}})));
-  SlabTempSignal.OutputOnly.SlabSetCore slabSetCore
+  SlabTempSignal.Validation.BaseClasses.SlabSetCore slabSetCore
     annotation (Placement(transformation(extent={{-530,-78},{-510,-58}})));
 equation
   connect(TBel.port, conBel1.port_a) annotation (Line(points={{82,-50},{20,-50}},
@@ -380,25 +380,26 @@ equation
           255}));
   connect(temRet.port_b, sin.ports[1]) annotation (Line(points={{52,8},{104,8},{
           104,14},{156,14}}, color={0,127,255}));
-  connect(controlPlusLockouts.heatingSignal, booToReaHtgPump.u) annotation (
-      Line(points={{-370,-85},{-316,-85},{-316,-70},{-262,-70}}, color={255,0,255}));
-  connect(controlPlusLockouts.heatingSignal, booToReaHtgValveOn.u) annotation (
-      Line(points={{-370,-85},{-316,-85},{-316,-112},{-262,-112}}, color={255,0,
+  connect(controlPlusLockouts.htgSig, booToReaHtgPump.u) annotation (Line(
+        points={{-380,-85.6},{-316,-85.6},{-316,-70},{-262,-70}}, color={255,0,
           255}));
-  connect(controlPlusLockouts.coolingSignal, booToReaClgPump.u) annotation (
-      Line(points={{-370,-91},{-366,-91},{-366,-320},{-100,-320},{-100,-90},{-64,
-          -90}}, color={255,0,255}));
-  connect(controlPlusLockouts.coolingSignal, booToReaClgValve.u) annotation (
-      Line(points={{-370,-91},{-366,-91},{-366,-320},{-100,-320},{-100,-130},{-64,
-          -130}}, color={255,0,255}));
-  connect(NightFlushLockout.y, controlPlusLockouts.nightFlushLockout)
-    annotation (Line(points={{-457,-130},{-430,-130},{-430,-94.8},{-402.2,
-          -94.8}},
+  connect(controlPlusLockouts.htgSig, booToReaHtgValveOn.u) annotation (Line(
+        points={{-380,-85.6},{-316,-85.6},{-316,-112},{-262,-112}}, color={255,
+          0,255}));
+  connect(controlPlusLockouts.clgSig, booToReaClgPump.u) annotation (Line(
+        points={{-380,-93},{-366,-93},{-366,-320},{-100,-320},{-100,-90},{-64,-90}},
         color={255,0,255}));
+  connect(controlPlusLockouts.clgSig, booToReaClgValve.u) annotation (Line(
+        points={{-380,-93},{-366,-93},{-366,-320},{-100,-320},{-100,-130},{-64,
+          -130}}, color={255,0,255}));
+  connect(NightFlushLockout.y, controlPlusLockouts.nitFluSig) annotation (Line(
+        points={{-457,-130},{-430,-130},{-430,-90},{-401.818,-90}}, color={255,
+          0,255}));
   connect(temRet.T, controlPlusLockouts.TWaRet) annotation (Line(points={{41,-2},
-          {41,230},{-478,230},{-478,-91},{-402,-91}}, color={0,0,127}));
+          {41,230},{-478,230},{-478,-98},{-401.818,-98}},
+                                                      color={0,0,127}));
   connect(temSlabTop.T, controlPlusLockouts.TSla) annotation (Line(points={{-82,44},
-          {-476,44},{-476,-82},{-402,-82}},     color={0,0,127}));
+          {-476,44},{-476,-82},{-401.818,-82}}, color={0,0,127}));
   connect(airCon1.y[1], airIn1.m_flow_in) annotation (Line(points={{-359,284},{-336,
           284},{-336,312},{-324,312}}, color={0,0,127}));
   connect(airCon1.y[2], airIn1.T_in) annotation (Line(points={{-359,284},{-336,284},
@@ -424,9 +425,9 @@ equation
         points={{-287,348},{-258,348},{-258,360},{-225.6,360}},
                                                         color={0,0,127}));
   connect(slabSetCore.TSlaSetCor, controlPlusLockouts.TSlaSet) annotation (Line(
-        points={{-508,-67},{-480,-67},{-480,-84.6},{-402,-84.6}}, color={0,0,127}));
+        points={{-508,-67},{-480,-67},{-480,-86},{-401.818,-86}}, color={0,0,127}));
   connect(temRoom1.T, controlPlusLockouts.TRooAir) annotation (Line(points={{-163,
-          204},{-270,204},{-270,228},{-480,228},{-480,-87.2},{-402,-87.2}},
+          204},{-270,204},{-270,228},{-480,228},{-480,-94},{-401.818,-94}},
         color={0,0,127}));
   annotation (Documentation(info="<html>
 <p>
@@ -434,7 +435,7 @@ This models a radiant slab serving a core zone as per current control scheme.
 </p>
 </html>"),
     experiment(Tolerance=1e-6, StopTime=31536000),
-    Icon(coordinateSystem(extent={{-560,-380},{180,420}}),
+    Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
          graphics={
         Ellipse(
           lineColor={75,138,73},

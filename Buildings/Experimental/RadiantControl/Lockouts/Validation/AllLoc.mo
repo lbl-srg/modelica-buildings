@@ -55,13 +55,13 @@ model AllLoc "Validation model for all lockouts"
     TiCoo=TimCoo)
     annotation (Placement(transformation(extent={{-20,-2},{0,18}})));
 equation
-  connect(booleanPulse1.y, allLockouts.NightFlushSig) annotation (Line(points={{
-          -59,90},{-40,90},{-40,17},{-22,17}}, color={255,0,255}));
-  connect(booleanPulse2.y, allLockouts.HtgSig) annotation (Line(points={{-59,50},
+  connect(booleanPulse1.y, allLockouts.nitFluSig) annotation (Line(points={{-59,
+          90},{-40,90},{-40,17},{-22,17}}, color={255,0,255}));
+  connect(booleanPulse2.y,allLockouts.htgSig)  annotation (Line(points={{-59,50},
           {-40,50},{-40,13},{-22,13}}, color={255,0,255}));
-  connect(booleanPulse3.y, allLockouts.ClgSig) annotation (Line(points={{-59,10},
+  connect(booleanPulse3.y,allLockouts.clgSig)  annotation (Line(points={{-59,10},
           {-40,10},{-40,9},{-22,9}}, color={255,0,255}));
-  connect(sin.y, allLockouts.TRooAir) annotation (Line(points={{-58,-30},{-40,-30},
+  connect(sin.y,allLockouts.TRooAir)  annotation (Line(points={{-58,-30},{-40,-30},
           {-40,5},{-22,5}}, color={0,0,127}));
   connect(sin1.y, allLockouts.TWater) annotation (Line(points={{-58,-70},{-40,-70},
           {-40,1},{-22,1}}, color={0,0,127}));

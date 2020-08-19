@@ -1,5 +1,5 @@
 within Buildings.Experimental.RadiantControl;
-model ControlPlusLockouts
+block ControlPlusLockouts "Full radiant control"
    parameter Real TAirHiSet(min=0,
     final unit="K",
     final displayUnit="K",
@@ -40,74 +40,95 @@ parameter Real TDeaNor(min=0,
   parameter Real k(min=0,max=24)=18 "Last occupied hour";
  parameter Boolean off_within_deadband=true "If flow should turn off when slab setpoint is within deadband, set to true. Otherwise, set to false";
   Controls.OBC.CDL.Logical.And and2 "Final Heating Signal"
-    annotation (Placement(transformation(extent={{80,40},{100,60}})));
+    annotation (Placement(transformation(extent={{20,40},{40,60}})));
   Controls.OBC.CDL.Logical.And and1 "Final cooling signal"
-    annotation (Placement(transformation(extent={{80,-20},{100,0}})));
+    annotation (Placement(transformation(extent={{20,-20},{40,0}})));
   Controls.OBC.CDL.Interfaces.RealInput TRooAir
-    annotation (Placement(transformation(extent={{-140,8},{-100,48}})));
+    annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
   Controls.OBC.CDL.Interfaces.RealInput TSla
     annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
   Controls.OBC.CDL.Interfaces.RealInput TWaRet
-    annotation (Placement(transformation(extent={{-140,-30},{-100,10}})));
+    annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
   SlabTempSignal.Error error
     annotation (Placement(transformation(extent={{-58,40},{-38,60}})));
   Controls.OBC.CDL.Interfaces.RealInput TSlaSet
-    annotation (Placement(transformation(extent={{-140,34},{-100,74}})));
-  Controls.OBC.CDL.Interfaces.BooleanInput nightFlushLockout
-    annotation (Placement(transformation(extent={{-142,-68},{-102,-28}})));
-  Controls.OBC.CDL.Interfaces.BooleanOutput heatingSignal
-    annotation (Placement(transformation(extent={{180,30},{220,70}})));
-  Controls.OBC.CDL.Interfaces.BooleanOutput coolingSignal
-    annotation (Placement(transformation(extent={{180,-30},{220,10}})));
+    annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
+  Controls.OBC.CDL.Interfaces.BooleanInput nitFluSig
+    annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
+  Controls.OBC.CDL.Interfaces.BooleanOutput htgSig
+    annotation (Placement(transformation(extent={{100,24},{140,64}})));
+  Controls.OBC.CDL.Interfaces.BooleanOutput clgSig
+    annotation (Placement(transformation(extent={{100,-50},{140,-10}})));
   Lockouts.AllLockouts allLockouts1
-    annotation (Placement(transformation(extent={{2,0},{22,20}})));
-  SlabTempSignal.DeadbandControlErrSwi deadbandControlErrSwi
-    annotation (Placement(transformation(extent={{22,40},{42,60}})));
+    annotation (Placement(transformation(extent={{-20,0},{0,20}})));
+  Obsolete.DeadbandControlErrSwiOld deadbandControlErrSwi
+    annotation (Placement(transformation(extent={{-20,40},{0,60}})));
   Modelica.Blocks.Logical.Pre pre1
-    annotation (Placement(transformation(extent={{120,60},{140,80}})));
+    annotation (Placement(transformation(extent={{60,60},{80,80}})));
   Modelica.Blocks.Logical.Pre pre2
-    annotation (Placement(transformation(extent={{120,-60},{140,-40}})));
+    annotation (Placement(transformation(extent={{60,-40},{80,-20}})));
 equation
-  connect(error.TSlaSet, TSlaSet) annotation (Line(points={{-60,47},{-60,54},
-          {-120,54}},          color={0,0,127}));
+  connect(error.TSlaSet, TSlaSet) annotation (Line(points={{-60,47},{-60,40},{-120,
+          40}},                color={0,0,127}));
   connect(error.TSla, TSla) annotation (Line(points={{-60,51},{-60,80},{-120,
           80}},           color={0,0,127}));
-  connect(and1.y, coolingSignal)
-    annotation (Line(points={{102,-10},{200,-10}}, color={255,0,255}));
-  connect(and2.y, heatingSignal)
-    annotation (Line(points={{102,50},{200,50}}, color={255,0,255}));
-  connect(nightFlushLockout, allLockouts1.NightFlushSig) annotation (Line(
-        points={{-122,-48},{-58,-48},{-58,19},{0,19}}, color={255,0,255}));
-  connect(TRooAir, allLockouts1.TRooAir) annotation (Line(points={{-120,28},{
-          -56,28},{-56,7},{0,7}}, color={0,0,127}));
-  connect(TWaRet, allLockouts1.TWater) annotation (Line(points={{-120,-10},{
-          -56,-10},{-56,3},{0,3}}, color={0,0,127}));
-  connect(allLockouts1.HtgLockout, and2.u2) annotation (Line(points={{24,13},
-          {60,13},{60,42},{78,42}}, color={255,0,255}));
-  connect(allLockouts1.ClgLockout, and1.u1) annotation (Line(points={{24,5},{
-          60,5},{60,-10},{78,-10}}, color={255,0,255}));
-  connect(error.slabTempError, deadbandControlErrSwi.slabTempError)
-    annotation (Line(points={{-36,51},{-4,51},{-4,52.8},{12,52.8}}, color={0,
-          0,127}));
-  connect(deadbandControlErrSwi.heatingCall, and2.u1) annotation (Line(points=
-         {{58,54.8},{70,54.8},{70,50},{78,50}}, color={255,0,255}));
-  connect(deadbandControlErrSwi.coolingCall, and1.u2) annotation (Line(points=
-         {{58,47},{60,47},{60,-18},{78,-18}}, color={255,0,255}));
-  connect(and2.y, pre1.u) annotation (Line(points={{102,50},{110,50},{110,70},
-          {118,70}}, color={255,0,255}));
-  connect(pre1.y, allLockouts1.HtgSig) annotation (Line(points={{141,70},{156,
-          70},{156,90},{-20,90},{-20,18},{0,18},{0,15}}, color={255,0,255}));
-  connect(and1.y, pre2.u) annotation (Line(points={{102,-10},{110,-10},{110,
-          -50},{118,-50}}, color={255,0,255}));
-  connect(pre2.y, allLockouts1.ClgSig) annotation (Line(points={{141,-50},{
-          142,-50},{142,-80},{-20,-80},{-20,11},{0,11}}, color={255,0,255}));
-  annotation (Documentation(info="<html>
+  connect(and1.y, clgSig) annotation (Line(points={{42,-10},{94,-10},{94,-30},{120,
+          -30}}, color={255,0,255}));
+  connect(and2.y, htgSig) annotation (Line(points={{42,50},{94,50},{94,44},{120,
+          44}}, color={255,0,255}));
+  connect(nitFluSig, allLockouts1.nitFluSig) annotation (Line(points={{-120,0},{
+          -86,0},{-86,19},{-22,19}}, color={255,0,255}));
+  connect(TRooAir,allLockouts1.TRooAir)  annotation (Line(points={{-120,-40},{-78,
+          -40},{-78,7},{-22,7}},  color={0,0,127}));
+  connect(TWaRet, allLockouts1.TWater) annotation (Line(points={{-120,-80},{-40,
+          -80},{-40,3},{-22,3}},   color={0,0,127}));
+  connect(allLockouts1.htgSigL, and2.u2) annotation (Line(points={{2,13},{16,13},
+          {16,42},{18,42}}, color={255,0,255}));
+  connect(error.slaTemErr, deadbandControlErrSwi.slabTempError) annotation (
+      Line(points={{-36,51},{-26,51},{-26,40.8},{-21.7333,40.8}}, color={0,0,127}));
+  connect(deadbandControlErrSwi.heatingCall, and2.u1) annotation (Line(points={{1.33333,
+          50.6667},{14,50.6667},{14,50},{18,50}},
+                                                color={255,0,255}));
+  connect(and2.y, pre1.u) annotation (Line(points={{42,50},{46,50},{46,70},{58,70}},
+                     color={255,0,255}));
+  connect(and1.y, pre2.u) annotation (Line(points={{42,-10},{42,-30},{58,-30}},
+                           color={255,0,255}));
+  connect(pre2.y,allLockouts1.clgSig)  annotation (Line(points={{81,-30},{88,-30},
+          {88,-90},{-60,-90},{-60,11},{-22,11}},         color={255,0,255}));
+  connect(allLockouts1.clgSigL, and1.u2) annotation (Line(points={{2,5},{6,5},{6,
+          -18},{18,-18}}, color={255,0,255}));
+  connect(deadbandControlErrSwi.coolingCall, and1.u1) annotation (Line(points={{
+          1.33333,44},{12,44},{12,-10},{18,-10}}, color={255,0,255}));
+  connect(pre1.y,allLockouts1.htgSig)  annotation (Line(points={{81,70},{90,70},
+          {90,98},{-80,98},{-80,16},{-28,16},{-28,15},{-22,15}}, color={255,0,255}));
+  annotation (defaultComponentName = "ControlPlusLockouts",Documentation(info="<html>
 <p>
 This encompasses full radiant control based on water return temperature, room air temperature, night flush signal, slab temperature, and slab setpoint.
+
+Each day, a slab temperature setpoint for a perimeter zone should be determined based on a lookup table that references the forecast high outdoor air temperature.
+See Buildings.Experimental.RadiantControl.SlabTempSignal.SlabSetPerim. 
+
+Core zone setpoints are set to a constant value throughout the year (typically 70F).
+
+The user specifies a deadband for occupied hours (typically 0.5F) and one for unoccupied hours (typically 4F).
+Each day, from midnight until the last occupied hour, a call for heating or cooling is produced if the setpoint is not met within the occupied deadband.
+After the last occupied hour, calls for heating or cooling are produced if the setpoint is not met within the unoccupied deadband. 
+
+
+If there is a call for heating (ie, the slab temperature is below its setpoint minus a user-specified deadband) and heating is not locked out, a heating signal is generated, asking for hot water to be sent to the slab. 
+If there is a call for cooling (ie, the slab temperature is above its setpoint plus a user-specified deadband) and cooling is not locked out, a cooling signal is generated, asing for cold water to be sent to the slab. 
+
+
+When the slab is within its deadband, the user specifies whether the system should send no calls for heating or cooling (i.e. 'offwithindeadband' is set to true),
+or whether it should continue to call for heating or cooling and then correct itself once the slab temperature goes out of range (i.e. 'offwithindeadband' is set to false).
+
+Heating is locked out if room air temperature is too hot (above a user-specified value), if night flush mode is on, or if cooling was on within a user-specified amount of time. 
+Cooling is locked out if room air temperature is too cold (below a user-specified value), if chilled water return temperature is lower than a user-specified value, or if heating was on within a user-specified amount of time. 
+
 </p>
 </html>"),Icon(coordinateSystem(
         preserveAspectRatio=true,
-        extent={{-100,-100},{100,100}}),graphics={
+        extent={{-100,-100},{120,100}}),graphics={
         Text(
           lineColor={0,0,255},
           extent={{-148,104},{152,144}},
@@ -140,5 +161,5 @@ This encompasses full radiant control based on water return temperature, room ai
           extent={{226,60},{106,10}},
           lineColor={0,0,0},
           textString=DynamicSelect("", String(y, leftjustified=false, significantDigits=3)))}), Diagram(coordinateSystem(
-          preserveAspectRatio=false, extent={{-100,-100},{180,100}})));
+          preserveAspectRatio=false, extent={{-100,-100},{100,100}})));
 end ControlPlusLockouts;

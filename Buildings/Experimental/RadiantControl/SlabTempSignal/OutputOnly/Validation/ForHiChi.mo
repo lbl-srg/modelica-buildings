@@ -2,11 +2,13 @@ within Buildings.Experimental.RadiantControl.SlabTempSignal.OutputOnly.Validatio
 model ForHiChi "Validation model for forecast high temperature for Chicago"
   ForecastHighChicago forecastHighChicago
     annotation (Placement(transformation(extent={{-20,18},{0,38}})));
-  annotation (Documentation(info="<html>
+  annotation (experiment(Tolerance=1E-06, StopTime=172800),
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/RadiantControl/SlabTempSignal/OutputOnly/Validation/ForHiChi.mos"
+        "Simulate and plot"), Documentation(info="<html>
 <p>
 This validates the Chicago forecast high. 
 </p>
-</html>"),experiment(StopTime=172800.0, Tolerance=1e-06),Icon(graphics={
+</html>"),Icon(graphics={
         Ellipse(
           lineColor={75,138,73},
           fillColor={255,255,255},

@@ -257,8 +257,7 @@ model System6
     Td=1,
     Ti=120,
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
-    k=0.1)
-           "Controller for valve in radiator loop"
+    k=0.1) "Controller for valve in radiator loop"
     annotation (Placement(transformation(extent={{-180,-20},{-160,0}})));
 //------------------------------------------------------------------------------//
   Buildings.Controls.OBC.CDL.Continuous.Line TSetSup

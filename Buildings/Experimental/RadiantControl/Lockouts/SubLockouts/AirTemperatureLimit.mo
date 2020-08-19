@@ -20,10 +20,10 @@ block AirTemperatureLimit "Locks out heating if room air is hotter than user-spe
     annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
   Buildings.Controls.OBC.CDL.Logical.Not           not3
     annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput heatingSignal_AirTemp
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput htgSigAirTem
     "True if heating is allowed, false if heating is locked out because room air is too hot"
     annotation (Placement(transformation(extent={{100,10},{140,50}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput coolingSignal_AirTemp
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput clgSigAirTem
     "True if cooling allowed, false if cooling locked out because room air is too cold"
     annotation (Placement(transformation(extent={{100,-70},{140,-30}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TRoo(unit="K", displayUnit="K")
@@ -44,15 +44,15 @@ equation
           30}}, color={0,0,127}));
   connect(les1.u1, TRoo) annotation (Line(points={{-2,-50},{-52,-50},{-52,72},{-120,
           72}}, color={0,0,127}));
-  connect(not2.y, heatingSignal_AirTemp)
-    annotation (Line(points={{62,30},{120,30}},   color={255,0,255}));
-  connect(not3.y, coolingSignal_AirTemp) annotation (Line(points={{62,-50},{82,-50},
-          {82,-50},{120,-50}}, color={255,0,255}));
+  connect(not2.y, htgSigAirTem)
+    annotation (Line(points={{62,30},{120,30}}, color={255,0,255}));
+  connect(not3.y, clgSigAirTem) annotation (Line(points={{62,-50},{82,-50},{82,
+          -50},{120,-50}}, color={255,0,255}));
   connect(TAirHi.y, gre1.u2) annotation (Line(points={{-19,10},{-12,10},{-12,22},
           {-2,22}}, color={0,0,127}));
   connect(TAirLo.y, les1.u2) annotation (Line(points={{-19,-70},{-10,-70},{-10,-58},
           {-2,-58}}, color={0,0,127}));
-  annotation (Documentation(info="<html>
+  annotation (defaultComponentName = "AirTemperatureLimit",Documentation(info="<html>
 <p>
 If room air temperature is above a specified temperature threshold, heating is looked out. If room air temperature is below a specified temperature threshold, cooling is locked out.
 </p>

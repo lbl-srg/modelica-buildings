@@ -148,7 +148,7 @@ protected
   constant Boolean COP_is_for_cooling
     "Set to true if the specified COP is for cooling";
 
-  parameter Real etaCarnot_nominal_internal(unit="1") =
+  parameter Real etaCarnot_nominal_internal(unit="1")=
     if use_eta_Carnot_nominal
       then etaCarnot_nominal
       else COP_nominal/
@@ -157,7 +157,7 @@ protected
 
   // For Carnot_y, computing etaPL = f(yPL) introduces a nonlinear equation.
   // The parameter below avoids this if a = {1}.
-  final parameter Boolean evaluate_etaPL =
+  final parameter Boolean evaluate_etaPL=
     not ((size(a, 1) == 1 and abs(a[1] - 1)  < Modelica.Constants.eps))
     "Flag, true if etaPL should be computed as it depends on yPL"
     annotation(Evaluate=true);
