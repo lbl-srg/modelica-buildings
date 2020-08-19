@@ -2,7 +2,9 @@ within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizer.Subse
 block Tuning
   "Defines a tuning parameter for the temperature prediction downstream of WSE"
 
-  parameter Real step=0.02 "Tuning step";
+  parameter Real step(
+    final unit="1")=0.02
+      "Incremental step used to reduce or increase the water-side economizer tuning parameter";
 
   parameter Real wseOnTimDec(
     final unit="s",
@@ -28,8 +30,8 @@ block Tuning
       {-100,-30}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y(
-    final max=0.5,
-    final min=-0.2,
+    final max=maxTunPar,
+    final min=minTunPar,
     final start=initTunPar)
     "Tuning parameter for the waterside economizer outlet temperature prediction"
     annotation (Placement(transformation(extent={{320,-10},{340,10}}),
@@ -42,6 +44,14 @@ protected
 
   final parameter Real initTunPar = 0
   "Initial value of the tuning parameter";
+
+  final parameter Real minTunPar(
+    final unit="1") = -0.2
+    "Tuning parameter minimum limit";
+
+  final parameter Real maxTunPar(
+    final unit="1") = 0.5
+    "Tuning parameter maximum limit";
 
   Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum(
     final k={-1*step,step,1}, nin=3) "Multiple input sum"
@@ -144,8 +154,8 @@ protected
     annotation (Placement(transformation(extent={{-180,140},{-160,160}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Limiter lim(
-    final uMax=0.5,
-    final uMin=-0.2) "Limiter"
+    final uMax=maxTunPar,
+    final uMin=minTunPar) "Limiter"
     annotation (Placement(transformation(extent={{160,60},{180,80}})));
 
   Buildings.Controls.OBC.CDL.Continuous.IntegratorWithReset intWitRes(

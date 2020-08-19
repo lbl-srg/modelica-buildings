@@ -19,19 +19,31 @@ block Down "Generates a stage down signal"
     displayUnit="h")=900
       "Enable delay for failsafe condition";
 
-  parameter Modelica.SIunits.TemperatureDifference faiSafTDif = 1
-    "Offset between the chilled water supply temperature and its setpoint for the failsafe condition";
+  parameter Real faiSafTDif(
+    final unit="K",
+    final quantity="TemperatureDifference",
+    displayUnit="degC")=1
+      "Offset between the chilled water supply temperature and its setpoint for the failsafe condition";
 
-  parameter Modelica.SIunits.TemperatureDifference TDif = 1
-    "Offset between the chilled water supply temperature and its setpoint"
+  parameter Real TDif(
+    final unit="K",
+    final quantity="TemperatureDifference",
+    displayUnit="degC")=1
+      "Offset between the chilled water supply temperature and its setpoint"
     annotation(Evaluate=true, Dialog(enable=have_WSE));
 
-  parameter Modelica.SIunits.TemperatureDifference TDifHys = 1
-    "Hysteresis deadband for temperature"
+  parameter Real TDifHys(
+    final unit="K",
+    final quantity="TemperatureDifference",
+    displayUnit="degC")=1
+      "Hysteresis deadband for temperature"
     annotation(Evaluate=true, Dialog(enable=have_WSE));
 
-  parameter Modelica.SIunits.PressureDifference faiSafDpDif = 2 * 6895
-    "Offset between the chilled water pump differential static pressure and its setpoint";
+  parameter Real faiSafDpDif(
+    final unit="Pa",
+    final quantity="PressureDifference",
+    displayUnit="Pa")=2 * 6895
+      "Offset between the chilled water pump differential static pressure and its setpoint";
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWseSta if have_WSE
     "WSE status"
@@ -257,7 +269,7 @@ Outputs a boolean stage down signal <code>y</code> when:
 </p>
 <ul>
 <li>
-Operating <code>uOpeDow</code> part load ratio of the next available stage down is below 
+Operating <code>uOpeDow</code> part load ratio of the next available stage down is below
 its staging <code>uStaDow</code> part load ratio for at least <code>parLoaRatDelay</code>, and
 </li>
 <li>
@@ -265,15 +277,15 @@ Failsafe condition is not <code>true</code>.
 </li>
 </ul>
 <p>
-If the plant has a WSE, staging from the lowest available chiller stage to 
+If the plant has a WSE, staging from the lowest available chiller stage to
 WSE stage occurs when:
 <ul>
 <li>
 WSE is enabled, and
 </li>
 <li>
-The predicted WSE return temperature <code>TWsePre</code> is sufficently under the 
-chilled water supply temperature setpoint <code>TChiWatSupSet</code> for defined periods of time, and 
+The predicted WSE return temperature <code>TWsePre</code> is sufficently under the
+chilled water supply temperature setpoint <code>TChiWatSupSet</code> for defined periods of time, and
 </li>
 <li>
 Maximum cooling tower fan speed <code>uTowFanSpeMax</code> is below 100%

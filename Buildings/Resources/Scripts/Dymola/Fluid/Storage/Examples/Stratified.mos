@@ -47,4 +47,3 @@ createPlot(id = 2,
  subPlot = 3,
  leftTitleType = 1,
  bottomTitleType = 1);
-

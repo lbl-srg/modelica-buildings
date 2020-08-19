@@ -18,13 +18,19 @@ block SetpointController
     "Number of chillers"
     annotation (Dialog(tab="General", group="Chiller configuration parameters"));
 
-  parameter Modelica.SIunits.Power chiDesCap[nChi]
+  parameter Real chiDesCap[nChi](
+     final unit=fill("W",nChi),
+     final quantity=fill("Power",nChi),
+     displayUnit=fill("W",nChi))
     "Design chiller capacities vector"
-    annotation (Dialog(tab="General", group="Chiller configuration parameters"));
+    annotation (Evaluate=true, Dialog(tab="General", group="Chiller configuration parameters"));
 
-  parameter Modelica.SIunits.Power chiMinCap[nChi]
+  parameter Real chiMinCap[nChi](
+     final unit=fill("W",nChi),
+     final quantity=fill("Power",nChi),
+     displayUnit=fill("W",nChi))
     "Chiller minimum cycling loads vector"
-    annotation (Dialog(tab="General", group="Chiller configuration parameters"));
+    annotation (Evaluate=true, Dialog(tab="General", group="Chiller configuration parameters"));
 
   parameter Integer chiTyp[nChi]={
     Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes.positiveDisplacement,
@@ -123,41 +129,66 @@ block SetpointController
     "Maximum stage up or down part load ratio for variable speed centrifugal stage types"
     annotation(Evaluate=true, Dialog(enable=anyVsdCen, tab="Conditionals", group="Staging part load ratio parameters"));
 
-  parameter Modelica.SIunits.TemperatureDifference smallTDif = 1
-    "Offset between the chilled water supply temperature and its setpoint for the long condition"
+  parameter Real smallTDif(
+    final unit="K",
+    final quantity="TemperatureDifference",
+    displayUnit="degC")=1
+      "Offset between the chilled water supply temperature and its setpoint for the long condition"
     annotation(Evaluate=true, Dialog(enable=have_WSE, tab="Conditionals", group="Value comparison parameters"));
 
-  parameter Modelica.SIunits.TemperatureDifference largeTDif = 2
-    "Offset between the chilled water supply temperature and its setpoint for the short condition"
+  parameter Real largeTDif(
+    final unit="K",
+    final quantity="TemperatureDifference",
+    displayUnit="degC")=2
+      "Offset between the chilled water supply temperature and its setpoint for the short condition"
     annotation(Evaluate=true, Dialog(enable=have_WSE, tab="Conditionals", group="Value comparison parameters"));
 
-  parameter Modelica.SIunits.TemperatureDifference faiSafTDif = 1
-    "Offset between the chilled water supply temperature and its setpoint for the failsafe condition"
+  parameter Real faiSafTDif(
+    final unit="K",
+    final quantity="TemperatureDifference",
+    displayUnit="degC")=1
+      "Offset between the chilled water supply temperature and its setpoint for the failsafe condition"
     annotation (Dialog(tab="Conditionals", group="Value comparison parameters"));
 
-  parameter Modelica.SIunits.PressureDifference dpDif = 2 * 6895
-    "Offset between the chilled water pump diferential static pressure and its setpoint"
+  parameter Real dpDif(
+    final unit="Pa",
+    final quantity="PressureDifference",
+    displayUnit="Pa")=2 * 6895
+      "Offset between the chilled water pump diferential static pressure and its setpoint"
     annotation (Dialog(tab="Conditionals", group="Value comparison parameters"));
 
-  parameter Modelica.SIunits.TemperatureDifference TDif = 1
-    "Offset between the chilled water supply temperature and its setpoint for staging down to WSE only"
+  parameter Real TDif(
+    final unit="K",
+    final quantity="TemperatureDifference",
+    displayUnit="degC")=1
+      "Offset between the chilled water supply temperature and its setpoint for staging down to WSE only"
     annotation (Dialog(tab="Conditionals", group="Value comparison parameters"));
 
-  parameter Modelica.SIunits.TemperatureDifference TDifHys = 1
-    "Hysteresis deadband for temperature"
+  parameter Real TDifHys(
+    final unit="K",
+    final quantity="TemperatureDifference",
+    displayUnit="degC")=1
+      "Hysteresis deadband for temperature"
     annotation (Dialog(tab="Conditionals", group="Value comparison parameters"));
 
-  parameter Modelica.SIunits.PressureDifference faiSafDpDif = 2 * 6895
-    "Offset between the chilled water differential pressure and its setpoint"
+  parameter Real faiSafDpDif(
+    final unit="Pa",
+    final quantity="PressureDifference",
+    displayUnit="Pa")=2 * 6895
+      "Offset between the chilled water differential pressure and its setpoint"
     annotation (Dialog(tab="Conditionals", group="Value comparison parameters"));
 
-  parameter Modelica.SIunits.PressureDifference dpDifHys = 0.5 * 6895
-    "Pressure difference hysteresis deadband"
+  parameter Real dpDifHys(
+    final unit="Pa",
+    final quantity="PressureDifference",
+    displayUnit="Pa")=0.5 * 6895
+      "Pressure difference hysteresis deadband"
     annotation (Dialog(tab="Conditionals", group="Value comparison parameters"));
 
   parameter Real effConSigDif(
     final min=0,
-    final max=1) = 0.05
+    final max=1,
+    final unit="1") = 0.05
     "Signal hysteresis deadband"
     annotation (Dialog(tab="Conditionals", group="Value comparison parameters"));
 
@@ -201,21 +232,21 @@ block SetpointController
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uLifMin(
     final unit="K",
-    final quantity="ThermodynamicTemperature") if anyVsdCen
+    final quantity="TemperatureDifference") if anyVsdCen
     "Minimum chiller lift"
     annotation (Placement(transformation(extent={{-442,-30},{-402,10}}),
         iconTransformation(extent={{-140,-40},{-100,0}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uLif(
     final unit="K",
-    final quantity="ThermodynamicTemperature") if anyVsdCen
+    final quantity="TemperatureDifference") if anyVsdCen
     "Chiller lift"
     annotation (Placement(transformation(extent={{-442,30},{-402,70}}),
         iconTransformation(extent={{-140,0},{-100,40}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uLifMax(
     final unit="K",
-    final quantity="ThermodynamicTemperature") if anyVsdCen
+    final quantity="TemperatureDifference") if anyVsdCen
     "Maximum chiller lift"
     annotation (Placement(transformation(extent={{-442,0},{-402,40}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));

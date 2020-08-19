@@ -2,11 +2,17 @@ within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizer.Subse
 model PredictedOutletTemperature
   "Validate water side economizer outlet temperature prediction"
 
-  parameter Modelica.SIunits.Temperature aveTWetBul = 288.15
-  "Chilled water supply set temperature";
+  parameter Real aveTWetBul(
+    final unit="K",
+    final quantity="ThermodynamicTemperature",
+    displayUnit="degC")=288.15
+    "Chilled water supply set temperature";
 
-  parameter Modelica.SIunits.VolumeFlowRate aveVChiWat_flow = 0.01
-  "Average measured chilled water return temperature";
+  parameter Real aveVChiWat_flow(
+    final unit="m3/s",
+    final quantity="VolumeFlowRate",
+    displayUnit="m3/s")=0.01
+    "Average measured chilled water return temperature";
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizer.Subsequences.PredictedOutletTemperature
     wseTOut "Waterside economizer outlet temperature prediction"
