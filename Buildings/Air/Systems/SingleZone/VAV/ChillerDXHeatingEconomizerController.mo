@@ -10,93 +10,93 @@ model ChillerDXHeatingEconomizerController
     final max=1,
     final unit="1")
     "Minimum airflow fraction of system"
-    annotation(Dialog(group="Air design"));
+    annotation(Dialog(group="Setpoints"));
   parameter Modelica.SIunits.DimensionlessRatio minOAFra
     "Minimum outdoor air fraction of system"
-    annotation(Dialog(group="Air design"));
+    annotation(Dialog(group="Setpoints"));
   parameter Modelica.SIunits.Temperature TSetSupAir
     "Cooling supply air temperature setpoint"
-    annotation(Dialog(group="Air design"));
+    annotation(Dialog(group="Setpoints"));
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeHea=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
-    annotation(Dialog(group="Heating coil signal"));
+    annotation(Dialog(group="Heating coil control"));
   parameter Real kHea(
     final unit="1/K")=0.1
     "Gain for heating coil control signal"
-    annotation(Dialog(group="Heating coil signal"));
+    annotation(Dialog(group="Heating coil control"));
   parameter Real TiHea(
     final unit="s",
     final quantity="Time")=900
     "Time constant of integrator block for heating coil control signal"
-    annotation(Dialog(group="Heating coil signal",
+    annotation(Dialog(group="Heating coil control",
     enable=controllerTypeHea == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
         or controllerTypeHea == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   parameter Real TdHea(
     final unit="s",
     final quantity="Time")=0.1
     "Time constant of derivative block for heating coil control signal"
-    annotation (Dialog(group="Heating coil signal",
+    annotation (Dialog(group="Heating coil control",
       enable=controllerTypeHea == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
           or controllerTypeHea == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeCoo=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
-    annotation(Dialog(group="Cooling coil signal"));
+    annotation(Dialog(group="Cooling coil control"));
   parameter Real kCoo(
     final unit="1/K")=0.1
     "Gain for cooling coil control signal"
-    annotation(Dialog(group="Cooling coil signal"));
+    annotation(Dialog(group="Cooling coil control"));
   parameter Real TiCoo(
     final unit="s")=900
     "Time constant of integrator block for cooling coil control signal"
-    annotation(Dialog(group="Cooling coil signal",
+    annotation(Dialog(group="Cooling coil control",
     enable=controllerTypeCoo == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
         or controllerTypeCoo == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   parameter Real TdCoo(
     final unit="s")=0.1
     "Time constant of derivative block for cooling coil control signal"
-    annotation (Dialog(group="Cooling coil signal",
+    annotation (Dialog(group="Cooling coil control",
     enable=controllerTypeCoo == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
         or controllerTypeCoo == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeFan=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
-    annotation(Dialog(group="Fan control signal"));
+    annotation(Dialog(group="Fan control"));
   parameter Real kFan(final unit="1/K")=0.1
     "Gain for fan signal"
-    annotation(Dialog(group="Fan control signal"));
+    annotation(Dialog(group="Fan control"));
   parameter Real TiFan(
     final unit="s",
     final quantity="Time")=900
     "Time constant of integrator block for fan signal"
-    annotation(Dialog(group="Fan control signal",
+    annotation(Dialog(group="Fan control",
     enable=controllerTypeFan == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
         or controllerTypeFan == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   parameter Real TdFan(
     final unit="s",
     final quantity="Time")=0.1
     "Time constant of derivative block for fan signal"
-    annotation (Dialog(group="Fan control signal",
+    annotation (Dialog(group="Fan control",
     enable=controllerTypeFan == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
         or controllerTypeFan == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeEco=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
-    annotation(Dialog(group="Economizer control signal"));
+    annotation(Dialog(group="Economizer control"));
   parameter Real kEco(final unit="1/K")=0.1
     "Gain for economizer control signal"
-    annotation(Dialog(group="Economizer control signal"));
+    annotation(Dialog(group="Economizer control"));
   parameter Real TiEco=300
     "Time constant of integrator block for economizer control signal"
-    annotation(Dialog(group="Economizer control signal",
+    annotation(Dialog(group="Economizer control",
     enable=controllerTypeEco == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
         or controllerTypeEco == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   parameter Real TdEco(
     final unit="s",
     final quantity="Time")=0.1
     "Time constant of derivative block for economizer control signal"
-    annotation (Dialog(group="Economizer control signal",
+    annotation (Dialog(group="Economizer control",
       enable=controllerTypeEco == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
           or controllerTypeEco == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 

@@ -48,7 +48,7 @@ model ControllerHeatingFan "Controller for heating coil and fan signal"
     final min=0,
     final max=1,
     final unit="1")
-    "Minimum airflow rate of system";
+    "Minimum airflow fraction of system";
 
   Modelica.Blocks.Interfaces.RealInput TSetRooCoo(
     final unit="K",
