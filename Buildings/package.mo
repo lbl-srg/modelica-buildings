@@ -224,7 +224,7 @@ to <b style=\"color:blue\">existing</b> libraries:
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC</b>
     </td>
-</tr>                   
+</tr>
 <tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.GroupStatus
     </td>
     <td valign=\"top\">Find minimum and maximum values regarding the status of zones in one group. This is needed
@@ -273,6 +273,15 @@ have been <b style=\"color:blue\">improved</b> in a
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1893\">issue 1893</a>.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL.Continuous</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.Greater<br/>
+                       Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold<br/>
+                       Buildings.Controls.OBC.CDL.Continuous.Less<br/>
+                       Buildings.Controls.OBC.CDL.Continuous.LessThreshold
+    </td>
+    <td valign=\"top\">Added option to specify a hysteresis, which by default is set to <i>0</i>.
 <tr><td colspan=\"2\"><b>Buildings.Fluid.HeatExchangers.RadiantSlabs</b>
     </td>
 </tr>
@@ -315,8 +324,7 @@ have been <b style=\"color:blue\">improved</b> in a
 </tr>
 <tr><td valign=\"top\">Buildings.Controls.Continuous.LimPID<br/>
                        Buildings.Controls.Continuous.PIDHysteresis<br/>
-                       Buildings.Controls.Continuous.PIDHysteresisTimer<br/>
-                       Buildings.Controls.OBC.CDL.Continuous.LimPID
+                       Buildings.Controls.Continuous.PIDHysteresisTimer
     </td>
     <td valign=\"top\">Corrected wrong convention of reverse and direct action.
                        The previous parameter <code>reverseAction</code> with a default of <code>false</code>
@@ -328,6 +336,55 @@ have been <b style=\"color:blue\">improved</b> in a
                        changes in reverse to the measurement signal.<br/>
                        This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1365\">IBPSA, #1365</a>.<br/>
                        For Dymola, a conversion script makes this change.</td>
+                       </tr>
+ <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL.Continuous</b>
+    </td>
+    </tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.LimPID
+    </td>
+    <td valign=\"top\">Corrected wrong convention of reverse and direct action.
+                       The previous parameter <code>reverseAction</code> with a default of <code>false</code>
+                       has been removed, and
+                       a new parameter <code>reverseActing</code> with a default of <code>true</code>
+                       has been added. This was done because the previous implementation wrongly interpreted reverse action
+                       as the control output changing in reverse to the change in control error, but the
+                       industry convention is that reverse action means that the control output
+                       changes in reverse to the measurement signal.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1365\">IBPSA, #1365</a>.<br/>
+                       For Dymola, a conversion script makes this change.</td>
+                       </tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold<br/>
+                       Buildings.Controls.OBC.CDL.Continuous.GreaterEqual<br/>
+                       Buildings.Controls.OBC.CDL.Continuous.LessEqualThreshold<br/>
+                       Buildings.Controls.OBC.CDL.Continuous.LessEqual
+    </td>
+    <td valign=\"top\">Moved blocks to obsolete package. Instead of these blocks, use the ones that
+                       do not contain the word <code>Equal</code>
+                       in their name. This was done because for real-valued, measured quantities, there is
+                       no reason to distinguish between weak and strict inequality
+                       (due to sensor noise, or within a simulation, due to solver noise or rounding errors).<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2076\">#2076</a>.<br/>
+                       For Dymola, a conversion script makes this change.</td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold<br/>
+                       Buildings.Controls.OBC.CDL.Continuous.LessThreshold<br/>
+                       Buildings.Controls.OBC.CDL.Continuous.NumberOfRequests
+    </td>
+    <td valign=\"top\">Renamed parameter <code>threshold</code> to <code>t</code>.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2076\">#2076</a>.<br/>
+                       For Dymola, a conversion script makes this change.</td>
+</tr>
+ <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL.Integers</b>
+    </td>
+    </tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Integers.GreaterEqualThreshold<br/>
+                       Buildings.Controls.OBC.CDL.Integers.LessEqualThreshold<br/>
+                       Buildings.Controls.OBC.CDL.Integers.GreaterThreshold<br/>
+                       Buildings.Controls.OBC.CDL.Integers.LessThreshold
+    </td>
+    <td valign=\"top\">Renamed parameter <code>threshold</code> to <code>t</code>.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2076\">#2076</a>.<br/>
+                       For Dymola, a conversion script makes this change.</td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC</b>
     </td>
@@ -338,7 +395,7 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1893\">issue 1893</a>.
     </td>
-</tr>                
+</tr>
 <tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.OperationMode
     </td>
     <td valign=\"top\">Upgraded the sequence according to ASHRAE Guideline 36, May 2020 version.<br/>

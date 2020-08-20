@@ -40,8 +40,9 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Timer timer if warmUpByTimeDelay
     "Count the time since the warm-up mode is activated"
     annotation (Placement(transformation(extent={{0,50},{20,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold timeDel(
-    final threshold=timeDelayStart) if warmUpByTimeDelay
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold timeDel(
+    final t=timeDelayStart,
+    final h=0) if warmUpByTimeDelay
     "Check if it has been in warm-up mode by longer than specified time"
     annotation (Placement(transformation(extent={{40,50},{60,70}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysTem(
@@ -73,8 +74,7 @@ protected
     "Infinitesimal time delay to break algebraic loop related to power output computation"
     annotation (Placement(transformation(extent={{60,-30},{80,-10}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant damRes(
-    final k=true)
-    "Dammy reset input to timer that does not accumulate time"
+    final k=true) "Dummy reset input to timer that does not accumulate time"
     annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
 
 equation

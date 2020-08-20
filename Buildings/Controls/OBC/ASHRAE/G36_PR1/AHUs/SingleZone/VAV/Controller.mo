@@ -611,9 +611,8 @@ block Controller
     final k=false) if not have_winSen
     "Window status"
     annotation (Placement(transformation(extent={{-180,-140},{-160,-120}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold havOcc(
-    final threshold=0.5) if have_occSen
-    "Check if there is occupant"
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold havOcc(
+    final t=0.5) if have_occSen "Check if there is occupant"
     annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
 
 equation

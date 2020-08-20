@@ -22,8 +22,8 @@ model Timer "Validation model for the Timer block"
     final period=4)
     "Block that outputs cyclic on and off"
     annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr(
-    final threshold=1.5) "Output true when input is greater than threshold"
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(final t=1.5)
+    "Output true when input is greater than threshold"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
   Buildings.Controls.OBC.CDL.Logical.Pre pre
     "Returns the value of the input signal from the last event iteration"
@@ -52,10 +52,9 @@ equation
   connect(booPul.y,accuTimer3. u)
     annotation (Line(points={{-18,80},{0,80},{0,-70},{18,-70}},
       color={255,0,255}));
-  connect(accuTimer3.y, greEquThr.u)
-    annotation (Line(points={{42,-70},{60,-70},{60,-90},{-92,-90},{-92,-70},
-      {-82,-70}}, color={0,0,127}));
-  connect(greEquThr.y, pre.u)
+  connect(accuTimer3.y, greThr.u) annotation (Line(points={{42,-70},{60,-70},{
+          60,-90},{-92,-90},{-92,-70},{-82,-70}}, color={0,0,127}));
+  connect(greThr.y, pre.u)
     annotation (Line(points={{-58,-70},{-42,-70}}, color={255,0,255}));
   connect(pre.y,accuTimer3. reset)
     annotation (Line(points={{-18,-70},{-10,-70},{-10,-78},{18,-78}},

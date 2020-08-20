@@ -6,7 +6,14 @@ model CoolDown "Validate model CoolDown"
     "CHP performance data"
     annotation (Placement(transformation(extent={{60,80},{80,100}})));
 
-  Buildings.Fluid.CHPs.BaseClasses.Types.Mode actMod "Mode indicator";
+  Buildings.Fluid.CHPs.BaseClasses.Types.Mode actMod =
+    if norm.active then
+      Buildings.Fluid.CHPs.BaseClasses.Types.Mode.Normal
+    elseif cooDow.active then
+      Buildings.Fluid.CHPs.BaseClasses.Types.Mode.CoolDown
+    else
+      Buildings.Fluid.CHPs.BaseClasses.Types.Mode.Off
+  "Mode indicator";
   Modelica.Blocks.Sources.BooleanTable runSig(
     final startValue=true,
     table={300,600,660,690}) "Plant run signal"
@@ -49,8 +56,9 @@ protected
 protected
   Buildings.Controls.OBC.CDL.Logical.Timer timer
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold timeDel(
-    final threshold=per.timeDelayCool)
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold timeDel(
+    final t=per.timeDelayCool,
+    final h=0)
     "Check if the time of  plant in cool-down mode has been longer than the specified delay time"
     annotation (Placement(transformation(extent={{30,0},{50,20}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant damRes(
@@ -59,13 +67,6 @@ protected
     annotation (Placement(transformation(extent={{60,-100},{80,-80}})));
 
 equation
-  if norm.active then
-    actMod = Buildings.Fluid.CHPs.BaseClasses.Types.Mode.Normal;
-  elseif cooDow.active then
-    actMod = Buildings.Fluid.CHPs.BaseClasses.Types.Mode.CoolDown;
-  else
-    actMod = Buildings.Fluid.CHPs.BaseClasses.Types.Mode.Off;
-  end if;
   connect(transition4.outPort, norm.inPort[1]) annotation (Line(points={{-41.5,0},
           {-90,0},{-90,50.5},{-81,50.5}}, color={0,0,0}));
   connect(transition1.inPort, norm.outPort[1]) annotation (Line(points={{-44,70},

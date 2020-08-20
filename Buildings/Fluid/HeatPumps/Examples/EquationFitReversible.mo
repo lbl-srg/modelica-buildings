@@ -65,8 +65,8 @@ model EquationFitReversible
     duration(displayUnit="h") = 14400,
     offset=6 + 273.15) "Cooling load setpoint water temperature"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
-  Controls.OBC.CDL.Integers.GreaterThreshold intGreThr(threshold=-1)
-   "Integer threshold"
+  Controls.OBC.CDL.Integers.GreaterThreshold intGreThr(t=-1)
+    "Integer threshold"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
   Controls.OBC.CDL.Logical.Switch swi "Switch for set point temperature"
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));
