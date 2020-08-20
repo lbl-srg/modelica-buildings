@@ -1,4 +1,4 @@
-within Buildings.Controls.OBC.CDL.Continuous.Validation;
+within Buildings.Obsolete.Controls.OBC.CDL.Continuous.Validation;
 model GreaterEqual "Validation model for the GreaterEqual block"
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ramp1(
     duration=1,
@@ -11,7 +11,7 @@ model GreaterEqual "Validation model for the GreaterEqual block"
     height=2) "Block that generates ramp signal"
     annotation (Placement(transformation(extent={{-26,-30},{-6,-10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.GreaterEqual greEqu
+  Buildings.Obsolete.Controls.OBC.CDL.Continuous.GreaterEqual greEqu
     "Check if the first input is greater than or equal to the second input"
     annotation (Placement(transformation(extent={{26,-8},{46,12}})));
 
@@ -22,13 +22,13 @@ equation
           {24,-6}}, color={0,0,127}));
   annotation (
   experiment(StopTime=1.0, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Continuous/Validation/GreaterEqual.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Obsolete/Controls/OBC/CDL/Continuous/Validation/GreaterEqual.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
 Validation test for the block
-<a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.GreaterEqual\">
-Buildings.Controls.OBC.CDL.Continuous.GreaterEqual</a>.
+<a href=\"modelica://Buildings.Obsolete.Controls.OBC.CDL.Continuous.GreaterEqual\">
+Buildings.Obsolete.Controls.OBC.CDL.Continuous.GreaterEqual</a>.
 </p>
 </html>", revisions="<html>
 <ul>

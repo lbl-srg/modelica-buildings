@@ -1,13 +1,14 @@
-within Buildings.Controls.OBC.CDL.Continuous;
+within Buildings.Obsolete.Controls.OBC.CDL.Continuous;
 block LessEqualThreshold
   "Output y is true, if input u is less or equal than threshold"
+  extends Modelica.Icons.ObsoleteModel;
 
-  parameter Real threshold=0 "Comparison with respect to threshold";
+  parameter Real threshold=0 "Threshold for comparison";
 
-  Interfaces.RealInput u "Connector of Real input signal"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput u "Connector of Real input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
 
-  Interfaces.BooleanOutput y "Connector of Boolean output signal"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y "Connector of Boolean output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation
@@ -15,6 +16,7 @@ equation
 
   annotation (
         defaultComponentName="lesEquThr",
+        obsolete = "Obsolete model, use Buildings.Controls.OBC.CDL.Continuous.LessThreshold instead",
         Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
             {100,100}}), graphics={
         Rectangle(
@@ -53,6 +55,10 @@ Otherwise the output is <code>false</code>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+August 6, 2020, by Michael Wetter:<br/>
+Moved block to obsolete package.
+</li>
 <li>
 January 3, 2017, by Michael Wetter:<br/>
 First implementation, based on the implementation of the
