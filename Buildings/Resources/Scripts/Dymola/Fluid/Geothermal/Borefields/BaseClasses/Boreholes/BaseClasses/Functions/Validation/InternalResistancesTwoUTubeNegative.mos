@@ -1,16 +1,16 @@
-simulateModel("Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.Validation.InternalResistancesTwoUTubeNegative", stopTime=1.0, method="dassl", tolerance=1E-6, resultFile="FunctionInternalResistancesTwoUTubeNegative");
+simulateModel("Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.Validation.InternalResistancesTwoUTubeNegative", stopTime=1.0, method="CVode", tolerance=1E-6, resultFile="FunctionInternalResistancesTwoUTubeNegative");
 
 createPlot(
   id = 1,
   position = {35, 30, 631, 456},
   x = "time",
-  y = {"Rgb", "Rgg1", "Rgg2", "RCondGro"}, 
+  y = {"Rgb", "Rgg1", "Rgg2", "RCondGro"},
   autoscale = true,
   autoerase = true,
-  autoreplot = true, 
+  autoreplot = true,
   grid=true,
   color=true,
-  filename="FunctionInternalResistancesTwoUTubeNegative.mat", 
+  filename="FunctionInternalResistancesTwoUTubeNegative.mat",
   leftTitleType = 1,
   bottomTitleType = 1);
 
@@ -18,12 +18,12 @@ createPlot(
   id = 2,
   position = {35, 30, 631, 456},
   x = "time",
-  y = {"x"}, 
+  y = {"x"},
   autoscale = true,
   autoerase = true,
-  autoreplot = true, 
+  autoreplot = true,
   grid=true,
   color=true,
-  filename="FunctionInternalResistancesTwoUTubeNegative.mat", 
+  filename="FunctionInternalResistancesTwoUTubeNegative.mat",
   leftTitleType = 1,
   bottomTitleType = 1);
