@@ -1,13 +1,13 @@
 within Buildings.Controls.OBC.FDE.PackagedRTUs.Validation;
 model BASController "This model simulates BASController"
   Buildings.Controls.OBC.FDE.PackagedRTUs.BAScontroller basCont(
-    pBldgSPset=0.005,
-    pTotalTU=20,
+    pBldgSPset=3,
+    pTotalTU=12,
     minSATset=285.15,
     maxSATset=297.15,
     HeatSet=308.15,
-    maxDDSPset=0.012056,
-    minDDSPset=0.003014)
+    maxDDSPset=500,
+    minDDSPset=150)
     annotation (Placement(transformation(extent={{46,-2},{66,24}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse
   OccGen(
@@ -20,20 +20,20 @@ model BASController "This model simulates BASController"
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse
   booPul(
     width=0.0125,
-    period=1440,
+    period=800,
     startTime=1220)
     annotation (Placement(transformation(extent={{-90,40},{-70,60}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse
   booPul1(
-    width=0.00875,
-    period=1440,
-    startTime=2160)
+    width=0.000875,
+    period=150,
+    startTime=1000)
     annotation (Placement(transformation(extent={{-90,6},{-70,26}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse
   booPul2(
-    width=0.00275,
-    period=1440,
-    startTime=440)
+    width=0.000275,
+    period=150,
+    startTime=2800)
     annotation (Placement(transformation(extent={{-90,-26},{-70,-6}})));
   Buildings.Controls.OBC.CDL.Integers.OnCounter
   SBCreqGen(y_start=0)
@@ -45,8 +45,7 @@ model BASController "This model simulates BASController"
     width=0.25,
     period=680,
     startTime=1000)
-    annotation (Placement(transformation(extent={{-90,-58},
-            {-70,-38}})));
+    annotation (Placement(transformation(extent={{-90,-58},{-70,-38}})));
   Buildings.Controls.OBC.CDL.Integers.OnCounter
   totCoolReqsGen(y_start=0)
     annotation (Placement(transformation(extent={{-60,-54},{-48,-42}})));
@@ -54,9 +53,9 @@ model BASController "This model simulates BASController"
   highSpaceTGen(
     amplitude=5,
     freqHz=1/3600,
-    offset=27 + 273.15)
-    annotation (Placement(transformation(extent={{-90,
-            -88},{-70,-68}})));
+    offset=27 + 273.15,
+    startTime=1250)
+    annotation (Placement(transformation(extent={{-90,-88},{-70,-68}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine
   mostOpenDamGen(
     amplitude=10,
@@ -126,6 +125,8 @@ Buildings.Controls.OBC.FDE.PackagedRTUs.BAScontroller</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>August 21, 2020, by Henry Nickels:<br/>
+Built simulation script.</li>
 <li>August 16, 2020, by Henry Nickels:<br/>
 Added 'experiment' annotation.</li>
 <li>July 28, 2020, by Henry Nickels:<br/>

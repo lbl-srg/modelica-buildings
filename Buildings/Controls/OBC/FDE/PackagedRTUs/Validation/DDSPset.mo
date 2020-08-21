@@ -1,21 +1,15 @@
 within Buildings.Controls.OBC.FDE.PackagedRTUs.Validation;
 model DDSPset "This model simulates DDSPset"
-  Buildings.Controls.OBC.FDE.PackagedRTUs.DDSPset ddspst(
-  conPID(
-      k=0.0000001,
-      Ti=0.0025,
-      reverseAction=true))
-    annotation (Placement(transformation(extent={{28,4},{42,20}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine mostOpenDamGen(
-    amplitude=15,
+    amplitude=0.15,
     freqHz=1/4120,
-    offset=85)
-    annotation (Placement(transformation(extent={{-40,14},{-20,34}})));
+    offset=0.85)
+    annotation (Placement(transformation(extent={{-44,-10},{-24,10}})));
+  Buildings.Controls.OBC.FDE.PackagedRTUs.DDSPset DDSPset
+    annotation (Placement(transformation(extent={{34,-8},{54,12}})));
 equation
-  connect(dspst.mostOpenDam, mostOpenDamGen.y)
-  annotation (Line(
-  points={{26.6,10.4},{4,10.4},{4,24},{-18,24}},
-  color={0,0,127}));
+  connect(mostOpenDamGen.y, DDSPset.mostOpenDam)
+    annotation (Line(points={{-22,0},{32,0}}, color={0,0,127}));
   annotation (
     experiment(
       StopTime=5760,
@@ -43,6 +37,8 @@ Buildings.Controls.OBC.FDE.PackagedRTUs.DDSPset</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>August 21, 2020, by Henry Nickels:<br/>
+Built simulation script.</li>
 <li>August 16, 2020, by Henry Nickels:<br/>
 Added 'experiment' annotation.</li>
 <li>July 28, 2020, by Henry Nickels:<br/>

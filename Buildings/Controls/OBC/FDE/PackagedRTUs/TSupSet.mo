@@ -229,12 +229,6 @@ equation
       Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
         graphics={
-        Rectangle(
-          extent={{-382,126},{-182,-16}},
-          lineColor={179,151,128},
-          lineThickness=0.5,
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid),
         Text(
           extent={{38,90},{104,64}},
           lineColor={0,0,0},
@@ -247,12 +241,6 @@ between min and max values
 based on the total number
 of terminal unit cooling requests.",
           horizontalAlignment=TextAlignment.Left),
-        Rectangle(
-          extent={{-390,-58},{-190,-110}},
-          lineColor={179,151,128},
-          lineThickness=0.5,
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid),
         Text(
           extent={{-98,-20},{-42,-40}},
           lineColor={0,0,0},
@@ -265,12 +253,6 @@ set point is set to the highest
 terminal unit space temperature
 minus a constant 10 degrees.",
           horizontalAlignment=TextAlignment.Left),
-        Rectangle(
-          extent={{-366,-142},{-166,-210}},
-          lineColor={179,151,128},
-          lineThickness=0.5,
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid),
         Text(
           extent={{-96,-122},{-40,-142}},
           lineColor={0,0,0},

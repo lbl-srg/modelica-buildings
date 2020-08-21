@@ -82,6 +82,8 @@ Buildings.Controls.OBC.FDE.PackagedRTUs.OperatingMode</a>.
 </p>
 </html>",revisions="<html>
 <ul>
+<li>August 21, 2020, by Henry Nickels:<br/>
+Built simulation script.</li>
 <li>August 16, 2020, by Henry Nickels:<br/>
 Added 'experiment' annotation.</li>
 <li>July 28, 2020, by Henry Nickels:<br/>

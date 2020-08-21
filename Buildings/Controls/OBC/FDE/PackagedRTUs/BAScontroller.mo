@@ -9,8 +9,7 @@ block BAScontroller
   "Building differential static pressure set point"
   annotation (Dialog(group="System and building parameters"));
 
-  parameter Integer pTotalTU(min=2)=25
-  "Total number of terminal units"
+  parameter Integer pTotalTU(min=2) = 12 "Total number of terminal units"
   annotation (Dialog(group="System and building parameters"));
 
   parameter Real minSATset(
@@ -77,7 +76,7 @@ block BAScontroller
         iconTransformation(extent={{-140,-74},{-100,-34}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput mostOpenDam
     "Most open damper position of all terminal units" annotation (
-      Placement(transformation(extent={{-140,-100},{-100,-60}}),
+      Placement(transformation(extent={{-140,-108},{-100,-68}}),
         iconTransformation(extent={{-140,-100},{-100,-60}})));
 
   // ---outputs---
@@ -104,21 +103,27 @@ block BAScontroller
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yDDSPset
     "Calculated down duct static pressure set point"
     annotation (
-      Placement(transformation(extent={{100,-98},{140,-58}}),
+      Placement(transformation(extent={{100,-104},{140,-64}}),
         iconTransformation(extent={{100,-98},{140,-58}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput ySATset
     "Calculated supply air temperature set point"
     annotation (Placement(transformation(extent={{100,-46},{140,-6}}),
         iconTransformation(extent={{100,-46},{140,-6}})));
 
-  Buildings.Controls.OBC.FDE.PackagedRTUs.TSupSet tSupSet
+  Buildings.Controls.OBC.FDE.PackagedRTUs.TSupSet tSupSet(
+    minSATset=287.15,
+    maxSATset=292.15,
+    HeatSet=308.15,
+    TUpcntT=0.15)
     annotation (Placement(transformation(extent={{28,-2},{46,28}})));
-  Buildings.Controls.OBC.FDE.PackagedRTUs.OperatingMode operatingMode
+  Buildings.Controls.OBC.FDE.PackagedRTUs.OperatingMode operatingMode(TUpcntM=
+        0.15)
     annotation (Placement(transformation(extent={{-26,36},{-6,56}})));
   Buildings.Controls.OBC.FDE.PackagedRTUs.MinOAset minOAset
     annotation (Placement(transformation(extent={{28,74},{40,84}})));
-  Buildings.Controls.OBC.FDE.PackagedRTUs.DDSPset dDSPset
-    annotation (Placement(transformation(extent={{-10,-88},{4,-72}})));
+  Buildings.Controls.OBC.FDE.PackagedRTUs.DDSPset dDSPset(minDDSPset=125,
+      maxDDSPset=500)
+    annotation (Placement(transformation(extent={{-14,-98},{12,-72}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant BldgSPset(
     final k=pBldgSPset)
     "Building static pressure set point"
@@ -138,14 +143,14 @@ equation
           80},{-120,80}},            color={255,0,255}));
   connect(tSupSet.highSpaceT, highSpaceT) annotation (Line(points={{26.2,2.8},{-20,
           2.8},{-20,-54},{-120,-54}},             color={0,0,127}));
-  connect(dDSPset.mostOpenDam, mostOpenDam) annotation (Line(points={{-11.4,
-          -81.6},{-66,-81.6},{-66,-80},{-120,-80}},         color={0,0,127}));
+  connect(dDSPset.mostOpenDam, mostOpenDam) annotation (Line(points={{-16.6,
+          -87.6},{-66,-87.6},{-66,-88},{-120,-88}},         color={0,0,127}));
   connect(minOAset.yMinOAflowSet, yMinOAflowSet) annotation (Line(points={{41.44,
           79},{82,79},{82,78},{120,78}},     color={0,0,127}));
   connect(tSupSet.ySATset, ySATset) annotation (Line(points={{47.8,13},{55.1,13},
           {55.1,-26},{120,-26}},           color={0,0,127}));
-  connect(dDSPset.yDDSPset, yDDSPset) annotation (Line(points={{5.4,-80},{58,
-          -80},{58,-78},{120,-78}},
+  connect(dDSPset.yDDSPset, yDDSPset) annotation (Line(points={{14.6,-85},{58,
+          -85},{58,-84},{120,-84}},
                                  color={0,0,127}));
   connect(BldgSPset.y, yBldgSPset)
     annotation (Line(points={{52,-52},{120,-52}}, color={0,0,127}));

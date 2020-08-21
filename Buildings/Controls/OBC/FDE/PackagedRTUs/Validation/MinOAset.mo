@@ -1,17 +1,15 @@
 within Buildings.Controls.OBC.FDE.PackagedRTUs.Validation;
 model MinOAset "This model simulates MinOAset"
-  Buildings.Controls.OBC.FDE.PackagedRTUs.MinOAset miOAset
-    annotation (Placement(transformation(extent={{22,6},{34,16}})));
-  Buildings.Controls.OBC.FDE.PackagedRTUs.CDL.Logical.Sources.Pulse
-  OccGen(
-  width=0.5,
-  period=2880)
-    annotation (Placement(transformation(extent={{-54,10},{-34,30}})));
+  Buildings.Controls.OBC.FDE.PackagedRTUs.MinOAset MinOAset
+    annotation (Placement(transformation(extent={{12,-10},{32,10}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse
+  OccGen(width=0.5, period=2880)
+    annotation (Placement(transformation(extent={{-42,-10},{-22,10}})));
 equation
-  connect(minOAset.occ, OccGen.y) annotation (Line(points={{20.8,11},{-6,11},{
-          -6,20},{-32,20}},  color={255,0,255}));
 
 
+  connect(OccGen.y, MinOAset.occ)
+    annotation (Line(points={{-20,0},{10,0}}, color={255,0,255}));
   annotation (
   experiment(
     StopTime=5760,
@@ -38,6 +36,8 @@ Buildings.Controls.OBC.FDE.PackagedRTUs.MinOAset</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>August 21, 2020, by Henry Nickels:<br/>
+Built simulation script.</li>
 <li>August 16, 2020, by Henry Nickels:<br/>
 Added 'experiment' annotation.</li>
 <li>July 28, 2020, by Henry Nickels:<br/>

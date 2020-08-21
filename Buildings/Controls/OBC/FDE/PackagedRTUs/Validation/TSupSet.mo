@@ -2,27 +2,24 @@ within Buildings.Controls.OBC.FDE.PackagedRTUs.Validation;
 model TSupSet "This model simulates TSupSet"
   Buildings.Controls.OBC.FDE.PackagedRTUs.TSupSet TSupSet
     annotation (Placement(transformation(extent={{54,-10},{74,10}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse
-  booPul1(
-    width=0.00875,
-    period=1440,
-    startTime=2160)
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse sbcGenerator(
+    width=0.155,
+    period=680,
+    startTime=830)
     annotation (Placement(transformation(extent={{-34,-6},{-14,14}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse
-  booPul2(
-    width=0.00275,
-    period=1440,
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse sbhGenerator(
+    width=0.155,
+    period=720,
     startTime=440)
     annotation (Placement(transformation(extent={{-34,-40},{-14,-20}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse
-  booPul3(
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse coolReqGen(
     width=0.25,
-    period=680,
+    period=440,
     startTime=1000)
     annotation (Placement(transformation(extent={{-34,30},{-14,50}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant
   con(final k=false)
-    annotation (Placement(transformation(extent={{-72,16},{-52,36}})));
+    annotation (Placement(transformation(extent={{-72,12},{-52,32}})));
   Buildings.Controls.OBC.CDL.Integers.OnCounter
   totCoolReqsGen(y_start=0)
     annotation (Placement(transformation(extent={{-4,34},{8,46}})));
@@ -32,21 +29,21 @@ model TSupSet "This model simulates TSupSet"
     freqHz=1/3600,
     offset=27 + 273.15)
     annotation (Placement(transformation(extent={{-34,-76},{-14,-56}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(final k=12)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant totTU(final k=12)
     annotation (Placement(transformation(extent={{-34,62},{-14,82}})));
 equation
-  connect(booPul3.y,totCoolReqsGen. trigger)
-    annotation (Line(points={{-12,40},{-5.2,40}},    color={255,0,255}));
-  connect(con.y,totCoolReqsGen. reset) annotation (Line(points={{-50,26},{2,26},
+  connect(coolReqGen.y, totCoolReqsGen.trigger)
+    annotation (Line(points={{-12,40},{-5.2,40}}, color={255,0,255}));
+  connect(con.y,totCoolReqsGen. reset) annotation (Line(points={{-50,22},{2,22},
           {2,32.8}},              color={255,0,255}));
-  connect(conInt.y, TSupSet.TotalTU) annotation (Line(points={{-12,72},{40,72},{
+  connect(totTU.y, TSupSet.TotalTU) annotation (Line(points={{-12,72},{40,72},{
           40,7.6},{52,7.6}}, color={255,127,0}));
   connect(totCoolReqsGen.y, TSupSet.totCoolReqs) annotation (Line(points={{9.2,40},
           {30,40},{30,4},{52,4}}, color={255,127,0}));
-  connect(booPul1.y, TSupSet.sbc) annotation (Line(points={{-12,4},{20,4},{20,0.4},
-          {52,0.4}}, color={255,0,255}));
-  connect(booPul2.y, TSupSet.sbh) annotation (Line(points={{-12,-30},{20,-30},{20,
-          -3.2},{52,-3.2}}, color={255,0,255}));
+  connect(sbcGenerator.y, TSupSet.sbc) annotation (Line(points={{-12,4},{20,4},
+          {20,0.4},{52,0.4}}, color={255,0,255}));
+  connect(sbhGenerator.y, TSupSet.sbh) annotation (Line(points={{-12,-30},{20,-30},
+          {20,-3.2},{52,-3.2}}, color={255,0,255}));
   connect(highSpaceTGen.y, TSupSet.highSpaceT) annotation (Line(points={{-12,-66},
           {30,-66},{30,-6.8},{52,-6.8}}, color={0,0,127}));
   annotation (
@@ -66,5 +63,17 @@ equation
                 pattern = LinePattern.None,
                 fillPattern = FillPattern.Solid,
                 points={{-36,60},{64,0},{-36,-60},{-36,60}})}), Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+        coordinateSystem(preserveAspectRatio=false)),
+    Documentation(revisions="<html>
+<ul>
+<li>August 21, 2020, by Henry Nickels:<br/>
+Built simulation script.</li>
+<li>August 16, 2020, by Henry Nickels:<br/>
+Added 'experiment' annotation.</li>
+<li>July 28, 2020, by Henry Nickels:<br/>
+First implementation. 
+</li>
+</ul>
+</html>
+"));
 end TSupSet;
