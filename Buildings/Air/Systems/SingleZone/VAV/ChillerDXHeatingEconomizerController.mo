@@ -108,15 +108,6 @@ model ChillerDXHeatingEconomizerController
     "Economizer control"
     annotation (Placement(transformation(extent={{0,40},{20,60}})));
 
-  Controls.OBC.CDL.Continuous.Hysteresis                   hysChiPla(
-    uLow=-1,
-    uHigh=0)
-    "Hysteresis with delay to switch on cooling"
-    annotation (Placement(transformation(extent={{40,-50},{60,-30}})));
-
-  Modelica.Blocks.Math.Feedback errTRooCoo
-    "Control error on room temperature for cooling"
-    annotation (Placement(transformation(extent={{-42,-70},{-22,-50}})));
   Controls.Continuous.LimPID conCooVal(
     controllerType=Modelica.Blocks.Types.SimpleController.P,
     final yMax=1,
@@ -126,6 +117,9 @@ model ChillerDXHeatingEconomizerController
     "Cooling coil valve controller"
     annotation (Placement(transformation(extent={{0,-30},{20,-10}})));
 
+  Controls.OBC.CDL.Continuous.Greater chiOnTRoo(h=1)
+    "Chiller on signal based on room temperature"
+    annotation (Placement(transformation(extent={{40,-50},{60,-30}})));
 protected
   Modelica.Blocks.Sources.Constant TSetSupChiConst(
     final k=TSupChi_nominal)
@@ -147,12 +141,6 @@ equation
           -26,48},{-1,48}},                 color={0,0,127}));
   connect(TSetSupAirConst.y, conEco.TMixSet) annotation (Line(points={{-39,-20},
           {-20,-20},{-20,58},{-1,58}}, color={0,0,127}));
-  connect(errTRooCoo.y, hysChiPla.u) annotation (Line(points={{-23,-60},{0,-60},
-          {0,-40},{38,-40}},                           color={0,0,127}));
-  connect(TSetRooCoo, errTRooCoo.u2) annotation (Line(points={{-120,60},{-80,60},
-          {-80,-80},{-32,-80},{-32,-68}}, color={0,0,127}));
-  connect(errTRooCoo.u1, TRoo) annotation (Line(points={{-40,-60},{-74,-60},{
-          -120,-60}}, color={0,0,127}));
   connect(TSetSupAirConst.y,conCooVal. u_s)
     annotation (Line(points={{-39,-20},{-2,-20}},        color={0,0,127}));
   connect(conSup.TSetRooHea, TSetRooHea) annotation (Line(points={{-41,86},{-88,
@@ -160,7 +148,7 @@ equation
                                    color={0,0,127}));
   connect(conSup.TSetRooCoo, TSetRooCoo) annotation (Line(points={{-41,80},{-80,
           80},{-80,60},{-120,60}}, color={0,0,127}));
-  connect(conSup.TRoo, TRoo) annotation (Line(points={{-41,74},{-74,74},{-74,
+  connect(conSup.TRoo, TRoo) annotation (Line(points={{-41,74},{-88,74},{-88,
           -60},{-120,-60}},
                        color={0,0,127}));
   connect(conSup.yHea, conEco.yHea) annotation (Line(points={{-19,76},{-10,76},
@@ -186,8 +174,12 @@ equation
     annotation (Line(points={{61,-80},{110,-80}}, color={0,0,127}));
   connect(conCooVal.u_m, TSup)
     annotation (Line(points={{10,-32},{10,-90},{-120,-90}}, color={0,0,127}));
-  connect(hysChiPla.y, chiOn) annotation (Line(points={{61,-40},{80,-40},{110,
-          -40}},           color={255,0,255}));
+  connect(TRoo, chiOnTRoo.u1) annotation (Line(points={{-120,-60},{-88,-60},{
+          -88,-40},{38,-40}}, color={0,0,127}));
+  connect(TSetRooCoo, chiOnTRoo.u2) annotation (Line(points={{-120,60},{-80,60},
+          {-80,-48},{38,-48}}, color={0,0,127}));
+  connect(chiOnTRoo.y, chiOn)
+    annotation (Line(points={{62,-40},{110,-40}}, color={255,0,255}));
   annotation (Icon(graphics={Line(points={{-100,-100},{0,2},{-100,100}}, color=
               {0,0,0})}), Documentation(info="<html>
 <p>
