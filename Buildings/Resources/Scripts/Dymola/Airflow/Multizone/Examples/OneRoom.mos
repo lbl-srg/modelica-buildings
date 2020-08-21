@@ -1,6 +1,6 @@
 translateModel("Buildings.Airflow.Multizone.Examples.OneRoom");
 simulateModel("Buildings.Airflow.Multizone.Examples.OneRoom", stopTime=1,
- method="radau", tolerance=1e-06, resultFile="OneRoom");
+ method="CVode", tolerance=1e-06, resultFile="OneRoom");
 createPlot(id = 2,
  position = {35, 30, 825, 625},
  y = {"oriOutTop.port_a.m_flow", "oriOutBot.port_a.m_flow"},

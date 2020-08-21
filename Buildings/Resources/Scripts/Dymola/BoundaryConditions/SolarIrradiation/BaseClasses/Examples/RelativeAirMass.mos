@@ -1,5 +1,5 @@
 removePlots();
-simulateModel("Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.Examples.RelativeAirMass", tolerance=1e-6, stopTime=864000, method="dassl", resultFile="RelativeAirMass");
+simulateModel("Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.Examples.RelativeAirMass", tolerance=1e-6, stopTime=864000, method="CVode", resultFile="RelativeAirMass");
 createPlot(id = 1,
  position = {7, 7, 746, 517},
  y = {"relAirMas.relAirMas"},
