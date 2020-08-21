@@ -1,19 +1,10 @@
-within Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.SetPoints;
+within Buildings.Controls.OBC.ASHRAE.G36.ThermalZones;
 package Validation "Collection of validation models"
-
 annotation (preferredView="info", Documentation(info="<html>
 <p>
 This package contains validation models for the classes in
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.SetPoints\">
-Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.SetPoints</a>.
-</p>
-<p>
-Note that most validation models contain simple input data
-which may not be realistic, but for which the correct
-output can be obtained through an analytic solution.
-The examples plot various outputs, which have been verified against these
-solutions. These model outputs are stored as reference data and
-used for continuous validation whenever models in the library change.
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.VentilationZones.ASHRAE62_1\">
+Buildings.Controls.OBC.ASHRAE.G36.VentilationZones.ASHRAE62_1</a>.
 </p>
 </html>"),
   Icon(graphics={
