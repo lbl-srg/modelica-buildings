@@ -1277,7 +1277,6 @@ following the steps below.
 <li>
 According to Guideline 36, Section 3.1.1.1, zone setpoints shall be based on zone
 type.
-</li>
 <table border = \"1\" summary=\"Peak load\">
 <tr>
 <th rowspan=\"2\">Zone Type</th>
@@ -1311,6 +1310,7 @@ type.
 </tr>
 </table>
 <br/>
+</li>
 <li>Each zone shall have separate occupied and unoccupied heating and cooling
 setpoints.</li>
 <li>The active setpoints shall be determined by the operating mode of the zone
@@ -1323,7 +1323,7 @@ and setup modes.</li>
 </ul>
 </li>
 <li>
-The software shall prevent
+The software shall prevent,
 <ul>
 <li>The heating setpoint from exceeding the cooling setpoint minus 0.5 &deg;C
 (1 &deg;F), i.e. the minimum difference between heating and cooling setpoint
@@ -1335,18 +1335,17 @@ setpoint.</li>
 </ul>
 </li>
 <li>
-Where the zone has a local setpoint adjustment knob/button
+Where the zone has a local setpoint adjustment knob/button,
 <ul>
 <li>The setpoint adjustment offsets established by the occupant shall be software
 points that are persistent (e.g. not reset daily), but the actual offset used
 in control logic shall be adjusted based on limits and modes as described below.</li>
-<li>The adjustment shall be capable of being limited in softare. 
+<li>The adjustment shall be capable of being limited in softare.
 <ol type=\"i\">
-<li>
-As a default, the active occupied cooling setpoint shall be limited between 22 &deg;C
+<li>As a default, the active occupied cooling setpoint shall be limited between 22 &deg;C
 (72 &deg;F) and 27 &deg;C (80 &deg;F);</li>
 <li>As a default, the active occupied heating setpoint shall be limited between
-18 &deg;C (65 &deg;F) and 22 &deg;C (72 &deg;F);
+18 &deg;C (65 &deg;F) and 22 &deg;C (72 &deg;F);</li>
 </ol>
 </li>
 <li>The active heating and cooling setpoint shall be independently adjustable,
@@ -1360,7 +1359,6 @@ be frozen. Further adjustment of the setpoint by local controls shall be suspend
 for the duration of the demand limit event.</li>
 </ul>
 </li>
-
 <li>Cooling demand limit setpoint adjustment.
 The active cooling setpoints for all zones shall be increased when a demand limit
 is imposed on the associated zone group. The operator shall have the ability

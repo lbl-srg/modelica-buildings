@@ -606,7 +606,6 @@ should be zero and the occupied minimum airflow rate should be <code>VZonMin_flo
 </li>
 <li>
 If the zone has a CO2 sensor:
-</li>
 <ol type=\"i\">
 <li>
 Specify CO2 setpoint <code>ppmCO2Set</code> according to Section 3.1.1.3 of Guideline 36.
@@ -623,7 +622,6 @@ For cooling-only VAV terminal units, reheat VAV terminal units, constant-volume 
 fan-powered terminal units, dual-duct VAV terminal units with mixing control and inlet
 airflow sensors, dual-duct VAV terminal units with mixing control and a discharge
 airflow sensor, or dual-duct VAV terminal units with cold-duct minimum control:
-</li>
 <ul>
 <li>
 The CO2 control loop output shall reset both the occupied minimum airflow setpoint
@@ -639,9 +637,9 @@ the designed population component airflow setpoint at 100% loop output.
 <img alt=\"Image of airflow setpoint for VAV reheat terminal unit\"
 src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/VentilationZones/ASHRAE61_1/setpoints_reheat.png\"/>
 </p>
+</li>
 <li>
 For parallel fan-powered terminal units:
-</li>
 <ul>
 <li>
 Determin the maximum flow rate for control CO2 level: when the zone state is cooling,
@@ -662,18 +660,20 @@ the designed population component airflow setpoint at 100% loop output.
 <img alt=\"Image of airflow setpoint for VAV parallel-fan terminal unit\"
 src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/VentilationZones/ASHRAE61_1/setpoints_parallelFan.png\"/>
 </p>
+</li>
 <li>
 For single zoneVAV air handler unit: The minimum outdoor air setpoint is equal to
 the breathing zone outdoor airflow setpoint. The CO2 control loop output shall reset
 the population component of the required breathing zone outdoor airflow from 0 L/s
 at 0% loop output up to the designed population component airflow setpoint at
 100% loop output.
-</li>
 <p align=\"center\">
 <img alt=\"Image of airflow setpoint for single zone VAV AHU\"
 src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/VentilationZones/ASHRAE61_1/setpoints_SZVAV.png\"/>
 </p>
+</li>
 </ol>
+</li>
 </ol>
 </html>", revisions="<html>
 <ul>
