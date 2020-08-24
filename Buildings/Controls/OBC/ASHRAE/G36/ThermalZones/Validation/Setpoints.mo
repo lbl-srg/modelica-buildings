@@ -116,10 +116,10 @@ equation
     annotation (Line(points={{2,20},{18,20},{18,59},{98,59}}, color={0,0,127}));
   connect(swi1.y, TZonSet.heaSetAdj)
     annotation (Line(points={{2,-20},{22,-20},{22,56},{98,56}}, color={0,0,127}));
-  connect(occSta.y, TZonSet.uOccSen) annotation (Line(points={{82,20},{88,20},{88,
+  connect(occSta.y, TZonSet.uOcc) annotation (Line(points={{82,20},{88,20},{88,
           45},{98,45}}, color={255,0,255}));
-  connect(winSta.y, TZonSet.uWinSta) annotation (Line(points={{82,-20},{92,-20},
-          {92,42},{98,42}}, color={255,0,255}));
+  connect(winSta.y, TZonSet.uWin) annotation (Line(points={{82,-20},{92,-20},{
+          92,42},{98,42}}, color={255,0,255}));
 
 annotation (
   experiment(StopTime=28800, Tolerance=1e-6),

@@ -113,14 +113,14 @@ block Setpoints
     "Heating demand limit level"
     annotation (Placement(transformation(extent={{-460,-110},{-420,-70}}),
         iconTransformation(extent={{-140,-130},{-100,-90}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uOccSen if have_occSen
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uOcc if have_occSen
     "Occupancy sensor (occupied=true, unoccupied=false)"
     annotation (Placement(transformation(extent={{-460,-290},{-420,-250}}),
-      iconTransformation(extent={{-140,-170},{-100,-130}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWinSta if have_winSen
+        iconTransformation(extent={{-140,-170},{-100,-130}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWin if have_winSen
     "Window status (open=true, close=false)"
     annotation (Placement(transformation(extent={{-460,-430},{-420,-390}}),
-      iconTransformation(extent={{-140,-200},{-100,-160}})));
+        iconTransformation(extent={{-140,-200},{-100,-160}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TZonCooSet(
     final unit="K",
     final displayUnit="degC",
@@ -820,7 +820,7 @@ equation
   connect(swi3.y, swi11.u1)
     annotation (Line(points={{242,250},{260,250},{260,186},{-186,186},{-186,-48},
           {208,-48},{208,-122},{218,-122}}, color={0,0,127}));
-  connect(uOccSen, not4.u)
+  connect(uOcc, not4.u)
     annotation (Line(points={{-440,-270},{-342,-270}}, color={255,0,255}));
   connect(conTru.y, not4.u)
     annotation (Line(points={{-358,-350},{-350,-350},{-350,-270},{-342,-270}},
@@ -894,9 +894,8 @@ equation
   connect(intEqu2.y, not5.u)
     annotation (Line(points={{-76,610},{-60,610},{-60,380},{280,380},{280,-220},
           {-300,-220},{-300,-390},{-282,-390}}, color={255,0,255}));
-  connect(uWinSta, and11.u2)
-    annotation (Line(points={{-440,-410},{-260,-410},{-260,-418},{-222,-418}},
-      color={255,0,255}));
+  connect(uWin, and11.u2) annotation (Line(points={{-440,-410},{-260,-410},{-260,
+          -418},{-222,-418}}, color={255,0,255}));
   connect(not5.y, and11.u1)
     annotation (Line(points={{-258,-390},{-240,-390},{-240,-410},{-222,-410}},
       color={255,0,255}));
@@ -911,12 +910,10 @@ equation
   connect(swi16.y, reaToInt.u)
     annotation (Line(points={{-78,-410},{-64,-410},{-64,-390},{158,-390}},
       color={0,0,127}));
-  connect(uWinSta, swi14.u2)
-    annotation (Line(points={{-440,-410},{-260,-410},{-260,-432},{-200,-432},
-      {-200,-450},{-182,-450}}, color={255,0,255}));
-  connect(uWinSta, swi15.u2)
-    annotation (Line(points={{-440,-410},{-260,-410},{-260,-432},{-80,-432},
-      {-80,-450},{-62,-450}}, color={255,0,255}));
+  connect(uWin, swi14.u2) annotation (Line(points={{-440,-410},{-260,-410},{-260,
+          -432},{-200,-432},{-200,-450},{-182,-450}}, color={255,0,255}));
+  connect(uWin, swi15.u2) annotation (Line(points={{-440,-410},{-260,-410},{-260,
+          -432},{-80,-432},{-80,-450},{-62,-450}}, color={255,0,255}));
   connect(cooSetWinOpe.y, swi14.u1)
     annotation (Line(points={{-218,-470},{-204,-470},{-204,-442},{-182,-442}},
       color={0,0,127}));
@@ -1116,17 +1113,17 @@ annotation (
           pattern=LinePattern.Dash,
           textString="uHeaDemLimLev"),
         Text(
-          extent={{-24.5,8},{24.5,-8}},
+          extent={{-18.5,8},{18.5,-8}},
           lineColor={255,0,255},
           pattern=LinePattern.Dash,
-          origin={-72.5,-150},
-          textString="uOccSen"),
+          origin={-78.5,-150},
+          textString="uOcc"),
         Text(
-          extent={{-23,7.5},{23,-7.5}},
+          extent={{-18,7.5},{18,-7.5}},
           lineColor={255,0,255},
           pattern=LinePattern.Dash,
-          origin={-75,-178.5},
-          textString="uWinSta"),
+          origin={-80,-178.5},
+          textString="uWin"),
         Text(
           extent={{68,-70},{100,-86}},
           lineColor={255,127,0},
