@@ -367,10 +367,7 @@ equation
           fillPattern=FillPattern.Solid)}),
     Documentation(revisions="<html>
 <ul>
-<li>
-March 30, 2014 by Sen Huang:<br/>
-First implementation.
-</li>
+<li>May 19, 2020 by Jing Wang:<br>First implementation. </li>
 </ul>
 </html>"));
 end CoolingTowerWithBypass;

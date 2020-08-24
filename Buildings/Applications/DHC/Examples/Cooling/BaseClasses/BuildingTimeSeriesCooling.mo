@@ -128,7 +128,7 @@ model BuildingTimeSeriesCooling
     "Cooling demand"
     annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
 
-  Buildings.Applications.DHC.EnergyTransferStations.CoolingDirectControlledReturn ets(
+  Buildings.Applications.DHC.EnergyTransferStations.Cooling.CoolingDirectControlledReturn ets(
     redeclare package Medium = Medium,
     mDis_flow_nominal=mDis_flow_nominal,
     mBui_flow_nominal=mBui_flow_nominal,
