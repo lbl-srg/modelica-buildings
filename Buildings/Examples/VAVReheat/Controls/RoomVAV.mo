@@ -113,7 +113,7 @@ block RoomVAV "Controller for room VAV box"
   Buildings.Controls.OBC.CDL.Continuous.Feedback dTSet
     "Difference between cooling and heating set points"
     annotation (Placement(transformation(extent={{-50,-130},{-30,-110}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(threshold=dTHys)
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(t=dTHys)
     "Test for overlap of heating and cooling set points "
     annotation (Placement(transformation(extent={{-10,-130},{10,-110}})));
 protected

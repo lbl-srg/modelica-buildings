@@ -39,18 +39,18 @@ model OperationMode "Validate block for selecting operation mode"
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant cloWin(
     final k=0) "No window is open"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}}, origin={-130,0})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterEqual lowThaHeaSet
+  Buildings.Controls.OBC.CDL.Continuous.Greater lowThaHeaSet
     "True when the zone temperature is lower than the occupied heating setpoint"
     annotation (Placement(transformation(extent={{0,70},{20,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterEqual higThaCooSet
+  Buildings.Controls.OBC.CDL.Continuous.Greater higThaCooSet
     "True when the zone temperature is higher than the occupied cooling setpoint"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterEqual greEqu2
+  Buildings.Controls.OBC.CDL.Continuous.Greater greEqu2
     "True when the zone temperature is lower than unoccupied heating setpoint"
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt "Convert boolean to integer"
     annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterEqual greEqu3
+  Buildings.Controls.OBC.CDL.Continuous.Greater greEqu3
     "True when the zone temperature is lower than unoccupied heating setpoint"
     annotation (Placement(transformation(extent={{0,-110},{20,-90}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt1 "Convert boolean to integer"

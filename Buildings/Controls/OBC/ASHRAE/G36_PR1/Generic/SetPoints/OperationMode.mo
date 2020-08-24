@@ -106,7 +106,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Switch corWarUpTim "Corrected warm-up period"
     annotation (Placement(transformation(extent={{-200,140},{-180,160}})));
   Buildings.Controls.OBC.CDL.Integers.GreaterThreshold intGreThr(
-    final threshold=4) "Check if the number of cold zones is not less than than 5"
+    final t=4) "Check if the number of cold zones is not less than than 5"
     annotation (Placement(transformation(extent={{-280,20},{-260,40}})));
   Buildings.Controls.OBC.CDL.Logical.Latch lat
     "If all zone temperature are higher than unoccupied heating setpoint by a given limit, then the setback mode should be off"
@@ -166,7 +166,7 @@ protected
     "Allowed maximum warm-up or cool-down time"
     annotation (Placement(transformation(extent={{-340,190},{-320,210}})));
   Buildings.Controls.OBC.CDL.Integers.GreaterThreshold intGreThr2(
-    final threshold=4) "Check if the number of hot zones is not less than than 5"
+    final t=4) "Check if the number of hot zones is not less than than 5"
     annotation (Placement(transformation(extent={{-280,-200},{-260,-180}})));
   Buildings.Controls.OBC.CDL.Integers.Add addInt "Sum of two integer inputs"
     annotation (Placement(transformation(extent={{240,280},{260,300}})));
@@ -271,7 +271,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Not not5 "Logical not"
     annotation (Placement(transformation(extent={{-20,-140},{0,-120}})));
   Buildings.Controls.OBC.CDL.Integers.GreaterThreshold notOcc(
-    final threshold=1)
+    final t=1)
     "Check if the operation mode is other than occupied mode"
     annotation (Placement(transformation(extent={{100,60},{120,80}})));
   Buildings.Controls.OBC.CDL.Logical.And and3
@@ -346,7 +346,7 @@ protected
     "End setup mode when the input becomes true"
     annotation (Placement(transformation(extent={{-160,-280},{-140,-260}})));
   Buildings.Controls.OBC.CDL.Integers.GreaterThreshold intGreThr1(
-    final  threshold=1) "Check if there is any zone with opening window"
+    final  t=1) "Check if there is any zone with opening window"
     annotation (Placement(transformation(extent={{-260,80},{-240,100}})));
   Buildings.Controls.OBC.CDL.Integers.Add addInt6
     "Total cold zone and zones with opening window"

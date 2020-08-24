@@ -1,4 +1,4 @@
-within Buildings.Controls.OBC.CDL.Continuous.Validation;
+within Buildings.Obsolete.Controls.OBC.CDL.Continuous.Validation;
 model LessEqualThreshold  "Validation model for the LessEqualThreshold block"
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ramp1(
     duration=1,
@@ -6,7 +6,7 @@ model LessEqualThreshold  "Validation model for the LessEqualThreshold block"
     height=4)  "Block that generates ramp signal"
     annotation (Placement(transformation(extent={{-36,-10},{-16,10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.LessEqualThreshold lesEquThr
+  Buildings.Obsolete.Controls.OBC.CDL.Continuous.LessEqualThreshold lesEquThr
     "Check if the input is less than or equal to the threshold"
     annotation (Placement(transformation(extent={{16,-10},{36,10}})));
 
@@ -16,13 +16,13 @@ equation
 
 annotation (
   experiment(StopTime=1.0, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Continuous/Validation/LessEqualThreshold.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Obsolete/Controls/OBC/CDL/Continuous/Validation/LessEqualThreshold.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
 Validation test for the block
-<a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.LessEqualThreshold\">
-Buildings.Controls.OBC.CDL.Continuous.LessEqualThreshold</a>.
+<a href=\"modelica://Buildings.Obsolete.Controls.OBC.CDL.Continuous.LessEqualThreshold\">
+Buildings.Obsolete.Controls.OBC.CDL.Continuous.LessEqualThreshold</a>.
 </p>
 </html>", revisions="<html>
 <ul>

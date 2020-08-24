@@ -11,15 +11,11 @@ Exp
 Feedback
 Gain
 Greater
-GreaterEqual
-GreaterEqualThreshold
 GreaterThreshold
 Hysteresis
 HysteresisWithHold
 IntegratorWithReset
 Less
-LessEqual
-LessEqualThreshold
 LessThreshold
 Limiter
 Line
