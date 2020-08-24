@@ -28,72 +28,68 @@ block Controller
     final quantity="ThermodynamicTemperature")=303.15
     "Cooling setpoint during off"
     annotation (Dialog(group="Zone setpoints"));
-
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeCoo=
      Buildings.Controls.OBC.CDL.Types.SimpleController.PI "Type of controller"
-    annotation (Dialog(group="Cooling loop signal"));
+    annotation (Dialog(group="Cooling loop control"));
   parameter Real kCoo(final unit="1/K") = 0.1
     "Gain for cooling control loop signal"
-    annotation(Dialog(group="Cooling loop signal"));
+    annotation(Dialog(group="Cooling loop control"));
   parameter Real TiCoo(
     final unit="s",
     final quantity="Time")=900
     "Time constant of integrator block for cooling control loop signal"
-    annotation(Dialog(group="Cooling loop signal",
+    annotation(Dialog(group="Cooling loop control",
       enable=controllerTypeCoo == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
           or controllerTypeCoo == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   parameter Real TdCoo(
     final unit="s",
     final quantity="Time")=0.1
     "Time constant of derivative block for cooling control loop signal"
-    annotation (Dialog(group="Cooling loop signal",
+    annotation (Dialog(group="Cooling loop control",
       enable=controllerTypeCoo == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
           or controllerTypeCoo == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
-
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeHea=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
-    annotation(Dialog(group="Heating loop signal"));
+    annotation(Dialog(group="Heating loop control"));
   parameter Real kHea(final unit="1/K")=0.1
     "Gain for heating control loop signal"
-    annotation(Dialog(group="Heating loop signal"));
+    annotation(Dialog(group="Heating loop control"));
   parameter Real TiHea(
     final unit="s",
     final quantity="Time")=900
     "Time constant of integrator block for heating control loop signal"
-    annotation(Dialog(group="Heating loop signal",
+    annotation(Dialog(group="Heating loop control",
     enable=controllerTypeHea == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
         or controllerTypeHea == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   parameter Real TdHea(
     final unit="s",
     final quantity="Time")=0.1
     "Time constant of derivative block for heating control loop signal"
-    annotation (Dialog(group="Heating loop signal",
+    annotation (Dialog(group="Heating loop control",
       enable=controllerTypeHea == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
           or controllerTypeHea == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
-
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeCooCoi=
-    Buildings.Controls.OBC.CDL.Types.SimpleController.P
+    Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
-    annotation(Dialog(group="Cooling coil loop signal"));
-  parameter Real kCooCoi(final unit="1/K")=1.0
-    "Gain for cooling coil control loop signal"
-    annotation(Dialog(group="Cooling coil loop signal"));
+    annotation(Dialog(group="Cooling coil control"));
+  parameter Real kCooCoi(final unit="1/K")=0.1
+    "Gain for cooling coil control signal"
+    annotation(Dialog(group="Cooling coil control"));
   parameter Real TiCooCoil(
     final unit="s",
     final quantity="Time")=900
-    "Time constant of integrator block for cooling coil control loop signal"
-    annotation(Dialog(group="Cooling coil loop signal",
+    "Time constant of integrator block for cooling coil control signal"
+    annotation(Dialog(group="Cooling coil control",
     enable=controllerTypeCooCoi == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
         or controllerTypeCooCoi == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   parameter Real TdCooCoil(
     final unit="s",
     final quantity="Time")=0.1
-    "Time constant of derivative block for cooling coil control loop signal"
-    annotation (Dialog(group="Cooling coil loop signal",
+    "Time constant of derivative block for cooling coil control signal"
+    annotation (Dialog(group="Cooling coil control",
       enable=controllerTypeCooCoi == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
           or controllerTypeCooCoi == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
-
   parameter Real TSupSetMax(
     final unit="K",
     displayUnit="degC",
@@ -115,7 +111,6 @@ block Controller
   parameter Real yCooMax(min=0, max=1, unit="1") = 1
     "Maximum fan speed for cooling"
     annotation (Dialog(tab="VAV Setpoints",group="Speed"));
-
   parameter Real VOutPerAre_flow(final unit="m3/(s.m2)") = 3e-4
     "Outdoor air rate per unit area"
     annotation(Dialog(tab="Outside Air Flow", group="Nominal condition"));
@@ -186,7 +181,6 @@ block Controller
     final unit="1") = 0.9
     "Upper limit of controller output uTSup at which the dampers are at their limits"
     annotation(Dialog(tab="Economizer", group="General"));
-
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeFre=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
@@ -216,7 +210,6 @@ block Controller
     final quantity="ThermodynamicTemperature")=277.15
     "Lower limit for mixed air temperature for freeze protection, used if use_TMix=true"
      annotation(Dialog(tab="Economizer", group="Freeze protection", enable=use_TMix));
-
   parameter Real VOutMin_flow(
     final unit="m3/s",
     final quantity="VolumeFlowRate")=1.0
@@ -523,7 +516,8 @@ block Controller
     final decTSetDem_2=decTSetDem_2,
     final decTSetDem_3=decTSetDem_3,
     final uLow=uLow,
-    final uHigh=uHigh) "Zone setpoint and operation mode"
+    final uHigh=uHigh)
+    "Zone setpoint and operation mode"
     annotation (Placement(transformation(extent={{-140,150},{-120,170}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.SetPoints.Supply
     setPoiVAV(
@@ -546,7 +540,8 @@ block Controller
     final controllerType=controllerTypeHea,
     final k=kHea,
     final Ti=TiHea,
-    final Td=TdHea) "Zone heating control signal"
+    final Td=TdHea)
+    "Zone heating control signal"
     annotation (Placement(transformation(extent={{-80,210},{-60,230}})));
   Buildings.Controls.OBC.CDL.Continuous.Average ave
     "Average of zone heating and cooling setpoint"
@@ -580,7 +575,8 @@ block Controller
     final use_enthalpy=use_enthalpy,
     final use_fixed_plus_differential_drybulb=use_fixed_plus_differential_drybulb,
     final yFanMin=0,
-    final yFanMax=1) "Economizer control sequence"
+    final yFanMax=1)
+    "Economizer control sequence"
     annotation (Placement(transformation(extent={{120,-50},{140,-30}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.SetPoints.OutsideAirFlow
     outAirSetPoi(
@@ -604,7 +600,8 @@ block Controller
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu
     "Check if current operation mode is unoccupied mode"
     annotation (Placement(transformation(extent={{-100,-240},{-80,-220}})));
-  Buildings.Controls.OBC.CDL.Logical.Not switch "If in unoccupied mode, switch off"
+  Buildings.Controls.OBC.CDL.Logical.Not switch
+    "If in unoccupied mode, switch off"
     annotation (Placement(transformation(extent={{-70,-240},{-50,-220}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.CoolingCoil cooCoi(
     final controllerTypeCooCoi=controllerTypeCooCoi, kCooCoi=kCooCoi)
@@ -670,8 +667,7 @@ equation
           -210},{-220,-210}}, color={0,0,127}));
   connect(conEco.yHeaCoi, yHeaCoi) annotation (Line(points={{141,-36},{174,-36},
           {174,-50},{220,-50}}, color={0,0,127}));
-  connect(cooCoi.yCooCoi, yCooCoi)
-    annotation (Line(points={{142,-120},{178,-120},{178,-110},{220,-110}},
+  connect(cooCoi.yCooCoi, yCooCoi)   annotation (Line(points={{142,-120},{178,-120},{178,-110},{220,-110}},
           color={0,0,127}));
   connect(switch.y, cooCoi.uSupFan) annotation (Line(points={{-48,-230},{60,-230},
           {60,-128},{118,-128}},  color={255,0,255}));
@@ -758,7 +754,7 @@ annotation (defaultComponentName="conVAV",
         fillColor={255,255,255},
         fillPattern=FillPattern.Solid),
         Text(
-          extent={{-220,340},{200,260}},
+          extent={{-204,354},{216,274}},
           textString="%name",
           lineColor={0,0,255}),
         Text(

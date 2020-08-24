@@ -319,6 +319,17 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">non-backward compatible</b> way:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.Air</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Air.Systems.SingleZone.VAV
+    </td>
+    <td valign=\"top\">Updated parameters of the two HVAC controllers such as PI gains, damper positions,
+                       and supply air temperature limits to make example models comparable.
+                       Added CO2 monitoring.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1893\">issue 1608</a>.
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Controls.Continuous</b>
     </td>
 </tr>
@@ -336,10 +347,10 @@ have been <b style=\"color:blue\">improved</b> in a
                        changes in reverse to the measurement signal.<br/>
                        This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1365\">IBPSA, #1365</a>.<br/>
                        For Dymola, a conversion script makes this change.</td>
-                       </tr>
- <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL.Continuous</b>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL.Continuous</b>
     </td>
-    </tr>
+</tr>
 <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.LimPID
     </td>
     <td valign=\"top\">Corrected wrong convention of reverse and direct action.
@@ -352,7 +363,7 @@ have been <b style=\"color:blue\">improved</b> in a
                        changes in reverse to the measurement signal.<br/>
                        This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1365\">IBPSA, #1365</a>.<br/>
                        For Dymola, a conversion script makes this change.</td>
-                       </tr>
+</tr>
 <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold<br/>
                        Buildings.Controls.OBC.CDL.Continuous.GreaterEqual<br/>
                        Buildings.Controls.OBC.CDL.Continuous.LessEqualThreshold<br/>
