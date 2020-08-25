@@ -41,7 +41,7 @@ protected
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
   Buildings.Controls.OBC.CDL.Logical.Timer tim "Measures chiller OFF time"
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr(
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greEquThr(
     final threshold=offTimThr)
     "Check if the chiller has been OFF for more than 3 minutes"
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));

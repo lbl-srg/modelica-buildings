@@ -1,8 +1,8 @@
 compareVars :=
   {
-    "limPID.u_s",
-    "limPID.u_m",
-    "limPID.y",
+    "PID.u_s",
+    "PID.u_m",
+    "PID.y",
     "conVolFlo.y",
     "conMasVolFra.V"
   };

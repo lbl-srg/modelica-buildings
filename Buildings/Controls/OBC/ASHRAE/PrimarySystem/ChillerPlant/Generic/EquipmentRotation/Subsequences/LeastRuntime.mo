@@ -37,7 +37,7 @@ protected
     final k=fill(false, nDev)) "Constant"
     annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.GreaterEqual longer1
+  Buildings.Controls.OBC.CDL.Continuous.Greater longer1
     "Runtime of the first device is longer or equal runtime of the second device"
     annotation (Placement(transformation(extent={{-20,50},{0,70}})));
 

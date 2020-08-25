@@ -49,7 +49,7 @@ model ASHRAE2006
     annotation (Placement(transformation(extent={{1040,30},{1060,50}})));
   Controls.RoomVAV conVAVWes "Controller for terminal unit west"
     annotation (Placement(transformation(extent={{1240,28},{1260,48}})));
-  Buildings.Controls.Continuous.LimPID heaCoiCon(
+  Buildings.Controls.Continuous.PID heaCoiCon(
     yMax=1,
     yMin=0,
     Td=60,
@@ -58,7 +58,7 @@ model ASHRAE2006
     Ti=300)
            "Controller for heating coil"
     annotation (Placement(transformation(extent={{-80,-212},{-60,-192}})));
-  Buildings.Controls.Continuous.LimPID cooCoiCon(
+  Buildings.Controls.Continuous.PID cooCoiCon(
     reverseActing=false,
     Td=60,
     initType=Modelica.Blocks.Types.InitPID.InitialState,

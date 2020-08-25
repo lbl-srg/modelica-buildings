@@ -79,7 +79,7 @@ protected
   Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep1(
     final nout=nChi) "Replicate boolean input"
     annotation (Placement(transformation(extent={{80,70},{100,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr[nChi](
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greEquThr[nChi](
     final threshold=fill(0.5, nChi))
     "Convert real input to boolean output"
     annotation (Placement(transformation(extent={{180,-10},{200,10}})));

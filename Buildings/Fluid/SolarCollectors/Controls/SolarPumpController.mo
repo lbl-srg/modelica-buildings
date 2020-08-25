@@ -10,7 +10,7 @@ model SolarPumpController
     annotation (choicesAllMatching=true, Placement(transformation(extent={{60,60},{80,80}})));
 
   Modelica.Blocks.Interfaces.RealInput TIn(final unit = "K",
-  displayUnit = "degC", quantity = "ThermodynamicTemperature")
+  final displayUnit = "degC", quantity = "ThermodynamicTemperature")
     "Fluid temperature entering the collector"
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
   Modelica.Blocks.Interfaces.RealOutput y(min=0, max=1, unit="1")

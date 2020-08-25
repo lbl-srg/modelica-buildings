@@ -84,11 +84,11 @@ protected
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add1(final k2=-1) "Add real inputs"
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr(
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greEquThr(
     final threshold=timPer)
     "Check if the time is greater than delay time period"
     annotation (Placement(transformation(extent={{40,30},{60,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr1(
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greEquThr1(
     final threshold=timPer)
     "Check if the time is greater than 10 minutes"
     annotation (Placement(transformation(extent={{40,-90},{60,-70}})));

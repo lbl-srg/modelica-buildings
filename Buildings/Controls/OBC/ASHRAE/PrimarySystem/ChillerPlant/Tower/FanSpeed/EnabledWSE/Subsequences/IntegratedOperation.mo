@@ -64,7 +64,7 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer[nChi](
     final k=fill(0, nChi)) "Zero constant"
     annotation (Placement(transformation(extent={{-120,70},{-100,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.LimPID loaCon(
+  Buildings.Controls.OBC.CDL.Continuous.PID loaCon(
     final controllerType=conTyp,
     final k=k,
     final Ti=Ti,
@@ -121,7 +121,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Timer intOpeTim
     "Count the time after plant switching from WSE-only mode to integrated operation mode"
     annotation (Placement(transformation(extent={{80,-120},{100,-100}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr(
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greEquThr(
     final threshold=intModTim)
     "Check if it has passed threshold time after switching from WSE only to integrated mode"
     annotation (Placement(transformation(extent={{120,-120},{140,-100}})));

@@ -131,7 +131,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Pre pre "Previous value"
     annotation (Placement(transformation(extent={{60,-240},{80,-220}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.LessEqualThreshold lesEquThr(
+  Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesEquThr(
     final threshold=delayStaCha) "Less equal threshold"
     annotation (Placement(transformation(extent={{20,-240},{40,-220}})));
 

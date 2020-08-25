@@ -1,20 +1,20 @@
-simulateModel("Buildings.Controls.Continuous.Examples.LimPID", method="Cvode", tolerance=1e-6, stopTime=1.0, resultFile="LimPID");
+simulateModel("Buildings.Controls.Continuous.Examples.PID", method="Cvode", tolerance=1e-6, stopTime=1.0, resultFile="PID");
 removePlots();
 createPlot(id = 1,
  position = {15, 10, 741, 345},
- y = {"limPID.u_s", "limPID.u_m"},
+ y = {"PID.u_s", "PID.u_m"},
  range = {0, 1, 1.5, -0.5},
  autoscale = true,
  autoerase = true,
  autoreplot = true,
  grid = true,
  color = true,
- filename = "LimPID.mat",
+ filename = "PID.mat",
  leftTitleType = 1,
  bottomTitleType = 1);
 createPlot(id = 1,
  position = {15, 10, 741, 169},
- y = {"limPID.y", "limPIDRev.y"},
+ y = {"PID.y", "PIDRev.y"},
  range = {0, 1, 2, -2.0},
  autoscale = true,
  autoerase = true,

@@ -73,7 +73,7 @@ parameter Real scaDpFanRet_nominal = 1
     T=293.15,
     nPorts=2)
     annotation (Placement(transformation(extent={{-38,-74},{-18,-54}})));
-   Buildings.Controls.Continuous.LimPID conSupFan(
+   Buildings.Controls.Continuous.PID conSupFan(
     Ti=60,
     yMax=1,
     yMin=0,

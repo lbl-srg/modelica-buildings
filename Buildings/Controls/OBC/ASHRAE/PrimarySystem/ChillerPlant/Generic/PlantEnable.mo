@@ -63,7 +63,7 @@ protected
     Buildings.Controls.OBC.CDL.Types.Extrapolation.Periodic
     "Extrapolation of data outside the definition range";
 
-  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold schOn(
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold schOn(
     final threshold=0.5)
     "Check if enabling schedule is active"
     annotation (Placement(transformation(extent={{-100,40},{-80,60}})));
@@ -107,17 +107,17 @@ protected
     "Check if outdoor temperature is higher than chiller lockout temperature"
     annotation (Placement(transformation(extent={{-100,-140},{-80,-120}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr(
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greEquThr(
     final threshold=plaThrTim)
     "Check if chiller plant has been disabled more than threshold time"
     annotation (Placement(transformation(extent={{-60,110},{-40,130}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr1(
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greEquThr1(
     final threshold=plaThrTim)
     "Check if chiller plant has been enabled more than threshold time"
     annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr2(
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greEquThr2(
     final threshold=reqThrTim)
     "Check if number of chiller plant request has been less than ignorable request by more than threshold time"
     annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));

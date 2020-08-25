@@ -68,7 +68,7 @@ protected
     final k1=fill(-1, totSta),
     final k2=fill(1, totSta)) "Add two real inputs"
     annotation (Placement(transformation(extent={{0,70},{20,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr[totSta](
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greEquThr[totSta](
     final threshold=fill(-0.1, totSta))  "Identify current stage"
     annotation (Placement(transformation(extent={{40,70},{60,90}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt[totSta]

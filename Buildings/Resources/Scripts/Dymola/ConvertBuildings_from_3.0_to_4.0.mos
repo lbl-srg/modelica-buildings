@@ -163,7 +163,7 @@ convertClass("Buildings.Fluid.HeatExchangers.Boreholes",
 convertClass("Buildings.Rooms",
              "Buildings.ThermalZones.Detailed");
 
-convertModifiers({"Buildings.Controls.Continuous.LimPID"},
+convertModifiers({"Buildings.Controls.Continuous.PID"},
                   {"limitsAtInit"},
                   fill("", 0),
                   true);

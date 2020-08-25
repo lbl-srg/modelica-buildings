@@ -4,7 +4,7 @@ model Modulation_TSup
 
   final parameter Real TSupSet(
     final unit="K",
-    displayUnit="degC",
+    final displayUnit="degC",
     final quantity="ThermodynamicTemperature")=291.15
     "Supply air temperature setpoint";
 

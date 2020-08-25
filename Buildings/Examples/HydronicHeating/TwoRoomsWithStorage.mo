@@ -184,7 +184,7 @@ model TwoRoomsWithStorage
     from_dp=true,
     use_inputFilter=false) "Radiator valve"
     annotation (Placement(transformation(extent={{360,120},{380,140}})));
-  Controls.Continuous.LimPID conRoo2(
+  Controls.Continuous.PID conRoo2(
     yMax=1,
     yMin=0,
     Ti=60,
@@ -202,7 +202,7 @@ model TwoRoomsWithStorage
     from_dp=true,
     use_inputFilter=false) "Radiator valve"
     annotation (Placement(transformation(extent={{360,390},{380,410}})));
-  Controls.Continuous.LimPID conRoo1(
+  Controls.Continuous.PID conRoo1(
     yMax=1,
     yMin=0,
     Ti=60,
@@ -237,7 +237,7 @@ model TwoRoomsWithStorage
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={220,-40})));
-  Controls.Continuous.LimPID conVal(
+  Controls.Continuous.PID conVal(
     yMax=1,
     yMin=0,
     initType=Modelica.Blocks.Types.InitPID.InitialState,

@@ -65,14 +65,14 @@ model MoistAir
   Modelica.Blocks.Sources.Constant TRooSetNig(k=273.15 + 16)
     "Set point for room air temperature"
     annotation (Placement(transformation(extent={{40,130},{60,150}})));
-  Buildings.Controls.Continuous.LimPID PIDHea(
+  Buildings.Controls.Continuous.PID PIDHea(
     yMax=1,
     yMin=0,
     Td=1,
     k=0.1,
     Ti=600) "Controller for heating"
     annotation (Placement(transformation(extent={{140,150},{160,170}})));
-  Buildings.Controls.Continuous.LimPID PIDHum(
+  Buildings.Controls.Continuous.PID PIDHum(
     yMax=1,
     yMin=0,
     k=20,

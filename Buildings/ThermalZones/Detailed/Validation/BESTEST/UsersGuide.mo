@@ -36,8 +36,8 @@ in Nouidui et al. (2012).
 <h4>Implementation</h4>
 <p>
 Heating and cooling is controlled using the PI controller
-<a href=\"modelica://Buildings.Controls.Continuous.LimPID\">
-Buildings.Controls.Continuous.LimPID</a>
+<a href=\"modelica://Buildings.Controls.Continuous.PID\">
+Buildings.Controls.Continuous.PID</a>
 with anti-windup.
 </p>
 <p>

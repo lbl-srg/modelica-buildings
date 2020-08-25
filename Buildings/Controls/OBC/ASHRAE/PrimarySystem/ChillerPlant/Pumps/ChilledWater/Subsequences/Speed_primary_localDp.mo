@@ -66,7 +66,7 @@ block Speed_primary_localDp
     annotation (Placement(transformation(extent={{140,100},{180,140}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.LimPID conPID1(
+  Buildings.Controls.OBC.CDL.Continuous.PID conPID1(
     final controllerType=controllerType,
     final k=k,
     final Ti=Ti,
@@ -84,7 +84,7 @@ block Speed_primary_localDp
   Buildings.Controls.OBC.CDL.Continuous.Line locDpSet
     "Local differential pressure setpoint"
     annotation (Placement(transformation(extent={{100,-30},{120,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.LimPID conPID[nSen](
+  Buildings.Controls.OBC.CDL.Continuous.PID conPID[nSen](
     final controllerType=fill(controllerType, nSen),
     final k=fill(k, nSen),
     final Ti=fill(Ti, nSen),

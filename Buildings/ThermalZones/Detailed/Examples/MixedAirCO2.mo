@@ -31,7 +31,7 @@ model MixedAirCO2
   Modelica.Blocks.Math.Gain norCO2Mea(k=1/700)
     "Normalization for CO2 measurement" annotation (
       Placement(transformation(extent={{-120,-160},{-100,-140}})));
-  Buildings.Controls.Continuous.LimPID conPI(
+  Buildings.Controls.Continuous.PID conPI(
     k=5,
     Ti=120,
     yMax=10,

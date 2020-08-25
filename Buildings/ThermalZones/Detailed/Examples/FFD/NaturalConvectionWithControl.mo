@@ -11,7 +11,7 @@ model NaturalConvectionWithControl
 
   HeatTransfer.Sources.PrescribedHeatFlow preHeatFlo
     annotation (Placement(transformation(extent={{30,-10},{50,10}})));
-  Buildings.Controls.Continuous.LimPID conPID(
+  Buildings.Controls.Continuous.PID conPID(
     yMin=0,
     Ti=120,
     k=1,

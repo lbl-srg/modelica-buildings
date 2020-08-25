@@ -55,7 +55,7 @@ block Controller
     annotation (Placement(transformation(extent={{100,60},{140,100}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.LimPID valPos(
+  Buildings.Controls.OBC.CDL.Continuous.PID valPos(
     final controllerType=controllerType,
     final k=k,
     final Ti=Ti,

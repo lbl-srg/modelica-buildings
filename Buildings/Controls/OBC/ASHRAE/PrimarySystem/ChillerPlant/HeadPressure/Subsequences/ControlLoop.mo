@@ -43,7 +43,7 @@ block ControlLoop
     annotation (Placement(transformation(extent={{100,-10},{120,10}}),
       iconTransformation(extent={{100,-10},{120,10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.LimPID conPID(
+  Buildings.Controls.OBC.CDL.Continuous.PID conPID(
     final controllerType=controllerType,
     final k=k,
     final Ti=Ti,

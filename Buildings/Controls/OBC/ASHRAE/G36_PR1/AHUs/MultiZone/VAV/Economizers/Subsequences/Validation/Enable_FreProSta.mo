@@ -3,7 +3,7 @@ model Enable_FreProSta
   "Model validates economizer disable for heating zone state and activated freeze protection"
   parameter Real TOutCutoff(
     final unit="K",
-    displayUnit="degC",
+    final displayUnit="degC",
     final quantity="ThermodynamicTemperature")=297.15
     "Outdoor temperature high limit cutoff";
   parameter Real hOutCutoff(

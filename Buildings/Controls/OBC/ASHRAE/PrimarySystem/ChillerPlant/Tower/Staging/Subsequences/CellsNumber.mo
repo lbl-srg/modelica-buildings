@@ -77,7 +77,7 @@ protected
     final k1=fill(1, totChiSta),
     final k2=fill(-1,totChiSta)) "Sum of real inputs"
     annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr[totChiSta](
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greEquThr[totChiSta](
     final threshold=fill(-0.1,totChiSta)) "Check stage indicator"
     annotation (Placement(transformation(extent={{60,-50},{80,-30}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt[totChiSta]

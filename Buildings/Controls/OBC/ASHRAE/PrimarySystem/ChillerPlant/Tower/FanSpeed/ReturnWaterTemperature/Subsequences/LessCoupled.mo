@@ -112,7 +112,7 @@ block LessCoupled
     annotation (Placement(transformation(extent={{160,-160},{200,-120}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.LimPID supCon(
+  Buildings.Controls.OBC.CDL.Continuous.PID supCon(
     final controllerType=supWatCon,
     final k=kSupCon,
     final Ti=TiSupCon,
@@ -182,7 +182,7 @@ protected
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
   Buildings.Controls.OBC.CDL.Logical.Timer tim "Count the time after plant being enabled"
     annotation (Placement(transformation(extent={{-140,90},{-120,110}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold aftIni(
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold aftIni(
     final threshold=iniPlaTim)
     "Check if the plant has been enabled more than threshold time"
     annotation (Placement(transformation(extent={{-20,90},{0,110}})));

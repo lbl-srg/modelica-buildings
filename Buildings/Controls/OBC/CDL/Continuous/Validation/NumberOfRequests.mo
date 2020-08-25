@@ -1,9 +1,9 @@
 within Buildings.Controls.OBC.CDL.Continuous.Validation;
 model NumberOfRequests  "Validation model for the NumberOfRequests block"
   Buildings.Controls.OBC.CDL.Continuous.NumberOfRequests numReq1(
-    nin = 5,
-    threShold = 1.0,
-    kind = 0)
+    nin=5,
+    t=1.0,
+    kind=0)
     "Block that outputs the number of signals that are above/below a certain threshold"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ramp1(
