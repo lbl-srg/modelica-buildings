@@ -1,4 +1,4 @@
-simulateModel("Buildings.Utilities.Time.Validation.CalendarTimeMonthsMinus", startTime=172799, tolerance=1e-6, stopTime=345599, method="dassl", resultFile="CalendarTimeMonthsMinus");
+simulateModel("Buildings.Utilities.Time.Validation.CalendarTimeMonthsMinus", startTime=172799, tolerance=1e-6, stopTime=345599, method="CVode", resultFile="CalendarTimeMonthsMinus");
 createPlot(id=1, position={35, 30, 1021, 971}, y={"calTim.year"}, range={170000.0, 350000.0, 1800.0, 2400.0}, grid=true, colors={{28,108,200}});
 createPlot(id=1, position={35, 30, 1021, 158}, y={"calTim.month"}, range={170000.0, 350000.0, 0.8, 1.2}, grid=true, subPlot=2, colors={{28,108,200}});
 createPlot(id=1, position={35, 30, 1021, 159}, y={"calTim.day"}, range={170000.0, 350000.0, 2.0, 6.0}, grid=true, subPlot=3, colors={{28,108,200}});

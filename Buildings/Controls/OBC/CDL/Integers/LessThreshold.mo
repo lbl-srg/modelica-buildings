@@ -1,8 +1,8 @@
 within Buildings.Controls.OBC.CDL.Integers;
 block LessThreshold
-  "Output y is true, if input u is less than threshold"
+  "Output y is true, if input u is less than a threshold"
 
-  parameter Integer threshold=0 "Comparison with respect to threshold";
+  parameter Integer t=0 "Threshold for comparison";
 
   Interfaces.IntegerInput u "Connector of Integer input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
@@ -11,7 +11,7 @@ block LessThreshold
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation
-  y = u < threshold;
+  y =u < t;
   annotation (
         defaultComponentName="intLesThr",
         Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
@@ -33,7 +33,7 @@ equation
         Text(
           extent={{-150,-140},{150,-110}},
           lineColor={0,0,0},
-          textString="%threshold"),
+          textString="%t"),
         Text(
           extent={{-150,150},{150,110}},
           lineColor={0,0,255},
@@ -45,7 +45,7 @@ equation
 Documentation(info="<html>
 <p>
 Block that outputs <code>true</code> if the Integer input is less than
-the parameter <code>threshold</code>.
+the parameter <code>t</code>.
 Otherwise the output is <code>false</code>.
 </p>
 </html>", revisions="<html>

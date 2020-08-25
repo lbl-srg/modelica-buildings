@@ -1,4 +1,4 @@
-simulateModel("Buildings.Fluid.Storage.Examples.Stratified", stopTime=10800, tolerance=1e-08, method="dassl", resultFile="Stratified");
+simulateModel("Buildings.Fluid.Storage.Examples.Stratified", stopTime=10800, tolerance=1e-08, method="CVode", resultFile="Stratified");
 removePlots();
 createPlot(id = 1,
  position = {10, 10, 560, 250},
@@ -47,4 +47,3 @@ createPlot(id = 2,
  subPlot = 3,
  leftTitleType = 1,
  bottomTitleType = 1);
-

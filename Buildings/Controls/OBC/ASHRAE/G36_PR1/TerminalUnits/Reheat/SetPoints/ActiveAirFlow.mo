@@ -137,8 +137,7 @@ block ActiveAirFlow
     annotation (Placement(transformation(extent={{80,-410},{100,-390}})));
   Buildings.Controls.OBC.CDL.Logical.Not not2 if have_winSen "Logical not"
     annotation (Placement(transformation(extent={{-240,-510},{-220,-490}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
-    final uLow=0.25, final uHigh=0.75) if have_occSen
+  CDL.Continuous.GreaterThreshold greThr(t=0.75, h=0.5) if have_occSen
     "Check if the zone becomes unpopulated"
     annotation (Placement(transformation(extent={{-140,-290},{-120,-270}})));
 
@@ -547,9 +546,9 @@ equation
   connect(swi1.y, maxInp.u1)
     annotation (Line(points={{222,-500},{240,-500},{240,-28},{-128,-28},{-128,-4},
           {-102,-4}}, color={0,0,127}));
-  connect(nOcc, hys.u)
+  connect(nOcc, greThr.u)
     annotation (Line(points={{-300,-280},{-142,-280}}, color={0,0,127}));
-  connect(hys.y, swi.u2)
+  connect(greThr.y, swi.u2)
     annotation (Line(points={{-118,-280},{78,-280}}, color={255,0,255}));
   connect(add2.y, actCooMaxAir.u1) annotation (Line(points={{222,180},{230,180},
           {230,176},{238,176}}, color={0,0,127}));
