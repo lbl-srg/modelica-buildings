@@ -1,4 +1,4 @@
-simulateModel("Buildings.Fluid.MassExchangers.Examples.ConstantEffectiveness", stopTime=360, method="dassl", tolerance=1e-6, resultFile="ConstantEffectiveness");
+simulateModel("Buildings.Fluid.MassExchangers.Examples.ConstantEffectiveness", stopTime=360, method="CVode", tolerance=1e-6, resultFile="ConstantEffectiveness");
 createPlot(id = 7,
  position = {17, 16, 889, 668},
  y = {"hex.m1_flow", "hex.m2_flow"},
