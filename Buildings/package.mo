@@ -242,11 +242,18 @@ to <b style=\"color:blue\">existing</b> libraries:
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1893\">issue 1893</a>.
     </td>
 </tr>
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.PID
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">New implementation of the PID controller.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2056\">issue 2056</a>.</td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.PIDWithReset
     </td>
-    </tr>
+    <td valign=\"top\">New implementation of the PID controller with output reset based on a boolean trigger.
+                       This implementation allows to reset the output of the controller
+                       to a parameter value. (Resetting it to an input was never used and is now removed for simplicity.)<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2056\">issue 2056</a>.</td>
+</tr>                       
 </table>
 <!-- Backward compatible changes -->
 <p>
@@ -286,6 +293,16 @@ have been <b style=\"color:blue\">improved</b> in a
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2009\">issue 2009</a>.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.Examples</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Examples.VAVReheat.Guideline36
+    </td>
+    <td valign=\"top\">Upgraded sequence of specifying operating mode according to G36 official release.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1893\">issue 1893</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>xxx</b>
     </td>
 </tr>
@@ -316,7 +333,7 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td colspan=\"2\"><b>Buildings.Controls.Continuous</b>
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Controls.Continuous.PID<br/>
+<tr><td valign=\"top\">Buildings.Controls.Continuous.LimPID<br/>
                        Buildings.Controls.Continuous.PIDHysteresis<br/>
                        Buildings.Controls.Continuous.PIDHysteresisTimer
     </td>
@@ -334,7 +351,7 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL.Continuous</b>
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.PID
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.LimPID
     </td>
     <td valign=\"top\">Corrected wrong convention of reverse and direct action.
                        The previous parameter <code>reverseAction</code> with a default of <code>false</code>
@@ -397,7 +414,7 @@ have been <b style=\"color:blue\">improved</b> in a
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1893\">issue 1893</a>.
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.PID
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.LimPID
     </td>
     <td valign=\"top\">Moved model to <code>Building.Obsolete.Controls.OBC.CDL.Continuous</code>.<br/>
                        Instead of this model, use the new model <code>Buildings.Controls.Continuous.PID</code> or
@@ -626,7 +643,7 @@ xxx
     <tr><td colspan=\"2\"><b>Buildings.Controls.Continuous</b>
         </td>
     </tr>
-    <tr><td valign=\"top\">Buildings.Controls.Continuous.PID
+    <tr><td valign=\"top\">Buildings.Controls.Continuous.LimPID
         </td>
         <td valign=\"top\">Removed homotopy that may be used during initialization to ensure that outputs are bounded.<br/>
                          This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1221\">IBPSA, #1221</a>.
@@ -650,7 +667,7 @@ xxx
         </td>
     </tr>
 
-    <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.PID
+    <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.LimPID
         </td>
         <td valign=\"top\">Removed homotopy that may be used during initialization to ensure that outputs are bounded.<br/>
                            This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1221\">IBPSA, #1221</a>.
@@ -913,7 +930,7 @@ xxx
     <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
         </td>
     </tr>
-    <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.PID
+    <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.LimPID
         </td>
         <td valign=\"top\">Refactored model so that it is itself a CDL conformant composite block.
                            This refactoring removes the no longer use parameters <code>xd_start</code> that was
@@ -929,7 +946,7 @@ xxx
                            For Dymola, a conversion script makes this change.
         </td>
     </tr>
-    <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.PID
+    <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.LimPID
         </td>
         <td valign=\"top\">Changed the default values for the output limiter from <code>yMin=-yMax</code> to <code>yMin=0</code>
                            and from <code>yMax</code> being unspecified to <code>yMax=1</code>.<br/>
@@ -1187,7 +1204,7 @@ xxx
     <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
         </td>
     </tr>
-    <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.PID
+    <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.LimPID
         </td>
         <td valign=\"top\">Removed wrong unit declaration for gain <code>k</code>.<br/>
                            This is for
@@ -2647,7 +2664,7 @@ This closes <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/565\"
    <tr><td colspan=\"2\"><b>Buildings.Controls</b>
        </td>
    </tr>
-   <tr><td valign=\"top\">Buildings.Controls.Continuous.PID<br/>
+   <tr><td valign=\"top\">Buildings.Controls.Continuous.LimPID<br/>
                           Buildings.Controls.Continuous.PIDHysteresis<br/>
                           Buildings.Controls.Continuous.PIDHysteresisTimer<br/>
           </td>
@@ -2808,7 +2825,7 @@ This closes <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/565\"
                           are affected by this change.
        </td>
    </tr>
-   <tr><td valign=\"top\">Buildings.Controls.Continuous.PID<br/>
+   <tr><td valign=\"top\">Buildings.Controls.Continuous.LimPID<br/>
                           Buildings.Controls.Continuous.PIDHysteresis<br/>
                           Buildings.Controls.Continuous.PIDHysteresisTimer<br/>
           </td>
@@ -7770,10 +7787,10 @@ into a single element, thereby reducing the dimension of the nonlinear system
 of equations.
 </li>
 <li>
-Added model <a href=\"modelica://Buildings.Controls.Continuous.PID\">
-Buildings.Controls.Continuous.PID</a>, which is identical to
-<a href=\"modelica://Modelica.Blocks.Continuous.PID\">
-Modelica.Blocks.Continuous.PID</a>, except that it
+Added model <a href=\"modelica://Buildings.Controls.Continuous.LimPID\">
+Buildings.Controls.Continuous.LimPID</a>, which is identical to
+<a href=\"modelica://Modelica.Blocks.Continuous.LimPID\">
+Modelica.Blocks.Continuous.LimPID</a>, except that it
 allows reverse control action. This simplifies use of the controller
 for cooling applications.
 </li>

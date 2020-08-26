@@ -1,7 +1,7 @@
 compareVars :=
   {
-    "PID.u_s",
-    "PID.u_m",
-    "PID.y",
-    "PIDRev.y"
+    "limPID.u_s",
+    "limPID.u_m",
+    "limPID.y",
+    "limPIDRev.y"
   };

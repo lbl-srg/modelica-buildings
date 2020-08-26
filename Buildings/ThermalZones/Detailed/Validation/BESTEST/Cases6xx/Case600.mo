@@ -49,10 +49,10 @@ model Case600 "Case 600FF, but with dual-setpoint for heating and cooling"
     annotation (Placement(transformation(extent={{-92,30},{-84,38}})));
   BaseClasses.DaySchedule TSetCoo(table=[0.0,273.15 + 27]) "Cooling setpoint"
     annotation (Placement(transformation(extent={{-92,8},{-84,16}})));
-  Controls.OBC.CDL.Continuous.MovingMean PHea(delta=3600)
+  Buildings.Controls.OBC.CDL.Continuous.MovingMean PHea(delta=3600)
   "Hourly averaged heating power"
     annotation (Placement(transformation(extent={{-20,48},{-12,56}})));
-  Controls.OBC.CDL.Continuous.MovingMean PCoo(delta=3600)
+  Buildings.Controls.OBC.CDL.Continuous.MovingMean PCoo(delta=3600)
   "Hourly averaged cooling power"
     annotation (Placement(transformation(extent={{-20,-8},{-12,0}})));
 equation

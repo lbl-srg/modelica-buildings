@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.CDL.Continuous.Validation;
 model PIDWithReset
-  "Test model for PID controller with reset trigger"
+  "Test model for LimPID controller with reset trigger"
 
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal setPoi "Set point"
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
@@ -10,7 +10,7 @@ model PIDWithReset
       t=1) "Outputs true after t=1"
     annotation (Placement(transformation(extent={{-52,-70},{-32,-50}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset PIDPar(
+  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset limPIDPar(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PID,
     k=1,
     Ti=1,
@@ -21,7 +21,7 @@ model PIDWithReset
   Buildings.Controls.OBC.CDL.Continuous.IntegratorWithReset intWitRes1
     "Integrator whose output should be brought to the set point"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset PIDInp(
+  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset limPIDInp(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PID,
     k=1,
     Ti=1,
@@ -63,24 +63,24 @@ model PIDWithReset
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
 
 equation
-  connect(PIDPar.u_s, setPoi.y) annotation (Line(points={{18,70},{6,70},{6,
+  connect(limPIDPar.u_s, setPoi.y) annotation (Line(points={{18,70},{6,70},{6,
           -30},{2,-30}}, color={0,0,127}));
-  connect(intWitRes1.u, PIDPar.y)
+  connect(intWitRes1.u, limPIDPar.y)
     annotation (Line(points={{58,70},{42,70}}, color={0,0,127}));
-  connect(intWitRes1.y, PIDPar.u_m) annotation (Line(points={{82,70},{90,70},
+  connect(intWitRes1.y, limPIDPar.u_m) annotation (Line(points={{82,70},{90,70},
           {90,50},{30,50},{30,58}}, color={0,0,127}));
   connect(modTim.y, greEquThr.u)
     annotation (Line(points={{-58,-60},{-54,-60}},   color={0,0,127}));
   connect(greEquThr.y, setPoi.u) annotation (Line(points={{-30,-60},{-26,-60},{
           -26,-30},{-22,-30}},    color={255,0,255}));
-  connect(greEquThr.y, PIDPar.trigger) annotation (Line(points={{-30,-60},{
+  connect(greEquThr.y, limPIDPar.trigger) annotation (Line(points={{-30,-60},{
           12,-60},{12,50},{24,50},{24,58}},
                                          color={255,0,255}));
-  connect(intWitRes2.u, PIDInp.y)
+  connect(intWitRes2.u, limPIDInp.y)
     annotation (Line(points={{58,30},{42,30}}, color={0,0,127}));
-  connect(intWitRes2.y, PIDInp.u_m) annotation (Line(points={{82,30},{90,30},
+  connect(intWitRes2.y, limPIDInp.u_m) annotation (Line(points={{82,30},{90,30},
           {90,10},{30,10},{30,18}}, color={0,0,127}));
-  connect(PIDInp.u_s, setPoi.y) annotation (Line(points={{18,30},{6,30},{6,
+  connect(limPIDInp.u_s, setPoi.y) annotation (Line(points={{18,30},{6,30},{6,
           -30},{2,-30}},
                      color={0,0,127}));
   connect(limPIPar.u_s, setPoi.y) annotation (Line(points={{18,-30},{2,-30}},
@@ -100,7 +100,7 @@ equation
                      color={0,0,127}));
   connect(greEquThr.y, limPIInp.trigger) annotation (Line(points={{-30,-60},{12,
           -60},{12,-90},{24,-90},{24,-82}}, color={255,0,255}));
-  connect(PIDInp.trigger, greEquThr.y) annotation (Line(points={{24,18},{24,
+  connect(limPIDInp.trigger, greEquThr.y) annotation (Line(points={{24,18},{24,
           10},{12,10},{12,-60},{-30,-60}},
                                        color={255,0,255}));
   connect(resVal.y, intWitRes1.y_reset_in) annotation (Line(points={{-58,0},{48,

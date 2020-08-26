@@ -102,7 +102,7 @@ block Controller "Head pressure controller"
     final minConWatPumSpe=minConWatPumSpe,
     final minHeaPreValPos=minHeaPreValPos) if not have_WSE
     "Controlling equipments for plants without waterside economizer"
-    annotation (Placement(transformation(extent={{40,42},{60,62}})));
+    annotation (Placement(transformation(extent={{40,40},{60,60}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure.Subsequences.MappingWithWSE
     withWSE(
     final minTowSpe=minTowSpe,
@@ -123,15 +123,12 @@ equation
     annotation (Line(points={{-22,90},{-120,90}}, color={0,0,127}));
   connect(chiHeaPreLoo.TChiWatSup, TChiWatSup)
     annotation (Line(points={{-22,82},{-40,82},{-40,60},{-120,60}}, color={0,0,127}));
-  connect(chiHeaPreLoo.uHeaPreEna,uChiHeaCon)
-    annotation (Line(points={{-22,98},{-80,98},{-80,120},{-120,120}},
-      color={255,0,255}));
   connect(chiHeaPreLoo.yHeaPreCon, noWSE.uHeaPreCon)
-    annotation (Line(points={{1,90},{20,90},{20,60},{38,60}}, color={0,0,127}));
+    annotation (Line(points={{1,90},{20,90},{20,58},{38,58}}, color={0,0,127}));
   connect(chiHeaPreLoo.yHeaPreCon, withWSE.uHeaPreCon)
     annotation (Line(points={{1,90},{20,90},{20,-22},{38,-22}}, color={0,0,127}));
   connect(uChiHeaCon, noWSE.uHeaPreEna)
-    annotation (Line(points={{-120,120},{-80,120},{-80,44},{38,44}},
+    annotation (Line(points={{-120,120},{-80,120},{-80,42},{38,42}},
       color={255,0,255}));
   connect(withWSE.uWSE, uWSE)
     annotation (Line(points={{38,-34},{-20,-34},{-20,-20},{-120,-20}},
@@ -149,25 +146,23 @@ equation
     annotation (Line(points={{-58,-120},{-40,-120},{-40,-108},{-22,-108}},
       color={0,0,127}));
   connect(swi.y, noWSE.uHeaPreCon)
-    annotation (Line(points={{2,-100},{20,-100},{20,60},{38,60}}, color={0,0,127}));
+    annotation (Line(points={{2,-100},{20,-100},{20,58},{38,58}}, color={0,0,127}));
   connect(swi.y, withWSE.uHeaPreCon)
     annotation (Line(points={{2,-100},{20,-100},{20,-22},{38,-22}}, color={0,0,127}));
   connect(noWSE.yMaxTowSpeSet, yMaxTowSpeSet)
-    annotation (Line(points={{61,58},{80,58},{80,80},{110,80}}, color={0,0,127}));
+    annotation (Line(points={{61,56},{80,56},{80,80},{110,80}}, color={0,0,127}));
   connect(withWSE.yHeaPreConVal, yHeaPreConVal)
     annotation (Line(points={{61,-36},{90,-36},{90,20},{110,20}}, color={0,0,127}));
   connect(withWSE.yMaxTowSpeSet, yMaxTowSpeSet)
     annotation (Line(points={{61,-24},{80,-24},{80,80},{110,80}}, color={0,0,127}));
   connect(withWSE.yConWatPumSpeSet, yConWatPumSpeSet)
     annotation (Line(points={{61,-30},{70,-30},{70,-40},{110,-40}}, color={0,0,127}));
-  connect(desConWatPumSpe, noWSE.desConWatPumSpe)
-    annotation (Line(points={{-120,20},{0,20},{0,52},{38,52}}, color={0,0,127}));
   connect(desConWatPumSpe, withWSE.desConWatPumSpe)
     annotation (Line(points={{-120,20},{0,20},{0,-26},{38,-26}}, color={0,0,127}));
   connect(noWSE.yConWatPumSpeSet, yConWatPumSpeSet)
-    annotation (Line(points={{61,44},{70,44},{70,-40},{110,-40}}, color={0,0,127}));
+    annotation (Line(points={{61,42},{70,42},{70,-40},{110,-40}}, color={0,0,127}));
   connect(noWSE.yHeaPreConVal, yHeaPreConVal)
-    annotation (Line(points={{61,46},{90,46},{90,20},{110,20}}, color={0,0,127}));
+    annotation (Line(points={{61,44},{90,44},{90,20},{110,20}}, color={0,0,127}));
 
 annotation (
   defaultComponentName="heaPreCon",

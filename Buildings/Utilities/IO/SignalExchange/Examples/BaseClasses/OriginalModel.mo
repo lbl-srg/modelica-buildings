@@ -5,7 +5,7 @@ model OriginalModel "Original model"
   Modelica.Blocks.Sources.Constant TSet(k=1) "Set point"
     annotation (Placement(transformation(extent={{-70,20},{-50,40}})));
 
-  Modelica.Blocks.Continuous.PID conPI(
+  Modelica.Blocks.Continuous.LimPID conPI(
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     yMax=10) "Controller"
     annotation (Placement(transformation(extent={{-10,20},{10,40}})));

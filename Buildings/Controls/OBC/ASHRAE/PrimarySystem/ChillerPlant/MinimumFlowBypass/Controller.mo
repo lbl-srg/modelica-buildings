@@ -61,9 +61,7 @@ block Controller
     final Ti=Ti,
     final Td=Td,
     final yMax=yMax,
-    final yMin=yMin,
-    final reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter,
-    final y_reset=1)  "By pass valve position PI controller"
+    final yMin=yMin)  "By pass valve position PI controller"
     annotation (Placement(transformation(extent={{40,20},{60,40}})));
 
 protected
@@ -111,9 +109,6 @@ equation
     annotation (Line(points={{-18,60},{0,60},{0,72},{38,72}}, color={0,0,127}));
   connect(swi.y, yValPos)
     annotation (Line(points={{62,80},{120,80}}, color={0,0,127}));
-  connect(uChiWatPum, valPos.trigger)
-    annotation (Line(points={{-120,80},{10,80},{10,10},{44,10},{44,18}},
-      color={255,0,255}));
   connect(div.u1, VChiWatSet_flow)
     annotation (Line(points={{18,-54},{-20,-54},{-20,-40},{-120,-40}},
       color={0,0,127}));

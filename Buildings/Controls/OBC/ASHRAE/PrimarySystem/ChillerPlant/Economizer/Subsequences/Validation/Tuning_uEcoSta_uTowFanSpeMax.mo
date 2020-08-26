@@ -28,7 +28,7 @@ protected
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
 
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr1(
-    final threshold=7e4) "Greater than"
+    final t=7e4) "Greater than"
     annotation (Placement(transformation(extent={{-40,-90},{-20,-70}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(

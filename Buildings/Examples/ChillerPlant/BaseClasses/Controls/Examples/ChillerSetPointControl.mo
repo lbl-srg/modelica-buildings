@@ -64,7 +64,7 @@ model ChillerSetPointControl
         transformation(
         extent={{-10,-10},{10,10}},
         origin={-170,30})));
-  Buildings.Controls.Continuous.PID PID(
+  Buildings.Controls.Continuous.LimPID limPID(
     reverseActing=false,
     y_start=1,
     yMin=0,
@@ -131,7 +131,7 @@ equation
       points={{86,-48},{36,-48},{36,22},{84,22}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(TRet.T, PID.u_m) annotation (Line(
+  connect(TRet.T, limPID.u_m) annotation (Line(
       points={{10,-49},{10,-28},{-130,-28},{-130,18}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -163,7 +163,7 @@ equation
       points={{104,34},{122,34},{122,88},{164,88}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(const.y, PID.u_s) annotation (Line(
+  connect(const.y, limPID.u_s) annotation (Line(
       points={{-159,30},{-142,30}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -191,7 +191,7 @@ equation
       points={{156,-60},{190,-60},{190,-90},{180,-90}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(PID.y, triAndRes.u) annotation (Line(
+  connect(limPID.y, triAndRes.u) annotation (Line(
       points={{-119,30},{-102,30}},
       color={0,0,127},
       smooth=Smooth.None));

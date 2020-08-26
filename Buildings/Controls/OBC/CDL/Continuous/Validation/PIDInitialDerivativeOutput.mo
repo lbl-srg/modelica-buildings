@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.CDL.Continuous.Validation;
 model PIDInitialDerivativeOutput
-  "Test model for PID controller with initial output specified"
+  "Test model for LimPID controller with initial output specified"
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant ySet(k=0.75)
     "Set point"
@@ -9,7 +9,7 @@ model PIDInitialDerivativeOutput
     "Measured value"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.PID PID(
+  Buildings.Controls.OBC.CDL.Continuous.PID limPID(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PID,
     k=3,
     yd_start=0.2) "PID controller"
@@ -21,11 +21,11 @@ model PIDInitialDerivativeOutput
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
 
 equation
-  connect(ySet.y, PID.u_s) annotation (Line(points={{-18,40},{0,40},{0,30},{18,
+  connect(ySet.y, limPID.u_s) annotation (Line(points={{-18,40},{0,40},{0,30},{18,
           30}}, color={0,0,127}));
   connect(ySet.y,limPD. u_s) annotation (Line(points={{-18,40},{0,40},{0,-30},{18,
           -30}}, color={0,0,127}));
-  connect(yMea.y, PID.u_m)
+  connect(yMea.y, limPID.u_m)
     annotation (Line(points={{-18,10},{30,10},{30,18}}, color={0,0,127}));
   connect(yMea.y,limPD. u_m) annotation (Line(points={{-18,10},{-4,10},{-4,-50},
           {30,-50},{30,-42}}, color={0,0,127}));

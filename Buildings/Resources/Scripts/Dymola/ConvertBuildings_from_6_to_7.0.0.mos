@@ -26,12 +26,12 @@ convertClass("Buildings.Controls.SetPoints.HotWaterTemperatureReset",
 convertClass("Buildings.Utilities.IO.Python27",
              "Buildings.Obsolete.Utilities.IO.Python27");
 
-convertModifiers("Buildings.Controls.OBC.CDL.Continuous.PID", {"yMin=fill(\"\",0)", "yMax=yMax"}, {"yMin=-%yMax%", "yMax=%yMax%"}, true);
+convertModifiers("Buildings.Controls.OBC.CDL.Continuous.LimPID", {"yMin=fill(\"\",0)", "yMax=yMax"}, {"yMin=-%yMax%", "yMax=%yMax%"}, true);
 
-convertModifiers("Buildings.Controls.OBC.CDL.Continuous.PID", {"strict"}, fill("",0), true);
-convertModifiers("Buildings.Controls.OBC.CDL.Continuous.PID", {"initType"}, fill("",0), true);
-convertModifiers("Buildings.Controls.OBC.CDL.Continuous.PID", {"y_start"}, fill("",0), true);
-convertModifiers("Buildings.Controls.OBC.CDL.Continuous.PID", {"xd_start"}, fill("",0), true);
+convertModifiers("Buildings.Controls.OBC.CDL.Continuous.LimPID", {"strict"}, fill("",0), true);
+convertModifiers("Buildings.Controls.OBC.CDL.Continuous.LimPID", {"initType"}, fill("",0), true);
+convertModifiers("Buildings.Controls.OBC.CDL.Continuous.LimPID", {"y_start"}, fill("",0), true);
+convertModifiers("Buildings.Controls.OBC.CDL.Continuous.LimPID", {"xd_start"}, fill("",0), true);
 
 //refactoring of alpha to hCon or hRad
 convertElement(

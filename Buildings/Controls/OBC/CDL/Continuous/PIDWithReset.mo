@@ -170,7 +170,7 @@ protected
     final k=yMin < yMax)
     "Check for values of yMin and yMax"
     annotation (Placement(transformation(extent={{120,-160},{140,-140}})));
-  Buildings.Controls.OBC.CDL.Utilities.Assert assMesYMinMax(message="PID: Limits must be yMin < yMax")
+  Buildings.Controls.OBC.CDL.Utilities.Assert assMesYMinMax(message="LimPID: Limits must be yMin < yMax")
     "Assertion on yMin and yMax"
     annotation (Placement(transformation(extent={{160,-160},{180,-140}})));
 
@@ -453,7 +453,7 @@ while the units of <i>T<sub>i</sub></i> and <i>T<sub>d</sub></i> are seconds.
 </p>
 <p>
 For detailed treatment of integrator anti-windup, set-point weights and output limitation, see
-<a href=\"modelica://Modelica.Blocks.Continuous.PID\">Modelica.Blocks.Continuous.PID</a>.
+<a href=\"modelica://Modelica.Blocks.Continuous.LimPID\">Modelica.Blocks.Continuous.LimPID</a>.
 </p>
 <h4>Options</h4>
 This controller can be configured as follows.

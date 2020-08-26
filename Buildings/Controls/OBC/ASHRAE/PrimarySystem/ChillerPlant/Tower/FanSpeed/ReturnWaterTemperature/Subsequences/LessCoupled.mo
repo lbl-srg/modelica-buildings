@@ -183,7 +183,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Timer tim "Count the time after plant being enabled"
     annotation (Placement(transformation(extent={{-140,90},{-120,110}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold aftIni(
-    final threshold=iniPlaTim)
+    final t=iniPlaTim)
     "Check if the plant has been enabled more than threshold time"
     annotation (Placement(transformation(extent={{-20,90},{0,110}})));
   Buildings.Controls.OBC.CDL.Logical.Switch delTem "Temperature difference value"

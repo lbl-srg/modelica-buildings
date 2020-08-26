@@ -16,10 +16,10 @@ convertClass("Buildings.Controls.OBC.CDL.Continuous.LessEqual",
 
 convertElement(
     "Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold",
-    "threshold", "t");
+    "threshold", "t")
 convertElement(
     "Buildings.Controls.OBC.CDL.Continuous.LessThreshold",
-    "threshold", "t");
+    "threshold", "t")
 convertElement(
     "Buildings.Controls.OBC.CDL.Continuous.NumberOfRequests",
     "threshold", "t");
@@ -37,6 +37,17 @@ convertElement(
     "threshold", "t");
 
 // Conversion for https://github.com/ibpsa/modelica-ibpsa/issues/1365
-convertModifiers("Buildings.Controls.Continuous.PID", {"reverseAction"}, {"reverseActing=not %reverseAction%"});
+convertModifiers("Buildings.Controls.Continuous.LimPID", {"reverseAction"}, {"reverseActing=not %reverseAction%"});
 convertModifiers("Buildings.Controls.Continuous.PIDHysteresis", {"reverseAction"}, {"reverseActing=not %reverseAction%"});
 convertModifiers("Buildings.Controls.Continuous.PIDHysteresisTimer", {"reverseAction"}, {"reverseActing=not %reverseAction%"});
+
+// Conversion for https://github.com/lbl-srg/modelica-buildings/issues/2056
+convertClass(
+    "Buildings.Controls.OBC.CDL.Continuous.Derivative",
+    "Buildings.Obsolete.Controls.OBC.CDL.Continuous.Derivative");
+convertClass(
+    "Buildings.Controls.OBC.CDL.Continuous.LimPID",
+    "Buildings.Obsolete.Controls.OBC.CDL.Continuous.LimPID");
+convertClass(
+    "Buildings.Controls.OBC.CDL.Types.Reset",
+    "Buildings.Obsolete.Controls.OBC.CDL.Types.Reset");

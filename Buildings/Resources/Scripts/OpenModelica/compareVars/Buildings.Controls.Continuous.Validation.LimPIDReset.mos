@@ -3,10 +3,10 @@ compareVars :=
     "setPoi.y",
     "mea.y",
     "trigger.y",
-    "PIDDef.y",
-    "PIDDef.controlError",
-    "PIDPar.y",
-    "PIDPar.y_reset",
-    "PIDInp.y",
-    "PIDInp.y_reset_in"
+    "limPIDDef.y",
+    "limPIDDef.controlError",
+    "limPIDPar.y",
+    "limPIDPar.y_reset",
+    "limPIDInp.y",
+    "limPIDInp.y_reset_in"
   };

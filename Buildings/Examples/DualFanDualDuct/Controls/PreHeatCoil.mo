@@ -2,7 +2,7 @@ within Buildings.Examples.DualFanDualDuct.Controls;
 model PreHeatCoil "Controller for preheat coil"
   extends Modelica.Blocks.Icons.Block;
 
-  Buildings.Controls.Continuous.PID preHeaCoiCon(
+  Buildings.Controls.Continuous.LimPID preHeaCoiCon(
     yMax=1,
     yMin=0,
     Td=60,

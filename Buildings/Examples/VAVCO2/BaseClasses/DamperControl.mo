@@ -4,7 +4,7 @@ block DamperControl "Local loop controller for damper"
   parameter Real CO2Set = 700E-6 "CO2 set point in volume fraction";
   parameter Real Kp = 10 "Gain";
 
-  Buildings.Controls.Continuous.PID con(
+  Buildings.Controls.Continuous.LimPID con(
     yMin=0,
     y_start=0.5,
     Ti=1,

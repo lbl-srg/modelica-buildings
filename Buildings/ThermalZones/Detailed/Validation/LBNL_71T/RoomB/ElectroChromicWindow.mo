@@ -197,7 +197,7 @@ model ElectroChromicWindow
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHea
     "Prescribed heat flow for heating and cooling"
     annotation (Placement(transformation(extent={{36,-102},{60,-78}})));
-  Controls.Continuous.PID conHea(
+  Controls.Continuous.LimPID conHea(
     Td=60,
     initType=Modelica.Blocks.Types.InitPID.InitialState,
     yMin=-1,

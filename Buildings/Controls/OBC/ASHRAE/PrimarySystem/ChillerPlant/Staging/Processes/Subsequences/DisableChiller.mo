@@ -57,14 +57,14 @@ protected
     final k=fill(true, nChi)) "True constant"
     annotation (Placement(transformation(extent={{-40,220},{-20,240}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greEquThr3(
-    final threshold=proOnTim)
+    final t=proOnTim)
     "Check the newly enabled chiller being operated by more than 5 minutes"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea[nChi]
     "Convert boolean input to real output"
     annotation (Placement(transformation(extent={{-100,90},{-80,110}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greEquThr[nChi](
-    final threshold=fill(0.5, nChi))
+    final t=fill(0.5, nChi))
     "Convert real input to boolean output"
     annotation (Placement(transformation(extent={{20,90},{40,110}})));
   Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi1[nChi]
@@ -129,7 +129,7 @@ protected
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{-120,-250},{-100,-230}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greEquThr1[nChi](
-    final threshold=fill(0.5, nChi))
+    final t=fill(0.5, nChi))
     "Convert real input to boolean output"
     annotation (Placement(transformation(extent={{40,-220},{60,-200}})));
   Buildings.Controls.OBC.CDL.Logical.And and4[nChi] "Logical and"

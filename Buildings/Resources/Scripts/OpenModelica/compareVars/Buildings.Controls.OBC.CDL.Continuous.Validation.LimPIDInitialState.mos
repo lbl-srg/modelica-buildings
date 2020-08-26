@@ -1,7 +1,0 @@
-compareVars :=
-  {
-    "PID.I.y",
-    "PID.D.y",
-    "limPI.I.y",
-    "PID.D.u"
-  };

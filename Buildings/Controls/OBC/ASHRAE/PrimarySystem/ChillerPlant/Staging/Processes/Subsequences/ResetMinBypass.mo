@@ -49,7 +49,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.And and2 "Logical and"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greEquThr(
-    final threshold=aftByPasSetTim)
+    final t=aftByPasSetTim)
     "Check if it has been threshold time after new setpoint achieved"
     annotation (Placement(transformation(extent={{80,-30},{100,-10}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1 "Logical not"

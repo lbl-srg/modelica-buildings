@@ -2,7 +2,7 @@ within Buildings.Examples.DualFanDualDuct.Controls;
 block FanVFD "Controller for fan revolution"
   extends Modelica.Blocks.Interfaces.SISO;
   import Buildings.Examples.VAVReheat.Controls.OperationModes;
-  Buildings.Controls.Continuous.PID con(
+  Buildings.Controls.Continuous.LimPID con(
     yMax=1,
     yMin=0,
     Td=60,

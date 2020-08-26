@@ -142,7 +142,7 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     TSupSetHea(TOn=284.15, TOff=279.15)
     "Supply air temperature setpoint for heating"
     annotation (Placement(transformation(extent={{-80,-180},{-60,-160}})));
-  Buildings.Controls.Continuous.PID cooCoiCon(
+  Buildings.Controls.Continuous.LimPID cooCoiCon(
     reverseActing=false,
     Td=60,
     initType=Modelica.Blocks.Types.InitPID.InitialState,
@@ -470,7 +470,7 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={380,-50})));
-  Buildings.Controls.Continuous.PID heaCoiCon(
+  Buildings.Controls.Continuous.LimPID heaCoiCon(
     Td=60,
     initType=Modelica.Blocks.Types.InitPID.InitialState,
     yMax=1,

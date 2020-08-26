@@ -3,13 +3,13 @@ model PID "Test model for PID controller"
   Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse pulse(period=0.25)
     "Setpoint"
     annotation (Placement(transformation(extent={{-90,14},{-70,34}})));
-  Buildings.Controls.OBC.CDL.Continuous.PID PID(
+  Buildings.Controls.OBC.CDL.Continuous.PID limPID(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PID,
     Ti=1,
     Td=1,
     yMin=-1) "PID controller"
     annotation (Placement(transformation(extent={{-30,40},{-10,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.PID PIDOri(
+  Buildings.Controls.OBC.CDL.Continuous.PID limPIDOri(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PID,
     Ti=1,
     Td=1,
@@ -43,7 +43,7 @@ model PID "Test model for PID controller"
     "P controller"
     annotation (Placement(transformation(extent={{-30,-60},{-10,-40}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.PID noPID(
+  Buildings.Controls.OBC.CDL.Continuous.PID noLimPID(
     Ti=1,
     Td=1,
     yMax=1e15,
@@ -53,16 +53,16 @@ model PID "Test model for PID controller"
     annotation (Placement(transformation(extent={{-30,-90},{-10,-70}})));
 
 equation
-  connect(pulse.y, PID.u_s) annotation (Line(
+  connect(pulse.y, limPID.u_s) annotation (Line(
       points={{-68,24},{-54,24},{-54,50},{-32,50}},
       color={0,0,127}));
-  connect(const.y, PID.u_m) annotation (Line(
+  connect(const.y, limPID.u_m) annotation (Line(
       points={{-68,-12},{-62,-12},{-62,30},{-20,30},{-20,38}},
       color={0,0,127}));
-  connect(pulse.y, PIDOri.u_s) annotation (Line(
+  connect(pulse.y, limPIDOri.u_s) annotation (Line(
       points={{-68,24},{-54,24},{-54,84},{-32,84}},
       color={0,0,127}));
-  connect(const.y, PIDOri.u_m) annotation (Line(
+  connect(const.y, limPIDOri.u_m) annotation (Line(
       points={{-68,-12},{-62,-12},{-62,66},{-20,66},{-20,72}},
       color={0,0,127}));
   connect(const.y, limPI.u_m)
@@ -80,13 +80,13 @@ equation
   connect(pulse.y, limP.u_s) annotation (Line(points={{-68,24},{-54,24},{-54,
           -50},{-32,-50}},
                       color={0,0,127}));
-  connect(pulse.y, noPID.u_s) annotation (Line(points={{-68,24},{-54,24},{
+  connect(pulse.y, noLimPID.u_s) annotation (Line(points={{-68,24},{-54,24},{
           -54,-80},{-32,-80}},
                            color={0,0,127}));
   connect(const.y, limP.u_m) annotation (Line(points={{-68,-12},{-62,-12},{-62,
           -64},{-20,-64},{-20,-62}},
                       color={0,0,127}));
-  connect(const.y, noPID.u_m) annotation (Line(points={{-68,-12},{-62,-12},{
+  connect(const.y, noLimPID.u_m) annotation (Line(points={{-68,-12},{-62,-12},{
           -62,-96},{-20,-96},{-20,-92}},
                            color={0,0,127}));
  annotation (
@@ -100,9 +100,9 @@ Validation test for the block
 Buildings.Controls.OBC.CDL.Continuous.PID</a>.
 </p>
 <p>
-The model <code>PIDOri</code> is the original
+The model <code>limPIDOri</code> is the original
 implementation of the controller from the Modelica
-Standard Library. The models <code>PID</code>
+Standard Library. The models <code>limPID</code>
 is the implementations from the Buildings library.
 </p>
 </html>", revisions="<html>

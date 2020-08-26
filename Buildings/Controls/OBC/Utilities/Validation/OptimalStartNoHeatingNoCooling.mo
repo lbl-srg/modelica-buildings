@@ -2,8 +2,9 @@ within Buildings.Controls.OBC.Utilities.Validation;
 model OptimalStartNoHeatingNoCooling
   "Validation model for the block OptimalStart for the case with no preheating nor precooling"
 
-  Buildings.Controls.OBC.Utilities.OptimalStart optSta(computeHeating=false,
-      computeCooling=false) "Optimal start for both heating and cooling system"
+  Buildings.Controls.OBC.Utilities.OptimalStart optSta(
+    computeHeating=false,
+    computeCooling=false) "Optimal start for both heating and cooling system"
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
   Modelica.Blocks.Continuous.Integrator TRoo(k = 0.0000004, y_start = 19 + 273.15)
     "Room air temperature" annotation (
@@ -35,8 +36,9 @@ model OptimalStartNoHeatingNoCooling
     Ti=3,
     reverseActing=false) "PI control for space cooling"
     annotation (Placement(transformation(extent={{180,0},{200,20}})));
-  Buildings.Controls.SetPoints.OccupancySchedule occSch(occupancy=3600*{7,19},period=24*3600)
-    "Daily schedule"
+  Buildings.Controls.SetPoints.OccupancySchedule occSch(
+    occupancy=3600*{7,19},
+    period=24*3600) "Daily schedule"
     annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum(nin=3) "Sum heat gains"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
@@ -61,13 +63,13 @@ model OptimalStartNoHeatingNoCooling
     startTime(displayUnit="d") = 604800)
     "Range of outdoor dry bulb temperature"
     annotation (Placement(transformation(extent={{-210,-60},{-190,-40}})));
-  CDL.Conversions.BooleanToReal TSetHea(
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal TSetHea(
     realTrue=273.15 + 21,
     realFalse=273.15 + 15,
     y(final unit="K", displayUnit="degC"))
     "Room temperature set point for heating"
     annotation (Placement(transformation(extent={{80,-70},{100,-50}})));
-  CDL.Conversions.BooleanToReal TSetCoo(
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal TSetCoo(
     realTrue=273.15 + 24,
     realFalse=273.15 + 30,
     y(final unit="K", displayUnit="degC"))

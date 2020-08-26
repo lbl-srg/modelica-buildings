@@ -80,7 +80,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Switch swi[nChi] "Logical switch"
     annotation (Placement(transformation(extent={{-100,150},{-80,170}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greEquThr(
-    final threshold=cheMaxTowSpe)
+    final t=cheMaxTowSpe)
     "Any enabled chiller head pressure control maximum tower speed has been at the minimum tower speed by a threshold time"
     annotation (Placement(transformation(extent={{120,150},{140,170}})));
   Buildings.Controls.OBC.CDL.Continuous.Feedback feedback1
@@ -114,7 +114,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Timer tim1 "Count the time when all tower cells are off"
     annotation (Placement(transformation(extent={{-20,-130},{0,-110}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greEquThr1(
-    final threshold=cheTowOff)
+    final t=cheTowOff)
     "Check if the tower has been off for a threshold time"
     annotation (Placement(transformation(extent={{20,-130},{40,-110}})));
   Buildings.Controls.OBC.CDL.Continuous.Feedback feedback3
@@ -154,7 +154,7 @@ protected
     "Count the time when the tower fan is at minimum speed"
     annotation (Placement(transformation(extent={{40,110},{60,130}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greEquThr2(
-    final threshold=cheMinFanSpe)
+    final t=cheMinFanSpe)
     "Threshold time"
     annotation (Placement(transformation(extent={{40,70},{60,90}})));
   Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi2 "Logical switch"

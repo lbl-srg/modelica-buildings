@@ -4,11 +4,6 @@ model ControlLoop "Validate sequence of output head pressure control signal"
     chiHeaPreLoo
     "Output chiller head pressure control loop signal"
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul(
-    final width=0.7,
-    final period=5,
-    final startTime=0.5) "Head pressure control enabling status"
-    annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TConWatRet(
     final amplitude=-11,
     final freqHz=2/10,
@@ -21,12 +16,10 @@ model ControlLoop "Validate sequence of output head pressure control signal"
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
 
 equation
-  connect(booPul.y, chiHeaPreLoo.uHeaPreEna)
-    annotation (Line(points={{-59,70},{0,70},{0,58},{18,58}}, color={255,0,255}));
   connect(TConWatRet.y, chiHeaPreLoo.TConWatRet)
-    annotation (Line(points={{-59,20},{-20,20},{-20,50},{18,50}}, color={0,0,127}));
+    annotation (Line(points={{-58,20},{-20,20},{-20,50},{18,50}}, color={0,0,127}));
   connect(TChiWatSup.y, chiHeaPreLoo.TChiWatSup)
-    annotation (Line(points={{-59,-20},{0,-20},{0,42},{18,42}}, color={0,0,127}));
+    annotation (Line(points={{-58,-20},{0,-20},{0,42},{18,42}}, color={0,0,127}));
 
 annotation (
   experiment(StopTime=5.0, Tolerance=1e-06),

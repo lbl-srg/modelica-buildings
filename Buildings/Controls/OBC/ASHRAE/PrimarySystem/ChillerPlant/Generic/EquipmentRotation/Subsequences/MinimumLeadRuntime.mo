@@ -27,7 +27,7 @@ block MinimumLeadRuntime
       iconTransformation(extent={{100,-20},{140,20}})));
 
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greEquThr[nDev](
-    final threshold=fill(minLeaRuntime, nDev))
+    final t=fill(minLeaRuntime, nDev))
     "Staging runtime hysteresis"
     annotation (Placement(transformation(extent={{20,50},{40,70}})));
 

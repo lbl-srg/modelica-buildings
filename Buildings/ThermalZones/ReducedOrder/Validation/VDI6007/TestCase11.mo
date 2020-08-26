@@ -111,7 +111,7 @@ model TestCase11 "VDI 6007 Test Case 11 model"
   Modelica.Blocks.Math.Gain gainHea(k=500)
     "Gain for heating"
     annotation (Placement(transformation(extent={{-16,-40},{-4,-28}})));
-  Controls.Continuous.PID conHeaCoo(
+  Controls.Continuous.LimPID conHeaCoo(
     yMin=-1,
     Td=5,
     yMax=1,

@@ -143,7 +143,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Latch lat
      "Stop calculation when the zone temperature reaches setpoint"
     annotation (Placement(transformation(extent={{-190,70},{-170,90}})));
-  Buildings.Controls.OBC.CDL.Logical.Timer tim(final reset=true)
+  Buildings.Controls.OBC.CDL.Logical.Timer tim
     "Record time duration for the zone temperature to reach setpoint"
     annotation (Placement(transformation(extent={{-180,0},{-160,20}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1
@@ -170,12 +170,15 @@ protected
     annotation (Placement(transformation(extent={{320,-10},{340,10}})));
   Buildings.Controls.OBC.CDL.Logical.And and2 "Logical and"
     annotation (Placement(transformation(extent={{360,-40},{380,-20}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant damRes(final k=true)
+    "Dammy reset input to timer that does not accumulate time"
+    annotation (Placement(transformation(extent={{-240,-40},{-220,-20}})));
 
 equation
   connect(tim.y, triSam.u)  annotation (Line(points={{-158,10},{-102,10}},
                                               color={0,0,127}));
   connect(falEdg.y, triSam.trigger) annotation (Line(points={{-98,-20},{-90,-20},
-          {-90,-1.8}},                                                                     color={255,0,255}));
+          {-90,-1.8}}, color={255,0,255}));
   connect(not1.y, lat.clr) annotation (Line(points={{-208,80},{-200,80},{-200,74},
           {-192,74}}, color={255,0,255}));
   connect(swi1.y, tOptCal.u2) annotation (Line(points={{202,0},{210,0},{210,-6},
@@ -273,6 +276,8 @@ equation
           {388,-30}}, color={255,0,255}));
   connect(pre.y, optOn) annotation (Line(points={{412,-30},{428,-30},{428,-60},
           {460,-60},{460,-60}}, color={255,0,255}));
+  connect(damRes.y, tim.reset) annotation (Line(points={{-218,-30},{-200,-30},{-200,
+          2},{-182,2}}, color={255,0,255}));
    annotation (
 defaultComponentName="optStaCal",
   Documentation(info="<html>

@@ -53,6 +53,14 @@ protected
     final unit="1") = 0.5
     "Tuning parameter maximum limit";
 
+  CDL.Continuous.Sources.Constant resVal(
+    final k=0) "Reset value"
+    annotation (Placement(transformation(extent={{120,0},{140,20}})));
+
+  CDL.Logical.Sources.Constant ingVal(
+    final k=false) "Ignored value"
+    annotation (Placement(transformation(extent={{-260,10},{-240,30}})));
+
   Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum(
     final k={-1*step,step,1}, nin=3) "Multiple input sum"
     annotation (Placement(transformation(extent={{120,60},{140,80}})));
@@ -80,7 +88,7 @@ protected
     annotation (Placement(transformation(extent={{-140,0},{-120,20}})));
 
   Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesThr(
-    final threshold=wseOnTimInc) "Less than"
+    final t=wseOnTimInc) "Less than"
     annotation (Placement(transformation(extent={{-220,40},{-200,60}})));
 
   Buildings.Controls.OBC.CDL.Logical.Pre truHol1
@@ -97,7 +105,7 @@ protected
     annotation (Placement(transformation(extent={{-60,-90},{-40,-70}})));
 
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
-    final threshold=0.5) "Greater or equal than"
+    final t=0.5) "Greater or equal than"
     annotation (Placement(transformation(extent={{-20,-90},{0,-70}})));
 
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea "Conversion"
@@ -138,7 +146,7 @@ protected
     annotation (Placement(transformation(extent={{60,0},{80,20}})));
 
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr1(
-    final threshold=wseOnTimDec) "Greater than"
+    final t=wseOnTimDec) "Greater than"
     annotation (Placement(transformation(extent={{-220,140},{-200,160}})));
 
   Buildings.Controls.OBC.CDL.Integers.Max maxInt
@@ -146,7 +154,7 @@ protected
     annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
 
   Buildings.Controls.OBC.CDL.Integers.GreaterEqualThreshold intGreEquThr1(
-    final threshold=larInt) "Greater or equal a threshold"
+    final t=larInt) "Greater or equal a threshold"
     annotation (Placement(transformation(extent={{-10,70},{10,90}})));
 
   Buildings.Controls.OBC.CDL.Logical.Pre truHol
@@ -159,8 +167,7 @@ protected
     annotation (Placement(transformation(extent={{160,60},{180,80}})));
 
   Buildings.Controls.OBC.CDL.Continuous.IntegratorWithReset intWitRes(
-    final k=antWinGai,
-    final reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter)
+    final k=antWinGai)
     "Integrator with reset"
     annotation (Placement(transformation(extent={{240,0},{260,20}})));
 
@@ -266,6 +273,12 @@ equation
           -10},{-90,-10},{-90,-2}}, color={255,0,255}));
   connect(preRes.y, intWitRes.trigger) annotation (Line(points={{42,80},{50,80},
           {50,-10},{250,-10},{250,-2}}, color={255,0,255}));
+  connect(resVal.y, intWitRes.y_reset_in) annotation (Line(points={{142,10},{182,
+          10},{182,2},{238,2}}, color={0,0,127}));
+  connect(ingVal.y, tim1.reset) annotation (Line(points={{-238,20},{-238,36},{-262,
+          36},{-262,42}}, color={255,0,255}));
+  connect(ingVal.y, tim.reset) annotation (Line(points={{-238,20},{-236,20},{-236,
+          36},{-270,36},{-270,142},{-262,142}}, color={255,0,255}));
   annotation (defaultComponentName = "wseTun",
         Icon(graphics={
         Rectangle(

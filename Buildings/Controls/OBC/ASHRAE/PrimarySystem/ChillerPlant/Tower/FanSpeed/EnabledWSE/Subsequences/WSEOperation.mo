@@ -67,7 +67,7 @@ protected
     "Count the time when fan is at minimum speed and the chilled water supply temperature drops below setpoint"
     annotation (Placement(transformation(extent={{80,130},{100,150}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greEquThr(
-    final threshold=cheCycOffTim) "Check if fan should cycle off"
+    final t=cheCycOffTim) "Check if fan should cycle off"
     annotation (Placement(transformation(extent={{80,90},{100,110}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTowSpe(
     final k=fanSpeMin) "Minimum tower speed"

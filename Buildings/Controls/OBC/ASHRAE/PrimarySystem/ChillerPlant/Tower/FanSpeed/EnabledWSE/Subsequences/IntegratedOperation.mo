@@ -122,7 +122,7 @@ protected
     "Count the time after plant switching from WSE-only mode to integrated operation mode"
     annotation (Placement(transformation(extent={{80,-120},{100,-100}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greEquThr(
-    final threshold=intModTim)
+    final t=intModTim)
     "Check if it has passed threshold time after switching from WSE only to integrated mode"
     annotation (Placement(transformation(extent={{120,-120},{140,-100}})));
   Buildings.Controls.OBC.CDL.Logical.FallingEdge falEdg "Output true when input becomes false"

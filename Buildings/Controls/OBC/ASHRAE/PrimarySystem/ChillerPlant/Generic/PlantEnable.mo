@@ -1,4 +1,4 @@
-within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic;
+﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic;
 block PlantEnable "Sequence to enable and disable plant"
 
   parameter Boolean have_WSE = true
@@ -64,19 +64,19 @@ protected
     "Extrapolation of data outside the definition range";
 
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold schOn(
-    final threshold=0.5)
+    final t=0.5)
     "Check if enabling schedule is active"
     annotation (Placement(transformation(extent={{-100,40},{-80,60}})));
 
   Buildings.Controls.OBC.CDL.Logical.Not not1 "Logical not"
     annotation (Placement(transformation(extent={{-140,110},{-120,130}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Timer disTim
+  Buildings.Controls.OBC.CDL.Logical.Timer disTim(accumulate=false)
     "Chiller plant disabled time"
     annotation (Placement(transformation(extent={{-100,110},{-80,130}})));
 
   Buildings.Controls.OBC.CDL.Integers.GreaterThreshold hasReq(
-    final threshold=ignReq)
+    final t=ignReq)
     "Check if the number of chiller plant request is greater than the number of ignorable request"
     annotation (Placement(transformation(extent={{-140,80},{-120,100}})));
 
@@ -108,17 +108,17 @@ protected
     annotation (Placement(transformation(extent={{-100,-140},{-80,-120}})));
 
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greEquThr(
-    final threshold=plaThrTim)
+    final t=plaThrTim)
     "Check if chiller plant has been disabled more than threshold time"
     annotation (Placement(transformation(extent={{-60,110},{-40,130}})));
 
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greEquThr1(
-    final threshold=plaThrTim)
+    final t=plaThrTim)
     "Check if chiller plant has been enabled more than threshold time"
     annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
 
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greEquThr2(
-    final threshold=reqThrTim)
+    final t=reqThrTim)
     "Check if number of chiller plant request has been less than ignorable request by more than threshold time"
     annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
 
@@ -143,6 +143,10 @@ protected
     "Difference between chiller lockout temperature and outdoor temperature"
     annotation (Placement(transformation(extent={{-140,-140},{-120,-120}})));
 
+protected
+  CDL.Logical.Sources.Constant ingVal(final k=false)
+                   "Ignored value"
+    annotation (Placement(transformation(extent={{-180,150},{-160,170}})));
 equation
   connect(enaSch.y[1], schOn.u)
     annotation (Line(points={{-118,50},{-102,50}},   color={0,0,127}));
@@ -216,6 +220,12 @@ equation
   connect(and2.y, lat.clr) annotation (Line(points={{62,-10},{80,-10},{80,74},{98,
           74}},     color={255,0,255}));
 
+  connect(ingVal.y, disTim.reset) annotation (Line(points={{-158,160},{-110,160},
+          {-110,112},{-102,112}}, color={255,0,255}));
+  connect(ingVal.y, enaTim.reset) annotation (Line(points={{-158,160},{-158,-18},
+          {-142,-18}}, color={255,0,255}));
+  connect(ingVal.y, enaTim1.reset) annotation (Line(points={{-158,160},{-154,
+          160},{-154,-92},{-110,-92},{-110,-78},{-102,-78}}, color={255,0,255}));
 annotation (
   defaultComponentName = "plaEna",
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,-180},{200,180}})),

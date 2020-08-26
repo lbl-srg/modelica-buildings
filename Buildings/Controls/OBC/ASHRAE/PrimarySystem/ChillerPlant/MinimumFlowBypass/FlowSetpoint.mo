@@ -241,7 +241,7 @@ protected
     final nout=nChi) "Replicate boolean input"
     annotation (Placement(transformation(extent={{-380,30},{-360,50}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greEquThr[nChi](
-    final threshold=fill(0.5, nChi))
+    final t=fill(0.5, nChi))
     "Convert real to boolean"
     annotation (Placement(transformation(extent={{-320,240},{-300,260}})));
 

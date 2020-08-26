@@ -115,7 +115,7 @@ protected
     "Count the time demand limit"
     annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greEquThr3(
-    final threshold=holChiDemTim) "Check if the demand limit has been 5 minutes"
+    final t=holChiDemTim) "Check if the demand limit has been 5 minutes"
     annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
   Buildings.Controls.OBC.CDL.Logical.Or or2 "Logical or"
     annotation (Placement(transformation(extent={{120,-80},{140,-60}})));

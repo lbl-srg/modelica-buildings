@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.CDL.Continuous.Validation;
 model PIDInitialState
-  "Test model for PID controller with initial state specified"
+  "Test model for LimPID controller with initial state specified"
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant ySet(k=0.75)
     "Set point"
@@ -9,7 +9,7 @@ model PIDInitialState
     "Measured value"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.PID PID(
+  Buildings.Controls.OBC.CDL.Continuous.PID limPID(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PID,
     k=3,
     xi_start=0.25) "PID controller"
@@ -21,11 +21,11 @@ model PIDInitialState
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
 
 equation
-  connect(ySet.y, PID.u_s) annotation (Line(points={{-18,40},{0,40},{0,30},{18,
+  connect(ySet.y, limPID.u_s) annotation (Line(points={{-18,40},{0,40},{0,30},{18,
           30}}, color={0,0,127}));
   connect(ySet.y, limPI.u_s) annotation (Line(points={{-18,40},{0,40},{0,-30},{18,
           -30}}, color={0,0,127}));
-  connect(yMea.y, PID.u_m)
+  connect(yMea.y, limPID.u_m)
     annotation (Line(points={{-18,10},{30,10},{30,18}}, color={0,0,127}));
   connect(yMea.y, limPI.u_m) annotation (Line(points={{-18,10},{-4,10},{-4,-50},
           {30,-50},{30,-42}}, color={0,0,127}));
@@ -47,7 +47,7 @@ This model validates setting the initial state of the controller to a specified 
 <p>
 The model sets the initial values <code>xi_start=0.25</code>
 of the integrator for both instances of the controller.
-For the instance <code>PID</code>, it also sets the initial value of the state of the
+For the instance <code>limPID</code>, it also sets the initial value of the state of the
 derivative block <code>xd_start=-0.5</code>.
 The derivative block obtains as an input signal the value
 <i>u=-0.5</i> because the set point weight for the derivative action is <code>wd=0</code>.
