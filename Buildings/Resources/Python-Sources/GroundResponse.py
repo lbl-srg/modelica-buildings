@@ -87,7 +87,7 @@ def doStep(dblInp, state):
                 os.rename('newINFILE', 'INFILE')
             
             # Conduct one step TOUGH simulation
-            os.system("/opt/esd-tough/tough3-serial/tough3-install/bin/tough3-eos1")
+            os.system("/opt/esd-tough/tough3-serial/tough3-install/bin/tough3-eos3")
 
             # Extract borehole wall temperature
             os.system("./readsave < readsave.inp > out.txt")
@@ -163,7 +163,7 @@ def update_infile(preTim, curTim, infile, outfile):
     count = 0
     for line in fin:
         count += 1
-        if count == 18:
+        if count == 27:
             endStr=line[20:]
             staStr='%10.1f%10.1f' % (preTim, curTim)
             fout.write(staStr + endStr)
@@ -185,11 +185,11 @@ def update_writeincon(infile, preTim, curTim, boreholeTem, heatFlux):
         count += 1
         # assign initial time
         if count == 6:
-            tempStr = '% 10.1f' % preTim
+            tempStr = '% 10.0f' % preTim
             fout.write(tempStr.strip() + os.linesep)
         # assign final time
         elif count ==  8:
-            tempStr = '% 10.1f' % curTim
+            tempStr = '% 10.0f' % curTim
             fout.write(tempStr.strip() + os.linesep)
         # assign borehole wall temperature to each segment
         elif (count >= 10 and count <= 19):
