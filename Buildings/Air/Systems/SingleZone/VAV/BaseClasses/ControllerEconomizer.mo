@@ -81,8 +81,8 @@ model ControllerEconomizer "Controller for economizer"
     final Ti=TiEco,
     final Td=TdEco,
     final reverseActing=false,
-    final yMax=Modelica.Constants.inf,
-    final yMin=-Modelica.Constants.inf)
+    final yMax=1,
+    final yMin=0)
     "Controller"
     annotation (Placement(transformation(extent={{-90,70},{-70,90}})));
   Modelica.Blocks.Math.Feedback feedback "Control error"

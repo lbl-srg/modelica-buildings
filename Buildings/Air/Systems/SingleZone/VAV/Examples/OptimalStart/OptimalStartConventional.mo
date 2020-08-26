@@ -22,7 +22,8 @@ model OptimalStartConventional
   Buildings.Controls.OBC.Utilities.OptimalStart optSta(
     computeHeating=true,
     computeCooling=true,
-    thrOptOn(displayUnit="s")) "Optimal start for heating and cooling system "
+    thrOptOn(displayUnit="s") = 0)
+                               "Optimal start for heating and cooling system "
     annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
   Buildings.Controls.SetPoints.OccupancySchedule occSch(occupancy=3600*{8,18})
     "Occupancy schedule"
@@ -51,6 +52,8 @@ model OptimalStartConventional
   BaseClasses.ZoneWithAHUConventional zonAHUCon2
     "Model of a single zone with AHU and controller"
     annotation (Placement(transformation(extent={{80,-70},{100,-50}})));
+  Controls.OBC.CDL.Logical.Or or2 "Logical or"
+    annotation (Placement(transformation(extent={{40,0},{60,20}})));
 equation
   connect(TSetHeaOn.y, optSta.TSetZonHea) annotation (Line(points={{-79,70},{-72,
           70},{-72,78},{-42,78}},   color={0,0,127}));
@@ -80,10 +83,14 @@ equation
           -6,80},{-2,80}}, color={255,0,255}));
   connect(booToRea1.y, add4.u2) annotation (Line(points={{22,80},{24,80},{24,72},
           {38,72}}, color={0,0,127}));
-  connect(occSch.occupied, zonAHUCon1.uOcc) annotation (Line(points={{-79,-12},
-          {-56,-12},{-56,20},{76,20},{76,54},{78,54}}, color={255,0,255}));
   connect(occSch.occupied, zonAHUCon2.uOcc) annotation (Line(points={{-79,-12},
-          {-56,-12},{-56,20},{76,20},{76,-66},{78,-66}}, color={255,0,255}));
+          {-6,-12},{-6,-66},{78,-66}},                   color={255,0,255}));
+  connect(optSta.optOn, or2.u1) annotation (Line(points={{-18,66},{-6,66},{-6,
+          10},{38,10}}, color={255,0,255}));
+  connect(occSch.occupied, or2.u2) annotation (Line(points={{-79,-12},{-6,-12},
+          {-6,2},{38,2}}, color={255,0,255}));
+  connect(or2.y, zonAHUCon1.uOcc) annotation (Line(points={{62,10},{74,10},{74,
+          54},{78,54}}, color={255,0,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}})),                                        Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-120,-100},{120,100}}),

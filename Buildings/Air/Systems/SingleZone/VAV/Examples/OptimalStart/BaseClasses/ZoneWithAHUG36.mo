@@ -2,18 +2,19 @@ within Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.BaseClasses;
 block ZoneWithAHUG36
   "A single zone building with an air handling system"
 
-  package MediumA = Buildings.Media.Air (extraPropertiesNames={"CO2"})
+  package MediumA = Buildings.Media.Air(extraPropertiesNames={"CO2"})
     "Buildings library air media package";
   package MediumW = Buildings.Media.Water
     "Buildings library water media package";
   parameter Modelica.SIunits.Temperature TSupChi_nominal=279.15
     "Design value for chiller leaving water temperature";
-  parameter Modelica.SIunits.Volume VRoo = 4555.7 "Space volume of the floor";
+  parameter Modelica.SIunits.Volume VRoo = 4555.7
+    "Space volume of the floor";
   parameter Modelica.SIunits.MassFlowRate mAir_flow_nominal = VRoo*4*1.2/3600
     "Design air flow rate";
-  parameter Modelica.SIunits.HeatFlowRate QHea_flow_nominal = 126000
+  parameter Modelica.SIunits.HeatFlowRate QHea_flow_nominal = 90000
     "Design heating flow rate";
-  parameter Modelica.SIunits.HeatFlowRate QCoo_flow_nominal = -110000
+  parameter Modelica.SIunits.HeatFlowRate QCoo_flow_nominal = -90000
     "Design cooling flow rate";
 
   Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.Controller con(
@@ -32,8 +33,10 @@ block ZoneWithAHUG36
     have_occSen=false,
     TZonHeaOff=288.15,
     TZonCooOn=297.15,
-    TSupSetMax=323.15,
-    TSupSetMin=285.15) "VAV controller"
+    TSupSetMax=343.15,
+    TSupSetMin=286.15,
+    uLow=0,
+    uHigh=0.5)         "VAV controller"
     annotation (Placement(transformation(extent={{-66,-36},{-26,12}})));
   ThermalZones.Detailed.Validation.BaseClasses.SingleZoneFloor sinZonFlo(
       redeclare package Medium = MediumA, lat=weaDat.lat) "Single zone floor"
@@ -54,7 +57,8 @@ block ZoneWithAHUG36
     "Control error on room temperature for cooling"
     annotation (Placement(transformation(extent={{-76,-80},{-56,-60}})));
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
-    Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"),
+        ModelicaServices.ExternalReferences.loadResource(
+        "modelica://Buildings/Resources/weatherdata/DRYCOLD.mos"),
     computeWetBulbTemperature=false)
     "Weather data"
     annotation (Placement(transformation(extent={{-20,70},{0,90}})));
@@ -67,12 +71,12 @@ block ZoneWithAHUG36
   Controls.OBC.CDL.Interfaces.RealInput warUpTim(final unit="s",
       final quantity="Time")
     "Warm-up time retrieved from optimal warm-up block"
-    annotation (Placement(transformation(extent={{-180,-10},{-140,30}}),
+    annotation (Placement(transformation(extent={{-180,40},{-140,80}}),
         iconTransformation(extent={{-140,40},{-100,80}})));
   Controls.OBC.CDL.Interfaces.RealInput cooDowTim(final unit="s",
       final quantity="Time")
     "Cool-down time retrieved from optimal cool-down block"
-    annotation (Placement(transformation(extent={{-180,20},{-140,60}}),
+    annotation (Placement(transformation(extent={{-180,0},{-140,40}}),
         iconTransformation(extent={{-140,-2},{-100,38}})));
   Controls.OBC.CDL.Interfaces.RealOutput TZon(
     final unit="K",
@@ -154,16 +158,16 @@ equation
           {-90,-5.53846},{-68,-5.53846}}, color={255,127,0}));
   connect(demLim.y, con.uHeaDemLimLev) annotation (Line(points={{-98,-50},{-90,-50},
           {-90,-7.38462},{-68,-7.38462}}, color={255,127,0}));
-  connect(cooDowTim, con.warUpTim) annotation (Line(points={{-160,40},{-120,40},
-          {-120,8.30769},{-68,8.30769}}, color={0,0,127}));
-  connect(warUpTim, con.cooDowTim) annotation (Line(points={{-160,10},{-128,10},
-          {-128,5.53846},{-68,5.53846}}, color={0,0,127}));
   connect(sinZonFlo.TRooAir, TZon) annotation (Line(points={{113,6.2},{120,6.2},
           {120,0},{160,0}}, color={0,0,127}));
   connect(tNexOcc, con.tNexOcc) annotation (Line(points={{-160,-20},{-132,-20},{
           -132,2.76923},{-68,2.76923}}, color={0,0,127}));
   connect(uOcc, con.uOcc) annotation (Line(points={{-160,-50},{-130,-50},{-130,-2.76923},
           {-68,-2.76923}}, color={255,0,255}));
+  connect(warUpTim, con.warUpTim) annotation (Line(points={{-160,60},{-88,60},{-88,
+          8.30769},{-68,8.30769}}, color={0,0,127}));
+  connect(cooDowTim, con.cooDowTim) annotation (Line(points={{-160,20},{-92,20},
+          {-92,5.53846},{-68,5.53846}}, color={0,0,127}));
   annotation (defaultComponentName="zonAHUG36",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={
                                 Rectangle(

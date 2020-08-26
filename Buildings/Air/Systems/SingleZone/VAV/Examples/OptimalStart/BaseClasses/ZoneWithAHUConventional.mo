@@ -6,16 +6,15 @@ block ZoneWithAHUConventional
     "Buildings library air media package";
   package MediumW = Buildings.Media.Water
     "Buildings library water media package";
-
   parameter Modelica.SIunits.Temperature TSupChi_nominal=279.15
     "Design value for chiller leaving water temperature";
   parameter Modelica.SIunits.Volume VRoo = 4555.7
     "Space volume of the floor";
   parameter Modelica.SIunits.MassFlowRate mAir_flow_nominal = VRoo*4*1.2/3600
     "Design air flow rate";
-  parameter Modelica.SIunits.HeatFlowRate QHea_flow_nominal = 126000
+  parameter Modelica.SIunits.HeatFlowRate QHea_flow_nominal = 90000
     "Design heating flow rate";
-  parameter Modelica.SIunits.HeatFlowRate QCoo_flow_nominal = -110000
+  parameter Modelica.SIunits.HeatFlowRate QCoo_flow_nominal = -90000
     "Design cooling flow rate";
 
   Buildings.Air.Systems.SingleZone.VAV.ChillerDXHeatingEconomizer hvac(
@@ -67,42 +66,37 @@ block ZoneWithAHUConventional
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),
         iconTransformation(extent={{-140,-80},{-100,-40}})));
 equation
-  connect(con.yCooCoiVal,hvac. uCooVal) annotation (Line(points={{-57,-4},{-36,-4},
+  connect(con.yCooCoiVal,hvac. uCooVal) annotation (Line(points={{-56,-4},{-36,-4},
           {-36,5},{-20,5}}, color={0,0,127}));
   connect(hvac.uEco,con. yOutAirFra) annotation (Line(points={{-20,-2},{-34,-2},
-          {-34,0},{-57,0}}, color={0,0,127}));
-  connect(con.chiOn,hvac. chiOn) annotation (Line(points={{-57,-7.4},{-36,-7.4},
-          {-36,-10},{-20,-10}},
-                           color={255,0,255}));
-  connect(con.yFan,hvac. uFan) annotation (Line(points={{-57,7},{-46,7},{-46,18},
+          {-34,0},{-56,0}}, color={0,0,127}));
+  connect(con.chiOn,hvac. chiOn) annotation (Line(points={{-56,-7},{-36,-7},{-36,
+          -10},{-20,-10}}, color={255,0,255}));
+  connect(con.yFan,hvac. uFan) annotation (Line(points={{-56,6},{-46,6},{-46,18},
           {-20,18}}, color={0,0,127}));
-  connect(con.yHea,hvac. uHea) annotation (Line(points={{-57,3.4},{-40,3.4},{-40,
-          12},{-20,12}},
-                     color={0,0,127}));
+  connect(con.yHea,hvac. uHea) annotation (Line(points={{-56,3},{-40,3},{-40,12},
+          {-20,12}}, color={0,0,127}));
   connect(hvac.TMix,con. TMix) annotation (Line(points={{23.2,-4},{28,-4},{28,-28},
-          {-88,-28},{-88,1},{-79.4,1}},   color={0,0,127}));
+          {-88,-28},{-88,7},{-80,7}},     color={0,0,127}));
   connect(hvac.TSup,con. TSup) annotation (Line(points={{23.2,-8},{26,-8},{26,-26},
-          {-86,-26},{-86,-10.6},{-79.4,-10.6}},
-                                          color={0,0,127}));
+          {-86,-26},{-86,-11},{-80,-11}}, color={0,0,127}));
   connect(sinZonFlo.TRooAir,con. TRoo) annotation (Line(points={{75,14.2},{82,14.2},
-          {82,-42},{-92,-42},{-92,-7.8},{-79.4,-7.8}},color={0,0,127}));
+          {82,-42},{-92,-42},{-92,-8},{-80,-8}},      color={0,0,127}));
   connect(hvac.supplyAir,sinZonFlo. ports[1]) annotation (Line(points={{22.2,8},
           {40,8},{40,-8},{45.8,-8}},     color={0,127,255}));
   connect(hvac.returnAir,sinZonFlo. ports[2]) annotation (Line(points={{22.2,0},
           {32,0},{32,-8},{47.8,-8}},     color={0,127,255}));
   connect(con.TSetSupChi,hvac. TSetChi)
-    annotation (Line(points={{-57,-11},{-40,-11},{-40,-18},{-20,-18}},
+    annotation (Line(points={{-56,-10},{-40,-10},{-40,-18},{-20,-18}},
                                                              color={0,0,127}));
   connect(TSetRooHea, con.TSetRooHea) annotation (Line(points={{-120,60},{-90,60},
-          {-90,6.6},{-79.4,6.6}},
-                            color={0,0,127}));
+          {-90,4},{-80,4}}, color={0,0,127}));
   connect(TSetRooCoo, con.TSetRooCoo) annotation (Line(points={{-120,0},{-96,0},
-          {-96,3.8},{-79.4,3.8}},
-                            color={0,0,127}));
+          {-96,1},{-80,1}}, color={0,0,127}));
   connect(sinZonFlo.TRooAir,TZon)  annotation (Line(points={{75,14.2},{82,14.2},
           {82,0},{120,0}}, color={0,0,127}));
   connect(uOcc, con.uOcc) annotation (Line(points={{-120,-60},{-84,-60},{-84,-2},
-          {-80.8,-2}}, color={255,0,255}));
+          {-80,-2}},   color={255,0,255}));
   connect(weaBus, sinZonFlo.weaBus) annotation (Line(
       points={{6,60},{44,60},{44,21},{44.8,21}},
       color={255,204,51},
@@ -116,7 +110,7 @@ equation
       color={255,204,51},
       thickness=0.5));
   connect(weaBus.TDryBul, con.TOut) annotation (Line(
-      points={{6,60},{6,32},{-86,32},{-86,-5},{-79.4,-5}},
+      points={{6,60},{6,32},{-86,32},{-86,-5},{-80,-5}},
       color={255,204,51},
       thickness=0.5));
   annotation (choicesAllMatching = true,
