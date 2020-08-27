@@ -253,7 +253,13 @@ to <b style=\"color:blue\">existing</b> libraries:
                        This implementation allows to reset the output of the controller
                        to a parameter value. (Resetting it to an input was never used and is now removed for simplicity.)<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2056\">issue 2056</a>.</td>
-</tr>                       
+</tr>                      
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Logical.TimerAccumulating
+    </td>
+    <td valign=\"top\">New timer that accumulates time. The output will be reset to zero when the reset input
+                       becomes true.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2101\">issue 2101</a>.</td>
+</tr>  
 </table>
 <!-- Backward compatible changes -->
 <p>
