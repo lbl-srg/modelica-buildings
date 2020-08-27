@@ -1,38 +1,60 @@
-within Buildings.Controls.OBC.CDL.Logical;
+within Buildings.Obsolete.Controls.OBC.CDL.Logical;
 block Timer
   "Timer measuring the time from the time instant where the Boolean input became true"
-
-  parameter Real t(
-    final quantity="Time",
-    final unit="s")=0 "Threshold time for comparison";
+  parameter Boolean accumulate = false
+    "If true, accumulate time until Boolean input 'reset' becomes true, otherwise reset timer whenever u becomes true";
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u
     "Connector for signal that switches timer on if true, and off if false"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput reset
+    "Connector for signal that sets timer to zero if it switches to true. The input value will be ignored if the timer does not accumulate time"
+    annotation (Placement(transformation(extent={{-140,-90},{-100,-50}}),
+      iconTransformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y(
     final quantity="Time",
     final unit="s") "Timer output"
-    annotation (Placement(transformation(extent={{100,-20},{140,20}}),
-        iconTransformation(extent={{100,-20},{140,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput pasThr
-    "True if the time is greater than threshold"
-    annotation (Placement(transformation(extent={{100,-100},{140,-60}}),
-        iconTransformation(extent={{100,-100},{140,-60}})));
+    annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected
   discrete Modelica.SIunits.Time entryTime "Time instant when u became true";
+  discrete Modelica.SIunits.Time yAcc "Accumulated time up to last change to true";
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput reset_internal(
+    final start=false,
+    final fixed=true) "Internal connector";
 
 initial equation
   pre(entryTime) = 0;
+  yAcc = 0;
+
 equation
-  when u then
+  if not accumulate then
+    reset_internal = true;
+  else
+    reset_internal = reset;
+  end if;
+
+  when u and (not edge(reset_internal)) then
+    entryTime = time;
+  elsewhen reset then
     entryTime = time;
   end when;
-  y = if u then time - entryTime else 0.0;
-  pasThr = y > t;
+
+  when reset then
+    yAcc = 0;
+  elsewhen (not u) then
+    yAcc = pre(y);
+  end when;
+
+  if not accumulate then
+    y = if u then time - entryTime else 0.0;
+  else
+    y = if u then yAcc + (time - entryTime) else yAcc;
+  end if;
 
 annotation (
     defaultComponentName="tim",
+    obsolete = "This model is obsolete, use Buildings.Controls.OBC.CDL.Logical.Timer or TimerAccumulating instead",
     Icon(
       coordinateSystem(preserveAspectRatio=true,
         extent={{-100.0,-100.0},{100.0,100.0}}),
@@ -58,39 +80,38 @@ annotation (
         color={255,0,255}),
       Line(points={{-58,0},{-40,0},{40,90},{40,0},{68,0}},
         color={0,0,127}),
-      Text(
+        Text(
           extent={{-150,150},{150,110}},
           lineColor={0,0,255},
           textString="%name"),
-      Ellipse(
+        Ellipse(
           extent={{-83,7},{-69,-7}},
           lineColor=DynamicSelect({235,235,235}, if u then {0,255,0} else {235,
               235,235}),
           fillColor=DynamicSelect({235,235,235}, if u then {0,255,0} else {235,
               235,235}),
-          fillPattern=FillPattern.Solid),
-      Ellipse(
-          extent={{71,-73},{85,-87}},
-          lineColor=DynamicSelect({235,235,235}, if pasThr then {0,255,0} else {235,
-              235,235}),
-          fillColor=DynamicSelect({235,235,235}, if pasThr then {0,255,0} else {235,
-              235,235}),
           fillPattern=FillPattern.Solid)}),
-Documentation(info="<html>
-<p>When the Boolean input <code>u</code> becomes true, the timer starts and the
-output <code>y</code> is the time that has elapsed since <code>u</code>
-becomes true. When the output <code>y</code> becomes greater than the threshold
-time <code>t</code>, the output <code>pasThr</code> becomes true.
-When the input becomes false, the timer stops and the output is reset to zero.
+    Documentation(info="<html>
+<p>
+Timer with option to accumulate time until it is reset by an input signal.
 </p>
-</html>", revisions="<html>
+<p>
+Each time the Boolean input <code>u</code> becomes true, the timer runs, otherwise
+it is dormant.
+</p>
 <ul>
 <li>
-August 26, 2020, by Jianjun Hu:<br/>
-Removed <code>reset</code> boolean input and added output <code>pasThr</code>
-to show if the time becomes greater than threshold time. This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2101\">issue 2101</a>.
+If the parameter <code>accumulate</code> is <code>false</code>, the timer is set to zero each time the
+input <code>u</code> becomes <code>false</code>. The value of input <code>reset</code>
+will be ignored.
 </li>
+<li>
+If the parameter <code>accumulate</code> is <code>true</code>, the timer accumulates time,
+and the timer is set to zero only when the value of the input <code>reset</code> becomes <code>true</code>.
+</li>
+</ul>
+</html>", revisions="<html>
+<ul>
 <li>
 July 31, 2020, by Jianjun Hu:<br/>
 Fixed the reset input. This is for

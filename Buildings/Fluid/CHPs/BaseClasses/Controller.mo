@@ -134,18 +134,12 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant optCooDow(
     final k=per.coolDownOptional) "Check if cool-down mode is optional"
     annotation (Placement(transformation(extent={{60,-190},{80,-170}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold timeDel(final t=per.timeDelayCool)
-    "Check if the time of  plant in cool-down mode has been longer than the
-    specified delay time"
-    annotation (Placement(transformation(extent={{180,-190},{200,-170}})));
-  Buildings.Controls.OBC.CDL.Logical.Timer timer "Timer"
+  Buildings.Controls.OBC.CDL.Logical.Timer timer(
+    final t=per.timeDelayCool)
+    "Check if the time of  plant in cool-down mode has been longer than the specified delay time"
     annotation (Placement(transformation(extent={{152,-190},{172,-170}})));
   Buildings.Controls.OBC.CDL.Logical.Not noGo "Plant should not run"
     annotation (Placement(transformation(extent={{40,90},{60,110}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant damRes(
-    final k=true)
-    "Dammy reset input to timer that does not accumulate time"
-    annotation (Placement(transformation(extent={{100,-200},{120,-180}})));
 
 equation
   if plaOff.active then
@@ -256,12 +250,8 @@ equation
           -79.75},{200,-79.75},{200,-60},{236,-60}}, color={0,0,0}));
   connect(cooDow.outPort[2], transition7.inPort) annotation (Line(points={{180.5,
           -80.25},{182,-80.25},{182,-80},{216,-80}}, color={0,0,0}));
-  connect(timer.y, timeDel.u)
-    annotation (Line(points={{174,-180},{178,-180}}, color={0,0,127}));
   connect(cooDow.active, timer.u) annotation (Line(points={{170,-91},{170,-140},
           {140,-140},{140,-180},{150,-180}}, color={255,0,255}));
-  connect(timeDel.y, and4.u1) annotation (Line(points={{202,-180},{204,-180},{204,
-          -200},{206,-200}}, color={255,0,255}));
   connect(PEleNet, warUpCtr.PEleNet) annotation (Line(points={{-280,-40},{80,
           -40},{80,-42},{88,-42}}, color={0,0,127}));
   connect(PEle, warUpCtr.PEle) annotation (Line(points={{-280,-80},{-40,-80},{
@@ -276,9 +266,9 @@ equation
           60},{-144,-208},{206,-208}}, color={255,0,255}));
   connect(noGo.y, transition9.condition) annotation (Line(points={{62,100},{80,100},
           {80,60},{-144,60},{-144,-140},{90,-140},{90,-92}}, color={255,0,255}));
-  connect(damRes.y, timer.reset) annotation (Line(points={{122,-190},{140,-190},
-          {140,-188},{150,-188}}, color={255,0,255}));
 
+  connect(timer.pasThr, and4.u1) annotation (Line(points={{174,-188},{200,-188},
+          {200,-200},{206,-200}}, color={255,0,255}));
 annotation (
     defaultComponentName="conMai",
     Diagram(coordinateSystem(extent={{-260,-220},{260,220}})),

@@ -17,6 +17,7 @@ Or3
 Pre
 Switch
 Timer
+TimerAccumulating
 Toggle
 TriggeredTrapezoid
 TrueDelay
