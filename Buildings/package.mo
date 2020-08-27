@@ -391,9 +391,19 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2076\">#2076</a>.<br/>
                        For Dymola, a conversion script makes this change.</td>
 </tr>
- <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL.Integers</b>
+                       
+<tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL.Logical</b>
     </td>
-    </tr>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Logical.Timer
+    </td>
+    <td valign=\"top\">Removed <code>reset</code> boolean input and added boolean output <code>pasThr</code>
+                       to show if the time becomes greater than threshold time.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2101\">#2101</a>.
+</tr>                                  
+<tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL.Integers</b>
+    </td>
+</tr>
 <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Integers.GreaterEqualThreshold<br/>
                        Buildings.Controls.OBC.CDL.Integers.LessEqualThreshold<br/>
                        Buildings.Controls.OBC.CDL.Integers.GreaterThreshold<br/>

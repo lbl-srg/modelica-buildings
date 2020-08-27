@@ -87,7 +87,8 @@ When the input becomes false, the timer stops and the output is reset to zero.
 <ul>
 <li>
 August 26, 2020, by Jianjun Hu:<br/>
-Removed <code>reset</code> and added output <code>pasThr</code>. This is for
+Removed <code>reset</code> boolean input and added output <code>pasThr</code>
+to show if the time becomes greater than threshold time. This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2101\">issue 2101</a>.
 </li>
 <li>
