@@ -108,60 +108,60 @@ protected
 
 equation
   connect(booPul.y, not1.u)
-    annotation (Line(points={{-78,90},{-70,90},{-70,70},{-62,70}},
+    annotation (Line(points={{-79,90},{-70,90},{-70,70},{-62,70}},
       color={255,0,255}));
   connect(booPul.y, onDelay0.u)
-    annotation (Line(points={{-78,90},{-20,90},{-20,140},{-2,140}},
-                          color={255,0,255}));
+    annotation (Line(points={{-79,90},{-20,90},{-20,
+          140},{-2,140}}, color={255,0,255}));
   connect(booPul.y, onDelay2.u)
-    annotation (Line(points={{-78,90},{-20,90},{-20,110},{-2,110}},
+    annotation (Line(points={{-79,90},{-20,90},{-20,110},{-2,110}},
       color={255,0,255}));
   connect(booPul.y, onDelay1.u)
-    annotation (Line(points={{-78,90},{40,90},{40,140},{58,140}},
+    annotation (Line(points={{-79,90},{40,90},{40,140},{58,140}},
       color={255,0,255}));
   connect(booPul.y, onDelay3.u)
-    annotation (Line(points={{-78,90},{40,90},{40,110},{58,110}},
+    annotation (Line(points={{-79,90},{40,90},{40,110},{58,110}},
       color={255,0,255}));
   connect(not1.y, onDelay4.u)
-    annotation (Line(points={{-38,70},{-20,70},{-20,50},{-2,50}},
+    annotation (Line(points={{-39,70},{-20,70},{-20,50},{-2,50}},
       color={255,0,255}));
   connect(not1.y, onDelay6.u)
-    annotation (Line(points={{-38,70},{-20,70},{-20,20},{-2,20}},
+    annotation (Line(points={{-39,70},{-20,70},{-20,20},{-2,20}},
       color={255,0,255}));
   connect(not1.y, onDelay5.u)
-    annotation (Line(points={{-38,70},{40,70},{40,50},{58,50}},
+    annotation (Line(points={{-39,70},{40,70},{40,50},{58,50}},
       color={255,0,255}));
   connect(not1.y, onDelay7.u)
-    annotation (Line(points={{-38,70},{40,70},{40,20},{58,20}},
+    annotation (Line(points={{-39,70},{40,70},{40,20},{58,20}},
       color={255,0,255}));
 
   connect(booPul1.y, not2.u)
-    annotation (Line(points={{-78,-90},{-70,-90},{-70,-110},{-62,-110}},
-                             color={255,0,255}));
+    annotation (Line(points={{-79,-90},{-70,-90},{-70,
+          -110},{-62,-110}}, color={255,0,255}));
   connect(booPul1.y, onDelay00.u)
-    annotation (Line(points={{-78,-90},{-20,-90},{-20,-40},{-2,-40}},
-                               color={255,0,255}));
+    annotation (Line(points={{-79,-90},{-20,-90},
+          {-20,-40},{-2,-40}}, color={255,0,255}));
   connect(booPul1.y, onDelay22.u)
-    annotation (Line(points={{-78,-90},{-20,-90},{-20,-70},{-2,-70}},
-                               color={255,0,255}));
+    annotation (Line(points={{-79,-90},{-20,-90},
+          {-20,-70},{-2,-70}}, color={255,0,255}));
   connect(booPul1.y, onDelay11.u)
-    annotation (Line(points={{-78,-90},{40,-90},{40,-40},{58,-40}},
-                             color={255,0,255}));
+    annotation (Line(points={{-79,-90},{40,-90},{
+          40,-40},{58,-40}}, color={255,0,255}));
   connect(booPul1.y, onDelay33.u)
-    annotation (Line(points={{-78,-90},{40,-90},{40,-70},{58,-70}},
-                             color={255,0,255}));
+    annotation (Line(points={{-79,-90},{40,-90},{
+          40,-70},{58,-70}}, color={255,0,255}));
   connect(not2.y, onDelay44.u)
-    annotation (Line(points={{-38,-110},{-20,-110},{-20,-130},{-2,-130}},
-                                color={255,0,255}));
+    annotation (Line(points={{-39,-110},{-20,-110},{
+          -20,-130},{-2,-130}}, color={255,0,255}));
   connect(not2.y, onDelay66.u)
-    annotation (Line(points={{-38,-110},{-20,-110},{-20,-160},{-2,-160}},
-                                color={255,0,255}));
+    annotation (Line(points={{-39,-110},{-20,-110},{
+          -20,-160},{-2,-160}}, color={255,0,255}));
   connect(not2.y, onDelay55.u)
-    annotation (Line(points={{-38,-110},{40,-110},{40,-130},{58,-130}},
-                               color={255,0,255}));
+    annotation (Line(points={{-39,-110},{40,-110},{
+          40,-130},{58,-130}}, color={255,0,255}));
   connect(not2.y, onDelay77.u)
-    annotation (Line(points={{-38,-110},{40,-110},{40,-160},{58,-160}},
-                               color={255,0,255}));
+    annotation (Line(points={{-39,-110},{40,-110},{
+          40,-160},{58,-160}}, color={255,0,255}));
 
 annotation (
   experiment(StopTime=5.0, Tolerance=1e-06),
