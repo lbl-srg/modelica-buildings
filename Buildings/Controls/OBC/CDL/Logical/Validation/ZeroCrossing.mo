@@ -28,15 +28,16 @@ model ZeroCrossing "Validation model for the zero crossing block"
     annotation (Placement(transformation(extent={{60,40},{80,60}})));
 equation
   connect(booPul1.y, zeroCrossing.enable)
-    annotation (Line(points={{-17,-34},{10,-34},{10,-12}},color={255,0,255}));
+    annotation (Line(points={{-16,-34},{10,-34},{10,-12}},color={255,0,255}));
   connect(ramp1.y, sin1.u)
-    annotation (Line(points={{-61,0},{-50.5,0},{-40,0}},    color={0,0,127}));
+    annotation (Line(points={{-60,0},{-60,0},{-40,0}},      color={0,0,127}));
   connect(sin1.y, zeroCrossing.u)
-    annotation (Line(points={{-17,0},{-2,0}},         color={0,0,127}));
+    annotation (Line(points={{-16,0},{-2,0}},         color={0,0,127}));
   connect(ramp2.y, triggeredSampler.u)
-    annotation (Line(points={{21,50},{58,50},{58,50}}, color={0,0,127}));
-  connect(zeroCrossing.y, triggeredSampler.trigger) annotation (Line(points={{21,0},{70,0},
-          {70,36},{70,38},{70,38},{70,38.2}}, color={255,0,255}));
+    annotation (Line(points={{22,50},{58,50},{58,50}}, color={0,0,127}));
+  connect(zeroCrossing.y, triggeredSampler.trigger) annotation (Line(points={{22,0},{
+          70,0},{70,36},{70,38},{70,38},{70,38.2}},
+                                              color={255,0,255}));
   annotation (
   experiment(StopTime=5.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Logical/Validation/ZeroCrossing.mos"
