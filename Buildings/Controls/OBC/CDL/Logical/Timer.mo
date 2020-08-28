@@ -7,15 +7,15 @@ block Timer
     final unit="s")=0 "Threshold time for comparison";
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u
-    "Connector for signal that switches timer on if true, and off if false"
+    "Input that switches timer on if true, and off if false"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y(
     final quantity="Time",
-    final unit="s") "Timer output"
+    final unit="s") "Elapsed time"
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),
         iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput pasThr
-    "True if the time is greater than threshold"
+    "True if the elapsed time is greater than threshold"
     annotation (Placement(transformation(extent={{100,-100},{140,-60}}),
         iconTransformation(extent={{100,-100},{140,-60}})));
 
@@ -23,13 +23,26 @@ protected
   discrete Modelica.SIunits.Time entryTime "Time instant when u became true";
 
 initial equation
-  pre(entryTime) = 0;
+  pre(entryTime) = time;
+  pre(pasThr) = t <= 0;
 equation
   when u then
     entryTime = time;
+    // When u becomes true, and t=0, we want pasThr to be true
+    // at the first step (in superdense time).
+    pasThr = t <= 0;
+  elsewhen
+          (u and time  >= t + pre(entryTime)) then
+    pasThr = true;
+    entryTime = pre(entryTime);
+  elsewhen not u then
+    // Set pasThr to false.
+    // This is the behavior a timer would have if the threshold test is done with a greater block connected to the output of the timer
+    pasThr = false;
+    entryTime = pre(entryTime);
   end when;
+
   y = if u then time - entryTime else 0.0;
-  pasThr = y > t;
 
 annotation (
     defaultComponentName="tim",
@@ -77,18 +90,28 @@ annotation (
               235,235}),
           fillPattern=FillPattern.Solid)}),
 Documentation(info="<html>
-<p>When the Boolean input <code>u</code> becomes true, the timer starts and the
-output <code>y</code> is the time that has elapsed since <code>u</code>
-becomes true. When the output <code>y</code> becomes greater than the threshold
-time <code>t</code>, the output <code>pasThr</code> becomes true.
-When the input becomes false, the timer stops and the output is reset to zero.
+<p>
+If the Boolean input <code>u</code> is <code>true</code>,
+the output <code>y</code> is the time that has elapsed since <code>u</code> became <code>true</code>.
+Otherwise, <code>y</code> is <i>0</i>.
+If the output <code>y</code> becomes greater than the threshold time <code>t</code>,
+the output <code>pasThr</code> is <code>true</code>.
+Otherwise it is <code>false</code>.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
+August 26, 2020, by Michael Wetter:<br/>
+Revised implementation to correctly deal with non-zero simulation start time,
+and to avoid state events.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2101\">issue 2101</a>.
+</li>
+<li>
 August 26, 2020, by Jianjun Hu:<br/>
 Removed <code>reset</code> boolean input and added output <code>pasThr</code>
-to show if the time becomes greater than threshold time. This is for
+to show if the time becomes greater than threshold time.<br/>
+This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2101\">issue 2101</a>.
 </li>
 <li>
