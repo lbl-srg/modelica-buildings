@@ -76,6 +76,9 @@ annotation (
           extent={{-150,150},{150,110}},
           lineColor={0,0,255},
           textString="%name"),
+      Text(extent={{-64,62},{62,92}},
+            lineColor={0,0,0},
+            textString="t=%t"),
       Ellipse(
           extent={{-83,7},{-69,-7}},
           lineColor=DynamicSelect({235,235,235}, if u then {0,255,0} else {235,
@@ -102,6 +105,11 @@ Otherwise, <code>y</code> is <i>0</i>.
 If the output <code>y</code> becomes greater than the threshold time <code>t</code>,
 the output <code>pasThr</code> is <code>true</code>.
 Otherwise it is <code>false</code>.
+</p>
+<p>
+In the limiting case where the timer value reaches the threshold <code>t</code>
+and the input <code>u</code> becomes <code>false</code> simultaneously,
+the output <code>pasThr</code> remains <code>false</code>.
 </p>
 </html>", revisions="<html>
 <ul>
