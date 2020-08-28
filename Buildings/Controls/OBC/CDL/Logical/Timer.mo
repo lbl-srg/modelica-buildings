@@ -49,7 +49,8 @@ annotation (
     Icon(
       coordinateSystem(preserveAspectRatio=true,
         extent={{-100.0,-100.0},{100.0,100.0}}),
-        graphics={Rectangle(
+        graphics={
+      Rectangle(
           extent={{-100,100},{100,-100}},
           fillColor={210,210,210},
           lineThickness=5.0,
@@ -88,7 +89,11 @@ annotation (
               235,235}),
           fillColor=DynamicSelect({235,235,235}, if pasThr then {0,255,0} else {235,
               235,235}),
-          fillPattern=FillPattern.Solid)}),
+          fillPattern=FillPattern.Solid),
+        Text(
+          extent={{226,60},{106,10}},
+          lineColor={0,0,0},
+          textString=DynamicSelect("", String(y, leftjustified=false, significantDigits=3)))}),
 Documentation(info="<html>
 <p>
 If the Boolean input <code>u</code> is <code>true</code>,
