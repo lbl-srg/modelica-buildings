@@ -138,7 +138,7 @@ the output <code>passed</code> remains <code>false</code>.
 </html>", revisions="<html>
 <ul>
 <li>
-August 26, 2020, by Michael Wetter:<br/>
+August 28, 2020, by Michael Wetter:<br/>
 Revised implementation to correctly deal with non-zero simulation start time,
 and to avoid state events.<br/>
 This is for
