@@ -71,10 +71,6 @@ block Change "Calculates the chiller stage signal"
           extent={{100,20},{140,60}})));
 
 protected
-  CDL.Logical.Sources.Constant ingVal(
-    final k=false) "Ignored value"
-    annotation (Placement(transformation(extent={{-78,-250},{-58,-230}})));
-
   Buildings.Controls.OBC.CDL.Logical.Or or2 "Logical or"
     annotation (Placement(transformation(extent={{-380,-100},{-360,-80}})));
 
@@ -125,8 +121,7 @@ protected
     "Ensures the stage is changed at high load increases/decreases where a stage up or a stage down signal is uninterrupted after a single stage change as an another one is needed right away"
     annotation (Placement(transformation(extent={{80,-180},{100,-160}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Timer tim(
-    final accumulate=false) "Timer"
+  Buildings.Controls.OBC.CDL.Logical.Timer tim "Timer"
     annotation (Placement(transformation(extent={{-20,-240},{0,-220}})));
 
   Buildings.Controls.OBC.CDL.Logical.And and1 "Logical andEnsures the stage is changed at high load increases/decreases where a stage up or a stage down signal is uninterrupted after a single stage change as an another one is needed right away"
@@ -317,8 +312,6 @@ equation
           {460,60}}, color={255,0,255}));
   connect(cha.down, yChaDowEdg) annotation (Line(points={{402,4},{420,4},{420,-60},
           {460,-60}}, color={255,0,255}));
-  connect(ingVal.y, tim.reset) annotation (Line(points={{-56,-240},{-40,-240},{-40,
-          -238},{-22,-238}}, color={255,0,255}));
   annotation (defaultComponentName = "cha",
         Icon(graphics={
         Rectangle(

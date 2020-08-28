@@ -66,14 +66,13 @@ block Speed_primary_localDp
     annotation (Placement(transformation(extent={{140,100},{180,140}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.PID conPID1(
+  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset conPID1(
     final controllerType=controllerType,
     final k=k,
     final Ti=Ti,
     final Td=Td,
     final yMax=1,
     final yMin=0,
-    final reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter,
     final y_reset=0) "Pump speed controller"
     annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
   Buildings.Controls.OBC.CDL.Continuous.Line pumSpe "Pump speed"
@@ -84,14 +83,13 @@ block Speed_primary_localDp
   Buildings.Controls.OBC.CDL.Continuous.Line locDpSet
     "Local differential pressure setpoint"
     annotation (Placement(transformation(extent={{100,-30},{120,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.PID conPID[nSen](
+  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset conPID[nSen](
     final controllerType=fill(controllerType, nSen),
     final k=fill(k, nSen),
     final Ti=fill(Ti, nSen),
     final Td=fill(Td, nSen),
     final yMax=fill(1, nSen),
     final yMin=fill(0, nSen),
-    final reset=fill(Buildings.Controls.OBC.CDL.Types.Reset.Parameter, nSen),
     final y_reset=fill(0, nSen)) "Pump speed controller"
     annotation (Placement(transformation(extent={{0,-30},{20,-10}})));
 

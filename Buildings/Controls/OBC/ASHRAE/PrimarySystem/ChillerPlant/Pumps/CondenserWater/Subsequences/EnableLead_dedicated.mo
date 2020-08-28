@@ -1,4 +1,4 @@
-within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.CondenserWater.Subsequences;
+﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.CondenserWater.Subsequences;
 block EnableLead_dedicated
   "Sequence for enabling lead pump of plants with dedicated condenser water pumps"
 
@@ -33,12 +33,10 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Latch leaPumSta
     "Lead pump status"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
-  Buildings.Controls.OBC.CDL.Logical.Timer tim "Count the total time of the chiller is OFF"
-    annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greEquThr(
+  Buildings.Controls.OBC.CDL.Logical.Timer tim(
     final t=offTimThr)
-    "Check if the chiller has been OFF for more than 3 minutes"
-    annotation (Placement(transformation(extent={{0,-30},{20,-10}})));
+    "Check if the chiller has been OFF for more than threshold"
+    annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
   Buildings.Controls.OBC.CDL.Logical.Not not3 "Logical not"
     annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
   Buildings.Controls.OBC.CDL.Logical.And and2 "Logical and"
@@ -55,10 +53,6 @@ equation
     annotation (Line(points={{-120,-20},{-82,-20}}, color={255,0,255}));
   connect(not2.y, tim.u)
     annotation (Line(points={{-58,-20},{-42,-20}}, color={255,0,255}));
-  connect(tim.y, greEquThr.u)
-    annotation (Line(points={{-18,-20},{-2,-20}}, color={0,0,127}));
-  connect(greEquThr.y, or2.u1)
-    annotation (Line(points={{22,-20},{38,-20}}, color={255,0,255}));
   connect(not1.y, or2.u2)
     annotation (Line(points={{-58,-80},{30,-80},{30,-28},{38,-28}},
       color={255,0,255}));
@@ -72,6 +66,9 @@ equation
     annotation (Line(points={{-38,40},{-2,40}}, color={255,0,255}));
   connect(and2.y, leaPumSta.clr)
     annotation (Line(points={{22,40},{40,40},{40,64},{58,64}}, color={255,0,255}));
+  connect(tim.pasThr, or2.u1)
+    annotation (Line(points={{-18,-28},{0,-28},{0,-20},{38,-20}},
+      color={255,0,255}));
 
 annotation (
   defaultComponentName="enaLeaConPum",

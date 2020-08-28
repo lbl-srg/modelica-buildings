@@ -189,10 +189,6 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Not not1 "Logical not"
     annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
 
-  CDL.Logical.Sources.Constant ingVal(
-  final k=false) "Ignored value"
-    annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));
-
 equation
   connect(uTowFanSpeMax, wseTun.uTowFanSpeMax) annotation (Line(points={{-200,-100},
           {-150,-100},{-150,-95},{-142,-95}}, color={0,0,127}));
@@ -241,8 +237,6 @@ equation
     annotation (Line(points={{2,50},{18,50}}, color={0,0,127}));
   connect(wseTun.y, yTunPar)
     annotation (Line(points={{-119,-90},{190,-90}}, color={0,0,127}));
-  connect(ingVal.y, timer.reset) annotation (Line(points={{2,-40},{10,-40},{10,-18},
-          {18,-18}}, color={255,0,255}));
   annotation (defaultComponentName = "wseSta",
         Icon(graphics={
         Rectangle(
