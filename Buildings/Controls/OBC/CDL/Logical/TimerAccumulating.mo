@@ -1,25 +1,27 @@
 within Buildings.Controls.OBC.CDL.Logical;
 block TimerAccumulating
-  "Timer measuring the time from the time instant where the Boolean input became true"
+  "Accumulating timer that can be reset"
 
   parameter Real t(
     final quantity="Time",
     final unit="s")=0 "Threshold time for comparison";
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u "Connector for signal that switches timer on if true, and off if false"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u
+    "Input that switches timer on if true, and off if false"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput reset(
-    start=false,
-    fixed=true)
-    "Connector for signal that sets timer to zero if it switches to true. The input value will be ignored if the timer does not accumulate time"
+
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput reset
+    "Connector for signal that sets timer to zero if it switches to true"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}}),
       iconTransformation(extent={{-140,-100},{-100,-60}})));
+
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y(
     final quantity="Time",
-    final unit="s") "Timer output"
-    annotation (Placement(transformation(extent={{100,-20},{140,20}})));
+    final unit="s") "Elapsed time"
+    annotation (Placement(transformation(extent={{100,-20},{140,20}}),
+        iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput pasThr
-    "True if the time is greater than threshold"
+    "True if the elapsed time is greater than threshold"
     annotation (Placement(transformation(extent={{100,-100},{140,-60}}),
         iconTransformation(extent={{100,-100},{140,-60}})));
 
@@ -28,24 +30,36 @@ protected
   discrete Modelica.SIunits.Time yAcc "Accumulated time up to last change to true";
 
 initial equation
-  pre(entryTime) = 0;
+  pre(u) = false;
+  pre(reset) = false;
+  pre(entryTime) = time;
+  pre(pasThr) = t <= 0;
   yAcc = 0;
 
 equation
-  when u and (not edge(reset)) then
-    entryTime = time;
-  elsewhen reset then
-    entryTime = time;
-  end when;
-
+  // The when constructs below are identical to the ones in Buildings.Controls.OBC.CDL.Logical.Timer
   when reset then
+    entryTime = if edge(u) then time else pre(entryTime); // if u became true, set it to time, else leave it
+    pasThr = t <= 0;
     yAcc = 0;
-  elsewhen (not u) then
+  elsewhen u then
+    entryTime = time;
+    // When u becomes true, and t=0, we want pasThr to be true
+    // at the first step (in superdense time).
+    pasThr = t <= yAcc;
+    yAcc = pre(yAcc);
+  elsewhen u and time  >= pre(yAcc) + t + pre(entryTime) then
+    pasThr = true;
+    entryTime = pre(entryTime);
+    yAcc = pre(yAcc);
+  elsewhen not u then
+    pasThr = pre(pasThr); //time  >= t_internal + pre(entryTime);
+    entryTime = pre(entryTime);
     yAcc = pre(y);
   end when;
 
-  y = if u then yAcc + (time - entryTime) else yAcc;
-  pasThr = y > t;
+  y = if u then yAcc + time - entryTime else yAcc;
+
 
 annotation (
     defaultComponentName="accTim",
@@ -70,14 +84,18 @@ annotation (
         fillColor={192,192,192},
         fillPattern=FillPattern.Solid,
         points={{-58,90},{-66,68},{-50,68},{-58,90}}),
-      Line(points={{-56,-60},{-38,-60},{-38,-16},{40,-16},{40,-60},{68,-60}},
+      Line(points={{-56,-60},{-38,-60},{-38,-16},{-4,-16},{-4,-60},{26,-60},{26,
+              -16},{64,-16}},
         color={255,0,255}),
-      Line(points={{-58,0},{-40,0},{40,90},{40,0},{68,0}},
+      Line(points={{-58,0},{-40,0},{-6,28},{24,28},{60,58}},
         color={0,0,127}),
       Text(
           extent={{-150,150},{150,110}},
           lineColor={0,0,255},
           textString="%name"),
+      Text(extent={{-64,62},{62,92}},
+            lineColor={0,0,0},
+            textString="t=%t"),
       Ellipse(
           extent={{-83,7},{-69,-7}},
           lineColor=DynamicSelect({235,235,235}, if u then {0,255,0} else {235,
@@ -91,23 +109,44 @@ annotation (
               235,235}),
           fillColor=DynamicSelect({235,235,235}, if pasThr then {0,255,0} else {235,
               235,235}),
-          fillPattern=FillPattern.Solid)}),
+          fillPattern=FillPattern.Solid),
+        Text(
+          extent={{226,60},{106,10}},
+          lineColor={0,0,0},
+          textString=DynamicSelect("", String(y, leftjustified=false, significantDigits=3)))}),
     Documentation(info="<html>
 <p>
 Timer that accumulates time until it is reset by an input signal.
+</p>    
+<p>
+If the Boolean input <code>u</code> is <code>true</code>,
+the output <code>y</code> is the time that has elapsed while <code>u</code> has been <code>true</code>
+since the last time <code>reset</code> became <code>true</code>.
+If <code>u</code> is <code>false</code>, the output <code>y</code> holds its value.
+If the output <code>y</code> becomes greater than the threshold time <code>t</code>,
+the output <code>pasThr</code> is <code>true</code>.
+Otherwise it is <code>false</code>.
+</p>    
+<p>
+When <code>reset</code> becomes <code>true</code>, the timer is reset to <code>0</code>.
 </p>
 <p>
-Each time the Boolean input <code>u</code> becomes true, the timer runs, otherwise
-it is dormant. The timer is set to zero only when the value of the input
-<code>reset</code> becomes <code>true</code>.
-When the output <code>y</code> becomes greater than the threshold
-time <code>t</code>, the output <code>pasThr</code> becomes true.
+In the limiting case where the timer value reaches the threshold <code>t</code>
+and the input <code>u</code> becomes <code>false</code> simultaneously,
+the output <code>pasThr</code> remains <code>false</code>.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
+August 26, 2020, by Michael Wetter:<br/>
+Revised implementation to correctly deal with non-zero simulation start time,
+and to avoid state events.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2101\">issue 2101</a>.
+</li>
+<li>
 August 26, 2020, by Jianjun Hu:<br/>
-Removed parameter <code>accumulate</code> and added output <code>pasThr</code>.
+Removed parameter <code>accumulate</code> and added output <code>pasThr</code>.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2101\">issue 2101</a>.
 </li>
