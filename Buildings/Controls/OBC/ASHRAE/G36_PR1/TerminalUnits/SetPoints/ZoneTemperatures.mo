@@ -1089,7 +1089,7 @@ equation
           -136},{158,-136}}, color={0,0,127}));
   connect(add8.y, swi11.u3) annotation (Line(points={{182,-130},{190,-130},{190,
           -138},{218,-138}}, color={0,0,127}));
-  connect(tim.pasThr, truHol.u) annotation (Line(points={{-198,-278},{-150,-278},
+  connect(tim.passed, truHol.u) annotation (Line(points={{-198,-278},{-150,-278},
           {-150,-270},{-102,-270}}, color={255,0,255}));
 annotation (
   defaultComponentName="TZonSet",

@@ -20,7 +20,7 @@ block TimerAccumulating
     final unit="s") "Elapsed time"
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),
         iconTransformation(extent={{100,-20},{140,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput pasThr
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput passed
     "True if the elapsed time is greater than threshold"
     annotation (Placement(transformation(extent={{100,-100},{140,-60}}),
         iconTransformation(extent={{100,-100},{140,-60}})));
@@ -33,27 +33,27 @@ initial equation
   pre(u) = false;
   pre(reset) = false;
   pre(entryTime) = time;
-  pre(pasThr) = t <= 0;
+  pre(passed) = t <= 0;
   yAcc = 0;
 
 equation
   // The when constructs below are identical to the ones in Buildings.Controls.OBC.CDL.Logical.Timer
   when reset then
     entryTime = if edge(u) then time else pre(entryTime); // if u became true, set it to time, else leave it
-    pasThr = t <= 0;
+    passed = t <= 0;
     yAcc = 0;
   elsewhen u then
     entryTime = time;
-    // When u becomes true, and t=0, we want pasThr to be true
+    // When u becomes true, and t=0, we want passed to be true
     // at the first step (in superdense time).
-    pasThr = t <= yAcc;
+    passed = t <= yAcc;
     yAcc = pre(yAcc);
   elsewhen u and time  >= pre(yAcc) + t + pre(entryTime) then
-    pasThr = true;
+    passed = true;
     entryTime = pre(entryTime);
     yAcc = pre(yAcc);
   elsewhen not u then
-    pasThr = pre(pasThr); //time  >= t_internal + pre(entryTime);
+    passed = pre(passed); //time  >= t_internal + pre(entryTime);
     entryTime = pre(entryTime);
     yAcc = pre(y);
   end when;
@@ -105,9 +105,9 @@ annotation (
           fillPattern=FillPattern.Solid),
       Ellipse(
           extent={{71,-73},{85,-87}},
-          lineColor=DynamicSelect({235,235,235}, if pasThr then {0,255,0} else {235,
+          lineColor=DynamicSelect({235,235,235}, if passed then {0,255,0} else {235,
               235,235}),
-          fillColor=DynamicSelect({235,235,235}, if pasThr then {0,255,0} else {235,
+          fillColor=DynamicSelect({235,235,235}, if passed then {0,255,0} else {235,
               235,235}),
           fillPattern=FillPattern.Solid),
         Text(
@@ -117,23 +117,23 @@ annotation (
     Documentation(info="<html>
 <p>
 Timer that accumulates time until it is reset by an input signal.
-</p>    
+</p>
 <p>
 If the Boolean input <code>u</code> is <code>true</code>,
 the output <code>y</code> is the time that has elapsed while <code>u</code> has been <code>true</code>
 since the last time <code>reset</code> became <code>true</code>.
 If <code>u</code> is <code>false</code>, the output <code>y</code> holds its value.
 If the output <code>y</code> becomes greater than the threshold time <code>t</code>,
-the output <code>pasThr</code> is <code>true</code>.
+the output <code>passed</code> is <code>true</code>.
 Otherwise it is <code>false</code>.
-</p>    
+</p>
 <p>
 When <code>reset</code> becomes <code>true</code>, the timer is reset to <code>0</code>.
 </p>
 <p>
 In the limiting case where the timer value reaches the threshold <code>t</code>
 and the input <code>u</code> becomes <code>false</code> simultaneously,
-the output <code>pasThr</code> remains <code>false</code>.
+the output <code>passed</code> remains <code>false</code>.
 </p>
 </html>", revisions="<html>
 <ul>
@@ -146,7 +146,7 @@ This is for
 </li>
 <li>
 August 26, 2020, by Jianjun Hu:<br/>
-Removed parameter <code>accumulate</code> and added output <code>pasThr</code>.<br/>
+Removed parameter <code>accumulate</code> and added output <code>passed</code>.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2101\">issue 2101</a>.
 </li>

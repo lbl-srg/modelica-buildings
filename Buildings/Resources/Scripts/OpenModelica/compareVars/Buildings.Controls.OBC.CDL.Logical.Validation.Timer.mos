@@ -4,5 +4,5 @@ compareVars :=
     "noThr.y",
     "thrTim.y",
     "thrTim.t",
-    "thrTim.pasThr"
+    "thrTim.passed"
   };

@@ -2,4 +2,4 @@ simulateModel("Buildings.Controls.OBC.CDL.Logical.Validation.Timer", stopTime=5.
 createPlot(id=1, position={15, 15, 1000, 1200}, y={"noThr.u"}, range={0.0, 5.0, -0.5, 1.5}, grid=true, subPlot=1, colors={{28,108,200}});
 createPlot(id=1, position={15, 15, 1000, 1200}, y={"noThr.y"}, range={0.0, 5.0, -0.5, 1.5}, grid=true, subPlot=2, colors={{28,108,200}}, displayUnits={"s"});
 createPlot(id=1, position={15, 15, 1000, 1200}, y={"thrTim.y", "thrTim.t"}, range={0.0, 5.0, -0.5, 1.5}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}}, displayUnits={"s", "s"});
-createPlot(id=1, position={15, 15, 1000, 1200}, y={"thrTim.pasThr"}, range={0.0, 5.0, -0.5, 1.5}, grid=true, subPlot=4, colors={{28,108,200}});
+createPlot(id=1, position={15, 15, 1000, 1200}, y={"thrTim.passed"}, range={0.0, 5.0, -0.5, 1.5}, grid=true, subPlot=4, colors={{28,108,200}});

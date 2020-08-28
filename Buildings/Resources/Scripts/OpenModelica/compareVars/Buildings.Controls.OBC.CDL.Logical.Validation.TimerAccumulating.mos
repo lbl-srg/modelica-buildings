@@ -3,7 +3,7 @@ compareVars :=
     "noThr.u",
     "noThr.y",
     "thrTim.u",
-    "thrTim.pasThr",
+    "thrTim.passed",
     "thrTim.y",
     "thrTim.t",
     "noThrWitRes.u",
@@ -11,7 +11,7 @@ compareVars :=
     "noThrWitRes.y",
     "thrTimWitRes.u",
     "thrTimWitRes.reset",
-    "thrTimWitRes.pasThr",
+    "thrTimWitRes.passed",
     "thrTimWitRes.y",
     "thrTimWitRes.t"
   };

@@ -267,7 +267,7 @@ equation
   connect(noGo.y, transition9.condition) annotation (Line(points={{62,100},{80,100},
           {80,60},{-144,60},{-144,-140},{90,-140},{90,-92}}, color={255,0,255}));
 
-  connect(timer.pasThr, and4.u1) annotation (Line(points={{174,-188},{200,-188},
+  connect(timer.passed, and4.u1) annotation (Line(points={{174,-188},{200,-188},
           {200,-200},{206,-200}}, color={255,0,255}));
 annotation (
     defaultComponentName="conMai",

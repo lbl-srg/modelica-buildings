@@ -14,7 +14,7 @@ block Timer
     final unit="s") "Elapsed time"
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),
         iconTransformation(extent={{100,-20},{140,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput pasThr
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput passed
     "True if the elapsed time is greater than threshold"
     annotation (Placement(transformation(extent={{100,-100},{140,-60}}),
         iconTransformation(extent={{100,-100},{140,-60}})));
@@ -24,21 +24,21 @@ protected
 
 initial equation
   pre(entryTime) = time;
-  pre(pasThr) = t <= 0;
+  pre(passed) = t <= 0;
 equation
   when u then
     entryTime = time;
-    // When u becomes true, and t=0, we want pasThr to be true
+    // When u becomes true, and t=0, we want passed to be true
     // at the first step (in superdense time).
-    pasThr = t <= 0;
+    passed = t <= 0;
   elsewhen
           (u and time  >= t + pre(entryTime)) then
-    pasThr = true;
+    passed = true;
     entryTime = pre(entryTime);
   elsewhen not u then
-    // Set pasThr to false.
+    // Set passed to false.
     // This is the behavior a timer would have if the threshold test is done with a greater block connected to the output of the timer
-    pasThr = false;
+    passed = false;
     entryTime = pre(entryTime);
   end when;
 
@@ -70,7 +70,7 @@ annotation (
         points={{-58,90},{-66,68},{-50,68},{-58,90}}),
       Line(points={{-56,-60},{-38,-60},{-38,-16},{40,-16},{40,-60},{68,-60}},
         color={255,0,255}),
-      Line(points={{-58,0},{-40,0},{40,90},{40,0},{68,0}},
+      Line(points={{-58,0},{-40,0},{40,58},{40,0},{68,0}},
         color={0,0,127}),
       Text(
           extent={{-150,150},{150,110}},
@@ -88,9 +88,9 @@ annotation (
           fillPattern=FillPattern.Solid),
       Ellipse(
           extent={{71,-73},{85,-87}},
-          lineColor=DynamicSelect({235,235,235}, if pasThr then {0,255,0} else {235,
+          lineColor=DynamicSelect({235,235,235}, if passed then {0,255,0} else {235,
               235,235}),
-          fillColor=DynamicSelect({235,235,235}, if pasThr then {0,255,0} else {235,
+          fillColor=DynamicSelect({235,235,235}, if passed then {0,255,0} else {235,
               235,235}),
           fillPattern=FillPattern.Solid),
         Text(
@@ -103,13 +103,13 @@ If the Boolean input <code>u</code> is <code>true</code>,
 the output <code>y</code> is the time that has elapsed since <code>u</code> became <code>true</code>.
 Otherwise, <code>y</code> is <i>0</i>.
 If the output <code>y</code> becomes greater than the threshold time <code>t</code>,
-the output <code>pasThr</code> is <code>true</code>.
+the output <code>passed</code> is <code>true</code>.
 Otherwise it is <code>false</code>.
 </p>
 <p>
 In the limiting case where the timer value reaches the threshold <code>t</code>
 and the input <code>u</code> becomes <code>false</code> simultaneously,
-the output <code>pasThr</code> remains <code>false</code>.
+the output <code>passed</code> remains <code>false</code>.
 </p>
 </html>", revisions="<html>
 <ul>
@@ -122,7 +122,7 @@ This is for
 </li>
 <li>
 August 26, 2020, by Jianjun Hu:<br/>
-Removed <code>reset</code> boolean input and added output <code>pasThr</code>
+Removed <code>reset</code> boolean input and added output <code>passed</code>
 to show if the time becomes greater than threshold time.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2101\">issue 2101</a>.
