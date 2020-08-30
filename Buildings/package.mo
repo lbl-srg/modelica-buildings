@@ -257,7 +257,7 @@ to <b style=\"color:blue\">existing</b> libraries:
 <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Logical.TimerAccumulating
     </td>
     <td valign=\"top\">New timer that accumulates time. The output will be reset to zero when the reset input
-                       becomes true.<br/>
+                       becomes <code>true</code>.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2101\">issue 2101</a>.</td>
 </tr>
 </table>
