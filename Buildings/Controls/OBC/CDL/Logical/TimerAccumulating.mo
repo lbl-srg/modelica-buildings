@@ -39,7 +39,7 @@ initial equation
 equation
   // The when constructs below are identical to the ones in Buildings.Controls.OBC.CDL.Logical.Timer
   when reset then
-    entryTime = if edge(u) then time else pre(entryTime); // if u became true, set it to time, else leave it
+    entryTime = time;
     passed = t <= 0;
     yAcc = 0;
   elsewhen u then
@@ -48,7 +48,7 @@ equation
     // at the first step (in superdense time).
     passed = t <= yAcc;
     yAcc = pre(yAcc);
-  elsewhen u and time  >= pre(yAcc) + t + pre(entryTime) then
+  elsewhen u and time  >= t + pre(entryTime) - pre(yAcc) then
     passed = true;
     entryTime = pre(entryTime);
     yAcc = pre(yAcc);
@@ -59,7 +59,6 @@ equation
   end when;
 
   y = if u then yAcc + time - entryTime else yAcc;
-
 
 annotation (
     defaultComponentName="accTim",
