@@ -1,5 +1,6 @@
 within Buildings.Controls.OBC.CDL.Logical.Validation;
-model Timer "Validation model for the Timer block"
+model TimerNegativeStartTime
+  "Validation model for the Timer block with a negative start time"
 
   Buildings.Controls.OBC.CDL.Logical.Timer noThr
     "Timer that do not compare threshold"
@@ -8,34 +9,22 @@ model Timer "Validation model for the Timer block"
     final t=0.3)
     "Timer that compares threshold"
     annotation (Placement(transformation(extent={{20,-30},{40,-10}})));
-  Buildings.Controls.OBC.CDL.Logical.Timer thrTim1(
-    final t=0.3)
-    "Timer that compares threshold"
-    annotation (Placement(transformation(extent={{20,-70},{40,-50}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul(
     final width=0.7,
-    final period=2)
-    "Block that outputs cyclic on and off"
-    annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul1(
-    final width=0.7,
     final period=2,
-    final startTime=-1)
-    "Block that outputs cyclic on and off"
-    annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
+    startTime=-5)   "Block that outputs cyclic on and off"
+    annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
 
 equation
   connect(booPul.y, noThr.u)
     annotation (Line(points={{-18,20},{18,20}}, color={255,0,255}));
   connect(booPul.y, thrTim.u)
     annotation (Line(points={{-18,20},{0,20},{0,-20},{18,-20}}, color={255,0,255}));
-  connect(booPul1.y, thrTim1.u)
-    annotation (Line(points={{-18,-60},{18,-60}}, color={255,0,255}));
 
 annotation (
-  experiment(StopTime=5.0, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Logical/Validation/Timer.mos"
+  experiment(StartTime=-10, StopTime=5, Tolerance=1e-06),
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Logical/Validation/TimerNegativeStartTime.mos"
         "Simulate and plot"),
   Documentation(info="<html>
 <p>
@@ -70,4 +59,4 @@ First implementation.
                 pattern = LinePattern.None,
                 fillPattern = FillPattern.Solid,
                 points = {{-36,60},{64,0},{-36,-60},{-36,60}})}));
-end Timer;
+end TimerNegativeStartTime;
