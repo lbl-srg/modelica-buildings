@@ -122,7 +122,7 @@ protected
     "Logical Not"
     annotation (Placement(transformation(extent={{-70,-40},{-50,-20}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Timer tim1
+  Buildings.Controls.OBC.CDL.Logical.Timer tim1(t=staOnReqTim)
     "Time since number of requests was greater than number of ignores"
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
 
