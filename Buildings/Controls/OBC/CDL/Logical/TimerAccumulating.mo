@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.CDL.Logical;
-block Timer
-  "Timer measuring the time from the time instant where the Boolean input became true"
+block TimerAccumulating
+  "Accumulating timer that can be reset"
 
   parameter Real t(
     final quantity="Time",
@@ -9,6 +9,12 @@ block Timer
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u
     "Input that switches timer on if true, and off if false"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput reset
+    "Connector for signal that sets timer to zero if it switches to true"
+    annotation (Placement(transformation(extent={{-140,-100},{-100,-60}}),
+      iconTransformation(extent={{-140,-100},{-100,-60}})));
+
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y(
     final quantity="Time",
     final unit="s") "Elapsed time"
@@ -21,36 +27,45 @@ block Timer
 
 protected
   discrete Modelica.SIunits.Time entryTime "Time instant when u became true";
+  discrete Modelica.SIunits.Time yAcc "Accumulated time up to last change to true";
 
 initial equation
+  pre(u) = false;
+  pre(reset) = false;
   pre(entryTime) = time;
   pre(passed) = t <= 0;
+  yAcc = 0;
+
 equation
-  when u then
+  // The when constructs below are identical to the ones in Buildings.Controls.OBC.CDL.Logical.Timer
+  when reset then
+    entryTime = time;
+    passed = t <= 0;
+    yAcc = 0;
+  elsewhen u then
     entryTime = time;
     // When u becomes true, and t=0, we want passed to be true
     // at the first step (in superdense time).
-    passed = t <= 0;
-  elsewhen
-          (u and time  >= t + pre(entryTime)) then
+    passed = t <= yAcc;
+    yAcc = pre(yAcc);
+  elsewhen u and time  >= t + pre(entryTime) - pre(yAcc) then
     passed = true;
     entryTime = pre(entryTime);
+    yAcc = pre(yAcc);
   elsewhen not u then
-    // Set passed to false.
-    // This is the behavior a timer would have if the threshold test is done with a greater block connected to the output of the timer
-    passed = false;
+    passed = pre(passed); //time  >= t_internal + pre(entryTime);
     entryTime = pre(entryTime);
+    yAcc = pre(y);
   end when;
 
-  y = if u then time - entryTime else 0.0;
+  y = if u then yAcc + time - entryTime else yAcc;
 
 annotation (
-    defaultComponentName="tim",
+    defaultComponentName="accTim",
     Icon(
       coordinateSystem(preserveAspectRatio=true,
         extent={{-100.0,-100.0},{100.0,100.0}}),
-        graphics={
-      Rectangle(
+        graphics={Rectangle(
           extent={{-100,100},{100,-100}},
           fillColor={210,210,210},
           lineThickness=5.0,
@@ -68,9 +83,10 @@ annotation (
         fillColor={192,192,192},
         fillPattern=FillPattern.Solid,
         points={{-58,90},{-66,68},{-50,68},{-58,90}}),
-      Line(points={{-56,-60},{-38,-60},{-38,-16},{40,-16},{40,-60},{68,-60}},
+      Line(points={{-56,-60},{-38,-60},{-38,-16},{-4,-16},{-4,-60},{26,-60},{26,
+              -16},{64,-16}},
         color={255,0,255}),
-      Line(points={{-58,0},{-40,0},{40,58},{40,0},{68,0}},
+      Line(points={{-58,0},{-40,0},{-6,28},{24,28},{60,58}},
         color={0,0,127}),
       Text(
           extent={{-150,150},{150,110}},
@@ -97,14 +113,21 @@ annotation (
           extent={{226,60},{106,10}},
           lineColor={0,0,0},
           textString=DynamicSelect("", String(y, leftjustified=false, significantDigits=3)))}),
-Documentation(info="<html>
+    Documentation(info="<html>
+<p>
+Timer that accumulates time until it is reset by an input signal.
+</p>
 <p>
 If the Boolean input <code>u</code> is <code>true</code>,
-the output <code>y</code> is the time that has elapsed since <code>u</code> became <code>true</code>.
-Otherwise, <code>y</code> is <i>0</i>.
+the output <code>y</code> is the time that has elapsed while <code>u</code> has been <code>true</code>
+since the last time <code>reset</code> became <code>true</code>.
+If <code>u</code> is <code>false</code>, the output <code>y</code> holds its value.
 If the output <code>y</code> becomes greater than the threshold time <code>t</code>,
 the output <code>passed</code> is <code>true</code>.
 Otherwise it is <code>false</code>.
+</p>
+<p>
+When <code>reset</code> becomes <code>true</code>, the timer is reset to <code>0</code>.
 </p>
 <p>
 In the limiting case where the timer value reaches the threshold <code>t</code>
@@ -122,8 +145,7 @@ This is for
 </li>
 <li>
 August 26, 2020, by Jianjun Hu:<br/>
-Removed <code>reset</code> boolean input and added output <code>passed</code>
-to show if the time becomes greater than threshold time.<br/>
+Removed parameter <code>accumulate</code> and added output <code>passed</code>.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2101\">issue 2101</a>.
 </li>
@@ -154,4 +176,4 @@ Modelica Standard Library.
 </li>
 </ul>
 </html>"));
-end Timer;
+end TimerAccumulating;
