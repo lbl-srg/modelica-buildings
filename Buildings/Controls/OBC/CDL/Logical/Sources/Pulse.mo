@@ -17,7 +17,12 @@ protected
   discrete Modelica.SIunits.Time pulseStart "Start time of pulse";
 
 initial equation
-  pulseStart = startTime;
+  if
+    time > startTime then
+      pulseStart = startTime + period * floor((time - startTime)/period);
+  else
+      pulseStart = startTime;
+  end if;
 equation
   when sample(startTime, period) then
     pulseStart = time;
