@@ -190,7 +190,7 @@ Both fans are connected to a step input signal.
 The configuration of <code class="docutils literal notranslate"><span class="pre">fanS</span></code> causes the fan speed to instantly change from 0 to 1. In large system models, this can lead to high computing time or to convergence problems. The <code class="docutils literal notranslate"><span class="pre">fanC</span></code> avoids this problem because the speed of the fan varies continuously, thereby making it easier for the solver to compute a solution. In this model, we set the parameter
 <code class="docutils literal notranslate"><span class="pre">raiseTime=30</span></code> seconds.</p>
 <div class="figure align-default" id="id2">
-<span id="figurefilteredresponse"></span><img alt="_images/fanStepSchematics.png" src="_images/fanStepSchematics.png" />
+<span id="figurefilteredresponse"></span><a class="reference internal image-reference" href="_images/fanStepSchematics.svg"><img alt="_images/fanStepSchematics.svg" src="_images/fanStepSchematics.svg" width="300px" /></a>
 <p class="caption"><span class="caption-number">Fig. 3.1 </span><span class="caption-text">Schematic diagram of fans that are configured with <code class="docutils literal notranslate"><span class="pre">filteredSpeed=false</span></code> (<code class="docutils literal notranslate"><span class="pre">fanS</span></code>) and <code class="docutils literal notranslate"><span class="pre">filteredSpeed=true</span></code> (<code class="docutils literal notranslate"><span class="pre">fanC</span></code>).</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
 </div>
 <div class="figure align-default" id="id3">

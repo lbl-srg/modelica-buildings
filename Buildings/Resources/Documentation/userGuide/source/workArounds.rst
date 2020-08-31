@@ -23,7 +23,8 @@ The configuration of ``fanS`` causes the fan speed to instantly change from 0 to
 
 .. _FigureFilteredResponse:
 
-.. figure:: img/fanStepSchematics.png
+.. figure:: img/fanStepSchematics.*
+   :width: 300px
 
    Schematic diagram of fans that are configured with ``filteredSpeed=false`` (``fanS``) and ``filteredSpeed=true`` (``fanC``).
 
