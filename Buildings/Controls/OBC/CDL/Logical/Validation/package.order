@@ -17,6 +17,8 @@ Or3
 Switch
 Timer
 TimerAccumulating
+TimerAccumulatingNegativeStartTime
+TimerNegativeStartTime
 Toggle
 TriggeredTrapezoid
 TrueDelay

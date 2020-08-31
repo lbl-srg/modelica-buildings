@@ -95,7 +95,7 @@ equation
           -38.5,30},{-32,30},{-32,49.5},{-21,49.5}}, color={0,0,0}));
   connect(cooDow.active, timer.u)
     annotation (Line(points={{-10,39},{-10,10},{-2,10}}, color={255,0,255}));
-  connect(timer.pasThr, transition2.condition) annotation (Line(points={{22,2},{
+  connect(timer.passed, transition2.condition) annotation (Line(points={{22,2},{
           40,2},{40,30},{20,30},{20,38}}, color={255,0,255}));
 annotation (
   experiment(StopTime=900, Tolerance=1e-6),

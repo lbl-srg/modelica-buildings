@@ -24,7 +24,7 @@ protected
     final fixed=true) "Internal connector";
 
 initial equation
-  pre(entryTime) = 0;
+  pre(entryTime) = time;
   yAcc = 0;
 
 equation
@@ -54,7 +54,7 @@ equation
 
 annotation (
     defaultComponentName="tim",
-    obsolete = "This model is obsolete, use Buildings.Controls.OBC.CDL.Logical.Timer or TimerAccumulating instead",
+    obsolete = "This model is obsolete, use Buildings.Controls.OBC.CDL.Logical.Timer or Buildings.Controls.OBC.CDL.Logical.TimerAccumulating instead",
     Icon(
       coordinateSystem(preserveAspectRatio=true,
         extent={{-100.0,-100.0},{100.0,100.0}}),
@@ -112,6 +112,16 @@ and the timer is set to zero only when the value of the input <code>reset</code>
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+August 28, 2020, by Michael Wetter:<br/>
+Corrected implementation for situation where the simulation does not start at zero.
+</li>
+<li>
+August 26, 2020, by Jianjun Hu:<br/>
+Moved to obsolete package.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2101\">issue 2101</a>.
+</li>
 <li>
 July 31, 2020, by Jianjun Hu:<br/>
 Fixed the reset input. This is for

@@ -93,7 +93,7 @@ equation
         color={255,0,255}));
   connect(PEleNet, add1.u1) annotation (Line(points={{-120,-40},{-80,-40},{-80,
           -54},{-52,-54}}, color={0,0,127}));
-  connect(timer.pasThr, y) annotation (Line(points={{22,52},{60,52},{60,0},{120,
+  connect(timer.passed, y) annotation (Line(points={{22,52},{60,52},{60,0},{120,
           0}}, color={255,0,255}));
 
 annotation (defaultComponentName="warUpCtr", Documentation(info="<html>
