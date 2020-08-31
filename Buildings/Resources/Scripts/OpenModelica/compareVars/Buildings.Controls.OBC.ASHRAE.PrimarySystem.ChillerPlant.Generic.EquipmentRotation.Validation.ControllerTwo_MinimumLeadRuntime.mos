@@ -1,5 +1,7 @@
 compareVars :=
   {
+    "leaLag.uLeaStaSet",
+    "leaLag.uLagStaSet",
     "leaLag.yDevStaSet[1]",
     "leaLag.yDevStaSet[2]",
     "leaLag.yDevRol[1]",
@@ -9,6 +11,8 @@ compareVars :=
     "leaLag.minLeaRuntime",
     "leaLag.minLeaTim.accTim[1].passed",
     "leaLag.minLeaTim.accTim[2].passed",
+    "leaLag1.uLeaStaSet",
+    "leaLag1.uLagStaSet",
     "leaLag1.yDevStaSet[1]",
     "leaLag1.yDevStaSet[2]",
     "leaLag1.yDevRol[1]",
@@ -18,6 +22,7 @@ compareVars :=
     "leaLag1.minLeaRuntime",
     "leaLag1.minLeaTim.accTim[1].passed",
     "leaLag1.minLeaTim.accTim[2].passed",
+    "leaSta.uLeaStaSet",
     "leaSta.yDevStaSet[1]",
     "leaSta.yDevStaSet[2]",
     "leaSta.yDevRol[1]",

@@ -37,7 +37,7 @@ protected
     annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Greater longer1
-    "Runtime of the first device is longer or equal runtime of the second device"
+    "Runtime of the first device is longer than runtime of the second device"
     annotation (Placement(transformation(extent={{-20,50},{0,70}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Greater longer2
@@ -69,7 +69,7 @@ protected
 
   Buildings.Controls.OBC.CDL.Logical.FallingEdge falEdg [nDev](
     final pre_u_start=fill(false, nDev)) if not lag "Falling edge"
-    annotation (Placement(transformation(extent={{-100,-80},{-80,-60}})));
+    annotation (Placement(transformation(extent={{-100,-70},{-80,-50}})));
 
 equation
   connect(uDevSta, accTim.u)
@@ -105,14 +105,14 @@ equation
   connect(and3.y, mulOr.u) annotation (Line(points={{122,20},{124,20},{124,0},{128,
           0},{128,0}},            color={255,0,255}));
   connect(uDevSta, falEdg.u) annotation (Line(points={{-180,60},{-120,60},{-120,
-          -70},{-102,-70}}, color={255,0,255}));
+          -60},{-102,-60}}, color={255,0,255}));
   connect(longer1.y, and1[1].u1) annotation (Line(points={{2,60},{10,60},{10,-20},
           {80,-20},{80,-60},{98,-60}}, color={255,0,255}));
   connect(longer2.y, and1[2].u1) annotation (Line(points={{2,30},{10,30},{10,-20},
           {80,-20},{80,-60},{98,-60}}, color={255,0,255}));
   connect(and1.y, mulOr.u) annotation (Line(points={{122,-60},{122,0},{128,0}},
                        color={255,0,255}));
-  connect(falEdg.y, and1.u2) annotation (Line(points={{-78,-70},{20,-70},{20,
+  connect(falEdg.y, and1.u2) annotation (Line(points={{-78,-60},{20,-60},{20,
           -68},{98,-68}}, color={255,0,255}));
   connect(con.y, accTim.reset) annotation (Line(points={{-78,30},{-70,30},{-70,52},
           {-62,52}}, color={255,0,255}));
