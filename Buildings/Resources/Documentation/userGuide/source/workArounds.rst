@@ -77,7 +77,8 @@ be part of the residual function.
 For illustration, consider the simple system shown below in which the flow resistances ``res1`` and ``res2`` compute the mass flow rate as
 :math:`\dot m = k \, \sqrt{\Delta p}` if the parameter ``from_dp`` is set to ``true``, or otherwise compute the pressure drop between their inlet and outlet as :math:`\Delta p = (\dot m / k)^2`. (Both formulations are implemented using :term:`regularization` near zero.)
 
-.. figure:: img/resistancesSeries.png
+.. figure:: img/resistancesSeries.*
+   :width: 600px
 
    Schematic diagram of two flow resistances in series that connect a source and a volume.
 
@@ -90,7 +91,8 @@ To avoid a nonlinear equation, use any of the measures below.
 
 Control valves also allow lumping the pressure drop into the model of the valve. Consider the situation where a fixed flow resistance is in series with a control valve as shown below.
 
-.. figure:: img/resistanceValveSeries.png
+.. figure:: img/resistanceValveSeries.*
+   :width: 600px
 
    Schematic diagram of a fixed flow resistance and a valve in series  that connect a source and a volume.
 
@@ -110,7 +112,8 @@ Suppose the parameters are
 
 To avoid a nonlinear equation, the flow resistance could be deleted as shown below.
 
-.. figure:: img/valveNoResistance.png
+.. figure:: img/valveNoResistance.*
+   :width: 600px
 
    Schematic diagram of a valve that connects a source and a volume.
 

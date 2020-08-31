@@ -236,7 +236,7 @@ be part of the residual function.</p>
 <p>For illustration, consider the simple system shown below in which the flow resistances <code class="docutils literal notranslate"><span class="pre">res1</span></code> and <code class="docutils literal notranslate"><span class="pre">res2</span></code> compute the mass flow rate as
 <span class="math notranslate nohighlight">\(\dot m = k \, \sqrt{\Delta p}\)</span> if the parameter <code class="docutils literal notranslate"><span class="pre">from_dp</span></code> is set to <code class="docutils literal notranslate"><span class="pre">true</span></code>, or otherwise compute the pressure drop between their inlet and outlet as <span class="math notranslate nohighlight">\(\Delta p = (\dot m / k)^2\)</span>. (Both formulations are implemented using <a class="reference internal" href="glossary.html#term-regularization"><span class="xref std std-term">regularization</span></a> near zero.)</p>
 <div class="figure align-default" id="id4">
-<img alt="_images/resistancesSeries.png" src="_images/resistancesSeries.png" />
+<a class="reference internal image-reference" href="_images/resistancesSeries.svg"><img alt="_images/resistancesSeries.svg" src="_images/resistancesSeries.svg" width="600px" /></a>
 <p class="caption"><span class="caption-number">Fig. 3.3 </span><span class="caption-text">Schematic diagram of two flow resistances in series that connect a source and a volume.</span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
 </div>
 <p>Depending on the configuration of the individual component models, simulating this system model may require the iterative solution of a nonlinear equation to compute the mass flow rate or the pressure drop.
@@ -249,7 +249,7 @@ To avoid a nonlinear equation, use any of the measures below.</p>
 </div></blockquote>
 <p>Control valves also allow lumping the pressure drop into the model of the valve. Consider the situation where a fixed flow resistance is in series with a control valve as shown below.</p>
 <div class="figure align-default" id="id5">
-<img alt="_images/resistanceValveSeries.png" src="_images/resistanceValveSeries.png" />
+<a class="reference internal image-reference" href="_images/resistanceValveSeries.svg"><img alt="_images/resistanceValveSeries.svg" src="_images/resistanceValveSeries.svg" width="600px" /></a>
 <p class="caption"><span class="caption-number">Fig. 3.4 </span><span class="caption-text">Schematic diagram of a fixed flow resistance and a valve in series  that connect a source and a volume.</span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
 </div>
 <p>Suppose the parameters are</p>
@@ -266,7 +266,7 @@ To avoid a nonlinear equation, use any of the measures below.</p>
 </div>
 <p>To avoid a nonlinear equation, the flow resistance could be deleted as shown below.</p>
 <div class="figure align-default" id="id6">
-<img alt="_images/valveNoResistance.png" src="_images/valveNoResistance.png" />
+<a class="reference internal image-reference" href="_images/valveNoResistance.svg"><img alt="_images/valveNoResistance.svg" src="_images/valveNoResistance.svg" width="600px" /></a>
 <p class="caption"><span class="caption-number">Fig. 3.5 </span><span class="caption-text">Schematic diagram of a valve that connects a source and a volume.</span><a class="headerlink" href="#id6" title="Permalink to this image">¶</a></p>
 </div>
 <p>If the valve is configured as</p>
