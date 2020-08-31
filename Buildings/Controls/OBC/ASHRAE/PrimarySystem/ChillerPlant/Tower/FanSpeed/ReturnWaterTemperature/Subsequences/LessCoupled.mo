@@ -288,7 +288,7 @@ equation
           {140,20},{-40,20},{-40,-30},{-22,-30}}, color={0,0,127}));
   connect(add2.y, multiMax.u) annotation (Line(points={{2,50},{10,50},{10,50},{18,
           50}},     color={0,0,127}));
-  connect(tim.pasThr, delTem.u2) annotation (Line(points={{-118,92},{-40,92},{-40,
+  connect(tim.passed, delTem.u2) annotation (Line(points={{-118,92},{-40,92},{-40,
           100},{58,100}}, color={255,0,255}));
 
 annotation (

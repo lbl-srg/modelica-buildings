@@ -96,7 +96,7 @@ equation
     annotation (Line(points={{-180,-60},{-142,-60}}, color={255,0,255}));
   connect(falEdg1.y, accTim.reset) annotation (Line(points={{-118,-60},{-110,-60},
           {-110,52},{-62,52}}, color={255,0,255}));
-  connect(accTim.pasThr, and2.u1) annotation (Line(points={{-38,52},{60,52},{60,
+  connect(accTim.passed, and2.u1) annotation (Line(points={{-38,52},{60,52},{60,
           20},{78,20}}, color={255,0,255}));
   annotation (Diagram(coordinateSystem(extent={{-160,-80},{160,80}})),
       defaultComponentName="minLeaTim",

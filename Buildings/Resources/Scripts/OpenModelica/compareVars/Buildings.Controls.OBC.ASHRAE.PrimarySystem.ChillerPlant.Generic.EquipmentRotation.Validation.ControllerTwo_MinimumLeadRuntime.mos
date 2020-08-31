@@ -7,8 +7,8 @@ compareVars :=
     "leaLag.minLeaTim.accTim[1].y",
     "leaLag.minLeaTim.accTim[2].y",
     "leaLag.minLeaRuntime",
-    "leaLag.minLeaTim.accTim[1].pasThr",
-    "leaLag.minLeaTim.accTim[2].pasThr",
+    "leaLag.minLeaTim.accTim[1].passed",
+    "leaLag.minLeaTim.accTim[2].passed",
     "leaLag1.yDevStaSet[1]",
     "leaLag1.yDevStaSet[2]",
     "leaLag1.yDevRol[1]",
@@ -16,8 +16,8 @@ compareVars :=
     "leaLag1.minLeaTim.accTim[1].y",
     "leaLag1.minLeaTim.accTim[2].y",
     "leaLag1.minLeaRuntime",
-    "leaLag1.minLeaTim.accTim[1].pasThr",
-    "leaLag1.minLeaTim.accTim[2].pasThr",
+    "leaLag1.minLeaTim.accTim[1].passed",
+    "leaLag1.minLeaTim.accTim[2].passed",
     "leaSta.yDevStaSet[1]",
     "leaSta.yDevStaSet[2]",
     "leaSta.yDevRol[1]",
@@ -25,6 +25,6 @@ compareVars :=
     "leaSta.minLeaTim.accTim[1].y",
     "leaSta.minLeaTim.accTim[2].y",
     "leaSta.minLeaRuntime",
-    "leaSta.minLeaTim.accTim[1].pasThr",
-    "leaSta.minLeaTim.accTim[2].pasThr"
+    "leaSta.minLeaTim.accTim[1].passed",
+    "leaSta.minLeaTim.accTim[2].passed"
   };

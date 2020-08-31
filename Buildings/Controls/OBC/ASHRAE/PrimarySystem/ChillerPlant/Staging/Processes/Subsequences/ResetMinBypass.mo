@@ -132,7 +132,7 @@ equation
   connect(not2.y, and3.u2)
     annotation (Line(points={{2,-60},{10,-60},{10,-40},{-10,-40},{-10,-28},
       {-2,-28}}, color={255,0,255}));
-  connect(tim.pasThr, and1.u3)
+  connect(tim.passed, and1.u3)
     annotation (Line(points={{62,-28},{114,-28},{114,72},{118,72}},
       color={255,0,255}));
 

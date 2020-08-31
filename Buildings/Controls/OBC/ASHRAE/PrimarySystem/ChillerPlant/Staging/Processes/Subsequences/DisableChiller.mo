@@ -298,13 +298,13 @@ equation
   connect(logSwi7.y, yReaDemLim)
     annotation (Line(points={{182,-52},{202,-52},{202,-50},{220,-50}},
       color={255,0,255}));
-  connect(tim.pasThr, not1.u)
+  connect(tim.passed, not1.u)
     annotation (Line(points={{-78,-8},{-40,-8},{-40,50},{-22,50}},
       color={255,0,255}));
-  connect(tim.pasThr, booRep2.u)
+  connect(tim.passed, booRep2.u)
     annotation (Line(points={{-78,-8},{-40,-8},{-40,0},{-22,0}},
       color={255,0,255}));
-  connect(tim.pasThr, logSwi7.u1)
+  connect(tim.passed, logSwi7.u1)
     annotation (Line(points={{-78,-8},{-40,-8},{-40,-44},{158,-44}},
       color={255,0,255}));
 

@@ -139,7 +139,7 @@ equation
     annotation (Line(points={{-118,120},{-102,120}}, color={255,0,255}));
   connect(chiWatSupResReq, hasReq.u)
     annotation (Line(points={{-220,90},{-142,90}},   color={255,127,0}));
-  connect(disTim.pasThr, mulAnd.u[1])
+  connect(disTim.passed, mulAnd.u[1])
     annotation (Line(points={{-78,112},{20,112},{20,85.25},{38,85.25}},
       color={255,0,255}));
   connect(hasReq.y, mulAnd.u[2])
@@ -193,10 +193,10 @@ equation
   connect(and2.y, lat.clr)
     annotation (Line(points={{62,-10},{80,-10},{80,74},{98,74}},
       color={255,0,255}));
-  connect(enaTim1.pasThr, mulOr.u2)
+  connect(enaTim1.passed, mulOr.u2)
     annotation (Line(points={{-78,-78},{-20,-78},{-20,-70},{38,-70}},
       color={255,0,255}));
-  connect(enaTim.pasThr, and2.u1)
+  connect(enaTim.passed, and2.u1)
     annotation (Line(points={{-118,-18},{-80,-18},{-80,-10},{38,-10}},
       color={255,0,255}));
 

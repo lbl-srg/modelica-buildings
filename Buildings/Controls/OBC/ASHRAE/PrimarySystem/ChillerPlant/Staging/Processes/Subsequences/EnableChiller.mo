@@ -222,13 +222,13 @@ equation
       color={255,0,255}));
   connect(logSwi4.y, yNewChiEna)
     annotation (Line(points={{182,-170},{220,-170}}, color={255,0,255}));
-  connect(tim.pasThr, not1.u)
+  connect(tim.passed, not1.u)
     annotation (Line(points={{-78,-118},{-40,-118},{-40,-70},{-22,-70}},
       color={255,0,255}));
-  connect(tim.pasThr, booRep2.u)
+  connect(tim.passed, booRep2.u)
     annotation (Line(points={{-78,-118},{-40,-118},{-40,-110},{-22,-110}},
       color={255,0,255}));
-  connect(tim.pasThr, logSwi4.u3)
+  connect(tim.passed, logSwi4.u3)
     annotation (Line(points={{-78,-118},{-40,-118},{-40,-178},{158,-178}},
       color={255,0,255}));
 

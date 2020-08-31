@@ -201,7 +201,7 @@ equation
   connect(pre.y, lat.clr)
     annotation (Line(points={{22,-140},{30,-140},{30,-116},{38,-116}},
       color={255,0,255}));
-  connect(intOpeTim.pasThr, pre.u)
+  connect(intOpeTim.passed, pre.u)
     annotation (Line(points={{102,-118},{120,-118},{120,-154},{-10,-154},
       {-10,-140},{-2,-140}}, color={255,0,255}));
 

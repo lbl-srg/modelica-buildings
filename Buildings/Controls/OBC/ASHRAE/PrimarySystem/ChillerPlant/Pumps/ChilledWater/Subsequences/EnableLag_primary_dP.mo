@@ -189,13 +189,13 @@ equation
   connect(and1.y, tim.u)
     annotation (Line(points={{62,80},{70,80},{70,66},{-6,66},{-6,40},{-2,40}},
       color={255,0,255}));
-  connect(tim.pasThr, enaNexLag.u2) annotation (Line(points={{22,32},{60,32},{60,
+  connect(tim.passed, enaNexLag.u2) annotation (Line(points={{22,32},{60,32},{60,
           40},{98,40}}, color={255,0,255}));
-  connect(tim.pasThr, pre1.u) annotation (Line(points={{22,32},{60,32},{60,60},{
+  connect(tim.passed, pre1.u) annotation (Line(points={{22,32},{60,32},{60,60},{
           -86,60},{-86,100},{-82,100}}, color={255,0,255}));
-  connect(tim1.pasThr, shuLasLag.u2) annotation (Line(points={{22,-88},{60,-88},
+  connect(tim1.passed, shuLasLag.u2) annotation (Line(points={{22,-88},{60,-88},
           {60,-80},{98,-80}}, color={255,0,255}));
-  connect(tim1.pasThr, pre.u) annotation (Line(points={{22,-88},{60,-88},{60,-100},
+  connect(tim1.passed, pre.u) annotation (Line(points={{22,-88},{60,-88},{60,-100},
           {-100,-100},{-100,-140},{-82,-140}}, color={255,0,255}));
 
 annotation (

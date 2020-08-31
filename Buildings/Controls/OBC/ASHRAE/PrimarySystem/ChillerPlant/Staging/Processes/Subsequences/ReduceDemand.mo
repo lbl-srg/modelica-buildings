@@ -204,7 +204,7 @@ equation
   connect(or2.y, and2.u2)
     annotation (Line(points={{142,-70},{150,-70},{150,0},{100,0},{100,42},
       {118,42}}, color={255,0,255}));
-  connect(tim.pasThr, or2.u1)
+  connect(tim.passed, or2.u1)
     annotation (Line(points={{-18,-78},{40,-78},{40,-70},{118,-70}},
       color={255,0,255}));
 

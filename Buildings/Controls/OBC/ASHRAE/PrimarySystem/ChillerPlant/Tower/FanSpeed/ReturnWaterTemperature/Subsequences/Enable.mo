@@ -259,11 +259,11 @@ equation
   connect(enaTow.y, logSwi1.u1)
     annotation (Line(points={{82,-40},{100,-40},{100,-82},{138,-82}},
       color={255,0,255}));
-  connect(tim2.pasThr, and2.u1) annotation (Line(points={{62,112},{70,112},{70,80},
+  connect(tim2.passed, and2.u1) annotation (Line(points={{62,112},{70,112},{70,80},
           {78,80}}, color={255,0,255}));
-  connect(tim.pasThr, disTow.u1) annotation (Line(points={{102,152},{110,152},{110,
+  connect(tim.passed, disTow.u1) annotation (Line(points={{102,152},{110,152},{110,
           120},{118,120}}, color={255,0,255}));
-  connect(tim1.pasThr, enaTow.u3) annotation (Line(points={{2,-128},{50,-128},{50,
+  connect(tim1.passed, enaTow.u3) annotation (Line(points={{2,-128},{50,-128},{50,
           -48},{58,-48}}, color={255,0,255}));
 
 annotation (

@@ -75,7 +75,7 @@ equation
     annotation (Line(points={{-18,20},{-2,20}}, color={255,0,255}));
   connect(disLeaPum.y, leaPumSta.clr)
     annotation (Line(points={{22,20},{40,20},{40,74},{58,74}}, color={255,0,255}));
-  connect(tim.pasThr, or2.u1) annotation (Line(points={{-18,-38},{20,-38},{20,-30},
+  connect(tim.passed, or2.u1) annotation (Line(points={{-18,-38},{20,-38},{20,-30},
           {38,-30}}, color={255,0,255}));
 annotation (
   defaultComponentName="enaLeaChiPum",

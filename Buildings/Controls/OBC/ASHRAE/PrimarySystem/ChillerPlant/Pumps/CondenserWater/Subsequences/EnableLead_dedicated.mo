@@ -66,7 +66,7 @@ equation
     annotation (Line(points={{-38,40},{-2,40}}, color={255,0,255}));
   connect(and2.y, leaPumSta.clr)
     annotation (Line(points={{22,40},{40,40},{40,64},{58,64}}, color={255,0,255}));
-  connect(tim.pasThr, or2.u1)
+  connect(tim.passed, or2.u1)
     annotation (Line(points={{-18,-28},{0,-28},{0,-20},{38,-20}},
       color={255,0,255}));
 

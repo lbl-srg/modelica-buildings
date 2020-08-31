@@ -221,7 +221,7 @@ equation
   connect(truDel.y, and1.u1)
     annotation (Line(points={{22,20},{30,20},{30,0},{-10,0},{-10,-20},{-2,-20}},
       color={255,0,255}));
-  connect(tim.pasThr, edg.u)
+  connect(tim.passed, edg.u)
     annotation (Line(points={{102,132},{120,132},{120,80},{-50,80},{-50,60},
       {-42,60}}, color={255,0,255}));
 

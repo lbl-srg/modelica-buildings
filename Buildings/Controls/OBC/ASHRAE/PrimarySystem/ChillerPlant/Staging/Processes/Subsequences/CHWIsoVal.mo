@@ -246,7 +246,7 @@ equation
   connect(uUpsDevSta, and5.u2)
     annotation (Line(points={{-180,-140},{-130,-140},{-130,140},{138,140}},
       color={255,0,255}));
-  connect(tim.pasThr, and5.u3)
+  connect(tim.passed, and5.u3)
     annotation (Line(points={{-78,72},{-60,72},{-60,132},{138,132}},
       color={255,0,255}));
 

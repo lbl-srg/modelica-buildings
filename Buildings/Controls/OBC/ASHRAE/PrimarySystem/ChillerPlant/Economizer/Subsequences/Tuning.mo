@@ -264,7 +264,7 @@ equation
           {50,-10},{250,-10},{250,-2}}, color={255,0,255}));
   connect(resVal.y, intWitRes.y_reset_in) annotation (Line(points={{142,10},{182,
           10},{182,2},{238,2}}, color={0,0,127}));
-  connect(tim.pasThr, truHol.u) annotation (Line(points={{-238,142},{-200,142},
+  connect(tim.passed, truHol.u) annotation (Line(points={{-238,142},{-200,142},
           {-200,150},{-182,150}}, color={255,0,255}));
   annotation (defaultComponentName = "wseTun",
         Icon(graphics={
