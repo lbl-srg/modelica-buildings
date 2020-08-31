@@ -22,7 +22,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -46,12 +46,13 @@
      fit-margin-right="0"
      fit-margin-bottom="0"
      inkscape:zoom="0.97996062"
-     inkscape:cx="331.15951"
-     inkscape:cy="297.06741"
+     inkscape:cx="30.084037"
+     inkscape:cy="413.67356"
      inkscape:window-x="67"
      inkscape:window-y="27"
      inkscape:window-maximized="0"
-     inkscape:current-layer="svg876" />
+     inkscape:current-layer="svg876"
+     inkscape:document-rotation="0" />
   <text
      fill="#0000ff"
      font-size="26px"
@@ -59,8 +60,8 @@
      text-anchor="middle"
      dominant-baseline="central"
      x="303.608"
-     y="645.50024"
-     id="text2">fan</text>
+     y="639.50024"
+     id="text2">fanC</text>
   <polyline
      fill="none"
      stroke="#000000"
@@ -569,8 +570,8 @@
      text-anchor="middle"
      dominant-baseline="central"
      x="316.75803"
-     y="382.50021"
-     id="text122">fan1</text>
+     y="376.50021"
+     id="text122">fanS</text>
   <polyline
      fill="none"
      stroke="#000000"

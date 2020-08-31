@@ -1,7 +1,7 @@
 Best Practice
 =============
 
-This section explains to library users best practice in creating new system models.
+This section explains to library users best practice in creating system models.
 The selected topics are based on problems that are often observed with new users of Modelica.
 Experienced users of Modelica may skip this section.
 
@@ -403,6 +403,27 @@ this effect can be neglected in most building HVAC applications.
    This will affect the distribution of the mass flow rate.
 
 
+.. note::
+
+   If Dymola fails to translate a model with the error message::
+
+      Error: The initialization problem is overspecified for variables
+      of element type Real
+      The initial equation
+      ...
+      refers to variables, which are all knowns.
+      To correct it you can remove this equation.
+
+   then the initialization problem is overspecified. To avoid this, set
+
+   .. code-block:: modelica
+
+      energyDynamics = Modelica.Fluid.Types.Dynamics.DynamicsFreeInitial;
+      massDynamics = Modelica.Fluid.Types.Dynamics.DynamicsFreeInitial;
+
+   in the instances of the components that contain fluid volumes.
+
+
 Nominal Values
 ~~~~~~~~~~~~~~
 
@@ -460,112 +481,6 @@ parameters in various model to help the user understand how they are used.
 |                     |                           | See for example WetCoilDiscretized_.                                     |
 +---------------------+---------------------------+--------------------------------------------------------------------------+
 
-
-
-
-
-
-Start values of iteration variables
------------------------------------
-
-When computing numerical solutions to systems of nonlinear equations, a Newton-based solver
-is typically used. Such solvers have a higher success of convergence
-if good start values are provided for the iteration variables. In Dymola,
-to see what start values are used, one can enter on the simulation tab the command
-
-.. code-block:: none
-
-   Advanced.LogStartValuesForIterationVariables = true;
-
-Then, when a model is translated, for example using
-
-.. code-block:: none
-
-   translateModel("Buildings.Fluid.Boilers.Examples.BoilerPolynomialClosedLoop");
-
-an output of the form
-
-.. code-block:: none
-
-   Start values for iteration variables:
-    val.res1.dp(start = 3000.0)
-    val.res3.dp(start = 3000.0)
-
-is produced. This shows the iteration variables and their start values.
-These start values can be overwritten in the model.
-
-
-Avoiding events
----------------
-
-In Modelica, the time integration is halted whenever a Real elementary
-operation such as :math:`x>y`, where :math:`x` and :math:`y` are variables of type ``Real``,
-changes its value. In this situation,
-an event occurs and the solver determines a small interval in time in which
-the relation changes its value. This can increase computing time.
-An example where such an event occurs is the following relation
-that computes the enthalpy of the medium that streams through ``port_a`` as
-
-.. code-block:: modelica
-
-		if port_a.m_flow > 0 then
-		  h_a = inStream(port_a.h_outflow);
-		else
-		  h_a = port_a.h_outflow;
-		end if;
-
-or, equivalently,
-
-.. code-block:: modelica
-
-		h_a = if port_a.m_flow > 0 then inStream(port_a.h_outflow) else port_a.h_outflow;
-
-When simulating a model that contains such code, a time integrator
-will iterate to find the time instant where ``port_a.m_flow`` crosses zero.
-If the modeling assumptions allow approximating this equation in
-a neighborhood around ``port_a.m_flow=0``, then replacing this equation
-with an approximation that does not require an event iteration can
-reduce computing time. For example, the above equation could be
-approximated as
-
-.. code-block:: modelica
-
-		T_a = Modelica.Fluid.Utilities.regStep(
-		  port_a.m_flow, inStream(port_a.h_outflow), port_a.h_outflow,
-		  m_flow_nominal*1E-4);
-
-
-where ``m_flow_nominal`` is a parameter that is set to a value that
-is close to the mass flow rate that the model has at full load.
-If the magnitude of the flow rate is larger than 1E-4 times the
-typical flow rate, the approximate equation is the same as the exact equation,
-and below that value, an approximation is used. However, for such small
-flow rates, not much energy is transported and hence the error introduced
-by the approximation is generally negligible.
-
-In some cases, adding dynamics to the model can further improve
-the computing time, because the return value of the function
-`Modelica.Fluid.Utilities.regStep() <https://simulationresearch.lbl.gov/modelica/releases/msl/3.2/help/Modelica_Fluid_Utilities.html#Modelica.Fluid.Utilities.regStep>`_
-above can change abruptly if its argument ``port_a.m_flow`` oscillates in the range of
-``+/- 1E-4*m_flow_nominal``,
-for example due to :term:`numerical noise`.
-Adding dynamics may be achieved using a formulation such as
-
-.. code-block:: modelica
-
-		hMed = Modelica.Fluid.Utilities.regStep(
-		  port_a.m_flow, inStream(port_a.h_outflow), port_a.h_outflow,
-		  m_flow_nominal*1E-4);
-		der(h)=(hMed-h)/tau;
-
-where ``tau``>0 is a time constant. See, for example,
-`Buildings.Fluid.Sensors.SpecificEnthalpyTwoPort <https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.SpecificEnthalpyTwoPort>`_
-for a robust implementation.
-
-.. note::
-   In the package
-   `Buildings.Utilities.Math <https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Utilities_Math.html#Buildings.Utilities.Math>`_
-   the functions and blocks whose names start with ``smooth`` can be used to avoid events.
 
 .. _sec_bes_pra_con:
 
@@ -637,173 +552,35 @@ because the ``if-then-else`` construct triggers an event iteration whenever
    See :ref:`sec-example-event-debugging` for what can happen in
    such tests.
 
-.. _sec-example-event-debugging:
 
-Examples for how to debug and correct slow simulations
-------------------------------------------------------
+Start values of iteration variables
+-----------------------------------
 
-State events
-~~~~~~~~~~~~
-
-This section shows how a simulation that stalls due to events can be debugged
-to find the root cause, and then corrected.
-While the details may differ from one tool to another, the principle is the same.
-In our situation, we attempted to simulate ``Buildings.Examples.DualFanDualDuct``
-for one year in Dymola 2016 FD01 using the model from Buildings version 3.0.0.
-We run
-
-.. code-block:: modelica
-
-   simulateModel("Buildings.Examples.DualFanDualDuct.ClosedLoop",
-                  stopTime=31536000, method="radau",
-                  tolerance=1e-06, resultFile="DualFanDualDuctClosedLoop");
-
-and plotted the computing time and the number of events. Around :math:`t=0.95e7` seconds,
-there was a spike as shown in the figure below.
-
-.. figure:: img/DualFanDualDuct-cpu-events.*
-   :width: 300pt
-
-   Computing time and number of events.
-
-As the number of events increased drastically, we enabled in Dymola in
-`Simulation -> Setup`, under the tab `Debug` the entry `Events during simulation`
-and simulated the model from
-:math:`t=0.9e7` to :math:`t=1.0e7` seconds. It turned out that setting the start time
-to :math:`t=0.9e7` seconds was sufficient to reproduce the behavior;
-otherwise we would
-have had to set it to an earlier time.
-Inspecting Dymola's log file ``dslog.txt`` when the simulation stalls shows that its last entries
-are
-
-.. code-block:: modelica
-
-   Expression TRet.T > amb.x_pTphi.T became true ( (TRet.T)-(amb.x_pTphi.T) = 2.9441e-08 )
-   Iterating to find consistent restart conditions.
-         during event at Time :  9267949.854873843
-   Expression TRet.T > amb.x_pTphi.T became false ( (TRet.T)-(amb.x_pTphi.T) = -2.94411e-08 )
-   Iterating to find consistent restart conditions.
-         during event at Time :  9267949.855016639
-   Expression TRet.T > amb.x_pTphi.T became true ( (TRet.T)-(amb.x_pTphi.T) = 2.94407e-08 )
-   Iterating to find consistent restart conditions.
-         during event at Time :  9267949.855208419
-   Expression TRet.T > amb.x_pTphi.T became false ( (TRet.T)-(amb.x_pTphi.T) = -2.94406e-08 )
-   Iterating to find consistent restart conditions.
-         during event at Time :  9267949.855351238
-
-Hence, there is an event every few milliseconds, which explains
-why the simulation does not appear to be progessing.
-The solver does the right thing, it stops
-the integration, handles the event, and restarts the integration, just to encounter
-another event a few milliseconds later.
-Hence, we go back to our system model and
-follow the output signal of ``TRet.T`` of the
-return air temperature sensor,
-which shows that it is used in the economizer control
-to switch the sign of the control gain because the economizer can provide heating or cooling,
-depending on the ambient and return air temperature. The problematic model is
-shown in the figure below.
-
-.. _fig-dualfan-eco-con-bad:
-
-.. figure:: img/EconomizerTemperatureControl-bad.*
-   :width: 600pt
-
-   Block diagram of part of the economizer control that computes the outside air damper
-   control signal. This implementation triggers many events.
-
-The events are triggered by the inequality block which changes the control, which then in turn
-seems to cause a slight change in the return air temperature, possibly due
-to :term:`numerical noise` or maybe because the return fan may change its operating point
-as the dampers are adjusted, and hence change the heat
-added to the medium. Regardless, this is a bad implementation that also
-would cause oscillatory behavior in a real system if the sensor signal had
-measurement noise.
-Therefore, this equality comparison must be replaced by a block with hysteresis,
-which we did as shown in the figure below.
-We selected a hysteresis of :math:`0.2` Kelvin, and now the model runs fine
-for the whole year.
-
-
-.. _fig-dualfan-eco-con-revised:
-
-.. figure:: img/EconomizerTemperatureControl-revised.*
-   :width: 600pt
-
-   Block diagram of part of the revised economizer control that computes the outside air damper
-   control signal.
-
-
-State variables that dominate the error control
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-In a development version of the model
-``Buildings.Examples.DualFanDualDuct.ClosedLoop``
-(commit `ef410ee <https://github.com/lbl-srg/modelica-buildings/commit/ef410ee8a5d1816f8b8e171da7743e15caaa3163>`_),
-the simulation time was very slow during part of the
-simulation, as shown in :numref:`fig-dualfan-filtered-speed`.
-
-
-.. _fig-dualfan-filtered-speed:
-
-.. figure:: img/DualFanDualDuctWithFilteredSpeed.*
-   :width: 400pt
-
-   Computing time and number of events.
-
-The number of state events did not increase in that time interval.
-To isolate the problem, we enabled in Dymola under `Simulation -> Setup` the
-option to log which states dominate the error (see `Debug` tab).
-
-Running the simulation again gave the following output:
+When computing numerical solutions to systems of nonlinear equations, a Newton-based solver
+is typically used. Such solvers have a higher success of convergence
+if good start values are provided for the iteration variables. In Dymola,
+to see what start values are used, one can enter on the simulation tab the command
 
 .. code-block:: none
-   :emphasize-lines: 9,10,11,12,13,14
 
-   Integration terminated successfully at T = 1.66e+07
-     Limit stepsize, Dominate error, Exceeds 10% of error  Component (#number)
-                  0               1            6           cooCoi.temSen_1.T (#  1)
-                 36               0          140           cooCoi.temSen_2.T (#  2)
-                 37               0            0           cooCoi.ele[1].mas.T (#  3)
-                 45               0            0           cooCoi.ele[2].mas.T (#  4)
-                 51               0            0           cooCoi.ele[3].mas.T (#  5)
-                 53               0            0           cooCoi.ele[4].mas.T (#  6)
-              13555           13201        19064           fanSupHot.filter.x[1] (#  7)
-              11905            2170        12394           fanSupHot.filter.x[2] (#  8)
-                400              47          419           fanSupCol.filter.x[1] (#  9)
-                420              71          521           fanSupCol.filter.x[2] (# 10)
-               5082            2736         6732           fanRet.filter.x[1] (# 11)
-               1979              25         4974           fanRet.filter.x[2] (# 12)
-                 38               0            3           TPreHeaCoi.T (# 13)
-                 30               0            1           TRet.T (# 14)
-                 38               0            3           TMix.T (# 15)
-                 80               0            0           TCoiCoo.T (# 16)
-                305              22          275           cor.vavHot.filter.x[1] (# 18)
+   Advanced.LogStartValuesForIterationVariables = true;
 
-Hence, the state variables in the highlighted lines
-limit the step size significantly more often than other variables.
-Therefore, we removed these state variables
-by setting in the fan models the parameter ``filteredSpeed=false``.
-After this change, the model simulates without problems.
+Then, when a model is translated, for example using
 
+.. code-block:: none
 
-Numerical solvers
------------------
-Dymola 2021 is configured to use dassl as a default solver with a tolerance of
-1E-4.
-We recommend to change this setting to radau with a tolerance of around
-1E-6, as this generally leads to faster and more robust
-simulation for thermo-fluid flow systems.
+   translateModel("Buildings.Fluid.Boilers.Examples.BoilerPolynomialClosedLoop");
 
-Note that this is the error tolerance of the local integration time step.
-Most ordinary differential equation solvers only control the local
-integration error and not the global integration error.
-As a rule of thumb, the global integration error is one
-order of magnitude larger than the local integration error.
-However, the actual magnitude of the global integration error
-depends on the stability of the differential equation.
-As an extreme case, if a system is chaotic
-and uncontrolled, then the global integration error will grow rapidly.
+an output of the form
+
+.. code-block:: none
+
+   Start values for iteration variables:
+    val.res1.dp(start = 3000.0)
+    val.res3.dp(start = 3000.0)
+
+is produced. This shows the iteration variables and their start values.
+These start values can be overwritten in the model.
 
 
 .. _PressureDrop: https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.PressureDrop
