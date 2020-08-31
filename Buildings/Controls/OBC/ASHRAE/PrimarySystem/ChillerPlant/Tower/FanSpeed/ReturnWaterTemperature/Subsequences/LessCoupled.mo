@@ -112,14 +112,13 @@ block LessCoupled
     annotation (Placement(transformation(extent={{160,-160},{200,-120}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.PID supCon(
+  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset supCon(
     final controllerType=supWatCon,
     final k=kSupCon,
     final Ti=TiSupCon,
     final Td=TdSupCon,
     final yMax=ySupConMax,
     final yMin=ySupConMin,
-    final reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter,
     final y_reset=ySupConMin) "Condenser water supply temperature controller"
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
 
@@ -129,7 +128,8 @@ protected
     final uHigh=fill(2*pumSpeChe, nConWatPum))
     "Check if the condenser water pump is proven on"
     annotation (Placement(transformation(extent={{-140,-30},{-120,-10}})));
-  Buildings.Controls.OBC.CDL.Logical.MultiOr anyProOn(final nu=nConWatPum)
+  Buildings.Controls.OBC.CDL.Logical.MultiOr anyProOn(
+    final nu=nConWatPum)
     "Check if any condenser water pump is proven on"
     annotation (Placement(transformation(extent={{-100,-30},{-80,-10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant  minTowSpe(
@@ -180,12 +180,9 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.MultiMax multiMax(
     final nin=nChi)
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
-  Buildings.Controls.OBC.CDL.Logical.Timer tim "Count the time after plant being enabled"
+  Buildings.Controls.OBC.CDL.Logical.Timer tim(final t=iniPlaTim)
+    "Count the time after plant being enabled"
     annotation (Placement(transformation(extent={{-140,90},{-120,110}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold aftIni(
-    final t=iniPlaTim)
-    "Check if the plant has been enabled more than threshold time"
-    annotation (Placement(transformation(extent={{-20,90},{0,110}})));
   Buildings.Controls.OBC.CDL.Logical.Switch delTem "Temperature difference value"
     annotation (Placement(transformation(extent={{60,90},{80,110}})));
   Buildings.Controls.OBC.CDL.Continuous.Add meaTemDif(
@@ -224,8 +221,9 @@ equation
   connect(one1.y, CWSTSpd.f2)
     annotation (Line(points={{2,-80},{20,-80},{20,-38},{98,-38}}, color={0,0,127}));
   connect(CWSTSpd.y, fanSpe.u[1])
-    annotation (Line(points={{122,-30},{140,-30},{140,-80},{40,-80},{40,-118.667},
-      {58,-118.667}}, color={0,0,127}));
+    annotation (Line(points={{122,-30},{140,-30},{140,-80},{40,-80},{40,
+          -118.667},{58,-118.667}},
+                          color={0,0,127}));
   connect(maxSpe.y, fanSpe.u[2])
     annotation (Line(points={{22,-120},{58,-120}},color={0,0,127}));
   connect(plrTowMaxSpe, fanSpe.u[3])
@@ -268,10 +266,6 @@ equation
           {-40,44},{-22,44}}, color={0,0,127}));
   connect(uPla, tim.u)
     annotation (Line(points={{-200,100},{-142,100}}, color={255,0,255}));
-  connect(tim.y, aftIni.u)
-    annotation (Line(points={{-118,100},{-22,100}}, color={0,0,127}));
-  connect(aftIni.y, delTem.u2)
-    annotation (Line(points={{2,100},{58,100}}, color={255,0,255}));
   connect(multiMax.y, delTem.u3) annotation (Line(points={{42,50},{50,50},{50,92},
           {58,92}}, color={0,0,127}));
   connect(TConWatSup, meaTemDif.u2) annotation (Line(points={{-200,-60},{-160,-60},
@@ -294,6 +288,8 @@ equation
           {140,20},{-40,20},{-40,-30},{-22,-30}}, color={0,0,127}));
   connect(add2.y, multiMax.u) annotation (Line(points={{2,50},{10,50},{10,50},{18,
           50}},     color={0,0,127}));
+  connect(tim.passed, delTem.u2) annotation (Line(points={{-118,92},{-40,92},{-40,
+          100},{58,100}}, color={255,0,255}));
 
 annotation (
   defaultComponentName="lesCouTowSpe",

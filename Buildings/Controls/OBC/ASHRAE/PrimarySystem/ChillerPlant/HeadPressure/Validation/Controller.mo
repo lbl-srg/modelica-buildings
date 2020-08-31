@@ -81,6 +81,8 @@ equation
   connect(desPumSpe.y, varSpePum.desConWatPumSpe)
     annotation (Line(points={{-98,-20},{10,-20},{10,-102},{98,-102}}, color={0,0,127}));
 
+  connect(desPumSpe.y, conSpePum.desConWatPumSpe) annotation (Line(points={{-98,
+          -20},{10,-20},{10,38},{98,38}}, color={0,0,127}));
 annotation (
   experiment(StopTime=5.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/HeadPressure/Validation/Controller.mos"

@@ -111,12 +111,10 @@ protected
     final k=fill(1, nChi))
     "Add a small value to avoid potentially zero denominator"
     annotation (Placement(transformation(extent={{60,-30},{80,-10}})));
-  Buildings.Controls.OBC.CDL.Logical.Timer tim
-    "Count the time demand limit"
+  Buildings.Controls.OBC.CDL.Logical.Timer tim(
+    final t=holChiDemTim)
+    "Check if the demand limit has been 5 minutes"
     annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greEquThr3(
-    final t=holChiDemTim) "Check if the demand limit has been 5 minutes"
-    annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
   Buildings.Controls.OBC.CDL.Logical.Or or2 "Logical or"
     annotation (Placement(transformation(extent={{120,-80},{140,-60}})));
 
@@ -200,16 +198,15 @@ equation
   connect(uDemLim, tim.u)
     annotation (Line(points={{-180,160},{-120,160},{-120,-70},{-42,-70}},
       color={255,0,255}));
-  connect(tim.y, greEquThr3.u)
-    annotation (Line(points={{-18,-70},{-2,-70}}, color={0,0,127}));
-  connect(greEquThr3.y, or2.u1)
-    annotation (Line(points={{22,-70},{118,-70}}, color={255,0,255}));
   connect(mulAnd.y, or2.u2)
     annotation (Line(points={{102,-110},{110,-110},{110,-78},{118,-78}},
       color={255,0,255}));
   connect(or2.y, and2.u2)
     annotation (Line(points={{142,-70},{150,-70},{150,0},{100,0},{100,42},
       {118,42}}, color={255,0,255}));
+  connect(tim.passed, or2.u1)
+    annotation (Line(points={{-18,-78},{40,-78},{40,-70},{118,-70}},
+      color={255,0,255}));
 
 annotation (
   defaultComponentName="chiDemRed",

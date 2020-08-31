@@ -1,4 +1,4 @@
-within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.ChilledWater.Subsequences;
+﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.ChilledWater.Subsequences;
 block EnableLead_dedicated
   "Sequence to enable or disable the lead pump of plants with dedicated primary chilled water pumps"
 
@@ -22,7 +22,7 @@ block EnableLead_dedicated
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uLeaChiWatReq
     "True: lead chiller is requesting chilled water"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yLea 
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yLea
     "Lead pump status setpoint"
     annotation (Placement(transformation(extent={{100,60},{140,100}}),
         iconTransformation(extent={{100,-20},{140,20}})));
@@ -39,12 +39,9 @@ protected
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
   Buildings.Controls.OBC.CDL.Logical.Not proOff "Lead chiller proven off"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
-  Buildings.Controls.OBC.CDL.Logical.Timer tim "Measures chiller OFF time"
-    annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greEquThr(
-    final t=offTimThr)
+  Buildings.Controls.OBC.CDL.Logical.Timer tim(final t=offTimThr)
     "Check if the chiller has been OFF for more than 3 minutes"
-    annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
+    annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
   Buildings.Controls.OBC.CDL.Logical.And and2 "Logical and"
     annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
   Buildings.Controls.OBC.CDL.Logical.Not disLeaChi "Disabled lead chiller"
@@ -62,10 +59,6 @@ equation
     annotation (Line(points={{-120,-30},{-82,-30}}, color={255,0,255}));
   connect(proOff.y, tim.u)
     annotation (Line(points={{-58,-30},{-42,-30}}, color={255,0,255}));
-  connect(tim.y, greEquThr.u)
-    annotation (Line(points={{-18,-30},{-2,-30}}, color={0,0,127}));
-  connect(greEquThr.y, or2.u1)
-    annotation (Line(points={{22,-30},{38,-30}}, color={255,0,255}));
   connect(noChiWatReq.y, or2.u2)
     annotation (Line(points={{-58,-80},{30,-80},{30,-38},{38,-38}},
       color={255,0,255}));
@@ -82,7 +75,8 @@ equation
     annotation (Line(points={{-18,20},{-2,20}}, color={255,0,255}));
   connect(disLeaPum.y, leaPumSta.clr)
     annotation (Line(points={{22,20},{40,20},{40,74},{58,74}}, color={255,0,255}));
-
+  connect(tim.passed, or2.u1) annotation (Line(points={{-18,-38},{20,-38},{20,-30},
+          {38,-30}}, color={255,0,255}));
 annotation (
   defaultComponentName="enaLeaChiPum",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={

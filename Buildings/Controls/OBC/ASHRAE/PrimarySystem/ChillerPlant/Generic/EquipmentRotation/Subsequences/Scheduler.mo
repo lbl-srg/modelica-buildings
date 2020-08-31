@@ -33,7 +33,7 @@ block Scheduler
     annotation (Evaluate=true, Dialog(enable=not simTimSta));
 
   parameter Integer houOfDay = 2 "Rotation hour of the day: 0 = midnight; 23 = 11pm"
-    annotation (Evaluate=true, Dialog(enable=weeInt and not simTimSta));
+    annotation (Evaluate=true, Dialog(enable=not simTimSta));
 
   parameter Integer weeCou = 1 "Number of weeks"
     annotation (Evaluate=true, Dialog(enable=weeInt and not simTimSta));

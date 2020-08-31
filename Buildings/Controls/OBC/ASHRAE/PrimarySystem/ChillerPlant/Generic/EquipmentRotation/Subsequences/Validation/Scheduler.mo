@@ -18,6 +18,7 @@ model Scheduler
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.Scheduler
     rotSch1(
     final simTimSta=false,
+    weeInt=true,
     final weeCou=2,
     final weekday=2) "Equipment rotation happens bi-weekly on Tuesday at 2am"
     annotation (Placement(transformation(extent={{-40,30},{-20,50}})));

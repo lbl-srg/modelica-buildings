@@ -18,6 +18,10 @@ block ControlLoop
     final quantity="Time")=0.5 "Time constant of integrator block"
       annotation (Dialog(group="PID controller"));
 
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHeaPreEna
+    "Status of head pressure control: true = ON, false = OFF"
+    annotation (Placement(transformation(extent={{-140,0},{-100,40}}),
+      iconTransformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TConWatRet(
     final unit="K",
     displayUnit="degC",
@@ -36,15 +40,16 @@ block ControlLoop
     final unit="1",
     final min=0,
     final max=1) "Chiller head pressure control loop output"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}}),
-      iconTransformation(extent={{100,-10},{120,10}})));
+    annotation (Placement(transformation(extent={{100,-20},{140,20}}),
+      iconTransformation(extent={{100,-20},{140,20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.PID conPID(
+  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset conPID(
     final controllerType=controllerType,
     final k=k,
     final Ti=Ti,
     final yMax=1,
-    final yMin=0)    "Generate head pressure control signal"
+    final yMin=0,
+    final y_reset=0) "Generate head pressure control signal"
     annotation (Placement(transformation(extent={{20,50},{40,70}})));
 
 protected
@@ -65,11 +70,13 @@ equation
   connect(con.y, conPID.u_s)
     annotation (Line(points={{-18,60},{18,60}}, color={0,0,127}));
   connect(conPID.y, yHeaPreCon)
-    annotation (Line(points={{42,60},{60,60},{60,0},{110,0}}, color={0,0,127}));
+    annotation (Line(points={{42,60},{60,60},{60,0},{120,0}}, color={0,0,127}));
   connect(feedback.y, gai.u)
     annotation (Line(points={{-48,-20},{-22,-20}}, color={0,0,127}));
   connect(gai.y, conPID.u_m)
     annotation (Line(points={{2,-20},{30,-20},{30,48}}, color={0,0,127}));
+  connect(uHeaPreEna, conPID.trigger)
+    annotation (Line(points={{-120,20},{24,20},{24,48}}, color={255,0,255}));
 
 annotation (
   defaultComponentName= "chiHeaPreLoo",
