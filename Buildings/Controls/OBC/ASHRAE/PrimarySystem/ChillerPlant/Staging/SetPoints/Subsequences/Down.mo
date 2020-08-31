@@ -96,8 +96,8 @@ block Down "Generates a stage down signal"
     iconTransformation(extent={{-140,10},{-100,50}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TWsePre(
-    final unit="1") if have_WSE
-    "Predicted WSE outlet temperature"
+    final quantity="ThermodynamicTemperature",
+    final unit="K") if have_WSE "Predicted waterside economizer outlet temperaturePredicted WSE outlet temperature"
     annotation (Placement(transformation(extent={{-220,-90},{-180,-50}}),
        iconTransformation(extent={{-140,-60},{-100,-20}})));
 
@@ -106,8 +106,7 @@ block Down "Generates a stage down signal"
     annotation (Placement(transformation(extent={{-220,-120},{-180,-80}}),
         iconTransformation(extent={{-140,-80},{-100,-40}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
-    "Stage down signal"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y "Stage down signal"
     annotation (Placement(transformation(extent={{180,-10},{200,10}}),
         iconTransformation(extent={{100,-20},{140,20}})));
 
