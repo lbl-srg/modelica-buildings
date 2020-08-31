@@ -483,16 +483,16 @@ In some situation, such as the configuration below, connecting multiple connecto
 a fluid port represents the physical phenomena that was intended to model.</p>
 <div class="figure align-default" id="id10">
 <a class="reference internal image-reference" href="_images/fluidJunctionMixing.svg"><img alt="_images/fluidJunctionMixing.svg" src="_images/fluidJunctionMixing.svg" width="300px" /></a>
-<p class="caption"><span class="caption-number">Fig. 2.2 </span><span class="caption-text">Connection of three components without explicitly introducing a mixer or splitter model.</span><a class="headerlink" href="#id10" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 2.2 </span><span class="caption-text">Connection of three components without explicitly introducing a flow junction model.</span><a class="headerlink" href="#id10" title="Permalink to this image">¶</a></p>
 </div>
 <p>However, in more complex flow configurations, one may want to explicitly control what branches of a piping or duct network mix.
 This may be achieved by using an instance of the model
-<a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.PressureDrop">PressureDrop</a>
-as shown in the left figure below, which is the test model
+<a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.Junction">Junction</a>
+as shown in the left figure below, which is derived from the test model
 <a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Boilers_Examples.html#Buildings.Fluid.Boilers.Examples.BoilerPolynomialClosedLoop">BoilerPolynomialClosedLoop</a></p>
 <div class="figure align-default" id="id11">
 <span id="fig-flu-cor-wro"></span><a class="reference internal image-reference" href="_images/fluidJunctionMixingSplitter.svg"><img alt="_images/fluidJunctionMixingSplitter.svg" src="_images/fluidJunctionMixingSplitter.svg" width="1200px" /></a>
-<p class="caption"><span class="caption-number">Fig. 2.3 </span><span class="caption-text">Correct (a) and wrong (b) and (c) connection of components with use of a mixer or splitter model.</span><a class="headerlink" href="#id11" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 2.3 </span><span class="caption-text">Correct (a) and wrong (b) and (c) connection of components with use of a flow junction model.</span><a class="headerlink" href="#id11" title="Permalink to this image">¶</a></p>
 </div>
 <p>In <a class="reference internal" href="#fig-flu-cor-wro"><span class="std std-numref">Fig. 2.3</span></a> (a), the mixing points have been correctly defined by
 use of the model
@@ -502,8 +502,8 @@ This results in the same configuration as is shown in <a class="reference intern
 This is certainly not the intention of the modeler, as this causes all flows to be mixed in the port.
 Consequently, the valve will received fluid at this mixing temperature rather than at the return temperature from the radiator,
 e.g., the system model is wrong.</p>
-<p>The overhead for the simulation of these mixers and splitters can be reduced by
-setting the nominal pressure drop of the mixer or splitter model to zero,
+<p>The overhead for the simulation of these flow junctions can be reduced by
+setting the nominal pressure drop of flow junction model to zero,
 which will remove the pressure drop equation.</p>
 </div>
 <div class="section" id="use-of-sensors-in-fluid-flow-systems">

@@ -266,12 +266,12 @@ a fluid port represents the physical phenomena that was intended to model.
 .. figure:: img/fluidJunctionMixing.*
    :width: 300px
 
-   Connection of three components without explicitly introducing a mixer or splitter model.
+   Connection of three components without explicitly introducing a flow junction model.
 
 However, in more complex flow configurations, one may want to explicitly control what branches of a piping or duct network mix.
 This may be achieved by using an instance of the model
-`PressureDrop <https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.PressureDrop>`_
-as shown in the left figure below, which is the test model
+`Junction <https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.Junction>`_
+as shown in the left figure below, which is derived from the test model
 `BoilerPolynomialClosedLoop <https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Boilers_Examples.html#Buildings.Fluid.Boilers.Examples.BoilerPolynomialClosedLoop>`_
 
 .. _fig_flu_cor_wro:
@@ -279,7 +279,7 @@ as shown in the left figure below, which is the test model
 .. figure:: img/fluidJunctionMixingSplitter.*
    :width: 1200px
 
-   Correct (a) and wrong (b) and (c) connection of components with use of a mixer or splitter model.
+   Correct (a) and wrong (b) and (c) connection of components with use of a flow junction model.
 
 In :numref:`fig_flu_cor_wro` (a), the mixing points have been correctly defined by
 use of the model
@@ -290,8 +290,8 @@ This is certainly not the intention of the modeler, as this causes all flows to 
 Consequently, the valve will received fluid at this mixing temperature rather than at the return temperature from the radiator,
 e.g., the system model is wrong.
 
-The overhead for the simulation of these mixers and splitters can be reduced by
-setting the nominal pressure drop of the mixer or splitter model to zero,
+The overhead for the simulation of these flow junctions can be reduced by
+setting the nominal pressure drop of flow junction model to zero,
 which will remove the pressure drop equation.
 
 
