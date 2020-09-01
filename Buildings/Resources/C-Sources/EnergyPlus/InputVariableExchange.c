@@ -28,7 +28,7 @@ void InputVariableExchange(
 
   if (FMU_EP_VERBOSITY >= TIMESTEP)
     ModelicaFormatMessage("Exchanging data with EnergyPlus: t = %.2f, initialCall = %d, zone = %s,  building ptr at %p.\n",
-      time, initialCall, inpVar->modelicaNameInputVariable, bui);
+      time, initialCall, inpVar->modelicaNameInputVariable, (void*)bui);
 
   if (! inpVar->isInstantiated){
     /* This input variable has not been initialized because the simulator removed the call to initialize().

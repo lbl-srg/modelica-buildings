@@ -11,7 +11,10 @@ function inputVariableExchange
   output Real y "Value send to EnergyPlus (equals u, but used to enable forcing a direct dependency for Actuators and Schedules)";
 
   external "C" InputVariableExchange(adapter, initialCall, u, tModel, y)
-      annotation (Library={"ModelicaBuildingsEnergyPlus", "fmilib_shared", "dl"});
+  annotation (
+   IncludeDirectory="modelica://Buildings/Resources/C-Sources/EnergyPlus",
+   Include="#include \"InputVariableExchange.c\"",
+   Library={"fmilib_shared", "dl"});
       // dl provides dlsym to load EnergyPlus dll, which is needed by OpenModelica compiler
 
 

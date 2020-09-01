@@ -6,6 +6,7 @@
 
 #include "ZoneAllocate.h"
 #include "EnergyPlusFMU.h"
+#include "EnergyPlusUtil.c"
 
 #include <stdlib.h>
 #include <string.h>
@@ -169,7 +170,7 @@ void* ZoneAllocate(
       }
 
       if (FMU_EP_VERBOSITY >= MEDIUM){
-        ModelicaFormatMessage("Assigning zone->ptrBui = fmu with fmu at %p", fmu);
+        ModelicaFormatMessage("Assigning zone->ptrBui = fmu with fmu at %p", (void*)fmu);
       }
       zone->ptrBui = fmu;
       AddZoneToBuilding(zone);
@@ -195,14 +196,14 @@ void* ZoneAllocate(
       for(i = 0; i < getBuildings_nFMU(); i++){
          ModelicaFormatMessage("ZoneAllocate: Building %s is at pointer %p",
            (getBuildingsFMU(i))->modelicaNameBuilding,
-           getBuildingsFMU(i));
+           (void*)getBuildingsFMU(i));
       }
-      ModelicaFormatMessage("Zone ptr is at %p\n", zone);
+      ModelicaFormatMessage("Zone ptr is at %p\n", (void*)zone);
     }
   }
 
   if (FMU_EP_VERBOSITY >= MEDIUM)
-    ModelicaFormatMessage("Exiting allocation for %s with zone ptr at %p and building ptr at %p", modelicaNameThermalZone, zone, zone->ptrBui);
+    ModelicaFormatMessage("Exiting allocation for %s with zone ptr at %p and building ptr at %p", modelicaNameThermalZone, (void*)zone, (void*)zone->ptrBui);
   /* Return a pointer to this zone */
   return (void*) zone;
 }

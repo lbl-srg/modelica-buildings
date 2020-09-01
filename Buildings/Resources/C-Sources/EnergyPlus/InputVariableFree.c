@@ -5,7 +5,7 @@
  */
 
 #include "InputVariableFree.h"
-#include "EnergyPlusFMU.h"
+#include "EnergyPlusFMU.c"
 
 #include <stdlib.h>
 

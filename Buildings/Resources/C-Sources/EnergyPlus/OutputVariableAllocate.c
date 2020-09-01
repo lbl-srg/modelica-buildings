@@ -154,7 +154,7 @@ void* OutputVariableAllocate(
         if (FMU_EP_VERBOSITY >= MEDIUM){
           ModelicaFormatMessage("Assigning comVar '%s' to previously used outvar at %p",
           comVar->outputs->fmiNames[0],
-          comVar);
+          (void*)comVar);
         }
         /* Assign by reference */
         comVar = doubleOutVarSpec;
@@ -164,7 +164,7 @@ void* OutputVariableAllocate(
       else{
         /* This output variable has not yet been added to this building */
         if (FMU_EP_VERBOSITY >= MEDIUM){
-          ModelicaFormatMessage("Assigning comVar->ptrBui = fmu with fmu at %p", fmu);
+          ModelicaFormatMessage("Assigning comVar->ptrBui = fmu with fmu at %p", (void*)fmu);
         }
         comVar->ptrBui = fmu;
 
@@ -191,14 +191,14 @@ void* OutputVariableAllocate(
       for(i = 0; i < getBuildings_nFMU(); i++){
          ModelicaFormatMessage("OutputVariableAllocate.c: Building %s is at pointer %p",
            (getBuildingsFMU(i))->modelicaNameBuilding,
-           getBuildingsFMU(i));
+           (void*)getBuildingsFMU(i));
       }
-      ModelicaFormatMessage("Output variable ptr is at %p\n", comVar);
+      ModelicaFormatMessage("Output variable ptr is at %p\n", (void*)comVar);
     }
   }
 
   if (FMU_EP_VERBOSITY >= MEDIUM)
-    ModelicaFormatMessage("Exiting allocation for %s with output variable ptr at %p", modelicaNameOutputVariable, comVar);
+    ModelicaFormatMessage("Exiting allocation for %s with output variable ptr at %p", modelicaNameOutputVariable, (void*)comVar);
   /* Return a pointer to this output variable */
   return (void*) comVar;
 }

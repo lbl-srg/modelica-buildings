@@ -44,7 +44,7 @@ void OutputVariableExchange(
   fmi2Status status;
 
   if (FMU_EP_VERBOSITY >= TIMESTEP)
-    ModelicaFormatMessage("Exchanging data with EnergyPlus: t = %.2f, initialCall = %d, mode = %s, output variable = %s, directDependency = %2.f, valueReference = %lu.\n",
+    ModelicaFormatMessage("Exchanging data with EnergyPlus: t = %.2f, initialCall = %d, mode = %s, output variable = %s, directDependency = %2.f, valueReference = %u.\n",
       time, initialCall, fmuModeToString(bui->mode), outVar->modelicaNameOutputVariable, directDependency, outVar->outputs->valRefs[0]);
 
   if (! outVar->isInstantiated){
@@ -59,7 +59,7 @@ void OutputVariableExchange(
   if (initialCall){
     outVar->isInitialized = true; /* Set to true as it will be initialized right below */
     if (FMU_EP_VERBOSITY >= MEDIUM)
-      ModelicaFormatMessage("Initial call for output variable %s at %p with time = %.f\n", outVar->modelicaNameOutputVariable, outVar, time);
+      ModelicaFormatMessage("Initial call for output variable %s at %p with time = %.f\n", outVar->modelicaNameOutputVariable, (void*)outVar, time);
 
     if (outVar->printUnit){
       if (outVar->outputs->units[0]) /* modelDescription.xml defines unit */

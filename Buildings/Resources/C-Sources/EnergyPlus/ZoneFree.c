@@ -6,7 +6,7 @@
  */
 
 #include "ZoneFree.h"
-#include "EnergyPlusFMU.h"
+#include "EnergyPlusFMU.c"
 
 #include <stdlib.h>
 

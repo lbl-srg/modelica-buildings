@@ -6,6 +6,7 @@
  */
 
 #include "EnergyPlusUtil.h"
+#include "BuildingInstantiate.c"
 
 #ifndef Buildings_EnergyPlusUtil_c
 #define Buildings_EnergyPlusUtil_c
@@ -652,7 +653,7 @@ void loadFMU_setupExperiment_enterInitializationMode(FMUBuilding* bui, double st
   /* This function can only be called once per building FMU */
   if (FMU_EP_VERBOSITY >= MEDIUM)
     ModelicaFormatMessage("fmi2_import_setup_experiment: Setting up experiment building %s at %p with startTime = %f.\n",
-      bui->modelicaNameBuilding, bui, startTime);
+      bui->modelicaNameBuilding, (void*)bui, startTime);
 
   /*ModelicaFormatError("********* Calling setting up experiment... for building at %p", bui->fmu);*/
 

@@ -12,7 +12,10 @@ function outputVariableExchange
   output Modelica.SIunits.Time tNext "Next time that the zone need to be invoked";
 
   external "C" OutputVariableExchange(adapter, initialCall, directDependency, tModel, y, tNext)
-      annotation (Library={"ModelicaBuildingsEnergyPlus", "fmilib_shared", "dl"});
+  annotation (
+   IncludeDirectory="modelica://Buildings/Resources/C-Sources/EnergyPlus",
+   Include="#include \"OutputVariableExchange.c\"",
+   Library={"fmilib_shared", "dl"});
       // dl provides dlsym to load EnergyPlus dll, which is needed by OpenModelica compiler
 
 

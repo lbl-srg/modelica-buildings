@@ -166,7 +166,7 @@ void ZoneExchange(
 
   if (FMU_EP_VERBOSITY >= TIMESTEP)
     ModelicaFormatMessage("Returning from ZoneExchange with nextEventTime = %.2f, TRad_degC = %.2f, zone = %s, mode = %s, ptr=%p, nZon=%d \n",
-    *tNext, zone->outputs->valsEP[0], zone->modelicaNameThermalZone, fmuModeToString(bui->mode), zone, bui->nZon);
+    *tNext, zone->outputs->valsEP[0], zone->modelicaNameThermalZone, fmuModeToString(bui->mode), (void*)zone, bui->nZon);
 
   return;
 }

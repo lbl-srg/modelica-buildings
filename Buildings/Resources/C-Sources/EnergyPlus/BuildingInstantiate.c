@@ -10,6 +10,7 @@
 #define Buildings_BuildingInstantiate_c
 
 #include "EnergyPlusFMU.h"
+#include "cryptographicsHash.c"
 
 #include <stdlib.h>
 #include <string.h>
@@ -439,8 +440,8 @@ void setFMUDebugLevel(FMUBuilding* bui){
   /* Get the number of log categories defined in the XML */
   const size_t nCat = fmi2_import_get_log_categories_num(bui->fmu);
   if (nCat < FMU_EP_VERBOSITY){
-    ModelicaFormatError("FMU %s specified %u categories, but require at least %u categories.",
-      bui->fmuAbsPat, nCat, FMU_EP_VERBOSITY);
+    ModelicaFormatError("FMU %s specified %lu categories, but require at least %lu categories.",
+      bui->fmuAbsPat, nCat, (size_t)FMU_EP_VERBOSITY);
   }
 
   /* Get the log categories that we need */
@@ -464,7 +465,7 @@ void setFMUDebugLevel(FMUBuilding* bui){
   if( status != fmi2_status_ok ){
     ModelicaMessage("Log categories:");
     for(i = 0; i < FMU_EP_VERBOSITY; i++){
-      ModelicaFormatMessage("  Category[%u] = '%s'", i, categories[i]);
+      ModelicaFormatMessage("  Category[%lu] = '%s'", i, categories[i]);
     }
     ModelicaFormatError("fmi2SetDebugLogging returned '%s' for FMU with name %s. Verbosity = %u", fmi2_status_to_string(status), bui->fmuAbsPat, FMU_EP_VERBOSITY);
   }
@@ -525,11 +526,11 @@ void importEnergyPlusFMU(FMUBuilding* bui){
   callbacks = jm_get_default_callbacks();
 
   if (FMU_EP_VERBOSITY >= MEDIUM)
-    ModelicaFormatMessage("Calling fmi_import_allocate_context(callbacks = %p)", callbacks);
+    ModelicaFormatMessage("Calling fmi_import_allocate_context(callbacks = %p)", (void*)callbacks);
   bui->context = fmi_import_allocate_context(callbacks);
 
   if (FMU_EP_VERBOSITY >= MEDIUM)
-    ModelicaFormatMessage("Getting fmi version, bui->context = %p, FMUPath = %s, tmpPath = %s.", bui->context, FMUPath, tmpPath);
+    ModelicaFormatMessage("Getting fmi version, bui->context = %p, FMUPath = %s, tmpPath = %s.", (void*)bui->context, FMUPath, tmpPath);
   version = fmi_import_get_fmi_version(bui->context, FMUPath, tmpPath);
 
   if (version != fmi_version_2_0_enu){
@@ -646,7 +647,7 @@ void generateAndInstantiateBuilding(FMUBuilding* bui){
   importEnergyPlusFMU(bui);
 
   if (FMU_EP_VERBOSITY >= MEDIUM)
-    ModelicaFormatMessage("FMU for building %s is at %p.\n", bui->modelicaNameBuilding, bui->fmu);
+    ModelicaFormatMessage("FMU for building %s is at %p.\n", bui->modelicaNameBuilding, (void*)bui->fmu);
 
   /* Set the value references for all parameters, inputs and outputs */
   setValueReferences(bui);

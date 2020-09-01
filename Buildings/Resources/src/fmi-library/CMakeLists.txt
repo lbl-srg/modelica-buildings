@@ -14,7 +14,7 @@ project( fmi-library
 
 find_package(Git REQUIRED)
 
-
+set(ENERGYPLUS_C_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../../C-Sources/EnergyPlus")
 ##################################################################################
 # Detect OS.
 if(CMAKE_SYSTEM_NAME MATCHES Windows)
@@ -107,22 +107,22 @@ add_custom_command(TARGET ${FMI_LIBRARY}
   POST_BUILD
   COMMAND "${CMAKE_COMMAND}" -E copy_directory
         "${CMAKE_CURRENT_SOURCE_DIR}/build/fmi-library-modelon/src/install/include"
-        "${CMAKE_CURRENT_SOURCE_DIR}/include"
-  COMMENT "Copying include files to ${CMAKE_CURRENT_SOURCE_DIR}/include"
+        "${ENERGYPLUS_C_SOURCE_DIR}"
+  COMMENT "Copying include files to ${ENERGYPLUS_C_SOURCE_DIR}"
 )
 
 add_custom_command(TARGET ${FMI_LIBRARY}
   POST_BUILD
   COMMAND "${CMAKE_COMMAND}" -E copy
          "${CMAKE_CURRENT_SOURCE_DIR}/include/fmilib_config.h"
-         "${CMAKE_CURRENT_SOURCE_DIR}/include/fmilib_config-${PLATFORM_INSTALL_PREFIX}.h"
-  COMMENT "Copying platform specific include file to ${CMAKE_CURRENT_SOURCE_DIR}/include/fmilib_config-${PLATFORM_INSTALL_PREFIX}.h"
+         "${ENERGYPLUS_C_SOURCE_DIR}/fmilib_config-${PLATFORM_INSTALL_PREFIX}.h"
+  COMMENT "Copying platform specific include file to ${ENERGYPLUS_C_SOURCE_DIR}/fmilib_config-${PLATFORM_INSTALL_PREFIX}.h"
 )
 
 add_custom_command(TARGET ${FMI_LIBRARY}
   POST_BUILD
   COMMAND "${CMAKE_COMMAND}" -E copy
          "${CMAKE_CURRENT_SOURCE_DIR}/src/fmilib_config.h"
-         "${CMAKE_CURRENT_SOURCE_DIR}/include/fmilib_config.h"
-  COMMENT "Copying portable include file to ${CMAKE_CURRENT_SOURCE_DIR}/include"
+         "${ENERGYPLUS_C_SOURCE_DIR}/fmilib_config.h"
+  COMMENT "Copying portable include file to ${ENERGYPLUS_C_SOURCE_DIR}/fmilib_config.h"
 )
