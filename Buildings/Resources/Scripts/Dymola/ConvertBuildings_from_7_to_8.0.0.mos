@@ -16,10 +16,10 @@ convertClass("Buildings.Controls.OBC.CDL.Continuous.LessEqual",
 
 convertElement(
     "Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold",
-    "threshold", "t")
+    "threshold", "t");
 convertElement(
     "Buildings.Controls.OBC.CDL.Continuous.LessThreshold",
-    "threshold", "t")
+    "threshold", "t");
 convertElement(
     "Buildings.Controls.OBC.CDL.Continuous.NumberOfRequests",
     "threshold", "t");
