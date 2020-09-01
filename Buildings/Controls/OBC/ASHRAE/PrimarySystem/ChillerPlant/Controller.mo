@@ -186,7 +186,7 @@ block Controller "Head pressure controller"
 
   // Chilled water pumps
 
-  parameter Boolean isHeaderedChiWatPum = true
+  parameter Boolean is_heaChiWatPum = true
     "Flag of headered chilled water pumps design: true=headered, false=dedicated"
     annotation (Dialog(group="Pumps configuration"));
 
@@ -497,7 +497,7 @@ block Controller "Head pressure controller"
 
 
 
-  CDL.Interfaces.BooleanInput uChiIsoVal[nChi] if isHeadered
+  CDL.Interfaces.BooleanInput uChiIsoVal[nChi] if is_heaPum
     "Chilled water isolation valve status"
     annotation(Placement(transformation(extent={{-840,650},{-800,690}}),
       iconTransformation(extent={{-140,-30},{-100,10}})));
@@ -622,11 +622,11 @@ block Controller "Head pressure controller"
 
   CDL.Interfaces.BooleanOutput yChi[nChi]
     "Chiller enabling status"
-    annotation(Placement(transformation(extent={{826,264},{866,304}}),
+    annotation(Placement(transformation(extent={{800,280},{840,320}}),
       iconTransformation(extent={{100,100},{140,140}})));
 
   CDL.Interfaces.BooleanOutput yChiWatPum[nPum] if
-    isHeadered
+    is_heaPum
     "Chilled water pump status setpoint"
     annotation(Placement(transformation(extent={{800,500},{840,540}}),
       iconTransformation(extent={{100,-20},{140,20}})));
@@ -738,7 +738,7 @@ block Controller "Head pressure controller"
     annotation (Placement(transformation(extent={{-560,-160},{-520,-120}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.ChilledWater.Controller chiWatPumCon(
-    final isHeadered=isHeaderedChiWatPum,
+    final is_heaPum=is_heaChiWatPum,
     final have_LocalSensor=have_LocalSensorChiWatPum,
     final nChi=nChi,
     final nPum=nChiWatPum,
@@ -912,6 +912,14 @@ block Controller "Head pressure controller"
     annotation (Placement(transformation(extent={{-360,170},{-340,190}})));
   CDL.Logical.Switch chiMinFloSet "Chiller water minimum flow setpoint"
     annotation (Placement(transformation(extent={{620,140},{640,160}})));
+  CDL.Logical.Latch lat
+    annotation (Placement(transformation(extent={{620,340},{640,360}})));
+  CDL.Routing.BooleanReplicator uChiSwi(nout=nChi)
+    "In chiller stage up process"
+    annotation (Placement(transformation(extent={{660,340},{680,360}})));
+  CDL.Logical.LogicalSwitch uChiStaPro[nChi]
+    "Chiller head pressure control status"
+    annotation (Placement(transformation(extent={{700,340},{720,360}})));
 protected
   CDL.Logical.Pre heaCon[nChi] "Chiller head pressure control"
     annotation (Placement(transformation(extent={{660,270},{680,290}})));
@@ -1179,11 +1187,11 @@ equation
   connect(heaPreCon.uHeaPreCon, uHeaPreCon) annotation (Line(points={{-424,180},
           {-520,180},{-520,200},{-820,200}}, color={0,0,127}));
   connect(heaPreCon.yMaxTowSpeSet, towCon.uMaxTowSpeSet) annotation (Line(
-        points={{-378,212},{-320,212},{-320,-620},{-208,-620}}, color={0,0,127}));
-  connect(heaPreCon.yHeaPreConVal, yHeaPreConVal) annotation (Line(points={{
-          -378,200},{-60,200},{-60,180},{820,180}}, color={0,0,127}));
-  connect(heaPreCon.yConWatPumSpeSet, mulMin.u) annotation (Line(points={{-378,
-          188},{-370,188},{-370,180},{-362,180}}, color={0,0,127}));
+        points={{-376,212},{-320,212},{-320,-620},{-208,-620}}, color={0,0,127}));
+  connect(heaPreCon.yHeaPreConVal, yHeaPreConVal) annotation (Line(points={{-376,
+          200},{-60,200},{-60,180},{820,180}},      color={0,0,127}));
+  connect(heaPreCon.yConWatPumSpeSet, mulMin.u) annotation (Line(points={{-376,188},
+          {-370,188},{-370,180},{-362,180}},      color={0,0,127}));
   connect(mulMin.y, dowProCon.uConWatPumSpeSet) annotation (Line(points={{-338,
           180},{-310,180},{-310,-288},{272,-288}}, color={0,0,127}));
   connect(mulMin.y, upProCon.uConWatPumSpeSet) annotation (Line(points={{-338,
@@ -1201,6 +1209,20 @@ equation
           700,280},{700,240},{230,240},{230,284},{272,284}}, color={255,0,255}));
   connect(heaCon.y, dowProCon.uChiHeaCon) annotation (Line(points={{682,280},{
           700,280},{700,240},{230,240},{230,-220},{272,-220}}, color={255,0,255}));
+  connect(uChiStaPro.y, yChi) annotation (Line(points={{722,350},{760,350},{760,
+          300},{820,300}}, color={255,0,255}));
+  connect(uChiSwi.y, uChiStaPro.u2)
+    annotation (Line(points={{682,350},{698,350}}, color={255,0,255}));
+  connect(lat.y, uChiSwi.u)
+    annotation (Line(points={{642,350},{658,350}}, color={255,0,255}));
+  connect(upProCon.yStaPro, lat.u) annotation (Line(points={{368,416},{610,416},
+          {610,350},{618,350}}, color={255,0,255}));
+  connect(dowProCon.yStaPro, lat.clr) annotation (Line(points={{368,-144},{610,
+          -144},{610,344},{618,344}}, color={255,0,255}));
+  connect(upProCon.yChi, uChiStaPro.u1) annotation (Line(points={{368,264},{530,
+          264},{530,392},{690,392},{690,358},{698,358}}, color={255,0,255}));
+  connect(dowProCon.yChi, uChiStaPro.u3) annotation (Line(points={{368,-172},{
+          690,-172},{690,342},{698,342}}, color={255,0,255}));
     annotation (Dialog(tab="Plant Reset", group="Time parameter"),
                Evaluate=true, Dialog(tab="Advanced", group="Tuning"),
   defaultComponentName="chiPlaCon",
@@ -1228,9 +1250,6 @@ equation
           fillPattern=FillPattern.Solid)}),
   Diagram(coordinateSystem(preserveAspectRatio=false,
           extent={{-800,-860},{800,840}}), graphics={                 Text(
-          extent={{350,192},{456,156}},
-          lineColor={28,108,200},
-          textString="might need a pre block"),                       Text(
           extent={{-482,-574},{-398,-594}},
           lineColor={28,108,200},
           textString="might need a pre block")}),
