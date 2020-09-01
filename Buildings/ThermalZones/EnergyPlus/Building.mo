@@ -50,7 +50,7 @@ protected
       Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/bin/spawn-linux64/bin/spawn")
       "Binary for Linux 64, specified so it is packed into the FMU";
   final parameter String spawnLinuxLibrary=
-      Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/Library/linux64/libepfmi-9.0.1.so")
+      Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/bin/spawn-linux64/lib/epfmi.so")
     "Library for Linux 64, specified so it is packed into the FMU";
   final parameter String fmiLinuxLibrary=
       Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/Library/linux64/libfmilib_shared.so")
