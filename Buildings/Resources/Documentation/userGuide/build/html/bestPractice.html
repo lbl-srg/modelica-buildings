@@ -22,7 +22,7 @@
     <link rel="shortcut icon" href="_static/lbl-icon.ico"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="3. Work-Arounds" href="workArounds.html" />
+    <link rel="next" title="3. Simulation Performance" href="performance.html" />
     <link rel="prev" title="1. Getting Started" href="gettingStarted.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
@@ -78,19 +78,15 @@
 <li class="toctree-l2"><a class="reference internal" href="#building-large-system-models">2.2. Building large system models</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#propagating-parameters-and-media-packages">2.3. Propagating parameters and media packages</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#thermo-fluid-systems">2.4. Thermo-fluid systems</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#start-values-of-iteration-variables">2.5. Start values of iteration variables</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#avoiding-events">2.6. Avoiding events</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#controls">2.7. Controls</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#examples-for-how-to-debug-and-correct-slow-simulations">2.8. Examples for how to debug and correct slow simulations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#numerical-solvers">2.9. Numerical solvers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#controls">2.5. Controls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#start-values-of-iteration-variables">2.6. Start values of iteration variables</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="workArounds.html">3. Work-Arounds</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="workArounds.html#avoiding-step-changes">3.1. Avoiding step changes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="workArounds.html#breaking-algebraic-loops">3.2. Breaking algebraic loops</a></li>
-<li class="toctree-l2"><a class="reference internal" href="workArounds.html#reducing-nonlinear-equations-of-serially-connected-flow-resistances">3.3. Reducing nonlinear equations of serially connected flow resistances</a></li>
-<li class="toctree-l2"><a class="reference internal" href="workArounds.html#prescribed-mass-flow-rate">3.4. Prescribed mass flow rate</a></li>
-<li class="toctree-l2"><a class="reference internal" href="workArounds.html#avoiding-overspecified-initialization-problems">3.5. Avoiding overspecified initialization problems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performance.html">3. Simulation Performance</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="performance.html#control-input-signal-of-equipment">3.1. Control input signal of equipment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="performance.html#fluid-flow-systems">3.2. Fluid flow systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="performance.html#examples-for-how-to-debug-and-correct-slow-simulations">3.3. Examples for how to debug and correct slow simulations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="performance.html#numerical-solvers">3.4. Numerical solvers</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="prePostProcessing.html">4. Pre- and Post-Processing</a></li>
@@ -132,15 +128,8 @@
 <li><a class="reference internal" href="#nominal-values">2.4.5. Nominal Values</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#start-values-of-iteration-variables">2.5. Start values of iteration variables</a></li>
-<li><a class="reference internal" href="#avoiding-events">2.6. Avoiding events</a></li>
-<li><a class="reference internal" href="#controls">2.7. Controls</a></li>
-<li><a class="reference internal" href="#examples-for-how-to-debug-and-correct-slow-simulations">2.8. Examples for how to debug and correct slow simulations</a><ul>
-<li><a class="reference internal" href="#state-events">2.8.1. State events</a></li>
-<li><a class="reference internal" href="#state-variables-that-dominate-the-error-control">2.8.2. State variables that dominate the error control</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#numerical-solvers">2.9. Numerical solvers</a></li>
+<li><a class="reference internal" href="#controls">2.5. Controls</a></li>
+<li><a class="reference internal" href="#start-values-of-iteration-variables">2.6. Start values of iteration variables</a></li>
 </ul>
 </li>
 </ul>
@@ -156,7 +145,7 @@
     </a>
   </li>
   <li>
-    <a href="workArounds.html" title="Next Chapter: 3. Work-Arounds"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">3. Work-Arounds &raquo;</span>
+    <a href="performance.html" title="Next Chapter: 3. Simulation Performance"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">3. Simulation... &raquo;</span>
     </a>
   </li>
               
@@ -188,7 +177,7 @@
       
   <div class="section" id="best-practice">
 <h1>2. Best Practice<a class="headerlink" href="#best-practice" title="Permalink to this headline">¶</a></h1>
-<p>This section explains to library users best practice in creating new system models.
+<p>This section explains to library users best practice in creating system models.
 The selected topics are based on problems that are often observed with new users of Modelica.
 Experienced users of Modelica may skip this section.</p>
 <div class="section" id="organization-of-packages">
@@ -483,16 +472,16 @@ In some situation, such as the configuration below, connecting multiple connecto
 a fluid port represents the physical phenomena that was intended to model.</p>
 <div class="figure align-default" id="id10">
 <a class="reference internal image-reference" href="_images/fluidJunctionMixing.svg"><img alt="_images/fluidJunctionMixing.svg" src="_images/fluidJunctionMixing.svg" width="300px" /></a>
-<p class="caption"><span class="caption-number">Fig. 2.2 </span><span class="caption-text">Connection of three components without explicitly introducing a mixer or splitter model.</span><a class="headerlink" href="#id10" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 2.2 </span><span class="caption-text">Connection of three components without explicitly introducing a flow junction model.</span><a class="headerlink" href="#id10" title="Permalink to this image">¶</a></p>
 </div>
 <p>However, in more complex flow configurations, one may want to explicitly control what branches of a piping or duct network mix.
 This may be achieved by using an instance of the model
-<a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.PressureDrop">PressureDrop</a>
-as shown in the left figure below, which is the test model
+<a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.Junction">Junction</a>
+as shown in the left figure below, which is derived from the test model
 <a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Boilers_Examples.html#Buildings.Fluid.Boilers.Examples.BoilerPolynomialClosedLoop">BoilerPolynomialClosedLoop</a></p>
 <div class="figure align-default" id="id11">
 <span id="fig-flu-cor-wro"></span><a class="reference internal image-reference" href="_images/fluidJunctionMixingSplitter.svg"><img alt="_images/fluidJunctionMixingSplitter.svg" src="_images/fluidJunctionMixingSplitter.svg" width="1200px" /></a>
-<p class="caption"><span class="caption-number">Fig. 2.3 </span><span class="caption-text">Correct (a) and wrong (b) and (c) connection of components with use of a mixer or splitter model.</span><a class="headerlink" href="#id11" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 2.3 </span><span class="caption-text">Correct (a) and wrong (b) and (c) connection of components with use of a flow junction model.</span><a class="headerlink" href="#id11" title="Permalink to this image">¶</a></p>
 </div>
 <p>In <a class="reference internal" href="#fig-flu-cor-wro"><span class="std std-numref">Fig. 2.3</span></a> (a), the mixing points have been correctly defined by
 use of the model
@@ -502,8 +491,8 @@ This results in the same configuration as is shown in <a class="reference intern
 This is certainly not the intention of the modeler, as this causes all flows to be mixed in the port.
 Consequently, the valve will received fluid at this mixing temperature rather than at the return temperature from the radiator,
 e.g., the system model is wrong.</p>
-<p>The overhead for the simulation of these mixers and splitters can be reduced by
-setting the nominal pressure drop of the mixer or splitter model to zero,
+<p>The overhead for the simulation of these flow junctions can be reduced by
+setting the nominal pressure drop of flow junction model to zero,
 which will remove the pressure drop equation.</p>
 </div>
 <div class="section" id="use-of-sensors-in-fluid-flow-systems">
@@ -590,6 +579,24 @@ or instance of
 <p>If there is more than one such device, then there are multiple
 points in the system that set the reference static pressure.
 This will affect the distribution of the mass flow rate.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If Dymola fails to translate a model with the error message:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Error</span><span class="p">:</span> <span class="n">The</span> <span class="n">initialization</span> <span class="n">problem</span> <span class="ow">is</span> <span class="n">overspecified</span> <span class="k">for</span> <span class="n">variables</span>
+<span class="n">of</span> <span class="n">element</span> <span class="nb">type</span> <span class="n">Real</span>
+<span class="n">The</span> <span class="n">initial</span> <span class="n">equation</span>
+<span class="o">...</span>
+<span class="n">refers</span> <span class="n">to</span> <span class="n">variables</span><span class="p">,</span> <span class="n">which</span> <span class="n">are</span> <span class="nb">all</span> <span class="n">knowns</span><span class="o">.</span>
+<span class="n">To</span> <span class="n">correct</span> <span class="n">it</span> <span class="n">you</span> <span class="n">can</span> <span class="n">remove</span> <span class="n">this</span> <span class="n">equation</span><span class="o">.</span>
+</pre></div>
+</div>
+<p>then the initialization problem is overspecified. To avoid this, set</p>
+<div class="highlight-modelica notranslate"><div class="highlight"><pre><span></span><span class="n">energyDynamics</span> <span class="o">=</span> <span class="n">Modelica</span><span class="o">.</span><span class="n">Fluid</span><span class="o">.</span><span class="n">Types</span><span class="o">.</span><span class="n">Dynamics</span><span class="o">.</span><span class="n">DynamicsFreeInitial</span><span class="p">;</span>
+<span class="n">massDynamics</span> <span class="o">=</span> <span class="n">Modelica</span><span class="o">.</span><span class="n">Fluid</span><span class="o">.</span><span class="n">Types</span><span class="o">.</span><span class="n">Dynamics</span><span class="o">.</span><span class="n">DynamicsFreeInitial</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>in the instances of the components that contain fluid volumes.</p>
 </div>
 </div>
 <div class="section" id="nominal-values">
@@ -682,92 +689,8 @@ See for example <a class="reference external" href="https://simulationresearch.l
 </table>
 </div>
 </div>
-<div class="section" id="start-values-of-iteration-variables">
-<h2>2.5. Start values of iteration variables<a class="headerlink" href="#start-values-of-iteration-variables" title="Permalink to this headline">¶</a></h2>
-<p>When computing numerical solutions to systems of nonlinear equations, a Newton-based solver
-is typically used. Such solvers have a higher success of convergence
-if good start values are provided for the iteration variables. In Dymola,
-to see what start values are used, one can enter on the simulation tab the command</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Advanced.LogStartValuesForIterationVariables = true;
-</pre></div>
-</div>
-<p>Then, when a model is translated, for example using</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>translateModel(&quot;Buildings.Fluid.Boilers.Examples.BoilerPolynomialClosedLoop&quot;);
-</pre></div>
-</div>
-<p>an output of the form</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Start values for iteration variables:
- val.res1.dp(start = 3000.0)
- val.res3.dp(start = 3000.0)
-</pre></div>
-</div>
-<p>is produced. This shows the iteration variables and their start values.
-These start values can be overwritten in the model.</p>
-</div>
-<div class="section" id="avoiding-events">
-<h2>2.6. Avoiding events<a class="headerlink" href="#avoiding-events" title="Permalink to this headline">¶</a></h2>
-<p>In Modelica, the time integration is halted whenever a Real elementary
-operation such as <span class="math notranslate nohighlight">\(x&gt;y\)</span>, where <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> are variables of type <code class="docutils literal notranslate"><span class="pre">Real</span></code>,
-changes its value. In this situation,
-an event occurs and the solver determines a small interval in time in which
-the relation changes its value. This can increase computing time.
-An example where such an event occurs is the following relation
-that computes the enthalpy of the medium that streams through <code class="docutils literal notranslate"><span class="pre">port_a</span></code> as</p>
-<div class="highlight-modelica notranslate"><div class="highlight"><pre><span></span><span class="kr">if</span> <span class="n">port_a</span><span class="o">.</span><span class="n">m_flow</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="kr">then</span>
-  <span class="n">h_a</span> <span class="o">=</span> <span class="nb">inStream</span><span class="p">(</span><span class="n">port_a</span><span class="o">.</span><span class="n">h_outflow</span><span class="p">);</span>
-<span class="kr">else</span>
-  <span class="n">h_a</span> <span class="o">=</span> <span class="n">port_a</span><span class="o">.</span><span class="n">h_outflow</span><span class="p">;</span>
-<span class="kr">end</span> <span class="kr">if</span><span class="p">;</span>
-</pre></div>
-</div>
-<p>or, equivalently,</p>
-<div class="highlight-modelica notranslate"><div class="highlight"><pre><span></span><span class="n">h_a</span> <span class="o">=</span> <span class="kr">if</span> <span class="n">port_a</span><span class="o">.</span><span class="n">m_flow</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="kr">then</span> <span class="nb">inStream</span><span class="p">(</span><span class="n">port_a</span><span class="o">.</span><span class="n">h_outflow</span><span class="p">)</span> <span class="kr">else</span> <span class="n">port_a</span><span class="o">.</span><span class="n">h_outflow</span><span class="p">;</span>
-</pre></div>
-</div>
-<p>When simulating a model that contains such code, a time integrator
-will iterate to find the time instant where <code class="docutils literal notranslate"><span class="pre">port_a.m_flow</span></code> crosses zero.
-If the modeling assumptions allow approximating this equation in
-a neighborhood around <code class="docutils literal notranslate"><span class="pre">port_a.m_flow=0</span></code>, then replacing this equation
-with an approximation that does not require an event iteration can
-reduce computing time. For example, the above equation could be
-approximated as</p>
-<div class="highlight-modelica notranslate"><div class="highlight"><pre><span></span><span class="n">T_a</span> <span class="o">=</span> <span class="n">Modelica</span><span class="o">.</span><span class="n">Fluid</span><span class="o">.</span><span class="n">Utilities</span><span class="o">.</span><span class="n">regStep</span><span class="p">(</span>
-  <span class="n">port_a</span><span class="o">.</span><span class="n">m_flow</span><span class="p">,</span> <span class="nb">inStream</span><span class="p">(</span><span class="n">port_a</span><span class="o">.</span><span class="n">h_outflow</span><span class="p">),</span> <span class="n">port_a</span><span class="o">.</span><span class="n">h_outflow</span><span class="p">,</span>
-  <span class="n">m_flow_nominal</span><span class="o">*</span><span class="mf">1E-4</span><span class="p">);</span>
-</pre></div>
-</div>
-<p>where <code class="docutils literal notranslate"><span class="pre">m_flow_nominal</span></code> is a parameter that is set to a value that
-is close to the mass flow rate that the model has at full load.
-If the magnitude of the flow rate is larger than 1E-4 times the
-typical flow rate, the approximate equation is the same as the exact equation,
-and below that value, an approximation is used. However, for such small
-flow rates, not much energy is transported and hence the error introduced
-by the approximation is generally negligible.</p>
-<p>In some cases, adding dynamics to the model can further improve
-the computing time, because the return value of the function
-<a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/msl/3.2/help/Modelica_Fluid_Utilities.html#Modelica.Fluid.Utilities.regStep">Modelica.Fluid.Utilities.regStep()</a>
-above can change abruptly if its argument <code class="docutils literal notranslate"><span class="pre">port_a.m_flow</span></code> oscillates in the range of
-<code class="docutils literal notranslate"><span class="pre">+/-</span> <span class="pre">1E-4*m_flow_nominal</span></code>,
-for example due to <a class="reference internal" href="glossary.html#term-numerical-noise"><span class="xref std std-term">numerical noise</span></a>.
-Adding dynamics may be achieved using a formulation such as</p>
-<div class="highlight-modelica notranslate"><div class="highlight"><pre><span></span><span class="n">hMed</span> <span class="o">=</span> <span class="n">Modelica</span><span class="o">.</span><span class="n">Fluid</span><span class="o">.</span><span class="n">Utilities</span><span class="o">.</span><span class="n">regStep</span><span class="p">(</span>
-  <span class="n">port_a</span><span class="o">.</span><span class="n">m_flow</span><span class="p">,</span> <span class="nb">inStream</span><span class="p">(</span><span class="n">port_a</span><span class="o">.</span><span class="n">h_outflow</span><span class="p">),</span> <span class="n">port_a</span><span class="o">.</span><span class="n">h_outflow</span><span class="p">,</span>
-  <span class="n">m_flow_nominal</span><span class="o">*</span><span class="mf">1E-4</span><span class="p">);</span>
-<span class="kr">der</span><span class="p">(</span><span class="n">h</span><span class="p">)</span><span class="o">=</span><span class="p">(</span><span class="n">hMed</span><span class="o">-</span><span class="n">h</span><span class="p">)</span><span class="o">/</span><span class="n">tau</span><span class="p">;</span>
-</pre></div>
-</div>
-<p>where <code class="docutils literal notranslate"><span class="pre">tau</span></code>&gt;0 is a time constant. See, for example,
-<a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.SpecificEnthalpyTwoPort">Buildings.Fluid.Sensors.SpecificEnthalpyTwoPort</a>
-for a robust implementation.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>In the package
-<a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Utilities_Math.html#Buildings.Utilities.Math">Buildings.Utilities.Math</a>
-the functions and blocks whose names start with <code class="docutils literal notranslate"><span class="pre">smooth</span></code> can be used to avoid events.</p>
-</div>
-</div>
 <div class="section" id="controls">
-<span id="sec-bes-pra-con"></span><h2>2.7. Controls<a class="headerlink" href="#controls" title="Permalink to this headline">¶</a></h2>
+<span id="sec-bes-pra-con"></span><h2>2.5. Controls<a class="headerlink" href="#controls" title="Permalink to this headline">¶</a></h2>
 <div class="figure align-default" id="id14">
 <a class="reference internal image-reference" href="_images/controlHysteresis.png"><img alt="_images/controlHysteresis.png" src="_images/controlHysteresis.png" style="width: 270.0px; height: 401.0px;" /></a>
 <p class="caption"><span class="caption-number">Fig. 2.6 </span><span class="caption-text">Schematic diagram of a controller that switches a coil on and off.
@@ -824,147 +747,31 @@ noise.</p></li>
 </ul>
 <p>An exception is a sampled value because the output of a sampler remains constant
 until the next sampling instant.</p>
-<p>See <a class="reference internal" href="#sec-example-event-debugging"><span class="std std-ref">Examples for how to debug and correct slow simulations</span></a> for what can happen in
+<p>See <a class="reference internal" href="performance.html#sec-example-event-debugging"><span class="std std-ref">Examples for how to debug and correct slow simulations</span></a> for what can happen in
 such tests.</p>
 </div>
 </div>
-<div class="section" id="examples-for-how-to-debug-and-correct-slow-simulations">
-<span id="sec-example-event-debugging"></span><h2>2.8. Examples for how to debug and correct slow simulations<a class="headerlink" href="#examples-for-how-to-debug-and-correct-slow-simulations" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="state-events">
-<h3>2.8.1. State events<a class="headerlink" href="#state-events" title="Permalink to this headline">¶</a></h3>
-<p>This section shows how a simulation that stalls due to events can be debugged
-to find the root cause, and then corrected.
-While the details may differ from one tool to another, the principle is the same.
-In our situation, we attempted to simulate <code class="docutils literal notranslate"><span class="pre">Buildings.Examples.DualFanDualDuct</span></code>
-for one year in Dymola 2016 FD01 using the model from Buildings version 3.0.0.
-We run</p>
-<div class="highlight-modelica notranslate"><div class="highlight"><pre><span></span><span class="n">simulateModel</span><span class="p">(</span><span class="s2">&quot;Buildings.Examples.DualFanDualDuct.ClosedLoop&quot;</span><span class="p">,</span>
-               <span class="n">stopTime</span><span class="o">=</span><span class="mi">31536000</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;radau&quot;</span><span class="p">,</span>
-               <span class="n">tolerance</span><span class="o">=</span><span class="mf">1e-06</span><span class="p">,</span> <span class="n">resultFile</span><span class="o">=</span><span class="s2">&quot;DualFanDualDuctClosedLoop&quot;</span><span class="p">);</span>
+<div class="section" id="start-values-of-iteration-variables">
+<h2>2.6. Start values of iteration variables<a class="headerlink" href="#start-values-of-iteration-variables" title="Permalink to this headline">¶</a></h2>
+<p>When computing numerical solutions to systems of nonlinear equations, a Newton-based solver
+is typically used. Such solvers have a higher success of convergence
+if good start values are provided for the iteration variables. In Dymola,
+to see what start values are used, one can enter on the simulation tab the command</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Advanced.LogStartValuesForIterationVariables = true;
 </pre></div>
 </div>
-<p>and plotted the computing time and the number of events. Around <span class="math notranslate nohighlight">\(t=0.95e7\)</span> seconds,
-there was a spike as shown in the figure below.</p>
-<div class="figure align-default" id="id15">
-<a class="reference internal image-reference" href="_images/DualFanDualDuct-cpu-events.png"><img alt="_images/DualFanDualDuct-cpu-events.png" src="_images/DualFanDualDuct-cpu-events.png" style="width: 300pt;" /></a>
-<p class="caption"><span class="caption-number">Fig. 2.7 </span><span class="caption-text">Computing time and number of events.</span><a class="headerlink" href="#id15" title="Permalink to this image">¶</a></p>
-</div>
-<p>As the number of events increased drastically, we enabled in Dymola in
-<cite>Simulation -&gt; Setup</cite>, under the tab <cite>Debug</cite> the entry <cite>Events during simulation</cite>
-and simulated the model from
-<span class="math notranslate nohighlight">\(t=0.9e7\)</span> to <span class="math notranslate nohighlight">\(t=1.0e7\)</span> seconds. It turned out that setting the start time
-to <span class="math notranslate nohighlight">\(t=0.9e7\)</span> seconds was sufficient to reproduce the behavior;
-otherwise we would
-have had to set it to an earlier time.
-Inspecting Dymola’s log file <code class="docutils literal notranslate"><span class="pre">dslog.txt</span></code> when the simulation stalls shows that its last entries
-are</p>
-<div class="highlight-modelica notranslate"><div class="highlight"><pre><span></span><span class="n">Expression</span> <span class="n">TRet</span><span class="o">.</span><span class="n">T</span> <span class="o">&gt;</span> <span class="n">amb</span><span class="o">.</span><span class="n">x_pTphi</span><span class="o">.</span><span class="n">T</span> <span class="n">became</span> <span class="kc">true</span> <span class="p">(</span> <span class="p">(</span><span class="n">TRet</span><span class="o">.</span><span class="n">T</span><span class="p">)</span><span class="o">-</span><span class="p">(</span><span class="n">amb</span><span class="o">.</span><span class="n">x_pTphi</span><span class="o">.</span><span class="n">T</span><span class="p">)</span> <span class="o">=</span> <span class="mf">2.9441e-08</span> <span class="p">)</span>
-<span class="n">Iterating</span> <span class="n">to</span> <span class="n">find</span> <span class="n">consistent</span> <span class="n">restart</span> <span class="n">conditions</span><span class="o">.</span>
-      <span class="n">during</span> <span class="n">event</span> <span class="n">at</span> <span class="n">Time</span> <span class="o">:</span>  <span class="mf">9267949.854873843</span>
-<span class="n">Expression</span> <span class="n">TRet</span><span class="o">.</span><span class="n">T</span> <span class="o">&gt;</span> <span class="n">amb</span><span class="o">.</span><span class="n">x_pTphi</span><span class="o">.</span><span class="n">T</span> <span class="n">became</span> <span class="kc">false</span> <span class="p">(</span> <span class="p">(</span><span class="n">TRet</span><span class="o">.</span><span class="n">T</span><span class="p">)</span><span class="o">-</span><span class="p">(</span><span class="n">amb</span><span class="o">.</span><span class="n">x_pTphi</span><span class="o">.</span><span class="n">T</span><span class="p">)</span> <span class="o">=</span> <span class="o">-</span><span class="mf">2.94411e-08</span> <span class="p">)</span>
-<span class="n">Iterating</span> <span class="n">to</span> <span class="n">find</span> <span class="n">consistent</span> <span class="n">restart</span> <span class="n">conditions</span><span class="o">.</span>
-      <span class="n">during</span> <span class="n">event</span> <span class="n">at</span> <span class="n">Time</span> <span class="o">:</span>  <span class="mf">9267949.855016639</span>
-<span class="n">Expression</span> <span class="n">TRet</span><span class="o">.</span><span class="n">T</span> <span class="o">&gt;</span> <span class="n">amb</span><span class="o">.</span><span class="n">x_pTphi</span><span class="o">.</span><span class="n">T</span> <span class="n">became</span> <span class="kc">true</span> <span class="p">(</span> <span class="p">(</span><span class="n">TRet</span><span class="o">.</span><span class="n">T</span><span class="p">)</span><span class="o">-</span><span class="p">(</span><span class="n">amb</span><span class="o">.</span><span class="n">x_pTphi</span><span class="o">.</span><span class="n">T</span><span class="p">)</span> <span class="o">=</span> <span class="mf">2.94407e-08</span> <span class="p">)</span>
-<span class="n">Iterating</span> <span class="n">to</span> <span class="n">find</span> <span class="n">consistent</span> <span class="n">restart</span> <span class="n">conditions</span><span class="o">.</span>
-      <span class="n">during</span> <span class="n">event</span> <span class="n">at</span> <span class="n">Time</span> <span class="o">:</span>  <span class="mf">9267949.855208419</span>
-<span class="n">Expression</span> <span class="n">TRet</span><span class="o">.</span><span class="n">T</span> <span class="o">&gt;</span> <span class="n">amb</span><span class="o">.</span><span class="n">x_pTphi</span><span class="o">.</span><span class="n">T</span> <span class="n">became</span> <span class="kc">false</span> <span class="p">(</span> <span class="p">(</span><span class="n">TRet</span><span class="o">.</span><span class="n">T</span><span class="p">)</span><span class="o">-</span><span class="p">(</span><span class="n">amb</span><span class="o">.</span><span class="n">x_pTphi</span><span class="o">.</span><span class="n">T</span><span class="p">)</span> <span class="o">=</span> <span class="o">-</span><span class="mf">2.94406e-08</span> <span class="p">)</span>
-<span class="n">Iterating</span> <span class="n">to</span> <span class="n">find</span> <span class="n">consistent</span> <span class="n">restart</span> <span class="n">conditions</span><span class="o">.</span>
-      <span class="n">during</span> <span class="n">event</span> <span class="n">at</span> <span class="n">Time</span> <span class="o">:</span>  <span class="mf">9267949.855351238</span>
+<p>Then, when a model is translated, for example using</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>translateModel(&quot;Buildings.Fluid.Boilers.Examples.BoilerPolynomialClosedLoop&quot;);
 </pre></div>
 </div>
-<p>Hence, there is an event every few milliseconds, which explains
-why the simulation does not appear to be progessing.
-The solver does the right thing, it stops
-the integration, handles the event, and restarts the integration, just to encounter
-another event a few milliseconds later.
-Hence, we go back to our system model and
-follow the output signal of <code class="docutils literal notranslate"><span class="pre">TRet.T</span></code> of the
-return air temperature sensor,
-which shows that it is used in the economizer control
-to switch the sign of the control gain because the economizer can provide heating or cooling,
-depending on the ambient and return air temperature. The problematic model is
-shown in the figure below.</p>
-<div class="figure align-default" id="id16">
-<span id="fig-dualfan-eco-con-bad"></span><a class="reference internal image-reference" href="_images/EconomizerTemperatureControl-bad.svg"><img alt="_images/EconomizerTemperatureControl-bad.svg" src="_images/EconomizerTemperatureControl-bad.svg" width="600pt" /></a>
-<p class="caption"><span class="caption-number">Fig. 2.8 </span><span class="caption-text">Block diagram of part of the economizer control that computes the outside air damper
-control signal. This implementation triggers many events.</span><a class="headerlink" href="#id16" title="Permalink to this image">¶</a></p>
-</div>
-<p>The events are triggered by the inequality block which changes the control, which then in turn
-seems to cause a slight change in the return air temperature, possibly due
-to <a class="reference internal" href="glossary.html#term-numerical-noise"><span class="xref std std-term">numerical noise</span></a> or maybe because the return fan may change its operating point
-as the dampers are adjusted, and hence change the heat
-added to the medium. Regardless, this is a bad implementation that also
-would cause oscillatory behavior in a real system if the sensor signal had
-measurement noise.
-Therefore, this equality comparison must be replaced by a block with hysteresis,
-which we did as shown in the figure below.
-We selected a hysteresis of <span class="math notranslate nohighlight">\(0.2\)</span> Kelvin, and now the model runs fine
-for the whole year.</p>
-<div class="figure align-default" id="id17">
-<span id="fig-dualfan-eco-con-revised"></span><a class="reference internal image-reference" href="_images/EconomizerTemperatureControl-revised.svg"><img alt="_images/EconomizerTemperatureControl-revised.svg" src="_images/EconomizerTemperatureControl-revised.svg" width="600pt" /></a>
-<p class="caption"><span class="caption-number">Fig. 2.9 </span><span class="caption-text">Block diagram of part of the revised economizer control that computes the outside air damper
-control signal.</span><a class="headerlink" href="#id17" title="Permalink to this image">¶</a></p>
-</div>
-</div>
-<div class="section" id="state-variables-that-dominate-the-error-control">
-<h3>2.8.2. State variables that dominate the error control<a class="headerlink" href="#state-variables-that-dominate-the-error-control" title="Permalink to this headline">¶</a></h3>
-<p>In a development version of the model
-<code class="docutils literal notranslate"><span class="pre">Buildings.Examples.DualFanDualDuct.ClosedLoop</span></code>
-(commit <a class="reference external" href="https://github.com/lbl-srg/modelica-buildings/commit/ef410ee8a5d1816f8b8e171da7743e15caaa3163">ef410ee</a>),
-the simulation time was very slow during part of the
-simulation, as shown in <a class="reference internal" href="#fig-dualfan-filtered-speed"><span class="std std-numref">Fig. 2.10</span></a>.</p>
-<div class="figure align-default" id="id18">
-<span id="fig-dualfan-filtered-speed"></span><a class="reference internal image-reference" href="_images/DualFanDualDuctWithFilteredSpeed.svg"><img alt="_images/DualFanDualDuctWithFilteredSpeed.svg" src="_images/DualFanDualDuctWithFilteredSpeed.svg" width="400pt" /></a>
-<p class="caption"><span class="caption-number">Fig. 2.10 </span><span class="caption-text">Computing time and number of events.</span><a class="headerlink" href="#id18" title="Permalink to this image">¶</a></p>
-</div>
-<p>The number of state events did not increase in that time interval.
-To isolate the problem, we enabled in Dymola under <cite>Simulation -&gt; Setup</cite> the
-option to log which states dominate the error (see <cite>Debug</cite> tab).</p>
-<p>Running the simulation again gave the following output:</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Integration terminated successfully at T = 1.66e+07
-  Limit stepsize, Dominate error, Exceeds 10% of error  Component (#number)
-               0               1            6           cooCoi.temSen_1.T (#  1)
-              36               0          140           cooCoi.temSen_2.T (#  2)
-              37               0            0           cooCoi.ele[1].mas.T (#  3)
-              45               0            0           cooCoi.ele[2].mas.T (#  4)
-              51               0            0           cooCoi.ele[3].mas.T (#  5)
-              53               0            0           cooCoi.ele[4].mas.T (#  6)
-<span class="hll">           13555           13201        19064           fanSupHot.filter.x[1] (#  7)
-</span><span class="hll">           11905            2170        12394           fanSupHot.filter.x[2] (#  8)
-</span><span class="hll">             400              47          419           fanSupCol.filter.x[1] (#  9)
-</span><span class="hll">             420              71          521           fanSupCol.filter.x[2] (# 10)
-</span><span class="hll">            5082            2736         6732           fanRet.filter.x[1] (# 11)
-</span><span class="hll">            1979              25         4974           fanRet.filter.x[2] (# 12)
-</span>              38               0            3           TPreHeaCoi.T (# 13)
-              30               0            1           TRet.T (# 14)
-              38               0            3           TMix.T (# 15)
-              80               0            0           TCoiCoo.T (# 16)
-             305              22          275           cor.vavHot.filter.x[1] (# 18)
+<p>an output of the form</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Start values for iteration variables:
+ val.res1.dp(start = 3000.0)
+ val.res3.dp(start = 3000.0)
 </pre></div>
 </div>
-<p>Hence, the state variables in the highlighted lines
-limit the step size significantly more often than other variables.
-Therefore, we removed these state variables
-by setting in the fan models the parameter <code class="docutils literal notranslate"><span class="pre">filteredSpeed=false</span></code>.
-After this change, the model simulates without problems.</p>
-</div>
-</div>
-<div class="section" id="numerical-solvers">
-<h2>2.9. Numerical solvers<a class="headerlink" href="#numerical-solvers" title="Permalink to this headline">¶</a></h2>
-<p>Dymola 2021 is configured to use dassl as a default solver with a tolerance of
-1E-4.
-We recommend to change this setting to radau with a tolerance of around
-1E-6, as this generally leads to faster and more robust
-simulation for thermo-fluid flow systems.</p>
-<p>Note that this is the error tolerance of the local integration time step.
-Most ordinary differential equation solvers only control the local
-integration error and not the global integration error.
-As a rule of thumb, the global integration error is one
-order of magnitude larger than the local integration error.
-However, the actual magnitude of the global integration error
-depends on the stability of the differential equation.
-As an extreme case, if a system is chaotic
-and uncontrolled, then the global integration error will grow rapidly.</p>
+<p>is produced. This shows the iteration variables and their start values.
+These start values can be overwritten in the model.</p>
 </div>
 </div>
 
