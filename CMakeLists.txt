@@ -14,6 +14,9 @@ project( Modelica-Buildings
 
 cmake_minimum_required(VERSION 3.8)
 
+# Create position independent code
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+
 # find_package(Java REQUIRED)
 # include(UseJava)
 

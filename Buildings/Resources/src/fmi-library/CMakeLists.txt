@@ -12,6 +12,9 @@ project( fmi-library
   LANGUAGES C
 )
 
+# Create position independent code
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+
 find_package(Git REQUIRED)
 
 
