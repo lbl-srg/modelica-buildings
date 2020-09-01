@@ -1,4 +1,4 @@
-simulateModel("Buildings.Media.Refrigerants.Validation.R410A_dSpecificVolumeVap_pT", method="dassl", tolerance=1e-6, stopTime=100, resultFile="dSpecificVolumeVap_pT");
+simulateModel("Buildings.Media.Refrigerants.Validation.R410A_dSpecificVolumeVap_pT", method="CVode", tolerance=1e-6, stopTime=100, resultFile="dSpecificVolumeVap_pT");
 
 createPlot(id = 1,
    position = {60, 10, 640, 480},

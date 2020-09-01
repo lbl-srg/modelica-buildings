@@ -6,8 +6,7 @@ model GreaterThreshold "Validation model for the GreaterThreshold block"
     offset=-3.5,
     height=10.0) "Block that generates ramp signal"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-  Buildings.Controls.OBC.CDL.Integers.GreaterThreshold intGreThr(
-    threshold=2)
+  Buildings.Controls.OBC.CDL.Integers.GreaterThreshold intGreThr(t=2)
     "Block output true if input is greater than threshold value"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 

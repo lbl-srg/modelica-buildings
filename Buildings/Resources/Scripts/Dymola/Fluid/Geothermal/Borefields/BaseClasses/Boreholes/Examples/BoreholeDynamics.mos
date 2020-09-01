@@ -1,4 +1,4 @@
-simulateModel("Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.Examples.BoreholeDynamics", stopTime=15000, method="dassl", tolerance=1E-6, resultFile="BoreholeDynamics");
+simulateModel("Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.Examples.BoreholeDynamics", stopTime=15000, method="CVode", tolerance=1E-6, resultFile="BoreholeDynamics");
 removePlots();
 createPlot(
   id=1,

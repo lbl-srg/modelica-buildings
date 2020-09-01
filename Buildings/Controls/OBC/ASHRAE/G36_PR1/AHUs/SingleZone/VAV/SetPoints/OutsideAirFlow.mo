@@ -30,7 +30,7 @@ block OutsideAirFlow
     "If zone space temperature minus supply air temperature is less than uLow,
      then it should use heating supply air distribution effectiveness"
     annotation (Dialog(tab="Advanced"));
-  parameter Real uHig(
+  parameter Real uHigh(
     final unit="K",
     final displayUnit="K",
     final quantity="TemperatureDifference") = 0.5
@@ -100,9 +100,9 @@ protected
     "If supply fan is off, then outdoor airflow rate should be zero."
     annotation (Placement(transformation(extent={{140,0},{160,20}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
-    uLow=uLow,
-    uHigh=uHig,
-    pre_y_start=true)
+    final uLow=uLow,
+    final uHigh=uHigh,
+    final pre_y_start=true)
     "Check if cooling or heating air distribution effectiveness should be applied, with 1 degC deadband"
     annotation (Placement(transformation(extent={{-100,-70},{-80,-50}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant occSen(

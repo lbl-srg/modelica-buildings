@@ -1,6 +1,6 @@
 oldStoreProtVar=Advanced.StoreProtectedVariables;
 Advanced.StoreProtectedVariables:=true;
-simulateModel("Buildings.Fluid.MixingVolumes.Validation.MixingVolumeSteadyStateMass", tolerance=1E-6, method="dassl", stopTime=1.0, resultFile="MixingVolumeSteadyStateMass");
+simulateModel("Buildings.Fluid.MixingVolumes.Validation.MixingVolumeSteadyStateMass", tolerance=1E-6, method="CVode", stopTime=1.0, resultFile="MixingVolumeSteadyStateMass");
 createPlot(id=1,
 position={0, 0, 804, 518},
 y={"vol.dynBal.m"},
