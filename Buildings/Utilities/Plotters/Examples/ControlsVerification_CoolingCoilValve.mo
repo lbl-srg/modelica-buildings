@@ -82,7 +82,7 @@ model ControlsVerification_CoolingCoilValve
     annotation (Placement(transformation(extent={{-140,40},{-120,60}})));
 
   Buildings.Utilities.Plotters.Examples.BaseClasses.CoolingCoilValve cooValSta(
-    reverseAction=true,
+    reverseActing=false,
     TSupHighLim(displayUnit="degC"),
     TSupHigLim(displayUnit="degC"),
     TOutDelta(displayUnit="degC"),
@@ -90,7 +90,7 @@ model ControlsVerification_CoolingCoilValve
     "Cooling valve position control sequence"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr(threshold=0.5)
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(t=0.5)
     "Converter to boolean"
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
 
@@ -172,49 +172,49 @@ equation
   connect(cooValSta.yCooVal, correlation.y[1])
     annotation (Line(points={{41,0},{70,0},{70,30},{98,30}}, color={0,0,127}));
   connect(percConv.y, timSerRes.y[2])
-    annotation (Line(points={{-79,90},{98,90},{98,89}},
+    annotation (Line(points={{-78,90},{98,90},{98,89}},
     color={0,0,127}));
   connect(percConv.y, correlation.x)
-    annotation (Line(points={{-79,90},{50,90},{50,22},{98,22}},color={0,0,127}));
-  connect(greEquThr.y, cooValSta.uFanSta)
-    annotation (Line(points={{-79,-90},{0,-90},{0,-8},{19,-8}},
-    color={255,0,255}));
+    annotation (Line(points={{-78,90},{50,90},{50,22},{98,22}},color={0,0,127}));
+  connect(greThr.y, cooValSta.uFanSta) annotation (Line(points={{-78,-90},{0,
+          -90},{0,-8},{19,-8}}, color={255,0,255}));
   connect(percConv1.y, cooValSta.uFanFee)
-    annotation (Line(points={{-79,-60},{-6,-60},{-6,-4},{19,-4}},color={0,0,127}));
+    annotation (Line(points={{-78,-60},{-6,-60},{-6,-4},{19,-4}},color={0,0,127}));
   connect(coolingValveSignal.y[1], percConv.u)
     annotation (Line(points={{-119,90},{-102,90}}, color={0,0,127}));
   connect(fanFeedback.y[1], percConv1.u)
     annotation (Line(points={{-119,-60},{-102,-60}}, color={0,0,127}));
-  connect(fanStatus.y[1], greEquThr.u)
+  connect(fanStatus.y[1], greThr.u)
     annotation (Line(points={{-119,-90},{-102,-90}}, color={0,0,127}));
   connect(percConv.y,csvWriter. u[1])
-    annotation (Line(points={{-79,90},{50,90},{50,-29},{100,-29}}, color={0,0,127}));
+    annotation (Line(points={{-78,90},{50,90},{50,-29},{100,-29}}, color={0,0,127}));
   connect(cooValSta.yCooVal,csvWriter. u[2]) annotation (Line(points={{41,0},{
           70,0},{70,-31},{100,-31}}, color={0,0,127}));
   connect(TSupply_F.y[1], from_degF.u)
     annotation (Line(points={{-119,50},{-102,50}}, color={0,0,127}));
-  connect(from_degF.y, to_degC.u) annotation (Line(points={{-79,50},{-70,50},{-70,
-          70},{-62,70}}, color={0,0,127}));
+  connect(from_degF.y, to_degC.u) annotation (Line(points={{-78,50},{-70,50},{
+          -70,70},{-62,70}},
+                         color={0,0,127}));
   connect(TSupSetpoint_F.y[1], from_degF1.u)
     annotation (Line(points={{-119,20},{-102,20}}, color={0,0,127}));
-  connect(from_degF1.y, to_degC1.u) annotation (Line(points={{-79,20},{-70,20},
+  connect(from_degF1.y, to_degC1.u) annotation (Line(points={{-78,20},{-70,20},
           {-70,30},{-62,30}}, color={0,0,127}));
   connect(TOut_F.y[1], from_degF2.u)
     annotation (Line(points={{-119,-20},{-102,-20}}, color={0,0,127}));
-  connect(from_degF2.y, to_degC2.u) annotation (Line(points={{-79,-20},{-72,-20},
+  connect(from_degF2.y, to_degC2.u) annotation (Line(points={{-78,-20},{-72,-20},
           {-72,-10},{-62,-10}}, color={0,0,127}));
-  connect(from_degF2.y, cooValSta.TOut) annotation (Line(points={{-79,-20},{-72,
+  connect(from_degF2.y, cooValSta.TOut) annotation (Line(points={{-78,-20},{-72,
           -20},{-72,-30},{-10,-30},{-10,0},{19,0}},color={0,0,127}));
-  connect(from_degF1.y, cooValSta.TSupSet) annotation (Line(points={{-79,20},{
+  connect(from_degF1.y, cooValSta.TSupSet) annotation (Line(points={{-78,20},{
           -70,20},{-70,10},{-10,10},{-10,4},{19,4}},
                                                 color={0,0,127}));
-  connect(from_degF.y, cooValSta.TSup) annotation (Line(points={{-79,50},{0,50},
+  connect(from_degF.y, cooValSta.TSup) annotation (Line(points={{-78,50},{0,50},
           {0,8},{19,8}},   color={0,0,127}));
-  connect(to_degC.y, timSerInp.y[1]) annotation (Line(points={{-39,70},{-30,70},
+  connect(to_degC.y, timSerInp.y[1]) annotation (Line(points={{-38,70},{-30,70},
           {-30,61.3333},{98,61.3333}},color={0,0,127}));
-  connect(to_degC1.y, timSerInp.y[2]) annotation (Line(points={{-39,30},{-30,30},
+  connect(to_degC1.y, timSerInp.y[2]) annotation (Line(points={{-38,30},{-30,30},
           {-30,60},{98,60}},color={0,0,127}));
-  connect(to_degC2.y, timSerInp.y[3]) annotation (Line(points={{-39,-10},{-20,
+  connect(to_degC2.y, timSerInp.y[3]) annotation (Line(points={{-38,-10},{-20,
           -10},{-20,58.6667},{98,58.6667}},
                                       color={0,0,127}));
   annotation(experiment(Tolerance=1e-06, StopTime = 315710),

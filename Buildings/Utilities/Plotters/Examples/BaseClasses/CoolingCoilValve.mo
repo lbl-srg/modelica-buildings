@@ -41,7 +41,7 @@ block CoolingCoilValve "Cooling coil valve position control sequence"
     "Recorded interval at which integration part of the output gets updated"
     annotation(Evaluate=true, Dialog(group="Controller"));
 
-  parameter Boolean reverseAction = true "Controller reverse action"
+  parameter Boolean reverseActing=false "Controller reverse action"
     annotation(Evaluate=true, Dialog(tab="Advanced", group="Controller"));
 
   parameter Real k(final unit="1/K") = alc_prop_k * alc_k_unit_conv
@@ -102,15 +102,13 @@ block CoolingCoilValve "Cooling coil valve position control sequence"
     annotation (Placement(transformation(extent={{120,-10},{140,10}}),
       iconTransformation(extent={{100,-10},{120,10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.LimPID limPI(
-    final reverseAction=reverseAction,
-    final controllerType=Modelica.Blocks.Types.SimpleController.PI,
+  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset limPI(
+    final reverseActing=reverseActing,
     final k=k,
     final Ti = Ti,
     final yMax=1,
     final yMin=0,
-    final y_reset=0,
-    final reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter)
+    final y_reset=0)
     "Custom PI controller"
     annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
 
@@ -175,46 +173,46 @@ equation
   connect(TOut, TOutThr.u)
     annotation (Line(points={{-140,-20},{-112,-20}}, color={0,0,127}));
   connect(TOutThr.y, andIntErr.u1)
-    annotation (Line(points={{-89,-20},{-86,-20},{-86,-52},{-72,-52}}, color={255,0,255}));
+    annotation (Line(points={{-88,-20},{-86,-20},{-86,-52},{-72,-52}}, color={255,0,255}));
   connect(TSup, higLim.u)
     annotation (Line(points={{-140,40},{20,40},{20,-20},{78,-20}}, color={0,0,127}));
   connect(yCooVal,min. y)
-    annotation (Line(points={{130,0},{114,0},{114,30},{101,30}},color={0,0,127}));
+    annotation (Line(points={{130,0},{114,0},{114,30},{102,30}},color={0,0,127}));
   connect(TSupMax.y, higLim.x2)
-    annotation (Line(points={{61,-50},{64,-50},{64,-24},{68,-24},{68,-24},{78,-24}},
+    annotation (Line(points={{62,-50},{64,-50},{64,-24},{68,-24},{68,-24},{78,-24}},
     color={0,0,127}));
   connect(yCooValMax.y, higLim.f2)
-    annotation (Line(points={{61,-90},{70,-90},{70,-28},{78,-28}}, color={0,0,127}));
+    annotation (Line(points={{62,-90},{70,-90},{70,-28},{78,-28}}, color={0,0,127}));
   connect(higLim.y,min. u2)
-    annotation (Line(points={{101,-20},{106,-20},{106,0},{70,0},{70,24},{78,24}}, color={0,0,127}));
+    annotation (Line(points={{102,-20},{106,-20},{106,0},{70,0},{70,24},{78,24}}, color={0,0,127}));
   connect(TSupSet, limPI.u_s)
     annotation (Line(points={{-140,90},{-92,90},{-92,90},{-42,90}}, color={0,0,127}));
   connect(TSup, limPI.u_m)
     annotation (Line(points={{-140,40},{-30,40},{-30,78}}, color={0,0,127}));
   connect(andIntErr.u2, uFanFeeThr.y)
-    annotation (Line(points={{-72,-60},{-89,-60}}, color={255,0,255}));
+    annotation (Line(points={{-72,-60},{-88,-60}}, color={255,0,255}));
   connect(uFanFee, uFanFeeThr.u)
     annotation (Line(points={{-140,-60},{-112,-60}}, color={0,0,127}));
   connect(andIntErr.y, cha.u)
-    annotation (Line(points={{-49,-60},{-42,-60}}, color={255,0,255}));
+    annotation (Line(points={{-48,-60},{-42,-60}}, color={255,0,255}));
   connect(cha.y, limPI.trigger)
-    annotation (Line(points={{-19,-60},{-16,-60},{
-          -16,20},{-38,20},{-38,78}}, color={255,0,255}));
+    annotation (Line(points={{-18,-60},{-16,-60},{-16,20},{-36,20},{-36,78}},
+                                      color={255,0,255}));
   connect(TSupMin.y, higLim.x1)
-    annotation (Line(points={{21,-50},{26,-50},{26,-12},{78,-12}},color={0,0,127}));
+    annotation (Line(points={{22,-50},{26,-50},{26,-12},{78,-12}},color={0,0,127}));
   connect(yCooValMin.y, higLim.f1)
-    annotation (Line(points={{21,-90},{30,-90},{30,-16},{78,-16}},
+    annotation (Line(points={{22,-90},{30,-90},{30,-16},{78,-16}},
     color={0,0,127}));
   connect(uFanSta, andIntErr.u3) annotation (Line(points={{-140,-100},{-82,-100},
           {-82,-68},{-72,-68}}, color={255,0,255}));
-  connect(andIntErr.y, booToRea.u) annotation (Line(points={{-49,-60},{-46,-60},
+  connect(andIntErr.y, booToRea.u) annotation (Line(points={{-48,-60},{-46,-60},
           {-46,-20},{-42,-20}},color={255,0,255}));
-  connect(limPI.y, pro.u1) annotation (Line(points={{-19,90},{38,90}},
+  connect(limPI.y, pro.u1) annotation (Line(points={{-18,90},{38,90}},
                 color={0,0,127}));
-  connect(booToRea.y, pro.u2) annotation (Line(points={{-19,-20},{0,-20},{0,78},
+  connect(booToRea.y, pro.u2) annotation (Line(points={{-18,-20},{0,-20},{0,78},
           {38,78}},color={0,0,127}));
   connect(min.u1, pro.y)
-    annotation (Line(points={{78,36},{72,36},{72,84},{61,84}},color={0,0,127}));
+    annotation (Line(points={{78,36},{72,36},{72,84},{62,84}},color={0,0,127}));
   annotation (
     defaultComponentName = "cooVal",
     Icon(graphics={

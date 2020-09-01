@@ -1,0 +1,17 @@
+compareVars :=
+  {
+    "noThr.u",
+    "noThr.y",
+    "thrTim.u",
+    "thrTim.passed",
+    "thrTim.y",
+    "thrTim.t",
+    "noThrWitRes.u",
+    "noThrWitRes.reset",
+    "noThrWitRes.y",
+    "thrTimWitRes.u",
+    "thrTimWitRes.reset",
+    "thrTimWitRes.passed",
+    "thrTimWitRes.y",
+    "thrTimWitRes.t"
+  };

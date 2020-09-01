@@ -58,7 +58,6 @@ model BoilerPolynomialClosedLoop "Boiler with closed loop control"
   Controls.Continuous.LimPID conPID(
     Td=1,
     k=0.5,
-    controllerType=Modelica.Blocks.Types.SimpleController.PI,
     Ti=100)
           annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
   Modelica.Blocks.Sources.Constant TSetHea(k=273.15 + 40)

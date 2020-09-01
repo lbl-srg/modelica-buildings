@@ -179,12 +179,14 @@ protected
     annotation (Placement(transformation(extent={{4,100},{24,120}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(
     final k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.FreezeProtectionStages.stage0)
+    "Freeze protection stage 0"
     annotation (Placement(transformation(extent={{-120,30},{-100,50}})));
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu
     "Logical block to check if the freeze protection is deactivated"
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt1(
     final k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.ZoneStates.heating)
+    "Heating zone state"
     annotation (Placement(transformation(extent={{-120,-30},{-100,-10}})));
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu1
     "Logical block to check if the freeze protection is deactivated"
@@ -293,8 +295,10 @@ equation
   connect(xor.y, truFalHol.u) annotation (Line(points={{96,252},{106,252},{106,
           224},{122,224}},
                       color={255,0,255}));
-    annotation (
-    Icon(graphics={
+
+annotation (
+  defaultComponentName = "enaDis",
+  Icon(graphics={
         Rectangle(
           extent={{-100,-100},{100,100}},
           lineColor={0,0,127},

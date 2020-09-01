@@ -254,22 +254,21 @@ model System5
  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetBoiRet(k=TBoiRet_min)
     "Temperature setpoint for boiler return"
     annotation (Placement(transformation(extent={{120,-270},{140,-250}})));
-  Buildings.Controls.OBC.CDL.Continuous.LimPID conPIDBoi(
+  Buildings.Controls.OBC.CDL.Continuous.PID conPIDBoi(
     Td=1,
     Ti=120,
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     k=0.1,
-    reverseAction=true) "Controller for valve in boiler loop"
+    reverseActing=false) "Controller for valve in boiler loop"
     annotation (Placement(transformation(extent={{160,-270},{180,-250}})));
 //--------------------------------------------------------------------------------//
 
 //----------------------Step 3: Radiator loop valve control-----------------------//
-  Buildings.Controls.OBC.CDL.Continuous.LimPID conPIDRad(
+  Buildings.Controls.OBC.CDL.Continuous.PID conPIDRad(
     Td=1,
     Ti=120,
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
-    k=0.1)
-           "Controller for valve in radiator loop"
+    k=0.1) "Controller for valve in radiator loop"
     annotation (Placement(transformation(extent={{-180,-20},{-160,0}})));
 //--------------------------------------------------------------------------------//
   Buildings.Controls.OBC.CDL.Continuous.Line TSetSup
@@ -530,17 +529,17 @@ This is implemented using the constant block
 <a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.Sources.Constant\">
 Buildings.Controls.OBC.CDL.Continuous.Sources.Constant</a> for the set point,
 the PID controller with output limitation
-<a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.LimPID\">
-Buildings.Controls.OBC.CDL.Continuous.LimPID</a>.
+<a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.PID\">
+Buildings.Controls.OBC.CDL.Continuous.PID</a>.
 We configured the controller as
 </p>
 <pre>
-  Buildings.Controls.OBC.CDL.Continuous.LimPID conPIDBoi(
+  Buildings.Controls.OBC.CDL.Continuous.PID conPIDBoi(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
     k=0.1,
     Ti=120,
     Td=1,
-    reverseAction=true) \"Controller for valve in boiler loop\";
+    reverseActing=false) \"Controller for valve in boiler loop\";
 </pre>
 <p>
 We set the proportional band to <i>10</i> Kelvin, hence <code>k=0.1</code>.
@@ -553,9 +552,9 @@ proportional gain, and finally changing it to a PI-controller and tuning the
 integral time constant.
 </p>
 <p>
-Note that we also set <code>reverseAction=true</code> because
-if the control error, e.g., the difference between set point and measured
-temperature, is positive, the valve needs to close (<i>y=0</i>)
+Note that we also set <code>reverseActing=false</code> because
+if, for a constant set point, the measured
+temperature increases, the valve control signal needs to decrease towards <i>y=0</i>,
 because in this condition, the boiler inlet temperature is not yet high enough.
 Once it is high enough, the control error will be negative and the valve
 can open.
@@ -610,7 +609,7 @@ This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/673\"
 <li>
 July 2, 2015, by Michael Wetter:<br/>
 Changed control input for <code>conPIDBoi</code> and set
-<code>reverseAction=true</code>
+<code>reverseActing=false</code>
 to address issue
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/436\">#436</a>.
 </li>

@@ -1,0 +1,8 @@
+compareVars :=
+  {
+    "damPreInd.m_flow",
+    "damExp.m_flow",
+    "damExpPI.m_flow",
+    "damPreInd.y",
+    "damPreInd.y_actual"
+  };
