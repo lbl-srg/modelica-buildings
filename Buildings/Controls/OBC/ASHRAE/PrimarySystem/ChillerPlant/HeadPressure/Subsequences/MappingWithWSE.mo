@@ -1,4 +1,4 @@
-within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure.Subsequences;
+﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure.Subsequences;
 block MappingWithWSE
   "Equipment setpoints when chiller head pressure control is enabled, for plants with waterside economizer and headered condenser water pumps"
   parameter Real minTowSpe = 0.1
@@ -28,20 +28,20 @@ block MappingWithWSE
     final unit="1",
     final min=0,
     final max=1) "Maximum cooling tower speed setpoint"
-    annotation (Placement(transformation(extent={{120,170},{140,190}}),
-      iconTransformation(extent={{100,50},{120,70}})));
+    annotation (Placement(transformation(extent={{120,160},{160,200}}),
+      iconTransformation(extent={{100,40},{140,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yConWatPumSpeSet(
     final unit="1",
     final min=0,
     final max=1) "Condenser water pump speed setpoint"
-    annotation (Placement(transformation(extent={{120,60},{140,80}}),
-      iconTransformation(extent={{100,-10},{120,10}})));
+    annotation (Placement(transformation(extent={{120,50},{160,90}}),
+      iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yHeaPreConVal(
     final unit="1",
     final min=0,
     final max=1) "Head pressure control valve position"
-    annotation (Placement(transformation(extent={{120,-170},{140,-150}}),
-      iconTransformation(extent={{100,-70},{120,-50}})));
+    annotation (Placement(transformation(extent={{120,-180},{160,-140}}),
+      iconTransformation(extent={{100,-80},{140,-40}})));
 
 protected
   Buildings.Controls.OBC.CDL.Continuous.Line maxCooTowSpeSet
@@ -143,14 +143,14 @@ equation
     annotation (Line(points={{62,130},{70,130},{70,172},{78,172}},
       color={0,0,127}));
   connect(swi.y, yMaxTowSpeSet)
-    annotation (Line(points={{102,180},{130,180}}, color={0,0,127}));
+    annotation (Line(points={{102,180},{140,180}}, color={0,0,127}));
   connect(desConWatPumSpe, swi1.u1)
     annotation (Line(points={{-140,60},{-60,60},{-60,78},{78,78}}, color={0,0,127}));
   connect(conWatPumSpe.y, swi1.u3)
     annotation (Line(points={{62,30},{70,30},{70,62},{78,62}},
       color={0,0,127}));
   connect(swi1.y, yConWatPumSpeSet)
-    annotation (Line(points={{102,70},{130,70}}, color={0,0,127}));
+    annotation (Line(points={{102,70},{140,70}}, color={0,0,127}));
   connect(uWSE, swi2.u2)
     annotation (Line(points={{-140,0},{-100,0},{-100,-110},{78,-110}},
       color={255,0,255}));
@@ -163,7 +163,7 @@ equation
     annotation (Line(points={{102,-110},{110,-110},{110,-140},{60,-140},
       {60,-152},{78,-152}}, color={0,0,127}));
   connect(swi3.y, yHeaPreConVal)
-    annotation (Line(points={{102,-160},{130,-160}}, color={0,0,127}));
+    annotation (Line(points={{102,-160},{140,-160}}, color={0,0,127}));
   connect(one.y, swi.u1)
     annotation (Line(points={{-18,150},{-10,150},{-10,188},{78,188}},
       color={0,0,127}));

@@ -83,7 +83,7 @@ protected
     annotation (Placement(transformation(extent={{-20,160},{0,180}})));
 
   Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesThr1(
-    final threshold=0.5) "Less threshold"
+    final t=0.5) "Less threshold"
     annotation (Placement(transformation(extent={{20,160},{40,180}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant chiDesCaps[nChi](
@@ -126,7 +126,7 @@ protected
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
 
   Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesThr[nSta](
-    final threshold=fill(0.5, nSta))
+    final t=fill(0.5, nSta))
     "Checks if the count of available chillers in each stage equals the design count"
     annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
 

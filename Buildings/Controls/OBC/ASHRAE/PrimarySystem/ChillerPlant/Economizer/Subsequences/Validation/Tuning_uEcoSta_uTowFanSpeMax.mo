@@ -23,12 +23,12 @@ model Tuning_uEcoSta_uTowFanSpeMax
     annotation (Placement(transformation(extent={{100,-100},{120,-80}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Logical.Timer tim(
-    final reset=true) "Timer"
+  Buildings.Controls.OBC.CDL.Logical.Timer tim
+                      "Timer"
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
 
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr1(
-    final threshold=7e4) "Greater than"
+    final t=7e4) "Greater than"
     annotation (Placement(transformation(extent={{-40,-90},{-20,-70}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(

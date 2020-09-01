@@ -36,7 +36,7 @@ protected
     final message="The maximum level has to be greater than the minimum level.")
     "Print warning when the maximum level is not set to be greater than the minimum level"
     annotation (Placement(transformation(extent={{60,-50},{80,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterEqual greEqu
+  Buildings.Controls.OBC.CDL.Continuous.Greater greEqu
     "Check if maximum level is set to be greater than minimum level"
     annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
 

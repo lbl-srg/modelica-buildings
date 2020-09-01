@@ -1,4 +1,4 @@
-within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure.Subsequences;
+﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure.Subsequences;
 block ControlLoop
   "Sequence to generate head pressure control signal if it is not available from the chiller controller"
   parameter Real minChiLif(
@@ -40,16 +40,15 @@ block ControlLoop
     final unit="1",
     final min=0,
     final max=1) "Chiller head pressure control loop output"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}}),
-      iconTransformation(extent={{100,-10},{120,10}})));
+    annotation (Placement(transformation(extent={{100,-20},{140,20}}),
+      iconTransformation(extent={{100,-20},{140,20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.LimPID conPID(
+  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset conPID(
     final controllerType=controllerType,
     final k=k,
     final Ti=Ti,
     final yMax=1,
     final yMin=0,
-    final reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter,
     final y_reset=0) "Generate head pressure control signal"
     annotation (Placement(transformation(extent={{20,50},{40,70}})));
 
@@ -71,13 +70,13 @@ equation
   connect(con.y, conPID.u_s)
     annotation (Line(points={{-18,60},{18,60}}, color={0,0,127}));
   connect(conPID.y, yHeaPreCon)
-    annotation (Line(points={{42,60},{60,60},{60,0},{110,0}}, color={0,0,127}));
+    annotation (Line(points={{42,60},{60,60},{60,0},{120,0}}, color={0,0,127}));
   connect(feedback.y, gai.u)
     annotation (Line(points={{-48,-20},{-22,-20}}, color={0,0,127}));
   connect(gai.y, conPID.u_m)
     annotation (Line(points={{2,-20},{30,-20},{30,48}}, color={0,0,127}));
   connect(uHeaPreEna, conPID.trigger)
-    annotation (Line(points={{-120,20},{22,20},{22,48}}, color={255,0,255}));
+    annotation (Line(points={{-120,20},{24,20},{24,48}}, color={255,0,255}));
 
 annotation (
   defaultComponentName= "chiHeaPreLoo",

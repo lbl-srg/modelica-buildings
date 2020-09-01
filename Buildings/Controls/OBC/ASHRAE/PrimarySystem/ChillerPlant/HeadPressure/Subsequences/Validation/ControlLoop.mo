@@ -21,12 +21,12 @@ model ControlLoop "Validate sequence of output head pressure control signal"
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
 
 equation
-  connect(booPul.y, chiHeaPreLoo.uHeaPreEna)
-    annotation (Line(points={{-59,70},{0,70},{0,58},{18,58}}, color={255,0,255}));
   connect(TConWatRet.y, chiHeaPreLoo.TConWatRet)
-    annotation (Line(points={{-59,20},{-20,20},{-20,50},{18,50}}, color={0,0,127}));
+    annotation (Line(points={{-58,20},{-20,20},{-20,50},{18,50}}, color={0,0,127}));
   connect(TChiWatSup.y, chiHeaPreLoo.TChiWatSup)
-    annotation (Line(points={{-59,-20},{0,-20},{0,42},{18,42}}, color={0,0,127}));
+    annotation (Line(points={{-58,-20},{0,-20},{0,42},{18,42}}, color={0,0,127}));
+  connect(booPul.y, chiHeaPreLoo.uHeaPreEna)
+    annotation (Line(points={{-58,70},{-20,70},{-20,58},{18,58}}, color={255,0,255}));
 
 annotation (
   experiment(StopTime=5.0, Tolerance=1e-06),

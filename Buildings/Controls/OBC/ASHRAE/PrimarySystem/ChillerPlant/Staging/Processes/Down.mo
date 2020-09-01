@@ -289,8 +289,8 @@ protected
   Buildings.Controls.OBC.CDL.Routing.RealExtractor curDisChi(final nin=nChi)
     "Current disabling chiller"
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
-  Buildings.Controls.OBC.CDL.Continuous.LessEqualThreshold lesEquThr(
-    final threshold=0.5)
+  Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesEquThr(
+    final t=0.5)
     "Check if the disabled chiller has chilled water request"
     annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
   Buildings.Controls.OBC.CDL.Logical.And and4 "Logical and"
@@ -311,8 +311,8 @@ protected
   Buildings.Controls.OBC.CDL.Routing.RealExtractor curDisChi1(final nin=nChi)
     "Current disabling chiller"
     annotation (Placement(transformation(extent={{-80,-130},{-60,-110}})));
-  Buildings.Controls.OBC.CDL.Continuous.LessEqualThreshold lesEquThr1(
-    final threshold=0.5)
+  Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesEquThr1(
+    final t=0.5)
     "Check if the disabled chiller is not requiring condenser water"
     annotation (Placement(transformation(extent={{-40,-130},{-20,-110}})));
   Buildings.Controls.OBC.CDL.Logical.And3 and5 "Logical and"

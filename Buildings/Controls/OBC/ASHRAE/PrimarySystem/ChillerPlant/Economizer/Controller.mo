@@ -129,7 +129,7 @@ block Controller "Waterside economizer (WSE) enable/disable status"
       iconTransformation(extent={{100,-60},{120,-40}})));
 
   Buildings.Controls.OBC.CDL.Continuous.LessThreshold enaTChiWatRet(
-    final threshold=delDis)
+    final t=delDis)
     "Enable condition based on chilled water return temperature upstream and downstream WSE"
     annotation (Placement(transformation(extent={{60,-20},{80,0}})));
 

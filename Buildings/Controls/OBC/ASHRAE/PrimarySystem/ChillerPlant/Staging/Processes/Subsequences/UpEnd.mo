@@ -163,8 +163,8 @@ protected
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea1[nChi]
     "Convert boolean input to real output"
     annotation (Placement(transformation(extent={{-160,10},{-140,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.LessEqualThreshold lesEquThr(
-    final threshold=0.5)
+  Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesEquThr(
+    final t=0.5)
     "Check if the disabled chiller is not requiring chilled water"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
   Buildings.Controls.OBC.CDL.Logical.And and4 "Logical and"
@@ -175,8 +175,8 @@ protected
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea2[nChi]
     "Convert boolean input to real output"
     annotation (Placement(transformation(extent={{-160,-80},{-140,-60}})));
-  Buildings.Controls.OBC.CDL.Continuous.LessEqualThreshold lesEquThr1(
-    final threshold=0.5)
+  Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesEquThr1(
+    final t=0.5)
     "Check if the disabled chiller is not requiring condenser water"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
   Buildings.Controls.OBC.CDL.Logical.And and5 "Logical and"

@@ -219,8 +219,8 @@ protected
     final nout=nPum) if is_heaPum
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
-  Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea[nPum] 
-    if is_heaPum
+  Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea[nPum] if
+       is_heaPum
     "Convert integer to real number"
     annotation (Placement(transformation(extent={{-220,220},{-200,240}})));
   Buildings.Controls.OBC.CDL.Routing.RealExtractor leaPum(
@@ -257,8 +257,8 @@ protected
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu3[nPum] if is_heaPum
     "Check next lag pump"
     annotation (Placement(transformation(extent={{60,-100},{80,-80}})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt[nPum]
-    if is_heaPum
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt[nPum] if
+       is_heaPum
     "Convert boolean to integer"
     annotation (Placement(transformation(extent={{-200,-130},{-180,-110}})));
   Buildings.Controls.OBC.CDL.Integers.MultiSum mulSumInt(

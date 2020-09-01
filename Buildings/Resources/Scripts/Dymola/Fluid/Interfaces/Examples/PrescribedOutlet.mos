@@ -1,4 +1,4 @@
-simulateModel("Buildings.Fluid.Interfaces.Examples.PrescribedOutlet", tolerance=1e-6, stopTime=1200, method="dassl", resultFile="PrescribedOutlet");
+simulateModel("Buildings.Fluid.Interfaces.Examples.PrescribedOutlet", tolerance=1e-6, stopTime=1200, method="CVode", resultFile="PrescribedOutlet");
 
 createPlot(id=1, position={9, 13, 499, 1007}, y={"heaHigPow.sta_a.T", "heaHigPow.sta_b.T"}, range={0.0, 1500.0, 0.0, 100.0}, grid=true, colors={{238,46,47}, {0,140,72}});
 createPlot(id=1, position={9, 13, 499, 248}, y={"cooLimPow.sta_a.T", "cooLimPow.sta_b.T"}, range={0.0, 1500.0, 0.0, 100.0}, grid=true, subPlot=2, colors={{238,46,47}, {0,140,72}});

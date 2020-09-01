@@ -54,7 +54,7 @@ protected
     "Logical latch, maintain ON signal until condition changes"
     annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
-    final threshold=thrTimEnb)
+    final t=thrTimEnb)
     "Check if it has been threhold time after condenser water pump achieves its new setpoint"
     annotation (Placement(transformation(extent={{40,70},{60,90}})));
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triSam[nChi]
@@ -73,14 +73,14 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Switch swi[nChi] "Logical switch"
     annotation (Placement(transformation(extent={{140,-10},{160,10}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr1(
-    final threshold=thrTimEnb + waiTim)
+    final t=thrTimEnb + waiTim)
     "Check if it has been threshold time after condenser water pump achieves its new setpoint and have waited for another amount of time"
     annotation (Placement(transformation(extent={{40,110},{60,130}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep1(
     final nout=nChi) "Replicate boolean input"
     annotation (Placement(transformation(extent={{80,70},{100,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr[nChi](
-    final threshold=fill(0.5, nChi))
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greEquThr[nChi](
+    final t=fill(0.5, nChi))
     "Convert real input to boolean output"
     annotation (Placement(transformation(extent={{180,-10},{200,10}})));
   Buildings.Controls.OBC.CDL.Logical.Not not2 "Logical not"

@@ -65,8 +65,8 @@ model EquationFitReversible
     duration(displayUnit="h") = 14400,
     offset=6 + 273.15) "Cooling load setpoint water temperature"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
-  Controls.OBC.CDL.Integers.GreaterThreshold intGreThr(threshold=-1)
-   "Integer threshold"
+  Controls.OBC.CDL.Integers.GreaterThreshold intGreThr(t=-1)
+    "Integer threshold"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
   Controls.OBC.CDL.Logical.Switch swi "Switch for set point temperature"
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));
@@ -76,11 +76,10 @@ model EquationFitReversible
     offset=28 + 273.15)
   "Source side entering water temperature in cooling mode"
     annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
-  Modelica.Blocks.Sources.Ramp  uMod1(
+  Modelica.Blocks.Sources.Ramp uMod(
     height=2,
     duration(displayUnit="h") = 14400,
-    offset=-1)
-   "Heat pump operates in heating mode"
+    offset=-1) "Heat pump operates in heating mode"
     annotation (Placement(transformation(extent={{-118,0},{-98,20}})));
   Controls.OBC.CDL.Logical.Switch swi1
    "Switch for set point temperature"
@@ -118,7 +117,7 @@ equation
     annotation (Line(points={{-22,10},{-38,10}}, color={255,0,255}));
   connect(intGreThr.u, reaToInt.y)
     annotation (Line(points={{-62,10},{-67,10}}, color={255,127,0}));
-  connect(reaToInt.u, uMod1.y)
+  connect(reaToInt.u, uMod.y)
     annotation (Line(points={{-90,10},{-97,10}}, color={0,0,127}));
   connect(swi2.u3, TSouEntCoo.y)
     annotation (Line(points={{78,-58},{66,-58},{66,-70},{62,-70}}, color={0,0,127}));
