@@ -50,12 +50,11 @@ model FanCoil2PipeHeating
     dp_nominal=200)
     "Fan"
     annotation (Placement(transformation(extent={{90,-10},{70,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.LimPID con(
+  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset con(
     final k=k,
     final Ti=Ti,
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
-    final reverseActing=true,
-    reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter)
+    final reverseActing=true)
     "PI controller"
     annotation (Placement(transformation(extent={{-10,210},{10,230}})));
   Buildings.Fluid.HeatExchangers.DryCoilEffectivenessNTU hex(
