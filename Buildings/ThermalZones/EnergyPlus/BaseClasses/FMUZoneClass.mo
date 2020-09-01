@@ -1,6 +1,6 @@
 within Buildings.ThermalZones.EnergyPlus.BaseClasses;
 class FMUZoneClass "Class used to couple the FMU to interact with a thermal zone"
-  extends Modelica.Icons.BasesPackage;
+  //extends Modelica.Icons.BasesPackage;
   extends ExternalObject;
 
   function constructor
@@ -32,11 +32,8 @@ class FMUZoneClass "Class used to couple the FMU to interact with a thermal zone
       fmuName,
       buildingsLibraryRoot,
       verbosity)
-        annotation (
-          IncludeDirectory="modelica://Buildings/Resources/C-Sources/EnergyPlus",
-          Include="#include \"ZoneAllocate.c\"",
-          Library={"fmilib_shared", "dl"});
-          // dl provides dlsym to load EnergyPlus dll, which is needed by OpenModelica compiler
+      annotation (Library={"ModelicaBuildingsEnergyPlus", "fmilib_shared", "dl"});
+      // dl provides dlsym to load EnergyPlus dll, which is needed by OpenModelica compiler
 
     annotation (Documentation(info="<html>
 <p>
@@ -60,9 +57,8 @@ First implementation.
 
     input FMUZoneClass adapter;
     external "C" ZoneFree(adapter)
-        annotation (
-          IncludeDirectory="modelica://Buildings/Resources/C-Sources/EnergyPlus",
-          Include="#include \"ZoneFree.c\"");
+      annotation (Library={"ModelicaBuildingsEnergyPlus", "fmilib_shared", "dl"});
+      // dl provides dlsym to load EnergyPlus dll, which is needed by OpenModelica compiler
 
   annotation(Documentation(info="<html>
 <p>

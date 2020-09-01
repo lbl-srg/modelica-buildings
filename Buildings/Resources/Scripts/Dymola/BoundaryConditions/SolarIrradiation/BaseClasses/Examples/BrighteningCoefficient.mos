@@ -1,5 +1,5 @@
 removePlots();
-simulateModel("Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.Examples.BrighteningCoefficient", tolerance=1e-6, stopTime=8640000, method="dassl", resultFile="BrighteningCoefficient");
+simulateModel("Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.Examples.BrighteningCoefficient", tolerance=1e-6, stopTime=8640000, method="CVode", resultFile="BrighteningCoefficient");
 createPlot(id = 1,
  position = {7, 7, 746, 517},
  y = {"briCoe.F1"},

@@ -57,24 +57,23 @@ block RoomVAV "Controller for room VAV box"
     annotation (Placement(transformation(extent={{100,-80},{120,-60}}),
         iconTransformation(extent={{100,-60},{120,-40}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.LimPID conHea(
+  Buildings.Controls.OBC.CDL.Continuous.PID conHea(
     yMax=yMax,
     Td=TdHea,
     yMin=yMin,
     k=kHea,
     Ti=TiHea,
     controllerType=heaController,
-    Ni=10)                        "Controller for heating"
+    Ni=10) "Controller for heating"
     annotation (Placement(transformation(extent={{30,-80},{50,-60}})));
-  Buildings.Controls.OBC.CDL.Continuous.LimPID conCoo(
+  Buildings.Controls.OBC.CDL.Continuous.PID conCoo(
     yMax=yMax,
     Td=TdCoo,
     k=kCoo,
     Ti=TiCoo,
     controllerType=cooController,
     yMin=yMin,
-    reverseActing=false)
-    "Controller for cooling (acts on damper)"
+    reverseActing=false) "Controller for cooling (acts on damper)"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Line reqFlo "Required flow rate"
     annotation (Placement(transformation(extent={{70,-10},{90,10}})));
@@ -114,7 +113,7 @@ block RoomVAV "Controller for room VAV box"
   Buildings.Controls.OBC.CDL.Continuous.Feedback dTSet
     "Difference between cooling and heating set points"
     annotation (Placement(transformation(extent={{-50,-130},{-30,-110}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(threshold=dTHys)
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(t=dTHys)
     "Test for overlap of heating and cooling set points "
     annotation (Placement(transformation(extent={{-10,-130},{10,-110}})));
 protected

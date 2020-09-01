@@ -1,4 +1,4 @@
-simulateModel("Buildings.Fluid.Sensors.Conversions.Examples.To_VolumeFraction", tolerance=1e-8, stopTime=36000, method="dassl", resultFile="To_VolumeFraction");
+simulateModel("Buildings.Fluid.Sensors.Conversions.Examples.To_VolumeFraction", tolerance=1e-8, stopTime=36000, method="CVode", resultFile="To_VolumeFraction");
 createPlot(id = 1,
  position = {12, 12, 400, 434},
  y = {"limPID.u_s", "limPID.u_m"},

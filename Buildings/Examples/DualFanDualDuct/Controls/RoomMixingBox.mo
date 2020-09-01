@@ -1,22 +1,25 @@
 within Buildings.Examples.DualFanDualDuct.Controls;
 block RoomMixingBox "Controller for room mixing box"
   extends Modelica.Blocks.Icons.Block;
+
   parameter Modelica.SIunits.MassFlowRate m_flow_min "Minimum mass flow rate";
-  Buildings.Controls.OBC.CDL.Continuous.LimPID conHea(
+  Buildings.Controls.OBC.CDL.Continuous.PID conHea(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     Td=60,
     k=0.1,
     Ti=120) "Controller for heating"
     annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.LimPID conCoo(
+  Buildings.Controls.OBC.CDL.Continuous.PID conCoo(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     reverseActing=false,
     Td=60,
     k=0.1,
     Ti=120) "Controller for cooling (acts on damper)"
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
-  Modelica.Blocks.Interfaces.RealInput TRoo(final quantity="ThermodynamicTemperature",
-                                          final unit = "K", displayUnit = "degC", min=0)
+  Modelica.Blocks.Interfaces.RealInput TRoo(
+    final quantity="ThermodynamicTemperature",
+    final unit = "K",
+    displayUnit = "degC", min=0)
     "Measured room temperature"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
   Modelica.Blocks.Interfaces.RealOutput yHot "Signal for hot air damper"
@@ -27,7 +30,7 @@ block RoomMixingBox "Controller for room mixing box"
     "Measured air mass flow rate into the room"
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}}),
         iconTransformation(extent={{-140,-60},{-100,-20}})));
-  Buildings.Controls.OBC.CDL.Continuous.LimPID conFloRat(
+  Buildings.Controls.OBC.CDL.Continuous.PID conFloRat(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     Td=60,
     k=0.1,

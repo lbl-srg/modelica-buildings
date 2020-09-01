@@ -154,7 +154,7 @@ protected
   final parameter Modelica.SIunits.MolarMass MM=
     Modelica.Media.IdealGases.Common.SingleGasesData.CO2.MM
     "Molar mass of the trace substance";
-  final parameter Real s[:]= {
+  final parameter Real s[Medium.nC]= {
     if ( Modelica.Utilities.Strings.isEqual(string1=Medium.extraPropertiesNames[i],
                                             string2=substanceName,
                                             caseSensitive=false))
@@ -197,7 +197,7 @@ protected
   Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor heaFloSen
     "Heat flow sensor"
     annotation (Placement(transformation(extent={{-32,-10},{-52,10}})));
-  HeatTransfer.Sources.PrescribedTemperature preTem
+  Buildings.HeatTransfer.Sources.PrescribedTemperature preTem
     "Port temperature"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
   Modelica.Blocks.Sources.RealExpression TFlu(y=Medium.temperature_phX(

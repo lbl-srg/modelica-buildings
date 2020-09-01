@@ -8,9 +8,8 @@ function inputVariableInitialize
   input Modelica.SIunits.Time startTime "Start time of the simulation";
 
   external "C" InputVariableInstantiate(adapter, startTime)
- annotation (
-   IncludeDirectory="modelica://Buildings/Resources/C-Sources/EnergyPlus",
-   Include="#include \"InputVariableInstantiate.c\"");
+      annotation (Library={"ModelicaBuildingsEnergyPlus", "fmilib_shared", "dl"});
+      // dl provides dlsym to load EnergyPlus dll, which is needed by OpenModelica compiler
 
   annotation (Documentation(info="<html>
 <p>
