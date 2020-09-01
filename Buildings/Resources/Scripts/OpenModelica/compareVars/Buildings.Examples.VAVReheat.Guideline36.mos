@@ -5,14 +5,14 @@ compareVars :=
     "flo.nor.air.vol.T",
     "flo.wes.air.vol.T",
     "flo.cor.air.vol.T",
-    "sou.vav.m_flow",
-    "eas.vav.m_flow",
-    "nor.vav.m_flow",
-    "wes.vav.m_flow",
-    "cor.vav.m_flow_turbulent",
     "TSupSou.T",
     "TSupEas.T",
     "TSupNor.T",
     "TSupWes.T",
-    "TSupCor.T"
+    "TSupCor.T",
+    "sou.vav.m_flow",
+    "eas.vav.m_flow",
+    "nor.vav.m_flow",
+    "wes.vav.m_flow",
+    "cor.vav.m_flow_turbulent"
   };

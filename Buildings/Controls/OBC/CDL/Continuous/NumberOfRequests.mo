@@ -3,7 +3,7 @@ block NumberOfRequests
   "Outputs the number of signals that are above/below a certain threshold"
 
   parameter Integer nin "Number of inputs";
-  parameter Real threShold = 0 "Threshold";
+  parameter Real t=0 "Threshold";
   parameter Integer kind
     "Set to 0 for u>threShold, to 1 for >=, to 2 for <= or to 3 for <";
   Interfaces.IntegerOutput y
@@ -15,22 +15,22 @@ algorithm
   y := 0;
   for i in 1:nin loop
     if kind == 0 then
-      if u[i] > threShold then
+      if u[i] > t then
         y := y+1;
       end if;
     end if;
     if kind == 1 then
-      if u[i] >= threShold then
+      if u[i] >= t then
         y := y+1;
       end if;
     end if;
     if kind == 2 then
-      if u[i] <= threShold then
+      if u[i] <= t then
         y := y+1;
       end if;
     end if;
     if kind == 3 then
-      if u[i] < threShold then
+      if u[i] < t then
         y := y+1;
       end if;
     end if;
@@ -50,15 +50,15 @@ inequality. The table below shows the allowed settings.
 </tr>
 <tr>
 <td>0</td>
-<td><code>u[i] &gt; threShold</code></td>
+<td><code>u[i] &gt; t</code></td>
 </tr>
 <tr>
 <td>1</td>
-<td><code>u[i] &ge; threShold</code></td>
+<td><code>u[i] &ge; t</code></td>
 </tr>
 <tr>
 <td>2</td>
-<td><code>u[i] &le; threShold</code></td>
+<td><code>u[i] &le; t</code></td>
 </tr>
 <tr>
 <td>3</td>
@@ -72,6 +72,11 @@ exceed a temperature threshold.
 </html>",
 revisions="<html>
 <ul>
+<li>
+August 6, 2020, by Michael Wetter:<br/>
+Renamed <code>threshold</code> to <code>t</code>.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2076\">issue 2076</a>.
+</li>
 <li>
 January 10, 2017, by Milica Grahovac:<br/>
 Initial CDL implementation.
@@ -94,7 +99,7 @@ First implementation.
         Text(
           extent={{-128,88},{-6,28}},
           lineColor={0,0,255},
-          textString="%threShold"),
+          textString="%t"),
         Line(points={{-62,-6},{-4,24}}, color={0,0,255}),
         Line(points={{-4,24},{64,60}}, color={255,0,0}),
         Line(

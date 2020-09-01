@@ -82,7 +82,7 @@ block Controller
 
   parameter Real TiMinOut(
     final unit="s",
-    final quantity="Time")=1200
+    final quantity="Time")=120
     "Time constant of controller for minimum outdoor air intake"
     annotation (Dialog(group="Economizer PID controller",
       enable=controllerTypeMinOut == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
@@ -117,7 +117,7 @@ block Controller
     final unit="s",
     final quantity="Time",
     final max=TiMinOut)=120
-    "Time constant of controller for mixed air temperature tracking for freeze protection. Require TiFre < TiMinOut"
+    "Time constant of controller for mixed air temperature tracking for freeze protection. Require TiFre <= TiMinOut"
      annotation(Dialog(group="Economizer freeze protection",
        enable=use_TMix
          and (controllerTypeFre == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
@@ -138,14 +138,6 @@ block Controller
      final quantity="ThermodynamicTemperature")= 279.15
     "Lower limit for mixed air temperature for freeze protection, used if use_TMix=true"
      annotation(Dialog(group="Economizer freeze protection", enable=use_TMix));
-
-  parameter Real yMinDamLim=0
-    "Lower limit of damper position limits control signal output"
-    annotation (Dialog(tab="Economizer", group="Damper limits"));
-
-  parameter Real yMaxDamLim=1
-    "Upper limit of damper position limits control signal output"
-    annotation (Dialog(tab="Economizer", group="Damper limits"));
 
   parameter Real retDamFulOpeTim(
     final unit="s",
@@ -292,21 +284,21 @@ block Controller
   parameter Real iniSetSupTem(
     final unit="K",
     final displayUnit="degC",
-    final quantity="ThermodynamicTemperature")=supTemSetPoi.maxSet
+    final quantity="ThermodynamicTemperature")=TSupSetMax
     "Initial setpoint for supply temperature control"
     annotation (Dialog(tab="Supply air temperature", group="Trim and respond for reseting TSup setpoint"));
 
   parameter Real maxSetSupTem(
     final unit="K",
     final displayUnit="degC",
-    final quantity="ThermodynamicTemperature")=supTemSetPoi.TSupSetMax
+    final quantity="ThermodynamicTemperature")=TSupSetMax
     "Maximum setpoint for supply temperature control"
     annotation (Dialog(tab="Supply air temperature", group="Trim and respond for reseting TSup setpoint"));
 
   parameter Real minSetSupTem(
     final unit="K",
     final displayUnit="degC",
-    final quantity="ThermodynamicTemperature")=supTemSetPoi.TSupSetDes
+    final quantity="ThermodynamicTemperature")=TSupSetDes
     "Minimum setpoint for supply temperature control"
     annotation (Dialog(tab="Supply air temperature", group="Trim and respond for reseting TSup setpoint"));
 
@@ -1005,6 +997,12 @@ Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints.SupplySignals
 </html>",
 revisions="<html>
 <ul>
+<li>
+July 10, 2020, by Antoine Gautier:<br/>
+Changed default value of integral time for minimum outdoor air control.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2019\">#2019</a>.
+</li>
 <li>
 March 16, 2020, by Jianjun Hu:<br/>
 Reimplemented to add new block for specifying the minimum outdoor airfow setpoint.

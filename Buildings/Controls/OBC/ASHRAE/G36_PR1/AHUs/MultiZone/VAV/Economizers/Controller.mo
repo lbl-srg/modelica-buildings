@@ -38,7 +38,7 @@ block Controller "Multi zone VAV AHU economizer control sequence"
     annotation (Dialog(group="Minimum outdoor air"));
   parameter Real TiMinOut(
     final unit="s",
-    final quantity="Time")=1200
+    final quantity="Time")=120
     "Time constant of controller for minimum outdoor air intake"
     annotation (Dialog(group="Minimum outdoor air",
       enable=controllerTypeMinOut == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
@@ -70,7 +70,7 @@ block Controller "Multi zone VAV AHU economizer control sequence"
     final unit="s",
     final quantity="Time",
     final max=TiMinOut)=120
-    "Time constant of controller for mixed air temperature tracking for freeze protection. Require TiFre < TiMinOut"
+    "Time constant of controller for mixed air temperature tracking for freeze protection. Require TiFre <= TiMinOut"
     annotation(Dialog(group="Freeze protection",
       enable=use_TMix
         and (controllerTypeFre == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
@@ -91,23 +91,30 @@ block Controller "Multi zone VAV AHU economizer control sequence"
     "Time horizon over which the outdoor air flow measurment is averaged";
   parameter Real uHeaMax=-0.25
     "Lower limit of controller input when outdoor damper opens for modulation control. Require -1 < uHeaMax < uCooMin < 1."
-    annotation (Dialog(tab="Commissioning", group="Controller"));
+    annotation (Dialog(tab="Commissioning", group="Supply air temperature control"));
   parameter Real uCooMin=+0.25
     "Upper limit of controller input when return damper is closed for modulation control. Require -1 < uHeaMax < uCooMin < 1."
-    annotation (Dialog(tab="Commissioning", group="Controller"));
+    annotation (Dialog(tab="Commissioning", group="Supply air temperature control"));
 
   parameter Real uOutDamMax(
     final min=-1,
     final max=1,
     final unit="1") = (uHeaMax + uCooMin)/2
     "Maximum loop signal for the OA damper to be fully open. Require -1 < uHeaMax < uOutDamMax <= uRetDamMin < uCooMin < 1."
-    annotation (Dialog(tab="Commissioning", group="Controller"));
+    annotation (Dialog(tab="Commissioning", group="Supply air temperature control"));
   parameter Real uRetDamMin(
     final min=-1,
     final max=1,
     final unit="1") = (uHeaMax + uCooMin)/2
     "Minimum loop signal for the RA damper to be fully open. Require -1 < uHeaMax < uOutDamMax <= uRetDamMin < uCooMin < 1."
-    annotation (Dialog(tab="Commissioning", group="Controller"));
+    annotation (Dialog(tab="Commissioning", group="Supply air temperature control"));
+
+  parameter Real uRetDamMinLim(
+    final min=0,
+    final max=1,
+    final unit="1") = 0.5
+    "Loop signal value to start decreasing the maximum return air damper position"
+  annotation (Dialog(tab="Commissioning", group="Minimum outdoor air control"));
 
   parameter Real retDamPhyPosMax(
     final min=0,
@@ -131,7 +138,7 @@ block Controller "Multi zone VAV AHU economizer control sequence"
     final min=0,
     final max=1,
     final unit="1") = 0
-    "Physically fixed minimum position of the outdoor air damper" 
+    "Physically fixed minimum position of the outdoor air damper"
     annotation (Dialog(tab="Commissioning", group="Physical damper position limits"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uTSup(final unit="1")
@@ -208,7 +215,7 @@ block Controller "Multi zone VAV AHU economizer control sequence"
     final k=kMinOut,
     final Ti=TiMinOut,
     final Td=TdMinOut,
-    final uRetDamMin=uRetDamMin,
+    final uRetDamMin=uRetDamMinLim,
     final controllerType=controllerTypeMinOut)
     "Multi zone VAV AHU economizer minimum outdoor air requirement damper limit sequence"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
@@ -411,6 +418,12 @@ which may be revised in future versions, set
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+July 10, 2020, by Antoine Gautier:<br/>
+Changed default value of integral time for minimum outdoor air control.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2019\">#2019</a>.
+</li>
 <li>
 October 11, 2017, by Michael Wetter:<br/>
 Corrected implementation to use control loop signal as input.
