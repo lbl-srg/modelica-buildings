@@ -34,12 +34,11 @@ model FanCoil2PipeCooling
   final parameter hexConfiguration hexConCoo=
     hexConfiguration.CounterFlow
     "Cooling heat exchanger configuration";
-  Buildings.Controls.OBC.CDL.Continuous.LimPID con(
+  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset con(
     final k=k,
     final Ti=Ti,
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
-    final reverseActing=true,
-    reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter)
+    final reverseActing=true)
     "PI controller"
     annotation (Placement(transformation(extent={{-10,210},{10,230}})));
   Buildings.Fluid.Movers.FlowControlled_m_flow fan(

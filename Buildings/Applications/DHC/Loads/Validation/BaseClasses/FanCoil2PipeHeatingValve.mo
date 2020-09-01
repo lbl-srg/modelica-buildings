@@ -39,7 +39,7 @@ model FanCoil2PipeHeatingValve
     use_inputFilter=true,
     dp_nominal=200) "Fan"
     annotation (Placement(transformation(extent={{90,-10},{70,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.LimPID con(
+  Buildings.Controls.OBC.CDL.Continuous.PID con(
     Ti=10,
     yMax=1,
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
