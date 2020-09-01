@@ -1,20 +1,46 @@
 Best Practice
 =============
 
-This section explains to library users best practice in creating new system models. The selected topics are based on problems that are often observed with new users of Modelica. Experienced users of Modelica may skip this section.
+This section explains to library users best practice in creating system models.
+The selected topics are based on problems that are often observed with new users of Modelica.
+Experienced users of Modelica may skip this section.
 
 Organization of packages
 ------------------------
 
-When developing models, one should distinguish between a library which contains widely applicable models, such as the `Buildings` library, and an application-specific model which may be created for a specific building and is of limited use for other applications.
-It is recommended that users store application-specific models outside of the `Buildings` library. This will allow users to replace the `Buildings` library with a new version without having to change the application-specific model.
-If during the course of the development of application-specific models, some models turn out to be of interest for other applications, then they can be contributed to the development of the `Buildings` library, as described in the section :ref:`Development`.
+When developing models, one should distinguish between a library which contains widely applicable models,
+such as the `Buildings` library, and an application-specific model which may be
+created for a specific building and is of limited use for other applications.
+It is recommended that users store application-specific models outside of the `Buildings` library.
+This will allow users to replace the `Buildings` library with a new version without having to change the application-specific model.
+
+The declare the dependency of your library on ``Buildings`` version 7.0.0, use
+the declaration
+
+.. code-block:: modelica
+
+   within;
+   package MyLibrary
+
+     annotation (
+       uses(
+         Buildings(
+           version="7.0.0")
+         )
+      );
+   end MyLibrary;
+
+
+If during the course of the development of application-specific models,
+some models turn out to be of interest for other applications, then they can be contributed to
+the development of the `Buildings` library, as described in the section :ref:`Development`.
 
 
 Building large system models
 ----------------------------
 
-When creating a large system model, it is typically easier to build the system model through the composition of subsystem models that can be tested in isolation. For example,
+When creating a large system model, it is typically easier to build the system model
+through the composition of subsystem models that can be tested in isolation. For example,
 the package
 `Buildings.Examples.ChillerPlant.BaseClasses.Controls.Examples <https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Examples_ChillerPlant_BaseClasses_Controls_Examples.html#Buildings.Examples.ChillerPlant.BaseClasses.Controls.Examples>`_
 contains small test models that are used to test individual components in the large system model
@@ -27,35 +53,37 @@ Propagating parameters and media packages
 
 Consider a model with a pump ``pum`` and a mass flow sensor ``sen``.
 Suppose that both models have a parameter ``m_flow_nominal`` for the nominal mass flow rate that needs to be set to the same value.
-Rather than setting these parameters individually to a numeric value, it is recommended to propagate the parameter to the top-level of the model. Thus, instead of using the declaration
+Rather than setting these parameters individually to a numeric value, it is recommended to propagate the parameter to the top-level of the model.
+This allows to change the value of ``m_flow_nominal`` at one location, and then have the value be propagated to all models that reference it.
+The effort for the additional declaration typically pays off as changes to the model are easier and more robust.
+
+To propagate parameters, instead of using the declaration
 
 .. code-block:: modelica
 
    Pump pum(m_flow_nominal=0.1) "Pump";
    TemperatureSensor sen(m_flow_nominal=0.1) "Sensor";
 
-we recommend to use
+use
 
 .. code-block:: modelica
 
-   Modelica.SIunits.MassFlowRate m_flow_nominal = 0.1
-                                 "Nominal mass flow rate";
+   Modelica.SIunits.MassFlowRate m_flow_nominal = 0.1 "Nominal mass flow rate";
    Pump pum(m_flow_nominal=m_flow_nominal) "Pump";
    TemperatureSensor sen(m_flow_nominal=m_flow_nominal) "Sensor";
 
-This allows to change the value of ``m_flow_nominal`` at one location, and then have the value be propagated to all models that reference it. The effort for the additional declaration typically pays off as changes to the model are easier and more robust.
-
-Propagating parameters and packages is particularly important for medium definitions. This allows the user to change the medium declaration at one location and then have it propagated to all models that reference it. This can be done by using the declaration
+Propagating parameters and packages is also recommended for medium definitions.
+This can be done by using the declaration
 
 .. code-block:: modelica
 
    replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
      "Medium model for air" annotation (choicesAllMatching=true);
 
-Here, the optional annotation ``annotation (choicesAllMatching=true)`` is added which causes a GUI to show a drop-down menu with all medium models that extend from ``Modelica.Media.Interfaces.PartialMedium``.
+Here, the optional annotation ``annotation (choicesAllMatching=true)`` is added which causes a GUI to show
+a drop-down menu with all medium models that extend from ``Modelica.Media.Interfaces.PartialMedium``.
 
 If the above sensor requires a medium model, which is likely the case, its declaration would be
-
 
 .. code-block:: modelica
 
@@ -86,8 +114,8 @@ a fixed boundary condition ``Buildings.Fluid.Sources.Boundary_pT``,
 connected in series as shown in the figure below. Note that the instance ``bou``
 implements an equation that sets the medium pressure at its port, i.e., the port pressure ``bou.ports.p`` is fixed.
 
-.. figure:: img/MixingVolumeInitialization.png
-   :scale: 100%
+.. figure:: img/MixingVolumeInitialization.*
+   :width: 300px
 
    Schematic diagram of a flow source, a fluid volume, and a pressure source.
 
@@ -126,7 +154,11 @@ Then, the equations for the mass balance of the fluid volume can be configured a
    at the value ``p(start=Medium.p_default)``, where ``Medium`` is the
    name of the instance of the medium model.
 
-Since the model ``Buildings.Fluid.Sources.Boundary_pT`` fixes the pressure at its port, the initial conditions :math:`p(t_0)=p_0` and :math:`dp(t_0)/dt = 0` lead to an overspecified system for the model shown above. To avoid such situation, use different initial conditions, or add a flow resistance between the mixing volume and the pressure source. The flow resistance introduces an equation that relates the pressure of the mixing volume and the pressure source as a function of the mass flow rate, thereby removing the inconsistency.
+Since the model ``Buildings.Fluid.Sources.Boundary_pT`` fixes the pressure at its port,
+the initial conditions :math:`p(t_0)=p_0` and :math:`dp(t_0)/dt = 0` lead to an overspecified system for the model shown above.
+To avoid such situation, use different initial conditions, or add a flow resistance between the mixing volume and the pressure source.
+The flow resistance introduces an equation that relates the pressure of the mixing volume and
+the pressure source as a function of the mass flow rate, thereby removing the inconsistency.
 
 .. warning::
 
@@ -228,32 +260,55 @@ Therefore, energy, mass fraction and trace substances have identical equations a
 Modeling of fluid junctions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 In Modelica, connecting fluid ports as shown below leads to ideal mixing at the junction.
-In some situation, such as the configuration below, connecting multiple connectors to a fluid port represents the physical phenomena that was intended to model.
+In some situation, such as the configuration below, connecting multiple connectors to
+a fluid port represents the physical phenomena that was intended to model.
 
-.. figure:: img/fluidJunctionMixing.png
-   :scale: 100%
+.. figure:: img/fluidJunctionMixing.*
+   :width: 300px
 
-   Connection of three components without explicitly introducing a mixer or splitter model.
+   Connection of three components without explicitly introducing a flow junction model.
 
-However, in more complex flow configurations, one may want to explicitly control what branches of a piping or duct network mix. This may be achieved by using an instance of the model
-`PressureDrop <https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.PressureDrop>`_ as shown in the left figure below, which is the test model
+However, in more complex flow configurations, one may want to explicitly control what branches of a piping or duct network mix.
+This may be achieved by using an instance of the model
+`Junction <https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.Junction>`_
+as shown in the left figure below, which is derived from the test model
 `BoilerPolynomialClosedLoop <https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Boilers_Examples.html#Buildings.Fluid.Boilers.Examples.BoilerPolynomialClosedLoop>`_
 
-.. figure:: img/fluidJunctionMixingSplitter.png
+.. _fig_flu_cor_wro:
 
-   Correct (left) and wrong (right) connection of components with use of a mixer or splitter model.
+.. figure:: img/fluidJunctionMixingSplitter.*
+   :width: 1200px
 
-In the figure on the left, the mixing points have been correctly defined by use of the three-way model that mixes or splits flow. By setting the nominal pressure drop of the mixer or splitter model to zero, the mixer or splitter model can be simplified so that no equation for the flow resistance is introduced. In addition, in the branch of the splitter that connects to the valve, a pressure drop can be modelled, which then affects the valve authority.
-However, in the figure on the right, the flow that leaves port A is mixing at port B with the return from the volume ``vol``, and then it flows to port C. Thus, the valve is exposed to the wrong temperature.
+   Correct (a) and wrong (b) and (c) connection of components with use of a flow junction model.
+
+In :numref:`fig_flu_cor_wro` (a), the mixing points have been correctly defined by
+use of the model
+`Junction <https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.Junction>`_.
+However, in :numref:`fig_flu_cor_wro` (b), all connections are made to the port of the instance ``spl2``.
+This results in the same configuration as is shown in :numref:`fig_flu_cor_wro` (c).
+This is certainly not the intention of the modeler, as this causes all flows to be mixed in the port.
+Consequently, the valve will received fluid at this mixing temperature rather than at the return temperature from the radiator,
+e.g., the system model is wrong.
+
+The overhead for the simulation of these flow junctions can be reduced by
+setting the nominal pressure drop of flow junction model to zero,
+which will remove the pressure drop equation.
 
 
 Use of sensors in fluid flow systems
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-When selecting a sensor model, a distinction needs to be made whether the measured quantity depends on the direction of the flow or not. If the quantity depends on the flow direction, such as temperature or relative humidity, then sensors with two ports from the
-`Buildings.Fluid.Sensors <https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors>`_ library should be used. These sensors have a more efficient implementation than sensors with one port for situations where the flow reverses its direction.
+
+When selecting a sensor model, a distinction needs to be made whether the measured quantity depends on
+the direction of the flow or not. If the quantity depends on the flow direction,
+such as temperature or relative humidity, then sensors with two ports from the
+`Buildings.Fluid.Sensors <https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors>`_
+library should be used. These sensors have a more efficient implementation than sensors with
+one port for situations where the flow reverses its direction.
 The proper use sensors is described in the
-`User's Guide <https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Sensors_UsersGuide.html>`_ of the
-`Buildings.Fluid.Sensors <https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors>`_ package.
+`User's Guide <https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Sensors_UsersGuide.html>`_
+of the
+`Buildings.Fluid.Sensors <https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors>`_
+package.
 
 
 .. _ReferencePressureIncompressibleFluids:
@@ -261,30 +316,33 @@ The proper use sensors is described in the
 Reference pressure for incompressible fluids such as water
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-This section explains how to set a reference pressure for incompressible fluids. For fluids that model density as a function of temperature, the section also shows how to account for the thermal expansion of the fluid.
+This section explains how to set a reference pressure for fluids that model
+the flow as :term:`incompressible flow`,
+such as
+`Buildings.Media.Water <https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Media_Water.html#Buildings.Media.Water>`_
+and
+`Buildings.Media.Antifreeze.PropyleneGlycolWater <https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Media_Antifreeze_PropyleneGlycolWater.html#Buildings.Media.Antifreeze.PropyleneGlycolWater>`_.
 
-Consider the flow circuit shown below that consists of a pump or fan, a flow resistance and a volume.
+Consider the flow circuit shown in :numref:`fig_flow_cir` that consists of a pump or fan,
+a flow resistance and a volume.
 
-.. figure:: img/flowCircuitNoExpansion.png
-   :scale: 60%
+.. _fig_flow_cir:
+
+.. figure:: img/flowCircuit.*
+   :width: 400pt
 
    Schematic diagram of a flow circuit without means
    to set a reference pressure, or to account for
    thermal expansion of the fluid.
 
 When this model is used with a medium model that models
-:term:`compressible flow`, such as
-the medium model `Buildings.Media.Air <https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Media_Air.html#Buildings.Media.Air>`_,
-then the model is well defined because the gas medium implements the
-equation :math:`p=\rho \, R \, T`,
-where :math:`p` is the static pressure, :math:`\rho` is the mass density,
-:math:`R` is the gas constant and :math:`T` is the absolute temperature.
+:term:`compressible flow`,
+then the model is well defined because the gas medium implements
+an equation that relates density to pressure.
 
 However, when the medium model is changed to a model that models
-:term:`incompressible flow`, such as
-`Buildings.Media.Water <https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Media_Water.html#Buildings.Media.Water>`_,
-then the density is constant. Consequently, there is no equation that
-can be used to compute the pressure based on the volume.
+:term:`incompressible flow`,
+then there is no equation that can be used to compute the pressure.
 In this situation, attempting to translate the model leads, in Dymola, to the following error message:
 
 .. code-block:: none
@@ -306,49 +364,64 @@ the pressure increases from :math:`1 \, \mathrm{bars}` to :math:`150 \, \mathrm{
 To avoid this singularity or increase in pressure,
 use a model that imposes a pressure source and that accounts for the expansion of the fluid.
 For example, use
-`Buildings.Fluid.Storage.ExpansionVessel <https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Storage.html#Buildings.Fluid.Storage.ExpansionVessel>`_
-to form the system model shown below.
+`Buildings.Fluid.Sources.Boundary_pT <https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT>`_
+to form the system model shown in :numref:`fig_flow_cir_wit_bou`.
 
-.. figure:: img/flowCircuitWithExpansionVessel.png
-   :scale: 60%
+.. _fig_flow_cir_wit_bou:
 
-   Schematic diagram of a flow circuit with expansion vessel that
-   adds a pressure source and accounts for the thermal expansion
-   of the medium.
+.. figure:: img/flowCircuitWithBoundary.*
+   :width: 400pt
+
+   Schematic diagram of a flow circuit with a model that
+   provides a reference presssure.
 
 Alternatively, you may use
-`Buildings.Fluid.Sources.Boundary_pT <https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT>`_, which sets the pressure to a constant value
-and adds or removes fluid as needed to maintain the pressure.
-The model `Buildings.Fluid.Sources.Boundary_pT <https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT>`_ usually leads to simpler equations than
+`Buildings.Fluid.Storage.ExpansionVessel <https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Storage.html#Buildings.Fluid.Storage.ExpansionVessel>`_,
+but
+`Buildings.Fluid.Sources.Boundary_pT <https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT>`_
+usually leads to simpler equations than
 `Buildings.Fluid.Storage.ExpansionVessel <https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Storage.html#Buildings.Fluid.Storage.ExpansionVessel>`_.
 Note that the medium that flows out of the fluid port of
 `Buildings.Fluid.Sources.Boundary_pT <https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT>`_
 is at a fixed temperature, while the model
-`Buildings.Fluid.Storage.ExpansionVessel <https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Storage.html#Buildings.Fluid.Storage.ExpansionVessel>`_ conserves energy.
-However, since the thermal expansion of the fluid is usually small, this effect can be neglected in most building HVAC applications.
+`Buildings.Fluid.Storage.ExpansionVessel <https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Storage.html#Buildings.Fluid.Storage.ExpansionVessel>`_
+conserves energy.
+However, since the thermal expansion of the fluid is usually small,
+this effect can be neglected in most building HVAC applications.
 
-.. figure:: img/flowCircuitWithBoundary.png
-   :scale: 60%
+.. note::
 
-   Schematic diagram of a flow circuit with a boundary model that adds
-   a fixed pressure source and accounts for any thermal expansion
-   of the medium.
+   In each water circuit, there must be exactly on instance of
+   `Buildings.Fluid.Sources.Boundary_pT
+   <https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT>`_,
+   or instance of
+   `Buildings.Fluid.Storage.ExpansionVessel
+   <https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Storage.html#Buildings.Fluid.Storage.ExpansionVessel>`_.
+
+   If there is more than one such device, then there are multiple
+   points in the system that set the reference static pressure.
+   This will affect the distribution of the mass flow rate.
 
 
 .. note::
 
-   In each water circuit, there must be one, and only one, instance of
-   `Buildings.Fluid.Storage.ExpansionVessel
-   <https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Storage.html#Buildings.Fluid.Storage.ExpansionVessel>`_,
-   or instance of
-   `Buildings.Fluid.Sources.Boundary_pT
-   <https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT>`_.
-   If there is no such device, then the absolute pressure
-   may not be defined, or it may raise to an unrealistically large
-   value if the medium density changes.
-   If there is more than one such device, then there are multiple
-   points in the system that set the reference static pressure.
-   This will affect the distribution of the mass flow rate.
+   If Dymola fails to translate a model with the error message::
+
+      Error: The initialization problem is overspecified for variables
+      of element type Real
+      The initial equation
+      ...
+      refers to variables, which are all knowns.
+      To correct it you can remove this equation.
+
+   then the initialization problem is overspecified. To avoid this, set
+
+   .. code-block:: modelica
+
+      energyDynamics = Modelica.Fluid.Types.Dynamics.DynamicsFreeInitial;
+      massDynamics = Modelica.Fluid.Types.Dynamics.DynamicsFreeInitial;
+
+   in the instances of the components that contain fluid volumes.
 
 
 Nominal Values
@@ -408,111 +481,6 @@ parameters in various model to help the user understand how they are used.
 |                     |                           | See for example WetCoilDiscretized_.                                     |
 +---------------------+---------------------------+--------------------------------------------------------------------------+
 
-
-
-
-
-
-Start values of iteration variables
------------------------------------
-
-When computing numerical solutions to systems of nonlinear equations, a Newton-based solver is typically used. Such solvers have a higher success of convergence if good start values are provided for the iteration variables. In Dymola, to see what start values are used, one can enter on the simulation tab the command
-
-.. code-block:: none
-
-   Advanced.LogStartValuesForIterationVariables = true;
-
-Then, when a model is translated, for example using
-
-.. code-block:: none
-
-   translateModel("Buildings.Fluid.Boilers.Examples.BoilerPolynomialClosedLoop");
-
-an output of the form
-
-.. code-block:: none
-
-   Start values for iteration variables:
-    val.res1.dp(start = 3000.0)
-    val.res3.dp(start = 3000.0)
-
-is produced. This shows the iteration variables and their start values. These start values can be overwritten in the model.
-
-
-Avoiding events
----------------
-
-In Modelica, the time integration is halted whenever a Real elementary
-operation such as :math:`x>y`, where :math:`x` and :math:`y` are variables of type ``Real``,
-changes its value. In this situation,
-an event occurs and the solver determines a small interval in time in which
-the relation changes its value. Determining this time interval
-often requires an iterative solution, which can significantly
-increase the computing time if the iteration require
-the evaluation of a large system of equations.
-An example where such an event occurs is the following relation
-that computes the enthalpy of the medium that streams through ``port_a`` as
-
-.. code-block:: modelica
-
-		if port_a.m_flow > 0 then
-		  h_a = inStream(port_a.h_outflow);
-		else
-		  h_a = port_a.h_outflow;
-		end if;
-
-or, equivalently,
-
-.. code-block:: modelica
-
-		h_a = if port_a.m_flow > 0 then inStream(port_a.h_outflow) else port_a.h_outflow;
-
-When simulating a model that contains such code, a time integrator
-will iterate to find the time instant where ``port_a.m_flow`` crosses zero.
-If the modeling assumptions allow approximating this equation in
-a neighborhood around ``port_a.m_flow=0``, then replacing this equation
-with an approximation that does not require an event iteration can
-reduce computing time. For example, the above equation could be
-approximated as
-
-.. code-block:: modelica
-
-		T_a = Modelica.Fluid.Utilities.regStep(
-		  port_a.m_flow, inStream(port_a.h_outflow), port_a.h_outflow,
-		  m_flow_nominal*1E-4);
-
-
-where ``m_flow_nominal`` is a parameter that is set to a value that
-is close to the mass flow rate that the model has at full load.
-If the magnitude of the flow rate is larger than 1E-4 times the
-typical flow rate, the approximate equation is the same as the exact equation,
-and below that value, an approximation is used. However, for such small
-flow rates, not much energy is transported and hence the error introduced
-by the approximation is generally negligible.
-
-In some cases, adding dynamics to the model can further improve
-the computing time, because the return value of the function
-`Modelica.Fluid.Utilities.regStep() <https://simulationresearch.lbl.gov/modelica/releases/msl/3.2/help/Modelica_Fluid_Utilities.html#Modelica.Fluid.Utilities.regStep>`_
-above can change abruptly if its argument ``port_a.m_flow`` oscillates in the range of
-``+/- 1E-4*m_flow_nominal``,
-for example due to :term:`numerical noise`.
-Adding dynamics may be achieved using a formulation such as
-
-.. code-block:: modelica
-
-		hMed = Modelica.Fluid.Utilities.regStep(
-		  port_a.m_flow, inStream(port_a.h_outflow), port_a.h_outflow,
-		  m_flow_nominal*1E-4);
-		der(h)=(hMed-h)/tau;
-
-where ``tau``>0 is a time constant. See, for example,
-`Buildings.Fluid.Sensors.SpecificEnthalpyTwoPort <https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.SpecificEnthalpyTwoPort>`_
-for a robust implementation.
-
-.. note::
-   In the package
-   `Buildings.Utilities.Math <https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Utilities_Math.html#Buildings.Utilities.Math>`_
-   the functions and blocks whose names start with ``smooth`` can be used to avoid events.
 
 .. _sec_bes_pra_con:
 
@@ -584,181 +552,35 @@ because the ``if-then-else`` construct triggers an event iteration whenever
    See :ref:`sec-example-event-debugging` for what can happen in
    such tests.
 
-.. _sec-example-event-debugging:
 
-Examples for how to debug and correct slow simulations
-------------------------------------------------------
+Start values of iteration variables
+-----------------------------------
 
-State events
-~~~~~~~~~~~~
-
-This section shows how a simulation that stalls due to events can be debugged
-to find the root cause, and then corrected.
-While the details may differ from one tool to another, the principle is the same.
-In our situation, we attempted to simulate ``Buildings.Examples.DualFanDualDuct``
-for one year in Dymola 2016 FD01 using the model from Buildings version 3.0.0.
-We run
-
-.. code-block:: modelica
-
-   simulateModel("Buildings.Examples.DualFanDualDuct.ClosedLoop",
-                  stopTime=31536000, method="radau",
-                  tolerance=1e-06, resultFile="DualFanDualDuctClosedLoop");
-
-and plotted the computing time and the number of events. Around :math:`t=0.95e7` seconds,
-there was a spike as shown in the figure below.
-
-.. figure:: img/DualFanDualDuct-cpu-events.*
-   :scale: 60%
-
-   Computing time and number of events.
-
-As the number of events increased drastically, we enabled in Dymola in
-`Simulation -> Setup`, under the tab `Debug` the entry `Events during simulation`
-and simulated the model from
-:math:`t=0.9e7` to :math:`t=1.0e7` seconds. It turned out that setting the start time
-to :math:`t=0.9e7` seconds was sufficient to reproduce the behavior;
-otherwise we would
-have had to set it to an earlier time.
-Inspecting Dymola's log file ``dslog.txt`` when the simulation stalls shows that its last entries
-are
-
-.. code-block:: modelica
-
-   Expression TRet.T > amb.x_pTphi.T became true ( (TRet.T)-(amb.x_pTphi.T) = 2.9441e-08 )
-   Iterating to find consistent restart conditions.
-         during event at Time :  9267949.854873843
-   Expression TRet.T > amb.x_pTphi.T became false ( (TRet.T)-(amb.x_pTphi.T) = -2.94411e-08 )
-   Iterating to find consistent restart conditions.
-         during event at Time :  9267949.855016639
-   Expression TRet.T > amb.x_pTphi.T became true ( (TRet.T)-(amb.x_pTphi.T) = 2.94407e-08 )
-   Iterating to find consistent restart conditions.
-         during event at Time :  9267949.855208419
-   Expression TRet.T > amb.x_pTphi.T became false ( (TRet.T)-(amb.x_pTphi.T) = -2.94406e-08 )
-   Iterating to find consistent restart conditions.
-         during event at Time :  9267949.855351238
-
-Hence, there is an event every few milliseconds, which explains
-why the simulation does not appear to be progessing.
-The solver does the right thing, it stops
-the integration, handles the event, and restarts the integration, just to encounter
-another event a few milliseconds later.
-Hence, we go back to our system model and
-follow the output signal of ``TRet.T`` of the
-return air temperature sensor,
-which shows that it is used in the economizer control
-to switch the sign of the control gain because the economizer can provide heating or cooling,
-depending on the ambient and return air temperature. The problematic model is
-shown in the figure below.
-
-.. _fig-dualfan-eco-con-bad:
-
-.. figure:: img/EconomizerTemperatureControl-bad.*
-   :scale: 100%
-
-   Block diagram of part of the economizer control that computes the outside air damper
-   control signal. This implementation triggers many events.
-
-The events are triggered by the inequality block which changes the control, which then in turn
-seems to cause a slight change in the return air temperature, possibly due
-to :term:`numerical noise` or maybe because the return fan may change its operating point
-as the dampers are adjusted, and hence change the heat
-added to the medium. Regardless, this is a bad implementation that also
-would cause oscillatory behavior in a real system if the sensor signal had
-measurement noise.
-Therefore, this equality comparison must be replaced by a block with hysteresis,
-which we did as shown in the figure below.
-We selected a hysteresis of :math:`0.2` Kelvin, and now the model runs fine
-for the whole year.
-
-.. _fig-dualfan-eco-con-revised:
-
-.. figure:: img/EconomizerTemperatureControl-revised.*
-   :scale: 100%
-
-   Block diagram of part of the revised economizer control that computes the outside air damper
-   control signal.
-
-
-State variables that dominate the error control
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-In a development version of the model
-``Buildings.Examples.DualFanDualDuct.ClosedLoop``
-(commit `ef410ee <https://github.com/lbl-srg/modelica-buildings/commit/ef410ee8a5d1816f8b8e171da7743e15caaa3163>`_),
-the simulation time was very slow during part of the
-simulation, as shown in :numref:`fig-dualfan-filtered-speed`.
-
-
-.. _fig-dualfan-filtered-speed:
-
-.. figure:: img/DualFanDualDuctWithFilteredSpeed.*
-   :scale: 100%
-
-   Computing time and number of events.
-
-The number of state events did not increase in that time interval.
-To isolate the problem, we enabled in Dymola under `Simulation -> Setup` the
-option to log which states dominate the error (see `Debug` tab).
-
-Running the simulation again gave the following output:
+When computing numerical solutions to systems of nonlinear equations, a Newton-based solver
+is typically used. Such solvers have a higher success of convergence
+if good start values are provided for the iteration variables. In Dymola,
+to see what start values are used, one can enter on the simulation tab the command
 
 .. code-block:: none
 
-   Integration terminated successfully at T = 1.66e+07
-     Limit stepsize, Dominate error, Exceeds 10% of error Component (#number)
-         0     1     6 cooCoi.temSen_1.T (#  1)
-        36     0   140 cooCoi.temSen_2.T (#  2)
-        37     0     0 cooCoi.ele[1].mas.T (#  3)
-        45     0     0 cooCoi.ele[2].mas.T (#  4)
-        51     0     0 cooCoi.ele[3].mas.T (#  5)
-        53     0     0 cooCoi.ele[4].mas.T (#  6)
-     13555 13201 19064 fanSupHot.filter.x[1] (#  7)
-     11905  2170 12394 fanSupHot.filter.x[2] (#  8)
-       400    47   419 fanSupCol.filter.x[1] (#  9)
-       420    71   521 fanSupCol.filter.x[2] (# 10)
-      5082  2736  6732 fanRet.filter.x[1] (# 11)
-      1979    25  4974 fanRet.filter.x[2] (# 12)
-        38     0     3 TPreHeaCoi.T (# 13)
-        30     0     1 TRet.T (# 14)
-        38     0     3 TMix.T (# 15)
-        80     0     0 TCoiCoo.T (# 16)
-       305    22   275 cor.vavHot.filter.x[1] (# 18)
+   Advanced.LogStartValuesForIterationVariables = true;
 
-Hence, the state variables
+Then, when a model is translated, for example using
 
 .. code-block:: none
 
-     13555 13201 19064 fanSupHot.filter.x[1] (#  7)
-     11905  2170 12394 fanSupHot.filter.x[2] (#  8)
-       400    47   419 fanSupCol.filter.x[1] (#  9)
-       420    71   521 fanSupCol.filter.x[2] (# 10)
-      5082  2736  6732 fanRet.filter.x[1] (# 11)
-      1979    25  4974 fanRet.filter.x[2] (# 12)
+   translateModel("Buildings.Fluid.Boilers.Examples.BoilerPolynomialClosedLoop");
 
-limit the step size significantly more often than other variables.
-Therefore, we removed these state variables
-by setting in the fan models the parameter ``filteredSpeed=false``.
-After this change, the model simulates without problems.
+an output of the form
 
+.. code-block:: none
 
-Numerical solvers
------------------
-Dymola 2017 is configured to use dassl as a default solver with a tolerance of
-1E-4.
-We recommend to change this setting to radau with a tolerance of around
-1E-6, as this generally leads to faster and more robust
-simulation for thermo-fluid flow systems.
+   Start values for iteration variables:
+    val.res1.dp(start = 3000.0)
+    val.res3.dp(start = 3000.0)
 
-Note that this is the error tolerance of the local integration time step.
-Most ordinary differential equation solvers only control the local
-integration error and not the global integration error.
-As a rule of thumb, the global integration error is one
-order of magnitude larger than the local integration error.
-However, the actual magnitude of the global integration error
-depends on the stability of the differential equation.
-As an extreme case, if a system is chaotic
-and uncontrolled, then the global integration error will grow rapidly.
+is produced. This shows the iteration variables and their start values.
+These start values can be overwritten in the model.
 
 
 .. _PressureDrop: https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.PressureDrop
