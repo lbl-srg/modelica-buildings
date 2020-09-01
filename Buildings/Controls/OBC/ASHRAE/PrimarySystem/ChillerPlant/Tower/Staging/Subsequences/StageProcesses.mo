@@ -77,8 +77,8 @@ protected
   Buildings.Controls.OBC.CDL.Logical.And and5
     "Check if the isolation valve has been fully open"
     annotation (Placement(transformation(extent={{80,-80},{100,-60}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr(
-    final threshold=chaTowCelIsoTim)
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greEquThr(
+    final t=chaTowCelIsoTim)
     "Check if it has past the target time of open isolation valve "
     annotation (Placement(transformation(extent={{40,-100},{60,-80}})));
   Buildings.Controls.OBC.CDL.Logical.And and1[nTowCel]

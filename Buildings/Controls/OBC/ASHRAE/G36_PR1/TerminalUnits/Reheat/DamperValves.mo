@@ -4,12 +4,12 @@ block DamperValves
 
   parameter Real dTDisZonSetMax(
     final unit="K",
-    displayUnit="K",
+    final displayUnit="K",
     final quantity="TemperatureDifference")=11
     "Zone maximum discharge air temperature above heating setpoint";
   parameter Real TDisMin(
     final unit="K",
-    displayUnit="degC",
+    final displayUnit="degC",
     final quantity="ThermodynamicTemperature")=283.15
     "Lowest discharge air temperature";
 
@@ -132,28 +132,28 @@ block DamperValves
       iconTransformation(extent={{-20,-20},{20,20}},rotation=90,origin={40,-120})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSup(
     final unit="K",
-    displayUnit="degC",
+    final displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Supply air temperature from central air handler"
     annotation (Placement(transformation(extent={{-360,-50},{-320,-10}}),
         iconTransformation(extent={{-140,0},{-100,40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaSet(
     final unit="K",
-    displayUnit="degC",
+    final displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Zone heating setpoint temperature"
     annotation (Placement(transformation(extent={{-360,-80},{-320,-40}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZon(
     final unit="K",
-    displayUnit="degC",
+    final displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Measured zone temperature"
     annotation (Placement(transformation(extent={{-360,-270},{-320,-230}}),
         iconTransformation(extent={{-140,-60},{-100,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TDis(
     final unit="K",
-    displayUnit="degC",
+    final displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Measured discharge air temperature"
     annotation (Placement(transformation(extent={{-360,110},{-320,150}}),
@@ -183,7 +183,7 @@ block DamperValves
         iconTransformation(extent={{100,60},{140,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TDisHeaSet(
     final unit="K",
-    displayUnit="degC",
+    final displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Discharge airflow setpoint temperature for heating"
     annotation (Placement(transformation(extent={{320,-160},{360,-120}}),
@@ -209,7 +209,7 @@ block DamperValves
   Buildings.Controls.OBC.CDL.Continuous.Line lin3
     "Active airflow setpoint for heating"
     annotation (Placement(transformation(extent={{-80,-310},{-60,-290}})));
-  Buildings.Controls.OBC.CDL.Continuous.LimPID conVal(
+  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset conVal(
     final controllerType=controllerTypeVal,
     final k=kVal,
     final Ti=TiVal,
@@ -217,18 +217,16 @@ block DamperValves
     final yMax=1,
     final yMin=0,
     u_s(final unit="K", displayUnit="degC"),
-    u_m(final unit="K", displayUnit="degC"),
-    reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter)
+    u_m(final unit="K", displayUnit="degC"))
     "Hot water valve controller"
     annotation (Placement(transformation(extent={{34,-90},{54,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.LimPID conDam(
+  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset conDam(
     final controllerType=controllerTypeDam,
     final k=kDam,
     final Ti=TiDam,
     final Td=TdDam,
     final yMax=1,
     final yMin=0,
-    final reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter,
     final y_reset=0) if not have_pressureIndependentDamper
     "Damper position controller"
     annotation (Placement(transformation(extent={{280,220},{300,240}})));
@@ -540,7 +538,7 @@ equation
   connect(isUno.y, not5.u) annotation (Line(points={{242,-312},{266,-312},{266,-280},
           {180,-280},{180,-250},{198,-250}}, color={255,0,255}));
   connect(not5.y, conDam.trigger) annotation (Line(points={{222,-250},{232,-250},
-          {232,170},{284,170},{284,178}}, color={255,0,255}));
+          {232,170},{284,170},{284,218}}, color={255,0,255}));
   connect(truHol2.y, or2.u2) annotation (Line(points={{-200,-210},{-88,-210},{-88,
           -62},{-70,-62}},     color={255,0,255}));
   connect(truDel3.y, not3.u)

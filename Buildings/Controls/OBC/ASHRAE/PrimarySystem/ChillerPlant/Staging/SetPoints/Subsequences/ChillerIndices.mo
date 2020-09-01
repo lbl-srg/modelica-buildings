@@ -58,7 +58,7 @@ protected
     final rowMax=false) "Column-wise matrix maximum"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold chiInSta[nChi](threshold=fill(0.5, nChi))
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold chiInSta[nChi](t=fill(0.5, nChi))
     "Identifies chillers designated to operate in a given stage"
     annotation (Placement(transformation(extent={{140,-10},{160,10}})));
 

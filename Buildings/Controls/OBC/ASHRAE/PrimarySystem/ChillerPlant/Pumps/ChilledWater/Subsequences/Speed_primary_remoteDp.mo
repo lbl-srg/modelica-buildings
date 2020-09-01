@@ -1,4 +1,4 @@
-within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.ChilledWater.Subsequences;
+﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.ChilledWater.Subsequences;
 block Speed_primary_remoteDp
   "Pump speed control for primary-only plants where the remote DP sensor(s) is hardwired to the plant controller"
   parameter Integer nSen = 2
@@ -55,14 +55,13 @@ block Speed_primary_remoteDp
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Line pumSpe "Pump speed"
     annotation (Placement(transformation(extent={{60,50},{80,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.LimPID conPID[nSen](
+  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset conPID[nSen](
     final controllerType=fill(controllerType, nSen),
     final k=fill(k, nSen),
     final Ti=fill(Ti, nSen),
     final Td=fill(Td, nSen),
     final yMax=fill(1, nSen),
     final yMin=fill(0, nSen),
-    final reset=fill(Buildings.Controls.OBC.CDL.Types.Reset.Parameter, nSen),
     final y_reset=fill(0, nSen)) "Pump speed controller"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 

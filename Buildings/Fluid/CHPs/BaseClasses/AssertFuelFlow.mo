@@ -23,15 +23,16 @@ protected
     final uHigh=1.01*dmFueMax_flow + 1e-6)
     "Check if fuel mass flow rate is changing too much"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Derivative floChaRat(
-    final x_start=0) "Rate at which fuel mass flow rate changes"
+  Modelica.Blocks.Continuous.Derivative floChaRat(
+    final initType=Modelica.Blocks.Types.Init.InitialOutput)
+    "Rate at which fuel mass flow rate changes"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Abs abs1 "Absolute value"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 
 equation
   connect(abs1.u, floChaRat.y)
-    annotation (Line(points={{-42,0},{-58,0}}, color={0,0,127}));
+    annotation (Line(points={{-42,0},{-59,0}}, color={0,0,127}));
   connect(floChaRat.u, mFue_flow)
     annotation (Line(points={{-82,0},{-120,0}}, color={0,0,127}));
   connect(not1.y, assMes.u)

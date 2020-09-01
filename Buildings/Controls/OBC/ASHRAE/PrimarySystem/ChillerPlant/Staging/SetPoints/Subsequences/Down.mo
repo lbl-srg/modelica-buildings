@@ -126,7 +126,7 @@ protected
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
   Buildings.Controls.OBC.CDL.Integers.GreaterThreshold intGreThr(
-    final threshold=1)
+    final t=1)
     "Switches staging down rules"
     annotation (Placement(transformation(extent={{-120,-170},{-100,-150}})));
 

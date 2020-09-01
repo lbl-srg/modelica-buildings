@@ -1,17 +1,15 @@
 compareVars :=
   {
-    "resetTimer.u",
-    "resetTimer.y",
-    "accuTimer.u",
-    "accuTimer.reset",
-    "accuTimer.y",
-    "accuTimer1.u",
-    "accuTimer1.reset",
-    "accuTimer1.y",
-    "accuTimer2.u",
-    "accuTimer2.reset",
-    "accuTimer2.y",
-    "accuTimer3.u",
-    "accuTimer3.reset",
-    "accuTimer3.y"
+    "noThr.u",
+    "noThr.y",
+    "noThr.t",
+    "noThr.passed",
+    "thrTim.u",
+    "thrTim.y",
+    "thrTim.t",
+    "thrTim.passed",
+    "thrTim1.u",
+    "thrTim1.y",
+    "thrTim1.t",
+    "thrTim1.passed"
   };

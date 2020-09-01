@@ -317,12 +317,12 @@ protected
     annotation (Placement(transformation(extent={{260,280},{280,300}})));
 
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
-    final threshold=-0.5)
+    final t=-0.5)
     "Less than threshold"
     annotation (Placement(transformation(extent={{220,200},{240,220}})));
 
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr1(
-    final threshold=-0.5) "Less than threshold"
+    final t=-0.5) "Less than threshold"
     annotation (Placement(transformation(extent={{160,-110},{180,-90}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Division opePlrDow

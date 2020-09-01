@@ -63,20 +63,21 @@ protected
     Buildings.Controls.OBC.CDL.Types.Extrapolation.Periodic
     "Extrapolation of data outside the definition range";
 
-  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold schOn(
-    final threshold=0.5)
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold schOn(
+    final t=0.5)
     "Check if enabling schedule is active"
     annotation (Placement(transformation(extent={{-100,40},{-80,60}})));
 
   Buildings.Controls.OBC.CDL.Logical.Not not1 "Logical not"
     annotation (Placement(transformation(extent={{-140,110},{-120,130}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Timer disTim
-    "Chiller plant disabled time"
+  Buildings.Controls.OBC.CDL.Logical.Timer disTim(
+    final t=plaThrTim)
+    "Check if chiller plant has been disabled more than threshold time"
     annotation (Placement(transformation(extent={{-100,110},{-80,130}})));
 
   Buildings.Controls.OBC.CDL.Integers.GreaterThreshold hasReq(
-    final threshold=ignReq)
+    final t=ignReq)
     "Check if the number of chiller plant request is greater than the number of ignorable request"
     annotation (Placement(transformation(extent={{-140,80},{-120,100}})));
 
@@ -84,11 +85,14 @@ protected
     final nu=4) "Logical and receiving multiple input"
     annotation (Placement(transformation(extent={{40,70},{60,90}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Timer enaTim "Chiller plant enabled time"
+  Buildings.Controls.OBC.CDL.Logical.Timer enaTim(
+    final t=plaThrTim)
+    "Check if chiller plant has been enabled more than threshold time"
     annotation (Placement(transformation(extent={{-140,-20},{-120,0}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Timer enaTim1
-    "Total time when chiller plant request is less than ignorable request"
+  Buildings.Controls.OBC.CDL.Logical.Timer enaTim1(
+    final t=reqThrTim)
+    "Check if number of chiller plant request has been less than ignorable request by more than threshold time"
     annotation (Placement(transformation(extent={{-100,-80},{-80,-60}})));
 
   Buildings.Controls.OBC.CDL.Logical.Not not2 "Logical not"
@@ -106,21 +110,6 @@ protected
     final uHigh=locDt)
     "Check if outdoor temperature is higher than chiller lockout temperature"
     annotation (Placement(transformation(extent={{-100,-140},{-80,-120}})));
-
-  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr(
-    final threshold=plaThrTim)
-    "Check if chiller plant has been disabled more than threshold time"
-    annotation (Placement(transformation(extent={{-60,110},{-40,130}})));
-
-  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr1(
-    final threshold=plaThrTim)
-    "Check if chiller plant has been enabled more than threshold time"
-    annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
-
-  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr2(
-    final threshold=reqThrTim)
-    "Check if number of chiller plant request has been less than ignorable request by more than threshold time"
-    annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
 
   Buildings.Controls.OBC.CDL.Logical.Or3 mulOr "Logical or"
     annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
@@ -148,20 +137,10 @@ equation
     annotation (Line(points={{-118,50},{-102,50}},   color={0,0,127}));
   connect(not1.y, disTim.u)
     annotation (Line(points={{-118,120},{-102,120}}, color={255,0,255}));
-  connect(disTim.y, greEquThr.u)
-    annotation (Line(points={{-78,120},{-62,120}}, color={0,0,127}));
   connect(chiWatSupResReq, hasReq.u)
     annotation (Line(points={{-220,90},{-142,90}},   color={255,127,0}));
-  connect(enaTim.y, greEquThr1.u)
-    annotation (Line(points={{-118,-10},{-102,-10}},
-                                                   color={0,0,127}));
-  connect(enaTim1.y, greEquThr2.u)
-    annotation (Line(points={{-78,-70},{-62,-70}}, color={0,0,127}));
-  connect(greEquThr1.y, and2.u1)
-    annotation (Line(points={{-78,-10},{38,-10}},
-      color={255,0,255}));
-  connect(greEquThr.y, mulAnd.u[1])
-    annotation (Line(points={{-38,120},{20,120},{20,85.25},{38,85.25}},
+  connect(disTim.passed, mulAnd.u[1])
+    annotation (Line(points={{-78,112},{20,112},{20,85.25},{38,85.25}},
       color={255,0,255}));
   connect(hasReq.y, mulAnd.u[2])
     annotation (Line(points={{-118,90},{-20,90},{-20,81.75},{38,81.75}},
@@ -181,8 +160,6 @@ equation
       color={255,0,255}));
   connect(not2.y, mulOr.u1)
     annotation (Line(points={{2,-50},{20,-50},{20,-62},{38,-62}}, color={255,0,255}));
-  connect(greEquThr2.y, mulOr.u2)
-    annotation (Line(points={{-38,-70},{38,-70}}, color={255,0,255}));
   connect(hasReq.y, not3.u)
     annotation (Line(points={{-118,90},{-20,90},{-20,70},{-180,70},{-180,-70},{-142,
           -70}},   color={255,0,255}));
@@ -213,8 +190,15 @@ equation
   connect(not4.y, mulAnd.u[4])
     annotation (Line(points={{2,10},{20,10},{20,74.75},{38,74.75}},
       color={255,0,255}));
-  connect(and2.y, lat.clr) annotation (Line(points={{62,-10},{80,-10},{80,74},{98,
-          74}},     color={255,0,255}));
+  connect(and2.y, lat.clr)
+    annotation (Line(points={{62,-10},{80,-10},{80,74},{98,74}},
+      color={255,0,255}));
+  connect(enaTim1.passed, mulOr.u2)
+    annotation (Line(points={{-78,-78},{-20,-78},{-20,-70},{38,-70}},
+      color={255,0,255}));
+  connect(enaTim.passed, and2.u1)
+    annotation (Line(points={{-118,-18},{-80,-18},{-80,-10},{38,-10}},
+      color={255,0,255}));
 
 annotation (
   defaultComponentName = "plaEna",

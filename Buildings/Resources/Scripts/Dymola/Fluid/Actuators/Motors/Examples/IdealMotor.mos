@@ -1,6 +1,6 @@
 temStoPro := Advanced.StoreProtectedVariables;
 Advanced.StoreProtectedVariables:=true;
-simulateModel("Buildings.Fluid.Actuators.Motors.Examples.IdealMotor", tolerance=1e-6, stopTime=600, method="dassl", resultFile="IdealMotor");
+simulateModel("Buildings.Fluid.Actuators.Motors.Examples.IdealMotor", tolerance=1e-6, stopTime=600, method="CVode", resultFile="IdealMotor");
 createPlot(id = 1,
  position = {2, 3, 1025, 654},
  y = {"mot.y", "mot.uppHys.y", "mot.delta", "ySet.y"},
