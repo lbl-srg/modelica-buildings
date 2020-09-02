@@ -24,8 +24,6 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CMAKE_BUILD_TYPE}")
 
 set(BUILDINGS_INSTALL_PREFIX "${CMAKE_SOURCE_DIR}/Buildings")
 
-set(CMAKE_INSTALL_PREFIX "${BUILDINGS_INSTALL_PREFIX}/Resources/Library/${PLATFORM_INSTALL_PREFIX}/" )
-
 # Output build system directories.
 message("CMake source directory is: ${CMAKE_SOURCE_DIR}")
 
@@ -63,6 +61,8 @@ else()
     message(FATAL_ERROR "OS unknown!")
 endif()
 
+set(CMAKE_INSTALL_PREFIX "${BUILDINGS_INSTALL_PREFIX}/Resources/Library/${PLATFORM_INSTALL_PREFIX}/" )
+
 if (LINUX)
 add_definitions(-D_GNU_SOURCE)
 message("Added GNU_SOURCE")
@@ -95,7 +95,7 @@ target_include_directories( ModelicaBuildingsEnergyPlus
 #link_directories(${CMAKE_SOURCE_DIR}/Buildings/Resources/Library/darwin64)
 
 target_link_libraries( ModelicaBuildingsEnergyPlus
-#  PRIVATE libfmilib_shared
+# test for Windows  PRIVATE ${CMAKE_INSTALL_PREFIX}fmilib_shared.lib
   PRIVATE ${CMAKE_DL_LIBS}
 )
 
