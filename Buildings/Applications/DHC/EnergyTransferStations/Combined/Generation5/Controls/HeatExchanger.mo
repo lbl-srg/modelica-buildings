@@ -76,16 +76,21 @@ model HeatExchanger
     "Control signal for secondary side (from supervisory)" annotation (
       Placement(transformation(extent={{-260,100},{-220,140}}),
         iconTransformation(extent={{-140,60},{-100,100}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold      greThr(threshold=
-        Modelica.Constants.eps) "Check if secondary side is enabled"
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
+    final t=0.05,
+    final h=0.025) "Check if secondary side is enabled"
     annotation (Placement(transformation(extent={{-170,110},{-150,130}})));
   Buildings.Controls.OBC.CDL.Logical.And and2
     "At least one valve is open and HX circuit is enabled"
     annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold heaRej(threshold=0.9)
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold heaRej(
+    final t=0.9,
+    final h=0.1)
     "Heat rejection if condenser isolation valve is open"
     annotation (Placement(transformation(extent={{-170,70},{-150,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold cooRej(threshold=0.9)
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold cooRej(
+    final t=0.9,
+    final h=0.1)
     "Cold rejection if evaporator isolation valve is open"
     annotation (Placement(transformation(extent={{-170,30},{-150,50}})));
   Buildings.Controls.OBC.CDL.Logical.Or or1 "At least one valve is open "

@@ -43,15 +43,14 @@ block LimPIDEnable "PID controller with enable signal"
         rotation=90,
         origin={-40,-120})));
 
-  Buildings.Controls.OBC.CDL.Continuous.LimPID conPID(
+  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset conPID(
     final k=k,
     final Ti=Ti,
     final Td=Td,
     final controllerType=controllerType,
     final yMin=yMin,
     final yMax=yMax,
-    final reverseActing=reverseActing,
-    final reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter)
+    final reverseActing=reverseActing)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));

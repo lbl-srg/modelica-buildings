@@ -90,8 +90,9 @@ block LimPlaySequence "Play hysteresis controllers in sequence"
     final extract=1:nCon - 1) if   have_enaSig and nCon > 1
     "Extract outputs from the first (nCon - 1) controller"
     annotation (Placement(transformation(extent={{30,30},{50,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr[nCon - 1](
-    each final threshold=yThr) if have_enaSig and nCon > 1
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greEquThr[nCon - 1](
+    each final t=yThr,
+    each final h=yThr*0.1) if have_enaSig and nCon > 1
     "Compare (i-1) controller output with threshold"
     annotation (Placement(transformation(extent={{60,30},{80,50}})));
   Buildings.Controls.OBC.CDL.Logical.And and2[nCon - 1] if have_enaSig and nCon > 1

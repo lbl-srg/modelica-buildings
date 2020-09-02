@@ -7,6 +7,7 @@ partial block PartialSideHotCold "Base control block for hor or cold side"
     annotation(Evaluate=true);
   parameter Modelica.SIunits.TemperatureDifference dTDea(min=0) = 0.5
     "Temperature dead band (absolute value)";
+  parameter Modelica.SIunits.TemperatureDifference dTHys;
   parameter Boolean reverseActing = false
     "Set to true for control output increasing with decreasing measurement value";
 
@@ -69,10 +70,12 @@ partial block PartialSideHotCold "Base control block for hor or cold side"
   Modelica.StateGraph.TransitionWithSignal t2(enableTimer=true, waitTime=60)
     "Transition to disabled"
     annotation (Placement(transformation(extent={{70,130},{90,150}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterEqual enaHeaCoo
+  Buildings.Controls.OBC.CDL.Continuous.Greater enaHeaCoo(
+    final h=dTHys)
     "Threshold comparison for enabling heating or cooling system"
     annotation (Placement(transformation(extent={{30,30},{50,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterEqual disHeaCoo
+  Buildings.Controls.OBC.CDL.Continuous.Greater disHeaCoo(
+    final h=dTHys)
     "Threshold comparison for disabling heating or cooling system"
     annotation (Placement(transformation(extent={{30,-10},{50,10}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yDem
