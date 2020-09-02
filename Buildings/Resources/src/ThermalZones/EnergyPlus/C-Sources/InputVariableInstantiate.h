@@ -10,7 +10,11 @@
 #include "BuildingInstantiate.h"
 
 #include <stdio.h>
+#ifdef _MSC_VER
+#include <windows.h>
+#else
 #include <unistd.h>
+#endif
 
 #include "fmilib.h"
 #include "JM/jm_portability.h"
