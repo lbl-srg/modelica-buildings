@@ -34,8 +34,7 @@ for instance to a higher value to represent a primary overflow
 in a supply through loop.
 </li>
 </ul>
-</html>"),
-Documentation(
+</html>",
 revisions="<html>
 <ul>
 <li>
