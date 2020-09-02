@@ -146,46 +146,34 @@ partial model PartialConnection1Pipe
       extent={{-10,-10},{10,10}},
       rotation=0,
       origin={0,-40})));
-  Fluid.Sensors.TemperatureTwoPort senTConSup(
+  Fluid.Sensors.EnthalpyFlowRate senTConSup(
     redeclare final package Medium = Medium,
     final allowFlowReversal=allowFlowReversal,
-    final m_flow_nominal=mCon_flow_nominal) if show_heaFlo
-    "Connection supply temperature sensor"
+    final m_flow_nominal=mCon_flow_nominal,
+    final initType=Modelica.Blocks.Types.Init.SteadyState) if show_heaFlo
+    "Connection supply enthalpy sensor"
     annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-60,90})));
-  Fluid.Sensors.TemperatureTwoPort senTConRet(
+  Fluid.Sensors.EnthalpyFlowRate senTConRet(
     redeclare final package Medium = Medium,
     final allowFlowReversal=allowFlowReversal,
-    final m_flow_nominal=mCon_flow_nominal) if show_heaFlo
-    "Connection return temperature sensor"
+    final m_flow_nominal=mCon_flow_nominal,
+    final initType=Modelica.Blocks.Types.Init.SteadyState) if show_heaFlo
+    "Connection return enthalpy sensor"
     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=-90,
         origin={20,90})));
   Buildings.Controls.OBC.CDL.Continuous.Add sub(
     final k1=-1) if show_heaFlo
-    "Delta T"
+    "Delta enthalpy"
     annotation (Placement(transformation(extent={{0,30},{20,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Product pro if show_heaFlo
     "Delta T times flow rate"
-    annotation (Placement(transformation(extent={{46,30},{66,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain gai(
-    final k=cp_default) if show_heaFlo
-    "Times cp"
-    annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={80,80})));
-protected
-  parameter Modelica.SIunits.SpecificHeatCapacity cp_default=
-    Medium.specificHeatCapacityCp(Medium.setState_pTX(
-      p = Medium.p_default,
-      T = Medium.T_default,
-      X = Medium.X_default))
-    "Specific heat capacity of medium at default medium state";
+    annotation (Placement(transformation(extent={{50,30},{70,50}})));
 equation
   // Connect statements involving conditionally removed components are
   // removed at translation time by Modelica specification.
@@ -232,13 +220,11 @@ equation
   connect(senTConRet.T, sub.u1)
     annotation (Line(points={{9,90},{-10, 90},{-10, 46},{-2,46}}, color={0,0,127}));
   connect(sub.y, pro.u2)
-    annotation (Line(points={{22,40},{34,40},{34,34},{44,34}}, color={0,0,127}));
+    annotation (Line(points={{22,40},{34,40},{34,34},{48,34}}, color={0,0,127}));
   connect(senMasFloCon.m_flow, pro.u1)
-    annotation (Line(points={{-29,60},{30,60},{30,46},{44,46}},  color={0,0,127}));
-  connect(pro.y, gai.u)
-    annotation (Line(points={{68,40},{80,40},{80,68}}, color={0,0,127}));
-  connect(gai.y, Q_flow)
-    annotation (Line(points={{80,92},{80,100},{120,100}}, color={0,0,127}));
+    annotation (Line(points={{-29,60},{30,60},{30,46},{48,46}},  color={0,0,127}));
+  connect(pro.y, Q_flow) annotation (Line(points={{72,40},{80,40},{80,100},{120,
+          100}}, color={0,0,127}));
   annotation (
     defaultComponentName="con",
     Documentation(info="

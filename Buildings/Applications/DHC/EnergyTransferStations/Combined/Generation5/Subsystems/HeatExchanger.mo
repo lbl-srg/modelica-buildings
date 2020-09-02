@@ -269,8 +269,6 @@ equation
           {-80,-20},{-80,152},{-72,152}}, color={0,0,127}));
   connect(senT2HexWatEnt.T, conHex.T2HexWatEnt) annotation (Line(points={{9,-40},
           {-86,-40},{-86,157},{-72,157}}, color={0,0,127}));
-  connect(conHex.yVal2Hex, val2Hex.y) annotation (Line(points={{-48,154},{8,154},
-          {8,152},{68,152},{68,-38},{80,-38},{80,-48}}, color={0,0,127}));
   connect(val2Hex.port_2, pum2Hex.port_a)
     annotation (Line(points={{70,-60},{50,-60}}, color={0,127,255}));
   connect(port_a2, val2Hex.port_1)
@@ -281,6 +279,8 @@ equation
     annotation (Line(points={{-70,-60},{-100,-60}}, color={0,127,255}));
   connect(spl.port_3, val2Hex.port_3) annotation (Line(points={{-60,-70},{-60,-80},
           {80,-80},{80,-70}}, color={0,127,255}));
+  connect(conHex.yVal2Hex, val2Hex.y) annotation (Line(points={{-48,154},{64,
+          154},{64,-40},{80,-40},{80,-48}}, color={0,0,127}));
   annotation (
   defaultComponentName="hex",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),

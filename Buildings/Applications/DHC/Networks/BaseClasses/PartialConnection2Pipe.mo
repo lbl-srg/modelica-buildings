@@ -165,46 +165,28 @@ partial model PartialConnection2Pipe
         extent={{-10,10},{10,-10}},
         rotation=-90,
         origin={-40,-60})));
-  Fluid.Sensors.TemperatureTwoPort senTConSup(
+  Fluid.Sensors.EnthalpyFlowRate senEntConSup(
     redeclare final package Medium = Medium,
     final allowFlowReversal=allowFlowReversal,
-    final m_flow_nominal=mCon_flow_nominal) if show_heaFlo
-    "Connection supply temperature sensor"
-    annotation (Placement(
-        transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={-40,90})));
-  Fluid.Sensors.TemperatureTwoPort senTConRet(
+    final m_flow_nominal=mCon_flow_nominal,
+    final initType=Modelica.Blocks.Types.Init.SteadyState) if show_heaFlo
+    "Connection supply enthalpy sensor"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=90, origin={-40,90})));
+  Fluid.Sensors.EnthalpyFlowRate senEntConRet(
     redeclare final package Medium = Medium,
     final allowFlowReversal=allowFlowReversal,
-    final m_flow_nominal=mCon_flow_nominal) if show_heaFlo
-    "Connection return temperature sensor"
-    annotation (Placement(transformation(
-        extent={{-10,10},{10,-10}},
-        rotation=-90,
-        origin={0,90})));
+    final m_flow_nominal=mCon_flow_nominal,
+    final initType=Modelica.Blocks.Types.Init.SteadyState) if show_heaFlo
+    "Connection return enthalpy sensor"
+    annotation (Placement(transformation(extent={{-10,10},{10,-10}},
+        rotation=-90, origin={0,90})));
   Buildings.Controls.OBC.CDL.Continuous.Add sub(final k1=-1) if show_heaFlo
-    "Delta T"
+    "Delta enthalpy"
     annotation (Placement(transformation(extent={{-10,50},{10,70}})));
   Buildings.Controls.OBC.CDL.Continuous.Product pro if show_heaFlo
-    "Delta T times flow rate"
+    "Enthalpy difference times flow rate"
     annotation (Placement(transformation(extent={{40,50},{60,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain gai(
-    final k=cp_default) if show_heaFlo
-    "Times cp"
-    annotation (
-      Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={82,80})));
-protected
-  parameter Modelica.SIunits.SpecificHeatCapacity cp_default=
-    Medium.specificHeatCapacityCp(Medium.setState_pTX(
-      p = Medium.p_default,
-      T = Medium.T_default,
-      X = Medium.X_default))
-    "Specific heat capacity of medium at default medium state";
 equation
   // Connect statements involving conditionally removed components are
   // removed at translation time by Modelica specification.
@@ -221,7 +203,7 @@ equation
   connect(pipDisSup.port_b, junConSup.port_1)
     annotation (Line(points={{-60,-40},{-30,-40}}, color={0,127,255}));
   connect(senMasFloCon.m_flow, mCon_flow)
-    annotation (Line(points={{-9,30},{54,30},{54,40},{120,40}},
+    annotation (Line(points={{-9,30},{30,30},{30,40},{120,40}},
       color={0,0,127}));
   connect(pipCon.port_b, senMasFloCon.port_a)
     annotation (Line(points={{-20,0},{-20,20}}, color={0,127,255}));
@@ -241,30 +223,24 @@ equation
     annotation (Line(points={{-40,-70}, {-40,-80},{10,-80}}, color={0,127,255}));
   connect(senRelPre.p_rel, dp)
     annotation (Line(points={{-31,-60},{80,-60},{80,0}, {120,0}}, color={0,0,127}));
-  connect(senMasFloCon.port_b, senTConSup.port_a)
-    annotation (Line(points={{-20,40},{-20,76},{-40,76},{-40,80}},
-      color={0,127,255}));
-  connect(senTConSup.port_b, port_bCon)
-    annotation (Line(points={{-40,100},{-40,110},{-20,110},{-20,120}},
-      color={0,127,255}));
-  connect(port_aCon, senTConRet.port_a)
-    annotation (Line(points={{20,120},{20,110},{0,110},{0,100},{1.77636e-15,
-      100}}, color={0,127,255}));
-  connect(senTConRet.port_b, junConRet.port_3)
-    annotation (Line(points={{-1.77636e-15,80},{-1.77636e-15,78},{0,78},{0,76},
-      {20,76},{20,-70}}, color={0,127,255}));
-  connect(Q_flow, gai.y)
-    annotation (Line(points={{120,80},{94,80}}, color={0,0,127}));
-  connect(pro.y, gai.u)
-    annotation (Line(points={{62,60},{66,60},{66,80},{70,80}}, color={0,0,127}));
+  connect(senMasFloCon.port_b, senEntConSup.port_a) annotation (Line(points={{-20,
+          40},{-20,76},{-40,76},{-40,80}}, color={0,127,255}));
+  connect(senEntConSup.port_b, port_bCon) annotation (Line(points={{-40,100},{-40,
+          110},{-20,110},{-20,120}}, color={0,127,255}));
+  connect(port_aCon, senEntConRet.port_a) annotation (Line(points={{20,120},{20,
+          110},{0,110},{0,100},{1.77636e-15,100}}, color={0,127,255}));
+  connect(senEntConRet.port_b, junConRet.port_3) annotation (Line(points={{-1.77636e-15,
+          80},{-1.77636e-15,78},{0,78},{0,76},{20,76},{20,-70}}, color={0,127,255}));
   connect(senMasFloCon.m_flow, pro.u2)
     annotation (Line(points={{-9,30},{30,30}, {30,54},{38,54}}, color={0,0,127}));
   connect(sub.y, pro.u1)
     annotation (Line(points={{12,60},{30,60},{30,66},{38, 66}}, color={0,0,127}));
-  connect(senTConSup.T, sub.u2)
-    annotation (Line(points={{-51,90},{-60,90},{-60, 54},{-12,54}}, color={0,0,127}));
-  connect(senTConRet.T, sub.u1)
-    annotation (Line(points={{-11,90},{-16,90},{-16, 66},{-12,66}}, color={0,0,127}));
+  connect(senEntConSup.T, sub.u2) annotation (Line(points={{-51,90},{-60,90},{-60,
+          54},{-12,54}}, color={0,0,127}));
+  connect(senEntConRet.T, sub.u1) annotation (Line(points={{-11,90},{-16,90},{-16,
+          66},{-12,66}}, color={0,0,127}));
+  connect(pro.y, Q_flow) annotation (Line(points={{62,60},{80,60},{80,80},{120,80}},
+        color={0,0,127}));
   annotation (
     defaultComponentName="con",
     Documentation(info="
