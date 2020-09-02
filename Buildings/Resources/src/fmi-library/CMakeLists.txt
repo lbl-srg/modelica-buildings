@@ -79,21 +79,38 @@ ExternalProject_Add(
 #  [INSTALL_DIR dir]           # Installation prefix
 #  INSTALL_COMMAND   ""
 #--Test step------------------
-   TEST_AFTER_INSTALL 1        # Add test step executed after install step
+   TEST_AFTER_INSTALL 1        # Set to 1 to add test step executed after install step
   )
 
 ##################################################################################
 # Copy the library which is used by the Modelica compiler.
-set(so_install_path "${CMAKE_CURRENT_SOURCE_DIR}/../../Library/${PLATFORM_INSTALL_PREFIX}/libfmilib_shared${CMAKE_SHARED_LIBRARY_SUFFIX}")
+set(so_install_path "${CMAKE_CURRENT_SOURCE_DIR}/../../Library/${PLATFORM_INSTALL_PREFIX}/")
 
-file(REMOVE "${so_install_path}")
 add_custom_command(TARGET ${FMI_LIBRARY}
   POST_BUILD
-  COMMAND "${CMAKE_COMMAND}" -E copy
-     "fmi-library-modelon/src/install/lib/libfmilib_shared${CMAKE_SHARED_LIBRARY_SUFFIX}"
+  COMMAND "${CMAKE_COMMAND}" -E copy_directory
+     "fmi-library-modelon/src/install/lib"
      "${so_install_path}"
   COMMENT "Copying to Modelica library directory '${so_install_path}'"
 )
+
+if(CMAKE_SYSTEM_NAME MATCHES Windows)
+  add_custom_command(TARGET ${FMI_LIBRARY}
+    POST_BUILD
+    COMMAND "${CMAKE_COMMAND}" -E remove
+           "${so_install_path}/fmilib.lib"
+    COMMENT "Deleting ${so_install_path}/fmilib.lib"
+)
+elseif(CMAKE_SYSTEM_NAME MATCHES Linux)
+  add_custom_command(TARGET ${FMI_LIBRARY}
+    POST_BUILD
+    COMMAND "${CMAKE_COMMAND}" -E remove
+            "${so_install_path}/libfmilib.a"
+    COMMENT "Deleting ${so_install_path}/libfmilib.a"
+  )
+endif()
+
+
 
 # Copy the doc and header files
 file(REMOVE_RECURSE "${CMAKE_CURRENT_SOURCE_DIR}/doc")
