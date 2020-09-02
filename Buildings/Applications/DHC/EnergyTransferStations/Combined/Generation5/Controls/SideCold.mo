@@ -14,39 +14,33 @@ model SideCold "Control block for cold side"
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TChiWatSupSet(
     final unit="K", displayUnit="degC")
     "Chilled water supply temperature set point"
-    annotation (Placement(
-        transformation(extent={{180,-60},{220,-20}}),
-        iconTransformation(extent=
-           {{100,-110},{140,-70}})));
+    annotation (Placement(transformation(extent={{180,-60},{220,-20}}),
+        iconTransformation(extent={{100,-110},{140,-70}})));
   Buildings.Controls.OBC.CDL.Continuous.Max max "Maximum tank temperature"
     annotation (Placement(transformation(extent={{-90,-50},{-70,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(threshold=
-        Modelica.Constants.eps) "At least one signal is non zero"
-    annotation (Placement(transformation(extent={{100,-130},{120,-110}})));
   Buildings.Controls.OBC.CDL.Continuous.Line mapFun[nSouAmb]
     "Mapping functions for ambient source control"
     annotation (Placement(transformation(extent={{50,-110},{70,-90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant x1[nSouAmb](final k={(
-        i - 1) for i in 1:nSouAmb}) "x1"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant x1[nSouAmb](
+    final k={(i - 1) for i in 1:nSouAmb}) "x1"
     annotation (Placement(transformation(extent={{-20,-110},{0,-90}})));
-  Buildings.Controls.OBC.CDL.Routing.RealReplicator rep(final nout=nSouAmb)
+  Buildings.Controls.OBC.CDL.Routing.RealReplicator rep(
+    final nout=nSouAmb)
     "Replicate control signal"
-    annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={-40,-120})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant f1[nSouAmb](each final
-            k=0) "f1"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=0, origin={-40,-120})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant f1[nSouAmb](
+    each final k=0) "f1"
     annotation (Placement(transformation(extent={{10,-150},{30,-130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant f2[nSouAmb](each final
-            k=1) "f2"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant f2[nSouAmb](
+    each final k=1) "f2"
     annotation (Placement(transformation(extent={{10,-70},{30,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant x2[nSouAmb](final k={(
-        i) for i in 1:nSouAmb}) "x2"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant x2[nSouAmb](
+    final k={(i) for i in 1:nSouAmb}) "x2"
     annotation (Placement(transformation(extent={{-20,-170},{0,-150}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea
     "Convert DO to AO signal"
-    annotation (Placement(transformation(extent={{130,-130},{150,-110}})));
+    annotation (Placement(transformation(extent={{120,-170},{140,-150}})));
   LimPIDEnable conTChiWatSup(
     final k=k*5,
     final Ti=Ti/2,
@@ -67,8 +61,7 @@ model SideCold "Control block for cold side"
     annotation (Placement(transformation(extent={{-70,-170},{-50,-150}})));
   Buildings.Controls.OBC.CDL.Continuous.Max max1 "CHWST reset signal"
     annotation (Placement(transformation(extent={{-90,-90},{-70,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer1(k=0)
-                                                                  "Zero"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer1(k=0) "Zero"
     annotation (Placement(transformation(extent={{-150,-70},{-130,-50}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar1(p=-nSouAmb, k=1)
     "Control signal minus nSouAmb"
@@ -76,10 +69,18 @@ model SideCold "Control block for cold side"
   Buildings.Controls.OBC.CDL.Continuous.Min min1
     "Ambient source control signal"
     annotation (Placement(transformation(extent={{-90,-130},{-70,-110}})));
+  Buildings.Controls.OBC.CDL.Continuous.MultiMax mulMax(
+    final nin=nSouAmb)
+    "Maximum value"
+    annotation (Placement(transformation(extent={{90,-130},{110,-110}})));
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
+    final t=Modelica.Constants.eps,
+    final h=0.5*Modelica.Constants.eps)
+    "At least one signal is non zero"
+    annotation (Placement(transformation(extent={{120,-130},{140,-110}})));
 equation
   connect(max.u2, TBot) annotation (Line(points={{-92,-46},{-120,-46},{-120,
-          -140},{-200,-140}},
-                            color={0,0,127}));
+          -140},{-200,-140}}, color={0,0,127}));
   connect(max.y, errDis.u2) annotation (Line(points={{-68,-40},{-60,-40},{-60,
           -12}}, color={0,0,127}));
   connect(TBot, errEna.u2) annotation (Line(points={{-200,-140},{-120,-140},{
@@ -98,10 +99,6 @@ equation
                  color={0,0,127}));
   connect(x2.y,mapFun. x2) annotation (Line(points={{2,-160},{44,-160},{44,-104},
           {48,-104}},color={0,0,127}));
-  connect(booToRea.y, yIsoAmb) annotation (Line(points={{152,-120},{200,-120}},
-                             color={0,0,127}));
-  connect(greThr.y, booToRea.u) annotation (Line(points={{122,-120},{128,-120}},
-                  color={255,0,255}));
   connect(and2.y, conTChiWatSup.uEna) annotation (Line(points={{132,100},{160,
           100},{160,-180},{-104,-180},{-104,-172}},
                                              color={255,0,255}));
@@ -110,9 +107,6 @@ equation
   connect(TBot, conTChiWatSup.u_m) annotation (Line(points={{-200,-140},{-120,
           -140},{-120,-176},{-100,-176},{-100,-172}},
                                               color={0,0,127}));
-  connect(mapFun[1].y, greThr.u) annotation (Line(points={{72,-100},{80,-100},{
-          80,-120},{98,-120}},
-                            color={0,0,127}));
   connect(zer.y, mapFunTChiSupSet.x1) annotation (Line(points={{2,-40},{20,-40},
           {20,-32},{98,-32}}, color={0,0,127}));
   connect(f2[1].y, mapFunTChiSupSet.x2) annotation (Line(points={{32,-60},{40,
@@ -143,6 +137,14 @@ equation
     annotation (Line(points={{-68,-120},{-52,-120}}, color={0,0,127}));
   connect(mapFun.y, yAmb) annotation (Line(points={{72,-100},{140,-100},{140,
           -80},{200,-80}}, color={0,0,127}));
+  connect(mapFun.y, mulMax.u) annotation (Line(points={{72,-100},{80,-100},{80,-120},
+          {88,-120}}, color={0,0,127}));
+  connect(mulMax.y, greThr.u)
+    annotation (Line(points={{112,-120},{118,-120}}, color={0,0,127}));
+  connect(greThr.y, booToRea.u) annotation (Line(points={{142,-120},{150,-120},{
+          150,-140},{110,-140},{110,-160},{118,-160}}, color={255,0,255}));
+  connect(booToRea.y, yIsoAmb) annotation (Line(points={{142,-160},{168,-160},{168,
+          -120},{200,-120}}, color={0,0,127}));
   annotation (
   defaultComponentName="conCol",
 Documentation(

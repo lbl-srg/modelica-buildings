@@ -174,10 +174,14 @@ partial model PartialChillerBorefield
   HeatTransfer.Sources.PrescribedHeatFlow loaCoo
     "Cooling load as prescribed heat flow rate"
     annotation (Placement(transformation(extent={{182,50},{162,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.LessEqualThreshold noLoaHea(threshold=0.01)
+  Buildings.Controls.OBC.CDL.Continuous.LessThreshold noLoaHea(
+    final t=0.01,
+    final h=0.005)
     "No heating load"
     annotation (Placement(transformation(extent={{-210,-30},{-190,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.LessEqualThreshold noLoaCoo(threshold=0.01)
+  Buildings.Controls.OBC.CDL.Continuous.LessThreshold noLoaCoo(
+    final t=0.01,
+    final h=0.005)
     "No cooling load"
     annotation (Placement(transformation(extent={{-212,-110},{-192,-90}})));
   Buildings.Controls.OBC.CDL.Logical.Not reqHea "Heating request"
