@@ -252,14 +252,6 @@ block Controller "Head pressure controller"
       controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
       controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
-  final parameter Real minLocDp(
-    final unit="Pa",
-    final quantity="PressureDifference")=5*6894.75
-    "Minimum chilled water loop local differential pressure setpoint"
-    annotation (Dialog(tab="Chilled water pumps", group="Pump speed control when there is local DP sensor", enable=have_LocalSensor));
-  final parameter Integer pumInd[nPum]={i for i in 1:nPumf}
-    "Pump index, {1,2,...,n}";
-
   // Chilled water plant reset
 
   parameter Real holTim(
@@ -340,7 +332,7 @@ block Controller "Head pressure controller"
     "true = plant has a WSE, false = plant does not have WSE"
     annotation (Dialog(tab="General", group="Plant configuration"));
 
-  parameter Boolean serChi = false
+  parameter Boolean is_serChi = false
     "true = series chillers plant; false = parallel chillers plant"
     annotation (Dialog(tab="General", group="Chillers configuration"));
 
@@ -593,7 +585,7 @@ block Controller "Head pressure controller"
         iconTransformation(extent={{-140,60},{-100,100}})));
 
   CDL.Interfaces.RealInput dpChiWatPum(final unit="Pa",
-      final quantity="PressureDifference") if not serChi
+      final quantity="PressureDifference") if not is_serChi
     "Chilled water pump differential static pressure"
     annotation(Placement(transformation(extent={{-840,-140},{-800,-100}}),
     iconTransformation(extent={{-140,30},{-100,70}})));
@@ -708,9 +700,6 @@ block Controller "Head pressure controller"
     "Sequence to enable and disable plant"
     annotation(Placement(transformation(extent={{-560,-480},{-520,-440}})));
 
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.ControllerTwo equRot
-    annotation(Placement(transformation(extent={{-340,732},{-300,772}})));
-
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure.Controller
     heaPreCon[nChi](
     final fixSpePum=fixSpePum,
@@ -751,8 +740,7 @@ block Controller "Head pressure controller"
     final controllerType=controllerTypeChiWatPum,
     final k=kChiWatPum,
     final Ti=TiChiWatPum,
-    final Td=TdChiWatPum,
-    final minLocDp=minLocDp)
+    final Td=TdChiWatPum)
     "Sequences to control chilled water pumps in primary-only plant system"
     annotation(Placement(transformation(extent={{420,480},{480,540}})));
 
@@ -772,7 +760,7 @@ block Controller "Head pressure controller"
     annotation(Placement(transformation(extent={{-560,-320},{-520,-280}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.SetPoints.ChilledWaterSupply chiWatSupSet(
-    final dpChiWatPumSet=dpChiWatPumSet,
+    final dpChiWatPumMin=dpChiWatPumMin,
     final dpChiWatPumMax=dpChiWatPumMax,
     final TChiWatSupMin=TChiWatSupMin,
     final TChiWatSupMax=TChiWatSupMax,
@@ -784,7 +772,7 @@ block Controller "Head pressure controller"
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.SetPoints.SetpointController staSetCon(
     final have_WSE=have_WSE,
-    final serChi=serChi,
+    final is_serChi=is_serChi,
     final anyVsdCen=anyVsdCen,
     final nChi=nChi,
     final chiDesCap=chiDesCap,
@@ -1217,12 +1205,12 @@ equation
     annotation (Line(points={{642,350},{658,350}}, color={255,0,255}));
   connect(upProCon.yStaPro, lat.u) annotation (Line(points={{368,416},{610,416},
           {610,350},{618,350}}, color={255,0,255}));
-  connect(dowProCon.yStaPro, lat.clr) annotation (Line(points={{368,-144},{610,
-          -144},{610,344},{618,344}}, color={255,0,255}));
+  connect(dowProCon.yStaPro, lat.clr) annotation (Line(points={{368,-144},{610,-144},
+          {610,344},{618,344}}, color={255,0,255}));
   connect(upProCon.yChi, uChiStaPro.u1) annotation (Line(points={{368,264},{530,
           264},{530,392},{690,392},{690,358},{698,358}}, color={255,0,255}));
-  connect(dowProCon.yChi, uChiStaPro.u3) annotation (Line(points={{368,-172},{
-          690,-172},{690,342},{698,342}}, color={255,0,255}));
+  connect(dowProCon.yChi, uChiStaPro.u3) annotation (Line(points={{368,-172},{690,
+          -172},{690,342},{698,342}}, color={255,0,255}));
     annotation (Dialog(tab="Plant Reset", group="Time parameter"),
                Evaluate=true, Dialog(tab="Advanced", group="Tuning"),
   defaultComponentName="chiPlaCon",
@@ -1255,7 +1243,10 @@ equation
           textString="might need a pre block")}),
   Documentation(info="<html>
 <p>
-fixme: Controller for plants with two devices or groups of devices (chillers, towers(4 cells), CW and C pumps)
+fixme = Tasks: 
+  * Assemble a controller for plants with two devices or groups of devices (chillers, towers(4 cells), CW and C pumps)
+  Assume configuration: parallel chillers, headered pumps
+  * Add equipment rotation 
 </p>
 </html>",
 revisions="<html>
