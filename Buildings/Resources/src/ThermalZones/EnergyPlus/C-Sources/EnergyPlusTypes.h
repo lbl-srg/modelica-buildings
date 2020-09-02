@@ -6,6 +6,7 @@
 #define Buildings_EnergyPlusTypes_h
 
 #include <stdbool.h>
+#include <stdio.h>
 
 #include "fmilib.h"
 #include "FMI2/fmi2FunctionTypes.h"
@@ -43,10 +44,11 @@ typedef enum {instantiationMode, initializationMode, eventMode, continuousTimeMo
 static int FMU_EP_VERBOSITY = 1; /* Verbosity */
 enum verbosity {ERRORS = 1, WARNINGS = 2, QUIET = 3, MEDIUM = 4, TIMESTEP = 5};
 
-extern void ModelicaMessage(const char *string);
-extern void ModelicaError(const char *string);
-extern void ModelicaFormatMessage(const char *string, ...);
-extern void ModelicaFormatError(const char *string, ...);
+/* These functions need to be defined by code that uses this library */
+extern void (*SpawnMessage)(const char *string);
+extern void (*SpawnError)(const char *string);
+extern void (*SpawnFormatMessage)(const char *string, ...);
+extern void (*SpawnFormatError)(const char *string, ...);
 
 typedef struct FMUBuilding
 {

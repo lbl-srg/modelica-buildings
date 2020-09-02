@@ -11,7 +11,7 @@
 
 void OutputVariableFree(void* object){
   if (FMU_EP_VERBOSITY >= MEDIUM)
-    ModelicaMessage("Entered OutputVariableFree.\n");
+    SpawnMessage("Entered OutputVariableFree.\n");
   if ( object != NULL ){
     FMUOutputVariable* com = (FMUOutputVariable*) object;
 
@@ -27,9 +27,9 @@ void OutputVariableFree(void* object){
       FMUBuildingFree(com->ptrBui);
     }
     if (FMU_EP_VERBOSITY >= MEDIUM)
-      ModelicaMessage("Calling free in OutputVariableFree.\n");
+      SpawnMessage("Calling free in OutputVariableFree.\n");
     free(com);
   }
   if (FMU_EP_VERBOSITY >= MEDIUM)
-    ModelicaMessage("Leaving OutputVariableFree.c.\n");
+    SpawnMessage("Leaving OutputVariableFree.c.\n");
 }

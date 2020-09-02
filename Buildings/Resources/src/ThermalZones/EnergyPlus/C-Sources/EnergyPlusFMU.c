@@ -34,16 +34,16 @@ size_t AllocateBuildingDataStructure(
   const size_t strLenWea = strlen(weaName);
 
   if (FMU_EP_VERBOSITY >= MEDIUM)
-    ModelicaFormatMessage("AllocateBuildingDataStructure: Allocating data structure for building %lu with name %s", nFMU, modelicaNameBuilding);
+    SpawnFormatMessage("AllocateBuildingDataStructure: Allocating data structure for building %lu with name %s", nFMU, modelicaNameBuilding);
 
   /* Validate the input data */
   if (access(idfName, R_OK) != 0)
-    ModelicaFormatError("Cannot read idf file '%s' specified in '%s': %s.", idfName, modelicaNameBuilding, strerror(errno));
+    SpawnFormatError("Cannot read idf file '%s' specified in '%s': %s.", idfName, modelicaNameBuilding, strerror(errno));
   if (access(weaName, R_OK) != 0)
-    ModelicaFormatError("Cannot read weather file '%s' specified in '%s': %s.", weaName, modelicaNameBuilding, strerror(errno));
+    SpawnFormatError("Cannot read weather file '%s' specified in '%s': %s.", weaName, modelicaNameBuilding, strerror(errno));
 
   if (strcmp(".mos", strrchr(weaName, '.')) != 0)
-    ModelicaFormatError("Obtained weather file '%s', but require .mos file rather than %s file to be specified in '%s'.",
+    SpawnFormatError("Obtained weather file '%s', but require .mos file rather than %s file to be specified in '%s'.",
       weaName, strrchr(weaName, '.'), modelicaNameBuilding);
 
   /* Allocate memory */
@@ -52,11 +52,11 @@ size_t AllocateBuildingDataStructure(
   else
     Buildings_FMUS = realloc(Buildings_FMUS, (nFMU+1) * sizeof(struct FMUBuilding*));
   if ( Buildings_FMUS == NULL )
-    ModelicaError("Not enough memory in EnergyPlusFMU.c. to allocate array for Buildings_FMU.");
+    SpawnError("Not enough memory in EnergyPlusFMU.c. to allocate array for Buildings_FMU.");
 
   Buildings_FMUS[nFMU] = malloc(sizeof(FMUBuilding));
   if ( Buildings_FMUS[nFMU] == NULL )
-    ModelicaError("Not enough memory in EnergyPlusFMU.c. to allocate array for Buildings_FMU[0].");
+    SpawnError("Not enough memory in EnergyPlusFMU.c. to allocate array for Buildings_FMU[0].");
 
   Buildings_FMUS[nFMU]->fmu = NULL;
   Buildings_FMUS[nFMU]->context = NULL;
@@ -92,7 +92,7 @@ size_t AllocateBuildingDataStructure(
 
   /* Make sure that .epw file is readable */
   if (access(weaName, R_OK) != 0)
-    ModelicaFormatError("Cannot read weather file '%s' specified in '%s' through %s (obtained after changing extension): %s.",
+    SpawnFormatError("Cannot read weather file '%s' specified in '%s' through %s (obtained after changing extension): %s.",
       Buildings_FMUS[nFMU]->weather, modelicaNameBuilding, weaName, strerror(errno));
 
   /* Set the model hash to null */
@@ -133,7 +133,7 @@ size_t AllocateBuildingDataStructure(
   incrementBuildings_nFMU();
 
   if (FMU_EP_VERBOSITY >= MEDIUM)
-    ModelicaFormatMessage("AllocateBuildingDataStructure: Leaving allocating data structure for building number %lu, name %s, ptr %p",
+    SpawnFormatMessage("AllocateBuildingDataStructure: Leaving allocating data structure for building number %lu, name %s, ptr %p",
       nFMU, modelicaNameBuilding, Buildings_FMUS[nFMU]);
 
   return nFMU;
@@ -144,12 +144,12 @@ void AddZoneToBuilding(FMUZone* ptrZone){
   const size_t nZon = fmu->nZon;
 
   if (FMU_EP_VERBOSITY >= MEDIUM)
-    ModelicaFormatMessage("EnergyPlusFMU.c: Adding zone %lu with name %s", nZon, ptrZone->modelicaNameThermalZone);
+    SpawnFormatMessage("EnergyPlusFMU.c: Adding zone %lu with name %s", nZon, ptrZone->modelicaNameThermalZone);
 
   if (nZon == 0){
     fmu->zones=malloc(sizeof(FMUZone *));
     if ( fmu->zones== NULL )
-      ModelicaError("Not enough memory in EnergyPlusFMU.c. to allocate zones.");
+      SpawnError("Not enough memory in EnergyPlusFMU.c. to allocate zones.");
   }
   else{
     /* We already have nZon > 0 zones */
@@ -157,7 +157,7 @@ void AddZoneToBuilding(FMUZone* ptrZone){
     /* Increment size of vector that contains the zones. */
     fmu->zones = realloc(fmu->zones, (nZon + 1) * sizeof(FMUZone*));
     if (fmu->zones == NULL){
-      ModelicaError("Not enough memory in EnergyPlusFMU.c. to allocate memory for bld->zones.");
+      SpawnError("Not enough memory in EnergyPlusFMU.c. to allocate memory for bld->zones.");
     }
   }
   /* Assign the zone */
@@ -166,7 +166,7 @@ void AddZoneToBuilding(FMUZone* ptrZone){
   fmu->nZon++;
 
   if (FMU_EP_VERBOSITY >= MEDIUM)
-    ModelicaFormatMessage("EnergyPlusFMU.c: nZon = %d, nInp = %d, nOut = %d",
+    SpawnFormatMessage("EnergyPlusFMU.c: nZon = %d, nInp = %d, nOut = %d",
       fmu->nZon, fmu->nInputVariables, fmu->nOutputVariables);
 }
 
@@ -175,14 +175,14 @@ void AddInputVariableToBuilding(FMUInputVariable* ptrVar){
   const size_t nInputVariables = fmu->nInputVariables;
 
   if (FMU_EP_VERBOSITY >= MEDIUM)
-    ModelicaFormatMessage("EnergyPlusFMU.c: Adding input variable %lu with name %s",
+    SpawnFormatMessage("EnergyPlusFMU.c: Adding input variable %lu with name %s",
       nInputVariables+1,
       ptrVar->modelicaNameInputVariable);
 
   if (nInputVariables == 0){
     fmu->inputVariables=malloc(sizeof(FMUInputVariable *));
     if ( fmu->inputVariables== NULL )
-      ModelicaError("Not enough memory in EnergyPlusFMU.c. to allocate input variables.");
+      SpawnError("Not enough memory in EnergyPlusFMU.c. to allocate input variables.");
   }
   else{
     /* We already have nInputVariables > 0 input variables. */
@@ -190,7 +190,7 @@ void AddInputVariableToBuilding(FMUInputVariable* ptrVar){
     /* Increment size of vector that contains the input variables. */
     fmu->inputVariables = realloc(fmu->inputVariables, (nInputVariables + 1) * sizeof(FMUInputVariable*));
     if (fmu->inputVariables == NULL){
-      ModelicaError("Not enough memory in EnergyPlusFMU.c. to allocate memory for fmu->inputVariables.");
+      SpawnError("Not enough memory in EnergyPlusFMU.c. to allocate memory for fmu->inputVariables.");
     }
   }
   /* Assign the input variable */
@@ -199,7 +199,7 @@ void AddInputVariableToBuilding(FMUInputVariable* ptrVar){
   fmu->nInputVariables++;
 
   if (FMU_EP_VERBOSITY >= MEDIUM)
-    ModelicaFormatMessage("EnergyPlusFMU.c: nZon = %d, nInp = %d, nOut = %d",
+    SpawnFormatMessage("EnergyPlusFMU.c: nZon = %d, nInp = %d, nOut = %d",
       fmu->nZon, fmu->nInputVariables, fmu->nOutputVariables);
 }
 
@@ -208,14 +208,14 @@ void AddOutputVariableToBuilding(FMUOutputVariable* ptrVar){
   const size_t nOutputVariables = fmu->nOutputVariables;
 
   if (FMU_EP_VERBOSITY >= MEDIUM)
-    ModelicaFormatMessage("EnergyPlusFMU.c: Adding output variable %lu with name %s",
+    SpawnFormatMessage("EnergyPlusFMU.c: Adding output variable %lu with name %s",
       nOutputVariables+1,
       ptrVar->modelicaNameOutputVariable);
 
   if (nOutputVariables == 0){
     fmu->outputVariables=malloc(sizeof(FMUOutputVariable *));
     if ( fmu->outputVariables== NULL )
-      ModelicaError("Not enough memory in EnergyPlusFMU.c. to allocate output variables.");
+      SpawnError("Not enough memory in EnergyPlusFMU.c. to allocate output variables.");
   }
   else{
     /* We already have nOutputVariables > 0 output variables. */
@@ -223,7 +223,7 @@ void AddOutputVariableToBuilding(FMUOutputVariable* ptrVar){
     /* Increment size of vector that contains the output variables. */
     fmu->outputVariables = realloc(fmu->outputVariables, (nOutputVariables + 1) * sizeof(FMUOutputVariable*));
     if (fmu->outputVariables == NULL){
-      ModelicaError("Not enough memory in EnergyPlusFMU.c. to allocate memory for fmu->outputVariables.");
+      SpawnError("Not enough memory in EnergyPlusFMU.c. to allocate memory for fmu->outputVariables.");
     }
   }
   /* Assign the output variable */
@@ -232,25 +232,25 @@ void AddOutputVariableToBuilding(FMUOutputVariable* ptrVar){
   fmu->nOutputVariables++;
 
   if (FMU_EP_VERBOSITY >= MEDIUM)
-    ModelicaFormatMessage("EnergyPlusFMU.c: nZon = %d, nInp = %d, nOut = %d",
+    SpawnFormatMessage("EnergyPlusFMU.c: nZon = %d, nInp = %d, nOut = %d",
       fmu->nZon, fmu->nInputVariables, fmu->nOutputVariables);
 }
 
 FMUBuilding* getBuildingsFMU(size_t iFMU){
   if (FMU_EP_VERBOSITY >= MEDIUM)
-    ModelicaFormatMessage("In getBuildingsFMU, returning pointer to building number %lu at %p", iFMU, Buildings_FMUS[iFMU]);
+    SpawnFormatMessage("In getBuildingsFMU, returning pointer to building number %lu at %p", iFMU, Buildings_FMUS[iFMU]);
   return Buildings_FMUS[iFMU];
 }
 
 void incrementBuildings_nFMU(){
   Buildings_nFMU++;
-  /* ModelicaFormatMessage("*** Increased Buildings_nFMU to %zu.", Buildings_nFMU); */
+  /* SpawnFormatMessage("*** Increased Buildings_nFMU to %zu.", Buildings_nFMU); */
   return;
 }
 
 void decrementBuildings_nFMU(){
   Buildings_nFMU--;
-  /* ModelicaFormatMessage("*** Decreased Buildings_nFMU to %zu.", Buildings_nFMU); */
+  /* SpawnFormatMessage("*** Decreased Buildings_nFMU to %zu.", Buildings_nFMU); */
   return;
 }
 
@@ -261,17 +261,17 @@ unsigned int getBuildings_nFMU(){
 void FMUBuildingFree(FMUBuilding* ptrBui){
   fmi2Status status;
   if (FMU_EP_VERBOSITY >= MEDIUM)
-    ModelicaMessage("Entered FMUBuildingFree.");
+    SpawnMessage("Entered FMUBuildingFree.");
 
   if ( ptrBui != NULL ){
     if (FMU_EP_VERBOSITY >= MEDIUM)
-      ModelicaFormatMessage("In FMUBuildingFree, %p, nZon = %d, nInpVar = %d, nOutVar = %d",
+      SpawnFormatMessage("In FMUBuildingFree, %p, nZon = %d, nInpVar = %d, nOutVar = %d",
       ptrBui, ptrBui->nZon, ptrBui->nInputVariables, ptrBui->nOutputVariables);
 
     /* Make sure no thermal zone or output variable uses this building */
     if (ptrBui->nZon > 0 || ptrBui->nInputVariables > 0 || ptrBui->nOutputVariables > 0){
       if (FMU_EP_VERBOSITY >= MEDIUM)
-        ModelicaMessage("Exiting FMUBuildingFree without changes as building is still used.");
+        SpawnMessage("Exiting FMUBuildingFree without changes as building is still used.");
       return;
     }
 
@@ -279,17 +279,17 @@ void FMUBuildingFree(FMUBuilding* ptrBui){
        fmi2_import_create_dllfmu was not successful */
     if (ptrBui->dllfmu_created){
       if (FMU_EP_VERBOSITY >= MEDIUM)
-        ModelicaMessage("fmi2_import_terminate: terminating EnergyPlus.\n");
+        SpawnMessage("fmi2_import_terminate: terminating EnergyPlus.\n");
       status = fmi2_import_terminate(ptrBui->fmu);
       if (status != fmi2OK){
-        ModelicaFormatMessage(
+        SpawnFormatMessage(
           "fmi2Terminate returned with non-OK status for building %s.",
           ptrBui->modelicaNameBuilding);
       }
     }
     if (ptrBui->fmu != NULL){
       if (FMU_EP_VERBOSITY >= MEDIUM)
-        ModelicaFormatMessage(
+        SpawnFormatMessage(
           "fmi2_import_destroy_dllfmu: destroying dll fmu. for %s",
           ptrBui->modelicaNameBuilding);
       fmi2_import_destroy_dllfmu(ptrBui->fmu);

@@ -302,7 +302,7 @@ const char* cryptographicsHash(const char* str)
   char* hexresult = malloc(41*sizeof(char));
 
   if (!hexresult){
-    ModelicaError("Failed to allocate memory in cryptographicHash.");
+    SpawnError("Failed to allocate memory in cryptographicHash.");
   }
 
   SHA1( result, str, strlen(str) );

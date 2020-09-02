@@ -12,7 +12,7 @@
 
 void ZoneFree(void* object){
   if (FMU_EP_VERBOSITY >= MEDIUM)
-    ModelicaMessage("Entered ZoneFree.");
+    SpawnMessage("Entered ZoneFree.");
   if ( object != NULL ){
     FMUZone* zone = (FMUZone*) object;
 
@@ -24,5 +24,5 @@ void ZoneFree(void* object){
     free(zone);
   }
   if (FMU_EP_VERBOSITY >= MEDIUM)
-    ModelicaMessage("Leaving ZoneFree.");
+    SpawnMessage("Leaving ZoneFree.");
 }

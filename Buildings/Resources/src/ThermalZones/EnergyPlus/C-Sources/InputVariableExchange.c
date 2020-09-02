@@ -27,14 +27,14 @@ void InputVariableExchange(
   fmi2Status status;
 
   if (FMU_EP_VERBOSITY >= TIMESTEP)
-    ModelicaFormatMessage("Exchanging data with EnergyPlus: t = %.2f, initialCall = %d, zone = %s,  building ptr at %p.\n",
+    SpawnFormatMessage("Exchanging data with EnergyPlus: t = %.2f, initialCall = %d, zone = %s,  building ptr at %p.\n",
       time, initialCall, inpVar->modelicaNameInputVariable, bui);
 
   if (! inpVar->isInstantiated){
     /* This input variable has not been initialized because the simulator removed the call to initialize().
     */
     InputVariableInstantiate(object, time);
- /*   ModelicaFormatError(
+ /*   SpawnFormatError(
       "Error, input variable %s should have been initialized. Contact support.",
       inpVar->modelicaNameInputVariable);
       */
@@ -43,12 +43,12 @@ void InputVariableExchange(
   if (initialCall){
     inpVar->isInitialized = true; /* Set to true as it will be initialized right below */
     if (FMU_EP_VERBOSITY >= MEDIUM)
-      ModelicaFormatMessage("Initial call for input variable %s with time = %.f\n", inpVar->modelicaNameInputVariable, time);
+      SpawnFormatMessage("Initial call for input variable %s with time = %.f\n", inpVar->modelicaNameInputVariable, time);
   }
   else
   {
     if (FMU_EP_VERBOSITY >= TIMESTEP)
-      ModelicaFormatMessage("Did not enter initialization mode for input variable %s., isInitialized = %d\n",
+      SpawnFormatMessage("Did not enter initialization mode for input variable %s., isInitialized = %d\n",
         inpVar->modelicaNameInputVariable, inpVar->isInitialized);
   }
 
@@ -56,12 +56,12 @@ void InputVariableExchange(
      but the FMU is still in initializationMode */
   if ((!initialCall) && bui->mode == initializationMode){
     if (FMU_EP_VERBOSITY >= MEDIUM)
-      ModelicaFormatMessage(
+      SpawnFormatMessage(
         "fmi2_import_exit_initialization_mode: Enter exit initialization mode of FMU in InputVariableExchange() for input variable = %s.\n",
         inpVar->modelicaNameInputVariable);
     status = fmi2_import_exit_initialization_mode(bui->fmu);
     if( status != fmi2_status_ok ){
-      ModelicaFormatError("Failed to exit initialization mode for FMU for building %s and input variable %s",
+      SpawnFormatError("Failed to exit initialization mode for FMU for building %s and input variable %s",
         bui->modelicaNameBuilding, inpVar->modelicaNameInputVariable);
     }
     /* After exit_initialization_mode, the FMU is implicitly in event mode per the FMI standard */
@@ -80,7 +80,7 @@ void InputVariableExchange(
 
 
   if (FMU_EP_VERBOSITY >= TIMESTEP)
-    ModelicaFormatMessage(
+    SpawnFormatMessage(
       "Input to fmu for input variable %s: u = %.2f\n",
       inpVar->modelicaNameInputVariable,
       inpVar->inputs->valsSI[0]);
@@ -91,7 +91,7 @@ void InputVariableExchange(
   *y = u;
 
   if (FMU_EP_VERBOSITY >= TIMESTEP)
-    ModelicaFormatMessage("Returning from InputVariableExchange() for %s.\n", inpVar->modelicaNameInputVariable);
+    SpawnFormatMessage("Returning from InputVariableExchange() for %s.\n", inpVar->modelicaNameInputVariable);
 
   return;
 }

@@ -21,6 +21,7 @@ model FMUZoneAdapterZones1
     final zoneName="Core_ZN",
     usePrecompiledFMU=true,
     final fmuName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/src/ThermalZones/EnergyPlus/FMUs/Zones1.fmu"),
+    verbosity=Buildings.ThermalZones.EnergyPlus.Types.Verbosity.Verbose,
     final nFluPor=2) "Adapter to EnergyPlus"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
   Modelica.Blocks.Sources.RealExpression X_w(y=0.01) "Zone absolute humidity"
@@ -41,6 +42,17 @@ model FMUZoneAdapterZones1
     y_start=294.15,
     y(final unit="K", displayUnit="degC")) "Zone air temperature"
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
+  inner Building                                   building(
+    idfName=Modelica.Utilities.Files.loadResource(
+        "modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus/Validation/SingleFamilyHouse_TwoSpeed_ZoneAirBalance/SingleFamilyHouse_TwoSpeed_ZoneAirBalance.idf"),
+
+    weaName=Modelica.Utilities.Files.loadResource(
+        "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"),
+
+    usePrecompiledFMU=false,
+    showWeatherData=false)
+    "Building model"
+    annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
 equation
   connect(X_w.y, fmuZonCor.X_w) annotation (Line(points={{-69,50},{0,50},{0,34},
           {18,34}},   color={0,0,127}));
