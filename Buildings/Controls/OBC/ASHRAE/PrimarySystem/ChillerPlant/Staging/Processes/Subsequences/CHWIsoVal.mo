@@ -6,7 +6,7 @@ block CHWIsoVal "Sequence of enable or disable chilled water isolation valve"
   parameter Real chaChiWatIsoTim(
     final unit="s",
     final quantity="Time",
-    final displayUnit="h")
+    displayUnit="h")
     "Time to slowly change isolation valve, should be determined in the field";
   parameter Real iniValPos
     "Initial valve position, if it needs to turn on chiller, the value should be 0";
@@ -60,7 +60,7 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Line lin1
     "Chilled water isolation valve setpoint"
     annotation (Placement(transformation(extent={{40,70},{60,90}})));
-  Buildings.Controls.OBC.CDL.Logical.Timer tim
+  Buildings.Controls.OBC.CDL.Logical.Timer tim(final t=chaChiWatIsoTim)
     "Count the time after changing up-stream device status"
     annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
   Buildings.Controls.OBC.CDL.Logical.Edge edg
@@ -124,11 +124,6 @@ protected
   Buildings.Controls.OBC.CDL.Logical.And3 and5
     "Check if the isolation valve has been fully open"
     annotation (Placement(transformation(extent={{140,130},{160,150}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys5(
-    final uLow=chaChiWatIsoTim - 1,
-    final uHigh=chaChiWatIsoTim + 1)
-    "Check if it has past the target time of open CHW isolation valve "
-    annotation (Placement(transformation(extent={{80,110},{100,130}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt[nChi](
     final k=chiInd) "Chiller index array"
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
@@ -238,9 +233,6 @@ equation
   connect(and4.y, or2.u2)
     annotation (Line(points={{22,190},{30,190},{30,212},{38,212}},
       color={255,0,255}));
-  connect(tim.y, hys5.u)
-    annotation (Line(points={{-78,80},{-60,80},{-60,120},{78,120}},
-      color={0,0,127}));
   connect(mulAnd1.y, and5.u1)
     annotation (Line(points={{102,220},{120,220},{120,148},{138,148}},
       color={255,0,255}));
@@ -251,11 +243,11 @@ equation
   connect(conInt.y, intEqu.u2)
     annotation (Line(points={{-58,-20},{-40,-20},{-40,2},{-22,2}},
       color={255,127,0}));
-  connect(hys5.y, and5.u3)
-    annotation (Line(points={{102,120},{120,120},{120,132},{138,132}},
-      color={255,0,255}));
   connect(uUpsDevSta, and5.u2)
     annotation (Line(points={{-180,-140},{-130,-140},{-130,140},{138,140}},
+      color={255,0,255}));
+  connect(tim.passed, and5.u3)
+    annotation (Line(points={{-78,72},{-60,72},{-60,132},{138,132}},
       color={255,0,255}));
 
 annotation (

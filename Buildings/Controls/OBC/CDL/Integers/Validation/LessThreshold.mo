@@ -6,8 +6,8 @@ model LessThreshold "Validation model for the LessThreshold block"
     offset=-3.5,
     height=10.0) "Block that generates ramp signal"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-  Buildings.Controls.OBC.CDL.Integers.LessThreshold intLesThr(
-    threshold=2) "Block output true if input is less than threshold value"
+  Buildings.Controls.OBC.CDL.Integers.LessThreshold intLesThr(t=2)
+    "Block output true if input is less than threshold value"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Round round1(n=0)

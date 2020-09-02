@@ -2,17 +2,29 @@ within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizer.Subse
 block PredictedOutletTemperature
   "Waterside economizer predicted outlet temperature"
 
-  parameter Modelica.SIunits.TemperatureDifference heaExcAppDes=2
-  "Design heat exchanger approach";
+  parameter Real heaExcAppDes(
+    final unit="K",
+    final quantity="TemperatureDifference",
+    displayUnit="degC")=2
+    "Design heat exchanger approach";
 
-  parameter Modelica.SIunits.TemperatureDifference cooTowAppDes=2
-  "Design cooling tower approach";
+  parameter Real cooTowAppDes(
+    final unit="K",
+    final quantity="TemperatureDifference",
+    displayUnit="degC")=2
+    "Design cooling tower approach";
 
-  parameter Modelica.SIunits.Temperature TOutWetDes=288.15
-  "Design outdoor air wet bulb temperature";
+  parameter Real TOutWetDes(
+    final unit="K",
+    final quantity="ThermodynamicTemperature",
+    displayUnit="degC")=288.15
+    "Design outdoor air wet bulb temperature";
 
-  parameter Modelica.SIunits.VolumeFlowRate VHeaExcDes_flow=0.01
-    "Desing heat exchanger chilled water flow rate";
+  parameter Real VHeaExcDes_flow(
+    final unit="m3/s",
+    final quantity="VolumeFlowRate",
+    displayUnit="m3/s")=0.01
+      "Desing heat exchanger chilled water flow rate";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uTunPar(
     final min=-0.2,
@@ -129,9 +141,9 @@ equation
         extent={{-160,-180},{160,180}})),
 Documentation(info="<html>
 <p>
-The waterside economizer (WSE) is enabled or disabled based on the predicted WSE 
+The waterside economizer (WSE) is enabled or disabled based on the predicted WSE
 heat exchanger (HX) leaving water temperature, <code>y</code>.
-This block predicts <code>y</code> based on current plant load 
+This block predicts <code>y</code> based on current plant load
 and ambient wet bulb temperature with resepect to the design conditions, as described in
 ASHRAE RP-1711, July Draft, section 5.2.3.1.
 </p>
@@ -144,21 +156,21 @@ three components:
 Current outoor air wet bulb temperature <code>TOutWet</code>.
 </li>
 <li>
-Predicted heat exchanger approach at current part load flow, which equals 
-the product of the design heat exchanger approach <code>heaExcAppDes</code> and the 
+Predicted heat exchanger approach at current part load flow, which equals
+the product of the design heat exchanger approach <code>heaExcAppDes</code> and the
 lesser of 1 and predicted heat exchanger part load ratio (PLRHX). PRLHX is a ratio
-of the current chilled water flow rate for primary-only plants or the current secondary chilled water 
-flow rate for primary-secondary plants, <code>VChiWat_flow</code>, 
+of the current chilled water flow rate for primary-only plants or the current secondary chilled water
+flow rate for primary-secondary plants, <code>VChiWat_flow</code>,
 divided by design HX chilled water flow rate <code>VHeaExcDes_flow</code>.
 </li>
 <li>
 Predicted cooling tower approach, which is a sum of the:
 <ul>
 <li>
-Product of the tuning parameter <code>uTunPar</code> and the 
-difference between the design <code>TOutWetDes</code> and current 
+Product of the tuning parameter <code>uTunPar</code> and the
+difference between the design <code>TOutWetDes</code> and current
 wetbulb temepratures <code>TOutWet</code>.
-The tuning parameter <code>uTunPar</code> is an output from the 
+The tuning parameter <code>uTunPar</code> is an output from the
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizer.Subsequences.Tuning\">
 Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizer.Subsequences.Tuning</a> sequence.
 </li>

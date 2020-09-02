@@ -1,4 +1,4 @@
-simulateModel("Buildings.Utilities.Math.Functions.Examples.RegNonZeroPowerDerivativeCheck", startTime=-1, tolerance=1E-08, method="dassl", stopTime=1.0, resultFile="RegNonZeroPowerDerivativeCheck");
+simulateModel("Buildings.Utilities.Math.Functions.Examples.RegNonZeroPowerDerivativeCheck", startTime=-1, tolerance=1E-08, method="CVode", stopTime=1.0, resultFile="RegNonZeroPowerDerivativeCheck");
 removePlots();
 createPlot(id = 5,
  position = {45, 33, 639, 463},

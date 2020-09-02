@@ -2,37 +2,43 @@
 block UpEnd "Sequence for ending stage-up process"
 
   parameter Integer nChi "Total number of chillers";
-  parameter Boolean isParallelChiller=true
+  parameter Boolean is_parChi=true
     "True: the plant has parallel chillers";
 
   parameter Real proOnTim(
     final unit="s",
     final quantity="Time",
-    final displayUnit="h") = 300
+    displayUnit="h") = 300
     "Threshold time to check if newly enabled chiller being operated by more than 5 minutes"
     annotation (Dialog(group="Enable next chiller"));
   parameter Real chaChiWatIsoTim(
     final unit="s",
     final quantity="Time",
-    final displayUnit="h")
+    displayUnit="h")
     "Time to slowly change isolation valve, should be determined in the field"
     annotation (Dialog(group="Chilled water isolation valve"));
   parameter Real byPasSetTim(
     final unit="s",
     final quantity="Time",
-    final displayUnit="h")
+    displayUnit="h")
     "Time to slowly reset minimum bypass flow"
     annotation (Dialog(group="Reset CHW minimum flow setpoint"));
-  parameter Modelica.SIunits.VolumeFlowRate minFloSet[nChi]
+  parameter Real minFloSet[nChi](
+    final unit=fill("m3/s", nChi),
+    final quantity=fill("VolumeFlowRate", nChi),
+    displayUnit=fill("m3/s", nChi))
     "Minimum chilled water flow through each chiller"
-    annotation (Dialog(group="Reset CHW minimum flow setpoint"));
-  parameter Modelica.SIunits.VolumeFlowRate maxFloSet[nChi]
+    annotation (Evaluate=true, Dialog(group="Reset CHW minimum flow setpoint"));
+  parameter Real maxFloSet[nChi](
+    final unit=fill("m3/s", nChi),
+    final quantity=fill("VolumeFlowRate", nChi),
+    displayUnit=fill("m3/s", nChi))
     "Maximum chilled water flow through each chiller"
-    annotation (Dialog(group="Reset CHW minimum flow setpoint"));
+    annotation (Evaluate=true, Dialog(group="Reset CHW minimum flow setpoint"));
   parameter Real aftByPasSetTim(
     final unit="s",
     final quantity="Time",
-    final displayUnit="h")=60
+    displayUnit="h")=60
     "Time after minimum bypass flow being resetted to new setpoint"
     annotation (Dialog(group="Reset bypass"));
   parameter Real relFloDif=0.05
@@ -140,10 +146,10 @@ protected
     final heaStaCha=false)
     "Disable head pressure control of the chiller being disabled"
     annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.MinimumFlowBypass.Subsequences.FlowSetpoint
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.MinimumFlowBypass.FlowSetpoint
     minChiWatSet(
     final nChi=nChi,
-    final isParallelChiller=isParallelChiller,
+    final is_parChi=is_parChi,
     final byPasSetTim=byPasSetTim,
     final minFloSet=minFloSet,
     final maxFloSet=maxFloSet) "Reset minimum chilled water flow setpoint"
@@ -157,8 +163,8 @@ protected
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea1[nChi]
     "Convert boolean input to real output"
     annotation (Placement(transformation(extent={{-160,10},{-140,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.LessEqualThreshold lesEquThr(
-    final threshold=0.5)
+  Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesEquThr(
+    final t=0.5)
     "Check if the disabled chiller is not requiring chilled water"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
   Buildings.Controls.OBC.CDL.Logical.And and4 "Logical and"
@@ -169,8 +175,8 @@ protected
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea2[nChi]
     "Convert boolean input to real output"
     annotation (Placement(transformation(extent={{-160,-80},{-140,-60}})));
-  Buildings.Controls.OBC.CDL.Continuous.LessEqualThreshold lesEquThr1(
-    final threshold=0.5)
+  Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesEquThr1(
+    final t=0.5)
     "Check if the disabled chiller is not requiring condenser water"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
   Buildings.Controls.OBC.CDL.Logical.And and5 "Logical and"
@@ -438,7 +444,7 @@ annotation (
           fillPattern=FillPattern.Solid,
           lineColor={0,0,127},
           horizontalAlignment=TextAlignment.Right,
-          textString="Close chilled water 
+          textString="Close chilled water
 isolation valve"),
           Rectangle(
           extent={{-198,-62},{198,-98}},
@@ -466,7 +472,7 @@ pressure control"),
           fillPattern=FillPattern.Solid,
           lineColor={0,0,127},
           horizontalAlignment=TextAlignment.Right,
-          textString="Reset minimum 
+          textString="Reset minimum
 bypass setpoint"),
           Rectangle(
           extent={{-198,-202},{198,-258}},
@@ -612,9 +618,9 @@ bypass setpoint"),
 Documentation(info="<html>
 <p>
 Block that controls devices at the ending step of chiller staging up process.
-This development is based on ASHRAE RP-1711 Advanced Sequences of Operation for 
+This development is based on ASHRAE RP-1711 Advanced Sequences of Operation for
 HVAC Systems Phase II – Central Plants and Hydronic Systems (Draft version,
-March 2020), section 5.2.4.16, item 6 and 7. These sections specify the controls of 
+March 2020), section 5.2.4.16, item 6 and 7. These sections specify the controls of
 devices at the ending step of staging up process.
 </p>
 <p>
@@ -623,8 +629,8 @@ and a larger chiller being enabled (<code>uOnOff=false</code>),
 </p>
 <ul>
 <li>
-Start the next stage chiller (<code>nexEnaChi</code>) after the chilled water 
-isolation valve is fully open (<code>uEnaChiWatIsoVal=true</code>). 
+Start the next stage chiller (<code>nexEnaChi</code>) after the chilled water
+isolation valve is fully open (<code>uEnaChiWatIsoVal=true</code>).
 This is implemented in block <code>enaChi</code>. See
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.EnableChiller\">
 Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.EnableChiller</a>
@@ -633,13 +639,13 @@ for more decriptions.
 </ul>
 <p>
 For any stage change during which a smaller chiller is diabled and a larger chiller
-is enabled (<code>uOnOff=true</code>), after starting the next stage chiller 
+is enabled (<code>uOnOff=true</code>), after starting the next stage chiller
 specified above, do following:
 </p>
 <ol>
 <li>
-Wait 5 minutes (<code>proOnTim</code>) for the newly enabled chiller to prove that 
-is operating correctly, then shut off the small chiller (<code>nexDisChi</code>). 
+Wait 5 minutes (<code>proOnTim</code>) for the newly enabled chiller to prove that
+is operating correctly, then shut off the small chiller (<code>nexDisChi</code>).
 This is implemented in block <code>enaChi</code>. See
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.EnableChiller\">
 Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.EnableChiller</a>
@@ -647,8 +653,8 @@ for more decriptions.
 </li>
 <li>
 When the controller of the smaller chiller being shut off indicates no request
-for chilled water flow (<code>uChiWatReq=false</code>), slowly close the chiller's 
-chilled water isolation valve to avoid a sudden change in flow through other 
+for chilled water flow (<code>uChiWatReq=false</code>), slowly close the chiller's
+chilled water isolation valve to avoid a sudden change in flow through other
 operating chillers.
 This is implemented in block <code>disChiIsoVal</code>. See
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.CHWIsoVal\">
@@ -656,8 +662,8 @@ Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subse
 for more decriptions.
 </li>
 <li>
-When the controller of the smaller chiller being shut off indicates no request for 
-condenser water flow (<code>uConWatReq=false</code>), disable the chiller's head 
+When the controller of the smaller chiller being shut off indicates no request for
+condenser water flow (<code>uConWatReq=false</code>), disable the chiller's head
 pressure control loop.
 This is implemented in block <code>disHeaCon</code>. See
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.HeadControl\">

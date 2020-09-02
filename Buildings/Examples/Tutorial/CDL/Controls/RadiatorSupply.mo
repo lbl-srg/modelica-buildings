@@ -33,7 +33,7 @@ block RadiatorSupply "Controller for mixing valve in radiator loop"
     final unit="1")
     "Valve control signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.LimPID conPIDRad(
+  Buildings.Controls.OBC.CDL.Continuous.PID conPIDRad(
     final k=k,
     final Ti=Ti,
     final yMax=1,

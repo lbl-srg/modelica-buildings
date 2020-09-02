@@ -8,9 +8,9 @@ block Up "Sequence for control devices when there is stage-up command"
     "True: have waterside economizer";
   parameter Boolean have_PonyChiller=false
     "True: have pony chiller";
-  parameter Boolean isParallelChiller=true
+  parameter Boolean is_parChi=true
     "True: the plant has parallel chillers";
-  parameter Boolean isHeadered=true
+  parameter Boolean is_heaPum=true
     "True: headered condenser water pumps";
   parameter Real chiDemRedFac=0.75
     "Demand reducing factor of current operating chillers"
@@ -18,25 +18,31 @@ block Up "Sequence for control devices when there is stage-up command"
   parameter Real holChiDemTim(
     final unit="s",
     final quantity="Time",
-    final displayUnit="h")=300
+    displayUnit="h")=300
     "Maximum time to wait for the actual demand less than percentage of current load"
     annotation (Dialog(group="Limit chiller demand"));
   parameter Real byPasSetTim(
     final unit="s",
     final quantity="Time",
-    final displayUnit="h")=300
+    displayUnit="h")=300
     "Time to reset minimum bypass flow"
     annotation (Dialog(group="Reset CHW minimum flow setpoint"));
-  parameter Modelica.SIunits.VolumeFlowRate minFloSet[nChi]={0.0089,0.0089}
-    "Minimum chilled water flow through each chiller"
-    annotation (Dialog(group="Reset CHW minimum flow setpoint"));
-  parameter Modelica.SIunits.VolumeFlowRate maxFloSet[nChi]={0.025,0.025}
-    "Maximum chilled water flow through each chiller"
-    annotation (Dialog(group="Reset CHW minimum flow setpoint"));
+  parameter Real minFloSet[nChi](
+    final unit=fill("m3/s",nChi),
+    final quantity=fill("VolumeFlowRate",nChi),
+    displayUnit=fill("m3/s",nChi))={0.0089,0.0089}
+      "Minimum chilled water flow through each chiller"
+    annotation (Evaluate=true, Dialog(group="Reset CHW minimum flow setpoint"));
+  parameter Real maxFloSet[nChi](
+    final unit=fill("m3/s",nChi),
+    final quantity=fill("VolumeFlowRate",nChi),
+    displayUnit=fill("m3/s",nChi))={0.025,0.025}
+      "Maximum chilled water flow through each chiller"
+    annotation (Evaluate=true, Dialog(group="Reset CHW minimum flow setpoint"));
   parameter Real aftByPasSetTim(
     final unit="s",
     final quantity="Time",
-    final displayUnit="h")=60
+    displayUnit="h")=60
     "Time to allow loop to stabilize after resetting minimum chilled water flow setpoint"
     annotation (Dialog(group="Reset bypass"));
   parameter Real staVec[totSta]={0,0.5,1,1.5,2,2.5}
@@ -51,25 +57,25 @@ block Up "Sequence for control devices when there is stage-up command"
   parameter Real thrTimEnb(
     final unit="s",
     final quantity="Time",
-    final displayUnit="h")=10
+    displayUnit="h")=10
     "Threshold time to enable head pressure control after condenser water pump being reset"
     annotation (Dialog(group="Enable head pressure control"));
   parameter Real waiTim(
     final unit="s",
     final quantity="Time",
-    final displayUnit="h")=30
+    displayUnit="h")=30
     "Waiting time after enabling next head pressure control"
     annotation (Dialog(group="Enable head pressure control"));
   parameter Real chaChiWatIsoTim(
     final unit="s",
     final quantity="Time",
-    final displayUnit="h")=300
+    displayUnit="h")=300
     "Time to slowly change isolation valve, should be determined in the field"
     annotation (Dialog(group="Enable CHW isolation valve"));
   parameter Real proOnTim(
     final unit="s",
     final quantity="Time",
-    final displayUnit="h")=300
+    displayUnit="h")=300
     "Threshold time to check after newly enabled chiller being operated"
     annotation (Dialog(group="Enable next chiller",enable=have_PonyChiller));
   parameter Real relSpeDif = 0.05
@@ -213,14 +219,13 @@ protected
     final chiDemRedFac=chiDemRedFac,
     final holChiDemTim=holChiDemTim) "Limit chiller demand"
     annotation (Placement(transformation(extent={{-80,160},{-60,180}})));
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.MinimumFlowBypass.Subsequences.FlowSetpoint
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.MinimumFlowBypass.FlowSetpoint
     minChiWatFlo(
     final nChi=nChi,
-    final isParallelChiller=isParallelChiller,
+    final is_parChi=is_parChi,
     final byPasSetTim=byPasSetTim,
     final minFloSet=minFloSet,
-    final maxFloSet=maxFloSet)
-    "Minimum chilled water flow setpoint"
+    final maxFloSet=maxFloSet) "Minimum chilled water flow setpoint"
     annotation (Placement(transformation(extent={{20,80},{40,100}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.ResetMinBypass
     minBypSet(
@@ -234,7 +239,7 @@ protected
     annotation (Placement(transformation(extent={{0,30},{20,50}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.CondenserWater.Controller
     conWatPumCon(
-    final isHeadered=isHeadered,
+    final is_heaPum=is_heaPum,
     final have_WSE=have_WSE,
     final nChi=nChi,
     final totSta=totSta,
@@ -263,7 +268,7 @@ protected
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.UpEnd
     endUp(
     final nChi=nChi,
-    final isParallelChiller=isParallelChiller,
+    final is_parChi=is_parChi,
     final chaChiWatIsoTim=chaChiWatIsoTim,
     final maxFloSet=maxFloSet,
     final proOnTim=proOnTim,
@@ -352,9 +357,6 @@ equation
   connect(nexChi.yNexEnaChi, enaHeaCon.nexChaChi)
     annotation (Line(points={{-58,229},{-36,229},{-36,-94},{58,-94}},
       color={255,127,0}));
-  connect(enaHeaCon.uChiHeaCon, uChiHeaCon)
-    annotation (Line(points={{58,-98},{-48,-98},{-48,-130},{-260,-130}},
-      color={255,0,255}));
   connect(nexChi.yNexEnaChi, enaChiIsoVal.nexChaChi)
     annotation (Line(points={{-58,229},{-36,229},{-36,-142},{58,-142}},
       color={255,127,0}));
@@ -381,9 +383,6 @@ equation
       color={0,0,127}));
   connect(uConWatReq, endUp.uConWatReq)
     annotation (Line(points={{-260,-10},{-164,-10},{-164,-224},{18,-224}},
-      color={255,0,255}));
-  connect(uChiHeaCon, endUp.uChiHeaCon)
-    annotation (Line(points={{-260,-130},{-48,-130},{-48,-226},{18,-226}},
       color={255,0,255}));
   connect(VChiWat_flow, endUp.VChiWat_flow)
     annotation (Line(points={{-260,100},{-156,100},{-156,-228},{18,-228}},
@@ -552,6 +551,10 @@ equation
           250},{-104,31},{-2,31}}, color={255,127,0}));
   connect(uChiSta, enaNexCWP.uChiSta) annotation (Line(points={{-260,30},{-180,30},
           {-180,35},{-2,35}}, color={255,127,0}));
+  connect(enaHeaCon.uChiHeaCon, uChiHeaCon) annotation (Line(points={{58,-98},{-48,
+          -98},{-48,-130},{-260,-130}}, color={255,0,255}));
+  connect(uChiHeaCon, endUp.uChiHeaCon) annotation (Line(points={{-260,-130},{-48,
+          -130},{-48,-226},{18,-226}}, color={255,0,255}));
 
 annotation (
   defaultComponentName="upProCon",
@@ -565,7 +568,7 @@ annotation (
         fillPattern=FillPattern.Solid,
         borderPattern=BorderPattern.Raised),
         Text(
-          extent={{-120,260},{120,200}},
+          extent={{-120,240},{120,200}},
           lineColor={0,0,255},
           textString="%name"),
         Rectangle(
@@ -598,10 +601,6 @@ annotation (
           extent={{-100,-44},{-64,-56}},
           lineColor={255,0,255},
           textString="uWSE"),
-        Text(
-          extent={{-96,-134},{-44,-146}},
-          lineColor={255,0,255},
-          textString="uChiHeaCon"),
         Text(
           extent={{-98,-184},{-48,-196}},
           lineColor={255,0,255},
@@ -682,29 +681,33 @@ annotation (
         Text(
           extent={{-98,26},{-56,14}},
           lineColor={255,127,0},
-          textString="uChiSta")}),
+          textString="uChiSta"),
+        Text(
+          extent={{-98,-134},{-48,-146}},
+          lineColor={255,0,255},
+          textString="uChiHeaCon")}),
 Documentation(info="<html>
 <p>
 Block that controls devices when there is a stage-up command. This sequence is for
 water-cooled primary-only parallel chiller plants with headered chilled water pumps
 and headered condenser water pumps, or air-cooled primary-only parallel chiller
 plants with headered chilled water pumps.
-This development is based on ASHRAE RP-1711 Advanced Sequences of Operation for 
+This development is based on ASHRAE RP-1711 Advanced Sequences of Operation for
 HVAC Systems Phase II – Central Plants and Hydronic Systems (Draft version, March 2020),
 section 5.2.4.16, which specifies the step-by-step control of
 devices during chiller staging up process.
 </p>
 <ol>
 <li>
-Identify the chiller(s) that should be enabled (and disabled, if <code>have_PonyChiller=true</code>). 
+Identify the chiller(s) that should be enabled (and disabled, if <code>have_PonyChiller=true</code>).
 This is implemented in block <code>nexChi</code>. See
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.NextChiller\">
 Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.NextChiller</a>
 for more decriptions.
 </li>
 <li>
-Command operating chillers to reduce demand to 75% (<code>chiDemRedFac</code>) of 
-their current load (<code>uChiLoa</code>). Wait until actual demand &lt; 80% of 
+Command operating chillers to reduce demand to 75% (<code>chiDemRedFac</code>) of
+their current load (<code>uChiLoa</code>). Wait until actual demand &lt; 80% of
 current load up to a maximum of 5 minutes (<code>holChiDemTim</code>) before proceeding.
 This is implemented in block <code>chiDemRed</code>. See
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.ReduceDemand\">
@@ -716,13 +719,13 @@ Reset the minimum chilled water flow setpoint,
 <ul>
 <li>
 For any stage change during which a smaller chiller is disabled and a larger chiller
-is enabled, slowly change (<code>byPasSetTim</code>) the minimum chilled water flow 
-setpoint to the one that includes both chillers are enabled. After new setpoint is 
+is enabled, slowly change (<code>byPasSetTim</code>) the minimum chilled water flow
+setpoint to the one that includes both chillers are enabled. After new setpoint is
 achieved, wait 1 minute (<code>aftByPasSetTim</code>) to allow loop to stabilize.
 </li>
 <li>
-For any other stage change, reset ((<code>byPasSetTim</code>)) the minimum chilled 
-water flow setpoint to the one that includes the new chiller. After new setpoint is 
+For any other stage change, reset ((<code>byPasSetTim</code>)) the minimum chilled
+water flow setpoint to the one that includes the new chiller. After new setpoint is
 achieved, wait 1 minute (<code>aftByPasSetTim</code>) to allow loop to stabilize.
 </li>
 </ul>
@@ -734,7 +737,7 @@ Block <code>minBypSet</code> checks if the new setpoint is achieved
 Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.ResetMinBypass</a>).
 </li>
 <li>
-Start the next condenser water pump and/or change condenser water pump speed 
+Start the next condenser water pump and/or change condenser water pump speed
 to that required of the new stage. Wait 10 seconds (<code>thrTimEnb</code>).
 Block <code>enaNexCWP</code> identifies chiller stage for the condenser water pump
 control
@@ -752,7 +755,7 @@ Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subse
 for more decriptions.
 </li>
 <li>
-Slowly (<code>chaChiWatIsoTim</code>) open chilled water isolation valve of the chiller 
+Slowly (<code>chaChiWatIsoTim</code>) open chilled water isolation valve of the chiller
 being enabled. The valve timing should be determined in the fields.
 This is implemented in block <code>enaChiIsoVal</code>. See
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.CHWIsoVal\">
@@ -763,14 +766,14 @@ for more decriptions.
 End the staging up process:
 <ul>
 <li>
-If the stage change does not require one chiller enabled and another chiller disabled, 
+If the stage change does not require one chiller enabled and another chiller disabled,
 start the next stage chiller after the isolation valve is fully open.
 </li>
 <li>
-If the stage change does require one chiller enabled and another chiller disabled, 
+If the stage change does require one chiller enabled and another chiller disabled,
 starting the next stage chiller after the isolation valve is fully open, then shut off
 the smaller chiller, close the chiller's chilled water isolation valve, disable
-the head pressure control loop, and change the minimum chilled water flow setpoint 
+the head pressure control loop, and change the minimum chilled water flow setpoint
 to the one for the new stage.
 </li>
 <li>

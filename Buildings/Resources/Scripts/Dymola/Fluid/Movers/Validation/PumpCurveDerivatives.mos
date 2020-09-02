@@ -1,4 +1,4 @@
-simulateModel("Buildings.Fluid.Movers.Validation.PumpCurveDerivatives", numberOfIntervals=500, method="Dassl", tolerance=1e-6, stopTime=1.0, resultFile="PumpCurveDerivatives");
+simulateModel("Buildings.Fluid.Movers.Validation.PumpCurveDerivatives", numberOfIntervals=500, method="CVode", tolerance=1e-6, stopTime=1.0, resultFile="PumpCurveDerivatives");
 createPlot(id=1,
 position={0, 0, 1532, 801},
 y={"ddp_dNrpm.y"},

@@ -5,7 +5,7 @@ block ResetMinBypass
   parameter Real aftByPasSetTim(
     final unit="s",
     final quantity="Time",
-    final displayUnit="h") = 60
+    displayUnit="h") = 60
     "Time after setpoint achieved";
   parameter Real relFloDif=0.05
     "Relative error to the setpoint for checking if it has achieved flow rate setpoint"
@@ -44,14 +44,12 @@ protected
     annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
   Buildings.Controls.OBC.CDL.Logical.And3 and1 "Logical and"
     annotation (Placement(transformation(extent={{120,70},{140,90}})));
-  Buildings.Controls.OBC.CDL.Logical.Timer tim "Time after achiving setpoint"
+  Buildings.Controls.OBC.CDL.Logical.Timer tim(
+    final t=aftByPasSetTim)
+    "Check if it has been over threshold time after new setpoint achieved"
     annotation (Placement(transformation(extent={{40,-30},{60,-10}})));
   Buildings.Controls.OBC.CDL.Logical.And and2 "Logical and"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr(
-    final threshold=aftByPasSetTim)
-    "Check if it has been threshold time after new setpoint achieved"
-    annotation (Placement(transformation(extent={{80,-30},{100,-10}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1 "Logical not"
     annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
   Buildings.Controls.OBC.CDL.Logical.Latch lat
@@ -74,7 +72,8 @@ protected
     annotation (Placement(transformation(extent={{40,30},{60,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Abs abs "Absolute value"
     annotation (Placement(transformation(extent={{-120,-30},{-100,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Feedback floDif "Checkout the flow rate difference"
+  Buildings.Controls.OBC.CDL.Continuous.Feedback floDif
+    "Checkout the flow rate difference"
     annotation (Placement(transformation(extent={{-150,-30},{-130,-10}})));
   Buildings.Controls.OBC.CDL.Logical.Not not2 "Logical not"
     annotation (Placement(transformation(extent={{-20,-70},{0,-50}})));
@@ -85,8 +84,6 @@ equation
   connect(chaPro, and2.u2)
     annotation (Line(points={{-180,40},{-140,40},{-140,72},{-82,72}},
       color={255,0,255}));
-  connect(tim.y, greEquThr.u)
-    annotation (Line(points={{62,-20},{78,-20}}, color={0,0,127}));
   connect(and2.y, and1.u1)
     annotation (Line(points={{-58,80},{-10,80},{-10,88},{118,88}},
       color={255,0,255}));
@@ -97,9 +94,6 @@ equation
       color={255,0,255}));
   connect(lat.y, and1.u2)
     annotation (Line(points={{102,40},{108,40},{108,80},{118,80}},
-      color={255,0,255}));
-  connect(greEquThr.y, and1.u3)
-    annotation (Line(points={{102,-20},{114,-20},{114,72},{118,72}},
       color={255,0,255}));
   connect(VMinChiWat_setpoint, addPar.u)
     annotation (Line(points={{-180,-80},{-142,-80}}, color={0,0,127}));
@@ -138,6 +132,9 @@ equation
   connect(not2.y, and3.u2)
     annotation (Line(points={{2,-60},{10,-60},{10,-40},{-10,-40},{-10,-28},
       {-2,-28}}, color={255,0,255}));
+  connect(tim.passed, and1.u3)
+    annotation (Line(points={{62,-28},{114,-28},{114,72},{118,72}},
+      color={255,0,255}));
 
 annotation (
   defaultComponentName="minBypRes",
