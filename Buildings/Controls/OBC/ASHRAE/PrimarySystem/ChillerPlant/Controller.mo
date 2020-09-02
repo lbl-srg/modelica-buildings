@@ -526,18 +526,18 @@ block Controller "Head pressure controller"
    parameter Buildings.Controls.OBC.CDL.Types.SimpleController intOpeCon=
      Buildings.Controls.OBC.CDL.Types.SimpleController.PI
      "Controller in the mode when WSE and chillers are enabled"
-     annotation (Dialog(tab="Fan speed", group="Fan speed with WSE enabled",
+     annotation (Dialog(tab="Cooling Towers", group="Fan speed with WSE enabled",
                         enable=have_WSE));
 
    parameter Real kIntOpeTowFan=1 "Gain of controller"
-     annotation (Dialog(tab="Fan speed", group="Fan speed with WSE enabled",
+     annotation (Dialog(tab="Cooling Towers", group="Fan speed with WSE enabled",
                         enable=have_WSE));
 
    parameter Real TiIntOpeTowFan(
      final unit="s",
      final quantity="Time")=0.5
      "Time constant of integrator block"
-     annotation (Dialog(tab="Fan speed", group="Fan speed with WSE enabled",
+     annotation (Dialog(tab="Cooling Towers", group="Fan speed with WSE enabled",
                         enable=have_WSE and (intOpeCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
                                            intOpeCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
 
@@ -545,32 +545,29 @@ block Controller "Head pressure controller"
      final unit="s",
      final quantity="Time")=0.1
      "Time constant of derivative block"
-     annotation (Dialog(tab="Fan speed", group="Fan speed with WSE enabled",
+     annotation (Dialog(tab="Cooling Towers", group="Fan speed with WSE enabled",
                         enable=have_WSE and (intOpeCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
                                            intOpeCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
 
-   // fixme: why is this a chilled water controller and not a condenser water controller?
-   parameter Buildings.Controls.OBC.CDL.Types.SimpleController chiWatCon=
+   parameter Buildings.Controls.OBC.CDL.Types.SimpleController chiWatConTowFan=
      Buildings.Controls.OBC.CDL.Types.SimpleController.PI
      "Controller in the mode when only WSE is enabled"
-     annotation (Dialog(tab="Fan speed", group="Fan speed with WSE enabled",
-                        enable=have_WSE));
+     annotation (Dialog(tab="Cooling Towers", group="Fan speed with WSE enabled", enable=have_WSE));
 
-   parameter Real kWSE=1 "Gain of controller"
-     annotation (Dialog(tab="Fan speed", group="Fan speed with WSE enabled",
-                        enable=have_WSE));
+   parameter Real kWSETowFan=1 "Gain of controller"
+     annotation (Dialog(tab="Cooling Towers", group="Fan speed with WSE enabled", enable=have_WSE));
 
-   parameter Real TiWSE(
+   parameter Real TiWSETowFan(
      final unit="s",
      final quantity="Time")=0.5 "Time constant of integrator block"
-     annotation (Dialog(tab="Fan speed", group="Fan speed with WSE enabled",
+     annotation (Dialog(tab="Cooling Towers", group="Fan speed with WSE enabled",
                         enable=have_WSE and (chiWatCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
                                            chiWatCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
 
-   parameter Real TdWSE(
+   parameter Real TdWSETowFan(
      final unit="s",
      final quantity="Time")=0.1 "Time constant of derivative block"
-     annotation (Dialog(tab="Fan speed", group="Fan speed with WSE enabled",
+     annotation (Dialog(tab="Cooling Towers", group="Fan speed with WSE enabled",
                         enable=have_WSE and (chiWatCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
                                            chiWatCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
 
@@ -1474,6 +1471,9 @@ fixme = Tasks:
   * Assemble a controller for plants with two devices or groups of devices (chillers, towers(4 cells), CW and C pumps)
   Assume configuration: parallel chillers, headered pumps
   * Add equipment rotation 
+  * I extended names of some parameters to avoid same names for two or more parameters, e.g. Ti, Td. Such parameters can easily be 
+  found by looking for any paramters that have a name that is different to the keyword they get allocated to in a model instance.
+  We might want to backpropagate the final name throughout the package for easier renaming.
 </p>
 </html>",
 revisions="<html>
