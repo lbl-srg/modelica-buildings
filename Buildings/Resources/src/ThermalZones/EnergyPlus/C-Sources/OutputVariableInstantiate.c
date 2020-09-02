@@ -16,7 +16,6 @@
 void OutputVariableInstantiate(
     void* object,
     double startTime){
-  fmi2_status_t status;
   FMUOutputVariable* var = (FMUOutputVariable*) object;
   FMUBuilding* bui = var->ptrBui;
 
