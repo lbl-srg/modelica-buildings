@@ -6,8 +6,10 @@ model Guideline36
   Controls.SetPoints.OccupancySchedule occSch(occupancy=3600*{8,18})
     "Occupancy schedule"
     annotation (Placement(transformation(extent={{-60,-34},{-40,-14}})));
-  Buildings.Controls.OBC.Utilities.OptimalStart optStaHea(computeHeating=true,
+  Buildings.Controls.OBC.Utilities.OptimalStart optStaHea(
+    nDay=5,                                               computeHeating=true,
     computeCooling=false,
+    uLow=0.1,
     thrOptOn(displayUnit="s"))
     annotation (Placement(transformation(extent={{-20,62},{0,82}})));
   Modelica.Blocks.Sources.Constant TSetHeaOn(k=20 + 273.15)
@@ -17,8 +19,10 @@ model Guideline36
     "Zone cooling setpoint during occupied time"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
   Controls.OBC.Utilities.OptimalStart optStaCoo(
+    nDay=5,
     computeHeating=false,
     computeCooling=true,
+    uLow=0.1,
     thrOptOn(displayUnit="s"))
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
   Controls.OBC.CDL.Continuous.Sources.Constant con(k=0)
@@ -85,10 +89,10 @@ equation
           fillPattern=FillPattern.Solid,
           textString="System with optimal start")}),
     experiment(
-      StopTime=31536000,
+      StopTime=604800,
       Tolerance=1e-06,
       __Dymola_Algorithm="Cvode"),
-      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Air/Systems/SingleZone/VAV/Examples/OptimalStart/OptimalStartGuideline36.mos"
+      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Air/Systems/SingleZone/VAV/Examples/OptimalStart/Guideline36.mos"
         "Simulate and plot"),
       Documentation(info="<html>
 <p>
@@ -99,7 +103,7 @@ with ASHRAE Guideline 36 control sequence.
 </html>", revisions="<html>
 <ul>
 <li>
-July 29, 2019, by David Blum:<br/>
+July 29, 2020, by Kun Zhang:<br/>
 First implementation.
 </li>
 </ul>

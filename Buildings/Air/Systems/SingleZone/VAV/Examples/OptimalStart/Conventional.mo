@@ -20,10 +20,11 @@ model Conventional
     "Cooling setpoint for room temperature"
     annotation (Placement(transformation(extent={{-40,-90},{-20,-70}})));
   Buildings.Controls.OBC.Utilities.OptimalStart optSta(
+    nDay=5,
     computeHeating=true,
     computeCooling=true,
-    thrOptOn(displayUnit="s") = 0)
-                               "Optimal start for heating and cooling system "
+    uLow=0.1,
+    thrOptOn(displayUnit="s")) "Optimal start for heating and cooling system "
     annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
   Buildings.Controls.SetPoints.OccupancySchedule occSch(occupancy=3600*{8,18})
     "Occupancy schedule"
@@ -123,7 +124,7 @@ equation
       StopTime=31536000,
       Tolerance=1e-06,
       __Dymola_Algorithm="Cvode"),
-      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Air/Systems/SingleZone/VAV/Examples/Guideline36.mos"
+      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Air/Systems/SingleZone/VAV/Examples/OptimalStart/Conventional.mos"
         "Simulate and plot"),
       Documentation(info="<html>
 <p>
@@ -134,7 +135,7 @@ with a simple HVAC system and a single-zone floor building.
 </html>", revisions="<html>
 <ul>
 <li>
-December 9, 2019, by Kun Zhang:<br/>
+July 29, 2020, by Kun Zhang:<br/>
 First implementation.
 </li>
 </ul>

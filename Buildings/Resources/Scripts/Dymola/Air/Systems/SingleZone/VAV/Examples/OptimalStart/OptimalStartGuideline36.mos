@@ -1,4 +1,0 @@
-﻿simulateModel("Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.OptimalStartGuideline36", startTime=0, stopTime=864000, numberOfIntervals=500, method="CVode", tolerance=1e-06, resultFile="OptimalStartGuideline36");
-createPlot(id=1, subPlot=1, position={0, 0, 1782, 1053}, y={"zonAHUG36_1.TZon", "zonAHUG36_2.TZon", "zonAHUG36_2.con.TZonHeaSet", "zonAHUG36_2.con.TZonCooSet"},range={0.0, 32000000.0, 10.0, 35.0}, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}});
-createPlot(id=1, subPlot=2, position={0, 0, 1782, 1053}, y={"optStaHea.tOpt", "optStaCoo.tOpt"}, range={0.0, 32000000.0, -0.5, 3.5}, colors={{28,108,200},{238,46,47}});
-
