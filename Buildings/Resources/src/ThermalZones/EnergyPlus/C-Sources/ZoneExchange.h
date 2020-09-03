@@ -6,12 +6,13 @@
 #ifndef Buildings_ZoneExchange_h
 #define Buildings_ZoneExchange_h
 
+#include "EnergyPlusTypes.h"
 #include "EnergyPlusFMU.h"
 #include "ZoneInstantiate.h"
 #include "FMI2/fmi2_import_capi.h"
 
 
-void ZoneExchange(
+LBNL_EnergyPlus_EXPORT void ZoneExchange(
   void* object,
   int initialCall,
   double T,

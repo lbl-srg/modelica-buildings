@@ -28,6 +28,23 @@
 #include <dlfcn.h>
 #endif
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+#ifdef _MSC_VER
+#ifdef EXTERNAL_FUNCTION_EXPORT
+# define LBNL_EnergyPlus_EXPORT __declspec( dllexport )
+#else
+# define LBNL_EnergyPlus_EXPORT __declspec( dllimport )
+#endif
+#elif __GNUC__ >= 4
+/* In gnuc, all symbols are by default exported. It is still often useful,
+to not export all symbols but only the needed ones */
+# define LBNL_EnergyPlus_EXPORT __attribute__ ((visibility("default")))
+#else
+# define LBNL_EnergyPlus_EXPORT
+#endif
+
 #ifndef max
   #define max( a, b ) ( ((a) > (b)) ? (a) : (b) )
 #endif

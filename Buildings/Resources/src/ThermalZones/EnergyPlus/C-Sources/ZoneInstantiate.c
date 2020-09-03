@@ -5,8 +5,8 @@
  * Thierry S. Nouidui, LBNL              3/23/2018
  */
 
-#include "ZoneInstantiate.h"
 #include "EnergyPlusFMU.h"
+#include "ZoneInstantiate.h"
 
 #include <stdlib.h>
 #include <string.h>
