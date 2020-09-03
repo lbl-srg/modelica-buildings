@@ -353,7 +353,13 @@ void generateFMU(
     if( access(modelicaBuildingsJsonFile, F_OK ) == -1 ) {
       SpawnFormatError("Requested to use json file '%s' which does not exist.", modelicaBuildingsJsonFile);
     }
+#ifdef _WIN32 /* Win32 or Win64 */
+    cmd = "/Resources/bin/spawn-win64/bin/spawn";
+#elif __APPLE__
+    cmd = "/Resources/bin/spawn-darwin64/bin/spawn";
+#else
     cmd = "/Resources/bin/spawn-linux64/bin/spawn";
+#endif
     optionFlags = " --no-compress "; /* Flag for command */
     outputFlag = " --output-path "; /* Flag for command */
     createFlag = " --create "; /* Flag for command */
