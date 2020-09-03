@@ -106,13 +106,9 @@ model MixingValveControl
     final integerFalse=2)
     "Mode index, 1 for heating, 2 for cooling"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse modCha(
-    period=1000)
-    "Boolean pulse for changing mode"
-    annotation (Placement(transformation(extent={{-140,-10},{-120,10}})));
-  Buildings.Controls.OBC.CDL.Logical.Not mod
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse mod(period=1000)
     "Operating mode, true for heating, false for cooling"
-    annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
+    annotation (Placement(transformation(extent={{-140,-10},{-120,10}})));
 
 equation
   connect(TPri.y, souPri.T_in) annotation (Line(points={{-38,80},{-32,80},{-32,
@@ -155,17 +151,15 @@ equation
           -112},{18,-112}}, color={0,0,127}));
   connect(dTSecCoo.y, dTSec.u3) annotation (Line(points={{2,-140},{10,-140},{10,
           -128},{18,-128}}, color={0,0,127}));
-  connect(modCha.y, mod.u)
-    annotation (Line(points={{-118,0},{-102,0}}, color={255,0,255}));
-  connect(mod.y, TPri.u2) annotation (Line(points={{-78,0},{-70,0},{-70,80},{-62,
-          80}}, color={255,0,255}));
-  connect(mod.y, TSetSecAct.u2) annotation (Line(points={{-78,0},{-70,0},{-70,-80},
-          {-62,-80}}, color={255,0,255}));
-  connect(mod.y, modInd.u)
-    annotation (Line(points={{-78,0},{-62,0}}, color={255,0,255}));
   connect(modInd.y, disFlo.modChaOve) annotation (Line(points={{-38,0},{36,0},{36,
           14},{39,14}}, color={255,127,0}));
-  connect(mod.y, dTSec.u2) annotation (Line(points={{-78,0},{-70,0},{-70,-120},
+  connect(mod.y, TPri.u2) annotation (Line(points={{-118,0},{-70,0},{-70,80},{
+          -62,80}}, color={255,0,255}));
+  connect(mod.y, modInd.u)
+    annotation (Line(points={{-118,0},{-62,0}}, color={255,0,255}));
+  connect(mod.y, TSetSecAct.u2) annotation (Line(points={{-118,0},{-70,0},{-70,
+          -80},{-62,-80}}, color={255,0,255}));
+  connect(mod.y, dTSec.u2) annotation (Line(points={{-118,0},{-70,0},{-70,-120},
           {18,-120}}, color={255,0,255}));
   annotation (
 Documentation(
