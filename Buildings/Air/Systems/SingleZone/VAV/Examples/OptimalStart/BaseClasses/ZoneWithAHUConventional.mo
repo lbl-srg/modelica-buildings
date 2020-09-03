@@ -14,7 +14,7 @@ block ZoneWithAHUConventional
     "Design air flow rate";
   parameter Modelica.SIunits.HeatFlowRate QHea_flow_nominal = 90000
     "Design heating flow rate";
-  parameter Modelica.SIunits.HeatFlowRate QCoo_flow_nominal = -90000
+  parameter Modelica.SIunits.HeatFlowRate QCoo_flow_nominal = -100000
     "Design cooling flow rate";
 
   Buildings.Air.Systems.SingleZone.VAV.ChillerDXHeatingEconomizer hvac(
@@ -30,10 +30,6 @@ block ZoneWithAHUConventional
     con(
     minAirFlo=0.1,
     minOAFra=0.4,
-    kCoo=1,
-    kFan=4,
-    kEco=4,
-    kHea=4,
     TSupChi_nominal=TSupChi_nominal,
     TSetSupAir=286.15) "Controller"
     annotation (Placement(transformation(extent={{-78,-12},{-58,8}})));
@@ -54,7 +50,7 @@ block ZoneWithAHUConventional
           extent={{-140,-20},{-100,20}}),  iconTransformation(extent={{-140,-20},
             {-100,20}})));
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
-        ModelicaServices.ExternalReferences.loadResource("modelica://Buildings/Resources/weatherdata/DRYCOLD.mos"),
+        ModelicaServices.ExternalReferences.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"),
       computeWetBulbTemperature=false)
     "Weather data"
     annotation (Placement(transformation(extent={{-40,50},{-20,70}})));

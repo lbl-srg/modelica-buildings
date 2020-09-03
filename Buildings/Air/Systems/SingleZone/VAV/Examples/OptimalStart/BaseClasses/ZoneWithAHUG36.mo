@@ -14,7 +14,7 @@ block ZoneWithAHUG36
     "Design air flow rate";
   parameter Modelica.SIunits.HeatFlowRate QHea_flow_nominal = 90000
     "Design heating flow rate";
-  parameter Modelica.SIunits.HeatFlowRate QCoo_flow_nominal = -90000
+  parameter Modelica.SIunits.HeatFlowRate QCoo_flow_nominal = -100000
     "Design cooling flow rate";
 
   Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.Controller con(
@@ -57,8 +57,7 @@ block ZoneWithAHUG36
     "Control error on room temperature for cooling"
     annotation (Placement(transformation(extent={{-76,-80},{-56,-60}})));
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
-        ModelicaServices.ExternalReferences.loadResource(
-        "modelica://Buildings/Resources/weatherdata/DRYCOLD.mos"),
+        ModelicaServices.ExternalReferences.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"),
     computeWetBulbTemperature=false)
     "Weather data"
     annotation (Placement(transformation(extent={{-20,70},{0,90}})));
