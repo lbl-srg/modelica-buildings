@@ -9,8 +9,6 @@
 #ifndef Buildings_BuildingInstantiate_c
 #define Buildings_BuildingInstantiate_c
 
-#include "EnergyPlusFMU.h"
-
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
@@ -56,16 +54,16 @@ void closeJSONModelArrayBracket(char* *buffer, int iMod, int nMod, size_t* size)
 
 void buildJSONModelStructureForEnergyPlus(
   const FMUBuilding* bui, char* *buffer, size_t* size, char** modelHash){
-  int i;
+  size_t i;
   int iWri;
   int nSch;
   FMUZone** zones = (FMUZone**)bui->zones;
-  FMUInputVariable** inpVars;
-  FMUOutputVariable** outVars;
+  FMUInputVariable** inpVars= NULL;
+  FMUOutputVariable** outVars = NULL;
   /* Total number of models */
-  const int nMod = bui->nZon + bui->nInputVariables + bui->nOutputVariables;
+  const size_t nMod = bui->nZon + bui->nInputVariables + bui->nOutputVariables;
   /* Number of models written to json so far */
-  int iMod = 0;
+  size_t iMod = 0;
 
   saveAppend(buffer, "{\n", size);
   buildJSONKeyValue(buffer, 1, "version", "0.1", true, size);
@@ -86,11 +84,11 @@ void buildJSONModelStructureForEnergyPlus(
     }
     openJSONModelBracket(buffer, size);
     buildJSONKeyValue(buffer, 4, "name", zones[i]->name, false, size);
-    closeJSONModelBracket(buffer, i, bui->nZon, size);
+    closeJSONModelBracket(buffer, (int)i, (int)(bui->nZon), size);
   }
   iMod = bui->nZon;
   if (iMod > 0)
-    closeJSONModelArrayBracket(buffer, iMod, nMod, size);
+    closeJSONModelArrayBracket(buffer, (int)iMod, (int)nMod, size);
 
 
   /* Write schedule names */
@@ -122,7 +120,7 @@ void buildJSONModelStructureForEnergyPlus(
   }
   if (nSch > 0){
     iMod += nSch;
-    closeJSONModelArrayBracket(buffer, iMod, nMod, size);
+    closeJSONModelArrayBracket(buffer, (int)iMod, (int)nMod, size);
   }
 
 
@@ -145,7 +143,7 @@ void buildJSONModelStructureForEnergyPlus(
   }
   if (bui->nInputVariables-nSch > 0){
     iMod += bui->nInputVariables-nSch;
-    closeJSONModelArrayBracket(buffer, iMod, nMod, size);
+    closeJSONModelArrayBracket(buffer, (int)iMod, (int)nMod, size);
   }
 
   /* Write output names */
@@ -164,7 +162,7 @@ void buildJSONModelStructureForEnergyPlus(
   }
   if (bui->nOutputVariables > 0){
     iMod += bui->nOutputVariables;
-    closeJSONModelArrayBracket(buffer, iMod, nMod, size);
+    closeJSONModelArrayBracket(buffer, (int)iMod, (int)nMod, size);
   }
 
   /* Close json object for model */
@@ -190,7 +188,6 @@ void writeModelStructureForEnergyPlus(const FMUBuilding* bui, char** modelicaBui
   char * buffer;
   size_t size;
   size_t lenNam;
-  char * filNam;
   FILE* fp;
 
   /* Initial size which will grow as needed */
@@ -229,8 +226,6 @@ void setAttributesReal(
   const spawnReals* ptrSpawnReals){
 
   size_t iFMI;
-  fmi2_import_variable_t* fmiVar;
-  fmi2_value_reference_t vr;
   fmi2_import_variable_t* var;
   bool found;
   size_t i;
@@ -274,8 +269,6 @@ void setAttributesReal(
 
 void setValueReferences(FMUBuilding* fmuBui){
   size_t i;
-  size_t iVar;
-  size_t vr;
   FMUZone* zone;
   FMUInputVariable* inpVar;
   FMUOutputVariable* outVar;
@@ -330,11 +323,9 @@ void generateFMU(
   const char* buildingsLibraryRoot){
   /* Generate the FMU */
   char* cmd;
-  char* cmdFla;
   char* optionFlags;
   char* outputFlag;
   char* createFlag;
-  char* testFMU;
   char* fulCmd;
   size_t len;
   int retVal;
@@ -473,7 +464,7 @@ void setFMUDebugLevel(FMUBuilding* bui){
 }
 
 /* Logger function used for Spawn */
-static void spawnLogger(
+void spawnLogger(
   fmi2_component_environment_t env,
   fmi2_string_t instanceName,
   fmi2_status_t status,

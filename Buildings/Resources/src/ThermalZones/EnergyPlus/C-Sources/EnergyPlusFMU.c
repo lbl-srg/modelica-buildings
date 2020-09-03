@@ -18,9 +18,8 @@
 #endif
 
 
-static unsigned int Buildings_nFMU = 0;     /* Number of FMUs */
+static size_t Buildings_nFMU = 0;     /* Number of FMUs */
 static struct FMUBuilding** Buildings_FMUS; /* Array with pointers to all FMUs */
-
 
 size_t AllocateBuildingDataStructure(
   const char* modelicaNameBuilding,
@@ -254,7 +253,7 @@ void decrementBuildings_nFMU(){
   return;
 }
 
-unsigned int getBuildings_nFMU(){
+size_t getBuildings_nFMU(){
   return Buildings_nFMU;
 }
 

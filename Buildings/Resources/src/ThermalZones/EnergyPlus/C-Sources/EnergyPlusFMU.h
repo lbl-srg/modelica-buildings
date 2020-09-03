@@ -18,7 +18,7 @@
 
 void incrementBuildings_nFMU();
 void decrementBuildings_nFMU();
-unsigned int getBuildings_nFMU();
+size_t getBuildings_nFMU();
 
 size_t AllocateBuildingDataStructure(
   const char* modelicaNameBuilding,

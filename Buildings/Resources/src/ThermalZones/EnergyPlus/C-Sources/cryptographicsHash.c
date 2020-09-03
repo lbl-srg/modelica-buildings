@@ -289,7 +289,7 @@ void SHA1(
     unsigned int ii;
 
     SHA1Init(&ctx);
-    for (ii=0; ii<len; ii+=1)
+    for (ii=0; ii<(unsigned int)len; ii+=1)
         SHA1Update(&ctx, (const unsigned char*)str + ii, 1);
     SHA1Final((unsigned char *)hash_out, &ctx);
     hash_out[20] = '\0';
@@ -305,7 +305,7 @@ const char* cryptographicsHash(const char* str)
     SpawnError("Failed to allocate memory in cryptographicHash.");
   }
 
-  SHA1( result, str, strlen(str) );
+  SHA1( result, str, (int)strlen(str) );
 
   for(offset = 0; offset < 20; offset++) {
     sprintf( ( hexresult + (2*offset)), "%02x", result[offset]&0xff);

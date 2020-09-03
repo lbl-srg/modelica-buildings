@@ -32,8 +32,8 @@ FMUOutputVariable* checkForDoubleOutputVariableDeclaration(
 }
 
 void setOutputVariablePointerIfAlreadyInstantiated(const char* modelicaNameOutputVariable, FMUOutputVariable** ptrFMUOutputVariable){
-  int iBui;
-  int iCom;
+  size_t iBui;
+  size_t iCom;
   FMUBuilding* ptrBui;
   FMUOutputVariable* ptrOutVar;
 
@@ -64,7 +64,7 @@ void* OutputVariableAllocate(
   const int verbosity,
   int printUnit){
   /* Note: The idfName is needed to unpack the fmu so that the valueReference can be obtained */
-  unsigned int i;
+  size_t i;
   FMUOutputVariable* comVar = NULL;
 
   const size_t nFMU = getBuildings_nFMU();

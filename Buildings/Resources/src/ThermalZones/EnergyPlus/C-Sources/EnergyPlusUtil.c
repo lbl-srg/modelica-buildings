@@ -180,10 +180,13 @@ void getVariables(FMUBuilding* bui, const char* modelicaInstanceName, spawnReals
 /* Do the event iteration
    */
 double do_event_iteration(FMUBuilding* bui, const char* modelicaInstanceName){
-  fmi2_event_info_t eventInfo;
+  fmi2_event_info_t eventInfo = {
+    .newDiscreteStatesNeeded = fmi2_true,
+    .terminateSimulation     = fmi2_false
+  };
   size_t i = 0;
   const size_t nMax = 50;
-  fmi2Status status;
+  fmi2Status status = fmi2OK;
   double tNext;
 
   if (FMU_EP_VERBOSITY >= TIMESTEP)
@@ -224,8 +227,7 @@ double do_event_iteration(FMUBuilding* bui, const char* modelicaInstanceName){
     SpawnFormatError("Expected to be in event mode, but was in %s, for FMU %s and modelicaInstance %s.",
       fmuModeToString(bui->mode), bui->modelicaNameBuilding, modelicaInstanceName);
   }
-  eventInfo.newDiscreteStatesNeeded = fmi2_true;
-  eventInfo.terminateSimulation     = fmi2_false;
+
   while (eventInfo.newDiscreteStatesNeeded && !eventInfo.terminateSimulation && i < nMax) {
     i++;
     if (FMU_EP_VERBOSITY >= TIMESTEP)

@@ -15,7 +15,6 @@ void checkForDoubleZoneDeclaration(const struct FMUBuilding* fmuBld, const char*
   int iZ;
   FMUZone** ptrZones = (FMUZone**)(fmuBld->zones);
   for(iZ = 0; iZ < fmuBld->nZon; iZ++){
-    FMUZone* zonToChe = (FMUZone*)(fmuBld->zones[iZ]);
     if (!strcmp(zoneName, ptrZones[iZ]->name)){
       *doubleSpec = ptrZones[iZ]->modelicaNameThermalZone;
       break;
@@ -58,7 +57,7 @@ void* ZoneAllocate(
   ){
   /* Note: The idfName is needed to unpack the fmu so that the valueReference
      for the zone with zoneName can be obtained */
-  unsigned int i;
+  size_t i;
   FMUZone* zone;
   const size_t nFMU = getBuildings_nFMU();
   /* Name used to check for duplicate zone entries in the same building */

@@ -14,6 +14,7 @@
 /* Use windows.h only for Windows */
 #ifdef _WIN32
 #include <windows.h>
+#include <io.h>
 #define WINDOWS 1
 #else
 #define WINDOWS 0
@@ -33,8 +34,9 @@
 
 static char* MOD_BUI_JSON = "ModelicaBuildingsEnergyPlus.json";
 
-#ifdef _WIN32
+#ifdef _WIN32 /* Win32 or Win64 */
 static char* SEPARATOR = "\\";
+#define access(a, b) (_access_s(a, b))
 #else
 static char* SEPARATOR = "/";
 #endif
@@ -45,10 +47,17 @@ static int FMU_EP_VERBOSITY = 1; /* Verbosity */
 enum verbosity {ERRORS = 1, WARNINGS = 2, QUIET = 3, MEDIUM = 4, TIMESTEP = 5};
 
 /* These functions need to be defined by code that uses this library */
-extern void (*SpawnMessage)(const char *string);
-extern void (*SpawnError)(const char *string);
-extern void (*SpawnFormatMessage)(const char *string, ...);
-extern void (*SpawnFormatError)(const char *string, ...);
+#ifdef __cplusplus
+extern "C" {  // only need to export C interface if
+              // used by C++ source code
+#endif
+void (*SpawnMessage)(const char *string);
+void (*SpawnError)(const char *string);
+void (*SpawnFormatMessage)(const char *string, ...);
+void (*SpawnFormatError)(const char *string, ...);
+#ifdef __cplusplus
+}
+#endif
 
 typedef struct FMUBuilding
 {
@@ -59,13 +68,13 @@ typedef struct FMUBuilding
   char* modelicaNameBuilding; /* Name of the Modelica instance of this zone */
   fmi2Byte* idfName; /* if usePrecompiledFMU == true, the user-specified fmu name, else the idf name */
   fmi2Byte* weather;
-  fmi2Integer nZon; /* Number of zones that use this FMU */
+  size_t nZon; /* Number of zones that use this FMU */
   void** zones; /* Pointers to all zones*/
 
-  fmi2Integer nInputVariables; /* Number of input variables that this FMU has */
+  size_t nInputVariables; /* Number of input variables that this FMU has */
   void** inputVariables; /* Pointers to all input variables */
 
-  fmi2Integer nOutputVariables; /* Number of output variables that this FMU has */
+  size_t nOutputVariables; /* Number of output variables that this FMU has */
   void** outputVariables; /* Pointers to all output variables */
 
   char* tmpDir; /* Temporary directory used by EnergyPlus */
