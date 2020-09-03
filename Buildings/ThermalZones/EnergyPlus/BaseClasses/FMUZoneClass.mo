@@ -33,7 +33,7 @@ class FMUZoneClass "Class used to couple the FMU to interact with a thermal zone
       buildingsLibraryRoot,
       verbosity)
       annotation (
-        Library={"ModelicaBuildingsEnergyPlus", "fmilib_shared", "dl"});
+        Library={"ModelicaBuildingsEnergyPlus", "fmilib_shared"});
       // dl provides dlsym to load EnergyPlus dll, which is needed by OpenModelica compiler
 
     annotation (Documentation(info="<html>
@@ -59,7 +59,7 @@ First implementation.
     input FMUZoneClass adapter;
     external "C" ZoneFree(adapter)
       annotation (
-        Library={"ModelicaBuildingsEnergyPlus", "fmilib_shared", "dl"});
+        Library={"ModelicaBuildingsEnergyPlus", "fmilib_shared"});
       // dl provides dlsym to load EnergyPlus dll, which is needed by OpenModelica compiler
 
   annotation(Documentation(info="<html>

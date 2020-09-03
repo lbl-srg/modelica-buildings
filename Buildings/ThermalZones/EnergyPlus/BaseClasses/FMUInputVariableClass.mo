@@ -41,7 +41,7 @@ class FMUInputVariableClass
       fmuName,
       buildingsLibraryRoot,
       verbosity)
-      annotation (Library={"ModelicaBuildingsEnergyPlus", "fmilib_shared", "dl"});
+      annotation (Library={"ModelicaBuildingsEnergyPlus", "fmilib_shared"});
       // dl provides dlsym to load EnergyPlus dll, which is needed by OpenModelica compiler
 
 
@@ -67,7 +67,7 @@ First implementation.
 
     input FMUInputVariableClass adapter;
     external "C" InputVariableFree(adapter)
-      annotation (Library={"ModelicaBuildingsEnergyPlus", "fmilib_shared", "dl"});
+      annotation (Library={"ModelicaBuildingsEnergyPlus", "fmilib_shared"});
       // dl provides dlsym to load EnergyPlus dll, which is needed by OpenModelica compiler
 
   annotation(Documentation(info="<html>

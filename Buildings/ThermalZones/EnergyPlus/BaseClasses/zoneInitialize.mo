@@ -10,7 +10,7 @@ function zoneInitialize "Initialization for an EnergyPlus thermal zone"
   output Real mSenFac "Factor for scaling the sensible thermal mass of the zone air volume";
 
   external "C" ZoneInstantiate(adapter, startTime, AFlo, V, mSenFac)
-      annotation (Library={"ModelicaBuildingsEnergyPlus", "fmilib_shared", "dl"});
+      annotation (Library={"ModelicaBuildingsEnergyPlus", "fmilib_shared"});
       // dl provides dlsym to load EnergyPlus dll, which is needed by OpenModelica compiler
 
   annotation (Documentation(info="<html>

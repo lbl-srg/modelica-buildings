@@ -36,7 +36,7 @@ class FMUOutputVariableClass
       buildingsLibraryRoot,
       verbosity,
       printUnit)
-      annotation (Library={"ModelicaBuildingsEnergyPlus", "fmilib_shared", "dl"});
+      annotation (Library={"ModelicaBuildingsEnergyPlus", "fmilib_shared"});
       // dl provides dlsym to load EnergyPlus dll, which is needed by OpenModelica compiler
 
 
@@ -62,7 +62,7 @@ First implementation.
 
     input FMUOutputVariableClass adapter;
     external "C" OutputVariableFree(adapter)
-      annotation (Library={"ModelicaBuildingsEnergyPlus", "fmilib_shared", "dl"});
+      annotation (Library={"ModelicaBuildingsEnergyPlus", "fmilib_shared"});
       // dl provides dlsym to load EnergyPlus dll, which is needed by OpenModelica compiler
 
   annotation(Documentation(info="<html>
