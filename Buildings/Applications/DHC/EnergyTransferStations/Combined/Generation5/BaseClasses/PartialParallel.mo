@@ -13,8 +13,9 @@ model PartialParallel
     nPorts_aChiWat=1,
     nPorts_bChiWat=1);
 
-  parameter Boolean have_val1Hex=false
-    "Set to true in case of control valve on district side, false in case of a pump"
+  parameter Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Types.HeatExchangerConfiguration
+    hexCon=Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Types.HeatExchangerConfiguration.Pump
+    "District heat exchanger configuration"
     annotation(Evaluate=true);
   parameter Integer nSysHea
     "Number of heating systems"
@@ -154,7 +155,7 @@ model PartialParallel
     final perPum2=perPum2Hex,
     final allowFlowReversal1=allowFlowReversalDis,
     final allowFlowReversal2=allowFlowReversalBui,
-    final have_val1Hex=have_val1Hex,
+    final hexCon=hexCon,
     final dp1Hex_nominal=dp1Hex_nominal,
     final dp2Hex_nominal=dp2Hex_nominal,
     final QHex_flow_nominal=QHex_flow_nominal,
@@ -224,6 +225,10 @@ model PartialParallel
   Buildings.Controls.OBC.CDL.Continuous.MultiSum totPCoo(nin=1)
     "Total power drawn by cooling equipment"
     annotation (Placement(transformation(extent={{260,10},{280,30}})));
+protected
+  parameter Boolean have_val1Hex=
+      hexCon==Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Types.HeatExchangerConfiguration.TwoWayValve
+    "True in case of control valve on district side, false in case of a pump";
 equation
   connect(hex.PPum, totPPum.u[1])
     annotation (Line(points={{12,-254},{36,-254},{36,-60},{258,-60}},           color={0,0,127}));
