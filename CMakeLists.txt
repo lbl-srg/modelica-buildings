@@ -41,6 +41,15 @@ else()
     message(WARNING "OS unknown!")
 endif()
 
+# Set compiler options
+if ( CMAKE_COMPILER_IS_GNUCC )
+    set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -Wall -Wextra -pedantic -Wmisleading-indentation -Wconversion")
+endif()
+
+if ( MSVC )
+  add_compile_options("/wd4100")
+endif()
+
 # Set target directories.
 # NOTE: always add quotes to protect spaces in path when setting new variables.
 if (WIN32) # True also on 64 bit Windows
@@ -62,6 +71,16 @@ else()
 endif()
 
 set(CMAKE_INSTALL_PREFIX "${BUILDINGS_INSTALL_PREFIX}/Resources/Library/${PLATFORM_INSTALL_PREFIX}/" )
+
+# Set name of fmilib_shared
+if (WIN32)
+  set(FMILIB_SHARED "${CMAKE_INSTALL_PREFIX}fmilib_shared.lib")
+elseif(APPLE)
+  message(FATAL_ERROR "OS X is not yet supported.")
+else()
+  set(FMILIB_SHARED "${CMAKE_INSTALL_PREFIX}libfmilib_shared.so")
+endif()
+
 
 if (LINUX)
 add_definitions(-D_GNU_SOURCE)
@@ -94,10 +113,16 @@ target_include_directories( ModelicaBuildingsEnergyPlus
 
 #link_directories(${CMAKE_SOURCE_DIR}/Buildings/Resources/Library/darwin64)
 
+if (WIN32)
 target_link_libraries( ModelicaBuildingsEnergyPlus
-# test for Windows  PRIVATE ${CMAKE_INSTALL_PREFIX}fmilib_shared.lib
+  PRIVATE ${FMILIB_SHARED}
   PRIVATE ${CMAKE_DL_LIBS}
 )
+else()
+target_link_libraries( ModelicaBuildingsEnergyPlus
+  PRIVATE ${CMAKE_DL_LIBS}
+)
+endif()
 
 set(BUILDINGS_INSTALL_DIR "${BUILDINGS_INSTALL_PREFIX}/Resources/Library/${PLATFORM_INSTALL_PREFIX}/")
 message("Installing to: ${BUILDINGS_INSTALL_DIR}")
