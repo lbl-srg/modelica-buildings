@@ -1,5 +1,5 @@
 within Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart;
-model OptimalStartConventional
+model Conventional
   "Example model using optimal start with a conventional controller for a single-zone system"
   extends Modelica.Icons.Example;
 
@@ -139,4 +139,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end OptimalStartConventional;
+end Conventional;

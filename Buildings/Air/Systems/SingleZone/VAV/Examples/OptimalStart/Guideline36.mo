@@ -1,5 +1,5 @@
 within Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart;
-model OptimalStartGuideline36
+model Guideline36
   "Example model using optimal start with Guideline 36 controller for a single-zone system"
   extends Modelica.Icons.Example;
 
@@ -104,4 +104,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end OptimalStartGuideline36;
+end Guideline36;
