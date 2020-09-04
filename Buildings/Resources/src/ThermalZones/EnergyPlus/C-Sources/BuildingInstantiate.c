@@ -33,14 +33,14 @@ void openJSONModelBracket(char* *buffer, size_t* size){
   saveAppend(buffer, "      {\n", size);
 }
 
-void closeJSONModelBracket(char* *buffer, int i, int iMax, size_t* size){
+void closeJSONModelBracket(char* *buffer, size_t i, size_t iMax, size_t* size){
   if (i < iMax -1)
     saveAppend(buffer, "      },\n", size);
   else
     saveAppend(buffer, "      }\n", size);
 }
 
-void closeJSONModelArrayBracket(char* *buffer, int iMod, int nMod, size_t* size){
+void closeJSONModelArrayBracket(char* *buffer, size_t iMod, size_t nMod, size_t* size){
   /* Close json array bracket */
   if (iMod == nMod){
     /* There are no more other objects that belong to "model" */
@@ -55,8 +55,8 @@ void closeJSONModelArrayBracket(char* *buffer, int iMod, int nMod, size_t* size)
 void buildJSONModelStructureForEnergyPlus(
   const FMUBuilding* bui, char* *buffer, size_t* size, char** modelHash){
   size_t i;
-  int iWri;
-  int nSch;
+  size_t iWri;
+  size_t nSch;
   FMUZone** zones = (FMUZone**)bui->zones;
   FMUInputVariable** inpVars= NULL;
   FMUOutputVariable** outVars = NULL;
@@ -84,11 +84,11 @@ void buildJSONModelStructureForEnergyPlus(
     }
     openJSONModelBracket(buffer, size);
     buildJSONKeyValue(buffer, 4, "name", zones[i]->name, false, size);
-    closeJSONModelBracket(buffer, (int)i, (int)(bui->nZon), size);
+    closeJSONModelBracket(buffer, i, bui->nZon, size);
   }
   iMod = bui->nZon;
   if (iMod > 0)
-    closeJSONModelArrayBracket(buffer, (int)iMod, (int)nMod, size);
+    closeJSONModelArrayBracket(buffer, iMod, nMod, size);
 
 
   /* Write schedule names */
@@ -120,7 +120,7 @@ void buildJSONModelStructureForEnergyPlus(
   }
   if (nSch > 0){
     iMod += nSch;
-    closeJSONModelArrayBracket(buffer, (int)iMod, (int)nMod, size);
+    closeJSONModelArrayBracket(buffer, iMod, nMod, size);
   }
 
 
@@ -143,7 +143,7 @@ void buildJSONModelStructureForEnergyPlus(
   }
   if (bui->nInputVariables-nSch > 0){
     iMod += bui->nInputVariables-nSch;
-    closeJSONModelArrayBracket(buffer, (int)iMod, (int)nMod, size);
+    closeJSONModelArrayBracket(buffer, iMod, nMod, size);
   }
 
   /* Write output names */
@@ -162,7 +162,7 @@ void buildJSONModelStructureForEnergyPlus(
   }
   if (bui->nOutputVariables > 0){
     iMod += bui->nOutputVariables;
-    closeJSONModelArrayBracket(buffer, (int)iMod, (int)nMod, size);
+    closeJSONModelArrayBracket(buffer, iMod, nMod, size);
   }
 
   /* Close json object for model */
