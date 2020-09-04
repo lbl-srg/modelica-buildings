@@ -102,15 +102,13 @@ model MixingValveControl
     "Secondary temperature difference between supply and return"
     annotation (Placement(transformation(extent={{-20,-150},{0,-130}})));
    Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger modInd(
-     final integerTrue=1, final integerFalse=1)
+     final integerTrue=1, final integerFalse=2)
      "Mode index, 1 for heating, 2 for cooling"
-     annotation (Placement(transformation(extent={{-60,-16},{-40,4}})));
+     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse mod(period=1000)
     "Operating mode, true for heating, false for cooling"
     annotation (Placement(transformation(extent={{-140,-10},{-120,10}})));
 
-//   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(k=1)
-//     annotation (Placement(transformation(extent={{-20,-30},{0,-10}})));
 equation
   connect(TPri.y, souPri.T_in) annotation (Line(points={{-38,80},{-32,80},{-32,
           24},{-22,24}}, color={0,0,127}));
@@ -158,10 +156,10 @@ equation
           -80},{-62,-80}}, color={255,0,255}));
   connect(mod.y, dTSec.u2) annotation (Line(points={{-118,0},{-70,0},{-70,-120},
           {18,-120}}, color={255,0,255}));
-  connect(mod.y, modInd.u) annotation (Line(points={{-118,0},{-90,0},{-90,-6},{
-          -62,-6}}, color={255,0,255}));
-  connect(modInd.y, disFlo.modChaOve) annotation (Line(points={{-38,-6},{36,-6},
-          {36,14},{39,14}}, color={255,127,0}));
+  connect(mod.y, modInd.u) annotation (Line(points={{-118,0},{-62,0}},
+                    color={255,0,255}));
+  connect(modInd.y, disFlo.modChaOve) annotation (Line(points={{-38,0},{36,0},{36,
+          14},{39,14}},     color={255,127,0}));
   annotation (
 Documentation(
 info="<html>
