@@ -13,6 +13,16 @@ model FMUZoneAdapterZones2
     "Name of the weather file";
   parameter Modelica.SIunits.HeatCapacity CZon = 6*6*2.7*1.2*1006 "Heat capacity of zone air";
 
+  inner Building building(
+    idfName=Modelica.Utilities.Files.loadResource(
+        "modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus/Validation/SingleFamilyHouse_TwoSpeed_ZoneAirBalance/SingleFamilyHouse_TwoSpeed_ZoneAirBalance.idf"),
+    weaName=Modelica.Utilities.Files.loadResource(
+        "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"),
+    usePrecompiledFMU=false,
+    showWeatherData=false)
+    "Building model"
+    annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
+
   Buildings.ThermalZones.EnergyPlus.BaseClasses.FMUZoneAdapter fmuZonCor(
     buildingsLibraryRoot=Buildings.ThermalZones.EnergyPlus.BaseClasses.buildingsLibraryRoot,
     modelicaNameBuilding=modelicaNameBuilding,
@@ -57,17 +67,6 @@ model FMUZoneAdapterZones2
     y_start=294.15,
     y(final unit="K", displayUnit="degC")) "Zone air temperature"
     annotation (Placement(transformation(extent={{60,-20},{80,0}})));
-  inner Building                                   building(
-    idfName=Modelica.Utilities.Files.loadResource(
-        "modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus/Validation/SingleFamilyHouse_TwoSpeed_ZoneAirBalance/SingleFamilyHouse_TwoSpeed_ZoneAirBalance.idf"),
-
-    weaName=Modelica.Utilities.Files.loadResource(
-        "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"),
-
-    usePrecompiledFMU=false,
-    showWeatherData=false)
-    "Building model"
-    annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
 equation
   connect(X_w.y, fmuZonCor.X_w) annotation (Line(points={{-67,54},{-16,54},{-16,
           34},{18,34}},
