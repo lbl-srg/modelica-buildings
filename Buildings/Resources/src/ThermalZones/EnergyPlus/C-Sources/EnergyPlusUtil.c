@@ -506,7 +506,11 @@ void getSimulationTemporaryDirectory(const char* modelicaNameBuilding, char** di
   mallocString(lenCurDir, "Failed to allocate memory for current working directory in getSimulationTemporaryDirectory.", &curDir);
   memset(curDir, '\0', lenCurDir);
 
+#ifdef _WIN32 /* Win32 or Win64 */
+  while ( _getcwd(curDir, (int)lenCurDir) == NULL ){
+#else
   while ( getcwd(curDir, lenCurDir) == NULL ){
+#endif
     if ( errno == ERANGE){
       lenCurDir += incLenCurDir;
       if (lenCurDir > maxLenCurDir){

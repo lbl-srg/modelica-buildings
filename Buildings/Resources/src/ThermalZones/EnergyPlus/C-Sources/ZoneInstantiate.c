@@ -40,7 +40,6 @@ void ZoneInstantiate(
     double* AFlo,
     double* V,
     double* mSenFac){
-  fmi2_status_t status;
   FMUZone* zone = (FMUZone*) object;
   FMUBuilding* bui = zone->ptrBui;
   const char* modelicaName = zone->modelicaNameThermalZone;

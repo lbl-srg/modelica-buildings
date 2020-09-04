@@ -466,7 +466,9 @@ void setFMUDebugLevel(FMUBuilding* bui){
     SpawnFormatError("fmi2SetDebugLogging returned '%s' for FMU with name %s. Verbosity = %u", fmi2_status_to_string(status), bui->fmuAbsPat, FMU_EP_VERBOSITY);
   }
   /* Free storage */
+  /* This gives Warning C4090 in Microsoft compiler
   free(categories);
+  */
 }
 
 /* Logger function used for Spawn */
