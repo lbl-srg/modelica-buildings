@@ -44,16 +44,6 @@ model Building
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
 
 protected
-  constant Integer os = getOS() "Operating system";
-
-  function getOS
-    output Integer os "Operating system";
-    external "C" os = getOS()
-    annotation (
-      Include="#include \"SpawnDeclarations.c\"",
-      IncludeDirectory="modelica://Buildings/Resources/C-Sources/EnergyPlus");
-  end getOS;
-
   Linux64Binaries linux64Binaries if
        generatePortableFMU "Record with binaries";
   record Linux64Binaries
