@@ -52,6 +52,9 @@ void ZoneExchange(
   const double dT = 0.01; /* Increment for derivative approximation */
   double QConSenPer_flow;
 
+  void (*SpawnFormatMessage)(const char *string, ...) = bui->SpawnFormatMessage;
+  void (*SpawnFormatError)(const char *string, ...) = bui->SpawnFormatError;
+
   /* Time need to be guarded against rounding error */
   /* *tNext = round((floor(time/3600.0)+1) * 3600.0); */
 

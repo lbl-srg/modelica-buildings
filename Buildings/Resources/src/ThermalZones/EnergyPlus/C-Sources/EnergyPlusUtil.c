@@ -14,59 +14,17 @@
 #include <string.h>
 #include <stdio.h>
 
-/* This write statement is experimental to flush the write statements
-   to a file. It is useful to debug if segmentation faults happen.
-*/
-void writeFormatLog(const char *fmt, ...) {
-  va_list args;
-  FILE *fp;
-
-  fp = freopen("output.txt", "a+", stdout);
-  if (fp == NULL){
-    SpawnFormatError("Failed to open file 'output.txt': %s", strerror(errno));
-  }
-
-  va_start(args, fmt);
-  vprintf(fmt, args);
-  va_end(args);
-  printf("%s", "\n");
-  fflush(stdout);
-  fp = freopen("/dev/tty", "w", stdout); /*for gcc, ubuntu*/
-  if (fp == NULL){
-    SpawnFormatError("Failed to open file '/dev/tty': %s", strerror(errno));
-  }
-
-}
-
-void writeLog(const char* msg)
-{
-  writeFormatLog("%s\n", msg);
-}
-
-
-void printBacktrace(){ /* Does nothing on Windows */
-#ifdef __linux__
-  void* callstack[128];
-  int i, frames = backtrace(callstack, 128);
-  char** strs = backtrace_symbols(callstack, frames);
-  for (i = 0; i < frames; ++i) {
-    printf("%s\n", strs[i]);
-  }
-  free(strs);
-#endif
-}
-
-void mallocString(const size_t nChar, const char *error_message, char** str){
+void mallocString(const size_t nChar, const char *error_message, char** str, void (*SpawnFormatError)(const char *string, ...)){
   *str = malloc(nChar * sizeof(char));
   if ( *str == NULL )
-    SpawnError(error_message);
+    SpawnFormatError("%s", error_message);
 }
 
-void mallocSpawnReals(const size_t n, spawnReals** r){
+void mallocSpawnReals(const size_t n, spawnReals** r, void (*SpawnFormatError)(const char *string, ...)){
   size_t i;
   *r = (spawnReals*)malloc(n * sizeof(spawnReals));
   if ( *r == NULL)
-    SpawnFormatError("Failed to allocate memory for spawnReals in EnergyPlusUtil.c.");
+    SpawnFormatError("%s", "Failed to allocate memory for spawnReals in EnergyPlusUtil.c.");
 
   (*r)->valsEP = NULL;
   (*r)->valsSI = NULL;
@@ -76,23 +34,23 @@ void mallocSpawnReals(const size_t n, spawnReals** r){
   for(i = 0; i < n; i++){
     (*r)->valsEP = (fmi2Real*)malloc(n * sizeof(fmi2Real));
     if ((*r)->valsEP == NULL)
-      SpawnFormatError("Failed to allocate memory for (*r)->valsEP in EnergyPlus.c");
+      SpawnFormatError("%s", "Failed to allocate memory for (*r)->valsEP in EnergyPlus.c");
 
     (*r)->valsSI = (fmi2Real*)malloc(n * sizeof(fmi2Real));
     if ((*r)->valsSI == NULL)
-      SpawnFormatError("Failed to allocate memory for (*r)->valsSI in EnergyPlus.c");
+      SpawnFormatError("%s", "Failed to allocate memory for (*r)->valsSI in EnergyPlus.c");
 
     (*r)->units = (fmi2_import_unit_t**)malloc(n * sizeof(fmi2_import_unit_t*));
     if ((*r)->units == NULL)
-      SpawnFormatError("Failed to allocate memory for (*r)->units in EnergyPlus.c");
+      SpawnFormatError("%s", "Failed to allocate memory for (*r)->units in EnergyPlus.c");
 
     (*r)->valRefs = (fmi2ValueReference*)malloc(n * sizeof(fmi2ValueReference));
     if ((*r)->valRefs == NULL)
-      SpawnFormatError("Failed to allocate memory for (*r)->valRefs in EnergyPlus.c");
+      SpawnFormatError("%s", "Failed to allocate memory for (*r)->valRefs in EnergyPlus.c");
 
     (*r)->fmiNames = (fmi2Byte**)malloc(n * sizeof(fmi2Byte*));
     if ((*r)->fmiNames == NULL)
-      SpawnFormatError("Failed to allocate memory for (*r)->fmiNames in EnergyPlus.c");
+      SpawnFormatError("%s", "Failed to allocate memory for (*r)->fmiNames in EnergyPlus.c");
   }
   (*r)->n = n;
 }
@@ -106,16 +64,16 @@ char* fmuModeToString(FMUMode mode){
     return "event";
   if (mode == continuousTimeMode)
     return "continuous";
-  SpawnFormatError("Unknown fmu mode %d", mode);
-  return "unknown error";
+  return "unknown mode for FMU";
 }
 
-void setVariables(FMUBuilding* bui, const char* modelicaInstanceName, const spawnReals* ptrReals){
+void setVariables(
+  FMUBuilding* bui,
+  const char* modelicaInstanceName,
+  const spawnReals* ptrReals)
+  {
   size_t i;
   fmi2_status_t status;
-  if (FMU_EP_VERBOSITY >= TIMESTEP)
-    SpawnFormatMessage("fmi2_import_set_real: Setting real variables in EnergyPlus for modelicaInstance %s, mode = %s.\n",
-      modelicaInstanceName, fmuModeToString(bui->mode));
 
   for(i = 0; i < ptrReals->n; i++){
     if (ptrReals->units[i]) /* Units are defined */
@@ -125,7 +83,7 @@ void setVariables(FMUBuilding* bui, const char* modelicaInstanceName, const spaw
   }
   status = fmi2_import_set_real(bui->fmu, ptrReals->valRefs, ptrReals->n, ptrReals->valsEP);
   if (status != fmi2OK) {
-    SpawnFormatError("Failed to set variables for %s in FMU.\n",  modelicaInstanceName);
+    bui->SpawnFormatError("Failed to set variables for %s in FMU.\n",  modelicaInstanceName);
   }
 }
 
@@ -134,6 +92,10 @@ void stopIfResultsAreNaN(FMUBuilding* bui, const char* modelicaInstanceName, spa
   fmi2_import_variable_t* fmiVar;
   const char* varNam;
   size_t i_nan = -1;
+
+  void (*SpawnFormatMessage)(const char *string, ...) = bui->SpawnFormatMessage;
+  void (*SpawnFormatError)(const char *string, ...) = bui->SpawnFormatError;
+
   for(i=0; i < ptrReals->n; i++){
     if (isnan(ptrReals->valsSI[i])){
       i_nan = i;
@@ -145,9 +107,9 @@ void stopIfResultsAreNaN(FMUBuilding* bui, const char* modelicaInstanceName, spa
       fmiVar = fmi2_import_get_variable_by_vr(bui->fmu, fmi2_base_type_real, ptrReals->valRefs[i]);
       varNam = fmi2_import_get_variable_name(fmiVar);
       if (isnan(ptrReals->valsSI[i])){
-        SpawnFormatMessage("Received nan from EnergyPlus for %s at time = %.2f:\n", modelicaInstanceName, bui->time);
+        bui->SpawnFormatMessage("Received nan from EnergyPlus for %s at time = %.2f:\n", modelicaInstanceName, bui->time);
       }
-      SpawnFormatMessage("  %s = %.2f\n", varNam, ptrReals->valsSI[i]);
+      bui->SpawnFormatMessage("  %s = %.2f\n", varNam, ptrReals->valsSI[i]);
     }
     SpawnFormatError("Terminating simulation because EnergyPlus returned nan for %s. See Modelica log file for details.",
       fmi2_import_get_variable_name(fmi2_import_get_variable_by_vr(bui->fmu, fmi2_base_type_real, ptrReals->valRefs[i_nan])));
@@ -159,11 +121,11 @@ void getVariables(FMUBuilding* bui, const char* modelicaInstanceName, spawnReals
   size_t i;
   fmi2_status_t status;
   if (FMU_EP_VERBOSITY >= TIMESTEP)
-    SpawnFormatMessage("fmi2_import_get_real: Getting real variables from EnergyPlus for object %s, mode = %s.\n",
+    bui->SpawnFormatMessage("fmi2_import_get_real: Getting real variables from EnergyPlus for object %s, mode = %s.\n",
       modelicaInstanceName, fmuModeToString(bui->mode));
   status = fmi2_import_get_real(bui->fmu, ptrReals->valRefs, ptrReals->n, ptrReals->valsEP);
   if (status != fmi2OK) {
-    SpawnFormatError("Failed to get variables for %s\n",
+    bui->SpawnFormatError("Failed to get variables for %s\n",
     modelicaInstanceName);
   }
   /* Set SI unit value */
@@ -189,6 +151,9 @@ double do_event_iteration(FMUBuilding* bui, const char* modelicaInstanceName){
   fmi2Status status = fmi2OK;
   double tNext;
 
+  void (*SpawnFormatMessage)(const char *string, ...) = bui->SpawnFormatMessage;
+  void (*SpawnFormatError)(const char *string, ...) = bui->SpawnFormatError;
+
   if (FMU_EP_VERBOSITY >= TIMESTEP)
     SpawnFormatMessage("Entered do_event_iteration for %s, mode = %s\n",
       modelicaInstanceName, fmuModeToString(bui->mode));
@@ -197,30 +162,7 @@ double do_event_iteration(FMUBuilding* bui, const char* modelicaInstanceName){
   if (bui->mode == continuousTimeMode){
     SpawnFormatError("FMU is in unexpected mode in do_event_iteration at t=%.2f, modelicaInstance = %s, mode = %s. Contact support.",
       bui->time, modelicaInstanceName, fmuModeToString(bui->mode));
-    /*
-      if (FMU_EP_VERBOSITY >= TIMESTEP)
-      SpawnFormatMessage("fmi2_import_enter_event_mode: Enter event mode in do_event_iteration for FMU %s\n", bui->modelicaNameBuilding);
-    status = fmi2_import_enter_event_mode(bui->fmu);
-    if (status != fmi2_status_ok){
-      SpawnFormatError("Failed to enter event mode in do_event_iteration for FMU %s and modelicaInstance %s, returned status is %s.",
-      bui->modelicaNameBuilding, modelicaInstanceName, fmi2_status_to_string(status));
-    }
-    setFMUMode(bui, eventMode);
-    */
   }
-/* *****************************************************************************
-  if (bui->mode != initializationMode){
-    if (FMU_EP_VERBOSITY >= TIMESTEP)
-      SpawnFormatMessage("fmi2_import_enter_event_mode: Enter event mode in do_event_iteration for FMU %s\n", bui->modelicaNameBuilding);
-    status = fmi2_import_enter_event_mode(bui->fmu);
-    if (status != fmi2_status_ok){
-      SpawnFormatError("Failed to enter event mode in do_event_iteration for FMU %s and modelicaInstance %s, returned status is %s.",
-      bui->modelicaNameBuilding, modelicaInstanceName, fmi2_status_to_string(status));
-    }
-    setFMUMode(bui, eventMode);
-  }
-  ***************************************************************************** */
-
 
   /* Make sure we are in event mode (this is for debugging) */
   if (bui->mode != eventMode){
@@ -282,6 +224,9 @@ void advanceTime_completeIntegratorStep_enterEventMode(FMUBuilding* bui, const c
   fmi2Boolean enterEventMode;
   fmi2Boolean terminateSimulation;
 
+  void (*SpawnFormatMessage)(const char *string, ...) = bui->SpawnFormatMessage;
+  void (*SpawnFormatError)(const char *string, ...) = bui->SpawnFormatError;
+
   if (FMU_EP_VERBOSITY >= TIMESTEP)
     SpawnFormatMessage("fmi2_import_enter_continuous_time_mode: ************ Setting EnergyPlus to continuous time mode at t = %.2f\n", time);
   status = fmi2_import_enter_continuous_time_mode(bui->fmu);
@@ -339,7 +284,7 @@ void advanceTime_completeIntegratorStep_enterEventMode(FMUBuilding* bui, const c
 void setFMUMode(FMUBuilding* bui, FMUMode mode){
   if (FMU_EP_VERBOSITY >= MEDIUM){
     if (FMU_EP_VERBOSITY >= TIMESTEP || mode == instantiationMode || mode == initializationMode)
-    SpawnFormatMessage("Switching %s to mode %s\n", bui->modelicaNameBuilding, fmuModeToString(mode));
+      bui->SpawnFormatMessage("Switching %s to mode %s\n", bui->modelicaNameBuilding, fmuModeToString(mode));
   }
   bui->mode = mode;
 }
@@ -355,7 +300,7 @@ void setFMUMode(FMUBuilding* bui, FMUMode mode){
   bufLen The length of the character array buffer. This parameter will
          be set to the new size of buffer if memory was reallocated.
 */
-void saveAppend(char* *buffer, const char *toAdd, size_t *bufLen){
+void saveAppend(char* *buffer, const char *toAdd, size_t *bufLen, void (*SpawnFormatError)(const char *string, ...)){
   const size_t minInc = 1024;
   const size_t nNewCha = strlen(toAdd);
   const size_t nBufCha = strlen(*buffer);
@@ -364,7 +309,7 @@ void saveAppend(char* *buffer, const char *toAdd, size_t *bufLen){
     *bufLen = *bufLen + nNewCha + minInc + 1;
     *buffer = realloc(*buffer, *bufLen);
     if (*buffer == NULL) {
-      SpawnError("Realloc failed in saveAppend.");
+      SpawnFormatError("Realloc failed in saveAppend with bufLen = %lu.", *bufLen);
     }
   }
   /* append toAdd to buffer */
@@ -377,7 +322,8 @@ void saveAppendJSONElements(
   char* *buffer,
   const char* values[],
   size_t n,
-  size_t* bufLen){
+  size_t* bufLen,
+  void (*SpawnFormatError)(const char *string, ...)){
     int i;
     /* Write all values and value references in the format
         { "name": "V"},
@@ -385,13 +331,13 @@ void saveAppendJSONElements(
     */
     for(i = 0; i < n; i++){
       /* Build JSON string */
-      saveAppend(buffer, "        { \"", bufLen);
-      saveAppend(buffer, "name", bufLen);
-      saveAppend(buffer, "\": \"", bufLen);
-      saveAppend(buffer, values[i], bufLen);
-      saveAppend(buffer, "\" }", bufLen);
+      saveAppend(buffer, "        { \"", bufLen, SpawnFormatError);
+      saveAppend(buffer, "name", bufLen, SpawnFormatError);
+      saveAppend(buffer, "\": \"", bufLen, SpawnFormatError);
+      saveAppend(buffer, values[i], bufLen, SpawnFormatError);
+      saveAppend(buffer, "\" }", bufLen, SpawnFormatError);
       if (i < n-1)
-        saveAppend(buffer, ",\n", bufLen);
+        saveAppend(buffer, ",\n", bufLen, SpawnFormatError);
       }
   }
 
@@ -404,14 +350,15 @@ void replaceChar(char *str, char find, char replace){
   }
 }
 
-void checkAndSetVerbosity(const int verbosity){
+void checkAndSetVerbosity(const int verbosity, void (*SpawnMessage)(const char *string)){
 
   if (getBuildings_nFMU() == 0){
     FMU_EP_VERBOSITY = verbosity;
   }
   else{
     if (FMU_EP_VERBOSITY != verbosity){
-        SpawnFormatMessage("Warning: Modelica objects declare different verbosity. Check parameter verbosity. Using highest declared value.\n");
+        SpawnMessage(
+          "Warning: Modelica objects declare different verbosity. Check parameter verbosity. Using highest declared value.\n");
     }
     if (verbosity > FMU_EP_VERBOSITY){
       FMU_EP_VERBOSITY = verbosity;
@@ -420,39 +367,31 @@ void checkAndSetVerbosity(const int verbosity){
 }
 
 
-void getSimulationFMUName(const char* modelicaNameBuilding, const char* tmpDir, char* *fmuAbsPat){
+void setSimulationFMUName(FMUBuilding* bui, const char* modelicaNameBuilding){
   size_t iniLen = 100;
+  const char* tmpDir = bui->tmpDir;
+  void (*SpawnFormatError)(const char *string, ...) = bui->SpawnFormatError;
 
-  /*
-  const size_t lenNam = strlen(modelicaNameBuilding);
-  char* newModNam;
+  mallocString(iniLen, "Failed to allocate memory for FMU name.", &(bui->fmuAbsPat), SpawnFormatError);
+  memset(bui->fmuAbsPat, '\0', iniLen);
 
-  newModNam = malloc(lenNam * sizeof(char));
-  if (newModNam == NULL){
-    SpawnFormatError("Failed to allocate memory for new Modelica name.");
-  }
-  Replace special characters in FMU name
-  strcpy(newModNam, modelicaNameBuilding);
-  replaceChar(newModNam, '[', '_');
-  replaceChar(newModNam, ']', '_');
-  */
-  mallocString(iniLen, "Failed to allocate memory for FMU name.", fmuAbsPat);
-  memset(*fmuAbsPat, '\0', iniLen);
-
-  saveAppend(fmuAbsPat, tmpDir, &iniLen);
-  saveAppend(fmuAbsPat, SEPARATOR, &iniLen);
-  saveAppend(fmuAbsPat, modelicaNameBuilding, &iniLen);
-  saveAppend(fmuAbsPat, ".fmu", &iniLen);
+  saveAppend(&(bui->fmuAbsPat), tmpDir, &iniLen, SpawnFormatError);
+  saveAppend(&(bui->fmuAbsPat), SEPARATOR, &iniLen, SpawnFormatError);
+  saveAppend(&(bui->fmuAbsPat), modelicaNameBuilding, &iniLen, SpawnFormatError);
+  saveAppend(&(bui->fmuAbsPat), ".fmu", &iniLen, SpawnFormatError);
   /* Replace special characters that are introduced if arrays of models are used.
      Such array notation cause currently runtime errors when loading an FMU. */
-  replaceChar(*fmuAbsPat, '[', '_');
-  replaceChar(*fmuAbsPat, ']', '_');
+  replaceChar(bui->fmuAbsPat, '[', '_');
+  replaceChar(bui->fmuAbsPat, ']', '_');
 
   return;
 }
 
 
-char * getFileNameWithoutExtension(const char* idfName){
+char * getFileNameWithoutExtension(
+  const char* idfName,
+  void (*SpawnFormatError)(const char *string, ...))
+  {
   char * namWitSla;
   char * nam;
   char * namOnl;
@@ -474,7 +413,11 @@ char * getFileNameWithoutExtension(const char* idfName){
   /* Get the file name without extension */
   lenNam = strlen(nam) - strlen(ext);
 
-  mallocString(lenNam+1, "Failed to allocate memory for temporary directory name in EnergyPlusUtil.c", &namOnl);
+  mallocString(
+    lenNam+1,
+    "Failed to allocate memory for temporary directory name in EnergyPlusUtil.c",
+    &namOnl,
+    SpawnFormatError);
 
   memset(namOnl, '\0', lenNam+1);
   /* Copy nam to namOnl */
@@ -483,7 +426,10 @@ char * getFileNameWithoutExtension(const char* idfName){
   return namOnl;
 }
 
-void getSimulationTemporaryDirectory(const char* modelicaNameBuilding, char** dirNam){
+void getSimulationTemporaryDirectory(
+  const char* modelicaNameBuilding,
+  char** dirNam,
+  void (*SpawnFormatError)(const char *string, ...)){
   /* Return the absolute name of the temporary directory to be used for EnergyPlus
      in the form "/mnt/xxx/tmp-eplus-mod.nam.bui"
   */
@@ -500,10 +446,12 @@ void getSimulationTemporaryDirectory(const char* modelicaNameBuilding, char** di
   /* Prefix for temporary directory */
   const char* pre = "tmp-simulation-\0";
 
-  if (FMU_EP_VERBOSITY >= MEDIUM)
-    SpawnFormatMessage("Entered getSimulationTemporaryDirectory.\n");
   /* Current directory */
-  mallocString(lenCurDir, "Failed to allocate memory for current working directory in getSimulationTemporaryDirectory.", &curDir);
+  mallocString(
+    lenCurDir,
+    "Failed to allocate memory for current working directory in getSimulationTemporaryDirectory.",
+    &curDir,
+    SpawnFormatError);
   memset(curDir, '\0', lenCurDir);
 
 #ifdef _WIN32 /* Win32 or Win64 */
@@ -514,15 +462,21 @@ void getSimulationTemporaryDirectory(const char* modelicaNameBuilding, char** di
     if ( errno == ERANGE){
       lenCurDir += incLenCurDir;
       if (lenCurDir > maxLenCurDir){
-        SpawnFormatError("Temporary directories with names longer than %lu characters are not supported in EnergyPlusFMU.c unless you change maxLenCurDir.", maxLenCurDir);
+        SpawnFormatError(
+          "Temporary directories with names longer than %lu characters are not supported in EnergyPlusFMU.c unless you change maxLenCurDir.",
+          maxLenCurDir);
       }
       curDir = realloc(curDir, lenCurDir * sizeof(char));
       if (curDir == NULL)
-        SpawnError("Failed to reallocate memory for current working directory in getSimulationTemporaryDirectory.");
+        SpawnFormatError(
+          "Failed to reallocate memory for current working directory in getSimulationTemporaryDirectory for %s.",
+          modelicaNameBuilding);
       memset(curDir, '\0', lenCurDir);
     }
     else{ /* Other error than insufficient length */
-      SpawnFormatError("Unknown error when allocating memory for temporary directory in EnergyPlusFMU.c.");
+      SpawnFormatError(
+        "Unknown error when allocating memory for temporary directory in EnergyPlusFMU.c. for %s",
+        modelicaNameBuilding);
     }
   }
 
@@ -531,7 +485,11 @@ void getSimulationTemporaryDirectory(const char* modelicaNameBuilding, char** di
   lenSep = 1;
   lenPre = strlen(pre);
 
-  mallocString((lenCur+lenSep+lenPre+lenNam+1), "Failed to allocate memory for temporary directory name in EnergyPlusUtil.c.", dirNam);
+  mallocString(
+    lenCur+lenSep+lenPre+lenNam+1,
+    "Failed to allocate memory for temporary directory name in EnergyPlusUtil.c.",
+    dirNam,
+    SpawnFormatError);
   memset(*dirNam, '\0', (lenCur+lenSep+lenPre+lenNam+1));
   strncpy(*dirNam, curDir, lenCur);
   strcat(*dirNam, "/");
@@ -549,7 +507,8 @@ void buildVariableName(
   const char* modelicaInstanceName,
   const char* firstPart,
   const char* secondPart,
-  char* *ptrFullName){
+  char* *ptrFullName,
+  void (*SpawnFormatError)(const char *string, ...)){
   size_t i;
   size_t len;
 
@@ -559,7 +518,11 @@ void buildVariableName(
     len += 1 + strlen(secondPart);
   }
 
-  mallocString(len+1, "Failed to allocate memory for ptrFullName in EnergyPlusUtil.c.", ptrFullName);
+  mallocString(
+    len+1,
+    "Failed to allocate memory for ptrFullName in EnergyPlusUtil.c.",
+    ptrFullName,
+    SpawnFormatError);
   /* Copy the string */
   memset(*ptrFullName, '\0', len+1);
   strcpy(*ptrFullName, modelicaInstanceName);
@@ -570,9 +533,6 @@ void buildVariableName(
     strcat(*ptrFullName, secondPart);
   }
 
-  if (FMU_EP_VERBOSITY >= MEDIUM)
-    SpawnFormatMessage("Built variable name '%s'.\n", *ptrFullName);
-
   return;
 }
 
@@ -582,7 +542,8 @@ void buildVariableNames(
   const char** variableNames,
   const size_t nVar,
   char** *ptrVarNames,
-  char** *ptrFullNames){
+  char** *ptrFullNames,
+  void (*SpawnFormatError)(const char *string, ...)){
     size_t i;
     size_t len;
     /* Compute longest output plus zone name */
@@ -592,10 +553,14 @@ void buildVariableNames(
 
       *ptrVarNames = (char**)malloc(nVar * sizeof(char*));
       if (*ptrVarNames == NULL)
-        SpawnError("Failed to allocate memory for ptrVarNames in ZoneInstantiate.c.");
+        SpawnFormatError("Failed to allocate memory for ptrVarNames in ZoneInstantiate.c. for %s", zoneName);
 
     for (i=0; i<nVar; i++){
-      mallocString(len+1, "Failed to allocate memory for ptrVarNames[i] in ZoneInstantiate.c.", &((*ptrVarNames)[i]));
+      mallocString(
+        len+1,
+        "Failed to allocate memory for ptrVarNames[i] in ZoneInstantiate.c.",
+        &((*ptrVarNames)[i]),
+        SpawnFormatError);
     }
 
     /* Copy the string */
@@ -613,10 +578,14 @@ void buildVariableNames(
 
     *ptrFullNames = (char**)malloc(nVar * sizeof(char*));
     if (*ptrFullNames == NULL)
-      SpawnError("Failed to allocate memory for ptrFullNames in ZoneInstantiate.c.");
+      SpawnFormatError("Failed to allocate memory for ptrFullNames in ZoneInstantiate.c for %s.", zoneName);
 
     for (i=0; i<nVar; i++){
-      mallocString(len+1, "Failed to allocate memory for ptrFullNames[i] in ZoneInstantiate.c.", &((*ptrFullNames)[i]));
+      mallocString(
+        len+1,
+        "Failed to allocate memory for ptrFullNames[i] in ZoneInstantiate.c.",
+        &((*ptrFullNames)[i]),
+        SpawnFormatError);
     }
     /* Copy the string */
     for (i=0; i<nVar; i++){
@@ -629,7 +598,7 @@ void buildVariableNames(
   return;
 }
 
-void createDirectory(const char* dirName){
+void createDirectory(const char* dirName, void (*SpawnFormatError)(const char *string, ...)){
   struct stat st = {0};
   /* Create directory if it does not already exist */
   if (stat(dirName, &st) == -1) {
@@ -641,6 +610,9 @@ void createDirectory(const char* dirName){
 
 void loadFMU_setupExperiment_enterInitializationMode(FMUBuilding* bui, double startTime){
   fmi2_status_t status;
+
+  void (*SpawnFormatMessage)(const char *string, ...) = bui->SpawnFormatMessage;
+  void (*SpawnFormatError)(const char *string, ...) = bui->SpawnFormatError;
 
   /* Make sure startTime is positive */
   if (startTime < 0){

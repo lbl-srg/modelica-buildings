@@ -20,7 +20,7 @@ void OutputVariableInstantiate(
   FMUBuilding* bui = var->ptrBui;
 
   if (FMU_EP_VERBOSITY >= MEDIUM){
-    SpawnFormatMessage("Entered OutputVariableInstantiate for %s.\n",
+    bui->SpawnFormatMessage("Entered OutputVariableInstantiate for %s.\n",
       var->modelicaNameOutputVariable);
   }
   if (bui->fmu == NULL){
@@ -34,7 +34,7 @@ void OutputVariableInstantiate(
     loadFMU_setupExperiment_enterInitializationMode(bui, startTime);
   }
   if (! var->valueReferenceIsSet){
-    SpawnFormatError("Value reference is not set for %s. For Dymola 2020x, make sure you set 'Hidden.AvoidDoubleComputation=true'. See Buildings.ThermalZones.EnergyPlus.UsersGuide.",
+    bui->SpawnFormatError("Value reference is not set for %s. For Dymola 2020x, make sure you set 'Hidden.AvoidDoubleComputation=true'. See Buildings.ThermalZones.EnergyPlus.UsersGuide.",
       var->modelicaNameOutputVariable);
   }
   /* Set flag to indicate that this output variable has been properly initialized */

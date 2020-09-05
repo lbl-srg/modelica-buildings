@@ -12,21 +12,21 @@
 #include <stdio.h>
 
 FMUInputVariable* checkForDoubleInputVariableDeclaration(
-  const struct FMUBuilding* fmuBld,
+  const struct FMUBuilding* bui,
   const char* fmiName){
   int iComVar;
 
-  for(iComVar = 0; iComVar < fmuBld->nInputVariables; iComVar++){
-    FMUInputVariable* ptrInpVar = (FMUInputVariable*)(fmuBld->inputVariables[iComVar]);
+  for(iComVar = 0; iComVar < bui->nInputVariables; iComVar++){
+    FMUInputVariable* ptrInpVar = (FMUInputVariable*)(bui->inputVariables[iComVar]);
     if (!strcmp(fmiName, ptrInpVar->inputs->fmiNames[0])){
       if (FMU_EP_VERBOSITY >= MEDIUM){
-        SpawnFormatMessage("*** Searched for input variable %s in building and found it.\n", fmiName);
+        bui->SpawnFormatMessage("*** Searched for input variable %s in building and found it.\n", fmiName);
       }
       return ptrInpVar;
     }
   }
   if (FMU_EP_VERBOSITY >= MEDIUM){
-     SpawnFormatMessage("*** Searched for input variable %s in building but did not find it.\n", fmiName);
+     bui->SpawnFormatMessage("*** Searched for input variable %s in building but did not find it.\n", fmiName);
   }
   return NULL;
 }
@@ -64,7 +64,11 @@ void* InputVariableAllocate(
   int usePrecompiledFMU,
   const char* fmuName,
   const char* buildingsLibraryRoot,
-  const int verbosity){
+  const int verbosity,
+  void (*SpawnMessage)(const char *string),
+  void (*SpawnError)(const char *string),
+  void (*SpawnFormatMessage)(const char *string, ...),
+  void (*SpawnFormatError)(const char *string, ...)){
   /* Note: The idfName is needed to unpack the fmu so that the valueReference can be obtained */
   unsigned int i;
   FMUInputVariable* comVar = NULL;
@@ -76,7 +80,7 @@ void* InputVariableAllocate(
   if (FMU_EP_VERBOSITY >= MEDIUM)
     SpawnFormatMessage("Entered InputVariableAllocate for zone %s.\n", modelicaNameInputVariable);
 
-  checkAndSetVerbosity(verbosity);
+  checkAndSetVerbosity(verbosity, SpawnMessage);
 
   if (objectType < 1 || objectType > 2)
     SpawnFormatError("Object type must be 1 or 2, received invalid value for %s.\n", modelicaNameInputVariable);
@@ -113,20 +117,35 @@ void* InputVariableAllocate(
   comVar->valueReferenceIsSet = fmi2False;
 
   /* Assign the Modelica instance name */
-  mallocString(strlen(modelicaNameInputVariable)+1,
-    "Not enough memory in InputVariableAllocate.c. to allocate Modelica instance name.", &(comVar->modelicaNameInputVariable));
+  mallocString(
+    strlen(modelicaNameInputVariable)+1,
+    "Not enough memory in InputVariableAllocate.c. to allocate Modelica instance name.",
+    &(comVar->modelicaNameInputVariable),
+    SpawnFormatError);
   strcpy(comVar->modelicaNameInputVariable, modelicaNameInputVariable);
 
-  mallocString(strlen(name)+1, "Not enough memory in InputVariableAllocate.c. to allocate input name.", &(comVar->name));
+  mallocString(
+    strlen(name)+1,
+    "Not enough memory in InputVariableAllocate.c. to allocate input name.",
+    &(comVar->name),
+    SpawnFormatError);
   strcpy(comVar->name, name);
 
   /* Assign the name, component type and control type */
   if (objectType == 1){
     /* This is an EMS actuator */
-    mallocString(strlen(componentType)+1, "Not enough memory in InputVariableAllocate.c. to allocate component type.", &(comVar->componentType));
+    mallocString(
+      strlen(componentType)+1,
+      "Not enough memory in InputVariableAllocate.c. to allocate component type.",
+      &(comVar->componentType),
+    SpawnFormatError);
     strcpy(comVar->componentType, componentType);
 
-    mallocString(strlen(controlType)+1, "Not enough memory in InputVariableAllocate.c. to allocate control type.", &(comVar->controlType));
+    mallocString(
+      strlen(controlType)+1,
+      "Not enough memory in InputVariableAllocate.c. to allocate control type.",
+      &(comVar->controlType),
+      SpawnFormatError);
     strcpy(comVar->controlType, controlType);
   }
   else{
@@ -135,17 +154,22 @@ void* InputVariableAllocate(
     comVar->controlType = NULL;
   }
 
-  mallocString(strlen(unit)+1, "Not enough memory in InputVariableAllocate.c. to allocate unit.", &(comVar->unit));
+  mallocString(
+    strlen(unit)+1,
+    "Not enough memory in InputVariableAllocate.c. to allocate unit.",
+    &(comVar->unit),
+    SpawnFormatError);
   strcpy(comVar->unit, unit);
 
-  mallocSpawnReals(1, &(comVar->inputs));
+  mallocSpawnReals(1, &(comVar->inputs), SpawnFormatError);
   /* Assign structural data */
 
   buildVariableName(
     (const char*)modelicaNameInputVariable,
     (const char*)(comVar->name),
     (const char*)(comVar->componentType),
-    &(comVar->inputs->fmiNames[0]));
+    &(comVar->inputs->fmiNames[0]),
+    SpawnFormatError);
   /* *************************************************************************** */
   /* Initialize the pointer for the FMU to which this input variable belongs to */
 
@@ -191,7 +215,11 @@ void* InputVariableAllocate(
       weaName,
       usePrecompiledFMU,
       fmuName,
-      buildingsLibraryRoot);
+      buildingsLibraryRoot,
+      SpawnMessage,
+      SpawnError,
+      SpawnFormatMessage,
+      SpawnFormatError);
     comVar->ptrBui = getBuildingsFMU(i);
     AddInputVariableToBuilding(comVar);
 

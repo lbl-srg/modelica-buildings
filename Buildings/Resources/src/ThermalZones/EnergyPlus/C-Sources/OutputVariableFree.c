@@ -10,8 +10,6 @@
 #include <stdlib.h>
 
 void OutputVariableFree(void* object){
-  if (FMU_EP_VERBOSITY >= MEDIUM)
-    SpawnMessage("Entered OutputVariableFree.\n");
   if ( object != NULL ){
     FMUOutputVariable* com = (FMUOutputVariable*) object;
 
@@ -26,10 +24,6 @@ void OutputVariableFree(void* object){
       com->ptrBui->nOutputVariables--;
       FMUBuildingFree(com->ptrBui);
     }
-    if (FMU_EP_VERBOSITY >= MEDIUM)
-      SpawnMessage("Calling free in OutputVariableFree.\n");
     free(com);
   }
-  if (FMU_EP_VERBOSITY >= MEDIUM)
-    SpawnMessage("Leaving OutputVariableFree.c.\n");
 }

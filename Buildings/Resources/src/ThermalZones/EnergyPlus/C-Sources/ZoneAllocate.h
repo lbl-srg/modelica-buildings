@@ -20,6 +20,10 @@ LBNL_EnergyPlus_EXPORT void* ZoneAllocate(
   int usePrecompiledFMU,
   const char* fmuName,
   const char* buildingsLibraryRoot,
-  const int verbosity);
+  const int verbosity,
+  void (*SpawnMessage)(const char *string),
+  void (*SpawnError)(const char *string),
+  void (*SpawnFormatMessage)(const char *string, ...),
+  void (*SpawnFormatError)(const char *string, ...));
 
 #endif

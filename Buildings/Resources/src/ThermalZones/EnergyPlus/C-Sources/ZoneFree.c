@@ -11,8 +11,6 @@
 #include <stdlib.h>
 
 void ZoneFree(void* object){
-  if (FMU_EP_VERBOSITY >= MEDIUM)
-    SpawnMessage("Entered ZoneFree.");
   if ( object != NULL ){
     FMUZone* zone = (FMUZone*) object;
 
@@ -23,6 +21,4 @@ void ZoneFree(void* object){
     }
     free(zone);
   }
-  if (FMU_EP_VERBOSITY >= MEDIUM)
-    SpawnMessage("Leaving ZoneFree.");
 }

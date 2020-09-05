@@ -295,7 +295,7 @@ void SHA1(
     hash_out[20] = '\0';
 }
 
-const char* cryptographicsHash(const char* str)
+const char* cryptographicsHash(const char* str, void (*SpawnError)(const char *string))
 {
   char result[21];
   size_t offset;

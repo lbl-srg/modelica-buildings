@@ -12,21 +12,21 @@
 #include <stdio.h>
 
 FMUOutputVariable* checkForDoubleOutputVariableDeclaration(
-  const struct FMUBuilding* fmuBld,
+  const struct FMUBuilding* bui,
   const char* fmiName){
   int iComVar;
 
-  for(iComVar = 0; iComVar < fmuBld->nOutputVariables; iComVar++){
-    FMUOutputVariable* ptrOutVar = (FMUOutputVariable*)(fmuBld->outputVariables[iComVar]);
+  for(iComVar = 0; iComVar < bui->nOutputVariables; iComVar++){
+    FMUOutputVariable* ptrOutVar = (FMUOutputVariable*)(bui->outputVariables[iComVar]);
     if (!strcmp(fmiName, ptrOutVar->outputs->fmiNames[0])){
       if (FMU_EP_VERBOSITY >= MEDIUM){
-        SpawnFormatMessage("*** Searched for output variable %s in building and found it.\n", fmiName);
+        bui->SpawnFormatMessage("*** Searched for output variable %s in building and found it.\n", fmiName);
       }
       return ptrOutVar;
     }
   }
   if (FMU_EP_VERBOSITY >= MEDIUM){
-     SpawnFormatMessage("*** Searched for output variable %s in building but did not find it.\n", fmiName);
+     bui->SpawnFormatMessage("*** Searched for output variable %s in building but did not find it.\n", fmiName);
   }
   return NULL;
 }
@@ -62,7 +62,11 @@ void* OutputVariableAllocate(
   const char* fmuName,
   const char* buildingsLibraryRoot,
   const int verbosity,
-  int printUnit){
+  int printUnit,
+  void (*SpawnMessage)(const char *string),
+  void (*SpawnError)(const char *string),
+  void (*SpawnFormatMessage)(const char *string, ...),
+  void (*SpawnFormatError)(const char *string, ...)){
   /* Note: The idfName is needed to unpack the fmu so that the valueReference can be obtained */
   size_t i;
   FMUOutputVariable* comVar = NULL;
@@ -74,7 +78,7 @@ void* OutputVariableAllocate(
   if (FMU_EP_VERBOSITY >= MEDIUM)
     SpawnFormatMessage("Entered OutputVariableAllocate for zone %s.\n", modelicaNameOutputVariable);
 
-  checkAndSetVerbosity(verbosity);
+  checkAndSetVerbosity(verbosity, SpawnMessage);
 
   /* Dymola 2019FD01 calls in some cases the allocator twice. In this case, simply return the previously instanciated zone pointer */
   setOutputVariablePointerIfAlreadyInstantiated(modelicaNameOutputVariable, &comVar);
@@ -108,27 +112,39 @@ void* OutputVariableAllocate(
   comVar->valueReferenceIsSet = fmi2False;
 
   /* Assign the Modelica instance name */
-  mallocString(strlen(modelicaNameOutputVariable)+1,
-    "Not enough memory in OutputVariableAllocate.c. to allocate Modelica instance name.", &(comVar->modelicaNameOutputVariable));
+  mallocString(
+    strlen(modelicaNameOutputVariable)+1,
+    "Not enough memory in OutputVariableAllocate.c. to allocate Modelica instance name.",
+    &(comVar->modelicaNameOutputVariable),
+    SpawnFormatError);
   strcpy(comVar->modelicaNameOutputVariable, modelicaNameOutputVariable);
 
   /* Assign the name and key */
-  mallocString(strlen(variableName)+1, "Not enough memory in OutputVariableAllocate.c. to allocate output name.", &(comVar->name));
+  mallocString(
+    strlen(variableName)+1,
+    "Not enough memory in OutputVariableAllocate.c. to allocate output name.",
+    &(comVar->name),
+    SpawnFormatError);
   strcpy(comVar->name, variableName);
 
-  mallocString(strlen(componentKey)+1, "Not enough memory in OutputVariableAllocate.c. to allocate output key.", &(comVar->key));
+  mallocString(
+    strlen(componentKey)+1,
+    "Not enough memory in OutputVariableAllocate.c. to allocate output key.",
+    &(comVar->key),
+    SpawnFormatError);
   strcpy(comVar->key, componentKey);
 
   comVar->printUnit = printUnit;
   comVar->count = 1;
 
-  mallocSpawnReals(1, &(comVar->outputs));
+  mallocSpawnReals(1, &(comVar->outputs), SpawnFormatError);
   /* Assign structural data */
   buildVariableName(
     (const char*)modelicaNameOutputVariable,
     (const char*)(comVar->name),
     (const char*)(comVar->key),
-    &(comVar->outputs->fmiNames[0]));
+    &(comVar->outputs->fmiNames[0]),
+    SpawnFormatError);
 
   /* *************************************************************************** */
   /* Initialize the pointer for the FMU to which this output variable belongs to */
@@ -183,7 +199,11 @@ void* OutputVariableAllocate(
       weaName,
       usePrecompiledFMU,
       fmuName,
-      buildingsLibraryRoot);
+      buildingsLibraryRoot,
+      SpawnMessage,
+      SpawnError,
+      SpawnFormatMessage,
+      SpawnFormatError);
     comVar->ptrBui = getBuildingsFMU(i);
     AddOutputVariableToBuilding(comVar);
 

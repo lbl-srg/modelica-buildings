@@ -63,19 +63,6 @@ typedef enum {instantiationMode, initializationMode, eventMode, continuousTimeMo
 static int FMU_EP_VERBOSITY = 1; /* Verbosity */
 enum verbosity {ERRORS = 1, WARNINGS = 2, QUIET = 3, MEDIUM = 4, TIMESTEP = 5};
 
-/* These functions need to be defined by code that uses this library */
-#ifdef __cplusplus
-extern "C" {  // only need to export C interface if
-              // used by C++ source code
-#endif
-void (*SpawnMessage)(const char *string);
-void (*SpawnError)(const char *string);
-void (*SpawnFormatMessage)(const char *string, ...);
-void (*SpawnFormatError)(const char *string, ...);
-#ifdef __cplusplus
-}
-#endif
-
 typedef struct FMUBuilding
 {
   fmi2_import_t* fmu;
@@ -103,6 +90,12 @@ typedef struct FMUBuilding
   fmi2Real time; /* Time that is set in the building fmu */
   FMUMode mode; /* Mode that the FMU is in */
   size_t iFMU; /* Number of this FMU */
+
+  void (*SpawnMessage)(const char *string);
+  void (*SpawnError)(const char *string);
+  void (*SpawnFormatMessage)(const char *string, ...);
+  void (*SpawnFormatError)(const char *string, ...);
+
 } FMUBuilding;
 
 

@@ -53,8 +53,11 @@ void* ZoneAllocate(
   int usePrecompiledFMU,
   const char* fmuName,
   const char* buildingsLibraryRoot,
-  const int verbosity
-  ){
+  const int verbosity,
+  void (*SpawnMessage)(const char *string),
+  void (*SpawnError)(const char *string),
+  void (*SpawnFormatMessage)(const char *string, ...),
+  void (*SpawnFormatError)(const char *string, ...)){
   /* Note: The idfName is needed to unpack the fmu so that the valueReference
      for the zone with zoneName can be obtained */
   size_t i;
@@ -66,7 +69,7 @@ void* ZoneAllocate(
   const char* inpNames[] = {"T", "X", "mInlets_flow", "TAveInlet", "QGaiRad_flow"};
   const char* outNames[] = {"TRad", "QConSen_flow", "QLat_flow", "QPeo_flow"};
 
-  checkAndSetVerbosity(verbosity);
+  checkAndSetVerbosity(verbosity, SpawnMessage);
 
   if (FMU_EP_VERBOSITY >= MEDIUM){
     SpawnFormatMessage("Entered ZoneAllocate for zone %s.\n", modelicaNameThermalZone);
@@ -103,17 +106,25 @@ void* ZoneAllocate(
   zone->isInitialized = fmi2False;
 
   /* Assign the Modelica instance name */
-  mallocString(strlen(modelicaNameThermalZone)+1, "Not enough memory in ZoneAllocate.c. to allocate Modelica instance name.", &(zone->modelicaNameThermalZone));
+  mallocString(
+    strlen(modelicaNameThermalZone)+1,
+    "Not enough memory in ZoneAllocate.c. to allocate Modelica instance name.",
+    &(zone->modelicaNameThermalZone),
+    SpawnFormatError);
   strcpy(zone->modelicaNameThermalZone, modelicaNameThermalZone);
 
   /* Assign the zone name */
-  mallocString(strlen(zoneName)+1, "Not enough memory in ZoneAllocate.c. to allocate zone name.", &(zone->name));
+  mallocString(
+    strlen(zoneName)+1,
+    "Not enough memory in ZoneAllocate.c. to allocate zone name.",
+    &(zone->name),
+    SpawnFormatError);
   strcpy(zone->name, zoneName);
 
   /* Allocate parameters, inputs and outputs */
-  mallocSpawnReals(3, &(zone->parameters));
-  mallocSpawnReals(5, &(zone->inputs));
-  mallocSpawnReals(4, &(zone->outputs));
+  mallocSpawnReals(3, &(zone->parameters), SpawnFormatError);
+  mallocSpawnReals(5, &(zone->inputs), SpawnFormatError);
+  mallocSpawnReals(4, &(zone->outputs), SpawnFormatError);
 
   /* Assign structural data */
   buildVariableNames(
@@ -121,21 +132,24 @@ void* ZoneAllocate(
     parOutNames,
     zone->parameters->n,
     &(zone->parOutNames),
-    &(zone->parameters->fmiNames));
+    &(zone->parameters->fmiNames),
+    SpawnFormatError);
 
   buildVariableNames(
     zone->name,
     inpNames,
     zone->inputs->n,
     &(zone->inpNames),
-    &(zone->inputs->fmiNames));
+    &(zone->inputs->fmiNames),
+    SpawnFormatError);
 
   buildVariableNames(
     zone->name,
     outNames,
     zone->outputs->n,
     &(zone->outNames),
-    &(zone->outputs->fmiNames));
+    &(zone->outputs->fmiNames),
+    SpawnFormatError);
 
   /* ********************************************************************** */
   /* Initialize the pointer for the FMU to which this zone belongs */
@@ -186,7 +200,11 @@ void* ZoneAllocate(
       weaName,
       usePrecompiledFMU,
       fmuName,
-      buildingsLibraryRoot);
+      buildingsLibraryRoot,
+      SpawnMessage,
+      SpawnError,
+      SpawnFormatMessage,
+      SpawnFormatError);
     zone->ptrBui = getBuildingsFMU(i);
 
     AddZoneToBuilding(zone);

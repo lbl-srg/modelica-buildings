@@ -26,6 +26,9 @@ void InputVariableExchange(
 
   fmi2Status status;
 
+  void (*SpawnFormatMessage)(const char *string, ...) = bui->SpawnFormatMessage;
+  void (*SpawnFormatError)(const char *string, ...) = bui->SpawnFormatError;
+
   if (FMU_EP_VERBOSITY >= TIMESTEP)
     SpawnFormatMessage("Exchanging data with EnergyPlus: t = %.2f, initialCall = %d, zone = %s,  building ptr at %p.\n",
       time, initialCall, inpVar->modelicaNameInputVariable, bui);

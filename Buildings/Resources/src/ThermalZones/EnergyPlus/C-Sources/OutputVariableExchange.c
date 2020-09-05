@@ -11,20 +11,6 @@
 #include <math.h>
 #include <string.h>
 
-/*
-bool allOutputVariablesAreInitialized(FMUBuilding* bui){
-  void** outVars = bui->outputVariables;
-  size_t i;
-  FMUOutputVariable* outVar;
-  for(i = 0; i < bui->nOutputVariables; i++){
-    outVar = (FMUOutputVariable*)outVars[i];
-    if (! outVar->isInitialized)
-      return false;
-  }
-  return true;
-}
-*/
-
 /* Exchange data between Modelica output variable block and EnergyPlus output variable.
 
    The argument directDependency is a dummy variable needed
@@ -42,6 +28,9 @@ void OutputVariableExchange(
   FMUBuilding* bui = outVar->ptrBui;
 
   fmi2Status status;
+
+  void (*SpawnFormatMessage)(const char *string, ...) = bui->SpawnFormatMessage;
+  void (*SpawnFormatError)(const char *string, ...) = bui->SpawnFormatError;
 
   if (FMU_EP_VERBOSITY >= TIMESTEP)
     SpawnFormatMessage("Exchanging data with EnergyPlus: t = %.2f, initialCall = %d, mode = %s, output variable = %s, directDependency = %2.f, valueReference = %lu.\n",
