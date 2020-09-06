@@ -64,7 +64,6 @@ void ZoneInstantiate(
     */
     loadFMU_setupExperiment_enterInitializationMode(bui, startTime);
   }
-
   if (FMU_EP_VERBOSITY >= MEDIUM)
     bui->SpawnFormatMessage(
       "fmi2_import_get_real: Getting parameters from EnergyPlus zone %s.\n",

@@ -7,6 +7,8 @@
 
 #include <stdbool.h>
 #include <stdio.h>
+#include <errno.h>
+extern int errno;
 
 #include "fmilib.h"
 #include "FMI2/fmi2FunctionTypes.h"

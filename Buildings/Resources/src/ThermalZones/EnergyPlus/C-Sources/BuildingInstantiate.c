@@ -14,7 +14,6 @@
 #include <stdio.h>
 #include <stdbool.h>
 
-
 void buildJSONKeyValue(
   char* *buffer, size_t level, const char* key, const char* value, bool addComma, size_t* size,
   void (*SpawnFormatError)(const char *string, ...)){
@@ -340,7 +339,6 @@ void generateFMU(FMUBuilding* fmuBui, const char* modelicaBuildingsJsonFile){
   char* fulCmd;
   size_t len;
   int retVal;
-  struct stat st = {0};
 
   void (*SpawnFormatMessage)(const char *string, ...) = fmuBui->SpawnFormatMessage;
   void (*SpawnFormatError)(const char *string, ...) = fmuBui->SpawnFormatError;
@@ -348,7 +346,6 @@ void generateFMU(FMUBuilding* fmuBui, const char* modelicaBuildingsJsonFile){
 
   if (FMU_EP_VERBOSITY >= MEDIUM)
     SpawnFormatMessage("Entered generateFMU with FMUPath = %s.\n", fmuBui->fmuAbsPat);
-
 
   if (fmuBui->usePrecompiledFMU){
     if( access( fmuBui->precompiledFMUAbsPat, F_OK ) == -1 ) {
@@ -387,14 +384,18 @@ void generateFMU(FMUBuilding* fmuBui, const char* modelicaBuildingsJsonFile){
     memset(fulCmd, '\0', len);
     strcpy(fulCmd, fmuBui->buildingsLibraryRoot); /* This is for example /mtn/shared/Buildings */
     strcat(fulCmd, cmd);
-    /* Check if the executable exists */
-    if( access(fulCmd, F_OK ) == -1 ) {
-      SpawnFormatError("Executable '%s' does not exist.", fulCmd);
+    /* Check if the executable exists
+       Linux return 0, and Windows returns 2 if file does not exist */
+    if( access(fulCmd, F_OK ) != 0 ) {
+      SpawnFormatError("Executable '%s' does not exist: '%s'.", fulCmd, strerror(errno));
     }
     /* Make sure the file is executable */
-    if( access(fulCmd, X_OK ) == -1 ) {
-      SpawnFormatError("File '%s' exists, but fails to be executable.", fulCmd);
+    /* Windows has no mode X_OK = 1, see https://docs.microsoft.com/en-us/cpp/c-runtime-library/reference/access-waccess?view=vs-2019 */
+#ifndef _WIN32
+    if( access(fulCmd, X_OK ) != 0 ) {
+      SpawnFormatError("File '%s' exists, but fails to have executable flag set: '%s.", fulCmd, strerror(errno));
     }
+#endif
     /* Continue building the command line */
     strcat(fulCmd, optionFlags);
     strcat(fulCmd, outputFlag);
@@ -408,11 +409,11 @@ void generateFMU(FMUBuilding* fmuBui, const char* modelicaBuildingsJsonFile){
   }
 
   /* Remove the old fmu if it already exists */
-  if (stat(fmuBui->fmuAbsPat, &st) != -1) {
+  if (access(fmuBui->fmuAbsPat, F_OK) == 0) {
     /* FMU exists. Delete it. */
     retVal = remove(fmuBui->fmuAbsPat);
     if (retVal != 0){
-      SpawnFormatError("Failed to remove old FMU %s", fmuBui->fmuAbsPat);
+      SpawnFormatError("Failed to remove old FMU '%s': '%s'.", fmuBui->fmuAbsPat, strerror(errno));
    }
   }
 
