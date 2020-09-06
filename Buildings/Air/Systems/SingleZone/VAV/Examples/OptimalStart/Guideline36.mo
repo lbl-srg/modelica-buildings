@@ -1,42 +1,47 @@
 within Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart;
 model Guideline36
-  "Example model using optimal start with Guideline 36 controller for a single-zone system"
+  "Example model using the block OptimalStart with a Guideline36 controller for a single-zone system"
   extends Modelica.Icons.Example;
 
-  Controls.SetPoints.OccupancySchedule occSch(occupancy=3600*{8,18})
-    "Occupancy schedule"
-    annotation (Placement(transformation(extent={{-60,-34},{-40,-14}})));
   Buildings.Controls.OBC.Utilities.OptimalStart optStaHea(
-    nDay=5,                                               computeHeating=true,
+    nDay=5,
+    computeHeating=true,
     computeCooling=false,
     uLow=0.1,
     thrOptOn(displayUnit="s"))
+    "Optimal start for heating"
     annotation (Placement(transformation(extent={{-20,62},{0,82}})));
-  Modelica.Blocks.Sources.Constant TSetHeaOn(k=20 + 273.15)
+  Buildings.Controls.SetPoints.OccupancySchedule occSch(occupancy=3600*{8,18})
+    "Occupancy schedule"
+    annotation (Placement(transformation(extent={{-60,-34},{-40,-14}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetHeaOn(k=20 + 273.15)
     "Zone heating setpoint during occupied period"
     annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
-  Modelica.Blocks.Sources.Constant TSetCooOn(k=24 + 273.15)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetCooOn(k=24 + 273.15)
     "Zone cooling setpoint during occupied time"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
-  Controls.OBC.Utilities.OptimalStart optStaCoo(
+  Buildings.Controls.OBC.Utilities.OptimalStart optStaCoo(
     nDay=5,
     computeHeating=false,
     computeCooling=true,
     uLow=0.1,
     thrOptOn(displayUnit="s"))
+    "Optimal start for cooling"
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
-  Controls.OBC.CDL.Continuous.Sources.Constant con(k=0)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(k=0)
+    "No optimal start"
     annotation (Placement(transformation(extent={{-20,-80},{0,-60}})));
-  BaseClasses.ZoneWithAHUG36 zonAHUG36_1
+  Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.BaseClasses.ZoneWithAHUG36 zonAHUG36_1
+    "A single zone building with an air handling system"
     annotation (Placement(transformation(extent={{40,40},{60,60}})));
-  BaseClasses.ZoneWithAHUG36 zonAHUG36_2
+  Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.BaseClasses.ZoneWithAHUG36 zonAHUG36_2
+    "A single zone building with an air handling system"
     annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
 equation
-
-  connect(TSetHeaOn.y, optStaHea.TSetZonHea) annotation (Line(points={{-39,80},
-          {-22,80}},                      color={0,0,127}));
-  connect(TSetCooOn.y, optStaCoo.TSetZonCoo) annotation (Line(points={{-39,30},
-          {-30,30},{-30,33},{-22,33}},       color={0,0,127}));
+  connect(TSetHeaOn.y, optStaHea.TSetZonHea) annotation (Line(points={{-38,80},{
+          -22,80}},                       color={0,0,127}));
+  connect(TSetCooOn.y, optStaCoo.TSetZonCoo) annotation (Line(points={{-38,30},{
+          -30,30},{-30,33},{-22,33}},        color={0,0,127}));
   connect(occSch.tNexOcc, optStaCoo.tNexOcc) annotation (Line(points={{-39,-18},
           {-26,-18},{-26,22},{-22,22}},      color={0,0,127}));
   connect(optStaCoo.TZon, optStaHea.TZon) annotation (Line(points={{-22,27},{
@@ -61,6 +66,7 @@ equation
           {20,-30},{20,-77},{38,-77}}, color={255,0,255}));
   connect(occSch.tNexOcc, optStaHea.tNexOcc) annotation (Line(points={{-39,-18},
           {-26,-18},{-26,64},{-22,64}}, color={0,0,127}));
+
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false),
                     graphics={
@@ -90,21 +96,30 @@ equation
           textString="System with optimal start")}),
     experiment(
       StopTime=604800,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Cvode"),
+      Tolerance=1e-06),
       __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Air/Systems/SingleZone/VAV/Examples/OptimalStart/Guideline36.mos"
         "Simulate and plot"),
       Documentation(info="<html>
 <p>
-Implementation of <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.Examples.BaseClasses.PartialOpenLoop\">
-Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.Examples.BaseClasses.PartialOpenLoop</a>
-with ASHRAE Guideline 36 control sequence.
+This is an example model on how to use the block 
+<a href=\"modelica://Buildings.Controls.OBC.Utilities.OptimalStart\">
+Buildings.Controls.OBC.Utilities.OptimalStart</a>
+that integrates with a controller based on Guideline36
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.Controller\">
+Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.Controller</a>, 
+a single-zone VAV system and a single-zone floor building.
+The building, HVAC system and controller model 
+can be found in the base class
+<a href=\"modelica://Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.BaseClasses.ZoneWithAHUG36\">
+Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.BaseClasses.ZoneWithAHUG36</a>.
 </p>
-</html>", revisions="<html>
+</html>",
+revisions="<html>
 <ul>
 <li>
 July 29, 2020, by Kun Zhang:<br/>
-First implementation.
+First implementation. This is for issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2126\">2126</a>.
 </li>
 </ul>
 </html>"));

@@ -17,7 +17,35 @@ block ZoneWithAHUG36
   parameter Modelica.SIunits.HeatFlowRate QCoo_flow_nominal = -100000
     "Design cooling flow rate";
 
-  Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.Controller con(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput warUpTim(
+    final unit="s",
+    final quantity="Time")
+    "Warm-up time retrieved from optimal warm-up block"
+    annotation (Placement(transformation(extent={{-180,40},{-140,80}}),
+        iconTransformation(extent={{-140,40},{-100,80}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput cooDowTim(
+    final unit="s",
+    final quantity="Time")
+    "Cool-down time retrieved from optimal cool-down block"
+    annotation (Placement(transformation(extent={{-180,0},{-140,40}}),
+        iconTransformation(extent={{-140,-2},{-100,38}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput tNexOcc(
+    final unit="s",
+    final quantity="Time")
+    "Next occupancy time" annotation (Placement(transformation(extent={{-180,-40},
+            {-140,0}}), iconTransformation(extent={{-140,-50},{-100,-10}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uOcc
+    "Current occupancy period, true if it is in occupant period"
+    annotation (Placement(transformation(extent={{-180,-70},{-140,-30}}),
+        iconTransformation(extent={{-140,-90},{-100,-50}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput TZon(
+    final unit="K",
+    displayUnit="degC",
+    final quantity="ThermodynamicTemperature") "Zone air temperature"
+    annotation (Placement(transformation(extent={{140,-20},{180,20}}),
+        iconTransformation(extent={{100,-20},{140,20}})));
+
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.Controller con(
     have_winSen=false,
     TZonHeaOn=293.15,
     TZonCooOff=303.15,
@@ -36,10 +64,12 @@ block ZoneWithAHUG36
     TSupSetMax=343.15,
     TSupSetMin=286.15,
     uLow=0,
-    uHigh=0.5)         "VAV controller"
+    uHigh=0.5)
+    "VAV controller"
     annotation (Placement(transformation(extent={{-66,-36},{-26,12}})));
-  ThermalZones.Detailed.Validation.BaseClasses.SingleZoneFloor sinZonFlo(
-      redeclare package Medium = MediumA, lat=weaDat.lat) "Single zone floor"
+  Buildings.ThermalZones.Detailed.Validation.BaseClasses.SingleZoneFloor sinZonFlo(
+    redeclare package Medium = MediumA, lat=weaDat.lat)
+    "Single zone floor"
     annotation (Placement(transformation(extent={{76,-24},{116,16}})));
   Buildings.Air.Systems.SingleZone.VAV.ChillerDXHeatingEconomizer hvac(
     redeclare package MediumA = MediumA,
@@ -50,50 +80,32 @@ block ZoneWithAHUG36
     QCoo_flow_nominal=QCoo_flow_nominal,
     TSupChi_nominal=TSupChi_nominal) "HVAC system"
     annotation (Placement(transformation(extent={{20,-28},{60,12}})));
-  Controls.OBC.CDL.Continuous.Hysteresis hysChiPla1(uLow=-1, uHigh=0)
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysChiPla1(uLow=-1, uHigh=0)
     "Hysteresis with delay to switch on cooling"
     annotation (Placement(transformation(extent={{-50,-80},{-30,-60}})));
   Modelica.Blocks.Math.Feedback errTRooCoo1
     "Control error on room temperature for cooling"
     annotation (Placement(transformation(extent={{-76,-80},{-56,-60}})));
-  BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
-        ModelicaServices.ExternalReferences.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"),
+  Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
+    filNam=ModelicaServices.ExternalReferences.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"),
     computeWetBulbTemperature=false)
     "Weather data"
     annotation (Placement(transformation(extent={{-20,70},{0,90}})));
-  BoundaryConditions.WeatherData.Bus weaBus annotation (Placement(
+  Buildings.BoundaryConditions.WeatherData.Bus weaBus
+    "Weather bus" annotation (Placement(
         transformation(extent={{48,70},{72,90}}),    iconTransformation(extent={{-80,72},
             {-60,92}})));
-  Controls.OBC.CDL.Integers.Sources.Constant demLim(final k=0)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant demLim(
+    final k=0)
     "Cooling and heating demand imit level"
     annotation (Placement(transformation(extent={{-120,-60},{-100,-40}})));
-  Controls.OBC.CDL.Interfaces.RealInput warUpTim(final unit="s",
-      final quantity="Time")
-    "Warm-up time retrieved from optimal warm-up block"
-    annotation (Placement(transformation(extent={{-180,40},{-140,80}}),
-        iconTransformation(extent={{-140,40},{-100,80}})));
-  Controls.OBC.CDL.Interfaces.RealInput cooDowTim(final unit="s",
-      final quantity="Time")
-    "Cool-down time retrieved from optimal cool-down block"
-    annotation (Placement(transformation(extent={{-180,0},{-140,40}}),
-        iconTransformation(extent={{-140,-2},{-100,38}})));
-  Controls.OBC.CDL.Interfaces.RealOutput TZon(
-    final unit="K",
-    final displayUnit="degC",
-    final quantity="ThermodynamicTemperature") "Zone air temperature"
-    annotation (Placement(transformation(extent={{140,-20},{180,20}}),
-        iconTransformation(extent={{100,-20},{140,20}})));
-  Controls.OBC.CDL.Interfaces.RealInput tNexOcc(final unit="s", final quantity="Time")
-    "Next occupancy time" annotation (Placement(transformation(extent={{-180,-40},
-            {-140,0}}), iconTransformation(extent={{-140,-50},{-100,-10}})));
-  Controls.OBC.CDL.Interfaces.BooleanInput uOcc
-    "Current occupancy period, true if it is in occupant period"
-    annotation (Placement(transformation(extent={{-180,-70},{-140,-30}}),
-        iconTransformation(extent={{-140,-90},{-100,-50}})));
+
 protected
-  Modelica.Blocks.Sources.Constant TSetSupChiConst(final k=TSupChi_nominal)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetSupChiConst(
+    final k=TSupChi_nominal)
     "Set point for chiller temperature"
     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
+
 equation
   connect(con.yFan, hvac.uFan) annotation (Line(points={{-24,-0.92308},{-20,-0.92308},
           {-20,10},{18,10}}, color={0,0,127}));
@@ -123,8 +135,7 @@ equation
           {76,0},{76,-16},{83.8,-16}}, color={0,127,255}));
   connect(hvac.returnAir, sinZonFlo.ports[2]) annotation (Line(points={{60.2,-8},
           {74,-8},{74,-16},{85.8,-16}}, color={0,127,255}));
-  connect(errTRooCoo1.y,hysChiPla1. u)
-    annotation (Line(points={{-57,-70},{-52,-70}},   color={0,0,127}));
+  connect(errTRooCoo1.y,hysChiPla1. u)    annotation (Line(points={{-57,-70},{-52,-70}},   color={0,0,127}));
   connect(hysChiPla1.y, hvac.chiOn) annotation (Line(points={{-28,-70},{-10,-70},
           {-10,-18},{18,-18}}, color={255,0,255}));
   connect(con.TZonCooSet, errTRooCoo1.u2) annotation (Line(points={{-24,-12},{-20,
@@ -149,7 +160,7 @@ equation
       thickness=0.5));
   connect(errTRooCoo1.u1, con.TZon) annotation (Line(points={{-74,-70},{-82,-70},
           {-82,0},{-68,0}}, color={0,0,127}));
-  connect(TSetSupChiConst.y, hvac.TSetChi) annotation (Line(points={{-39,50},{-8,
+  connect(TSetSupChiConst.y, hvac.TSetChi) annotation (Line(points={{-38,50},{-8,
           50},{-8,-26},{18,-26}}, color={0,0,127}));
   connect(sinZonFlo.TRooAir, con.TZon) annotation (Line(points={{113,6.2},{120,6.2},
           {120,-90},{-82,-90},{-82,0},{-68,0},{-68,8.88178e-16}}, color={0,0,127}));
@@ -167,6 +178,7 @@ equation
           8.30769},{-68,8.30769}}, color={0,0,127}));
   connect(cooDowTim, con.cooDowTim) annotation (Line(points={{-160,20},{-92,20},
           {-92,5.53846},{-68,5.53846}}, color={0,0,127}));
+
   annotation (defaultComponentName="zonAHUG36",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={
                                 Rectangle(
@@ -179,6 +191,32 @@ equation
           lineColor={0,0,255},
           fillPattern=FillPattern.HorizontalCylinder,
           fillColor={0,127,255},
-          textString="%name")}),          Diagram(coordinateSystem(
-          preserveAspectRatio=false, extent={{-140,-100},{140,100}})));
+          textString="%name")}),
+       Diagram(coordinateSystem(
+          preserveAspectRatio=false, extent={{-140,-100},{140,100}})),
+Documentation(info="<html>
+<p>
+This base class contains a controller based on Guideline36 
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.Controller\">
+Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.Controller</a>,
+a single-zone VAV system
+<a href=\"modelica://Buildings.Air.Systems.SingleZone.VAV.ChillerDXHeatingEconomizer\">
+Buildings.Air.Systems.SingleZone.VAV.ChillerDXHeatingEconomizer</a>, 
+and a single-zone floor building
+<a href=\"modelica://Buildings.ThermalZones.Detailed.Validation.BaseClasses.SingleZoneFloor\">
+Buildings.ThermalZones.Detailed.Validation.BaseClasses.SingleZoneFloor</a>.
+It is used by the example model
+<a href=\"modelica://Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.Guideline36\">
+Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.Guideline36</a>.
+</p>
+</html>",
+revisions="<html>
+<ul>
+<li>
+July 29, 2020, by Kun Zhang:<br/>
+First implementation. This is for issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2126\">2126</a>.
+</li>
+</ul>
+</html>"));
 end ZoneWithAHUG36;

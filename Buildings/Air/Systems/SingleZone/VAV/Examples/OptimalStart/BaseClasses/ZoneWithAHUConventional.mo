@@ -17,6 +17,29 @@ block ZoneWithAHUConventional
   parameter Modelica.SIunits.HeatFlowRate QCoo_flow_nominal = -100000
     "Design cooling flow rate";
 
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSetRooHea(
+    final unit="K",
+    displayUnit="degC")
+    "Room heating setpoint temperature" annotation (Placement(transformation(
+          extent={{-140,40},{-100,80}}), iconTransformation(extent={{-140,40},{-100,
+            80}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSetRooCoo(
+    final unit="K",
+    displayUnit="degC")
+    "Room cooling setpoint temperature" annotation (Placement(transformation(
+          extent={{-140,-20},{-100,20}}),  iconTransformation(extent={{-140,-20},
+            {-100,20}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uOcc
+    "Current occupancy period, true if it is in occupant period"
+    annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),
+        iconTransformation(extent={{-140,-80},{-100,-40}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput TZon(
+    final unit="K",
+    displayUnit="degC")
+    "Zone temperature"
+    annotation (Placement(transformation(extent={{100,-20},{140,20}}),
+        iconTransformation(extent={{100,-20},{140,20}})));
+
   Buildings.Air.Systems.SingleZone.VAV.ChillerDXHeatingEconomizer hvac(
     redeclare package MediumA = MediumA,
     redeclare package MediumW = MediumW,
@@ -24,43 +47,31 @@ block ZoneWithAHUConventional
     etaHea_nominal=0.99,
     QHea_flow_nominal=QHea_flow_nominal,
     QCoo_flow_nominal=QCoo_flow_nominal,
-    TSupChi_nominal=TSupChi_nominal)   "Single zone VAV system"
+    TSupChi_nominal=TSupChi_nominal)
+    "Single zone VAV system"
     annotation (Placement(transformation(extent={{-18,-20},{22,20}})));
-  ChillerDXHeatingEconomizerController
+  Buildings.Air.Systems.SingleZone.VAV.ChillerDXHeatingEconomizerController
     con(
     minAirFlo=0.1,
     minOAFra=0.4,
     TSupChi_nominal=TSupChi_nominal,
-    TSetSupAir=286.15) "Controller"
+    TSetSupAir=286.15)
+    "Controller"
     annotation (Placement(transformation(extent={{-78,-12},{-58,8}})));
-  ThermalZones.Detailed.Validation.BaseClasses.SingleZoneFloor
+  Buildings.ThermalZones.Detailed.Validation.BaseClasses.SingleZoneFloor
     sinZonFlo(redeclare package Medium = MediumA, lat=weaDat.lat)
     "Single zone floor building"
     annotation (Placement(transformation(extent={{38,-16},{78,24}})));
-  Controls.OBC.CDL.Interfaces.RealOutput TZon(unit="K", displayUnit="degC")
-    "Zone temperature"
-    annotation (Placement(transformation(extent={{100,-20},{140,20}}),
-        iconTransformation(extent={{100,-20},{140,20}})));
-  Controls.OBC.CDL.Interfaces.RealInput TSetRooHea(unit="K", displayUnit="degC")
-    "Room heating setpoint temperature" annotation (Placement(transformation(
-          extent={{-140,40},{-100,80}}), iconTransformation(extent={{-140,40},{-100,
-            80}})));
-  Controls.OBC.CDL.Interfaces.RealInput TSetRooCoo(unit="K", displayUnit="degC")
-    "Room cooling setpoint temperature" annotation (Placement(transformation(
-          extent={{-140,-20},{-100,20}}),  iconTransformation(extent={{-140,-20},
-            {-100,20}})));
-  BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
-        ModelicaServices.ExternalReferences.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"),
-      computeWetBulbTemperature=false)
+  Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
+    filNam=ModelicaServices.ExternalReferences.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"),
+    computeWetBulbTemperature=false)
     "Weather data"
     annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
-  BoundaryConditions.WeatherData.Bus weaBus "Weather bus" annotation (Placement(
+  Buildings.BoundaryConditions.WeatherData.Bus weaBus
+    "Weather bus" annotation (Placement(
         transformation(extent={{-4,50},{16,70}}),    iconTransformation(extent={{-78,70},
             {-58,90}})));
-  Controls.OBC.CDL.Interfaces.BooleanInput uOcc
-    "Current occupancy period, true if it is in occupant period"
-    annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),
-        iconTransformation(extent={{-140,-80},{-100,-40}})));
+
 equation
   connect(con.yCooCoiVal,hvac. uCooVal) annotation (Line(points={{-56,-4},{-36,-4},
           {-36,5},{-20,5}}, color={0,0,127}));
@@ -82,8 +93,7 @@ equation
           {40,8},{40,-8},{45.8,-8}},     color={0,127,255}));
   connect(hvac.returnAir,sinZonFlo. ports[2]) annotation (Line(points={{22.2,0},
           {32,0},{32,-8},{47.8,-8}},     color={0,127,255}));
-  connect(con.TSetSupChi,hvac. TSetChi)
-    annotation (Line(points={{-56,-10},{-40,-10},{-40,-18},{-20,-18}},
+  connect(con.TSetSupChi,hvac. TSetChi)    annotation (Line(points={{-56,-10},{-40,-10},{-40,-18},{-20,-18}},
                                                              color={0,0,127}));
   connect(TSetRooHea, con.TSetRooHea) annotation (Line(points={{-120,60},{-90,60},
           {-90,4},{-80,4}}, color={0,0,127}));
@@ -109,9 +119,8 @@ equation
       points={{6,60},{6,32},{-86,32},{-86,-5},{-80,-5}},
       color={255,204,51},
       thickness=0.5));
-  annotation (choicesAllMatching = true,
-              choicesAllMatching = true,
-              defaultComponentName="zonAHUCon",
+
+  annotation (defaultComponentName="zonAHUCon",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={
                                 Rectangle(
         extent={{-100,-100},{100,100}},
@@ -123,6 +132,32 @@ equation
           lineColor={0,0,255},
           fillPattern=FillPattern.HorizontalCylinder,
           fillColor={0,127,255},
-          textString="%name")}),          Diagram(coordinateSystem(
-          preserveAspectRatio=false)));
+          textString="%name")}),
+      Diagram(coordinateSystem(
+          preserveAspectRatio=false)),
+Documentation(info="<html>
+<p>
+This base class contains a conventional controller
+<a href=\"modelica://Buildings.Air.Systems.SingleZone.VAV.ChillerDXHeatingEconomizerController\">
+Buildings.Air.Systems.SingleZone.VAV.ChillerDXHeatingEconomizerController</a>,
+a single-zone VAV system
+<a href=\"modelica://Buildings.Air.Systems.SingleZone.VAV.ChillerDXHeatingEconomizer\">
+Buildings.Air.Systems.SingleZone.VAV.ChillerDXHeatingEconomizer</a>, 
+and a single-zone floor building
+<a href=\"modelica://Buildings.ThermalZones.Detailed.Validation.BaseClasses.SingleZoneFloor\">
+Buildings.ThermalZones.Detailed.Validation.BaseClasses.SingleZoneFloor</a>.
+It is used by the example model
+<a href=\"modelica://Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.Conventional\">
+Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.Conventional</a>.
+</p>
+</html>",
+revisions="<html>
+<ul>
+<li>
+July 29, 2020, by Kun Zhang:<br/>
+First implementation. This is for issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2126\">2126</a>.
+</li>
+</ul>
+</html>"));
 end ZoneWithAHUConventional;

@@ -1,8 +1,15 @@
 within Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart;
 model Conventional
-  "Example model using optimal start with a conventional controller for a single-zone system"
+  "Example model using the block OptimalStart with a conventional controller for a single-zone VAV system"
   extends Modelica.Icons.Example;
 
+  Buildings.Controls.OBC.Utilities.OptimalStart optSta(
+    nDay=5,
+    computeHeating=true,
+    computeCooling=true,
+    uLow=0.1,
+    thrOptOn(displayUnit="s")) "Optimal start for heating and cooling system "
+    annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable TSetRooHea(
     table=[0,15 + 273.15; 8*3600,20 + 273.15; 18*3600,15 + 273.15; 24*3600,15 +
         273.15],
@@ -19,20 +26,13 @@ model Conventional
     y(unit="K",displayUnit="degC"))
     "Cooling setpoint for room temperature"
     annotation (Placement(transformation(extent={{-40,-90},{-20,-70}})));
-  Buildings.Controls.OBC.Utilities.OptimalStart optSta(
-    nDay=5,
-    computeHeating=true,
-    computeCooling=true,
-    uLow=0.1,
-    thrOptOn(displayUnit="s")) "Optimal start for heating and cooling system "
-    annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
   Buildings.Controls.SetPoints.OccupancySchedule occSch(occupancy=3600*{8,18})
     "Occupancy schedule"
     annotation (Placement(transformation(extent={{-100,-16},{-80,4}})));
-  Modelica.Blocks.Sources.Constant TSetHeaOn(k=20 + 273.15)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetHeaOn(k=20 + 273.15)
     "Zone heating setpoint during occupied period"
     annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
-  Modelica.Blocks.Sources.Constant TSetCooOn(k=24 + 273.15)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetCooOn(k=24 + 273.15)
     "Zone cooling setpoint during occupied time"
     annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea(realTrue=-6)
@@ -47,16 +47,17 @@ model Conventional
   Buildings.Controls.OBC.CDL.Continuous.Add add4(final k1=+1, final k2=+1)
     "New heating setpoint schedule for room"
     annotation (Placement(transformation(extent={{40,68},{60,88}})));
-  BaseClasses.ZoneWithAHUConventional zonAHUCon1
+  Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.BaseClasses.ZoneWithAHUConventional zonAHUCon1
     "Model of a single zone with AHU and controller"
     annotation (Placement(transformation(extent={{80,50},{100,70}})));
-  BaseClasses.ZoneWithAHUConventional zonAHUCon2
+  Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.BaseClasses.ZoneWithAHUConventional zonAHUCon2
     "Model of a single zone with AHU and controller"
     annotation (Placement(transformation(extent={{80,-70},{100,-50}})));
-  Controls.OBC.CDL.Logical.Or or2 "Logical or"
+  Buildings.Controls.OBC.CDL.Logical.Or or2
+    "Logical or"
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
 equation
-  connect(TSetHeaOn.y, optSta.TSetZonHea) annotation (Line(points={{-79,70},{-72,
+  connect(TSetHeaOn.y, optSta.TSetZonHea) annotation (Line(points={{-78,70},{-72,
           70},{-72,78},{-42,78}},   color={0,0,127}));
   connect(TSetRooHea.y[1], add4.u1) annotation (Line(points={{-18,-50},{28,-50},
           {28,84},{38,84}},  color={0,0,127}));
@@ -66,7 +67,7 @@ equation
           0},{-66,62},{-42,62}},     color={0,0,127}));
   connect(booToRea.y, add3.u1) annotation (Line(points={{22,46},{32,46},{32,50},
           {38,50}},      color={0,0,127}));
-  connect(TSetCooOn.y, optSta.TSetZonCoo) annotation (Line(points={{-79,30},{-70,
+  connect(TSetCooOn.y, optSta.TSetZonCoo) annotation (Line(points={{-78,30},{-70,
           30},{-70,73},{-42,73}},    color={0,0,127}));
   connect(optSta.optOn, booToRea.u) annotation (Line(points={{-18,66},{-6,66},{-6,
           46},{-2,46}},           color={255,0,255}));
@@ -90,7 +91,8 @@ equation
           10},{38,10}}, color={255,0,255}));
   connect(occSch.occupied, or2.u2) annotation (Line(points={{-79,-12},{-6,-12},
           {-6,2},{38,2}}, color={255,0,255}));
-  connect(or2.y, zonAHUCon1.uOcc) annotation (Line(points={{62,10},{74,10},{74,
+  connect(or2.y, zonAHUCon1.uOcc)
+  annotation (Line(points={{62,10},{74,10},{74,
           54},{78,54}}, color={255,0,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}})),                                        Diagram(
@@ -121,22 +123,28 @@ equation
           fillPattern=FillPattern.Solid,
           textString="System without optimal start")}),
     experiment(
-      StopTime=31536000,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Cvode"),
+      StopTime=604800,
+      Tolerance=1e-06),
       __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Air/Systems/SingleZone/VAV/Examples/OptimalStart/Conventional.mos"
         "Simulate and plot"),
       Documentation(info="<html>
 <p>
-This model shows an example on how to use the block <a href=\"modelica://Buildings.Controls.OBC.Utilities.OptimalStart\">
+This is an example model on how to use the block 
+<a href=\"modelica://Buildings.Controls.OBC.Utilities.OptimalStart\">
 Buildings.Controls.OBC.Utilities.OptimalStart</a>
-with a simple HVAC system and a single-zone floor building.
+that integrates with a conventional controller, a single-zone VAV system 
+and a single-zone floor building. The building, HVAC system and controller model 
+can be found in the base class
+<a href=\"modelica://Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.BaseClasses.ZoneWithAHUConventional\">
+Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.BaseClasses.ZoneWithAHUConventional</a>. 
 </p>
-</html>", revisions="<html>
+</html>",
+revisions="<html>
 <ul>
 <li>
 July 29, 2020, by Kun Zhang:<br/>
-First implementation.
+First implementation. This is for issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2126\">2126</a>.
 </li>
 </ul>
 </html>"));
