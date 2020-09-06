@@ -7,9 +7,12 @@ function outputVariableInitialize
     adapter "External object";
   input Modelica.SIunits.Time startTime "Start time of the simulation";
 
-  external "C" OutputVariableInstantiate(adapter, startTime)
-      annotation (Library={"ModelicaBuildingsEnergyPlus", "fmilib_shared"});
-      // dl provides dlsym to load EnergyPlus dll, which is needed by OpenModelica compiler
+  external "C" EnergyPlusOutputVariableInstantiate(adapter, startTime)
+    annotation (
+      Include="#include <EnergyPlusWrapper.c>",
+      IncludeDirectory="modelica://Buildings/Resources/C-Sources",
+      Library={"ModelicaBuildingsEnergyPlus", "fmilib_shared"});
+
 
 
   annotation (Documentation(info="<html>

@@ -6,11 +6,12 @@
 #ifndef Buildings_InputVariableAllocate_h
 #define Buildings_InputVariableAllocate_h
 
+#include "EnergyPlusTypes.h"
 #include "EnergyPlusFMU.h"
 #include "EnergyPlusUtil.h"
 
 /* Create the structure and return a pointer to its address. */
-void* InputVariableAllocate(
+LBNL_EnergyPlus_EXPORT void* InputVariableAllocate(
   const int objectType,
   const char* modelicaNameBuilding,
   const char* modelicaNameInputVariable,

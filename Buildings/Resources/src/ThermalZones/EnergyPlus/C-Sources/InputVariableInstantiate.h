@@ -6,6 +6,7 @@
 #ifndef Buildings_InputVariableInstantiate_h
 #define Buildings_InputVariableInstantiate_h
 
+#include "EnergyPlusTypes.h"
 #include "EnergyPlusFMU.h"
 #include "BuildingInstantiate.h"
 
@@ -19,6 +20,6 @@
 #include "fmilib.h"
 #include "JM/jm_portability.h"
 
-void InputVariableInstantiate(void* object, double t0);
+LBNL_EnergyPlus_EXPORT void InputVariableInstantiate(void* object, double t0);
 
 #endif

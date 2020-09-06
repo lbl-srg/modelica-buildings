@@ -6,11 +6,12 @@
 #ifndef Buildings_OutputVariableAllocate_h
 #define Buildings_OutputVariableAllocate_h
 
+#include "EnergyPlusTypes.h"
 #include "EnergyPlusFMU.h"
 #include "EnergyPlusUtil.h"
 
 /* Create the structure and return a pointer to its address. */
-void* OutputVariableAllocate(
+LBNL_EnergyPlus_EXPORT void* OutputVariableAllocate(
   const char* modelicaNameBuilding,
   const char* modelicaNameOutputVariable,
   const char* idfName,

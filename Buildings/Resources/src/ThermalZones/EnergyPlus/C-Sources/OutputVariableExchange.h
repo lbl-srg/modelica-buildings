@@ -6,12 +6,12 @@
 #ifndef Buildings_OutputVariableExchange_h
 #define Buildings_OutputVariableExchange_h
 
+#include "EnergyPlusTypes.h"
 #include "EnergyPlusFMU.h"
 #include "OutputVariableInstantiate.h"
 #include "FMI2/fmi2_import_capi.h"
 
-
-void OutputVariableExchange(
+LBNL_EnergyPlus_EXPORT void OutputVariableExchange(
   void* object,
   int initialCall,
   double directDependency,
