@@ -1,6 +1,6 @@
 within Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.BaseClasses;
 block ZoneWithAHUConventional
-  "A single zone building with an air handling system, a conventional controller"
+  "A single zone building with a VAV system and a conventional controller"
 
   package MediumA = Buildings.Media.Air(extraPropertiesNames={"CO2"})
     "Buildings library air media package";

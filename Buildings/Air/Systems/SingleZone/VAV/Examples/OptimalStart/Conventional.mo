@@ -8,7 +8,8 @@ model Conventional
     computeHeating=true,
     computeCooling=true,
     uLow=0.1,
-    thrOptOn(displayUnit="s")) "Optimal start for heating and cooling system "
+    thrOptOn(displayUnit="s"))
+    "Optimal start for heating and cooling system "
     annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable TSetRooHea(
     table=[0,15 + 273.15; 8*3600,20 + 273.15; 18*3600,15 + 273.15; 24*3600,15 +
@@ -36,10 +37,10 @@ model Conventional
     "Zone cooling setpoint during occupied time"
     annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea(realTrue=-6)
-    "Boolean to Real"
+    "Switch to occupied cooling setpoint"
     annotation (Placement(transformation(extent={{0,36},{20,56}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea1(realTrue=5)
-    "Boolean to Real"
+    "Switch to occupied heating setpoint"
     annotation (Placement(transformation(extent={{0,70},{20,90}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add3(final k1=+1, final k2=+1)
     "New cooling setpoint schedule for room"
@@ -54,8 +55,8 @@ model Conventional
     "Model of a single zone with AHU and controller"
     annotation (Placement(transformation(extent={{80,-70},{100,-50}})));
   Buildings.Controls.OBC.CDL.Logical.Or or2
-    "Logical or"
-    annotation (Placement(transformation(extent={{40,0},{60,20}})));
+    "Occupied or optimal start for preconditioning"  annotation (Placement(transformation(extent={{40,0},{60,20}})));
+
 equation
   connect(TSetHeaOn.y, optSta.TSetZonHea) annotation (Line(points={{-78,70},{-72,
           70},{-72,78},{-42,78}},   color={0,0,127}));
@@ -91,10 +92,10 @@ equation
           10},{38,10}}, color={255,0,255}));
   connect(occSch.occupied, or2.u2) annotation (Line(points={{-79,-12},{-6,-12},
           {-6,2},{38,2}}, color={255,0,255}));
-  connect(or2.y, zonAHUCon1.uOcc)
-  annotation (Line(points={{62,10},{74,10},{74,
+  connect(or2.y, zonAHUCon1.uOcc)  annotation (Line(points={{62,10},{74,10},{74,
           54},{78,54}}, color={255,0,255}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
+
+   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}})),                                        Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-120,-100},{120,100}}),
                     graphics={

@@ -32,11 +32,12 @@ model Guideline36
     "No optimal start"
     annotation (Placement(transformation(extent={{-20,-80},{0,-60}})));
   Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.BaseClasses.ZoneWithAHUG36 zonAHUG36_1
-    "A single zone building with an air handling system"
+    "A single zone building with a VAV system and a Guideline36 controller"
     annotation (Placement(transformation(extent={{40,40},{60,60}})));
   Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.BaseClasses.ZoneWithAHUG36 zonAHUG36_2
-    "A single zone building with an air handling system"
+    "A single zone building with a VAV system and a Guideline36 controller"
     annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
+
 equation
   connect(TSetHeaOn.y, optStaHea.TSetZonHea) annotation (Line(points={{-38,80},{
           -22,80}},                       color={0,0,127}));
