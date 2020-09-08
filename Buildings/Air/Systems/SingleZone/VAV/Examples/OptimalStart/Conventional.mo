@@ -38,7 +38,7 @@ model Conventional
     annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea(realTrue=-6)
     "Switch to occupied cooling setpoint"
-    annotation (Placement(transformation(extent={{0,36},{20,56}})));
+    annotation (Placement(transformation(extent={{0,40},{20,60}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea1(realTrue=5)
     "Switch to occupied heating setpoint"
     annotation (Placement(transformation(extent={{0,70},{20,90}})));
@@ -47,7 +47,7 @@ model Conventional
     annotation (Placement(transformation(extent={{40,34},{60,54}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add4(final k1=+1, final k2=+1)
     "New heating setpoint schedule for room"
-    annotation (Placement(transformation(extent={{40,68},{60,88}})));
+    annotation (Placement(transformation(extent={{40,64},{60,84}})));
   Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.BaseClasses.ZoneWithAHUConventional zonAHUCon1
     "Model of a single zone with AHU and controller"
     annotation (Placement(transformation(extent={{80,50},{100,70}})));
@@ -60,20 +60,18 @@ model Conventional
 equation
   connect(TSetHeaOn.y, optSta.TSetZonHea) annotation (Line(points={{-78,70},{-72,
           70},{-72,78},{-42,78}},   color={0,0,127}));
-  connect(TSetRooHea.y[1], add4.u1) annotation (Line(points={{-18,-50},{28,-50},
-          {28,84},{38,84}},  color={0,0,127}));
   connect(TSetRooCoo.y[1], add3.u2) annotation (Line(points={{-18,-80},{32,-80},
           {32,38},{38,38}},color={0,0,127}));
   connect(occSch.tNexOcc, optSta.tNexOcc) annotation (Line(points={{-79,0},{-66,
           0},{-66,62},{-42,62}},     color={0,0,127}));
-  connect(booToRea.y, add3.u1) annotation (Line(points={{22,46},{32,46},{32,50},
-          {38,50}},      color={0,0,127}));
+  connect(booToRea.y, add3.u1) annotation (Line(points={{22,50},{38,50}},
+                         color={0,0,127}));
   connect(TSetCooOn.y, optSta.TSetZonCoo) annotation (Line(points={{-78,30},{-70,
           30},{-70,73},{-42,73}},    color={0,0,127}));
-  connect(optSta.optOn, booToRea.u) annotation (Line(points={{-18,66},{-6,66},{-6,
-          46},{-2,46}},           color={255,0,255}));
-  connect(add4.y, zonAHUCon1.TSetRooHea) annotation (Line(points={{62,78},{72,
-          78},{72,66},{78,66}},     color={0,0,127}));
+  connect(optSta.optOn, booToRea.u) annotation (Line(points={{-18,66},{-6,66},{
+          -6,50},{-2,50}},        color={255,0,255}));
+  connect(add4.y, zonAHUCon1.TSetRooHea) annotation (Line(points={{62,74},{72,
+          74},{72,66},{78,66}},     color={0,0,127}));
   connect(add3.y, zonAHUCon1.TSetRooCoo) annotation (Line(points={{62,44},{72,
           44},{72,60},{78,60}}, color={0,0,127}));
   connect(TSetRooHea.y[1], zonAHUCon2.TSetRooHea) annotation (Line(points={{-18,-50},
@@ -84,8 +82,6 @@ equation
           60},{104,30},{-58,30},{-58,67},{-42,67}}, color={0,0,127}));
   connect(optSta.optOn, booToRea1.u) annotation (Line(points={{-18,66},{-6,66},{
           -6,80},{-2,80}}, color={255,0,255}));
-  connect(booToRea1.y, add4.u2) annotation (Line(points={{22,80},{24,80},{24,72},
-          {38,72}}, color={0,0,127}));
   connect(occSch.occupied, zonAHUCon2.uOcc) annotation (Line(points={{-79,-12},
           {-6,-12},{-6,-66},{78,-66}},                   color={255,0,255}));
   connect(optSta.optOn, or2.u1) annotation (Line(points={{-18,66},{-6,66},{-6,
@@ -95,6 +91,10 @@ equation
   connect(or2.y, zonAHUCon1.uOcc)  annotation (Line(points={{62,10},{74,10},{74,
           54},{78,54}}, color={255,0,255}));
 
+  connect(add4.u2, TSetRooHea.y[1]) annotation (Line(points={{38,68},{26,68},{
+          26,-50},{-18,-50}}, color={0,0,127}));
+  connect(booToRea1.y, add4.u1)
+    annotation (Line(points={{22,80},{38,80}}, color={0,0,127}));
    annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}})),                                        Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-120,-100},{120,100}}),

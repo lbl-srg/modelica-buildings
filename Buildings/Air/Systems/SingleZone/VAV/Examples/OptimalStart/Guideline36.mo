@@ -30,7 +30,7 @@ model Guideline36
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(k=0)
     "No optimal start"
-    annotation (Placement(transformation(extent={{-20,-80},{0,-60}})));
+    annotation (Placement(transformation(extent={{-20,-78},{0,-58}})));
   Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.BaseClasses.ZoneWithAHUG36 zonAHUG36_1
     "A single zone building with a VAV system and a Guideline36 controller"
     annotation (Placement(transformation(extent={{40,40},{60,60}})));
@@ -57,9 +57,9 @@ equation
           {20,34},{20,51.8},{38,51.8}}, color={0,0,127}));
   connect(zonAHUG36_1.TZon, optStaHea.TZon) annotation (Line(points={{62,50},
           {64,50},{64,14},{-32,14},{-32,69},{-22,69}}, color={0,0,127}));
-  connect(con.y, zonAHUG36_2.warUpTim) annotation (Line(points={{2,-70},{8,-70},
+  connect(con.y, zonAHUG36_2.warUpTim) annotation (Line(points={{2,-68},{8,-68},
           {8,-64},{38,-64}}, color={0,0,127}));
-  connect(con.y, zonAHUG36_2.cooDowTim) annotation (Line(points={{2,-70},{8,-70},
+  connect(con.y, zonAHUG36_2.cooDowTim) annotation (Line(points={{2,-68},{8,-68},
           {8,-68.2},{38,-68.2}}, color={0,0,127}));
   connect(occSch.tNexOcc, zonAHUG36_2.tNexOcc) annotation (Line(points={{-39,
           -18},{26,-18},{26,-73},{38,-73}}, color={0,0,127}));

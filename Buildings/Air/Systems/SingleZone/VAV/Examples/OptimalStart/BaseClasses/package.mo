@@ -4,7 +4,9 @@ extends Modelica.Icons.BasesPackage;
 
   annotation (preferredView="info", Documentation(info="<html>
 <p>
-This package contains base classes used by the example models of OptimalStart.
+This package contains base classes used by the example models
+<a href=\\\"modelica://Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart\\\">
+Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart</a>.
 </p>
 </html>"));
 end BaseClasses;
