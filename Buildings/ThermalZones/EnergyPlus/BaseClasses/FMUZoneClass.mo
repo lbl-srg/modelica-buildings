@@ -22,7 +22,7 @@ class FMUZoneClass "Class used to couple the FMU to interact with a thermal zone
 
     output FMUZoneClass adapter;
 
-    external "C" adapter = EnergyPlusZoneAllocate(
+    external "C" adapter = SpawnZoneAllocate(
       modelicaNameBuilding,
       modelicaNameThermalZone,
       idfName,
@@ -58,7 +58,7 @@ First implementation.
     extends Modelica.Icons.Function;
 
     input FMUZoneClass adapter;
-    external "C" EnergyPlusZoneFree(adapter)
+    external "C" SpawnZoneFree(adapter)
       annotation (
         Include="#include <EnergyPlusWrapper.c>",
         IncludeDirectory="modelica://Buildings/Resources/C-Sources",

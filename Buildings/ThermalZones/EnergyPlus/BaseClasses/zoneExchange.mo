@@ -28,7 +28,7 @@ function zoneExchange "Exchange the values with the EnergyPlus thermal zone"
     "Total heat gain from people, to be used to optionall compute CO2 emitted (positive if heat is added to zone air)";
   output Modelica.SIunits.Time tNext "Next time that the zone need to be invoked";
 
-  external "C" EnergyPlusZoneExchange(adapter, initialCall,
+  external "C" SpawnZoneExchange(adapter, initialCall,
     T, X, mInlet_flow, TAveInlet, QGaiRad_flow, AFlo, tModel,
     TRad, QCon_flow, dQCon_flow, QLat_flow, QPeo_flow, tNext)
       annotation (

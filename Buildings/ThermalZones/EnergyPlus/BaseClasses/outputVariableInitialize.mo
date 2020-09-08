@@ -7,7 +7,7 @@ function outputVariableInitialize
     adapter "External object";
   input Modelica.SIunits.Time startTime "Start time of the simulation";
 
-  external "C" EnergyPlusOutputVariableInstantiate(adapter, startTime)
+  external "C" SpawnOutputVariableInstantiate(adapter, startTime)
     annotation (
       Include="#include <EnergyPlusWrapper.c>",
       IncludeDirectory="modelica://Buildings/Resources/C-Sources",

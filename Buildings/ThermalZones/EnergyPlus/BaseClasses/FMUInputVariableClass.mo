@@ -27,7 +27,7 @@ class FMUInputVariableClass
     "Verbosity of EnergyPlus output"
     annotation(Dialog(tab="Debug"));
     output FMUInputVariableClass adapter;
-    external "C" adapter = EnergyPlusInputVariableAllocate(
+    external "C" adapter = SpawnInputVariableAllocate(
       objectType,
       modelicaNameBuilding,
       modelicaNameInputVariable,
@@ -69,7 +69,7 @@ First implementation.
     extends Modelica.Icons.Function;
 
     input FMUInputVariableClass adapter;
-    external "C" InputVariableFree(adapter)
+    external "C" EnergyPlusInputVariableFree(adapter)
       annotation (Library={"ModelicaBuildingsEnergyPlus", "fmilib_shared"});
       // dl provides dlsym to load EnergyPlus dll, which is needed by OpenModelica compiler
 
