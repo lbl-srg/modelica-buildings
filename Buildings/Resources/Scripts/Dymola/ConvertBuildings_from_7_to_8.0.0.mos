@@ -35,6 +35,9 @@ convertElement(
 convertElement(
     "Buildings.Controls.OBC.CDL.Integers.LessThreshold",
     "threshold", "t");
+convertElement(
+    "Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse",
+    "nperiod", "nPeriod");
 
 // Conversion for https://github.com/ibpsa/modelica-ibpsa/issues/1365
 convertModifiers("Buildings.Controls.Continuous.LimPID", {"reverseAction"}, {"reverseActing=not %reverseAction%"});
