@@ -16,7 +16,7 @@
    The argument directDependency is a dummy variable needed
    to force Modelica tools to call outputs after an input has been set.
 */
-void OutputVariableExchange(
+void EnergyPlusOutputVariableExchange(
   void* object,
   int initialCall,
   double directDependency,
@@ -42,7 +42,7 @@ void OutputVariableExchange(
        Note that if such a call were to be done only from the 'initial equation' section,
        then OpenModelica would not call it.
     */
-    OutputVariableInstantiate(object, time);
+    EnergyPlusOutputVariableInstantiate(object, time);
   }
 
   if (initialCall){

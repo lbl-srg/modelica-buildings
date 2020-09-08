@@ -9,7 +9,7 @@
 
 #include <stdlib.h>
 
-void OutputVariableFree(void* object){
+void EnergyPlusOutputVariableFree(void* object){
   if ( object != NULL ){
     FMUOutputVariable* com = (FMUOutputVariable*) object;
 

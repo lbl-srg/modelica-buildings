@@ -44,7 +44,7 @@ void setZonePointerIfAlreadyInstanciated(const char* modelicaNameThermalZone, FM
 }
 
 /* Create the structure and return a pointer to its address. */
-void* ZoneAllocate(
+void* EnergyPlusZoneAllocate(
   const char* modelicaNameBuilding,
   const char* modelicaNameThermalZone,
   const char* idfName,
@@ -72,7 +72,7 @@ void* ZoneAllocate(
   checkAndSetVerbosity(verbosity, SpawnMessage);
 
   if (FMU_EP_VERBOSITY >= MEDIUM){
-    SpawnFormatMessage("Entered ZoneAllocate for zone %s.\n", modelicaNameThermalZone);
+    SpawnFormatMessage("Entered EnergyPlusZoneAllocate for zone %s.\n", modelicaNameThermalZone);
     SpawnFormatMessage("Buildings library root is at %s\n", buildingsLibraryRoot);
   }
 
@@ -80,7 +80,7 @@ void* ZoneAllocate(
   setZonePointerIfAlreadyInstanciated(modelicaNameThermalZone, &zone);
   if (zone != NULL){
     if (FMU_EP_VERBOSITY >= MEDIUM)
-      SpawnFormatMessage("*** ZoneAllocate called more than once for %s.\n", modelicaNameThermalZone);
+      SpawnFormatMessage("*** EnergyPlusZoneAllocate called more than once for %s.\n", modelicaNameThermalZone);
     /* Return pointer to this zone */
     return (void*) zone;
   }
@@ -95,7 +95,7 @@ void* ZoneAllocate(
 
   zone = (FMUZone*) malloc(sizeof(FMUZone));
   if ( zone == NULL )
-    SpawnError("Not enough memory in ZoneAllocate.c. to allocate zone.");
+    SpawnError("Not enough memory in EnergyPlusZoneAllocate.c. to allocate zone.");
 
   /* Some tools such as OpenModelica may optimize the code resulting in initialize()
      not being called. Hence, we set a flag so we can force it to be called in exchange()
@@ -108,7 +108,7 @@ void* ZoneAllocate(
   /* Assign the Modelica instance name */
   mallocString(
     strlen(modelicaNameThermalZone)+1,
-    "Not enough memory in ZoneAllocate.c. to allocate Modelica instance name.",
+    "Not enough memory in EnergyPlusZoneAllocate.c. to allocate Modelica instance name.",
     &(zone->modelicaNameThermalZone),
     SpawnFormatError);
   strcpy(zone->modelicaNameThermalZone, modelicaNameThermalZone);
@@ -116,7 +116,7 @@ void* ZoneAllocate(
   /* Assign the zone name */
   mallocString(
     strlen(zoneName)+1,
-    "Not enough memory in ZoneAllocate.c. to allocate zone name.",
+    "Not enough memory in EnergyPlusZoneAllocate.c. to allocate zone name.",
     &(zone->name),
     SpawnFormatError);
   strcpy(zone->name, zoneName);

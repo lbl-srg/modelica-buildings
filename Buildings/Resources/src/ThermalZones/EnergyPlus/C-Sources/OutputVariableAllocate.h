@@ -11,7 +11,7 @@
 #include "EnergyPlusUtil.h"
 
 /* Create the structure and return a pointer to its address. */
-LBNL_EnergyPlus_EXPORT void* OutputVariableAllocate(
+LBNL_EnergyPlus_EXPORT void* EnergyPlusOutputVariableAllocate(
   const char* modelicaNameBuilding,
   const char* modelicaNameOutputVariable,
   const char* idfName,

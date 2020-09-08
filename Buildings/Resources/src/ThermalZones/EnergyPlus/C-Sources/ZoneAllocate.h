@@ -11,7 +11,7 @@
 #include "EnergyPlusUtil.h"
 
 /* Create the structure and return a pointer to its address. */
-LBNL_EnergyPlus_EXPORT void* ZoneAllocate(
+LBNL_EnergyPlus_EXPORT void* EnergyPlusZoneAllocate(
   const char* modelicaNameBuilding,
   const char* modelicaNameThermalZone,
   const char* idfName,

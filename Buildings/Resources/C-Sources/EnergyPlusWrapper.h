@@ -5,7 +5,7 @@
 
 /* ********************************************************* */
 /* Thermal zone */
-extern void* ZoneAllocate(
+extern void* EnergyPlusZoneAllocate(
   const char* modelicaNameBuilding,
   const char* modelicaNameThermalZone,
   const char* idfName,
@@ -20,9 +20,9 @@ extern void* ZoneAllocate(
   void (*SpawnFormatMessage)(const char *string, ...),
   void (*SpawnFormatError)(const char *string, ...));
 
-extern void ZoneInstantiate(void* object, double t0, double* AFlo, double* V, double* mSenFac);
+extern void EnergyPlusZoneInstantiate(void* object, double t0, double* AFlo, double* V, double* mSenFac);
 
-extern void ZoneExchange(
+extern void EnergyPlusZoneExchange(
   void* object,
   int initialCall,
   double T,
@@ -39,11 +39,11 @@ extern void ZoneExchange(
   double* QPeo_flow,
   double* tNext);
 
-extern void ZoneFree(void* object);
+extern void EnergyPlusZoneFree(void* object);
 
 /* ********************************************************* */
 /* Input variables */
-extern void* InputVariableAllocate(
+extern void* EnergyPlusInputVariableAllocate(
   const int objectType,
   const char* modelicaNameBuilding,
   const char* modelicaNameInputVariable,
@@ -62,20 +62,20 @@ extern void* InputVariableAllocate(
   void (*SpawnFormatMessage)(const char *string, ...),
   void (*SpawnFormatError)(const char *string, ...));
 
-extern void InputVariableInstantiate(void* object, double t0);
+extern void EnergyPlusInputVariableInstantiate(void* object, double t0);
 
-extern void InputVariableExchange(
+extern void EnergyPlusInputVariableExchange(
   void* object,
   int initialCall,
   double u,
   double time,
   double* y);
 
-extern void InputVariableFree(void* object);
+extern void EnergyPlusInputVariableFree(void* object);
 
 /* ********************************************************* */
 /* Output variables */
-extern void* OutputVariableAllocate(
+extern void* EnergyPlusOutputVariableAllocate(
   const char* modelicaNameBuilding,
   const char* modelicaNameOutputVariable,
   const char* idfName,
@@ -92,9 +92,9 @@ extern void* OutputVariableAllocate(
   void (*SpawnFormatMessage)(const char *string, ...),
   void (*SpawnFormatError)(const char *string, ...));
 
-extern void OutputVariableInstantiate(void* object, double t0);
+extern void EnergyPlusOutputVariableInstantiate(void* object, double t0);
 
-extern void OutputVariableExchange(
+extern void EnergyPlusOutputVariableExchange(
   void* object,
   int initialCall,
   double directDependency,
@@ -102,6 +102,6 @@ extern void OutputVariableExchange(
   double* y,
   double* tNext);
 
-extern void OutputVariableFree(void* object);
+extern void EnergyPlusOutputVariableFree(void* object);
 
 #endif

@@ -14,7 +14,7 @@
 
 /* Exchange data between Modelica zone and EnergyPlus zone
 */
-void InputVariableExchange(
+void EnergyPlusInputVariableExchange(
   void* object,
   int initialCall,
   double u,
@@ -36,7 +36,7 @@ void InputVariableExchange(
   if (! inpVar->isInstantiated){
     /* This input variable has not been initialized because the simulator removed the call to initialize().
     */
-    InputVariableInstantiate(object, time);
+    EnergyPlusInputVariableInstantiate(object, time);
  /*   SpawnFormatError(
       "Error, input variable %s should have been initialized. Contact support.",
       inpVar->modelicaNameInputVariable);
@@ -60,7 +60,7 @@ void InputVariableExchange(
   if ((!initialCall) && bui->mode == initializationMode){
     if (FMU_EP_VERBOSITY >= MEDIUM)
       SpawnFormatMessage(
-        "fmi2_import_exit_initialization_mode: Enter exit initialization mode of FMU in InputVariableExchange() for input variable = %s.\n",
+        "fmi2_import_exit_initialization_mode: Enter exit initialization mode of FMU in EnergyPlusInputVariableExchange() for input variable = %s.\n",
         inpVar->modelicaNameInputVariable);
     status = fmi2_import_exit_initialization_mode(bui->fmu);
     if( status != fmi2_status_ok ){
@@ -94,7 +94,7 @@ void InputVariableExchange(
   *y = u;
 
   if (FMU_EP_VERBOSITY >= TIMESTEP)
-    SpawnFormatMessage("Returning from InputVariableExchange() for %s.\n", inpVar->modelicaNameInputVariable);
+    SpawnFormatMessage("Returning from EnergyPlusInputVariableExchange() for %s.\n", inpVar->modelicaNameInputVariable);
 
   return;
 }

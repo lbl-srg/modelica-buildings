@@ -11,7 +11,7 @@
 #include "InputVariableInstantiate.h"
 #include "FMI2/fmi2_import_capi.h"
 
-LBNL_EnergyPlus_EXPORT void InputVariableExchange(
+LBNL_EnergyPlus_EXPORT void EnergyPlusInputVariableExchange(
   void* object,
   int initialCall,
   double u,

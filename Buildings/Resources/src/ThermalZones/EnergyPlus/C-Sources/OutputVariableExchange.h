@@ -11,7 +11,7 @@
 #include "OutputVariableInstantiate.h"
 #include "FMI2/fmi2_import_capi.h"
 
-LBNL_EnergyPlus_EXPORT void OutputVariableExchange(
+LBNL_EnergyPlus_EXPORT void EnergyPlusOutputVariableExchange(
   void* object,
   int initialCall,
   double directDependency,

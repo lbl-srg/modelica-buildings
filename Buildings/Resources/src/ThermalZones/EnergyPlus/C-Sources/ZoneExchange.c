@@ -27,7 +27,7 @@ bool allZonesAreInitialized(FMUBuilding* bui){
 
 /* Exchange data between Modelica zone and EnergyPlus zone
 */
-void ZoneExchange(
+void EnergyPlusZoneExchange(
   void* object,
   int initialCall,
   double T,
@@ -168,7 +168,7 @@ void ZoneExchange(
   *QPeo_flow    = zone->outputs->valsSI[3];
 
   if (FMU_EP_VERBOSITY >= TIMESTEP)
-    SpawnFormatMessage("Returning from ZoneExchange with nextEventTime = %.2f, TRad_degC = %.2f, zone = %s, mode = %s, ptr=%p, nZon=%d \n",
+    SpawnFormatMessage("Returning from EnergyPlusZoneExchange with nextEventTime = %.2f, TRad_degC = %.2f, zone = %s, mode = %s, ptr=%p, nZon=%d \n",
     *tNext, zone->outputs->valsEP[0], zone->modelicaNameThermalZone, fmuModeToString(bui->mode), zone, bui->nZon);
 
   return;

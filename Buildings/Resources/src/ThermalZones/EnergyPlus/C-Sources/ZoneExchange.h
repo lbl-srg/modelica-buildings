@@ -12,7 +12,7 @@
 #include "FMI2/fmi2_import_capi.h"
 
 
-LBNL_EnergyPlus_EXPORT void ZoneExchange(
+LBNL_EnergyPlus_EXPORT void EnergyPlusZoneExchange(
   void* object,
   int initialCall,
   double T,

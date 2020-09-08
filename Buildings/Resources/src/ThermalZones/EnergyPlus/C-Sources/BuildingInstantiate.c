@@ -643,7 +643,7 @@ void generateAndInstantiateBuilding(FMUBuilding* bui){
   void (*SpawnFormatError)(const char *string, ...) = bui->SpawnFormatError;
 
   if (FMU_EP_VERBOSITY >= MEDIUM)
-    SpawnFormatMessage("Entered ZoneAllocateAndInstantiateBuilding.\n");
+    SpawnFormatMessage("Entered EnergyPlusZoneAllocateAndInstantiateBuilding.\n");
 
   if (bui->usePrecompiledFMU)
     SpawnFormatMessage("Using pre-compiled FMU %s\n", bui->precompiledFMUAbsPat);

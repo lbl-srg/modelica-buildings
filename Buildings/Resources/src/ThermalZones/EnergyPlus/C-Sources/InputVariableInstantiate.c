@@ -13,7 +13,7 @@
 
 /* This function is called for each output variable in the 'initial equation section'
 */
-void InputVariableInstantiate(
+void EnergyPlusInputVariableInstantiate(
     void* object,
     double startTime){
   fmi2_status_t status;
@@ -21,7 +21,7 @@ void InputVariableInstantiate(
   FMUBuilding* bui = var->ptrBui;
 
   if (FMU_EP_VERBOSITY >= MEDIUM){
-    bui->SpawnFormatMessage("Entered InputVariableInstantiate for %s.\n",
+    bui->SpawnFormatMessage("Entered EnergyPlusInputVariableInstantiate for %s.\n",
       var->modelicaNameInputVariable);
   }
   if (bui->fmu == NULL){

@@ -51,7 +51,7 @@ void setInputVariablePointerIfAlreadyInstanciated(const char* modelicaNameInputV
 }
 
 /* Create the structure and return a pointer to its address. */
-void* InputVariableAllocate(
+void* EnergyPlusInputVariableAllocate(
   const int objectType,
   const char* modelicaNameBuilding,
   const char* modelicaNameInputVariable,
@@ -78,7 +78,7 @@ void* InputVariableAllocate(
   FMUInputVariable* doubleInpVarSpec = NULL;
 
   if (FMU_EP_VERBOSITY >= MEDIUM)
-    SpawnFormatMessage("Entered InputVariableAllocate for zone %s.\n", modelicaNameInputVariable);
+    SpawnFormatMessage("Entered EnergyPlusInputVariableAllocate for zone %s.\n", modelicaNameInputVariable);
 
   checkAndSetVerbosity(verbosity, SpawnMessage);
 
@@ -89,7 +89,7 @@ void* InputVariableAllocate(
   setInputVariablePointerIfAlreadyInstanciated(modelicaNameInputVariable, &comVar);
   if (comVar != NULL){
     if (FMU_EP_VERBOSITY >= MEDIUM)
-      SpawnFormatMessage("*** InputVariableAllocate called more than once for %s.\n", modelicaNameInputVariable);
+      SpawnFormatMessage("*** EnergyPlusInputVariableAllocate called more than once for %s.\n", modelicaNameInputVariable);
     /* Return pointer to this zone */
     return (void*) comVar;
   }
@@ -104,7 +104,7 @@ void* InputVariableAllocate(
 
   comVar = (FMUInputVariable*) malloc(sizeof(FMUInputVariable));
   if ( comVar == NULL )
-    SpawnError("Not enough memory in InputVariableAllocate.c. to allocate memory for data structure.");
+    SpawnError("Not enough memory in EnergyPlusInputVariableAllocate.c. to allocate memory for data structure.");
 
   /* Some tools such as OpenModelica may optimize the code resulting in initialize()
     not being called. Hence, we set a flag so we can force it to be called in exchange()
@@ -119,14 +119,14 @@ void* InputVariableAllocate(
   /* Assign the Modelica instance name */
   mallocString(
     strlen(modelicaNameInputVariable)+1,
-    "Not enough memory in InputVariableAllocate.c. to allocate Modelica instance name.",
+    "Not enough memory in EnergyPlusInputVariableAllocate.c. to allocate Modelica instance name.",
     &(comVar->modelicaNameInputVariable),
     SpawnFormatError);
   strcpy(comVar->modelicaNameInputVariable, modelicaNameInputVariable);
 
   mallocString(
     strlen(name)+1,
-    "Not enough memory in InputVariableAllocate.c. to allocate input name.",
+    "Not enough memory in EnergyPlusInputVariableAllocate.c. to allocate input name.",
     &(comVar->name),
     SpawnFormatError);
   strcpy(comVar->name, name);
@@ -136,14 +136,14 @@ void* InputVariableAllocate(
     /* This is an EMS actuator */
     mallocString(
       strlen(componentType)+1,
-      "Not enough memory in InputVariableAllocate.c. to allocate component type.",
+      "Not enough memory in EnergyPlusInputVariableAllocate.c. to allocate component type.",
       &(comVar->componentType),
     SpawnFormatError);
     strcpy(comVar->componentType, componentType);
 
     mallocString(
       strlen(controlType)+1,
-      "Not enough memory in InputVariableAllocate.c. to allocate control type.",
+      "Not enough memory in EnergyPlusInputVariableAllocate.c. to allocate control type.",
       &(comVar->controlType),
       SpawnFormatError);
     strcpy(comVar->controlType, controlType);
@@ -156,7 +156,7 @@ void* InputVariableAllocate(
 
   mallocString(
     strlen(unit)+1,
-    "Not enough memory in InputVariableAllocate.c. to allocate unit.",
+    "Not enough memory in EnergyPlusInputVariableAllocate.c. to allocate unit.",
     &(comVar->unit),
     SpawnFormatError);
   strcpy(comVar->unit, unit);

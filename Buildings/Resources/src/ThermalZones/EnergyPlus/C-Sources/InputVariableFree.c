@@ -9,7 +9,7 @@
 
 #include <stdlib.h>
 
-void InputVariableFree(void* object){
+void EnergyPlusInputVariableFree(void* object){
   if ( object != NULL ){
     FMUInputVariable* com = (FMUInputVariable*) object;
 

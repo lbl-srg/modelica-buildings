@@ -17,7 +17,7 @@
    environment that compiles the Modelica model.
 /* ********************************************************* */
 /* Thermal zone */
-void* EnergyPlusZoneAllocate(
+void* SpawnZoneAllocate(
   const char* modelicaNameBuilding,
   const char* modelicaNameThermalZone,
   const char* idfName,
@@ -28,7 +28,7 @@ void* EnergyPlusZoneAllocate(
   const char* buildingsLibraryRoot,
   const int verbosity){
 
-    return ZoneAllocate(
+    return EnergyPlusZoneAllocate(
       modelicaNameBuilding,
       modelicaNameThermalZone,
       idfName,
@@ -44,17 +44,17 @@ void* EnergyPlusZoneAllocate(
       ModelicaFormatError);
   }
 
-void EnergyPlusZoneInstantiate(
+void SpawnZoneInstantiate(
     void* object,
     double startTime,
     double* AFlo,
     double* V,
     double* mSenFac){
 
-      ZoneInstantiate(object, startTime, AFlo, V, mSenFac);
+      EnergyPlusZoneInstantiate(object, startTime, AFlo, V, mSenFac);
 }
 
-void EnergyPlusZoneExchange(
+void SpawnZoneExchange(
   void* object,
   int initialCall,
   double T,
@@ -71,7 +71,7 @@ void EnergyPlusZoneExchange(
   double* QPeo_flow,
   double* tNext){
 
-    ZoneExchange(
+    EnergyPlusZoneExchange(
       object,
       initialCall,
       T,
@@ -89,14 +89,14 @@ void EnergyPlusZoneExchange(
       tNext);
   }
 
-void EnergyPlusZoneFree(void* object){
+void SpawnZoneFree(void* object){
 
-    ZoneFree(object);
+    EnergyPlusZoneFree(object);
 }
 
 /* ********************************************************* */
 /* Input variables */
-void* EnergyPlusInputVariableAllocate(
+void* SpawnInputVariableAllocate(
   const int objectType,
   const char* modelicaNameBuilding,
   const char* modelicaNameInputVariable,
@@ -111,7 +111,7 @@ void* EnergyPlusInputVariableAllocate(
   const char* buildingsLibraryRoot,
   const int verbosity){
 
-    return InputVariableAllocate(
+    return EnergyPlusInputVariableAllocate(
       objectType,
       modelicaNameBuilding,
       modelicaNameInputVariable,
@@ -131,29 +131,29 @@ void* EnergyPlusInputVariableAllocate(
       ModelicaFormatError);
   }
 
-void EnergyPlusInputVariableInstantiate(void* object, double t0){
+void SpawnInputVariableInstantiate(void* object, double t0){
 
-    InputVariableInstantiate(object, t0);
+    EnergyPlusInputVariableInstantiate(object, t0);
   }
 
-void EnergyPlusInputVariableExchange(
+void SpawnInputVariableExchange(
   void* object,
   int initialCall,
   double u,
   double time,
   double* y){
 
-    InputVariableExchange(object, initialCall, u, time, y);
+    EnergyPlusInputVariableExchange(object, initialCall, u, time, y);
   }
 
-void EnergyPlusInputVariableFree(void* object){
+void SpawnInputVariableFree(void* object){
 
-    InputVariableFree(object);
+    EnergyPlusInputVariableFree(object);
   }
 
 /* ********************************************************* */
 /* Output variables */
-void* EnergyPlusOutputVariableAllocate(
+void* SpawnOutputVariableAllocate(
   const char* modelicaNameBuilding,
   const char* modelicaNameOutputVariable,
   const char* idfName,
@@ -166,7 +166,7 @@ void* EnergyPlusOutputVariableAllocate(
   const int verbosity,
   int printUnit){
 
-    return OutputVariableAllocate(
+    return EnergyPlusOutputVariableAllocate(
       modelicaNameBuilding,
       modelicaNameOutputVariable,
       idfName,
@@ -184,11 +184,11 @@ void* EnergyPlusOutputVariableAllocate(
       ModelicaFormatError);
   }
 
-void EnergyPlusOutputVariableInstantiate(void* object, double t0){
-    OutputVariableInstantiate(object, t0);
+void SpawnOutputVariableInstantiate(void* object, double t0){
+    EnergyPlusOutputVariableInstantiate(object, t0);
   }
 
-void EnergyPlusOutputVariableExchange(
+void SpawnOutputVariableExchange(
   void* object,
   int initialCall,
   double directDependency,
@@ -196,12 +196,12 @@ void EnergyPlusOutputVariableExchange(
   double* y,
   double* tNext){
 
-    OutputVariableExchange(object, initialCall, directDependency, time, y, tNext);
+    EnergyPlusOutputVariableExchange(object, initialCall, directDependency, time, y, tNext);
   }
 
-void EnergyPlusOutputVariableFree(void* object){
+void SpawnOutputVariableFree(void* object){
 
-    OutputVariableFree(object);
+    EnergyPlusOutputVariableFree(object);
   }
 
 #endif

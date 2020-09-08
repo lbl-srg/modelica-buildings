@@ -51,7 +51,7 @@ void setOutputVariablePointerIfAlreadyInstantiated(const char* modelicaNameOutpu
 }
 
 /* Create the structure and return a pointer to its address. */
-void* OutputVariableAllocate(
+void* EnergyPlusOutputVariableAllocate(
   const char* modelicaNameBuilding,
   const char* modelicaNameOutputVariable,
   const char* idfName,
@@ -76,7 +76,7 @@ void* OutputVariableAllocate(
   FMUOutputVariable* doubleOutVarSpec = NULL;
 
   if (FMU_EP_VERBOSITY >= MEDIUM)
-    SpawnFormatMessage("Entered OutputVariableAllocate for zone %s.\n", modelicaNameOutputVariable);
+    SpawnFormatMessage("Entered EnergyPlusOutputVariableAllocate for zone %s.\n", modelicaNameOutputVariable);
 
   checkAndSetVerbosity(verbosity, SpawnMessage);
 
@@ -84,7 +84,7 @@ void* OutputVariableAllocate(
   setOutputVariablePointerIfAlreadyInstantiated(modelicaNameOutputVariable, &comVar);
   if (comVar != NULL){
     if (FMU_EP_VERBOSITY >= MEDIUM)
-      SpawnFormatMessage("*** OutputVariableAllocate called more than once for %s.\n", modelicaNameOutputVariable);
+      SpawnFormatMessage("*** EnergyPlusOutputVariableAllocate called more than once for %s.\n", modelicaNameOutputVariable);
     /* Return pointer to this zone */
     return (void*) comVar;
   }
@@ -99,7 +99,7 @@ void* OutputVariableAllocate(
 
   comVar = (FMUOutputVariable*) malloc(sizeof(FMUOutputVariable));
   if ( comVar == NULL )
-    SpawnError("Not enough memory in OutputVariableAllocate.c. to allocate memory for data structure.");
+    SpawnError("Not enough memory in EnergyPlusOutputVariableAllocate.c. to allocate memory for data structure.");
 
   /* Some tools such as OpenModelica may optimize the code resulting in initialize()
     not being called. Hence, we set a flag so we can force it to be called in exchange()
@@ -114,7 +114,7 @@ void* OutputVariableAllocate(
   /* Assign the Modelica instance name */
   mallocString(
     strlen(modelicaNameOutputVariable)+1,
-    "Not enough memory in OutputVariableAllocate.c. to allocate Modelica instance name.",
+    "Not enough memory in EnergyPlusOutputVariableAllocate.c. to allocate Modelica instance name.",
     &(comVar->modelicaNameOutputVariable),
     SpawnFormatError);
   strcpy(comVar->modelicaNameOutputVariable, modelicaNameOutputVariable);
@@ -122,14 +122,14 @@ void* OutputVariableAllocate(
   /* Assign the name and key */
   mallocString(
     strlen(variableName)+1,
-    "Not enough memory in OutputVariableAllocate.c. to allocate output name.",
+    "Not enough memory in EnergyPlusOutputVariableAllocate.c. to allocate output name.",
     &(comVar->name),
     SpawnFormatError);
   strcpy(comVar->name, variableName);
 
   mallocString(
     strlen(componentKey)+1,
-    "Not enough memory in OutputVariableAllocate.c. to allocate output key.",
+    "Not enough memory in EnergyPlusOutputVariableAllocate.c. to allocate output key.",
     &(comVar->key),
     SpawnFormatError);
   strcpy(comVar->key, componentKey);

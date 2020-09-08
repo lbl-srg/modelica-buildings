@@ -10,6 +10,6 @@
 #include "EnergyPlusFMU.h"
 #include "FMI2/fmi2_import.h"
 
-LBNL_EnergyPlus_EXPORT void ZoneFree(void* object);
+LBNL_EnergyPlus_EXPORT void EnergyPlusZoneFree(void* object);
 
 #endif

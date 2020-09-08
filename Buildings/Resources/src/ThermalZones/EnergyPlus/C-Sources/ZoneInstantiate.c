@@ -34,7 +34,7 @@ void setParametersInEnergyPlus(FMUZone* zone, double* parValues){
 
 /* This function is called for each zone in the 'initial equation section'
 */
-void ZoneInstantiate(
+void EnergyPlusZoneInstantiate(
     void* object,
     double startTime,
     double* AFlo,
@@ -45,14 +45,14 @@ void ZoneInstantiate(
   const char* modelicaName = zone->modelicaNameThermalZone;
 
   if (FMU_EP_VERBOSITY >= MEDIUM){
-    bui->SpawnFormatMessage("Entered ZoneInstantiate for %s.\n", modelicaName);
+    bui->SpawnFormatMessage("Entered EnergyPlusZoneInstantiate for %s.\n", modelicaName);
   }
   /* Fixme: Here, in Dymola, bui is NULL for FMUZoneAdapterZones2, but it was not NULL
-     when leaving ZoneAllocate */
+     when leaving EnergyPlusZoneAllocate */
   /* if (bui->nZon == 1)
     SpawnFormatError("*** Entering loadFMU_setupExperiment_enterInitializationMode, ptrBui=%p", bui);// with nZon=%d", bui->nZon); */
   if (bui == NULL){
-    bui->SpawnFormatError("Pointer bui is NULL in ZoneInstantiate for %s. For Dymola 2020x, make sure you set 'Hidden.AvoidDoubleComputation=true'. See Buildings.ThermalZones.EnergyPlus.UsersGuide.", modelicaName);
+    bui->SpawnFormatError("Pointer bui is NULL in EnergyPlusZoneInstantiate for %s. For Dymola 2020x, make sure you set 'Hidden.AvoidDoubleComputation=true'. See Buildings.ThermalZones.EnergyPlus.UsersGuide.", modelicaName);
   }
   if (bui->fmu == NULL){
     /* EnergyPlus is not yet loaded.

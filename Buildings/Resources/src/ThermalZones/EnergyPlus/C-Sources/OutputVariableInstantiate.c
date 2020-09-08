@@ -13,14 +13,14 @@
 
 /* This function is called for each output variable in the 'initial equation section'
 */
-void OutputVariableInstantiate(
+void EnergyPlusOutputVariableInstantiate(
     void* object,
     double startTime){
   FMUOutputVariable* var = (FMUOutputVariable*) object;
   FMUBuilding* bui = var->ptrBui;
 
   if (FMU_EP_VERBOSITY >= MEDIUM){
-    bui->SpawnFormatMessage("Entered OutputVariableInstantiate for %s.\n",
+    bui->SpawnFormatMessage("Entered EnergyPlusOutputVariableInstantiate for %s.\n",
       var->modelicaNameOutputVariable);
   }
   if (bui->fmu == NULL){

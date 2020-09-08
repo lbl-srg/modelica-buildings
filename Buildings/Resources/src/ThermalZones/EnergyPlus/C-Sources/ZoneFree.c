@@ -10,7 +10,7 @@
 
 #include <stdlib.h>
 
-void ZoneFree(void* object){
+void EnergyPlusZoneFree(void* object){
   if ( object != NULL ){
     FMUZone* zone = (FMUZone*) object;
 
