@@ -42,6 +42,6 @@ void SHA1(
     const char *str,
     int len);
 
-const char* cryptographicsHash(const char* str);
+const char* cryptographicsHash(const char* str, void (*SpawnError)(const char *string));
 
 #endif /* CRYPTOGRAPHICSHASH_H */

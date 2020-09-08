@@ -36,51 +36,62 @@
 
 #define SPAWN_LOGGER_BUFFER_LENGTH 1000
 
-void writeFormatLog(const char *fmt, ...);
+void mallocSpawnReals(const size_t n, spawnReals** r, void (*SpawnFormatError)(const char *string, ...));
 
-void writeLog(const char* msg);
-
-void mallocSpawnReals(const size_t n, spawnReals** r);
-
-void mallocString(size_t nChar, const char *error_message, char** str);
+void mallocString(
+  size_t nChar,
+  const char *error_message, char** str,
+  void (*SpawnFormatError)(const char *string, ...));
 
 char* fmuModeToString(FMUMode mode);
 
-void setVariables(FMUBuilding* bui, const char* modelicaInstanceName, const spawnReals* ptrReals);
+void setVariables(
+  FMUBuilding* bui,
+  const char* modelicaInstanceName,
+  const spawnReals* ptrReals);
 
 void getVariables(FMUBuilding* bui, const char* modelicaInstanceName, spawnReals* ptrReals);
 
 double do_event_iteration(FMUBuilding* bui, const char* modelicaInstanceName);
 
-void saveAppend(char* *buffer, const char *toAdd, size_t *bufLen);
+void saveAppend(char* *buffer, const char *toAdd, size_t *bufLen, void (*SpawnFormatError)(const char *string, ...));
 
-void saveAppendJSONElements(char* *buffer, const char* values[], size_t n, size_t* bufLen);
+void saveAppendJSONElements(
+  char* *buffer,
+  const char* values[],
+  size_t n,
+  size_t* bufLen,
+  void (*SpawnFormatError)(const char *string, ...));
 
-void checkAndSetVerbosity(const int verbosity);
+void checkAndSetVerbosity(const int verbosity, void (*SpawnMessage)(const char *string));
 
 void setFMUMode(FMUBuilding* bui, FMUMode mode);
 
-void getSimulationFMUName(const char* modelicaNameBuilding, const char* tmpDir, char** fmuAbsPat);
+void setSimulationFMUName(FMUBuilding* bui, const char* modelicaNameBuilding);
 
-char* getFileNameWithoutExtension(const char* idfName);
+char* getFileNameWithoutExtension(const char* idfName, void (*SpawnFormatError)(const char *string, ...));
 
-void getSimulationTemporaryDirectory(const char* modelicaNameBuilding, char** dirNam);
+void getSimulationTemporaryDirectory(
+  const char* modelicaNameBuilding,
+  char** dirNam,
+  void (*SpawnFormatError)(const char *string, ...));
 
-void createDirectory(const char* dirName);
+void createDirectory(const char* dirName, void (*SpawnFormatError)(const char *string, ...));
 
 void buildVariableName(
   const char* modelicaInstanceName,
   const char* firstPart,
   const char* secondPart,
-  char* *ptrFullName);
+  char* *ptrFullName,
+  void (*SpawnFormatError)(const char *string, ...));
 
 void buildVariableNames(
   const char* firstPart,
   const char** secondParts,
   const size_t nVar,
   char** *ptrVarNames,
-  char** *ptrFullNames);
-void getSimulationTemporaryDirectory(const char* idfName, char** dirNam);
+  char** *ptrFullNames,
+  void (*SpawnFormatError)(const char *string, ...));
 
 void loadFMU_setupExperiment_enterInitializationMode(FMUBuilding* bui, double startTime);
 

@@ -44,8 +44,9 @@ model Building
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
 
 protected
-  Binaries binaries if generatePortableFMU "Record with binaries";
-  record Binaries
+  Linux64Binaries linux64Binaries if
+       generatePortableFMU "Record with binaries";
+  record Linux64Binaries
   final parameter String spawnLinuxExecutable=
       Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/bin/spawn-linux64/bin/spawn")
       "Binary for Linux 64, specified so it is packed into the FMU";
@@ -55,7 +56,7 @@ protected
   final parameter String fmiLinuxLibrary=
       Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/Library/linux64/libfmilib_shared.so")
     "Library for Linux 64, specified so it is packed into the FMU";
-  end Binaries;
+  end Linux64Binaries;
 
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
     final filNam = weaName,

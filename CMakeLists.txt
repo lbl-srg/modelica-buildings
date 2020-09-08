@@ -14,14 +14,15 @@ project( Modelica-Buildings
 
 cmake_minimum_required(VERSION 3.8)
 
+# Create position independent code
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+
 # find_package(Java REQUIRED)
 # include(UseJava)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CMAKE_BUILD_TYPE}")
 
-set( BUILDINGS_INSTALL_PREFIX "${CMAKE_SOURCE_DIR}/Buildings")
-
-set( CMAKE_INSTALL_PREFIX "${BUILDINGS_INSTALL_PREFIX}/Resources/Library/${PLATFORM_INSTALL_PREFIX}/" )
+set(BUILDINGS_INSTALL_PREFIX "${CMAKE_SOURCE_DIR}/Buildings")
 
 # Output build system directories.
 message("CMake source directory is: ${CMAKE_SOURCE_DIR}")
@@ -38,6 +39,15 @@ elseif(CMAKE_SYSTEM_NAME MATCHES Darwin)
     message("Mac OS X system detected.")
 else()
     message(WARNING "OS unknown!")
+endif()
+
+# Set compiler options
+if ( CMAKE_COMPILER_IS_GNUCC )
+    set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -Wall -Wextra -pedantic -Wmisleading-indentation -Wconversion")
+endif()
+
+if ( MSVC )
+  add_compile_options("/wd4100")
 endif()
 
 # Set target directories.
@@ -60,15 +70,22 @@ else()
     message(FATAL_ERROR "OS unknown!")
 endif()
 
+set(CMAKE_INSTALL_PREFIX "${BUILDINGS_INSTALL_PREFIX}/Resources/Library/${PLATFORM_INSTALL_PREFIX}/" )
+
+# Set name of fmilib_shared
+if (WIN32)
+  set(FMILIB_SHARED "${CMAKE_INSTALL_PREFIX}fmilib_shared.lib")
+elseif(APPLE)
+  message(FATAL_ERROR "OS X is not yet supported.")
+else()
+  set(FMILIB_SHARED "${CMAKE_INSTALL_PREFIX}libfmilib_shared.so")
+endif()
+
+
 if (LINUX)
 add_definitions(-D_GNU_SOURCE)
 message("Added GNU_SOURCE")
 endif()
-
-#install( DIRECTORY Buildings/
-#  DESTINATION ${BUILDINGS_INSTALL_PREFIX}
-#  PATTERN CMakeLists.txt EXCLUDE
-#)
 
 add_library( ModelicaBuildingsEnergyPlus SHARED
   Buildings/Resources/src/ThermalZones/EnergyPlus/C-Sources/InputVariableExchange.c
@@ -91,12 +108,21 @@ add_library( ModelicaBuildingsEnergyPlus SHARED
 
 target_include_directories( ModelicaBuildingsEnergyPlus
   PRIVATE Buildings/Resources/src/ThermalZones/EnergyPlus/C-Sources
+  PRIVATE Buildings/Resources/src/fmi-library/include
 )
 
+#link_directories(${CMAKE_SOURCE_DIR}/Buildings/Resources/Library/darwin64)
+
+if (WIN32)
 target_link_libraries( ModelicaBuildingsEnergyPlus
-  ${MODELICA_LIBS}
-  ${CMAKE_DL_LIBS}
+  PRIVATE ${FMILIB_SHARED}
+  PRIVATE ${CMAKE_DL_LIBS}
 )
+else()
+target_link_libraries( ModelicaBuildingsEnergyPlus
+  PRIVATE ${CMAKE_DL_LIBS}
+)
+endif()
 
 set(BUILDINGS_INSTALL_DIR "${BUILDINGS_INSTALL_PREFIX}/Resources/Library/${PLATFORM_INSTALL_PREFIX}/")
 message("Installing to: ${BUILDINGS_INSTALL_DIR}")
