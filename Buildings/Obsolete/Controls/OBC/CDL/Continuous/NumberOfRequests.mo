@@ -1,4 +1,4 @@
-within Buildings.Controls.OBC.CDL.Continuous;
+within Buildings.Obsolete.Controls.OBC.CDL.Continuous;
 block NumberOfRequests
   "Outputs the number of signals that are above/below a certain threshold"
 
@@ -37,6 +37,8 @@ algorithm
   end for;
   annotation (
 defaultComponentName="numReq",
+obsolete = "Obsolete model, this will be removed in future versions.",
+
 Documentation(info="<html>
 <p>
 Block that outputs the number of inputs that exceed a threshold.
@@ -72,6 +74,12 @@ exceed a temperature threshold.
 </html>",
 revisions="<html>
 <ul>
+<li>
+September 8, 2020, by Michael Wetter:<br/>
+Moved the block to the obsolete package.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2124\">issue 2124</a>.
+</li>
 <li>
 August 6, 2020, by Michael Wetter:<br/>
 Renamed <code>threshold</code> to <code>t</code>.<br/>
