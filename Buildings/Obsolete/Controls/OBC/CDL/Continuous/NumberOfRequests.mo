@@ -6,10 +6,10 @@ block NumberOfRequests
   parameter Real t=0 "Threshold";
   parameter Integer kind
     "Set to 0 for u>threShold, to 1 for >=, to 2 for <= or to 3 for <";
-  Interfaces.IntegerOutput y
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput y
     "Number of input signals that violate the threshold"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
-  Interfaces.RealInput u[nin] "Input signals"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput u[nin] "Input signals"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
 algorithm
   y := 0;
@@ -38,7 +38,6 @@ algorithm
   annotation (
 defaultComponentName="numReq",
 obsolete = "Obsolete model, this will be removed in future versions.",
-
 Documentation(info="<html>
 <p>
 Block that outputs the number of inputs that exceed a threshold.
