@@ -27,24 +27,6 @@
     "model_name": "Buildings.Fluid.Examples.FlowSystem.Simplified2"
   },
   {
-    "optimica": {
-      "simulate": false
-    },
-  "model_name": "Buildings.ThermalZones.Detailed.FLEXLAB.Rooms.Examples.X3WithRadiantFloor"
-  },
-  {
-    "optimica": {
-      "simulate": false
-    },
-  "model_name": "Buildings.ThermalZones.Detailed.FLEXLAB.Rooms.Examples.X3AWithRadiantFloor"
-  },
-  {
-    "optimica": {
-      "simulate": false
-    },
-  "model_name": "Buildings.ThermalZones.Detailed.FLEXLAB.Rooms.Examples.X3BWithRadiantFloor"
-  },
-  {
     "jmodelica": {
       "simulate": false
     },
