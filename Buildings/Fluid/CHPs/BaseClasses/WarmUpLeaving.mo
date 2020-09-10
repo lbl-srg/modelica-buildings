@@ -37,14 +37,10 @@ model WarmUpLeaving
       iconTransformation(extent={{-140,-40},{-100,0}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Logical.Timer timer if warmUpByTimeDelay
-    "Count the time since the warm-up mode is activated"
+  Buildings.Controls.OBC.CDL.Logical.Timer timer(
+    final t=timeDelayStart) if warmUpByTimeDelay
+    "Check the time since the warm-up mode is activated"
     annotation (Placement(transformation(extent={{0,50},{20,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold timeDel(
-    final t=timeDelayStart,
-    final h=0) if warmUpByTimeDelay
-    "Check if it has been in warm-up mode by longer than specified time"
-    annotation (Placement(transformation(extent={{40,50},{60,70}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysTem(
     final uLow=-0.5,
     final uHigh=0) if not warmUpByTimeDelay
@@ -73,9 +69,6 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Pre pre if not warmUpByTimeDelay
     "Infinitesimal time delay to break algebraic loop related to power output computation"
     annotation (Placement(transformation(extent={{60,-30},{80,-10}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant damRes(
-    final k=true) "Dummy reset input to timer that does not accumulate time"
-    annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
 
 equation
   connect(add.y, hysTem.u)
@@ -86,8 +79,6 @@ equation
     annotation (Line(points={{-66,-20},{-60,-20},{-60, -6},{-52,-6}}, color={0,0,127}));
   connect(actWarUp, timer.u)
     annotation (Line(points={{-120,60},{-2,60}},    color={255,0,255}));
-  connect(timer.y, timeDel.u)
-    annotation (Line(points={{22,60},{38,60}},     color={0,0,127}));
   connect(add1.y, hysPow.u)
     annotation (Line(points={{-28,-60},{-12,-60}}, color={0,0,127}));
   connect(PEle, add1.u2) annotation (Line(points={{-120,-80},{-80,-80},{-80,-66},
@@ -96,16 +87,14 @@ equation
           -20}}, color={255,0,255}));
   connect(hysPow.y, or2.u2) annotation (Line(points={{12,-60},{20,-60},{20,-28},
           {28,-28}}, color={255,0,255}));
-  connect(timeDel.y, y) annotation (Line(points={{62,60},{80,60},{80,0},{120,0}},
-        color={255,0,255}));
   connect(or2.y, pre.u)
     annotation (Line(points={{52,-20},{58,-20}}, color={255,0,255}));
   connect(pre.y, y) annotation (Line(points={{82,-20},{90,-20},{90,0},{120,0}},
         color={255,0,255}));
   connect(PEleNet, add1.u1) annotation (Line(points={{-120,-40},{-80,-40},{-80,
           -54},{-52,-54}}, color={0,0,127}));
-  connect(damRes.y, timer.reset) annotation (Line(points={{-38,40},{-20,40},{-20,
-          52},{-2,52}}, color={255,0,255}));
+  connect(timer.passed, y) annotation (Line(points={{22,52},{60,52},{60,0},{120,
+          0}}, color={255,0,255}));
 
 annotation (defaultComponentName="warUpCtr", Documentation(info="<html>
 <p>

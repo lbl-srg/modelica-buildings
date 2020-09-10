@@ -389,10 +389,6 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Greater greVDis70
     "Check if discharge airflow is less than 70% of setpoint"
     annotation (Placement(transformation(extent={{-60,-110},{-40,-90}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant damRes(
-    final k=true)
-    "Dammy reset input to timer that does not accumulate time"
-    annotation (Placement(transformation(extent={{-60,370},{-40,390}})));
 
   CDL.Continuous.Less les "Check if the suppression time has not yet passed"
     annotation (Placement(transformation(extent={{38,330},{58,350}})));
@@ -666,8 +662,6 @@ equation
           {-132,-108},{-62,-108}}, color={0,0,127}));
   connect(greVDis70.y, and4.u2) annotation (Line(points={{-38,-100},{0,-100},{0,
           -108},{38,-108}}, color={255,0,255}));
-  connect(damRes.y, tim.reset) annotation (Line(points={{-38,380},{-30,380},{-30,
-          332},{-2,332}}, color={255,0,255}));
 
   connect(tim.y, les.u1)
     annotation (Line(points={{22,340},{36,340}}, color={0,0,127}));

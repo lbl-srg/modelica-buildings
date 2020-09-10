@@ -170,9 +170,6 @@ protected
     annotation (Placement(transformation(extent={{320,-10},{340,10}})));
   Buildings.Controls.OBC.CDL.Logical.And and2 "Logical and"
     annotation (Placement(transformation(extent={{360,-40},{380,-20}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant damRes(final k=true)
-    "Dammy reset input to timer that does not accumulate time"
-    annotation (Placement(transformation(extent={{-240,-40},{-220,-20}})));
 
 equation
   connect(tim.y, triSam.u)  annotation (Line(points={{-158,10},{-102,10}},
@@ -276,8 +273,6 @@ equation
           {388,-30}}, color={255,0,255}));
   connect(pre.y, optOn) annotation (Line(points={{412,-30},{428,-30},{428,-60},
           {460,-60},{460,-60}}, color={255,0,255}));
-  connect(damRes.y, tim.reset) annotation (Line(points={{-218,-30},{-200,-30},{-200,
-          2},{-182,2}}, color={255,0,255}));
    annotation (
 defaultComponentName="optStaCal",
   Documentation(info="<html>

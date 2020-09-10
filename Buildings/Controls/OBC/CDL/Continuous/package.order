@@ -31,7 +31,6 @@ MovingMean
 MultiMax
 MultiMin
 MultiSum
-NumberOfRequests
 PID
 PIDWithReset
 Product
