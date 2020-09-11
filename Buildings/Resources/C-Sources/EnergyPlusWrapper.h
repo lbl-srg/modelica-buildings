@@ -3,10 +3,6 @@
 
 #include <ModelicaUtilities.h>
 
-#ifdef _WIN32
-#error "*** Spawn is not yet supported on Windows."
-#endif
-
 /* ********************************************************* */
 /* Thermal zone */
 extern void* EnergyPlusZoneAllocate(
