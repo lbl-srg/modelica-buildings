@@ -7,13 +7,15 @@
 
 #include <stdbool.h>
 #include <stdio.h>
-#include <errno.h>
-extern int errno;
 
 #include "fmilib.h"
 #include "FMI2/fmi2FunctionTypes.h"
 
-/* Use windows.h only for Windows */
+#ifndef _WIN32
+#include <errno.h>
+extern int errno;
+#endif
+
 #ifdef _WIN32
 #include <windows.h>
 #include <io.h>
@@ -54,11 +56,9 @@ to not export all symbols but only the needed ones */
 static char* MOD_BUI_JSON = "ModelicaBuildingsEnergyPlus.json";
 
 #ifdef _WIN32 /* Win32 or Win64 */
-static char* SEPARATOR = "\\";
 #define access(a, b) (_access_s(a, b))
-#else
-static char* SEPARATOR = "/";
 #endif
+static char* SEPARATOR = "/";
 
 typedef enum {instantiationMode, initializationMode, eventMode, continuousTimeMode} FMUMode;
 

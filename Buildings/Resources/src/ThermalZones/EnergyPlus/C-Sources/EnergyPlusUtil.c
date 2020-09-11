@@ -479,6 +479,10 @@ void getSimulationTemporaryDirectory(
         modelicaNameBuilding);
     }
   }
+#ifdef _WIN32 /* Win32 or Win64 */
+  replaceChar(curDir, '\\', '/');
+#endif
+
 
   lenNam = strlen(modelicaNameBuilding);
   lenCur = strlen(curDir);

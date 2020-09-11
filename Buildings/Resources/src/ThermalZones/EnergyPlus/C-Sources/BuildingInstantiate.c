@@ -366,7 +366,7 @@ void generateFMU(FMUBuilding* fmuBui, const char* modelicaBuildingsJsonFile){
       SpawnFormatError("Requested to use json file '%s' which does not exist.", modelicaBuildingsJsonFile);
     }
 #ifdef _WIN32 /* Win32 or Win64 */
-    cmd = "/Resources/bin/spawn-win64/bin/spawn";
+    cmd = "/Resources/bin/spawn-win64/bin/spawn.exe";
 #elif __APPLE__
     cmd = "/Resources/bin/spawn-darwin64/bin/spawn";
 #else

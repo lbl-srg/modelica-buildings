@@ -325,9 +325,10 @@ void FMUBuildingFree(FMUBuilding* bui){
       if (FMU_EP_VERBOSITY >= MEDIUM)
         SpawnMessage("fmi2_import_terminate: terminating EnergyPlus.\n");
       status = fmi2_import_terminate(bui->fmu);
-      if (status != fmi2OK){
+       if (status != fmi2OK){
         SpawnFormatMessage(
-          "fmi2Terminate returned with non-OK status for building %s.",
+          "fmi2Terminate returned with status %s for building %s.",
+          fmi2_status_to_string(status),
           bui->modelicaNameBuilding);
       }
     }
