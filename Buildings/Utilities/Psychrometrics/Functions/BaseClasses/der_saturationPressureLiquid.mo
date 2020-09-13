@@ -2,7 +2,7 @@ within Buildings.Utilities.Psychrometrics.Functions.BaseClasses;
 function der_saturationPressureLiquid
   "Derivative of the function saturationPressureLiquid"
   extends Modelica.Icons.Function;
-  input Modelica.Units.SI.Temperature TSat "Saturation temperature";
+  input Modelica.SIunits.Temperature TSat "Saturation temperature";
   input Real dTSat(unit="K/s") "Saturation temperature derivative";
   output Real psat_der(unit="Pa/s") "Differential of saturation pressure";
 
@@ -25,7 +25,7 @@ revisions="<html>
 September 12, 2020, by Michael Wetter:<br/>
 Corrected name of argument to comply with derivative specification.<br/>
 This is for
-<a href=\"modelica://https://github.com/ibpsa/modelica-ibpsa/issues/1393\">#1393</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1393\">#1393</a>.
 </li>
 <li>
 November 20, 2013 by Michael Wetter:<br/>
