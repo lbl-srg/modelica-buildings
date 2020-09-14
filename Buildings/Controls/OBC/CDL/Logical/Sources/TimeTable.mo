@@ -90,40 +90,42 @@ equation
 defaultComponentName = "intTimTab",
 Documentation(info="<html>
 <p>
-Block that outputs values of a time table with scheduled .
+Block that outputs <code>True</code>/<code>False</code> time table values.
 </p>
 <p>
 The block takes as a parameter a time table of the format
 </p>
 <pre>
 table = [ 0*3600, 0;
-          6*3600, 0;
           6*3600, 1;
+          6*3600, 0;
          18*3600, 1;
-         18*3600, 0;
-         24*3600, 0];
+         18*3600, 1;
+         24*3600, 1];
 </pre>
 <p>
-where the first column is time in seconds, and the remaining
-column(s) are the table values.
+where the first column is time, and the remaining column(s) are the table values.
+The time column contains <code>Real</code> values that are in units of seconds when <code>timeScale</code> equals <code>1</code>.
+<code>timeScale</code> may be used to scale the time values, such that for <code>timeScale = 3600</code> the values 
+in the first column of the table are interpreted as hours.
+<p>
 Any number of columns can be specified.
-The parameter <code>smoothness</code> determines how the table values
-are interpolated. The following settings are allowed:
 </p>
-
+<p>
+The values in all columns apart from the first column must equal either <code>0</code> or <code>1</code>, 
+to represent <code>False</code> or <code>True</code>, respectively.
+</p>
+<p>
+The parameter <code>smoothness</code> determines how the table values
+are interpolated. The following setting is implemented:
+</p>
 <table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 <tr><th><code>smoothness</code></th><th>Description</th></tr>
 <tr>
-  <td><code>CDL.Types.LinearSegments</code></td>
-  <td>Table points are linearly interpolated.</td>
-</tr>
-<tr>
   <td><code>CDL.Types.ConstantSegments</code></td>
-  <td>Table points are not interpolated,
-      but the previous tabulated value is returned.</td>
+  <td>Table points are not interpolated, but the previous tabulated value is returned.</td>
 </tr>
 </table>
-
 <p>
 The parameter <code>extrapolation</code> determines how the table
 values are extrapolated. The following settings are allowed:
@@ -134,11 +136,6 @@ values are extrapolated. The following settings are allowed:
 <tr>
   <td><code>CDL.Types.HoldLastPoint</code></td>
   <td>Hold the first or last table point outside of the table scope.</td>
-</tr>
-<tr>
-  <td><code>CDL.Types.LastTwoPoints</code></td>
-  <td>Extrapolate by using the derivative at the first or last table points
-      outside of the table scope.</td>
 </tr>
 <tr>
   <td><code>CDL.Types.Periodic</code></td>
@@ -152,110 +149,10 @@ If <code>extrapolation === CDL.Types.Periodic</code>, then the above example
 would give a schedule with periodicity of one day. The simulation can start at any time,
 whether it is a multiple of a day or not, and positive or negative.
 </p>
-
-<p>
-The value of the parameter <code>offset</code> is added to the tabulated
-values.
-The parameters <code>timeScale</code> is used to scale the first column
-of the table. For example, set <code>timeScale = 3600</code> if the first
-column is in hour (because in CDL, the time unit is seconds).
-</p>
 <p>
 If the table has only one row, no interpolation is performed and
 the table values of this row are just returned.
 </p>
-<p>
-An interval boundary is defined by two identical time values
-following each other. For example
-</p>
-<pre>
-   table = [0, 0;
-            1, 0;
-            1, 1;
-            2, 3;
-            3, 5;
-            3, 2;
-            4, 4;
-            5, 5];
-</pre>
-<p>
-defines three intervalls: 0..1, 1..3, 3..5. Within an interval the defined
-interpolation method is applied (so the table outputs within an interval are
-continuous if <code>smoothness = CDL.Types.LinearSegments</code>).
-</p>
-<p>
-Example:
-</p>
-<pre>
-  table = [0, 0;
-           1, 0;
-           1, 1;
-           2, 4;
-           3, 9;
-           4, 16];
-  smoothness = CDL.Types.LinearSegments;
-
-If, e.g., time = 1.0, the output y =  0.0 (before event), 1.0 (after event)
-    e.g., time = 1.5, the output y =  2.5,
-    e.g., time = 2.0, the output y =  4.0,
-    e.g., time = 5.0, the output y = 23.0 (i.e., extrapolation via last 2 points).
-</pre>
-<h4>Implementation</h4>
-<p>
-For simulation,
-no time events are generated within an interval
-in order that also intervals with many points do not reduce the simulation efficiency.
-If the table points are largely changing, it is adviseable to force
-time events by duplicating every time point (especially, if the model in which
-the table is present allows the variable step integrator to make large
-integrator steps). For example, if a sawtooth signal is defined with the table,
-it is more reliable to define the table as:
-</p>
-<pre>
-   table = [0, 0;
-            1, 2;
-            1, 2;
-            2, 0;
-            2, 0;
-            3, 2;
-            3, 2];
-</pre>
-<p>
-instead of
-</p>
-<pre>
-   table = [0, 0;
-            1, 2;
-            2, 0;
-            3, 2];
-</pre>
-<p>
-because time events are then generated at every time point.
-</p>
-<p>
-Building automation systems typically have discrete time semantics
-with fixed sampling times, and no notion of superdense time (in which
-a tabulated value can change without advancing time).
-Therefore, to implement a table with two equal time stamps,
-a CDL translator may parameterize
-a table in the building automation in such a way that the step change happens
-at the time indicated in the first column, whereas previous sampling times
-output the tabulated value at the last transition. For example,
-</p>
-<pre>
-table = [0, 0;
-         1, 0;
-         1, 1];
-smoothness = CDL.Types.ConstantSegments;
-</pre>
-<p>
-may be converted such that a building automation system with a sampling time
-of <i>0.5</i> seconds outputs
-</p>
-<pre>
-  t = 0, 0.5, 1, ...
-  y = 0, 0  , 1, ...
-</pre>
 </html>",
 revisions="<html>
 <ul>
