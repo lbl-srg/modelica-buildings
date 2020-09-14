@@ -25,6 +25,9 @@ block TimeTable
     annotation (Placement(transformation(extent={{20,60},{40,80}})));
   MultiOr mulOr(nu=nout)
     annotation (Placement(transformation(extent={{50,60},{70,80}})));
+  MultiOr mulOr1(nu=nout)
+    annotation (Placement(transformation(extent={{20,-100},{40,-80}})));
+  And and2 annotation (Placement(transformation(extent={{60,20},{80,40}})));
 protected
   final parameter Integer nout=size(table, 2)-1
     "Dimension of output vector";
@@ -54,7 +57,19 @@ protected
 
   Utilities.Assert assMes1(message="Scheduled values are not all zeroes or ones")
     "Assert all scheduled values are either zero or one values"
-    annotation (Placement(transformation(extent={{80,60},{100,80}})));
+    annotation (Placement(transformation(extent={{100,60},{120,80}})));
+  Conversions.IntegerToReal intToRea[nout] "Type conversion"
+    annotation (Placement(transformation(extent={{-20,-30},{0,-10}})));
+  Continuous.Add add2[nout](final k1=fill(1, nout), final k2=fill(-1, nout))
+    "Subtracts inputs from their integer conversion results"
+    annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
+  Continuous.Abs abs1[nout]
+    annotation (Placement(transformation(extent={{-60,-100},{-40,-80}})));
+  Continuous.GreaterThreshold greThr[nout](final t=fill(Constants.small, nout))
+    "Value comparisson"
+    annotation (Placement(transformation(extent={{-20,-100},{0,-80}})));
+  Not         not1 "Logical not"
+    annotation (Placement(transformation(extent={{60,-100},{80,-80}})));
 initial equation
   t0=time;
 
@@ -64,24 +79,44 @@ equation
 
   connect(tab.y, realToInteger.u)
     annotation (Line(points={{-79,0},{-62,0}}, color={0,0,127}));
-  connect(realToInteger.y, intEquFal.u2) annotation (Line(points={{-38,0},{-30,0},
-          {-30,30},{-50,30},{-50,72},{-42,72}}, color={255,127,0}));
-  connect(realToInteger.y, intEquTru.u2) annotation (Line(points={{-38,0},{-30,0},
-          {-30,30},{-50,30},{-50,42},{-42,42}}, color={255,127,0}));
+  connect(realToInteger.y, intEquFal.u2) annotation (Line(points={{-38,0},{-30,
+          0},{-30,30},{-50,30},{-50,72},{-42,72}},
+                                                color={255,127,0}));
+  connect(realToInteger.y, intEquTru.u2) annotation (Line(points={{-38,0},{-30,
+          0},{-30,30},{-50,30},{-50,42},{-42,42}},
+                                                color={255,127,0}));
   connect(intFal.y, intEquFal.u1)
     annotation (Line(points={{-58,80},{-42,80}}, color={255,127,0}));
   connect(intTru.y, intEquTru.u1)
     annotation (Line(points={{-58,50},{-42,50}}, color={255,127,0}));
-  connect(intEquFal.y, or2.u1) annotation (Line(points={{-18,80},{0,80},{0,70},{
-          18,70}}, color={255,0,255}));
-  connect(intEquTru.y, or2.u2) annotation (Line(points={{-18,50},{0,50},{0,62},{
-          18,62}}, color={255,0,255}));
+  connect(intEquFal.y, or2.u1) annotation (Line(points={{-18,80},{0,80},{0,70},
+          {18,70}},color={255,0,255}));
+  connect(intEquTru.y, or2.u2) annotation (Line(points={{-18,50},{0,50},{0,62},
+          {18,62}},color={255,0,255}));
   connect(or2.y, mulOr.u)
     annotation (Line(points={{42,70},{48,70}}, color={255,0,255}));
-  connect(mulOr.y, assMes1.u)
-    annotation (Line(points={{72,70},{78,70}}, color={255,0,255}));
   connect(intEquTru.y, y) annotation (Line(points={{-18,50},{0,50},{0,0},{140,0}},
         color={255,0,255}));
+  connect(realToInteger.y, intToRea.u) annotation (Line(points={{-38,0},{-30,0},
+          {-30,-20},{-22,-20}}, color={255,127,0}));
+  connect(intToRea.y, add2.u1) annotation (Line(points={{2,-20},{10,-20},{10,
+          -44},{18,-44}}, color={0,0,127}));
+  connect(tab.y, add2.u2) annotation (Line(points={{-79,0},{-70,0},{-70,-56},{
+          18,-56}}, color={0,0,127}));
+  connect(add2.y, abs1.u) annotation (Line(points={{42,-50},{50,-50},{50,-70},{
+          -70,-70},{-70,-90},{-62,-90}}, color={0,0,127}));
+  connect(abs1.y, greThr.u)
+    annotation (Line(points={{-38,-90},{-22,-90}}, color={0,0,127}));
+  connect(greThr.y, mulOr1.u)
+    annotation (Line(points={{2,-90},{18,-90},{18,-90}}, color={255,0,255}));
+  connect(mulOr1.y, not1.u)
+    annotation (Line(points={{42,-90},{58,-90}}, color={255,0,255}));
+  connect(not1.y, and2.u2) annotation (Line(points={{82,-90},{82,-92},{90,-92},
+          {90,-20},{50,-20},{50,22},{58,22}}, color={255,0,255}));
+  connect(mulOr.y, and2.u1) annotation (Line(points={{72,70},{80,70},{80,50},{
+          50,50},{50,30},{58,30}}, color={255,0,255}));
+  connect(and2.y, assMes1.u) annotation (Line(points={{82,30},{90,30},{90,70},{
+          98,70}}, color={255,0,255}));
   annotation (
 defaultComponentName = "intTimTab",
 Documentation(info="<html>
