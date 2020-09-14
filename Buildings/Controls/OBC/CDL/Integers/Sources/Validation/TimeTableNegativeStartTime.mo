@@ -2,35 +2,17 @@ within Buildings.Controls.OBC.CDL.Integers.Sources.Validation;
 model TimeTableNegativeStartTime
   "Validation model for TimeTable block with negative start time"
 
-  Buildings.Controls.OBC.CDL.Integers.Sources.TimeTable timTabLin(
-      smoothness = Buildings.Controls.OBC.CDL.Types.Smoothness.LinearSegments,
-      table = [0,0; 6*3600,1; 18*3600,0.5; 24*3600,0])
-    "Time table with smoothness method of linear segments"
-    annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.TimeTable timTabLinHol(
-      smoothness = Buildings.Controls.OBC.CDL.Types.Smoothness.LinearSegments,
-      extrapolation = Buildings.Controls.OBC.CDL.Types.Extrapolation.HoldLastPoint,
-      table = [0,0; 6*3600,1; 18*3600,0.5; 24*3600,0])
-    "Time table with smoothness method of linear segments, hold first and last value"
-    annotation (Placement(transformation(extent={{-10,10},{10,30}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.TimeTable timTabLinDer(
-      smoothness = Buildings.Controls.OBC.CDL.Types.Smoothness.LinearSegments,
-      extrapolation = Buildings.Controls.OBC.CDL.Types.Extrapolation.LastTwoPoints,
-      table=[0,0; 6*3600,1; 18*3600,0.5; 24*3600,0])
-    "Time table with smoothness method of linear segments, extrapolate with der"
-    annotation (Placement(transformation(extent={{50,10},{70,30}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.TimeTable timTabCon(
-      smoothness = Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments,
-      table=[0,0; 6*3600,1; 18*3600,0.5; 24*3600,0])
-    "Time table with smoothness method of constant segments"
-    annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.TimeTable timTabLinCon(
-      smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.LinearSegments,
-      table=[0,0; 6*3600,0; 6*3600,1; 18*3600,0.5; 24*3600,0])
-    "Time table with smoothness method of linear segments"
-    annotation (Placement(transformation(extent={{-10,-30},{10,-10}})));
+  Buildings.Controls.OBC.CDL.Integers.Sources.TimeTable intTimTab(
+    table=[0,1,0; 1.3,1,1; 2.9,0,0; 4,1,0; 5,1,1],
+    extrapolation=Buildings.Controls.OBC.CDL.Types.Extrapolation.HoldLastPoint,
+    timeScale=2) "Time table with integer output"
+    annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
 
-  annotation (experiment(Tolerance=1e-6, StartTime=-129600.0, StopTime=172800),
+  Buildings.Controls.OBC.CDL.Integers.Sources.TimeTable intTimTabPer(table=[0,1,0;
+        1.3,1,1; 2.9,0,0; 4,1,0; 5,1,1], extrapolation=Buildings.Controls.OBC.CDL.Types.Extrapolation.Periodic)
+    "Time table with integer output and periodic repetition"
+    annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
+  annotation (experiment(Tolerance=1e-6, StartTime=-5.0, StopTime=5.0),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Integers/Sources/Validation/TimeTableNegativeStartTime.mos"
        "Simulate and plot"),
   Documentation(info="<html>
@@ -41,7 +23,7 @@ Buildings.Controls.OBC.CDL.Integers.Sources.TimeTable</a>.
 The model is identical to
 <a href=\"modelica://Buildings.Controls.OBC.CDL.Integers.Sources.Validation.TimeTable\">
 Buildings.Controls.OBC.CDL.Integers.Sources.Validation.TimeTable</a>
-except that the start time is negative, and not a multiple of a full day.
+except that the start time is negative.
 </html>",
 revisions="<html>
 <ul>

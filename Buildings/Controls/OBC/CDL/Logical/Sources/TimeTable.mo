@@ -33,8 +33,6 @@ protected
   parameter Modelica.SIunits.Time t0(fixed=false)
     "First sample time instant";
 
-  Conversions.IntegerToReal intToRea[nout] "Type conversion"
-    annotation (Placement(transformation(extent={{0,20},{20,40}})));
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger realToInteger[nout]
     "Converts scheduled values to integer"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
@@ -50,7 +48,6 @@ protected
                           Modelica.Blocks.Types.Extrapolation.HoldLastPoint
                         else
                           Modelica.Blocks.Types.Extrapolation.Periodic,
-    final offset=0.,
     final startTime=if (extrapolation == Types.Extrapolation.Periodic) then integer(t0/86400)*86400 else 0,
     final timeScale=timeScale) "Time table"
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
@@ -64,12 +61,9 @@ initial equation
 equation
   assert(n > 0, "No table values defined.");
   assert(extrapolation <> CDL.Types.Extrapolation.LastTwoPoints, "Unsuitable extrapolation setting.");
-  connect(realToInteger.y, y) annotation(Line(points={{-38,0},{140,0}},        color={255,127,0}));
 
   connect(tab.y, realToInteger.u)
     annotation (Line(points={{-79,0},{-62,0}}, color={0,0,127}));
-  connect(realToInteger.y, intToRea.u) annotation (Line(points={{-38,0},{-10,0},
-          {-10,30},{-2,30}}, color={255,127,0}));
   connect(realToInteger.y, intEquFal.u2) annotation (Line(points={{-38,0},{-30,0},
           {-30,30},{-50,30},{-50,72},{-42,72}}, color={255,127,0}));
   connect(realToInteger.y, intEquTru.u2) annotation (Line(points={{-38,0},{-30,0},
@@ -86,11 +80,13 @@ equation
     annotation (Line(points={{42,70},{48,70}}, color={255,0,255}));
   connect(mulOr.y, assMes1.u)
     annotation (Line(points={{72,70},{78,70}}, color={255,0,255}));
+  connect(intEquTru.y, y) annotation (Line(points={{-18,50},{0,50},{0,0},{140,0}},
+        color={255,0,255}));
   annotation (
 defaultComponentName = "intTimTab",
 Documentation(info="<html>
 <p>
-Block that outputs <code>True</code>/<code>False</code> time table values.
+Block that outputs <code>true</code>/<code>false</code> time table values.
 </p>
 <p>
 The block takes as a parameter a time table of the format
@@ -113,7 +109,7 @@ Any number of columns can be specified.
 </p>
 <p>
 The values in all columns apart from the first column must equal either <code>0</code> or <code>1</code>, 
-to represent <code>False</code> or <code>True</code>, respectively.
+to represent <code>false</code> or <code>true</code>, respectively.
 </p>
 <p>
 The parameter <code>smoothness</code> determines how the table values
