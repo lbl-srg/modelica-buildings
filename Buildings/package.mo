@@ -304,7 +304,8 @@ have been <b style=\"color:blue\">improved</b> in a
                        after boolean pulse <code>startTime</code> and the simulation start time is such that it falls within a time period during which the
                        output is expected to be <code>true</code>.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2110\">issue 2110</a>.<br/>
-                       Added an integer parameter to enable specification of number of periods that the block is to exhibit.
+                       Added an integer parameter to enable specification of number of periods.
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2125\">issue 2125</a>.
     </td>
     </tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.HeatExchangers.RadiantSlabs</b>
