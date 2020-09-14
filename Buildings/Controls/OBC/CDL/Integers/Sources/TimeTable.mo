@@ -5,7 +5,7 @@ block TimeTable "Table look-up with respect to time with constant segments"
   "Table matrix with time as a first table column (in seconds, unless timeScale is not 1) and any remaining table values as integer";
   parameter CDL.Types.Extrapolation extrapolation=CDL.Types.Extrapolation.HoldLastPoint
     "Extrapolation of data outside the definition range";
-  parameter Integer offset[nout]={0} "Offsets of output signals";
+  parameter Integer offset[:]={0} "Offsets of output signals";
   parameter Modelica.SIunits.Time timeScale=1
     "Time scale of first table column. Set to 3600 if time in table is in hours";
 
@@ -69,8 +69,6 @@ equation
   assert(extrapolation <> CDL.Types.Extrapolation.LastTwoPoints, "Unsuitable extrapolation setting.");
   connect(realToInteger.y, y) annotation(Line(points={{-18,0},{120,0}},        color={255,127,0}));
 
-  connect(tab.y, realToInteger.u)
-    annotation (Line(points={{-59,0},{-42,0}}, color={0,0,127}));
   connect(realToInteger.y, intToRea.u) annotation (Line(points={{-18,0},{-10,0},
           {-10,30},{-2,30}}, color={255,127,0}));
   connect(intToRea.y, add2.u1) annotation (Line(points={{22,30},{30,30},{30,-24},
@@ -85,8 +83,10 @@ equation
     annotation (Line(points={{22,-70},{28,-70}}, color={255,0,255}));
   connect(not1.y, assMes.u)
     annotation (Line(points={{52,-70},{58,-70}}, color={255,0,255}));
-  connect(tab.y, add2.u2) annotation (Line(points={{-59,0},{-50,0},{-50,-36},{
-          38,-36}}, color={0,0,127}));
+  connect(tab.y, realToInteger.u)
+    annotation (Line(points={{-59,0},{-42,0}}, color={0,0,127}));
+  connect(tab.y, add2.u2) annotation (Line(points={{-59,0},{-50,0},{-50,-36},{38,
+          -36}}, color={0,0,127}));
   annotation (
 defaultComponentName = "intTimTab",
 Documentation(info="<html>
