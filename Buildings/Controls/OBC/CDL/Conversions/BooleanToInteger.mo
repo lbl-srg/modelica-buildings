@@ -40,27 +40,25 @@ Modelica Standard Library.
 </ul>
 </html>"),
          Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
-            {100,100}}), graphics={
-        Text(
-          extent={{-86,92},{-6,10}},
-          lineColor={255,0,255},
-          textString="B"),
-        Polygon(
-          points={{-12,-46},{-32,-26},{-32,-36},{-64,-36},{-64,-56},{-32,-56},
-              {-32,-66},{-12,-46}},
-          lineColor={255,170,85},
-          fillColor={255,170,85},
-          fillPattern=FillPattern.Solid),
-        Text(
-          extent={{8,-4},{92,-94}},
-          lineColor={255,170,85},
-          textString="I"),               Rectangle(
+            {100,100}}), graphics={      Rectangle(
           extent={{-100,100},{100,-100}},
           fillColor={210,210,210},
           lineThickness=5.0,
           fillPattern=FillPattern.Solid,
           borderPattern=BorderPattern.Raised),
-                                   Ellipse(
+        Text(
+          extent={{-86,78},{-34,26}},
+          lineColor={255,0,255},
+          textString="B"),
+        Polygon(
+          points={{28,48},{8,68},{8,58},{-24,58},{-24,38},{8,38},{8,28},{28,48}},
+          lineColor={255,170,85},
+          fillColor={255,170,85},
+          fillPattern=FillPattern.Solid),
+        Text(
+          extent={{34,82},{86,24}},
+          lineColor={255,170,85},
+          textString="I"),         Ellipse(
           extent={{-71,7},{-85,-7}},
           lineColor=DynamicSelect({235,235,235}, if u then {0,255,0}
                else {235,235,235}),
@@ -69,5 +67,13 @@ Modelica Standard Library.
           fillPattern=FillPattern.Solid),      Text(
           extent={{-150,150},{150,110}},
           textString="%name",
-          lineColor={0,0,255})}));
+          lineColor={0,0,255}),
+    Text(
+      extent={{-74,-28},{64,20}},
+      lineColor={0,0,0},
+          textString="%integerTrue"),
+    Text(
+      extent={{-74,-90},{64,-42}},
+      lineColor={0,0,0},
+          textString="%integerFalse")}));
 end BooleanToInteger;
