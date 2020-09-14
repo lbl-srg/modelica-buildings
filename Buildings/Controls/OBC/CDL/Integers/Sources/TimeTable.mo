@@ -2,7 +2,7 @@ within Buildings.Controls.OBC.CDL.Integers.Sources;
 block TimeTable "Table look-up with respect to time with constant segments"
 
   parameter Real table[:,:]
-  "Table matrix with time as a first table column (in seconds, unless timeScale is not 1) and any remaining table values as integer";
+    "Table matrix with time as a first table column (in seconds, unless timeScale is not 1) and Integers in all other columns";
   parameter CDL.Types.Extrapolation extrapolation=CDL.Types.Extrapolation.HoldLastPoint
     "Extrapolation of data outside the definition range";
   parameter Integer offset[:]={0} "Offsets of output signals";
@@ -21,6 +21,7 @@ protected
     "First sample time instant";
 
   Continuous.Abs abs1[nout]
+    "Absolute values"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
   Continuous.Add add2[nout](
     final k1=fill(1, nout),

@@ -7,8 +7,9 @@ model TimeTable "Validation model for TimeTable block"
     timeScale=2) "Time table with boolean output"
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable booTimTabPer(table=[0,1,0;
-        1.3,1,1; 2.9,0,0; 4,1,0; 5,1,1], extrapolation=Buildings.Controls.OBC.CDL.Types.Extrapolation.Periodic)
+  Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable booTimTabPer(
+    table=[0,1,0;1.3,1,1; 2.9,0,0; 4,1,0; 5,1,1],
+    extrapolation=Buildings.Controls.OBC.CDL.Types.Extrapolation.Periodic)
     "Time table with boolean output and periodic repetition"
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
   annotation (experiment(Tolerance=1e-6, StopTime=10.0),
