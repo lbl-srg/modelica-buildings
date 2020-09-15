@@ -20,7 +20,7 @@ equation
   connect(uCoo.y, zonSta.uCoo) annotation (Line(points={{-58,-30},{-50,-30},{
           -50,-4},{-2,-4}}, color={0,0,127}));
   annotation (experiment(StopTime=3, Interval=300, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36_PR1/AHUs/SingleZone/VAV/Validation/ZoneState.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/ThermalZones/Validation/ZoneState.mos"
     "Simulate and plot"),
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={
                    Ellipse(
@@ -37,8 +37,8 @@ equation
 Documentation(info="<html>
 <p>
 This example validates
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.ZoneState\">
-Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.ZoneState</a>.
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.ThermalZones.ZoneStates\">
+Buildings.Controls.OBC.ASHRAE.G36.ThermalZones.ZoneStates</a>.
 </p>
 </html>", revisions="<html>
 <ul>

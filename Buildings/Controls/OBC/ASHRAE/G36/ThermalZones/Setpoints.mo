@@ -212,8 +212,9 @@ block Setpoints
   Buildings.Controls.OBC.CDL.Continuous.Product pro3
     "Output product of the two inputs"
     annotation (Placement(transformation(extent={{80,-120},{100,-100}})));
-  Buildings.Controls.OBC.CDL.Logical.Timer tim
-    "Measure unpopulated time when the zone is in occupied mode"
+  Buildings.Controls.OBC.CDL.Logical.Timer tim(
+    final t=300)
+    "Check whether the zone has been unpopulated for 5 minutes continuously during occupied mode"
     annotation (Placement(transformation(extent={{-220,-280},{-200,-260}})));
   Buildings.Controls.OBC.CDL.Logical.TrueHoldWithReset truHol(
     final duration=60)
@@ -238,10 +239,6 @@ block Setpoints
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler heaSetSam
     "Sample current heating setpoint when zone becomes unpopulated by 5 minutes"
     annotation (Placement(transformation(extent={{40,-320},{60,-300}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
-    final t=300)
-    "Check if the zone has been unpopulated for certain time continuously during occupied mode"
-    annotation (Placement(transformation(extent={{-160,-280},{-140,-260}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add1 "Adjusted heating setpoint"
     annotation (Placement(transformation(extent={{140,240},{160,260}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add2 "Adjusted cooling setpoint"
@@ -524,10 +521,6 @@ protected
     annotation (Placement(transformation(extent={{120,-180},{140,-160}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add8 "Add real inputs"
     annotation (Placement(transformation(extent={{160,-140},{180,-120}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant damRes(
-    final k=true)
-    "Dammy reset input to timer that does not accumulate time"
-    annotation (Placement(transformation(extent={{-280,-320},{-260,-300}})));
 
 equation
   connect(uOpeMod, intEqu.u1)
@@ -826,10 +819,6 @@ equation
       color={255,0,255}));
   connect(and10.y, tim.u)
     annotation (Line(points={{-258,-270},{-222,-270}}, color={255,0,255}));
-  connect(tim.y, greThr.u)
-    annotation (Line(points={{-198,-270},{-162,-270}}, color={0,0,127}));
-  connect(greThr.y, truHol.u)
-    annotation (Line(points={{-138,-270},{-102,-270}}, color={255,0,255}));
   connect(truHol.y, edg1.u)
     annotation (Line(points={{-78,-270},{-42,-270}}, color={255,0,255}));
   connect(edg1.y, cooSetSam.trigger)
@@ -1052,9 +1041,9 @@ equation
           -138},{218,-138}}, color={0,0,127}));
   connect(or3.y, swi2.u2) annotation (Line(points={{2,610},{20,610},{20,400},{-140,
           400},{-140,350},{-122,350}}, color={255,0,255}));
-  connect(damRes.y, tim.reset) annotation (Line(points={{-258,-310},{-240,-310},
-          {-240,-278},{-222,-278}}, color={255,0,255}));
 
+  connect(tim.passed, truHol.u) annotation (Line(points={{-198,-278},{-160,-278},
+          {-160,-270},{-102,-270}}, color={255,0,255}));
 annotation (
   defaultComponentName="TZonSet",
   Icon(coordinateSystem(extent={{-100,-200},{100,200}}),

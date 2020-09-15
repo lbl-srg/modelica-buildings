@@ -23,9 +23,8 @@ block ControlLoops "Heating and cooling control loops"
     "Threshold time to check the zone temperature status"
     annotation (Dialog(tab="Advanced"));
   parameter Real dTHys(
-    final unit="K",
-    final displayUnit="K",
-    final quantity="TemperatureDifference")=0.25
+    final unit="s",
+    final quantity="Time")=0.25
     "Delta between the temperature hysteresis high and low limit"
     annotation (Dialog(tab="Advanced"));
   parameter Real conThr(
@@ -197,7 +196,7 @@ annotation (defaultComponentName="conLoo",
         fillColor={255,255,255},
         fillPattern=FillPattern.Solid),
         Text(
-        extent={{-150,150},{150,110}},
+        extent={{-100,140},{100,100}},
         textString="%name",
         lineColor={0,0,255}),
         Text(
@@ -229,7 +228,7 @@ annotation (defaultComponentName="conLoo",
           extent={{-160,-140},{160,140}})),
 Documentation(info="<html>
 <p>
-This block outputs the heating and cooling control loop signal.  The implementation
+This block outputs the heating and cooling control loop signal. The implementation
 is according to the ASHRAE Guideline 36, Section 5.3.4.
 </p>
 <ol>
