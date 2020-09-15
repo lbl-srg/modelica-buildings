@@ -124,7 +124,7 @@ the Modelica instantiation would be
 </p>
 <pre>
 Buildings.ThermalZones.EnergyPlus.OutputVariable equEle(
-  name=\"Zone Electric Equipment Electric Power\",
+  name=\"Zone Electric Equipment Electricity Rate\",
   key=\"LIVING ZONE\")
   \"Block that reads output from EnergyPlus\";
 </pre>
