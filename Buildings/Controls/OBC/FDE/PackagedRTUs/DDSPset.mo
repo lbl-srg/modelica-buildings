@@ -4,6 +4,7 @@ block DDSPset
  parameter Real minDDSPset(
    min=0,
    final unit="Pa",
+   final displayUnit="bar",
    final quantity="PressureDifference")=125
   "Minimum down duct static pressure reset value"
   annotation (Dialog(group="DDSP range"));
@@ -11,6 +12,7 @@ block DDSPset
  parameter Real maxDDSPset(
    min=0,
    final unit="Pa",
+   final displayUnit="bar",
    final quantity="PressureDifference")=500
   "Maximum down duct static pressure reset value"
   annotation (Dialog(group="DDSP range"));

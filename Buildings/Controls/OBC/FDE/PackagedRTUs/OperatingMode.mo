@@ -28,6 +28,7 @@ block OperatingMode "Determine occupied or setback operating mode"
     "Terminal unit setback heating requests" annotation (Placement(
         transformation(extent={{-160,-98},{-120,-58}}), iconTransformation(
           extent={{-140,-80},{-100,-40}})));
+
   // --- outputs ---
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yOcc
     "True when occupied mode is active"
@@ -65,8 +66,8 @@ block OperatingMode "Determine occupied or setback operating mode"
     annotation (Placement(transformation(extent={{-56,-20},{-36,0}})));
 
 equation
-  connect(or2.u1,occ)  annotation (Line(points={{20,68},{-140,68}},
-                      color={255,0,255}));
+  connect(or2.u1,occ)
+  annotation (Line(points={{20,68},{-140,68}},color={255,0,255}));
   connect(or2.y, yOcc)
     annotation (Line(points={{44,68},{50,68},{50,54},{160,54}},
                                                color={255,0,255}));

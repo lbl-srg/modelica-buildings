@@ -35,14 +35,14 @@ block BAScontroller
 
   parameter Real maxDDSPset(
   final unit="Pa",
-  final displayUnit="Pa",
+  final displayUnit="bar",
   final quantity="PressureDifference")=500
   "Maximum down duct static pressure reset value"
   annotation (Dialog(tab="Supply fan", group="Down duct pressure limits"));
 
   parameter Real minDDSPset(
   final unit="Pa",
-  final displayUnit="Pa",
+  final displayUnit="bar",
   final quantity="PressureDifference")=125
   "Minimum down duct static pressure reset value"
   annotation (Dialog(tab="Supply fan", group="Down duct pressure limits"));
@@ -93,7 +93,7 @@ block BAScontroller
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),
         iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yMinOAflowSet
-    "active outside air flow set point sent to factory controller"
+    "Active outside air flow set point sent to factory controller"
     annotation (Placement(transformation(extent={{100,58},{140,98}}),
         iconTransformation(extent={{100,58},{140,98}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yBldgSPset
@@ -115,65 +115,64 @@ block BAScontroller
     maxSATset=292.15,
     HeatSet=308.15,
     TUpcntT=0.15)
-    annotation (Placement(transformation(extent={{28,-2},{46,28}})));
-  Buildings.Controls.OBC.FDE.PackagedRTUs.OperatingMode operatingMode(TUpcntM=
-        0.15)
-    annotation (Placement(transformation(extent={{-26,36},{-6,56}})));
+    annotation (Placement(transformation(extent={{44,-2},{62,28}})));
+  Buildings.Controls.OBC.FDE.PackagedRTUs.OperatingMode operatingMode(
+    TUpcntM=0.15)
+    annotation (Placement(transformation(extent={{-14,36},{6,56}})));
   Buildings.Controls.OBC.FDE.PackagedRTUs.MinOAset minOAset
-    annotation (Placement(transformation(extent={{28,74},{40,84}})));
+    annotation (Placement(transformation(extent={{40,68},{64,88}})));
   Buildings.Controls.OBC.FDE.PackagedRTUs.DDSPset dDSPset(minDDSPset=125,
       maxDDSPset=500)
     annotation (Placement(transformation(extent={{-14,-98},{12,-72}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant BldgSPset(
     final k=pBldgSPset)
     "Building static pressure set point"
-    annotation (Placement(transformation(extent={{30,-62},{50,-42}})));
+    annotation (Placement(transformation(extent={{48,-62},{68,-42}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(
     final k=pTotalTU)
     annotation (Placement(transformation(extent={{-94,6},{-74,26}})));
 
 equation
-  connect(operatingMode.yOcc,minOAset.occ)  annotation (Line(points={{-4,51.4},
-          {12,51.4},{12,79},{26.8,79}},     color={255,0,255}));
-  connect(operatingMode.ySBC,tSupSet.sbc)  annotation (Line(points={{-4,46},{12,
-          46},{12,13.6},{26.2,13.6}},             color={255,0,255}));
-  connect(operatingMode.ySBH,tSupSet.sbh)  annotation (Line(points={{-4,41},{8,41},
-          {8,8.2},{26.2,8.2}},                color={255,0,255}));
-  connect(operatingMode.occ,occ)  annotation (Line(points={{-28,52},{-64,52},{-64,
-          80},{-120,80}},            color={255,0,255}));
-  connect(tSupSet.highSpaceT, highSpaceT) annotation (Line(points={{26.2,2.8},{-20,
-          2.8},{-20,-54},{-120,-54}},             color={0,0,127}));
+  connect(operatingMode.yOcc,minOAset.occ)  annotation (Line(points={{8,51.4},{
+          30,51.4},{30,78},{37.6,78}},      color={255,0,255}));
+  connect(operatingMode.ySBC,tSupSet.sbc)  annotation (Line(points={{8,46},{30,
+          46},{30,13.6},{42.2,13.6}},     color={255,0,255}));
+  connect(operatingMode.ySBH,tSupSet.sbh)  annotation (Line(points={{8,41},{24,
+          41},{24,8.2},{42.2,8.2}},  color={255,0,255}));
+  connect(operatingMode.occ,occ)  annotation (Line(points={{-16,52},{-22,52},{
+          -22,80},{-120,80}}, color={255,0,255}));
+  connect(tSupSet.highSpaceT, highSpaceT) annotation (Line(points={{42.2,2.8},{
+          32,2.8},{32,-54},{-120,-54}},   color={0,0,127}));
   connect(dDSPset.mostOpenDam, mostOpenDam) annotation (Line(points={{-16.6,
-          -87.6},{-66,-87.6},{-66,-88},{-120,-88}},         color={0,0,127}));
-  connect(minOAset.yMinOAflowSet, yMinOAflowSet) annotation (Line(points={{41.44,
-          79},{82,79},{82,78},{120,78}},     color={0,0,127}));
-  connect(tSupSet.ySATset, ySATset) annotation (Line(points={{47.8,13},{55.1,13},
-          {55.1,-26},{120,-26}},           color={0,0,127}));
+          -87.6},{-66,-87.6},{-66,-88},{-120,-88}},    color={0,0,127}));
+  connect(minOAset.yMinOAflowSet, yMinOAflowSet) annotation (Line(points={{66.88,
+          78},{120,78}},                   color={0,0,127}));
+  connect(tSupSet.ySATset, ySATset) annotation (Line(points={{63.8,13},{71.1,13},
+          {71.1,-26},{120,-26}},  color={0,0,127}));
   connect(dDSPset.yDDSPset, yDDSPset) annotation (Line(points={{14.6,-85},{58,
-          -85},{58,-84},{120,-84}},
-                                 color={0,0,127}));
+          -85},{58,-84},{120,-84}}, color={0,0,127}));
   connect(BldgSPset.y, yBldgSPset)
-    annotation (Line(points={{52,-52},{120,-52}}, color={0,0,127}));
-  connect(operatingMode.ySBC, ySBC) annotation (Line(points={{-4,46},{82,46},{82,
+    annotation (Line(points={{70,-52},{120,-52}}, color={0,0,127}));
+  connect(operatingMode.ySBC, ySBC) annotation (Line(points={{8,46},{82,46},{82,
           26},{120,26}},     color={255,0,255}));
-  connect(operatingMode.ySBH, ySBH) annotation (Line(points={{-4,41},{8,41},{8,36},
-          {76,36},{76,0},{120,0}},            color={255,0,255}));
-  connect(operatingMode.yOcc, yOcc) annotation (Line(points={{-4,51.4},{12,51.4},
-          {12,52},{92,52},{92,52},{120,52}}, color={255,0,255}));
-  connect(operatingMode.sbcReq,sbcReq)  annotation (Line(points={{-28,43},{-60,43},
-          {-60,28},{-120,28}},                  color={255,127,0}));
-  connect(operatingMode.sbhReq,sbhReq)  annotation (Line(points={{-28,40},{-50,40},
-          {-50,0},{-120,0}},                      color={255,127,0}));
-  connect(operatingMode.TotalTU, conInt.y) annotation (Line(points={{-28,46},{-68,
-          46},{-68,16},{-72,16}},                       color={255,127,0}));
+  connect(operatingMode.ySBH, ySBH) annotation (Line(points={{8,41},{10,41},{10,
+          42},{78,42},{78,0},{120,0}},color={255,0,255}));
+  connect(operatingMode.yOcc, yOcc) annotation (Line(points={{8,51.4},{12,51.4},
+          {12,52},{120,52}},                 color={255,0,255}));
+  connect(operatingMode.sbcReq,sbcReq)  annotation (Line(points={{-16,43},{-60,
+          43},{-60,28},{-120,28}},    color={255,127,0}));
+  connect(operatingMode.sbhReq,sbhReq)  annotation (Line(points={{-16,40},{-50,
+          40},{-50,0},{-120,0}},   color={255,127,0}));
+  connect(operatingMode.TotalTU, conInt.y) annotation (Line(points={{-16,46},{
+          -68,46},{-68,16},{-72,16}},  color={255,127,0}));
   connect(operatingMode.occReq,occReq)  annotation (Line(
-      points={{-28,49},{-120,49},{-120,54}},
+      points={{-16,49},{-120,49},{-120,54}},
       color={255,127,0},
       smooth=Smooth.Bezier));
-  connect(tSupSet.totCoolReqs, totCoolReqs) annotation (Line(points={{26.2,19},{
-          -40,19},{-40,-28},{-120,-28}},          color={255,127,0}));
-  connect(tSupSet.TotalTU, conInt.y) annotation (Line(points={{26.2,24.4},{-68,24.4},
-          {-68,16},{-72,16}},           color={255,127,0}));
+  connect(tSupSet.totCoolReqs, totCoolReqs) annotation (Line(points={{42.2,19},
+          {-40,19},{-40,-28},{-120,-28}},         color={255,127,0}));
+  connect(tSupSet.TotalTU, conInt.y) annotation (Line(points={{42.2,24.4},{-68,
+          24.4},{-68,16},{-72,16}},     color={255,127,0}));
   annotation (defaultComponentName="conBAS",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
             100,100}}), graphics={Rectangle(extent={{-100,100},{100,-100}},
@@ -288,8 +287,9 @@ for more details.
 </p>
 <h4>Down Duct Static Pressure Set Point</h4>
 <p>
-The down duct static pressure sequence monitors the most open terminal unit primary air damper position (<code>mostOpenDam</code>).
-The down duct static pressure sequence outputs the active down duct static pressure set point (<code>yDDSPset</code>).
+The down duct static pressure sequence monitors the most open terminal unit primary air damper position 
+(<code>mostOpenDam</code>). The down duct static pressure sequence outputs the active down duct static pressure set point 
+(<code>yDDSPset</code>).
 
 See
 <a href=\"modelica://Buildings.Controls.OBC.FDE.PackagedRTUs.DDSPset\">
@@ -298,8 +298,10 @@ for more details.
 </p>
 <h4>Minimum Outside Air Flow</h4>
 <p>
-The minimum outside air sequence monitors the unit occupied mode (<code>Occ</code>).
-The minimum outside air sequence outputs the active outside air flow set point (<code>yMinOAflowSet</code>).
+The minimum outside air sequence monitors the unit occupied mode 
+(<code>Occ</code>).
+The minimum outside air sequence outputs the active outside air flow set point 
+(<code>yMinOAflowSet</code>).
 
 See
 <a href=\"modelica://Buildings.Controls.OBC.FDE.PackagedRTUs.MinOAset\">

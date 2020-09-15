@@ -7,7 +7,6 @@ model MinOAset "This model simulates MinOAset"
     annotation (Placement(transformation(extent={{-42,-10},{-22,10}})));
 equation
 
-
   connect(OccGen.y, MinOAset.occ)
     annotation (Line(points={{-20,0},{10,0}}, color={255,0,255}));
   annotation (

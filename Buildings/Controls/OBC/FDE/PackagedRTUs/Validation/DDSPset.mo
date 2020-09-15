@@ -1,5 +1,29 @@
 within Buildings.Controls.OBC.FDE.PackagedRTUs.Validation;
-model DDSPset "This model simulates DDSPset"
+model DDSPset
+  "This model simulates DDSPset"
+
+ parameter Real minDDSPset(
+   min=0,
+   final unit="Pa",
+   final displayUnit="bar",
+   final quantity="PressureDifference")=125
+  "Minimum down duct static pressure reset value"
+  annotation (Dialog(group="DDSP range"));
+
+ parameter Real maxDDSPset(
+   min=0,
+   final unit="Pa",
+   final displayUnit="bar",
+   final quantity="PressureDifference")=500
+  "Maximum down duct static pressure reset value"
+  annotation (Dialog(group="DDSP range"));
+
+ parameter Real DamSet(
+   min=0,
+   max=1,
+   final unit="1")=0.9
+   "DDSP terminal damper percent open set point";
+
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine mostOpenDamGen(
     amplitude=0.15,
     freqHz=1/4120,

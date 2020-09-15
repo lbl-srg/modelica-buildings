@@ -83,7 +83,6 @@ equation
           {-54,-28},{-42,-28},{-42,82},{-68,82}}, color={255,0,255}));
   connect(con.y, totCoolReqsGen.reset) annotation (Line(points={{-106,-62},
           {-54,-62},{-54,-55.2}}, color={255,0,255}));
-
   connect(OccGen.y, basCont.occ) annotation (Line(points={{-68,82},{-4,82},{-4,
           21.4},{44,21.4}}, color={255,0,255}));
   connect(OccReqGen.y, basCont.occReq) annotation (Line(points={{-46.8,50},{-8,

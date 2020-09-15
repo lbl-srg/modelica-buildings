@@ -6,7 +6,7 @@ package PackagedRTUs "Standard packaged RTU sequences"
 
 
   annotation (Documentation(info="<html>
-<p>This package contains BAS interface controls for packaged factory controledl sequences. </p>
+<p>This package contains BAS interface controls for packaged factory controlled sequences.</p>
 </html>", revisions="<html>
 <ul>
 <li>May 28, 2020, by Henry Nickels:<br>First implementation. </li>
