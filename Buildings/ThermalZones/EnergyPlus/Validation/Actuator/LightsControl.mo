@@ -14,7 +14,7 @@ model LightsControl "Validation model for one actuator that controls the lights"
     key="LIVING ZONE Lights",
     y(final unit="W"))
     "Block that reads output from EnergyPlus"
-    annotation (Placement(transformation(extent={{0,80},{20,100}})));
+    annotation (Placement(transformation(extent={{20,60},{40,80}})));
 
   Controls.OBC.CDL.Utilities.SunRiseSet sunRiseSet(
     lat=0.73268921998722,
@@ -27,12 +27,12 @@ model LightsControl "Validation model for one actuator that controls the lights"
     annotation (Placement(transformation(extent={{-150,38},{-130,58}})));
   Controls.OBC.CDL.Continuous.Sources.ModelTime modTim "Model time"
     annotation (Placement(transformation(extent={{-150,66},{-130,86}})));
-  Controls.OBC.CDL.Continuous.LessEqualThreshold lesEquThr(threshold=22*3600)
+  Controls.OBC.CDL.Continuous.LessThreshold lesEquThr(t=22*3600)
     "Check whether time is earlier than 22:00"
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
   Controls.OBC.CDL.Continuous.Add timToSunSet(k2=-1) "Time to next sunset"
     annotation (Placement(transformation(extent={{-100,130},{-80,150}})));
-  Controls.OBC.CDL.Continuous.LessEqualThreshold lesEquThr1(threshold=1800)
+  Controls.OBC.CDL.Continuous.LessThreshold lesEquThr1(t=1800)
     "Block that outputs true if sun sets in less than 30 minutes"
     annotation (Placement(transformation(extent={{-70,130},{-50,150}})));
   Controls.OBC.CDL.Logical.Or or2
@@ -45,7 +45,7 @@ model LightsControl "Validation model for one actuator that controls the lights"
     annotation (Placement(transformation(extent={{60,100},{80,120}})));
   Controls.OBC.CDL.Logical.Not not1 "Output true if the sun is down"
     annotation (Placement(transformation(extent={{-70,100},{-50,120}})));
-  Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr(threshold=12*3600)
+  Controls.OBC.CDL.Continuous.GreaterThreshold greEquThr(t=12*3600)
     "Output true after noon"
     annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
   Controls.OBC.CDL.Logical.And and1

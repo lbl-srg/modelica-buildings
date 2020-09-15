@@ -24,7 +24,7 @@ class FMUOutputVariableClass
     input Boolean printUnit "Set to true to print unit of OutputVariable objects to log file";
     output FMUOutputVariableClass adapter;
 
-    external "C" adapter = OutputVariableAllocate(
+    external "C" adapter = SpawnOutputVariableAllocate(
       modelicaNameBuilding,
       modelicaNameOutputVariable,
       idfName,
@@ -36,8 +36,11 @@ class FMUOutputVariableClass
       buildingsLibraryRoot,
       verbosity,
       printUnit)
-      annotation (Library={"ModelicaBuildingsEnergyPlus", "fmilib_shared", "dl"});
-      // dl provides dlsym to load EnergyPlus dll, which is needed by OpenModelica compiler
+      annotation (
+        Include="#include <EnergyPlusWrapper.c>",
+        IncludeDirectory="modelica://Buildings/Resources/C-Sources",
+        Library={"ModelicaBuildingsEnergyPlus", "fmilib_shared"});
+
 
 
     annotation (Documentation(info="<html>
@@ -61,8 +64,8 @@ First implementation.
     extends Modelica.Icons.Function;
 
     input FMUOutputVariableClass adapter;
-    external "C" OutputVariableFree(adapter)
-      annotation (Library={"ModelicaBuildingsEnergyPlus", "fmilib_shared", "dl"});
+    external "C" EnergyPlusOutputVariableFree(adapter)
+      annotation (Library={"ModelicaBuildingsEnergyPlus", "fmilib_shared"});
       // dl provides dlsym to load EnergyPlus dll, which is needed by OpenModelica compiler
 
   annotation(Documentation(info="<html>

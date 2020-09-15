@@ -6,6 +6,7 @@
 #ifndef Buildings_ZoneInstantiate_h
 #define Buildings_ZoneInstantiate_h
 
+#include "EnergyPlusTypes.h"
 #include "EnergyPlusFMU.h"
 #include "BuildingInstantiate.h"
 
@@ -19,6 +20,6 @@
 #include "fmilib.h"
 #include "JM/jm_portability.h"
 
-void ZoneInstantiate(void* object, double t0, double* AFlo, double* V, double* mSenFac);
+LBNL_EnergyPlus_EXPORT void EnergyPlusZoneInstantiate(void* object, double t0, double* AFlo, double* V, double* mSenFac);
 
 #endif

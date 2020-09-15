@@ -18,7 +18,7 @@ model StandBy "Validate model StandBy"
 
   Modelica.StateGraph.Step staBy(nOut=2) "Plant is in standby mode"
     annotation (Placement(transformation(extent={{-20,70},{0,90}})));
-  Modelica.StateGraph.Step pumOn(nOut=2) "Plant pump is on"
+  Modelica.StateGraph.Step pumOn "Plant pump is on"
     annotation (Placement(transformation(extent={{40,70},{60,90}})));
 protected
   Modelica.Blocks.Sources.BooleanTable avaSig(table={300,600,900,1260})
