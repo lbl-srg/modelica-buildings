@@ -33,7 +33,7 @@ model Pulse "Validation model for the Boolean Pulse block"
 
   annotation (
   experiment(
-      StopTime=10,
+      StopTime=5,
       Tolerance=1e-06,
       __Dymola_Algorithm="Cvode"),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Logical/Sources/Validation/Pulse.mos"

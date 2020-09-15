@@ -38,7 +38,7 @@ model Pulse "Validation model for the Integer Pulse block"
     annotation (Placement(transformation(extent={{-10,40},{10,60}})));
   annotation (
   experiment(
-      StopTime=10,
+      StopTime=5,
       Tolerance=1e-06,
       __Dymola_Algorithm="Cvode"),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Integers/Sources/Validation/Pulse.mos"
@@ -51,7 +51,7 @@ Buildings.Controls.OBC.CDL.Integers.Sources.Pulse</a>.
 </p>
 </html>", revisions="<html>
 <ul>
-<li>, 
+<li>,
 September 8, 2020, by Milica Grahovac:<br/>
 First implementation.
 </li>
