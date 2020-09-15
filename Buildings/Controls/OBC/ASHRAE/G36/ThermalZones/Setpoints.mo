@@ -66,8 +66,7 @@ block Setpoints
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZonCooSetOcc(
     final unit="K",
     final displayUnit="degC",
-    final quantity="ThermodynamicTemperature")
-    "Occupied zone cooling setpoint"
+    final quantity="ThermodynamicTemperature") "Occupied zone cooling setpoint"
     annotation (Placement(transformation(extent={{-460,510},{-420,550}}),
         iconTransformation(extent={{-140,120},{-100,160}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZonCooSetUno(
