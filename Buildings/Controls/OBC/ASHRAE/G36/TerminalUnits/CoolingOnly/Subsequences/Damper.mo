@@ -293,12 +293,15 @@ implementation is according to Section 5.5.5 of ASHRAE Guideline 36 (G36), May 2
 </p>
 <ol>
 <li>
-When the zone state is cooling, the cooling-loop output shall be mapped to the
-active airflow setpoint from the minimum to the cooling maximum airflow setpoints.
+When the zone state (<code>uZonSta</code>) is cooling, the cooling-loop output 
+(<code>uCoo</code>) shall be mapped to the active airflow setpoint from the
+minimum (<code>VActMin_flow</code>) to the cooling maximum airflow setpoints
+(<code>VActCooMax_flow</code>).
 <ul>
 <li>
-If supply air temperature from the air handler is greater than room temperature,
-cooling supply airflow setpoint shall be no higher than the minimum.
+If supply air temperature <code>TSup</code> from the air handler is greater than
+room temperature <code>TZon</code>, cooling supply airflow setpoint shall be
+no higher than the minimum.
 </li>
 </ul>
 </li>
@@ -307,8 +310,8 @@ When the zone state is deadband or heating, the active airflow setpoint shall be
 the minimum airflow setpoint.
 </li>
 <li>
-The VAV damper shall be modulated by a control loop to maintain the measured
-airflow at the active setpoint.
+The VAV damper <code>yDam</code> shall be modulated by a control loop to maintain
+the measured airflow <code>VDis_flow</code> at the active setpoint.
 </li>
 </ol>
 <p>The sequences of controlling damper position for the cooling only terminal

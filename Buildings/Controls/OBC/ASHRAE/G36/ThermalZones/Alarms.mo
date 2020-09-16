@@ -98,50 +98,36 @@ block Alarms "Zone level alarms"
     annotation (Placement(transformation(extent={{160,210},{180,230}})));
   Buildings.Controls.OBC.CDL.Logical.Not notSupTemAla
     "Do not suppress temperature alarms"
-    annotation (Placement(transformation(extent={{20,10},{40,30}})));
+    annotation (Placement(transformation(extent={{0,10},{20,30}})));
   Buildings.Controls.OBC.CDL.Logical.And and2
     "Check if alarms should be generated"
-    annotation (Placement(transformation(extent={{-60,210},{-40,230}})));
+    annotation (Placement(transformation(extent={{-80,210},{-60,230}})));
   Buildings.Controls.OBC.CDL.Logical.And and1
     "Check if alarms should be generated"
-    annotation (Placement(transformation(extent={{-60,170},{-40,190}})));
+    annotation (Placement(transformation(extent={{-80,170},{-60,190}})));
   Buildings.Controls.OBC.CDL.Logical.And and3
     "Check if alarms should be generated"
-    annotation (Placement(transformation(extent={{-60,90},{-40,110}})));
+    annotation (Placement(transformation(extent={{-80,90},{-60,110}})));
   Buildings.Controls.OBC.CDL.Logical.And and4
     "Check if alarms should be generated"
-    annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
+    annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt(
     final integerTrue=3)
     "Level 3 high temperature alarm"
-    annotation (Placement(transformation(extent={{20,210},{40,230}})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt1(
-    final integerTrue=-1)
-    "Decrease 1 level of high temperature alarm"
-    annotation (Placement(transformation(extent={{20,170},{40,190}})));
-  Buildings.Controls.OBC.CDL.Integers.Add higTemAla1
-    "High temperature alarms"
-    annotation (Placement(transformation(extent={{60,190},{80,210}})));
+    annotation (Placement(transformation(extent={{0,210},{20,230}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt2(
     final integerTrue=3)
     "Level 3 low temperature alarm"
-    annotation (Placement(transformation(extent={{20,90},{40,110}})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt3(
-    final integerTrue=-1)
-    "Decrease 1 level of low temperature alarm"
-    annotation (Placement(transformation(extent={{20,50},{40,70}})));
-  Buildings.Controls.OBC.CDL.Integers.Add lowTemAla1
-    "Low temperature alarms"
-    annotation (Placement(transformation(extent={{60,70},{80,90}})));
+    annotation (Placement(transformation(extent={{0,90},{20,110}})));
   Buildings.Controls.OBC.CDL.Integers.Equal levThrHig
     "Check if generating level 3 high temperature alarm"
     annotation (Placement(transformation(extent={{120,210},{140,230}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant levTwo(
     final k=2) "Level 2 alarm"
-    annotation (Placement(transformation(extent={{20,-70},{40,-50}})));
+    annotation (Placement(transformation(extent={{0,-70},{20,-50}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant levThr(
     final k=3) "Level 3 alarm"
-    annotation (Placement(transformation(extent={{20,-30},{40,-10}})));
+    annotation (Placement(transformation(extent={{0,-30},{20,-10}})));
   Buildings.Controls.OBC.CDL.Utilities.Assert higTemAla2(
     final message="Warning: zone temperature is 3 degC higher than the cooling setpoint")
     "Level 2 high temperature alarm"
@@ -219,19 +205,19 @@ block Alarms "Zone level alarms"
   Buildings.Controls.OBC.CDL.Logical.TrueDelay tenMinDur(
     final delayTime=timChe)
     "Check if it has been over threshold time"
-    annotation (Placement(transformation(extent={{-20,90},{0,110}})));
+    annotation (Placement(transformation(extent={{-40,90},{-20,110}})));
   Buildings.Controls.OBC.CDL.Logical.TrueDelay tenMinDur1(
     final delayTime=timChe)
     "Check if it has been over threshold time"
-    annotation (Placement(transformation(extent={{-20,50},{0,70}})));
+    annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
   Buildings.Controls.OBC.CDL.Logical.TrueDelay tenMinDur2(
     final delayTime=timChe)
     "Check if it has been over threshold time"
-    annotation (Placement(transformation(extent={{-20,210},{0,230}})));
+    annotation (Placement(transformation(extent={{-40,210},{-20,230}})));
   Buildings.Controls.OBC.CDL.Logical.TrueDelay tenMinDur3(
     final delayTime=timChe)
     "Check if it has been over threshold time"
-    annotation (Placement(transformation(extent={{-20,170},{0,190}})));
+    annotation (Placement(transformation(extent={{-40,170},{-20,190}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant cooDowMod(
     final k=Buildings.Controls.OBC.ASHRAE.G36.Types.OperationModes.coolDown)
     "Cool down mode"
@@ -251,7 +237,7 @@ block Alarms "Zone level alarms"
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
   Buildings.Controls.OBC.CDL.Logical.Or or1
     "Check if the zone temperature alarms should be suppressed"
-    annotation (Placement(transformation(extent={{-20,10},{0,30}})));
+    annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu1 if have_CO2Sen
     "Check if current operation mode is warmup mode"
     annotation (Placement(transformation(extent={{-120,-130},{-100,-110}})));
@@ -270,6 +256,12 @@ block Alarms "Zone level alarms"
     final delayTime=timChe) if have_CO2Sen
     "Check if it has been over threshold time"
     annotation (Placement(transformation(extent={{-80,-230},{-60,-210}})));
+  Buildings.Controls.OBC.CDL.Logical.IntegerSwitch higTemAla
+    "High temperature alarms"
+    annotation (Placement(transformation(extent={{60,170},{80,190}})));
+  Buildings.Controls.OBC.CDL.Logical.IntegerSwitch lowTemAla
+    "Low temperature alarms"
+    annotation (Placement(transformation(extent={{60,50},{80,70}})));
 
 equation
   connect(lowTem.y, twoDegLow.u)
@@ -299,59 +291,44 @@ equation
   connect(intEqu4.y, or2.u2) annotation (Line(points={{-98,-60},{-90,-60},{-90,-28},
           {-82,-28}},color={255,0,255}));
   connect(uResSet, or1.u1)
-    annotation (Line(points={{-220,20},{-22,20}}, color={255,0,255}));
-  connect(or2.y, or1.u2) annotation (Line(points={{-58,-20},{-40,-20},{-40,12},{
-          -22,12}}, color={255,0,255}));
+    annotation (Line(points={{-220,20},{-42,20}}, color={255,0,255}));
+  connect(or2.y, or1.u2) annotation (Line(points={{-58,-20},{-50,-20},{-50,12},
+          {-42,12}},color={255,0,255}));
   connect(or1.y, notSupTemAla.u)
-    annotation (Line(points={{2,20},{18,20}}, color={255,0,255}));
+    annotation (Line(points={{-18,20},{-2,20}},
+                                              color={255,0,255}));
   connect(twoDegHig.y, and2.u1)
-    annotation (Line(points={{-98,220},{-62,220}}, color={255,0,255}));
+    annotation (Line(points={{-98,220},{-82,220}}, color={255,0,255}));
   connect(thrDegHig.y, and1.u1)
-    annotation (Line(points={{-98,180},{-62,180}}, color={255,0,255}));
+    annotation (Line(points={{-98,180},{-82,180}}, color={255,0,255}));
   connect(twoDegLow.y, and3.u1)
-    annotation (Line(points={{-98,100},{-62,100}}, color={255,0,255}));
+    annotation (Line(points={{-98,100},{-82,100}}, color={255,0,255}));
   connect(thrDegLow.y, and4.u1)
-    annotation (Line(points={{-98,60},{-62,60}}, color={255,0,255}));
+    annotation (Line(points={{-98,60},{-82,60}}, color={255,0,255}));
   connect(and2.y, tenMinDur2.u)
-    annotation (Line(points={{-38,220},{-22,220}}, color={255,0,255}));
+    annotation (Line(points={{-58,220},{-42,220}}, color={255,0,255}));
   connect(and1.y, tenMinDur3.u)
-    annotation (Line(points={{-38,180},{-22,180}}, color={255,0,255}));
+    annotation (Line(points={{-58,180},{-42,180}}, color={255,0,255}));
   connect(and3.y, tenMinDur.u)
-    annotation (Line(points={{-38,100},{-22,100}}, color={255,0,255}));
+    annotation (Line(points={{-58,100},{-42,100}}, color={255,0,255}));
   connect(and4.y, tenMinDur1.u)
-    annotation (Line(points={{-38,60},{-22,60}}, color={255,0,255}));
+    annotation (Line(points={{-58,60},{-42,60}}, color={255,0,255}));
   connect(not1.y, higTemAla3.u)
     annotation (Line(points={{182,220},{198,220}}, color={255,0,255}));
-  connect(booToInt.y, higTemAla1.u1) annotation (Line(points={{42,220},{50,220},
-          {50,206},{58,206}}, color={255,127,0}));
-  connect(booToInt1.y, higTemAla1.u2) annotation (Line(points={{42,180},{50,180},
-          {50,194},{58,194}}, color={255,127,0}));
   connect(tenMinDur2.y, booToInt.u)
-    annotation (Line(points={{2,220},{18,220}}, color={255,0,255}));
-  connect(tenMinDur3.y, booToInt1.u)
-    annotation (Line(points={{2,180},{18,180}}, color={255,0,255}));
-  connect(booToInt2.y, lowTemAla1.u1) annotation (Line(points={{42,100},{50,100},
-          {50,86},{58,86}}, color={255,127,0}));
-  connect(booToInt3.y, lowTemAla1.u2) annotation (Line(points={{42,60},{50,60},{
-          50,74},{58,74}}, color={255,127,0}));
+    annotation (Line(points={{-18,220},{-2,220}}, color={255,0,255}));
   connect(tenMinDur.y, booToInt2.u)
-    annotation (Line(points={{2,100},{18,100}}, color={255,0,255}));
-  connect(tenMinDur1.y, booToInt3.u)
-    annotation (Line(points={{2,60},{18,60}}, color={255,0,255}));
-  connect(notSupTemAla.y, and2.u2) annotation (Line(points={{42,20},{50,20},{50,
-          40},{-80,40},{-80,212},{-62,212}}, color={255,0,255}));
-  connect(notSupTemAla.y, and1.u2) annotation (Line(points={{42,20},{50,20},{50,
-          40},{-80,40},{-80,172},{-62,172}}, color={255,0,255}));
-  connect(notSupTemAla.y, and3.u2) annotation (Line(points={{42,20},{50,20},{50,
-          40},{-80,40},{-80,92},{-62,92}},   color={255,0,255}));
-  connect(notSupTemAla.y, and4.u2) annotation (Line(points={{42,20},{50,20},{50,
-          40},{-80,40},{-80,52},{-62,52}}, color={255,0,255}));
+    annotation (Line(points={{-18,100},{-2,100}}, color={255,0,255}));
+  connect(notSupTemAla.y, and2.u2) annotation (Line(points={{22,20},{30,20},{30,
+          40},{-90,40},{-90,212},{-82,212}}, color={255,0,255}));
+  connect(notSupTemAla.y, and1.u2) annotation (Line(points={{22,20},{30,20},{30,
+          40},{-90,40},{-90,172},{-82,172}}, color={255,0,255}));
+  connect(notSupTemAla.y, and3.u2) annotation (Line(points={{22,20},{30,20},{30,
+          40},{-90,40},{-90,92},{-82,92}},   color={255,0,255}));
+  connect(notSupTemAla.y, and4.u2) annotation (Line(points={{22,20},{30,20},{30,
+          40},{-90,40},{-90,52},{-82,52}}, color={255,0,255}));
   connect(not2.y, higTemAla2.u)
     annotation (Line(points={{182,180},{198,180}}, color={255,0,255}));
-  connect(higTemAla1.y, levThrHig.u1) annotation (Line(points={{82,200},{100,200},
-          {100,220},{118,220}}, color={255,127,0}));
-  connect(higTemAla1.y, levTwoHig.u1) annotation (Line(points={{82,200},{100,200},
-          {100,180},{118,180}}, color={255,127,0}));
   connect(not3.y, lowTemAla3.u)
     annotation (Line(points={{182,100},{198,100}}, color={255,0,255}));
   connect(not4.y, lowTemAla2.u)
@@ -364,18 +341,14 @@ equation
     annotation (Line(points={{142,100},{158,100}}, color={255,0,255}));
   connect(levTwoLow.y, not4.u)
     annotation (Line(points={{142,60},{158,60}}, color={255,0,255}));
-  connect(lowTemAla1.y, levThrLow.u1) annotation (Line(points={{82,80},{100,80},
-          {100,100},{118,100}}, color={255,127,0}));
-  connect(lowTemAla1.y, levTwoLow.u1) annotation (Line(points={{82,80},{100,80},
-          {100,60},{118,60}}, color={255,127,0}));
-  connect(levThr.y, levThrHig.u2) annotation (Line(points={{42,-20},{90,-20},{90,
-          212},{118,212}}, color={255,127,0}));
-  connect(levThr.y, levThrLow.u2) annotation (Line(points={{42,-20},{90,-20},{90,
-          92},{118,92}}, color={255,127,0}));
-  connect(levTwo.y, levTwoHig.u2) annotation (Line(points={{42,-60},{110,-60},{110,
-          172},{118,172}}, color={255,127,0}));
-  connect(levTwo.y, levTwoLow.u2) annotation (Line(points={{42,-60},{110,-60},{110,
-          52},{118,52}}, color={255,127,0}));
+  connect(levThr.y, levThrHig.u2) annotation (Line(points={{22,-20},{90,-20},{
+          90,212},{118,212}}, color={255,127,0}));
+  connect(levThr.y, levThrLow.u2) annotation (Line(points={{22,-20},{90,-20},{
+          90,92},{118,92}}, color={255,127,0}));
+  connect(levTwo.y, levTwoHig.u2) annotation (Line(points={{22,-60},{110,-60},{
+          110,172},{118,172}}, color={255,127,0}));
+  connect(levTwo.y, levTwoLow.u2) annotation (Line(points={{22,-60},{110,-60},{
+          110,52},{118,52}}, color={255,127,0}));
   connect(unoMod.y, intEqu1.u1)
     annotation (Line(points={{-158,-120},{-122,-120}}, color={255,127,0}));
   connect(uOpeMod, intEqu1.u2) annotation (Line(points={{-220,-40},{-140,-40},{-140,
@@ -414,10 +387,6 @@ equation
           {-20,-200},{78,-200}}, color={255,0,255}));
   connect(not6.y, lowTemAla5.u)
     annotation (Line(points={{22,-220},{198,-220}}, color={255,0,255}));
-  connect(higTemAla1.y, temAla.u1) annotation (Line(points={{82,200},{100,200},{
-          100,146},{138,146}}, color={255,127,0}));
-  connect(lowTemAla1.y, temAla.u2) annotation (Line(points={{82,80},{100,80},{100,
-          134},{138,134}}, color={255,127,0}));
   connect(booToInt4.y, co2Ala.u1) annotation (Line(points={{102,-160},{120,-160},
           {120,-174},{138,-174}}, color={255,127,0}));
   connect(booToInt5.y, co2Ala.u2) annotation (Line(points={{102,-200},{120,-200},
@@ -428,6 +397,30 @@ equation
     annotation (Line(points={{162,-180},{260,-180}}, color={255,127,0}));
   connect(TZon, lowTem.u2) annotation (Line(points={{-220,220},{-180,220},{-180,
           80},{-160,80},{-160,88}}, color={0,0,127}));
+  connect(tenMinDur3.y, higTemAla.u2)
+    annotation (Line(points={{-18,180},{58,180}}, color={255,0,255}));
+  connect(tenMinDur1.y, lowTemAla.u2)
+    annotation (Line(points={{-18,60},{58,60}}, color={255,0,255}));
+  connect(levTwo.y, higTemAla.u1) annotation (Line(points={{22,-60},{40,-60},{40,
+          188},{58,188}}, color={255,127,0}));
+  connect(levTwo.y, lowTemAla.u1) annotation (Line(points={{22,-60},{40,-60},{40,
+          68},{58,68}}, color={255,127,0}));
+  connect(booToInt.y, higTemAla.u3) annotation (Line(points={{22,220},{50,220},{
+          50,172},{58,172}}, color={255,127,0}));
+  connect(booToInt2.y, lowTemAla.u3) annotation (Line(points={{22,100},{50,100},
+          {50,52},{58,52}}, color={255,127,0}));
+  connect(higTemAla.y, levTwoHig.u1)
+    annotation (Line(points={{82,180},{118,180}}, color={255,127,0}));
+  connect(higTemAla.y, levThrHig.u1) annotation (Line(points={{82,180},{100,180},
+          {100,220},{118,220}}, color={255,127,0}));
+  connect(higTemAla.y, temAla.u1) annotation (Line(points={{82,180},{100,180},{100,
+          146},{138,146}}, color={255,127,0}));
+  connect(lowTemAla.y, levTwoLow.u1)
+    annotation (Line(points={{82,60},{118,60}}, color={255,127,0}));
+  connect(lowTemAla.y, levThrLow.u1) annotation (Line(points={{82,60},{100,60},{
+          100,100},{118,100}}, color={255,127,0}));
+  connect(lowTemAla.y, temAla.u2) annotation (Line(points={{82,60},{100,60},{100,
+          134},{138,134}}, color={255,127,0}));
 
 annotation (defaultComponentName="zonAla",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
