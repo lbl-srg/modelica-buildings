@@ -161,13 +161,13 @@ model CoolingTowerWithBypass "Cooling tower system with bypass valve"
     Ti=60,
     reset=Buildings.Types.Reset.Parameter,
     y_reset=0)
-           "Bypass valve controller"
+    "Bypass valve controller"
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
 
   Buildings.Controls.Continuous.LimPID cooTowSpeCon(
     u_s(unit="K", displayUnit="degC"),
     u_m(unit="K", displayUnit="degC"),
-    final reverseAction=true,
+    final reverseActing=false,
     controllerType=controllerType,
     k=k,
     Ti=Ti) "Cooling tower fan speed controller"
