@@ -148,7 +148,7 @@ Documentation(info="<html>
 <p>
 This block outputs the active maximum and minimum airflow setpoint for cooling only
 terminal unit. The implementation is according to the Section 5.5.4 of ASHRAE
-Guideline 36, May, 2020.
+Guideline 36, May 2020.
 </p>
 
 <p>The setpoints shall vary depending on the mode of the zone group.</p>

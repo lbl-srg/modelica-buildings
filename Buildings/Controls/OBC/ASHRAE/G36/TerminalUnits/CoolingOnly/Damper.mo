@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.CoolingOnly;
-block DamperValves
-  "Output signals for controlling VAV reheat box damper and valve position"
+block Damper
+  "Output signals for controlling VAV cooling only box damper position"
   parameter Boolean have_pressureIndependentDamper=true
      "True: the VAV damper is pressure independent (with built-in flow controller)"
      annotation(Dialog(group="Damper control"));
@@ -44,57 +44,57 @@ block DamperValves
     final unit="m3/s",
     final quantity="VolumeFlowRate") "Active minimum airflow rate"
     annotation (Placement(transformation(extent={{-240,110},{-200,150}}),
-        iconTransformation(extent={{-140,40},{-100,80}})));
+        iconTransformation(extent={{-140,70},{-100,110}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSup(
     final quantity="ThermodynamicTemperature",
     final unit="K",
     final displayUnit="degC")
     "Supply air temperature from the air handler"
     annotation (Placement(transformation(extent={{-240,80},{-200,120}}),
-        iconTransformation(extent={{-140,-90},{-100,-50}})));
+        iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZon(
     final quantity="ThermodynamicTemperature",
     final unit="K",
     final displayUnit="degC") "Measured zone temperature"
     annotation (Placement(transformation(extent={{-240,40},{-200,80}}),
-        iconTransformation(extent={{-140,-90},{-100,-50}})));
+        iconTransformation(extent={{-140,10},{-100,50}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uCoo(
     final min=0,
     final max=1,
     final unit="1") "Cooling loop signal"
     annotation (Placement(transformation(extent={{-240,-10},{-200,30}}),
-        iconTransformation(extent={{-140,80},{-100,120}})));
+        iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VActCooMax_flow(
     final min=0,
     final unit="m3/s",
     final quantity="VolumeFlowRate") "Active cooling maximum airflow rate"
     annotation (Placement(transformation(extent={{-240,-50},{-200,-10}}),
-        iconTransformation(extent={{-140,40},{-100,80}})));
+        iconTransformation(extent={{-140,-50},{-100,-10}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uZonSta
     "Current zone state"
     annotation (Placement(transformation(extent={{-240,-110},{-200,-70}}),
-        iconTransformation(extent={{-140,20},{-100,60}})));
+        iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VDis_flow(
     final min=0,
     final unit="m3/s",
     final quantity="VolumeFlowRate") if not have_pressureIndependentDamper
     "Measured discharge airflow rate airflow rate"
     annotation (Placement(transformation(extent={{-240,-150},{-200,-110}}),
-        iconTransformation(extent={{-210,-92},{-170,-52}})));
+        iconTransformation(extent={{-140,-110},{-100,-70}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput VActSet_flow(
     final min=0,
     final unit="m3/s",
     final quantity="VolumeFlowRate")
     "Active airflow setpoint"
     annotation (Placement(transformation(extent={{200,-20},{240,20}}),
-        iconTransformation(extent={{34,190},{74,230}})));
+        iconTransformation(extent={{100,40},{140,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yDam(
     final min=0,
     final max=1,
     final unit="1")
     "Signal for VAV damper"
     annotation (Placement(transformation(extent={{200,-90},{240,-50}}),
-        iconTransformation(extent={{40,150},{80,190}})));
+        iconTransformation(extent={{100,-20},{140,20}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(
     final k=0) "Constant zero"
@@ -211,59 +211,37 @@ annotation (
           lineColor={0,0,255},
           textString="%name"),
         Text(
-          extent={{-98,68},{-62,54}},
+          extent={{-98,-24},{-52,-36}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="VActCooMax_flow"),
         Text(
-          extent={{-98,88},{-62,74}},
-          lineColor={0,0,127},
+          extent={{-100,-56},{-70,-64}},
+          lineColor={255,127,0},
           pattern=LinePattern.Dash,
-          textString="VActCooMin_flow"),
+          textString="uZonSta"),
         Text(
-          extent={{-98,-76},{-60,-90}},
-          lineColor={0,0,127},
-          pattern=LinePattern.Dash,
-          textString="VActHeaMax_flow"),
-        Text(
-          extent={{-98,-54},{-62,-66}},
-          lineColor={0,0,127},
-          pattern=LinePattern.Dash,
-          textString="VActHeaMin_flow"),
-        Text(
-          extent={{-98,44},{-70,38}},
+          extent={{-98,96},{-62,86}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="VActMin_flow"),
         Text(
-          extent={{-100,102},{-80,96}},
+          extent={{-100,4},{-80,-4}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="uCoo"),
         Text(
-          extent={{-100,-18},{-80,-24}},
+          extent={{-98,-86},{-68,-94}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="uHea"),
+          textString="VDis_flow"),
         Text(
-          extent={{-100,2},{-76,-4}},
-          lineColor={0,0,127},
-          pattern=LinePattern.Dash,
-          textString="THeaSet"),
-        Text(
-          extent={{-100,24},{-80,16}},
+          extent={{-100,64},{-80,56}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TSup"),
         Text(
-          extent={{-11.5,3.5},{11.5,-3.5}},
-          lineColor={0,0,127},
-          pattern=LinePattern.Dash,
-          textString="TDis",
-          origin={-41.5,-89.5},
-          rotation=90),
-        Text(
-          extent={{-100,-36},{-80,-42}},
+          extent={{-100,34},{-80,26}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TZon"),
@@ -276,17 +254,11 @@ annotation (
           rotation=90,
           textString="VDis_flow"),
         Text(
-          extent={{72,44},{98,34}},
+          extent={{74,6},{98,-4}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="yDam",
           horizontalAlignment=TextAlignment.Right),
-        Text(
-          extent={{66,-34},{98,-48}},
-          lineColor={0,0,127},
-          pattern=LinePattern.Dash,
-          horizontalAlignment=TextAlignment.Right,
-          textString="yHeaVal"),
         Line(points={{-50,64},{-50,-48},{62,-48}}, color={95,95,95}),
         Line(
           points={{-2,-22},{-2,-48}},
@@ -305,111 +277,52 @@ annotation (
       fillColor={95,95,95},
       fillPattern=FillPattern.Solid),
         Text(
-          extent={{60,88},{98,76}},
+          extent={{60,68},{98,56}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           horizontalAlignment=TextAlignment.Right,
-          textString="VDisSet_flow"),
-        Text(
-          extent={{60,-74},{98,-86}},
-          lineColor={0,0,127},
-          pattern=LinePattern.Dash,
-          horizontalAlignment=TextAlignment.Right,
-          textString="TDisHeaSet"),
-        Text(
-          extent={{-98,-96},{-78,-102}},
-          lineColor={0,0,127},
-          pattern=LinePattern.Dash,
-          textString="uOpeMod"),
+          textString="VActSet_flow"),
         Line(
           points={{-50,-20},{-2,-20},{18,-20},{64,40}},
           color={0,0,255},
           thickness=0.5)}),
-  Documentation(info="<html>
+Documentation(info="<html>
 <p>
-This sequence sets the damper and valve position for VAV reheat terminal unit.
-The implementation is according to ASHRAE Guideline 36 (G36), PART 5.E.6. The
-calculation is done following the steps below.
+This sequence sets the damper position for VAV cooling only terminal unit. The
+implementation is according to Section 5.5.5 of ASHRAE Guideline 36 (G36), May 2020.
 </p>
 <ol>
 <li>
-<p>
-When the zone state is cooling (<code>uCoo>0</code>), then the cooling loop output
-<code>uCoo</code> shall be mapped to the airflow
-setpoint from the cooling minimum <code>VActCooMin_flow</code> to the cooling maximum
-<code>VActCooMax_flow</code> airflow setpoints. The hot water valve is closed (<code>yHeaVal=0</code>)
-unless the discharge air temperature <code>TDis</code> is below the minimum
-setpoint (10 &deg;C).</p>
-</li>
-<li>
-<p>If supply air temperature <code>TSup</code> from the AHU is greater than
-room temperature <code>TZon</code>, cooling supply airflow setpoint shall be
-no higher than the minimum.
-</p>
-</li>
-<li>
-<p>
-When the zone state is Deadband (<code>uCoo=0</code> and <code>uHea=0</code>), then
-the active airflow setpoint shall be the minimum airflow setpoint <code>VActMin_flow</code>.
-Hot water valve is closed unless the discharge air temperature is below the minimum
-setpoint (10 &deg;C).
-</p>
-</li>
-<li>
-<p>
-When the zone state is Heating (<code>uHea>0</code>), then
-the heating loop shall maintain space temperature at the heating setpoint
-as follows:</p>
+When the zone state is cooling, the cooling-loop output shall be mapped to the
+active airflow setpoint from the minimum to the cooling maximum airflow setpoints.
 <ul>
-<li>From 0-50%, the heating loop output <code>uHea</code> shall reset the
-discharge temperature setpoint from current AHU SAT setpoint <code>TSup</code>
-to a maximum of <code>dTDisZonSetMax</code> above space temperature setpoint. The airflow
-setpoint shall be the heating minimum <code>VActHeaMin_flow</code>.</li>
-<li>From 50-100%, if the discharge air temperature <code>TDis</code> is
-greater than room temperature plus 2.8 Kelvin, the heating loop output <code>uHea</code>
-shall reset the airflow setpoint from the heating minimum airflow setpoint
-<code>VActHeaMin_flow</code> to the heating maximum airflow setpoint
-<code>VActHeaMax_flow</code>.</li>
+<li>
+If supply air temperature from the air handler is greater than room temperature,
+cooling supply airflow setpoint shall be no higher than the minimum.
+</li>
 </ul>
 </li>
 <li>
-<p>The hot water valve (or modulating electric heating coil) shall be modulated
-to maintain the discharge temperature at setpoint.
-</p>
+When the zone state is deadband or heating, the active airflow setpoint shall be
+the minimum airflow setpoint.
 </li>
 <li>
-<p>
 The VAV damper shall be modulated by a control loop to maintain the measured
 airflow at the active setpoint.
-</p>
 </li>
 </ol>
-
-<p>The sequences of controlling damper and valve position for VAV reheat terminal
+<p>The sequences of controlling damper position for the cooling only terminal
 unit are described in the following figure below.</p>
 <p align=\"center\">
-<img alt=\"Image of damper and valve control for VAV reheat terminal unit\"
-src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/TerminalUnits/Reheat/DamperValves.png\"/>
+<img alt=\"Image of damper control for VAV cooling only unit\"
+src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/TerminalUnits/CoolingOnly/Damper.png\"/>
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
-April 18, 2020, by Jianjun Hu:<br/>
-Added option to check if the VAV damper is pressure independent.<br/>
-This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1873\">#1873</a>.
-</li>
-<li>
-March 11, 2020, by Jianjun Hu:<br/>
-Replaced multisum block with add blocks, replaced gain block used for normalization
-with division block.<br/>
-This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1830\">#1830</a>.
-</li>
-<li>
-September 10, 2017, by Jianjun Hu:<br/>
+August 1, 2020, by Jianjun Hu:<br/>
 First implementation.
 </li>
 </ul>
 </html>"));
-end DamperValves;
+end Damper;

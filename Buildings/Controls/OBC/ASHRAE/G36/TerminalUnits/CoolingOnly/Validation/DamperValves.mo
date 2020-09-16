@@ -2,8 +2,8 @@ within Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.CoolingOnly.Validation;
 model DamperValves
   "Validate model for controlling damper and valve position of VAV reheat terminal unit"
 
-  Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.CoolingOnly.DamperValves damVal(kDam=1,
-      V_flow_nominal=2)
+  Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.CoolingOnly.Damper damVal(
+      kDam=1, V_flow_nominal=2)
     "Output signal for controlling VAV reheat box damper and valve position"
     annotation (Placement(transformation(extent={{60,40},{80,60}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp uHea(
