@@ -104,14 +104,33 @@ equation
           30}}, color={0,0,127}));
   connect(hys1.y, logiSwi1.u3) annotation (Line(points={{-19,30},{4,30},{4,122},
           {18,122}}, color={255,0,255}));
-  annotation (defaultComponentName = "SlabSetPerim", Documentation(info="<html>
+  annotation (defaultComponentName = "deaConErrSwi", Documentation(info="<html>
 <p>
 This determines calls for heating or cooling based on the slab error, ie the difference between the slab temperature and the slab temperature setpoint. 
-The user specifies two deadbands- one value for occupied hours (typically 0.5F), and one larger value for unoccupied hours (typically 4F). 
-The user also specifies the final occupied hour. The slab setpoint is selected at midnight each day based on that day's forecasted outdoor air high temperature.
+The user specifies two error thresholds- one value for occupied hours (TDeaNor, typically 0.5F), 
+and one larger value for unoccupied hours (TDeaRel,typically 4F), when slab temperature can fluctuate within a wider range. 
+These variables indicate the absolute value of the allowable slab error. 
+<p>
+<p>
+If this value is exceeded and slab temperature is below setpoint, heating is turned on. 
+If this value is exceeded and slab temperature is above setpoint, cooling is turned on. <p>
+<p>
+The user also specifies the final occupied hour (k). <p>
+
+<p>Finally, the user specifies whether or not heating and cooling should both be off when the slab error is within deadband (off_within_deadband).
+If this variable is true, neither heating nor cooling is requested when the slab error is smaller than the user-specified difference from slab setpoint
+(TDeaNor if the room is occupied, or TDeaRel if the room is unoccupied).  
+If this variable is false, either heating or cooling will be on at all times. 
+It is recommended that this variable be set to true, as setting this to false requires either heating or cooling to be on at all times,
+which is more energy intensive and may be impractical with many building designs. <p> 
+
+<p> The slab setpoint is selected at midnight each day based on that day's forecasted outdoor air high temperature.
 From this point until the building's last occupied hour, the building system attempts to meet the slab setpoint within the specified occupied deadband. 
-After the last occupied hour, the building system attempts to meet the slab setpoint within the specified unoccupied deadband. 
-If the slab temperature is above the setpoint + deadband, a call for cooling is produced. If the slab temperature is below the slab setpoint minus deadband, a call for heating is produced. 
+After the last occupied hour, the building system attempts to meet the slab setpoint within the specified unoccupied deadband. <p>
+
+<p>If the slab temperature is above the setpoint + deadband, a call for cooling is produced. 
+If the slab temperature is below the slab setpoint minus deadband, a call for heating is produced. <p>
+
 </p>
 </html>"),Icon(coordinateSystem(
         preserveAspectRatio=true,

@@ -1,6 +1,8 @@
 within Buildings.ThermalZones.Detailed.FLEXLAB.Rooms.X3A;
 model TestCell_Radiant "Model of LBNL User Test Facility Cell X3A"
-  extends Buildings.ThermalZones.Detailed.MixedAir(AFlo=45,
+  extends Buildings.ThermalZones.Detailed.MixedAir(
+    massDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
+                                                   AFlo=45,
       nSurBou=1,
       nConPar=0,
       nConBou=3,
@@ -14,12 +16,20 @@ model TestCell_Radiant "Model of LBNL User Test Facility Cell X3A"
         each til=Buildings.Types.Tilt.Floor),
       datConBou(
       layers={parCon,parCon,R20Wal},
+      steadyStateInitial=true,
+      T_a_start=293.15,
+      T_b_start=293.15,
+      stateAtSurface_b=false,
+      boundaryCondition=Buildings.ThermalZones.Detailed.Types.CFDBoundaryConditions.Temperature,
          A = {3 * 9, 5 * 3, 5*9},
          til = {Buildings.Types.Tilt.Wall, Buildings.Types.Tilt.Wall, Buildings.Types.Tilt.Ceiling},
          azi = {Buildings.Types.Azimuth.N, Buildings.Types.Azimuth.E, Buildings.Types.Azimuth.N},
-      stateAtSurface_a=true),
+      stateAtSurface_a=false),
       datConExtWin(
         layers={R25Wal, R25Wal},
+      steadyStateInitial=true,
+      stateAtSurface_a=false,
+      stateAtSurface_b=false,
       A={5*3,9*3},
         glaSys={glaSys,glaSys},
       hWin={2,2},
@@ -28,8 +38,16 @@ model TestCell_Radiant "Model of LBNL User Test Facility Cell X3A"
       azi={Buildings.Types.Azimuth.W,Buildings.Types.Azimuth.S}),
       intConMod=Buildings.HeatTransfer.Types.InteriorConvection.Temperature,
       extConMod=Buildings.HeatTransfer.Types.ExteriorConvection.TemperatureWind,
-      lat=0.66098585832754,
-    conBou(steadyStateInitial=true));
+    lat=0.66098585832754,
+    conBou(steadyStateInitial=true),
+    datConExt(
+      steadyStateInitial=true,
+      stateAtSurface_a=false,
+      stateAtSurface_b=false),
+    datConPar(
+      steadyStateInitial=true,
+      stateAtSurface_a=false,
+      stateAtSurface_b=false));
 
   replaceable parameter
     Data.Constructions.OpaqueConstructions.ExteriorConstructions.ConstructionRadiantR25Wall

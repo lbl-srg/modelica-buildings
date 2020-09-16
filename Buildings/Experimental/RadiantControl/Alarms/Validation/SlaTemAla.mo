@@ -21,20 +21,21 @@ model SlaTemAla "Validation model for slab temperature alarm"
     phase(displayUnit="rad"),
     offset=TemErr)
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
-  SlabTempAlarm slabTempAlarm(TiErr=TimErr, TErr=TemErr)
-    annotation (Placement(transformation(extent={{0,40},{34,60}})));
-  SlabTempAlarm slabTempAlarm1(TiErr=TimErr, TErr=TemErr)
-    annotation (Placement(transformation(extent={{0,0},{34,20}})));
+  SlabTempAlarm slaTemAla
+    annotation (Placement(transformation(extent={{0,40},{20,60}})));
+  SlabTempAlarm slaTemAla1
+    annotation (Placement(transformation(extent={{0,0},{20,20}})));
 equation
-  connect(sin.y, slabTempAlarm.slaTemError) annotation (Line(points={{-38,50},{-20,
-          50},{-20,53},{-17,53}},         color={0,0,127}));
-  connect(sin1.y, slabTempAlarm1.slaTemError) annotation (Line(points={{-38,10},
-          {-20,10},{-20,13},{-17,13}},        color={0,0,127}));
+  connect(sin.y, slaTemAla.slaTemErr) annotation (Line(points={{-38,50},{-20,50},
+          {-20,53},{-2,53}}, color={0,0,127}));
+  connect(sin1.y, slaTemAla1.slaTemErr) annotation (Line(points={{-38,10},{-20,
+          10},{-20,13},{-2,13}}, color={0,0,127}));
   annotation (Documentation(info="<html>
 <p>
-This model validates the slab temperature alarm, which should show true if slab has been a user-specified amount of of range for a user-specified amount of time.  
+This model validates the slab temperature alarm, which should show true if slab has been a user-specified amount out of range for a user-specified amount of time.  
 </p>
-</html>"),experiment(StopTime=172800.0, Tolerance=1e-06),Icon(graphics={
+</html>"),experiment(StopTime=172800.0, Tolerance=1e-06),__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/RadiantControl/Alarms/Validation/SlaTemAla.mos"
+        "Simulate and plot"), Icon(graphics={
         Ellipse(
           lineColor={75,138,73},
           fillColor={255,255,255},

@@ -26,10 +26,11 @@ equation
         color={0,0,127}));
   connect(tabSlab.y, TSlaSetPer) annotation (Line(points={{-64.1,-41},{-84,-41},
           {-84,-80},{78,-80},{78,0},{120,0}}, color={0,0,127}));
-  annotation (defaultComponentName = "SlabSetPerim",Documentation(info="<html>
+  annotation (defaultComponentName = "slaSetPer",Documentation(info="<html>
 <p>
-This determines the slab temperature setpoint for a perimeter zone from the forecast high OAT. Temperature setpoint is selected from a lookup table. 
-Note that this setpoint is determined differently than the setpoint for core zones, which is set to a constant value throughout the year (typically 70F). 
+This determines the slab temperature setpoint for a perimeter zone from the forecast high OAT. 
+Temperature setpoint is selected from a lookup table. 
+<p>Note that this setpoint is determined differently than the setpoint for core zones, which is set to a constant value throughout the year (typically 70F). <p>
 </p>
 </html>"),Icon(coordinateSystem(
         preserveAspectRatio=true,

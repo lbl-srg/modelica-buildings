@@ -1,9 +1,7 @@
 within Buildings.Experimental.RadiantControl.SlabTempSignal;
 block Error "Determines difference between slab temperature and slab setpoint"
-  Controls.OBC.CDL.Continuous.ChangeSign           chaSig
-    "Negates slab setpoint"
-    annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
-  Modelica.Blocks.Math.Add add "Slab temperature minus slab setpoint"
+  Modelica.Blocks.Math.Add add(k2=-1)
+                               "Slab temperature minus slab setpoint"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
   Controls.OBC.CDL.Interfaces.RealInput TSla "Slab temperature"
     annotation (Placement(transformation(extent={{-140,-10},{-100,30}})));
@@ -15,15 +13,15 @@ block Error "Determines difference between slab temperature and slab setpoint"
 equation
   connect(TSla, add.u1) annotation (Line(points={{-120,10},{-100,10},{-100,
           16},{-2,16}}, color={0,0,127}));
-  connect(TSlaSet, chaSig.u)
-    annotation (Line(points={{-120,-30},{-42,-30}}, color={0,0,127}));
   connect(add.y, slaTemErr)
     annotation (Line(points={{21,10},{120,10}}, color={0,0,127}));
-  connect(chaSig.y, add.u2) annotation (Line(points={{-18,-30},{-10,-30},{-10,4},
+  connect(TSlaSet, add.u2) annotation (Line(points={{-120,-30},{-62,-30},{-62,4},
           {-2,4}}, color={0,0,127}));
-  annotation (defaultComponentName = "Error",Documentation(info="<html>
+  annotation (defaultComponentName = "err",Documentation(info="<html>
 <p>
-This calculates the slab error, ie the difference between the slab temperature and its setpoint. This term is what drives calls for heating or for cooling. 
+This calculates the slab error, ie the difference between the slab temperature and its setpoint.
+This term is what drives calls for heating or for cooling. 
+
 </p>
 </html>"),Icon(coordinateSystem(
         preserveAspectRatio=true,

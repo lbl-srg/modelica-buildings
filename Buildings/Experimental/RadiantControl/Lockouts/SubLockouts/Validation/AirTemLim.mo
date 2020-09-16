@@ -3,7 +3,7 @@ model AirTemLim "Validation model for room air temperature lockouts"
 
   Controls.OBC.CDL.Continuous.Sources.Sine sin(
     amplitude=20,
-    freqHz=0.01,
+    freqHz=1/7200,
     phase(displayUnit="rad"),
     offset=TAirHiLim)
     annotation (Placement(transformation(extent={{-82,-80},{-62,-60}})));
@@ -52,10 +52,15 @@ equation
   annotation (Documentation(info="<html>
   <p>
   Validates the air temperature lockout model. 
-  If room air temperature is above a specified temperature threshold, heating is looked out.
+  If room air temperature is above a specified temperature threshold, heating is locked out.
   If room air temperature is below a specified temperature threshold, cooling is locked out.
+  Output is expressed as a heating or cooling signal. If the heating signal is true, heating is allowed (ie, it is not locked out).
+  If the cooling signal is true, cooling is allowed (ie, it is not locked out).
+  A true signal indicates only that heating or cooling is *permitted*- it does *not* indicate the actual status
+  of the final heating or cooling signal, which depends on the slab temperature and slab setpoint (see SlabTempSignal for more info).
 </p>
-</html>"),experiment(StopTime=172800.0, Tolerance=1e-06),Icon(graphics={
+</html>"),experiment(StartTime=0, StopTime=172800.0, Tolerance=1e-06),__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/RadiantControl/Lockouts/SubLockouts/Validation/AirTemLim.mos"
+        "Simulate and plot"),Icon(graphics={
         Ellipse(
           lineColor={75,138,73},
           fillColor={255,255,255},

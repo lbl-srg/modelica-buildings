@@ -67,10 +67,16 @@ equation
           {-40,1},{-22,1}}, color={0,0,127}));
   annotation (Documentation(info="<html>
 <p>
-This model validates all lockouts. Heating is locked out if room air temperature is too hot, if night flush mode is on, or if cooling was on within a user-specified amount of time. 
-Cooling is locked out if room air temperature is too cold, if chilled water return temperature si too cold, or if heating was on within a user-specified amount of time. 
+This model validates all lockouts. 
+Heating is locked out if room air temperature is too hot, 
+if night flush mode is on, 
+or if cooling was on within a user-specified amount of time. 
+Cooling is locked out if room air temperature is too cold, 
+if chilled water return temperature is too cold, 
+or if heating was on within a user-specified amount of time. 
 </p>
-</html>"),experiment(StopTime=172800.0, Tolerance=1e-06),Icon(graphics={
+</html>"),experiment(StopTime=172800.0, Tolerance=1e-06),__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/RadiantControl/Lockouts/Validation/AllLoc.mos"
+        "Simulate and plot"),Icon(graphics={
         Ellipse(
           lineColor={75,138,73},
           fillColor={255,255,255},

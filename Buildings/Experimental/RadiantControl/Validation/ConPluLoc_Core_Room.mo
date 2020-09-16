@@ -327,8 +327,8 @@ Fluid.Movers.FlowControlled_m_flow           pumHot(
     nPorts=2,
     redeclare package Medium = MediumA)
     annotation (Placement(transformation(extent={{-224,332},{-184,372}})));
-  SlabTempSignal.Validation.BaseClasses.SlabSetCore slabSetCore
-    annotation (Placement(transformation(extent={{-530,-78},{-510,-58}})));
+  Controls.OBC.CDL.Continuous.Sources.Constant           InteriorSetpoint1(k=294.3)
+    annotation (Placement(transformation(extent={{-546,-92},{-502,-48}})));
 equation
   connect(TBel.port, conBel1.port_a) annotation (Line(points={{82,-50},{20,-50}},
                                 color={191,0,0}));
@@ -424,17 +424,26 @@ equation
   connect(intGai1.y,testCell_Radiant_Interior. qGai_flow) annotation (Line(
         points={{-287,348},{-258,348},{-258,360},{-225.6,360}},
                                                         color={0,0,127}));
-  connect(slabSetCore.TSlaSetCor, controlPlusLockouts.TSlaSet) annotation (Line(
-        points={{-508,-67},{-480,-67},{-480,-86},{-401.818,-86}}, color={0,0,127}));
   connect(temRoom1.T, controlPlusLockouts.TRooAir) annotation (Line(points={{-163,
           204},{-270,204},{-270,228},{-480,228},{-480,-94},{-401.818,-94}},
         color={0,0,127}));
+  connect(InteriorSetpoint1.y, controlPlusLockouts.TSlaSet) annotation (Line(
+        points={{-497.6,-70},{-449.8,-70},{-449.8,-86},{-401.818,-86}}, color={0,
+          0,127}));
   annotation (Documentation(info="<html>
 <p>
-This models a radiant slab serving a core zone as per current control scheme. 
+This models a radiant slab serving a core zone. 
+The slab is controlled to 70F year round, following the control scheme specified in the Buildings.Experimental.RadiantControl.ControlPlusLockouts block.  
+<p> 
+The zone is 5 meters by 9 meters in floor area and is 3 meters in height.
+The zone has two exposed walls, each with windows: one oriented south, and the other oriented west. 
+The remaining walls are exposed to a constant-temperature boundary condition that is set to ~70F to approximate interior conditions. 
+<p>
+Chilled water and hot water are provided to the slab by constant temperature flow sources, at 10C (cooling) and 40 C (heating). 
 </p>
 </html>"),
-    experiment(Tolerance=1e-6, StopTime=31536000),
+   experiment(Tolerance=1e-6, StopTime=31536000),
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/RadiantControl/Validation/ConPluLoc_Core_Room.mos" "Simulate and plot"),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
          graphics={
         Ellipse(

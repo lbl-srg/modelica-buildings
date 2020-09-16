@@ -14,9 +14,14 @@ equation
     annotation (Line(points={{14,0},{120,0}}, color={255,0,255}));
   connect(nitFluSig, not1.u)
     annotation (Line(points={{-122,0},{-10,0}}, color={255,0,255}));
-  annotation (defaultComponentName = "NightFlush",Documentation(info="<html>
+  annotation (defaultComponentName = "NitFluLoc",Documentation(info="<html>
 <p>
-If night flush mode is on, heating is locked out. The purpose of this lockout is to allow the slab to be pre-cooled below its setpoint without the building's heating system coming on.  
+If night flush mode is on, heating is locked out. 
+The purpose of this lockout is to allow the slab to be pre-cooled below its setpoint without the building's heating system turning on.
+ Output is expressed as a heating or cooling signal. If the heating signal is true, heating is allowed (ie, it is not locked out).
+  If the cooling signal is true, cooling is allowed (ie, it is not locked out).
+  A true signal indicates only that heating or cooling is *permitted*- it does *not* indicate the actual status
+  of the final heating or cooling signal, which depends on the slab temperature and slab setpoint (see SlabTempSignal for more info).
 </p>
 </html>"),Icon(coordinateSystem(
         preserveAspectRatio=true,

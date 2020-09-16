@@ -25,7 +25,8 @@ equation
 <p>
 This validates the slab error model, ie the difference between the slab temperature and its setpoint.
 </p>
-</html>"),experiment(StopTime=172000.0, Tolerance=1e-06),Icon(graphics={
+</html>"),experiment(StartTime=0.0, StopTime=172000.0, Tolerance=1e-06),__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/RadiantControl/SlabTempSignal/Validation/Err.mos"
+        "Simulate and plot"),Icon(graphics={
         Ellipse(
           lineColor={75,138,73},
           fillColor={255,255,255},

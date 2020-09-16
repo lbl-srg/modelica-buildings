@@ -21,7 +21,8 @@ equation
 <p>
 This validates the slab setpoint for a perimeter zone based on forecast OAT.
 </p>
-</html>"),experiment(StopTime=1641600.0, Tolerance=1e-06),Icon(graphics={
+</html>"),experiment(StartTime=0, StopTime=1641600.0, Tolerance=1e-06),__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/RadiantControl/SlabTempSignal/Validation/SlaSetPer.mos"
+        "Simulate and plot"),Icon(graphics={
         Ellipse(
           lineColor={75,138,73},
           fillColor={255,255,255},

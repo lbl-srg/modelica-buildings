@@ -273,7 +273,7 @@ model X3BWithRadiantFloor "Example model showing a use of X3B"
         origin={-60,-126})));
 equation
   connect(airCon.y[1],airIn. m_flow_in) annotation (Line(
-      points={{-175,64},{-168,64},{-168,68},{-160,68}},
+      points={{-175,64},{-168,64},{-168,68},{-162,68}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(airCon.y[4],airIn. T_in) annotation (Line(
@@ -336,11 +336,11 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(airConEle.y[3], airInEle.m_flow_in) annotation (Line(
-      points={{-47,-38},{-36,-38},{-36,-34},{-16,-34}},
+      points={{-47,-38},{-36,-38},{-36,-34},{-18,-34}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(airConClo.y[2], airInClo.m_flow_in) annotation (Line(
-      points={{9,112},{20,112},{20,108},{40,108}},
+      points={{9,112},{20,112},{20,108},{38,108}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(airOutClo.ports[1],clo. ports[2]) annotation (Line(
@@ -392,7 +392,7 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(watCon4B2.y[1],watIn4B2. m_flow_in) annotation (Line(
-      points={{-227,-86},{-216,-86},{-216,-82},{-206,-82}},
+      points={{-227,-86},{-216,-86},{-216,-82},{-208,-82}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(watCon4B2.y[2],watIn4B2. T_in) annotation (Line(
@@ -400,7 +400,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(watCon4B3.y[1],watIn4B3. m_flow_in) annotation (Line(
-      points={{-259,-48},{-248,-48},{-248,-44},{-238,-44}},
+      points={{-259,-48},{-248,-48},{-248,-44},{-240,-44}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(watCon4B3.y[2],watIn4B3. T_in) annotation (Line(
@@ -408,7 +408,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(watCon4B4.y[1],watIn4B4. m_flow_in) annotation (Line(
-      points={{-279,-2},{-266,-2},{-266,2},{-252,2}},
+      points={{-279,-2},{-266,-2},{-266,2},{-254,2}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(watCon4B4.y[2],watIn4B4. T_in) annotation (Line(
@@ -489,7 +489,7 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(watCon4B1.y[1], watIn4B1.m_flow_in) annotation (Line(
-      points={{-187,-122},{-182,-122},{-182,-118},{-172,-118}},
+      points={{-187,-122},{-182,-122},{-182,-118},{-174,-118}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-300,

@@ -77,14 +77,14 @@ model DeaCon "Validation model for deadband control"
     off_within_deadband=OffFal)
     annotation (Placement(transformation(extent={{50,-92},{80,-60}})));
 equation
-  connect(sin.y, deadbandControlErrSwi.slaTemErr) annotation (Line(points={{-38,
-          30},{-24,30},{-24,40.8},{-21.7333,40.8}}, color={0,0,127}));
-  connect(sin1.y, deadbandControlErrSwi2.slaTemErr) annotation (Line(points={{-38,
-          -50},{-24,-50},{-24,-39.2},{-21.7333,-39.2}}, color={0,0,127}));
-  connect(sin1.y, deadbandControlErrSwi3.slaTemErr) annotation (Line(points={{-38,
-          -50},{-24,-50},{-24,-79.2},{-21.7333,-79.2}}, color={0,0,127}));
-  connect(sin.y, deadbandControlErrSwi1.slaTemErr) annotation (Line(points={{-38,
-          30},{-24,30},{-24,0.8},{-21.7333,0.8}}, color={0,0,127}));
+  connect(sin.y, deadbandControlErrSwi.slaTemErr) annotation (Line(points={{-38,30},
+          {-24,30},{-24,40.8},{-21.7333,40.8}},     color={0,0,127}));
+  connect(sin1.y, deadbandControlErrSwi2.slaTemErr) annotation (Line(points={{-38,-50},
+          {-24,-50},{-24,-39.2},{-21.7333,-39.2}},      color={0,0,127}));
+  connect(sin1.y, deadbandControlErrSwi3.slaTemErr) annotation (Line(points={{-38,-50},
+          {-24,-50},{-24,-79.2},{-21.7333,-79.2}},      color={0,0,127}));
+  connect(sin.y, deadbandControlErrSwi1.slaTemErr) annotation (Line(points={{-38,30},
+          {-24,30},{-24,0.8},{-21.7333,0.8}},     color={0,0,127}));
   connect(sin.y, deadbandControlErrSwiTest.slaTemErr) annotation (Line(points={
           {-38,30},{20,30},{20,61.28},{47.4,61.28}}, color={0,0,127}));
   connect(sin.y, deadbandControlErrSwiTestFAL.slaTemErr) annotation (Line(
@@ -96,9 +96,12 @@ equation
   annotation (Documentation(info="<html>
 <p>
 This validates the deadband control, which determines whether the slab is in heating or in cooling. 
-Two error sizes were tested, as well as two options- one in which the slab is allowed to receive no flow if it is within deadband, and the other in which the slab must receive either heating or cooling at all times.
+Two error sizes were tested, as well as two options- 
+one in which the slab is allowed to receive no flow if it is within deadband, 
+and the other in which the slab must receive either heating or cooling at all times.
 </p>
-</html>"),experiment(StopTime=172800.0, Tolerance=1e-06),Icon(
+</html>"),experiment(StartTime=0,StopTime=172800.0, Tolerance=1e-06),__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/RadiantControl/SlabTempSignal/Validation/DeaCon.mos"
+        "Simulate and plot"),Icon(
         coordinateSystem(extent={{-100,-120},{100,100}}),         graphics={
         Ellipse(
           lineColor={75,138,73},

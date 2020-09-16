@@ -2,16 +2,13 @@ within Buildings.Experimental.RadiantControl.Lockouts.SubLockouts;
 block CHWReturnLimit "Locks out cooling if chilled water return temperature is below user-specified threshold"
   parameter Real TWaLoSet(min=0,
     final unit="K",
-    final displayUnit="K",
+    final displayUnit="degC",
     final quantity="Temperature")=285.9
     "Lower limit for chilled water return temperature, below which cooling is locked out";
     parameter Real TiCHW(min=0,
     final unit="s",
     final displayUnit="s",
     final quantity="Time")=1800 "Time for which cooling is locked out if CHW return is too cold";
-  Controls.OBC.CDL.Continuous.Less           les2
-    "Lock out cooling for 30 minutes if CHW return temperature is below low limit"
-    annotation (Placement(transformation(extent={{-20,0},{0,20}})));
   Controls.OBC.CDL.Logical.TrueHoldWithReset           truHol(duration=TiCHW)
     "Holds signal for 30 mins"
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
@@ -23,23 +20,31 @@ block CHWReturnLimit "Locks out cooling if chilled water return temperature is b
   Controls.OBC.CDL.Interfaces.BooleanOutput cooSigCHWRet
     "True if water temperature is above low threshhold, false if not"
     annotation (Placement(transformation(extent={{100,-10},{140,30}})));
-  Modelica.Blocks.Sources.Constant TWaLo(k=TWaLoSet)
-    "Water temperature low limit"
-    annotation (Placement(transformation(extent={{-52,-56},{-32,-36}})));
+  Controls.OBC.CDL.Continuous.Hysteresis hys1(uLow=TWaLoSet, uHigh=TWaLoSet +
+        0.1)
+    "Lock out cooling for 30 minutes if CHW return temperature is below low limit"
+    annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
+  Controls.OBC.CDL.Logical.Not           not1
+    "Negates signal so that cooling is locked out if CHW return water temp is too low"
+    annotation (Placement(transformation(extent={{-20,0},{0,20}})));
 equation
   connect(truHol.y, not6.u)
     annotation (Line(points={{42,10},{58,10}}, color={255,0,255}));
   connect(not6.y, cooSigCHWRet)
     annotation (Line(points={{82,10},{120,10}}, color={255,0,255}));
-  connect(TWater, les2.u1) annotation (Line(points={{-120,20},{-72,20},{-72,
-          10},{-22,10}}, color={0,0,127}));
-  connect(TWaLo.y, les2.u2) annotation (Line(points={{-31,-46},{-26,-46},{
-          -26,2},{-22,2}}, color={0,0,127}));
-  connect(les2.y, truHol.u)
+  connect(TWater, hys1.u) annotation (Line(points={{-120,20},{-92,20},{-92,10},
+          {-62,10}}, color={0,0,127}));
+  connect(hys1.y, not1.u)
+    annotation (Line(points={{-38,10},{-22,10}}, color={255,0,255}));
+  connect(not1.y, truHol.u)
     annotation (Line(points={{2,10},{18,10}}, color={255,0,255}));
-  annotation (defaultComponentName = "CHWReturnLimit",Documentation(info="<html>
+  annotation (defaultComponentName = "cHWRetLim",Documentation(info="<html>
 <p>
-If chilled water return temperature is below a user-specified threshold, cooling is locked out for a user-specified amount of time (typically 0.5 hours). 
+If chilled water return temperature is below a user-specified threshold, cooling is locked out for a user-specified amount of time (typically 0.5 hours).
+ Output is expressed as a heating or cooling signal. If the heating signal is true, heating is allowed (ie, it is not locked out).
+  If the cooling signal is true, cooling is allowed (ie, it is not locked out).
+  A true signal indicates only that heating or cooling is *permitted*- it does *not* indicate the actual status
+  of the final heating or cooling signal, which depends on the slab temperature and slab setpoint (see SlabTempSignal for more info). 
 </p>
 </html>"),Icon(coordinateSystem(
         preserveAspectRatio=true,

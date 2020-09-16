@@ -2,17 +2,17 @@ within Buildings.Experimental.RadiantControl.Lockouts;
 block AllLockouts "Composite block of all lockouts: room air temperature, chilled water return, hysteresis, and night flush"
     parameter Real TAirHiSet(min=0,
     final unit="K",
-    final displayUnit="K",
+    final displayUnit="degC",
     final quantity="Temperature")=297.6
     "Air temperature high limit above which heating is locked out";
     parameter Real TAirLoSet(min=0,
     final unit="K",
-    final displayUnit="K",
+    final displayUnit="degC",
     final quantity="Temperature")=293.15
     "Air temperature low limit below which heating is locked out";
    parameter Real TWaLoSet(min=0,
     final unit="K",
-    final displayUnit="K",
+    final displayUnit="degC",
     final quantity="Temperature")=285.9
     "Lower limit for chilled water return temperature, below which cooling is locked out";
    parameter  Real TiCHW(min=0,
@@ -87,8 +87,27 @@ equation
           -69},{20,-69},{20,-58},{58,-58}}, color={255,0,255}));
   annotation (defaultComponentName = "AllLockouts",Documentation(info="<html>
 <p>
-This block encompasses all lockouts. Heating is locked out if room air temperature is too hot, if night flush mode is on, or if cooling was on within a user-specified amount of time. 
-Cooling is locked out if room air temperature is too cold, if chilled water return temperature is too cold, or if heating was on within a user-specified amount of time. 
+This block encompasses all lockouts.
+<p> 
+Heating lockouts are as follows:<p>
+<p>
+1. Air Temperature Lockout: Heating is locked out if room air temperature is above a user-specified temperature threshold (typically 76F). <p>
+<p> 2. Night Flush Lockout: Heating is locked out if night flush mode is on, as night flush setpoints are typically below heating setpoint, but heating is not desired during night flush operation,
+as this would waste energy and negate the cooling effect of the flush. <p>
+<p>3. Hysteresis Lockout: Heating is locked out if cooling was on within a user-specified amount of time (typically one hour).<p>
+<p>Cooling lockouts are as follows:<p>
+<p>1. Air Temperature Lockout: Cooling is locked out if room air temperature is below a user-specified temperature threshhold (typically 68F). <p>
+<p> 2. Chilled Water Return Temperature Lockout: Cooling is locked out for a user-specified amount of time (typically 30 minutes) if chilled water return temperature is too cold, 
+as this indicates that the room needs less cooling than is being provided. <p>
+<p>3. Hysteresis Lockout: Cooling is locked out if heating was on within a user-specified amount of time (typically one hour).<p>
+
+ <p>Output is expressed as a heating or cooling signal. If the heating signal is true, heating is allowed (ie, it is not locked out).
+ If the cooling signal is true, cooling is allowed (ie, it is not locked out).<p>
+
+  A true signal indicates only that heating or cooling is *permitted*- it does *not* indicate the actual status
+  of the final heating or cooling signal, which depends on the slab temperature and slab setpoint (see Buildings.Experimental.RadiantControl.SlabTempSignal for more info).
+  
+  <p>
 </p>
 </html>"),Icon(coordinateSystem(
         preserveAspectRatio=true,

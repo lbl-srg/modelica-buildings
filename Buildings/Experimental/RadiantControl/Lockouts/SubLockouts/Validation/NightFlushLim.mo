@@ -1,17 +1,19 @@
 within Buildings.Experimental.RadiantControl.Lockouts.SubLockouts.Validation;
 model NightFlushLim "Validation model for night flush"
   Modelica.Blocks.Sources.BooleanPulse booleanPulse3(period=43000)
-    annotation (Placement(transformation(extent={{-60,-2},{-40,18}})));
+    annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
   NightFlush nightFlush
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
 equation
-  connect(booleanPulse3.y, nightFlush.nitFluSig) annotation (Line(points={{-39,
-          8},{-20,8},{-20,10},{-2.2,10}}, color={255,0,255}));
+  connect(booleanPulse3.y, nightFlush.nitFluSig) annotation (Line(points={{-39,10},
+          {-2.2,10}},                     color={255,0,255}));
   annotation (Documentation(info="<html>
 <p>
-Validates the night flush lockout. Validates that heating is locked out if night flush mode is on. 
+Validates the night flush lockout. 
+This model validates that heating is locked out if night flush mode is on. 
 </p>
-</html>"),experiment(StopTime=172800.0, Tolerance=1e-06),Icon(graphics={
+</html>"),experiment(StartTime=0,StopTime=172800.0, Tolerance=1e-06),__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/RadiantControl/Lockouts/SubLockouts/Validation/NightFlushLim.mos"
+        "Simulate and plot"),Icon(graphics={
         Ellipse(
           lineColor={75,138,73},
           fillColor={255,255,255},

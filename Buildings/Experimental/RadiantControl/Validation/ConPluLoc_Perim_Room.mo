@@ -231,7 +231,7 @@ Fluid.Movers.FlowControlled_m_flow           pumHot(
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat1(filNam=
         Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
     "Weather data reader"
-    annotation (Placement(transformation(extent={{172,294},{192,314}})));
+    annotation (Placement(transformation(extent={{184,340},{204,360}})));
   BoundaryConditions.WeatherData.Bus weaBus1
     annotation (Placement(transformation(extent={{270,298},{290,318}})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temSlabTop
@@ -240,16 +240,16 @@ Fluid.Movers.FlowControlled_m_flow           pumHot(
   Fluid.Sources.Boundary_pT
     airOut1(          redeclare package Medium = MediumA, nPorts=1)
                                                      "Air outlet for X3A"
-    annotation (Placement(transformation(extent={{10,238},{30,258}})));
+    annotation (Placement(transformation(extent={{0,244},{20,264}})));
 
   Fluid.Sensors.TemperatureTwoPort temRoom(
     redeclare package Medium = MediumA,
     m_flow_nominal=mRad_flow_nominal,
     transferHeat=false) "HeatingTemperature" annotation (Placement(
         transformation(
-        extent={{-10,-10},{10,10}},
+        extent={{-9,-20},{9,20}},
         rotation=90,
-        origin={72,230})));
+        origin={84,241})));
   Modelica.Blocks.Sources.CombiTimeTable airCon(
     table=[0,0.001,293.15; 28800,0.05,293.15; 64800,0.001,293.15; 86400,0.001,293.15],
     tableOnFile=false,
@@ -266,17 +266,17 @@ Fluid.Movers.FlowControlled_m_flow           pumHot(
     use_T_in=true,
     redeclare package Medium = MediumA,
     nPorts=1) "Inlet air conditions (from AHU) for X3A"
-    annotation (Placement(transformation(extent={{12,276},{32,296}})));
+    annotation (Placement(transformation(extent={{0,280},{20,300}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TOut2
     "Outside temperature"
-    annotation (Placement(transformation(extent={{212,190},{232,210}})));
+    annotation (Placement(transformation(extent={{214,192},{234,212}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant InteriorSetpoint1(k=294)
     annotation (Placement(transformation(extent={{198,232},{242,276}})));
   ThermalZones.Detailed.FLEXLAB.Rooms.X3A.TestCell_Radiant testCell_Radiant(
     nSurBou=1,
     lat=0.73268921998722,
     hRoo=3,
-    nPorts=3,
+    nPorts=2,
     redeclare package Medium = MediumA)
     annotation (Placement(transformation(extent={{82,300},{122,340}})));
   Modelica.Blocks.Sources.CombiTimeTable intGai2(
@@ -300,7 +300,7 @@ Fluid.Movers.FlowControlled_m_flow           pumHot(
     timeScale=1,
     startTime=0)
     "Internal gain heat flow (Radiant = 1, Convective = 2, Latent = 3)"
-    annotation (Placement(transformation(extent={{40,300},{60,320}})));
+    annotation (Placement(transformation(extent={{0,320},{20,340}})));
   Modelica.Blocks.Sources.CombiTimeTable shaPos2(table=[0,1; 86400,1],
       tableOnFile=false) "Position of the shade"
     annotation (Placement(transformation(extent={{38,340},{58,360}})));
@@ -371,7 +371,7 @@ equation
   connect(temCoolingValtoPump.port_b, pumCold.port_a) annotation (Line(points={{-10,
           -102},{-12,-102},{-12,-68}},               color={0,127,255}));
   connect(weaDat1.weaBus, weaBus1.TDryBul) annotation (Line(
-      points={{192,304},{238,304},{238,308},{280,308}},
+      points={{204,350},{238,350},{238,308},{280,308}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%second",
@@ -379,26 +379,22 @@ equation
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
   connect(airCon.y[1], airIn.m_flow_in) annotation (Line(points={{-41,290},{-14,
-          290},{-14,294},{10,294}}, color={0,0,127}));
-  connect(airCon.y[2], airIn.T_in) annotation (Line(points={{-41,290},{10,290}},
-                               color={0,0,127}));
+          290},{-14,298},{-2,298}}, color={0,0,127}));
+  connect(airCon.y[2], airIn.T_in) annotation (Line(points={{-41,290},{-14,290},
+          {-14,294},{-2,294}}, color={0,0,127}));
   connect(InteriorSetpoint1.y, TOut2.T) annotation (Line(points={{246.4,254},{
-          256,254},{256,200},{210,200}},
+          256,254},{256,202},{212,202}},
                                      color={0,0,127}));
-  connect(airIn.ports[1], testCell_Radiant.ports[1]) annotation (Line(points={{32,286},
-          {62,286},{62,307.333},{87,307.333}},
-                                            color={0,127,255}));
-  connect(testCell_Radiant.ports[2], temRoom.port_a) annotation (Line(points={{87,310},
-          {87,300},{98,300},{98,220},{72,220}},
-                                              color={0,127,255}));
-  connect(temRoom.port_b, airOut1.ports[1]) annotation (Line(points={{72,240},{
-          60,240},{60,248},{30,248}}, color={0,127,255}));
-  connect(intGai2.y, testCell_Radiant.qGai_flow) annotation (Line(points={{61,310},
-          {58,310},{58,328},{80.4,328}}, color={0,0,127}));
+  connect(airIn.ports[1], testCell_Radiant.ports[1]) annotation (Line(points={{20,290},
+          {60,290},{60,308},{87,308}},      color={0,127,255}));
+  connect(temRoom.port_b, airOut1.ports[1]) annotation (Line(points={{84,250},{
+          60,250},{60,254},{20,254}}, color={0,127,255}));
+  connect(intGai2.y, testCell_Radiant.qGai_flow) annotation (Line(points={{21,330},
+          {58,330},{58,328},{80.4,328}}, color={0,0,127}));
   connect(shaPos2.y[1], testCell_Radiant.uSha[1]) annotation (Line(points={{59,350},
           {62,350},{62,338},{80.4,338}}, color={0,0,127}));
   connect(weaDat1.weaBus, testCell_Radiant.weaBus) annotation (Line(
-      points={{192,304},{154,304},{154,337.9},{119.9,337.9}},
+      points={{204,350},{154,350},{154,337.9},{119.9,337.9}},
       color={255,204,51},
       thickness=0.5));
   connect(sla1.surf_a, testCell_Radiant.surf_surBou[1]) annotation (Line(points=
@@ -410,7 +406,7 @@ equation
   connect(temHeating.port_b, mix2.port_1) annotation (Line(points={{-188,2},{
           -188,20},{-90,20}},     color={0,127,255}));
   connect(TOut2.port, conBel2.port_a)
-    annotation (Line(points={{232,200},{118,200},{118,262}}, color={191,0,0}));
+    annotation (Line(points={{234,202},{118,202},{118,262}}, color={191,0,0}));
   connect(conBel2.port_b, testCell_Radiant.surf_conBou[1]) annotation (Line(
         points={{138,262},{138,304},{108,304}},           color={191,0,0}));
   connect(booToReaHtgValveOn.y, valHot.y) annotation (Line(points={{-238,-112},
@@ -438,8 +434,8 @@ equation
   connect(temRet.T, controlPlusLockouts.TWaRet) annotation (Line(points={{41,-2},
           {41,230},{-462,230},{-462,-98},{-401.818,-98}},
                                                       color={0,0,127}));
-  connect(temRoom.T, controlPlusLockouts.TRooAir) annotation (Line(points={{61,230},
-          {-464,230},{-464,-94},{-401.818,-94}}, color={0,0,127}));
+  connect(temRoom.T, controlPlusLockouts.TRooAir) annotation (Line(points={{62,241},
+          {-464,241},{-464,-94},{-401.818,-94}}, color={0,0,127}));
   connect(temSlabTop.T, controlPlusLockouts.TSla) annotation (Line(points={{-82,44},
           {-464,44},{-464,-82},{-401.818,-82}}, color={0,0,127}));
   connect(forecastHighChicago.TForecastHigh, slabSetPerim.TFor) annotation (
@@ -450,12 +446,24 @@ equation
       Line(points={{-498.182,-50},{-468,-50},{-468,-86},{-401.818,-86}},
                                                                      color={0,0,
           127}));
+  connect(testCell_Radiant.ports[2], temRoom.port_a) annotation (Line(points={{
+          87,312},{80,312},{80,260},{100,260},{100,232},{84,232}}, color={0,127,
+          255}));
   annotation (Documentation(info="<html>
 <p>
-This models a radiant slab serving a perimeter zone as per current control scheme. 
+This models a radiant slab serving a perimeter zone as per current control scheme.
+The slab is controlled to a daily setpoint based on forecast high outdoor air temperature, 
+as specified in the Buildings.Experimental.RadiantControl.SlabTempSignal block. 
+Slab control follows the control scheme specified in the Buildings.Experimental.RadiantControl.ControlPlusLockouts block. 
+<p> 
+The zone is 5 meters by 9 meters in floor area and is 3 meters in height.
+The zone has two exposed walls, each with windows: one oriented south, and the other oriented west. 
+The remaining walls are exposed to a constant-temperature boundary condition that is set to ~70F to approximate interior conditions. 
+<p>
+Chilled water and hot water are provided to the slab by constant temperature flow sources, at 10C (cooling) and 40 C (heating). 
 </p>
-</html>"),
-    experiment(Tolerance=1e-6, StopTime=31536000),
+</html>"), experiment(Tolerance=1e-6, StopTime=31536000),
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/RadiantControl/Validation/ConPluLoc_Perim_Room.mos" "Simulate and plot"),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
          graphics={
         Ellipse(

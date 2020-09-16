@@ -22,9 +22,11 @@ equation
           50},{-40,50},{-40,52},{-22,52}}, color={0,0,127}));
   annotation (Documentation(info="<html>
 <p>
-Validates the chilled water return temperature lockout. Validates that cooling is locked out if CHW return temp is below a user-specified threshold. 
+Validates the chilled water return temperature lockout. 
+This model validates that cooling is locked out if CHW return temp is below a user-specified threshold. 
 </p>
-</html>"),experiment(StopTime=172800.0, Tolerance=1e-06),Icon(graphics={
+</html>"),experiment(StopTime=172800.0, Tolerance=1e-06),__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/RadiantControl/Lockouts/SubLockouts/Validation/CHWRetLim.mos"
+        "Simulate and plot"),Icon(graphics={
         Ellipse(
           lineColor={75,138,73},
           fillColor={255,255,255},

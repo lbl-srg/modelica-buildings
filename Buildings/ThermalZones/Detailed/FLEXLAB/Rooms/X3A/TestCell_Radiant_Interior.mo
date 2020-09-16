@@ -13,18 +13,24 @@ model TestCell_Radiant_Interior "Model of LBNL User Test Facility Cell X3A"
         each absSol=0.9,
         each til=Buildings.Types.Tilt.Floor),
       datConBou(
-      layers={parCon,parCon,parCon,parCon,R20Wal},
+      layers={parCon,parCon,parCon,parCon,parCon},
+      steadyStateInitial=true,
+      stateAtSurface_a=true,
+      stateAtSurface_b=true,
+      boundaryCondition=Buildings.ThermalZones.Detailed.Types.CFDBoundaryConditions.Temperature,
       A={5*3,9*3,3*9,5*3,5*9},
       til={Buildings.Types.Tilt.Wall,Buildings.Types.Tilt.Wall,Buildings.Types.Tilt.Wall,
           Buildings.Types.Tilt.Wall,Buildings.Types.Tilt.Ceiling},
       azi={Buildings.Types.Azimuth.W,Buildings.Types.Azimuth.S,Buildings.Types.Azimuth.N,
-          Buildings.Types.Azimuth.E,Buildings.Types.Azimuth.N},
-      stateAtSurface_a=true),
-      datConExtWin(boundaryCondition=Buildings.ThermalZones.Detailed.Types.CFDBoundaryConditions.HeatFlowRate),
+          Buildings.Types.Azimuth.E,Buildings.Types.Azimuth.N}),
+      datConExtWin(steadyStateInitial=true,
+                   boundaryCondition=Buildings.ThermalZones.Detailed.Types.CFDBoundaryConditions.HeatFlowRate),
       intConMod=Buildings.HeatTransfer.Types.InteriorConvection.Temperature,
       extConMod=Buildings.HeatTransfer.Types.ExteriorConvection.TemperatureWind,
       lat=0.66098585832754,
-    conBou(steadyStateInitial=true));
+    conBou(steadyStateInitial=true),
+    datConExt(steadyStateInitial=true, boundaryCondition=Buildings.ThermalZones.Detailed.Types.CFDBoundaryConditions.Temperature),
+    datConPar(steadyStateInitial=true));
 
   replaceable parameter
     Data.Constructions.OpaqueConstructions.ExteriorConstructions.ConstructionRadiantR25Wall
@@ -35,13 +41,13 @@ model TestCell_Radiant_Interior "Model of LBNL User Test Facility Cell X3A"
                                                                       R52Wal
     annotation (Placement(transformation(extent={{410,-192},{430,-172}})));
   replaceable parameter Data.Constructions.OpaqueConstructions.Roofs.ASHRAE_901_2010Roof
-                                                                   R20Wal
+                                                                   R20Wal "R20Wall"
     annotation (Placement(transformation(extent={{410,-216},{430,-196}})));
   replaceable parameter Data.Constructions.GlazingSystems.RadiantGlaSB70XL glaSys
     annotation (Placement(transformation(extent={{436,-192},{456,-172}})));
   replaceable parameter
     Data.Constructions.OpaqueConstructions.PartitionConstructions.PartitionWall
-    parCon
+    parCon "ParCon"
     annotation (Placement(transformation(extent={{436,-216},{456,-196}})));
 
   replaceable parameter
@@ -62,7 +68,7 @@ model TestCell_Radiant_Interior "Model of LBNL User Test Facility Cell X3A"
   replaceable parameter
     Data.Constructions.OpaqueConstructions.ExteriorConstructions.ExteriorDoorInsulated
     extDoo "Construction of an exterior door- NOT USED"
-    annotation (Placement(transformation(extent={{410,-72},{430,-52}})));
+    annotation (Placement(transformation(extent={{410,-74},{430,-54}})));
   annotation(Documentation(info="<html>
   <p>
   This is a model for test cell 3A in the LBNL User Facility. This model is intended to represent
