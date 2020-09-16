@@ -605,6 +605,8 @@ void importEnergyPlusFMU(FMUBuilding* bui){
     NULL,
     visible);
 
+  SpawnFormatError("%s", "***** This line is never reached on Windows.\n");
+
   if (bui->logLevel >= MEDIUM)
     SpawnFormatMessage("Returned from instantiating fmu.");
   if(jm_status == jm_status_error){
