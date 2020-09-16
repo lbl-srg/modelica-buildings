@@ -227,25 +227,25 @@ void writeModelStructureForEnergyPlus(const FMUBuilding* bui, char** modelicaBui
 }
 
 void setAttributesReal(
-  FMUBuilding* fmuBui,
+  FMUBuilding* bui,
   fmi2_import_variable_list_t* varLis,
   const fmi2_value_reference_t varValRef[],
   const size_t nVar,
   const spawnReals* ptrSpawnReals){
 
-  const char* fmuNam = fmuBui->fmuAbsPat;
-  const char* idfName = fmuBui->idfName;
+  const char* fmuNam = bui->fmuAbsPat;
+  const char* idfName = bui->idfName;
   size_t iFMI;
   fmi2_import_variable_t* var;
   bool found;
   size_t i;
 
-  void (*SpawnFormatMessage)(const char *string, ...) = fmuBui->SpawnFormatMessage;
-  void (*SpawnFormatError)(const char *string, ...) = fmuBui->SpawnFormatError;
+  void (*SpawnFormatMessage)(const char *string, ...) = bui->SpawnFormatMessage;
+  void (*SpawnFormatError)(const char *string, ...) = bui->SpawnFormatError;
 
   for(i = 0; i < ptrSpawnReals->n; i++){
     found = false;
-    if (FMU_EP_VERBOSITY >= TIMESTEP)
+    if (bui->logLevel >= TIMESTEP)
         SpawnFormatMessage("Setting variable reference for %s.", ptrSpawnReals->fmiNames[i]);
 
     for (iFMI = 0; iFMI < nVar; iFMI++){
@@ -261,7 +261,7 @@ void setAttributesReal(
             ptrSpawnReals->fmiNames[i], fmuNam);
         }
 
-        if (FMU_EP_VERBOSITY >= MEDIUM){
+        if (bui->logLevel >= MEDIUM){
           if (ptrSpawnReals->units[i] == NULL)
             SpawnFormatMessage("Variable with name %s has no units and valRef= %d.", ptrSpawnReals->fmiNames[i], varValRef[iFMI]);
           else{
@@ -280,47 +280,47 @@ void setAttributesReal(
   }
 }
 
-void setValueReferences(FMUBuilding* fmuBui){
+void setValueReferences(FMUBuilding* bui){
   size_t i;
   FMUZone* zone;
   FMUInputVariable* inpVar;
   FMUOutputVariable* outVar;
 
-  fmi2_import_variable_list_t* vl = fmi2_import_get_variable_list(fmuBui->fmu, 0);
+  fmi2_import_variable_list_t* vl = fmi2_import_get_variable_list(bui->fmu, 0);
   const fmi2_value_reference_t* vrl = fmi2_import_get_value_referece_list(vl);
   size_t nv = fmi2_import_get_variable_list_size(vl);
 
-  void (*SpawnFormatMessage)(const char *string, ...) = fmuBui->SpawnFormatMessage;
-  void (*SpawnFormatError)(const char *string, ...) = fmuBui->SpawnFormatError;
+  void (*SpawnFormatMessage)(const char *string, ...) = bui->SpawnFormatMessage;
+  void (*SpawnFormatError)(const char *string, ...) = bui->SpawnFormatError;
 
   /* Set value references for the zones by assigning the values obtained from the FMU */
-  if (FMU_EP_VERBOSITY >= MEDIUM)
+  if (bui->logLevel >= MEDIUM)
     SpawnFormatMessage("Setting variable references for zones.");
 
-  for(i = 0; i < fmuBui->nZon; i++){
-    zone = (FMUZone*) fmuBui->zones[i];
-    setAttributesReal(fmuBui, vl, vrl, nv, zone->parameters);
-    setAttributesReal(fmuBui, vl, vrl, nv, zone->inputs);
-    setAttributesReal(fmuBui, vl, vrl, nv, zone->outputs);
+  for(i = 0; i < bui->nZon; i++){
+    zone = (FMUZone*) bui->zones[i];
+    setAttributesReal(bui, vl, vrl, nv, zone->parameters);
+    setAttributesReal(bui, vl, vrl, nv, zone->inputs);
+    setAttributesReal(bui, vl, vrl, nv, zone->outputs);
   }
 
   /* Set value references for the input variables by assigning the values obtained from the FMU */
-  if (FMU_EP_VERBOSITY >= MEDIUM)
+  if (bui->logLevel >= MEDIUM)
     SpawnFormatMessage("Setting variable references for input variables.");
 
-  for(i = 0; i < fmuBui->nInputVariables; i++){
-    inpVar = (FMUInputVariable*) fmuBui->inputVariables[i];
-    setAttributesReal(fmuBui, vl, vrl, nv, inpVar->inputs);
+  for(i = 0; i < bui->nInputVariables; i++){
+    inpVar = (FMUInputVariable*) bui->inputVariables[i];
+    setAttributesReal(bui, vl, vrl, nv, inpVar->inputs);
     inpVar->valueReferenceIsSet = true;
   }
 
   /* Set value references for the output variables by assigning the values obtained from the FMU */
-  if (FMU_EP_VERBOSITY >= MEDIUM)
+  if (bui->logLevel >= MEDIUM)
     SpawnFormatMessage("Setting variable references for output variables.");
 
-  for(i = 0; i < fmuBui->nOutputVariables; i++){
-    outVar = (FMUOutputVariable*) fmuBui->outputVariables[i];
-    setAttributesReal(fmuBui, vl, vrl, nv, outVar->outputs);
+  for(i = 0; i < bui->nOutputVariables; i++){
+    outVar = (FMUOutputVariable*) bui->outputVariables[i];
+    setAttributesReal(bui, vl, vrl, nv, outVar->outputs);
     outVar->valueReferenceIsSet = true;
   }
 
@@ -330,7 +330,7 @@ void setValueReferences(FMUBuilding* fmuBui){
   return;
 }
 
-void generateFMU(FMUBuilding* fmuBui, const char* modelicaBuildingsJsonFile){
+void generateFMU(FMUBuilding* bui, const char* modelicaBuildingsJsonFile){
   /* Generate the FMU */
   char* cmd;
   char* optionFlags;
@@ -340,26 +340,26 @@ void generateFMU(FMUBuilding* fmuBui, const char* modelicaBuildingsJsonFile){
   size_t len;
   int retVal;
 
-  void (*SpawnFormatMessage)(const char *string, ...) = fmuBui->SpawnFormatMessage;
-  void (*SpawnFormatError)(const char *string, ...) = fmuBui->SpawnFormatError;
-  void (*SpawnError)(const char *string) = fmuBui->SpawnError;
+  void (*SpawnFormatMessage)(const char *string, ...) = bui->SpawnFormatMessage;
+  void (*SpawnFormatError)(const char *string, ...) = bui->SpawnFormatError;
+  void (*SpawnError)(const char *string) = bui->SpawnError;
 
-  if (FMU_EP_VERBOSITY >= MEDIUM)
-    SpawnFormatMessage("Entered generateFMU with FMUPath = %s.\n", fmuBui->fmuAbsPat);
+  if (bui->logLevel >= MEDIUM)
+    SpawnFormatMessage("Entered generateFMU with FMUPath = %s.\n", bui->fmuAbsPat);
 
-  if (fmuBui->usePrecompiledFMU){
-    if( access( fmuBui->precompiledFMUAbsPat, F_OK ) == -1 ) {
-      SpawnFormatError("Requested to use fmu '%s' which does not exist.", fmuBui->precompiledFMUAbsPat);
+  if (bui->usePrecompiledFMU){
+    if( access( bui->precompiledFMUAbsPat, F_OK ) == -1 ) {
+      SpawnFormatError("Requested to use fmu '%s' which does not exist.", bui->precompiledFMUAbsPat);
     }
     cmd = "cp -p ";
-    len = strlen(cmd) + strlen(fmuBui->fmuAbsPat) + 1 + strlen(fmuBui->precompiledFMUAbsPat) + 1;
+    len = strlen(cmd) + strlen(bui->fmuAbsPat) + 1 + strlen(bui->precompiledFMUAbsPat) + 1;
     mallocString(len, "Failed to allocate memory in generateFMU().", &fulCmd, SpawnFormatError);
 
     memset(fulCmd, '\0', len);
     strcpy(fulCmd, cmd);
-    strcat(fulCmd, fmuBui->precompiledFMUAbsPat);
+    strcat(fulCmd, bui->precompiledFMUAbsPat);
     strcat(fulCmd, " ");
-    strcat(fulCmd, fmuBui->fmuAbsPat);
+    strcat(fulCmd, bui->fmuAbsPat);
   }
   else{
     if( access(modelicaBuildingsJsonFile, F_OK ) == -1 ) {
@@ -375,14 +375,14 @@ void generateFMU(FMUBuilding* fmuBui, const char* modelicaBuildingsJsonFile){
     optionFlags = " --no-compress "; /* Flag for command */
     outputFlag = " --output-path "; /* Flag for command */
     createFlag = " --create "; /* Flag for command */
-    len = strlen(fmuBui->buildingsLibraryRoot) + strlen(cmd) + strlen(optionFlags)
-      + strlen(outputFlag) + strlen("\"") + strlen(fmuBui->fmuAbsPat) + strlen("\"")
+    len = strlen(bui->buildingsLibraryRoot) + strlen(cmd) + strlen(optionFlags)
+      + strlen(outputFlag) + strlen("\"") + strlen(bui->fmuAbsPat) + strlen("\"")
       + strlen(createFlag) + strlen("\"") + strlen(modelicaBuildingsJsonFile) + strlen("\"")
       + 1;
 
     mallocString(len, "Failed to allocate memory in generateFMU().", &fulCmd, SpawnFormatError);
     memset(fulCmd, '\0', len);
-    strcpy(fulCmd, fmuBui->buildingsLibraryRoot); /* This is for example /mtn/shared/Buildings */
+    strcpy(fulCmd, bui->buildingsLibraryRoot); /* This is for example /mtn/shared/Buildings */
     strcat(fulCmd, cmd);
     /* Check if the executable exists
        Linux return 0, and Windows returns 2 if file does not exist */
@@ -400,7 +400,7 @@ void generateFMU(FMUBuilding* fmuBui, const char* modelicaBuildingsJsonFile){
     strcat(fulCmd, optionFlags);
     strcat(fulCmd, outputFlag);
     strcat(fulCmd, "\"");
-    strcat(fulCmd, fmuBui->fmuAbsPat);
+    strcat(fulCmd, bui->fmuAbsPat);
     strcat(fulCmd, "\"");
     strcat(fulCmd, createFlag);
     strcat(fulCmd, "\"");
@@ -409,22 +409,22 @@ void generateFMU(FMUBuilding* fmuBui, const char* modelicaBuildingsJsonFile){
   }
 
   /* Remove the old fmu if it already exists */
-  if (access(fmuBui->fmuAbsPat, F_OK) == 0) {
+  if (access(bui->fmuAbsPat, F_OK) == 0) {
     /* FMU exists. Delete it. */
-    retVal = remove(fmuBui->fmuAbsPat);
+    retVal = remove(bui->fmuAbsPat);
     if (retVal != 0){
-      SpawnFormatError("Failed to remove old FMU '%s': '%s'.", fmuBui->fmuAbsPat, strerror(errno));
+      SpawnFormatError("Failed to remove old FMU '%s': '%s'.", bui->fmuAbsPat, strerror(errno));
    }
   }
 
   /* Copy or generate the FMU */
-  if (FMU_EP_VERBOSITY >= MEDIUM)
+  if (bui->logLevel >= MEDIUM)
     SpawnFormatMessage("Executing %s\n", fulCmd);
 
   retVal = system(fulCmd);
   /* Check if generated FMU indeed exists */
-  if( access( fmuBui->fmuAbsPat, F_OK ) != 0 ) {
-    SpawnFormatError("Executing '%s' failed to generate fmu '%s'.", fulCmd, fmuBui->fmuAbsPat);
+  if( access( bui->fmuAbsPat, F_OK ) != 0 ) {
+    SpawnFormatError("Executing '%s' failed to generate fmu '%s'.", fulCmd, bui->fmuAbsPat);
   }
   if (retVal != 0){
     fprintf(stdout, "*** Warning: Generating FMU returned value %d, but FMU exists.\n", retVal);
@@ -442,7 +442,7 @@ void generateFMU(FMUBuilding* fmuBui, const char* modelicaBuildingsJsonFile){
         {EnergyPlus::Error::Severe, fmi2Error},
         {EnergyPlus::Error::Fatal, fmi2Fatal}
       };
-   FMU_EP_VERBOSITY is 1, 2, 3 up to and including 6
+   bui->logLevel is 1, 2, 3 up to and including 6
 */
 void setFMUDebugLevel(FMUBuilding* bui){
   fmi2_string_t* categories;
@@ -451,35 +451,35 @@ void setFMUDebugLevel(FMUBuilding* bui){
 
   /* Get the number of log categories defined in the XML */
   const size_t nCat = fmi2_import_get_log_categories_num(bui->fmu);
-  if (nCat < FMU_EP_VERBOSITY){
+  if (nCat < bui->logLevel){
     bui->SpawnFormatError("FMU %s specified %u categories, but require at least %u categories.",
-      bui->fmuAbsPat, nCat, FMU_EP_VERBOSITY);
+      bui->fmuAbsPat, nCat, bui->logLevel);
   }
 
   /* Get the log categories that we need */
   categories = NULL;
-  categories = (fmi2_string_t*)malloc(FMU_EP_VERBOSITY * sizeof(fmi2_string_t));
+  categories = (fmi2_string_t*)malloc(bui->logLevel * sizeof(fmi2_string_t));
   if (categories == NULL){
     bui->SpawnFormatError("Failed to allocate memory for error categories for FMU %s", bui->fmuAbsPat);
   }
   /* Assign the categories as specified in modelDescription.xml */
-  for(i=0; i < FMU_EP_VERBOSITY; i++){
+  for(i=0; i < bui->logLevel; i++){
     categories[i] = fmi2_import_get_log_category(bui->fmu, i);
   }
 
-  if (FMU_EP_VERBOSITY >= MEDIUM)
+  if (bui->logLevel >= MEDIUM)
     bui->SpawnFormatMessage("Setting debug logging.");
   status = fmi2_import_set_debug_logging(
     bui->fmu,
     fmi2_true,        /* Logging on */
-    (size_t)FMU_EP_VERBOSITY, /* nCategories */
+    (size_t)bui->logLevel, /* nCategories */
     categories);        /* Which categories to log */
   if( status != fmi2_status_ok ){
     bui->SpawnMessage("Log categories:");
-    for(i = 0; i < FMU_EP_VERBOSITY; i++){
+    for(i = 0; i < bui->logLevel; i++){
       bui->SpawnFormatMessage("  Category[%u] = '%s'", i, categories[i]);
     }
-    bui->SpawnFormatError("fmi2SetDebugLogging returned '%s' for FMU with name %s. Verbosity = %u", fmi2_status_to_string(status), bui->fmuAbsPat, FMU_EP_VERBOSITY);
+    bui->SpawnFormatError("fmi2SetDebugLogging returned '%s' for FMU with name %s. Verbosity = %u", fmi2_status_to_string(status), bui->fmuAbsPat, bui->logLevel);
   }
   /* Free storage */
   /* This gives Warning C4090 in Microsoft compiler
@@ -510,16 +510,16 @@ void spawnLogger(
     bui->SpawnFormatError("Failed to parse message '%s' from EnergyPlus.", message);
 
   if (status == fmi2_status_ok || status == fmi2_status_pending || status == fmi2_status_discard){
-    if (FMU_EP_VERBOSITY >= QUIET)
+    if (bui->logLevel >= QUIET)
       bui->SpawnFormatMessage(signature, instanceName, "Info", msg);
   }
   else if (status == fmi2_status_warning){
-    if (FMU_EP_VERBOSITY >= WARNINGS)
+    if (bui->logLevel >= WARNINGS)
       bui->SpawnFormatMessage(signature, instanceName, fmi2_status_to_string(status), msg);
   }
   else{
     /* This captures fmi2_status_error and fmi2_status_fatal.
-       They are written for any verbosity. */
+       They are written for any logLevel. */
     bui->SpawnFormatMessage(signature, instanceName, fmi2_status_to_string(status), msg);
   }
 }
@@ -545,11 +545,11 @@ void importEnergyPlusFMU(FMUBuilding* bui){
   /* Set callback functions */
   callbacks = jm_get_default_callbacks();
 
-  if (FMU_EP_VERBOSITY >= MEDIUM)
+  if (bui->logLevel >= MEDIUM)
     SpawnFormatMessage("Calling fmi_import_allocate_context(callbacks = %p)", callbacks);
   bui->context = fmi_import_allocate_context(callbacks);
 
-  if (FMU_EP_VERBOSITY >= MEDIUM)
+  if (bui->logLevel >= MEDIUM)
     SpawnFormatMessage("Getting fmi version, bui->context = %p, FMUPath = %s, tmpPath = %s.", bui->context, FMUPath, tmpPath);
   version = fmi_import_get_fmi_version(bui->context, FMUPath, tmpPath);
 
@@ -558,7 +558,7 @@ void importEnergyPlusFMU(FMUBuilding* bui){
     FMUPath, fmi_version_to_string(version));
   }
 
-  if (FMU_EP_VERBOSITY >= MEDIUM)
+  if (bui->logLevel >= MEDIUM)
     SpawnFormatMessage("Parsing xml file %s", tmpPath);
   bui->fmu = fmi2_import_parse_xml(bui->context, tmpPath, 0);
 	if(!bui->fmu) {
@@ -583,7 +583,7 @@ void importEnergyPlusFMU(FMUBuilding* bui){
   callBackFunctions.stepFinished = NULL; /* synchronous execution */
   callBackFunctions.componentEnvironment = bui;
 
-  if (FMU_EP_VERBOSITY >= MEDIUM)
+  if (bui->logLevel >= MEDIUM)
     SpawnFormatMessage("Loading dllfmu.");
 
   jm_status = fmi2_import_create_dllfmu(bui->fmu, fmukind, &callBackFunctions);
@@ -594,7 +594,7 @@ void importEnergyPlusFMU(FMUBuilding* bui){
     bui->dllfmu_created = fmi2_true;
   }
 
-  if (FMU_EP_VERBOSITY >= MEDIUM)
+  if (bui->logLevel >= MEDIUM)
     SpawnFormatMessage("Instantiating fmu.");
 
   /* Instantiate EnergyPlus */
@@ -605,7 +605,7 @@ void importEnergyPlusFMU(FMUBuilding* bui){
     NULL,
     visible);
 
-  if (FMU_EP_VERBOSITY >= MEDIUM)
+  if (bui->logLevel >= MEDIUM)
     SpawnFormatMessage("Returned from instantiating fmu.");
   if(jm_status == jm_status_error){
     SpawnFormatError("Failed to instantiate building FMU with name %s.",  bui->modelicaNameBuilding);
@@ -642,7 +642,7 @@ void generateAndInstantiateBuilding(FMUBuilding* bui){
   void (*SpawnFormatMessage)(const char *string, ...) = bui->SpawnFormatMessage;
   void (*SpawnFormatError)(const char *string, ...) = bui->SpawnFormatError;
 
-  if (FMU_EP_VERBOSITY >= MEDIUM)
+  if (bui->logLevel >= MEDIUM)
     SpawnFormatMessage("Entered EnergyPlusZoneAllocateAndInstantiateBuilding.\n");
 
   if (bui->usePrecompiledFMU)
@@ -664,13 +664,13 @@ void generateAndInstantiateBuilding(FMUBuilding* bui){
 
   importEnergyPlusFMU(bui);
 
-  if (FMU_EP_VERBOSITY >= MEDIUM)
+  if (bui->logLevel >= MEDIUM)
     SpawnFormatMessage("FMU for building %s is at %p.\n", bui->modelicaNameBuilding, bui->fmu);
 
   /* Set the value references for all parameters, inputs and outputs */
   setValueReferences(bui);
 
-  if (FMU_EP_VERBOSITY >= MEDIUM)
+  if (bui->logLevel >= MEDIUM)
     SpawnFormatMessage("FMU for building %s returns from generateAndInstantiateBuilding.\n", bui->modelicaNameBuilding);
 
   return;

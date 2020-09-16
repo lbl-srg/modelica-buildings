@@ -35,7 +35,7 @@ protected
       usePrecompiledFMU=usePrecompiledFMU,
       fmuName=fmuName,
       buildingsLibraryRoot=Buildings.ThermalZones.EnergyPlus.BaseClasses.buildingsLibraryRoot,
-      verbosity=verbosity,
+      logLevel=logLevel,
       printUnit=printUnit) "Class to communicate with EnergyPlus";
 
   Modelica.SIunits.Time tNext(start=startTime, fixed=true) "Next sampling time";

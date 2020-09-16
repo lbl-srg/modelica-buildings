@@ -62,8 +62,7 @@ static char* SEPARATOR = "/";
 
 typedef enum {instantiationMode, initializationMode, eventMode, continuousTimeMode} FMUMode;
 
-static int FMU_EP_VERBOSITY = 1; /* Verbosity */
-enum verbosity {ERRORS = 1, WARNINGS = 2, QUIET = 3, MEDIUM = 4, TIMESTEP = 5};
+enum logLevels {ERRORS = 1, WARNINGS = 2, QUIET = 3, MEDIUM = 4, TIMESTEP = 5};
 
 typedef struct FMUBuilding
 {
@@ -93,6 +92,7 @@ typedef struct FMUBuilding
   FMUMode mode; /* Mode that the FMU is in */
   size_t iFMU; /* Number of this FMU */
 
+  int logLevel; /* Log level */
   void (*SpawnMessage)(const char *string);
   void (*SpawnError)(const char *string);
   void (*SpawnFormatMessage)(const char *string, ...);
@@ -113,7 +113,7 @@ typedef struct spawnReals{
 
 typedef struct FMUZone
 {
-  FMUBuilding* ptrBui; /* Pointer to building with this zone */
+  FMUBuilding* bui; /* Pointer to building with this zone */
   char* modelicaNameThermalZone; /* Name of the Modelica instance of this zone */
   char* name;      /* Name of this zone in the idf file */
 
@@ -133,7 +133,7 @@ typedef struct FMUZone
 
 typedef struct FMUInputVariable
 {
-  FMUBuilding* ptrBui;              /* Pointer to building with this input variable */
+  FMUBuilding* bui;              /* Pointer to building with this input variable */
   char* modelicaNameInputVariable; /* Name of the Modelica instance of this zone */
   char* name;                       /* Name of this schedule or EMS actuator in the idf file */
   char* componentType;              /* Component type in the idf file if actuator, else void pointer */
@@ -150,7 +150,7 @@ typedef struct FMUInputVariable
 
 typedef struct FMUOutputVariable
 {
-  FMUBuilding* ptrBui;              /* Pointer to building with this output variable */
+  FMUBuilding* bui;              /* Pointer to building with this output variable */
   char* modelicaNameOutputVariable; /* Name of the Modelica instance of this zone */
   char* name;                       /* Name of this output variable in the idf file */
   char* key;                        /* Key of this output variable in the idf file */
