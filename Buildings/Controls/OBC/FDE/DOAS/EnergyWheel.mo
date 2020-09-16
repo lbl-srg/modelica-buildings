@@ -22,41 +22,41 @@ block EnergyWheel
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput supFanProof
     "True when the supply fan is proven on."
       annotation (Placement(transformation(extent={{-142,60},{-102,100}}),
-        iconTransformation(extent={{-120,56},{-80,96}})));
+        iconTransformation(extent={{-142,58},{-102,98}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput oaT
     "Outside air temperature sensor."
       annotation (Placement(transformation(extent={{-142,-38},{-102,2}}),
-        iconTransformation(extent={{-122,-34},{-82,6}})));
+        iconTransformation(extent={{-142,-38},{-102,2}})));
    Buildings.Controls.OBC.CDL.Interfaces.RealInput raT
     "Return air temperature sensor."
       annotation (Placement(transformation(extent={{-142,0},{-102,40}}),
-        iconTransformation(extent={{-122,6},{-82,46}})));
+        iconTransformation(extent={{-142,-2},{-102,38}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput ecoMode
     "True when economizer mode is active."
       annotation (Placement(transformation(extent={{-142,30},{-102,70}}),
-        iconTransformation(extent={{-128,30},{-88,70}})));
+        iconTransformation(extent={{-142,28},{-102,68}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput erwT
     "Energy recovery wheel supply air temperature."
       annotation (Placement(transformation(extent={{-142,-74},{-102,-34}}),
-        iconTransformation(extent={{-124,-74},{-84,-34}})));
+        iconTransformation(extent={{-142,-68},{-102,-28}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput supPrimSP
     "Primary supply air temperature set point."
       annotation (Placement(transformation(extent={{-142,-106},{-102,-66}}),
-        iconTransformation(extent={{-122,-108},{-82,-68}})));
+        iconTransformation(extent={{-142,-98},{-102,-58}})));
 
     // ---outputs---
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput erwStart
     "Command to start the energy recovery wheel."
       annotation (Placement(transformation(extent={{102,0},{142,40}}),
-        iconTransformation(extent={{86,-12},{126,28}})));
+        iconTransformation(extent={{102,-20},{142,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput erwSpeed
     "Energy recovery wheel speed command."
       annotation (Placement(transformation(extent={{102,-96},{142,-56}}),
-        iconTransformation(extent={{82,-96},{122,-56}})));
+        iconTransformation(extent={{102,-80},{142,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput bypDam
     "Bypass damper command; true when commanded full open."
       annotation (Placement(transformation(extent={{102,46},{142,86}}),
-        iconTransformation(extent={{84,46},{124,86}})));
+        iconTransformation(extent={{102,40},{142,80}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Add difference(
     final k2=-1)
@@ -69,7 +69,7 @@ block EnergyWheel
     k=recSet)
       "Recovery set point."
         annotation (Placement(transformation(extent={{-62,-46},{-42,-26}})));
-  Buildings.Controls.OBC.CDL.Logical.Latch lat
+  Buildings.Controls.OBC.CDL.Logical.Latch lat(pre_y_start=true)
     annotation (Placement(transformation(extent={{30,-10},{50,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Less les
     annotation (Placement(transformation(extent={{-26,-38},{-6,-18}})));
@@ -174,15 +174,104 @@ equation
             radius=10,
             fillColor={255,255,255},
             fillPattern=FillPattern.Solid),
+        Line(points={{48,0},{-2,0}}, color={0,0,0}),
            Text(
             extent={{-88,180},{92,76}},
             lineColor={28,108,200},
             textStyle={TextStyle.Bold},
             textString="%name"),
         Text(
-          extent={{-94,78},{-50,64}},
+          extent={{-98,84},{-54,70}},
           lineColor={28,108,200},
-          textString="supFanProof")}),
+          textString="supFanProof"),
+        Text(
+          extent={{-98,54},{-62,44}},
+          lineColor={28,108,200},
+          textString="ecoMode"),
+        Text(
+          extent={{-108,24},{-72,14}},
+          lineColor={28,108,200},
+          textString="raT"),
+        Text(
+          extent={{-108,-12},{-72,-22}},
+          lineColor={28,108,200},
+          textString="oaT"),
+        Text(
+          extent={{-106,-42},{-70,-52}},
+          lineColor={28,108,200},
+          textString="erwT"),
+        Text(
+          extent={{-96,-70},{-56,-82}},
+          lineColor={28,108,200},
+          textString="supPrimSP"),
+        Text(
+          extent={{62,-54},{98,-64}},
+          lineColor={28,108,200},
+          textString="erwSpeed"),
+        Text(
+          extent={{60,4},{96,-6}},
+          lineColor={28,108,200},
+          textString="erwStart"),
+        Text(
+          extent={{60,66},{96,56}},
+          lineColor={28,108,200},
+          textString="bypDam"),
+        Ellipse(
+          extent={{-14,64},{28,-68}},
+          lineColor={28,108,200},
+          fillColor={170,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-8,64},{8,-68}},
+          lineColor={170,255,255},
+          fillColor={170,255,255},
+          fillPattern=FillPattern.Solid),
+        Ellipse(
+          extent={{-28,64},{14,-68}},
+          lineColor={28,108,200},
+          fillColor={170,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{32,-34},{72,-36}},
+          lineColor={0,140,72},
+          fillColor={0,140,72},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{72,-34},{58,-28},{58,-34},{72,-34}},
+          lineColor={0,140,72},
+          fillColor={0,140,72},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-70,-34},{-30,-36}},
+          lineColor={28,108,200},
+          fillColor={28,108,200},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{-30,-34},{-44,-28},{-44,-34},{-30,-34}},
+          lineColor={28,108,200},
+          fillColor={28,108,200},
+          fillPattern=FillPattern.Solid),
+        Line(points={{-8,0},{-58,0}}, color={0,0,0}),
+        Rectangle(
+          extent={{-70,30},{-30,28}},
+          lineColor={0,140,72},
+          fillColor={0,140,72},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{-56,30},{-56,36},{-70,30},{-56,30}},
+          lineColor={0,140,72},
+          fillColor={0,140,72},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{44,30},{44,36},{30,30},{44,30}},
+          lineColor={238,46,47},
+          fillColor={238,46,47},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{30,30},{70,28}},
+          lineColor={238,46,47},
+          fillColor={238,46,47},
+          fillPattern=FillPattern.Solid)}),
     Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(revisions="<html>
 <ul>
