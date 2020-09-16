@@ -1,5 +1,6 @@
-within Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.CoolingOnly;
-block ActiveAirFlow "Active maximum and minimum setpoints for cooling only terminal unit"
+within Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.CoolingOnly.Subsequences;
+block ActiveAirFlow
+  "Active maximum and minimum setpoints for cooling only terminal unit"
 
   parameter Real VCooZonMax_flow(
     final quantity="VolumeFlowRate",

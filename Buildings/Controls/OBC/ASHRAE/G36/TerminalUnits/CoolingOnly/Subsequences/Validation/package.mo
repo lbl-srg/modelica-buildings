@@ -1,4 +1,4 @@
-within Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.CoolingOnly.SetPoints;
+within Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.CoolingOnly.Subsequences;
 package Validation "Collection of validation models"
 
 annotation (preferredView="info", Documentation(info="<html>

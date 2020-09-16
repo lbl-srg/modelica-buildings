@@ -1,4 +1,4 @@
-within Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.CoolingOnly;
+within Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.CoolingOnly.Subsequences;
 block Damper
   "Output signals for controlling VAV cooling only box damper position"
   parameter Boolean have_pressureIndependentDamper=true
@@ -315,7 +315,7 @@ airflow at the active setpoint.
 unit are described in the following figure below.</p>
 <p align=\"center\">
 <img alt=\"Image of damper control for VAV cooling only unit\"
-src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/TerminalUnits/CoolingOnly/Damper.png\"/>
+src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/TerminalUnits/CoolingOnly/Subsequences/Damper.png\"/>
 </p>
 </html>", revisions="<html>
 <ul>

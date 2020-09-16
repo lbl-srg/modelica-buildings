@@ -1,4 +1,4 @@
-within Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.CoolingOnly;
+within Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.CoolingOnly.Subsequences;
 block SystemRequests
   "Output system requests for VAV reheat terminal unit control"
 

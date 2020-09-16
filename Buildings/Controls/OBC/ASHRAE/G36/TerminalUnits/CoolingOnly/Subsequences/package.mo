@@ -1,9 +1,9 @@
-within Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits;
-package CoolingOnly "Sequences for VAV cooling only terminal unit"
+within Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.CoolingOnly;
+package Subsequences "Package of subsequences for cooling only box control"
 
 annotation (preferredView="info", Documentation(info="<html>
 <p>
-This package contains sequences for VAV cooling only terminal unit. They are created
+This package contains subsequences for VAV cooling only unit. They are created
 according to Section 5.5 of ASHRAE Guideline 36, May 2020.
 </p>
 </html>"),
@@ -41,4 +41,4 @@ according to Section 5.5 of ASHRAE Guideline 36, May 2020.
           pattern=LinePattern.None,
           fillPattern=FillPattern.Solid,
           extent={{-80.0,-80.0},{-20.0,-20.0}})}));
-end CoolingOnly;
+end Subsequences;
