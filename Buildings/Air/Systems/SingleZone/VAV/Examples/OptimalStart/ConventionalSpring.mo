@@ -1,10 +1,9 @@
 within Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart;
-model Conventional
+model ConventionalSpring
   "Example model using the block OptimalStart with a conventional controller for a single-zone VAV system"
   extends Modelica.Icons.Example;
 
   Buildings.Controls.OBC.Utilities.OptimalStart optSta(
-    nDay=5,
     computeHeating=true,
     computeCooling=true,
     uLow=0.1,
@@ -124,9 +123,10 @@ equation
           fillPattern=FillPattern.Solid,
           textString="System without optimal start")}),
     experiment(
-      StopTime=604800,
+      StartTime=6393600,
+      StopTime=7171200,
       Tolerance=1e-06),
-      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Air/Systems/SingleZone/VAV/Examples/OptimalStart/Conventional.mos"
+      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Air/Systems/SingleZone/VAV/Examples/OptimalStart/ConventionalSpring.mos"
         "Simulate and plot"),
       Documentation(info="<html>
 <p>
@@ -149,4 +149,4 @@ First implementation. This is for issue
 </li>
 </ul>
 </html>"));
-end Conventional;
+end ConventionalSpring;
