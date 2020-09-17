@@ -352,7 +352,7 @@ annotation (defaultComponentName="cooBoxAla",
 Documentation(info="<html>
 <p>
 This block outputs alarms of cooling only terminal unit. The implementation is according
-to the Section 5.3.6 of ASHRAE Guideline 36, May 2020.
+to the Section 5.5.6 of ASHRAE Guideline 36, May 2020.
 </p>
 <h5>Low airflow alarm</h5>
 <ol>

@@ -88,7 +88,7 @@ block Damper
     "Active airflow setpoint"
     annotation (Placement(transformation(extent={{200,-20},{240,20}}),
         iconTransformation(extent={{100,40},{140,80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yDam(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yDamSet(
     final min=0,
     final max=1,
     final unit="1")
@@ -191,10 +191,10 @@ equation
           {160,-82}}, color={0,0,127}));
   connect(VDisSet_flowNor.y, gai.u) annotation (Line(points={{122,-70},{140,-70},
           {140,-30},{148,-30}}, color={0,0,127}));
-  connect(conPID.y, yDam)
+  connect(conPID.y, yDamSet)
     annotation (Line(points={{172,-70},{220,-70}}, color={0,0,127}));
-  connect(gai.y, yDam) annotation (Line(points={{172,-30},{180,-30},{180,-70},{220,
-          -70}}, color={0,0,127}));
+  connect(gai.y, yDamSet) annotation (Line(points={{172,-30},{180,-30},{180,-70},
+          {220,-70}}, color={0,0,127}));
 
 annotation (
   defaultComponentName="damCon",
@@ -254,11 +254,11 @@ annotation (
           rotation=90,
           textString="VDis_flow"),
         Text(
-          extent={{74,6},{98,-4}},
+          extent={{70,6},{98,-4}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="yDam",
-          horizontalAlignment=TextAlignment.Right),
+          horizontalAlignment=TextAlignment.Right,
+          textString="yDamSet"),
         Line(points={{-50,64},{-50,-48},{62,-48}}, color={95,95,95}),
         Line(
           points={{-2,-22},{-2,-48}},
@@ -310,7 +310,7 @@ When the zone state is deadband or heating, the active airflow setpoint shall be
 the minimum airflow setpoint.
 </li>
 <li>
-The VAV damper <code>yDam</code> shall be modulated by a control loop to maintain
+The VAV damper <code>yDamSet</code> shall be modulated by a control loop to maintain
 the measured airflow <code>VDis_flow</code> at the active setpoint.
 </li>
 </ol>
