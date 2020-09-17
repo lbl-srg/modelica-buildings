@@ -1,8 +1,0 @@
-compareVars :=
-  {
-    "TSetRooHea.y[1]",
-    "TSetRooCoo.y[1]",
-    "zonAHUCon1.TZon",
-    "zonAHUCon2.TZon",
-    "optSta.tOpt"
-  };
