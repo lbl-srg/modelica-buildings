@@ -1,5 +1,6 @@
 within Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart;
 model Guideline36Summer
+  "Example model using the block OptimalStart with a Guideline36 controller for a single-zone system in summer"
   extends Guideline36Spring;
   annotation (experiment(
       StartTime=15984000,
@@ -20,6 +21,11 @@ The building, HVAC system and controller model
 can be found in the base class
 <a href=\"modelica://Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.BaseClasses.ZoneWithAHUG36\">
 Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.BaseClasses.ZoneWithAHUG36</a>.
+</p>
+<p>
+This example validates the optimal start results for the summer condition.
+The system is initialized in the first few days. The optimal start block then calculates
+the optimal precooling time for the rest days.
 </p>
 </html>",
 revisions="<html>

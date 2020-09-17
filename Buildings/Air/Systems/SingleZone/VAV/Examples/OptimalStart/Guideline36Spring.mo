@@ -1,6 +1,6 @@
 within Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart;
 model Guideline36Spring
-  "Example model using the block OptimalStart with a Guideline36 controller for a single-zone system"
+  "Example model using the block OptimalStart with a Guideline36 controller for a single-zone system in spring"
   extends Modelica.Icons.Example;
 
   Buildings.Controls.OBC.Utilities.OptimalStart optStaHea(
@@ -112,6 +112,11 @@ The building, HVAC system and controller model
 can be found in the base class
 <a href=\"modelica://Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.BaseClasses.ZoneWithAHUG36\">
 Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.BaseClasses.ZoneWithAHUG36</a>.
+</p>
+<p>
+This example validates the optimal start results for the spring condition.
+The system is initialized in the first few days. The optimal start time then converges
+to zero when the zero temperature is within the heating and cooling setpoint deadband.
 </p>
 </html>",
 revisions="<html>

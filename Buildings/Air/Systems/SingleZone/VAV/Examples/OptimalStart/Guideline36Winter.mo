@@ -1,8 +1,8 @@
 within Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart;
 model Guideline36Winter
+  "Example model using the block OptimalStart with a Guideline36 controller for a single-zone system in winter"
   extends Guideline36Spring;
   annotation (experiment(
-      StartTime=0,
       StopTime=604800,
       Tolerance=1e-06),
       __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Air/Systems/SingleZone/VAV/Examples/OptimalStart/Guideline36Winter.mos"
@@ -20,6 +20,11 @@ The building, HVAC system and controller model
 can be found in the base class
 <a href=\"modelica://Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.BaseClasses.ZoneWithAHUG36\">
 Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.BaseClasses.ZoneWithAHUG36</a>.
+</p>
+<p>
+This example validates the optimal start results for the winter condition.
+The system is initialized in the first few days. The optimal start time then calculates
+the optimal preheating time for the rest days.
 </p>
 </html>",
 revisions="<html>

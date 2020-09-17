@@ -1,6 +1,6 @@
 within Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart;
 model ConventionalSpring
-  "Example model using the block OptimalStart with a conventional controller for a single-zone VAV system"
+  "Example model using the block OptimalStart with a conventional controller for a single-zone VAV system in spring"
   extends Modelica.Icons.Example;
 
   Buildings.Controls.OBC.Utilities.OptimalStart optSta(
@@ -138,6 +138,11 @@ and a single-zone floor building. The building, HVAC system and controller model
 can be found in the base class
 <a href=\"modelica://Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.BaseClasses.ZoneWithAHUConventional\">
 Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.BaseClasses.ZoneWithAHUConventional</a>. 
+</p>
+<p>
+This example validates the optimal start results for the spring condition.
+The system is initialized in the first few days. The optimal start time then converges
+to zero when the zero temperature is within the heating and cooling setpoint deadband.
 </p>
 </html>",
 revisions="<html>
