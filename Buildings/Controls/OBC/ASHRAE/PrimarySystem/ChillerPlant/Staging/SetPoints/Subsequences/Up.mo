@@ -3,56 +3,77 @@ block Up "Generates a stage up signal"
   parameter Boolean have_WSE = true
     "true = plant has a WSE, false = plant does not have WSE";
 
-  parameter Boolean serChi = false
+  parameter Boolean is_serChi = false
     "true = series chillers plant; false = parallel chillers plant";
 
   parameter Real effConTruDelay(
     final unit="s",
     final quantity="Time",
-    final displayUnit="h")=900
+    displayUnit="h")=900
       "Enable delay for efficiency condition";
 
   parameter Real faiSafTruDelay(
     final unit="s",
     final quantity="Time",
-    final displayUnit="h")=900
+    displayUnit="h")=900
       "Enable delay for failsafe condition";
 
   parameter Real shortTDelay(
     final unit="s",
     final quantity="Time",
-    final displayUnit="h")=600
+    displayUnit="h")=600
       "Short enable delay for staging from zero to first available stage up"
     annotation(Evaluate=true, Dialog(enable=have_WSE));
 
   parameter Real longTDelay(
     final unit="s",
     final quantity="Time",
-    final displayUnit="h")=1200
+    displayUnit="h")=1200
       "Long enable delay for staging from zero to first available stage up"
     annotation(Evaluate=true, Dialog(enable=have_WSE));
 
-  parameter Modelica.SIunits.TemperatureDifference faiSafTDif = 1
-    "Offset between the chilled water supply temperature and its setpoint";
+  parameter Real faiSafTDif(
+    final unit="K",
+    final quantity="TemperatureDifference",
+    displayUnit="degC")=1
+      "Offset between the chilled water supply temperature and its setpoint";
 
-  parameter Modelica.SIunits.TemperatureDifference TDifHys = 1
-    "Hysteresis deadband for temperature";
+  parameter Real TDifHys(
+    final unit="K",
+    final quantity="TemperatureDifference",
+    displayUnit="degC")=1
+      "Hysteresis deadband for temperature";
 
-  parameter Modelica.SIunits.TemperatureDifference smallTDif = 1
-    "Offset between the chilled water supply temperature and its setpoint for the long condition"
+  parameter Real smallTDif(
+    final unit="K",
+    final quantity="TemperatureDifference",
+    displayUnit="degC")=1
+      "Offset between the chilled water supply temperature and its setpoint for the long condition"
     annotation(Evaluate=true, Dialog(enable=have_WSE));
 
-  parameter Modelica.SIunits.TemperatureDifference largeTDif = 2
-    "Offset between the chilled water supply temperature and its setpoint for the short condition"
+  parameter Real largeTDif(
+    final unit="K",
+    final quantity="TemperatureDifference",
+    displayUnit="degC")=2
+      "Offset between the chilled water supply temperature and its setpoint for the short condition"
     annotation(Evaluate=true, Dialog(enable=have_WSE));
 
-  parameter Modelica.SIunits.PressureDifference faiSafDpDif = 2 * 6895
-    "Offset between the chilled water differential pressure and its setpoint";
+  parameter Real faiSafDpDif(
+    final unit="Pa",
+    final quantity="PressureDifference",
+    displayUnit="Pa")=2 * 6895
+      "Offset between the chilled water differential pressure and its setpoint";
 
-  parameter Modelica.SIunits.PressureDifference dpDifHys = 0.5 * 6895
-    "Pressure difference hysteresis deadband";
+  parameter Real dpDifHys(
+    final unit="Pa",
+    final quantity="PressureDifference",
+    displayUnit="Pa")=0.5 * 6895
+      "Pressure difference hysteresis deadband";
 
-  parameter Real effConSigDif = 0.05
+  parameter Real effConSigDif(
+    final min=0,
+    final max=1,
+    final unit="1") = 0.05
     "Signal hysteresis deadband";
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uAvaCur
@@ -80,14 +101,14 @@ block Up "Generates a stage up signal"
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWatPumSet(
     final unit="Pa",
-    final quantity="PressureDifference") if not serChi
+    final quantity="PressureDifference") if not is_serChi
     "Chilled water pump Diferential static pressure setpoint"
     annotation (Placement(transformation(extent={{-200,0},{-160,40}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWatPum(
     final unit="Pa",
-    final quantity="PressureDifference") if not serChi
+    final quantity="PressureDifference") if not is_serChi
     "Chilled water pump Diferential static pressure"
     annotation (Placement(transformation(extent={{-200,-30},{-160,10}}),
     iconTransformation(extent={{-140,-40},{-100,0}})));
@@ -112,7 +133,7 @@ block Up "Generates a stage up signal"
 
 protected
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.SetPoints.Subsequences.FailsafeCondition faiSafCon(
-    final serChi=serChi,
+    final is_serChi=is_serChi,
     final faiSafTruDelay=faiSafTruDelay,
     final TDif=faiSafTDif,
     final TDifHys=TDifHys,
@@ -261,8 +282,8 @@ equation
         coordinateSystem(preserveAspectRatio=false,
         extent={{-160,-200},{160,140}})),
 Documentation(info="<html>
-<p>Outputs a boolean stage up signal <code>y</code> based on the 
-various plant operation conditions that get provided as input signals. 
+<p>Outputs a boolean stage up signal <code>y</code> based on the
+various plant operation conditions that get provided as input signals.
 Implemented according to 1711 March 2020 Draft, section 5.2.4.15.
  and applies to primary-only plant with and without a WSE.
 </p>
@@ -281,7 +302,7 @@ Failsafe condition is true.
 </li>
 </ul>
 <p>
-If <code>have_WSE</code> boolean flag is true, staging up from WSE only to the first available 
+If <code>have_WSE</code> boolean flag is true, staging up from WSE only to the first available
 stage occurs when the chilled water supply temperature is sufficienctly above its setpoint
 for either a shorter or a longer time period
 </p>

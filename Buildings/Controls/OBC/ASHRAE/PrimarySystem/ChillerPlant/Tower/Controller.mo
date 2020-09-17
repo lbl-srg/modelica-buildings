@@ -62,26 +62,29 @@ block Controller "Cooling tower controller"
                                           chiWatCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
 
   // Fan speed control: controlling condenser return water temperature when WSE is not enabled
-  parameter Modelica.SIunits.TemperatureDifference LIFT_min[nChi]={12,12} "Minimum LIFT of each chiller"
-    annotation (Dialog(tab="Fan speed", group="Return temperature control"));
+  parameter Real LIFT_min[nChi](
+    final unit=fill("K",nChi),
+    final quantity=fill("TemperatureDifference",nChi),
+    displayUnit=fill("degC",nChi))={12,12} "Minimum LIFT of each chiller"
+      annotation (Evaluate=true, Dialog(tab="Fan speed", group="Return temperature control"));
   parameter Real TConWatSup_nominal[nChi](
-    each final unit="K",
-    each final displayUnit="degC",
-    final quantity=fill("ThermodynamicTemperature", nChi))={293.15,293.15}
+    final unit=fill("K",nChi),
+    final quantity=fill("ThermodynamicTemperature",nChi),
+    displayUnit=fill("degC",nChi))={293.15,293.15}
     "Condenser water supply temperature (condenser entering) of each chiller"
-    annotation (Dialog(tab="Fan speed", group="Return temperature control"));
+    annotation (Evaluate=true, Dialog(tab="Fan speed", group="Return temperature control"));
   parameter Real TConWatRet_nominal[nChi](
-    each final unit="K",
-    each final displayUnit="degC",
-    final quantity=fill("ThermodynamicTemperature", nChi))={303.15,303.15}
+    final unit=fill("K",nChi),
+    final quantity=fill("ThermodynamicTemperature",nChi),
+    displayUnit=fill("degC",nChi))={303.15,303.15}
     "Condenser water return temperature (condenser leaving) of each chiller"
-    annotation (Dialog(tab="Fan speed", group="Return temperature control"));
+    annotation (Evaluate=true, Dialog(tab="Fan speed", group="Return temperature control"));
   parameter Real TChiWatSupMin[nChi](
-    each final unit="K",
-    each final displayUnit="degC",
-    final quantity=fill("ThermodynamicTemperature", nChi))={278.15,278.15}
+    final unit=fill("K",nChi),
+    final quantity=fill("ThermodynamicTemperature",nChi),
+    displayUnit=fill("degC",nChi))={278.15,278.15}
     "Lowest chilled water supply temperature oc each chiller"
-    annotation (Dialog(tab="Fan speed", group="Return temperature control"));
+    annotation (Evaluate=true, Dialog(tab="Fan speed", group="Return temperature control"));
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController couPlaCon=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of coupled plant controller"
@@ -90,12 +93,16 @@ block Controller "Cooling tower controller"
   parameter Real kCouPla=1 "Gain of controller"
     annotation (Dialog(tab="Fan speed", group="Return temperature control",
                        enable=closeCoupledPlant));
-  parameter Real TiCouPla(final unit="s", final quantity="Time")=0.5
+  parameter Real TiCouPla(
+    final unit="s",
+    final quantity="Time")=0.5
     "Time constant of integrator block"
     annotation (Dialog(tab="Fan speed", group="Return temperature control",
                        enable=closeCoupledPlant and (couPlaCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
                                                      couPlaCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
-  parameter Real TdCouPla(final unit="s", final quantity="Time")=0.1
+  parameter Real TdCouPla(
+    final unit="s",
+    final quantity="Time")=0.1
     "Time constant of derivative block"
     annotation (Dialog(tab="Fan speed", group="Return temperature control",
                        enable=closeCoupledPlant and (couPlaCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
@@ -195,14 +202,14 @@ block Controller "Cooling tower controller"
       iconTransformation(extent={{-140,110},{-100,150}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSup(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature") if have_WSE
     "Chilled water supply temperature"
     annotation (Placement(transformation(extent={{-140,120},{-100,160}}),
       iconTransformation(extent={{-140,90},{-100,130}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSupSet(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Chilled water supply temperature setpoint"
     annotation (Placement(transformation(extent={{-140,100},{-100,140}}),
@@ -229,7 +236,7 @@ block Controller "Cooling tower controller"
       iconTransformation(extent={{-140,-10},{-100,30}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TConWatRet(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature") "Condenser water return temperature"
     annotation (Placement(transformation(extent={{-140,-40},{-100,0}}),
       iconTransformation(extent={{-140,-30},{-100,10}})));
@@ -241,7 +248,7 @@ block Controller "Cooling tower controller"
       iconTransformation(extent={{-140,-50},{-100,-10}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TConWatSup(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature") if not closeCoupledPlant
     "Condenser water supply temperature"
     annotation (Placement(transformation(extent={{-140,-90},{-100,-50}}),
@@ -566,11 +573,11 @@ annotation (
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-260},{100,260}})),
 Documentation(info="<html>
 <p>
-Block that controls cooling tower cells enabling status <code>yTowSta</code>, 
-the supply isolation valve positions <code>yIsoVal</code> of each cell and the 
+Block that controls cooling tower cells enabling status <code>yTowSta</code>,
+the supply isolation valve positions <code>yIsoVal</code> of each cell and the
 cell fan operating speed <code>yFanSpe</code>.
-This is implemented according to ASHRAE RP-1711 Advanced Sequences of Operation for 
-HVAC Systems Phase II – 
+This is implemented according to ASHRAE RP-1711 Advanced Sequences of Operation for
+HVAC Systems Phase II –
 Central Plants and Hydronic Systems (Draft on March 23, 2020), section 5.2.12.
 The section specifies sequences to control cooling tower.
 It includes three subsequences:

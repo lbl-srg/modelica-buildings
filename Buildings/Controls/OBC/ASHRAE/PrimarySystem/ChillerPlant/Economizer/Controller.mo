@@ -4,7 +4,7 @@ block Controller "Waterside economizer (WSE) enable/disable status"
   parameter Real holdPeriod(
     final unit="s",
     final quantity="Time",
-    final displayUnit="h")=1200
+    displayUnit="h")=1200
     "WSE minimum on or off time"
   annotation(Dialog(group="Enable parameters"));
 
@@ -14,48 +14,71 @@ block Controller "Waterside economizer (WSE) enable/disable status"
   "Delay disable time period"
   annotation(Dialog(group="Enable parameters"));
 
-  parameter Modelica.SIunits.TemperatureDifference TOffsetEna=2
-  "Temperature offset between the chilled water return upstream of WSE and the predicted WSE output"
+  parameter Real TOffsetEna(
+    final unit="K",
+    final quantity="TemperatureDifference",
+    displayUnit="degC")=2
+    "Temperature offset between the chilled water return upstream of WSE and the predicted WSE output"
   annotation(Dialog(group="Enable parameters"));
 
-  parameter Modelica.SIunits.TemperatureDifference TOffsetDis=1
-  "Temperature offset between the chilled water return upstream and downstream WSE"
+  parameter Real TOffsetDis(
+    final unit="K",
+    final quantity="TemperatureDifference",
+    displayUnit="degC")=1
+    "Temperature offset between the chilled water return upstream and downstream WSE"
   annotation(Dialog(group="Enable parameters"));
 
-  parameter Modelica.SIunits.TemperatureDifference heaExcAppDes=2
-  "Design heat exchanger approach"
+  parameter Real heaExcAppDes(
+    final unit="K",
+    final quantity="TemperatureDifference",
+    displayUnit="degC")=2
+    "Design heat exchanger approach"
     annotation(Dialog(group="Design parameters"));
 
-  parameter Modelica.SIunits.TemperatureDifference cooTowAppDes=2
-  "Design cooling tower approach"
+  parameter Real cooTowAppDes(
+    final unit="K",
+    final quantity="TemperatureDifference",
+    displayUnit="degC")=2
+    "Design cooling tower approach"
     annotation(Dialog(group="Design parameters"));
 
-  parameter Modelica.SIunits.Temperature TOutWetDes=288.15
-  "Design outdoor air wet bulb temperature"
+  parameter Real TOutWetDes(
+    final unit="K",
+    final quantity="TemperatureDifference",
+    displayUnit="degC")=288.15
+    "Design outdoor air wet bulb temperature"
     annotation(Dialog(group="Design parameters"));
 
-  parameter Modelica.SIunits.TemperatureDifference hysDt = 1
-   "Deadband temperature used in hysteresis block"
+  parameter Real hysDt(
+    final unit="K",
+    final quantity="TemperatureDifference",
+    displayUnit="degC")=1
+     "Deadband temperature used in hysteresis block"
     annotation (Evaluate=true, Dialog(tab="Advanced", group="Hysteresis"));
 
-  parameter Modelica.SIunits.VolumeFlowRate VHeaExcDes_flow=0.015
-    "Desing heat exchanger chilled water volume flow rate"
+  parameter Real VHeaExcDes_flow(
+    final unit="m3/s",
+    final quantity="VolumeFlowRate",
+    displayUnit="m3/s")=0.015
+      "Desing heat exchanger chilled water volume flow rate"
     annotation(Dialog(group="Design parameters"));
 
-  parameter Real step=0.02 "Tuning step"
+  parameter Real step(
+    final unit="1")=0.02
+    "Incremental step used to reduce or increase the water-side economizer tuning parameter"
     annotation (Evaluate=true, Dialog(tab="Advanced", group="Tuning"));
 
   parameter Real wseOnTimDec(
     final unit="s",
     final quantity="Time",
-    final displayUnit="h") = 3600
+    displayUnit="h") = 3600
     "Economizer enable time needed to allow decrease of the tuning parameter"
     annotation (Evaluate=true,Dialog(tab="Advanced", group="Tuning"));
 
   parameter Real wseOnTimInc(
     final unit="s",
     final quantity="Time",
-    final displayUnit="h") = 1800
+    displayUnit="h") = 1800
     "Economizer enable time needed to allow increase of the tuning parameter"
     annotation (Evaluate=true,Dialog(tab="Advanced", group="Tuning"));
 
@@ -106,7 +129,7 @@ block Controller "Waterside economizer (WSE) enable/disable status"
       iconTransformation(extent={{100,-60},{120,-40}})));
 
   Buildings.Controls.OBC.CDL.Continuous.LessThreshold enaTChiWatRet(
-    final threshold=delDis)
+    final t=delDis)
     "Enable condition based on chilled water return temperature upstream and downstream WSE"
     annotation (Placement(transformation(extent={{60,-20},{80,0}})));
 

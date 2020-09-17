@@ -1,13 +1,18 @@
 compareVars :=
   {
+    "leaLag.uLeaStaSet",
+    "leaLag.uLagStaSet",
     "leaLag.yDevStaSet[1]",
     "leaLag.yDevStaSet[2]",
     "leaLag.yDevRol[1]",
     "leaLag.yDevRol[2]",
+    "leaLag1.uLeaStaSet",
+    "leaLag1.uLagStaSet",
     "leaLag1.yDevStaSet[1]",
     "leaLag1.yDevStaSet[2]",
     "leaLag1.yDevRol[1]",
     "leaLag1.yDevRol[2]",
+    "leaSta.uLeaStaSet",
     "leaSta.yDevStaSet[1]",
     "leaSta.yDevStaSet[2]",
     "leaSta.yDevRol[1]",

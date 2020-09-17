@@ -25,20 +25,29 @@ model SetpointController_WSE
     annotation (Placement(transformation(extent={{60,-100},{84,-62}})));
 
 protected
-  parameter Modelica.SIunits.Temperature TChiWatSupSet = 285.15
-  "Chilled water supply set temperature";
+  parameter Real TChiWatSupSet(
+    final unit="K",
+    final quantity="ThermodynamicTemperature",
+    displayUnit="degC")=285.15
+    "Chilled water supply set temperature";
 
-  parameter Modelica.SIunits.Temperature aveTChiWatRet = 288.15
-  "Average measured chilled water return temperature";
+  parameter Real aveTChiWatRet(
+    final unit="K",
+    final quantity="ThermodynamicTemperature",
+    displayUnit="degC")=288.15
+    "Average measured chilled water return temperature";
 
   parameter Real minStaRuntime(
     final unit="s",
     final quantity="Time",
-    final displayUnit="h")=900
+    displayUnit="h")=900
       "Minimum stage runtime";
 
-  parameter Modelica.SIunits.VolumeFlowRate aveVChiWat_flow = 0.05
-    "Average measured chilled water flow rate";
+  parameter Real aveVChiWat_flow(
+    final unit="m3/s",
+    final quantity="VolumeFlowRate",
+    displayUnit="m3/s")=0.05
+      "Average measured chilled water flow rate";
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TChiWatRet(
     final amplitude=7,
@@ -111,7 +120,7 @@ protected
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
 
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
-    final threshold=0.5) "Greater threshold"
+    final t=0.5) "Greater threshold"
     annotation (Placement(transformation(extent={{-20,10},{0,30}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TChiWatRet1(
@@ -185,7 +194,7 @@ protected
     annotation (Placement(transformation(extent={{-60,-220},{-40,-200}})));
 
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr1(
-    final threshold=0.5) "Greater than threshold"
+    final t=0.5) "Greater than threshold"
     annotation (Placement(transformation(extent={{-20,-220},{0,-200}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dpChiWat(

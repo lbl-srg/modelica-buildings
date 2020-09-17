@@ -5,7 +5,7 @@ block EnableChiller "Sequence for enabling chiller"
   parameter Real proOnTim(
     final unit="s",
     final quantity="Time",
-    final displayUnit="h") = 300
+    displayUnit="h") = 300
     "Enabled chiller operation time to indicate if it is proven on";
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput nexEnaChi
@@ -56,15 +56,11 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con[nChi](
     final k=fill(true, nChi)) "True constant"
     annotation (Placement(transformation(extent={{-40,140},{-20,160}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr3(
-    final threshold=proOnTim)
-    "Check the newly enabled chiller being operated by more than 5 minutes"
-    annotation (Placement(transformation(extent={{-60,-120},{-40,-100}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea[nChi]
     "Convert boolean input to real output"
     annotation (Placement(transformation(extent={{-160,-10},{-140,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr[nChi](
-    final threshold=fill(0.5, nChi))
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greEquThr[nChi](
+    final t=fill(0.5, nChi))
     "Convert real input to boolean output"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi1[nChi]
@@ -86,7 +82,7 @@ protected
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu[nChi]
     "Check next enabling isolation valve"
     annotation (Placement(transformation(extent={{-100,110},{-80,130}})));
-  Buildings.Controls.OBC.CDL.Logical.Timer tim
+  Buildings.Controls.OBC.CDL.Logical.Timer tim(final t=proOnTim)
     "Count the time after new chiller has been enabled"
     annotation (Placement(transformation(extent={{-100,-120},{-80,-100}})));
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triSam[nChi]
@@ -147,8 +143,6 @@ equation
     annotation (Line(points={{-18,120},{98,120}}, color={255,0,255}));
   connect(con.y,logSwi. u1)
     annotation (Line(points={{-18,150},{0,150},{0,128},{98,128}}, color={255,0,255}));
-  connect(tim.y,greEquThr3. u)
-    annotation (Line(points={{-78,-110},{-62,-110}}, color={0,0,127}));
   connect(uChi,booToRea. u)
     annotation (Line(points={{-220,0},{-162,0}}, color={255,0,255}));
   connect(booToRea.y,triSam. u)
@@ -162,8 +156,6 @@ equation
   connect(and2.y,tim. u)
     annotation (Line(points={{-138,60},{-120,60},{-120,-110},{-102,-110}},
       color={255,0,255}));
-  connect(greEquThr3.y,booRep2. u)
-    annotation (Line(points={{-38,-110},{-22,-110}}, color={255,0,255}));
   connect(booRep2.y,and3. u1)
     annotation (Line(points={{2,-110},{38,-110}}, color={255,0,255}));
   connect(and3.y,logSwi1. u2)
@@ -188,9 +180,6 @@ equation
     annotation (Line(points={{182,-50},{220,-50}}, color={255,0,255}));
   connect(not2.y,or2. u1)
     annotation (Line(points={{-138,-50},{38,-50}},color={255,0,255}));
-  connect(greEquThr3.y,not1. u)
-    annotation (Line(points={{-38,-110},{-30,-110},{-30,-70},{-22,-70}},
-      color={255,0,255}));
   connect(not1.y,or2. u2)
     annotation (Line(points={{2,-70},{20,-70},{20,-58},{38,-58}},
       color={255,0,255}));
@@ -231,11 +220,17 @@ equation
   connect(and2.y, logSwi4.u1)
     annotation (Line(points={{-138,60},{-120,60},{-120,-162},{158,-162}},
       color={255,0,255}));
-  connect(greEquThr3.y, logSwi4.u3)
-    annotation (Line(points={{-38,-110},{-30,-110},{-30,-178},{158,-178}},
-      color={255,0,255}));
   connect(logSwi4.y, yNewChiEna)
     annotation (Line(points={{182,-170},{220,-170}}, color={255,0,255}));
+  connect(tim.passed, not1.u)
+    annotation (Line(points={{-78,-118},{-40,-118},{-40,-70},{-22,-70}},
+      color={255,0,255}));
+  connect(tim.passed, booRep2.u)
+    annotation (Line(points={{-78,-118},{-40,-118},{-40,-110},{-22,-110}},
+      color={255,0,255}));
+  connect(tim.passed, logSwi4.u3)
+    annotation (Line(points={{-78,-118},{-40,-118},{-40,-178},{158,-178}},
+      color={255,0,255}));
 
 annotation (
   defaultComponentName="enaChi",

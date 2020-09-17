@@ -30,14 +30,14 @@ block Enable "Sequence for enabling and disabling tower fan"
       iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TTowSet(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Setpoint of tower temperature, could be condenser water return or supply temperature"
     annotation (Placement(transformation(extent={{-220,20},{-180,60}}),
       iconTransformation(extent={{-140,0},{-100,40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TTow(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Measured tower temperature, could be condenser water return or supply temperature"
     annotation (Placement(transformation(extent={{-220,-20},{-180,20}}),
@@ -69,8 +69,9 @@ protected
     annotation (Placement(transformation(extent={{40,150},{60,170}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1[nChi] "Logical not"
     annotation (Placement(transformation(extent={{0,150},{20,170}})));
-  Buildings.Controls.OBC.CDL.Logical.Timer tim
-    "Count the time when the chiller head pressure control maximum  tower speed equals tower minimum speed"
+  Buildings.Controls.OBC.CDL.Logical.Timer tim(
+    final t=cheMaxTowSpe)
+    "Count the time when the chiller head pressure control maximum tower speed equals tower minimum speed"
     annotation (Placement(transformation(extent={{80,150},{100,170}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys1[nChi](
     final uLow=fill(fanSpeChe, nChi),
@@ -79,10 +80,6 @@ protected
     annotation (Placement(transformation(extent={{-140,170},{-120,190}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi[nChi] "Logical switch"
     annotation (Placement(transformation(extent={{-100,150},{-80,170}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr(
-    final threshold=cheMaxTowSpe)
-    "Any enabled chiller head pressure control maximum tower speed has been at the minimum tower speed by a threshold time"
-    annotation (Placement(transformation(extent={{120,150},{140,170}})));
   Buildings.Controls.OBC.CDL.Continuous.Feedback feedback1
     "Difference between tower fan speed and the minimum fan speed"
     annotation (Placement(transformation(extent={{-90,110},{-70,130}})));
@@ -111,17 +108,16 @@ protected
     annotation (Placement(transformation(extent={{-140,-130},{-120,-110}})));
   Buildings.Controls.OBC.CDL.Logical.Not not3 "No enabled tower fan"
     annotation (Placement(transformation(extent={{-60,-130},{-40,-110}})));
-  Buildings.Controls.OBC.CDL.Logical.Timer tim1 "Count the time when all tower cells are off"
+  Buildings.Controls.OBC.CDL.Logical.Timer tim1(
+    final t=cheTowOff)
+    "Count the time when all tower cells are off"
     annotation (Placement(transformation(extent={{-20,-130},{0,-110}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr1(
-    final threshold=cheTowOff)
-    "Check if the tower has been off for a threshold time"
-    annotation (Placement(transformation(extent={{20,-130},{40,-110}})));
   Buildings.Controls.OBC.CDL.Continuous.Feedback feedback3
     "Difference between the return water temperature and the adjusted setpoint"
     annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys4(
-    final uLow=0.1, final uHigh=0.15)
+    final uLow=0.1,
+    final uHigh=0.15)
     "Check if tower temperature is above the adjusted setpoint"
     annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
   Buildings.Controls.OBC.CDL.Logical.MultiAnd mulAnd(final nu=nChi)
@@ -150,13 +146,10 @@ protected
     final p=-5/9, final k=1)
     "Temperature of a delta value below the tower temperature setpoint"
     annotation (Placement(transformation(extent={{-140,30},{-120,50}})));
-  Buildings.Controls.OBC.CDL.Logical.Timer tim2
+  Buildings.Controls.OBC.CDL.Logical.Timer tim2(
+    final t=cheMinFanSpe)
     "Count the time when the tower fan is at minimum speed"
     annotation (Placement(transformation(extent={{40,110},{60,130}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr2(
-    final threshold=cheMinFanSpe)
-    "Threshold time"
-    annotation (Placement(transformation(extent={{40,70},{60,90}})));
   Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi2 "Logical switch"
     annotation (Placement(transformation(extent={{140,-170},{160,-150}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant disFan1(
@@ -190,8 +183,6 @@ equation
       color={0,0,127}));
   connect(swi.y, feedback.u1)
     annotation (Line(points={{-78,160},{-72,160}}, color={0,0,127}));
-  connect(tim.y, greEquThr.u)
-    annotation (Line(points={{102,160},{118,160}}, color={0,0,127}));
   connect(uFanSpe, feedback1.u1)
     annotation (Line(points={{-200,120},{-92,120}}, color={0,0,127}));
   connect(minTowSpe[1].y, feedback1.u2)
@@ -206,9 +197,6 @@ equation
     annotation (Line(points={{-68,40},{-42,40}}, color={0,0,127}));
   connect(hys3.y, and2.u2)
     annotation (Line(points={{-18,40},{70,40},{70,72},{78,72}}, color={255,0,255}));
-  connect(greEquThr.y, disTow.u1)
-    annotation (Line(points={{142,160},{150,160},{150,140},{110,140},{110,120},
-      {118,120}}, color={255,0,255}));
   connect(and2.y, disTow.u2)
     annotation (Line(points={{102,80},{110,80},{110,112},{118,112}},
       color={255,0,255}));
@@ -216,8 +204,6 @@ equation
     annotation (Line(points={{-118,-120},{-62,-120}},  color={255,0,255}));
   connect(not3.y, tim1.u)
     annotation (Line(points={{-38,-120},{-22,-120}}, color={255,0,255}));
-  connect(tim1.y, greEquThr1.u)
-    annotation (Line(points={{2,-120},{18,-120}}, color={0,0,127}));
   connect(TTow, feedback3.u1)
     annotation (Line(points={{-200,0},{-80,0},{-80,-40},{-62,-40}},
       color={0,0,127}));
@@ -227,9 +213,6 @@ equation
     annotation (Line(points={{42,0},{50,0},{50,-32},{58,-32}}, color={255,0,255}));
   connect(hys4.y, enaTow.u2)
     annotation (Line(points={{42,-40},{58,-40}}, color={255,0,255}));
-  connect(greEquThr1.y, enaTow.u3)
-    annotation (Line(points={{42,-120},{50,-120},{50,-48},{58,-48}},
-      color={255,0,255}));
   connect(not1.y, mulOr.u)
     annotation (Line(points={{22,160},{38,160}}, color={255,0,255}));
   connect(hys.y, mulAnd.u)
@@ -251,11 +234,6 @@ equation
     annotation (Line(points={{-200,40},{-160,40},{-160,-80},{-142,-80}}, color={0,0,127}));
   connect(not2.y, tim2.u)
     annotation (Line(points={{22,120},{38,120}}, color={255,0,255}));
-  connect(tim2.y, greEquThr2.u)
-    annotation (Line(points={{62,120},{70,120},{70,100},{30,100},{30,80},{38,80}},
-      color={0,0,127}));
-  connect(greEquThr2.y, and2.u1)
-    annotation (Line(points={{62,80},{78,80}}, color={255,0,255}));
   connect(disFan1.y, logSwi2.u1)
     annotation (Line(points={{102,-180},{120,-180},{120,-152},{138,-152}},
       color={255,0,255}));
@@ -281,6 +259,12 @@ equation
   connect(enaTow.y, logSwi1.u1)
     annotation (Line(points={{82,-40},{100,-40},{100,-82},{138,-82}},
       color={255,0,255}));
+  connect(tim2.passed, and2.u1) annotation (Line(points={{62,112},{70,112},{70,80},
+          {78,80}}, color={255,0,255}));
+  connect(tim.passed, disTow.u1) annotation (Line(points={{102,152},{110,152},{110,
+          120},{118,120}}, color={255,0,255}));
+  connect(tim1.passed, enaTow.u3) annotation (Line(points={{2,-128},{50,-128},{50,
+          -48},{58,-48}}, color={255,0,255}));
 
 annotation (
   defaultComponentName="enaTow",

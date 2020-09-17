@@ -6,6 +6,27 @@ model ASHRAE2006
     heaCoi(show_T=true),
     cooCoi(show_T=true));
 
+  parameter Real ratVMinCor_flow(final unit="1")=
+    max(1.5*VCorOA_flow_nominal, 0.15*mCor_flow_nominal/1.2) /
+    (mCor_flow_nominal/1.2)
+    "Minimum discharge air flow rate ratio";
+  parameter Real ratVMinSou_flow(final unit="1")=
+    max(1.5*VSouOA_flow_nominal, 0.15*mSou_flow_nominal/1.2) /
+    (mSou_flow_nominal/1.2)
+    "Minimum discharge air flow rate ratio";
+  parameter Real ratVMinEas_flow(final unit="1")=
+    max(1.5*VEasOA_flow_nominal, 0.15*mEas_flow_nominal/1.2) /
+    (mEas_flow_nominal/1.2)
+    "Minimum discharge air flow rate ratio";
+  parameter Real ratVMinNor_flow(final unit="1")=
+    max(1.5*VNorOA_flow_nominal, 0.15*mNor_flow_nominal/1.2) /
+    (mNor_flow_nominal/1.2)
+    "Minimum discharge air flow rate ratio";
+  parameter Real ratVMinWes_flow(final unit="1")=
+    max(1.5*VWesOA_flow_nominal, 0.15*mWes_flow_nominal/1.2) /
+    (mWes_flow_nominal/1.2)
+    "Minimum discharge air flow rate ratio";
+
   Modelica.Blocks.Sources.Constant TSupSetHea(y(
       final quantity="ThermodynamicTemperature",
       final unit="K",
@@ -22,9 +43,10 @@ model ASHRAE2006
     annotation (Placement(transformation(extent={{-250,-352},{-230,-332}})));
 
   Controls.Economizer conEco(
+    have_reset=true,
     dT=1,
-    VOut_flow_min=0.3*m_flow_nominal/1.2,
-    Ti=600,
+    VOut_flow_min=Vot_flow_nominal,
+    Ti=120,
     k=0.1) "Controller for economizer"
     annotation (Placement(transformation(extent={{-80,140},{-60,160}})));
   Controls.RoomTemperatureSetpoint TSetRoo(
@@ -39,15 +61,20 @@ model ASHRAE2006
     annotation (Placement(transformation(extent={{160,-16},{180,4}})));
   Controls.CoolingCoilTemperatureSetpoint TSetCoo "Setpoint for cooling coil"
     annotation (Placement(transformation(extent={{-130,-212},{-110,-192}})));
-  Controls.RoomVAV conVAVCor "Controller for terminal unit corridor"
+  Controls.RoomVAV conVAVCor(ratVFloMin=ratVMinCor_flow, ratVFloHea=0.3)
+                             "Controller for terminal unit corridor"
     annotation (Placement(transformation(extent={{530,32},{550,52}})));
-  Controls.RoomVAV conVAVSou "Controller for terminal unit south"
+  Controls.RoomVAV conVAVSou(ratVFloMin=ratVMinSou_flow, ratVFloHea=0.3)
+                             "Controller for terminal unit south"
     annotation (Placement(transformation(extent={{700,30},{720,50}})));
-  Controls.RoomVAV conVAVEas "Controller for terminal unit east"
+  Controls.RoomVAV conVAVEas(ratVFloMin=ratVMinEas_flow, ratVFloHea=0.3)
+                             "Controller for terminal unit east"
     annotation (Placement(transformation(extent={{880,30},{900,50}})));
-  Controls.RoomVAV conVAVNor "Controller for terminal unit north"
+  Controls.RoomVAV conVAVNor(ratVFloMin=ratVMinNor_flow, ratVFloHea=0.3)
+                             "Controller for terminal unit north"
     annotation (Placement(transformation(extent={{1040,30},{1060,50}})));
-  Controls.RoomVAV conVAVWes "Controller for terminal unit west"
+  Controls.RoomVAV conVAVWes(ratVFloMin=ratVMinWes_flow, ratVFloHea=0.3)
+                             "Controller for terminal unit west"
     annotation (Placement(transformation(extent={{1240,28},{1260,48}})));
   Buildings.Controls.Continuous.LimPID heaCoiCon(
     yMax=1,
@@ -172,7 +199,7 @@ equation
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
   connect(conEco.yOA, eco.yOut) annotation (Line(
-      points={{-59.3333,152},{-10,152},{-10,-34}},
+      points={{-58.6667,152},{-10,152},{-10,-34}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
@@ -291,11 +318,11 @@ equation
   connect(gaiCooCoi.u, swiCooCoi.y) annotation (Line(points={{98,-248},{88,-248},
           {88,-248},{82,-248}}, color={0,0,127}));
   connect(eco.yExh, conEco.yOA) annotation (Line(
-      points={{-3,-34},{-2,-34},{-2,152},{-59.3333,152}},
+      points={{-3,-34},{-2,-34},{-2,152},{-58.6667,152}},
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(eco.yRet, conEco.yRet) annotation (Line(
-      points={{-16.8,-34},{-16.8,146.667},{-59.3333,146.667}},
+      points={{-16.8,-34},{-16.8,146.667},{-58.6667,146.667}},
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(freSta.y, or2.u1) annotation (Line(points={{22,-92},{22,-92},{40,-92},
@@ -315,6 +342,8 @@ equation
           56},{1140,74},{140,74},{140,-5.2},{158,-5.2}}, color={0,0,127}));
   connect(wes.y_actual, pSetDuc.u[5]) annotation (Line(points={{1332,56},{1338,
           56},{1338,74},{140,74},{140,-4.4},{158,-4.4}}, color={0,0,127}));
+  connect(or2.y, conEco.uRes) annotation (Line(points={{22,-170},{60,-170},{60,
+          120},{-73.3333,120},{-73.3333,137.333}}, color={255,0,255}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-380,-400},{1440,
             580}})),
@@ -376,11 +405,17 @@ ASHRAE, Atlanta, GA, 2006.
 </html>", revisions="<html>
 <ul>
 <li>
+July 10, 2020, by Antoine Gautier:<br/>
+Changed design and control parameters for outdoor air flow.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2019\">#2019</a>.
+</li>
+<li>
 April 20, 2020, by Jianjun Hu:<br/>
 Exported actual VAV damper position as the measured input data for
 defining duct static pressure setpoint.<br/>
 This is
-for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1873\">issue #1873</a>
+for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1873\">#1873</a>.
 </li>
 <li>
 May 19, 2016, by Michael Wetter:<br/>

@@ -1,4 +1,4 @@
-within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.ChilledWater.Subsequences;
+﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.ChilledWater.Subsequences;
 block EnableLag_primary_dP
   "Sequences for enabling and disabling lag pumps for primary-only plants using differential pressure pump speed control"
   parameter Integer nPum = 2 "Total number of pumps";
@@ -11,7 +11,9 @@ block EnableLag_primary_dP
   parameter Real relFloHys = 0.01
     "Constant value used in hysteresis for checking relative flow rate"
     annotation (Dialog(tab="Advanced"));
-  parameter Integer nPum_nominal(final max = nPum, final min = 1) = nPum
+  parameter Integer nPum_nominal(
+    final max = nPum,
+    final min = 1) = nPum
     "Total number of pumps that operate at design conditions"
     annotation (Dialog(group="Nominal conditions"));
   parameter Real VChiWat_flow_nominal(
@@ -61,9 +63,13 @@ block EnableLag_primary_dP
     final p=staCon,
     final k=1/nPum_nominal) "Add parameter"
     annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
-  Buildings.Controls.OBC.CDL.Logical.Timer tim "Count time"
+  Buildings.Controls.OBC.CDL.Logical.Timer tim(
+    final t=timPer)
+    "Check if the time is greater than delay time period"
     annotation (Placement(transformation(extent={{0,30},{20,50}})));
-  Buildings.Controls.OBC.CDL.Logical.Timer tim1 "Count time"
+  Buildings.Controls.OBC.CDL.Logical.Timer tim1(
+    final t=timPer)
+    "Check if the time is greater than delay time period"
     annotation (Placement(transformation(extent={{0,-90},{20,-70}})));
 
 protected
@@ -84,14 +90,6 @@ protected
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add1(final k2=-1) "Add real inputs"
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr(
-    final threshold=timPer)
-    "Check if the time is greater than delay time period"
-    annotation (Placement(transformation(extent={{40,30},{60,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr1(
-    final threshold=timPer)
-    "Check if the time is greater than 10 minutes"
-    annotation (Placement(transformation(extent={{40,-90},{60,-70}})));
   Buildings.Controls.OBC.CDL.Logical.LogicalSwitch enaNexLag
     "Enabling next lag pump"
     annotation (Placement(transformation(extent={{100,30},{120,50}})));
@@ -137,10 +135,6 @@ equation
     annotation (Line(points={{-58,40},{-42,40}}, color={0,0,127}));
   connect(add1.y,hys1. u)
     annotation (Line(points={{-58,-80},{-42,-80}}, color={0,0,127}));
-  connect(tim.y, greEquThr.u)
-    annotation (Line(points={{22,40},{38,40}}, color={0,0,127}));
-  connect(tim1.y, greEquThr1.u)
-    annotation (Line(points={{22,-80},{38,-80}}, color={0,0,127}));
   connect(addPar1.y, addPar2.u)
     annotation (Line(points={{-58,-40},{-42,-40}}, color={0,0,127}));
   connect(addPar.y, add2.u2)
@@ -171,17 +165,10 @@ equation
   connect(con1.y, shuLasLag.u1)
     annotation (Line(points={{62,-40},{80,-40},{80,-72},{98,-72}},
       color={255,0,255}));
-  connect(greEquThr.y, enaNexLag.u2)
-    annotation (Line(points={{62,40},{98,40}}, color={255,0,255}));
-  connect(greEquThr1.y, shuLasLag.u2)
-    annotation (Line(points={{62,-80},{98,-80}}, color={255,0,255}));
   connect(edg.y, not1.u)
     annotation (Line(points={{-18,-140},{-2,-140}}, color={255,0,255}));
   connect(edg.u, pre.y)
     annotation (Line(points={{-42,-140},{-58,-140}}, color={255,0,255}));
-  connect(greEquThr1.y, pre.u)
-    annotation (Line(points={{62,-80},{80,-80},{80,-100}, {-100,-100},{-100,-140},
-      {-82,-140}}, color={255,0,255}));
   connect(hys1.y, and2.u1)
     annotation (Line(points={{-18,-80},{-14,-80},{-14,-120},{38,-120}},
       color={255,0,255}));
@@ -195,9 +182,6 @@ equation
     annotation (Line(points={{-18,100},{-2,100}}, color={255,0,255}));
   connect(edg1.u, pre1.y)
     annotation (Line(points={{-42,100},{-58,100}}, color={255,0,255}));
-  connect(greEquThr.y, pre1.u)
-    annotation (Line(points={{62,40},{70,40},{70,60},{-86,60},{-86,100},
-      {-82,100}}, color={255,0,255}));
   connect(not2.y, and1.u1)
     annotation (Line(points={{22,100},{30,100},{30,80},{38,80}}, color={255,0,255}));
   connect(hys.y, and1.u2)
@@ -205,11 +189,19 @@ equation
   connect(and1.y, tim.u)
     annotation (Line(points={{62,80},{70,80},{70,66},{-6,66},{-6,40},{-2,40}},
       color={255,0,255}));
+  connect(tim.passed, enaNexLag.u2) annotation (Line(points={{22,32},{60,32},{60,
+          40},{98,40}}, color={255,0,255}));
+  connect(tim.passed, pre1.u) annotation (Line(points={{22,32},{60,32},{60,60},{
+          -86,60},{-86,100},{-82,100}}, color={255,0,255}));
+  connect(tim1.passed, shuLasLag.u2) annotation (Line(points={{22,-88},{60,-88},
+          {60,-80},{98,-80}}, color={255,0,255}));
+  connect(tim1.passed, pre.u) annotation (Line(points={{22,-88},{60,-88},{60,-100},
+          {-100,-100},{-100,-140},{-82,-140}}, color={255,0,255}));
 
 annotation (
   defaultComponentName="enaLagChiPum",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
-                                                    graphics={
+       graphics={
         Rectangle(
           extent={{-100,-100},{100,100}},
           lineColor={0,0,127},
