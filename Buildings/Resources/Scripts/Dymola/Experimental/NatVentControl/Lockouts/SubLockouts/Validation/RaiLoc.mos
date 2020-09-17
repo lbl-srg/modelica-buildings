@@ -1,0 +1,20 @@
+simulateModel("Buildings.Experimental.NatVentControl.Lockouts.SubLockouts.Validation.RaiLoc", startTime=0, stopTime=86400, method="cvode",  tolerance=1E-06, resultFile="RaiLoc");
+createPlot(id=1, position={15, 10, 924, 583},
+ y={"raiLoc.uRai"}, 
+ range={0.0, 86400.0, 0, 1},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ grid=true,
+ color=true,
+ filename="RaiLoc.mat");
+createPlot(id=1, position={15, 10, 924, 289}, 
+y={"raiLoc.yRaiNatVenSig"},
+range={0.0, 86400.0, 0, 1}, 
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ grid=true,
+ color=true,
+ subPlot = 2,
+ filename="RaiLoc.mat");

@@ -1,0 +1,20 @@
+simulateModel("Buildings.Experimental.RadiantControl.Lockouts.SubLockouts.Validation.CHWRetLim", startTime=0.0, stopTime=172800.0, method="cvode",  tolerance=1E-06, resultFile="CHWRetLim");
+createPlot(id=1, position={15, 10, 924, 583},
+ y={"cHWReturnLimit1.TWater","cHWReturnLimit1.TWaLoSet"}, 
+ range={0.0, 172000.0, 250, 320},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ grid=true,
+ color=true,
+ filename="CHWRetLim.mat");
+createPlot(id=1, position={15, 10, 924, 294},
+ y={"cHWReturnLimit1.cooSigCHWRet"}, 
+ range={0.0, 172000.0, 0, 1},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ grid=true,
+ color=true,
+ subPlot=2,
+ filename="CHWRetLim.mat");
