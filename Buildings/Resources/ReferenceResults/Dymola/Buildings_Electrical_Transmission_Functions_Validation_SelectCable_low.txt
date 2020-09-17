@@ -1,0 +1,15 @@
+last-generated=2020-08-25
+statistics-simulation=
+{
+  "linear": " ",
+  "nonlinear": " ",
+  "numerical Jacobians": "0"
+}
+time=[0e+00, 1e+00]
+cab[1].Amp=[6.5e+01, 6.5e+01]
+cab[2].Amp=[9.5e+01, 9.5e+01]
+cab[3].Amp=[1.1e+02, 1.1e+02]
+cab[4].Amp=[1.3e+02, 1.3e+02]
+cab[5].Amp=[1.7e+02, 1.7e+02]
+cab[6].Amp=[2.2e+02, 2.2e+02]
+cab[7].Amp=[2.3e+02, 2.3e+02]

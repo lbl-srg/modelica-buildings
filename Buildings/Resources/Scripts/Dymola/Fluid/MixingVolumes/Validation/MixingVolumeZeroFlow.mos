@@ -1,5 +1,5 @@
 Advanced.Define.AimForHighAccuracy = false;
-simulateModel("Buildings.Fluid.MixingVolumes.Validation.MixingVolumeZeroFlow", tolerance=1E-6, stopTime=2, method="dassl", resultFile="MixingVolumeZeroFlow");
+simulateModel("Buildings.Fluid.MixingVolumes.Validation.MixingVolumeZeroFlow", tolerance=1E-6, stopTime=2, method="CVode", resultFile="MixingVolumeZeroFlow");
 createPlot(id=1,
 position={0, 0, 1138, 891},
 y={"volLinSys.heatPort.Q_flow", "volNonLinSys.heatPort.Q_flow", "volQflow.heatPort.Q_flow", "volT.heatPort.Q_flow"},

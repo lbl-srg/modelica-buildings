@@ -25,12 +25,12 @@ model ControllerTwo
     final lag=false,
     final continuous=true,
     final weeInt=false,
-    final rotationPeriod=172800,
+    final rotationPeriod=1800,
     final houOfDay=2,
     final weeCou=1,
     final weekday=6,
     final dayCou=3)
-    "Lead/standby rotation for continuously operating devices. Rotation time is measured from simulation start"
+    "Lead/standby rotation for continuously operating device. Rotation time is measured from simulation start"
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.ControllerTwo
@@ -38,13 +38,19 @@ model ControllerTwo
     final lag=false,
     final continuous=true,
     final minLim=false,
-    final simTimSta=false)
+    final simTimSta=false,
+    weeInt=false,
+    zerTim=Buildings.Controls.OBC.CDL.Types.ZeroTime.Custom,
+    yearRef=2020,
+    houOfDay=2,
+    weekday=3,
+    dayCou=1)
     "Lead/standby rotation for continuous operation"
     annotation (Placement(transformation(extent={{-20,-80},{0,-60}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel1[2](
-    final delayTime={600,800},
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel1[2](final delayTime={300,
+        400},
     final delayOnInit={true,true})
     "Emulates device start-up time"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
@@ -61,8 +67,8 @@ protected
     annotation (Placement(transformation(extent={{60,0},{80,20}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse leadLoad(
-    final width=0.8,
-    final period=7200) "Lead device ON/OFF status"
+    final width=0.8, final period(displayUnit="s") = 7200)
+                       "Lead device ON/OFF status"
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse lagLoad(
@@ -118,7 +124,7 @@ equation
   connect(pre2.y, conLeaSch.uDevSta) annotation (Line(points={{82,-70},{90,-70},
           {90,-90},{-30,-90},{-30,-76},{-22,-76}}, color={255,0,255}));
           annotation (
-   experiment(StopTime=1000000.0, Tolerance=1e-06),
+   experiment(StopTime=100000.0, Tolerance=1e-06),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Generic/EquipmentRotation/Validation/ControllerTwo.mos"
     "Simulate and plot"),
   Documentation(info="<html>

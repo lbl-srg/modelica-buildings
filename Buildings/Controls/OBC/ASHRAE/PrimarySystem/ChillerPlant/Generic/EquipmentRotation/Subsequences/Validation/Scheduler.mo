@@ -2,8 +2,11 @@ within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.Equipmen
 model Scheduler
   "Validation sequence for the device swap scheduler in case of continuous lead device operation"
 
-  parameter Modelica.SIunits.Temperature aveTWetBul = 288.15
-    "Chilled water supply set temperature";
+  parameter Real aveTWetBul(
+    final unit="K",
+    final quantity="ThermodynamicTemperature",
+    displayUnit="degC")=288.15
+      "Chilled water supply set temperature";
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.Scheduler
     rotSch(
@@ -15,6 +18,7 @@ model Scheduler
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.Scheduler
     rotSch1(
     final simTimSta=false,
+    weeInt=true,
     final weeCou=2,
     final weekday=2) "Equipment rotation happens bi-weekly on Tuesday at 2am"
     annotation (Placement(transformation(extent={{-40,30},{-20,50}})));

@@ -43,6 +43,42 @@ partial model PartialOpenLoop
       mWes_flow_nominal) "Nominal mass flow rate";
   parameter Modelica.SIunits.Angle lat=41.98*3.14159/180 "Latitude";
 
+  parameter Real ratOAFlo_A(final unit="m3/(s.m2)") = 0.3e-3
+    "Outdoor airflow rate required per unit area";
+  parameter Real ratOAFlo_P = 2.5e-3
+    "Outdoor airflow rate required per person";
+  parameter Real ratP_A = 5e-2
+    "Occupant density";
+  parameter Real effZ(final unit="1") = 0.8
+    "Zone air distribution effectiveness (limiting value)";
+  parameter Real divP(final unit="1") = 0.7
+    "Occupant diversity ratio";
+  parameter Modelica.SIunits.VolumeFlowRate VCorOA_flow_nominal=
+    (ratOAFlo_P * ratP_A + ratOAFlo_A) * AFloCor / effZ
+    "Zone outdoor air flow rate";
+  parameter Modelica.SIunits.VolumeFlowRate VSouOA_flow_nominal=
+    (ratOAFlo_P * ratP_A + ratOAFlo_A) * AFloSou / effZ
+    "Zone outdoor air flow rate";
+  parameter Modelica.SIunits.VolumeFlowRate VEasOA_flow_nominal=
+    (ratOAFlo_P * ratP_A + ratOAFlo_A) * AFloEas / effZ
+    "Zone outdoor air flow rate";
+  parameter Modelica.SIunits.VolumeFlowRate VNorOA_flow_nominal=
+    (ratOAFlo_P * ratP_A + ratOAFlo_A) * AFloNor / effZ
+    "Zone outdoor air flow rate";
+  parameter Modelica.SIunits.VolumeFlowRate VWesOA_flow_nominal=
+    (ratOAFlo_P * ratP_A + ratOAFlo_A) * AFloWes / effZ
+    "Zone outdoor air flow rate";
+  parameter Modelica.SIunits.VolumeFlowRate Vou_flow_nominal=
+    (divP * ratOAFlo_P * ratP_A + ratOAFlo_A) * sum(
+      {AFloCor, AFloSou, AFloNor, AFloEas, AFloWes})
+    "System uncorrected outdoor air flow rate";
+  parameter Real effVen(final unit="1") = if divP < 0.6 then
+    0.88 * divP + 0.22 else 0.75
+    "System ventilation efficiency";
+  parameter Modelica.SIunits.VolumeFlowRate Vot_flow_nominal=
+    Vou_flow_nominal / effVen
+    "System design outdoor air flow rate";
+
   parameter Modelica.SIunits.Temperature THeaOn=293.15
     "Heating setpoint during on";
   parameter Modelica.SIunits.Temperature THeaOff=285.15
@@ -796,10 +832,10 @@ equation
       points={{210,-52},{230,-52},{230,-110}},
       color={28,108,200},
       thickness=0.5));
-  connect(gaiHeaCoi.y, souHea.m_flow_in) annotation (Line(points={{121,-210},{
-          124,-210},{124,-130}}, color={0,0,127}));
-  connect(gaiCooCoi.y, souCoo.m_flow_in) annotation (Line(points={{121,-248},{
-          222,-248},{222,-130}}, color={0,0,127}));
+  connect(gaiHeaCoi.y, souHea.m_flow_in) annotation (Line(points={{122,-210},{124,
+          -210},{124,-132}},     color={0,0,127}));
+  connect(gaiCooCoi.y, souCoo.m_flow_in) annotation (Line(points={{122,-248},{222,
+          -248},{222,-132}},     color={0,0,127}));
   connect(dpDisSupFan.port_b, amb.ports[3]) annotation (Line(
       points={{320,10},{320,14},{-88,14},{-88,-47.9333},{-114,-47.9333}},
       color={0,0,0},
@@ -807,7 +843,7 @@ equation
   connect(senRetFlo.port_b, TRet.port_a) annotation (Line(points={{340,140},{
           226,140},{110,140}}, color={0,127,255}));
   connect(freStaTSetPoi.y, freSta.reference)
-    annotation (Line(points={{-19,-86},{-2,-86}}, color={0,0,127}));
+    annotation (Line(points={{-18,-86},{-2,-86}}, color={0,0,127}));
   connect(freSta.u, TMix.T) annotation (Line(points={{-2,-98},{-10,-98},{-10,-70},
           {20,-70},{20,-20},{40,-20},{40,-29}}, color={0,0,127}));
   connect(TMix.port_b, heaCoi.port_a2) annotation (Line(
@@ -889,6 +925,12 @@ shading devices, Technical Report, Oct. 17, 2006.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+July 10, 2020, by Antoine Gautier:<br/>
+Added design parameters for outdoor air flow.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2019\">#2019</a>
+</li>
 <li>
 September 26, 2017, by Michael Wetter:<br/>
 Separated physical model from control to facilitate implementation of alternate control

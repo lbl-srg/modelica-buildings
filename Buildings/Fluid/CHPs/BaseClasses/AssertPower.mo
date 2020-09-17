@@ -31,14 +31,14 @@ protected
     annotation (Placement(transformation(extent={{40,10},{60,30}})));
   Buildings.Controls.OBC.CDL.Logical.Not not2 if use_powerRateLimit "Logical Nand"
     annotation (Placement(transformation(extent={{40,-50},{60,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Derivative demRat(
-    final x_start=0) if use_powerRateLimit
+  Modelica.Blocks.Continuous.Derivative demRat(
+    final initType=Modelica.Blocks.Types.Init.InitialOutput) if use_powerRateLimit
     "Power demand rate"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.Abs abs1 if use_powerRateLimit "Absolute value"
     annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold maxRat(
-    final threshold=dPEleMax) if use_powerRateLimit
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold maxRat(final t=
+        dPEleMax) if use_powerRateLimit
     "Check if demand rate is more than the maximum rate"
     annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis maxPow(
@@ -56,7 +56,7 @@ protected
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 
 equation
-  connect(abs1.u, demRat.y) annotation (Line(points={{-42,-40},{-58,-40}},
+  connect(abs1.u, demRat.y) annotation (Line(points={{-42,-40},{-59,-40}},
           color={0,0,127}));
   connect(maxRat.u, abs1.y) annotation (Line(points={{-2,-40},{-18,-40}},
           color={0,0,127}));

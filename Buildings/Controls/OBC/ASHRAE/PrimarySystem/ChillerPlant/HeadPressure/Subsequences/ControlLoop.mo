@@ -1,8 +1,12 @@
-within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure.Subsequences;
+﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure.Subsequences;
 block ControlLoop
   "Sequence to generate head pressure control signal if it is not available from the chiller controller"
-  parameter Modelica.SIunits.TemperatureDifference minChiLif(final min=1e-5)=10
-    "Minimum allowable lift at minimum load for chiller";
+  parameter Real minChiLif(
+    final min=1e-5,
+    final unit="K",
+    final quantity="TemperatureDifference",
+    displayUnit="degC") = 10
+      "Minimum allowable lift at minimum load for chiller";
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
@@ -20,14 +24,14 @@ block ControlLoop
       iconTransformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TConWatRet(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Measured condenser water return temperature"
     annotation (Placement(transformation(extent={{-140,-40},{-100,0}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSup(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Measured chilled water supply temperature"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}}),
@@ -36,16 +40,15 @@ block ControlLoop
     final unit="1",
     final min=0,
     final max=1) "Chiller head pressure control loop output"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}}),
-      iconTransformation(extent={{100,-10},{120,10}})));
+    annotation (Placement(transformation(extent={{100,-20},{140,20}}),
+      iconTransformation(extent={{100,-20},{140,20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.LimPID conPID(
+  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset conPID(
     final controllerType=controllerType,
     final k=k,
     final Ti=Ti,
     final yMax=1,
     final yMin=0,
-    final reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter,
     final y_reset=0) "Generate head pressure control signal"
     annotation (Placement(transformation(extent={{20,50},{40,70}})));
 
@@ -67,13 +70,13 @@ equation
   connect(con.y, conPID.u_s)
     annotation (Line(points={{-18,60},{18,60}}, color={0,0,127}));
   connect(conPID.y, yHeaPreCon)
-    annotation (Line(points={{42,60},{60,60},{60,0},{110,0}}, color={0,0,127}));
+    annotation (Line(points={{42,60},{60,60},{60,0},{120,0}}, color={0,0,127}));
   connect(feedback.y, gai.u)
     annotation (Line(points={{-48,-20},{-22,-20}}, color={0,0,127}));
   connect(gai.y, conPID.u_m)
     annotation (Line(points={{2,-20},{30,-20},{30,48}}, color={0,0,127}));
   connect(uHeaPreEna, conPID.trigger)
-    annotation (Line(points={{-120,20},{22,20},{22,48}}, color={255,0,255}));
+    annotation (Line(points={{-120,20},{24,20},{24,48}}, color={255,0,255}));
 
 annotation (
   defaultComponentName= "chiHeaPreLoo",

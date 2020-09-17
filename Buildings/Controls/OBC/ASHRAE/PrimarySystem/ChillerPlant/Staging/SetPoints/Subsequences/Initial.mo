@@ -8,20 +8,32 @@ block Initial "Outputs the initial stage"
     "Offset for checking waterside economizer leaving water temperature"
     annotation (Dialog(tab="Advanced", enable=have_WSE));
 
-  parameter Modelica.SIunits.TemperatureDifference heaExcAppDes=2
-    "Design heat exchanger approach"
+  parameter Real heaExcAppDes(
+    final unit="K",
+    final quantity="TemperatureDifference",
+    displayUnit="degC")=2
+      "Design heat exchanger approach"
     annotation (Dialog(group="Waterside economizer", enable=have_WSE));
 
-  parameter Modelica.SIunits.TemperatureDifference cooTowAppDes=2
-    "Design cooling tower approach"
+  parameter Real cooTowAppDes(
+    final unit="K",
+    final quantity="TemperatureDifference",
+    displayUnit="degC")=2
+      "Design cooling tower approach"
     annotation (Dialog(group="Waterside economizer", enable=have_WSE));
 
-  parameter Modelica.SIunits.Temperature TOutWetDes=288.15
-    "Design outdoor air wet bulb temperature"
+  parameter Real TOutWetDes(
+    final unit="K",
+    final quantity="ThermodynamicTemperature",
+    displayUnit="degC")=288.15
+      "Design outdoor air wet bulb temperature"
     annotation (Dialog(group="Waterside economizer", enable=have_WSE));
 
-  parameter Modelica.SIunits.VolumeFlowRate VHeaExcDes_flow=0.01
-    "Desing heat exchanger chilled water flow rate"
+  parameter Real VHeaExcDes_flow(
+    final unit="m3/s",
+    final quantity="VolumeFlowRate",
+    displayUnit="m3/s")=0.01
+      "Desing heat exchanger chilled water flow rate"
     annotation (Dialog(group="Waterside economizer", enable=have_WSE));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uUp

@@ -2,7 +2,7 @@ within Buildings.Fluid.Actuators.Valves;
 model TwoWayQuickOpening
   "Two way valve with quick opening flow characteristics"
   extends BaseClasses.PartialTwoWayValveKv(
-    phi=max(0,
+    phi=max(0.1*l,
          if homotopyInitialization then
            homotopy(
              actual=l + Modelica.Fluid.Utilities.regPow(
@@ -38,6 +38,14 @@ as the regularization near the origin.
 </html>",
 revisions="<html>
 <ul>
+<li>
+August 7, 2020, by Ettore Zanetti:<br/>
+changed the computation of <code>phi</code> using
+<code>max(0.1*l, . )</code> to avoid
+phi=0.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1376\">
+issue 1376</a>.
+</li>
 <li>
 November 9, 2019, by Filip Jorissen:<br/>
 Guarded the computation of <code>phi</code> using

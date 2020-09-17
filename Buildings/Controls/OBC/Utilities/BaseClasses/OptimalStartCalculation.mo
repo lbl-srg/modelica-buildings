@@ -96,12 +96,10 @@ protected
     final uHigh=0,
     final uLow=-60) "Hysteresis to activate the optimal start"
     annotation (Placement(transformation(extent={{330,-90},{350,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.LessEqualThreshold lesEquThr(
-    final threshold=1E-15)
+  Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesThr(final t=1E-15)
     "Avoid zero division"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.LessEqualThreshold lesEquThr1(
-    final threshold=1E-15)
+  Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesThr1(final t=1E-15)
     "Avoid zero division"
     annotation (Placement(transformation(extent={{140,-10},{160,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxStaTim(
@@ -145,7 +143,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Latch lat
      "Stop calculation when the zone temperature reaches setpoint"
     annotation (Placement(transformation(extent={{-190,70},{-170,90}})));
-  Buildings.Controls.OBC.CDL.Logical.Timer tim(final reset=true)
+  Buildings.Controls.OBC.CDL.Logical.Timer tim
     "Record time duration for the zone temperature to reach setpoint"
     annotation (Placement(transformation(extent={{-180,0},{-160,20}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1
@@ -161,16 +159,14 @@ protected
     annotation (Placement(transformation(extent={{0,-90},{20,-70}})));
   Buildings.Controls.OBC.CDL.Continuous.Modulo mod "Get the modulo"
     annotation (Placement(transformation(extent={{40,-70},{60,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.LessEqualThreshold lesEquThr2(
-    final threshold=1E-06)
-  "Get the instant when the simulation time arrives at midnight"
+  Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesEquThr2(final t=1E-06)
+    "Get the instant when the simulation time arrives at midnight"
     annotation (Placement(transformation(extent={{80,-70},{100,-50}})));
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triSam4
   "Get the sampled optimal start time at the same time each day"
     annotation (Placement(transformation(extent={{250,-10},{270,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
-    final threshold=thrOptOn)
-  "The threshold for optOn signal becomes true"
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(final t=
+        thrOptOn) "The threshold for optOn signal becomes true"
     annotation (Placement(transformation(extent={{320,-10},{340,10}})));
   Buildings.Controls.OBC.CDL.Logical.And and2 "Logical and"
     annotation (Placement(transformation(extent={{360,-40},{380,-20}})));
@@ -179,18 +175,21 @@ equation
   connect(tim.y, triSam.u)  annotation (Line(points={{-158,10},{-102,10}},
                                               color={0,0,127}));
   connect(falEdg.y, triSam.trigger) annotation (Line(points={{-98,-20},{-90,-20},
-          {-90,-1.8}},                                                                     color={255,0,255}));
+          {-90,-1.8}}, color={255,0,255}));
   connect(not1.y, lat.clr) annotation (Line(points={{-208,80},{-200,80},{-200,74},
           {-192,74}}, color={255,0,255}));
   connect(swi1.y, tOptCal.u2) annotation (Line(points={{202,0},{210,0},{210,-6},
           {218,-6}}, color={0,0,127}));
   connect(temSlo.y, triMovMea.u)  annotation (Line(points={{82,0},{98,0}},     color={0,0,127}));
-  connect(lesEquThr.y, swi.u2)   annotation (Line(points={{2,0},{18,0}},      color={255,0,255}));
-  connect(lesEquThr1.y, swi1.u2)    annotation (Line(points={{162,0},{178,0}},     color={255,0,255}));
+  connect(lesThr.y, swi.u2)
+    annotation (Line(points={{2,0},{18,0}}, color={255,0,255}));
+  connect(lesThr1.y, swi1.u2)
+    annotation (Line(points={{162,0},{178,0}}, color={255,0,255}));
   connect(TDif, hys.u) annotation (Line(points={{-300,120},{-272,120},{-272,80},
           {-262,80}},
                 color={0,0,127}));
-  connect(triMovMea.y, lesEquThr1.u)   annotation (Line(points={{122,0},{138,0}},     color={0,0,127}));
+  connect(triMovMea.y, lesThr1.u)
+    annotation (Line(points={{122,0},{138,0}}, color={0,0,127}));
   connect(staCal, triSam2.trigger) annotation (Line(points={{-300,40},{-120,40},
           {-120,100},{110,100},{110,108.2}},
                                     color={255,0,255}));
@@ -210,8 +209,8 @@ equation
           {-62,6}}, color={0,0,127}));
   connect(swi.y, temSlo.u2)    annotation (Line(points={{42,0},{46,0},{46,-6},{
           58,-6}},                                                                      color={0,0,127}));
-  connect(add1.y, lesEquThr.u)   annotation (Line(points={{-38,0},{-22,0}},
-                                                                         color={0,0,127}));
+  connect(add1.y, lesThr.u)
+    annotation (Line(points={{-38,0},{-22,0}}, color={0,0,127}));
   connect(add1.y, swi.u3) annotation (Line(points={{-38,0},{-30,0},{-30,-18},{8,
           -18},{8,-8},{18,-8}},
                             color={0,0,127}));

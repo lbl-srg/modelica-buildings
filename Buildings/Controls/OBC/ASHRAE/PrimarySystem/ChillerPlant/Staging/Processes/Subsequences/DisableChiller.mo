@@ -5,7 +5,7 @@ block DisableChiller "Sequence for disabling chiller in stage-down process"
   parameter Real proOnTim(
     final unit="s",
     final quantity="Time",
-    final displayUnit="h") = 300
+    displayUnit="h") = 300
     "Enabled chiller operation time to indicate if it is proven on";
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput nexEnaChi
@@ -48,7 +48,8 @@ protected
     annotation (Placement(transformation(extent={{100,190},{120,210}})));
   Buildings.Controls.OBC.CDL.Logical.And and2
     annotation (Placement(transformation(extent={{-160,130},{-140,150}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep(final nout=nChi)
+  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep(
+    final nout=nChi)
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{-100,130},{-80,150}})));
   Buildings.Controls.OBC.CDL.Logical.And and1[nChi] "Logical and"
@@ -56,15 +57,11 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con[nChi](
     final k=fill(true, nChi)) "True constant"
     annotation (Placement(transformation(extent={{-40,220},{-20,240}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr3(
-    final threshold=proOnTim)
-    "Check the newly enabled chiller being operated by more than 5 minutes"
-    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea[nChi]
     "Convert boolean input to real output"
     annotation (Placement(transformation(extent={{-100,90},{-80,110}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr[nChi](
-    final threshold=fill(0.5, nChi))
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greEquThr[nChi](
+    final t=fill(0.5, nChi))
     "Convert real input to boolean output"
     annotation (Placement(transformation(extent={{20,90},{40,110}})));
   Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi1[nChi]
@@ -84,7 +81,7 @@ protected
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu[nChi]
     "Check next enabling isolation valve"
     annotation (Placement(transformation(extent={{-100,190},{-80,210}})));
-  Buildings.Controls.OBC.CDL.Logical.Timer tim
+  Buildings.Controls.OBC.CDL.Logical.Timer tim(final t=proOnTim)
     "Count the time after new chiller has been enabled"
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triSam[nChi]
@@ -128,8 +125,8 @@ protected
   Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep5(final nout=nChi)
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{-120,-250},{-100,-230}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr1[nChi](
-    final threshold=fill(0.5, nChi))
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greEquThr1[nChi](
+    final t=fill(0.5, nChi))
     "Convert real input to boolean output"
     annotation (Placement(transformation(extent={{40,-220},{60,-200}})));
   Buildings.Controls.OBC.CDL.Logical.And and4[nChi] "Logical and"
@@ -178,8 +175,6 @@ equation
     annotation (Line(points={{-18,200},{98,200}}, color={255,0,255}));
   connect(con.y,logSwi. u1)
     annotation (Line(points={{-18,230},{0,230},{0,208},{98,208}}, color={255,0,255}));
-  connect(tim.y,greEquThr3. u)
-    annotation (Line(points={{-78,0},{-62,0}}, color={0,0,127}));
   connect(uChi,booToRea. u)
     annotation (Line(points={{-220,80},{-170,80},{-170,100},{-102,100}},
       color={255,0,255}));
@@ -200,8 +195,6 @@ equation
   connect(and2.y,tim. u)
     annotation (Line(points={{-138,140},{-120,140},{-120,0},{-102,0}},
       color={255,0,255}));
-  connect(greEquThr3.y,booRep2. u)
-    annotation (Line(points={{-38,0},{-22,0}}, color={255,0,255}));
   connect(booRep2.y,and3. u1)
     annotation (Line(points={{2,0},{38,0}}, color={255,0,255}));
   connect(and3.y,logSwi1. u2)
@@ -220,9 +213,6 @@ equation
       color={255,0,255}));
   connect(logSwi.y,logSwi2. u1)
     annotation (Line(points={{122,200},{140,200},{140,58},{158,58}},
-      color={255,0,255}));
-  connect(greEquThr3.y,not1. u)
-    annotation (Line(points={{-38,0},{-30,0},{-30,50},{-22,50}},
       color={255,0,255}));
   connect(conInt.y,intEqu. u2)
     annotation (Line(points={{-138,170},{-110,170},{-110,192},{-102,192}},
@@ -302,14 +292,20 @@ equation
   connect(uOnOff, logSwi7.u2)
     annotation (Line(points={{-220,-120},{80,-120},{80,-52},{158,-52}},
       color={255,0,255}));
-  connect(greEquThr3.y, logSwi7.u1)
-    annotation (Line(points={{-38,0},{-30,0},{-30,-44},{158,-44}},
-      color={255,0,255}));
   connect(uStaDow, logSwi7.u3)
     annotation (Line(points={{-220,140},{-180,140},{-180,-60},{158,-60}},
       color={255,0,255}));
   connect(logSwi7.y, yReaDemLim)
     annotation (Line(points={{182,-52},{202,-52},{202,-50},{220,-50}},
+      color={255,0,255}));
+  connect(tim.passed, not1.u)
+    annotation (Line(points={{-78,-8},{-40,-8},{-40,50},{-22,50}},
+      color={255,0,255}));
+  connect(tim.passed, booRep2.u)
+    annotation (Line(points={{-78,-8},{-40,-8},{-40,0},{-22,0}},
+      color={255,0,255}));
+  connect(tim.passed, logSwi7.u1)
+    annotation (Line(points={{-78,-8},{-40,-8},{-40,-44},{158,-44}},
       color={255,0,255}));
 
 annotation (

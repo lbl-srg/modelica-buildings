@@ -2,37 +2,49 @@ within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.SetPoint
 block FailsafeCondition
   "Failsafe condition used in staging up and down"
 
-  parameter Boolean serChi = false
+  parameter Boolean is_serChi = false
     "true = series chillers plant; false = parallel chillers plant";
 
   parameter Real faiSafTruDelay(
     final unit="s",
     final quantity="Time",
-    final displayUnit="h")=900
+    displayUnit="h")=900
       "Enable delay";
 
-  parameter Modelica.SIunits.TemperatureDifference TDif = 1
-    "Offset between the chilled water supply temperature and its setpoint";
+  parameter Real TDif(
+    final unit="K",
+    final quantity="TemperatureDifference",
+    displayUnit="degC")=1
+      "Offset between the chilled water supply temperature and its setpoint";
 
-  parameter Modelica.SIunits.TemperatureDifference TDifHys = 1
-    "Temperature hysteresis deadband";
+  parameter Real TDifHys(
+    final unit="K",
+    final quantity="TemperatureDifference",
+    displayUnit="degC")=1
+      "Temperature hysteresis deadband";
 
-  parameter Modelica.SIunits.PressureDifference dpDif = 2 * 6895
-    "Offset between the chilled water differential pressure and its setpoint";
+  parameter Real dpDif(
+    final unit="Pa",
+    final quantity="PressureDifference",
+    displayUnit="Pa")=2 * 6895
+      "Offset between the chilled water differential pressure and its setpoint";
 
-  parameter Modelica.SIunits.PressureDifference dpDifHys = 0.5 * 6895
-    "Pressure difference hysteresis deadband";
+  parameter Real dpDifHys(
+    final unit="Pa",
+    final quantity="PressureDifference",
+    displayUnit="Pa")=0.5 * 6895
+      "Pressure difference hysteresis deadband";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWatPumSet(
     final unit="Pa",
-    final quantity="PressureDifference") if not serChi
+    final quantity="PressureDifference") if not is_serChi
     "Chilled water differential pressure setpoint"
     annotation (Placement(transformation(extent={{-180,-40},{-140,0}}),
         iconTransformation(extent={{-140,-40},{-100,0}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWatPum(
     final unit="Pa",
-    final quantity="PressureDifference") if not serChi
+    final quantity="PressureDifference") if not is_serChi
     "Chilled water differential pressure"
     annotation (Placement(
     transformation(extent={{-180,-80},{-140,-40}}),
@@ -58,7 +70,7 @@ block FailsafeCondition
 
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysdpSup(
     final uLow=dpDif - dpDifHys,
-    final uHigh=dpDif) if not serChi
+    final uHigh=dpDif) if not is_serChi
     "Checks how closely the chilled water pump differential pressure aproaches its setpoint from below"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
 
@@ -70,7 +82,7 @@ block FailsafeCondition
 
 protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(
-    final k=false) if serChi
+    final k=false) if is_serChi
     "Virtual signal for series chiller plants"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
 
@@ -89,7 +101,7 @@ protected
 
   Buildings.Controls.OBC.CDL.Continuous.Add add1(
     final k1=1,
-    final k2=-1) if not serChi
+    final k2=-1) if not is_serChi
     "Subtracts differential pressures"
     annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
 
