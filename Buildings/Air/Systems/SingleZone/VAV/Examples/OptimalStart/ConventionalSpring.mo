@@ -1,10 +1,9 @@
 within Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart;
-model Conventional
-  "Example model using the block OptimalStart with a conventional controller for a single-zone VAV system"
+model ConventionalSpring
+  "Example model using the block OptimalStart with a conventional controller for a single-zone VAV system in spring"
   extends Modelica.Icons.Example;
 
   Buildings.Controls.OBC.Utilities.OptimalStart optSta(
-    nDay=5,
     computeHeating=true,
     computeCooling=true,
     uLow=0.1,
@@ -90,11 +89,10 @@ equation
           {-6,2},{38,2}}, color={255,0,255}));
   connect(or2.y, zonAHUCon1.uOcc)  annotation (Line(points={{62,10},{74,10},{74,
           54},{78,54}}, color={255,0,255}));
-
   connect(add4.u2, TSetRooHea.y[1]) annotation (Line(points={{38,68},{26,68},{
           26,-50},{-18,-50}}, color={0,0,127}));
-  connect(booToRea1.y, add4.u1)
-    annotation (Line(points={{22,80},{38,80}}, color={0,0,127}));
+  connect(booToRea1.y, add4.u1) annotation (Line(points={{22,80},{38,80}}, color={0,0,127}));
+
    annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}})),                                        Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-120,-100},{120,100}}),
@@ -124,9 +122,10 @@ equation
           fillPattern=FillPattern.Solid,
           textString="System without optimal start")}),
     experiment(
-      StopTime=604800,
+      StartTime=6393600,
+      StopTime=7171200,
       Tolerance=1e-06),
-      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Air/Systems/SingleZone/VAV/Examples/OptimalStart/Conventional.mos"
+      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Air/Systems/SingleZone/VAV/Examples/OptimalStart/ConventionalSpring.mos"
         "Simulate and plot"),
       Documentation(info="<html>
 <p>
@@ -139,6 +138,12 @@ can be found in the base class
 <a href=\"modelica://Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.BaseClasses.ZoneWithAHUConventional\">
 Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.BaseClasses.ZoneWithAHUConventional</a>. 
 </p>
+<p>
+This example validates the optimal start results for the spring condition. Note 
+that the optimal start block in this example computes for both heating and cooling conditions.
+The first few days are initialization period. The optimal start time is zero 
+when the zone temperature is within the heating and cooling setpoint deadband.
+</p>
 </html>",
 revisions="<html>
 <ul>
@@ -149,4 +154,4 @@ First implementation. This is for issue
 </li>
 </ul>
 </html>"));
-end Conventional;
+end ConventionalSpring;

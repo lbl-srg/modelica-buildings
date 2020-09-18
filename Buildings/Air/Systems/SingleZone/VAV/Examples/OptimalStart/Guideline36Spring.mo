@@ -1,10 +1,9 @@
 within Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart;
-model Guideline36
-  "Example model using the block OptimalStart with a Guideline36 controller for a single-zone system"
+model Guideline36Spring
+  "Example model using the block OptimalStart with a Guideline36 controller for a single-zone system in spring"
   extends Modelica.Icons.Example;
 
   Buildings.Controls.OBC.Utilities.OptimalStart optStaHea(
-    nDay=5,
     computeHeating=true,
     computeCooling=false,
     uLow=0.1,
@@ -21,7 +20,6 @@ model Guideline36
     "Zone cooling setpoint during occupied time"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
   Buildings.Controls.OBC.Utilities.OptimalStart optStaCoo(
-    nDay=5,
     computeHeating=false,
     computeCooling=true,
     uLow=0.1,
@@ -96,9 +94,10 @@ equation
           fillPattern=FillPattern.Solid,
           textString="System with optimal start")}),
     experiment(
-      StopTime=604800,
+      StartTime=6393600,
+      StopTime=7171200,
       Tolerance=1e-06),
-      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Air/Systems/SingleZone/VAV/Examples/OptimalStart/Guideline36.mos"
+      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Air/Systems/SingleZone/VAV/Examples/OptimalStart/Guideline36Spring.mos"
         "Simulate and plot"),
       Documentation(info="<html>
 <p>
@@ -114,6 +113,11 @@ can be found in the base class
 <a href=\"modelica://Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.BaseClasses.ZoneWithAHUG36\">
 Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.BaseClasses.ZoneWithAHUG36</a>.
 </p>
+<p>
+This example validates the optimal start results for the spring condition.
+The first few days are initialization period. The optimal start time is zero 
+when the zone temperature is within the heating and cooling setpoint deadband.
+</p>
 </html>",
 revisions="<html>
 <ul>
@@ -124,4 +128,4 @@ First implementation. This is for issue
 </li>
 </ul>
 </html>"));
-end Guideline36;
+end Guideline36Spring;
