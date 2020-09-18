@@ -143,6 +143,12 @@ block Speed_primarySecondary_temperature
     "Integer switch"
     annotation (Placement(transformation(extent={{40,40},{60,60}})));
 
+  Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum1(
+    final k=fill(1, nBoi),
+    final nin=nBoi) if not primarySecondarySensors
+    "Weighted average of boiler supply temperatures"
+    annotation (Placement(transformation(extent={{80,-90},{100,-70}})));
+
 protected
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
     final uLow=twoReqLimLow,
@@ -240,12 +246,6 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Product pro[nBoi] if not primarySecondarySensors
     "Calculate weighted boiler supply temperatures"
     annotation (Placement(transformation(extent={{50,-90},{70,-70}})));
-
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum1(
-    final k=fill(1, nBoi),
-    final nin=nBoi) if not primarySecondarySensors
-    "Weighted average of boiler supply temperatures"
-    annotation (Placement(transformation(extent={{80,-90},{100,-70}})));
 
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
     final p=1e-6,

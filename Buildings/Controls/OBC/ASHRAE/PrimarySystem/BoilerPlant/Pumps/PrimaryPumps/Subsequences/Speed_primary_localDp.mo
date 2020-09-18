@@ -52,10 +52,7 @@ block Speed_primary_localDp
     final quantity="time",
     displayUnit="s")=0.1
     "Time constant of derivative block"
-    annotation (Dialog(group="Speed controller",
-      enable=
-      controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
-      controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+    annotation (Dialog(group="Speed controller"));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHotWatPum[nPum]
     "Hot water pump status"
