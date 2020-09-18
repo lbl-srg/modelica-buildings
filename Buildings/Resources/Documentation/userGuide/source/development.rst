@@ -334,9 +334,9 @@ Documentation
 
     .. code-block:: html
 
-    See
-    <a href="modelica://Buildings.Fluid.Sensors.Density">
-    Buildings.Fluid.Sensors.Density</a>.
+       See
+       <a href="modelica://Buildings.Fluid.Sensors.Density">
+       Buildings.Fluid.Sensors.Density</a>.
 
 8.  Add a default component name, such as
 
