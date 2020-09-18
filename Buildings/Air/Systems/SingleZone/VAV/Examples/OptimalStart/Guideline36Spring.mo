@@ -29,10 +29,10 @@ model Guideline36Spring
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(k=0)
     "No optimal start"
     annotation (Placement(transformation(extent={{-20,-78},{0,-58}})));
-  Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.BaseClasses.ZoneWithAHUG36 zonAHUG36_1
+  Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.BaseClasses.ZoneWithAHUG36 zonAHUG36Opt
     "A single zone building with a VAV system and a Guideline36 controller"
     annotation (Placement(transformation(extent={{40,40},{60,60}})));
-  Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.BaseClasses.ZoneWithAHUG36 zonAHUG36_2
+  Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.BaseClasses.ZoneWithAHUG36 zonAHUG36Con
     "A single zone building with a VAV system and a Guideline36 controller"
     annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
 
@@ -45,23 +45,23 @@ equation
           {-26,-18},{-26,22},{-22,22}},      color={0,0,127}));
   connect(optStaCoo.TZon, optStaHea.TZon) annotation (Line(points={{-22,27},{
           -32,27},{-32,69},{-22,69}},     color={0,0,127}));
-  connect(occSch.tNexOcc, zonAHUG36_1.tNexOcc) annotation (Line(points={{-39,
+  connect(occSch.tNexOcc, zonAHUG36Opt.tNexOcc) annotation (Line(points={{-39,
           -18},{26,-18},{26,47},{38,47}}, color={0,0,127}));
-  connect(occSch.occupied, zonAHUG36_1.uOcc) annotation (Line(points={{-39,-30},
+  connect(occSch.occupied, zonAHUG36Opt.uOcc) annotation (Line(points={{-39,-30},
           {32,-30},{32,43},{38,43}}, color={255,0,255}));
-  connect(optStaHea.tOpt, zonAHUG36_1.warUpTim) annotation (Line(points={{2,76},
+  connect(optStaHea.tOpt, zonAHUG36Opt.warUpTim) annotation (Line(points={{2,76},
           {20,76},{20,56},{38,56}}, color={0,0,127}));
-  connect(optStaCoo.tOpt, zonAHUG36_1.cooDowTim) annotation (Line(points={{2,34},
+  connect(optStaCoo.tOpt, zonAHUG36Opt.cooDowTim) annotation (Line(points={{2,34},
           {20,34},{20,51.8},{38,51.8}}, color={0,0,127}));
-  connect(zonAHUG36_1.TZon, optStaHea.TZon) annotation (Line(points={{62,50},
+  connect(zonAHUG36Opt.TZon, optStaHea.TZon) annotation (Line(points={{62,50},
           {64,50},{64,14},{-32,14},{-32,69},{-22,69}}, color={0,0,127}));
-  connect(con.y, zonAHUG36_2.warUpTim) annotation (Line(points={{2,-68},{8,-68},
+  connect(con.y, zonAHUG36Con.warUpTim) annotation (Line(points={{2,-68},{8,-68},
           {8,-64},{38,-64}}, color={0,0,127}));
-  connect(con.y, zonAHUG36_2.cooDowTim) annotation (Line(points={{2,-68},{8,-68},
+  connect(con.y, zonAHUG36Con.cooDowTim) annotation (Line(points={{2,-68},{8,-68},
           {8,-68.2},{38,-68.2}}, color={0,0,127}));
-  connect(occSch.tNexOcc, zonAHUG36_2.tNexOcc) annotation (Line(points={{-39,
+  connect(occSch.tNexOcc, zonAHUG36Con.tNexOcc) annotation (Line(points={{-39,
           -18},{26,-18},{26,-73},{38,-73}}, color={0,0,127}));
-  connect(occSch.occupied, zonAHUG36_2.uOcc) annotation (Line(points={{-39,-30},
+  connect(occSch.occupied, zonAHUG36Con.uOcc) annotation (Line(points={{-39,-30},
           {20,-30},{20,-77},{38,-77}}, color={255,0,255}));
   connect(occSch.tNexOcc, optStaHea.tNexOcc) annotation (Line(points={{-39,-18},
           {-26,-18},{-26,64},{-22,64}}, color={0,0,127}));
@@ -101,21 +101,21 @@ equation
         "Simulate and plot"),
       Documentation(info="<html>
 <p>
-This is an example model on how to use the block 
+This is an example model on how to use the block
 <a href=\"modelica://Buildings.Controls.OBC.Utilities.OptimalStart\">
 Buildings.Controls.OBC.Utilities.OptimalStart</a>
 that integrates with a controller based on Guideline36
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.Controller\">
-Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.Controller</a>, 
+Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.Controller</a>,
 a single-zone VAV system and a single-zone floor building.
-The building, HVAC system and controller model 
+The building, HVAC system and controller model
 can be found in the base class
 <a href=\"modelica://Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.BaseClasses.ZoneWithAHUG36\">
 Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.BaseClasses.ZoneWithAHUG36</a>.
 </p>
 <p>
 This example validates the optimal start results for the spring condition.
-The first few days are initialization period. The optimal start time is zero 
+The first few days are initialization period. The optimal start time is zero
 when the zone temperature is within the heating and cooling setpoint deadband.
 </p>
 </html>",

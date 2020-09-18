@@ -1,9 +1,9 @@
 compareVars :=
   {
-    "zonAHUG36_2.con.TZonHeaSet",
-    "zonAHUG36_2.con.TZonCooSet",
-    "zonAHUG36_1.TZon",
-    "zonAHUG36_2.TZon",
+    "zonAHUG36Con.con.TZonHeaSet",
+    "zonAHUG36Con.con.TZonCooSet",
+    "zonAHUG36Opt.TZon",
+    "zonAHUG36Con.TZon",
     "optStaHea.tOpt",
     "optStaCoo.tOpt"
   };

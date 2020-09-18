@@ -1,7 +1,7 @@
 within Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart;
 model ConventionalWinter
   "Example model using the block OptimalStart with a conventional controller for a single-zone VAV system in winter"
-  extends ConventionalSpring;
+  extends Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.ConventionalSpring;
 
   annotation (experiment(
       StopTime=604800,

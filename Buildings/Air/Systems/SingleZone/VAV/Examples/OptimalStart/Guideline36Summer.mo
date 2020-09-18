@@ -1,7 +1,7 @@
 within Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart;
 model Guideline36Summer
   "Example model using the block OptimalStart with a Guideline36 controller for a single-zone system in summer"
-  extends Guideline36Spring;
+  extends Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.Guideline36Spring;
 
   annotation (experiment(
       StartTime=15984000,
