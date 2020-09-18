@@ -844,7 +844,7 @@ A zone group may be in only one mode at a given time.
 <p>
 Each zone group shall have the operating modes shown below.
 </p>
-<h5>Occupied Mode</h5>
+<h4>Occupied Mode</h4>
 <p>
 A zone group is in the <i>occupied mode</i> when
 occupancy input <code>uOcc</code> is true. This input shall be retrieved from
@@ -863,7 +863,7 @@ The schedules have been overriden by the occupant override system.
 Any zone local override timer is nonzero.
 </li>
 </ul>
-<h5>Warm-up Mode</h5>
+<h4>Warm-up Mode</h4>
 <p>
 Warm-up mode shall start based on the zone with the longest calculated warm-up
 time <code>maxWarUpTim</code> requirement, but no earlier than 3 hours
@@ -877,7 +877,7 @@ computed in a separate block. The figure below shows the sequence.
 <img alt=\"Image of warm-up mode definition\"
 src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/Generic/OperationMode/Warm-upModeDefinition.png\"/>
 </p>
-<h5>Cooldown Mode</h5>
+<h4>Cooldown Mode</h4>
 <p>
 Cooldown mode shall start based on the zone with the longest calculated
 cooldown time <code>maxCooDowTim</code> requirement, but no earlier than 3 hours
@@ -891,7 +891,7 @@ computed in a separate block.
 <img alt=\"Image of cool-down mode definition\"
 src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/Generic/OperationMode/Cool-downModeDefinition.png\"/>
 </p>
-<h5>Setback Mode</h5>
+<h4>Setback Mode</h4>
 <p>
 During <i>unoccupied mode</i>, if any 5 zones (or all zones, if fewer than 5)
 in the zone group fall below their unoccupied heating setpoints, or if the average
@@ -904,13 +904,13 @@ unoccupied setpoints (<code>uEndSetBac</code> becomes true).
 <img alt=\"Image of setback mode definition\"
 src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/Generic/OperationMode/SetbackModeDefinition.png\"/>
 </p>
-<h5>Freeze Protection Setback Mode</h5>
+<h4>Freeze Protection Setback Mode</h4>
 <p>
 During <i>unoccupied Mode</i>, if any single zone falls below <i>4</i> &deg;C
 (<i>40</i> &deg;F), the zone group shall enter <i>setback mode</i> until all zones
 are above <i>7</i> &deg;C (<i>45</i> &deg;F), and a Level 3 alarm shall be set.
 </p>
-<h5>Setup Mode</h5>
+<h4>Setup Mode</h4>
 <p>
 During <i>unoccupied mode</i>, if any 5 zones (or all zones, if fewer than 5)
 in the zone group rise above their unoccupied cooling setpoints, or if the average
@@ -924,7 +924,7 @@ open shall be ignored.
 <img alt=\"Image of setup mode definition\"
 src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/Generic/OperationMode/SetupModeDefinition.png\"/>
 </p>
-<h5>Unoccupied Mode</h5>
+<h4>Unoccupied Mode</h4>
 <p>
 <i>Unoccupied mode</i> shall be active if the zone group is not in any other mode.
 </p>

@@ -482,7 +482,7 @@ Documentation(info="<html>
 This block outputs zone alarms. The implementation is according to the ASHRAE
 Guideline 36, Section 5.3.6.
 </p>
-<h5>Zone temperature alarm</h5>
+<h4>Zone temperature alarm</h4>
 <ol>
 <li>
 High-temperature alarm
@@ -527,7 +527,7 @@ While zone group is in warm-up or cooldown modes.
 </ul>
 </li>
 </ol>
-<h5>For zones with CO2 sensors:</h5>
+<h4>For zones with CO2 sensors:</h4>
 <ul>
 <li>
 If the CO2 concentration <code>ppmCO2</code> is less than 300 ppm, or the zone is

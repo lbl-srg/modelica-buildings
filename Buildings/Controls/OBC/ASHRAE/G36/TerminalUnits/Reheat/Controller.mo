@@ -1,4 +1,4 @@
-within Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits;
+within Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.Reheat;
 block Controller "Controller for room VAV box"
 
   parameter Real samplePeriod(
@@ -296,7 +296,7 @@ block Controller "Controller for room VAV box"
     annotation (Placement(transformation(extent={{140,-140},{180,-100}}),
         iconTransformation(extent={{100,-100},{140,-60}})));
 
-  Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.Reheat.SetPoints.ActiveAirFlow
+  Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.Reheat.Subsequences.ActiveAirFlow
     actAirSet(
     final AFlo=AFlo,
     final have_occSen=have_occSen,
@@ -310,7 +310,7 @@ block Controller "Controller for room VAV box"
     final VOutPerPer_flow=VOutPerPer_flow,
     final CO2Set=CO2Set) "Active airflow rate setpoint"
     annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
-  Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.Reheat.DamperValves damVal(
+  Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.Reheat.Subsequences.DamperValves damVal(
     final controllerTypeVal=controllerTypeVal,
     final kVal=kVal,
     final TiVal=TiVal,
@@ -324,7 +324,7 @@ block Controller "Controller for room VAV box"
     V_flow_nominal=max(VDisCooSetMax_flow, VDisHeaSetMax_flow))
     "Damper and valve controller"
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
-  Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.Reheat.SystemRequests sysReq(
+  Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.Reheat.Subsequences.SystemRequests sysReq(
     final samplePeriod=samplePeriod,
     final have_heaWatCoi=have_heaWatCoi,
     final have_heaPla=have_heaPla,

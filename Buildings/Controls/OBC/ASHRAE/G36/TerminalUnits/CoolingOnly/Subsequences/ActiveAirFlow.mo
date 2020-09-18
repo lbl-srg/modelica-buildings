@@ -20,8 +20,7 @@ block ActiveAirFlow
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput VActCooMax_flow(
     final min=0,
     final unit="m3/s",
-    final quantity="VolumeFlowRate")
-    "Active cooling maximum airflow setpoint"
+    final quantity="VolumeFlowRate") "Active cooling maximum airflow setpoint"
     annotation (Placement(transformation(extent={{120,50},{160,90}}),
         iconTransformation(extent={{100,40},{140,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput VActMin_flow(

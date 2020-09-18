@@ -24,7 +24,7 @@ block Alarms "Generate alarms of cooling only terminal unit"
     final unit="m3/s")
     "Near zero flow rate, below which the flow rate or difference will be seen as zero"
     annotation (Dialog(tab="Advanced"));
-  parameter Real cloDamPos(
+  parameter Real damPosHys(
     final unit="1")
     "Near zero damper position, below which the damper will be seen as closed"
     annotation (Dialog(tab="Advanced"));
@@ -181,8 +181,8 @@ block Alarms "Generate alarms of cooling only terminal unit"
     "Check if the flow is above threshold by more than threshold time"
     annotation (Placement(transformation(extent={{-20,-150},{0,-130}})));
   Buildings.Controls.OBC.CDL.Continuous.LessThreshold cloDam(
-    final t=cloDamPos,
-    final h=0.5*cloDamPos)
+    final t=damPosHys,
+    final h=0.5*damPosHys)
     "Check if damper position is near zero"
     annotation (Placement(transformation(extent={{-200,-220},{-180,-200}})));
   Buildings.Controls.OBC.CDL.Logical.And3 leaDamAla
@@ -354,7 +354,7 @@ Documentation(info="<html>
 This block outputs alarms of cooling only terminal unit. The implementation is according
 to the Section 5.5.6 of ASHRAE Guideline 36, May 2020.
 </p>
-<h5>Low airflow alarm</h5>
+<h4>Low airflow alarm</h4>
 <ol>
 <li>
 If the measured airflow <code>VDis_flow</code> is less then 70% of setpoint
@@ -372,14 +372,14 @@ static pressure reset Trim-Respond control loop, low airflow alarms shall be
 suppressed for that zone.
 </li>
 </ol>
-<h5>Airflow sensor calibration</h5>
+<h4>Airflow sensor calibration</h4>
 <p>
 If the fan serving the zone has been OFF (<code>uFan=false</code>) for 10 minutes
 (<code>fanOffTim</code>), and airflow sensor reading <code>VDis_flow</code>
 is above 10% of the cooling maximum airflow setpoint <code>VCooZonMax_flow</code>,
 generate a Level 3 alarm.
 </p>
-<h5>Leaking damper</h5>
+<h4>Leaking damper</h4>
 <p>
 If the damper position (<code>uDam</code>) is 0% and airflow sensor reading
 <code>VDis_flow</code> is above 10% of the cooling maximum airflow setpoint

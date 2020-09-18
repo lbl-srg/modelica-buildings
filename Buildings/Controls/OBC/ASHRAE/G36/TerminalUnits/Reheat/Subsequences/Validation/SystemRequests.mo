@@ -1,8 +1,8 @@
-within Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.Reheat.Validation;
+within Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.Reheat.Subsequences.Validation;
 model SystemRequests
   "Validation of model that generates system requests"
 
-  Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.Reheat.SystemRequests sysReq_RehBox(
+  Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.Reheat.Subsequences.SystemRequests sysReq_RehBox(
       have_heaPla=true, have_heaWatCoi=true) "Block outputs system requests"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sine(freqHz=1/7200, offset=296.15)
@@ -89,13 +89,13 @@ equation
 
 annotation (
   experiment(StopTime=7200, Tolerance=1e-6),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36_PR1/TerminalUnits/Reheat/Validation/SystemRequests.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/TerminalUnits/Reheat/Subsequences/Validation/SystemRequests.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
 This example validates
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.SystemRequests\">
-Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.SystemRequests</a>
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.Reheat.Subsequences.SystemRequests\">
+Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.Subsequences.SystemRequests</a>
 for generating system requests.
 </p>
 </html>", revisions="<html>

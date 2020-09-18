@@ -1,4 +1,4 @@
-within Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.Reheat;
+within Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.Reheat.Subsequences;
 block DamperValves
   "Output signals for controlling VAV reheat box damper and valve position"
 
@@ -209,7 +209,7 @@ block DamperValves
   Buildings.Controls.OBC.CDL.Continuous.Line lin3
     "Active airflow setpoint for heating"
     annotation (Placement(transformation(extent={{-80,-310},{-60,-290}})));
-  Buildings.Controls.OBC.CDL.Continuous.LimPID conVal(
+  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset conVal(
     final controllerType=controllerTypeVal,
     final k=kVal,
     final Ti=TiVal,
@@ -221,7 +221,7 @@ block DamperValves
     reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter)
     "Hot water valve controller"
     annotation (Placement(transformation(extent={{34,-90},{54,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.LimPID conDam(
+  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset conDam(
     final controllerType=controllerTypeDam,
     final k=kDam,
     final Ti=TiDam,
