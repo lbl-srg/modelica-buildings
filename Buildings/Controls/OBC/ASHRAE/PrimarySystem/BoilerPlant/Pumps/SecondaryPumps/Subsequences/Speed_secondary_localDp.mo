@@ -113,8 +113,7 @@ block Speed_secondary_localDp
     final maxPumSpe=maxPumSpe,
     final k=k,
     final Ti=Ti,
-    final Td=Td)
-    "Calculate pump speed based on pressure setpoint"
+    final Td=Td) "Calculate pump speed based on pressure setpoint"
     annotation (Placement(transformation(extent={{100,80},{120,100}})));
 
 protected

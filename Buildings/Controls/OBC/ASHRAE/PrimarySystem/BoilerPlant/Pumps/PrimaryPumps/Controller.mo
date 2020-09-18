@@ -690,22 +690,22 @@ protected
     "Logical pre block"
     annotation (Placement(transformation(extent={{240,60},{260,80}})));
 
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.PrimaryPumps.Subsequences.ChangePumpStatus chaPumSta(
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.Generic.ChangePumpStatus chaPumSta(
     final nPum=nPum) if not isHeadered
     "Change lead pump status for dedicated primary pumps"
     annotation (Placement(transformation(extent={{58,100},{80,120}})));
 
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.PrimaryPumps.Subsequences.ChangePumpStatus chaPumSta1(
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.Generic.ChangePumpStatus chaPumSta1(
     final nPum=nPum) if isHeadered
     "Change lead pump status for headered primary pumps"
     annotation (Placement(transformation(extent={{58,66},{80,86}})));
 
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.PrimaryPumps.Subsequences.ChangePumpStatus chaPumSta2(
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.Generic.ChangePumpStatus chaPumSta2(
     final nPum=nPum) if primaryOnly and isHeadered
     "Change lag pump status for headered primary pumps in a plant that is primary-only"
     annotation (Placement(transformation(extent={{128,-42},{150,-22}})));
 
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.PrimaryPumps.Subsequences.ChangePumpStatus chaPumSta3(
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.Generic.ChangePumpStatus chaPumSta3(
     final nPum=nPum) if isHeadered and (not primaryOnly)
     "Change lag pump status for headered primary pumps in a plant that is not primary-only"
     annotation (Placement(transformation(extent={{130,-182},{152,-162}})));
@@ -718,7 +718,7 @@ protected
     "Logical not"
     annotation (Placement(transformation(extent={{-148,-330},{-128,-310}})));
 
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.PrimaryPumps.Subsequences.ChangePumpStatus chaPumSta4(
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.Generic.ChangePumpStatus chaPumSta4(
     final nPum=nPum) if not isHeadered
     "Change lag pump status for dedicated primary pumps"
     annotation (Placement(transformation(extent={{62,-314},{84,-294}})));

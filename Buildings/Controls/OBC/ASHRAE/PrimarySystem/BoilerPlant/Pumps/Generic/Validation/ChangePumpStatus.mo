@@ -1,12 +1,6 @@
-within Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.SecondaryPumps.Subsequences.Validation;
+within Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.Generic.Validation;
 model ChangePumpStatus
     "Validate sequence for changing pump status"
-
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.SecondaryPumps.Subsequences.ChangePumpStatus
-    chaPumSta(
-    final nPum=3)
-    "Test instance for pump status change sequence"
-    annotation (Placement(transformation(extent={{60,-10},{82,10}})));
 
 protected
   Buildings.Controls.OBC.CDL.Logical.Pre pre[3](

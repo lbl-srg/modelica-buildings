@@ -285,7 +285,8 @@ block Controller
     final timPer=timPer,
     final staCon=staCon,
     final relFloHys=relFloHys,
-    final VHotWat_flow_nominal=VHotWat_flow_nominal) if variableSecondary and secondaryFlowSensor
+    final VHotWat_flow_nominal=VHotWat_flow_nominal) if variableSecondary and
+    secondaryFlowSensor
     "Enable lag pump for primary-only plants using differential pressure pump speed control"
     annotation (Placement(transformation(extent={{-200,-10},{-180,10}})));
 
@@ -334,8 +335,7 @@ protected
     annotation (Placement(transformation(extent={{160,-410},{180,-390}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.SecondaryPumps.Subsequences.EnableLead
-    enaHeaLeaPum
-    "Enable lead pump of headered pumps"
+    enaHeaLeaPum "Enable lead pump of headered pumps"
     annotation (Placement(transformation(extent={{-200,76},{-180,96}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.SecondaryPumps.Subsequences.Speed_secondary_remoteDp
@@ -429,25 +429,24 @@ protected
     "Logical not"
     annotation (Placement(transformation(extent={{2,-250},{22,-230}})));
 
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.SecondaryPumps.Subsequences.ChangePumpStatus
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.Generic.ChangePumpStatus
     chaPumSta1(
-    final nPum=nPum)
-    "Change lead pump status for headered primary pumps"
+    final nPum=nPum) "Change lead pump status for headered primary pumps"
     annotation (Placement(transformation(extent={{58,68},{80,88}})));
 
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.SecondaryPumps.Subsequences.ChangePumpStatus
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.Generic.ChangePumpStatus
     chaPumSta2(
     final nPum=nPum) if variableSecondary and secondaryFlowSensor
     "Change lag pump status for headered primary pumps in a plant that is primary-only"
     annotation (Placement(transformation(extent={{60,-44},{82,-24}})));
 
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.SecondaryPumps.Subsequences.ChangePumpStatus
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.Generic.ChangePumpStatus
     chaPumSta3(
     final nPum=nPum) if not variableSecondary
     "Change lag pump status for headered primary pumps in a plant that is not primary-only"
     annotation (Placement(transformation(extent={{62,-182},{84,-162}})));
 
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.SecondaryPumps.Subsequences.ChangePumpStatus
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.Generic.ChangePumpStatus
     chaPumSta4(
     final nPum=nPum) if variableSecondary and not secondaryFlowSensor
     "Change pump status of secondary lag pumps in secondary loop with no flow sensor"

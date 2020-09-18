@@ -10,8 +10,7 @@ model EnableLag_variableSecondary_pumpSpeed
     final timPer=300,
     final timPer1=60,
     final timPer2=600,
-    final sigDif=0.01)
-    "Test instance for speed-limit speLim"
+    final sigDif=0.01) "Test instance for speed-limit speLim"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold yUp(

@@ -1,6 +1,5 @@
-within Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.PrimaryPumps.Subsequences;
-block ChangePumpStatus
-    "Sequence to change pump status"
+within Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.Generic;
+block ChangePumpStatus "Sequence to change pump status"
 
   parameter Integer nPum = 2
     "Total number of pumps";
@@ -169,44 +168,45 @@ equation
 
 annotation (
   defaultComponentName="chaPumSta",
-  Icon(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{120,100}}),
-  graphics={
-    Rectangle(
-      extent={{-100,-100},{100,100}},
-      lineColor={0,0,127},
-      fillColor={255,255,255},
-      fillPattern=FillPattern.Solid),
-    Text(
-      extent={{-100,150},{100,110}},
-      lineColor={0,0,255},
-      textString="%name")}),
+  Icon(coordinateSystem(preserveAspectRatio=false,
+    extent={{-100,-100},{120,100}}),
+      graphics={
+        Rectangle(
+          extent={{-100,-100},{100,100}},
+          lineColor={0,0,127},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Text(
+          extent={{-100,150},{100,110}},
+          lineColor={0,0,255},
+          textString="%name")}),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
-Documentation(info="<html>
-<p>
-Block that changes the status of pumps. This sequence is not directly specified 
-in RP-1711. It provides a side calculation pertaining to generalization of the staging 
-sequences for any number of pumps and stages provided by the user.
-</p>
-<p>
-<ol>
-<li>
-When the block receives the index of next lag pump to be enabled <code>uNexLagPum</code>
-and a <code>true</code> pulse on the next lag pump status <code>uNexLagPumSta</code>, it changes
-the pump status <code>yHotWatPum[uNexLagPum]</code> to <code>true</code>.
-</li>
-<li>
-When the block receives the index of last lag pump to be disabled <code>uLasLagPum</code>
-and a <code>false</code> pulse on the last lag pump status <code>uLasLagPumSta</code>, it changes
-the pump status <code>yHotWatPum[uLasLagPum]</code> to <code>false</code>.
-</li>
-</ol>
-</p>
-</html>", revisions="<html>
-<ul>
-<li>
-August 19, 2020, by Karthik Devaprasad:<br/>
-First implementation.
-</li>
-</ul>
-</html>"));
+  Documentation(info="<html>
+  <p>
+  Block that changes the status of pumps. This sequence is not directly specified 
+  in RP-1711. It provides a side calculation pertaining to generalization of the staging 
+  sequences for any number of pumps and stages provided by the user.
+  </p>
+  <p>
+  <ol>
+  <li>
+  When the block receives the index of next lag pump to be enabled <code>uNexLagPum</code>
+  and a <code>true</code> pulse on the next lag pump status <code>uNexLagPumSta</code>,
+  it changes the pump status <code>yHotWatPum[uNexLagPum]</code> to <code>true</code>.
+  </li>
+  <li>
+  When the block receives the index of last lag pump to be disabled <code>uLasLagPum</code>
+  and a <code>false</code> pulse on the last lag pump status <code>uLasLagPumSta</code>, it changes
+  the pump status <code>yHotWatPum[uLasLagPum]</code> to <code>false</code>.
+  </li>
+  </ol>
+  </p>
+  </html>", revisions="<html>
+  <ul>
+  <li>
+  August 19, 2020, by Karthik Devaprasad:<br/>
+  First implementation.
+  </li>
+  </ul>
+  </html>"));
 end ChangePumpStatus;

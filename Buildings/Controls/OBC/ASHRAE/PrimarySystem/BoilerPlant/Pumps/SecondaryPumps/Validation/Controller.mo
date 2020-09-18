@@ -133,8 +133,7 @@ model Controller
     final relFloHys=0.01,
     final k=1,
     final Ti=0.5,
-    final Td=0.1)
-    "Testing pump configuration 5"
+    final Td=0.1) "Testing pump configuration 5"
     annotation (Placement(transformation(extent={{-100,-230},{-80,-190}})));
 
 protected

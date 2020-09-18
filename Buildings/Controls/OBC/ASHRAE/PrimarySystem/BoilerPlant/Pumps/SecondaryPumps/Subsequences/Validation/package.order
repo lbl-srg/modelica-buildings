@@ -1,6 +1,5 @@
 EnableLag_variableSecondary_flowrate
+EnableLag_variableSecondary_pumpSpeed
 EnableLead
 Speed_secondary_localDp
 Speed_secondary_remoteDp
-ChangePumpStatus
-EnableLag_variableSecondary_pumpSpeed
