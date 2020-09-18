@@ -2,6 +2,7 @@ within Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart;
 model Guideline36Winter
   "Example model using the block OptimalStart with a Guideline36 controller for a single-zone system in winter"
   extends Guideline36Spring;
+
   annotation (experiment(
       StopTime=604800,
       Tolerance=1e-06),
@@ -23,8 +24,9 @@ Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.BaseClasses.ZoneWithA
 </p>
 <p>
 This example validates the optimal start results for the winter condition.
-The system is initialized in the first few days. The optimal start time then calculates
-the optimal preheating time for the rest days.
+The first few days are initialization period. The optimal start block calculates
+the optimal preheating time based on the moving average temperature slope of the
+zone computed from previous days.
 </p>
 </html>",
 revisions="<html>

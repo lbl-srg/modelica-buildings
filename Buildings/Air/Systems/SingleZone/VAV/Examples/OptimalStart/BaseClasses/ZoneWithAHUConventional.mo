@@ -146,9 +146,6 @@ Buildings.Air.Systems.SingleZone.VAV.ChillerDXHeatingEconomizer</a>,
 and a single-zone floor building
 <a href=\"modelica://Buildings.ThermalZones.Detailed.Validation.BaseClasses.SingleZoneFloor\">
 Buildings.ThermalZones.Detailed.Validation.BaseClasses.SingleZoneFloor</a>.
-It is used by the example model
-<a href=\"modelica://Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.Conventional\">
-Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.Conventional</a>.
 </p>
 </html>",
 revisions="<html>

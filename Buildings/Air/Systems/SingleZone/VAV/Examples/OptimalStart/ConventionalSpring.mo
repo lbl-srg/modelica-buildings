@@ -89,11 +89,10 @@ equation
           {-6,2},{38,2}}, color={255,0,255}));
   connect(or2.y, zonAHUCon1.uOcc)  annotation (Line(points={{62,10},{74,10},{74,
           54},{78,54}}, color={255,0,255}));
-
   connect(add4.u2, TSetRooHea.y[1]) annotation (Line(points={{38,68},{26,68},{
           26,-50},{-18,-50}}, color={0,0,127}));
-  connect(booToRea1.y, add4.u1)
-    annotation (Line(points={{22,80},{38,80}}, color={0,0,127}));
+  connect(booToRea1.y, add4.u1) annotation (Line(points={{22,80},{38,80}}, color={0,0,127}));
+
    annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}})),                                        Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-120,-100},{120,100}}),
@@ -140,9 +139,10 @@ can be found in the base class
 Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.BaseClasses.ZoneWithAHUConventional</a>. 
 </p>
 <p>
-This example validates the optimal start results for the spring condition.
-The system is initialized in the first few days. The optimal start time then converges
-to zero when the zero temperature is within the heating and cooling setpoint deadband.
+This example validates the optimal start results for the spring condition. Note 
+that the optimal start block in this example computes for both heating and cooling conditions.
+The first few days are initialization period. The optimal start time is zero 
+when the zone temperature is within the heating and cooling setpoint deadband.
 </p>
 </html>",
 revisions="<html>

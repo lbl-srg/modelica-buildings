@@ -115,8 +115,8 @@ Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.BaseClasses.ZoneWithA
 </p>
 <p>
 This example validates the optimal start results for the spring condition.
-The system is initialized in the first few days. The optimal start time then converges
-to zero when the zero temperature is within the heating and cooling setpoint deadband.
+The first few days are initialization period. The optimal start time is zero 
+when the zone temperature is within the heating and cooling setpoint deadband.
 </p>
 </html>",
 revisions="<html>

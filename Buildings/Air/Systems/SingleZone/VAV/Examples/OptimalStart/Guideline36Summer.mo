@@ -2,6 +2,7 @@ within Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart;
 model Guideline36Summer
   "Example model using the block OptimalStart with a Guideline36 controller for a single-zone system in summer"
   extends Guideline36Spring;
+
   annotation (experiment(
       StartTime=15984000,
       StopTime=16761600,
@@ -24,8 +25,9 @@ Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.BaseClasses.ZoneWithA
 </p>
 <p>
 This example validates the optimal start results for the summer condition.
-The system is initialized in the first few days. The optimal start block then calculates
-the optimal precooling time for the rest days.
+The first few days are initialization period. The optimal start block calculates
+the optimal precooling time based on the moving average temperature slope of the 
+zone computed from previous days.
 </p>
 </html>",
 revisions="<html>
