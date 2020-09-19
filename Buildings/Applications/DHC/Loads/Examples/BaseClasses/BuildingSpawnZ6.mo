@@ -113,12 +113,12 @@ model BuildingSpawnZ6
     redeclare package Medium = Medium,
     m_flow_nominal=sum(terUni.mChiWat_flow_nominal .* terUni.facSca),
     typDis=Buildings.Applications.DHC.Loads.Types.DistributionType.ChilledWater,
-
     have_pum=true,
     dp_nominal=100000,
     nPorts_a1=nZon,
     nPorts_b1=nZon) "Chilled water distribution system"
     annotation (Placement(transformation(extent={{-160,-230},{-140,-210}})));
+
 equation
   connect(qRadGai_flow.y,multiplex3_1.u1[1])  annotation (Line(
       points={{-39,180},{-26,180},{-26,147},{-22,147}},

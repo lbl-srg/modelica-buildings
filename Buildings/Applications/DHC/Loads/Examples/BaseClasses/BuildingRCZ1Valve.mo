@@ -152,13 +152,13 @@ model BuildingRCZ1Valve
     redeclare package Medium = Medium,
     m_flow_nominal=terUni.mChiWat_flow_nominal,
     typDis=Buildings.Applications.DHC.Loads.Types.DistributionType.ChilledWater,
-
     have_pum=true,
     have_val=true,
     dp_nominal=100000,
     nPorts_a1=1,
     nPorts_b1=1) "Chilled water distribution system"
     annotation (Placement(transformation(extent={{-100,-160},{-80,-140}})));
+
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetSecHea(k=308.15,
       y(final unit="K", displayUnit="degC"))
     "Heating water secondary supply temperature set point"

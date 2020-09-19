@@ -69,11 +69,11 @@ model BuildingSpawnZ1 "One-zone EnergyPlus building model"
     redeclare package Medium = Medium,
     m_flow_nominal=terUni.mChiWat_flow_nominal,
     typDis=Buildings.Applications.DHC.Loads.Types.DistributionType.ChilledWater,
-
     dp_nominal=100000,
     nPorts_a1=nZon,
     nPorts_b1=nZon) "Chilled water distribution system"
     annotation (Placement(transformation(extent={{-120,-160},{-100,-140}})));
+
 equation
   connect(qRadGai_flow.y,multiplex3_1.u1[1])  annotation (Line(
       points={{-59,110},{-40,110},{-40,77},{-36,77}},
