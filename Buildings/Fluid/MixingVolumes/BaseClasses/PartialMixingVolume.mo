@@ -58,7 +58,11 @@ protected
     final m_flow_nominal = m_flow_nominal,
     final allowFlowReversal = allowFlowReversal,
     final m_flow_small = m_flow_small,
-    final prescribedHeatFlowRate=prescribedHeatFlowRate) if
+    final prescribedHeatFlowRate=prescribedHeatFlowRate,
+    hOut(start=Medium.specificEnthalpy_pTX(
+                 p=p_start,
+                 T=T_start,
+                 X=X_start))) if
          useSteadyStateTwoPort "Model for steady-state balance if nPorts=2"
         annotation (Placement(transformation(extent={{20,0},{40,20}})));
   Buildings.Fluid.Interfaces.ConservationEquation dynBal(
@@ -298,6 +302,12 @@ Buildings.Fluid.MixingVolumes</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 18, 2020, by Michael Wetter:<br/>
+Set start value for <code>steBal.hOut</code> so that <code>T_start</code>
+can be used which is not known in that instance.<br/>
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1397\">#1397</a>.
+</li>
 <li>
 February 21, 2020, by Michael Wetter:<br/>
 Changed icon to display its operating state.<br/>
