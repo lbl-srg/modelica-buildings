@@ -8,8 +8,8 @@ model TimeTable "Validation model for TimeTable block"
     timeScale=2) "Time table with integer output"
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
 
-  Buildings.Controls.OBC.CDL.Integers.Sources.TimeTable intTimTabPer(table=[0,1,
-        4; 1.3,2,2; 2.9,0,-1; 4,3,7; 5,1,1],
+  Buildings.Controls.OBC.CDL.Integers.Sources.TimeTable intTimTabPer(
+    table=[0,1,4; 1.3,2,2; 2.9,0,-1; 4,3,7; 5,1,1],
     extrapolation=Buildings.Controls.OBC.CDL.Types.Extrapolation.Periodic)
     "Time table with integer output and periodic repetition"
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
