@@ -60,5 +60,12 @@ equation
                 fillPattern = FillPattern.Solid,
                 points={{-36,60},{64,0},{-36,-60},{-36,60}})}), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
-    experiment(StopTime=5760, __Dymola_Algorithm="Dassl"));
+    experiment(StopTime=5760, __Dymola_Algorithm="Dassl"),
+    Documentation(revisions="<html>
+<ul>
+<li>
+September 14, 2020, by Henry Nickels:</br>
+First implementation.</li>
+</ul>
+</html>"));
 end TSupSet;

@@ -41,5 +41,12 @@ equation
                 pattern = LinePattern.None,
                 fillPattern = FillPattern.Solid,
                 points={{-36,60},{64,0},{-36,-60},{-36,60}})}), Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+        coordinateSystem(preserveAspectRatio=false)),
+    Documentation(revisions="<html>
+<ul>
+<li>
+September 15, 2020, by Henry Nickels:</br>
+First implementation.</li>
+</ul>
+</html>"));
 end DehumMode;

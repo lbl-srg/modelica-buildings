@@ -3,8 +3,8 @@ block DehumMode
   "This block calculates when dehumidification mode is active."
 
   parameter Real dehumSet(
-    min=0,
-    max=100)=60
+    final min=0,
+    final max=100)=60
    "Dehumidification set point.";
   parameter Real dehumDelay(
     final unit="s",
@@ -46,9 +46,11 @@ block DehumMode
         annotation (Placement(transformation(extent={{-14,-42},{6,-22}})));
   Buildings.Controls.OBC.CDL.Logical.And and2
     annotation (Placement(transformation(extent={{58,-2},{78,18}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueDelay minimumRun(delayTime=minRun, delayOnInit=true)
-    "Minimum supply fan runtime before enabling dehum mode."
-    annotation (Placement(transformation(extent={{-44,28},{-24,48}})));
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay minimumRun(
+    delayTime=minRun,
+    delayOnInit=true)
+      "Minimum supply fan runtime before enabling dehum mode."
+        annotation (Placement(transformation(extent={{-44,28},{-24,48}})));
 
 equation
   connect(retHum, gre.u1)
