@@ -47,6 +47,12 @@ in a system model.
 revisions="<html>
 <ul>
 <li>
+September 21, 2020, by Michael Wetter:<br/>
+Introduced parameter <code>warnAboutOnePortConnection</code> and updated documentation.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1399\">#1399</a>.
+</li>
+<li>
 February 25, 2020, by Michael Wetter:<br/>
 Changed icon to display its operating state.<br/>
 This is for
