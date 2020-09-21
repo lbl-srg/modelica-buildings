@@ -6,6 +6,9 @@
 #define Buildings_EnergyPlusTypes_h
 
 #include <stdbool.h>
+#include <stdio.h>
+#include <errno.h>
+extern int errno;
 
 #include "fmilib.h"
 #include "FMI2/fmi2FunctionTypes.h"
@@ -13,6 +16,7 @@
 /* Use windows.h only for Windows */
 #ifdef _WIN32
 #include <windows.h>
+#include <io.h>
 #define WINDOWS 1
 #else
 #define WINDOWS 0
@@ -26,14 +30,32 @@
 #include <dlfcn.h>
 #endif
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+#ifdef _MSC_VER
+#ifdef EXTERNAL_FUNCTION_EXPORT
+# define LBNL_EnergyPlus_EXPORT __declspec( dllexport )
+#else
+# define LBNL_EnergyPlus_EXPORT __declspec( dllimport )
+#endif
+#elif __GNUC__ >= 4
+/* In gnuc, all symbols are by default exported. It is still often useful,
+to not export all symbols but only the needed ones */
+# define LBNL_EnergyPlus_EXPORT __attribute__ ((visibility("default")))
+#else
+# define LBNL_EnergyPlus_EXPORT
+#endif
+
 #ifndef max
   #define max( a, b ) ( ((a) > (b)) ? (a) : (b) )
 #endif
 
 static char* MOD_BUI_JSON = "ModelicaBuildingsEnergyPlus.json";
 
-#ifdef _WIN32
+#ifdef _WIN32 /* Win32 or Win64 */
 static char* SEPARATOR = "\\";
+#define access(a, b) (_access_s(a, b))
 #else
 static char* SEPARATOR = "/";
 #endif
@@ -42,11 +64,6 @@ typedef enum {instantiationMode, initializationMode, eventMode, continuousTimeMo
 
 extern int FMU_EP_VERBOSITY; /* Verbosity */
 enum verbosity {ERRORS = 1, WARNINGS = 2, QUIET = 3, MEDIUM = 4, TIMESTEP = 5};
-
-extern void ModelicaMessage(const char *string);
-extern void ModelicaError(const char *string);
-extern void ModelicaFormatMessage(const char *string, ...);
-extern void ModelicaFormatError(const char *string, ...);
 
 typedef struct FMUBuilding
 {
@@ -57,13 +74,13 @@ typedef struct FMUBuilding
   char* modelicaNameBuilding; /* Name of the Modelica instance of this zone */
   fmi2Byte* idfName; /* if usePrecompiledFMU == true, the user-specified fmu name, else the idf name */
   fmi2Byte* weather;
-  fmi2Integer nZon; /* Number of zones that use this FMU */
+  size_t nZon; /* Number of zones that use this FMU */
   void** zones; /* Pointers to all zones*/
 
-  fmi2Integer nInputVariables; /* Number of input variables that this FMU has */
+  size_t nInputVariables; /* Number of input variables that this FMU has */
   void** inputVariables; /* Pointers to all input variables */
 
-  fmi2Integer nOutputVariables; /* Number of output variables that this FMU has */
+  size_t nOutputVariables; /* Number of output variables that this FMU has */
   void** outputVariables; /* Pointers to all output variables */
 
   char* tmpDir; /* Temporary directory used by EnergyPlus */
@@ -75,6 +92,12 @@ typedef struct FMUBuilding
   fmi2Real time; /* Time that is set in the building fmu */
   FMUMode mode; /* Mode that the FMU is in */
   size_t iFMU; /* Number of this FMU */
+
+  void (*SpawnMessage)(const char *string);
+  void (*SpawnError)(const char *string);
+  void (*SpawnFormatMessage)(const char *string, ...);
+  void (*SpawnFormatError)(const char *string, ...);
+
 } FMUBuilding;
 
 

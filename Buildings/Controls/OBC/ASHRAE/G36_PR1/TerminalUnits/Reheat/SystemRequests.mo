@@ -196,10 +196,7 @@ protected
     annotation (Placement(transformation(extent={{60,260},{80,280}})));
   Buildings.Controls.OBC.CDL.Logical.Timer tim "Calculate time"
     annotation (Placement(transformation(extent={{0,330},{20,350}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterEqual gre
-    "Check if the suppression time has passed"
-    annotation (Placement(transformation(extent={{60,330},{80,350}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterEqual gre1
+  Buildings.Controls.OBC.CDL.Continuous.Greater gre1
     "Check if current model time is greater than the sample period"
     annotation (Placement(transformation(extent={{-80,400},{-60,420}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys2(
@@ -386,13 +383,17 @@ protected
     final samplePeriod=samplePeriod)
     "Sample input signal, as the output signal will go to the trim and respond which also samples at samplePeriod"
     annotation (Placement(transformation(extent={{-160,80},{-140,100}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterEqual greEqu
+  Buildings.Controls.OBC.CDL.Continuous.Greater greVDis50
     "Check if discharge airflow is less than 50% of setpoint"
     annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterEqual greEqu1
+  Buildings.Controls.OBC.CDL.Continuous.Greater greVDis70
     "Check if discharge airflow is less than 70% of setpoint"
     annotation (Placement(transformation(extent={{-60,-110},{-40,-90}})));
 
+  CDL.Continuous.Less les "Check if the suppression time has not yet passed"
+    annotation (Placement(transformation(extent={{38,330},{58,350}})));
+  CDL.Logical.Not notLes "Inversion of output signal"
+    annotation (Placement(transformation(extent={{76,330},{96,350}})));
 equation
   connect(add2.y, hys.u)
     annotation (Line(points={{-78,200},{-62,200}},   color={0,0,127}));
@@ -407,15 +408,12 @@ equation
     annotation (Line(points={{-98,340},{-62,340}}, color={255,0,255}));
   connect(lat.y, tim.u)
     annotation (Line(points={{-38,340},{-2,340}}, color={255,0,255}));
-  connect(tim.y, gre.u1)
-    annotation (Line(points={{22,340},{58,340}}, color={0,0,127}));
   connect(edg.y, triSam.trigger)
     annotation (Line(points={{-38,300},{-20,300},{-20,264},{-110,264},{-110,268.2}},
       color={255,0,255}));
   connect(lat.y, edg.u)
-    annotation (Line(points={{-38,340},{-20,340},{-20,318},{-80,318},{-80,300},{
-          -62,300}},
-      color={255,0,255}));
+    annotation (Line(points={{-38,340},{-20,340},{-20,318},{-80,318},{-80,300},
+      {-62,300}}, color={255,0,255}));
   connect(edg.y, lat1.clr)
     annotation (Line(points={{-38,300},{-20,300},{-20,264},{58,264}}, color={255,0,255}));
   connect(modTim.y, gre1.u1)
@@ -571,15 +569,9 @@ equation
     annotation (Line(points={{122,-430},{138,-430}}, color={0,0,127}));
   connect(reaToInt3.y,yHeaPlaReq)
     annotation (Line(points={{162,-430},{200,-430}}, color={255,127,0}));
-  connect(gre.y, truHol.u)
-    annotation (Line(points={{82,340},{118,340}}, color={255,0,255}));
   connect(truHol.y, lat.clr)
     annotation (Line(points={{142,340},{160,340},{160,320},{-80,320},{-80,334},{
           -62,334}},        color={255,0,255}));
-  connect(gre.y, lat1.u)
-    annotation (Line(points={{82,340},{100,340},{100,322},{44,322},{44,270},{58,
-          270}},
-      color={255,0,255}));
   connect(lat.y, logSwi.u2)
     annotation (Line(points={{-38,340},{-20,340},{-20,318},{100,318},{100,290},{
           118,290}},
@@ -602,8 +594,6 @@ equation
   connect(maxSupTim.y, supTim.u2)
     annotation (Line(points={{-58,250},{-40,250},{-40,274},{-2,274}},
       color={0,0,127}));
-  connect(supTim.y, gre.u2)
-    annotation (Line(points={{22,280},{40,280},{40,332},{58,332}}, color={0,0,127}));
   connect(tim5.y, swi8.u2)
     annotation (Line(points={{22,-300},{98,-300}}, color={255,0,255}));
   connect(hys8.y, tim4.u)
@@ -660,24 +650,29 @@ equation
   connect(add3.u2, TZon)
     annotation (Line(points={{-102,134},{-150,134},{-150,170},{-200,170}},
       color={0,0,127}));
-  connect(greEqu.u1, gai1.y)
+  connect(greVDis50.u1, gai1.y)
     annotation (Line(points={{-62,-40},{-78,-40}}, color={0,0,127}));
-  connect(greEqu.u2, sampler1.y)
-    annotation (Line(points={{-62,-48},{-72,-48},{-72,-70},{-138,-70}},
-      color={0,0,127}));
-  connect(greEqu.y, and3.u2)
-    annotation (Line(points={{-38,-40},{0,-40},{0,-48},{38,-48}},
-      color={255,0,255}));
-  connect(gai2.y, greEqu1.u1)
-    annotation (Line(points={{-78,-88},{-76,-88},{-76,-100},{-62,-100}},
-      color={0,0,127}));
-  connect(sampler1.y, greEqu1.u2)
-    annotation (Line(points={{-138,-70},{-132,-70},{-132,-108},{-62,-108}},
-      color={0,0,127}));
-  connect(greEqu1.y, and4.u2)
-    annotation (Line(points={{-38,-100},{0,-100},{0,-108},{38,-108}},
-      color={255,0,255}));
+  connect(greVDis50.u2, sampler1.y) annotation (Line(points={{-62,-48},{-72,-48},
+          {-72,-70},{-138,-70}}, color={0,0,127}));
+  connect(greVDis50.y, and3.u2) annotation (Line(points={{-38,-40},{0,-40},{0,-48},
+          {38,-48}}, color={255,0,255}));
+  connect(gai2.y, greVDis70.u1) annotation (Line(points={{-78,-88},{-76,-88},{-76,
+          -100},{-62,-100}}, color={0,0,127}));
+  connect(sampler1.y, greVDis70.u2) annotation (Line(points={{-138,-70},{-132,-70},
+          {-132,-108},{-62,-108}}, color={0,0,127}));
+  connect(greVDis70.y, and4.u2) annotation (Line(points={{-38,-100},{0,-100},{0,
+          -108},{38,-108}}, color={255,0,255}));
 
+  connect(tim.y, les.u1)
+    annotation (Line(points={{22,340},{36,340}}, color={0,0,127}));
+  connect(supTim.y, les.u2) annotation (Line(points={{22,280},{32,280},{32,332},
+          {36,332}}, color={0,0,127}));
+  connect(notLes.y, truHol.u)
+    annotation (Line(points={{98,340},{118,340}}, color={255,0,255}));
+  connect(lat1.u, notLes.y) annotation (Line(points={{58,270},{46,270},{46,326},
+          {108,326},{108,340},{98,340}}, color={255,0,255}));
+  connect(les.y, notLes.u)
+    annotation (Line(points={{60,340},{74,340}}, color={255,0,255}));
 annotation (
   defaultComponentName="sysReqRehBox",
   Diagram(coordinateSystem(preserveAspectRatio=

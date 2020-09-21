@@ -36,7 +36,7 @@ model OneZoneWithControl "Validation model for one zone"
     y(unit="K", displayUnit="degC"))
     "Setpoint for room air"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
-  Controls.OBC.CDL.Continuous.LimPID conPID(
+  Controls.OBC.CDL.Continuous.PID conPID(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     Ti=900,
     yMax=1,

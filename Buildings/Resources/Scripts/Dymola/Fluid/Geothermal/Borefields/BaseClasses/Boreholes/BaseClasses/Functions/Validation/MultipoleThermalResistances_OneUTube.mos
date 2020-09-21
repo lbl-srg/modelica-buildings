@@ -1,16 +1,16 @@
-simulateModel("Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.Validation.MultipoleThermalResistances_OneUTube", stopTime=1.0, method="dassl", tolerance=1E-6, resultFile="FunctionMultipoleThermalResistances_OneUTube");
+simulateModel("Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.Validation.MultipoleThermalResistances_OneUTube", stopTime=1.0, method="CVode", tolerance=1E-6, resultFile="FunctionMultipoleThermalResistances_OneUTube");
 
 createPlot(
   id = 1,
   position = {35, 30, 631, 456},
   x = "time",
-  y = {"RDelta[1, 1]", "RDelta[2, 2]", "RDelta[1, 2]", "RDelta[2, 1]", "RDelta_Ref[1, 1]", "RDelta_Ref[2, 2]", "RDelta_Ref[1, 2]", "RDelta_Ref[2, 1]"}, 
+  y = {"RDelta[1, 1]", "RDelta[2, 2]", "RDelta[1, 2]", "RDelta[2, 1]", "RDelta_Ref[1, 1]", "RDelta_Ref[2, 2]", "RDelta_Ref[1, 2]", "RDelta_Ref[2, 1]"},
   autoscale = true,
   autoerase = true,
-  autoreplot = true, 
+  autoreplot = true,
   grid=true,
   color=true,
-  filename="FunctionMultipoleThermalResistances_OneUTube.mat", 
+  filename="FunctionMultipoleThermalResistances_OneUTube.mat",
   leftTitleType = 1,
   bottomTitleType = 1);
 
@@ -18,12 +18,12 @@ createPlot(
   id = 2,
   position = {35, 30, 631, 456},
   x = "time",
-  y = {"R[1, 1]", "R[2, 2]", "R[1, 2]", "R[2, 1]", "R_Ref[1, 1]", "R_Ref[2, 2]", "R_Ref[1, 2]", "R_Ref[2, 1]"}, 
+  y = {"R[1, 1]", "R[2, 2]", "R[1, 2]", "R[2, 1]", "R_Ref[1, 1]", "R_Ref[2, 2]", "R_Ref[1, 2]", "R_Ref[2, 1]"},
   autoscale = true,
   autoerase = true,
-  autoreplot = true, 
+  autoreplot = true,
   grid=true,
   color=true,
-  filename="FunctionMultipoleThermalResistances_OneUTube.mat", 
+  filename="FunctionMultipoleThermalResistances_OneUTube.mat",
   leftTitleType = 1,
   bottomTitleType = 1);

@@ -10,9 +10,7 @@
 
 #include <stdlib.h>
 
-void ZoneFree(void* object){
-  if (FMU_EP_VERBOSITY >= MEDIUM)
-    ModelicaMessage("Entered ZoneFree.");
+void EnergyPlusZoneFree(void* object){
   if ( object != NULL ){
     FMUZone* zone = (FMUZone*) object;
 
@@ -23,6 +21,4 @@ void ZoneFree(void* object){
     }
     free(zone);
   }
-  if (FMU_EP_VERBOSITY >= MEDIUM)
-    ModelicaMessage("Leaving ZoneFree.");
 }

@@ -2,7 +2,7 @@ within Buildings.Controls.OBC.CDL.Integers;
 block GreaterEqualThreshold
   "Output y is true, if input u is greater or equal than threshold"
 
-  parameter Integer threshold=0 "Comparison with respect to threshold";
+  parameter Integer t=0 "Comparison with respect to a threshold";
 
   Interfaces.IntegerInput u "Connector of Integer input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
@@ -11,7 +11,7 @@ block GreaterEqualThreshold
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation
-  y = u >= threshold;
+  y =u >= t;
 
 annotation (
   defaultComponentName="intGreEquThr",
@@ -20,7 +20,7 @@ annotation (
         Text(
           extent={{-150,-140},{150,-110}},
           lineColor={0,0,0},
-          textString="%threshold"),
+          textString="%t"),
         Rectangle(
           extent={{-100,100},{100,-100}},
           lineColor={0,0,0},
@@ -50,11 +50,16 @@ annotation (
   Documentation(info="<html>
 <p>
 Block that outputs <code>true</code> if the Integer input is greater than or equal to
-the parameter <code>threshold</code>.
+the parameter <code>t</code>.
 Otherwise the output is <code>false</code>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+August 6, 2020, by Michael Wetter:<br/>
+Renamed <code>threshold</code> to <code>t</code>.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2076\">issue 2076</a>.
+</li>
 <li>
 August 30, 2017, by Jianjun Hu:<br/>
 First implementation, based on the implementation of the

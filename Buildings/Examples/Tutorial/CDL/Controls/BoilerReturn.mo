@@ -19,7 +19,7 @@ block BoilerReturn "Control for boiler return"
     final k=TSet)
     "Set point temperature"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
- Buildings.Controls.OBC.CDL.Continuous.LimPID conPID(
+  Buildings.Controls.OBC.CDL.Continuous.PID conPID(
     final k=k,
     final Ti=Ti,
     reverseActing=false) "Controller for valve in boiler loop"

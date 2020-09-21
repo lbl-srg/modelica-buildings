@@ -6,11 +6,12 @@
 #ifndef Buildings_ZoneAllocate_h
 #define Buildings_ZoneAllocate_h
 
+#include "EnergyPlusTypes.h"
 #include "EnergyPlusFMU.h"
 #include "EnergyPlusUtil.h"
 
 /* Create the structure and return a pointer to its address. */
-void* ZoneAllocate(
+LBNL_EnergyPlus_EXPORT void* EnergyPlusZoneAllocate(
   const char* modelicaNameBuilding,
   const char* modelicaNameThermalZone,
   const char* idfName,
@@ -19,6 +20,10 @@ void* ZoneAllocate(
   int usePrecompiledFMU,
   const char* fmuName,
   const char* spawnLinuxExecutable,
-  const int verbosity);
+  const int verbosity,
+  void (*SpawnMessage)(const char *string),
+  void (*SpawnError)(const char *string),
+  void (*SpawnFormatMessage)(const char *string, ...),
+  void (*SpawnFormatError)(const char *string, ...));
 
 #endif

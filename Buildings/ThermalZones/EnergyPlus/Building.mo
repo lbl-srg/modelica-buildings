@@ -44,18 +44,18 @@ model Building
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
 
 protected
-  Binaries binaries "Record with binaries";
-  record Binaries
-      final parameter String spawnLinuxExecutable=
-          Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/bin/spawn-linux64/bin/spawn")
-          "Binary for Linux 64, specified so it is packed into the FMU";
-      final parameter String spawnLinuxLibrary=
-          Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/bin/spawn-linux64/lib/epfmi.so")
-          "Library for Linux 64, specified so it is packed into the FMU";
-      final parameter String fmiLinuxLibrary=
-          Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/Library/linux64/libfmilib_shared.so")
-        "Library for Linux 64, specified so it is packed into the FMU";
-  end Binaries;
+  Linux64Binaries linux64Binaries "Record with binaries";
+  record Linux64Binaries
+  final parameter String spawnLinuxExecutable=
+      Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/bin/spawn-linux64/bin/spawn")
+      "Binary for Linux 64, specified so it is packed into the FMU";
+  final parameter String spawnLinuxLibrary=
+      Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/bin/spawn-linux64/lib/epfmi.so")
+    "Library for Linux 64, specified so it is packed into the FMU";
+  final parameter String fmiLinuxLibrary=
+      Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/Library/linux64/libfmilib_shared.so")
+    "Library for Linux 64, specified so it is packed into the FMU";
+  end Linux64Binaries;
 
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
     final filNam = weaName,

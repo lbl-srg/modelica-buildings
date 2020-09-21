@@ -224,7 +224,6 @@ Otherwise, you may get an error such as
 </p>
 <pre>
 /usr/bin/ld: cannot find -lfmilib_shared
-/usr/bin/ld: cannot find -lfmilib_shared
 collect2: error: ld returned 1 exit status
 </pre>
 <h5>Models with multiple thermal zones</h5>

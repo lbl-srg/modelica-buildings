@@ -143,14 +143,13 @@ model ThermalElectricalFollowing
     "Heat transfer to the surrounding"
     annotation (Placement(transformation(extent={{-10,10},{10,-10}},
       rotation=180, origin={-60,-140})));
-  Buildings.Controls.OBC.CDL.Continuous.LimPID cooWatCon(
+  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset cooWatCon(
     final controllerType=watOutCon,
     final k=k,
     final Ti=Ti,
     final Td=Td,
     final yMax=1,
-    final yMin=0,
-    final reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter) if switchThermalElectricalFollowing
+    final yMin=0) if switchThermalElectricalFollowing
     "Cooling water outplet controller"
     annotation (Placement(transformation(extent={{-60,340},{-40,360}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain elePowDem(
@@ -275,9 +274,8 @@ equation
           {-160,-120},{-140,-120}}, color={191,0,0}));
   connect(TRooSen.T, eneCon.TRoo) annotation (Line(points={{-120,-120},{-90,
           -120},{-90,26},{-62,26}}, color={0,0,127}));
-  connect(theFol, cooWatCon.trigger) annotation (Line(points={{-200,260},{-58,
-          260},{-58,338}},
-                      color={255,0,255}));
+  connect(theFol, cooWatCon.trigger) annotation (Line(points={{-200,260},{-56,260},
+          {-56,338}}, color={255,0,255}));
   connect(elePowDem.y, swi.u1) annotation (Line(points={{22,350},{80,350},{80,
           268},{98,268}}, color={0,0,127}));
 annotation (

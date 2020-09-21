@@ -64,10 +64,10 @@ model ShadeControl
     annotation (Placement(transformation(extent={{50,-108},{70,-90}})));
   Buildings.Controls.OBC.CDL.Logical.And and2
     annotation (Placement(transformation(extent={{110,-100},{130,-80}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquT(threshold=0.5)
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greEquT(t=0.5)
     "Output conversion"
     annotation (Placement(transformation(extent={{80,-80},{100,-60}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquH(threshold=0.5)
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greEquH(t=0.5)
     "Output conversion"
     annotation (Placement(transformation(extent={{80,-110},{100,-90}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea(realTrue=6)
@@ -179,7 +179,7 @@ protected
     Controls.OBC.CDL.Continuous.Gain gai(k=-5000)
                                                  "Gain"
       annotation (Placement(transformation(extent={{10,-10},{30,10}})));
-    Controls.OBC.CDL.Continuous.LimPID conPID(Ti=120, reverseActing=false)
+    Controls.OBC.CDL.Continuous.PID conPID(Ti=120, reverseActing=false)
       annotation (Placement(transformation(extent={{-30,-10},{-10,10}})));
     Controls.OBC.CDL.Continuous.Sources.Constant TSet(k=273.15 + 25)
       "Set point temperature"
