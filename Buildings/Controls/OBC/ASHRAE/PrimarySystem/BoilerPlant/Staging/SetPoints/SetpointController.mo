@@ -29,23 +29,23 @@ block SetpointController
     annotation(Dialog(tab="General", group="Boiler plant configuration parameters"));
 
   parameter Real boiDesCap[nBoi](
-    final unit="W",
-    final displayUnit="W",
-    final quantity="Power")
+    final unit=fill("W",nBoi),
+    displayUnit=fill("W",nBoi),
+    final quantity=fill("Power",nBoi))
     "Design boiler capacities vector"
     annotation(Dialog(tab="General", group="Boiler plant configuration parameters"));
 
   parameter Real boiFirMin[nBoi](
-    final unit="1",
-    final displayUnit="1")
+    final unit=fill("1",nBoi),
+    displayUnit=fill("1",nBoi))
     "Boiler minimum firing ratio"
     annotation(Dialog(tab="General", group="Boiler plant configuration parameters"));
 
-  parameter Real bMinPriPumSpeSta[nSta](
-    final unit="1",
-    final displayUnit="1",
-    final max=1,
-    final min=0) = {0,0,0}
+  parameter Real boiMinPriPumSpeSta[nSta](
+    final unit=fill("1",nSta),
+    displayUnit=fill("1",nSta),
+    final max=fill(1,nSta),
+    final min=fill(0,nSta)) = {0,0,0}
     "Minimum primary pump speed for the boiler plant stage"
     annotation(Evaluate=true,
       Dialog(enable=not
@@ -55,104 +55,104 @@ block SetpointController
 
   parameter Real delStaCha(
     final unit="s",
-    final displayUnit="s",
+    displayUnit="s",
     final quantity="Time") = 600
     "Hold period for each stage change"
     annotation(Dialog(tab="Staging parameters", group="General parameters"));
 
   parameter Real avePer(
     final unit="s",
-    final displayUnit="s",
+    displayUnit="s",
     final quantity="Time") = 300
     "Time period for the capacity requirement rolling average"
     annotation(Dialog(tab="Staging parameters", group="Capacity requirement calculation parameters"));
 
   parameter Real fraNonConBoi(
     final unit="1",
-    final displayUnit="1") = 0.9
+    displayUnit="1") = 0.9
     "Fraction of current stage design capacity at which efficiency condition is 
     satisfied for non-condensing boilers"
     annotation(Dialog(tab="Staging parameters", group="Efficiency condition parameters"));
 
   parameter Real fraConBoi(
     final unit="1",
-    final displayUnit="1") = 1.5
+    displayUnit="1") = 1.5
     "Fraction of higher stage design capacity at which efficiency condition is 
     satisfied for condensing boilers"
     annotation(Dialog(tab="Staging parameters", group="Efficiency condition parameters"));
 
   parameter Real delEffCon(
     final unit="s",
-    final displayUnit="s",
+    displayUnit="s",
     final quantity="Time") = 600
     "Enable delay for heating capacity requirement condition"
     annotation(Dialog(tab="Staging parameters", group="Efficiency condition parameters"));
 
   parameter Real TDif(
     final unit="K",
-    final displayUnit="K",
+    displayUnit="K",
     final quantity="TemperatureDifference") = 10
     "Required temperature difference between setpoint and measured temperature"
     annotation(Dialog(tab="Staging parameters", group="Failsafe condition parameters"));
 
   parameter Real delFaiCon(
     final unit="s",
-    final displayUnit="s",
+    displayUnit="s",
     final quantity="Time") = 900
     "Enable delay for temperature condition"
     annotation(Dialog(tab="Staging parameters", group="Failsafe condition parameters"));
 
   parameter Real sigDif(
     final unit="1",
-    final displayUnit="1") = 0.1
+    displayUnit="1") = 0.1
     "Signal hysteresis deadband"
     annotation (Dialog(tab="Advanced", group="Efficiency condition parameters"));
 
   parameter Real TDifHys(
     final unit="K",
-    final displayUnit="K",
+    displayUnit="K",
     final quantity="TemperatureDifference") = 1
     "Temperature deadband for hysteresis loop"
     annotation(Dialog(tab="Advanced", group="Failsafe condition parameters"));
 
   parameter Real fraMinFir(
     final unit="1",
-    final displayUnit="1") = 1.1
+    displayUnit="1") = 1.1
     "Fraction of boiler minimum firing rate that required capacity needs to be
     to initiate stage-down process"
     annotation(Dialog(tab="Staging parameters", group="Staging down parameters"));
 
   parameter Real delMinFir(
     final unit="s",
-    final displayUnit="s",
+    displayUnit="s",
     final quantity="Time") = 300
     "Delay for staging based on minimum firing rate of current stage"
     annotation(Dialog(tab="Staging parameters", group="Staging down parameters"));
 
   parameter Real fraDesCap(
     final unit="1",
-    final displayUnit="1") = 0.8
+    displayUnit="1") = 0.8
     "Fraction of design capacity of next lower stage that heating capacity needs
     to be for staging down"
     annotation(Dialog(tab="Staging parameters", group="Staging down parameters"));
 
   parameter Real delDesCapNonConBoi(
     final unit="s",
-    final displayUnit="s",
+    displayUnit="s",
     final quantity="Time") = 600
     "Enable delay for capacity requirement condition for non-condensing boilers"
     annotation(Dialog(tab="Staging parameters", group="Staging down parameters"));
 
   parameter Real delDesCapConBoi(
     final unit="s",
-    final displayUnit="s",
+    displayUnit="s",
     final quantity="Time") = 300
     "Enable delay for capacity requirement condition for condensing boilers"
     annotation(Dialog(tab="Staging parameters", group="Staging down parameters"));
 
   parameter Real delBypVal(
     final unit="s",
-    final displayUnit="s",
+    displayUnit="s",
     final quantity="Time") = 300
     "Enable delay for bypass valve condition for primary-only plants"
     annotation (
@@ -164,7 +164,7 @@ block SetpointController
 
   parameter Real TCirDif(
     final unit="K",
-    final displayUnit="K",
+    displayUnit="K",
     final quantity="TemperatureDifference") = 3
     "Required return water temperature difference between primary and secondary
     circuits for staging down"
@@ -178,7 +178,7 @@ block SetpointController
 
   parameter Real delTRetDif(
     final unit="s",
-    final displayUnit="s",
+    displayUnit="s",
     final quantity="Time") = 300
     "Enable delay for measured hot water return temperature difference condition"
     annotation (
@@ -191,7 +191,7 @@ block SetpointController
 
   parameter Real bypValClo(
     final unit="1",
-    final displayUnit="1") = 0
+    displayUnit="1") = 0
     "Adjustment for signal received when bypass valve is closed"
     annotation (
       Evaluate=true,
@@ -202,7 +202,7 @@ block SetpointController
 
   parameter Real dTemp(
     final unit="K",
-    final displayUnit="K",
+    displayUnit="K",
     final quantity="TemperatureDifference") = 0.1
     "Hysteresis deadband for measured temperatures"
     annotation (Dialog(tab="Advanced", group="Failsafe condition parameters"));
@@ -233,7 +233,7 @@ block SetpointController
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput THotWatRetPri(
     final unit="K",
-    final displayUnit="K",
+    displayUnit="K",
     final quantity="ThermodynamicTemperature") if not primaryOnly
     "Measured temperature of return hot water in primary circuit"
     annotation (Placement(transformation(extent={{-440,30},{-400,70}}),
@@ -241,7 +241,7 @@ block SetpointController
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput THotWatRetSec(
     final unit="K",
-    final displayUnit="K",
+    displayUnit="K",
     final quantity="ThermodynamicTemperature") if not primaryOnly
     "Measured temperature of return hot water in secondary circuit"
     annotation (Placement(transformation(extent={{-440,-10},{-400,30}}),
@@ -249,7 +249,7 @@ block SetpointController
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput THotWatSupSet(
     final unit="K",
-    final displayUnit="K",
+    displayUnit="K",
     final quantity="ThermodynamicTemperature")
     "Hot water supply temperature setpoint"
     annotation (Placement(transformation(extent={{-440,270},{-400,310}}),
@@ -257,7 +257,7 @@ block SetpointController
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput THotWatSup(
     final unit="K",
-    final displayUnit="K",
+    displayUnit="K",
     final quantity="ThermodynamicTemperature")
     "Measured hot water supply temperature"
     annotation (Placement(transformation(extent={{-440,150},{-400,190}}),
@@ -265,7 +265,7 @@ block SetpointController
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput THotWatRet(
     final unit="K",
-    final displayUnit="K",
+    displayUnit="K",
     final quantity="ThermodynamicTemperature")
     "Hot water return temperature"
     annotation (Placement(transformation(extent={{-440,230},{-400,270}}),
@@ -274,29 +274,29 @@ block SetpointController
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VHotWat_flow(
     final quantity="VolumeFlowRate",
     final unit="m3/s",
-    final displayUnit="m3/s")
+    displayUnit="m3/s")
     "Measured hot water flow rate"
     annotation (Placement(transformation(extent={{-440,190},{-400,230}}),
       iconTransformation(extent={{-140,90},{-100,130}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VMinSet_flow[nSta](
-    final unit="m3/s",
-    final displayUnit="m3/s",
-    final quantity="VolumeFlowRate")
+    final unit=fill("m3/s",nSta),
+    displayUnit=fill("m3/s",nSta),
+    final quantity=fill("VolumeFlowRate",nSta))
     "Vector with primary circuit minimum flow setpoint for all stages"
     annotation (Placement(transformation(extent={{-440,110},{-400,150}}),
       iconTransformation(extent={{-140,30},{-100,70}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uBypValPos(
     final unit="1",
-    final displayUnit="1") if primaryOnly
+    displayUnit="1") if primaryOnly
     "Bypass valve position"
     annotation (Placement(transformation(extent={{-440,70},{-400,110}}),
       iconTransformation(extent={{-140,0},{-100,40}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uPumSpe(
     final unit="1",
-    final displayUnit="1") if not primaryOnly
+    displayUnit="1") if not primaryOnly
     "Pump speed signal"
     annotation (Placement(transformation(extent={{-440,-50},{-400,-10}}),
         iconTransformation(extent={{-140,-90},{-100,-50}})));
@@ -398,7 +398,7 @@ protected
     final dTemp=dTemp,
     final TDif=TDif,
     final delFaiCon=delFaiCon,
-    bMinPriPumSpeSta=bMinPriPumSpeSta)
+    final boiMinPriPumSpeSta=boiMinPriPumSpeSta)
     "Staging down calculator"
     annotation (Placement(transformation(extent={{-140,-256},{-120,-221}})));
 

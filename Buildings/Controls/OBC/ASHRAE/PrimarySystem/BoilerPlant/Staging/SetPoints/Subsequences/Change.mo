@@ -10,7 +10,7 @@ block Change
 
   parameter Real delStaCha(
     final unit="s",
-    final displayUnit="s",
+    displayUnit="s",
     final quantity="Time") = 600
     "Hold period for each stage change";
 
@@ -126,7 +126,7 @@ protected
     annotation (Placement(transformation(extent={{200,0},{220,20}})));
 
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr1(
-    final threshold=0.5)
+    final t=0.5)
     "Check if plant is still enabled"
     annotation (Placement(transformation(extent={{280,0},{300,20}})));
 

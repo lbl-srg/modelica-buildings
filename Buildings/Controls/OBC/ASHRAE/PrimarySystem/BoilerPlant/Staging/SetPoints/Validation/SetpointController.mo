@@ -12,7 +12,7 @@ model SetpointController
     final iniSta=1,
     final boiDesCap={1000000,1500000},
     final boiFirMin={0.2,0.3},
-    final bMinPriPumSpeSta={0,0,0},
+    final boiMinPriPumSpeSta={0,0,0},
     final delStaCha=600,
     final avePer=300,
     final fraNonConBoi=0.9,
@@ -43,7 +43,7 @@ model SetpointController
     final iniSta=1,
     final boiDesCap={1000000,1500000},
     final boiFirMin={0.2,0.3},
-    final bMinPriPumSpeSta={0,0,0},
+    final boiMinPriPumSpeSta={0,0,0},
     final delStaCha=600,
     final avePer=300,
     final fraNonConBoi=0.9,
@@ -74,7 +74,7 @@ model SetpointController
     final iniSta=1,
     final boiDesCap={1000000,1500000},
     final boiFirMin={0.2,0.3},
-    final bMinPriPumSpeSta={0,0,0},
+    final boiMinPriPumSpeSta={0,0,0},
     final delStaCha=600,
     final avePer=300,
     final fraNonConBoi=0.9,
@@ -538,6 +538,14 @@ Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Setpoi
 <ul>
 <li>
 July 2, 2020, by Karthik Devaprasad:<br/>
+First implementation.
+</li>
+</ul>
+</html>",
+revisions="<html>
+<ul>
+<li>
+May 21, 2020, by Karthik Devaprasad:<br/>
 First implementation.
 </li>
 </ul>

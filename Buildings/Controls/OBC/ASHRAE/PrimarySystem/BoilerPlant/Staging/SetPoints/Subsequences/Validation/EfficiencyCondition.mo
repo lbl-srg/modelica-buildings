@@ -262,5 +262,13 @@ equation
       <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.EfficiencyCondition\">
       Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.EfficiencyCondition</a>
       </p>
+      </html>",
+      revisions="<html>
+      <ul>
+      <li>
+      May 21, 2020, by Karthik Devaprasad:<br/>
+      First implementation.
+      </li>
+      </ul>
       </html>"));
 end EfficiencyCondition;

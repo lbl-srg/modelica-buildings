@@ -152,7 +152,7 @@ protected
     annotation (Placement(transformation(extent={{60,-80},{80,-60}})));
 
   Buildings.Controls.OBC.CDL.Integers.GreaterThreshold intGreThr(
-    final threshold=nSta)
+    final t=nSta)
     "True if there are no higher available stages"
     annotation (Placement(transformation(extent={{100,100},{120,120}})));
 
@@ -161,7 +161,7 @@ protected
     annotation (Placement(transformation(extent={{180,100},{200,120}})));
 
   Buildings.Controls.OBC.CDL.Integers.LessEqualThreshold intLesEquThr(
-    final threshold=0)
+    final t=0)
     "If the current stage is the lowest available the input value equals 0"
     annotation (Placement(transformation(extent={{100,-80},{120,-60}})));
 
@@ -177,7 +177,7 @@ protected
     annotation (Placement(transformation(extent={{-200,-160},{-180,-140}})));
 
   Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesThr(
-    final threshold=0.5)
+    final t=0.5)
     "Detects if the current stage becomes unavailable"
     annotation (Placement(transformation(extent={{-160,-160},{-140,-140}})));
 

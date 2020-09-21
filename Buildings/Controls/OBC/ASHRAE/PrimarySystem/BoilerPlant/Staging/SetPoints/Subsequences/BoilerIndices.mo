@@ -66,7 +66,7 @@ protected
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold boiInSta[nBoi](
-    final threshold=fill(0.5, nBoi))
+    final t=fill(0.5, nBoi))
     "Identifies boilers designated to operate in a given stage"
     annotation (Placement(transformation(extent={{140,-10},{160,10}})));
 

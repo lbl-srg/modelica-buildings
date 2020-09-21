@@ -7,7 +7,7 @@ block Up
 
   parameter Real fraNonConBoi(
     final unit="1",
-    final displayUnit="1",
+    displayUnit="1",
     final min=0,
     final max=1) = 0.9
     "Fraction of stage design capacity at which the efficiency condition
@@ -16,7 +16,7 @@ block Up
 
   parameter Real fraConBoi(
     final unit="1",
-    final displayUnit="1",
+    displayUnit="1",
     final min=0) = 1.5
     "Fraction of stage minimum capacity at which the efficiency condition is
     satisfied for condensing boilers"
@@ -24,7 +24,7 @@ block Up
 
   parameter Real sigDif(
     final unit="1",
-    final displayUnit="1",
+    displayUnit="1",
     final min=0) = 0.1
     "Signal hysteresis deadband"
     annotation (Dialog(tab="Advanced",
@@ -32,13 +32,13 @@ block Up
 
   parameter Real delEffCon(
     final unit="s",
-    final displayUnit="s") = 600
+    displayUnit="s") = 600
     "Enable delay for heating capacity and heating requirement"
     annotation(Dialog(group="Efficiency condition"));
 
   parameter Real TDif(
     final unit="K",
-    final displayUnit="K",
+    displayUnit="K",
     final quantity="ThermodynamicTemperature") = 10
     "Required temperature difference between setpoint and measured temperature
     for failsafe condition"
@@ -46,7 +46,7 @@ block Up
 
   parameter Real TDifHys(
     final unit="K",
-    final displayUnit="K",
+    displayUnit="K",
     final quantity="ThermodynamicTemperature") = 1
     "Temperature deadband for hysteresis loop in failsafe condition"
     annotation (Dialog(tab="Advanced",
@@ -54,7 +54,7 @@ block Up
 
   parameter Real delFaiCon(
     final unit="s",
-    final displayUnit="s") = 900
+    displayUnit="s") = 900
     "Enable delay for temperature"
     annotation(Dialog(group="Failsafe condition"));
 
@@ -94,7 +94,7 @@ block Up
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uCapUpMin(
     final unit="W",
-    final displayUnit="W",
+    displayUnit="W",
     final quantity="Power")
     "Minimum heating capacity of next available stage"
     annotation (Placement(transformation(extent={{-140,50},{-100,90}}),
@@ -102,7 +102,7 @@ block Up
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uCapDes(
     final unit="W",
-    final displayUnit="W",
+    displayUnit="W",
     final quantity="Power")
     "Design heating capacity of the current stage"
     annotation (Placement(transformation(extent={{-140,80},{-100,120}}),
@@ -110,7 +110,7 @@ block Up
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uCapReq(
     final unit="W",
-    final displayUnit="W",
+    displayUnit="W",
     final quantity="Power")
     "Calculated heating capacity requirement"
     annotation (Placement(transformation(extent={{-140,110},{-100,150}}),
@@ -118,7 +118,7 @@ block Up
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VHotWat_flow(
     final unit="m3/s",
-    final displayUnit="m3/s",
+    displayUnit="m3/s",
     final quantity="VolumeFlowRate")
     "Measured hot water flow rate"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
@@ -126,7 +126,7 @@ block Up
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VUpMinSet_flow(
     final unit="m3/s",
-    final displayUnit="m3/s",
+    displayUnit="m3/s",
     final quantity="VolumeFlowRate")
     "Minimum flow setpoint for next available higher stage"
     annotation (Placement(transformation(extent={{-140,-10},{-100,30}}),

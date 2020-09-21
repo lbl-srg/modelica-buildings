@@ -18,13 +18,13 @@ block Configurator "Configures boiler staging"
 
   parameter Real boiDesCap[nBoi](
     final unit="W",
-    final displayUnit="W",
+    displayUnit="W",
     final quantity="Power")
     "Design boiler capacities vector";
 
   parameter Real boiFirMin[nBoi](
     final unit="1",
-    final displayUnit="1")
+    displayUnit="1")
     "Boiler minimum firing ratios vector";
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uBoiAva[nBoi]
@@ -78,7 +78,7 @@ block Configurator "Configures boiler staging"
     annotation (Placement(transformation(extent={{-20,150},{0,170}})));
 
   Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesThr1(
-    final threshold=0.5)
+    final t=0.5)
     "Less threshold"
     annotation (Placement(transformation(extent={{20,150},{40,170}})));
 
@@ -131,7 +131,7 @@ protected
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
 
   Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesThr[nSta](
-    final threshold=fill(0.5, nSta))
+    final t=fill(0.5, nSta))
     "Checks if the count of available boilers in each stage equals the design count"
     annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
 

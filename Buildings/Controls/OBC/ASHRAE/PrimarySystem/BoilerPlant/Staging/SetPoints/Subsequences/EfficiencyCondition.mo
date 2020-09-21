@@ -8,14 +8,14 @@ block EfficiencyCondition
   parameter Real fraNonConBoi(
     final min=0,
     final unit="1",
-    final displayUnit="1") = 0.9
+    displayUnit="1") = 0.9
     "Fraction of design capacity of current stage at which the efficiency condition
     is satisfied for non-condensing boilers";
 
   parameter Real fraConBoi(
     final min=0,
     final unit="1",
-    final displayUnit="1") = 1.5
+    displayUnit="1") = 1.5
     "Fraction of B-Stage minimum of next higher stage at which the efficiency
     condition is satisfied for condensing boilers";
 
@@ -23,13 +23,13 @@ block EfficiencyCondition
     final min=0,
     final unit="1",
     final max=1,
-    final displayUnit="1") = 0.1
+    displayUnit="1") = 0.1
     "Signal hysteresis deadband"
     annotation (Dialog(tab="Advanced"));
 
   parameter Real delCapReq(
     final unit="s",
-    final displayUnit="s",
+    displayUnit="s",
     final quantity="Time") = 600
     "Enable delay for heating requirement condition";
 
@@ -51,7 +51,7 @@ block EfficiencyCondition
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uCapReq(
     final unit="W",
-    final displayUnit="W",
+    displayUnit="W",
     final quantity="Power")
     "Heating capacity required"
     annotation (Placement(transformation(extent={{-160,40},{-120,80}}),
@@ -59,7 +59,7 @@ block EfficiencyCondition
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uCapDes(
     final unit="W",
-    final displayUnit="W",
+    displayUnit="W",
     final quantity="Power")
     "Design heating capacity of current stage"
     annotation (Placement(transformation(extent={{-160,80},{-120,120}}),
@@ -67,7 +67,7 @@ block EfficiencyCondition
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uCapUpMin(
     final unit="W",
-    final displayUnit="W",
+    displayUnit="W",
     final quantity="Power")
     "Minimum capacity of the next available higher stage"
     annotation (Placement(transformation(extent={{-160,0},{-120,40}}),
@@ -75,7 +75,7 @@ block EfficiencyCondition
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VHotWat_flow(
     final unit="m3/s",
-    final displayUnit="m3/s",
+    displayUnit="m3/s",
     final quantity="VolumeFlowRate")
     "Measured hot-water flow-rate"
     annotation (Placement(transformation(extent={{-160,-40},{-120,0}}),
@@ -83,7 +83,7 @@ block EfficiencyCondition
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VUpMinSet_flow(
     final unit="m3/s",
-    final displayUnit="m3/s",
+    displayUnit="m3/s",
     final quantity="VolumeFlowRate")
     "Minimum flow setpoint for the next available higher stage"
     annotation (Placement(transformation(extent={{-160,-80},{-120,-40}}),
@@ -140,7 +140,7 @@ protected
     annotation (Placement(transformation(extent={{-40,-110},{-20,-90}})));
 
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
-    final threshold=1)
+    final t=1)
     "Check for non-condensing boilers"
     annotation (Placement(transformation(extent={{30,-110},{50,-90}})));
 
@@ -161,23 +161,13 @@ protected
     "Adder"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Timer tim
+  Buildings.Controls.OBC.CDL.Logical.Timer tim(t=delCapReq)
     "Time since condition has been met"
     annotation (Placement(transformation(extent={{20,60},{40,80}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Timer tim1
+  Buildings.Controls.OBC.CDL.Logical.Timer tim1(t=delCapReq)
     "Time since condition has been met"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
-
-  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr(
-    final threshold=delCapReq)
-    "Compare time to enable delay"
-    annotation (Placement(transformation(extent={{60,60},{80,80}})));
-
-  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr1(
-    final threshold=delCapReq)
-    "Compare time to enable delay"
-    annotation (Placement(transformation(extent={{60,20},{80,40}})));
 
   Buildings.Controls.OBC.CDL.Logical.And and1
     "Turn on timer when hysteresis turns on and reset it when hysteresis turns
@@ -242,10 +232,10 @@ equation
     annotation (Line(points={{122,-30},{126,-30},{126,-8},{128,-8}},
       color={255,0,255}));
   connect(con1.y, logSwi1.u1)
-    annotation (Line(points={{52,-10},{70,-10},{70,-22},{98,-22}},
+    annotation (Line(points={{52,-10},{80,-10},{80,-22},{98,-22}},
       color={255,0,255}));
   connect(hys.y, logSwi1.u3)
-    annotation (Line(points={{52,-50},{70,-50},{70,-38},{98,-38}},
+    annotation (Line(points={{52,-50},{80,-50},{80,-38},{98,-38}},
       color={255,0,255}));
   connect(logSwi1.u2, greThr.y)
     annotation (Line(points={{98,-30},{92,-30},{92,-100},{52,-100}},
@@ -254,14 +244,6 @@ equation
           {-140,60}}, color={0,0,127}));
   connect(div1.u1, uCapReq) annotation (Line(points={{-82,76},{-100,76},{-100,60},
           {-140,60}}, color={0,0,127}));
-  connect(tim1.y, greEquThr1.u)
-    annotation (Line(points={{42,30},{58,30}}, color={0,0,127}));
-  connect(tim.y, greEquThr.u)
-    annotation (Line(points={{42,70},{58,70}}, color={0,0,127}));
-  connect(greEquThr.y, logSwi.u1) annotation (Line(points={{82,70},{86,70},{86,58},
-          {98,58}}, color={255,0,255}));
-  connect(greEquThr1.y, logSwi.u3) annotation (Line(points={{82,30},{86,30},{86,
-          42},{98,42}}, color={255,0,255}));
   connect(hys1.y, and1.u1)
     annotation (Line(points={{-18,70},{-12,70}}, color={255,0,255}));
   connect(and1.y, tim.u)
@@ -277,6 +259,10 @@ equation
   connect(not1.y, and1.u2) annotation (Line(points={{-18,-180},{-16,-180},{-16,62},
           {-12,62}}, color={255,0,255}));
 
+  connect(tim.passed, logSwi.u1) annotation (Line(points={{42,62},{80,62},{80,58},
+          {98,58}}, color={255,0,255}));
+  connect(tim1.passed, logSwi.u3) annotation (Line(points={{42,22},{80,22},{80,42},
+          {98,42}}, color={255,0,255}));
 annotation (
   defaultComponentName = "effCon",
   Icon(

@@ -10,7 +10,7 @@ block Down
 
   parameter Real fraMinFir(
     final unit="1",
-    final displayUnit="1",
+    displayUnit="1",
     final min=0) = 1.10
     "Fraction of boiler minimum firing ratio that required capacity needs to be
     for minimum firing ratio condition"
@@ -18,14 +18,14 @@ block Down
 
   parameter Real delMinFir(
     final unit="s",
-    final displayUnit="s",
+    displayUnit="s",
     final quantity="Time")= 300
     "Delay for staging based on minimum firing rate of current stage"
     annotation(Dialog(group="Minimum firing rate condition parameters"));
 
   parameter Real fraDesCap(
     final unit="1",
-    final displayUnit="1",
+    displayUnit="1",
     final min=0,
     final max=1) =  0.80
     "Fraction of design capacity of next lower stage that heating capacity needs
@@ -34,7 +34,7 @@ block Down
 
   parameter Real delDesCapNonConBoi(
     final unit="s",
-    final displayUnit="s",
+    displayUnit="s",
     final quantity="Time") = 600
     "Enable delay for lower stage design capacity ratio condition for non-condensing boilers"
     annotation(Evaluate=true,Dialog(enable=not
@@ -42,21 +42,21 @@ block Down
 
   parameter Real delDesCapConBoi(
     final unit="s",
-    final displayUnit="s",
+    displayUnit="s",
     final quantity="Time") = 300
     "Enable delay for lower stage design capacity ratio condition for condensing boilers"
     annotation(Dialog(group="Stage design capacity condition parameters"));
 
   parameter Real sigDif(
     final unit="1",
-    final displayUnit="1",
+    displayUnit="1",
     final min=0) = 0.01
     "Hysteresis deadband normalized signals"
     annotation(Dialog(tab="Advanced"));
 
   parameter Real delBypVal(
     final unit="s",
-    final displayUnit="s",
+    displayUnit="s",
     final quantity="Time") = 300
     "Enable delay for bypass valve position condition"
     annotation (
@@ -75,7 +75,7 @@ block Down
 
   parameter Real TCirDif(
     final unit="K",
-    final displayUnit="K",
+    displayUnit="K",
     final quantity="TemperatureDifference") = 3
     "Required return water temperature difference between the primary and
     secondary circuits for staging down"
@@ -88,7 +88,7 @@ block Down
 
   parameter Real delTRetDif(
     final unit="s",
-    final displayUnit="s",
+    displayUnit="s",
     final quantity="Time") = 300
     "Enable delay for measured hot water return temperature difference condition"
     annotation (
@@ -100,30 +100,30 @@ block Down
 
   parameter Real dTemp(
     final unit="K",
-    final displayUnit="K",
+    displayUnit="K",
     final quantity="TemperatureDifference") = 0.1
     "Hysteresis deadband for measured temperatures"
     annotation(Dialog(tab="Advanced"));
 
   parameter Real TDif(
     final unit="K",
-    final displayUnit="K",
+    displayUnit="K",
     final quantity="TemperatureDifference") = 10
     "Temperature difference for failsafe condition"
     annotation(Dialog(group="Failsafe condition parameters"));
 
   parameter Real delFaiCon(
     final unit="s",
-    final displayUnit="s",
+    displayUnit="s",
     final quantity="Time") = 900
     "Enable delay for the failsafe condition"
     annotation(Dialog(group="Failsafe condition parameters"));
 
-  parameter Real bMinPriPumSpeSta[nSta](
-    final unit="1",
-    final displayUnit="1",
-    final min=0,
-    final max=1) = {0,0,0,0,0}
+  parameter Real boiMinPriPumSpeSta[nSta](
+    final unit=fill("1",nSta),
+    displayUnit=fill("1",nSta),
+    final min=fill(0,nSta),
+    final max=fill(1,nSta)) = {0,0,0,0,0}
     "Minimum primary pump speed for the boiler plant stage";
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uStaChaProEnd
@@ -149,7 +149,7 @@ block Down
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput THotWatSupSet(
     final unit="K",
-    final displayUnit="K",
+    displayUnit="K",
     final quantity="ThermodynamicTemperature")
     "Hot water supply temperature setpoint"
     annotation (Placement(transformation(extent={{-220,130},{-180,170}}),
@@ -157,7 +157,7 @@ block Down
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput THotWatSup(
     final unit="K",
-    final displayUnit="K",
+    displayUnit="K",
     final quantity="ThermodynamicTemperature")
     "Measured hot water supply temperature"
     annotation (Placement(transformation(extent={{-220,100},{-180,140}}),
@@ -165,7 +165,7 @@ block Down
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uCapReq(
     final unit="W",
-    final displayUnit="W",
+    displayUnit="W",
     final quantity="Power")
     "Heating capacity required"
     annotation (Placement(transformation(extent={{-220,40},{-180,80}}),
@@ -173,7 +173,7 @@ block Down
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uCapMin(
     final unit="W",
-    final displayUnit="W",
+    displayUnit="W",
     final quantity="Power")
     "Minimum firing capacity of current stage"
     annotation (Placement(transformation(extent={{-220,10},{-180,50}}),
@@ -181,7 +181,7 @@ block Down
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uCapDowDes(
     final unit="W",
-    final displayUnit="W",
+    displayUnit="W",
     final quantity="Power")
     "Design capacity of the next lower available stage"
     annotation (Placement(transformation(extent={{-220,-50},{-180,-10}}),
@@ -189,7 +189,7 @@ block Down
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uPumSpe(
     final unit="1",
-    final displayUnit="1",
+    displayUnit="1",
     final min=0,
     final max=1) if not primaryOnly
     "Pump speed signal"
@@ -198,7 +198,7 @@ block Down
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uBypValPos(
     final unit="1",
-    final displayUnit="1",
+    displayUnit="1",
     final min=0,
     final max=1) if primaryOnly
     "Bypass valve position"
@@ -207,7 +207,7 @@ block Down
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TPriHotWatRet(
     final unit="K",
-    final displayUnit="K",
+    displayUnit="K",
     final quantity="ThermodynamicTemperature") if not primaryOnly
     "Measured primary hot water return temperature"
     annotation (Placement(transformation(extent={{-220,-180},{-180,-140}}),
@@ -215,7 +215,7 @@ block Down
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSecHotWatRet(
     final unit="K",
-    final displayUnit="K",
+    displayUnit="K",
     final quantity="ThermodynamicTemperature") if not primaryOnly
     "Measured secondary hot water return temperature"
     annotation (Placement(transformation(extent={{-220,-210},{-180,-170}}),
@@ -336,50 +336,29 @@ protected
     annotation (Placement(transformation(extent={{20,-180},{40,-160}})));
 
   Buildings.Controls.OBC.CDL.Integers.GreaterThreshold intGreThr(
-    final threshold=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.BoilerTypes.condensingBoiler)
+    final t=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.BoilerTypes.condensingBoiler)
     "Check for non-condensing boilers in stage"
     annotation (Placement(transformation(extent={{60,-180},{80,-160}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Timer tim
+  Buildings.Controls.OBC.CDL.Logical.Timer tim(
+    final t=delDesCapNonConBoi)
     "Time since condition has been met"
-    annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));
+    annotation (Placement(transformation(extent={{50,-30},{70,-10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr(
-    final threshold=delDesCapNonConBoi)
-    "Compare time to enable delay"
-    annotation (Placement(transformation(extent={{60,-30},{80,-10}})));
-
-  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr1(
-    final threshold=delDesCapConBoi)
-    "Compare time to enable delay"
-    annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Timer tim1 if primaryOnly
+  Buildings.Controls.OBC.CDL.Logical.Timer tim1(
+    final t=delBypVal) if primaryOnly
     "Time since condition has been met"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Timer tim2 if not primaryOnly
+  Buildings.Controls.OBC.CDL.Logical.Timer tim2(
+    final t=delTRetDif) if not primaryOnly
     "Time since condition has been met"
     annotation (Placement(transformation(extent={{-20,-110},{0,-90}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr2(
-    final threshold=delTRetDif) if not primaryOnly
-    "Compare time to enable delay"
-    annotation (Placement(transformation(extent={{20,-116},{40,-96}})));
-
-  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr3(
-    final threshold=delBypVal) if primaryOnly
-    "Compare time to enable delay"
-    annotation (Placement(transformation(extent={{20,-10},{40,10}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Timer tim3
+  Buildings.Controls.OBC.CDL.Logical.Timer tim3(
+    final t=delMinFir)
     "Time since condition has been met"
     annotation (Placement(transformation(extent={{-20,34},{0,54}})));
-
-  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr4(
-    final threshold=delMinFir)
-    "Compare time to enable delay"
-    annotation (Placement(transformation(extent={{20,34},{40,54}})));
 
   Buildings.Controls.OBC.CDL.Routing.RealExtractor extIndSig1(
     final nin=nSta) if not primaryOnly
@@ -387,7 +366,7 @@ protected
     annotation (Placement(transformation(extent={{-140,-140},{-120,-120}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con2[nSta](
-    final k=bMinPriPumSpeSta) if not primaryOnly
+    final k=boiMinPriPumSpeSta) if not primaryOnly
     "Signal source for minimum primary pump speed for boiler plant stage"
     annotation (Placement(transformation(extent={{-170,-140},{-150,-120}})));
 
@@ -419,6 +398,11 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Not not5
     "Logical Not"
     annotation (Placement(transformation(extent={{-120,80},{-100,100}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Timer tim4(
+    final t=delDesCapConBoi)
+    "Time since condition has been met"
+    annotation (Placement(transformation(extent={{50,-70},{70,-50}})));
 
 equation
   connect(faiSafCon.TSupSet, THotWatSupSet) annotation (Line(points={{-162,135},
@@ -494,28 +478,6 @@ equation
                        color={255,0,255}));
   connect(uStaChaProEnd, faiSafCon.uStaChaProEnd) annotation (Line(points={{-200,
           90},{-166,90},{-166,125},{-162,125}}, color={255,0,255}));
-  connect(tim.y, greEquThr.u) annotation (Line(points={{2,-40},{50,-40},{50,-20},
-          {58,-20}}, color={0,0,127}));
-  connect(greEquThr.y, logSwi.u1) annotation (Line(points={{82,-20},{90,-20},{90,
-          -32},{98,-32}}, color={255,0,255}));
-  connect(greEquThr1.u, tim.y) annotation (Line(points={{58,-60},{50,-60},{50,-40},
-          {2,-40}}, color={0,0,127}));
-  connect(greEquThr1.y, logSwi.u3) annotation (Line(points={{82,-60},{90,-60},{90,
-          -48},{98,-48}}, color={255,0,255}));
-  connect(greEquThr2.u, tim2.y) annotation (Line(points={{18,-106},{10,-106},{10,
-          -100},{2,-100}}, color={0,0,127}));
-  connect(greEquThr2.y, or1.u2)
-    annotation (Line(points={{42,-106},{58,-106}}, color={255,0,255}));
-  connect(tim1.y, greEquThr3.u)
-    annotation (Line(points={{2,0},{18,0}}, color={0,0,127}));
-  connect(greEquThr3.y, or2.u2) annotation (Line(points={{42,0},{50,0},{50,10},{
-          58,10}}, color={255,0,255}));
-  connect(greEquThr4.u, tim3.y)
-    annotation (Line(points={{18,44},{2,44}}, color={0,0,127}));
-  connect(greEquThr4.y, or2.u1) annotation (Line(points={{42,44},{46,44},{46,18},
-          {58,18}}, color={255,0,255}));
-  connect(greEquThr4.y, or1.u1) annotation (Line(points={{42,44},{46,44},{46,-98},
-          {58,-98}}, color={255,0,255}));
   connect(con2.y, extIndSig1.u)
     annotation (Line(points={{-148,-130},{-142,-130}}, color={0,0,127}));
   connect(uCur, extIndSig1.index) annotation (Line(points={{-30,-220},{-30,-190},
@@ -533,7 +495,8 @@ equation
   connect(tim1.u, and4.y)
     annotation (Line(points={{-22,0},{-28,0}}, color={255,0,255}));
   connect(and5.y, tim.u)
-    annotation (Line(points={{-28,-40},{-22,-40}}, color={255,0,255}));
+    annotation (Line(points={{-28,-40},{30,-40},{30,-20},{48,-20}},
+                                                   color={255,0,255}));
   connect(tim2.u, and6.y)
     annotation (Line(points={{-22,-100},{-28,-100}}, color={255,0,255}));
   connect(hys4.y, and4.u1)
@@ -553,6 +516,20 @@ equation
   connect(not5.y, and6.u2) annotation (Line(points={{-98,90},{-60,90},{-60,-108},
           {-52,-108}}, color={255,0,255}));
 
+  connect(tim3.passed, or2.u1) annotation (Line(points={{2,36},{40,36},{40,18},{
+          58,18}}, color={255,0,255}));
+  connect(tim3.passed, or1.u1) annotation (Line(points={{2,36},{40,36},{40,-98},
+          {58,-98}}, color={255,0,255}));
+  connect(tim1.passed, or2.u2) annotation (Line(points={{2,-8},{50,-8},{50,10},{
+          58,10}}, color={255,0,255}));
+  connect(and5.y, tim4.u) annotation (Line(points={{-28,-40},{30,-40},{30,-60},{
+          48,-60}}, color={255,0,255}));
+  connect(tim.passed, logSwi.u1) annotation (Line(points={{72,-28},{90,-28},{90,
+          -32},{98,-32}}, color={255,0,255}));
+  connect(tim4.passed, logSwi.u3) annotation (Line(points={{72,-68},{90,-68},{90,
+          -48},{98,-48}}, color={255,0,255}));
+  connect(tim2.passed, or1.u2) annotation (Line(points={{2,-108},{40,-108},{40,-106},
+          {58,-106}}, color={255,0,255}));
   annotation(defaultComponentName = "staDow",
     Icon(coordinateSystem(extent={{-100,-160},{100,190}}),
       graphics={
@@ -621,7 +598,7 @@ equation
         </li>
         <li>
         Primary circuit pump speed <code>uPumSpe</code> is at the minimum
-        allowed flow rate <code>bMinPriPumSpeSta</code> and primary circuit hot
+        allowed flow rate <code>boiMinPriPumSpeSta</code> and primary circuit hot
         water return temperature <code>TPriHotWatRet</code>
         <br>
         exceeds the secondary circuit hot water return temperature <code>TSecHotWatRet</code> by 
