@@ -4,9 +4,6 @@ block OnCounter "Increment the output if the input switches to true"
   parameter Integer y_start = 0
     "Initial and reset value of y if input reset switches to true";
 
-  parameter Integer y_reset = 0
-    "Initial and reset value of y if input reset switches to true";
-
   Interfaces.BooleanInput trigger "Boolean input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
 
@@ -19,18 +16,19 @@ block OnCounter "Increment the output if the input switches to true"
   Interfaces.IntegerOutput y "Integer output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
-
 initial equation
   pre(y) = y_start;
 
 equation
   when {trigger, reset} then
-     y = if reset then y_reset else pre(y) + 1;
+     y = if reset then y_start else pre(y) + 1;
   end when;
 
   annotation (
     defaultComponentName="onCouInt",
-    Icon(graphics={
+    Icon(coordinateSystem(
+          preserveAspectRatio=false, extent={{-100,-100},{100,100}},
+        initialScale=0.06), graphics={
         Rectangle(
           extent={{-100,100},{100,-100}},
           lineColor={0,0,0},
@@ -57,9 +55,9 @@ at the parameter value <code>y_start</code>.
 Whenever the input signal <code>trigger</code> changes to <code>true</code>,
 the output is incremented by <i>1</i>.
 When the input <code>reset</code> changes to <code>true</code>,
-then the output is reset to <code>y = y_reset</code>.
+then the output is reset to <code>y = y_start</code>.
 If both inputs <code>trigger</code> and <code>reset</code> change
-simultaneously, then the ouput is <code>y = y_reset</code>.
+simultaneously, then the ouput is <code>y = y_start</code>.
 </p>
 </html>", revisions="<html>
 <ul>

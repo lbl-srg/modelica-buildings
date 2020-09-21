@@ -106,21 +106,21 @@ block PartLoadRatios
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uLifMin(
     final unit="K",
-    final quantity="ThermodynamicTemperature") if anyVsdCen
+    final quantity="TemperatureDifference") if anyVsdCen
     "Minimum chiller lift"
     annotation (Placement(transformation(extent={{-380,-440},{-340,-400}}),
         iconTransformation(extent={{-140,-60},{-100,-20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uLifMax(
     final unit="K",
-    final quantity="ThermodynamicTemperature") if anyVsdCen
+    final quantity="TemperatureDifference") if anyVsdCen
     "Maximum chiller lift"
     annotation (Placement(transformation(extent={{-380,-380},{-340,-340}}),
         iconTransformation(extent={{-140,-40},{-100,0}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uLif(
     final unit="K",
-    final quantity="ThermodynamicTemperature") if anyVsdCen
+    final quantity="TemperatureDifference") if anyVsdCen
     "Chiller lift"
     annotation (Placement(transformation(extent={{-380,-500},{-340,-460}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
@@ -317,12 +317,12 @@ protected
     annotation (Placement(transformation(extent={{260,280},{280,300}})));
 
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
-    final threshold=-0.5)
+    final t=-0.5)
     "Less than threshold"
     annotation (Placement(transformation(extent={{220,200},{240,220}})));
 
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr1(
-    final threshold=-0.5) "Less than threshold"
+    final t=-0.5) "Less than threshold"
     annotation (Placement(transformation(extent={{160,-110},{180,-90}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Division opePlrDow
@@ -612,10 +612,10 @@ equation
 <li>Next available higher stage minimal OPLR (<span style=\"font-family: monospace;\">yUpMin</span>). </li>
 </ul>
 <p>
-SPLRup <code>yStaUp</code> or SPLRdown <code>yStaDown</code> value depends on the stage type <code>staTyp</code> as indicated in the table below. 
-Note that the rules are prioritized by stage type column, from left to right</p><p>The stage type is determined by the 
+SPLRup <code>yStaUp</code> or SPLRdown <code>yStaDown</code> value depends on the stage type <code>staTyp</code> as indicated in the table below.
+Note that the rules are prioritized by stage type column, from left to right</p><p>The stage type is determined by the
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.SetPoints.Subsequences.Configurator\">
-Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.SetPoints.Subsequences.Configurator</a> subsequence based on the type of chillers staged. 
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.SetPoints.Subsequences.Configurator</a> subsequence based on the type of chillers staged.
 <br></br>
 </p>
 <table summary=\"summary\" cellspacing=\"2\" cellpadding=\"0\" border=\"1\"><tr>
@@ -643,8 +643,8 @@ Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.SetPoints.Subse
 <td><p align=\"center\"><span style=\"font-family: monospace;\">yStaDown=f(uLif, uLifMin, uLifMax)</span></p></td>
 </tr>
 </table>
-<p>For operation outside of the recommended staging order as provided in the table above a constant 
-SPLRup and SPLRdown value <code>anyOutOfScoMult</code> is set to prevent 
+<p>For operation outside of the recommended staging order as provided in the table above a constant
+SPLRup and SPLRdown value <code>anyOutOfScoMult</code> is set to prevent
 simulation interruption, accompanied with a warning.
 </p>
 </html>",

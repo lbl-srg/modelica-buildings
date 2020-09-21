@@ -5,7 +5,7 @@ compareVars :=
     "enaWSE.chiHeaPreLoo.conPID.u_s",
     "enaWSE.chiHeaPreLoo.conPID.u_m",
     "enaWSE.chiHeaPreLoo.conPID.y",
-    "enaWSE.uHeaPreEna",
+    "enaWSE.uChiHeaCon",
     "enaWSE.yMaxTowSpeSet",
     "enaWSE.yHeaPreConVal",
     "enaWSE.yConWatPumSpeSet",

@@ -66,9 +66,9 @@
       aria-labelledby="dLabelGlobalToc"><ul>
 <li class="toctree-l1"><a class="reference internal" href="gettingStarted.html">1. Getting Started</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="gettingStarted.html#literature-for-users">1.1. Literature for Users</a></li>
-<li class="toctree-l2"><a class="reference internal" href="gettingStarted.html#literature-for-developers">1.2. Literature for Developers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gettingStarted.html#running-the-first-simulations">1.2. Running the First Simulations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="gettingStarted.html#software-requirements">1.3. Software Requirements</a></li>
-<li class="toctree-l2"><a class="reference internal" href="gettingStarted.html#running-the-first-simulations">1.4. Running the First Simulations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gettingStarted.html#literature-for-developers">1.4. Literature for Developers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="gettingStarted.html#references">1.5. References</a></li>
 </ul>
 </li>
@@ -96,8 +96,9 @@
 <li class="toctree-l1"><a class="reference internal" href="development.html">5. Development</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="development.html#contributing">5.1. Contributing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="development.html#guidelines-for-contributions">5.2. Guidelines for contributions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="development.html#adding-a-new-class">5.3. Adding a new class</a></li>
-<li class="toctree-l2"><a class="reference internal" href="development.html#validation">5.4. Validation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="development.html#style-guide">5.3. Style guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="development.html#adding-a-new-class">5.4. Adding a new class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="development.html#validation-and-unit-tests">5.5. Validation and unit tests</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="help.html">6. Help</a></li>
@@ -185,9 +186,9 @@ The user guide covers how to</p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="gettingStarted.html">1. Getting Started</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="gettingStarted.html#literature-for-users">1.1. Literature for Users</a></li>
-<li class="toctree-l2"><a class="reference internal" href="gettingStarted.html#literature-for-developers">1.2. Literature for Developers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gettingStarted.html#running-the-first-simulations">1.2. Running the First Simulations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="gettingStarted.html#software-requirements">1.3. Software Requirements</a></li>
-<li class="toctree-l2"><a class="reference internal" href="gettingStarted.html#running-the-first-simulations">1.4. Running the First Simulations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gettingStarted.html#literature-for-developers">1.4. Literature for Developers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="gettingStarted.html#references">1.5. References</a></li>
 </ul>
 </li>
@@ -226,13 +227,22 @@ The user guide covers how to</p>
 <li class="toctree-l1"><a class="reference internal" href="development.html">5. Development</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="development.html#contributing">5.1. Contributing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="development.html#guidelines-for-contributions">5.2. Guidelines for contributions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="development.html#adding-a-new-class">5.3. Adding a new class</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="development.html#thermofluid-flow-device">5.3.1. Thermofluid flow device</a></li>
-<li class="toctree-l3"><a class="reference internal" href="development.html#pressure-drop">5.3.2. Pressure drop</a></li>
-<li class="toctree-l3"><a class="reference internal" href="development.html#control-sequences-using-the-control-description-language">5.3.3. Control Sequences using the Control Description Language</a></li>
+<li class="toctree-l2"><a class="reference internal" href="development.html#style-guide">5.3. Style guide</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="development.html#general">5.3.1. General</a></li>
+<li class="toctree-l3"><a class="reference internal" href="development.html#type-declarations">5.3.2. Type declarations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="development.html#equations-and-algorithms">5.3.3. Equations and algorithms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="development.html#functions">5.3.4. Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="development.html#package-order">5.3.5. Package order</a></li>
+<li class="toctree-l3"><a class="reference internal" href="development.html#documentation">5.3.6. Documentation</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="development.html#validation">5.4. Validation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="development.html#adding-a-new-class">5.4. Adding a new class</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="development.html#thermofluid-flow-device">5.4.1. Thermofluid flow device</a></li>
+<li class="toctree-l3"><a class="reference internal" href="development.html#pressure-drop">5.4.2. Pressure drop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="development.html#control-sequences-using-the-control-description-language">5.4.3. Control sequences using the Control Description Language</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="development.html#validation-and-unit-tests">5.5. Validation and unit tests</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="help.html">6. Help</a></li>

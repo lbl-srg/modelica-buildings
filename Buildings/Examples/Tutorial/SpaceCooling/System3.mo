@@ -348,8 +348,8 @@ When simulating the model, the response shown below should be seen.
 <h4>Notes</h4>
 <p>
 To add a continuous controller for the coil water flow rate, we could have used the model
-<a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.LimPID\">
-Buildings.Controls.OBC.CDL.Continuous.LimPID</a>.
+<a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.PID\">
+Buildings.Controls.OBC.CDL.Continuous.PID</a>.
 </p>
 </html>", revisions="<html>
 <ul>

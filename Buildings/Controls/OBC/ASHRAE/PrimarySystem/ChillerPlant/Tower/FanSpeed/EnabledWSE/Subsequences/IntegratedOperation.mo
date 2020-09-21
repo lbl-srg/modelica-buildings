@@ -64,14 +64,13 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer[nChi](
     final k=fill(0, nChi)) "Zero constant"
     annotation (Placement(transformation(extent={{-120,70},{-100,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.LimPID loaCon(
+  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset loaCon(
     final controllerType=conTyp,
     final k=k,
     final Ti=Ti,
     final Td=Td,
     final yMax=yMax,
     final yMin=yMin,
-    final reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter,
     final y_reset=yMax)
     "Controller to maintain chiller load at the sum of minimum cycling load of operating chillers"
     annotation (Placement(transformation(extent={{80,90},{100,110}})));
@@ -118,13 +117,10 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Latch lat
     "Logical latch, maintain ON signal until condition changes"
     annotation (Placement(transformation(extent={{40,-120},{60,-100}})));
-  Buildings.Controls.OBC.CDL.Logical.Timer intOpeTim
+  Buildings.Controls.OBC.CDL.Logical.Timer intOpeTim(
+    final t=intModTim)
     "Count the time after plant switching from WSE-only mode to integrated operation mode"
     annotation (Placement(transformation(extent={{80,-120},{100,-100}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr(
-    final threshold=intModTim)
-    "Check if it has passed threshold time after switching from WSE only to integrated mode"
-    annotation (Placement(transformation(extent={{120,-120},{140,-100}})));
   Buildings.Controls.OBC.CDL.Logical.FallingEdge falEdg "Output true when input becomes false"
     annotation (Placement(transformation(extent={{-120,-70},{-100,-50}})));
   Buildings.Controls.OBC.CDL.Logical.And3 and3 "Logical and"
@@ -165,16 +161,14 @@ equation
     annotation (Line(points={{-18,-60},{-10,-60},{-10,-44},{58,-44}}, color={0,0,127}));
   connect(mulOr.y, edg.u)
     annotation (Line(points={{-98,20},{-90,20},{-90,-140},{-62,-140}}, color={255,0,255}));
-  connect(uWse, and1.u1) annotation (Line(points={{-180,0},{-70,0},{-70,-110},{-2,
-          -110}}, color={255,0,255}));
+  connect(uWse, and1.u1)
+    annotation (Line(points={{-180,0},{-70,0},{-70,-110},{-2,-110}}, color={255,0,255}));
   connect(edg.y, and1.u2)
     annotation (Line(points={{-38,-140},{-20,-140},{-20,-118},{-2,-118}}, color={255,0,255}));
   connect(and1.y, lat.u)
     annotation (Line(points={{22,-110},{38,-110}}, color={255,0,255}));
   connect(lat.y, intOpeTim.u)
     annotation (Line(points={{62,-110},{78,-110}}, color={255,0,255}));
-  connect(intOpeTim.y, greEquThr.u)
-    annotation (Line(points={{102,-110},{118,-110}}, color={0,0,127}));
   connect(lat.y, fanSpe.u2)
     annotation (Line(points={{62,-110},{70,-110},{70,-80},{118,-80}}, color={255,0,255}));
   connect(lin.y, fanSpe.u3)
@@ -200,15 +194,15 @@ equation
   connect(falEdg.y, and3.u2)
     annotation (Line(points={{-98,-60},{-80,-60},{-80,20},{-62,20}},
       color={255,0,255}));
-  connect(uWse, and3.u3) annotation (Line(points={{-180,0},{-70,0},{-70,12},{-62,
-          12}}, color={255,0,255}));
+  connect(uWse, and3.u3)
+    annotation (Line(points={{-180,0},{-70,0},{-70,12},{-62,12}}, color={255,0,255}));
   connect(and3.y, loaCon.trigger)
     annotation (Line(points={{-38,20},{84,20},{84,88}}, color={255,0,255}));
   connect(pre.y, lat.clr)
     annotation (Line(points={{22,-140},{30,-140},{30,-116},{38,-116}},
       color={255,0,255}));
-  connect(greEquThr.y, pre.u)
-    annotation (Line(points={{142,-110},{150,-110},{150,-156},{-10,-156},
+  connect(intOpeTim.passed, pre.u)
+    annotation (Line(points={{102,-118},{120,-118},{120,-154},{-10,-154},
       {-10,-140},{-2,-140}}, color={255,0,255}));
 
 annotation (

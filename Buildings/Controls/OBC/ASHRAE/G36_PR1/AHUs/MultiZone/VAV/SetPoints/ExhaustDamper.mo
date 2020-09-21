@@ -38,7 +38,7 @@ block ExhaustDamper
     y(final unit="Pa", displayUnit="Pa"))
     "Control error"
     annotation (Placement(transformation(extent={{-30,50},{-10,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.LimPID conP(
+  Buildings.Controls.OBC.CDL.Continuous.PID conP(
     final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
     final k=k) "Building static pressure controller"
     annotation (Placement(transformation(extent={{40,50},{60,70}})));

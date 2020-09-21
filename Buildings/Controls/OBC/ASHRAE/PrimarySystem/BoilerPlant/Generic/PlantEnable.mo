@@ -1,4 +1,4 @@
-within Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Generic;
+﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Generic;
 block PlantEnable
   "Sequence to enable/disable boiler plant based on heating hot-water requirements"
 
@@ -65,22 +65,22 @@ block PlantEnable
     "Table defining when plant can be enabled"
     annotation (Placement(transformation(extent={{-150,-120},{-130,-100}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Timer tim
+  Buildings.Controls.OBC.CDL.Logical.Timer tim(t=plaOnThrTim)
     "Time since plant has been enabled"
     annotation (Placement(transformation(extent={{10,0},{30,20}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Timer tim2
+  Buildings.Controls.OBC.CDL.Logical.Timer tim2(t=plaOffThrTim)
     "Time since plant has been disabled"
     annotation (Placement(transformation(extent={{10,60},{30,80}})));
 
 protected
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
-    final threshold=0.5)
+    final t=0.5)
     "Check if schedule lets the controller enable the plant or not"
     annotation (Placement(transformation(extent={{-120,-120},{-100,-100}})));
 
   Buildings.Controls.OBC.CDL.Integers.GreaterThreshold intGreThr(
-    final threshold=nIgnReq)
+    final t=nIgnReq)
     "Check if number of requests is greater than number of requests to be ignored"
     annotation (Placement(transformation(extent={{-120,40},{-100,60}})));
 
@@ -122,28 +122,13 @@ protected
     "Logical Not"
     annotation (Placement(transformation(extent={{-70,-40},{-50,-20}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Timer tim1
+  Buildings.Controls.OBC.CDL.Logical.Timer tim1(t=staOnReqTim)
     "Time since number of requests was greater than number of ignores"
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
-
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr1(
-    final threshold=staOnReqTim)
-    "Time limit for receiving requests to maintain status on"
-    annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
 
   Buildings.Controls.OBC.CDL.Logical.Not not4
     "Logical Not"
     annotation (Placement(transformation(extent={{-20,60},{0,80}})));
-
-  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr1(
-    final threshold=plaOnThrTim)
-    "Check if minimum amount of time to maintain the plant on has elapsed"
-    annotation (Placement(transformation(extent={{40,0},{60,20}})));
-
-  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr(
-    final threshold=plaOffThrTim)
-    "Check if minimum amount of time to maintain the plant off has elapsed"
-    annotation (Placement(transformation(extent={{40,60},{60,80}})));
 
   Buildings.Controls.OBC.CDL.Logical.Pre pre1
     "Logical pre block"
@@ -161,8 +146,6 @@ equation
   connect(hys.u, addPar.y) annotation (Line(points={{-122,-50},{-128,-50}}, color={0,0,127}));
   connect(not3.y, tim1.u)
     annotation (Line(points={{-48,-30},{-42,-30}}, color={255,0,255}));
-  connect(tim1.y, greThr1.u)
-    annotation (Line(points={{-18,-30},{-12,-30}}, color={0,0,127}));
   connect(not4.y, tim2.u)
     annotation (Line(points={{2,70},{8,70}}, color={255,0,255}));
   connect(not2.u, hys.y) annotation (Line(points={{-12,-70},{-20,-70},{-20,-50},
@@ -172,7 +155,8 @@ equation
   connect(pre1.y, not4.u) annotation (Line(points={{-38,50},{-30,50},{-30,70},{-22,
   70}}, color={255,0,255}));
   connect(greThr.y, mulAnd.u[1]) annotation (Line(points={{-98,-110},{-92,-110},
-  {-92,125.25},{78,125.25}}, color={255,0,255}));
+          {-92,125.25},{78,125.25}},
+                             color={255,0,255}));
   connect(hys.y, mulAnd.u[2]) annotation (Line(points={{-98,-50},{-86,-50},{-86,
           121.75},{78,121.75}}, color={255,0,255}));
   connect(intGreThr.y, mulAnd.u[3]) annotation (Line(points={{-98,50},{-80,50},{
@@ -181,27 +165,17 @@ equation
           {118,0}}, color={255,0,255}));
   connect(and2.y, lat.clr) annotation (Line(points={{102,-30},{110,-30},{110,-6},
           {118,-6}}, color={255,0,255}));
-  connect(greThr1.y, mulOr.u[1]) annotation (Line(points={{12,-30},{20,-30},{20,
-          -65.3333},{28,-65.3333}}, color={255,0,255}));
-  connect(not2.y, mulOr.u[2]) annotation (Line(points={{12,-70},{20,-70},{20,-70},
-          {28,-70}}, color={255,0,255}));
-  connect(not1.y, mulOr.u[3]) annotation (Line(points={{12,-110},{20,-110},{20,
-          -74.6667},{28,-74.6667}},
-                          color={255,0,255}));
+  connect(not2.y, mulOr.u[1]) annotation (Line(points={{12,-70},{20,-70},{20,
+          -65.3333},{28,-65.3333}},
+                     color={255,0,255}));
+  connect(not1.y, mulOr.u[2]) annotation (Line(points={{12,-110},{20,-110},{20,-70},
+          {28,-70}},      color={255,0,255}));
   connect(mulOr.y, and2.u2) annotation (Line(points={{52,-70},{70,-70},{70,-38},
           {78,-38}}, color={255,0,255}));
   connect(intGreThr.u, supResReq)
     annotation (Line(points={{-122,50},{-180,50}}, color={255,127,0}));
   connect(addPar.u, TOut)
     annotation (Line(points={{-152,-50},{-180,-50}}, color={0,0,127}));
-  connect(greEquThr.y, mulAnd.u[4]) annotation (Line(points={{62,70},{72,70},{72,
-          114.75},{78,114.75}}, color={255,0,255}));
-  connect(greEquThr.u, tim2.y)
-    annotation (Line(points={{38,70},{32,70}}, color={0,0,127}));
-  connect(greEquThr1.u, tim.y)
-    annotation (Line(points={{38,10},{32,10}}, color={0,0,127}));
-  connect(greEquThr1.y, and2.u1) annotation (Line(points={{62,10},{70,10},{70,-30},
-          {78,-30}}, color={255,0,255}));
   connect(lat.y, yPla)
     annotation (Line(points={{142,0},{180,0}}, color={255,0,255}));
   connect(lat.y, pre1.u) annotation (Line(points={{142,0},{150,0},{150,30},{-70,
@@ -210,6 +184,12 @@ equation
           10}}, color={255,0,255}));
   connect(enaSch.y[1], greThr.u)
     annotation (Line(points={{-128,-110},{-122,-110}}, color={0,0,127}));
+  connect(tim2.passed, mulAnd.u[4]) annotation (Line(points={{32,62},{60,62},{60,
+          114},{78,114},{78,114.75}}, color={255,0,255}));
+  connect(tim.passed, and2.u1) annotation (Line(points={{32,2},{70,2},{70,-30},{
+          78,-30}}, color={255,0,255}));
+  connect(tim1.passed, mulOr.u[3]) annotation (Line(points={{-18,-38},{20,-38},
+          {20,-74.6667},{28,-74.6667}},color={255,0,255}));
   annotation (defaultComponentName = "plaEna",
   Icon(graphics={
         Rectangle(

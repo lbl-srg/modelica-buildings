@@ -5,13 +5,17 @@ block Speed_primary_localDp
     "Total number of remote differential pressure sensors";
   parameter Integer nPum = 2
     "Total number of chilled water pumps";
-  parameter Modelica.SIunits.PressureDifference minLocDp(
-    final min=0,
-    final displayUnit="Pa")=5*6894.75
+  parameter Real minLocDp(
+    final unit="Pa",
+    displayUnit="Pa",
+    final quantity="PressureDifference",
+    final min=0)=5*6894.75
     "Minimum chilled water loop local differential pressure setpoint";
-  parameter Modelica.SIunits.PressureDifference maxLocDp(
-    final min=minLocDp,
-    final displayUnit="Pa") = 15*6894.75
+  parameter Real maxLocDp(
+    final unit="Pa",
+    displayUnit="Pa",
+    final quantity="PressureDifference",
+    final min=minLocDp) = 15*6894.75
     "Maximum chilled water loop local differential pressure setpoint";
   parameter Real minPumSpe = 0.1 "Minimum pump speed";
   parameter Real maxPumSpe = 1 "Maximum pump speed";
@@ -62,15 +66,13 @@ block Speed_primary_localDp
     annotation (Placement(transformation(extent={{140,100},{180,140}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.LimPID conPID1(
+  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset conPID1(
     final controllerType=controllerType,
     final k=k,
     final Ti=Ti,
     final Td=Td,
     final yMax=1,
     final yMin=0,
-    final reverseAction=true,
-    final reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter,
     final y_reset=0) "Pump speed controller"
     annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
   Buildings.Controls.OBC.CDL.Continuous.Line pumSpe "Pump speed"
@@ -81,15 +83,13 @@ block Speed_primary_localDp
   Buildings.Controls.OBC.CDL.Continuous.Line locDpSet
     "Local differential pressure setpoint"
     annotation (Placement(transformation(extent={{100,-30},{120,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.LimPID conPID[nSen](
+  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset conPID[nSen](
     final controllerType=fill(controllerType, nSen),
     final k=fill(k, nSen),
     final Ti=fill(Ti, nSen),
     final Td=fill(Td, nSen),
     final yMax=fill(1, nSen),
     final yMin=fill(0, nSen),
-    final reverseAction=fill(true, nSen),
-    final reset=fill(Buildings.Controls.OBC.CDL.Types.Reset.Parameter, nSen),
     final y_reset=fill(0, nSen)) "Pump speed controller"
     annotation (Placement(transformation(extent={{0,-30},{20,-10}})));
 
