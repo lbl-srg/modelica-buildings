@@ -5,12 +5,12 @@ block ResetMinBypass
   parameter Real delEna(
     final unit="s",
     final quantity="Time",
-    final displayUnit="s") = 60
+    displayUnit="s") = 60
     "Enable delay after setpoint achieved";
 
   parameter Real relFloDif(
     final unit="1",
-    final displayUnit="1")=0.05
+    displayUnit="1")=0.05
     "Relative error to the setpoint for checking if it has achieved flow rate setpoint"
     annotation (Dialog(tab="Advanced"));
 
@@ -27,7 +27,7 @@ block ResetMinBypass
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VHotWat_flow(
     final min=0,
     final unit="m3/s",
-    final displayUnit="m3/s",
+    displayUnit="m3/s",
     final quantity="VolumeFlowRate")
     "Measured hot water flow rate"
     annotation (Placement(transformation(extent={{-200,-40},{-160,0}}),
@@ -36,7 +36,7 @@ block ResetMinBypass
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VMinHotWatSet_flow(
     final min=0,
     final unit="m3/s",
-    final displayUnit="m3/s",
+    displayUnit="m3/s",
     final quantity="VolumeFlowRate")
     "Minimum hot water flow setpoint"
     annotation (Placement(transformation(extent={{-200,-100},{-160,-60}}),
@@ -58,18 +58,14 @@ protected
     "Logical and"
     annotation (Placement(transformation(extent={{120,70},{140,90}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Timer tim
+  Buildings.Controls.OBC.CDL.Logical.Timer tim(
+    final t=delEna)
     "Time after achiving setpoint"
     annotation (Placement(transformation(extent={{40,-30},{60,-10}})));
 
   Buildings.Controls.OBC.CDL.Logical.And and2
     "Logical and"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
-
-  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr(
-    final threshold=delEna)
-    "Check if it has been threshold time after new setpoint achieved"
-    annotation (Placement(transformation(extent={{80,-30},{100,-10}})));
 
   Buildings.Controls.OBC.CDL.Logical.Not not1
     "Logical not"
@@ -122,9 +118,6 @@ equation
     annotation (Line(points={{-180,40},{-140,40},{-140,72},{-82,72}},
       color={255,0,255}));
 
-  connect(tim.y, greEquThr.u)
-    annotation (Line(points={{62,-20},{78,-20}}, color={0,0,127}));
-
   connect(and2.y, and1.u1)
     annotation (Line(points={{-58,80},{-10,80},{-10,88},{118,88}},
       color={255,0,255}));
@@ -138,10 +131,6 @@ equation
 
   connect(lat.y, and1.u2)
     annotation (Line(points={{102,40},{108,40},{108,80},{118,80}},
-      color={255,0,255}));
-
-  connect(greEquThr.y, and1.u3)
-    annotation (Line(points={{102,-20},{114,-20},{114,72},{118,72}},
       color={255,0,255}));
 
   connect(VMinHotWatSet_flow, addPar.u)
@@ -195,6 +184,8 @@ equation
   connect(add2.u2, VMinHotWatSet_flow) annotation (Line(points={{-150,-26},{-154,
           -26},{-154,-80},{-180,-80}}, color={0,0,127}));
 
+  connect(tim.passed, and1.u3) annotation (Line(points={{62,-28},{114,-28},{114,
+          72},{118,72}}, color={255,0,255}));
 annotation (
   defaultComponentName="minBypRes",
   Icon(graphics={

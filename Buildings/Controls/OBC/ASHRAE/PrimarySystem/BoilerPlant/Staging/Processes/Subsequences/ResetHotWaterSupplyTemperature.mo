@@ -8,20 +8,20 @@ block ResetHotWaterSupplyTemperature
   parameter Real delPro(
     final unit="s",
     final quantity="Time",
-    final displayUnit="s") = 300
+    displayUnit="s") = 300
     "Process time-out";
 
   parameter Real TMinSupNonConBoi(
     final min=0,
     final unit="K",
-    final displayUnit="K",
+    displayUnit="K",
     final quantity="ThermodynamicTemperature") = 333.2
     "Minimum supply temperature required for non-condensing boilers";
 
   parameter Real sigDif(
     final min=0,
     final unit="K",
-    final displayUnit="K",
+    displayUnit="K",
     final quantity="TemperatureDifference") = 0.1
     "Significant difference based on minimum resolution of temperature sensor"
     annotation (Dialog(tab="Advanced"));
@@ -44,7 +44,7 @@ block ResetHotWaterSupplyTemperature
   Buildings.Controls.OBC.CDL.Interfaces.RealInput THotWatSup(
     final min=0,
     final unit="K",
-    final displayUnit="K",
+    displayUnit="K",
     final quantity="ThermodynamicTemperature")
     "Measured hot water supply temperature"
     annotation (Placement(transformation(extent={{-200,10},{-160,50}}),
@@ -64,7 +64,7 @@ protected
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
 
   Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesThr(
-    final threshold=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.BoilerTypes.nonCondensingBoiler)
+    final t=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.BoilerTypes.nonCondensingBoiler)
     "Pass True if all preceding stages are condensing boiler type stages"
     annotation (Placement(transformation(extent={{80,-70},{100,-50}})));
 
@@ -110,7 +110,7 @@ protected
     annotation (Placement(transformation(extent={{-140,-30},{-120,-10}})));
 
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr1(
-    final threshold=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.BoilerTypes.condensingBoiler)
+    final t=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.BoilerTypes.condensingBoiler)
     "Identify if current stage setpoint is a non-condensing boiler stage"
     annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
 

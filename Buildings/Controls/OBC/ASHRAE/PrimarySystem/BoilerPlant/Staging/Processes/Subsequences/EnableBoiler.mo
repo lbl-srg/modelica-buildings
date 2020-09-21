@@ -8,7 +8,7 @@ block EnableBoiler
   parameter Real proOnTim(
     final unit="s",
     final quantity="Time",
-    final displayUnit="s") = 300
+    displayUnit="s") = 300
     "Enabled boiler operation time to indicate if it is proven on";
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uStaUp
@@ -77,17 +77,12 @@ protected
     "True constant"
     annotation (Placement(transformation(extent={{-40,140},{-20,160}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr3(
-    final threshold=proOnTim)
-    "Check the newly enabled boiler being operated by more than 5 minutes"
-    annotation (Placement(transformation(extent={{-60,-120},{-40,-100}})));
-
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea[nBoi]
     "Convert boolean input to real output"
     annotation (Placement(transformation(extent={{-160,-10},{-140,10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr[nBoi](
-    final threshold=fill(0.5, nBoi))
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greEquThr[nBoi](
+    final t=fill(0.5, nBoi))
     "Check boilers that are on"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
@@ -121,7 +116,8 @@ protected
     "Check next enabling boiler"
     annotation (Placement(transformation(extent={{-100,110},{-80,130}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Timer tim
+  Buildings.Controls.OBC.CDL.Logical.Timer tim(
+    final t=proOnTim)
     "Count the time after new boiler has been enabled"
     annotation (Placement(transformation(extent={{-100,-120},{-80,-100}})));
 
@@ -212,9 +208,6 @@ equation
   connect(con.y,logSwi. u1)
     annotation (Line(points={{-18,150},{0,150},{0,128},{98,128}}, color={255,0,255}));
 
-  connect(tim.y,greEquThr3. u)
-    annotation (Line(points={{-78,-110},{-62,-110}}, color={0,0,127}));
-
   connect(uBoi,booToRea. u)
     annotation (Line(points={{-220,0},{-162,0}}, color={255,0,255}));
 
@@ -233,9 +226,6 @@ equation
   connect(and2.y,tim. u)
     annotation (Line(points={{-138,60},{-120,60},{-120,-110},{-102,-110}},
       color={255,0,255}));
-
-  connect(greEquThr3.y,booRep2. u)
-    annotation (Line(points={{-38,-110},{-22,-110}}, color={255,0,255}));
 
   connect(booRep2.y,and3. u1)
     annotation (Line(points={{2,-110},{38,-110}}, color={255,0,255}));
@@ -270,10 +260,6 @@ equation
 
   connect(not2.y,or2. u1)
     annotation (Line(points={{-138,-50},{38,-50}},color={255,0,255}));
-
-  connect(greEquThr3.y,not1. u)
-    annotation (Line(points={{-38,-110},{-30,-110},{-30,-70},{-22,-70}},
-      color={255,0,255}));
 
   connect(not1.y,or2. u2)
     annotation (Line(points={{2,-70},{20,-70},{20,-58},{38,-58}},
@@ -330,13 +316,15 @@ equation
     annotation (Line(points={{-138,60},{-120,60},{-120,-162},{118,-162}},
       color={255,0,255}));
 
-  connect(greEquThr3.y, logSwi4.u3)
-    annotation (Line(points={{-38,-110},{-30,-110},{-30,-178},{118,-178}},
-      color={255,0,255}));
-
   connect(logSwi4.y, yBoiEnaPro)
     annotation (Line(points={{142,-170},{220,-170}}, color={255,0,255}));
 
+  connect(tim.passed, booRep2.u) annotation (Line(points={{-78,-118},{-32,-118},
+          {-32,-110},{-22,-110}}, color={255,0,255}));
+  connect(tim.passed, logSwi4.u3) annotation (Line(points={{-78,-118},{-32,-118},
+          {-32,-178},{118,-178}}, color={255,0,255}));
+  connect(tim.passed, not1.u) annotation (Line(points={{-78,-118},{-32,-118},{-32,
+          -70},{-22,-70}}, color={255,0,255}));
 annotation (
   defaultComponentName="enaBoi",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={

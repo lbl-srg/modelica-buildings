@@ -8,8 +8,8 @@ block HWIsoVal
   parameter Real chaHotWatIsoTim(
     final unit="s",
     final quantity="Time",
-    final displayUnit="s") = 60
-    "Time to slowly change isolation valve, should be determined in the field";
+    displayUnit="s") = 60
+    "Time to slowly change isolation valve position, should be determined in the field";
 
   parameter Real iniValPos
     "Initial valve position, if it needs to turn on boiler, the value should be 0";
@@ -81,7 +81,8 @@ protected
     "Hot water isolation valve setpoint"
     annotation (Placement(transformation(extent={{40,70},{60,90}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Timer tim
+  Buildings.Controls.OBC.CDL.Logical.Timer tim(
+    final t=chaHotWatIsoTim)
     "Count the time after changing up-stream device status"
     annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
 
@@ -173,12 +174,6 @@ protected
   Buildings.Controls.OBC.CDL.Logical.And3 and5
     "Check if the isolation valve has been fully open"
     annotation (Placement(transformation(extent={{140,130},{160,150}})));
-
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys5(
-    final uLow=chaHotWatIsoTim - 1,
-    final uHigh=chaHotWatIsoTim + 1)
-    "Check if it has past the target time of open HW isolation valve "
-    annotation (Placement(transformation(extent={{80,110},{100,130}})));
 
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt[nBoi](
     final k=boiInd)
@@ -305,10 +300,6 @@ equation
     annotation (Line(points={{22,190},{30,190},{30,212},{38,212}},
       color={255,0,255}));
 
-  connect(tim.y, hys5.u)
-    annotation (Line(points={{-78,80},{-60,80},{-60,120},{78,120}},
-      color={0,0,127}));
-
   connect(mulAnd1.y, and5.u1)
     annotation (Line(points={{102,220},{120,220},{120,148},{138,148}},
       color={255,0,255}));
@@ -322,10 +313,6 @@ equation
   connect(conInt.y, intEqu.u2)
     annotation (Line(points={{-58,-20},{-40,-20},{-40,2},{-22,2}},
       color={255,127,0}));
-
-  connect(hys5.y, and5.u3)
-    annotation (Line(points={{102,120},{120,120},{120,132},{138,132}},
-      color={255,0,255}));
 
   connect(uUpsDevSta, and5.u2)
     annotation (Line(points={{-180,-140},{-130,-140},{-130,140},{138,140}},
@@ -347,6 +334,8 @@ equation
   connect(tim.u, and2.y) annotation (Line(points={{-102,80},{-120,80},{-120,
           -200},{-40,-200},{-40,-170},{-58,-170}}, color={255,0,255}));
 
+  connect(tim.passed, and5.u3) annotation (Line(points={{-78,72},{-60,72},{-60,132},
+          {138,132}}, color={255,0,255}));
 annotation (
   defaultComponentName="hotWatIsoVal",
   Diagram(

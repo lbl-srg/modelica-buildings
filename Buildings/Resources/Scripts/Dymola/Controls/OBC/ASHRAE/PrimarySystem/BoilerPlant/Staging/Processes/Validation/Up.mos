@@ -27,8 +27,7 @@ createPlot(id=4, position={0, 0, 1600, 196}, y={"yPumChaPro3.y"}, range={0.0, 90
 createPlot(id=4, position={0, 0, 1600, 196}, y={"yStaChaPro3.y"}, range={0.0, 900.0, -0.5, 1.5}, grid=true, subPlot=5, colors={{28,108,200}});
 
 createPlot(id=5, position={0, 0, 1600, 959}, y={"upProCon4.uBoi[1]", "upProCon4.uBoi[2]"}, range={0.0, 900.0, -0.5, 1.5}, grid=true, colors={{28,108,200}, {28,108,200}});
-createPlot(id=5, position={0, 0, 1600, 155}, y={"upProCon4.uBoiSet[1]", "upProCon4.uBoiSet[2]"}, range={0.0, 900.0, -0.5, 1.5}, grid=true, subPlot=2, colors={{28,108,200}, {28,108,200}});
-createPlot(id=5, position={0, 0, 1600, 156}, y={"upProCon4.uStaSet"}, range={0.0, 900.0, 0.0, 4.0}, grid=true, subPlot=3, colors={{28,108,200}});
-createPlot(id=5, position={0, 0, 1600, 156}, y={"upProCon4.uHotWatIsoVal[1]", "upProCon4.uHotWatIsoVal[2]", "upProCon4.yHotWatIsoVal[1]", "upProCon4.yHotWatIsoVal[2]"}, range={0.0, 900.0, -0.5, 1.5}, grid=true, subPlot=4, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}});
-createPlot(id=5, position={0, 0, 1600, 155}, y={"yPumChaPro4.y"}, range={0.0, 900.0, -0.5, 1.5}, grid=true, subPlot=5, colors={{28,108,200}});
-createPlot(id=5, position={0, 0, 1600, 156}, y={"yStaChaPro4.y"}, range={0.0, 900.0, -0.5, 1.5}, grid=true, subPlot=6, colors={{28,108,200}});
+createPlot(id=5, position={0, 0, 1600, 196}, y={"upProCon4.uBoiSet[1]", "upProCon4.uBoiSet[2]"}, range={0.0, 900.0, -0.5, 1.5}, grid=true, subPlot=2, colors={{28,108,200}, {28,108,200}});
+createPlot(id=5, position={0, 0, 1600, 196}, y={"upProCon4.uStaSet"}, range={0.0, 900.0, 0.0, 4.0}, grid=true, subPlot=3, colors={{28,108,200}});
+createPlot(id=5, position={0, 0, 1600, 196}, y={"upProCon4.uHotWatIsoVal[1]", "upProCon4.uHotWatIsoVal[2]", "upProCon4.yHotWatIsoVal[1]", "upProCon4.yHotWatIsoVal[2]"}, range={0.0, 900.0, -0.5, 1.5}, grid=true, subPlot=4, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}});
+createPlot(id=5, position={0, 0, 1600, 196}, y={"yStaChaPro4.y"}, range={0.0, 900.0, -0.5, 1.5}, grid=true, subPlot=5, colors={{28,108,200}});

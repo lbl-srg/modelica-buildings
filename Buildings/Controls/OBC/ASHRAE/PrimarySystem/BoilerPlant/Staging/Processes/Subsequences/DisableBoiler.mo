@@ -8,7 +8,7 @@ block DisableBoiler
   parameter Real proOnTim(
     final unit="s",
     final quantity="Time",
-    final displayUnit="s") = 300
+    displayUnit="s") = 300
     "Enabled boiler operation time to indicate if it is proven on";
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uStaDow
@@ -77,17 +77,12 @@ protected
     "True constant"
     annotation (Placement(transformation(extent={{-40,220},{-20,240}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr3(
-    final threshold=proOnTim)
-    "Check the newly enabled boiler being operated by more than 5 minutes"
-    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea[nBoi]
     "Convert boolean input to real output"
     annotation (Placement(transformation(extent={{-100,90},{-80,110}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr[nBoi](
-    final threshold=fill(0.5, nBoi))
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greEquThr[nBoi](
+    final t=fill(0.5, nBoi))
     "Convert real input to boolean output"
     annotation (Placement(transformation(extent={{20,90},{40,110}})));
 
@@ -117,7 +112,7 @@ protected
     "Check next enabling isolation valve"
     annotation (Placement(transformation(extent={{-100,190},{-80,210}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Timer tim
+  Buildings.Controls.OBC.CDL.Logical.Timer tim(t=proOnTim)
     "Count the time after new boiler has been enabled"
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
 
@@ -184,8 +179,8 @@ protected
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{-120,-250},{-100,-230}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr1[nBoi](
-    final threshold=fill(0.5, nBoi))
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greEquThr1[nBoi](
+    final t=fill(0.5, nBoi))
     "Convert real input to boolean output"
     annotation (Placement(transformation(extent={{40,-220},{60,-200}})));
 
@@ -252,9 +247,6 @@ equation
   connect(con.y,logSwi. u1)
     annotation (Line(points={{-18,230},{0,230},{0,208},{98,208}}, color={255,0,255}));
 
-  connect(tim.y,greEquThr3. u)
-    annotation (Line(points={{-78,0},{-62,0}}, color={0,0,127}));
-
   connect(uBoi,booToRea. u)
     annotation (Line(points={{-220,60},{-170,60},{-170,100},{-102,100}},
       color={255,0,255}));
@@ -283,9 +275,6 @@ equation
     annotation (Line(points={{-138,140},{-120,140},{-120,0},{-102,0}},
       color={255,0,255}));
 
-  connect(greEquThr3.y,booRep2. u)
-    annotation (Line(points={{-38,0},{-22,0}}, color={255,0,255}));
-
   connect(booRep2.y,and3. u1)
     annotation (Line(points={{2,0},{38,0}}, color={255,0,255}));
 
@@ -310,10 +299,6 @@ equation
 
   connect(logSwi.y,logSwi2. u1)
     annotation (Line(points={{122,200},{140,200},{140,58},{158,58}},
-      color={255,0,255}));
-
-  connect(greEquThr3.y,not1. u)
-    annotation (Line(points={{-38,0},{-30,0},{-30,50},{-22,50}},
       color={255,0,255}));
 
   connect(conInt.y,intEqu. u2)
@@ -420,10 +405,6 @@ equation
     annotation (Line(points={{-220,-120},{80,-120},{80,-50},{98,-50}},
       color={255,0,255}));
 
-  connect(greEquThr3.y, logSwi7.u1)
-    annotation (Line(points={{-38,0},{-30,0},{-30,-42},{98,-42}},
-      color={255,0,255}));
-
 
   connect(and2.y, booRep4.u) annotation (Line(points={{-138,140},{-120,140},{
           -120,-160},{-82,-160}}, color={255,0,255}));
@@ -434,6 +415,12 @@ equation
   connect(logSwi7.y, yBoiDisPro)
     annotation (Line(points={{122,-50},{220,-50}}, color={255,0,255}));
 
+  connect(tim.passed, booRep2.u) annotation (Line(points={{-78,-8},{-30,-8},{
+          -30,0},{-22,0}}, color={255,0,255}));
+  connect(tim.passed, logSwi7.u1) annotation (Line(points={{-78,-8},{-30,-8},{
+          -30,-42},{98,-42}}, color={255,0,255}));
+  connect(tim.passed, not1.u) annotation (Line(points={{-78,-8},{-30,-8},{-30,
+          50},{-22,50}}, color={255,0,255}));
 annotation (
   defaultComponentName="disBoi",
   Icon(graphics={

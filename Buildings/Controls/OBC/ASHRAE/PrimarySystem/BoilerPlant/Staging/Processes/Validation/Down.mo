@@ -123,12 +123,6 @@ model Down
     "Hold true pulse signal for visualization"
     annotation (Placement(transformation(extent={{250,150},{270,170}})));
 
-  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold yPumChaPro4(
-    final trueHoldDuration=10,
-    final falseHoldDuration=0)
-    "Hold true pulse signal for visualization"
-    annotation (Placement(transformation(extent={{-120,-186},{-100,-166}})));
-
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold yStaChaPro(
     final trueHoldDuration=10,
     final falseHoldDuration=0)
@@ -413,10 +407,6 @@ protected
     "Boiler setpoints for stage 3"
     annotation (Placement(transformation(extent={{-260,-216},{-240,-196}})));
 
-  Buildings.Controls.OBC.CDL.Logical.FallingEdge falEdg12
-    "Falling edge detector"
-    annotation (Placement(transformation(extent={{-90,-186},{-70,-166}})));
-
   Buildings.Controls.OBC.CDL.Logical.IntegerSwitch intSwi8
     "Switch between stage 2 and stage 3 setpoints"
     annotation (Placement(transformation(extent={{-220,-306},{-200,-286}})));
@@ -460,10 +450,6 @@ protected
     final samplePeriod=fill(10, nBoi))
     "Zero order hold"
     annotation (Placement(transformation(extent={{-60,-166},{-40,-146}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Pre pre14
-    "Logical pre block"
-    annotation (Placement(transformation(extent={{-40,-206},{-20,-186}})));
 
   Buildings.Controls.OBC.CDL.Logical.Pre pre15
     "Logical pre block"
@@ -730,10 +716,6 @@ equation
           {-230,-218},{-222,-218}},
                            color={255,0,255}));
 
-  connect(yPumChaPro4.y, falEdg12.u)
-    annotation (Line(points={{-98,-176},{-92,-176}},
-                                                   color={255,0,255}));
-
   connect(conInt16.y, intSwi8.u1) annotation (Line(points={{-238,-276},{-230,-276},
           {-230,-288},{-222,-288}},
                          color={255,127,0}));
@@ -748,10 +730,6 @@ equation
   connect(zerOrdHol4.y, swi4.u3) annotation (Line(points={{-38,-156},{-34,-156},
           {-34,-76},{-230,-76},{-230,-64},{-222,-64}},
                                                color={0,0,127}));
-
-  connect(falEdg12.y, pre14.u) annotation (Line(points={{-68,-176},{-46,-176},{-46,
-          -196},{-42,-196}},
-                           color={255,0,255}));
 
   connect(yStaChaPro4.y, falEdg13.u)
     annotation (Line(points={{-98,-136},{-92,-136}},
@@ -929,10 +907,6 @@ equation
   connect(intSwi8.y, dowProCon4.uStaSet) annotation (Line(points={{-198,-296},{-172,
           -296},{-172,-164},{-162,-164}}, color={255,127,0}));
 
-  connect(pre14.y, dowProCon4.uPumChaPro) annotation (Line(points={{-18,-196},{-10,
-          -196},{-10,-216},{-60,-216},{-60,-196},{-166,-196},{-166,-168},{-162,-168}},
-        color={255,0,255}));
-
   connect(dowProCon4.yBoi, pre13.u) annotation (Line(points={{-138,-132},{-130,-132},
           {-130,-86},{-270,-86},{-270,-106},{-262,-106}}, color={255,0,255}));
 
@@ -941,9 +915,6 @@ equation
 
   connect(dowProCon4.yHotWatIsoVal, zerOrdHol4.u) annotation (Line(points={{-138,
           -146},{-130,-146},{-130,-156},{-62,-156}}, color={0,0,127}));
-
-  connect(dowProCon4.yPumChaPro, yPumChaPro4.u) annotation (Line(points={{-138,-167},
-          {-130,-167},{-130,-176},{-122,-176}}, color={255,0,255}));
 
   connect(con1[1].y, lat[1].clr) annotation (Line(points={{-312,80},{-306,80},{-306,
           194},{-292,194}}, color={255,0,255}));

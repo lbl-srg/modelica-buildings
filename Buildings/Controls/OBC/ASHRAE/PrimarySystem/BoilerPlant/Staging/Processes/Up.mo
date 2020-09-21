@@ -21,35 +21,35 @@ block Up
 
   parameter Real TMinSupNonConBoi(
     final unit="K",
-    final displayUnit="K",
+    displayUnit="K",
     final quantity="ThermodynamicTemperature") = 333.2
     "Minimum supply temperature required for non-condensing boilers"
     annotation (Dialog(group="Boiler plant parameters"));
 
   parameter Real delProSupTemSet(
     final unit="s",
-    final displayUnit="s",
+    displayUnit="s",
     final quantity="time")=300
     "Process time-out for hot water supply temperature setpoint reset"
     annotation (Dialog(group="Time and delay parameters"));
 
   parameter Real delEnaMinFloSet(
     final unit="s",
-    final displayUnit="s",
+    displayUnit="s",
     final quantity="time")=60
     "Enable delay after minimum flow setpoint is achieved in bypass valve"
     annotation (Dialog(group="Time and delay parameters"));
 
   parameter Real chaIsoValTim(
     final unit="s",
-    final displayUnit="s",
+    displayUnit="s",
     final quantity="time") = 60
     "Time to slowly change isolation valve, should be determined in the field"
     annotation (Dialog(group="Time and delay parameters"));
 
   parameter Real delPreBoiEna(
     final unit="s",
-    final displayUnit="s",
+    displayUnit="s",
     final quantity="time") = 30
     "Time delay after valve and pump change process has been completed before
     starting boiler change process"
@@ -57,7 +57,7 @@ block Up
 
   parameter Real boiChaProOnTim(
     final unit="s",
-    final displayUnit="s",
+    displayUnit="s",
     final quantity="time") = 300
     "Enabled boiler operation time to indicate if it is proven on during a staging
     process where one boiler is turned on and the other is turned off"
@@ -65,7 +65,7 @@ block Up
 
   parameter Real delBoiEna(
     final unit="s",
-    final displayUnit="s",
+    displayUnit="s",
     final quantity="time") = 180
     "Time delay after boiler change process has been completed before turning off
     excess valves and pumps"
@@ -73,14 +73,14 @@ block Up
 
   parameter Real sigDif(
     final unit="K",
-    final displayUnit="K",
+    displayUnit="K",
     final quantity="TemperatureDifference")=0.1
     "Significant difference based on minimum resolution of temperature sensor"
     annotation (Dialog(tab="Advanced"));
 
   parameter Real relFloDif(
     final unit="1",
-    final displayUnit="1")=0.05
+    displayUnit="1")=0.05
     "Relative error to the flow setpoint for checking if it has been achieved"
     annotation (Dialog(tab="Advanced"));
 
@@ -94,7 +94,8 @@ block Up
     annotation (Placement(transformation(extent={{-280,60},{-240,100}}),
       iconTransformation(extent={{-140,0},{-100,40}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uPumChaPro
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uPumChaPro if not
+    primaryOnly
     "Pulse indicating all pump change processes have been completed and pumps have been proved on"
     annotation (Placement(transformation(extent={{-280,-210},{-240,-170}}),
       iconTransformation(extent={{-140,-200},{-100,-160}})));
@@ -117,7 +118,7 @@ block Up
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VMinHotWatSet_flow(
     final quantity="VolumeFlowRate",
     final unit="m3/s",
-    final displayUnit="m3/s",
+    displayUnit="m3/s",
     final min=0) if primaryOnly
     "Minimum hot water flow rate setpoint"
     annotation (Placement(transformation(extent={{-280,180},{-240,220}}),
@@ -127,14 +128,14 @@ block Up
     final min=0,
     final quantity="VolumeFlowRate",
     final unit="m3/s",
-    final displayUnit="m3/s") if primaryOnly
+    displayUnit="m3/s") if primaryOnly
     "Measured hot water flow rate through the minimum flow bypass valve"
     annotation (Placement(transformation(extent={{-280,220},{-240,260}}),
       iconTransformation(extent={{-140,160},{-100,200}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput THotWatSup(
     final unit="K",
-    final displayUnit="K",
+    displayUnit="K",
     final quantity="ThermodynamicTemperature") if not primaryOnly
     "Measured hot water supply temperature"
     annotation (Placement(transformation(extent={{-280,140},{-240,180}}),
@@ -158,7 +159,8 @@ block Up
     annotation (Placement(transformation(extent={{280,30},{320,70}}),
       iconTransformation(extent={{100,90},{140,130}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yPumChaPro
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yPumChaPro if not
+    primaryOnly
     "Pulse indicating start of pump change process"
     annotation (Placement(transformation(extent={{280,-260},{320,-220}}),
       iconTransformation(extent={{100,-190},{140,-150}})));
@@ -245,15 +247,15 @@ protected
     "Logical pre block"
     annotation (Placement(transformation(extent={{200,-60},{220,-40}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Latch lat3
+  Buildings.Controls.OBC.CDL.Logical.Latch lat3 if not primaryOnly
     "Hold process completion signal after pump enable process"
     annotation (Placement(transformation(extent={{-140,-200},{-120,-180}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Latch lat4
+  Buildings.Controls.OBC.CDL.Logical.Latch lat4 if not primaryOnly
     "Hold process completion signal after pump disable process"
     annotation (Placement(transformation(extent={{160,-200},{180,-180}})));
 
-  Buildings.Controls.OBC.CDL.Logical.And and4
+  Buildings.Controls.OBC.CDL.Logical.And and4 if not primaryOnly
     "Check for pump disable completion after start of pump disable process"
     annotation (Placement(transformation(extent={{132,-200},{152,-180}})));
 
@@ -261,15 +263,15 @@ protected
     "Detect change in process completion status and send out pulse signal"
     annotation (Placement(transformation(extent={{230,40},{250,60}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Edge edg1
+  Buildings.Controls.OBC.CDL.Logical.Edge edg1 if not primaryOnly
     "Generate pulse to signal start of pump change process"
     annotation (Placement(transformation(extent={{-100,-260},{-80,-240}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Edge edg2
+  Buildings.Controls.OBC.CDL.Logical.Edge edg2 if not primaryOnly
     "Generate pulse to signal start of pump change process"
     annotation (Placement(transformation(extent={{140,-246},{160,-226}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Or or2
+  Buildings.Controls.OBC.CDL.Logical.Or or2 if not primaryOnly
     "Check for pump change proces start signal"
     annotation (Placement(transformation(extent={{210,-250},{230,-230}})));
 
@@ -311,6 +313,11 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Latch lat1 if isHeadered
     "Hold process completion signal after valve has been opened"
     annotation (Placement(transformation(extent={{-32,-120},{-12,-100}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(
+    final k=true) if primaryOnly
+    "Boolean True signal"
+    annotation (Placement(transformation(extent={{-160,-170},{-140,-150}})));
 
 equation
   connect(nexBoi.yNexEnaBoi, enaHotWatIsoVal.nexChaBoi) annotation (Line(points={{-148,
@@ -547,6 +554,10 @@ equation
   connect(lat1.y, and1.u1) annotation (Line(points={{-10,-110},{-6,-110},{-6,0},
           {-2,0}}, color={255,0,255}));
 
+  connect(con.y, and1.u2) annotation (Line(points={{-138,-160},{-48,-160},{-48,-30},
+          {-10,-30},{-10,-8},{-2,-8}}, color={255,0,255}));
+  connect(con.y, and3.u2) annotation (Line(points={{-138,-160},{-30,-160},{-30,-190},
+          {110,-190},{110,-160},{184,-160},{184,-8},{188,-8}}, color={255,0,255}));
 annotation (
   defaultComponentName="upProCon",
   Diagram(coordinateSystem(preserveAspectRatio=false,
