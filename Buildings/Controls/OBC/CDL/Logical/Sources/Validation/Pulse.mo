@@ -47,7 +47,7 @@ Buildings.Controls.OBC.CDL.Logical.Sources.Pulse</a>.
 <ul>
 <li>
 September 14, 2020, by Milica Grahovac:<br/>
-Added number of periods parameter <code>nPeriod</code> to test instances.
+Added number of periods parameter <code>nPeriod</code> to the test instances.
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2125\">#2125</a>.
 </li>

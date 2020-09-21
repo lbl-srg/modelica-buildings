@@ -187,8 +187,7 @@ would give a schedule with periodicity of one day. The simulation can start at a
 whether it is a multiple of a day or not, and positive or negative.
 </p>
 <p>
-If the table has only one row, no interpolation is performed and
-the table values of this row are just returned.
+If the table has only one row the table values of this row are returned.
 </p>
 </html>",
 revisions="<html>

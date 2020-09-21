@@ -5,13 +5,17 @@ model TimeTable "Validation model for TimeTable block"
     table=[0,1,0; 1.3,1,1; 2.9,0,0; 4,1,0; 5,1,1],
     extrapolation=Buildings.Controls.OBC.CDL.Types.Extrapolation.HoldLastPoint,
     timeScale=2) "Time table with boolean output"
-    annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
+    annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable booTimTabPer(
     table=[0,1,0;1.3,1,1; 2.9,0,0; 4,1,0; 5,1,1],
     extrapolation=Buildings.Controls.OBC.CDL.Types.Extrapolation.Periodic)
     "Time table with boolean output and periodic repetition"
-    annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
+    annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable booTimTabOneRow(table=[0,
+        1,0], extrapolation=Buildings.Controls.OBC.CDL.Types.Extrapolation.HoldLastPoint)
+    "Time table with boolean output for a single table row"
+    annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
   annotation (experiment(Tolerance=1e-6, StopTime=10.0),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Logical/Sources/Validation/TimeTable.mos"
        "Simulate and plot"),
@@ -40,4 +44,5 @@ Initial CDL implementation.
                 pattern = LinePattern.None,
                 fillPattern = FillPattern.Solid,
                 points = {{-36,60},{64,0},{-36,-60},{-36,60}})}));
+
 end TimeTable;
