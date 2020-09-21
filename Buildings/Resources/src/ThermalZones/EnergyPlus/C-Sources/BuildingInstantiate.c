@@ -340,6 +340,7 @@ void generateFMU(FMUBuilding* fmuBui, const char* modelicaBuildingsJsonFile){
   size_t len;
   int retVal;
 
+  const char* FMUPath = fmuBui->fmuAbsPat;
   void (*SpawnFormatMessage)(const char *string, ...) = fmuBui->SpawnFormatMessage;
   void (*SpawnFormatError)(const char *string, ...) = fmuBui->SpawnFormatError;
   void (*SpawnError)(const char *string) = fmuBui->SpawnError;
