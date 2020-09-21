@@ -36,10 +36,14 @@ This model outputs the density of the fluid connected to its port.
 The sensor is ideal, i.e. it does not influence the fluid.
 </p>
 <p>
+To measure density in a duct or pipe, use
+<a href=\"modelica://Buildings.Fluid.Sensors.DensityTwoPort\">Buildings.Fluid.Sensors.DensityTwoPort</a>
+rather than this sensor.
 Read the
 <a href=\"modelica://Buildings.Fluid.Sensors.UsersGuide\">
 Buildings.Fluid.Sensors.UsersGuide</a>
-prior to using this model with one fluid port.
+prior to using this model to see about potential numerical problems if this sensor is used incorrectly
+in a system model.
 </p>
 </html>",
 revisions="<html>
