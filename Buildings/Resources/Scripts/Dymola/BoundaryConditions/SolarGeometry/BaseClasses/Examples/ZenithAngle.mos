@@ -1,5 +1,5 @@
 removePlots();
-simulateModel("Buildings.BoundaryConditions.SolarGeometry.BaseClasses.Examples.ZenithAngle", startTime=100000, tolerance=1e-6, stopTime=300000, method="dassl", resultFile="ZenithAngleBasCla");
+simulateModel("Buildings.BoundaryConditions.SolarGeometry.BaseClasses.Examples.ZenithAngle", startTime=100000, tolerance=1e-6, stopTime=300000, method="CVode", resultFile="ZenithAngleBasCla");
 createPlot(id = 1,
  position = {7, 7, 746, 517},
  y = {"zen.zen"},

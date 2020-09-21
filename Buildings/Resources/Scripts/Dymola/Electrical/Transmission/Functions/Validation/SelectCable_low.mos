@@ -1,0 +1,2 @@
+simulateModel("Buildings.Electrical.Transmission.Functions.Validation.SelectCable_low", stopTime=1, method="Cvode", tolerance=1e-6, resultFile="SelectCable_low");
+createPlot(id=2, position={55, 55, 1034, 602}, y={"cab[1].Amp", "cab[2].Amp", "cab[3].Amp", "cab[4].Amp", "cab[5].Amp", "cab[6].Amp", "cab[7].Amp"}, range={0.0, 1.0, 40.0, 260.0}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}, {0,0,0}, {162,29,33}, {244,125,35}}, displayUnits={"A", "A", "A", "A", "A", "A", "A"});

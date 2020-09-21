@@ -7,7 +7,7 @@ block Change "Calculates the chiller stage signal"
   parameter Real delayStaCha(
     final unit="s",
     final quantity="Time",
-    final displayUnit="h")=900
+    displayUnit="h")=900
       "Hold period for each stage change";
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uPla
@@ -121,8 +121,7 @@ protected
     "Ensures the stage is changed at high load increases/decreases where a stage up or a stage down signal is uninterrupted after a single stage change as an another one is needed right away"
     annotation (Placement(transformation(extent={{80,-180},{100,-160}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Timer tim(
-    final accumulate=false) "Timer"
+  Buildings.Controls.OBC.CDL.Logical.Timer tim "Timer"
     annotation (Placement(transformation(extent={{-20,-240},{0,-220}})));
 
   Buildings.Controls.OBC.CDL.Logical.And and1 "Logical andEnsures the stage is changed at high load increases/decreases where a stage up or a stage down signal is uninterrupted after a single stage change as an another one is needed right away"
@@ -131,8 +130,8 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Pre pre "Previous value"
     annotation (Placement(transformation(extent={{60,-240},{80,-220}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.LessEqualThreshold lesEquThr(
-    final threshold=delayStaCha) "Less equal threshold"
+  Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesEquThr(
+    final t=delayStaCha) "Less equal threshold"
     annotation (Placement(transformation(extent={{20,-240},{40,-220}})));
 
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triSam1
@@ -143,7 +142,7 @@ protected
     annotation (Placement(transformation(extent={{200,0},{220,20}})));
 
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr1(
-    final threshold=0.5) "Greater than a threshold"
+    final t=0.5) "Greater than a threshold"
     annotation (Placement(transformation(extent={{280,0},{300,20}})));
 
   Buildings.Controls.OBC.CDL.Logical.Latch lat1

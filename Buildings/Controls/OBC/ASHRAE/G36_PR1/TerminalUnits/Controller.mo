@@ -338,24 +338,22 @@ block Controller "Controller for room VAV box"
     final durTimDisAir=durTimDisAir)
     "Number of system requests"
     annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
-  Buildings.Controls.OBC.CDL.Continuous.LimPID conHeaLoo(
+  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset conHeaLoo(
     final controllerType=controllerTypeHea,
     final k=kHea,
     final Ti=TiHea,
     final Td=TdHea,
     final yMax=1,
-    final yMin=0,
-    reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter) "Heating loop signal"
+    final yMin=0) "Heating loop signal"
     annotation (Placement(transformation(extent={{-110,150},{-90,170}})));
-  Buildings.Controls.OBC.CDL.Continuous.LimPID conCooLoo(
+  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset conCooLoo(
     final controllerType=controllerTypeCoo,
     final k=kCoo,
     final Ti=TiCoo,
     final Td=TdCoo,
     final yMax=1,
     final yMin=0,
-    reverseActing=false,
-    reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter) "Cooling loop signal"
+    reverseActing=false) "Cooling loop signal"
     annotation (Placement(transformation(extent={{-110,110},{-90,130}})));
 
 protected

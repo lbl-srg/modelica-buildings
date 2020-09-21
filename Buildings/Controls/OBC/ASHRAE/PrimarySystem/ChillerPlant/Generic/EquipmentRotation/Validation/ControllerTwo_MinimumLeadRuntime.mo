@@ -73,7 +73,7 @@ equation
   connect(pre1.y, leaSta.uDevSta) annotation (Line(points={{82,-30},{90,-30},{90,
           -50},{-28,-50},{-28,-36},{-22,-36}},    color={255,0,255}));
           annotation (
-   experiment(StopTime=1000000.0, Tolerance=1e-06),
+   experiment(StopTime=100000.0, Tolerance=1e-06),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Generic/EquipmentRotation/Validation/ControllerTwo_MinimumLeadRuntime.mos"
     "Simulate and plot"),
   Documentation(info="<html>

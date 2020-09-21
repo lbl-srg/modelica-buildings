@@ -28,14 +28,14 @@ block ControllerTwo
   parameter Real rotationPeriod(
     final unit="s",
     final quantity="Time",
-    final displayUnit="h") = 1209600
+    displayUnit="h") = 1209600
     "Rotation time period measured from simulation start"
     annotation(Dialog(group="Scheduler", enable=simTimSta));
 
   parameter Real minLeaRuntime(
     final unit="s",
     final quantity="Time",
-    final displayUnit="h") = 43200
+    displayUnit="h") = 43200
     "Minimum cumulative runtime period for a current lead device before rotation may occur"
     annotation (Evaluate=true, Dialog(enable=(not continuous and minLim)));
 
@@ -55,7 +55,7 @@ block ControllerTwo
 
   parameter Integer houOfDay = 2
     "Rotation hour of the day: 0 = midnight; 23 = 11pm"
-    annotation(Evaluate=true, Dialog(group="Scheduler", enable=weeInt and not simTimSta));
+    annotation(Evaluate=true, Dialog(group="Scheduler", enable=not simTimSta));
 
   parameter Integer weeCou = 1 "Number of weeks"
     annotation (Evaluate=true, Dialog(enable=weeInt and not simTimSta, group="Scheduler"));
