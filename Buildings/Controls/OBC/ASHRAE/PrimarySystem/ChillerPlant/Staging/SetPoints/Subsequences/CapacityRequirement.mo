@@ -10,7 +10,7 @@ block CapacityRequirement
   parameter Real holPer(
     final unit="s",
     final quantity="Time",
-    final displayUnit="h")=900
+    displayUnit="h")=900
     "Time period for the value hold at stage change";
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput chaPro
@@ -45,10 +45,16 @@ block CapacityRequirement
         iconTransformation(extent={{100,-20},{140,20}})));
 
 protected
-  constant Modelica.SIunits.Density rhoWat = 1000 "Water density";
-
-  constant Modelica.SIunits.SpecificHeatCapacity cpWat = 4184
-  "Specific heat capacity of water";
+  constant Real rhoWat(
+    final unit="kg/m3",
+    final quantity="Density",
+    displayUnit="kg/m3")=1000 "Water density";
+  
+  constant Real cpWat(
+    final unit="J/(kg.K)",
+    final quantity="SpecificEntropy",
+    displayUnit="J/(kg.K)")=4184
+    "Specific heat capacity of water";
 
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triSam
     "Triggered sampler"

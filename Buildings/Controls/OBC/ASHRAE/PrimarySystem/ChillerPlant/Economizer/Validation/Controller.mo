@@ -16,17 +16,29 @@ model Controller
     annotation (Placement(transformation(extent={{160,0},{180,20}})));
 
 protected
-  parameter Modelica.SIunits.Temperature TOutWetBul = 283.15
-  "Average outdoor air wet bulb temperature";
+  parameter Real TOutWetBul(
+    final unit="K",
+    final quantity="ThermodynamicTemperature",
+    displayUnit="degC")=283.15
+    "Average outdoor air wet bulb temperature";
 
-  parameter Modelica.SIunits.Temperature TChiWatRet = 293.15
-  "Chilled water retun temperature upstream of the WSE";
+  parameter Real TChiWatRet(
+    final unit="K",
+    final quantity="ThermodynamicTemperature",
+    displayUnit="degC")=293.15
+    "Chilled water retun temperature upstream of the WSE";
 
-  parameter Modelica.SIunits.Temperature TWseOut = 290.15
-  "Chilled water retun temperature downstream of the WSE";
+  parameter Real TWseOut(
+    final unit="K",
+    final quantity="ThermodynamicTemperature",
+    displayUnit="degC")=290.15
+    "Chilled water retun temperature downstream of the WSE";
 
-  parameter Modelica.SIunits.VolumeFlowRate VChiWat_flow = 0.01
-    "Measured chilled water return temperature";
+  parameter Real VChiWat_flow(
+    final unit="m3/s",
+    final quantity="VolumeFlowRate",
+    displayUnit="m3/s")=0.01
+      "Measured chilled water return temperature";
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant chiWatFlow(
     final k=VChiWat_flow)

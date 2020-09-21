@@ -24,20 +24,29 @@ model SetpointController_noWSE
     annotation (Placement(transformation(extent={{60,-100},{84,-62}})));
 
 protected
-  Modelica.SIunits.Temperature TChiWatSupSet = 285.15
-  "Chilled water supply set temperature";
+  Real TChiWatSupSet(
+    final unit="K",
+    final quantity="ThermodynamicTemperature",
+    displayUnit="degC")=285.15
+    "Chilled water supply set temperature";
 
-  parameter Modelica.SIunits.Temperature aveTChiWatRet = 288.15
-  "Average measured chilled water return temperature";
+  parameter Real aveTChiWatRet(
+    final unit="K",
+    final quantity="ThermodynamicTemperature",
+    displayUnit="degC")=288.15
+    "Average measured chilled water return temperature";
 
   parameter Real minStaRuntime(
     final unit="s",
     final quantity="Time",
-    final displayUnit="h")=900
+    displayUnit="h")=900
       "Minimum stage runtime";
 
-  parameter Modelica.SIunits.VolumeFlowRate aveVChiWat_flow = 0.05
-    "Average measured chilled water flow rate";
+  parameter Real aveVChiWat_flow(
+    final unit="m3/s",
+    final quantity="VolumeFlowRate",
+    displayUnit="m3/s")=0.05
+      "Average measured chilled water flow rate";
 
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol(final
       trueHoldDuration=100, final falseHoldDuration=0)

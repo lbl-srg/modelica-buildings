@@ -25,14 +25,14 @@ block Coupled
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TConWatRetSet(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Condenser water return temperature setpoint"
     annotation (Placement(transformation(extent={{-160,60},{-120,100}}),
       iconTransformation(extent={{-140,80},{-100,120}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TConWatRet(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Condenser water return temperature"
     annotation (Placement(transformation(extent={{-160,30},{-120,70}}),
@@ -68,14 +68,13 @@ block Coupled
     annotation (Placement(transformation(extent={{120,-60},{160,-20}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.LimPID conPID(
+  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset conPID(
     final controllerType=controllerType,
     final k=k,
     final Ti=Ti,
     final Td=Td,
     final yMax=yMax,
     final yMin=yMin,
-    final reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter,
     final y_reset=yMin) "Condenser water return temperature controller"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
 

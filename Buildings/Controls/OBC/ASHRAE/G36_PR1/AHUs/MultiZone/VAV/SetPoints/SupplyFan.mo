@@ -116,14 +116,13 @@ block SupplyFan  "Block to control multi zone VAV AHU supply fan"
     final resAmo=resAmo,
     final maxRes=maxRes) "Static pressure setpoint reset using trim and respond logic"
     annotation (Placement(transformation(extent={{-130,-60},{-110,-40}})));
-  Buildings.Controls.OBC.CDL.Continuous.LimPID conSpe(
+  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset conSpe(
     final controllerType=controllerType,
     final k=k,
     final Ti=Ti,
     final Td=Td,
     final yMax=yFanMax,
     final yMin=yFanMin,
-    reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter,
     y_reset=yFanMin) "Supply fan speed control"
     annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
 
@@ -278,7 +277,7 @@ equation
   connect(staPreSetRes.y, firOrdHol.u)
     annotation (Line(points={{-108,-50},{-102,-50}}, color={0,0,127}));
   connect(conSpe.trigger, or1.y)
-    annotation (Line(points={{-38,-82},{-38,-100},{0,-100},{0,-8},{120,-8},{120,
+    annotation (Line(points={{-36,-82},{-36,-100},{0,-100},{0,-8},{120,-8},{120,
           70},{102,70}},  color={255,0,255}));
   connect(gaiNor.y, norPSet.u2) annotation (Line(points={{-108,-90},{-92,-90},{-92,
           -76},{-72,-76}}, color={0,0,127}));

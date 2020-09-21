@@ -35,25 +35,25 @@ model Sort "Validation model for the Sort block"
     "Block that sorts signals in ascending order"
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
 equation
-  connect(ramp1.y, sorAsc.u[1]) annotation (Line(points={{-38,66},{-22,66},{-22,
+  connect(ramp1.y, sorAsc.u[1]) annotation (Line(points={{-39,66},{-22,66},{-22,
           28.4},{-2,28.4}}, color={0,0,127}));
-  connect(ramp2.y, sorAsc.u[2]) annotation (Line(points={{-38,32},{-20,32},{-20,
+  connect(ramp2.y, sorAsc.u[2]) annotation (Line(points={{-39,32},{-20,32},{-20,
           29.2},{-2,29.2}}, color={0,0,127}));
-  connect(ramp3.y, sorAsc.u[3]) annotation (Line(points={{-38,0},{-22,0},{-22,
+  connect(ramp3.y, sorAsc.u[3]) annotation (Line(points={{-39,0},{-22,0},{-22,
           30},{-2,30}}, color={0,0,127}));
-  connect(ramp4.y, sorAsc.u[4]) annotation (Line(points={{-38,-32},{-22,-32},{
+  connect(ramp4.y, sorAsc.u[4]) annotation (Line(points={{-39,-32},{-22,-32},{
           -22,30.8},{-2,30.8}}, color={0,0,127}));
-  connect(ramp5.y, sorAsc.u[5]) annotation (Line(points={{-38,-64},{-20,-64},{
+  connect(ramp5.y, sorAsc.u[5]) annotation (Line(points={{-39,-64},{-20,-64},{
           -20,31.6},{-2,31.6}}, color={0,0,127}));
-  connect(ramp1.y, sorDes.u[1]) annotation (Line(points={{-38,66},{-22,66},{-22,
+  connect(ramp1.y, sorDes.u[1]) annotation (Line(points={{-39,66},{-22,66},{-22,
           -31.6},{-2,-31.6}}, color={0,0,127}));
-  connect(ramp2.y, sorDes.u[2]) annotation (Line(points={{-38,32},{-20,32},{-20,
+  connect(ramp2.y, sorDes.u[2]) annotation (Line(points={{-39,32},{-20,32},{-20,
           -30.8},{-2,-30.8}}, color={0,0,127}));
-  connect(ramp3.y, sorDes.u[3]) annotation (Line(points={{-38,0},{-22,0},{-22,
+  connect(ramp3.y, sorDes.u[3]) annotation (Line(points={{-39,0},{-22,0},{-22,
           -30},{-2,-30}}, color={0,0,127}));
-  connect(ramp4.y, sorDes.u[4]) annotation (Line(points={{-38,-32},{-22,-32},{
+  connect(ramp4.y, sorDes.u[4]) annotation (Line(points={{-39,-32},{-22,-32},{
           -22,-29.2},{-2,-29.2}}, color={0,0,127}));
-  connect(ramp5.y, sorDes.u[5]) annotation (Line(points={{-38,-64},{-20,-64},{
+  connect(ramp5.y, sorDes.u[5]) annotation (Line(points={{-39,-64},{-20,-64},{
           -20,-28.4},{-2,-28.4}}, color={0,0,127}));
   annotation (
 experiment(StopTime=1.0, Tolerance=1e-06),

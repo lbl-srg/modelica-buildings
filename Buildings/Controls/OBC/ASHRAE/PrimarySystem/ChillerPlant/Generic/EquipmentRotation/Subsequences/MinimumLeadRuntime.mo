@@ -9,13 +9,13 @@ block MinimumLeadRuntime
   parameter Real minLeaRuntime(
     final unit="s",
     final quantity="Time",
-    final displayUnit="h") = 864000
+    displayUnit="h") = 864000
     "Minimum cumulative runtime period for a current lead device before rotation may occur";
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uDevSta[nDev]
     "Device status: true = proven ON, false = proven OFF"
     annotation (Placement(transformation(extent={{-200,40},{-160,80}}),
-                   iconTransformation(extent={{-140,-20},{-100,20}})));
+        iconTransformation(extent={{-140,-20},{-100,20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uPreDevRolSig[nDev]
     "Device roles in the previous time instance: true = lead; false = lag or standby"
@@ -26,13 +26,8 @@ block MinimumLeadRuntime
     annotation (Placement(transformation(extent={{160,0},{200,40}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr[nDev](
-    final threshold=fill(minLeaRuntime, nDev))
-    "Staging runtime hysteresis"
-    annotation (Placement(transformation(extent={{20,50},{40,70}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Timer tim[nDev](
-    final accumulate=fill(true, nDev))
+  Buildings.Controls.OBC.CDL.Logical.TimerAccumulating accTim[nDev](
+    final t=fill(minLeaRuntime, nDev))
     "Measures time spent loaded at the current role (lead or lag)"
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
 
@@ -76,17 +71,11 @@ protected
     annotation (Placement(transformation(extent={{-140,-70},{-120,-50}})));
 
 equation
-  connect(greEquThr.y, and2.u1) annotation (Line(points={{42,60},{60,60},{60,20},
-          {78,20}},color={255,0,255}));
   connect(mulOr.u, and2.y)
-    annotation (Line(points={{118,20},{102,20}},
-                                             color={255,0,255}));
-  connect(tim.y, greEquThr.u)
-    annotation (Line(points={{-38,60},{18,60}}, color={0,0,127}));
+    annotation (Line(points={{118,20},{102,20}}, color={255,0,255}));
 
   connect(booRep1.y, and2.u2)
-    annotation (Line(points={{42,20},{50,20},{50,12},{78,12}},
-                                                             color={255,0,255}));
+    annotation (Line(points={{42,20},{50,20},{50,12},{78,12}}, color={255,0,255}));
   connect(anyOn.y, allOff.u)
     annotation (Line(points={{-78,-10},{-62,-10}},   color={255,0,255}));
   connect(booRep1.u, equSig.y)
@@ -95,8 +84,8 @@ equation
           12},{-22,12}},     color={255,0,255}));
   connect(allOn.y, equSig.u1) annotation (Line(points={{-38,30},{-30,30},{-30,20},
           {-22,20}},color={255,0,255}));
-  connect(uDevSta, tim.u)
-    annotation (Line(points={{-180,60},{-62,60}},  color={255,0,255}));
+  connect(uDevSta, accTim.u)
+    annotation (Line(points={{-180,60},{-62,60}}, color={255,0,255}));
   connect(uDevSta, allOn.u) annotation (Line(points={{-180,60},{-80,60},{-80,
           30},{-62,30}},       color={255,0,255}));
   connect(uDevSta, anyOn.u) annotation (Line(points={{-180,60},{-120,60},{-120,
@@ -105,8 +94,10 @@ equation
     annotation (Line(points={{142,20},{180,20}}, color={255,0,255}));
   connect(uPreDevRolSig, falEdg1.u)
     annotation (Line(points={{-180,-60},{-142,-60}}, color={255,0,255}));
-  connect(falEdg1.y, tim.reset) annotation (Line(points={{-118,-60},{-110,-60},{
-          -110,52},{-62,52}},   color={255,0,255}));
+  connect(falEdg1.y, accTim.reset) annotation (Line(points={{-118,-60},{-110,-60},
+          {-110,52},{-62,52}}, color={255,0,255}));
+  connect(accTim.passed, and2.u1) annotation (Line(points={{-38,52},{60,52},{60,
+          20},{78,20}}, color={255,0,255}));
   annotation (Diagram(coordinateSystem(extent={{-160,-80},{160,80}})),
       defaultComponentName="minLeaTim",
     Icon(graphics={

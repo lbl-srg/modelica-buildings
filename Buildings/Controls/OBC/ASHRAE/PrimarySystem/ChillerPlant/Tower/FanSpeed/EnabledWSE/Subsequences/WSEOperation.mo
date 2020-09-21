@@ -40,14 +40,14 @@ block WSEOperation
       iconTransformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSup(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Chilled water supply temperature"
     annotation (Placement(transformation(extent={{-180,-60},{-140,-20}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSupSet(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Chilled water supply temperature setpoint"
     annotation (Placement(transformation(extent={{-180,-140},{-140,-100}}),
@@ -63,12 +63,10 @@ block WSEOperation
 protected
   Buildings.Controls.OBC.CDL.Logical.And and2 "Logical and"
     annotation (Placement(transformation(extent={{40,130},{60,150}})));
-  Buildings.Controls.OBC.CDL.Logical.Timer tim
+  Buildings.Controls.OBC.CDL.Logical.Timer tim(
+    final t=cheCycOffTim)
     "Count the time when fan is at minimum speed and the chilled water supply temperature drops below setpoint"
     annotation (Placement(transformation(extent={{80,130},{100,150}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr(
-    final threshold=cheCycOffTim) "Check if fan should cycle off"
-    annotation (Placement(transformation(extent={{80,90},{100,110}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTowSpe(
     final k=fanSpeMin) "Minimum tower speed"
     annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
@@ -104,14 +102,13 @@ protected
     final uHigh=1.5*5/9)
     "Check if chilled water supply temperature is greater than setpoint by a threshold delta"
     annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.LimPID chiWatTemCon(
+  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset chiWatTemCon(
     final controllerType=chiWatCon,
     final k=k,
     final Ti=Ti,
     final Td=Td,
     final yMax=yMax,
     final yMin=yMin,
-    final reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter,
     final y_reset=0)
     "Controller to maintain chilled water supply temperature at setpoint"
     annotation (Placement(transformation(extent={{-60,-130},{-40,-110}})));
@@ -169,12 +166,6 @@ equation
     annotation (Line(points={{22,100},{30,100},{30,132},{38,132}}, color={255,0,255}));
   connect(and2.y, tim.u)
     annotation (Line(points={{62,140},{78,140}}, color={255,0,255}));
-  connect(tim.y, greEquThr.u)
-    annotation (Line(points={{102,140},{110,140},{110,120},{60,120},{60,100},
-      {78,100}},color={0,0,127}));
-  connect(greEquThr.y, edg.u)
-    annotation (Line(points={{102,100},{110,100},{110,80},{-50,80},{-50,60},
-      {-42,60}}, color={255,0,255}));
   connect(edg.y, lat.u)
     annotation (Line(points={{-18,60},{38,60}}, color={255,0,255}));
   connect(lat.y, swi.u2)
@@ -187,8 +178,8 @@ equation
     annotation (Line(points={{-160,-40},{-120,-40},{-120,-150},{-50,-150},{-50,-132}},
       color={0,0,127}));
   connect(lat.y, chiWatTemCon.trigger)
-    annotation (Line(points={{62,60},{74,60},{74,-80},{-70,-80},{-70,-140},{-56,
-          -140},{-56,-132}},  color={255,0,255}));
+    annotation (Line(points={{62,60},{74,60},{74,-80},{-70,-80},{-70,-140},
+      {-56,-140},{-56,-132}},  color={255,0,255}));
   connect(zer.y, lin.x1)
     annotation (Line(points={{62,-100},{80,-100},{80,-112},{98,-112}}, color={0,0,127}));
   connect(chiWatTemCon.y, lin.u)
@@ -230,6 +221,9 @@ equation
   connect(truDel.y, and1.u1)
     annotation (Line(points={{22,20},{30,20},{30,0},{-10,0},{-10,-20},{-2,-20}},
       color={255,0,255}));
+  connect(tim.passed, edg.u)
+    annotation (Line(points={{102,132},{120,132},{120,80},{-50,80},{-50,60},
+      {-42,60}}, color={255,0,255}));
 
 annotation (
   defaultComponentName="wseTowSpeWSEOpe",

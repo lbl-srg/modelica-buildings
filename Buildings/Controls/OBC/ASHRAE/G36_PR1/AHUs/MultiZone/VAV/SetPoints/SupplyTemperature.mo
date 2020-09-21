@@ -174,20 +174,16 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Switch swi3
     "Check output regarding supply fan status"
     annotation (Placement(transformation(extent={{80,-10},{100,10}})));
-  Buildings.Controls.OBC.CDL.Integers.LessThreshold intLesThr(
-    threshold=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.warmUp)
+  Buildings.Controls.OBC.CDL.Integers.LessThreshold intLesThr(t=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.warmUp)
     "Check if operation mode index is less than warm-up mode index (4)"
     annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
-  Buildings.Controls.OBC.CDL.Integers.GreaterThreshold intGreThr(
-    threshold=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.occupied)
+  Buildings.Controls.OBC.CDL.Integers.GreaterThreshold intGreThr(t=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.occupied)
     "Check if operation mode index is greater than occupied mode index (1)"
     annotation (Placement(transformation(extent={{-100,-90},{-80,-70}})));
-  Buildings.Controls.OBC.CDL.Integers.LessThreshold intLesThr1(
-    threshold=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.unoccupied)
+  Buildings.Controls.OBC.CDL.Integers.LessThreshold intLesThr1(t=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.unoccupied)
     "Check if operation mode index is less than unoccupied mode index (7)"
     annotation (Placement(transformation(extent={{-40,-100},{-20,-80}})));
-  Buildings.Controls.OBC.CDL.Integers.GreaterThreshold intGreThr1(
-    threshold=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.setUp)
+  Buildings.Controls.OBC.CDL.Integers.GreaterThreshold intGreThr1(t=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.setUp)
     "Check if operation mode index is greater than set up mode index (3)"
     annotation (Placement(transformation(extent={{-40,-130},{-20,-110}})));
 

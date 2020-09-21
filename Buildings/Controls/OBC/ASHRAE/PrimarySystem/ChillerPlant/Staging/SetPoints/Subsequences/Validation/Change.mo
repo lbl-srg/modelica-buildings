@@ -36,20 +36,29 @@ model Change
     annotation (Placement(transformation(extent={{0,-240},{20,-220}})));
 
 protected
-  parameter Modelica.SIunits.Temperature TChiWatSupSet = 285.15
-  "Chilled water supply set temperature";
+  parameter Real TChiWatSupSet(
+    final unit="K",
+    final quantity="ThermodynamicTemperature",
+    displayUnit="degC")=285.15
+    "Chilled water supply set temperature";
 
-  parameter Modelica.SIunits.Temperature aveTChiWatRet = 288.15
-  "Average measured chilled water return temperature";
+  parameter Real aveTChiWatRet(
+    final unit="K",
+    final quantity="ThermodynamicTemperature",
+    displayUnit="degC")=288.15
+    "Average measured chilled water return temperature";
 
   parameter Real minStaRuntime(
     final unit="s",
     final quantity="Time",
-    final displayUnit="h")=900
+    displayUnit="h")=900
       "Minimum stage runtime";
 
-  parameter Modelica.SIunits.VolumeFlowRate aveVChiWat_flow = 0.05
-    "Average measured chilled water flow rate";
+  parameter Real aveVChiWat_flow(
+    final unit="m3/s",
+    final quantity="VolumeFlowRate",
+    displayUnit="m3/s")=0.05
+      "Average measured chilled water flow rate";
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable timeTable(
     final table=[0,0; 600,0; 600,1; 1200,1; 1200,0; 2500,0; 2500,1; 3700,1; 3700,0; 4300,
@@ -59,7 +68,7 @@ protected
     annotation (Placement(transformation(extent={{-160,220},{-140,240}})));
 
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
-    final threshold=0.5) "Greater than threshold"
+    final t=0.5) "Greater than threshold"
     annotation (Placement(transformation(extent={{-120,220},{-100,240}})));
 
   Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea
@@ -110,7 +119,7 @@ protected
     annotation (Placement(transformation(extent={{-160,-140},{-140,-120}})));
 
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr2(
-    final threshold=0.5) "Greater threshold"
+    final t=0.5) "Greater threshold"
     annotation (Placement(transformation(extent={{-120,-140},{-100,-120}})));
 
   Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea2
@@ -134,7 +143,7 @@ protected
     annotation (Placement(transformation(extent={{140,-200},{160,-180}})));
 
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr3(
-    final threshold=0.5) "Greater than threshold"
+    final t=0.5) "Greater than threshold"
     annotation (Placement(transformation(extent={{-120,-180},{-100,-160}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant noStaChaSig(
@@ -199,7 +208,7 @@ protected
     annotation (Placement(transformation(extent={{-200,20},{-180,40}})));
 
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr1(
-    final threshold=0.5) "Greater than threshold"
+    final t=0.5) "Greater than threshold"
     annotation (Placement(transformation(extent={{-160,20},{-140,40}})));
 
 equation

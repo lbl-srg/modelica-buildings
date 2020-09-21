@@ -52,7 +52,7 @@ block ReturnFanDirectPressure
     "Average building static pressure measurement"
     annotation (Placement(transformation(extent={{-130,70},{-110,90}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.LimPID conP(
+  Buildings.Controls.OBC.CDL.Continuous.PID conP(
     final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
     final k=k,
     reverseActing=false) "Building static pressure controller"

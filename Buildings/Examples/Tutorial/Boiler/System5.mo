@@ -254,7 +254,7 @@ model System5
  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetBoiRet(k=TBoiRet_min)
     "Temperature setpoint for boiler return"
     annotation (Placement(transformation(extent={{120,-270},{140,-250}})));
-  Buildings.Controls.OBC.CDL.Continuous.LimPID conPIDBoi(
+  Buildings.Controls.OBC.CDL.Continuous.PID conPIDBoi(
     Td=1,
     Ti=120,
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
@@ -264,12 +264,11 @@ model System5
 //--------------------------------------------------------------------------------//
 
 //----------------------Step 3: Radiator loop valve control-----------------------//
-  Buildings.Controls.OBC.CDL.Continuous.LimPID conPIDRad(
+  Buildings.Controls.OBC.CDL.Continuous.PID conPIDRad(
     Td=1,
     Ti=120,
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
-    k=0.1)
-           "Controller for valve in radiator loop"
+    k=0.1) "Controller for valve in radiator loop"
     annotation (Placement(transformation(extent={{-180,-20},{-160,0}})));
 //--------------------------------------------------------------------------------//
   Buildings.Controls.OBC.CDL.Continuous.Line TSetSup
@@ -530,12 +529,12 @@ This is implemented using the constant block
 <a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.Sources.Constant\">
 Buildings.Controls.OBC.CDL.Continuous.Sources.Constant</a> for the set point,
 the PID controller with output limitation
-<a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.LimPID\">
-Buildings.Controls.OBC.CDL.Continuous.LimPID</a>.
+<a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.PID\">
+Buildings.Controls.OBC.CDL.Continuous.PID</a>.
 We configured the controller as
 </p>
 <pre>
-  Buildings.Controls.OBC.CDL.Continuous.LimPID conPIDBoi(
+  Buildings.Controls.OBC.CDL.Continuous.PID conPIDBoi(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
     k=0.1,
     Ti=120,

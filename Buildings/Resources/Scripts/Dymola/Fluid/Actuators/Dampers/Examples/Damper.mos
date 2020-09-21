@@ -1,4 +1,4 @@
-simulateModel("Buildings.Fluid.Actuators.Dampers.Examples.Damper", method="dassl", tolerance=1e-6, stopTime=1.0, resultFile="Damper");
+simulateModel("Buildings.Fluid.Actuators.Dampers.Examples.Damper", method="CVode", tolerance=1e-6, stopTime=1.0, resultFile="Damper");
 createPlot(id = 4,
  position = {73, 9, 598, 390},
  x = "res.y",

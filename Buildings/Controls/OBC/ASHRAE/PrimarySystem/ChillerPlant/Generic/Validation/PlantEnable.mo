@@ -1,8 +1,11 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.Validation;
 model PlantEnable "Validation sequence for enabling and disabling chiller plant"
 
-  parameter Modelica.SIunits.Temperature aveTWetBul = 288.15
-    "Chilled water supply set temperature";
+  parameter Real aveTWetBul(
+    final unit="K",
+    final quantity="ThermodynamicTemperature",
+    displayUnit="degC")=288.15
+      "Chilled water supply set temperature";
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.PlantEnable disPlaSch(
     final schTab=[0,0; 6*3600,1; 19*3600,0; 24*3600,0], ignReq=1)
