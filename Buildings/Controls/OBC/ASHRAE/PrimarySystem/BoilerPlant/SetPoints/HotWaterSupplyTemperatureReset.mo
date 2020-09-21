@@ -26,21 +26,21 @@ block HotWaterSupplyTemperatureReset
 
   parameter Real TPlaHotWatSetMax(
     final unit="K",
-    final displayUnit="K",
+    displayUnit="K",
     final quantity="ThermodynamicTemperature") = 353.15
     "The maximum allowed hot-water setpoint temperature for the plant"
     annotation(Dialog(group="Trim-and-Respond Logic parameters"));
 
   parameter Real TConBoiHotWatSetMax(
     final unit="K",
-    final displayUnit="K",
+    displayUnit="K",
     final quantity="ThermodynamicTemperature") = 353.15
     "The maximum allowed hot water setpoint temperature for condensing boilers"
     annotation(Dialog(group="Trim-and-Respond Logic parameters"));
 
   parameter Real TConBoiHotWatSetOff(
     final unit="K",
-    final displayUnit="K",
+    displayUnit="K",
     final quantity="TemperatureDifference") = -10
     "The offset for hot water setpoint temperature for condensing boilers in 
     non-condensing stage type"
@@ -48,56 +48,56 @@ block HotWaterSupplyTemperatureReset
 
   parameter Real THotWatSetMinNonConBoi(
     final unit="K",
-    final displayUnit="K",
+    displayUnit="K",
     final quantity="ThermodynamicTemperature") = 341.48
     "The minimum allowed hot-water setpoint temperature for non-condensing boilers"
     annotation(Dialog(group="Trim-and-Respond Logic parameters"));
 
   parameter Real THotWatSetMinConBoi(
     final unit="K",
-    final displayUnit="K",
+    displayUnit="K",
     final quantity="ThermodynamicTemperature") = 305.37
     "The minimum allowed hot-water setpoint temperature for condensing boilers"
     annotation(Dialog(group="Trim-and-Respond Logic parameters"));
 
   parameter Real delTimVal(
     final unit="s",
-    final displayUnit="s",
+    displayUnit="s",
     final quantity="Time") = 600
     "Delay time"
     annotation(Dialog(group="Trim-and-Respond Logic parameters"));
 
   parameter Real samPerVal(
     final unit="s",
-    final displayUnit="s",
+    displayUnit="s",
     final quantity="Time") = 300
     "Sample period"
     annotation(Dialog(group="Trim-and-Respond Logic parameters"));
 
   parameter Real triAmoVal(
     final unit="K",
-    final displayUnit="K",
+    displayUnit="K",
     final quantity="TemperatureDifference") = -2
     "Setpoint trim value"
     annotation(Dialog(group="Trim-and-Respond Logic parameters"));
 
   parameter Real resAmoVal(
     final unit="K",
-    final displayUnit="K",
+    displayUnit="K",
     final quantity="TemperatureDifference") = 3
     "Setpoint respond value"
     annotation(Dialog(group="Trim-and-Respond Logic parameters"));
 
   parameter Real maxResVal(
     final unit="K",
-    final displayUnit="K",
+    displayUnit="K",
     final quantity="TemperatureDifference") = 7
     "Setpoint maximum respond value"
     annotation(Dialog(group="Trim-and-Respond Logic parameters"));
 
   parameter Real holTimVal(
     final unit="s",
-    final displayUnit="s",
+    displayUnit="s",
     final quantity="Time") = 900
     "Minimum setpoint hold time for stage change process"
     annotation(Dialog(group="Plant parameters"));
@@ -129,7 +129,7 @@ block HotWaterSupplyTemperatureReset
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TPlaHotWatSupSet(
     final unit="K",
-    final displayUnit="K",
+    displayUnit="K",
     final quantity="ThermodynamicTemperature")
     "Hot-water supply temperature setpoint for the plant"
     annotation (Placement(transformation(extent={{140,-20},{180,20}}),
@@ -137,7 +137,7 @@ block HotWaterSupplyTemperatureReset
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TBoiHotWatSupSet[nBoi](
     final unit=fill("K",nBoi),
-    final displayUnit=fill("K",nBoi),
+    displayUnit=fill("K",nBoi),
     final quantity=fill("ThermodynamicTemperature",nBoi))
     "Temperature setpoint vector for boilers"
     annotation (Placement(transformation(extent={{140,-250},{180,-210}}),
@@ -157,7 +157,7 @@ protected
     annotation (Placement(transformation(extent={{-120,-80},{-100,-60}})));
 
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
-    final threshold=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.BoilerTypes.condensingBoiler)
+    final t=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.BoilerTypes.condensingBoiler)
     "Check for non-condensing stage type"
     annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
 
@@ -214,7 +214,7 @@ protected
     annotation (Placement(transformation(extent={{-120,-260},{-100,-240}})));
 
   Buildings.Controls.OBC.CDL.Integers.GreaterThreshold greThr1[nBoi](
-    final threshold=fill(Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.BoilerTypes.condensingBoiler,nBoi))
+    final t=fill(Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.BoilerTypes.condensingBoiler,nBoi))
     "Identify non-condensing boilers in plant"
     annotation (Placement(transformation(extent={{-80,-260},{-60,-240}})));
 
@@ -377,11 +377,8 @@ equation
     Documentation(info="<html>
       <p>
       Control sequence for hot-water supply temperature setpoint <code>TPlaHotWatSupSet</code>
-      for boiler plant loop.
+      for boiler plant loop as per section 5.3.4 in ASHRAE RP-1711, March 2020 draft.
       </p>
-      <h4>
-      Boiler plant loop: Control of hot-water supply temperature setpoint
-      </h4>
       <ul>
       <li>
       The setpoint controller is enabled when any of the hot-water supply pumps
