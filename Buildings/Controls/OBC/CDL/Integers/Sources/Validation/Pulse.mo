@@ -50,7 +50,7 @@ Buildings.Controls.OBC.CDL.Integers.Sources.Pulse</a>.
 </p>
 </html>", revisions="<html>
 <ul>
-<li>,
+<li>
 September 8, 2020, by Milica Grahovac:<br/>
 First implementation.
 </li>

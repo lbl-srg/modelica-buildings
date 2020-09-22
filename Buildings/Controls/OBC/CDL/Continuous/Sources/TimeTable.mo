@@ -57,7 +57,7 @@ Documentation(info="<html>
 Block that outputs values of a time table.
 </p>
 <p>
-The block takes as a parameter a time table of the format
+The block takes as a parameter a time table of a format:
 </p>
 <pre>
 table = [ 0*3600, 0;

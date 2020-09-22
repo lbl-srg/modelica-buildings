@@ -130,7 +130,7 @@ Documentation(info="<html>
 Block that outputs <code>true</code>/<code>false</code> time table values.
 </p>
 <p>
-The block takes as a parameter a time table of the format
+The block takes as a parameter a time table of a format:
 </p>
 <pre>
 table = [ 0*3600, 0;
@@ -150,7 +150,7 @@ Any number of columns can be specified.
 </p>
 <p>
 The values in all columns apart from the first column must equal either <code>0</code> or <code>1</code>, 
-to represent <code>false</code> or <code>true</code>, respectively.
+to represent <code>false</code> or <code>true</code>, respectively, otherwise a warning is issued.
 </p>
 <p>
 The parameter <code>smoothness</code> determines how the table values

@@ -69,7 +69,7 @@ equation
         Line(points={{-132,-18}}, color={28,108,200})}),
     Documentation(info="<html>
 <p>
-The Integer output y is a pulse signal:
+An Integer output y is a pulse signal:
 </p>
 
 <p align=\"center\">
@@ -77,7 +77,7 @@ The Integer output y is a pulse signal:
      alt=\"Pulse.png\" />
 </p>
 <p>
-The pulse signal is generated <code>nPeriod</code> amount of times. For infinite duration of the pulse <code>nPeriod</code> should be set to a negative number.
+The pulse output signal is generated <code>nPeriod</code> amount of times or infinetely if <code>nPeriod</code> is set to a negative number.
 </p>
 </html>", revisions="<html>
 <ul>

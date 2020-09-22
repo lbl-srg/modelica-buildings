@@ -92,10 +92,10 @@ equation
 defaultComponentName = "intTimTab",
 Documentation(info="<html>
 <p>
-Block that outputs <code>Integer</code> time table values
+Block that outputs <code>Integer</code> time table values.
 </p>
 <p>
-The block takes as a parameter a time table of the format
+The block takes as a parameter a time table of a format:
 </p>
 <pre>
 table = [ 0*3600, 2;
@@ -114,7 +114,7 @@ in the first column of the table are interpreted as hours.
 Any number of columns can be specified.
 </p>
 <p>
-The values in all columns apart from the first column must be of type <code>Integer</code>.
+The values in all columns apart from the first column must be of type <code>Integer</code>, otherwise a warning is issued.
 </p>
 <p>
 The parameter <code>smoothness</code> determines how the table values
