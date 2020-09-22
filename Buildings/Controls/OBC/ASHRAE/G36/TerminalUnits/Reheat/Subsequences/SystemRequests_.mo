@@ -2,18 +2,27 @@ within Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.Reheat.Subsequences;
 block SystemRequests_
   "Output system requests for VAV terminal unit with reheat"
 
+  parameter Boolean have_hotWatCoi;
   parameter Real thrTemDif(
     final unit="K",
     final displayUnit="K",
     final quantity="TemperatureDifference")=3
-    "Limit value of difference between zone temperature and cooling setpoint
-    for generating 3 cooling SAT reset requests";
+    "Threshold difference between zone temperature and cooling setpoint for generating 3 cooling SAT reset requests";
   parameter Real twoTemDif(
     final unit="K",
     final displayUnit="K",
     final quantity="TemperatureDifference")=2
-    "Limit value of difference between zone temperature and cooling setpoint
-    for generating 2 cooling SAT reset requests";
+    "Threshold difference between zone temperature and cooling setpoint for generating 2 cooling SAT reset requests";
+  parameter Real thrTDis_1(
+    final unit="K",
+    final displayUnit="K",
+    final quantity="TemperatureDifference")=17
+    "Threshold difference between discharge air temperature and its setpoint for generating 3 hot water reset requests";
+  parameter Real thrTDis_2(
+    final unit="K",
+    final displayUnit="K",
+    final quantity="TemperatureDifference")=8
+    "Threshold difference between discharge air temperature and its setpoint for generating 2 hot water reset requests";
   parameter Real durTimTem(
     final unit="s",
     final quantity="Time")=120
@@ -23,6 +32,11 @@ block SystemRequests_
     final unit="s",
     final quantity="Time")=60
     "Duration time of airflow rate less than setpoint"
+    annotation(Dialog(group="Duration times"));
+  parameter Real durTimDisAir(
+    final unit="s",
+    final quantity="Time")=300
+    "Duration time of discharge air temperature less than setpoint"
     annotation(Dialog(group="Duration times"));
   parameter Real dTHys(
     final unit="s",
@@ -38,8 +52,12 @@ block SystemRequests_
     final unit="1")
     "Near zero damper position, below which the damper will be seen as closed"
     annotation (Dialog(tab="Advanced"));
+  parameter Real valPosHys(
+    final unit="1")
+    "Near zero valve position, below which the valve will be seen as closed"
+    annotation (Dialog(tab="Advanced"));
 
-  CDL.Interfaces.BooleanInput uAftSup
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uAftSup
     "After suppression period due to the setpoint change"
     annotation (Placement(transformation(extent={{-220,238},{-180,278}}),
         iconTransformation(extent={{-140,70},{-100,110}})));
@@ -49,41 +67,61 @@ block SystemRequests_
     final quantity="ThermodynamicTemperature")
     "Zone cooling setpoint temperature"
     annotation (Placement(transformation(extent={{-220,198},{-180,238}}),
-        iconTransformation(extent={{-140,40},{-100,80}})));
+        iconTransformation(extent={{-140,50},{-100,90}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZon(
     final unit="K",
     final displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Zone temperature"
     annotation (Placement(transformation(extent={{-220,138},{-180,178}}),
-        iconTransformation(extent={{-140,20},{-100,60}})));
+        iconTransformation(extent={{-140,30},{-100,70}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uCoo(
     final min=0,
     final max=1,
     final unit="1")
     "Cooling loop signal"
     annotation (Placement(transformation(extent={{-220,108},{-180,148}}),
-        iconTransformation(extent={{-140,0},{-100,40}})));
+        iconTransformation(extent={{-140,10},{-100,50}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VSet_flow(
     final min=0,
     final unit="m3/s",
     quantity="VolumeFlowRate")
     "Discharge airflow rate setpoint"
     annotation (Placement(transformation(extent={{-220,60},{-180,100}}),
-        iconTransformation(extent={{-140,-50},{-100,-10}})));
+        iconTransformation(extent={{-140,-10},{-100,30}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VDis_flow(
     final min=0,
     final unit="m3/s",
     final quantity="VolumeFlowRate")
     "Measured discharge airflow rate"
     annotation (Placement(transformation(extent={{-220,-30},{-180,10}}),
-        iconTransformation(extent={{-140,-80},{-100,-40}})));
+        iconTransformation(extent={{-140,-30},{-100,10}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uDam(
     final min=0,
     final max=1,
     final unit="1")
     "Actual damper position"
     annotation (Placement(transformation(extent={{-220,-70},{-180,-30}}),
+        iconTransformation(extent={{-140,-50},{-100,-10}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TDisSet(
+    final unit="K",
+    final displayUnit="degC",
+    final quantity="ThermodynamicTemperature") if have_hotWatCoi
+    "Discharge airflow setpoint temperature for heating" annotation (Placement(
+        transformation(extent={{-220,-130},{-180,-90}}), iconTransformation(
+          extent={{-140,-70},{-100,-30}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TDis(
+    final unit="K",
+    final displayUnit="degC",
+    final quantity="ThermodynamicTemperature") if have_hotWatCoi
+    "Measured discharge airflow temperature"
+    annotation (Placement(transformation(extent={{-220,-160},{-180,-120}}),
+        iconTransformation(extent={{-140,-90},{-100,-50}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uHeaVal(
+    final min=0,
+    final max=1,
+    final unit="1") if have_hotWatCoi "Heating valve position"
+    annotation (Placement(transformation(extent={{-220,-240},{-180,-200}}),
         iconTransformation(extent={{-140,-110},{-100,-70}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yZonTemResReq
     "Zone cooling supply air temperature reset request"
@@ -93,41 +131,24 @@ block SystemRequests_
     "Zone static pressure reset requests"
     annotation (Placement(transformation(extent={{180,40},{220,80}}),
         iconTransformation(extent={{100,-80},{140,-40}})));
-
-  CDL.Interfaces.RealInput                        TDisHeaSet(
-    final unit="K",
-    final displayUnit="degC",
-    final quantity="ThermodynamicTemperature") if have_heaWatCoi
-    "Discharge airflow setpoint temperature for heating"
-    annotation (Placement(transformation(extent={{-220,-130},{-180,-90}}),
-        iconTransformation(extent={{-140,-60},{-100,-20}})));
-  CDL.Interfaces.RealInput                        TDis(
-    final unit="K",
-    final displayUnit="degC",
-    final quantity="ThermodynamicTemperature") if have_heaWatCoi
-    "Measured discharge airflow temperature"
-    annotation (Placement(transformation(extent={{-220,-160},{-180,-120}}),
-        iconTransformation(extent={{-140,-80},{-100,-40}})));
-  CDL.Interfaces.RealInput                        uHeaVal(
-    final min=0,
-    final max=1,
-    final unit="1") if have_heaWatCoi "Heating valve position"
-    annotation (Placement(transformation(extent={{-220,-240},{-180,-200}}),
-        iconTransformation(extent={{-140,-100},{-100,-60}})));
-  CDL.Interfaces.IntegerOutput                        yHeaValResReq if have_heaWatCoi
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yHeaValResReq if have_hotWatCoi
     "Hot water reset requests"
     annotation (Placement(transformation(extent={{180,-160},{220,-120}}),
         iconTransformation(extent={{100,-60},{140,-20}})));
-  CDL.Continuous.Less les(final h=dTHys)
-    "Check if discharge temperature is less than setpoint by a threshold"
-    annotation (Placement(transformation(extent={{-60,-150},{-40,-130}})));
-  CDL.Continuous.Less les1(final h=dTHys)
-    "Check if discharge temperature is less than setpoint by a threshold"
-    annotation (Placement(transformation(extent={{-60,-190},{-40,-170}})));
-  CDL.Interfaces.IntegerOutput yHotWatPla "Request to heating hot-water plant"
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yHotWatPla if have_hotWatCoi
+    "Request to heating hot-water plant"
     annotation (Placement(transformation(extent={{180,-290},{220,-250}}),
         iconTransformation(extent={{162,-408},{202,-368}})));
+
 protected
+  Buildings.Controls.OBC.CDL.Continuous.Less les(
+    final h=dTHys) if have_hotWatCoi
+    "Check if discharge temperature is less than setpoint by a threshold"
+    annotation (Placement(transformation(extent={{-60,-150},{-40,-130}})));
+  Buildings.Controls.OBC.CDL.Continuous.Less les1(
+    final h=dTHys) if have_hotWatCoi
+    "Check if discharge temperature is less than setpoint by a threshold"
+    annotation (Placement(transformation(extent={{-60,-190},{-40,-170}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr1(
     final t=thrTemDif,
     final h=dTHys)
@@ -215,16 +236,13 @@ protected
     "Output 2 or other request "
     annotation (Placement(transformation(extent={{100,-20},{120,0}})));
   Buildings.Controls.OBC.CDL.Logical.TrueDelay tim1(
-    final delayTime=durTimTem)
-    "Check if it is more than durTimTem"
+    final delayTime=durTimTem) "Check if it is more than threshold time"
     annotation (Placement(transformation(extent={{-20,208},{0,228}})));
   Buildings.Controls.OBC.CDL.Logical.TrueDelay tim2(
-    final delayTime=durTimTem)
-    "Check if it is more than durTimTem"
+    final delayTime=durTimTem) "Check if it is more than threshold time"
     annotation (Placement(transformation(extent={{-20,168},{0,188}})));
   Buildings.Controls.OBC.CDL.Logical.TrueDelay tim3(
-    final delayTime=durTimFlo)
-    "Check if it is more than durTimFlo"
+    final delayTime=durTimFlo) "Check if it is more than threshold time"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
   Buildings.Controls.OBC.CDL.Continuous.Greater greEqu
     "Check if discharge airflow is less than 50% of setpoint"
@@ -235,47 +253,59 @@ protected
   Buildings.Controls.OBC.CDL.Logical.And and5
     "Logical and"
     annotation (Placement(transformation(extent={{-20,70},{0,90}})));
-
-  CDL.Continuous.AddParameter                        addPar(final k=1, final p=
-        thrTDis_1) if     have_heaWatCoi "Discharge temperature plus threshold"
+  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
+    final k=1,
+    final p=thrTDis_1) if have_hotWatCoi
+    "Discharge temperature plus threshold"
     annotation (Placement(transformation(extent={{-140,-150},{-120,-130}})));
-  CDL.Continuous.AddParameter                        addPar1(final k=1, final p
-      =thrTDis_2) if      have_heaWatCoi "Discharge temperature plus threshold"
+  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar1(
+    final k=1,
+    final p=thrTDis_2) if have_hotWatCoi
+    "Discharge temperature plus threshold"
     annotation (Placement(transformation(extent={{-140,-190},{-120,-170}})));
-  CDL.Integers.Sources.Constant                          thrHeaResReq(final k=3)
-    if            have_heaWatCoi
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant thrHeaResReq(
+    final k=3) if have_hotWatCoi
     "Constant 3"
     annotation (Placement(transformation(extent={{100,-120},{120,-100}})));
-  CDL.Integers.Sources.Constant                          twoHeaResReq(final k=2)
-    if            have_heaWatCoi
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant twoHeaResReq(
+    final k=2) if have_hotWatCoi
     "Constant 2"
     annotation (Placement(transformation(extent={{40,-120},{60,-100}})));
-  CDL.Logical.IntegerSwitch                 intSwi2 if
-                                                    have_heaWatCoi
+  Buildings.Controls.OBC.CDL.Logical.IntegerSwitch intSwi2 if
+       have_hotWatCoi
     "Output 3 or other request "
     annotation (Placement(transformation(extent={{140,-150},{160,-130}})));
-  CDL.Logical.IntegerSwitch                 intSwi3 if
-                                                    have_heaWatCoi
+  Buildings.Controls.OBC.CDL.Logical.IntegerSwitch intSwi3 if
+       have_hotWatCoi
     "Output 2 or other request "
     annotation (Placement(transformation(extent={{100,-190},{120,-170}})));
-  CDL.Logical.TrueDelay                        tim4(delayTime=durTimDisAir) if have_heaWatCoi
-    "Check if it is more than durTimDisAir"
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay tim4(
+    final delayTime=durTimDisAir) if have_hotWatCoi
+    "Check if it is more than threshold time"
     annotation (Placement(transformation(extent={{0,-150},{20,-130}})));
-  CDL.Logical.TrueDelay                        tim5(delayTime=durTimDisAir) if have_heaWatCoi
-    "Check if it is more than durTimDisAir"
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay tim5(
+    final delayTime=durTimDisAir) if have_hotWatCoi
+    "Check if it is more than threshold time"
     annotation (Placement(transformation(extent={{0,-190},{20,-170}})));
-  CDL.Continuous.GreaterThreshold                        greThr5(final t=0.95,
-      final h=valPosHys) "Check if valve position is greater than 0.95"
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr5(
+    final t=0.95,
+    final h=valPosHys) if have_hotWatCoi
+    "Check if valve position is greater than 0.95"
     annotation (Placement(transformation(extent={{-140,-230},{-120,-210}})));
-  CDL.Conversions.BooleanToInteger                        booToInt2
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt2 if
+       have_hotWatCoi
     "Convert boolean to integer"
     annotation (Placement(transformation(extent={{0,-230},{20,-210}})));
-  CDL.Continuous.GreaterThreshold                        greThr6(final t=0.95,
-      final h=0.85) "Check if valve position is greater than 0.95"
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr6(
+    final t=0.95,
+    final h=0.85) if have_hotWatCoi
+    "Check if valve position is greater than 0.95"
     annotation (Placement(transformation(extent={{-140,-280},{-120,-260}})));
-  CDL.Conversions.BooleanToInteger                        booToInt3
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt3 if
+       have_hotWatCoi
     "Convert boolean to integer"
     annotation (Placement(transformation(extent={{0,-280},{20,-260}})));
+
 equation
   connect(add2.y, greThr1.u)
     annotation (Line(points={{-78,218},{-62,218}}, color={0,0,127}));
@@ -319,36 +349,27 @@ equation
     annotation (Line(points={{-38,10},{0,10},{0,-18},{38,-18}},
       color={255,0,255}));
   connect(TZonCooSet, add2.u1) annotation (Line(points={{-200,218},{-160,218},{
-          -160,224},{-102,224}},
-                            color={0,0,127}));
+          -160,224},{-102,224}}, color={0,0,127}));
   connect(TZonCooSet, add3.u1) annotation (Line(points={{-200,218},{-160,218},{
-          -160,184},{-102,184}},
-                            color={0,0,127}));
+          -160,184},{-102,184}}, color={0,0,127}));
   connect(uCoo, greThr.u)
-    annotation (Line(points={{-200,128},{-62,128}},
-                                                  color={0,0,127}));
+    annotation (Line(points={{-200,128},{-62,128}}, color={0,0,127}));
   connect(uAftSup, and2.u1) annotation (Line(points={{-200,258},{20,258},{20,
-          238},{38,238}},
-                     color={255,0,255}));
+          238},{38,238}}, color={255,0,255}));
   connect(uAftSup, and1.u1) annotation (Line(points={{-200,258},{20,258},{20,
-          178},{38,178}},
-                     color={255,0,255}));
+          178},{38,178}}, color={255,0,255}));
   connect(thrCooResReq.y, intSwi.u1) annotation (Line(points={{122,278},{130,
-          278},{130,246},{138,246}},
-                                color={255,127,0}));
+          278},{130,246},{138,246}}, color={255,127,0}));
   connect(twoCooResReq.y, intSwi1.u1) annotation (Line(points={{62,278},{80,278},
           {80,186},{98,186}}, color={255,127,0}));
   connect(intSwi1.y, intSwi.u3) annotation (Line(points={{122,178},{130,178},{
-          130,230},{138,230}},
-                           color={255,127,0}));
+          130,230},{138,230}}, color={255,127,0}));
   connect(intSwi.y, yZonTemResReq)
     annotation (Line(points={{162,238},{200,238}}, color={255,127,0}));
   connect(greThr.y, booToInt.u)
-    annotation (Line(points={{-38,128},{38,128}},
-                                                color={255,0,255}));
+    annotation (Line(points={{-38,128},{38,128}}, color={255,0,255}));
   connect(booToInt.y, intSwi1.u3) annotation (Line(points={{62,128},{80,128},{
-          80,170},{98,170}},
-                     color={255,127,0}));
+          80,170},{98,170}}, color={255,127,0}));
   connect(uDam, greThr3.u)
     annotation (Line(points={{-200,-50},{-162,-50}},   color={0,0,127}));
   connect(VSet_flow, gai1.u) annotation (Line(points={{-200,80},{-160,80},{-160,
@@ -381,7 +402,6 @@ equation
           {138,52}},  color={255,127,0}));
   connect(swi4.y, yZonPreResReq) annotation (Line(points={{162,60},{200,60}},
           color={255,127,0}));
-
   connect(TDis,addPar. u)
     annotation (Line(points={{-200,-140},{-142,-140}},
       color={0,0,127}));
@@ -394,12 +414,12 @@ equation
     annotation (Line(points={{22,-140},{138,-140}}, color={255,0,255}));
   connect(addPar.y, les.u1)
     annotation (Line(points={{-118,-140},{-62,-140}}, color={0,0,127}));
-  connect(TDisHeaSet, les.u2) annotation (Line(points={{-200,-110},{-80,-110},{
-          -80,-148},{-62,-148}}, color={0,0,127}));
+  connect(TDisSet, les.u2) annotation (Line(points={{-200,-110},{-80,-110},{-80,
+          -148},{-62,-148}}, color={0,0,127}));
   connect(les.y, tim4.u)
     annotation (Line(points={{-38,-140},{-2,-140}}, color={255,0,255}));
-  connect(TDisHeaSet, les1.u2) annotation (Line(points={{-200,-110},{-80,-110},
-          {-80,-188},{-62,-188}}, color={0,0,127}));
+  connect(TDisSet, les1.u2) annotation (Line(points={{-200,-110},{-80,-110},{-80,
+          -188},{-62,-188}}, color={0,0,127}));
   connect(addPar1.y, les1.u1)
     annotation (Line(points={{-118,-180},{-62,-180}}, color={0,0,127}));
   connect(les1.y, tim5.u)
@@ -424,8 +444,9 @@ equation
     annotation (Line(points={{-118,-270},{-2,-270}}, color={255,0,255}));
   connect(booToInt3.y, yHotWatPla)
     annotation (Line(points={{22,-270},{200,-270}}, color={255,127,0}));
+
 annotation (
-  defaultComponentName="sysReqCooBox",
+  defaultComponentName="sysReqRehBox",
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-180,-300},{180,
             320}}),
       graphics={
@@ -462,7 +483,7 @@ annotation (
           lineColor={0,0,255},
           horizontalAlignment=TextAlignment.Left,
           textString="Hot water reset requests")}),
-     Icon(coordinateSystem(extent={{-180,-300},{180,320}}),
+     Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
           graphics={
         Text(
           extent={{-100,140},{100,100}},
@@ -474,32 +495,32 @@ annotation (
         fillColor={255,255,255},
         fillPattern=FillPattern.Solid),
         Text(
-          extent={{-98,70},{-44,52}},
+          extent={{-98,80},{-52,62}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TZonCooSet"),
         Text(
-          extent={{-100,46},{-72,34}},
+          extent={{-102,56},{-74,46}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TZon"),
         Text(
-          extent={{-100,26},{-72,14}},
+          extent={{-98,36},{-74,26}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="uCoo"),
         Text(
-          extent={{-98,-22},{-54,-38}},
+          extent={{-98,18},{-60,4}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="VSet_flow"),
         Text(
-          extent={{-98,-54},{-56,-66}},
+          extent={{-98,-4},{-60,-14}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="VDis_flow"),
         Text(
-          extent={{-98,-84},{-72,-96}},
+          extent={{-98,-24},{-72,-34}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="uDam"),
@@ -516,10 +537,25 @@ annotation (
           horizontalAlignment=TextAlignment.Right,
           textString="yZonPreResReq"),
         Text(
-          extent={{-98,98},{-58,84}},
+          extent={{-98,98},{-64,84}},
           lineColor={255,0,255},
           pattern=LinePattern.Dash,
-          textString="uAftSup")}),
+          textString="uAftSup"),
+        Text(
+          extent={{-98,-42},{-68,-56}},
+          lineColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="TDisSet"),
+        Text(
+          extent={{-100,-64},{-74,-74}},
+          lineColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="TDis"),
+        Text(
+          extent={{-98,-82},{-66,-96}},
+          lineColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="uHeaVal")}),
   Documentation(info="<html>
 <p>
 This sequence outputs the system reset requests for cooling only terminal unit. The

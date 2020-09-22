@@ -6,14 +6,12 @@ block SystemRequests
     final unit="K",
     final displayUnit="K",
     final quantity="TemperatureDifference")=3
-    "Limit value of difference between zone temperature and cooling setpoint
-    for generating 3 cooling SAT reset requests";
+    "Threshold difference between zone temperature and cooling setpoint for generating 3 cooling SAT reset requests";
   parameter Real twoTemDif(
     final unit="K",
     final displayUnit="K",
     final quantity="TemperatureDifference")=2
-    "Limit value of difference between zone temperature and cooling setpoint
-    for generating 2 cooling SAT reset requests";
+    "Threshold difference between zone temperature and cooling setpoint for generating 2 cooling SAT reset requests";
   parameter Real durTimTem(
     final unit="s",
     final quantity="Time")=120
@@ -39,7 +37,7 @@ block SystemRequests
     "Near zero damper position, below which the damper will be seen as closed"
     annotation (Dialog(tab="Advanced"));
 
-  CDL.Interfaces.BooleanInput uAftSup
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uAftSup
     "After suppression period due to the setpoint change"
     annotation (Placement(transformation(extent={{-220,138},{-180,178}}),
         iconTransformation(extent={{-140,70},{-100,110}})));
@@ -183,16 +181,13 @@ protected
     "Output 2 or other request "
     annotation (Placement(transformation(extent={{100,-140},{120,-120}})));
   Buildings.Controls.OBC.CDL.Logical.TrueDelay tim1(
-    final delayTime=durTimTem)
-    "Check if it is more than durTimTem"
+    final delayTime=durTimTem) "Check if it is more than threshold time"
     annotation (Placement(transformation(extent={{-20,108},{0,128}})));
   Buildings.Controls.OBC.CDL.Logical.TrueDelay tim2(
-    final delayTime=durTimTem)
-    "Check if it is more than durTimTem"
+    final delayTime=durTimTem) "Check if it is more than threshold time"
     annotation (Placement(transformation(extent={{-20,68},{0,88}})));
   Buildings.Controls.OBC.CDL.Logical.TrueDelay tim3(
-    final delayTime=durTimFlo)
-    "Check if it is more than durTimFlo"
+    final delayTime=durTimFlo) "Check if it is more than threshold time"
     annotation (Placement(transformation(extent={{-60,-160},{-40,-140}})));
   Buildings.Controls.OBC.CDL.Continuous.Greater greEqu
     "Check if discharge airflow is less than 50% of setpoint"
