@@ -1,4 +1,4 @@
-simulateModel("Buildings.Utilities.Math.Functions.Examples.TrapezoidalIntegration", method="dassl", tolerance=1e-6, stopTime=1.0, resultFile="TrapezoidalIntegration");
+simulateModel("Buildings.Utilities.Math.Functions.Examples.TrapezoidalIntegration", method="CVode", tolerance=1e-6, stopTime=1.0, resultFile="TrapezoidalIntegration");
 removePlots();
 createPlot(id = 5,
  y = {"y"},

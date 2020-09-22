@@ -7,6 +7,7 @@ model FixedTemperature "Fixed temperature boundary condition in Kelvin"
 equation
   port.T = T;
   annotation (
+    defaultComponentName="preTem",
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
             100,100}}), graphics={
         Text(
