@@ -2,7 +2,7 @@ within Buildings.Controls.OBC.CDL.Integers.Sources.Validation;
 model TimeTable "Validation model for TimeTable block"
 
   Buildings.Controls.OBC.CDL.Integers.Sources.TimeTable intTimTab(
-    table=[0,1,4.1; 1.3,1,2; 2.9,0,-1; 4,1,7; 5,1,1],
+    table=[0,1,4; 1.3,1,2; 2.9,0,-1; 4,1,7; 5,1,1],
     extrapolation=Buildings.Controls.OBC.CDL.Types.Extrapolation.HoldLastPoint,
     offset={-3,1},
     timeScale=2) "Time table with integer output"

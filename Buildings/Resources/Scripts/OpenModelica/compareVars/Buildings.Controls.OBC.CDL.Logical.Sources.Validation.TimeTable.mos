@@ -3,5 +3,7 @@ compareVars :=
     "booTimTab.y[1]",
     "booTimTab.y[2]",
     "booTimTabPer.y[1]",
-    "booTimTabPer.y[2]"
+    "booTimTabPer.y[2]",
+    "booTimTabOneRow.y[1]",
+    "booTimTabOneRow.y[2]"
   };
