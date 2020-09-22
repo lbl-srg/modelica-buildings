@@ -1357,6 +1357,8 @@ Buildings/Resources/Images/Fluid/Sensors/onePortHex.png
 Buildings/Resources/Images/Fluid/Sensors/onePortHex.tiff
 Buildings/Resources/Images/Fluid/Sensors/twoPortHex.png
 Buildings/Resources/Images/Fluid/Sensors/twoPortHex.tiff
+Buildings/Resources/Images/Fluid/Sensors/warningIcon.png
+Buildings/Resources/Images/Fluid/Sensors/warningIcon.svg
 Buildings/Resources/Images/Fluid/Storage/Stratified.pdf
 Buildings/Resources/Images/Fluid/Storage/Stratified.png
 Buildings/Resources/Images/Fluid/Storage/Stratified.svg
