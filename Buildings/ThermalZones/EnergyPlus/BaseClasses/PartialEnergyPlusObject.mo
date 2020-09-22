@@ -6,7 +6,7 @@ partial model PartialEnergyPlusObject
   outer Buildings.ThermalZones.EnergyPlus.Building building "Building-level declarations";
 
 protected
-  parameter String spawnLinuxExecutable=building.binaries.spawnLinuxExecutable
+  parameter String spawnLinuxExecutable=building.linux64Binaries.spawnLinuxExecutable
     "Path to the spawn executable"
     annotation(HideResult=true);
   constant String modelicaNameBuilding = building.modelicaNameBuilding
