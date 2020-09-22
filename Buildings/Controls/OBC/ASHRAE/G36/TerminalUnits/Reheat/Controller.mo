@@ -324,14 +324,7 @@ block Controller "Controller for room VAV box"
     V_flow_nominal=max(VDisCooSetMax_flow, VDisHeaSetMax_flow))
     "Damper and valve controller"
     annotation (Placement(transformation(extent={{20,-20},{40,20}})));
-  Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.Reheat.Subsequences.SystemRequests sysReq(
-    final samplePeriod=samplePeriod,
-    final have_heaWatCoi=have_heaWatCoi,
-    final have_heaPla=have_heaPla,
-    final errTZonCoo_1=errTZonCoo_1,
-    final errTZonCoo_2=errTZonCoo_2,
-    final errTDis_1=errTDis_1,
-    final errTDis_2=errTDis_2,
+  Subsequences.SystemRequests sysReq(
     final durTimTem=durTimTem,
     final durTimFlo=durTimFlo,
     final durTimDisAir=durTimDisAir) "Number of system requests"
@@ -370,15 +363,13 @@ protected
 
 equation
   connect(sysReq.TZonCooSet, TZonCooSet)
-    annotation (Line(points={{78,-82},{-120,-82},{-120,120},{-160,120}},
+    annotation (Line(points={{78,-83},{-120,-83},{-120,120},{-160,120}},
       color={0,0,127}));
   connect(sysReq.TZon, TZon)
-    annotation (Line(points={{78,-84},{0,-84},{0,-14},{-160,-14}},
+    annotation (Line(points={{78,-85},{0,-85},{0,-14},{-160,-14}},
       color={0,0,127}));
-  connect(sysReq.VDisSet_flow, damValReh.VDisSet_flow) annotation (Line(points=
-          {{78,-88},{64,-88},{64,14},{42,14}}, color={0,0,127}));
   connect(sysReq.VDis_flow, VDis_flow)
-    annotation (Line(points={{78,-90},{34,-90},{34,-50},{-160,-50}},
+    annotation (Line(points={{78,-91},{34,-91},{34,-50},{-160,-50}},
       color={0,0,127}));
   connect(damValReh.yDam, yDam) annotation (Line(points={{42,9},{120,9},{120,80},
           {160,80}}, color={0,0,127}));
@@ -389,10 +380,10 @@ equation
   connect(damValReh.TDis, TDis)
     annotation (Line(points={{18,1},{18,-110},{-160,-110}}, color={0,0,127}));
   connect(sysReq.TDis, TDis)
-    annotation (Line(points={{78,-96},{26,-96},{26,-110},{-160,-110}},
+    annotation (Line(points={{78,-97},{26,-97},{26,-110},{-160,-110}},
       color={0,0,127}));
   connect(damValReh.yHeaVal, sysReq.uHeaVal) annotation (Line(points={{42,-9},{
-          50,-9},{50,-98},{78,-98}}, color={0,0,127}));
+          50,-9},{50,-99},{78,-99}}, color={0,0,127}));
   connect(TZon, damValReh.TZon) annotation (Line(points={{-160,-14},{-72,-14},{
           -72,-11},{18,-11}}, color={0,0,127}));
   connect(damValReh.TSup, TSupAHU) annotation (Line(points={{18,7},{-80,7},{-80,
@@ -423,10 +414,10 @@ equation
     annotation (Line(points={{-42,76},{-112,76},{-112,-170},{-160,-170}},
       color={255,127,0}));
   connect(sysReq.yZonTemResReq, yZonTemResReq)
-    annotation (Line(points={{102,-83},{120,-83},{120,-80},{160,-80}},
+    annotation (Line(points={{102,-82},{120,-82},{120,-80},{160,-80}},
       color={255,127,0}));
   connect(sysReq.yZonPreResReq, yZonPreResReq)
-    annotation (Line(points={{102,-88},{120,-88},{120,-120},{160,-120}},
+    annotation (Line(points={{102,-87},{120,-87},{120,-120},{160,-120}},
       color={255,127,0}));
   connect(actAirSet.ppmCO2, ppmCO2)
     annotation (Line(points={{-42,74},{-60,74},{-60,80},{-160,80}},
@@ -468,8 +459,6 @@ equation
   connect(isNotUn.y, conHeaLoo.trigger) annotation (Line(points={{42,-150},{60,-150},
           {60,-120},{-116,-120},{-116,142},{-106,142},{-106,148}}, color={255,0,
           255}));
-  connect(sysReq.yDam_actual,yDam_actual)  annotation (Line(points={{78,-92},{-124,
-          -92},{-124,-80},{-160,-80}}, color={0,0,127}));
 
 annotation (defaultComponentName="terUniCon",
   Icon(graphics={Rectangle(

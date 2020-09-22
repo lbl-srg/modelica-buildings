@@ -62,14 +62,14 @@ equation
     annotation (Line(points={{42,-60},{78,-60},{78,59}}, color={0,0,127}));
   connect(TDis.y, damValReh.TDis)
     annotation (Line(points={{42,-20},{78,-20},{78,41}}, color={0,0,127}));
-  connect(VActCooMax_flow.y, damValReh.VActCooMax_flow) annotation (Line(points
-        ={{42,80},{50,80},{50,50},{78,50}}, color={0,0,127}));
-  connect(VActCooMin_flow.y, damValReh.VActCooMin_flow) annotation (Line(points
-        ={{-58,80},{-2,80},{-2,56},{78,56}}, color={0,0,127}));
-  connect(VActHeaMax_flow.y, damValReh.VActHeaMax_flow) annotation (Line(points
-        ={{-18,60},{-4,60},{-4,24},{78,24}}, color={0,0,127}));
-  connect(VActHeaMin_flow.y, damValReh.VActHeaMin_flow) annotation (Line(points
-        ={{-58,40},{-4,40},{-4,26},{78,26}}, color={0,0,127}));
+  connect(VActCooMax_flow.y, damValReh.VActCooMax_flow) annotation (Line(points=
+         {{42,80},{50,80},{50,50},{78,50}}, color={0,0,127}));
+  connect(VActCooMin_flow.y, damValReh.VActCooMin_flow) annotation (Line(points=
+         {{-58,80},{-2,80},{-2,56},{78,56}}, color={0,0,127}));
+  connect(VActHeaMax_flow.y, damValReh.VActHeaMax_flow) annotation (Line(points=
+         {{-18,60},{-4,60},{-4,24},{78,24}}, color={0,0,127}));
+  connect(VActHeaMin_flow.y, damValReh.VActHeaMin_flow) annotation (Line(points=
+         {{-58,40},{-4,40},{-4,26},{78,26}}, color={0,0,127}));
   connect(VActMin_flow.y, damValReh.VActMin_flow) annotation (Line(points={{-18,
           20},{-2,20},{-2,44},{78,44}}, color={0,0,127}));
   connect(uCoo.y, damValReh.uCoo)

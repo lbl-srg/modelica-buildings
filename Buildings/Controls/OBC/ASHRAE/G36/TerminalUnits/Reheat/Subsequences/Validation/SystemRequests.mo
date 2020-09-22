@@ -2,8 +2,8 @@ within Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.Reheat.Subsequences.Valid
 model SystemRequests
   "Validation of model that generates system requests"
 
-  SystemRequests_                                                                    sysReq_RehBox
-                                             "Block outputs system requests"
+  Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.Reheat.Subsequences.SystemRequests
+    sysReq_RehBox "Block outputs system requests"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sine(freqHz=1/7200, offset=296.15)
     "Generate data for setpoint"

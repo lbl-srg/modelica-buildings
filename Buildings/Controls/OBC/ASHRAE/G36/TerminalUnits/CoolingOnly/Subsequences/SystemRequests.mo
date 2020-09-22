@@ -412,19 +412,20 @@ Else if <code>uCoo</code> is less than 95%, send 0 request (<code>yZonTemResReq=
 <li>
 If the measured airflow <code>VDis_flow</code> is less than 50% of setpoint
 <code>VSet_flow</code> while the setpoint is greater than zero and the damper position
-is greater than 95% for 1 minute, send 3 requests (<code>yZonPreResReq=3</code>).
+<code>uDam</code> is greater than 95% for 1 minute, send 3 requests (<code>yZonPreResReq=3</code>).
 </li>
 <li>
 Else if the measured airflow <code>VDis_flow</code> is less than 70% of setpoint
 <code>VSet_flow</code> while the setpoint is greater than zero and the damper position
-is greater than 95% for 1 minute, send 2 requests (<code>yZonPreResReq=2</code>).
+<code>uDam</code> is greater than 95% for 1 minute, send 2 requests (<code>yZonPreResReq=2</code>).
 </li>
 <li>
 Else if the damper position <code>uDam</code> is greater than 95%, send 1 request
 (<code>yZonPreResReq=1</code>) until <code>uDam</code> is less than 85%.
 </li>
 <li>
-Else if <code>uDam</code> is less than 95%, send 0 request (<code>yZonPreResReq=0</code>).
+Else if the damper position <code>uDam</code> is less than 95%, send 0 request
+(<code>yZonPreResReq=0</code>).
 </li>
 </ol>
 </html>", revisions="<html>
