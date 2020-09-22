@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.Reheat;
-package Subsequences "Package of subsequences for cooling only box control"
+package Subsequences "Package of subsequences for terminal unit with reheat"
 
 annotation (preferredView="info", Documentation(info="<html>
 <p>
