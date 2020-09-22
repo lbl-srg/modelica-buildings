@@ -50,16 +50,17 @@ block Down
     final unit="s",
     displayUnit="s",
     final quantity="time") = 300
-    "Minimum time period threshold for uninterrupted proven on signal from boiler
-    during a staging process where one boiler is turned on and another is turned off"
+    "Minimum time period threshold for uninterrupted proven on signal from newly
+    enabled boiler during a staging process where one boiler is turned on and
+    another is turned off"
     annotation (Dialog(group="Time and delay parameters"));
 
   parameter Real delBoiEna(
     final unit="s",
     displayUnit="s",
     final quantity="time") = 180
-    "Time delay after boiler change process has been completed before turning off
-    excess valves and pumps"
+    "Time delay after boiler status change process has been completed before turning
+    off excess isolation valves and pumps"
     annotation (Dialog(group="Time and delay parameters"));
 
   parameter Real relFloDif(
@@ -71,28 +72,28 @@ block Down
         enable=primaryOnly));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uStaDowPro
-    "Pulse indicating start of stage up process"
+    "Rising edge indicating start of stage up process"
     annotation (Placement(
         transformation(extent={{-280,-20},{-240,20}}), iconTransformation(
           extent={{-140,-80},{-100,-40}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uBoi[nBoi]
-    "Boiler status: true=ON"
+    "Boiler proven on status vector"
     annotation (Placement(transformation(extent={{-280,60},{-240,100}}),
       iconTransformation(extent={{-140,0},{-100,40}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uPumChaPro if not primaryOnly
-    "Pulse indicating all pump change processes have been completed and pumps have been proved on"
+    "Rising edge indicating all pump change processes have been completed and pumps have been proved on"
     annotation (Placement(transformation(extent={{-280,-210},{-240,-170}}),
       iconTransformation(extent={{-140,-200},{-100,-160}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uBoiSet[nBoi]
-    "Boiler status setpoint: true=ON"
+    "Boiler status setpoint vector from staging setpoint controller"
     annotation (Placement(transformation(extent={{-280,20},{-240,60}}),
       iconTransformation(extent={{-140,-40},{-100,0}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uStaSet
-    "Boiler stage setpoint index"
+    "Boiler stage setpoint index from staging setpoint controller"
     annotation (Placement(transformation(extent={{-280,-100},{-240,-60}}),
       iconTransformation(extent={{-140,-160},{-100,-120}})));
 
@@ -118,23 +119,24 @@ block Down
     final min=fill(0, nBoi),
     final max=fill(1, nBoi),
     final unit=fill("1", nBoi)) if isHeadered
-    "Hot water isolation valve position"
+    "Boiler hot water isolation valve position vector, indexed according to their
+    respective boilers"
     annotation (Placement(transformation(extent={{-280,100},{-240,140}}),
       iconTransformation(extent={{-140,40},{-100,80}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yBoi[nBoi]
-    "Boiler enabling status"
+    "Boiler enable status vector"
     annotation (Placement(transformation(extent={{280,90},{320,130}}),
       iconTransformation(extent={{100,160},{140,200}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yStaChaPro
-    "Pulse indicating end of stage change process"
+    "Rising edge indicating end of stage change process"
     annotation (Placement(transformation(extent={{280,30},{320,70}}),
       iconTransformation(extent={{100,90},{140,130}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yPumChaPro if not
     primaryOnly
-    "Pulse indicating start of pump change process"
+    "Rising edge indicating start of pump change process"
     annotation (Placement(transformation(extent={{280,-260},{320,-220}}),
       iconTransformation(extent={{100,-190},{140,-150}})));
 
@@ -153,7 +155,8 @@ block Down
     final min=fill(0, nBoi),
     final max=fill(1, nBoi),
     final unit=fill("1", nBoi)) if isHeadered
-    "Boiler hot water isolation valve position"
+    "Boiler hot water isolation valve position vector, indexed according to their
+    respective boilers"
     annotation (Placement(transformation(extent={{280,-90},{320,-50}}),
       iconTransformation(extent={{100,20},{140,60}})));
 
@@ -178,13 +181,13 @@ protected
     annotation (Placement(transformation(extent={{-70,-10},{-50,10}})));
 
   Buildings.Controls.OBC.CDL.Logical.And and1
-    "Check for completion of valve opening process and pump change process"
+    "Check for completion of valve opening process and pump stage change process"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.Processes.Subsequences.DisableBoiler disBoi(
     final nBoi=nBoi,
     final proOnTim=boiChaProOnTim)
-    "Change boiler status as per stage change required"
+    "Diable boiler status in boiler status vector as per required stage change"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.Processes.Subsequences.HWIsoVal disHotWatIsoVal1(
@@ -488,8 +491,9 @@ equation
   connect(nexBoi.yOnOff, minBypRes.chaPro) annotation (Line(points={{-148,-66},{
           -140,-66},{-140,0},{-184,0},{-184,24},{-172,24}}, color={255,0,255}));
 
-  connect(lat.y, disHotWatIsoVal1.chaPro) annotation (Line(points={{-200,0},{-196,
-          0},{-196,-20},{44,-20},{44,-16},{146,-16},{146,-8},{148,-8}}, color={255,
+  connect(lat.y, disHotWatIsoVal1.chaPro) annotation (Line(points={{-200,0},{
+          -196,0},{-196,-20},{44,-20},{44,-18},{146,-18},{146,-8},{148,-8}},
+                                                                        color={255,
           0,255}));
 
   connect(lat.y, mulOr.u[1]) annotation (Line(points={{-200,0},{-196,0},{-196,60},
@@ -572,8 +576,8 @@ Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.Processes.Subseq
 Start the next hot water pump and/or open the hot water isolation valves using the
 block <code>enaHotWatIsoVal</code> using sequence implemented in <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.Processes.Subsequences.HWIsoVal\">
 Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.Processes.Subsequences.HWIsoVal</a>
-for the valves and initiating the pump change process with the pulse signal <code>yPumChaPro</code>. 
-Once the pumps have been reset, the controller receives a pulse signal on the
+for the valves and initiating the pump change process with the rising edge signal <code>yPumChaPro</code>. 
+Once the pumps have been reset, the controller receives a rising edge signal on the
 input <code>uPumChaPro</code>.
 </li>
 <li>
@@ -588,11 +592,12 @@ If the stage down process does not involve turning on a smaller boiler, start th
 staging down process immediately by changing <code>yBoi</code> using <code>disBoi</code>.
 <li>
 Wait for time <code>delBoiEna</code> before closing the isolation valve for the
-disabled boiler using <code>disHotWatIsoVal1</code> and initiating the pump change process.
+disabled boiler using <code>disHotWatIsoVal1</code> and initiating the pump stage
+change process.
 </li>
 <li>
 End the staging process after the valve has been closed and the pump change process
-completion signal has been received. Send pulse signal through <code>yStaChaPro</code>
+completion signal has been received. Send rising edge signal through <code>yStaChaPro</code>
 to indicate the same.
 </li>
 </ol>

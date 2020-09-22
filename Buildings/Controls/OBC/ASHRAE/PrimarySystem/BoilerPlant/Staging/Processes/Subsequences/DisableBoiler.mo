@@ -17,37 +17,41 @@ block DisableBoiler
       iconTransformation(extent={{-140,40},{-100,80}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uUpsDevSta
-    "Status of upstream device: true=upstream device is proven functional"
+    "Status of upstream device: true=upstream device has completed stage change
+    process"
     annotation (Placement(transformation(extent={{-240,90},{-200,130}}),
         iconTransformation(extent={{-140,0},{-100,40}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uBoi[nBoi]
-    "Boiler status: true=ON"
+    "Boiler proven on status vector"
      annotation (Placement(transformation(extent={{-240,40},{-200,80}}),
        iconTransformation(extent={{-140,-40},{-100,0}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uOnOff
-    "Indicate if the stage require one boiler to be enabled while another is disabled"
+    "Signal indicating if the stage change process requires one boiler to be
+    enabled while another is disabled"
     annotation (Placement(transformation(extent={{-240,-140},{-200,-100}}),
       iconTransformation(extent={{-140,-110},{-100,-70}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput nexDisBoi
-    "Next disabling boiler when there is any stage down that requires one boiler on and another off"
+    "Next disabling boiler index"
     annotation (Placement(transformation(extent={{-240,-100},{-200,-60}}),
       iconTransformation(extent={{-140,-70},{-100,-30}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput nexEnaBoi
-    "Index of next enabling boiler"
+    "Index of next enabling boiler  when there is any stage down that requires one boiler
+    on and another off"
     annotation (Placement(transformation(extent={{-240,180},{-200,220}}),
       iconTransformation(extent={{-140,70},{-100,110}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yBoi[nBoi]
-    "Boiler enabling status"
+    "Boiler enabling status vector"
     annotation (Placement(transformation(extent={{200,-140},{240,-100}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yBoiDisPro
-    "Signal indicating completion of boiler disable process"
+    "Signal indicating completion of boiler disable process; True: Disable process
+    has been completed for the stage change process"
     annotation (Placement(transformation(extent={{200,-70},{240,-30}}),
       iconTransformation(extent={{100,-100},{140,-60}})));
 
@@ -126,7 +130,7 @@ protected
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
 
   Buildings.Controls.OBC.CDL.Logical.Edge edg
-    "Rising edge, output true at the moment when input turns from false to true"
+    "Rising edge detector"
     annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
 
   Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep2(
