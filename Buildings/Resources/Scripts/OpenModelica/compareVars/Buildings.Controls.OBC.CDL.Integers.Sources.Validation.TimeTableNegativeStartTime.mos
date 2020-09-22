@@ -1,0 +1,10 @@
+compareVars :=
+  {
+    "intTimTab.y[1]",
+    "intTimTab.y[2]",
+    "intTimTab.offset[1]",
+    "intTimTab.offset[2]",
+    "intTimTabPer.y[1]",
+    "intTimTabPer.y[2]",
+    "intTimTabPer.offset[1]"
+  };
