@@ -78,19 +78,15 @@
 <li class="toctree-l2"><a class="reference internal" href="bestPractice.html#building-large-system-models">2.2. Building large system models</a></li>
 <li class="toctree-l2"><a class="reference internal" href="bestPractice.html#propagating-parameters-and-media-packages">2.3. Propagating parameters and media packages</a></li>
 <li class="toctree-l2"><a class="reference internal" href="bestPractice.html#thermo-fluid-systems">2.4. Thermo-fluid systems</a></li>
-<li class="toctree-l2"><a class="reference internal" href="bestPractice.html#start-values-of-iteration-variables">2.5. Start values of iteration variables</a></li>
-<li class="toctree-l2"><a class="reference internal" href="bestPractice.html#avoiding-events">2.6. Avoiding events</a></li>
-<li class="toctree-l2"><a class="reference internal" href="bestPractice.html#controls">2.7. Controls</a></li>
-<li class="toctree-l2"><a class="reference internal" href="bestPractice.html#examples-for-how-to-debug-and-correct-slow-simulations">2.8. Examples for how to debug and correct slow simulations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="bestPractice.html#numerical-solvers">2.9. Numerical solvers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bestPractice.html#controls">2.5. Controls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bestPractice.html#start-values-of-iteration-variables">2.6. Start values of iteration variables</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="workArounds.html">3. Work-Arounds</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="workArounds.html#avoiding-step-changes">3.1. Avoiding step changes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="workArounds.html#breaking-algebraic-loops">3.2. Breaking algebraic loops</a></li>
-<li class="toctree-l2"><a class="reference internal" href="workArounds.html#reducing-nonlinear-equations-of-serially-connected-flow-resistances">3.3. Reducing nonlinear equations of serially connected flow resistances</a></li>
-<li class="toctree-l2"><a class="reference internal" href="workArounds.html#prescribed-mass-flow-rate">3.4. Prescribed mass flow rate</a></li>
-<li class="toctree-l2"><a class="reference internal" href="workArounds.html#avoiding-overspecified-initialization-problems">3.5. Avoiding overspecified initialization problems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performance.html">3. Simulation Performance</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="performance.html#control-input-signal-of-equipment">3.1. Control input signal of equipment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="performance.html#fluid-flow-systems">3.2. Fluid flow systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="performance.html#examples-for-how-to-debug-and-correct-slow-simulations">3.3. Examples for how to debug and correct slow simulations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="performance.html#numerical-solvers">3.4. Numerical solvers</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="prePostProcessing.html">4. Pre- and Post-Processing</a></li>
@@ -214,13 +210,13 @@ which can be found in the <a class="reference external" href="https://simulation
 </div>
 <div class="section" id="literature-for-developers">
 <h2>1.4. Literature for Developers<a class="headerlink" href="#literature-for-developers" title="Permalink to this headline">¶</a></h2>
-<p>See the <a class="reference external" href="Development">developer guide</a> of the <cite>Buildings</cite> library for conventions and guidelines.</p>
 <p>It is essential that users who develop new thermo-fluid models to understand the concept of stream connectors.
 Stream connectors are explained in the Modelica language definition, available at <a class="reference external" href="https://www.modelica.org/documents">https://www.modelica.org/documents</a>,
 and in the paper Franke et al. <a class="reference internal" href="#fra2009a" id="id4"><span>[Fra2009a]</span></a>.
 The <cite>Buildings</cite> library uses similar modeling principles, and the same base classes, as the <cite>Modelica.Fluid</cite> library.
 Hence, we also recommend reading the paper about the standardization of thermo-fluid models in Modelica.Fluid <a class="reference internal" href="#fra2009b" id="id5"><span>[Fra2009b]</span></a>.</p>
 <p>The <a class="reference external" href="https://webref.modelica.university">Modelica Web Reference</a> gives a concise overview, explanation and further links about the Modelica language.</p>
+<p>See <a class="reference internal" href="development.html#sec-sty-gui"><span class="std std-numref">Section 5.3</span></a> for conventions and guidelines of the <cite>Buildings</cite> library.</p>
 </div>
 <div class="section" id="references">
 <h2>1.5. References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>

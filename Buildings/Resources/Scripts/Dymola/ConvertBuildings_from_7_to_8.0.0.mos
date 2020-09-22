@@ -4,6 +4,7 @@
 clear
 
 convertClear();
+
 // Conversion for https://github.com/lbl-srg/modelica-buildings/issues/2076
 convertClass("Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold",
              "Buildings.Obsolete.Controls.OBC.CDL.Continuous.GreaterEqualThreshold");
@@ -35,6 +36,12 @@ convertElement(
 convertElement(
     "Buildings.Controls.OBC.CDL.Integers.LessThreshold",
     "threshold", "t");
+
+// Conversion for https://github.com/lbl-srg/modelica-buildings/issues/2124
+convertClass("Buildings.Controls.OBC.CDL.Continuous.Validation.NumberOfRequests",
+             "Buildings.Obsolete.Controls.OBC.CDL.Continuous.Validation.NumberOfRequests");
+convertClass("Buildings.Controls.OBC.CDL.Continuous.NumberOfRequests",
+             "Buildings.Obsolete.Controls.OBC.CDL.Continuous.NumberOfRequests");
 
 // Conversion for https://github.com/ibpsa/modelica-ibpsa/issues/1365
 convertModifiers("Buildings.Controls.Continuous.LimPID", {"reverseAction"}, {"reverseActing=not %reverseAction%"});

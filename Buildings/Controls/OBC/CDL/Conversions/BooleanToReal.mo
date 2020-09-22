@@ -40,21 +40,7 @@ Modelica Standard Library.
 </ul>
 </html>"),
          Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
-            {100,100}}), graphics={
-        Text(
-          extent={{-86,92},{-6,10}},
-          lineColor={255,0,255},
-          textString="B"),
-        Polygon(
-          points={{-12,-46},{-32,-26},{-32,-36},{-64,-36},{-64,-56},{-32,-56},
-              {-32,-66},{-12,-46}},
-          lineColor={255,170,85},
-          fillColor={255,170,85},
-          fillPattern=FillPattern.Solid),
-        Text(
-          extent={{8,-4},{92,-94}},
-          lineColor={255,170,85},
-          textString="I"),               Rectangle(
+            {100,100}}), graphics={      Rectangle(
           extent={{-100,100},{100,-100}},
           fillColor={210,210,210},
           lineThickness=5.0,
@@ -69,5 +55,26 @@ Modelica Standard Library.
           fillPattern=FillPattern.Solid),      Text(
           extent={{-150,150},{150,110}},
           textString="%name",
-          lineColor={0,0,255})}));
+          lineColor={0,0,255}),
+    Text(
+      extent={{-68,-86},{70,-38}},
+      lineColor={0,0,0},
+          textString="%realFalse"),
+    Text(
+      extent={{-68,-26},{70,22}},
+      lineColor={0,0,0},
+          textString="%realTrue"),
+        Text(
+          extent={{-86,78},{-34,26}},
+          lineColor={255,0,255},
+          textString="B"),
+        Polygon(
+          points={{26,48},{6,68},{6,58},{-26,58},{-26,38},{6,38},{6,28},{26,48}},
+          lineColor={0,0,127},
+          fillColor={0,0,127},
+          fillPattern=FillPattern.Solid),
+        Text(
+          extent={{34,82},{86,24}},
+          lineColor={0,0,127},
+          textString="R")}));
 end BooleanToReal;
