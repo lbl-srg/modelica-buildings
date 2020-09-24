@@ -41,7 +41,7 @@ package NightFlush "Night flush blocks"
     Controls.OBC.CDL.Continuous.Hysteresis hysNitFlu(uLow=0, uHigh=5)
       "If time is greater than night flush start time (time minus start time > 0), night flush mode is on"
       annotation (Placement(transformation(extent={{122,100},{142,120}})));
-    Controls.OBC.CDL.Logical.Timer tim(accumulate=false) "Time since midnight"
+    Controls.OBC.CDL.Logical.Timer tim                   "Time since midnight"
       annotation (Placement(transformation(extent={{0,80},{20,100}})));
     Controls.OBC.CDL.Continuous.Add add2(k1=-1, k2=1)
       "Timer minus night flush stop time- if timer > night flush stop time, night flush stops"
@@ -169,11 +169,15 @@ If night flush is not on, the setpoint passes through the block unchanged and th
             lineColor={28,108,200},
             fillColor={162,29,33},
             fillPattern=FillPattern.Solid,
-            textString="NEW"),
+            textString="dyn"),
           Rectangle(
             extent={{-10,42},{94,-32}},
             lineColor={28,108,200},
-            lineThickness=1)}),               Diagram(coordinateSystem(
+            lineThickness=1),
+          Text(
+            lineColor={0,0,255},
+            extent={{-144,100},{156,140}},
+            textString="%name")}),            Diagram(coordinateSystem(
             preserveAspectRatio=false, extent={{-100,-260},{340,200}}),
           graphics={Rectangle(
             extent={{-100,200},{338,52}},
@@ -237,7 +241,7 @@ triggers night flush sequence)")}));
     Controls.OBC.CDL.Continuous.AddParameter addPar(p=h*3600, k=-1)
       "Subtracts night flush duration from hour at which night flush stops to get hour at which night flush starts"
       annotation (Placement(transformation(extent={{40,100},{60,120}})));
-    Controls.OBC.CDL.Logical.Timer tim(accumulate=false) "Time since midnight"
+    Controls.OBC.CDL.Logical.Timer tim                   "Time since midnight"
       annotation (Placement(transformation(extent={{40,60},{60,80}})));
     Controls.OBC.CDL.Continuous.Add add2(k1=-1, k2=1)
       "Time since midnight minus hour at which night flush starts"
@@ -326,42 +330,16 @@ If night flush is not on, the setpoint passes through the block unchanged and th
             pattern=LinePattern.None,
             lineColor={0,0,0},
             fillColor={255,255,255},
-            fillPattern=FillPattern.Solid)}), Diagram(coordinateSystem(
+            fillPattern=FillPattern.Solid),
+          Text(
+            lineColor={0,0,255},
+            extent={{-148,102},{152,142}},
+            textString="%name")}),            Diagram(coordinateSystem(
             preserveAspectRatio=false, extent={{-100,-160},{340,200}})));
   end NightFlushFixedDuration;
 
   package Validation "Validation model for night flush strategies"
-    model NitFluFixSto "Night flush validation model"
-      Modelica.Blocks.Sources.Ramp ramp(
-        height=30,
-        duration=864000,
-        offset=290)
-        annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
-      Modelica.Blocks.Sources.Constant const(k=280)
-        annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
-      NightFlushFixedDuration nightFlushFixedStop
-        annotation (Placement(transformation(extent={{0,0},{20,20}})));
-    equation
-      connect(const.y, nightFlushFixedStop.uRooSet) annotation (Line(points={{-39,70},
-              {-20,70},{-20,12.2},{-2,12.2}}, color={0,0,127}));
-      connect(ramp.y, nightFlushFixedStop.uForHi) annotation (Line(points={{-39,-10},
-              {-22,-10},{-22,7.2},{-2.2,7.2}}, color={0,0,127}));
-      annotation (experiment(Tolerance=1e-6, StartTime=0, StopTime=864000),__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/NatVentControl/NightFlush/Validation/NitFluFixSto.mos"
-            "Simulate and plot"),Icon(coordinateSystem(preserveAspectRatio=false), graphics={
-            Ellipse(
-              lineColor={75,138,73},
-              fillColor={255,255,255},
-              fillPattern=FillPattern.Solid,
-              extent={{-100,-100},{100,100}}),
-            Polygon(lineColor = {0,0,255},
-                    fillColor = {75,138,73},
-                    pattern = LinePattern.None,
-                    fillPattern = FillPattern.Solid,
-                    points={{-34,64},{66,4},{-34,-56},{-34,64}})}), Diagram(
-            coordinateSystem(preserveAspectRatio=false)));
-    end NitFluFixSto;
-
-    model NitFluDynDur "Night flush validation model"
+    model NightFlushDynamic "Night flush validation model"
       Modelica.Blocks.Sources.Ramp ramp1(
         height=30,
         duration=864000,
@@ -369,14 +347,14 @@ If night flush is not on, the setpoint passes through the block unchanged and th
         annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
       Modelica.Blocks.Sources.Constant const1(k=280)
         annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
-      NightFlushDynamicDuration nightFlushDynamicDuration
+      NightFlushDynamicDuration nitFluDyn
         annotation (Placement(transformation(extent={{0,0},{20,20}})));
     equation
-      connect(const1.y, nightFlushDynamicDuration.uRooSet) annotation (Line(
-            points={{-39,70},{-20,70},{-20,12.2},{-2,12.2}}, color={0,0,127}));
-      connect(ramp1.y, nightFlushDynamicDuration.uForHi) annotation (Line(
-            points={{-39,-10},{-20,-10},{-20,7.2},{-2.2,7.2}}, color={0,0,127}));
-      annotation (experiment(Tolerance=1e-6, StartTime=0, StopTime=864000),__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/NatVentControl/NightFlush/Validation/NitFluDynDur.mos"
+      connect(const1.y, nitFluDyn.uRooSet) annotation (Line(points={{-39,70},{-20,
+              70},{-20,12.2},{-2,12.2}}, color={0,0,127}));
+      connect(ramp1.y, nitFluDyn.uForHi) annotation (Line(points={{-39,-10},{-20,
+              -10},{-20,7.2},{-2.2,7.2}}, color={0,0,127}));
+      annotation (experiment(Tolerance=1e-6, StartTime=0, StopTime=864000),__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/NatVentControl/NightFlush/Validation/NightFlushDynamic.mos"
             "Simulate and plot"),Icon(coordinateSystem(preserveAspectRatio=false), graphics={
             Ellipse(
               lineColor={75,138,73},
@@ -389,6 +367,37 @@ If night flush is not on, the setpoint passes through the block unchanged and th
                     fillPattern = FillPattern.Solid,
                     points={{-34,64},{66,4},{-34,-56},{-34,64}})}), Diagram(
             coordinateSystem(preserveAspectRatio=false)));
-    end NitFluDynDur;
+    end NightFlushDynamic;
+
+    model NightFlushFixed "Night flush validation model"
+      Modelica.Blocks.Sources.Ramp ramp(
+        height=30,
+        duration=864000,
+        offset=290)
+        annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
+      Modelica.Blocks.Sources.Constant const(k=280)
+        annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
+      NightFlushFixedDuration nitFluFix
+        annotation (Placement(transformation(extent={{0,0},{20,20}})));
+    equation
+      connect(const.y, nitFluFix.uRooSet) annotation (Line(points={{-39,70},{-20,
+              70},{-20,12.2},{-2,12.2}}, color={0,0,127}));
+      connect(ramp.y, nitFluFix.uForHi) annotation (Line(points={{-39,-10},{-22,
+              -10},{-22,7.2},{-2.2,7.2}}, color={0,0,127}));
+      annotation (experiment(Tolerance=1e-6, StartTime=0, StopTime=864000),__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/NatVentControl/NightFlush/Validation/NightFlushFixed.mos"
+            "Simulate and plot"),Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+            Ellipse(
+              lineColor={75,138,73},
+              fillColor={255,255,255},
+              fillPattern=FillPattern.Solid,
+              extent={{-100,-100},{100,100}}),
+            Polygon(lineColor = {0,0,255},
+                    fillColor = {75,138,73},
+                    pattern = LinePattern.None,
+                    fillPattern = FillPattern.Solid,
+                    points={{-34,64},{66,4},{-34,-56},{-34,64}})}), Diagram(
+            coordinateSystem(preserveAspectRatio=false)));
+    end NightFlushFixed;
+
   end Validation;
 end NightFlush;

@@ -34,7 +34,7 @@ Temperature setpoint is selected from a lookup table.
 </p>
 </html>"),Icon(coordinateSystem(
         preserveAspectRatio=true,
-        extent={{-120,-100},{100,100}}), graphics={
+        extent={{-100,-100},{100,100}}), graphics={
         Text(
           lineColor={0,0,255},
           extent={{-150,110},{150,150}},
@@ -56,10 +56,6 @@ Temperature setpoint is selected from a lookup table.
           fillColor={192,192,192},
           fillPattern=FillPattern.Solid),
         Line(points={{-80,-70},{-40,-70},{31,38}}),
-        Text(
-          extent={{-150,-150},{150,-110}},
-          lineColor={0,0,0},
-          textString="duration=%duration"),
         Line(points={{31,38},{86,38}}),
         Text(
         extent={{-90,60},{90,-60}},

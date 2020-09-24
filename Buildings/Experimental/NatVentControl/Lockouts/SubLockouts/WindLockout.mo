@@ -61,5 +61,10 @@ equation
         Text(
           extent={{-22,40},{28,-56}},
           lineColor={28,108,200},
-          textString="W")}), Diagram(coordinateSystem(preserveAspectRatio=false)));
+          textString="W"),
+        Text(
+          lineColor={0,0,255},
+          extent={{-154,104},{146,144}},
+          textString="%name")}),
+                             Diagram(coordinateSystem(preserveAspectRatio=false)));
 end WindLockout;

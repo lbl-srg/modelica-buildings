@@ -14,7 +14,7 @@ equation
     annotation (Line(points={{14,0},{120,0}}, color={255,0,255}));
   connect(nitFluSig, not1.u)
     annotation (Line(points={{-122,0},{-10,0}}, color={255,0,255}));
-  annotation (defaultComponentName = "NitFluLoc",Documentation(info="<html>
+  annotation (defaultComponentName = "nitFluLoc",Documentation(info="<html>
 <p>
 If night flush mode is on, heating is locked out. 
 The purpose of this lockout is to allow the slab to be pre-cooled below its setpoint without the building's heating system turning on.

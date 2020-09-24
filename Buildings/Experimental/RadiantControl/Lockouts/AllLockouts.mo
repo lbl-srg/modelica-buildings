@@ -49,43 +49,43 @@ block AllLockouts "Composite block of all lockouts: room air temperature, chille
   Controls.OBC.CDL.Interfaces.BooleanOutput clgSigL
     "True if cooling allowed, false if cooling locked out"
     annotation (Placement(transformation(extent={{100,-70},{140,-30}})));
-  SubLockouts.HysteresisLimit hysteresisLimit1(TiHea=TiHea, TiCoo=TiCoo)
+  SubLockouts.HysteresisLimit hysLim(TiHea=TiHea, TiCoo=TiCoo)
     annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
-  SubLockouts.AirTemperatureLimit airTemperatureLimit(TAirHiSet=TAirHiSet,
-      TAirLoSet=TAirLoSet)
+  SubLockouts.AirTemperatureLimit airTemLim(TAirHiSet=TAirHiSet, TAirLoSet=
+        TAirLoSet)
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
-  SubLockouts.NightFlush nightFlush
+  SubLockouts.NightFlush nitFluLoc
     annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
-  SubLockouts.CHWReturnLimit cHWReturnLimit(TWaLoSet=TWaLoSet, TiCHW=TiCHW)
+  SubLockouts.ChilledWaterReturnLimit cHWRetLim(TWaLoSet=TWaLoSet, TiCHW=TiCHW)
     annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
 equation
   connect(andHea.y, htgSigL)
     annotation (Line(points={{82,30},{120,30}}, color={255,0,255}));
   connect(andCoo.y, clgSigL)
     annotation (Line(points={{82,-50},{120,-50}}, color={255,0,255}));
-  connect(htgSig, hysteresisLimit1.heaSig) annotation (Line(points={{-120,50},{
-          -80,50},{-80,-5.8},{-42.2,-5.8}}, color={255,0,255}));
-  connect(clgSig, hysteresisLimit1.cooSig) annotation (Line(points={{-120,10},{
-          -84,10},{-84,-18},{-42,-18}}, color={255,0,255}));
-  connect(hysteresisLimit1.htgSigHys, andHea.u3) annotation (Line(points={{-18,
-          -8},{20,-8},{20,22},{58,22}}, color={255,0,255}));
-  connect(hysteresisLimit1.clgSigHys, andCoo.u2) annotation (Line(points={{-18,
-          -18},{20,-18},{20,-50},{58,-50}}, color={255,0,255}));
-  connect(TRooAir, airTemperatureLimit.TRoo) annotation (Line(points={{-120,-30},
-          {-73,-30},{-73,37.2},{-42,37.2}}, color={0,0,127}));
-  connect(airTemperatureLimit.htgSigAirTem, andHea.u2) annotation (Line(points=
-          {{-18,33},{20,33},{20,30},{58,30}}, color={255,0,255}));
-  connect(airTemperatureLimit.clgSigAirTem, andCoo.u1) annotation (Line(points=
-          {{-18,25},{30,25},{30,-42},{58,-42}}, color={255,0,255}));
-  connect(nitFluSig, nightFlush.nitFluSig) annotation (Line(points={{-120,90},{
-          -82,90},{-82,70},{-42.2,70}}, color={255,0,255}));
-  connect(nightFlush.htgSigNitFlu, andHea.u1) annotation (Line(points={{-18,70},
+  connect(htgSig, hysLim.heaSig) annotation (Line(points={{-120,50},{-80,50},{-80,
+          -5.8},{-42.2,-5.8}}, color={255,0,255}));
+  connect(clgSig, hysLim.cooSig) annotation (Line(points={{-120,10},{-84,10},{-84,
+          -18},{-42,-18}}, color={255,0,255}));
+  connect(hysLim.htgSigHys, andHea.u3) annotation (Line(points={{-18,-8},{20,-8},
+          {20,22},{58,22}}, color={255,0,255}));
+  connect(hysLim.clgSigHys, andCoo.u2) annotation (Line(points={{-18,-18},{20,-18},
+          {20,-50},{58,-50}}, color={255,0,255}));
+  connect(TRooAir, airTemLim.TRoo) annotation (Line(points={{-120,-30},{-73,-30},
+          {-73,37.2},{-42,37.2}}, color={0,0,127}));
+  connect(airTemLim.htgSigAirTem, andHea.u2) annotation (Line(points={{-18,33},
+          {20,33},{20,30},{58,30}}, color={255,0,255}));
+  connect(airTemLim.clgSigAirTem, andCoo.u1) annotation (Line(points={{-18,25},
+          {30,25},{30,-42},{58,-42}}, color={255,0,255}));
+  connect(nitFluSig, nitFluLoc.nitFluSig) annotation (Line(points={{-120,90},{-82,
+          90},{-82,70},{-42.2,70}}, color={255,0,255}));
+  connect(nitFluLoc.htgSigNitFlu, andHea.u1) annotation (Line(points={{-18,70},
           {20,70},{20,38},{58,38}}, color={255,0,255}));
-  connect(TWater, cHWReturnLimit.TWater) annotation (Line(points={{-120,-70},{-80,
-          -70},{-80,-68},{-42,-68}}, color={0,0,127}));
-  connect(cHWReturnLimit.cooSigCHWRet, andCoo.u3) annotation (Line(points={{-18,
-          -69},{20,-69},{20,-58},{58,-58}}, color={255,0,255}));
-  annotation (defaultComponentName = "AllLockouts",Documentation(info="<html>
+  connect(TWater, cHWRetLim.TWa) annotation (Line(points={{-120,-70},{-80,-70},
+          {-80,-68},{-42,-68}}, color={0,0,127}));
+  connect(cHWRetLim.cooSigCHWRet, andCoo.u3) annotation (Line(points={{-18,-69},
+          {20,-69},{20,-58},{58,-58}}, color={255,0,255}));
+  annotation (defaultComponentName = "allLoc",Documentation(info="<html>
 <p>
 This block encompasses all lockouts.
 <p> 

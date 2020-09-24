@@ -139,14 +139,19 @@ package Lighting "\"Lighting control package\""
             fillColor={217,67,180},
             fillPattern=FillPattern.None,
             origin={-50,0},
-            rotation=90)}), Diagram(coordinateSystem(preserveAspectRatio=false,
+            rotation=90),
+          Text(
+            lineColor={0,0,255},
+            extent={{-140,98},{160,138}},
+            textString="%name")}),
+                            Diagram(coordinateSystem(preserveAspectRatio=false,
             extent={{-100,-100},{180,100}})));
   end DaylightControlContinuous;
 
   package Validation "Validation package for lighting model"
-    model DayConCon "Validation model for daylighting control"
-      DaylightControlContinuous daylightControlContinuous(MaxFC=100)
-        annotation (Placement(transformation(extent={{-18,-2},{40,60}})));
+    model DaylightControl "Validation model for daylighting control"
+      DaylightControlContinuous dayConCon(MaxFC=100)
+        annotation (Placement(transformation(extent={{-18,0},{40,62}})));
       Modelica.Blocks.Sources.BooleanConstant booleanConstant
         annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
       Modelica.Blocks.Sources.Constant const(k=100)
@@ -154,13 +159,13 @@ package Lighting "\"Lighting control package\""
       Modelica.Blocks.Sources.Ramp ramp(height=50, duration=7200)
         annotation (Placement(transformation(extent={{-80,-22},{-60,-2}})));
     equation
-      connect(booleanConstant.y, daylightControlContinuous.uFixAva) annotation (
-          Line(points={{-59,70},{-32,70},{-32,50.7},{-23.8,50.7}}, color={255,0,255}));
-      connect(ramp.y, daylightControlContinuous.uDayLev) annotation (Line(points={{-59,
-              -12},{-48,-12},{-48,38.3},{-24.38,38.3}}, color={0,0,127}));
-      connect(const.y,daylightControlContinuous.uLigSet)  annotation (Line(points={{
-              -61,32},{-42,32},{-42,25.9},{-24.38,25.9}}, color={0,0,127}));
-      annotation (experiment(Tolerance=1e-6, StartTime=0, StopTime=14400),__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/Lighting/Validation/DayConCon.mos"
+      connect(booleanConstant.y, dayConCon.uFixAva) annotation (
+          Line(points={{-59,70},{-32,70},{-32,52.7},{-23.8,52.7}}, color={255,0,255}));
+      connect(ramp.y, dayConCon.uDayLev) annotation (Line(points={{-59,-12},
+              {-48,-12},{-48,40.3},{-24.38,40.3}},      color={0,0,127}));
+      connect(const.y,dayConCon.uLigSet)  annotation (Line(points={{-61,32},
+              {-42,32},{-42,27.9},{-24.38,27.9}},         color={0,0,127}));
+      annotation (experiment(Tolerance=1e-6, StartTime=0, StopTime=14400),__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/Lighting/Validation/DaylightControl.mos"
             "Simulate and plot"),Icon(coordinateSystem(preserveAspectRatio=false), graphics={
             Ellipse(
               lineColor={75,138,73},
@@ -173,7 +178,7 @@ package Lighting "\"Lighting control package\""
                     fillPattern = FillPattern.Solid,
                     points={{-36,64},{64,4},{-36,-56},{-36,64}})}), Diagram(
             coordinateSystem(preserveAspectRatio=false)));
-    end DayConCon;
+    end DaylightControl;
   end Validation;
   annotation (Icon(graphics={
         Rectangle(

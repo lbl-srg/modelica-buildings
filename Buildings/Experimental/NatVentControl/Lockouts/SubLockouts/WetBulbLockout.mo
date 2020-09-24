@@ -85,5 +85,10 @@ equation
         Text(
           extent={{-40,32},{44,-42}},
           lineColor={28,108,200},
-          textString="B")}), Diagram(coordinateSystem(preserveAspectRatio=false)));
+          textString="B"),
+        Text(
+          lineColor={0,0,255},
+          extent={{-146,104},{154,144}},
+          textString="%name")}),
+                             Diagram(coordinateSystem(preserveAspectRatio=false)));
 end WetBulbLockout;

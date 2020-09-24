@@ -16,17 +16,16 @@ block SlabTempAlarm "Trigger alarm if slab temperature is a user-specified amoun
   Controls.OBC.CDL.Logical.Not           not7
     "Zero out integral if error is below threshhold"
     annotation (Placement(transformation(extent={{-20,-80},{0,-60}})));
-  Controls.OBC.CDL.Continuous.Sources.Constant           ConZero(k=0)
+  Controls.OBC.CDL.Continuous.Sources.Constant conZer(k=0)
     "Error integral- constant zero"
     annotation (Placement(transformation(extent={{-22,-42},{-2,-22}})));
-  Controls.OBC.CDL.Continuous.Sources.Constant           ConOne(k=1)
+  Controls.OBC.CDL.Continuous.Sources.Constant           conOne(k=1)
     "Error integral- constant one"
     annotation (Placement(transformation(extent={{-20,80},{0,100}})));
   Controls.OBC.CDL.Logical.Switch           swi
     "Switch integrated function from constant zero to constant one if error is above threshhold"
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
-  Controls.OBC.CDL.Continuous.IntegratorWithReset           intWitRes(reset=
-        Buildings.Controls.OBC.CDL.Types.Reset.Parameter)
+  Controls.OBC.CDL.Continuous.IntegratorWithReset           intWitRes
     "Find integral of how long error has been above threshold, reset to zero if error goes below 2 F threshhold"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
   Controls.OBC.CDL.Interfaces.RealInput slaTemErr annotation (Placement(
@@ -45,8 +44,8 @@ equation
                                    color={0,0,127}));
   connect(not7.y,intWitRes. trigger) annotation (Line(points={{2,-70},{30,-70},
           {30,18}},                       color={255,0,255}));
-  connect(ConZero.y,swi. u3) annotation (Line(points={{0,-32},{0,0},{-26,0},{
-          -26,22},{-22,22}},  color={0,0,127}));
+  connect(conZer.y, swi.u3) annotation (Line(points={{0,-32},{0,0},{-26,0},{-26,
+          22},{-22,22}}, color={0,0,127}));
   connect(slaTemErr, abs.u)
     annotation (Line(points={{-140,30},{-102,30}}, color={0,0,127}));
   connect(abs.y, hys.u)
@@ -57,10 +56,12 @@ equation
                     color={0,0,127}));
   connect(hys1.y, slaTemAla) annotation (Line(points={{82,30},{92,30},{92,30},{
           120,30}}, color={255,0,255}));
-  connect(ConOne.y, swi.u1) annotation (Line(points={{2,90},{6,90},{6,56},{-28,
+  connect(conOne.y, swi.u1) annotation (Line(points={{2,90},{6,90},{6,56},{-28,
           56},{-28,38},{-22,38}}, color={0,0,127}));
   connect(hys.y, not7.u) annotation (Line(points={{-38,30},{-34,30},{-34,-44},{
           -50,-44},{-50,-70},{-22,-70}}, color={255,0,255}));
+  connect(conZer.y, intWitRes.y_reset_in) annotation (Line(points={{0,-32},{8,
+          -32},{8,22},{18,22}}, color={0,0,127}));
   annotation (defaultComponentName = "slaTemAla",Documentation(info="<html>
 <p>
 This block is a slab temperature alarm, which will show true if the slab temperature

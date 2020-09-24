@@ -188,6 +188,11 @@ equation
         Text(
           extent={{-24,48},{26,-48}},
           lineColor={28,108,200},
-          textString="A")}), Diagram(coordinateSystem(preserveAspectRatio=false,
+          textString="A"),
+        Text(
+          lineColor={0,0,255},
+          extent={{-150,104},{150,144}},
+          textString="%name")}),
+                             Diagram(coordinateSystem(preserveAspectRatio=false,
           extent={{-120,-160},{100,160}})));
 end AllLockouts;

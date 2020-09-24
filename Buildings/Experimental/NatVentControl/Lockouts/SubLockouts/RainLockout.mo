@@ -54,5 +54,10 @@ equation
         Text(
           extent={{-22,42},{28,-54}},
           lineColor={28,108,200},
-          textString="R")}), Diagram(coordinateSystem(preserveAspectRatio=false)));
+          textString="R"),
+        Text(
+          lineColor={0,0,255},
+          extent={{-144,104},{156,144}},
+          textString="%name")}),
+                             Diagram(coordinateSystem(preserveAspectRatio=false)));
 end RainLockout;

@@ -45,10 +45,9 @@ block DryBulbLockout
   Controls.OBC.CDL.Logical.Switch           swi1
     "Switch integrated function from constant zero to constant one if conditions are favorable"
     annotation (Placement(transformation(extent={{-18,-100},{2,-80}})));
-  Controls.OBC.CDL.Continuous.IntegratorWithReset           intWitRes(reset=
-        Buildings.Controls.OBC.CDL.Types.Reset.Parameter)
+  Controls.OBC.CDL.Continuous.IntegratorWithReset           intWitRes
     "Find integral of how long temperature has been favorable, reset to zero if temperature becomes unfavorable"
-    annotation (Placement(transformation(extent={{42,-100},{62,-80}})));
+    annotation (Placement(transformation(extent={{40,-100},{60,-80}})));
   Controls.OBC.CDL.Continuous.Hysteresis hysFav(uLow=TiFav - 5,   uHigh=TiFav)
     "Allow natural ventilation if favorable air temps are sustained for specified time duration"
     annotation (Placement(transformation(extent={{82,-100},{102,-80}})));
@@ -70,10 +69,9 @@ block DryBulbLockout
   Controls.OBC.CDL.Logical.Switch           swi2
     "Switch integrated function from constant zero to constant one if conditions are unfavorable"
     annotation (Placement(transformation(extent={{-20,-224},{0,-204}})));
-  Controls.OBC.CDL.Continuous.IntegratorWithReset           intWitRes1(reset=
-        Buildings.Controls.OBC.CDL.Types.Reset.Parameter)
+  Controls.OBC.CDL.Continuous.IntegratorWithReset           intWitRes1
     "Find integral of how long error has been above threshold, reset to zero if error goes below 2 F threshhold"
-    annotation (Placement(transformation(extent={{38,-222},{58,-202}})));
+    annotation (Placement(transformation(extent={{40,-222},{60,-202}})));
   Controls.OBC.CDL.Continuous.Hysteresis hysNotFav(uLow=TiNotFav - 5,   uHigh=
         TiNotFav)
     "Tests if air temperatures have been unfavorable for more than specified time duration"
@@ -140,14 +138,14 @@ equation
   connect(TRooSet, add2.u1) annotation (Line(points={{-402,102},{-140,102},{
           -140,198},{-102,198}},
                      color={0,0,127}));
-  connect(not7.y,intWitRes. trigger) annotation (Line(points={{4,-152},{52,-152},
-          {52,-102}},           color={255,0,255}));
+  connect(not7.y,intWitRes. trigger) annotation (Line(points={{4,-152},{50,-152},
+          {50,-102}},           color={255,0,255}));
   connect(swi1.y, intWitRes.u)
-    annotation (Line(points={{4,-90},{40,-90}}, color={0,0,127}));
+    annotation (Line(points={{4,-90},{38,-90}}, color={0,0,127}));
   connect(ConOne.y, swi1.u1)
     annotation (Line(points={{-38,-70},{-38,-82},{-20,-82}}, color={0,0,127}));
   connect(intWitRes.y, hysFav.u)
-    annotation (Line(points={{64,-90},{80,-90}}, color={0,0,127}));
+    annotation (Line(points={{62,-90},{80,-90}}, color={0,0,127}));
   connect(ConZero.y, swi1.u3) annotation (Line(points={{-36,-110},{-36,-98},{-20,
           -98}}, color={0,0,127}));
   connect(hysFav.y, or2.u1) annotation (Line(points={{104,-90},{124,-90},{124,-10},
@@ -156,10 +154,11 @@ equation
           -206},{-22,-206}}, color={0,0,127}));
   connect(ConZero1.y, swi2.u3) annotation (Line(points={{-36,-232},{-32,-232},{-32,
           -222},{-22,-222}}, color={0,0,127}));
-  connect(intWitRes1.y, hysNotFav.u) annotation (Line(points={{60,-212},{72,-212},
-          {72,-210},{78,-210}}, color={0,0,127}));
+  connect(intWitRes1.y, hysNotFav.u) annotation (Line(points={{62,-212},{72,
+          -212},{72,-210},{78,-210}},
+                                color={0,0,127}));
   connect(swi2.y, intWitRes1.u) annotation (Line(points={{2,-214},{22,-214},{22,
-          -212},{36,-212}}, color={0,0,127}));
+          -212},{38,-212}}, color={0,0,127}));
   connect(not2.y, swi2.u2) annotation (Line(points={{-60,-210},{-40,-210},{-40,-214},
           {-22,-214}}, color={255,0,255}));
   connect(hysNotFav.y, not3.u)
@@ -200,12 +199,16 @@ equation
   connect(logicalSwitch.y, not2.u) annotation (Line(points={{143,210},{180,210},
           {180,50},{-100,50},{-100,4},{-198,4},{-198,-210},{-84,-210}}, color={
           255,0,255}));
-  connect(logicalSwitch.y, intWitRes1.trigger) annotation (Line(points={{143,
-          210},{180,210},{180,50},{-100,50},{-100,4},{-198,4},{-198,-262},{48,
-          -262},{48,-224}}, color={255,0,255}));
+  connect(logicalSwitch.y, intWitRes1.trigger) annotation (Line(points={{143,210},
+          {180,210},{180,50},{-100,50},{-100,4},{-198,4},{-198,-262},{50,-262},
+          {50,-224}},       color={255,0,255}));
   connect(logicalSwitch.y, swi1.u2) annotation (Line(points={{143,210},{178,210},
           {178,50},{-98,50},{-98,4},{-198,4},{-198,-90},{-20,-90}}, color={255,
           0,255}));
+  connect(ConZero1.y, intWitRes1.y_reset_in) annotation (Line(points={{-36,-232},
+          {28,-232},{28,-220},{38,-220}}, color={0,0,127}));
+  connect(ConZero.y, intWitRes.y_reset_in) annotation (Line(points={{-36,-110},
+          {28,-110},{28,-98},{38,-98}}, color={0,0,127}));
   annotation (defaultComponentName = "dryBulLoc", Documentation(info="<html>
   <p>
   This block locks out natural ventilation if the dry bulb temperature is unacceptable for natural ventilation based on user-specified conditions.
@@ -249,7 +252,12 @@ equation
         Text(
           extent={{-18,42},{32,-54}},
           lineColor={28,108,200},
-          textString="D")}), Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-380,
+          textString="D"),
+        Text(
+          lineColor={0,0,255},
+          extent={{-148,106},{152,146}},
+          textString="%name")}),
+                             Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-380,
             -300},{200,360}}), graphics={
         Rectangle(extent={{-378,-182},{200,-300}}, lineColor={28,108,200}),
         Text(

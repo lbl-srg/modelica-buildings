@@ -47,10 +47,6 @@ This term is what drives calls for heating or for cooling.
           fillColor={192,192,192},
           fillPattern=FillPattern.Solid),
         Line(points={{-80,-70},{-40,-70},{31,38}}),
-        Text(
-          extent={{-150,-150},{150,-110}},
-          lineColor={0,0,0},
-          textString="duration=%duration"),
         Line(points={{31,38},{86,38}}),
         Text(
         extent={{-56,90},{48,-88}},

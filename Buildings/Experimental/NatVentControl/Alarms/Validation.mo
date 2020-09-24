@@ -1,14 +1,14 @@
 within Buildings.Experimental.NatVentControl.Alarms;
 package Validation "Validation models for natural ventilation alarms"
-  model WinUnsAla "Validation model for window instability alarm"
-    WindowUnstableAlarm WindowUnstableAlarm1
+  model WindowUnstable "Validation model for window instability alarm"
+    WindowUnstableAlarm winUnsAla1
       annotation (Placement(transformation(extent={{-20,20},{0,40}})));
     Controls.OBC.CDL.Logical.Sources.Constant con(k=false)
       annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
     Controls.OBC.CDL.Continuous.Sources.Pulse pulWinSta(width=1, period=2400)
       "Stable window"
       annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
-    WindowUnstableAlarm WindowUnstableAlarm2(TiUns=4800)
+    WindowUnstableAlarm winUnsAla2(TiUns=4800)
       annotation (Placement(transformation(extent={{42,-80},{62,-60}})));
     Controls.OBC.CDL.Logical.Sources.Constant con1(k=false)
       annotation (Placement(transformation(extent={{-80,-54},{-60,-34}})));
@@ -25,14 +25,14 @@ package Validation "Validation models for natural ventilation alarms"
     Modelica.Blocks.Sources.BooleanPulse booleanPulse(width=20, period=86400)
       annotation (Placement(transformation(extent={{-80,-136},{-60,-116}})));
   equation
-    connect(WindowUnstableAlarm1.uManOvr, con.y) annotation (Line(points={{-22,33},
-            {-40,33},{-40,30},{-58,30}}, color={255,0,255}));
-    connect(pulWinSta.y, WindowUnstableAlarm1.uWinPos) annotation (Line(points={{-58,
-            -10},{-40,-10},{-40,27.2},{-22,27.2}}, color={0,0,127}));
-    connect(WindowUnstableAlarm2.uManOvr, con1.y) annotation (Line(points={{40,-67},
-            {-28,-67},{-28,-44},{-58,-44}}, color={255,0,255}));
-    connect(swi.y, WindowUnstableAlarm2.uWinPos) annotation (Line(points={{2,
-            -110},{22,-110},{22,-72.8},{40,-72.8}}, color={0,0,127}));
+    connect(winUnsAla1.uManOvr, con.y) annotation (Line(points={{-22,33},{-40,
+            33},{-40,30},{-58,30}}, color={255,0,255}));
+    connect(pulWinSta.y, winUnsAla1.uWinPos) annotation (Line(points={{-58,-10},
+            {-40,-10},{-40,27.2},{-22,27.2}}, color={0,0,127}));
+    connect(winUnsAla2.uManOvr, con1.y) annotation (Line(points={{40,-67},{-28,
+            -67},{-28,-44},{-58,-44}}, color={255,0,255}));
+    connect(swi.y, winUnsAla2.uWinPos) annotation (Line(points={{2,-110},{22,-110},
+            {22,-72.8},{40,-72.8}}, color={0,0,127}));
     connect(sin.y, swi.u1) annotation (Line(points={{-58,-88},{-42,-88},{-42,
             -102},{-22,-102}}, color={0,0,127}));
     connect(pulWinSta1.y, swi.u3) annotation (Line(points={{-58,-170},{-40,-170},
@@ -42,7 +42,7 @@ package Validation "Validation models for natural ventilation alarms"
     annotation (Documentation(info="<html>
 <p>
 This model validates the window instability alarm, which should show true if the window fluctuates within a given range more than a user-specified amount of times within a user-specified time duration.
-</html>"),   experiment(Tolerance=1e-6, StartTime=0, StopTime=86400),__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/NatVentControl/Alarms/Validation/WinUnsAla.mos"
+</html>"),   experiment(Tolerance=1e-6, StartTime=0, StopTime=86400),__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/NatVentControl/Alarms/Validation/WindowUnstable.mos"
           "Simulate and plot"),Icon(coordinateSystem(preserveAspectRatio=false), graphics={
           Ellipse(
             lineColor={75,138,73},
@@ -56,9 +56,9 @@ This model validates the window instability alarm, which should show true if the
                   points={{-36,58},{64,-2},{-36,-62},{-36,58}})}), Diagram(
           coordinateSystem(preserveAspectRatio=false, extent={{-100,-240},{100,
               100}})));
-  end WinUnsAla;
+  end WindowUnstable;
 
-  model ZonTemAla "Validation model for slab temperature alarm"
+  model ZoneTemperature "Validation model for slab temperature alarm"
      final parameter Real TimErr(min=0,
       final unit="s",
       final displayUnit="s",
@@ -74,9 +74,9 @@ This model validates the window instability alarm, which should show true if the
       phase(displayUnit="rad"),
       offset=293.15 + 2*TemErr)
       annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
-    ZoneTempAlarm ZoneTempAlarm1
+    ZoneTemperatureAlarm zonTemAla1
       annotation (Placement(transformation(extent={{0,38},{20,58}})));
-    ZoneTempAlarm ZoneTempAlarm2
+    ZoneTemperatureAlarm zonTemAla2
       annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
     Controls.OBC.CDL.Continuous.Sources.Sine sin2(
       amplitude=TemErr/2,
@@ -87,19 +87,19 @@ This model validates the window instability alarm, which should show true if the
     Controls.OBC.CDL.Continuous.Sources.Constant con(k=293.15)
       annotation (Placement(transformation(extent={{-98,-2},{-78,18}})));
   equation
-    connect(con.y, ZoneTempAlarm1.TRooSet) annotation (Line(points={{-76,8},{-70,8},
+    connect(con.y, zonTemAla1.TRooSet) annotation (Line(points={{-76,8},{-70,8},
             {-70,44.6},{-2,44.6}}, color={0,0,127}));
-    connect(con.y, ZoneTempAlarm2.TRooSet) annotation (Line(points={{-76,8},{-70,8},
+    connect(con.y, zonTemAla2.TRooSet) annotation (Line(points={{-76,8},{-70,8},
             {-70,-33.4},{-2,-33.4}}, color={0,0,127}));
-    connect(sin2.y, ZoneTempAlarm2.TRooMea) annotation (Line(points={{-38,-10},{-20,
+    connect(sin2.y, zonTemAla2.TRooMea) annotation (Line(points={{-38,-10},{-20,
             -10},{-20,-27},{-2,-27}}, color={0,0,127}));
-    connect(sin.y, ZoneTempAlarm1.TRooMea) annotation (Line(points={{-38,70},{-20,
+    connect(sin.y, zonTemAla1.TRooMea) annotation (Line(points={{-38,70},{-20,
             70},{-20,51},{-2,51}}, color={0,0,127}));
     annotation (Documentation(info="<html>
 <p>
 This model validates the zone temperature alarm, which should show true if the zone temperature has been a user-specified amount away from setpoint for a user-specified amount of time.  
 </p>
-</html>"),  experiment(Tolerance=1e-6, StartTime=0, StopTime=86400),__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/NatVentControl/Alarms/Validation/ZonTemAla.mos"
+</html>"),  experiment(Tolerance=1e-6, StartTime=0, StopTime=86400),__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/NatVentControl/Alarms/Validation/ZoneTemperature.mos"
           "Simulate and plot"), Icon(graphics={
           Ellipse(
             lineColor={75,138,73},
@@ -112,5 +112,5 @@ This model validates the zone temperature alarm, which should show true if the z
                   fillPattern = FillPattern.Solid,
                   points={{-36,58},{64,-2},{-36,-62},{-36,58}})}), Diagram(
           coordinateSystem(preserveAspectRatio=false)));
-  end ZonTemAla;
+  end ZoneTemperature;
 end Validation;

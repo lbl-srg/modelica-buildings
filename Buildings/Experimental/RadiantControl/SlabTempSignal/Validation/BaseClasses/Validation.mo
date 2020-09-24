@@ -1,8 +1,9 @@
 within Buildings.Experimental.RadiantControl.SlabTempSignal.Validation.BaseClasses;
 package Validation "Validation models for output-only blocks"
 
-  model ForHiChi "Validation model for forecast high temperature for Chicago"
-    ForecastHighChicago forecastHighChicago
+  model ChicagoForecastHigh
+    "Validation model for forecast high temperature for Chicago"
+    ForecastHighChicago forHiChi
       annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
     BoundaryConditions.WeatherData.ReaderTMY3 weaDat2(filNam=
           ModelicaServices.ExternalReferences.loadResource(
@@ -23,7 +24,7 @@ package Validation "Validation models for output-only blocks"
         extent={{-6,3},{-6,3}},
         horizontalAlignment=TextAlignment.Right));
     annotation (experiment(Tolerance=1E-06, StopTime=172800),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/RadiantControl/SlabTempSignal/Validation/BaseClasses/Validation/ForHiChi.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/RadiantControl/SlabTempSignal/Validation/BaseClasses/Validation/ChicagoForecastHigh.mos"
           "Simulate and plot"), Documentation(info="<html>
 <p>
 This validates the Chicago forecast high. 
@@ -40,6 +41,6 @@ This validates the Chicago forecast high.
                   fillPattern = FillPattern.Solid,
                   points={{-36,58},{64,-2},{-36,-62},{-36,58}})}), Diagram(
           coordinateSystem(preserveAspectRatio=false)));
-  end ForHiChi;
+  end ChicagoForecastHigh;
 
 end Validation;

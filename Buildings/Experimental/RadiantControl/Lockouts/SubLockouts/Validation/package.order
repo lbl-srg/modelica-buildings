@@ -1,4 +1,4 @@
-AirTemLim
-CHWRetLim
-HysLim
-NightFlushLim
+AirTemperatureLockout
+ChilledWaterReturnLockout
+HysteresisLockout
+NightFlushLockout

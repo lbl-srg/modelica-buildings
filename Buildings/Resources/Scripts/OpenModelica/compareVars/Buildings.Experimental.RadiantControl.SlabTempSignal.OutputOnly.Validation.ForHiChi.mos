@@ -1,4 +1,0 @@
-compareVars :=
-  {
-    "forecastHighChicago.TForecastHigh"
-  };

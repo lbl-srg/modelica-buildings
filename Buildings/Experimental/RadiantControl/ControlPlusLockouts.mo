@@ -65,7 +65,7 @@ parameter Real TDeaNor(min=0,
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
   Modelica.Blocks.Logical.Pre pre2
     annotation (Placement(transformation(extent={{60,-40},{80,-20}})));
-  SlabTempSignal.DeadbandControlErrSwi DeaConErrSwi
+  SlabTempSignal.DeadbandControl DeaConErrSwi
     annotation (Placement(transformation(extent={{-24,38},{6,68}})));
 equation
   connect(error.TSlaSet, TSlaSet) annotation (Line(points={{-60,47},{-60,48},{
@@ -132,7 +132,7 @@ Cooling is locked out if room air temperature is too cold (below a user-specifie
 </p>
 </html>"),Icon(coordinateSystem(
         preserveAspectRatio=true,
-        extent={{-100,-100},{120,100}}),graphics={
+        extent={{-100,-100},{100,100}}),graphics={
         Text(
           lineColor={0,0,255},
           extent={{-148,104},{152,144}},

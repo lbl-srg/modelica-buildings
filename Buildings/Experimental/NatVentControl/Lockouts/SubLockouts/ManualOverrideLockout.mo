@@ -46,5 +46,10 @@ equation
         Text(
           extent={{-22,42},{28,-54}},
           lineColor={28,108,200},
-          textString="M")}), Diagram(coordinateSystem(preserveAspectRatio=false)));
+          textString="M"),
+        Text(
+          lineColor={0,0,255},
+          extent={{-146,102},{154,142}},
+          textString="%name")}),
+                             Diagram(coordinateSystem(preserveAspectRatio=false)));
 end ManualOverrideLockout;

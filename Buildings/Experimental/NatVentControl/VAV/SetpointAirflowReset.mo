@@ -75,5 +75,10 @@ equation
           extent={{20,-52},{-36,58}},
           lineColor={0,140,72},
           lineThickness=1,
-          textString="C")}), Diagram(coordinateSystem(preserveAspectRatio=false)));
+          textString="C"),
+        Text(
+          lineColor={0,0,255},
+          extent={{-152,100},{148,140}},
+          textString="%name")}),
+                             Diagram(coordinateSystem(preserveAspectRatio=false)));
 end SetpointAirflowReset;

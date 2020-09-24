@@ -1,7 +1,8 @@
 within Buildings.Experimental.NatVentControl.Lockouts.SubLockouts;
 package Validation "Validation models for individual lockouts"
 
-  model DryBulLoc "Validation model for outdoor air dry bulb natural ventilation lockout"
+  model DryBulb
+    "Validation model for outdoor air dry bulb natural ventilation lockout"
 
     Controls.OBC.CDL.Continuous.Sources.Constant con(k=293.15)
       annotation (Placement(transformation(extent={{-60,2},{-40,22}})));
@@ -30,7 +31,7 @@ package Validation "Validation models for individual lockouts"
 This model validates the dry bulb lockout. If natural ventilation is allowed, output should show true. 
 If natural ventilation is locked out due to dry bulb temperature being out of range, output should show false.   
 </p>
-</html>"),  experiment(Tolerance=1e-6, StartTime=0, StopTime=86400),__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/NatVentControl/Lockouts/SubLockouts/Validation/DryBulLoc.mos"
+</html>"),  experiment(Tolerance=1e-6, StartTime=0, StopTime=86400),__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/NatVentControl/Lockouts/SubLockouts/Validation/DryBulb.mos"
           "Simulate and plot"), Icon(graphics={
           Ellipse(
             lineColor={75,138,73},
@@ -43,14 +44,15 @@ If natural ventilation is locked out due to dry bulb temperature being out of ra
                   fillPattern = FillPattern.Solid,
                   points={{-36,58},{64,-2},{-36,-62},{-36,58}})}), Diagram(
           coordinateSystem(preserveAspectRatio=false)));
-  end DryBulLoc;
+  end DryBulb;
 
-  model ManOvrLoc "Validation model for manual override natural ventilation lockout"
+  model ManualOverride
+    "Validation model for manual override natural ventilation lockout"
 
-    ManualOverrideLockout manLoc
-      annotation (Placement(transformation(extent={{0,0},{20,20}})));
     Controls.OBC.CDL.Logical.Sources.Pulse booPul(period=86400)
       annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
+    ManualOverrideLockout manLoc
+      annotation (Placement(transformation(extent={{0,0},{20,20}})));
   equation
     connect(booPul.y, manLoc.uManOveRid)
       annotation (Line(points={{-38,10},{-2,10}}, color={255,0,255}));
@@ -59,7 +61,7 @@ If natural ventilation is locked out due to dry bulb temperature being out of ra
 This model validates the manual override lockout. If natural ventilation is allowed, output should show true. 
 If natural ventilation is locked out due to manual override, output should show false. 
 </p>
-</html>"),  experiment(Tolerance=1e-6, StartTime=0, StopTime=86400),__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/NatVentControl/Lockouts/SubLockouts/Validation/ManOvrLoc.mos"
+</html>"),  experiment(Tolerance=1e-6, StartTime=0, StopTime=86400),__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/NatVentControl/Lockouts/SubLockouts/Validation/ManualOverride.mos"
           "Simulate and plot"), Icon(graphics={
           Ellipse(
             lineColor={75,138,73},
@@ -72,9 +74,10 @@ If natural ventilation is locked out due to manual override, output should show 
                   fillPattern = FillPattern.Solid,
                   points={{-36,58},{64,-2},{-36,-62},{-36,58}})}), Diagram(
           coordinateSystem(preserveAspectRatio=false)));
-  end ManOvrLoc;
+  end ManualOverride;
 
-  model OccLoc "Validation model for occupancy natural ventilation lockout"
+  model Occupancy
+    "Validation model for occupancy natural ventilation lockout"
 
     OccupancyLockout occLoc
       annotation (Placement(transformation(extent={{0,38},{20,58}})));
@@ -93,7 +96,7 @@ This model validates the occupancy lockout. If natural ventilation is allowed, o
 If natural ventilation is locked out because the building is unoccupied and is also not in night flush mode, output should show false. 
 </p>  
 </p>
-</html>"),  experiment(Tolerance=1e-6, StartTime=0, StopTime=86400),__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/NatVentControl/Lockouts/SubLockouts/Validation/OccLoc.mos"
+</html>"),  experiment(Tolerance=1e-6, StartTime=0, StopTime=86400),__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/NatVentControl/Lockouts/SubLockouts/Validation/Occupancy.mos"
           "Simulate and plot"), Icon(graphics={
           Ellipse(
             lineColor={75,138,73},
@@ -106,9 +109,9 @@ If natural ventilation is locked out because the building is unoccupied and is a
                   fillPattern = FillPattern.Solid,
                   points={{-36,58},{64,-2},{-36,-62},{-36,58}})}), Diagram(
           coordinateSystem(preserveAspectRatio=false)));
-  end OccLoc;
+  end Occupancy;
 
-  model RaiLoc "Validation model for rain natural ventilation lockout"
+  model Rain "Validation model for rain natural ventilation lockout"
 
     RainLockout raiLoc
       annotation (Placement(transformation(extent={{0,20},{20,40}})));
@@ -123,7 +126,7 @@ This model validates the rain lockout. If natural ventilation is allowed, output
 If natural ventilation is locked out because it is raining or it was raining within a specified amount of time (in this case, 30 minutes), output should show false. 
 </p>  
 </p>
-</html>"),  experiment(Tolerance=1e-6, StartTime=0, StopTime=86400),__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/NatVentControl/Lockouts/SubLockouts/Validation/RaiLoc.mos"
+</html>"),  experiment(Tolerance=1e-6, StartTime=0, StopTime=86400),__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/NatVentControl/Lockouts/SubLockouts/Validation/Rain.mos"
           "Simulate and plot"), Icon(graphics={
           Ellipse(
             lineColor={75,138,73},
@@ -136,9 +139,10 @@ If natural ventilation is locked out because it is raining or it was raining wit
                   fillPattern = FillPattern.Solid,
                   points={{-36,58},{64,-2},{-36,-62},{-36,58}})}), Diagram(
           coordinateSystem(preserveAspectRatio=false)));
-  end RaiLoc;
+  end Rain;
 
-  model WetBulLoc "Validation model for natural ventilation wet bulb lockout"
+  model WetBulb
+    "Validation model for natural ventilation wet bulb lockout"
 
     Controls.OBC.CDL.Continuous.Sources.Sine sin(
       amplitude=2*4.44,
@@ -161,7 +165,7 @@ This model validates the wet bulb lockout. If natural ventilation is allowed, ou
 If natural ventilation is locked out because the wet bulb temperature is above the room setpoint minus the temperature difference , output should show false. 
 </p> 
 </p>
-</html>"),  experiment(Tolerance=1e-6, StartTime=0, StopTime=86400),__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/NatVentControl/Lockouts/SubLockouts/Validation/WetBulLoc.mos"
+</html>"),  experiment(Tolerance=1e-6, StartTime=0, StopTime=86400),__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/NatVentControl/Lockouts/SubLockouts/Validation/WetBulb.mos"
           "Simulate and plot"), Icon(graphics={
           Ellipse(
             lineColor={75,138,73},
@@ -174,9 +178,9 @@ If natural ventilation is locked out because the wet bulb temperature is above t
                   fillPattern = FillPattern.Solid,
                   points={{-36,58},{64,-2},{-36,-62},{-36,58}})}), Diagram(
           coordinateSystem(preserveAspectRatio=false)));
-  end WetBulLoc;
+  end WetBulb;
 
-  model WinLoc "Validation model for wind natural ventilation lockout"
+  model Wind "Validation model for wind natural ventilation lockout"
 
     Controls.OBC.CDL.Continuous.Sources.Sine sin2(
       amplitude=2,
@@ -195,7 +199,7 @@ This model validates the wind speed lockout. If natural ventilation is allowed, 
 If natural ventilation is locked out due to wind speeds exceeding the specified threshhold, output should show false. 
 </p>  
 </p>
-</html>"),  experiment(Tolerance=1e-6, StartTime=0, StopTime=86400),__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/NatVentControl/Lockouts/SubLockouts/Validation/WinLoc.mos"
+</html>"),  experiment(Tolerance=1e-6, StartTime=0, StopTime=86400),__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/NatVentControl/Lockouts/SubLockouts/Validation/Wind.mos"
           "Simulate and plot"), Icon(graphics={
           Ellipse(
             lineColor={75,138,73},
@@ -208,5 +212,5 @@ If natural ventilation is locked out due to wind speeds exceeding the specified 
                   fillPattern = FillPattern.Solid,
                   points={{-36,58},{64,-2},{-36,-62},{-36,58}})}), Diagram(
           coordinateSystem(preserveAspectRatio=false)));
-  end WinLoc;
+  end Wind;
 end Validation;

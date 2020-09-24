@@ -5,16 +5,16 @@ parameter Real TiUns(min=0,
     final unit="s",
     final displayUnit="s",
     final quantity="Time")=1200  "Time interval within which window must move a given number of times to trigger alarm";
-parameter Real SwiRan(min=0,max=1)=0.75 "Percent range within which window can swing without triggering alarm";
-parameter Real NumSwi(min=0)=3 "Allowable number of swings before window is considered unstable";
+parameter Real swiRan(min=0,max=1)=0.75 "Percent range within which window can swing without triggering alarm";
+parameter Real numSwi(min=0)=3 "Allowable number of swings before window is considered unstable";
 
   Controls.OBC.CDL.Logical.Not not1
     annotation (Placement(transformation(extent={{-80,38},{-60,58}})));
-  Controls.OBC.CDL.Continuous.AddParameter addPar1(p=0.5 + 0.5*SwiRan, k=-1)
+  Controls.OBC.CDL.Continuous.AddParameter addPar1(p=0.5 + 0.5*swiRan, k=-1)
     annotation (Placement(transformation(extent={{-80,-62},{-60,-42}})));
   Controls.OBC.CDL.Integers.OnCounter onCouInt
     annotation (Placement(transformation(extent={{40,-58},{52,-46}})));
-  Controls.OBC.CDL.Continuous.AddParameter addPar2(p=0.5 - 0.5*SwiRan, k=-1)
+  Controls.OBC.CDL.Continuous.AddParameter addPar2(p=0.5 - 0.5*swiRan, k=-1)
     annotation (Placement(transformation(extent={{-80,-102},{-60,-82}})));
   Controls.OBC.CDL.Continuous.Hysteresis hysAboHi(
     uLow=-0.01,
@@ -25,13 +25,13 @@ parameter Real NumSwi(min=0)=3 "Allowable number of swings before window is cons
     annotation (Placement(transformation(extent={{-40,-102},{-20,-82}})));
   Controls.OBC.CDL.Integers.OnCounter onCouInt1
     annotation (Placement(transformation(extent={{4,-98},{16,-86}})));
-  Controls.OBC.CDL.Continuous.AddParameter addPar3(p=-NumSwi, k=1)
+  Controls.OBC.CDL.Continuous.AddParameter addPar3(p=-numSwi, k=1)
     annotation (Placement(transformation(extent={{262,-60},{282,-40}})));
   Controls.OBC.CDL.Conversions.IntegerToReal intToRea
     annotation (Placement(transformation(extent={{80,-62},{100,-42}})));
   Controls.OBC.CDL.Conversions.IntegerToReal intToRea1
     annotation (Placement(transformation(extent={{80,-102},{100,-82}})));
-  Controls.OBC.CDL.Continuous.AddParameter addPar4(p=-NumSwi, k=1)
+  Controls.OBC.CDL.Continuous.AddParameter addPar4(p=-numSwi, k=1)
     annotation (Placement(transformation(extent={{262,-100},{282,-80}})));
   Controls.OBC.CDL.Logical.And andCouAbo
     annotation (Placement(transformation(extent={{362,-80},{382,-60}})));
@@ -132,16 +132,16 @@ This alarm is triggered when the window is unstable, i.e. when it is opening and
 
  <p>
 The user specifies values for three parameters: 
-         <p>1. The swing range, SwiRan
+         <p>1. The swing range, swiRan
          <p>2. The time frame, TiUns
-         <p>3. The number of swings within the time frame required to trigger the alarm, NumSwi
+         <p>3. The number of swings within the time frame required to trigger the alarm, numSwi
 
  <p>Each time the window position moves above the top of the user-defined swing range or moves below the bottom of the swing range, one swing event is counted. 
  <p> Swing events are counted continuously. 
-  <p>In order to trigger the alarm, the window position must exceed the top of the swing range the given number of times (NumSwi) 
-  AND must also dip below the bottom of the swing range the user-specified number of times (NumSwi). 
+  <p>In order to trigger the alarm, the window position must exceed the top of the swing range the given number of times (numSwi) 
+  AND must also dip below the bottom of the swing range the user-specified number of times (numSwi). 
    <p>
-If more than the user-defined number of swings (NumSwi) occur during the user-specified time frame (TiUns), the alarm is triggered. 
+If more than the user-defined number of swings (numSwi) occur during the user-specified time frame (TiUns), the alarm is triggered. 
 </p>
 </html>"),Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
@@ -157,7 +157,12 @@ If more than the user-defined number of swings (NumSwi) occur during the user-sp
           extent={{-18,52},{18,-44}},
           lineColor={255,0,0},
           lineThickness=1,
-          textString="U")}), Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,
+          textString="U"),
+        Text(
+          lineColor={0,0,255},
+          extent={{-158,102},{142,142}},
+          textString="%name")}),
+                             Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,
             -240},{440,100}}),       graphics={
                   Polygon(
           points={{-72,-24},{-72,-24}},

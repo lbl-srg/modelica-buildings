@@ -8,7 +8,7 @@ package Window "Window control for natural ventilation"
       final unit="s",
       final displayUnit="s",
       final quantity="Time")=300  "Time constant for integral term";
-    parameter Real kConProp(min=0,max=10)=0.1 "Constant for proportional term";
+    parameter Real kConPro(min=0,max=10)=0.1 "Constant for proportional term";
     Controls.OBC.CDL.Interfaces.RealInput TRooSet
       "Room setpoint for window to maintain" annotation (Placement(
           transformation(extent={{-140,10},{-100,50}}), iconTransformation(
@@ -29,7 +29,7 @@ package Window "Window control for natural ventilation"
       k=1,
       Ti=TiConInt,
       yMin=0.15,
-      wp=kConProp,
+      wp=kConPro,
       initType=Modelica.Blocks.Types.InitPID.InitialState,
       reverseActing=false)
       annotation (Placement(transformation(extent={{-20,0},{0,20}})));
@@ -55,7 +55,7 @@ package Window "Window control for natural ventilation"
     annotation (defaultComponentName = "winCon", Documentation(info="<html>
   This block determines the window control signal, ie what % the window is called to be open.
   <p>The window position is modulated with direct-acting PI control, with a user-specified constant 
-  for the proportional term (kConProp, typically 0.1) and time constant for the integral term (TiConInt, typically 5 minutes). 
+  for the proportional term (kConPro, typically 0.1) and time constant for the integral term (TiConInt, typically 5 minutes). 
   <p>The user also specifies a minimum opening position (minOpe, typically 0.15)- if the window is to be opened, it must be opened at least this amount. 
   If the PI control loop calls for a window position that is less than this minimum value, the window remains closed. 
   
@@ -99,12 +99,17 @@ package Window "Window control for natural ventilation"
           Line(
             points={{20,-20},{100,0}},
             color={162,29,33},
-            thickness=1)}), Diagram(coordinateSystem(preserveAspectRatio=false, extent={
+            thickness=1),
+          Text(
+            lineColor={0,0,255},
+            extent={{-150,100},{150,140}},
+            textString="%name")}),
+                            Diagram(coordinateSystem(preserveAspectRatio=false, extent={
               {-100,-300},{200,100}})));
   end WindowControl;
 
   package Validation "Validation model for window control"
-    model WinCon "Window validation model"
+    model Window "Window validation model"
       Modelica.Blocks.Sources.Ramp ramp1(
         height=10,
         duration=86400,
@@ -112,14 +117,14 @@ package Window "Window control for natural ventilation"
         annotation (Placement(transformation(extent={{-60,58},{-40,78}})));
       Modelica.Blocks.Sources.Constant const1(k=293.15)
         annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
-      WindowControl windowControl
+      WindowControl winCon
         annotation (Placement(transformation(extent={{0,20},{20,40}})));
     equation
-      connect(const1.y, windowControl.TRooSet) annotation (Line(points={{-39,10},{-20,
-              10},{-20,27.2},{-2,27.2}}, color={0,0,127}));
-      connect(ramp1.y, windowControl.TRooMea) annotation (Line(points={{-39,68},{-22,
-              68},{-22,35},{-2,35}}, color={0,0,127}));
-      annotation (experiment(Tolerance=1e-6, StartTime=0, StopTime=86400),__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/NatVentControl/Window/Validation/WinCon.mos"
+      connect(const1.y, winCon.TRooSet) annotation (Line(points={{-39,10},{-20,10},{
+              -20,27.2},{-2,27.2}}, color={0,0,127}));
+      connect(ramp1.y, winCon.TRooMea) annotation (Line(points={{-39,68},{-22,68},{-22,
+              35},{-2,35}}, color={0,0,127}));
+      annotation (experiment(Tolerance=1e-6, StartTime=0, StopTime=86400),__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/NatVentControl/Window/Validation/Window.mos"
             "Simulate and plot"),Icon(coordinateSystem(preserveAspectRatio=false), graphics={
             Ellipse(
               lineColor={75,138,73},
@@ -132,6 +137,6 @@ package Window "Window control for natural ventilation"
                     fillPattern = FillPattern.Solid,
                     points={{-34,64},{66,4},{-34,-56},{-34,64}})}), Diagram(
             coordinateSystem(preserveAspectRatio=false)));
-    end WinCon;
+    end Window;
   end Validation;
 end Window;
