@@ -1,27 +1,26 @@
 within Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.Reheat.Subsequences;
 block SystemRequests "Output system requests for VAV terminal unit with reheat"
 
-  parameter Boolean have_hotWatCoi;
+  parameter Boolean have_hotWatCoi
+    "True: the system has hot water coil";
   parameter Real thrTemDif(
     final unit="K",
-    final displayUnit="K",
     final quantity="TemperatureDifference")=3
     "Threshold difference between zone temperature and cooling setpoint for generating 3 cooling SAT reset requests";
   parameter Real twoTemDif(
     final unit="K",
-    final displayUnit="K",
     final quantity="TemperatureDifference")=2
     "Threshold difference between zone temperature and cooling setpoint for generating 2 cooling SAT reset requests";
   parameter Real thrTDis_1(
     final unit="K",
-    final displayUnit="K",
     final quantity="TemperatureDifference")=17
-    "Threshold difference between discharge air temperature and its setpoint for generating 3 hot water reset requests";
+    "Threshold difference between discharge air temperature and its setpoint for generating 3 hot water reset requests"
+    annotation(Dialog(enable=have_hotWatCoi));
   parameter Real thrTDis_2(
     final unit="K",
-    final displayUnit="K",
     final quantity="TemperatureDifference")=8
-    "Threshold difference between discharge air temperature and its setpoint for generating 2 hot water reset requests";
+    "Threshold difference between discharge air temperature and its setpoint for generating 2 hot water reset requests"
+    annotation(Dialog(enable=have_hotWatCoi));
   parameter Real durTimTem(
     final unit="s",
     final quantity="Time")=120
@@ -36,12 +35,12 @@ block SystemRequests "Output system requests for VAV terminal unit with reheat"
     final unit="s",
     final quantity="Time")=300
     "Duration time of discharge air temperature less than setpoint"
-    annotation(Dialog(group="Duration times"));
+    annotation(Dialog(group="Duration times", enable=have_hotWatCoi));
   parameter Real dTHys(
-    final unit="s",
-    final quantity="Time")=0.25
+    final unit="K",
+    final quantity="TemperatureDifference")=0.25
     "Near zero temperature difference, below which the difference will be seen as zero"
-    annotation (Dialog(tab="Advanced"));
+    annotation (Dialog(tab="Advanced", enable=have_hotWatCoi));
   parameter Real floHys(
     final quantity="VolumeFlowRate",
     final unit="m3/s")
@@ -54,7 +53,7 @@ block SystemRequests "Output system requests for VAV terminal unit with reheat"
   parameter Real valPosHys(
     final unit="1")
     "Near zero valve position, below which the valve will be seen as closed"
-    annotation (Dialog(tab="Advanced"));
+    annotation (Dialog(tab="Advanced", enable=have_hotWatCoi));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uAftSup
     "After suppression period due to the setpoint change"
@@ -116,11 +115,10 @@ block SystemRequests "Output system requests for VAV terminal unit with reheat"
     "Measured discharge airflow temperature"
     annotation (Placement(transformation(extent={{-220,-160},{-180,-120}}),
         iconTransformation(extent={{-140,-90},{-100,-50}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uHeaVal(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uVal(
     final min=0,
     final max=1,
-    final unit="1") if have_hotWatCoi
-    "Hot water valve position"
+    final unit="1") if have_hotWatCoi "Hot water valve position"
     annotation (Placement(transformation(extent={{-220,-240},{-180,-200}}),
         iconTransformation(extent={{-140,-110},{-100,-70}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yZonTemResReq
@@ -432,14 +430,14 @@ equation
           -110},{80,-172},{98,-172}}, color={255,127,0}));
   connect(intSwi3.y, intSwi2.u3) annotation (Line(points={{122,-180},{130,-180},
           {130,-148},{138,-148}}, color={255,127,0}));
-  connect(uHeaVal, greThr5.u)
+  connect(uVal, greThr5.u)
     annotation (Line(points={{-200,-220},{-142,-220}}, color={0,0,127}));
   connect(greThr5.y, booToInt2.u)
     annotation (Line(points={{-118,-220},{-2,-220}}, color={255,0,255}));
   connect(booToInt2.y, intSwi3.u3) annotation (Line(points={{22,-220},{80,-220},
           {80,-188},{98,-188}}, color={255,127,0}));
-  connect(uHeaVal, greThr6.u) annotation (Line(points={{-200,-220},{-160,-220},
-          {-160,-270},{-142,-270}}, color={0,0,127}));
+  connect(uVal, greThr6.u) annotation (Line(points={{-200,-220},{-160,-220},{-160,
+          -270},{-142,-270}}, color={0,0,127}));
   connect(greThr6.y, booToInt3.u)
     annotation (Line(points={{-118,-270},{-2,-270}}, color={255,0,255}));
   connect(booToInt3.y, yHotWatPlaReq)
@@ -553,11 +551,10 @@ annotation (
           pattern=LinePattern.Dash,
           textString="TDis"),
         Text(
-          visible=have_hotWatCoi,
-          extent={{-98,-82},{-66,-96}},
+          extent={{-98,-84},{-80,-94}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="uHeaVal"),
+          textString="uVal"),
         Text(
           visible=have_hotWatCoi,
           extent={{40,-20},{98,-36}},
@@ -635,11 +632,11 @@ Else ff the discharging air temperature <code>TDis</code> is 8 &deg;C (15 &deg;F
 for 5 minutes, send 2 requests.
 </li>
 <li>
-Else if the hot water valve position <code>uHeaVal</code> is greater than 95%, send 1
+Else if the hot water valve position <code>uVal</code> is greater than 95%, send 1
 request until the hot water valve position is less than 85%.
 </li>
 <li>
-Else if the hot water valve position <code>uHeaVal</code> is less than 95%, send 0 request.
+Else if the hot water valve position <code>uVal</code> is less than 95%, send 0 request.
 </li>
 </ol>
 <h4>If there is a hot-water coil and heating hot-water plant, heating hot-water
@@ -647,11 +644,11 @@ plant reqeusts. Send the heating hot-water plant that serves the zone a heating
 hot-water plant request as follows:</h4>
 <ol>
 <li>
-If the hot water valve position <code>uHeaVal</code> is greater than 95%, send 1
+If the hot water valve position <code>uVal</code> is greater than 95%, send 1
 request until the hot water valve position is less than 10%.
 </li>
 <li>
-If the hot water valve position <code>uHeaVal</code> is less than 95%, send 0 requests.
+If the hot water valve position <code>uVal</code> is less than 95%, send 0 requests.
 </li>
 </ol>
 </html>", revisions="<html>

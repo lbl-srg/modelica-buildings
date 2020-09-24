@@ -9,6 +9,10 @@ block Overrides "Software switches to override setpoints"
     final quantity="VolumeFlowRate",
     final unit="m3/s")
     "Design zone cooling maximum airflow rate";
+  parameter Real VHeaZonMax_flow(
+    final quantity="VolumeFlowRate",
+    final unit="m3/s")
+    "Design zone heating maximum airflow rate";
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput oveFloSet
     "Index of overriding flow setpoint, 1: set to zero; 2: set to cooling maximum; 3: set to minimum flow; 4: set to heating maximum"
@@ -30,15 +34,15 @@ block Overrides "Software switches to override setpoints"
     final unit="1") "Damper position setpoint"
     annotation (Placement(transformation(extent={{-180,-150},{-140,-110}}),
         iconTransformation(extent={{-140,-40},{-100,0}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uHeaVal(
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHeaOff
+    "Override heating valve position, true: close heating valve"
+    annotation (Placement(transformation(extent={{-180,-180},{-140,-140}}),
+        iconTransformation(extent={{-140,-80},{-100,-40}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uValSet(
     final min=0,
     final unit="1")
     "Heating valve position setpoint"
     annotation (Placement(transformation(extent={{-180,-220},{-140,-180}}),
-        iconTransformation(extent={{-140,-80},{-100,-40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHeaOff
-    "Override heating valve position, true: close heating valve"
-    annotation (Placement(transformation(extent={{-180,-180},{-140,-140}}),
         iconTransformation(extent={{-140,-110},{-100,-70}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput VSet_flow(
     final min=0,
@@ -53,7 +57,7 @@ block Overrides "Software switches to override setpoints"
     "Damper position setpoint after considering override"
     annotation (Placement(transformation(extent={{140,-120},{180,-80}}),
         iconTransformation(extent={{100,-20},{140,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yHeaVal(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yValSet(
     final min=0,
     final unit="1")
     "Heating valve position setpoint after considering override"
@@ -243,9 +247,9 @@ equation
     annotation (Line(points={{-160,-160},{-82,-160}}, color={255,0,255}));
   connect(booToRea.y, pro.u1) annotation (Line(points={{-58,-160},{60,-160},{60,
           -174},{78,-174}}, color={0,0,127}));
-  connect(uHeaVal, pro.u2) annotation (Line(points={{-160,-200},{60,-200},{60,-186},
+  connect(uValSet, pro.u2) annotation (Line(points={{-160,-200},{60,-200},{60,-186},
           {78,-186}}, color={0,0,127}));
-  connect(pro.y, yHeaVal)
+  connect(pro.y,yValSet)
     annotation (Line(points={{102,-180},{160,-180}}, color={0,0,127}));
 
 annotation (defaultComponentName="rehBoxOve",
@@ -291,12 +295,12 @@ annotation (defaultComponentName="rehBoxOve",
           pattern=LinePattern.Dash,
           textString="VSet_flow"),
         Text(
-          extent={{-98,-52},{-58,-64}},
+          extent={{-98,-82},{-58,-94}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="uHeaVal"),
+          textString="uValSet"),
         Text(
-          extent={{-98,-84},{-58,-96}},
+          extent={{-98,-54},{-58,-66}},
           lineColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="uHeaOff"),
@@ -304,7 +308,7 @@ annotation (defaultComponentName="rehBoxOve",
           extent={{58,-52},{98,-64}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="yHeaVal")}),
+          textString="yValSet")}),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,-220},{140,220}})),
 Documentation(info="<html>
 <p>
@@ -345,7 +349,7 @@ when <code>oveDamPos</code> equals to 2, force the damper to full open by settin
 </li>
 <li>
 when <code>uHeaOff</code> equals to <code>true</code>, force the heating valve to
-full closed by setting <code>yHeaVal</code> to 0.
+full closed by setting <code>yValSet</code> to 0.
 </li>
 </ol>
 </html>",revisions="<html>

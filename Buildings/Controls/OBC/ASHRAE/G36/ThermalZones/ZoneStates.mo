@@ -1,8 +1,11 @@
 within Buildings.Controls.OBC.ASHRAE.G36.ThermalZones;
 block ZoneStates "Select the zone state"
-  parameter Real uLow(final unit = "1") = 0.01
+
+  parameter Real uLow(
+    final unit = "1") = 0.01
     "Hysteresis parameter uLow for heating and cooling control signals to avoid chattering";
-  parameter Real uHigh(final unit = "1") = 0.05
+  parameter Real uHigh(
+    final unit = "1") = 0.05
     "Hysteresis parameter uHigh for heating and cooling control signals to avoid chattering";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uHea "Heating control signal"

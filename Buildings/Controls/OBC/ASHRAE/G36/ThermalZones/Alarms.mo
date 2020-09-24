@@ -10,13 +10,15 @@ block Alarms "Zone level alarms"
     annotation (Dialog(group="CO2 concentration alarm"));
   parameter Real modChe(
     final unit="s",
-    final quantity="Time")=7200 "Threshold time to check unoccupied time"
+    final quantity="Time")=7200
+    "Threshold time to check unoccupied time"
     annotation (Dialog(group="CO2 concentration alarm", enable=have_CO2Sen));
-  parameter Real CO2Set=894 "CO2 setpoint in ppm"
+  parameter Real CO2Set=894
+    "CO2 setpoint in ppm"
     annotation (Dialog(group="CO2 concentration alarm", enable=have_CO2Sen));
   parameter Real dTHys(
-    final unit="s",
-    final quantity="Time")=0.25
+    final unit="K",
+    final quantity="TemperatureDifference")=0.25
     "Delta between the temperature hysteresis high and low limit"
     annotation (Dialog(tab="Advanced"));
   parameter Real ppmHys(

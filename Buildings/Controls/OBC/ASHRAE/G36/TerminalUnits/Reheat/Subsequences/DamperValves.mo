@@ -4,7 +4,6 @@ block DamperValves
 
   parameter Real dTDisZonSetMax(
     final unit="K",
-    final displayUnit="K",
     final quantity="TemperatureDifference")=11
     "Zone maximum discharge air temperature above heating setpoint";
   parameter Real TDisMin(
@@ -66,8 +65,8 @@ block DamperValves
     "Nominal volume flow rate, used to normalize control error"
     annotation(Dialog(group="Damper"));
   parameter Real dTHys(
-    final unit="s",
-    final quantity="Time")=0.25
+    final unit="K",
+    final quantity="TemperatureDifference")=0.25
     "Temperature difference hysteresis below which the temperature difference will be seen as zero"
     annotation (Dialog(tab="Advanced"));
   parameter Real looHys(
@@ -131,7 +130,7 @@ block DamperValves
     "Supply air temperature setpoint from central air handler"
     annotation (Placement(transformation(extent={{-360,-20},{-320,20}}),
         iconTransformation(extent={{-140,-40},{-100,0}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaSet(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TZonHeaSet(
     final unit="K",
     final displayUnit="degC",
     final quantity="ThermodynamicTemperature")
@@ -176,13 +175,13 @@ block DamperValves
     final quantity="VolumeFlowRate") "Discharge airflow setpoint"
     annotation (Placement(transformation(extent={{320,260},{360,300}}),
         iconTransformation(extent={{100,120},{140,160}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yDam(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yDamSet(
     final min=0,
     final max=1,
     final unit="1") "VAV damper position setpoint"
     annotation (Placement(transformation(extent={{320,60},{360,100}}),
         iconTransformation(extent={{100,70},{140,110}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yHeaVal(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yValSet(
     final min=0,
     final max=1,
     final unit="1") "Reheater valve position setpoint"
@@ -399,12 +398,12 @@ equation
     annotation (Line(points={{-138,220},{-122,220}}, color={0,0,127}));
   connect(greThr.y, and4.u2) annotation (Line(points={{-98,220},{-80,220},{-80,242},
           {-62,242}},      color={255,0,255}));
-  connect(watValPosUno.y, yHeaVal)
+  connect(watValPosUno.y,yValSet)
     annotation (Line(points={{302,0},{340,0}},     color={0,0,127}));
   connect(conDam.y, damPosUno.u3) annotation (Line(points={{302,250},{310,250},{
           310,120},{272,120},{272,72},{278,72}}, color={0,0,127}));
-  connect(damPosUno.y, yDam) annotation (Line(points={{302,80},{340,80}},
-                     color={0,0,127}));
+  connect(damPosUno.y, yDamSet)
+    annotation (Line(points={{302,80},{340,80}}, color={0,0,127}));
   connect(VDis_flow, VDis_flowNor.u1) annotation (Line(points={{-340,360},{190,360},
           {190,186},{238,186}}, color={0,0,127}));
   connect(nomFlow.y, VDis_flowNor.u2) annotation (Line(points={{222,230},{230,230},
@@ -471,7 +470,7 @@ equation
           {200,256},{238,256}},      color={0,0,127}));
   connect(swi.y, VDisSet_flow) annotation (Line(points={{182,290},{200,290},{200,
           280},{340,280}},     color={0,0,127}));
-  connect(THeaSet, addPar.u)
+  connect(TZonHeaSet, addPar.u)
     annotation (Line(points={{-340,-90},{-262,-90}}, color={0,0,127}));
   connect(conZer3.y, conTDisHeaSet.x1) annotation (Line(points={{-238,-30},{-220,
           -30},{-220,-52},{-122,-52}},       color={0,0,127}));
@@ -530,6 +529,8 @@ equation
   connect(isUno.y, watValPosUno.u2) annotation (Line(points={{122,-340},{240,-340},
           {240,0},{278,0}}, color={255,0,255}));
 
+  connect(isUno.y, conDam.trigger) annotation (Line(points={{122,-340},{240,-340},
+          {240,128},{284,128},{284,238}}, color={255,0,255}));
 annotation (
   defaultComponentName="damValReh",
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-320,-400},{320,400}}),
@@ -651,10 +652,10 @@ in heating state")}),
           pattern=LinePattern.Dash,
           textString="uHea"),
         Text(
-          extent={{-98,-46},{-70,-54}},
+          extent={{-98,-46},{-60,-54}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="THeaSet"),
+          textString="TZonHeaSet"),
         Text(
           extent={{-100,74},{-80,66}},
           lineColor={0,0,127},
@@ -680,17 +681,17 @@ in heating state")}),
           rotation=90,
           textString="VDis_flow"),
         Text(
-          extent={{72,98},{98,88}},
+          extent={{68,96},{98,86}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="yDam",
-          horizontalAlignment=TextAlignment.Right),
+          horizontalAlignment=TextAlignment.Right,
+          textString="yDamSet"),
         Text(
           extent={{66,-82},{98,-96}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           horizontalAlignment=TextAlignment.Right,
-          textString="yHeaVal"),
+          textString="yValSet"),
         Line(points={{-38,64},{-38,-48},{74,-48}}, color={95,95,95}),
         Line(
           points={{-38,14},{-14,-18},{10,-18},{10,-22},{26,-22},{26,-16},{74,48}},

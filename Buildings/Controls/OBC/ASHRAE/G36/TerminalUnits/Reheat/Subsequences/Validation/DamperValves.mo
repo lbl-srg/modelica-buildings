@@ -76,8 +76,8 @@ equation
     annotation (Line(points={{-58,0},{0,0},{0,53},{78,53}}, color={0,0,127}));
   connect(uHea.y, damValReh.uHea) annotation (Line(points={{-18,-20},{2,-20},{2,
           32},{78,32}}, color={0,0,127}));
-  connect(THeaSet.y, damValReh.THeaSet) annotation (Line(points={{-58,-40},{4,
-          -40},{4,35},{78,35}}, color={0,0,127}));
+  connect(THeaSet.y, damValReh.TZonHeaSet) annotation (Line(points={{-58,-40},{
+          4,-40},{4,35},{78,35}}, color={0,0,127}));
   connect(TSup.y, damValReh.TSup) annotation (Line(points={{-18,-60},{6,-60},{6,
           47},{78,47}}, color={0,0,127}));
   connect(TZon.y, damValReh.TZon) annotation (Line(points={{-58,-80},{8,-80},{8,

@@ -1,13 +1,13 @@
 within Buildings.Controls.OBC.ASHRAE.G36.ThermalZones;
 block ControlLoops "Heating and cooling control loops"
 
+  parameter Real kCooCon=1
+    "Gain of controller for cooling control loop"
+    annotation (Dialog(group="Cooling control"));
   parameter Real TiCooCon(
     final unit="s",
     final quantity="Time")=0.5
     "Time constant of integrator block for cooling control loop"
-    annotation (Dialog(group="Cooling control"));
-  parameter Real kCooCon=1
-    "Gain of controller for cooling control loop"
     annotation (Dialog(group="Cooling control"));
   parameter Real kHeaCon=1
     "Gain of controller for heating control loop"
@@ -23,8 +23,8 @@ block ControlLoops "Heating and cooling control loops"
     "Threshold time to check the zone temperature status"
     annotation (Dialog(tab="Advanced"));
   parameter Real dTHys(
-    final unit="s",
-    final quantity="Time")=0.25
+    final unit="K",
+    final quantity="TemperatureDifference")=0.25
     "Delta between the temperature hysteresis high and low limit"
     annotation (Dialog(tab="Advanced"));
   parameter Real conThr(

@@ -51,9 +51,11 @@ block Setpoints "Specify zone minimum outdoor air and minimum airflow set points
   parameter Real zonDisEff_heat=0.8
     "Zone heating air distribution effectiveness"
     annotation(Dialog(tab="Advanced", group="Distribution effectiveness"));
-  parameter Real dT=0.25
-    "Half of the deadband for comparing temperature difference"
-    annotation(Dialog(tab="Advanced"));
+  parameter Real dTHys(
+    final unit="K",
+    final quantity="TemperatureDifference")=0.25
+    "Temperature difference hysteresis below which the temperature difference will be seen as zero"
+    annotation (Dialog(tab="Advanced"));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWin if have_winSen
     "Window status, true if open, false if closed"
@@ -68,7 +70,7 @@ block Setpoints "Specify zone minimum outdoor air and minimum airflow set points
     annotation (Placement(transformation(extent={{-340,0},{-300,40}}),
         iconTransformation(extent={{-140,20},{-100,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput ppmCO2 if have_CO2Sen
-    "Detected CO2 conventration"
+    "Detected CO2 concentration"
     annotation (Placement(transformation(extent={{-340,-90},{-300,-50}}),
         iconTransformation(extent={{-140,-10},{-100,30}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uZonSta if have_CO2Sen and is_parFanPow
@@ -107,14 +109,6 @@ block Setpoints "Specify zone minimum outdoor air and minimum airflow set points
         iconTransformation(extent={{100,-60},{140,-20}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Feedback disTemDif
-    "Zone temperature minus discharge air temperature"
-    annotation (Placement(transformation(extent={{-270,-300},{-250,-280}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis cooSup(
-    final uLow=-dT,
-    final uHigh=dT)
-    "Check if it is supplying cooling"
-    annotation (Placement(transformation(extent={{-220,-300},{-200,-280}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal airDisEff(
     final realTrue=zonDisEff_cool,
     final realFalse=zonDisEff_heat)
@@ -274,16 +268,12 @@ protected
     final k=0) if not have_occSen or is_SZVAV
     "Constant zero"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
+  Buildings.Controls.OBC.CDL.Continuous.Greater cooSup(
+    final h=dTHys)
+    "Check if it is supplying cooling"
+    annotation (Placement(transformation(extent={{-220,-300},{-200,-280}})));
 
 equation
-  connect(TZon, disTemDif.u1)
-    annotation (Line(points={{-320,-290},{-272,-290}}, color={0,0,127}));
-  connect(TDis, disTemDif.u2) annotation (Line(points={{-320,-320},{-260,-320},{
-          -260,-302}}, color={0,0,127}));
-  connect(disTemDif.y, cooSup.u)
-    annotation (Line(points={{-248,-290},{-222,-290}}, color={0,0,127}));
-  connect(cooSup.y, airDisEff.u)
-    annotation (Line(points={{-198,-290},{-182,-290}}, color={255,0,255}));
   connect(co2Set.y, addPar.u)
     annotation (Line(points={{-258,-50},{-222,-50}}, color={0,0,127}));
   connect(addPar.y, lin.x1) annotation (Line(points={{-198,-50},{-180,-50},{-180,
@@ -437,6 +427,12 @@ equation
   connect(zer3.y, unpMinZonAir.u1) annotation (Line(points={{-58,20},{-20,20},{-20,
           108},{18,108}}, color={0,0,127}));
 
+  connect(TZon, cooSup.u1)
+    annotation (Line(points={{-320,-290},{-222,-290}}, color={0,0,127}));
+  connect(TDis, cooSup.u2) annotation (Line(points={{-320,-320},{-240,-320},{-240,
+          -298},{-222,-298}}, color={0,0,127}));
+  connect(cooSup.y, airDisEff.u)
+    annotation (Line(points={{-198,-290},{-182,-290}}, color={255,0,255}));
 annotation (
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
         graphics={

@@ -35,14 +35,16 @@ block Alarms "Generate alarms of terminal unit with reheat"
     "Near zero flow rate, below which the flow rate or difference will be seen as zero"
     annotation (Dialog(tab="Advanced"));
   parameter Real dTHys(
-    final unit="s",
-    final quantity="Time")=0.25
+    final unit="K",
+    final quantity="TemperatureDifference")=0.25
     "Temperature difference hysteresis below which the temperature difference will be seen as zero"
     annotation (Dialog(tab="Advanced"));
-  parameter Real damPosHys(final unit="1")=0.05
+  parameter Real damPosHys(
+    final unit="1")=0.05
     "Near zero damper position, below which the damper will be seen as closed"
     annotation (Dialog(tab="Advanced"));
-  parameter Real valPosHys(final unit="1")=0.05
+  parameter Real valPosHys(
+    final unit="1")=0.05
     "Near zero valve position, below which the valve will be seen as closed"
     annotation (Dialog(tab="Advanced"));
 
@@ -59,18 +61,19 @@ block Alarms "Generate alarms of terminal unit with reheat"
     final quantity="VolumeFlowRate") "Active airflow setpoint"
     annotation (Placement(transformation(extent={{-280,240},{-240,280}}),
         iconTransformation(extent={{-140,40},{-100,80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uFan "Supply fan status"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uFan
+    "Supply fan status"
     annotation (Placement(transformation(extent={{-280,50},{-240,90}}),
         iconTransformation(extent={{-140,20},{-100,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uDam(
     final min=0,
-    final unit="1") "Damper position"
+    final unit="1") "Actual damper position"
     annotation (Placement(transformation(extent={{-280,-60},{-240,-20}}),
         iconTransformation(extent={{-140,0},{-100,40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uHeaVal(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uVal(
     final min=0,
     final unit="1")
-    "Heating valve position"
+    "Actual valve position"
     annotation (Placement(transformation(extent={{-280,-110},{-240,-70}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSup(
@@ -517,7 +520,7 @@ equation
           -358},{18,-358}}, color={255,0,255}));
   connect(proInt1.y, yLowTemAla)
     annotation (Line(points={{222,-300},{260,-300}}, color={255,127,0}));
-  connect(uHeaVal, cloVal.u)
+  connect(uVal, cloVal.u)
     annotation (Line(points={{-260,-90},{-202,-90}}, color={0,0,127}));
   connect(cloVal.y, truDel6.u)
     annotation (Line(points={{-178,-90},{-142,-90}}, color={255,0,255}));
@@ -590,10 +593,10 @@ annotation (defaultComponentName="rehBoxAla",
           pattern=LinePattern.Dash,
           textString="yLeaDamAla"),
         Text(
-          extent={{-100,6},{-62,-4}},
+          extent={{-100,6},{-78,-4}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="uHeaVal"),
+          textString="uVal"),
         Text(
           extent={{-100,-14},{-74,-24}},
           lineColor={0,0,127},
@@ -685,7 +688,7 @@ fan serving the zone is proven on (<code>uFan=true</code>), generate a Level
 </p>
 <h4>Leaking valve</h4>
 <p>
-If the valve position (<code>uHeaVal</code>) is 0% for 15 minutes (<code>valCloTim</code>),
+If the valve position (<code>uVal</code>) is 0% for 15 minutes (<code>valCloTim</code>),
 discharing air temperature <code>TDis</code> is above AHU supply temperature
 <code>TSup</code> by 3 &deg;C (5 &deg;F), and the fan serving the zone is proven
 on (<code>uFan=true</code>), gemerate a Level 4 alarm.

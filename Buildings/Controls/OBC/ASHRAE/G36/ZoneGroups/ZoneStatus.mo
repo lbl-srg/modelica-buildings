@@ -29,10 +29,14 @@ block ZoneStatus "Block that outputs zone temperature status"
     "Threshold of temperature difference for indicating the end of setback or setup mode";
   parameter Boolean have_winSen=false
     "Check if the zone has window status sensor";
-  parameter Real uLow=-0.1
+  parameter Real uLow(
+    final unit="K",
+    final quantity="TemperatureDifference")=-0.1
     "Low limit of the hysteresis for checking temperature difference"
     annotation (Dialog(tab="Advanced"));
-  parameter Real uHigh=0.1
+  parameter Real uHigh(
+    final unit="K",
+    final quantity="TemperatureDifference")=0.1
     "High limit of the hysteresis for checking temperature difference"
     annotation (Dialog(tab="Advanced"));
 

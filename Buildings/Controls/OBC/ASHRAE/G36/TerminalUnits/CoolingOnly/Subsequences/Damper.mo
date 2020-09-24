@@ -1,41 +1,43 @@
 within Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.CoolingOnly.Subsequences;
 block Damper
   "Output signals for controlling VAV cooling only box damper position"
+
   parameter Boolean have_pressureIndependentDamper=true
-     "True: the VAV damper is pressure independent (with built-in flow controller)"
-     annotation(Dialog(group="Damper control"));
+    "True: the VAV damper is pressure independent (with built-in flow controller)"
+    annotation(Dialog(group="Damper control"));
   parameter Real V_flow_nominal(
-     final unit="m3/s",
-     final quantity="VolumeFlowRate",
-     final min=1E-10)
-     "Nominal volume flow rate, used to normalize control error"
-     annotation(Dialog(group="Damper control"));
+    final unit="m3/s",
+    final quantity="VolumeFlowRate",
+    final min=1E-10)
+    "Nominal volume flow rate, used to normalize control error"
+    annotation(Dialog(group="Damper control"));
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController damCon=
-     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
-     "Type of controller"
-     annotation(Dialog(group="Damper control", enable=not have_pressureIndependentDamper));
-  parameter Real kDam(final unit="1")=0.5
-     "Gain of controller for damper control"
-     annotation(Dialog(group="Damper control", enable=not have_pressureIndependentDamper));
+    Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+    "Type of controller"
+    annotation(Dialog(group="Damper control", enable=not have_pressureIndependentDamper));
+  parameter Real kDam(
+    final unit="1")=0.5
+    "Gain of controller for damper control"
+    annotation(Dialog(group="Damper control", enable=not have_pressureIndependentDamper));
   parameter Real TiDam(
-     final unit="s",
-     final quantity="Time")=300
-     "Time constant of integrator block for damper control"
-     annotation(Dialog(group="Damper control",
-     enable=(damCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
-         or damCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)
-         and not have_pressureIndependentDamper));
-  parameter Real TdDam(
-     final unit="s",
-     final quantity="Time")=0.1
-     "Time constant of derivative block for damper control"
-     annotation (Dialog(group="Damper control",
-       enable=(damCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
+    final unit="s",
+    final quantity="Time")=300
+    "Time constant of integrator block for damper control"
+    annotation(Dialog(group="Damper control",
+      enable=(damCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
            or damCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)
            and not have_pressureIndependentDamper));
-  parameter Real dTHys(
+  parameter Real TdDam(
     final unit="s",
-    final quantity="Time")=0.25
+    final quantity="Time")=0.1
+    "Time constant of derivative block for damper control"
+    annotation (Dialog(group="Damper control",
+       enable=(damCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
+            or damCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)
+            and not have_pressureIndependentDamper));
+  parameter Real dTHys(
+    final unit="K",
+    final quantity="TemperatureDifference")=0.25
     "Delta between the temperature hysteresis high and low limit"
     annotation (Dialog(tab="Advanced"));
 

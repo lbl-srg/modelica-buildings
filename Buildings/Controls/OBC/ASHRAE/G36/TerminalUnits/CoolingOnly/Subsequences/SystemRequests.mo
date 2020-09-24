@@ -4,12 +4,10 @@ block SystemRequests
 
   parameter Real thrTemDif(
     final unit="K",
-    final displayUnit="K",
     final quantity="TemperatureDifference")=3
     "Threshold difference between zone temperature and cooling setpoint for generating 3 cooling SAT reset requests";
   parameter Real twoTemDif(
     final unit="K",
-    final displayUnit="K",
     final quantity="TemperatureDifference")=2
     "Threshold difference between zone temperature and cooling setpoint for generating 2 cooling SAT reset requests";
   parameter Real durTimTem(
@@ -23,8 +21,8 @@ block SystemRequests
     "Duration time of airflow rate less than setpoint"
     annotation(Dialog(group="Duration times"));
   parameter Real dTHys(
-    final unit="s",
-    final quantity="Time")=0.25
+    final unit="K",
+    final quantity="TemperatureDifference")=0.25
     "Near zero temperature difference, below which the difference will be seen as zero"
     annotation (Dialog(tab="Advanced"));
   parameter Real floHys(
