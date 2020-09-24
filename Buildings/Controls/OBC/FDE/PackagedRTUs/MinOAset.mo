@@ -1,6 +1,7 @@
 within Buildings.Controls.OBC.FDE.PackagedRTUs;
 block MinOAset
   "Calculates minimum outside air flow set point for packaged RTU controller"
+
  parameter Real minOAset(
   final unit="m3/s",
   final quantity="VolumeFlowRate")=0.8
@@ -21,7 +22,7 @@ block MinOAset
         iconTransformation(extent={{104,-20},{144,20}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minOAsetpoint(
-    k=minOAset)
+    k=minOAset) "Minimum outside air flow set point."
     annotation (Placement(transformation(extent={{-52,24},{-32,44}})));
 
 protected
@@ -30,15 +31,19 @@ protected
     "Set the outside air flow set point to zero when not in occupied mode"
     annotation (Placement(transformation(extent={{-50,-48},{-30,-28}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi
+    "Switch between minimum OA flow set point and 0 based on occupancy mode."
     annotation (Placement(transformation(extent={{4,-10},{24,10}})));
+
 equation
   connect(yMinOAflowSet, yMinOAflowSet)
     annotation (Line(points={{124,0},{124,0}}, color={0,0,127}));
   connect(swi.y, yMinOAflowSet)
     annotation (Line(points={{26,0},{124,0}}, color={0,0,127}));
-  connect(con.y, swi.u3) annotation (Line(points={{-28,-38},{-20,-38},{-20,-8},
+  connect(con.y, swi.u3)
+    annotation (Line(points={{-28,-38},{-20,-38},{-20,-8},
           {2,-8}}, color={0,0,127}));
-  connect(minOAsetpoint.y, swi.u1) annotation (Line(points={{-30,34},{-20,34},{
+  connect(minOAsetpoint.y, swi.u1)
+    annotation (Line(points={{-30,34},{-20,34},{
           -20,8},{2,8}}, color={0,0,127}));
   connect(occ, swi.u2)
     annotation (Line(points={{-120,0},{2,0}}, color={255,0,255}));

@@ -8,22 +8,26 @@ block SupplyFanController
    final quantity="PressureDifference")=125
     "Minimum down duct static pressure reset value"
       annotation (Dialog(group="DDSP range"));
+
  parameter Real maxDDSPset(
    min=0,
    final unit="Pa",
    final quantity="PressureDifference")=500
     "Maximum down duct static pressure reset value"
       annotation (Dialog(group="DDSP range"));
+
   parameter Real cvDDSPset(
    min=0,
    final unit="Pa",
    final quantity="PressureDifference")=250
     "Constant volume down duct static pressure set point";
+
  parameter Real damSet(
    min=0,
    max=1,
    final unit="1")=0.9
    "DDSP terminal damper percent open set point";
+
  parameter Boolean vvUnit = true
    "Set true when unit serves variable volume system.";
 
@@ -32,14 +36,17 @@ block SupplyFanController
     "True when occupied mode is active"
     annotation (Placement(transformation(extent={{-142,60},{-102,100}}),
        iconTransformation(extent={{-140,50},{-100,90}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput mostOpenDam
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput mostOpenDam if vvUnit
     "Most open damper position from all terminal units served."
       annotation (Placement(transformation(extent={{-142,-24},{-102,16}}),
         iconTransformation(extent={{-140,14},{-100,54}})));
+
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput supFanStatus
     "True when supply fan is proven on."
       annotation (Placement(transformation(extent={{-142,22},{-102,62}}),
         iconTransformation(extent={{-140,-56},{-100,-16}})));
+
   Buildings.Controls.OBC.CDL.Interfaces.RealInput DDSP
     "Down duct static pressure measurement."
       annotation (Placement(transformation(extent={{-142,-106},{-102,-66}}),
@@ -50,43 +57,47 @@ block SupplyFanController
    "Command supply fan to start when true."
      annotation (Placement(transformation(extent={{102,60},{142,100}}),
        iconTransformation(extent={{100,32},{140,72}})));
+
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput supFanProof
     "True when supply fan is proven on"
       annotation (Placement(transformation(extent={{102,22},{142,62}}),
         iconTransformation(extent={{100,-20},{140,20}})));
+
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput supFanSpeed
     "Supply fan speed command"
       annotation (Placement(transformation(extent={{102,-50},{142,-10}}),
         iconTransformation(extent={{100,-64},{140,-24}})));
+
 
   Buildings.Controls.OBC.CDL.Continuous.LimPID DDSPreset(
     k=0.0000001,
     Ti=0.00025,
     yMax=maxDDSPset,
     yMin=minDDSPset,
-    reverseAction=true)
+    reverseAction=true) if vvUnit
     "Calculates DDSP reset value for VV units."
       annotation (Placement(transformation(extent={{-72,4},{-52,24}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dampSet(
-    k=damSet)
+    final k=damSet) if vvUnit
     "Most open damper position set point."
       annotation (Placement(transformation(extent={{-98,4},{-78,24}})));
   Buildings.Controls.OBC.CDL.Continuous.LimPID conPID(k=0.0000001, Ti=0.00025)
+    "PI calculation for fan speed."
       annotation (Placement(transformation(extent={{48,-40},{68,-20}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant conVVunit(
-    k=vvUnit)
+    final k=vvUnit)
       "True when unit serves variable volume system."
         annotation (Placement(transformation(extent={{-72,-32},{-52,-12}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant cvDDSPsetpt(
-    k=cvDDSPset)
+    final k=cvDDSPset) if not vvUnit
       "DDSP set point for constant volume systems."
         annotation (Placement(transformation(extent={{-72,-64},{-52,-44}})));
-  CDL.Logical.Switch CVorVV
-    "Select VV DDSP set point when true, CV DDSP set point when false."
-    annotation (Placement(transformation(extent={{-26,-32},{-6,-12}})));
   CDL.Logical.Switch swi
+    "Swtich passes fan speed set point when true; 0 when false."
     annotation (Placement(transformation(extent={{14,-40},{34,-20}})));
-  CDL.Continuous.Sources.Constant con0(k=0)
+  CDL.Continuous.Sources.Constant con0(
+    final k=0)
+    "Real constant 0"
     annotation (Placement(transformation(extent={{-26,-64},{-6,-44}})));
 equation
   connect(supFanStart, occ)
@@ -99,22 +110,20 @@ equation
     annotation (Line(points={{-122,42},{122,42}},   color={255,0,255}));
   connect(conPID.u_m, DDSP)
     annotation (Line(points={{58,-42},{58,-86},{-122,-86}}, color={0,0,127}));
-  connect(DDSPreset.y, CVorVV.u1) annotation (Line(points={{-50,14},{-40,14},{
-          -40,-14},{-28,-14}}, color={0,0,127}));
-  connect(cvDDSPsetpt.y, CVorVV.u3) annotation (Line(points={{-50,-54},{-40,-54},
-          {-40,-30},{-28,-30}}, color={0,0,127}));
-  connect(conVVunit.y, CVorVV.u2)
-    annotation (Line(points={{-50,-22},{-28,-22}}, color={255,0,255}));
-  connect(CVorVV.y, swi.u1)
-    annotation (Line(points={{-4,-22},{12,-22}}, color={0,0,127}));
-  connect(con0.y, swi.u3) annotation (Line(points={{-4,-54},{4,-54},{4,-38},{12,
-          -38}}, color={0,0,127}));
+  connect(con0.y, swi.u3)
+    annotation (Line(points={{-4,-54},{4,-54},{4,-38},{12,-38}},
+      color={0,0,127}));
   connect(conPID.y, supFanSpeed)
     annotation (Line(points={{70,-30},{122,-30}}, color={0,0,127}));
   connect(swi.y, conPID.u_s)
     annotation (Line(points={{36,-30},{46,-30}}, color={0,0,127}));
-  connect(supFanStatus, swi.u2) annotation (Line(points={{-122,42},{0,42},{0,
-          -30},{12,-30}}, color={255,0,255}));
+  connect(supFanStatus, swi.u2)
+    annotation (Line(points={{-122,42},{0,42},{0,-30},{12,-30}},
+      color={255,0,255}));
+  connect(DDSPreset.y, swi.u1) annotation (Line(points={{-50,14},{-34,14},{-34,
+          -22},{12,-22}}, color={0,0,127}));
+  connect(cvDDSPsetpt.y, swi.u1) annotation (Line(points={{-50,-54},{-34,-54},{
+          -34,-22},{12,-22}}, color={0,0,127}));
   annotation (defaultComponentName="SFcon",
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={
             Rectangle(extent={{-100,100},{100,-100}},

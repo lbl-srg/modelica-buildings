@@ -1,6 +1,7 @@
 within Buildings.Controls.OBC.FDE.PackagedRTUs;
 block DDSPset
   "Down duct static pressure set point calculation based on terminal unit damper position"
+
  parameter Real minDDSPset(
    min=0,
    final unit="Pa",
@@ -37,7 +38,7 @@ block DDSPset
     final unit="Pa",
     final displayUnit="bar",
     final quantity="Pressure")
-    "Calculated down duct static pressure set point"
+    "Calculated down duct static pressure set point."
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),
         iconTransformation(extent={{100,-20},{140,20}})));
 
@@ -49,30 +50,33 @@ block DDSPset
     yMin=0,
     reverseAction=true,
     reset=Buildings.Controls.OBC.CDL.Types.Reset.Disabled)
-    "calculate reset value based on most open terminal unit damper position "
+    "Calculate reset value based on most open terminal unit damper position."
     annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Line lin
+    "Linear reset of DDSP set point as PID output varies to meet most 
+      open damper set point."
     annotation (Placement(transformation(extent={{46,-10},{66,10}})));
 
 protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant X1(
     final k=0)
-    "linear conversion constant (min)"
+    "Linear conversion constant (min)."
     annotation (Placement(transformation(extent={{-50,70},{-30,90}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant X2(
     final k=1)
-    "linear conversion constant (max)"
+    "Linear conversion constant (max)."
     annotation (Placement(transformation(extent={{-50,-54},{-30,-34}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant DamSetpt(
     final k=DamSet)
-    "The terminal unit damper percent open set point"
+    "The terminal unit damper percent open set point."
     annotation (Placement(transformation(extent={{-88,-10},{-68,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxDDSPsetpt(
     final k=maxDDSPset)
-    "maximum allowable set point reset value"
+    "Maximum allowable set point reset value."
     annotation (Placement(transformation(extent={{-50,-92},{-30,-72}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minDDSPsetpt(
-    final k=minDDSPset) "minimum reset value"
+    final k=minDDSPset)
+    "Minimum reset value."
     annotation (Placement(transformation(extent={{-50,30},{-30,50}})));
 
 equation
@@ -81,17 +85,21 @@ equation
                                                          color={0,0,127}));
   connect(conPID.y, lin.u)
     annotation (Line(points={{-28,0},{44,0}},   color={0,0,127}));
-  connect(X1.y, lin.x1) annotation (Line(points={{-28,80},{-14,80},{-14,8},{44,8}},
+  connect(X1.y, lin.x1)
+    annotation (Line(points={{-28,80},{-14,80},{-14,8},{44,8}},
                     color={0,0,127}));
-  connect(X2.y, lin.x2) annotation (Line(points={{-28,-44},{-18,-44},{-18,-4},{
+  connect(X2.y, lin.x2)
+    annotation (Line(points={{-28,-44},{-18,-44},{-18,-4},{
           44,-4}},      color={0,0,127}));
   connect(lin.y, yDDSPset)
     annotation (Line(points={{68,0},{120,0}},  color={0,0,127}));
   connect(conPID.u_s, DamSetpt.y)
     annotation (Line(points={{-52,0},{-66,0}},   color={0,0,127}));
-  connect(lin.f2, maxDDSPsetpt.y) annotation (Line(points={{44,-8},{-14,-8},{
+  connect(lin.f2, maxDDSPsetpt.y)
+    annotation (Line(points={{44,-8},{-14,-8},{
           -14,-82},{-28,-82}},  color={0,0,127}));
-  connect(minDDSPsetpt.y, lin.f1) annotation (Line(points={{-28,40},{-20,40},{-20,
+  connect(minDDSPsetpt.y, lin.f1)
+    annotation (Line(points={{-28,40},{-20,40},{-20,
           4},{44,4}},        color={0,0,127}));
   annotation (defaultComponentName="DDSPset",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,

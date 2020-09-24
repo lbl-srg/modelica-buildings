@@ -83,5 +83,11 @@ equation
 September 16, 2020, by Henry Nickels:</br>
 First implementation.</li>
 </ul>
+</html>", info="<html>
+<p>
+This example simulates
+<a href=\"modelica://Buildings.Controls.OBC.FDE.DOAS.EnergyWheel\">
+Buildings.Controls.OBC.FDE.DOAS.EnergyWheel</a>.
+</p>
 </html>"));
 end EnergyWheel;

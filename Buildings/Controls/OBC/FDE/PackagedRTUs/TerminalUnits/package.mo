@@ -11,5 +11,7 @@ annotation (Icon(graphics={
                       Text(
           extent={{-96,42},{108,-46}},
           lineColor={0,0,0},
-        textString="TUs")}));
+        textString="TUs")}), Documentation(info="<html>
+<p>This package contains Terminal Unit request simulation for packaged factory controlled sequences.</p>
+</html>"));
 end TerminalUnits;

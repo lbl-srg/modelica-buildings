@@ -152,5 +152,15 @@ equation
                 pattern = LinePattern.None,
                 fillPattern = FillPattern.Solid,
                 points={{-36,60},{64,0},{-36,-60},{-36,60}})}), Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+        coordinateSystem(preserveAspectRatio=false)),
+    Documentation(info="<html>
+<p>
+This example simulates
+<a href=\"modelica://Buildings.Controls.OBC.FDE.PackagedRTUs.BAScontroller\">
+Buildings.Controls.OBC.FDE.PackagedRTUs.BAScontroller</a> using the terminal unit request simulator 
+<a href=\"modelica://Buildings.Controls.OBC.FDE.PackagedRTUs.TerminalUnits.SimPartialController\">
+Buildings.Controls.OBC.FDE.PackagedRTUs.TerminalUnits.SimPartialController</a>.
+</p>
+</html>"),
+    experiment(StopTime=5760, __Dymola_Algorithm="Dassl"));
 end BASController_with_Requests;

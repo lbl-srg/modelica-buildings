@@ -12,10 +12,12 @@ block ExhaustFanController
     "True when supply fan is proven on"
       annotation (Placement(transformation(extent={{-142,34},{-102,74}}),
         iconTransformation(extent={{-140,40},{-100,80}})));
+
   Buildings.Controls.OBC.CDL.Interfaces.RealInput bldgSP
     "Building static pressure"
       annotation (Placement(transformation(extent={{-142,-28},{-102,12}}),
         iconTransformation(extent={{-140,-84},{-100,-44}})));
+
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput exhFanProof
     "True when exhaust fan is proven on."
       annotation (Placement(transformation(extent={{-142,-62},{-102,-22}}),
@@ -26,24 +28,29 @@ block ExhaustFanController
     "Command exhaust fan to start when true."
        annotation (Placement(transformation(extent={{102,34},{142,74}}),
          iconTransformation(extent={{100,40},{140,80}})));
+
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput exhFanSpeed
     "Exhaust fan speed command"
       annotation (Placement(transformation(extent={{102,-16},{142,24}}),
         iconTransformation(extent={{100,-80},{140,-40}})));
 
+
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant bldgStaticSP(
-    k=bldgSPset)
-      "Building static pressure set point"
+    final k=bldgSPset)
+    "Building static pressure set point."
         annotation (Placement(transformation(extent={{-40,2},{-20,22}})));
   Buildings.Controls.OBC.CDL.Continuous.LimPID conPID(
-    k=0.0000001,
-    Ti=0.00075,
+    final k=0.0000001,
+    final Ti=0.00075,
     reverseAction=true)
+    "Fan speed PI calculation."
       annotation (Placement(transformation(extent={{-6,2},{14,22}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi
+    "Logical switch is true when fan status is proven."
     annotation (Placement(transformation(extent={{38,-6},{58,14}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con0(
     final k=0)
+    "Real constant 0."
       annotation (Placement(transformation(extent={{-4,-74},{16,-54}})));
 
 
@@ -52,8 +59,8 @@ equation
     annotation (Line(points={{122,54},{-122,54}},   color={255,0,255}));
   connect(conPID.u_m, bldgSP)
     annotation (Line(points={{4,0},{4,-8},{-122,-8}},  color={0,0,127}));
-  connect(con0.y, swi.u3) annotation (Line(points={{18,-64},{28,-64},{28,-4},{36,
-          -4}},
+  connect(con0.y, swi.u3)
+    annotation (Line(points={{18,-64},{28,-64},{28,-4},{36,-4}},
         color={0,0,127}));
   connect(conPID.y, swi.u1)
     annotation (Line(points={{16,12},{36,12}}, color={0,0,127}));
@@ -61,8 +68,9 @@ equation
     annotation (Line(points={{60,4},{122,4}},   color={0,0,127}));
   connect(conPID.u_s, bldgStaticSP.y)
     annotation (Line(points={{-8,12},{-18,12}}, color={0,0,127}));
-  connect(swi.u2, exhFanProof) annotation (Line(points={{36,4},{20,4},{20,-42},
-          {-122,-42}}, color={255,0,255}));
+  connect(swi.u2, exhFanProof)
+    annotation (Line(points={{36,4},{20,4},{20,-42},{-122,-42}},
+      color={255,0,255}));
   annotation (defaultComponentName="EFcon",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={
             Rectangle(extent={{-100,100},{100,-100}},

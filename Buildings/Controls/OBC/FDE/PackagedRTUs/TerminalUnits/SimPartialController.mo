@@ -8,43 +8,52 @@ block SimPartialController
    final quantity="ThermodynamicTemperature")=297.15
    "Zone cooling temperature set point."
    annotation (Dialog(group="Temperature set points"));
+
   parameter Real heatTStpt(
    final unit="K",
    final displayUnit="degC",
    final quantity="ThermodynamicTemperature")=293.15
    "Zone heating temperature set point."
    annotation (Dialog(group="Temperature set points"));
+
   parameter Real coolMinDelay(
     final unit="s",
     final quantity="Time")=5
     "Minimum delay before issuing cool request after trigger"
     annotation (Dialog(group="Trigger delay times"));
+
   parameter Real heatMinDelay(
     final unit="s",
     final quantity="Time")=5
     "Minimum delay before issuing heat request after trigger"
     annotation (Dialog(group="Trigger delay times"));
+
    parameter Real occMinDelay(
     final unit="1",
     final quantity="Time")=5
     "Minimum delay before issuing occupancy request after trigger"
     annotation (Dialog(group="Trigger delay times"));
+
   parameter Real coolDStpt(
     final unit="1")=0.85
     "Trigger cool request when cooling PID exceeds this value"
     annotation (Dialog(group="PID trigger set points"));
+
   parameter Real heatDStpt(
     final unit="1")=0.85
     "Trigger heat request when cooling PID exceeds this value"
     annotation (Dialog(group="PID trigger set points"));
+
   parameter Integer coolReqG(
      min=1) = 1
      "Cooling request gain"
     annotation (Dialog(group="Request gain parameters"));
+
   parameter Integer heatReqG(
      min=1) = 1
      "Heating request gain"
     annotation (Dialog(group="Request gain parameters"));
+
   parameter Integer occReqG(
      min=1) = 1
      "Occupancy request gain"
@@ -56,6 +65,7 @@ block SimPartialController
   annotation (Placement(
     transformation(extent={{-142,36},{-102,76}}),
     iconTransformation(extent={{-140,16},{-100,56}})));
+
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput OccOvrd
   "Occupancy override"
   annotation (Placement(
@@ -67,18 +77,22 @@ block SimPartialController
     "Terminal unit cooling requests."
     annotation (Placement(transformation(extent={{144,48},{184,88}}),
         iconTransformation(extent={{102,42},{142,82}})));
+
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput termSBC
     "Terminal setback cooling request"
     annotation (Placement(transformation(extent={{144,18},{184,58}}),
         iconTransformation(extent={{102,14},{142,54}})));
+
    Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput termHeatReq
     "Terminal unit heating requests."
     annotation (Placement(transformation(extent={{144,-18},{184,22}}),
         iconTransformation(extent={{102,-20},{142,20}})));
+
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput termSBH
     "Terminal setback heating request"
     annotation (Placement(transformation(extent={{144,-46},{184,-6}}),
         iconTransformation(extent={{102,-50},{142,-10}})));
+
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput termOccReq
     "Terminal unit occupancy requests"
     annotation (Placement(transformation(extent={{144,-82},{184,-42}}),
@@ -87,17 +101,21 @@ block SimPartialController
 
   Buildings.Controls.OBC.CDL.Continuous.LimPID conPIDcooling(
   reverseAction=true)
+  "Zone cooling PI calculation."
     annotation (Placement(
       transformation(extent={{-64,64},{-44,84}})));
   Buildings.Controls.OBC.CDL.Continuous.LimPID conPIDheating
+    "Zone heating PI calculation."
     annotation (Placement(
       transformation(extent={{-64,-2},{-44,18}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant coolSetpoint(
   final k=coolTStpt)
+  "Zone temperature cooling set point."
     annotation (Placement(
       transformation(extent={{-94,64},{-74,84}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant heatSetpoint(
   final k=heatTStpt)
+  "Zone temperature heating set point."
     annotation (Placement(
       transformation(extent={{-94,-2},{-74,18}})));
   Buildings.Controls.OBC.CDL.Continuous.Greater coolDemGreSetpt
@@ -127,53 +145,66 @@ block SimPartialController
     annotation (Placement(
       transformation(extent={{-10,-66},{10,-46}})));
   Buildings.Controls.OBC.CDL.Integers.Product proInt
+  "Product of two Integers."
     annotation (Placement(transformation(extent={{52,58},{72,78}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant coolReqGain(
     k=coolReqG)
-    "Cooling request gain"
+    "Cooling request gain."
     annotation (Placement(transformation(extent={{22,38},{42,58}})));
   Buildings.Controls.OBC.CDL.Integers.Product proInt1
+    "Product of two Integers."
     annotation (Placement(transformation(extent={{52,-8},{72,12}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant heatlReqGain(
     k=heatReqG)
-    "Heating request gain"
+    "Heating request gain."
     annotation (Placement(transformation(extent={{22,-28},{42,-8}})));
   Buildings.Controls.OBC.CDL.Integers.Product proInt2
+    "Product of two Integers."
     annotation (Placement(transformation(extent={{52,-72},{72,-52}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant occlReqGain(
     k=occReqG)
-    "Occupancy request gain"
+    "Occupancy request gain."
     annotation (Placement(transformation(extent={{22,-92},{42,-72}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant coolTrigSet(
     k=coolDStpt)
-    "Trigger cool request when cooling PID exceeds this value"
+    "Trigger cool request when cooling PID exceeds this value."
     annotation (Placement(transformation(extent={{-64,30},{-44,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant heatTrigSet(
     k=heatDStpt)
-    "Trigger heat request when heating PID exceeds this value"
+    "Trigger heat request when heating PID exceeds this value."
     annotation (Placement(transformation(extent={{-64,-36},{-44,-16}})));
 
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant con1(
     final k=1)
+    "Constant Integer 1."
     annotation (Placement(transformation(extent={{-10,32},{10,52}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant con0(
     final k=0)
+    "Constant Integer 0."
     annotation (Placement(transformation(extent={{-10,-34},{10,-14}})));
   Buildings.Controls.OBC.CDL.Logical.IntegerSwitch intSwi
+    "Integer value Logical switch."
     annotation (Placement(transformation(extent={{22,64},{42,84}})));
   Buildings.Controls.OBC.CDL.Logical.IntegerSwitch intSwi1
+    "Integer value Logical switch."
     annotation (Placement(transformation(extent={{22,-2},{42,18}})));
   Buildings.Controls.OBC.CDL.Logical.IntegerSwitch intSwi2
+    "Integer value Logical switch."
     annotation (Placement(transformation(extent={{22,-66},{42,-46}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1
+  "Logical NOT."
     annotation (Placement(transformation(extent={{54,-98},{74,-78}})));
   Buildings.Controls.OBC.CDL.Logical.And and2
+  "Logical AND."
     annotation (Placement(transformation(extent={{78,22},{98,42}})));
   Buildings.Controls.OBC.CDL.Logical.And and1
+  "Logical AND."
     annotation (Placement(transformation(extent={{78,-44},{98,-24}})));
   Buildings.Controls.OBC.CDL.Logical.IntegerSwitch intSwi3
+    "Integer value Logical switch."
     annotation (Placement(transformation(extent={{108,22},{128,42}})));
   Buildings.Controls.OBC.CDL.Logical.IntegerSwitch intSwi4
+    "Integer value Logical switch."
     annotation (Placement(transformation(extent={{108,-44},{128,-24}})));
 
 equation

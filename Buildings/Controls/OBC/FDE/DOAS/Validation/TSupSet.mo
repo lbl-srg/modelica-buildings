@@ -21,12 +21,12 @@ model TSupSet "This model simulates TSupSet"
    final displayUnit="degC",
    final quantity="ThermodynamicTemperature")=273.15+21
    "Minimum zone temperature reset value";
-  parameter Real coAdj(
+  parameter Real cooAdj(
    final unit="K",
    final displayUnit="degC",
    final quantity="ThermodynamicTemperature")=2
    "Supply air temperature cooling set point offset.";
-  parameter Real heAdj(
+  parameter Real heaAdj(
    final unit="K",
    final displayUnit="degC",
    final quantity="ThermodynamicTemperature")=2
@@ -67,5 +67,11 @@ equation
 September 14, 2020, by Henry Nickels:</br>
 First implementation.</li>
 </ul>
+</html>", info="<html>
+<p>
+This example simulates
+<a href=\"modelica://Buildings.Controls.OBC.FDE.DOAS.TSupSet\">
+Buildings.Controls.OBC.FDE.DOAS.TSupSet</a>.
+</p>
 </html>"));
 end TSupSet;

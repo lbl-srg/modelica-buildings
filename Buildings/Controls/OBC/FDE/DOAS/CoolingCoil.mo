@@ -16,6 +16,7 @@ block CoolingCoil
     "Supply air temperature sensor."
       annotation (Placement(transformation(extent={{-142,-56},{-102,-16}}),
         iconTransformation(extent={{-142,36},{-102,76}})));
+
   Buildings.Controls.OBC.CDL.Interfaces.RealInput supCooSP(
    final unit="K",
    final displayUnit="degC",
@@ -23,10 +24,12 @@ block CoolingCoil
     "Supply air temperature cooling set point."
       annotation (Placement(transformation(extent={{-142,-86},{-102,-46}}),
         iconTransformation(extent={{-142,8},{-102,48}})));
+
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput supFanProof
     "True when supply fan is proven on."
       annotation (Placement(transformation(extent={{-142,-116},{-102,-76}}),
         iconTransformation(extent={{-142,64},{-102,104}})));
+
   Buildings.Controls.OBC.CDL.Interfaces.RealInput erwHum(
     final min=0,
     final max=1,
@@ -34,6 +37,7 @@ block CoolingCoil
     "ERW relative humidity sensor"
       annotation (Placement(transformation(extent={{-142,34},{-102,74}}),
         iconTransformation(extent={{-142,-78},{-102,-38}})));
+
   Buildings.Controls.OBC.CDL.Interfaces.RealInput erwT(
    final unit="K",
    final displayUnit="degC",
@@ -41,6 +45,7 @@ block CoolingCoil
     "ERW dry bulb temperature sensor."
       annotation (Placement(transformation(extent={{-142,4},{-102,44}}),
         iconTransformation(extent={{-142,-104},{-102,-64}})));
+
   Buildings.Controls.OBC.CDL.Interfaces.RealInput ccT(
    final unit="K",
    final displayUnit="degC",
@@ -48,6 +53,7 @@ block CoolingCoil
     "Cooling coil discharge air temperature sensor."
       annotation (Placement(transformation(extent={{-142,64},{-102,104}}),
         iconTransformation(extent={{-142,-52},{-102,-12}})));
+
    Buildings.Controls.OBC.CDL.Interfaces.BooleanInput dehumMode
     "True when dehumidification mode is on."
       annotation (Placement(transformation(extent={{-142,-24},{-102,16}}),
@@ -59,8 +65,9 @@ block CoolingCoil
       annotation (Placement(transformation(extent={{102,56},{142,96}}),
         iconTransformation(extent={{102,-20},{142,20}})));
 
+
   Buildings.Controls.OBC.FDE.DOAS.Dewpoint Dewpt
-    "ERW dewpoint temperature."
+    "ERW dewpoint temperature calculation."
     annotation (Placement(transformation(extent={{-76,38},{-56,58}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant erwAdjDP(
     final k=erwDPadj)
@@ -70,27 +77,36 @@ block CoolingCoil
     k=0.0000001,
     Ti=0.000025,
     reverseAction=true)
+    "PI calculation of supply air temperature and supply air cooling set point"
     annotation (Placement(transformation(extent={{-76,-46},{-56,-26}})));
   Buildings.Controls.OBC.CDL.Continuous.LimPID conPID1(
     k=0.0000001,
     Ti=0.000025,
     reverseAction=false)
+    "PI calculation of cooling coil air temperature and ERW dew point"
     annotation (Placement(transformation(extent={{6,74},{26,94}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con0(
     final k=0)
+    "Real constant 0"
     annotation (Placement(transformation(extent={{-20,-62},{0,-42}})));
   Buildings.Controls.OBC.CDL.Continuous.Add sub(final k2=-1)
     annotation (Placement(transformation(extent={{-44,32},{-24,52}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi
+    "Logical switch outputs supply air PI value when fan is proven on."
     annotation (Placement(transformation(extent={{14,-54},{34,-34}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi1
+    "Logical switch passes different PI calculations to yCC 
+      based on dehumidification mode."
     annotation (Placement(transformation(extent={{58,66},{78,86}})));
   Buildings.Controls.OBC.CDL.Logical.And and2
+    "Logical AND; true when dehumidification is on and supply fan is proven on."
     annotation (Placement(transformation(extent={{-20,-14},{0,8}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add2
+   "Convert dewpoint degC to K"
     annotation (Placement(transformation(extent={{-14,26},{6,46}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conKel(
     final k=273.15)
+    "Real constant 273.15"
       annotation (Placement(transformation(extent={{-44,6},{-24,26}})));
 
 equation
@@ -98,38 +114,47 @@ equation
     annotation (Line(points={{-54,-36},{12,-36}}, color={0,0,127}));
   connect(conPID.u_s, saT)
     annotation (Line(points={{-78,-36},{-122,-36}}, color={0,0,127}));
-  connect(conPID.u_m, supCooSP) annotation (Line(points={{-66,-48},{-66,-66},{-122,
-          -66}}, color={0,0,127}));
+  connect(conPID.u_m, supCooSP)
+    annotation (Line(points={{-66,-48},{-66,-66},{-122,-66}},
+      color={0,0,127}));
   connect(con0.y, swi.u3)
     annotation (Line(points={{2,-52},{12,-52}}, color={0,0,127}));
   connect(Dewpt.relHum, erwHum)
     annotation (Line(points={{-78.2,54},{-122,54}}, color={0,0,127}));
-  connect(Dewpt.dbT, erwT) annotation (Line(points={{-78.2,42},{-94,42},{-94,24},
-          {-122,24}}, color={0,0,127}));
+  connect(Dewpt.dbT, erwT)
+    annotation (Line(points={{-78.2,42},{-94,42},{-94,24},{-122,24}},
+      color={0,0,127}));
   connect(Dewpt.dpT, sub.u1)
     annotation (Line(points={{-53.8,48},{-46,48}}, color={0,0,127}));
-  connect(erwAdjDP.y, sub.u2) annotation (Line(points={{-54,22},{-50,22},{-50,36},
-          {-46,36}}, color={0,0,127}));
+  connect(erwAdjDP.y, sub.u2)
+    annotation (Line(points={{-54,22},{-50,22},{-50,36},{-46,36}},
+      color={0,0,127}));
   connect(conPID1.u_s, ccT)
     annotation (Line(points={{4,84},{-122,84}},   color={0,0,127}));
   connect(conPID1.y, swi1.u1)
     annotation (Line(points={{28,84},{56,84}},color={0,0,127}));
-  connect(swi.u2, supFanProof) annotation (Line(points={{12,-44},{6,-44},{6,-96},
-          {-122,-96}}, color={255,0,255}));
-  connect(and2.u1, dehumMode) annotation (Line(points={{-22,-3},{-78,-3},{-78,-4},
-          {-122,-4}}, color={255,0,255}));
-  connect(supFanProof, and2.u2) annotation (Line(points={{-122,-96},{-42,-96},{-42,
-          -11.8},{-22,-11.8}}, color={255,0,255}));
-  connect(and2.y, swi1.u2) annotation (Line(points={{2,-3},{36,-3},{36,76},{56,76}},
+  connect(swi.u2, supFanProof)
+    annotation (Line(points={{12,-44},{6,-44},{6,-96},{-122,-96}},
+      color={255,0,255}));
+  connect(and2.u1, dehumMode)
+    annotation (Line(points={{-22,-3},{-78,-3},{-78,-4},{-122,-4}},
+      color={255,0,255}));
+  connect(supFanProof, and2.u2)
+    annotation (Line(points={{-122,-96},{-42,-96},{-42,-11.8},{-22,-11.8}},
+      color={255,0,255}));
+  connect(and2.y, swi1.u2)
+    annotation (Line(points={{2,-3},{36,-3},{36,76},{56,76}},
         color={255,0,255}));
   connect(swi1.y, yCC)
     annotation (Line(points={{80,76},{122,76}}, color={0,0,127}));
-  connect(swi.y, swi1.u3) annotation (Line(points={{36,-44},{46,-44},{46,68},{56,
-          68}}, color={0,0,127}));
+  connect(swi.y, swi1.u3)
+    annotation (Line(points={{36,-44},{46,-44},{46,68},{56,68}},
+      color={0,0,127}));
   connect(sub.y, add2.u1)
     annotation (Line(points={{-22,42},{-16,42}}, color={0,0,127}));
-  connect(conKel.y, add2.u2) annotation (Line(points={{-22,16},{-20,16},{-20,30},
-          {-16,30}}, color={0,0,127}));
+  connect(conKel.y, add2.u2)
+    annotation (Line(points={{-22,16},{-20,16},{-20,30},{-16,30}},
+      color={0,0,127}));
   connect(add2.y, conPID1.u_m)
     annotation (Line(points={{8,36},{16,36},{16,72}}, color={0,0,127}));
   annotation (defaultComponentName="Cooling",

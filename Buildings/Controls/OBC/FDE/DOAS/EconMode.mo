@@ -13,6 +13,7 @@ block EconMode
     "True when supply fan is proven on"
       annotation (Placement(transformation(extent={{-142,42},{-102,82}}),
         iconTransformation(extent={{-142,50},{-102,90}})));
+
    Buildings.Controls.OBC.CDL.Interfaces.RealInput oaT
     "Outside air temperature"
       annotation (Placement(transformation(extent={{-142,6},{-102,46}}),
@@ -24,8 +25,10 @@ block EconMode
       annotation (Placement(transformation(extent={{104,-20},{144,20}}),
         iconTransformation(extent={{102,-20},{142,20}})));
 
+
   Buildings.Controls.OBC.CDL.Continuous.Add add2(
     final k2=-1)
+    "Subtract econCooAdj value from supCooSP."
       annotation (Placement(transformation(extent={{-52,-26},{-32,-6}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput supCooSP
     "Supply air temperature cooling set point."
@@ -36,33 +39,44 @@ block EconMode
       "Value subtracted from supply air temperature cooling set point."
         annotation (Placement(transformation(extent={{-86,-36},{-66,-16}})));
   Buildings.Controls.OBC.CDL.Continuous.Greater gre
+    "True if OAT > supCooSP."
     annotation (Placement(transformation(extent={{-14,-46},{6,-26}})));
   Buildings.Controls.OBC.CDL.Logical.Latch lat
+    "Latches true when OAT < (supCooSP-econCooAdj); resets when OAT > supCooSP."
     annotation (Placement(transformation(extent={{24,-18},{44,2}})));
   Buildings.Controls.OBC.CDL.Logical.And and2
+    "Logical AND; true when fan is proven on and 
+      temperature set point conditions are met."
     annotation (Placement(transformation(extent={{68,-10},{88,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Less les
+    "True if OAT< (supCooSP-econCooAdj)."
     annotation (Placement(transformation(extent={{-14,-18},{6,2}})));
 
 equation
-  connect(and2.u1, supFanProof) annotation (Line(points={{66,0},{58,0},{58,62},{
-          -122,62}}, color={255,0,255}));
-  connect(les.u1, oaT) annotation (Line(points={{-16,-8},{-22,-8},{-22,26},{-122,
-          26}}, color={0,0,127}));
+  connect(and2.u1, supFanProof)
+    annotation (Line(points={{66,0},{58,0},{58,62},{-122,62}},
+      color={255,0,255}));
+  connect(les.u1, oaT)
+    annotation (Line(points={{-16,-8},{-22,-8},{-22,26},{-122,26}},
+      color={0,0,127}));
   connect(add2.y, les.u2)
     annotation (Line(points={{-30,-16},{-16,-16}}, color={0,0,127}));
   connect(add2.u1, supCooSP)
     annotation (Line(points={{-54,-10},{-122,-10}}, color={0,0,127}));
-  connect(con.y, add2.u2) annotation (Line(points={{-64,-26},{-60,-26},{-60,-22},
-          {-54,-22}}, color={0,0,127}));
+  connect(con.y, add2.u2)
+    annotation (Line(points={{-64,-26},{-60,-26},{-60,-22},{-54,-22}},
+      color={0,0,127}));
   connect(les.y, lat.u)
     annotation (Line(points={{8,-8},{22,-8}}, color={255,0,255}));
-  connect(oaT, gre.u1) annotation (Line(points={{-122,26},{-22,26},{-22,-36},{-16,
-          -36}}, color={0,0,127}));
-  connect(supCooSP, gre.u2) annotation (Line(points={{-122,-10},{-92,-10},{-92,-44},
-          {-16,-44}}, color={0,0,127}));
-  connect(gre.y, lat.clr) annotation (Line(points={{8,-36},{16,-36},{16,-14},{22,
-          -14}}, color={255,0,255}));
+  connect(oaT, gre.u1)
+    annotation (Line(points={{-122,26},{-22,26},{-22,-36},{-16,-36}},
+      color={0,0,127}));
+  connect(supCooSP, gre.u2)
+    annotation (Line(points={{-122,-10},{-92,-10},{-92,-44},{-16,-44}},
+      color={0,0,127}));
+  connect(gre.y, lat.clr)
+    annotation (Line(points={{8,-36},{16,-36},{16,-14},{22,-14}},
+      color={255,0,255}));
   connect(lat.y, and2.u2)
     annotation (Line(points={{46,-8},{66,-8}}, color={255,0,255}));
   connect(and2.y, ecoMode)
