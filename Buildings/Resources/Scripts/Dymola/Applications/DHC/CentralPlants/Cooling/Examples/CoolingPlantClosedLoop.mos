@@ -1,121 +1,15 @@
-// Simulate
-simulateModel("Buildings.Applications.DHC.CentralPlants.Cooling.Examples.CoolingPlantClosedLoop", stopTime=86400, method="dassl", tolerance=1e-06, resultFile="CoolingPlantClosedLoop");
+﻿// Simulate
+simulateModel("Buildings.Applications.DHC.CentralPlants.Cooling.Examples.CoolingPlantClosedLoop", stopTime=86400, tolerance=1e-06, resultFile="CoolingPlantClosedLoop");
 // Plot commands
 removePlots(false);
-createPlot(id=1, 
-	position={13, 21, 645, 570}, 
-	y={"pla.chiStaCon.QLoa", "QEva_nominal"}, 
-	range={0.0, 24.0, -1000000.0, 500000.0}, 
-	grid=true,
-	filename="CoolingPlantClosedLoop.mat",	
-	colors={{28,108,200}, {238,46,47}}, 
-	timeUnit="h");
-createPlot(id=1, 
-	position={13, 21, 645, 186}, 
-	y={"TCHWSet", "pla.senTCHWRet.T", "pla.senTCHWSup.T"}, 
-	range={0.0, 24.0, 5.0, 30.0}, 
-	grid=true, 
-	subPlot=2, 
-	colors={{28,108,200}, {238,46,47}, {0,140,72}}, 
-	timeUnit="h", 
-	displayUnits={"degC", "degC", "degC"});
-createPlot(id=1, 
-	position={13, 21, 645, 187}, 
-	y={"pla.chiStaCon.y[1]", "pla.chiStaCon.y[2]"}, 
-	range={0.0, 24.0, -0.5, 1.5}, 
-	grid=true, 
-	subPlot=3, 
-	colors={{28,108,200}, {238,46,47}}, 
-	timeUnit="h");
-createPlot(id=2, 
-	position={717, 13, 584, 565}, 
-	y={"pla.valByp.port_a.m_flow", "pla.valByp.port_b.m_flow"}, 
-	range={0.0, 24.0, -10.0, 10.0}, 
-	grid=true, 
-	colors={{28,108,200}, {238,46,47}}, 
-	timeUnit="h");
-createPlot(id=2, 
-	position={717, 13, 584, 185}, 
-	y={"pla.bypValCon.y"}, 
-	range={0.0, 24.0, -0.5, 1.5}, 
-	grid=true, 
-	subPlot=2, 
-	colors={{28,108,200}}, 
-	timeUnit="h");
-createPlot(id=2, 
-	position={717, 13, 584, 185}, 
-	y={"pla.valByp.port_a.p", "pla.valByp.port_b.p"}, 
-	range={0.0, 24.0, -10.0, 5.0}, 
-	grid=true, 
-	subPlot=3, 
-	colors={{28,108,200}, {238,46,47}}, 
-	timeUnit="h", 
-	displayUnits={"bar", "bar"});
-createPlot(id=3, 
-	position={30, 16, 651, 583}, 
-	y={"pla.cooTowWitByp.TWetBul", "pla.cooTowWitByp.sta_a.T", "pla.cooTowWitByp.sta_b.T"}, 
-	range={0.0, 24.0, 0.0, 25.0}, 
-	grid=true, 
-	colors={{28,108,200}, {238,46,47}, {0,140,72}}, 
-	timeUnit="h", 
-	displayUnits={"degC", "degC", "degC"});
-createPlot(id=3, 
-	position={30, 16, 651, 191}, 
-	y={"pla.cooTowWitByp.cooTowSpeCon.u_s", "pla.cooTowWitByp.cooTowSpeCon.u_m"}, 
-	range={0.0, 24.0, 14.0, 22.0}, 
-	grid=true, 
-	subPlot=2, 
-	colors={{28,108,200}, {238,46,47}}, 
-	timeUnit="h", 
-	displayUnits={"degC", "degC"});
-createPlot(id=3, 
-	position={30, 16, 651, 191}, 
-	y={"pla.cooTowWitByp.bypValCon.y", "pla.cooTowWitByp.cooTowSpeCon.y"}, 
-	range={0.0, 24.0, -0.5, 1.5}, 
-	grid=true, 
-	subPlot=3, 
-	colors={{28,108,200}, {238,46,47}}, 
-	timeUnit="h");
-createPlot(id=4, 
-	position={752, 15, 584, 563}, 
-	y={"pla.CHWPumCon.dpMea", "pla.CHWPumCon.dpSetPoi"}, 
-	range={0.0, 24.0, -1000000.0, 500000.0}, 
-	grid=true, 
-	colors={{28,108,200}, {238,46,47}}, 
-	timeUnit="h");
-createPlot(id=4, 
-	position={752, 15, 584, 185}, 
-	y={"pla.CHWPumCon.masFloPum", "pla.CHWPumCon.m_flow_nominal"}, 
-	range={0.0, 24.0, -5.0, 20.0}, 
-	grid=true, 
-	subPlot=2, 
-	colors={{28,108,200}, {238,46,47}}, 
-	timeUnit="h");
-createPlot(id=4, 
-	position={752, 15, 584, 184}, 
-	y={"pla.CHWPumCon.y[1]", "pla.CHWPumCon.y[2]"}, 
-	range={0.0, 24.0, -0.5, 1.5}, 
-	grid=true, 
-	subPlot=3, 
-	colors={{28,108,200}, {238,46,47}}, 
-	timeUnit="h");
-createPlot(id=5, 
-	position={54, 14, 625, 581}, 
-	y={"pip.sta_a.T", "pip.sta_b.T"}, 
-	range={0.0, 90000.0, 5.0, 25.0}, 
-	grid=true, 
-	colors={{28,108,200}, {238,46,47}}, 
-	displayUnits={"degC", "degC"});
-createPlot(id=5, 
-	position={54, 14, 625, 288}, 
-	y={"pip.vol[1].T", "pip.vol[2].T", "pip.vol[3].T", "pip.vol[4].T", "pip.vol[5].T",
-	"pip.vol[6].T", "pip.vol[7].T", "pip.vol[8].T", "pip.vol[9].T", "pip.vol[10].T"}, 
-	range={0.0, 90000.0, 5.0, 25.0}, 
-	grid=true, 
-	subPlot=2, 
-	colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}, {0,0,0}, {162,29,33}, 
-	{244,125,35}, {102,44,145}, {28,108,200}, {238,46,47}}, 
-	patterns={LinePattern.Solid, LinePattern.Solid, LinePattern.Solid, LinePattern.Solid, 
-	LinePattern.Solid, LinePattern.Solid, LinePattern.Solid, LinePattern.Solid, LinePattern.Dash, LinePattern.Dash}, 
-	displayUnits={"degC", "degC", "degC", "degC", "degC", "degC", "degC", "degC", "degC", "degC"});
+createPlot(id=1, position={13, 21, 645, 570}, y={"pla.sta_a.p", "pla.sta_b.p"}, range={0.0, 24.0, -15.0, 5.0}, grid=true, filename="CoolingPlantClosedLoop.mat", colors={{28,108,200}, {238,46,47}}, timeUnit="h", displayUnits={"bar", "bar"});
+createPlot(id=1, position={13, 21, 645, 570}, y={"pla.sta_a.T", "pla.sta_b.T"}, range={0.0, 24.0, 5.0, 25.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}}, timeUnit="h", displayUnits={"degC", "degC"});
+createPlot(id=1, position={13, 21, 645, 570}, y={"pla.cooTowWitByp.sta_a.T", "pla.cooTowWitByp.sta_b.T"}, range={0.0, 24.0, 14.0, 24.0}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}}, timeUnit="h", displayUnits={"degC", "degC"});
+createPlot(id=2, position={717, 13, 584, 565}, y={"pla.pumCHW.port_a.m_flow", "pla.pumCHW.port_b.m_flow"}, range={0.0, 24.0, -20.0, 20.0}, grid=true, colors={{28,108,200}, {238,46,47}}, timeUnit="h", displayUnits={"kg/s", "kg/s"});
+createPlot(id=2, position={717, 13, 584, 565}, y={"pla.valByp.port_a.m_flow", "pla.valByp.port_b.m_flow"}, range={0.0, 24.0, -10.0, 10.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}}, timeUnit="h", displayUnits={"kg/s", "kg/s"});
+createPlot(id=2, position={717, 13, 584, 565}, y={"bui.QCoo_flow", "bui.QHea_flow"}, range={0.0, 24.0, -800000.0, 200000.0}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}}, timeUnit="h", displayUnits={"W", "W"});
+createPlot(id=3, position={30, 16, 651, 583}, y={"bui.ports_aHeaWat[1].m_flow", "bui.ports_bHeaWat[1].m_flow", "bui.ports_aChiWat[1].m_flow",
+ "bui.ports_bChiWat[1].m_flow"}, range={0.0, 24.0, -20.0, 20.0}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}}, timeUnit="h", displayUnits={"kg/s", "kg/s", "kg/s", "kg/s"});
+createPlot(id=3, position={30, 16, 651, 583}, y={"bui.terUniCoo.T_aHeaWat_nominal", "bui.terUniCoo.T_bHeaWat_nominal"}, range={0.0, 24.0, 34.0, 42.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}}, timeUnit="h", displayUnits={"degC", "degC"});
+createPlot(id=3, position={30, 16, 651, 583}, y={"bui.terUniCoo.T_aChiWat_nominal", "bui.terUniCoo.T_bChiWat_nominal"}, range={0.0, 24.0, 5.0, 20.0}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}}, timeUnit="h", displayUnits={"degC", "degC"});
 

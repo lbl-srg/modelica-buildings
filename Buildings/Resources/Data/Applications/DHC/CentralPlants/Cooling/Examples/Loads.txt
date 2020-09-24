@@ -1,0 +1,13 @@
+#1
+#Peak space cooling load = -691740 Watts
+#Peak space heating load = 100000 Watts
+double tab1(5,3)
+0	-200000	100000
+6	-500000	100000
+12	-691740	100000
+18	-500000	100000
+23	-200000	100000
+
+
+
+
