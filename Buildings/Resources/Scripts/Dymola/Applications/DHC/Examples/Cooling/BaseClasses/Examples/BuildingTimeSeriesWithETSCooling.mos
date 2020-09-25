@@ -1,0 +1,9 @@
+﻿// Simulate
+simulateModel("Buildings.Applications.DHC.Examples.Cooling.BaseClasses.Examples.BuildingTimeSeriesWithETSCooling", stopTime=86400, tolerance=1e-6, resultFile="BuildingTimeSeriesWithETSCooling");
+// Plot commands
+removePlots(false);
+createPlot(id=1, position={13, 21, 645, 570}, y={"buiWitETS.port_a.m_flow", "buiWitETS.port_b.m_flow"}, range={0.0, 24.0, -20.0, 20.0}, erase=false, grid=true, filename="BuildingTimeSeriesWithETSCooling.mat", colors={{28,108,200}, {238,46,47}}, timeUnit="h", displayUnits={"kg/s", "kg/s"});
+createPlot(id=1, position={13, 21, 645, 570}, y={"buiWitETS.bui.QHea_flow", "buiWitETS.bui.QCoo_flow"}, range={0.0, 24.0, -800000.0, 200000.0}, erase=false, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}}, timeUnit="h", displayUnits={"W", "W"});
+createPlot(id=1, position={13, 21, 645, 570}, y={"buiWitETS.ets.sta_a1.T", "buiWitETS.ets.sta_b1.T", "buiWitETS.ets.sta_a2.T", 
+"buiWitETS.ets.sta_b2.T"}, range={0.0, 24.0, 5.0, 25.0}, erase=false, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}}, timeUnit="h", displayUnits={"degC", "degC", "degC", "degC"});
+

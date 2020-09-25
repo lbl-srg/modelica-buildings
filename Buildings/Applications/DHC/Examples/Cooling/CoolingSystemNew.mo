@@ -160,9 +160,6 @@ model CoolingSystemNew "Example to test the district cooling network model"
     each mByp_flow_nominal=0.1,
     each QCooLoa=QCooLoa) "Building 5,6,7 with cooling load"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
-  inner Modelica.Fluid.System system
-    "System properties and default values"
-    annotation (Placement(transformation(extent={{60,60},{80,80}})));
 protected
   parameter Modelica.SIunits.SpecificHeatCapacity cp=
    Medium.specificHeatCapacityCp(
