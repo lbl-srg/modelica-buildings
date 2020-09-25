@@ -128,9 +128,8 @@ model CoolingDirectControlledReturn
       tab="Controller",
       enable=initType == Modelica.Blocks.Types.InitPID.InitialOutput));
 
-  parameter Boolean reverseAction = true
-    "Set to true for throttling the water flow rate through a cooling 
-      coil controller"
+  parameter Boolean reverseActing = false
+    "Set to true for reverse acting, or false for direct acting control action"
     annotation(Dialog(tab="Controller"));
 
   // Advanced parameters
@@ -252,7 +251,7 @@ model CoolingDirectControlledReturn
     final wd=wd,
     final Ni=Ni,
     final Nd=Nd,
-    final reverseAction=reverseAction,
+    final reverseActing=reverseActing,
     final initType=initType,
     final xi_start=xi_start,
     final xd_start=xd_start,
@@ -394,4 +393,3 @@ American Society of Heating, Refrigeration and Air-Conditioning Engineers.
 </ul>
 </html>"));
 end CoolingDirectControlledReturn;
-
