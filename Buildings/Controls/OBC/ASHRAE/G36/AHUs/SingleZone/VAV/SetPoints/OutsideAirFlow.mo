@@ -129,7 +129,8 @@ protected
     final k=VOutPerPer_flow*AFlo*occDen)
     "Population component of the breathing zone outdoor airflow"
     annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
-  Buildings.Controls.OBC.CDL.Integers.Equal intEqu1 "Check if operation mode is occupied"
+  Buildings.Controls.OBC.CDL.Integers.Equal intEqu1
+    "Check if operation mode is occupied"
     annotation (Placement(transformation(extent={{-140,-160},{-120,-140}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant occMod(
     final k=Buildings.Controls.OBC.ASHRAE.G36.Types.OperationModes.occupied)
