@@ -20,15 +20,22 @@ model BuildingTimeSeriesWithETSCooling
     "Type of energy balance: dynamic (3 initialization options) or steady state"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
   parameter String filNam
-    "Library path of the file with thermal loads as time series";
+    "Library path of the file with thermal loads as time series"
+    annotation (Dialog(group="Building"));
   final parameter Modelica.SIunits.Power Q_flow_nominal(max=-Modelica.Constants.eps)=
     Buildings.Experimental.DistrictHeatingCooling.SubStations.VaporCompression.BaseClasses.getPeakLoad(
     string="#Peak space cooling load",
     filNam=Modelica.Utilities.Files.loadResource(filNam))
     "Design cooling heat flow rate (<=0)Nominal heat flow rate, negative";
+  parameter Modelica.SIunits.Temperature TChiWatSup_nominal=273.15 + 7
+    "Minimum setpoint temperature for district return"
+    annotation (Dialog(group="Building"));
+  parameter Modelica.SIunits.Temperature TChiWatRet_nominal=273.15 + 16
+    "Minimum setpoint temperature for district return"
+    annotation (Dialog(group="Building"));
 
   // ETS parameters
-  parameter Modelica.SIunits.Temperature TSetDisRet=273.15 + 16
+  parameter Modelica.SIunits.Temperature TSetDisRet=TChiWatRet_nominal
     "Minimum setpoint temperature for district return"
     annotation (Dialog(group="Energy transfer station"));
   parameter Modelica.SIunits.MassFlowRate mDis_flow_nominal(
@@ -38,7 +45,7 @@ model BuildingTimeSeriesWithETSCooling
     annotation (Dialog(group="Energy transfer station"));
   parameter Modelica.SIunits.MassFlowRate mBui_flow_nominal(
     final min=0,
-    final start=0.5)=Q_flow_nominal/(cp*(7 - 16))
+    final start=0.5)=Q_flow_nominal/(cp*(TChiWatSup_nominal - TChiWatRet_nominal))
     "Nominal mass flow rate of building cooling side"
     annotation (Dialog(group="Energy transfer station"));
   parameter Modelica.SIunits.MassFlowRate mByp_flow_nominal(
@@ -56,8 +63,8 @@ model BuildingTimeSeriesWithETSCooling
     deltaTAirHea=18,
     loa(
     columns = {2,3}, timeScale=3600, offset={0,0}),
-    T_aChiWat_nominal=280.15,
-    T_bChiWat_nominal=289.15,
+    T_aChiWat_nominal=TChiWatSup_nominal,
+    T_bChiWat_nominal=TChiWatRet_nominal,
     final energyDynamics=energyDynamics,
     final use_inputFilter=false,
     final filNam=filNam,
@@ -102,8 +109,8 @@ model BuildingTimeSeriesWithETSCooling
       extent={{10,-10},{-10,10}},
       rotation=0,
       origin={30,90})));
-  Fluid.Sensors.RelativePressure           senRelPre(redeclare package Medium
-      = Medium)
+  Fluid.Sensors.RelativePressure           senRelPre(redeclare package Medium =
+        Medium)
     "Pressure difference measurement"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -170,8 +177,8 @@ equation
           {20,20},{20,44},{10,44}},            color={0,127,255}));
   connect(senRelPre.port_a, bui.ports_aChiWat[1]) annotation (Line(points={{-10,20},
           {-20,20},{-20,44},{-10,44}},               color={0,127,255}));
-  connect(senRelPre.p_rel, p_rel) annotation (Line(points={{0,11},{0,10},{210,
-          10}},             color={0,0,127}));
+  connect(senRelPre.p_rel, p_rel) annotation (Line(points={{0,11},{0,10},{210,10}},
+                            color={0,0,127}));
   connect(bui.QReqHea_flow,QAveHeaReq_flow. u) annotation (Line(points={{6.66667,
           39.3333},{6.66667,34},{60,34},{60,-6},{114,-6},{114,70},{118,70}},
                                                             color={0,0,127}));

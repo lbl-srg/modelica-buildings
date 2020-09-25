@@ -1,0 +1,10 @@
+﻿// Simulate
+simulateModel("Buildings.Applications.DHC.Examples.Cooling.CoolingSystemNew", stopTime=86400, tolerance=1e-06, resultFile="CoolingSystemNew");
+// Plot commands
+removePlots(false);
+createPlot(id=1, position={11, 10, 604, 491}, y={"bld123[3].m_flow", "bld123[1].m_flow", "bld123[2].m_flow", "bld4.m_flow", 
+"bld567[1].m_flow", "bld567[2].m_flow", "bld567[3].m_flow", "bld8.m_flow"}, range={0.0, 24.0, 0.5, 2.5}, grid=true, filename="CoolingSystemNew.mat", colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}, {0,0,0}, {162,29,33}, 
+{244,125,35}, {102,44,145}}, timeUnit="h", displayUnits={"kg/s", "kg/s", "kg/s", "kg/s", "kg/s", "kg/s", "kg/s", "kg/s"});
+createPlot(id=1, position={11, 10, 604, 491}, y={"pla.sta_a.T", "pla.sta_b.T", "bld8.ets.sta_a1.T", "bld8.ets.sta_b2.T"}, range={0.0, 24.0, 5.0, 25.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}}, timeUnit="h", displayUnits={"degC", "degC", "degC", "degC"});
+createPlot(id=1, position={11, 10, 604, 491}, y={"pla.CHWPumCon.dpSetPoi", "pla.CHWPumCon.dpMea"}, range={0.0, 24.0, -2000000.0, 1000000.0}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}}, timeUnit="h", displayUnits={"Pa", "Pa"});
+
