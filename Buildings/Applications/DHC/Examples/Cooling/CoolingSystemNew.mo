@@ -56,9 +56,14 @@ model CoolingSystemNew
   // buildings
   parameter String filNam="modelica://Buildings/Resources/Data/Applications/DHC/Examples/Cooling/Loads.txt"
     "Library path of the file with thermal loads as time series";
+  final parameter Modelica.SIunits.Power Q_flow_nominal(max=-Modelica.Constants.eps)=
+    Buildings.Experimental.DistrictHeatingCooling.SubStations.VaporCompression.BaseClasses.getPeakLoad(
+    string="#Peak space cooling load",
+    filNam=Modelica.Utilities.Files.loadResource(filNam))
+    "Design cooling heat flow rate (<=0)Nominal heat flow rate, negative";
   final parameter Modelica.SIunits.MassFlowRate mBui_flow_nominal(
     final min=0,
-    final start=0.5)=bld4.mBui_flow_nominal
+    final start=0.5)=Q_flow_nominal/(cp*(bld4.TChiWatSup_nominal - bld4.TChiWatRet_nominal))
     "Nominal mass flow rate of building cooling side";
 
   BaseClasses.BuildingTimeSeriesWithETSCooling                                      bld123[nBui](
@@ -166,12 +171,10 @@ protected
 equation
   connect(disBra1.port_aDisRet,bld4. port_b) annotation (Line(points={{50,4},{58,
           4},{58,10},{70,10}}, color={0,127,255}));
-  connect(disBra1.ports_bCon, bld123.port_a) annotation (Line(points={{18,20},{
-          18,30},{12,30},{12,50},{20,50}},
-                                        color={0,127,255}));
-  connect(bld123.port_b, disBra1.ports_aCon) annotation (Line(points={{40,50},{
-          48,50},{48,30},{42,30},{42,20}},
-                                        color={0,127,255}));
+  connect(disBra1.ports_bCon, bld123.port_a) annotation (Line(points={{18,20},{18,
+          30},{12,30},{12,50},{20,50}}, color={0,127,255}));
+  connect(bld123.port_b, disBra1.ports_aCon) annotation (Line(points={{40,50},{48,
+          50},{48,30},{42,30},{42,20}}, color={0,127,255}));
   connect(weaDat.weaBus,weaBus)  annotation (Line(
       points={{-60,-50},{-50,-50}},
       color={255,204,51},
@@ -187,12 +190,12 @@ equation
                                                           color={0,127,255}));
   connect(bld123[3].p_rel, pla.dpMea) annotation (Line(points={{41,53},{50,53},{
           50,72},{-90,72},{-90,0},{-50,0},{-50,7},{-32,7}},  color={0,0,127}));
-  connect(disBra2.ports_bCon, bld567.port_a) annotation (Line(points={{18,-60},
-          {18,-52},{14,-52},{14,-30},{20,-30}}, color={0,127,255}));
-  connect(bld567.port_b, disBra2.ports_aCon) annotation (Line(points={{40,-30},
-          {46,-30},{46,-52},{42,-52},{42,-60}}, color={0,127,255}));
-  connect(disBra2.port_aDisRet, bld8.port_b) annotation (Line(points={{50,-76},
-          {60,-76},{60,-70},{70,-70}}, color={0,127,255}));
+  connect(disBra2.ports_bCon, bld567.port_a) annotation (Line(points={{18,-60},{
+          18,-52},{14,-52},{14,-30},{20,-30}},  color={0,127,255}));
+  connect(bld567.port_b, disBra2.ports_aCon) annotation (Line(points={{40,-30},{
+          46,-30},{46,-52},{42,-52},{42,-60}},  color={0,127,255}));
+  connect(disBra2.port_aDisRet, bld8.port_b) annotation (Line(points={{50,-76},{
+          60,-76},{60,-70},{70,-70}},  color={0,127,255}));
   connect(pla.port_b, disBra2.port_aDisSup) annotation (Line(points={{-10,5},{4,
           5},{4,-70},{10,-70}},
                              color={0,127,255}));
@@ -202,10 +205,10 @@ equation
           {-50,13},{-32,13}}, color={0,0,127}));
   connect(pla.port_b, disBra1.port_aDisSup) annotation (Line(points={{-10,5},{4,
           5},{4,10},{10,10}}, color={0,127,255}));
-  connect(bld8.port_a, disBra2.port_bDisSup) annotation (Line(points={{90,-70},
-          {96,-70},{96,-52},{58,-52},{58,-70},{50,-70}}, color={0,127,255}));
-  connect(bld4.port_a, disBra1.port_bDisSup) annotation (Line(points={{90,10},{
-          96,10},{96,26},{56,26},{56,10},{50,10}}, color={0,127,255}));
+  connect(bld8.port_a, disBra2.port_bDisSup) annotation (Line(points={{90,-70},{
+          96,-70},{96,-52},{58,-52},{58,-70},{50,-70}}, color={0,127,255}));
+  connect(bld4.port_a, disBra1.port_bDisSup) annotation (Line(points={{90,10},{96,
+          10},{96,26},{56,26},{56,10},{50,10}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     experiment(
@@ -213,6 +216,6 @@ equation
       Tolerance=1e-06,
       __Dymola_Algorithm="Dassl"),
     __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Applications/DHC/Examples/Cooling/CoolingSystem.mos"
+          "Resources/Scripts/Dymola/Applications/DHC/Examples/Cooling/CoolingSystemNew.mos"
         "Simulate and Plot"));
 end CoolingSystemNew;

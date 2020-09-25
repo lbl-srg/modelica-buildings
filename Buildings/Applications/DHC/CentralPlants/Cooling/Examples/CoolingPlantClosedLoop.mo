@@ -1,5 +1,6 @@
 within Buildings.Applications.DHC.CentralPlants.Cooling.Examples;
-model CoolingPlantClosedLoop "Example to test the chiller cooling plant"
+model CoolingPlantClosedLoop
+  "Example to test the chiller cooling plant"
   extends Modelica.Icons.Example;
 
   package Medium = Buildings.Media.Water
@@ -92,7 +93,7 @@ model CoolingPlantClosedLoop "Example to test the chiller cooling plant"
     "District cooling plant"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
 
-  Loads.Examples.BaseClasses.BuildingTimeSeriesHE                          bui(
+  Buildings.Applications.DHC.Loads.Examples.BaseClasses.BuildingTimeSeriesHE bui(
     deltaTAirCoo=6,
     deltaTAirHea=18,
     loa(
@@ -235,7 +236,6 @@ equation
       StopTime=86400,
       Tolerance=1e-06,
       __Dymola_Algorithm="Dassl"),
-    __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Applications/DHC/CentralPlants/Cooling/Examples/CoolingPlantClosedLoop.mos"
+    __Dymola_Commands(file="Resources/Scripts/Dymola/Applications/DHC/CentralPlants/Cooling/Examples/CoolingPlantClosedLoop.mos"
         "Simulate and Plot"));
 end CoolingPlantClosedLoop;
