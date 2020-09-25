@@ -198,9 +198,9 @@ equation
           lineColor={28,108,200},
           textString="dehumMode"),
         Text(
-          extent={{56,10},{104,-8}},
+          extent={{62,8},{106,-8}},
           lineColor={28,108,200},
-          textString="%yCC"),
+          textString="yCC"),
         Rectangle(
           extent={{-22,68},{6,-66}},
           lineColor={28,108,200},
@@ -251,7 +251,11 @@ equation
           lineColor={127,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
-        Line(points={{42,-48},{42,-54}}, color={127,0,0})}),
+        Line(points={{42,-48},{42,-54}}, color={127,0,0}),
+        Text(
+          extent={{16,-14},{64,-32}},
+          lineColor={28,108,200},
+          textString="%yCC")}),
     Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(revisions="<html>
 <ul>

@@ -4,6 +4,7 @@ Dewpoint
 EconMode
 EnergyWheel
 ExhaustFanController
+HeatingCoil
 SupplyFanController
 TSupSet
 Validation
