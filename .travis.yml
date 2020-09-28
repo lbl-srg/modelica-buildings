@@ -37,7 +37,7 @@ before_install:
        cp Buildings/Resources/Scripts/travis/dymola/dymola $HOME/bin/;
     fi;
   - if [[ "$TEST_ARG" == *test-optimica* ]]; then
-       docker pull "$DOCKER_USERNAME"/travis-ubuntu-1804-optimica;
+       docker pull "$DOCKER_USERNAME"/travis-ubuntu-1804-optimica:r17595;
        cp Buildings/Resources/Scripts/travis/optimica/jm_ipython.sh $HOME/bin/jm_ipython.sh;
     fi;
   - if [[ "$TEST_ARG" == *test-jmodelica* ]]; then

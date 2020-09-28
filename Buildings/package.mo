@@ -288,9 +288,22 @@ have been <b style=\"color:blue\">improved</b> in a
                        Buildings.Controls.OBC.CDL.Continuous.LessThreshold
     </td>
     <td valign=\"top\">Added option to specify a hysteresis, which by default is set to <i>0</i>.
-<tr><td colspan=\"2\"><b>Buildings.Fluid.HeatExchangers.RadiantSlabs</b>
+    </td>
+    </tr>
+<tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL.Logical</b>
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Logical.Sources.Pulse
+    </td>
+    <td valign=\"top\">Revised initial equation section to ensure an output of the block is <code>true</code> when simulation is started
+                       after boolean pulse <code>startTime</code> and the simulation start time is such that it falls within a time period during which the
+                       output is expected to be <code>true</code>.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2110\">issue 2110</a>.
+    </td>
+    </tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.HeatExchangers.RadiantSlabs</b>
+    </td>
+    </tr>
 <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Functions.AverageResistance
     </td>
     <td valign=\"top\">Corrected inequality test on <code>alpha</code>,
@@ -391,7 +404,13 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2076\">#2076</a>.<br/>
                        For Dymola, a conversion script makes this change.</td>
 </tr>
-
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.NumberOfRequests
+    </td>
+    <td valign=\"top\">Moved block to obsolete package because this block is not needed,
+                       and it would need to be refactored to add hysteresis.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2124\">#2124</a>.<br/>
+                       For Dymola, a conversion script makes this change.</td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL.Logical</b>
     </td>
 </tr>
@@ -577,7 +596,7 @@ xxx
                            from control sequences.<br/>
                            This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1709\">#1709</a>.
         </td>
-    </tr>
+      </tr>
     <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Discrete.TriggeredMovingMean
         </td>
         <td valign=\"top\">Block that outputs the triggered discrete moving mean of an input signal.
