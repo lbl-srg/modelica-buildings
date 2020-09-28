@@ -541,14 +541,6 @@ July 2, 2020, by Karthik Devaprasad:<br/>
 First implementation.
 </li>
 </ul>
-</html>",
-revisions="<html>
-<ul>
-<li>
-May 21, 2020, by Karthik Devaprasad:<br/>
-First implementation.
-</li>
-</ul>
 </html>"),
 Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
      graphics={
