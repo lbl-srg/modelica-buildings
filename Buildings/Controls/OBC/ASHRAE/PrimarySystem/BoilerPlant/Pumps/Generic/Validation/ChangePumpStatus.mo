@@ -2,6 +2,11 @@ within Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.Generic.Val
 model ChangePumpStatus
     "Validate sequence for changing pump status"
 
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.Generic.ChangePumpStatus
+    chaPumSta(final nPum=3)
+    "Scenario testing pump status changer"
+    annotation (Placement(transformation(extent={{60,-10},{82,10}})));
+
 protected
   Buildings.Controls.OBC.CDL.Logical.Pre pre[3](
     final pre_u_start=fill(false, 3))
@@ -63,8 +68,8 @@ equation
   connect(onCouInt.y, intGreThr.u)
     annotation (Line(points={{-86.8,0},{-82,0}}, color={255,127,0}));
 
-  connect(onCouInt.y, chaPumSta.uNexLagPum) annotation (Line(points={{-86.8,0},
-          {-84,0},{-84,-20},{20,-20},{20,-4},{58,-4}}, color={255,127,0}));
+  connect(onCouInt.y, chaPumSta.uNexLagPum) annotation (Line(points={{-86.8,0},{
+          -84,0},{-84,-20},{20,-20},{20,-4},{58,-4}},  color={255,127,0}));
 
   connect(samTri.y, logSwi1.u1) annotation (Line(points={{-108,0},{-106,0},{-106,
           28},{-42,28}}, color={255,0,255}));
@@ -90,11 +95,11 @@ equation
   connect(not1.y, chaPumSta.uLasLagPumSta) annotation (Line(points={{12,20},{30,
           20},{30,5},{58,5}}, color={255,0,255}));
 
-  connect(logSwi.y, chaPumSta.uNexLagPumSta) annotation (Line(points={{-18,50},
-          {50,50},{50,8},{58,8}}, color={255,0,255}));
+  connect(logSwi.y, chaPumSta.uNexLagPumSta) annotation (Line(points={{-18,50},{
+          50,50},{50,8},{58,8}},  color={255,0,255}));
 
-  connect(addInt.y, chaPumSta.uLasLagPum) annotation (Line(points={{-18,-40},{
-          52,-40},{52,-8},{58,-8}}, color={255,127,0}));
+  connect(addInt.y, chaPumSta.uLasLagPum) annotation (Line(points={{-18,-40},{52,
+          -40},{52,-8},{58,-8}},    color={255,127,0}));
 
   connect(onCouInt.y, addInt.u1) annotation (Line(points={{-86.8,0},{-84,0},{-84,
           -34},{-42,-34}}, color={255,127,0}));
@@ -107,13 +112,13 @@ equation
 
 annotation (
   experiment(StopTime=3600.0, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/BoilerPlant/Pumps/PrimaryPumps/Subsequences/Validation/ChangePumpStatus.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/BoilerPlant/Pumps/Generic/Validation/ChangePumpStatus.mos"
     "Simulate and plot"),
   Documentation(info="<html>
 <p>
 This example validates
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.PrimaryPumps.Subsequences.ChangePumpStatus\">
-Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.PrimaryPumps.Subsequences.ChangePumpStatus</a>.
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.Generic.ChangePumpStatus\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.Generic.ChangePumpStatus</a>.
 </p>
 </html>", revisions="<html>
 <ul>
