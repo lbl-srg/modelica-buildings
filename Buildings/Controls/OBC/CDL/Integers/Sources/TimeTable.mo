@@ -5,7 +5,7 @@ block TimeTable "Table look-up with respect to time with constant segments"
     "Table matrix with time as a first table column (in seconds, unless timeScale is not 1) and Integers in all other columns";
   parameter CDL.Types.Extrapolation extrapolation=CDL.Types.Extrapolation.HoldLastPoint
     "Extrapolation of data outside the definition range";
-  parameter Integer offset[:]={0} "Offsets of output signals";
+  parameter Integer offset[:]=fill(0, nout) "Offsets of output signals";
   parameter Modelica.SIunits.Time timeScale=1
     "Time scale of first table column. Set to 3600 if time in table is in hours";
 
@@ -64,10 +64,9 @@ protected
 
 initial equation
   t0=time;
-
-equation
   assert(n > 0, "No table values defined.");
   assert(extrapolation <> CDL.Types.Extrapolation.LastTwoPoints, "Unsuitable extrapolation setting.");
+equation
   connect(realToInteger.y, y) annotation(Line(points={{-18,0},{120,0}},        color={255,127,0}));
 
   connect(realToInteger.y, intToRea.u) annotation (Line(points={{-18,0},{-10,0},
