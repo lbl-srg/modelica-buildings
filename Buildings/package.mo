@@ -432,7 +432,13 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2076\">#2076</a>.<br/>
                        For Dymola, a conversion script makes this change.</td>
 </tr>
-
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.NumberOfRequests
+    </td>
+    <td valign=\"top\">Moved block to obsolete package because this block is not needed,
+                       and it would need to be refactored to add hysteresis.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2124\">#2124</a>.<br/>
+                       For Dymola, a conversion script makes this change.</td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL.Logical</b>
     </td>
 </tr>

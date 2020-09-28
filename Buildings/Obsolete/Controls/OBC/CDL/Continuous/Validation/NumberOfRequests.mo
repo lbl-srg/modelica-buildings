@@ -1,6 +1,6 @@
-within Buildings.Controls.OBC.CDL.Continuous.Validation;
+within Buildings.Obsolete.Controls.OBC.CDL.Continuous.Validation;
 model NumberOfRequests  "Validation model for the NumberOfRequests block"
-  Buildings.Controls.OBC.CDL.Continuous.NumberOfRequests numReq1(
+  Buildings.Obsolete.Controls.OBC.CDL.Continuous.NumberOfRequests numReq1(
     nin=5,
     t=1.0,
     kind=0)
@@ -47,13 +47,13 @@ equation
           1.6},{-12,1.6}}, color={0,0,127}));
   annotation (
 experiment(StopTime=1.0, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Continuous/Validation/NumberOfRequests.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Obsolete/Controls/OBC/CDL/Continuous/Validation/NumberOfRequests.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
 Validation test for the block
-<a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.NumberOfRequests\">
-Buildings.Controls.OBC.CDL.Continuous.NumberOfRequests</a>.
+<a href=\"modelica://Buildings.Obsolete.Controls.OBC.CDL.Continuous.NumberOfRequests\">
+Buildings.Obsolete.Controls.OBC.CDL.Continuous.NumberOfRequests</a>.
 </p>
 <p>
 The input <code>u1</code> varies from <i>-2</i> to <i>+2</i>, input <code>u2</code> varies from <i>-1</i> to <i>+2</i>,
@@ -62,6 +62,12 @@ input <code>u5</code> varies from <i>0</i> to <i>+4</i>,
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 8, 2020, by Michael Wetter:<br/>
+Moved the example to the obsolete package.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2124\">issue 2124</a>.
+</li>
 <li>
 September 26, 2017, by Thierry S. Nouidui:<br/>
 Revised implementation for JModelica verification.
