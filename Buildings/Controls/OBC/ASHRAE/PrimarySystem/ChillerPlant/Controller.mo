@@ -133,27 +133,37 @@ block Controller "Chiller plant controller"
 
   //// Minimum flow bypass
 
-  parameter Integer nChi
+  parameter Integer nChi=2
     "Total number of chillers"
     annotation(Dialog(group="Chillers configuration"));
 
-  parameter Boolean isParallelChiller
+  parameter Boolean is_parChi=true
     "Flag: true means that the plant has parallel chillers"
     annotation(Dialog(group="Chillers configuration"));
 
   parameter Real byPasSetTim(
     final unit="s",
-    final quantity="Time")
+    final quantity="Time")=300
     "Time constant for resetting minimum bypass flow"
     annotation(Dialog(tab="Minimum flow bypass", group="Time parameters"));
 
-  parameter Modelica.SIunits.VolumeFlowRate minFloSet[nChi]
+  parameter Real minFloSet[nChi](
+    final unit=fill("m3/s",nChi),
+    final quantity=fill("VolumeFlowRate",nChi),
+    displayUnit=fill("m3/s",nChi)) = {0.0089,0.0089}
     "Minimum chilled water flow through each chiller"
     annotation(Dialog(tab="Minimum flow bypass", group="Flow limits"));
 
-  parameter Modelica.SIunits.VolumeFlowRate maxFloSet[nChi]
+  parameter Real maxFloSet[nChi](
+    final unit=fill("m3/s",nChi),
+    final quantity=fill("VolumeFlowRate",nChi),
+    displayUnit=fill("m3/s",nChi)) = {0.025,0.025}
     "Maximum chilled water flow through each chiller"
     annotation(Dialog(tab="Minimum flow bypass", group="Flow limits"));
+
+
+
+
 
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeMinFloByp=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
@@ -482,6 +492,100 @@ block Controller "Chiller plant controller"
     final max=1) = 0.05
     "Signal hysteresis deadband"
     annotation (Dialog(tab="Staging", group="Value comparison parameters"));
+
+
+  //// Staging up process
+
+  // derive from nSta and have_WSE
+  parameter Integer totSta=6
+    "Total number of stages, including the stages with a WSE, if applicable"
+    annotation (Dialog(tab="Staging", group="Up process"));
+
+  parameter Boolean have_PonyChiller=false
+    "True: have pony chiller"
+    annotation (Dialog(tab="Staging", group="Up process"));
+
+  parameter Boolean is_parChi=true
+    "True: the plant has parallel chillers"
+    annotation (Dialog(tab="Staging", group="Up process"));
+
+  parameter Boolean is_heaPum=true
+    "True: headered condenser water pumps"
+    annotation (Dialog(tab="Staging", group="Up process"));
+
+  parameter Real chiDemRedFac=0.75
+    "Demand reducing factor of current operating chillers"
+    annotation (Dialog(tab="Staging", group="Up process: Limit chiller demand"));
+
+  parameter Real holChiDemTim(
+    final unit="s",
+    final quantity="Time",
+    displayUnit="h")=300
+    "Maximum time to wait for the actual demand less than percentage of current load"
+    annotation (Dialog(tab="Staging", group="Up process: Limit chiller demand"));
+
+  parameter Real minFloSet[nChi](
+    final unit=fill("m3/s",nChi),
+    final quantity=fill("VolumeFlowRate",nChi),
+    displayUnit=fill("m3/s",nChi))={0.0089,0.0089}
+      "Minimum chilled water flow through each chiller"
+    annotation (Evaluate=true, Dialog(group="Reset CHW minimum flow setpoint"));
+
+  parameter Real maxFloSet[nChi](
+    final unit=fill("m3/s",nChi),
+    final quantity=fill("VolumeFlowRate",nChi),
+    displayUnit=fill("m3/s",nChi))={0.025,0.025}
+      "Maximum chilled water flow through each chiller"
+    annotation (Evaluate=true, Dialog(group="Reset CHW minimum flow setpoint"));
+
+  parameter Real aftByPasSetTim(
+    final unit="s",
+    final quantity="Time",
+    displayUnit="h")=60
+    "Time to allow loop to stabilize after resetting minimum chilled water flow setpoint"
+    annotation (Dialog(group="Reset bypass"));
+  parameter Real staVec[totSta]={0,0.5,1,1.5,2,2.5}
+    "Chiller stage vector, element value like x.5 means chiller stage x plus WSE"
+    annotation (Dialog(group="Enable condenser water pump"));
+  parameter Real desConWatPumSpe[totSta]={0,0.5,0.75,0.6,0.75,0.9}
+    "Design condenser water pump speed setpoints, the size should be double of total stage numbers"
+    annotation (Dialog(group="Enable condenser water pump"));
+  parameter Real desConWatPumNum[totSta]={0,1,1,2,2,2}
+    "Design number of condenser water pumps that should be ON, the size should be double of total stage numbers"
+    annotation (Dialog(group="Enable condenser water pump"));
+  parameter Real thrTimEnb(
+    final unit="s",
+    final quantity="Time",
+    displayUnit="h")=10
+    "Threshold time to enable head pressure control after condenser water pump being reset"
+    annotation (Dialog(group="Enable head pressure control"));
+  parameter Real waiTim(
+    final unit="s",
+    final quantity="Time",
+    displayUnit="h")=30
+    "Waiting time after enabling next head pressure control"
+    annotation (Dialog(group="Enable head pressure control"));
+  parameter Real chaChiWatIsoTim(
+    final unit="s",
+    final quantity="Time",
+    displayUnit="h")=300
+    "Time to slowly change isolation valve, should be determined in the field"
+    annotation (Dialog(group="Enable CHW isolation valve"));
+  parameter Real proOnTim(
+    final unit="s",
+    final quantity="Time",
+    displayUnit="h")=300
+    "Threshold time to check after newly enabled chiller being operated"
+    annotation (Dialog(group="Enable next chiller",enable=have_PonyChiller));
+  parameter Real relSpeDif = 0.05
+    "Relative error to the setpoint for checking if it has achieved speed setpoint"
+    annotation (Dialog(tab="Advanced", group="Enable condenser water pump"));
+  parameter Real relFloDif=0.05
+    "Relative error to the setpoint for checking if it has achieved flow rate setpoint"
+    annotation (Dialog(tab="Advanced", group="Reset bypass"));
+
+
+
 
   //// Cooling tower
 

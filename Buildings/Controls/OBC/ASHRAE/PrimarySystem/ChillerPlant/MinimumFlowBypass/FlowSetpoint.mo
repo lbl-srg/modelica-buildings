@@ -9,9 +9,17 @@ block FlowSetpoint "Chilled water minimum flow setpoint"
     final unit="s",
     final quantity="Time")=300
     "Time constant for resetting minimum bypass flow";
-  parameter Modelica.SIunits.VolumeFlowRate minFloSet[nChi] = {0.005, 0.005, 0.005}
+
+  parameter Real minFloSet[nChi](
+    final unit=fill("m3/s",nChi),
+    final quantity=fill("VolumeFlowRate",nChi),
+    displayUnit=fill("m3/s",nChi)) = {0.005, 0.005, 0.005}
     "Minimum chilled water flow through each chiller";
-  parameter Modelica.SIunits.VolumeFlowRate maxFloSet[nChi] = {0.025, 0.025, 0.025}
+    
+  parameter Real maxFloSet[nChi](
+    final unit=fill("m3/s",nChi),
+    final quantity=fill("VolumeFlowRate",nChi),
+    displayUnit=fill("m3/s",nChi)) = {0.025, 0.025, 0.025}
     "Maximum chilled water flow through each chiller";
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uStaUp
