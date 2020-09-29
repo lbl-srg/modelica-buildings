@@ -9,6 +9,7 @@ model ASHRAE2006
     ACHEas=1*9,
     ACHNor=0.75*6,
     ACHWes=1*7);
+
   annotation (
     __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus/Examples/VAVReheatRefBldgSmallOffice/ASHRAE2006.mos"
