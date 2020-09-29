@@ -1,21 +1,16 @@
 within Buildings.Controls.OBC.CDL.Psychrometrics;
-block TDewPoi_TDryBulPhi
+block DewPoint_TDryBulPhi
   "Block to compute the dew point temperature based on relative humidity"
 
   Interfaces.RealInput TDryBul(
     final quantity="ThermodynamicTemperature",
     final unit="K",
     final min=100) "Dry bulb temperature"
-    annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
+    annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
 
   Interfaces.RealInput phi(final min=0, final max=1, unit="1")
     "Relative air humidity"
-    annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-
-  Interfaces.RealInput p(final quantity="Pressure",
-                         final unit="Pa",
-                         final min = 0) "Pressure"
-    annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
+    annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
 
   Interfaces.RealOutput TDewPoi(
     final quantity="ThermodynamicTemperature",
@@ -52,6 +47,12 @@ ASHRAE Handbook Fundamentals, p. 6.9.
 </html>", revisions="<html>
 <ul>
 <li>
+September 29, 2020, by Michael Wetter:<br/>
+Removed unused input <code>p</code> and renamed block.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2139\">issue 2139</a>
+</li>
+<li>
 April 7, 2017 by Jianjun Hu:<br/>
 First implementation.
 </li>
@@ -79,17 +80,13 @@ First implementation.
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid),
         Text(
-          extent={{-92,14},{-72,-12}},
+          extent={{-90,-46},{-70,-72}},
           lineColor={0,0,127},
           textString="phi"),
         Text(
-          extent={{-92,100},{-62,56}},
+          extent={{-92,82},{-62,38}},
           lineColor={0,0,127},
           textString="TDryBul"),
-        Text(
-          extent={{-90,-72},{-72,-90}},
-          lineColor={0,0,127},
-          textString="p"),
         Polygon(
           points={{86,-74},{76,-72},{76,-76},{86,-74}},
           lineColor={0,0,0},
@@ -122,4 +119,4 @@ First implementation.
         Line(points={{68,-18},{-10,-18}}, color={175,175,175}),
         Line(points={{70,6},{12,6}}, color={175,175,175}),
         Line(points={{68,32},{22,32}}, color={175,175,175})}));
-end TDewPoi_TDryBulPhi;
+end DewPoint_TDryBulPhi;

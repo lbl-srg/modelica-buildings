@@ -4,25 +4,25 @@ block TWetBul_TDryBulPhi
   extends Modelica.Icons.ObsoleteModel;
 
 
-  Interfaces.RealInput TDryBul(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TDryBul(
     final quantity="ThermodynamicTemperature",
     final unit="K",
     final min=100) "Dry bulb temperature"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
 
-  Interfaces.RealInput phi(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput phi(
     final min=0,
     final max=1)
     "Relative air humidity"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
 
-  Interfaces.RealInput p(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput p(
     final quantity="Pressure",
     final unit="Pa",
     final min = 0) "Pressure"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
 
-  Interfaces.RealOutput TWetBul(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput TWetBul(
     final quantity="ThermodynamicTemperature",
     final unit="K",
     final min=100) "Wet bulb temperature"

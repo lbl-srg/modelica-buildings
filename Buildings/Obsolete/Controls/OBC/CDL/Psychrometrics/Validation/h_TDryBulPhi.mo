@@ -20,13 +20,13 @@ model h_TDryBulPhi "Model to test the specific enthalpy computation"
 
 equation
   connect(TDryBul.y, hBulPhi.TDryBul)
-    annotation (Line(points={{-43,34},{0,34},{0,8},{45,8}},
+    annotation (Line(points={{-42,34},{0,34},{0,8},{44,8}},
       color={0,0,127}));
   connect(phi.y, hBulPhi.phi)
-    annotation (Line(points={{-43,0},{0,0},{45,0}},
+    annotation (Line(points={{-42,0},{44,0}},
       color={0,0,127}));
   connect(p.y, hBulPhi.p)
-    annotation (Line(points={{-43,-32},{0,-32},{0,-8},{45,-8}},
+    annotation (Line(points={{-42,-32},{0,-32},{0,-8},{44,-8}},
       color={0,0,127}));
 
 annotation (experiment(StopTime=1.0, Tolerance = 1e-06),

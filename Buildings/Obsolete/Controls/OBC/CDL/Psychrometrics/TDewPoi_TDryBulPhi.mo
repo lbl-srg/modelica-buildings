@@ -4,22 +4,22 @@ block TDewPoi_TDryBulPhi
   extends Modelica.Icons.ObsoleteModel;
 
 
-  Interfaces.RealInput TDryBul(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TDryBul(
     final quantity="ThermodynamicTemperature",
     final unit="K",
     final min=100) "Dry bulb temperature"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
 
-  Interfaces.RealInput phi(final min=0, final max=1, unit="1")
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput phi(final min=0, final max=1, unit="1")
     "Relative air humidity"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
 
-  Interfaces.RealInput p(final quantity="Pressure",
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput p(final quantity="Pressure",
                          final unit="Pa",
                          final min = 0) "Pressure"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
 
-  Interfaces.RealOutput TDewPoi(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput TDewPoi(
     final quantity="ThermodynamicTemperature",
     final unit="K",
     final min=100) "Dew point temperature"

@@ -383,6 +383,13 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1365\">IBPSA, #1365</a>.<br/>
                        For Dymola, a conversion script makes this change.</td>
 </tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.LimPID
+    </td>
+    <td valign=\"top\">Moved model to <code>Building.Obsolete.Controls.OBC.CDL.Continuous</code>.<br/>
+                       Instead of this model, use the new model <code>Buildings.Controls.Continuous.PID</code> or
+                       <code>Buildings.Controls.Continuous.PIDWithReset</code>.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2056\">issue 2056</a>.</td>
+</tr>
 <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold<br/>
                        Buildings.Controls.OBC.CDL.Continuous.GreaterEqual<br/>
                        Buildings.Controls.OBC.CDL.Continuous.LessEqualThreshold<br/>
@@ -432,7 +439,19 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2076\">#2076</a>.<br/>
                        For Dymola, a conversion script makes this change.</td>
 </tr>
-<tr><td colspan=\"2\"><b>Buildings.Controls.OBC</b>
+<tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL.Psychrometrics</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Psychrometrics.TDewPoi_TDryBulPhi<br/>
+                       Buildings.Controls.OBC.CDL.Psychrometrics.TWetBul_TDryBulPhi<br/>
+                       Buildings.Controls.OBC.CDL.Psychrometrics.h_TDryBulPhi
+    </td>
+    <td valign=\"top\">Renamed blocks and removed input connector for pressure.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2139\">#2139</a>.<br/>
+                       For Dymola, a conversion script will rename existing instance to use
+                       the old versions which have been moved to the <code>Buildings.Obsolete</code> package.</td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Controls.OBC.ASHRAE.G36_PR1</b>
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.Controller
@@ -448,13 +467,6 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1893\">issue 1893</a>.
     </td>
-</tr>
-<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.LimPID
-    </td>
-    <td valign=\"top\">Moved model to <code>Building.Obsolete.Controls.OBC.CDL.Continuous</code>.<br/>
-                       Instead of this model, use the new model <code>Buildings.Controls.Continuous.PID</code> or
-                       <code>Buildings.Controls.Continuous.PIDWithReset</code>.<br/>
-                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2056\">issue 2056</a>.</td>
 </tr>
 </table>
 <!-- Errors that have been fixed -->

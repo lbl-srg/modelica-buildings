@@ -2,21 +2,21 @@ within Buildings.Obsolete.Controls.OBC.CDL.Psychrometrics;
 block h_TDryBulPhi
   "Block to compute the specific enthalpy based on relative humidity"
 
-  Interfaces.RealInput TDryBul(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TDryBul(
     final quantity="ThermodynamicTemperature",
     final unit="K",
     final min=100) "Dry bulb temperature"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
-  Interfaces.RealInput phi(final min=0, final max=1)
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput phi(final min=0, final max=1)
     "Relative air humidity"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Interfaces.RealInput p(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput p(
     final quantity="Pressure",
     final unit="Pa",
     final min = 0) "Pressure"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
 
-  Interfaces.RealOutput h(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput h(
     final quantity="SpecificEnergy",
     final unit="J/kg") "Specific enthalpy"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
