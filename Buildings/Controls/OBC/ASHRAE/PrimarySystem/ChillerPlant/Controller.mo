@@ -161,10 +161,6 @@ block Controller "Chiller plant controller"
     "Maximum chilled water flow through each chiller"
     annotation(Dialog(tab="Minimum flow bypass", group="Flow limits"));
 
-
-
-
-
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeMinFloByp=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
@@ -336,7 +332,7 @@ block Controller "Chiller plant controller"
     "Half plant reset value"
     annotation (Dialog(tab="Plant Reset", group="Chilled water supply"));
 
-  //// staging setpoints
+  //// Staging setpoints
 
   parameter Boolean have_WSE=true
     "true = plant has a WSE, false = plant does not have WSE"
@@ -494,7 +490,7 @@ block Controller "Chiller plant controller"
     annotation (Dialog(tab="Staging", group="Value comparison parameters"));
 
 
-  //// Staging up process
+  //// Staging up and down process
 
   // derive from nSta and have_WSE
   parameter Integer totSta=6
@@ -505,163 +501,75 @@ block Controller "Chiller plant controller"
     "True: have pony chiller"
     annotation (Dialog(tab="Staging", group="Up process"));
 
-  parameter Boolean is_parChi=true
-    "True: the plant has parallel chillers"
-    annotation (Dialog(tab="Staging", group="Up process"));
-
   parameter Boolean is_heaPum=true
     "True: headered condenser water pumps"
     annotation (Dialog(tab="Staging", group="Up process: Condenser water pumps"));
 
   parameter Real chiDemRedFac=0.75
     "Demand reducing factor of current operating chillers"
-    annotation (Dialog(tab="Staging", group="Up process: Limit chiller demand"));
+    annotation (Dialog(tab="Staging", group="Up and down process: Limit chiller demand"));
 
   parameter Real holChiDemTim(
     final unit="s",
     final quantity="Time",
     displayUnit="h")=300
     "Maximum time to wait for the actual demand less than percentage of current load"
-    annotation (Dialog(tab="Staging", group="Up process: Limit chiller demand"));
+    annotation (Dialog(tab="Staging", group="Up and down process: Limit chiller demand"));
 
   parameter Real aftByPasSetTim(
     final unit="s",
     final quantity="Time",
     displayUnit="h")=60
     "Time to allow loop to stabilize after resetting minimum chilled water flow setpoint"
-    annotation (Dialog(tab="Staging", group="Up process"));
+    annotation (Dialog(tab="Staging", group="Up and down process"));
 
   parameter Real staVec[totSta]={0,0.5,1,1.5,2,2.5}
     "Chiller stage vector, element value like x.5 means chiller stage x plus WSE"
-    annotation (Dialog(tab="Staging", group="Up process: Condenser water pumps"));
+    annotation (Dialog(tab="Staging", group="Up and down process: Condenser water pumps"));
 
   parameter Real desConWatPumSpe[totSta]={0,0.5,0.75,0.6,0.75,0.9}
     "Design condenser water pump speed setpoints, the size should be double of total stage numbers"
-    annotation (Dialog(tab="Staging", group="Up process: Condenser water pumps"));
+    annotation (Dialog(tab="Staging", group="Up and down process: Condenser water pumps"));
 
   parameter Real desConWatPumNum[totSta]={0,1,1,2,2,2}
     "Design number of condenser water pumps that should be ON, the size should be double of total stage numbers"
-    annotation (Dialog(tab="Staging", group="Up process: Condenser water pumps"));
+    annotation (Dialog(tab="Staging", group="Up and down process: Condenser water pumps"));
 
   parameter Real thrTimEnb(
     final unit="s",
     final quantity="Time",
     displayUnit="h")=10
     "Threshold time to enable head pressure control after condenser water pump being reset"
-    annotation (Dialog(tab="Staging", group="Up process: Head pressure control"));
+    annotation (Dialog(tab="Staging", group="Up process: Time parameters"));
 
   parameter Real waiTim(
     final unit="s",
     final quantity="Time",
     displayUnit="h")=30
     "Waiting time after enabling next head pressure control"
-    annotation (Dialog(tab="Staging", group="Up process: Head pressure control"));
+    annotation (Dialog(tab="Staging", group="Up and down process: Time parameters"));
 
   parameter Real chaChiWatIsoTim(
     final unit="s",
     final quantity="Time",
     displayUnit="h")=300
     "Time to slowly change isolation valve, should be determined in the field"
-    annotation (Dialog(tab="Staging", group="Up process: Time parameters"));
+    annotation (Dialog(tab="Staging", group="Up and down process: Time parameters"));
 
   parameter Real proOnTim(
     final unit="s",
     final quantity="Time",
     displayUnit="h")=300
     "Threshold time to check after newly enabled chiller being operated"
-    annotation (Dialog(tab="Staging", group="Up process: Time parameters", enable=have_PonyChiller));
+    annotation (Dialog(tab="Staging", group="Up and down process: Time parameters", enable=have_PonyChiller));
 
   parameter Real relSpeDif = 0.05
     "Relative error to the setpoint for checking if it has achieved speed setpoint"
-    annotation (Dialog(tab="Staging", group="Up process: Relative error"));
+    annotation (Dialog(tab="Staging", group="Up and down process: Relative error"));
 
   parameter Real relFloDif=0.05
     "Relative error to the setpoint for checking if it has achieved flow rate setpoint"
-    annotation (Dialog(tab="Staging", group="Up process: Relative error"));
-
-  //// Staging down process
-
-  parameter Integer nChi = 2 "Total number of chillers in the plant";
-
-  parameter Real chiDemRedFac=0.75
-    "Demand reducing factor of current operating chillers"
-    annotation (Dialog(group="Disable last chiller", enable=have_PonyChiller));
-
-  parameter Real holChiDemTim(
-    final unit="s",
-    final quantity="Time",
-    displayUnit="h")=300
-    "Maximum time to wait for the actual demand less than percentage of current load"
-    annotation (Dialog(group="Disable last chiller", enable=have_PonyChiller));
-
-  parameter Real waiTim(
-    final unit="s",
-    final quantity="Time",
-    displayUnit="h")=30
-    "Waiting time after enabling next head pressure control"
-    annotation (Dialog(group="Disable last chiller", enable=have_PonyChiller));
-
-  parameter Real proOnTim(
-    final unit="s",
-    final quantity="Time",
-    displayUnit="h")=300
-    "Enabled chiller operation time to indicate if it is proven on"
-    annotation (Dialog(group="Disable last chiller", enable=have_PonyChiller));
-
-  parameter Real chaChiWatIsoTim(
-    final unit="s",
-    final quantity="Time",
-    displayUnit="h")
-    "Time to slowly change isolation valve, should be determined in the field"
-    annotation (Dialog(group="Disable CHW isolation valve"));
-
-  parameter Real staVec[totSta]
-    "Chiller stage vector, element value like x.5 means chiller stage x plus WSE"
-    annotation (Dialog(group="Disable condenser water pump"));
-
-  parameter Real desConWatPumSpe[totSta]
-    "Design condenser water pump speed setpoints, the size should be double of total stage numbers"
-    annotation (Dialog(group="Disable condenser water pump"));
-
-  parameter Real desConWatPumNum[totSta]
-    "Design number of condenser water pumps that should be ON, the size should be double of total stage numbers"
-    annotation (Dialog(group="Disable condenser water pump"));
-
-  parameter Real byPasSetTim(
-    final unit="s",
-    final quantity="Time",
-    displayUnit="h")
-    "Time to reset minimum by-pass flow"
-    annotation (Dialog(group="Reset CHW minimum flow setpoint"));
-
-  parameter Real minFloSet[nChi](
-    final unit=fill("m3/s", nChi),
-    final quantity=fill("VolumeFlowRate", nChi),
-    displayUnit=fill("m3/s", nChi))
-    "Minimum chilled water flow through each chiller"
-    annotation (Evaluate=true, Dialog(group="Reset CHW minimum flow setpoint"));
-
-  parameter Real maxFloSet[nChi](
-    final unit=fill("m3/s", nChi),
-    final quantity=fill("VolumeFlowRate", nChi),
-    displayUnit=fill("m3/s", nChi))
-    "Maximum chilled water flow through each chiller"
-    annotation (Evaluate=true, Dialog(group="Reset CHW minimum flow setpoint"));
-
-  parameter Real aftByPasSetTim(
-    final unit="s",
-    final quantity="Time",
-    displayUnit="h")=60
-    "Time to allow loop to stabilize after resetting minimum chilled water flow setpoint"
-    annotation (Dialog(group="Reset bypass"));
-
-  parameter Real relSpeDif = 0.05
-    "Relative error to the setpoint for checking if it has achieved speed setpoint"
-    annotation (Dialog(tab="Advanced", group="Disable condenser water pump"));
-
-  parameter Real relFloDif=0.05
-    "Relative error to the setpoint for checking if it has achieved flow rate setpoint"
-    annotation (Dialog(tab="Advanced", group="Reset bypass"));
+    annotation (Dialog(tab="Staging", group="Up and down process: Relative error"));
 
   //// Cooling tower
 
@@ -1243,7 +1151,28 @@ block Controller "Chiller plant controller"
     "Cooling tower controller"
     annotation(Placement(transformation(extent={{-200,-720},{-120,-560}})));
 
-  Staging.Processes.Down dowProCon
+  Staging.Processes.Down dowProCon(
+    final nChi=nChi,
+    final totSta=totSta,
+    final have_WSE=have_WSE,
+    final have_PonyChiller=have_PonyChiller,
+    final is_parChi=is_parChi,
+    final is_heaPum=is_heaPum,
+    final chiDemRedFac=chiDemRedFac,
+    final holChiDemTim=holChiDemTim,
+    final waiTim=waiTim,
+    final proOnTim=proOnTim,
+    final chaChiWatIsoTim=chaChiWatIsoTim,
+    final staVec=staVec,
+    final desConWatPumSpe=desConWatPumSpe,
+    final desConWatPumNum=desConWatPumNum,
+    final byPasSetTim=byPasSetTim,
+    final minFloSet=minFloSet,
+    final maxFloSet=maxFloSet,
+    final aftByPasSetTim=aftByPasSetTim,
+    final relSpeDif=relSpeDif,
+    final relFloDif=relFloDif)
+    "Staging down process controller"
     annotation(Placement(transformation(extent={{280,-300},{360,-140}})));
 
   Staging.Processes.Up upProCon(
@@ -1268,6 +1197,7 @@ block Controller "Chiller plant controller"
     final proOnTim=proOnTim,
     final relSpeDif=relSpeDif,
     final relFloDif=relFloDif)
+    "Staging up process controller"
     annotation(Placement(transformation(extent={{280,260},{360,420}})));
 
   CDL.Continuous.MultiMax mulMax(nin=nTowCel) "All input values are the same"
