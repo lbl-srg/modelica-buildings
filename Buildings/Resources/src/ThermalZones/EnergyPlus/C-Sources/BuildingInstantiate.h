@@ -6,6 +6,7 @@
 #ifndef Buildings_BuildingInstantiate_h
 #define Buildings_BuildingInstantiate_h
 
+#include "EnergyPlusTypes.h"
 #include "EnergyPlusFMU.h"
 #include "EnergyPlusUtil.h"
 #include "cryptographicsHash.h"
@@ -21,7 +22,9 @@
 #include "fmilib.h"
 #include "JM/jm_portability.h"
 
-void buildJSONKeyValue(char* *buffer, size_t level, const char* key, const char* value, bool addComma, size_t* size);
+void buildJSONKeyValue(
+    char* *buffer, size_t level, const char* key, const char* value, bool addComma, size_t* size,
+    void (*SpawnFormatError)(const char *string, ...));
 
 void generateAndInstantiateBuilding(FMUBuilding* bui);
 

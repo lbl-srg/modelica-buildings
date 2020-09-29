@@ -9,9 +9,7 @@
 
 #include <stdlib.h>
 
-void InputVariableFree(void* object){
-  if (FMU_EP_VERBOSITY >= MEDIUM)
-    ModelicaMessage("Entered InputVariableFree.\n");
+void EnergyPlusInputVariableFree(void* object){
   if ( object != NULL ){
     FMUInputVariable* com = (FMUInputVariable*) object;
 
@@ -20,10 +18,6 @@ void InputVariableFree(void* object){
       com->ptrBui->nInputVariables--;
       FMUBuildingFree(com->ptrBui);
     }
-    if (FMU_EP_VERBOSITY >= MEDIUM)
-      ModelicaMessage("Calling free in InputVariableFree.\n");
     free(com);
   }
-  if (FMU_EP_VERBOSITY >= MEDIUM)
-    ModelicaMessage("Leaving InputVariableFree.c.\n");
 }

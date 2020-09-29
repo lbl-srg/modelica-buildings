@@ -10,9 +10,12 @@ function inputVariableExchange
   input Modelica.SIunits.Time tModel "Current model time";
   output Real y "Value send to EnergyPlus (equals u, but used to enable forcing a direct dependency for Actuators and Schedules)";
 
-  external "C" InputVariableExchange(adapter, initialCall, u, tModel, y)
-      annotation (Library={"ModelicaBuildingsEnergyPlus", "fmilib_shared", "dl"});
-      // dl provides dlsym to load EnergyPlus dll, which is needed by OpenModelica compiler
+  external "C" SpawnInputVariableExchange(adapter, initialCall, u, tModel, y)
+    annotation (
+      Include="#include <EnergyPlusWrapper.c>",
+      IncludeDirectory="modelica://Buildings/Resources/C-Sources",
+      Library={"ModelicaBuildingsEnergyPlus", "fmilib_shared"});
+
 
 
   annotation (Documentation(info="<html>
