@@ -579,6 +579,90 @@ block Controller "Chiller plant controller"
     "Relative error to the setpoint for checking if it has achieved flow rate setpoint"
     annotation (Dialog(tab="Staging", group="Up process: Relative error"));
 
+  //// Staging down process
+
+  parameter Integer nChi = 2 "Total number of chillers in the plant";
+
+  parameter Real chiDemRedFac=0.75
+    "Demand reducing factor of current operating chillers"
+    annotation (Dialog(group="Disable last chiller", enable=have_PonyChiller));
+
+  parameter Real holChiDemTim(
+    final unit="s",
+    final quantity="Time",
+    displayUnit="h")=300
+    "Maximum time to wait for the actual demand less than percentage of current load"
+    annotation (Dialog(group="Disable last chiller", enable=have_PonyChiller));
+
+  parameter Real waiTim(
+    final unit="s",
+    final quantity="Time",
+    displayUnit="h")=30
+    "Waiting time after enabling next head pressure control"
+    annotation (Dialog(group="Disable last chiller", enable=have_PonyChiller));
+
+  parameter Real proOnTim(
+    final unit="s",
+    final quantity="Time",
+    displayUnit="h")=300
+    "Enabled chiller operation time to indicate if it is proven on"
+    annotation (Dialog(group="Disable last chiller", enable=have_PonyChiller));
+
+  parameter Real chaChiWatIsoTim(
+    final unit="s",
+    final quantity="Time",
+    displayUnit="h")
+    "Time to slowly change isolation valve, should be determined in the field"
+    annotation (Dialog(group="Disable CHW isolation valve"));
+
+  parameter Real staVec[totSta]
+    "Chiller stage vector, element value like x.5 means chiller stage x plus WSE"
+    annotation (Dialog(group="Disable condenser water pump"));
+
+  parameter Real desConWatPumSpe[totSta]
+    "Design condenser water pump speed setpoints, the size should be double of total stage numbers"
+    annotation (Dialog(group="Disable condenser water pump"));
+
+  parameter Real desConWatPumNum[totSta]
+    "Design number of condenser water pumps that should be ON, the size should be double of total stage numbers"
+    annotation (Dialog(group="Disable condenser water pump"));
+
+  parameter Real byPasSetTim(
+    final unit="s",
+    final quantity="Time",
+    displayUnit="h")
+    "Time to reset minimum by-pass flow"
+    annotation (Dialog(group="Reset CHW minimum flow setpoint"));
+
+  parameter Real minFloSet[nChi](
+    final unit=fill("m3/s", nChi),
+    final quantity=fill("VolumeFlowRate", nChi),
+    displayUnit=fill("m3/s", nChi))
+    "Minimum chilled water flow through each chiller"
+    annotation (Evaluate=true, Dialog(group="Reset CHW minimum flow setpoint"));
+
+  parameter Real maxFloSet[nChi](
+    final unit=fill("m3/s", nChi),
+    final quantity=fill("VolumeFlowRate", nChi),
+    displayUnit=fill("m3/s", nChi))
+    "Maximum chilled water flow through each chiller"
+    annotation (Evaluate=true, Dialog(group="Reset CHW minimum flow setpoint"));
+
+  parameter Real aftByPasSetTim(
+    final unit="s",
+    final quantity="Time",
+    displayUnit="h")=60
+    "Time to allow loop to stabilize after resetting minimum chilled water flow setpoint"
+    annotation (Dialog(group="Reset bypass"));
+
+  parameter Real relSpeDif = 0.05
+    "Relative error to the setpoint for checking if it has achieved speed setpoint"
+    annotation (Dialog(tab="Advanced", group="Disable condenser water pump"));
+
+  parameter Real relFloDif=0.05
+    "Relative error to the setpoint for checking if it has achieved flow rate setpoint"
+    annotation (Dialog(tab="Advanced", group="Reset bypass"));
+
   //// Cooling tower
 
   // fixme: this parameter should be derived from the staging matrix and have_WSE value
@@ -1162,7 +1246,28 @@ block Controller "Chiller plant controller"
   Staging.Processes.Down dowProCon
     annotation(Placement(transformation(extent={{280,-300},{360,-140}})));
 
-  Staging.Processes.Up upProCon
+  Staging.Processes.Up upProCon(
+    final nChi=nChi,
+    final totSta=totSta,
+    final have_WSE=have_WSE,
+    final have_PonyChiller=have_PonyChiller,
+    final is_parChi=is_parChi,
+    final is_heaPum=is_heaPum,
+    final chiDemRedFac=chiDemRedFac,
+    final holChiDemTim=holChiDemTim,
+    final byPasSetTim=byPasSetTim,
+    final minFloSet=minFloSet,
+    final maxFloSet=maxFloSet,
+    final aftByPasSetTim=aftByPasSetTim,
+    final staVec=staVec,
+    final desConWatPumSpe=desConWatPumSpe,
+    final desConWatPumNum=desConWatPumNum,
+    final thrTimEnb=thrTimEnb,
+    final waiTim=waiTim,
+    final chaChiWatIsoTim=chaChiWatIsoTim,
+    final proOnTim=proOnTim,
+    final relSpeDif=relSpeDif,
+    final relFloDif=relFloDif)
     annotation(Placement(transformation(extent={{280,260},{360,420}})));
 
   CDL.Continuous.MultiMax mulMax(nin=nTowCel) "All input values are the same"
