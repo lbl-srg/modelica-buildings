@@ -511,7 +511,7 @@ block Controller "Chiller plant controller"
 
   parameter Boolean is_heaPum=true
     "True: headered condenser water pumps"
-    annotation (Dialog(tab="Staging", group="Up process"));
+    annotation (Dialog(tab="Staging", group="Up process: Condenser water pumps"));
 
   parameter Real chiDemRedFac=0.75
     "Demand reducing factor of current operating chillers"
@@ -524,68 +524,60 @@ block Controller "Chiller plant controller"
     "Maximum time to wait for the actual demand less than percentage of current load"
     annotation (Dialog(tab="Staging", group="Up process: Limit chiller demand"));
 
-  parameter Real minFloSet[nChi](
-    final unit=fill("m3/s",nChi),
-    final quantity=fill("VolumeFlowRate",nChi),
-    displayUnit=fill("m3/s",nChi))={0.0089,0.0089}
-      "Minimum chilled water flow through each chiller"
-    annotation (Evaluate=true, Dialog(group="Reset CHW minimum flow setpoint"));
-
-  parameter Real maxFloSet[nChi](
-    final unit=fill("m3/s",nChi),
-    final quantity=fill("VolumeFlowRate",nChi),
-    displayUnit=fill("m3/s",nChi))={0.025,0.025}
-      "Maximum chilled water flow through each chiller"
-    annotation (Evaluate=true, Dialog(group="Reset CHW minimum flow setpoint"));
-
   parameter Real aftByPasSetTim(
     final unit="s",
     final quantity="Time",
     displayUnit="h")=60
     "Time to allow loop to stabilize after resetting minimum chilled water flow setpoint"
-    annotation (Dialog(group="Reset bypass"));
+    annotation (Dialog(tab="Staging", group="Up process"));
+
   parameter Real staVec[totSta]={0,0.5,1,1.5,2,2.5}
     "Chiller stage vector, element value like x.5 means chiller stage x plus WSE"
-    annotation (Dialog(group="Enable condenser water pump"));
+    annotation (Dialog(tab="Staging", group="Up process: Condenser water pumps"));
+
   parameter Real desConWatPumSpe[totSta]={0,0.5,0.75,0.6,0.75,0.9}
     "Design condenser water pump speed setpoints, the size should be double of total stage numbers"
-    annotation (Dialog(group="Enable condenser water pump"));
+    annotation (Dialog(tab="Staging", group="Up process: Condenser water pumps"));
+
   parameter Real desConWatPumNum[totSta]={0,1,1,2,2,2}
     "Design number of condenser water pumps that should be ON, the size should be double of total stage numbers"
-    annotation (Dialog(group="Enable condenser water pump"));
+    annotation (Dialog(tab="Staging", group="Up process: Condenser water pumps"));
+
   parameter Real thrTimEnb(
     final unit="s",
     final quantity="Time",
     displayUnit="h")=10
     "Threshold time to enable head pressure control after condenser water pump being reset"
-    annotation (Dialog(group="Enable head pressure control"));
+    annotation (Dialog(tab="Staging", group="Up process: Head pressure control"));
+
   parameter Real waiTim(
     final unit="s",
     final quantity="Time",
     displayUnit="h")=30
     "Waiting time after enabling next head pressure control"
-    annotation (Dialog(group="Enable head pressure control"));
+    annotation (Dialog(tab="Staging", group="Up process: Head pressure control"));
+
   parameter Real chaChiWatIsoTim(
     final unit="s",
     final quantity="Time",
     displayUnit="h")=300
     "Time to slowly change isolation valve, should be determined in the field"
-    annotation (Dialog(group="Enable CHW isolation valve"));
+    annotation (Dialog(tab="Staging", group="Up process: Time parameters"));
+
   parameter Real proOnTim(
     final unit="s",
     final quantity="Time",
     displayUnit="h")=300
     "Threshold time to check after newly enabled chiller being operated"
-    annotation (Dialog(group="Enable next chiller",enable=have_PonyChiller));
+    annotation (Dialog(tab="Staging", group="Up process: Time parameters", enable=have_PonyChiller));
+
   parameter Real relSpeDif = 0.05
     "Relative error to the setpoint for checking if it has achieved speed setpoint"
-    annotation (Dialog(tab="Advanced", group="Enable condenser water pump"));
+    annotation (Dialog(tab="Staging", group="Up process: Relative error"));
+
   parameter Real relFloDif=0.05
     "Relative error to the setpoint for checking if it has achieved flow rate setpoint"
-    annotation (Dialog(tab="Advanced", group="Reset bypass"));
-
-
-
+    annotation (Dialog(tab="Staging", group="Up process: Relative error"));
 
   //// Cooling tower
 
@@ -789,11 +781,6 @@ block Controller "Chiller plant controller"
      annotation (Dialog(tab="Cooling Towers", group="Advanced"));
 
   // Tower staging
-
-  // fixme: this needs to be derived using staging configuration
-  parameter Real staVec[totChiSta]={0,0.5,1,1.5,2,2.5}
-    "Chiller stage vector, element value like x.5 means chiller stage x plus WSE"
-    annotation (Dialog(tab="Cooling Towers", group="Tower staging"));
 
   parameter Real towCelOnSet[totChiSta]={0,2,2,4,4,4}
     "Number of condenser water pumps that should be ON, according to current chiller stage and WSE status"
@@ -1248,7 +1235,7 @@ block Controller "Chiller plant controller"
   CDL.Routing.RealReplicator chiWatSupTem(final nout=nChi)
     "Chilled water supply temperature"
     annotation (Placement(transformation(extent={{-580,210},{-560,230}})));
-  CDL.Logical.Switch desConWatPumSpe "Design condenser water pump speed"
+  CDL.Logical.Switch desConWatPumSpeSwi "Design condenser water pump speed"
     annotation (Placement(transformation(extent={{620,190},{640,210}})));
   CDL.Routing.RealReplicator repDesConTem(final nout=nChi)
     "Replicate design condenser water temperature"
@@ -1526,13 +1513,13 @@ equation
           220},{-490,220},{-490,204},{-424,204}}, color={0,0,127}));
   connect(falEdg.y, staSam.trigger) annotation (Line(points={{582,-80},{590,-80},
           {590,-40},{90,-40},{90,-31.8}}, color={255,0,255}));
-  connect(upProCon.yStaPro, desConWatPumSpe.u2) annotation (Line(points={{368,
+  connect(upProCon.yStaPro, desConWatPumSpeSwi.u2) annotation (Line(points={{368,
           416},{480,416},{480,200},{618,200}}, color={255,0,255}));
-  connect(upProCon.yDesConWatPumSpe, desConWatPumSpe.u1) annotation (Line(
+  connect(upProCon.yDesConWatPumSpe, desConWatPumSpeSwi.u1) annotation (Line(
         points={{368,336},{592,336},{592,208},{618,208}}, color={0,0,127}));
-  connect(dowProCon.yDesConWatPumSpe, desConWatPumSpe.u3) annotation (Line(
+  connect(dowProCon.yDesConWatPumSpe, desConWatPumSpeSwi.u3) annotation (Line(
         points={{368,-264},{460,-264},{460,192},{618,192}}, color={0,0,127}));
-  connect(desConWatPumSpe.y, repDesConTem.u)
+  connect(desConWatPumSpeSwi.y, repDesConTem.u)
     annotation (Line(points={{642,200},{658,200}}, color={0,0,127}));
   connect(repDesConTem.y, heaPreCon.desConWatPumSpe) annotation (Line(points={{
           682,200},{700,200},{700,234},{-432,234},{-432,196},{-424,196}}, color=
