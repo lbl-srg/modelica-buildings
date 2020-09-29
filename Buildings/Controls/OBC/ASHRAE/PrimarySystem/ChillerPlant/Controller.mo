@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant;
-block Controller "Head pressure controller"
+block Controller "Chiller plant controller"
 
   //// Economizer controller parameters
 
