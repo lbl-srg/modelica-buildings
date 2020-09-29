@@ -5,7 +5,7 @@ annotation (
 Documentation(
 info="<html>
 <p>
-Package with blocks for elementary mathematical functions
+Package with obsolete blocks for elementary mathematical functions
 for boolean variables.
 </p>
 </html>",
