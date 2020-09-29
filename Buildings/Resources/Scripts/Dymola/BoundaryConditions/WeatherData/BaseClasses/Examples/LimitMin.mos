@@ -1,0 +1,2 @@
+simulateModel("Buildings.BoundaryConditions.WeatherData.BaseClasses.Examples.LimitMin", stopTime=432000, method="Cvode", tolerance=1e-06, resultFile="LimitMin");
+createPlot(id=1, position={15, 15, 1538, 612}, y={"limCeiHei.u", "limCeiHei.ceiHei"}, range={0.0, 120.0, -2000.0, 10000.0}, grid=true, colors={{28,108,200}, {238,46,47}}, timeUnit="h", displayUnits={"", "m"});
