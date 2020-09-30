@@ -1,0 +1,11 @@
+﻿simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.SetPoints.Validation.MinimumFlowSetPoint", startTime=0,tolerance=1e-6, stopTime=60, method="cvode", resultFile="MinimumFlowSetPoint");
+createPlot(id=1, position={0, 0, 757, 959}, y={"minBoiFloSet.uStaSet"}, range={0.0, 60.0, 0.0, 4.0}, grid=true, colors={{28,108,200}});
+createPlot(id=1, position={0, 0, 757, 188}, y={"minBoiFloSet.uOnOff", "truFalHol.y"}, range={0.0, 60.0, -0.5, 1.5}, grid=true, subPlot=2, colors={{28,108,200}, {28,108,200}});
+createPlot(id=1, position={0, 0, 757, 187}, y={"minBoiFloSet.uLasDisBoi"}, range={0.0, 60.0, -0.5, 1.5}, grid=true, subPlot=3, colors={{28,108,200}});
+createPlot(id=1, position={0, 0, 757, 188}, y={"minBoiFloSet.minFloSet[1]", "minBoiFloSet.minFloSet[2]", "minBoiFloSet.maxFloSet[1]", "minBoiFloSet.maxFloSet[2]"}, range={0.0, 60.0, 0.0, 1.0}, grid=true, subPlot=4, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}});
+createPlot(id=1, position={0, 0, 757, 188}, y={"minBoiFloSet.VHotWatMinSet_flow"}, range={0.0, 60.0, 0.0, 0.5}, grid=true, subPlot=5, colors={{28,108,200}});
+createPlot(id=2, position={773, 0, 756, 959}, y={"minBoiFloSet1.uStaSet"}, range={0.0, 60.0, 0.0, 4.0}, grid=true, colors={{28,108,200}});
+createPlot(id=2, position={773, 0, 756, 188}, y={"minBoiFloSet1.uOnOff", "truFalHol1.y"}, range={0.0, 60.0, -0.5, 1.5}, grid=true, subPlot=2, colors={{28,108,200}, {28,108,200}});
+createPlot(id=2, position={773, 0, 756, 187}, y={"minBoiFloSet1.uLasDisBoi"}, range={0.0, 60.0, -1.0, 3.0}, grid=true, subPlot=3, colors={{28,108,200}});
+createPlot(id=2, position={773, 0, 756, 188}, y={"minBoiFloSet1.minFloSet[1]", "minBoiFloSet1.minFloSet[2]", "minBoiFloSet1.maxFloSet[1]", "minBoiFloSet1.maxFloSet[2]"}, range={0.0, 60.0, 0.0, 1.0}, grid=true, subPlot=4, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}});
+createPlot(id=2, position={773, 0, 756, 188}, y={"minBoiFloSet1.VHotWatMinSet_flow"}, range={0.0, 60.0, 0.0, 0.5}, grid=true, subPlot=5, colors={{28,108,200}});

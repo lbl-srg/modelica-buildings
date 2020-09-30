@@ -1,0 +1,8 @@
+simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.Generic.Validation.Speed_localDp", method="Cvode", stopTime=10, tolerance=1e-06, resultFile="Speed_localDp");
+createPlot(id=1, position={20, 10, 700, 1000}, subPlot=1, y={"hotPumSpe.dpHotWat_remote[1]","hotPumSpe.dpHotWat_remote[2]","hotPumSpe.dpHotWatSet"}, range={0.0, 1200.0, 0.4, 0.9}, grid=true, colors={{28,108,200},{238,46,47},{0,140,72}});
+createPlot(id=1, position={20, 10, 700, 1000}, subPlot=2, y={"hotPumSpe.maxRemDP.u[1]","hotPumSpe.maxRemDP.u[2]"}, range={0.0, 1200.0, 0.4, 0.9}, grid=true, colors={{28,108,200},{238,46,47}});
+createPlot(id=1, position={20, 10, 700, 1000}, subPlot=3, y={"hotPumSpe.maxRemDP.y"}, range={0.0, 1200.0, 0.4, 0.9}, grid=true, colors={{28,108,200}});
+createPlot(id=1, position={20, 10, 700, 1000}, subPlot=4, y={"hotPumSpe.locDpSet.y","hotPumSpe.locDpSet.f1","hotPumSpe.locDpSet.f2"}, range={0.0, 1200.0, 0.4, 0.9}, grid=true, colors={{28,108,200},{238,46,47},{0,140,72}});
+createPlot(id=2, position={740, 10, 700, 1000}, subPlot=1, y={"hotPumSpe.locDpSet.y","hotPumSpe.dpHotWat_local"}, range={0.0, 1200.0, 0.4, 0.9}, grid=true, colors={{28,108,200},{238,46,47}});
+createPlot(id=2, position={740, 10, 700, 1000}, subPlot=2, y={"hotPumSpe.hotPumSpe.yHotWatPumSpe"}, range={0.0, 1200.0, 0.4, 0.9}, grid=true, colors={{28,108,200}});
+createPlot(id=2, position={740, 10, 700, 1000}, subPlot=3, y={"hotPumSpe.yHotWatPumSpe","hotPumSpe.pumSpe.f1","hotPumSpe.pumSpe.f2"}, range={0.0, 1200.0, 0.4, 0.9}, grid=true, colors={{28,108,200},{238,46,47},{0,140,72}});

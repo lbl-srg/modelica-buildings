@@ -1,6 +1,5 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.SetPoints;
-block MinimumFlowSetpoint
-    "Hot water minimum flow setpoint"
+block MinimumFlowSetPoint "Hot water minimum flow setpoint"
 
   parameter Integer nBoi(
     final min=1) = 3
@@ -707,4 +706,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end MinimumFlowSetpoint;
+end MinimumFlowSetPoint;

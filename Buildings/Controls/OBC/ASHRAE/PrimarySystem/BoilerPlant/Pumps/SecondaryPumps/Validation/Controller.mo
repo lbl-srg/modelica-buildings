@@ -300,9 +300,9 @@ protected
     annotation (Placement(transformation(extent={{-60,150},{-40,170}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sin[2](
-    final amplitude=0.5,
-    final freqHz=1/1800,
-    final offset=1)
+    final amplitude=fill(0.5, 2),
+    final freqHz=fill(1/1800, 2),
+    final offset=fill(1, 2))
     "Sine signal"
     annotation (Placement(transformation(extent={{-200,120},{-180,140}})));
 
@@ -324,9 +324,9 @@ protected
     annotation (Placement(transformation(extent={{240,140},{260,160}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sin2[2](
-    final amplitude=0.5,
-    final freqHz=1/1800,
-    final offset=1)
+    final amplitude=fill(0.5, 2),
+    final freqHz=fill(1/1800, 2),
+    final offset=fill(1, 2))
     "Sine signal"
     annotation (Placement(transformation(extent={{80,130},{100,150}})));
 
@@ -390,9 +390,9 @@ protected
     annotation (Placement(transformation(extent={{-260,-70},{-240,-50}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sin6[2](
-    final amplitude=0.5,
-    final freqHz=1/1800,
-    final offset=1)
+    final amplitude=fill(0.5, 2),
+    final freqHz=fill(1/1800, 2),
+    final offset=fill(1, 2))
     "Sine signal"
     annotation (Placement(transformation(extent={{-260,-30},{-240,-10}})));
 
@@ -404,9 +404,9 @@ protected
     annotation (Placement(transformation(extent={{40,-50},{60,-30}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sin7[2](
-    final amplitude=0.5,
-    final freqHz=1/1800,
-    final offset=1)
+    final amplitude=fill(0.5, 2),
+    final freqHz=fill(1/1800, 2),
+    final offset=fill(1, 2))
     "Sine signal"
     annotation (Placement(transformation(extent={{40,-90},{60,-70}})));
 

@@ -411,7 +411,7 @@ block Controller
     "Enable lag pump for primary-only plants using differential pressure pump speed control"
     annotation (Placement(transformation(extent={{-200,-10},{-180,10}})));
 
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.PrimaryPumps.Subsequences.Speed_primary_localDp
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.Generic.Speed_localDp
     pumSpeLocDp(
     final nSen=nSen,
     final nPum=nPum,
@@ -504,7 +504,7 @@ protected
     final nBoi=nBoi) if isHeadered "Enable lead pump of headered pumps"
     annotation (Placement(transformation(extent={{-200,60},{-180,80}})));
 
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.PrimaryPumps.Subsequences.Speed_primary_remoteDp
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.Generic.Speed_remoteDp
     pumSpeRemDp(
     final nSen=nSen,
     final nPum=nPum,
@@ -516,7 +516,8 @@ protected
     "Hot water pump speed control with remote DP sensor"
     annotation (Placement(transformation(extent={{-60,-470},{-40,-450}})));
 
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.PrimaryPumps.Subsequences.Speed_primarySecondary_flow pumSpeFlo(
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.PrimaryPumps.Subsequences.Speed_flow
+    pumSpeFlo(
     final primarySecondarySensors=primarySecondaryFlowSensors,
     final nPum=nPum,
     final minPumSpe=minPumSpe,
@@ -529,7 +530,7 @@ protected
     "Pump speed control using flow sensors"
     annotation (Placement(transformation(extent={{-60,-514},{-40,-494}})));
 
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.PrimaryPumps.Subsequences.Speed_primarySecondary_temperature
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.PrimaryPumps.Subsequences.Speed_temperature
     pumSpeTem(
     final primarySecondarySensors=primarySecondaryTemperatureSensors,
     final nBoi=nBoi,
@@ -690,23 +691,27 @@ protected
     "Logical pre block"
     annotation (Placement(transformation(extent={{240,60},{260,80}})));
 
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.Generic.ChangePumpStatus chaPumSta(
-    final nPum=nPum) if not isHeadered
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.Generic.ChangeStatus
+    chaPumSta(final nPum=nPum) if
+                        not isHeadered
     "Change lead pump status for dedicated primary pumps"
     annotation (Placement(transformation(extent={{58,100},{80,120}})));
 
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.Generic.ChangePumpStatus chaPumSta1(
-    final nPum=nPum) if isHeadered
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.Generic.ChangeStatus
+    chaPumSta1(final nPum=nPum) if
+                        isHeadered
     "Change lead pump status for headered primary pumps"
     annotation (Placement(transformation(extent={{58,66},{80,86}})));
 
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.Generic.ChangePumpStatus chaPumSta2(
-    final nPum=nPum) if primaryOnly and isHeadered
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.Generic.ChangeStatus
+    chaPumSta2(final nPum=nPum) if
+                        primaryOnly and isHeadered
     "Change lag pump status for headered primary pumps in a plant that is primary-only"
     annotation (Placement(transformation(extent={{128,-42},{150,-22}})));
 
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.Generic.ChangePumpStatus chaPumSta3(
-    final nPum=nPum) if isHeadered and (not primaryOnly)
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.Generic.ChangeStatus
+    chaPumSta3(final nPum=nPum) if
+                        isHeadered and (not primaryOnly)
     "Change lag pump status for headered primary pumps in a plant that is not primary-only"
     annotation (Placement(transformation(extent={{130,-182},{152,-162}})));
 
@@ -718,8 +723,9 @@ protected
     "Logical not"
     annotation (Placement(transformation(extent={{-148,-330},{-128,-310}})));
 
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.Generic.ChangePumpStatus chaPumSta4(
-    final nPum=nPum) if not isHeadered
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.Generic.ChangeStatus
+    chaPumSta4(final nPum=nPum) if
+                        not isHeadered
     "Change lag pump status for dedicated primary pumps"
     annotation (Placement(transformation(extent={{62,-314},{84,-294}})));
 
@@ -1238,23 +1244,23 @@ annotation (defaultComponentName="priPumCon",
     <li>
     for primary-only plants, where the remote DP sensor(s) is not hardwired to the plant
     controller, but a local DP sensor is hardwired
-    <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.PrimaryPumps.Subsequences.Speed_primary_localDp\">
-    Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.PrimaryPumps.Subsequences.Speed_primary_localDp</a>.
+    <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.Generic.Speed_localDp\">
+    Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.Generic.Speed_localDp</a>.
     </li>
     <li>
     for primary-only plants, where the remote DP sensor(s) is hardwired to the plant controller
-    <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.PrimaryPumps.Subsequences.Speed_primary_remoteDp\">
-    Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.PrimaryPumps.Subsequences.Speed_primary_remoteDp</a>.
+    <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.Generic.Speed_remoteDp\">
+    Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.Generic.Speed_remoteDp</a>.
     </li>
     <li>
     for primary-secondary plants, with flowrate sensor(s) for speed regulation
-    <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.PrimaryPumps.Subsequences.Speed_primarySecondary_flow\">
-    Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.PrimaryPumps.Subsequences.Speed_primarySecondary_flow</a>.
+    <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.PrimaryPumps.Subsequences.Speed_flow\">
+    Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.PrimaryPumps.Subsequences.Speed_flow</a>.
     </li>
     <li>
     for primary-secondary plants, with temperature sensors for speed regulation
-    <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.PrimaryPumps.Subsequences.Speed_primarySecondary_temperature\">
-    Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.PrimaryPumps.Subsequences.Speed_primarySecondary_temperature</a>.
+    <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.PrimaryPumps.Subsequences.Speed_temperature\">
+    Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.PrimaryPumps.Subsequences.Speed_temperature</a>.
     </li>
     </ul>
     </li>
