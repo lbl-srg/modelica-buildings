@@ -5,6 +5,13 @@ clear
 
 convertClear();
 
+// Conversion for https://github.com/lbl-srg/modelica-buildings/issues/2134
+convertClass("Buildings.Controls.OBC.CDL.Continuous.HysteresisWithHold",
+             "Buildings.Obsolete.Controls.OBC.CDL.Continuous.HysteresisWithHold");
+convertClass("Buildings.Controls.OBC.CDL.Continuous.ChangeSign",
+             "Buildings.Obsolete.Controls.OBC.CDL.Continuous.ChangeSign");
+
+
 // Conversion for https://github.com/lbl-srg/modelica-buildings/issues/2139
 convertClass("Buildings.Controls.OBC.CDL.Psychrometrics.TDewPoi_TDryBulPhi",
              "Buildings.Obsolete.Controls.OBC.CDL.Psychrometrics.TDewPoi_TDryBulPhi");

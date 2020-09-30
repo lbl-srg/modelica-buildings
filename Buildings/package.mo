@@ -370,6 +370,14 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL.Continuous</b>
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.ChangeSign<br/>
+                       Buildings.Controls.OBC.CDL.Continuous.HysteresisWithHold
+    </td>
+    <td valign=\"top\">Moved blocks to <code>Obsolete</code> package because they can be implemented with other blocks
+                       and have only rarely been used.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2134\">issue 2134</a>.<br/>
+                       For Dymola, a conversion script makes this change.</td>
+</tr>
 <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.LimPID
     </td>
     <td valign=\"top\">Corrected wrong convention of reverse and direct action.
