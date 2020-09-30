@@ -1,5 +1,5 @@
 within Buildings.Obsolete.Controls.OBC.CDL;
-package Logical "Package with logical blocks"
+package Logical "Package with obsolete models of logical blocks"
 
 annotation (
 Documentation(
