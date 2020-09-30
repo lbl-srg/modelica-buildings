@@ -157,8 +157,8 @@ equation
     TRooLast = T;
     dtLast = time-pre(tLast);
   //  Modelica.Utilities.Streams.print("time = " + String(time) + "\t pre(tLast) = " + String(pre(tLast)) + "\t dtLast = " + String(dtLast));
-    mInlet_flow =  0;//sum(if m_flow[i] > 0 then m_flow[i] else 0 for i in 1:nFluPor);
-    TAveInlet = 293.15;//sum(if m_flow[i] > 0 then TInlet[i] * m_flow[i] else 0 for i in 1:nFluPor)/max(1E-10, mInlet_flow);
+    mInlet_flow =  noEvent(sum(if m_flow[i] > 0 then m_flow[i] else 0 for i in 1:nFluPor));
+    TAveInlet = noEvent(sum(if m_flow[i] > 0 then TInlet[i] * m_flow[i] else 0 for i in 1:nFluPor)/max(1E-10, mInlet_flow));
     (TRad, QConLast_flow, dQCon_flow, QLat_flow, QPeo_flow, tNext)  =
       Buildings.ThermalZones.EnergyPlus.BaseClasses.zoneExchange(
       adapter,
