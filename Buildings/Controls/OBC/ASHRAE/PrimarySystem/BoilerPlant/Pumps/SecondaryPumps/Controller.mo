@@ -89,6 +89,14 @@ block Controller
       group="Pump staging parameters",
       enable=variableSecondary and secondaryFlowSensor));
 
+  parameter Real delBoiDis(
+    final unit="s",
+    displayUnit="s",
+    final quantity="time",
+    final min=0)=180
+    "Time delay after boilers have been disabled before completing disabling process"
+    annotation (Dialog(tab="Pump control parameters", group="Pump staging parameters"));
+
   parameter Real timPer(
     final unit="s",
     displayUnit="s",
@@ -478,6 +486,22 @@ protected
     "Logical Or"
     annotation (Placement(transformation(extent={{-20,-8},{0,12}})));
 
+  CDL.Logical.Not                        not3
+    "Logical Not"
+    annotation (Placement(transformation(extent={{-200,108},{-180,128}})));
+  CDL.Logical.TrueDelay                        truDel(final delayTime=delBoiDis)
+    "Delay pump disable after boilers have been disabled"
+    annotation (Placement(transformation(extent={{-120,108},{-100,128}})));
+  CDL.Routing.BooleanReplicator                        booRep(final nout=nPum)
+    "Boolean replicator"
+    annotation (Placement(transformation(extent={{-66,108},{-46,128}})));
+  CDL.Logical.LogicalSwitch                        logSwi[nPum]
+    "Logical switch"
+    annotation (Placement(transformation(extent={{192,-10},{212,10}})));
+  CDL.Logical.Sources.Constant                        con1[nPum](final k=fill(false,
+        nPum))
+    "Boolean False signal"
+    annotation (Placement(transformation(extent={{132,38},{152,58}})));
 equation
   connect(uPumLeaLag, intToRea.u)
     annotation (Line(points={{-300,230},{-222,230}}, color={255,127,0}));
@@ -577,20 +601,6 @@ equation
           {100,78},{100,-154},{44,-154},{44,-172},{60,-172}},         color={
           255,0,255}));
 
-  connect(chaPumSta2.yHotWatPum, yHotWatPum) annotation (Line(points={{82,-34},
-          {260,-34},{260,0},{300,0}}, color={255,0,255}));
-
-  connect(chaPumSta3.yHotWatPum, yHotWatPum) annotation (Line(points={{84,-172},
-          {254,-172},{254,0},{300,0}}, color={255,0,255}));
-
-  connect(chaPumSta2.yHotWatPum, pumSpeLocDp.uHotWatPum) annotation (Line(
-        points={{82,-34},{260,-34},{260,-270},{-74,-270},{-74,-326},{-62,-326}},
-        color={255,0,255}));
-
-  connect(chaPumSta2.yHotWatPum, pumSpeRemDp.uHotWatPum) annotation (Line(
-        points={{82,-34},{260,-34},{260,-270},{-74,-270},{-74,-362},{-62,-362}},
-        color={255,0,255}));
-
   connect(reaRep.u, min.y)
     annotation (Line(points={{218,-400},{182,-400}}, color={0,0,127}));
 
@@ -628,15 +638,6 @@ equation
   connect(chaPumSta1.yHotWatPum, chaPumSta4.uHotWatPum) annotation (Line(points={{80,78},
           {100,78},{100,42},{50,42},{50,18},{56,18}},         color={255,0,255}));
 
-  connect(chaPumSta4.yHotWatPum, yHotWatPum) annotation (Line(points={{80,18},{254,
-          18},{254,0},{300,0}}, color={255,0,255}));
-
-  connect(chaPumSta4.yHotWatPum, pumSpeLocDp.uHotWatPum) annotation (Line(
-        points={{80,18},{120,18},{120,-276},{-84,-276},{-84,-326},{-62,-326}},
-        color={255,0,255}));
-  connect(chaPumSta4.yHotWatPum, pumSpeRemDp.uHotWatPum) annotation (Line(
-        points={{80,18},{120,18},{120,-276},{-84,-276},{-84,-362},{-62,-362}},
-        color={255,0,255}));
   connect(uPlaEna, enaHeaLeaPum.uPlaEna)
     annotation (Line(points={{-300,90},{-202,90}}, color={255,0,255}));
 
@@ -716,6 +717,29 @@ equation
   connect(or3.y, chaPumSta2.uLasLagPumSta) annotation (Line(points={{2,2},{20,2},
           {20,-29},{58,-29}}, color={255,0,255}));
 
+  connect(not3.y,truDel. u)
+    annotation (Line(points={{-178,118},{-122,118}},
+                                                   color={255,0,255}));
+  connect(truDel.y,booRep. u) annotation (Line(points={{-98,118},{-68,118}},
+                                       color={255,0,255}));
+  connect(booRep.y,logSwi. u2) annotation (Line(points={{-44,118},{174,118},{174,
+          0},{190,0}},color={255,0,255}));
+  connect(con1.y,logSwi. u1) annotation (Line(points={{154,48},{166,48},{166,8},
+          {190,8}},   color={255,0,255}));
+  connect(uPlaEna, not3.u) annotation (Line(points={{-300,90},{-220,90},{-220,118},
+          {-202,118}}, color={255,0,255}));
+  connect(chaPumSta3.yHotWatPum, logSwi.u3) annotation (Line(points={{84,-172},{
+          122,-172},{122,-174},{174,-174},{174,-8},{190,-8}}, color={255,0,255}));
+  connect(chaPumSta2.yHotWatPum, logSwi.u3) annotation (Line(points={{82,-34},{174,
+          -34},{174,-8},{190,-8}}, color={255,0,255}));
+  connect(chaPumSta4.yHotWatPum, logSwi.u3) annotation (Line(points={{80,18},{158,
+          18},{158,-8},{190,-8}}, color={255,0,255}));
+  connect(logSwi.y, yHotWatPum)
+    annotation (Line(points={{214,0},{300,0}}, color={255,0,255}));
+  connect(logSwi.y, pumSpeLocDp.uHotWatPum) annotation (Line(points={{214,0},{274,
+          0},{274,-264},{-74,-264},{-74,-326},{-62,-326}}, color={255,0,255}));
+  connect(logSwi.y, pumSpeRemDp.uHotWatPum) annotation (Line(points={{214,0},{274,
+          0},{274,-264},{-74,-264},{-74,-362},{-62,-362}}, color={255,0,255}));
 annotation (defaultComponentName="secPumCon",
   Diagram(coordinateSystem(preserveAspectRatio=false,
           extent={{-280,-440},{280,260}}),

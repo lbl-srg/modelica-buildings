@@ -63,14 +63,10 @@ block BypassValvePosition
       iconTransformation(extent={{100,-20},{140,20}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Logical.Switch swi
-    "Check if bypass valve should be modulated"
-    annotation (Placement(transformation(extent={{30,-10},{50,10}})));
-
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant opeVal(
-    final k=1)
-    "Bypass valve fully open when pumps are off"
-    annotation (Placement(transformation(extent={{0,-30},{20,-10}})));
+  Buildings.Controls.OBC.CDL.Continuous.Add add2(
+    final k2=-1)
+    "Difference between measured flowrate and minimum flow setpoint"
+    annotation (Placement(transformation(extent={{-70,30},{-50,50}})));
 
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(
     final nu=nPum)
@@ -79,12 +75,12 @@ protected
 
   Buildings.Controls.OBC.CDL.Continuous.Division div
     "Normalize measured hot water flowrate"
-    annotation (Placement(transformation(extent={{-50,30},{-30,50}})));
+    annotation (Placement(transformation(extent={{-20,30},{0,50}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(
-    final k=1)
+    final k=0)
     "Constant Real source"
-    annotation (Placement(transformation(extent={{-50,60},{-30,80}})));
+    annotation (Placement(transformation(extent={{-20,60},{0,80}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Max max
     "Ensure bypass valve position is greater than lower limit for condensation control"
@@ -94,56 +90,53 @@ protected
     final p=1e-6,
     final k=1)
     "Prevent division by zero"
-    annotation (Placement(transformation(extent={{-90,70},{-70,90}})));
+    annotation (Placement(transformation(extent={{-70,70},{-50,90}})));
 
   Buildings.Controls.OBC.CDL.Continuous.PIDWithReset conPID(
     final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PID,
-    final k=1,
-    final Ti=0.5,
-    final Td=0.1,
+    final k=k,
+    final Ti=Ti,
+    final Td=Td,
     final yMax=1,
-    final yMin=0)
+    final yMin=0,
+    reverseActing=false)
     "PID loop to regulate flow through primary loop using bypass valve"
-    annotation (Placement(transformation(extent={{0,60},{20,80}})));
+    annotation (Placement(transformation(extent={{20,60},{40,80}})));
 
   Buildings.Controls.OBC.CDL.Logical.Edge edg
     "Reset PID loop when it is activated"
-    annotation (Placement(transformation(extent={{-20,10},{0,30}})));
+    annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
 
 equation
-  connect(opeVal.y, swi.u3) annotation (Line(points={{22,-20},{24,-20},{24,-8},
-          {28,-8}},color={0,0,127}));
 
   connect(mulOr.u[1:nPum], uPumSta) annotation (Line(points={{-72,0},{-120,0}},
                                   color={255,0,255}));
 
-  connect(mulOr.y, swi.u2) annotation (Line(points={{-48,0},{28,0}},
-                   color={255,0,255}));
-
-  connect(VHotWat_flow, div.u1)
-    annotation (Line(points={{-120,40},{-70,40},{-70,46},{-52,46}},
-                                                  color={0,0,127}));
-  connect(swi.y, max.u1) annotation (Line(points={{52,0},{60,0},{60,-24},{68,-24}},
-        color={0,0,127}));
-  connect(uMinBypValPos, max.u2) annotation (Line(points={{-120,-60},{60,-60},{60,
+  connect(uMinBypValPos, max.u2) annotation (Line(points={{-120,-60},{50,-60},{50,
           -36},{68,-36}}, color={0,0,127}));
   connect(max.y, yBypValPos)
     annotation (Line(points={{92,-30},{120,-30}}, color={0,0,127}));
   connect(VHotWatMinSet_flow, addPar.u)
-    annotation (Line(points={{-120,80},{-92,80}}, color={0,0,127}));
-  connect(addPar.y, div.u2) annotation (Line(points={{-68,80},{-60,80},{-60,34},
-          {-52,34}}, color={0,0,127}));
+    annotation (Line(points={{-120,80},{-72,80}}, color={0,0,127}));
+  connect(addPar.y, div.u2) annotation (Line(points={{-48,80},{-40,80},{-40,34},
+          {-22,34}}, color={0,0,127}));
   connect(con.y, conPID.u_s)
-    annotation (Line(points={{-28,70},{-2,70}}, color={0,0,127}));
+    annotation (Line(points={{2,70},{18,70}},   color={0,0,127}));
   connect(div.y, conPID.u_m)
-    annotation (Line(points={{-28,40},{10,40},{10,58}}, color={0,0,127}));
-  connect(mulOr.y, edg.u) annotation (Line(points={{-48,0},{-30,0},{-30,20},{
-          -22,20}}, color={255,0,255}));
+    annotation (Line(points={{2,40},{30,40},{30,58}},   color={0,0,127}));
+  connect(mulOr.y, edg.u) annotation (Line(points={{-48,0},{-22,0}},
+                    color={255,0,255}));
   connect(edg.y, conPID.trigger)
-    annotation (Line(points={{2,20},{4,20},{4,58}}, color={255,0,255}));
-  connect(conPID.y, swi.u1)
-    annotation (Line(points={{22,70},{24,70},{24,8},{28,8}}, color={0,0,127}));
+    annotation (Line(points={{2,0},{24,0},{24,58}}, color={255,0,255}));
 
+  connect(conPID.y, max.u1) annotation (Line(points={{42,70},{50,70},{50,-24},{68,
+          -24}}, color={0,0,127}));
+  connect(add2.y, div.u1) annotation (Line(points={{-48,40},{-28,40},{-28,46},{-22,
+          46}}, color={0,0,127}));
+  connect(VHotWatMinSet_flow, add2.u1) annotation (Line(points={{-120,80},{-80,80},
+          {-80,46},{-72,46}}, color={0,0,127}));
+  connect(VHotWat_flow, add2.u2) annotation (Line(points={{-120,40},{-80,40},{-80,
+          34},{-72,34}}, color={0,0,127}));
 annotation (defaultComponentName="bypValPos",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
     graphics={Rectangle(

@@ -6,7 +6,7 @@ block BypassValvePosition
     final nPum=2,
     final k=1,
     final Ti=10,
-    final Td=0.5)
+    final Td=10e-6)
     "Test instance for bypass valve controller"
     annotation (Placement(transformation(extent={{10,-10},{30,10}})));
 
@@ -23,7 +23,7 @@ protected
     final offset=1.2,
     final startTime=1)
     "Sine input"
-    annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
+    annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul(
     final width=0.5,
@@ -42,11 +42,18 @@ protected
     "Boolean replicator"
     annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
 
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con2(
+    final k=0)
+    "Constant zero signal"
+    annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Switch swi
+    "Pass zero flowrate when pumps are switched off"
+    annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
+
 equation
   connect(con.y, bypValPos.VHotWatMinSet_flow) annotation (Line(points={{-18,60},
           {0,60},{0,6},{8,6}},         color={0,0,127}));
-  connect(sin.y, bypValPos.VHotWat_flow) annotation (Line(points={{-18,20},{-10,
-          20},{-10,2},{8,2}}, color={0,0,127}));
   connect(con1.y, bypValPos.uMinBypValPos) annotation (Line(points={{-18,-60},{0,
           -60},{0,-6},{8,-6}},   color={0,0,127}));
   connect(booPul.y, booRep.u)
@@ -54,6 +61,14 @@ equation
   connect(booRep.y, bypValPos.uPumSta) annotation (Line(points={{-18,-20},{-10,-20},
           {-10,-2},{8,-2}}, color={255,0,255}));
 
+  connect(swi.y, bypValPos.VHotWat_flow) annotation (Line(points={{-18,20},{-10,
+          20},{-10,2},{8,2}}, color={0,0,127}));
+  connect(sin.y, swi.u1) annotation (Line(points={{-58,20},{-50,20},{-50,28},{-42,
+          28}}, color={0,0,127}));
+  connect(con2.y, swi.u3) annotation (Line(points={{-58,60},{-54,60},{-54,12},{-42,
+          12}}, color={0,0,127}));
+  connect(booPul.y, swi.u2) annotation (Line(points={{-58,-20},{-46,-20},{-46,20},
+          {-42,20}}, color={255,0,255}));
 annotation (
 Documentation(info="<html>
 <p>
