@@ -15,7 +15,8 @@ model ConventionalSpring
         273.15],
     smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments,
     extrapolation=Buildings.Controls.OBC.CDL.Types.Extrapolation.Periodic,
-    y(unit="K",displayUnit="degC"))
+    y(each unit="K",
+      each displayUnit="degC"))
     "Heating setpoint for room temperature"
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable TSetRooCoo(
