@@ -191,7 +191,9 @@ protected
 
 
   Modelica.Blocks.Sources.RealExpression TAirIn[nPorts](
-    each y=293.15) if nPorts > 0
+    y=Medium.temperature(
+      state=Medium.setState_phX(
+        p=ports.p, h=inStream(ports.h_outflow), X=inStream(ports.Xi_outflow)))) if nPorts > 0
     "Temperature that the air has if it were flowing into the room"
     annotation (Placement(transformation(extent={{20,102},{40,122}})));
   Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor heaFloSen
