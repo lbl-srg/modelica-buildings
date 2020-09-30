@@ -144,11 +144,6 @@ protected
     "Converter for convective heat flow rate"
     annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
 
-//  Modelica.Blocks.Sources.RealExpression mIn_flow[nPorts](
-//    final y={ports[i].m_flow for i in 1:nPorts}) if nPorts > 0
-//    "Inlet mass flow rates"
-//    annotation (Placement(transformation(extent={{70,140},{90,160}})));
-
   final parameter String substanceName = "CO2" "Name of trace substance";
 
   final parameter Modelica.SIunits.MolarMass MM=
