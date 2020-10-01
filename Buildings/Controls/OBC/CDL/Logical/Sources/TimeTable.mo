@@ -3,10 +3,9 @@ block TimeTable
   "Table look-up with respect to time with constant segments"
 
   parameter Real table[:,:]
-  "Table matrix with time as a first column (in seconds, unless timeScale is not 1) and Booleans in all other columns";
-  parameter CDL.Types.Extrapolation extrapolation=CDL.Types.Extrapolation.HoldLastPoint
-    "Extrapolation of data outside the definition range";
-  parameter Modelica.SIunits.Time timeScale=1
+    "Table matrix with time as a first column (in seconds, unless timeScale is not 1) and Booleans in all other columns";
+  parameter Real timeScale(
+    final unit="1")=1
     "Time scale of first table column. Set to 3600 if time in table is in hours";
 
   Interfaces.BooleanOutput y[nout] "Output of the table"
@@ -51,11 +50,8 @@ protected
     final table=table,
     final columns=2:size(tab.table, 2),
     final smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments,
-    final extrapolation=if extrapolation == CDL.Types.Extrapolation.HoldLastPoint then
-                          Modelica.Blocks.Types.Extrapolation.HoldLastPoint
-                        else
-                          Modelica.Blocks.Types.Extrapolation.Periodic,
-    final startTime=if (extrapolation == Types.Extrapolation.Periodic) then integer(t0/86400)*86400 else 0,
+    final extrapolation=CDL.Types.Extrapolation.Periodic,
+    final startTime=integer(t0/86400)*86400,
     final timeScale=timeScale) "Time table"
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
 
@@ -80,10 +76,10 @@ protected
 
 initial equation
   t0=time;
+  assert(n > 0, "No table values defined.");
 
 equation
-  assert(n > 0, "No table values defined.");
-  assert(extrapolation <> CDL.Types.Extrapolation.LastTwoPoints, "Unsuitable extrapolation setting.");
+
 
   connect(tab.y, realToInteger.u)
     annotation (Line(points={{-79,0},{-62,0}}, color={0,0,127}));
@@ -149,45 +145,22 @@ in the first column of the table are interpreted as hours.
 Any number of columns can be specified.
 </p>
 <p>
-The values in all columns apart from the first column must equal either <code>0</code> or <code>1</code>, 
+The values in all columns apart from the first column must equal to either <code>0</code> or <code>1</code>, 
 to represent <code>false</code> or <code>true</code>, respectively, otherwise a warning is issued.
 </p>
 <p>
-The parameter <code>smoothness</code> determines how the table values
-are interpolated. The following setting is implemented:
+Until a new tabulated value is set, the previous tabulated value is returned.
 </p>
-<table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
-<tr><th><code>smoothness</code></th><th>Description</th></tr>
-<tr>
-  <td><code>CDL.Types.ConstantSegments</code></td>
-  <td>Table points are not interpolated, but the previous tabulated value is returned.</td>
-</tr>
-</table>
 <p>
-The parameter <code>extrapolation</code> determines how the table
-values are extrapolated. The following settings are allowed:
-</p>
-
-<table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
-<tr><th><code>extrapolation</code></th><th>Description</th></tr>
-<tr>
-  <td><code>CDL.Types.HoldLastPoint</code></td>
-  <td>Hold the first or last table point outside of the table scope.</td>
-</tr>
-<tr>
-  <td><code>CDL.Types.Periodic</code></td>
-  <td>Repeat the table scope periodically with periodicity
-      <code>(max(table[:, 1]-min(table[:, 1]))*timeScale)</code>.</td>
-</tr>
-</table>
-
-<p>
-If <code>extrapolation === CDL.Types.Periodic</code>, then the above example
-would give a schedule with periodicity of one day. The simulation can start at any time,
-whether it is a multiple of a day or not, and positive or negative.
+The table scope is repeated periodically with periodicity
+      <code>(max(table[:, 1]-min(table[:, 1]))*timeScale)</code>.
 </p>
 <p>
 If the table has only one row the table values of this row are returned.
+</p>
+<p>
+The simulation can start at any time,
+whether it is a multiple of a day or not, and positive or negative.
 </p>
 </html>",
 revisions="<html>
