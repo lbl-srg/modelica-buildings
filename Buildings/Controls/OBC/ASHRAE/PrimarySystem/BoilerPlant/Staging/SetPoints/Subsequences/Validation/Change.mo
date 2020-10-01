@@ -5,7 +5,6 @@ model Change
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.Change
     cha(
     final nSta=10,
-    final iniSta=1,
     final delStaCha=600)
     "Controls for stage up signal variations"
     annotation (Placement(transformation(extent={{-40,180},{-20,200}})));
@@ -13,7 +12,6 @@ model Change
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.Change
     cha1(
     final nSta=10,
-    final iniSta=7,
     final delStaCha=600)
     "Controls for stage down signal variations"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
@@ -21,7 +19,6 @@ model Change
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.Change
     cha2(
     final nSta=10,
-    final iniSta=3,
     final delStaCha=600)
     "Controls for stage up/stage down signal interaction"
     annotation (Placement(transformation(extent={{-40,-180},{-20,-160}})));
@@ -76,6 +73,11 @@ protected
     "Stage up signal for the first example and stage down signal for the second
     example from the top"
     annotation (Placement(transformation(extent={{-160,220},{-140,240}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con[10](
+    final k=fill(true, 10))
+    "Constant Boolean source"
+    annotation (Placement(transformation(extent={{-120,260},{-100,280}})));
 
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
     final t=0.5)
@@ -285,7 +287,7 @@ equation
   connect(step.y, addInt1.u2) annotation (Line(points={{122,230},{126,230},{126,
           164},{138,164}}, color={255,127,0}));
   connect(addInt.y, cha.uAvaUp) annotation (Line(points={{162,210},{170,210},{170,
-          250},{-50,250},{-50,194},{-42,194}}, color={255,127,0}));
+          250},{-50,250},{-50,192},{-42,192}}, color={255,127,0}));
   connect(cha1.ySta, intToRea1.u) annotation (Line(points={{-18,16},{0,16},{0,10},
           {18,10}},  color={255,127,0}));
   connect(intToRea1.y, zerOrdHol1.u)
@@ -303,7 +305,7 @@ equation
           -16},{138,-16}},
                       color={255,127,0}));
   connect(addInt2.y, cha1.uAvaUp) annotation (Line(points={{162,30},{170,30},{170,
-          70},{-50,70},{-50,14},{-42,14}}, color={255,127,0}));
+          70},{-50,70},{-50,12},{-42,12}}, color={255,127,0}));
   connect(timeTable2.y[1], greThr2.u)
     annotation (Line(points={{-138,-130},{-122,-130}}, color={0,0,127}));
   connect(cha2.ySta, intToRea2.u) annotation (Line(points={{-18,-164},{0,-164},{
@@ -325,16 +327,15 @@ equation
           126,-196},{138,-196}},
                              color={255,127,0}));
   connect(addInt4.y, cha2.uAvaUp) annotation (Line(points={{162,-150},{170,-150},
-          {170,-110},{-50,-110},{-50,-166},{-42,-166}}, color={255,127,0}));
+          {170,-110},{-50,-110},{-50,-168},{-42,-168}}, color={255,127,0}));
   connect(noStaChaSig.y, cha.uDow) annotation (Line(points={{-178,110},{-170,110},
           {-170,182},{-42,182}}, color={255,0,255}));
   connect(noStaChaSig.y, cha1.uUp) annotation (Line(points={{-178,110},{-170,110},
-          {-170,60},{-80,60},{-80,6},{-42,6}},     color={255,0,255}));
-  connect(greThr.y, cha.uUp) annotation (Line(points={{-98,230},{-70,230},{-70,186},
-          {-42,186}}, color={255,0,255}));
-  connect(greThr2.y, cha2.uUp) annotation (Line(points={{-98,-130},{-80,-130},{
-          -80,-174},{-42,-174}},
-                             color={255,0,255}));
+          {-170,60},{-80,60},{-80,5},{-42,5}},     color={255,0,255}));
+  connect(greThr.y, cha.uUp) annotation (Line(points={{-98,230},{-64,230},{-64,185},
+          {-42,185}}, color={255,0,255}));
+  connect(greThr2.y, cha2.uUp) annotation (Line(points={{-98,-130},{-80,-130},{-80,
+          -175},{-42,-175}}, color={255,0,255}));
   connect(greThr3.y, cha2.uDow) annotation (Line(points={{-98,-170},{-90,-170},
           {-90,-178},{-42,-178}},color={255,0,255}));
   connect(greThr.y, cha1.uDow) annotation (Line(points={{-98,230},{-64,230},{-64,
@@ -352,27 +353,27 @@ equation
   connect(maxInt.u2, u3.y) annotation (Line(points={{178,144},{170,144},{170,
           130},{162,130}}, color={255,127,0}));
   connect(maxInt.y, cha.uAvaDow) annotation (Line(points={{202,150},{210,150},{210,
-          110},{-50,110},{-50,190},{-42,190}},     color={255,127,0}));
+          110},{-50,110},{-50,188},{-42,188}},     color={255,127,0}));
   connect(addInt3.y, maxInt1.u1) annotation (Line(points={{162,-10},{170,-10},{
           170,-24},{178,-24}}, color={255,127,0}));
   connect(u4.y, maxInt1.u2) annotation (Line(points={{162,-50},{170,-50},{170,
           -36},{178,-36}}, color={255,127,0}));
   connect(maxInt1.y, cha1.uAvaDow) annotation (Line(points={{202,-30},{208,-30},
-          {208,-70},{-50,-70},{-50,10},{-42,10}}, color={255,127,0}));
+          {208,-70},{-50,-70},{-50,8},{-42,8}},   color={255,127,0}));
   connect(addInt5.y, maxInt2.u1) annotation (Line(points={{162,-190},{170,-190},
           {170,-204},{178,-204}}, color={255,127,0}));
   connect(u5.y, maxInt2.u2) annotation (Line(points={{162,-230},{170,-230},{170,
           -216},{178,-216}}, color={255,127,0}));
-  connect(maxInt2.y, cha2.uAvaDow) annotation (Line(points={{202,-210},{208,
-          -210},{208,-252},{-50,-252},{-50,-170},{-42,-170}}, color={255,127,0}));
+  connect(maxInt2.y, cha2.uAvaDow) annotation (Line(points={{202,-210},{208,-210},
+          {208,-252},{-50,-252},{-50,-172},{-42,-172}},       color={255,127,0}));
   connect(timeTable3.y[1], greThr1.u)
     annotation (Line(points={{-178,30},{-162,30}}, color={0,0,127}));
   connect(greThr1.y, cha.uPla) annotation (Line(points={{-138,30},{-130,30},{-130,
-          198},{-42,198}},      color={255,0,255}));
+          195},{-42,195}},      color={255,0,255}));
   connect(greThr1.y, cha1.uPla) annotation (Line(points={{-138,30},{-130,30},{-130,
-          18},{-42,18}},    color={255,0,255}));
-  connect(greThr1.y, cha2.uPla) annotation (Line(points={{-138,30},{-88,30},{
-          -88,-162},{-42,-162}}, color={255,0,255}));
+          15},{-42,15}},    color={255,0,255}));
+  connect(greThr1.y, cha2.uPla) annotation (Line(points={{-138,30},{-88,30},{-88,
+          -165},{-42,-165}},     color={255,0,255}));
 
   connect(truDel.y, cha2.uStaChaProEnd) annotation (Line(points={{92,-230},{100,
           -230},{100,-260},{-39,-260},{-39,-182}}, color={255,0,255}));
@@ -400,6 +401,12 @@ equation
           -130},{-10,-168},{-18,-168}}, color={255,0,255}));
   connect(truFalHol11.u, cha2.yChaDowEdg) annotation (Line(points={{38,-130},{30,
           -130},{30,-148},{10,-148},{10,-176},{-18,-176}}, color={255,0,255}));
+  connect(con.y, cha.uStaAva) annotation (Line(points={{-98,270},{-56,270},{-56,
+          198},{-42,198}}, color={255,0,255}));
+  connect(con.y, cha1.uStaAva) annotation (Line(points={{-98,270},{-56,270},{-56,
+          18},{-42,18}}, color={255,0,255}));
+  connect(con.y, cha2.uStaAva) annotation (Line(points={{-98,270},{-56,270},{-56,
+          -162},{-42,-162}}, color={255,0,255}));
 annotation (
  experiment(StopTime=14000.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/BoilerPlant/Staging/SetPoints/Subsequences/Validation/Change.mos"

@@ -24,10 +24,6 @@ block SetpointController
     "Staging matrix with stage as row index and boiler as column index"
     annotation(Dialog(tab="General", group="Boiler plant configuration parameters"));
 
-  parameter Integer iniSta = 1
-    "Initial boiler plant stage"
-    annotation(Dialog(tab="General", group="Boiler plant configuration parameters"));
-
   parameter Real boiDesCap[nBoi](
     final unit=fill("W",nBoi),
     displayUnit=fill("W",nBoi),
@@ -341,7 +337,6 @@ block SetpointController
 protected
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.Change cha(
     final nSta=nSta,
-    final iniSta=iniSta,
     final delStaCha=delStaCha)
     "Stage change assignment"
     annotation (Placement(transformation(extent={{-20,-180},{0,-160}})));
@@ -408,9 +403,8 @@ protected
     annotation (Placement(transformation(extent={{-240,-120},{-220,-100}})));
 
 equation
-  connect(uPla, cha.uPla) annotation (Line(points={{-420,-80},{-280,-80},{-280,
-          -140},{-60,-140},{-60,-162},{-22,-162}},
-                                             color={255,0,255}));
+  connect(uPla, cha.uPla) annotation (Line(points={{-420,-80},{-280,-80},{-280,-140},
+          {-60,-140},{-60,-165},{-22,-165}}, color={255,0,255}));
   connect(cha.ySta, ySta) annotation (Line(points={{2,-164},{20,-164},{20,0},{
           140,0}},   color={255,127,0}));
   connect(boiInd.yBoi,yBoi)
@@ -489,12 +483,12 @@ equation
           {-280,-154},{-202,-154},{-202,-107},{-142,-107}}, color={255,127,0}));
   connect(u, staDow.uCur) annotation (Line(points={{-420,-110},{-328,-110},{-328,
           -228},{-142,-228}},       color={255,127,0}));
-  connect(cha.uAvaUp, sta.yAvaUp) annotation (Line(points={{-22,-166},{-60,-166},
+  connect(cha.uAvaUp, sta.yAvaUp) annotation (Line(points={{-22,-168},{-60,-168},
           {-60,-203},{-288,-203}}, color={255,127,0}));
-  connect(cha.uAvaDow, sta.yAvaDow) annotation (Line(points={{-22,-170},{-56,
-          -170},{-56,-206},{-288,-206}}, color={255,127,0}));
+  connect(cha.uAvaDow, sta.yAvaDow) annotation (Line(points={{-22,-172},{-56,-172},
+          {-56,-206},{-288,-206}},       color={255,127,0}));
   connect(staUp.yStaUp, cha.uUp) annotation (Line(points={{-118,-104},{-64,-104},
-          {-64,-174},{-22,-174}}, color={255,0,255}));
+          {-64,-175},{-22,-175}}, color={255,0,255}));
   connect(staDow.yStaDow, cha.uDow) annotation (Line(points={{-118,-240},{-64,-240},
           {-64,-178},{-22,-178}}, color={255,0,255}));
   connect(uPumSpe, staDow.uPumSpe) annotation (Line(points={{-420,-30},{-198,
@@ -514,6 +508,8 @@ equation
           -176},{100,-190},{140,-190}}, color={255,0,255}));
   connect(uStaChaProEnd, staUp.uStaChaProEnd) annotation (Line(points={{-420,-260},
           {-150,-260},{-150,-119},{-142,-119}},         color={255,0,255}));
+  connect(conf.yAva, cha.uStaAva) annotation (Line(points={{-338,-178},{-332,
+          -178},{-332,-280},{-30,-280},{-30,-162},{-22,-162}}, color={255,0,255}));
   annotation (defaultComponentName = "staSetCon",
         Icon(coordinateSystem(extent={{-100,-180},{100,180}}),
              graphics={

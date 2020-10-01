@@ -5,14 +5,16 @@ block Change
   parameter Integer nSta = 5
     "Number of boiler stages";
 
-  parameter Real iniSta = 1
-    "Initial boiler plant stage";
-
   parameter Real delStaCha(
     final unit="s",
     displayUnit="s",
     final quantity="Time") = 600
     "Hold period for each stage change";
+
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uStaAva[nSta]
+    "Stage availability vector"
+    annotation (Placement(transformation(extent={{-480,250},{-440,290}}),
+        iconTransformation(extent={{-140,60},{-100,100}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uStaChaProEnd
     "Signal indicating end of stage change process"
@@ -23,12 +25,12 @@ block Change
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uPla
     "Plant enable signal"
     annotation (Placement(transformation(extent={{-480,140},{-440,180}}),
-      iconTransformation(extent={{-140,60},{-100,100}})));
+      iconTransformation(extent={{-140,30},{-100,70}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uUp
     "Stage up signal"
     annotation (Placement(transformation(extent={{-480,-60},{-440,-20}}),
-      iconTransformation(extent={{-140,-60},{-100,-20}})));
+      iconTransformation(extent={{-140,-70},{-100,-30}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uDow
     "Stage down signal"
@@ -40,14 +42,14 @@ block Change
     final max=nSta)
     "Next available stage up"
     annotation (Placement(transformation(extent={{-480,80},{-440,120}}),
-      iconTransformation(extent={{-140,20},{-100,60}})));
+      iconTransformation(extent={{-140,0},{-100,40}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uAvaDow(
     final min=0,
     final max=nSta)
     "Next available stage down"
     annotation (Placement(transformation(extent={{-480,0},{-440,40}}),
-      iconTransformation(extent={{-140,-20},{-100,20}})));
+      iconTransformation(extent={{-140,-40},{-100,0}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yChaEdg
     "Boiler stage change edge signal"
@@ -72,10 +74,12 @@ block Change
       iconTransformation(extent={{100,40},{140,80}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(
-    final k=iniSta)
-    "Initial boiler stage"
-    annotation (Placement(transformation(extent={{-80,100},{-60,120}})));
+  parameter Integer staInd[nSta]={i for i in 1:nSta}
+    "Stage index vector";
+
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(final k=0)
+    "Zero boiler stage"
+    annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
 
   Buildings.Controls.OBC.CDL.Logical.Or or2
     "Logical or"
@@ -199,6 +203,48 @@ protected
     "Trigger stage number sampler when plant is turned on or when staging conditions are met"
     annotation (Placement(transformation(extent={{100,100},{120,120}})));
 
+  Buildings.Controls.OBC.CDL.Logical.And and5
+    "Ensure stage change signal is passed through only when the plant is enabled"
+    annotation (Placement(transformation(extent={{-320,-90},{-300,-70}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Change cha1
+    "Detect change in boiler plant enable status"
+    annotation (Placement(transformation(extent={{-120,120},{-100,140}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Pre pre2
+    "Logical pre block"
+    annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Edge edg1
+    "Edge detector"
+    annotation (Placement(transformation(extent={{60,-90},{80,-70}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Switch switch3
+    "Switch"
+    annotation (Placement(transformation(extent={{-40,100},{-20,120}})));
+
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt[nSta]
+    "Boolean to Integer conversion"
+    annotation (Placement(transformation(extent={{-420,260},{-400,280}})));
+
+  Buildings.Controls.OBC.CDL.Integers.Product proInt[nSta]
+    "Element-wise products"
+    annotation (Placement(transformation(extent={{-360,240},{-340,260}})));
+
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt[nSta](
+    final k=staInd)
+    "Vector of stage indices"
+    annotation (Placement(transformation(extent={{-420,220},{-400,240}})));
+
+  Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea2[nSta]
+    "Integer to Real conversion"
+    annotation (Placement(transformation(extent={{-320,240},{-300,260}})));
+
+  Buildings.Controls.OBC.CDL.Continuous.MultiMin mulMin(
+    final nin=nSta)
+    "Find lowest available stage"
+    annotation (Placement(transformation(extent={{-280,240},{-260,260}})));
+
 equation
   connect(reaToInt.y,ySta)
     annotation (Line(points={{382,150},{460,150}}, color={255,127,0}));
@@ -229,12 +275,12 @@ equation
     annotation (Line(points={{-460,20},{-322,20}}, color={255,127,0}));
   connect(holIniSta.y, not3.u) annotation (Line(points={{-298,160},{-282,160}},
                                  color={255,0,255}));
-  connect(uPla, booToRea.u) annotation (Line(points={{-460,160},{-400,160},{-400,
-          120},{-160,120},{-160,10},{198,10}},  color={255,0,255}));
+  connect(uPla, booToRea.u) annotation (Line(points={{-460,160},{-388,160},{-388,
+          130},{-160,130},{-160,10},{198,10}},  color={255,0,255}));
   connect(or3.y, triSam1.trigger) annotation (Line(points={{242,-50},{250,-50},
           {250,-1.8}}, color={255,0,255}));
-  connect(uPla, falEdg.u) annotation (Line(points={{-460,160},{-400,160},{-400,120},
-          {-160,120},{-160,-30},{-62,-30}},
+  connect(uPla, falEdg.u) annotation (Line(points={{-460,160},{-388,160},{-388,130},
+          {-160,130},{-160,-30},{-62,-30}},
                                           color={255,0,255}));
   connect(falEdg.y, or3.u1) annotation (Line(points={{-38,-30},{210,-30},{210,-50},
           {218,-50}},      color={255,0,255}));
@@ -250,30 +296,24 @@ equation
     annotation (Line(points={{62,150},{128,150}}, color={0,0,127}));
   connect(triSam.y, reaToInt.u)
     annotation (Line(points={{152,150},{358,150}}, color={0,0,127}));
-  connect(lat1.clr, edg.y) annotation (Line(points={{-82,144},{-340,144},{-340,160},
-          {-358,160}}, color={255,0,255}));
-  connect(con.y, switch2.u3) annotation (Line(points={{-58,110},{0,110},{0,142},
-          {38,142}}, color={0,0,127}));
   connect(switch1.y, switch2.u1) annotation (Line(points={{-178,60},{-140,60},{-140,
           180},{0,180},{0,158},{38,158}}, color={0,0,127}));
   connect(and3.y, lat1.u) annotation (Line(points={{302,70},{320,70},{320,220},{
           -120,220},{-120,150},{-82,150}}, color={255,0,255}));
-  connect(not3.y, mulAnd.u[1]) annotation (Line(points={{-258,160},{-240,160},{-240,
-          -74.75},{-162,-74.75}}, color={255,0,255}));
-  connect(or2.y, mulAnd.u[2]) annotation (Line(points={{-358,-80},{-260,-80},{-260,
-          -78.25},{-162,-78.25}}, color={255,0,255}));
-  connect(mulAnd.y, or3.u2) annotation (Line(points={{-138,-80},{212,-80},{212,-58},
-          {218,-58}}, color={255,0,255}));
-  connect(mulAnd.y, and3.u1) annotation (Line(points={{-138,-80},{140,-80},{140,
+  connect(not3.y, mulAnd.u[1]) annotation (Line(points={{-258,160},{-240,160},{
+          -240,-74.75},{-162,-74.75}},
+                                  color={255,0,255}));
+  connect(mulAnd.y, and3.u1) annotation (Line(points={{-138,-80},{40,-80},{40,
           70},{278,70}}, color={255,0,255}));
   connect(pre1.y, staChaHol3.u)
     annotation (Line(points={{342,-110},{358,-110}}, color={255,0,255}));
   connect(uStaChaProEnd, lat2.u)
     annotation (Line(points={{-460,-180},{-282,-180}}, color={255,0,255}));
-  connect(not1.y, mulAnd.u[3]) annotation (Line(points={{422,-110},{430,-110},{430,
-          -140},{-200,-140},{-200,-81.75},{-162,-81.75}}, color={255,0,255}));
-  connect(lat2.y, mulAnd.u[4]) annotation (Line(points={{-258,-180},{-166,-180},
-          {-166,-85.25},{-162,-85.25}}, color={255,0,255}));
+  connect(not1.y, mulAnd.u[2]) annotation (Line(points={{422,-110},{430,-110},{
+          430,-140},{-200,-140},{-200,-78.25},{-162,-78.25}},
+                                                          color={255,0,255}));
+  connect(lat2.y, mulAnd.u[3]) annotation (Line(points={{-258,-180},{-166,-180},
+          {-166,-81.75},{-162,-81.75}}, color={255,0,255}));
   connect(pre1.y, lat2.clr) annotation (Line(points={{342,-110},{350,-110},{350,
           -200},{-290,-200},{-290,-186},{-282,-186}}, color={255,0,255}));
   connect(reaToInt.y, cha.u) annotation (Line(points={{382,150},{400,150},{400,130},
@@ -294,16 +334,50 @@ equation
           {430,-30},{430,0},{422,0}}, color={255,0,255}));
   connect(or1.y, triSam.trigger) annotation (Line(points={{122,110},{140,110},{140,
           138.2}}, color={255,0,255}));
-  connect(mulAnd.y, or1.u2) annotation (Line(points={{-138,-80},{90,-80},{90,102},
-          {98,102}}, color={255,0,255}));
-  connect(edg.y, or1.u1) annotation (Line(points={{-358,160},{-340,160},{-340,130},
-          {80,130},{80,110},{98,110}}, color={255,0,255}));
-  connect(lat1.y, and2.u1) annotation (Line(points={{-58,150},{-40,150},{-40,90},
-          {398,90}}, color={255,0,255}));
-  connect(lat1.y, and1.u2) annotation (Line(points={{-58,150},{-40,150},{-40,90},
-          {390,90},{390,-8},{398,-8}}, color={255,0,255}));
-  connect(lat1.y, and4.u1) annotation (Line(points={{-58,150},{-40,150},{-40,90},
-          {390,90},{390,-70},{398,-70}}, color={255,0,255}));
+  connect(or2.y, and5.u1)
+    annotation (Line(points={{-358,-80},{-322,-80}}, color={255,0,255}));
+  connect(and5.y, mulAnd.u[4]) annotation (Line(points={{-298,-80},{-230,-80},{
+          -230,-85.25},{-162,-85.25}}, color={255,0,255}));
+  connect(uPla, and5.u2) annotation (Line(points={{-460,160},{-388,160},{-388,
+          -20},{-328,-20},{-328,-88},{-322,-88}}, color={255,0,255}));
+  connect(uPla, and2.u1) annotation (Line(points={{-460,160},{-388,160},{-388,
+          -220},{390,-220},{390,90},{398,90}}, color={255,0,255}));
+  connect(uPla, and1.u2) annotation (Line(points={{-460,160},{-388,160},{-388,
+          -220},{390,-220},{390,-8},{398,-8}}, color={255,0,255}));
+  connect(uPla, and4.u1) annotation (Line(points={{-460,160},{-388,160},{-388,
+          -220},{390,-220},{390,-70},{398,-70}}, color={255,0,255}));
+  connect(uPla, cha1.u) annotation (Line(points={{-460,160},{-388,160},{-388,130},
+          {-122,130}},      color={255,0,255}));
+  connect(cha1.y, lat1.clr) annotation (Line(points={{-98,130},{-90,130},{-90,144},
+          {-82,144}},      color={255,0,255}));
+  connect(cha1.y, pre2.u) annotation (Line(points={{-98,130},{-90,130},{-90,30},
+          {-82,30}}, color={255,0,255}));
+  connect(pre2.y, or1.u1) annotation (Line(points={{-58,30},{20,30},{20,110},{
+          98,110}}, color={255,0,255}));
+  connect(mulAnd.y, edg1.u)
+    annotation (Line(points={{-138,-80},{58,-80}}, color={255,0,255}));
+  connect(edg1.y, or1.u2) annotation (Line(points={{82,-80},{92,-80},{92,102},{
+          98,102}}, color={255,0,255}));
+  connect(edg1.y, or3.u2) annotation (Line(points={{82,-80},{120,-80},{120,-58},
+          {218,-58}}, color={255,0,255}));
+  connect(con.y, switch3.u3) annotation (Line(points={{-58,70},{-50,70},{-50,
+          102},{-42,102}}, color={0,0,127}));
+  connect(switch3.y, switch2.u3) annotation (Line(points={{-18,110},{0,110},{0,
+          142},{38,142}}, color={0,0,127}));
+  connect(uStaAva, booToInt.u)
+    annotation (Line(points={{-460,270},{-422,270}}, color={255,0,255}));
+  connect(booToInt.y, proInt.u1) annotation (Line(points={{-398,270},{-380,270},
+          {-380,256},{-362,256}}, color={255,127,0}));
+  connect(conInt.y, proInt.u2) annotation (Line(points={{-398,230},{-380,230},{-380,
+          244},{-362,244}}, color={255,127,0}));
+  connect(proInt.y, intToRea2.u)
+    annotation (Line(points={{-338,250},{-322,250}}, color={255,127,0}));
+  connect(mulMin.u[1:nSta], intToRea2.y) annotation (Line(points={{-282,250},{-290,
+          250},{-290,250},{-298,250}},   color={0,0,127}));
+  connect(mulMin.y, switch3.u1) annotation (Line(points={{-258,250},{-150,250},{
+          -150,100},{-68,100},{-68,118},{-42,118}}, color={0,0,127}));
+  connect(uPla, switch3.u2) annotation (Line(points={{-460,160},{-388,160},{-388,
+          130},{-160,130},{-160,110},{-42,110}}, color={255,0,255}));
   annotation (defaultComponentName = "cha",
     Icon(graphics={
       Rectangle(
