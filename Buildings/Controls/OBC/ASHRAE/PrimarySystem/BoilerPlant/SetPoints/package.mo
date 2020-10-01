@@ -1,7 +1,5 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant;
-package SetPoints "Control sequences for generating setpoints for boiler plants"
-
-
+package SetPoints "Control sequences for setpoint controllers"
 
 annotation (Icon(graphics={
         Rectangle(
