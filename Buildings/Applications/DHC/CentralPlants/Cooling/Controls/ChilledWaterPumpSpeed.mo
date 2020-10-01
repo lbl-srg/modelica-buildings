@@ -1,6 +1,6 @@
 within Buildings.Applications.DHC.CentralPlants.Cooling.Controls;
 model ChilledWaterPumpSpeed
-  "Controller for variable speed chilled water pumps"
+  "Controller for up to two headed variable speed chilled water pumps"
   extends Modelica.Blocks.Icons.Block;
 
   parameter Integer numPum(min=1, max=2)=2 "Number of chilled water pumps, maximum is 2";
@@ -11,8 +11,16 @@ model ChilledWaterPumpSpeed
     "Nominal mass flow rate of single chilled water pump";
   parameter Real minSpe(unit="1",min=0,max=1) = 0.05
     "Minimum speed ratio required by chilled water pumps";
+  parameter Modelica.SIunits.MassFlowRate criPoiFlo = 0.7*m_flow_nominal
+    "Critcal point of flowrate for switching pump on or off";
+  parameter Modelica.SIunits.MassFlowRate deaBanFlo = 0.1*m_flow_nominal
+    "Deadband for critical point of flowrate";
+  parameter Real criPoiSpe = 0.5
+    "Critical point of speed signal for switching on or off";
+  parameter Real deaBanSpe = 0.3
+    "Deadband for critical point of speed signal";
   parameter Modelica.Blocks.Types.SimpleController controllerType=
-    Modelica.Blocks.Types.SimpleController.PID
+    Modelica.Blocks.Types.SimpleController.PI
     "Type of pump speed controller";
   parameter Real k(unit="1", min=0) = 1 "Gain of controller";
   parameter Modelica.SIunits.Time Ti(min=Modelica.Constants.small)=60
@@ -38,21 +46,25 @@ model ChilledWaterPumpSpeed
   Modelica.Blocks.Math.Product pumSpe[numPum] "Output pump speed"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Buildings.Applications.DataCenters.ChillerCooled.Controls.VariableSpeedPumpStage pumStaCon(
-    tWai=tWai,
-    m_flow_nominal=m_flow_nominal,
-    minSpe=minSpe)
+    final tWai=tWai,
+    final m_flow_nominal=m_flow_nominal,
+    final minSpe=minSpe,
+    final criPoiFlo=criPoiFlo,
+    final deaBanFlo=deaBanFlo,
+    final criPoiSpe=criPoiSpe,
+    final deaBanSpe=deaBanSpe)
     "Chilled water pump staging control"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Controls.Continuous.LimPID conPID(
-    controllerType=controllerType,
-    Ti=Ti,
-    k=k,
-    Td=Td) "PID controller of pump speed"
+    final controllerType=controllerType,
+    final Ti=Ti,
+    final k=k,
+    final Td=Td) "PID controller of pump speed"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-  Modelica.Blocks.Math.Gain gai(k=1/dpSetPoi)
+  Modelica.Blocks.Math.Gain gai(final k=1/dpSetPoi)
     "Multiplier gain for normalizing dp input"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
-  Modelica.Blocks.Sources.Constant dpSetSca(k=1)
+  Modelica.Blocks.Sources.Constant dpSetSca(final k=1)
     "Scaled differential pressure setpoint"
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
 
@@ -70,7 +82,9 @@ equation
   connect(dpMea, gai.u) annotation (Line(points={{-120,-40},{-82,-40}}, color={0,0,127}));
   connect(gai.y, conPID.u_m) annotation (Line(points={{-59,-40},{-50,-40},{-50,-12}}, color={0,0,127}));
   connect(dpSetSca.y, conPID.u_s) annotation (Line(points={{-79,0},{-62,0}}, color={0,0,127}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+  annotation (
+  defaultComponentName="CHWPumCon",
+  Icon(coordinateSystem(preserveAspectRatio=false), graphics={
                                         Text(
         extent={{-150,150},{150,110}},
         textString="%name",
@@ -84,8 +98,9 @@ First implementation.
 </li>
 </ul>
 </html>", info="<html>
-<p>This model implements the control logic for variable speed pumps. The staging of pumps is implemented through an instance of <a href=\"modelica://Buildings.Applications.DataCenters.ChillerCooled.Controls.VariableSpeedPumpStage\">Buildings.Applications.DataCenters.ChillerCooled.Controls.VariableSpeedPumpStage</a>. The pump speed is controlled to maintain the pressure difference setpoint through a PID controller.</p>
-<p>The model inputs are the measured chilled water mass flow rate and the pressure difference at a reference point from the demand side. The output is a vector of pump speeds.</p>
+<p>This model implements the control logic for variable speed pumps. The staging of pumps is implemented through an instance of <a href=\"modelica://Buildings.Applications.DataCenters.ChillerCooled.Controls.VariableSpeedPumpStage\">Buildings.Applications.DataCenters.ChillerCooled.Controls.VariableSpeedPumpStage</a>. </p>
+<p>The pump speed is controlled to maintain the pressure difference setpoint through a PID controller.</p>
+<p>The model inputs are the measured chilled water mass flow rate <i>masFloPum</i> and the pressure difference <i>dpMea</i> at a reference point from the demand side. The output <i>y</i> is a vector of pump speeds.</p>
 <p>The model currently only supports the control of up to two variable speed pumps.</p>
 </html>"));
 end ChilledWaterPumpSpeed;
