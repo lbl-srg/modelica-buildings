@@ -1554,6 +1554,18 @@ equation
   connect(booPul4[1].y, lat10.clr) annotation (Line(points={{412,260},{520,260},
           {520,254},{624,254},{624,294},{628,294}}, color={255,0,255}));
 
+  connect(booPul[1].y, upProCon.uPlaEna) annotation (Line(points={{-348,260},{
+          -234,260},{-234,240},{-184,240},{-184,170},{-162,170}}, color={255,0,
+          255}));
+  connect(booPul1[1].y, upProCon1.uPlaEna) annotation (Line(points={{22,260},{
+          130,260},{130,244},{186,244},{186,170},{208,170}}, color={255,0,255}));
+  connect(booPul4[1].y, upProCon4.uPlaEna) annotation (Line(points={{412,260},{
+          520,260},{520,254},{574,254},{574,170},{598,170}}, color={255,0,255}));
+  connect(booPul2[1].y, upProCon2.uPlaEna) annotation (Line(points={{-358,-70},
+          {-350,-70},{-350,-174},{-236,-174},{-236,-160},{-172,-160}}, color={
+          255,0,255}));
+  connect(booPul3[1].y, upProCon3.uPlaEna) annotation (Line(points={{22,-70},{
+          30,-70},{30,-166},{148,-166},{148,-160},{208,-160}}, color={255,0,255}));
 annotation (
  experiment(
       StopTime=900,
