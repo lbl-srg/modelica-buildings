@@ -871,7 +871,7 @@ equation
     annotation (Line(points={{-268,200},{-222,200}}, color={255,0,255}));
 
   connect(logSwi.y, upProCon.uBoi) annotation (Line(points={{-198,200},{-180,
-          200},{-180,188},{-162,188}},
+          200},{-180,189},{-162,189}},
                                   color={255,0,255}));
 
   connect(pre3.y, logSwi.u1) annotation (Line(points={{-238,230},{-230,230},{
@@ -882,7 +882,7 @@ equation
                             color={255,0,255}));
 
   connect(logSwi1.y, upProCon.uBoiSet) annotation (Line(points={{-198,110},{
-          -180,110},{-180,184},{-162,184}},
+          -180,110},{-180,185},{-162,185}},
                                        color={255,0,255}));
 
   connect(upProCon.yPumChaPro, yPumChaPro.u) annotation (Line(points={{-138,169},
@@ -892,7 +892,7 @@ equation
     annotation (Line(points={{-98,160},{-92,160}}, color={255,0,255}));
 
   connect(intSwi.y, upProCon.uStaSet) annotation (Line(points={{-198,40},{-172,
-          40},{-172,172},{-162,172}},
+          40},{-172,173},{-162,173}},
                                   color={255,127,0}));
 
   connect(conInt.y, intSwi.u1) annotation (Line(points={{-238,60},{-230,60},{
@@ -900,11 +900,11 @@ equation
                           color={255,127,0}));
 
   connect(conInt2.y, upProCon.uStaTyp) annotation (Line(points={{-198,150},{
-          -190,150},{-190,176},{-162,176}},
+          -190,150},{-190,177},{-162,177}},
                                        color={255,127,0}));
 
   connect(or2.y, upProCon.uStaUpPro) annotation (Line(points={{-108,120},{-104,
-          120},{-104,104},{-176,104},{-176,180},{-162,180}},
+          120},{-104,104},{-176,104},{-176,181},{-162,181}},
                                                      color={255,0,255}));
 
   connect(booPul.y, swi.u2) annotation (Line(points={{-348,260},{-240,260},{
@@ -916,11 +916,11 @@ equation
                        color={0,0,127}));
 
   connect(swi.y, upProCon.uHotWatIsoVal) annotation (Line(points={{-198,280},{
-          -190,280},{-190,204},{-176,204},{-176,192},{-162,192}},
+          -190,280},{-190,204},{-176,204},{-176,193},{-162,193}},
                                        color={0,0,127}));
 
   connect(con3.y, upProCon.THotWatSup) annotation (Line(points={{-158,290},{
-          -150,290},{-150,270},{-170,270},{-170,196},{-162,196}},
+          -150,290},{-150,270},{-170,270},{-170,197},{-162,197}},
                                                        color={0,0,127}));
 
   connect(upProCon.yHotWatIsoVal, zerOrdHol.u) annotation (Line(points={{-138,
@@ -935,7 +935,7 @@ equation
           140},{-42,140}}, color={255,0,255}));
 
   connect(pre1.y, upProCon.uPumChaPro) annotation (Line(points={{-18,140},{-6,
-          140},{-6,120},{-90,120},{-90,142},{-168,142},{-168,168},{-162,168}},
+          140},{-6,120},{-90,120},{-90,142},{-168,142},{-168,167},{-162,167}},
         color={255,0,255}));
 
   connect(upProCon.yStaChaPro,yStaChaPro. u) annotation (Line(points={{-138,197},
@@ -1021,8 +1021,9 @@ equation
   connect(lat2.y, logSwi3.u2)
     annotation (Line(points={{102,200},{148,200}}, color={255,0,255}));
 
-  connect(logSwi3.y, upProCon1.uBoi) annotation (Line(points={{172,200},{190,200},
-          {190,188},{208,188}}, color={255,0,255}));
+  connect(logSwi3.y, upProCon1.uBoi) annotation (Line(points={{172,200},{190,
+          200},{190,189},{208,189}},
+                                color={255,0,255}));
 
   connect(pre4.y, logSwi3.u1) annotation (Line(points={{132,230},{140,230},{140,
           208},{148,208}}, color={255,0,255}));
@@ -1031,7 +1032,7 @@ equation
           118},{148,118}},  color={255,0,255}));
 
   connect(logSwi4.y, upProCon1.uBoiSet) annotation (Line(points={{172,110},{190,
-          110},{190,184},{208,184}}, color={255,0,255}));
+          110},{190,185},{208,185}}, color={255,0,255}));
 
   connect(upProCon1.yPumChaPro, yPumChaPro1.u) annotation (Line(points={{232,
           169},{240,169},{240,160},{248,160}}, color={255,0,255}));
@@ -1039,17 +1040,19 @@ equation
   connect(yPumChaPro1.y, falEdg3.u)
     annotation (Line(points={{272,160},{278,160}}, color={255,0,255}));
 
-  connect(intSwi2.y, upProCon1.uStaSet) annotation (Line(points={{172,40},{198,40},
-          {198,172},{208,172}}, color={255,127,0}));
+  connect(intSwi2.y, upProCon1.uStaSet) annotation (Line(points={{172,40},{198,
+          40},{198,173},{208,173}},
+                                color={255,127,0}));
 
   connect(conInt4.y, intSwi2.u1) annotation (Line(points={{132,60},{140,60},{140,
           48},{148,48}}, color={255,127,0}));
 
   connect(conInt6.y, upProCon1.uStaTyp) annotation (Line(points={{172,150},{180,
-          150},{180,176},{208,176}}, color={255,127,0}));
+          150},{180,177},{208,177}}, color={255,127,0}));
 
-  connect(or1.y, upProCon1.uStaUpPro) annotation (Line(points={{262,120},{266,120},
-          {266,104},{194,104},{194,180},{208,180}}, color={255,0,255}));
+  connect(or1.y, upProCon1.uStaUpPro) annotation (Line(points={{262,120},{266,
+          120},{266,104},{194,104},{194,181},{208,181}},
+                                                    color={255,0,255}));
 
   connect(booPul1.y, swi1.u2) annotation (Line(points={{22,260},{130,260},{130,280},
           {148,280}}, color={255,0,255}));
@@ -1057,11 +1060,12 @@ equation
   connect(con7.y, swi1.u1) annotation (Line(points={{92,290},{140,290},{140,288},
           {148,288}}, color={0,0,127}));
 
-  connect(swi1.y, upProCon1.uHotWatIsoVal) annotation (Line(points={{172,280},{180,
-          280},{180,204},{194,204},{194,192},{208,192}}, color={0,0,127}));
+  connect(swi1.y, upProCon1.uHotWatIsoVal) annotation (Line(points={{172,280},{
+          180,280},{180,204},{194,204},{194,193},{208,193}},
+                                                         color={0,0,127}));
 
   connect(con8.y, upProCon1.THotWatSup) annotation (Line(points={{212,290},{220,
-          290},{220,270},{200,270},{200,196},{208,196}}, color={0,0,127}));
+          290},{220,270},{200,270},{200,197},{208,197}}, color={0,0,127}));
 
   connect(upProCon1.yHotWatIsoVal, zerOrdHol1.u) annotation (Line(points={{232,190},
           {242,190},{242,176},{308,176}}, color={0,0,127}));
@@ -1073,7 +1077,7 @@ equation
           {328,140}}, color={255,0,255}));
 
   connect(pre5.y, upProCon1.uPumChaPro) annotation (Line(points={{352,140},{364,
-          140},{364,120},{280,120},{280,142},{202,142},{202,168},{208,168}},
+          140},{364,120},{280,120},{280,142},{202,142},{202,167},{208,167}},
         color={255,0,255}));
   connect(upProCon1.yStaChaPro, yStaChaPro1.u) annotation (Line(points={{232,
           197},{241,197},{241,200},{248,200}}, color={255,0,255}));
@@ -1157,7 +1161,7 @@ equation
     annotation (Line(points={{-278,-130},{-232,-130}}, color={255,0,255}));
 
   connect(logSwi6.y, upProCon2.uBoi) annotation (Line(points={{-208,-130},{-190,
-          -130},{-190,-142},{-172,-142}}, color={255,0,255}));
+          -130},{-190,-141},{-172,-141}}, color={255,0,255}));
 
   connect(pre7.y, logSwi6.u1) annotation (Line(points={{-248,-100},{-240,-100},{
           -240,-122},{-232,-122}}, color={255,0,255}));
@@ -1165,8 +1169,9 @@ equation
   connect(con11.y, logSwi7.u1) annotation (Line(points={{-248,-200},{-240,-200},
           {-240,-212},{-232,-212}}, color={255,0,255}));
 
-  connect(logSwi7.y, upProCon2.uBoiSet) annotation (Line(points={{-208,-220},{-190,
-          -220},{-190,-146},{-172,-146}}, color={255,0,255}));
+  connect(logSwi7.y, upProCon2.uBoiSet) annotation (Line(points={{-208,-220},{
+          -190,-220},{-190,-145},{-172,-145}},
+                                          color={255,0,255}));
 
   connect(upProCon2.yPumChaPro, yPumChaPro2.u) annotation (Line(points={{-148,-161},
           {-140,-161},{-140,-170},{-132,-170}}, color={255,0,255}));
@@ -1174,27 +1179,32 @@ equation
   connect(yPumChaPro2.y, falEdg6.u)
     annotation (Line(points={{-108,-170},{-102,-170}}, color={255,0,255}));
 
-  connect(intSwi4.y, upProCon2.uStaSet) annotation (Line(points={{-208,-290},{-182,
-          -290},{-182,-158},{-172,-158}}, color={255,127,0}));
+  connect(intSwi4.y, upProCon2.uStaSet) annotation (Line(points={{-208,-290},{
+          -182,-290},{-182,-157},{-172,-157}},
+                                          color={255,127,0}));
 
   connect(conInt8.y, intSwi4.u1) annotation (Line(points={{-248,-270},{-240,-270},
           {-240,-282},{-232,-282}}, color={255,127,0}));
 
-  connect(conInt10.y, upProCon2.uStaTyp) annotation (Line(points={{-208,-180},{-200,
-          -180},{-200,-154},{-172,-154}}, color={255,127,0}));
+  connect(conInt10.y, upProCon2.uStaTyp) annotation (Line(points={{-208,-180},{
+          -200,-180},{-200,-153},{-172,-153}},
+                                          color={255,127,0}));
 
-  connect(or3.y, upProCon2.uStaUpPro) annotation (Line(points={{-118,-210},{-114,
-          -210},{-114,-226},{-186,-226},{-186,-150},{-172,-150}}, color={255,0,255}));
+  connect(or3.y, upProCon2.uStaUpPro) annotation (Line(points={{-118,-210},{
+          -114,-210},{-114,-226},{-186,-226},{-186,-149},{-172,-149}},
+                                                                  color={255,0,255}));
 
-  connect(con13.y, upProCon2.THotWatSup) annotation (Line(points={{-318,-50},{-180,
-          -50},{-180,-134},{-172,-134}}, color={0,0,127}));
+  connect(con13.y, upProCon2.THotWatSup) annotation (Line(points={{-318,-50},{
+          -180,-50},{-180,-133},{-172,-133}},
+                                         color={0,0,127}));
 
   connect(falEdg6.y, pre8.u) annotation (Line(points={{-78,-170},{-56,-170},{-56,
           -190},{-52,-190}}, color={255,0,255}));
 
-  connect(pre8.y, upProCon2.uPumChaPro) annotation (Line(points={{-28,-190},{-16,
-          -190},{-16,-210},{-100,-210},{-100,-188},{-178,-188},{-178,-162},{-172,
-          -162}}, color={255,0,255}));
+  connect(pre8.y, upProCon2.uPumChaPro) annotation (Line(points={{-28,-190},{
+          -16,-190},{-16,-210},{-100,-210},{-100,-188},{-178,-188},{-178,-163},
+          {-172,-163}},
+                  color={255,0,255}));
 
   connect(upProCon2.yStaChaPro, yStaChaPro2.u) annotation (Line(points={{-148,-133},
           {-139,-133},{-139,-130},{-132,-130}}, color={255,0,255}));
@@ -1281,8 +1291,9 @@ equation
   connect(lat6.y, logSwi9.u2)
     annotation (Line(points={{102,-130},{148,-130}}, color={255,0,255}));
 
-  connect(logSwi9.y, upProCon3.uBoi) annotation (Line(points={{172,-130},{190,-130},
-          {190,-142},{208,-142}}, color={255,0,255}));
+  connect(logSwi9.y, upProCon3.uBoi) annotation (Line(points={{172,-130},{190,
+          -130},{190,-141},{208,-141}},
+                                  color={255,0,255}));
 
   connect(pre10.y, logSwi9.u1) annotation (Line(points={{132,-100},{140,-100},{140,
           -122},{148,-122}}, color={255,0,255}));
@@ -1290,8 +1301,9 @@ equation
   connect(con16.y, logSwi10.u1) annotation (Line(points={{132,-200},{140,-200},{
           140,-212},{148,-212}}, color={255,0,255}));
 
-  connect(logSwi10.y, upProCon3.uBoiSet) annotation (Line(points={{172,-220},{190,
-          -220},{190,-146},{208,-146}}, color={255,0,255}));
+  connect(logSwi10.y, upProCon3.uBoiSet) annotation (Line(points={{172,-220},{
+          190,-220},{190,-145},{208,-145}},
+                                        color={255,0,255}));
 
   connect(upProCon3.yPumChaPro, yPumChaPro3.u) annotation (Line(points={{232,-161},
           {240,-161},{240,-170},{248,-170}}, color={255,0,255}));
@@ -1299,26 +1311,30 @@ equation
   connect(yPumChaPro3.y, falEdg9.u)
     annotation (Line(points={{272,-170},{278,-170}}, color={255,0,255}));
 
-  connect(intSwi6.y, upProCon3.uStaSet) annotation (Line(points={{172,-290},{198,
-          -290},{198,-158},{208,-158}}, color={255,127,0}));
+  connect(intSwi6.y, upProCon3.uStaSet) annotation (Line(points={{172,-290},{
+          198,-290},{198,-157},{208,-157}},
+                                        color={255,127,0}));
 
   connect(conInt12.y, intSwi6.u1) annotation (Line(points={{132,-270},{140,-270},
           {140,-282},{148,-282}}, color={255,127,0}));
 
-  connect(conInt14.y, upProCon3.uStaTyp) annotation (Line(points={{172,-180},{180,
-          -180},{180,-154},{208,-154}}, color={255,127,0}));
+  connect(conInt14.y, upProCon3.uStaTyp) annotation (Line(points={{172,-180},{
+          180,-180},{180,-153},{208,-153}},
+                                        color={255,127,0}));
 
-  connect(or4.y, upProCon3.uStaUpPro) annotation (Line(points={{262,-210},{266,-210},
-          {266,-226},{194,-226},{194,-150},{208,-150}}, color={255,0,255}));
+  connect(or4.y, upProCon3.uStaUpPro) annotation (Line(points={{262,-210},{266,
+          -210},{266,-226},{194,-226},{194,-149},{208,-149}},
+                                                        color={255,0,255}));
 
   connect(con18.y, upProCon3.THotWatSup) annotation (Line(points={{62,-50},{200,
-          -50},{200,-134},{208,-134}}, color={0,0,127}));
+          -50},{200,-133},{208,-133}}, color={0,0,127}));
 
   connect(falEdg9.y, pre11.u) annotation (Line(points={{302,-170},{324,-170},{324,
           -190},{328,-190}}, color={255,0,255}));
 
-  connect(pre11.y, upProCon3.uPumChaPro) annotation (Line(points={{352,-190},{364,
-          -190},{364,-210},{280,-210},{280,-188},{202,-188},{202,-162},{208,-162}},
+  connect(pre11.y, upProCon3.uPumChaPro) annotation (Line(points={{352,-190},{
+          364,-190},{364,-210},{280,-210},{280,-188},{202,-188},{202,-163},{208,
+          -163}},
         color={255,0,255}));
   connect(upProCon3.yStaChaPro, yStaChaPro3.u) annotation (Line(points={{232,-133},
           {241,-133},{241,-130},{248,-130}}, color={255,0,255}));
@@ -1402,8 +1418,9 @@ equation
   connect(lat8.y, logSwi12.u2)
     annotation (Line(points={{492,200},{538,200}}, color={255,0,255}));
 
-  connect(logSwi12.y, upProCon4.uBoi) annotation (Line(points={{562,200},{580,200},
-          {580,188},{598,188}}, color={255,0,255}));
+  connect(logSwi12.y, upProCon4.uBoi) annotation (Line(points={{562,200},{580,
+          200},{580,189},{598,189}},
+                                color={255,0,255}));
 
   connect(pre13.y, logSwi12.u1) annotation (Line(points={{522,230},{530,230},{530,
           208},{538,208}}, color={255,0,255}));
@@ -1411,20 +1428,24 @@ equation
   connect(con21.y, logSwi13.u1) annotation (Line(points={{522,130},{530,130},{530,
           118},{538,118}}, color={255,0,255}));
 
-  connect(logSwi13.y, upProCon4.uBoiSet) annotation (Line(points={{562,110},{580,
-          110},{580,184},{598,184}}, color={255,0,255}));
+  connect(logSwi13.y, upProCon4.uBoiSet) annotation (Line(points={{562,110},{
+          580,110},{580,185},{598,185}},
+                                     color={255,0,255}));
 
-  connect(intSwi8.y, upProCon4.uStaSet) annotation (Line(points={{562,40},{588,40},
-          {588,172},{598,172}}, color={255,127,0}));
+  connect(intSwi8.y, upProCon4.uStaSet) annotation (Line(points={{562,40},{588,
+          40},{588,173},{598,173}},
+                                color={255,127,0}));
 
   connect(conInt16.y, intSwi8.u1) annotation (Line(points={{522,60},{530,60},{530,
           48},{538,48}}, color={255,127,0}));
 
-  connect(conInt18.y, upProCon4.uStaTyp) annotation (Line(points={{562,150},{570,
-          150},{570,176},{598,176}}, color={255,127,0}));
+  connect(conInt18.y, upProCon4.uStaTyp) annotation (Line(points={{562,150},{
+          570,150},{570,177},{598,177}},
+                                     color={255,127,0}));
 
-  connect(or5.y, upProCon4.uStaUpPro) annotation (Line(points={{652,120},{656,120},
-          {656,104},{584,104},{584,180},{598,180}}, color={255,0,255}));
+  connect(or5.y, upProCon4.uStaUpPro) annotation (Line(points={{652,120},{656,
+          120},{656,104},{584,104},{584,181},{598,181}},
+                                                    color={255,0,255}));
 
   connect(booPul4.y, swi4.u2) annotation (Line(points={{412,260},{520,260},{520,
           280},{538,280}}, color={255,0,255}));
@@ -1432,8 +1453,9 @@ equation
   connect(con22.y, swi4.u1) annotation (Line(points={{482,290},{530,290},{530,288},
           {538,288}}, color={0,0,127}));
 
-  connect(swi4.y, upProCon4.uHotWatIsoVal) annotation (Line(points={{562,280},{570,
-          280},{570,204},{584,204},{584,192},{598,192}}, color={0,0,127}));
+  connect(swi4.y, upProCon4.uHotWatIsoVal) annotation (Line(points={{562,280},{
+          570,280},{570,204},{584,204},{584,193},{598,193}},
+                                                         color={0,0,127}));
 
   connect(upProCon4.yHotWatIsoVal, zerOrdHol4.u) annotation (Line(points={{622,190},
           {632,190},{632,176},{698,176}}, color={0,0,127}));
@@ -1510,8 +1532,8 @@ equation
   connect(con20[1].y, lat9[2].clr) annotation (Line(points={{448,80},{610,80},{610,
           54},{660,54},{660,64},{668,64}}, color={255,0,255}));
 
-  connect(con23.y, upProCon4.VMinHotWatSet_flow) annotation (Line(points={{602,
-          290},{610,290},{610,268},{590,268},{590,200},{598,200}}, color={0,0,
+  connect(con23.y, upProCon4.VMinHotWatSet_flow) annotation (Line(points={{602,290},
+          {610,290},{610,268},{590,268},{590,201},{598,201}},      color={0,0,
           127}));
 
   connect(con12.y, swi2.u1) annotation (Line(points={{692,320},{700,320},{700,
@@ -1521,7 +1543,7 @@ equation
           292},{708,292}}, color={0,0,127}));
 
   connect(swi2.y, upProCon4.VHotWat_flow) annotation (Line(points={{732,300},{
-          740,300},{740,240},{594,240},{594,204},{598,204}}, color={0,0,127}));
+          740,300},{740,240},{594,240},{594,205},{598,205}}, color={0,0,127}));
 
   connect(lat10.y, swi2.u2)
     annotation (Line(points={{652,300},{708,300}}, color={255,0,255}));
