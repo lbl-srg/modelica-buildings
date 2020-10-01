@@ -14,11 +14,11 @@ model Controller "Validate condenser water pump control sequence"
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.CondenserWater.Controller
     heaNoWse(
-    final have_WSE=false,
-    final totSta=4,
-    final staVec={0,1,2,3},
-    final desConWatPumSpe={0,0.5,0.5,0.75},
-    final desConWatPumNum={0,1,1,2})
+    have_WSE=false,
+    totSta=4,
+    staVec={0,1,2,3},
+    desConWatPumSpe={0,0.5,0.5,0.75},
+    desConWatPumNum={0,1,1,2})
     "Condenser water pumps controller for plant with headered condenser water pump and without waterside economizer"
     annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
 
@@ -39,8 +39,7 @@ model Controller "Validate condenser water pump control sequence"
     annotation (Placement(transformation(extent={{-10,80},{10,100}})));
   Buildings.Controls.OBC.CDL.Integers.GreaterThreshold chiOn "Chiller status"
     annotation (Placement(transformation(extent={{-10,50},{10,70}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse wseSta(
-    final period=1800)
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse wseSta(final period=1800)
     "Waterside economizer status"
     annotation (Placement(transformation(extent={{-10,10},{10,30}})));
   Buildings.Controls.OBC.CDL.Logical.Switch meaPumSpe "Measured pump speed"
@@ -56,11 +55,9 @@ model Controller "Validate condenser water pump control sequence"
     final offset=0.3,
     final startTime=100) "Pump speed setpoint"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant fal(
-    final k=false) "Logical false"
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant fal(final k=false) "Logical false"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul(
-    final period=3600) "Output boolean pulse"
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul(period=3600) "Output boolean pulse"
     annotation (Placement(transformation(extent={{-80,-110},{-60,-90}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt(
     final integerTrue=2) "Convert boolean to integer"

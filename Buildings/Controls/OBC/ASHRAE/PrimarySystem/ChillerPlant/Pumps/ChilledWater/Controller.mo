@@ -14,20 +14,13 @@ block Controller
     "Total number of remote differential pressure sensors";
   parameter Real minPumSpe=0.1 "Minimum pump speed";
   parameter Real maxPumSpe=1 "Maximum pump speed";
-  parameter Integer nPum_nominal(
-    final max=nPum,
-    final min=1)=nPum
+  parameter Integer nPum_nominal(final max=nPum, final min=1)=nPum
     "Total number of pumps that operate at design conditions"
     annotation (Dialog(group="Nominal conditions"));
-  parameter Real VChiWat_flow_nominal(
-    final unit="m3/s",
-    final quantity="VolumeFlowRate",
-    final min=1e-6)=0.5
+  parameter Modelica.SIunits.VolumeFlowRate VChiWat_flow_nominal(final min=1e-6)=0.5
     "Total plant design chilled water flow rate"
     annotation (Dialog(group="Nominal conditions"));
-  parameter Real maxLocDp(
-    final unit="Pa",
-    final quantity="PressureDifference")=15*6894.75
+  parameter Modelica.SIunits.PressureDifference maxLocDp=15*6894.75
     "Maximum chilled water loop local differential pressure setpoint"
     annotation (Dialog(group="Pump speed control when there is local DP sensor", enable=have_LocalSensor));
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=
@@ -50,9 +43,7 @@ block Controller
       controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
       controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
-  final parameter Real minLocDp(
-    final unit="Pa",
-    final quantity="PressureDifference")=5*6894.75
+  final parameter Modelica.SIunits.PressureDifference minLocDp=5*6894.75
     "Minimum chilled water loop local differential pressure setpoint"
     annotation (Dialog(group="Pump speed control when there is local DP sensor", enable=have_LocalSensor));
   final parameter Integer pumInd[nPum]={i for i in 1:nPum}
@@ -85,24 +76,24 @@ block Controller
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChiIsoVal[nChi] if is_heaPum
     "Chilled water isolation valve status"
     annotation (Placement(transformation(extent={{-320,0},{-280,40}}),
-      iconTransformation(extent={{-140,-40},{-100,0}})));
+      iconTransformation(extent={{-140,-30},{-100,10}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VChiWat_flow(
     final unit="m3/s") if is_heaPum
     "Chilled water flow"
     annotation (Placement(transformation(extent={{-320,-40},{-280,0}}),
-      iconTransformation(extent={{-140,-60},{-100,-20}})));
+      iconTransformation(extent={{-140,-50},{-100,-10}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWat_local(
     final unit="Pa",
     final quantity="PressureDifference") if have_LocalSensor
     "Chilled water differential static pressure from local sensor"
     annotation (Placement(transformation(extent={{-320,-180},{-280,-140}}),
-      iconTransformation(extent={{-140,-80},{-100,-40}})));
+      iconTransformation(extent={{-140,-70},{-100,-30}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWat_remote[nSen](
     final unit=fill("Pa", nSen),
     final quantity=fill("PressureDifference", nSen))
     "Chilled water differential static pressure from remote sensor"
     annotation (Placement(transformation(extent={{-320,-220},{-280,-180}}),
-      iconTransformation(extent={{-140,-100},{-100,-60}})));
+      iconTransformation(extent={{-140,-90},{-100,-50}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWatSet(
     final unit="Pa",
     final quantity="PressureDifference")
@@ -117,13 +108,14 @@ block Controller
     is_heaPum
     "Chilled water pump status setpoint"
     annotation (Placement(transformation(extent={{280,-20},{320,20}}),
-      iconTransformation(extent={{100,-20},{140,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yPumSpe(
-    final min=0,
-    final max=1,
-    final unit="1") "Enabled chilled water pump speed"
+      iconTransformation(extent={{100,60},{140,100}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yPumSpe[nPum](
+    final min=fill(0, nPum),
+    final max=fill(1, nPum),
+    final unit=fill("1", nPum))
+    "Chilled water pump speed"
     annotation (Placement(transformation(extent={{280,-220},{320,-180}}),
-      iconTransformation(extent={{100,-100},{140,-60}})));
+      iconTransformation(extent={{100,-20},{140,20}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.ChilledWater.Subsequences.EnableLead_dedicated
     enaDedLeaPum if not is_heaPum
@@ -271,10 +263,10 @@ protected
 
 equation
   connect(enaDedLeaPum.uLeaChiEna, uLeaChiEna)
-    annotation (Line(points={{-202,113},{-240,113},{-240,110},{-300,110}},
+    annotation (Line(points={{-202,118},{-240,118},{-240,110},{-300,110}},
       color={255,0,255}));
   connect(enaDedLeaPum.uLeaChiSta, uLeaChiSta)
-    annotation (Line(points={{-202,107},{-230,107},{-230,80},{-300,80}},
+    annotation (Line(points={{-202,110},{-230,110},{-230,80},{-300,80}},
       color={255,0,255}));
   connect(enaDedLeaPum.uLeaChiWatReq, uLeaChiWatReq)
     annotation (Line(points={{-202,102},{-220,102},{-220,50},{-300,50}},
@@ -373,6 +365,19 @@ equation
   connect(dpChiWatSet, pumSpeRemDp.dpChiWatSet)
     annotation (Line(points={{-300,-240},{-220,-240},{-220,-248},{-62,-248}},
       color={0,0,127}));
+  connect(pumSpeLocDp.yChiWatPumSpe, reaRep.u)
+    annotation (Line(points={{-38,-200},{-2,-200}}, color={0,0,127}));
+  connect(pumSpeRemDp.yChiWatPumSpe, reaRep.u)
+    annotation (Line(points={{-39,-240},{-20,-240},{-20,-200},{-2,-200}},
+      color={0,0,127}));
+  connect(reaRep.y, pumSpe.u1)
+    annotation (Line(points={{22,-200},{40,-200},{40,-192},{118,-192}},
+      color={0,0,127}));
+  connect(conInt1.y, pumSpe.u3)
+    annotation (Line(points={{82,-240},{100,-240},{100,-208},{118,-208}},
+      color={0,0,127}));
+  connect(pumSpe.y, yPumSpe)
+    annotation (Line(points={{142,-200},{300,-200}}, color={0,0,127}));
   connect(enaPum.y, pumSta.u2)
     annotation (Line(points={{202,-30},{210,-30},{210,-50},{150,-50},{150,-98},
       {178,-98}},  color={255,0,255}));
@@ -381,7 +386,7 @@ equation
   connect(enaDedLeaPum.yLea, booRep.u)
     annotation (Line(points={{-178,110},{-2,110}}, color={255,0,255}));
   connect(enaHeaLeaPum.yLea, booRep.u)
-    annotation (Line(points={{-178,70},{-90,70},{-90,110},{-2,110}}, color={255,0,255}));
+    annotation (Line(points={{-178,70},{-20,70},{-20,110},{-2,110}}, color={255,0,255}));
   connect(enaLagChiPum.yUp, booRep1.u)
     annotation (Line(points={{-178,4},{-120,4},{-120,30},{-42,30}}, color={255,0,255}));
   connect(enaLagChiPum.yDown, booRep2.u)
@@ -401,6 +406,15 @@ equation
     annotation (Line(points={{-18,30},{110,30},{110,0},{238,0}}, color={255,0,255}));
   connect(addPum.y, yChiWatPum)
     annotation (Line(points={{262,0},{300,0}}, color={255,0,255}));
+  connect(addPum.y, pumSpeLocDp.uChiWatPum)
+    annotation (Line(points={{262,0},{270,0},{270,-180},{-80,-180},{-80,-196},
+      {-62,-196}},  color={255,0,255}));
+  connect(addPum.y, pumSpeRemDp.uChiWatPum)
+    annotation (Line(points={{262,0},{270,0},{270,-180},{-80,-180},{-80,-232},
+      {-62,-232}},  color={255,0,255}));
+  connect(addPum.y, pumSpe.u2)
+    annotation (Line(points={{262,0},{270,0},{270,-180},{100,-180},{100,-200},
+      {118,-200}},  color={255,0,255}));
   connect(remPum.y, addPum.u3)
     annotation (Line(points={{242,-70},{250,-70},{250,-20},{220,-20},{220,-8},
       {238,-8}},  color={255,0,255}));
@@ -419,24 +433,8 @@ equation
       color={255,127,0}));
   connect(mulSumInt.y, lasLagPum.index)
     annotation (Line(points={{-138,-120},{-70,-120},{-70,-112}}, color={255,127,0}));
-  connect(enaDedLeaPum.uPla, uPla)
-    annotation (Line(points={{-202,118},{-240,118},{-240,180},{-300,180}},
-      color={255,0,255}));
-  connect(uChiWatPum, pumSpeLocDp.uChiWatPum) annotation (Line(points={{-300,140},
-          {-260,140},{-260,-196},{-62,-196}}, color={255,0,255}));
-  connect(uChiWatPum, pumSpeRemDp.uChiWatPum) annotation (Line(points={{-300,140},
-          {-260,140},{-260,-232},{-62,-232}}, color={255,0,255}));
-  connect(pumSpeLocDp.yChiWatPumSpe, yPumSpe)
-    annotation (Line(points={{-38,-200},{300,-200}}, color={0,0,127}));
-  connect(pumSpeRemDp.yChiWatPumSpe, yPumSpe) annotation (Line(points={{-39,-240},
-          {-20,-240},{-20,-200},{300,-200}}, color={0,0,127}));
-  connect(enaDedLeaPum.yLea, yLea)
-    annotation (Line(points={{-178,110},{-90,110},{-90,70},{300,70}}, color={255,0,255}));
-  connect(enaHeaLeaPum.yLea, yLea)
-    annotation (Line(points={{-178,70},{300,70}}, color={255,0,255}));
 
 annotation (
-  defaultComponentName="chiWatPum",
   Diagram(coordinateSystem(preserveAspectRatio=false,
           extent={{-280,-260},{280,260}}), graphics={
           Rectangle(
@@ -479,13 +477,13 @@ annotation (
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
           Text(
-          extent={{70,-154},{152,-168}},
+          extent={{76,-156},{146,-168}},
           pattern=LinePattern.None,
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
           lineColor={0,0,127},
           horizontalAlignment=TextAlignment.Right,
-          textString="Enabled pump speed")}),
+          textString="Pump speed")}),
  Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
        graphics={
         Rectangle(
@@ -510,8 +508,8 @@ annotation (
           fillPattern=FillPattern.Solid)}),
   Documentation(info="<html>
 <p>
-Primary chilled water pump control sequence per ASHRAE RP-1711, (Draft on March 2020), 
-section 5.2.6.1 to section 5.2.6.11. It includes:
+Primary chilled water pump control sequence per ASHRAE RP-1711, Draft 6 (July 25, 2019), 
+section 5.2.6. It consists:
 </p>
 <ul>
 <li>
@@ -530,11 +528,11 @@ Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.ChilledWater.Subs
 </ul>
 </li>
 <li>
-Subsequence to stage lag pumps of primary-only plants with headed varable-speed chilled water pump
-using differential pressure pump speed control 
+Subsequence to stage lag pumps
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.ChilledWater.Subsequences.EnableLag_primary_dP\">
 Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.ChilledWater.Subsequences.EnableLag_primary_dP</a>
 </li>
+
 <li>
 Subsequences to control pump speed for primary-only plants,
 <ul>
