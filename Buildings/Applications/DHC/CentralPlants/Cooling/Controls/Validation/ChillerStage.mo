@@ -2,8 +2,9 @@ within Buildings.Applications.DHC.CentralPlants.Cooling.Controls.Validation;
 model ChillerStage "Example to test the chiller staging controller"
   extends Modelica.Icons.Example;
 
-  Buildings.Applications.DHC.CentralPlants.Cooling.Controls.ChillerStage chiStaCon(tWai=30,
-      QEva_nominal=-200*3.517*1000) "Chiller staging controller"
+  Buildings.Applications.DHC.CentralPlants.Cooling.Controls.ChillerStage
+    chiStaCon(tWai=30, QEva_nominal=-200*3.517*1000)
+    "Chiller staging controller"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Blocks.Sources.BooleanTable on(table(displayUnit="s") = {300,900})
     "On signal of the cooling plant"
