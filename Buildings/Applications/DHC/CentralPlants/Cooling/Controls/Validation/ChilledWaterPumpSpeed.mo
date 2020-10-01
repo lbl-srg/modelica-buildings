@@ -29,6 +29,7 @@ equation
           {-30,30},{-30,4},{-12,4}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
+    experiment(StopTime=86400, Tolerance=1e-06),
     __Dymola_Commands(file=
           "Resources/Scripts/Dymola/Applications/DHC/CentralPlants/Cooling/Controls/Validation/ChilledWaterPumpSpeed.mos"
         "Simulate and Plot"),

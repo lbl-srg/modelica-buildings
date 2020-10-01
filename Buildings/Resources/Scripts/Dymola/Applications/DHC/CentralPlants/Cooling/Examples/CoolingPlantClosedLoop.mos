@@ -8,8 +8,7 @@ createPlot(id=1, position={13, 21, 645, 570}, y={"pla.cooTowWitByp.sta_a.T", "pl
 createPlot(id=2, position={717, 13, 584, 565}, y={"pla.pumCHW.port_a.m_flow", "pla.pumCHW.port_b.m_flow"}, range={0.0, 24.0, -20.0, 20.0}, grid=true, colors={{28,108,200}, {238,46,47}}, timeUnit="h", displayUnits={"kg/s", "kg/s"});
 createPlot(id=2, position={717, 13, 584, 565}, y={"pla.valByp.port_a.m_flow", "pla.valByp.port_b.m_flow"}, range={0.0, 24.0, -10.0, 10.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}}, timeUnit="h", displayUnits={"kg/s", "kg/s"});
 createPlot(id=2, position={717, 13, 584, 565}, y={"bui.QCoo_flow", "bui.QHea_flow"}, range={0.0, 24.0, -800000.0, 200000.0}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}}, timeUnit="h", displayUnits={"W", "W"});
-createPlot(id=3, position={30, 16, 651, 583}, y={"bui.ports_aHeaWat[1].m_flow", "bui.ports_bHeaWat[1].m_flow", "bui.ports_aChiWat[1].m_flow",
- "bui.ports_bChiWat[1].m_flow"}, range={0.0, 24.0, -20.0, 20.0}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}}, timeUnit="h", displayUnits={"kg/s", "kg/s", "kg/s", "kg/s"});
+createPlot(id=3, position={30, 16, 651, 583}, y={"bui.ports_aHeaWat[1].m_flow", "bui.ports_bHeaWat[1].m_flow", "bui.ports_aChiWat[1].m_flow", "bui.ports_bChiWat[1].m_flow"}, range={0.0, 24.0, -20.0, 20.0}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}}, timeUnit="h", displayUnits={"kg/s", "kg/s", "kg/s", "kg/s"});
 createPlot(id=3, position={30, 16, 651, 583}, y={"bui.terUniCoo.T_aHeaWat_nominal", "bui.terUniCoo.T_bHeaWat_nominal"}, range={0.0, 24.0, 34.0, 42.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}}, timeUnit="h", displayUnits={"degC", "degC"});
 createPlot(id=3, position={30, 16, 651, 583}, y={"bui.terUniCoo.T_aChiWat_nominal", "bui.terUniCoo.T_bChiWat_nominal"}, range={0.0, 24.0, 5.0, 20.0}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}}, timeUnit="h", displayUnits={"degC", "degC"});
 

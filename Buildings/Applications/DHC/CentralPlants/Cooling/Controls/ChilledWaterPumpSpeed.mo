@@ -102,5 +102,9 @@ First implementation.
 <p>The pump speed is controlled to maintain the pressure difference setpoint through a PID controller.</p>
 <p>The model inputs are the measured chilled water mass flow rate <i>masFloPum</i> and the pressure difference <i>dpMea</i> at a reference point from the demand side. The output <i>y</i> is a vector of pump speeds.</p>
 <p>The model currently only supports the control of up to two variable speed pumps.</p>
-</html>"));
+</html>"),
+    experiment(
+      StopTime=86400,
+      Tolerance=1e-06,
+      __Dymola_Algorithm="Dassl"));
 end ChilledWaterPumpSpeed;
