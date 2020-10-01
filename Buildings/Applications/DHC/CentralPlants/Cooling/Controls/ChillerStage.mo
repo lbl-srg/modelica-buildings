@@ -42,16 +42,14 @@ model ChillerStage
         extent={{10,-10},{-10,10}},
         rotation=90,
         origin={-50,-70})));
-  Modelica.StateGraph.TransitionWithSignal
-                                 offToOne(
+  Modelica.StateGraph.TransitionWithSignal offToOne(
     enableTimer=true,
     waitTime=tWai) "Condition of transition from off to one chiller on"
     annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=90,
         origin={-50,40})));
-  Modelica.StateGraph.TransitionWithSignal
-                                 oneToTwo(
+  Modelica.StateGraph.TransitionWithSignal oneToTwo(
     enableTimer=true,
     waitTime=tWai)
     "Condition of transition from one chiller to two chillers"
@@ -60,8 +58,7 @@ model ChillerStage
         extent={{10,10},{-10,-10}},
         rotation=90,
         origin={-50,-40})));
-  Modelica.StateGraph.TransitionWithSignal
-                                 twoToOne(
+  Modelica.StateGraph.TransitionWithSignal twoToOne(
     enableTimer=true,
     waitTime=tWai)
     "Condition of transion from two chillers to one chiller"
@@ -70,8 +67,7 @@ model ChillerStage
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={0,-40})));
-  Modelica.StateGraph.TransitionWithSignal
-                                 oneToOff(
+  Modelica.StateGraph.TransitionWithSignal oneToOff(
     enableTimer=true,
     waitTime=tWai) "Condition of transition from one chiller to off"
     annotation (Placement(
@@ -93,7 +89,6 @@ model ChillerStage
   Buildings.Controls.OBC.CDL.Integers.Add addInt
     "Calculator of chiller stage index. 0: off; 1: one chiller enabled; 2: two chillers enabled"
     annotation (Placement(transformation(extent={{60,-60},{80,-40}})));
-
   Buildings.Controls.OBC.CDL.Integers.GreaterThreshold chiOne
     "On signal of chiller one"
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
@@ -101,10 +96,10 @@ model ChillerStage
     "On signal of chiller two"
     annotation (Placement(transformation(extent={{60,-20},{80,0}})));
   Buildings.Controls.OBC.CDL.Continuous.LessEqualThreshold thrOneToTwo(
-      threshold=criPoiLoa + dQ) "Threshold of turning two chillers on"
+    threshold=criPoiLoa + dQ) "Threshold of turning two chillers on"
     annotation (Placement(transformation(extent={{-90,-50},{-70,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold thrTwotoOne(threshold=
-        criPoiLoa - dQ) "Threshold of turning off the second chiller"
+    criPoiLoa - dQ) "Threshold of turning off the second chiller"
     annotation (Placement(transformation(extent={{-90,-80},{-70,-60}})));
   Buildings.Controls.OBC.CDL.Logical.Not notOn "Not on"
     annotation (Placement(transformation(extent={{-90,10},{-70,30}})));
