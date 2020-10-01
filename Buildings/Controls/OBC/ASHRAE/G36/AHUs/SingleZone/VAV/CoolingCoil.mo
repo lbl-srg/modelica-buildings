@@ -32,57 +32,56 @@ model CoolingCoil "Controller for cooling coil valve"
     "Supply air temperature measurement"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uZonSta "Zone state"
-    annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
+    annotation (Placement(transformation(extent={{-140,-40},{-100,0}}),
+        iconTransformation(extent={{-140,-60},{-100,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uSupFan "Supply fan status"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yCooCoi "Cooling coil control signal"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}}),
+    annotation (Placement(transformation(extent={{100,-20},{140,20}}),
         iconTransformation(extent={{100,-20},{140,20}})));
 
 protected
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu
     "Logical block to check if zone is in cooling state"
-    annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
+    annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(
     final k=Buildings.Controls.OBC.ASHRAE.G36.Types.ZoneStates.cooling)
     "Cooling state value"
-    annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.LimPID cooCoiPI(
-    reverseAction=true,
-    reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter,
-    controllerType=controllerTypeCooCoi,
-    k=kCooCoi,
-    Ti=TiCooCoi,
-    Td=TdCooCoi) "Cooling coil control signal"
+    annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
+  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset cooCoiPI(
+    final controllerType=controllerTypeCooCoi,
+    final k=kCooCoi,
+    final Ti=TiCooCoi,
+    final Td=TdCooCoi) "Cooling coil control signal"
     annotation (Placement(transformation(extent={{-10,70},{10,90}})));
   Buildings.Controls.OBC.CDL.Logical.Switch switch "Switch to assign cooling coil control signal"
     annotation (Placement(transformation(extent={{72,-10},{92,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant const(k=0) "Cooling off mode"
-    annotation (Placement(transformation(extent={{40,-30},{60,-10}})));
+    annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
   Buildings.Controls.OBC.CDL.Logical.And and2 "Conditions for cooling state"
-    annotation (Placement(transformation(extent={{0,-30},{20,-10}})));
+    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 
 equation
-  connect(const.y, switch.u3) annotation (Line(points={{62,-20},{66,-20},{66,-8},
+  connect(const.y, switch.u3) annotation (Line(points={{42,-40},{60,-40},{60,-8},
           {70,-8}}, color={0,0,127}));
-  connect(cooCoiPI.trigger, uSupFan) annotation (Line(points={{-8,68},{-8,-80},
+  connect(cooCoiPI.trigger, uSupFan) annotation (Line(points={{-6,68},{-6,-80},
           {-120,-80}},                     color={255,0,255}));
   connect(cooCoiPI.u_s, TSupCoo) annotation (Line(points={{-12,80},{-120,80}},
                       color={0,0,127}));
   connect(cooCoiPI.u_m, TSup)
     annotation (Line(points={{0,68},{0,40},{-120,40}},    color={0,0,127}));
   connect(switch.y, yCooCoi)
-    annotation (Line(points={{94,0},{110,0}}, color={0,0,127}));
-  connect(intEqu.y, and2.u1) annotation (Line(points={{-18,-20},{-2,-20}},
+    annotation (Line(points={{94,0},{120,0}}, color={0,0,127}));
+  connect(intEqu.y, and2.u1) annotation (Line(points={{-18,0},{-2,0}},
                     color={255,0,255}));
-  connect(and2.u2, uSupFan) annotation (Line(points={{-2,-28},{-8,-28},{-8,-80},
-          {-120,-80}}, color={255,0,255}));
-  connect(and2.y, switch.u2) annotation (Line(points={{22,-20},{30,-20},{30,0},
-          {70,0}},color={255,0,255}));
+  connect(and2.u2, uSupFan) annotation (Line(points={{-2,-8},{-6,-8},{-6,-80},{
+          -120,-80}},  color={255,0,255}));
+  connect(and2.y, switch.u2) annotation (Line(points={{22,0},{70,0}},
+                  color={255,0,255}));
   connect(conInt.y, intEqu.u1)
-    annotation (Line(points={{-58,-20},{-42,-20}}, color={255,127,0}));
-  connect(uZonSta, intEqu.u2) annotation (Line(points={{-120,-40},{-50,-40},{
-          -50,-28},{-42,-28}}, color={255,127,0}));
+    annotation (Line(points={{-58,0},{-42,0}},     color={255,127,0}));
+  connect(uZonSta, intEqu.u2) annotation (Line(points={{-120,-20},{-50,-20},{
+          -50,-8},{-42,-8}},   color={255,127,0}));
   connect(cooCoiPI.y, switch.u1)
     annotation (Line(points={{12,80},{60,80},{60,8},{70,8}}, color={0,0,127}));
   annotation (defaultComponentName="cooCoi",

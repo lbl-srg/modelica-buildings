@@ -133,7 +133,7 @@ equation
                                                                          color={0,0,127}));
   connect(hOutCut.y,economizer.hCut)
     annotation (Line(points={{-98,-20},{-60,-20},{-60,2},{-60,13},{19,13}},color={0,0,127}));
-  connect(TSupSetSig.y, economizer.THeaSupSet)
+  connect(TSupSetSig.y,economizer.TSupHeaEco)
     annotation (Line(points={{-58,50},{-52,50},{-52,9.8},{19,9.8}},
                                                                  color={0,0,127}));
   connect(TSupSig.y, economizer.TSup)
@@ -148,7 +148,7 @@ equation
   connect(TSupSig1.y, economizer1.TSup)
     annotation (Line(points={{62,90},{80,90},{80,-28.6},{99,-28.6}},
                                                                  color={0,0,127}));
-  connect(TSupSetSig.y, economizer1.THeaSupSet)
+  connect(TSupSetSig.y,economizer1.TSupHeaEco)
     annotation (Line(points={{-58,50},{-54,50},{-54,-16},{20,-16},{20,-30.2},{99,
           -30.2}},
     color={0,0,127}));

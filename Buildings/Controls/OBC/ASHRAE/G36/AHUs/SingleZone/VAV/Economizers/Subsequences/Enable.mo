@@ -39,58 +39,59 @@ block Enable
     final quantity = "ThermodynamicTemperature")
     "Outdoor air temperature"
     annotation (Placement(transformation(extent={{-220,250},{-180,290}}),
-        iconTransformation(extent={{-120,84},{-100,104}})));
+        iconTransformation(extent={{-140,70},{-100,110}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput hOut(
     final unit="J/kg",
     final quantity="SpecificEnergy") if use_enthalpy
     "Outdoor air enthalpy"
     annotation (Placement(transformation(extent={{-220,160},{-180,200}}),
-      iconTransformation(extent={{-120,30},{-100,50}})));
+      iconTransformation(extent={{-140,10},{-100,50}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TCut(
     final unit="K",
     final displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "OA temperature high limit cutoff. For differential dry bulb temeprature condition use return air temperature measurement"
     annotation (Placement(transformation(extent={{-220,220},{-180,260}}),
-        iconTransformation(extent={{-120,68},{-100,88}})));
+        iconTransformation(extent={{-140,50},{-100,90}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TRet(
     final unit="K",
     final displayUnit="degC",
     final quantity = "ThermodynamicTemperature") if use_fixed_plus_differential_drybulb
     "Used only for fixed plus differential dry bulb temperature high limit cutoff"
     annotation (Placement(transformation(extent={{-220,190},{-180,230}}),
-        iconTransformation(extent={{-120,50},{-100,70}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput hCut(final unit="J/kg",
-      final quantity="SpecificEnergy") if use_enthalpy
+        iconTransformation(extent={{-140,30},{-100,70}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput hCut(
+    final unit="J/kg",
+    final quantity="SpecificEnergy") if use_enthalpy
     "OA enthalpy high limit cutoff. For differential enthalpy use return air enthalpy measurement"
     annotation (Placement(transformation(extent={{-220,130},{-180,170}}),
-        iconTransformation(extent={{-120,10},{-100,30}})));
+        iconTransformation(extent={{-140,-10},{-100,30}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uOutDamPosMin(
     final unit="1",
     final min=0,
     final max=1)
     "Minimum outdoor air damper position, get from damper position limits sequence"
     annotation (Placement(transformation(extent={{-220,-180},{-180,-140}}),
-      iconTransformation(extent={{-120,-90},{-100,-70}})));
+      iconTransformation(extent={{-140,-110},{-100,-70}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uOutDamPosMax(
     final unit="1",
     final min=0,
     final max=1)
     "Maximum outdoor air damper position, get from damper position limits sequence"
     annotation (Placement(transformation(extent={{-220,-150},{-180,-110}}),
-      iconTransformation(extent={{-120,-70},{-100,-50}})));
+      iconTransformation(extent={{-140,-90},{-100,-50}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uSupFan
     "Supply fan on/off status signal"
     annotation (Placement(transformation(extent={{-220,90},{-180,130}}),
-      iconTransformation(extent={{-120,-50},{-100,-30}})));
+      iconTransformation(extent={{-140,-70},{-100,-30}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uZonSta
     "Zone state status signal"
-    annotation (Placement(transformation(extent={{-220,-30},{-180,10}}),
-      iconTransformation(extent={{-120,-30},{-100,-10}})));
+    annotation (Placement(transformation(extent={{-220,-20},{-180,20}}),
+      iconTransformation(extent={{-140,-50},{-100,-10}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uFreProSta
     "Freeze protection stage status signal"
-    annotation (Placement(transformation(extent={{-220,30},{-180,70}}),
-      iconTransformation(extent={{-120,-10},{-100,10}})));
+    annotation (Placement(transformation(extent={{-220,40},{-180,80}}),
+      iconTransformation(extent={{-140,-30},{-100,10}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yOutDamPosMax(
     final min=0,
@@ -120,8 +121,10 @@ block Enable
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol(
     trueHoldDuration=600) "10 min on/off delay"
     annotation (Placement(transformation(extent={{124,214},{144,234}})));
-  CDL.Logical.Xor xor "Either fixed+differential temperature cutoff or others"
+  Buildings.Controls.OBC.CDL.Logical.Xor xor
+    "Either fixed+differential temperature cutoff or others"
     annotation (Placement(transformation(extent={{74,242},{94,262}})));
+
 protected
   final parameter Real TOutHigLimCutHig(
     final unit="K",
@@ -165,9 +168,10 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Add add1(final k2=-1)
     "Add block that determines difference the between TOut and TOutCut"
     annotation (Placement(transformation(extent={{-140,244},{-120,264}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch outDamSwitch "Set maximum OA damper position to minimum at disable (after time delay)"
+  Buildings.Controls.OBC.CDL.Logical.Switch maxOutDam
+    "Set maximum OA damper position to minimum at disable (after time delay)"
     annotation (Placement(transformation(extent={{40,-150},{60,-130}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch minRetDamSwitch
+  Buildings.Controls.OBC.CDL.Logical.Switch minRetDam
     "Keep minimum RA damper position at physical maximum for a short time period after disable"
     annotation (Placement(transformation(extent={{40,-250},{60,-230}})));
   Buildings.Controls.OBC.CDL.Logical.Nor nor1 "Logical nor"
@@ -191,25 +195,30 @@ protected
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu1
     "Logical block to check if the freeze protection is deactivated"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-  Buildings.Controls.OBC.CDL.Logical.Not not3 "Negation for check of freeze protection status"
+  Buildings.Controls.OBC.CDL.Logical.Not not3
+    "Negation for check of freeze protection status"
     annotation (Placement(transformation(extent={{-44,-10},{-24,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add3(final k2=-1) if
-    use_fixed_plus_differential_drybulb
+  Buildings.Controls.OBC.CDL.Continuous.Add add3(
+    final k2=-1) if use_fixed_plus_differential_drybulb
     "Add block that determines difference the between TOut and TOutCut"
     annotation (Placement(transformation(extent={{-140,200},{-120,220}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysCutTem(final uHigh=
-        TOutHigLimCutHig, final uLow=TOutHigLimCutLow) if use_fixed_plus_differential_drybulb
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysCutTem(
+    final uHigh=TOutHigLimCutHig,
+    final uLow=TOutHigLimCutLow) if
+       use_fixed_plus_differential_drybulb
     "Outdoor air temperature hysteresis for both fixed and differential dry bulb temperature cutoff conditions"
     annotation (Placement(transformation(extent={{-100,200},{-80,220}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant entSubst1(final k=false) if
-       not use_fixed_plus_differential_drybulb
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant entSubst1(
+    final k=false) if not use_fixed_plus_differential_drybulb
     "Deactivates the option if not using both fixed and differential dry bulb"
     annotation (Placement(transformation(extent={{18,212},{38,232}})));
-  CDL.Logical.Nor nor2 if use_fixed_plus_differential_drybulb "Logical nor"
+  Buildings.Controls.OBC.CDL.Logical.Nor nor2 if
+       use_fixed_plus_differential_drybulb
+    "Logical nor"
     annotation (Placement(transformation(extent={{18,244},{38,264}})));
 equation
-  connect(outDamSwitch.y, yOutDamPosMax)
-    annotation (Line(points={{62,-140},{200,-140}},           color={0,0,127}));
+  connect(maxOutDam.y, yOutDamPosMax)
+    annotation (Line(points={{62,-140},{200,-140}}, color={0,0,127}));
   connect(TOut, add1.u1)
     annotation (Line(points={{-200,270},{-160,270},{-160,260},{-142,260}},color={0,0,127}));
   connect(TCut, add1.u2) annotation (Line(points={{-200,240},{-160,240},{-160,248},
@@ -230,16 +239,15 @@ equation
   connect(entSubst.y, nor1.u2)
     annotation (Line(points={{-38,180},{16,180}},
     color={255,0,255}));
-  connect(uOutDamPosMin, outDamSwitch.u1)
-    annotation (Line(points={{-200,-160},{-60,-160},{-60,-132},{38,-132}},
-    color={0,0,127}));
-  connect(uOutDamPosMax, outDamSwitch.u3)
-    annotation (Line(points={{-200,-130},{-80,-130},{-80,-148},{38,-148}}, color={0,0,127}));
+  connect(uOutDamPosMin, maxOutDam.u1) annotation (Line(points={{-200,-160},{-60,
+          -160},{-60,-132},{38,-132}}, color={0,0,127}));
+  connect(uOutDamPosMax, maxOutDam.u3) annotation (Line(points={{-200,-130},{-80,
+          -130},{-80,-148},{38,-148}}, color={0,0,127}));
   connect(andEnaDis.y, not2.u)
     annotation (Line(points={{62,40},{72,40},{72,-20},{-20,-20},{-20,-60},{-12,-60}},
     color={255,0,255}));
-  connect(minRetDamSwitch.y, yRetDamPosMin)
-    annotation (Line(points={{62,-240},{200,-240}},  color={0,0,127}));
+  connect(minRetDam.y, yRetDamPosMin)
+    annotation (Line(points={{62,-240},{200,-240}}, color={0,0,127}));
   connect(truFalHol.y, and1.u1)
     annotation (Line(points={{146,224},{164,224},{164,130},{-26,130},{-26,110},
           {2,110}},
@@ -248,16 +256,16 @@ equation
     annotation (Line(points={{26,110},{30,110},{30,48},{38,48}},          color={255,0,255}));
   connect(uSupFan, and1.u2)
     annotation (Line(points={{-200,110},{-102,110},{-102,102},{2,102}},  color={255,0,255}));
-  connect(retDamPhyPosMaxSig.y, minRetDamSwitch.u1)
-    annotation (Line(points={{-118,-210},{-4,-210},{-4,-232},{38,-232}}, color={0,0,127}));
-  connect(retDamPhyPosMinSig.y, minRetDamSwitch.u3)
-    annotation (Line(points={{-118,-248},{38,-248}},  color={0,0,127}));
+  connect(retDamPhyPosMaxSig.y, minRetDam.u1) annotation (Line(points={{-118,-210},
+          {-4,-210},{-4,-232},{38,-232}}, color={0,0,127}));
+  connect(retDamPhyPosMinSig.y, minRetDam.u3)
+    annotation (Line(points={{-118,-248},{38,-248}}, color={0,0,127}));
   connect(retDamPhyPosMaxSig.y, yRetDamPosMax)
     annotation (Line(points={{-118,-210},{200,-210}}, color={0,0,127}));
-  connect(not2.y, minRetDamSwitch.u2)
-    annotation (Line(points={{12,-60},{16,-60},{16,-240},{38,-240}}, color={255,0,255}));
-  connect(not2.y, outDamSwitch.u2)
-    annotation (Line(points={{12,-60},{28,-60},{28,-140},{38,-140}}, color={255,0,255}));
+  connect(not2.y, minRetDam.u2) annotation (Line(points={{12,-60},{16,-60},{16,-240},
+          {38,-240}}, color={255,0,255}));
+  connect(not2.y, maxOutDam.u2) annotation (Line(points={{12,-60},{28,-60},{28,-140},
+          {38,-140}}, color={255,0,255}));
   connect(conInt.y,intEqu. u2)
     annotation (Line(points={{-98,40},{-92,40},{-92,52},{-82,52}}, color={255,127,0}));
   connect(conInt1.y,intEqu1. u2)
@@ -265,9 +273,9 @@ equation
   connect(intEqu1.y,not3. u)
     annotation (Line(points={{-58,0},{-46,0}}, color={255,0,255}));
   connect(uZonSta, intEqu1.u1)
-    annotation (Line(points={{-200,-10},{-140,-10},{-140,0},{-82,0}}, color={255,127,0}));
+    annotation (Line(points={{-200,0},{-82,0}},                       color={255,127,0}));
   connect(uFreProSta, intEqu.u1)
-    annotation (Line(points={{-200,50},{-140,50},{-140,60},{-82,60}}, color={255,127,0}));
+    annotation (Line(points={{-200,60},{-82,60}},                     color={255,127,0}));
   connect(intEqu.y, andEnaDis.u2)
     annotation (Line(points={{-58,60},{-10,60},{-10,40},{38,40}}, color={255,0,255}));
   connect(not3.y, andEnaDis.u3)
@@ -279,22 +287,17 @@ equation
   connect(add3.y, hysCutTem.u)
     annotation (Line(points={{-118,210},{-102,210}}, color={0,0,127}));
   connect(hysCutTem.y, nor2.u2) annotation (Line(points={{-78,210},{-38,210},{
-          -38,246},{16,246}},
-                          color={255,0,255}));
+          -38,246},{16,246}}, color={255,0,255}));
   connect(nor2.u1, hysOutTem.y) annotation (Line(points={{16,254},{-78,254}},
                       color={255,0,255}));
   connect(nor2.y, xor.u1) annotation (Line(points={{40,254},{56,254},{56,252},{
-          72,252}},
-                 color={255,0,255}));
+          72,252}}, color={255,0,255}));
   connect(entSubst1.y, xor.u1) annotation (Line(points={{40,222},{54,222},{54,
-          252},{72,252}},
-                     color={255,0,255}));
+          252},{72,252}}, color={255,0,255}));
   connect(nor1.y, xor.u2) annotation (Line(points={{40,188},{62,188},{62,244},{
-          72,244}},
-                 color={255,0,255}));
+          72,244}}, color={255,0,255}));
   connect(xor.y, truFalHol.u) annotation (Line(points={{96,252},{106,252},{106,
-          224},{122,224}},
-                      color={255,0,255}));
+          224},{122,224}}, color={255,0,255}));
 
 annotation (
   defaultComponentName = "enaDis",
@@ -313,8 +316,8 @@ annotation (
           color={0,0,127},
           thickness=0.5),
         Text(
-          extent={{-170,142},{158,104}},
-          lineColor={0,0,127},
+          extent={{-100,140},{100,100}},
+          lineColor={0,0,255},
           textString="%name")}),
     Diagram(coordinateSystem(
         preserveAspectRatio=false,
@@ -374,20 +377,20 @@ heating"),                           Text(
     Documentation(info="<html>
 <p>
 This is a single zone VAV AHU economizer enable/disable sequence
-based on ASHRAE G36 PART 5.5 and PART 5.A.17. Additional
+based on Section 5.18.7 and Section 5.1.17 of ASHRAE Guideline 36, May 2020. Additional
 conditions included in the sequence are:
 </p>
 <ul>
 <li>
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.FreezeProtectionStages\">
-Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.FreezeProtectionStages</a> (PART 5.9),
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeProtectionStages\">
+Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeProtectionStages</a>,
 </li>
 <li>
-Supply fan status <code>TSupFan</code> (PART 5.4.d),
+Supply fan status <code>uSupFan</code>,
 </li>
 <li>
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.ZoneStates\">
-Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.ZoneStates</a> (PART 5.3.b).
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Types.ZoneStates\">
+Buildings.Controls.OBC.ASHRAE.G36.Types.ZoneStates</a>.
 </li>
 </ul>
 <p>
@@ -418,10 +421,14 @@ The following state machine chart illustrates the transitions between enabling a
 </p>
 <p align=\"center\">
 <img alt=\"Image of economizer enable-disable state machine chart\"
-src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/AHUs/SingleZone/VAV/Economizers/Subsequences/Enable.png\"/>
+src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/AHUs/SingleZone/VAV/Economizers/Subsequences/Enable.png\"/>
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+August 1, 2020, by Jianjun Hu:<br/>
+Updated according to ASHRAE G36, May 2020.
+</li>
 <li>
 July 30, 2019, by Kun Zhang:<br/>
 Added the option to allow fixed plus differential dry bulb temperature cutoff.

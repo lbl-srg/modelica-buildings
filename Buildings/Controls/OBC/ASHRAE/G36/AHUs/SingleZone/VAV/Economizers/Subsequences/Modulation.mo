@@ -4,7 +4,8 @@ block Modulation "Outdoor and return air damper position modulation sequence for
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller";
-  parameter Real k(final unit="1/K") = 1 "Gain of controller";
+  parameter Real k(
+    final unit="1/K") = 1 "Gain of controller";
   parameter Real Ti(
     final unit="s",
     final quantity="Time")=300
@@ -38,7 +39,7 @@ block Modulation "Outdoor and return air damper position modulation sequence for
     "Measured supply air temperature"
     annotation (Placement(transformation(extent={{-160,90},{-120,130}}),
         iconTransformation(extent={{-140,60},{-100,100}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaSupSet(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSupHeaEco(
     final unit="K",
     final displayUnit="degC",
     final quantity = "ThermodynamicTemperature") "Supply air temperature heating setpoint"
@@ -81,26 +82,25 @@ block Modulation "Outdoor and return air damper position modulation sequence for
     final max=1,
     final unit="1") "Heating coil control signal"
     annotation (Placement(transformation(extent={{120,30},{140,50}}),
-      iconTransformation(extent={{100,30},{120,50}})));
+      iconTransformation(extent={{100,40},{140,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yOutDamPos(
     final min=0,
     final max=1,
     final unit="1") "Economizer damper position"
     annotation (Placement(transformation(extent={{120,-50},{140,-30}}),
-      iconTransformation(extent={{100,-50},{120,-30}})));
+      iconTransformation(extent={{100,-80},{140,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRetDamPos(
     final min=0,
     final max=1,
     final unit="1") "Return air damper position"
     annotation (Placement(transformation(extent={{120,-10},{140,10}}),
-      iconTransformation(extent={{100,-10},{120,10}})));
+      iconTransformation(extent={{100,-20},{140,20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.LimPID uTSup(
+  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset uTSup(
     final controllerType=controllerType,
     final k=k,
     final Ti=Ti,
     final Td=Td,
-    final reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter,
     final yMax=1,
     final yMin=0)
     "Contoller that outputs a signal based on the error between the measured SAT and SAT heating setpoint"
@@ -124,23 +124,28 @@ protected
     final limitAbove=true)
     "Damper position is linearly proportional to the control signal between signal limits"
     annotation (Placement(transformation(extent={{22,-10},{42,10}})));
-
-  Buildings.Controls.OBC.CDL.Continuous.Line HeaCoi(final limitBelow=true,
-      final limitAbove=true)
+  Buildings.Controls.OBC.CDL.Continuous.Line HeaCoi(
+    final limitBelow=true,
+    final limitAbove=true)
     "Heating coil signal is linearly proportional to the control signal between signal limits"
     annotation (Placement(transformation(extent={{22,30},{42,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant heaCoiMaxLimSig(final k=1)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant heaCoiMaxLimSig(
+    final k=1)
     "Maximal control loop signal for the heating coil"
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant heaCoiMinLimSig(final k=0)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant heaCoiMinLimSig(
+    final k=0)
     "Minimum control loop signal for the heating coil"
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant uMaxHeaCoi(final k=1)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant uMaxHeaCoi(
+    final k=1)
     "Maximal control loop signal for the heating coil"
     annotation (Placement(transformation(extent={{-60,90},{-40,110}})));
-  CDL.Logical.Switch enaDis "Enable or disable the heating coil"
+  Buildings.Controls.OBC.CDL.Logical.Switch enaDis
+    "Enable or disable the heating coil"
     annotation (Placement(transformation(extent={{76,30},{96,50}})));
-  CDL.Continuous.Sources.Constant Off(final k=0) "Off signal for heating coil"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant Off(
+    final k=0) "Off signal for heating coil"
     annotation (Placement(transformation(extent={{6,-90},{26,-70}})));
 equation
   connect(retDamMaxLimSig.y,retDamPos. x2)
@@ -158,29 +163,24 @@ equation
     annotation (Line(points={{-38,-78},{-8,-78},{-8,8},{20,8}}, color={0,0,127}));
   connect(HeaCoi.u, retDamPos.u)
     annotation (Line(points={{20,40},{4,40},{4,0},{20,0}},   color={0,0,127}));
-  connect(THeaSupSet, uTSup.u_s)
+  connect(TSupHeaEco, uTSup.u_s)
     annotation (Line(points={{-140,80},{-102,80}},color={0,0,127}));
   connect(TSup, uTSup.u_m) annotation (Line(points={{-140,110},{-108,110},{-108,
           60},{-90,60},{-90,68}}, color={0,0,127}));
   connect(heaCoiMinLimSig.y, HeaCoi.f1) annotation (Line(points={{-38,20},{-8,
-          20},{-8,44},{20,44}},
-                            color={0,0,127}));
+          20},{-8,44},{20,44}}, color={0,0,127}));
   connect(heaCoiMaxLimSig.y, HeaCoi.f2) annotation (Line(points={{-38,60},{-4,
-          60},{-4,32},{20,32}},
-                            color={0,0,127}));
+          60},{-4,32},{20,32}}, color={0,0,127}));
   connect(retDamMaxLimSig.y, HeaCoi.x1) annotation (Line(points={{-38,-24},{-12,
-          -24},{-12,48},{20,48}},
-                            color={0,0,127}));
+          -24},{-12,48},{20,48}}, color={0,0,127}));
   connect(uMaxHeaCoi.y, HeaCoi.x2) annotation (Line(points={{-38,100},{10,100},
-          {10,36},{20,36}},
-                    color={0,0,127}));
+          {10,36},{20,36}}, color={0,0,127}));
   connect(uOutDamPosMin, outDamPos.f2) annotation (Line(points={{-140,-70},{-92,
           -70},{-92,-48},{22,-48}}, color={0,0,127}));
   connect(uRetDamPosMin, retDamPos.f1)
     annotation (Line(points={{-140,0},{-2,0},{-2,4},{20,4}}, color={0,0,127}));
   connect(uRetDamPosMax, retDamPos.f2) annotation (Line(points={{-140,40},{-92,
-          40},{-92,-8},{20,-8}},
-                             color={0,0,127}));
+          40},{-92,-8},{20,-8}}, color={0,0,127}));
   connect(Off.y, enaDis.u3) annotation (Line(points={{28,-80},{62,-80},{62,32},
           {74,32}}, color={0,0,127}));
   connect(uSupFan, enaDis.u2) annotation (Line(points={{-140,-110},{56,-110},{
@@ -195,8 +195,8 @@ equation
     annotation (Line(points={{44,0},{130,0}}, color={0,0,127}));
   connect(outDamPos.y, yOutDamPos)
     annotation (Line(points={{46,-40},{130,-40}}, color={0,0,127}));
-  connect(uSupFan, uTSup.trigger) annotation (Line(points={{-140,-110},{-98,
-          -110},{-98,68}}, color={255,0,255}));
+  connect(uSupFan, uTSup.trigger) annotation (Line(points={{-140,-110},{-96,-110},
+          {-96,68}}, color={255,0,255}));
   annotation (
     defaultComponentName = "mod",
     Icon(graphics={
@@ -216,8 +216,8 @@ equation
           pattern=LinePattern.Dash,
           thickness=0.5),
         Text(
-          extent={{-108,138},{102,110}},
-          lineColor={0,0,127},
+          extent={{-100,140},{100,100}},
+          lineColor={0,0,255},
           textString="%name"),
         Line(
           points={{-50,-84},{-94,80}},
@@ -236,32 +236,46 @@ equation
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid),
                                    Text(
-          extent={{-104,128},{-60,88}},
+          extent={{-104,116},{-76,110}},
           lineColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
-          textString="Damper position
-supply air temperature
-control loop"),                    Text(
-          extent={{32,128},{76,88}},
+          textString="Damper position"),
+                                   Text(
+          extent={{18,114},{48,108}},
           lineColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
-          textString="Damper position
-assignments and heating coil signal")}),
+          textString="Damper position"),
+                                   Text(
+          extent={{-104,112},{-66,104}},
+          lineColor={0,0,0},
+          horizontalAlignment=TextAlignment.Left,
+          textString="supply air temperature"),
+                                   Text(
+          extent={{-104,106},{-84,100}},
+          lineColor={0,0,0},
+          horizontalAlignment=TextAlignment.Left,
+          textString="control loop"),
+                                   Text(
+          extent={{18,110},{86,100}},
+          lineColor={0,0,0},
+          horizontalAlignment=TextAlignment.Left,
+          textString="assignments and heating coil signal")}),
     Documentation(info="<html>
 <p>
 This is a single zone VAV AHU economizer modulation block. It calculates
 the outdoor and return air damper positions based on the single zone VAV AHU
 supply air temperature control loop signal. Economizer dampers are modulated
 based on the calculated heating supply air temperature setpoint.
-The implementation is in line with ASHRAE
-Guidline 36 (G36), PART 5.P.3.b. Damper positions are linearly mapped to
+The implementation is in line with Section 5.18.5.1 and 5.18.5.2 of ASHRAE
+Guidline 36, May 2020. 
+Damper positions are linearly mapped to
 the supply air control loop signal. This is a final sequence in the
 composite single zone VAV AHU economizer control sequence. Damper position
 limits, which are the inputs to the sequence, are the outputs of
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.Economizers.Subsequences.Limits\">
-Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.Economizers.Subsequences.Limits</a> and
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.Economizers.Subsequences.Enable\">
-Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.Economizers.Subsequences.Enable</a>
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.Economizers.Subsequences.Limits\">
+Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.Economizers.Subsequences.Limits</a> and
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.Economizers.Subsequences.Enable\">
+Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.Economizers.Subsequences.Enable</a>
 sequences.
 </p>
 <p>
@@ -278,7 +292,7 @@ Control diagram:
 </p>
 <p align=\"center\">
 <img alt=\"Image of the single zone AHU modulation sequence control diagram\"
-src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/AHUs/SingleZone/VAV/Economizers/Subsequences/ModulationControlDiagram.png\"/>
+src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/AHUs/SingleZone/VAV/Economizers/Subsequences/ModulationControlDiagram.png\"/>
 </p>
 <p>
 Single zone AHU economizer modulation control chart:
@@ -286,7 +300,7 @@ Single zone AHU economizer modulation control chart:
 </p>
 <p align=\"center\">
 <img alt=\"Image of the single zone AHU modulation sequence expected performance\"
-src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/AHUs/SingleZone/VAV/Economizers/Subsequences/ModulationControlChart.png\"/>
+src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/AHUs/SingleZone/VAV/Economizers/Subsequences/ModulationControlChart.png\"/>
 </p>
 </html>", revisions="<html>
 <ul>

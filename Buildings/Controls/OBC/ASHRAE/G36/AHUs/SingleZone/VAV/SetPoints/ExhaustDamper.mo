@@ -163,13 +163,13 @@ annotation (
  Documentation(info="<html>
 <p>
 Control sequence for exhaust dampers without fans. It is implemented according
-to ASHRAE Guidline 35 (G36), PART 5.N.8.(for multi zone VAV AHU), PART 5.P.6
-and PART3.2B.3 (for single zone VAV AHU).
+to Section 5.18.8 of ASHRAE Guidline 36, May 2020. It requires parameters that
+shall be given by user according to Section 3.2.2.3.
 </p>
 
-<h4>Single zone VAV AHU: Control of actuated exhaust dampers without fans (PART 5.P.6)</h4>
+<h4>Single zone VAV AHU: Control of actuated exhaust dampers without fans</h4>
 <ol>
-<li>Exhaust damper position setpoints (PART3.2B.3)
+<li>Exhaust damper position setpoints
 <ul>
 <li><code>minExhDamPos</code> is the exhaust damper position that maintains a building
 pressure of <i>12</i> Pa (<i>0.05</i> inchWC) while the system is at <code>minOutPosMin</code>

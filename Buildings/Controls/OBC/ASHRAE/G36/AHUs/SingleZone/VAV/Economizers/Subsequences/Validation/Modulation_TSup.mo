@@ -37,7 +37,7 @@ model Modulation_TSup
     "Fan is on"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 equation
-  connect(TSupSetSig.y, mod.THeaSupSet)
+  connect(TSupSetSig.y,mod.TSupHeaEco)
     annotation (Line(points={{2,70},{10,70},{10,48},{10,36},{38,36}},color={0,0,127}));
   connect(TSup.y,mod.TSup)
     annotation (Line(points={{-38,70},{-30,70},{-30,38},{38,38}},color={0,0,127}));

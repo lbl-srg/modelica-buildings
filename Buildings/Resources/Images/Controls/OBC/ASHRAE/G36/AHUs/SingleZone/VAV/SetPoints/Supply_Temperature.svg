@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Created with Inkscape (http://www.inkscape.org/) -->
-
 <svg
    xmlns:osb="http://www.openswatchbook.org/uri/2009/osb"
    xmlns:dc="http://purl.org/dc/elements/1.1/"
@@ -12,11 +10,11 @@
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    width="295.2019"
-   height="238.07948"
+   height="133.46779"
    id="svg2"
    version="1.1"
-   inkscape:version="0.92.4 (unknown)"
-   sodipodi:docname="VAVTSupSet.svg"
+   inkscape:version="1.0.1 (3bc2e813f5, 2020-09-07)"
+   sodipodi:docname="Supply_Temperature.svg"
    inkscape:export-filename="/Users/mwetter/test.png"
    inkscape:export-xdpi="300"
    inkscape:export-ydpi="300">
@@ -32,7 +30,7 @@
       <path
          id="path7712"
          d="M 5.77,0 -2.88,5 V -5 Z"
-         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;marker-start:none"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
          transform="scale(-0.8)"
          inkscape:connector-curvature="0" />
     </marker>
@@ -46,7 +44,7 @@
       <path
          id="path7721"
          d="M 5.77,0 -2.88,5 V -5 Z"
-         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;marker-start:none"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
          transform="scale(0.8)"
          inkscape:connector-curvature="0" />
     </marker>
@@ -60,7 +58,7 @@
       <path
          id="path7593"
          d="M 0,0 5,-5 -12.5,0 5,5 Z"
-         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;marker-start:none"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
          transform="matrix(-0.2,0,0,-0.2,-1.2,0)"
          inkscape:connector-curvature="0" />
     </marker>
@@ -74,7 +72,7 @@
       <path
          id="path7587"
          d="M 0,0 5,-5 -12.5,0 5,5 Z"
-         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;marker-start:none"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
          transform="matrix(-0.4,0,0,-0.4,-4,0)"
          inkscape:connector-curvature="0" />
     </marker>
@@ -88,7 +86,7 @@
       <path
          id="path7584"
          d="M 0,0 5,-5 -12.5,0 5,5 Z"
-         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;marker-start:none"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
          transform="matrix(0.4,0,0,0.4,4,0)"
          inkscape:connector-curvature="0" />
     </marker>
@@ -116,7 +114,7 @@
       <path
          id="path7581"
          d="M 0,0 5,-5 -12.5,0 5,5 Z"
-         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;marker-start:none"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
          transform="matrix(-0.8,0,0,-0.8,-10,0)"
          inkscape:connector-curvature="0" />
     </marker>
@@ -130,7 +128,7 @@
       <path
          id="path7578"
          d="M 0,0 5,-5 -12.5,0 5,5 Z"
-         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;marker-start:none"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
          transform="matrix(0.8,0,0,0.8,10,0)"
          inkscape:connector-curvature="0" />
     </marker>
@@ -247,7 +245,7 @@
          inkscape:connector-curvature="0"
          id="path7584-2"
          d="M 0,0 5,-5 -12.5,0 5,5 Z"
-         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;marker-start:none"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
          transform="matrix(0.4,0,0,0.4,4,0)" />
     </marker>
     <marker
@@ -275,7 +273,7 @@
          inkscape:connector-curvature="0"
          id="path7584-2-5"
          d="M 0,0 5,-5 -12.5,0 5,5 Z"
-         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;marker-start:none"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
          transform="matrix(0.4,0,0,0.4,4,0)" />
     </marker>
     <marker
@@ -289,7 +287,7 @@
          inkscape:connector-curvature="0"
          id="path7587-0"
          d="M 0,0 5,-5 -12.5,0 5,5 Z"
-         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;marker-start:none"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
          transform="matrix(-0.4,0,0,-0.4,-4,0)" />
     </marker>
     <marker
@@ -303,7 +301,7 @@
          inkscape:connector-curvature="0"
          id="path7584-8"
          d="M 0,0 5,-5 -12.5,0 5,5 Z"
-         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;marker-start:none"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
          transform="matrix(0.4,0,0,0.4,4,0)" />
     </marker>
     <marker
@@ -429,7 +427,7 @@
          inkscape:connector-curvature="0"
          id="path7584-27"
          d="M 0,0 5,-5 -12.5,0 5,5 Z"
-         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;marker-start:none"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
          transform="matrix(0.4,0,0,0.4,4,0)" />
     </marker>
     <marker
@@ -538,17 +536,17 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="3.5046739"
-     inkscape:cx="203.13138"
-     inkscape:cy="44.801247"
+     inkscape:zoom="4.712823"
+     inkscape:cx="184.91971"
+     inkscape:cy="102.45644"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
      inkscape:snap-bbox="true"
-     inkscape:window-width="3791"
-     inkscape:window-height="1980"
-     inkscape:window-x="49"
-     inkscape:window-y="24"
+     inkscape:window-width="3711"
+     inkscape:window-height="1983"
+     inkscape:window-x="51"
+     inkscape:window-y="27"
      inkscape:window-maximized="1"
      inkscape:bbox-nodes="true"
      inkscape:bbox-paths="true"
@@ -558,12 +556,13 @@
      fit-margin-top="0"
      fit-margin-left="0"
      fit-margin-right="0"
-     fit-margin-bottom="0">
+     fit-margin-bottom="0"
+     inkscape:document-rotation="0">
     <inkscape:grid
        type="xygrid"
        id="grid6402"
        originx="-179.60419"
-       originy="-821.1521" />
+       originy="-926.53222" />
   </sodipodi:namedview>
   <metadata
      id="metadata7">
@@ -581,7 +580,7 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(-179.60419,6.8693755)">
+     transform="translate(-179.60419,-98.510747)">
     <path
        sodipodi:nodetypes="ccccccc"
        inkscape:connector-curvature="0"
@@ -611,7 +610,7 @@
          id="tspan11880"
          x="122.5"
          y="701.86218"
-         style="font-size:40px;line-height:20.0000003%;font-family:sans-serif"> </tspan></text>
+         style="font-size:40px;line-height:20%;font-family:sans-serif"> </tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:0%;font-family:'Bitstream Vera Sans';-inkscape-font-specification:'Bitstream Vera Sans';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none"
@@ -623,7 +622,7 @@
          id="tspan3128-2-0-8-6-4-0"
          x="144.94157"
          y="471.7525"
-         style="font-size:8.44135761px;line-height:1.25"> </tspan></text>
+         style="font-size:8.44136px;line-height:1.25"> </tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:0%;font-family:'Bitstream Vera Sans';-inkscape-font-specification:'Bitstream Vera Sans';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none"
@@ -635,7 +634,7 @@
          id="tspan3128-2-0-8-6-4-3-3"
          x="116.57977"
          y="416.22006"
-         style="font-size:8.44135761px;line-height:1.25"> </tspan></text>
+         style="font-size:8.44136px;line-height:1.25"> </tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:0%;font-family:'Bitstream Vera Sans';-inkscape-font-specification:'Bitstream Vera Sans';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none"
@@ -647,7 +646,7 @@
          id="tspan3128-2-0-8-6-4-6-1"
          x="116.57977"
          y="440.90115"
-         style="font-size:8.44135761px;line-height:1.25"> </tspan></text>
+         style="font-size:8.44136px;line-height:1.25"> </tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:0%;font-family:'Bitstream Vera Sans';-inkscape-font-specification:'Bitstream Vera Sans';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none"
@@ -659,7 +658,7 @@
          id="tspan3128-2-0-8-6-4-62-8"
          x="173.30339"
          y="471.7525"
-         style="font-size:8.44135761px;line-height:1.25"> </tspan></text>
+         style="font-size:8.44136px;line-height:1.25"> </tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:0%;font-family:'Bitstream Vera Sans';-inkscape-font-specification:'Bitstream Vera Sans';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none"
@@ -731,25 +730,6 @@
          x="207.05539"
          y="223.71651"
          style="font-size:8px;line-height:1.25"> </tspan></text>
-    <text
-       transform="scale(1.0020101,0.99799394)"
-       xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:0%;font-family:'Bitstream Vera Sans';-inkscape-font-specification:'Bitstream Vera Sans';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none"
-       x="242.98315"
-       y="213.71651"
-       id="text3959-2-1-5-5-75-6"
-       inkscape:export-xdpi="300"
-       inkscape:export-ydpi="300"><tspan
-         sodipodi:role="line"
-         x="242.98315"
-         y="213.71651"
-         id="tspan3965-5-60-4-1-3-2"
-         style="font-size:8px;line-height:1.25">0.5</tspan><tspan
-         id="tspan3980-2-9-7-2-5-9"
-         sodipodi:role="line"
-         x="242.98315"
-         y="223.71651"
-         style="font-size:8px;line-height:1.25"> </tspan></text>
     <path
        inkscape:connector-curvature="0"
        id="path4986"
@@ -816,25 +796,6 @@
          sodipodi:role="line"
          id="tspan5082"
          style="font-size:8px;line-height:1.25"> </tspan></text>
-    <text
-       id="text5084"
-       y="213.71651"
-       x="358.57608"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:0%;font-family:'Bitstream Vera Sans';-inkscape-font-specification:'Bitstream Vera Sans';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none"
-       xml:space="preserve"
-       transform="scale(1.0020101,0.99799394)"
-       inkscape:export-xdpi="300"
-       inkscape:export-ydpi="300"><tspan
-         id="tspan5086"
-         y="213.71651"
-         x="358.57608"
-         sodipodi:role="line"
-         style="font-size:8px;line-height:1.25">0.5</tspan><tspan
-         y="223.71651"
-         x="358.57608"
-         sodipodi:role="line"
-         id="tspan5088"
-         style="font-size:8px;line-height:1.25"> </tspan></text>
     <g
        transform="matrix(-1,0,0,1,729.85227,-9.4914615)"
        id="g5090"
@@ -872,48 +833,10 @@
          inkscape:connector-curvature="0" />
     </g>
     <text
-       transform="scale(1.0020101,0.99799394)"
-       xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:0%;font-family:'Bitstream Vera Sans';-inkscape-font-specification:'Bitstream Vera Sans';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none"
-       x="335.51859"
-       y="213.71651"
-       id="text5104"
-       inkscape:export-xdpi="300"
-       inkscape:export-ydpi="300"><tspan
-         sodipodi:role="line"
-         x="335.51859"
-         y="213.71651"
-         id="tspan5106"
-         style="font-size:8px;line-height:1.25">0.25</tspan><tspan
-         id="tspan5108"
-         sodipodi:role="line"
-         x="335.51859"
-         y="223.71651"
-         style="font-size:8px;line-height:1.25"> </tspan></text>
-    <text
-       transform="scale(1.0020101,0.99799394)"
-       xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:0%;font-family:'Bitstream Vera Sans';-inkscape-font-specification:'Bitstream Vera Sans';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none"
-       x="377.43417"
-       y="213.71651"
-       id="text5110"
-       inkscape:export-xdpi="300"
-       inkscape:export-ydpi="300"><tspan
-         sodipodi:role="line"
-         x="377.43417"
-         y="213.71651"
-         id="tspan5112"
-         style="font-size:8px;line-height:1.25">0.75</tspan><tspan
-         id="tspan5114"
-         sodipodi:role="line"
-         x="377.43417"
-         y="223.71651"
-         style="font-size:8px;line-height:1.25"> </tspan></text>
-    <text
        id="text5138"
        y="116.37904"
        x="213.14958"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.89956856px;line-height:0%;font-family:'Bitstream Vera Sans';-inkscape-font-specification:'Bitstream Vera Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.74163002"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.89957px;line-height:0%;font-family:'Bitstream Vera Sans';-inkscape-font-specification:'Bitstream Vera Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.74163"
        xml:space="preserve"
        inkscape:export-xdpi="300"
        inkscape:export-ydpi="300"><tspan
@@ -921,14 +844,14 @@
          id="tspan1397"
          x="213.14958"
          y="116.37904"
-         style="stroke-width:0.74163002"> T<tspan
-   style="font-size:5.78471661px;baseline-shift:sub;stroke-width:0.74163002"
+         style="stroke-width:0.74163"> T<tspan
+   style="font-size:5.78472px;baseline-shift:sub;stroke-width:0.74163"
    id="tspan1399">SupSetMax</tspan></tspan></text>
     <text
        id="text5138-6"
        y="177.67505"
        x="408.01437"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.89956856px;line-height:0%;font-family:'Bitstream Vera Sans';-inkscape-font-specification:'Bitstream Vera Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.74163002"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.89957px;line-height:0%;font-family:'Bitstream Vera Sans';-inkscape-font-specification:'Bitstream Vera Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.74163"
        xml:space="preserve"
        inkscape:export-xdpi="300"
        inkscape:export-ydpi="300"><tspan
@@ -936,12 +859,12 @@
          id="tspan1401"
          x="408.01437"
          y="177.67505"
-         style="stroke-width:0.74163002">T<tspan
-   style="font-size:5.78471661px;baseline-shift:sub;stroke-width:0.74163002"
+         style="stroke-width:0.74163">T<tspan
+   style="font-size:5.78472px;baseline-shift:sub;stroke-width:0.74163"
    id="tspan1403">SupSetMin</tspan></tspan></text>
     <text
        xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.44140339px;line-height:0%;font-family:'Bitstream Vera Sans';-inkscape-font-specification:'Bitstream Vera Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.78678358"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.4414px;line-height:0%;font-family:'Bitstream Vera Sans';-inkscape-font-specification:'Bitstream Vera Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.786784"
        x="295.67627"
        y="142.71637"
        id="text5206"
@@ -951,8 +874,8 @@
          id="tspan1407"
          x="295.67627"
          y="142.71637"
-         style="stroke-width:0.78678358">T<tspan
-   style="font-size:6.13691187px;baseline-shift:sub;stroke-width:0.78678358"
+         style="stroke-width:0.786784">T<tspan
+   style="font-size:6.13691px;baseline-shift:sub;stroke-width:0.786784"
    id="tspan1409">ZonSet</tspan></tspan></text>
     <path
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-start:url(#Arrow1Lstart)"
@@ -963,40 +886,40 @@
        inkscape:export-ydpi="300" />
     <text
        id="text5244"
-       y="218.08511"
-       x="210.02344"
+       y="218.85353"
+       x="214.48047"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:0%;font-family:'Bitstream Vera Sans';-inkscape-font-specification:'Bitstream Vera Sans';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none"
        xml:space="preserve"
        inkscape:export-xdpi="300"
        inkscape:export-ydpi="300"><tspan
-         y="218.08511"
-         x="210.02344"
+         y="218.85353"
+         x="214.48047"
          id="tspan5246"
          sodipodi:role="line"
          style="font-size:12px;line-height:1.25"> </tspan><tspan
-         y="229.54605"
-         x="210.02344"
+         y="230.31447"
+         x="214.48047"
          sodipodi:role="line"
          id="tspan5248"
          style="font-size:8px;line-height:1.25">heating loop signal</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:0%;font-family:'Bitstream Vera Sans';-inkscape-font-specification:'Bitstream Vera Sans';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none"
-       x="328.48047"
-       y="218.08511"
+       x="326.12109"
+       y="218.85353"
        id="text5252"
        inkscape:export-xdpi="300"
        inkscape:export-ydpi="300"><tspan
          sodipodi:role="line"
          id="tspan5254"
-         x="328.48047"
-         y="218.08511"
+         x="326.12109"
+         y="218.85353"
          style="font-size:12px;line-height:1.25"> </tspan><tspan
          style="font-size:8px;line-height:1.25"
          id="tspan5256"
          sodipodi:role="line"
-         x="328.48047"
-         y="229.54605">cooling loop signal</tspan></text>
+         x="326.12109"
+         y="230.31447">cooling loop signal</tspan></text>
     <text
        id="text5244-3"
        y="126.42731"
@@ -1060,223 +983,15 @@
        inkscape:export-xdpi="300"
        inkscape:export-ydpi="300" />
     <path
-       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
-       d="m 210.44761,46.129591 39.42235,36.348219 c 31.93094,-0.252617 63.02206,-0.550349 94.9535,-0.722745 l 19.89099,-24.128502 19.89733,-0.102051 20.29117,-35.147105"
-       id="path4498"
-       inkscape:connector-curvature="0"
-       sodipodi:nodetypes="cccccc"
-       inkscape:export-xdpi="300"
-       inkscape:export-ydpi="300" />
-    <text
-       transform="rotate(-90)"
-       id="text4514"
-       y="179.80228"
-       x="-59.89222"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:0%;font-family:'Bitstream Vera Sans';-inkscape-font-specification:'Bitstream Vera Sans';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none"
-       xml:space="preserve"
-       inkscape:export-xdpi="300"
-       inkscape:export-ydpi="300"><tspan
-         y="179.80228"
-         x="-59.89222"
-         id="tspan4516"
-         sodipodi:role="line"
-         style="font-size:12px;line-height:1.25"> </tspan><tspan
-         y="191.26321"
-         x="-59.89222"
-         sodipodi:role="line"
-         id="tspan4518"
-         style="font-size:8px;line-height:1.25">speed</tspan></text>
-    <path
-       inkscape:connector-curvature="0"
-       id="path4521"
-       d="M 200.18723,-4.9280128 V 92.982057"
-       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-start:url(#Arrow1Lstart)"
-       inkscape:export-xdpi="300"
-       inkscape:export-ydpi="300" />
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:0%;font-family:'Bitstream Vera Sans';-inkscape-font-specification:'Bitstream Vera Sans';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none"
-       x="210.82422"
-       y="32.181217"
-       id="text4523"
-       inkscape:export-xdpi="300"
-       inkscape:export-ydpi="300"><tspan
-         sodipodi:role="line"
-         id="tspan4525"
-         x="210.82422"
-         y="32.181217"
-         style="font-size:12px;line-height:1.25"> </tspan><tspan
-         style="font-size:8px;line-height:1.25"
-         id="tspan4527"
-         sodipodi:role="line"
-         x="210.82422"
-         y="43.642155">y<tspan
-   style="font-size:64.99999762%;baseline-shift:sub"
-   id="tspan4618">HeaMax</tspan></tspan></text>
-    <text
-       id="text4531"
-       y="7.1812172"
-       x="408.13672"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:0%;font-family:'Bitstream Vera Sans';-inkscape-font-specification:'Bitstream Vera Sans';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none"
-       xml:space="preserve"
-       inkscape:export-xdpi="300"
-       inkscape:export-ydpi="300"><tspan
-         y="7.1812172"
-         x="408.13672"
-         id="tspan4533"
-         sodipodi:role="line"
-         style="font-size:12px;line-height:1.25"> </tspan><tspan
-         y="18.642155"
-         x="408.13672"
-         sodipodi:role="line"
-         id="tspan4535"
-         style="font-size:8px;line-height:1.25">y<tspan
-   style="font-size:64.99999762%;baseline-shift:sub"
-   id="tspan4612">CooMax</tspan></tspan></text>
-    <path
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       d="M 210.49521,202.36219 V 2.362189"
+       d="M 210,197.36219 V 101.97852"
        id="path4537"
        inkscape:connector-curvature="0"
        inkscape:export-xdpi="300"
        inkscape:export-ydpi="300" />
-    <path
-       inkscape:connector-curvature="0"
-       id="path4539"
-       d="M 250.29712,202.36219 V 2.362189"
-       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       inkscape:export-xdpi="300"
-       inkscape:export-ydpi="300" />
-    <path
-       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       d="M 290.49521,202.16411 V 2.1641061"
-       id="path4541"
-       inkscape:connector-curvature="0"
-       inkscape:export-xdpi="300"
-       inkscape:export-ydpi="300" />
-    <path
-       inkscape:connector-curvature="0"
-       id="path4543"
-       d="M 324.71246,201.6689 V 1.6688987"
-       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       inkscape:export-xdpi="300"
-       inkscape:export-ydpi="300" />
-    <path
-       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       d="M 344.79233,201.96602 V 1.9660231"
-       id="path4545"
-       inkscape:connector-curvature="0"
-       inkscape:export-xdpi="300"
-       inkscape:export-ydpi="300" />
-    <path
-       inkscape:connector-curvature="0"
-       id="path4547"
-       d="M 364.79233,201.96602 V 1.9660231"
-       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       inkscape:export-xdpi="300"
-       inkscape:export-ydpi="300" />
-    <path
-       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       d="M 384.79233,201.96602 V 1.9660231"
-       id="path4549"
-       inkscape:connector-curvature="0"
-       inkscape:export-xdpi="300"
-       inkscape:export-ydpi="300" />
-    <path
-       inkscape:connector-curvature="0"
-       id="path4551"
-       d="M 404.79233,201.96602 V 1.9660231"
-       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       inkscape:export-xdpi="300"
-       inkscape:export-ydpi="300" />
     <text
        xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:0%;font-family:'Bitstream Vera Sans';-inkscape-font-specification:'Bitstream Vera Sans';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none"
-       x="263.13672"
-       y="67.181221"
-       id="text4523-6"
-       inkscape:export-xdpi="300"
-       inkscape:export-ydpi="300"><tspan
-         sodipodi:role="line"
-         id="tspan4525-7"
-         x="263.13672"
-         y="67.181221"
-         style="font-size:12px;line-height:1.25"> </tspan><tspan
-         style="font-size:8px;line-height:1.25"
-         id="tspan4527-5"
-         sodipodi:role="line"
-         x="263.13672"
-         y="78.642159">y<tspan
-   style="font-size:64.99999762%;baseline-shift:sub"
-   id="tspan4616">Min</tspan></tspan></text>
-    <path
-       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="M 344.90096,81.668899 365,22.362189 h 40 l -20.39617,58.910544 z"
-       id="path4574"
-       inkscape:connector-curvature="0"
-       sodipodi:nodetypes="ccccc"
-       inkscape:export-xdpi="300"
-       inkscape:export-ydpi="300" />
-    <path
-       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-start:url(#Arrow1Lstart)"
-       d="M 200.18723,-4.9280128 V 92.982057"
-       id="path4576"
-       inkscape:connector-curvature="0"
-       inkscape:export-xdpi="300"
-       inkscape:export-ydpi="300" />
-    <path
-       inkscape:connector-curvature="0"
-       id="path4578"
-       d="M 368.00217,51.726195 V 61.805811"
-       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-start:url(#Arrow1Lstart)"
-       inkscape:export-xdpi="300"
-       inkscape:export-ydpi="300" />
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:0%;font-family:'Bitstream Vera Sans';-inkscape-font-specification:'Bitstream Vera Sans';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none"
-       x="363.01532"
-       y="41.075405"
-       id="text4586"
-       inkscape:export-xdpi="300"
-       inkscape:export-ydpi="300"><tspan
-         sodipodi:role="line"
-         id="tspan4588"
-         x="363.01532"
-         y="41.075405"
-         style="font-size:7.8382802px;line-height:1.25"> </tspan><tspan
-         style="font-size:5.22552013px;line-height:1.25"
-         id="tspan4590"
-         sodipodi:role="line"
-         x="363.01532"
-         y="48.561577">T<tspan
-   style="font-size:3.39658785px;baseline-shift:sub"
-   id="tspan4610">Zon</tspan>- T<tspan
-   style="font-size:3.39658785px;baseline-shift:sub"
-   id="tspan4614">out</tspan></tspan></text>
-    <path
-       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-start:url(#Arrow1Lstart)"
-       d="M 371.99783,51.726195 V 61.805811"
-       id="path4634"
-       inkscape:connector-curvature="0"
-       inkscape:export-xdpi="300"
-       inkscape:export-ydpi="300" />
-    <path
-       inkscape:connector-curvature="0"
-       id="path4636"
-       d="M 375.99783,51.726195 V 61.805811"
-       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-start:url(#Arrow1Lstart)"
-       inkscape:export-xdpi="300"
-       inkscape:export-ydpi="300" />
-    <path
-       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-start:url(#Arrow1Lstart)"
-       d="M 379.99783,51.726195 V 61.805811"
-       id="path4638"
-       inkscape:connector-curvature="0"
-       inkscape:export-xdpi="300"
-       inkscape:export-ydpi="300" />
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:8.21138763px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.2052846px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       style="font-style:normal;font-weight:normal;font-size:8.21139px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.205285px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        x="408.02441"
        y="190.90073"
        id="text1430"
@@ -1286,20 +1001,158 @@
          id="tspan1428"
          x="408.02441"
          y="190.90073"
-         style="stroke-width:0.2052846px">T<tspan
-   style="font-size:64.99999762%;baseline-shift:sub"
-   id="tspan1434">SupSetMin</tspan> - 1.1 K</tspan><tspan
+         style="stroke-width:0.205285px">T<tspan
+   style="font-size:65%;baseline-shift:sub"
+   id="tspan1434">SupSetMin</tspan> - 1 K</tspan><tspan
          sodipodi:role="line"
          x="408.02441"
          y="201.91153"
          id="tspan1432"
-         style="stroke-width:0.2052846px">(=T<tspan
-   style="font-size:64.99999762%;baseline-shift:sub"
+         style="stroke-width:0.205285px">(=T<tspan
+   style="font-size:65%;baseline-shift:sub"
    id="tspan1436">SupSetMin</tspan> - 2 F)</tspan></text>
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 249.9,197.36219 V 101.97852"
+       id="path4537-3"
+       inkscape:connector-curvature="0"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 290.1,197.36219 V 101.97852"
+       id="path4537-3-1"
+       inkscape:connector-curvature="0"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 324.9,197.36219 V 101.97852"
+       id="path4537-3-1-9"
+       inkscape:connector-curvature="0"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 344.9,197.36219 V 101.97852"
+       id="path4537-3-1-9-4"
+       inkscape:connector-curvature="0"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 365.1,197.36219 V 101.97852"
+       id="path4537-3-1-9-4-7"
+       inkscape:connector-curvature="0"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 384.9,197.36219 V 101.97852"
+       id="path4537-3-1-9-4-7-8"
+       inkscape:connector-curvature="0"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <text
+       transform="scale(1.0020101,0.99799394)"
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.71965px;line-height:0%;font-family:'Bitstream Vera Sans';-inkscape-font-specification:'Bitstream Vera Sans';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.809922"
+       x="244.50851"
+       y="212.1181"
+       id="text3959-2-1-5-5-75-6-4"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         x="244.50851"
+         y="212.1181"
+         id="tspan3965-5-60-4-1-3-2-5"
+         style="font-size:6.47943px;line-height:1.25;stroke-width:0.809922">P_1</tspan><tspan
+         sodipodi:role="line"
+         x="244.50851"
+         y="220.21739"
+         style="font-size:6.47943px;line-height:1.25;stroke-width:0.809922"
+         id="tspan1487">(0.5)</tspan><tspan
+         id="tspan3980-2-9-7-2-5-9-0"
+         sodipodi:role="line"
+         x="244.50851"
+         y="228.31668"
+         style="font-size:6.47943px;line-height:1.25;stroke-width:0.809922"> </tspan></text>
+    <text
+       transform="scale(1.0020101,0.99799394)"
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.07898px;line-height:0%;font-family:'Bitstream Vera Sans';-inkscape-font-specification:'Bitstream Vera Sans';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.756608"
+       x="336.59338"
+       y="211.8869"
+       id="text3959-2-1-5-5-75-6-4-9"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         x="336.59338"
+         y="211.8869"
+         id="tspan3965-5-60-4-1-3-2-5-4"
+         style="font-size:6.05282px;line-height:1.25;stroke-width:0.756608">P_2</tspan><tspan
+         sodipodi:role="line"
+         x="336.59338"
+         y="219.45293"
+         style="font-size:6.05282px;line-height:1.25;stroke-width:0.756608"
+         id="tspan1487-3">(0.25)</tspan><tspan
+         id="tspan3980-2-9-7-2-5-9-0-5"
+         sodipodi:role="line"
+         x="336.59338"
+         y="227.01895"
+         style="font-size:6.05282px;line-height:1.25;stroke-width:0.756608"> </tspan></text>
+    <text
+       transform="scale(1.0020101,0.99799394)"
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.44982px;line-height:0%;font-family:'Bitstream Vera Sans';-inkscape-font-specification:'Bitstream Vera Sans';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.787512"
+       x="359.27783"
+       y="211.68462"
+       id="text3959-2-1-5-5-75-6-4-9-1"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         x="359.27783"
+         y="211.68462"
+         id="tspan3965-5-60-4-1-3-2-5-4-7"
+         style="font-size:6.30006px;line-height:1.25;stroke-width:0.787512">P_3</tspan><tspan
+         sodipodi:role="line"
+         x="359.27783"
+         y="219.55969"
+         style="font-size:6.30006px;line-height:1.25;stroke-width:0.787512"
+         id="tspan1487-3-4">(0.5)</tspan><tspan
+         id="tspan3980-2-9-7-2-5-9-0-5-3"
+         sodipodi:role="line"
+         x="359.27783"
+         y="227.43477"
+         style="font-size:6.30006px;line-height:1.25;stroke-width:0.787512"> </tspan></text>
+    <text
+       transform="scale(1.0020101,0.99799394)"
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.0214px;line-height:0%;font-family:'Bitstream Vera Sans';-inkscape-font-specification:'Bitstream Vera Sans';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.751734"
+       x="379.2377"
+       y="211.77876"
+       id="text3959-2-1-5-5-75-6-4-9-2"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         x="379.2377"
+         y="211.77876"
+         id="tspan3965-5-60-4-1-3-2-5-4-6"
+         style="font-size:6.01395px;line-height:1.25;stroke-width:0.751734">P_4</tspan><tspan
+         sodipodi:role="line"
+         x="379.2377"
+         y="219.2962"
+         style="font-size:6.01395px;line-height:1.25;stroke-width:0.751734"
+         id="tspan1487-3-41">(0.75)</tspan><tspan
+         id="tspan3980-2-9-7-2-5-9-0-5-2"
+         sodipodi:role="line"
+         x="379.2377"
+         y="226.81364"
+         style="font-size:6.01395px;line-height:1.25;stroke-width:0.751734"> </tspan></text>
   </g>
   <g
      inkscape:groupmode="layer"
      id="layer2"
      inkscape:label="Control"
-     transform="translate(-179.60419,6.8693755)" />
+     transform="translate(-179.60419,-98.510747)" />
 </svg>
