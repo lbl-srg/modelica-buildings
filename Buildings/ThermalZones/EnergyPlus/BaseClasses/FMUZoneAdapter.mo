@@ -83,6 +83,8 @@ block FMUZoneAdapter "Block that interacts with this EnergyPlus zone"
         iconTransformation(extent={{100,-70},{120,-50}})));
 
 protected
+  parameter Modelica.SIunits.MassFlowRate m_flow_small(fixed=false)
+    "Small mass flow rate used to avoid TAveInlet = 0";
   Buildings.ThermalZones.EnergyPlus.BaseClasses.FMUZoneClass adapter=
     Buildings.ThermalZones.EnergyPlus.BaseClasses.FMUZoneClass(
       modelicaNameBuilding=modelicaNameBuilding,
@@ -141,6 +143,8 @@ initial equation
   (AFlo, V, mSenFac) =
     Buildings.ThermalZones.EnergyPlus.BaseClasses.zoneInitialize(adapter=
     adapter, startTime=time);
+  TAveInlet = 293.15;
+  m_flow_small = V*3*1.2/3600*1E-10;
   assert(AFlo > 0, "Floor area must not be zero.");
   assert(V > 0, "Volume must not be zero.");
   assert(mSenFac > 0.9999, "mSenFac must be bigger or equal than one.");
@@ -157,8 +161,9 @@ equation
     TRooLast = T;
     dtLast = time-pre(tLast);
   //  Modelica.Utilities.Streams.print("time = " + String(time) + "\t pre(tLast) = " + String(pre(tLast)) + "\t dtLast = " + String(dtLast));
-    mInlet_flow =  0;//sum(if m_flow[i] > 0 then m_flow[i] else 0 for i in 1:nFluPor);
-    TAveInlet = 293.15;//sum(if m_flow[i] > 0 then TInlet[i] * m_flow[i] else 0 for i in 1:nFluPor)/max(1E-10, mInlet_flow);
+    mInlet_flow =  noEvent(sum(if m_flow[i] > 0 then m_flow[i] else 0 for i in 1:nFluPor));
+    TAveInlet = noEvent((sum(if m_flow[i] > 0 then TInlet[i] * m_flow[i] else 0 for i in 1:nFluPor) + m_flow_small * pre(TAveInlet))/
+      (mInlet_flow+m_flow_small));
     (TRad, QConLast_flow, dQCon_flow, QLat_flow, QPeo_flow, tNext)  =
       Buildings.ThermalZones.EnergyPlus.BaseClasses.zoneExchange(
       adapter,
