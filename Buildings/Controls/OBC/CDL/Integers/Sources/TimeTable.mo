@@ -4,7 +4,7 @@ block TimeTable "Table look-up with respect to time with constant segments"
   parameter Real table[:,:]
     "Table matrix with time as a first table column (in seconds, unless timeScale is not 1) and Integers in all other columns";
 
-  parameter Integer offset[:]=fill(0, nout) "Offsets of output signals";
+  parameter Integer offset[:]=fill(0, nout) "Offsets of output signals as a vector with length equal to number of table matrix columns less one";
   parameter Real timeScale(
      unit="1") = 1
     "Time scale of first table column. Set to 3600 if time in table is in hours";
@@ -53,7 +53,7 @@ protected
     final table=table,
     final columns=2:size(tab.table, 2),
     final smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments,
-    final extrapolation=CDL.Types.Extrapolation.Periodic,
+    final extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
     final offset=offset,
     final startTime=integer(t0/86400)*86400,
     final timeScale=timeScale) "Time table"

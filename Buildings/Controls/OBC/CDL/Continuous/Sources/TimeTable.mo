@@ -8,7 +8,7 @@ block TimeTable
     "Smoothness of table interpolation";
   parameter CDL.Types.Extrapolation extrapolation=CDL.Types.Extrapolation.Periodic
     "Extrapolation of data outside the definition range";
-  parameter Real offset[:]=fill(0, nout) "Offsets of output signals";
+  parameter Real offset[:]=fill(0, nout) "Offsets of output signals as a vector with length equal to number of table matrix columns less one";
   parameter Real timeScale(
     final unit="1")=1
     "Time scale of first table column. Set to 3600 if time in table is in hours";

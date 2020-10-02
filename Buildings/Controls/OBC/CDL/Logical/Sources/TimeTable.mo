@@ -50,7 +50,7 @@ protected
     final table=table,
     final columns=2:size(tab.table, 2),
     final smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments,
-    final extrapolation=CDL.Types.Extrapolation.Periodic,
+    final extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
     final startTime=integer(t0/86400)*86400,
     final timeScale=timeScale) "Time table"
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));

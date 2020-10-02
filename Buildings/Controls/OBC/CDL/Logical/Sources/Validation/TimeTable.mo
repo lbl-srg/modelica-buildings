@@ -1,22 +1,19 @@
 within Buildings.Controls.OBC.CDL.Logical.Sources.Validation;
 model TimeTable "Validation model for TimeTable block"
 
-  Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable booTimTab(
-    table=[0,1,0; 1.3,1,1; 2.9,0,0; 4,1,0; 5,1,1],
-    extrapolation=Buildings.Controls.OBC.CDL.Types.Extrapolation.HoldLastPoint,
-    timeScale=2) "Time table with boolean output"
-    annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable booTimTabPer(
-    table=[0,1,0;1.3,1,1; 2.9,0,0; 4,1,0; 5,1,1],
-    extrapolation=Buildings.Controls.OBC.CDL.Types.Extrapolation.Periodic)
+  Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable booTimTab(table=[0,1,0; 1.3,
+        1,1; 2.9,0,0; 4,1,0; 5,1,1])
     "Time table with boolean output and periodic repetition"
-    annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
+    annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable booTimTabOneRow(table=[0,
-        1,0], extrapolation=Buildings.Controls.OBC.CDL.Types.Extrapolation.HoldLastPoint)
+        1,0])
     "Time table with boolean output for a single table row"
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
-  annotation (experiment(Tolerance=1e-6, StopTime=10.0),
+  Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable booTimTabTwi(table=[0,1,
+        0; 1.3,1,1; 2.9,0,0; 4,1,0; 5,1,1], timeScale=2)
+    "Time table with boolean output, periodic repetition, and doubled time"
+    annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
+  annotation (experiment(Tolerance=1e-6, StopTime=15.0),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Logical/Sources/Validation/TimeTable.mos"
        "Simulate and plot"),
   Documentation(info="<html>
