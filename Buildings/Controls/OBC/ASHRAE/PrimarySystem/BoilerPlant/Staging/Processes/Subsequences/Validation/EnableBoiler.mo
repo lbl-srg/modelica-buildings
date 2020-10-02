@@ -16,12 +16,12 @@ model EnableBoiler
 
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol(
     final trueHoldDuration=10)
-    "Hold pulse signal for visualization"
+    "Hold true signal for visualization"
     annotation (Placement(transformation(extent={{-40,110},{-20,130}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol1(
     final trueHoldDuration=10)
-    "Hold pulse signal for visualization"
+    "Hold true signal for visualization"
     annotation (Placement(transformation(extent={{140,110},{160,130}})));
 
 protected

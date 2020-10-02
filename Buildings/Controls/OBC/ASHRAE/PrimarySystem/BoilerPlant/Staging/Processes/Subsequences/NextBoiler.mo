@@ -6,7 +6,7 @@ block NextBoiler
     "Total number of boilers";
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uBoiSet[nBoi]
-    "Vector of boilers status setpoint"
+    "Vector of boilers enable status setpoint"
     annotation (Placement(transformation(extent={{-260,-20},{-220,20}}),
       iconTransformation(extent={{-140,-50},{-100,-10}})));
 
@@ -47,7 +47,7 @@ block NextBoiler
 
 protected
   parameter Integer boiInd[nBoi]={i for i in 1:nBoi}
-    "Boiler index, {1,2,...,n}";
+    "Boiler index vector up to total number of boilers in plant";
 
   Buildings.Controls.OBC.CDL.Integers.Change cha
     "Check if it is stage up or stage down"

@@ -55,11 +55,11 @@ block HWIsoVal
 
 protected
   final parameter Integer boiInd[nBoi]={i for i in 1:nBoi}
-    "Boiler index, {1,2,...,nBoi}";
+    "Boiler index vector up to total number of boilers in plant";
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con7(
     final k=chaHotWatIsoTim)
-    "Time to change hot water isolation valve"
+    "Time to change hot water isolation valve position"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con8(
@@ -413,7 +413,7 @@ annotation (
   status to indicate if the valve reset process has finished.
   This block is not based on any specific section in RP-1711, but has been designed
   to carry out the hot water isolation valve operations in the staging sequences
-  defined in 5.3.3.
+  defined in section 5.3.3.
   </p>
   <ul>
   <li>

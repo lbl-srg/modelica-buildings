@@ -32,17 +32,18 @@ block EnableBoiler
       iconTransformation(extent={{-140,-80},{-100,-40}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput nexDisBoi
-    "Next disabling boiler when there is any stage up that need one boiler on and another off"
+    "Index of next boiler being disabled when there is any stage up that needs 
+    one boiler on and another off"
     annotation (Placement(transformation(extent={{-240,-170},{-200,-130}}),
       iconTransformation(extent={{-140,-110},{-100,-70}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput nexEnaBoi
-    "Index of next enabling boiler"
+    "Index of next boiler being enabled"
     annotation (Placement(transformation(extent={{-240,100},{-200,140}}),
       iconTransformation(extent={{-140,70},{-100,110}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yBoi[nBoi]
-    "Boiler enabling status"
+    "Boiler enabling status vector"
     annotation (Placement(transformation(extent={{200,-70},{240,-30}}),
       iconTransformation(extent={{100,60},{140,100}})));
 
@@ -53,7 +54,7 @@ block EnableBoiler
 
 protected
   final parameter Integer boiInd[nBoi]={i for i in 1:nBoi}
-    "Boiler index, {1,2,...,n}";
+    "Boiler index vector up to total number of boilers in plant";
 
   Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi[nBoi]
     "Logical switch"

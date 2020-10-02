@@ -90,23 +90,23 @@ block Up
         iconTransformation(extent={{-140,-180},{-100,-140}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uStaUpPro
-    "Pulse indicating start of stage up process"
+    "Rising edge indicating start of stage up process"
     annotation (Placement(transformation(extent={{-280,-20},{-240,20}}),
       iconTransformation(extent={{-140,-70},{-100,-30}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uBoi[nBoi]
-    "Boiler status: true=ON"
+    "Boiler proven on status vector"
     annotation (Placement(transformation(extent={{-280,60},{-240,100}}),
       iconTransformation(extent={{-140,10},{-100,50}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uPumChaPro if not
     primaryOnly
-    "Pulse indicating all pump change processes have been completed and pumps have been proved on"
+    "Rising edge indicating all pump change processes have been completed and pumps have been proved on"
     annotation (Placement(transformation(extent={{-280,-210},{-240,-170}}),
       iconTransformation(extent={{-140,-210},{-100,-170}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uBoiSet[nBoi]
-    "Boiler status setpoint: true=ON"
+    "Boiler enable status setpoint vector"
     annotation (Placement(transformation(extent={{-280,20},{-240,60}}),
       iconTransformation(extent={{-140,-30},{-100,10}})));
 
@@ -134,7 +134,7 @@ block Up
     final quantity="VolumeFlowRate",
     final unit="m3/s",
     displayUnit="m3/s") if primaryOnly
-    "Measured hot water flow rate through the minimum flow bypass valve"
+    "Measured hot water flow rate through the primary loop"
     annotation (Placement(transformation(extent={{-280,220},{-240,260}}),
       iconTransformation(extent={{-140,170},{-100,210}})));
 
@@ -150,12 +150,12 @@ block Up
     final min=fill(0, nBoi),
     final max=fill(1, nBoi),
     final unit=fill("1", nBoi)) if isHeadered
-    "Hot water isolation valve position"
+    "Hot water isolation valve position vector"
     annotation (Placement(transformation(extent={{-280,100},{-240,140}}),
       iconTransformation(extent={{-140,50},{-100,90}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yBoi[nBoi]
-    "Boiler enabling status"
+    "Boiler enabling status vector"
     annotation (Placement(transformation(extent={{280,90},{320,130}}),
       iconTransformation(extent={{100,160},{140,200}})));
 
@@ -185,7 +185,7 @@ block Up
     final min=fill(0, nBoi),
     final max=fill(1, nBoi),
     final unit=fill("1", nBoi)) if isHeadered
-    "Boiler hot water isolation valve position"
+    "Boiler hot water isolation valve position vector"
     annotation (Placement(transformation(extent={{280,-90},{320,-50}}),
       iconTransformation(extent={{100,20},{140,60}})));
 
@@ -265,7 +265,7 @@ protected
     annotation (Placement(transformation(extent={{132,-200},{152,-180}})));
 
   Buildings.Controls.OBC.CDL.Logical.Edge edg
-    "Detect change in process completion status and send out pulse signal"
+    "Detect change in process completion status and send out rising edge signal"
     annotation (Placement(transformation(extent={{230,40},{250,60}})));
 
   Buildings.Controls.OBC.CDL.Logical.Edge edg1 if not primaryOnly

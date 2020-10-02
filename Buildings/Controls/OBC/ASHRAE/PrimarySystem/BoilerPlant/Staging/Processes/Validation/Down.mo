@@ -114,31 +114,31 @@ model Down
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold yPumChaPro(
     final trueHoldDuration=10,
     final falseHoldDuration=0)
-    "Hold true pulse signal for visualization"
+    "Hold true signal for visualization"
     annotation (Placement(transformation(extent={{-120,150},{-100,170}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold yPumChaPro1(
     final trueHoldDuration=10,
     final falseHoldDuration=0)
-    "Hold true pulse signal for visualization"
+    "Hold true signal for visualization"
     annotation (Placement(transformation(extent={{250,150},{270,170}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold yStaChaPro(
     final trueHoldDuration=10,
     final falseHoldDuration=0)
-    "Hold true pulse signal for visualization"
+    "Hold true signal for visualization"
     annotation (Placement(transformation(extent={{-120,190},{-100,210}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold yStaChaPro1(
     final trueHoldDuration=10,
     final falseHoldDuration=0)
-    "Hold true pulse signal for visualization"
+    "Hold true signal for visualization"
     annotation (Placement(transformation(extent={{250,190},{270,210}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold yStaChaPro4(
     final trueHoldDuration=10,
     final falseHoldDuration=0)
-    "Hold true pulse signal for visualization"
+    "Hold true signal for visualization"
     annotation (Placement(transformation(extent={{-120,-146},{-100,-126}})));
 
 protected
@@ -193,11 +193,12 @@ protected
     annotation (Placement(transformation(extent={{-368,0},{-348,20}})));
 
   Buildings.Controls.OBC.CDL.Logical.Or or2
-    "Detect first triggering pulse and subsequent stage change completion signals"
+    "Detect first triggering rising edge and subsequent stage change completion signals"
     annotation (Placement(transformation(extent={{-130,110},{-110,130}})));
 
   Buildings.Controls.OBC.CDL.Logical.Switch swi[nBoi]
-    "Pass initial valve position and switch to signal from controller"
+    "Pass initial valve position and switch to position signal from controller
+    after stage change"
     annotation (Placement(transformation(extent={{-220,270},{-200,290}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul[nBoi](
@@ -316,7 +317,7 @@ protected
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
 
   Buildings.Controls.OBC.CDL.Logical.Or or1
-    "Detect first triggering pulse and subsequent stage change completion signals"
+    "Detect first triggering rising edge and subsequent stage change completion signals"
     annotation (Placement(transformation(extent={{240,110},{260,130}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul1[nBoi](
@@ -422,11 +423,12 @@ protected
     annotation (Placement(transformation(extent={{-370,-336},{-350,-316}})));
 
   Buildings.Controls.OBC.CDL.Logical.Or or5
-    "Detect first triggering pulse and subsequent stage change completion signals"
+    "Detect first triggering rising edge and subsequent stage change completion signals"
     annotation (Placement(transformation(extent={{-130,-226},{-110,-206}})));
 
   Buildings.Controls.OBC.CDL.Logical.Switch swi4[nBoi]
-    "Pass initial valve position and switch to signal from controller"
+    "Pass initial valve position and switch to position signal from controller
+    after stage change"
     annotation (Placement(transformation(extent={{-220,-66},{-200,-46}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul4[nBoi](

@@ -167,7 +167,7 @@ protected
     annotation (Placement(transformation(extent={{-80,-170},{-60,-150}})));
 
   Buildings.Controls.OBC.CDL.Logical.Edge edg1
-    "Rising edge, output true at the moment when input turns from false to true"
+    "Rising edge detector"
     annotation (Placement(transformation(extent={{-160,-250},{-140,-230}})));
 
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea1[nBoi]
