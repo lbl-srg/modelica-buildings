@@ -31,7 +31,8 @@ protected
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
 
   Continuous.GreaterThreshold greThr[nout](
-    final t=fill(0.5, nout))
+    final t=fill(0.5, nout),
+    final h=fill(0, nout))
     "Conversion to boolean"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 
