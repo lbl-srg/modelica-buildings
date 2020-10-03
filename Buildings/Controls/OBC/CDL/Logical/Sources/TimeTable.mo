@@ -30,12 +30,6 @@ protected
     final timeScale=timeScale) "Time table"
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
 
-  Continuous.GreaterThreshold greThr[nout](
-    final t=fill(0.5, nout),
-    final h=fill(0, nout))
-    "Conversion to boolean"
-    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
-
 initial equation
   t0=time;
   assert(n > 0, "No table values defined.");
@@ -49,10 +43,9 @@ initial equation
   end for;
 
 equation
-  connect(tab.y, greThr.u)
-    annotation (Line(points={{-79,0},{-2,0}}, color={0,0,127}));
-  connect(greThr.y, y)
-    annotation (Line(points={{22,0},{140,0}}, color={255,0,255}));
+  for i in 1:nout loop
+    y[i] = tab.y[i] > 0.5;
+  end for;
   annotation (
 defaultComponentName = "intTimTab",
 Documentation(info="<html>

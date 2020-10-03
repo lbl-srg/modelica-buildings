@@ -32,10 +32,6 @@ protected
     final timeScale=timeScale) "Time table"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
 
-  Conversions.RealToInteger reaToInt[nout]
-    "Real to integer type conversion"
-    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
-
 initial equation
   t0=time;
   assert(n > 0, "No table values defined.");
@@ -49,10 +45,7 @@ initial equation
   end for;
 
 equation
-  connect(tab.y, reaToInt.u)
-    annotation (Line(points={{-59,0},{-2,0}}, color={0,0,127}));
-  connect(reaToInt.y, y)
-    annotation (Line(points={{22,0},{120,0}}, color={255,127,0}));
+  y = integer(tab.y);
   annotation (
 defaultComponentName = "intTimTab",
 Documentation(info="<html>
