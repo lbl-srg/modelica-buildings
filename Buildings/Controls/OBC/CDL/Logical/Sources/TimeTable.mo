@@ -3,7 +3,7 @@ block TimeTable
   "Table look-up with respect to time with constant segments"
 
   parameter Real table[:,:]
-    "Table matrix with time as a first column (in seconds, unless timeScale is not 1) and Booleans in all other columns";
+    "Table matrix with time as a first column (in seconds, unless timeScale is not 1) and 0 for False or 1 for True in all other columns";
   parameter Real timeScale(
     final unit="1")=1
     "Time scale of first table column. Set to 3600 if time in table is in hours";
@@ -42,8 +42,8 @@ initial equation
   // Check that all values in the second column are Integer values
   for i in 1:n loop
     for j in 2:size(table, 2) loop
-      assert(rem(table[i, j], 1) == 0.0 and (table[i, j] == 1.0 or table[i, j] == 0.0),
-        "Table value is not an Integer in row " + String(i) + " and column " + String(j));
+      assert((table[i, j] == 1.0 or table[i, j] == 0.0),
+        "Table value does not equal either 0 or 1 in row " + String(i) + " and column " + String(j) + ".");
     end for;
   end for;
 

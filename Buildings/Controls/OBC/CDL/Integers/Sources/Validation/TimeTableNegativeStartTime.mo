@@ -2,15 +2,18 @@ within Buildings.Controls.OBC.CDL.Integers.Sources.Validation;
 model TimeTableNegativeStartTime
   "Validation model for TimeTable block with negative start time"
 
-  Buildings.Controls.OBC.CDL.Integers.Sources.TimeTable intTimTab(table=[0,1,4;
-        1.3,2,2; 2.9,0,-1; 4,3,7; 5,1,1], offset={0,0})
+  Buildings.Controls.OBC.CDL.Integers.Sources.TimeTable intTimTab(
+    table=[0,1,4;1.3,2,2; 2.9,0,-1; 4,3,7; 5,1,1],
+    offset={0,0})
     "Time table with integer output and periodic repetition"
     annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.TimeTable intTimTab1(table=[6,1,4;
-        7.3,2,2; 8.9,0,-1; 10,3,7; 11,1,1], offset=fill(2, 2))
+
+  Buildings.Controls.OBC.CDL.Integers.Sources.TimeTable intTimTab1(
+    table=[6,1,4;7.3,2,2; 8.9,0,-1; 10,3,7; 11,1,1],
+    offset=fill(2, 2))
     "Time table with integer output and periodic repetition"
     annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
-  annotation (experiment(Tolerance=1e-6, StartTime=-5.0, StopTime=5.0),
+  annotation (experiment(Tolerance=1e-6, StartTime=-5.0, StopTime=10.0),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Integers/Sources/Validation/TimeTableNegativeStartTime.mos"
        "Simulate and plot"),
   Documentation(info="<html>

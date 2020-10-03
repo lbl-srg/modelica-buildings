@@ -5,15 +5,14 @@ block TimeTable "Table look-up with respect to time with constant segments"
     "Table matrix with time as a first table column (in seconds, unless timeScale is not 1) and Integers in all other columns";
 
   parameter Integer offset[:]=fill(0, nout) "Offsets of output signals as a vector with length equal to number of table matrix columns less one";
+
   parameter Real timeScale(
-     unit="1") = 1
+     final unit="1") = 1
     "Time scale of first table column. Set to 3600 if time in table is in hours";
 
   Interfaces.IntegerOutput y[nout] "Output of the table"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
-  Conversions.RealToInteger reaToInt[nout]
-    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 protected
   final parameter Integer nout=size(table, 2)-1
     "Dimension of output vector";
@@ -33,6 +32,9 @@ protected
     final timeScale=timeScale) "Time table"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
 
+  Conversions.RealToInteger reaToInt[nout]
+    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
+
 initial equation
   t0=time;
   assert(n > 0, "No table values defined.");
@@ -41,7 +43,7 @@ initial equation
   for i in 1:n loop
     for j in 2:size(table, 2) loop
       assert(rem(table[i, j], 1) == 0.0,
-        "Table value is not an Integer in row " + String(i) + " and column " + String(j));
+        "Table value is not an Integer in row " + String(i) + " and column " + String(j) + ".");
     end for;
   end for;
 
@@ -74,7 +76,7 @@ The time column contains <code>Real</code> values that are in units of seconds w
 in the first column of the table are interpreted as hours.
 </p>
 <p>
-The values in all columns apart from the first column must be of type <code>Integer</code>, otherwise a warning is issued.
+The values in all columns apart from the first column must be of type <code>Integer</code>, otherwise the model cannot be initiated.
 </p>
 <p>
 Until a new tabulated value is set, the previous tabulated value is returned.
