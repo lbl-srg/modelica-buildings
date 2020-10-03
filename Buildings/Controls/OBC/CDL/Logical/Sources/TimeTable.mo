@@ -12,8 +12,6 @@ block TimeTable
     annotation (Placement(transformation(extent={{120,-20},{160,20}}),
         iconTransformation(extent={{100,-20},{140,20}})));
 
-  Continuous.GreaterThreshold greThr[nout](t=0.5) "Conversion to boolean"
-    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 protected
   final parameter Integer nout=size(table, 2)-1
     "Dimension of output vector";
@@ -32,6 +30,11 @@ protected
     final timeScale=timeScale) "Time table"
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
 
+  Continuous.GreaterThreshold greThr[nout](
+    final t=fill(0.5, nout))
+    "Conversion to boolean"
+    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
+
 initial equation
   t0=time;
   assert(n > 0, "No table values defined.");
@@ -39,7 +42,7 @@ initial equation
   // Check that all values in the second column are Integer values
   for i in 1:n loop
     for j in 2:size(table, 2) loop
-      assert(rem(table[i, j], 1) == 0.0,
+      assert(rem(table[i, j], 1) == 0.0 and (table[i, j] == 1.0 or table[i, j] == 0.0),
         "Table value is not an Integer in row " + String(i) + " and column " + String(j));
     end for;
   end for;
