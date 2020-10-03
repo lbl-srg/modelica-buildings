@@ -33,6 +33,7 @@ protected
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
 
   Conversions.RealToInteger reaToInt[nout]
+    "Real to integer type conversion"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 
 initial equation
