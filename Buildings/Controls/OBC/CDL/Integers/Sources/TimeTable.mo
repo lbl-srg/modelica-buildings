@@ -12,6 +12,8 @@ block TimeTable "Table look-up with respect to time with constant segments"
   Interfaces.IntegerOutput y[nout] "Output of the table"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
+  Conversions.RealToInteger reaToInt[nout]
+    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 protected
   final parameter Integer nout=size(table, 2)-1
     "Dimension of output vector";
@@ -20,34 +22,6 @@ protected
   parameter Modelica.SIunits.Time t0(fixed=false)
     "First sample time instant";
 
-  Continuous.Abs abs1[nout]
-    "Absolute values"
-    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
-  Continuous.Add add2[nout](
-    final k1=fill(1, nout),
-    final k2=fill(-1, nout))
-    "Subtracts inputs from their integer conversion results"
-    annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
-  Conversions.IntegerToReal intToRea[nout] "Type conversion"
-    annotation (Placement(transformation(extent={{0,20},{20,40}})));
-  Continuous.GreaterThreshold greThr[nout](
-    final t=fill(Constants.small, nout))
-    "Value comparisson"
-    annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
-  Utilities.Assert assMes(message="Scheduled values are not all of type Integer")
-    "Assert all scheduled values are integer values"
-    annotation (Placement(transformation(extent={{60,-80},{80,-60}})));
-  Logical.MultiOr mulOr(
-    final nu=nout) "Multi or"
-    annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
-  Logical.Not not1 "Logical not"
-    annotation (Placement(transformation(extent={{30,-80},{50,-60}})));
-  Buildings.Controls.OBC.CDL.Conversions.RealToInteger realToInteger[nout]
-    "Converts scheduled values to integer"
-    annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
-  // CDL uses different enumerations for extrapolation
-  // than the Modelica Standard Library. Hence, we cast the CDL
-  // enumeration to the MSL enumeration.
   Modelica.Blocks.Sources.CombiTimeTable tab(
     final tableOnFile=false,
     final table=table,
@@ -63,27 +37,19 @@ initial equation
   t0=time;
   assert(n > 0, "No table values defined.");
 
-equation
-  connect(realToInteger.y, y) annotation(Line(points={{-18,0},{120,0}},        color={255,127,0}));
+  // Check that all values in the second column are Integer values
+  for i in 1:n loop
+    for j in 2:size(table, 2) loop
+      assert(rem(table[i, j], 1) == 0.0,
+        "Table value is not an Integer in row " + String(i) + " and column " + String(j));
+    end for;
+  end for;
 
-  connect(realToInteger.y, intToRea.u) annotation (Line(points={{-18,0},{-10,0},
-          {-10,30},{-2,30}}, color={255,127,0}));
-  connect(intToRea.y, add2.u1) annotation (Line(points={{22,30},{30,30},{30,-24},
-          {38,-24}}, color={0,0,127}));
-  connect(add2.y, abs1.u) annotation (Line(points={{62,-30},{64,-30},{64,-50},{-90,
-          -50},{-90,-70},{-82,-70}}, color={0,0,127}));
-  connect(abs1.y, greThr.u)
-    annotation (Line(points={{-58,-70},{-42,-70}}, color={0,0,127}));
-  connect(greThr.y, mulOr.u)
-    annotation (Line(points={{-18,-70},{-2,-70}}, color={255,0,255}));
-  connect(mulOr.y, not1.u)
-    annotation (Line(points={{22,-70},{28,-70}}, color={255,0,255}));
-  connect(not1.y, assMes.u)
-    annotation (Line(points={{52,-70},{58,-70}}, color={255,0,255}));
-  connect(tab.y, realToInteger.u)
-    annotation (Line(points={{-59,0},{-42,0}}, color={0,0,127}));
-  connect(tab.y, add2.u2) annotation (Line(points={{-59,0},{-50,0},{-50,-36},{38,
-          -36}}, color={0,0,127}));
+equation
+  connect(tab.y, reaToInt.u)
+    annotation (Line(points={{-59,0},{-2,0}}, color={0,0,127}));
+  connect(reaToInt.y, y)
+    annotation (Line(points={{22,0},{120,0}}, color={255,127,0}));
   annotation (
 defaultComponentName = "intTimTab",
 Documentation(info="<html>
