@@ -39,7 +39,7 @@ initial equation
   // Check that all values in the second column are Integer values
   for i in 1:n loop
     for j in 2:size(table, 2) loop
-      assert(rem(table[i, j], 1) == 0.0,
+      assert(abs(table[i, j] - integer(table[i, j])) < Constants.small,
         "Table value is not an Integer in row " + String(i) + " and column " + String(j) + ".");
     end for;
   end for;
