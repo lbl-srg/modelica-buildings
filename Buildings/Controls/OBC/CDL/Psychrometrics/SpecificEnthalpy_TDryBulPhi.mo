@@ -45,7 +45,7 @@ The specific enthalpy is zero if the temperature is <i>0</i>&deg;C and if there
 is no moisture.
 </p>
 <p>
-The correlation used in this model is from the 2005 ASHRAE Handbook Fundamentals, p. 6.9.
+The correlation used in this model is from the 2009 ASHRAE Handbook Fundamentals, p. 1.9, equation 32.
 </p>
 </html>", revisions="<html>
 <ul>

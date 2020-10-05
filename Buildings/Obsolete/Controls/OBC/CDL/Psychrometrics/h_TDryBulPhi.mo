@@ -50,8 +50,8 @@ equation
     defaultComponentName="ent",
     Documentation(info="<html>
 <p>
-The correlation used in this model is from 2005
-ASHRAE Handbook Fundamentals, p. 6.9.
+The correlation used in this model is from 2009
+ASHRAE Handbook Fundamentals, p. 1.9, equation 32.
 </p>
 </html>", revisions="<html>
 <ul>
