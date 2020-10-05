@@ -175,14 +175,6 @@ block PartLoadRatios
     annotation (Placement(transformation(extent={{380,-260},{420,-220}}),
         iconTransformation(extent={{100,-110},{140,-70}})));
 
-  CDL.Continuous.Max max1
-    annotation (Placement(transformation(extent={{-300,-60},{-280,-40}})));
-  CDL.Continuous.Sources.Constant smaNum(k=small)
-    annotation (Placement(transformation(extent={{-360,20},{-340,40}})));
-  CDL.Continuous.Max max2
-    annotation (Placement(transformation(extent={{-300,-110},{-280,-90}})));
-  CDL.Continuous.Max max3
-    annotation (Placement(transformation(extent={{-300,-170},{-280,-150}})));
 protected
   final parameter Real small = CDL.Constants.small
   "Small number to avoid division with zero";
@@ -402,6 +394,22 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Switch swi6
     "Logical switch"
     annotation (Placement(transformation(extent={{260,-110},{280,-90}})));
+
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant smaNum(
+    final k=small) "Small constant"
+    annotation (Placement(transformation(extent={{-360,20},{-340,40}})));
+
+  Buildings.Controls.OBC.CDL.Continuous.Max max1
+    "Maximum"
+    annotation (Placement(transformation(extent={{-300,-60},{-280,-40}})));
+
+  Buildings.Controls.OBC.CDL.Continuous.Max max2
+    "Maximum"
+    annotation (Placement(transformation(extent={{-300,-110},{-280,-90}})));
+
+  Buildings.Controls.OBC.CDL.Continuous.Max max3
+    "Maximum"
+    annotation (Placement(transformation(extent={{-300,-170},{-280,-150}})));
 
 equation
   connect(extCurTyp.y, curStaTyp.u)
