@@ -93,9 +93,9 @@ block Speed_flow
 protected
   Buildings.Controls.OBC.CDL.Continuous.PIDWithReset conPID(
     final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PID,
-    final k=1,
-    final Ti=0.5,
-    final Td=0.1,
+    final k=k,
+    final Ti=Ti,
+    final Td=Td,
     final yMax=1,
     final yMin=0)
     "PID loop to regulate flow through decoupler leg"

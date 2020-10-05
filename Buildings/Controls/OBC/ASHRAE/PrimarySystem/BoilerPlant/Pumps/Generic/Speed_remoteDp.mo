@@ -76,9 +76,9 @@ block Speed_remoteDp
 protected
   Buildings.Controls.OBC.CDL.Continuous.PIDWithReset conPID[nSen](
     final controllerType=fill(Buildings.Controls.OBC.CDL.Types.SimpleController.PID,nSen),
-    final k=fill(1,nSen),
-    final Ti=fill(0.5,nSen),
-    final Td=fill(0.1,nSen),
+    final k=fill(k, nSen),
+    final Ti=fill(Ti, nSen),
+    final Td=fill(Td, nSen),
     final yMax=fill(1,nSen),
     final yMin=fill(0,nSen))
     "PID controller for regulating remote differential pressure"
