@@ -69,11 +69,11 @@ The time column contains <code>Real</code> values that are in units of seconds w
 <code>timeScale</code> may be used to scale the time values, such that for <code>timeScale = 3600</code> the values 
 in the first column of the table are interpreted as hours.
 <p>
-Any number of columns can be specified.
+Any number of columns with scheduled values may be specified.
 </p>
 <p>
 The values in all columns apart from the first column must equal to either <code>0</code> or <code>1</code>, 
-to represent <code>false</code> or <code>true</code>, respectively, otherwise a warning is issued.
+to represent <code>false</code> or <code>true</code>, respectively, otherwise the model cannot be initiated.
 </p>
 <p>
 Until a new tabulated value is set, the previous tabulated value is returned.
