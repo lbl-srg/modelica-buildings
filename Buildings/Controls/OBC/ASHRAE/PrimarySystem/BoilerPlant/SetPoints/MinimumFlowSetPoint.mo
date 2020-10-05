@@ -61,7 +61,7 @@ block MinimumFlowSetPoint "Hot water minimum flow setpoint"
     annotation (Placement(transformation(extent={{320,-90},{360,-50}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
-//protected
+protected
   parameter Integer boiInd[nBoi]={i for i in 1:nBoi}
     "Boiler index, {1,2,...,n}";
 
