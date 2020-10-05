@@ -1,0 +1,7 @@
+compareVars :=
+  {
+    "dayConCon.yLigLev",
+    "dayConCon.uDayLev",
+    "dayConCon.uLigSet",
+    "dayConCon.yLigSig"
+  };

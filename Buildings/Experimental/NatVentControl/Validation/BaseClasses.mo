@@ -123,7 +123,15 @@ package BaseClasses "Base classes for night flush validation models"
             lineColor={0,0,255},
             extent={{-150,98},{150,138}},
             textString="%name")}),            Diagram(coordinateSystem(
-            preserveAspectRatio=false)));
+            preserveAspectRatio=false), graphics={Text(
+            extent={{-96,112},{22,68}},
+            lineColor={0,0,0},
+            lineThickness=1,
+            horizontalAlignment=TextAlignment.Left,
+            fontSize=14,
+            fontName="Arial Narrow",
+            textStyle={TextStyle.Bold},
+            textString="San Francisco Forecast High Outdoor Temperature")}));
   end ForecastHighSF;
 
   package Validation

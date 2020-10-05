@@ -91,8 +91,6 @@ block DryBulbLockout
     uHigh=TNitFluCut,
     pre_y_start=false)
     annotation (Placement(transformation(extent={{-60,260},{-40,280}})));
-  Modelica.Blocks.Logical.LogicalSwitch logicalSwitch
-    annotation (Placement(transformation(extent={{122,200},{142,220}})));
   Controls.OBC.CDL.Interfaces.RealInput TRooMea
     "Thermostat setpoint temperature used in window control" annotation (
       Placement(transformation(extent={{-420,160},{-380,200}}),
@@ -113,6 +111,8 @@ block DryBulbLockout
   Controls.OBC.CDL.Logical.And and3
     "Tests if dry bulb temperature is above room setpoint or above threshhold"
     annotation (Placement(transformation(extent={{40,284},{60,304}})));
+  Controls.OBC.CDL.Logical.LogicalSwitch logSwi
+    annotation (Placement(transformation(extent={{120,200},{140,220}})));
 protected
     parameter Real TDryBulCutLo(min=0,
     final unit="K",
@@ -168,9 +168,6 @@ equation
   connect(TDryBul, hysNitFlu.u) annotation (Line(points={{-402,40},{-120,40},{
           -120,270},{-62,270}},
                            color={0,0,127}));
-  connect(uNitFlu, logicalSwitch.u2) annotation (Line(points={{-400,-18},{-260,
-          -18},{-260,210},{120,210}},
-                                color={255,0,255}));
   connect(or2.y,yDryBulOASig)  annotation (Line(points={{180,-10},{189,-10},{189,
           8},{220,8}}, color={255,0,255}));
   connect(add1.y, hys1.u)
@@ -189,26 +186,18 @@ equation
           2,160},{40,160}}, color={255,0,255}));
   connect(not1.y, and1.u1) annotation (Line(points={{2,192},{22,192},{22,168},{
           40,168}}, color={255,0,255}));
-  connect(and3.y, logicalSwitch.u1) annotation (Line(points={{62,294},{92,294},
-          {92,218},{120,218}}, color={255,0,255}));
-  connect(and1.y, logicalSwitch.u3) annotation (Line(points={{64,168},{92,168},
-          {92,202},{120,202}}, color={255,0,255}));
-  connect(logicalSwitch.y, not7.u) annotation (Line(points={{143,210},{180,210},
-          {180,50},{-100,50},{-100,4},{-198,4},{-198,-152},{-20,-152}}, color={
-          255,0,255}));
-  connect(logicalSwitch.y, not2.u) annotation (Line(points={{143,210},{180,210},
-          {180,50},{-100,50},{-100,4},{-198,4},{-198,-210},{-84,-210}}, color={
-          255,0,255}));
-  connect(logicalSwitch.y, intWitRes1.trigger) annotation (Line(points={{143,210},
-          {180,210},{180,50},{-100,50},{-100,4},{-198,4},{-198,-262},{50,-262},
-          {50,-224}},       color={255,0,255}));
-  connect(logicalSwitch.y, swi1.u2) annotation (Line(points={{143,210},{178,210},
-          {178,50},{-98,50},{-98,4},{-198,4},{-198,-90},{-20,-90}}, color={255,
-          0,255}));
   connect(ConZero1.y, intWitRes1.y_reset_in) annotation (Line(points={{-36,-232},
           {28,-232},{28,-220},{38,-220}}, color={0,0,127}));
   connect(ConZero.y, intWitRes.y_reset_in) annotation (Line(points={{-36,-110},
           {28,-110},{28,-98},{38,-98}}, color={0,0,127}));
+  connect(and3.y, logSwi.u1) annotation (Line(points={{62,294},{100,294},{100,
+          218},{118,218}}, color={255,0,255}));
+  connect(and1.y, logSwi.u3) annotation (Line(points={{64,168},{96,168},{96,202},
+          {118,202}}, color={255,0,255}));
+  connect(uNitFlu, logSwi.u2) annotation (Line(points={{-400,-18},{-354,-18},{
+          -354,212},{118,212},{118,210}}, color={255,0,255}));
+  connect(logSwi.y, swi1.u2) annotation (Line(points={{142,210},{174,210},{174,
+          28},{-214,28},{-214,-90},{-20,-90}}, color={255,0,255}));
   annotation (defaultComponentName = "dryBulLoc", Documentation(info="<html>
   <p>
   This block locks out natural ventilation if the dry bulb temperature is unacceptable for natural ventilation based on user-specified conditions.
@@ -258,7 +247,7 @@ equation
           extent={{-148,106},{152,146}},
           textString="%name")}),
                              Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-380,
-            -300},{200,360}}), graphics={
+            -300},{200,420}}), graphics={
         Rectangle(extent={{-378,-182},{200,-300}}, lineColor={28,108,200}),
         Text(
           extent={{-358,-184},{178,-380}},
@@ -286,5 +275,15 @@ equation
           lineColor={28,108,200},
           textString=
               "Tests if conditions are favorable for natural ventilation if not in night flush mode",
-          fontName="Arial Narrow")}));
+          fontName="Arial Narrow"),
+        Text(
+          extent={{-370,404},{30,372}},
+          lineColor={0,0,0},
+          lineThickness=1,
+          fontSize=9,
+          horizontalAlignment=TextAlignment.Left,
+          textStyle={TextStyle.Bold},
+          textString="Dry Bulb Temperature Lockout:
+Locks out natural ventilation if outdoor air temperature is out of user-specified range
+and has been out of range for more than user-specified duration")}));
 end DryBulbLockout;

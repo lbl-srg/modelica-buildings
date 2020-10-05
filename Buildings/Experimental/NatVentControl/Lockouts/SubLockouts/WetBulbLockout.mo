@@ -26,14 +26,6 @@ block WetBulbLockout
     "True if natural ventilation allowed; otherwise false" annotation (
       Placement(transformation(extent={{100,-10},{140,30}}), iconTransformation(
           extent={{100,-18},{140,22}})));
-  Controls.OBC.CDL.Continuous.Hysteresis hys1(
-    uLow=0,
-    uHigh=0.01,
-    pre_y_start=true)
-    "Tests if wet bulb temp is greater than zero. If so, compare to room setpoint. If not, window is not locked out due to wet bulb temperature "
-    annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
-  Controls.OBC.CDL.Logical.And and2
-    annotation (Placement(transformation(extent={{62,-20},{82,0}})));
 protected
           parameter Real TWetBulDifLo(min=0,
     final unit="K",
@@ -46,14 +38,8 @@ equation
           16},{-62,16}}, color={0,0,127}));
   connect(TWetBul, addDif.u2) annotation (Line(points={{-120,-30},{-82,-30},{
           -82,4},{-62,4}}, color={0,0,127}));
-  connect(TWetBul, hys1.u)
-    annotation (Line(points={{-120,-30},{-22,-30}}, color={0,0,127}));
-  connect(and2.y,yWetBulNatVenSig)  annotation (Line(points={{84,-10},{94,-10},
-          {94,10},{120,10}}, color={255,0,255}));
-  connect(hys.y, and2.u1) annotation (Line(points={{2,10},{32,10},{32,-10},{60,
-          -10}}, color={255,0,255}));
-  connect(hys1.y, and2.u2) annotation (Line(points={{2,-30},{32,-30},{32,-18},{
-          60,-18}}, color={255,0,255}));
+  connect(hys.y, yWetBulNatVenSig)
+    annotation (Line(points={{2,10},{120,10}}, color={255,0,255}));
   annotation (defaultComponentName = "wetBulLoc",Documentation(info="<html>
   <p>
   This block locks out natural ventilation if the wet bulb temperature is too high. 
@@ -90,5 +76,16 @@ equation
           lineColor={0,0,255},
           extent={{-146,104},{154,144}},
           textString="%name")}),
-                             Diagram(coordinateSystem(preserveAspectRatio=false)));
+                             Diagram(coordinateSystem(preserveAspectRatio=false),
+        graphics={Text(
+          extent={{-90,98},{310,66}},
+          lineColor={0,0,0},
+          lineThickness=1,
+          fontSize=9,
+          horizontalAlignment=TextAlignment.Left,
+          textStyle={TextStyle.Bold},
+          textString="Wet Bulb Lockout:
+Locks out natural ventilation if room setpoint
+minus wet bulb temperature is less than a user-specified difference
+i.e. wet bulb temperature is too high")}));
 end WetBulbLockout;

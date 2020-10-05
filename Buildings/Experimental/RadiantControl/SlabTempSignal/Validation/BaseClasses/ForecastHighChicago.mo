@@ -98,6 +98,7 @@ block ForecastHighChicago
     "Forecasted high temperature"
     annotation (Placement(transformation(extent={{100,-18},{140,22}})));
   Modelica.Blocks.Discrete.Sampler sampler(samplePeriod=86400, startTime=0)
+    "Samples forecast temperature each day"
     annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
 equation
   connect(modTim1.y, forHi.u) annotation (Line(points={{53,36},{70,36},{70,-9},
@@ -143,5 +144,13 @@ This outputs the next-day high temperature for Chicago, so that an appropriate r
           extent={{226,60},{106,10}},
           lineColor={0,0,0},
           textString=DynamicSelect("", String(y, leftjustified=false, significantDigits=3)))}), Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+        coordinateSystem(preserveAspectRatio=false), graphics={Text(
+          extent={{-94,110},{24,66}},
+          lineColor={0,0,0},
+          lineThickness=1,
+          horizontalAlignment=TextAlignment.Left,
+          fontSize=14,
+          fontName="Arial Narrow",
+          textStyle={TextStyle.Bold},
+          textString="Chicago Forecast High Outdoor Temperature")}));
 end ForecastHighChicago;

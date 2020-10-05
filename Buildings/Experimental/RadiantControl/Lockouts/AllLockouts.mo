@@ -30,18 +30,24 @@ block AllLockouts "Composite block of all lockouts: room air temperature, chille
     final quantity="Time") = 3600 "Time for which cooling is locked out after heating concludes";
 
   Controls.OBC.CDL.Logical.And3 andHea
+    "Combines signals from heating lockouts to produce true signal if heating is allowed"
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
   Controls.OBC.CDL.Logical.And3 andCoo
+    "Combines signals from cooling lockouts to produce true signal if cooling is allowed"
     annotation (Placement(transformation(extent={{60,-60},{80,-40}})));
-  Controls.OBC.CDL.Interfaces.RealInput TWater
+  Controls.OBC.CDL.Interfaces.RealInput TChwRet
+    "Chilled water return temperature"
     annotation (Placement(transformation(extent={{-140,-90},{-100,-50}})));
   Controls.OBC.CDL.Interfaces.BooleanInput htgSig
+    "Heating signal- true if heating is called for, false if not"
     annotation (Placement(transformation(extent={{-140,30},{-100,70}})));
   Controls.OBC.CDL.Interfaces.BooleanInput clgSig
+    "Cooling signal- true if cooling is called for, false if not"
     annotation (Placement(transformation(extent={{-140,-10},{-100,30}})));
-  Controls.OBC.CDL.Interfaces.RealInput TRooAir
+  Controls.OBC.CDL.Interfaces.RealInput TRooAir "Room air temperature"
     annotation (Placement(transformation(extent={{-140,-50},{-100,-10}})));
   Controls.OBC.CDL.Interfaces.BooleanInput nitFluSig
+    "Night flush signal- true if night flush is on"
     annotation (Placement(transformation(extent={{-140,70},{-100,110}})));
   Controls.OBC.CDL.Interfaces.BooleanOutput htgSigL
     "True if heating allowed, false if locked out"
@@ -50,13 +56,17 @@ block AllLockouts "Composite block of all lockouts: room air temperature, chille
     "True if cooling allowed, false if cooling locked out"
     annotation (Placement(transformation(extent={{100,-70},{140,-30}})));
   SubLockouts.HysteresisLimit hysLim(TiHea=TiHea, TiCoo=TiCoo)
+    "Locks out heating (heating signal false) if cooling has just been on; locks out cooling (cooling signal false) if heating has just been on"
     annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
   SubLockouts.AirTemperatureLimit airTemLim(TAirHiSet=TAirHiSet, TAirLoSet=
         TAirLoSet)
+    "Locks out heating (heating signal is false) if air is too hot; locks out cooling (cooling signal is false) if slab is too cold"
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
   SubLockouts.NightFlush nitFluLoc
+    "Locks out heating (heating signal is false) if night flush mode is on"
     annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
-  SubLockouts.ChilledWaterReturnLimit cHWRetLim(TWaLoSet=TWaLoSet, TiCHW=TiCHW)
+  SubLockouts.ChilledWaterReturnLimit chwRetLim(TWaLoSet=TWaLoSet, TiCHW=TiCHW)
+    "Locks out cooling (cooling signal false) if chilled water return temperature is too low"
     annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
 equation
   connect(andHea.y, htgSigL)
@@ -81,9 +91,9 @@ equation
           90},{-82,70},{-42.2,70}}, color={255,0,255}));
   connect(nitFluLoc.htgSigNitFlu, andHea.u1) annotation (Line(points={{-18,70},
           {20,70},{20,38},{58,38}}, color={255,0,255}));
-  connect(TWater, cHWRetLim.TWa) annotation (Line(points={{-120,-70},{-80,-70},
+  connect(TChwRet, chwRetLim.TWa) annotation (Line(points={{-120,-70},{-80,-70},
           {-80,-68},{-42,-68}}, color={0,0,127}));
-  connect(cHWRetLim.cooSigCHWRet, andCoo.u3) annotation (Line(points={{-18,-69},
+  connect(chwRetLim.cooSigChwRet, andCoo.u3) annotation (Line(points={{-18,-69},
           {20,-69},{20,-58},{58,-58}}, color={255,0,255}));
   annotation (defaultComponentName = "allLoc",Documentation(info="<html>
 <p>
@@ -140,5 +150,12 @@ as this indicates that the room needs less cooling than is being provided. <p>
           extent={{226,60},{106,10}},
           lineColor={0,0,0},
           textString=DynamicSelect("", String(y, leftjustified=false, significantDigits=3)))}), Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+        coordinateSystem(preserveAspectRatio=false), graphics={Text(
+          extent={{-64,100},{312,84}},
+          lineColor={0,0,0},
+          lineThickness=1,
+          fontSize=9,
+          horizontalAlignment=TextAlignment.Left,
+          textStyle={TextStyle.Bold},
+          textString="All Lockouts Combined")}));
 end AllLockouts;

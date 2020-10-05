@@ -54,5 +54,13 @@ The purpose of this lockout is to allow the slab to be pre-cooled below its setp
           extent={{226,60},{106,10}},
           lineColor={0,0,0},
           textString=DynamicSelect("", String(y, leftjustified=false, significantDigits=3)))}), Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+        coordinateSystem(preserveAspectRatio=false), graphics={Text(
+          extent={{-94,98},{282,82}},
+          lineColor={0,0,0},
+          lineThickness=1,
+          fontSize=9,
+          horizontalAlignment=TextAlignment.Left,
+          textStyle={TextStyle.Bold},
+          textString="Night Flush Lockout: 
+Locks out heating mode if night flush is on")}));
 end NightFlush;

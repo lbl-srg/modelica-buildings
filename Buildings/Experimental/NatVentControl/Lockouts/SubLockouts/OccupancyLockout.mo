@@ -56,5 +56,14 @@ equation
           lineColor={0,0,255},
           extent={{-138,100},{162,140}},
           textString="%name")}),
-                             Diagram(coordinateSystem(preserveAspectRatio=false)));
+                             Diagram(coordinateSystem(preserveAspectRatio=false),
+        graphics={Text(
+          extent={{-96,106},{304,74}},
+          lineColor={0,0,0},
+          lineThickness=1,
+          fontSize=9,
+          horizontalAlignment=TextAlignment.Left,
+          textStyle={TextStyle.Bold},
+          textString="Occupancy Lockout:
+Locks out natural ventilation if building is unoccupied AND night flush signal is off")}));
 end OccupancyLockout;

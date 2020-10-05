@@ -33,7 +33,7 @@ package Window "Window control for natural ventilation"
       initType=Modelica.Blocks.Types.InitPID.InitialState,
       reverseActing=false)
       annotation (Placement(transformation(extent={{-20,0},{0,20}})));
-    Controls.OBC.CDL.Continuous.Sources.Constant winClose(k=0)
+    Controls.OBC.CDL.Continuous.Sources.Constant winClo(k=0)
       "Signal if window is 0% open"
       annotation (Placement(transformation(extent={{22,-42},{42,-22}})));
   equation
@@ -50,7 +50,7 @@ package Window "Window control for natural ventilation"
       annotation (Line(points={{1,10},{10,10},{10,8},{18,8}}, color={0,0,127}));
     connect(conPID.y, swi.u1) annotation (Line(points={{1,10},{14,10},{14,42},{50,
             42},{50,18},{56,18}}, color={0,0,127}));
-    connect(winClose.y, swi.u3) annotation (Line(points={{44,-32},{52,-32},{52,2},
+    connect(winClo.y, swi.u3) annotation (Line(points={{44,-32},{52,-32},{52,2},
             {56,2}}, color={0,0,127}));
     annotation (defaultComponentName = "winCon", Documentation(info="<html>
   This block determines the window control signal, ie what % the window is called to be open.
@@ -105,7 +105,18 @@ package Window "Window control for natural ventilation"
             extent={{-150,100},{150,140}},
             textString="%name")}),
                             Diagram(coordinateSystem(preserveAspectRatio=false, extent={
-              {-100,-300},{200,100}})));
+              {-100,-300},{200,100}}), graphics={Text(
+            extent={{-92,92},{308,60}},
+            lineColor={0,0,0},
+            lineThickness=1,
+            fontSize=9,
+            horizontalAlignment=TextAlignment.Left,
+            textStyle={TextStyle.Bold},
+            textString="Window Control:
+Modulates window with a PID loop.
+If window position is below user-specified minimum,
+window is treated as closed. 
+")}));
   end WindowControl;
 
   package Validation "Validation model for window control"

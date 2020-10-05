@@ -74,8 +74,8 @@ package NightFlush "Night flush blocks"
                                                       color={0,0,127}));
     connect(sam.y, tabStop.u) annotation (Line(points={{-40,28},{-20,28},{-20,196},
             {268,196},{268,161},{104.2,161}}, color={0,0,127}));
-    connect(hysTem.u, sam.y) annotation (Line(points={{-2,28},{-2,30},{-24,30},{-24,
-            28},{-40,28}},        color={0,0,127}));
+    connect(hysTem.u, sam.y) annotation (Line(points={{-2,28},{-40,28}},
+                                  color={0,0,127}));
     connect(booPul1.y, tim.u) annotation (Line(points={{-58,90},{-2,90}},
                           color={255,0,255}));
     connect(tim.y, add2.u2) annotation (Line(points={{22,90},{26,90},{26,104},{
@@ -178,9 +178,9 @@ If night flush is not on, the setpoint passes through the block unchanged and th
             lineColor={0,0,255},
             extent={{-144,100},{156,140}},
             textString="%name")}),            Diagram(coordinateSystem(
-            preserveAspectRatio=false, extent={{-100,-260},{340,200}}),
+            preserveAspectRatio=false, extent={{-100,-140},{340,240}}),
           graphics={Rectangle(
-            extent={{-100,200},{338,52}},
+            extent={{-100,200},{338,54}},
             lineColor={28,108,200},
             lineThickness=1), Text(
             extent={{242,160},{308,62}},
@@ -192,7 +192,40 @@ stop time
 & after occupancy,
 night flush is allowed
 (if OAT forecast high
-triggers night flush sequence)")}));
+triggers night flush sequence)"),
+                              Text(
+            extent={{-68,44},{-2,-54}},
+            lineColor={28,108,200},
+            lineThickness=1,
+            horizontalAlignment=TextAlignment.Left,
+            textString="Night flush is locked out
+if forecast high is too cold"),
+                    Rectangle(
+            extent={{-98,54},{32,-32}},
+            lineColor={28,108,200},
+            lineThickness=1),
+                    Rectangle(
+            extent={{32,54},{340,-134}},
+            lineColor={28,108,200},
+            lineThickness=1), Text(
+            extent={{192,26},{258,-72}},
+            lineColor={28,108,200},
+            lineThickness=1,
+            horizontalAlignment=TextAlignment.Left,
+            textString="If night flush is active, 
+pass night flush setpoint. 
+Otherwise, 
+pass room setpoint"),
+          Text(
+            extent={{-94,242},{306,210}},
+            lineColor={0,0,0},
+            lineThickness=1,
+            fontSize=9,
+            horizontalAlignment=TextAlignment.Left,
+            textStyle={TextStyle.Bold},
+            textString="Night Flush Dynamic Duration:
+If forecast high calls for night flush,
+night flush mode begins immediately after the last occupied hour and doesn't end until specified stop time from lookup table.")}));
   end NightFlushDynamicDuration;
 
   block NightFlushFixedDuration
@@ -267,8 +300,9 @@ triggers night flush sequence)")}));
             {-28,-10},{-38,-10}}, color={0,0,127}));
     connect(tabDur.y, addPar.u) annotation (Line(points={{55.9,161},{55.9,160},{0,
             160},{0,110},{38,110}}, color={0,0,127}));
-    connect(booPul1.y, tim.u) annotation (Line(points={{-76,-130},{-66,-130},{-66,
-            70},{38,70}}, color={255,0,255}));
+    connect(booPul1.y, tim.u) annotation (Line(points={{-76,-130},{-70,-130},{
+            -70,70},{38,70}},
+                          color={255,0,255}));
     connect(addPar.y, add2.u1) annotation (Line(points={{62,110},{80,110},{80,96},
             {98,96}}, color={0,0,127}));
     connect(tim.y, add2.u2) annotation (Line(points={{62,70},{80,70},{80,84},{98,84}},
@@ -277,8 +311,8 @@ triggers night flush sequence)")}));
       annotation (Line(points={{122,90},{138,90}}, color={0,0,127}));
     connect(sam.y, tabRoo.u) annotation (Line(points={{-38,-10},{-32,-10},{-32,42},
             {148,42},{148,-3},{126.2,-3}}, color={0,0,127}));
-    connect(tabRoo.y, swi.u1) annotation (Line(points={{77.9,-3},{62,-3},{62,-28},
-            {280,-28},{280,-46},{298,-46},{298,-44}}, color={0,0,127}));
+    connect(tabRoo.y, swi.u1) annotation (Line(points={{77.9,-3},{62,-3},{62,
+            -26},{280,-26},{280,-44},{298,-44}},      color={0,0,127}));
     connect(hysNitFlu.y, and3.u1) annotation (Line(points={{162,90},{202,90},{202,
             -44},{238,-44}}, color={255,0,255}));
     connect(swi.y, yRooSetAdj) annotation (Line(points={{322,-52},{334,-52},{334,0},
@@ -335,7 +369,56 @@ If night flush is not on, the setpoint passes through the block unchanged and th
             lineColor={0,0,255},
             extent={{-148,102},{152,142}},
             textString="%name")}),            Diagram(coordinateSystem(
-            preserveAspectRatio=false, extent={{-100,-160},{340,200}})));
+            preserveAspectRatio=false, extent={{-100,-160},{340,280}}),
+          graphics={
+          Text(
+            extent={{-90,270},{310,238}},
+            lineColor={0,0,0},
+            lineThickness=1,
+            fontSize=9,
+            horizontalAlignment=TextAlignment.Left,
+            textStyle={TextStyle.Bold},
+            textString="Night Flush Fixed Duration:
+If forecast high calls for night flush,
+night flush mode begins at a specified start time based on lookup table
+and continues until a fixed stop time specified by the user"),
+                              Text(
+            extent={{-66,12},{0,-86}},
+            lineColor={28,108,200},
+            lineThickness=1,
+            horizontalAlignment=TextAlignment.Left,
+            textString="Night flush is locked out
+if forecast high is too cold"),
+          Rectangle(
+            extent={{-98,46},{36,-62}},
+            lineColor={28,108,200},
+            lineThickness=1),
+          Rectangle(
+            extent={{-98,214},{338,46}},
+            lineColor={28,108,200},
+            lineThickness=1), Text(
+            extent={{194,174},{260,76}},
+            lineColor={28,108,200},
+            lineThickness=1,
+            horizontalAlignment=TextAlignment.Left,
+            textString="If forecast high requires night flush, 
+and it is after the start time
+ (as determined by the lookup table) 
+and before the user-specified stop time,
+ night flush setpoint is determined"),
+                              Text(
+            extent={{234,54},{300,-44}},
+            lineColor={28,108,200},
+            lineThickness=1,
+            horizontalAlignment=TextAlignment.Left,
+            textString="If night flush is active, 
+pass night flush setpoint. 
+Otherwise, 
+pass room setpoint"),
+          Rectangle(
+            extent={{36,46},{340,-160}},
+            lineColor={28,108,200},
+            lineThickness=1)}));
   end NightFlushFixedDuration;
 
   package Validation "Validation model for night flush strategies"
@@ -400,4 +483,20 @@ If night flush is not on, the setpoint passes through the block unchanged and th
     end NightFlushFixed;
 
   end Validation;
+annotation (preferredView="info", Documentation(info="<html>
+<p>
+This package contains the two Night Flush control blocks, which determine night flush setpoints and durations: 
+<li> 1. Night Flush with a Dynamic Duration <a href=\"modelica://Buildings.Experimental.NaturalVentilation.NightFlush\">
+Buildings.Experimental.NaturalVentilation.NightFlush</a>
+<li> 2. Night Flush with a Fixed Duration
+
+<li> This block combines all of the composite lockouts contained in the SubLockouts block.
+<li>More detail is provided in the documentation for the block itself.
+<p> This package also contains the SubLockouts package, which contains the composite sublockouts that make up this control block.
+<li> These sublockouts are due to 
+dry bulb temperature (DryBulbLockout),  manual override from the user (ManualOverrideLockout), 
+<li>room occupancy status (OccupancyLockout),
+<li>rain (RainLockout), wet bulb temperature (WetBulbLockout), and wind speed (WindLockout), respectively.
+</p>
+</html>"));
 end NightFlush;

@@ -194,5 +194,18 @@ equation
           extent={{-150,104},{150,144}},
           textString="%name")}),
                              Diagram(coordinateSystem(preserveAspectRatio=false,
-          extent={{-120,-160},{100,160}})));
+          extent={{-120,-160},{100,160}}), graphics={Text(
+          extent={{-30,144},{370,112}},
+          lineColor={0,0,0},
+          lineThickness=1,
+          fontSize=9,
+          horizontalAlignment=TextAlignment.Left,
+          textStyle={TextStyle.Bold},
+          textString="All Natural Ventilation Lockouts Combined:
+Dry Bulb Temperature
+Manual Override
+Occpancy
+Rain
+Wind
+Wet Bulb Temperature")}));
 end AllLockouts;

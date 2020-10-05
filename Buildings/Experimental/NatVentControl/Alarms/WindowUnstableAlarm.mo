@@ -59,16 +59,18 @@ parameter Real numSwi(min=0)=3 "Allowable number of swings before window is cons
     uHigh=0.1,
     pre_y_start=false)
     annotation (Placement(transformation(extent={{302,-100},{322,-80}})));
-  Modelica.Blocks.Sources.BooleanConstant booleanConstant(k=false)
-    annotation (Placement(transformation(extent={{-42,-190},{-22,-170}})));
   Controls.OBC.CDL.Continuous.Add add2(k1=-1, k2=+1)
     annotation (Placement(transformation(extent={{218,-60},{238,-40}})));
   Controls.OBC.CDL.Continuous.Add add1(k2=-1)
     annotation (Placement(transformation(extent={{218,-100},{238,-80}})));
   Modelica.Blocks.Nonlinear.FixedDelay fixedDelay(delayTime=TiUns)
-    annotation (Placement(transformation(extent={{144,-162},{164,-142}})));
+    annotation (Placement(transformation(extent={{140,-140},{160,-120}})));
   Modelica.Blocks.Nonlinear.FixedDelay fixedDelay1(delayTime=TiUns)
-    annotation (Placement(transformation(extent={{124,0},{144,20}})));
+    annotation (Placement(transformation(extent={{140,-20},{160,0}})));
+  Controls.OBC.CDL.Logical.Sources.Constant con5(k=false) "Constant"
+    annotation (Placement(transformation(extent={{-40,-182},{-20,-162}})));
+  Controls.OBC.CDL.Logical.Sources.Pulse booPul3(period=43000)
+    annotation (Placement(transformation(extent={{142,-298},{162,-278}})));
 equation
   connect(uManOvr, not1.u)
     annotation (Line(points={{-160,48},{-82,48}}, color={255,0,255}));
@@ -93,7 +95,7 @@ equation
     annotation (Line(points={{-2,-50},{-18,-50}}, color={255,0,255}));
   connect(not2.y, onCouInt.trigger) annotation (Line(points={{22,-50},{32,-50},
           {32,-52},{38.8,-52}}, color={255,0,255}));
-  connect(not1.y, and3.u1) annotation (Line(points={{-58,48},{368,48},{368,10},
+  connect(not1.y, and3.u1) annotation (Line(points={{-58,48},{340,48},{340,10},
           {402,10}}, color={255,0,255}));
   connect(hysCouHi.y, andCouAbo.u1) annotation (Line(points={{324,-48},{332,-48},
           {332,-70},{360,-70}}, color={255,0,255}));
@@ -105,10 +107,6 @@ equation
     annotation (Line(points={{284,-90},{300,-90}}, color={0,0,127}));
   connect(andCouAbo.y, and3.u2)
     annotation (Line(points={{384,-70},{384,2},{402,2}}, color={255,0,255}));
-  connect(booleanConstant.y, onCouInt1.reset) annotation (Line(points={{-21,
-          -180},{10,-180},{10,-99.2}}, color={255,0,255}));
-  connect(booleanConstant.y, onCouInt.reset) annotation (Line(points={{-21,-180},
-          {46,-180},{46,-59.2}}, color={255,0,255}));
   connect(addPar3.u, add2.y)
     annotation (Line(points={{260,-50},{240,-50}}, color={0,0,127}));
   connect(addPar4.u, add1.y)
@@ -117,14 +115,19 @@ equation
           160,-56},{216,-56}}, color={0,0,127}));
   connect(intToRea1.y, add1.u1) annotation (Line(points={{102,-92},{160,-92},{
           160,-84},{216,-84}}, color={0,0,127}));
-  connect(intToRea1.y, fixedDelay.u) annotation (Line(points={{102,-92},{128,
-          -92},{128,-152},{142,-152}}, color={0,0,127}));
-  connect(fixedDelay.y, add1.u2) annotation (Line(points={{165,-152},{196,-152},
-          {196,-96},{216,-96}}, color={0,0,127}));
-  connect(intToRea.y, fixedDelay1.u) annotation (Line(points={{102,-52},{112,
-          -52},{112,10},{122,10}}, color={0,0,127}));
-  connect(fixedDelay1.y, add2.u1) annotation (Line(points={{145,10},{164,10},{
-          164,-44},{216,-44}}, color={0,0,127}));
+  connect(intToRea1.y, fixedDelay.u) annotation (Line(points={{102,-92},{120,
+          -92},{120,-130},{138,-130}}, color={0,0,127}));
+  connect(fixedDelay.y, add1.u2) annotation (Line(points={{161,-130},{200,-130},
+          {200,-96},{216,-96}}, color={0,0,127}));
+  connect(intToRea.y, fixedDelay1.u) annotation (Line(points={{102,-52},{120,
+          -52},{120,-10},{138,-10}},
+                                   color={0,0,127}));
+  connect(fixedDelay1.y, add2.u1) annotation (Line(points={{161,-10},{200,-10},
+          {200,-44},{216,-44}},color={0,0,127}));
+  connect(con5.y, onCouInt1.reset) annotation (Line(points={{-18,-172},{10,-172},
+          {10,-99.2}}, color={255,0,255}));
+  connect(con5.y, onCouInt.reset) annotation (Line(points={{-18,-172},{46,-172},
+          {46,-59.2}}, color={255,0,255}));
   annotation (defaultComponentName = "winUnsAla",Documentation(info="<html>
   <p>
   
@@ -167,5 +170,71 @@ If more than the user-defined number of swings (numSwi) occur during the user-sp
                   Polygon(
           points={{-72,-24},{-72,-24}},
           lineColor={28,108,200},
-          lineThickness=1)}));
+          lineThickness=1),
+        Text(
+          extent={{-130,100},{270,68}},
+          lineColor={0,0,0},
+          lineThickness=1,
+          fontSize=9,
+          horizontalAlignment=TextAlignment.Left,
+          textStyle={TextStyle.Bold},
+          textString="Window Instability Alarm
+Triggers alarm if window moves within a specified range more than a specified amount of times within a specified time interval"),
+        Text(
+          extent={{-60,22},{-32,-30}},
+          lineColor={217,67,180},
+          lineThickness=1,
+          fontName="Arial Narrow",
+          horizontalAlignment=TextAlignment.Left,
+          fontSize=12,
+          textString="Continuously counts swings 
+above high threshold and 
+below low threshold"),
+        Rectangle(
+          extent={{-140,22},{58,-240}},
+          lineColor={217,67,180},
+          lineThickness=1),
+        Rectangle(
+          extent={{58,22},{256,-240}},
+          lineColor={217,67,180},
+          lineThickness=1),
+        Text(
+          extent={{90,-158},{118,-210}},
+          lineColor={217,67,180},
+          lineThickness=1,
+          fontName="Arial Narrow",
+          horizontalAlignment=TextAlignment.Left,
+          fontSize=12,
+          textString="Continuously calculates the difference
+between the swing counts
+at the end of the user-specified time interval and the
+swing counts at the beginning of the interval
+(ie the amount of swings within the given interval)"),
+        Rectangle(
+          extent={{256,22},{392,-240}},
+          lineColor={217,67,180},
+          lineThickness=1),
+        Text(
+          extent={{260,-112},{288,-164}},
+          lineColor={217,67,180},
+          lineThickness=1,
+          fontName="Arial Narrow",
+          horizontalAlignment=TextAlignment.Left,
+          fontSize=12,
+          textString="Compares swing count with user-specified 
+swing count threshold.
+If swing counts are both > threshold,
+signal true"),
+        Text(
+          extent={{356,92},{384,40}},
+          lineColor={217,67,180},
+          lineThickness=1,
+          fontName="Arial Narrow",
+          horizontalAlignment=TextAlignment.Left,
+          fontSize=12,
+          textString="If swing count exceeds 
+threshold in user-specified 
+time interval AND 
+manual override is off, 
+trigger alarm (true signal)")}));
 end WindowUnstableAlarm;

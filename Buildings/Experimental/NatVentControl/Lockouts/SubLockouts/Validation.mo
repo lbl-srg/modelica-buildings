@@ -213,4 +213,12 @@ If natural ventilation is locked out due to wind speeds exceeding the specified 
                   points={{-36,58},{64,-2},{-36,-62},{-36,58}})}), Diagram(
           coordinateSystem(preserveAspectRatio=false)));
   end Wind;
+annotation (preferredView="info", Documentation(info="<html>
+<p> This package contains validation models for the composite sublockouts that make up the AllLockouts control block, which contains all natural ventilation lockouts.
+<li> These models validate each of the lockouts:
+dry bulb temperature (DryBulb),  manual override from the user (ManualOverride),  
+<li>room occupancy status (Occupancy),
+<li>rain (Rain), wet bulb temperature (WetBulb), and wind speed (Wind), respectively.
+</p>
+</html>"));
 end Validation;

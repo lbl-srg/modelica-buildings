@@ -18,7 +18,7 @@ block SlabTempAlarm "Trigger alarm if slab temperature is a user-specified amoun
     annotation (Placement(transformation(extent={{-20,-80},{0,-60}})));
   Controls.OBC.CDL.Continuous.Sources.Constant conZer(k=0)
     "Error integral- constant zero"
-    annotation (Placement(transformation(extent={{-22,-42},{-2,-22}})));
+    annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
   Controls.OBC.CDL.Continuous.Sources.Constant           conOne(k=1)
     "Error integral- constant one"
     annotation (Placement(transformation(extent={{-20,80},{0,100}})));
@@ -28,10 +28,12 @@ block SlabTempAlarm "Trigger alarm if slab temperature is a user-specified amoun
   Controls.OBC.CDL.Continuous.IntegratorWithReset           intWitRes
     "Find integral of how long error has been above threshold, reset to zero if error goes below 2 F threshhold"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
-  Controls.OBC.CDL.Interfaces.RealInput slaTemErr annotation (Placement(
+  Controls.OBC.CDL.Interfaces.RealInput slaTemErr "Slab temperature error"
+                                                  annotation (Placement(
         transformation(extent={{-160,10},{-120,50}}), iconTransformation(extent=
            {{-140,10},{-100,50}})));
   Controls.OBC.CDL.Interfaces.BooleanOutput slaTemAla
+    "True if alarm is triggered; false if not"
     annotation (Placement(transformation(extent={{100,10},{140,50}})));
   Controls.OBC.CDL.Continuous.Hysteresis hys(uLow=TErr - 0.1, uHigh=TErr)
     "Trigger alarm if slab temp is out of range by a given amount, if error is sustained for specified time duration"
@@ -44,8 +46,9 @@ equation
                                    color={0,0,127}));
   connect(not7.y,intWitRes. trigger) annotation (Line(points={{2,-70},{30,-70},
           {30,18}},                       color={255,0,255}));
-  connect(conZer.y, swi.u3) annotation (Line(points={{0,-32},{0,0},{-26,0},{-26,
-          22},{-22,22}}, color={0,0,127}));
+  connect(conZer.y, swi.u3) annotation (Line(points={{2,-30},{8,-30},{8,0},{-26,
+          0},{-26,22},{-22,22}},
+                         color={0,0,127}));
   connect(slaTemErr, abs.u)
     annotation (Line(points={{-140,30},{-102,30}}, color={0,0,127}));
   connect(abs.y, hys.u)
@@ -58,10 +61,10 @@ equation
           120,30}}, color={255,0,255}));
   connect(conOne.y, swi.u1) annotation (Line(points={{2,90},{6,90},{6,56},{-28,
           56},{-28,38},{-22,38}}, color={0,0,127}));
-  connect(hys.y, not7.u) annotation (Line(points={{-38,30},{-34,30},{-34,-44},{
-          -50,-44},{-50,-70},{-22,-70}}, color={255,0,255}));
-  connect(conZer.y, intWitRes.y_reset_in) annotation (Line(points={{0,-32},{8,
-          -32},{8,22},{18,22}}, color={0,0,127}));
+  connect(hys.y, not7.u) annotation (Line(points={{-38,30},{-32,30},{-32,-70},{
+          -22,-70}},                     color={255,0,255}));
+  connect(conZer.y, intWitRes.y_reset_in) annotation (Line(points={{2,-30},{8,
+          -30},{8,22},{18,22}}, color={0,0,127}));
   annotation (defaultComponentName = "slaTemAla",Documentation(info="<html>
 <p>
 This block is a slab temperature alarm, which will show true if the slab temperature
@@ -109,5 +112,54 @@ has been a user-specified amount above or below setpoint (TErr) for a user-speci
           extent={{226,60},{106,10}},
           lineColor={0,0,0},
           textString=DynamicSelect("", String(y, leftjustified=false, significantDigits=3)))}), Diagram(coordinateSystem(preserveAspectRatio=false,
-          extent={{-120,-100},{100,100}})));
+          extent={{-120,-100},{100,100}}), graphics={
+        Text(
+          extent={{-118,86},{258,70}},
+          lineColor={0,0,0},
+          lineThickness=1,
+          fontSize=9,
+          horizontalAlignment=TextAlignment.Left,
+          textStyle={TextStyle.Bold},
+          textString="Slab Temperature Alarm:
+Alarm shows true 
+if slab temperature 
+has been a 
+user-specified 
+amount out of range
+for a user-specified
+duration"),
+        Rectangle(
+          extent={{-70,100},{50,-100}},
+          lineColor={217,67,180},
+          lineThickness=1),
+        Rectangle(
+          extent={{50,100},{100,-100}},
+          lineColor={217,67,180},
+          lineThickness=1),
+        Text(
+          extent={{-66,98},{-38,46}},
+          lineColor={217,67,180},
+          lineThickness=1,
+          fontName="Arial Narrow",
+          horizontalAlignment=TextAlignment.Left,
+          fontSize=12,
+          textString="Integrates for each 
+second 
+slab temperature
+is out of range;
+resets to zero if
+slab temperature
+is no longer
+out of range"),
+        Text(
+          extent={{58,100},{86,48}},
+          lineColor={217,67,180},
+          lineThickness=1,
+          fontName="Arial Narrow",
+          horizontalAlignment=TextAlignment.Left,
+          fontSize=12,
+          textString="Tests if 
+time integral is
+greater than
+time threshhold")}));
 end SlabTempAlarm;

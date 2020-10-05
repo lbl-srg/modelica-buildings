@@ -11,6 +11,7 @@ block AirTemperatureLimit "Locks out heating if room air is hotter than user-spe
     final quantity="Temperature")=293.15
     "Air temperature low limit below which heating is locked out";
   Buildings.Controls.OBC.CDL.Logical.Not           not2
+    "Negates hysteresis output to give heating signal"
     annotation (Placement(transformation(extent={{40,20},{60,40}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput htgSigAirTem
     "True if heating is allowed, false if heating is locked out because room air is too hot"
@@ -78,5 +79,14 @@ of the final heating or cooling signal, which depends on the slab temperature an
           extent={{226,60},{106,10}},
           lineColor={0,0,0},
           textString=DynamicSelect("", String(y, leftjustified=false, significantDigits=3)))}), Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+        coordinateSystem(preserveAspectRatio=false), graphics={Text(
+          extent={{-70,96},{306,80}},
+          lineColor={0,0,0},
+          lineThickness=1,
+          fontSize=9,
+          horizontalAlignment=TextAlignment.Left,
+          textStyle={TextStyle.Bold},
+          textString="Air Temperature Lockout: 
+Lock out heating if room air temperature is above user-specified high threshold
+Lock out cooling if room air temperature is below user specified low threshold")}));
 end AirTemperatureLimit;

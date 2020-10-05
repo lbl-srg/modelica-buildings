@@ -75,7 +75,6 @@ This model validates the VAV temperature setpoint model during the natural venti
                   points={{-36,58},{64,-2},{-36,-62},{-36,58}})}), Diagram(
           coordinateSystem(preserveAspectRatio=false)));
   end SetpointTemperature;
-
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end Validation;

@@ -11,7 +11,7 @@ package Validation "Validation models for natural ventilation alarms"
     WindowUnstableAlarm winUnsAla2(TiUns=4800)
       annotation (Placement(transformation(extent={{42,-80},{62,-60}})));
     Controls.OBC.CDL.Logical.Sources.Constant con1(k=false)
-      annotation (Placement(transformation(extent={{-80,-54},{-60,-34}})));
+      annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
     Controls.OBC.CDL.Continuous.Sources.Sine sin(
       amplitude=0.95,
       freqHz=1/1200,
@@ -22,23 +22,23 @@ package Validation "Validation models for natural ventilation alarms"
       annotation (Placement(transformation(extent={{-80,-180},{-60,-160}})));
     Controls.OBC.CDL.Logical.Switch swi
       annotation (Placement(transformation(extent={{-20,-120},{0,-100}})));
-    Modelica.Blocks.Sources.BooleanPulse booleanPulse(width=20, period=86400)
-      annotation (Placement(transformation(extent={{-80,-136},{-60,-116}})));
+    Controls.OBC.CDL.Logical.Sources.Pulse booPul3(width=0.2, period=86400)
+      annotation (Placement(transformation(extent={{-82,-138},{-62,-118}})));
   equation
     connect(winUnsAla1.uManOvr, con.y) annotation (Line(points={{-22,33},{-40,
             33},{-40,30},{-58,30}}, color={255,0,255}));
     connect(pulWinSta.y, winUnsAla1.uWinPos) annotation (Line(points={{-58,-10},
             {-40,-10},{-40,27.2},{-22,27.2}}, color={0,0,127}));
     connect(winUnsAla2.uManOvr, con1.y) annotation (Line(points={{40,-67},{-28,
-            -67},{-28,-44},{-58,-44}}, color={255,0,255}));
+            -67},{-28,-50},{-58,-50}}, color={255,0,255}));
     connect(swi.y, winUnsAla2.uWinPos) annotation (Line(points={{2,-110},{22,-110},
             {22,-72.8},{40,-72.8}}, color={0,0,127}));
     connect(sin.y, swi.u1) annotation (Line(points={{-58,-88},{-42,-88},{-42,
             -102},{-22,-102}}, color={0,0,127}));
     connect(pulWinSta1.y, swi.u3) annotation (Line(points={{-58,-170},{-40,-170},
             {-40,-118},{-22,-118}}, color={0,0,127}));
-    connect(booleanPulse.y, swi.u2) annotation (Line(points={{-59,-126},{-52,
-            -126},{-52,-110},{-22,-110}}, color={255,0,255}));
+    connect(booPul3.y, swi.u2) annotation (Line(points={{-60,-128},{-48,-128},{
+            -48,-110},{-22,-110}}, color={255,0,255}));
     annotation (Documentation(info="<html>
 <p>
 This model validates the window instability alarm, which should show true if the window fluctuates within a given range more than a user-specified amount of times within a user-specified time duration.
@@ -113,4 +113,10 @@ This model validates the zone temperature alarm, which should show true if the z
                   points={{-36,58},{64,-2},{-36,-62},{-36,58}})}), Diagram(
           coordinateSystem(preserveAspectRatio=false)));
   end ZoneTemperature;
+annotation (preferredView="info", Documentation(info="<html>
+<p>
+This package contains validation models for Alarms, which indicate if the window position is unstable (WindowUnstable) 
+<l> or if room conditions are out of range (ZoneTemperature).
+</p>
+</html>"));
 end Validation;

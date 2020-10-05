@@ -16,7 +16,7 @@ parameter Real AreaMinFlo(min=0,
   Controls.OBC.CDL.Continuous.Sources.Constant AreaMinimum(k=AreaMinFlo)
     "Area minimum ventilation airflow"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
-  Controls.OBC.CDL.Continuous.Sources.Constant VentMinimum(k=VentMinFlo)
+  Controls.OBC.CDL.Continuous.Sources.Constant VentilationMinimum(k=VentMinFlo)
     "Ventilation minimum airflow"
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
   Controls.OBC.CDL.Interfaces.BooleanInput natVenSig
@@ -39,8 +39,8 @@ parameter Real AreaMinFlo(min=0,
      Placement(transformation(extent={{100,-10},{140,30}}), iconTransformation(
           extent={{100,-20},{140,20}})));
 equation
-  connect(VentMinimum.y, swi.u1) annotation (Line(points={{-38,70},{-20,70},{-20,
-          58},{-2,58}}, color={0,0,127}));
+  connect(VentilationMinimum.y, swi.u1) annotation (Line(points={{-38,70},{-20,
+          70},{-20,58},{-2,58}}, color={0,0,127}));
   connect(AreaMinimum.y, swi.u3) annotation (Line(points={{-38,30},{-20,30},{-20,
           42},{-2,42}}, color={0,0,127}));
   connect(rooPop, swi.u2)
@@ -80,5 +80,32 @@ equation
           lineColor={0,0,255},
           extent={{-152,100},{148,140}},
           textString="%name")}),
-                             Diagram(coordinateSystem(preserveAspectRatio=false)));
+                             Diagram(coordinateSystem(preserveAspectRatio=false),
+        graphics={
+        Text(
+          extent={{-94,106},{306,74}},
+          lineColor={0,0,0},
+          lineThickness=1,
+          fontSize=9,
+          horizontalAlignment=TextAlignment.Left,
+          textStyle={TextStyle.Bold},
+          textString="VAV Airflow Setpoint Reset:
+Selects VAV airflow setpoint
+based on natural ventilation status and other room conditions. 
+"),     Text(
+          extent={{20,72},{66,66}},
+          lineColor={28,108,200},
+          lineThickness=1,
+          textString="If natural ventilation is active,
+set flow setpoint to 
+ventilation minimum
+if room is occupied and 
+area minimum
+if room is unoccupied."),
+        Text(
+          extent={{22,-8},{68,-14}},
+          lineColor={28,108,200},
+          lineThickness=1,
+          textString="If natural ventilation is not active,
+pass current flow setpoint through unchanged.")}));
 end SetpointAirflowReset;

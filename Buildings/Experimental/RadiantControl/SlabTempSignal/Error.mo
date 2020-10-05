@@ -58,5 +58,16 @@ This term is what drives calls for heating or for cooling.
           extent={{226,60},{106,10}},
           lineColor={0,0,0},
           textString=DynamicSelect("", String(y, leftjustified=false, significantDigits=3)))}), Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+        coordinateSystem(preserveAspectRatio=false), graphics={Text(
+          extent={{-48,86},{48,40}},
+          lineColor={0,0,0},
+          lineThickness=1,
+          horizontalAlignment=TextAlignment.Left,
+          fontSize=14,
+          fontName="Arial Narrow",
+          textStyle={TextStyle.Bold},
+          textString="Slab Error:
+Calculates slab error 
+from slab temperature 
+and slab setpoint")}));
 end Error;

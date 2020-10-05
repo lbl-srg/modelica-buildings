@@ -43,64 +43,75 @@ parameter Real TDeaNor(min=0,
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
   Controls.OBC.CDL.Logical.And and1 "Final cooling signal"
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
-  Controls.OBC.CDL.Interfaces.RealInput TRooAir
+  Controls.OBC.CDL.Interfaces.RealInput TRooAir "Room air temperature"
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
-  Controls.OBC.CDL.Interfaces.RealInput TSla
+  Controls.OBC.CDL.Interfaces.RealInput TSla "Slab temperature"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
-  Controls.OBC.CDL.Interfaces.RealInput TWaRet
+  Controls.OBC.CDL.Interfaces.RealInput TWaRet "Water return temperature"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
-  SlabTempSignal.Error error
+  SlabTempSignal.Error err "Slab temperature error"
     annotation (Placement(transformation(extent={{-58,40},{-38,60}})));
-  Controls.OBC.CDL.Interfaces.RealInput TSlaSet
+  Controls.OBC.CDL.Interfaces.RealInput TSlaSet "Slab temperature setpoint"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
   Controls.OBC.CDL.Interfaces.BooleanInput nitFluSig
+    "Night flush signal- true if night flush on; false if not"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Controls.OBC.CDL.Interfaces.BooleanOutput htgSig
+    "True if heating is called for; false if not"
     annotation (Placement(transformation(extent={{100,24},{140,64}})));
   Controls.OBC.CDL.Interfaces.BooleanOutput clgSig
+    "True if cooling is called for; false if not"
     annotation (Placement(transformation(extent={{100,-50},{140,-10}})));
-  Lockouts.AllLockouts allLockouts1
+  Lockouts.AllLockouts allLoc(
+    TAirHiSet=TAirHiSet,
+    TAirLoSet=TAirLoSet,
+    TWaLoSet=TWaLoSet,
+    TiCHW=TiCHW,
+    TiHea=TiHea,
+    TiCoo=TiCoo) "All lockouts, combined"
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));
-  Modelica.Blocks.Logical.Pre pre1
-    annotation (Placement(transformation(extent={{60,60},{80,80}})));
-  Modelica.Blocks.Logical.Pre pre2
-    annotation (Placement(transformation(extent={{60,-40},{80,-20}})));
-  SlabTempSignal.DeadbandControl DeaConErrSwi
+  SlabTempSignal.DeadbandControl deaCon(
+    TDeaRel=TDeaRel,
+    TDeaNor=TDeaNor,
+    k=k) "Slab temperature deadband control"
     annotation (Placement(transformation(extent={{-24,38},{6,68}})));
+  Controls.OBC.CDL.Logical.Pre pre "Breaks recursive loop"
+    annotation (Placement(transformation(extent={{60,-40},{80,-20}})));
+  Controls.OBC.CDL.Logical.Pre pre1 "Breaks recursive loop"
+    annotation (Placement(transformation(extent={{60,60},{80,80}})));
 equation
-  connect(error.TSlaSet, TSlaSet) annotation (Line(points={{-60,47},{-60,48},{
-          -96,48},{-96,40},{-120,40}},
-                               color={0,0,127}));
-  connect(error.TSla, TSla) annotation (Line(points={{-60,51},{-60,80},{-120,80}},
-                          color={0,0,127}));
+  connect(err.TSlaSet, TSlaSet) annotation (Line(points={{-60,47},{-60,48},{-96,
+          48},{-96,40},{-120,40}}, color={0,0,127}));
+  connect(err.TSla, TSla)
+    annotation (Line(points={{-60,51},{-60,80},{-120,80}}, color={0,0,127}));
   connect(and1.y, clgSig) annotation (Line(points={{42,-10},{94,-10},{94,-30},{120,
           -30}}, color={255,0,255}));
   connect(and2.y, htgSig) annotation (Line(points={{42,50},{94,50},{94,44},{120,
           44}}, color={255,0,255}));
-  connect(nitFluSig, allLockouts1.nitFluSig) annotation (Line(points={{-120,0},{
-          -86,0},{-86,19},{-22,19}}, color={255,0,255}));
-  connect(TRooAir,allLockouts1.TRooAir)  annotation (Line(points={{-120,-40},{-78,
-          -40},{-78,7},{-22,7}},  color={0,0,127}));
-  connect(TWaRet, allLockouts1.TWater) annotation (Line(points={{-120,-80},{-40,
-          -80},{-40,3},{-22,3}},   color={0,0,127}));
-  connect(allLockouts1.htgSigL, and2.u2) annotation (Line(points={{2,13},{16,13},
-          {16,42},{18,42}}, color={255,0,255}));
-  connect(and2.y, pre1.u) annotation (Line(points={{42,50},{46,50},{46,70},{58,70}},
-                     color={255,0,255}));
-  connect(and1.y, pre2.u) annotation (Line(points={{42,-10},{42,-30},{58,-30}},
-                           color={255,0,255}));
-  connect(pre2.y,allLockouts1.clgSig)  annotation (Line(points={{81,-30},{88,-30},
-          {88,-90},{-60,-90},{-60,11},{-22,11}},         color={255,0,255}));
-  connect(allLockouts1.clgSigL, and1.u2) annotation (Line(points={{2,5},{6,5},{6,
-          -18},{18,-18}}, color={255,0,255}));
-  connect(pre1.y,allLockouts1.htgSig)  annotation (Line(points={{81,70},{90,70},
-          {90,98},{-80,98},{-80,16},{-28,16},{-28,15},{-22,15}}, color={255,0,255}));
-  connect(error.slaTemErr, DeaConErrSwi.slaTemErr) annotation (Line(points={{-36,
-          51},{-32,51},{-32,39.2},{-26.6,39.2}}, color={0,0,127}));
-  connect(DeaConErrSwi.clgCal, and1.u1) annotation (Line(points={{8,44},{12,44},
-          {12,-10},{18,-10}}, color={255,0,255}));
-  connect(DeaConErrSwi.htgCal, and2.u1) annotation (Line(points={{8,54},{14,54},
-          {14,50},{18,50}}, color={255,0,255}));
+  connect(nitFluSig, allLoc.nitFluSig) annotation (Line(points={{-120,0},{-86,0},
+          {-86,19},{-22,19}}, color={255,0,255}));
+  connect(TRooAir, allLoc.TRooAir) annotation (Line(points={{-120,-40},{-78,-40},
+          {-78,7},{-22,7}}, color={0,0,127}));
+  connect(TWaRet, allLoc.TChwRet) annotation (Line(points={{-120,-80},{-40,-80},
+          {-40,3},{-22,3}}, color={0,0,127}));
+  connect(allLoc.htgSigL, and2.u2) annotation (Line(points={{2,13},{16,13},{16,
+          42},{18,42}}, color={255,0,255}));
+  connect(allLoc.clgSigL, and1.u2) annotation (Line(points={{2,5},{6,5},{6,-18},
+          {18,-18}}, color={255,0,255}));
+  connect(err.slaTemErr, deaCon.slaTemErr) annotation (Line(points={{-36,51},{-32,
+          51},{-32,39.2},{-26.6,39.2}}, color={0,0,127}));
+  connect(deaCon.clgCal, and1.u1) annotation (Line(points={{8,44},{12,44},{12,-10},
+          {18,-10}}, color={255,0,255}));
+  connect(deaCon.htgCal, and2.u1) annotation (Line(points={{8,54},{14,54},{14,
+          50},{18,50}}, color={255,0,255}));
+  connect(and1.y, pre.u) annotation (Line(points={{42,-10},{50,-10},{50,-30},{
+          58,-30}}, color={255,0,255}));
+  connect(pre.y, allLoc.clgSig) annotation (Line(points={{82,-30},{86,-30},{86,
+          -60},{-60,-60},{-60,11},{-22,11}}, color={255,0,255}));
+  connect(and2.y, pre1.u) annotation (Line(points={{42,50},{50,50},{50,70},{58,
+          70}}, color={255,0,255}));
+  connect(pre1.y, allLoc.htgSig) annotation (Line(points={{82,70},{84,70},{84,
+          94},{-74,94},{-74,15},{-22,15}}, color={255,0,255}));
   annotation (defaultComponentName = "conPluLoc",Documentation(info="<html>
 <p>
 This encompasses full radiant control based on water return temperature, room air temperature, night flush signal, slab temperature, and slab setpoint. <p>
@@ -165,5 +176,17 @@ Cooling is locked out if room air temperature is too cold (below a user-specifie
           extent={{226,60},{106,10}},
           lineColor={0,0,0},
           textString=DynamicSelect("", String(y, leftjustified=false, significantDigits=3)))}), Diagram(coordinateSystem(
-          preserveAspectRatio=false, extent={{-100,-100},{100,100}})));
+          preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics={
+          Text(
+          extent={{-50,90},{326,74}},
+          lineColor={0,0,0},
+          lineThickness=1,
+          fontSize=9,
+          horizontalAlignment=TextAlignment.Left,
+          textStyle={TextStyle.Bold},
+          textString="Control Plus Lockouts:
+Full radiant control-
+slab error,
+deadband control,
+and lockouts")}));
 end ControlPlusLockouts;

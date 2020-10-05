@@ -42,5 +42,4 @@ This validates the Chicago forecast high.
                   points={{-36,58},{64,-2},{-36,-62},{-36,58}})}), Diagram(
           coordinateSystem(preserveAspectRatio=false)));
   end ChicagoForecastHigh;
-
 end Validation;

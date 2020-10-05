@@ -4,7 +4,18 @@ package RadiantControl "Radiant Control Sequence"
 
 
 
-annotation (Icon(graphics={
+annotation (Documentation(info="<html>
+  <p>
+  This package contains a radiant control module and its constitutive blocks, 
+  <p> as well as a package of Alarms (to indicate that the slab behavior is out of range).
+  
+  The main module, ControlPlusLockouts, determines heating and cooling control for a radiant slab. 
+  
+  <p>
+  Blocks in the Lockouts and SlabTempSignal packages are the composite pieces of the above control block. 
+<p>
+</p>
+</html>"),Icon(graphics={
       Rectangle(
         extent={{-100,100},{100,-100}},
         lineColor={217,67,180},

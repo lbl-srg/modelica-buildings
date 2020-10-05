@@ -51,5 +51,14 @@ equation
           lineColor={0,0,255},
           extent={{-146,102},{154,142}},
           textString="%name")}),
-                             Diagram(coordinateSystem(preserveAspectRatio=false)));
+                             Diagram(coordinateSystem(preserveAspectRatio=false),
+        graphics={Text(
+          extent={{-96,104},{304,72}},
+          lineColor={0,0,0},
+          lineThickness=1,
+          fontSize=9,
+          horizontalAlignment=TextAlignment.Left,
+          textStyle={TextStyle.Bold},
+          textString="Manual Override Lockout:
+Locks out natural ventilation if manual override is on")}));
 end ManualOverrideLockout;

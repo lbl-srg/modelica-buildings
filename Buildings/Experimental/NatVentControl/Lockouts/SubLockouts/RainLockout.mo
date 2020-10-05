@@ -59,5 +59,14 @@ equation
           lineColor={0,0,255},
           extent={{-144,104},{156,144}},
           textString="%name")}),
-                             Diagram(coordinateSystem(preserveAspectRatio=false)));
+                             Diagram(coordinateSystem(preserveAspectRatio=false),
+        graphics={Text(
+          extent={{-94,102},{306,70}},
+          lineColor={0,0,0},
+          lineThickness=1,
+          fontSize=9,
+          horizontalAlignment=TextAlignment.Left,
+          textStyle={TextStyle.Bold},
+          textString="Rain Lockout: 
+Locks out natural ventilation for a user-specified duration if rain is detected")}));
 end RainLockout;

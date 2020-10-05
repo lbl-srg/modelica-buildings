@@ -66,5 +66,14 @@ equation
           lineColor={0,0,255},
           extent={{-154,104},{146,144}},
           textString="%name")}),
-                             Diagram(coordinateSystem(preserveAspectRatio=false)));
+                             Diagram(coordinateSystem(preserveAspectRatio=false),
+        graphics={Text(
+          extent={{-88,94},{312,62}},
+          lineColor={0,0,0},
+          lineThickness=1,
+          fontSize=9,
+          horizontalAlignment=TextAlignment.Left,
+          textStyle={TextStyle.Bold},
+          textString="Wind Lockout:
+Locks out natural ventilation if wind speed is above a user-specified threshold")}));
 end WindLockout;
