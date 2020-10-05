@@ -3,7 +3,6 @@ block TDewPoi_TDryBulPhi
   "Block to compute the dew point temperature based on relative humidity"
   extends Modelica.Icons.ObsoleteModel;
 
-
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TDryBul(
     final quantity="ThermodynamicTemperature",
     final unit="K",

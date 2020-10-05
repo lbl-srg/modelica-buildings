@@ -1,6 +1,7 @@
 within Buildings.Obsolete.Controls.OBC.CDL.Psychrometrics;
 block h_TDryBulPhi
   "Block to compute the specific enthalpy based on relative humidity"
+  extends Modelica.Icons.ObsoleteModel;
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TDryBul(
     final quantity="ThermodynamicTemperature",
@@ -48,6 +49,7 @@ equation
 
     annotation (
     defaultComponentName="ent",
+    obsolete = "Obsolete model, use Buildings.Controls.OBC.CDL.Psychrometrics.SpecificEnthalpy_TDryBulPhi instead",
     Documentation(info="<html>
 <p>
 The correlation used in this model is from 2009
