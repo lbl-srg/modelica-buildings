@@ -2,7 +2,7 @@ within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.ChilledWat
 block Controller
   "Sequences to control chilled water pumps in primary-only plant system"
 
-  parameter Boolean is_heaPum = true
+  parameter Boolean have_heaPum = true
     "Flag of headered chilled water pumps design: true=headered, false=dedicated";
   parameter Boolean have_LocalSensor = false
     "Flag of local DP sensor: true=local DP sensor hardwired to controller";
@@ -58,11 +58,11 @@ block Controller
   final parameter Integer pumInd[nPum]={i for i in 1:nPum}
     "Pump index, {1,2,...,n}";
 
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uPumLeaLag[nPum] if is_heaPum
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uPumLeaLag[nPum] if have_heaPum
     "Index of chilled water pumps in lead-lag order: lead pump, first lag pump, second lag pump, etc."
     annotation (Placement(transformation(extent={{-320,210},{-280,250}}),
       iconTransformation(extent={{-140,80},{-100,120}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uPla if not is_heaPum
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uPla if not have_heaPum
     "True: plant is enabled"
     annotation (Placement(transformation(extent={{-320,160},{-280,200}}),
       iconTransformation(extent={{-140,60},{-100,100}})));
@@ -70,24 +70,24 @@ block Controller
     "Chilled water pumps operating status"
     annotation (Placement(transformation(extent={{-320,120},{-280,160}}),
       iconTransformation(extent={{-140,40},{-100,80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uLeaChiEna if not is_heaPum
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uLeaChiEna if not have_heaPum
     "Lead chiller enabling status"
     annotation (Placement(transformation(extent={{-320,90},{-280,130}}),
       iconTransformation(extent={{-140,20},{-100,60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uLeaChiSta if not is_heaPum
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uLeaChiSta if not have_heaPum
     "Lead chiller proven on status"
     annotation (Placement(transformation(extent={{-320,60},{-280,100}}),
       iconTransformation(extent={{-140,0},{-100,40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uLeaChiWatReq if not is_heaPum
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uLeaChiWatReq if not have_heaPum
     "Status indicating if lead chiller is requesting chilled water"
     annotation (Placement(transformation(extent={{-320,30},{-280,70}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChiIsoVal[nChi] if is_heaPum
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChiIsoVal[nChi] if have_heaPum
     "Chilled water isolation valve status"
     annotation (Placement(transformation(extent={{-320,0},{-280,40}}),
       iconTransformation(extent={{-140,-40},{-100,0}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VChiWat_flow(
-    final unit="m3/s") if is_heaPum
+    final unit="m3/s") if have_heaPum
     "Chilled water flow"
     annotation (Placement(transformation(extent={{-320,-40},{-280,0}}),
       iconTransformation(extent={{-140,-60},{-100,-20}})));
@@ -114,7 +114,7 @@ block Controller
     annotation (Placement(transformation(extent={{280,50},{320,90}}),
       iconTransformation(extent={{100,60},{140,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yChiWatPum[nPum] if
-    is_heaPum
+    have_heaPum
     "Chilled water pump status setpoint"
     annotation (Placement(transformation(extent={{280,-20},{320,20}}),
       iconTransformation(extent={{100,-20},{140,20}})));
@@ -126,18 +126,18 @@ block Controller
       iconTransformation(extent={{100,-100},{140,-60}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.ChilledWater.Subsequences.EnableLead_dedicated
-    enaDedLeaPum if not is_heaPum
+    enaDedLeaPum if not have_heaPum
     "Enable lead pump of dedicated pumps"
     annotation (Placement(transformation(extent={{-200,100},{-180,120}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.ChilledWater.Subsequences.EnableLead_headered
-    enaHeaLeaPum(final nChi=nChi) if is_heaPum
+    enaHeaLeaPum(final nChi=nChi) if have_heaPum
     "Enable lead pump of headered pumps"
     annotation (Placement(transformation(extent={{-200,60},{-180,80}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.ChilledWater.Subsequences.EnableLag_primary_dP
     enaLagChiPum(
     final nPum=nPum,
     final nPum_nominal=nPum_nominal,
-    final VChiWat_flow_nominal=VChiWat_flow_nominal) if is_heaPum
+    final VChiWat_flow_nominal=VChiWat_flow_nominal) if have_heaPum
     "Enable lag pump for primary-only plants using differential pressure pump speed control"
     annotation (Placement(transformation(extent={{-200,-10},{-180,10}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.ChilledWater.Subsequences.Speed_primary_localDp
@@ -167,105 +167,105 @@ block Controller
     "Chilled water pump speed control with remote DP sensor"
     annotation (Placement(transformation(extent={{-60,-250},{-40,-230}})));
   Buildings.Controls.OBC.CDL.Logical.LogicalSwitch leaPumSta[nPum] if
-    is_heaPum                                                     "Lead pump status"
+    have_heaPum                                                     "Lead pump status"
     annotation (Placement(transformation(extent={{120,180},{140,200}})));
   Buildings.Controls.OBC.CDL.Logical.LogicalSwitch nexLagPumSta[nPum] if
-    is_heaPum
+    have_heaPum
     "Next lag pump status"
     annotation (Placement(transformation(extent={{120,-40},{140,-20}})));
   Buildings.Controls.OBC.CDL.Logical.LogicalSwitch lasLagPumSta[nPum] if
-    is_heaPum
+    have_heaPum
     "Last lag pump status"
     annotation (Placement(transformation(extent={{120,-100},{140,-80}})));
-  Buildings.Controls.OBC.CDL.Logical.Or enaPum[nPum] if is_heaPum
+  Buildings.Controls.OBC.CDL.Logical.Or enaPum[nPum] if have_heaPum
     "Chilled water pump status"
     annotation (Placement(transformation(extent={{180,-40},{200,-20}})));
-  Buildings.Controls.OBC.CDL.Logical.And pumSta[nPum] if is_heaPum
+  Buildings.Controls.OBC.CDL.Logical.And pumSta[nPum] if have_heaPum
     "Chilled water pump status"
     annotation (Placement(transformation(extent={{180,-100},{200,-80}})));
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch addPum[nPum] if is_heaPum
+  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch addPum[nPum] if have_heaPum
     "Add pump"
     annotation (Placement(transformation(extent={{240,-10},{260,10}})));
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch remPum[nPum] if is_heaPum
+  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch remPum[nPum] if have_heaPum
     "Remove pump"
     annotation (Placement(transformation(extent={{220,-80},{240,-60}})));
 
 protected
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(
-    final k=1) if is_heaPum
+    final k=1) if have_heaPum
     "Constant one"
     annotation (Placement(transformation(extent={{-220,190},{-200,210}})));
   Buildings.Controls.OBC.CDL.Routing.IntegerReplicator intRep(
-    final nout=nPum) if is_heaPum
+    final nout=nPum) if have_heaPum
     "Replicate integer input"
     annotation (Placement(transformation(extent={{0,220},{20,240}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep(
-    final nout=nPum) if is_heaPum
+    final nout=nPum) if have_heaPum
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{0,100},{20,120}})));
   Buildings.Controls.OBC.CDL.Routing.IntegerReplicator intRep1(
-    final nout=nPum) if is_heaPum
+    final nout=nPum) if have_heaPum
     "Replicate integer input"
     annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep1(
-    final nout=nPum) if is_heaPum
+    final nout=nPum) if have_heaPum
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
   Buildings.Controls.OBC.CDL.Routing.IntegerReplicator intRep2(
-    final nout=nPum) if is_heaPum
+    final nout=nPum) if have_heaPum
     "Replicate integer input"
     annotation (Placement(transformation(extent={{0,-110},{20,-90}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep2(
-    final nout=nPum) if is_heaPum
+    final nout=nPum) if have_heaPum
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
   Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea[nPum] if
-       is_heaPum
+       have_heaPum
     "Convert integer to real number"
     annotation (Placement(transformation(extent={{-220,220},{-200,240}})));
   Buildings.Controls.OBC.CDL.Routing.RealExtractor leaPum(
-    final nin=nPum) if is_heaPum
+    final nin=nPum) if have_heaPum
     "Lead pump index"
     annotation (Placement(transformation(extent={{-80,220},{-60,240}})));
-  Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt if is_heaPum
+  Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt if have_heaPum
     "Convert real input to integer output"
     annotation (Placement(transformation(extent={{-40,220},{-20,240}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant pumIndCon[nPum](
-    final k=pumInd) if is_heaPum
+    final k=pumInd) if have_heaPum
     "Pump index array"
     annotation (Placement(transformation(extent={{-220,160},{-200,180}})));
-  Buildings.Controls.OBC.CDL.Integers.Equal intEqu1[nPum] if is_heaPum
+  Buildings.Controls.OBC.CDL.Integers.Equal intEqu1[nPum] if have_heaPum
     "Check lead pump"
     annotation (Placement(transformation(extent={{60,180},{80,200}})));
   Buildings.Controls.OBC.CDL.Routing.RealExtractor nexLagPum(
-    final nin=nPum) if is_heaPum
+    final nin=nPum) if have_heaPum
     "Next lag pump"
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
-  Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt1 if is_heaPum
+  Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt1 if have_heaPum
     "Convert real input to integer output"
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
-  Buildings.Controls.OBC.CDL.Integers.Equal intEqu2[nPum] if is_heaPum
+  Buildings.Controls.OBC.CDL.Integers.Equal intEqu2[nPum] if have_heaPum
     "Check next lag pump"
     annotation (Placement(transformation(extent={{60,-40},{80,-20}})));
   Buildings.Controls.OBC.CDL.Routing.RealExtractor lasLagPum(
-    final nin=nPum) if is_heaPum
+    final nin=nPum) if have_heaPum
     "Last lag pump"
     annotation (Placement(transformation(extent={{-80,-110},{-60,-90}})));
-  Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt2 if is_heaPum
+  Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt2 if have_heaPum
     "Convert real input to integer output"
     annotation (Placement(transformation(extent={{-40,-110},{-20,-90}})));
-  Buildings.Controls.OBC.CDL.Integers.Equal intEqu3[nPum] if is_heaPum
+  Buildings.Controls.OBC.CDL.Integers.Equal intEqu3[nPum] if have_heaPum
     "Check next lag pump"
     annotation (Placement(transformation(extent={{60,-100},{80,-80}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt[nPum] if
-       is_heaPum
+       have_heaPum
     "Convert boolean to integer"
     annotation (Placement(transformation(extent={{-200,-130},{-180,-110}})));
   Buildings.Controls.OBC.CDL.Integers.MultiSum mulSumInt(
-    final nin=nPum) if is_heaPum
+    final nin=nPum) if have_heaPum
     "Sum of integer inputs"
     annotation (Placement(transformation(extent={{-160,-130},{-140,-110}})));
-  Buildings.Controls.OBC.CDL.Integers.Add addInt if is_heaPum
+  Buildings.Controls.OBC.CDL.Integers.Add addInt if have_heaPum
     "Integer add"
     annotation (Placement(transformation(extent={{-120,-80},{-100,-60}})));
 

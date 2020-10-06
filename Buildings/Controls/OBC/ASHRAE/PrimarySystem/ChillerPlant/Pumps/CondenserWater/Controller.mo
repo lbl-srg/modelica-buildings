@@ -1,7 +1,7 @@
 ﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.CondenserWater;
 block Controller "Condenser water pump controller"
 
-  parameter Boolean is_heaPum = true
+  parameter Boolean have_heaPum = true
     "Flag of headered condenser water pumps design: true=headered, false=dedicated";
   parameter Boolean have_WSE = true
     "Flag of waterside economizer: true=have WSE, false=no WSE";
@@ -85,11 +85,11 @@ block Controller "Condenser water pump controller"
 
 protected
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.CondenserWater.Subsequences.EnableLead_headered
-    enaLeaHeaPum(final have_WSE=have_WSE) if is_heaPum
+    enaLeaHeaPum(final have_WSE=have_WSE) if have_heaPum
     "Enable lead pumps for plants with headered condenser water pump"
     annotation (Placement(transformation(extent={{20,120},{40,140}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.CondenserWater.Subsequences.EnableLead_dedicated
-    enaLeaDedPum if not is_heaPum
+    enaLeaDedPum if not have_heaPum
     "Enable lead pumps for plants with dedicated condenser water pump"
     annotation (Placement(transformation(extent={{20,60},{40,80}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.CondenserWater.Subsequences.Speed
@@ -254,7 +254,7 @@ This sequence contains three subsequences:
 <li>
 Enabling and disabling lead pump should be controlled based on weather the pumps
 are configurated as headered or dedicated. If it is headered, 
-<code>is_heaPum</code> = true, then use block <code>enaLeaHeaPum</code>. See
+<code>have_heaPum</code> = true, then use block <code>enaLeaHeaPum</code>. See
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pump.CondenserWaterP.Subsequences.EnableLead_headered\">
 Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pump.CondenserWaterP.Subsequences.EnableLead_headered</a>
 for a description. Otherwise, use block <code>enaLeaDedPum</code>. See

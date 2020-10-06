@@ -8,7 +8,7 @@ model Controller "Validate condenser water pump control sequence"
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.CondenserWater.Controller
     dedHavWse(
-    final is_heaPum=false)
+    final have_heaPum=false)
     "Condenser water pumps controller for plant with dedicated condenser water pump and have waterside economizer"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
 

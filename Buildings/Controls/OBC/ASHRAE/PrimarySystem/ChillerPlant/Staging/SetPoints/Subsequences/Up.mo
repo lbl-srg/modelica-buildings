@@ -3,7 +3,7 @@ block Up "Generates a stage up signal"
   parameter Boolean have_WSE = true
     "true = plant has a WSE, false = plant does not have WSE";
 
-  parameter Boolean is_serChi = false
+  parameter Boolean have_serChi = false
     "true = series chillers plant; false = parallel chillers plant";
 
   parameter Real effConTruDelay(
@@ -101,14 +101,14 @@ block Up "Generates a stage up signal"
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWatPumSet(
     final unit="Pa",
-    final quantity="PressureDifference") if not is_serChi
+    final quantity="PressureDifference") if not have_serChi
     "Chilled water pump Diferential static pressure setpoint"
     annotation (Placement(transformation(extent={{-200,0},{-160,40}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWatPum(
     final unit="Pa",
-    final quantity="PressureDifference") if not is_serChi
+    final quantity="PressureDifference") if not have_serChi
     "Chilled water pump Diferential static pressure"
     annotation (Placement(transformation(extent={{-200,-30},{-160,10}}),
     iconTransformation(extent={{-140,-40},{-100,0}})));
@@ -133,7 +133,7 @@ block Up "Generates a stage up signal"
 
 protected
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.SetPoints.Subsequences.FailsafeCondition faiSafCon(
-    final is_serChi=is_serChi,
+    final have_serChi=have_serChi,
     final faiSafTruDelay=faiSafTruDelay,
     final TDif=faiSafTDif,
     final TDifHys=TDifHys,
