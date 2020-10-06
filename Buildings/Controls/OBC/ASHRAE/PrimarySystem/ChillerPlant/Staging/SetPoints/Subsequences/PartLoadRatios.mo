@@ -45,8 +45,7 @@ block PartLoadRatios
     final min=0,
     final max=nSta) "Chiller stage"
     annotation (Placement(transformation(extent={{-420,220},{-380,260}}),
-                               iconTransformation(extent={{-140,-140},{-100,
-            -100}})));
+      iconTransformation(extent={{-140,-140},{-100,-100}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uUp(
     final min=0,
@@ -315,7 +314,8 @@ protected
     "Constant"
     annotation (Placement(transformation(extent={{0,-260},{20,-240}})));
 
-  Buildings.Controls.OBC.CDL.Utilities.Assert cheStaTyp(final message="Recommended staging order got violated or an unlisted chiller type got provided when staging up")
+  Buildings.Controls.OBC.CDL.Utilities.Assert cheStaTyp(
+    final message="Recommended staging order got violated or an unlisted chiller type got provided when staging up")
     "Chiller type outside of recommenation when staging up"
     annotation (Placement(transformation(extent={{300,280},{320,300}})));
 
@@ -400,15 +400,15 @@ protected
     annotation (Placement(transformation(extent={{-360,20},{-340,40}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Max max1
-    "Maximum"
+    "Maximum output to avoid zero denominator in downstream"
     annotation (Placement(transformation(extent={{-300,-60},{-280,-40}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Max max2
-    "Maximum"
+    "Maximum output to avoid zero denominator in downstream"
     annotation (Placement(transformation(extent={{-300,-110},{-280,-90}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Max max3
-    "Maximum"
+    "Maximum output to avoid zero denominator in downstream"
     annotation (Placement(transformation(extent={{-300,-170},{-280,-150}})));
 
 equation
