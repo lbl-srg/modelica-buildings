@@ -11,7 +11,7 @@ ARCH = $(shell getconf LONG_BIT)
 
 
 # Directory where executable will be copied to
-BINDIR = ../../Library/linux$(ARCH)
+BINDIR = ../../../Library/linux$(ARCH)
 
 #######################################################
 ## Compilation flags
@@ -22,14 +22,17 @@ CC_FLAGS_32 = -Wall -lm -m32 -std=c89 -pedantic -msse2 -mfpmath=sse
 CC_FLAGS_64 = -Wall -lm -m64 -std=c89 -pedantic -msse2 -mfpmath=sse
 
 # Directory for FFD source code
-FFD = ../FastFluidDynamics/
+FFD = ../../FastFluidDynamics/
 
-SRCS = $(FFD)advection.c $(FFD)boundary.c $(FFD)chen_zero_equ_model.c cosimulation.c \
+# Directory for ISAT source code
+ISAT = ../
+
+SRCS = $(FFD)advection.c $(FFD)boundary.c $(FFD)chen_zero_equ_model.c $(ISAT)cosimulation.c \
        $(FFD)data_writer.c $(FFD)diffusion.c $(FFD)ffd.c $(FFD)ffd_data_reader.c $(FFD)ffd_dll.c \
        $(FFD)geometry.c $(FFD)initialization.c $(FFD)interpolation.c $(FFD)parameter_reader.c \
        $(FFD)projection.c $(FFD)sci_reader.c $(FFD)solver.c $(FFD)solver_gs.c \
-       $(FFD)solver_tdma.c $(FFD)timing.c $(FFD)utility.c ffd_isat.c ffd_wrap.c \
-       isat_dll.c usrfgh.c utility_isat.c\
+       $(FFD)solver_tdma.c $(FFD)timing.c $(FFD)utility.c $(ISAT)ffd_isat.c $(ISAT)ffd_wrap.c \
+       $(ISAT)isat_dll.c $(ISAT)usrfgh.c $(ISAT)utility_isat.c\
 
 OBJS = advection.o boundary.o chen_zero_equ_model.o cosimulation.o \
        data_writer.o diffusion.o ffd.o ffd_data_reader.o ffd_dll.o geometry.o initialization.o \
@@ -44,7 +47,7 @@ LIBS = -lpthread -lc -llapack -lblas
 
 all: clean
 	mv $(FFD)modelica_ffd_common.h $(FFD)m1.h
-	cp modelica_ffd_common.h ../FastFluidDynamics
+	cp $(ISAT)modelica_ffd_common.h $(FFD)
 	$(CC) $(CC_FLAGS_$(ARCH)) -fPIC -c $(SRCS)
 	$(CC) -shared -fPIC -Wl,-soname,$(LIB) -o $(LIB) $(OBJS) libisatab_ser.a $(LIBS)
 	rm -f $(OBJS)
