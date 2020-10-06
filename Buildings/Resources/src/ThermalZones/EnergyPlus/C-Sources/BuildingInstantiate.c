@@ -442,7 +442,7 @@ void generateFMU(FMUBuilding* bui, const char* modelicaBuildingsJsonFile){
         {EnergyPlus::Error::Severe, fmi2Error},
         {EnergyPlus::Error::Fatal, fmi2Fatal}
       };
-   bui->logLevel is 1, 2, 3 up to and including 6
+   bui->logLevel is {ERRORS = 1, WARNINGS = 2, QUIET = 3, MEDIUM = 4, TIMESTEP = 5};
 */
 void setFMUDebugLevel(FMUBuilding* bui){
   fmi2_string_t* categories;
@@ -451,19 +451,22 @@ void setFMUDebugLevel(FMUBuilding* bui){
 
   /* Get the number of log categories defined in the XML */
   const size_t nCat = fmi2_import_get_log_categories_num(bui->fmu);
-  if (nCat < bui->logLevel){
-    bui->SpawnFormatError("FMU %s specified %u categories, but require at least %u categories.",
+  /* Number of log categories needed from EnergyPlus. Note that Modelica has
+     one more category for log at time step level */
+  const size_t nCatReq = (bui->logLevel <= 4) ? bui->logLevel : 4;
+  if (nCat != 4){
+    bui->SpawnFormatError("FMU %s specified %u categories, but require 4 categories.",
       bui->fmuAbsPat, nCat, bui->logLevel);
   }
 
   /* Get the log categories that we need */
   categories = NULL;
-  categories = (fmi2_string_t*)malloc(bui->logLevel * sizeof(fmi2_string_t));
+  categories = (fmi2_string_t*)malloc(nCatReq * sizeof(fmi2_string_t));
   if (categories == NULL){
     bui->SpawnFormatError("Failed to allocate memory for error categories for FMU %s", bui->fmuAbsPat);
   }
   /* Assign the categories as specified in modelDescription.xml */
-  for(i=0; i < bui->logLevel; i++){
+  for(i=0; i < nCatReq; i++){
     categories[i] = fmi2_import_get_log_category(bui->fmu, i);
   }
 
@@ -472,11 +475,11 @@ void setFMUDebugLevel(FMUBuilding* bui){
   status = fmi2_import_set_debug_logging(
     bui->fmu,
     fmi2_true,        /* Logging on */
-    (size_t)bui->logLevel, /* nCategories */
+    (size_t)nCatReq, /* nCategories */
     categories);        /* Which categories to log */
   if( status != fmi2_status_ok ){
     bui->SpawnMessage("Log categories:");
-    for(i = 0; i < bui->logLevel; i++){
+    for(i = 0; i < nCatReq; i++){
       bui->SpawnFormatMessage("  Category[%u] = '%s'", i, categories[i]);
     }
     bui->SpawnFormatError("fmi2SetDebugLogging returned '%s' for FMU with name %s. Verbosity = %u", fmi2_status_to_string(status), bui->fmuAbsPat, bui->logLevel);
@@ -605,7 +608,7 @@ void importEnergyPlusFMU(FMUBuilding* bui){
     NULL,
     visible);
 
-  SpawnFormatError("%s", "***** This line is never reached on Windows.\n");
+  /* SpawnFormatError("%s", "***** This line is never reached on Windows.\n"); */
 
   if (bui->logLevel >= MEDIUM)
     SpawnFormatMessage("Returned from instantiating fmu.");
