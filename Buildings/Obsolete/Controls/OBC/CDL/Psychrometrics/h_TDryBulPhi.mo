@@ -26,8 +26,8 @@ protected
   Modelica.SIunits.Conversions.NonSIunits.Temperature_degC TDryBul_degC
     "Dry bulb temperature in degree Celsius";
   Modelica.SIunits.Pressure p_w(displayUnit="Pa") "Water vapor pressure";
-  Modelica.SIunits.MassFraction XiDryBul(nominal=0.01)
-    "Water vapor mass fraction at dry bulb state";
+  Real w(final unit="1", nominal=0.01)
+    "Water vapor mass fraction in kg per kg dry air";
 
   // Modelica.SIunits.Temperature T_ref = 273.15
   //     "Reference temperature for psychrometric calculations"
@@ -44,8 +44,8 @@ protected
 equation
   TDryBul_degC = TDryBul - 273.15;
   p_w = phi * Buildings.Utilities.Psychrometrics.Functions.saturationPressure(TDryBul);
-  XiDryBul = 0.6219647130774989*p_w/(p-p_w);
-  h = 1006*TDryBul_degC + XiDryBul*(2501014.5+1860*TDryBul_degC);
+  w = 0.6219647130774989*p_w/(p-p_w);
+  h = 1006*TDryBul_degC + w*(2501014.5+1860*TDryBul_degC);
 
     annotation (
     defaultComponentName="ent",
@@ -57,6 +57,12 @@ ASHRAE Handbook Fundamentals, p. 1.9, equation 32.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 29, 2020, by Michael Wetter:<br/>
+Moved to <code>Obsolete</code> package.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2139\">issue 2139</a>.
+</li>
 <li>
 April 7, 2017 by Jianjun Hu:<br/>
 First implementation.

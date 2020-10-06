@@ -26,14 +26,14 @@ protected
   Modelica.SIunits.Conversions.NonSIunits.Temperature_degC TDryBul_degC
     "Dry bulb temperature in degree Celsius";
   Modelica.SIunits.Pressure p_w(displayUnit="Pa") "Water vapor pressure";
-  Modelica.SIunits.MassFraction XiDryBul(nominal=0.01)
-    "Water vapor mass fraction at dry bulb state";
+  Real w(final unit="1", nominal=0.01)
+    "Water vapor mass fraction in kg per kg dry air";
 
 equation
   TDryBul_degC = TDryBul - 273.15;
   p_w = phi * Buildings.Utilities.Psychrometrics.Functions.saturationPressure(TDryBul);
-  XiDryBul = 0.6219647130774989*p_w/(pAtm-p_w);
-  h = 1006*TDryBul_degC + XiDryBul*(2501014.5+1860*TDryBul_degC);
+  w = 0.6219647130774989*p_w/(pAtm-p_w);
+  h = 1006*TDryBul_degC + w*(2501014.5+1860*TDryBul_degC);
 
     annotation (
     defaultComponentName="ent",
