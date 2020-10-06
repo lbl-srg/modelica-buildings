@@ -168,7 +168,7 @@ if forecast high is too cold"),
           extent={{-98,214},{338,46}},
           lineColor={28,108,200},
           lineThickness=1), Text(
-          extent={{194,174},{260,76}},
+          extent={{160,174},{226,76}},
           lineColor={28,108,200},
           lineThickness=1,
           horizontalAlignment=TextAlignment.Left,
@@ -178,7 +178,7 @@ and it is after the start time
 and before the user-specified stop time,
  night flush setpoint is determined"),
                             Text(
-          extent={{234,54},{300,-44}},
+          extent={{226,54},{292,-44}},
           lineColor={28,108,200},
           lineThickness=1,
           horizontalAlignment=TextAlignment.Left,

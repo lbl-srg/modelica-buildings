@@ -16,7 +16,7 @@ model SlabSetpointPerimeterZone
         302.5944444], extrapolation=Buildings.Controls.OBC.CDL.Types.Extrapolation.HoldLastPoint)
     annotation (Placement(transformation(extent={{-60,18},{-40,38}})));
 equation
-  connect(timTab.y[2], slaSetPer.TFor) annotation (Line(points={{-38,28},{-22,
+  connect(timTab.y[1], slaSetPer.TFor) annotation (Line(points={{-38,28},{-22,
           28},{-22,30},{-6,30}}, color={0,0,127}));
   annotation (Documentation(info="<html>
 <p>

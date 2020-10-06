@@ -81,35 +81,32 @@ model NaturalVentilationConstantInterior
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor conBel1(G=0.2)
     "Combined convection and radiation resistance below the slab"
     annotation (Placement(transformation(extent={{406,-84},{426,-64}})));
-  NaturalVentilationOnly natVen(
+  NaturalVentilationOnly natVenCon(
     TDryBulCut=273.15,
     TWetBulDif=0.01,
     winSpeLim=1000,
     TiFav=900,
     TiNotFav=900)
     annotation (Placement(transformation(extent={{20,-42},{138,74}})));
-  Modelica.Blocks.Sources.BooleanConstant booleanConstant(k=false)
-    annotation (Placement(transformation(extent={{-98,100},{-78,120}})));
-  Modelica.Blocks.Sources.BooleanConstant booleanConstant1(k=true)
-    annotation (Placement(transformation(extent={{-98,38},{-78,58}})));
   Controls.OBC.CDL.Continuous.Sources.Constant TIntSet(k=293)
-    annotation (Placement(transformation(extent={{-94,-26},{-50,18}})));
+    annotation (Placement(transformation(extent={{-98,-24},{-54,20}})));
   BoundaryConditions.WeatherData.Bus weaBus2 annotation (Placement(
         transformation(extent={{-98,158},{-58,198}}), iconTransformation(extent=
            {{-168,106},{-148,126}})));
   Controls.OBC.CDL.Continuous.Sources.Constant TAirDum(k=280)
-    annotation (Placement(transformation(extent={{-96,-94},{-52,-50}})));
+    annotation (Placement(transformation(extent={{-100,-100},{-56,-56}})));
   Modelica.Fluid.Sources.FixedBoundary boundary(
     T=283.15,                                             nPorts=2, redeclare
       package Medium =                                                                         MediumA)
     annotation (Placement(transformation(extent={{48,162},{68,182}})));
-  ThermalZones.Detailed.FLEXLAB.Rooms.X3A.TestCell_Radiant_Interior radInt(
+  ThermalZones.Detailed.FLEXLAB.Rooms.X3A.TestCellRadiantInterior radInt(
     nConExtWin=0,
     nConBou=5,
     surBou={Buildings.ThermalZones.Detailed.BaseClasses.OpaqueSurface(
         A=9*5,
         til=Buildings.Types.Tilt.Ceiling,
         boundaryCondition=Buildings.ThermalZones.Detailed.Types.CFDBoundaryConditions.Temperature)},
+
     lat=0.72954762733363,
     intConMod=Buildings.HeatTransfer.Types.InteriorConvection.Temperature,
     energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
@@ -134,6 +131,10 @@ model NaturalVentilationConstantInterior
     annotation (Placement(transformation(extent={{-40,-98},{-20,-78}})));
   HeatTransfer.Sources.FixedTemperature TFix(T=292.15)
     annotation (Placement(transformation(extent={{510,52},{530,72}})));
+  Controls.OBC.CDL.Logical.Sources.Constant con(k=false)
+    annotation (Placement(transformation(extent={{-100,100},{-80,120}})));
+  Controls.OBC.CDL.Logical.Sources.Constant con1(k=true)
+    annotation (Placement(transformation(extent={{-100,42},{-80,62}})));
 equation
   connect(airCon1.y[1],airIn1. m_flow_in) annotation (Line(points={{277,-44},{300,
           -44},{300,-18},{312,-18}},   color={0,0,127}));
@@ -141,20 +142,12 @@ equation
           {300,-22},{312,-22}},   color={0,0,127}));
   connect(temRoo.port_b, airOut2.ports[1]) annotation (Line(points={{372,-70},{
           340,-70},{340,-80},{308,-80}}, color={0,127,255}));
-  connect(natVen.yWinOpe, doo.y) annotation (Line(points={{149.8,17.16},{149.8,18},
-          {176,18},{176,110},{197,110}}, color={0,0,127}));
-  connect(booleanConstant.y, natVen.uManOveRid) annotation (Line(points={{-77,110},
-          {-20,110},{-20,67.04},{8.2,67.04}}, color={255,0,255}));
-  connect(booleanConstant.y, natVen.uRai) annotation (Line(points={{-77,110},{-30,
-          110},{-30,43.84},{8.2,43.84}}, color={255,0,255}));
-  connect(booleanConstant1.y, natVen.uOcc) annotation (Line(points={{-77,48},{-40.5,
-          48},{-40.5,32.24},{8.2,32.24}}, color={255,0,255}));
-  connect(booleanConstant.y, natVen.uNitFlu) annotation (Line(points={{-77,110},
-          {-40,110},{-40,55.44},{8.2,55.44}}, color={255,0,255}));
-  connect(temRoo.T, natVen.uRooMeaTem) annotation (Line(points={{361,-80},{-28,
-          -80},{-28,-36.2},{8.2,-36.2}}, color={0,0,127}));
-  connect(TIntSet.y, natVen.uRooSet) annotation (Line(points={{-45.6,-4},{-12.8,
-          -4},{-12.8,-1.4},{8.2,-1.4}}, color={0,0,127}));
+  connect(natVenCon.yWinOpe, doo.y) annotation (Line(points={{149.8,17.16},{
+          149.8,18},{176,18},{176,110},{197,110}}, color={0,0,127}));
+  connect(temRoo.T, natVenCon.uRooMeaTem) annotation (Line(points={{361,-80},{
+          -14,-80},{-14,-36.2},{8.2,-36.2}}, color={0,0,127}));
+  connect(TIntSet.y, natVenCon.uRooSet) annotation (Line(points={{-49.6,-2},{
+          -12.8,-2},{-12.8,-1.4},{8.2,-1.4}}, color={0,0,127}));
   connect(weaDat1.weaBus, weaBus2) annotation (Line(
       points={{44,150},{-8,150},{-8,178},{-78,178}},
       color={255,204,51},
@@ -163,8 +156,8 @@ equation
       index=1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(TAirDum.y, natVen.uDryBul) annotation (Line(points={{-47.6,-72},{-16,
-          -72},{-16,-13},{8.2,-13}}, color={0,0,127}));
+  connect(TAirDum.y, natVenCon.uDryBul) annotation (Line(points={{-51.6,-78},{
+          -46,-78},{-46,-13},{8.2,-13}}, color={0,0,127}));
   connect(boundary.ports[1], doo.port_a1) annotation (Line(points={{68,174},{133,
           174},{133,116},{198,116}}, color={0,127,255}));
   connect(doo.port_b2, boundary.ports[2]) annotation (Line(points={{198,104},{140,
@@ -186,7 +179,7 @@ equation
           0,0}));
   connect(temRoo.T, airOut2.T_in) annotation (Line(points={{361,-80},{322,-80},
           {322,-96},{286,-96},{286,-76}}, color={0,0,127}));
-  connect(weaBus2.TWetBul, natVen.uWetBul) annotation (Line(
+  connect(weaBus2.TWetBul, natVenCon.uWetBul) annotation (Line(
       points={{-78,178},{-78,10},{8.2,10},{8.2,10.2}},
       color={255,204,51},
       thickness=0.5), Text(
@@ -194,13 +187,21 @@ equation
       index=-1,
       extent={{-3,6},{-3,6}},
       horizontalAlignment=TextAlignment.Right));
-  connect(ram.y, natVen.uWinSpe) annotation (Line(points={{-18,-88},{-6,-88},{-6,
-          -24.6},{8.2,-24.6}}, color={0,0,127}));
+  connect(ram.y, natVenCon.uWinSpe) annotation (Line(points={{-18,-88},{-6,-88},
+          {-6,-24.6},{8.2,-24.6}}, color={0,0,127}));
   connect(TFix.port, conBel3.port_a) annotation (Line(points={{530,62},{572,62},
           {572,-70},{448,-70},{448,-36},{454,-36}},           color={191,0,0}));
   connect(TFix.port, conBel1.port_b) annotation (Line(points={{530,62},{542,62},
           {542,-92},{426,-92},{426,-74}}, color={191,0,0}));
-  annotation (experiment(Tolerance=1e-6, StopTime=172800), __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/NatVentControl/Validation/NaturalVentilationConstantInterior.mos"
+  connect(con1.y, natVenCon.uOcc) annotation (Line(points={{-78,52},{-60,52},{
+          -60,32.24},{8.2,32.24}}, color={255,0,255}));
+  connect(con.y, natVenCon.uManOveRid) annotation (Line(points={{-78,110},{-40,
+          110},{-40,68},{-2,68},{-2,67.04},{8.2,67.04}}, color={255,0,255}));
+  connect(con.y, natVenCon.uNitFlu) annotation (Line(points={{-78,110},{-40,110},
+          {-40,55.44},{8.2,55.44}}, color={255,0,255}));
+  connect(con.y, natVenCon.uRai) annotation (Line(points={{-78,110},{-40,110},{
+          -40,43.84},{8.2,43.84}}, color={255,0,255}));
+  annotation (experiment(Tolerance=1e-6, StopTime=172800), __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/NaturalVentilation/Validation/NaturalVentilationConstantInterior.mos"
         "Simulate and plot"),Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
                    graphics={
         Ellipse(

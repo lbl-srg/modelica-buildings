@@ -14,9 +14,6 @@ block HysteresisLimit
     annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
   Utilities.Time.ModelTime modTim
     annotation (Placement(transformation(extent={{-320,-40},{-300,-20}})));
-  Controls.Continuous.OffTimer           offTimHot
-    "Records time since heating turned off"
-    annotation (Placement(transformation(extent={{-220,80},{-200,100}})));
   Controls.OBC.CDL.Logical.Pre           pre(pre_u_start=false)
                                              "Breaks Boolean loop"
     annotation (Placement(transformation(extent={{-260,80},{-240,100}})));
@@ -87,9 +84,10 @@ block HysteresisLimit
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
   Controls.OBC.CDL.Logical.Not not2 "Negates heating signal output"
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
+  Controls.Continuous.OffTimer offTimHot
+    "Records time since heating turned off"
+    annotation (Placement(transformation(extent={{-218,80},{-198,100}})));
 equation
-  connect(pre.y,offTimHot. u) annotation (Line(points={{-238,90},{-222,90}},
-                                                color={255,0,255}));
   connect(heaSig, pre.u) annotation (Line(points={{-360,60},{-280,60},{-280,90},
           {-262,90}}, color={255,0,255}));
   connect(pre1.y, offTimCol.u)
@@ -98,8 +96,6 @@ equation
   connect(cooSig, pre1.u) annotation (Line(points={{-360,-120},{-290,-120},{
           -290,-110},{-262,-110}},
                             color={255,0,255}));
-  connect(offTimHot.y, hys.u)
-    annotation (Line(points={{-199,90},{-180,90}}, color={0,0,127}));
   connect(modTim.y, hys1.u) annotation (Line(points={{-299,-30},{-280,-30},{
           -280,30},{-262,30}}, color={0,0,127}));
   connect(hys1.y, logSwiHot.u2)
@@ -135,6 +131,10 @@ equation
           22},{-42,22}}, color={255,0,255}));
   connect(and2.y, clgSigHys) annotation (Line(points={{-18,30},{20,30},{20,-92},
           {120,-92}}, color={255,0,255}));
+  connect(offTimHot.y, hys.u)
+    annotation (Line(points={{-197,90},{-180,90}}, color={0,0,127}));
+  connect(pre.y, offTimHot.u)
+    annotation (Line(points={{-238,90},{-220,90}}, color={255,0,255}));
   annotation (defaultComponentName = "hysLim",Documentation(info="<html>
 <p>
 Cooling is locked out for a specified amount of time after heating turns off (typically 1hr). 
@@ -192,15 +192,13 @@ check if heating has been off
 If model time < user-specified threshold,
  output true. "),
         Text(
-          extent={{-228,-22},{-100,-112}},
+          extent={{-294,-56},{-248,-102}},
           lineColor={238,46,47},
-          fontSize=11,
+          fontSize=8,
           fontName="Arial Narrow",
           horizontalAlignment=TextAlignment.Left,
-          textString="If model time is greater
- than user-specified time threshold, 
-check if cooling has been off
- for at least threshold amount of time. 
+          textString="If model time is greater than user-specified time threshold, 
+check if cooling has been off for at least threshold amount of time. 
 If model time < user-specified threshold,
  output true. "),
         Rectangle(
@@ -227,7 +225,7 @@ AND is currently off,
 cooling is not locked out 
 (cooling signal is true)"),
         Text(
-          extent={{-52,-16},{372,-118}},
+          extent={{-70,-26},{354,-128}},
           lineColor={238,46,47},
           fontSize=11,
           fontName="Arial Narrow",

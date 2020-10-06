@@ -18,7 +18,7 @@ equation
       index=1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
-  annotation (experiment(Tolerance=1e-6, StartTime=0, StopTime=31536000), __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/NatVentControl/Validation/BaseClasses/Validation/SFForecastHigh.mos"
+  annotation (experiment(Tolerance=1e-6, StartTime=0, StopTime=31536000), __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/NaturalVentilation/Validation/BaseClasses/Validation/SFForecastHigh.mos"
         "Simulate and plot"),Icon(coordinateSystem(preserveAspectRatio=false),
         graphics={
         Ellipse(

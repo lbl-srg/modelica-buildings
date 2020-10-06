@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "nitFluFix.uRooSet",
+    "nitFluFix.yRooSetAdj",
+    "nitFluFix.yNitFlu"
+  };

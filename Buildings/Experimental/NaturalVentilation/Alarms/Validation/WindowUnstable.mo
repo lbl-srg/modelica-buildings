@@ -41,7 +41,7 @@ equation
   annotation (Documentation(info="<html>
 <p>
 This model validates the window instability alarm, which should show true if the window fluctuates within a given range more than a user-specified amount of times within a user-specified time duration.
-</html>"), experiment(Tolerance=1e-6, StartTime=0, StopTime=86400),__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/NatVentControl/Alarms/Validation/WindowUnstable.mos"
+</html>"), experiment(Tolerance=1e-6, StartTime=0, StopTime=86400),__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/NaturalVentilation/Alarms/Validation/WindowUnstable.mos"
         "Simulate and plot"),Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Ellipse(
           lineColor={75,138,73},

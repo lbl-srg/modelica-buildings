@@ -23,7 +23,7 @@ This model validates the wet bulb lockout. If natural ventilation is allowed, ou
 If natural ventilation is locked out because the wet bulb temperature is above the room setpoint minus the temperature difference , output should show false. 
 </p> 
 </p>
-</html>"),experiment(Tolerance=1e-6, StartTime=0, StopTime=86400),__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/NatVentControl/Lockouts/SubLockouts/Validation/WetBulb.mos"
+</html>"),experiment(Tolerance=1e-6, StartTime=0, StopTime=86400),__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/NaturalVentilation/Lockouts/SubLockouts/Validation/WetBulb.mos"
         "Simulate and plot"), Icon(graphics={
         Ellipse(
           lineColor={75,138,73},

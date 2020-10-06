@@ -178,7 +178,7 @@ Cooling is locked out if room air temperature is too cold (below a user-specifie
           textString=DynamicSelect("", String(y, leftjustified=false, significantDigits=3)))}), Diagram(coordinateSystem(
           preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics={
           Text(
-          extent={{-50,90},{326,74}},
+          extent={{-92,92},{284,76}},
           lineColor={0,0,0},
           lineThickness=1,
           fontSize=9,

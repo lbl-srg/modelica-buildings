@@ -40,7 +40,7 @@ equation
 <p>
 This model validates the zone temperature alarm, which should show true if the zone temperature has been a user-specified amount away from setpoint for a user-specified amount of time.  
 </p>
-</html>"),experiment(Tolerance=1e-6, StartTime=0, StopTime=86400),__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/NatVentControl/Alarms/Validation/ZoneTemperature.mos"
+</html>"),experiment(Tolerance=1e-6, StartTime=0, StopTime=86400),__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/NaturalVentilation/Alarms/Validation/ZoneTemperature.mos"
         "Simulate and plot"), Icon(graphics={
         Ellipse(
           lineColor={75,138,73},

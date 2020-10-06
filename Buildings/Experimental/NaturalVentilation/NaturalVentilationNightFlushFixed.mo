@@ -39,7 +39,7 @@ parameter Real winSpeLim(min=0,
     final quantity="Time")=300  "Time constant for integral term";
   parameter Real kConPro(min=0,max=10)=0.1 "Constant for proportional term";
 
-  NaturalVentilationOnly natVentControl(
+  NaturalVentilationOnly natVenCon(
     minOpe=minOpe,
     TDryBulCut=TDryBulCut,
     TWetBulDif=TWetBulDif,
@@ -95,29 +95,28 @@ parameter Real winSpeLim(min=0,
   NightFlush.NightFlushFixedDuration nitFluFix(h=h)
     annotation (Placement(transformation(extent={{-78,60},{-58,80}})));
 equation
-  connect(uManOveRid, natVentControl.uManOveRid) annotation (Line(points={{-120,92},
-          {-14,92},{-14,70},{-6,70},{-6,70.16},{1.6,70.16}},     color={255,0,255}));
-  connect(uRai, natVentControl.uRai) annotation (Line(points={{-120,58},{-90,58},
-          {-90,46},{-8,46},{-8,57.36},{1.6,57.36}},
-                                    color={255,0,255}));
-  connect(uOcc, natVentControl.uOcc) annotation (Line(points={{-120,30},{-58,30},
-          {-58,50.96},{1.6,50.96}}, color={255,0,255}));
-  connect(uRooMeaTem, natVentControl.uRooMeaTem) annotation (Line(points={{-120,
-          -162},{-22,-162},{-22,13.2},{1.6,13.2}}, color={0,0,127}));
-  connect(uWetBul, natVentControl.uWetBul) annotation (Line(points={{-120,-130},
-          {-40,-130},{-40,38.8},{1.6,38.8}}, color={0,0,127}));
-  connect(uWinSpe, natVentControl.uWinSpe) annotation (Line(points={{-120,-54},{
-          -59,-54},{-59,19.6},{1.6,19.6}}, color={0,0,127}));
-  connect(uDryBul, natVentControl.uDryBul) annotation (Line(points={{-120,-24},
-          {-80,-24},{-80,26},{1.6,26}},color={0,0,127}));
-  connect(natVentControl.yNatVen, yNatVenOn) annotation (Line(points={{78.4,31.76},
-          {84,31.76},{84,-82},{120,-82}}, color={255,0,255}));
-  connect(natVentControl.yWinOpe, yWinOpe) annotation (Line(points={{78.4,42.64},
-          {91.2,42.64},{91.2,36},{120,36}}, color={0,0,127}));
-  connect(nitFluFix.yNitFlu, natVentControl.uNitFlu) annotation (Line(points={{-56,
+  connect(uManOveRid, natVenCon.uManOveRid) annotation (Line(points={{-120,92},
+          {-14,92},{-14,70},{-6,70},{-6,70.16},{1.6,70.16}}, color={255,0,255}));
+  connect(uRai, natVenCon.uRai) annotation (Line(points={{-120,58},{-90,58},{-90,
+          46},{-8,46},{-8,57.36},{1.6,57.36}}, color={255,0,255}));
+  connect(uOcc, natVenCon.uOcc) annotation (Line(points={{-120,30},{-58,30},{-58,
+          50.96},{1.6,50.96}}, color={255,0,255}));
+  connect(uRooMeaTem, natVenCon.uRooMeaTem) annotation (Line(points={{-120,-162},
+          {-22,-162},{-22,13.2},{1.6,13.2}}, color={0,0,127}));
+  connect(uWetBul, natVenCon.uWetBul) annotation (Line(points={{-120,-130},{-40,
+          -130},{-40,38.8},{1.6,38.8}}, color={0,0,127}));
+  connect(uWinSpe, natVenCon.uWinSpe) annotation (Line(points={{-120,-54},{-59,
+          -54},{-59,19.6},{1.6,19.6}}, color={0,0,127}));
+  connect(uDryBul, natVenCon.uDryBul) annotation (Line(points={{-120,-24},{-80,
+          -24},{-80,26},{1.6,26}}, color={0,0,127}));
+  connect(natVenCon.yNatVen, yNatVenOn) annotation (Line(points={{78.4,31.76},{
+          84,31.76},{84,-82},{120,-82}}, color={255,0,255}));
+  connect(natVenCon.yWinOpe, yWinOpe) annotation (Line(points={{78.4,42.64},{
+          91.2,42.64},{91.2,36},{120,36}}, color={0,0,127}));
+  connect(nitFluFix.yNitFlu, natVenCon.uNitFlu) annotation (Line(points={{-56,
           67.2},{-26,67.2},{-26,63.76},{1.6,63.76}}, color={255,0,255}));
-  connect(nitFluFix.yRooSetAdj, natVentControl.uRooSet) annotation (Line(points=
-         {{-56,75},{-26,75},{-26,32.4},{1.6,32.4}}, color={0,0,127}));
+  connect(nitFluFix.yRooSetAdj, natVenCon.uRooSet) annotation (Line(points={{-56,
+          75},{-26,75},{-26,32.4},{1.6,32.4}}, color={0,0,127}));
   connect(uForHi, nitFluFix.uForHi) annotation (Line(points={{-120,4},{-92,4},{-92,
           68},{-86,68},{-86,67.2},{-80.2,67.2}}, color={0,0,127}));
   connect(uRooSet, nitFluFix.uRooSet) annotation (Line(points={{-120,-92},{-96,-92},
@@ -221,8 +220,8 @@ If night flush is not on, the setpoint passes through the block unchanged and th
           lineColor={0,0,255},
           extent={{-146,106},{154,146}},
           textString="%name")}),            Diagram(coordinateSystem(
-          preserveAspectRatio=false, extent={{-100,-180},{100,100}}), graphics=
-         {Text(
+          preserveAspectRatio=false, extent={{-100,-180},{100,100}}), graphics={
+          Text(
           extent={{-98,112},{302,80}},
           lineColor={0,0,0},
           lineThickness=1,

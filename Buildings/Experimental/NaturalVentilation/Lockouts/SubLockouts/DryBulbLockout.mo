@@ -198,6 +198,13 @@ equation
           -354,212},{118,212},{118,210}}, color={255,0,255}));
   connect(logSwi.y, swi1.u2) annotation (Line(points={{142,210},{174,210},{174,
           28},{-214,28},{-214,-90},{-20,-90}}, color={255,0,255}));
+  connect(logSwi.y, not7.u) annotation (Line(points={{142,210},{174,210},{174,
+          28},{-214,28},{-214,-152},{-20,-152}}, color={255,0,255}));
+  connect(logSwi.y, intWitRes1.trigger) annotation (Line(points={{142,210},{174,
+          210},{174,28},{-214,28},{-214,-260},{50,-260},{50,-224}}, color={255,
+          0,255}));
+  connect(logSwi.y, not2.u) annotation (Line(points={{142,210},{174,210},{174,
+          28},{-214,28},{-214,-210},{-84,-210}}, color={255,0,255}));
   annotation (defaultComponentName = "dryBulLoc", Documentation(info="<html>
   <p>
   This block locks out natural ventilation if the dry bulb temperature is unacceptable for natural ventilation based on user-specified conditions.
@@ -277,10 +284,10 @@ equation
               "Tests if conditions are favorable for natural ventilation if not in night flush mode",
           fontName="Arial Narrow"),
         Text(
-          extent={{-370,404},{30,372}},
+          extent={{-374,404},{26,372}},
           lineColor={0,0,0},
           lineThickness=1,
-          fontSize=9,
+          fontSize=5,
           horizontalAlignment=TextAlignment.Left,
           textStyle={TextStyle.Bold},
           textString="Dry Bulb Temperature Lockout:

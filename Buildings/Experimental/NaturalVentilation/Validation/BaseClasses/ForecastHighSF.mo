@@ -95,20 +95,20 @@ block ForecastHighSF "Montainview forecast high"
         31017600,285.35; 31104000,284.85; 31190400,287.05; 31276800,288.15;
         31363200,287.05])
     "Forecast high lookup table: x axis time in seconds, y axis forecast high temperature"
-    annotation (Placement(transformation(extent={{-6,-8},{-48,34}})));
+    annotation (Placement(transformation(extent={{0,0},{-42,42}})));
   Controls.OBC.CDL.Interfaces.RealOutput TForecastHigh
     "Forecasted high temperature"
     annotation (Placement(transformation(extent={{100,4},{140,44}}),
         iconTransformation(extent={{100,-4},{140,36}})));
-  Modelica.Blocks.Discrete.Sampler sampler(samplePeriod=86400, startTime=0)
+  Controls.OBC.CDL.Discrete.Sampler sam(samplePeriod=86400)
     annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
 equation
-  connect(modTim1.y,ForecastHigh. u) annotation (Line(points={{53,58},{70,58},
-          {70,13},{-1.8,13}},       color={0,0,127}));
-  connect(ForecastHigh.y, sampler.u) annotation (Line(points={{-50.1,13},{-80,
-          13},{-80,-50},{18,-50}}, color={0,0,127}));
-  connect(sampler.y, TForecastHigh) annotation (Line(points={{41,-50},{80,-50},
-          {80,24},{120,24}}, color={0,0,127}));
+  connect(modTim1.y,ForecastHigh. u) annotation (Line(points={{53,58},{70,58},{
+          70,21},{4.2,21}},         color={0,0,127}));
+  connect(sam.y, TForecastHigh) annotation (Line(points={{42,-50},{80,-50},{80,
+          24},{120,24}}, color={0,0,127}));
+  connect(ForecastHigh.y, sam.u) annotation (Line(points={{-44.1,21},{-80,21},{
+          -80,-50},{18,-50}}, color={0,0,127}));
   annotation (defaultComponentName = "forHiSF", Icon(coordinateSystem(preserveAspectRatio=false), graphics={Text(
           extent={{-36,46},{36,-54}},
           lineColor={162,29,33},
@@ -119,10 +119,10 @@ equation
           lineThickness=1),
         Text(
           lineColor={0,0,255},
-          extent={{-150,98},{150,138}},
+          extent={{-150,102},{150,142}},
           textString="%name")}),            Diagram(coordinateSystem(
           preserveAspectRatio=false), graphics={Text(
-          extent={{-96,112},{22,68}},
+          extent={{-96,112},{92,68}},
           lineColor={0,0,0},
           lineThickness=1,
           horizontalAlignment=TextAlignment.Left,

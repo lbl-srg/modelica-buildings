@@ -32,7 +32,7 @@ block SetpointTemperatureReset
   Controls.OBC.CDL.Continuous.Add add2(k1=-1)
     annotation (Placement(transformation(extent={{20,60},{40,80}})));
   Controls.OBC.CDL.Continuous.Add add1
-    annotation (Placement(transformation(extent={{0,-62},{20,-42}})));
+    annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
   Controls.OBC.CDL.Interfaces.RealOutput yHtgStpWin
     "Heating setpoint for window while in natural ventilation mode" annotation (
      Placement(transformation(extent={{100,60},{140,100}}), iconTransformation(
@@ -41,48 +41,47 @@ block SetpointTemperatureReset
     "Cooling setpoint for window while in natural ventilation mode" annotation (
      Placement(transformation(extent={{100,20},{140,60}}), iconTransformation(
           extent={{100,12},{140,52}})));
-  Modelica.Blocks.Sources.Constant htgStpRelAmt(k=HtgStpRel)
+  Controls.OBC.CDL.Continuous.Sources.Constant htgStpRelAmt(k=HtgStpRel)
     "Amount heating setpoint is relaxed when natural ventilation mode is on"
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
-  Modelica.Blocks.Sources.Constant clgStpRelAmt(k=ClgStpRel)
-    "Amount that cooling setpoint is relaxed"
-    annotation (Placement(transformation(extent={{-62,-42},{-42,-22}})));
-  Modelica.Blocks.Logical.Switch switch1
-    annotation (Placement(transformation(extent={{40,-2},{60,18}})));
-  Modelica.Blocks.Logical.Switch switch2
-    annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
+  Controls.OBC.CDL.Continuous.Sources.Constant clgStpRelAmt(k=ClgStpRel)
+    "Amount cooling setpoint is relaxed when natural ventilation mode is on"
+    annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
+  Controls.OBC.CDL.Logical.Switch swi
+    annotation (Placement(transformation(extent={{60,0},{80,20}})));
+  Controls.OBC.CDL.Logical.Switch swi1
+    annotation (Placement(transformation(extent={{60,-80},{80,-60}})));
 equation
   connect(yHtgStpWin, yHtgStpWin)
     annotation (Line(points={{120,80},{120,80}}, color={0,0,127}));
-  connect(clgStpRelAmt.y, add1.u1) annotation (Line(points={{-41,-32},{-18,-32},
-          {-18,-46},{-2,-46}},
-                          color={0,0,127}));
-  connect(uNatVen, switch1.u2) annotation (Line(points={{-120,30},{24,30},{24,8},
-          {38,8}}, color={255,0,255}));
   connect(THeaSet, yHtgStpWin) annotation (Line(points={{-118,100},{68,100},{68,
           80},{120,80}}, color={0,0,127}));
-  connect(THeaSet, add2.u2) annotation (Line(points={{-118,100},{-66,100},{-66,
+  connect(THeaSet, add2.u2) annotation (Line(points={{-118,100},{-72,100},{-72,
           48},{12,48},{12,64},{18,64}}, color={0,0,127}));
-  connect(add2.y, switch1.u1) annotation (Line(points={{42,70},{50,70},{50,34},
-          {30,34},{30,16},{38,16}}, color={0,0,127}));
-  connect(THeaSet, switch1.u3) annotation (Line(points={{-118,100},{-66,100},{
-          -66,0},{38,0}}, color={0,0,127}));
-  connect(switch1.y, yHtgStpVAV) annotation (Line(points={{61,8},{84,8},{84,-30},
-          {120,-30}}, color={0,0,127}));
   connect(TCooSet, add1.u2) annotation (Line(points={{-118,72},{-78,72},{-78,
-          -58},{-2,-58}}, color={0,0,127}));
+          -56},{18,-56}}, color={0,0,127}));
   connect(TCooSet, yClgStpWin) annotation (Line(points={{-118,72},{-78,72},{-78,
           40},{120,40}}, color={0,0,127}));
-  connect(add1.y, switch2.u1) annotation (Line(points={{22,-52},{30,-52},{30,
-          -62},{38,-62}}, color={0,0,127}));
-  connect(uNatVen, switch2.u2) annotation (Line(points={{-120,30},{-86,30},{-86,
-          -82},{20,-82},{20,-70},{38,-70}}, color={255,0,255}));
-  connect(TCooSet, switch2.u3) annotation (Line(points={{-118,72},{-78,72},{-78,
-          -78},{38,-78}},          color={0,0,127}));
-  connect(switch2.y, yClgStpVAV)
-    annotation (Line(points={{61,-70},{120,-70}}, color={0,0,127}));
-  connect(htgStpRelAmt.y, add2.u1) annotation (Line(points={{-39,70},{-10,70},{
-          -10,76},{18,76}}, color={0,0,127}));
+  connect(htgStpRelAmt.y, add2.u1) annotation (Line(points={{-38,70},{0,70},{0,
+          76},{18,76}}, color={0,0,127}));
+  connect(clgStpRelAmt.y, add1.u1) annotation (Line(points={{-38,-30},{0,-30},{
+          0,-44},{18,-44}}, color={0,0,127}));
+  connect(add1.y, swi1.u1) annotation (Line(points={{42,-50},{48,-50},{48,-62},
+          {58,-62}}, color={0,0,127}));
+  connect(uNatVen, swi1.u2) annotation (Line(points={{-120,30},{-86,30},{-86,
+          -70},{58,-70}}, color={255,0,255}));
+  connect(TCooSet, swi1.u3) annotation (Line(points={{-118,72},{-94,72},{-94,
+          -78},{58,-78}}, color={0,0,127}));
+  connect(swi1.y, yClgStpVAV)
+    annotation (Line(points={{82,-70},{120,-70}}, color={0,0,127}));
+  connect(add2.y, swi.u1) annotation (Line(points={{42,70},{52,70},{52,18},{58,
+          18}}, color={0,0,127}));
+  connect(uNatVen, swi.u2) annotation (Line(points={{-120,30},{40,30},{40,10},{
+          58,10}}, color={255,0,255}));
+  connect(THeaSet, swi.u3) annotation (Line(points={{-118,100},{-72,100},{-72,0},
+          {32,0},{32,2},{58,2}}, color={0,0,127}));
+  connect(swi.y, yHtgStpVAV) annotation (Line(points={{82,10},{90,10},{90,-30},
+          {120,-30}}, color={0,0,127}));
   annotation (defaultComponentName = "setTemRes",Documentation(info="<html>
   This block determines the VAV temperature setpoint while natural ventilation mode is on.
   <p> When natural ventilation mode turns on,
@@ -111,7 +110,7 @@ equation
           textString="%name")}),
                              Diagram(coordinateSystem(preserveAspectRatio=false, extent={
             {-100,-100},{100,140}}), graphics={Text(
-          extent={{-96,142},{304,110}},
+          extent={{-96,140},{304,108}},
           lineColor={0,0,0},
           lineThickness=1,
           fontSize=9,
@@ -120,10 +119,10 @@ equation
           textString="VAV Setpoint Temperature Reset:
 Selects VAV temperature setpoint
 based on natural ventilation status
-"), Text( extent={{-64,20},{-18,14}},
+"), Text( extent={{-70,18},{-24,12}},
           lineColor={28,108,200},
           lineThickness=1,
-          fontSize=10,
+          fontSize=8,
           horizontalAlignment=TextAlignment.Left,
           textString="Relax setpoints by a user-specified amount
 if natural ventilation is active

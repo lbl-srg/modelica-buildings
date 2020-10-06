@@ -19,11 +19,13 @@ block SlabSetpointPerimeter
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
   Controls.OBC.CDL.Discrete.Sampler sam(samplePeriod=86400)
     "Samples forecast high each day"
-    annotation (Placement(transformation(extent={{-42,-2},{-22,18}})));
+    annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
 equation
-  connect(sam.y, tabSlab.u) annotation (Line(points={{-20,8},{0,8},{0,-41},{-15.8,
-          -41}}, color={0,0,127}));
-  connect(TFor, sam.u) annotation (Line(points={{-120,0},{-92,0},{-92,8},{-44,8}},
+  connect(sam.y, tabSlab.u) annotation (Line(points={{-18,10},{0,10},{0,-41},{
+          -15.8,-41}},
+                 color={0,0,127}));
+  connect(TFor, sam.u) annotation (Line(points={{-120,0},{-92,0},{-92,10},{-42,
+          10}},
         color={0,0,127}));
   connect(tabSlab.y, TSlaSetPer) annotation (Line(points={{-64.1,-41},{-84,-41},
           {-84,-80},{78,-80},{78,0},{120,0}}, color={0,0,127}));
@@ -68,8 +70,8 @@ Temperature setpoint is selected from a lookup table.
           extent={{-56,90},{48,-60}},
           lineColor={0,0,0},
           textString=DynamicSelect("", String(y, leftjustified=false, significantDigits=3)))}), Diagram(coordinateSystem(
-          preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics=
-         {Text(
+          preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics={
+          Text(
           extent={{-62,90},{34,44}},
           lineColor={0,0,0},
           lineThickness=1,

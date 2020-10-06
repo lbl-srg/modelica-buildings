@@ -69,22 +69,7 @@ model NaturalVentilationNightFlushFixedExteriorSF
     CDOpe=0.7,
     mOpe=0.74)                          "Window"
     annotation (Placement(transformation(extent={{198,100},{218,120}})));
-  ThermalZones.Detailed.FLEXLAB.Rooms.X3A.TestCell_Radiant radExt(
-    datConExt(
-      steadyStateInitial=true,
-      stateAtSurface_a=false,
-      stateAtSurface_b=false),
-    datConExtWin(
-      layers={R25Wal,R25Wal},
-      steadyStateInitial=true,
-      stateAtSurface_a=false,
-      stateAtSurface_b=false,
-      A={5*3,9*3},
-      glaSys={glaSys,glaSys},
-      hWin={2,2},
-      wWin={2,2},
-      til={Buildings.Types.Tilt.Wall,Buildings.Types.Tilt.Wall},
-      azi={Buildings.Types.Azimuth.W,Buildings.Types.Azimuth.S}),
+  ThermalZones.Detailed.FLEXLAB.Rooms.X3A.TestCellRadiantExterior radExt(
     T_start=288.15,
     nPorts=4,
     redeclare package Medium = MediumA)
@@ -115,9 +100,7 @@ model NaturalVentilationNightFlushFixedExteriorSF
            {{-168,106},{-148,126}})));
   HeatTransfer.Sources.FixedTemperature TFix(T=292.15)
     annotation (Placement(transformation(extent={{554,8},{574,28}})));
-  Modelica.Blocks.Sources.BooleanConstant booleanConstant2(k=false)
-    annotation (Placement(transformation(extent={{-60,100},{-40,120}})));
-  NaturalVentilationNightFlushFixed nitFluFix(TDryBulCut=280)
+  NaturalVentilationNightFlushFixed natVenNitFluFix(TDryBulCut=280)
     annotation (Placement(transformation(extent={{34,-10},{144,94}})));
   Controls.OBC.CDL.Logical.Sources.Pulse booPul(
     width=0.405,
@@ -128,6 +111,8 @@ model NaturalVentilationNightFlushFixedExteriorSF
     annotation (Placement(transformation(extent={{-100,-100},{-56,-56}})));
   BaseClasses.ForecastHighSF forHiSF
     annotation (Placement(transformation(extent={{-96,-24},{-76,-4}})));
+  Controls.OBC.CDL.Logical.Sources.Constant con(k=false)
+    annotation (Placement(transformation(extent={{-60,100},{-40,120}})));
 equation
   connect(airCon1.y[1],airIn1. m_flow_in) annotation (Line(points={{277,-44},{300,
           -44},{300,-18},{312,-18}},   color={0,0,127}));
@@ -173,13 +158,9 @@ equation
           {588,-98},{406,-98},{406,-74},{416,-74}}, color={191,0,0}));
   connect(TFix.port, conBel3.port_a) annotation (Line(points={{574,18},{588,18},
           {588,-50},{446,-50},{446,-36},{454,-36}}, color={191,0,0}));
-  connect(booleanConstant2.y, nitFluFix.uManOveRid) annotation (Line(points={{-39,
-          110},{-27.5,110},{-27.5,87.76},{23,87.76}}, color={255,0,255}));
-  connect(booleanConstant2.y, nitFluFix.uRai) annotation (Line(points={{-39,110},
-          {-27.5,110},{-27.5,77.36},{23,77.36}}, color={255,0,255}));
-  connect(booPul.y, nitFluFix.uOcc) annotation (Line(points={{-38,70},{-16,70},
-          {-16,68},{23,68}}, color={255,0,255}));
-  connect(weaBus.TWetBul, nitFluFix.uWetBul) annotation (Line(
+  connect(booPul.y, natVenNitFluFix.uOcc) annotation (Line(points={{-38,70},{-16,
+          70},{-16,68},{23,68}}, color={255,0,255}));
+  connect(weaBus.TWetBul, natVenNitFluFix.uWetBul) annotation (Line(
       points={{-64,186},{-80,186},{-80,54},{-26,54},{-26,53.44},{23,53.44}},
       color={255,204,51},
       thickness=0.5), Text(
@@ -187,7 +168,7 @@ equation
       index=-1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(weaBus.TDryBul, nitFluFix.uDryBul) annotation (Line(
+  connect(weaBus.TDryBul, natVenNitFluFix.uDryBul) annotation (Line(
       points={{-64,186},{-80,186},{-80,17.04},{23,17.04}},
       color={255,204,51},
       thickness=0.5), Text(
@@ -195,7 +176,7 @@ equation
       index=-1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(weaBus.winSpe, nitFluFix.uWinSpe) annotation (Line(
+  connect(weaBus.winSpe, natVenNitFluFix.uWinSpe) annotation (Line(
       points={{-64,186},{-80,186},{-80,6},{23,6},{23,5.6}},
       color={255,204,51},
       thickness=0.5), Text(
@@ -203,15 +184,20 @@ equation
       index=-1,
       extent={{-3,-6},{-3,-6}},
       horizontalAlignment=TextAlignment.Right));
-  connect(nitFluFix.yWinOpe, doo.y) annotation (Line(points={{155,56.56},{180,
-          56.56},{180,110},{197,110}}, color={0,0,127}));
-  connect(temRoo.T, nitFluFix.uRooMeaTem) annotation (Line(points={{361,-80},{
-          352,-80},{352,-96},{0,-96},{0,-4.8},{23,-4.8}}, color={0,0,127}));
-  connect(TIntSet.y, nitFluFix.uRooSet) annotation (Line(points={{-51.6,-78},{-40,
-          -78},{-40,43.04},{23,43.04}}, color={0,0,127}));
-  connect(forHiSF.TForecastHigh, nitFluFix.uForHi) annotation (Line(points={{-74,
-          -12.4},{-23.2,-12.4},{-23.2,27.44},{23,27.44}}, color={0,0,127}));
-  annotation (experiment(Tolerance=1e-6, StartTime=0, StopTime=31536000), __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/NatVentControl/Validation/NatVenNitFluFix_Exterior_SF.mos"
+  connect(natVenNitFluFix.yWinOpe, doo.y) annotation (Line(points={{155,56.56},{
+          180,56.56},{180,110},{197,110}}, color={0,0,127}));
+  connect(temRoo.T, natVenNitFluFix.uRooMeaTem) annotation (Line(points={{361,-80},
+          {352,-80},{352,-96},{0,-96},{0,-4.8},{23,-4.8}}, color={0,0,127}));
+  connect(TIntSet.y, natVenNitFluFix.uRooSet) annotation (Line(points={{-51.6,-78},
+          {-40,-78},{-40,43.04},{23,43.04}}, color={0,0,127}));
+  connect(forHiSF.TForecastHigh, natVenNitFluFix.uForHi) annotation (Line(
+        points={{-74,-12.4},{-23.2,-12.4},{-23.2,27.44},{23,27.44}}, color={0,0,
+          127}));
+  connect(con.y, natVenNitFluFix.uManOveRid) annotation (Line(points={{-38,110},
+          {-8,110},{-8,87.76},{23,87.76}}, color={255,0,255}));
+  connect(con.y, natVenNitFluFix.uRai) annotation (Line(points={{-38,110},{-8,
+          110},{-8,77.36},{23,77.36}}, color={255,0,255}));
+  annotation (experiment(Tolerance=1e-6, StartTime=0, StopTime=31536000), __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/NaturalVentilation/Validation/NaturalVentilationNightFlushFixedExteriorSF.mos"
         "Simulate and plot"), Documentation(info="<html>
   <p> fixme : Validation model in progress
 </p>

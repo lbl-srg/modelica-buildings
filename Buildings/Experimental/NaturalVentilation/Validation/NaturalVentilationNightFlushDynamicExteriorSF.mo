@@ -69,7 +69,7 @@ model NaturalVentilationNightFlushDynamicExteriorSF
     CDClo=0.1,
     mOpe=0.5)                           "Window"
     annotation (Placement(transformation(extent={{198,100},{218,120}})));
-  ThermalZones.Detailed.FLEXLAB.Rooms.X3A.TestCell_Radiant radExt(
+  ThermalZones.Detailed.FLEXLAB.Rooms.X3A.TestCellRadiantExterior radExt(
     energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
     massDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
     T_start=288.15,
@@ -102,8 +102,6 @@ model NaturalVentilationNightFlushDynamicExteriorSF
            {{-168,106},{-148,126}})));
   HeatTransfer.Sources.FixedTemperature TFix(T=292.15)
     annotation (Placement(transformation(extent={{554,8},{574,28}})));
-  Modelica.Blocks.Sources.BooleanConstant booleanConstant2(k=false)
-    annotation (Placement(transformation(extent={{-12,100},{8,120}})));
   Controls.OBC.CDL.Logical.Sources.Pulse booPul(
     width=0.405,
     period=86400,
@@ -113,11 +111,12 @@ model NaturalVentilationNightFlushDynamicExteriorSF
     annotation (Placement(transformation(extent={{-74,-48},{-30,-4}})));
   BaseClasses.ForecastHighSF forHiSF
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));
-  NaturalVentilationNightFlushDynamic
-    natVentControlPlusNightFlushDynamicDuration
+  NaturalVentilationNightFlushDynamic natVenNitFluDyn
     annotation (Placement(transformation(extent={{84,16},{152,82}})));
   Fluid.Sources.Outside out1(nPorts=2,redeclare package Medium = MediumA)
     annotation (Placement(transformation(extent={{88,166},{108,186}})));
+  Controls.OBC.CDL.Logical.Sources.Constant con(k=false)
+    annotation (Placement(transformation(extent={{-20,100},{0,120}})));
 equation
   connect(conBel3.port_b, radExt.surf_conBou[1]) annotation (Line(points={{474,
           -36},{480,-36},{480,20},{444,20},{444,46}}, color={191,0,0}));
@@ -155,20 +154,11 @@ equation
           {588,-98},{406,-98},{406,-74},{416,-74}}, color={191,0,0}));
   connect(TFix.port, conBel3.port_a) annotation (Line(points={{574,18},{588,18},
           {588,-50},{446,-50},{446,-36},{454,-36}}, color={191,0,0}));
-  connect(natVentControlPlusNightFlushDynamicDuration.yWinOpe, doo.y)
-    annotation (Line(points={{158.8,58.24},{158.8,84.12},{197,84.12},{197,110}},
-        color={0,0,127}));
-  connect(booleanConstant2.y, natVentControlPlusNightFlushDynamicDuration.uManOveRid)
-    annotation (Line(points={{9,110},{20,110},{20,78.04},{77.2,78.04}}, color={255,
-          0,255}));
-  connect(booleanConstant2.y, natVentControlPlusNightFlushDynamicDuration.uRai)
-    annotation (Line(points={{9,110},{20,110},{20,71.44},{77.2,71.44}}, color={255,
-          0,255}));
-  connect(booPul.y, natVentControlPlusNightFlushDynamicDuration.uOcc)
-    annotation (Line(points={{-22,86},{-12,86},{-12,65.5},{77.2,65.5}}, color={255,
-          0,255}));
-  connect(weaBus.TWetBul, natVentControlPlusNightFlushDynamicDuration.uWetBul)
-    annotation (Line(
+  connect(natVenNitFluDyn.yWinOpe, doo.y) annotation (Line(points={{158.8,58.24},
+          {158.8,84.12},{197,84.12},{197,110}}, color={0,0,127}));
+  connect(booPul.y, natVenNitFluDyn.uOcc) annotation (Line(points={{-22,86},{-12,
+          86},{-12,65.5},{77.2,65.5}}, color={255,0,255}));
+  connect(weaBus.TWetBul, natVenNitFluDyn.uWetBul) annotation (Line(
       points={{-64,186},{-64,56.26},{77.2,56.26}},
       color={255,204,51},
       thickness=0.5), Text(
@@ -176,8 +166,7 @@ equation
       index=-1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(weaBus.TDryBul, natVentControlPlusNightFlushDynamicDuration.uDryBul)
-    annotation (Line(
+  connect(weaBus.TDryBul, natVenNitFluDyn.uDryBul) annotation (Line(
       points={{-64,186},{-70,186},{-70,33.16},{77.2,33.16}},
       color={255,204,51},
       thickness=0.5), Text(
@@ -185,8 +174,7 @@ equation
       index=-1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(weaBus.winSpe, natVentControlPlusNightFlushDynamicDuration.uWinSpe)
-    annotation (Line(
+  connect(weaBus.winSpe, natVenNitFluDyn.uWinSpe) annotation (Line(
       points={{-64,186},{-58,186},{-58,52},{34,52},{34,25.9},{77.2,25.9}},
       color={255,204,51},
       thickness=0.5), Text(
@@ -194,16 +182,13 @@ equation
       index=-1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(forHiSF.TForecastHigh, natVentControlPlusNightFlushDynamicDuration.uForHi)
-    annotation (Line(points={{2,11.6},{38,11.6},{38,46},{56,46},{56,39.76},{
-          77.2,39.76}},
-                   color={0,0,127}));
-  connect(TIntSet.y, natVentControlPlusNightFlushDynamicDuration.uRooSet)
-    annotation (Line(points={{-25.6,-26},{24.2,-26},{24.2,49.66},{77.2,49.66}},
+  connect(forHiSF.TForecastHigh, natVenNitFluDyn.uForHi) annotation (Line(
+        points={{2,11.6},{38,11.6},{38,46},{56,46},{56,39.76},{77.2,39.76}},
         color={0,0,127}));
-  connect(temRoo.T, natVentControlPlusNightFlushDynamicDuration.uRooMeaTem)
-    annotation (Line(points={{361,-80},{358,-80},{358,-96},{48,-96},{48,19.3},{
-          77.2,19.3}}, color={0,0,127}));
+  connect(TIntSet.y, natVenNitFluDyn.uRooSet) annotation (Line(points={{-25.6,-26},
+          {24.2,-26},{24.2,49.66},{77.2,49.66}}, color={0,0,127}));
+  connect(temRoo.T, natVenNitFluDyn.uRooMeaTem) annotation (Line(points={{361,-80},
+          {358,-80},{358,-96},{48,-96},{48,19.3},{77.2,19.3}}, color={0,0,127}));
   connect(weaBus, out1.weaBus) annotation (Line(
       points={{-64,186},{4,186},{4,192},{70,192},{70,176.2},{88,176.2}},
       color={255,204,51},
@@ -220,7 +205,11 @@ equation
           {328,-98},{240,-98},{240,-76},{286,-76}}, color={0,0,127}));
   connect(airCon1.y[1], airIn1.m_flow_in) annotation (Line(points={{277,-44},{
           294,-44},{294,-18},{312,-18}}, color={0,0,127}));
-  annotation (experiment(Tolerance=1e-6, StartTime=0, StopTime=31536000), __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/NatVentControl/Validation/NatVenNitFluDyn_Exterior_SF.mos"
+  connect(con.y, natVenNitFluDyn.uManOveRid) annotation (Line(points={{2,110},{
+          40,110},{40,78.04},{77.2,78.04}}, color={255,0,255}));
+  connect(con.y, natVenNitFluDyn.uRai) annotation (Line(points={{2,110},{40,110},
+          {40,71.44},{77.2,71.44}}, color={255,0,255}));
+  annotation (experiment(Tolerance=1e-6, StartTime=0, StopTime=31536000), __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/NaturalVentilation/Validation/NaturalVentilationNightFlushDynamicExteriorSF.mos"
         "Simulate and plot"),Documentation(info="<html>
   <p> fixme : Validation model in progress
 </p>

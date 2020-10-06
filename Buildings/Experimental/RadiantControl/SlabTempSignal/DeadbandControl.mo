@@ -66,7 +66,7 @@ parameter Real TDeaNor(min=0,
     "Passes signal if flow is allowed to stop if slab temp is within deadband; if flow is NOT allowed to stop, always passes true"
     annotation (Placement(transformation(extent={{82,120},{102,140}})));
 protected
-          parameter Real w=(k/24)*100 "Width of day";
+          parameter Real w=k/24 "Width of day";
 equation
   connect(slaTemErr, hys.u) annotation (Line(points={{-176,-138},{-141,-138},{-141,
           -52},{-122,-52}}, color={0,0,127}));

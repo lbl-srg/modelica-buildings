@@ -67,7 +67,7 @@ equation
 <p>
 This model validates the slab temperature alarm, which should show true if slab has been a user-specified amount of of range for a user-specified amount of time.  
 </p>
-</html>"),experiment(Tolerance=1e-6, StartTime=0, StopTime=86400),__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/NatVentControl/Lockouts/Validation/AllLockout.mos"
+</html>"),experiment(Tolerance=1e-6, StartTime=0, StopTime=86400),__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/NaturalVentilation/Lockouts/Validation/AllLockout.mos"
         "Simulate and plot"), Icon(coordinateSystem(extent={{-100,-100},{100,
             100}}),                graphics={
         Ellipse(

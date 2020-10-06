@@ -16,10 +16,10 @@ model ChilledWaterReturnLockout
     phase(displayUnit="rad"),
     offset=TWaLoSet)
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
-  ChilledWaterReturnLimit cHWRetLim(TWaLoSet=TWaLoSet, TiCHW=TiCHW)
+  ChilledWaterReturnLimit chwRetLim(TWaLoSet=TWaLoSet, TiCHW=TiCHW)
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
 equation
-  connect(sin.y, cHWRetLim.TWa) annotation (Line(points={{-58,50},{-40,50},{-40,
+  connect(sin.y,chwRetLim. TWa) annotation (Line(points={{-58,50},{-40,50},{-40,
           52},{-22,52}}, color={0,0,127}));
   annotation (Documentation(info="<html>
 <p>

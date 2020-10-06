@@ -1,0 +1,9 @@
+compareVars :=
+  {
+    "slaTemAla.TErr",
+    "slaTemAla.slaTemErr",
+    "slaTemAla.slaTemAla",
+    "slaTemAla1.TErr",
+    "slaTemAla1.slaTemErr",
+    "slaTemAla1.slaTemAla"
+  };

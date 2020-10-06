@@ -97,16 +97,16 @@ block ForecastHighChicago
   Controls.OBC.CDL.Interfaces.RealOutput TForHiChi
     "Forecasted high temperature"
     annotation (Placement(transformation(extent={{100,-18},{140,22}})));
-  Modelica.Blocks.Discrete.Sampler sampler(samplePeriod=86400, startTime=0)
+  Controls.OBC.CDL.Discrete.Sampler sam(samplePeriod=86400)
     "Samples forecast temperature each day"
     annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
 equation
   connect(modTim1.y, forHi.u) annotation (Line(points={{53,36},{70,36},{70,-9},
           {-1.8,-9}}, color={0,0,127}));
-  connect(sampler.y, TForHiChi) annotation (Line(points={{41,-70},{80,-70},{80,
-          2},{120,2}}, color={0,0,127}));
-  connect(forHi.y, sampler.u) annotation (Line(points={{-50.1,-9},{-60,-9},{-60,
-          -70},{18,-70}}, color={0,0,127}));
+  connect(sam.y, TForHiChi) annotation (Line(points={{42,-70},{80,-70},{80,2},{
+          120,2}}, color={0,0,127}));
+  connect(forHi.y, sam.u) annotation (Line(points={{-50.1,-9},{-60,-9},{-60,-70},
+          {18,-70}}, color={0,0,127}));
   annotation (defaultComponentName = "forHiChi",Documentation(info="<html>
 <p>
 This outputs the next-day high temperature for Chicago, so that an appropriate radiant slab setpoint can be chosen from the lookup table. 

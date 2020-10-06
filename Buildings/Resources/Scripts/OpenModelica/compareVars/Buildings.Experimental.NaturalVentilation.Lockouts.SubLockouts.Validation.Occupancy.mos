@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "occLoc.uOcc",
+    "occLoc.uNitFlu",
+    "occLoc.yOccNatVenSig"
+  };

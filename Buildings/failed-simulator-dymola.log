@@ -1,2 +1,617 @@
 Automatically generated BuildingsPy dump file for failed translations.
 
+===============================
+=====START OF NEW LOG FILE=====
+===============================
+﻿ = true
+
+    
+    rCheck = checkModel("Buildings.Experimental.NaturalVentilation.Validation.NaturalVentilationNightFlushFixedInterior");
+Check of Buildings.Experimental.NaturalVentilation.Validation.NaturalVentilationNightFlushFixedInterior:
+Error: Automatically introducing 'each' in definition equation for variable:
+  radInt.datConExt[1].steadyStateInitial
+Additional warnings of this type will not be written.
+The model has the same number of unknowns and equations: 1355
+Error: ERRORS have been issued.
+    
+    Modelica.Utilities.Streams.print("    { \"file\" :  \"Buildings/Resources/Scripts/Dymola/Experimental/NaturalVentilation/Validation/NaturalVentilationNightFlushFixedInterior.mos\",", "statistics.json");
+    Modelica.Utilities.Streams.print("      \"model\" : \"Buildings.Experimental.NaturalVentilation.Validation.NaturalVentilationNightFlushFixedInterior\",", "statistics.json");
+    Modelica.Utilities.Streams.print("      \"check\" : {", "statistics.json");
+    Modelica.Utilities.Streams.print("        \"command\" : \"checkModel(\\\"Buildings.Experimental.NaturalVentilation.Validation.NaturalVentilationNightFlushFixedInterior\\\");\",", "statistics.json");
+    Modelica.Utilities.Streams.print("        \"result\"  : " + String(rCheck), "statistics.json");
+    Modelica.Utilities.Streams.print("      },", "statistics.json");
+    
+    
+    rScript=RunScript("Resources/Scripts/Dymola/Experimental/NaturalVentilation/Validation/NaturalVentilationNightFlushFixedInterior.mos");
+simulateModel("Buildings.Experimental.NaturalVentilation.Validation.NaturalVentilationNightFlushFixedInterior", startTime=0.0, stopTime=864000, method="cvode",  tolerance=1E-06, resultFile="NaturalVentilationNightFlushFixedInterior");
+Translation of Buildings.Experimental.NaturalVentilation.Validation.NaturalVentilationNightFlushFixedInterior:
+Error: Automatically introducing 'each' in definition equation for variable:
+  radInt.datConExt[1].steadyStateInitial
+Additional warnings of this type will not be written.
+The DAE has 1355 scalar unknowns and 1355 scalar equations.
+Warning: The initial conditions are not fully specified.
+Dymola has selected default initial conditions.
+Warning: Assuming fixed start value for the continuous states:
+    radInt.air.vol.dynBal.mXi[](each start = radInt.air.vol.dynBal.fluidVolume*      radInt.air.vol.dynBal.rho_start*radInt.air.vol.dynBal.X_start[1])
+    radInt.air.vol.dynBal.U(start = radInt.air.vol.dynBal.fluidVolume*      radInt.air.vol.dynBal.rho_start*(smooth(5, 1006.0*((radInt.air.vol.dynBal.T_start      -273.15)*(1-radInt.air.vol.dynBal.X_start[1]))+(2501014.5+1860*(      radInt.air.vol.dynBal.T_start-273.15))*radInt.air.vol.dynBal.X_start[1])-      84437.5))
+ 
+ 
+Statistics
+ 
+Original Model
+  Number of components: 526
+  Variables: 5917
+  Constants: 319 (323 scalars)
+  Parameters: 4477 (5161 scalars)
+  Unknowns: 1121 (1379 scalars)
+  Differentiated variables: 29 scalars
+  Equations: 1088
+  Nontrivial: 1014
+Translated Model
+  Constants: 3561 scalars
+  Free parameters: 605 scalars
+  Parameter depending: 1539 scalars
+  Outputs: 23 scalars
+  Continuous time states: 28 scalars
+  Time-varying variables: 429 scalars
+  Alias variables: 729 scalars
+  Assumed default initial conditions: 2
+  Number of mixed real/discrete systems of equations: 0
+  Sizes of linear systems of equations: {12, 2, 2, 2, 2, 2}
+  Sizes after manipulation of the linear systems: {6, 0, 0, 0, 0, 0}
+  Sizes of nonlinear systems of equations: {3}
+  Sizes after manipulation of the nonlinear systems: {1}
+  Number of numerical Jacobians: 0
+  Initialization problem
+    Sizes of nonlinear systems of equations: {52}
+    Sizes after manipulation of the nonlinear systems: {15}
+    Number of numerical Jacobians: 0
+ 
+Selected continuous time states
+Statically selected continuous time states
+  doo.mExcAB
+  doo.mExcBA
+  natVenNitFluFix.natVenCon.allLoc.dryBulLoc.intWitRes.y
+  natVenNitFluFix.natVenCon.allLoc.dryBulLoc.intWitRes1.y
+  natVenNitFluFix.natVenCon.winCon.conPID.I.y
+  radInt.air.vol.dynBal.mXi[]
+  radInt.air.vol.dynBal.U
+  radInt.conBou[1].opa.lay[1].T[]
+  radInt.conBou[1].opa.lay[2].T[]
+  radInt.conBou[2].opa.lay[1].T[]
+  radInt.conBou[2].opa.lay[2].T[]
+  radInt.conBou[3].opa.lay[1].T[]
+  radInt.conBou[3].opa.lay[2].T[]
+  radInt.conBou[4].opa.lay[1].T[]
+  radInt.conBou[4].opa.lay[2].T[]
+  radInt.conBou[5].opa.lay[1].T[]
+  radInt.conBou[5].opa.lay[2].T[]
+  temRoo.T
+ 
+Error detected when generating code.
+Translation aborted.
+Error: WARNINGS have been issued.
+Error: ERRORS have been issued.
+ = false
+
+    
+    savelog("Buildings.Experimental.NaturalVentilation.Validation.NaturalVentilationNightFlushFixedInterior.translation.log");
+
+
+===============================
+=====START OF NEW LOG FILE=====
+===============================
+﻿ = true
+
+    
+    rCheck = checkModel("Buildings.Experimental.NaturalVentilation.Validation.NaturalVentilationConstantInterior");
+Check of Buildings.Experimental.NaturalVentilation.Validation.NaturalVentilationConstantInterior:
+Error: Automatically introducing 'each' in definition equation for variable:
+  radInt.datConExt[1].steadyStateInitial
+Additional warnings of this type will not be written.
+The model has the same number of unknowns and equations: 1303
+Error: ERRORS have been issued.
+    
+    Modelica.Utilities.Streams.print("    { \"file\" :  \"Buildings/Resources/Scripts/Dymola/Experimental/NaturalVentilation/Validation/NaturalVentilationConstantInterior.mos\",", "statistics.json");
+    Modelica.Utilities.Streams.print("      \"model\" : \"Buildings.Experimental.NaturalVentilation.Validation.NaturalVentilationConstantInterior\",", "statistics.json");
+    Modelica.Utilities.Streams.print("      \"check\" : {", "statistics.json");
+    Modelica.Utilities.Streams.print("        \"command\" : \"checkModel(\\\"Buildings.Experimental.NaturalVentilation.Validation.NaturalVentilationConstantInterior\\\");\",", "statistics.json");
+    Modelica.Utilities.Streams.print("        \"result\"  : " + String(rCheck), "statistics.json");
+    Modelica.Utilities.Streams.print("      },", "statistics.json");
+    
+    
+    rScript=RunScript("Resources/Scripts/Dymola/Experimental/NaturalVentilation/Validation/NaturalVentilationConstantInterior.mos");
+simulateModel("Buildings.Experimental.NaturalVentilation.Validation.NaturalVentilationConstantInterior", startTime=0.0, stopTime=864000, method="cvode",  tolerance=1E-06, resultFile="NaturalVentilationConstantInterior");
+Translation of Buildings.Experimental.NaturalVentilation.Validation.NaturalVentilationConstantInterior:
+Error: Automatically introducing 'each' in definition equation for variable:
+  radInt.datConExt[1].steadyStateInitial
+Additional warnings of this type will not be written.
+The DAE has 1303 scalar unknowns and 1303 scalar equations.
+Warning: The initial conditions are not fully specified.
+Dymola has selected default initial conditions.
+Warning: Assuming fixed start value for the continuous states:
+    radInt.air.vol.dynBal.mXi[](each start = radInt.air.vol.dynBal.fluidVolume*      radInt.air.vol.dynBal.rho_start*radInt.air.vol.dynBal.X_start[1])
+    radInt.air.vol.dynBal.U(start = radInt.air.vol.dynBal.fluidVolume*      radInt.air.vol.dynBal.rho_start*(smooth(5, 1006.0*((radInt.air.vol.dynBal.T_start      -273.15)*(1-radInt.air.vol.dynBal.X_start[1]))+(2501014.5+1860*(      radInt.air.vol.dynBal.T_start-273.15))*radInt.air.vol.dynBal.X_start[1])-      84437.5))
+ 
+ 
+Statistics
+ 
+Original Model
+  Number of components: 508
+  Variables: 5792
+  Constants: 319 (323 scalars)
+  Parameters: 4404 (4958 scalars)
+  Unknowns: 1069 (1327 scalars)
+  Differentiated variables: 29 scalars
+  Equations: 1033
+  Nontrivial: 958
+Translated Model
+  Constants: 3515 scalars
+  Free parameters: 543 scalars
+  Parameter depending: 1446 scalars
+  Outputs: 23 scalars
+  Continuous time states: 28 scalars
+  Time-varying variables: 408 scalars
+  Alias variables: 696 scalars
+  Assumed default initial conditions: 2
+  Number of mixed real/discrete systems of equations: 0
+  Sizes of linear systems of equations: {12, 2, 2, 2, 2, 2}
+  Sizes after manipulation of the linear systems: {6, 0, 0, 0, 0, 0}
+  Sizes of nonlinear systems of equations: {3}
+  Sizes after manipulation of the nonlinear systems: {1}
+  Number of numerical Jacobians: 0
+  Initialization problem
+    Sizes of nonlinear systems of equations: {52}
+    Sizes after manipulation of the nonlinear systems: {15}
+    Number of numerical Jacobians: 0
+ 
+Selected continuous time states
+Statically selected continuous time states
+  doo.mExcAB
+  doo.mExcBA
+  natVenCon.allLoc.dryBulLoc.intWitRes.y
+  natVenCon.allLoc.dryBulLoc.intWitRes1.y
+  natVenCon.winCon.conPID.I.y
+  radInt.air.vol.dynBal.mXi[]
+  radInt.air.vol.dynBal.U
+  radInt.conBou[1].opa.lay[1].T[]
+  radInt.conBou[1].opa.lay[2].T[]
+  radInt.conBou[2].opa.lay[1].T[]
+  radInt.conBou[2].opa.lay[2].T[]
+  radInt.conBou[3].opa.lay[1].T[]
+  radInt.conBou[3].opa.lay[2].T[]
+  radInt.conBou[4].opa.lay[1].T[]
+  radInt.conBou[4].opa.lay[2].T[]
+  radInt.conBou[5].opa.lay[1].T[]
+  radInt.conBou[5].opa.lay[2].T[]
+  temRoo.T
+ 
+Error detected when generating code.
+Translation aborted.
+Error: WARNINGS have been issued.
+Error: ERRORS have been issued.
+ = false
+
+    
+    savelog("Buildings.Experimental.NaturalVentilation.Validation.NaturalVentilationConstantInterior.translation.log");
+
+
+===============================
+=====START OF NEW LOG FILE=====
+===============================
+﻿ = true
+
+    
+    rCheck = checkModel("Buildings.Experimental.NaturalVentilation.Validation.NaturalVentilationNightFlushDynamicExteriorSF");
+Check of Buildings.Experimental.NaturalVentilation.Validation.NaturalVentilationNightFlushDynamicExteriorSF:
+Error: Automatically introducing 'each' in definition equation for variable:
+  radExt.datConExt[1].steadyStateInitial
+Additional warnings of this type will not be written.
+The model has the same number of unknowns and equations: 2808
+Error: ERRORS have been issued.
+    
+    Modelica.Utilities.Streams.print("    { \"file\" :  \"Buildings/Resources/Scripts/Dymola/Experimental/NaturalVentilation/Validation/NaturalVentilationNightFlushDynamicExteriorSF.mos\",", "statistics.json");
+    Modelica.Utilities.Streams.print("      \"model\" : \"Buildings.Experimental.NaturalVentilation.Validation.NaturalVentilationNightFlushDynamicExteriorSF\",", "statistics.json");
+    Modelica.Utilities.Streams.print("      \"check\" : {", "statistics.json");
+    Modelica.Utilities.Streams.print("        \"command\" : \"checkModel(\\\"Buildings.Experimental.NaturalVentilation.Validation.NaturalVentilationNightFlushDynamicExteriorSF\\\");\",", "statistics.json");
+    Modelica.Utilities.Streams.print("        \"result\"  : " + String(rCheck), "statistics.json");
+    Modelica.Utilities.Streams.print("      },", "statistics.json");
+    
+    
+    rScript=RunScript("Resources/Scripts/Dymola/Experimental/NaturalVentilation/Validation/NaturalVentilationNightFlushDynamicExteriorSF.mos");
+simulateModel("Buildings.Experimental.NaturalVentilation.Validation.NaturalVentilationNightFlushDynamicExteriorSF", startTime=0.0, stopTime=31536000, method="cvode",  tolerance=1E-06, resultFile="NaturalVentilationNightFlushDynamicExteriorSF");
+Translation of Buildings.Experimental.NaturalVentilation.Validation.NaturalVentilationNightFlushDynamicExteriorSF:
+Error: Automatically introducing 'each' in definition equation for variable:
+  radExt.datConExt[1].steadyStateInitial
+Additional warnings of this type will not be written.
+The DAE has 2808 scalar unknowns and 2808 scalar equations.
+Warning: The initial conditions are not fully specified.
+Dymola has selected default initial conditions.
+Warning: Assuming fixed start value for the continuous states:
+    radExt.air.vol.dynBal.mXi[](each start = radExt.air.vol.dynBal.fluidVolume*      radExt.air.vol.dynBal.rho_start*radExt.air.vol.dynBal.X_start[1])
+    radExt.air.vol.dynBal.U(start = radExt.air.vol.dynBal.fluidVolume*      radExt.air.vol.dynBal.rho_start*(smooth(5, 1006.0*((radExt.air.vol.dynBal.T_start      -273.15)*(1-radExt.air.vol.dynBal.X_start[1]))+(2501014.5+1860*(      radExt.air.vol.dynBal.T_start-273.15))*radExt.air.vol.dynBal.X_start[1])-      84437.5))
+ 
+ 
+Statistics
+ 
+Original Model
+  Number of components: 913
+  Variables: 9978
+  Constants: 535 (541 scalars)
+  Parameters: 7280 (12662 scalars)
+  Unknowns: 2163 (2832 scalars)
+  Differentiated variables: 29 scalars
+  Equations: 2119
+  Nontrivial: 1998
+Translated Model
+  Constants: 5891 scalars
+  Free parameters: 1447 scalars
+  Parameter depending: 6172 scalars
+  Outputs: 23 scalars
+  Continuous time states: 28 scalars
+  Time-varying variables: 874 scalars
+  Alias variables: 1651 scalars
+  Assumed default initial conditions: 2
+  Number of mixed real/discrete systems of equations: 0
+  Sizes of linear systems of equations: {2, 2, 2, 6, 6, 2, 2, 2, 2, 2, 2, 3, 2, 3}
+  Sizes after manipulation of the linear systems: {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
+  Sizes of nonlinear systems of equations: {3, 8, 95, 8, 3}
+  Sizes after manipulation of the nonlinear systems: {1, 1, 16, 1, 1}
+  Number of numerical Jacobians: 0
+  Initialization problem
+    Sizes of nonlinear systems of equations: {176}
+    Sizes after manipulation of the nonlinear systems: {33}
+    Number of numerical Jacobians: 0
+ 
+Selected continuous time states
+Statically selected continuous time states
+  doo.mExcAB
+  doo.mExcBA
+  natVenNitFluDyn.natVenCon.allLoc.dryBulLoc.intWitRes.y
+  natVenNitFluDyn.natVenCon.allLoc.dryBulLoc.intWitRes1.y
+  natVenNitFluDyn.natVenCon.winCon.conPID.I.y
+  radExt.air.vol.dynBal.mXi[]
+  radExt.air.vol.dynBal.U
+  radExt.conBou[1].opa.lay[1].T[]
+  radExt.conBou[1].opa.lay[2].T[]
+  radExt.conBou[2].opa.lay[1].T[]
+  radExt.conBou[2].opa.lay[2].T[]
+  radExt.conBou[3].opa.lay[1].T[]
+  radExt.conBou[3].opa.lay[2].T[]
+  radExt.conBou[3].opa.lay[3].T[]
+  radExt.conExtWin[1].opa.lay[1].T[]
+  radExt.conExtWin[1].opa.lay[2].T[]
+  radExt.conExtWin[1].opa.lay[3].T[]
+  radExt.conExtWin[1].opa.lay[4].T[]
+  radExt.conExtWin[1].win.capFra.T
+  radExt.conExtWin[1].win.capGla.TUns
+  radExt.conExtWin[2].opa.lay[1].T[]
+  radExt.conExtWin[2].opa.lay[2].T[]
+  radExt.conExtWin[2].opa.lay[3].T[]
+  radExt.conExtWin[2].opa.lay[4].T[]
+  radExt.conExtWin[2].win.capFra.T
+  radExt.conExtWin[2].win.capGla.TUns
+  temRoo.T
+ 
+Error detected when generating code.
+Translation aborted.
+Error: WARNINGS have been issued.
+Error: ERRORS have been issued.
+ = false
+
+    
+    savelog("Buildings.Experimental.NaturalVentilation.Validation.NaturalVentilationNightFlushDynamicExteriorSF.translation.log");
+
+
+===============================
+=====START OF NEW LOG FILE=====
+===============================
+﻿ = true
+
+    
+    rCheck = checkModel("Buildings.Experimental.NaturalVentilation.Validation.NaturalVentilationNightFlushDynamicInterior");
+Check of Buildings.Experimental.NaturalVentilation.Validation.NaturalVentilationNightFlushDynamicInterior:
+Error: Automatically introducing 'each' in definition equation for variable:
+  radInt.datConExt[1].steadyStateInitial
+Additional warnings of this type will not be written.
+The model has the same number of unknowns and equations: 1361
+Error: ERRORS have been issued.
+    
+    Modelica.Utilities.Streams.print("    { \"file\" :  \"Buildings/Resources/Scripts/Dymola/Experimental/NaturalVentilation/Validation/NaturalVentilationNightFlushDynamicInterior.mos\",", "statistics.json");
+    Modelica.Utilities.Streams.print("      \"model\" : \"Buildings.Experimental.NaturalVentilation.Validation.NaturalVentilationNightFlushDynamicInterior\",", "statistics.json");
+    Modelica.Utilities.Streams.print("      \"check\" : {", "statistics.json");
+    Modelica.Utilities.Streams.print("        \"command\" : \"checkModel(\\\"Buildings.Experimental.NaturalVentilation.Validation.NaturalVentilationNightFlushDynamicInterior\\\");\",", "statistics.json");
+    Modelica.Utilities.Streams.print("        \"result\"  : " + String(rCheck), "statistics.json");
+    Modelica.Utilities.Streams.print("      },", "statistics.json");
+    
+    
+    rScript=RunScript("Resources/Scripts/Dymola/Experimental/NaturalVentilation/Validation/NaturalVentilationNightFlushDynamicInterior.mos");
+simulateModel("Buildings.Experimental.NaturalVentilation.Validation.NaturalVentilationNightFlushDynamicInterior", startTime=0.0, stopTime=31536000, method="cvode",  tolerance=1E-06, resultFile="NaturalVentilationNightFlushDynamicInterior");
+Translation of Buildings.Experimental.NaturalVentilation.Validation.NaturalVentilationNightFlushDynamicInterior:
+Error: Automatically introducing 'each' in definition equation for variable:
+  radInt.datConExt[1].steadyStateInitial
+Additional warnings of this type will not be written.
+The DAE has 1361 scalar unknowns and 1361 scalar equations.
+Warning: The initial conditions are not fully specified.
+Dymola has selected default initial conditions.
+Warning: Assuming fixed start value for the continuous states:
+    radInt.air.vol.dynBal.mXi[](each start = radInt.air.vol.dynBal.fluidVolume*      radInt.air.vol.dynBal.rho_start*radInt.air.vol.dynBal.X_start[1])
+    radInt.air.vol.dynBal.U(start = radInt.air.vol.dynBal.fluidVolume*      radInt.air.vol.dynBal.rho_start*(smooth(5, 1006.0*((radInt.air.vol.dynBal.T_start      -273.15)*(1-radInt.air.vol.dynBal.X_start[1]))+(2501014.5+1860*(      radInt.air.vol.dynBal.T_start-273.15))*radInt.air.vol.dynBal.X_start[1])-      84437.5))
+ 
+ 
+Statistics
+ 
+Original Model
+  Number of components: 529
+  Variables: 5925
+  Constants: 319 (323 scalars)
+  Parameters: 4479 (5211 scalars)
+  Unknowns: 1127 (1385 scalars)
+  Differentiated variables: 29 scalars
+  Equations: 1094
+  Nontrivial: 1020
+Translated Model
+  Constants: 3570 scalars
+  Free parameters: 622 scalars
+  Parameter depending: 1563 scalars
+  Outputs: 23 scalars
+  Continuous time states: 28 scalars
+  Time-varying variables: 433 scalars
+  Alias variables: 731 scalars
+  Assumed default initial conditions: 2
+  Number of mixed real/discrete systems of equations: 0
+  Sizes of linear systems of equations: {12, 2, 2, 2, 2, 2}
+  Sizes after manipulation of the linear systems: {6, 0, 0, 0, 0, 0}
+  Sizes of nonlinear systems of equations: {3}
+  Sizes after manipulation of the nonlinear systems: {1}
+  Number of numerical Jacobians: 0
+  Initialization problem
+    Sizes of nonlinear systems of equations: {52}
+    Sizes after manipulation of the nonlinear systems: {15}
+    Number of numerical Jacobians: 0
+ 
+Selected continuous time states
+Statically selected continuous time states
+  doo.mExcAB
+  doo.mExcBA
+  natVenNitFluDyn.natVenCon.allLoc.dryBulLoc.intWitRes.y
+  natVenNitFluDyn.natVenCon.allLoc.dryBulLoc.intWitRes1.y
+  natVenNitFluDyn.natVenCon.winCon.conPID.I.y
+  radInt.air.vol.dynBal.mXi[]
+  radInt.air.vol.dynBal.U
+  radInt.conBou[1].opa.lay[1].T[]
+  radInt.conBou[1].opa.lay[2].T[]
+  radInt.conBou[2].opa.lay[1].T[]
+  radInt.conBou[2].opa.lay[2].T[]
+  radInt.conBou[3].opa.lay[1].T[]
+  radInt.conBou[3].opa.lay[2].T[]
+  radInt.conBou[4].opa.lay[1].T[]
+  radInt.conBou[4].opa.lay[2].T[]
+  radInt.conBou[5].opa.lay[1].T[]
+  radInt.conBou[5].opa.lay[2].T[]
+  temRoo.T
+ 
+Error detected when generating code.
+Translation aborted.
+Error: WARNINGS have been issued.
+Error: ERRORS have been issued.
+ = false
+
+    
+    savelog("Buildings.Experimental.NaturalVentilation.Validation.NaturalVentilationNightFlushDynamicInterior.translation.log");
+
+
+===============================
+=====START OF NEW LOG FILE=====
+===============================
+﻿ = true
+
+    
+    rCheck = checkModel("Buildings.Experimental.NaturalVentilation.Validation.NaturalVentilationNightFlushFixedExteriorChicago");
+Check of Buildings.Experimental.NaturalVentilation.Validation.NaturalVentilationNightFlushFixedExteriorChicago:
+Error: Automatically introducing 'each' in definition equation for variable:
+  radExt.datConExt[1].steadyStateInitial
+Additional warnings of this type will not be written.
+The model has the same number of unknowns and equations: 2747
+Error: ERRORS have been issued.
+    
+    Modelica.Utilities.Streams.print("    { \"file\" :  \"Buildings/Resources/Scripts/Dymola/Experimental/NaturalVentilation/Validation/NaturalVentilationNightFlushFixedExteriorChicago.mos\",", "statistics.json");
+    Modelica.Utilities.Streams.print("      \"model\" : \"Buildings.Experimental.NaturalVentilation.Validation.NaturalVentilationNightFlushFixedExteriorChicago\",", "statistics.json");
+    Modelica.Utilities.Streams.print("      \"check\" : {", "statistics.json");
+    Modelica.Utilities.Streams.print("        \"command\" : \"checkModel(\\\"Buildings.Experimental.NaturalVentilation.Validation.NaturalVentilationNightFlushFixedExteriorChicago\\\");\",", "statistics.json");
+    Modelica.Utilities.Streams.print("        \"result\"  : " + String(rCheck), "statistics.json");
+    Modelica.Utilities.Streams.print("      },", "statistics.json");
+    
+    
+    rScript=RunScript("Resources/Scripts/Dymola/Experimental/NaturalVentilation/Validation/NaturalVentilationNightFlushFixedExteriorChicago.mos");
+simulateModel("Buildings.Experimental.NaturalVentilation.Validation.NaturalVentilationNightFlushFixedExteriorChicago", startTime=0.0, stopTime=31536000, method="cvode",  tolerance=1E-06, resultFile="NaturalVentilationNightFlushFixedExteriorChicago");
+Translation of Buildings.Experimental.NaturalVentilation.Validation.NaturalVentilationNightFlushFixedExteriorChicago:
+Error: Automatically introducing 'each' in definition equation for variable:
+  radExt.datConExt[1].steadyStateInitial
+Additional warnings of this type will not be written.
+The DAE has 2747 scalar unknowns and 2747 scalar equations.
+Warning: The initial conditions are not fully specified.
+Dymola has selected default initial conditions.
+Warning: Assuming fixed start value for the continuous states:
+    radExt.air.vol.dynBal.mXi[](each start = radExt.air.vol.dynBal.fluidVolume*      radExt.air.vol.dynBal.rho_start*radExt.air.vol.dynBal.X_start[1])
+    radExt.air.vol.dynBal.U(start = radExt.air.vol.dynBal.fluidVolume*      radExt.air.vol.dynBal.rho_start*(smooth(5, 1006.0*((radExt.air.vol.dynBal.T_start      -273.15)*(1-radExt.air.vol.dynBal.X_start[1]))+(2501014.5+1860*(      radExt.air.vol.dynBal.T_start-273.15))*radExt.air.vol.dynBal.X_start[1])-      84437.5))
+ 
+ 
+Statistics
+ 
+Original Model
+  Number of components: 906
+  Variables: 9927
+  Constants: 534 (539 scalars)
+  Parameters: 7265 (12606 scalars)
+  Unknowns: 2128 (2771 scalars)
+  Differentiated variables: 29 scalars
+  Equations: 2071
+  Nontrivial: 1953
+Translated Model
+  Constants: 5868 scalars
+  Free parameters: 1431 scalars
+  Parameter depending: 6148 scalars
+  Outputs: 23 scalars
+  Continuous time states: 28 scalars
+  Time-varying variables: 859 scalars
+  Alias variables: 1610 scalars
+  Assumed default initial conditions: 2
+  Number of mixed real/discrete systems of equations: 0
+  Sizes of linear systems of equations: {3, 2, 2, 2, 6, 6, 2, 2, 2, 2, 2, 2, 3, 2}
+  Sizes after manipulation of the linear systems: {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
+  Sizes of nonlinear systems of equations: {3, 8, 95, 8, 3}
+  Sizes after manipulation of the nonlinear systems: {1, 1, 16, 1, 1}
+  Number of numerical Jacobians: 0
+  Initialization problem
+    Sizes of nonlinear systems of equations: {176}
+    Sizes after manipulation of the nonlinear systems: {33}
+    Number of numerical Jacobians: 0
+ 
+Selected continuous time states
+Statically selected continuous time states
+  doo.mExcAB
+  doo.mExcBA
+  natVenNitFluFix.natVenCon.allLoc.dryBulLoc.intWitRes.y
+  natVenNitFluFix.natVenCon.allLoc.dryBulLoc.intWitRes1.y
+  natVenNitFluFix.natVenCon.winCon.conPID.I.y
+  radExt.air.vol.dynBal.mXi[]
+  radExt.air.vol.dynBal.U
+  radExt.conBou[1].opa.lay[1].T[]
+  radExt.conBou[1].opa.lay[2].T[]
+  radExt.conBou[2].opa.lay[1].T[]
+  radExt.conBou[2].opa.lay[2].T[]
+  radExt.conBou[3].opa.lay[1].T[]
+  radExt.conBou[3].opa.lay[2].T[]
+  radExt.conBou[3].opa.lay[3].T[]
+  radExt.conExtWin[1].opa.lay[1].T[]
+  radExt.conExtWin[1].opa.lay[2].T[]
+  radExt.conExtWin[1].opa.lay[3].T[]
+  radExt.conExtWin[1].opa.lay[4].T[]
+  radExt.conExtWin[1].win.capFra.T
+  radExt.conExtWin[1].win.capGla.TUns
+  radExt.conExtWin[2].opa.lay[1].T[]
+  radExt.conExtWin[2].opa.lay[2].T[]
+  radExt.conExtWin[2].opa.lay[3].T[]
+  radExt.conExtWin[2].opa.lay[4].T[]
+  radExt.conExtWin[2].win.capFra.T
+  radExt.conExtWin[2].win.capGla.TUns
+  temRoo.T
+ 
+Error detected when generating code.
+Translation aborted.
+Error: WARNINGS have been issued.
+Error: ERRORS have been issued.
+ = false
+
+    
+    savelog("Buildings.Experimental.NaturalVentilation.Validation.NaturalVentilationNightFlushFixedExteriorChicago.translation.log");
+
+
+===============================
+=====START OF NEW LOG FILE=====
+===============================
+﻿ = true
+
+    
+    rCheck = checkModel("Buildings.Experimental.NaturalVentilation.Validation.NaturalVentilationNightFlushFixedExteriorSF");
+Check of Buildings.Experimental.NaturalVentilation.Validation.NaturalVentilationNightFlushFixedExteriorSF:
+Error: Automatically introducing 'each' in definition equation for variable:
+  radExt.datConExt[1].steadyStateInitial
+Additional warnings of this type will not be written.
+The model has the same number of unknowns and equations: 2747
+Error: ERRORS have been issued.
+    
+    Modelica.Utilities.Streams.print("    { \"file\" :  \"Buildings/Resources/Scripts/Dymola/Experimental/NaturalVentilation/Validation/NaturalVentilationNightFlushFixedExteriorSF.mos\",", "statistics.json");
+    Modelica.Utilities.Streams.print("      \"model\" : \"Buildings.Experimental.NaturalVentilation.Validation.NaturalVentilationNightFlushFixedExteriorSF\",", "statistics.json");
+    Modelica.Utilities.Streams.print("      \"check\" : {", "statistics.json");
+    Modelica.Utilities.Streams.print("        \"command\" : \"checkModel(\\\"Buildings.Experimental.NaturalVentilation.Validation.NaturalVentilationNightFlushFixedExteriorSF\\\");\",", "statistics.json");
+    Modelica.Utilities.Streams.print("        \"result\"  : " + String(rCheck), "statistics.json");
+    Modelica.Utilities.Streams.print("      },", "statistics.json");
+    
+    
+    rScript=RunScript("Resources/Scripts/Dymola/Experimental/NaturalVentilation/Validation/NaturalVentilationNightFlushFixedExteriorSF.mos");
+simulateModel("Buildings.Experimental.NaturalVentilation.Validation.NaturalVentilationNightFlushFixedExteriorSF", startTime=0.0, stopTime=31536000, method="cvode",  tolerance=1E-06, resultFile="NaturalVentilationNightFlushFixedExteriorSF");
+Translation of Buildings.Experimental.NaturalVentilation.Validation.NaturalVentilationNightFlushFixedExteriorSF:
+Error: Automatically introducing 'each' in definition equation for variable:
+  radExt.datConExt[1].steadyStateInitial
+Additional warnings of this type will not be written.
+The DAE has 2747 scalar unknowns and 2747 scalar equations.
+Warning: The initial conditions are not fully specified.
+Dymola has selected default initial conditions.
+Warning: Assuming fixed start value for the continuous states:
+    radExt.air.vol.dynBal.mXi[](each start = radExt.air.vol.dynBal.fluidVolume*      radExt.air.vol.dynBal.rho_start*radExt.air.vol.dynBal.X_start[1])
+    radExt.air.vol.dynBal.U(start = radExt.air.vol.dynBal.fluidVolume*      radExt.air.vol.dynBal.rho_start*(smooth(5, 1006.0*((radExt.air.vol.dynBal.T_start      -273.15)*(1-radExt.air.vol.dynBal.X_start[1]))+(2501014.5+1860*(      radExt.air.vol.dynBal.T_start-273.15))*radExt.air.vol.dynBal.X_start[1])-      84437.5))
+ 
+ 
+Statistics
+ 
+Original Model
+  Number of components: 906
+  Variables: 9927
+  Constants: 534 (539 scalars)
+  Parameters: 7265 (12600 scalars)
+  Unknowns: 2128 (2771 scalars)
+  Differentiated variables: 29 scalars
+  Equations: 2071
+  Nontrivial: 1953
+Translated Model
+  Constants: 5867 scalars
+  Free parameters: 1429 scalars
+  Parameter depending: 6145 scalars
+  Outputs: 23 scalars
+  Continuous time states: 28 scalars
+  Time-varying variables: 859 scalars
+  Alias variables: 1610 scalars
+  Assumed default initial conditions: 2
+  Number of mixed real/discrete systems of equations: 0
+  Sizes of linear systems of equations: {3, 2, 2, 2, 6, 6, 2, 2, 2, 2, 2, 2, 3, 2}
+  Sizes after manipulation of the linear systems: {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
+  Sizes of nonlinear systems of equations: {3, 8, 95, 8, 3}
+  Sizes after manipulation of the nonlinear systems: {1, 1, 16, 1, 1}
+  Number of numerical Jacobians: 0
+  Initialization problem
+    Sizes of nonlinear systems of equations: {176}
+    Sizes after manipulation of the nonlinear systems: {33}
+    Number of numerical Jacobians: 0
+ 
+Selected continuous time states
+Statically selected continuous time states
+  doo.mExcAB
+  doo.mExcBA
+  natVenNitFluFix.natVenCon.allLoc.dryBulLoc.intWitRes.y
+  natVenNitFluFix.natVenCon.allLoc.dryBulLoc.intWitRes1.y
+  natVenNitFluFix.natVenCon.winCon.conPID.I.y
+  radExt.air.vol.dynBal.mXi[]
+  radExt.air.vol.dynBal.U
+  radExt.conBou[1].opa.lay[1].T[]
+  radExt.conBou[1].opa.lay[2].T[]
+  radExt.conBou[2].opa.lay[1].T[]
+  radExt.conBou[2].opa.lay[2].T[]
+  radExt.conBou[3].opa.lay[1].T[]
+  radExt.conBou[3].opa.lay[2].T[]
+  radExt.conBou[3].opa.lay[3].T[]
+  radExt.conExtWin[1].opa.lay[1].T[]
+  radExt.conExtWin[1].opa.lay[2].T[]
+  radExt.conExtWin[1].opa.lay[3].T[]
+  radExt.conExtWin[1].opa.lay[4].T[]
+  radExt.conExtWin[1].win.capFra.T
+  radExt.conExtWin[1].win.capGla.TUns
+  radExt.conExtWin[2].opa.lay[1].T[]
+  radExt.conExtWin[2].opa.lay[2].T[]
+  radExt.conExtWin[2].opa.lay[3].T[]
+  radExt.conExtWin[2].opa.lay[4].T[]
+  radExt.conExtWin[2].win.capFra.T
+  radExt.conExtWin[2].win.capGla.TUns
+  temRoo.T
+ 
+Error detected when generating code.
+Translation aborted.
+Error: WARNINGS have been issued.
+Error: ERRORS have been issued.
+ = false
+
+    
+    savelog("Buildings.Experimental.NaturalVentilation.Validation.NaturalVentilationNightFlushFixedExteriorSF.translation.log");
+
+

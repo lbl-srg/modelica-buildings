@@ -22,7 +22,7 @@ equation
 This model validates the dry bulb lockout. If natural ventilation is allowed, output should show true. 
 If natural ventilation is locked out due to dry bulb temperature being out of range, output should show false.   
 </p>
-</html>"),experiment(Tolerance=1e-6, StartTime=0, StopTime=86400),__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/NatVentControl/VAV/Validation/SetpointAirflow.mos"
+</html>"),experiment(Tolerance=1e-6, StartTime=0, StopTime=86400),__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/NaturalVentilation/VAV/Validation/SetpointAirflow.mos"
         "Simulate and plot"), Icon(graphics={
         Ellipse(
           lineColor={75,138,73},

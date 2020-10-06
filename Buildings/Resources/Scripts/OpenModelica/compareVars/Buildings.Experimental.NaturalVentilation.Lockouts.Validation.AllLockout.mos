@@ -1,0 +1,10 @@
+compareVars :=
+  {
+    "allLoc.yAllNatVenLoc",
+    "allLoc.dryBulLoc.yDryBulOASig",
+    "allLoc.manLoc.yManOveNatVenSig",
+    "allLoc.occLoc.yOccNatVenSig",
+    "allLoc.raiLoc.yRaiNatVenSig",
+    "allLoc.wetBulLoc.yWetBulNatVenSig",
+    "allLoc.winLoc.yWinNatVenSig"
+  };

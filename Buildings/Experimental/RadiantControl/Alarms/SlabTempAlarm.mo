@@ -114,7 +114,7 @@ has been a user-specified amount above or below setpoint (TErr) for a user-speci
           textString=DynamicSelect("", String(y, leftjustified=false, significantDigits=3)))}), Diagram(coordinateSystem(preserveAspectRatio=false,
           extent={{-120,-100},{100,100}}), graphics={
         Text(
-          extent={{-118,86},{258,70}},
+          extent={{-118,80},{258,64}},
           lineColor={0,0,0},
           lineThickness=1,
           fontSize=9,
@@ -137,7 +137,7 @@ duration"),
           lineColor={217,67,180},
           lineThickness=1),
         Text(
-          extent={{-66,98},{-38,46}},
+          extent={{-66,-12},{-38,-64}},
           lineColor={217,67,180},
           lineThickness=1,
           fontName="Arial Narrow",

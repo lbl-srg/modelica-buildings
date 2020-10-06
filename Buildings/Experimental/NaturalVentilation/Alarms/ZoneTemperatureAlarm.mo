@@ -45,7 +45,7 @@ parameter Real TErr(min=0,
   Controls.OBC.CDL.Interfaces.RealInput TRooSet "Room temperature setpoint"
     annotation (Placement(transformation(extent={{-180,-80},{-140,-40}}),
         iconTransformation(extent={{-140,-54},{-100,-14}})));
-  Controls.OBC.CDL.Continuous.Add addErr1(k1=+1, k2=-1)
+  Controls.OBC.CDL.Continuous.Add addErr(k1=+1, k2=-1)
     "Air temperature minus air setpoint"
     annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
 equation
@@ -70,11 +70,11 @@ equation
           -130},{70,-42}}, color={255,0,255}));
   connect(ConZero.y, intWitRes.y_reset_in) annotation (Line(points={{40,-92},{
           50,-92},{50,-38},{58,-38}}, color={0,0,127}));
-  connect(TRooMea, addErr1.u1) annotation (Line(points={{-160,0},{-130,0},{-130,
+  connect(TRooMea, addErr.u1) annotation (Line(points={{-160,0},{-130,0},{-130,
           -24},{-102,-24}}, color={0,0,127}));
-  connect(TRooSet, addErr1.u2) annotation (Line(points={{-160,-60},{-130,-60},{
-          -130,-36},{-102,-36}}, color={0,0,127}));
-  connect(addErr1.y, abs.u)
+  connect(TRooSet, addErr.u2) annotation (Line(points={{-160,-60},{-130,-60},{-130,
+          -36},{-102,-36}}, color={0,0,127}));
+  connect(addErr.y, abs.u)
     annotation (Line(points={{-78,-30},{-62,-30}}, color={0,0,127}));
   annotation (defaultComponentName = "zonTemAla",Documentation(info="<html>
   <p>
@@ -107,7 +107,7 @@ equation
                              Diagram(coordinateSystem(preserveAspectRatio=false, extent={
             {-140,-160},{140,100}}), graphics={
         Text(
-          extent={{-78,50},{-50,-2}},
+          extent={{-110,-66},{-82,-118}},
           lineColor={217,67,180},
           lineThickness=1,
           fontName="Arial Narrow",
@@ -139,7 +139,7 @@ time integral is
 greater than
 time threshold"),
         Text(
-          extent={{-136,82},{240,66}},
+          extent={{-136,74},{240,58}},
           lineColor={0,0,0},
           lineThickness=1,
           fontSize=9,
