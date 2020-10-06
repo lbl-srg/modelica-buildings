@@ -2,7 +2,7 @@ within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.SetPoint
 block FailsafeCondition
   "Failsafe condition used in staging up and down"
 
-  parameter Boolean is_serChi = false
+  parameter Boolean have_serChi = false
     "true = series chillers plant; false = parallel chillers plant";
 
   parameter Real faiSafTruDelay(
@@ -37,14 +37,14 @@ block FailsafeCondition
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWatPumSet(
     final unit="Pa",
-    final quantity="PressureDifference") if not is_serChi
+    final quantity="PressureDifference") if not have_serChi
     "Chilled water differential pressure setpoint"
     annotation (Placement(transformation(extent={{-180,-40},{-140,0}}),
         iconTransformation(extent={{-140,-40},{-100,0}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWatPum(
     final unit="Pa",
-    final quantity="PressureDifference") if not is_serChi
+    final quantity="PressureDifference") if not have_serChi
     "Chilled water differential pressure"
     annotation (Placement(
     transformation(extent={{-180,-80},{-140,-40}}),
@@ -70,7 +70,7 @@ block FailsafeCondition
 
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysdpSup(
     final uLow=dpDif - dpDifHys,
-    final uHigh=dpDif) if not is_serChi
+    final uHigh=dpDif) if not have_serChi
     "Checks how closely the chilled water pump differential pressure aproaches its setpoint from below"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
 
@@ -82,7 +82,7 @@ block FailsafeCondition
 
 protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(
-    final k=false) if is_serChi
+    final k=false) if have_serChi
     "Virtual signal for series chiller plants"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
 
@@ -101,7 +101,7 @@ protected
 
   Buildings.Controls.OBC.CDL.Continuous.Add add1(
     final k1=1,
-    final k2=-1) if not is_serChi
+    final k2=-1) if not have_serChi
     "Subtracts differential pressures"
     annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
 
