@@ -137,7 +137,7 @@ block Controller "Chiller plant controller"
     "Total number of chillers"
     annotation(Dialog(group="Chillers configuration"));
 
-  parameter Boolean is_parChi=true
+  parameter Boolean have_parChi=true
     "Flag: true means that the plant has parallel chillers"
     annotation(Dialog(group="Chillers configuration"));
 
@@ -192,7 +192,7 @@ block Controller "Chiller plant controller"
 
   //// Chilled water pumps
 
-  parameter Boolean is_heaChiWatPum = true
+  parameter Boolean have_heaChiWatPum = true
     "Flag of headered chilled water pumps design: true=headered, false=dedicated"
     annotation (Dialog(group="Pumps configuration"));
 
@@ -338,7 +338,7 @@ block Controller "Chiller plant controller"
     "true = plant has a WSE, false = plant does not have WSE"
     annotation (Dialog(tab="General", group="Plant configuration"));
 
-  parameter Boolean is_serChi = false
+  parameter Boolean have_serChi = false
     "true = series chillers plant; false = parallel chillers plant"
     annotation (Dialog(tab="General", group="Chillers configuration"));
 
@@ -501,7 +501,7 @@ block Controller "Chiller plant controller"
     "True: have pony chiller"
     annotation (Dialog(tab="Staging", group="Up process"));
 
-  parameter Boolean is_heaPum=true
+  parameter Boolean have_heaPum=true
     "True: headered condenser water pumps"
     annotation (Dialog(tab="Staging", group="Up process: Condenser water pumps"));
 
@@ -792,12 +792,12 @@ block Controller "Chiller plant controller"
     annotation (Dialog(tab="Cooling Towers", group="Makeup water"));
 
 
-  CDL.Interfaces.BooleanInput uChiIsoVal[nChi] if is_heaChiWatPum
+  CDL.Interfaces.BooleanInput uChiIsoVal[nChi] if have_heaChiWatPum
     "Chilled water isolation valve status"
     annotation(Placement(transformation(extent={{-840,650},{-800,690}}),
       iconTransformation(extent={{-140,-30},{-100,10}})));
 
-  CDL.Interfaces.BooleanInput uChiWatPum[nPumChiWat]
+  CDL.Interfaces.BooleanInput uChiWatPum[nChiWatPum]
     "Chilled water pump status"
     annotation(Placement(transformation(extent={{-840,320},{-800,360}}),
       iconTransformation(extent={{-140,40},{-100,80}})));
@@ -828,8 +828,9 @@ block Controller "Chiller plant controller"
     annotation(Placement(transformation(extent={{-840,-40},{-800,0}}),
     iconTransformation(extent={{-140,-60},{-100,-20}})));
 
-  CDL.Interfaces.RealInput dpChiWat_remote[nSen](final
-      unit=fill("Pa", nSen), final quantity=fill("PressureDifference", nSen))
+  CDL.Interfaces.RealInput dpChiWat_remote[nSenChiWatPum](
+    final unit=fill("Pa", nSenChiWatPum),
+    final quantity=fill("PressureDifference", nSenChiWatPum))
     "Chilled water differential static pressure from remote sensor"
     annotation(Placement(transformation(extent={{-840,-170},{-800,-130}}),
       iconTransformation(extent={{-140,-90},{-100,-50}})));
@@ -888,7 +889,7 @@ block Controller "Chiller plant controller"
         iconTransformation(extent={{-140,60},{-100,100}})));
 
   CDL.Interfaces.RealInput dpChiWatPum(final unit="Pa",
-      final quantity="PressureDifference") if not is_serChi
+      final quantity="PressureDifference") if not have_serChi
     "Chilled water pump differential static pressure"
     annotation(Placement(transformation(extent={{-840,-140},{-800,-100}}),
     iconTransformation(extent={{-140,30},{-100,70}})));
@@ -902,7 +903,7 @@ block Controller "Chiller plant controller"
   CDL.Interfaces.RealInput TConWatRet(
     final unit="K",
     final displayUnit="degC",
-    final quantity="ThermodynamicTemperature") if not haveHeaPreConSig
+    final quantity="ThermodynamicTemperature") if not have_HeaPreConSig
     "Measured condenser water return temperature"
     annotation(Placement(transformation(extent={{-840,-80},{-800,-40}}),
       iconTransformation(extent={{-140,40},{-100,80}})));
@@ -910,7 +911,7 @@ block Controller "Chiller plant controller"
   CDL.Interfaces.RealInput TChiWatSup(
     final unit="K",
     final displayUnit="degC",
-    final quantity="ThermodynamicTemperature") if not haveHeaPreConSig
+    final quantity="ThermodynamicTemperature") if not have_HeaPreConSig
     "Measured chilled water supply temperature"
     annotation(Placement(transformation(extent={{-840,-110},{-800,-70}}),
       iconTransformation(extent={{-140,0},{-100,40}})));
@@ -920,8 +921,8 @@ block Controller "Chiller plant controller"
     annotation(Placement(transformation(extent={{800,280},{840,320}}),
       iconTransformation(extent={{100,100},{140,140}})));
 
-  CDL.Interfaces.BooleanOutput yChiWatPum[nPumChiWat] if
-    is_heaChiWatPum
+  CDL.Interfaces.BooleanOutput yChiWatPum[nChiWatPum] if
+    have_heaChiWatPum
     "Chilled water pump status setpoint"
     annotation(Placement(transformation(extent={{800,500},{840,540}}),
       iconTransformation(extent={{100,-20},{140,20}})));
@@ -1030,7 +1031,7 @@ block Controller "Chiller plant controller"
     annotation (Placement(transformation(extent={{-560,-160},{-520,-120}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.ChilledWater.Controller chiWatPumCon(
-    final is_heaPum=is_heaChiWatPum,
+    final have_heaPum=have_heaChiWatPum,
     final have_LocalSensor=have_LocalSensorChiWatPum,
     final nChi=nChi,
     final nPum=nChiWatPum,
@@ -1075,7 +1076,7 @@ block Controller "Chiller plant controller"
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.SetPoints.SetpointController staSetCon(
     final have_WSE=have_WSE,
-    final is_serChi=is_serChi,
+    final have_serChi=have_serChi,
     final anyVsdCen=anyVsdCen,
     final nChi=nChi,
     final chiDesCap=chiDesCap,
@@ -1115,12 +1116,12 @@ block Controller "Chiller plant controller"
     final fanSpeMin=fanSpeMin,
     final fanSpeMax=fanSpeMax,
     final intOpeCon=intOpeCon,
-    final TiIntOpeTowFan=TiIntOpeTowFan,
-    final TdIntOpeTowFan=TdIntOpeTowFan,
-    final chiWatConTowFan=chiWatConTowFan,
-    final kWSETowFan=kWSETowFan,
-    final TiWSETowFan=TiWSETowFan,
-    final TdWSETowFan=TdWSETowFan,
+    final TiIntOpe=TiIntOpeTowFan,
+    final TdIntOpe=TdIntOpeTowFan,
+    final chiWatCon=chiWatConTowFan,
+    final kWSE=kWSETowFan,
+    final TiWSE=TiWSETowFan,
+    final TdWSE=TdWSETowFan,
     final LIFT_min=LIFT_min,
     final TConWatSup_nominal=TConWatSup_nominal,
     final TConWatRet_nominal=TConWatRet_nominal,
@@ -1156,8 +1157,8 @@ block Controller "Chiller plant controller"
     final totSta=totSta,
     final have_WSE=have_WSE,
     final have_PonyChiller=have_PonyChiller,
-    final is_parChi=is_parChi,
-    final is_heaPum=is_heaPum,
+    final have_parChi=have_parChi,
+    final have_heaPum=have_heaPum,
     final chiDemRedFac=chiDemRedFac,
     final holChiDemTim=holChiDemTim,
     final waiTim=waiTim,
@@ -1180,8 +1181,8 @@ block Controller "Chiller plant controller"
     final totSta=totSta,
     final have_WSE=have_WSE,
     final have_PonyChiller=have_PonyChiller,
-    final is_parChi=is_parChi,
-    final is_heaPum=is_heaPum,
+    final have_parChi=have_parChi,
+    final have_heaPum=have_heaPum,
     final chiDemRedFac=chiDemRedFac,
     final holChiDemTim=holChiDemTim,
     final byPasSetTim=byPasSetTim,
@@ -1224,7 +1225,7 @@ block Controller "Chiller plant controller"
     annotation(Placement(transformation(extent={{800,-560},{840,-520}}),
       iconTransformation(extent={{100,150},{140,190}})));
 
-  CDL.Logical.MultiOr mulOr(nu=nPumChiWat)
+  CDL.Logical.MultiOr mulOr(nu=nChiWatPum)
     annotation(Placement(transformation(extent={{-640,-110},{-620,-90}})));
 
   CDL.Continuous.MultiMax conWatPumSpe(nin=nConWatPum)
