@@ -14,7 +14,7 @@ block Controller "Chiller plant controller"
     final unit="s",
     final quantity="Time")=120
     "Delay disable time period"
-    annotation(Evaluate=true, Dialog(tab="Waterside economizer", group="Enable parameters"));
+    annotation(Evaluate=true, Dialog(tab="Watershave_heaPuide economizer", group="Enable parameters"));
 
   parameter Modelica.SIunits.TemperatureDifference TOffsetEna=2
     "Temperature offset between the chilled water return upstream of WSE and the predicted WSE output"
@@ -97,7 +97,7 @@ block Controller "Chiller plant controller"
     "Flag indicating if the plant has fixed speed condenser water pumps"
     annotation(Dialog(group="Pumps configuration", enable=not have_WSE));
 
-  parameter Boolean have_HeaPreConSig = fill(false, nChi)
+  parameter Boolean have_HeaPreConSig = false
     "Flag indicating if there is head pressure control signal from chiller controller"
     annotation(Dialog(tab="Head pressure", group="Head pressure control configuration"));
 
@@ -174,20 +174,20 @@ block Controller "Chiller plant controller"
     final unit="s",
     final quantity="Time")=0.5 "Time constant of integrator block"
     annotation (Dialog(tab="Minimum flow bypass",
-    group="Controller", enable=controllerType==Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
-                               controllerType==Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+    group="Controller", enable=controllerTypeMinFloByp==Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
+                               controllerTypeMinFloByp==Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
   parameter Real TdMinFloBypCon(
     final unit="s",
     final quantity="Time")=0 "Time constant of derivative block"
     annotation (Dialog(tab="Minimum flow bypass",
-    group="Controller", enable=controllerType==Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
-                                                  controllerType==Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+    group="Controller", enable=controllerTypeMinFloByp==Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
+                               controllerTypeMinFloByp==Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
-  parameter Real yMax=1 "Upper limit of output"
+  parameter Real yMaxFloBypCon=1 "Upper limit of output"
     annotation (Dialog(tab="Minimum flow bypass", group="Controller"));
 
-  parameter Real yMin=0.1 "Lower limit of output"
+  parameter Real yMinFloBypCon=0.1 "Lower limit of output"
     annotation (Dialog(tab="Minimum flow bypass", group="Controller"));
 
   //// Chilled water pumps
@@ -208,11 +208,11 @@ block Controller "Chiller plant controller"
     "Total number of remote differential pressure sensors"
     annotation (Dialog(group="Pumps configuration"));
 
-  parameter Real minChiWatPumPumSpe=0.1
+  parameter Real minChiWatPumSpe=0.1
     "Minimum pump speed"
     annotation (Dialog(tab="Chilled water pumps", group="Speed controller"));
 
-  parameter Real maxPChiWatPumumSpe=1
+  parameter Real maxChiWatPumSpe=1
     "Maximum pump speed"
     annotation (Dialog(tab="Chilled water pumps", group="Speed controller"));
 
@@ -255,8 +255,8 @@ block Controller "Chiller plant controller"
     displayUnit="h")=0.1 "Time constant of derivative block"
       annotation (Dialog(tab="Chilled water pumps", group="Speed controller",
     enable=
-      controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
-      controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+      controllerTypeChiWatPum == Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
+      controllerTypeChiWatPum == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
   //// Chilled water plant reset
 
@@ -1006,23 +1006,23 @@ block Controller "Chiller plant controller"
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure.Controller
     heaPreCon[nChi](
-    final fixSpePum=fixSpePum,
-    final have_HeaPreConSig=have_HeaPreConSig,
-    final have_WSE=have_WSE,
+    final fixSpePum=fill(fixSpePum, nChi),
+    final have_HeaPreConSig=fill(have_HeaPreConSig, nChi),
+    final have_WSE=fill(have_WSE, nChi),
     final minTowSpe=fill(minTowSpe, nChi),
     final minConWatPumSpe=fill(minConWatPumSpe, nChi),
     final minHeaPreValPos=fill(minHeaPreValPos, nChi),
-    final controllerType=controllerTypeHeaPre,
-    final minChiLif=minChiLif,
-    final k=kHeaPreCon,
-    final Ti=TiHeaPreCon) "Head pressure controller"
+    final controllerType=fill(controllerTypeHeaPre, nChi),
+    final minChiLif=fill(minChiLif, nChi),
+    final k=fill(kHeaPreCon, nChi),
+    final Ti=fill(TiHeaPreCon, nChi)) "Head pressure controller"
     annotation (Placement(transformation(extent={{-420,180},{-380,220}})));
 
   MinimumFlowBypass.Controller minBypValCon(
     final nChi=nChi,
     final minFloSet=minFloSet,
     final controllerType=controllerTypeMinFloByp,
-    final k=controllerType,
+    final k=kMinFloBypCon,
     final Ti=TiMinFloBypCon,
     final Td=TdMinFloBypCon,
     final yMax=yMaxFloBypCon,
@@ -1052,7 +1052,7 @@ block Controller "Chiller plant controller"
     final nPum=nChiWatPum,
     final holTim=holTim,
     final iniSet=iniSet,
-    final minSet=minset,
+    final minSet=minSet,
     final maxSet=maxSet,
     final delTim=delTim,
     final samplePeriod=samplePeriod,
@@ -1068,7 +1068,7 @@ block Controller "Chiller plant controller"
     final dpChiWatPumMax=dpChiWatPumMax,
     final TChiWatSupMin=TChiWatSupMin,
     final TChiWatSupMax=TChiWatSupMax,
-    final minSet=minset,
+    final minSet=minSet,
     final maxSet=maxSet,
     final halSet=halSet)
     "Sequences to generate setpoints of chilled water supply temperature and the pump differential static pressure"
@@ -1238,67 +1238,85 @@ block Controller "Chiller plant controller"
     "Outdoor air dr bulb temperature" annotation (Placement(transformation(
           extent={{-840,80},{-800,120}}), iconTransformation(extent={{-140,60},{
             -100,100}})));
+
   CDL.Interfaces.RealInput uFanSpe(
     final quantity="1",
     final min=0,
     final max=1) "Tower fan speed" annotation (Placement(transformation(extent={
             {-840,-608},{-800,-568}}), iconTransformation(extent={{-832,-608},{-792,
             -568}})));
+
   CDL.Interfaces.BooleanInput uChiConIsoVal[nChi]
     "Chilled condenser water isolation valve status" annotation (Placement(
         transformation(extent={{-840,620},{-800,660}}), iconTransformation(
           extent={{-140,-30},{-100,10}})));
+
   CDL.Interfaces.BooleanInput uConWatReq[nChi]
     "Condenser water requst status for each chiller" annotation (Placement(
         transformation(extent={{-840,560},{-800,600}}), iconTransformation(
           extent={{-834,548},{-794,588}})));
+
   CDL.Interfaces.BooleanInput uChiWatReq[nChi]
     "Chilled water requst status for each chiller" annotation (Placement(
         transformation(extent={{-840,590},{-800,630}}), iconTransformation(
           extent={{-810,540},{-770,580}})));
+
   CDL.Logical.LogicalSwitch chiHeaCon[nChi]
     "Chiller head pressure control status"
     annotation (Placement(transformation(extent={{620,270},{640,290}})));
+
   CDL.Routing.BooleanReplicator inStaUpPro(nout=nChi)
     "In chiller stage up process"
     annotation (Placement(transformation(extent={{500,270},{520,290}})));
+
   CDL.Routing.BooleanReplicator booRep(nout=nChi) if have_WSE
     "Waterside economizer status"
     annotation (Placement(transformation(extent={{-480,290},{-460,310}})));
+
   CDL.Routing.RealReplicator conWatRetTem(final nout=nChi)
     "Condenser water return temperature"
     annotation (Placement(transformation(extent={{-640,230},{-620,250}})));
+
   CDL.Routing.RealReplicator chiWatSupTem(final nout=nChi)
     "Chilled water supply temperature"
     annotation (Placement(transformation(extent={{-580,210},{-560,230}})));
+
   CDL.Logical.Switch desConWatPumSpeSwi "Design condenser water pump speed"
     annotation (Placement(transformation(extent={{620,190},{640,210}})));
+
   CDL.Routing.RealReplicator repDesConTem(final nout=nChi)
     "Replicate design condenser water temperature"
     annotation (Placement(transformation(extent={{660,190},{680,210}})));
+
   CDL.Interfaces.RealInput uHeaPreCon[nChi] if have_HeaPreConSig
     "Chiller head pressure control loop signal from chiller controller"
     annotation (Placement(transformation(extent={{-840,180},{-800,220}}),
         iconTransformation(extent={{-656,180},{-616,220}})));
+
   CDL.Interfaces.RealOutput yHeaPreConVal[nChi]
     "Head pressure control valve position" annotation (Placement(transformation(
           extent={{800,160},{840,200}}), iconTransformation(extent={{272,160},{
             312,200}})));
   CDL.Continuous.MultiMin mulMin(nin=nChi)
     annotation (Placement(transformation(extent={{-360,170},{-340,190}})));
+
   CDL.Logical.Switch chiMinFloSet "Chiller water minimum flow setpoint"
     annotation (Placement(transformation(extent={{620,140},{640,160}})));
+
   CDL.Logical.Latch lat
     annotation (Placement(transformation(extent={{620,340},{640,360}})));
+
   CDL.Routing.BooleanReplicator uChiSwi(nout=nChi)
     "In chiller stage up process"
     annotation (Placement(transformation(extent={{660,340},{680,360}})));
+
   CDL.Logical.LogicalSwitch uChiStaPro[nChi]
     "Chiller head pressure control status"
     annotation (Placement(transformation(extent={{700,340},{720,360}})));
-protected
+
   CDL.Logical.Pre heaCon[nChi] "Chiller head pressure control"
     annotation (Placement(transformation(extent={{660,270},{680,290}})));
+
 equation
   connect(staSetCon.uPla, plaEna.yPla) annotation(Line(points={{-168,72},{-480,
           72},{-480,-460},{-518,-460}},        color={255,0,255}));
@@ -1408,7 +1426,7 @@ equation
                                              color={255,0,255}));
   connect(uChiWatPum, mulOr.u) annotation(Line(points={{-820,340},{-670,340},{
           -670,-100},{-642,-100}},color={255,0,255}));
-  connect(staSetCon.yOpeParLoaRatMin, dowProCon.uOpeParLoaRatMin) annotation (
+  connect(staSetCon.yOpeParLoaRatMin, dowProCon.yOpeParLoaRatMin) annotation (
       Line(points={{-72,-52},{-60,-52},{-60,-168},{272,-168}},           color=
           {0,0,127}));
   connect(uChi, upProCon.uChi) annotation(Line(points={{-820,540},{-700,540},{-700,
