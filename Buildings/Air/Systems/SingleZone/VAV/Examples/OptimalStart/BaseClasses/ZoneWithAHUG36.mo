@@ -17,6 +17,8 @@ block ZoneWithAHUG36
   parameter Modelica.SIunits.HeatFlowRate QCoo_flow_nominal = -100000
     "Design cooling flow rate";
 
+  parameter Modelica.SIunits.Angle lat "Latitude";
+
   Buildings.Controls.OBC.CDL.Interfaces.RealInput warUpTim(
     final unit="s",
     final quantity="Time")
@@ -68,7 +70,7 @@ block ZoneWithAHUG36
     "VAV controller"
     annotation (Placement(transformation(extent={{-66,-36},{-26,12}})));
   Buildings.ThermalZones.Detailed.Validation.BaseClasses.SingleZoneFloor sinZonFlo(
-    redeclare package Medium = MediumA, lat=weaDat.lat)
+    redeclare package Medium = MediumA, lat=lat)
     "Single zone floor"
     annotation (Placement(transformation(extent={{76,-24},{116,16}})));
   Buildings.Air.Systems.SingleZone.VAV.ChillerDXHeatingEconomizer hvac(
@@ -86,11 +88,6 @@ block ZoneWithAHUG36
   Modelica.Blocks.Math.Feedback errTRooCoo1
     "Control error on room temperature for cooling"
     annotation (Placement(transformation(extent={{-76,-80},{-56,-60}})));
-  Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
-    filNam=ModelicaServices.ExternalReferences.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"),
-    computeWetBulbTemperature=false)
-    "Weather data"
-    annotation (Placement(transformation(extent={{-20,70},{0,90}})));
   Buildings.BoundaryConditions.WeatherData.Bus weaBus
     "Weather bus" annotation (Placement(
         transformation(extent={{48,70},{72,90}}),    iconTransformation(extent={{-80,72},
@@ -146,18 +143,6 @@ equation
       index=1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(weaDat.weaBus, weaBus) annotation (Line(
-      points={{0,80},{60,80}},
-      color={255,204,51},
-      thickness=0.5), Text(
-      string="%second",
-      index=1,
-      extent={{6,3},{6,3}},
-      horizontalAlignment=TextAlignment.Left));
-  connect(weaDat.weaBus, hvac.weaBus) annotation (Line(
-      points={{0,80},{24.2,80},{24.2,9.8}},
-      color={255,204,51},
-      thickness=0.5));
   connect(errTRooCoo1.u1, con.TZon) annotation (Line(points={{-74,-70},{-82,-70},
           {-82,0},{-68,0}}, color={0,0,127}));
   connect(TSetSupChiConst.y, hvac.TSetChi) annotation (Line(points={{-38,50},{-8,
@@ -179,6 +164,14 @@ equation
   connect(cooDowTim, con.cooDowTim) annotation (Line(points={{-160,20},{-92,20},
           {-92,5.53846},{-68,5.53846}}, color={0,0,127}));
 
+  connect(hvac.weaBus, weaBus) annotation (Line(
+      points={{24.2,9.8},{24.2,80},{60,80}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%second",
+      index=1,
+      extent={{-3,6},{-3,6}},
+      horizontalAlignment=TextAlignment.Right));
   annotation (defaultComponentName="zonAHUG36",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={
                                 Rectangle(

@@ -17,6 +17,8 @@ block ZoneWithAHUConventional
   parameter Modelica.SIunits.HeatFlowRate QCoo_flow_nominal = -100000
     "Design cooling flow rate";
 
+  parameter Modelica.SIunits.Angle lat "Latitude";
+
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSetRooHea(
     final unit="K",
     displayUnit="degC")
@@ -59,19 +61,13 @@ block ZoneWithAHUConventional
     "Controller"
     annotation (Placement(transformation(extent={{-78,-12},{-58,8}})));
   Buildings.ThermalZones.Detailed.Validation.BaseClasses.SingleZoneFloor
-    sinZonFlo(redeclare package Medium = MediumA, lat=weaDat.lat)
+    sinZonFlo(redeclare package Medium = MediumA, lat=lat)
     "Single zone floor building"
     annotation (Placement(transformation(extent={{38,-16},{78,24}})));
-  Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
-    filNam=ModelicaServices.ExternalReferences.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"),
-    computeWetBulbTemperature=false)
-    "Weather data"
-    annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
   Buildings.BoundaryConditions.WeatherData.Bus weaBus
     "Weather bus" annotation (Placement(
         transformation(extent={{-4,50},{16,70}}),    iconTransformation(extent={{-78,70},
             {-58,90}})));
-
 equation
   connect(con.yCooCoiVal,hvac. uCooVal) annotation (Line(points={{-56,-4},{-36,-4},
           {-36,5},{-20,5}}, color={0,0,127}));
@@ -109,10 +105,6 @@ equation
       thickness=0.5));
   connect(weaBus, hvac.weaBus) annotation (Line(
       points={{6,60},{6,32},{-13.8,32},{-13.8,17.8}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(weaDat.weaBus, weaBus) annotation (Line(
-      points={{-20,60},{6,60}},
       color={255,204,51},
       thickness=0.5));
   connect(weaBus.TDryBul, con.TOut) annotation (Line(

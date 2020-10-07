@@ -3,6 +3,13 @@ model ConventionalSpring
   "Example model using the block OptimalStart with a conventional controller for a single-zone VAV system in spring"
   extends Modelica.Icons.Example;
 
+  BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
+    computeWetBulbTemperature=false,
+    filNam=Modelica.Utilities.Files.loadResource(
+        "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
+    "Weather data"
+    annotation (Placement(transformation(extent={{82,2},{102,22}})));
+
   Buildings.Controls.OBC.Utilities.OptimalStart optSta(
     computeHeating=true,
     computeCooling=true,
@@ -48,10 +55,12 @@ model ConventionalSpring
   Buildings.Controls.OBC.CDL.Continuous.Add add4(final k1=+1, final k2=+1)
     "New heating setpoint schedule for room"
     annotation (Placement(transformation(extent={{40,64},{60,84}})));
-  Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.BaseClasses.ZoneWithAHUConventional zonAHUOpt
+  Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.BaseClasses.ZoneWithAHUConventional zonAHUOpt(
+    final lat=weaDat.lat)
     "Model of a single zone with AHU and controller"
     annotation (Placement(transformation(extent={{80,50},{100,70}})));
-  Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.BaseClasses.ZoneWithAHUConventional zonAHUCon
+  Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.BaseClasses.ZoneWithAHUConventional zonAHUCon(
+    final lat=weaDat.lat)
     "Model of a single zone with AHU and controller"
     annotation (Placement(transformation(extent={{80,-70},{100,-50}})));
   Buildings.Controls.OBC.CDL.Logical.Or or2
@@ -94,6 +103,14 @@ equation
           26,-50},{-18,-50}}, color={0,0,127}));
   connect(booToRea1.y, add4.u1) annotation (Line(points={{22,80},{38,80}}, color={0,0,127}));
 
+  connect(weaDat.weaBus, zonAHUOpt.weaBus) annotation (Line(
+      points={{102,12},{112,12},{112,68},{83.2,68}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(weaDat.weaBus, zonAHUCon.weaBus) annotation (Line(
+      points={{102,12},{112,12},{112,-52},{83.2,-52}},
+      color={255,204,51},
+      thickness=0.5));
    annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}})),                                        Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-120,-100},{120,100}}),

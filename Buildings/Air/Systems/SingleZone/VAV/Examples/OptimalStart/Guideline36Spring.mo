@@ -3,6 +3,12 @@ model Guideline36Spring
   "Example model using the block OptimalStart with a Guideline36 controller for a single-zone system in spring"
   extends Modelica.Icons.Example;
 
+  BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
+    computeWetBulbTemperature=false,
+    filNam=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
+    "Weather data"
+    annotation (Placement(transformation(extent={{40,-20},{60,0}})));
+
   Buildings.Controls.OBC.Utilities.OptimalStart optStaHea(
     computeHeating=true,
     computeCooling=false,
@@ -29,10 +35,12 @@ model Guideline36Spring
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(k=0)
     "No optimal start"
     annotation (Placement(transformation(extent={{-20,-78},{0,-58}})));
-  Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.BaseClasses.ZoneWithAHUG36 zonAHUG36Opt
+  Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.BaseClasses.ZoneWithAHUG36 zonAHUG36Opt(
+    final lat=weaDat.lat)
     "A single zone building with a VAV system and a Guideline36 controller"
     annotation (Placement(transformation(extent={{40,40},{60,60}})));
-  Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.BaseClasses.ZoneWithAHUG36 zonAHUG36Con
+  Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.BaseClasses.ZoneWithAHUG36 zonAHUG36Con(
+    final lat=weaDat.lat)
     "A single zone building with a VAV system and a Guideline36 controller"
     annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
 
@@ -66,6 +74,14 @@ equation
   connect(occSch.tNexOcc, optStaHea.tNexOcc) annotation (Line(points={{-39,-18},
           {-26,-18},{-26,64},{-22,64}}, color={0,0,127}));
 
+  connect(weaDat.weaBus, zonAHUG36Opt.weaBus) annotation (Line(
+      points={{60,-10},{80,-10},{80,58.2},{43,58.2}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(weaDat.weaBus, zonAHUG36Con.weaBus) annotation (Line(
+      points={{60,-10},{80,-10},{80,-61.8},{43,-61.8}},
+      color={255,204,51},
+      thickness=0.5));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false),
                     graphics={
