@@ -1,4 +1,4 @@
-within Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart;
+within Buildings.Air.Systems.SingleZone.VAV.Examples.fixme;
 model Guideline36Spring
   "Example model using the block OptimalStart with a Guideline36 controller for a single-zone system in spring"
   extends Modelica.Icons.Example;
@@ -113,7 +113,7 @@ equation
       StartTime=6393600,
       StopTime=7171200,
       Tolerance=1e-06),
-      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Air/Systems/SingleZone/VAV/Examples/OptimalStart/Guideline36Spring.mos"
+      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Air/Systems/SingleZone/VAV/Examples/fixme/Guideline36Spring.mos"
         "Simulate and plot"),
       Documentation(info="<html>
 <p>

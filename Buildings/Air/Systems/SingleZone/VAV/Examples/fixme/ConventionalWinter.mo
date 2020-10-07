@@ -1,13 +1,12 @@
-within Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart;
-model ConventionalSummer
-  "Example model using the block OptimalStart with a conventional controller for a single-zone VAV system in summer"
+within Buildings.Air.Systems.SingleZone.VAV.Examples.fixme;
+model ConventionalWinter
+  "Example model using the block OptimalStart with a conventional controller for a single-zone VAV system in winter"
   extends Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.ConventionalSpring;
 
   annotation (experiment(
-      StartTime=15984000,
-      StopTime=16761600,
+      StopTime=604800,
       Tolerance=1e-06),
-      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Air/Systems/SingleZone/VAV/Examples/OptimalStart/ConventionalSummer.mos"
+      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Air/Systems/SingleZone/VAV/Examples/fixme/ConventionalWinter.mos"
         "Simulate and plot"),
       Documentation(info="<html>
 <p>
@@ -18,13 +17,13 @@ that integrates with a conventional controller, a single-zone VAV system
 and a single-zone floor building. The building, HVAC system and controller model 
 can be found in the base class
 <a href=\"modelica://Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.BaseClasses.ZoneWithAHUConventional\">
-Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.BaseClasses.ZoneWithAHUConventional</a>.
+Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.BaseClasses.ZoneWithAHUConventional</a>. 
 </p>
 <p>
-This example validates the optimal start results for the summer condition. Note 
+This example validates the optimal start results for the winter condition. Note 
 that the optimal start block in this example computes for both heating and cooling conditions.
 The first few days are initialization period. The optimal start block calculates
-the optimal precooling time based on the moving average temperature slope of the 
+the optimal preheating time based on the moving average temperature slope of the 
 zone computed from previous days.
 </p>
 </html>",
@@ -37,4 +36,4 @@ First implementation. This is for issue
 </li>
 </ul>
 </html>"));
-end ConventionalSummer;
+end ConventionalWinter;

@@ -1,12 +1,13 @@
-within Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart;
-model Guideline36Winter
-  "Example model using the block OptimalStart with a Guideline36 controller for a single-zone system in winter"
-  extends Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.Guideline36Spring;
+within Buildings.Air.Systems.SingleZone.VAV.Examples.fixme;
+model Guideline36Summer
+  "Example model using the block OptimalStart with a Guideline36 controller for a single-zone system in summer"
+  extends Buildings.Air.Systems.SingleZone.VAV.Examples.fixme.Guideline36Spring;
 
   annotation (experiment(
-      StopTime=604800,
+      StartTime=15984000,
+      StopTime=16761600,
       Tolerance=1e-06),
-      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Air/Systems/SingleZone/VAV/Examples/OptimalStart/Guideline36Winter.mos"
+      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Air/Systems/SingleZone/VAV/Examples/fixme/Guideline36Summer.mos"
         "Simulate and plot"),
       Documentation(info="<html>
 <p>
@@ -23,9 +24,9 @@ can be found in the base class
 Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.BaseClasses.ZoneWithAHUG36</a>.
 </p>
 <p>
-This example validates the optimal start results for the winter condition.
+This example validates the optimal start results for the summer condition.
 The first few days are initialization period. The optimal start block calculates
-the optimal preheating time based on the moving average temperature slope of the
+the optimal precooling time based on the moving average temperature slope of the 
 zone computed from previous days.
 </p>
 </html>",
@@ -38,4 +39,4 @@ First implementation. This is for issue
 </li>
 </ul>
 </html>"));
-end Guideline36Winter;
+end Guideline36Summer;
