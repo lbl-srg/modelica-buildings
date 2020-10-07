@@ -48,6 +48,12 @@ If the cooling signal is true, cooling is allowed (ie, it is not locked out).
 A true signal indicates only that heating or cooling is *permitted*- it does *not* indicate the actual status
 of the final heating or cooling signal, which depends on the slab temperature and slab setpoint (see SlabTempSignal for more info).
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+October 6, 2020, by Fiona Woods:<br/>
+Updated description. 
+</li>
 </html>"),Icon(coordinateSystem(
         preserveAspectRatio=true,
         extent={{-100,-100},{100,100}}),graphics={

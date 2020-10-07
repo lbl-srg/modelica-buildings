@@ -5,6 +5,7 @@ model SetpointTemperature
   Controls.OBC.CDL.Continuous.Sources.Constant con(k=294.25) "Heating setpoint"
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
   Controls.OBC.CDL.Logical.Sources.Pulse booPul(width=0.25, period=86400)
+    "Varying natural ventilation signal"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
   SetpointTemperatureReset setTemRes
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
@@ -19,8 +20,17 @@ equation
           {-20,6},{-2.2,6}}, color={0,0,127}));
   annotation (Documentation(info="<html>
 <p>
-This model validates the VAV temperature setpoint model during the natural ventilation sequence.   
+This model validates the VAV temperature setpoint model during the natural ventilation sequence.  
+ <p> When natural ventilation mode turns on,
+   the block adds a user-specified setpoint relaxation amount (typically 20F, ClgStpRel for cooling and HtgStpRel for heating) to produce relaxed VAV setpoints.
+   <p> 
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+October 6, 2020, by Fiona Woods:<br/>
+Updated description. 
+</li>
 </html>"),experiment(Tolerance=1e-6, StartTime=0, StopTime=86400),__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/NaturalVentilation/VAV/Validation/SetpointTemperature.mos"
         "Simulate and plot"), Icon(graphics={
         Ellipse(

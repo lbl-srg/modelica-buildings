@@ -119,6 +119,12 @@ as this indicates that the room needs less cooling than is being provided. <p>
   
   <p>
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+October 6, 2020, by Fiona Woods:<br/>
+Updated description. 
+</li>
 </html>"),Icon(coordinateSystem(
         preserveAspectRatio=true,
         extent={{-100,-100},{100,100}}),graphics={

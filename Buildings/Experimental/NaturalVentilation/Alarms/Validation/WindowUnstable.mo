@@ -3,25 +3,28 @@ model WindowUnstable "Validation model for window instability alarm"
   WindowUnstableAlarm winUnsAla1
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
   Controls.OBC.CDL.Logical.Sources.Constant con(k=false)
+    "False for manual override"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   Controls.OBC.CDL.Continuous.Sources.Pulse pulWinSta(width=1, period=2400)
-    "Stable window"
+    "Stable window signal"
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
   WindowUnstableAlarm winUnsAla2(TiUns=4800)
     annotation (Placement(transformation(extent={{42,-80},{62,-60}})));
   Controls.OBC.CDL.Logical.Sources.Constant con1(k=false)
+    "False manual override"
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
   Controls.OBC.CDL.Continuous.Sources.Sine sin(
     amplitude=0.95,
     freqHz=1/1200,
-    offset=0.5)
+    offset=0.5) "Unstable window signal"
     annotation (Placement(transformation(extent={{-80,-98},{-60,-78}})));
   Controls.OBC.CDL.Continuous.Sources.Pulse pulWinSta1(width=0.75, period=
-        3600) "Stable window"
+        3600) "Stable window signal"
     annotation (Placement(transformation(extent={{-80,-180},{-60,-160}})));
   Controls.OBC.CDL.Logical.Switch swi
     annotation (Placement(transformation(extent={{-20,-120},{0,-100}})));
   Controls.OBC.CDL.Logical.Sources.Pulse booPul3(width=0.2, period=86400)
+    "Switch controller"
     annotation (Placement(transformation(extent={{-82,-138},{-62,-118}})));
 equation
   connect(winUnsAla1.uManOvr, con.y) annotation (Line(points={{-22,33},{-40,
@@ -41,6 +44,12 @@ equation
   annotation (Documentation(info="<html>
 <p>
 This model validates the window instability alarm, which should show true if the window fluctuates within a given range more than a user-specified amount of times within a user-specified time duration.
+</html>", revisions="<html>
+<ul>
+<li>
+October 6, 2020, by Fiona Woods:<br/>
+Updated description. 
+</li>
 </html>"), experiment(Tolerance=1e-6, StartTime=0, StopTime=86400),__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/NaturalVentilation/Alarms/Validation/WindowUnstable.mos"
         "Simulate and plot"),Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Ellipse(

@@ -1,6 +1,6 @@
 within Buildings.Experimental.Lighting;
 block DaylightControlContinuous "Controls light fixture continually to a foot-candle setpoint"
- parameter Real maxFC( min=0)= 50 "Maximum foot-cancdle output for light fixture";
+ parameter Real maxFC( min=0)= 50 "Maximum foot-candle output for light fixture";
   Controls.OBC.CDL.Interfaces.RealInput uLigSet
     "Room light setpoint in foot candles"
                                         annotation (Placement(transformation(
@@ -106,6 +106,13 @@ equation
   
 <p>
 </p>
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+October 6, 2020, by Fiona Woods:<br/>
+Reconfigured block; updated description & unit test. 
+</li>
 </html>"),Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{-100,98},{102,-102}},

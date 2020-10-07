@@ -6,9 +6,10 @@ model WetBulb
     amplitude=2*4.44,
     freqHz=2/86400,
     phase(displayUnit="rad"),
-    offset=293.15)
+    offset=293.15) "Varying wet bulb temperature"
     annotation (Placement(transformation(extent={{-60,42},{-40,62}})));
   Controls.OBC.CDL.Continuous.Sources.Constant con(k=293.15)
+    "Constant thermostat air setpoint"
     annotation (Placement(transformation(extent={{-60,2},{-40,22}})));
   WetBulbLockout wetBulLoc
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
@@ -23,6 +24,12 @@ This model validates the wet bulb lockout. If natural ventilation is allowed, ou
 If natural ventilation is locked out because the wet bulb temperature is above the room setpoint minus the temperature difference , output should show false. 
 </p> 
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+October 6, 2020, by Fiona Woods:<br/>
+Updated description. 
+</li>
 </html>"),experiment(Tolerance=1e-6, StartTime=0, StopTime=86400),__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/NaturalVentilation/Lockouts/SubLockouts/Validation/WetBulb.mos"
         "Simulate and plot"), Icon(graphics={
         Ellipse(

@@ -11,27 +11,32 @@ parameter Real numSwi(min=0)=3 "Allowable number of swings before window is cons
   Controls.OBC.CDL.Logical.Not not1
     annotation (Placement(transformation(extent={{-80,38},{-60,58}})));
   Controls.OBC.CDL.Continuous.AddParameter addPar1(p=0.5 + 0.5*swiRan, k=-1)
+    "Difference between window position and swing range upper limit"
     annotation (Placement(transformation(extent={{-80,-62},{-60,-42}})));
   Controls.OBC.CDL.Integers.OnCounter onCouInt
     annotation (Placement(transformation(extent={{40,-58},{52,-46}})));
   Controls.OBC.CDL.Continuous.AddParameter addPar2(p=0.5 - 0.5*swiRan, k=-1)
+    "Difference between window position and swing range lower limit"
     annotation (Placement(transformation(extent={{-80,-102},{-60,-82}})));
   Controls.OBC.CDL.Continuous.Hysteresis hysAboHi(
     uLow=-0.01,
     uHigh=0,
-    pre_y_start=true)
+    pre_y_start=true) "Tests if window swings above high position"
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
   Controls.OBC.CDL.Continuous.Hysteresis hysBelLo(uLow=0, uHigh=0.01)
+    "Tests if window swings above low position"
     annotation (Placement(transformation(extent={{-40,-102},{-20,-82}})));
   Controls.OBC.CDL.Integers.OnCounter onCouInt1
     annotation (Placement(transformation(extent={{4,-98},{16,-86}})));
   Controls.OBC.CDL.Continuous.AddParameter addPar3(p=-numSwi, k=1)
+    "Number of swings in period minus swing threshold"
     annotation (Placement(transformation(extent={{262,-60},{282,-40}})));
   Controls.OBC.CDL.Conversions.IntegerToReal intToRea
     annotation (Placement(transformation(extent={{80,-62},{100,-42}})));
   Controls.OBC.CDL.Conversions.IntegerToReal intToRea1
     annotation (Placement(transformation(extent={{80,-102},{100,-82}})));
   Controls.OBC.CDL.Continuous.AddParameter addPar4(p=-numSwi, k=1)
+    "Number of swings in period minus swing threshold"
     annotation (Placement(transformation(extent={{262,-100},{282,-80}})));
   Controls.OBC.CDL.Logical.And andCouAbo
     annotation (Placement(transformation(extent={{362,-80},{382,-60}})));
@@ -53,21 +58,26 @@ parameter Real numSwi(min=0)=3 "Allowable number of swings before window is cons
     uLow=0,
     uHigh=0.1,
     pre_y_start=false)
+    "Tests if number of swings above upper swing limit exceeds swing threshold"
     annotation (Placement(transformation(extent={{302,-58},{322,-38}})));
   Controls.OBC.CDL.Continuous.Hysteresis hysCouLo(
     uLow=0,
     uHigh=0.1,
     pre_y_start=false)
+    "Tests if number of swings below lower swing limit exceeds swing threshold"
     annotation (Placement(transformation(extent={{302,-100},{322,-80}})));
   Controls.OBC.CDL.Continuous.Add add2(k1=-1, k2=+1)
+    "Number of swings at end of period minus number of swings at start of period"
     annotation (Placement(transformation(extent={{218,-60},{238,-40}})));
   Controls.OBC.CDL.Continuous.Add add1(k2=-1)
+    "Number of swings at end of period minus number of swings at start of period"
     annotation (Placement(transformation(extent={{218,-100},{238,-80}})));
   Modelica.Blocks.Nonlinear.FixedDelay fixedDelay(delayTime=TiUns)
     annotation (Placement(transformation(extent={{140,-140},{160,-120}})));
   Modelica.Blocks.Nonlinear.FixedDelay fixedDelay1(delayTime=TiUns)
     annotation (Placement(transformation(extent={{140,-20},{160,0}})));
-  Controls.OBC.CDL.Logical.Sources.Constant con5(k=false) "Constant"
+  Controls.OBC.CDL.Logical.Sources.Constant con5(k=false)
+    "Constant false to keep counter going"
     annotation (Placement(transformation(extent={{-40,-182},{-20,-162}})));
   Controls.OBC.CDL.Logical.Sources.Pulse booPul3(period=43000)
     annotation (Placement(transformation(extent={{142,-298},{162,-278}})));
@@ -146,6 +156,12 @@ The user specifies values for three parameters:
    <p>
 If more than the user-defined number of swings (numSwi) occur during the user-specified time frame (TiUns), the alarm is triggered. 
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+October 6, 2020, by Fiona Woods:<br/>
+Updated description. 
+</li>
 </html>"),Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{-100,100},{100,-100}},

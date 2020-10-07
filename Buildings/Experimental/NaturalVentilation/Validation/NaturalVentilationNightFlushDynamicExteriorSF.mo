@@ -1,5 +1,5 @@
 within Buildings.Experimental.NaturalVentilation.Validation;
-model NaturalVentilationNightFlushDynamicExteriorSF
+model NaturalVentilationNightFlushDynamicExteriorSF "Validation model for night flush with dynamic duration for an exterior zone exposed to San Francisco weather"
   replaceable package MediumA =
       Buildings.Media.Air;
   Fluid.Sensors.TemperatureTwoPort temRoo(
@@ -101,21 +101,25 @@ model NaturalVentilationNightFlushDynamicExteriorSF
         transformation(extent={{-84,166},{-44,206}}), iconTransformation(extent=
            {{-168,106},{-148,126}})));
   HeatTransfer.Sources.FixedTemperature TFix(T=292.15)
+    "Boundary temperature to represent interior conditioned space"
     annotation (Placement(transformation(extent={{554,8},{574,28}})));
   Controls.OBC.CDL.Logical.Sources.Pulse booPul(
     width=0.405,
     period=86400,
-    startTime=32400)
+    startTime=32400) "Varying occupancy signal"
     annotation (Placement(transformation(extent={{-44,76},{-24,96}})));
   Controls.OBC.CDL.Continuous.Sources.Constant TIntSet(k=295)
+    "Constant interior room air temperature setpoint"
     annotation (Placement(transformation(extent={{-74,-48},{-30,-4}})));
   BaseClasses.ForecastHighSF forHiSF
+    "Outdoor air forecast high dry bulb temperature"
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));
   NaturalVentilationNightFlushDynamic natVenNitFluDyn
     annotation (Placement(transformation(extent={{84,16},{152,82}})));
   Fluid.Sources.Outside out1(nPorts=2,redeclare package Medium = MediumA)
     annotation (Placement(transformation(extent={{88,166},{108,186}})));
   Controls.OBC.CDL.Logical.Sources.Constant con(k=false)
+    "Constant manual override and rain signal"
     annotation (Placement(transformation(extent={{-20,100},{0,120}})));
 equation
   connect(conBel3.port_b, radExt.surf_conBou[1]) annotation (Line(points={{474,
@@ -209,11 +213,28 @@ equation
           40,110},{40,78.04},{77.2,78.04}}, color={255,0,255}));
   connect(con.y, natVenNitFluDyn.uRai) annotation (Line(points={{2,110},{40,110},
           {40,71.44},{77.2,71.44}}, color={255,0,255}));
-  annotation (experiment(Tolerance=1e-6, StartTime=0, StopTime=31536000), __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/NaturalVentilation/Validation/NaturalVentilationNightFlushDynamicExteriorSF.mos"
-        "Simulate and plot"),Documentation(info="<html>
-  <p> fixme : Validation model in progress
-</p>
-</html>"),Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
+  annotation (Documentation(info="<html>
+<p>
+This model validates the natural ventilation module with dynamic duration night flush over a calendar year.
+A standard exterior room is used, and outdoor air conditions are modeled with San Francisco weather. 
+<p> 
+The zone is 5 meters by 9 meters in floor area and is 3 meters in height.
+<li>The zone has two exposed walls, each with windows: one oriented south, and the other oriented west. 
+<li>The remaining walls are exposed to a constant-temperature boundary condition that is set to ~70F to approximate interior conditions. 
+<li> The room is modeled with standard office internal gains - 0.6 W/SF lighting (20% radiative, 80% convective), 0.6 W/SF plug loads (50% radiative, 50% convective) , and 2 occupants, with corresponding heat gains
+<li> (93 W/person sensible (50% radiative and 50% convective) & 74 W/person latent).
+<li> Gains are modeled with ASHRAE standard schedules for lighting, plug loads, and occupancy, respectively. 
+<li> During occupied hours, the room receives ventilation air at approximately code minimum rate (~90 cfm). 
+<li> During unoccupied hours, the room receives a negligible amount of air. 
+<p>
+</html>", revisions="<html>
+<ul>
+<li>
+October 6, 2020, by Fiona Woods:<br/>
+Updated description. 
+</li>
+</html>"),experiment(Tolerance=1e-6, StartTime=0, StopTime=31536000), __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/NaturalVentilation/Validation/NaturalVentilationNightFlushDynamicExteriorSF.mos"
+        "Simulate and plot"),Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
                    graphics={
         Ellipse(
           lineColor={75,138,73},

@@ -1,5 +1,5 @@
 within Buildings.Experimental.NaturalVentilation.Lockouts;
-model AllLockouts "All lockouts combined"
+model AllLockouts "All natural ventilation lockouts combined"
 parameter Real TDryBulCut(min=0,
     final unit="K",
     final displayUnit="degC",
@@ -32,17 +32,18 @@ parameter Real winSpeLim(min=0,
     TDryBulCut=TDryBulCut,
     TiFav=TiFav,
     TiNotFav=TiNotFav,
-    TNitFluCut=TNitFluCut)
+    TNitFluCut=TNitFluCut) "Dry bulb lockout"
     annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
-  SubLockouts.ManualOverrideLockout manLoc
+  SubLockouts.ManualOverrideLockout manLoc "Manual override lockout"
     annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
-  SubLockouts.OccupancyLockout occLoc
+  SubLockouts.OccupancyLockout occLoc "Occupancy lockout"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
-  SubLockouts.RainLockout raiLoc(locTimRai=locTimRai)
+  SubLockouts.RainLockout raiLoc(locTimRai=locTimRai) "Rain lockout"
     annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
   SubLockouts.WetBulbLockout wetBulLoc(TWetBulDif=TWetBulDif)
+    "Wet bulb temperature lockout"
     annotation (Placement(transformation(extent={{-40,-86},{-20,-66}})));
-  SubLockouts.WindLockout winLoc(winSpeLim=winSpeLim)
+  SubLockouts.WindLockout winLoc(winSpeLim=winSpeLim) "Wind speed lockout"
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
   Controls.OBC.CDL.Interfaces.BooleanInput uManOveRid
     "Manual override signal- true if override, false if not" annotation (
@@ -64,10 +65,12 @@ parameter Real winSpeLim(min=0,
     "Outdoor air dry bulb temperature" annotation (Placement(transformation(
           extent={{-160,-30},{-120,10}}), iconTransformation(extent={{-140,-70},
             {-100,-30}})));
-  Controls.OBC.CDL.Interfaces.RealInput uWinSpe annotation (Placement(
+  Controls.OBC.CDL.Interfaces.RealInput uWinSpe "Wind speed"
+                                                annotation (Placement(
         transformation(extent={{-160,-70},{-120,-30}}), iconTransformation(
           extent={{-140,-90},{-100,-50}})));
-  Controls.OBC.CDL.Interfaces.RealInput uRooSet "Room setpoint" annotation (
+  Controls.OBC.CDL.Interfaces.RealInput uRooSet "Room air temperature setpoint"
+                                                                annotation (
       Placement(transformation(extent={{-160,-110},{-120,-70}}),
         iconTransformation(extent={{-140,-50},{-100,-10}})));
   Controls.OBC.CDL.Interfaces.RealInput uWetBul
@@ -84,7 +87,8 @@ parameter Real winSpeLim(min=0,
     "True if nat vent allowed, false if nat vent locked out" annotation (
       Placement(transformation(extent={{100,-30},{140,10}}), iconTransformation(
           extent={{100,-20},{140,20}})));
-  Controls.OBC.CDL.Interfaces.RealInput uRooMea "Room setpoint" annotation (
+  Controls.OBC.CDL.Interfaces.RealInput uRooMea "Measured room air temperature"
+                                                                annotation (
       Placement(transformation(extent={{-160,-180},{-120,-140}}),
         iconTransformation(extent={{-140,-110},{-100,-70}})));
 equation
@@ -162,6 +166,12 @@ equation
   of the final signal, which is determined based on whether or not there is a call for natural ventilation based on the room's temperature and setpoint. 
  
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+October 6, 2020, by Fiona Woods:<br/>
+Updated description. 
+</li>
 </html>"),  Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}),                                        graphics={
         Rectangle(

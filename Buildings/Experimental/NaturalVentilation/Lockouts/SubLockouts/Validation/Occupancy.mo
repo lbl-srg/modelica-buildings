@@ -5,8 +5,10 @@ model Occupancy
   OccupancyLockout occLoc
     annotation (Placement(transformation(extent={{0,38},{20,58}})));
   Controls.OBC.CDL.Logical.Sources.Pulse booPul(period=86400)
+    "Varying occupancy signal"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
   Controls.OBC.CDL.Logical.Sources.Pulse booPul1(period=43200)
+    "Varying night flush signal"
     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
 equation
   connect(booPul.y, occLoc.uOcc) annotation (Line(points={{-38,10},{-20,10},
@@ -19,6 +21,12 @@ This model validates the occupancy lockout. If natural ventilation is allowed, o
 If natural ventilation is locked out because the building is unoccupied and is also not in night flush mode, output should show false. 
 </p>  
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+October 6, 2020, by Fiona Woods:<br/>
+Updated description. 
+</li>
 </html>"),experiment(Tolerance=1e-6, StartTime=0, StopTime=86400),__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/NaturalVentilation/Lockouts/SubLockouts/Validation/Occupancy.mos"
         "Simulate and plot"), Icon(graphics={
         Ellipse(

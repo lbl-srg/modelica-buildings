@@ -17,25 +17,27 @@ model ControlPlusLockout "Validation model for radiant control"
     amplitude=20,
     freqHz=0.0001,
     phase(displayUnit="rad"),
-    offset=TAirHiLim)
+    offset=TAirHiLim) "Varying room air temperature"
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
   Controls.OBC.CDL.Continuous.Sources.Sine sin1(
     amplitude=20,
     freqHz=0.0001,
     phase(displayUnit="rad"),
-    offset=TempWaLoSet)
+    offset=TempWaLoSet) "Varying water return temperature"
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
   Controls.OBC.CDL.Continuous.Sources.Sine sin2(
     amplitude=TSlaSetCor/15,
     freqHz=0.0001,
     phase(displayUnit="rad"),
-    offset=TSlaSetCor)
+    offset=TSlaSetCor) "Varying slab temperature"
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
   Controls.OBC.CDL.Continuous.Sources.Constant TIntSet(k=294)
+    "Flat temperature setpoint"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
-  ControlPlusLockouts conPluLoc
+  ControlPlusLockouts conPluLoc "Control plus lockouts"
     annotation (Placement(transformation(extent={{2,0},{24,20}})));
   Controls.OBC.CDL.Logical.Sources.Pulse booPul(period=43000)
+    "Varying night flush signal"
     annotation (Placement(transformation(extent={{-60,-100},{-40,-80}})));
 equation
   connect(sin2.y, conPluLoc.TSla) annotation (Line(points={{-38,70},{-20,70},{
@@ -56,6 +58,12 @@ equation
 <p>
 This models the radiant slab control scheme with inputs not tied to a physical room.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+October 6, 2020, by Fiona Woods:<br/>
+Updated description. 
+</li>
 </html>"),experiment(StartTime=0.0, StopTime=172800.0, Tolerance=1e-06),__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/RadiantControl/Validation/ControlPlusLockout.mos"
         "Simulate and plot"),Icon(graphics={
         Ellipse(

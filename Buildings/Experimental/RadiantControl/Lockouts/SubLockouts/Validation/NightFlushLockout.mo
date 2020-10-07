@@ -3,6 +3,7 @@ model NightFlushLockout "Validation model for night flush"
   NightFlush nitFluLoc
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
   Controls.OBC.CDL.Logical.Sources.Pulse booPul(period=43000)
+    "Varying night flush signal"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
 equation
   connect(booPul.y, nitFluLoc.nitFluSig)
@@ -12,6 +13,12 @@ equation
 Validates the night flush lockout. 
 This model validates that heating is locked out if night flush mode is on. 
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+October 6, 2020, by Fiona Woods:<br/>
+Updated description. 
+</li>
 </html>"),experiment(StartTime=0,StopTime=172800.0, Tolerance=1e-06),__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/RadiantControl/Lockouts/SubLockouts/Validation/NightFlushLockout.mos"
         "Simulate and plot"),Icon(graphics={
         Ellipse(

@@ -14,7 +14,7 @@ model ChilledWaterReturnLockout
     amplitude=20,
     freqHz=0.0001,
     phase(displayUnit="rad"),
-    offset=TWaLoSet)
+    offset=TWaLoSet) "Varying chilled water return temperature"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
   ChilledWaterReturnLimit chwRetLim(TWaLoSet=TWaLoSet, TiCHW=TiCHW)
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
@@ -26,6 +26,12 @@ equation
 Validates the chilled water return temperature lockout. 
 This model validates that cooling is locked out if CHW return temperature is below a user-specified threshold. 
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+October 6, 2020, by Fiona Woods:<br/>
+Updated description. 
+</li>
 </html>"),experiment(StopTime=172800.0, Tolerance=1e-06),__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/RadiantControl/Lockouts/SubLockouts/Validation/ChilledWaterReturnLockout.mos"
         "Simulate and plot"),Icon(graphics={
         Ellipse(

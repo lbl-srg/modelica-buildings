@@ -45,11 +45,11 @@ parameter Real TDeaNor(min=0,
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
   Controls.OBC.CDL.Interfaces.RealInput TRooAir "Room air temperature"
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
-  Controls.OBC.CDL.Interfaces.RealInput TSla "Slab temperature"
+  Controls.OBC.CDL.Interfaces.RealInput TSla "Measured slab temperature"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
   Controls.OBC.CDL.Interfaces.RealInput TWaRet "Water return temperature"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
-  SlabTempSignal.Error err "Slab temperature error"
+  SlabTemperatureSignal.Error err "Slab temperature error"
     annotation (Placement(transformation(extent={{-58,40},{-38,60}})));
   Controls.OBC.CDL.Interfaces.RealInput TSlaSet "Slab temperature setpoint"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
@@ -70,7 +70,7 @@ parameter Real TDeaNor(min=0,
     TiHea=TiHea,
     TiCoo=TiCoo) "All lockouts, combined"
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));
-  SlabTempSignal.DeadbandControl deaCon(
+  SlabTemperatureSignal.DeadbandControl deaCon(
     TDeaRel=TDeaRel,
     TDeaNor=TDeaNor,
     k=k) "Slab temperature deadband control"
@@ -141,6 +141,12 @@ Cooling is locked out if room air temperature is too cold (below a user-specifie
 (TWaLoSet, typically 55F or the chilled water supply temperature), or if heating was on within a user-specified amount of time (TiCoo, typically one hour).  <p>
 
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+October 6, 2020, by Fiona Woods:<br/>
+Updated description. 
+</li>
 </html>"),Icon(coordinateSystem(
         preserveAspectRatio=true,
         extent={{-100,-100},{100,100}}),graphics={

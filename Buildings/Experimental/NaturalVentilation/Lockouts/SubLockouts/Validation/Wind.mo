@@ -5,7 +5,7 @@ model Wind "Validation model for wind natural ventilation lockout"
     amplitude=2,
     freqHz=4/86400,
     phase(displayUnit="rad"),
-    offset=8.94)
+    offset=8.94) "Varying wind speed"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
   WindLockout winLoc
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
@@ -18,6 +18,12 @@ This model validates the wind speed lockout. If natural ventilation is allowed, 
 If natural ventilation is locked out due to wind speeds exceeding the specified threshhold, output should show false. 
 </p>  
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+October 6, 2020, by Fiona Woods:<br/>
+Updated description. 
+</li>
 </html>"),experiment(Tolerance=1e-6, StartTime=0, StopTime=86400),__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/NaturalVentilation/Lockouts/SubLockouts/Validation/Wind.mos"
         "Simulate and plot"), Icon(graphics={
         Ellipse(

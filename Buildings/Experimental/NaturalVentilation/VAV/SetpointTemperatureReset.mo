@@ -87,9 +87,15 @@ equation
   <p> When natural ventilation mode turns on,
    the block adds a user-specified setpoint relaxation amount (typically 20F, ClgStpRel for cooling and HtgStpRel for heating) to produce relaxed VAV setpoints.
    <p>
-  This aims to prevent the VAV from attempting to condition the room while the windows are open. 
+   This aims to prevent the VAV from attempting to condition the room while the windows are open. 
 <p>
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+October 6, 2020, by Fiona Woods:<br/>
+Updated description. 
+</li>
 </html>"),Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{-100,100},{100,-100}},

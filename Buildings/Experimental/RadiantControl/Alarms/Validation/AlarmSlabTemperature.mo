@@ -14,13 +14,13 @@ model AlarmSlabTemperature
     amplitude=TemErr/2,
     freqHz=1/86400,
     phase(displayUnit="rad"),
-    offset=TemErr)
+    offset=TemErr) "Varying slab error"
     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
   Controls.OBC.CDL.Continuous.Sources.Sine sin1(
     amplitude=TemErr/2,
     freqHz=4/86400,
     phase(displayUnit="rad"),
-    offset=TemErr)
+    offset=TemErr) "Varying slab error"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
   SlabTempAlarm slaTemAla
     annotation (Placement(transformation(extent={{0,40},{20,60}})));
@@ -35,6 +35,12 @@ equation
 <p>
 This model validates the slab temperature alarm, which should show true if slab has been a user-specified amount out of range for a user-specified amount of time.  
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+October 6, 2020, by Fiona Woods:<br/>
+Updated description. 
+</li>
 </html>"),experiment(StopTime=172800.0, Tolerance=1e-06),__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/RadiantControl/Alarms/Validation/AlarmSlabTemperature.mos"
         "Simulate and plot"), Icon(graphics={
         Ellipse(

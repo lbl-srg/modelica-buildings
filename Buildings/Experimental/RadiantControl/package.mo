@@ -15,6 +15,19 @@ annotation (Documentation(info="<html>
   Blocks in the Lockouts and SlabTempSignal packages are the composite pieces of the above control block. 
 <p>
 </p>
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+October 6, 2020, by Fiona Woods:<br/>
+Updated package description.<br/>
+</li>
+</html>", revisions="<html>
+<ul>
+<li>
+October 6, 2020, by Fiona Woods:<br/>
+Updated description. 
+</li>
 </html>"),Icon(graphics={
       Rectangle(
         extent={{-100,100},{100,-100}},

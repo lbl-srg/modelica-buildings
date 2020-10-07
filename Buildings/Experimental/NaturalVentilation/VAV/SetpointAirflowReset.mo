@@ -62,6 +62,12 @@ equation
   <p> If the building is not in natural ventilation mode, the VAV airflow setpoint is left as-is. 
 <p>
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+October 6, 2020, by Fiona Woods:<br/>
+Updated description. 
+</li>
 </html>"),Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{-100,100},{100,-100}},

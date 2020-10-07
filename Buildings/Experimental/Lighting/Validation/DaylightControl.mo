@@ -21,7 +21,13 @@ equation
   This model validates the daylighting control block by demonstrating fixture output in response to varying daylight levels.
   <p>
  
-</p>
+ </p> 
+ </html>",revisions="<html>
+<ul>
+<li>
+October 6, 2020, by Fiona Woods:<br/>
+Updated description.  
+</li>
 </html>"),
     Icon(graphics={
         Ellipse(lineColor = {75,138,73},

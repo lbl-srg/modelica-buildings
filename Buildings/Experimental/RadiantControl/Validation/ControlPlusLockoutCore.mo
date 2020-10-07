@@ -249,7 +249,7 @@ Fluid.Movers.FlowControlled_m_flow           pumHot(
     TDeaRel=TemDeaRel,
     TDeaNor=TemDeaNor,
     k=LasOcc,
-    off_within_deadband=OffTru)
+    off_within_deadband=OffTru) "Control plus lockouts"
     annotation (Placement(transformation(extent={{-400,-100},{-380,-80}})));
   Fluid.Sources.Boundary_pT
     airOut2(redeclare package Medium = MediumA, nPorts=1)
@@ -287,6 +287,7 @@ Fluid.Movers.FlowControlled_m_flow           pumHot(
     "Outside temperature"
     annotation (Placement(transformation(extent={{-178,240},{-158,260}})));
   Controls.OBC.CDL.Continuous.Sources.Constant TIntSet2(k=294)
+    "Interior temperature (models adjacent conditioned spaces)"
     annotation (Placement(transformation(extent={{-140,298},{-96,342}})));
   Modelica.Blocks.Sources.CombiTimeTable intGai1(
     table=[0,1.05729426,1.25089426,0; 3600,1.05729426,1.25089426,0; 7200,1.05729426,
@@ -325,6 +326,7 @@ Fluid.Movers.FlowControlled_m_flow           pumHot(
     redeclare package Medium = MediumA)
     annotation (Placement(transformation(extent={{-224,332},{-184,372}})));
   Controls.OBC.CDL.Continuous.Sources.Constant TIntSet1(k=294.3)
+    "Interior setpoint"
     annotation (Placement(transformation(extent={{-546,-92},{-502,-48}})));
   Controls.OBC.CDL.Logical.Sources.Constant nitFluSig(k=false)
     "Night flush signal- constantly false"
@@ -425,14 +427,25 @@ equation
   annotation (Documentation(info="<html>
 <p>
 This models a radiant slab serving a core zone. 
-The slab is controlled to 70F year round, following the control scheme specified in the Buildings.Experimental.RadiantControl.ControlPlusLockouts block.  
+The slab is controlled to 70F year round, following the control scheme specified in the (<a href=\"modelica://Buildings.Experimental.RadiantControl.ControlPlusLockouts\">
+Buildings.Experimental.RadiantControl.ControlPlusLockouts</a>) block.  
 <p> 
 The zone is 5 meters by 9 meters in floor area and is 3 meters in height.
-The zone has two exposed walls, each with windows: one oriented south, and the other oriented west. 
-The remaining walls are exposed to a constant-temperature boundary condition that is set to ~70F to approximate interior conditions. 
+All walls are exposed to a constant-temperature boundary condition that is set to ~70F to approximate interior conditions. 
+<li> The room is modeled with standard office internal gains - 0.6 W/SF lighting (20% radiative, 80% convective), 0.6 W/SF plug loads (50% radiative, 50% convective) , and 2 occupants, with corresponding heat gains
+<li> (93 W/person sensible (50% radiative and 50% convective) & 74 W/person latent).
+<li> Gains are modeled with ASHRAE standard schedules for lighting, plug loads, and occupancy, respectively. 
+<li> During occupied hours, the room receives ventilation air at approximately code minimum rate (~90 cfm). 
+<li> During unoccupied hours, the room receives a negligible amount of air.
 <p>
 Chilled water and hot water are provided to the slab by constant temperature flow sources, at 10C (cooling) and 40 C (heating). 
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+October 6, 2020, by Fiona Woods:<br/>
+Updated description. 
+</li>
 </html>"),
    experiment(Tolerance=1e-6, StopTime=31536000),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/RadiantControl/Validation/ControlPlusLockoutCore.mos" "Simulate and plot"),

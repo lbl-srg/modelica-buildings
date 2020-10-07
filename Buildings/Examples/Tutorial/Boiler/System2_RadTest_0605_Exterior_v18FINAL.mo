@@ -509,7 +509,8 @@ Fluid.Movers.FlowControlled_m_flow           pumHot(
     annotation (Placement(transformation(extent={{264,214},{284,234}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant InteriorSetpoint1(k=294)
     annotation (Placement(transformation(extent={{206,230},{250,274}})));
-  ThermalZones.Detailed.FLEXLAB.Rooms.X3A.TestCell_Radiant testCell_Radiant(
+  ThermalZones.Detailed.FLEXLAB.Rooms.X3A.TestCellRadiantExterior
+    testCell_Radiant(
     nSurBou=1,
     lat=0.73268921998722,
     hRoo=3,

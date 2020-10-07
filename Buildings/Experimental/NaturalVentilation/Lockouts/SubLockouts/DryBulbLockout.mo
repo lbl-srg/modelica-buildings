@@ -91,8 +91,8 @@ block DryBulbLockout
     uHigh=TNitFluCut,
     pre_y_start=false)
     annotation (Placement(transformation(extent={{-60,260},{-40,280}})));
-  Controls.OBC.CDL.Interfaces.RealInput TRooMea
-    "Thermostat setpoint temperature used in window control" annotation (
+  Controls.OBC.CDL.Interfaces.RealInput TRooMea "Measured room air temperature"
+                                                             annotation (
       Placement(transformation(extent={{-420,160},{-380,200}}),
         iconTransformation(extent={{-140,-96},{-100,-56}})));
   Controls.OBC.CDL.Continuous.Add add1(k1=-1)
@@ -223,6 +223,12 @@ equation
   <p> In either night flush or daytime natural ventilation mode, in order for the lockout to reverse (ie, for natural ventilation to be allowed), conditions must be favorable for at least a user-specified amount of time
   (TiFav, typically 15 minutes). 
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+October 6, 2020, by Fiona Woods:<br/>
+Updated description. 
+</li>
 </html>"), Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{-100,100},{100,-100}},

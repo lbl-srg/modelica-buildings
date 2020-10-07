@@ -4,5 +4,12 @@ package Validation "Validation package for lighting model"
 <p>
 This package contains validation models for indoor lighting controls.
 </p>
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+October 6, 2020, by Fiona Woods:<br/>
+Updated package description.<br/>
+</li>
 </html>"));
 end Validation;

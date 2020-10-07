@@ -85,6 +85,12 @@ equation
 
 <p> If the zone temperature is more than the user-specified difference out of range for more than the user-specified amount of time, the alarm is triggered. 
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+October 6, 2020, by Fiona Woods:<br/>
+Updated description. 
+</li>
 </html>"),Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{-100,100},{100,-100}},

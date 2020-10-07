@@ -32,13 +32,13 @@ model AllLockout "Validation model for all lockouts"
     amplitude=20,
     freqHz=0.0001,
     phase(displayUnit="rad"),
-    offset=TAirHiLim)
+    offset=TAirHiLim) "Varying room air  temperature"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
   Controls.OBC.CDL.Continuous.Sources.Sine sin1(
     amplitude=20,
     freqHz=0.0001,
     phase(displayUnit="rad"),
-    offset=TempWaLoSet)
+    offset=TempWaLoSet) "Varying chilled water return temperature"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
   AllLockouts allLoc(
     TAirHiSet=TAirHiLim,
@@ -49,10 +49,13 @@ model AllLockout "Validation model for all lockouts"
     TiCoo=TimCoo)
     annotation (Placement(transformation(extent={{-20,-2},{0,18}})));
   Controls.OBC.CDL.Logical.Sources.Pulse booPul(period=43000)
+    "Varying night flush signal"
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
   Controls.OBC.CDL.Logical.Sources.Pulse booPul1(period=43000)
+    "Varying heating signal"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
   Controls.OBC.CDL.Logical.Sources.Pulse booPul2(period=43000)
+    "Varying cooling signal"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
 equation
   connect(sin.y, allLoc.TRooAir) annotation (Line(points={{-58,-30},{-40,-30},{
@@ -75,6 +78,12 @@ Cooling is locked out if room air temperature is too cold,
 if chilled water return temperature is too cold, 
 or if heating was on within a user-specified amount of time. 
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+October 6, 2020, by Fiona Woods:<br/>
+Updated description. 
+</li>
 </html>"),experiment(StopTime=172800.0, Tolerance=1e-06),__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/RadiantControl/Lockouts/Validation/AllLockout.mos"
         "Simulate and plot"),Icon(graphics={
         Ellipse(

@@ -12,7 +12,7 @@ block WindowControl "Controls window based on cooling needs"
     "Room setpoint for window to maintain" annotation (Placement(
         transformation(extent={{-140,10},{-100,50}}), iconTransformation(
           extent={{-140,-48},{-100,-8}})));
-  Controls.OBC.CDL.Interfaces.RealInput TRooMea "Measured room temperature"
+  Controls.OBC.CDL.Interfaces.RealInput TRooMea "Measured room air temperature"
     annotation (Placement(transformation(extent={{-140,-50},{-100,-10}}),
         iconTransformation(extent={{-140,30},{-100,70}})));
   Controls.OBC.CDL.Interfaces.RealOutput yWinOpeReq
@@ -60,6 +60,12 @@ equation
   
 <p>
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+October 6, 2020, by Fiona Woods:<br/>
+Updated description. 
+</li>
 </html>"),Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{-100,100},{100,-100}},

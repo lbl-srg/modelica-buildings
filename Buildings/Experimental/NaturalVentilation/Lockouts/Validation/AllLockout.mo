@@ -10,39 +10,44 @@ model AllLockout "Validation model for slab temperature alarm"
     final quantity="TemperatureDifference")=1.1 "Difference from zone temp setpoint required to trigger alarm";
 
   Controls.OBC.CDL.Continuous.Sources.Constant con(k=293.15)
+    "Constant room temperatue setpoint"
     annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
   AllLockouts allLoc
     annotation (Placement(transformation(extent={{4,-40},{50,20}})));
   Controls.OBC.CDL.Logical.Sources.Pulse booPul(width=0.1, period=3600)
+    "Varying manual override signal"
     annotation (Placement(transformation(extent={{-60,80},{-40,100}})));
   Controls.OBC.CDL.Logical.Sources.Pulse booPul1(width=0.1, period=86400)
+    "Varying night flush signal"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
   Controls.OBC.CDL.Logical.Sources.Pulse booPul2(width=0.25, period=14400)
+    "Varying rain signal"
     annotation (Placement(transformation(extent={{-100,38},{-80,58}})));
   Controls.OBC.CDL.Logical.Sources.Pulse booPul3(width=0.8, period=14400)
+    "Varying occupancy signal"
     annotation (Placement(transformation(extent={{-120,20},{-100,40}})));
   Controls.OBC.CDL.Continuous.Sources.Sine sin1(
     amplitude=2,
     freqHz=4/86400,
     phase(displayUnit="rad"),
-    offset=8.94)
+    offset=8.94) "Varying wind speed"
     annotation (Placement(transformation(extent={{-102,-82},{-82,-62}})));
   Controls.OBC.CDL.Continuous.Sources.Sine sin3(
     amplitude=2*4.44,
     freqHz=4/86400,
     phase(displayUnit="rad"),
-    offset=293.15)
+    offset=293.15) "Varying outdoor air wet bulb temperature"
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
   Controls.OBC.CDL.Continuous.Sources.Sine sin4(
     amplitude=2,
     freqHz=4/86400,
     phase(displayUnit="rad"),
-    offset=293.15)
+    offset=293.15) "Varying measured room air temperature"
     annotation (Placement(transformation(extent={{-40,-100},{-20,-80}})));
   Controls.OBC.CDL.Continuous.Sources.Ramp ram(
     height=20,
     duration=86400,
-    offset=278)
+    offset=278) "Varying outdoor air dry bulb temperature"
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
 equation
   connect(booPul.y, allLoc.uManOveRid) annotation (Line(points={{-38,90},{-20,
@@ -67,6 +72,12 @@ equation
 <p>
 This model validates the slab temperature alarm, which should show true if slab has been a user-specified amount of of range for a user-specified amount of time.  
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+October 6, 2020, by Fiona Woods:<br/>
+Updated description. 
+</li>
 </html>"),experiment(Tolerance=1e-6, StartTime=0, StopTime=86400),__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/NaturalVentilation/Lockouts/Validation/AllLockout.mos"
         "Simulate and plot"), Icon(coordinateSystem(extent={{-100,-100},{100,
             100}}),                graphics={

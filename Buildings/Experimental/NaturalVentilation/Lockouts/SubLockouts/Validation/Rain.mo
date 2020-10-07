@@ -4,6 +4,7 @@ model Rain "Validation model for rain natural ventilation lockout"
   RainLockout raiLoc
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
   Controls.OBC.CDL.Logical.Sources.Pulse booPul(period=14400)
+    "Varying rain signal"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
 equation
   connect(booPul.y, raiLoc.uRai)
@@ -14,6 +15,12 @@ This model validates the rain lockout. If natural ventilation is allowed, output
 If natural ventilation is locked out because it is raining or it was raining within a specified amount of time (in this case, 30 minutes), output should show false. 
 </p>  
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+October 6, 2020, by Fiona Woods:<br/>
+Updated description. 
+</li>
 </html>"),experiment(Tolerance=1e-6, StartTime=0, StopTime=86400),__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/NaturalVentilation/Lockouts/SubLockouts/Validation/Rain.mos"
         "Simulate and plot"), Icon(graphics={
         Ellipse(

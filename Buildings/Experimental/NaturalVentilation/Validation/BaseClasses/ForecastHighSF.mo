@@ -1,5 +1,5 @@
 within Buildings.Experimental.NaturalVentilation.Validation.BaseClasses;
-block ForecastHighSF "Montainview forecast high"
+block ForecastHighSF "San Francisco forecast high"
   Utilities.Time.ModelTime modTim1 "Model timer for forecast high"
     annotation (Placement(transformation(extent={{32,48},{52,68}})));
   Controls.SetPoints.Table           ForecastHigh(table=[0,287.05; 86400,
@@ -109,7 +109,18 @@ equation
           24},{120,24}}, color={0,0,127}));
   connect(ForecastHigh.y, sam.u) annotation (Line(points={{-44.1,21},{-80,21},{
           -80,-50},{18,-50}}, color={0,0,127}));
-  annotation (defaultComponentName = "forHiSF", Icon(coordinateSystem(preserveAspectRatio=false), graphics={Text(
+  annotation (defaultComponentName = "forHiSF", Documentation(info="<html>
+  <p>
+  This output-only block outputs the daily forecast high for San Francisco. 
+<p>
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+October 6, 2020, by Fiona Woods:<br/>
+Updated description. 
+</li>
+</html>"), Icon(coordinateSystem(preserveAspectRatio=false), graphics={Text(
           extent={{-36,46},{36,-54}},
           lineColor={162,29,33},
           lineThickness=1,

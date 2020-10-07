@@ -1,5 +1,5 @@
 within Buildings.Experimental.NaturalVentilation.Validation;
-model NaturalVentilationConstantInterior
+model NaturalVentilationConstantInterior "Natural ventilation only validation model"
   replaceable package MediumA =
       Buildings.Media.Air;
   Fluid.Sensors.TemperatureTwoPort temRoo(
@@ -89,11 +89,13 @@ model NaturalVentilationConstantInterior
     TiNotFav=900)
     annotation (Placement(transformation(extent={{20,-42},{138,74}})));
   Controls.OBC.CDL.Continuous.Sources.Constant TIntSet(k=293)
+    "Constant interior room air temperature setpoint"
     annotation (Placement(transformation(extent={{-98,-24},{-54,20}})));
   BoundaryConditions.WeatherData.Bus weaBus2 annotation (Placement(
         transformation(extent={{-98,158},{-58,198}}), iconTransformation(extent=
            {{-168,106},{-148,126}})));
   Controls.OBC.CDL.Continuous.Sources.Constant TAirDum(k=280)
+    "Constant outdoor air dry bulb temperature"
     annotation (Placement(transformation(extent={{-100,-100},{-56,-56}})));
   Modelica.Fluid.Sources.FixedBoundary boundary(
     T=283.15,                                             nPorts=2, redeclare
@@ -103,10 +105,9 @@ model NaturalVentilationConstantInterior
     nConExtWin=0,
     nConBou=5,
     surBou={Buildings.ThermalZones.Detailed.BaseClasses.OpaqueSurface(
-        A=9*5,
-        til=Buildings.Types.Tilt.Ceiling,
-        boundaryCondition=Buildings.ThermalZones.Detailed.Types.CFDBoundaryConditions.Temperature)},
-
+          A=9*5,
+          til=Buildings.Types.Tilt.Ceiling,
+          boundaryCondition=Buildings.ThermalZones.Detailed.Types.CFDBoundaryConditions.Temperature)},
     lat=0.72954762733363,
     intConMod=Buildings.HeatTransfer.Types.InteriorConvection.Temperature,
     energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
@@ -127,13 +128,16 @@ model NaturalVentilationConstantInterior
   Controls.OBC.CDL.Continuous.Sources.Ramp ram(
     height=20,
     duration=86400,
-    offset=250)
+    offset=250) "Varying wind speed"
     annotation (Placement(transformation(extent={{-40,-98},{-20,-78}})));
   HeatTransfer.Sources.FixedTemperature TFix(T=292.15)
+    "Boundary temperature to represent interior conditioned space"
     annotation (Placement(transformation(extent={{510,52},{530,72}})));
   Controls.OBC.CDL.Logical.Sources.Constant con(k=false)
+    "Constant manual override, rain and night flush signal"
     annotation (Placement(transformation(extent={{-100,100},{-80,120}})));
   Controls.OBC.CDL.Logical.Sources.Constant con1(k=true)
+    "Constant occupancy signal"
     annotation (Placement(transformation(extent={{-100,42},{-80,62}})));
 equation
   connect(airCon1.y[1],airIn1. m_flow_in) annotation (Line(points={{277,-44},{300,
@@ -201,7 +205,24 @@ equation
           {-40,55.44},{8.2,55.44}}, color={255,0,255}));
   connect(con.y, natVenCon.uRai) annotation (Line(points={{-78,110},{-40,110},{
           -40,43.84},{8.2,43.84}}, color={255,0,255}));
-  annotation (experiment(Tolerance=1e-6, StopTime=172800), __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/NaturalVentilation/Validation/NaturalVentilationConstantInterior.mos"
+  annotation (Documentation(info="<html>
+<p>
+This model validates the natural ventilation module. No night flush control is present.
+A standard interior room is used, and outdoor air conditions are modeled with fixed inputs.
+The zone is 5 meters by 9 meters in floor area and is 3 meters in height.
+All walls are exposed to a constant-temperature boundary condition that is set to ~70F to approximate interior conditions. 
+<li> The room is modeled with standard office internal gains - 0.6 W/SF lighting (20% radiative, 80% convective), 0.6 W/SF plug loads (50% radiative, 50% convective) , and 2 occupants, with corresponding heat gains
+<li> (93 W/person sensible (50% radiative and 50% convective) & 74 W/person latent).
+<li> Gains are modeled with ASHRAE standard schedules for lighting, plug loads, and occupancy, respectively. 
+<li> During occupied hours, the room receives ventilation air at approximately code minimum rate (~90 cfm). 
+<li> During unoccupied hours, the room receives a negligible amount of air. 
+</html>", revisions="<html>
+<ul>
+<li>
+October 6, 2020, by Fiona Woods:<br/>
+Updated description. 
+</li>
+</html>"),experiment(Tolerance=1e-6, StopTime=172800), __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/NaturalVentilation/Validation/NaturalVentilationConstantInterior.mos"
         "Simulate and plot"),Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
                    graphics={
         Ellipse(

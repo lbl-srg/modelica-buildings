@@ -13,7 +13,7 @@ model ZoneTemperature "Validation model for slab temperature alarm"
     amplitude=TemErr/2,
     freqHz=1/86400,
     phase(displayUnit="rad"),
-    offset=293.15 + 2*TemErr)
+    offset=293.15 + 2*TemErr) "Varying room air temperature"
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
   ZoneTemperatureAlarm zonTemAla1
     annotation (Placement(transformation(extent={{0,38},{20,58}})));
@@ -23,9 +23,10 @@ model ZoneTemperature "Validation model for slab temperature alarm"
     amplitude=TemErr/2,
     freqHz=4/86400,
     phase(displayUnit="rad"),
-    offset=293.15)
+    offset=293.15) "Varying room air temperature"
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
   Controls.OBC.CDL.Continuous.Sources.Constant con(k=293.15)
+    "Constant temperature setpoint"
     annotation (Placement(transformation(extent={{-98,-2},{-78,18}})));
 equation
   connect(con.y, zonTemAla1.TRooSet) annotation (Line(points={{-76,8},{-70,8},
@@ -40,6 +41,12 @@ equation
 <p>
 This model validates the zone temperature alarm, which should show true if the zone temperature has been a user-specified amount away from setpoint for a user-specified amount of time.  
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+October 6, 2020, by Fiona Woods:<br/>
+Updated description. 
+</li>
 </html>"),experiment(Tolerance=1e-6, StartTime=0, StopTime=86400),__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/NaturalVentilation/Alarms/Validation/ZoneTemperature.mos"
         "Simulate and plot"), Icon(graphics={
         Ellipse(

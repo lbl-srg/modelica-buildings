@@ -1,6 +1,6 @@
 simulateModel("Buildings.Experimental.NaturalVentilation.Validation.NaturalVentilationConstantInterior", startTime=0.0, stopTime=864000, method="cvode",  tolerance=1E-06, resultFile="NaturalVentilationConstantInterior");
 createPlot(id=1, position={15, 20, 924, 583},
- y={"temRoo.T"}, 
+ y={"temRoo.T", "natVenNitFluDyn.nitFluDyn.yRooSetAdj"}, 
  range={0.0, 864000, 16, 30},
  autoscale = true,
  autoerase = true,

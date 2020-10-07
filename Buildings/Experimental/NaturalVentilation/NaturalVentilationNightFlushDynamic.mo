@@ -1,6 +1,6 @@
 within Buildings.Experimental.NaturalVentilation;
 block NaturalVentilationNightFlushDynamic
-  "Nat vent control including night flush"
+  "Natural ventilation control including dynamic duration night flush"
   parameter Real minOpe(min=0,
   max=1)=
       0.15 "Minimum % open for window";
@@ -50,6 +50,7 @@ parameter Real winSpeLim(min=0,
     TiConInt=TiConInt,
     kConPro=kConPro,
     TNitFluCut=TNitFluCut)
+    "Natural ventilation control to determine window signal"
     annotation (Placement(transformation(extent={{8,10},{72,74}})));
   Controls.OBC.CDL.Interfaces.BooleanInput uManOveRid
     "Manual override signal- true if override, false if not" annotation (
@@ -67,7 +68,8 @@ parameter Real winSpeLim(min=0,
     "Outdoor air dry bulb temperature" annotation (Placement(transformation(
           extent={{-140,-44},{-100,-4}}),  iconTransformation(extent={{-140,-68},
             {-100,-28}})));
-  Controls.OBC.CDL.Interfaces.RealInput uWinSpe annotation (Placement(
+  Controls.OBC.CDL.Interfaces.RealInput uWinSpe "Wind speed"
+                                                annotation (Placement(
         transformation(extent={{-140,-74},{-100,-34}}),  iconTransformation(
           extent={{-140,-90},{-100,-50}})));
   Controls.OBC.CDL.Interfaces.RealInput uRooSet "Room setpoint" annotation (
@@ -81,7 +83,8 @@ parameter Real winSpeLim(min=0,
     annotation (Placement(transformation(extent={{-140,-182},{-100,-142}}),
         iconTransformation(extent={{-140,-110},{-100,-70}})));
   Controls.OBC.CDL.Interfaces.RealInput uForHi
-    "Outdoor air dry bulb temperature" annotation (Placement(transformation(
+    "Outdoor air forecast high dry bulb temperature"
+                                       annotation (Placement(transformation(
           extent={{-140,-16},{-100,24}}), iconTransformation(extent={{-140,-48},
             {-100,-8}})));
   Controls.OBC.CDL.Interfaces.BooleanOutput yNatVenOn
@@ -93,6 +96,7 @@ parameter Real winSpeLim(min=0,
     annotation (Placement(transformation(extent={{100,16},{140,56}}),
         iconTransformation(extent={{100,8},{140,48}})));
   NightFlush.NightFlushDynamicDuration nitFluDyn(e=e)
+    "Night flush dynamic duration setpoint selector"
     annotation (Placement(transformation(extent={{-78,60},{-58,80}})));
 equation
   connect(uManOveRid, natVenCon.uManOveRid) annotation (Line(points={{-120,92},
@@ -194,6 +198,12 @@ If night flush is not on, the setpoint passes through the block unchanged and th
   
 <p>
 </p>
+</html>",revisions="<html>
+<ul>
+<li>
+October 6, 2020, by Fiona Woods:<br/>
+Updated description.
+</li>
 </html>"), Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{-100,100},{100,-100}},

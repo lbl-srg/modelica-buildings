@@ -6,7 +6,7 @@ model AirTemperatureLockout
     amplitude=20,
     freqHz=1/7200,
     phase(displayUnit="rad"),
-    offset=TAirHiLim)
+    offset=TAirHiLim) "Varying air temperature"
     annotation (Placement(transformation(extent={{-82,-80},{-62,-60}})));
   final parameter Real TAirHiLim(min=0,
     final unit="K",
@@ -55,6 +55,12 @@ equation
   A true signal indicates only that heating or cooling is *permitted*- it does *not* indicate the actual status
   of the final heating or cooling signal, which depends on the slab temperature and slab setpoint (see SlabTempSignal for more info).
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+October 6, 2020, by Fiona Woods:<br/>
+Updated description. 
+</li>
 </html>"),experiment(StartTime=0, StopTime=172800.0, Tolerance=1e-06),__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/RadiantControl/Lockouts/SubLockouts/Validation/AirTemperatureLockout.mos"
         "Simulate and plot"),Icon(graphics={
         Ellipse(

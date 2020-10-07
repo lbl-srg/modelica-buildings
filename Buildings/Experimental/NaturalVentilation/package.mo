@@ -26,6 +26,13 @@ annotation (Documentation(info="<html>
   Blocks in the Lockouts, NightFlush, and Window packages are the composite pieces of the above sequences. 
 <p>
 </p>
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+October 6, 2020, by Fiona Woods:<br/>
+Updated package description.<br/>
+</li>
 </html>"),Icon(graphics={
       Rectangle(
         extent={{-100,100},{100,-100}},

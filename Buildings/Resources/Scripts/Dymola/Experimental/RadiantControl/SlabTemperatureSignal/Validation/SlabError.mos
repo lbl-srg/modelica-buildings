@@ -1,4 +1,4 @@
-simulateModel("Buildings.Experimental.RadiantControl.SlabTempSignal.Validation.SlabError", startTime=0.0, stopTime=172000.0, method="cvode",  tolerance=1E-06, resultFile="SlabError");
+simulateModel("Buildings.Experimental.RadiantControl.SlabTemperatureSignal.Validation.SlabError", startTime=0.0, stopTime=172000.0, method="cvode",  tolerance=1E-06, resultFile="SlabError");
 createPlot(id=1, position={15, 10, 924, 583},
  y={"err.TSlaSet","err.TSla"}, 
  range={0.0, 172000.0, 220, 380},

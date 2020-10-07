@@ -13,10 +13,10 @@ block RainLockout "Locks out natural ventilation if rain is detected"
                                                           annotation (Placement(
         transformation(extent={{100,-10},{140,30}}), iconTransformation(extent=
             {{100,-20},{140,20}})));
-  Controls.OBC.CDL.Logical.Not not1
+  Controls.OBC.CDL.Logical.Not not1 "Negates signal"
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
   Controls.OBC.CDL.Logical.TrueFalseHold truFalHol(trueHoldDuration=locTimRai,
-      falseHoldDuration=0)
+      falseHoldDuration=0) "Holds rain signal, if true"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
 equation
   connect(not1.y,yRaiNatVenSig)
@@ -29,6 +29,12 @@ equation
   <p>
   This block locks out natural ventilation for a user-specified amount of time (locTimRai, typically 30 minutes) if rain is detected. 
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+October 6, 2020, by Fiona Woods:<br/>
+Updated description. 
+</li>
 </html>"),Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{-100,100},{100,-100}},

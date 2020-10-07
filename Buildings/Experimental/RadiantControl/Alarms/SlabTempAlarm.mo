@@ -70,6 +70,12 @@ equation
 This block is a slab temperature alarm, which will show true if the slab temperature
 has been a user-specified amount above or below setpoint (TErr) for a user-specified amount of time (TiErr).  
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+October 6, 2020, by Fiona Woods:<br/>
+Updated description. 
+</li>
 </html>"),Icon(coordinateSystem(
         preserveAspectRatio=true,
         extent={{-100,-100},{100,100}}), graphics={

@@ -45,12 +45,13 @@ parameter Real winSpeLim(min=0,
     locTimRai=locTimRai,
     TiFav=TiFav,
     TiNotFav=TiNotFav,
-    TNitFluCut=TNitFluCut)
+    TNitFluCut=TNitFluCut) "All lockouts"
     annotation (Placement(transformation(extent={{-62,-20},{-20,20}})));
   Controls.OBC.CDL.Continuous.Sources.Constant winClo(k=0)
     "Signal if window is 0% open"
     annotation (Placement(transformation(extent={{-40,-62},{-20,-42}})));
   Controls.OBC.CDL.Logical.Switch swi
+    "If true, output window signal. If false, window is closed (output zero)"
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
   Controls.OBC.CDL.Interfaces.BooleanInput uManOveRid
     "Manual override signal- true if override, false if not" annotation (
@@ -72,7 +73,8 @@ parameter Real winSpeLim(min=0,
     "Outdoor air dry bulb temperature" annotation (Placement(transformation(
           extent={{-140,-90},{-100,-50}}), iconTransformation(extent={{-140,-70},
             {-100,-30}})));
-  Controls.OBC.CDL.Interfaces.RealInput uWinSpe annotation (Placement(
+  Controls.OBC.CDL.Interfaces.RealInput uWinSpe "Wind speed"
+                                                annotation (Placement(
         transformation(extent={{-140,-118},{-100,-78}}), iconTransformation(
           extent={{-140,-90},{-100,-50}})));
   Controls.OBC.CDL.Interfaces.RealInput uRooSet "Room setpoint" annotation (
@@ -91,10 +93,10 @@ parameter Real winSpeLim(min=0,
   Window.WindowControl winCon(
     minOpe=minOpe,
     TiConInt=TiConInt,
-    kConPro=kConPro)
+    kConPro=kConPro) "Window control"
     annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
   Controls.OBC.CDL.Continuous.Hysteresis hys(uLow=0.01, uHigh=0.02)
-    "If window is open, natural ventilation mode is on"
+    "If window is open (position > 0), natural ventilation mode is on"
     annotation (Placement(transformation(extent={{58,-82},{78,-62}})));
   Controls.OBC.CDL.Interfaces.BooleanOutput yNatVen
     "True if natural ventilation is on, false if not" annotation (Placement(
@@ -175,6 +177,12 @@ equation
   
 <p>
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+October 6, 2020, by Fiona Woods:<br/>
+Updated description. 
+</li>
 </html>"),Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}),                                        graphics={
         Rectangle(

@@ -36,6 +36,12 @@ equation
   <p>
   This block locks out natural ventilation if wind speed is greater than a user-specified amount (winSpeLim, typically 20 mph).
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+October 6, 2020, by Fiona Woods:<br/>
+Updated description. 
+</li>
 </html>"),Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{-100,100},{100,-100}},

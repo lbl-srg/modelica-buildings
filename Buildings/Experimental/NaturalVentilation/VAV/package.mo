@@ -12,5 +12,12 @@ The VAV control blocks are as follows:
 Buildings.Experimental.NaturalVentilation.VAV.SetpointAirflowReset</a>)
 <li> 2. VAV Temperature Setpoint Reset (<a href=\"modelica://Buildings.Experimental.NaturalVentilation.VAV.SetpointTemperatureReset\">
 Buildings.Experimental.NaturalVentilation.VAV.SetpointTemperatureReset</a>)
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+October 6, 2020, by Fiona Woods:<br/>
+Updated package description.<br/>
+</li>
 </html>"));
 end VAV;

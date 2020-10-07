@@ -14,5 +14,12 @@ dry bulb temperature (DryBulbLockout),  manual override from the user (ManualOve
 <li>room occupancy status (OccupancyLockout),
 <li>rain (RainLockout), wet bulb temperature (WetBulbLockout), and wind speed (WindLockout), respectively.
 </p>
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+October 6, 2020, by Fiona Woods:<br/>
+Updated package description.<br/>
+</li>
 </html>"));
 end Lockouts;

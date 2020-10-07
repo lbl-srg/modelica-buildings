@@ -21,28 +21,40 @@ model HysteresisLockout "Validation model for hysteresis lockout"
   HysteresisLimit hysLim5
     annotation (Placement(transformation(extent={{262,-60},{282,-40}})));
   Controls.OBC.CDL.Logical.Sources.Pulse booPul(period=1800)
+    "Varying heating signal"
     annotation (Placement(transformation(extent={{200,40},{220,60}})));
   Controls.OBC.CDL.Logical.Sources.Pulse booPul1(period=1800)
+    "Varying cooling signal"
     annotation (Placement(transformation(extent={{200,0},{220,20}})));
   Controls.OBC.CDL.Logical.Sources.Pulse booPul2(period=43000)
+    "Varying heating signal"
     annotation (Placement(transformation(extent={{200,-40},{220,-20}})));
   Controls.OBC.CDL.Logical.Sources.Pulse booPul3(period=43000)
+    "Varying cooling signal"
     annotation (Placement(transformation(extent={{200,-80},{220,-60}})));
-  Controls.OBC.CDL.Logical.Sources.Constant con(k=true) "Constant"
+  Controls.OBC.CDL.Logical.Sources.Constant con(k=true)
+    "Constant cooling signal"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
-  Controls.OBC.CDL.Logical.Sources.Constant con1(k=true) "Constant "
+  Controls.OBC.CDL.Logical.Sources.Constant con1(k=true)
+    "Constant heating signal"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
-  Controls.OBC.CDL.Logical.Sources.Constant con2(k=false) "Constant "
+  Controls.OBC.CDL.Logical.Sources.Constant con2(k=false)
+    "Constant cooling signal"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
-  Controls.OBC.CDL.Logical.Sources.Constant con3(k=false) "Constant"
+  Controls.OBC.CDL.Logical.Sources.Constant con3(k=false)
+    "Constant heating signal"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
-  Controls.OBC.CDL.Logical.Sources.Constant con4(k=true) "Constant"
+  Controls.OBC.CDL.Logical.Sources.Constant con4(k=true)
+    "Constant heating signal"
     annotation (Placement(transformation(extent={{60,40},{80,60}})));
-  Controls.OBC.CDL.Logical.Sources.Constant con5(k=false) "Constant"
+  Controls.OBC.CDL.Logical.Sources.Constant con5(k=false)
+    "Constant cooling signal"
     annotation (Placement(transformation(extent={{60,0},{80,20}})));
-  Controls.OBC.CDL.Logical.Sources.Constant con6(k=false) "Constant "
+  Controls.OBC.CDL.Logical.Sources.Constant con6(k=false)
+    "Constant heating signal"
     annotation (Placement(transformation(extent={{60,-40},{80,-20}})));
-  Controls.OBC.CDL.Logical.Sources.Constant con7(k=true) "Constant"
+  Controls.OBC.CDL.Logical.Sources.Constant con7(k=true)
+    "Constant cooling signal"
     annotation (Placement(transformation(extent={{60,-80},{80,-60}})));
 equation
   connect(booPul2.y, hysLim5.heaSig) annotation (Line(points={{222,-30},{242,
@@ -75,6 +87,12 @@ Validates the hysteresis lockout.
 This model validates that cooling is locked out if heating has been on within a user-specified amount of time, 
 and that heating is locked out if cooling has been on within a user-specified amount of time. 
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+October 6, 2020, by Fiona Woods:<br/>
+Updated description. 
+</li>
 </html>"),experiment(StopTime=172800.0, Tolerance=1e-06),__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/RadiantControl/Lockouts/SubLockouts/Validation/HysteresisLockout.mos"
         "Simulate and plot"),Icon(graphics={
         Ellipse(

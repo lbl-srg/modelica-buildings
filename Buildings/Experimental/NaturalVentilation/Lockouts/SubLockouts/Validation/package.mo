@@ -13,5 +13,12 @@ dry bulb temperature (DryBulb),  manual override from the user (ManualOverride),
 <li>room occupancy status (Occupancy),
 <li>rain (Rain), wet bulb temperature (WetBulb), and wind speed (Wind), respectively.
 </p>
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+October 6, 2020, by Fiona Woods:<br/>
+Updated package description.<br/>
+</li>
 </html>"));
 end Validation;

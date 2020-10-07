@@ -26,6 +26,12 @@ equation
   <p>
   This block locks out natural ventilation if the building is unoccupied, unless night flush mode is on. 
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+October 6, 2020, by Fiona Woods:<br/>
+Updated description. 
+</li>
 </html>"),Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{-100,100},{100,-100}},

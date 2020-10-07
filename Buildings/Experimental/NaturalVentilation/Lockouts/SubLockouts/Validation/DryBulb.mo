@@ -3,17 +3,20 @@ model DryBulb
   "Validation model for outdoor air dry bulb natural ventilation lockout"
 
   Controls.OBC.CDL.Continuous.Sources.Constant con(k=293.15)
+    "Constant room temperature setpoint"
     annotation (Placement(transformation(extent={{-60,2},{-40,22}})));
   DryBulbLockout dryBulLoc
     annotation (Placement(transformation(extent={{-2,16},{18,36}})));
   Controls.OBC.CDL.Logical.Sources.Pulse booPul(width=0.25, period=86400)
+    "Varying night flush signal"
     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
   Controls.OBC.CDL.Continuous.Sources.Ramp ram(
     height=20,
     duration=86400,
-    offset=278)
+    offset=278) "Varying outdoor air dry bulb temperature"
     annotation (Placement(transformation(extent={{-60,78},{-40,98}})));
   Controls.OBC.CDL.Continuous.Sources.Constant con1(k=295)
+    "Constant room air temperature"
     annotation (Placement(transformation(extent={{-60,-38},{-40,-18}})));
 equation
   connect(con.y, dryBulLoc.TRooSet) annotation (Line(points={{-38,12},{-30,12},{
@@ -29,6 +32,12 @@ equation
 This model validates the dry bulb lockout. If natural ventilation is allowed, output should show true. 
 If natural ventilation is locked out due to dry bulb temperature being out of range, output should show false.   
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+October 6, 2020, by Fiona Woods:<br/>
+Updated description. 
+</li>
 </html>"),experiment(Tolerance=1e-6, StartTime=0, StopTime=86400),__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/NaturalVentilation/Lockouts/SubLockouts/Validation/DryBulb.mos"
         "Simulate and plot"), Icon(graphics={
         Ellipse(
