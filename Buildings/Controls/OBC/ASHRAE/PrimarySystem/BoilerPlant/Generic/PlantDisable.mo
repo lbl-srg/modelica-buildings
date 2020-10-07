@@ -125,7 +125,7 @@ protected
     annotation (Placement(transformation(extent={{-40,110},{-20,130}})));
 
   Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep[nBoi](
-    final nout=nBoi) if isHeadered
+    final nout=fill(nBoi, nBoi)) if isHeadered
     "Real replicator"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
 
