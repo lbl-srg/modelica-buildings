@@ -76,22 +76,19 @@ block Capacities
         iconTransformation(extent={{100,-100},{140,-60}})));
 
 protected
-  final parameter Real small = 0.001
-  "Small number to avoid division with zero";
-
   final parameter Real larGai = 10
   "Large gain";
 
   Buildings.Controls.OBC.CDL.Routing.RealExtractor cap(
     final nin=nSta,
-    final outOfRangeValue=small,
+    final outOfRangeValue=0,
     final allowOutOfRange=true)
     "Extracts the design capacity at the current stage"
     annotation (Placement(transformation(extent={{-100,140},{-80,160}})));
 
   Buildings.Controls.OBC.CDL.Routing.RealExtractor dowCap(
     final nin=nSta,
-    final outOfRangeValue=small,
+    final outOfRangeValue=0,
     final allowOutOfRange=true)
     "Extracts the design capacity of one stage lower than the current stage"
     annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
@@ -99,20 +96,20 @@ protected
   Buildings.Controls.OBC.CDL.Routing.RealExtractor upCapMin(
     final nin=nSta,
     final allowOutOfRange=true,
-    final outOfRangeValue=small)
+    final outOfRangeValue=0)
     "Extracts minimal capacity of the next higher stage"
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
 
   Buildings.Controls.OBC.CDL.Routing.RealExtractor upCap(
     final nin=nSta,
     final allowOutOfRange=true,
-    final outOfRangeValue=small)
+    final outOfRangeValue=0)
     "Extracts the design capacity of the next stage"
     annotation (Placement(transformation(extent={{0,70},{20,90}})));
 
   Buildings.Controls.OBC.CDL.Routing.RealExtractor capMin(
     final nin=nSta,
-    final outOfRangeValue=small,
+    final outOfRangeValue=0,
     final allowOutOfRange=true)
     "Extracts the minimum capacity of the current stage"
     annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
@@ -251,11 +248,6 @@ sequence implements the following:
 <li>
 if operating at the lowest available chiller stage, the minimal capacity
 of that stage is returned as the stage down design capacity.
-</li>
-<li>
-if operating at the stage 0, the minimal and design capacity
-of that stage, as well as the stage down design capacity
-equals a small value, to avoid downstream division 0.
 </li>
 <li>
 if operating at the highest stage, the design and minimal stage up conditionals are set to
