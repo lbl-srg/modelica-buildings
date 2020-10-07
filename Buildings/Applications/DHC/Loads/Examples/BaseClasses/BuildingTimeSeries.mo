@@ -16,28 +16,24 @@ model BuildingTimeSeries
     "Heating terminal unit scaling factor";
   parameter Real facScaCoo = 40
     "Cooling terminal unit scaling factor";
-  parameter Modelica.SIunits.Temperature T_aHeaWat_nominal(
-    min=273.15, displayUnit="degC") = 273.15 + 40
+  parameter Modelica.SIunits.Temperature T_aHeaWat_nominal=273.15 + 40
     "Heating water inlet temperature at nominal conditions"
     annotation(Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.Temperature T_bHeaWat_nominal(
     min=273.15, displayUnit="degC") = T_aHeaWat_nominal - 5
     "Heating water outlet temperature at nominal conditions"
     annotation(Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Temperature T_aChiWat_nominal(
-    min=273.15, displayUnit="degC") = 273.15 + 18
+  parameter Modelica.SIunits.Temperature T_aChiWat_nominal=273.15 + 18
     "Chilled water inlet temperature at nominal conditions "
     annotation(Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.Temperature T_bChiWat_nominal(
     min=273.15, displayUnit="degC") = T_aChiWat_nominal + 5
     "Chilled water outlet temperature at nominal conditions"
     annotation(Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Temperature T_aLoaHea_nominal(
-    min=273.15, displayUnit="degC") = 273.15 + 20
+  parameter Modelica.SIunits.Temperature T_aLoaHea_nominal=273.15 + 20
     "Load side inlet temperature at nominal conditions in heating mode"
     annotation(Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Temperature T_aLoaCoo_nominal(
-    min=273.15, displayUnit="degC") = 273.15 + 24
+  parameter Modelica.SIunits.Temperature T_aLoaCoo_nominal=273.15 + 24
     "Load side inlet temperature at nominal conditions in cooling mode"
     annotation(Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.MassFlowRate mLoaHea_flow_nominal=1
@@ -166,15 +162,17 @@ model BuildingTimeSeries
     "Cooling load"
     annotation (Placement(transformation(extent={{300,-20},{340,20}}),
         iconTransformation(extent={{-20,-20},{20,20}},rotation=-90, origin={260,-320})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add2
+  Buildings.Controls.OBC.CDL.Continuous.Add addPPum "Sum pump power"
     annotation (Placement(transformation(extent={{220,70},{240,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant noWatCooPum(k=0) if
-    not have_watCoo "No pump for water cooling"
-    annotation (Placement(transformation(extent={{60,90},{80,110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant noWatHeaPum(k=0) if
-    not have_watHea "No pump for water heating"
-    annotation (Placement(transformation(extent={{60,150},{80,170}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant nCoo(k=0) if
+    not have_watCoo "No cooling system"
+    annotation (Placement(transformation(extent={{70,70},{90,90}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant noHea(k=0) if
+    not have_watHea "No heating system"
+    annotation (Placement(transformation(extent={{70,110},{90,130}})));
 
+  Buildings.Controls.OBC.CDL.Continuous.Add addPFan "Sum fan power"
+    annotation (Placement(transformation(extent={{220,110},{240,130}})));
 protected
   parameter Modelica.SIunits.SpecificHeatCapacity cpHeaWat_nominal=
     Medium.specificHeatCapacityCp(
@@ -234,16 +232,26 @@ equation
     annotation (Line(points={{21,0},{320,0},{320,0}}, color={0,0,127}));
   connect(loa.y[2], QReqHea_flow) annotation (Line(points={{21,0},{280,0},{280,
           40},{320,40}}, color={0,0,127}));
-  connect(disFloHea.PPum, add2.u1) annotation (Line(points={{141,-78},{170,-78},
+  connect(disFloHea.PPum, addPPum.u1) annotation (Line(points={{141,-78},{170,-78},
           {170,86},{218,86}}, color={0,0,127}));
-  connect(disFloCoo.PPum, add2.u2) annotation (Line(points={{141,-268},{180,-268},
-          {180,74},{218,74}}, color={0,0,127}));
-  connect(add2.y, PPum)
+  connect(disFloCoo.PPum, addPPum.u2) annotation (Line(points={{141,-268},{200,
+          -268},{200,74},{218,74}}, color={0,0,127}));
+  connect(addPPum.y, PPum)
     annotation (Line(points={{242,80},{320,80}}, color={0,0,127}));
-  connect(noWatHeaPum.y, add2.u1) annotation (Line(points={{82,160},{170,160},{170,
+  connect(noHea.y, addPPum.u1) annotation (Line(points={{92,120},{170,120},{170,
           86},{218,86}}, color={0,0,127}));
-  connect(noWatCooPum.y, add2.u2) annotation (Line(points={{82,100},{180,100},{180,
-          74},{218,74}}, color={0,0,127}));
+  connect(nCoo.y, addPPum.u2) annotation (Line(points={{92,80},{200,80},{200,74},
+          {218,74}}, color={0,0,127}));
+  connect(addPFan.y, PFan)
+    annotation (Line(points={{242,120},{320,120}}, color={0,0,127}));
+  connect(noHea.y, addPFan.u1) annotation (Line(points={{92,120},{200,120},{200,
+          126},{218,126}}, color={0,0,127}));
+  connect(nCoo.y, addPFan.u2) annotation (Line(points={{92,80},{200,80},{200,
+          114},{218,114}}, color={0,0,127}));
+  connect(terUniCoo.PFan, addPFan.u2) annotation (Line(points={{90.8333,36},{
+          160,36},{160,114},{218,114}}, color={0,0,127}));
+  connect(terUniHea.PFan, addPFan.u1) annotation (Line(points={{90.8333,-24},{
+          180,-24},{180,126},{218,126}}, color={0,0,127}));
   annotation (
   Documentation(info="
 <html>
