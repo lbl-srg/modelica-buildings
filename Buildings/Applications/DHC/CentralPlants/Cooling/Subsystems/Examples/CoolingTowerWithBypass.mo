@@ -54,7 +54,7 @@ model CoolingTowerWithBypass
 
   Buildings.Fluid.MixingVolumes.MixingVolume vol(
     nPorts=3,
-    redeclare package Medium = Medium,
+    redeclare final package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     V=0.5,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
@@ -73,7 +73,7 @@ model CoolingTowerWithBypass
     annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
 
   Buildings.Fluid.Movers.FlowControlled_m_flow pum(
-    redeclare package Medium = Medium,
+    redeclare final package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     nominalValuesDefineDefaultPressureCurve=true)
@@ -81,7 +81,7 @@ model CoolingTowerWithBypass
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
 
   Buildings.Fluid.Sensors.TemperatureTwoPort senTCWLvg(
-    redeclare package Medium = Medium,
+    redeclare final package Medium = Medium,
     m_flow_nominal=m_flow_nominal)
     "Sensor for leaving conderser water temperature"
     annotation (Placement(transformation(extent={{30,40},{50,60}})));
@@ -93,7 +93,7 @@ model CoolingTowerWithBypass
     "Delay of pump operation"
     annotation (Placement(transformation(extent={{60,-90},{80,-70}})));
   Modelica.Blocks.Math.BooleanToReal booToRea(
-    each final realTrue=1, each final realFalse=0)
+    final realTrue=1, final realFalse=0)
     "Boolean to real (if true then 1 else 0)"
     annotation (Placement(transformation(extent={{-110,40},{-90,60}})));
 equation

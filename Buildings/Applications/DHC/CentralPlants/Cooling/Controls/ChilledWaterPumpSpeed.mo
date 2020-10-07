@@ -41,7 +41,9 @@ model ChilledWaterPumpSpeed
     "Measured pressure difference"
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
   Modelica.Blocks.Interfaces.RealOutput y[numPum](
-    unit="1",min=0,max=1) "Pump speed signal"
+    each final unit="1",
+    each final min=0,
+    each final max=1) "Pump speed signal"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   Modelica.Blocks.Math.Product pumSpe[numPum] "Output pump speed"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));

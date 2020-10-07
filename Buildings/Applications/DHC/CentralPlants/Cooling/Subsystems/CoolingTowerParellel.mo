@@ -69,7 +69,9 @@ model CoolingTowerParellel
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
 
   Modelica.Blocks.Interfaces.RealInput on[num](
-    min=0, max=1, unit="1")
+    each final min=0,
+    each final max=1,
+    each final unit="1")
     "On signal for cooling towers"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
 
@@ -84,14 +86,14 @@ model CoolingTowerParellel
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
 
   Modelica.Blocks.Interfaces.RealOutput PFan[num](
-    final quantity="Power",
-    final unit="W")
+    each final quantity="Power",
+    each final unit="W")
     "Electric power consumed by fan"
     annotation (Placement(transformation(extent={{100,50},{120,70}})));
 
   Modelica.Blocks.Interfaces.RealOutput TLvg[num](
-    final unit="K",
-    displayUnit="degC")
+    each final unit="K",
+    each displayUnit="degC")
     "Leaving water temperature"
     annotation (Placement(transformation(extent={{100,20},{120,40}})));
 
@@ -112,7 +114,7 @@ model CoolingTowerParellel
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
   Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage val[num](
-    redeclare package Medium = Medium,
+    redeclare each final package Medium = Medium,
     each final m_flow_nominal=m_flow_nominal,
     each final dpValve_nominal=dp_nominal)
     "Cooling tower valves"

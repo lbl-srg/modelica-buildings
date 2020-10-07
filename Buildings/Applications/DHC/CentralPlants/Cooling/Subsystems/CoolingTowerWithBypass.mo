@@ -93,7 +93,9 @@ model CoolingTowerWithBypass "Cooling tower system with bypass valve"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
 
   Modelica.Blocks.Interfaces.RealInput on[num](
-    min=0, max=1, unit="1") "On signal for cooling towers"
+    each final min=0,
+    each final max=1,
+    each final unit="1") "On signal for cooling towers"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
 
   Modelica.Blocks.Interfaces.RealInput TWetBul(
@@ -103,14 +105,14 @@ model CoolingTowerWithBypass "Cooling tower system with bypass valve"
     annotation (Placement(transformation(extent={{-140,-40},{-100,0}})));
 
   Modelica.Blocks.Interfaces.RealOutput PFan[num](
-    final quantity="Power",
-    final unit="W")
+    each final quantity="Power",
+    each final unit="W")
     "Electric power consumed by fan"
     annotation (Placement(transformation(extent={{100,50},{120,70}})));
 
   Modelica.Blocks.Interfaces.RealOutput TLvg[num](
-    final unit="K",
-    displayUnit="degC")
+    each final unit="K",
+    each displayUnit="degC")
     "Leaving water temperature"
     annotation (Placement(transformation(extent={{100,20},{120,40}})));
 

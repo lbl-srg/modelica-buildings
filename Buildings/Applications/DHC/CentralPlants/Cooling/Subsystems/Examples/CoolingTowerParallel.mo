@@ -98,8 +98,9 @@ model CoolingTowerParallel
     nominalValuesDefineDefaultPressureCurve=true)
     "Pump for chilled water loop"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
-  Modelica.Blocks.Math.BooleanToReal booToRea(each final realTrue=1, each final
-            realFalse=0) "Boolean to real (if true then 1 else 0)"
+  Modelica.Blocks.Math.BooleanToReal booToRea(
+    final realTrue=1,
+    final realFalse=0) "Boolean to real (if true then 1 else 0)"
     annotation (Placement(transformation(extent={{-110,40},{-90,60}})));
   Modelica.Blocks.Nonlinear.FixedDelay del(delayTime=30)
     "Delay of pump operation"
