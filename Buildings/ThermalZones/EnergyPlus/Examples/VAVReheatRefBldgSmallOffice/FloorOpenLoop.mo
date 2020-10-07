@@ -34,7 +34,7 @@ model FloorOpenLoop "Open loop model of one floor"
     eas(T_start=275.15),
     sou(T_start=275.15),
     cor(T_start=275.15),
-    att(T_start=291.15))
+    att(T_start=275.15))
     "One floor of the office building"
     annotation (Placement(transformation(extent={{28,-8},{84,52}})));
   Fluid.Sources.MassFlowSource_WeatherData bou[4](

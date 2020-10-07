@@ -18,9 +18,9 @@ void EnergyPlusInputVariableInstantiate(
     double startTime){
   fmi2_status_t status;
   FMUInputVariable* var = (FMUInputVariable*) object;
-  FMUBuilding* bui = var->ptrBui;
+  FMUBuilding* bui = var->bui;
 
-  if (FMU_EP_VERBOSITY >= MEDIUM){
+  if (bui->logLevel >= MEDIUM){
     bui->SpawnFormatMessage("Entered EnergyPlusInputVariableInstantiate for %s.\n",
       var->modelicaNameInputVariable);
   }

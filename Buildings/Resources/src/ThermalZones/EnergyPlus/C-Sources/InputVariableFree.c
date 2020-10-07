@@ -14,9 +14,9 @@ void EnergyPlusInputVariableFree(void* object){
     FMUInputVariable* com = (FMUInputVariable*) object;
 
     /* The building may not have been instanciated yet if there was an error during instantiation */
-    if (com->ptrBui != NULL){
-      com->ptrBui->nInputVariables--;
-      FMUBuildingFree(com->ptrBui);
+    if (com->bui != NULL){
+      com->bui->nInputVariables--;
+      FMUBuildingFree(com->bui);
     }
     free(com);
   }

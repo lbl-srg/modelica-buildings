@@ -1,5 +1,5 @@
 within Buildings.ThermalZones.EnergyPlus.Types;
-type Verbosity = enumeration(
+type LogLevels = enumeration(
     Error "Errors",
     Warning "Warnings",
     Info "Information",
@@ -11,7 +11,7 @@ Enumeration for the level of outputs written by EnergyPlus.
 The possible values are:
 </p>
 <table summary=\"log levels\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
-<tr><th>Verbosity</th><th>Explanation</th></tr>
+<tr><th>LogLevels</th><th>Explanation</th></tr>
 <tr><td>Error</td><td>Logs EnergyPlus errors and fatal errors.</td></tr>
 <tr><td>Warning</td><td>Logs in addition EnergyPlus warnings.</td></tr>
 <tr><td>Info</td><td>Logs in addition EnergyPlus informational messages.</td></tr>

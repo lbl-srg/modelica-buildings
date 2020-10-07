@@ -26,9 +26,9 @@ block FMUZoneAdapter "Block that interacts with this EnergyPlus zone"
     "Specify if a pre-compiled FMU should be used instead of EnergyPlus (mainly for development)"
     annotation(Dialog(tab="Debug", enable=usePrecompiledFMU));
 
-  parameter Buildings.ThermalZones.EnergyPlus.Types.Verbosity verbosity=
-    Buildings.ThermalZones.EnergyPlus.Types.Verbosity.Warning
-    "Verbosity of EnergyPlus output"
+  parameter Buildings.ThermalZones.EnergyPlus.Types.LogLevels logLevel=
+    Buildings.ThermalZones.EnergyPlus.Types.LogLevels.Warning
+    "LogLevels of EnergyPlus output"
     annotation(Dialog(tab="Debug"));
 
   parameter Integer nFluPor
@@ -95,7 +95,7 @@ protected
       usePrecompiledFMU=usePrecompiledFMU,
       fmuName=fmuName,
       buildingsLibraryRoot=buildingsLibraryRoot,
-      verbosity=verbosity)
+      logLevel=logLevel)
     "Class to communicate with EnergyPlus";
 
   parameter Modelica.SIunits.Time startTime(fixed=false) "Simulation start time";

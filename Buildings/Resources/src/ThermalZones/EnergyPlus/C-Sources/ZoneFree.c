@@ -15,9 +15,9 @@ void EnergyPlusZoneFree(void* object){
     FMUZone* zone = (FMUZone*) object;
 
     /* The building may not have been instanciated yet if there was an error during instantiation */
-    if (zone->ptrBui != NULL){
-      zone->ptrBui->nZon--;
-      FMUBuildingFree(zone->ptrBui);
+    if (zone->bui != NULL){
+      zone->bui->nZon--;
+      FMUBuildingFree(zone->bui);
     }
     free(zone);
   }

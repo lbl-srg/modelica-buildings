@@ -92,7 +92,7 @@ model ThermalZone "Model to connect to an EnergyPlus thermal zone"
     final nFluPor=nPorts,
     final usePrecompiledFMU=usePrecompiledFMU,
     final fmuName=fmuName,
-    final verbosity=verbosity) "FMU zone adapter"
+    final logLevel=logLevel) "FMU zone adapter"
     annotation (Placement(transformation(extent={{80,100},{100,120}})));
 
 protected
