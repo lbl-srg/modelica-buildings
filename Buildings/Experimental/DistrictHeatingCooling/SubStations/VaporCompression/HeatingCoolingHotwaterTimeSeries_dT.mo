@@ -422,9 +422,6 @@ initial equation
     "Nominal hot water heating rate must be strictly positive. Obtained QHotWat_flow_nominal = "
     + String(QHotWat_flow_nominal));
 
-
-
-
 equation
   connect(pumHea.port_b, heaPum.port_a2) annotation (Line(points={{50,300},{50,
           300},{100,300},{100,216},{42,216}},

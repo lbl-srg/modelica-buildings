@@ -17,20 +17,22 @@ model TestCellRadiantExterior
         each til=Buildings.Types.Tilt.Floor),
       datConBou(
       layers={parCon,parCon,R20Wal},
-      steadyStateInitial=true,
-      T_a_start=293.15,
-      T_b_start=293.15,
-      stateAtSurface_b=false,
-      boundaryCondition=Buildings.ThermalZones.Detailed.Types.CFDBoundaryConditions.Temperature,
+      each steadyStateInitial=false,
+      each T_a_start=288.15,
+      each T_b_start=288.15,
+      each stateAtSurface_b=false,
+      each boundaryCondition=Buildings.ThermalZones.Detailed.Types.CFDBoundaryConditions.Temperature,
          A = {3 * 9, 5 * 3, 5*9},
          til = {Buildings.Types.Tilt.Wall, Buildings.Types.Tilt.Wall, Buildings.Types.Tilt.Ceiling},
          azi = {Buildings.Types.Azimuth.N, Buildings.Types.Azimuth.E, Buildings.Types.Azimuth.N},
-      stateAtSurface_a=false),
+      each stateAtSurface_a=false),
       datConExtWin(
         layers={R25Wal, R25Wal},
-      steadyStateInitial=true,
-      stateAtSurface_a=false,
-      stateAtSurface_b=false,
+      each steadyStateInitial=false,
+      each T_a_start=288.15,
+      each T_b_start=288.15,
+      each stateAtSurface_a=true,
+      each stateAtSurface_b=true,
       A={5*3,9*3},
         glaSys={glaSys,glaSys},
       hWin={2,2},
@@ -40,15 +42,14 @@ model TestCellRadiantExterior
       intConMod=Buildings.HeatTransfer.Types.InteriorConvection.Temperature,
       extConMod=Buildings.HeatTransfer.Types.ExteriorConvection.TemperatureWind,
     lat=0.66098585832754,
-    conBou(steadyStateInitial=true),
-    datConExt(
-      steadyStateInitial=true,
-      stateAtSurface_a=true,
-      stateAtSurface_b=true),
+    conBou(
+      each steadyStateInitial=false,
+      each T_a_start=288.15,
+      each T_b_start=288.15),
     datConPar(
-      steadyStateInitial=true,
-      stateAtSurface_a=false,
-      stateAtSurface_b=false));
+      each steadyStateInitial=true,
+      each stateAtSurface_a=true,
+      each stateAtSurface_b=true));
 
   replaceable parameter
     Data.Constructions.OpaqueConstructions.ExteriorConstructions.ConstructionRadiantR25Wall

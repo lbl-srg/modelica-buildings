@@ -103,8 +103,8 @@ model NaturalVentilationNightFlushFixedInterior "Validation model for night flus
           boundaryCondition=Buildings.ThermalZones.Detailed.Types.CFDBoundaryConditions.Temperature)},
     lat=0.72954762733363,
     intConMod=Buildings.HeatTransfer.Types.InteriorConvection.Temperature,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
-    massDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     T_start=298.15,
     nPorts=4,
     redeclare package Medium = MediumA)

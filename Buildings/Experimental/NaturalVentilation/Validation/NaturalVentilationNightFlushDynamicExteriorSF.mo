@@ -70,8 +70,8 @@ model NaturalVentilationNightFlushDynamicExteriorSF "Validation model for night 
     mOpe=0.5)                           "Window"
     annotation (Placement(transformation(extent={{198,100},{218,120}})));
   ThermalZones.Detailed.FLEXLAB.Rooms.X3A.TestCellRadiantExterior radExt(
-    energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
-    massDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     T_start=288.15,
     nPorts=4,
     redeclare package Medium = MediumA)

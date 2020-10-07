@@ -29,7 +29,8 @@ equation
 October 6, 2020, by Fiona Woods:<br/>
 Updated description. 
 </li>
-</html>"),Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+</html>"),experiment(Tolerance=1e-6, StartTime=0, StopTime=31536000), __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/NaturalVentilation/Validation/BaseClasses/Validation/SFForecastHigh.mos"
+        "Simulate and plot"),Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Ellipse(
           lineColor={75,138,73},
           fillColor={255,255,255},

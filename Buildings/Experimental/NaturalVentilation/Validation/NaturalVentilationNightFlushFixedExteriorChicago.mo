@@ -69,7 +69,9 @@ model NaturalVentilationNightFlushFixedExteriorChicago "Validation model for nig
     CDOpe=0.7,
     mOpe=0.74)                          "Window"
     annotation (Placement(transformation(extent={{198,100},{218,120}})));
-  ThermalZones.Detailed.FLEXLAB.Rooms.X3A.TestCellRadiantExterior radExt(nPorts=4,
+  ThermalZones.Detailed.FLEXLAB.Rooms.X3A.TestCellRadiantExterior radExt(
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,             nPorts=4,
       redeclare package Medium = MediumA)
     annotation (Placement(transformation(extent={{418,42},{458,82}})));
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat1(filNam=

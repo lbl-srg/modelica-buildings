@@ -15,23 +15,28 @@ model TestCellRadiantInterior
         each til=Buildings.Types.Tilt.Floor),
       datConBou(
       layers={parCon,parCon,parCon,parCon,parCon},
-      steadyStateInitial=true,
-      stateAtSurface_a=true,
-      stateAtSurface_b=true,
-      boundaryCondition=Buildings.ThermalZones.Detailed.Types.CFDBoundaryConditions.Temperature,
+      each steadyStateInitial=false,
+      each T_a_start=288.15,
+      each T_b_start=288.15,
+      each stateAtSurface_a=true,
+      each stateAtSurface_b=true,
+      each boundaryCondition=Buildings.ThermalZones.Detailed.Types.CFDBoundaryConditions.Temperature,
       A={5*3,9*3,3*9,5*3,5*9},
       til={Buildings.Types.Tilt.Wall,Buildings.Types.Tilt.Wall,Buildings.Types.Tilt.Wall,
           Buildings.Types.Tilt.Wall,Buildings.Types.Tilt.Ceiling},
       azi={Buildings.Types.Azimuth.W,Buildings.Types.Azimuth.S,Buildings.Types.Azimuth.N,
           Buildings.Types.Azimuth.E,Buildings.Types.Azimuth.N}),
-      datConExtWin(steadyStateInitial=true,
-                   boundaryCondition=Buildings.ThermalZones.Detailed.Types.CFDBoundaryConditions.HeatFlowRate),
-      intConMod=Buildings.HeatTransfer.Types.InteriorConvection.Temperature,
-      extConMod=Buildings.HeatTransfer.Types.ExteriorConvection.TemperatureWind,
-      lat=0.66098585832754,
-    conBou(steadyStateInitial=true),
-    datConExt(steadyStateInitial=true, boundaryCondition=Buildings.ThermalZones.Detailed.Types.CFDBoundaryConditions.Temperature),
-    datConPar(steadyStateInitial=true));
+      datConExtWin(
+      each steadyStateInitial=false,
+      each T_a_start=288.15,
+      each T_b_start=288.15,
+                   each boundaryCondition=Buildings.ThermalZones.Detailed.Types.CFDBoundaryConditions.HeatFlowRate),
+      each intConMod=Buildings.HeatTransfer.Types.InteriorConvection.Temperature,
+      each extConMod=Buildings.HeatTransfer.Types.ExteriorConvection.TemperatureWind,
+      each lat=0.66098585832754,
+    conBou(each steadyStateInitial=true),
+    datConExt(each steadyStateInitial=true, each boundaryCondition=Buildings.ThermalZones.Detailed.Types.CFDBoundaryConditions.Temperature),
+    datConPar(each steadyStateInitial=true));
 
   replaceable parameter
     Data.Constructions.OpaqueConstructions.ExteriorConstructions.ConstructionRadiantR25Wall

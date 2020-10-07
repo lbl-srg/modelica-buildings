@@ -74,7 +74,7 @@ model ControlPlusLockoutPerimeter
   parameter Modelica.SIunits.MassFlowRate mRad_flow_nominal=
     Q_flow_nominal/4200/(TRadSup_nominal-TRadRet_nominal)
     "Radiator nominal mass flow rate";
-  parameter Modelica.SIunits.Temperature TRadCold_nominal = 273.15+10;
+  parameter Modelica.SIunits.Temperature TRadCol_nominal = 273.15+10;
   parameter Modelica.SIunits.Area A=45;
 //------------------------------------------------------------------------//
   parameter Modelica.SIunits.Volume V=5*9*3 "Room volume";
@@ -84,6 +84,9 @@ model ControlPlusLockoutPerimeter
     "Internal heat gains of the room";
 
   Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab           sla1(
+    T_a_start=288.15,
+    T_b_start=288.15,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
     m_flow_nominal=mRad_flow_nominal,
     redeclare package Medium = MediumW,
     layers=layers,
@@ -103,7 +106,7 @@ model ControlPlusLockoutPerimeter
     annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
   Fluid.Sources.Boundary_pT souCol(
     redeclare package Medium = MediumW,
-    T=TRadCold_nominal,
+    T=TRadCol_nominal,
     nPorts=1) "Chilled water source" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -111,10 +114,12 @@ model ControlPlusLockoutPerimeter
 Fluid.Movers.FlowControlled_m_flow pumCol(
     redeclare package Medium = MediumW,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    T_start=TRadCold_nominal,
+    T_start=TRadCol_nominal,
     allowFlowReversal=false,
     m_flow_nominal=mRad_flow_nominal,
-    addPowerToMedium=false) "Chilled water pump" annotation (Placement(
+    addPowerToMedium=false,
+    nominalValuesDefineDefaultPressureCurve=true)
+                            "Chilled water pump" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -129,7 +134,9 @@ Fluid.Movers.FlowControlled_m_flow           pumHot(
     redeclare package Medium = MediumW,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=mRad_flow_nominal,
-    addPowerToMedium=false) "Hot water pump"
+    addPowerToMedium=false,
+    nominalValuesDefineDefaultPressureCurve=true)
+                            "Hot water pump"
       annotation (Placement(transformation(
       extent={{-10,-10},{10,10}},
       rotation=90,
@@ -182,9 +189,9 @@ Fluid.Movers.FlowControlled_m_flow           pumHot(
   Fluid.Sensors.TemperatureTwoPort temCoo(
     redeclare package Medium = MediumW,
     m_flow_nominal=mRad_flow_nominal,
-    T_start=TRadCold_nominal,
+    T_start=TRadCol_nominal,
     transferHeat=true,
-    TAmb=TRadCold_nominal) "CoolingTemperature" annotation (Placement(
+    TAmb=TRadCol_nominal) "CoolingTemperature" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -275,6 +282,9 @@ Fluid.Movers.FlowControlled_m_flow           pumHot(
     nSurBou=1,
     lat=0.73268921998722,
     hRoo=3,
+    steadyStateWindow=false,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
+    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
     nPorts=2,
     redeclare package Medium = MediumA)
     annotation (Placement(transformation(extent={{82,300},{122,340}})));
@@ -466,7 +476,7 @@ Chilled water and hot water are provided to the slab by constant temperature flo
 October 6, 2020, by Fiona Woods:<br/>
 Updated description. 
 </li>
-</html>"), experiment(Tolerance=1e-6, StopTime=31536000),
+</html>"), experiment(Tolerance=1e-6, StartTime=0, StopTime=31536000),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/RadiantControl/Validation/ControlPlusLockoutPerimeter.mos" "Simulate and plot"),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
          graphics={
