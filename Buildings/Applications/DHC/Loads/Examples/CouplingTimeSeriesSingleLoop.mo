@@ -150,6 +150,11 @@ in a configuration with
 </p>
 <ul>
 <li>
+a single connection with a heating water distribution system, see
+component <code>buiHea</code> (resp. with a chilled water distribution 
+system, see component <code>buiCoo</code>),
+</li>
+<li>
 space heating and cooling loads provided as time series, and
 </li>
 <li>
