@@ -2,16 +2,30 @@ within Buildings.Controls.OBC.CDL.Integers.Sources.Validation;
 model TimeTable "Validation model for TimeTable block"
 
   Buildings.Controls.OBC.CDL.Integers.Sources.TimeTable intTimTab(
-    table=[0,1,4;1.3,2,2; 2.9,0,-1; 4,3,7; 5,1,1],
-    offset={0,0}) "Integer time table"
-    annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
+    table=[
+      0,   1,  4;
+      1.3, 2,  2;
+      2.9, 0, -1;
+      4,   3,  7],
+    period = 5) "Integer time table"
+    annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
 
   Buildings.Controls.OBC.CDL.Integers.Sources.TimeTable intTimTab1(
-    table=[6,1,4;7.3,2,2; 8.9,0,-1; 10,3,7; 11,1,1],
-    offset=fill(2, 2))
-    "Time table with integer output and offset"
-    annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
+    table=[
+      0,  -1, -2;
+      6,   1,  4;
+      7.3, 2,  2;
+      8.9, 0, -1;
+      10,  3,  7],
+    period = 11)
+    "Integer time table"
+    annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
 
+  Buildings.Controls.OBC.CDL.Integers.Sources.TimeTable tabOneRow(
+    table=[0,  -1],
+    period = 2)
+    "Time table with only one row of data"
+    annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
   annotation (experiment(Tolerance=1e-6, StopTime=15.0),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Integers/Sources/Validation/TimeTable.mos"
        "Simulate and plot"),
@@ -24,6 +38,10 @@ Buildings.Controls.OBC.CDL.Integers.Sources.TimeTable</a>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+October 8, 2020, by Michael Wetter:<br/>
+Added test for time table with only one row.
+</li>
 <li>
 September 14, 2020, by Milica Grahovac:<br/>
 Initial CDL implementation.

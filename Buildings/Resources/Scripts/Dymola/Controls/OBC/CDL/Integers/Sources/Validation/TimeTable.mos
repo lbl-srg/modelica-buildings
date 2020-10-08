@@ -1,5 +1,4 @@
-simulateModel("Buildings.Controls.OBC.CDL.Integers.Sources.Validation.TimeTable", startTime=0, tolerance=1e-6, stopTime=15, method="Cvode", resultFile="TimeTable3");
-createPlot(id=1, subPlot=1, position={15, 10, 1936, 1264}, y={"intTimTab.y[1]", "intTimTab.y[2]"}, range={-1.6, 2.0, -0.5, 1.5}, grid=true, colors={{0,0,255}, {0,140,72}});
-createPlot(id=1, subPlot=2, position={15, 10, 1936, 1264}, y={"intTimTab.offset[1]", "intTimTab.offset[2]"}, range={-1.6, 2.0, -0.5, 1.5}, grid=true, colors={{0,0,255}, {0,140,72}});
-createPlot(id=1, subPlot=3, position={15, 10, 1936, 1264}, y={"intTimTab1.y[1]", "intTimTab1.y[2]"}, range={-1.6, 2.0, -0.5, 1.5}, grid=true, colors={{0,0,255}, {0,140,72}});
-createPlot(id=1, subPlot=4, position={15, 10, 1936, 1264}, y={"intTimTab1.offset[1]", "intTimTab1.offset[2]"}, range={-1.6, 2.0, -0.5, 1.5}, grid=true, colors={{0,0,255}, {0,140,72}});
+simulateModel("Buildings.Controls.OBC.CDL.Integers.Sources.Validation.TimeTable", startTime=0, tolerance=1e-6, stopTime=15, method="Cvode", resultFile="IntegerTimeTable");
+createPlot(id=1, position={15, 6, 1488, 1268}, y={"intTimTab.y[1]", "intTimTab.y[2]"}, range={0.0, 15.0, -2.0, 8.0}, grid=true, colors={{28,108,200}, {28,108,200}});
+createPlot(id=1, position={15, 6, 1488, 1268}, y={"intTimTab1.y[1]", "intTimTab1.y[2]"}, range={0.0, 15.0, -4.0, 8.0}, grid=true, subPlot=102, colors={{28,108,200}, {28,108,200}});
+createPlot(id=1, position={15, 6, 1488, 1268}, y={"tabOneRow.y[1]"}, range={0.0, 15.0, -1.2000000000000002, 0.3999999999999999}, grid=true, subPlot=103, colors={{28,108,200}});
