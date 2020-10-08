@@ -17,8 +17,6 @@
  *
  */
 
-#include <stdio.h>
-
 #if defined(_MSC_VER) || defined(__WIN32__) /* Windows */
 #include <windows.h>
 #else /* Linux*/
@@ -31,6 +29,11 @@
 #define _MODELICA_FFD_COMMON_H
 #include "../src/FastFluidDynamics/modelica_ffd_common.h"
 #include <stdint.h> /* Needed to detect 32 vs. 64 bit using UINTPTR_MAX*/
+#endif
+
+#if UINTPTR_MAX == 0xffffffff
+/* 32-bit */
+#error "*** ISAT is not yet on Windows 32 bit."
 #endif
 
 CosimulationData *cosim;
