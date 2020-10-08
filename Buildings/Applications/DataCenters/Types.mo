@@ -29,8 +29,8 @@ First implementation.
 </li>
 </ul>
 </html>"));
-
-  annotation (Documentation(info="<html>
+  annotation (Documentation(info=
+  "<html>
 <p>
 This package contains type definitions.
 </p>

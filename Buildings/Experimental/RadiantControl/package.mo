@@ -1,9 +1,5 @@
 within Buildings.Experimental;
 package RadiantControl "Radiant Control Sequence"
-
-
-
-
 annotation (Documentation(info="<html>
   <p>
   This package contains a radiant control module and its constitutive blocks, 
