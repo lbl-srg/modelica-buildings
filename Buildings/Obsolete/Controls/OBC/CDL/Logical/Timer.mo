@@ -1,6 +1,8 @@
 within Buildings.Obsolete.Controls.OBC.CDL.Logical;
 block Timer
   "Timer measuring the time from the time instant where the Boolean input became true"
+  extends Modelica.Icons.ObsoleteModel;
+
   parameter Boolean accumulate = false
     "If true, accumulate time until Boolean input 'reset' becomes true, otherwise reset timer whenever u becomes true";
 

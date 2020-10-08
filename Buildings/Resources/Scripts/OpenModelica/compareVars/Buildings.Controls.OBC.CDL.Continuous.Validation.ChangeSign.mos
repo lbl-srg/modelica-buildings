@@ -1,5 +1,0 @@
-compareVars :=
-  {
-    "changSign.u",
-    "changSign.y"
-  };
