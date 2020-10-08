@@ -1,24 +1,20 @@
 within Buildings.Controls.OBC.CDL.Psychrometrics;
-block TWetBul_TDryBulPhi
+block WetBulb_TDryBulPhi
   "Block to compute the wet bulb temperature based on relative humidity"
 
   Interfaces.RealInput TDryBul(
     final quantity="ThermodynamicTemperature",
     final unit="K",
     final min=100) "Dry bulb temperature"
-    annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
+    annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
+        iconTransformation(extent={{-140,40},{-100,80}})));
 
   Interfaces.RealInput phi(
     final min=0,
     final max=1)
     "Relative air humidity"
-    annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-
-  Interfaces.RealInput p(
-    final quantity="Pressure",
-    final unit="Pa",
-    final min = 0) "Pressure"
-    annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
+    annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),
+        iconTransformation(extent={{-140,-80},{-100,-40}})));
 
   Interfaces.RealOutput TWetBul(
     final quantity="ThermodynamicTemperature",
@@ -54,17 +50,13 @@ annotation (
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Text(
-          extent={{-92,100},{-62,56}},
+          extent={{-92,82},{-62,38}},
           lineColor={0,0,127},
           textString="TDryBul"),
         Text(
-          extent={{-92,14},{-72,-12}},
+          extent={{-90,-44},{-70,-70}},
           lineColor={0,0,127},
           textString="phi"),
-        Text(
-          extent={{-90,-72},{-72,-90}},
-          lineColor={0,0,127},
-          textString="p"),
         Text(
           extent={{62,22},{92,-22}},
           lineColor={0,0,127},
@@ -121,13 +113,8 @@ with a mean error of less than <i>0.3</i> Kelvin.
 </p>
 <p>
 The model is validated in
-<a href=\"modelica://Buildings.Controls.OBC.CDL.Psychrometrics.Validation.TWetBul_TDryBulPhi\">
-Buildings.Controls.OBC.CDL.Psychrometrics.Validation.TWetBul_TDryBulPhi</a>.
-</p>
-<p>
-For a model that takes the mass fraction instead of the relative humidity as an input, see
-<a href=\"modelica://Buildings.Utilities.Psychrometrics.TWetBul_TDryBulXi\">
-Buildings.Utilities.Psychrometrics.TWetBul_TDryBulXi</a>.
+<a href=\"modelica://Buildings.Controls.OBC.CDL.Psychrometrics.Validation.WetBulb_TDryBulPhi\">
+Buildings.Controls.OBC.CDL.Psychrometrics.Validation.WetBulb_TDryBulPhi</a>.
 </p>
 <h4>References</h4>
 <p>
@@ -143,8 +130,14 @@ DOI: 10.1175/JAMC-D-11-0143.1
 revisions="<html>
 <ul>
 <li>
+September 29, 2020, by Michael Wetter:<br/>
+Removed unused input <code>p</code> and renamed block.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2139\">issue 2139</a>
+</li>
+<li>
 April 11, 2017, by Jianjun Hu:<br/>
-Changed the model so to avoid using nonlinear equation.
+Changed the model to avoid using nonlinear equation.
 </li>
 <li>
 November 3, 2016, by Michael Wetter:<br/>
@@ -175,4 +168,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end TWetBul_TDryBulPhi;
+end WetBulb_TDryBulPhi;
