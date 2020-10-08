@@ -17,7 +17,6 @@ First implementation.
 </li>
 </ul>
 </html>"));
-
   type RadiationDataSource = enumeration(
       File "Use data from file",
       Input_HGloHor_HDifHor
@@ -44,8 +43,7 @@ First implementation.
         "Use horizontal irradiation",
       TemperaturesAndSkyCover
         "Use dry-bulb and dew-point temperatures and sky cover")
-    "Enumeration for computation of sky temperature" annotation (Documentation(
-        info =                 "<html>
+    "Enumeration for computation of sky temperature" annotation (Documentation(info= "<html>
 <p>
 Enumeration to define the method used to compute the sky temperature.
 </p>
@@ -57,7 +55,6 @@ First implementation.
 </li>
 </ul>
 </html>"));
-
 annotation (preferredView="info", Documentation(info="<html>
 This package contains type definitions.
 </html>"));
