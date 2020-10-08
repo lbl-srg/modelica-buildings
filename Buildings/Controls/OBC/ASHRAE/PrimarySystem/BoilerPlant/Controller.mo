@@ -688,6 +688,12 @@ model Controller
   parameter Integer staInd[nSta]={i for i in 1:nSta}
     "Staging indices starting at 1";
 
+  parameter Integer priPumInd[nPumPri]={i for i in 1:nPumPri}
+    "Vector of primary pump indices up to total number of primary pumps";
+
+  parameter Integer secPumInd[nPumSec]={i for i in 1:nPumSec}
+    "Vector of secondary pump indices up to total number of secondary pumps";
+
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Generic.PlantEnable plaEna(
     nIgnReq=nIgnReq,
     nSchRow=nSchRow,
@@ -761,6 +767,8 @@ model Controller
     isHeadered=true,
     primaryOnly=false,
     variablePrimary=true,
+    primarySecondaryFlowSensors=false,
+    primarySecondaryTemperatureSensors=false,
     nPum=nPumPri,
     nBoi=nBoi,
     nSen=nSen_remoteDp,
@@ -777,7 +785,7 @@ model Controller
     k=k_priPum,
     Ti=Ti_priPum,
     Td=Td_priPum,
-    speedControlType=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpSpeedControlTypes.localDP)
+    speedControlType=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpSpeedControlTypes.temperature)
     "Primary pump controller"
     annotation (Placement(transformation(extent={{120,-168},{140,-112}})));
 
@@ -871,8 +879,8 @@ model Controller
     "Constant stage Integer source"
     annotation (Placement(transformation(extent={{-170,-190},{-150,-170}})));
 
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt2[2](k={1,2})
-    "Constant stage Integer source"
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt2[nPumPri](k=
+        priPumInd)           "Constant stage Integer source"
     annotation (Placement(transformation(extent={{60,-138},{80,-118}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput supResReq
@@ -900,38 +908,38 @@ model Controller
       Placement(transformation(extent={{-240,80},{-200,120}}),
         iconTransformation(extent={{-240,40},{-200,80}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSup(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSupPri(
     final unit="K",
     displayUnit="degC",
     quantity="ThermodynamicTemperature")
-                                        "Measured hot water supply temperature"
-    annotation (Placement(transformation(extent={{-240,50},{-200,90}}),
-        iconTransformation(extent={{-240,0},{-200,40}})));
+    "Measured hot water supply temperature" annotation (Placement(
+        transformation(extent={{-240,50},{-200,90}}), iconTransformation(extent
+          ={{-240,0},{-200,40}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TRetPri(
     final unit="K",
     displayUnit="degC",
     quantity="ThermodynamicTemperature")
     "Measured hot water primary return temperature" annotation (Placement(
-        transformation(extent={{-240,20},{-200,60}}), iconTransformation(extent
-          ={{-240,-40},{-200,0}})));
+        transformation(extent={{-240,20},{-200,60}}), iconTransformation(extent=
+           {{-240,-40},{-200,0}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput VHotWat_flow(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput VHotWatPri_flow(
     final unit="m3/s",
     displayUnit="m3/s",
-    quantity="VolumeFlowRate")
-    "Measured hot water flowrate"
+    quantity="VolumeFlowRate") "Measured hot water primary circuit flowrate"
     annotation (Placement(transformation(extent={{-240,-10},{-200,30}}),
         iconTransformation(extent={{-240,-80},{-200,-40}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput dpHotWat_remote[nSen_remoteDp]
-    "Measured differential pressure between hot water supply and return"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput dpHotWatPri_remote[
+    nSen_remoteDp]
+    "Measured differential pressure between hot water supply and return in primary circuit"
     annotation (Placement(transformation(extent={{-240,-70},{-200,-30}}),
         iconTransformation(extent={{-240,-120},{-200,-80}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dpHotWatSet(k=maxLocDp)
-    "Differential pressure setpoint"
-    annotation (Placement(transformation(extent={{80,-180},{100,-160}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dpHotWatSet(k=
+        priMaxLocDp) "Differential pressure setpoint for primary circuit"
+    annotation (Placement(transformation(extent={{60,-180},{80,-160}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yBoi[nBoi]
     "Boiler status vector" annotation (
@@ -978,8 +986,7 @@ model Controller
     "Integer to Real conversion"
     annotation (Placement(transformation(extent={{-110,170},{-90,190}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Pre pre3[nPumPri]
-    "Logical pre block"
+  Buildings.Controls.OBC.CDL.Logical.Pre pre3[nPumPri] "Logical pre block"
     annotation (Placement(transformation(extent={{160,-120},{180,-100}})));
 
   Buildings.Controls.OBC.CDL.Logical.Pre pre4
@@ -1020,15 +1027,15 @@ model Controller
 
   Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea3[nSta]
     "Integer to Real conversion"
-    annotation (Placement(transformation(extent={{-120,-190},{-100,-170}})));
+    annotation (Placement(transformation(extent={{-140,-190},{-120,-170}})));
 
   Buildings.Controls.OBC.CDL.Discrete.UnitDelay uniDel3[nSta](samplePeriod=fill(1, nSta))
     "Unit delay"
-    annotation (Placement(transformation(extent={{-90,-190},{-70,-170}})));
+    annotation (Placement(transformation(extent={{-110,-190},{-90,-170}})));
 
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt3[nSta]
     "Real to Integer conversion"
-    annotation (Placement(transformation(extent={{-60,-190},{-40,-170}})));
+    annotation (Placement(transformation(extent={{-80,-190},{-60,-170}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uBoiAva[nBoi]
     "Boiler availability status signal"
@@ -1036,8 +1043,8 @@ model Controller
         iconTransformation(extent={{-240,-160},{-200,-120}})));
 
   Generic.PlantDisable plaDis(
-    primaryOnly=primaryOnly,
-    isHeadered=isHeadered,
+    primaryOnly=false,
+    isHeadered=true,
     nBoi=nBoi,
     chaHotWatIsoRat=chaIsolValRat,
     delBoiDis=delBoiEna)
@@ -1046,8 +1053,11 @@ model Controller
   parameter Real boiMinPriPumSpeSta[nSta]={0.1,0.1,0.1}
     "Vector of minimum primary pump speed for all boiler plant stages";
 
-  Pumps.SecondaryPumps.Controller secPumCon(variableSecondary=true)
-    annotation (Placement(transformation(extent={{120,-280},{140,-240}})));
+  Pumps.SecondaryPumps.Controller secPumCon(variableSecondary=true,
+    secondaryFlowSensor=true,
+    nPum=nPumSec,
+    nPumPri=nPumPri)
+    annotation (Placement(transformation(extent={{120,-320},{140,-280}})));
   CDL.Discrete.UnitDelay uniDel4(samplePeriod=1) "Unit delay"
     annotation (Placement(transformation(extent={{180,-200},{200,-180}})));
   CDL.Interfaces.RealInput TRetSec(
@@ -1055,30 +1065,78 @@ model Controller
     displayUnit="degC",
     quantity="ThermodynamicTemperature")
     "Measured hot water secondary return temperature" annotation (Placement(
-        transformation(extent={{-240,-40},{-200,0}}), iconTransformation(extent
-          ={{-240,-40},{-200,0}})));
+        transformation(extent={{-240,-40},{-200,0}}), iconTransformation(extent=
+           {{-240,-40},{-200,0}})));
+  CDL.Logical.IntegerSwitch                        intSwi1
+    "Integer switch"
+    annotation (Placement(transformation(extent={{60,-220},{80,-200}})));
+  CDL.Logical.MultiOr mulOr(nu=3) "Multi Or"
+    annotation (Placement(transformation(extent={{30,-180},{50,-160}})));
+  CDL.Logical.Pre pre2 "Logical pre block"
+    annotation (Placement(transformation(extent={{200,-130},{220,-110}})));
+  CDL.Interfaces.RealInput VHotWatSec_flow(
+    final unit="m3/s",
+    displayUnit="m3/s",
+    quantity="VolumeFlowRate") "Measured hot water secondary circuit flowrate"
+    annotation (Placement(transformation(extent={{-240,-230},{-200,-190}}),
+        iconTransformation(extent={{-240,-80},{-200,-40}})));
+  CDL.Integers.Sources.Constant conInt3[nPumSec](k=secPumInd)
+    "Constant stage Integer source"
+    annotation (Placement(transformation(extent={{60,-280},{80,-260}})));
+  CDL.Interfaces.RealInput VHotWatDec_flow(
+    final unit="m3/s",
+    displayUnit="m3/s",
+    quantity="VolumeFlowRate")
+    "Measured hot water flowrate through decoupler leg" annotation (Placement(
+        transformation(extent={{-240,-260},{-200,-220}}), iconTransformation(
+          extent={{-240,-80},{-200,-40}})));
+  CDL.Interfaces.RealInput TSupSec(
+    final unit="K",
+    displayUnit="degC",
+    quantity="ThermodynamicTemperature")
+    "Measured hot water supply temperature in secondary circuit" annotation (
+      Placement(transformation(extent={{-240,-290},{-200,-250}}),
+        iconTransformation(extent={{-240,0},{-200,40}})));
+  CDL.Interfaces.RealInput TSupBoi[nBoi](
+    final unit=fill("K", nBoi),
+    displayUnit=fill("degC", nBoi),
+    quantity=fill("ThermodynamicTemperature", nBoi))
+    "Measured hot water supply temperatureat boiler outlets" annotation (
+      Placement(transformation(extent={{-240,-320},{-200,-280}}),
+        iconTransformation(extent={{-240,0},{-200,40}})));
+  CDL.Interfaces.BooleanOutput ySecPum[nPumSec]
+    "Secondary pump enable status vector" annotation (Placement(transformation(
+          extent={{300,-320},{340,-280}}), iconTransformation(extent={{220,-60},
+            {260,-20}})));
+  CDL.Logical.Pre                        pre7[nPumSec] "Logical pre block"
+    annotation (Placement(transformation(extent={{160,-290},{180,-270}})));
+  CDL.Continuous.Sources.Constant                        dpHotWatSet1(k=
+        secMaxLocDp) "Differential pressure setpoint for secondary circuit"
+    annotation (Placement(transformation(extent={{60,-330},{80,-310}})));
+  CDL.Interfaces.RealOutput ySecPumSpe[nPumSec] "Secondary pump speed vector"
+    annotation (Placement(transformation(extent={{300,-350},{340,-310}}),
+        iconTransformation(extent={{220,-100},{260,-60}})));
 equation
-  connect(staSetCon.yBoi, upProCon.uBoiSet) annotation (Line(points={{-78,-10},{
-          86,-10},{86,95},{118,95}}, color={255,0,255}));
+  connect(staSetCon.yBoi, upProCon.uBoiSet) annotation (Line(points={{-78,-12},{
+          86,-12},{86,95},{118,95}}, color={255,0,255}));
 
-  connect(staSetCon.yBoi, dowProCon.uBoiSet) annotation (Line(points={{-78,-10},
-          {86,-10},{86,38},{118,38}}, color={255,0,255}));
+  connect(staSetCon.yBoi, dowProCon.uBoiSet) annotation (Line(points={{-78,-12},
+          {86,-12},{86,38},{118,38}}, color={255,0,255}));
 
-  connect(staSetCon.ySta, upProCon.uStaSet) annotation (Line(points={{-78,6},{20,
-          6},{20,83},{118,83}}, color={255,127,0}));
+  connect(staSetCon.ySta, upProCon.uStaSet) annotation (Line(points={{-78,4},{20,
+          4},{20,83},{118,83}}, color={255,127,0}));
 
-  connect(staSetCon.ySta, dowProCon.uStaSet) annotation (Line(points={{-78,6},{20,
-          6},{20,26},{118,26}}, color={255,127,0}));
+  connect(staSetCon.ySta, dowProCon.uStaSet) annotation (Line(points={{-78,4},{20,
+          4},{20,26},{118,26}}, color={255,127,0}));
 
   connect(staSetCon.yStaTyp, upProCon.uStaTyp) annotation (Line(points={{-78,8},
-          {24,8},{24,88.7273},{118,88.7273}},
-                                    color={255,127,0}));
+          {24,8},{24,87},{118,87}}, color={255,127,0}));
 
-  connect(staSetCon.yChaUpEdg, upProCon.uStaUpPro) annotation (Line(points={{-78,2},
-          {78,2},{78,91},{118,91}},    color={255,0,255}));
+  connect(staSetCon.yChaUpEdg, upProCon.uStaUpPro) annotation (Line(points={{-78,0},
+          {78,0},{78,91},{118,91}},    color={255,0,255}));
 
-  connect(staSetCon.yChaDowEdg, dowProCon.uStaDowPro) annotation (Line(points={{-78,-6},
-          {82,-6},{82,34},{118,34}},         color={255,0,255}));
+  connect(staSetCon.yChaDowEdg, dowProCon.uStaDowPro) annotation (Line(points={{-78,-8},
+          {82,-8},{82,34},{118,34}},         color={255,0,255}));
 
   connect(conSet.yMinBypValPos, bypValPos.uMinBypValPos) annotation (Line(
         points={{82,-94},{110,-94},{110,-46},{118,-46}}, color={0,0,127}));
@@ -1087,30 +1145,29 @@ equation
           8},{24,-106},{58,-106}},
                                  color={255,127,0}));
 
-  connect(staSetCon.yChaUpEdg, lat.u) annotation (Line(points={{-78,2},{-64,2},{
+  connect(staSetCon.yChaUpEdg, lat.u) annotation (Line(points={{-78,0},{-64,0},{
           -64,30},{-58,30}}, color={255,0,255}));
 
-  connect(staSetCon.yChaDowEdg, lat.clr) annotation (Line(points={{-78,-6},{-60,
-          -6},{-60,24},{-58,24}}, color={255,0,255}));
+  connect(staSetCon.yChaDowEdg, lat.clr) annotation (Line(points={{-78,-8},{-60,
+          -8},{-60,24},{-58,24}}, color={255,0,255}));
 
   connect(lat.y, logSwi.u2) annotation (Line(points={{-34,30},{-30,30},{-30,160},
           {-12,160}}, color={255,0,255}));
 
-  connect(upProCon.yOnOff, logSwi.u1) annotation (Line(points={{142,93},{150,93},
+  connect(upProCon.yOnOff, logSwi.u1) annotation (Line(points={{142,96},{150,96},
           {150,144},{-20,144},{-20,168},{-12,168}}, color={255,0,255}));
 
-  connect(dowProCon.yOnOff, logSwi.u3) annotation (Line(points={{142,37},{154,37},
+  connect(dowProCon.yOnOff, logSwi.u3) annotation (Line(points={{142,40},{154,40},
           {154,140},{-26,140},{-26,152},{-12,152}}, color={255,0,255}));
 
   connect(lat.y, intSwi.u2) annotation (Line(points={{-34,30},{-30,30},{-30,120},
           {-12,120}}, color={255,0,255}));
 
-  connect(upProCon.yLasDisBoi, intSwi.u1) annotation (Line(points={{142,86},{
-          146,86},{146,72},{-26,72},{-26,128},{-12,128}},
-                                                      color={255,127,0}));
+  connect(upProCon.yLasDisBoi, intSwi.u1) annotation (Line(points={{142,88},{146,
+          88},{146,72},{-26,72},{-26,128},{-12,128}}, color={255,127,0}));
 
-  connect(dowProCon.yLasDisBoi, intSwi.u3) annotation (Line(points={{142,26},{150,
-          26},{150,68},{-20,68},{-20,112},{-12,112}}, color={255,127,0}));
+  connect(dowProCon.yLasDisBoi, intSwi.u3) annotation (Line(points={{142,32},{150,
+          32},{150,68},{-20,68},{-20,112},{-12,112}}, color={255,127,0}));
 
   connect(lat1.y, hotWatSupTemRes.uStaCha)
     annotation (Line(points={{-132,70},{-62,70}}, color={255,0,255}));
@@ -1154,8 +1211,8 @@ equation
           -190,-15},{-182,-15}},
                           color={0,0,127}));
 
-  connect(TSup, staSetCon.THotWatSup) annotation (Line(points={{-220,70},{-168,70},
-          {-168,34},{-110,34},{-110,6},{-102,6}}, color={0,0,127}));
+  connect(TSupPri, staSetCon.THotWatSup) annotation (Line(points={{-220,70},{-168,
+          70},{-168,34},{-110,34},{-110,6},{-102,6}}, color={0,0,127}));
 
   connect(TRetPri, staSetCon.THotWatRet) annotation (Line(points={{-220,40},{-172,
           40},{-172,30},{-120,30},{-120,12},{-102,12}}, color={0,0,127}));
@@ -1163,33 +1220,33 @@ equation
   connect(TRetPri, conSet.THotWatRet) annotation (Line(points={{-220,40},{-172,
           40},{-172,30},{-120,30},{-120,-94},{58,-94}}, color={0,0,127}));
 
-  connect(VHotWat_flow, staSetCon.VHotWat_flow) annotation (Line(points={{-220,10},
-          {-180,10},{-180,20},{-114,20},{-114,9},{-102,9}}, color={0,0,127}));
+  connect(VHotWatPri_flow, staSetCon.VHotWat_flow) annotation (Line(points={{-220,
+          10},{-180,10},{-180,20},{-114,20},{-114,9},{-102,9}}, color={0,0,127}));
 
-  connect(VHotWat_flow, upProCon.VHotWat_flow) annotation (Line(points={{-220,10},
-          {-180,10},{-180,108},{114,108},{114,115},{118,115}}, color={0,0,127}));
+  connect(VHotWatPri_flow, upProCon.VHotWat_flow) annotation (Line(points={{-220,
+          10},{-180,10},{-180,108},{114,108},{114,115},{118,115}}, color={0,0,127}));
 
-  connect(VHotWat_flow, dowProCon.VHotWat_flow) annotation (Line(points={{-220,10},
-          {-180,10},{-180,108},{114,108},{114,58},{118,58}}, color={0,0,127}));
+  connect(VHotWatPri_flow, dowProCon.VHotWat_flow) annotation (Line(points={{-220,
+          10},{-180,10},{-180,108},{114,108},{114,58},{118,58}}, color={0,0,127}));
 
-  connect(VHotWat_flow, bypValPos.VHotWat_flow) annotation (Line(points={{-220,10},
-          {-180,10},{-180,108},{114,108},{114,-38},{118,-38}}, color={0,0,127}));
+  connect(VHotWatPri_flow, bypValPos.VHotWat_flow) annotation (Line(points={{-220,
+          10},{-180,10},{-180,108},{114,108},{114,-38},{118,-38}}, color={0,0,127}));
 
-  connect(VHotWat_flow, priPumCon.VHotWat_flow) annotation (Line(points={{-220,10},
-          {-180,10},{-180,108},{114,108},{114,-125},{118,-125}}, color={0,0,127}));
+  connect(VHotWatPri_flow, priPumCon.VHotWat_flow) annotation (Line(points={{-220,
+          10},{-180,10},{-180,108},{114,108},{114,-125},{118,-125}}, color={0,0,
+          127}));
 
-  connect(dpHotWat_remote, priPumCon.dpHotWat_remote) annotation (Line(points={{-220,
-          -50},{-180,-50},{-180,-100},{10,-100},{10,-106},{20,-106},{20,-146},{118,
-          -146}},
-        color={0,0,127}));
+  connect(dpHotWatPri_remote, priPumCon.dpHotWat_remote) annotation (Line(
+        points={{-220,-50},{-180,-50},{-180,-100},{10,-100},{10,-106},{20,-106},
+          {20,-146},{118,-146}}, color={0,0,127}));
 
-  connect(dpHotWatSet.y, priPumCon.dpHotWatSet) annotation (Line(points={{102,-170},
-          {110,-170},{110,-149},{118,-149}}, color={0,0,127}));
+  connect(dpHotWatSet.y, priPumCon.dpHotWatSet) annotation (Line(points={{82,-170},
+          {104,-170},{104,-149},{118,-149}}, color={0,0,127}));
 
-  connect(upProCon.yBoi, logSwi1.u1) annotation (Line(points={{142,114},{166,114},
+  connect(upProCon.yBoi, logSwi1.u1) annotation (Line(points={{142,108},{166,108},
           {166,148},{168,148}}, color={255,0,255}));
 
-  connect(dowProCon.yBoi, logSwi1.u3) annotation (Line(points={{142,58},{158,58},
+  connect(dowProCon.yBoi, logSwi1.u3) annotation (Line(points={{142,52},{158,52},
           {158,132},{168,132}}, color={255,0,255}));
 
   connect(lat.y, booRep.u) annotation (Line(points={{-34,30},{-30,30},{-30,104},
@@ -1213,7 +1270,7 @@ equation
   connect(bypValPos.yBypValPos, yBypValPos) annotation (Line(points={{142,-40},
           {148,-40},{148,-30},{320,-30}},color={0,0,127}));
 
-  connect(staSetCon.ySta, intToRea1.u) annotation (Line(points={{-78,6},{20,6},{
+  connect(staSetCon.ySta, intToRea1.u) annotation (Line(points={{-78,4},{20,4},{
           20,50},{-120,50},{-120,180},{-112,180}},  color={255,127,0}));
 
   connect(reaToInt1.y, minBoiFloSet.uStaSet) annotation (Line(points={{-28,180},
@@ -1226,7 +1283,7 @@ equation
           142,-40},{148,-40},{148,-82},{-108,-82},{-108,0},{-102,0}}, color={0,0,
           127}));
 
-  connect(staSetCon.yChaEdg, pre4.u) annotation (Line(points={{-78,-2},{-26,-2},
+  connect(staSetCon.yChaEdg, pre4.u) annotation (Line(points={{-78,-4},{-26,-4},
           {-26,30},{-22,30}}, color={255,0,255}));
 
   connect(pre4.y, lat1.u) annotation (Line(points={{2,30},{6,30},{6,46},{-164,46},
@@ -1277,11 +1334,11 @@ equation
   connect(reaToInt2.y, minBoiFloSet.uLasDisBoi) annotation (Line(points={{102,220},
           {106,220},{106,186},{110,186}}, color={255,127,0}));
 
-  connect(upProCon.yStaChaPro, or2.u1) annotation (Line(points={{142,107},{146,107},
-          {146,108},{168,108},{168,0},{218,0}},                    color={255,0,
+  connect(upProCon.yStaChaPro, or2.u1) annotation (Line(points={{142,104},{168,104},
+          {168,0},{218,0}},                                        color={255,0,
           255}));
 
-  connect(dowProCon.yStaChaPro, or2.u2) annotation (Line(points={{142,51},{158,51},
+  connect(dowProCon.yStaChaPro, or2.u2) annotation (Line(points={{142,48},{158,48},
           {158,-8},{218,-8}},                  color={255,0,255}));
 
   connect(pre1.y, triSam.trigger) annotation (Line(points={{92,-50},{98,-50},{98,
@@ -1321,16 +1378,17 @@ equation
           210,30},{210,10},{102,10},{102,103},{118,103}},  color={0,0,127}));
 
   connect(conInt1.y, intToRea3.u)
-    annotation (Line(points={{-148,-180},{-122,-180}}, color={255,127,0}));
+    annotation (Line(points={{-148,-180},{-142,-180}}, color={255,127,0}));
 
   connect(intToRea3.y, uniDel3.u)
-    annotation (Line(points={{-98,-180},{-92,-180}}, color={0,0,127}));
+    annotation (Line(points={{-118,-180},{-112,-180}},
+                                                     color={0,0,127}));
 
   connect(uniDel3.y, reaToInt3.u)
-    annotation (Line(points={{-68,-180},{-62,-180}}, color={0,0,127}));
+    annotation (Line(points={{-88,-180},{-82,-180}}, color={0,0,127}));
 
-  connect(reaToInt3.y, minBoiFloSet1.uStaSet) annotation (Line(points={{-38,
-          -180},{-30,-180},{-30,-160},{-130,-160},{-130,-146},{-122,-146}},
+  connect(reaToInt3.y, minBoiFloSet1.uStaSet) annotation (Line(points={{-58,
+          -180},{-50,-180},{-50,-160},{-130,-160},{-130,-146},{-122,-146}},
         color={255,127,0}));
 
   connect(priPumCon.yHotWatPum, pre3.u) annotation (Line(points={{142,-140},{
@@ -1354,16 +1412,16 @@ equation
           -10},{-126,100},{70,100},{70,80},{118,80}},                color={255,
           0,255}));
 
-  connect(plaDis.yHotWatIsoVal, yHotWatIsoVal) annotation (Line(points={{262,67},
-          {280,67},{280,70},{320,70}},   color={0,0,127}));
+  connect(plaDis.yHotWatIsoVal, yHotWatIsoVal) annotation (Line(points={{262,68},
+          {280,68},{280,70},{320,70}},   color={0,0,127}));
 
-  connect(plaDis.yHotWatIsoVal, uniDel2.u) annotation (Line(points={{262,67},{280,
-          67},{280,50},{174,50},{174,30},{178,30}},       color={0,0,127}));
+  connect(plaDis.yHotWatIsoVal, uniDel2.u) annotation (Line(points={{262,68},{280,
+          68},{280,50},{174,50},{174,30},{178,30}},       color={0,0,127}));
 
-  connect(plaDis.yBoi, yBoi) annotation (Line(points={{262,77},{280,77},{280,140},
+  connect(plaDis.yBoi, yBoi) annotation (Line(points={{262,76},{280,76},{280,140},
           {320,140}},      color={255,0,255}));
 
-  connect(plaDis.yBoi, pre5.u) annotation (Line(points={{262,77},{280,77},{280,160},
+  connect(plaDis.yBoi, pre5.u) annotation (Line(points={{262,76},{280,76},{280,160},
           {164,160},{164,180},{168,180}},      color={255,0,255}));
 
   connect(or2.y, plaDis.uStaChaProEnd) annotation (Line(points={{242,0},{250,0},
@@ -1375,26 +1433,20 @@ equation
   connect(logSwi1.y, plaDis.uBoi) annotation (Line(points={{192,140},{230,140},{
           230,74},{238,74}}, color={255,0,255}));
 
-  connect(plaDis.yStaChaPro, pre1.u) annotation (Line(points={{262,63},{266,63},
+  connect(plaDis.yStaChaPro, pre1.u) annotation (Line(points={{262,64},{266,64},
           {266,-22},{60,-22},{60,-50},{68,-50}}, color={255,0,255}));
-
-  connect(plaDis.yPumChaPro, priPumCon.uPumChaPro) annotation (Line(points={{262,
-          73},{270,73},{270,-90},{98,-90},{98,-137},{118,-137}}, color={255,0,255}));
 
   connect(plaEna.yPla, plaDis.uPla) annotation (Line(points={{-158,-10},{-126,-10},
           {-126,100},{94,100},{94,124},{226,124},{226,78},{238,78}}, color={255,
           0,255}));
-
-  connect(priPumCon.yPumChaPro, plaDis.uPumChaPro) annotation (Line(points={{142,
-          -126},{214,-126},{214,66},{238,66}}, color={255,0,255}));
 
   connect(plaEna.yPla, priPumCon.uPlaEna) annotation (Line(points={{-158,-10},{-130,
           -10},{-130,-78},{90,-78},{90,-119},{118,-119}}, color={255,0,255}));
 
   connect(priPumCon.yPumSpe[1], uniDel4.u) annotation (Line(points={{142,-154},
           {170,-154},{170,-190},{178,-190}}, color={0,0,127}));
-  connect(uniDel4.y, staSetCon.uPumSpe) annotation (Line(points={{202,-190},{
-          210,-190},{210,-210},{4,-210},{4,-106},{-122,-106},{-122,-9},{-102,-9}},
+  connect(uniDel4.y, staSetCon.uPumSpe) annotation (Line(points={{202,-190},{210,
+          -190},{210,-228},{4,-228},{4,-106},{-122,-106},{-122,-9},{-102,-9}},
         color={0,0,127}));
   connect(hotWatSupTemRes.TPlaHotWatSupSet, upProCon.THotWatSup) annotation (
       Line(points={{-38,74},{-34,74},{-34,107},{118,107}}, color={0,0,127}));
@@ -1402,9 +1454,82 @@ equation
           {-172,40},{-172,30},{-120,30},{-120,-3},{-102,-3}}, color={0,0,127}));
   connect(TRetSec, staSetCon.THotWatRetSec) annotation (Line(points={{-220,-20},
           {-190,-20},{-190,-30},{-132,-30},{-132,-6},{-102,-6}}, color={0,0,127}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-200,-300},
-            {300,240}})),                                        Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-200,-300},{300,240}})),
+  connect(upProCon.yNexEnaBoi, intSwi1.u1) annotation (Line(points={{142,92},{152,
+          92},{152,-190},{50,-190},{50,-202},{58,-202}}, color={255,127,0}));
+  connect(dowProCon.yNexEnaBoi, intSwi1.u3) annotation (Line(points={{142,36},{154,
+          36},{154,-194},{52,-194},{52,-218},{58,-218}}, color={255,127,0}));
+  connect(lat.y, intSwi1.u2) annotation (Line(points={{-34,30},{-30,30},{-30,12},
+          {18,12},{18,-210},{58,-210}}, color={255,0,255}));
+  connect(intSwi1.y, priPumCon.uNexEnaBoi) annotation (Line(points={{82,-210},{106,
+          -210},{106,-140},{118,-140}}, color={255,127,0}));
+  connect(upProCon.yPumChaPro, mulOr.u[1]) annotation (Line(points={{142,84},{
+          148,84},{148,-4},{26,-4},{26,-165.333},{28,-165.333}},
+                                                             color={255,0,255}));
+  connect(dowProCon.yPumChaPro, mulOr.u[2]) annotation (Line(points={{142,28},{
+          144,28},{144,2},{22,2},{22,-170},{28,-170}},
+                                                   color={255,0,255}));
+  connect(plaDis.yPumChaPro, mulOr.u[3]) annotation (Line(points={{262,72},{270,
+          72},{270,-76},{20,-76},{20,-174.667},{28,-174.667}}, color={255,0,255}));
+  connect(mulOr.y, priPumCon.uPumChaPro) annotation (Line(points={{52,-170},{54,
+          -170},{54,-154},{100,-154},{100,-137},{118,-137}}, color={255,0,255}));
+  connect(priPumCon.yPumChaPro, pre2.u) annotation (Line(points={{142,-126},{190,
+          -126},{190,-120},{198,-120}}, color={255,0,255}));
+  connect(pre2.y, upProCon.uPumChaPro) annotation (Line(points={{222,-120},{230,
+          -120},{230,-14},{92,-14},{92,77},{118,77}}, color={255,0,255}));
+  connect(pre2.y, dowProCon.uPumChaPro) annotation (Line(points={{222,-120},{230,
+          -120},{230,-14},{92,-14},{92,22},{118,22}}, color={255,0,255}));
+  connect(pre2.y, plaDis.uPumChaPro) annotation (Line(points={{222,-120},{230,-120},
+          {230,-14},{214,-14},{214,66},{238,66}}, color={255,0,255}));
+  connect(staSetCon.yChaUpEdg, priPumCon.uStaUp) annotation (Line(points={{-78,0},
+          {58,0},{58,-74},{92,-74},{92,-131},{118,-131}}, color={255,0,255}));
+  connect(logSwi.y, priPumCon.uOnOff) annotation (Line(points={{12,160},{12,-22},
+          {56,-22},{56,-72},{96,-72},{96,-134},{118,-134}}, color={255,0,255}));
+  connect(plaDis.yBoi, priPumCon.uBoiSta) annotation (Line(points={{262,76},{274,
+          76},{274,-88},{112,-88},{112,-128},{118,-128}}, color={255,0,255}));
+  connect(conSet.yMinPriPumSpe, priPumCon.uMinPriPumSpeCon) annotation (Line(
+        points={{82,-100},{88,-100},{88,-152},{118,-152}}, color={0,0,127}));
+  connect(conInt3.y, secPumCon.uPumLeaLag) annotation (Line(points={{82,-270},{
+          90,-270},{90,-281.8},{118,-281.8}},
+                                           color={255,127,0}));
+  connect(VHotWatSec_flow, priPumCon.VHotWatSec_flow) annotation (Line(points={{-220,
+          -210},{8,-210},{8,-224},{114,-224},{114,-155},{118,-155}},
+        color={0,0,127}));
+  connect(VHotWatDec_flow, priPumCon.VHotWatDec_flow) annotation (Line(points={
+          {-220,-240},{-190,-240},{-190,-212},{6,-212},{6,-226},{116,-226},{116,
+          -158},{118,-158}}, color={0,0,127}));
+  connect(TSupPri, priPumCon.THotWatPri) annotation (Line(points={{-220,70},{
+          -168,70},{-168,34},{-110,34},{-110,-84},{-90,-84},{-90,-158},{-48,
+          -158},{-48,-186},{112,-186},{112,-161},{118,-161}}, color={0,0,127}));
+  connect(TSupSec, priPumCon.THotWatSec) annotation (Line(points={{-220,-270},{
+          -186,-270},{-186,-214},{2,-214},{2,-230},{108,-230},{108,-164},{118,
+          -164}}, color={0,0,127}));
+  connect(TSupBoi, priPumCon.THotWatBoiSup) annotation (Line(points={{-220,-300},
+          {-184,-300},{-184,-216},{0,-216},{0,-232},{110,-232},{110,-167},{118,
+          -167}}, color={0,0,127}));
+  connect(secPumCon.yHotWatPum, ySecPum)
+    annotation (Line(points={{142,-300},{320,-300}}, color={255,0,255}));
+  connect(secPumCon.yHotWatPum, pre7.u) annotation (Line(points={{142,-300},{
+          150,-300},{150,-280},{158,-280}}, color={255,0,255}));
+  connect(pre7.y, secPumCon.uHotWatPum) annotation (Line(points={{182,-280},{
+          190,-280},{190,-260},{110,-260},{110,-286},{118,-286}}, color={255,0,
+          255}));
+  connect(supResReq, secPumCon.supResReq) annotation (Line(points={{-220,130},{
+          -116,130},{-116,-110},{14,-110},{14,-294},{118,-294}}, color={255,127,
+          0}));
+  connect(plaEna.yPla, secPumCon.uPlaEna) annotation (Line(points={{-158,-10},{
+          -130,-10},{-130,-78},{12,-78},{12,-290},{118,-290}}, color={255,0,255}));
+  connect(VHotWatSec_flow, secPumCon.VHotWat_flow) annotation (Line(points={{
+          -220,-210},{8,-210},{8,-298},{118,-298}}, color={0,0,127}));
+  connect(conSet.yMaxSecPumSpe, secPumCon.uMaxSecPumSpeCon) annotation (Line(
+        points={{82,-106},{98,-106},{98,-318},{118,-318}}, color={0,0,127}));
+  connect(dpHotWatSet1.y, secPumCon.dpHotWatSet) annotation (Line(points={{82,
+          -320},{96,-320},{96,-314},{118,-314}}, color={0,0,127}));
+  connect(secPumCon.yPumSpe, ySecPumSpe) annotation (Line(points={{142,-310},{
+          280,-310},{280,-330},{320,-330}}, color={0,0,127}));
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-200,
+            -380},{300,240}})),                                  Diagram(
+        coordinateSystem(preserveAspectRatio=false, extent={{-200,-380},{300,
+            240}})),
         Documentation(info="<html>
         The parameter values for valid boiler plant configurations are as follows:
     <br>

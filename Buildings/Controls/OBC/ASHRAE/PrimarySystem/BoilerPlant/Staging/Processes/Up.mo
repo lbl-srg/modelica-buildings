@@ -157,29 +157,34 @@ block Up
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yBoi[nBoi]
     "Boiler enabling status"
     annotation (Placement(transformation(extent={{280,90},{320,130}}),
-      iconTransformation(extent={{100,160},{140,200}})));
+      iconTransformation(extent={{100,100},{140,140}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yStaChaPro
     "Pulse indicating end of stage change process"
     annotation (Placement(transformation(extent={{280,30},{320,70}}),
-      iconTransformation(extent={{100,90},{140,130}})));
+      iconTransformation(extent={{100,60},{140,100}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yPumChaPro if not
     primaryOnly
     "Pulse indicating start of pump change process"
     annotation (Placement(transformation(extent={{280,-260},{320,-220}}),
-      iconTransformation(extent={{100,-190},{140,-150}})));
+      iconTransformation(extent={{100,-140},{140,-100}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yOnOff
     "Signal indicating whether stage change involves simultaneous turning on
     and turning off of boilers"
     annotation (Placement(transformation(extent={{280,-130},{320,-90}}),
-      iconTransformation(extent={{100,-50},{140,-10}})));
+      iconTransformation(extent={{100,-20},{140,20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yNexEnaBoi
     "Boiler index of next boiler being enabled"
     annotation (Placement(transformation(extent={{280,-170},{320,-130}}),
-      iconTransformation(extent={{100,-120},{140,-80}})));
+      iconTransformation(extent={{100,-60},{140,-20}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yLasDisBoi
+    "Boiler index of last boilerenabled that will be disabled"
+    annotation (Placement(transformation(extent={{280,-210},{320,-170}}),
+        iconTransformation(extent={{100,-100},{140,-60}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yHotWatIsoVal[nBoi](
     final min=fill(0, nBoi),
@@ -188,6 +193,7 @@ block Up
     "Boiler hot water isolation valve position"
     annotation (Placement(transformation(extent={{280,-90},{320,-50}}),
       iconTransformation(extent={{100,20},{140,60}})));
+
 
 protected
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.Processes.Subsequences.ResetMinBypass minBypRes(
@@ -571,6 +577,8 @@ equation
           {-104,-120},{-104,-5},{-72,-5}}, color={255,0,255}));
   connect(pre1.y, lat2.clr) annotation (Line(points={{222,-50},{230,-50},{230,-216},
           {-190,-216},{-190,-126},{-182,-126}}, color={255,0,255}));
+  connect(nexBoi.yDisSmaBoi, yLasDisBoi) annotation (Line(points={{-148,-56},{156,
+          -56},{156,-156},{240,-156},{240,-190},{300,-190}}, color={255,127,0}));
 annotation (
   defaultComponentName="upProCon",
   Diagram(coordinateSystem(preserveAspectRatio=false,

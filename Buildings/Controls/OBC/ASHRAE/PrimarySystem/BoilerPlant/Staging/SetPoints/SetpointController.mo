@@ -300,29 +300,33 @@ block SetpointController
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yChaUpEdg
     "Boiler stage change higher edge signal"
     annotation (Placement(transformation(extent={{120,-90},{160,-50}}),
-      iconTransformation(extent={{100,20},{140,60}})));
+      iconTransformation(extent={{100,0},{140,40}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yChaDowEdg
     "Boiler stage change lower edge signal"
     annotation (Placement(transformation(extent={{120,-210},{160,-170}}),
-      iconTransformation(extent={{100,-60},{140,-20}})));
+      iconTransformation(extent={{100,-80},{140,-40}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yBoi[nBoi]
     "Boiler status setpoint vector for the current boiler stage setpoint"
     annotation (Placement(transformation(extent={{120,-280},{160,-240}}),
-      iconTransformation(extent={{100,-100},{140,-60}})));
+      iconTransformation(extent={{100,-120},{140,-80}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yChaEdg
     "Boiler stage change edge signal"
     annotation (Placement(transformation(extent={{120,-150},{160,-110}}),
-      iconTransformation(extent={{100,-20},{140,20}})));
+      iconTransformation(extent={{100,-40},{140,0}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput ySta(
     final min=0,
-    final max=nSta)
-    "Boiler stage integer setpoint"
+    final max=nSta) "Boiler stage integer setpoint"
     annotation (Placement(transformation(extent={{120,-20},{160,20}}),
-      iconTransformation(extent={{100,60},{140,100}})));
+      iconTransformation(extent={{100,40},{140,80}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yStaTyp[nSta]
+    "Boiler stage type vector"
+    annotation (Placement(transformation(extent={{120,40},{160,80}}),
+      iconTransformation(extent={{100,80},{140,120}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.CapacityRequirement capReq1(
     final avePer=avePer)
@@ -510,6 +514,8 @@ equation
           {-150,-260},{-150,-119},{-142,-119}},         color={255,0,255}));
   connect(conf.yAva, cha.uStaAva) annotation (Line(points={{-338,-178},{-332,
           -178},{-332,-280},{-30,-280},{-30,-162},{-22,-162}}, color={255,0,255}));
+  connect(conf.yTyp, yStaTyp) annotation (Line(points={{-338,-174},{-336,-174},
+          {-336,60},{140,60}}, color={255,127,0}));
   annotation (defaultComponentName = "staSetCon",
         Icon(coordinateSystem(extent={{-100,-180},{100,180}}),
              graphics={

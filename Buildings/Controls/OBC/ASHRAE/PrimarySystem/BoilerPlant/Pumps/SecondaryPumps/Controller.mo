@@ -8,8 +8,8 @@ block Controller
     annotation (Dialog(group="Plant parameters"));
 
   parameter Boolean secondaryFlowSensor = true
-    "True: Temperature sensors in primary and secondary loops;
-    False: Temperature sensors in boiler supply and secondary loop"
+    "True: Flow sensor in secondary loop;
+    False: No flow sensor in secondary loop"
     annotation (Dialog(group="Plant parameters",
       enable=variableSecondary));
 
@@ -421,7 +421,7 @@ protected
     annotation (Placement(transformation(extent={{-250,-166},{-230,-146}})));
 
   Buildings.Controls.OBC.CDL.Integers.MultiSum mulSumInt1(
-    final nin=nBoi) if not variableSecondary
+    final nin=nPumPri) if    not variableSecondary
     "Sum of integer inputs"
     annotation (Placement(transformation(extent={{-200,-166},{-180,-146}})));
 
@@ -443,20 +443,17 @@ protected
     annotation (Placement(transformation(extent={{58,68},{80,88}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.Generic.ChangeStatus
-    chaPumSta2(final nPum=nPum) if
-                        variableSecondary and secondaryFlowSensor
+    chaPumSta2(final nPum=nPum) if variableSecondary and secondaryFlowSensor
     "Change lag pump status for headered primary pumps in a plant that is primary-only"
     annotation (Placement(transformation(extent={{60,-44},{82,-24}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.Generic.ChangeStatus
-    chaPumSta3(final nPum=nPum) if
-                        not variableSecondary
+    chaPumSta3(final nPum=nPum) if not variableSecondary
     "Change lag pump status for headered primary pumps in a plant that is not primary-only"
     annotation (Placement(transformation(extent={{62,-182},{84,-162}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.Generic.ChangeStatus
-    chaPumSta4(final nPum=nPum) if
-                        variableSecondary and not secondaryFlowSensor
+    chaPumSta4(final nPum=nPum) if variableSecondary and not secondaryFlowSensor
     "Change pump status of secondary lag pumps in secondary loop with no flow sensor"
     annotation (Placement(transformation(extent={{58,8},{80,28}})));
 
@@ -486,22 +483,29 @@ protected
     "Logical Or"
     annotation (Placement(transformation(extent={{-20,-8},{0,12}})));
 
-  CDL.Logical.Not                        not3
+  Buildings.Controls.OBC.CDL.Logical.Not not3
     "Logical Not"
     annotation (Placement(transformation(extent={{-200,108},{-180,128}})));
-  CDL.Logical.TrueDelay                        truDel(final delayTime=delBoiDis)
+
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel(
+    final delayTime=delBoiDis)
     "Delay pump disable after boilers have been disabled"
     annotation (Placement(transformation(extent={{-120,108},{-100,128}})));
-  CDL.Routing.BooleanReplicator                        booRep(final nout=nPum)
+
+  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep(
+    final nout=nPum)
     "Boolean replicator"
     annotation (Placement(transformation(extent={{-66,108},{-46,128}})));
-  CDL.Logical.LogicalSwitch                        logSwi[nPum]
+
+  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi[nPum]
     "Logical switch"
     annotation (Placement(transformation(extent={{192,-10},{212,10}})));
-  CDL.Logical.Sources.Constant                        con1[nPum](final k=fill(false,
-        nPum))
+
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1[nPum](
+    final k=fill(false,nPum))
     "Boolean False signal"
     annotation (Placement(transformation(extent={{132,38},{152,58}})));
+
 equation
   connect(uPumLeaLag, intToRea.u)
     annotation (Line(points={{-300,230},{-222,230}}, color={255,127,0}));
@@ -574,9 +578,6 @@ equation
 
   connect(reaRep.y, yPumSpe)
     annotation (Line(points={{242,-400},{300,-400}},color={0,0,127}));
-
-  connect(booToInt1.y, mulSumInt1.u[1:nPum]) annotation (Line(points={{-228,-156},
-          {-202,-156}},                            color={255,127,0}));
 
   connect(reaToInt.y, chaPumSta1.uNexLagPum) annotation (Line(points={{-18,230},
           {46,230},{46,74},{56,74}}, color={255,127,0}));
@@ -740,6 +741,8 @@ equation
           0},{274,-264},{-74,-264},{-74,-326},{-62,-326}}, color={255,0,255}));
   connect(logSwi.y, pumSpeRemDp.uHotWatPum) annotation (Line(points={{214,0},{274,
           0},{274,-264},{-74,-264},{-74,-362},{-62,-362}}, color={255,0,255}));
+  connect(booToInt1.y, mulSumInt1.u[1:2]) annotation (Line(points={{-228,-156},{
+          -216,-156},{-216,-156},{-202,-156}},     color={255,127,0}));
 annotation (defaultComponentName="secPumCon",
   Diagram(coordinateSystem(preserveAspectRatio=false,
           extent={{-280,-440},{280,260}}),

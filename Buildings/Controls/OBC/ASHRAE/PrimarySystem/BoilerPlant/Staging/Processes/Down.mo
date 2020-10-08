@@ -127,29 +127,34 @@ block Down
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yBoi[nBoi]
     "Boiler enable status vector"
     annotation (Placement(transformation(extent={{280,90},{320,130}}),
-      iconTransformation(extent={{100,160},{140,200}})));
+      iconTransformation(extent={{100,100},{140,140}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yStaChaPro
     "Rising edge indicating end of stage change process"
     annotation (Placement(transformation(extent={{280,30},{320,70}}),
-      iconTransformation(extent={{100,90},{140,130}})));
+      iconTransformation(extent={{100,60},{140,100}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yPumChaPro if not
     primaryOnly
     "Rising edge indicating start of pump change process"
     annotation (Placement(transformation(extent={{280,-260},{320,-220}}),
-      iconTransformation(extent={{100,-190},{140,-150}})));
+      iconTransformation(extent={{100,-140},{140,-100}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yOnOff
     "Signal indicating whether stage change involves simultaneous turning on
     and turning off of boilers"
     annotation (Placement(transformation(extent={{280,-130},{320,-90}}),
-      iconTransformation(extent={{100,-50},{140,-10}})));
+      iconTransformation(extent={{100,-20},{140,20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yNexEnaBoi
     "Boiler index of next boiler being enabled"
     annotation (Placement(transformation(extent={{280,-170},{320,-130}}),
-      iconTransformation(extent={{100,-120},{140,-80}})));
+      iconTransformation(extent={{100,-60},{140,-20}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yLasDisBoi
+    "Boiler index of last boiler enabled that will be disabled"
+    annotation (Placement(transformation(extent={{280,-210},{320,-170}}),
+      iconTransformation(extent={{100,-100},{140,-60}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yHotWatIsoVal[nBoi](
     final min=fill(0, nBoi),
@@ -518,6 +523,9 @@ equation
           {-10,-26},{-10,-8},{-2,-8}}, color={255,0,255}));
   connect(con.y, and3.u2) annotation (Line(points={{-138,-160},{52,-160},{52,-172},
           {184,-172},{184,-8},{188,-8}}, color={255,0,255}));
+  connect(nexBoi.yLasDisBoi, yLasDisBoi) annotation (Line(points={{-148,-70},{60,
+          -70},{60,-60},{140,-60},{140,-116},{254,-116},{254,-190},{300,-190}},
+        color={255,127,0}));
 annotation (
   defaultComponentName="dowProCon",
   Diagram(coordinateSystem(preserveAspectRatio=false,

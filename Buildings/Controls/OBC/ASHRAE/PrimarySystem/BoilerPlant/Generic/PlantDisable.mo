@@ -47,22 +47,22 @@ block PlantDisable
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yBoi[nBoi]
     "Boiler enable status vector"
     annotation (Placement(transformation(extent={{180,30},{220,70}}),
-      iconTransformation(extent={{100,50},{140,90}})));
+      iconTransformation(extent={{100,40},{140,80}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yStaChaPro
     "Signal indicating end of stage change/plant disable process"
     annotation (Placement(transformation(extent={{180,-140},{220,-100}}),
-      iconTransformation(extent={{100,-90},{140,-50}})));
+      iconTransformation(extent={{100,-80},{140,-40}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yPumChaPro if not primaryOnly
     "Signal indicating start of pump stage change process in primary pump controller"
     annotation (Placement(transformation(extent={{180,-30},{220,10}}),
-      iconTransformation(extent={{100,10},{140,50}})));
+      iconTransformation(extent={{100,0},{140,40}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yHotWatIsoVal[nBoi] if isHeadered
     "Boiler hot water isolation valve position vector"
     annotation (Placement(transformation(extent={{180,-70},{220,-30}}),
-      iconTransformation(extent={{100,-50},{140,-10}})));
+      iconTransformation(extent={{100,-40},{140,0}})));
 
 protected
   parameter Integer boiInd[nBoi]={i for i in 1:nBoi}
