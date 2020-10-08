@@ -14,6 +14,7 @@ block OccupancyLockout
         transformation(extent={{-140,-50},{-100,-10}}), iconTransformation(
           extent={{-140,8},{-100,48}})));
   Controls.OBC.CDL.Logical.Or or2
+    "If occupued or night flush mode, nat vent is allowed"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
 equation
   connect(uOcc, or2.u1) annotation (Line(points={{-120,50},{-60,50},{-60,10},{-2,

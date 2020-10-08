@@ -14,7 +14,7 @@ block WindLockout "Locks out natural ventilation due to high wind speed"
     "Wind speed perpendicular to window" annotation (Placement(transformation(
           extent={{-140,-10},{-100,30}}), iconTransformation(extent={{-140,
             -20},{-100,20}})));
-  Controls.OBC.CDL.Logical.Not not1
+  Controls.OBC.CDL.Logical.Not not1 "Negates signal"
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
   Controls.OBC.CDL.Interfaces.BooleanOutput yWinNatVenSig
     "True if natural ventilation allowed; otherwise false" annotation (

@@ -77,11 +77,11 @@ parameter Real winSpeLim(min=0,
     "Outdoor air wet bulb temperature" annotation (Placement(transformation(
           extent={{-160,-150},{-120,-110}}), iconTransformation(extent={{-140,
             -30},{-100,10}})));
-  Controls.OBC.CDL.Logical.And3 and3
+  Controls.OBC.CDL.Logical.And3 and3 "Combines signals"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
-  Controls.OBC.CDL.Logical.And3 and1
+  Controls.OBC.CDL.Logical.And3 and1 "Combines signals"
     annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
-  Controls.OBC.CDL.Logical.And and2
+  Controls.OBC.CDL.Logical.And and2 "Combines signals"
     annotation (Placement(transformation(extent={{60,-20},{80,0}})));
   Controls.OBC.CDL.Interfaces.BooleanOutput yAllNatVenLoc
     "True if nat vent allowed, false if nat vent locked out" annotation (

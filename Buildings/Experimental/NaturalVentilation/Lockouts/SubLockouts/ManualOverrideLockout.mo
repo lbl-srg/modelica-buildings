@@ -6,6 +6,7 @@ block ManualOverrideLockout
         transformation(extent={{-140,-10},{-100,30}}), iconTransformation(
           extent={{-140,-20},{-100,20}})));
   Controls.OBC.CDL.Logical.Not not1
+    "Negates output to yield true if no manual override, false if manual override"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
   Controls.OBC.CDL.Interfaces.BooleanOutput yManOveNatVenSig
     "True if natural ventilation is allowed; false if natural ventilation is locked out due to manual override"

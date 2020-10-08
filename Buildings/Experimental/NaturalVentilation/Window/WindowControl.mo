@@ -20,8 +20,10 @@ block WindowControl "Controls window based on cooling needs"
         transformation(extent={{200,-22},{240,18}}), iconTransformation(
           extent={{100,-18},{140,22}})));
   Controls.OBC.CDL.Continuous.Hysteresis hys(uLow=0,             uHigh=minOpe)
+    "Test if window signal is greater than minimum opening percentage"
     annotation (Placement(transformation(extent={{20,-2},{40,18}})));
   Controls.OBC.CDL.Logical.Switch swi
+    "Output zero if position is less than minimum opening amount"
     annotation (Placement(transformation(extent={{58,0},{78,20}})));
   Controls.Continuous.LimPID conPID(
     controllerType=Modelica.Blocks.Types.SimpleController.PI,

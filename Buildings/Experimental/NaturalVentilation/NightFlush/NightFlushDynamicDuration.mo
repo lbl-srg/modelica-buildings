@@ -36,6 +36,7 @@ block NightFlushDynamicDuration "Implements night flush sequence with dynamic du
     "Pulse indicating that night flush could be active"
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
   Controls.OBC.CDL.Logical.Switch swi
+    "Switches between night flush and standard setpoiunt based on night flush activity"
     annotation (Placement(transformation(extent={{300,-62},{320,-42}})));
   Controls.OBC.CDL.Continuous.Hysteresis hysNitFlu(uLow=0, uHigh=5)
     "If time is greater than night flush start time (time minus start time > 0), night flush mode is on"
@@ -53,6 +54,7 @@ block NightFlushDynamicDuration "Implements night flush sequence with dynamic du
     "Tests if dry bulb temperature is above room setpoint or above threshhold"
     annotation (Placement(transformation(extent={{258,20},{278,40}})));
   Controls.OBC.CDL.Logical.Or or2
+    "True if pre- or post-occupancy night flush is active"
     annotation (Placement(transformation(extent={{200,100},{220,120}})));
   Controls.OBC.CDL.Logical.Sources.Pulse booPul2(width=en, period=86400)
     "Pulse indicating occupied hours"

@@ -19,13 +19,15 @@ block DryBulbLockout
     "Tests if Tout- Tset > 0. If so, output true (which is then negated- window must be closed). If not, output false (which is negated- window can stay open)."
     annotation (Placement(transformation(extent={{-62,182},{-42,202}})));
   Controls.OBC.CDL.Continuous.Add add2(k1=-1)
+    "Outdoor air temperature minus room setpoint"
     annotation (Placement(transformation(extent={{-100,182},{-80,202}})));
   Controls.OBC.CDL.Continuous.Hysteresis hysNotNitFlu(
     uLow=TDryBulCutLo,
     uHigh=TDryBulCut,
     pre_y_start=false)
+    "Checks temp against dry bulb cut if not in night flush mode"
     annotation (Placement(transformation(extent={{-60,120},{-40,140}})));
-  Controls.OBC.CDL.Logical.Not not1
+  Controls.OBC.CDL.Logical.Not not1 "Negates output"
     annotation (Placement(transformation(extent={{-20,182},{0,202}})));
   Controls.OBC.CDL.Interfaces.RealInput TDryBul
     "Outdoor air dry bulb temperature"
@@ -90,12 +92,14 @@ block DryBulbLockout
     uLow=TNitFluCutLo,
     uHigh=TNitFluCut,
     pre_y_start=false)
+    "Checks temp against night flush cut if  in night flush mode"
     annotation (Placement(transformation(extent={{-60,260},{-40,280}})));
   Controls.OBC.CDL.Interfaces.RealInput TRooMea "Measured room air temperature"
                                                              annotation (
       Placement(transformation(extent={{-420,160},{-380,200}}),
         iconTransformation(extent={{-140,-96},{-100,-56}})));
   Controls.OBC.CDL.Continuous.Add add1(k1=-1)
+    "Outdoor air temperature minus measured room temperature"
     annotation (Placement(transformation(extent={{-100,322},{-80,342}})));
   Controls.OBC.CDL.Continuous.Hysteresis hys1(
     uLow=-0.5,
@@ -103,15 +107,16 @@ block DryBulbLockout
     pre_y_start=true)
     "Tests if Tout- Troo> 0. If so, output true (which is then negated- window must be closed). If not, output false (which is negated- window can stay open)."
     annotation (Placement(transformation(extent={{-60,322},{-40,342}})));
-  Controls.OBC.CDL.Logical.Not not4
+  Controls.OBC.CDL.Logical.Not not4 "Negates output"
     annotation (Placement(transformation(extent={{-20,318},{0,338}})));
   Controls.OBC.CDL.Logical.And and1
-    "Tests if dry bulb temperature is above room setpoint or above threshhold"
+    "Tests if dry bulb temperature is above room setpoint and above cut threshhold"
     annotation (Placement(transformation(extent={{42,158},{62,178}})));
   Controls.OBC.CDL.Logical.And and3
-    "Tests if dry bulb temperature is above room setpoint or above threshhold"
+    "Tests if dry bulb temperature is above room setpoint and above cut threshhold"
     annotation (Placement(transformation(extent={{40,284},{60,304}})));
   Controls.OBC.CDL.Logical.LogicalSwitch logSwi
+    "Switches between night flush signal and non night flush signal"
     annotation (Placement(transformation(extent={{120,200},{140,220}})));
 protected
     parameter Real TDryBulCutLo(min=0,

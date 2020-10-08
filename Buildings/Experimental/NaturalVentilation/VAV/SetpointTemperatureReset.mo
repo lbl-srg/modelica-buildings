@@ -30,8 +30,10 @@ block SetpointTemperatureReset
     annotation (Placement(transformation(extent={{-138,52},{-98,92}}),
         iconTransformation(extent={{-142,-60},{-102,-20}})));
   Controls.OBC.CDL.Continuous.Add add2(k1=-1)
+    "Subtract relaxation amount from heating setpoint"
     annotation (Placement(transformation(extent={{20,60},{40,80}})));
   Controls.OBC.CDL.Continuous.Add add1
+    "Add relaxation amount to cooling setpoint"
     annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
   Controls.OBC.CDL.Interfaces.RealOutput yHtgStpWin
     "Heating setpoint for window while in natural ventilation mode" annotation (
@@ -48,8 +50,10 @@ block SetpointTemperatureReset
     "Amount cooling setpoint is relaxed when natural ventilation mode is on"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
   Controls.OBC.CDL.Logical.Switch swi
+    "Switch between natural ventilation and standard setpoint"
     annotation (Placement(transformation(extent={{60,0},{80,20}})));
   Controls.OBC.CDL.Logical.Switch swi1
+    "Switch between natural ventilation and standard setpoint"
     annotation (Placement(transformation(extent={{60,-80},{80,-60}})));
 equation
   connect(yHtgStpWin, yHtgStpWin)

@@ -15,6 +15,7 @@ block NightFlushFixedDuration
         transformation(extent={{340,-20},{380,20}}), iconTransformation(extent={{100,30},
             {140,70}})));
   Controls.OBC.CDL.Discrete.Sampler sam(samplePeriod=86400)
+    "Samples forecast high"
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
   Controls.SetPoints.Table tabRoo(table=[294.2611111,294.2611111; 297.0388889,
         294.2611111; 297.04,293.7055556; 299.8166667,293.7055556; 299.82,

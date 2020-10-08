@@ -8,12 +8,12 @@ parameter Real TiUns(min=0,
 parameter Real swiRan(min=0,max=1)=0.75 "Percent range within which window can swing without triggering alarm";
 parameter Real numSwi(min=0)=3 "Allowable number of swings before window is considered unstable";
 
-  Controls.OBC.CDL.Logical.Not not1
+  Controls.OBC.CDL.Logical.Not not1 "No alarm if manual override is in place"
     annotation (Placement(transformation(extent={{-80,38},{-60,58}})));
   Controls.OBC.CDL.Continuous.AddParameter addPar1(p=0.5 + 0.5*swiRan, k=-1)
     "Difference between window position and swing range upper limit"
     annotation (Placement(transformation(extent={{-80,-62},{-60,-42}})));
-  Controls.OBC.CDL.Integers.OnCounter onCouInt
+  Controls.OBC.CDL.Integers.OnCounter onCouInt "Counts swings"
     annotation (Placement(transformation(extent={{40,-58},{52,-46}})));
   Controls.OBC.CDL.Continuous.AddParameter addPar2(p=0.5 - 0.5*swiRan, k=-1)
     "Difference between window position and swing range lower limit"
@@ -26,21 +26,24 @@ parameter Real numSwi(min=0)=3 "Allowable number of swings before window is cons
   Controls.OBC.CDL.Continuous.Hysteresis hysBelLo(uLow=0, uHigh=0.01)
     "Tests if window swings above low position"
     annotation (Placement(transformation(extent={{-40,-102},{-20,-82}})));
-  Controls.OBC.CDL.Integers.OnCounter onCouInt1
+  Controls.OBC.CDL.Integers.OnCounter onCouInt1 "Counts swings"
     annotation (Placement(transformation(extent={{4,-98},{16,-86}})));
   Controls.OBC.CDL.Continuous.AddParameter addPar3(p=-numSwi, k=1)
     "Number of swings in period minus swing threshold"
     annotation (Placement(transformation(extent={{262,-60},{282,-40}})));
   Controls.OBC.CDL.Conversions.IntegerToReal intToRea
+    "Converts swing count to real number"
     annotation (Placement(transformation(extent={{80,-62},{100,-42}})));
   Controls.OBC.CDL.Conversions.IntegerToReal intToRea1
+    "Converts swing count to real number"
     annotation (Placement(transformation(extent={{80,-102},{100,-82}})));
   Controls.OBC.CDL.Continuous.AddParameter addPar4(p=-numSwi, k=1)
     "Number of swings in period minus swing threshold"
     annotation (Placement(transformation(extent={{262,-100},{282,-80}})));
-  Controls.OBC.CDL.Logical.And andCouAbo
+  Controls.OBC.CDL.Logical.And andCouAbo "If both true, trigger alarm"
     annotation (Placement(transformation(extent={{362,-80},{382,-60}})));
   Controls.OBC.CDL.Logical.And and3
+    "Combines manual override and swing count signal"
     annotation (Placement(transformation(extent={{404,0},{424,20}})));
   Controls.OBC.CDL.Interfaces.BooleanInput uManOvr "Manual override"
     annotation (Placement(transformation(extent={{-180,28},{-140,68}}),
@@ -52,7 +55,7 @@ parameter Real numSwi(min=0)=3 "Allowable number of swings before window is cons
   Controls.OBC.CDL.Interfaces.RealInput uWinPos "Window position" annotation (
       Placement(transformation(extent={{-180,-52},{-140,-12}}),
         iconTransformation(extent={{-140,-48},{-100,-8}})));
-  Controls.OBC.CDL.Logical.Not not2
+  Controls.OBC.CDL.Logical.Not not2 "Negates output"
     annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
   Controls.OBC.CDL.Continuous.Hysteresis hysCouHi(
     uLow=0,
