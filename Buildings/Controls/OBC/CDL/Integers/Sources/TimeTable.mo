@@ -12,7 +12,6 @@ block TimeTable "Table look-up with respect to time with constant segments"
 
   Interfaces.IntegerOutput y[nout] "Output of the table"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
-
 protected
   final parameter Integer nout=size(table, 2)-1
     "Dimension of output vector";
@@ -20,6 +19,8 @@ protected
     "Number of table points";
   parameter Modelica.SIunits.Time t0(fixed=false)
     "First sample time instant";
+  final parameter Modelica.SIunits.Time timeRange = timeScale * (table[end,1] - table[1,1])
+    "Range of time in table";
 
   Modelica.Blocks.Sources.CombiTimeTable tab(
     final tableOnFile=false,
@@ -28,10 +29,18 @@ protected
     final smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments,
     final extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
     final offset=offset,
-    final startTime=integer(t0/86400)*86400,
+    final startTime=integer(t0/timeRange+1E-4)*timeRange "add 1E-4 to prevent rounding errors",
     final timeScale=timeScale) "Time table"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
 
+  Continuous.Feedback feeBac[nout]
+    "Adds small tolerance before integer conversion to guard against rounding error"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+  Continuous.Sources.Constant con[nout](each k = -Constants.small)
+    annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
+
+  Conversions.RealToInteger reaToInt[nout] "Real to integer conversion"
+    annotation (Placement(transformation(extent={{30,-10},{50,10}})));
 initial equation
   t0=time;
   assert(n > 0, "No table values defined.");
@@ -40,12 +49,19 @@ initial equation
   for i in 1:n loop
     for j in 2:size(table, 2) loop
       assert(abs(table[i, j] - integer(table[i, j])) < Constants.small,
-        "Table value is not an Integer in row " + String(i) + " and column " + String(j) + ".");
+        "Table value table[" + String(i) + ", " + String(j) + "] = " + String(table[i, j]) + " is not an Integer.");
     end for;
   end for;
 
 equation
-  y = integer(tab.y);
+  connect(reaToInt.y, y)
+    annotation (Line(points={{52,0},{120,0}}, color={255,127,0}));
+  connect(tab.y, feeBac.u1)
+    annotation (Line(points={{-59,0},{-12,0}}, color={0,0,127}));
+  connect(con.y, feeBac.u2)
+    annotation (Line(points={{-38,-30},{0,-30},{0,-12}}, color={0,0,127}));
+  connect(feeBac.y, reaToInt.u)
+    annotation (Line(points={{12,0},{28,0}}, color={0,0,127}));
   annotation (
 defaultComponentName = "intTimTab",
 Documentation(info="<html>
@@ -97,6 +113,10 @@ the table values of this row are just returned.
 </html>",
 revisions="<html>
 <ul>
+<li>
+October 7, 2020, by Michael Wetter:<br/>
+Revised implementation to add <code>timeSpan</code> and to guard against rounding errors.
+</li>
 <li>
 September 14, 2020, by Milica Grahovac:<br/>
 Initial CDL implementation based on continuous time table implementation in CDL.

@@ -23,6 +23,8 @@ protected
   parameter Modelica.SIunits.Time t0(fixed=false)
     "First sample time instant";
 
+  parameter Modelica.SIunits.Time timeRange = timeScale * (table[end,1] - table[1,1])
+    "Range of time in table";
   // CDL uses different enumerations for smoothness and for extrapolation
   // than the Modelica Standard Library. Hence, we cast the CDL
   // enumeration to the MSL enumaration.
@@ -41,7 +43,7 @@ protected
                         else
                           Modelica.Blocks.Types.Extrapolation.Periodic,
     final offset=offset,
-    final startTime=if (extrapolation == Types.Extrapolation.Periodic) then integer(t0/86400)*86400 else 0,
+    final startTime=if (extrapolation == Types.Extrapolation.Periodic) then integer(t0/timeRange+1E-4)*timeRange else 0 "add 1E-4 to prevent rounding errors",
     final timeScale=timeScale) "Time table"
     annotation (Placement(transformation(extent={{-12,-10},{8,10}})));
 
@@ -224,6 +226,10 @@ of <i>0.5</i> seconds outputs
 </html>",
 revisions="<html>
 <ul>
+<li>
+October 7, 2020, by Michael Wetter:<br/>
+Revised implementation to add <code>timeSpan</code>.
+</li>
 <li>
 March 13, 2020, by Michael Wetter:<br/>
 Corrected implementation so that the table also works if the simulation

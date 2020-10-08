@@ -20,15 +20,17 @@ protected
   parameter Modelica.SIunits.Time t0(fixed=false)
     "First sample time instant";
 
+  final parameter Modelica.SIunits.Time timeRange = timeScale * (table[end,1] - table[1,1])
+    "Range of time in table";
+
   Modelica.Blocks.Sources.CombiTimeTable tab(
     final tableOnFile=false,
     final table=table,
     final columns=2:size(tab.table, 2),
     final smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments,
     final extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
-    final startTime=integer(t0/86400)*86400,
-    final timeScale=timeScale) "Time table"
-    annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
+    final startTime=integer(t0/timeRange+1E-4)*timeRange "add 1E-4 to prevent rounding errors",
+    final timeScale=timeScale) "Time table";
 
 initial equation
   t0=time;
@@ -38,7 +40,7 @@ initial equation
   for i in 1:n loop
     for j in 2:size(table, 2) loop
       assert((abs(table[i, j]) < Constants.small) or (abs(table[i, j] - 1.0) < Constants.small),
-        "Table value does not equal either 0 or 1 in row " + String(i) + " and column " + String(j) + ".");
+        "Table value table[" + String(i) + ", " + String(j) + "] = " + String(table[i, j]) + " does not equal either 0 or 1.");
     end for;
   end for;
 
@@ -92,6 +94,10 @@ whether it is a multiple of a day or not, and positive or negative.
 </html>",
 revisions="<html>
 <ul>
+<li>
+October 7, 2020, by Michael Wetter:<br/>
+Revised implementation to add <code>timeSpan</code>.
+</li>
 <li>
 September 14, 2020, by Milica Grahovac:<br/>
 Initial CDL implementation based on continuous time table implementation in CDL.
