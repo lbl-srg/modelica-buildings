@@ -116,11 +116,6 @@ block BoilerRotation
   final parameter Integer devInd[nDev]={i for i in 1:nDev}
     "Vector of device indices";
 
-  CDL.Continuous.GreaterThreshold greThr[nSta,nDev](t=fill(
-        0.5,
-        nSta,
-        nDev)) "Convert boiler enable status to Boolean"
-    annotation (Placement(transformation(extent={{20,100},{40,120}})));
   CDL.Conversions.BooleanToInteger booToInt[nSta,nDev]
     "Boolean to Integer conversion"
     annotation (Placement(transformation(extent={{-150,-60},{-130,-40}})));
@@ -202,9 +197,6 @@ block BoilerRotation
     annotation (Placement(transformation(extent={{-140,130},{-120,150}})));
   CDL.Integers.Product proInt[nBoi] "Find indices of enabled boilers"
     annotation (Placement(transformation(extent={{-100,120},{-80,140}})));
-  CDL.Routing.IntegerReplicator intRep1[nDev](nout=fill(nBoi, nDev))
-    "Integer replicator"
-    annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
   CDL.Routing.IntegerReplicator intRep2[nSta](nout=fill(nBoi, nSta))
     "Integer replicator"
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
@@ -214,10 +206,10 @@ block BoilerRotation
   CDL.Continuous.GreaterThreshold greThr1[nSta]
     "Generate signal indicating presence of lead/lag pair in stage"
     annotation (Placement(transformation(extent={{20,130},{40,150}})));
+  CDL.Integers.Equal intEqu3[nSta,nDev]
+    "Find status of each lead/lag devices in each pair"
+    annotation (Placement(transformation(extent={{20,90},{40,110}})));
 equation
-  connect(greThr.y, equRot.uDevSta) annotation (Line(points={{42,110},{60,110},{
-          60,104},{98,104}},
-                        color={255,0,255}));
   connect(equRot.yDevStaSet, booToInt.u) annotation (Line(points={{122,116},{150,
           116},{150,4},{-156,4},{-156,-50},{-152,-50}},    color={255,0,255}));
   connect(booToInt.y, proInt2.u2) annotation (Line(points={{-128,-50},{-120,-50},
@@ -290,6 +282,12 @@ equation
           140},{18,140}}, color={0,0,127}));
   connect(greThr1.y, equRot.uLeaStaSet) annotation (Line(points={{42,140},{80,
           140},{80,116},{98,116}}, color={255,0,255}));
+  connect(intEqu3.y, equRot.uDevSta) annotation (Line(points={{42,100},{80,100},
+          {80,104},{98,104}}, color={255,0,255}));
+  connect(reaToInt2.y, intEqu3[:, 1].u2) annotation (Line(points={{-28,50},{-26,
+          50},{-26,92},{18,92}}, color={255,127,0}));
+  connect(reaToInt3.y, intEqu3[:, 2].u2) annotation (Line(points={{-28,20},{-26,
+          20},{-26,92},{18,92}}, color={255,127,0}));
 annotation(Diagram(coordinateSystem(extent={{-160,-160},{160,160}})),
       defaultComponentName="equRot",
     Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
