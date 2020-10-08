@@ -252,61 +252,61 @@ block Controller
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uStaUp if not primaryOnly
     "Stage up signal"
     annotation (Placement(transformation(extent={{-320,-210},{-280,-170}}),
-      iconTransformation(extent={{-140,70},{-100,110}})));
+      iconTransformation(extent={{-140,90},{-100,130}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uOnOff if not primaryOnly
     "Signal indicating stage change with simultaneous enabling and disabling of boilers"
     annotation (Placement(transformation(extent={{-320,-240},{-280,-200}}),
-      iconTransformation(extent={{-140,40},{-100,80}})));
+      iconTransformation(extent={{-140,60},{-100,100}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHotWatPum[nPum]
     "Hot water pumps operating status"
     annotation (Placement(transformation(extent={{-320,120},{-280,160}}),
-      iconTransformation(extent={{-140,220},{-100,260}})));
+      iconTransformation(extent={{-140,240},{-100,280}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uPlaEna
     "Plant enabling status"
     annotation (Placement(transformation(extent={{-320,90},{-280,130}}),
-      iconTransformation(extent={{-140,190},{-100,230}})));
+      iconTransformation(extent={{-140,210},{-100,250}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uBoiSta[nBoi] if not primaryOnly
     "Boiler status vector"
     annotation (Placement(transformation(extent={{-320,-90},{-280,-50}}),
-      iconTransformation(extent={{-140,100},{-100,140}})));
+      iconTransformation(extent={{-140,120},{-100,160}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uPumChaPro if not primaryOnly
     "Signal indicating start of pump change process"
     annotation (Placement(transformation(extent={{-320,-270},{-280,-230}}),
-      iconTransformation(extent={{-140,10},{-100,50}})));
+      iconTransformation(extent={{-140,30},{-100,70}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uNexEnaBoi if not isHeadered
     "Index of next enabled boiler"
     annotation (Placement(transformation(extent={{-320,-320},{-280,-280}}),
-      iconTransformation(extent={{-140,-20},{-100,20}})));
+      iconTransformation(extent={{-140,0},{-100,40}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uLasDisBoi if not isHeadered
     "Index of last disabled boiler"
     annotation (Placement(transformation(extent={{-320,-360},{-280,-320}}),
-      iconTransformation(extent={{-140,-50},{-100,-10}})));
+      iconTransformation(extent={{-140,-40},{-100,0}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uPumLeaLag[nPum] if isHeadered
     "Hot water pump lead-lag order"
     annotation (Placement(transformation(extent={{-320,210},{-280,250}}),
-      iconTransformation(extent={{-140,250},{-100,290}})));
+      iconTransformation(extent={{-140,270},{-100,310}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uHotIsoVal[nBoi](
     final unit="1",
     displayUnit="1") if isHeadered
     "Hot water isolation valve status"
     annotation (Placement(transformation(extent={{-320,50},{-280,90}}),
-      iconTransformation(extent={{-140,160},{-100,200}})));
+      iconTransformation(extent={{-140,180},{-100,220}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uMinPriPumSpeCon(
     final unit="1",
     displayUnit="1") if variablePrimary and not primaryOnly
     "Minimum allowed pump speed for non-condensing boilers"
     annotation (Placement(transformation(extent={{-320,-500},{-280,-460}}),
-      iconTransformation(extent={{-140,-140},{-100,-100}})));
+      iconTransformation(extent={{-140,-160},{-100,-120}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpHotWat_local(
     final unit="Pa",
@@ -315,7 +315,7 @@ block Controller
      and localDPRegulated
     "Hot water differential static pressure from local sensor"
     annotation (Placement(transformation(extent={{-320,-400},{-280,-360}}),
-      iconTransformation(extent={{-140,-50},{-100,-10}})));
+      iconTransformation(extent={{-140,-70},{-100,-30}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpHotWat_remote[nSen](
     final unit=fill("Pa", nSen),
@@ -323,7 +323,7 @@ block Controller
     variablePrimary and (localDPRegulated or remoteDPRegulated)
     "Hot water differential static pressure from remote sensor"
     annotation (Placement(transformation(extent={{-320,-440},{-280,-400}}),
-      iconTransformation(extent={{-140,-80},{-100,-40}})));
+      iconTransformation(extent={{-140,-100},{-100,-60}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpHotWatSet(
     final unit="Pa",
@@ -331,7 +331,7 @@ block Controller
      and (localDPRegulated or remoteDPRegulated)
     "Hot water differential static pressure setpoint"
     annotation (Placement(transformation(extent={{-320,-470},{-280,-430}}),
-      iconTransformation(extent={{-140,-110},{-100,-70}})));
+      iconTransformation(extent={{-140,-130},{-100,-90}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VHotWat_flow(
     final unit="m3/s",
@@ -339,7 +339,7 @@ block Controller
     final quantity="VolumeFlowRate")
     "Hot water flow"
     annotation (Placement(transformation(extent={{-320,-40},{-280,0}}),
-      iconTransformation(extent={{-140,130},{-100,170}})));
+      iconTransformation(extent={{-140,150},{-100,190}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VHotWatSec_flow(
     final unit="m3/s",
@@ -348,7 +348,7 @@ block Controller
      and flowrateRegulated and primarySecondaryFlowSensors
     "Measured hot water flowrate through secondary loop"
     annotation (Placement(transformation(extent={{-320,-540},{-280,-500}}),
-      iconTransformation(extent={{-140,-170},{-100,-130}})));
+      iconTransformation(extent={{-140,-190},{-100,-150}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VHotWatDec_flow(
     final unit="m3/s",
@@ -357,7 +357,7 @@ block Controller
      and flowrateRegulated and not primarySecondaryFlowSensors
     "Measured hot water flowrate through decoupler"
     annotation (Placement(transformation(extent={{-320,-570},{-280,-530}}),
-      iconTransformation(extent={{-140,-200},{-100,-160}})));
+      iconTransformation(extent={{-140,-220},{-100,-180}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput THotWatPri(
     final unit="K",
@@ -367,7 +367,7 @@ block Controller
     primarySecondaryTemperatureSensors
     "Measured hot water temperature at primary loop supply"
     annotation (Placement(transformation(extent={{-320,-600},{-280,-560}}),
-      iconTransformation(extent={{-140,-230},{-100,-190}})));
+      iconTransformation(extent={{-140,-250},{-100,-210}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput THotWatSec(
     final unit="K",
@@ -376,7 +376,7 @@ block Controller
     variablePrimary and temperatureRegulated
     "Measured hot water temperature at secondary loop supply"
     annotation (Placement(transformation(extent={{-320,-630},{-280,-590}}),
-      iconTransformation(extent={{-140,-260},{-100,-220}})));
+      iconTransformation(extent={{-140,-280},{-100,-240}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput THotWatBoiSup[nBoi](
     final unit=fill("K", nBoi),
@@ -386,7 +386,7 @@ block Controller
     primarySecondaryTemperatureSensors
     "Measured hot water temperature at boiler supply"
     annotation (Placement(transformation(extent={{-320,-660},{-280,-620}}),
-      iconTransformation(extent={{-140,-290},{-100,-250}})));
+      iconTransformation(extent={{-140,-310},{-100,-270}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yHotWatPum[nPum]
     "Hot water pump status"
@@ -1199,15 +1199,15 @@ annotation (defaultComponentName="priPumCon",
       lineColor={0,0,127},
       horizontalAlignment=TextAlignment.Right,
       textString="Enable/Disable lag pumps for headered, fixed-speed primary pumps")}),
-  Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-280},{100,280}}),
+  Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-300},{100,300}}),
     graphics={
       Rectangle(
-        extent={{-100,-280},{100,280}},
+        extent={{-100,-300},{100,300}},
         lineColor={0,0,0},
         fillColor={255,255,255},
         fillPattern=FillPattern.Solid),
       Text(
-        extent={{-100,330},{100,290}},
+        extent={{-100,350},{100,310}},
         lineColor={0,0,255},
         textString="%name"),
       Rectangle(
