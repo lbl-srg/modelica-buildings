@@ -38,10 +38,10 @@ model CouplingTimeSeries
       extent={{10,-10},{-10,10}},
       rotation=0,
       origin={130,-20})));
-  Modelica.Blocks.Sources.RealExpression THeaWatSup(y=bui.terUniHea.T_aHeaWat_nominal)
+  Modelica.Blocks.Sources.RealExpression THeaWatSup(y=bui.T_aHeaWat_nominal)
     "Heating water supply temperature"
     annotation (Placement(transformation(extent={{-120,30},{-100,50}})));
-  Modelica.Blocks.Sources.RealExpression TChiWatSup(y=bui.terUniCoo.T_aChiWat_nominal)
+  Modelica.Blocks.Sources.RealExpression TChiWatSup(y=bui.T_aChiWat_nominal)
     "Chilled water supply temperature"
     annotation (Placement(transformation(extent={{-120,-30},{-100,-10}})));
   Fluid.Sources.Boundary_pT supHeaWat(

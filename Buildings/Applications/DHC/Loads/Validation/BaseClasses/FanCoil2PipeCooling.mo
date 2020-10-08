@@ -19,7 +19,7 @@ model FanCoil2PipeCooling
     final have_TSen=false,
     final have_weaBus=false,
     final have_pum=false,
-    final mChiWat_flow_nominal=abs(QCoo_flow_nominal/cpChiWat_nominal/(
+    mChiWat_flow_nominal=abs(QCoo_flow_nominal/cpChiWat_nominal/(
       T_aChiWat_nominal - T_bChiWat_nominal)));
   import hexConfiguration = Buildings.Fluid.Types.HeatExchangerConfiguration;
   parameter Real k(min=0) = 1 "Gain of controller";
