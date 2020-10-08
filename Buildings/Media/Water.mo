@@ -56,6 +56,7 @@ package Water "Package with model for liquid water with constant density"
 
   equation
 <<<<<<< HEAD
+<<<<<<< HEAD
     assert(T >= T_min,
                    "
   In " + getInstanceName() + ": Temperature T = " + String(T) + " K exceeded its minimum allowed value of " +
@@ -67,6 +68,8 @@ as required from medium model \"" + mediumName + "\".");
   String(T_max-273.15) + " degC (" + String(T_max) + " Kelvin)
 as required from medium model \"" + mediumName + "\".");
 
+=======
+>>>>>>> upstream/master
 =======
 >>>>>>> upstream/master
     h = cp_const*(T-reference_T);
