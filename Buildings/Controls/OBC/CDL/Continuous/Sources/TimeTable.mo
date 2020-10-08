@@ -43,12 +43,22 @@ protected
                         else
                           Modelica.Blocks.Types.Extrapolation.Periodic,
     final offset=offset,
-    final startTime=if (extrapolation == Types.Extrapolation.Periodic) then integer(t0/timeRange+1E-4)*timeRange else 0 "add 1E-4 to prevent rounding errors",
+    final startTime=if (extrapolation == Types.Extrapolation.Periodic) then t0 else 0,
     final timeScale=timeScale) "Time table"
     annotation (Placement(transformation(extent={{-12,-10},{8,10}})));
 
+  function round "Round function from Buildings.Controls.OBC.CDL.Continuous.Round"
+    input Real x "Argument";
+    input Real n "Digits";
+    output Real y "Rounded argument";
+  protected
+    Real fac = 10^n "Factor used for rounding";
+  algorithm
+    y :=if (x > 0) then floor(x*fac + 0.5)/fac else ceil(x*fac - 0.5)/fac;
+  end round;
+
 initial equation
-  t0=time;
+  t0 = round(integer(time/timeRange)*timeRange, 6);
 
 equation
   connect(tab.y, y) annotation (Line(points={{9,0},{120,0}}, color={0,0,127}));

@@ -21,10 +21,10 @@ protected
   parameter Modelica.SIunits.Time t0(fixed=false)
     "First sample time instant";
 
-  final parameter Modelica.SIunits.Time timeStamps[:] = table[1:end, 1] "Time stamps";
+  final parameter Modelica.SIunits.Time timeStamps[:] = timeScale*table[1:end, 1] "Time stamps";
   final parameter Integer val[:,:] = integer(table[1:end, 2:end] + ones(nT, nout) * Constants.small) "Table values as Integer";
 
-  Integer idx(start=1, fixed=true) "Index for table lookup";
+  Integer idx(fixed=false) "Index for table lookup";
 
   function getIndex
     input Modelica.SIunits.Time t "Current time";
@@ -35,16 +35,27 @@ protected
     Modelica.SIunits.Time tS "Time shifted so it is within the period";
   algorithm
     tS := mod(t, period);
-    k := 1;
-    for i in 1:size(x,1) loop
-       if tS > x[i] then
-         k := k+1;
+    k := -1;
+    for i in size(x,1):-1:1 loop
+       if tS >= x[i]-1E-6 then
+         k := i;
+         break;
        end if;
     end for;
   end getIndex;
 
+  function round "Round function from Buildings.Controls.OBC.CDL.Continuous.Round"
+    input Real x "Argument";
+    input Real n "Digits";
+    output Real y "Rounded argument";
+  protected
+    Real fac = 10^n "Factor used for rounding";
+  algorithm
+    y :=if (x > 0) then floor(x*fac + 0.5)/fac else ceil(x*fac - 0.5)/fac;
+  end round;
+
 initial equation
-  t0=time;
+  t0 = round(integer(time/period)*period, 6);
   assert(nT > 0, "No table values defined.");
 
   // Check that all values in the second column are Integer values
@@ -54,16 +65,20 @@ initial equation
         "In " + getInstanceName() + ": Table value table[" + String(i) + ", " + String(j) + "] = " + String(table[i, j]) + " is not an Integer.");
     end for;
   end for;
-  assert(abs(table[1,1]) < Constants.small, "In " + getInstanceName() + ": First time stamp must be zero as otherwise no data is defined for the start of the table.");
-  assert(period - table[1,end] > Constants.small, "In " + getInstanceName() + ": Last time stamp in table must be smaller than period.");
+  assert(abs(table[1,1]) < Constants.small,
+    "In " + getInstanceName()
+      + ": First time stamp must be zero as otherwise no data is defined for the start of the table.");
+  assert(period - table[1,end] > Constants.small,
+    "In " + getInstanceName()
+      + ": Last time stamp in table must be smaller than period.");
+
+  idx = getIndex(time, period, timeStamps);
+  y[:] = val[idx,:];
+
 equation
-  when initial() then
-    y[:] = val[pre(idx),:];
-    idx = getIndex(time, period, timeStamps);
-       elsewhen
-            {sample(t0+timeStamps[i], period) for i in 1:nT} then
-    y[:] = val[pre(idx),:];
-    idx = if (pre(idx) + 1 > nT) then 1 else pre(idx) + 1;
+    when {sample(t0+timeStamps[i], period) for i in 1:nT} then
+    idx =  getIndex(time, period, timeStamps);
+    y[:] = val[idx,:];
   end when;
   annotation (
 defaultComponentName = "intTimTab",
@@ -78,25 +93,22 @@ The block takes as a parameter a time table of a format:
 table = [ 0*3600, 2;
           6*3600, 1;
          18*3600, 8];
+period = 24*3600;
 </pre>
 <p>
-where the first column is time, and the remaining column(s) are the table values.
-The time column contains <code>Real</code> values that are in units of seconds when <code>timeScale</code> equals <code>1</code>.
-<code>timeScale</code> may be used to scale the time values, such that for <code>timeScale = 3600</code> the values 
-in the first column of the table are interpreted as hours.
+where the first column of <code>table</code> is time and the remaining column(s) are the table values.
+The time column contains <code>Real</code> values that are in units of seconds if <code>timeScale = 1</code>.
+The parameter <code>timeScale</code> can be used to scale the time values, for example, use
+<code>timeScale = 3600</code> if the values in the first column are interpreted as hours.
 </p>
 <p>
-The values in all columns apart from the first column must be of type <code>Integer</code>, otherwise the model stops with an error.
+The values in column two and higher must be of type <code>Integer</code>, otherwise the model stops with an error.
 </p>
 <p>
 Until a new tabulated value is set, the previous tabulated value is returned.
 </p>
 <p>
 The table scope is repeated periodically with periodicity <code>period</code>.
-</p>
-<p>
-The simulation can start at any time,
-whether it is a multiple of a day or not, and positive or negative.
 </p>
 </html>",
 revisions="<html>

@@ -2,10 +2,7 @@ compareVars :=
   {
     "intTimTab.y[1]",
     "intTimTab.y[2]",
-    "intTimTab.offset[1]",
-    "intTimTab.offset[2]",
     "intTimTab1.y[1]",
     "intTimTab1.y[2]",
-    "intTimTab1.offset[1]",
-    "intTimTab1.offset[2]"
+    "tabOneRow.y[1]"
   };

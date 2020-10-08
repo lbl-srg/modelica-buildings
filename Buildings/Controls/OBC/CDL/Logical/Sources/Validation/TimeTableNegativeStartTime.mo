@@ -3,19 +3,31 @@ model TimeTableNegativeStartTime
   "Validation model for TimeTable block with negative start time"
 
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable booTimTab(
-    table=[0,1,0; 1.3,1,1; 2.9,0,0; 4,1,0; 5,1,1])
-    "Time table with boolean output and periodic repetition"
-    annotation (Placement(transformation(extent={{-20,40},{0,60}})));
+    table=[
+      0,   1, 0;
+      1.3, 1, 1;
+      2.9, 0, 0;
+      4,   1, 0],
+    period=5)
+    "Time table with boolean output"
+    annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable booTimTabOneRow(
-    table=[0,1,0])
+    table=[0,1,0],
+    period=1)
     "Time table with boolean output for a single table row"
-    annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
+    annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
+
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable booTimTabTwi(
-    table=[0,1,0;1.3,1,1; 2.9,0,0; 4,1,0; 5,1,1],
+    table=[
+      0,   1, 0;
+      1.3, 1, 1;
+      2.9, 0, 0;
+      4,   1, 0],
+    period=10,
     timeScale=2)
     "Time table with boolean output, periodic repetition, and doubled time"
-    annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
+    annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 
   annotation (experiment(Tolerance=1e-6, StartTime=-5.0, StopTime=10.0),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Logical/Sources/Validation/TimeTableNegativeStartTime.mos"
