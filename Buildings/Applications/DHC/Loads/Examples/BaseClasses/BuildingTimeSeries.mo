@@ -164,7 +164,7 @@ model BuildingTimeSeries
         iconTransformation(extent={{-20,-20},{20,20}},rotation=-90, origin={260,-320})));
   Buildings.Controls.OBC.CDL.Continuous.Add addPPum "Sum pump power"
     annotation (Placement(transformation(extent={{220,70},{240,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant nCoo(k=0) if
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant noCoo(k=0) if
     not have_watCoo "No cooling system"
     annotation (Placement(transformation(extent={{70,70},{90,90}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant noHea(k=0) if
@@ -240,13 +240,13 @@ equation
     annotation (Line(points={{242,80},{320,80}}, color={0,0,127}));
   connect(noHea.y, addPPum.u1) annotation (Line(points={{92,120},{170,120},{170,
           86},{218,86}}, color={0,0,127}));
-  connect(nCoo.y, addPPum.u2) annotation (Line(points={{92,80},{200,80},{200,74},
-          {218,74}}, color={0,0,127}));
+  connect(noCoo.y, addPPum.u2) annotation (Line(points={{92,80},{200,80},{200,
+          74},{218,74}}, color={0,0,127}));
   connect(addPFan.y, PFan)
     annotation (Line(points={{242,120},{320,120}}, color={0,0,127}));
   connect(noHea.y, addPFan.u1) annotation (Line(points={{92,120},{200,120},{200,
           126},{218,126}}, color={0,0,127}));
-  connect(nCoo.y, addPFan.u2) annotation (Line(points={{92,80},{200,80},{200,
+  connect(noCoo.y, addPFan.u2) annotation (Line(points={{92,80},{200,80},{200,
           114},{218,114}}, color={0,0,127}));
   connect(terUniCoo.PFan, addPFan.u2) annotation (Line(points={{90.8333,36},{
           160,36},{160,114},{218,114}}, color={0,0,127}));
