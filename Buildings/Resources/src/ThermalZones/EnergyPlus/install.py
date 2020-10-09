@@ -93,12 +93,10 @@ if __name__ == "__main__":
         {"src": "https://spawn.s3.amazonaws.com/latest/Spawn-latest-win64.zip",
          "des": "spawn-win64",
          "files": {
-            "bin/epfmi.dll" : "",
-            "bin/spawn.exe" : "",
-            "bin/VCRUNTIME140.dll" : "",
+            "bin/epfmi.dll" : "", # where is spawn.exe?
             "README.md" : "",
-            "lib/epfmi.lib" : "",
-            "etc/Energy+.idd" : ""}
+            "lib/epfmi.lib" : ""}
+            #"etc/Energy+.idd" : ""} # same idd as before?
         }
     )
 

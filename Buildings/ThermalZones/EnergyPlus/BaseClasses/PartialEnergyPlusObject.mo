@@ -24,8 +24,8 @@ protected
     "Specify if a pre-compiled FMU should be used instead of EnergyPlus (mainly for development)"
     annotation(Dialog(tab="Debug"));
 
-  final parameter Buildings.ThermalZones.EnergyPlus.Types.LogLevels logLevel=building.logLevel
-    "LogLevels of EnergyPlus output"
+  final parameter Buildings.ThermalZones.EnergyPlus.Types.Verbosity verbosity=building.verbosity
+    "Verbosity of EnergyPlus output"
     annotation(Dialog(tab="Debug"));
 
   parameter Modelica.SIunits.Time startTime(fixed=false) "Simulation start time";

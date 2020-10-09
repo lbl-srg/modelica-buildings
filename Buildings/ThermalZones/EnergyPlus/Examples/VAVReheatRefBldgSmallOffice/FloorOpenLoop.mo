@@ -4,9 +4,6 @@ model FloorOpenLoop "Open loop model of one floor"
 
   replaceable package Medium = Buildings.Media.Air "Medium for air";
 
-  parameter String idfName=Modelica.Utilities.Files.loadResource(
-    "modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus/Validation/RefBldgSmallOffice/RefBldgSmallOfficeNew2004_Chicago.idf")
-    "Name of the IDF file";
   parameter String weaName = Modelica.Utilities.Files.loadResource(
     "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
     "Name of the weather file";
@@ -14,29 +11,15 @@ model FloorOpenLoop "Open loop model of one floor"
   final parameter Modelica.SIunits.MassFlowRate mOut_flow = 2
     "Outside air infiltration for each room";
 
-  inner Buildings.ThermalZones.EnergyPlus.Building building(
-    idfName=idfName,
-    weaName=weaName)
-    "Building-level declarations"
+  BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=weaName)
+    "Weather data reader"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
-
-  BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
-    filNam=Modelica.Utilities.Files.loadResource(
-      "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
-    "Name of the weather file";
   BoundaryConditions.WeatherData.Bus weaBus "Weather data bus"
     annotation (Placement(transformation(extent={{-50,40},{-30,60}})));
   Buildings.ThermalZones.EnergyPlus.Examples.VAVReheatRefBldgSmallOffice.BaseClasses.Floor flo(
-    redeclare package Medium = Medium,
-    use_windPressure=false,
-    nor(T_start=275.15),
-    wes(T_start=275.15),
-    eas(T_start=275.15),
-    sou(T_start=275.15),
-    cor(T_start=275.15),
-    att(T_start=275.15))
+    redeclare package Medium = Medium)
     "One floor of the office building"
-    annotation (Placement(transformation(extent={{28,-8},{84,52}})));
+    annotation (Placement(transformation(extent={{32,-2},{86,28}})));
   Fluid.Sources.MassFlowSource_WeatherData bou[4](
     redeclare each package Medium = Medium,
     each m_flow=mOut_flow,
@@ -47,41 +30,49 @@ model FloorOpenLoop "Open loop model of one floor"
   Fluid.Sources.Outside out(
     redeclare package Medium = Medium, nPorts=1)
     "Outside condition"
-    annotation (Placement(transformation(extent={{-30,-64},{-10,-44}})));
+    annotation (Placement(transformation(extent={{-28,-64},{-8,-44}})));
   Fluid.FixedResistances.PressureDrop res(
     redeclare package Medium = Medium,
     m_flow_nominal=mOut_flow,
     dp_nominal=10,
     linearized=true)
-    annotation (Placement(transformation(extent={{20,-64},{0,-44}})));
+    annotation (Placement(transformation(extent={{6,-64},{26,-44}})));
   Fluid.FixedResistances.PressureDrop res1[4](
     redeclare each package Medium = Medium,
     each m_flow_nominal=mOut_flow,
     each dp_nominal=10,
     each linearized=true) "Small flow resistance for inlet"
-    annotation (Placement(transformation(extent={{0,-30},{20,-10}})));
-
+    annotation (Placement(transformation(extent={{4,-30},{24,-10}})));
 equation
+  connect(weaDat.weaBus, weaBus) annotation (Line(
+      points={{-60,50},{-40,50}},
+      color={255,204,51},
+      thickness=0.5));
   connect(weaBus, flo.weaBus) annotation (Line(
-      points={{-40,50},{66,50},{66,22},{65,22}},
+      points={{-40,50},{66,50},{66,30.3077},{66.0435,30.3077}},
       color={255,204,51},
       thickness=0.5));
+  connect(out.ports[1], res.port_a)
+    annotation (Line(points={{-8,-54},{6,-54}},color={0,127,255}));
+  connect(res.port_b, flo.portsCor[1])
+    annotation (Line(points={{26,-54},{60,-54},{60,14},{51.7217,14},{51.7217,
+          12.7692}},                                    color={0,127,255}));
   connect(weaBus, out.weaBus) annotation (Line(
-      points={{-40,50},{-40,-53.8},{-30,-53.8}},
+      points={{-40,50},{-40,-53.8},{-28,-53.8}},
       color={255,204,51},
       thickness=0.5));
-  connect(bou[:].ports[1], res1[:].port_a) annotation (Line(points={{-8,-20},{0,
-          -20}},             color={0,127,255}));
+  connect(bou[:].ports[1], res1[:].port_a) annotation (Line(points={{-8,-20},{-2,
+          -20},{-2,-20},{4,-20}},color={0,127,255}));
   connect(res1[1].port_b, flo.portsWes[1])
-    annotation (Line(points={{20,-20},{40,-20},{40,6.6}}, color={0,127,255}));
-  connect(res1[2].port_b, flo.portsNor[1]) annotation (Line(points={{20,-20},{
-          46,-20},{46,14.6},{52,14.6}},
-                                     color={0,127,255}));
+    annotation (Line(points={{24,-20},{37.1652,-20},{37.1652,12.7692}},color={0,127,255}));
+  connect(res1[2].port_b, flo.portsNor[1]) annotation (Line(points={{24,-20},{
+          46,-20},{46,20.6154},{51.7217,20.6154}},
+                                               color={0,127,255}));
   connect(res1[3].port_b, flo.portsSou[1])
-    annotation (Line(points={{20,-20},{52,-20},{52,-1.4}}, color={0,127,255}));
-  connect(res1[4].port_b, flo.portsEas[1]) annotation (Line(points={{20,-20},{
-          76.4,-20},{76.4,5.6}},
-                            color={0,127,255}));
+    annotation (Line(points={{24,-20},{51.7217,-20},{51.7217,4.46154}}, color={0,127,255}));
+  connect(res1[4].port_b, flo.portsEas[1]) annotation (Line(points={{24,-20},{
+          78.487,-20},{78.487,12.7692}},
+                                  color={0,127,255}));
   connect(weaBus, bou[1].weaBus) annotation (Line(
       points={{-40,50},{-40,-19.8},{-28,-19.8}},
       color={255,204,51},
@@ -98,14 +89,6 @@ equation
       points={{-40,50},{-40,-20},{-28,-20},{-28,-19.8}},
       color={255,204,51},
       thickness=0.5));
-  connect(building.weaBus, weaBus) annotation (Line(
-      points={{-60,50},{-40,50}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(out.ports[1], res.port_b)
-    annotation (Line(points={{-10,-54},{0,-54}}, color={0,127,255}));
-  connect(res.port_a, flo.portsCor[1]) annotation (Line(points={{20,-54},{60,
-          -54},{60,6.6},{52,6.6}}, color={0,127,255}));
     annotation (
  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus/Examples/VAVReheatRefBldgSmallOffice/FloorOpenLoop.mos"
         "Simulate and plot"),
@@ -117,9 +100,14 @@ Documentation(info="<html>
 Test case of one floor of the small office DOE reference building.
 </p>
 </html>", revisions="<html>
-<ul><li>
+<ul>
+<li>
 March 5, 2019, by Michael Wetter:<br/>
 First implementation.
+</li>
+<li>
+March 4, 2020, by Milica Grahovac:<br/>
+Declared the floor model as replaceable.
 </li>
 </ul>
 </html>"));
