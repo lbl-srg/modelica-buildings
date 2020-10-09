@@ -43,15 +43,14 @@ block SupplyAirTemperature
     "Control signal for cooling coil valve"
     annotation (Placement(transformation(extent={{120,-100},{160,-60}}),
         iconTransformation(extent={{100,-80},{140,-40}})));
-
-  Buildings.Controls.OBC.CDL.Continuous.LimPID con(
+  Buildings.Controls.Continuous.LimPID con(
     final controllerType=controllerType,
     final k=k,
     final Ti=Ti,
     final Td=Td,
     final yMax=1,
     final yMin=-1,
-    final reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter,
+    final reset=Buildings.Types.Reset.Parameter,
     y_reset=limSupHea.k)
     "Supply temperature controller"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
@@ -100,13 +99,13 @@ equation
                color={0,0,127}));
   connect(TSupSet, con.u_m) annotation (Line(points={{-160,-40},{-100,-40},{-100,
           -12}},                color={0,0,127}));
-  connect(uEna, con.trigger) annotation (Line(points={{-160,-100},{-106,-100},{-106,
+  connect(uEna, con.trigger) annotation (Line(points={{-160,-100},{-108,-100},{-108,
           -12}}, color={255,0,255}));
   connect(con.y, mapOA.u)
-    annotation (Line(points={{-88,0},{8,0}}, color={0,0,127}));
+    annotation (Line(points={{-89,0},{8,0}}, color={0,0,127}));
   connect(con.y, mapCoo.u)
-    annotation (Line(points={{-88,0},{0,0},{0,-80},{8,-80}}, color={0,0,127}));
-  connect(con.y, mapHea.u) annotation (Line(points={{-88,0},{0,0},{0,80},{8,80}},
+    annotation (Line(points={{-89,0},{0,0},{0,-80},{8,-80}}, color={0,0,127}));
+  connect(con.y, mapHea.u) annotation (Line(points={{-89,0},{0,0},{0,80},{8,80}},
                  color={0,0,127}));
   connect(limInfHea.y, mapHea.x1) annotation (Line(points={{-28,120},{0,120},{0,
           88},{8,88}},    color={0,0,127}));

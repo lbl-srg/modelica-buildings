@@ -16,9 +16,6 @@ block Economizer "Controller for economizer"
        iconTransformation(extent={{-40,-40},{40,40}},
         rotation=90,
         origin={0,-140})));
-  Modelica.Blocks.Interfaces.RealInput TMix "Measured mixed air temperature"
-    annotation (Placement(transformation(extent={{-140,80},{-100,120}}),
-        iconTransformation(extent={{-140,80},{-100,120}})));
   ControlBus controlBus
     annotation (Placement(transformation(extent={{50,-90},{70,-70}}),
         iconTransformation(extent={{50,-90},{70,-70}})));
@@ -27,15 +24,15 @@ block Economizer "Controller for economizer"
     annotation (Placement(transformation(extent={{-140,140},{-100,180}}),
         iconTransformation(extent={{-140,140},{-100,180}})));
   Modelica.Blocks.Interfaces.RealInput TMix "Measured mixed air temperature"
-    annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
-        iconTransformation(extent={{-140,-20},{-100,20}})));
-  Modelica.Blocks.Interfaces.RealInput VOut_flow
-    "Measured outside air flow rate" annotation (Placement(transformation(
-          extent={{-140,-100},{-100,-60}}), iconTransformation(extent={{-140,-100},
-            {-100,-60}})));
-  Modelica.Blocks.Interfaces.RealInput TRet "Return air temperature"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
         iconTransformation(extent={{-140,60},{-100,100}})));
+  Modelica.Blocks.Interfaces.RealInput VOut_flow
+    "Measured outside air flow rate" annotation (Placement(transformation(
+          extent={{-140,-80},{-100,-40}}),  iconTransformation(extent={{-140,-80},
+            {-100,-40}})));
+  Modelica.Blocks.Interfaces.RealInput TRet "Return air temperature"
+    annotation (Placement(transformation(extent={{-140,100},{-100,140}}),
+        iconTransformation(extent={{-140,100},{-100,140}})));
   Modelica.Blocks.Interfaces.RealOutput yRet
     "Control signal for return air damper"
     annotation (Placement(transformation(
@@ -47,7 +44,7 @@ block Economizer "Controller for economizer"
             {240,100}})));
 
   Modelica.Blocks.Math.Gain gain(k=1/VOut_flow_min) "Normalize mass flow rate"
-    annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
+    annotation (Placement(transformation(extent={{-48,-70},{-28,-50}})));
   Buildings.Controls.Continuous.LimPID conV_flow(
     k=k,
     Ti=Ti,
@@ -57,7 +54,7 @@ block Economizer "Controller for economizer"
     final reset=if have_reset then Buildings.Types.Reset.Parameter else
       Buildings.Types.Reset.Disabled)
     "Controller for outside air flow rate"
-    annotation (Placement(transformation(extent={{-22,-20},{-2,0}})));
+    annotation (Placement(transformation(extent={{-10,-20},{10,0}})));
   Modelica.Blocks.Sources.Constant uni(k=1) "Unity signal"
     annotation (Placement(transformation(extent={{-50,-20},{-30,0}})));
   parameter Real k=1 "Gain of controller";
@@ -80,7 +77,7 @@ block Economizer "Controller for economizer"
     final reset=if have_reset then Buildings.Types.Reset.Parameter else
       Buildings.Types.Reset.Disabled)
     "Controller of outdoor damper to track freeze temperature setpoint"
-    annotation (Placement(transformation(extent={{20,120},{40,140}})));
+    annotation (Placement(transformation(extent={{-30,70},{-10,90}})));
   Modelica.Blocks.Math.Min min
     "Takes bigger signal (OA damper opens for temp. control or for minimum outside air)"
     annotation (Placement(transformation(extent={{30,-10},{50,10}})));
@@ -91,20 +88,20 @@ block Economizer "Controller for economizer"
     "Invert control signal for interlocked damper"
     annotation (Placement(transformation(extent={{170,-10},{190,10}})));
   Modelica.Blocks.Logical.Hysteresis hysLoc(final uLow=0, final uHigh=dTLock)
-                      "Hysteresis for economizer lockout"
+    "Hysteresis for economizer lockout"
     annotation (Placement(transformation(extent={{-30,110},{-10,130}})));
   Modelica.Blocks.Math.Feedback feedback
-    annotation (Placement(transformation(extent={{-70,110},{-50,130}})));
+    annotation (Placement(transformation(extent={{-90,110},{-70,130}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swiOA
     "Switch to close outdoor air damper"
     annotation (Placement(transformation(extent={{50,110},{70,130}})));
 equation
   connect(VOut_flow, gain.u) annotation (Line(
-      points={{-120,-80},{-92,-80},{-92,-60},{-62,-60}},
+      points={{-120,-60},{-50,-60}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(gain.y, conV_flow.u_m) annotation (Line(
-      points={{-39,-60},{0,-60},{0,-22}},
+      points={{-27,-60},{0,-60},{0,-22}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(uni.y, conV_flow.u_s) annotation (Line(
@@ -157,8 +154,6 @@ equation
       points={{51,0},{60,0},{60,-6},{78,-6}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(yOATFre.u_s, TMix) annotation (Line(points={{-32,80},{-88,80},{-88,0},
-          {-120,0}},                  color={0,0,127}));
   connect(TFre.y, yOATFre.u_m) annotation (Line(points={{-29,40},{-20,40},{-20,68}},
                           color={0,0,127}));
   connect(yOATFre.y, min.u1) annotation (Line(points={{-9,80},{0,80},{0,6},{28,6}},
@@ -170,11 +165,11 @@ equation
   connect(extractor.y, yOA) annotation (Line(points={{151,0},{160,0},{160,80},{220,
           80}},     color={0,0,127}));
   connect(feedback.y, hysLoc.u)
-    annotation (Line(points={{-51,120},{-32,120}}, color={0,0,127}));
-  connect(TRet, feedback.u1) annotation (Line(points={{-120,80},{-94,80},{-94,120},
-          {-68,120}}, color={0,0,127}));
+    annotation (Line(points={{-71,120},{-32,120}}, color={0,0,127}));
+  connect(TRet, feedback.u1) annotation (Line(points={{-120,120},{-88,120}},
+                      color={0,0,127}));
   connect(controlBus.TOut, feedback.u2) annotation (Line(
-      points={{60,-80},{60,-40},{-60,-40},{-60,112}},
+      points={{60,-80},{-80,-80},{-80,112}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
@@ -191,9 +186,11 @@ equation
           {48,128}}, color={0,0,127}));
 
   connect(uRes, yOATFre.trigger) annotation (Line(points={{-120,190},{-60,190},{
-        -60,108},{22,108},{22,118}}, color={255,0,255}));
+          -60,60},{-28,60},{-28,68}},color={255,0,255}));
   connect(uRes, conV_flow.trigger) annotation (Line(points={{-120,190},{-60,190},
-          {-60,8},{-32,8},{-32,-30},{-20,-30},{-20,-22}}, color={255,0,255}));
+          {-60,-30},{-8,-30},{-8,-22}},                   color={255,0,255}));
+  connect(TMix, yOATFre.u_s)
+    annotation (Line(points={{-120,80},{-32,80}}, color={0,0,127}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{200,
             200}})),

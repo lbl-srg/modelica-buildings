@@ -27,12 +27,6 @@ model ASHRAE2006
     (mWes_flow_nominal/1.2)
     "Minimum discharge air flow rate ratio";
 
-  Modelica.Blocks.Sources.Constant TSupSetHea(y(
-      final quantity="ThermodynamicTemperature",
-      final unit="K",
-      displayUnit="degC",
-      min=0), k=273.15 + 10) "Supply air temperature setpoint for heating"
-    annotation (Placement(transformation(extent={{-180,-172},{-160,-152}})));
   Controls.FanVFD conFanSup(xSet_nominal(displayUnit="Pa") = 410, r_N_min=
         yFanMin)
     "Controller for fan"
@@ -44,7 +38,6 @@ model ASHRAE2006
 
   Controls.Economizer conEco(
     have_reset=true,
-    dT=1,
     VOut_flow_min=Vot_flow_nominal,
     Ti=120,
     k=0.1) "Controller for economizer"
@@ -113,12 +106,12 @@ equation
       index=1,
       extent={{6,3},{6,3}}));
   connect(TRet.T, conEco.TRet) annotation (Line(
-      points={{100,151},{100,172},{-92,172},{-92,152},{-81.3333,152}},
+      points={{100,151},{100,172},{-92,172},{-92,154.667},{-81.3333,154.667}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
   connect(TMix.T, conEco.TMix) annotation (Line(
-      points={{40,-29},{40,168},{-90,168},{-90,146.667},{-81.3333,146.667}},
+      points={{40,-29},{40,168},{-90,168},{-90,152},{-81.3333,152}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
@@ -139,7 +132,7 @@ equation
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
   connect(conEco.VOut_flow, VOut1.V_flow) annotation (Line(
-      points={{-81.3333,141.333},{-90,141.333},{-90,80},{-61,80},{-61,-20.9}},
+      points={{-81.3333,142.667},{-90,142.667},{-90,80},{-61,80},{-61,-20.9}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
@@ -248,7 +241,7 @@ equation
       points={{-16.8,-34},{-16.8,146.667},{-58.6667,146.667}},
       color={0,0,127},
       pattern=LinePattern.Dash));
-  connect(freSta.y, or2.u1) annotation (Line(points={{22,-92},{40,-92},{40,-160},
+  connect(freSta.y, or2.u1) annotation (Line(points={{22,-90},{40,-90},{40,-160},
           {-80,-160},{-80,-240},{-62,-240}},                 color={255,0,255}));
   connect(or2.u2, modeSelector.yFan) annotation (Line(points={{-62,-248},{-80,
           -248},{-80,-310},{-179.545,-310}},
@@ -287,6 +280,9 @@ equation
       points={{-178,-220},{28,-220}},
       color={0,0,127},
       pattern=LinePattern.Dash));
+  connect(or2.y, conEco.uRes) annotation (Line(points={{-38,-240},{-20,-240},{
+          -20,-120},{-80,-120},{-80,134},{-73.3333,134},{-73.3333,137.333}},
+        color={255,0,255}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-380,-400},{1440,
             580}})),
