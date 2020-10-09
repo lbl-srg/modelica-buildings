@@ -27,7 +27,7 @@ protected
     final period=period) "Time table"
     annotation (Placement(transformation(extent={{-12,-10},{8,10}})));
 
-  Integers.GreaterThreshold intGreThr[nout](each t=0)
+  Integers.GreaterThreshold intGreThr[nout](each t=0) "Converts to boolean"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 
 initial equation
