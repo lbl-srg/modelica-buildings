@@ -3,9 +3,9 @@ model HeatExchanger
   "District heat exchanger controller"
   extends Modelica.Blocks.Icons.Block;
 
-  parameter Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Types.HeatExchangerConfiguration
-    hexCon "District heat exchanger configuration"
-    annotation(Evaluate=true);
+  parameter
+    Buildings.Applications.DHC.EnergyTransferStations.Types.ConnectionConfiguration
+    conCon "District heat exchanger configuration" annotation (Evaluate=true);
   parameter Real spePum1HexMin(final unit="1", min=0) = 0.1
     "Heat exchanger primary pump minimum speed (fractional)"
     annotation(Dialog(enable=not have_val1Hex));
@@ -142,8 +142,7 @@ model HeatExchanger
     "Mapping function for valve opening"
     annotation (Placement(transformation(extent={{90,90},{110,110}})));
 protected
-    parameter Boolean have_val1Hex=
-      hexCon==Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Types.HeatExchangerConfiguration.TwoWayValve
+  parameter Boolean have_val1Hex=conCon == Buildings.Applications.DHC.EnergyTransferStations.Types.ConnectionConfiguration.TwoWayValve
     "True in case of control valve on district side, false in case of a pump";
 equation
   connect(delT2.y, absDelT2.u)

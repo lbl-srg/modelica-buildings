@@ -30,7 +30,8 @@ model HeatExchanger
     redeclare final package Medium1 = Medium,
     redeclare final package Medium2 = Medium,
     show_T=true,
-    hexCon=Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Types.HeatExchangerConfiguration.Pump,
+    conCon=Buildings.Applications.DHC.EnergyTransferStations.Types.ConnectionConfiguration.Pump,
+
     dp1Hex_nominal=20E3,
     dp2Hex_nominal=20E3,
     QHex_flow_nominal=1E6,
@@ -38,7 +39,7 @@ model HeatExchanger
     T_b1Hex_nominal=277.15,
     T_a2Hex_nominal=275.15,
     T_b2Hex_nominal=279.15,
-    dT2HexSet={8,5})        "Heat exchanger with primary pump"
+    dT2HexSet={8,5}) "Heat exchanger with primary pump"
     annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi
     annotation (Placement(transformation(extent={{-160,-70},{-140,-50}})));
@@ -79,7 +80,8 @@ model HeatExchanger
     redeclare final package Medium1 = Medium,
     redeclare final package Medium2 = Medium,
     show_T=true,
-    hexCon=Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Types.HeatExchangerConfiguration.TwoWayValve,
+    conCon=Buildings.Applications.DHC.EnergyTransferStations.Types.ConnectionConfiguration.TwoWayValve,
+
     dp1Hex_nominal=20E3,
     dp2Hex_nominal=20E3,
     QHex_flow_nominal=1E6,
@@ -87,7 +89,7 @@ model HeatExchanger
     T_b1Hex_nominal=277.15,
     T_a2Hex_nominal=275.15,
     T_b2Hex_nominal=279.15,
-    dT2HexSet={8,5})        "Heat exchanger with primary control valve"
+    dT2HexSet={8,5}) "Heat exchanger with primary control valve"
     annotation (Placement(transformation(extent={{-10,10},{10,30}})));
   Fluid.Sources.Boundary_pT bou1Val(
     redeclare package Medium = Medium,

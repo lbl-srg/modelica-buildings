@@ -7,9 +7,9 @@ model HeatExchanger
     final m2_flow_nominal=abs(QHex_flow_nominal / 4200 /
                               (T_b2Hex_nominal - T_a2Hex_nominal)));
 
-  parameter Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Types.HeatExchangerConfiguration
-    hexCon "District heat exchanger configuration"
-    annotation(Evaluate=true);
+  parameter
+    Buildings.Applications.DHC.EnergyTransferStations.Types.ConnectionConfiguration
+    conCon "District heat exchanger configuration" annotation (Evaluate=true);
   replaceable parameter Buildings.Fluid.Movers.Data.Generic perPum1(
     motorCooledByFluid=false)
     constrainedby Buildings.Fluid.Movers.Data.Generic
@@ -87,7 +87,7 @@ model HeatExchanger
       iconTransformation(extent={{100,-20},{140,20}})));
   // COMPONENTS
   Controls.HeatExchanger conHex(
-    final hexCon=hexCon,
+    final conCon=conCon,
     final spePum1HexMin=spePum1HexMin,
     final spePum2HexMin=spePum2HexMin,
     final dT2HexSet=dT2HexSet,
@@ -218,8 +218,7 @@ model HeatExchanger
       rotation=0,
       origin={-60,-60})));
 protected
-  parameter Boolean have_val1Hex=
-      hexCon==Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Types.HeatExchangerConfiguration.TwoWayValve
+  parameter Boolean have_val1Hex=conCon == Buildings.Applications.DHC.EnergyTransferStations.Types.ConnectionConfiguration.TwoWayValve
     "True in case of control valve on district side, false in case of a pump";
 equation
   if not have_val1Hex then
