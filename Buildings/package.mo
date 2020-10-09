@@ -317,6 +317,13 @@ have been <b style=\"color:blue\">improved</b> in a
 </tr>
 <tr><td valign=\"top\">Buildings.Examples.VAVReheat.Guideline36
     </td>
+    <td valign=\"top\">Changed the heating maximum airflow setpoint for the terminal control to 30% of the zone nominal airflow.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2172\">issue 2172</a>.
+    </td>
+</tr>     
+<tr><td valign=\"top\">Buildings.Examples.VAVReheat.Guideline36
+    </td>
     <td valign=\"top\">Upgraded sequence of specifying operating mode according to G36 official release.<br/>
                        This is for
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1893\">issue 1893</a>.
