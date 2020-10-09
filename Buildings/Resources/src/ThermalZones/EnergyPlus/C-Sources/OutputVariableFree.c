@@ -20,9 +20,9 @@ void EnergyPlusOutputVariableFree(void* object){
     }
 
     /* The building may not have been instanciated yet if there was an error during instantiation */
-    if (com->ptrBui != NULL){
-      com->ptrBui->nOutputVariables--;
-      FMUBuildingFree(com->ptrBui);
+    if (com->bui != NULL){
+      com->bui->nOutputVariables--;
+      FMUBuildingFree(com->bui);
     }
     free(com);
   }

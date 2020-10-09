@@ -92,7 +92,7 @@ model ThermalZone "Model to connect to an EnergyPlus thermal zone"
     final nFluPor=nPorts,
     final usePrecompiledFMU=usePrecompiledFMU,
     final fmuName=fmuName,
-    final verbosity=verbosity) "FMU zone adapter"
+    final logLevel=logLevel) "FMU zone adapter"
     annotation (Placement(transformation(extent={{80,100},{100,120}})));
 
 protected
@@ -144,11 +144,6 @@ protected
     "Converter for convective heat flow rate"
     annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
 
-//  Modelica.Blocks.Sources.RealExpression mIn_flow[nPorts](
-//    final y={ports[i].m_flow for i in 1:nPorts}) if nPorts > 0
-//    "Inlet mass flow rates"
-//    annotation (Placement(transformation(extent={{70,140},{90,160}})));
-
   final parameter String substanceName = "CO2" "Name of trace substance";
 
   final parameter Modelica.SIunits.MolarMass MM=
@@ -191,7 +186,9 @@ protected
 
 
   Modelica.Blocks.Sources.RealExpression TAirIn[nPorts](
-    each y=293.15) if nPorts > 0
+    y=Medium.temperature(
+      state=Medium.setState_phX(
+        p=ports.p, h=inStream(ports.h_outflow), X=inStream(ports.Xi_outflow)))) if nPorts > 0
     "Temperature that the air has if it were flowing into the room"
     annotation (Placement(transformation(extent={{20,102},{40,122}})));
   Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor heaFloSen
