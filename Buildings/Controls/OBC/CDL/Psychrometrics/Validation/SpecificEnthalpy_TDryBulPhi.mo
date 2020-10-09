@@ -1,44 +1,42 @@
 within Buildings.Controls.OBC.CDL.Psychrometrics.Validation;
-model h_TDryBulPhi "Model to test the specific enthalpy computation"
+model SpecificEnthalpy_TDryBulPhi "Model to test the specific enthalpy computation"
 
-  Buildings.Controls.OBC.CDL.Psychrometrics.h_TDryBulPhi   hBulPhi
+  Buildings.Controls.OBC.CDL.Psychrometrics.SpecificEnthalpy_TDryBulPhi   hBulPhi
    "Model for specific enthalpy computation"
-    annotation (Placement(transformation(extent={{46,-10},{66,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant p(k=101325) "Pressure"
-    annotation (Placement(transformation(extent={{-64,-42},{-44,-22}})));
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp phi(
     duration=1,
     height=1,
     offset=0.001) "Relative humidity"
-    annotation (Placement(transformation(extent={{-64,-10},{-44,10}})));
+    annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TDryBul(k=273.15 + 29.4)
     "Dry bulb temperature"
     annotation (Placement(transformation(extent={{-64,24},{-44,44}})));
 
- // ============ Below blocks are from Buildings Library ============
-  // ===================================================================
-
 equation
   connect(TDryBul.y, hBulPhi.TDryBul)
-    annotation (Line(points={{-43,34},{0,34},{0,8},{45,8}},
+    annotation (Line(points={{-42,34},{-30,34},{-30,6},{-12,6}},
       color={0,0,127}));
   connect(phi.y, hBulPhi.phi)
-    annotation (Line(points={{-43,0},{0,0},{45,0}},
-      color={0,0,127}));
-  connect(p.y, hBulPhi.p)
-    annotation (Line(points={{-43,-32},{0,-32},{0,-8},{45,-8}},
+    annotation (Line(points={{-38,-30},{-30,-30},{-30,-6},{-12,-6}},
       color={0,0,127}));
 
 annotation (experiment(StopTime=1.0, Tolerance = 1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Psychrometrics/Validation/h_TDryBulPhi.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Psychrometrics/Validation/SpecificEnthalpy_TDryBulPhi.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
-This examples is a unit test for the specific enthalpy computation <a href=\"modelica://Buildings.Controls.OBC.CDL.Psychrometrics.h_TDryBulPhi\">
-Buildings.Controls.OBC.CDL.Psychrometrics.h_TDryBulPhi</a>.
+This examples is a unit test for the specific enthalpy computation <a href=\"modelica://Buildings.Controls.OBC.CDL.Psychrometrics.SpecificEnthalpy_TDryBulPhi\">
+Buildings.Controls.OBC.CDL.Psychrometrics.SpecificEnthalpy_TDryBulPhi</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 29, 2020, by Michael Wetter:<br/>
+Renamed model and updated for new input of the psychrometric blocks.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2139\">issue 2139</a>
+</li>
 <li>
 April 7, 2017 by Jianjun Hu:<br/>
 First implementation.
@@ -55,4 +53,4 @@ First implementation.
                 pattern = LinePattern.None,
                 fillPattern = FillPattern.Solid,
                 points = {{-36,60},{64,0},{-36,-60},{-36,60}})}));
-end h_TDryBulPhi;
+end SpecificEnthalpy_TDryBulPhi;

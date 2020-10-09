@@ -45,36 +45,60 @@ package Air
   // Therefore, the statement
   //   p(stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default)
   // has been removed.
-  redeclare replaceable model extends BaseProperties(
-    Xi(each stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default),
-    T(stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default),
-    final standardOrderComponents=true) "Base properties"
+  redeclare model BaseProperties "Base properties (p, d, T, h, u, R, MM and X and Xi) of a medium"
 
+  parameter Boolean preferredMediumStates=false
+    "= true if StateSelect.prefer shall be used for the independent property variables of the medium"
+    annotation (Evaluate=true, Dialog(tab="Advanced"));
+  final parameter Boolean standardOrderComponents=true
+    "If true, and reducedX = true, the last element of X will be computed from the other ones";
+
+  InputAbsolutePressure p "Absolute pressure of medium";
+  InputMassFraction[1] Xi(
+    start=reference_X[1:1],
+    each stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default)
+    "Structurally independent mass fractions";
+  InputSpecificEnthalpy h "Specific enthalpy of medium";
+  Modelica.Media.Interfaces.Types.Density d "Density of medium";
+  Modelica.Media.Interfaces.Types.Temperature T(
+   stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default)
+   "Temperature of medium";
+  Modelica.Media.Interfaces.Types.MassFraction[2] X(start=reference_X)
+    "Mass fractions (= (component mass)/total mass  m_i/m)";
+  Modelica.Media.Interfaces.Types.SpecificInternalEnergy u
+    "Specific internal energy of medium";
+  Modelica.Media.Interfaces.Types.SpecificHeatCapacity R
+    "Gas constant (of mixture if applicable)";
+  Modelica.Media.Interfaces.Types.MolarMass MM
+    "Molar mass (of mixture or single fluid)";
+  ThermodynamicState state
+    "Thermodynamic state record for optional functions";
+
+  Modelica.SIunits.Conversions.NonSIunits.Temperature_degC T_degC=
+    Modelica.SIunits.Conversions.to_degC(T) "Temperature of medium in [degC]";
+  Modelica.SIunits.Conversions.NonSIunits.Pressure_bar p_bar=
+    Modelica.SIunits.Conversions.to_bar(p) "Absolute pressure of medium in [bar]";
+
+  // Local connector definition, used for equation balancing check
+  connector InputAbsolutePressure = input Modelica.SIunits.AbsolutePressure
+    "Pressure as input signal connector";
+  connector InputSpecificEnthalpy = input Modelica.SIunits.SpecificEnthalpy
+    "Specific enthalpy as input signal connector";
+  connector InputMassFraction = input Modelica.SIunits.MassFraction
+    "Mass fraction as input signal connector";
+
+    // Declarations for Air only
   protected
-    constant Modelica.SIunits.MolarMass[2] MMX = {steam.MM,dryair.MM}
-      "Molar masses of components";
+  Modelica.SIunits.TemperatureDifference dT(start=T_default-reference_T)
+    "Temperature difference used to compute enthalpy";
 
-    MassFraction X_steam "Mass fraction of steam water";
-    MassFraction X_air "Mass fraction of air";
-    Modelica.SIunits.TemperatureDifference dT(start=T_default-reference_T)
-      "Temperature difference used to compute enthalpy";
   equation
-    assert(T >= 200.0, "
-In "   + getInstanceName() + ": Temperature T exceeded its minimum allowed value of -73.15 degC (200 Kelvin)
-as required from medium model \"" + mediumName + "\".");
-    assert(T <= 423.15, "
-In "   + getInstanceName() + ": Temperature T exceeded its maximum allowed value of 150 degC (423.15 Kelvin)
-as required from medium model \"" + mediumName + "\".");
-
-    MM = 1/(Xi[Water]/MMX[Water]+(1.0-Xi[Water])/MMX[Air]);
-
-    X_steam  = Xi[Water]; // There is no liquid in this medium model
-    X_air    = 1-Xi[Water];
+    MM = 1/(X[1]/steam.MM+(X[2])/dryair.MM);
 
     dT = T - reference_T;
-    h = dT*dryair.cp * X_air +
-       (dT * steam.cp + h_fg) * X_steam;
-    R = dryair.R*X_air + steam.R*X_steam;
+    h = dT*dryair.cp * X[2] +
+       (dT * steam.cp + h_fg) * X[1];
+    R = dryair.R*X[2] + steam.R*X[1];
 
     // Equation for ideal gas, from h=u+p*v and R*T=p*v, from which follows that  u = h-R*T.
     // u = h-R*T;
@@ -90,6 +114,73 @@ as required from medium model \"" + mediumName + "\".");
     state.p = p;
     state.T = T;
     state.X = X;
+
+    X[1] = Xi[1];
+    X[2] = 1 - X[1];
+
+    // Assertions to test for bounds
+    assert(noEvent(X[1] >= -1.e-5) and noEvent(X[1] <= 1 + 1.e-5), "Mass fraction X[1] = " + String(X[1]) + "of substance water"
+      + "\nof medium \"Buildings.Media.Air\" is not in the range 0..1");
+
+    assert(noEvent(T >= 200.0), "In "   + getInstanceName() + ": Temperature T exceeded its minimum allowed value of -73.15 degC (200 Kelvin)
+as required from medium model \"Buildings.Media.Air\".");
+    assert(noEvent(T <= 423.15), "In "   + getInstanceName() + ": Temperature T exceeded its maximum allowed value of 150 degC (423.15 Kelvin)
+as required from medium model \"Buildings.Media.Air\".");
+
+  assert(noEvent(p >= 0.0), "Pressure (= " + String(p) + " Pa) of medium \"Buildings.Media.Air\" is negative\n(Temperature = " + String(T) + " K)");
+  annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
+            -100},{100,100}}), graphics={Rectangle(
+          extent={{-100,100},{100,-100}},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          lineColor={0,0,255}), Text(
+          extent={{-152,164},{152,102}},
+          textString="%name",
+          lineColor={0,0,255})}), Documentation(info="<html>
+<p>
+Model with basic thermodynamic properties.
+</p>
+<p>
+This model provides equation for the following thermodynamic properties:
+</p>
+<table border=1 cellspacing=0 cellpadding=2 summary=\"Thermodynamic properties\">
+  <tr><td><strong>Variable</strong></td>
+      <td><strong>Unit</strong></td>
+      <td><strong>Description</strong></td></tr>
+  <tr><td>T</td>
+      <td>K</td>
+      <td>temperature</td></tr>
+  <tr><td>p</td>
+      <td>Pa</td>
+      <td>absolute pressure</td></tr>
+  <tr><td>d</td>
+      <td>kg/m3</td>
+      <td>density</td></tr>
+  <tr><td>h</td>
+      <td>J/kg</td>
+      <td>specific enthalpy</td></tr>
+  <tr><td>u</td>
+      <td>J/kg</td>
+      <td>specific internal energy</td></tr>
+  <tr><td>Xi[nXi]</td>
+      <td>kg/kg</td>
+      <td>independent mass fractions m_i/m</td></tr>
+  <tr><td>R</td>
+      <td>J/kg.K</td>
+      <td>gas constant</td></tr>
+  <tr><td>M</td>
+      <td>kg/mol</td>
+      <td>molar mass</td></tr>
+</table>
+</html>", revisions="<html>
+<ul>
+<li>
+September 22, 2020, by Michael Wetter:<br/>
+First implementation based on Modelica Standard Library,
+but with <code>noEvent</code> added to check of bounds.
+</li>
+</ul>
+</html>"));
   end BaseProperties;
 
 redeclare function density "Gas density"
@@ -897,7 +988,7 @@ algorithm
   annotation (
     Inline=true);
 end der_specificHeatCapacityCv;
-  annotation(preferredView="info", Documentation(info="<html>
+  annotation(Documentation(info="<html>
 <p>
 This medium package models moist air using a gas law in which pressure and temperature
 are independent, which often leads to significantly faster and more robust computations.
@@ -968,6 +1059,12 @@ if <i>T=0</i> &deg;C and no water vapor is present.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 28, 2020, by Michael Wetter:<br/>
+Reformulated <code>BaseProperties</code> to avoid event-triggering assertions.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1401\">#1401</a>.
+</li>
 <li>
 January 11, 2019 by Michael Wetter:<br/>
 Reforulated assignment of <code>X_int</code> in <code>setState_psX</code>.<br/>

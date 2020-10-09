@@ -1,17 +1,19 @@
-within Buildings.Controls.OBC.CDL.Continuous;
+within Buildings.Obsolete.Controls.OBC.CDL.Continuous;
 block ChangeSign "Change sign of the input"
+  extends Modelica.Icons.ObsoleteModel;
 
-  Interfaces.RealInput u "Connector of Real input signal"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput u "Connector of Real input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
 
-  Interfaces.RealOutput y "Connector of Real output signal"
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput y "Connector of Real output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation
   y = -u;
 
 annotation (
+  obsolete = "Obsolete model, use Buildings.Controls.OBC.CDL.Continuous.Gain with a gain of -1 instead",
   defaultComponentName="chaSig",
   Icon(coordinateSystem(
         preserveAspectRatio=true,
