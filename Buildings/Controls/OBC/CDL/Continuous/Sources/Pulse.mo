@@ -75,7 +75,8 @@ The Real output y is a pulse signal:
      alt=\"Pulse.png\" />
      </p>
 <p>
-The pulse signal is generated <code>nPeriod</code> amount of times. For infinite duration of the pulse <code>nPeriod</code> should be set to a negative number.
+The pulse signal is generated <code>nPeriod</code> amount of times.
+For infinite number of pulses, set <code>nPeriod = -1</code>.
 </p>
 </html>", revisions="<html>
 <ul>
