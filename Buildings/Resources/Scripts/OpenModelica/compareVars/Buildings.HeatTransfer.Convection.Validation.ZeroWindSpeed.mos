@@ -1,7 +1,8 @@
 compareVars :=
   {
-    "nor.hF",
-    "wes.hF",
-    "sou.hF",
-    "eas.hF"
+    "nor.q_flow",
+    "wes.q_flow",
+    "sou.q_flow",
+    "eas.q_flow",
+    "nor.dir"
   };

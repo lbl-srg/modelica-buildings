@@ -7,8 +7,8 @@ model HeatExchanger
     final m2_flow_nominal=abs(QHex_flow_nominal / 4200 /
                               (T_b2Hex_nominal - T_a2Hex_nominal)));
 
-  parameter Boolean have_val1Hex
-    "Set to true in case of control valve on district side, false in case of a pump"
+  parameter Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Types.HeatExchangerConfiguration
+    hexCon "District heat exchanger configuration"
     annotation(Evaluate=true);
   replaceable parameter Buildings.Fluid.Movers.Data.Generic perPum1(
     motorCooledByFluid=false)
@@ -87,7 +87,7 @@ model HeatExchanger
       iconTransformation(extent={{100,-20},{140,20}})));
   // COMPONENTS
   Controls.HeatExchanger conHex(
-    final have_val1Hex=have_val1Hex,
+    final hexCon=hexCon,
     final spePum1HexMin=spePum1HexMin,
     final spePum2HexMin=spePum2HexMin,
     final dT2HexSet=dT2HexSet,
@@ -217,6 +217,10 @@ model HeatExchanger
       extent={{10,-10},{-10,10}},
       rotation=0,
       origin={-60,-60})));
+protected
+  parameter Boolean have_val1Hex=
+      hexCon==Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Types.HeatExchangerConfiguration.TwoWayValve
+    "True in case of control valve on district side, false in case of a pump";
 equation
   if not have_val1Hex then
     connect(senT1HexWatLvg.port_b, port_b1)
@@ -269,8 +273,6 @@ equation
           {-80,-20},{-80,152},{-72,152}}, color={0,0,127}));
   connect(senT2HexWatEnt.T, conHex.T2HexWatEnt) annotation (Line(points={{9,-40},
           {-86,-40},{-86,157},{-72,157}}, color={0,0,127}));
-  connect(conHex.yVal2Hex, val2Hex.y) annotation (Line(points={{-48,154},{8,154},
-          {8,152},{68,152},{68,-38},{80,-38},{80,-48}}, color={0,0,127}));
   connect(val2Hex.port_2, pum2Hex.port_a)
     annotation (Line(points={{70,-60},{50,-60}}, color={0,127,255}));
   connect(port_a2, val2Hex.port_1)
@@ -281,6 +283,8 @@ equation
     annotation (Line(points={{-70,-60},{-100,-60}}, color={0,127,255}));
   connect(spl.port_3, val2Hex.port_3) annotation (Line(points={{-60,-70},{-60,-80},
           {80,-80},{80,-70}}, color={0,127,255}));
+  connect(conHex.yVal2Hex, val2Hex.y) annotation (Line(points={{-48,154},{64,
+          154},{64,-40},{80,-40},{80,-48}}, color={0,0,127}));
   annotation (
   defaultComponentName="hex",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),

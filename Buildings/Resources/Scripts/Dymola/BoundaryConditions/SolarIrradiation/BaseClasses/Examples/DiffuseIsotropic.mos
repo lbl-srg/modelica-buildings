@@ -1,5 +1,5 @@
 removePlots();
-simulateModel("Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.Examples.DiffuseIsotropic", startTime=0, tolerance=1e-6, stopTime=8640000, method="dassl", resultFile="DiffuseIsotropicBasCla");
+simulateModel("Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.Examples.DiffuseIsotropic", startTime=0, tolerance=1e-6, stopTime=8640000, method="CVode", resultFile="DiffuseIsotropicBasCla");
 createPlot(id = 1,
  position = {7, 7, 746, 517},
  y = {"HDifTilIso.HSkyDifTil", "HDifTilIso.HGroDifTil"},

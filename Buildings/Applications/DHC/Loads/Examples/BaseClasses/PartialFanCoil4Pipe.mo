@@ -27,7 +27,7 @@ partial model PartialFanCoil4Pipe
   final parameter hexConfiguration hexConCoo=
     hexConfiguration.CounterFlow
     "Cooling heat exchanger configuration";
-  Buildings.Controls.OBC.CDL.Continuous.LimPID conHea(
+  Buildings.Controls.OBC.CDL.Continuous.PID conHea(
     Ti=10,
     yMax=1,
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
@@ -81,7 +81,7 @@ partial model PartialFanCoil4Pipe
   Buildings.Controls.OBC.CDL.Continuous.Gain gaiFloNom2(k=max({
     mLoaHea_flow_nominal,mLoaCoo_flow_nominal}))
     annotation (Placement(transformation(extent={{40,130},{60,150}})));
-  Buildings.Controls.OBC.CDL.Continuous.LimPID conCoo(
+  Buildings.Controls.OBC.CDL.Continuous.PID conCoo(
     Ti=10,
     yMax=1,
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,

@@ -3,8 +3,8 @@ model HeatExchanger
   "District heat exchanger controller"
   extends Modelica.Blocks.Icons.Block;
 
-  parameter Boolean have_val1Hex
-    "Set to true in case of control valve on district side, false in case of a pump"
+  parameter Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Types.HeatExchangerConfiguration
+    hexCon "District heat exchanger configuration"
     annotation(Evaluate=true);
   parameter Real spePum1HexMin(final unit="1", min=0) = 0.1
     "Heat exchanger primary pump minimum speed (fractional)"
@@ -68,24 +68,29 @@ model HeatExchanger
   Buildings.Controls.OBC.CDL.Logical.Switch swiOff1
     "Output zero if not enabled"
     annotation (Placement(transformation(extent={{160,-70},{180,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant min1(final k=if
-    have_val1Hex then yVal1HexMin else spePum1HexMin)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant min1(
+    final k=if have_val1Hex then yVal1HexMin else spePum1HexMin)
     "Minimum pump speed or actuator opening"
     annotation (Placement(transformation(extent={{50,-150},{70,-130}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u
     "Control signal for secondary side (from supervisory)" annotation (
       Placement(transformation(extent={{-260,100},{-220,140}}),
         iconTransformation(extent={{-140,60},{-100,100}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold      greThr(threshold=
-        Modelica.Constants.eps) "Check if secondary side is enabled"
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
+    final t=0.05,
+    final h=0.025) "Check if secondary side is enabled"
     annotation (Placement(transformation(extent={{-170,110},{-150,130}})));
   Buildings.Controls.OBC.CDL.Logical.And and2
     "At least one valve is open and HX circuit is enabled"
     annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold heaRej(threshold=0.9)
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold heaRej(
+    final t=0.9,
+    final h=0.1)
     "Heat rejection if condenser isolation valve is open"
     annotation (Placement(transformation(extent={{-170,70},{-150,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold cooRej(threshold=0.9)
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold cooRej(
+    final t=0.9,
+    final h=0.1)
     "Cold rejection if evaporator isolation valve is open"
     annotation (Placement(transformation(extent={{-170,30},{-150,50}})));
   Buildings.Controls.OBC.CDL.Logical.Or or1 "At least one valve is open "
@@ -136,6 +141,10 @@ model HeatExchanger
   Buildings.Controls.OBC.CDL.Continuous.Line mapVal
     "Mapping function for valve opening"
     annotation (Placement(transformation(extent={{90,90},{110,110}})));
+protected
+    parameter Boolean have_val1Hex=
+      hexCon==Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Types.HeatExchangerConfiguration.TwoWayValve
+    "True in case of control valve on district side, false in case of a pump";
 equation
   connect(delT2.y, absDelT2.u)
     annotation (Line(points={{-148,-20},{-92,-20}},    color={0,0,127}));

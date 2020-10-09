@@ -6,7 +6,6 @@ model CollectorDistributor
     final mDisCon_flow_nominal=fill(mDis_flow_nominal, nCon),
     final mEnd_flow_nominal=mDis_flow_nominal,
     final allowFlowReversal=true,
-    show_heaFlo=false,
     final iConDpSen=-1,
     redeclare Connection2PipeLossless con[nCon],
     redeclare model Model_pipDis = Fluid.FixedResistances.LosslessPipe);
@@ -34,8 +33,7 @@ for instance to a higher value to represent a primary overflow
 in a supply through loop.
 </li>
 </ul>
-</html>"),
-Documentation(
+</html>",
 revisions="<html>
 <ul>
 <li>

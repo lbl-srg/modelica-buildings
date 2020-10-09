@@ -19,7 +19,7 @@ model FanCoil2PipeHeating
     final have_TSen=false,
     final have_weaBus=false,
     final have_pum=false,
-    final mHeaWat_flow_nominal=abs(QHea_flow_nominal/cpHeaWat_nominal/(
+    mHeaWat_flow_nominal=abs(QHea_flow_nominal/cpHeaWat_nominal/(
       T_aHeaWat_nominal - T_bHeaWat_nominal)));
   import hexConfiguration = Buildings.Fluid.Types.HeatExchangerConfiguration;
   parameter Real k(min=0) = 1 "Gain of controller";
@@ -50,12 +50,11 @@ model FanCoil2PipeHeating
     dp_nominal=200)
     "Fan"
     annotation (Placement(transformation(extent={{90,-10},{70,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.LimPID con(
+  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset con(
     final k=k,
     final Ti=Ti,
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
-    final reverseActing=true,
-    reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter)
+    final reverseActing=true)
     "PI controller"
     annotation (Placement(transformation(extent={{-10,210},{10,230}})));
   Buildings.Fluid.HeatExchangers.DryCoilEffectivenessNTU hex(

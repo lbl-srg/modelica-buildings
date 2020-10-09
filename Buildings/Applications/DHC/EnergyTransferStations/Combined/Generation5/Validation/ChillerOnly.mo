@@ -3,26 +3,29 @@ model ChillerOnly
   "Validation of the ETS model with heat recovery chiller"
   extends BaseClasses.PartialChillerBorefield;
 
-  Modelica.Blocks.Sources.TimeTable loaHeaRat(
-    table=[0,0.1; 1, 0.1; 4,1; 7,0.2; 9, 0.5; 10,0; 11,0], timeScale=1000)
-    "Heating load (ratio to nominal)"
-    annotation (Placement(transformation(extent={{-290,110},{-270,130}})));
-  Modelica.Blocks.Sources.TimeTable loaCooRat(
-    table=[0,0; 3,0; 4,0.1; 6,0.1; 8, 1; 15,0.5; 16,0.5], timeScale=1000)
-    "Cooling load (ratio to nominal)"
-    annotation (Placement(transformation(extent={{310,110},{290,130}})));
+  Modelica.Blocks.Sources.CombiTimeTable loaRat(
+    tableName="tab1",
+    table=[0,0,0; 5,0,0; 6,0,1; 10,0.5,0.5; 12,0.5,0.6; 13,0.7,0; 16,0.4,0.4; 17,
+        0,0.1; 21,0,0],
+    extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
+    timeScale=3600,
+    offset={0,0},
+    columns={2,3},
+    smoothness=Modelica.Blocks.Types.Smoothness.MonotoneContinuousDerivative1)
+    "Thermal loads (y[1] is cooling load, y[2] is heating load)"
+    annotation (Placement(transformation(extent={{-288,160},{-268,180}})));
 equation
-  connect(loaHeaRat.y, heaLoaNor.u) annotation (Line(points={{-269,120},{-260,120},
+  connect(loaRat.y[2], heaLoaNor.u) annotation (Line(points={{-267,170},{-260,170},
           {-260,60},{-252,60}}, color={0,0,127}));
-  connect(loaCooRat.y, loaCooNor.u) annotation (Line(points={{289,120},{280,120},
+  connect(loaRat.y[1], loaCooNor.u) annotation (Line(points={{-267,170},{280,170},
           {280,60},{272,60}}, color={0,0,127}));
   annotation (
   __Dymola_Commands(file=
 "modelica://Buildings/Resources/Scripts/Dymola/Applications/DHC/EnergyTransferStations/Combined/Generation5/Validation/ChillerOnly.mos"
 "Simulate and plot"),
   experiment(
-    StopTime=20000,
-    Tolerance=1e-06),
+      StopTime=172800,
+      Tolerance=1e-06),
   Documentation(
 revisions="<html>
 <ul>

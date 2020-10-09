@@ -21,13 +21,15 @@ block SideHot "Control block for hot side"
     "Control signal for cold side" annotation (Placement(transformation(extent={
             {180,-180},{220,-140}}), iconTransformation(extent={{100,-100},{140,
             -60}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(threshold=
-        Modelica.Constants.eps) "At least one signal is non zero"
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
+    final t=Modelica.Constants.eps,
+    final h=0.5*Modelica.Constants.eps)
+    "At least one signal is non zero"
     annotation (Placement(transformation(extent={{-10,-170},{10,-150}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea
     "Convert DO to AO signal"
     annotation (Placement(transformation(extent={{130,-130},{150,-110}})));
-  Buildings.Controls.OBC.CDL.Continuous.LimPID conHeaRej(
+  Buildings.Controls.OBC.CDL.Continuous.PID conHeaRej(
     final k=k,
     final Ti=Ti,
     final controllerType=controllerType,

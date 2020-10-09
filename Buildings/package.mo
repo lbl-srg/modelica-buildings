@@ -222,14 +222,44 @@ The following <b style=\"color:blue\">new components</b> have been added
 to <b style=\"color:blue\">existing</b> libraries:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>xxx</b>
+<tr><td colspan=\"2\"><b>Buildings.Controls.OBC</b>
     </td>
 </tr>
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.GroupStatus
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Find minimum and maximum values regarding the status of zones in one group. This is needed
+                       for specifying the group operating mode according to ASHRAE Guideline 36, May 2020 version.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1893\">issue 1893</a>.
     </td>
-    </tr>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.SetPoints.ModeAndSetPoints
+    </td>
+    <td valign=\"top\">Moved from Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.ModeAndSetPoints,
+                       reimplemented to use the operating mode specified according to ASHRAE G36 official release and changed
+                       the heating and cooling demand limit level to be inputs.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1893\">issue 1893</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.PID
+    </td>
+    <td valign=\"top\">New implementation of the PID controller.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2056\">issue 2056</a>.</td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.PIDWithReset
+    </td>
+    <td valign=\"top\">New implementation of the PID controller with output reset based on a boolean trigger.
+                       This implementation allows to reset the output of the controller
+                       to a parameter value. (Resetting it to an input was never used and is now removed for simplicity.)<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2056\">issue 2056</a>.</td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Logical.TimerAccumulating
+    </td>
+    <td valign=\"top\">New timer that accumulates time. The output will be reset to zero when the reset input
+                       becomes <code>true</code>.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2101\">issue 2101</a>.</td>
+</tr>
 </table>
 <!-- Backward compatible changes -->
 <p>
@@ -238,15 +268,58 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">backward compatible</b> way:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>Buildings.Fluid.HeatExchangers.RadiantSlabs</b>
+<tr><td colspan=\"2\"><b>Buildings.Air</b>
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Air.Systems.SingleZone.VAV.Examples.Guideline36
+    </td>
+    <td valign=\"top\">Updated AHU controller which applies the sequence of specifying operating mode
+                       according to G36 official release.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1893\">issue 1893</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL.Continuous</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.Greater<br/>
+                       Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold<br/>
+                       Buildings.Controls.OBC.CDL.Continuous.Less<br/>
+                       Buildings.Controls.OBC.CDL.Continuous.LessThreshold
+    </td>
+    <td valign=\"top\">Added option to specify a hysteresis, which by default is set to <i>0</i>.
+    </td>
+    </tr>
+<tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL.Logical</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Logical.Sources.Pulse
+    </td>
+    <td valign=\"top\">Revised initial equation section to ensure an output of the block is <code>true</code> when simulation is started
+                       after boolean pulse <code>startTime</code> and the simulation start time is such that it falls within a time period during which the
+                       output is expected to be <code>true</code>.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2110\">issue 2110</a>.
+    </td>
+    </tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.HeatExchangers.RadiantSlabs</b>
+    </td>
+    </tr>
 <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Functions.AverageResistance
     </td>
     <td valign=\"top\">Corrected inequality test on <code>alpha</code>,
                        and changed print statement to an assertion with assertion level set to warning.<br/>
                        This is for
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2009\">issue 2009</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Examples</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Examples.VAVReheat.Guideline36
+    </td>
+    <td valign=\"top\">Upgraded sequence of specifying operating mode according to G36 official release.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1893\">issue 1893</a>.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>xxx</b>
@@ -265,13 +338,23 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">non-backward compatible</b> way:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
- <tr><td colspan=\"2\"><b>Buildings.Controls.Continuous</b>
+<tr><td colspan=\"2\"><b>Buildings.Air</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Air.Systems.SingleZone.VAV
+    </td>
+    <td valign=\"top\">Updated parameters of the two HVAC controllers such as PI gains, damper positions,
+                       and supply air temperature limits to make example models comparable.
+                       Added CO2 monitoring.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1893\">issue 1608</a>.
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Controls.Continuous</b>
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Controls.Continuous.LimPID<br/>
                        Buildings.Controls.Continuous.PIDHysteresis<br/>
-                       Buildings.Controls.Continuous.PIDHysteresisTimer<br/>
-                       Buildings.Controls.OBC.CDL.Continuous.LimPID
+                       Buildings.Controls.Continuous.PIDHysteresisTimer
     </td>
     <td valign=\"top\">Corrected wrong convention of reverse and direct action.
                        The previous parameter <code>reverseAction</code> with a default of <code>false</code>
@@ -283,6 +366,95 @@ have been <b style=\"color:blue\">improved</b> in a
                        changes in reverse to the measurement signal.<br/>
                        This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1365\">IBPSA, #1365</a>.<br/>
                        For Dymola, a conversion script makes this change.</td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL.Continuous</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.LimPID
+    </td>
+    <td valign=\"top\">Corrected wrong convention of reverse and direct action.
+                       The previous parameter <code>reverseAction</code> with a default of <code>false</code>
+                       has been removed, and
+                       a new parameter <code>reverseActing</code> with a default of <code>true</code>
+                       has been added. This was done because the previous implementation wrongly interpreted reverse action
+                       as the control output changing in reverse to the change in control error, but the
+                       industry convention is that reverse action means that the control output
+                       changes in reverse to the measurement signal.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1365\">IBPSA, #1365</a>.<br/>
+                       For Dymola, a conversion script makes this change.</td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold<br/>
+                       Buildings.Controls.OBC.CDL.Continuous.GreaterEqual<br/>
+                       Buildings.Controls.OBC.CDL.Continuous.LessEqualThreshold<br/>
+                       Buildings.Controls.OBC.CDL.Continuous.LessEqual
+    </td>
+    <td valign=\"top\">Moved blocks to obsolete package. Instead of these blocks, use the ones that
+                       do not contain the word <code>Equal</code>
+                       in their name. This was done because for real-valued, measured quantities, there is
+                       no reason to distinguish between weak and strict inequality
+                       (due to sensor noise, or within a simulation, due to solver noise or rounding errors).<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2076\">#2076</a>.<br/>
+                       For Dymola, a conversion script makes this change.</td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold<br/>
+                       Buildings.Controls.OBC.CDL.Continuous.LessThreshold<br/>
+                       Buildings.Controls.OBC.CDL.Continuous.NumberOfRequests
+    </td>
+    <td valign=\"top\">Renamed parameter <code>threshold</code> to <code>t</code>.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2076\">#2076</a>.<br/>
+                       For Dymola, a conversion script makes this change.</td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.NumberOfRequests
+    </td>
+    <td valign=\"top\">Moved block to obsolete package because this block is not needed,
+                       and it would need to be refactored to add hysteresis.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2124\">#2124</a>.<br/>
+                       For Dymola, a conversion script makes this change.</td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL.Logical</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Logical.Timer
+    </td>
+    <td valign=\"top\">Removed <code>reset</code> boolean input and added boolean output <code>passed</code>
+                       to show if the time becomes greater than threshold time.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2101\">#2101</a>.
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL.Integers</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Integers.GreaterEqualThreshold<br/>
+                       Buildings.Controls.OBC.CDL.Integers.LessEqualThreshold<br/>
+                       Buildings.Controls.OBC.CDL.Integers.GreaterThreshold<br/>
+                       Buildings.Controls.OBC.CDL.Integers.LessThreshold
+    </td>
+    <td valign=\"top\">Renamed parameter <code>threshold</code> to <code>t</code>.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2076\">#2076</a>.<br/>
+                       For Dymola, a conversion script makes this change.</td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Controls.OBC</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.Controller
+    </td>
+    <td valign=\"top\">Updated the block of specifying operating mode and setpoints.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1893\">issue 1893</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.OperationMode
+    </td>
+    <td valign=\"top\">Upgraded the sequence according to ASHRAE Guideline 36, May 2020 version.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1893\">issue 1893</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.LimPID
+    </td>
+    <td valign=\"top\">Moved model to <code>Building.Obsolete.Controls.OBC.CDL.Continuous</code>.<br/>
+                       Instead of this model, use the new model <code>Buildings.Controls.Continuous.PID</code> or
+                       <code>Buildings.Controls.Continuous.PIDWithReset</code>.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2056\">issue 2056</a>.</td>
 </tr>
 </table>
 <!-- Errors that have been fixed -->
@@ -424,7 +596,7 @@ xxx
                            from control sequences.<br/>
                            This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1709\">#1709</a>.
         </td>
-    </tr>
+      </tr>
     <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Discrete.TriggeredMovingMean
         </td>
         <td valign=\"top\">Block that outputs the triggered discrete moving mean of an input signal.

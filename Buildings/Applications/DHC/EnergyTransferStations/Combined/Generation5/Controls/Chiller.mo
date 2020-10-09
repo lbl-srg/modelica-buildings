@@ -120,11 +120,10 @@ model Chiller "Chiller controller"
     final k=TConWatEntMin)
     "Minimum value of condenser water entering temperature"
     annotation (Placement(transformation(extent={{-10,-290},{10,-270}})));
-  Buildings.Controls.OBC.CDL.Continuous.LimPID conPID(
+  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset conPID(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     k=1,
-    Ti=60,
-    reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter) if have_res
+    Ti=60) if have_res
     "Controller for HWS reset"
     annotation (Placement(transformation(extent={{-90,-90},{-70,-70}})));
   Buildings.Controls.OBC.CDL.Logical.Switch actVal

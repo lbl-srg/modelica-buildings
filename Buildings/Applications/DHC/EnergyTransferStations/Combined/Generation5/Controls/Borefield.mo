@@ -6,10 +6,9 @@ model Borefield "Borefield controller"
     "Maximum value of borefield water entering temperature";
   parameter Real spePumBorMin(final unit="1") = 0.1
     "Borefield pump minimum speed";
-  Buildings.Controls.OBC.CDL.Continuous.LimPID conMix(
+  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset conMix(
     final yMin=0,
     final yMax=1,
-    reset=Buildings.Types.Reset.Parameter,
     final reverseActing=true,
     y_reset=0,
     k=0.1,
@@ -21,14 +20,17 @@ model Borefield "Borefield controller"
     y(final  unit="K", displayUnit="degC"), final k=TBorWatEntMax)
     "Maximum value of borefield water entering temperature"
     annotation (Placement(transformation(extent={{-50,-90},{-30,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold opeVal(threshold=0.9)
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold opeVal(
+    final t=0.9,
+    final h=0.1)
     "True if at least one isolation valve is open"
     annotation (Placement(transformation(extent={{-50,-60},{-30,-40}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiMax multiMax1(nin=2)
     "Maximum opening"
     annotation (Placement(transformation(extent={{-90,-50},{-70,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold enaSup(
-    threshold=Modelica.Constants.eps) "Borefield enabled from supervisory"
+    final t=0.05,
+    final h=0.025) "Borefield enabled from supervisory"
     annotation (Placement(transformation(extent={{-50,-30},{-30,-10}})));
   Buildings.Controls.OBC.CDL.Logical.Switch runBor
     "Enable borefield system pump"

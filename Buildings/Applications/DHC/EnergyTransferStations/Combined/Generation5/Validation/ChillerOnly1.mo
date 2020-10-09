@@ -9,7 +9,7 @@ model ChillerOnly1
 "modelica://Buildings/Resources/Scripts/Dymola/Applications/DHC/EnergyTransferStations/Combined/Generation5/Validation/ChillerOnly1.mos"
 "Simulate and plot"),
   experiment(
-    StopTime=20000,
+    StopTime=172800,
     Tolerance=1e-06),
   Documentation(
 revisions="<html>

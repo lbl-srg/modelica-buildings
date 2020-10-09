@@ -2,9 +2,6 @@ within Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Co
 model Supervisory "Supervisory controller"
   extends BaseClasses.PartialSupervisory;
 
-  parameter Integer nSouAmb
-    "Number of ambient sources to control"
-    annotation(Evaluate=true);
   parameter Modelica.SIunits.TemperatureDifference dTDea(min=0) = 0.5
     "Temperature dead band (absolute value)";
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=

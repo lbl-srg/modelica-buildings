@@ -85,10 +85,14 @@ and
 Modelica.Media.IdealGases.Common.FluidData</a>.
 </p>
 <p>
+To measure PPM in a duct or pipe, use
+<a href=\"modelica://Buildings.Fluid.Sensors.PPMTwoPort\">Buildings.Fluid.Sensors.PPMTwoPort</a>
+rather than this sensor.
 Read the
 <a href=\"modelica://Buildings.Fluid.Sensors.UsersGuide\">
 Buildings.Fluid.Sensors.UsersGuide</a>
-prior to using this model with one fluid port.
+prior to using this model to see about potential numerical problems if this sensor is used incorrectly
+in a system model.
 </p>
 <h4>Assumptions</h4>
 <p>
@@ -98,6 +102,12 @@ wrong.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 21, 2020, by Michael Wetter:<br/>
+Introduced parameter <code>warnAboutOnePortConnection</code> and updated documentation.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1399\">#1399</a>.
+</li>
 <li>
 February 25, 2020, by Michael Wetter:<br/>
 Changed icon to display its operating state.<br/>

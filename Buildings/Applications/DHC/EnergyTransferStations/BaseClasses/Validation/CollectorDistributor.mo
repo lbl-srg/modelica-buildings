@@ -90,7 +90,7 @@ model CollectorDistributor
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant T2_1Ret(k=30 + 273.15)
     "First secondary return temperature"
     annotation (Placement(transformation(extent={{60,370},{80,390}})));
-  Buildings.Controls.OBC.CDL.Continuous.LimPID conTChiWat1(
+  Buildings.Controls.OBC.CDL.Continuous.PID conTChiWat1(
     k=0.1,
     Ti=10,
     yMax=1,
@@ -151,7 +151,7 @@ model CollectorDistributor
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant T2_2Ret(k=35 + 273.15)
     "Second secondary return temperature"
     annotation (Placement(transformation(extent={{60,230},{80,250}})));
-  Buildings.Controls.OBC.CDL.Continuous.LimPID conTChiWat2(
+  Buildings.Controls.OBC.CDL.Continuous.PID conTChiWat2(
     k=0.1,
     Ti=10,
     yMax=1,
@@ -246,7 +246,7 @@ model CollectorDistributor
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant T2_1Ret1(k=30 + 273.15)
     "First secondary return temperature"
     annotation (Placement(transformation(extent={{60,90},{80,110}})));
-  Buildings.Controls.OBC.CDL.Continuous.LimPID conTChiWat3(
+  Buildings.Controls.OBC.CDL.Continuous.PID conTChiWat3(
     k=0.1,
     Ti=10,
     yMax=1,
@@ -299,7 +299,7 @@ model CollectorDistributor
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant T2_2Ret1(k=35 + 273.15)
     "Second secondary return temperature"
     annotation (Placement(transformation(extent={{60,-50},{80,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.LimPID conTChiWat4(
+  Buildings.Controls.OBC.CDL.Continuous.PID conTChiWat4(
     k=0.1,
     Ti=10,
     yMax=1,
@@ -400,7 +400,7 @@ model CollectorDistributor
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant T2_1Ret2(k=30 + 273.15)
     "First secondary return temperature"
     annotation (Placement(transformation(extent={{60,-190},{80,-170}})));
-  Buildings.Controls.OBC.CDL.Continuous.LimPID conTChiWat5(
+  Buildings.Controls.OBC.CDL.Continuous.PID conTChiWat5(
     k=0.1,
     Ti=10,
     yMax=1,
@@ -461,7 +461,7 @@ model CollectorDistributor
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant T2_2Ret2(k=35 + 273.15)
     "Second secondary return temperature"
     annotation (Placement(transformation(extent={{60,-330},{80,-310}})));
-  Buildings.Controls.OBC.CDL.Continuous.LimPID conTChiWat6(
+  Buildings.Controls.OBC.CDL.Continuous.PID conTChiWat6(
     k=0.1,
     Ti=10,
     yMax=1,

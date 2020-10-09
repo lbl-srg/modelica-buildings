@@ -116,11 +116,14 @@ protected
 
   Buildings.Fluid.BaseClasses.MassFlowRateMultiplier masFloDiv(
     redeclare final package Medium = Medium,
-    final k=borFieDat.conDat.nBor) "Division of flow rate"
-    annotation (Placement(transformation(extent={{-60,-50},{-80,-30}})));
+    allowFlowReversal=allowFlowReversal,
+    final k=1/borFieDat.conDat.nBor)
+                                   "Division of flow rate"
+    annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
 
   Buildings.Fluid.BaseClasses.MassFlowRateMultiplier masFloMul(
     redeclare final package Medium = Medium,
+    allowFlowReversal=allowFlowReversal,
     final k=borFieDat.conDat.nBor) "Mass flow multiplier"
     annotation (Placement(transformation(extent={{60,-50},{80,-30}})));
 
@@ -166,10 +169,10 @@ equation
   connect(masFloMul.port_b, port_b)
     annotation (Line(points={{80,-40},{90,-40},{90,0},{100,0}},
                                                      color={0,127,255}));
-  connect(masFloDiv.port_b, port_a)
+  connect(masFloDiv.port_a, port_a)
     annotation (Line(points={{-80,-40},{-90,-40},{-90,0},{-100,0}},
                                                 color={0,127,255}));
-  connect(masFloDiv.port_a, borHol.port_a)
+  connect(masFloDiv.port_b, borHol.port_a)
     annotation (Line(points={{-60,-40},{-10,-40}},     color={0,127,255}));
   connect(borHol.port_b, masFloMul.port_a)
     annotation (Line(points={{10,-40},{60,-40}},    color={0,127,255}));
@@ -292,6 +295,15 @@ temperature after calculating and/or read (from a previous calculation) the bore
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+August 25, 2020, by Filip Jorissen:<br/>
+Switched port connections for <code>masFloDiv</code>.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/41\">#41</a>.
+</li>
+<li>
+March 24, 2020, by Damien Picard:<br/>
+Propagated flowReversal into <code>masFloDiv</code> and <code>masFloMul</code>.
+</li>
 <li>
 June 7, 2019, by Massimo Cimmino:<br/>
 Converted instances that are not of interest to user to be <code>protected</code>.

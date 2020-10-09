@@ -19,8 +19,9 @@ model SideCold1 "Control block for cold side"
     final Ti=Ti,
     final reverseActing=reverseActing)
     annotation (Placement(transformation(extent={{-70,-150},{-50,-130}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(threshold=
-        Modelica.Constants.eps) "At least one signal is non zero"
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
+    final t=Modelica.Constants.eps,
+    final h=0.5*Modelica.Constants.eps) "At least one signal is non zero"
     annotation (Placement(transformation(extent={{80,-150},{100,-130}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea
     "Convert DO to AO signal"
