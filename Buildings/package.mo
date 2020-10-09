@@ -262,23 +262,20 @@ to <b style=\"color:blue\">existing</b> libraries:
 </tr>
 <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Integer.Pulse
     </td>
-    <td valign=\"top\"><code>Integer</code> pulse source signal with a <code>startTime</code> parameter and an optional number of 
+    <td valign=\"top\"><code>Integer</code> pulse source signal with a <code>startTime</code> parameter and an optional number of
                        periods <code>nPeriods</code> specification.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2125\">issue 2125</a>.</td>
 </tr>
 
 <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Integer.TimeTable
     </td>
-    <td valign=\"top\">Scheduler for one or more <code>Integer</code> outputs. 
-                       Each output is held constant between two consecutive entries in each column of the <code>table</code> parameters. 
-                       Extrapolation beyond times specified in the first column of the <code>table</code> parameter may be periodic or the initial and last value are held.<br/>
+    <td valign=\"top\">Time table for <code>Integer</code> outputs.<br/>
+                       Each output is held constant between two consecutive entries in each column of the <code>table</code> parameters.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2125\">issue 2125</a>.</td>
 </tr>
 <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Logical.TimeTable
     </td>
-    <td valign=\"top\">Scheduler for one or more <code>Boolean</code> outputs. 
-                       Each output is held constant between two consecutive entries in each column of the <code>table</code> parameters. 
-                       Extrapolation beyond times specified in the first column of the <code>table</code> parameter may be periodic or the initial and last value are held.<br/>
+    <td valign=\"top\">Time table for <code>Boolean</code> outputs.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2125\">issue 2125</a>.</td>
 </tr>
 </table>
@@ -315,7 +312,7 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
     <td valign=\"top\">Renamed parameter <code>nperiod</code> to <code>nPeriod</code>.
     </td>
-    </tr>    
+    </tr>
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL.Logical</b>
     </td>
 </tr>
