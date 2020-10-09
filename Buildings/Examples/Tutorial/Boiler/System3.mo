@@ -438,7 +438,7 @@ condensation in the boiler:
 <pre>
   parameter Modelica.SIunits.Temperature TBoiSup_nominal = 273.15+80
     \"Boiler nominal supply water temperature\";
-  parameter Modelica.SIunits.Temperature TBoiRet_min = 273.15+50
+  parameter Modelica.SIunits.Temperature TBoiRet_min = 273.15+60
     \"Boiler minimum return water temperature\";
   parameter Modelica.SIunits.MassFlowRate mBoi_flow_nominal=
     Q_flow_nominal/4200/(TBoiSup_nominal-TBoiRet_min)

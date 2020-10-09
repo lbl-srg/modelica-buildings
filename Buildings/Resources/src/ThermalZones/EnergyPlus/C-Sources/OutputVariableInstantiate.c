@@ -17,9 +17,9 @@ void EnergyPlusOutputVariableInstantiate(
     void* object,
     double startTime){
   FMUOutputVariable* var = (FMUOutputVariable*) object;
-  FMUBuilding* bui = var->bui;
+  FMUBuilding* bui = var->ptrBui;
 
-  if (bui->logLevel >= MEDIUM){
+  if (FMU_EP_VERBOSITY >= MEDIUM){
     bui->SpawnFormatMessage("Entered EnergyPlusOutputVariableInstantiate for %s.\n",
       var->modelicaNameOutputVariable);
   }

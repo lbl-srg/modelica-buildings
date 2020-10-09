@@ -1,10 +1,10 @@
-within Buildings.Controls.OBC.CDL.Psychrometrics.Validation;
+within Buildings.Obsolete.Controls.OBC.CDL.Psychrometrics.Validation;
 model TWetBul_TDryBulPhi
   "Model to test the wet bulb temperature computation"
   package Medium = Buildings.Media.Air     "Medium model"
     annotation (choicesAllMatching = true);
 
-  Buildings.Controls.OBC.CDL.Psychrometrics.TWetBul_TDryBulPhi wetBulPhi
+  Buildings.Obsolete.Controls.OBC.CDL.Psychrometrics.TWetBul_TDryBulPhi wetBulPhi
      "Model for wet bulb temperature"
     annotation (Placement(transformation(extent={{-10,46},{10,66}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant p(k=101325) "Pressure"
@@ -90,12 +90,12 @@ equation
       color={0,0,127}));
 
 annotation (experiment(StopTime=1.0,Tolerance = 1e-06),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Psychrometrics/Validation/TWetBul_TDryBulPhi.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Obsolete/Controls/OBC/CDL/Psychrometrics/Validation/TWetBul_TDryBulPhi.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
-This examples is a unit test for the dew point temperature computation <a href=\"modelica://Buildings.Controls.OBC.CDL.Psychrometrics.TWetBul_TDryBulPhi\">
-Buildings.Controls.OBC.CDL.Psychrometrics.TWetBul_TDryBulPhi</a>.
+This examples is a unit test for the dew point temperature computation <a href=\"modelica://Buildings.Obsolete.Controls.OBC.CDL.Psychrometrics.TWetBul_TDryBulPhi\">
+Buildings.Obsolete.Controls.OBC.CDL.Psychrometrics.TWetBul_TDryBulPhi</a>.
 </p>
 <p>
 The model contains an assert that validates the model based on a single operating point from Example 17.1 in

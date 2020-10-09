@@ -20,9 +20,9 @@ model Building
     "Specify if a pre-compiled FMU should be used instead of EnergyPlus (mainly for development)"
     annotation(Dialog(tab="Debug", enable=usePrecompiledFMU));
 
-  parameter Buildings.ThermalZones.EnergyPlus.Types.LogLevels logLevel=
-    Buildings.ThermalZones.EnergyPlus.Types.LogLevels.Warning
-    "Log level of EnergyPlus output"
+  parameter Buildings.ThermalZones.EnergyPlus.Types.Verbosity verbosity=
+    Buildings.ThermalZones.EnergyPlus.Types.Verbosity.Warning
+    "Verbosity of EnergyPlus output"
     annotation(Dialog(tab="Debug"));
 
   parameter Boolean showWeatherData = true

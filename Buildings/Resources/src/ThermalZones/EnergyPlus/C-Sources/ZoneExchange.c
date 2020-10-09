@@ -45,7 +45,7 @@ void EnergyPlusZoneExchange(
   double* tNext){
 
   FMUZone* zone = (FMUZone*) object;
-  FMUBuilding* bui = zone->bui;
+  FMUBuilding* bui = zone->ptrBui;
 
   fmi2Status status;
 
@@ -58,7 +58,7 @@ void EnergyPlusZoneExchange(
   /* Time need to be guarded against rounding error */
   /* *tNext = round((floor(time/3600.0)+1) * 3600.0); */
 
-  if (bui->logLevel >= TIMESTEP)
+  if (FMU_EP_VERBOSITY >= TIMESTEP)
     SpawnFormatMessage("Exchanging data with EnergyPlus: t = %.2f, initialCall = %d, mode = %s, zone = %s.\n",
       time, initialCall, fmuModeToString(bui->mode), zone->modelicaNameThermalZone);
 
@@ -72,12 +72,12 @@ void EnergyPlusZoneExchange(
 
   if (initialCall){
     zone->isInitialized = true; /* Set to true as it will be initialized right below */
-    if (bui->logLevel >= MEDIUM)
+    if (FMU_EP_VERBOSITY >= MEDIUM)
       SpawnFormatMessage("Initial call for zone %s with time = %.f\n", zone->modelicaNameThermalZone, time);
   }
   else
   {
-    if (bui->logLevel >= TIMESTEP)
+    if (FMU_EP_VERBOSITY >= TIMESTEP)
       SpawnFormatMessage("Did not enter initialization mode for zone %s., isInitialized = %d\n",
         zone->modelicaNameThermalZone, zone->isInitialized);
   }
@@ -85,7 +85,7 @@ void EnergyPlusZoneExchange(
   /* Get out of the initialization mode if this zone is no longer in the initial call
      but the FMU is still in initializationMode */
   if ((!initialCall) && bui->mode == initializationMode){
-    if (bui->logLevel >= MEDIUM)
+    if (FMU_EP_VERBOSITY >= MEDIUM)
       SpawnFormatMessage(
         "fmi2_import_exit_initialization_mode: Enter exit initialization mode of FMU in exchange() for zone = %s.\n",
         zone->modelicaNameThermalZone);
@@ -116,7 +116,7 @@ void EnergyPlusZoneExchange(
   /* Forward difference for QConSen_flow */
   zone->inputs->valsSI[0] = T + dT;
 
-  if (bui->logLevel >= TIMESTEP)
+  if (FMU_EP_VERBOSITY >= TIMESTEP)
     SpawnFormatMessage(
       "Input to fmu for zone %s: TAir = %.2f; \t QGaiRad_flow = %.2f\n",
       zone->modelicaNameThermalZone,
@@ -134,7 +134,7 @@ void EnergyPlusZoneExchange(
 
   /* Get next event time, unless FMU is in initialization mode */
   if (bui->mode == initializationMode){
-    if (bui->logLevel >= MEDIUM)
+    if (FMU_EP_VERBOSITY >= MEDIUM)
       SpawnFormatMessage(
         "Returning current time %.0f as tNext due to initializationMode for zone = %s\n",
         bui->time,
@@ -142,7 +142,7 @@ void EnergyPlusZoneExchange(
     *tNext = bui->time; /* Return start time for next event time */
   }
   else{
-    if (bui->logLevel >= TIMESTEP)
+    if (FMU_EP_VERBOSITY >= TIMESTEP)
       SpawnFormatMessage("Calling do_event_iteration after setting inputs for zone = %s\n", zone->modelicaNameThermalZone);
     *tNext = do_event_iteration(bui, zone->modelicaNameThermalZone);
     /* After the event iteration, we must get the output. Otherwise, we get the
@@ -167,7 +167,7 @@ void EnergyPlusZoneExchange(
   *QLat_flow    = zone->outputs->valsSI[2];
   *QPeo_flow    = zone->outputs->valsSI[3];
 
-  if (bui->logLevel >= TIMESTEP)
+  if (FMU_EP_VERBOSITY >= TIMESTEP)
     SpawnFormatMessage("Returning from EnergyPlusZoneExchange with nextEventTime = %.2f, TRad_degC = %.2f, zone = %s, mode = %s, ptr=%p, nZon=%d \n",
     *tNext, zone->outputs->valsEP[0], zone->modelicaNameThermalZone, fmuModeToString(bui->mode), zone, bui->nZon);
 

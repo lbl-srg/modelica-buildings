@@ -31,7 +31,7 @@ model FMUZoneAdapterZones1
     final zoneName="Core_ZN",
     usePrecompiledFMU=true,
     final fmuName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/src/ThermalZones/EnergyPlus/FMUs/Zones1.fmu"),
-    logLevel=Buildings.ThermalZones.EnergyPlus.Types.LogLevels.Verbose,
+    verbosity=Buildings.ThermalZones.EnergyPlus.Types.Verbosity.Verbose,
     final nFluPor=2) "Adapter to EnergyPlus"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
   Modelica.Blocks.Sources.RealExpression X_w(y=0.01) "Zone absolute humidity"

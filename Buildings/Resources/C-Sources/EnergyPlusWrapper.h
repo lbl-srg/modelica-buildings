@@ -3,36 +3,8 @@
 
 #include <ModelicaUtilities.h>
 
-#include <stdint.h>
-
-
-/* Check for 64 bit */
-/* Windows */
-#if _WIN32 || _WIN64
-#if _WIN64
-#define ENVIRONMENT64
-#else
-#define ENVIRONMENT32
-#endif
-#endif
-
-/* gcc */
-#if __GNUC__
-#if __x86_64__ || __ppc64__
-#define ENVIRONMENT64
-#else
-#define ENVIRONMENT32
-#endif
-#endif
-
-#ifndef ENVIRONMENT64
-#error Modelica Spawn coupling is only supported for Linux 64 bit. Your operating system is not 64 bit.
-#endif
-
-
-/* Check for Linux */
-#ifndef __linux__
-#error Modelica Spawn coupling is in this development phase only supported for Linux 64 bit. Windows and OS X will be supported later.
+#ifdef _WIN32
+#error "*** Spawn is not yet supported on Windows."
 #endif
 
 /* ********************************************************* */
@@ -46,7 +18,7 @@ extern void* EnergyPlusZoneAllocate(
   int usePrecompiledFMU,
   const char* fmuName,
   const char* buildingsLibraryRoot,
-  const int logLevel,
+  const int verbosity,
   void (*SpawnMessage)(const char *string),
   void (*SpawnError)(const char *string),
   void (*SpawnFormatMessage)(const char *string, ...),
@@ -88,7 +60,7 @@ extern void* EnergyPlusInputVariableAllocate(
   int usePrecompiledFMU,
   const char* fmuName,
   const char* buildingsLibraryRoot,
-  const int logLevel,
+  const int verbosity,
   void (*SpawnMessage)(const char *string),
   void (*SpawnError)(const char *string),
   void (*SpawnFormatMessage)(const char *string, ...),
@@ -117,7 +89,7 @@ extern void* EnergyPlusOutputVariableAllocate(
   int usePrecompiledFMU,
   const char* fmuName,
   const char* buildingsLibraryRoot,
-  const int logLevel,
+  const int verbosity,
   int printUnit,
   void (*SpawnMessage)(const char *string),
   void (*SpawnError)(const char *string),
