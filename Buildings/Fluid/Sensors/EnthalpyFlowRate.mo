@@ -1,6 +1,7 @@
 within Buildings.Fluid.Sensors;
 model EnthalpyFlowRate "Ideal enthalphy flow rate sensor"
-  extends Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor;
+  extends Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor(
+    tau=0);
   extends Modelica.Icons.RotationalSensor;
   Modelica.Blocks.Interfaces.RealOutput H_flow(final unit="W")
     "Enthalpy flow rate, positive if from port_a to port_b"

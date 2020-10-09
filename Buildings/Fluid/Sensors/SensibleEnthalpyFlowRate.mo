@@ -3,7 +3,8 @@ model SensibleEnthalpyFlowRate
   "Ideal enthalphy flow rate sensor that outputs the sensible enthalpy flow rate only"
   extends Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor(
     redeclare replaceable package Medium =
-        Modelica.Media.Interfaces.PartialCondensingGases);
+        Modelica.Media.Interfaces.PartialCondensingGases,
+    tau=0);
   extends Buildings.Fluid.BaseClasses.IndexMassFraction(final substanceName="water");
   extends Modelica.Icons.RotationalSensor;
   Modelica.Blocks.Interfaces.RealOutput H_flow(final unit="W")
