@@ -1,7 +1,6 @@
-within Buildings.Obsolete.Controls.OBC.CDL.Continuous;
+within Buildings.Controls.OBC.CDL.Continuous;
 block HysteresisWithHold
   "Hysteresis block that optionally allows to specify a hold time"
-  extends Modelica.Icons.ObsoleteModel;
 
   parameter Real uLow "if y=true and u<uLow, switch to y=false";
   parameter Real uHigh "if y=false and u>uHigh, switch to y=true";
@@ -12,20 +11,20 @@ block HysteresisWithHold
   parameter Modelica.SIunits.Time falseHoldDuration = trueHoldDuration
     "false hold duration";
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput u "Real input signal"
+  Interfaces.RealInput u "Real input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y "Boolean output signal"
+  Interfaces.BooleanOutput y "Boolean output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysteresis(
+  Continuous.Hysteresis hysteresis(
     final uLow=uLow,
     final uHigh=uHigh)
     "Transform Real to Boolean signal with Hysteresis"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 
-  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol(
+  Logical.TrueFalseHold truFalHol(
     final trueHoldDuration=trueHoldDuration,
     final falseHoldDuration=falseHoldDuration) "True/false hold"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
@@ -35,12 +34,11 @@ equation
     annotation (Line(points={{-120,0},{-100,0},{-42,0}}, color={0,0,127}));
 
   connect(hysteresis.y, truFalHol.u)
-    annotation (Line(points={{-18,0},{38,0}}, color={255,0,255}));
+    annotation (Line(points={{-18,0},{39,0}}, color={255,0,255}));
   connect(truFalHol.y, y)
-    annotation (Line(points={{62,0},{120,0}}, color={255,0,255}));
+    annotation (Line(points={{61,0},{120,0}}, color={255,0,255}));
 annotation (
   defaultComponentName="hysWitHol",
-  obsolete = "Obsolete model, use Buildings.Controls.OBC.CDL.Continuous.Hysteresis and Buildings.Controls.OBC.CDL.Logical.TrueFalseHold instead",
   Icon(graphics={
         Rectangle(
           extent={{-100,100},{100,-100}},
@@ -97,7 +95,7 @@ at least <code>falseHoldDuration</code> seconds, after which time it is allowed
 to switch immediately.
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Obsolete/Controls/OBC/CDL/Continuous/HysteresisWithHold.png\"
+<img src=\"modelica://Buildings/Resources/Images/Controls/OBC/CDL/Continuous/HysteresisWithHold.png\"
 alt=\"Input and output of the block\"/>
 </p>
 <p>

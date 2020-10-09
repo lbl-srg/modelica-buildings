@@ -1,30 +1,30 @@
-within Buildings.Obsolete.Controls.OBC.CDL.Continuous.Validation;
+within Buildings.Controls.OBC.CDL.Continuous.Validation;
 model HysteresisWithHold "Validation model for the HysteresisWithHold block"
   Modelica.Blocks.Sources.Sine pulse1(
     amplitude = 0.2,
     freqHz =    1/360) "Generate sine wave signal"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
-  Buildings.Obsolete.Controls.OBC.CDL.Continuous.HysteresisWithHold noHold(
+  Buildings.Controls.OBC.CDL.Continuous.HysteresisWithHold noHold(
     trueHoldDuration =  0,
     falseHoldDuration = 0,
     uLow =      0.05,
     uHigh =     0.15) "No true/false hold"
     annotation (Placement(transformation(extent={{20,50},{40,70}})));
-  Buildings.Obsolete.Controls.OBC.CDL.Continuous.HysteresisWithHold onHold_30s(
+  Buildings.Controls.OBC.CDL.Continuous.HysteresisWithHold onHold_30s(
     trueHoldDuration =  30,
     falseHoldDuration = 30,
     uLow =      0.05,
     uHigh =     0.15)
     "On/off signal are hold for short period"
     annotation (Placement(transformation(extent={{20,10},{40,30}})));
-  Buildings.Obsolete.Controls.OBC.CDL.Continuous.HysteresisWithHold offHold_300s(
+  Buildings.Controls.OBC.CDL.Continuous.HysteresisWithHold offHold_300s(
     trueHoldDuration =  30,
     falseHoldDuration = 300,
     uLow =      0.05,
     uHigh =     0.15)
     "Off signal being hold even when it should be on"
     annotation (Placement(transformation(extent={{20,-30},{40,-10}})));
-  Buildings.Obsolete.Controls.OBC.CDL.Continuous.HysteresisWithHold onHold_150s(
+  Buildings.Controls.OBC.CDL.Continuous.HysteresisWithHold onHold_150s(
     trueHoldDuration =  150,
     falseHoldDuration = 30,
     uLow =      0.05,
@@ -43,13 +43,13 @@ equation
     annotation (Line(points={{-19,0},{0,0},{0,20},{18,20}}, color={0,0,127}));
   annotation (
   experiment(StopTime=1800,  Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Obsolete/Controls/OBC/CDL/Continuous/Validation/HysteresisWithHold.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Continuous/Validation/HysteresisWithHold.mos"
         "Simulate and plot"),
   Documentation(info="<html>
 <p>
 Validation test for the block
-<a href=\"modelica://Buildings.Obsolete.Controls.OBC.CDL.Continuous.HysteresisWithHold\">
-Buildings.Obsolete.Controls.OBC.CDL.Continuous.HysteresisWithHold</a>.
+<a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.HysteresisWithHold\">
+Buildings.Controls.OBC.CDL.Continuous.HysteresisWithHold</a>.
 </p>
 <p>
 The hold durations are configured as follows:

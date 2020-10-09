@@ -1,10 +1,12 @@
 within Buildings.Controls.OBC.CDL.Psychrometrics.Validation;
-model DewPoint_TDryBulPhi
+model TDewPoi_TDryBulPhi
   "Model to test the dew point temperature computation"
 
-  Buildings.Controls.OBC.CDL.Psychrometrics.DewPoint_TDryBulPhi dewBulPhi
+  Buildings.Controls.OBC.CDL.Psychrometrics.TDewPoi_TDryBulPhi dewBulPhi
    "Model for dew point temperature"
     annotation (Placement(transformation(extent={{16,74},{36,94}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant p(k=101325) "Pressure"
+     annotation (Placement(transformation(extent={{-94,8}, {-74,28}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp phi(
     duration=1,
     height=1,
@@ -13,6 +15,8 @@ model DewPoint_TDryBulPhi
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TDryBul(k=273.15 + 29.4)
     "Dry bulb temperature"
     annotation (Placement(transformation(extent={{-94,74},{-74,94}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant p2(k=101325) "Pressure"
+    annotation (Placement(transformation(extent={{-94,-94},{-74,-74}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TDryBul2(
     duration=1,
     height=35,
@@ -25,8 +29,7 @@ model DewPoint_TDryBulPhi
  // ============ Below blocks are from Buildings Library ============
   Buildings.Utilities.Psychrometrics.TDewPoi_pW TDewPoi "Dew point temperature"
     annotation (Placement(transformation(extent={{18,4},{38,24}})));
-  Buildings.Utilities.Psychrometrics.X_pTphi X_pTphi(use_p_in=false)
-                                                     "Steam mass fraction"
+  Buildings.Utilities.Psychrometrics.X_pTphi X_pTphi "Steam mass fraction"
     annotation (Placement(transformation(extent={{-46,4},{-26,24}})));
   Buildings.Utilities.Psychrometrics.pW_X humRat(use_p_in=false)
     "Water vapor pressure"
@@ -36,7 +39,7 @@ model DewPoint_TDryBulPhi
   Buildings.Controls.OBC.CDL.Continuous.Add add(k2=-1)
     "Dew point temperature difference"
     annotation (Placement(transformation(extent={{52,40},{72,60}})));
-  Buildings.Controls.OBC.CDL.Psychrometrics.DewPoint_TDryBulPhi dewBulPhi1
+  Buildings.Controls.OBC.CDL.Psychrometrics.TDewPoi_TDryBulPhi dewBulPhi1
    "Model for dew point temperature"
     annotation (Placement(transformation(extent={{18,-28},{38,-8}})));
   Buildings.Utilities.Psychrometrics.TDewPoi_pW TDewPoi1
@@ -45,8 +48,7 @@ model DewPoint_TDryBulPhi
   Buildings.Utilities.Psychrometrics.pW_X humRat1(use_p_in=false)
     "Water vapor pressure"
     annotation (Placement(transformation(extent={{-10,-98},{10,-78}})));
-  Buildings.Utilities.Psychrometrics.X_pTphi X_pTphi1(use_p_in=false)
-                                                      "Steam mass fraction"
+  Buildings.Utilities.Psychrometrics.X_pTphi X_pTphi1 "Steam mass fraction"
     annotation (Placement(transformation(extent={{-44,-98},{-24,-78}})));
   Controls.OBC.CDL.Continuous.Add add1(k2=-1)
     "Dew point temperature difference"
@@ -60,10 +62,16 @@ equation
     annotation (Line(points={{-25,14},{-22,14},{-13,14}},
       color={0,0,127}));
   connect(TDryBul.y, dewBulPhi.TDryBul)
-    annotation (Line(points={{-72,84},{-68,84},{-68,90},{14,90}},
+    annotation (Line(points={{-72,84},{-68,84},{-68,92},{14,92}},
       color={0,0,127}));
   connect(phi.y, dewBulPhi.phi)
-    annotation (Line(points={{-72,50},{-62,50},{-62,78},{14,78}},
+    annotation (Line(points={{-72,50},{-62,50},{-62,84},{14,84}},
+      color={0,0,127}));
+  connect(p.y, dewBulPhi.p)
+    annotation (Line(points={{-72,18},{-56,18},{-56,76},{14,76}},
+      color={0,0,127}));
+  connect(p.y, X_pTphi.p_in)
+    annotation (Line(points={{-72,18},{-56,18},{-56,20},{-48,20}},
       color={0,0,127}));
   connect(TDryBul.y, X_pTphi.T)
     annotation (Line(points={{-72,84},{-68,84},{-68,14},{-48,14}},
@@ -78,13 +86,19 @@ equation
     annotation (Line(points={{38,84},{42,84},{42,56},{50,56}},
       color={0,0,127}));
   connect(TDryBul2.y, dewBulPhi1.TDryBul)
-    annotation (Line(points={{-72,-18},{-68,-18},{-68,-12},{16,-12}},
+    annotation (Line(points={{-72,-18},{-68,-18},{-68,-10},{16,-10}},
       color={0,0,127}));
   connect(TDryBul2.y, X_pTphi1.T)
     annotation (Line(points={{-72,-18},{-68,-18},{-68,-88},{-46,-88}},
       color={0,0,127}));
+  connect(p2.y, X_pTphi1.p_in)
+    annotation (Line(points={{-72,-84},{-56,-84},{-56,-82},{-46,-82}},
+      color={0,0,127}));
+  connect(p2.y, dewBulPhi1.p)
+    annotation (Line(points={{-72,-84},{-56,-84},{-56,-26},{16,-26}},
+      color={0,0,127}));
   connect(phi2.y, dewBulPhi1.phi)
-    annotation (Line(points={{-72,-50},{-62,-50},{-62,-24},{16,-24}},
+    annotation (Line(points={{-72,-50},{-62,-50},{-62,-18},{16,-18}},
       color={0,0,127}));
   connect(phi2.y, X_pTphi1.phi)
     annotation (Line(points={{-72,-50},{-62,-50},{-62,-94},{-46,-94}},
@@ -103,21 +117,15 @@ equation
       color={0,0,127}));
 
 annotation (experiment(StopTime=1.0, Tolerance = 1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Psychrometrics/Validation/DewPoint_TDryBulPhi.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Psychrometrics/Validation/TDewPoi_TDryBulPhi.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
-This examples is a unit test for the dew point temperature computation <a href=\"modelica://Buildings.Controls.OBC.CDL.Psychrometrics.DewPoint_TDryBulPhi\">
-Buildings.Controls.OBC.CDL.Psychrometrics.DewPoint_TDryBulPhi</a>.
+This examples is a unit test for the dew point temperature computation <a href=\"modelica://Buildings.Controls.OBC.CDL.Psychrometrics.TDewPoi_TDryBulPhi\">
+Buildings.Controls.OBC.CDL.Psychrometrics.TDewPoi_TDryBulPhi</a>.
 </p>
 </html>", revisions="<html>
 <ul>
-<li>
-September 29, 2020, by Michael Wetter:<br/>
-Renamed model and updated for new input of the psychrometric blocks.<br/>
-This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2139\">issue 2139</a>
-</li>
 <li>
 April 7, 2017 by Jianjun Hu:<br/>
 First implementation.
@@ -134,4 +142,4 @@ First implementation.
                 pattern = LinePattern.None,
                 fillPattern = FillPattern.Solid,
                 points = {{-36,60},{64,0},{-36,-60},{-36,60}})}));
-end DewPoint_TDryBulPhi;
+end TDewPoi_TDryBulPhi;

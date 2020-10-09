@@ -1,24 +1,23 @@
-within Buildings.Obsolete.Controls.OBC.CDL.Psychrometrics;
+within Buildings.Controls.OBC.CDL.Psychrometrics;
 block TDewPoi_TDryBulPhi
   "Block to compute the dew point temperature based on relative humidity"
-  extends Modelica.Icons.ObsoleteModel;
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TDryBul(
+  Interfaces.RealInput TDryBul(
     final quantity="ThermodynamicTemperature",
     final unit="K",
     final min=100) "Dry bulb temperature"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput phi(final min=0, final max=1, unit="1")
+  Interfaces.RealInput phi(final min=0, final max=1, unit="1")
     "Relative air humidity"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput p(final quantity="Pressure",
+  Interfaces.RealInput p(final quantity="Pressure",
                          final unit="Pa",
                          final min = 0) "Pressure"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput TDewPoi(
+  Interfaces.RealOutput TDewPoi(
     final quantity="ThermodynamicTemperature",
     final unit="K",
     final min=100) "Dew point temperature"
@@ -40,7 +39,6 @@ equation
   TDewPoi = (C14 + C15*alpha + C16*alpha^2 + C17*alpha^3 + C18*(p_w/1000.0)^0.1984)+273.15;
 
 annotation (
-    obsolete = "Obsolete model, use Buildings.Controls.OBC.CDL.Psychrometrics.DewPoint_TDryBulPhi instead",
     defaultComponentName="dewPoi",
     Documentation(info="<html>
 <p>
@@ -48,17 +46,11 @@ Dew point temperature calculation for moist air above freezing temperature.
 </p>
 <p>
 The correlation used in this model is valid for dew point temperatures between
-<i>0</i>&deg;C and <i>93</i>&deg;C. It is the correlation from 2009
-ASHRAE Handbook Fundamentals, p. 1.9, equation 39.
+<i>0</i>&deg;C and <i>93</i>&deg;C. It is the correlation from 2005
+ASHRAE Handbook Fundamentals, p. 6.9.
 </p>
 </html>", revisions="<html>
 <ul>
-<li>
-September 29, 2020, by Michael Wetter:<br/>
-Moved to <code>Obsolete</code> package.<br/>
-This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2139\">issue 2139</a>.
-</li>
 <li>
 April 7, 2017 by Jianjun Hu:<br/>
 First implementation.

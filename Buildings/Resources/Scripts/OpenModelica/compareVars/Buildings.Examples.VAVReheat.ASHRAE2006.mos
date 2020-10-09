@@ -14,7 +14,7 @@ compareVars :=
     "eas.vav.m_flow",
     "nor.vav.m_flow",
     "wes.vav.m_flow",
-    "cor.vav.m_flow",
+    "cor.vav.m_flow_turbulent",
     "conEco.yOA",
     "dpRetDuc.m_flow",
     "dpRetDuc.m_flow_nominal",

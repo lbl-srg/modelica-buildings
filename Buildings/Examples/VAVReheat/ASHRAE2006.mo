@@ -2,7 +2,9 @@ within Buildings.Examples.VAVReheat;
 model ASHRAE2006
   "Variable air volume flow system with terminal reheat and five thermal zones"
   extends Modelica.Icons.Example;
-  extends Buildings.Examples.VAVReheat.BaseClasses.PartialOpenLoop;
+  extends Buildings.Examples.VAVReheat.BaseClasses.PartialOpenLoop(
+    heaCoi(show_T=true),
+    cooCoi(show_T=true));
 
   parameter Real ratVMinCor_flow(final unit="1")=
     max(1.5*VCorOA_flow_nominal, 0.15*mCor_flow_nominal/1.2) /
@@ -343,12 +345,8 @@ equation
   connect(or2.y, conEco.uRes) annotation (Line(points={{22,-170},{60,-170},{60,
           120},{-73.3333,120},{-73.3333,137.333}}, color={255,0,255}));
   annotation (
-    __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/Examples/VAVReheat/ASHRAE2006.mos"
-        "Simulate and plot"),
-    experiment(StopTime=172800, Tolerance=1e-06),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-380,
-            -400},{1420,660}})),
+    Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-380,-400},{1440,
+            580}})),
     Documentation(info="<html>
 <p>
 This model consist of an HVAC system, a building envelope model and a model
@@ -447,5 +445,9 @@ This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/426\">issue 426</a>.
 </li>
 </ul>
-</html>"));
+</html>"),
+    __Dymola_Commands(file=
+          "modelica://Buildings/Resources/Scripts/Dymola/Examples/VAVReheat/ASHRAE2006.mos"
+        "Simulate and plot"),
+    experiment(StopTime=172800, Tolerance=1e-06));
 end ASHRAE2006;

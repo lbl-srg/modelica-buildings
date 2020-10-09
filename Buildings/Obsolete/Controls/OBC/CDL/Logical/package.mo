@@ -1,11 +1,11 @@
 within Buildings.Obsolete.Controls.OBC.CDL;
-package Logical "Package with obsolete models of logical blocks"
+package Logical "Package with logical blocks"
 
 annotation (
 Documentation(
 info="<html>
 <p>
-Package with obsolete blocks for elementary mathematical functions
+Package with blocks for elementary mathematical functions
 for boolean variables.
 </p>
 </html>",

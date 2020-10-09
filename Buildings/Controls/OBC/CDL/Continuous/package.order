@@ -4,6 +4,7 @@ AddParameter
 Atan
 Atan2
 Average
+ChangeSign
 Cos
 Division
 Exp
@@ -12,6 +13,7 @@ Gain
 Greater
 GreaterThreshold
 Hysteresis
+HysteresisWithHold
 IntegratorWithReset
 Less
 LessThreshold
