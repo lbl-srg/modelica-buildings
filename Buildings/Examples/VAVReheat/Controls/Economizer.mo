@@ -1,6 +1,8 @@
 within Buildings.Examples.VAVReheat.Controls;
 block Economizer "Controller for economizer"
   import Buildings.Examples.VAVReheat.Controls.OperationModes;
+  parameter Boolean have_reset = false
+    "Set to true to use an input signal for controller reset";
   parameter Modelica.SIunits.Temperature TFreSet=277.15
     "Lower limit for mixed air temperature for freeze protection";
   parameter Modelica.SIunits.TemperatureDifference dTLock(min=0.1) = 1
@@ -8,6 +10,15 @@ block Economizer "Controller for economizer"
   parameter Modelica.SIunits.VolumeFlowRate VOut_flow_min(min=0)
     "Minimum outside air volume flow rate";
 
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uRes if have_reset
+    "Signal for controller reset"
+    annotation (Placement(transformation(extent={{-140,170},{-100,210}}),
+       iconTransformation(extent={{-40,-40},{40,40}},
+        rotation=90,
+        origin={0,-140})));
+  Modelica.Blocks.Interfaces.RealInput TMix "Measured mixed air temperature"
+    annotation (Placement(transformation(extent={{-140,80},{-100,120}}),
+        iconTransformation(extent={{-140,80},{-100,120}})));
   ControlBus controlBus
     annotation (Placement(transformation(extent={{50,-90},{70,-70}}),
         iconTransformation(extent={{50,-90},{70,-70}})));
@@ -42,8 +53,11 @@ block Economizer "Controller for economizer"
     Ti=Ti,
     yMax=0.995,
     yMin=0.005,
-    Td=60) "Controller for outside air flow rate"
-    annotation (Placement(transformation(extent={{-10,-20},{10,0}})));
+    Td=60,
+    final reset=if have_reset then Buildings.Types.Reset.Parameter else
+      Buildings.Types.Reset.Disabled)
+    "Controller for outside air flow rate"
+    annotation (Placement(transformation(extent={{-22,-20},{-2,0}})));
   Modelica.Blocks.Sources.Constant uni(k=1) "Unity signal"
     annotation (Placement(transformation(extent={{-50,-20},{-30,0}})));
   parameter Real k=1 "Gain of controller";
@@ -61,9 +75,12 @@ block Economizer "Controller for economizer"
     Ti=Ti,
     Td=60,
     yMax=1,
-    yMin=0)
-    "Control signal for outdoor damper to track freeze temperature setpoint"
-    annotation (Placement(transformation(extent={{-30,70},{-10,90}})));
+    yMin=0,
+    reverseActing=false,
+    final reset=if have_reset then Buildings.Types.Reset.Parameter else
+      Buildings.Types.Reset.Disabled)
+    "Controller of outdoor damper to track freeze temperature setpoint"
+    annotation (Placement(transformation(extent={{20,120},{40,140}})));
   Modelica.Blocks.Math.Min min
     "Takes bigger signal (OA damper opens for temp. control or for minimum outside air)"
     annotation (Placement(transformation(extent={{30,-10},{50,10}})));
@@ -172,6 +189,11 @@ equation
     annotation (Line(points={{-9,120},{48,120}}, color={255,0,255}));
   connect(uOATSup, swiOA.u1) annotation (Line(points={{-120,160},{40,160},{40,128},
           {48,128}}, color={0,0,127}));
+
+  connect(uRes, yOATFre.trigger) annotation (Line(points={{-120,190},{-60,190},{
+        -60,108},{22,108},{22,118}}, color={255,0,255}));
+  connect(uRes, conV_flow.trigger) annotation (Line(points={{-120,190},{-60,190},
+          {-60,8},{-32,8},{-32,-30},{-20,-30},{-20,-22}}, color={255,0,255}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{200,
             200}})),
@@ -230,10 +252,19 @@ than the return air dry bulb, economizer cooling is disabled.
 </html>", revisions="<html>
 <ul>
 <li>
-July 6, 2020, by Antoine Gautier:<br/>
-Refactoring to allow supply air temperature control in sequence with the coils.<br/>
+October 9, 2020, by Antoine Gautier:<br/>
+Refactoring to allow supply air temperature control in sequence.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2024\">#2024</a>.
+</li>
+<li>
+July 10, 2020, by Antoine Gautier:<br/>
+Added optional reset signal.
+Corrected connections to <code>yOATFre</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2019\">#2019</a>
+and
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1995\">#1995</a>.
 </li>
 <li>
 December 20, 2016, by Michael Wetter:<br/>

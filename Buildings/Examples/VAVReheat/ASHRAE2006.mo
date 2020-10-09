@@ -6,6 +6,33 @@ model ASHRAE2006
     heaCoi(show_T=true),
     cooCoi(show_T=true));
 
+  parameter Real ratVMinCor_flow(final unit="1")=
+    max(1.5*VCorOA_flow_nominal, 0.15*mCor_flow_nominal/1.2) /
+    (mCor_flow_nominal/1.2)
+    "Minimum discharge air flow rate ratio";
+  parameter Real ratVMinSou_flow(final unit="1")=
+    max(1.5*VSouOA_flow_nominal, 0.15*mSou_flow_nominal/1.2) /
+    (mSou_flow_nominal/1.2)
+    "Minimum discharge air flow rate ratio";
+  parameter Real ratVMinEas_flow(final unit="1")=
+    max(1.5*VEasOA_flow_nominal, 0.15*mEas_flow_nominal/1.2) /
+    (mEas_flow_nominal/1.2)
+    "Minimum discharge air flow rate ratio";
+  parameter Real ratVMinNor_flow(final unit="1")=
+    max(1.5*VNorOA_flow_nominal, 0.15*mNor_flow_nominal/1.2) /
+    (mNor_flow_nominal/1.2)
+    "Minimum discharge air flow rate ratio";
+  parameter Real ratVMinWes_flow(final unit="1")=
+    max(1.5*VWesOA_flow_nominal, 0.15*mWes_flow_nominal/1.2) /
+    (mWes_flow_nominal/1.2)
+    "Minimum discharge air flow rate ratio";
+
+  Modelica.Blocks.Sources.Constant TSupSetHea(y(
+      final quantity="ThermodynamicTemperature",
+      final unit="K",
+      displayUnit="degC",
+      min=0), k=273.15 + 10) "Supply air temperature setpoint for heating"
+    annotation (Placement(transformation(extent={{-180,-172},{-160,-152}})));
   Controls.FanVFD conFanSup(xSet_nominal(displayUnit="Pa") = 410, r_N_min=
         yFanMin)
     "Controller for fan"
@@ -16,8 +43,10 @@ model ASHRAE2006
     annotation (Placement(transformation(extent={{-250,-352},{-230,-332}})));
 
   Controls.Economizer conEco(
-    VOut_flow_min=0.3*m_flow_nominal/1.2,
-    Ti=600,
+    have_reset=true,
+    dT=1,
+    VOut_flow_min=Vot_flow_nominal,
+    Ti=120,
     k=0.1) "Controller for economizer"
     annotation (Placement(transformation(extent={{-80,140},{-60,160}})));
   Controls.RoomTemperatureSetpoint TSetRoo(
@@ -30,15 +59,20 @@ model ASHRAE2006
     nin=5,
     pMin=50) "Duct static pressure setpoint"
     annotation (Placement(transformation(extent={{160,-16},{180,4}})));
-  Controls.RoomVAV conVAVCor "Controller for terminal unit corridor"
+  Controls.RoomVAV conVAVCor(ratVFloMin=ratVMinCor_flow, ratVFloHea=0.3)
+    "Controller for terminal unit corridor"
     annotation (Placement(transformation(extent={{530,32},{550,52}})));
-  Controls.RoomVAV conVAVSou "Controller for terminal unit south"
+  Controls.RoomVAV conVAVSou(ratVFloMin=ratVMinSou_flow, ratVFloHea=0.3)
+                             "Controller for terminal unit south"
     annotation (Placement(transformation(extent={{700,30},{720,50}})));
-  Controls.RoomVAV conVAVEas "Controller for terminal unit east"
+  Controls.RoomVAV conVAVEas(ratVFloMin=ratVMinEas_flow, ratVFloHea=0.3)
+                             "Controller for terminal unit east"
     annotation (Placement(transformation(extent={{880,30},{900,50}})));
-  Controls.RoomVAV conVAVNor "Controller for terminal unit north"
+  Controls.RoomVAV conVAVNor(ratVFloMin=ratVMinNor_flow, ratVFloHea=0.3)
+                             "Controller for terminal unit north"
     annotation (Placement(transformation(extent={{1040,30},{1060,50}})));
-  Controls.RoomVAV conVAVWes "Controller for terminal unit west"
+  Controls.RoomVAV conVAVWes(ratVFloMin=ratVMinWes_flow, ratVFloHea=0.3)
+                             "Controller for terminal unit west"
     annotation (Placement(transformation(extent={{1240,28},{1260,48}})));
 
   Buildings.Controls.OBC.CDL.Logical.Or or2
@@ -314,17 +348,23 @@ ASHRAE, Atlanta, GA, 2006.
 </html>", revisions="<html>
 <ul>
 <li>
-July 6, 2020, by Antoine Gautier:<br/>
-Refactoring to allow supply air temperature control in sequence with the coils.<br/>
+October 9, 2020, by Antoine Gautier:<br/>
+Refactoring to allow supply air temperature control in sequence.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2024\">#2024</a>.
+</li>
+<li>
+July 10, 2020, by Antoine Gautier:<br/>
+Changed design and control parameters for outdoor air flow.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2019\">#2019</a>.
 </li>
 <li>
 April 20, 2020, by Jianjun Hu:<br/>
 Exported actual VAV damper position as the measured input data for
 defining duct static pressure setpoint.<br/>
 This is
-for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1873\">issue #1873</a>
+for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1873\">#1873</a>.
 </li>
 <li>
 May 19, 2016, by Michael Wetter:<br/>

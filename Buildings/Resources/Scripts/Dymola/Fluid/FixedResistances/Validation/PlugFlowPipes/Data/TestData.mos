@@ -1,5 +1,5 @@
 translateModel("Buildings.Fluid.FixedResistances.Validation.PlugFlowPipes.Data.TestData");
-simulateModel("Buildings.Fluid.FixedResistances.Validation.PlugFlowPipes.Data.TestData", stopTime=603900, tolerance=1e-6, method="dassl", resultFile="TestData");
+simulateModel("Buildings.Fluid.FixedResistances.Validation.PlugFlowPipes.Data.TestData", stopTime=603900, tolerance=1e-6, method="CVode", resultFile="TestData");
 createPlot(id = 1,
  position = {55, 50, 697, 502},
  x = "time",

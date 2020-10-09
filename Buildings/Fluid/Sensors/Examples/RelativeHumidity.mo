@@ -33,7 +33,7 @@ model RelativeHumidity "Test model for relative humidity sensor"
                  annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
 
   Buildings.Fluid.Sensors.RelativeHumidity senRelHum(
-    redeclare package Medium = Medium)
+    redeclare package Medium = Medium, warnAboutOnePortConnection=false)
     "Relative humidity of the flow source if the medium were outflowing"
                 annotation (Placement(transformation(extent={{-16,42},{4,62}})));
     Modelica.Blocks.Sources.Ramp m_flow(

@@ -67,9 +67,9 @@
       aria-labelledby="dLabelGlobalToc"><ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="gettingStarted.html">1. Getting Started</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="gettingStarted.html#literature-for-users">1.1. Literature for Users</a></li>
-<li class="toctree-l2"><a class="reference internal" href="gettingStarted.html#literature-for-developers">1.2. Literature for Developers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gettingStarted.html#running-the-first-simulations">1.2. Running the First Simulations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="gettingStarted.html#software-requirements">1.3. Software Requirements</a></li>
-<li class="toctree-l2"><a class="reference internal" href="gettingStarted.html#running-the-first-simulations">1.4. Running the First Simulations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gettingStarted.html#literature-for-developers">1.4. Literature for Developers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="gettingStarted.html#references">1.5. References</a></li>
 </ul>
 </li>
@@ -78,27 +78,24 @@
 <li class="toctree-l2"><a class="reference internal" href="bestPractice.html#building-large-system-models">2.2. Building large system models</a></li>
 <li class="toctree-l2"><a class="reference internal" href="bestPractice.html#propagating-parameters-and-media-packages">2.3. Propagating parameters and media packages</a></li>
 <li class="toctree-l2"><a class="reference internal" href="bestPractice.html#thermo-fluid-systems">2.4. Thermo-fluid systems</a></li>
-<li class="toctree-l2"><a class="reference internal" href="bestPractice.html#start-values-of-iteration-variables">2.5. Start values of iteration variables</a></li>
-<li class="toctree-l2"><a class="reference internal" href="bestPractice.html#avoiding-events">2.6. Avoiding events</a></li>
-<li class="toctree-l2"><a class="reference internal" href="bestPractice.html#controls">2.7. Controls</a></li>
-<li class="toctree-l2"><a class="reference internal" href="bestPractice.html#examples-for-how-to-debug-and-correct-slow-simulations">2.8. Examples for how to debug and correct slow simulations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="bestPractice.html#numerical-solvers">2.9. Numerical solvers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bestPractice.html#controls">2.5. Controls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bestPractice.html#start-values-of-iteration-variables">2.6. Start values of iteration variables</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="workArounds.html">3. Work-Arounds</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="workArounds.html#avoiding-step-changes">3.1. Avoiding step changes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="workArounds.html#breaking-algebraic-loops">3.2. Breaking algebraic loops</a></li>
-<li class="toctree-l2"><a class="reference internal" href="workArounds.html#reducing-nonlinear-equations-of-serially-connected-flow-resistances">3.3. Reducing nonlinear equations of serially connected flow resistances</a></li>
-<li class="toctree-l2"><a class="reference internal" href="workArounds.html#prescribed-mass-flow-rate">3.4. Prescribed mass flow rate</a></li>
-<li class="toctree-l2"><a class="reference internal" href="workArounds.html#avoiding-overspecified-initialization-problems">3.5. Avoiding overspecified initialization problems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performance.html">3. Simulation Performance</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="performance.html#control-input-signal-of-equipment">3.1. Control input signal of equipment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="performance.html#fluid-flow-systems">3.2. Fluid flow systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="performance.html#examples-for-how-to-debug-and-correct-slow-simulations">3.3. Examples for how to debug and correct slow simulations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="performance.html#numerical-solvers">3.4. Numerical solvers</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="prePostProcessing.html">4. Pre- and Post-Processing</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">5. Development</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#contributing">5.1. Contributing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#guidelines-for-contributions">5.2. Guidelines for contributions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#adding-a-new-class">5.3. Adding a new class</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#validation">5.4. Validation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#style-guide">5.3. Style guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#adding-a-new-class">5.4. Adding a new class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#validation-and-unit-tests">5.5. Validation and unit tests</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="help.html">6. Help</a></li>
@@ -122,13 +119,22 @@
 <li><a class="reference internal" href="#">5. Development</a><ul>
 <li><a class="reference internal" href="#contributing">5.1. Contributing</a></li>
 <li><a class="reference internal" href="#guidelines-for-contributions">5.2. Guidelines for contributions</a></li>
-<li><a class="reference internal" href="#adding-a-new-class">5.3. Adding a new class</a><ul>
-<li><a class="reference internal" href="#thermofluid-flow-device">5.3.1. Thermofluid flow device</a></li>
-<li><a class="reference internal" href="#pressure-drop">5.3.2. Pressure drop</a></li>
-<li><a class="reference internal" href="#control-sequences-using-the-control-description-language">5.3.3. Control Sequences using the Control Description Language</a></li>
+<li><a class="reference internal" href="#style-guide">5.3. Style guide</a><ul>
+<li><a class="reference internal" href="#general">5.3.1. General</a></li>
+<li><a class="reference internal" href="#type-declarations">5.3.2. Type declarations</a></li>
+<li><a class="reference internal" href="#equations-and-algorithms">5.3.3. Equations and algorithms</a></li>
+<li><a class="reference internal" href="#functions">5.3.4. Functions</a></li>
+<li><a class="reference internal" href="#package-order">5.3.5. Package order</a></li>
+<li><a class="reference internal" href="#documentation">5.3.6. Documentation</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#validation">5.4. Validation</a></li>
+<li><a class="reference internal" href="#adding-a-new-class">5.4. Adding a new class</a><ul>
+<li><a class="reference internal" href="#thermofluid-flow-device">5.4.1. Thermofluid flow device</a></li>
+<li><a class="reference internal" href="#pressure-drop">5.4.2. Pressure drop</a></li>
+<li><a class="reference internal" href="#control-sequences-using-the-control-description-language">5.4.3. Control sequences using the Control Description Language</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#validation-and-unit-tests">5.5. Validation and unit tests</a></li>
 </ul>
 </li>
 </ul>
@@ -187,15 +193,14 @@ and by providing a pull request with the new code.</p>
 </div>
 <div class="section" id="guidelines-for-contributions">
 <span id="sec-dev-gui-con"></span><h2>5.2. Guidelines for contributions<a class="headerlink" href="#guidelines-for-contributions" title="Permalink to this headline">¶</a></h2>
-<p>Models that are contributed need to adhere to the following guidelines, as this is needed to integrate them in the library, make them accessible to users and further maintain them:</p>
+<p>Models, blocks and functions that are contributed need to adhere to the following guidelines, as this is needed to integrate them in the library, make them accessible to users and further maintain them:</p>
 <blockquote>
 <div><ul class="simple">
 <li><p>They should be of general interest to other users and well documented and tested.</p></li>
 <li><p>They need to follow the coding conventions described in</p>
 <ul>
-<li><p>the <a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_UsersGuide.html#Buildings.UsersGuide.Conventions">Buildings library user guide</a>,</p></li>
-<li><p>the <a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/msl/3.2/help/Modelica_UsersGuide_Conventions.html#Modelica.UsersGuide.Conventions">Modelica Standard Library user guide</a>, and</p></li>
-<li><p>the <a class="reference external" href="https://github.com/lbl-srg/modelica-buildings/wiki/Style-Guide">Buildings library style guide</a>.</p></li>
+<li><p>the <a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_UsersGuide.html#Buildings.UsersGuide.Conventions">Buildings library user guide</a> and</p></li>
+<li><p>the <cite>Style Guide</cite> provided in subsections of <a class="reference internal" href="#sec-sty-gui"><span class="std std-numref">Section 5.3</span></a></p></li>
 </ul>
 </li>
 <li><p>They need to be made available under the <a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_UsersGuide.html#Buildings.UsersGuide.License">Modelica Buildings Library license</a>.</p></li>
@@ -206,8 +211,346 @@ Otherwise, it becomes difficult to ensure that the implementation is numerically
 </ul>
 </div></blockquote>
 </div>
+<div class="section" id="style-guide">
+<span id="sec-sty-gui"></span><h2>5.3. Style guide<a class="headerlink" href="#style-guide" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="general">
+<h3>5.3.1. General<a class="headerlink" href="#general" title="Permalink to this headline">¶</a></h3>
+<ol class="arabic simple">
+<li><p>Classes declared as <code class="docutils literal notranslate"><span class="pre">partial</span></code> and base classes that are not of interest to the user
+should be stored in a subdirectory called <code class="docutils literal notranslate"><span class="pre">BaseClasses</span></code>.
+Each other class, except for constants, must have an icon.</p></li>
+<li><p>Examples and validation models should be in directories such as <code class="docutils literal notranslate"><span class="pre">Valves.Examples</span></code> and
+<code class="docutils literal notranslate"><span class="pre">Valves.Validations</span></code>. A script for the regression tests must be added as described below.</p></li>
+<li><p>Do not copy sections of code. Use object inheritance.</p></li>
+<li><p>Implement components of fluid flow systems by extending the
+classes in <code class="docutils literal notranslate"><span class="pre">Buildings.Fluid.Interfaces</span></code>.</p></li>
+<li><p>Use the full package names when instantiating a class.</p></li>
+<li><p>Models, functions and blocks must be implemented as
+one model, function or block per file. An exception are the <code class="docutils literal notranslate"><span class="pre">Buildings.Media</span></code> packages.</p></li>
+</ol>
+</div>
+<div class="section" id="type-declarations">
+<h3>5.3.2. Type declarations<a class="headerlink" href="#type-declarations" title="Permalink to this headline">¶</a></h3>
+<ol class="arabic">
+<li><p>Declare all public parameters before protected ones.</p></li>
+<li><p>Declare variables and final parameters that are not of interest to
+users as protected.</p></li>
+<li><p>Set default parameter values as follows:</p>
+<ol class="arabic">
+<li><p>If a parameter value can range over a large region, do not provide a
+default value. Examples are nominal mass flow rates.</p></li>
+<li><p>If a parameter value does not vary significantly but need to be verified
+by the user, provide a default value by using its start attribute.
+For example, for a heat exchanger, use</p>
+<div class="highlight-modelica notranslate"><div class="highlight"><pre><span></span><span class="kr">parameter</span> <span class="nb">Real</span> <span class="n">eps</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s2">&quot;1&quot;</span><span class="p">)</span>
+  <span class="s2">&quot;Heat exchanger effectiveness&quot;</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>Do not use <code class="docutils literal notranslate"><span class="pre">parameter</span> <span class="pre">Real</span> <span class="pre">eps=0.8</span></code> as this can lead to errors
+that are difficult to detect if a modeler forgets to overwrite
+the default value of <code class="docutils literal notranslate"><span class="pre">0.8</span></code> with the actual value. The model will simulate,
+but gives wrong results due to unsuited parameter values and there will be no warning.
+On the other hand, using <code class="docutils literal notranslate"><span class="pre">parameter</span> <span class="pre">Real</span> <span class="pre">eps(start=0.8)</span></code> will give a warning
+and hence users can assign better values.</p>
+</li>
+<li><p>If a parameter value can be precomputed based on other parameters,
+set its value to this equation. For example,</p>
+<div class="highlight-modelica notranslate"><div class="highlight"><pre><span></span><span class="kr">parameter</span> <span class="n">Medium</span><span class="o">.</span><span class="n">MassFlowRate</span> <span class="n">m_flow_small</span><span class="p">(</span><span class="nb">min</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">=</span> <span class="mf">1E-4</span><span class="o">*</span><span class="n">m_flow_nominal</span>
+<span class="o">...</span>
+</pre></div>
+</div>
+</li>
+<li><p>If a parameter assignment should not be changed by a user,
+use the <code class="docutils literal notranslate"><span class="pre">final</span></code> keyword.</p></li>
+</ol>
+</li>
+<li><p>For parameters and variables, provide values for the <code class="docutils literal notranslate"><span class="pre">min</span></code> and
+<code class="docutils literal notranslate"><span class="pre">max</span></code> attribute where applicable.
+Be aware, that these bounds are not enforced by the simulator.
+If the <code class="docutils literal notranslate"><span class="pre">min</span></code> and <code class="docutils literal notranslate"><span class="pre">max</span></code> attribute are set, each violation of these bounds
+during the simulation may raise a warning.</p>
+<p>Simulators may allow to suppress these warnings. In Dymola, violation of
+bounds can be checked using</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Advanced</span><span class="o">.</span><span class="n">AssertAllInsideMinMax</span><span class="o">=</span><span class="n">true</span><span class="p">;</span>
+</pre></div>
+</div>
+</li>
+<li><p>For any variable or parameter that may need to be solved numerically,
+provide a value for the <code class="docutils literal notranslate"><span class="pre">start</span></code> and <code class="docutils literal notranslate"><span class="pre">nominal</span></code> attribute.</p></li>
+<li><p>Use types from <code class="docutils literal notranslate"><span class="pre">Modelica.SIunits</span></code> where possible,
+except in the package <code class="docutils literal notranslate"><span class="pre">Buildings.Controls.OBC</span></code> where the units should be declared
+as shown in <a class="reference internal" href="#cod-uni-dec-cdl"><span class="std std-numref">Listing 5.1</span></a>.</p></li>
+</ol>
+</div>
+<div class="section" id="equations-and-algorithms">
+<h3>5.3.3. Equations and algorithms<a class="headerlink" href="#equations-and-algorithms" title="Permalink to this headline">¶</a></h3>
+<ol class="arabic">
+<li><p>Avoid events where possible.</p></li>
+<li><p>Only divide by quantities that cannot take on zero. For example, if
+<code class="docutils literal notranslate"><span class="pre">x</span></code> may take on zero, use <code class="docutils literal notranslate"><span class="pre">y=x</span></code>, not <code class="docutils literal notranslate"><span class="pre">1=y/x</span></code>, as the second
+version indicates to a simulator that it is safe to divide by <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p></li>
+<li><p>Use the <code class="docutils literal notranslate"><span class="pre">assert</span></code> function together with <code class="docutils literal notranslate"><span class="pre">&quot;In</span> <span class="pre">&quot;</span> <span class="pre">+</span> <span class="pre">getInstanceName()</span> <span class="pre">+</span> <span class="pre">&quot;:...</span></code>
+to check for invalid values of parameters or variables. For example, use</p>
+<div class="highlight-modelica notranslate"><div class="highlight"><pre><span></span><span class="nb">assert</span><span class="p">(</span><span class="n">phi</span><span class="o">&gt;=</span><span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;In &quot;</span> <span class="o">+</span> <span class="nb">getInstanceName</span><span class="p">()</span> <span class="o">+</span> <span class="s2">&quot;: Relative humidity must not be negative.&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Note the use of <code class="docutils literal notranslate"><span class="pre">getInstanceName()</span></code>, which will write the instance name as part of the error message.
+Otherwise, OPTIMICA will not write the instance name.</p>
+</li>
+<li><p>Use either graphical modeling or textual code. When using graphical
+schematic modeling, do not add textual equations. For example, avoid
+the following, as on the graphical editor, the model looks appears
+to be singular:</p>
+<div class="highlight-modelica notranslate"><div class="highlight"><pre><span></span><span class="kr">model</span> <span class="nc">Avoid</span>
+  <span class="n">Modelica</span><span class="o">.</span><span class="n">Blocks</span><span class="o">.</span><span class="n">Continuous</span><span class="o">.</span><span class="n">Integrator</span> <span class="n">integrator</span> <span class="s2">&quot;Integrator&quot;</span>
+    <span class="kr">annotation</span> <span class="p">(</span><span class="n">Placement</span><span class="p">(</span><span class="n">transformation</span><span class="p">(</span><span class="n">extent</span><span class="o">=</span><span class="p">{{</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="o">-</span><span class="mi">10</span><span class="p">},{</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">}})));</span>
+  <span class="kr">equation</span>
+  <span class="n">integrator</span><span class="o">.</span><span class="n">u</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="kr">end</span> <span class="nc">Avoid</span><span class="p">;</span>
+</pre></div>
+</div>
+</li>
+<li><p>For computational efficiency, equations shall were possible be
+differentiable and have a continuous first derivative.</p></li>
+<li><p>Avoid equations where the first derivative with respect to another
+variable is zero. For example, avoid</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}f(x) = \begin{cases}
+  0, &amp; \text{for } x &lt; 0 \\
+  x^2, &amp; \text{otherwise.}
+    \end{cases}\end{split}\]</div>
+<p>because any <span class="math notranslate nohighlight">\(x \le 0\)</span> is a solution, which
+can cause instability in the solver.
+Note that this problem do not exist for functions that assign a value
+to a constant as these will be evaluated during the model translation.</p>
+</li>
+<li><p>Do not replace an equation by a constant for a single value, unless
+the derivative of the original equation is zero for this value. For
+example, if computing a pressure drop <code class="docutils literal notranslate"><span class="pre">dp</span></code> may involve computing a
+long equation, but one knows that the result is always zero if the
+volume flow rate <code class="docutils literal notranslate"><span class="pre">V_flow</span></code> is zero, one may be inclined to use a
+construct of the form</p>
+<div class="highlight-modelica notranslate"><div class="highlight"><pre><span></span><span class="n">dp</span> <span class="o">=</span> <span class="nb">smooth</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="kr">if</span> <span class="n">V_flow</span> <span class="o">==</span> <span class="mi">0</span> <span class="kr">then</span> <span class="mi">0</span> <span class="kr">else</span> <span class="n">f</span><span class="p">(</span><span class="n">V_flow</span><span class="p">));</span>
+</pre></div>
+</div>
+<p>The problem with this formulation is that for <code class="docutils literal notranslate"><span class="pre">V_flow=0</span></code>, the
+derivative is <code class="docutils literal notranslate"><span class="pre">dp/dV_flow</span> <span class="pre">=</span> <span class="pre">0</span></code>. However, the limit <code class="docutils literal notranslate"><span class="pre">dp/dV_flow</span></code>,
+as <code class="docutils literal notranslate"><span class="pre">|V_flow|</span></code> tends to zero, may be non-zero. Hence, the first
+derivative has a discontinuity at <code class="docutils literal notranslate"><span class="pre">V_flow=0</span></code>, which can cause a
+solver to fail to solve the equation because the <code class="docutils literal notranslate"><span class="pre">smooth</span></code>
+statement declared that the first derivative exists and is
+continuous.</p>
+</li>
+<li><p>Make sure that the derivatives of equations are bounded on compact
+sets. For example, instead of using <code class="docutils literal notranslate"><span class="pre">y=sign(x)</span> <span class="pre">*</span> <span class="pre">sqrt(abs(x))</span></code>,
+approximate the equation with a differentiable function that has a
+finite derivative near zero. Use functions form
+<code class="docutils literal notranslate"><span class="pre">Buildings.Utilities.Math</span></code> for this approximation.</p></li>
+<li><p>Whenever possible, a Modelica tool should not have to do numerical
+differentiation. For example, in Dymola, if your model translation
+log shows</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Number</span> <span class="n">of</span> <span class="n">numerical</span> <span class="n">Jacobians</span><span class="p">:</span> <span class="mi">1</span>
+</pre></div>
+</div>
+<p>(or any number other than zero), then enter on the command line</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Hidden</span><span class="o">.</span><span class="n">PrintFailureToDifferentiate</span> <span class="o">=</span> <span class="n">true</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>Next, translate the model again to see what functions cannot be
+differentiated symbolically. Then, implement symbolic derivatives for
+this function.
+See <a class="reference external" href="https://github.com/lbl-srg/modelica-buildings/wiki/Function-Derivatives">implementation of function derivatives</a>.</p>
+</li>
+</ol>
+</div>
+<div class="section" id="functions">
+<h3>5.3.4. Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h3>
+<ol class="arabic simple">
+<li><p>Use the <code class="docutils literal notranslate"><span class="pre">smoothOrder</span></code> annotation if a function is differentiable.</p></li>
+<li><p>If a function is invertible, also implement its inverse function and
+use the <code class="docutils literal notranslate"><span class="pre">inverse</span></code> annotation. See
+<code class="docutils literal notranslate"><span class="pre">Buildings.Fluid.BaseClasses.FlowModels</span></code> for an example.</p></li>
+<li><p>If a model allows a linearized implementation of an equation, then
+implement the linearized equation in an <code class="docutils literal notranslate"><span class="pre">equation</span></code> section and not
+in the <code class="docutils literal notranslate"><span class="pre">algorithm</span></code> section of a <code class="docutils literal notranslate"><span class="pre">function</span></code>. Otherwise, a symbolic
+processor cannot invert the linear equation, which can lead to
+coupled systems of equations. See
+<code class="docutils literal notranslate"><span class="pre">Buildings.Fluid.BaseClasses.FlowModels</span></code> for an example.</p></li>
+</ol>
+</div>
+<div class="section" id="package-order">
+<h3>5.3.5. Package order<a class="headerlink" href="#package-order" title="Permalink to this headline">¶</a></h3>
+<ol class="arabic">
+<li><p>Packages are first sorted alphabetically by the function
+<code class="docutils literal notranslate"><span class="pre">_sort_package_order</span></code>. That function is part of BuildingsPy
+and can be invoked as</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">buildingspy.development.refactor</span> <span class="kn">as</span> <span class="nn">r</span>
+<span class="n">r</span><span class="o">.</span><span class="n">write_package_order</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="bp">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p>After alphabetical sorting, the following packages, if they exist,
+are moved to the front:</p>
+<div class="highlight-modelica notranslate"><div class="highlight"><pre><span></span><span class="n">Tutorial</span>
+<span class="n">UsersGuide</span>
+</pre></div>
+</div>
+<p>and the following packages, if they exist, are moved to the end:</p>
+<div class="highlight-modelica notranslate"><div class="highlight"><pre><span></span><span class="n">Data</span>
+<span class="n">Types</span>
+<span class="n">Examples</span>
+<span class="n">Validation</span>
+<span class="n">Benchmarks</span>
+<span class="n">Experimental</span>
+<span class="n">Interfaces</span>
+<span class="n">BaseClasses</span>
+<span class="n">Internal</span>
+<span class="n">Obsolete</span>
+</pre></div>
+</div>
+<p>The remaining classes are ordered as follows and inserted between the above list:
+First, models, blocks and records are listed, then functions, and then packages.</p>
+</li>
+</ol>
+</div>
+<div class="section" id="documentation">
+<h3>5.3.6. Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h3>
+<ol class="arabic">
+<li><p>Add a description string to all parameters and variables, including
+protected ones.</p></li>
+<li><p>Group similar variables using the <code class="docutils literal notranslate"><span class="pre">group</span></code> and <code class="docutils literal notranslate"><span class="pre">tab</span></code> annotation.
+For example, use</p>
+<div class="highlight-modelica notranslate"><div class="highlight"><pre><span></span><span class="kr">parameter</span> <span class="n">Modelica</span><span class="o">.</span><span class="n">SIunits</span><span class="o">.</span><span class="n">Time</span> <span class="n">tau</span> <span class="o">=</span> <span class="mi">60</span>
+  <span class="s2">&quot;Time constant at nominal flow&quot;</span>
+  <span class="kr">annotation</span> <span class="p">(</span><span class="n">Dialog</span><span class="p">(</span><span class="n">group</span><span class="o">=</span><span class="s2">&quot;Nominal condition&quot;</span><span class="p">));</span>
+</pre></div>
+</div>
+<p>or use</p>
+<div class="highlight-modelica notranslate"><div class="highlight"><pre><span></span><span class="kr">parameter</span> <span class="n">Types</span><span class="o">.</span><span class="n">Dynamics</span> <span class="n">substanceDynamics</span><span class="o">=</span><span class="n">energyDynamics</span>
+  <span class="s2">&quot;Formulation of substance balance&quot;</span>
+  <span class="kr">annotation</span><span class="p">(</span><span class="n">Evaluate</span><span class="o">=</span><span class="kc">true</span><span class="p">,</span> <span class="n">Dialog</span><span class="p">(</span><span class="n">tab</span> <span class="o">=</span> <span class="s2">&quot;Assumptions&quot;</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="s2">&quot;Dynamics&quot;</span><span class="p">));</span>
+</pre></div>
+</div>
+</li>
+<li><p>Add model documentation to the <code class="docutils literal notranslate"><span class="pre">info</span></code> section. This applies to validation tests as well. To document
+equations, use the format</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>
+The polynomial has the form
+<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span> <span class="na">align</span><span class="o">=</span><span class="s">&quot;center&quot;</span> <span class="na">style</span><span class="o">=</span><span class="s">&quot;font-style:italic;&quot;</span><span class="p">&gt;</span>
+y = a<span class="p">&lt;</span><span class="nt">sub</span><span class="p">&gt;</span>1<span class="p">&lt;/</span><span class="nt">sub</span><span class="p">&gt;</span> + a<span class="p">&lt;</span><span class="nt">sub</span><span class="p">&gt;</span>2<span class="p">&lt;/</span><span class="nt">sub</span><span class="p">&gt;</span> x + a<span class="p">&lt;</span><span class="nt">sub</span><span class="p">&gt;</span>3<span class="p">&lt;/</span><span class="nt">sub</span><span class="p">&gt;</span> x<span class="p">&lt;</span><span class="nt">sup</span><span class="p">&gt;</span>2<span class="p">&lt;/</span><span class="nt">sup</span><span class="p">&gt;</span> + ...,
+<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>
+where <span class="p">&lt;</span><span class="nt">i</span><span class="p">&gt;</span>a<span class="p">&lt;</span><span class="nt">sub</span><span class="p">&gt;</span>1<span class="p">&lt;/</span><span class="nt">sub</span><span class="p">&gt;&lt;/</span><span class="nt">i</span><span class="p">&gt;</span> is ...
+</pre></div>
+</div>
+<p>To denote time derivatives, such as for mass flow rate,
+use <code class="docutils literal notranslate"><span class="pre">&lt;code&gt;m&amp;#775;&lt;/code&gt;</span></code>.</p>
+<p>To refer to parameters of the model, use the <code class="docutils literal notranslate"><span class="pre">&lt;code&gt;...&lt;/code&gt;</span></code> section as in</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span>To linearize the equation, set <span class="p">&lt;</span><span class="nt">code</span><span class="p">&gt;</span>linearize=true<span class="p">&lt;/</span><span class="nt">code</span><span class="p">&gt;</span>.
+</pre></div>
+</div>
+<p>To format tables, use</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">table</span> <span class="na">summary</span><span class="o">=</span><span class="s">&quot;summary&quot;</span> <span class="na">border</span><span class="o">=</span><span class="s">&quot;1&quot;</span> <span class="na">cellspacing</span><span class="o">=</span><span class="s">&quot;0&quot;</span> <span class="na">cellpadding</span><span class="o">=</span><span class="s">&quot;2&quot;</span> <span class="na">style</span><span class="o">=</span><span class="s">&quot;border-collapse:collapse;&quot;</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">tr</span><span class="p">&gt;&lt;</span><span class="nt">th</span><span class="p">&gt;</span>Header 1<span class="p">&lt;/</span><span class="nt">th</span><span class="p">&gt;</span>       <span class="p">&lt;</span><span class="nt">th</span><span class="p">&gt;</span>Header 2<span class="p">&lt;/</span><span class="nt">th</span><span class="p">&gt;</span>     <span class="p">&lt;/</span><span class="nt">tr</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">tr</span><span class="p">&gt;&lt;</span><span class="nt">td</span><span class="p">&gt;</span>Data 1<span class="p">&lt;/</span><span class="nt">td</span><span class="p">&gt;</span>         <span class="p">&lt;</span><span class="nt">td</span><span class="p">&gt;</span>Data 2<span class="p">&lt;/</span><span class="nt">td</span><span class="p">&gt;</span>       <span class="p">&lt;/</span><span class="nt">tr</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">table</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<p>To include figures, place the figure into a directory in
+<code class="docutils literal notranslate"><span class="pre">Buildings/Resources/Images/</span></code> that has the same name as the full
+package. For example, use</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span> <span class="na">align</span><span class="o">=</span><span class="s">&quot;center&quot;</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">img</span> <span class="na">alt</span><span class="o">=</span><span class="s">&quot;Image of ...&quot;</span>
+<span class="na">src</span><span class="o">=</span><span class="s">&quot;modelica://Buildings/Resources/Images/Fluid/FixedResistances/FixedResistanceDpM.png&quot;</span><span class="p">/&gt;</span>
+<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<p>To create new figures, put the source file for the figure,
+preferably in <code class="docutils literal notranslate"><span class="pre">svg</span></code> format, in the same directory as the <code class="docutils literal notranslate"><span class="pre">png</span></code>
+file. <code class="docutils literal notranslate"><span class="pre">svg</span></code> files can be created with <a class="reference external" href="https://inkscape.org/">https://inkscape.org/</a>, which
+works on any operating system. See for example the file in
+<code class="docutils literal notranslate"><span class="pre">Resources/Images/Examples/Tutorial/SpaceCooling/schematics.svg</span></code>.</p>
+</li>
+<li><p>Add author information to the <code class="docutils literal notranslate"><span class="pre">revision</span></code> section.</p></li>
+<li><p>Run a spell check.</p></li>
+<li><p>Start headings with <code class="docutils literal notranslate"><span class="pre">&lt;h4&gt;</span></code>.</p></li>
+<li><p>Add hyperlinks to other models using their full name. For example,
+use</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span>See
+<span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;modelica://Buildings.Fluid.Sensors.Density&quot;</span><span class="p">&gt;</span>
+Buildings.Fluid.Sensors.Density<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>.
+</pre></div>
+</div>
+</li>
+<li><p>Add a default component name, such as</p>
+<div class="highlight-modelica notranslate"><div class="highlight"><pre><span></span><span class="kr">annotation</span><span class="p">(</span><span class="n">defaultComponentName</span><span class="o">=</span><span class="s2">&quot;senDen&quot;</span><span class="p">,</span> <span class="o">...</span>
+</pre></div>
+</div>
+<p>to objects that will be used as drag and drop elements, as this
+automatically assigns them this name.</p>
+</li>
+<li><p>Keep the line length to no more than around 80 characters.</p></li>
+<li><p>For complex packages, provide a User’s Guide, and reference the
+User’s Guide in <code class="docutils literal notranslate"><span class="pre">Buildings.UsersGuide</span></code>.</p></li>
+<li><p>Use the string <code class="docutils literal notranslate"><span class="pre">fixme</span></code> within development branches to mark passages
+that still need to be revised (e.g., to improve code or to fix bugs).
+Before merging a branch into the master, all <code class="docutils literal notranslate"><span class="pre">fixme</span></code> strings must
+be removed. Within the master branch, no <code class="docutils literal notranslate"><span class="pre">fixme</span></code> are allowed.</p></li>
+<li><p>A suggested template for the documentation of classes is below.
+Except for the short introduction, the sections are optional.</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>
+A short introduction.
+<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">h4</span><span class="p">&gt;</span>Main equations<span class="p">&lt;/</span><span class="nt">h4</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>
+xxx
+<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">h4</span><span class="p">&gt;</span>Assumption and limitations<span class="p">&lt;/</span><span class="nt">h4</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>
+xxx
+<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">h4</span><span class="p">&gt;</span>Typical use and important parameters<span class="p">&lt;/</span><span class="nt">h4</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>
+xxx
+<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">h4</span><span class="p">&gt;</span>Options<span class="p">&lt;/</span><span class="nt">h4</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>
+xxx
+<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">h4</span><span class="p">&gt;</span>Dynamics<span class="p">&lt;/</span><span class="nt">h4</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>
+Describe which states and dynamics are present in the model
+and which parameters may be used to influence them.
+This need not be added in partial classes.
+<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">h4</span><span class="p">&gt;</span>Validation<span class="p">&lt;/</span><span class="nt">h4</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>
+Describe whether the validation was done using
+analytical validation, comparative model validation
+or empirical validation.
+<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">h4</span><span class="p">&gt;</span>Implementation<span class="p">&lt;/</span><span class="nt">h4</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>
+xxx
+<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">h4</span><span class="p">&gt;</span>References<span class="p">&lt;/</span><span class="nt">h4</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>
+Add references, if applicable.
+<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+</li>
+<li><p>Always use lower case html tags.</p></li>
+</ol>
+</div>
+</div>
 <div class="section" id="adding-a-new-class">
-<h2>5.3. Adding a new class<a class="headerlink" href="#adding-a-new-class" title="Permalink to this headline">¶</a></h2>
+<h2>5.4. Adding a new class<a class="headerlink" href="#adding-a-new-class" title="Permalink to this headline">¶</a></h2>
 <p>Adding a new class, such as a model or a function, is usually easiest by extending, or copying and modifying, an existing class.
 In many cases, the similar component already exists.
 In this situation, it is recommended to copy and modify a similar component.
@@ -216,7 +559,7 @@ See for example <a class="reference external" href="https://simulationresearch.l
 <a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors">Buildings.Fluid.Sensors</a>.</p>
 <p>The next sections give guidance that is specific to the implementation of thermofluid flow devices, pressure drop models and control sequences.</p>
 <div class="section" id="thermofluid-flow-device">
-<h3>5.3.1. Thermofluid flow device<a class="headerlink" href="#thermofluid-flow-device" title="Permalink to this headline">¶</a></h3>
+<h3>5.4.1. Thermofluid flow device<a class="headerlink" href="#thermofluid-flow-device" title="Permalink to this headline">¶</a></h3>
 <p>To add a component of a thermofluid flow device, the package
 <a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Interfaces.html">Buildings.Fluid.Interface</a>  contains basic classes that can be extended.
 See <a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Interfaces_UsersGuide.html#Buildings.Fluid.Interfaces.UsersGuide">Buildings.Fluid.Interface.UsersGuide</a> for a description of these classes.
@@ -232,7 +575,7 @@ Alternatively, simple models such as the models below may be used as a starting 
 </dd>
 </dl>
 <div class="figure align-default" id="id2">
-<span id="fig-merkel"></span><a class="reference internal image-reference" href="_images/Merkel.png"><img alt="_images/Merkel.png" src="_images/Merkel.png" style="width: 546.7px; height: 369.90000000000003px;" /></a>
+<span id="fig-merkel"></span><a class="reference internal image-reference" href="_images/Merkel.svg"><img alt="_images/Merkel.svg" src="_images/Merkel.svg" width="700px" /></a>
 <p class="caption"><span class="caption-number">Fig. 5.1 </span><span class="caption-text">Schematic diagram of the cooling tower model based on the Merkel theory.</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
 </div>
 <p>If models involve complex calculations, then these models are generally easiest to understand
@@ -245,7 +588,7 @@ the control signal <cite>y</cite>, the air inlet temperature <cite>TAir</cite>, 
 water mass flow rate <cite>mWat_flow</cite>.</p>
 </div>
 <div class="section" id="pressure-drop">
-<h3>5.3.2. Pressure drop<a class="headerlink" href="#pressure-drop" title="Permalink to this headline">¶</a></h3>
+<h3>5.4.2. Pressure drop<a class="headerlink" href="#pressure-drop" title="Permalink to this headline">¶</a></h3>
 <p>When implementing equations for pressure drop, it is recommended
 to expand the base class
 <a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_BaseClasses.html#Buildings.Fluid.BaseClasses.PartialResistance">Buildings.Fluid.BaseClasses.PartialResistance</a>.
@@ -289,7 +632,7 @@ of the cooling coil.
 This often reduces the size of the system of nonlinear equations.</p>
 </div>
 <div class="section" id="control-sequences-using-the-control-description-language">
-<h3>5.3.3. Control Sequences using the Control Description Language<a class="headerlink" href="#control-sequences-using-the-control-description-language" title="Permalink to this headline">¶</a></h3>
+<h3>5.4.3. Control sequences using the Control Description Language<a class="headerlink" href="#control-sequences-using-the-control-description-language" title="Permalink to this headline">¶</a></h3>
 <p>To implement reusable control sequences, such as done within
 the <a class="reference external" href="https://obc.lbl.gov">OpenBuildingControl</a> project, the
 sequences need to comply with the
@@ -298,27 +641,48 @@ sequences need to comply with the
 <ol class="arabic">
 <li><p>The naming of parameters, inputs, outputs and instances must follow the naming
 conventions in
-<a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_UsersGuide.html#Buildings.UsersGuide.Conventions">Buildings.UsersGuide.Conventions</a>.</p></li>
-<li><p>Each block must have an <code class="docutils literal notranslate"><span class="pre">info</span></code> section that explains its functionality.
-In this <code class="docutils literal notranslate"><span class="pre">info</span></code> section, names of <code class="docutils literal notranslate"><span class="pre">parameters</span></code>, <code class="docutils literal notranslate"><span class="pre">inputs</span></code> and <code class="docutils literal notranslate"><span class="pre">outputs</span></code>
-need to be referenced using the html <code class="docutils literal notranslate"><span class="pre">&lt;code&gt;...&lt;/code&gt;</span></code> element.
-In the <code class="docutils literal notranslate"><span class="pre">info</span></code> section, units need to be provided in SI units, or in dual units. For SI units,
-use Kelvin for temperature <em>differences</em> and degree Celsius for actual temperatures.</p></li>
+<a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_UsersGuide.html#Buildings.UsersGuide.Conventions">Buildings.UsersGuide.Conventions</a>.
+Avoid providing duplicate information in the instance name, for example if the block is within the <code class="docutils literal notranslate"><span class="pre">Boilers</span></code> package,
+the instance name must not contain <code class="docutils literal notranslate"><span class="pre">boi</span></code>. Ensure that the instance name is unambiguous when viewed in a top level
+controller block.
+Consider whether the block can be used to control other equipment as well, and if so, make sure the instance name
+is also applicable for these applications.</p></li>
 <li><p>Parameters that can be grouped together, such as parameters relating to temperature setpoints
 or to the configuration of the trim and respond logic, should be grouped together with the
 <code class="docutils literal notranslate"><span class="pre">Dialog(group=STRING))</span></code> annotation. See for example
 <a class="reference external" href="https://github.com/lbl-srg/modelica-buildings/blob/94d5919dbe1b2f2e317e7b69800f3b3ad07be930/Buildings/Controls/OBC/ASHRAE/G36_PR1/TerminalUnits/Controller.mo">G36_PR1.TerminalUnits.Controller</a>.
 Do not use <code class="docutils literal notranslate"><span class="pre">Dialog(tab=STRING))</span></code>, unless the parameter is declared with a default value
-and this parameter and its value is of no interest to typical users.</p></li>
-<li><p>Each block must have a <code class="docutils literal notranslate"><span class="pre">defaultComponentName</span></code> annotation.</p></li>
+and is of no interest to typical users.</p></li>
+<li><p>In the source code, the instances must be ordered as follows:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>First, list <cite>Boolean</cite> parameters,, then <cite>Integer</cite> parameters and then <cite>Real</cite> parameters.</p></li>
+<li><p>Next, list inputs, then outputs, followed by blocks.</p></li>
+<li><p>Protected instances are below all the public instances and follow the same instance ordering rules.</p></li>
+<li><p>Within the above order, list scalar values before arrays,
+but prioritize groupings based on model specific similarities.</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Each block must have a <code class="docutils literal notranslate"><span class="pre">defaultComponentName</span></code> annotation and a <code class="docutils literal notranslate"><span class="pre">%name</span></code> label placed above the icon.
+See for example the <a class="reference external" href="https://github.com/lbl-srg/modelica-buildings/blob/64f35506a2b725e071a900a90e3fa3a291a48dca/Buildings/Controls/OBC/CDL/Continuous/Sources/Constant.mo#L21">CDL.Continuous.Constant</a>
+block.</p></li>
 <li><p>To aid readability, the formatting of the Modelica source code file must be consistent with other
 implemented blocks, e.g., use two spaces for indentation (no tabulators),
-assign each parameter value on a new line, list first all parameters, then all inputs, all
-outputs, and finally all instances of other blocks.
+assign each parameter value on a new line. It is recommended to add an empty line between instances.
 See for example
 <a class="reference external" href="https://github.com/lbl-srg/modelica-buildings/blob/94d5919dbe1b2f2e317e7b69800f3b3ad07be930/Buildings/Controls/OBC/ASHRAE/G36_PR1/AHUs/SingleZone/VAV/SetPoints/ExhaustDamper.mo">G36_PR1.AHUs.SingleZone.VAV.SetPoints.ExhaustDamper</a>.</p></li>
 <li><p>For parameters, where generally valid values can be provided, provide them
 as default values.</p></li>
+<li><p>Add comments to all instances. The comments should be concise. The comments
+should not contain redundant information and must not contain hard coded parameters as those can change.
+If the functionality of an instance is obvious the developer may use
+comments that closely resemble the class names, such as “Logical And”.</p></li>
+<li><p>Each block must have an <code class="docutils literal notranslate"><span class="pre">info</span></code> section that explains its functionality.
+In this <code class="docutils literal notranslate"><span class="pre">info</span></code> section, names of <code class="docutils literal notranslate"><span class="pre">parameters</span></code>, <code class="docutils literal notranslate"><span class="pre">inputs</span></code> and <code class="docutils literal notranslate"><span class="pre">outputs</span></code>
+need to be referenced using the html <code class="docutils literal notranslate"><span class="pre">&lt;code&gt;...&lt;/code&gt;</span></code> element.
+In the <code class="docutils literal notranslate"><span class="pre">info</span></code> section, units need to be provided in SI units, or in dual units. For SI units,
+use Kelvin for temperature <em>differences</em> and degree Celsius for actual temperatures.</p></li>
 <li><p>For PI controllers, normalize the inputs for setpoint and measured value so
 that the control error is of the order of one.
 As control errors for temperature tracking are usually in the order of one,
@@ -328,7 +692,7 @@ and it aids in tuning.</p></li>
 <li><p>Never use an inequality comparison without a hysteresis or a time delay if the variable that is used in the inequality test
 is computed using an iterative solver, or is obtained from a measurement and hence can contain measurement noise.
 An exception is a sampled value because the output of a sampler remains constant until the next sampling instant.
-See <a class="reference internal" href="bestPractice.html#sec-bes-pra-con"><span class="std std-numref">Section 2.7</span></a>.</p></li>
+See <a class="reference internal" href="bestPractice.html#sec-bes-pra-con"><span class="std std-numref">Section 2.5</span></a>.</p></li>
 <li><p>CDL uses the following units, which also need to be used in controllers, including
 their parameters:</p>
 <table class="docutils align-default">
@@ -381,6 +745,8 @@ their parameters:</p>
 <p>Hence, for example, a controller that takes as an input a temperature and a temperature difference
 and produces as an output a damper position signal, use a declaration such as shown in the code snippet below
 in which graphical annotations are omitted.</p>
+<div class="literal-block-wrapper docutils container" id="cod-uni-dec-cdl">
+<div class="code-block-caption"><span class="caption-number">Listing 5.1 </span><span class="caption-text">Unit declaration for CDL.</span><a class="headerlink" href="#cod-uni-dec-cdl" title="Permalink to this code">¶</a></div>
 <div class="highlight-modelica notranslate"><div class="highlight"><pre><span></span><span class="n">Buildings</span><span class="o">.</span><span class="n">Controls</span><span class="o">.</span><span class="n">OBC</span><span class="o">.</span><span class="n">CDL</span><span class="o">.</span><span class="n">Interfaces</span><span class="o">.</span><span class="n">RealInput</span> <span class="n">TZon</span><span class="p">(</span>
   <span class="kr">final</span> <span class="n">unit</span><span class="o">=</span><span class="s2">&quot;K&quot;</span><span class="p">,</span>
   <span class="n">displayUnit</span><span class="o">=</span><span class="s2">&quot;degC&quot;</span><span class="p">)</span> <span class="s2">&quot;Measured zone air temperature&quot;</span><span class="p">;</span>
@@ -389,49 +755,74 @@ in which graphical annotations are omitted.</p>
   <span class="kr">final</span> <span class="n">unit</span><span class="o">=</span><span class="s2">&quot;K&quot;</span><span class="p">)</span> <span class="s2">&quot;Temperature difference supply air minus exhaust air&quot;</span><span class="p">;</span>
 
 <span class="n">Buildings</span><span class="o">.</span><span class="n">Controls</span><span class="o">.</span><span class="n">OBC</span><span class="o">.</span><span class="n">CDL</span><span class="o">.</span><span class="n">Interfaces</span><span class="o">.</span><span class="n">RealOutput</span> <span class="n">yDam</span><span class="p">(</span>
-  <span class="nb">min</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
-  <span class="nb">max</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+  <span class="kr">final</span> <span class="nb">min</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+  <span class="kr">final</span> <span class="nb">max</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
   <span class="kr">final</span> <span class="n">unit</span><span class="o">=</span><span class="s2">&quot;1&quot;</span><span class="p">)</span> <span class="s2">&quot;Exhaust damper position&quot;</span><span class="p">;</span>
 </pre></div>
 </div>
-<p>Here, units are declared as <code class="docutils literal notranslate"><span class="pre">final</span></code> to avoid users to be able to change them, as
-a change in unit may cause the control logic to be incorrect.</p>
+</div>
 <p>Conversion of these units to non-SI units can be done programmatically by tools that
 process CDL.</p>
 </li>
+<li><p>Units, quantities and value limits must be declared as <code class="docutils literal notranslate"><span class="pre">final</span></code> to avoid users to be able to change them, as
+a change in unit may cause the control logic to be incorrect.</p></li>
 <li><p>If the block diagram does not fit into the drawing pane, enlarge the drawing pane rather
 than making the blocks smaller.</p></li>
+<li><p>The size of the icon should be such that it provides a good fit for all the input and output interfaces. The minimum
+recommended icon size is 100 by a 100. If there are many interfaces the icon size should be extended in vertical direction.
+Icons should be symmetrical with reference to the grid origin. E.g, the default specification is</p>
+<div class="highlight-modelica notranslate"><div class="highlight"><pre><span></span><span class="n">Icon</span><span class="p">(</span>
+  <span class="n">coordinateSystem</span><span class="p">(</span>
+    <span class="n">preserveAspectRatio</span><span class="o">=</span><span class="kc">true</span><span class="p">,</span>
+    <span class="n">extent</span><span class="o">=</span><span class="p">{{</span><span class="o">-</span><span class="mi">100</span><span class="p">,</span><span class="o">-</span><span class="mi">100</span><span class="p">},{</span><span class="mi">100</span><span class="p">,</span><span class="mi">100</span><span class="p">}}))</span>
+</pre></div>
+</div>
+</li>
 <li><p>For simple, small controllers, provide a unit test in a <code class="docutils literal notranslate"><span class="pre">Validation</span></code> or <code class="docutils literal notranslate"><span class="pre">Examples</span></code> package
 that is in the hierarchy one level below the implemented controller.
-See <a class="reference internal" href="#sec-val"><span class="std std-numref">Section 5.4</span></a> for unit test implementation.
+See <a class="reference internal" href="#sec-val"><span class="std std-numref">Section 5.5</span></a> for unit test implementation.
 Because some control logic errors may only be noticed
 when used in a closed loop test,
 for equipment and system controllers, provide also closed loop examples that test the sequence
-for all modes of operation. If the closed loop examples include HVAC models, then put them
+for all modes of operation. If the closed loop examples include HVAC models, put them
 outside of the <code class="docutils literal notranslate"><span class="pre">Buildings.Controls.OBC</span></code> package.
 Make sure sequences are tested for all modes of operation, and as applicable, for winter, shoulder
 and summer days.</p></li>
+<li><p>For general rules on validation models see <a class="reference internal" href="#sec-val"><span class="std std-numref">Section 5.5</span></a>. If there are multiple instances of
+the validated block, preferably list them together as opposed to far apart in the Modelica file.</p></li>
+<li><p>Run the following command to detect various warnings, such as missing comments:</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ node app.js -f Buildings/Controls/OBC/ASHRAE/PrimarySystem/{path to package} -o json -m cdl
+</pre></div>
+</div>
+</div></blockquote>
+</li>
 </ol>
 </div>
 </div>
-<div class="section" id="validation">
-<span id="sec-val"></span><h2>5.4. Validation<a class="headerlink" href="#validation" title="Permalink to this headline">¶</a></h2>
-<p>All models that are implemented need to be validated for all
-realistic operating modes.
-These validations need to be part of the
-<a class="reference external" href="https://github.com/lbl-srg/modelica-buildings/wiki/Unit-Tests">unit tests</a>.</p>
-<p>Add a couple of sentences that explain to others the intent of the unit test.
+<div class="section" id="validation-and-unit-tests">
+<span id="sec-val"></span><h2>5.5. Validation and unit tests<a class="headerlink" href="#validation-and-unit-tests" title="Permalink to this headline">¶</a></h2>
+<p>The developer that introduces a new model, block or a function must:</p>
+<ol class="arabic simple">
+<li><p>Implement at least one example or validation model that serves as a unit test for each model, block and function,
+and run the unit tests.
+Unit tests should cover all branches of <code class="docutils literal notranslate"><span class="pre">if-then</span></code> constructs and
+all realistic operating modes of the system represented by the model.</p></li>
+<li><p>In the <cite>info</cite> section of the validation model, describe to others the intent of the unit test.
 For example, an air handler unit controller test could describe
 “This model verifies that as the cooling load of the room increases, the controller
-first increases the mass flow rate setpoint and then reduces the supply temperature setpoint.”</p>
+first increases the mass flow rate setpoint and then reduces the supply temperature setpoint.”</p></li>
+</ol>
+<p>The validation models are part of automated unit tests as described at the
+<a class="reference external" href="https://github.com/lbl-srg/modelica-buildings/wiki/Unit-Tests">unit tests wiki page</a>.</p>
 <p>For simple models, the validation can be against analytic solutions.
 This is for example done in
 <a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_FixedResistances_Examples.html#Buildings.Fluid.FixedResistances.Examples.PressureDrop">Buildings.Fluid.FixedResistances.PressureDrop</a>
-which uses a regression tests that checks the correct relation between mass flow rate and pressure drop.
-For complex thermofluid flow devices, a comparative model validation needs to be done, for example
+which uses a regression tests that checks the correct relation between mass flow rate and pressure drop.</p>
+<p>For complex thermofluid flow devices, a comparative model validation needs to be done, for example
 by comparing the result of the Modelica model against the results from EnergyPlus.
 An example is
-<cite>Buildings.Fluid.HeatExchangers.CoolingTowers.Validation.MerkelEnergyPlus</cite>.
+<code class="docutils literal notranslate"><span class="pre">Buildings.Fluid.HeatExchangers.CoolingTowers.Validation.MerkelEnergyPlus</span></code>.
 For such validations, the following files also need to be added to the repository:</p>
 <blockquote>
 <div><ul>
@@ -450,7 +841,9 @@ executed as part of the continuous integration testing.</p>
 be read by the Modelica data reader.</p></li>
 </ul>
 </div></blockquote>
-<p>See for example <cite>Buildings/Resources/Data/Fluid/HeatExchangers/CoolingTowers/Validation</cite> for an implementation.</p>
+<p>See for example
+<a class="reference external" href="https://github.com/lbl-srg/modelica-buildings/tree/master/Buildings/Resources/Data/Fluid/HeatExchangers/CoolingTowers/Validation/MerkelEnergyPlus">Buildings/Resources/Data/Fluid/HeatExchangers/CoolingTowers/Validation</a>
+for an implementation.</p>
 </div>
 </div>
 

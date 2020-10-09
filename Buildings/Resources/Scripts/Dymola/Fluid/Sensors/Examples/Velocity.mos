@@ -1,4 +1,4 @@
-simulateModel("Buildings.Fluid.Sensors.Examples.Velocity", tolerance=1e-6, stopTime=60, method="dassl", resultFile="Velocity");
+simulateModel("Buildings.Fluid.Sensors.Examples.Velocity", tolerance=1e-6, stopTime=60, method="CVode", resultFile="Velocity");
 createPlot(id = 1,
  position = {15, 10, 414, 292},
  y = {"senDyn.port_a.m_flow", "senDyn.v", "senSteSta.v"},
