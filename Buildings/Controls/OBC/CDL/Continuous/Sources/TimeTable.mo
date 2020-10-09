@@ -25,6 +25,10 @@ protected
 
   parameter Modelica.SIunits.Time timeRange = timeScale * (table[end,1] - table[1,1])
     "Range of time in table";
+
+  final parameter Integer nT=size(table, 1)
+    "Number of time stamps";
+
   // CDL uses different enumerations for smoothness and for extrapolation
   // than the Modelica Standard Library. Hence, we cast the CDL
   // enumeration to the MSL enumaration.
@@ -58,7 +62,9 @@ protected
   end round;
 
 initial equation
-  t0 = round(integer(time/timeRange)*timeRange, 6);
+  // If the table has only one time stamp, then timeRange is zero.
+  // We can then set t0 to be equal to the start of the simulation.
+  t0 = if nT == 1 then time else round(integer(time/timeRange)*timeRange, 6);
 
 equation
   connect(tab.y, y) annotation (Line(points={{9,0},{120,0}}, color={0,0,127}));
