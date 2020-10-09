@@ -26,7 +26,7 @@ protected
 
   Integer idx(fixed=false) "Index for table lookup";
 
-  function getIndex
+  function getIndex "Function to get the index for the table look-up"
     input Modelica.SIunits.Time t "Current time";
     input Modelica.SIunits.Time period "Time period";
     input Modelica.SIunits.Time x[:] "Time stamps";
