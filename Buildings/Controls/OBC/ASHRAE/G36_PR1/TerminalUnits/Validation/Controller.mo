@@ -1,21 +1,32 @@
 within Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Validation;
 model Controller "Validate model for controlling VAV terminal box with reheat"
 
+  parameter Real V_flow_nominal(
+    final unit="m3/s",
+    final quantity="VolumeFlowRate")=(50*3/3600)*6
+    "Zone nominal airflow";
+
   Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Controller
     con(
     AFlo=50,
     samplePeriod=120,
-    V_flow_nominal=(50*3/3600)*6)
+    VDisCooSetMax_flow=V_flow_nominal,
+    VDisSetMin_flow=0.15*V_flow_nominal,
+    VDisHeaSetMax_flow=V_flow_nominal,
+    VDisConMin_flow=0.1*V_flow_nominal)
     "Controller for VAV terminal unit with reheat"
     annotation (Placement(transformation(extent={{40,60},{60,80}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Controller
     con1(
     AFlo=50,
     samplePeriod=120,
-    V_flow_nominal=(50*3/3600)*6,
     have_occSen=true,
     have_winSen=true,
-    have_CO2Sen=true)
+    have_CO2Sen=true,
+    VDisCooSetMax_flow=V_flow_nominal,
+    VDisSetMin_flow=0.15*V_flow_nominal,
+    VDisHeaSetMax_flow=V_flow_nominal,
+    VDisConMin_flow=0.1*V_flow_nominal)
     "Controller for VAV terminal unit with reheat"
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetRooCoo(k=273.15 + 24)

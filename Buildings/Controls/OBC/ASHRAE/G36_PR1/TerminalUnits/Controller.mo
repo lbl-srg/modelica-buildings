@@ -5,10 +5,7 @@ block Controller "Controller for room VAV box"
     final unit="s",
     final quantity="Time")
     "Sample period of component, set to the same value as the trim and respond that process yPreSetReq";
-  parameter Real V_flow_nominal(
-    final unit="m3/s",
-    final quantity="VolumeFlowRate")
-    "Volume flow rate of this thermal zone";
+
   parameter Real AFlo(
     final unit="m2",
     final quantity="Area") "Area of the zone";
@@ -122,22 +119,22 @@ block Controller "Controller for room VAV box"
     annotation (Dialog(tab="Airflow setpoint", group="Zone sensors"));
   parameter Real VDisCooSetMax_flow(
     final unit="m3/s",
-    final quantity="VolumeFlowRate")=V_flow_nominal
+    final quantity="VolumeFlowRate")
     "Zone maximum cooling airflow setpoint"
     annotation (Dialog(tab="Airflow setpoint", group="Nominal conditions"));
   parameter Real VDisSetMin_flow(
     final unit="m3/s",
-    final quantity="VolumeFlowRate")=0.15*V_flow_nominal
+    final quantity="VolumeFlowRate")
     "Zone minimum airflow setpoint"
     annotation (Dialog(tab="Airflow setpoint", group="Nominal conditions"));
   parameter Real VDisHeaSetMax_flow(
     final unit="m3/s",
-    final quantity="VolumeFlowRate")=V_flow_nominal
+    final quantity="VolumeFlowRate")
     "Zone maximum heating airflow setpoint"
     annotation (Dialog(tab="Airflow setpoint", group="Nominal conditions"));
   parameter Real VDisConMin_flow(
     final unit="m3/s",
-    final quantity="VolumeFlowRate")=0.1*V_flow_nominal
+    final quantity="VolumeFlowRate")
     "VAV box controllable minimum"
     annotation (Dialog(tab="Airflow setpoint", group="Nominal conditions"));
   parameter Real VOutPerAre_flow(final unit = "m3/(s.m2)")=3e-4
@@ -156,10 +153,7 @@ block Controller "Controller for room VAV box"
     final quantity="TemperatureDifference")=11
     "Zone maximum discharge air temperature above heating setpoint"
     annotation (Dialog(tab="Damper and valve", group="Parameters"));
-  parameter Real TDisMin(
-    final unit="K",
-    final displayUnit="degC",
-    final quantity="ThermodynamicTemperature")=283.15
+  parameter Real TDisMin=283.15
     "Lowest discharge air temperature"
     annotation (Dialog(tab="Damper and valve", group="Parameters"));
   parameter Boolean have_heaWatCoi=true
@@ -609,6 +603,13 @@ Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.SystemRequests</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 9, 2020, by Jianjun Hu:<br/>
+Deleted <code>V_flow_nominal</code> and removed default values of maximum heating,
+maximum cooling, minimum cooling and controllable minimum discharge airflow setpoints.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2172\">issue 2172</a>.
+</li>
 <li>
 April 18, 2020, by Jianjun Hu:<br/>
 Added actual VAV damper position as the input for generating system request.<br/>
