@@ -22,17 +22,17 @@ block Economizer "Controller for economizer"
   Modelica.Blocks.Interfaces.RealInput uOATSup
     "Control signal for outdoor air damper from supply temperature controller"
     annotation (Placement(transformation(extent={{-140,140},{-100,180}}),
-        iconTransformation(extent={{-140,140},{-100,180}})));
+      iconTransformation(extent={{-140,160},{-100,200}})));
   Modelica.Blocks.Interfaces.RealInput TMix "Measured mixed air temperature"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
-        iconTransformation(extent={{-140,60},{-100,100}})));
+      iconTransformation(extent={{-140,0},{-100,40}})));
   Modelica.Blocks.Interfaces.RealInput VOut_flow
     "Measured outside air flow rate" annotation (Placement(transformation(
-          extent={{-140,-80},{-100,-40}}),  iconTransformation(extent={{-140,-80},
-            {-100,-40}})));
+      extent={{-140,-80},{-100,-40}}),
+      iconTransformation(extent={{-140,-80}, {-100,-40}})));
   Modelica.Blocks.Interfaces.RealInput TRet "Return air temperature"
     annotation (Placement(transformation(extent={{-140,100},{-100,140}}),
-        iconTransformation(extent={{-140,100},{-100,140}})));
+      iconTransformation(extent={{-140,80},{-100,120}})));
   Modelica.Blocks.Interfaces.RealOutput yRet
     "Control signal for return air damper"
     annotation (Placement(transformation(
@@ -194,23 +194,23 @@ equation
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{200,
             200}})),
-    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{200,
-            200}}), graphics={
+    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{200,200}}),
+                    graphics={
         Rectangle(
           extent={{-100,200},{200,-100}},
           lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Text(
-          extent={{-90,90},{-50,70}},
+          extent={{-92,110},{-52,90}},
           lineColor={0,0,255},
           textString="TRet"),
         Text(
-          extent={{-90,12},{-50,-8}},
+          extent={{-92,32},{-52,12}},
           lineColor={0,0,255},
           textString="TMix"),
         Text(
-          extent={{-94,-54},{-26,-102}},
+          extent={{-92,-36},{-24,-84}},
           lineColor={0,0,255},
           textString="VOut_flow"),
         Text(
@@ -222,9 +222,9 @@ equation
           lineColor={0,0,255},
           textString="yRet"),
         Text(
-          extent={{-92,170},{-52,150}},
+          extent={{-92,194},{-24,170}},
           lineColor={0,0,255},
-          textString="uOA")}),
+          textString="uOATSup")}),
     Documentation(info="<html>
 <p>
 This is a controller for an economizer, that adjusts the mixed air dampers

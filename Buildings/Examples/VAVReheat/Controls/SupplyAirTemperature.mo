@@ -2,6 +2,9 @@ within Buildings.Examples.VAVReheat.Controls;
 block SupplyAirTemperature
   "Control block for tracking the supply air temperature set point"
   extends Modelica.Blocks.Icons.Block;
+  parameter Boolean have_heating = true
+    "Set to true for heating and cooling functions (false for cooling only)"
+    annotation (Evaluate=true);
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=
          Buildings.Controls.OBC.CDL.Types.SimpleController.PI "Type of controller";
   parameter Real k(
@@ -31,7 +34,7 @@ block SupplyAirTemperature
     "Supply air temperature set point"
     annotation (Placement(transformation(extent={{-180,-60},{-140,-20}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yHea
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yHea if have_heating
     "Control signal for heating coil valve" annotation (Placement(
         transformation(extent={{120,60},{160,100}}),
                 iconTransformation(extent={{100,40},{140,80}})));
@@ -49,12 +52,12 @@ block SupplyAirTemperature
     final Ti=Ti,
     final Td=Td,
     final yMax=1,
-    final yMin=-1,
+    final yMin=if have_heating then -1 else 0,
     final reset=Buildings.Types.Reset.Parameter,
-    y_reset=limSupHea.k)
+    y_reset=if have_heating then limSupHea.k else limInfOA.k)
     "Supply temperature controller"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Line mapHea
+  Buildings.Controls.OBC.CDL.Continuous.Line mapHea if have_heating
     "Mapping function for actuating the heating coil valve "
     annotation (Placement(transformation(extent={{10,70},{30,90}})));
   Buildings.Controls.OBC.CDL.Continuous.Line mapOA
@@ -82,7 +85,7 @@ block SupplyAirTemperature
     annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant one(k=1) "one"
     annotation (Placement(transformation(extent={{-100,-70},{-80,-50}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swiHea
+  Buildings.Controls.OBC.CDL.Logical.Switch swiHea if have_heating
     "Switch to close heating coil valve"
     annotation (Placement(transformation(extent={{70,70},{90,90}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swiCoo
@@ -124,12 +127,12 @@ equation
           {8,72}}, color={0,0,127}));
   connect(one.y, mapOA.f2) annotation (Line(points={{-78,-60},{-20,-60},{-20,-8},
           {8,-8}}, color={0,0,127}));
-  connect(zero.y, mapOA.f1) annotation (Line(points={{-78,60},{-10,60},{-10,4},
-          {8,4}}, color={0,0,127}));
+  connect(zero.y, mapOA.f1) annotation (Line(points={{-78,60},{-10,60},{-10,4},{
+          8,4}},  color={0,0,127}));
   connect(one.y, mapHea.f1) annotation (Line(points={{-78,-60},{-20,-60},{-20,84},
           {8,84}},   color={0,0,127}));
-  connect(zero.y, mapCoo.f1) annotation (Line(points={{-78,60},{-78,60.2941},{
-          -10,60.2941},{-10,-76},{8,-76}}, color={0,0,127}));
+  connect(zero.y, mapCoo.f1) annotation (Line(points={{-78,60},{-78,60.2941},{-10,
+          60.2941},{-10,-76},{8,-76}},     color={0,0,127}));
   connect(swiHea.y, yHea)
     annotation (Line(points={{92,80},{140,80}},   color={0,0,127}));
   connect(mapHea.y, swiHea.u1) annotation (Line(points={{32,80},{50,80},{50,88},
@@ -144,8 +147,8 @@ equation
     annotation (Line(points={{92,0},{140,0}}, color={0,0,127}));
   connect(mapOA.y, swiOA.u1)
     annotation (Line(points={{32,0},{50,0},{50,8},{68,8}}, color={0,0,127}));
-  connect(zero.y, swiOA.u3) annotation (Line(points={{-78,60},{40,60},{40,-8},{
-          68,-8}}, color={0,0,127}));
+  connect(zero.y, swiOA.u3) annotation (Line(points={{-78,60},{40,60},{40,-8},{68,
+          -8}},    color={0,0,127}));
   connect(uEna, swiCoo.u2) annotation (Line(points={{-160,-100},{60,-100},{60,-80},
           {68,-80}},      color={255,0,255}));
   connect(uEna, swiOA.u2) annotation (Line(points={{-160,-100},{60,-100},{60,0},
