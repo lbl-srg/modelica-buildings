@@ -149,11 +149,14 @@ block Controller "Controller for room VAV box"
     annotation (Dialog(tab="Airflow setpoint", group="Nominal conditions"));
   parameter Real dTDisZonSetMax(
     final unit="K",
-    final displayUnit="K",
+    displayUnit="K",
     final quantity="TemperatureDifference")=11
     "Zone maximum discharge air temperature above heating setpoint"
     annotation (Dialog(tab="Damper and valve", group="Parameters"));
-  parameter Real TDisMin=283.15
+  parameter Real TDisMin(
+    final quantity="ThermodynamicTemperature",
+    final unit = "K",
+    displayUnit = "degC")=283.15
     "Lowest discharge air temperature"
     annotation (Dialog(tab="Damper and valve", group="Parameters"));
   parameter Boolean have_heaWatCoi=true
@@ -164,28 +167,28 @@ block Controller "Controller for room VAV box"
     annotation (Dialog(tab="System requests", group="Parameters"));
   parameter Real errTZonCoo_1(
     final unit="K",
-    final displayUnit="K",
+    displayUnit="K",
     final quantity="TemperatureDifference")=2.8
     "Limit value of difference between zone temperature and cooling setpoint
     for generating 3 cooling SAT reset requests"
     annotation (Dialog(tab="System requests", group="Parameters"));
   parameter Real errTZonCoo_2(
     final unit="K",
-    final displayUnit="K",
+    displayUnit="K",
     final quantity="TemperatureDifference")=1.7
     "Limit value of difference between zone temperature and cooling setpoint
     for generating 2 cooling SAT reset requests"
     annotation (Dialog(tab="System requests", group="Parameters"));
   parameter Real errTDis_1(
     final unit="K",
-    final displayUnit="K",
+    displayUnit="K",
     final quantity="TemperatureDifference")=17
     "Limit value of difference between discharge air temperature and its setpoint
     for generating 3 hot water reset requests"
     annotation (Dialog(tab="System requests", group="Parameters"));
   parameter Real errTDis_2(
     final unit="K",
-    final displayUnit="K",
+    displayUnit="K",
     final quantity="TemperatureDifference")=8.3
     "Limit value of difference between discharge air temperature and its setpoint
     for generating 2 hot water reset requests"
@@ -209,28 +212,28 @@ block Controller "Controller for room VAV box"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZonHeaSet(
     final quantity="ThermodynamicTemperature",
     final unit = "K",
-    final displayUnit = "degC")
+    displayUnit = "degC")
     "Setpoint temperature for room for heating"
     annotation (Placement(transformation(extent={{-180,140},{-140,180}}),
         iconTransformation(extent={{-140,80},{-100,120}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZonCooSet(
     final quantity="ThermodynamicTemperature",
     final unit = "K",
-    final displayUnit = "degC")
+    displayUnit = "degC")
     "Setpoint temperature for room for cooling"
     annotation (Placement(transformation(extent={{-180,100},{-140,140}}),
         iconTransformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZon(
     final quantity="ThermodynamicTemperature",
     final unit = "K",
-    final displayUnit = "degC")
+    displayUnit = "degC")
     "Measured room temperature"
     annotation (Placement(transformation(extent={{-180,-34},{-140,6}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TDis(
     final quantity="ThermodynamicTemperature",
     final unit = "K",
-    final displayUnit = "degC")
+    displayUnit = "degC")
     "Measured supply air temperature after heating coil"
     annotation (Placement(transformation(extent={{-180,-130},{-140,-90}}),
         iconTransformation(extent={{-140,-80},{-100,-40}})));
@@ -243,7 +246,7 @@ block Controller "Controller for room VAV box"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSupAHU(
     final quantity="ThermodynamicTemperature",
     final unit = "K",
-    final displayUnit = "degC")
+    displayUnit = "degC")
     "AHU supply air temperature"
     annotation (Placement(transformation(extent={{-180,-160},{-140,-120}}),
         iconTransformation(extent={{-140,-100},{-100,-60}})));
