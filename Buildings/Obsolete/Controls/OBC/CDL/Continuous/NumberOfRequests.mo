@@ -1,6 +1,7 @@
 within Buildings.Obsolete.Controls.OBC.CDL.Continuous;
 block NumberOfRequests
   "Outputs the number of signals that are above/below a certain threshold"
+  extends Modelica.Icons.ObsoleteModel;
 
   parameter Integer nin "Number of inputs";
   parameter Real t=0 "Threshold";

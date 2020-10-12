@@ -86,21 +86,9 @@ model ControllerEconomizer "Controller for economizer"
     "Controller"
     annotation (Placement(transformation(extent={{-90,70},{-70,90}})));
   Modelica.Blocks.Math.Feedback feedback "Control error"
-    annotation (Placement(transformation(extent={{-50,-38},{-30,-18}})));
-  Buildings.Controls.OBC.CDL.Continuous.HysteresisWithHold hysTMix(
-    final uLow=-0.5,
-    final uHigh=0.5,
-    final trueHoldDuration=60*15)
-    "Hysteresis with delay for mixed air temperature"
-    annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
+    annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
   Modelica.Blocks.Math.Feedback feedback1
-    annotation (Placement(transformation(extent={{-70,20},{-50,40}})));
-  Buildings.Controls.OBC.CDL.Continuous.HysteresisWithHold hysCooPot(
-    final uHigh=0.5,
-    final uLow=0,
-    final trueHoldDuration=60*15)
-    "Hysteresis with delay to check for cooling potential of outside air"
-    annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
+    annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   Controls.OBC.CDL.Continuous.Hysteresis hysChiPla(
     final uLow=0.95,
     final uHigh=0.98)
@@ -113,6 +101,24 @@ model ControllerEconomizer "Controller for economizer"
   Modelica.Blocks.Logical.Not not1 "No economizer"
     annotation (Placement(transformation(extent={{40,-100},{60,-80}})));
 
+  Controls.OBC.CDL.Continuous.Hysteresis hysCooPot(
+    final uLow=0,
+    final uHigh=0.5)
+    "Hysteresis with delay to check for cooling potential of outside air"
+    annotation (Placement(transformation(extent={{-54,20},{-34,40}})));
+  Controls.OBC.CDL.Logical.TrueFalseHold truFalHolCooPot(
+    final trueHoldDuration=60*15)
+    "True/false hold for cooling potential"
+    annotation (Placement(transformation(extent={{-26,20},{-6,40}})));
+  Controls.OBC.CDL.Logical.TrueFalseHold truFalHolTMix(
+    final trueHoldDuration=60*15)
+    "True/false hold for mixing temperature"
+    annotation (Placement(transformation(extent={{-24,-40},{-4,-20}})));
+  Controls.OBC.CDL.Continuous.Hysteresis hysTMix(
+    final uLow=-0.5,
+    final uHigh=0.5)
+    "Hysteresis with delay for mixed air temperature"
+    annotation (Placement(transformation(extent={{-52,-40},{-32,-20}})));
 equation
   connect(Limiter.limit2, minOAFra) annotation (Line(points={{58,-8},{-20,-8},{
           -20,-8},{-94,-8},{-94,-20},{-110,-20},{-110,-20}},
@@ -130,22 +136,15 @@ equation
   connect(TMix, con.u_m)    annotation (Line(points={{-110,50},{-80,50},{-80,68}}, color={0,0,127}));
   connect(con.y, switch1.u1) annotation (Line(points={{-69,80},{12,80},{12,28},
           {18,28}}, color={0,0,127}));
-  connect(TOut, feedback.u2) annotation (Line(points={{-110,-50},{-40,-50},{-40,
-          -36}}, color={0,0,127}));
-  connect(feedback.u1, TMix) annotation (Line(points={{-48,-28},{-80,-28},{-80,
-          50},{-110,50}}, color={0,0,127}));
+  connect(TOut, feedback.u2) annotation (Line(points={{-110,-50},{-70,-50},{-70,
+          -38}}, color={0,0,127}));
+  connect(feedback.u1, TMix) annotation (Line(points={{-78,-30},{-90,-30},{-90,50},
+          {-110,50}},     color={0,0,127}));
   connect(Limiter.y, yOutAirFra)    annotation (Line(points={{81,0},{110,0}}, color={0,0,127}));
-  connect(feedback.y, hysTMix.u)   annotation (Line(points={{-31,-28},{-28,-28},{-28,-50},{-22,-50}},
-                                                   color={0,0,127}));
-  connect(feedback1.u1, TRet)   annotation (Line(points={{-68,30},{-88,30},{-88,20},{-110,20}},
-                                                  color={0,0,127}));
-  connect(feedback1.u2,TOut)    annotation (Line(points={{-60,22},{-60,-50},{-110,-50}}, color={0,0,127}));
-  connect(feedback1.y, hysCooPot.u)   annotation (Line(points={{-51,30},{-42,30}}, color={0,0,127}));
-  connect(hysCooPot.y, and1.u[1]) annotation (Line(points={{-18,30},{6,30},{6,
-          -45.3333},{20,-45.3333}}, color={255,0,255}));
-  connect(hysTMix.y, and1.u[2])    annotation (Line(points={{2,-50},{20,-50},{20,-50}}, color={255,0,255}));
-  connect(cooSta, and1.u[3]) annotation (Line(points={{-110,-80},{6,-80},{6,
-          -54.6667},{20,-54.6667}}, color={255,0,255}));
+  connect(feedback1.u1, TRet)   annotation (Line(points={{-78,30},{-96,30},{-96,
+          20},{-110,20}},                         color={0,0,127}));
+  connect(feedback1.u2,TOut)    annotation (Line(points={{-70,22},{-70,16},{-86,
+          16},{-86,-50},{-110,-50}},                                                     color={0,0,127}));
   connect(Limiter.y, hysChiPla.u) annotation (Line(points={{81,0},{90,0},{90,
           -20},{52,-20},{52,-50},{58,-50}}, color={0,0,127}));
   connect(or1.y, yCoiSta)    annotation (Line(points={{91,-80},{110,-80}}, color={255,0,255}));
@@ -156,6 +155,20 @@ equation
   connect(hysChiPla.y, or1.u1) annotation (Line(points={{82,-50},{88,-50},{88,
           -64},{62,-64},{62,-80},{68,-80}}, color={255,0,255}));
 
+  connect(feedback.y, hysTMix.u)
+    annotation (Line(points={{-61,-30},{-54,-30}}, color={0,0,127}));
+  connect(hysTMix.y, truFalHolTMix.u)
+    annotation (Line(points={{-30,-30},{-26,-30}}, color={255,0,255}));
+  connect(feedback1.y, hysCooPot.u)
+    annotation (Line(points={{-61,30},{-56,30}}, color={0,0,127}));
+  connect(hysCooPot.y, truFalHolCooPot.u)
+    annotation (Line(points={{-32,30},{-28,30}}, color={255,0,255}));
+  connect(truFalHolCooPot.y, and1.u[1]) annotation (Line(points={{-4,30},{8,30},
+          {8,-45.3333},{20,-45.3333}}, color={255,0,255}));
+  connect(truFalHolTMix.y, and1.u[2]) annotation (Line(points={{-2,-30},{4,-30},
+          {4,-50},{20,-50}}, color={255,0,255}));
+  connect(cooSta, and1.u[3]) annotation (Line(points={{-110,-80},{-44,-80},{-44,
+          -54.6667},{20,-54.6667}}, color={255,0,255}));
    annotation (
   defaultComponentName="conEco",
   Documentation(info="<html>
@@ -164,6 +177,11 @@ Economizer controller.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 30, 2020, by Michael Wetter:<br/>
+Refactored implementation of hysteresis with hold, which was using a block that is now obsolete.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2134\">issue 2134</a>.
+</li>
 <li>
 July 21, 2020, by Kun Zhang:<br/>
 Exposed PID control parameters to allow users to tune for their specific systems.
