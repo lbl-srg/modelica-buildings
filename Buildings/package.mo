@@ -374,6 +374,16 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1365\">IBPSA, #1365</a>.<br/>
                        For Dymola, a conversion script makes this change.</td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.Controls.OBC.ASHRAE</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Controller
+    </td>
+    <td valign=\"top\">Deleted <code>V_flow_nominal</code> and removed default values of maximum heating, maximum cooling, minimum
+                       cooling and controllable minimum discharge airflow setpoints.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2172\">issue 2172</a>.<br/>
+                       For Dymola, a conversion script makes this change.</td>
+</tr>                                             
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL.Continuous</b>
     </td>
 </tr>
