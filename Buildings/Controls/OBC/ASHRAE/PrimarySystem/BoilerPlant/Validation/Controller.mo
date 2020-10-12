@@ -1,5 +1,4 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Validation;
-
 model Controller
     "Validation model for boiler plant control sequence"
 
@@ -9,9 +8,7 @@ model Controller
         Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.BoilerTypes.condensingBoiler},
     nSta=3,
     staMat=[1,0;
-
  0,1;
-
  1,1],
     iniSta=0,
     boiDesCap={15000*0.8,15000*0.8},
@@ -31,7 +28,7 @@ model Controller
     boiDesFlo={0.0003,0.0003},
     speedControlType_priPum=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpSpeedControlTypes.remoteDP,
     minPriPumSpeSta={0,0,0})
-    annotation (Placement(transformation(extent={{0,-20},{42,20}})));
+    annotation (Placement(transformation(extent={{0,-20},{20,24}})));
 
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant supResReq(k=4)
     "Number of requests from heating load"
@@ -62,12 +59,9 @@ model Controller
     nBoi=2,
     boiTyp={Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.BoilerTypes.condensingBoiler,
         Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.BoilerTypes.condensingBoiler},
-
     nSta=3,
     staMat=[1,0;
-
  0,1;
-
  1,1],
     iniSta=2,
     boiDesCap={15000*0.8,15000*0.8},
@@ -86,7 +80,6 @@ model Controller
     VHotWat_flow_nominal=0.0006,
     boiDesFlo={0.0003,0.0003},
     speedControlType_priPum=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpSpeedControlTypes.remoteDP,
-
     minPriPumSpeSta={0,0,0})
     annotation (Placement(transformation(extent={{120,-20},{162,20}})));
 
@@ -127,12 +120,9 @@ model Controller
     nBoi=2,
     boiTyp={Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.BoilerTypes.condensingBoiler,
         Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.BoilerTypes.condensingBoiler},
-
     nSta=3,
     staMat=[1,0;
-
  0,1;
-
  1,1],
     iniSta=0,
     boiDesCap={15000*0.8,15000*0.8},
@@ -151,7 +141,6 @@ model Controller
     VHotWat_flow_nominal=0.0006,
     boiDesFlo={0.0003,0.0003},
     speedControlType_priPum=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpSpeedControlTypes.remoteDP,
-
     minPriPumSpeSta={0,0,0})
     annotation (Placement(transformation(extent={{0,-240},{42,-200}})));
 
@@ -185,10 +174,10 @@ model Controller
 
 equation
   connect(supResReq.y, controller.supResReq) annotation (Line(points={{-38,70},
-          {-8,70},{-8,7.27273},{-2,7.27273}}, color={255,127,0}));
+          {-8,70},{-8,23},{-2,23}},           color={255,127,0}));
 
   connect(TOut.y, controller.TOut) annotation (Line(points={{-38,40},{-12,40},{
-          -12,3.63636},{-2,3.63636}}, color={0,0,127}));
+          -12,20},{-2,20}},           color={0,0,127}));
 
   connect(TSup.y, controller.TSup) annotation (Line(points={{-38,10},{-16,10},{-16,
           1.77636e-15},{-2,1.77636e-15}},
@@ -205,10 +194,12 @@ equation
           {-38,-50},{-26,-50},{-26,-7.27273},{-2,-7.27273}}, color={0,0,127}));
 
   connect(supResReq1.y, controller1.supResReq) annotation (Line(points={{82,70},
-          {112,70},{112,7.27273},{118,7.27273}}, color={255,127,0}));
+          {112,70},{112,19.0909},{115.8,19.0909}},
+                                                 color={255,127,0}));
 
   connect(TOut1.y, controller1.TOut) annotation (Line(points={{82,40},{108,40},
-          {108,3.63636},{118,3.63636}}, color={0,0,127}));
+          {108,16.3636},{115.8,16.3636}},
+                                        color={0,0,127}));
 
   connect(TSup1.y, controller1.TSup) annotation (Line(points={{82,10},{104,10},
           {104,0},{118,0}}, color={0,0,127}));
@@ -220,19 +211,21 @@ equation
           82,-80},{100,-80},{100,-10.9091},{118,-10.9091}}, color={0,0,127}));
 
   connect(uBoiAva.y, controller.uBoiAva) annotation (Line(points={{-38,-110},{
-          -8,-110},{-8,-14.5455},{-2,-14.5455}}, color={255,0,255}));
+          -8,-110},{-8,2},{-2,2}},               color={255,0,255}));
 
-  connect(uBoiAva1.y, controller1.uBoiAva) annotation (Line(points={{82,-110},{
-          112,-110},{112,-14.5455},{118,-14.5455}}, color={255,0,255}));
+  connect(uBoiAva1.y, controller1.uBoiAva) annotation (Line(points={{82,-110},{112,
+          -110},{112,0},{115.8,0}},                 color={255,0,255}));
 
-  connect(VHotWat_flow1[1].y, controller1.VHotWat_flow) annotation (Line(points
-        ={{82,-50},{94,-50},{94,-7.27273},{118,-7.27273}}, color={0,0,127}));
+  connect(VHotWat_flow1[1].y, controller1.VHotWat_flow) annotation (Line(points=
+         {{82,-50},{94,-50},{94,-7.27273},{118,-7.27273}}, color={0,0,127}));
 
   connect(supResReq2.y, controller2.supResReq) annotation (Line(points={{-38,
-          -150},{-8,-150},{-8,-212.727},{-2,-212.727}}, color={255,127,0}));
+          -150},{-8,-150},{-8,-200.909},{-4.2,-200.909}},
+                                                        color={255,127,0}));
 
   connect(TOut2.y, controller2.TOut) annotation (Line(points={{-38,-180},{-12,
-          -180},{-12,-216.364},{-2,-216.364}}, color={0,0,127}));
+          -180},{-12,-203.636},{-4.2,-203.636}},
+                                               color={0,0,127}));
 
   connect(TSup2.y, controller2.TSup) annotation (Line(points={{-38,-210},{-16,
           -210},{-16,-220},{-2,-220}}, color={0,0,127}));
@@ -243,14 +236,14 @@ equation
   connect(dPHotWat2.y, controller2.dpHotWat_remote) annotation (Line(points={{
           -38,-300},{-20,-300},{-20,-230.909},{-2,-230.909}}, color={0,0,127}));
 
-  connect(VHotWat_flow2[4].y, controller2.VHotWat_flow) annotation (Line(points
-        ={{-38,-270},{-26,-270},{-26,-227.273},{-2,-227.273}}, color={0,0,127}));
+  connect(VHotWat_flow2[4].y, controller2.VHotWat_flow) annotation (Line(points=
+         {{-38,-270},{-26,-270},{-26,-227.273},{-2,-227.273}}, color={0,0,127}));
 
-  connect(uBoiAva2.y, controller2.uBoiAva) annotation (Line(points={{-38,-330},
-          {-8,-330},{-8,-234.545},{-2,-234.545}}, color={255,0,255}));
+  connect(uBoiAva2.y, controller2.uBoiAva) annotation (Line(points={{-38,-330},{
+          -8,-330},{-8,-220},{-4.2,-220}},        color={255,0,255}));
 
   annotation (
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-380},{180,
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}),
       graphics={Ellipse(
                   lineColor = {75,138,73},
@@ -285,5 +278,4 @@ equation
       </li>
       </ul>
       </html>"));
-
 end Controller;
