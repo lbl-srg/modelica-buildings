@@ -1,6 +1,6 @@
-within Buildings.Controls.OBC.CDL.Continuous.Sources;
-block Pulse "Generate pulse signal of type Real"
-  parameter Real amplitude=1 "Amplitude of pulse";
+within Buildings.Controls.OBC.CDL.Integers.Sources;
+block Pulse "Generate pulse signal of type Integer"
+  parameter Integer amplitude=1 "Amplitude of pulse";
   parameter Real width(
     final min=Constants.small,
     final max=1,
@@ -9,10 +9,10 @@ block Pulse "Generate pulse signal of type Real"
    "Time for one period";
   parameter Integer nPeriod=-1
     "Number of periods (< 0 means infinite number of periods)";
-  parameter Real offset=0 "Offset of output signals";
+  parameter Integer offset=0 "Offset of output signals";
   parameter Modelica.SIunits.Time startTime=0
     "Output = offset for time < startTime";
-  Interfaces.RealOutput y "Connector of Pulse output signal"
+  Interfaces.IntegerOutput y "Connector of Pulse output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected
@@ -31,29 +31,29 @@ equation
     count >= nPeriod)) then 0 else if time < T_start + T_width then amplitude
      else 0);
   annotation (
-    defaultComponentName="pul",
+    defaultComponentName="intPul",
     Icon(coordinateSystem(
         preserveAspectRatio=true,
         extent={{-100,-100},{100,100}}), graphics={
-                                Rectangle(
-        extent={{-100,-100},{100,100}},
-        lineColor={0,0,127},
-        fillColor={255,255,255},
-        fillPattern=FillPattern.Solid),
-        Line(points={{-80,68},{-80,-80}}, color={192,192,192}),
+                                           Rectangle(
+          extent={{-100,-100},{100,100}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Line(points={{-80,68},{-80,-80}}, color={244,125,35}),
         Polygon(
           points={{-80,90},{-88,68},{-72,68},{-80,90}},
-          lineColor={192,192,192},
-          fillColor={192,192,192},
+          lineColor={244,125,35},
+          fillColor={244,125,35},
           fillPattern=FillPattern.Solid),
-        Line(points={{-90,-70},{82,-70}}, color={192,192,192}),
+        Line(points={{-90,-70},{82,-70}}, color={255,170,85}),
         Polygon(
           points={{90,-70},{68,-62},{68,-78},{90,-70}},
-          lineColor={192,192,192},
-          fillColor={192,192,192},
+          lineColor={244,125,35},
+          fillColor={244,125,35},
           fillPattern=FillPattern.Solid),
         Line(points={{-80,-70},{-40,-70},{-40,44},{0,44},{0,-70},{40,-70},{40,
-              44},{79,44}}),
+              44},{79,44}}, color={0,0,0}),
         Text(
           extent={{-147,-152},{153,-112}},
           lineColor={0,0,0},
@@ -65,29 +65,25 @@ equation
         Text(
           extent={{226,60},{106,10}},
           lineColor={0,0,0},
-          textString=DynamicSelect("", String(y, leftjustified=false, significantDigits=3)))}),
+          textString=DynamicSelect("", String(y, leftjustified=false, significantDigits=3))),
+        Line(points={{-132,-18}}, color={28,108,200})}),
     Documentation(info="<html>
 <p>
-The Real output y is a pulse signal:
+This block generates an Integer pulse signal as shown below.
 </p>
+
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Controls/OBC/CDL/Continuous/Sources/Pulse.png\"
+<img src=\"modelica://Buildings/Resources/Images/Controls/OBC/CDL/Integers/Sources/Pulse.png\"
      alt=\"Pulse.png\" />
-     </p>
+</p>
 <p>
-The pulse signal is generated <code>nPeriod</code> amount of times.
-For infinite number of pulses, set <code>nPeriod = -1</code>.
+The pulse output signal is generated <code>nPeriod</code> amount of times or infinitely if <code>nPeriod</code> is set to a negative number.
 </p>
 </html>", revisions="<html>
 <ul>
-<li>
-March 2, 2020, by Michael Wetter:<br/>
-Changed icon to display dynamically the output value.
-</li>
-<li>
-March 16, 2017, by Jianjun Hu:<br/>
-First implementation, based on the implementation of the
-Modelica Standard Library.
+<li>, 
+September 8, 2020, by Milica Grahovac:<br/>
+First implementation, based on the implementation of <code>Real</code> pulse.
 </li>
 </ul>
 </html>"));
