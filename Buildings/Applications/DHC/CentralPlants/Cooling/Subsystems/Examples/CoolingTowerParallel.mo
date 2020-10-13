@@ -1,6 +1,5 @@
 within Buildings.Applications.DHC.CentralPlants.Cooling.Subsystems.Examples;
-model CoolingTowerParallel
-  "Example model for parallel cooling tower model"
+model CoolingTowerParallel "Example model for parallel cooling tower model"
   extends Modelica.Icons.Example;
 
   package Medium = Buildings.Media.Water "Medium model for water";
@@ -11,7 +10,7 @@ model CoolingTowerParallel
 
   Buildings.Applications.DHC.CentralPlants.Cooling.Subsystems.CoolingTowerParellel
     cooTowPar(
-    use_inputFilter=true,
+    use_inputFilter=false,
     riseTimeValve=30,
     m_flow_nominal=m_flow_nominal/2,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -102,9 +101,6 @@ model CoolingTowerParallel
     final realTrue=1,
     final realFalse=0) "Boolean to real (if true then 1 else 0)"
     annotation (Placement(transformation(extent={{-110,40},{-90,60}})));
-  Modelica.Blocks.Nonlinear.FixedDelay del(delayTime=30)
-    "Delay of pump operation"
-    annotation (Placement(transformation(extent={{60,-90},{80,-70}})));
 equation
   connect(onOffCon.y,swi. u2) annotation (Line(points={{11,-80},{28,-80}}, color={255,0,255}));
   connect(zer.y,swi. u3) annotation (Line(points={{11,-110},{18,-110},{18,-88},{28,-88}},
@@ -147,10 +143,8 @@ equation
           {-84,34},{-14,34},{-14,56},{-2,56}}, color={0,0,127}));
   connect(booToRea.y, cooTowPar.on[2]) annotation (Line(points={{-89,50},{-84,50},
           {-84,34},{-14,34},{-14,56},{-2,56}}, color={0,0,127}));
-  connect(swi.y, del.u)
-    annotation (Line(points={{51,-80},{58,-80}}, color={0,0,127}));
-  connect(del.y, pum.m_flow_in) annotation (Line(points={{81,-80},{86,-80},{86,-128},
-          {-78,-128},{-78,70},{-30,70},{-30,62}}, color={0,0,127}));
+  connect(swi.y, pum.m_flow_in) annotation (Line(points={{51,-80},{60,-80},{60,
+          -128},{-80,-128},{-80,70},{-30,70},{-30,62}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}})),
             Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,-140},{120,120}})),

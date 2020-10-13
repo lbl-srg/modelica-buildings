@@ -13,6 +13,7 @@ model CoolingTowerWithBypass
 
   Buildings.Applications.DHC.CentralPlants.Cooling.Subsystems.CoolingTowerWithBypass
     cooTowPar(
+    use_inputFilter=false,
     show_T=true,
     m_flow_nominal=m_flow_nominal/2,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -41,7 +42,7 @@ model CoolingTowerWithBypass
   Modelica.Blocks.Logical.Switch swi "Control switch for chilled water pump"
     annotation (Placement(transformation(extent={{30,-90},{50,-70}})));
 
-  Modelica.Blocks.Sources.Constant TSwi(k=273.15 + 10)
+  Modelica.Blocks.Sources.Constant TSwi(k=273.15 + 14)
     "Switch temperature for switching tower pump on"
     annotation (Placement(transformation(extent={{-60,-96},{-40,-76}})));
 
@@ -89,9 +90,6 @@ model CoolingTowerWithBypass
   Buildings.BoundaryConditions.WeatherData.Bus weaBus "Weather data bus"
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
 
-  Modelica.Blocks.Nonlinear.FixedDelay del(delayTime=30)
-    "Delay of pump operation"
-    annotation (Placement(transformation(extent={{60,-90},{80,-70}})));
   Modelica.Blocks.Math.BooleanToReal booToRea(
     final realTrue=1, final realFalse=0)
     "Boolean to real (if true then 1 else 0)"
@@ -126,21 +124,20 @@ equation
   connect(cooTowPar.port_b, senTCWLvg.port_a)  annotation (Line(points={{20,50},{30,50}}, color={0,127,255}));
   connect(senTCWLvg.port_b, vol.ports[2]) annotation (Line(points={{50,50},{60,50},
           {60,-20},{30,-20}}, color={0,127,255}));
-  connect(swi.y, del.u) annotation (Line(points={{51,-80},{58,-80}}, color={0,0,127}));
-  connect(del.y, pum.m_flow_in) annotation (Line(points={{81,-80},{92,-80},{92,-130},
-          {-80,-130},{-80,68},{-30,68},{-30,62}}, color={0,0,127}));
   connect(onOffCon.y, booToRea.u) annotation (Line(points={{11,-80},{20,-80},{20,
           -134},{-118,-134},{-118,50},{-112,50}}, color={255,0,255}));
   connect(booToRea.y, cooTowPar.on[1]) annotation (Line(points={{-89,50},{-84,50},
           {-84,72},{-10,72},{-10,54},{-2,54}}, color={0,0,127}));
   connect(booToRea.y, cooTowPar.on[2]) annotation (Line(points={{-89,50},{-84,50},
           {-84,72},{-10,72},{-10,54},{-2,54}}, color={0,0,127}));
+  connect(swi.y, pum.m_flow_in) annotation (Line(points={{51,-80},{60,-80},{60,
+          -128},{-80,-128},{-80,68},{-30,68},{-30,62}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}})),
             Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,-140},{120,120}})),
     experiment(
-      StartTime=15552000,
-      StopTime=15724800,
+      StartTime=10368000,
+      StopTime=10540800,
       Tolerance=1e-06),
     __Dymola_Commands(file=
           "Resources/Scripts/Dymola/Applications/DHC/CentralPlants/Cooling/Subsystems/Examples/CoolingTowerWithBypass.mos"

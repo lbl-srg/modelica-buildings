@@ -1,5 +1,5 @@
 // Simulate
-simulateModel("Buildings.Applications.DHC.CentralPlants.Cooling.Subsystems.Examples.CoolingTowerParallel", startTime=15552000, stopTime=15724800, method="dassl", tolerance=1e-06, resultFile="CoolingTowerParallel");
+simulateModel("Buildings.Applications.DHC.CentralPlants.Cooling.Subsystems.Examples.CoolingTowerParallel", startTime=15552000, stopTime=15724800, method="cvode", tolerance=1e-06, resultFile="CoolingTowerParallel");
 // Plot commands
 removePlots(false);
 createPlot(id=1, 

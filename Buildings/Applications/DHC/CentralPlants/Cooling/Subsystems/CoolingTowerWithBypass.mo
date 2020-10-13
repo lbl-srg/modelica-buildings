@@ -10,6 +10,10 @@ model CoolingTowerWithBypass "Cooling tower system with bypass valve"
     "Type of energy balance: dynamic (3 initialization options) or steady state"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
 
+  parameter Boolean use_inputFilter=true
+    "= true, if opening is filtered with a 2nd order CriticalDamping filter"
+    annotation(Dialog(tab="Dynamics", group="Filtered opening"));
+
   parameter Boolean show_T = true
     "= true, if actual temperature at port is computed"
     annotation(Dialog(tab="Advanced",group="Diagnostics"));
@@ -118,7 +122,7 @@ model CoolingTowerWithBypass "Cooling tower system with bypass valve"
 
   Buildings.Applications.DHC.CentralPlants.Cooling.Subsystems.CoolingTowerParellel
     cooTowSys(
-    use_inputFilter=true,
+    use_inputFilter=use_inputFilter,
     redeclare package Medium = Medium,
     num=num,
     show_T=show_T,
@@ -136,7 +140,7 @@ model CoolingTowerWithBypass "Cooling tower system with bypass valve"
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal*0.0001,
     dpValve_nominal=dp_nominal,
-    use_inputFilter=false) "Condenser water bypass valve"
+    use_inputFilter=use_inputFilter) "Condenser water bypass valve"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         origin={0,-40})));

@@ -1,5 +1,5 @@
 // Simulate
-simulateModel("Buildings.Applications.DHC.CentralPlants.Cooling.Subsystems.Examples.CoolingTowerWithBypass", startTime=10368000, stopTime=10540800, method="dassl", tolerance=1e-06, resultFile="CoolingTowerWithBypass");
+simulateModel("Buildings.Applications.DHC.CentralPlants.Cooling.Subsystems.Examples.CoolingTowerWithBypass", startTime=10368000, stopTime=10540800, method="cvode", tolerance=1e-06, resultFile="CoolingTowerWithBypass");
 // Plot commands
 removePlots(false);
 createPlot(id=1, 
