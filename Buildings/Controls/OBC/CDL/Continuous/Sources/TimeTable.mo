@@ -8,8 +8,9 @@ block TimeTable
     "Smoothness of table interpolation";
   parameter CDL.Types.Extrapolation extrapolation=CDL.Types.Extrapolation.Periodic
     "Extrapolation of data outside the definition range";
-  parameter Real offset[:]={0} "Offsets of output signals";
-  parameter Modelica.SIunits.Time timeScale=1
+  parameter Real offset[:]=fill(0, nout) "Offsets of output signals as a vector with length equal to number of table matrix columns less one";
+  parameter Real timeScale(
+    final unit="1")=1
     "Time scale of first table column. Set to 3600 if time in table is in hours";
 
   Interfaces.RealOutput y[nout] "Output of the table"
@@ -21,6 +22,12 @@ protected
 
   parameter Modelica.SIunits.Time t0(fixed=false)
     "First sample time instant";
+
+  parameter Modelica.SIunits.Time timeRange = timeScale * (table[end,1] - table[1,1])
+    "Range of time in table";
+
+  final parameter Integer nT=size(table, 1)
+    "Number of time stamps";
 
   // CDL uses different enumerations for smoothness and for extrapolation
   // than the Modelica Standard Library. Hence, we cast the CDL
@@ -40,12 +47,24 @@ protected
                         else
                           Modelica.Blocks.Types.Extrapolation.Periodic,
     final offset=offset,
-    final startTime=if (extrapolation == Types.Extrapolation.Periodic) then integer(t0/86400)*86400 else 0,
+    final startTime=if (extrapolation == Types.Extrapolation.Periodic) then t0 else 0,
     final timeScale=timeScale) "Time table"
     annotation (Placement(transformation(extent={{-12,-10},{8,10}})));
 
+  function round "Round function from Buildings.Controls.OBC.CDL.Continuous.Round"
+    input Real x "Argument";
+    input Real n "Digits";
+    output Real y "Rounded argument";
+  protected
+    Real fac = 10^n "Factor used for rounding";
+  algorithm
+    y :=if (x > 0) then floor(x*fac + 0.5)/fac else ceil(x*fac - 0.5)/fac;
+  end round;
+
 initial equation
-  t0=time;
+  // If the table has only one time stamp, then timeRange is zero.
+  // We can then set t0 to be equal to the start of the simulation.
+  t0 = if nT == 1 then time else round(integer(time/timeRange)*timeRange, 6);
 
 equation
   connect(tab.y, y) annotation (Line(points={{9,0},{120,0}}, color={0,0,127}));
@@ -57,7 +76,7 @@ Documentation(info="<html>
 Block that outputs values of a time table.
 </p>
 <p>
-The block takes as a parameter a time table of the format
+The block takes as a parameter a time table of a format:
 </p>
 <pre>
 table = [ 0*3600, 0;
@@ -223,6 +242,10 @@ of <i>0.5</i> seconds outputs
 </html>",
 revisions="<html>
 <ul>
+<li>
+October 7, 2020, by Michael Wetter:<br/>
+Revised implementation to add <code>timeSpan</code>.
+</li>
 <li>
 March 13, 2020, by Michael Wetter:<br/>
 Corrected implementation so that the table also works if the simulation
