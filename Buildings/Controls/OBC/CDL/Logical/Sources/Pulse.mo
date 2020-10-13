@@ -7,6 +7,8 @@ block Pulse "Generate pulse signal of type Boolean"
     final unit = "1") = 0.5 "Width of pulse in fraction of period";
   parameter Modelica.SIunits.Time period(
     final min=Constants.small) "Time for one period";
+  parameter Integer nPeriod=-1
+    "Number of periods (< 0 means infinite number of periods)";
   parameter Modelica.SIunits.Time startTime=0 "Time instant of first pulse";
   Interfaces.BooleanOutput y "Connector of Boolean output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
@@ -27,7 +29,8 @@ equation
   when sample(startTime, period) then
     pulseStart = time;
   end when;
-  y = time >= pulseStart and time < pulseStart + Twidth;
+  y = (nPeriod < 0 or floor((time - startTime)/period) < nPeriod) and (time >= pulseStart and time < pulseStart + Twidth);
+
   annotation (
     defaultComponentName="booPul",
     Icon(coordinateSystem(
@@ -78,6 +81,10 @@ The Boolean output y is a pulse signal:
 
 </html>", revisions="<html>
 <ul>
+<li>
+September 8, 2020, by Milica Grahovac:<br/>
+Enabled specification of number of periods as a parameter.
+</li>
 <li>
 September 1, 2020, by Milica Grahovac:<br/>
 Revised initial equation section to ensure expected simulation results when <code>startTime</code> is before simulation start time.

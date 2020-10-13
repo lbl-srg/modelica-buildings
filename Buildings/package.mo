@@ -260,6 +260,24 @@ to <b style=\"color:blue\">existing</b> libraries:
                        becomes <code>true</code>.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2101\">issue 2101</a>.</td>
 </tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Integer.Pulse
+    </td>
+    <td valign=\"top\"><code>Integer</code> pulse source signal with a <code>startTime</code> parameter and an optional number of
+                       periods <code>nPeriods</code> specification.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2125\">issue 2125</a>.</td>
+</tr>
+
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Integer.TimeTable
+    </td>
+    <td valign=\"top\">Time table for <code>Integer</code> outputs.<br/>
+                       Each output is held constant between two consecutive entries in each column of the <code>table</code> parameters.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2125\">issue 2125</a>.</td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Logical.TimeTable
+    </td>
+    <td valign=\"top\">Time table for <code>Boolean</code> outputs.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2125\">issue 2125</a>.</td>
+</tr>
 </table>
 <!-- Backward compatible changes -->
 <p>
@@ -290,6 +308,11 @@ have been <b style=\"color:blue\">improved</b> in a
     <td valign=\"top\">Added option to specify a hysteresis, which by default is set to <i>0</i>.
     </td>
     </tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse
+    </td>
+    <td valign=\"top\">Renamed parameter <code>nperiod</code> to <code>nPeriod</code>.
+    </td>
+    </tr>
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL.Logical</b>
     </td>
 </tr>
@@ -298,7 +321,9 @@ have been <b style=\"color:blue\">improved</b> in a
     <td valign=\"top\">Revised initial equation section to ensure an output of the block is <code>true</code> when simulation is started
                        after boolean pulse <code>startTime</code> and the simulation start time is such that it falls within a time period during which the
                        output is expected to be <code>true</code>.<br/>
-                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2110\">issue 2110</a>.
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2110\">issue 2110</a>.<br/>
+                       Added an integer parameter to enable specification of number of periods.
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2125\">issue 2125</a>.
     </td>
     </tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.HeatExchangers.RadiantSlabs</b>
