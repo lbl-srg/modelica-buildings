@@ -454,6 +454,12 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL.Logical</b>
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Logical.Latch
+    </td>
+    <td valign=\"top\">Removed the parameter <code>pre_y_start</code>, and made the initial output to be equal to
+                       latch input when the clear input is false<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2177\">#2177</a>.
+</tr>  
 <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Logical.Timer
     </td>
     <td valign=\"top\">Removed <code>reset</code> boolean input and added boolean output <code>passed</code>
