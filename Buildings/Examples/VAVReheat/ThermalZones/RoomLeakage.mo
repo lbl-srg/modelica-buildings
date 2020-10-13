@@ -7,6 +7,7 @@ model RoomLeakage "Room leakage model"
   parameter Boolean use_windPressure=false
     "Set to true to enable wind pressure"
     annotation(Evaluate=true);
+
   Buildings.Fluid.FixedResistances.PressureDrop res(
     redeclare package Medium = Medium,
     dp_nominal=50,
@@ -14,8 +15,9 @@ model RoomLeakage "Room leakage model"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b(redeclare package Medium =
         Medium) annotation (Placement(transformation(extent={{90,-10},{110,10}})));
-  Buildings.Fluid.Sources.Outside_CpLowRise
-                        amb(redeclare package Medium = Medium, nPorts=1,
+  Buildings.Fluid.Sources.Outside_CpLowRise amb(
+    redeclare package Medium = Medium,
+    nPorts=1,
     s=s,
     azi=azi,
     Cp0=if use_windPressure then 0.6 else 0)
