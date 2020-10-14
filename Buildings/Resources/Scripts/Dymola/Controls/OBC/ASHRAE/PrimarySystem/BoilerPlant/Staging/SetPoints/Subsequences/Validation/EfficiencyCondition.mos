@@ -1,0 +1,13 @@
+﻿simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.Validation.EfficiencyCondition", startTime=0,tolerance=1e-6, stopTime=7200, outputInterval=1, method="dassl", resultFile="EfficiencyCondition1");
+removePlots(false);
+createPlot(id=1, position={0, 0, 1660, 998}, y={"effCon.uCapReq", "effCon.uCapUpMin"}, range={0.0, 7200.0, 0.9, 1.6}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=1, position={0, 0, 1660, 329}, y={"effCon.VHotWat_flow", "effCon.VUpMinSet_flow"}, range={0.0, 7200.0, -0.2, 1.2000000000000002}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}});
+createPlot(id=1, position={0, 0, 1660, 329}, y={"effCon.yEffCon"}, range={0.0, 7200.0, -0.2, 1.2000000000000002}, grid=true, subPlot=3, colors={{28,108,200}});
+//ExportPlotAsImage("./Resources/Images/Controls/OBC/ASHRAE/PrimarySystem/BoilerPlant/Staging/SetPoints/Subsequences/EfficiencyCondition1.png", 1, true, false);
+
+createPlot(id=2, position={0, 0, 1660, 998}, y={"effCon1.uCapReq", "effCon1.uCapDes"}, range={0.0, 7200.0, 0.78, 1.02}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=2, position={0, 0, 1660, 496}, y={"effCon1.yEffCon"}, range={0.0, 7200.0, -0.1, 1.1}, grid=true, subPlot=2, colors={{28,108,200}});
+//ExportPlotAsImage("./Resources/Images/Controls/OBC/ASHRAE/PrimarySystem/BoilerPlant/Staging/SetPoints/Subsequences/EfficiencyCondition2.png", 2, true, false);
+
+createPlot(id=3, position={0, 0, 1660, 998}, y={"effCon2.uCapReq", "effCon2.uCapDes"}, range={0.0, 7200.0, 0.78, 1.02}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=3, position={0, 0, 1660, 496}, y={"effCon2.yEffCon"}, range={0.0, 7200.0, -0.1, 1.1}, grid=true, subPlot=2, colors={{28,108,200}});
