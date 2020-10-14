@@ -153,5 +153,15 @@ equation
       StopTime=15724800,
       Tolerance=1e-06),
     __Dymola_Commands(file="Resources/Scripts/Dymola/Applications/DHC/CentralPlants/Cooling/Subsystems/Examples/CoolingTowerParallel.mos"
-        "Simulate and Plot"));
+        "Simulate and Plot"),
+    Documentation(info="<html>
+<p>This model validates the parallel connected cooling tower subsystem in <a href=\"modelica://Buildings.Applications.DHC.CentralPlants.Cooling.Subsystems.CoolingTowerParellel\">Buildings.Applications.DHC.CentralPlants.Cooling.Subsystems.CoolingTowerParellel</a>.</p>
+</html>", revisions="<html>
+<ul>
+<li>
+August 6, 2020 by Jing Wang:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end CoolingTowerParallel;

@@ -141,5 +141,15 @@ equation
       Tolerance=1e-06),
     __Dymola_Commands(file=
           "Resources/Scripts/Dymola/Applications/DHC/CentralPlants/Cooling/Subsystems/Examples/CoolingTowerWithBypass.mos"
-        "Simulate and Plot"));
+        "Simulate and Plot"),
+    Documentation(revisions="<html>
+<ul>
+<li>
+August 6, 2020 by Jing Wang:<br/>
+First implementation.
+</li>
+</ul>
+</html>", info="<html>
+<p>This model validates the parallel connected cooling tower subsystem in <a href=\"modelica://Buildings.Applications.DHC.CentralPlants.Cooling.Subsystems.CoolingTowerWithBypass\">Buildings.Applications.DHC.CentralPlants.Cooling.Subsystems.CoolingTowerWithBypass</a>.</p>
+</html>"));
 end CoolingTowerWithBypass;

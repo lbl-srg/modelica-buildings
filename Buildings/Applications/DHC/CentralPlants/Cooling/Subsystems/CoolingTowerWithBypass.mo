@@ -72,11 +72,9 @@ model CoolingTowerWithBypass "Cooling tower system with bypass valve"
   Modelica.Fluid.Interfaces.FluidPort_a port_a(redeclare package Medium=Medium)
     "Fluid connector a (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
-
   Modelica.Fluid.Interfaces.FluidPort_b port_b(redeclare package Medium=Medium)
     "Fluid connector b (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
-
   Modelica.Blocks.Interfaces.RealInput on[num](
     each final min=0,
     each final max=1,
@@ -112,7 +110,6 @@ model CoolingTowerWithBypass "Cooling tower system with bypass valve"
     final PFan_nominal=PFan_nominal,
     final energyDynamics=energyDynamics) "Cooling tower system"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-
   Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage valByp(
     redeclare final package Medium = Medium,
     final m_flow_nominal=m_flow_nominal*0.0001,
@@ -121,23 +118,19 @@ model CoolingTowerWithBypass "Cooling tower system with bypass valve"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         origin={0,-40})));
-
   Buildings.Fluid.Sensors.TemperatureTwoPort senTCWSup(
     redeclare final package Medium = Medium,
     final m_flow_nominal=m_flow_nominal,
     final T_start=Medium.T_default)
     annotation (Placement(transformation(extent={{60,10},{80,-10}})));
-
   Modelica.Blocks.Sources.RealExpression TSetCWSup(
     final y=max(TWetBul + dTApp, TMin))
     "Condenser water supply temperature setpoint"
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
-
   Modelica.Blocks.Sources.Constant TSetByPas(
     final k=TMin)
     "Bypass loop temperature setpoint"
     annotation (Placement(transformation(extent={{-90,-60},{-70,-40}})));
-
   Buildings.Controls.Continuous.LimPID bypValCon(
     u_s(final unit="K", displayUnit="degC"),
     u_m(final unit="K", displayUnit="degC"),
@@ -148,7 +141,6 @@ model CoolingTowerWithBypass "Cooling tower system with bypass valve"
     final y_reset=0)
     "Bypass valve controller"
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
-
   Buildings.Controls.Continuous.LimPID cooTowSpeCon(
     u_s(final unit="K", displayUnit="degC"),
     u_m(final unit="K", displayUnit="degC"),
@@ -157,11 +149,9 @@ model CoolingTowerWithBypass "Cooling tower system with bypass valve"
     final k=k,
     final Ti=Ti) "Cooling tower fan speed controller"
     annotation (Placement(transformation(extent={{-12,50},{8,70}})));
-
   Modelica.Blocks.Sources.RealExpression TLvgCooTow(final y=senTCWSup.T)
     "Condenser water temperature leaving the towers"
     annotation (Placement(transformation(extent={{-30,30},{-10,50}})));
-
   Modelica.Blocks.Math.RealToBoolean reaToBoo "Real to boolean signal"
     annotation (Placement(transformation(extent={{-90,-90},{-70,-70}})));
 equation
