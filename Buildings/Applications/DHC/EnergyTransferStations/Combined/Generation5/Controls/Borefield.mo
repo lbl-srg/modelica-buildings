@@ -24,7 +24,7 @@ model Borefield "Borefield controller"
     final t=0.9,
     final h=0.1)
     "True if at least one isolation valve is open"
-    annotation (Placement(transformation(extent={{-50,-60},{-30,-40}})));
+    annotation (Placement(transformation(extent={{-50,-58},{-30,-38}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiMax multiMax1(nin=2)
     "Maximum opening"
     annotation (Placement(transformation(extent={{-90,-50},{-70,-30}})));
@@ -79,18 +79,17 @@ model Borefield "Borefield controller"
 equation
 
   connect(multiMax1.y, opeVal.u)
-    annotation (Line(points={{-68,-40},{-60,-40},{-60,-50},{-52,-50}},
+    annotation (Line(points={{-68,-40},{-60,-40},{-60,-48},{-52,-48}},
                                                    color={0,0,127}));
   connect(yValIso, multiMax1.u)
     annotation (Line(points={{-120,-40},{-92,-40}}, color={0,0,127}));
-  connect(u, enaSup.u) annotation (Line(points={{-120,60},{-90,60},{-90,-20},{
+  connect(u, enaSup.u) annotation (Line(points={{-120,60},{-80,60},{-80,-20},{
           -52,-20}},
                 color={0,0,127}));
   connect(enaSup.y, enaBor.u1) annotation (Line(points={{-28,-20},{-20,-20},{
           -20,-40},{-12,-40}},
                    color={255,0,255}));
-  connect(opeVal.y, enaBor.u2) annotation (Line(points={{-28,-50},{-20,-50},{
-          -20,-48},{-12,-48}},
+  connect(opeVal.y, enaBor.u2) annotation (Line(points={{-28,-48},{-12,-48}},
                         color={255,0,255}));
   connect(enaBor.y, conMix.trigger) annotation (Line(points={{12,-40},{20,-40},
           {20,-96},{-6,-96},{-6,-92}},

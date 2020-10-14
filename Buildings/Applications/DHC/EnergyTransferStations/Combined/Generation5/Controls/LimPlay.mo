@@ -266,7 +266,7 @@ low controller output.
 </li>
 <li>
 When the two outputs reach their minimum value, the output is equal to the
-right controller output.
+high controller output.
 </li>
 <li>
 In between, the output is equal to the output of the previously active controller.
