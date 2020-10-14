@@ -91,8 +91,27 @@ annotation (
 <p>
 Validation test for the block
 <a href=\"modelica://Buildings.Controls.OBC.CDL.Logical.Toggle\">
-Buildings.Controls.OBC.CDL.Logical.Toggle</a>.
+Buildings.Controls.OBC.CDL.Logical.Toggle</a>. Following tests are implemented:
 </p>
+<ul>
+<li>
+When the clear input is <code>false</code>, the initial output should equal to the initial toggle input.
+</li>
+<li>
+When the clear input is <code>true</code>, the initial output should be <code>false</code>,
+regardless of the value of the toggle input.
+</li>
+<li>
+At the same moment, when both the clear input and the toggle input rise from <code>false</code>
+to <code>true</code>, the output should become <code>false</code> if it was <code>true</code>,
+or remain <code>false</code> if it was <code>false</code>.
+</li>
+<li>
+At the same moment, when the clear input falls from <code>true</code> to <code>false</code>
+and the toggle input rises from <code>false</code> to <code>true</code>, the output
+should rise from <code>false</code> to <code>true</code>.
+</li>
+</ul>
 </html>", revisions="<html>
 <ul>
 <li>

@@ -60,16 +60,13 @@ equation
     annotation (Line(points={{62,-60},{72,-60},{72,-66},{98,-66}},
       color={255,0,255}));
   connect(fal.y, falCleTruIni.clr) annotation (Line(points={{-98,80},{-70,80},{
-          -70,94},{-62,94}},
-                         color={255,0,255}));
+          -70,94},{-62,94}}, color={255,0,255}));
   connect(latInp.y, falCleTruIni.u) annotation (Line(points={{-138,160},{-80,
-          160},{-80,100},{-62,100}},
-                                color={255,0,255}));
+          160},{-80,100},{-62,100}}, color={255,0,255}));
   connect(tru.y, truCleTruIni.clr) annotation (Line(points={{-98,-60},{-70,-60},
           {-70,-46},{-62,-46}}, color={255,0,255}));
   connect(latInp.y, truCleTruIni.u) annotation (Line(points={{-138,160},{-80,
-          160},{-80,-40},{-62,-40}},
-                                color={255,0,255}));
+          160},{-80,-40},{-62,-40}}, color={255,0,255}));
   connect(latInp.y, swiCleInp.u)
     annotation (Line(points={{-138,160},{80,160},{80,100},{98,100}},
       color={255,0,255}));
@@ -77,17 +74,16 @@ equation
     annotation (Line(points={{-138,160},{80,160},{80,-60},{98,-60}},
       color={255,0,255}));
   connect(latInp.y, not2.u) annotation (Line(points={{-138,160},{-130,160},{
-          -130,0},{-122,0}},
-                          color={255,0,255}));
+          -130,0},{-122,0}}, color={255,0,255}));
   connect(not2.y, falCleFalIni.u) annotation (Line(points={{-98,0},{-90,0},{-90,
           40},{-62,40}}, color={255,0,255}));
   connect(fal.y, falCleFalIni.clr) annotation (Line(points={{-98,80},{-70,80},{
-          -70,34},{-62,34}},
-                         color={255,0,255}));
+          -70,34},{-62,34}}, color={255,0,255}));
   connect(tru.y, truCleFalIni.clr) annotation (Line(points={{-98,-60},{-70,-60},
           {-70,-106},{-62,-106}}, color={255,0,255}));
   connect(not2.y, truCleFalIni.u) annotation (Line(points={{-98,0},{-90,0},{-90,
           -100},{-62,-100}}, color={255,0,255}));
+
 annotation (
   experiment(StopTime=10.0, Tolerance=1e-06),
    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Logical/Validation/Latch.mos"

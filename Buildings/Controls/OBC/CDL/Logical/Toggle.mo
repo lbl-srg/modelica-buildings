@@ -16,7 +16,7 @@ initial equation
 equation
   when initial() then
     //scenario = 1
-    y = if clr then false else pre(y);
+    y = if clr then false else u;
   elsewhen (not clr) and change(u) and (pre(u) == false) and (pre(y) == false) then
     //scenario = 2
     y = true;
