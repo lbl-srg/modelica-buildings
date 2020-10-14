@@ -1,0 +1,7 @@
+simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.SecondaryPumps.Subsequences.Validation.EnableLag_flowrate", method="Cvode", stopTime=3600, tolerance=1e-06, resultFile="EnableLag_flowrate");
+createPlot(id=1, position={20, 10, 700, 900}, subPlot=1, y={"enaLagSecPum.hotWatFloRat.y", "enaLagSecPum.addPar2.y"}, range={0.0, 1200.0, 0.4, 0.9}, grid=true, colors={{28,108,200},{238,46,47}});
+createPlot(id=1, position={20, 10, 700, 900}, subPlot=2, y={"enaLagSecPum.hys.y", "nexLagPum.y"}, range={0.0, 1200.0, 0.4, 0.9}, grid=true, colors={{28,108,200},{238,46,47}});
+createPlot(id=1, position={20, 10, 700, 900}, subPlot=3, y={"enaLagSecPum.hys1.y", "preLagPum.y"}, range={0.0, 1200.0, 0.4, 0.9}, grid=true, colors={{28,108,200},{238,46,47}});
+createPlot(id=2, position={730, 10, 700, 900}, subPlot=1, y={"enaLagSecPum.tim.y"}, range={0.0, 1200.0, 0.4, 0.9}, grid=true, colors={{28,108,200}});
+createPlot(id=2, position={730, 10, 700, 900}, subPlot=2, y={"enaLagSecPum.tim1.y"}, range={0.0, 1200.0, 0.4, 0.9}, grid=true, colors={{28,108,200}});
+createPlot(id=2, position={730, 10, 700, 900}, subPlot=3, y={"nexLagPum.y", "preLagPum.y"}, range={0.0, 1200.0, 0.4, 0.9}, grid=true, colors={{28,108,200},{238,46,47}});

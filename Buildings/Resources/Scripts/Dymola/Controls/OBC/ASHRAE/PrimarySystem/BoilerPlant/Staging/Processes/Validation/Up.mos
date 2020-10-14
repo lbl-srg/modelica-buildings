@@ -1,0 +1,33 @@
+simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.Processes.Validation.Up", method="Dassl", stopTime=900, tolerance=1e-06, resultFile="UpProcess");
+
+createPlot(id=1, position={0, 0, 1600, 959}, y={"upProCon.uBoi[1]", "upProCon.uBoi[2]"}, range={0.0, 900.0, -0.5, 1.5}, grid=true, colors={{28,108,200}, {28,108,200}});
+createPlot(id=1, position={0, 0, 1600, 155}, y={"upProCon.uBoiSet[1]", "upProCon.uBoiSet[2]"}, range={0.0, 900.0, -0.5, 1.5}, grid=true, subPlot=2, colors={{28,108,200}, {28,108,200}});
+createPlot(id=1, position={0, 0, 1600, 156}, y={"upProCon.uStaSet"}, range={0.0, 900.0, 0.0, 4.0}, grid=true, subPlot=3, colors={{28,108,200}});
+createPlot(id=1, position={0, 0, 1600, 156}, y={"upProCon.uHotWatIsoVal[1]", "upProCon.uHotWatIsoVal[2]", "upProCon.yHotWatIsoVal[1]", "upProCon.yHotWatIsoVal[2]"}, range={0.0, 900.0, -0.5, 1.5}, grid=true, subPlot=4, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}});
+createPlot(id=1, position={0, 0, 1600, 155}, y={"yPumChaPro.y"}, range={0.0, 900.0, -0.5, 1.5}, grid=true, subPlot=5, colors={{28,108,200}});
+createPlot(id=1, position={0, 0, 1600, 156}, y={"yStaChaPro.y"}, range={0.0, 900.0, -0.5, 1.5}, grid=true, subPlot=6, colors={{28,108,200}});
+
+createPlot(id=2, position={0, 0, 1600, 959}, y={"upProCon1.uBoi[1]", "upProCon1.uBoi[2]"}, range={0.0, 900.0, -0.5, 1.5}, grid=true, colors={{28,108,200}, {28,108,200}});
+createPlot(id=2, position={0, 0, 1600, 155}, y={"upProCon1.uBoiSet[1]", "upProCon1.uBoiSet[2]"}, range={0.0, 900.0, -0.5, 1.5}, grid=true, subPlot=2, colors={{28,108,200}, {28,108,200}});
+createPlot(id=2, position={0, 0, 1600, 156}, y={"upProCon1.uStaSet"}, range={0.0, 900.0, 0.0, 4.0}, grid=true, subPlot=3, colors={{28,108,200}});
+createPlot(id=2, position={0, 0, 1600, 156}, y={"upProCon1.uHotWatIsoVal[1]", "upProCon1.uHotWatIsoVal[2]", "upProCon1.yHotWatIsoVal[1]", "upProCon1.yHotWatIsoVal[2]"}, range={0.0, 900.0, -0.5, 1.5}, grid=true, subPlot=4, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}});
+createPlot(id=2, position={0, 0, 1600, 155}, y={"yPumChaPro1.y"}, range={0.0, 900.0, -0.5, 1.5}, grid=true, subPlot=5, colors={{28,108,200}});
+createPlot(id=2, position={0, 0, 1600, 156}, y={"yStaChaPro1.y"}, range={0.0, 900.0, -0.5, 1.5}, grid=true, subPlot=6, colors={{28,108,200}});
+
+createPlot(id=3, position={0, 0, 1600, 959}, y={"upProCon2.uBoi[1]", "upProCon2.uBoi[2]"}, range={0.0, 900.0, -0.5, 1.5}, grid=true, colors={{28,108,200}, {28,108,200}});
+createPlot(id=3, position={0, 0, 1600, 196}, y={"upProCon2.uBoiSet[1]", "upProCon2.uBoiSet[2]"}, range={0.0, 900.0, -0.5, 1.5}, grid=true, subPlot=2, colors={{28,108,200}, {28,108,200}});
+createPlot(id=3, position={0, 0, 1600, 196}, y={"upProCon2.uStaSet"}, range={0.0, 900.0, 0.0, 4.0}, grid=true, subPlot=3, colors={{28,108,200}});
+createPlot(id=3, position={0, 0, 1600, 196}, y={"yPumChaPro2.y"}, range={0.0, 900.0, -0.5, 1.5}, grid=true, subPlot=4, colors={{28,108,200}});
+createPlot(id=3, position={0, 0, 1600, 196}, y={"yStaChaPro2.y"}, range={0.0, 900.0, -0.5, 1.5}, grid=true, subPlot=5, colors={{28,108,200}});
+
+createPlot(id=4, position={0, 0, 1600, 959}, y={"upProCon3.uBoi[1]", "upProCon3.uBoi[2]"}, range={0.0, 900.0, -0.5, 1.5}, grid=true, colors={{28,108,200}, {28,108,200}});
+createPlot(id=4, position={0, 0, 1600, 196}, y={"upProCon3.uBoiSet[1]", "upProCon3.uBoiSet[2]"}, range={0.0, 900.0, -0.5, 1.5}, grid=true, subPlot=2, colors={{28,108,200}, {28,108,200}});
+createPlot(id=4, position={0, 0, 1600, 196}, y={"upProCon3.uStaSet"}, range={0.0, 900.0, 0.0, 4.0}, grid=true, subPlot=3, colors={{28,108,200}});
+createPlot(id=4, position={0, 0, 1600, 196}, y={"yPumChaPro3.y"}, range={0.0, 900.0, -0.5, 1.5}, grid=true, subPlot=4, colors={{28,108,200}});
+createPlot(id=4, position={0, 0, 1600, 196}, y={"yStaChaPro3.y"}, range={0.0, 900.0, -0.5, 1.5}, grid=true, subPlot=5, colors={{28,108,200}});
+
+createPlot(id=5, position={0, 0, 1600, 959}, y={"upProCon4.uBoi[1]", "upProCon4.uBoi[2]"}, range={0.0, 900.0, -0.5, 1.5}, grid=true, colors={{28,108,200}, {28,108,200}});
+createPlot(id=5, position={0, 0, 1600, 196}, y={"upProCon4.uBoiSet[1]", "upProCon4.uBoiSet[2]"}, range={0.0, 900.0, -0.5, 1.5}, grid=true, subPlot=2, colors={{28,108,200}, {28,108,200}});
+createPlot(id=5, position={0, 0, 1600, 196}, y={"upProCon4.uStaSet"}, range={0.0, 900.0, 0.0, 4.0}, grid=true, subPlot=3, colors={{28,108,200}});
+createPlot(id=5, position={0, 0, 1600, 196}, y={"upProCon4.uHotWatIsoVal[1]", "upProCon4.uHotWatIsoVal[2]", "upProCon4.yHotWatIsoVal[1]", "upProCon4.yHotWatIsoVal[2]"}, range={0.0, 900.0, -0.5, 1.5}, grid=true, subPlot=4, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}});
+createPlot(id=5, position={0, 0, 1600, 196}, y={"yStaChaPro4.y"}, range={0.0, 900.0, -0.5, 1.5}, grid=true, subPlot=5, colors={{28,108,200}});

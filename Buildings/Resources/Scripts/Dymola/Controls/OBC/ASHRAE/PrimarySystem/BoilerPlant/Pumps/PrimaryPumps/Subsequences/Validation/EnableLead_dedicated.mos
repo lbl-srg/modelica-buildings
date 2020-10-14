@@ -1,0 +1,4 @@
+simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.PrimaryPumps.Subsequences.Validation.EnableLead_dedicated", method="Cvode", stopTime=3600, tolerance=1e-06, resultFile="enaLeaPriPum_dedicated");
+createPlot(id=1, position={0, 0, 1545, 998}, y={"enaLeaPriPum.uPlaEna"}, range={0.0, 3600.0, -0.2, 1.2000000000000002}, grid=true, colors={{28,108,200}});
+createPlot(id=1, position={0, 0, 1545, 330}, y={"enaLeaPriPum.uLeaBoiSta"}, range={0.0, 3600.0, 0.8, 2.4000000000000004}, grid=true, subPlot=2, colors={{28,108,200}});
+createPlot(id=1, position={0, 0, 1545, 329}, y={"enaLeaPriPum.yLea"}, range={0.0, 3600.0, -0.2, 1.2000000000000002}, grid=true, subPlot=3, colors={{28,108,200}});

@@ -1,0 +1,17 @@
+﻿simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.Validation.FailsafeCondition", startTime=0,tolerance=1e-6, stopTime=7200, outputInterval=1, method="dassl", resultFile="FailsafeCondition1");
+removePlots(false);
+createPlot(id=1, position={0, 0, 1660, 998}, y={"faiSafCon.TSup", "faiSafCon.TSupSet"}, range={0.0, 7200.0, 70.0, 82.0}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=1, position={0, 0, 1660, 496}, y={"faiSafCon.yFaiCon"}, range={0.0, 7200.0, -1.5, 1.5}, grid=true, subPlot=2, colors={{28,108,200}});
+
+createPlot(id=2, position={0, 0, 1660, 998}, y={"faiSafCon1.TSup", "faiSafCon1.TSupSet"}, range={0.0, 7200.0, 70.0, 82.0}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=2, position={0, 0, 1660, 496}, y={"faiSafCon1.yFaiCon"}, range={0.0, 7200.0, -1.5, 1.5}, grid=true, subPlot=2, colors={{28,108,200}});
+
+createPlot(id=3, position={0, 0, 1660, 998}, y={"faiSafCon2.TSup", "faiSafCon2.TSupSet"}, range={0.0, 7200.0, 70.0, 82.0}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=3, position={0, 0, 1660, 496}, y={"faiSafCon2.yFaiCon"}, range={0.0, 7200.0, -1.5, 1.5}, grid=true, subPlot=2, colors={{28,108,200}});
+
+createPlot(id=4, position={0, 0, 1660, 998}, y={"faiSafCon3.TSup", "faiSafCon3.TSupSet"}, range={0.0, 7200.0, 70.0, 82.0}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=4, position={0, 0, 1660, 496}, y={"faiSafCon3.yFaiCon"}, range={0.0, 7200.0, -1.5, 1.5}, grid=true, subPlot=2, colors={{28,108,200}});
+//ExportPlotAsImage("./Resources/Images/Controls/OBC/ASHRAE/PrimarySystem/BoilerPlant/Staging/SetPoints/Subsequences/FailsafeCondition.png", 2, true, false);
+
+createPlot(id=5, position={0, 0, 1660, 998}, y={"faiSafCon4.TSup", "faiSafCon4.TSupSet"}, range={0.0, 7200.0, 70.0, 82.0}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=5, position={0, 0, 1660, 496}, y={"faiSafCon4.yFaiCon"}, range={0.0, 7200.0, -1.5, 1.5}, grid=true, subPlot=2, colors={{28,108,200}});
