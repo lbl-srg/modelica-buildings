@@ -45,12 +45,12 @@ block TSupSet
    final quantity="ThermodynamicTemperature")
     "Highest space temperature reported from all terminal units."
       annotation (Placement(transformation(extent={{-142,-18},{-102,22}}),
-        iconTransformation(extent={{-140,20},{-100,60}})));
+        iconTransformation(extent={{-140,-70},{-100,-30}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput dehumMode
     "True when dehumidification mode is active."
       annotation (Placement(transformation(extent={{-142,-102},{-102,-62}}),
-        iconTransformation(extent={{-140,-60},{-100,-20}})));
+        iconTransformation(extent={{-140,30},{-100,70}})));
 
   // ---outputs---
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput supCooSP
@@ -104,7 +104,7 @@ block TSupSet
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput supPrimSP
     "Supply air primary temperature set point."
       annotation (Placement(transformation(extent={{102,-18},{142,22}}),
-          iconTransformation(extent={{80,-18},{120,22}})));
+          iconTransformation(extent={{102,-20},{142,20}})));
 equation
   connect(lin.u, highSpaceT)
     annotation (Line(points={{-44,2},{-122,2}}, color={0,0,127}));
@@ -158,11 +158,11 @@ equation
             fillColor={255,255,255},
             fillPattern=FillPattern.Solid),
         Text(
-          extent={{-94,50},{-40,32}},
+          extent={{-94,-40},{-40,-58}},
           lineColor={28,108,200},
           textString="highSpaceT"),
         Text(
-          extent={{-94,-30},{-40,-48}},
+          extent={{-94,60},{-40,42}},
           lineColor={28,108,200},
           textString="dehumMode"),
         Text(
@@ -197,7 +197,11 @@ equation
           points={{6,-4},{-8,6},{-12,-4},{6,-4}},
           lineColor={162,29,33},
           fillColor={162,29,33},
-          fillPattern=FillPattern.Solid)}),
+          fillPattern=FillPattern.Solid),
+        Text(
+          extent={{42,8},{96,-10}},
+          lineColor={28,108,200},
+          textString="supPrimSP")}),
     Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(revisions="<html>
 <ul>

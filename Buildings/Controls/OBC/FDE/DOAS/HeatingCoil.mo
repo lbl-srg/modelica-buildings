@@ -2,6 +2,12 @@ within Buildings.Controls.OBC.FDE.DOAS;
 block HeatingCoil
   "This block commands the heating coil."
 
+  parameter Real SArhcPIk = 0.0000001
+  "Heating coil SAT PI gain value k.";
+
+  parameter Real SArhcPITi = 0.000025
+  "Heating coil SAT PI time constant value Ti.";
+
     // ---inputs---
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput supFanProof
     "True when supply fan is proven on."
@@ -23,8 +29,8 @@ block HeatingCoil
       iconTransformation(extent={{102,-20},{142,20}})));
 
   Buildings.Controls.OBC.CDL.Continuous.LimPID conPID(
-    final k=0.000001,
-    final Ti=0.00025)
+    final k=SArhcPIk,
+    final Ti=SArhcPITi)
     "PI calculation of supply air temperature and supply air heating set point"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi
@@ -128,11 +134,7 @@ equation
         Text(
           extent={{-108,-42},{-68,-54}},
           lineColor={28,108,200},
-          textString="saT"),
-        Text(
-          extent={{18,-16},{64,-32}},
-          lineColor={28,108,200},
-          textString="%yRHC")}),   Diagram(coordinateSystem(preserveAspectRatio=
+          textString="saT")}),     Diagram(coordinateSystem(preserveAspectRatio=
            false)),
     experiment(StopTime=5760, __Dymola_Algorithm="Dassl"));
 end HeatingCoil;

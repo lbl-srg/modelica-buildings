@@ -29,7 +29,7 @@ block DehumMode
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput supFanProof
     "True when supply fan is proven on"
       annotation (Placement(transformation(extent={{-142,18},{-102,58}}),
-        iconTransformation(extent={{-142,-94},{-102,-54}})));
+        iconTransformation(extent={{-142,52},{-102,92}})));
 
     // ---outputs---
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput dehumMode
@@ -65,7 +65,12 @@ block DehumMode
     delayOnInit=true)
       "Minimum supply fan runtime before enabling dehum mode."
         annotation (Placement(transformation(extent={{-44,28},{-24,48}})));
-
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay init_delay(
+    final delayTime=5,
+    final delayOnInit=true)
+    "Delays the initial trigger for latch to correctly capture true state 
+      when CDL starts with humidity above set point."
+    annotation (Placement(transformation(extent={{-14,-10},{6,10}})));
 equation
   connect(retHum, gre.u1)
     annotation (Line(points={{-122,0},{-46,0}}, color={0,0,127}));
@@ -79,8 +84,6 @@ equation
       color={0,0,127}));
   connect(les.y, truDel.u)
     annotation (Line(points={{-22,-32},{-16,-32}}, color={255,0,255}));
-  connect(gre.y, lat.u)
-    annotation (Line(points={{-22,0},{20,0}}, color={255,0,255}));
   connect(truDel.y, lat.clr)
     annotation (Line(points={{8,-32},{14,-32},{14,-6},{20,-6}},
       color={255,0,255}));
@@ -95,6 +98,10 @@ equation
   connect(minimumRun.y, and2.u1)
     annotation (Line(points={{-22,38},{48,38},{48,8},{56,8}},
       color={255,0,255}));
+  connect(gre.y, init_delay.u)
+    annotation (Line(points={{-22,0},{-16,0}}, color={255,0,255}));
+  connect(init_delay.y, lat.u)
+    annotation (Line(points={{8,0},{20,0}}, color={255,0,255}));
   annotation (defaultComponentName="DehumMod",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={
            Text(
@@ -138,7 +145,7 @@ equation
           lineColor={28,108,200},
           textString="%dehumSet"),
         Text(
-          extent={{-96,-66},{-52,-80}},
+          extent={{-96,80},{-52,66}},
           lineColor={28,108,200},
           textString="supFanProof")}),
                                      Diagram(coordinateSystem(

@@ -2,6 +2,18 @@ within Buildings.Controls.OBC.FDE.DOAS;
 block CoolingCoil
   "This block commands the cooling coil."
 
+  parameter Real cctPIk = 0.0000001
+  "Cooling coil CCT PI gain value k.";
+
+  parameter Real cctPITi = 0.000025
+  "Cooling coil CCT PI time constant value Ti.";
+
+  parameter Real SAccPIk = 0.0000001
+  "Cooling coil SAT PI gain value k.";
+
+  parameter Real SAccPITi = 0.000025
+  "Cooling coil SAT PI time constant value Ti.";
+
   parameter Real erwDPadj(
    final unit="K",
    final displayUnit="degC",
@@ -12,8 +24,7 @@ block CoolingCoil
   Buildings.Controls.OBC.CDL.Interfaces.RealInput saT(
    final unit="K",
    final displayUnit="degC",
-   final quantity="ThermodynamicTemperature")
-    "Supply air temperature sensor."
+   final quantity="ThermodynamicTemperature") "Supply air temperature sensor."
       annotation (Placement(transformation(extent={{-142,-56},{-102,-16}}),
         iconTransformation(extent={{-142,36},{-102,76}})));
 
@@ -33,8 +44,7 @@ block CoolingCoil
   Buildings.Controls.OBC.CDL.Interfaces.RealInput erwHum(
     final min=0,
     final max=1,
-    unit="1")
-    "ERW relative humidity sensor"
+    unit="1") "ERW relative humidity sensor"
       annotation (Placement(transformation(extent={{-142,34},{-102,74}}),
         iconTransformation(extent={{-142,-78},{-102,-38}})));
 
@@ -74,14 +84,14 @@ block CoolingCoil
       "ERW dewpoint set point adjustment"
         annotation (Placement(transformation(extent={{-76,12},{-56,32}})));
   Buildings.Controls.OBC.CDL.Continuous.LimPID conPID(
-    k=0.0000001,
-    Ti=0.000025,
+    k=SAccPIk,
+    Ti=SAccPITi,
     reverseAction=true)
     "PI calculation of supply air temperature and supply air cooling set point"
     annotation (Placement(transformation(extent={{-76,-46},{-56,-26}})));
   Buildings.Controls.OBC.CDL.Continuous.LimPID conPID1(
-    k=0.0000001,
-    Ti=0.000025,
+    k=cctPIk,
+    Ti=cctPITi,
     reverseAction=false)
     "PI calculation of cooling coil air temperature and ERW dew point"
     annotation (Placement(transformation(extent={{6,74},{26,94}})));
@@ -251,11 +261,7 @@ equation
           lineColor={127,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
-        Line(points={{42,-48},{42,-54}}, color={127,0,0}),
-        Text(
-          extent={{16,-14},{64,-32}},
-          lineColor={28,108,200},
-          textString="%yCC")}),
+        Line(points={{42,-48},{42,-54}}, color={127,0,0})}),
     Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(revisions="<html>
 <ul>

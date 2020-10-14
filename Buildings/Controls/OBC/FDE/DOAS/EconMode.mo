@@ -40,47 +40,53 @@ block EconMode
         annotation (Placement(transformation(extent={{-86,-36},{-66,-16}})));
   Buildings.Controls.OBC.CDL.Continuous.Greater gre
     "True if OAT > supCooSP."
-    annotation (Placement(transformation(extent={{-14,-46},{6,-26}})));
+    annotation (Placement(transformation(extent={{-20,-46},{0,-26}})));
   Buildings.Controls.OBC.CDL.Logical.Latch lat
     "Latches true when OAT < (supCooSP-econCooAdj); resets when OAT > supCooSP."
-    annotation (Placement(transformation(extent={{24,-18},{44,2}})));
+    annotation (Placement(transformation(extent={{42,-18},{62,2}})));
   Buildings.Controls.OBC.CDL.Logical.And and2
     "Logical AND; true when fan is proven on and 
       temperature set point conditions are met."
-    annotation (Placement(transformation(extent={{68,-10},{88,10}})));
+    annotation (Placement(transformation(extent={{74,-10},{94,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Less les
     "True if OAT< (supCooSP-econCooAdj)."
-    annotation (Placement(transformation(extent={{-14,-18},{6,2}})));
-
+    annotation (Placement(transformation(extent={{-20,-18},{0,2}})));
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel(
+    final delayTime=10,
+    final delayOnInit=true)
+    "Delay added to compensate for CDL not processing latch correctly."
+    annotation (Placement(transformation(extent={{10,-18},{30,2}})));
 equation
   connect(and2.u1, supFanProof)
-    annotation (Line(points={{66,0},{58,0},{58,62},{-122,62}},
+    annotation (Line(points={{72,0},{66,0},{66,62},{-122,62}},
       color={255,0,255}));
   connect(les.u1, oaT)
-    annotation (Line(points={{-16,-8},{-22,-8},{-22,26},{-122,26}},
+    annotation (Line(points={{-22,-8},{-26,-8},{-26,26},{-122,26}},
       color={0,0,127}));
   connect(add2.y, les.u2)
-    annotation (Line(points={{-30,-16},{-16,-16}}, color={0,0,127}));
+    annotation (Line(points={{-30,-16},{-22,-16}}, color={0,0,127}));
   connect(add2.u1, supCooSP)
     annotation (Line(points={{-54,-10},{-122,-10}}, color={0,0,127}));
   connect(con.y, add2.u2)
     annotation (Line(points={{-64,-26},{-60,-26},{-60,-22},{-54,-22}},
       color={0,0,127}));
-  connect(les.y, lat.u)
-    annotation (Line(points={{8,-8},{22,-8}}, color={255,0,255}));
   connect(oaT, gre.u1)
-    annotation (Line(points={{-122,26},{-22,26},{-22,-36},{-16,-36}},
+    annotation (Line(points={{-122,26},{-26,26},{-26,-36},{-22,-36}},
       color={0,0,127}));
   connect(supCooSP, gre.u2)
-    annotation (Line(points={{-122,-10},{-92,-10},{-92,-44},{-16,-44}},
+    annotation (Line(points={{-122,-10},{-92,-10},{-92,-44},{-22,-44}},
       color={0,0,127}));
   connect(gre.y, lat.clr)
-    annotation (Line(points={{8,-36},{16,-36},{16,-14},{22,-14}},
+    annotation (Line(points={{2,-36},{34,-36},{34,-14},{40,-14}},
       color={255,0,255}));
   connect(lat.y, and2.u2)
-    annotation (Line(points={{46,-8},{66,-8}}, color={255,0,255}));
+    annotation (Line(points={{64,-8},{72,-8}}, color={255,0,255}));
   connect(and2.y, ecoMode)
-    annotation (Line(points={{90,0},{124,0}}, color={255,0,255}));
+    annotation (Line(points={{96,0},{124,0}}, color={255,0,255}));
+  connect(les.y, truDel.u)
+    annotation (Line(points={{2,-8},{8,-8}}, color={255,0,255}));
+  connect(truDel.y, lat.u)
+    annotation (Line(points={{32,-8},{40,-8}}, color={255,0,255}));
   annotation (defaultComponentName="EconMod",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={
             Rectangle(extent={{-102,100},{98,-100}},
