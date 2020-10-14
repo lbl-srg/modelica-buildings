@@ -1,14 +1,6 @@
 within Buildings.Controls.OBC.CDL.Logical.Validation;
 model Toggle "Validation model for the Toggle block"
 
-  Buildings.Controls.OBC.CDL.Logical.Toggle swiCleInp
-    "Initial false output, with clear input switch between false and true"
-    annotation (Placement(transformation(extent={{100,90},{120,110}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Toggle swiCleInp1
-    "Initial false output, with clear input switch between false and true"
-    annotation (Placement(transformation(extent={{100,-70},{120,-50}})));
-
   Buildings.Controls.OBC.CDL.Logical.Toggle falCleTruIni
     "Toggle block with clear input being contantly false and true initial toggle input"
     annotation (Placement(transformation(extent={{-60,90},{-40,110}})));
@@ -24,6 +16,14 @@ model Toggle "Validation model for the Toggle block"
   Buildings.Controls.OBC.CDL.Logical.Toggle truCleFalIni
     "Toggle block with clear input being contantly true and false initial toggle input"
     annotation (Placement(transformation(extent={{-60,-110},{-40,-90}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Toggle swiCleInp
+    "Initial false output, with clear input switch between false and true"
+    annotation (Placement(transformation(extent={{100,90},{120,110}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Toggle swiCleInp1
+    "Initial false output, with clear input switch between false and true"
+    annotation (Placement(transformation(extent={{100,-70},{120,-50}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse cleInp(
     final width=0.5,
@@ -83,6 +83,7 @@ equation
           {-70,-106},{-62,-106}}, color={255,0,255}));
   connect(not2.y, truCleFalIni.u) annotation (Line(points={{-98,0},{-90,0},{-90,
           -100},{-62,-100}}, color={255,0,255}));
+
 annotation (
   experiment(StopTime=10.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Logical/Validation/Toggle.mos"
