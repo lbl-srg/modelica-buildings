@@ -3,85 +3,66 @@ model CoolingTowerWithBypass "Cooling tower system with bypass valve"
 
   replaceable package Medium=Buildings.Media.Water
     "Condenser water medium";
-
-  parameter Integer num(min=1)=2 "Number of cooling towers";
-
+  parameter Integer num(final min=1)=2 "Number of cooling towers";
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
-
   parameter Boolean use_inputFilter=true
     "= true, if opening is filtered with a 2nd order CriticalDamping filter"
     annotation(Dialog(tab="Dynamics", group="Filtered opening"));
-
   parameter Boolean show_T = true
     "= true, if actual temperature at port is computed"
     annotation(Dialog(tab="Advanced",group="Diagnostics"));
-
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal
     "Total nominal mass flow rate of condenser water"
     annotation (Dialog(group="Nominal condition"));
-
   parameter Modelica.SIunits.Pressure dp_nominal
     "Nominal pressure difference of the tower"
     annotation (Dialog(group="Nominal condition"));
-
-  parameter Real ratWatAir_nominal(min=0, unit="1")=0.625
+  parameter Real ratWatAir_nominal(final min=0,final unit="1")=0.625
     "Design water-to-air ratio"
     annotation (Dialog(group="Nominal condition"));
-
   parameter Modelica.SIunits.Temperature TAirInWB_nominal
     "Nominal outdoor (air inlet) wetbulb temperature"
     annotation (Dialog(group="Heat transfer"));
-
   parameter Modelica.SIunits.Temperature TWatIn_nominal
     "Nominal water inlet temperature"
     annotation (Dialog(group="Heat transfer"));
-
   parameter Modelica.SIunits.TemperatureDifference dT_nominal
     "Temperature difference between inlet and outlet of the tower"
      annotation (Dialog(group="Heat transfer"));
-
   parameter Modelica.SIunits.Power PFan_nominal
     "Fan power"
     annotation (Dialog(group="Fan"));
-
   parameter Modelica.SIunits.TemperatureDifference dTApp=3
     "Approach temperature"
     annotation (Dialog(group="Control Settings"));
-
   parameter Modelica.SIunits.Temperature TMin
     "Minimum allowed water temperature entering chiller"
     annotation (Dialog(group="Control Settings"));
-
   parameter Modelica.Blocks.Types.SimpleController controllerType=Modelica.Blocks.Types.SimpleController.PI
     "Type of fan speed controller"
     annotation (Dialog(group="Control Settings"));
-
-  parameter Real k(unit="1", min=0)=1
+  parameter Real k(final unit="1",final min=0)=1
     "Gain of the tower PID controller"
     annotation (Dialog(group="Control Settings"));
-
-  parameter Modelica.SIunits.Time Ti(min=Modelica.Constants.small)=60
+  parameter Modelica.SIunits.Time Ti(final min=Modelica.Constants.small)=60
     "Integrator time constant of the tower PID controller"
     annotation (Dialog(enable=(
     controllerType == Modelica.Blocks.Types.SimpleController.PI or
     controllerType == Modelica.Blocks.Types.SimpleController.PID),
     group="Control Settings"));
-
-  parameter Modelica.SIunits.Time Td(min=0)=0.1
+  parameter Modelica.SIunits.Time Td(final min=0)=0.1
     "Derivative time constant of the tower PID controller"
     annotation (Dialog(enable=(
     controllerType==Modelica.Blocks.Types.SimpleController.PD or
     controllerType==Modelica.Blocks.Types.SimpleController.PID),
     group="Control Settings"));
-
   Medium.ThermodynamicState sta_a=
       Medium.setState_phX(port_a.p,
                           noEvent(actualStream(port_a.h_outflow)),
                           noEvent(actualStream(port_a.Xi_outflow))) if
          show_T "Medium properties in port_a";
-
   Medium.ThermodynamicState sta_b=
       Medium.setState_phX(port_b.p,
                           noEvent(actualStream(port_b.h_outflow)),
@@ -101,85 +82,83 @@ model CoolingTowerWithBypass "Cooling tower system with bypass valve"
     each final max=1,
     each final unit="1") "On signal for cooling towers"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
-
   Modelica.Blocks.Interfaces.RealInput TWetBul(
     final unit="K",
     displayUnit="degC")
     "Entering air wetbulb temperature"
     annotation (Placement(transformation(extent={{-140,-40},{-100,0}})));
-
   Modelica.Blocks.Interfaces.RealOutput PFan[num](
     each final quantity="Power",
     each final unit="W")
     "Electric power consumed by fan"
     annotation (Placement(transformation(extent={{100,50},{120,70}})));
-
   Modelica.Blocks.Interfaces.RealOutput TLvg[num](
     each final unit="K",
     each displayUnit="degC")
     "Leaving water temperature"
     annotation (Placement(transformation(extent={{100,20},{120,40}})));
-
   Buildings.Applications.DHC.CentralPlants.Cooling.Subsystems.CoolingTowerParellel
     cooTowSys(
-    use_inputFilter=use_inputFilter,
-    redeclare package Medium = Medium,
-    num=num,
-    show_T=show_T,
-    m_flow_nominal=m_flow_nominal/num,
-    dp_nominal=dp_nominal,
-    ratWatAir_nominal=ratWatAir_nominal,
-    TAirInWB_nominal=TAirInWB_nominal,
-    TWatIn_nominal=TWatIn_nominal,
-    dT_nominal=dT_nominal,
-    PFan_nominal=PFan_nominal,
-    energyDynamics=energyDynamics) "Cooling tower system"
+    final use_inputFilter=use_inputFilter,
+    redeclare final package Medium = Medium,
+    final num=num,
+    final show_T=show_T,
+    final m_flow_nominal=m_flow_nominal/num,
+    final dp_nominal=dp_nominal,
+    final ratWatAir_nominal=ratWatAir_nominal,
+    final TAirInWB_nominal=TAirInWB_nominal,
+    final TWatIn_nominal=TWatIn_nominal,
+    final dT_nominal=dT_nominal,
+    final PFan_nominal=PFan_nominal,
+    final energyDynamics=energyDynamics) "Cooling tower system"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
   Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage valByp(
-    redeclare package Medium = Medium,
-    m_flow_nominal=m_flow_nominal*0.0001,
-    dpValve_nominal=dp_nominal,
-    use_inputFilter=use_inputFilter) "Condenser water bypass valve"
+    redeclare final package Medium = Medium,
+    final m_flow_nominal=m_flow_nominal*0.0001,
+    final dpValve_nominal=dp_nominal,
+    final use_inputFilter=use_inputFilter) "Condenser water bypass valve"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         origin={0,-40})));
 
   Buildings.Fluid.Sensors.TemperatureTwoPort senTCWSup(
-    redeclare package Medium = Medium,
-    m_flow_nominal=m_flow_nominal,
-    T_start=Medium.T_default)
+    redeclare final package Medium = Medium,
+    final m_flow_nominal=m_flow_nominal,
+    final T_start=Medium.T_default)
     annotation (Placement(transformation(extent={{60,10},{80,-10}})));
 
-  Modelica.Blocks.Sources.RealExpression TSetCWSup(y=max(TWetBul + dTApp, TMin))
+  Modelica.Blocks.Sources.RealExpression TSetCWSup(
+    final y=max(TWetBul + dTApp, TMin))
     "Condenser water supply temperature setpoint"
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
 
-  Modelica.Blocks.Sources.Constant TSetByPas(k=TMin)
+  Modelica.Blocks.Sources.Constant TSetByPas(
+    final k=TMin)
     "Bypass loop temperature setpoint"
     annotation (Placement(transformation(extent={{-90,-60},{-70,-40}})));
 
   Buildings.Controls.Continuous.LimPID bypValCon(
-    u_s(unit="K", displayUnit="degC"),
-    u_m(unit="K", displayUnit="degC"),
+    u_s(final unit="K", displayUnit="degC"),
+    u_m(final unit="K", displayUnit="degC"),
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     k=1,
     Ti=60,
-    reset=Buildings.Types.Reset.Parameter,
-    y_reset=0)
+    final reset=Buildings.Types.Reset.Parameter,
+    final y_reset=0)
     "Bypass valve controller"
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
 
   Buildings.Controls.Continuous.LimPID cooTowSpeCon(
-    u_s(unit="K", displayUnit="degC"),
-    u_m(unit="K", displayUnit="degC"),
+    u_s(final unit="K", displayUnit="degC"),
+    u_m(final unit="K", displayUnit="degC"),
     final reverseActing=false,
-    controllerType=controllerType,
-    k=k,
-    Ti=Ti) "Cooling tower fan speed controller"
+    final controllerType=controllerType,
+    final k=k,
+    final Ti=Ti) "Cooling tower fan speed controller"
     annotation (Placement(transformation(extent={{-12,50},{8,70}})));
 
-  Modelica.Blocks.Sources.RealExpression TLvgCooTow(y=senTCWSup.T)
+  Modelica.Blocks.Sources.RealExpression TLvgCooTow(final y=senTCWSup.T)
     "Condenser water temperature leaving the towers"
     annotation (Placement(transformation(extent={{-30,30},{-10,50}})));
 
@@ -375,5 +354,10 @@ equation
 <ul>
 <li>May 19, 2020 by Jing Wang:<br>First implementation. </li>
 </ul>
+</html>", info="<html>
+<p>This model simulates parallel connected cooling tower subsystem with a bypass valve. </p>
+<p>The bypass valve is controlled to enforce that the leaving condenser water temperature does not drop below the minimum temperature <i>TMin</i>.</p>
+<p>By default, the condenser water setpoint is the ambient wet bulb temperature <i>TWetBul</i> plus the approach temperature <i>dTApp</i>. </p>
+<p>Inside the model, a cooling tower fan speed controller is also implemented to maintain the condenser water at its setpoint.</p>
 </html>"));
 end CoolingTowerWithBypass;
