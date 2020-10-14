@@ -1,0 +1,8 @@
+compareVars :=
+  {
+    "opeMod.yOcc",
+    "opeMod.ySBC",
+    "opeMod.ySBH",
+    "opeMod.sbcReq",
+    "opeMod.sbhReq"
+  };
