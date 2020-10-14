@@ -2,7 +2,7 @@ within Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Co
 partial block PartialSideHotCold "Base control block for hor or cold side"
   extends Modelica.Blocks.Icons.Block;
 
-  parameter Integer nSouAmb
+  parameter Integer nSouAmb = 1
     "Number of ambient sources to control"
     annotation(Evaluate=true);
   parameter Modelica.SIunits.TemperatureDifference dTDea(min=0) = 0.5
