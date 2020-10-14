@@ -509,16 +509,18 @@ block Controller
 equation
   connect(modSetPoi.tNexOcc, tNexOcc) annotation (Line(points={{-182,199},{-192,
           199},{-192,200},{-220,200}},      color={0,0,127}));
-  connect(TCut, conEco.TCut) annotation (Line(points={{-220,80},{-90,80},{-90,-32.2},
-          {119,-32.2}}, color={0,0,127}));
-  connect(conEco.TSup, TSup) annotation (Line(points={{119,-38.6},{-4,-38.6},{-4,
-          40},{-220,40}}, color={0,0,127}));
+  connect(TCut, conEco.TCut) annotation (Line(points={{-220,80},{-90,80},{-90,
+          -32},{118,-32}},
+                        color={0,0,127}));
+  connect(conEco.TSup, TSup) annotation (Line(points={{118,-38},{-4,-38},{-4,40},
+          {-220,40}},     color={0,0,127}));
   connect(setPoiVAV.TSupHeaEco,conEco.TSupHeaEco)  annotation (Line(points={{62,190},
-          {92,190},{92,-40.2},{119,-40.2}},   color={0,0,127}));
+          {92,190},{92,-39.5},{118,-39.5}},   color={0,0,127}));
   connect(setPoiVAV.y, conEco.uSupFanSpe) annotation (Line(points={{62,196},{86,
-          196},{86,-43},{119,-43}}, color={0,0,127}));
-  connect(TMix, conEco.TMix) annotation (Line(points={{-220,0},{0,0},{0,-44.4},{
-          119,-44.4}}, color={0,0,127}));
+          196},{86,-42.5},{118,-42.5}},
+                                    color={0,0,127}));
+  connect(TMix, conEco.TMix) annotation (Line(points={{-220,0},{0,0},{0,-44},{
+          118,-44}},   color={0,0,127}));
   connect(setPoiVAV.TSupHeaEco, TSupHeaEco) annotation (Line(points={{62,190},{
           160,190},{160,240},{210,240}},  color={0,0,127}));
   connect(setPoiVAV.TSupCoo, TSupCoo) annotation (Line(points={{62,184},{140,
@@ -526,10 +528,12 @@ equation
                                 color={0,0,127}));
   connect(setPoiVAV.y, yFan) annotation (Line(points={{62,196},{120,196},{120,
           120},{210,120}}, color={0,0,127}));
-  connect(conEco.yRetDamPos, yRetDamPos) annotation (Line(points={{141,-40},{168,
-          -40},{168,-240},{210,-240}},   color={0,0,127}));
-  connect(conEco.yOutDamPos, yOutDamPos) annotation (Line(points={{141,-44},{160,
-          -44},{160,-180},{210,-180}}, color={0,0,127}));
+  connect(conEco.yRetDamPos, yRetDamPos) annotation (Line(points={{142,-40},{
+          168,-40},{168,-240},{210,-240}},
+                                         color={0,0,127}));
+  connect(conEco.yOutDamPos, yOutDamPos) annotation (Line(points={{142,-43},{
+          160,-43},{160,-180},{210,-180}},
+                                       color={0,0,127}));
   connect(outAirSetPoi.TDis, TSup) annotation (Line(points={{38,57},{-4,57},{-4,
           40},{-220,40}},      color={0,0,127}));
   connect(conEco.VOutMinSet_flow, outAirSetPoi.VOutMinSet_flow) annotation (
@@ -537,11 +541,11 @@ equation
                                                        color={0,0,127}));
   connect(TOut, setPoiVAV.TOut) annotation (Line(points={{-220,240},{10,240},{
           10,194},{38,194}}, color={0,0,127}));
-  connect(conEco.TOut, setPoiVAV.TOut) annotation (Line(points={{119,-30.6},{10,
-          -30.6},{10,194},{38,194}},
+  connect(conEco.TOut, setPoiVAV.TOut) annotation (Line(points={{118,-30.5},{10,
+          -30.5},{10,194},{38,194}},
                                    color={0,0,127}));
   connect(zonSta.yZonSta, conEco.uZonSta) annotation (Line(points={{61,140},{80,
-          140},{80,-48.2},{119,-48.2}},
+          140},{80,-48.5},{118,-48.5}},
                                     color={255,127,0}));
   connect(conInt.y, intEqu.u2) annotation (Line(points={{-138,-230},{-130,-230},
           {-130,-238},{-112,-238}},color={255,127,0}));
@@ -562,18 +566,19 @@ equation
           140},{-40,140},{-40,148}}, color={0,0,127}));
   connect(nOcc, outAirSetPoi.nOcc) annotation (Line(points={{-220,-40},{4,-40},{
           4,68},{38,68}},  color={0,0,127}));
-  connect(uFreProSta, conEco.uFreProSta) annotation (Line(points={{-220,-240},{-180,
-          -240},{-180,-180},{40,-180},{40,-49.6},{119,-49.6}},
+  connect(uFreProSta, conEco.uFreProSta) annotation (Line(points={{-220,-240},{
+          -180,-240},{-180,-180},{40,-180},{40,-49.5},{118,-49.5}},
                                    color={255,127,0}));
-  connect(conEco.hOut, hOut) annotation (Line(points={{119,-35.4},{100,-35.4},{100,
+  connect(conEco.hOut, hOut) annotation (Line(points={{118,-35},{100,-35},{100,
           -120},{-220,-120}},
                         color={0,0,127}));
-  connect(conEco.hCut, hCut) annotation (Line(points={{119,-37},{102,-37},{102,-160},
-          {-220,-160}}, color={0,0,127}));
-  connect(conEco.TRet, TRet) annotation (Line(points={{119,-33.8},{102,-33.8},{102,
-          -200},{-220,-200}},
+  connect(conEco.hCut, hCut) annotation (Line(points={{118,-36.5},{102,-36.5},{
+          102,-160},{-220,-160}},
                         color={0,0,127}));
-  connect(conEco.yHeaCoi, yHeaCoi) annotation (Line(points={{141,-36},{174,-36},
+  connect(conEco.TRet, TRet) annotation (Line(points={{118,-33.5},{102,-33.5},{
+          102,-200},{-220,-200}},
+                        color={0,0,127}));
+  connect(conEco.yHeaCoi, yHeaCoi) annotation (Line(points={{142,-37},{174,-37},
           {174,-60},{210,-60}}, color={0,0,127}));
   connect(modSetPoi.yOpeMod, conEco.uOpeMod) annotation (Line(points={{-158,183},
           {-152,183},{-152,-47},{119,-47}}, color={255,127,0}));
@@ -590,8 +595,8 @@ equation
                       color={0,0,127}));
   connect(switch.y, outAirSetPoi.uSupFan) annotation (Line(points={{-58,-230},{-20,
           -230},{-20,54},{38,54}}, color={255,0,255}));
-  connect(switch.y, conEco.uSupFan) annotation (Line(points={{-58,-230},{60,-230},
-          {60,-45.6},{119,-45.6}},
+  connect(switch.y, conEco.uSupFan) annotation (Line(points={{-58,-230},{60,
+          -230},{60,-45.5},{118,-45.5}},
                                color={255,0,255}));
   connect(heaPI.y, setPoiVAV.uHea) annotation (Line(points={{-28,220},{0,220},{
           0,198.333},{38,198.333}},
