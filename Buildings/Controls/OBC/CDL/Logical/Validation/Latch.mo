@@ -34,19 +34,17 @@ model Latch "Validation model for the Latch block"
     annotation (Placement(transformation(extent={{40,-70},{60,-50}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant fal(
-    final k=false)
-    "False clear input"
+    final k=false) "False clear input"
     annotation (Placement(transformation(extent={{-120,70},{-100,90}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse latInp(
     final width=0.5,
     final period=2)
     "Block that outputs cyclic on and off"
-    annotation (Placement(transformation(extent={{-170,150},{-150,170}})));
+    annotation (Placement(transformation(extent={{-160,150},{-140,170}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant tru(
-    final k=true)
-    "True clear input"
+    final k=true) "True clear input"
     annotation (Placement(transformation(extent={{-120,-70},{-100,-50}})));
 
   Buildings.Controls.OBC.CDL.Logical.Not not2 "Logical not"
@@ -61,29 +59,34 @@ equation
   connect(not1.y, swiCleInp1.clr)
     annotation (Line(points={{62,-60},{72,-60},{72,-66},{98,-66}},
       color={255,0,255}));
-  connect(fal.y, falCleTruIni.clr) annotation (Line(points={{-98,80},{-72,80},{-72,
-          94},{-62,94}}, color={255,0,255}));
-  connect(latInp.y, falCleTruIni.u) annotation (Line(points={{-148,160},{-80,160},
-          {-80,100},{-62,100}}, color={255,0,255}));
-  connect(tru.y, truCleTruIni.clr) annotation (Line(points={{-98,-60},{-72,-60},
-          {-72,-46},{-62,-46}}, color={255,0,255}));
-  connect(latInp.y, truCleTruIni.u) annotation (Line(points={{-148,160},{-80,160},
-          {-80,-40},{-62,-40}}, color={255,0,255}));
+  connect(fal.y, falCleTruIni.clr) annotation (Line(points={{-98,80},{-70,80},{
+          -70,94},{-62,94}},
+                         color={255,0,255}));
+  connect(latInp.y, falCleTruIni.u) annotation (Line(points={{-138,160},{-80,
+          160},{-80,100},{-62,100}},
+                                color={255,0,255}));
+  connect(tru.y, truCleTruIni.clr) annotation (Line(points={{-98,-60},{-70,-60},
+          {-70,-46},{-62,-46}}, color={255,0,255}));
+  connect(latInp.y, truCleTruIni.u) annotation (Line(points={{-138,160},{-80,
+          160},{-80,-40},{-62,-40}},
+                                color={255,0,255}));
   connect(latInp.y, swiCleInp.u)
-    annotation (Line(points={{-148,160},{80,160},{80,100},{98,100}},
+    annotation (Line(points={{-138,160},{80,160},{80,100},{98,100}},
       color={255,0,255}));
   connect(latInp.y, swiCleInp1.u)
-    annotation (Line(points={{-148,160},{80,160},{80,-60},{98,-60}},
+    annotation (Line(points={{-138,160},{80,160},{80,-60},{98,-60}},
       color={255,0,255}));
-  connect(latInp.y, not2.u) annotation (Line(points={{-148,160},{-140,160},{-140,
-          0},{-122,0}},   color={255,0,255}));
-  connect(not2.y, falCleFalIni.u) annotation (Line(points={{-98,0},{-88,0},{-88,
+  connect(latInp.y, not2.u) annotation (Line(points={{-138,160},{-130,160},{
+          -130,0},{-122,0}},
+                          color={255,0,255}));
+  connect(not2.y, falCleFalIni.u) annotation (Line(points={{-98,0},{-90,0},{-90,
           40},{-62,40}}, color={255,0,255}));
-  connect(fal.y, falCleFalIni.clr) annotation (Line(points={{-98,80},{-72,80},{-72,
-          34},{-62,34}}, color={255,0,255}));
-  connect(tru.y, truCleFalIni.clr) annotation (Line(points={{-98,-60},{-72,-60},
-          {-72,-106},{-62,-106}}, color={255,0,255}));
-  connect(not2.y, truCleFalIni.u) annotation (Line(points={{-98,0},{-88,0},{-88,
+  connect(fal.y, falCleFalIni.clr) annotation (Line(points={{-98,80},{-70,80},{
+          -70,34},{-62,34}},
+                         color={255,0,255}));
+  connect(tru.y, truCleFalIni.clr) annotation (Line(points={{-98,-60},{-70,-60},
+          {-70,-106},{-62,-106}}, color={255,0,255}));
+  connect(not2.y, truCleFalIni.u) annotation (Line(points={{-98,0},{-90,0},{-90,
           -100},{-62,-100}}, color={255,0,255}));
 annotation (
   experiment(StopTime=10.0, Tolerance=1e-06),
