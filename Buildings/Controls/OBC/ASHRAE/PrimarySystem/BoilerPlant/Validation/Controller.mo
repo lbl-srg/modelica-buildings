@@ -10,7 +10,7 @@ model Controller
     staMat=[1,0;
  0,1;
  1,1],
-    iniSta=0,
+    speedControlTypePri=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpSpeedControlTypes.remoteDP,
     boiDesCap={15000*0.8,15000*0.8},
     boiFirMin={0.2,0.3},
     minFloSet={0.2*0.0003,0.3*0.0003},
@@ -26,7 +26,6 @@ model Controller
     maxPumSpe=1,
     VHotWat_flow_nominal=0.0006,
     boiDesFlo={0.0003,0.0003},
-    speedControlType_priPum=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpSpeedControlTypes.remoteDP,
     minPriPumSpeSta={0,0,0})
     annotation (Placement(transformation(extent={{0,-20},{20,24}})));
 
@@ -53,35 +52,6 @@ model Controller
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dPHotWat[1](k={34000})
     "Measured differential pressure between hot water supply and return"
     annotation (Placement(transformation(extent={{-60,-90},{-40,-70}})));
-
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Controller controller1(
-    primaryOnly=true,
-    nBoi=2,
-    boiTyp={Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.BoilerTypes.condensingBoiler,
-        Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.BoilerTypes.condensingBoiler},
-    nSta=3,
-    staMat=[1,0;
- 0,1;
- 1,1],
-    iniSta=2,
-    boiDesCap={15000*0.8,15000*0.8},
-    boiFirMin={0.2,0.3},
-    minFloSet={0.2*0.0003,0.3*0.0003},
-    maxFloSet={0.0003,0.0003},
-    bypSetRat=0.00001,
-    nPumPri=2,
-    isHeadered=true,
-    TMinSupNonConBoi=333.2,
-    variablePrimary=true,
-    nSen_remoteDp=1,
-    nPum_nominal=2,
-    minPumSpe=0.1,
-    maxPumSpe=1,
-    VHotWat_flow_nominal=0.0006,
-    boiDesFlo={0.0003,0.0003},
-    speedControlType_priPum=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpSpeedControlTypes.remoteDP,
-    minPriPumSpeSta={0,0,0})
-    annotation (Placement(transformation(extent={{120,-20},{162,20}})));
 
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant supResReq1(k=2)
     "Number of requests from heating load"
@@ -115,35 +85,6 @@ model Controller
     "Boiler availability status vector"
     annotation (Placement(transformation(extent={{60,-120},{80,-100}})));
 
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Controller controller2(
-    primaryOnly=true,
-    nBoi=2,
-    boiTyp={Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.BoilerTypes.condensingBoiler,
-        Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.BoilerTypes.condensingBoiler},
-    nSta=3,
-    staMat=[1,0;
- 0,1;
- 1,1],
-    iniSta=0,
-    boiDesCap={15000*0.8,15000*0.8},
-    boiFirMin={0.2,0.3},
-    minFloSet={0.2*0.0003,0.3*0.0003},
-    maxFloSet={0.0003,0.0003},
-    bypSetRat=0.00001,
-    nPumPri=2,
-    isHeadered=true,
-    TMinSupNonConBoi=333.2,
-    variablePrimary=true,
-    nSen_remoteDp=1,
-    nPum_nominal=2,
-    minPumSpe=0.1,
-    maxPumSpe=1,
-    VHotWat_flow_nominal=0.0006,
-    boiDesFlo={0.0003,0.0003},
-    speedControlType_priPum=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpSpeedControlTypes.remoteDP,
-    minPriPumSpeSta={0,0,0})
-    annotation (Placement(transformation(extent={{0,-240},{42,-200}})));
-
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant supResReq2(k=4)
     "Number of requests from heating load"
     annotation (Placement(transformation(extent={{-60,-160},{-40,-140}})));
@@ -172,6 +113,158 @@ model Controller
     "Boiler availability status vector"
     annotation (Placement(transformation(extent={{-60,-340},{-40,-320}})));
 
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Controller controller1(
+    primaryOnly=true,
+    nBoi=2,
+    boiTyp={Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.BoilerTypes.condensingBoiler,
+        Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.BoilerTypes.condensingBoiler},
+
+    nSta=3,
+    staMat=[1,0; 0,1; 1,1],
+    speedControlTypePri=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpSpeedControlTypes.localDP,
+
+    iniSta=0,
+    boiDesCap={15000*0.8,15000*0.8},
+    boiFirMin={0.2,0.3},
+    minFloSet={0.2*0.0003,0.3*0.0003},
+    maxFloSet={0.0003,0.0003},
+    bypSetRat=0.00001,
+    nPumPri=2,
+    isHeadered=true,
+    TMinSupNonConBoi=333.2,
+    variablePrimary=true,
+    nSen_remoteDp=1,
+    nPum_nominal=2,
+    minPumSpe=0.1,
+    maxPumSpe=1,
+    VHotWat_flow_nominal=0.0006,
+    boiDesFlo={0.0003,0.0003},
+    speedControlType_priPum=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpSpeedControlTypes.localDP,
+
+    minPriPumSpeSta={0,0,0})
+    annotation (Placement(transformation(extent={{120,-20},{140,24}})));
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Controller controller2(
+    primaryOnly=false,
+    primarySecondaryFlowSensors=true,
+    nBoi=2,
+    boiTyp={Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.BoilerTypes.condensingBoiler,
+        Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.BoilerTypes.condensingBoiler},
+
+    nSta=3,
+    staMat=[1,0; 0,1; 1,1],
+    speedControlTypePri=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpSpeedControlTypes.flowrate,
+
+    variableSecondary=true,
+    secondaryFlowSensor=true,
+    speedControlTypeSec=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.SecondaryPumpSpeedControlTypes.remoteDP,
+
+    boiDesCap={15000*0.8,15000*0.8},
+    boiFirMin={0.2,0.3},
+    minFloSet={0.2*0.0003,0.3*0.0003},
+    maxFloSet={0.0003,0.0003},
+    bypSetRat=0.00001,
+    nPumPri=2,
+    isHeadered=true,
+    TMinSupNonConBoi=333.2,
+    variablePrimary=true,
+    boiDesFlo={0.0003,0.0003},
+    minPriPumSpeSta={0,0,0})
+    "Primary-secondary, headered variable secondary flowrate primary, variable remoteDP secondary"
+    annotation (Placement(transformation(extent={{0,-84},{20,-40}})));
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Controller controller3(
+    primaryOnly=false,
+    primarySecondaryFlowSensors=false,
+    nBoi=2,
+    boiTyp={Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.BoilerTypes.condensingBoiler,
+        Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.BoilerTypes.condensingBoiler},
+
+    nSta=3,
+    staMat=[1,0; 0,1; 1,1],
+    speedControlTypePri=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpSpeedControlTypes.flowrate,
+
+    variableSecondary=true,
+    secondaryFlowSensor=true,
+    speedControlTypeSec=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.SecondaryPumpSpeedControlTypes.localDP,
+
+    boiDesCap={15000*0.8,15000*0.8},
+    boiFirMin={0.2,0.3},
+    minFloSet={0.2*0.0003,0.3*0.0003},
+    maxFloSet={0.0003,0.0003},
+    bypSetRat=0.00001,
+    nPumPri=2,
+    isHeadered=true,
+    TMinSupNonConBoi=333.2,
+    variablePrimary=true,
+    nSen_remoteDp=1,
+    nPum_nominal=2,
+    minPumSpe=0.1,
+    maxPumSpe=1,
+    VHotWat_flow_nominal=0.0006,
+    boiDesFlo={0.0003,0.0003},
+    minPriPumSpeSta={0,0,0})
+    annotation (Placement(transformation(extent={{120,-84},{140,-40}})));
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Controller controller4(
+    primaryOnly=false,
+    nBoi=2,
+    boiTyp={Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.BoilerTypes.condensingBoiler,
+        Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.BoilerTypes.condensingBoiler},
+
+    nSta=3,
+    staMat=[1,0; 0,1; 1,1],
+    speedControlTypePri=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpSpeedControlTypes.temperature,
+
+    variableSecondary=true,
+    secondaryFlowSensor=true,
+    speedControlTypeSec=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.SecondaryPumpSpeedControlTypes.localDP,
+
+    boiDesCap={15000*0.8,15000*0.8},
+    boiFirMin={0.2,0.3},
+    minFloSet={0.2*0.0003,0.3*0.0003},
+    maxFloSet={0.0003,0.0003},
+    bypSetRat=0.00001,
+    nPumPri=2,
+    isHeadered=true,
+    TMinSupNonConBoi=333.2,
+    variablePrimary=true,
+    nSen_remoteDp=1,
+    nPum_nominal=2,
+    minPumSpe=0.1,
+    maxPumSpe=1,
+    VHotWat_flow_nominal=0.0006,
+    boiDesFlo={0.0003,0.0003},
+    minPriPumSpeSta={0,0,0})
+    annotation (Placement(transformation(extent={{0,-144},{20,-100}})));
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Controller controller5(
+    primaryOnly=false,
+    nBoi=2,
+    boiTyp={Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.BoilerTypes.condensingBoiler,
+        Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.BoilerTypes.condensingBoiler},
+
+    nSta=3,
+    staMat=[1,0; 0,1; 1,1],
+    variableSecondary=false,
+    secondaryFlowSensor=true,
+    speedControlTypeSec=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.SecondaryPumpSpeedControlTypes.localDP,
+
+    boiDesCap={15000*0.8,15000*0.8},
+    boiFirMin={0.2,0.3},
+    minFloSet={0.2*0.0003,0.3*0.0003},
+    maxFloSet={0.0003,0.0003},
+    bypSetRat=0.00001,
+    nPumPri=2,
+    isHeadered=true,
+    TMinSupNonConBoi=333.2,
+    variablePrimary=true,
+    nSen_remoteDp=1,
+    nPum_nominal=2,
+    minPumSpe=0.1,
+    maxPumSpe=1,
+    VHotWat_flow_nominal=0.0006,
+    boiDesFlo={0.0003,0.0003},
+    speedControlType_priPum=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpSpeedControlTypes.remoteDP,
+
+    minPriPumSpeSta={0,0,0})
+    annotation (Placement(transformation(extent={{120,-144},{140,-100}})));
 equation
   connect(supResReq.y, controller.supResReq) annotation (Line(points={{-38,70},
           {-8,70},{-8,23},{-2,23}},           color={255,127,0}));
@@ -193,54 +286,8 @@ equation
   connect(VHotWat_flow[4].y, controller.VHotWat_flow) annotation (Line(points={
           {-38,-50},{-26,-50},{-26,-7.27273},{-2,-7.27273}}, color={0,0,127}));
 
-  connect(supResReq1.y, controller1.supResReq) annotation (Line(points={{82,70},
-          {112,70},{112,19.0909},{115.8,19.0909}},
-                                                 color={255,127,0}));
-
-  connect(TOut1.y, controller1.TOut) annotation (Line(points={{82,40},{108,40},
-          {108,16.3636},{115.8,16.3636}},
-                                        color={0,0,127}));
-
-  connect(TSup1.y, controller1.TSup) annotation (Line(points={{82,10},{104,10},
-          {104,0},{118,0}}, color={0,0,127}));
-
-  connect(TRet1.y, controller1.TRet) annotation (Line(points={{82,-20},{88,-20},
-          {88,-3.63636},{118,-3.63636}}, color={0,0,127}));
-
-  connect(dPHotWat1.y, controller1.dpHotWat_remote) annotation (Line(points={{
-          82,-80},{100,-80},{100,-10.9091},{118,-10.9091}}, color={0,0,127}));
-
   connect(uBoiAva.y, controller.uBoiAva) annotation (Line(points={{-38,-110},{
           -8,-110},{-8,2},{-2,2}},               color={255,0,255}));
-
-  connect(uBoiAva1.y, controller1.uBoiAva) annotation (Line(points={{82,-110},{112,
-          -110},{112,0},{115.8,0}},                 color={255,0,255}));
-
-  connect(VHotWat_flow1[1].y, controller1.VHotWat_flow) annotation (Line(points=
-         {{82,-50},{94,-50},{94,-7.27273},{118,-7.27273}}, color={0,0,127}));
-
-  connect(supResReq2.y, controller2.supResReq) annotation (Line(points={{-38,
-          -150},{-8,-150},{-8,-200.909},{-4.2,-200.909}},
-                                                        color={255,127,0}));
-
-  connect(TOut2.y, controller2.TOut) annotation (Line(points={{-38,-180},{-12,
-          -180},{-12,-203.636},{-4.2,-203.636}},
-                                               color={0,0,127}));
-
-  connect(TSup2.y, controller2.TSup) annotation (Line(points={{-38,-210},{-16,
-          -210},{-16,-220},{-2,-220}}, color={0,0,127}));
-
-  connect(TRet2.y, controller2.TRet) annotation (Line(points={{-38,-240},{-32,
-          -240},{-32,-223.636},{-2,-223.636}}, color={0,0,127}));
-
-  connect(dPHotWat2.y, controller2.dpHotWat_remote) annotation (Line(points={{
-          -38,-300},{-20,-300},{-20,-230.909},{-2,-230.909}}, color={0,0,127}));
-
-  connect(VHotWat_flow2[4].y, controller2.VHotWat_flow) annotation (Line(points=
-         {{-38,-270},{-26,-270},{-26,-227.273},{-2,-227.273}}, color={0,0,127}));
-
-  connect(uBoiAva2.y, controller2.uBoiAva) annotation (Line(points={{-38,-330},{
-          -8,-330},{-8,-220},{-4.2,-220}},        color={255,0,255}));
 
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
