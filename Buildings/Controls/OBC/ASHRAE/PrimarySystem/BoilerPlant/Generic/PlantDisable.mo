@@ -2,13 +2,13 @@ within Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Generic;
 block PlantDisable
     "Sequence to disable boiler plant components when plant has to be disabled"
 
-  parameter Boolean have_priOnl = false
+  parameter Boolean have_priOnl
     "True: Boiler plant is primary-only; False: Boiler plant is not primary-only";
 
-  parameter Boolean have_heaPriPum = true
+  parameter Boolean have_heaPriPum
     "True: Boiler plant has headered pump configuration; False: Boiler plant has dedicated pump configuration";
 
-  parameter Integer nBoi=3
+  parameter Integer nBoi
     "Total number of boilers in the plant";
 
   parameter Real chaHotWatIsoRat(
@@ -434,8 +434,8 @@ equation
     </p>
     <p>
     When the boiler plant is disabled by the plant enable controller
-    <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.CapacityRequirement\">
-    Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.CapacityRequirement</a>,
+    <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Generic.PlantEnable\">
+    Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Generic.PlantEnable</a>,
     the controller performs the following actions:
     </p>
     <ol>
