@@ -109,7 +109,7 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     per(pressure(V_flow=mAirCol_flow_nominal/1.2*{0,2}, dp=600*{2,0})),
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
                            "Supply air fan for cold deck"
-    annotation (Placement(transformation(extent={{302,-160},{322,-140}})));
+    annotation (Placement(transformation(extent={{290,-160},{310,-140}})));
   Buildings.Fluid.Movers.SpeedControlled_y fanRet(
     redeclare package Medium = MediumA,
     per(pressure(V_flow=m_flow_nominal/1.2*{0,2}, dp=100*{2,0})),
@@ -131,7 +131,7 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     nPorts=1) "Sink for cooling coil" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={310,-222})));
+        origin={340,-220})));
   Modelica.Blocks.Routing.RealPassThrough TOut(y(
       final quantity="ThermodynamicTemperature",
       final unit="K",
@@ -142,16 +142,14 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     TSupSetHea(TOn=284.15, TOff=279.15)
     "Supply air temperature setpoint for heating"
     annotation (Placement(transformation(extent={{-80,-180},{-60,-160}})));
-  Buildings.Controls.Continuous.LimPID cooCoiCon(
-    reverseActing=false,
+  VAVReheat.Controls.SupplyAirTemperature cooCoiCon(
+    have_heating=false,
     Td=60,
-    initType=Modelica.Blocks.Types.InitPID.InitialState,
-    yMax=1,
-    yMin=0,
     Ti=120,
     controllerType=Modelica.Blocks.Types.SimpleController.P,
-    k=1) "Controller for cooling coil"
-    annotation (Placement(transformation(extent={{340,-200},{360,-180}})));
+    k=0.05)
+         "Controller for cooling coil"
+    annotation (Placement(transformation(extent={{300,-200},{320,-180}})));
   Buildings.Examples.VAVReheat.Controls.FanVFD conFanSupHot(
     initType=Modelica.Blocks.Types.Init.InitialState,
     y_start=yFan_start,
@@ -197,12 +195,13 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
         rotation=90,
         origin={380,-220})));
   Buildings.Examples.VAVReheat.Controls.Economizer conEco(
-    dT=1,
+    have_reset=true,
+    have_frePro=true,
     VOut_flow_min=0.3*m_flow_nominal/1.2,
     k=0.05,
     Ti=1200)
            "Controller for economizer"
-    annotation (Placement(transformation(extent={{-80,140},{-60,160}})));
+    annotation (Placement(transformation(extent={{-80,108},{-60,128}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TRet(redeclare package Medium =
         MediumA, m_flow_nominal=m_flow_nominal) "Return air temperature sensor"
     annotation (Placement(transformation(extent={{102,150},{82,170}})));
@@ -239,7 +238,7 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
   Buildings.Fluid.Sensors.TemperatureTwoPort TCoiCoo(
     redeclare package Medium = MediumA,
     m_flow_nominal=mAirCol_flow_nominal) "Cooling coil outlet temperature"
-    annotation (Placement(transformation(extent={{402,-160},{422,-140}})));
+    annotation (Placement(transformation(extent={{410,-160},{430,-140}})));
   Buildings.Fluid.Sensors.VolumeFlowRate VOut1(redeclare package Medium =
         MediumA, m_flow_nominal=m_flow_nominal) "Outside air volume flow rate"
     annotation (Placement(transformation(extent={{-80,12},{-60,32}})));
@@ -589,15 +588,15 @@ equation
       index=1,
       extent={{6,3},{6,3}}));
   connect(TRet.T, conEco.TRet) annotation (Line(
-      points={{92,171},{92,194},{-94,194},{-94,157.333},{-81.3333,157.333}},
+      points={{92,171},{92,194},{-94,194},{-94,121.333},{-81.3333,121.333}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(TMix.T, conEco.TMix) annotation (Line(
-      points={{40,-29},{40,168},{-90,168},{-90,153.333},{-81.3333,153.333}},
+      points={{40,-29},{40,168},{-90,168},{-90,116},{-81.3333,116}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(controlBus, conEco.controlBus) annotation (Line(
-      points={{-240,-260},{-240,120},{-76,120},{-76,150.667}},
+      points={{-240,-260},{-240,88},{-69.3333,88},{-69.3333,109.333}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
@@ -659,16 +658,12 @@ equation
       index=1,
       extent={{6,3},{6,3}}));
   connect(conEco.yOA, eco.y) annotation (Line(
-      points={{-59.3333,152},{-48,152},{-48,-8},{-13,-8},{-13,6.6}},
+      points={{-58.6667,120},{-48,120},{-48,-8},{-13,-8},{-13,6.6}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(eco.port_Exh, amb.ports[1]) annotation (Line(
       points={{-40,55.2},{-100,55.2},{-100,24},{-112,24}},
       color={0,127,255},
-      smooth=Smooth.None));
-  connect(TCoiCoo.T, cooCoiCon.u_m)    annotation (Line(
-      points={{412,-139},{412,-120},{440,-120},{440,-240},{350,-240},{350,-202}},
-      color={0,0,127},
       smooth=Smooth.None));
   connect(amb.ports[2], VOut1.port_a) annotation (Line(
       points={{-112,20},{-96,20},{-96,22},{-80,22}},
@@ -720,7 +715,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(cooCoi.port_b2, TCoiCoo.port_a)    annotation (Line(
-      points={{372,-150},{402,-150}},
+      points={{372,-150},{410,-150}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(valCoo.port_b, cooCoi.port_a1) annotation (Line(
@@ -728,26 +723,16 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(cooCoi.port_b1, sinCoo.ports[1]) annotation (Line(
-      points={{352,-162},{332,-162},{332,-172},{310,-172},{310,-212}},
+      points={{352,-162},{340,-162},{340,-210}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(TSetCoo.TSet, cooCoiCon.u_s) annotation (Line(
-      points={{-59,-240},{220,-240},{220,-190},{338,-190}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(TSetCoo.TSet, conEco.TSupCooSet) annotation (Line(
-      points={{-59,-240},{-46,-240},{-46,-104},{-160,-104},{-160,141.333},{
-          -81.3333,141.333}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(modeSelector.cb, TSetCoo.controlBus) annotation (Line(
-      points={{-136.5,-363.5},{-136,-363.5},{-136,-364},{-136,-364},{-136,-248},
-          {-71.8,-248}},
+      points={{-136.5,-363.5},{-136,-363.5},{-136,-248},{-71.8,-248}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
   connect(conEco.VOut_flow, VOut1.V_flow) annotation (Line(
-      points={{-81.3333,149.333},{-90,149.333},{-90,80},{-70,80},{-70,33}},
+      points={{-81.3333,110.667},{-90,110.667},{-90,80},{-70,80},{-70,33}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(weaDat.weaBus, weaBus) annotation (Line(
@@ -846,7 +831,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(fanSupCol.port_b, cooCoi.port_a2) annotation (Line(
-      points={{322,-150},{352,-150}},
+      points={{310,-150},{352,-150}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(fanSupHot.port_b, heaCoi.port_a2) annotation (Line(
@@ -864,7 +849,7 @@ equation
       smooth=Smooth.None));
   connect(splHotColDec.port_1, fanSupCol.port_a)
                                            annotation (Line(
-      points={{200,-50},{200,-150},{302,-150}},
+      points={{200,-50},{200,-150},{290,-150}},
       color={0,127,255},
       smooth=Smooth.None));
 
@@ -1013,15 +998,6 @@ equation
       textString="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
-  connect(cooCoiCon.y, valCoo.y) annotation (Line(
-      points={{361,-190},{368,-190}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(TSupSetHea.TSet, conEco.TSupHeaSet) annotation (Line(
-      points={{-59,-170},{-52,-170},{-52,-110},{-170,-110},{-170,145.333},{
-          -81.3333,145.333}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(modeSelector.cb, TSupSetHea.controlBus) annotation (Line(
       points={{-136.5,-363.5},{-136.5,-178},{-71.8,-178}},
       color={255,204,51},
@@ -1036,7 +1012,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(conFanSupCol.y, fanSupCol.y) annotation (Line(
-      points={{121,70},{260,70},{260,-120},{312,-120},{312,-138}},
+      points={{121,70},{260,70},{260,-120},{300,-120},{300,-138}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(pStaBui_Set.y, conFanRet.u) annotation (Line(
@@ -1044,7 +1020,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(TCoiCoo.port_b, splSupRoo1Col.port_1) annotation (Line(
-      points={{422,-150},{480,-150},{480,-40},{582,-40}},
+      points={{430,-150},{480,-150},{480,-40},{582,-40}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(TCoiHea.port_b, splSupRoo1Hot.port_1) annotation (Line(
@@ -1095,6 +1071,21 @@ equation
           -117.5,-372},{932,-372},{932,73.2},{959.467,73.2}}, color={255,0,255}));
   connect(modeSelector.yFan, wes.yFan) annotation (Line(points={{-117.5,-371},{
           1074,-371},{1074,73.2},{1097.47,73.2}}, color={255,0,255}));
+  connect(modeSelector.yFan, conEco.uRes) annotation (Line(points={{-117.5,-371},
+          {-117.5,-372},{-100,-372},{-100,98},{-73.3333,98},{-73.3333,105.333}},
+        color={255,0,255}));
+  connect(TCoiCoo.T, cooCoiCon.TSup) annotation (Line(points={{420,-139},{420,
+          -120},{400,-120},{400,-172},{290,-172},{290,-184},{298,-184}}, color=
+          {0,0,127}));
+  connect(TSetCoo.TSet, cooCoiCon.TSupSet) annotation (Line(points={{-59,-240},
+          {290,-240},{290,-190},{298,-190}}, color={0,0,127}));
+  connect(cooCoiCon.yCoo, valCoo.y) annotation (Line(points={{322,-196},{360,
+          -196},{360,-190},{368,-190}}, color={0,0,127}));
+  connect(modeSelector.yFan, cooCoiCon.uEna) annotation (Line(points={{-117.5,
+          -371},{260,-371},{260,-196},{298,-196}}, color={255,0,255}));
+  connect(cooCoiCon.yOA, conEco.uOATSup) annotation (Line(points={{322,-190},{
+          330,-190},{330,140},{-86,140},{-86,126.667},{-81.3333,126.667}},
+        color={0,0,127}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-400,-400},{
             1400,640}})),
