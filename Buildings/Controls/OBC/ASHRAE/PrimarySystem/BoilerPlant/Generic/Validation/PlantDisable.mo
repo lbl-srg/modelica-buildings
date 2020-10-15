@@ -4,8 +4,8 @@ model PlantDisable
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Generic.PlantDisable
     plaDis(
-    final primaryOnly=true,
-    final isHeadered=true,
+    final have_priOnl=true,
+    final have_heaPriPum=true,
     final nBoi=2,
     final chaHotWatIsoRat=1/60,
     final delBoiDis=180)
@@ -14,8 +14,8 @@ model PlantDisable
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Generic.PlantDisable
     plaDis1(
-    final primaryOnly=false,
-    final isHeadered=true,
+    final have_priOnl=false,
+    final have_heaPriPum=true,
     final nBoi=2,
     final chaHotWatIsoRat=1/60,
     final delBoiDis=180)
@@ -24,8 +24,8 @@ model PlantDisable
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Generic.PlantDisable
     plaDis2(
-    final primaryOnly=false,
-    final isHeadered=false,
+    final have_priOnl=false,
+    final have_heaPriPum=false,
     final nBoi=2,
     final chaHotWatIsoRat=1/60,
     final delBoiDis=180)

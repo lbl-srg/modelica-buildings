@@ -2,16 +2,16 @@ within Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.SecondaryPu
 block Controller
     "Sequences to control hot water pumps in boiler plants"
 
-  parameter Boolean variableSecondary = false
+  parameter Boolean have_varSecPum = false
     "True: Variable-speed secondary pumps;
     False: Fixed-speed secondary pumps"
     annotation (Dialog(group="Plant parameters"));
 
-  parameter Boolean secondaryFlowSensor = true
+  parameter Boolean have_secFloSen = true
     "True: Flow sensor in secondary loop;
     False: No flow sensor in secondary loop"
     annotation (Dialog(group="Plant parameters",
-      enable=variableSecondary));
+      enable=have_varSecPum));
 
   parameter Integer nPum = 2
     "Total number of secondary hot water pumps"
@@ -20,7 +20,7 @@ block Controller
   parameter Integer nPumPri = 2
     "Total number of primary hot water pumps"
     annotation (Dialog(group="Plant parameters",
-      enable=not variableSecondary));
+      enable=not have_varSecPum));
 
   parameter Integer nBoi = 2
     "Total number of boilers"
@@ -42,7 +42,7 @@ block Controller
     final min=0,
     final max=maxPumSpe) = 0.1
     "Minimum pump speed"
-    annotation (Dialog(group="Pump parameters", enable=variableSecondary));
+    annotation (Dialog(group="Pump parameters", enable=have_varSecPum));
 
   parameter Real maxPumSpe(
     final unit="1",
@@ -50,7 +50,7 @@ block Controller
     final min=minPumSpe,
     final max=1) = 1
     "Maximum pump speed"
-    annotation (Dialog(group="Pump parameters", enable=variableSecondary));
+    annotation (Dialog(group="Pump parameters", enable=have_varSecPum));
 
   parameter Real VHotWat_flow_nominal(
     final min=1e-6,
@@ -67,7 +67,7 @@ block Controller
     final min=1e-6) = 5*6894.75
     "Maximum hot water loop local differential pressure setpoint"
     annotation (Dialog(tab="Pump control parameters", group="DP-based speed regulation",
-      enable = speedControlType == Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpSpeedControlTypes.localDP));
+      enable = speConTyp == Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpSpeedControlTypes.localDP));
 
   parameter Real minLocDp(
     final unit="Pa",
@@ -77,7 +77,7 @@ block Controller
     "Minimum hot water loop local differential pressure setpoint"
     annotation (Dialog(tab="Pump control parameters",
       group="DP-based speed regulation",
-      enable = speedControlType == Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpSpeedControlTypes.localDP));
+      enable = speConTyp == Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpSpeedControlTypes.localDP));
 
   parameter Real offTimThr(
     final unit="s",
@@ -87,7 +87,7 @@ block Controller
     "Threshold to check lead boiler off time"
     annotation (Dialog(tab="Pump control parameters",
       group="Pump staging parameters",
-      enable=variableSecondary and secondaryFlowSensor));
+      enable=have_varSecPum and have_secFloSen));
 
   parameter Real delBoiDis(
     final unit="s",
@@ -105,7 +105,7 @@ block Controller
     "Delay time period for enabling and disabling lag pumps"
     annotation (Dialog(tab="Pump control parameters",
       group="Pump staging parameters",
-      enable=variableSecondary and secondaryFlowSensor));
+      enable=have_varSecPum and have_secFloSen));
 
   parameter Real staCon(
     final unit="1",
@@ -113,7 +113,7 @@ block Controller
     "Constant used in the staging equation"
     annotation (Dialog(tab="Pump control parameters",
       group="Pump staging parameters",
-      enable=variableSecondary and secondaryFlowSensor));
+      enable=have_varSecPum and have_secFloSen));
 
   parameter Real relFloHys(
     final unit="1",
@@ -121,7 +121,7 @@ block Controller
     "Constant value used in hysteresis for checking relative flow rate"
     annotation (Dialog(tab="Pump control parameters",
       group="Pump staging parameters",
-      enable=variableSecondary and secondaryFlowSensor));
+      enable=have_varSecPum and have_secFloSen));
 
   parameter Real speLim(
     final unit="1",
@@ -129,7 +129,7 @@ block Controller
     "Speed limit with longer enable delay for enabling next lag pump"
     annotation (Dialog(tab="Pump control parameters",
       group="Pump staging parameters",
-      enable=variableSecondary and not secondaryFlowSensor));
+      enable=have_varSecPum and not have_secFloSen));
 
   parameter Real speLim1(
     final unit="1",
@@ -137,7 +137,7 @@ block Controller
     "Speed limit with shorter enable delay for enabling next lag pump"
     annotation (Dialog(tab="Pump control parameters",
       group="Pump staging parameters",
-      enable=variableSecondary and not secondaryFlowSensor));
+      enable=have_varSecPum and not have_secFloSen));
 
   parameter Real speLim2(
     final unit="1",
@@ -145,7 +145,7 @@ block Controller
     "Speed limit for disabling last lag pump"
     annotation (Dialog(tab="Pump control parameters",
       group="Pump staging parameters",
-      enable=variableSecondary and not secondaryFlowSensor));
+      enable=have_varSecPum and not have_secFloSen));
 
   parameter Real timPer1(
     final unit="s",
@@ -154,7 +154,7 @@ block Controller
     "Delay time period for enabling next lag pump at speed limit speLim"
     annotation (Dialog(tab="Pump control parameters",
       group="Pump staging parameters",
-      enable=variableSecondary and not secondaryFlowSensor));
+      enable=have_varSecPum and not have_secFloSen));
 
   parameter Real timPer2(
     final unit="s",
@@ -163,7 +163,7 @@ block Controller
     "Delay time period for enabling next lag pump at speed limit speLim1"
     annotation (Dialog(tab="Pump control parameters",
       group="Pump staging parameters",
-      enable=variableSecondary and not secondaryFlowSensor));
+      enable=have_varSecPum and not have_secFloSen));
 
   parameter Real timPer3(
     final unit="s",
@@ -172,7 +172,7 @@ block Controller
     "Delay time period for disabling last lag pump"
     annotation (Dialog(tab="Pump control parameters",
       group="Pump staging parameters",
-      enable=variableSecondary and not secondaryFlowSensor));
+      enable=have_varSecPum and not have_secFloSen));
 
   parameter Real k(
     final unit="1",
@@ -181,7 +181,7 @@ block Controller
     "Gain of controller"
     annotation (Dialog(tab="Pump control parameters",
       group="PID parameters",
-      enable=variableSecondary));
+      enable=have_varSecPum));
 
   parameter Real Ti(
     final unit="s",
@@ -191,7 +191,7 @@ block Controller
     "Time constant of integrator block"
     annotation (Dialog(tab="Pump control parameters",
       group="PID parameters",
-      enable=variableSecondary));
+      enable=have_varSecPum));
 
   parameter Real Td(
     final unit="s",
@@ -201,12 +201,12 @@ block Controller
     "Time constant of derivative block"
     annotation (Dialog(tab="Pump control parameters",
       group="PID parameters",
-      enable=variableSecondary));
+      enable=have_varSecPum));
 
   parameter Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.SecondaryPumpSpeedControlTypes
-    speedControlType = Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.SecondaryPumpSpeedControlTypes.remoteDP
+    speConTyp = Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.SecondaryPumpSpeedControlTypes.remoteDP
     "Speed regulation method"
-    annotation (Dialog(group="Plant parameters", enable=variableSecondary));
+    annotation (Dialog(group="Plant parameters", enable=have_varSecPum));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHotWatPum[nPum]
     "Secondary pumps operating status"
@@ -218,7 +218,7 @@ block Controller
     annotation (Placement(transformation(extent={{-320,70},{-280,110}}),
       iconTransformation(extent={{-140,80},{-100,120}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uPriPumSta[nPumPri] if not variableSecondary
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uPriPumSta[nPumPri] if not have_varSecPum
     "Primary pumps operating status"
     annotation (Placement(transformation(extent={{-320,-176},{-280,-136}}),
       iconTransformation(extent={{-140,-40},{-100,0}})));
@@ -235,7 +235,7 @@ block Controller
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uMaxSecPumSpeCon(
     final unit="1",
-    displayUnit="1") if variableSecondary
+    displayUnit="1") if have_varSecPum
     "Maximum allowed pump speed for non-condensing boilers"
     annotation (Placement(transformation(extent={{-320,-410},{-280,-370}}),
       iconTransformation(extent={{-140,-200},{-100,-160}})));
@@ -243,7 +243,7 @@ block Controller
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpHotWat_local(
     final unit="Pa",
     displayUnit="Pa",
-    final quantity="PressureDifference") if variableSecondary and localDPRegulated
+    final quantity="PressureDifference") if have_varSecPum and locDPReg
     "Hot water differential static pressure from local sensor"
     annotation (Placement(transformation(extent={{-320,-310},{-280,-270}}),
       iconTransformation(extent={{-140,-80},{-100,-40}})));
@@ -251,7 +251,7 @@ block Controller
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpHotWat_remote[nSen](
     final unit=fill("Pa", nSen),
     final quantity=fill("PressureDifference", nSen),
-    displayUnit=fill("Pa", nSen)) if variableSecondary and (localDPRegulated or remoteDPRegulated)
+    displayUnit=fill("Pa", nSen)) if have_varSecPum and (locDPReg or remDPReg)
     "Hot water differential static pressure from remote sensor"
     annotation (Placement(transformation(extent={{-320,-350},{-280,-310}}),
       iconTransformation(extent={{-140,-120},{-100,-80}})));
@@ -259,7 +259,7 @@ block Controller
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpHotWatSet(
     final unit="Pa",
     final quantity="PressureDifference",
-    displayUnit="Pa") if variableSecondary and (localDPRegulated or remoteDPRegulated)
+    displayUnit="Pa") if have_varSecPum and (locDPReg or remDPReg)
     "Hot water differential static pressure setpoint"
     annotation (Placement(transformation(extent={{-320,-380},{-280,-340}}),
       iconTransformation(extent={{-140,-160},{-100,-120}})));
@@ -267,7 +267,7 @@ block Controller
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VHotWat_flow(
     final unit="m3/s",
     displayUnit="m3/s",
-    final quantity="VolumeFlowRate") if variableSecondary and secondaryFlowSensor
+    final quantity="VolumeFlowRate") if have_varSecPum and have_secFloSen
     "Hot water flow"
     annotation (Placement(transformation(extent={{-320,-40},{-280,0}}),
       iconTransformation(extent={{-140,0},{-100,40}})));
@@ -281,7 +281,7 @@ block Controller
     final min=fill(0, nPum),
     final max=fill(1, nPum),
     final unit=fill("1", nPum),
-    displayUnit=fill("1", nPum)) if variableSecondary
+    displayUnit=fill("1", nPum)) if have_varSecPum
     "Hot water pump speed"
     annotation (Placement(transformation(extent={{280,-420},{320,-380}}),
       iconTransformation(extent={{100,-120},{140,-80}})));
@@ -293,8 +293,8 @@ block Controller
     final timPer=timPer,
     final staCon=staCon,
     final relFloHys=relFloHys,
-    final VHotWat_flow_nominal=VHotWat_flow_nominal) if variableSecondary and
-    secondaryFlowSensor
+    final VHotWat_flow_nominal=VHotWat_flow_nominal) if have_varSecPum and
+    have_secFloSen
     "Enable lag pump for primary-only plants using differential pressure pump speed control"
     annotation (Placement(transformation(extent={{-200,-10},{-180,10}})));
 
@@ -308,7 +308,7 @@ block Controller
     final maxPumSpe=maxPumSpe,
     final k=k,
     final Ti=Ti,
-    final Td=Td) if variableSecondary and localDPRegulated
+    final Td=Td) if have_varSecPum and locDPReg
     "Hot water pump speed control with local DP sensor"
     annotation (Placement(transformation(extent={{-60,-340},{-40,-320}})));
 
@@ -319,26 +319,26 @@ block Controller
     final speLim2=speLim2,
     final timPer=timPer1,
     final timPer1=timPer2,
-    final timPer2=timPer3) if variableSecondary and not secondaryFlowSensor
+    final timPer2=timPer3) if have_varSecPum and not have_secFloSen
     "Enable and disable secondary lag pumps in secondary loop with no flow sensor"
     annotation (Placement(transformation(extent={{-120,28},{-100,48}})));
 
 protected
-  parameter Boolean remoteDPRegulated = (speedControlType == Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.SecondaryPumpSpeedControlTypes.remoteDP)
+  parameter Boolean remDPReg = (speConTyp == Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.SecondaryPumpSpeedControlTypes.remoteDP)
     "Boolean flag for pump speed control with remote differential pressure";
 
-  parameter Boolean localDPRegulated = (speedControlType == Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.SecondaryPumpSpeedControlTypes.localDP)
+  parameter Boolean locDPReg = (speConTyp == Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.SecondaryPumpSpeedControlTypes.localDP)
     "Boolean flag for pump speed control with local differential pressure";
 
   parameter Integer pumInd[nPum]={i for i in 1:nPum}
     "Pump index, {1,2,...,n}";
 
   Buildings.Controls.OBC.CDL.Discrete.UnitDelay uniDel(
-    final samplePeriod=1) if variableSecondary and not secondaryFlowSensor
+    final samplePeriod=1) if have_varSecPum and not have_secFloSen
     "Unit delay for pump speed"
     annotation (Placement(transformation(extent={{-200,28},{-180,48}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Min min if variableSecondary
+  Buildings.Controls.OBC.CDL.Continuous.Min min if have_varSecPum
     "Ensure pump speed is below maximum speed for condensation control"
     annotation (Placement(transformation(extent={{160,-410},{180,-390}})));
 
@@ -354,7 +354,7 @@ protected
     final maxPumSpe=maxPumSpe,
     final k=k,
     final Ti=Ti,
-    final Td=Td) if variableSecondary and remoteDPRegulated
+    final Td=Td) if have_varSecPum and remDPReg
     "Hot water pump speed control with remote DP sensor"
     annotation (Placement(transformation(extent={{-60,-380},{-40,-360}})));
 
@@ -364,7 +364,7 @@ protected
     annotation (Placement(transformation(extent={{-274,190},{-254,210}})));
 
   Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep(
-    final nout=nPum) if variableSecondary
+    final nout=nPum) if have_varSecPum
     "Replicate real input"
     annotation (Placement(transformation(extent={{220,-410},{240,-390}})));
 
@@ -416,24 +416,24 @@ protected
     "Integer add"
     annotation (Placement(transformation(extent={{-120,-80},{-100,-60}})));
 
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt1[nPumPri] if not variableSecondary
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt1[nPumPri] if not have_varSecPum
     "Convert boolean to integer"
     annotation (Placement(transformation(extent={{-250,-166},{-230,-146}})));
 
   Buildings.Controls.OBC.CDL.Integers.MultiSum mulSumInt1(
-    final nin=nPumPri) if    not variableSecondary
+    final nin=nPumPri) if    not have_varSecPum
     "Sum of integer inputs"
     annotation (Placement(transformation(extent={{-200,-166},{-180,-146}})));
 
-  Buildings.Controls.OBC.CDL.Integers.Greater intGre if not variableSecondary
+  Buildings.Controls.OBC.CDL.Integers.Greater intGre if not have_varSecPum
     "Check if more boilers than pumps are enabled"
     annotation (Placement(transformation(extent={{-60,-200},{-40,-180}})));
 
-  Buildings.Controls.OBC.CDL.Integers.Less intLes if not variableSecondary
+  Buildings.Controls.OBC.CDL.Integers.Less intLes if not have_varSecPum
     "Check if less boilers than pumps are enabled"
     annotation (Placement(transformation(extent={{-50,-250},{-30,-230}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Not not1 if not variableSecondary
+  Buildings.Controls.OBC.CDL.Logical.Not not1 if not have_varSecPum
     "Logical not"
     annotation (Placement(transformation(extent={{2,-250},{22,-230}})));
 
@@ -443,17 +443,17 @@ protected
     annotation (Placement(transformation(extent={{58,68},{80,88}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.Generic.ChangeStatus
-    chaPumSta2(final nPum=nPum) if variableSecondary and secondaryFlowSensor
+    chaPumSta2(final nPum=nPum) if have_varSecPum and have_secFloSen
     "Change lag pump status for headered primary pumps in a plant that is primary-only"
     annotation (Placement(transformation(extent={{60,-44},{82,-24}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.Generic.ChangeStatus
-    chaPumSta3(final nPum=nPum) if not variableSecondary
+    chaPumSta3(final nPum=nPum) if not have_varSecPum
     "Change lag pump status for headered primary pumps in a plant that is not primary-only"
     annotation (Placement(transformation(extent={{62,-182},{84,-162}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.Generic.ChangeStatus
-    chaPumSta4(final nPum=nPum) if variableSecondary and not secondaryFlowSensor
+    chaPumSta4(final nPum=nPum) if have_varSecPum and not have_secFloSen
     "Change pump status of secondary lag pumps in secondary loop with no flow sensor"
     annotation (Placement(transformation(extent={{58,8},{80,28}})));
 
@@ -462,11 +462,11 @@ protected
     "Prevent status changer from disabling lead pump"
     annotation (Placement(transformation(extent={{-158,-228},{-138,-208}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Or or2 if not variableSecondary
+  Buildings.Controls.OBC.CDL.Logical.Or or2 if not have_varSecPum
     "Logical Or"
     annotation (Placement(transformation(extent={{34,-228},{54,-208}})));
 
-  Buildings.Controls.OBC.CDL.Logical.And and2 if not variableSecondary
+  Buildings.Controls.OBC.CDL.Logical.And and2 if not have_varSecPum
     "Logical And"
     annotation (Placement(transformation(extent={{0,-174},{20,-154}})));
 
@@ -475,11 +475,11 @@ protected
     "Prevent status changer from enabling lead pump"
     annotation (Placement(transformation(extent={{-112,-160},{-92,-140}})));
 
-  Buildings.Controls.OBC.CDL.Logical.And and1 if variableSecondary
+  Buildings.Controls.OBC.CDL.Logical.And and1 if have_varSecPum
     "Logical And"
     annotation (Placement(transformation(extent={{-30,32},{-10,52}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Or or3 if variableSecondary
+  Buildings.Controls.OBC.CDL.Logical.Or or3 if have_varSecPum
     "Logical Or"
     annotation (Placement(transformation(extent={{-20,-8},{0,12}})));
 
@@ -890,7 +890,7 @@ The parameter values for valid pump configurations are as follows:
     </thead>
     <tbody>
       <tr>
-        <td>variableSecondary</td>
+        <td>have_varSecPum</td>
         <td>TRUE</td>
         <td>TRUE</td>
         <td>TRUE</td>
@@ -898,7 +898,7 @@ The parameter values for valid pump configurations are as follows:
         <td>FALSE</td>
       </tr>
       <tr>
-        <td>secondaryFlowSensor</td>
+        <td>have_secFloSen</td>
         <td>TRUE</td>
         <td>TRUE</td>
         <td>FALSE</td>
@@ -906,7 +906,7 @@ The parameter values for valid pump configurations are as follows:
         <td>FALSE</td>
       </tr>
       <tr>
-        <td>speedControlType</td>
+        <td>speConTyp</td>
         <td>localDP</td>
         <td>remoteDP</td>
         <td>localDP</td>

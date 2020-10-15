@@ -4,8 +4,8 @@ model Controller
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.SecondaryPumps.Controller
     secPumCon(
-    final variableSecondary=true,
-    final secondaryFlowSensor=true,
+    final have_varSecPum=true,
+    final have_secFloSen=true,
     final nPum=2,
     final nPumPri=2,
     final nBoi=2,
@@ -23,14 +23,14 @@ model Controller
     final k=1,
     final Ti=10,
     final Td=0.1,
-    final speedControlType=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.SecondaryPumpSpeedControlTypes.remoteDP)
+    final speConTyp=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.SecondaryPumpSpeedControlTypes.remoteDP)
     "Testing pump configuration 1"
     annotation (Placement(transformation(extent={{-100,140},{-80,180}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.SecondaryPumps.Controller
     secPumCon1(
-    final variableSecondary=true,
-    final secondaryFlowSensor=true,
+    final have_varSecPum=true,
+    final have_secFloSen=true,
     final nPum=2,
     final nPumPri=2,
     final nBoi=2,
@@ -48,14 +48,14 @@ model Controller
     final k=1,
     final Ti=0.5,
     final Td=0.1,
-    final speedControlType=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.SecondaryPumpSpeedControlTypes.localDP)
+    final speConTyp=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.SecondaryPumpSpeedControlTypes.localDP)
     "Testing pump configuration 2"
     annotation (Placement(transformation(extent={{200,130},{220,170}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.SecondaryPumps.Controller
     secPumCon2(
-    final variableSecondary=true,
-    final secondaryFlowSensor=false,
+    final have_varSecPum=true,
+    final have_secFloSen=false,
     final nPum=2,
     final nPumPri=2,
     final nBoi=2,
@@ -79,14 +79,14 @@ model Controller
     final k=1,
     final Ti=0.5,
     final Td=0.1,
-    final speedControlType=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.SecondaryPumpSpeedControlTypes.remoteDP)
+    final speConTyp=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.SecondaryPumpSpeedControlTypes.remoteDP)
     "Testing pump configuration 3"
     annotation (Placement(transformation(extent={{-100,-30},{-80,10}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.SecondaryPumps.Controller
     secPumCon3(
-    final variableSecondary=true,
-    final secondaryFlowSensor=false,
+    final have_varSecPum=true,
+    final have_secFloSen=false,
     final nPum=2,
     final nPumPri=2,
     final nBoi=2,
@@ -110,13 +110,13 @@ model Controller
     final k=1,
     final Ti=0.5,
     final Td=0.1,
-    final speedControlType=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.SecondaryPumpSpeedControlTypes.localDP)
+    final speConTyp=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.SecondaryPumpSpeedControlTypes.localDP)
     "Testing pump configuration 4"
     annotation (Placement(transformation(extent={{200,-50},{220,-10}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.SecondaryPumps.Controller
     secPumCon4(
-    final variableSecondary=false,
+    final have_varSecPum=false,
     final nPum=2,
     final nPumPri=2,
     final nBoi=2,

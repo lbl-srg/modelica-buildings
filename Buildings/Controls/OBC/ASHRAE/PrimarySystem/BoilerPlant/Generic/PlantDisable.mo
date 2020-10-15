@@ -2,10 +2,10 @@ within Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Generic;
 block PlantDisable
     "Sequence to disable boiler plant components when plant has to be disabled"
 
-  parameter Boolean primaryOnly = false
+  parameter Boolean have_priOnl = false
     "True: Boiler plant is primary-only; False: Boiler plant is not primary-only";
 
-  parameter Boolean isHeadered = true
+  parameter Boolean have_heaPriPum = true
     "True: Boiler plant has headered pump configuration; False: Boiler plant has dedicated pump configuration";
 
   parameter Integer nBoi=3
@@ -34,12 +34,12 @@ block PlantDisable
     annotation (Placement(transformation(extent={{-200,-140},{-160,-100}}),
         iconTransformation(extent={{-140,-100},{-100,-60}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uPumChaPro if not primaryOnly
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uPumChaPro if not have_priOnl
     "Signal from pump controller indicating stage-up/stage-down has been completed"
     annotation (Placement(transformation(extent={{-200,-100},{-160,-60}}),
       iconTransformation(extent={{-140,-60},{-100,-20}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uHotWatIsoVal[nBoi] if isHeadered
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uHotWatIsoVal[nBoi] if have_heaPriPum
     "Boiler hot water isolation valve position vector"
     annotation (Placement(transformation(extent={{-200,-60},{-160,-20}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
@@ -54,12 +54,12 @@ block PlantDisable
     annotation (Placement(transformation(extent={{180,-140},{220,-100}}),
       iconTransformation(extent={{100,-80},{140,-40}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yPumChaPro if not primaryOnly
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yPumChaPro if not have_priOnl
     "Signal indicating start of pump stage change process in primary pump controller"
     annotation (Placement(transformation(extent={{180,-30},{220,10}}),
       iconTransformation(extent={{100,0},{140,40}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yHotWatIsoVal[nBoi] if isHeadered
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yHotWatIsoVal[nBoi] if have_heaPriPum
     "Boiler hot water isolation valve position vector"
     annotation (Placement(transformation(extent={{180,-70},{220,-30}}),
       iconTransformation(extent={{100,-40},{140,0}})));
@@ -81,37 +81,37 @@ protected
     annotation (Placement(transformation(extent={{-120,80},{-100,100}})));
 
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triSam[nBoi] if
-    isHeadered
+    have_heaPriPum
     "Identify indices of enabled boilers when plant was disabledboilers "
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
 
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt[nBoi](
-    final k=boiInd) if isHeadered
+    final k=boiInd) if have_heaPriPum
     "Vector of boiler indices"
     annotation (Placement(transformation(extent={{-150,60},{-130,80}})));
 
   Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea[nBoi] if
-    isHeadered
+    have_heaPriPum
     "Integer to Real conversion"
     annotation (Placement(transformation(extent={{-90,60},{-70,80}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Product pro[nBoi] if isHeadered
+  Buildings.Controls.OBC.CDL.Continuous.Product pro[nBoi] if have_heaPriPum
     "Identify indices of enabled boilers"
     annotation (Placement(transformation(extent={{-50,40},{-30,60}})));
 
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt[nBoi] if
-    isHeadered
+    have_heaPriPum
     "Real to Integer conversion"
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
 
   Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep(
-    final nout=nBoi) if isHeadered
+    final nout=nBoi) if have_heaPriPum
     "Boolean replicator"
     annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
 
   Subsequences.HWIsoVal disHotWatIsoVal[nBoi](
     final nBoi=fill(nBoi, nBoi),
-    final chaHotWatIsoRat=fill(chaHotWatIsoRat, nBoi)) if isHeadered
+    final chaHotWatIsoRat=fill(chaHotWatIsoRat, nBoi)) if have_heaPriPum
     "Disable boiler hot water isolation valve for all disabled boilers simultaneously"
     annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
 
@@ -125,7 +125,7 @@ protected
     annotation (Placement(transformation(extent={{-40,110},{-20,130}})));
 
   Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep[nBoi](
-    final nout=fill(nBoi, nBoi)) if isHeadered
+    final nout=fill(nBoi, nBoi)) if have_heaPriPum
     "Real replicator"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
 
@@ -134,7 +134,7 @@ protected
     annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
 
   Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep2(
-    final nout=nBoi) if isHeadered
+    final nout=nBoi) if have_heaPriPum
     "Boolean replicator"
     annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
 
@@ -145,7 +145,7 @@ protected
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
 
   Buildings.Controls.OBC.CDL.Routing.RealExtractor extIndSig[nBoi](
-    final nin=nBoi) if isHeadered
+    final nin=nBoi) if have_heaPriPum
     "Extract isolation valve position signal for each boiler isolation valve"
     annotation (Placement(transformation(extent={{80,-60},{100,-40}})));
 
@@ -158,19 +158,19 @@ protected
     annotation (Placement(transformation(extent={{120,-130},{140,-110}})));
 
   Buildings.Controls.OBC.CDL.Logical.MultiAnd mulAnd1(
-    final nu=nBoi) if primaryOnly and isHeadered
+    final nu=nBoi) if have_priOnl and have_heaPriPum
     "Multi And"
     annotation (Placement(transformation(extent={{80,-126},{100,-106}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Latch lat1 if not primaryOnly
+  Buildings.Controls.OBC.CDL.Logical.Latch lat1 if not have_priOnl
     "Hold pump change status after receiving signal from primary pump controller"
     annotation (Placement(transformation(extent={{-100,-90},{-80,-70}})));
 
-  Buildings.Controls.OBC.CDL.Logical.And and1 if not primaryOnly and isHeadered
+  Buildings.Controls.OBC.CDL.Logical.And and1 if not have_priOnl and have_heaPriPum
     "Signal stage change completion when both pump stage change and isolation valve change are complete"
     annotation (Placement(transformation(extent={{120,-100},{140,-80}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Pre pre if not primaryOnly
+  Buildings.Controls.OBC.CDL.Logical.Pre pre if not have_priOnl
     "Logical pre block"
     annotation (Placement(transformation(extent={{-140,-110},{-120,-90}})));
 
@@ -178,38 +178,38 @@ protected
     "Rising edge detector"
     annotation (Placement(transformation(extent={{150,-130},{170,-110}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Edge edg2 if not primaryOnly
+  Buildings.Controls.OBC.CDL.Logical.Edge edg2 if not have_priOnl
     "Rising edge detector"
     annotation (Placement(transformation(extent={{140,-20},{160,0}})));
 
 
   Buildings.Controls.OBC.CDL.Logical.MultiAnd mulAnd2(
-    final nu=nBoi) if not primaryOnly and isHeadered
+    final nu=nBoi) if not have_priOnl and have_heaPriPum
     "Multi And"
     annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
 
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr1(
-    final nu=1) if not primaryOnly and not isHeadered
+    final nu=1) if not have_priOnl and not have_heaPriPum
     "Multi Or"
     annotation (Placement(transformation(extent={{-10,-100},{10,-80}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys[nBoi](
     final uLow=0,
-    final uHigh=0.01) if isHeadered
+    final uHigh=0.01) if have_heaPriPum
     "Hysteresis block"
     annotation (Placement(transformation(extent={{-120,30},{-100,50}})));
 
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea[nBoi] if
-    isHeadered
+    have_heaPriPum
     "Boolean to Real conversion"
     annotation (Placement(transformation(extent={{-90,30},{-70,50}})));
 
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triSam1[nBoi] if
-    isHeadered
+    have_heaPriPum
     "Sample isolation valve position when they start to close"
     annotation (Placement(transformation(extent={{-120,-50},{-100,-30}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Switch swi[nBoi] if isHeadered
+  Buildings.Controls.OBC.CDL.Logical.Switch swi[nBoi] if have_heaPriPum
     "Real switch"
     annotation (Placement(transformation(extent={{140,-60},{160,-40}})));
 
