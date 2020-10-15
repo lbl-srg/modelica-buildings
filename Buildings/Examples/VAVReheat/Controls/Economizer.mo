@@ -2,9 +2,13 @@ within Buildings.Examples.VAVReheat.Controls;
 block Economizer "Controller for economizer"
   import Buildings.Examples.VAVReheat.Controls.OperationModes;
   parameter Boolean have_reset = false
-    "Set to true to use an input signal for controller reset";
+    "Set to true to use an input signal for controller reset"
+    annotation(Evaluate=true);
+  parameter Boolean have_frePro = false
+    "Set to true to enable freeze protection through mixed air temperature control";
   parameter Modelica.SIunits.Temperature TFreSet=277.15
-    "Lower limit for mixed air temperature for freeze protection";
+    "Lower limit for mixed air temperature for freeze protection"
+    annotation(Dialog(enable=have_frePro), Evaluate=true);
   parameter Modelica.SIunits.TemperatureDifference dTLock(min=0.1) = 1
     "Temperature difference between return and outdoor air for economizer lockout";
   parameter Modelica.SIunits.VolumeFlowRate VOut_flow_min(min=0)
@@ -23,7 +27,8 @@ block Economizer "Controller for economizer"
     "Control signal for outdoor air damper from supply temperature controller"
     annotation (Placement(transformation(extent={{-140,140},{-100,180}}),
       iconTransformation(extent={{-140,160},{-100,200}})));
-  Modelica.Blocks.Interfaces.RealInput TMix "Measured mixed air temperature"
+  Modelica.Blocks.Interfaces.RealInput TMix if have_frePro
+    "Measured mixed air temperature"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
       iconTransformation(extent={{-140,0},{-100,40}})));
   Modelica.Blocks.Interfaces.RealInput VOut_flow
@@ -75,7 +80,7 @@ block Economizer "Controller for economizer"
     yMin=0,
     reverseActing=false,
     final reset=if have_reset then Buildings.Types.Reset.Parameter else
-      Buildings.Types.Reset.Disabled)
+      Buildings.Types.Reset.Disabled) if have_frePro
     "Controller of outdoor damper to track freeze temperature setpoint"
     annotation (Placement(transformation(extent={{-30,70},{-10,90}})));
   Modelica.Blocks.Math.Min min
@@ -95,6 +100,9 @@ block Economizer "Controller for economizer"
   Buildings.Controls.OBC.CDL.Logical.Switch swiOA
     "Switch to close outdoor air damper"
     annotation (Placement(transformation(extent={{50,110},{70,130}})));
+  Modelica.Blocks.Sources.Constant one(k=1) if not have_frePro
+    "Fill value in case freeze protection is disabled"
+    annotation (Placement(transformation(extent={{-26,10},{-6,30}})));
 equation
   connect(VOut_flow, gain.u) annotation (Line(
       points={{-120,-60},{-50,-60}},
@@ -191,6 +199,8 @@ equation
           {-60,-30},{-8,-30},{-8,-22}},                   color={255,0,255}));
   connect(TMix, yOATFre.u_s)
     annotation (Line(points={{-120,80},{-32,80}}, color={0,0,127}));
+  connect(one.y, min.u1)
+    annotation (Line(points={{-5,20},{20,20},{20,6},{28,6}}, color={0,0,127}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{200,
             200}})),

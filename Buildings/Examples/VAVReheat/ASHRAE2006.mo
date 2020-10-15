@@ -106,12 +106,7 @@ equation
       index=1,
       extent={{6,3},{6,3}}));
   connect(TRet.T, conEco.TRet) annotation (Line(
-      points={{100,151},{100,172},{-92,172},{-92,154.667},{-81.3333,154.667}},
-      color={0,0,127},
-      smooth=Smooth.None,
-      pattern=LinePattern.Dash));
-  connect(TMix.T, conEco.TMix) annotation (Line(
-      points={{40,-29},{40,168},{-90,168},{-90,152},{-81.3333,152}},
+      points={{100,151},{100,172},{-92,172},{-92,153.333},{-81.3333,153.333}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
@@ -270,8 +265,8 @@ equation
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(conTSup.yOA, conEco.uOATSup) annotation (Line(
-      points={{52,-220},{60,-220},{60,180},{-86,180},{-86,157.333},{-81.3333,
-          157.333}},
+      points={{52,-220},{60,-220},{60,180},{-86,180},{-86,158.667},{-81.3333,
+          158.667}},
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(or2.y, conTSup.uEna) annotation (Line(points={{-38,-240},{20,-240},{

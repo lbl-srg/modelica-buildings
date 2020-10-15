@@ -7,8 +7,7 @@ block SupplyAirTemperature
     annotation (Evaluate=true);
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=
          Buildings.Controls.OBC.CDL.Types.SimpleController.PI "Type of controller";
-  parameter Real k(
-    min=0) = 0.05 "Gain of controller";
+  parameter Real k(min=0) = 0.05 "Gain of controller";
   parameter Modelica.SIunits.Time Ti(
     min=Buildings.Controls.OBC.CDL.Constants.small) = 120
     "Time constant of integrator block"
