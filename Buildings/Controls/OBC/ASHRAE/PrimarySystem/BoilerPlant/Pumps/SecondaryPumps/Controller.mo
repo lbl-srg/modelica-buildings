@@ -193,16 +193,6 @@ block Controller
       group="PID parameters",
       enable=have_varSecPum));
 
-  parameter Real Td(
-    final unit="s",
-    displayUnit="s",
-    final quantity="time",
-    final min=0) = 0.1
-    "Time constant of derivative block"
-    annotation (Dialog(tab="Pump control parameters",
-      group="PID parameters",
-      enable=have_varSecPum));
-
   parameter Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.SecondaryPumpSpeedControlTypes
     speConTyp = Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.SecondaryPumpSpeedControlTypes.remoteDP
     "Speed regulation method"
@@ -307,8 +297,7 @@ block Controller
     final minPumSpe=minPumSpe,
     final maxPumSpe=maxPumSpe,
     final k=k,
-    final Ti=Ti,
-    final Td=Td) if have_varSecPum and locDPReg
+    final Ti=Ti) if have_varSecPum and locDPReg
     "Hot water pump speed control with local DP sensor"
     annotation (Placement(transformation(extent={{-60,-340},{-40,-320}})));
 
@@ -331,7 +320,7 @@ protected
     "Boolean flag for pump speed control with local differential pressure";
 
   parameter Integer pumInd[nPum]={i for i in 1:nPum}
-    "Pump index, {1,2,...,n}";
+    "Vector of pump indices up to total number of pumps";
 
   Buildings.Controls.OBC.CDL.Discrete.UnitDelay uniDel(
     final samplePeriod=1) if have_varSecPum and not have_secFloSen
@@ -353,8 +342,7 @@ protected
     final minPumSpe=minPumSpe,
     final maxPumSpe=maxPumSpe,
     final k=k,
-    final Ti=Ti,
-    final Td=Td) if have_varSecPum and remDPReg
+    final Ti=Ti) if have_varSecPum and remDPReg
     "Hot water pump speed control with remote DP sensor"
     annotation (Placement(transformation(extent={{-60,-380},{-40,-360}})));
 

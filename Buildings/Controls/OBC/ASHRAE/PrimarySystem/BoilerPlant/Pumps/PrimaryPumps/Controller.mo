@@ -236,14 +236,6 @@ block Controller
     "Time constant of integrator block"
     annotation (Dialog(tab="Pump control parameters", group="PID parameters"));
 
-  parameter Real Td(
-    final unit="s",
-    displayUnit="s",
-    final quantity="time",
-    final min=0) = 0.1
-    "Time constant of derivative block"
-    annotation (Dialog(tab="Pump control parameters", group="PID parameters"));
-
   parameter Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpSpeedControlTypes
     speConTyp
     "Speed regulation method"
@@ -427,8 +419,7 @@ block Controller
     final minPumSpe=minPumSpe,
     final maxPumSpe=maxPumSpe,
     final k=k,
-    final Ti=Ti,
-    final Td=Td) if have_priOnl and have_varPriPum and locDPReg
+    final Ti=Ti) if have_priOnl and have_varPriPum and locDPReg
     "Hot water pump speed control with local DP sensor"
     annotation (Placement(transformation(extent={{-60,-430},{-40,-410}})));
 
@@ -518,8 +509,7 @@ protected
     final minPumSpe=minPumSpe,
     final maxPumSpe=maxPumSpe,
     final k=k,
-    final Ti=Ti,
-    final Td=Td) if have_priOnl and have_varPriPum and remDPReg
+    final Ti=Ti) if have_priOnl and have_varPriPum and remDPReg
     "Hot water pump speed control with remote DP sensor"
     annotation (Placement(transformation(extent={{-60,-470},{-40,-450}})));
 
@@ -531,7 +521,6 @@ protected
     final maxPumSpe=maxPumSpe,
     final k=k,
     final Ti=Ti,
-    final Td=Td,
     final VHotWat_flow_nominal=VHotWat_flow_nominal) if not have_priOnl and
     have_varPriPum and floReg
     "Pump speed control using flow sensors"

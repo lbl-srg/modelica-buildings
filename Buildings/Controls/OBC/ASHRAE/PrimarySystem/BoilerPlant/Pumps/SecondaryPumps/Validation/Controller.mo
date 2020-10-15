@@ -22,7 +22,6 @@ model Controller
     final relFloHys=0.01,
     final k=1,
     final Ti=10,
-    final Td=0.1,
     final speConTyp=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.SecondaryPumpSpeedControlTypes.remoteDP)
     "Testing pump configuration 1"
     annotation (Placement(transformation(extent={{-100,140},{-80,180}})));
@@ -47,7 +46,6 @@ model Controller
     final relFloHys=0.01,
     final k=1,
     final Ti=0.5,
-    final Td=0.1,
     final speConTyp=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.SecondaryPumpSpeedControlTypes.localDP)
     "Testing pump configuration 2"
     annotation (Placement(transformation(extent={{200,130},{220,170}})));
@@ -78,7 +76,6 @@ model Controller
     final relFloHys=0.01,
     final k=1,
     final Ti=0.5,
-    final Td=0.1,
     final speConTyp=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.SecondaryPumpSpeedControlTypes.remoteDP)
     "Testing pump configuration 3"
     annotation (Placement(transformation(extent={{-100,-30},{-80,10}})));
@@ -109,7 +106,6 @@ model Controller
     final relFloHys=0.01,
     final k=1,
     final Ti=0.5,
-    final Td=0.1,
     final speConTyp=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.SecondaryPumpSpeedControlTypes.localDP)
     "Testing pump configuration 4"
     annotation (Placement(transformation(extent={{200,-50},{220,-10}})));
@@ -132,8 +128,8 @@ model Controller
     final staCon=-0.03,
     final relFloHys=0.01,
     final k=1,
-    final Ti=0.5,
-    final Td=0.1) "Testing pump configuration 5"
+    final Ti=0.5)
+    "Testing pump configuration 5"
     annotation (Placement(transformation(extent={{-100,-230},{-80,-190}})));
 
 protected
@@ -443,8 +439,8 @@ equation
   connect(sin2.y,secPumCon1. dpHotWat_remote) annotation (Line(points={{102,140},
           {198,140}},                     color={0,0,127}));
 
-  connect(sin4.y, secPumCon1.dpHotWat_loc) annotation (Line(points={{182,80},{
-          194,80},{194,144},{198,144}}, color={0,0,127}));
+  connect(sin4.y, secPumCon1.dpHotWat_loc) annotation (Line(points={{182,80},{194,
+          80},{194,144},{198,144}}, color={0,0,127}));
 
   connect(conInt2.y,secPumCon2. uPumLeaLag) annotation (Line(points={{-128,30},
           {-110,30},{-110,8.2},{-102,8.2}},
@@ -499,8 +495,8 @@ equation
           -140,-60},{-140,-24},{-102,-24}},
                                        color={0,0,127}));
 
-  connect(sin5.y, secPumCon3.dpHotWat_loc) annotation (Line(points={{62,-40},{
-          150,-40},{150,-36},{198,-36}}, color={0,0,127}));
+  connect(sin5.y, secPumCon3.dpHotWat_loc) annotation (Line(points={{62,-40},{150,
+          -40},{150,-36},{198,-36}}, color={0,0,127}));
 
   connect(sin7.y,secPumCon3. dpHotWat_remote) annotation (Line(points={{62,-80},
           {160,-80},{160,-40},{198,-40}}, color={0,0,127}));
