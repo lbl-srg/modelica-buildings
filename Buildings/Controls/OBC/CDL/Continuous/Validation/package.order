@@ -41,3 +41,5 @@ SlewRateLimiter
 Sort
 Sqrt
 Tan
+PIDScale
+PIDWithResetScale
