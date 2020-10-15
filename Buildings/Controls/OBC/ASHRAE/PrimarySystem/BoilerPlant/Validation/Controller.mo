@@ -2,7 +2,7 @@ within Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Validation;
 model Controller
     "Validation model for boiler plant control sequence"
 
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Controller controller(primaryOnly=true,
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Controller controller(have_priOnl=true,
     nBoi=2,
     boiTyp={Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.BoilerTypes.condensingBoiler,
         Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.BoilerTypes.condensingBoiler},
@@ -10,16 +10,16 @@ model Controller
     staMat=[1,0;
  0,1;
  1,1],
-    speedControlTypePri=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpSpeedControlTypes.remoteDP,
+    speConTypPri=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpspeConTyps.remoteDP,
     boiDesCap={15000*0.8,15000*0.8},
     boiFirMin={0.2,0.3},
     minFloSet={0.2*0.0003,0.3*0.0003},
     maxFloSet={0.0003,0.0003},
     bypSetRat=0.00001,
     nPumPri=2,
-    isHeadered=true,
+    have_heaPriPum=true,
     TMinSupNonConBoi = 333.2,
-    variablePrimary=true,
+    have_varPriPum=true,
     nSen_remoteDp=1,
     nPum_nominal=2,
     minPumSpe=0.1,
@@ -114,14 +114,14 @@ model Controller
     annotation (Placement(transformation(extent={{-60,-340},{-40,-320}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Controller controller1(
-    primaryOnly=true,
+    have_priOnl=true,
     nBoi=2,
     boiTyp={Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.BoilerTypes.condensingBoiler,
         Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.BoilerTypes.condensingBoiler},
 
     nSta=3,
     staMat=[1,0; 0,1; 1,1],
-    speedControlTypePri=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpSpeedControlTypes.localDP,
+    speConTypPri=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpspeConTyps.localDP,
 
     iniSta=0,
     boiDesCap={15000*0.8,15000*0.8},
@@ -130,33 +130,33 @@ model Controller
     maxFloSet={0.0003,0.0003},
     bypSetRat=0.00001,
     nPumPri=2,
-    isHeadered=true,
+    have_heaPriPum=true,
     TMinSupNonConBoi=333.2,
-    variablePrimary=true,
+    have_varPriPum=true,
     nSen_remoteDp=1,
     nPum_nominal=2,
     minPumSpe=0.1,
     maxPumSpe=1,
     VHotWat_flow_nominal=0.0006,
     boiDesFlo={0.0003,0.0003},
-    speedControlType_priPum=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpSpeedControlTypes.localDP,
+    speConTyp_priPum=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpspeConTyps.localDP,
 
     minPriPumSpeSta={0,0,0})
     annotation (Placement(transformation(extent={{120,-20},{140,24}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Controller controller2(
-    primaryOnly=false,
-    primarySecondaryFlowSensors=true,
+    have_priOnl=false,
+    have_secFloSen=true,
     nBoi=2,
     boiTyp={Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.BoilerTypes.condensingBoiler,
         Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.BoilerTypes.condensingBoiler},
 
     nSta=3,
     staMat=[1,0; 0,1; 1,1],
-    speedControlTypePri=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpSpeedControlTypes.flowrate,
+    speConTypPri=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpspeConTyps.flowrate,
 
-    variableSecondary=true,
-    secondaryFlowSensor=true,
-    speedControlTypeSec=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.SecondaryPumpSpeedControlTypes.remoteDP,
+    have_varSecPum=true,
+    have_secFloSen=true,
+    speConTypSec=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.SecondaryPumpspeConTyps.remoteDP,
 
     boiDesCap={15000*0.8,15000*0.8},
     boiFirMin={0.2,0.3},
@@ -164,27 +164,27 @@ model Controller
     maxFloSet={0.0003,0.0003},
     bypSetRat=0.00001,
     nPumPri=2,
-    isHeadered=true,
+    have_heaPriPum=true,
     TMinSupNonConBoi=333.2,
-    variablePrimary=true,
+    have_varPriPum=true,
     boiDesFlo={0.0003,0.0003},
     minPriPumSpeSta={0,0,0})
     "Primary-secondary, headered variable secondary flowrate primary, variable remoteDP secondary"
     annotation (Placement(transformation(extent={{0,-84},{20,-40}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Controller controller3(
-    primaryOnly=false,
-    primarySecondaryFlowSensors=false,
+    have_priOnl=false,
+    have_secFloSen=false,
     nBoi=2,
     boiTyp={Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.BoilerTypes.condensingBoiler,
         Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.BoilerTypes.condensingBoiler},
 
     nSta=3,
     staMat=[1,0; 0,1; 1,1],
-    speedControlTypePri=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpSpeedControlTypes.flowrate,
+    speConTypPri=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpspeConTyps.flowrate,
 
-    variableSecondary=true,
-    secondaryFlowSensor=true,
-    speedControlTypeSec=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.SecondaryPumpSpeedControlTypes.localDP,
+    have_varSecPum=true,
+    have_secFloSen=true,
+    speConTypSec=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.SecondaryPumpspeConTyps.localDP,
 
     boiDesCap={15000*0.8,15000*0.8},
     boiFirMin={0.2,0.3},
@@ -192,9 +192,9 @@ model Controller
     maxFloSet={0.0003,0.0003},
     bypSetRat=0.00001,
     nPumPri=2,
-    isHeadered=true,
+    have_heaPriPum=true,
     TMinSupNonConBoi=333.2,
-    variablePrimary=true,
+    have_varPriPum=true,
     nSen_remoteDp=1,
     nPum_nominal=2,
     minPumSpe=0.1,
@@ -204,18 +204,18 @@ model Controller
     minPriPumSpeSta={0,0,0})
     annotation (Placement(transformation(extent={{120,-84},{140,-40}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Controller controller4(
-    primaryOnly=false,
+    have_priOnl=false,
     nBoi=2,
     boiTyp={Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.BoilerTypes.condensingBoiler,
         Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.BoilerTypes.condensingBoiler},
 
     nSta=3,
     staMat=[1,0; 0,1; 1,1],
-    speedControlTypePri=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpSpeedControlTypes.temperature,
+    speConTypPri=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpspeConTyps.temperature,
 
-    variableSecondary=true,
-    secondaryFlowSensor=true,
-    speedControlTypeSec=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.SecondaryPumpSpeedControlTypes.localDP,
+    have_varSecPum=true,
+    have_secFloSen=true,
+    speConTypSec=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.SecondaryPumpspeConTyps.localDP,
 
     boiDesCap={15000*0.8,15000*0.8},
     boiFirMin={0.2,0.3},
@@ -223,9 +223,9 @@ model Controller
     maxFloSet={0.0003,0.0003},
     bypSetRat=0.00001,
     nPumPri=2,
-    isHeadered=true,
+    have_heaPriPum=true,
     TMinSupNonConBoi=333.2,
-    variablePrimary=true,
+    have_varPriPum=true,
     nSen_remoteDp=1,
     nPum_nominal=2,
     minPumSpe=0.1,
@@ -235,16 +235,16 @@ model Controller
     minPriPumSpeSta={0,0,0})
     annotation (Placement(transformation(extent={{0,-144},{20,-100}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Controller controller5(
-    primaryOnly=false,
+    have_priOnl=false,
     nBoi=2,
     boiTyp={Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.BoilerTypes.condensingBoiler,
         Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.BoilerTypes.condensingBoiler},
 
     nSta=3,
     staMat=[1,0; 0,1; 1,1],
-    variableSecondary=false,
-    secondaryFlowSensor=true,
-    speedControlTypeSec=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.SecondaryPumpSpeedControlTypes.localDP,
+    have_varSecPum=false,
+    have_secFloSen=true,
+    speConTypSec=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.SecondaryPumpspeConTyps.localDP,
 
     boiDesCap={15000*0.8,15000*0.8},
     boiFirMin={0.2,0.3},
@@ -252,16 +252,16 @@ model Controller
     maxFloSet={0.0003,0.0003},
     bypSetRat=0.00001,
     nPumPri=2,
-    isHeadered=true,
+    have_heaPriPum=true,
     TMinSupNonConBoi=333.2,
-    variablePrimary=true,
+    have_varPriPum=true,
     nSen_remoteDp=1,
     nPum_nominal=2,
     minPumSpe=0.1,
     maxPumSpe=1,
     VHotWat_flow_nominal=0.0006,
     boiDesFlo={0.0003,0.0003},
-    speedControlType_priPum=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpSpeedControlTypes.remoteDP,
+    speConTyp_priPum=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpspeConTyps.remoteDP,
 
     minPriPumSpeSta={0,0,0})
     annotation (Placement(transformation(extent={{120,-144},{140,-100}})));

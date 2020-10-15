@@ -2,7 +2,7 @@ within Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints
 block SetpointController
   "Calculates the boiler stage status setpoint signal"
 
-  parameter Boolean primaryOnly = false
+  parameter Boolean have_priOnl = false
     "Is the boiler plant a primary-only, condensing boiler plant?"
     annotation(Dialog(tab="General", group="Boiler plant configuration parameters"));
 
@@ -45,7 +45,7 @@ block SetpointController
     "Minimum primary pump speed for the boiler plant stage"
     annotation(Evaluate=true,
       Dialog(enable=not
-                       (primaryOnly),
+                       (have_priOnl),
         tab="General",
         group="Boiler plant configuration parameters"));
 
@@ -154,7 +154,7 @@ block SetpointController
     annotation (
       Evaluate=true,
       Dialog(
-        enable=primaryOnly,
+        enable=have_priOnl,
         tab="Staging parameters",
         group="Staging down parameters"));
 
@@ -168,7 +168,7 @@ block SetpointController
       Evaluate=true,
       Dialog(
         enable=not
-                  (primaryOnly),
+                  (have_priOnl),
         tab="Staging parameters",
         group="Staging down parameters"));
 
@@ -181,7 +181,7 @@ block SetpointController
       Evaluate=true,
       Dialog(
         enable=not
-                  (primaryOnly),
+                  (have_priOnl),
         tab="Staging parameters",
         group="Staging down parameters"));
 
@@ -192,7 +192,7 @@ block SetpointController
     annotation (
       Evaluate=true,
       Dialog(
-        enable=primaryOnly,
+        enable=have_priOnl,
         tab="Advanced",
         group="Staging down parameters"));
 
@@ -230,7 +230,7 @@ block SetpointController
   Buildings.Controls.OBC.CDL.Interfaces.RealInput THotWatRetPri(
     final unit="K",
     displayUnit="K",
-    final quantity="ThermodynamicTemperature") if not primaryOnly
+    final quantity="ThermodynamicTemperature") if not have_priOnl
     "Measured temperature of return hot water in primary circuit"
     annotation (Placement(transformation(extent={{-440,30},{-400,70}}),
       iconTransformation(extent={{-140,-30},{-100,10}})));
@@ -238,7 +238,7 @@ block SetpointController
   Buildings.Controls.OBC.CDL.Interfaces.RealInput THotWatRetSec(
     final unit="K",
     displayUnit="K",
-    final quantity="ThermodynamicTemperature") if not primaryOnly
+    final quantity="ThermodynamicTemperature") if not have_priOnl
     "Measured temperature of return hot water in secondary circuit"
     annotation (Placement(transformation(extent={{-440,-10},{-400,30}}),
       iconTransformation(extent={{-140,-60},{-100,-20}})));
@@ -285,14 +285,14 @@ block SetpointController
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uBypValPos(
     final unit="1",
-    displayUnit="1") if primaryOnly
+    displayUnit="1") if have_priOnl
     "Bypass valve position"
     annotation (Placement(transformation(extent={{-440,70},{-400,110}}),
       iconTransformation(extent={{-140,0},{-100,40}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uPumSpe(
     final unit="1",
-    displayUnit="1") if not primaryOnly
+    displayUnit="1") if not have_priOnl
     "Pump speed signal"
     annotation (Placement(transformation(extent={{-440,-50},{-400,-10}}),
         iconTransformation(extent={{-140,-90},{-100,-50}})));
@@ -382,7 +382,7 @@ protected
     annotation (Placement(transformation(extent={{-140,-120},{-120,-88}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.Down staDow(
-    final primaryOnly=primaryOnly,
+    final have_priOnl=have_priOnl,
     final nSta=nSta,
     final fraMinFir=fraMinFir,
     final delMinFir=delMinFir,

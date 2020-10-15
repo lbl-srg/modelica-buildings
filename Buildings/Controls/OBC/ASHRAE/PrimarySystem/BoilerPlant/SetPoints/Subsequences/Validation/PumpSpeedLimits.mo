@@ -4,7 +4,7 @@ model PumpSpeedLimits
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.SetPoints.Subsequences.PumpSpeedLimits
     pumSpeLim(
-    final variablePrimary=true,
+    final have_varPriPum=true,
     final nSta=1,
     final minSecPumSpe=0.1,
     final minPriPumSpeSta={0.2})
@@ -13,7 +13,7 @@ model PumpSpeedLimits
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.SetPoints.Subsequences.PumpSpeedLimits
     pumSpeLim1(
-    final variablePrimary=false,
+    final have_varPriPum=false,
     final nSta=1,
     final minSecPumSpe=0.1,
     final minPriPumSpeSta={0.2})

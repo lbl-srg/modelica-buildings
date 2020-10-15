@@ -2,12 +2,12 @@ within Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.SetPoints;
 block CondensationControl
     "Sequence to calculate setpoint limits for condensation control in non-condesing boilers"
 
-  parameter Boolean primaryOnly = false
+  parameter Boolean have_priOnl = false
     "True: Primary-only plant; False: Primary-secondary plant";
 
-  parameter Boolean variablePrimary = true
+  parameter Boolean have_varPriPum = true
     "True: Variable speed pumps in primary loop; False: Constant speed pumps in primary loop"
-    annotation(Evaluate=true,Dialog(enable=(not primaryOnly)));
+    annotation(Evaluate=true,Dialog(enable=(not have_priOnl)));
 
   parameter Integer nSta=5
     "Number of stages";
@@ -60,7 +60,7 @@ block CondensationControl
     final unit="1",
     final displayUnit="1",
     final min=0,
-    final max=1) if primaryOnly
+    final max=1) if have_priOnl
     "Minimum allowed setpoint of bypass valve position"
     annotation (Placement(transformation(extent={{100,30},{140,70}}),
       iconTransformation(extent={{100,40},{140,80}})));
@@ -69,7 +69,7 @@ block CondensationControl
     final unit="1",
     final displayUnit="1",
     final min=0,
-    final max=1) if (variablePrimary and not primaryOnly)
+    final max=1) if (have_varPriPum and not have_priOnl)
     "Minimum allowed primary pump speed"
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),
       iconTransformation(extent={{100,-20},{140,20}})));
@@ -78,7 +78,7 @@ block CondensationControl
     final unit="1",
     final displayUnit="1",
     final min=0,
-    final max=1) if not primaryOnly
+    final max=1) if not have_priOnl
     "Maximum allowed secondary pump speed"
     annotation (Placement(transformation(extent={{100,-70},{140,-30}}),
       iconTransformation(extent={{100,-80},{140,-40}})));
@@ -114,10 +114,10 @@ protected
     annotation (Placement(transformation(extent={{-10,-80},{10,-60}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.SetPoints.Subsequences.PumpSpeedLimits pumSpeLim(
-    final variablePrimary=variablePrimary,
+    final have_varPriPum=have_varPriPum,
     final nSta=nSta,
     final minSecPumSpe=minSecPumSpe,
-    final minPriPumSpeSta=minPriPumSpeSta) if not primaryOnly
+    final minPriPumSpeSta=minPriPumSpeSta) if not have_priOnl
     "Block to calculate pump speed limits"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
