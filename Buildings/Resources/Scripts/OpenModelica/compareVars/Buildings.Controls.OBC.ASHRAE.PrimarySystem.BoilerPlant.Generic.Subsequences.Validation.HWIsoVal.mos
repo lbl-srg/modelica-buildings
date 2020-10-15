@@ -1,0 +1,15 @@
+compareVars :=
+  {
+    "cloHotIsoVal.uHotWatIsoVal[1]",
+    "cloHotIsoVal.chaPro",
+    "cloHotIsoVal.uUpsDevSta",
+    "cloHotIsoVal.nexChaBoi",
+    "cloHotIsoVal.yHotWatIsoVal[1]",
+    "cloHotIsoVal.yDisHotWatIsoVal",
+    "cloHotIsoVal1.uHotWatIsoVal[1]",
+    "cloHotIsoVal1.chaPro",
+    "cloHotIsoVal1.uUpsDevSta",
+    "cloHotIsoVal1.nexChaBoi",
+    "cloHotIsoVal1.yHotWatIsoVal[1]",
+    "cloHotIsoVal1.yDisHotWatIsoVal"
+  };
