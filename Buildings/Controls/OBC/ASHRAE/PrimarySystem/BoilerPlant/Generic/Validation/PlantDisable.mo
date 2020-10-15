@@ -32,19 +32,6 @@ model PlantDisable
     "Plant disable for primary-secondary plants with dedicated pumps"
     annotation (Placement(transformation(extent={{10,-110},{30,-90}})));
 
-protected
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con[2](
-    final k={false,true})
-    "Boiler status before plant disable"
-    annotation (Placement(transformation(extent={{-90,0},{-70,20}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul(
-    final width=0.1,
-    final period=900,
-    final startTime=1)
-    "Boolean pulse"
-    annotation (Placement(transformation(extent={{-90,110},{-70,130}})));
-
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol(
     final trueHoldDuration=10,
     final falseHoldDuration=0)
@@ -74,6 +61,19 @@ protected
     final falseHoldDuration=0)
     "Hold pump change start signal to represent pump change process"
     annotation (Placement(transformation(extent={{40,-100},{60,-80}})));
+
+protected
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con[2](
+    final k={false,true})
+    "Boiler status before plant disable"
+    annotation (Placement(transformation(extent={{-90,0},{-70,20}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul(
+    final width=0.1,
+    final period=900,
+    final startTime=1)
+    "Boolean pulse"
+    annotation (Placement(transformation(extent={{-90,110},{-70,130}})));
 
   Buildings.Controls.OBC.CDL.Logical.Edge edg
     "Rising edge detector"

@@ -144,8 +144,9 @@ protected
     "Delay after all boilers have been disabled"
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
 
-  Buildings.Controls.OBC.CDL.Routing.RealExtractor extIndSig[nBoi](
-    final nin=nBoi) if have_heaPriPum
+  Buildings.Controls.OBC.CDL.Routing.RealExtractor extIndSig[nBoi](final nin=
+        fill(nBoi, nBoi)) if
+                       have_heaPriPum
     "Extract isolation valve position signal for each boiler isolation valve"
     annotation (Placement(transformation(extent={{80,-60},{100,-40}})));
 
@@ -193,9 +194,9 @@ protected
     "Multi Or"
     annotation (Placement(transformation(extent={{-10,-100},{10,-80}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys[nBoi](
-    final uLow=0,
-    final uHigh=0.01) if have_heaPriPum
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys[nBoi](final uLow=fill(0,
+        nBoi), final uHigh=fill(0.01, nBoi)) if
+                         have_heaPriPum
     "Hysteresis block"
     annotation (Placement(transformation(extent={{-120,30},{-100,50}})));
 
