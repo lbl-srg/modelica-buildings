@@ -44,9 +44,9 @@ unless use of the physical quantity is clearer.
 The following strings are frequently used:
 <ul>
 <li>
-Prefix <code>use_</code> for conditionally enabled input signals, such as <code>use_T_in</code>
-for enabling an input connector for temperature.
-See <a href=\"modelica://Buildings.Fluid.Sources.Boundary_pT\">Buildings.Fluid.Sources.Boundary_pT</a>.
+Prefix <code>use_</code> for conditionally enabled input signals, such as <code>use_TMix</code>
+for enabling an input connector for the measured mixed air temperature.
+See <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.Controller\">Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.Controller</a>.
 </li>
 <li>
 Prefix <code>have_</code> if a controller has a certain input, such as <code>have_CO2Sen</code>
@@ -54,19 +54,14 @@ in <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Cont
 Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Controller</a> if the zone has a CO<sub>2</sub> sensor.
 </li>
 <li>
-Suffix <code>_flow</code> for a flow variable, such as <code>Q_flow</code> and <code>m_flow</code>.
-See <a href=\"Buildings.Fluid.Sensors.VolumeFlowRate\">
-Buildings.Fluid.Sensors.VolumeFlowRate</a>.
+Suffix <code>_flow</code> for a flow variable, such as <code>V_flow</code>.
+See <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Controller\">
+Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Controller</a>.
 </li>
 <li>
-Suffix <code>_nominal</code> for the design or nominal capacity, i.e., <code>Q_flow_nominal</code> is the
-capacity of a device that it has at full load, and <code>m_flow_nominal</code> is the design mass flow rate.
-See <a href=\"modelica://Buildings.Fluid.HeatExchangers.HeaterCooler_u\">
-Buildings.Fluid.HeatExchangers.HeaterCooler_u</a>.
-</li>
-<li>
-Suffix <code>_small</code> for a small value which is typically used for regularization (to ensure
-a numerically robust implementation).
+Suffix <code>_nominal</code> for the design or nominal capacity, i.e., <code>V_flow_nominal</code> is the design volume flow rate.
+See <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.DamperValves\">
+Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.DamperValves</a>.
 </li>
 <li>
 Suffix <code>Set</code> for set point.
@@ -77,15 +72,43 @@ such as in <code>TSupSetMin</code> for minimum supply temperature set point.
 </li>
 </ul>
 </li>
-<li>
-The two connectors of a domain that have identical declarations
-and different icons are usually distinguished by <code>_a</code>, <code>_b</code>
-or <code>_p</code>, <code>_n</code>.
-Examples are fluid ports <code>port_a</code> and <code>port_b</code>
-or electrical connectors
-<code>terminal_p</code> and <code>terminal_n</code>.
-</li>
 </ol>
+
+<p>
+Following table shows some examples of the commonly used names:
+</p>
+<table summary=\"summary\" border=\"1\">
+<tr><td colspan=\"2\"><b>Instance names</b></td></tr>
+<tr><th>Name</th><th>Comments</th></tr>
+<tr><td><code>TOut</code> (<code>hOut</code>)</td><td>Outdoor air temperature (enthalpy)</td></tr>
+<tr><td><code>TZonHeaSet</code> (<code>TZonCooSet</code>)</td><td>Zone heating (cooling) setpoint temperature</td></tr>
+<tr><td><code>VDis_flow</code></td><td>Measured discharge airflow rate</td></tr>
+<tr><td><code>uOpeMod</code></td><td>Zone group operating mode</td></tr>
+<tr><td><code>uResReq</code></td><td>Number of reset requests</td></tr>
+<tr><td><code>uSupFan</code></td><td>Supply fan enabling status, true: fan is enabled</td></tr>
+<tr><td><code>uDam</code></td><td>Measured damper position</td></tr>
+<tr><td><code>uHea</code> (<code>uCoo</code>)</td><td>Heating (cooling) loop signal</td></tr>
+<tr><td><code>yPosMin</code> (<code>yPosMax</code>)</td><td>Minimum (maximum) position</td></tr>
+<tr><td><code>yDamSet</code> (<code>yValSet</code>)</td><td>Damper (valve) position setpoint</td></tr>
+
+<tr><td colspan=\"2\"><b>Parameter names</b></td></tr>
+<tr><th>Name</th> <th>Comments</th></tr>
+<tr><td><code>use_TMix</code></td><td>Set to true if mixed air temperature measurement is used</td></tr>
+<tr><td><code>have_occSen</code> (<code>have_winSen</code>)</td><td>Set to true if the zone has occupancy (window) sensor</td></tr>
+<tr><td><code>AFlo</code></td><td>Area of the zone</td></tr>
+<tr><td><code>VDisHeaSetMax_flow</code> (<code>VDisCooSetMax_flow</code>)</td><td>Zone maximum heating (cooling) airflow setpoint</td></tr>
+<tr><td><code>VOutPerAre_flow</code> (<code>VOutPerPer_flow</code>)</td><td>Outdoor air rate per unit area (person)</td></tr>
+<tr><td><code>pMinSet</code> (<code>pMaxSet</code>)</td><td>Minimum (maximum) pressure setpoint for fan speed control</td></tr>
+<tr><td><code>TSupSetMin</code> (<code>TSupSetMax</code>)</td><td>Lowest (Highest) cooling supply air temperature</td></tr>
+<tr><td><code>TOccHeaSet</code> (<code>TUnoHeaSet</code>)</td><td>Zone occupied (unoccupied) heating setpoint</td></tr>
+<tr><td><code>retDamPhyPosMax</code> (<code>outDamPhyPosMax</code>)</td><td>Physically fixed maximum position of the return (outdoor) air damper</td></tr>
+
+</table>
+<br/>
+
+
+
+
 
 <h4>Documentation</h4>
 <ol>
@@ -106,7 +129,6 @@ The first character should be upper case.
 For one-line comments of parameters, variables and classes, no period should be used at the end of the comment.
 </li>
 </ol>
-
 <h4>Graphical display</h4>
 <ol>
 <li>
@@ -123,7 +145,6 @@ in the icon in black color in a smaller font size as the instance name
 if this helps with usability.
 </li>
 </ol>
-
 <h4>Miscellaneous</h4>
 <ol>
 <li>
