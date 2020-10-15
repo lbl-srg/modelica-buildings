@@ -3,7 +3,11 @@ model EnableLag_flowrate
   "Validate sequence for enabling variable-speed secondary lag pumps with flowrate sensor in secondary loop"
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.SecondaryPumps.Subsequences.EnableLag_flowrate
-    enaLagSecPum(final nPum=3)
+    enaLagSecPum(
+    final nPum=3,
+    final nPum_nominal=3,
+    final timPer=600,
+    final VHotWat_flow_nominal=0.5)
     "Enable variable-speed secondary lag pump with flowrate sensor in secondary loop"
     annotation (Placement(transformation(extent={{-20,10},{0,30}})));
 

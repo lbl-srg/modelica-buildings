@@ -45,15 +45,14 @@ protected
     annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
 
 equation
-  connect(locPreSen.y,hotPumSpe.dpHotWat_local)
-    annotation (Line(points={{-38,80},{0,80},{0,8},{18,8}},
-      color={0,0,127}));
+  connect(locPreSen.y, hotPumSpe.dpHotWat_loc)
+    annotation (Line(points={{-38,80},{0,80},{0,8},{18,8}}, color={0,0,127}));
 
-  connect(remPreSen1.y,hotPumSpe. dpHotWat_remote[1]) annotation (Line(points={
-          {-38,0},{-20,0},{-20,-5},{18,-5}}, color={0,0,127}));
+  connect(remPreSen1.y, hotPumSpe.dpHotWat_rem[1]) annotation (Line(points={{-38,
+          0},{-20,0},{-20,-5},{18,-5}}, color={0,0,127}));
 
-  connect(remPreSen2.y,hotPumSpe. dpHotWat_remote[2]) annotation (Line(points={
-          {-38,-40},{-20,-40},{-20,-3},{18,-3}}, color={0,0,127}));
+  connect(remPreSen2.y, hotPumSpe.dpHotWat_rem[2]) annotation (Line(points={{-38,
+          -40},{-20,-40},{-20,-3},{18,-3}}, color={0,0,127}));
 
   connect(difPreSet.y,hotPumSpe.dpHotWatSet)
     annotation (Line(points={{-38,-80},{0,-80},{0,-8},{18,-8}},

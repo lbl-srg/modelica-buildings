@@ -443,8 +443,8 @@ equation
   connect(sin2.y,secPumCon1. dpHotWat_remote) annotation (Line(points={{102,140},
           {198,140}},                     color={0,0,127}));
 
-  connect(sin4.y,secPumCon1. dpHotWat_local) annotation (Line(points={{182,80},{
-          194,80},{194,144},{198,144}},   color={0,0,127}));
+  connect(sin4.y, secPumCon1.dpHotWat_loc) annotation (Line(points={{182,80},{
+          194,80},{194,144},{198,144}}, color={0,0,127}));
 
   connect(conInt2.y,secPumCon2. uPumLeaLag) annotation (Line(points={{-128,30},
           {-110,30},{-110,8.2},{-102,8.2}},
@@ -499,9 +499,8 @@ equation
           -140,-60},{-140,-24},{-102,-24}},
                                        color={0,0,127}));
 
-  connect(sin5.y,secPumCon3. dpHotWat_local) annotation (Line(points={{62,-40},
-          {150,-40},{150,-36},{198,-36}},
-                                       color={0,0,127}));
+  connect(sin5.y, secPumCon3.dpHotWat_loc) annotation (Line(points={{62,-40},{
+          150,-40},{150,-36},{198,-36}}, color={0,0,127}));
 
   connect(sin7.y,secPumCon3. dpHotWat_remote) annotation (Line(points={{62,-80},
           {160,-80},{160,-40},{198,-40}}, color={0,0,127}));

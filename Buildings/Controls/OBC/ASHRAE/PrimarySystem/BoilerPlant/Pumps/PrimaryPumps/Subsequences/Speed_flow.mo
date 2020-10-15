@@ -2,30 +2,30 @@ within Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.PrimaryPump
 block Speed_flow
   "Pump speed control for primary-secondary plants where flowrate sensors are available in the hot water circuit"
 
-  parameter Boolean primarySecondarySensors = true
+  parameter Boolean primarySecondarySensors
   "True: Flowrate sensors in primary and secondary circuits;
   False: Flowrate sensor in decoupler";
 
-  parameter Integer nPum = 2
+  parameter Integer nPum
     "Total number of hot water pumps";
 
   parameter Real minPumSpe(
     final unit="1",
     displayUnit="1",
     final min=0,
-    final max=maxPumSpe) = 0.1
+    final max=maxPumSpe)
     "Minimum pump speed";
 
   parameter Real maxPumSpe(
     final unit="1",
     displayUnit="1",
     final min=minPumSpe,
-    final max=1) = 1
+    final max=1)
     "Maximum pump speed";
 
   parameter Real k(
     final unit="1",
-    displayUnit="1")=1
+    displayUnit="1")
     "Gain of controller"
     annotation(Dialog(group="Speed controller"));
 
@@ -33,17 +33,9 @@ block Speed_flow
     final unit="s",
     displayUnit="s",
     final quantity="time",
-    final min=0) = 0.5
+    final min=0)
     "Time constant of integrator block"
     annotation(Dialog(group="Speed controller"));
-
-  parameter Real Td(
-    final unit="s",
-    displayUnit="s",
-    final quantity="time",
-    final min=0) = 0.1
-    "Time constant of derivative block"
-    annotation (Dialog(group="Speed controller"));
 
   parameter Real VHotWat_flow_nominal(
     final min=1e-6,
@@ -92,10 +84,9 @@ block Speed_flow
 
 protected
   Buildings.Controls.OBC.CDL.Continuous.PIDWithReset conPID(
-    final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PID,
+    final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     final k=k,
     final Ti=Ti,
-    final Td=Td,
     final yMax=1,
     final yMin=0)
     "PID loop to regulate flow through decoupler leg"

@@ -2,43 +2,43 @@ within Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.PrimaryPump
 block Controller
     "Sequences to control hot water pumps in boiler plants"
 
-  parameter Boolean have_heaPriPum = true
+  parameter Boolean have_heaPriPum
     "Flag of headered hot water pumps design: true=headered, false=dedicated"
     annotation (Dialog(group="Plant parameters"));
 
-  parameter Boolean have_priOnl = false
+  parameter Boolean have_priOnl
     "True: Plant is primary-only;
      False: Plant is primary-secondary"
     annotation (Dialog(group="Plant parameters"));
 
-  parameter Boolean have_varPriPum = false
+  parameter Boolean have_varPriPum
     "True: Variable-speed primary pumps;
      False: Fixed-speed primary pumps"
     annotation (Dialog(group="Plant parameters"));
 
-  parameter Boolean have_secFloSen = true
+  parameter Boolean have_secFloSen
     "True: Flowrate sensors in primary and secondary loops;
      False: Flowrate sensor in decoupler"
     annotation (Dialog(tab="Pump control parameters",
       group="Flowrate-based speed regulation",
       enable= speConTyp == Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpSpeedControlTypes.flowrate));
 
-  parameter Boolean have_priSecTemSen = true
+  parameter Boolean have_priSecTemSen
     "True: Temperature sensors in primary and secondary loops;
      False: Temperature sensors in boiler supply and secondary loop"
     annotation (Dialog(tab="Pump control parameters",
       group="Temperature-based speed regulation",
       enable= speConTyp == Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpSpeedControlTypes.temperature));
 
-  parameter Integer nPum = 2
+  parameter Integer nPum
     "Total number of hot water pumps"
     annotation (Dialog(group="Plant parameters"));
 
-  parameter Integer nBoi = 2
+  parameter Integer nBoi
     "Total number of boilers"
     annotation (Dialog(group="Plant parameters"));
 
-  parameter Integer nSen = 2
+  parameter Integer nSen
     "Total number of remote differential pressure sensors"
     annotation (Dialog(group="Plant parameters"));
 
@@ -58,7 +58,7 @@ block Controller
     final unit="1",
     displayUnit="1",
     final min=0,
-    final max=maxPumSpe) = 0.1
+    final max=maxPumSpe)
     "Minimum pump speed"
     annotation (Dialog(group="Pump parameters", enable=have_varPriPum));
 
@@ -66,7 +66,7 @@ block Controller
     final unit="1",
     displayUnit="1",
     final min=minPumSpe,
-    final max=1) = 1
+    final max=1)
     "Maximum pump speed"
     annotation (Dialog(group="Pump parameters", enable=have_varPriPum));
 
@@ -74,7 +74,7 @@ block Controller
     final min=1e-6,
     final unit="m3/s",
     displayUnit="m3/s",
-    final quantity="VolumeFlowRate") = 0.5
+    final quantity="VolumeFlowRate")
     "Total plant design hot water flow rate"
     annotation (Dialog(group="Plant parameters"));
 
@@ -82,7 +82,7 @@ block Controller
     final min=1e-6,
     final unit="m3/s",
     displayUnit="m3/s",
-    final quantity="VolumeFlowRate") = {0.5,0.5}
+    final quantity="VolumeFlowRate")
     "Vector of design flowrates for all boilers in plant"
     annotation (Dialog(group="Plant parameters"));
 
@@ -245,7 +245,7 @@ block Controller
     annotation (Dialog(tab="Pump control parameters", group="PID parameters"));
 
   parameter Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpSpeedControlTypes
-    speConTyp = Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpSpeedControlTypes.remoteDP
+    speConTyp
     "Speed regulation method"
     annotation (Dialog(group="Plant parameters", enable=have_varPriPum));
 
@@ -308,22 +308,21 @@ block Controller
     annotation (Placement(transformation(extent={{-320,-500},{-280,-460}}),
       iconTransformation(extent={{-140,-160},{-100,-120}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput dpHotWat_local(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput dpHotWat_loc(
     final unit="Pa",
     displayUnit="Pa",
     final quantity="PressureDifference") if have_priOnl and have_varPriPum
-     and locDPReg
-    "Hot water differential static pressure from local sensor"
+     and locDPReg "Hot water differential static pressure from local sensor"
     annotation (Placement(transformation(extent={{-320,-400},{-280,-360}}),
-      iconTransformation(extent={{-140,-70},{-100,-30}})));
+        iconTransformation(extent={{-140,-70},{-100,-30}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput dpHotWat_remote[nSen](
-    final unit=fill("Pa", nSen),
-    final quantity=fill("PressureDifference", nSen)) if have_priOnl and
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput dpHotWat_rem[nSen](final unit=
+       fill("Pa", nSen), final quantity=fill("PressureDifference", nSen)) if
+                                                        have_priOnl and
     have_varPriPum and (locDPReg or remDPReg)
-    "Hot water differential static pressure from remote sensor"
-    annotation (Placement(transformation(extent={{-320,-440},{-280,-400}}),
-      iconTransformation(extent={{-140,-100},{-100,-60}})));
+    "Hot water differential static pressure from remote sensor" annotation (
+      Placement(transformation(extent={{-320,-440},{-280,-400}}),
+        iconTransformation(extent={{-140,-100},{-100,-60}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpHotWatSet(
     final unit="Pa",
@@ -802,21 +801,18 @@ equation
     annotation (Line(points={{-198,230},{-160,230},{-160,-100},{-82,-100}},
       color={0,0,127}));
 
-  connect(pumSpeLocDp.dpHotWat_local,dpHotWat_local)
-    annotation (Line(points={{-62,-412},{-230,-412},{-230,-380},{-300,-380}},
-      color={0,0,127}));
+  connect(pumSpeLocDp.dpHotWat_loc, dpHotWat_loc) annotation (Line(points={{-62,
+          -412},{-230,-412},{-230,-380},{-300,-380}}, color={0,0,127}));
 
-  connect(pumSpeLocDp.dpHotWat_remote,dpHotWat_remote)
-    annotation (Line(points={{-62,-424},{-200,-424},{-200,-420},{-300,-420}},
-      color={0,0,127}));
+  connect(pumSpeLocDp.dpHotWat_rem, dpHotWat_rem) annotation (Line(points={{-62,
+          -424},{-200,-424},{-200,-420},{-300,-420}}, color={0,0,127}));
 
   connect(pumSpeLocDp.dpHotWatSet,dpHotWatSet)
     annotation (Line(points={{-62,-428},{-220,-428},{-220,-450},{-300,-450}},
       color={0,0,127}));
 
-  connect(dpHotWat_remote,pumSpeRemDp.dpHotWat)
-    annotation (Line(points={{-300,-420},{-200,-420},{-200,-460},{-62,-460}},
-      color={0,0,127}));
+  connect(dpHotWat_rem, pumSpeRemDp.dpHotWat) annotation (Line(points={{-300,-420},
+          {-200,-420},{-200,-460},{-62,-460}}, color={0,0,127}));
 
   connect(dpHotWatSet,pumSpeRemDp.dpHotWatSet)
     annotation (Line(points={{-300,-450},{-220,-450},{-220,-468},{-62,-468}},

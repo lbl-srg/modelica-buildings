@@ -6,6 +6,10 @@ model Speed_flow
     hotPumSpe(
     final primarySecondarySensors=true,
     final nPum=2,
+    final minPumSpe=0.1,
+    final maxPumSpe=1,
+    final k=1,
+    final Ti=0.5,
     final VHotWat_flow_nominal=0.5)
     "Scenario testing speed control using flowrate sensors in primary and secondary circuits"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
@@ -14,6 +18,10 @@ model Speed_flow
     hotPumSpe1(
     final primarySecondarySensors=false,
     final nPum=2,
+    final minPumSpe=0.1,
+    final maxPumSpe=1,
+    final k=1,
+    final Ti=0.5,
     final VHotWat_flow_nominal=0.5)
     "Scenario testing speed control using flowrate sensor in decoupler"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));

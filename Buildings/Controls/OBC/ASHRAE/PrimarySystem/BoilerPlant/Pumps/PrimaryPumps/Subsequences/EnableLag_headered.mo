@@ -2,7 +2,7 @@ within Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.PrimaryPump
 block EnableLag_headered
   "Sequences for enabling and disabling lag pumps for primary-only plants with headered primary pumps"
 
-  parameter Integer nPum = 2
+  parameter Integer nPum
     "Total number of pumps";
 
   parameter Integer nPum_nominal(

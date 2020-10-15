@@ -7,7 +7,15 @@ model Speed_temperature
     final primarySecondarySensors=true,
     final nBoi=2,
     final nPum=2,
+    final numIgnReq=0,
     final boiDesFlo={0.25,0.5},
+    final minPumSpe=0.1,
+    final maxPumSpe=1,
+    final delTim=900,
+    final samPer=120,
+    final triAmo=-0.02,
+    final resAmo=0.03,
+    final maxRes=0.06,
     final twoReqLimLow=1.2,
     final twoReqLimHig=2,
     final oneReqLimLow=0.2,
@@ -20,7 +28,15 @@ model Speed_temperature
     final primarySecondarySensors=false,
     final nBoi=2,
     final nPum=2,
+    final numIgnReq=0,
     final boiDesFlo={0.25,0.5},
+    final minPumSpe=0.1,
+    final maxPumSpe=1,
+    final delTim=900,
+    final samPer=120,
+    final triAmo=-0.02,
+    final resAmo=0.03,
+    final maxRes=0.06,
     final twoReqLimLow=1.2,
     final twoReqLimHig=2,
     final oneReqLimLow=0.2,
@@ -41,7 +57,7 @@ protected
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TPriSup(
-    phase=3.1415926535898,
+    final phase=3.1415926535898,
     final offset=8.5,
     final freqHz=1/3600,
     final amplitude=2.5)
@@ -49,7 +65,7 @@ protected
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TBoiSup2(
-    phase=3.1415926535898,
+    final phase=3.1415926535898,
     final offset=8,
     final freqHz=1/3600,
     final amplitude=2.5)

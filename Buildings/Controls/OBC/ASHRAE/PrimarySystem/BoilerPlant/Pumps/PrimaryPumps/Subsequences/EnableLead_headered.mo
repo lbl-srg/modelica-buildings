@@ -3,7 +3,7 @@ block EnableLead_headered
     "Sequence to enable or disable the lead primary pump of plants with headered
     primary hot water pumps"
 
-  parameter Integer nBoi=3
+  parameter Integer nBoi
     "Total number of hot water isolation valves (same as number of boilers)";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uHotWatIsoVal[nBoi](

@@ -1,7 +1,7 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.Generic;
 block ChangeStatus "Sequence to change pump status"
 
-  parameter Integer nPum = 2
+  parameter Integer nPum
     "Total number of pumps";
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHotWatPum[nPum]
@@ -30,7 +30,7 @@ block ChangeStatus "Sequence to change pump status"
 
 protected
   parameter Integer pumInd[nPum]={i for i in 1:nPum}
-    "Pump index, {1,2,...,n}";
+    "Vector of pump indices up to total number of pumps";
 
   Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep1(
     final nout=nPum)

@@ -2,17 +2,17 @@ within Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.Generic;
 block Speed_localDp
   "Pump speed control plants where the remote DP sensor(s) is not hardwired to the plant controller, but a local DP sensor is hardwired"
 
-  parameter Integer nSen = 2
+  parameter Integer nSen
     "Total number of remote differential pressure sensors";
 
-  parameter Integer nPum = 2
+  parameter Integer nPum
     "Total number of hot water pumps";
 
   parameter Real minLocDp(
     final min=0,
     displayUnit="Pa",
     final unit= "Pa",
-    final quantity="PressureDifference")=5*6894.75
+    final quantity="PressureDifference")= 5*6894.75
     "Minimum hot water loop local differential pressure setpoint";
 
   parameter Real maxLocDp(
@@ -26,53 +26,46 @@ block Speed_localDp
     final unit="1",
     displayUnit="1",
     final min=0,
-    final max=maxPumSpe) = 0.1
+    final max=maxPumSpe)
     "Minimum pump speed";
 
   parameter Real maxPumSpe(
     final unit="1",
     displayUnit="1",
     final min=minPumSpe,
-    final max=1) = 1
+    final max=1)
     "Maximum pump speed";
 
-  parameter Real k=1
+  parameter Real k
     "Gain of controller"
     annotation(Dialog(group="Speed controller"));
 
   parameter Real Ti(
     final unit="s",
     final quantity="time",
-    displayUnit="s")=0.5
+    displayUnit="s")
     "Time constant of integrator block"
     annotation(Dialog(group="Speed controller"));
-
-  parameter Real Td(
-    final unit="s",
-    final quantity="time",
-    displayUnit="s")=0.1
-    "Time constant of derivative block"
-    annotation (Dialog(group="Speed controller"));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHotWatPum[nPum]
     "Hot water pump status"
     annotation (Placement(transformation(extent={{-180,-70},{-140,-30}}),
       iconTransformation(extent={{-140,20},{-100,60}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput dpHotWat_local(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput dpHotWat_loc(
     final unit="Pa",
     final quantity="PressureDifference")
-    "Hot water differential static pressure from local sensor"
-    annotation (Placement(transformation(extent={{-180,70},{-140,110}}),
-      iconTransformation(extent={{-140,60},{-100,100}})));
+    "Hot water differential static pressure from local sensor" annotation (
+      Placement(transformation(extent={{-180,70},{-140,110}}),
+        iconTransformation(extent={{-140,60},{-100,100}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput dpHotWat_remote[nSen](
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput dpHotWat_rem[nSen](
     final unit=fill("Pa", nSen),
     final quantity=fill("PressureDifference", nSen),
     displayUnit=fill("Pa", nSen))
-    "Hot water differential static pressure from remote sensor"
-    annotation (Placement(transformation(extent={{-180,-110},{-140,-70}}),
-      iconTransformation(extent={{-140,-60},{-100,-20}})));
+    "Hot water differential static pressure from remote sensor" annotation (
+      Placement(transformation(extent={{-180,-110},{-140,-70}}),
+        iconTransformation(extent={{-140,-60},{-100,-20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpHotWatSet(
     final unit="Pa",
@@ -112,10 +105,9 @@ block Speed_localDp
 
 protected
   Buildings.Controls.OBC.CDL.Continuous.PIDWithReset conPID[nSen](
-    final controllerType=fill(Buildings.Controls.OBC.CDL.Types.SimpleController.PID,nSen),
+    final controllerType=fill(Buildings.Controls.OBC.CDL.Types.SimpleController.PI,nSen),
     final k=fill(k, nSen),
     final Ti=fill(Ti, nSen),
-    final Td=fill(Td, nSen),
     final yMax=fill(1,nSen),
     final yMin=fill(0,nSen))
     "PID controller for regulating local differential pressure setpoint"
@@ -191,9 +183,8 @@ equation
     annotation (Line(points={{62,-120},{80,-120},{80,-28},{98,-28}},
       color={0,0,127}));
 
-  connect(dpHotWat_remote, div.u1)
-    annotation (Line(points={{-160,-90},{-80,-90},{-80,-94},{-42,-94}},
-      color={0,0,127}));
+  connect(dpHotWat_rem, div.u1) annotation (Line(points={{-160,-90},{-80,-90},{-80,
+          -94},{-42,-94}}, color={0,0,127}));
 
   connect(reaRep.y, div.u2)
     annotation (Line(points={{-98,-120},{-80,-120},{-80,-106},{-42,-106}},
@@ -210,7 +201,7 @@ equation
           {-130,-50},{-130,98},{58,98}}, color={255,0,255}));
   connect(locDpSet.y, hotPumSpe.dpHotWatSet) annotation (Line(points={{122,-20},
           {130,-20},{130,72},{40,72},{40,82},{58,82}}, color={0,0,127}));
-  connect(dpHotWat_local, hotPumSpe.dpHotWat[1])
+  connect(dpHotWat_loc, hotPumSpe.dpHotWat[1])
     annotation (Line(points={{-160,90},{58,90}}, color={0,0,127}));
 
   connect(mulOr.y, edg.u)

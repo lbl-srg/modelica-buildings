@@ -2,7 +2,7 @@ within Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.SecondaryPu
 block EnableLag_flowrate
   "Sequence for enabling and disabling lag pumps for variable-speed secondary pumps with secondary loop flowrate sensor"
 
-  parameter Integer nPum = 2
+  parameter Integer nPum
     "Total number of pumps";
 
   parameter Integer nPum_nominal(

@@ -4,7 +4,10 @@ model EnableLag_headered
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.PrimaryPumps.Subsequences.EnableLag_headered
     enaLagPriPum(
-    final nPum=3)
+    final nPum=3,
+    final nPum_nominal=3,
+    final timPer=600,
+    final VHotWat_flow_nominal=0.5)
     "Enable lag pump for primary-only plants with headered variable speed primary pumps"
     annotation (Placement(transformation(extent={{-20,10},{0,30}})));
 

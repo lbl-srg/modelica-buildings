@@ -2,19 +2,19 @@ within Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.Generic;
 block Speed_remoteDp
   "Pump speed control for plants where the remote DP sensor(s) is hardwired to the plant controller"
 
-  parameter Integer nSen = 2
+  parameter Integer nSen
     "Total number of remote differential pressure sensors";
 
-  parameter Integer nPum = 2
+  parameter Integer nPum
     "Total number of hot water pumps";
 
-  parameter Real minPumSpe = 0.1
+  parameter Real minPumSpe
     "Minimum pump speed";
 
-  parameter Real maxPumSpe = 1
+  parameter Real maxPumSpe
     "Maximum pump speed";
 
-  parameter Real k=1
+  parameter Real k
     "Gain of controller"
     annotation(Dialog(group="Speed controller"));
 
@@ -22,17 +22,9 @@ block Speed_remoteDp
     final unit="s",
     displayUnit="s",
     final quantity="time",
-    final min=0) = 0.5
+    final min=0)
     "Time constant of integrator block"
     annotation(Dialog(group="Speed controller"));
-
-  parameter Real Td(
-    final unit="s",
-    displayUnit="s",
-    final quantity="time",
-    final min=0) = 0.1
-    "Time constant of derivative block"
-    annotation (Dialog(group="Speed controller"));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHotWatPum[nPum]
     "Hot water pump status"
@@ -75,10 +67,9 @@ block Speed_remoteDp
 
 protected
   Buildings.Controls.OBC.CDL.Continuous.PIDWithReset conPID[nSen](
-    final controllerType=fill(Buildings.Controls.OBC.CDL.Types.SimpleController.PID,nSen),
+    final controllerType=fill(Buildings.Controls.OBC.CDL.Types.SimpleController.PI,nSen),
     final k=fill(k, nSen),
     final Ti=fill(Ti, nSen),
-    final Td=fill(Td, nSen),
     final yMax=fill(1,nSen),
     final yMin=fill(0,nSen))
     "PID controller for regulating remote differential pressure"

@@ -3,7 +3,9 @@ model EnableLead_dedicated
     "Validate sequence for enabling lead pump of plants with dedicated primary hot water pumps"
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.PrimaryPumps.Subsequences.EnableLead_dedicated
-    enaLeaPriPum "Enable and disable lead hot water primary pump"
+    enaLeaPriPum(
+    final offTimThr=180)
+    "Enable and disable lead hot water primary pump"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 
 protected

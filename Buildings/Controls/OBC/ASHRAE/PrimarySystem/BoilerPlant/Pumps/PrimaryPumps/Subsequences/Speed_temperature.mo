@@ -2,14 +2,14 @@ within Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.PrimaryPump
 block Speed_temperature
   "Pump speed control for primary-secondary plants where temperature sensors are available in the hot water circuit"
 
-  parameter Boolean primarySecondarySensors = true
+  parameter Boolean primarySecondarySensors
     "True: Temperature sensors in primary and secondary circuits;
     False: Temperature sensors at boiler supply and in secondary circuit";
 
-  parameter Integer nBoi = 2
+  parameter Integer nBoi
     "Total number of boilers";
 
-  parameter Integer nPum = 2
+  parameter Integer nPum
     "Total number of hot water pumps"
     annotation(Dialog(group="Pump parameters"));
 
@@ -17,14 +17,14 @@ block Speed_temperature
     "Number of ignored requests"
     annotation(Dialog(group="Trim-and-Respond parameters"));
 
-  parameter Real boiDesFlo[nBoi]={0.5,0.5}
+  parameter Real boiDesFlo[nBoi]
     "Vector of design flowrates for all boilers in plant";
 
   parameter Real minPumSpe(
     final unit="1",
     displayUnit="1",
     final min=0,
-    final max=maxPumSpe) = 0.1
+    final max=maxPumSpe)
     "Minimum pump speed"
     annotation(Dialog(group="Pump parameters"));
 
@@ -32,7 +32,7 @@ block Speed_temperature
     final unit="1",
     displayUnit="1",
     final min=minPumSpe,
-    final max=1) = 1
+    final max=1)
     "Maximum pump speed"
     annotation(Dialog(group="Pump parameters"));
 
