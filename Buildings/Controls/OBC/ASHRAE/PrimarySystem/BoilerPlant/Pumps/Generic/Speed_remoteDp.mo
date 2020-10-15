@@ -11,16 +11,18 @@ block Speed_remoteDp
   parameter Real minPumSpe(
     final unit="1",
     displayUnit="1",
-    final min=0)
+    final min=0,
+    final max=maxPumSpe)
     "Minimum pump speed";
 
   parameter Real maxPumSpe(
     final unit="1",
     displayUnit="1",
+    final min=minPumSpe,
     final max=1)
     "Maximum pump speed";
 
-  parameter Real k
+  parameter Real k = 1
     "Gain of controller"
     annotation(Dialog(group="Speed controller"));
 
@@ -28,7 +30,7 @@ block Speed_remoteDp
     final unit="s",
     displayUnit="s",
     final quantity="time",
-    final min=0)
+    final min=0) = 0.5
     "Time constant of integrator block"
     annotation(Dialog(group="Speed controller"));
 

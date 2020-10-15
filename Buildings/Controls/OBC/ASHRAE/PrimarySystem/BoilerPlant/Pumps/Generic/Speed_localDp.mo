@@ -25,23 +25,25 @@ block Speed_localDp
   parameter Real minPumSpe(
     final unit="1",
     displayUnit="1",
-    final min=0)
+    final min=0,
+    final max=maxPumSpe) = 0.1
     "Minimum pump speed";
 
   parameter Real maxPumSpe(
     final unit="1",
     displayUnit="1",
-    final max=1)
+    final min=minPumSpe,
+    final max=1) = 1
     "Maximum pump speed";
 
-  parameter Real k
+  parameter Real k = 1
     "Gain of controller"
     annotation(Dialog(group="Speed controller"));
 
   parameter Real Ti(
     final unit="s",
     final quantity="time",
-    displayUnit="s")
+    displayUnit="s") = 0.5
     "Time constant of integrator block"
     annotation(Dialog(group="Speed controller"));
 
@@ -74,9 +76,9 @@ block Speed_localDp
       iconTransformation(extent={{-140,-100},{-100,-60}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yHotWatPumSpe(
+    final unit="1",
     final min=minPumSpe,
-    final max=maxPumSpe,
-    final unit="1")
+    final max=maxPumSpe)
     "Hot water pump speed"
     annotation (Placement(transformation(extent={{140,70},{180,110}}),
       iconTransformation(extent={{100,-20},{140,20}})));
