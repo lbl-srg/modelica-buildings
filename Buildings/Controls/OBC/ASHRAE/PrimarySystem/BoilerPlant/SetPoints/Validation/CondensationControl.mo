@@ -7,8 +7,8 @@ model CondensationControl
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.SetPoints.CondensationControl
     conSet(
-    final primaryOnly=true,
-    final variablePrimary=false,
+    final have_priOnl=true,
+    final have_varPriPum=false,
     final nSta=nSta,
     final TRetSet=60,
     final TRetMinAll=57.2,
@@ -19,8 +19,8 @@ model CondensationControl
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.SetPoints.CondensationControl
     conSet1(
-    final primaryOnly=false,
-    final variablePrimary=true,
+    final have_priOnl=false,
+    final have_varPriPum=true,
     final nSta=1,
     final TRetSet=60,
     final TRetMinAll=57.2,
@@ -31,8 +31,8 @@ model CondensationControl
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.SetPoints.CondensationControl
     conSet2(
-    final primaryOnly=false,
-    final variablePrimary=false,
+    final have_priOnl=false,
+    final have_varPriPum=false,
     final nSta=1,
     final TRetSet=60,
     final TRetMinAll=57.2,
@@ -43,8 +43,8 @@ model CondensationControl
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.SetPoints.CondensationControl
     conSet3(
-    final primaryOnly=false,
-    final variablePrimary=true,
+    final have_priOnl=false,
+    final have_varPriPum=true,
     final nSta=1,
     final TRetSet=60,
     final TRetMinAll=57.2,
