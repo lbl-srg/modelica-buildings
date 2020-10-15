@@ -2,28 +2,28 @@ within Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.PrimaryPump
 block Controller
     "Sequences to control hot water pumps in boiler plants"
 
-  parameter Boolean have_heaPriPum
+  parameter Boolean have_heaPriPum = true
     "Flag of headered hot water pumps design: true=headered, false=dedicated"
     annotation (Dialog(group="Plant parameters"));
 
-  parameter Boolean have_priOnl
+  parameter Boolean have_priOnl = true
     "True: Plant is primary-only;
      False: Plant is primary-secondary"
     annotation (Dialog(group="Plant parameters"));
 
-  parameter Boolean have_varPriPum
+  parameter Boolean have_varPriPum = true
     "True: Variable-speed primary pumps;
      False: Fixed-speed primary pumps"
     annotation (Dialog(group="Plant parameters"));
 
-  parameter Boolean have_secFloSen
+  parameter Boolean have_secFloSen = false
     "True: Flowrate sensors in primary and secondary loops;
      False: Flowrate sensor in decoupler"
     annotation (Dialog(tab="Pump control parameters",
       group="Flowrate-based speed regulation",
       enable= speConTyp == Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpSpeedControlTypes.flowrate));
 
-  parameter Boolean have_priSecTemSen
+  parameter Boolean have_priSecTemSen = false
     "True: Temperature sensors in primary and secondary loops;
      False: Temperature sensors in boiler supply and secondary loop"
     annotation (Dialog(tab="Pump control parameters",

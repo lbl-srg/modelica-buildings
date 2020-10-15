@@ -2,12 +2,12 @@ within Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.SecondaryPu
 block Controller
     "Sequences to control hot water pumps in boiler plants"
 
-  parameter Boolean have_varSecPum
+  parameter Boolean have_varSecPum = false
     "True: Variable-speed secondary pumps;
     False: Fixed-speed secondary pumps"
     annotation (Dialog(group="Plant parameters"));
 
-  parameter Boolean have_secFloSen
+  parameter Boolean have_secFloSen = false
     "True: Flow sensor in secondary loop;
     False: No flow sensor in secondary loop"
     annotation (Dialog(group="Plant parameters",

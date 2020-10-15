@@ -2,14 +2,14 @@ within Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.SetPoints;
 block MinimumFlowSetPoint "Hot water minimum flow setpoint"
 
   parameter Integer nBoi(
-    final min=1) = 3
+    final min=1)
     "Total number of boilers";
 
   parameter Integer nSta(
-    final min=1) = 5
+    final min=1)
     "Total number of stages";
 
-  parameter Integer staMat[nSta, nBoi] = {{1,0,0},{0,1,0},{1,1,0},{0,1,1},{1,1,1}}
+  parameter Integer staMat[nSta, nBoi]
     "Boiler staging matrix";
 
   parameter Real minFloSet[nBoi](
@@ -17,14 +17,14 @@ block MinimumFlowSetPoint "Hot water minimum flow setpoint"
     displayUnit="m3/s",
     final quantity="VolumeFlowRate",
     final min=1e-6,
-    final max=maxFloSet) = {0.005, 0.005, 0.005}
+    final max=maxFloSet)
     "Design minimum hot water flow through each boiler";
 
   parameter Real maxFloSet[nBoi](
     final unit="m3/s",
     displayUnit="m3/s",
     final quantity="VolumeFlowRate",
-    final min=minFloSet) = {0.025, 0.025, 0.025}
+    final min=minFloSet)
     "Design maximum hot water flow through each boiler";
 
   parameter Real bypSetRat(
