@@ -2,7 +2,7 @@ within Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints
 block Down
   "Generates a stage down signal"
 
-  parameter Boolean primaryOnly = false
+  parameter Boolean have_priOnl = false
     "Is the boiler plant a primary-only, condensing boiler plant?";
 
   parameter Integer nSta = 5
@@ -38,7 +38,7 @@ block Down
     final quantity="Time") = 600
     "Enable delay for lower stage design capacity ratio condition for non-condensing boilers"
     annotation(Evaluate=true,Dialog(enable=not
-                                              (primaryOnly), group="Stage design capacity condition parameters"));
+                                              (have_priOnl), group="Stage design capacity condition parameters"));
 
   parameter Real delDesCapConBoi(
     final unit="s",
@@ -62,7 +62,7 @@ block Down
     annotation (
       Evaluate=true,
       Dialog(
-        enable=primaryOnly,
+        enable=have_priOnl,
         group="Bypass valve condition parameters"));
 
   parameter Real bypValClo = 0
@@ -70,7 +70,7 @@ block Down
     annotation (
       Evaluate=true,
       Dialog(
-        enable=primaryOnly,
+        enable=have_priOnl,
         tab="Advanced"));
 
   parameter Real TCirDif(
@@ -83,7 +83,7 @@ block Down
       Evaluate=true,
       Dialog(
         enable=not
-                  (primaryOnly),
+                  (have_priOnl),
         group="Return temperature condition parameters"));
 
   parameter Real delTRetDif(
@@ -95,7 +95,7 @@ block Down
       Evaluate=true,
       Dialog(
         enable=not
-                  (primaryOnly),
+                  (have_priOnl),
         group="Return temperature condition parameters"));
 
   parameter Real dTemp(
@@ -191,7 +191,7 @@ block Down
     final unit="1",
     displayUnit="1",
     final min=0,
-    final max=1) if not primaryOnly
+    final max=1) if not have_priOnl
     "Pump speed signal"
     annotation (Placement(transformation(extent={{-220,-80},{-180,-40}}),
       iconTransformation(extent={{-140,-110},{-100,-70}})));
@@ -200,7 +200,7 @@ block Down
     final unit="1",
     displayUnit="1",
     final min=0,
-    final max=1) if primaryOnly
+    final max=1) if have_priOnl
     "Bypass valve position"
     annotation (Placement(transformation(extent={{-220,-20},{-180,20}}),
       iconTransformation(extent={{-140,-80},{-100,-40}})));
@@ -208,7 +208,7 @@ block Down
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TPriHotWatRet(
     final unit="K",
     displayUnit="K",
-    final quantity="ThermodynamicTemperature") if not primaryOnly
+    final quantity="ThermodynamicTemperature") if not have_priOnl
     "Measured primary hot water return temperature"
     annotation (Placement(transformation(extent={{-220,-180},{-180,-140}}),
       iconTransformation(extent={{-140,-140},{-100,-100}})));
@@ -216,7 +216,7 @@ block Down
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSecHotWatRet(
     final unit="K",
     displayUnit="K",
-    final quantity="ThermodynamicTemperature") if not primaryOnly
+    final quantity="ThermodynamicTemperature") if not have_priOnl
     "Measured secondary hot water return temperature"
     annotation (Placement(transformation(extent={{-220,-210},{-180,-170}}),
       iconTransformation(extent={{-140,-170},{-100,-130}})));
@@ -248,7 +248,7 @@ protected
     "Hysteresis loop"
     annotation (Placement(transformation(extent={{-120,34},{-100,54}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Or or2 if primaryOnly
+  Buildings.Controls.OBC.CDL.Logical.Or or2 if have_priOnl
     "Logical Or"
     annotation (Placement(transformation(extent={{60,8},{80,28}})));
 
@@ -267,21 +267,21 @@ protected
     annotation (Placement(transformation(extent={{180,-10},{200,10}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Add add4(
-    final k2=-1) if not primaryOnly
+    final k2=-1) if not have_priOnl
     "Compare primary and secondary circuit return temperature"
     annotation (Placement(transformation(extent={{-162,-190},{-142,-170}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys3(
     final uLow=TCirDif - dTemp,
-    final uHigh=TCirDif) if not primaryOnly
+    final uHigh=TCirDif) if not have_priOnl
     "Hysteresis loop"
     annotation (Placement(transformation(extent={{-132,-190},{-112,-170}})));
 
-  Buildings.Controls.OBC.CDL.Logical.And and2 if not primaryOnly
+  Buildings.Controls.OBC.CDL.Logical.And and2 if not have_priOnl
     "Logical And"
     annotation (Placement(transformation(extent={{-90,-110},{-70,-90}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Or or1 if not primaryOnly
+  Buildings.Controls.OBC.CDL.Logical.Or or1 if not have_priOnl
     "Logical Or"
     annotation (Placement(transformation(extent={{60,-108},{80,-88}})));
 
@@ -290,7 +290,7 @@ protected
     annotation (Placement(transformation(extent={{100,-50},{120,-30}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1(
-    final k=true) if not primaryOnly
+    final k=true) if not have_priOnl
     "Constant Boolean True source"
     annotation (Placement(transformation(extent={{100,-80},{120,-60}})));
 
@@ -303,7 +303,7 @@ protected
     "Integer to Real conversion"
     annotation (Placement(transformation(extent={{-60,-180},{-40,-160}})));
 
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi1 if not primaryOnly
+  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi1 if not have_priOnl
     "Logical switch"
     annotation (Placement(transformation(extent={{140,-100},{160,-80}})));
 
@@ -317,17 +317,17 @@ protected
 
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys4(
     final uLow=bypValClo,
-    final uHigh=bypValClo + sigDif) if primaryOnly
+    final uHigh=bypValClo + sigDif) if have_priOnl
     "Hysteresis loop"
     annotation (Placement(transformation(extent={{-158,-10},{-138,10}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys2(
     final uLow=sigDif,
-    final uHigh=2*sigDif) if not primaryOnly
+    final uHigh=2*sigDif) if not have_priOnl
     "Hysteresis loop"
     annotation (Placement(transformation(extent={{-146,-90},{-126,-70}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Not not4 if not primaryOnly
+  Buildings.Controls.OBC.CDL.Logical.Not not4 if not have_priOnl
     "Logical Not"
     annotation (Placement(transformation(extent={{-120,-90},{-100,-70}})));
 
@@ -346,12 +346,12 @@ protected
     annotation (Placement(transformation(extent={{50,-30},{70,-10}})));
 
   Buildings.Controls.OBC.CDL.Logical.Timer tim1(
-    final t=delBypVal) if primaryOnly
+    final t=delBypVal) if have_priOnl
     "Time since condition has been met"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
 
   Buildings.Controls.OBC.CDL.Logical.Timer tim2(
-    final t=delTRetDif) if not primaryOnly
+    final t=delTRetDif) if not have_priOnl
     "Time since condition has been met"
     annotation (Placement(transformation(extent={{-20,-110},{0,-90}})));
 
@@ -361,17 +361,17 @@ protected
     annotation (Placement(transformation(extent={{-20,34},{0,54}})));
 
   Buildings.Controls.OBC.CDL.Routing.RealExtractor extIndSig1(
-    final nin=nSta) if not primaryOnly
+    final nin=nSta) if not have_priOnl
     "Identify stage type of current stage"
     annotation (Placement(transformation(extent={{-140,-140},{-120,-120}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con2[nSta](
-    final k=boiMinPriPumSpeSta) if not primaryOnly
+    final k=boiMinPriPumSpeSta) if not have_priOnl
     "Signal source for minimum primary pump speed for boiler plant stage"
     annotation (Placement(transformation(extent={{-170,-140},{-150,-120}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Add add2(
-    final k2=-1) if not primaryOnly
+    final k2=-1) if not have_priOnl
     "Compare pump speed signal and minimum pump speed for stage"
     annotation (Placement(transformation(extent={{-174,-90},{-154,-70}})));
 
@@ -380,7 +380,7 @@ protected
     off or stage change process is completed"
     annotation (Placement(transformation(extent={{-50,34},{-30,54}})));
 
-  Buildings.Controls.OBC.CDL.Logical.And and4 if primaryOnly
+  Buildings.Controls.OBC.CDL.Logical.And and4 if have_priOnl
     "Turn on timer when hysteresis turns on and reset it when hysteresis turns
     off or stage change process is completed"
     annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
@@ -390,7 +390,7 @@ protected
     off or stage change process is completed"
     annotation (Placement(transformation(extent={{-50,-50},{-30,-30}})));
 
-  Buildings.Controls.OBC.CDL.Logical.And and6 if not primaryOnly
+  Buildings.Controls.OBC.CDL.Logical.And and6 if not have_priOnl
     "Turn on timer when hysteresis turns on and reset it when hysteresis turns
     off or stage change process is completed"
     annotation (Placement(transformation(extent={{-50,-110},{-30,-90}})));
@@ -635,7 +635,7 @@ equation
         <br>
         <li>
         If the plant is a primary-only, condensing type boiler plant,
-        <code>primaryOnly</code> is set to <code>true</code> and the block
+        <code>have_priOnl</code> is set to <code>true</code> and the block
         outputs a boolean stage down signal <code>yStaDow</code>
         when all the following are true:
         <ul>

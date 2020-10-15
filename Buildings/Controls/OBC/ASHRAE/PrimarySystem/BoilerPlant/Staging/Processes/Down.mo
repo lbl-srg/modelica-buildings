@@ -2,11 +2,11 @@ within Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.Processes
 block Down
     "Sequence for control devices when there is stage-down command"
 
-  parameter Boolean primaryOnly = false
+  parameter Boolean have_priOnl = false
     "True: The boiler plant is primary-only"
     annotation (Dialog(group="Boiler plant parameters"));
 
-  parameter Boolean isHeadered = true
+  parameter Boolean have_heaPriPum = true
     "True: Headered hot water pumps;
     False: Dedicated hot water pumps"
     annotation (Dialog(group="Boiler plant parameters"));
@@ -26,7 +26,7 @@ block Down
     "Time delay after minimum flow setpoint is achieved in bypass valve"
     annotation (Evaluate=true,
       Dialog(group="Time and delay parameters",
-        enable=primaryOnly));
+        enable=have_priOnl));
 
   parameter Real chaIsoValTim(
     final unit="s",
@@ -36,7 +36,7 @@ block Down
     in the field"
     annotation (Evaluate=true,
       Dialog(group="Time and delay parameters",
-        enable=isHeadered));
+        enable=have_heaPriPum));
 
   parameter Real delPreBoiEna(
     final unit="s",
@@ -69,7 +69,7 @@ block Down
     "Relative error to the flow setpoint for checking if it has been achieved"
     annotation (Evaluate=true,
       Dialog(tab="Advanced",
-        enable=primaryOnly));
+        enable=have_priOnl));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uStaDowPro
     "Rising edge indicating start of stage up process"
@@ -82,7 +82,7 @@ block Down
     annotation (Placement(transformation(extent={{-280,60},{-240,100}}),
       iconTransformation(extent={{-140,0},{-100,40}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uPumChaPro if not primaryOnly
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uPumChaPro if not have_priOnl
     "Rising edge indicating all pump change processes have been completed and pumps have been proved on"
     annotation (Placement(transformation(extent={{-280,-210},{-240,-170}}),
       iconTransformation(extent={{-140,-200},{-100,-160}})));
@@ -101,7 +101,7 @@ block Down
     final quantity="VolumeFlowRate",
     final unit="m3/s",
     displayUnit="m3/s",
-    final min=0) if primaryOnly
+    final min=0) if have_priOnl
     "Minimum hot water flow rate setpoint"
     annotation (Placement(transformation(extent={{-280,180},{-240,220}}),
       iconTransformation(extent={{-140,120},{-100,160}})));
@@ -110,7 +110,7 @@ block Down
     final min=0,
     final quantity="VolumeFlowRate",
     final unit="m3/s",
-    displayUnit="m3/s") if primaryOnly
+    displayUnit="m3/s") if have_priOnl
     "Measured hot water flow rate through the minimum flow bypass valve"
     annotation (Placement(transformation(extent={{-280,220},{-240,260}}),
       iconTransformation(extent={{-140,160},{-100,200}})));
@@ -118,7 +118,7 @@ block Down
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uHotWatIsoVal[nBoi](
     final min=fill(0, nBoi),
     final max=fill(1, nBoi),
-    final unit=fill("1", nBoi)) if isHeadered
+    final unit=fill("1", nBoi)) if have_heaPriPum
     "Boiler hot water isolation valve position vector, indexed according to their
     respective boilers"
     annotation (Placement(transformation(extent={{-280,100},{-240,140}}),
@@ -135,7 +135,7 @@ block Down
       iconTransformation(extent={{100,60},{140,100}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yPumChaPro if not
-    primaryOnly
+    have_priOnl
     "Rising edge indicating start of pump change process"
     annotation (Placement(transformation(extent={{280,-260},{320,-220}}),
       iconTransformation(extent={{100,-140},{140,-100}})));
@@ -159,7 +159,7 @@ block Down
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yHotWatIsoVal[nBoi](
     final min=fill(0, nBoi),
     final max=fill(1, nBoi),
-    final unit=fill("1", nBoi)) if isHeadered
+    final unit=fill("1", nBoi)) if have_heaPriPum
     "Boiler hot water isolation valve position vector, indexed according to their
     respective boilers"
     annotation (Placement(transformation(extent={{280,-90},{320,-50}}),
@@ -168,7 +168,7 @@ block Down
 protected
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.Processes.Subsequences.ResetMinBypass minBypRes(
     final delEna=delEnaMinFloSet,
-    final relFloDif=relFloDif) if primaryOnly
+    final relFloDif=relFloDif) if have_priOnl
     "Reset process for minimum flow bypass valve setpoint"
     annotation (Placement(transformation(extent={{-170,10},{-150,30}})));
 
@@ -181,7 +181,7 @@ protected
     final nBoi=nBoi,
     final chaHotWatIsoTim=chaIsoValTim,
     final iniValPos=0,
-    final endValPos=1) if isHeadered
+    final endValPos=1) if have_heaPriPum
     "Open hot water isolation valve for boiler being enabled"
     annotation (Placement(transformation(extent={{-70,-10},{-50,10}})));
 
@@ -199,7 +199,7 @@ protected
     final nBoi=nBoi,
     final chaHotWatIsoTim=chaIsoValTim,
     final iniValPos=1,
-    final endValPos=0) if isHeadered
+    final endValPos=0) if have_heaPriPum
     "Close hot water valve for boiler being disabled"
     annotation (Placement(transformation(extent={{150,-10},{170,10}})));
 
@@ -220,15 +220,15 @@ protected
     "Logical pre block"
     annotation (Placement(transformation(extent={{200,-60},{220,-40}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Latch lat3 if not primaryOnly
+  Buildings.Controls.OBC.CDL.Logical.Latch lat3 if not have_priOnl
     "Hold process completion signal after pump enable process"
     annotation (Placement(transformation(extent={{-140,-200},{-120,-180}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Latch lat4 if not primaryOnly
+  Buildings.Controls.OBC.CDL.Logical.Latch lat4 if not have_priOnl
     "Hold process completion signal after pump disable process"
     annotation (Placement(transformation(extent={{160,-200},{180,-180}})));
 
-  Buildings.Controls.OBC.CDL.Logical.And and4 if not primaryOnly
+  Buildings.Controls.OBC.CDL.Logical.And and4 if not have_priOnl
     "Check for pump disable completion after start of pump disable process"
     annotation (Placement(transformation(extent={{132,-200},{152,-180}})));
 
@@ -236,41 +236,41 @@ protected
     "Detect change in process completion status and send out pulse signal"
     annotation (Placement(transformation(extent={{230,40},{250,60}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Edge edg1 if not primaryOnly
+  Buildings.Controls.OBC.CDL.Logical.Edge edg1 if not have_priOnl
     "Generate pulse to signal start of pump change process"
     annotation (Placement(transformation(extent={{-100,-260},{-80,-240}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Edge edg2 if not primaryOnly
+  Buildings.Controls.OBC.CDL.Logical.Edge edg2 if not have_priOnl
     "Generate pulse to signal start of pump change process"
     annotation (Placement(transformation(extent={{140,-246},{160,-226}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Or or2 if not primaryOnly
+  Buildings.Controls.OBC.CDL.Logical.Or or2 if not have_priOnl
     "Check for pump change proces start signal"
     annotation (Placement(transformation(extent={{210,-250},{230,-230}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Latch lat5 if not isHeadered
+  Buildings.Controls.OBC.CDL.Logical.Latch lat5 if not have_heaPriPum
     "Latch to short valve opening process in dedicated pump configuration plants"
     annotation (Placement(transformation(extent={{-70,30},{-50,50}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Latch lat6 if not isHeadered
+  Buildings.Controls.OBC.CDL.Logical.Latch lat6 if not have_heaPriPum
     "Latch to short valve closing process in dedicated pump configuration plants"
     annotation (Placement(transformation(extent={{150,30},{170,50}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Switch swi[nBoi] if isHeadered
+  Buildings.Controls.OBC.CDL.Logical.Switch swi[nBoi] if have_heaPriPum
     "Pass valve position signal from valve opening controller once the opening process starts"
     annotation (Placement(transformation(extent={{40,-140},{60,-120}})));
 
   Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep(
-    final nout=nBoi) if isHeadered
+    final nout=nBoi) if have_heaPriPum
     "Boolean replicator"
     annotation (Placement(transformation(extent={{0,-140},{20,-120}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Switch swi1[nBoi] if isHeadered
+  Buildings.Controls.OBC.CDL.Logical.Switch swi1[nBoi] if have_heaPriPum
     "Pass valve position signal from valve closing controller once the closing process starts"
     annotation (Placement(transformation(extent={{100,-120},{120,-100}})));
 
   Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep1(
-    final nout=nBoi) if isHeadered
+    final nout=nBoi) if have_heaPriPum
     "Boolean replicator"
     annotation (Placement(transformation(extent={{70,-160},{90,-140}})));
 
@@ -283,17 +283,17 @@ protected
     "Pass process completion signal based on whether stage change involves turning off larger boiler or not"
     annotation (Placement(transformation(extent={{40,-50},{60,-30}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Latch lat1 if isHeadered
+  Buildings.Controls.OBC.CDL.Logical.Latch lat1 if have_heaPriPum
     "Hold process completion signal after valve has been opened"
     annotation (Placement(transformation(extent={{-32,-120},{-12,-100}})));
 
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(
-    final nu=1) if not primaryOnly
+    final nu=1) if not have_priOnl
     "Pass enable signal for plants that are not primary-only"
     annotation (Placement(transformation(extent={{-170,50},{-150,70}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(
-    final k=true) if primaryOnly
+    final k=true) if have_priOnl
     "Boolean True signal"
     annotation (Placement(transformation(extent={{-160,-170},{-140,-150}})));
 

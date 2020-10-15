@@ -2,12 +2,12 @@ within Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.SetPoints.Subsequ
 block PumpSpeedLimits
     "Sequence to calculate pump speed limits from regulation signal"
 
-  parameter Boolean variablePrimary = true
+  parameter Boolean have_varPriPum = true
     "True: Variable speed pumps in primary loop; False: Constant speed pumps in primary loop";
 
   parameter Integer nSta = 5
     "Number of stages"
-    annotation(Evaluate=true,Dialog(enable=variablePrimary));
+    annotation(Evaluate=true,Dialog(enable=have_varPriPum));
 
   parameter Real minSecPumSpe(
     final unit="1",
@@ -22,9 +22,9 @@ block PumpSpeedLimits
     final min=0,
     final max=1) = {0,0,0,0,0}
     "Vector of minimum primary pump speed for each stage"
-    annotation(Evaluate=true,Dialog(enable=variablePrimary));
+    annotation(Evaluate=true,Dialog(enable=have_varPriPum));
 
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uCurSta if variablePrimary
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uCurSta if have_varPriPum
     "Current stage"
     annotation (Placement(transformation(extent={{-140,30},{-100,70}}),
       iconTransformation(extent={{-140,30},{-100,70}})));
@@ -41,7 +41,7 @@ block PumpSpeedLimits
     final unit="1",
     final displayUnit="1",
     final min=0,
-    final max=1) if variablePrimary
+    final max=1) if have_varPriPum
     "Minimum allowed primary pump speed"
     annotation (Placement(transformation(extent={{100,10},{140,50}}),
       iconTransformation(extent={{100,30},{140,70}})));
@@ -58,71 +58,71 @@ block PumpSpeedLimits
 protected
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar2(
     final p=-0.5,
-    final k=1) if variablePrimary
+    final k=1) if have_varPriPum
     "Extract secondary pump signal from regulation signal"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Limiter lim1(
     final uMax=0.5,
-    final uMin=0) if variablePrimary
+    final uMin=0) if have_varPriPum
     "Limit signal between 0 and 0.5"
     annotation (Placement(transformation(extent={{-30,-10},{-10,10}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Gain gai1(
-    final k=2) if variablePrimary
+    final k=2) if have_varPriPum
     "Multiply signal by 2"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar3(
     final p=1,
-    final k=(minSecPumSpe - 1)) if variablePrimary
+    final k=(minSecPumSpe - 1)) if have_varPriPum
     "Generate secondary pump setpoint signal from regulation signal"
     annotation (Placement(transformation(extent={{30,-10},{50,10}})));
 
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
     final p=1,
-    final k=(minSecPumSpe - 1)) if not variablePrimary
+    final k=(minSecPumSpe - 1)) if not have_varPriPum
     "Generate secondary pump setpoint signal from regulation signal"
     annotation (Placement(transformation(extent={{30,-50},{50,-30}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Limiter lim2(
     final uMax=1,
-    final uMin=0) if not variablePrimary
+    final uMin=0) if not have_varPriPum
     "Limit signal between 0 and 1"
     annotation (Placement(transformation(extent={{-30,-50},{-10,-30}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Limiter lim(
     final uMax=0.5,
-    final uMin=0) if variablePrimary
+    final uMin=0) if have_varPriPum
     "Limit signal between 0 and 0.5"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Gain gai(
-    final k=2) if variablePrimary
+    final k=2) if have_varPriPum
     "Multiply signal by 2"
     annotation (Placement(transformation(extent={{-30,20},{-10,40}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Product pro if variablePrimary
+  Buildings.Controls.OBC.CDL.Continuous.Product pro if have_varPriPum
     "Normalize regulation signal in terms of pump speed"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Add add2 if variablePrimary
+  Buildings.Controls.OBC.CDL.Continuous.Add add2 if have_varPriPum
     "Add minimum pump speed value to normalized regulation signal"
     annotation (Placement(transformation(extent={{30,20},{50,40}})));
 
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar1(
     final p=1,
-    final k=-1) if variablePrimary
+    final k=-1) if have_varPriPum
     "Subtract minimum primary pump speed from 1"
     annotation (Placement(transformation(extent={{-30,70},{-10,90}})));
 
   Buildings.Controls.OBC.CDL.Routing.RealExtractor extIndSig1(
-    final nin=nSta) if variablePrimary
+    final nin=nSta) if have_varPriPum
     "Identify minimum primary pump speed for current stage"
     annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con2[nSta](
-    final k=minPriPumSpeSta) if variablePrimary
+    final k=minPriPumSpeSta) if have_varPriPum
     "Source signal for B-MinPriPumpSpdStage"
     annotation (Placement(transformation(extent={{-90,70},{-70,90}})));
 
@@ -222,20 +222,20 @@ equation
     as follows:
     <ol>
     <li>
-    if the primary pumps are constant speed <code>variablePrimary=false</code>, 
+    if the primary pumps are constant speed <code>have_varPriPum=false</code>, 
     <code>yMaxSecPumSpe</code> is reset from 100% pump speed at 0% of regulation
     signal <code>uRegSig</code> to minimum pump speed <code>minSecPumSpe</code>
     at 100% of <code>uRegSig</code>.    
     </li>
     <li>
-    if the primary pumps are variable speed <code>variablePrimary=true</code>,
+    if the primary pumps are variable speed <code>have_varPriPum=true</code>,
     <code>yMaxSecPumSpe</code> is reset from 100% pump speed at 50% of <code>uRegSig</code>
     to <code>minSecPumSpe</code> at 100% of <code>uRegSig</code>.
     </li>
     </ol>
     </p>
     <p>
-    If <code>variablePrimary=true</code>, the minimum allowed primary pump speed
+    If <code>have_varPriPum=true</code>, the minimum allowed primary pump speed
     <code>yMinPriPumSpe</code> is calculated as follows:
     <ul>
     <li>

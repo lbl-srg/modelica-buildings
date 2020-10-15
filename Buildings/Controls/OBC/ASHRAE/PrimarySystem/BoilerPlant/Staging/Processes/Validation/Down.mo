@@ -70,8 +70,8 @@ model Down
     "Nominal minimum flow rate";
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.Processes.Down dowProCon(
-    final primaryOnly=false,
-    final isHeadered=true,
+    final have_priOnl=false,
+    final have_heaPriPum=true,
     final nBoi=nBoi,
     final nSta=nSta,
     final delBoiEna=delBoiEna,
@@ -84,8 +84,8 @@ model Down
     annotation (Placement(transformation(extent={{-160,166},{-140,206}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.Processes.Down dowProCon1(
-    final primaryOnly=false,
-    final isHeadered=false,
+    final have_priOnl=false,
+    final have_heaPriPum=false,
     final nBoi=nBoi,
     final nSta=nSta,
     final delBoiEna=delBoiEna,
@@ -98,8 +98,8 @@ model Down
     annotation (Placement(transformation(extent={{210,166},{230,206}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.Processes.Down dowProCon4(
-    final primaryOnly=true,
-    final isHeadered=true,
+    final have_priOnl=true,
+    final have_heaPriPum=true,
     final nBoi=nBoi,
     final nSta=nSta,
     final delBoiEna=delBoiEna,

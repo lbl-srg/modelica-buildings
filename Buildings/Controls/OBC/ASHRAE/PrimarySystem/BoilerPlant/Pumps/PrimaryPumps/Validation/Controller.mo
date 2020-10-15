@@ -4,9 +4,9 @@ model Controller
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.PrimaryPumps.Controller
     priPumCon(
-    final isHeadered=true,
-    final primaryOnly=true,
-    final variablePrimary=true,
+    final have_heaPriPum=true,
+    final have_priOnl=true,
+    final have_varPriPum=true,
     final nPum=2,
     final nBoi=2,
     final nSen=2,
@@ -24,15 +24,15 @@ model Controller
     final k=1,
     final Ti=10,
     final Td=0.1,
-    final speedControlType=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpSpeedControlTypes.remoteDP)
+    final speConTyp=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpspeConTyps.remoteDP)
     "Testing pump configuration 1"
     annotation (Placement(transformation(extent={{-170,372},{-150,428}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.PrimaryPumps.Controller
     priPumCon1(
-    final isHeadered=true,
-    final primaryOnly=true,
-    final variablePrimary=true,
+    final have_heaPriPum=true,
+    final have_priOnl=true,
+    final have_varPriPum=true,
     final nPum=2,
     final nBoi=2,
     final nSen=2,
@@ -50,15 +50,15 @@ model Controller
     final k=1,
     final Ti=0.5,
     final Td=0.1,
-    final speedControlType=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpSpeedControlTypes.localDP)
+    final speConTyp=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpspeConTyps.localDP)
     "Testing pump configuration 2"
     annotation (Placement(transformation(extent={{190,362},{210,418}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.PrimaryPumps.Controller
     priPumCon2(
-    final isHeadered=true,
-    final primaryOnly=false,
-    final variablePrimary=true,
+    final have_heaPriPum=true,
+    final have_priOnl=false,
+    final have_varPriPum=true,
     final nPum=2,
     final nBoi=2,
     final nSen=2,
@@ -76,16 +76,16 @@ model Controller
     final k=1,
     final Ti=0.5,
     final Td=0.1,
-    final speedControlType=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpSpeedControlTypes.flowrate)
+    final speConTyp=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpspeConTyps.flowrate)
     "Testing pump configuration 3"
     annotation (Placement(transformation(extent={{-170,222},{-150,278}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.PrimaryPumps.Controller
     priPumCon3(
-    final isHeadered=true,
-    final primaryOnly=false,
-    final variablePrimary=true,
-    final primarySecondaryFlowSensors=false,
+    final have_heaPriPum=true,
+    final have_priOnl=false,
+    final have_varPriPum=true,
+    final have_secFloSen=false,
     final nPum=2,
     final nBoi=2,
     final nSen=2,
@@ -103,16 +103,16 @@ model Controller
     final k=1,
     final Ti=0.5,
     final Td=0.1,
-    final speedControlType=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpSpeedControlTypes.flowrate)
+    final speConTyp=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpspeConTyps.flowrate)
     "Testing pump configuration 4"
     annotation (Placement(transformation(extent={{190,202},{210,258}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.PrimaryPumps.Controller
     priPumCon4(
-    final isHeadered=true,
-    final primaryOnly=false,
-    final variablePrimary=true,
-    final primarySecondaryTemperatureSensors=true,
+    final have_heaPriPum=true,
+    final have_priOnl=false,
+    final have_varPriPum=true,
+    final have_priSecTemSen=true,
     final nPum=2,
     final nBoi=2,
     final nSen=2,
@@ -140,16 +140,16 @@ model Controller
     final k=1,
     final Ti=0.5,
     final Td=0.1,
-    final speedControlType=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpSpeedControlTypes.temperature)
+    final speConTyp=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpspeConTyps.temperature)
     "Testing pump configuration 5"
     annotation (Placement(transformation(extent={{-170,62},{-150,118}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.PrimaryPumps.Controller
     priPumCon5(
-    final isHeadered=true,
-    final primaryOnly=false,
-    final variablePrimary=true,
-    final primarySecondaryTemperatureSensors=false,
+    final have_heaPriPum=true,
+    final have_priOnl=false,
+    final have_varPriPum=true,
+    final have_priSecTemSen=false,
     final nPum=2,
     final nBoi=2,
     final nSen=2,
@@ -177,16 +177,16 @@ model Controller
     final k=1,
     final Ti=0.5,
     final Td=0.1,
-    final speedControlType=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpSpeedControlTypes.temperature)
+    final speConTyp=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpspeConTyps.temperature)
     "Testing pump configuration 6"
     annotation (Placement(transformation(extent={{190,42},{210,98}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.PrimaryPumps.Controller
     priPumCon6(
-    final isHeadered=true,
-    final primaryOnly=false,
-    final variablePrimary=false,
-    final primarySecondaryTemperatureSensors=false,
+    final have_heaPriPum=true,
+    final have_priOnl=false,
+    final have_varPriPum=false,
+    final have_priSecTemSen=false,
     final nPum=2,
     final nBoi=2,
     final nSen=2,
@@ -214,15 +214,15 @@ model Controller
     final k=1,
     final Ti=0.5,
     final Td=0.1,
-    final speedControlType=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpSpeedControlTypes.temperature)
+    final speConTyp=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpspeConTyps.temperature)
     "Testing pump configuration 7"
     annotation (Placement(transformation(extent={{-180,-118},{-160,-62}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.PrimaryPumps.Controller
     priPumCon7(
-    final isHeadered=false,
-    final primaryOnly=false,
-    final variablePrimary=true,
+    final have_heaPriPum=false,
+    final have_priOnl=false,
+    final have_varPriPum=true,
     final nPum=2,
     final nBoi=2,
     final nSen=2,
@@ -240,16 +240,16 @@ model Controller
     final k=1,
     final Ti=0.5,
     final Td=0.1,
-    final speedControlType=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpSpeedControlTypes.flowrate)
+    final speConTyp=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpspeConTyps.flowrate)
     "Testing pump configuration 8"
     annotation (Placement(transformation(extent={{210,-138},{230,-82}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.PrimaryPumps.Controller
     priPumCon8(
-    final isHeadered=false,
-    final primaryOnly=false,
-    final variablePrimary=true,
-    final primarySecondaryFlowSensors=false,
+    final have_heaPriPum=false,
+    final have_priOnl=false,
+    final have_varPriPum=true,
+    final have_secFloSen=false,
     final nPum=2,
     final nBoi=2,
     final nSen=2,
@@ -267,16 +267,16 @@ model Controller
     final k=1,
     final Ti=0.5,
     final Td=0.1,
-    final speedControlType=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpSpeedControlTypes.flowrate)
+    final speConTyp=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpspeConTyps.flowrate)
     "Testing pump configuration 9"
     annotation (Placement(transformation(extent={{-180,-298},{-160,-242}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.PrimaryPumps.Controller
     priPumCon9(
-    final isHeadered=false,
-    final primaryOnly=false,
-    final variablePrimary=true,
-    final primarySecondaryTemperatureSensors=true,
+    final have_heaPriPum=false,
+    final have_priOnl=false,
+    final have_varPriPum=true,
+    final have_priSecTemSen=true,
     final nPum=2,
     final nBoi=2,
     final nSen=2,
@@ -304,16 +304,16 @@ model Controller
     final k=1,
     final Ti=0.5,
     final Td=0.1,
-    final speedControlType=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpSpeedControlTypes.temperature)
+    final speConTyp=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpspeConTyps.temperature)
     "Testing pump configuration 10"
     annotation (Placement(transformation(extent={{210,-308},{230,-252}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.PrimaryPumps.Controller
     priPumCon10(
-    final isHeadered=false,
-    final primaryOnly=false,
-    final variablePrimary=true,
-    final primarySecondaryTemperatureSensors=false,
+    final have_heaPriPum=false,
+    final have_priOnl=false,
+    final have_varPriPum=true,
+    final have_priSecTemSen=false,
     final nPum=2,
     final nBoi=2,
     final nSen=2,
@@ -341,16 +341,16 @@ model Controller
     final k=1,
     final Ti=0.5,
     final Td=0.1,
-    final speedControlType=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpSpeedControlTypes.temperature)
+    final speConTyp=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpspeConTyps.temperature)
     "Testing pump configuration 11"
     annotation (Placement(transformation(extent={{-170,-458},{-150,-402}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.PrimaryPumps.Controller
     priPumCon11(
-    final isHeadered=false,
-    final primaryOnly=false,
-    final variablePrimary=false,
-    final primarySecondaryTemperatureSensors=false,
+    final have_heaPriPum=false,
+    final have_priOnl=false,
+    final have_varPriPum=false,
+    final have_priSecTemSen=false,
     final nPum=2,
     final nBoi=2,
     final nSen=2,
@@ -378,7 +378,7 @@ model Controller
     final k=1,
     final Ti=0.5,
     final Td=0.1,
-    final speedControlType=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpSpeedControlTypes.temperature)
+    final speConTyp=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpspeConTyps.temperature)
     "Testing pump configuration 12"
     annotation (Placement(transformation(extent={{190,-488},{210,-432}})));
 
