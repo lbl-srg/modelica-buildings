@@ -67,7 +67,7 @@ block Controller
     final min=1e-6) = 5*6894.75
     "Maximum hot water loop local differential pressure setpoint"
     annotation (Dialog(tab="Pump control parameters", group="DP-based speed regulation",
-      enable = speConTyp == Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpspeConTyps.localDP));
+      enable = speConTyp == Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpSpeedControlTypes.localDP));
 
   parameter Real minLocDp(
     final unit="Pa",
@@ -77,7 +77,7 @@ block Controller
     "Minimum hot water loop local differential pressure setpoint"
     annotation (Dialog(tab="Pump control parameters",
       group="DP-based speed regulation",
-      enable = speConTyp == Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpspeConTyps.localDP));
+      enable = speConTyp == Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpSpeedControlTypes.localDP));
 
   parameter Real offTimThr(
     final unit="s",
@@ -203,8 +203,8 @@ block Controller
       group="PID parameters",
       enable=have_varSecPum));
 
-  parameter Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.SecondaryPumpspeConTyps
-    speConTyp = Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.SecondaryPumpspeConTyps.remoteDP
+  parameter Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.SecondaryPumpSpeedControlTypes
+    speConTyp = Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.SecondaryPumpSpeedControlTypes.remoteDP
     "Speed regulation method"
     annotation (Dialog(group="Plant parameters", enable=have_varSecPum));
 
@@ -324,10 +324,10 @@ block Controller
     annotation (Placement(transformation(extent={{-120,28},{-100,48}})));
 
 protected
-  parameter Boolean remDPReg = (speConTyp == Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.SecondaryPumpspeConTyps.remoteDP)
+  parameter Boolean remDPReg = (speConTyp == Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.SecondaryPumpSpeedControlTypes.remoteDP)
     "Boolean flag for pump speed control with remote differential pressure";
 
-  parameter Boolean locDPReg = (speConTyp == Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.SecondaryPumpspeConTyps.localDP)
+  parameter Boolean locDPReg = (speConTyp == Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.SecondaryPumpSpeedControlTypes.localDP)
     "Boolean flag for pump speed control with local differential pressure";
 
   parameter Integer pumInd[nPum]={i for i in 1:nPum}

@@ -10,7 +10,7 @@ model Controller
     staMat=[1,0;
  0,1;
  1,1],
-    speConTypPri=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpspeConTyps.remoteDP,
+    speConTypPri=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpSpeedControlTypes.remoteDP,
     boiDesCap={15000*0.8,15000*0.8},
     boiFirMin={0.2,0.3},
     minFloSet={0.2*0.0003,0.3*0.0003},
@@ -121,7 +121,7 @@ model Controller
 
     nSta=3,
     staMat=[1,0; 0,1; 1,1],
-    speConTypPri=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpspeConTyps.localDP,
+    speConTypPri=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpSpeedControlTypes.localDP,
 
     iniSta=0,
     boiDesCap={15000*0.8,15000*0.8},
@@ -139,7 +139,7 @@ model Controller
     maxPumSpe=1,
     VHotWat_flow_nominal=0.0006,
     boiDesFlo={0.0003,0.0003},
-    speConTyp_priPum=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpspeConTyps.localDP,
+    speConTyp_priPum=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpSpeedControlTypes.localDP,
 
     minPriPumSpeSta={0,0,0})
     annotation (Placement(transformation(extent={{120,-20},{140,24}})));
@@ -152,11 +152,11 @@ model Controller
 
     nSta=3,
     staMat=[1,0; 0,1; 1,1],
-    speConTypPri=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpspeConTyps.flowrate,
+    speConTypPri=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpSpeedControlTypes.flowrate,
 
     have_varSecPum=true,
     have_secFloSen=true,
-    speConTypSec=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.SecondaryPumpspeConTyps.remoteDP,
+    speConTypSec=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.SecondaryPumpSpeedControlTypes.remoteDP,
 
     boiDesCap={15000*0.8,15000*0.8},
     boiFirMin={0.2,0.3},
@@ -180,11 +180,11 @@ model Controller
 
     nSta=3,
     staMat=[1,0; 0,1; 1,1],
-    speConTypPri=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpspeConTyps.flowrate,
+    speConTypPri=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpSpeedControlTypes.flowrate,
 
     have_varSecPum=true,
     have_secFloSen=true,
-    speConTypSec=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.SecondaryPumpspeConTyps.localDP,
+    speConTypSec=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.SecondaryPumpSpeedControlTypes.localDP,
 
     boiDesCap={15000*0.8,15000*0.8},
     boiFirMin={0.2,0.3},
@@ -211,11 +211,11 @@ model Controller
 
     nSta=3,
     staMat=[1,0; 0,1; 1,1],
-    speConTypPri=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpspeConTyps.temperature,
+    speConTypPri=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpSpeedControlTypes.temperature,
 
     have_varSecPum=true,
     have_secFloSen=true,
-    speConTypSec=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.SecondaryPumpspeConTyps.localDP,
+    speConTypSec=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.SecondaryPumpSpeedControlTypes.localDP,
 
     boiDesCap={15000*0.8,15000*0.8},
     boiFirMin={0.2,0.3},
@@ -244,7 +244,7 @@ model Controller
     staMat=[1,0; 0,1; 1,1],
     have_varSecPum=false,
     have_secFloSen=true,
-    speConTypSec=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.SecondaryPumpspeConTyps.localDP,
+    speConTypSec=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.SecondaryPumpSpeedControlTypes.localDP,
 
     boiDesCap={15000*0.8,15000*0.8},
     boiFirMin={0.2,0.3},
@@ -261,7 +261,7 @@ model Controller
     maxPumSpe=1,
     VHotWat_flow_nominal=0.0006,
     boiDesFlo={0.0003,0.0003},
-    speConTyp_priPum=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpspeConTyps.remoteDP,
+    speConTyp_priPum=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpSpeedControlTypes.remoteDP,
 
     minPriPumSpeSta={0,0,0})
     annotation (Placement(transformation(extent={{120,-144},{140,-100}})));
