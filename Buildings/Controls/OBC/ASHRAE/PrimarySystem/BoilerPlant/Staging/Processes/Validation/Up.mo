@@ -70,8 +70,8 @@ model Up
     "Nominal minimum flow rate";
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.Processes.Up upProCon(
-    final primaryOnly=false,
-    final isHeadered=true,
+    final have_priOnl=false,
+    final have_heaPriPum=true,
     final nBoi=nBoi,
     final nSta=nSta,
     final delBoiEna=delBoiEna,
@@ -87,8 +87,8 @@ model Up
     annotation (Placement(transformation(extent={{-160,166},{-140,206}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.Processes.Up upProCon1(
-    final primaryOnly=false,
-    final isHeadered=true,
+    final have_priOnl=false,
+    final have_heaPriPum=true,
     final nBoi=nBoi,
     final nSta=nSta,
     final delBoiEna=delBoiEna,
@@ -104,8 +104,8 @@ model Up
     annotation (Placement(transformation(extent={{210,166},{230,206}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.Processes.Up upProCon2(
-    final primaryOnly=false,
-    final isHeadered=false,
+    final have_priOnl=false,
+    final have_heaPriPum=false,
     final nBoi=nBoi,
     final nSta=nSta,
     final delBoiEna=delBoiEna,
@@ -121,8 +121,8 @@ model Up
     annotation (Placement(transformation(extent={{-170,-164},{-150,-124}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.Processes.Up upProCon3(
-    final primaryOnly=false,
-    final isHeadered=false,
+    final have_priOnl=false,
+    final have_heaPriPum=false,
     final nBoi=nBoi,
     final nSta=nSta,
     final delBoiEna=delBoiEna,
@@ -138,8 +138,8 @@ model Up
     annotation (Placement(transformation(extent={{210,-164},{230,-124}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.Processes.Up upProCon4(
-    final primaryOnly=true,
-    final isHeadered=true,
+    final have_priOnl=true,
+    final have_heaPriPum=true,
     final nBoi=nBoi,
     final nSta=nSta,
     final delBoiEna=delBoiEna,
