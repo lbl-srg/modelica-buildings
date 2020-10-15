@@ -103,7 +103,7 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     per(pressure(V_flow=mAirHot_flow_nominal/1.2*{0,2}, dp=600*{2,0})),
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
                            "Supply air fan for hot deck"
-    annotation (Placement(transformation(extent={{300,-10},{320,10}})));
+    annotation (Placement(transformation(extent={{290,-10},{310,10}})));
   Buildings.Fluid.Movers.SpeedControlled_y fanSupCol(
     redeclare package Medium = MediumA,
     per(pressure(V_flow=mAirCol_flow_nominal/1.2*{0,2}, dp=600*{2,0})),
@@ -123,7 +123,7 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     T=308.15) "Sink for heating coil" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={90,-220})));
+        origin={90,-240})));
   Buildings.Fluid.Sources.Boundary_pT sinCoo(
     redeclare package Medium = MediumW,
     p=300000,
@@ -141,7 +141,7 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
   Buildings.Examples.DualFanDualDuct.Controls.HeatingCoilTemperatureSetpoint
     TSupSetHea(TOn=284.15, TOff=279.15)
     "Supply air temperature setpoint for heating"
-    annotation (Placement(transformation(extent={{-80,-180},{-60,-160}})));
+    annotation (Placement(transformation(extent={{-80,-112},{-60,-92}})));
   VAVReheat.Controls.SupplyAirTemperature cooCoiCon(
     have_heating=false,
     Td=60,
@@ -218,7 +218,7 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     nPorts=2) "Source for heating coil" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={122,-220})));
+        origin={122,-240})));
   Buildings.Fluid.Actuators.Dampers.MixingBox eco(
     redeclare package Medium = MediumA,
     mOut_flow_nominal=m_flow_nominal,
@@ -367,7 +367,7 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     TSetCoo(
       TOn=285.15,
       TOff=313.15) "Setpoint for cooling coil"
-    annotation (Placement(transformation(extent={{-80,-250},{-60,-230}})));
+    annotation (Placement(transformation(extent={{-80,-210},{-60,-190}})));
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
         Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
     annotation (Placement(transformation(extent={{-390,170},{-370,190}})));
@@ -399,7 +399,7 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
   Buildings.Fluid.Sensors.TemperatureTwoPort TCoiHea(
     redeclare package Medium = MediumA,
     m_flow_nominal=mAirHot_flow_nominal) "Heating coil outlet temperature"
-    annotation (Placement(transformation(extent={{400,-10},{420,10}})));
+    annotation (Placement(transformation(extent={{410,-10},{430,10}})));
   Buildings.Fluid.FixedResistances.Junction splHotColDec(
     redeclare package Medium = MediumA,
     m_flow_nominal=m_flow_nominal*{1,1,1},
@@ -727,7 +727,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(modeSelector.cb, TSetCoo.controlBus) annotation (Line(
-      points={{-136.5,-363.5},{-136,-363.5},{-136,-248},{-71.8,-248}},
+      points={{-136.5,-363.5},{-136,-363.5},{-136,-208},{-71.8,-208}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
@@ -835,11 +835,11 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(fanSupHot.port_b, heaCoi.port_a2) annotation (Line(
-      points={{320,6.10623e-16},{320,-5.55112e-16},{350,-5.55112e-16}},
+      points={{310,6.10623e-16},{310,-5.55112e-16},{350,-5.55112e-16}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(heaCoi.port_b2, TCoiHea.port_a) annotation (Line(
-      points={{370,-5.55112e-16},{370,6.10623e-16},{400,6.10623e-16}},
+      points={{370,-5.55112e-16},{370,6.10623e-16},{410,6.10623e-16}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(TPreHeaCoi.port_b, splHotColDec.port_3)
@@ -859,7 +859,7 @@ equation
       smooth=Smooth.None));
   connect(souHea.ports[1], valPreHea.port_a)
                                           annotation (Line(
-      points={{120,-210},{120,-180}},
+      points={{120,-230},{120,-180}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(valPreHea.port_b, splCol1.port_1)
@@ -880,7 +880,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(splCol2.port_2, sinHea.ports[1]) annotation (Line(
-      points={{88,-140},{88,-210}},
+      points={{88,-140},{88,-230}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(heaCoi.port_a1, valHea.port_b)  annotation (Line(
@@ -888,12 +888,12 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(valHea.port_a, souHea.ports[2])  annotation (Line(
-      points={{380,-60},{380,-80},{180,-80},{180,-208},{124,-208},{124,-210}},
+      points={{380,-60},{380,-80},{180,-80},{180,-220},{124,-220},{124,-230}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(heaCoi.port_b1, sinHea.ports[2]) annotation (Line(
       points={{350,-12},{340,-12},{340,-28},{220,-28},{220,-74},{174,-74},{174,
-          -200},{92,-200},{92,-210}},
+          -212},{92,-212},{92,-230}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(TSetHot.y, heaCoiCon.u_s) annotation (Line(
@@ -901,7 +901,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(heaCoiCon.u_m, TCoiHea.T) annotation (Line(
-      points={{350,-62},{350,-90},{432,-90},{432,20},{410,20},{410,11}},
+      points={{350,-62},{350,-90},{440,-90},{440,20},{420,20},{420,11}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(heaCoiCon.y, valHea.y)  annotation (Line(
@@ -999,7 +999,7 @@ equation
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(modeSelector.cb, TSupSetHea.controlBus) annotation (Line(
-      points={{-136.5,-363.5},{-136.5,-178},{-71.8,-178}},
+      points={{-136.5,-363.5},{-136.5,-110},{-71.8,-110}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
@@ -1008,7 +1008,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(conFanSupHot.y, fanSupHot.y) annotation (Line(
-      points={{141,120},{310,120},{310,12}},
+      points={{141,120},{300,120},{300,12}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(conFanSupCol.y, fanSupCol.y) annotation (Line(
@@ -1024,7 +1024,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(TCoiHea.port_b, splSupRoo1Hot.port_1) annotation (Line(
-      points={{420,6.10623e-16},{491,6.10623e-16},{491,-6.10623e-16},{562,
+      points={{430,6.10623e-16},{491,6.10623e-16},{491,-6.10623e-16},{562,
           -6.10623e-16}},
       color={0,127,255},
       smooth=Smooth.None));
@@ -1037,15 +1037,15 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(splHotColDec.port_2, fanSupHot.port_a) annotation (Line(
-      points={{200,-30},{200,0},{250,0},{250,6.10623e-16},{300,6.10623e-16}},
+      points={{200,-30},{200,0},{250,0},{250,6.10623e-16},{290,6.10623e-16}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(gaiPumPreCoi.y, pumPreHea.m_flow_in) annotation (Line(points={{81,-90},
           {108,-90},{108,-90}},   color={0,0,127}));
   connect(conPreHeatCoi.yPum, gaiPumPreCoi.u) annotation (Line(points={{17,-97},
-          {32,-97},{32,-90},{58,-90}}, color={0,0,127}));
-  connect(conPreHeatCoi.TSupSetHea, TSupSetHea.TSet) annotation (Line(points={{-5,
-          -102},{-52,-102},{-52,-170},{-59,-170}}, color={0,0,127}));
+          {40,-97},{40,-90},{58,-90}}, color={0,0,127}));
+  connect(conPreHeatCoi.TSupSetHea, TSupSetHea.TSet) annotation (Line(points={{-5,-102},
+          {-59,-102}},                             color={0,0,127}));
   connect(conPreHeatCoi.TMix, TMix.T) annotation (Line(points={{-5,-96},{-12,-96},
           {-12,-20},{40,-20},{40,-29}}, color={0,0,127}));
   connect(TPreHeaCoi.T, conPreHeatCoi.TAirSup) annotation (Line(points={{144,-29},
@@ -1075,17 +1075,17 @@ equation
           {-117.5,-372},{-100,-372},{-100,98},{-73.3333,98},{-73.3333,105.333}},
         color={255,0,255}));
   connect(TCoiCoo.T, cooCoiCon.TSup) annotation (Line(points={{420,-139},{420,
-          -120},{400,-120},{400,-172},{290,-172},{290,-184},{298,-184}}, color=
+          -122},{440,-122},{440,-172},{290,-172},{290,-184},{298,-184}}, color=
           {0,0,127}));
-  connect(TSetCoo.TSet, cooCoiCon.TSupSet) annotation (Line(points={{-59,-240},
-          {290,-240},{290,-190},{298,-190}}, color={0,0,127}));
+  connect(TSetCoo.TSet, cooCoiCon.TSupSet) annotation (Line(points={{-59,-200},
+          {290,-200},{290,-190},{298,-190}}, color={0,0,127}));
   connect(cooCoiCon.yCoo, valCoo.y) annotation (Line(points={{322,-196},{360,
           -196},{360,-190},{368,-190}}, color={0,0,127}));
-  connect(modeSelector.yFan, cooCoiCon.uEna) annotation (Line(points={{-117.5,
-          -371},{260,-371},{260,-196},{298,-196}}, color={255,0,255}));
   connect(cooCoiCon.yOA, conEco.uOATSup) annotation (Line(points={{322,-190},{
           330,-190},{330,140},{-86,140},{-86,126.667},{-81.3333,126.667}},
         color={0,0,127}));
+  connect(modeSelector.yFan, cooCoiCon.uEna) annotation (Line(points={{-117.5,
+          -371},{260,-371},{260,-196},{298,-196}}, color={255,0,255}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-400,-400},{
             1400,640}})),
