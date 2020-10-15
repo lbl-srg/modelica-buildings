@@ -8,10 +8,16 @@ block Speed_remoteDp
   parameter Integer nPum
     "Total number of hot water pumps";
 
-  parameter Real minPumSpe
+  parameter Real minPumSpe(
+    final unit="1",
+    displayUnit="1",
+    final min=0)
     "Minimum pump speed";
 
-  parameter Real maxPumSpe
+  parameter Real maxPumSpe(
+    final unit="1",
+    displayUnit="1",
+    final max=1)
     "Maximum pump speed";
 
   parameter Real k

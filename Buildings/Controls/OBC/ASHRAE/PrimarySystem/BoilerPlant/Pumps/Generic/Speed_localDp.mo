@@ -25,14 +25,12 @@ block Speed_localDp
   parameter Real minPumSpe(
     final unit="1",
     displayUnit="1",
-    final min=0,
-    final max=maxPumSpe)
+    final min=0)
     "Minimum pump speed";
 
   parameter Real maxPumSpe(
     final unit="1",
     displayUnit="1",
-    final min=minPumSpe,
     final max=1)
     "Maximum pump speed";
 
