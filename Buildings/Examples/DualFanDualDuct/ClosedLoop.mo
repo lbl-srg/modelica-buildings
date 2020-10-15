@@ -144,11 +144,10 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     annotation (Placement(transformation(extent={{-80,-112},{-60,-92}})));
   VAVReheat.Controls.SupplyAirTemperature cooCoiCon(
     have_heating=false,
-    Td=60,
-    Ti=120,
-    controllerType=Modelica.Blocks.Types.SimpleController.P,
-    k=0.05)
-         "Controller for cooling coil"
+    Ti=1200,
+    controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
+    k=0.01)
+    "Controller for cooling coil"
     annotation (Placement(transformation(extent={{300,-200},{320,-180}})));
   Buildings.Examples.VAVReheat.Controls.FanVFD conFanSupHot(
     initType=Modelica.Blocks.Types.Init.InitialState,
@@ -199,7 +198,7 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     have_frePro=true,
     VOut_flow_min=0.3*m_flow_nominal/1.2,
     k=0.05,
-    Ti=1200)
+    Ti=120)
            "Controller for economizer"
     annotation (Placement(transformation(extent={{-80,108},{-60,128}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TRet(redeclare package Medium =
