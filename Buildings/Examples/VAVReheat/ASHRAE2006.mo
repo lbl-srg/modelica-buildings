@@ -38,6 +38,7 @@ model ASHRAE2006
 
   Controls.Economizer conEco(
     have_reset=true,
+    have_frePro=true,
     VOut_flow_min=Vot_flow_nominal,
     Ti=120,
     k=0.1) "Controller for economizer"
@@ -70,7 +71,7 @@ model ASHRAE2006
 
   Buildings.Controls.OBC.CDL.Logical.Or or2
     annotation (Placement(transformation(extent={{-60,-250},{-40,-230}})));
-  Controls.SupplyAirTemperature conTSup
+  Controls.SupplyAirTemperature conTSup "Supply air temperature controller"
     annotation (Placement(transformation(extent={{30,-230},{50,-210}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSupSet(k=12 + 273.15)
     "Supply air temperature set point"
@@ -278,6 +279,10 @@ equation
   connect(or2.y, conEco.uRes) annotation (Line(points={{-38,-240},{-20,-240},{
           -20,-120},{-80,-120},{-80,134},{-73.3333,134},{-73.3333,137.333}},
         color={255,0,255}));
+  connect(TMix.T, conEco.TMix) annotation (Line(
+      points={{40,-29},{40,100},{-100,100},{-100,148},{-81.3333,148}},
+      color={0,0,127},
+      pattern=LinePattern.Dash));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-380,-400},{1440,
             580}})),
