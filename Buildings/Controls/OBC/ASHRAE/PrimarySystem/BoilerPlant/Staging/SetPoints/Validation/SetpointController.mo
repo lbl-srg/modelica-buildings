@@ -3,7 +3,7 @@ model SetpointController
   "Validates boiler stage status setpoint signal generation for boiler plants"
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.SetpointController staSetCon(
-    final primaryOnly=false,
+    final have_priOnl=false,
     final nBoi=2,
     final boiTyp={Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.BoilerTypes.condensingBoiler,
         Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.BoilerTypes.condensingBoiler},
@@ -33,7 +33,7 @@ model SetpointController
     annotation (Placement(transformation(extent={{60,140},{80,176}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.SetpointController staSetCon1(
-    final primaryOnly=false,
+    final have_priOnl=false,
     final nBoi=2,
     final boiTyp={Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.BoilerTypes.nonCondensingBoiler,
         Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.BoilerTypes.nonCondensingBoiler},
@@ -63,7 +63,7 @@ model SetpointController
     annotation (Placement(transformation(extent={{60,-100},{80,-64}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.SetpointController staSetCon2(
-    final primaryOnly=true,
+    final have_priOnl=true,
     final nBoi=2,
     final boiTyp={Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.BoilerTypes.condensingBoiler,
         Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.BoilerTypes.condensingBoiler},

@@ -2,7 +2,7 @@ within Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints
 block SetpointController
   "Calculates the boiler stage status setpoint signal"
 
-  parameter Boolean primaryOnly = false
+  parameter Boolean have_priOnl = false
     "Is the boiler plant a primary-only, condensing boiler plant?"
     annotation(Dialog(tab="General", group="Boiler plant configuration parameters"));
 
@@ -45,7 +45,7 @@ block SetpointController
     "Minimum primary pump speed for the boiler plant stage"
     annotation(Evaluate=true,
       Dialog(enable=not
-                       (primaryOnly),
+                       (have_priOnl),
         tab="General",
         group="Boiler plant configuration parameters"));
 
@@ -154,7 +154,7 @@ block SetpointController
     annotation (
       Evaluate=true,
       Dialog(
-        enable=primaryOnly,
+        enable=have_priOnl,
         tab="Staging parameters",
         group="Staging down parameters"));
 
@@ -168,7 +168,7 @@ block SetpointController
       Evaluate=true,
       Dialog(
         enable=not
-                  (primaryOnly),
+                  (have_priOnl),
         tab="Staging parameters",
         group="Staging down parameters"));
 
@@ -181,7 +181,7 @@ block SetpointController
       Evaluate=true,
       Dialog(
         enable=not
-                  (primaryOnly),
+                  (have_priOnl),
         tab="Staging parameters",
         group="Staging down parameters"));
 
@@ -192,7 +192,7 @@ block SetpointController
     annotation (
       Evaluate=true,
       Dialog(
-        enable=primaryOnly,
+        enable=have_priOnl,
         tab="Advanced",
         group="Staging down parameters"));
 
@@ -230,7 +230,7 @@ block SetpointController
   Buildings.Controls.OBC.CDL.Interfaces.RealInput THotWatRetPri(
     final unit="K",
     displayUnit="K",
-    final quantity="ThermodynamicTemperature") if not primaryOnly
+    final quantity="ThermodynamicTemperature") if not have_priOnl
     "Measured temperature of return hot water in primary circuit"
     annotation (Placement(transformation(extent={{-440,30},{-400,70}}),
       iconTransformation(extent={{-140,-30},{-100,10}})));
@@ -238,7 +238,7 @@ block SetpointController
   Buildings.Controls.OBC.CDL.Interfaces.RealInput THotWatRetSec(
     final unit="K",
     displayUnit="K",
-    final quantity="ThermodynamicTemperature") if not primaryOnly
+    final quantity="ThermodynamicTemperature") if not have_priOnl
     "Measured temperature of return hot water in secondary circuit"
     annotation (Placement(transformation(extent={{-440,-10},{-400,30}}),
       iconTransformation(extent={{-140,-60},{-100,-20}})));
@@ -285,14 +285,14 @@ block SetpointController
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uBypValPos(
     final unit="1",
-    displayUnit="1") if primaryOnly
+    displayUnit="1") if have_priOnl
     "Bypass valve position"
     annotation (Placement(transformation(extent={{-440,70},{-400,110}}),
       iconTransformation(extent={{-140,0},{-100,40}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uPumSpe(
     final unit="1",
-    displayUnit="1") if not primaryOnly
+    displayUnit="1") if not have_priOnl
     "Pump speed signal"
     annotation (Placement(transformation(extent={{-440,-50},{-400,-10}}),
         iconTransformation(extent={{-140,-90},{-100,-50}})));
@@ -300,29 +300,33 @@ block SetpointController
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yChaUpEdg
     "Boiler stage change higher edge signal"
     annotation (Placement(transformation(extent={{120,-90},{160,-50}}),
-      iconTransformation(extent={{100,20},{140,60}})));
+      iconTransformation(extent={{100,0},{140,40}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yChaDowEdg
     "Boiler stage change lower edge signal"
     annotation (Placement(transformation(extent={{120,-210},{160,-170}}),
-      iconTransformation(extent={{100,-60},{140,-20}})));
+      iconTransformation(extent={{100,-80},{140,-40}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yBoi[nBoi]
     "Boiler status setpoint vector for the current boiler stage setpoint"
     annotation (Placement(transformation(extent={{120,-280},{160,-240}}),
-      iconTransformation(extent={{100,-100},{140,-60}})));
+      iconTransformation(extent={{100,-120},{140,-80}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yChaEdg
     "Boiler stage change edge signal"
     annotation (Placement(transformation(extent={{120,-150},{160,-110}}),
-      iconTransformation(extent={{100,-20},{140,20}})));
+      iconTransformation(extent={{100,-40},{140,0}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput ySta(
     final min=0,
-    final max=nSta)
-    "Boiler stage integer setpoint"
+    final max=nSta) "Boiler stage integer setpoint"
     annotation (Placement(transformation(extent={{120,-20},{160,20}}),
-      iconTransformation(extent={{100,60},{140,100}})));
+      iconTransformation(extent={{100,40},{140,80}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yStaTyp[nSta]
+    "Boiler stage type vector"
+    annotation (Placement(transformation(extent={{120,40},{160,80}}),
+      iconTransformation(extent={{100,80},{140,120}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.CapacityRequirement capReq1(
     final avePer=avePer)
@@ -378,7 +382,7 @@ protected
     annotation (Placement(transformation(extent={{-140,-120},{-120,-88}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.Down staDow(
-    final primaryOnly=primaryOnly,
+    final have_priOnl=have_priOnl,
     final nSta=nSta,
     final fraMinFir=fraMinFir,
     final delMinFir=delMinFir,
@@ -510,6 +514,8 @@ equation
           {-150,-260},{-150,-119},{-142,-119}},         color={255,0,255}));
   connect(conf.yAva, cha.uStaAva) annotation (Line(points={{-338,-178},{-332,
           -178},{-332,-280},{-30,-280},{-30,-162},{-22,-162}}, color={255,0,255}));
+  connect(conf.yTyp, yStaTyp) annotation (Line(points={{-338,-174},{-336,-174},
+          {-336,60},{140,60}}, color={255,127,0}));
   annotation (defaultComponentName = "staSetCon",
         Icon(coordinateSystem(extent={{-100,-180},{100,180}}),
              graphics={
