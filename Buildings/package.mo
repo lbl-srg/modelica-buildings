@@ -348,7 +348,7 @@ have been <b style=\"color:blue\">improved</b> in a
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Examples</b>
     </td>
-</tr>   
+</tr>
 <tr><td valign=\"top\">Buildings.Examples.VAVReheat.Guideline36
     </td>
     <td valign=\"top\">Upgraded sequence of specifying operating mode according to G36 official release.<br/>
@@ -400,7 +400,7 @@ have been <b style=\"color:blue\">improved</b> in a
                        changes in reverse to the measurement signal.<br/>
                        This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1365\">IBPSA, #1365</a>.<br/>
                        For Dymola, a conversion script makes this change.</td>
-</tr>                                           
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL.Continuous</b>
     </td>
 </tr>
