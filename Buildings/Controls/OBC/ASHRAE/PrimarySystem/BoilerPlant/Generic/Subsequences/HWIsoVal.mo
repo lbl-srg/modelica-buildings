@@ -2,7 +2,7 @@ within Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Generic.Subsequen
 block HWIsoVal
     "Sequence of enable or disable hot water isolation valve"
 
-  parameter Integer nBoi = 3
+  parameter Integer nBoi
     "Total number of boiler, which is also the total number of hot water isolation valve";
 
   parameter Real chaHotWatIsoRat(

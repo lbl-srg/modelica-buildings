@@ -2,7 +2,7 @@ within Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.BypassValve;
 block BypassValvePosition
   "Sequence for controlling minimum flow bypass valve position"
 
-  parameter Integer nPum = 2
+  parameter Integer nPum
     "Number of pumps";
 
   parameter Real k(
