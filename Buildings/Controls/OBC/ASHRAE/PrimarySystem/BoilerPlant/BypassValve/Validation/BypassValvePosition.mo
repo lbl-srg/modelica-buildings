@@ -5,8 +5,7 @@ block BypassValvePosition
     bypValPos(
     final nPum=2,
     final k=1,
-    final Ti=10,
-    final Td=10e-6)
+    final Ti=10)
     "Test instance for bypass valve controller"
     annotation (Placement(transformation(extent={{10,-10},{30,10}})));
 

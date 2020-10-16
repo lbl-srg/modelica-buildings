@@ -18,13 +18,6 @@ block BypassValvePosition
     final quantity="time") = 0.5
     "Time constant of integrator block";
 
-  parameter Real Td(
-    final min=0,
-    final unit="s",
-    displayUnit="s",
-    final quantity="time") = 0.1
-    "Time constant of derivative block";
-
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uPumSta[nPum]
     "Input signals indicating pump statuses"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
@@ -93,10 +86,9 @@ protected
     annotation (Placement(transformation(extent={{-70,70},{-50,90}})));
 
   Buildings.Controls.OBC.CDL.Continuous.PIDWithReset conPID(
-    final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PID,
+    final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     final k=k,
     final Ti=Ti,
-    final Td=Td,
     final yMax=1,
     final yMin=0,
     reverseActing=false)
