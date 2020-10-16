@@ -5,7 +5,7 @@ block Controller "Controller for room VAV box"
     final unit="s",
     final quantity="Time")
     "Sample period of component, set to the same value as the trim and respond that process yPreSetReq";
-parameter Real V_flow_nominal(
+  parameter Real V_flow_nominal(
     final unit="m3/s",
     final quantity="VolumeFlowRate")
     "Volume flow rate of this thermal zone";
