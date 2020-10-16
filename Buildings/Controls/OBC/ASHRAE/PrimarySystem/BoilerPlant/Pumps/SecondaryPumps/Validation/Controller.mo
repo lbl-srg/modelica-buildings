@@ -422,8 +422,8 @@ equation
   connect(sin1.y,secPumCon. VHotWat_flow) annotation (Line(points={{-178,160},{-124,
           160},{-124,162},{-102,162}},                       color={0,0,127}));
 
-  connect(sin.y,secPumCon. dpHotWat_remote) annotation (Line(points={{-178,130},
-          {-116,130},{-116,150},{-102,150}}, color={0,0,127}));
+  connect(sin.y, secPumCon.dpHotWat_rem) annotation (Line(points={{-178,130},{-116,
+          130},{-116,150},{-102,150}}, color={0,0,127}));
 
   connect(conInt1.y,secPumCon1. uPumLeaLag) annotation (Line(points={{172,200},{
           190,200},{190,168.2},{198,168.2}},
@@ -436,8 +436,8 @@ equation
           70,140},{70,156},{160,156},{160,152},{198,152}},
                                                          color={0,0,127}));
 
-  connect(sin2.y,secPumCon1. dpHotWat_remote) annotation (Line(points={{102,140},
-          {198,140}},                     color={0,0,127}));
+  connect(sin2.y, secPumCon1.dpHotWat_rem)
+    annotation (Line(points={{102,140},{198,140}}, color={0,0,127}));
 
   connect(sin4.y, secPumCon1.dpHotWat_loc) annotation (Line(points={{182,80},{194,
           80},{194,144},{198,144}}, color={0,0,127}));
@@ -488,8 +488,8 @@ equation
                                                                  color={255,0,
           255}));
 
-  connect(sin6.y,secPumCon2. dpHotWat_remote) annotation (Line(points={{-238,
-          -20},{-102,-20}},                   color={0,0,127}));
+  connect(sin6.y, secPumCon2.dpHotWat_rem)
+    annotation (Line(points={{-238,-20},{-102,-20}}, color={0,0,127}));
 
   connect(con4.y,secPumCon2. dpHotWatSet) annotation (Line(points={{-238,-60},{
           -140,-60},{-140,-24},{-102,-24}},
@@ -498,8 +498,8 @@ equation
   connect(sin5.y, secPumCon3.dpHotWat_loc) annotation (Line(points={{62,-40},{150,
           -40},{150,-36},{198,-36}}, color={0,0,127}));
 
-  connect(sin7.y,secPumCon3. dpHotWat_remote) annotation (Line(points={{62,-80},
-          {160,-80},{160,-40},{198,-40}}, color={0,0,127}));
+  connect(sin7.y, secPumCon3.dpHotWat_rem) annotation (Line(points={{62,-80},{
+          160,-80},{160,-40},{198,-40}}, color={0,0,127}));
 
   connect(con6.y,secPumCon3. dpHotWatSet) annotation (Line(points={{62,-120},{
           174,-120},{174,-44},{198,-44}},color={0,0,127}));
