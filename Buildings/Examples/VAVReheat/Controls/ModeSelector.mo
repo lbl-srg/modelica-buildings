@@ -1,6 +1,6 @@
 within Buildings.Examples.VAVReheat.Controls;
 model ModeSelector "Finite State Machine for the operational modes"
-  Modelica.StateGraph.InitialStep initialStep(nIn=0)
+  Modelica.StateGraph.InitialStepWithSignal initialStepWithSignal(nIn=0)
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   Modelica.StateGraph.Transition start "Starts the system"
     annotation (Placement(transformation(extent={{-50,20},{-30,40}})));
@@ -48,8 +48,9 @@ model ModeSelector "Finite State Machine for the operational modes"
     annotation (Placement(transformation(extent={{-140,-190},{-120,-170}})));
   Modelica.StateGraph.TransitionWithSignal t5
     annotation (Placement(transformation(extent={{118,20},{138,40}})));
-  State occ(       mode=Buildings.Examples.VAVReheat.Controls.OperationModes.occupied,
-                                                                      nIn=3)
+  State occ(
+    mode=Buildings.Examples.VAVReheat.Controls.OperationModes.occupied,
+    nIn=3)
     "Occupied mode"
     annotation (Placement(transformation(extent={{60,-100},{80,-80}})));
   Modelica.Blocks.Routing.RealPassThrough TRooMin
@@ -76,8 +77,8 @@ model ModeSelector "Finite State Machine for the operational modes"
     annotation (Placement(transformation(extent={{-100,-200},{-80,-180}})));
   Modelica.Blocks.Routing.RealPassThrough TRooAve "Average room temperature"
     annotation (Placement(transformation(extent={{-80,110},{-60,130}})));
-  Modelica.Blocks.Sources.BooleanExpression booleanExpression(y=TRooAve.y <
-        TRooSetCooOcc)
+  Modelica.Blocks.Sources.BooleanExpression booleanExpression(
+    y=TRooAve.y < TRooSetHeaOcc)
     annotation (Placement(transformation(extent={{-198,-224},{-122,-200}})));
   PreCoolingStarter preCooSta(TRooSetCooOcc=TRooSetCooOcc)
     "Model to start pre-cooling"
@@ -93,8 +94,8 @@ model ModeSelector "Finite State Machine for the operational modes"
   Modelica.StateGraph.TransitionWithSignal t8
     "changes to occupied in case precooling is deactivated"
     annotation (Placement(transformation(extent={{30,-30},{50,-10}})));
-  Modelica.Blocks.MathInteger.Sum sum(nu=5)
-    annotation (Placement(transformation(extent={{-186,134},{-174,146}})));
+  Modelica.Blocks.MathInteger.Sum sum(nu=6)
+    annotation (Placement(transformation(extent={{-192,134},{-180,146}})));
   Modelica.Blocks.Interfaces.BooleanOutput yFan
     "True if the fans are to be switched on"
     annotation (Placement(transformation(extent={{220,80},{260,120}}),
@@ -103,19 +104,24 @@ model ModeSelector "Finite State Machine for the operational modes"
     annotation (Placement(transformation(extent={{160,-10},{180,10}})));
   Modelica.Blocks.Interfaces.BooleanOutput yEco
     "True if the economizer is enabled" annotation (Placement(transformation(
-          extent={{220,-122},{260,-82}}), iconTransformation(extent={{220,-122},
-            {260,-82}})));
+          extent={{220,-120},{260,-80}}), iconTransformation(extent={{220,-120},
+            {260,-80}})));
   Modelica.Blocks.MathBoolean.Or or2(nu=2) "Occupied or pre-cool mode"
     annotation (Placement(transformation(extent={{160,-50},{180,-30}})));
   Buildings.Controls.OBC.CDL.Logical.And and3
     "(Occupied or pre-cool mode) and fan on"
-    annotation (Placement(transformation(extent={{194,-50},{214,-30}})));
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={200,-70})));
+  Modelica.Blocks.Math.BooleanToInteger modIni(integerTrue=integer(Buildings.Examples.VAVReheat.Controls.OperationModes.unoccupiedOff))
+    "Initial operation mode"
+    annotation (Placement(transformation(extent={{-160,10},{-180,30}})));
 equation
   connect(start.outPort, unOccOff.inPort[1]) annotation (Line(
       points={{-38.5,30},{-29.75,30},{-29.75,30.6667},{-21,30.6667}},
       color={0,0,0},
       smooth=Smooth.None));
-  connect(initialStep.outPort[1], start.inPort) annotation (Line(
+  connect(initialStepWithSignal.outPort[1], start.inPort) annotation (Line(
       points={{-59.5,30},{-44,30}},
       color={0,0,0},
       smooth=Smooth.None));
@@ -295,35 +301,29 @@ equation
       color={255,0,255},
       smooth=Smooth.None));
   connect(morPreCoo.y, sum.u[1]) annotation (Line(
-      points={{-19,-136},{-8,-136},{-8,-68},{-192,-68},{-192,143.36},{-186,
-          143.36}},
+      points={{-19,-136},{-8,-136},{-8,-68},{-212,-68},{-212,142},{-192,142},{
+          -192,143.5}},
       color={255,127,0},
       smooth=Smooth.None));
   connect(morWarUp.y, sum.u[2]) annotation (Line(
-      points={{-19,-96},{-8,-96},{-8,-68},{-192,-68},{-192,141.68},{-186,141.68}},
+      points={{-19,-96},{-8,-96},{-8,-68},{-212,-68},{-212,144},{-192,144},{
+          -192,142.1}},
       color={255,127,0},
       smooth=Smooth.None));
   connect(occ.y, sum.u[3]) annotation (Line(
-      points={{81,-96},{100,-96},{100,-108},{-192,-108},{-192,140},{-186,140}},
+      points={{81,-96},{90,-96},{90,-108},{-212,-108},{-212,140.7},{-192,140.7}},
       color={255,127,0},
       smooth=Smooth.None));
   connect(unOccOff.y, sum.u[4]) annotation (Line(
-      points={{1,24},{6,24},{6,8},{-192,8},{-192,138.32},{-186,138.32}},
+      points={{1,24},{6,24},{6,8},{-212,8},{-212,139.3},{-192,139.3}},
       color={255,127,0},
       smooth=Smooth.None));
   connect(unOccNigSetBac.y, sum.u[5]) annotation (Line(
-      points={{101,24},{112,24},{112,8},{-192,8},{-192,136.64},{-186,136.64}},
+      points={{101,24},{112,24},{112,8},{-212,8},{-212,137.9},{-192,137.9}},
       color={255,127,0},
       smooth=Smooth.None));
-  connect(sum.y, cb.controlMode) annotation (Line(
-      points={{-173.1,140},{-158,140}},
-      color={255,127,0},
-      smooth=Smooth.None), Text(
-      textString="%second",
-      index=1,
-      extent={{6,3},{6,3}}));
   connect(yFan, or1.y)
-    annotation (Line(points={{240,100},{210,100},{210,0},{181.5,0}},
+    annotation (Line(points={{240,100},{200,100},{200,0},{181.5,0}},
                                                  color={255,0,255}));
   connect(unOccNigSetBac.active, or1.u[1]) annotation (Line(points={{90,19},{90,
           5.25},{160,5.25}}, color={255,0,255}));
@@ -336,21 +336,31 @@ equation
   connect(morPreCoo.active, or1.u[4]) annotation (Line(points={{-30,-141},{-30,
           -146},{146,-146},{146,0},{160,0},{160,-5.25}},
                                                      color={255,0,255}));
-  connect(yEco, and3.y) annotation (Line(points={{240,-102},{228,-102},{228,-40},
-          {216,-40}}, color={255,0,255}));
-  connect(or1.y, and3.u1) annotation (Line(points={{181.5,0},{188,0},{188,-40},
-          {192,-40}}, color={255,0,255}));
-  connect(or2.y, and3.u2) annotation (Line(points={{181.5,-40},{186,-40},{186,
-          -48},{192,-48}}, color={255,0,255}));
+  connect(yEco, and3.y) annotation (Line(points={{240,-100},{200,-100},{200,-82}},
+                      color={255,0,255}));
+  connect(or1.y, and3.u1) annotation (Line(points={{181.5,0},{200,0},{200,-58}},
+                      color={255,0,255}));
+  connect(or2.y, and3.u2) annotation (Line(points={{181.5,-40},{192,-40},{192,
+          -58}},           color={255,0,255}));
   connect(occ.active, or2.u[1]) annotation (Line(points={{70,-101},{70,-104},{
           148,-104},{148,-36.5},{160,-36.5}}, color={255,0,255}));
   connect(morPreCoo.active, or2.u[2]) annotation (Line(points={{-30,-141},{-30,
           -146},{146,-146},{146,-43.5},{160,-43.5}}, color={255,0,255}));
+  connect(initialStepWithSignal.active, modIni.u) annotation (Line(points={{-70,
+          19},{-70,14},{-100,14},{-100,20},{-158,20}}, color={255,0,255}));
+  connect(sum.y, cb.controlMode) annotation (Line(points={{-179.1,140},{-158,
+          140}}, color={255,127,0}), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}},
+      horizontalAlignment=TextAlignment.Left));
+  connect(modIni.y, sum.u[6]) annotation (Line(points={{-181,20},{-200,20},{
+          -200,136.5},{-192,136.5}}, color={255,127,0}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-220,
             -220},{220,220}})), Icon(coordinateSystem(
           preserveAspectRatio=true, extent={{-220,-220},{220,220}}), graphics={
           Rectangle(
-          extent={{-200,200},{200,-200}},
+          extent={{-220,220},{220,-220}},
           lineColor={0,0,0},
           fillPattern=FillPattern.Solid,
           fillColor={215,215,215}), Text(
