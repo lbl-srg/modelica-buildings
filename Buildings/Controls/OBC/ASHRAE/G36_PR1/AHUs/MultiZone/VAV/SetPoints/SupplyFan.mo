@@ -400,7 +400,7 @@ that are occupied, etc.).
 October 15, 2020, by Michael Wetter:<br/>
 Moved normalization of control error to PID controller.<br/>
 This is for
-<a href=\"modelica://https://github.com/lbl-srg/modelica-buildings/issues/2182\">#2182</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2182\">#2182</a>.
 </li>
 <li>
 March 12, 2020, by Jianjun Hu:<br/>
