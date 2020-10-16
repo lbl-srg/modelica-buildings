@@ -1,8 +1,9 @@
 within Buildings.Controls.OBC.CDL.Continuous.Validation;
 model PIDWithResetScale
   "Test model for PID controller with reset and scaling of the control error"
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse pulse(amplitude=1000, period=
-        50)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse pulse(
+    amplitude=1000,
+    period=50)
     "Setpoint"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
   Buildings.Controls.OBC.CDL.Continuous.PIDWithReset pidSca(
@@ -12,8 +13,7 @@ model PIDWithResetScale
     Td=2,
     s=1000,
     yMin=-1,
-    y_reset=0)
-            "PID controller with scaling of control input"
+    y_reset=0) "PID controller with scaling of control input"
     annotation (Placement(transformation(extent={{0,40},{20,60}})));
 
   Buildings.Controls.OBC.CDL.Continuous.IntegratorWithReset pla1(k=1000)
@@ -29,8 +29,7 @@ model PIDWithResetScale
     Ti=1,
     Td=2,
     yMin=-1,
-    y_reset=0)
-           "PID controller without scaling of control input"
+    y_reset=0) "PID controller without scaling of control input"
     annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain gai(k=1/1000)
     "Gain to scale setpoint"
@@ -41,8 +40,7 @@ model PIDWithResetScale
   Buildings.Controls.OBC.CDL.Continuous.IntegratorWithReset pla2(k=1000)
     "Plant model"
     annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
-  Logical.Sources.Pulse booPul(period=30)
-                                         "Pulse for controller reset"
+  Logical.Sources.Pulse booPul(period=30) "Pulse for controller reset"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
 equation
   connect(pulse.y,pidSca. u_s) annotation (Line(
