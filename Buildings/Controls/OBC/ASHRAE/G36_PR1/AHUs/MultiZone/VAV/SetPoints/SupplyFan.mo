@@ -121,7 +121,7 @@ block SupplyFan  "Block to control multi zone VAV AHU supply fan"
     final k=k,
     final Ti=Ti,
     final Td=Td,
-    s=maxSet,
+    r=maxSet,
     final yMax=yFanMax,
     final yMin=yFanMin,
     y_reset=yFanMin) "Supply fan speed control"

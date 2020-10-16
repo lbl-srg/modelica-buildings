@@ -23,7 +23,8 @@ block PID
           controllerType == CDL.Types.SimpleController.PD or
           controllerType == CDL.Types.SimpleController.PID));
 
-  parameter Real s(min=100*Constants.eps) = 1 "Scaling factor for control inputs";
+  parameter Real r(min=100*Constants.eps) = 1
+    "Typical range of control error, used for scaling error";
 
   parameter Real yMax = 1 "Upper limit of output"
     annotation(Dialog(group="Limits"));
@@ -139,10 +140,10 @@ protected
     "Zero input signal"
     annotation(Evaluate=true, HideResult=true,
                Placement(transformation(extent={{-40,90},{-20,110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain uS_revAct(final k=revAct/s)
+  Buildings.Controls.OBC.CDL.Continuous.Gain uS_revAct(final k=revAct/r)
                     "Set point multiplied by reverse action sign"
     annotation (Placement(transformation(extent={{-200,30},{-180,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain uMea_revAct(final k=revAct/s)
+  Buildings.Controls.OBC.CDL.Continuous.Gain uMea_revAct(final k=revAct/r)
                     "Set point multiplied by reverse action sign"
     annotation (Placement(transformation(extent={{-180,-50},{-160,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.Add addPD(
@@ -418,23 +419,23 @@ Documentation(info="<html>
 PID controller in the standard form
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-y<sub>u</sub> = k/s &nbsp; (e(t) + 1 &frasl; T<sub>i</sub> &nbsp; &int; e(&tau;) d&tau; + T<sub>d</sub> d&frasl;dt e(t)),
+y<sub>u</sub> = k/r &nbsp; (e(t) + 1 &frasl; T<sub>i</sub> &nbsp; &int; e(&tau;) d&tau; + T<sub>d</sub> d&frasl;dt e(t)),
 </p>
 <p>
 where
 <i>y<sub>u</sub></i> is the control signal before output limitation,
-<i>e(t) = u<sub>s</sub> - u<sub>m</sub></i> is the control error,
+<i>e(t) = u<sub>s</sub>(t) - u<sub>m</sub>(t)</i> is the control error,
 with <i>u<sub>s</sub></i> being the set point and <i>u<sub>m</sub></i> being
 the measured quantity,
 <i>k</i> is the gain,
 <i>T<sub>i</sub></i> is the time constant of the integral term,
 <i>T<sub>d</sub></i> is the time constant of the derivative term,
 and
-<i>s</i> is a scaling factor, with default <i>s=1</i>.
-The scaling factor can be set to the typical range of the error <i>e</i>.
-For example, you may set <i>s=100</i> to <i>s=1000</i>
+<i>r</i> is a scaling factor, with default <i>r=1</i>.
+The scaling factor should be set to the typical order of magnitude of the range of the error <i>e</i>.
+For example, you may set <i>r=100</i> to <i>r=1000</i>
 if the control input is a pressure of a heating water circulation pump in units of Pascal, or
-leave <i>s=1</i> if the control input is a room temperature.
+leave <i>r=1</i> if the control input is a room temperature.
 </p>
 <p>
 Note that the units of <i>k</i> are the inverse of the units of the control error,
@@ -481,7 +482,7 @@ The controller anti-windup compensation is as follows:
 Instead of the above basic control law, the implementation is
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-y<sub>u</sub> = k &nbsp; (e(t) &frasl; s + 1 &frasl; T<sub>i</sub> &nbsp; &int; (-&Delta;y + e(&tau;) &frasl; s) d&tau; + T<sub>d</sub> &frasl; s d&frasl;dt e(t)),
+y<sub>u</sub> = k &nbsp; (e(t) &frasl; r + 1 &frasl; T<sub>i</sub> &nbsp; &int; (-&Delta;y + e(&tau;) &frasl; r) d&tau; + T<sub>d</sub> &frasl; r d&frasl;dt e(t)),
 </p>
 <p>
 where the anti-windup compensation <i>&Delta;y</i> is
@@ -493,6 +494,16 @@ where the anti-windup compensation <i>&Delta;y</i> is
 where
 <i>N<sub>i</sub> &gt; 0</i> is the time constant for the anti-windup compensation.
 To accelerate the anti-windup, decrease <i>N<sub>i</sub></i>.
+</p>
+<p>
+Note that the anti-windup term <i>(-&Delta;y + e(&tau;) &frasl; r)</i> shows that the range of
+the typical control error <i>r</i> should be set to a reasonable value so that
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+e(&tau;) &frasl; r = (u<sub>s</sub>(&tau;) - u<sub>m</sub>(&tau;)) &frasl; r
+</p>
+<p>
+has order of magnitude one, and hence the anti-windup compensation should work well.
 </p>
 <h4>Reset of the controller output</h4>
 <p>
@@ -576,7 +587,7 @@ revisions="<html>
 <ul>
 <li>
 October 15, 2020, by Michael Wetter:<br/>
-Added scaling factor <code>s</code>, removed set point weights <code>wp</code> and <code>wd</code>.
+Added scaling factor <code>r</code>, removed set point weights <code>wp</code> and <code>wd</code>.
 Revised documentation.<br/>
 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2182\">issue 2182</a>.
 </li>

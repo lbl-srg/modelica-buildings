@@ -41,7 +41,7 @@ block ExhaustDamper
   Buildings.Controls.OBC.CDL.Continuous.PID conP(
     final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
     final k=k,
-    s=1/dpBuiSet)
+    r=1/dpBuiSet)
                "Building static pressure controller"
     annotation (Placement(transformation(extent={{20,50},{40,70}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi

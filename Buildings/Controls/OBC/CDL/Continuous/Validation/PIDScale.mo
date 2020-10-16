@@ -10,7 +10,7 @@ model PIDScale
     k=2,
     Ti=1,
     Td=2,
-    s=1000,
+    r=1000,
     yMin=-1)
             "PID controller with scaling of control input"
     annotation (Placement(transformation(extent={{0,40},{20,60}})));
