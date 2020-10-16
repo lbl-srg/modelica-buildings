@@ -144,7 +144,7 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     annotation (Placement(transformation(extent={{-80,-112},{-60,-92}})));
   VAVReheat.Controls.SupplyAirTemperature cooCoiCon(
     have_heating=false,
-    Ti=1200,
+    Ti=600,
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     k=0.01)
     "Controller for cooling coil"
@@ -1269,6 +1269,8 @@ First implementation.
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Examples/DualFanDualDuct/ClosedLoop.mos"
         "Simulate and plot"),
     experiment(
-      StopTime=172800,
-      Tolerance=1e-07));
+      StartTime=15724800,
+      StopTime=15897600,
+      Tolerance=1e-07,
+      __Dymola_Algorithm="Cvode"));
 end ClosedLoop;
