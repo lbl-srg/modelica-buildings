@@ -4,10 +4,10 @@ block PID
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=
          Buildings.Controls.OBC.CDL.Types.SimpleController.PI "Type of controller";
   parameter Real k(
-    min=0) = 1 "Gain of controller"
+    min=100*Constants.eps) = 1 "Gain of controller"
     annotation (
       Dialog(group="Control gains"));
-  parameter Modelica.SIunits.Time Ti(min=Constants.small) = 0.5
+  parameter Modelica.SIunits.Time Ti(min=100*Constants.eps) = 0.5
     "Time constant of integrator block"
     annotation (Dialog(
       group="Control gains",
@@ -15,7 +15,7 @@ block PID
           controllerType == CDL.Types.SimpleController.PI or
           controllerType == CDL.Types.SimpleController.PID));
   parameter Modelica.SIunits.Time Td(
-    min=0) = 0.1
+    min=100*Constants.eps) = 0.1
     "Time constant of derivative block"
     annotation (Dialog(
       group="Control gains",
@@ -23,21 +23,21 @@ block PID
           controllerType == CDL.Types.SimpleController.PD or
           controllerType == CDL.Types.SimpleController.PID));
 
-  parameter Real s = 1 "Scaling factor for control inputs";
+  parameter Real s(min=100*Constants.eps) = 1 "Scaling factor for control inputs";
 
   parameter Real yMax = 1 "Upper limit of output"
     annotation(Dialog(group="Limits"));
   parameter Real yMin = 0 "Lower limit of output"
     annotation(Dialog(group="Limits"));
 
-  parameter Real Ni(min=100*Modelica.Constants.eps) = 0.9
+  parameter Real Ni(min=100*Constants.eps) = 0.9
     "Ni*Ti is time constant of anti-windup compensation"
      annotation(Dialog(
        tab="Advanced",
        group="Integrator anti-windup",
        enable=controllerType==CDL.Types.SimpleController.PI or
               controllerType==CDL.Types.SimpleController.PID));
-  parameter Real Nd(min=100*Modelica.Constants.eps) = 10
+  parameter Real Nd(min=100*Constants.eps) = 10
     "The higher Nd, the more ideal the derivative block"
       annotation (
         Dialog(
@@ -431,9 +431,10 @@ the measured quantity,
 <i>T<sub>d</sub></i> is the time constant of the derivative term,
 and
 <i>s</i> is a scaling factor, with default <i>s=1</i>.
-The scaling factor can be set to the typical range of the error <i>e</i>, which may be <i>s=100</i> to <i>s=1000</i>
+The scaling factor can be set to the typical range of the error <i>e</i>.
+For example, you may set <i>s=100</i> to <i>s=1000</i>
 if the control input is a pressure of a heating water circulation pump in units of Pascal, or
-a <i>s=1</i> if the control input is a room temperature.
+leave <i>s=1</i> if the control input is a room temperature.
 </p>
 <p>
 Note that the units of <i>k</i> are the inverse of the units of the control error,
@@ -476,21 +477,22 @@ If <code>reverseAction=false</code>, then the error <i>e</i> above is multiplied
 </p>
 <h4>Anti-windup compensation</h4>
 <p>
-The anti-windup componensation is as follows:
-The above basic control law is implemented with an anti-windup compensation <i>&Delta;y</i> as
+The controller anti-windup componensation is as follows:
+Instead of the above basic control law, the implementation is
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-y<sub>u</sub> = k &nbsp; (e(t) &frasl; s + 1 &frasl; T<sub>i</sub> &nbsp; &int; (-&Delta;y + e(&tau;) &frasl; s) d&tau; + T<sub>d</sub> &frasl; s d&frasl;dt e(t)).
+y<sub>u</sub> = k &nbsp; (e(t) &frasl; s + 1 &frasl; T<sub>i</sub> &nbsp; &int; (-&Delta;y + e(&tau;) &frasl; s) d&tau; + T<sub>d</sub> &frasl; s d&frasl;dt e(t)),
 </p>
 <p>
-The anti-windup compensation is computed as
+where the anti-windup compensation <i>&Delta;y</i> is
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-&Delta;y = 1/(k N<sub>i</sub>) (y<sub>u</sub> - y),
+&Delta;y = (y<sub>u</sub> - y) &frasl; (k N<sub>i</sub>),
 </p>
 <p>
 where
-<i>N<sub>i</sub></i> is the time constant for the anti-windup componensation.
+<i>N<sub>i</sub> &gt; 0</i> is the time constant for the anti-windup componensation.
+To accelerate the anti-windup, decrease <i>N<sub>i</sub></i>.
 </p>
 <h4>Reset of the controller output</h4>
 <p>
@@ -518,12 +520,12 @@ d&frasl;dt x(t) = (e(t)-x(t)) T<sub>d</sub> &frasl; N<sub>d</sub>,
 and
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-d&frasl;dt e(t) &asymp; N<sub>d</sub> (e(t)-x(t)).
+d&frasl;dt e(t) &asymp; N<sub>d</sub> (e(t)-x(t)),
 </p>
 <p>
 where <i>x(t)</i> is an internal state.
 </p>
-<h4>Guidance for tuning the control parameters</h4>
+<h4>Guidance for tuning the control gains</h4>
 <p>
 The parameters of the controller can be manually adjusted by performing
 closed loop tests (= controller + plant connected
@@ -533,14 +535,14 @@ together) and using the following strategy:
 <li> Set very large limits, e.g., set <i>y<sub>max</sub> = 1000</i>.
 </li>
 <li>
-Select a <strong>P</strong>-controller and manually enlarge parameter <code>k</code>
+Select a <strong>P</strong>-controller and manually enlarge the parameter <code>k</code>
 (the total gain of the controller) until the closed-loop response
 cannot be improved any more.
 </li>
 <li>
-Select a <strong>PI</strong>-controller and manually adjust parameters
+Select a <strong>PI</strong>-controller and manually adjust the parameters
 <code>k</code> and <code>Ti</code> (the time constant of the integrator).
-The first value of <code>Ti</code> can be selected, such that it is in the
+The first value of <code>Ti</code> can be selected such that it is in the
 order of the time constant of the oscillations occurring with
 the P-controller. If, e.g., oscillations in the order of <i>100</i> seconds
 occur in the previous step, start with <code>Ti=1/100</code> seconds.
