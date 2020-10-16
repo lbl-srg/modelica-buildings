@@ -458,7 +458,7 @@ have been <b style=\"color:blue\">improved</b> in a
                        Buildings.Controls.OBC.CDL.Logical.Toggle 
     </td>
     <td valign=\"top\">Removed the parameter <code>pre_y_start</code>, and made the initial output to be equal to
-                       latch or toggle input when the clear input is false<br/>
+                       latch or toggle input when the clear input is <code>false</code>.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2177\">#2177</a>.<br/>
                        For Dymola, a conversion script makes this change.</td>
 </tr>  
