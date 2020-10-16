@@ -1051,27 +1051,27 @@ equation
           {144,-29},{144,-16},{-20,-16},{-20,-108},{-5,-108}}, color={0,0,127}));
   connect(conPreHeatCoi.yVal, valPreHea.y) annotation (Line(points={{17,-107},{40,
           -107},{40,-170},{108,-170}}, color={0,0,127}));
-  connect(modeSelector.yFan, conFanSupCol.uFan) annotation (Line(points={{
-          -117.5,-371},{-100,-371},{-100,-370},{-100,76},{98,76}}, color={255,0,
+  connect(modeSelector.yFan, conFanSupCol.uFan) annotation (Line(points={{-117,
+          -366},{-100,-366},{-100,-370},{-100,76},{98,76}},        color={255,0,
           255}));
-  connect(modeSelector.yFan, conFanSupHot.uFan) annotation (Line(points={{
-          -117.5,-371},{-100,-371},{-100,76},{94,76},{94,126},{118,126}}, color=
+  connect(modeSelector.yFan, conFanSupHot.uFan) annotation (Line(points={{-117,
+          -366},{-100,-366},{-100,76},{94,76},{94,126},{118,126}},        color=
          {255,0,255}));
-  connect(modeSelector.yFan, conFanRet.uFan) annotation (Line(points={{-117.5,
-          -371},{-100,-371},{-100,250},{228,250},{228,236},{238,236}}, color={
+  connect(modeSelector.yFan, conFanRet.uFan) annotation (Line(points={{-117,
+          -366},{-100,-366},{-100,250},{228,250},{228,236},{238,236}}, color={
           255,0,255}));
   connect(cor.yFan, modeSelector.yFan) annotation (Line(points={{543.467,71.2},
-          {530,71.2},{530,-371},{-117.5,-371}}, color={255,0,255}));
-  connect(modeSelector.yFan, sou.yFan) annotation (Line(points={{-117.5,-371},{
-          658,-371},{658,70.8},{681.2,70.8}}, color={255,0,255}));
-  connect(modeSelector.yFan, eas.yFan) annotation (Line(points={{-117.5,-371},{
-          800,-371},{800,73.2},{819.467,73.2}}, color={255,0,255}));
-  connect(modeSelector.yFan, nor.yFan) annotation (Line(points={{-117.5,-371},{
-          -117.5,-372},{932,-372},{932,73.2},{959.467,73.2}}, color={255,0,255}));
-  connect(modeSelector.yFan, wes.yFan) annotation (Line(points={{-117.5,-371},{
-          1074,-371},{1074,73.2},{1097.47,73.2}}, color={255,0,255}));
-  connect(modeSelector.yFan,conEco.uEna)  annotation (Line(points={{-117.5,-371},
-          {-117.5,-372},{-100,-372},{-100,98},{-73.3333,98},{-73.3333,105.333}},
+          {530,71.2},{530,-366},{-117,-366}},   color={255,0,255}));
+  connect(modeSelector.yFan, sou.yFan) annotation (Line(points={{-117,-366},{
+          658,-366},{658,70.8},{681.2,70.8}}, color={255,0,255}));
+  connect(modeSelector.yFan, eas.yFan) annotation (Line(points={{-117,-366},{
+          800,-366},{800,73.2},{819.467,73.2}}, color={255,0,255}));
+  connect(modeSelector.yFan, nor.yFan) annotation (Line(points={{-117,-366},{
+          -117,-372},{932,-372},{932,73.2},{959.467,73.2}},   color={255,0,255}));
+  connect(modeSelector.yFan, wes.yFan) annotation (Line(points={{-117,-366},{
+          1074,-366},{1074,73.2},{1097.47,73.2}}, color={255,0,255}));
+  connect(modeSelector.yFan,conEco.uEna)  annotation (Line(points={{-117,-366},
+          {-117,-372},{-100,-372},{-100,98},{-73.3333,98},{-73.3333,105.333}},
         color={255,0,255}));
   connect(TCoiCoo.T, cooCoiCon.TSup) annotation (Line(points={{420,-139},{420,
           -122},{440,-122},{440,-172},{290,-172},{290,-184},{298,-184}}, color=
@@ -1083,8 +1083,8 @@ equation
   connect(cooCoiCon.yOA, conEco.uOATSup) annotation (Line(points={{322,-190},{
           330,-190},{330,140},{-86,140},{-86,126.667},{-81.3333,126.667}},
         color={0,0,127}));
-  connect(modeSelector.yFan, cooCoiCon.uEna) annotation (Line(points={{-117.5,
-          -371},{260,-371},{260,-196},{298,-196}}, color={255,0,255}));
+  connect(modeSelector.yFan, cooCoiCon.uEna) annotation (Line(points={{-117,
+          -366},{260,-366},{260,-196},{298,-196}}, color={255,0,255}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-400,-400},{
             1400,640}})),
