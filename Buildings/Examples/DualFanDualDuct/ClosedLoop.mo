@@ -1070,7 +1070,7 @@ equation
           -117.5,-372},{932,-372},{932,73.2},{959.467,73.2}}, color={255,0,255}));
   connect(modeSelector.yFan, wes.yFan) annotation (Line(points={{-117.5,-371},{
           1074,-371},{1074,73.2},{1097.47,73.2}}, color={255,0,255}));
-  connect(modeSelector.yFan, conEco.uRes) annotation (Line(points={{-117.5,-371},
+  connect(modeSelector.yFan,conEco.uEna)  annotation (Line(points={{-117.5,-371},
           {-117.5,-372},{-100,-372},{-100,98},{-73.3333,98},{-73.3333,105.333}},
         color={255,0,255}));
   connect(TCoiCoo.T, cooCoiCon.TSup) annotation (Line(points={{420,-139},{420,

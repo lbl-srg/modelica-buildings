@@ -190,7 +190,7 @@ model OneFloor_OneZone "Closed-loop model with 1 zone in 1 floor"
     each have_reset=true,
     each have_frePro=true,
     each VOut_flow_min=0.3*m_flow_nominal/1.2)
-    "Controller for economizer"
+                "Controller for economizer"
     annotation (Placement(transformation(extent={{-286,88},{-274,100}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
     Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
@@ -422,10 +422,12 @@ equation
   connect(modeSelector.yFan, conTSup.uEna) annotation (Line(points={{-163.636,
           48},{-160,48},{-160,0},{-260,0},{-260,-66},{-242,-66}},
                                                               color={255,0,255}));
-  connect(modeSelector.yFan, conEco.uRes) annotation (Line(points={{-163.636,48},
+  connect(modeSelector.yFan,conEco.uEna)  annotation (Line(points={{-163.636,48},
           {-160,48},{-160,78},{-282,78},{-282,86.4}}, color={255,0,255}));
 annotation (
-  experiment(StopTime=604800, Tolerance=1e-06),
+  experiment(
+      StopTime=604800,
+      Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Examples/ScalableBenchmarks/BuildingVAV/Examples/OneFloor_OneZone.mos"
         "Simulate and plot"),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-360,-120},{140,200}})),

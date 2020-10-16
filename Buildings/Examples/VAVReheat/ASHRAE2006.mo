@@ -107,7 +107,7 @@ equation
       index=1,
       extent={{6,3},{6,3}}));
   connect(TRet.T, conEco.TRet) annotation (Line(
-      points={{100,151},{100,172},{-92,172},{-92,153.333},{-81.3333,153.333}},
+      points={{100,151},{100,172},{-94,172},{-94,153.333},{-81.3333,153.333}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
@@ -224,8 +224,9 @@ equation
       points={{-69.3333,141.333},{-69.3333,120},{-240,120},{-240,-342}},
       color={255,204,51},
       thickness=0.5));
-  connect(modeSelector.yFan, conFanSup.uFan) annotation (Line(points={{-179.545,
-          -310},{260,-310},{260,-30},{226,-30},{226,6},{238,6}}, color={255,0,
+  connect(modeSelector.yFan, conFanSup.uFan) annotation (Line(points={{-179.091,
+          -305.455},{260,-305.455},{260,-30},{226,-30},{226,6},{238,6}},
+                                                                 color={255,0,
           255}));
   connect(conFanSup.y, fanSup.y) annotation (Line(points={{261,0},{280,0},{280,
           -20},{310,-20},{310,-28}}, color={0,0,127}));
@@ -240,7 +241,7 @@ equation
   connect(freSta.y, or2.u1) annotation (Line(points={{22,-90},{40,-90},{40,-160},
           {-80,-160},{-80,-240},{-62,-240}},                 color={255,0,255}));
   connect(or2.u2, modeSelector.yFan) annotation (Line(points={{-62,-248},{-80,
-          -248},{-80,-310},{-179.545,-310}},
+          -248},{-80,-305.455},{-179.091,-305.455}},
                                      color={255,0,255}));
   connect(cor.y_actual, pSetDuc.u[1]) annotation (Line(points={{612,58},{620,58},
           {620,74},{140,74},{140,-7.6},{158,-7.6}}, color={0,0,127}));
@@ -276,13 +277,11 @@ equation
       points={{-178,-220},{28,-220}},
       color={0,0,127},
       pattern=LinePattern.Dash));
-  connect(or2.y, conEco.uRes) annotation (Line(points={{-38,-240},{-20,-240},{
-          -20,-120},{-80,-120},{-80,134},{-73.3333,134},{-73.3333,137.333}},
+  connect(modeSelector.yEco, conEco.uEna) annotation (Line(points={{-179.091,
+          -314.636},{-160,-314.636},{-160,100},{-73.3333,100},{-73.3333,137.333}},
         color={255,0,255}));
-  connect(TMix.T, conEco.TMix) annotation (Line(
-      points={{40,-29},{40,100},{-100,100},{-100,148},{-81.3333,148}},
-      color={0,0,127},
-      pattern=LinePattern.Dash));
+  connect(TMix.T, conEco.TMix) annotation (Line(points={{40,-29},{40,166},{-90,
+          166},{-90,148},{-81.3333,148}}, color={0,0,127}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-380,-400},{1440,
             580}})),
