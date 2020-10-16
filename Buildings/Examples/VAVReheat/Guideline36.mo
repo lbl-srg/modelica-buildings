@@ -17,45 +17,35 @@ model Guideline36
     "Maximum return fan discharge static pressure setpoint";
 
   Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Controller conVAVCor(
-    VDisCooSetMax_flow=mCor_flow_nominal/1.2,
-    VDisHeaSetMax_flow=0.3*mCor_flow_nominal/1.2,
-    VDisConMin_flow=0.1*mCor_flow_nominal/1.2,
+    V_flow_nominal=mCor_flow_nominal/1.2,
     AFlo=AFloCor,
     final samplePeriod=samplePeriod,
     VDisSetMin_flow=max(1.5*VCorOA_flow_nominal, 0.15*mCor_flow_nominal/1.2))
     "Controller for terminal unit corridor"
     annotation (Placement(transformation(extent={{530,32},{550,52}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Controller conVAVSou(
-    VDisCooSetMax_flow=mSou_flow_nominal/1.2,
-    VDisHeaSetMax_flow=0.3*mSou_flow_nominal/1.2,
-    VDisConMin_flow=0.1*mSou_flow_nominal/1.2,
+    V_flow_nominal=mSou_flow_nominal/1.2,
     AFlo=AFloSou,
     final samplePeriod=samplePeriod,
     VDisSetMin_flow=max(1.5*VSouOA_flow_nominal, 0.15*mSou_flow_nominal/1.2))
     "Controller for terminal unit south"
     annotation (Placement(transformation(extent={{700,30},{720,50}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Controller conVAVEas(
-    VDisCooSetMax_flow=mEas_flow_nominal/1.2,
-    VDisHeaSetMax_flow=0.3*mEas_flow_nominal/1.2,
-    VDisConMin_flow=0.1*mEas_flow_nominal/1.2,
+    V_flow_nominal=mEas_flow_nominal/1.2,
     AFlo=AFloEas,
     final samplePeriod=samplePeriod,
     VDisSetMin_flow=max(1.5*VEasOA_flow_nominal, 0.15*mEas_flow_nominal/1.2))
     "Controller for terminal unit east"
     annotation (Placement(transformation(extent={{880,30},{900,50}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Controller conVAVNor(
-    VDisCooSetMax_flow=mNor_flow_nominal/1.2,
-    VDisHeaSetMax_flow=0.3*mNor_flow_nominal/1.2,
-    VDisConMin_flow=0.1*mNor_flow_nominal/1.2,
+    V_flow_nominal=mNor_flow_nominal/1.2,
     AFlo=AFloNor,
     final samplePeriod=samplePeriod,
     VDisSetMin_flow=max(1.5*VNorOA_flow_nominal, 0.15*mNor_flow_nominal/1.2))
     "Controller for terminal unit north"
     annotation (Placement(transformation(extent={{1040,30},{1060,50}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Controller conVAVWes(
-    VDisCooSetMax_flow=mWes_flow_nominal/1.2,
-    VDisHeaSetMax_flow=0.3*mWes_flow_nominal/1.2,
-    VDisConMin_flow=0.1*mWes_flow_nominal/1.2,
+    V_flow_nominal=mWes_flow_nominal/1.2,
     AFlo=AFloWes,
     final samplePeriod=samplePeriod,
     VDisSetMin_flow=max(1.5*VWesOA_flow_nominal, 0.15*mWes_flow_nominal/1.2))
@@ -563,13 +553,6 @@ its input.
 </p>
 </html>", revisions="<html>
 <ul>
-<li>
-October 9, 2020, by Jianjun Hu:<br/>
-Changed the heating maximum airflow setpoint for the terminal control to 30% of
-the zone nominal airflow.<br/>
-This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2172\">#2172</a>
-</li>
 <li>
 July 10, 2020, by Antoine Gautier:<br/>
 Changed design and control parameters for outdoor air flow.<br/>

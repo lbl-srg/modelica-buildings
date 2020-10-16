@@ -5,7 +5,10 @@ block Controller "Controller for room VAV box"
     final unit="s",
     final quantity="Time")
     "Sample period of component, set to the same value as the trim and respond that process yPreSetReq";
-
+parameter Real V_flow_nominal(
+    final unit="m3/s",
+    final quantity="VolumeFlowRate")
+    "Volume flow rate of this thermal zone";
   parameter Real AFlo(
     final unit="m2",
     final quantity="Area") "Area of the zone";
@@ -119,22 +122,22 @@ block Controller "Controller for room VAV box"
     annotation (Dialog(tab="Airflow setpoint", group="Zone sensors"));
   parameter Real VDisCooSetMax_flow(
     final unit="m3/s",
-    final quantity="VolumeFlowRate")
+    final quantity="VolumeFlowRate")=V_flow_nominal
     "Zone maximum cooling airflow setpoint"
     annotation (Dialog(tab="Airflow setpoint", group="Nominal conditions"));
   parameter Real VDisSetMin_flow(
     final unit="m3/s",
-    final quantity="VolumeFlowRate")
+    final quantity="VolumeFlowRate")=0.15*V_flow_nominal
     "Zone minimum airflow setpoint"
     annotation (Dialog(tab="Airflow setpoint", group="Nominal conditions"));
   parameter Real VDisHeaSetMax_flow(
     final unit="m3/s",
-    final quantity="VolumeFlowRate")
+    final quantity="VolumeFlowRate")=0.3*V_flow_nominal
     "Zone maximum heating airflow setpoint"
     annotation (Dialog(tab="Airflow setpoint", group="Nominal conditions"));
   parameter Real VDisConMin_flow(
     final unit="m3/s",
-    final quantity="VolumeFlowRate")
+    final quantity="VolumeFlowRate")=0.1*V_flow_nominal
     "VAV box controllable minimum"
     annotation (Dialog(tab="Airflow setpoint", group="Nominal conditions"));
   parameter Real VOutPerAre_flow(final unit = "m3/(s.m2)")=3e-4
@@ -608,8 +611,7 @@ Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.SystemRequests</a>.
 <ul>
 <li>
 October 9, 2020, by Jianjun Hu:<br/>
-Deleted <code>V_flow_nominal</code> and removed default values of maximum heating,
-maximum cooling, minimum cooling and controllable minimum discharge airflow setpoints.<br/>
+Changed the default heating maximum airflow setpoint to 30% of the zone nominal airflow.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2172\">issue 2172</a>.
 </li>
