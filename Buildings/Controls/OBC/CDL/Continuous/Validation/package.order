@@ -32,7 +32,6 @@ MovingMean_nonZeroStart
 MultiMax
 MultiMin
 MultiSum
-NumberOfRequests
 PID
 PIDInitialDerivativeOutput
 PIDInitialState

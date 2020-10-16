@@ -17,7 +17,12 @@ protected
   discrete Modelica.SIunits.Time pulseStart "Start time of pulse";
 
 initial equation
-  pulseStart = startTime;
+  if time > startTime then
+    pulseStart = startTime + period * floor((time - startTime)/period);
+  else
+    pulseStart = startTime;
+  end if;
+
 equation
   when sample(startTime, period) then
     pulseStart = time;
@@ -73,6 +78,12 @@ The Boolean output y is a pulse signal:
 
 </html>", revisions="<html>
 <ul>
+<li>
+September 1, 2020, by Milica Grahovac:<br/>
+Revised initial equation section to ensure expected simulation results when <code>startTime</code> is before simulation start time.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2110\">#2110</a>.
+</li>
 <li>
 March 23, 2017, by Jianjun Hu:<br/>
 First implementation, based on the implementation of the
