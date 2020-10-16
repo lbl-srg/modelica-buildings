@@ -12,14 +12,14 @@ block Speed_remoteDp
     final unit="1",
     displayUnit="1",
     final min=0,
-    final max=maxPumSpe)
+    final max=maxPumSpe) = 0.1
     "Minimum pump speed";
 
   parameter Real maxPumSpe(
     final unit="1",
     displayUnit="1",
     final min=minPumSpe,
-    final max=1)
+    final max=1) = 1
     "Maximum pump speed";
 
   parameter Real k = 1
