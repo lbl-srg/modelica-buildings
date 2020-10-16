@@ -14,8 +14,7 @@ block SupplyAirTemperature
     annotation (Dialog(enable=
           controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
           controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
-  parameter Modelica.SIunits.Time Td(
-    min=0) = 0.1
+  parameter Modelica.SIunits.Time Td(min=0) = 0.1
     "Time constant of derivative block"
     annotation (Dialog(enable=
           controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
@@ -25,23 +24,28 @@ block SupplyAirTemperature
     "Signal enabling set point tracking"
     annotation (Placement(transformation(extent={{-180,-120},{-140,-80}}),
         iconTransformation(extent={{-140,-80},{-100,-40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSup
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSup(
+    final unit="K",
+    displayUnit="degC")
     "Supply air temperature measurement"
     annotation (Placement(transformation(extent={{-180,-20},{-140,20}}),
         iconTransformation(extent={{-140,40},{-100,80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSupSet
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSupSet(
+    final unit="K",
+    displayUnit="degC")
     "Supply air temperature set point"
     annotation (Placement(transformation(extent={{-180,-60},{-140,-20}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yHea if have_heating
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yHea(
+    final unit="1") if have_heating
     "Control signal for heating coil valve" annotation (Placement(
         transformation(extent={{120,60},{160,100}}),
-                iconTransformation(extent={{100,40},{140,80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yOA
+          iconTransformation(extent={{100,40},{140,80}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yOA(final unit="1")
     "Control signal for outdoor air damper"
     annotation (Placement(transformation(extent={{120,-20},{160,20}}),
         iconTransformation(extent={{100,-20},{140,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yCoo
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yCoo(final unit="1")
     "Control signal for cooling coil valve"
     annotation (Placement(transformation(extent={{120,-100},{160,-60}}),
         iconTransformation(extent={{100,-80},{140,-40}})));
