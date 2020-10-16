@@ -234,11 +234,11 @@ block Controller
     final unit="Pa",
     displayUnit="Pa",
     final quantity="PressureDifference") if have_varSecPum and locDPReg
-    "Hot water differential static pressure from local sensor" annotation (
-      Placement(transformation(extent={{-320,-310},{-280,-270}}),
-        iconTransformation(extent={{-140,-80},{-100,-40}})));
+    "Hot water differential static pressure from local sensor"
+    annotation (Placement(transformation(extent={{-320,-310},{-280,-270}}),
+      iconTransformation(extent={{-140,-80},{-100,-40}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput dpHotWat_remote[nSen](
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput dpHotWat_rem[nSen](
     final unit=fill("Pa", nSen),
     final quantity=fill("PressureDifference", nSen),
     displayUnit=fill("Pa", nSen)) if have_varSecPum and (locDPReg or remDPReg)
@@ -526,16 +526,15 @@ equation
   connect(pumSpeLocDp.dpHotWat_loc, dpHotWat_loc) annotation (Line(points={{-62,
           -322},{-230,-322},{-230,-290},{-300,-290}}, color={0,0,127}));
 
-  connect(pumSpeLocDp.dpHotWat_rem, dpHotWat_remote) annotation (Line(points={{-62,
+  connect(pumSpeLocDp.dpHotWat_rem, dpHotWat_rem) annotation (Line(points={{-62,
           -334},{-200,-334},{-200,-330},{-300,-330}}, color={0,0,127}));
 
   connect(pumSpeLocDp.dpHotWatSet,dpHotWatSet)
     annotation (Line(points={{-62,-338},{-220,-338},{-220,-360},{-300,-360}},
       color={0,0,127}));
 
-  connect(dpHotWat_remote,pumSpeRemDp.dpHotWat)
-    annotation (Line(points={{-300,-330},{-200,-330},{-200,-370},{-62,-370}},
-      color={0,0,127}));
+  connect(dpHotWat_rem, pumSpeRemDp.dpHotWat) annotation (Line(points={{-300,-330},
+          {-200,-330},{-200,-370},{-62,-370}}, color={0,0,127}));
 
   connect(dpHotWatSet,pumSpeRemDp.dpHotWatSet)
     annotation (Line(points={{-300,-360},{-220,-360},{-220,-378},{-62,-378}},
