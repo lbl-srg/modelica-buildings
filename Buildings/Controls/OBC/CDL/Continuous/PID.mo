@@ -99,11 +99,11 @@ block PID
   Buildings.Controls.OBC.CDL.Continuous.Feedback errD if with_D "D error"
     annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
   Buildings.Controls.OBC.CDL.Continuous.Feedback errI1 if with_I
-    "I error (before anti-windup componensation)"
+    "I error (before anti-windup compensation)"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Feedback errI2 if with_I
-    "I error (after anti-windup componensation)"
+    "I error (after anti-windup compensation)"
     annotation (Placement(transformation(extent={{-82,-10},{-62,10}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Limiter lim(
@@ -477,7 +477,7 @@ If <code>reverseAction=false</code>, then the error <i>e</i> above is multiplied
 </p>
 <h4>Anti-windup compensation</h4>
 <p>
-The controller anti-windup componensation is as follows:
+The controller anti-windup compensation is as follows:
 Instead of the above basic control law, the implementation is
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
@@ -491,7 +491,7 @@ where the anti-windup compensation <i>&Delta;y</i> is
 </p>
 <p>
 where
-<i>N<sub>i</sub> &gt; 0</i> is the time constant for the anti-windup componensation.
+<i>N<sub>i</sub> &gt; 0</i> is the time constant for the anti-windup compensation.
 To accelerate the anti-windup, decrease <i>N<sub>i</sub></i>.
 </p>
 <h4>Reset of the controller output</h4>
