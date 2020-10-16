@@ -6,7 +6,7 @@ package Subsequences "Hot water pump control sequences"
 annotation (
 preferredView="info", Documentation(info="<html>
 <p>
-This package contains subsequences for hot water pumps control.</p>
+This package contains subsequences for secondary hot water pumps control.</p>
 </html>"),
 Icon(graphics={
         Rectangle(

@@ -5,9 +5,9 @@ package SecondaryPumps "Sequences for secondary hot water pump control"
 annotation (
 preferredView="info", Documentation(info="<html>
 <p>
-This package contains control sequences for hot water pumps.
-The implementations are based on section 5.2.6 Primary hot water pumps, 
-in ASHRAE RP-1711 (Draft 6 on July 25, 2019).
+This package contains control sequences for secondary hot water pumps.
+The implementations are based on section 5.3.7 Secondary hot water pumps, 
+in ASHRAE RP-1711, March 2020 draft.
 </p>
 </html>"),
     Icon(graphics={

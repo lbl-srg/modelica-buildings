@@ -5,8 +5,8 @@ package Subsequences "Package of subsequences for generic boiler plant sequences
 
 annotation (preferredView="info", Documentation(info="<html>
 <p>
-This package contains subsequences for controlling devices when there is stage-up
-or stage-down command.
+This package contains subsequences for controlling devices when there is a 
+plant-disable command.
 </p>
 </html>"),
   Icon(graphics={
