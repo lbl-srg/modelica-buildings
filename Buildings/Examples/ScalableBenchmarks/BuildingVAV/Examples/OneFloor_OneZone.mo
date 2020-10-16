@@ -189,9 +189,8 @@ model OneFloor_OneZone "Closed-loop model with 1 zone in 1 floor"
   Buildings.Examples.VAVReheat.Controls.Economizer conEco[nFlo](
     each have_reset=true,
     each have_frePro=true,
-    each VOut_flow_min=0.3*m_flow_nominal/1.2,
-    each Ti=600,
-    each k=0.1) "Controller for economizer"
+    each VOut_flow_min=0.3*m_flow_nominal/1.2)
+    "Controller for economizer"
     annotation (Placement(transformation(extent={{-286,88},{-274,100}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
     Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
@@ -231,7 +230,7 @@ model OneFloor_OneZone "Closed-loop model with 1 zone in 1 floor"
     fan_dP_On_Off[nFlo](each preRis=dP_pre)
     "controller outputs fan on or off"
     annotation (Placement(transformation(extent={{-70,-14},{-56,0}})));
-  VAVReheat.Controls.SupplyAirTemperature conTSup[nFlo]
+  VAVReheat.Controls.SupplyAirTemperature conTSup[nFlo](k=0.01, Ti=600)
     "Supply air temperature controller"
     annotation (Placement(transformation(extent={{-240,-70},{-220,-50}})));
 equation

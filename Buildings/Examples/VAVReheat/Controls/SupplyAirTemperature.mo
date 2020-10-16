@@ -97,7 +97,8 @@ block SupplyAirTemperature
   Buildings.Controls.OBC.CDL.Logical.Switch swiOA
     "Switch to close outdoor air damper"
     annotation (Placement(transformation(extent={{70,-10},{90,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant limInfCoo(k=limSupOA.k)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant limInfCoo(
+    k=limSupOA.k)
     "Inferior limit of the control signal for cooling coil control "
     annotation (Placement(transformation(extent={{-50,-90},{-30,-70}})));
 equation
