@@ -77,8 +77,3 @@ convertClass(
 convertClass(
     "Buildings.Controls.OBC.CDL.Types.Reset",
     "Buildings.Obsolete.Controls.OBC.CDL.Types.Reset");
-
-// Conversion for https://github.com/lbl-srg/modelica-buildings/issues/2172
-// remove parameter V_flow_nominal
-convertModifiers("Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Controller",
-                {"V_flow_nominal"}, fill("",0), true);
