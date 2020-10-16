@@ -73,7 +73,7 @@ model ASHRAE2006
     annotation (Placement(transformation(extent={{-60,-250},{-40,-230}})));
   Controls.SupplyAirTemperature conTSup "Supply air temperature controller"
     annotation (Placement(transformation(extent={{30,-230},{50,-210}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSupSet(k=12 + 273.15)
+  Controls.SupplyAirTemperatureSetpoint TSupSet
     "Supply air temperature set point"
     annotation (Placement(transformation(extent={{-200,-230},{-180,-210}})));
 equation
@@ -273,15 +273,21 @@ equation
       pattern=LinePattern.Dash));
   connect(or2.y, conTSup.uEna) annotation (Line(points={{-38,-240},{20,-240},{
           20,-226},{28,-226}}, color={255,0,255}));
-  connect(TSupSet.y, conTSup.TSupSet) annotation (Line(
-      points={{-178,-220},{28,-220}},
-      color={0,0,127},
-      pattern=LinePattern.Dash));
   connect(modeSelector.yEco, conEco.uEna) annotation (Line(points={{-179.091,
           -314.636},{-160,-314.636},{-160,100},{-73.3333,100},{-73.3333,137.333}},
         color={255,0,255}));
   connect(TMix.T, conEco.TMix) annotation (Line(points={{40,-29},{40,166},{-90,
           166},{-90,148},{-81.3333,148}}, color={0,0,127}));
+  connect(controlBus, TSupSet.controlBus) annotation (Line(
+      points={{-240,-342},{-240,-228},{-190,-228}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%first",
+      index=-1,
+      extent={{-6,3},{-6,3}},
+      horizontalAlignment=TextAlignment.Right));
+  connect(TSupSet.TSet, conTSup.TSupSet)
+    annotation (Line(points={{-178,-220},{28,-220}}, color={0,0,127}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-380,-400},{1440,
             580}})),

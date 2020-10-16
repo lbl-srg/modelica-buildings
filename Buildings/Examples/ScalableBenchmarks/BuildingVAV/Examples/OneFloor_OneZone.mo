@@ -176,21 +176,13 @@ model OneFloor_OneZone "Closed-loop model with 1 zone in 1 floor"
     redeclare each package Medium = MediumA,
     each m_flow_nominal=m_flow_nominal) "Supply air temperature sensor"
     annotation (Placement(transformation(extent={{4,-38},{20,-22}})));
-  Modelica.Blocks.Sources.Constant TSupSet[nFlo](y(
-      each final quantity="ThermodynamicTemperature",
-      each final unit="K",
-      each displayUnit="degC",
-      each min=0), k=fill(12 + 273.15, nFlo))
-    "Supply air temperature set point"
-    annotation (Placement(transformation(extent={{-286,-66},{-274,-54}})));
   Buildings.Examples.VAVReheat.Controls.ModeSelector modeSelector[nFlo]
     "Finite State Machine for the operational modes"
     annotation (Placement(transformation(extent={{-180,40},{-164,56}})));
   Buildings.Examples.VAVReheat.Controls.Economizer conEco[nFlo](
     each have_reset=true,
-    each have_frePro=true,
     each VOut_flow_min=0.3*m_flow_nominal/1.2)
-                "Controller for economizer"
+    "Controller for economizer"
     annotation (Placement(transformation(extent={{-286,88},{-274,100}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
     Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
@@ -230,9 +222,12 @@ model OneFloor_OneZone "Closed-loop model with 1 zone in 1 floor"
     fan_dP_On_Off[nFlo](each preRis=dP_pre)
     "controller outputs fan on or off"
     annotation (Placement(transformation(extent={{-70,-14},{-56,0}})));
-  VAVReheat.Controls.SupplyAirTemperature conTSup[nFlo](k=0.01, Ti=600)
+  VAVReheat.Controls.SupplyAirTemperature conTSup[nFlo](each k=0.01)
     "Supply air temperature controller"
     annotation (Placement(transformation(extent={{-240,-70},{-220,-50}})));
+  VAVReheat.Controls.SupplyAirTemperatureSetpoint TAirSupSet[nFlo]
+    "Supply air temperature set point"
+    annotation (Placement(transformation(extent={{-300,-70},{-280,-50}})));
 equation
   for iFlo in 1:nFlo loop
     connect(eco[iFlo].port_Sup, TMix[iFlo].port_a)
@@ -247,9 +242,6 @@ equation
     connect(TRet[iFlo].T, conEco[iFlo].TRet)
       annotation (Line(points={{-189,134.8},{-189,142},{-294,142},{-294,96},{-286.8,
             96}},       color={0,0,127}, pattern=LinePattern.Dash));
-    connect(TMix[iFlo].T, conEco[iFlo].TMix)
-      annotation (Line(points={{-200,-21.2},{-200,114},{-300,114},{-300,92.8},{-286.8,
-            92.8}},                        color={0,0,127}, pattern=LinePattern.Dash));
     connect(VOut1[iFlo].V_flow, conEco[iFlo].VOut_flow)
       annotation (Line(points={{-284,30.8},{-284,64},{-300,64},{-300,89.6},{-286.8,
             89.6}},                  color={0,0,127}, pattern=LinePattern.Dash));
@@ -283,8 +275,8 @@ equation
       annotation (Line(points={{-56,-42},{-51,-42},{-51,-50}},
         color={0,127,255}));
     connect(controlBus[iFlo], conEco[iFlo].controlBus)
-      annotation (Line(points={{-68,54},{-134,54},{-134,80},{-280,80},{-280,84},
-            {-279.6,84},{-279.6,88.8}},
+      annotation (Line(points={{-68,54},{-134,54},{-134,80},{-280,80},{-280,88.8},
+            {-279.6,88.8}},
                         color={255,204,51}, thickness=0.5));
     connect(controlBus[iFlo], modeSelector[iFlo].cb)
       annotation (Line(points={{-68,54},{-121.728,54},{-121.728,53.4545},{
@@ -406,24 +398,33 @@ equation
   connect(weaBus, buiZon.weaBus)
     annotation (Line(points={{-324,170},{-324,170},{-44,170},{-44,80},{51.6,80}},
       color={255,204,51}, thickness=0.5));
-  connect(modeSelector.yFan, conFanRet.uFan) annotation (Line(points={{-163.636,
-          48},{-146,48},{-146,163.2},{12.6,163.2}},               color={255,0,
+  connect(modeSelector.yFan, conFanRet.uFan) annotation (Line(points={{-163.273,
+          51.6364},{-146,51.6364},{-146,163.2},{12.6,163.2}},     color={255,0,
           255}));
   connect(conTSup.yOA, conEco.uOATSup) annotation (Line(points={{-218,-60},{-210,
           -60},{-210,-40},{-296,-40},{-296,99.2},{-286.8,99.2}}, color={0,0,127}));
   connect(TSup.T, conTSup.TSup) annotation (Line(points={{12,-21.2},{12,-16},{0,
           -16},{0,-100},{-252,-100},{-252,-54},{-242,-54}}, color={0,0,127}));
-  connect(TSupSet.y, conTSup.TSupSet)
-    annotation (Line(points={{-273.4,-60},{-242,-60}}, color={0,0,127}));
   connect(conTSup.yHea, valHea.y) annotation (Line(points={{-218,-54},{-132,-54},
           {-132,-55},{-127,-55}}, color={0,0,127}));
   connect(conTSup.yCoo, valCoo.y) annotation (Line(points={{-218,-66},{-210,-66},
           {-210,-94},{-66,-94},{-66,-55},{-57,-55}}, color={0,0,127}));
-  connect(modeSelector.yFan, conTSup.uEna) annotation (Line(points={{-163.636,
-          48},{-160,48},{-160,0},{-260,0},{-260,-66},{-242,-66}},
+  connect(modeSelector.yFan, conTSup.uEna) annotation (Line(points={{-163.273,
+          51.6364},{-160,51.6364},{-160,0},{-260,0},{-260,-66},{-242,-66}},
                                                               color={255,0,255}));
-  connect(modeSelector.yFan,conEco.uEna)  annotation (Line(points={{-163.636,48},
-          {-160,48},{-160,78},{-282,78},{-282,86.4}}, color={255,0,255}));
+  connect(controlBus, TAirSupSet.controlBus) annotation (Line(
+      points={{-68,54},{-72,54},{-72,60},{-290,60},{-290,-68}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%first",
+      index=-1,
+      extent={{-3,6},{-3,6}},
+      horizontalAlignment=TextAlignment.Right));
+  connect(TAirSupSet.TSet, conTSup.TSupSet)
+    annotation (Line(points={{-278,-60},{-242,-60}}, color={0,0,127}));
+  connect(modeSelector.yEco, conEco.uEna) annotation (Line(points={{-163.273,
+          44.3636},{-158,44.3636},{-158,82},{-282,82},{-282,86.4}},
+                                                           color={255,0,255}));
 annotation (
   experiment(
       StopTime=604800,
