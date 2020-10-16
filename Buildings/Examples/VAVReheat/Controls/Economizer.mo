@@ -2,9 +2,9 @@ within Buildings.Examples.VAVReheat.Controls;
 block Economizer "Controller for economizer"
   import Buildings.Examples.VAVReheat.Controls.OperationModes;
   parameter Boolean have_reset = false
-    "Set to true to use an input signal for controller reset"
+    "Set to true to reset the outdoor air damper controllers whith the enable signal"
     annotation(Evaluate=true);
-  parameter Boolean have_frePro = true
+  parameter Boolean have_frePro = false
     "Set to true to enable freeze protection through mixed air temperature control";
   parameter Modelica.SIunits.Temperature TFreSet=277.15
     "Lower limit for mixed air temperature for freeze protection"
@@ -15,8 +15,8 @@ block Economizer "Controller for economizer"
     "Minimum outside air volume flow rate";
   parameter Real k = 0.1 "Gain of controller";
   parameter Modelica.SIunits.Time Ti = 120 "Time constant of integrator block";
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uRes if have_reset
-    "Signal for controller reset"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uEna
+    "Enable signal for economizer"
     annotation (Placement(transformation(extent={{-140,170},{-100,210}}),
        iconTransformation(extent={{-40,-40},{40,40}},
         rotation=90,
@@ -62,9 +62,6 @@ block Economizer "Controller for economizer"
     annotation (Placement(transformation(extent={{-10,-30},{10,-10}})));
   Modelica.Blocks.Sources.Constant uni(k=1) "Unity signal"
     annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
-  Modelica.Blocks.Routing.Extractor extractor(nin=6, index(start=1, fixed=true))
-    "Extractor for control signal"
-    annotation (Placement(transformation(extent={{130,-10},{150,10}})));
   Modelica.Blocks.Sources.Constant closed(k=0) "Signal to close OA damper"
     annotation (Placement(transformation(extent={{10,30},{30,50}})));
   Modelica.Blocks.Math.Max max
@@ -101,6 +98,9 @@ block Economizer "Controller for economizer"
   Modelica.Blocks.Sources.Constant one(k=1) if not have_frePro
     "Fill value in case freeze protection is disabled"
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
+  Buildings.Controls.OBC.CDL.Logical.Switch swiModClo
+    "Switch between modulating or closing outdoor air damper"
+    annotation (Placement(transformation(extent={{130,-10},{150,10}})));
 equation
   connect(VOut_flow, gain.u) annotation (Line(
       points={{-120,-60},{-62,-60}},
@@ -112,44 +112,6 @@ equation
       smooth=Smooth.None));
   connect(uni.y, conV_flow.u_s) annotation (Line(
       points={{-39,-20},{-12,-20}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(controlBus.controlMode, extractor.index) annotation (Line(
-      points={{60,-80},{140,-80},{140,-12}},
-      color={255,204,51},
-      thickness=0.5,
-      smooth=Smooth.None), Text(
-      textString="%first",
-      index=-1,
-      extent={{-6,3},{-6,3}}));
-  connect(max.y, extractor.u[Integer(OperationModes.occupied)]) annotation (
-      Line(
-      points={{101,0},{128,0}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(closed.y, extractor.u[Integer(OperationModes.unoccupiedOff)])
-    annotation (Line(
-      points={{31,40},{110,40},{110,0},{128,0}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(closed.y, extractor.u[Integer(OperationModes.unoccupiedNightSetBack)])
-    annotation (Line(
-      points={{31,40},{110,40},{110,0},{128,0}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(max.y, extractor.u[Integer(OperationModes.unoccupiedWarmUp)])
-    annotation (Line(
-      points={{101,0},{128,0}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(max.y, extractor.u[Integer(OperationModes.unoccupiedPreCool)])
-    annotation (Line(
-      points={{101,0},{128,0}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(closed.y, extractor.u[Integer(OperationModes.safety)]) annotation (
-      Line(
-      points={{31,40},{110,40},{110,0},{128,0}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(min.u2, conV_flow.y) annotation (Line(
@@ -164,10 +126,6 @@ equation
                                     color={0,0,127}));
   connect(yRet, invSig.y)
     annotation (Line(points={{220,0},{192,0}}, color={0,0,127}));
-  connect(extractor.y, invSig.u)
-    annotation (Line(points={{151,0},{168,0}}, color={0,0,127}));
-  connect(extractor.y, yOA) annotation (Line(points={{151,0},{160,0},{160,80},{220,
-          80}},     color={0,0,127}));
   connect(feedback.y, hysLoc.u)
     annotation (Line(points={{-71,120},{-32,120}}, color={0,0,127}));
   connect(TRet, feedback.u1) annotation (Line(points={{-120,120},{-88,120}},
@@ -189,9 +147,9 @@ equation
   connect(uOATSup, swiOA.u1) annotation (Line(points={{-120,160},{60,160},{60,128},
           {88,128}}, color={0,0,127}));
 
-  connect(uRes, yOATFre.trigger) annotation (Line(points={{-120,190},{-94,190},{
+  connect(uEna, yOATFre.trigger) annotation (Line(points={{-120,190},{-94,190},{
           -94,60},{-28,60},{-28,68}},color={255,0,255}));
-  connect(uRes, conV_flow.trigger) annotation (Line(points={{-120,190},{-94,190},
+  connect(uEna, conV_flow.trigger) annotation (Line(points={{-120,190},{-94,190},
           {-94,-40},{-8,-40},{-8,-32}},                   color={255,0,255}));
   connect(one.y, min.u1)
     annotation (Line(points={{-39,20},{0,20},{0,6},{28,6}},  color={0,0,127}));
@@ -199,6 +157,16 @@ equation
     annotation (Line(points={{-32,80},{-39,80}}, color={0,0,127}));
   connect(TMix, yOATFre.u_m)
     annotation (Line(points={{-120,40},{-20,40},{-20,68}}, color={0,0,127}));
+  connect(swiModClo.y, invSig.u)
+    annotation (Line(points={{152,0},{168,0}}, color={0,0,127}));
+  connect(swiModClo.y, yOA) annotation (Line(points={{152,0},{160,0},{160,80},{220,
+          80}}, color={0,0,127}));
+  connect(uEna, swiModClo.u2) annotation (Line(points={{-120,190},{140,190},{140,
+          20},{120,20},{120,0},{128,0}}, color={255,0,255}));
+  connect(max.y, swiModClo.u1) annotation (Line(points={{101,0},{110,0},{110,8},
+          {128,8}}, color={0,0,127}));
+  connect(closed.y, swiModClo.u3) annotation (Line(points={{31,40},{116,40},{116,
+          -8},{128,-8}}, color={0,0,127}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{200,
             200}})),
