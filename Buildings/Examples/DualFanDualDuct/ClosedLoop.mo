@@ -1269,8 +1269,6 @@ First implementation.
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Examples/DualFanDualDuct/ClosedLoop.mos"
         "Simulate and plot"),
     experiment(
-      StartTime=15724800,
-      StopTime=15897600,
-      Tolerance=1e-07,
-      __Dymola_Algorithm="Cvode"));
+      StopTime=172800,
+      Tolerance=1e-07));
 end ClosedLoop;
