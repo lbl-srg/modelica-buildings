@@ -56,6 +56,7 @@ block Economizer "Controller for economizer"
     yMax=0.995,
     yMin=0.005,
     Td=60,
+    y_reset=0,
     final reset=if have_reset then Buildings.Types.Reset.Parameter else
       Buildings.Types.Reset.Disabled)
     "Controller for outside air flow rate"
@@ -73,6 +74,7 @@ block Economizer "Controller for economizer"
     Td=60,
     yMax=1,
     yMin=0,
+    y_reset=1,
     reverseActing=false,
     final reset=if have_reset then Buildings.Types.Reset.Parameter else
       Buildings.Types.Reset.Disabled) if have_frePro
