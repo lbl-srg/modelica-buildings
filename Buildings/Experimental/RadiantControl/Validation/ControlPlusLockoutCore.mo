@@ -87,9 +87,9 @@ model ControlPlusLockoutCore
     steadyStateInitial=true,
     T_a_start=288.15,
     T_b_start=288.15,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
-    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
-    T_start(start=293.15, fixed=true),
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    T_start(fixed=true, start=293.15),
     m_flow_nominal=mRad_flow_nominal,
     redeclare package Medium = MediumW,
     layers=layers,
@@ -116,7 +116,7 @@ model ControlPlusLockoutCore
         origin={-16,-290})));
 Fluid.Movers.FlowControlled_m_flow pumCol(
     redeclare package Medium = MediumW,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     T_start=TRadCol_nominal,
     allowFlowReversal=false,
     m_flow_nominal=mRad_flow_nominal,
@@ -135,11 +135,11 @@ Fluid.Movers.FlowControlled_m_flow pumCol(
     annotation (Placement(transformation(extent={{-22,-174},{-2,-154}})));
 Fluid.Movers.FlowControlled_m_flow           pumHot(
     redeclare package Medium = MediumW,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     m_flow_nominal=mRad_flow_nominal,
     addPowerToMedium=false,
-    nominalValuesDefineDefaultPressureCurve=true)
-                            "Heating hot water pump"
+    nominalValuesDefineDefaultPressureCurve=true,
+    m_flow_start=0.1)       "Heating hot water pump"
       annotation (Placement(transformation(
       extent={{-10,-10},{10,10}},
       rotation=90,
@@ -161,10 +161,12 @@ Fluid.Movers.FlowControlled_m_flow           pumHot(
     "Heating hot water valve controller"
     annotation (Placement(transformation(extent={{-260,-122},{-240,-102}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToReaHtgPum(realTrue=
-        mRad_flow_nominal) "Heating hot water pump controller"
+        mRad_flow_nominal, realFalse=0.001*mRad_flow_nominal)
+                           "Heating hot water pump controller"
     annotation (Placement(transformation(extent={{-260,-80},{-240,-60}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToReaClgPum(realTrue=
-        mRad_flow_nominal) "Chilled water pump controller"
+        mRad_flow_nominal, realFalse=0.001*mRad_flow_nominal)
+                           "Chilled water pump controller"
     annotation (Placement(transformation(extent={{-62,-100},{-42,-80}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToReaClgVal
     "Chilled water valve controller"
@@ -220,20 +222,20 @@ Fluid.Movers.FlowControlled_m_flow           pumHot(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-28,-194})));
-  Fluid.Sensors.TemperatureTwoPort temCoolingValtoPump(redeclare package Medium
-      = MediumW, m_flow_nominal=mRad_flow_nominal) "CoolingTemperature"
+  Fluid.Sensors.TemperatureTwoPort temCoolingValtoPump(redeclare package Medium =
+        MediumW, m_flow_nominal=mRad_flow_nominal) "CoolingTemperature"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-10,-112})));
   Fluid.FixedResistances.Junction           mix2(
     redeclare package Medium = MediumW,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     portFlowDirection_1=Modelica.Fluid.Types.PortFlowDirection.Entering,
     portFlowDirection_2=Modelica.Fluid.Types.PortFlowDirection.Leaving,
     portFlowDirection_3=Modelica.Fluid.Types.PortFlowDirection.Entering,
     verifyFlowReversal=true,
-    dp_nominal={0,-200,0},
+    dp_nominal={1,-200,1},
     m_flow_nominal={mRad_flow_nominal,-mRad_flow_nominal,mRad_flow_nominal})
     "Mixer" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
