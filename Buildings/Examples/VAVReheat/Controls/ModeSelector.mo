@@ -113,7 +113,7 @@ model ModeSelector "Finite State Machine for the operational modes"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={200,-70})));
-  Modelica.Blocks.Math.BooleanToInteger modIni(integerTrue=integer(Buildings.Examples.VAVReheat.Controls.OperationModes.unoccupiedOff))
+  Modelica.Blocks.Math.BooleanToInteger modIni(integerTrue=Integer(Buildings.Examples.VAVReheat.Controls.OperationModes.unoccupiedOff))
     "Initial operation mode"
     annotation (Placement(transformation(extent={{-160,10},{-180,30}})));
 equation
