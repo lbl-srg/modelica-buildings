@@ -10,9 +10,9 @@ enable_language(Fortran)
 
 SET(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS TRUE)
 option(BUILD_SHARED_LIBS "Build shared libraries" ON)
-file(GLOB_RECURSE c_sources src/ISAT/*.c src/FastFluidDynamics/*.c)
-set(LIB_DIR ${CMAKE_SOURCE_DIR}/src/ISAT/MinGW/)
-set(LIBS ${LIB_DIR}/libisatab_ser.a ${LIB_DIR}/liblapack.a ${LIB_DIR}//libblas.a)
+file(GLOB_RECURSE c_sources ISAT/*.c FastFluidDynamics/*.c)
+set(LIB_DIR ${CMAKE_SOURCE_DIR}/ISAT/MinGW/)
+set(LIBS ${LIB_DIR}/libisatab_ser.a ${LIB_DIR}/liblapack.a ${LIB_DIR}/libblas.a)
 set(MinGW_LIBS -lgfortran -lquadmath)
 
 add_library(isat SHARED ${c_sources})
