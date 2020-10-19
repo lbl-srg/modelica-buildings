@@ -462,18 +462,26 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Logical.Latch<br/>
-                       Buildings.Controls.OBC.CDL.Logical.Toggle 
+                       Buildings.Controls.OBC.CDL.Logical.Toggle
     </td>
     <td valign=\"top\">Removed the parameter <code>pre_y_start</code>, and made the initial output to be equal to
                        latch or toggle input when the clear input is <code>false</code>.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2177\">#2177</a>.<br/>
                        For Dymola, a conversion script makes this change.</td>
-</tr>  
+</tr>
 <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Logical.Timer
     </td>
     <td valign=\"top\">Removed <code>reset</code> boolean input and added boolean output <code>passed</code>
                        to show if the time becomes greater than threshold time.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2101\">#2101</a>.
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Logical.Sources.Pulse<br/>
+                       Buildings.Controls.OBC.CDL.Logical.Sources.SampleTrigger
+    </td>
+    <td valign=\"top\">Removed parameter <code>startTime</code>.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2170\">#2170</a>.<br/>
+                       For Dymola, a conversion script makes this change.
+                       The pulses and triggers will start at an integer multiple of the period of the pulse.</td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL.Integers</b>
     </td>
