@@ -3,31 +3,25 @@ model Pulse "Validation model for the Boolean Pulse block"
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul(
     width=0.5,
-    period=1,
-    nPeriod=-1)
+    period=1)
     "Block that generates pulse signal of type Boolean at simulation start time and has infinite number of periods"
     annotation (Placement(transformation(extent={{-10,40},{10,60}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul3(
     width=0.5,
-    period=1,
-    nPeriod=2)
+    period=1)
     "Block that generates pulse signal of type Boolean at simulation start time"
     annotation (Placement(transformation(extent={{-10,-80},{10,-60}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul1(
     width=0.5,
-    period=1,
-    nPeriod=1,
-    startTime=1.75)
+    period=1)
     "Block that generates pulse signal of type Boolean starting from after the simulation start time"
     annotation (Placement(transformation(extent={{-10,0},{10,20}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul2(
     width=0.5,
-    period=1,
-    nPeriod=4,
-    startTime=-1.25)
+    period=1)
     "Block that generates pulse signal of type Boolean starting from before the simulation start time"
     annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
 

@@ -7,29 +7,28 @@ block Pulse "Generate pulse signal of type Boolean"
     final unit = "1") = 0.5 "Width of pulse in fraction of period";
   parameter Modelica.SIunits.Time period(
     final min=Constants.small) "Time for one period";
-  parameter Integer nPeriod=-1
-    "Number of periods (< 0 means infinite number of periods)";
-  parameter Modelica.SIunits.Time startTime=0 "Time instant of first pulse";
   Interfaces.BooleanOutput y "Connector of Boolean output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected
-  parameter Modelica.SIunits.Time Twidth=period*width
-    "Width of one pulse";
-  discrete Modelica.SIunits.Time pulseStart "Start time of pulse";
-
+  parameter Modelica.SIunits.Time t0(fixed=false)
+    "First sample time instant";
+  parameter Modelica.SIunits.Time t1(fixed=false)
+    "First end of amplitude";
 initial equation
-  if time > startTime then
-    pulseStart = startTime + period * floor((time - startTime)/period);
-  else
-    pulseStart = startTime;
-  end if;
+  t0 = Buildings.Utilities.Math.Functions.round(
+         x = integer(time/period)*period,
+         n = 6);
+  t1 = t0 + width*period;
+  y = time >= t0 and time < t1;
 
 equation
-  when sample(startTime, period) then
-    pulseStart = time;
+  when sample(t0, period) then
+    y = true;
+  elsewhen sample(t1, period) then
+    y = false;
   end when;
-  y = (nPeriod < 0 or floor((time - startTime)/period) < nPeriod) and (time >= pulseStart and time < pulseStart + Twidth);
+
 
   annotation (
     defaultComponentName="booPul",
@@ -71,16 +70,23 @@ equation
           textString="%name")}),
       Documentation(info="<html>
 <p>
-The Boolean output y is a pulse signal:
+Block that outputs a pulse signal as shown below.
 </p>
-
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Controls/OBC/CDL/Logical/Sources/BooleanPulse.png\"
+<img src=\"modelica://Buildings/Resources/Images/Controls/OBC/CDL/Logical/Sources/Pulse.png\"
      alt=\"BooleanPulse.png\" />
 </p>
-
+<p>
+The pulse signal is generated an infinite number of times.
+</p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 19, 2020, by Michael Wetter:<br/>
+Refactored implementation, avoided state events.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2170\">#2170</a>.
+</li>
 <li>
 September 8, 2020, by Milica Grahovac:<br/>
 Enabled specification of number of periods as a parameter.
