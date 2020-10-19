@@ -1220,6 +1220,10 @@ On a console window, type<pre>
   cd Buildings/Resources/weatherdata
   java -jar ../bin/ConvertWeatherData.jar inputFile.epw
 </pre>
+  if inputFile contains space in the name:
+<pre>
+  java -jar ../bin/ConvertWeatherData.jar \"inputFile .epw\"
+</pre>
 This will generate the weather data file <code>inputFile.mos</code>, which can be read
 by the model
 <a href=\"modelica://Buildings.BoundaryConditions.WeatherData.ReaderTMY3\">
@@ -1527,6 +1531,12 @@ Technical Report, NREL/TP-581-43156, revised May 2008.
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+October 4, 2020, by Ettore Zanetti:<br/>
+Updated documentation for Java weather file generator.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1396\">#1396</a>.
+</li>
 <li>
 August 20, 2019, by Filip Jorissen:<br/>
 Better clarified the meaning of <code>time</code> in the documentation.<br/>
