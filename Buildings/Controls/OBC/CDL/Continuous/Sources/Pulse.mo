@@ -7,6 +7,8 @@ block Pulse "Generate pulse signal of type Real"
     final unit = "1") = 0.5 "Width of pulse in fraction of period";
   parameter Modelica.SIunits.Time period(final min=Constants.small)
    "Time for one period";
+  parameter Modelica.SIunits.Time delay=0
+    "Delay time for output";
   parameter Real offset=0 "Offset of output signals";
 
   Interfaces.RealOutput y "Connector of Pulse output signal"
@@ -20,7 +22,7 @@ protected
   parameter Real y0 = offset + amplitude "Value when pulse is on";
 initial equation
   t0 = Buildings.Utilities.Math.Functions.round(
-         x = integer(time/period)*period,
+         x = integer(time+delay/period)*period,
          n = 6);
   t1 = t0 + width*period;
   y = if time >= t0 and time < t1 then y0 else offset;
@@ -77,7 +79,7 @@ Block that outputs a pulse signal as shown below.
      alt=\"Pulse.png\" />
      </p>
 <p>
-The pulse signal is generated an infinite number of times, and aligned with time <i>t=0</i>.
+The pulse signal is generated an infinite number of times, and aligned with time <code>time=delay</code>.
 </p>
 </html>", revisions="<html>
 <ul>

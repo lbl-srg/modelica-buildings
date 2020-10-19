@@ -2,7 +2,8 @@ within Buildings.Controls.OBC.CDL.Logical.Sources;
 block SampleTrigger "Generate sample trigger signal"
   parameter Modelica.SIunits.Time period(
     final min=Constants.small) "Sample period";
-
+  parameter Modelica.SIunits.Time delay=0
+    "Delay time for output";
   Interfaces.BooleanOutput y  "Connector of Boolean output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
@@ -12,7 +13,7 @@ protected
 
 initial equation
   t0 = Buildings.Utilities.Math.Functions.round(
-         x = integer(time/period)*period,
+         x = integer(time+delay/period)*period,
          n = 6);
 
 equation
@@ -70,7 +71,7 @@ at sample times (defined by parameter <code>period</code>) and is otherwise
      alt=\"SampleTrigger.png\" />
 </p>
 <p>
-The trigger signal is generated an infinite number of times, and aligned with time <i>t=0</i>.
+The trigger signal is generated an infinite number of times, and aligned with time <code>time=delay</code>.
 </p>
 </html>", revisions="<html>
 <ul>

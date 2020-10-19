@@ -32,6 +32,10 @@ model Enable_TOut_hOut
     "Multi zone VAV AHU economizer enable disable sequence"
     annotation (Placement(transformation(extent={{220,-40},{240,-20}})));
 
+  CDL.Logical.TrueDelay truDel(delayTime=10) "Delay of boolean signal"
+    annotation (Placement(transformation(extent={{-200,150},{-180,170}})));
+  CDL.Logical.TrueDelay truDel1(delayTime=10) "Delay of boolean signal"
+    annotation (Placement(transformation(extent={{-70,80},{-50,100}})));
 protected
   final parameter Real TOutCutoff(
     final unit="K",
@@ -80,13 +84,11 @@ protected
     final k=true) "Supply fan status signal"
       annotation (Placement(transformation(extent={{-200,-42},{-180,-22}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul(
-    final startTime=10,
     final period=2000) "Boolean pulse signal"
-    annotation (Placement(transformation(extent={{-200,150},{-180,170}})));
+    annotation (Placement(transformation(extent={{-240,150},{-220,170}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul1(
-    final startTime=10,
     final period=2000) "Boolean pulse signal"
-    annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
+    annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
 
 equation
   connect(TOutCut.y, enaDis.TOutCut)
@@ -118,12 +120,8 @@ equation
     color={0,0,127}));
   connect(TOutBelowCutoff.y, enaDis1.TOut)
     annotation (Line(points={{62,90},{70,90},{70,-20},{78,-20},{78,-20}}, color={0,0,127}));
-  connect(booPul.y, TOut.u)
-    annotation (Line(points={{-178,160},{-162,160}}, color={255,0,255}));
   connect(TOut.y, enaDis.TOut)
     annotation (Line(points={{-138,160},{-110,160},{-110,-20},{-82,-20}}, color={0,0,127}));
-  connect(booPul1.y, hOut.u)
-    annotation (Line(points={{-58,90},{-58,90},{-42,90}}, color={255,0,255}));
   connect(hOut.y, enaDis1.hOut)
     annotation (Line(points={{-18,90},{-10,90},{-10,60},{20,60},{20,-24},{78,-24}}, color={0,0,127}));
   connect(freProSta.y, enaDis1.uFreProSta)
@@ -172,6 +170,14 @@ equation
           {218,-28}},
     color={255,0,255}));
 
+  connect(booPul.y, truDel.u)
+    annotation (Line(points={{-218,160},{-202,160}}, color={255,0,255}));
+  connect(truDel.y, TOut.u)
+    annotation (Line(points={{-178,160},{-162,160}}, color={255,0,255}));
+  connect(hOut.u, truDel1.y)
+    annotation (Line(points={{-42,90},{-48,90}}, color={255,0,255}));
+  connect(booPul1.y, truDel1.u)
+    annotation (Line(points={{-78,90},{-72,90}}, color={255,0,255}));
 annotation (
   experiment(StopTime=1800.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36_PR1/AHUs/MultiZone/VAV/Economizers/Subsequences/Validation/Enable_TOut_hOut.mos"

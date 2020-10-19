@@ -7,6 +7,8 @@ block Pulse "Generate pulse signal of type Boolean"
     final unit = "1") = 0.5 "Width of pulse in fraction of period";
   parameter Modelica.SIunits.Time period(
     final min=Constants.small) "Time for one period";
+  parameter Modelica.SIunits.Time delay=0
+    "Delay time for output";
   Interfaces.BooleanOutput y "Connector of Boolean output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
@@ -17,7 +19,7 @@ protected
     "First end of amplitude";
 initial equation
   t0 = Buildings.Utilities.Math.Functions.round(
-         x = integer(time/period)*period,
+         x = integer(time+delay/period)*period,
          n = 6);
   t1 = t0 + width*period;
   y = time >= t0 and time < t1;
@@ -77,7 +79,7 @@ Block that outputs a pulse signal as shown below.
      alt=\"BooleanPulse.png\" />
 </p>
 <p>
-The pulse signal is generated an infinite number of times, and aligned with time <i>t=0</i>.
+The pulse signal is generated an infinite number of times, and aligned with time <code>time=delay</code>.
 </p>
 </html>", revisions="<html>
 <ul>

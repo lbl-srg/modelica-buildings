@@ -453,7 +453,7 @@ have been <b style=\"color:blue\">improved</b> in a
 </tr>
 <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse
     </td>
-    <td valign=\"top\">Removed parameter <code>startTime</code>.<br/>
+    <td valign=\"top\">Renamed parameter <code>startTime</code> to <code>delay</code>.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2170\">#2170</a>.<br/>
                        For Dymola, a conversion script makes this change.
                        The pulses will start at an integer multiple of the period of the pulse.</td>
@@ -478,7 +478,7 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Logical.Sources.Pulse<br/>
                        Buildings.Controls.OBC.CDL.Logical.Sources.SampleTrigger
     </td>
-    <td valign=\"top\">Removed parameter <code>startTime</code>.<br/>
+    <td valign=\"top\">Renamed parameter <code>startTime</code> to <code>delay</code>.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2170\">#2170</a>.<br/>
                        For Dymola, a conversion script makes this change.
                        The pulses and triggers will start at an integer multiple of the period of the pulse.</td>
