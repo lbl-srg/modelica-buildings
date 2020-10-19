@@ -63,7 +63,7 @@ block Economizer "Controller for economizer"
   Modelica.Blocks.Sources.Constant uni(k=1) "Unity signal"
     annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
   Modelica.Blocks.Sources.Constant closed(k=0) "Signal to close OA damper"
-    annotation (Placement(transformation(extent={{10,30},{30,50}})));
+    annotation (Placement(transformation(extent={{30,30},{50,50}})));
   Modelica.Blocks.Math.Max max
     "Takes bigger signal (OA damper opens for temp. control or for minimum outside air)"
     annotation (Placement(transformation(extent={{80,-10},{100,10}})));
@@ -140,7 +140,7 @@ equation
       horizontalAlignment=TextAlignment.Right));
   connect(swiOA.y, max.u1) annotation (Line(points={{112,120},{120,120},{120,100},
           {70,100},{70,6},{78,6}},color={0,0,127}));
-  connect(closed.y, swiOA.u3) annotation (Line(points={{31,40},{60,40},{60,112},
+  connect(closed.y, swiOA.u3) annotation (Line(points={{51,40},{60,40},{60,112},
           {88,112}}, color={0,0,127}));
   connect(hysLoc.y, swiOA.u2)
     annotation (Line(points={{-9,120},{88,120}}, color={255,0,255}));
@@ -161,12 +161,14 @@ equation
     annotation (Line(points={{152,0},{168,0}}, color={0,0,127}));
   connect(swiModClo.y, yOA) annotation (Line(points={{152,0},{160,0},{160,80},{220,
           80}}, color={0,0,127}));
-  connect(uEna, swiModClo.u2) annotation (Line(points={{-120,190},{140,190},{140,
-          20},{120,20},{120,0},{128,0}}, color={255,0,255}));
+  connect(uEna, swiModClo.u2) annotation (Line(points={{-120,190},{140,190},{
+          140,20},{124,20},{124,0},{128,0}},
+                                         color={255,0,255}));
   connect(max.y, swiModClo.u1) annotation (Line(points={{101,0},{110,0},{110,8},
           {128,8}}, color={0,0,127}));
-  connect(closed.y, swiModClo.u3) annotation (Line(points={{31,40},{116,40},{116,
-          -8},{128,-8}}, color={0,0,127}));
+  connect(closed.y, swiModClo.u3) annotation (Line(points={{51,40},{120,40},{
+          120,-8},{128,-8}},
+                         color={0,0,127}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{200,
             200}})),
