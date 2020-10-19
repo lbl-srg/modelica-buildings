@@ -63,7 +63,7 @@ void saveAppendJSONElements(
   size_t* bufLen,
   void (*SpawnFormatError)(const char *string, ...));
 
-void checkAndSetVerbosity(const int verbosity, void (*SpawnMessage)(const char *string));
+void checkAndSetVerbosity(FMUBuilding* bui, const int logLevel);
 
 void setFMUMode(FMUBuilding* bui, FMUMode mode);
 
