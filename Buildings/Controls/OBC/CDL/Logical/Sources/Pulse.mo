@@ -43,8 +43,8 @@ equation
           borderPattern=BorderPattern.Raised),     Text(
           extent={{-150,-140},{150,-110}},
           lineColor={0,0,0},
-          textString="%period"), Line(points={{-80,-70},{-40,-70},{-40,44},{0,
-              44},{0,-70},{40,-70},{40,44},{79,44}}),
+          textString="%period"), Line(points={{79,-70},{39,-70},{39,44},{-1,44},
+              {-1,-70},{-41,-70},{-41,44},{-80,44}}),
         Polygon(
           points={{-80,88},{-88,66},{-72,66},{-80,88}},
           lineColor={255,0,255},
