@@ -337,6 +337,20 @@ have been <b style=\"color:blue\">improved</b> in a
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2009\">issue 2009</a>.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.Sensors</b>
+    </td>
+    </tr>
+<tr><td valign=\"top\">Buildings.Fluid.Sensors.EnthalpyFlowRate<br/>
+                       Buildings.Fluid.Sensors.EntropyFlowRate<br/>
+                       Buildings.Fluid.Sensors.LatentEnthalpyFlowRate<br/>
+                       Buildings.Fluid.Sensors.SensibleEnthalpyFlowRate<br/>
+                       Buildings.Fluid.Sensors.VolumeFlowRate
+    </td>
+    <td valign=\"top\">Changed default value for <code>tau</code> from <code>1</code> to <code>0</code>.<br/>
+                       This is for
+                       <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1406\">#1406</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Examples</b>
     </td>
 </tr>
@@ -455,13 +469,13 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Logical.Latch<br/>
-                       Buildings.Controls.OBC.CDL.Logical.Toggle 
+                       Buildings.Controls.OBC.CDL.Logical.Toggle
     </td>
     <td valign=\"top\">Removed the parameter <code>pre_y_start</code>, and made the initial output to be equal to
                        latch or toggle input when the clear input is <code>false</code>.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2177\">#2177</a>.<br/>
                        For Dymola, a conversion script makes this change.</td>
-</tr>  
+</tr>
 <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Logical.Timer
     </td>
     <td valign=\"top\">Removed <code>reset</code> boolean input and added boolean output <code>passed</code>

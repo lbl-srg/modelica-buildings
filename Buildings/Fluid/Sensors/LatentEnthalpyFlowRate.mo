@@ -145,6 +145,12 @@ The sensor can only be used with medium models that implement the function
 revisions="<html>
 <ul>
 <li>
+October 19, 2020, by Antoine Gautier:<br/>
+Changed default value for <code>tau</code> from <code>1</code> to <code>0</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1406\">#1406</a>.
+</li>
+<li>
 February 25, 2020, by Michael Wetter:<br/>
 Changed icon to display its operating state.<br/>
 This is for
