@@ -18,12 +18,12 @@ protected
   parameter Modelica.SIunits.Time t1(fixed=false)
     "First end of amplitude";
   parameter Real y0 = offset + amplitude "Value when pulse is on";
-
 initial equation
   t0 = Buildings.Utilities.Math.Functions.round(
          x = integer(time/period)*period,
          n = 6);
   t1 = t0 + width*period;
+  y = if time >= t0 and time < t1 then y0 else offset;
 
 equation
   when {sample(t0, period)} then
@@ -31,6 +31,7 @@ equation
   elsewhen sample(t1, period) then
     y = offset;
   end when;
+
   annotation (
     defaultComponentName="pul",
     Icon(coordinateSystem(

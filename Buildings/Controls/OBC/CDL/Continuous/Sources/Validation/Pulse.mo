@@ -3,14 +3,18 @@ model Pulse "Validation model for the Pulse block"
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse pulse(
     amplitude = 2.0,
-    width = 0.5,
+    width = 0.3,
     offset = 0.2,
-    period = 1)
+    period = 0.8)
     "Block that generates pulse signal of type Real"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
   annotation (
-  experiment(StopTime=5.0, Tolerance=1e-06),
+  experiment(
+      StartTime=3.1,
+      StopTime=5,
+      Tolerance=1e-06,
+      __Dymola_Algorithm="Cvode"),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Continuous/Sources/Validation/Pulse.mos"
         "Simulate and plot"),
     Documentation(info="<html>
