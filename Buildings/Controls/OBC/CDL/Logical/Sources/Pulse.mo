@@ -77,7 +77,7 @@ Block that outputs a pulse signal as shown below.
      alt=\"BooleanPulse.png\" />
 </p>
 <p>
-The pulse signal is generated an infinite number of times.
+The pulse signal is generated an infinite number of times, and aligned with time <i>t=0</i>.
 </p>
 </html>", revisions="<html>
 <ul>

@@ -23,7 +23,7 @@ protected
   parameter Modelica.SIunits.Time t0(fixed=false)
     "First sample time instant";
 
-  parameter Modelica.SIunits.Time timeRange(min=1E-6) = timeScale * (table[end,1] - table[1,1])
+  parameter Modelica.SIunits.Time timeRange = timeScale * (table[end,1] - table[1,1])
     "Range of time in table";
 
   final parameter Integer nT=size(table, 1)

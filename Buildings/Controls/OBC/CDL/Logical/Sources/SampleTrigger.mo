@@ -69,6 +69,9 @@ at sample times (defined by parameter <code>period</code>) and is otherwise
 <img src=\"modelica://Buildings/Resources/Images/Controls/OBC/CDL/Logical/Sources/SampleTrigger.png\"
      alt=\"SampleTrigger.png\" />
 </p>
+<p>
+The trigger signal is generated an infinite number of times, and aligned with time <i>t=0</i>.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>
