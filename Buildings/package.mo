@@ -451,6 +451,13 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2124\">#2124</a>.<br/>
                        For Dymola, a conversion script makes this change.</td>
 </tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse
+    </td>
+    <td valign=\"top\">Removed parameter <code>startTime</code>.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2170\">#2170</a>.<br/>
+                       For Dymola, a conversion script makes this change.
+                       The pulses will start at an integer multiple of the period of the pulse.</td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL.Logical</b>
     </td>
 </tr>
