@@ -297,6 +297,15 @@ have been <b style=\"color:blue\">improved</b> in a
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1893\">issue 1893</a>.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.Controls.OBC.ASHRAE</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Controller
+    </td>
+    <td valign=\"top\">Changed the default heating maximum airflow setpoint to 30% of the zone nominal airflow.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2172\">issue 2172</a>.
+</tr>    
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL.Continuous</b>
     </td>
 </tr>
