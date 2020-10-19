@@ -96,8 +96,7 @@ model EquationFitReversible_CoolingClosedLoop
     amplitude=1,
     width=0.7,
     period=200,
-    offset=6 + 273.15,
-    startTime=0)
+    offset=6 + 273.15)
     "Set point chilled water temperature"
     annotation (Placement(transformation(extent={{-90,30},{-70,50}})));
   Sources.Boundary_pT pre(
@@ -178,6 +177,12 @@ to the heatpump where it is cooled to meet the corresponding set point water tem
 
 </html>", revisions="<html>
 <ul>
+<li>
+October 19, 2020, by Michael Wetter:<br/>
+Removed <code>startTime=0</code> for pulse block.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2170\">#2170</a>.
+</li>
 <li>
 May 1, 2020, by Hagar Elarga:<br/>
 Corrected the <code>uMod</code> parameters and relocated the pressure source <code> pre</code> 
