@@ -7,29 +7,30 @@ block Pulse "Generate pulse signal of type Real"
     final unit = "1") = 0.5 "Width of pulse in fraction of period";
   parameter Modelica.SIunits.Time period(final min=Constants.small)
    "Time for one period";
-  parameter Integer nPeriod=-1
-    "Number of periods (< 0 means infinite number of periods)";
   parameter Real offset=0 "Offset of output signals";
-  parameter Modelica.SIunits.Time startTime=0
-    "Output = offset for time < startTime";
+
   Interfaces.RealOutput y "Connector of Pulse output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected
-  Modelica.SIunits.Time T_width=period*width "Pulse duration time";
-  Modelica.SIunits.Time T_start "Start time of current period";
-  Integer count "Period count";
+  parameter Modelica.SIunits.Time t0(fixed=false)
+    "First sample time instant";
+  parameter Modelica.SIunits.Time t1(fixed=false)
+    "First end of amplitude";
+  parameter Real y0 = offset + amplitude "Value when pulse is on";
+
 initial equation
-  count = integer((time - startTime)/period);
-  T_start = startTime + count*period;
+  t0 = Buildings.Utilities.Math.Functions.round(
+         x = integer(time/period)*period,
+         n = 6);
+  t1 = t0 + width*period;
+
 equation
-  when integer((time - startTime)/period) > pre(count) then
-    count = pre(count) + 1;
-    T_start = time;
+  when {sample(t0, period)} then
+    y = y0;
+  elsewhen sample(t1, period) then
+    y = offset;
   end when;
-  y = offset + (if (time < startTime or nPeriod == 0 or (nPeriod > 0 and
-    count >= nPeriod)) then 0 else if time < T_start + T_width then amplitude
-     else 0);
   annotation (
     defaultComponentName="pul",
     Icon(coordinateSystem(
@@ -52,8 +53,8 @@ equation
           lineColor={192,192,192},
           fillColor={192,192,192},
           fillPattern=FillPattern.Solid),
-        Line(points={{-80,-70},{-40,-70},{-40,44},{0,44},{0,-70},{40,-70},{40,
-              44},{79,44}}),
+        Line(points={{-80,44},{-40,44},{-40,-70},{0,-70},{0,44},{40,44},{40,-70},
+              {68,-70}}),
         Text(
           extent={{-147,-152},{153,-112}},
           lineColor={0,0,0},
@@ -68,18 +69,23 @@ equation
           textString=DynamicSelect("", String(y, leftjustified=false, significantDigits=3)))}),
     Documentation(info="<html>
 <p>
-The Real output y is a pulse signal:
+Block that outputs a pulse signal as shown below.
 </p>
 <p align=\"center\">
 <img src=\"modelica://Buildings/Resources/Images/Controls/OBC/CDL/Continuous/Sources/Pulse.png\"
      alt=\"Pulse.png\" />
      </p>
 <p>
-The pulse signal is generated <code>nPeriod</code> amount of times.
-For infinite number of pulses, set <code>nPeriod = -1</code>.
+The pulse signal is generated an infinite number of times.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 19, 2020, by Michael Wetter:<br/>
+Refactored implementation, avoided state events.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2170\">#2170</a>.
+</li>
 <li>
 March 2, 2020, by Michael Wetter:<br/>
 Changed icon to display dynamically the output value.
