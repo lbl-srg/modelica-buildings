@@ -1,0 +1,13 @@
+compareVars :=
+  {
+    "zonTemAla1.TRooMea",
+    "zonTemAla2.TRooMea",
+    "zonTemAla1.TRooSet",
+    "zonTemAla2.TRooSet",
+    "zonTemAla1.TErr",
+    "zonTemAla2.TErr",
+    "zonTemAla1.addErr.y",
+    "zonTemAla2.addErr.y",
+    "zonTemAla1.TZonAla",
+    "zonTemAla2.TZonAla"
+  };

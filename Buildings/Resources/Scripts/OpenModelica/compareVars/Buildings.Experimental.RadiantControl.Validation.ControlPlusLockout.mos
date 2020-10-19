@@ -1,0 +1,12 @@
+compareVars :=
+  {
+    "conPluLoc.htgSig",
+    "conPluLoc.clgSig",
+    "conPluLoc.allLoc.htgSigL",
+    "conPluLoc.allLoc.clgSigL",
+    "conPluLoc.deaCon.clgCal",
+    "conPluLoc.deaCon.htgCal",
+    "conPluLoc.err.slaTemErr",
+    "conPluLoc.deaCon.TDeaRel",
+    "conPluLoc.deaCon.TDeaNor"
+  };

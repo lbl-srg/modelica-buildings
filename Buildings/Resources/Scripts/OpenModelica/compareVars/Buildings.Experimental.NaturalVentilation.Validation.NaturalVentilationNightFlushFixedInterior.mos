@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "temRoo.T",
+    "natVenNitFluFix.nitFluFix.yRooSetAdj",
+    "natVenNitFluFix.yWinOpe"
+  };

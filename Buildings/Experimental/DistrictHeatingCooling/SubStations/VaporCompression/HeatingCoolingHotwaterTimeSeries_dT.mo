@@ -439,8 +439,8 @@ equation
           {-100,350},{-100,382},{-100,410},{-157,410}}, color={0,0,127}));
   connect(gainH.y, mConFlow.u2) annotation (Line(points={{-119,164},{-119,164},
           {-82,164}},                color={0,0,127}));
-  connect(mConFlow.y, sou.m_flow_in) annotation (Line(points={{-59,170},{-50,
-          170},{-50,236},{-40,236}},
+  connect(mConFlow.y, sou.m_flow_in) annotation (Line(points={{-59,170},{-50,170},
+          {-50,236},{-42,236}},
                               color={0,0,127}));
   connect(sou.ports[1], heaPum.port_a1) annotation (Line(points={{-20,228},{10,
           228},{22,228}},    color={0,127,255}));
@@ -475,7 +475,7 @@ equation
   connect(souHotWat.ports[1], heaPumHotWat.port_a1) annotation (Line(points={{-2,-76},
           {0,-76},{20,-76}},                  color={0,127,255}));
   connect(mConHotWatFlow.y, souHotWat.m_flow_in) annotation (Line(points={{-39,-68},
-          {-22,-68}},                        color={0,0,127}));
+          {-24,-68}},                        color={0,0,127}));
   connect(gainHotWat.y, mConHotWatFlow.u2) annotation (Line(points={{-79,-90},{
           -80,-90},{-80,-90},{-78,-90},{-70,-90},{-70,-74},{-62,-74}},
                                  color={0,0,127}));
@@ -597,7 +597,7 @@ equation
   connect(deMul.y1[1], mPumCooEva_flow.u) annotation (Line(points={{-157,417},{-106,
           417},{-106,-220},{50,-220},{50,-340},{42,-340}}, color={0,0,127}));
   connect(mPumCooEva_flow.y, sou1.m_flow_in) annotation (Line(points={{19,-340},
-          {-18,-340},{-18,-342}}, color={0,0,127}));
+          {-16,-340},{-16,-342}}, color={0,0,127}));
   annotation (
   defaultComponentName="bui",
   Documentation(info="<html>

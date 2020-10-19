@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "winCon.TRooMea",
+    "winCon.TRooSet",
+    "winCon.yWinOpeReq"
+  };

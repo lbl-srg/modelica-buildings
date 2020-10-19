@@ -1,0 +1,11 @@
+compareVars :=
+  {
+    "allLoc.clgSigL",
+    "allLoc.hysLim.clgSigHys",
+    "allLoc.airTemLim.clgSigAirTem",
+    "allLoc.chwRetLim.cooSigChwRet",
+    "allLoc.htgSigL",
+    "allLoc.hysLim.htgSigHys",
+    "allLoc.airTemLim.htgSigAirTem",
+    "allLoc.nitFluLoc.htgSigNitFlu"
+  };

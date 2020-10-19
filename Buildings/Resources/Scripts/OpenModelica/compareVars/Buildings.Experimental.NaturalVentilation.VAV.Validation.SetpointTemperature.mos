@@ -1,0 +1,10 @@
+compareVars :=
+  {
+    "setTemRes.yHtgStpVAV",
+    "setTemRes.yClgStpVAV",
+    "setTemRes.yHtgStpWin",
+    "setTemRes.yClgStpWin",
+    "setTemRes.THeaSet",
+    "setTemRes.THeaSet",
+    "setTemRes.uNatVen"
+  };

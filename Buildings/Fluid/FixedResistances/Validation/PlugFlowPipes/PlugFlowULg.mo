@@ -1,4 +1,4 @@
-within Buildings.Fluid.FixedResistances.Validation.PlugFlowPipes;
+﻿within Buildings.Fluid.FixedResistances.Validation.PlugFlowPipes;
 model PlugFlowULg "Validation against data from Université de Liège"
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.Water;

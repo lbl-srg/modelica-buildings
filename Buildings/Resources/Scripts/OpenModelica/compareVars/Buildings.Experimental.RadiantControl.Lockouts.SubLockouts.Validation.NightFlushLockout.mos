@@ -1,0 +1,5 @@
+compareVars :=
+  {
+    "nitFluLoc.nitFluSig",
+    "nitFluLoc.htgSigNitFlu"
+  };

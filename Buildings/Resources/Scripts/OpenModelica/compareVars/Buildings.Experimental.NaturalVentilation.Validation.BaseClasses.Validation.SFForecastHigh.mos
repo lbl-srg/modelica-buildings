@@ -1,0 +1,5 @@
+compareVars :=
+  {
+    "forHiSF.TForecastHigh",
+    "weaDat.weaBus.TDryBul"
+  };

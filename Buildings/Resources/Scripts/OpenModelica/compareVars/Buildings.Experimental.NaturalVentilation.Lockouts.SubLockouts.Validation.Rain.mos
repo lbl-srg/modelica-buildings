@@ -1,0 +1,5 @@
+compareVars :=
+  {
+    "raiLoc.uRai",
+    "raiLoc.yRaiNatVenSig"
+  };

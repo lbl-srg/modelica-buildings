@@ -1,0 +1,10 @@
+compareVars :=
+  {
+    "dryBulLoc.TDryBulCut",
+    "dryBulLoc.TNitFluCut",
+    "dryBulLoc.TDryBul",
+    "dryBulLoc.TRooSet",
+    "dryBulLoc.TRooMea",
+    "dryBulLoc.uNitFlu",
+    "dryBulLoc.yDryBulOASig"
+  };
