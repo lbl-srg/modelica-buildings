@@ -197,7 +197,7 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     have_reset=true,
     have_frePro=true,
     VOut_flow_min=0.3*m_flow_nominal/1.2,
-    k=0.05,
+    k=0.03,
     Ti=120)
            "Controller for economizer"
     annotation (Placement(transformation(extent={{-80,108},{-60,128}})));
@@ -1052,7 +1052,7 @@ equation
   connect(conPreHeatCoi.yVal, valPreHea.y) annotation (Line(points={{17,-107},{40,
           -107},{40,-170},{108,-170}}, color={0,0,127}));
   connect(modeSelector.yFan, conFanSupCol.uFan) annotation (Line(points={{-117,
-          -366},{-100,-366},{-100,-370},{-100,76},{98,76}},        color={255,0,
+          -366},{-100,-366},{-100,76},{98,76}},                    color={255,0,
           255}));
   connect(modeSelector.yFan, conFanSupHot.uFan) annotation (Line(points={{-117,
           -366},{-100,-366},{-100,76},{94,76},{94,126},{118,126}},        color=
@@ -1067,12 +1067,9 @@ equation
   connect(modeSelector.yFan, eas.yFan) annotation (Line(points={{-117,-366},{
           800,-366},{800,73.2},{819.467,73.2}}, color={255,0,255}));
   connect(modeSelector.yFan, nor.yFan) annotation (Line(points={{-117,-366},{
-          -117,-372},{932,-372},{932,73.2},{959.467,73.2}},   color={255,0,255}));
+          932,-366},{932,73.2},{959.467,73.2}},               color={255,0,255}));
   connect(modeSelector.yFan, wes.yFan) annotation (Line(points={{-117,-366},{
           1074,-366},{1074,73.2},{1097.47,73.2}}, color={255,0,255}));
-  connect(modeSelector.yFan,conEco.uEna)  annotation (Line(points={{-117,-366},
-          {-117,-372},{-100,-372},{-100,98},{-73.3333,98},{-73.3333,105.333}},
-        color={255,0,255}));
   connect(TCoiCoo.T, cooCoiCon.TSup) annotation (Line(points={{420,-139},{420,
           -122},{440,-122},{440,-172},{290,-172},{290,-184},{298,-184}}, color=
           {0,0,127}));
@@ -1085,6 +1082,9 @@ equation
         color={0,0,127}));
   connect(modeSelector.yFan, cooCoiCon.uEna) annotation (Line(points={{-117,
           -366},{260,-366},{260,-196},{298,-196}}, color={255,0,255}));
+  connect(modeSelector.yEco, conEco.uEna) annotation (Line(points={{-117,-376},
+          {-96,-376},{-96,100},{-73.3333,100},{-73.3333,105.333}}, color={255,0,
+          255}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-400,-400},{
             1400,640}})),
