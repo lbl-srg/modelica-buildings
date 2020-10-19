@@ -2,10 +2,8 @@ within Buildings.Utilities.Math.Functions;
 function round "Round real number to specified digits"
   extends Modelica.Icons.Function;
 
-  input Integer n "Number of digits being round to";
-
   input Real x "Argument to be rounded";
-
+  input Integer n "Number of digits being round to";
   output Real y "Connector of Real output signal";
 
 protected
