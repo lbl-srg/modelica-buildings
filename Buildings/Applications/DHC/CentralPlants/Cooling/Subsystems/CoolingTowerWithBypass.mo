@@ -185,7 +185,9 @@ equation
           -58,-80},{-58,-62}}, color={255,0,255}));
   connect(on[1], reaToBoo.u) annotation (Line(points={{-120,30},{-96,30},{-96,
           -80},{-92,-80}}, color={0,0,127}));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+  annotation (
+    defaultComponentName="cooTowWitByp",
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),           Icon(coordinateSystem(
           preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics={
         Polygon(

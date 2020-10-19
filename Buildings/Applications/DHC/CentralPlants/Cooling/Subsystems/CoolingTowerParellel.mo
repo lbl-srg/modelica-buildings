@@ -131,7 +131,9 @@ equation
   end if;
   connect(y_actual, val.y) annotation (Line(points={{-20,74},{-14,74},{-14,60},{
           -50,60},{-50,12}}, color={0,0,127}));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+  annotation (
+    defaultComponentName="cooTowPar",
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),           Icon(coordinateSystem(
           preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics={
         Rectangle(
