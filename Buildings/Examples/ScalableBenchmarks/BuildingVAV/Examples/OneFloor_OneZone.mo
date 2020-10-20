@@ -368,8 +368,15 @@ equation
             255}));
     connect(conTSup[iFlo].yOA, conEco[iFlo].uOATSup) annotation (Line(points={{-218,-60},{-210,
             -60},{-210,-40},{-296,-40},{-296,99.2},{-286.8,99.2}}, color={0,0,127}));
+    connect(TSup[iFlo].T, conTSup[iFlo].TSup) annotation (Line(points={{12,-21.2},{12,-16},{0,
+            -16},{0,-100},{-252,-100},{-252,-54},{-242,-54}}, color={0,0,127}));
+    connect(conTSup[iFlo].yHea, valHea[iFlo].y) annotation (Line(points={{-218,-54},{-132,-54},
+            {-132,-55},{-127,-55}}, color={0,0,127}));
+    connect(conTSup[iFlo].yCoo, valCoo[iFlo].y) annotation (Line(points={{-218,-66},{-210,-66},
+            {-210,-94},{-66,-94},{-66,-55},{-57,-55}}, color={0,0,127}));
+    connect(TAirSupSet[iFlo].TSet, conTSup[iFlo].TSupSet)
+      annotation (Line(points={{-278,-60},{-242,-60}}, color={0,0,127}));
   end for;
-
   for iFlo in 1:nFlo loop
     for iZon in 1:nZon loop
       connect(vavTer[iZon, iFlo].port_b, buiZon.portsIn[iZon, iFlo])
@@ -404,7 +411,6 @@ equation
         extent={{6,3},{6,3}}));
     end for;
   end for;
-
   connect(weaDat.weaBus, weaBus)
     annotation (Line(points={{-340,170},{-336,170},{-324,170}},
       color={255,204,51}, thickness=0.5));
@@ -415,16 +421,6 @@ equation
   connect(weaBus, buiZon.weaBus)
     annotation (Line(points={{-324,170},{-324,170},{-44,170},{-44,80},{51.6,80}},
       color={255,204,51}, thickness=0.5));
-
-  connect(TSup.T, conTSup.TSup) annotation (Line(points={{12,-21.2},{12,-16},{0,
-          -16},{0,-100},{-252,-100},{-252,-54},{-242,-54}}, color={0,0,127}));
-  connect(conTSup.yHea, valHea.y) annotation (Line(points={{-218,-54},{-132,-54},
-          {-132,-55},{-127,-55}}, color={0,0,127}));
-  connect(conTSup.yCoo, valCoo.y) annotation (Line(points={{-218,-66},{-210,-66},
-          {-210,-94},{-66,-94},{-66,-55},{-57,-55}}, color={0,0,127}));
-  connect(TAirSupSet.TSet, conTSup.TSupSet)
-    annotation (Line(points={{-278,-60},{-242,-60}}, color={0,0,127}));
-
 annotation (
   experiment(
       StopTime=604800,
