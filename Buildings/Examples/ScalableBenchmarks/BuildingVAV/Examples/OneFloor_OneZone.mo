@@ -293,7 +293,8 @@ equation
       annotation (Line(points={{120.6,74},{130,74},{130,6},{-67.95,6},{-67.95,54.05}},
         color={0,0,127}, pattern=LinePattern.Dash));
     connect(TOut.y, controlBus[iFlo].TOut)
-      annotation (Line(points={{-315.4,146},{-315.4,148},{-67.95,148},{-67.95,54.05}},
+      annotation (Line(points={{-315.4,146},{-68,146},{-68,100},{-67.95,100},{
+            -67.95,54.05}},
         color={0,0,127}, pattern=LinePattern.Dash));
     connect(TSetHea.y[1], controlBus[iFlo].TRooSetHea)
       annotation (Line(points={{-117.4,36},{-92,36},{-92,54.05},{-67.95,54.05}},
@@ -374,11 +375,7 @@ equation
             -163.273,51.6364},{-163.273,51.6364},{-146,51.6364},{-146,163.2},{
             12.6,163.2}},
             color={255,0,255}));
-      connect(modeSelector[iFlo].cb, TAirSupSet[iFlo].controlBus) annotation (Line(
-      points={{-177.455,53.4545},{-184,53.4545},{-184,-86},{-290,-86},{-290,-68}},
 
-      color={255,204,51},
-      thickness=0.5));
   end for;
   for iFlo in 1:nFlo loop
     for iZon in 1:nZon loop
@@ -425,6 +422,14 @@ equation
     annotation (Line(points={{-324,170},{-324,170},{-44,170},{-44,80},{51.6,80}},
       color={255,204,51}, thickness=0.5));
 
+  connect(controlBus, TAirSupSet.controlBus) annotation (Line(
+      points={{-68,54},{-72,54},{-72,60},{-274,60},{-274,-68},{-290,-68}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%first",
+      index=-1,
+      extent={{6,3},{6,3}},
+      horizontalAlignment=TextAlignment.Left));
 annotation (
   experiment(
       StopTime=604800,
