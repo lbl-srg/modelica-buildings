@@ -2,20 +2,20 @@ within Buildings.ThermalZones.EnergyPlus.Examples.VAVReheatRefBldgSmallOffice.Ba
 model Floor "Model of a floor of the building"
   extends
     Buildings.ThermalZones.EnergyPlus.Examples.VAVReheatRefBldgSmallOffice.BaseClasses.PartialFloor(
-    VRooCor=456.455,
-    VRooSou=346.022,
-    VRooNor=346.022,
-    VRooEas=205.265,
-    VRooWes=205.265,
+    final VRooCor=456.455,
+    final VRooSou=346.022,
+    final VRooNor=346.022,
+    final VRooEas=205.265,
+    final VRooWes=205.265,
     intGaiFra(table=[0,0; 24,0]),
     opeWesCor(wOpe=10*(17.69 + 8.46)/(40.76 + 24.13)),
     opeSouCor(wOpe=10*(17.69 + 8.46)/(40.76 + 24.13)),
     opeNorCor(wOpe=10*(17.69 + 8.46)/(40.76 + 24.13)),
     opeEasCor(wOpe=10*(17.69 + 8.46)/(40.76 + 24.13)),
-    leaWes(res(m_flow(nominal=0.0))),
-    leaSou(res(m_flow(nominal=0.0))),
-    leaNor(res(m_flow(nominal=0.0))),
-    leaEas(res(m_flow(nominal=0.0))));
+    leaWes(res(m_flow(nominal=0.1))),
+    leaSou(res(m_flow(nominal=0.1))),
+    leaNor(res(m_flow(nominal=0.1))),
+    leaEas(res(m_flow(nominal=0.1))));
 
 
 
