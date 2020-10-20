@@ -52,6 +52,9 @@ convertElement(
 convertElement(
     "Buildings.Controls.OBC.CDL.Integers.LessThreshold",
     "threshold", "t");
+convertElement(
+    "Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse",
+    "nperiod", "nPeriod");
 
 // Conversion for https://github.com/lbl-srg/modelica-buildings/issues/2124
 convertClass("Buildings.Controls.OBC.CDL.Continuous.Validation.NumberOfRequests",
@@ -74,3 +77,11 @@ convertClass(
 convertClass(
     "Buildings.Controls.OBC.CDL.Types.Reset",
     "Buildings.Obsolete.Controls.OBC.CDL.Types.Reset");
+
+
+// Conversion for https://github.com/lbl-srg/modelica-buildings/issues/2177
+// remove parameter pre_y_start
+convertModifiers("Buildings.Controls.OBC.CDL.Logical.Latch",
+                {"pre_y_start"}, fill("",0), true);
+convertModifiers("Buildings.Controls.OBC.CDL.Logical.Toggle",
+                {"pre_y_start"}, fill("",0), true);

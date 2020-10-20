@@ -7,7 +7,7 @@ block Pulse "Generate pulse signal of type Real"
     final unit = "1") = 0.5 "Width of pulse in fraction of period";
   parameter Modelica.SIunits.Time period(final min=Constants.small)
    "Time for one period";
-  parameter Integer nperiod=-1
+  parameter Integer nPeriod=-1
     "Number of periods (< 0 means infinite number of periods)";
   parameter Real offset=0 "Offset of output signals";
   parameter Modelica.SIunits.Time startTime=0
@@ -27,8 +27,8 @@ equation
     count = pre(count) + 1;
     T_start = time;
   end when;
-  y = offset + (if (time < startTime or nperiod == 0 or (nperiod > 0 and
-    count >= nperiod)) then 0 else if time < T_start + T_width then amplitude
+  y = offset + (if (time < startTime or nPeriod == 0 or (nPeriod > 0 and
+    count >= nPeriod)) then 0 else if time < T_start + T_width then amplitude
      else 0);
   annotation (
     defaultComponentName="pul",
@@ -70,10 +70,13 @@ equation
 <p>
 The Real output y is a pulse signal:
 </p>
-
 <p align=\"center\">
 <img src=\"modelica://Buildings/Resources/Images/Controls/OBC/CDL/Continuous/Sources/Pulse.png\"
      alt=\"Pulse.png\" />
+     </p>
+<p>
+The pulse signal is generated <code>nPeriod</code> amount of times.
+For infinite number of pulses, set <code>nPeriod = -1</code>.
 </p>
 </html>", revisions="<html>
 <ul>
