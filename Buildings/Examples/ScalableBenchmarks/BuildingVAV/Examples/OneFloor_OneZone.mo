@@ -351,6 +351,34 @@ equation
         color={0,127,255}, thickness=0.5));
     connect(fan_dP_On_Off[iFlo].y, fan[iFlo].dp_in)
       annotation (Line(points={{-55.3,-7},{-30,-7},{-30,-18}}, color={0,0,127}));
+    connect(conTSup[iFlo].yOA, conEco[iFlo].uOATSup) annotation (Line(points={{-218,-60},{
+            -212,-60},{-212,108},{-290,108},{-290,99.2},{-286.8,99.2}}, color={0,
+            0,127}));
+    connect(modeSelector[iFlo].yEco, conEco[iFlo].uEna) annotation (Line(points={{-163.273,
+            44.3636},{-160,44.3636},{-160,80},{-282,80},{-282,86.4}}, color={255,
+            0,255}));
+    connect(conTSup[iFlo].yHea, valHea[iFlo].y) annotation (Line(points={{-218,-54},{-160,-54},
+            {-160,-55},{-127,-55}}, color={0,0,127}));
+    connect(conTSup[iFlo].yCoo, valCoo[iFlo].y) annotation (Line(points={{-218,-66},{-180,-66},
+            {-180,-62},{-60,-62},{-60,-55},{-57,-55}}, color={0,0,127}));
+    connect(TAirSupSet[iFlo].TSet, conTSup[iFlo].TSupSet)
+      annotation (Line(points={{-278,-60},{-242,-60}}, color={0,0,127}));
+    connect(TCoiHeaOut[iFlo].T, conTSup[iFlo].TSup) annotation (Line(points={{-95,-21.2},{-95,
+            -18},{-260,-18},{-260,-54},{-242,-54}}, color={0,0,127}));
+    connect(controlBus[iFlo], TAirSupSet[iFlo].controlBus) annotation (Line(
+        points={{-68,54},{-72,54},{-72,64},{-290,64},{-290,-68}},
+        color={255,204,51},
+        thickness=0.5), Text(
+        string="%first",
+        index=-1,
+        extent={{-3,6},{-3,6}},
+        horizontalAlignment=TextAlignment.Right));
+    connect(modeSelector[iFlo].yFan, conTSup[iFlo].uEna) annotation (Line(points={{-163.273,
+            51.6364},{-146,51.6364},{-146,0},{-250,0},{-250,-66},{-242,-66}},
+          color={255,0,255}));
+    connect(modeSelector[iFlo].yFan, conFanRet[iFlo].uFan) annotation (Line(points={{-163.273,
+            51.6364},{-163.273,51.6364},{-146,51.6364},{-146,163.2},{12.6,163.2}},
+            color={255,0,255}));
   end for;
   for iFlo in 1:nFlo loop
     for iZon in 1:nZon loop
@@ -396,35 +424,6 @@ equation
   connect(weaBus, buiZon.weaBus)
     annotation (Line(points={{-324,170},{-324,170},{-44,170},{-44,80},{51.6,80}},
       color={255,204,51}, thickness=0.5));
-  connect(modeSelector.yFan, conFanRet.uFan) annotation (Line(points={{-163.273,
-          51.6364},{-163.273,51.6364},{-146,51.6364},{-146,163.2},{12.6,163.2}},
-                                                                  color={255,0,
-          255}));
-  connect(conTSup.yOA, conEco.uOATSup) annotation (Line(points={{-218,-60},{
-          -212,-60},{-212,108},{-290,108},{-290,99.2},{-286.8,99.2}}, color={0,
-          0,127}));
-  connect(modeSelector.yEco, conEco.uEna) annotation (Line(points={{-163.273,
-          44.3636},{-160,44.3636},{-160,80},{-282,80},{-282,86.4}}, color={255,
-          0,255}));
-  connect(conTSup.yHea, valHea.y) annotation (Line(points={{-218,-54},{-160,-54},
-          {-160,-55},{-127,-55}}, color={0,0,127}));
-  connect(conTSup.yCoo, valCoo.y) annotation (Line(points={{-218,-66},{-180,-66},
-          {-180,-62},{-60,-62},{-60,-55},{-57,-55}}, color={0,0,127}));
-  connect(TAirSupSet.TSet, conTSup.TSupSet)
-    annotation (Line(points={{-278,-60},{-242,-60}}, color={0,0,127}));
-  connect(TCoiHeaOut.T, conTSup.TSup) annotation (Line(points={{-95,-21.2},{-95,
-          -18},{-260,-18},{-260,-54},{-242,-54}}, color={0,0,127}));
-  connect(controlBus, TAirSupSet.controlBus) annotation (Line(
-      points={{-68,54},{-72,54},{-72,64},{-290,64},{-290,-68}},
-      color={255,204,51},
-      thickness=0.5), Text(
-      string="%first",
-      index=-1,
-      extent={{-3,6},{-3,6}},
-      horizontalAlignment=TextAlignment.Right));
-  connect(modeSelector.yFan, conTSup.uEna) annotation (Line(points={{-163.273,
-          51.6364},{-146,51.6364},{-146,0},{-250,0},{-250,-66},{-242,-66}},
-        color={255,0,255}));
 annotation (
   experiment(
       StopTime=604800,
