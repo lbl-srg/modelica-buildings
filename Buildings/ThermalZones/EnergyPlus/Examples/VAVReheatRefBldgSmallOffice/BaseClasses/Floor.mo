@@ -2,20 +2,23 @@ within Buildings.ThermalZones.EnergyPlus.Examples.VAVReheatRefBldgSmallOffice.Ba
 model Floor "Model of a floor of the building"
   extends
     Buildings.ThermalZones.EnergyPlus.Examples.VAVReheatRefBldgSmallOffice.BaseClasses.PartialFloor(
-    final VRooCor=456.455,
-    final VRooSou=346.022,
-    final VRooNor=346.022,
-    final VRooEas=205.265,
-    final VRooWes=205.265,
+    VRooCor=456.455,
+    VRooSou=346.022,
+    VRooNor=346.022,
+    VRooEas=205.265,
+    VRooWes=205.265,
     intGaiFra(table=[0,0; 24,0]),
     opeWesCor(wOpe=10*(17.69 + 8.46)/(40.76 + 24.13)),
     opeSouCor(wOpe=10*(17.69 + 8.46)/(40.76 + 24.13)),
     opeNorCor(wOpe=10*(17.69 + 8.46)/(40.76 + 24.13)),
     opeEasCor(wOpe=10*(17.69 + 8.46)/(40.76 + 24.13)),
-    leaWes(res(m_flow(nominal=0.1))),
-    leaSou(res(m_flow(nominal=0.1))),
-    leaNor(res(m_flow(nominal=0.1))),
-    leaEas(res(m_flow(nominal=0.1))));
+    leaWes(res(m_flow(nominal=0.0))),
+    leaSou(res(m_flow(nominal=0.0))),
+    leaNor(res(m_flow(nominal=0.0))),
+    leaEas(res(m_flow(nominal=0.0))));
+
+
+
   // Above, the volume V is for Spawn obtained in the initial equation section.
   // Hence it is not known when the model is compiled. This leads to a
   // warning in Dymola and an error in Optimica (Modelon#2020031339000191)
@@ -82,13 +85,18 @@ model Floor "Model of a floor of the building"
     annotation (Placement(transformation(extent={{214,380},{234,400}})));
 
 protected
-  inner Building building(
-    idfName=Modelica.Utilities.Files.loadResource(
-        "modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus/Validation/RefBldgSmallOffice/RefBldgSmallOfficeNew2004_Chicago.idf"),
-    weaName=Modelica.Utilities.Files.loadResource(
-        "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"),
-    showWeatherData=false)
-    "Building model"
+  parameter String idfName=Modelica.Utilities.Files.loadResource(
+    "modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus/Validation/RefBldgSmallOffice/RefBldgSmallOfficeNew2004_Chicago.idf")
+    "Name of the IDF file";
+
+  parameter String weaName = Modelica.Utilities.Files.loadResource(
+    "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
+    "Name of the weather file";
+
+  inner Buildings.ThermalZones.EnergyPlus.Building building(
+    idfName=idfName,
+    weaName=weaName)
+    "Building-level declarations"
     annotation (Placement(transformation(extent={{140,458},{160,478}})));
 
 initial equation

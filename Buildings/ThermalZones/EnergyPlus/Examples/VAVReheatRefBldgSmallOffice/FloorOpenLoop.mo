@@ -14,10 +14,33 @@ model FloorOpenLoop "Open loop model of one floor"
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=weaName)
     "Weather data reader"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
+
   BoundaryConditions.WeatherData.Bus weaBus "Weather data bus"
     annotation (Placement(transformation(extent={{-50,40},{-30,60}})));
+
   Buildings.ThermalZones.EnergyPlus.Examples.VAVReheatRefBldgSmallOffice.BaseClasses.Floor flo(
-    redeclare package Medium = Medium)
+      redeclare package Medium = Medium,
+      use_windPressure=false,
+      opeWesCor(wOpe=10),
+      opeSouCor(wOpe=10),
+      opeNorCor(wOpe=10),
+      opeEasCor(wOpe=10),
+      intGaiFra(table=[0,0.05;
+             8,0.05;
+             9,0.9;
+             12,0.9;
+             12,0.8;
+             13,0.8;
+             13,1;
+             17,1;
+             19,0.1;
+             24,0.05]),
+      nor(T_start=275.15),
+      wes(T_start=275.15),
+      eas(T_start=275.15),
+      sou(T_start=275.15),
+      cor(T_start=275.15),
+      att(T_start=275.15))
     "One floor of the office building"
     annotation (Placement(transformation(extent={{32,-2},{86,28}})));
   Fluid.Sources.MassFlowSource_WeatherData bou[4](
