@@ -1052,7 +1052,7 @@ equation
           -366},{-220,-366},{-220,76},{98,76}},                    color={255,0,
           255}));
   connect(modeSelector.yFan, conFanSupHot.uFan) annotation (Line(points={{-117,
-          -366},{-220,-366},{-220,84},{-26,84},{-26,126},{118,126}},      color=
+          -366},{-220,-366},{-220,76},{94,76},{94,126},{118,126}},        color=
          {255,0,255}));
   connect(modeSelector.yFan, conFanRet.uFan) annotation (Line(points={{-117,
           -366},{-220,-366},{-220,258},{108,258},{108,236},{238,236}}, color={
@@ -1068,7 +1068,7 @@ equation
   connect(modeSelector.yFan, wes.yFan) annotation (Line(points={{-117,-366},{
           1074,-366},{1074,73.2},{1097.47,73.2}}, color={255,0,255}));
   connect(modeSelector.yEco, conEco.uEna) annotation (Line(points={{-117,-376},
-          {-216,-376},{-216,108},{-73.3333,108},{-73.3333,107.333}},
+          {-216,-376},{-216,100},{-73.3333,100},{-73.3333,107.333}},
                                                                    color={255,0,
           255}));
   connect(conCooCoi.y, valCoo.y) annotation (Line(points={{311,-200},{360,-200},
