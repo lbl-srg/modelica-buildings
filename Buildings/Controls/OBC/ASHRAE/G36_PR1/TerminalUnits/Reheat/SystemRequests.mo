@@ -926,7 +926,7 @@ sampled, as sampling were to change the dynamic response.
 </html>", revisions="<html>
 <ul>
 <li>
-October 20, 2020, by jianjun Hu:<br/>
+October 20, 2020, by Jianjun Hu:<br/>
 Added vendor annotation to show the default value of the conditional removable connectors.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1854\">#1854</a>.
