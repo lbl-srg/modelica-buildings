@@ -35,7 +35,7 @@ block RoomMixingBox "Controller for room mixing box"
     Td=60,
     k=0.1,
     Ti=120,
-    r=1/m_flow_min) "Controller for mass flow rate"
+    r=m_flow_min)   "Controller for mass flow rate"
     annotation (Placement(transformation(extent={{-42,30},{-22,50}})));
   Modelica.Blocks.Sources.Constant mAirSet(k=m_flow_min)
     "Set point for minimum air flow rate"
