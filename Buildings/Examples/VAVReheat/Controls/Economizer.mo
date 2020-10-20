@@ -22,8 +22,8 @@ block Economizer "Controller for economizer"
         rotation=90,
         origin={0,-140})));
   ControlBus controlBus
-    annotation (Placement(transformation(extent={{50,-90},{70,-70}}),
-        iconTransformation(extent={{50,-90},{70,-70}})));
+    annotation (Placement(transformation(extent={{30,-88},{50,-68}}),
+        iconTransformation(extent={{30,-88},{50,-68}})));
   Modelica.Blocks.Interfaces.RealInput uOATSup
     "Control signal for outdoor air damper from supply temperature controller"
     annotation (Placement(transformation(extent={{-140,140},{-100,180}}),
@@ -133,7 +133,7 @@ equation
   connect(TRet, feedback.u1) annotation (Line(points={{-120,120},{-88,120}},
                       color={0,0,127}));
   connect(controlBus.TOut, feedback.u2) annotation (Line(
-      points={{60,-80},{-80,-80},{-80,112}},
+      points={{40,-78},{-80,-78},{-80,112}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",

@@ -13,7 +13,7 @@ block CoolingCoilTemperatureSetpoint "Set point scheduler for cooling coil"
     "Air temperature setpoint"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
   VAVReheat.Controls.ControlBus controlBus
-    annotation (Placement(transformation(extent={{-28,-90},{-8,-70}})));
+    annotation (Placement(transformation(extent={{-10,-90},{10,-70}})));
   Modelica.Blocks.Routing.IntegerPassThrough mode
     annotation (Placement(transformation(extent={{40,-90},{60,-70}})));
   Modelica.Blocks.Interfaces.RealOutput TSet(
@@ -23,7 +23,7 @@ block CoolingCoilTemperatureSetpoint "Set point scheduler for cooling coil"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 equation
   connect(controlBus.controlMode, mode.u) annotation (Line(
-      points={{-18,-80},{38,-80}},
+      points={{0,-80},{38,-80}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
@@ -40,9 +40,5 @@ equation
         Text(
           extent={{44,16},{90,-18}},
           lineColor={0,0,255},
-          textString="TSetCoo"),
-        Text(
-          extent={{-88,22},{-20,-26}},
-          lineColor={0,0,255},
-          textString="TSetHea")}));
+          textString="TSetCoo")}));
 end CoolingCoilTemperatureSetpoint;

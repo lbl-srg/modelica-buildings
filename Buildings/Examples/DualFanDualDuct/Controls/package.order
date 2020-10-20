@@ -1,6 +1,9 @@
 CoolingCoilTemperatureSetpoint
 FanVFD
 HeatingCoilTemperatureSetpoint
+MixedAirTemperature
+MixedAirTemperatureSetpoint
 PreHeatCoil
 RoomMixingBox
 Examples
+
