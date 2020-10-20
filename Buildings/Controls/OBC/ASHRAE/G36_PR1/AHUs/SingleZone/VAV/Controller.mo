@@ -397,26 +397,26 @@ block Controller
     final quantity = "ThermodynamicTemperature") if use_TMix
     "Measured mixed air temperature, used for freeze protection if use_TMix is true"
     annotation (Placement(transformation(extent={{-240,-70},{-200,-30}}),
-        iconTransformation(extent={{-240,-60},{-200,-20}})));
+        iconTransformation(extent={{-240,-60},{-200,-20}})), __cdl(default=293.15));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput nOcc(final unit="1") if
        have_occSen "Number of occupants"
     annotation (Placement(transformation(extent={{-240,-100},{-200,-60}}),
-        iconTransformation(extent={{-240,-90},{-200,-50}})));
+        iconTransformation(extent={{-240,-90},{-200,-50}})), __cdl(default=0));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWin if have_winSen
     "Window status, true if open, false if closed"
     annotation (Placement(transformation(extent={{-240,-130},{-200,-90}}),
-        iconTransformation(extent={{-240,-120},{-200,-80}})));
+        iconTransformation(extent={{-240,-120},{-200,-80}})), __cdl(default=false));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput hOut(
     final unit="J/kg",
     final quantity="SpecificEnergy") if use_enthalpy "Outdoor air enthalpy"
     annotation (Placement(transformation(extent={{-240,-170},{-200,-130}}),
-        iconTransformation(extent={{-240,-150},{-200,-110}})));
+        iconTransformation(extent={{-240,-150},{-200,-110}})), __cdl(default=0));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput hCut(
     final unit="J/kg",
     final quantity="SpecificEnergy") if use_enthalpy
     "Economizer enthalpy high limit cutoff. Fixed enthalpy or differential enthalpy"
     annotation (Placement(transformation(extent={{-240,-200},{-200,-160}}),
-        iconTransformation(extent={{-240,-190},{-200,-150}})));
+        iconTransformation(extent={{-240,-190},{-200,-150}})), __cdl(default=0));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TRet(
     final unit="K",
     displayUnit="degC",
@@ -424,12 +424,12 @@ block Controller
        use_fixed_plus_differential_drybulb
     "Used only for fixed plus differential dry bulb temperature high limit cutoff"
     annotation (Placement(transformation(extent={{-240,-230},{-200,-190}}),
-        iconTransformation(extent={{-240,-230},{-200,-190}})));
+        iconTransformation(extent={{-240,-230},{-200,-190}})), __cdl(default=293.15));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uFreProSta if
        use_G36FrePro
     "Freeze protection status, used if use_G36FrePro=true"
     annotation (Placement(transformation(extent={{-240,-260},{-200,-220}}),
-        iconTransformation(extent={{-240,-270},{-200,-230}})));
+        iconTransformation(extent={{-240,-270},{-200,-230}})), __cdl(default=0));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TSupHeaEco(
     final unit="K",
     displayUnit="degC",
@@ -980,6 +980,12 @@ Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.ModeAndSetPoints</a>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+October 20, 2020, by jianjun Hu:<br/>
+Added vendor annotation to show the default value of the conditional removable connectors.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1854\">#1854</a>.
+</li>
 <li>
 June 20, 2020, by Jianjun Hu:<br/>
 Updated the block of specifying operating mode and setpoints.<br/>

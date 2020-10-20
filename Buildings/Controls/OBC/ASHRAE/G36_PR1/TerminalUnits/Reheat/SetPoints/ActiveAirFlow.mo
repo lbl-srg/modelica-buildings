@@ -50,15 +50,15 @@ block ActiveAirFlow
   Buildings.Controls.OBC.CDL.Interfaces.RealInput nOcc(final unit="1") if have_occSen
     "Number of occupants"
     annotation (Placement(transformation(extent={{-320,-300},{-280,-260}}),
-        iconTransformation(extent={{-140,-60},{-100,-20}})));
+        iconTransformation(extent={{-140,-60},{-100,-20}})), __cdl(default=0));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput ppmCO2 if have_CO2Sen
     "Detected CO2 conventration"
     annotation (Placement(transformation(extent={{-320,-200},{-280,-160}}),
-        iconTransformation(extent={{-140,20},{-100,60}})));
+        iconTransformation(extent={{-140,20},{-100,60}})), __cdl(default=0));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWin if have_winSen
     "Window status, true if open, false if closed"
     annotation (Placement(transformation(extent={{-320,-520},{-280,-480}}),
-        iconTransformation(extent={{-140,-100},{-100,-60}})));
+        iconTransformation(extent={{-140,-100},{-100,-60}})), __cdl(default=false));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uOpeMod
     "Zone operation mode"
     annotation (Placement(transformation(extent={{-320,-130},{-280,-90}}),
@@ -791,6 +791,12 @@ not in occupied mode.
 <br/>
 </html>", revisions="<html>
 <ul>
+<li>
+October 20, 2020, by jianjun Hu:<br/>
+Added vendor annotation to show the default value of the conditional removable connectors.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1854\">#1854</a>.
+</li>
 <li>
 March 11, 2020, by Jianjun Hu:<br/>
 Replaced multisum block with add blocks.<br/>

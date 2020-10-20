@@ -40,7 +40,7 @@ block Enable
     final quantity="SpecificEnergy") if use_enthalpy
     "Outdoor air enthalpy"
     annotation (Placement(transformation(extent={{-320,170},{-280,210}}),
-        iconTransformation(extent={{-140,40},{-100,80}})));
+        iconTransformation(extent={{-140,40},{-100,80}})), __cdl(default=0));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TOutCut(
     final unit="K",
     final displayUnit="degC",
@@ -53,7 +53,7 @@ block Enable
     final quantity="SpecificEnergy") if use_enthalpy
     "OA enthalpy high limit cutoff. For differential enthalpy use return air enthalpy measurement"
     annotation (Placement(transformation(extent={{-320,130},{-280,170}}),
-        iconTransformation(extent={{-140,20},{-100,60}})));
+        iconTransformation(extent={{-140,20},{-100,60}})), __cdl(default=0));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uOutDamPosMin(
     final unit="1",
@@ -94,7 +94,8 @@ block Enable
     "Supply fan on/off status signal"
     annotation (Placement(transformation(extent={{-320,80},{-280,120}}),
         iconTransformation(extent={{-140,0},{-100,40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uFreProSta "Freeze protection stage status signal"
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uFreProSta 
+    "Freeze protection stage status signal"
     annotation (Placement(transformation(extent={{-320,30},{-280,70}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
 
@@ -414,6 +415,12 @@ This is implemented using a proportional controller with a default deadband of
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 20, 2020, by jianjun Hu:<br/>
+Added vendor annotation to show the default value of the conditional removable connectors.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1854\">#1854</a>.
+</li>
 <li>
 October 13, 2017, by Michael Wetter:<br/>
 Added freeze protection that tracks mixed air temperature.

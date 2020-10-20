@@ -51,7 +51,7 @@ block ZoneStatus "Block that outputs zone temperature status"
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWin if have_winSen
     "Window status: true=open, false=close"
     annotation (Placement(transformation(extent={{-200,130},{-160,170}}),
-      iconTransformation(extent={{-140,-60},{-100,-20}})));
+      iconTransformation(extent={{-140,-60},{-100,-20}})), __cdl(default=false));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZon(
     final unit="K",
     displayUnit="degC",
@@ -470,6 +470,12 @@ setup mode.
 </ul>
 </html>",revisions="<html>
 <ul>
+<li>
+October 20, 2020, by jianjun Hu:<br/>
+Added vendor annotation to show the default value of the conditional removable connectors.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1854\">#1854</a>.
+</li>
 <li>
 June 10 15, 2020, by Jianjun Hu:<br/>
 Simplified implementation.

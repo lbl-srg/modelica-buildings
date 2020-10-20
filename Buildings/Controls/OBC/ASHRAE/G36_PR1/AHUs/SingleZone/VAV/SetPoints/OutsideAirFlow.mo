@@ -41,7 +41,7 @@ block OutsideAirFlow
   Buildings.Controls.OBC.CDL.Interfaces.RealInput nOcc(final unit="1") if
        have_occSen "Number of occupants"
     annotation (Placement(transformation(extent={{-240,140},{-200,180}}),
-        iconTransformation(extent={{-140,60},{-100,100}})));
+        iconTransformation(extent={{-140,60},{-100,100}})), __cdl(default=0));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZon(
     final unit="K",
     final displayUnit="degC",
@@ -298,6 +298,12 @@ For the single zone system, the required minimum outdoor airflow setpoint
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 20, 2020, by jianjun Hu:<br/>
+Added vendor annotation to show the default value of the conditional removable connectors.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1854\">#1854</a>.
+</li>
 <li>
 November 2, 2018, by Michael Wetter:<br/>
 Made the input connector <code>nOcc</code> conditionally removable, as it is

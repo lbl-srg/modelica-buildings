@@ -256,15 +256,15 @@ block Controller "Controller for room VAV box"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput ppmCO2 if have_CO2Sen
     "Measured CO2 concentration"
     annotation (Placement(transformation(extent={{-180,60},{-140,100}}),
-        iconTransformation(extent={{-140,40},{-100,80}})));
+        iconTransformation(extent={{-140,40},{-100,80}})), __cdl(default=0));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput nOcc if have_occSen
     "Number of occupants"
     annotation (Placement(transformation(extent={{-180,30},{-140,70}}),
-        iconTransformation(extent={{-140,20},{-100,60}})));
+        iconTransformation(extent={{-140,20},{-100,60}})), __cdl(default=0));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWin if have_winSen
     "Window status, true if open, false if closed"
     annotation (Placement(transformation(extent={{-180,0},{-140,40}}),
-        iconTransformation(extent={{-140,0},{-100,40}})));
+        iconTransformation(extent={{-140,0},{-100,40}})), __cdl(default=false));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uOpeMod
     "Zone operation mode"
     annotation (Placement(transformation(extent={{-180,-190},{-140,-150}}),
@@ -609,6 +609,12 @@ Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.SystemRequests</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 20, 2020, by jianjun Hu:<br/>
+Added vendor annotation to show the default value of the conditional removable connectors.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1854\">#1854</a>.
+</li>
 <li>
 October 9, 2020, by Jianjun Hu:<br/>
 Changed the default heating maximum airflow setpoint to 30% of the zone nominal airflow.<br/>

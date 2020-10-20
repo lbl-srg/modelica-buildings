@@ -45,7 +45,7 @@ block Enable
     final quantity="SpecificEnergy") if use_enthalpy
     "Outdoor air enthalpy"
     annotation (Placement(transformation(extent={{-220,160},{-180,200}}),
-      iconTransformation(extent={{-120,30},{-100,50}})));
+      iconTransformation(extent={{-120,30},{-100,50}})), __cdl(default=0));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TCut(
     final unit="K",
     final displayUnit="degC",
@@ -64,7 +64,7 @@ block Enable
       final quantity="SpecificEnergy") if use_enthalpy
     "OA enthalpy high limit cutoff. For differential enthalpy use return air enthalpy measurement"
     annotation (Placement(transformation(extent={{-220,130},{-180,170}}),
-        iconTransformation(extent={{-120,10},{-100,30}})));
+        iconTransformation(extent={{-120,10},{-100,30}})), __cdl(default=0));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uOutDamPosMin(
     final unit="1",
     final min=0,
@@ -422,6 +422,12 @@ src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/AHUs/Sin
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 20, 2020, by jianjun Hu:<br/>
+Added vendor annotation to show the default value of the conditional removable connectors.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1854\">#1854</a>.
+</li>
 <li>
 July 30, 2019, by Kun Zhang:<br/>
 Added the option to allow fixed plus differential dry bulb temperature cutoff.

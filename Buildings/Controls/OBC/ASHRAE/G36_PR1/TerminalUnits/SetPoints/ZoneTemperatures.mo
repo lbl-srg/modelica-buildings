@@ -111,14 +111,14 @@ block ZoneTemperatures
     final quantity="ThermodynamicTemperature") if (cooAdj or sinAdj)
     "Setpoint adjustment value"
     annotation (Placement(transformation(extent={{-460,330},{-420,370}}),
-        iconTransformation(extent={{-140,-30},{-100,10}})));
+        iconTransformation(extent={{-140,-30},{-100,10}})), __cdl(default=0));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput heaSetAdj(
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature") if heaAdj
     "Heating setpoint adjustment value"
     annotation (Placement(transformation(extent={{-460,250},{-420,290}}),
-        iconTransformation(extent={{-140,-50},{-100,-10}})));
+        iconTransformation(extent={{-140,-50},{-100,-10}})), __cdl(default=0));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uOpeMod
     "AHU operation mode status signal"
     annotation (Placement(transformation(extent={{-460,610},{-420,650}}),
@@ -135,11 +135,11 @@ block ZoneTemperatures
     "Occupancy sensor (occupied=true, unoccupied=false)"
     annotation (Placement(transformation(extent={{-20,-20},{20,20}},
       origin={-440,-270}),iconTransformation(
-      extent={{-20,-20},{20,20}},origin={-120,-110})));
+      extent={{-20,-20},{20,20}},origin={-120,-110})), __cdl(default=false));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWinSta if have_winSen
     "Window status (open=true, close=false)"
     annotation (Placement(transformation(extent={{-460,-430},{-420,-390}}),
-      iconTransformation(extent={{-20,-20},{20,20}},origin={-120,-130})));
+      iconTransformation(extent={{-20,-20},{20,20}},origin={-120,-130})), __cdl(default=false));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TZonCooSet(
     final unit="K",
     displayUnit="degC",
@@ -1390,9 +1390,14 @@ shall prevail in order from highest to lowest priority.</p>
 <li>Demand limit (a. Occupancy sensors; b. Local setpoint adjustment)</li>
 <li>Scheduled setpoints based on zone group mode</li>
 </ul>
-
 </html>", revisions="<html>
 <ul>
+<li>
+October 20, 2020, by jianjun Hu:<br/>
+Added vendor annotation to show the default value of the conditional removable connectors.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1854\">#1854</a>.
+</li>
 <li>
 October 11, 2017, by Michael Wetter:<br/>
 Removed wrong conditional on <code>yAla</code>.

@@ -25,11 +25,12 @@ block Modulation
     "Minimum loop signal for the RA damper to be fully open"
     annotation (Dialog(tab="Commissioning", group="Controller"));
   parameter Real samplePeriod(
-     final unit="s",
-     final quantity="Time")= 300
+    final unit="s",
+    final quantity="Time")= 300
     "Sample period of component, used to limit the rate of change of the dampers (to avoid quick opening that can result in frost)";
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uTSup(final unit="1")
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uTSup(
+    final unit="1")
     "Signal for supply air temperature control (T Sup Control Loop Signal in diagram)"
     annotation (Placement(transformation(extent={{-160,-20},{-120,20}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));

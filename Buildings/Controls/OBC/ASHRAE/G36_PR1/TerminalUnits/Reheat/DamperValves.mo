@@ -129,7 +129,7 @@ block DamperValves
     final quantity="VolumeFlowRate") if not have_pressureIndependentDamper
     "Measured discharge airflow rate airflow rate"
     annotation (Placement(transformation(extent={{-360,320},{-320,360}}),
-      iconTransformation(extent={{-20,-20},{20,20}},rotation=90,origin={40,-120})));
+      iconTransformation(extent={{-20,-20},{20,20}},rotation=90,origin={40,-120})), __cdl(default=0));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSup(
     final unit="K",
     final displayUnit="degC",
@@ -877,6 +877,12 @@ src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/Terminal
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 20, 2020, by jianjun Hu:<br/>
+Added vendor annotation to show the default value of the conditional removable connectors.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1854\">#1854</a>.
+</li>
 <li>
 April 18, 2020, by Jianjun Hu:<br/>
 Added option to check if the VAV damper is pressure independent.<br/>

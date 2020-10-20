@@ -141,7 +141,8 @@ block Controller "Multi zone VAV AHU economizer control sequence"
     "Physically fixed minimum position of the outdoor air damper"
     annotation (Dialog(tab="Commissioning", group="Physical damper position limits"));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uTSup(final unit="1")
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uTSup(
+    final unit="1")
     "Signal for supply air temperature control (T Sup Control Loop Signal in diagram)"
     annotation (Placement(transformation(extent={{-200,20},{-160,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TOut(
@@ -158,18 +159,18 @@ block Controller "Multi zone VAV AHU economizer control sequence"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput hOut(
     final unit="J/kg",
     final quantity="SpecificEnergy") if use_enthalpy "Outdoor air enthalpy"
-    annotation (Placement(transformation(extent={{-200,70},{-160,110}})));
+    annotation (Placement(transformation(extent={{-200,70},{-160,110}})), __cdl(default=0));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput hOutCut(
     final unit="J/kg",
     final quantity="SpecificEnergy") if use_enthalpy
     "OA enthalpy high limit cutoff. For differential enthalpy use return air enthalpy measurement"
-    annotation (Placement(transformation(extent={{-200,50},{-160,90}})));
+    annotation (Placement(transformation(extent={{-200,50},{-160,90}})), __cdl(default=0));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TMix(
     final unit="K",
     final displayUnit="degC",
     final quantity = "ThermodynamicTemperature") if use_TMix
     "Measured mixed air temperature, used for freeze protection"
-    annotation (Placement(transformation(extent={{-200,-70},{-160,-30}})));
+    annotation (Placement(transformation(extent={{-200,-70},{-160,-30}})), __cdl(default=293.15));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VOut_flow_normalized(
     final unit="1")
     "Measured outdoor volumetric airflow rate, normalized by design minimum outdoor airflow rate"
@@ -180,7 +181,7 @@ block Controller "Multi zone VAV AHU economizer control sequence"
     annotation (Placement(transformation(extent={{-200,-40},{-160,0}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uFreProSta if use_G36FrePro
     "Freeze protection status"
-    annotation (Placement(transformation(extent={{-200,-170},{-160,-130}})));
+    annotation (Placement(transformation(extent={{-200,-170},{-160,-130}})), __cdl(default=0));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uOpeMod
     "AHU operation mode status signal"
     annotation (Placement(transformation(extent={{-200,-130},{-160,-90}})));
@@ -418,6 +419,12 @@ which may be revised in future versions, set
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 20, 2020, by jianjun Hu:<br/>
+Added vendor annotation to show the default value of the conditional removable connectors.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1854\">#1854</a>.
+</li>
 <li>
 July 10, 2020, by Antoine Gautier:<br/>
 Changed default value of integral time for minimum outdoor air control.<br/>

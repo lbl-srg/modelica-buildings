@@ -164,6 +164,11 @@ block Controller "Single zone VAV AHU economizer control sequence"
     "Physically fixed minimum position of the return air damper"
     annotation(Dialog(tab="Commissioning", group="Physical damper position limits"));
 
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yHeaCoi
+    "Heating coil control signal"
+    annotation (Placement(transformation(extent={{140,92},{160,112}}),
+        iconTransformation(extent={{100,30},{120,50}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaSupSet(
     final unit="K",
     final displayUnit="degC",
@@ -199,25 +204,24 @@ block Controller "Single zone VAV AHU economizer control sequence"
        use_fixed_plus_differential_drybulb
     "Used only for fixed plus differential dry bulb temperature high limit cutoff"
     annotation (Placement(transformation(extent={{-160,90},{-140,110}}),
-        iconTransformation(extent={{-120,52},{-100,72}})));
+        iconTransformation(extent={{-120,52},{-100,72}})), __cdl(default=293.15));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput hOut(
     final unit="J/kg",
     final quantity="SpecificEnergy") if use_enthalpy "Outdoor air enthalpy"
     annotation (Placement(transformation(extent={{-160,70},{-140,90}}),
-      iconTransformation(extent={{-120,36},{-100,56}})));
+      iconTransformation(extent={{-120,36},{-100,56}})), __cdl(default=0));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput hCut(final unit="J/kg",
-      final quantity="SpecificEnergy") if
-                                        use_enthalpy
+      final quantity="SpecificEnergy") if use_enthalpy
     "Outdoor air enthalpy high limit cutoff. For differential enthalpy use return air enthalpy measurement"
     annotation (Placement(transformation(extent={{-160,50},{-140,70}}),
-        iconTransformation(extent={{-120,20},{-100,40}})));
+        iconTransformation(extent={{-120,20},{-100,40}})), __cdl(default=0));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TMix(
     final unit="K",
     final displayUnit="degC",
     final quantity = "ThermodynamicTemperature") if use_TMix
     "Measured mixed air temperature, used for freeze protection"
     annotation (Placement(transformation(extent={{-160,-50},{-140,-30}}),
-      iconTransformation(extent={{-120,-54},{-100,-34}})));
+      iconTransformation(extent={{-120,-54},{-100,-34}})), __cdl(default=293.15));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VOutMinSet_flow(
     final min=VOutMin_flow,
@@ -322,10 +326,6 @@ protected
     "Freeze protection status is 0. Used if G36 freeze protection is not implemented"
     annotation (Placement(transformation(extent={{-140,-150},{-120,-130}})));
 
-public
-  CDL.Interfaces.RealOutput yHeaCoi "Heating coil control signal"
-    annotation (Placement(transformation(extent={{140,92},{160,112}}),
-        iconTransformation(extent={{100,30},{120,50}})));
 equation
   connect(uSupFan, enaDis.uSupFan)
     annotation (Line(points={{-150,-60},{-100,-60},{-100,-34},{-21,-34}},
@@ -390,15 +390,13 @@ equation
   connect(freProTMix.yFreProInv, outDamMaxFre.u2)
     annotation (Line(points={{82,-7},{88,-7},{88,-56},{98,-56}}, color={0,0,127}));
   connect(freProSta.y, enaDis.uFreProSta)
-    annotation (Line(points={{-118,-140},{-40,-140},{-40,-30},{-21,-30}},
-                                                                        color={255,127,0}));
+    annotation (Line(points={{-118,-140},{-40,-140},{-40,-30},{-21,-30}}, color={255,127,0}));
   connect(freProSta.y, damLim.uFreProSta)
     annotation (Line(points={{-118,-140},{-114,-140},{-114,6},{-102,6}},
       color={255,127,0}));
   connect(uSupFan, mod.uSupFan)
     annotation (Line(points={{-150,-60},{-100,-60},{-100,-10},{18,-10},{18,1}},
       color={255,0,255}));
-
   connect(mod.yHeaCoi, yHeaCoi) annotation (Line(points={{41,14},{46,14},{46,
           102},{150,102}},
                       color={0,0,127}));
@@ -482,6 +480,12 @@ for a description.
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+October 20, 2020, by jianjun Hu:<br/>
+Added vendor annotation to show the default value of the conditional removable connectors.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1854\">#1854</a>.
+</li>
 <li>
 July 30, 2019, by Kun Zhang:<br/>
 Added fixed plus differential dry bulb temperature high limit cut off.

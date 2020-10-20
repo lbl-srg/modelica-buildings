@@ -63,12 +63,12 @@ block Zone
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput nOcc if have_occSen
     "Number of occupants"
     annotation (Placement(transformation(extent={{-200,20},{-160,60}}),
-        iconTransformation(extent={{-140,70},{-100,110}})));
+        iconTransformation(extent={{-140,70},{-100,110}})), __cdl(default=0));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWin if have_winSen
     "Window status, true if open, false if closed"
     annotation (Placement(transformation(extent={{-200,-70},{-160,-30}}),
-      iconTransformation(extent={{-140,40},{-100,80}})));
+      iconTransformation(extent={{-140,40},{-100,80}})), __cdl(default=false));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uReqOutAir
     "True if the AHU supply fan is on and the zone is in occupied mode"
@@ -621,6 +621,12 @@ Stanke, D., 2010. <i>Dynamic Reset for Multiple-Zone Systems.</i> ASHRAE Journal
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 20, 2020, by jianjun Hu:<br/>
+Added vendor annotation to show the default value of the conditional removable connectors.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1854\">#1854</a>.
+</li>
 <li>
 March 13, 2020, by Jianjun Hu:<br/>
 Separated from original sequence of finding the system minimum outdoor air setpoint.<br/>

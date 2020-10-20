@@ -469,14 +469,14 @@ block Controller
     final unit="J/kg",
     final quantity="SpecificEnergy") if use_enthalpy "Outdoor air enthalpy"
     annotation (Placement(transformation(extent={{-240,-110},{-200,-70}}),
-        iconTransformation(extent={{-240,-130},{-200,-90}})));
+        iconTransformation(extent={{-240,-130},{-200,-90}})), __cdl(default=0));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput hOutCut(
     final unit="J/kg",
     final quantity="SpecificEnergy") if use_enthalpy
     "OA enthalpy high limit cutoff. For differential enthalpy use return air enthalpy measurement"
     annotation (Placement(transformation(extent={{-240,-140},{-200,-100}}),
-        iconTransformation(extent={{-240,-160},{-200,-120}})));
+        iconTransformation(extent={{-240,-160},{-200,-120}})), __cdl(default=0));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VOut_flow(
     final min=0,
@@ -492,7 +492,7 @@ block Controller
     final quantity = "ThermodynamicTemperature") if use_TMix
     "Measured mixed air temperature, used for freeze protection if use_TMix=true"
     annotation (Placement(transformation(extent={{-240,-200},{-200,-160}}),
-        iconTransformation(extent={{-240,-230},{-200,-190}})));
+        iconTransformation(extent={{-240,-230},{-200,-190}})), __cdl(default=293.15);
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uOpeMod
     "AHU operation mode status signal"
@@ -513,7 +513,7 @@ block Controller
       use_G36FrePro
    "Freeze protection status, used if use_G36FrePro=true"
     annotation (Placement(transformation(extent={{-240,-320},{-200,-280}}),
-        iconTransformation(extent={{-240,-360},{-200,-320}})));
+        iconTransformation(extent={{-240,-360},{-200,-320}})), __cdl(default=0));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput ySupFan
     "Supply fan status, true if fan should be on"
@@ -638,8 +638,10 @@ block Controller
     annotation (Placement(transformation(extent={{0,170},{20,190}})));
 
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow.AHU
-    sysOutAirSet(final VPriSysMax_flow=VPriSysMax_flow, final peaSysPop=
-        peaSysPop) "Minimum outdoor airflow setpoint"
+    sysOutAirSet(
+    final VPriSysMax_flow=VPriSysMax_flow, 
+    final peaSysPop=peaSysPop) 
+    "Minimum outdoor airflow setpoint"
     annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
 
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.Economizers.Controller eco(
@@ -997,6 +999,12 @@ Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints.SupplySignals
 </html>",
 revisions="<html>
 <ul>
+<li>
+October 20, 2020, by jianjun Hu:<br/>
+Added vendor annotation to show the default value of the conditional removable connectors.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1854\">#1854</a>.
+</li>
 <li>
 July 10, 2020, by Antoine Gautier:<br/>
 Changed default value of integral time for minimum outdoor air control.<br/>

@@ -151,15 +151,15 @@ block ModeAndSetPoints "Output zone setpoint with operation mode selection"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput setAdj if cooAdj or sinAdj
     "Setpoint adjustment value"
     annotation (Placement(transformation(extent={{-200,-60},{-160,-20}}),
-      iconTransformation(extent={{-140,-40},{-100,0}})));
+      iconTransformation(extent={{-140,-40},{-100,0}})), __cdl(default=0));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput heaSetAdj if heaAdj
     "Heating setpoint adjustment value"
     annotation (Placement(transformation(extent={{-200,-100},{-160,-60}}),
-      iconTransformation(extent={{-140,-60},{-100,-20}})));
+      iconTransformation(extent={{-140,-60},{-100,-20}})), __cdl(default=0));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uOccSen if have_occSen
     "Occupancy sensor (occupied=true, unoccupied=false)"
     annotation (Placement(transformation(extent={{-200,-140},{-160,-100}}),
-      iconTransformation(extent={{-140,-80},{-100,-40}})));
+      iconTransformation(extent={{-140,-80},{-100,-40}})), __cdl(default=false));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uCooDemLimLev
     "Cooling demand limit level"
     annotation (Placement(transformation(extent={{-200,-180},{-160,-140}}),
@@ -437,6 +437,12 @@ This version is for a single zone only to be used in the Single Zone VAV sequenc
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 20, 2020, by jianjun Hu:<br/>
+Added vendor annotation to show the default value of the conditional removable connectors.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1854\">#1854</a>.
+</li>
 <li>
 June 16, 2020, by Jianjun Hu:<br/>
 Moved from TerminalUnits.ModeAndSetPoints,

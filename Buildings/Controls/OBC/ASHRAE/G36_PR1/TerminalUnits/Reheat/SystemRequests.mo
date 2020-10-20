@@ -98,20 +98,20 @@ block SystemRequests
     final quantity="ThermodynamicTemperature") if have_heaWatCoi
     "Discharge airflow setpoint temperature for heating"
     annotation (Placement(transformation(extent={{-220,-230},{-180,-190}}),
-        iconTransformation(extent={{-140,-60},{-100,-20}})));
+        iconTransformation(extent={{-140,-60},{-100,-20}})), __cdl(default=293.15));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TDis(
     final unit="K",
     final displayUnit="degC",
     final quantity="ThermodynamicTemperature") if have_heaWatCoi
     "Measured discharge airflow temperature"
     annotation (Placement(transformation(extent={{-220,-310},{-180,-270}}),
-        iconTransformation(extent={{-140,-80},{-100,-40}})));
+        iconTransformation(extent={{-140,-80},{-100,-40}})), __cdl(default=293.15));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uHeaVal(
     final min=0,
     final max=1,
     final unit="1") if have_heaWatCoi "Heating valve position"
     annotation (Placement(transformation(extent={{-220,-370},{-180,-330}}),
-        iconTransformation(extent={{-140,-100},{-100,-60}})));
+        iconTransformation(extent={{-140,-100},{-100,-60}})), __cdl(default=0));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yZonPreResReq
     "Zone static pressure reset requests"
     annotation (Placement(transformation(extent={{180,-60},{220,-20}}),
@@ -123,11 +123,11 @@ block SystemRequests
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yHeaValResReq if have_heaWatCoi
     "Hot water reset requests"
     annotation (Placement(transformation(extent={{180,-260},{220,-220}}),
-        iconTransformation(extent={{100,-60},{140,-20}})));
+        iconTransformation(extent={{100,-60},{140,-20}})), __cdl(default=0));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yHeaPlaReq if (have_heaWatCoi and have_heaPla)
     "Heating plant request"
     annotation (Placement(transformation(extent={{180,-450},{220,-410}}),
-        iconTransformation(extent={{100,-110},{140,-70}})));
+        iconTransformation(extent={{100,-110},{140,-70}})), __cdl(default=0));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
     final uLow=errTZonCoo_1 - 0.1,
     final uHigh=errTZonCoo_1 + 0.1)
@@ -925,6 +925,12 @@ sampled, as sampling were to change the dynamic response.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 20, 2020, by jianjun Hu:<br/>
+Added vendor annotation to show the default value of the conditional removable connectors.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1854\">#1854</a>.
+</li>
 <li>
 September 13, 2017, by Jianjun Hu:<br/>
 First implementation.
