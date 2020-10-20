@@ -20,8 +20,8 @@ protected
     final delay=delay) "Boolean pulse"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
   Conversions.BooleanToInteger booToInt(
-    final integerTrue = offset,
-    final integerFalse = offset + amplitude)
+    final integerTrue = offset + amplitude,
+    final integerFalse = offset)
     "Boolean to integer conversion"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
@@ -47,13 +47,6 @@ equation
           fillColor={244,125,35},
           fillPattern=FillPattern.Solid),
         Line(points={{-90,-70},{82,-70}}, color={255,170,85}),
-        Polygon(
-          points={{90,-70},{68,-62},{68,-78},{90,-70}},
-          lineColor={244,125,35},
-          fillColor={244,125,35},
-          fillPattern=FillPattern.Solid),
-        Line(points={{79,-70},{39,-70},{39,44},{-1,44},{-1,-70},{-41,-70},{-41,44},
-              {-80,44}},    color={0,0,0}),
         Text(
           extent={{-147,-152},{153,-112}},
           lineColor={0,0,0},
@@ -66,7 +59,41 @@ equation
           extent={{226,60},{106,10}},
           lineColor={0,0,0},
           textString=DynamicSelect("", String(y, leftjustified=false, significantDigits=3))),
-        Line(points={{-132,-18}}, color={28,108,200})}),
+        Line(points={{-132,-18}}, color={28,108,200}),
+        Polygon(
+          points={{-80,52},{-68,56},{-68,48},{-80,52}},
+          fillColor={135,135,135},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None,
+          lineColor={0,0,0}),
+        Line(points={{-80,52},{-4,52}},   color={135,135,135}),
+        Text(
+          extent={{-66,80},{-8,56}},
+          lineColor={135,135,135},
+          textString="%period"),
+        Polygon(
+          points={{-2,52},{-14,56},{-14,48},{-2,52}},
+          fillColor={135,135,135},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None,
+          lineColor={0,0,0}),
+        Line(points={{40,34},{72,34}},    color={135,135,135}),
+        Polygon(
+          points={{74,34},{62,38},{62,30},{74,34}},
+          fillColor={135,135,135},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None,
+          lineColor={0,0,0}),
+        Text(
+          extent={{38,64},{96,40}},
+          lineColor={135,135,135},
+          textString="%delay"),  Line(points={{79,-70},{40,-70},{40,44},{-1,44},
+              {-1,-70},{-41,-70},{-41,44},{-80,44}}),
+        Polygon(
+          points={{90,-70},{68,-62},{68,-78},{90,-70}},
+          lineColor={244,125,35},
+          fillColor={244,125,35},
+          fillPattern=FillPattern.Solid)}),
     Documentation(info="<html>
 <p>
 Block that outputs a pulse signal as shown below.
