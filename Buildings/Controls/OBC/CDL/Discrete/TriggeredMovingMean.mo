@@ -120,7 +120,7 @@ revisions="<html>
 <ul>
 <li>
 October 19, 2020, by Michael Wetter:<br/>
-Removed non-used protected parameter <code>t0</code>.
+Removed non-needed protected parameter <code>t0</code>.
 </li>
 <li>
 March 2, 2020, by Michael Wetter:<br/>
