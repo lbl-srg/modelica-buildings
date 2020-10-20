@@ -65,7 +65,8 @@ model OptimalStartHeatingCooling
     annotation (Placement(transformation(extent={{-170,-40},{-150,-20}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse pul(
     amplitude=15,
-    period(displayUnit="d") = 1209600)
+    period(displayUnit="d") = 1209600,
+    delay(displayUnit="d") = 604800)
     "Range of outdoor dry bulb temperature"
     annotation (Placement(transformation(extent={{-210,-60},{-190,-40}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal TSetHea(
@@ -160,12 +161,6 @@ the heating or cooling system in advance.
 </html>",
 revisions="<html>
 <ul>
-<li>
-October 19, 2020, by Michael Wetter:<br/>
-Removed <code>startTime=604800</code> for pulse block.<br/>
-This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2170\">#2170</a>.
-</li>
 <li>
 March 19, 2020, by Michael Wetter:<br/>
 Simplified setpoint implementation.'

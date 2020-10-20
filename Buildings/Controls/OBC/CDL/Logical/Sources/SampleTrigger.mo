@@ -13,7 +13,7 @@ protected
 
 initial equation
   t0 = Buildings.Utilities.Math.Functions.round(
-         x = integer(time+delay/period)*period,
+         x = integer((time)/period)*period+mod(delay, period),
          n = 6);
 
 equation

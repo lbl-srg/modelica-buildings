@@ -80,8 +80,10 @@ model Pulse "Validation model for the Boolean Pulse block"
     annotation (Placement(transformation(extent={{70,-40},{90,-20}})));
   annotation (
   experiment(
-      StopTime=10,
-      Tolerance=1e-06),
+      StartTime=9,
+      StopTime=20,
+      Tolerance=1e-06,
+      __Dymola_Algorithm="Cvode"),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Logical/Sources/Validation/Pulse.mos"
         "Simulate and plot"),
     Documentation(info="<html>

@@ -40,13 +40,7 @@ model Enable_TOut_hOut
     final falling=800,
     final amplitude=4,
     final offset=TOutCutoff - 4) "Outoor air temperature"
-    annotation (Placement(transformation(extent={{-40,106},{-20,126}})));
-  CDL.Logical.TrueDelay truDel(delayTime=10) "Delay of boolean signal"
-    annotation (Placement(transformation(extent={{-198,80},{-178,100}})));
-  CDL.Logical.TrueDelay truDel1(delayTime=10) "Delay of boolean signal"
-    annotation (Placement(transformation(extent={{-70,40},{-50,60}})));
-  CDL.Logical.TrueDelay truDel2(delayTime=10) "Delay of boolean signal"
-    annotation (Placement(transformation(extent={{-80,106},{-60,126}})));
+    annotation (Placement(transformation(extent={{-50,106},{-30,126}})));
 protected
   final parameter Real TOutCutoff(
     final unit="K",
@@ -93,15 +87,15 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant supFanSta(
     final k=true) "Supply fan status signal"
       annotation (Placement(transformation(extent={{-200,-80},{-180,-60}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul(
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul(delay=10,
     final period=2000) "Boolean pulse signal"
-    annotation (Placement(transformation(extent={{-240,80},{-220,100}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul1(
+    annotation (Placement(transformation(extent={{-200,80},{-180,100}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul1(delay=10,
     final period=2000) "Boolean pulse signal"
-    annotation (Placement(transformation(extent={{-100,40},{-80,60}})));
-  CDL.Logical.Sources.Pulse booPul2(
+    annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
+  CDL.Logical.Sources.Pulse booPul2(delay=10,
     final period=2000) "Boolean pulse signal"
-    annotation (Placement(transformation(extent={{-120,106},{-100,126}})));
+    annotation (Placement(transformation(extent={{-90,106},{-70,126}})));
 equation
   connect(TOutCut.y, enaDis.TCut) annotation (Line(points={{-138,50},{-112,50},
           {-112,-62.2},{-81,-62.2}},
@@ -128,9 +122,13 @@ equation
           {-81,-66}},                                                                       color={0,0,127}));
   connect(TOutBelowCutoff.y, enaDis1.TOut)
     annotation (Line(points={{76,50},{80,50},{80,-60.6},{87,-60.6}},      color={0,0,127}));
+  connect(booPul.y, TOut.u)
+    annotation (Line(points={{-178,90},{-162,90}}, color={255,0,255}));
   connect(TOut.y, enaDis.TOut)
     annotation (Line(points={{-138,90},{-110,90},{-110,-60.6},{-81,-60.6}},
                                                                         color={0,0,127}));
+  connect(booPul1.y, hOut.u)
+    annotation (Line(points={{-58,50},{-58,50},{-42,50}}, color={255,0,255}));
   connect(hOut.y, enaDis1.hOut)
     annotation (Line(points={{-18,50},{-10,50},{-10,20},{20,20},{20,-66},{87,
           -66}},                                                                    color={0,0,127}));
@@ -188,20 +186,10 @@ equation
   connect(TOutBelowCutoff.y, enaDis4.TOut) annotation (Line(points={{76,50},{96,
           50},{96,119.4},{119,119.4}},
                                    color={0,0,127}));
+  connect(booPul2.y, TRet.u)
+    annotation (Line(points={{-68,116},{-52,116}}, color={255,0,255}));
   connect(TRet.y, enaDis4.TRet)
-    annotation (Line(points={{-18,116},{119,116}}, color={0,0,127}));
-  connect(booPul.y, truDel.u)
-    annotation (Line(points={{-218,90},{-200,90}}, color={255,0,255}));
-  connect(truDel.y, TOut.u)
-    annotation (Line(points={{-176,90},{-162,90}}, color={255,0,255}));
-  connect(booPul1.y, truDel1.u)
-    annotation (Line(points={{-78,50},{-72,50}}, color={255,0,255}));
-  connect(hOut.u, truDel1.y)
-    annotation (Line(points={{-42,50},{-48,50}}, color={255,0,255}));
-  connect(booPul2.y, truDel2.u)
-    annotation (Line(points={{-98,116},{-82,116}}, color={255,0,255}));
-  connect(truDel2.y, TRet.u)
-    annotation (Line(points={{-58,116},{-42,116}}, color={255,0,255}));
+    annotation (Line(points={{-28,116},{119,116}}, color={0,0,127}));
   annotation (
   experiment(StopTime=1800.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36_PR1/AHUs/SingleZone/VAV/Economizers/Subsequences/Validation/Enable_TOut_hOut.mos"

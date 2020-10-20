@@ -17,20 +17,43 @@ protected
     "First sample time instant";
   parameter Modelica.SIunits.Time t1(fixed=false)
     "First end of amplitude";
-initial equation
-  t0 = Buildings.Utilities.Math.Functions.round(
-         x = integer((time)/period)*period+mod(delay, period),
-         n = 6);
-  t1 = t0 + width*period;
-  y = time >= t0 and time < t1;
+initial algorithm
+  t0 := Buildings.Utilities.Math.Functions.round(
+         x=integer((time)/period)*period + mod(delay, period),
+         n=6);
+  t1 := t0 + width*period;
 
+  // Make sure t0 and t1 are within time + period.
+  if time + period < t1 then
+    t0 := t0 - period;
+    t1 := t1 - period;
+  end if;
+  // Make sure time is between t0 and t1, or t1 and t0
+  // Now, t0 < t1
+  if time >= t1 then
+    t0 := t0 + period;
+  elseif time < t0 then
+    t1 := t1 - period;
+  end if;
+
+  // Assert that t0 <= t < t1 or t1 <= t < t0
+  if (t0 < t1) then
+    assert(t0 <= time and time < t1,
+      getInstanceName() + ": Implementation error in initial time calculation: t0 = " + String(t0) +
+        ", t1 = " + String(t1) + ",  period = " + String(period) + ", time = " + String(time));
+    y :=time >= t0 and time < t1;
+  else
+    assert(t1 <= time and time < t0,
+      getInstanceName() + ": Implementation error in initial time calculation: t0 = " + String(t0) +
+        ", t1 = " + String(t1) + ",  period = " + String(period) + ", time = " + String(time));
+    y :=not (time >= t1 and time < t0);
+  end if;
 equation
   when sample(t0, period) then
     y = true;
   elsewhen sample(t1, period) then
     y = false;
   end when;
-
 
   annotation (
     defaultComponentName="booPul",
@@ -45,7 +68,7 @@ equation
           borderPattern=BorderPattern.Raised),     Text(
           extent={{-150,-140},{150,-110}},
           lineColor={0,0,0},
-          textString="%period"), Line(points={{79,-70},{39,-70},{39,44},{-1,44},
+          textString="%period"), Line(points={{79,-70},{40,-70},{40,44},{-1,44},
               {-1,-70},{-41,-70},{-41,44},{-80,44}}),
         Polygon(
           points={{-80,88},{-88,66},{-72,66},{-80,88}},
@@ -71,7 +94,7 @@ equation
           extent={{-150,110},{150,150}},
           textString="%name"),
         Text(
-          extent={{-66,78},{-14,56}},
+          extent={{-66,80},{-8,56}},
           lineColor={135,135,135},
           textString="%period"),
         Polygon(
@@ -95,7 +118,7 @@ equation
           pattern=LinePattern.None,
           lineColor={0,0,0}),
         Text(
-          extent={{44,62},{96,40}},
+          extent={{38,64},{96,40}},
           lineColor={135,135,135},
           textString="%delay")}),
       Documentation(info="<html>

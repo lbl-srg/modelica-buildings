@@ -42,8 +42,7 @@ model EquationFitReversible_CoolingClosedLoop
     amplitude=-1,
     width=0.7,
     period=200,
-    offset=0,
-    startTime=0)
+    offset=0)
    "heat pump operational mode input signal"
    annotation (Placement(transformation(extent={{-90,-30},{-70,-10}})));
   Controls.OBC.CDL.Continuous.Sources.Pulse pulse(
@@ -66,7 +65,8 @@ model EquationFitReversible_CoolingClosedLoop
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=mLoa_flow_nominal,
-    addPowerToMedium=false)
+    addPowerToMedium=false,
+    nominalValuesDefineDefaultPressureCurve=true)
     "Chilled water pump"
     annotation (Placement(transformation(extent={{20,40},{0,60}})));
   MixingVolumes.MixingVolume vol(
@@ -87,8 +87,7 @@ model EquationFitReversible_CoolingClosedLoop
     amplitude=3,
     width=0.7,
     period=200,
-    offset=25 + 273.15,
-    startTime=0)
+    offset=25 + 273.15)
     "Source side entering water temperature"
     annotation (Placement(transformation(extent={{20,-90},{40,-70}})));
   Controls.OBC.CDL.Continuous.Sources.Pulse TLoaSet(

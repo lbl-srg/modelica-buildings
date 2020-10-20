@@ -35,7 +35,8 @@ model Pulse "Validation model for the Integer Pulse block"
   annotation (
   experiment(
       StopTime=5,
-      Tolerance=1e-06),
+      Tolerance=1e-06,
+      __Dymola_Algorithm="Cvode"),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Integers/Sources/Validation/Pulse.mos"
         "Simulate and plot"),
     Documentation(info="<html>
