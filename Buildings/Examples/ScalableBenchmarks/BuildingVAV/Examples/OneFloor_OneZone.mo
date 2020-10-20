@@ -240,14 +240,14 @@ equation
       annotation (Line(points={{-144,-42},{-148,-42},{-148,-66}},
         color={0,127,255}));
     connect(TRet[iFlo].T, conEco[iFlo].TRet)
-      annotation (Line(points={{-189,134.8},{-189,142},{-294,142},{-294,96},{-286.8,
-            96}},       color={0,0,127}, pattern=LinePattern.Dash));
+      annotation (Line(points={{-189,134.8},{-189,142},{-294,142},{-294,96},{
+            -286.8,96}},color={0,0,127}, pattern=LinePattern.Dash));
     connect(VOut1[iFlo].V_flow, conEco[iFlo].VOut_flow)
-      annotation (Line(points={{-284,30.8},{-284,64},{-300,64},{-300,89.6},{-286.8,
-            89.6}},                  color={0,0,127}, pattern=LinePattern.Dash));
+      annotation (Line(points={{-284,30.8},{-284,60},{-300,60},{-300,89.6},{
+            -286.8,89.6}},           color={0,0,127}, pattern=LinePattern.Dash));
     connect(conEco[iFlo].yOA, eco[iFlo].y)
-      annotation (Line(points={{-273.2,95.2},{-268,95.2},{-268,6},{-247,6},{-247,
-            13}},
+      annotation (Line(points={{-273.2,95.2},{-268,95.2},{-268,6},{-247,6},{
+            -247,13}},
         color={0,0,127}, pattern=LinePattern.Dash));
     connect(weaBus, amb[iFlo].weaBus)
       annotation (Line(points={{-324,170},{-300,170},{-300,120},{-340,120},{-340,39.14},
@@ -275,8 +275,8 @@ equation
       annotation (Line(points={{-56,-42},{-51,-42},{-51,-50}},
         color={0,127,255}));
     connect(controlBus[iFlo], conEco[iFlo].controlBus)
-      annotation (Line(points={{-68,54},{-134,54},{-134,80},{-280,80},{-280,88.8},
-            {-279.6,88.8}},
+      annotation (Line(points={{-68,54},{-68,54},{-134,54},{-134,104},{-280.4,
+            104},{-280.4,88.88}},
                         color={255,204,51}, thickness=0.5));
     connect(controlBus[iFlo], modeSelector[iFlo].cb)
       annotation (Line(points={{-68,54},{-121.728,54},{-121.728,53.4545},{
@@ -351,31 +351,6 @@ equation
         color={0,127,255}, thickness=0.5));
     connect(fan_dP_On_Off[iFlo].y, fan[iFlo].dp_in)
       annotation (Line(points={{-55.3,-7},{-30,-7},{-30,-18}}, color={0,0,127}));
-    connect(controlBus[iFlo], TAirSupSet[iFlo].controlBus) annotation (Line(
-      points={{-68,54},{-72,54},{-72,60},{-290,60},{-290,-68}},
-      color={255,204,51},
-      thickness=0.5), Text(
-      string="%first",
-      index=-1,
-      extent={{-3,6},{-3,6}},
-      horizontalAlignment=TextAlignment.Right));
-    connect(modeSelector[iFlo].yEco, conEco[iFlo].uEna) annotation (Line(points={{-163.273,
-      44.3636},{-158,44.3636},{-158,82},{-282,82},{-282,86.4}}, color={255,0,255}));
-    connect(modeSelector[iFlo].yFan, conTSup[iFlo].uEna) annotation (Line(points={{-163.273,
-      51.6364},{-160,51.6364},{-160,0},{-260,0},{-260,-66},{-242,-66}}, color={255,0,255}));
-    connect(modeSelector[iFlo].yFan, conFanRet[iFlo].uFan) annotation (Line(points={{-163.273,
-            51.6364},{-146,51.6364},{-146,163.2},{12.6,163.2}},     color={255,0,
-            255}));
-    connect(conTSup[iFlo].yOA, conEco[iFlo].uOATSup) annotation (Line(points={{-218,-60},{-210,
-            -60},{-210,-40},{-296,-40},{-296,99.2},{-286.8,99.2}}, color={0,0,127}));
-    connect(TSup[iFlo].T, conTSup[iFlo].TSup) annotation (Line(points={{12,-21.2},{12,-16},{0,
-            -16},{0,-100},{-252,-100},{-252,-54},{-242,-54}}, color={0,0,127}));
-    connect(conTSup[iFlo].yHea, valHea[iFlo].y) annotation (Line(points={{-218,-54},{-132,-54},
-            {-132,-55},{-127,-55}}, color={0,0,127}));
-    connect(conTSup[iFlo].yCoo, valCoo[iFlo].y) annotation (Line(points={{-218,-66},{-210,-66},
-            {-210,-94},{-66,-94},{-66,-55},{-57,-55}}, color={0,0,127}));
-    connect(TAirSupSet[iFlo].TSet, conTSup[iFlo].TSupSet)
-      annotation (Line(points={{-278,-60},{-242,-60}}, color={0,0,127}));
   end for;
   for iFlo in 1:nFlo loop
     for iZon in 1:nZon loop
@@ -421,6 +396,35 @@ equation
   connect(weaBus, buiZon.weaBus)
     annotation (Line(points={{-324,170},{-324,170},{-44,170},{-44,80},{51.6,80}},
       color={255,204,51}, thickness=0.5));
+  connect(modeSelector.yFan, conFanRet.uFan) annotation (Line(points={{-163.273,
+          51.6364},{-163.273,51.6364},{-146,51.6364},{-146,163.2},{12.6,163.2}},
+                                                                  color={255,0,
+          255}));
+  connect(conTSup.yOA, conEco.uOATSup) annotation (Line(points={{-218,-60},{
+          -212,-60},{-212,108},{-290,108},{-290,99.2},{-286.8,99.2}}, color={0,
+          0,127}));
+  connect(modeSelector.yEco, conEco.uEna) annotation (Line(points={{-163.273,
+          44.3636},{-160,44.3636},{-160,80},{-282,80},{-282,86.4}}, color={255,
+          0,255}));
+  connect(conTSup.yHea, valHea.y) annotation (Line(points={{-218,-54},{-160,-54},
+          {-160,-55},{-127,-55}}, color={0,0,127}));
+  connect(conTSup.yCoo, valCoo.y) annotation (Line(points={{-218,-66},{-180,-66},
+          {-180,-62},{-60,-62},{-60,-55},{-57,-55}}, color={0,0,127}));
+  connect(TAirSupSet.TSet, conTSup.TSupSet)
+    annotation (Line(points={{-278,-60},{-242,-60}}, color={0,0,127}));
+  connect(TCoiHeaOut.T, conTSup.TSup) annotation (Line(points={{-95,-21.2},{-95,
+          -18},{-260,-18},{-260,-54},{-242,-54}}, color={0,0,127}));
+  connect(controlBus, TAirSupSet.controlBus) annotation (Line(
+      points={{-68,54},{-72,54},{-72,64},{-290,64},{-290,-68}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%first",
+      index=-1,
+      extent={{-3,6},{-3,6}},
+      horizontalAlignment=TextAlignment.Right));
+  connect(modeSelector.yFan, conTSup.uEna) annotation (Line(points={{-163.273,
+          51.6364},{-146,51.6364},{-146,0},{-250,0},{-250,-66},{-242,-66}},
+        color={255,0,255}));
 annotation (
   experiment(
       StopTime=604800,

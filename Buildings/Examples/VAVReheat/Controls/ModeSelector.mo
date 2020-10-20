@@ -163,7 +163,7 @@ equation
       color={0,0,0},
       smooth=Smooth.None));
   connect(cb.TRooMin, TRooMin.u) annotation (Line(
-      points={{-158,140},{-92,140},{-92,150},{-82,150}},
+      points={{-158,140},{-100,140},{-100,150},{-82,150}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
@@ -281,7 +281,7 @@ equation
       color={255,0,255},
       smooth=Smooth.None));
   connect(cb.TRooSetHea, TRooSetHea.u) annotation (Line(
-      points={{-158,140},{-92,140},{-92,180},{-82,180}},
+      points={{-158,140},{-100,140},{-100,180},{-82,180}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
