@@ -4,7 +4,7 @@ model Pulse "Validation model for the Integer Pulse block"
   Buildings.Controls.OBC.CDL.Integers.Sources.Pulse booPul3(
     amplitude=1,
     width=0.5,
-    period=4,
+    period=1,
     offset=3)
     "Block that generates pulse signal of type Integer at simulation start time"
     annotation (Placement(transformation(extent={{-10,-80},{10,-60}})));
@@ -12,16 +12,18 @@ model Pulse "Validation model for the Integer Pulse block"
   Buildings.Controls.OBC.CDL.Integers.Sources.Pulse booPul1(
     amplitude=2,
     width=0.5,
-    period=2,
-    offset=1)
+    period=1,
+    offset=1,
+    delay=1.75)
     "Block that generates pulse signal of type Integer starting from after the simulation start time"
     annotation (Placement(transformation(extent={{-10,0},{10,20}})));
 
   Buildings.Controls.OBC.CDL.Integers.Sources.Pulse booPul2(
     amplitude=3,
     width=0.5,
-    period=3,
-    offset=-2)
+    period=1,
+    offset=-2,
+    delay=-1.25)
     "Block that generates pulse signal of type Integer starting from before the simulation start time"
     annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
 

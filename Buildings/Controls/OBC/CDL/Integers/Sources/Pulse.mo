@@ -14,25 +14,22 @@ block Pulse "Generate pulse signal of type Integer"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected
-  parameter Modelica.SIunits.Time t0(fixed=false)
-    "First sample time instant";
-  parameter Modelica.SIunits.Time t1(fixed=false)
-    "First end of amplitude";
-  parameter Integer y0 = offset + amplitude "Value when pulse is on";
-initial equation
-  t0 = Buildings.Utilities.Math.Functions.round(
-         x = integer(time+delay/period)*period,
-         n = 6);
-  t1 = t0 + width*period;
-  y = if time >= t0 and time < t1 then y0 else offset;
+  Logical.Sources.Pulse booPul(
+    final width=width,
+    final period=period,
+    final delay=delay) "Boolean pulse"
+    annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
+  Conversions.BooleanToInteger booToInt(
+    final integerTrue = offset,
+    final integerFalse = offset + amplitude)
+    "Boolean to integer conversion"
+    annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
 equation
-  when sample(t0, period) then
-    y = y0;
-  elsewhen sample(t1, period) then
-    y = offset;
-  end when;
-
+  connect(booPul.y, booToInt.u)
+    annotation (Line(points={{-18,0},{18,0}}, color={255,0,255}));
+  connect(booToInt.y, y)
+    annotation (Line(points={{42,0},{100,0}}, color={255,127,0}));
   annotation (
     defaultComponentName="intPul",
     Icon(coordinateSystem(

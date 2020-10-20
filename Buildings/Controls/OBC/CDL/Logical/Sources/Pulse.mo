@@ -19,7 +19,7 @@ protected
     "First end of amplitude";
 initial equation
   t0 = Buildings.Utilities.Math.Functions.round(
-         x = integer(time+delay/period)*period,
+         x = integer((time)/period)*period+mod(delay, period),
          n = 6);
   t1 = t0 + width*period;
   y = time >= t0 and time < t1;
@@ -69,7 +69,35 @@ equation
         Text(
           lineColor={0,0,255},
           extent={{-150,110},{150,150}},
-          textString="%name")}),
+          textString="%name"),
+        Text(
+          extent={{-66,78},{-14,56}},
+          lineColor={135,135,135},
+          textString="%period"),
+        Polygon(
+          points={{-2,52},{-14,56},{-14,48},{-2,52}},
+          fillColor={135,135,135},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None,
+          lineColor={0,0,0}),
+        Line(points={{-80,52},{-4,52}},   color={135,135,135}),
+        Polygon(
+          points={{-80,52},{-68,56},{-68,48},{-80,52}},
+          fillColor={135,135,135},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None,
+          lineColor={0,0,0}),
+        Line(points={{40,34},{72,34}},    color={135,135,135}),
+        Polygon(
+          points={{74,34},{62,38},{62,30},{74,34}},
+          fillColor={135,135,135},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None,
+          lineColor={0,0,0}),
+        Text(
+          extent={{44,62},{96,40}},
+          lineColor={135,135,135},
+          textString="%delay")}),
       Documentation(info="<html>
 <p>
 Block that outputs a pulse signal as shown below.
