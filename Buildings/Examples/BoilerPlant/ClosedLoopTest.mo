@@ -163,8 +163,8 @@ equation
   connect(boilerPlant.yRetTem, controller.TRetPri) annotation (Line(points={{64,
           0},{104,0},{104,-72},{-72,-72},{-72,10.9091},{-42,10.9091}}, color={0,
           0,127}));
-  connect(boilerPlant.yHotWatDp, controller.dpHotWatPri_remote) annotation (
-      Line(points={{64,-4},{108,-4},{108,-76},{-76,-76},{-76,2.72727},{-42,2.72727}},
+  connect(boilerPlant.yHotWatDp, controller.dpHotWatPri_rem) annotation (Line(
+        points={{64,-4},{108,-4},{108,-76},{-76,-76},{-76,2.72727},{-42,2.72727}},
         color={0,0,127}));
   connect(boilerPlant.VHotWat_flow, controller.VHotWatPri_flow) annotation (
       Line(points={{64,-8},{112,-8},{112,-80},{-80,-80},{-80,8.18182},{-42,8.18182}},
