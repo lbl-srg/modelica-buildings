@@ -9,14 +9,14 @@ block Configurator "Configures chiller staging"
 
   parameter Real chiDesCap[nChi](
      final unit=fill("W",nChi),
-     final quantity=fill("Power",nChi),
+     final quantity=fill("HeatFlowRate",nChi),
      displayUnit=fill("W",nChi))
     "Design chiller capacities vector"
     annotation (Evaluate=true);
 
   parameter Real chiMinCap[nChi](
      final unit=fill("W",nChi),
-     final quantity=fill("Power",nChi),
+     final quantity=fill("HeatFlowRate",nChi),
      displayUnit=fill("W",nChi))
     "Chiller minimum cycling loads vector"
     annotation (Evaluate=true);
@@ -46,13 +46,13 @@ block Configurator "Configures chiller staging"
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yDesCap[nSta](
     final unit=fill("W", nSta),
-    final quantity=fill("Power", nSta)) "Stage design capacities vector"
+    final quantity=fill("HeatFlowRate", nSta)) "Stage design capacities vector"
     annotation (Placement(transformation(extent={{220,0},{260,40}}),
         iconTransformation(extent={{100,60},{140,100}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yMinCap[nSta](
     final unit=fill("W", nSta),
-    final quantity=fill("Power", nSta)) "Unload stage capacities vector"
+    final quantity=fill("HeatFlowRate", nSta)) "Unload stage capacities vector"
     annotation (Placement(transformation(extent={{220,-40},{260,0}}),
         iconTransformation(extent={{100,20},{140,60}})));
 

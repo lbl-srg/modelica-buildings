@@ -20,14 +20,14 @@ block SetpointController
 
   parameter Real chiDesCap[nChi](
      final unit=fill("W",nChi),
-     final quantity=fill("Power",nChi),
+     final quantity=fill("HeatFlowRate",nChi),
      displayUnit=fill("W",nChi))
     "Design chiller capacities vector"
     annotation (Evaluate=true, Dialog(tab="General", group="Chiller configuration parameters"));
 
   parameter Real chiMinCap[nChi](
      final unit=fill("W",nChi),
-     final quantity=fill("Power",nChi),
+     final quantity=fill("HeatFlowRate",nChi),
      displayUnit=fill("W",nChi))
     "Chiller minimum cycling loads vector"
     annotation (Evaluate=true, Dialog(tab="General", group="Chiller configuration parameters"));
@@ -329,7 +329,7 @@ block SetpointController
     final min=0,
     final max=nSta)
     "Chiller stage integer setpoint"
-    annotation (Placement(transformation(extent={{120,260},{160,300}}),
+    annotation (Placement(transformation(extent={{120,200},{160,240}}),
       iconTransformation(extent={{100,-130},{140,-90}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yOpeParLoaRatMin(
@@ -337,7 +337,7 @@ block SetpointController
     final min=0)
     "Minimum operating part load ratio at current stage"
     annotation (Placement(transformation(extent={{120,320},{160,360}}),
-        iconTransformation(extent={{100,-200},{140,-160}})));
+        iconTransformation(extent={{100,-180},{140,-140}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.SetPoints.Subsequences.Up staUp(
     final have_WSE=have_WSE,
@@ -381,6 +381,10 @@ block SetpointController
   CDL.Interfaces.BooleanOutput yDow "Stage down signal" annotation (Placement(
         transformation(extent={{120,22},{156,58}}), iconTransformation(extent={
             {100,130},{140,170}})));
+  CDL.Interfaces.RealOutput yCapReq(final quantity="HeatFlowRate", final unit="W")
+    "Chilled water cooling capacity requirement" annotation (Placement(
+        transformation(extent={{120,260},{160,300}}), iconTransformation(extent=
+           {{100,-230},{140,-190}})));
 protected
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.SetPoints.Subsequences.Initial iniSta(
     final have_WSE=have_WSE)
@@ -550,8 +554,8 @@ equation
   connect(uPla, cha.uPla) annotation (Line(points={{-420,-100},{-280,-100},{-280,
           -140},{-60,-140},{-60,-180},{-22,-180}},
                                              color={255,0,255}));
-  connect(cha.ySta, ySta) annotation (Line(points={{2,-166},{20,-166},{20,280},
-          {140,280}},color={255,127,0}));
+  connect(cha.ySta, ySta) annotation (Line(points={{2,-166},{20,-166},{20,220},{
+          140,220}}, color={255,127,0}));
   connect(cha.yChaEdg, yChaEdg) annotation (Line(points={{2,-174},{80,-174},{80,
           -140},{140,-140}},     color={255,0,255}));
   connect(chiInd.yChi, yChiSet) annotation (Line(points={{62,-200},{80,-200},{
@@ -581,6 +585,8 @@ equation
           {140,80}}, color={255,0,255}));
   connect(staDow.y, yDow) annotation (Line(points={{-78,-230},{-60,-230},{-60,
           40},{138,40}}, color={255,0,255}));
+  connect(capReq.y, yCapReq) annotation (Line(points={{-298,310},{-86,310},{-86,
+          280},{140,280}}, color={0,0,127}));
   annotation (defaultComponentName = "staSetCon",
         Icon(coordinateSystem(extent={{-100,-220},{100,200}}, initialScale=0.2),
         graphics={
@@ -709,7 +715,7 @@ equation
           pattern=LinePattern.Dash,
           textString="yChaDowEdg"),
         Text(
-          extent={{-12,-154},{96,-200}},
+          extent={{-12,-134},{96,-180}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="yOpeParLoaRatMin"),
@@ -722,7 +728,12 @@ equation
           extent={{48,168},{96,132}},
           lineColor={217,67,180},
           pattern=LinePattern.Dash,
-          textString="yChaDow")}),
+          textString="yChaDow"),
+        Text(
+          extent={{30,-192},{86,-226}},
+          lineColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="yCapReq")}),
                                  Diagram(
         coordinateSystem(preserveAspectRatio=false,
         extent={{-400,-300},{120,420}})),
