@@ -6,13 +6,13 @@ simulateModel("Buildings.Applications.DHC.EnergyTransferStations.Combined.Genera
     stopTime=172800,
     resultFile="ChillerOnly");
 Advanced.FilenameInLegend = true;
-createPlot(id=1, position={4, 5, 546, 748}, y={"senTHeaWatSup.T", "senTHeaWatRet.T", "ets.conSup.THeaWatSupSet"},
+createPlot(id=1, position={4, 5, 546, 748}, y={"ets.tanHeaWat.TTop", "ets.tanHeaWat.TBot", "senTHeaWatSup.T", "senTHeaWatRet.T", "ets.conSup.THeaWatSupPreSet", "ets.conSup.THeaWatSupSet"},
     autoscale=true,
     autoerase=true,
     autoreplot=true,
     grid=true,
     color=true);
-createPlot(id=1, y={"senTChiWatSup.T", "senTChiWatRet.T", "ets.conSup.TChiWatSupSet"},
+createPlot(id=1, y={"ets.tanChiWat.TTop", "ets.tanChiWat.TBot", "senTChiWatSup.T", "senTChiWatRet.T", "ets.conSup.TChiWatSupPreSet", "ets.conSup.TChiWatSupSet", "ets.chi.con.TChiWatSupSet"},
     subPlot=2,
     autoscale=true,
     autoerase=true,

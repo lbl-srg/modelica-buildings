@@ -8,7 +8,7 @@ simulateModel("Buildings.Applications.DHC.EnergyTransferStations.Combined.Genera
     stopTime=7E6,
     resultFile="ChillerBorefieldExamples");
 Advanced.FilenameInLegend = true;
-createPlot(id=1, position={4, 5, 546, 748}, y={"senTHeaWatSup.T", "senTHeaWatRet.T", "ets.conSup.THeaWatSupSet"},
+createPlot(id=1, position={4, 5, 546, 748}, y={"senTHeaWatSup.T", "senTHeaWatRet.T", "ets.tanHeaWat.TBot", "ets.conSup.THeaWatSupSet"},
     autoscale=true,
     autoerase=true,
     autoreplot=true,
