@@ -37,11 +37,6 @@ block SideHot "Control block for hot side"
     final yMax=nSouAmb,
     final reverseActing=false) "Controller for heat rejection"
     annotation (Placement(transformation(extent={{-70,-170},{-50,-150}})));
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
-    final p=abs(dTDea),
-    final k=1)
-    "Add dead band to set point"
-    annotation (Placement(transformation(extent={{-150,-170},{-130,-150}})));
   Buildings.Controls.OBC.CDL.Continuous.Line mapFun[nSouAmb]
     "Mapping functions for controlled systems"
     annotation (Placement(transformation(extent={{90,-90},{110,-70}})));
@@ -78,7 +73,7 @@ block SideHot "Control block for hot side"
         rotation=180,
         origin={50,-220})));
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol(trueHoldDuration=300,
-      falseHoldDuration=0)
+      falseHoldDuration=300)
     "Holding the valve command signal to avoid short cycling"
     annotation (Placement(transformation(extent={{40,-170},{60,-150}})));
 equation
@@ -103,11 +98,6 @@ equation
           -120,-220},{0,-220},{0,-212}},color={0,0,127}));
   connect(conColRej.y, yCol) annotation (Line(points={{12,-200},{140,-200},{140,
           -160},{200,-160}}, color={0,0,127}));
-  connect(TSet,addPar. u) annotation (Line(points={{-200,40},{-160,40},{-160,
-          -160},{-152,-160}},
-                        color={0,0,127}));
-  connect(addPar.y, conHeaRej.u_s)
-    annotation (Line(points={{-128,-160},{-72,-160}},color={0,0,127}));
   connect(conHeaRej.y, greThr.u) annotation (Line(points={{-48,-160},{-12,-160}},
                                color={0,0,127}));
   connect(x1.y,mapFun. x1) annotation (Line(points={{72,-60},{80,-60},{80,-72},
@@ -139,6 +129,8 @@ equation
           -212}}, color={255,0,255}));
   connect(and2.y, and1.u1) annotation (Line(points={{132,100},{160,100},{160,
           -220},{62,-220}}, color={255,0,255}));
+  connect(TSet, conHeaRej.u_s) annotation (Line(points={{-200,40},{-160,40},{
+          -160,-160},{-72,-160}}, color={0,0,127}));
    annotation (
    defaultComponentName="conHot",
 Documentation(
@@ -166,8 +158,7 @@ Control signals for ambient sources <code>yAmb</code> (array)<br/>
 
 The controller for heat rejection is always enabled.
 It maintains the temperature at the bottom of the heating water tank
-at the heating water supply temperature set point plus a dead band
-<code>dTDea</code>.
+at the heating water supply temperature set point.
 The controller yields a control signal value between
 <code>0</code> and <code>nSouAmb</code>. The systems serving as
 ambient sources are then controlled in sequence by mapping the controller
