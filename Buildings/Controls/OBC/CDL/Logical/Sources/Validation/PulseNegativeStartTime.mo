@@ -81,7 +81,7 @@ model PulseNegativeStartTime
     annotation (Placement(transformation(extent={{70,-40},{90,-20}})));
   annotation (
   experiment(
-      StartTime=9,
+      StartTime=-10,
       StopTime=1,
       Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Logical/Sources/Validation/PulseNegativeStartTime.mos"
