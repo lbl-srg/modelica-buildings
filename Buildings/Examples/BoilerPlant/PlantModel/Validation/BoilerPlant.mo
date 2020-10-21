@@ -216,5 +216,5 @@ First implementation.
       Interval=1,
       Tolerance=1e-06,
       __Dymola_Algorithm="Cvode"),
-    Icon(coordinateSystem(extent={{-120,-120},{120,120}})));
+    Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
 end BoilerPlant;
