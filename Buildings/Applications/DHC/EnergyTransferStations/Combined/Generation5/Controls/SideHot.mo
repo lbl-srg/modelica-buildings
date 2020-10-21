@@ -37,8 +37,9 @@ block SideHot "Control block for hot side"
     final yMax=nSouAmb,
     final reverseActing=false) "Controller for heat rejection"
     annotation (Placement(transformation(extent={{-70,-170},{-50,-150}})));
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(final p=if
-        reverseActing then -abs(dTDea) else abs(dTDea), final k=1)
+  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
+    final p=abs(dTDea),
+    final k=1)
     "Add dead band to set point"
     annotation (Placement(transformation(extent={{-150,-170},{-130,-150}})));
   Buildings.Controls.OBC.CDL.Continuous.Line mapFun[nSouAmb]

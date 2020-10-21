@@ -42,9 +42,9 @@ model SideCold "Control block for cold side"
     "Convert DO to AO signal"
     annotation (Placement(transformation(extent={{120,-170},{140,-150}})));
   LimPIDEnable conTChiWatSup(
-    final k=k*5,
-    final Ti=Ti/2,
-    final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
+    final k=5*k,
+    final Ti=Ti,
+    final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     final yMin=-1,
     final yMax=0,
     final reverseActing=true) "Controller for CHWST"
