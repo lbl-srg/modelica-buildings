@@ -73,7 +73,7 @@ block SideHot "Control block for hot side"
         rotation=180,
         origin={50,-220})));
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol(trueHoldDuration=300,
-      falseHoldDuration=300)
+      falseHoldDuration=0)
     "Holding the valve command signal to avoid short cycling"
     annotation (Placement(transformation(extent={{40,-170},{60,-150}})));
 equation
