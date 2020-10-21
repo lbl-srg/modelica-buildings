@@ -1329,6 +1329,9 @@ block Controller "Chiller plant controller"
   CDL.Interfaces.BooleanOutput yLeaChiWatPum "Lead pump status setpoint"
     annotation (Placement(transformation(extent={{800,560},{840,600}}),
         iconTransformation(extent={{100,60},{140,100}})));
+  CDL.Logical.Sources.Constant fixme1[nTowCel](k=fill(true, nTowCel))
+    "Fixme - ask Jianjun where this input should come from"
+    annotation (Placement(transformation(extent={{-400,-760},{-380,-740}})));
 equation
   connect(staSetCon.uPla, plaEna.yPla) annotation(Line(points={{-168,72},{-480,
           72},{-480,-460},{-518,-460}},        color={255,0,255}));
@@ -1640,6 +1643,8 @@ equation
         color={255,0,255}));
   connect(chiWatPumCon.yLea, yLeaChiWatPum) annotation (Line(points={{606,534},
           {760,534},{760,580},{820,580}}, color={255,0,255}));
+  connect(fixme1.y, towCon.uChaCel) annotation (Line(points={{-378,-750},{-248,
+          -750},{-248,-700},{-208,-700}}, color={255,0,255}));
     annotation (Dialog(tab="Cooling Towers", group="Configuration"),
                 Dialog(tab="Chilled water pumps", group="Speed controller"),
                 Dialog(tab="Plant Reset", group="Time parameter"),
