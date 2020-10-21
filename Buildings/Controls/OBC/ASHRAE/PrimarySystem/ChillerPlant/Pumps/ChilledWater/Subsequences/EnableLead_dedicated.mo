@@ -27,8 +27,7 @@ block EnableLead_dedicated
     annotation (Placement(transformation(extent={{100,60},{140,100}}),
         iconTransformation(extent={{100,-20},{140,20}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Latch leaPumSta(
-    final pre_y_start=true)
+  Buildings.Controls.OBC.CDL.Logical.Latch leaPumSta
     "Lead pump status"
     annotation (Placement(transformation(extent={{60,70},{80,90}})));
 

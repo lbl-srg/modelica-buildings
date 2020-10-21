@@ -93,8 +93,8 @@ protected
   Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea1 "Type converter"
     annotation (Placement(transformation(extent={{-320,90},{-300,110}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Latch lat(
-    final pre_y_start=true) "Latch"
+  Buildings.Controls.OBC.CDL.Logical.Latch lat
+                            "Latch"
     annotation (Placement(transformation(extent={{-320,50},{-300,70}})));
 
   Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea2
