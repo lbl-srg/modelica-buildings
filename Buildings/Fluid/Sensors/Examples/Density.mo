@@ -20,7 +20,8 @@ model Density "Test model for the density sensor"
           extent={{-50,-10},{-30,10}})));
 
   Buildings.Fluid.Sensors.Density senDenVol(
-    redeclare package Medium = Medium) "Density sensor for the volume"
+    redeclare package Medium = Medium, warnAboutOnePortConnection=false)
+                                       "Density sensor for the volume"
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
   Buildings.Fluid.MixingVolumes.MixingVolume vol(
     redeclare package Medium = Medium,

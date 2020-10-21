@@ -334,9 +334,9 @@ Documentation
 
     .. code-block:: html
 
-    See
-    <a href="modelica://Buildings.Fluid.Sensors.Density">
-    Buildings.Fluid.Sensors.Density</a>.
+       See
+       <a href="modelica://Buildings.Fluid.Sensors.Density">
+       Buildings.Fluid.Sensors.Density</a>.
 
 8.  Add a default component name, such as
 
@@ -435,8 +435,8 @@ Alternatively, simple models such as the models below may be used as a starting 
 
 .. _fig_merkel:
 
-.. figure:: img/Merkel.png
-   :scale: 10%
+.. figure:: img/Merkel.*
+   :width: 700px
 
    Schematic diagram of the cooling tower model based on the Merkel theory.
 

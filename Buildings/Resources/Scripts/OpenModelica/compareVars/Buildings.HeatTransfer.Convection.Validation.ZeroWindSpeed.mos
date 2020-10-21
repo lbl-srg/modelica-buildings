@@ -1,0 +1,8 @@
+compareVars :=
+  {
+    "nor.q_flow",
+    "wes.q_flow",
+    "sou.q_flow",
+    "eas.q_flow",
+    "nor.dir"
+  };

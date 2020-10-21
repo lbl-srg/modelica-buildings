@@ -78,19 +78,15 @@
 <li class="toctree-l2"><a class="reference internal" href="bestPractice.html#building-large-system-models">2.2. Building large system models</a></li>
 <li class="toctree-l2"><a class="reference internal" href="bestPractice.html#propagating-parameters-and-media-packages">2.3. Propagating parameters and media packages</a></li>
 <li class="toctree-l2"><a class="reference internal" href="bestPractice.html#thermo-fluid-systems">2.4. Thermo-fluid systems</a></li>
-<li class="toctree-l2"><a class="reference internal" href="bestPractice.html#start-values-of-iteration-variables">2.5. Start values of iteration variables</a></li>
-<li class="toctree-l2"><a class="reference internal" href="bestPractice.html#avoiding-events">2.6. Avoiding events</a></li>
-<li class="toctree-l2"><a class="reference internal" href="bestPractice.html#controls">2.7. Controls</a></li>
-<li class="toctree-l2"><a class="reference internal" href="bestPractice.html#examples-for-how-to-debug-and-correct-slow-simulations">2.8. Examples for how to debug and correct slow simulations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="bestPractice.html#numerical-solvers">2.9. Numerical solvers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bestPractice.html#controls">2.5. Controls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bestPractice.html#start-values-of-iteration-variables">2.6. Start values of iteration variables</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="workArounds.html">3. Work-Arounds</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="workArounds.html#avoiding-step-changes">3.1. Avoiding step changes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="workArounds.html#breaking-algebraic-loops">3.2. Breaking algebraic loops</a></li>
-<li class="toctree-l2"><a class="reference internal" href="workArounds.html#reducing-nonlinear-equations-of-serially-connected-flow-resistances">3.3. Reducing nonlinear equations of serially connected flow resistances</a></li>
-<li class="toctree-l2"><a class="reference internal" href="workArounds.html#prescribed-mass-flow-rate">3.4. Prescribed mass flow rate</a></li>
-<li class="toctree-l2"><a class="reference internal" href="workArounds.html#avoiding-overspecified-initialization-problems">3.5. Avoiding overspecified initialization problems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performance.html">3. Simulation Performance</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="performance.html#control-input-signal-of-equipment">3.1. Control input signal of equipment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="performance.html#fluid-flow-systems">3.2. Fluid flow systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="performance.html#examples-for-how-to-debug-and-correct-slow-simulations">3.3. Examples for how to debug and correct slow simulations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="performance.html#numerical-solvers">3.4. Numerical solvers</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="prePostProcessing.html">4. Pre- and Post-Processing</a></li>
@@ -485,12 +481,11 @@ works on any operating system. See for example the file in
 <li><p>Start headings with <code class="docutils literal notranslate"><span class="pre">&lt;h4&gt;</span></code>.</p></li>
 <li><p>Add hyperlinks to other models using their full name. For example,
 use</p>
-<div class="highlight-html notranslate"><div class="highlight"><pre><span></span>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span>See
+<span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;modelica://Buildings.Fluid.Sensors.Density&quot;</span><span class="p">&gt;</span>
+Buildings.Fluid.Sensors.Density<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>.
 </pre></div>
 </div>
-<p>See
-&lt;a href=”modelica://Buildings.Fluid.Sensors.Density”&gt;
-Buildings.Fluid.Sensors.Density&lt;/a&gt;.</p>
 </li>
 <li><p>Add a default component name, such as</p>
 <div class="highlight-modelica notranslate"><div class="highlight"><pre><span></span><span class="kr">annotation</span><span class="p">(</span><span class="n">defaultComponentName</span><span class="o">=</span><span class="s2">&quot;senDen&quot;</span><span class="p">,</span> <span class="o">...</span>
@@ -580,7 +575,7 @@ Alternatively, simple models such as the models below may be used as a starting 
 </dd>
 </dl>
 <div class="figure align-default" id="id2">
-<span id="fig-merkel"></span><a class="reference internal image-reference" href="_images/Merkel.png"><img alt="_images/Merkel.png" src="_images/Merkel.png" style="width: 546.7px; height: 369.90000000000003px;" /></a>
+<span id="fig-merkel"></span><a class="reference internal image-reference" href="_images/Merkel.svg"><img alt="_images/Merkel.svg" src="_images/Merkel.svg" width="700px" /></a>
 <p class="caption"><span class="caption-number">Fig. 5.1 </span><span class="caption-text">Schematic diagram of the cooling tower model based on the Merkel theory.</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
 </div>
 <p>If models involve complex calculations, then these models are generally easiest to understand
@@ -697,7 +692,7 @@ and it aids in tuning.</p></li>
 <li><p>Never use an inequality comparison without a hysteresis or a time delay if the variable that is used in the inequality test
 is computed using an iterative solver, or is obtained from a measurement and hence can contain measurement noise.
 An exception is a sampled value because the output of a sampler remains constant until the next sampling instant.
-See <a class="reference internal" href="bestPractice.html#sec-bes-pra-con"><span class="std std-numref">Section 2.7</span></a>.</p></li>
+See <a class="reference internal" href="bestPractice.html#sec-bes-pra-con"><span class="std std-numref">Section 2.5</span></a>.</p></li>
 <li><p>CDL uses the following units, which also need to be used in controllers, including
 their parameters:</p>
 <table class="docutils align-default">
