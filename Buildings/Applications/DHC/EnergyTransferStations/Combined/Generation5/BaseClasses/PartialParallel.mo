@@ -117,12 +117,12 @@ model PartialParallel
       iconTransformation(extent={{-380,-40},{-300, 40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaWatSupSet(
     final unit="K", displayUnit="degC")
-    "Heating water supply temperature set-point"
+    "Heating water supply temperature set point"
     annotation (Placement(transformation(extent={{-340,-80},{-300,-40}}),
       iconTransformation(extent={{-380,-120},{-300,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSupSet(
     final unit="K", displayUnit="degC")
-    "Chilled water supply temperature set-point"
+    "Chilled water supply temperature set point"
     annotation (Placement(transformation(extent={{-340,-40},{-300,0}}),
       iconTransformation(extent={{-380,-200},{-300,-120}})));
 

@@ -32,7 +32,7 @@ model Chiller
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant THeaWatSupSet(
     k=45 + 273.15,
     y(final unit="K", displayUnit="degC"))
-    "Heating water supply temperature set-point"
+    "Heating water supply temperature set point"
     annotation (Placement(transformation(extent={{-120,30},{-100,50}})));
   Fluid.Sources.Boundary_pT evaWat(
     redeclare package Medium = Medium,
@@ -53,7 +53,7 @@ model Chiller
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TChiWatSupSet(
     k=7 + 273.15,
     y(final unit="K", displayUnit="degC"))
-    "Chilled water supply temperature set-point"
+    "Chilled water supply temperature set point"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
   Fluid.Sensors.TemperatureTwoPort senTHeaWatSup(redeclare final package
       Medium =

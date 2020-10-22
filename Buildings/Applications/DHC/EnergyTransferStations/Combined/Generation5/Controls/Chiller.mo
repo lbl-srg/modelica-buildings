@@ -72,7 +72,7 @@ model Chiller "Chiller controller"
     "Heating or cooling mode enabled"
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi2
-    "Pass through maximum set-point value if cooling only, otherwise reset"
+    "Pass through maximum set point value if cooling only, otherwise reset"
     annotation (Placement(transformation(extent={{130,-30},{150,-50}})));
   Buildings.Controls.OBC.CDL.Continuous.Line mapFun2 if have_res
     "Mapping function resetting heating water supply temperature"

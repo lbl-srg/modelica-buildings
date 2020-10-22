@@ -13,7 +13,7 @@ partial block PartialSupervisory "Partial model for supervisory controller"
     "Cooling mode enabled signal" annotation (Placement(transformation(extent={{-160,60},
             {-120,100}}), iconTransformation(extent={{-140,50},{-100,90}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSupPreSet(final unit="K",
-      displayUnit="degC") "Chilled water supply temperature set-point"
+      displayUnit="degC") "Chilled water supply temperature set point"
     annotation (Placement(transformation(extent={{-160,-60},{-120,-20}}),
         iconTransformation(extent={{-140,-50},{-100,-10}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatTop(
@@ -37,17 +37,17 @@ partial block PartialSupervisory "Partial model for supervisory controller"
     annotation (Placement(transformation(extent={{-160,-20},{-120,20}}),
       iconTransformation(extent={{-140,-30},{-100,10}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaWatSupPreSet(
-    final unit="K", displayUnit="degC") "Heating water supply temperature set-point"
+    final unit="K", displayUnit="degC") "Heating water supply temperature set point"
     annotation (Placement(transformation(extent={{-160,20},{-120,60}}),
         iconTransformation(extent={{-140,10},{-100,50}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput THeaWatSupSet(
     final unit="K", displayUnit="degC")
-    "Heating water supply temperature set-point after reset" annotation (
+    "Heating water supply temperature set point after reset" annotation (
       Placement(transformation(extent={{120,-60},{160,-20}}),
         iconTransformation(extent={{100,-50},{140,-10}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TChiWatSupSet(
     final unit="K", displayUnit="degC")
-    "Chilled water supply temperature set-point after reset" annotation (
+    "Chilled water supply temperature set point after reset" annotation (
       Placement(transformation(extent={{120,-80},{160,-40}}),
         iconTransformation(extent={{100,-70},{140,-30}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yIsoEva(

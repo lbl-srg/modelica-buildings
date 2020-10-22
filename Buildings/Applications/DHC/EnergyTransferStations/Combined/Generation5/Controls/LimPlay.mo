@@ -55,7 +55,7 @@ block LimPlay "Play hysteresis controller with limited output"
     final k=k,
     final Ti=Ti,
     final reverseActing=reverseActing) if have_enaSig
-    "Controller with high offset set-point"
+    "Controller with high offset set point"
     annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
   Buildings.Controls.OBC.CDL.Continuous.PID conHig(
     final controllerType=controllerType,
@@ -64,7 +64,7 @@ block LimPlay "Play hysteresis controller with limited output"
     final k=k,
     final Ti=Ti,
     final reverseActing=reverseActing) if not have_enaSig
-    "Controller with high offset set-point"
+    "Controller with high offset set point"
     annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
   Buildings.Controls.OBC.CDL.Continuous.PIDWithReset resConLow(
     controllerType=controllerType,
@@ -73,7 +73,7 @@ block LimPlay "Play hysteresis controller with limited output"
     final k=k,
     final Ti=Ti,
     final reverseActing=reverseActing) if have_enaSig
-    "Controller with low offset set-point"
+    "Controller with low offset set point"
     annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.PID conLow(
     controllerType=controllerType,
@@ -82,7 +82,7 @@ block LimPlay "Play hysteresis controller with limited output"
     final k=k,
     final Ti=Ti,
     final reverseActing=reverseActing) if not have_enaSig
-    "Controller with low offset set-point"
+    "Controller with low offset set point"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysBlo(
     final uLow=2*yMin + Modelica.Constants.eps,
@@ -92,12 +92,12 @@ block LimPlay "Play hysteresis controller with limited output"
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addHig(
     final p=hys / 2,
     final k=1)
-    "Positive set-point offset"
+    "Positive set point offset"
     annotation (Placement(transformation(extent={{-90,30},{-70,50}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addLow(
     final p=-hys / 2,
     final k=1)
-    "Negative set-point offset"
+    "Negative set point offset"
     annotation (Placement(transformation(extent={{-90,-50},{-70,-30}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi
     "Switch between high and low controller"

@@ -40,7 +40,7 @@ partial model PartialChillerBorefield
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant THeaWatSupSet(
     k=45 + 273.15,
     y(final unit="K", displayUnit="degC"))
-    "Heating water supply temperature set-point"
+    "Heating water supply temperature set point"
     annotation (Placement(transformation(extent={{-140,130},{-120,150}})));
   Fluid.Sources.Boundary_pT heaWat(
     redeclare package Medium = Medium, nPorts=1)
@@ -53,7 +53,7 @@ partial model PartialChillerBorefield
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TChiWatSupSet(
     k=7 + 273.15,
     y(final unit="K", displayUnit="degC"))
-    "Chilled water supply temperature set-point"
+    "Chilled water supply temperature set point"
     annotation (Placement(transformation(extent={{-140,90},{-120,110}})));
   Fluid.Sensors.TemperatureTwoPort senTHeaWatSup(
     redeclare package Medium = Medium,

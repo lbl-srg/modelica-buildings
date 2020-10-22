@@ -47,7 +47,7 @@ model Chiller "Base subsystem with heat recovery chiller"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.Temperature TChiWatSupSetMin(
     displayUnit="degC") = dat.TEvaLvgMin
-    "Minimum value of chilled water supply temperature set-point"
+    "Minimum value of chilled water supply temperature set point"
     annotation(Dialog(group="Controls"));
   parameter Modelica.SIunits.Temperature TConWatEntMin(
     displayUnit="degC") = dat.TConEntMin
@@ -69,12 +69,12 @@ model Chiller "Base subsystem with heat recovery chiller"
       iconTransformation(extent={{-140,0},{-100,40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSupSet(final unit="K",
       displayUnit="degC")
-    "Chilled water supply temperature set-point (may be reset down)"
+    "Chilled water supply temperature set point (may be reset down)"
     annotation (Placement(transformation(extent={{-240,108},{-200,148}}),
         iconTransformation(extent={{-140,-40},{-100,0}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaWatSupSet(
     final unit="K", displayUnit="degC") if have_res
-    "Heating water supply temperature set-point"
+    "Heating water supply temperature set point"
     annotation (Placement(transformation(extent={{-240,128},{-200,168}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_aChiWat(

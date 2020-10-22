@@ -12,7 +12,7 @@ model LimPlay "Validation of play hysteresis controller"
   Modelica.Blocks.Sources.TimeTable u_m(table=[0,0; 1,10; 2,10; 3,0])
     "Measurement values"
     annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant u_s(k=5) "Set-point"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant u_s(k=5) "Set point"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.LimPlay
     conPlaRevP(

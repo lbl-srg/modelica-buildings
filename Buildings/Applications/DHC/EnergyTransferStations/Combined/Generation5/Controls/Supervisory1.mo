@@ -21,10 +21,10 @@ model Supervisory1 "Supervisory controller"
       controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   parameter Modelica.SIunits.Temperature THeaWatSupSetMin(
       displayUnit="degC")
-    "Minimum value of heating water supply temperature set-point";
+    "Minimum value of heating water supply temperature set point";
   parameter Modelica.SIunits.Temperature TChiWatSupSetMax(
       displayUnit="degC")
-    "Maximum value of chilled water supply temperature set-point";
+    "Maximum value of chilled water supply temperature set point";
 
   SideHot1 conHotSid(
     final nSouAmb=nSouAmb,

@@ -76,7 +76,7 @@ block LimPlaySequence "Play hysteresis controllers in sequence"
         origin={0,-70})));
   Modelica.Blocks.Sources.RealExpression setOff[nCon](
     final y=uSet)
-    "Set-point with offset"
+    "Set point with offset"
     annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep(
     final nout=nCon-1) if have_enaSig and nCon > 1 "Replicate enable signal"
@@ -104,11 +104,11 @@ block LimPlaySequence "Play hysteresis controllers in sequence"
       origin={-80,-40})));
 protected
   final parameter Real sig = if reverseActing then -1 else 1
-    "Sign of set-point offset";
+    "Sign of set point offset";
   Real uSet[nCon] =  cat(1,
     {u_s + sig * (dea + hys/2)},
     {u_s + sig * i * (dea + hys) - sig * hys/2 for i in 2:nCon})
-    "Set-point values";
+    "Set point values";
 equation
   connect(reaRep.y, conPla.u_m)
     annotation (Line(points={{8.88178e-16,-58},{8.88178e-16,-34},{0,-34},{0,-12}},

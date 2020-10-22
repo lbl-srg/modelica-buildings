@@ -12,7 +12,7 @@ model LimPlaySequence "Validation of play hysteresis in sequence"
   Modelica.Blocks.Sources.TimeTable u_m(table=[0,0; 1,10; 2,10; 3,0])
     "Measurement values"
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant u_s(k=0) "Set-point"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant u_s(k=0) "Set point"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.LimPlaySequence
     conPlaRevP(
@@ -30,7 +30,7 @@ model LimPlaySequence "Validation of play hysteresis in sequence"
     k=0.2,
     Ti=2) "Play hysteresis with PI control, direct acting"
     annotation (Placement(transformation(extent={{70,30},{90,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant u_s1(k=10) "Set-point"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant u_s1(k=10) "Set point"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
   Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.LimPlaySequence
     conPlaDirPIEna(
@@ -75,7 +75,7 @@ equation
     Tolerance=1e-06),
   Documentation(info="<html>
 <p>
-This model validates 
+This model validates
 <a href=\"modelica://Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.LimPlaySequence\">
 Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.LimPlaySequence</a>.
 </p>

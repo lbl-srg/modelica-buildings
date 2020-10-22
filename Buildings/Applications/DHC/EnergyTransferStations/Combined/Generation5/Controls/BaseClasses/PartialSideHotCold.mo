@@ -32,7 +32,7 @@ partial block PartialSideHotCold "Base control block for hor or cold side"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSet(
     final unit="K",
     displayUnit="degC")
-    "Supply temperature set-point (heating or chilled water)"
+    "Supply temperature set point (heating or chilled water)"
     annotation (Placement(transformation(extent={{-220,20},{-180,60}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TTop(

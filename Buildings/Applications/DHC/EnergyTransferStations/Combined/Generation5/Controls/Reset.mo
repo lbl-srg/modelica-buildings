@@ -4,10 +4,10 @@ model Reset "Supervisory supply temperature reset"
 
   parameter Modelica.SIunits.Temperature THeaWatSupSetMin(
     displayUnit="degC")
-    "Minimum value of heating water supply temperature set-point";
+    "Minimum value of heating water supply temperature set point";
   parameter Modelica.SIunits.Temperature TChiWatSupSetMax(
     displayUnit="degC")
-    "Maximum value of chilled water supply temperature set-point";
+    "Maximum value of chilled water supply temperature set point";
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHea
     "Heating mode enabled signal" annotation (Placement(transformation(extent={{-140,60},
@@ -18,32 +18,32 @@ model Reset "Supervisory supply temperature reset"
             {-140,20},{-100,60}}), iconTransformation(extent={{-140,10},{-100,
             50}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaWatSupPreSet(final unit="K",
-      displayUnit="degC") "Heating water supply temperature set-point"
+      displayUnit="degC") "Heating water supply temperature set point"
     annotation (Placement(transformation(extent={{-138,-20},{-98,20}}),
         iconTransformation(extent={{-140,-50},{-100,-10}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSupPreSet(final unit="K",
-      displayUnit="degC") "Chilled water supply temperature set-point"
+      displayUnit="degC") "Chilled water supply temperature set point"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}}),
         iconTransformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput THeaWatSupSet(final unit="K",
       displayUnit="degC")
-    "Heating water supply temperature set-point after reset" annotation (
+    "Heating water supply temperature set point after reset" annotation (
       Placement(transformation(extent={{100,40},{140,80}}), iconTransformation(
           extent={{100,30},{140,70}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TChiWatSupSet(final unit="K",
       displayUnit="degC")
-    "Chilled water supply temperature set-point after reset" annotation (
+    "Chilled water supply temperature set point after reset" annotation (
       Placement(transformation(extent={{100,-80},{140,-40}}),
         iconTransformation(extent={{100,-70},{140,-30}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swiCoo "Switch"
     annotation (Placement(transformation(extent={{0,-70},{20,-50}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minSet(k=
-        THeaWatSupSetMin) "Minimum value of HW set-point"
+        THeaWatSupSetMin) "Minimum value of HW set point"
     annotation (Placement(transformation(extent={{-50,30},{-30,50}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swiHea "Switch"
     annotation (Placement(transformation(extent={{0,50},{20,70}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxSet(k=
-        TChiWatSupSetMax) "Maximum value of CHW set-point"
+        TChiWatSupSetMax) "Maximum value of CHW set point"
     annotation (Placement(transformation(extent={{-50,-90},{-30,-70}})));
   Buildings.Controls.OBC.CDL.Continuous.SlewRateLimiter ramLimHea(
       raisingSlewRate=0.1) "Limit the rate of change"

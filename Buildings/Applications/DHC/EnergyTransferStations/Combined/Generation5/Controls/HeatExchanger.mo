@@ -119,7 +119,7 @@ model HeatExchanger
     "Gain schedule"
     annotation (Placement(transformation(extent={{-90,-110},{-70,-90}})));
   Buildings.Controls.OBC.CDL.Routing.RealExtractor setAct(nin=2)
-    "Actual set-point"
+    "Actual set point"
     annotation (Placement(transformation(extent={{-50,-70},{-30,-50}})));
   Buildings.Controls.OBC.CDL.Routing.RealExtractor gaiAct(nin=2) "Actual gain"
     annotation (Placement(transformation(extent={{-50,-110},{-30,-90}})));
