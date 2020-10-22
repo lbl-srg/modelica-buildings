@@ -22,6 +22,9 @@ addons:
     sources:
     - sourceline: "deb http://build.openmodelica.org/apt `lsb_release -cs` stable"
       key_url: "http://build.openmodelica.org/apt/openmodelica.asc"
+    packages:
+    - omc=1.16.0~dev.beta4-1
+    - omlib-modelica-3.2.3=3.2.3~20201013~234009~git~OM~maint~3.2.3-1
 
 env:
   global:
@@ -117,12 +120,12 @@ before_install:
       cd -;
       echo "Installed modelica-json in ${MODELICA_JSON_HOME}";
     fi;
-  - if [[ "$TEST_ARG" == *test-omc* ]]; then
-        sudo apt-get -q update;
-        sudo apt-get -y install \
-          omc=1.16.0~dev.beta4-1 \
-          omlib-modelica-3.2.3=3.2.3~20201013~234009~git~OM~maint~3.2.3-1;
-    fi;
+#  - if [[ "$TEST_ARG" == *test-omc* ]]; then
+#        sudo apt-get -q update;
+#        sudo apt-get -y install \
+#          omc=1.16.0~dev.beta4-1 \
+#          omlib-modelica-3.2.3=3.2.3~20201013~234009~git~OM~maint~3.2.3-1;
+#    fi;
 
 
 
