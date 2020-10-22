@@ -179,10 +179,6 @@ supply temperature (CHWST) set point.
 This controller is enabled if the chilled water
 tank is in demand. It yields a control signal value between
 <code>0</code> and <code>nSouAmb</code>.
-Note that a proportional-only controller is required
-as the chiller model includes an idealized control of the CHWST.
-Therefore, an integral term cannot numerically decrease as
-the chilled water supply temperature never drops below its set point.
 </li>
 <li>
 The systems serving as ambient sources are then controlled in sequence
