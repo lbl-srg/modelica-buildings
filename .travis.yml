@@ -121,7 +121,6 @@ before_install:
       echo "Installed modelica-json in ${MODELICA_JSON_HOME}";
     fi;
 
-
 # Install dependencies
 # For sphinx, we need to install specific package versions, otherwise
 # the html output may have small formatting differences which causes
