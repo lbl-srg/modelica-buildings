@@ -120,7 +120,7 @@ before_install:
   - if [[ "$TEST_ARG" == *test-omc* ]]; then
         sudo apt-get -y install \
           omc=1.16.0~dev.beta4-1 \
-          omlib-modelica-3.2.3=3.2.3~20201013~234009~git~OM~maint~3.2.3-1
+          omlib-modelica-3.2.3=3.2.3~20201013~234009~git~OM~maint~3.2.3-1;
     fi;
 
 
