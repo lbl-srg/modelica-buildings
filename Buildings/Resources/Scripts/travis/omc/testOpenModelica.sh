@@ -51,7 +51,7 @@ for ff in $fileList; do
   logName="${modelName}.log"
   if [ -f $logName ]; then
     cou=`grep -c "The simulation finished successfully" $logName`
-    if [ ! "${cou}" ==  "1" ]; then
+    if [ "${cou}" -ne  "1" ]; then
         echo "$modelName failed."
         exiFla=1
     fi;
