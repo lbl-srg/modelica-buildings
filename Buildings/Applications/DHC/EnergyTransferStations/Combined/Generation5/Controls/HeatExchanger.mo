@@ -14,22 +14,22 @@ model HeatExchanger
     annotation(Dialog(enable=have_val1Hex));
   parameter Real spePum2HexMin(final unit="1", min=0.01) = 0.1
     "Heat exchanger secondary pump minimum speed (fractional)";
-  parameter Modelica.SIunits.TemperatureDifference dT2HexSet[2]
-    "Secondary side deltaT set-point schedule (index 1 for heat rejection)";
+  parameter Modelica.SIunits.TemperatureDifference dT1HexSet[2]
+    "Primary side deltaT set point schedule (index 1 for heat rejection)";
   parameter Real k[2]
     "Gain schedule for controller (index 1 for heat rejection)";
   final parameter Real kNor[2] = k ./ k[1]
     "Normalized gain schedule for controller (index 1 for heat rejection)";
   parameter Modelica.SIunits.Time Ti(min=0)
     "Time constant of integrator block";
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput T2HexWatEnt(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput T1HexWatEnt(
     final unit="K", displayUnit="degC")
-    "District heat exchanger secondary water entering temperature" annotation (
+    "District heat exchanger primary water entering temperature"   annotation (
       Placement(transformation(extent={{-260,-20},{-220,20}}),
         iconTransformation(extent={{-140,-50},{-100,-10}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput T2HexWatLvg(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput T1HexWatLvg(
     final unit="K", displayUnit="degC")
-    "District heat exchanger secondary water leaving temperature" annotation (
+    "District heat exchanger primary water leaving temperature"   annotation (
       Placement(transformation(extent={{-260,-60},{-220,-20}}),
         iconTransformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput yValIso[2]
@@ -48,15 +48,15 @@ model HeatExchanger
     "District heat exchanger secondary valve control signal" annotation (
       Placement(transformation(extent={{220,-80},{260,-40}}),
         iconTransformation(extent={{100,-80},{140,-40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add delT2(k2=-1) "Compute deltaT"
+  Buildings.Controls.OBC.CDL.Continuous.Add delT(k2=-1) "Compute deltaT"
     annotation (Placement(transformation(extent={{-170,-30},{-150,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Abs absDelT2 "Absolute value"
+  Buildings.Controls.OBC.CDL.Continuous.Abs absDelT "Absolute value"
     annotation (Placement(transformation(extent={{-90,-30},{-70,-10}})));
   Buildings.Controls.Continuous.LimPID con1Hex(
     final k=1,
     final Ti=Ti,
     final reset=Buildings.Types.Reset.Parameter,
-    final reverseActing=true,
+    final reverseActing=false,
     final yMin=0,
     final yMax=1,
     final controllerType=Modelica.Blocks.Types.SimpleController.PI)
@@ -111,8 +111,9 @@ model HeatExchanger
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-80,-140})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant schSet[2](k=dT2HexSet)
-    "Set-point schedule"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant schSet[2](
+    final k=dT1HexSet)
+    "Set point schedule"
     annotation (Placement(transformation(extent={{-90,-70},{-70,-50}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant schGai[2](k=kNor)
     "Gain schedule"
@@ -145,12 +146,12 @@ protected
   parameter Boolean have_val1Hex=conCon == Buildings.Applications.DHC.EnergyTransferStations.Types.ConnectionConfiguration.TwoWayValve
     "True in case of control valve on district side, false in case of a pump";
 equation
-  connect(delT2.y, absDelT2.u)
-    annotation (Line(points={{-148,-20},{-92,-20}},    color={0,0,127}));
-  connect(T2HexWatEnt, delT2.u1) annotation (Line(points={{-240,0},{-180,0},{-180,
-          -14},{-172,-14}},       color={0,0,127}));
-  connect(T2HexWatLvg, delT2.u2) annotation (Line(points={{-240,-40},{-180,-40},
-          {-180,-26},{-172,-26}}, color={0,0,127}));
+  connect(delT.y, absDelT.u)
+    annotation (Line(points={{-148,-20},{-92,-20}}, color={0,0,127}));
+  connect(T1HexWatEnt, delT.u1) annotation (Line(points={{-240,0},{-180,0},{-180,
+          -14},{-172,-14}}, color={0,0,127}));
+  connect(T1HexWatLvg, delT.u2) annotation (Line(points={{-240,-40},{-180,-40},{
+          -180,-26},{-172,-26}}, color={0,0,127}));
   connect(swiOff1.y, y1Hex)
     annotation (Line(points={{182,-60},{200,-60},{200,20},{240,20}},
                                                  color={0,0,127}));
@@ -184,8 +185,8 @@ equation
   connect(pro1.y, con1Hex.u_m)
     annotation (Line(points={{48,-100},{60,-100},{60,-72}},
                                                         color={0,0,127}));
-  connect(absDelT2.y, pro1.u1) annotation (Line(points={{-68,-20},{20,-20},{20,
-          -94},{24,-94}},color={0,0,127}));
+  connect(absDelT.y, pro1.u1) annotation (Line(points={{-68,-20},{20,-20},{20,-94},
+          {24,-94}}, color={0,0,127}));
   connect(cooRej.y, idxSch.u) annotation (Line(points={{-148,40},{-140,40},{-140,
           -140},{-92,-140}}, color={255,0,255}));
   connect(schSet.y, setAct.u)

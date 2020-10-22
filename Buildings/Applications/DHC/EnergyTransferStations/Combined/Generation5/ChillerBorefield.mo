@@ -16,7 +16,7 @@ model ChillerBorefield
       constrainedby Controls.BaseClasses.PartialSupervisory,
     nSysHea=1,
     nSouAmb=if have_borFie then 2 else 1,
-    dT2HexSet=abs(T_b2Hex_nominal - T_a2Hex_nominal) .*
+    dT1HexSet=abs(T_b1Hex_nominal - T_a1Hex_nominal) .*
       {1 + 1/datChi.COP_nominal, 1},
     VTanHeaWat=datChi.PLRMin*datChi.mCon_flow_nominal*5*60/1000,
     VTanChiWat=datChi.PLRMin*datChi.mEva_flow_nominal*5*60/1000,

@@ -53,8 +53,8 @@ model PartialParallel
   parameter Modelica.SIunits.Temperature T_b2Hex_nominal
     "Nominal water outlet temperature on building side"
     annotation (Dialog(group="District heat exchanger"));
-  parameter Modelica.SIunits.TemperatureDifference dT2HexSet[2]
-    "Secondary side deltaT set-point schedule (index 1 for heat rejection)"
+  parameter Modelica.SIunits.TemperatureDifference dT1HexSet[2]
+    "Primary side deltaT set point schedule (index 1 for heat rejection)"
     annotation (Dialog(group="District heat exchanger"));
   parameter Real spePum1HexMin(final unit="1", min=0) = 0.1
     "Heat exchanger primary pump minimum speed (fractional)"
@@ -163,7 +163,7 @@ model PartialParallel
     final T_b1Hex_nominal=T_b1Hex_nominal,
     final T_a2Hex_nominal=T_a2Hex_nominal,
     final T_b2Hex_nominal=T_b2Hex_nominal,
-    final dT2HexSet=dT2HexSet,
+    final dT1HexSet=dT1HexSet,
     final spePum1HexMin=spePum1HexMin,
     final yVal1HexMin=yVal1HexMin,
     final spePum2HexMin=spePum2HexMin)

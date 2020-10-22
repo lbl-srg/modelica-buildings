@@ -63,8 +63,8 @@ model HeatExchanger
   parameter Real spePum2HexMin(final unit="1", min=0.01)= 0.1
     "Heat exchanger secondary pump minimum speed (fractional)"
     annotation (Dialog(group="Controls"));
-  parameter Modelica.SIunits.TemperatureDifference dT2HexSet[2]
-    "Secondary side deltaT set-point schedule (index 1 for heat rejection)"
+  parameter Modelica.SIunits.TemperatureDifference dT1HexSet[2]
+    "Primary side deltaT set point schedule (index 1 for heat rejection)"
     annotation (Dialog(group="Controls"));
   parameter Real k[2]={0.05,0.1}
     "Gain schedule for controller (index 1 for heat rejection)"
@@ -90,7 +90,7 @@ model HeatExchanger
     final conCon=conCon,
     final spePum1HexMin=spePum1HexMin,
     final spePum2HexMin=spePum2HexMin,
-    final dT2HexSet=dT2HexSet,
+    final dT1HexSet=dT1HexSet,
     final k=k,
     final Ti=Ti)
     "District heat exchanger loop controller"
@@ -268,10 +268,6 @@ equation
           -72,168}},  color={0,0,127}));
   connect(hex.port_b2, senT2HexWatLvg.port_a)
     annotation (Line(points={{-10,-6},{-20,-6},{-20,-10}}, color={0,127,255}));
-  connect(senT2HexWatLvg.T, conHex.T2HexWatLvg) annotation (Line(points={{-31,-20},
-          {-80,-20},{-80,152},{-72,152}}, color={0,0,127}));
-  connect(senT2HexWatEnt.T, conHex.T2HexWatEnt) annotation (Line(points={{9,-40},
-          {-86,-40},{-86,157},{-72,157}}, color={0,0,127}));
   connect(val2Hex.port_2, pum2Hex.port_a)
     annotation (Line(points={{70,-60},{50,-60}}, color={0,127,255}));
   connect(port_a2, val2Hex.port_1)
@@ -284,6 +280,10 @@ equation
           {80,-80},{80,-70}}, color={0,127,255}));
   connect(conHex.yVal2Hex, val2Hex.y) annotation (Line(points={{-48,154},{64,
           154},{64,-40},{80,-40},{80,-48}}, color={0,0,127}));
+  connect(senT1HexWatLvg.T, conHex.T1HexWatLvg) annotation (Line(points={{9,20},
+          {-76,20},{-76,152},{-72,152}}, color={0,0,127}));
+  connect(senT1HexWatEnt.T, conHex.T1HexWatEnt) annotation (Line(points={{-31,40},
+          {-80,40},{-80,157},{-72,157}}, color={0,0,127}));
   annotation (
   defaultComponentName="hex",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
