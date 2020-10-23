@@ -8,12 +8,17 @@ block NextBoiler
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uBoiSet[nBoi]
     "Vector of boilers status setpoint"
     annotation (Placement(transformation(extent={{-260,-20},{-220,20}}),
-      iconTransformation(extent={{-140,-50},{-100,-10}})));
+      iconTransformation(extent={{-140,0},{-100,40}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput chaPro
     "True: in the stage change process"
     annotation (Placement(transformation(extent={{-260,-180},{-220,-140}}),
       iconTransformation(extent={{-140,-90},{-100,-50}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uPlaEna
+    "Signal indicating if plant is enabled"
+    annotation (Placement(transformation(extent={{-260,-90},{-220,-50}}),
+      iconTransformation(extent={{-140,-50},{-100,-10}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uStaSet
     "Boiler stage setpoint"
@@ -48,6 +53,11 @@ block NextBoiler
 protected
   parameter Integer boiInd[nBoi]={i for i in 1:nBoi}
     "Boiler index, {1,2,...,n}";
+
+  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep1(
+    final nout=nBoi)
+    "Boolean replicator"
+    annotation (Placement(transformation(extent={{-200,-80},{-180,-60}})));
 
   Buildings.Controls.OBC.CDL.Integers.Change cha
     "Check if it is stage up or stage down"
@@ -167,6 +177,14 @@ protected
     "Detect boilers being turned off"
     annotation (Placement(transformation(extent={{-200,-110},{-180,-90}})));
 
+  Buildings.Controls.OBC.CDL.Logical.And and1[nBoi]
+    "Allow check for on-off stage change only when plant is enabled"
+    annotation (Placement(transformation(extent={{-154,30},{-134,50}})));
+
+  Buildings.Controls.OBC.CDL.Logical.And and2[nBoi]
+    "Allow check for on-off stage change only when plant is enabled"
+    annotation (Placement(transformation(extent={{-154,-110},{-134,-90}})));
+
 equation
 
   connect(chaPro, endPro.u)
@@ -283,17 +301,11 @@ equation
   connect(proInt7.y,yEnaSmaBoi)
     annotation (Line(points={{202,-160},{240,-160}}, color={255,127,0}));
 
-  connect(falEdg.y, disBoi.u)
-    annotation (Line(points={{-178,-100},{-122,-100}}, color={255,0,255}));
-
   connect(falEdg.u, uBoiSet) annotation (Line(points={{-202,-100},{-212,-100},{
           -212,0},{-240,0}}, color={255,0,255}));
 
   connect(edg.u, uBoiSet) annotation (Line(points={{-202,40},{-212,40},{-212,0},
           {-240,0}}, color={255,0,255}));
-
-  connect(edg.y, enaBoi.u)
-    annotation (Line(points={{-178,40},{-122,40}}, color={255,0,255}));
 
   connect(endPro.y, booRep.u)
     annotation (Line(points={{-188,-160},{-156,-160}}, color={255,0,255}));
@@ -304,6 +316,20 @@ equation
   connect(endPro.y, upPro.clr) annotation (Line(points={{-188,-160},{-160,-160},
           {-160,154},{-122,154}}, color={255,0,255}));
 
+  connect(and2.y, disBoi.u)
+    annotation (Line(points={{-132,-100},{-122,-100}}, color={255,0,255}));
+  connect(and1.y, enaBoi.u)
+    annotation (Line(points={{-132,40},{-122,40}}, color={255,0,255}));
+  connect(edg.y, and1.u1)
+    annotation (Line(points={{-178,40},{-156,40}}, color={255,0,255}));
+  connect(uPlaEna, booRep1.u)
+    annotation (Line(points={{-240,-70},{-202,-70}}, color={255,0,255}));
+  connect(booRep1.y, and1.u2) annotation (Line(points={{-178,-70},{-168,-70},{-168,
+          32},{-156,32}}, color={255,0,255}));
+  connect(booRep1.y, and2.u2) annotation (Line(points={{-178,-70},{-168,-70},{-168,
+          -108},{-156,-108}}, color={255,0,255}));
+  connect(falEdg.y, and2.u1)
+    annotation (Line(points={{-178,-100},{-156,-100}}, color={255,0,255}));
 annotation (
   defaultComponentName="nexBoi",
   Diagram(coordinateSystem(preserveAspectRatio=false,

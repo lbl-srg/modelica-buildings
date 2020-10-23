@@ -82,6 +82,11 @@ block Down
     annotation (Placement(transformation(extent={{-280,60},{-240,100}}),
       iconTransformation(extent={{-140,0},{-100,40}})));
 
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uPlaEna
+    "Signal indicating plant is enabled"
+    annotation (Placement(transformation(extent={{-280,-150},{-240,-110}}),
+      iconTransformation(extent={{-140,-160},{-100,-120}})));
+
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uPumChaPro if not have_priOnl
     "Rising edge indicating all pump change processes have been completed and pumps have been proved on"
     annotation (Placement(transformation(extent={{-280,-210},{-240,-170}}),
@@ -95,7 +100,7 @@ block Down
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uStaSet
     "Boiler stage setpoint index from staging setpoint controller"
     annotation (Placement(transformation(extent={{-280,-100},{-240,-60}}),
-      iconTransformation(extent={{-140,-160},{-100,-120}})));
+      iconTransformation(extent={{-140,-120},{-100,-80}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VMinHotWatSet_flow(
     final quantity="VolumeFlowRate",
@@ -321,7 +326,7 @@ equation
   connect(uHotWatIsoVal, enaHotWatIsoVal.uHotWatIsoVal) annotation (Line(points={{-260,
           120},{-80,120},{-80,5},{-72,5}},       color={0,0,127}));
 
-  connect(nexBoi.uBoiSet, uBoiSet) annotation (Line(points={{-172,-69},{-190,-69},
+  connect(nexBoi.uBoiSet, uBoiSet) annotation (Line(points={{-172,-64},{-190,-64},
           {-190,40},{-260,40}},      color={255,0,255}));
 
   connect(uStaSet, nexBoi.uStaSet) annotation (Line(points={{-260,-80},{-234,-80},
@@ -526,6 +531,8 @@ equation
   connect(nexBoi.yLasDisBoi, yLasDisBoi) annotation (Line(points={{-148,-70},{60,
           -70},{60,-60},{140,-60},{140,-116},{254,-116},{254,-190},{300,-190}},
         color={255,127,0}));
+  connect(uPlaEna, nexBoi.uPlaEna) annotation (Line(points={{-260,-130},{-190,-130},
+          {-190,-69},{-172,-69}}, color={255,0,255}));
 annotation (
   defaultComponentName="dowProCon",
   Diagram(coordinateSystem(preserveAspectRatio=false,

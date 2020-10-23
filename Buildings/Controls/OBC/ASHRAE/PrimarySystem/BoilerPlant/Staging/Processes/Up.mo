@@ -408,8 +408,8 @@ equation
   connect(uHotWatIsoVal, enaHotWatIsoVal.uHotWatIsoVal) annotation (Line(points={{-260,
           120},{-80,120},{-80,5},{-72,5}},       color={0,0,127}));
 
-  connect(nexBoi.uBoiSet, uBoiSet) annotation (Line(points={{-172,-63},{-190,
-          -63},{-190,40},{-260,40}}, color={255,0,255}));
+  connect(nexBoi.uBoiSet, uBoiSet) annotation (Line(points={{-172,-58},{-190,-58},
+          {-190,40},{-260,40}},      color={255,0,255}));
 
   connect(uBoi, enaBoi.uBoi) annotation (Line(points={{-260,80},{46,80},{46,-2},
           {58,-2}}, color={255,0,255}));
@@ -579,6 +579,8 @@ equation
           {-190,-216},{-190,-126},{-182,-126}}, color={255,0,255}));
   connect(nexBoi.yDisSmaBoi, yLasDisBoi) annotation (Line(points={{-148,-56},{156,
           -56},{156,-156},{240,-156},{240,-190},{300,-190}}, color={255,127,0}));
+  connect(uPlaEna, nexBoi.uPlaEna) annotation (Line(points={{-260,-120},{-230,-120},
+          {-230,-100},{-190,-100},{-190,-63},{-172,-63}}, color={255,0,255}));
 annotation (
   defaultComponentName="upProCon",
   Diagram(coordinateSystem(preserveAspectRatio=false,

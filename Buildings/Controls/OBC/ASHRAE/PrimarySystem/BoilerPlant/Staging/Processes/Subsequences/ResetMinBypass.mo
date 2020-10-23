@@ -49,8 +49,8 @@ block ResetMinBypass
 
 protected
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
-    final uLow=relFloDif - 0.01,
-    final uHigh=relFloDif + 0.01)
+    final uLow=-relFloDif,
+    final uHigh=+relFloDif)
     "Check if boiler water flow rate is different from its setpoint"
     annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
 
@@ -59,8 +59,7 @@ protected
     annotation (Placement(transformation(extent={{120,70},{140,90}})));
 
   Buildings.Controls.OBC.CDL.Logical.Timer tim(
-    final t=delEna)
-    "Time after achiving setpoint"
+    final t=delEna) "Time after achieving setpoint"
     annotation (Placement(transformation(extent={{40,-30},{60,-10}})));
 
   Buildings.Controls.OBC.CDL.Logical.And and2
@@ -100,10 +99,6 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Abs abs
     "Absolute value"
     annotation (Placement(transformation(extent={{-120,-30},{-100,-10}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Not not2
-    "Logical not"
-    annotation (Placement(transformation(extent={{-20,-70},{0,-50}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Add add2(
     final k2=-1)
@@ -164,16 +159,9 @@ equation
     annotation (Line(points={{-98,-20},{-90,-20},{-90,-40},{-110,-40},{-110,-54},
       {-102,-54}}, color={0,0,127}));
 
-  connect(hys.y, not2.u)
-    annotation (Line(points={{-38,-60},{-22,-60}}, color={255,0,255}));
-
   connect(and2.y, and3.u1)
     annotation (Line(points={{-58,80},{-10,80},{-10,-20},{-2,-20}},
       color={255,0,255}));
-
-  connect(not2.y, and3.u2)
-    annotation (Line(points={{2,-60},{10,-60},{10,-40},{-10,-40},{-10,-28},
-      {-2,-28}}, color={255,0,255}));
 
   connect(abs.u, add2.y)
     annotation (Line(points={{-122,-20},{-126,-20}}, color={0,0,127}));
@@ -186,6 +174,8 @@ equation
 
   connect(tim.passed, and1.u3) annotation (Line(points={{62,-28},{114,-28},{114,
           72},{118,72}}, color={255,0,255}));
+  connect(hys.y, and3.u2) annotation (Line(points={{-38,-60},{-10,-60},{-10,-28},
+          {-2,-28}}, color={255,0,255}));
 annotation (
   defaultComponentName="minBypRes",
   Icon(graphics={
