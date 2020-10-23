@@ -99,6 +99,11 @@ protected
     "Divider to get relative value of required heating capacity"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
 
+  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
+    final p=1e-6,
+    final k=1)
+    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
+
   Buildings.Controls.OBC.CDL.Continuous.Division div1
     "Divider to get relative value of required heating capacity"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
@@ -196,8 +201,6 @@ equation
   connect(add1.y, div2.u1)
     annotation (Line(points={{-58,-40},{-50,-40},{-50,-44},{-42,-44}},
       color={0,0,127}));
-  connect(div2.u2, VUpMinSet_flow) annotation (Line(points={{-42,-56},{-50,-56},
-          {-50,-60},{-140,-60}}, color={0,0,127}));
   connect(div2.y, hys.u)
     annotation (Line(points={{-18,-50},{28,-50}},
       color={0,0,127}));
@@ -263,6 +266,10 @@ equation
           {98,58}}, color={255,0,255}));
   connect(tim1.passed, logSwi.u3) annotation (Line(points={{42,22},{80,22},{80,42},
           {98,42}}, color={255,0,255}));
+  connect(VUpMinSet_flow, addPar.u) annotation (Line(points={{-140,-60},{-110,-60},
+          {-110,-70},{-82,-70}}, color={0,0,127}));
+  connect(addPar.y, div2.u2) annotation (Line(points={{-58,-70},{-50,-70},{-50,-56},
+          {-42,-56}}, color={0,0,127}));
 annotation (
   defaultComponentName = "effCon",
   Icon(
