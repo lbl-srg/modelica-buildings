@@ -135,11 +135,8 @@ protected
     "Element-wise division"
     annotation (Placement(transformation(extent={{-20,-160},{0,-140}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar[nSta,nBoi](final p=
-        fill(
-        1e-8,
-        nSta,
-        nBoi),
+  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar[nSta,nBoi](
+    final p=fill(1e-8,nSta,nBoi),
     final k=fill(1, nSta, nBoi))
     "Prevent divison by zero"
     annotation (Placement(transformation(extent={{-50,-190},{-30,-170}})));
@@ -296,7 +293,7 @@ protected
     annotation (Placement(transformation(extent={{228,-50},{248,-30}})));
 
   Buildings.Controls.OBC.CDL.Discrete.UnitDelay uniDel(
-    final samplePeriod=1e-3)
+    final samplePeriod=1)
     "Unit delay for Real signal"
     annotation (Placement(transformation(extent={{140,-120},{160,-100}})));
 
