@@ -2,6 +2,13 @@ within Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Ex
 model ChillerOnly
   "Example of the ETS model with heat recovery chiller"
   extends Validation.BaseClasses.PartialChillerBorefield(
+    TDisWatSup(
+      table=[0,11; 1,12; 2,13; 3,14; 4,15; 5,16; 6,17; 7,18; 8,20; 9,18; 10,16; 11,
+        13; 12,11],
+      timeScale=2592000),
+    loa(
+      tableOnFile=true,
+      fileName=Modelica.Utilities.Files.loadResource(filNam)),
     QCoo_flow_nominal=Experimental.DistrictHeatingCooling.SubStations.VaporCompression.BaseClasses.getPeakLoad(
       string="#Peak space cooling load",
       filNam=Modelica.Utilities.Files.loadResource(filNam)),
@@ -13,17 +20,6 @@ model ChillerOnly
   parameter String filNam=
     "modelica://Buildings/Applications/DHC/Loads/Examples/Resources/MediumOffice-90.1-2010-5A.mos"
     "File name with thermal loads as time series";
-  Modelica.Blocks.Sources.CombiTimeTable loa(
-    tableOnFile=true,
-    tableName="tab1",
-    fileName=Modelica.Utilities.Files.loadResource(filNam),
-    extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
-    y(each unit="W"),
-    offset={0,0,0},
-    columns={2,3,4},
-    smoothness=Modelica.Blocks.Types.Smoothness.MonotoneContinuousDerivative1)
-    "Reader for thermal loads (y[1] is cooling load, y[2] is heating load)"
-    annotation (Placement(transformation(extent={{-330,150},{-310,170}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain loaNorHea(final k=1/ets.QHeaWat_flow_nominal)
     "Normalize by nominal" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -43,6 +39,8 @@ equation
     annotation (Line(points={{-266,60},{-252,60}}, color={0,0,127}));
   connect(loaNorCoo.y, loaCooNor.u)
     annotation (Line(points={{286,60},{272,60}}, color={0,0,127}));
+  connect(TDisWatSup.y[1], disWat.T_in) annotation (Line(points={{-309,-140},{-140,
+          -140},{-140,-136},{-122,-136}}, color={0,0,127}));
   annotation (
   __Dymola_Commands(file=
 "modelica://Buildings/Resources/Scripts/Dymola/Applications/DHC/EnergyTransferStations/Combined/Generation5/Examples/ChillerOnly.mos"

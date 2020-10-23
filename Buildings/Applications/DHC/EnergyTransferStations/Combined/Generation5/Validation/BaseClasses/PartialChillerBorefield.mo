@@ -27,11 +27,11 @@ partial model PartialChillerBorefield
     etaMotor=1,
     mEva_flow_nominal=abs(QCoo_flow_nominal) / 5 / 4186,
     mCon_flow_nominal=QHea_flow_nominal / 5 / 4186,
-    TEvaLvg_nominal=275.15,
+    TEvaLvg_nominal=277.15,
     capFunT={1,0,0,0,0,0},
     EIRFunT={-0.14,-0.03,0,+0.03,0,0},
     EIRFunPLR={0.1,0.9,0},
-    TEvaLvgMin=275.15,
+    TEvaLvgMin=277.15,
     TEvaLvgMax=288.15,
     TConEnt_nominal=313.15,
     TConEntMin=298.15,
@@ -91,10 +91,10 @@ partial model PartialChillerBorefield
     dp1Hex_nominal=20E3,
     dp2Hex_nominal=20E3,
     QHex_flow_nominal=-QCoo_flow_nominal,
-    T_a1Hex_nominal=282.15,
-    T_b1Hex_nominal=277.15,
-    T_a2Hex_nominal=275.15,
-    T_b2Hex_nominal=280.15,
+    T_a1Hex_nominal=284.15,
+    T_b1Hex_nominal=279.15,
+    T_a2Hex_nominal=277.15,
+    T_b2Hex_nominal=282.15,
     dpCon_nominal=15E3,
     dpEva_nominal=15E3,
     datChi=datChi,
@@ -114,10 +114,6 @@ partial model PartialChillerBorefield
       extent={{-10,-10},{10,10}},
       rotation=0,
       origin={-110,-140})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TDisWatSup(k=9 + 273.15,
-    y(final unit="K", displayUnit="degC"))
-    "District water supply temperature"
-    annotation (Placement(transformation(extent={{-250,-150},{-230,-130}})));
   Buildings.Applications.DHC.EnergyTransferStations.BaseClasses.Pump_m_flow
     pumChiWat(
     redeclare package Medium = Medium,
@@ -200,6 +196,32 @@ partial model PartialChillerBorefield
   Modelica.Blocks.Routing.RealPassThrough loaCooNor
     "Connect with normalized cooling load"
     annotation (Placement(transformation(extent={{270,50},{250,70}})));
+  Modelica.Blocks.Sources.CombiTimeTable TDisWatSup(
+    tableName="tab1",
+    table=[0,11; 49,11; 50,20; 100,20],
+    extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
+    timeScale=3600,
+    offset={273.15},
+    columns={2},
+    smoothness=Modelica.Blocks.Types.Smoothness.MonotoneContinuousDerivative1)
+    "District water supply temperature"
+    annotation (Placement(transformation(extent={{-330,-150},{-310,-130}})));
+  Modelica.Blocks.Sources.CombiTimeTable loa(
+    tableName="tab1",
+    table=[0,0,0; 1,0,0; 2,0,1; 3,0,1; 4,0,0.5; 5,0,0.5; 6,0,0.1; 7,0,0.1; 8,0,
+        0; 9,0,0; 10,0,0; 11,0,0; 12,1,0; 13,1,0; 14,0.5,0; 15,0.5,0; 16,0.1,0;
+        17,0.1,0; 18,0,0; 19,0,0; 20,0,0; 21,0,0; 22,1,1; 23,1,1; 24,0.5,0.5;
+        25,0.5,0.5; 26,0.1,0.1; 27,0.1,0.1; 28,0,0; 29,0,0; 30,0,0; 31,0,0; 32,
+        0.1,1; 33,0.1,1; 34,0.5,0.5; 35,0.5,0.5; 36,1,0.1; 37,1,0.1; 38,0,0; 39,
+        0,0; 40,0,0; 41,0,0; 42,0.1,0.3; 43,0.1,0.3; 44,0.3,0.1; 45,0.3,0.1; 46,
+        0.1,0.1; 47,0.1,0.1; 48,0,0; 49,0,0],
+    extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
+    timeScale=3600,
+    offset={0,0},
+    columns={2,3},
+    smoothness=Modelica.Blocks.Types.Smoothness.MonotoneContinuousDerivative1)
+    "Thermal loads (y[1] is cooling load, y[2] is heating load)"
+    annotation (Placement(transformation(extent={{-330,150},{-310,170}})));
 equation
   connect(senTHeaWatRet.port_b, ets.ports_aHeaWat[1]) annotation (Line(points={{-50,-40},
           {-40,-40},{-40,-28},{-10,-28}},          color={0,127,255}));
@@ -215,8 +237,6 @@ equation
           -100,-80},{-10,-80}}, color={0,127,255}));
   connect(ets.port_bDis, disWat.ports[2]) annotation (Line(points={{50,-80},{160,
           -80},{160,-180},{-100,-180},{-100,-142}}, color={0,127,255}));
-  connect(TDisWatSup.y, disWat.T_in) annotation (Line(points={{-228,-140},{-172,
-          -140},{-172,-136},{-122,-136}}, color={0,0,127}));
   connect(pumChiWat.port_a, senTChiWatSup.port_b)
     annotation (Line(points={{110,40},{100,40}},color={0,127,255}));
   connect(gai2.y, pumChiWat.m_flow_in)
@@ -269,6 +289,8 @@ equation
           {80,120},{80,80},{90,80}}, color={0,0,127}));
   connect(loaCooNor.y, noLoaCoo.u) annotation (Line(points={{249,60},{240,60},{240,
           -120},{-222,-120},{-222,-100},{-214,-100}}, color={0,0,127}));
+  connect(TDisWatSup.y[1], disWat.T_in) annotation (Line(points={{-309,-140},{
+          -140,-140},{-140,-136},{-122,-136}}, color={0,0,127}));
   annotation (Diagram(
   coordinateSystem(preserveAspectRatio=false, extent={{-340,-220},{340,220}})),
   Documentation(

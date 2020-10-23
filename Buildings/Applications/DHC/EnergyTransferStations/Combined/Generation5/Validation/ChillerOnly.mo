@@ -1,28 +1,24 @@
 within Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Validation;
 model ChillerOnly
   "Validation of the ETS model with heat recovery chiller"
-  extends BaseClasses.PartialChillerBorefield;
+  extends BaseClasses.PartialChillerBorefield(ets(Ti=120));
 
-  Modelica.Blocks.Sources.CombiTimeTable loaRat(
+  Modelica.Blocks.Sources.CombiTimeTable TDisWatSup(
     tableName="tab1",
-    table=[0,0,0; 1,0,0; 2,0,1; 3,0,1; 4,0,0.5; 5,0,0.5; 6,0,0.1; 7,0,0.1; 8,0,
-        0; 9,0,0; 10,0,0; 11,0,0; 12,1,0; 13,1,0; 14,0.5,0; 15,0.5,0; 16,0.1,0;
-        17,0.1,0; 18,0,0; 19,0,0; 20,0,0; 21,0,0; 22,1,1; 23,1,1; 24,0.5,0.5;
-        25,0.5,0.5; 26,0.1,0.1; 27,0.1,0.1; 28,0,0; 29,0,0; 30,0,0; 31,0,0; 32,
-        0.1,1; 33,0.1,1; 34,0.5,0.5; 35,0.5,0.5; 36,1,0.1; 37,1,0.1; 38,0,0; 39,
-        0,0; 40,0,0; 41,0,0; 42,0.1,0.3; 43,0.1,0.3; 44,0.3,0.1; 45,0.3,0.1; 46,
-        0.1,0.1; 47,0.1,0.1; 48,0,0; 49,0,0],
+    table=[0,11; 49,11; 50,20; 100,20],
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
     timeScale=3600,
-    offset={0,0},
-    columns={2,3},
+    offset={273.15},
+    columns={2},
     smoothness=Modelica.Blocks.Types.Smoothness.MonotoneContinuousDerivative1)
-    "Thermal loads (y[1] is cooling load, y[2] is heating load)"
-    annotation (Placement(transformation(extent={{-288,160},{-268,180}})));
+    "District water supply temperature"
+    annotation (Placement(transformation(extent={{-330,-150},{-310,-130}})));
 equation
-  connect(loaRat.y[2], heaLoaNor.u) annotation (Line(points={{-267,170},{-260,170},
-          {-260,60},{-252,60}}, color={0,0,127}));
-  connect(loaRat.y[1], loaCooNor.u) annotation (Line(points={{-267,170},{280,170},
+  connect(TDisWatSup.y[1], disWat.T_in) annotation (Line(points={{-309,-140},{
+          -140,-140},{-140,-136},{-122,-136}}, color={0,0,127}));
+  connect(loa.y[2], heaLoaNor.u) annotation (Line(points={{-309,160},{-300,160},
+          {-300,60},{-252,60}}, color={0,0,127}));
+  connect(loa.y[1], loaCooNor.u) annotation (Line(points={{-309,160},{280,160},
           {280,60},{272,60}}, color={0,0,127}));
   annotation (
   __Dymola_Commands(file=
