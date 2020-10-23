@@ -24,8 +24,9 @@ addons:
     - sourceline: "deb http://build.openmodelica.org/apt `lsb_release -cs` stable"
       key_url: "http://build.openmodelica.org/apt/openmodelica.asc"
     packages:
-    - if: env(TEST_ARG) IS *test-omc* omc=1.16.0~dev.beta4-1
-    - if: env(TEST_ARG) IS *test-omc* omlib-modelica-3.2.3=3.2.3~20201013~234009~git~OM~maint~3.2.3-1
+#    - if: env(TEST_ARG) IS /make test-omc/ omc=1.16.0~dev.beta4-1
+    - if: env(TEST_ARG) IS /make test-omc/ omc
+    - if: env(TEST_ARG) IS /make test-omc/ omlib-modelica-3.2.3=3.2.3~20201013~234009~git~OM~maint~3.2.3-1
 
 env:
   global:
