@@ -64,7 +64,7 @@ block PlantDisable
     annotation (Placement(transformation(extent={{180,-70},{220,-30}}),
       iconTransformation(extent={{100,-40},{140,0}})));
 
-protected
+// protected
   parameter Integer boiInd[nBoi]={i for i in 1:nBoi}
     "Boiler index vector";
 

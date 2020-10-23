@@ -195,7 +195,7 @@ block Up
       iconTransformation(extent={{100,20},{140,60}})));
 
 
-protected
+// protected
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.Processes.Subsequences.ResetMinBypass minBypRes(
     final delEna=delEnaMinFloSet,
     final relFloDif=relFloDif) if have_priOnl

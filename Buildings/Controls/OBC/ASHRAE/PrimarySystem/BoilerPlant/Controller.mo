@@ -1034,7 +1034,7 @@ model Controller
     annotation (Placement(transformation(extent={{400,-410},{440,-370}}),
       iconTransformation(extent={{100,-110},{140,-70}})));
 
-protected
+// protected
   parameter Boolean have_remDPRegPri = (speConTypPri == Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpSpeedControlTypes.remoteDP)
     "Boolean flag for primary pump speed control with remote differential pressure";
 
