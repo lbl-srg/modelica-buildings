@@ -532,11 +532,11 @@ annotation (
           extent={{-240,-260},{280,260}})),
     Icon(coordinateSystem(extent={{-100,-200},{100,200}}), graphics={
         Rectangle(
-        extent={{-100,-200},{100,200}},
-        lineColor={0,0,127},
-        fillColor={255,255,255},
-        fillPattern=FillPattern.Solid,
-        borderPattern=BorderPattern.Raised),
+          extent={{-100,-200},{100,200}},
+          lineColor={0,0,127},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          borderPattern=BorderPattern.Raised),
         Text(
           extent={{-120,260},{120,200}},
           lineColor={0,0,255},
@@ -545,12 +545,14 @@ annotation (
           extent={{-10,120},{10,-140}},
           lineColor={200,200,200},
           fillColor={207,207,207},
-          fillPattern=FillPattern.Solid),
+          fillPattern=FillPattern.Solid,
+          rotation=180),
         Polygon(
           points={{0,160},{-40,120},{0,120},{40,120},{0,160}},
           lineColor={200,200,200},
           fillColor={207,207,207},
-          fillPattern=FillPattern.Solid)}),
+          fillPattern=FillPattern.Solid,
+          rotation=180)}),
 Documentation(info="<html>
 <p>
 Block that controls boiler status and isolation valve position, initiates status
