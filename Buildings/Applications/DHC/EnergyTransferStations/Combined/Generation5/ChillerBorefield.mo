@@ -11,7 +11,6 @@ model ChillerBorefield
       final Ti=Ti,
       final dTDea=dTDea,
       final THeaWatSupSetMin=THeaWatSupSetMin,
-      final TChiWatSupSetMax=TChiWatSupSetMax,
       final TChiWatSupSetMin=TChiWatSupSetMin)
       constrainedby Controls.BaseClasses.PartialSupervisory,
     nSysHea=1,
@@ -94,7 +93,7 @@ model ChillerBorefield
   parameter Real kHot(min=0)=0.05
     "Gain of controller on hot side"
     annotation (Dialog(group="Supervisory controller"));
-  parameter Real kCol(min=0)=0.1
+  parameter Real kCol(min=0)=0.05
     "Gain of controller on cold side"
     annotation (Dialog(group="Supervisory controller"));
   parameter Modelica.SIunits.Time Ti(
@@ -107,10 +106,6 @@ model ChillerBorefield
   parameter Modelica.SIunits.Temperature THeaWatSupSetMin(displayUnit="degC")=
     datChi.TConEntMin + 5
     "Minimum value of heating water supply temperature set point"
-    annotation (Dialog(group="Supervisory controller"));
-  parameter Modelica.SIunits.Temperature TChiWatSupSetMax(displayUnit="degC")=
-    datChi.TEvaLvgMax
-    "Maximum value of chilled water supply temperature set point"
     annotation (Dialog(group="Supervisory controller"));
   parameter Modelica.SIunits.Temperature TChiWatSupSetMin(displayUnit="degC")=
     datChi.TEvaLvgMin
