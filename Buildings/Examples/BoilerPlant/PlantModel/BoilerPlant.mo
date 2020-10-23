@@ -322,7 +322,7 @@ model BoilerPlant "Boiler plant model for closed loop testing"
   Fluid.FixedResistances.CheckValve cheVal(
     redeclare package Medium = Media.Water,
     m_flow_nominal=mRad_flow_nominal/2,
-    dpValve_nominal=200)
+    dpValve_nominal=1)
     "Check valve to prevent reverse-flow through disabled pump"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
       rotation=90,
@@ -330,7 +330,7 @@ model BoilerPlant "Boiler plant model for closed loop testing"
   Fluid.FixedResistances.CheckValve cheVal1(
     redeclare package Medium = Media.Water,
     m_flow_nominal=mRad_flow_nominal/2,
-    dpValve_nominal=200)
+    dpValve_nominal=1)
     "Check valve to prevent reverse-flow through disabled pump"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
       rotation=90,

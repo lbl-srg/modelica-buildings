@@ -50,7 +50,7 @@ model ClosedLoopTest "Closed loop testing model"
     nPumSec=0,
     nSenSec=0,
     nPumSec_nominal=1,
-    VHotWatPri_flow_nominal=0.00035,
+    VHotWatPri_flow_nominal=0.0006,
     VHotWatSec_flow_nominal=1e-6,
     nBoi=2,
     boiTyp={Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.BoilerTypes.condensingBoiler,
@@ -71,10 +71,11 @@ model ClosedLoopTest "Closed loop testing model"
     k_priPum=1,
     Ti_priPum=90,
     Td_priPum=3,
-    minPriPumSpeSta={0,0,0})
+    minPriPumSpeSta={0,0,0},
+    speConTypPri=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpSpeedControlTypes.remoteDP)
     annotation (Placement(transformation(extent={{-40,-20},{-20,20}})));
 
-  Controls.OBC.CDL.Continuous.PID conPID(controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
+  Controls.OBC.CDL.Continuous.PID conPID(controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PID,
       k=1) annotation (Placement(transformation(extent={{50,50},{70,70}})));
   Controls.OBC.CDL.Continuous.Sources.Constant con(k=273.15 + 21.11)
     "Zone temperature setpoint"
@@ -284,5 +285,5 @@ First implementation.
       StopTime=345600,
       Tolerance=1e-06,
       __Dymola_Algorithm="Cvode"),
-    Icon(coordinateSystem(extent={{-120,-100},{120,100}})));
+    Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
 end ClosedLoopTest;
