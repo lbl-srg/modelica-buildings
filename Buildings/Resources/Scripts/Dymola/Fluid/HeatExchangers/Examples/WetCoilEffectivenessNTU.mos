@@ -1,8 +1,8 @@
-old_StoreProtectedVariables = Advanced.StoreProtectedVariables;
+//old_StoreProtectedVariables = Advanced.StoreProtectedVariables;
 Advanced.StoreProtectedVariables = true;
 simulateModel("Buildings.Fluid.HeatExchangers.Examples.WetCoilEffectivenessNTU",
-  tolerance=1e-6, stopTime=3600, method="cvode", resultFile="WetCoilEffectivenessNTU");
-Advanced.StoreProtectedVariables = old_StoreProtectedVariables;
+  tolerance=1e-6, stopTime=3600, method="Dassl", resultFile="WetCoilEffectivenessNTU");
+//Advanced.StoreProtectedVariables = old_StoreProtectedVariables;
 createPlot(
   id=1,
   position={0, 0, 782, 636},

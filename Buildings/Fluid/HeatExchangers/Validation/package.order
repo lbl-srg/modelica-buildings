@@ -8,3 +8,4 @@ WetCoilDiscretizedInitialization
 WetCoilDiscretizedInitializationPerfectGases
 WetCoilEffectivenessNTU_heating
 WetCoilEffectivenessNTU_cooling
+WetCoilEffectivenessNTU_FVM
