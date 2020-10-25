@@ -38,7 +38,9 @@ model ClosedLoopTest "Closed loop testing model"
 //------------------------------------------------------------------------------//
 
   Buildings.Examples.BoilerPlant.PlantModel.BoilerPlant
-    boilerPlant(TRadRet_nominal=273.15 + 50)
+    boilerPlant(TRadRet_nominal=273.15 + 50,
+    cheVal(dpValve_nominal=10, dpFixed_nominal=1),
+    cheVal1(dpValve_nominal=10, dpFixed_nominal=2))
     annotation (Placement(transformation(extent={{42,-10},{62,10}})));
   Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Controller controller(
     have_priOnl=true,
@@ -51,6 +53,8 @@ model ClosedLoopTest "Closed loop testing model"
     nSenSec=0,
     nPumSec_nominal=1,
     VHotWatPri_flow_nominal=0.0006,
+    maxLocDpPri=4000,
+    minLocDpPri=4000,
     VHotWatSec_flow_nominal=1e-6,
     nBoi=2,
     boiTyp={Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.BoilerTypes.condensingBoiler,
@@ -156,13 +160,13 @@ equation
     annotation (Line(points={{-8,80},{0,80},{0,9},{40,9}}, color={0,0,127}));
   connect(controller.yPriPum, boilerPlant.uPumSta)
     annotation (Line(points={{-18,0},{40,0}}, color={255,0,255}));
-  connect(controller.yPriPumSpe, boilerPlant.uPumSpe) annotation (Line(points={{
-          -18,-2.72727},{4,-2.72727},{4,-3},{40,-3}}, color={0,0,127}));
+  connect(controller.yPriPumSpe, boilerPlant.uPumSpe) annotation (Line(points={{-18,
+          -2.72727},{4,-2.72727},{4,-3},{40,-3}},     color={0,0,127}));
   connect(boilerPlant.ySupTem, controller.TSupPri) annotation (Line(points={{64,4},{
           100,4},{100,-68},{-68,-68},{-68,13.6364},{-42,13.6364}},     color={0,
           0,127}));
-  connect(boilerPlant.yRetTem, controller.TRetPri) annotation (Line(points={{64,
-          0},{104,0},{104,-72},{-72,-72},{-72,10.9091},{-42,10.9091}}, color={0,
+  connect(boilerPlant.yRetTem, controller.TRetPri) annotation (Line(points={{64,0},{
+          104,0},{104,-72},{-72,-72},{-72,10.9091},{-42,10.9091}},     color={0,
           0,127}));
   connect(boilerPlant.yHotWatDp, controller.dpHotWatPri_rem) annotation (Line(
         points={{64,-4},{108,-4},{108,-76},{-76,-76},{-76,2.72727},{-42,2.72727}},
@@ -284,6 +288,6 @@ First implementation.
       StartTime=259200,
       StopTime=345600,
       Tolerance=1e-06,
-      __Dymola_Algorithm="Cvode"),
+      __Dymola_Algorithm="Dassl"),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
 end ClosedLoopTest;

@@ -156,7 +156,8 @@ model BoilerPlant "Boiler plant model for closed loop testing"
     allowFlowReversal=true,
     redeclare Fluid.Movers.Data.Pumps.Wilo.customPumpCurves per,
     inputType=Buildings.Fluid.Types.InputType.Continuous,
-    addPowerToMedium=false) "Hot water primary pump-1"
+    addPowerToMedium=false,
+    riseTime=120)           "Hot water primary pump-1"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=90,
         origin={-70,-70})));
   Fluid.FixedResistances.Junction           spl1(
@@ -171,7 +172,8 @@ model BoilerPlant "Boiler plant model for closed loop testing"
     allowFlowReversal=true,
     redeclare Fluid.Movers.Data.Pumps.Wilo.customPumpCurves per,
     inputType=Buildings.Fluid.Types.InputType.Continuous,
-    addPowerToMedium=false) "Hot water primary pump-2"
+    addPowerToMedium=false,
+    riseTime=120)           "Hot water primary pump-2"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=90,
         origin={10,-70})));
   Fluid.FixedResistances.Junction           spl2(
@@ -335,6 +337,14 @@ model BoilerPlant "Boiler plant model for closed loop testing"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
       rotation=90,
       origin={10,-40})));
+  Fluid.Sensors.RelativePressure senRelPre1(redeclare package Medium =
+        Media.Water)
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}}, rotation=90,
+        origin={-88,-40})));
+  Fluid.Sensors.RelativePressure senRelPre2(redeclare package Medium =
+        Media.Water)
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}}, rotation=90,
+        origin={40,-40})));
 equation
   connect(theCon.port_b, vol.heatPort) annotation (Line(
       points={{120,180},{130,180},{130,160},{140,160}},
@@ -450,7 +460,7 @@ equation
   connect(senRelPre.p_rel, reaRep.u) annotation (Line(points={{90,71},{90,64},{240,
           64},{240,0},{258,0}},             color={0,0,127}));
   connect(pum.port_b, cheVal.port_a)
-    annotation (Line(points={{-70,-60},{-70,-50},{-70,-50},{-70,-50}},
+    annotation (Line(points={{-70,-60},{-70,-50}},
                                                  color={0,127,255}));
   connect(cheVal.port_b, spl3.port_1) annotation (Line(points={{-70,-30},{-70,
           -20},{-30,-20},{-30,-10}},
@@ -463,6 +473,14 @@ equation
     annotation (Line(points={{10,-30},{10,0},{-20,0}}, color={0,127,255}));
   connect(spl2.port_3, pum1.port_a) annotation (Line(points={{-20,-100},{10,
           -100},{10,-80}}, color={0,127,255}));
+  connect(senRelPre1.port_a, cheVal.port_a)
+    annotation (Line(points={{-88,-50},{-70,-50}}, color={0,127,255}));
+  connect(senRelPre1.port_b, cheVal.port_b)
+    annotation (Line(points={{-88,-30},{-70,-30}}, color={0,127,255}));
+  connect(cheVal1.port_b, senRelPre2.port_b)
+    annotation (Line(points={{10,-30},{40,-30}}, color={0,127,255}));
+  connect(cheVal1.port_a, senRelPre2.port_a)
+    annotation (Line(points={{10,-50},{40,-50}}, color={0,127,255}));
   annotation (Documentation(info="<html>
 <p>
 This part of the system model adds to the model that is implemented in
