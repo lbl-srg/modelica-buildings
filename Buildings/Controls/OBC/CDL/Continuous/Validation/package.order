@@ -33,7 +33,9 @@ MultiSum
 PID
 PIDInitialDerivativeOutput
 PIDInitialState
+PIDScale
 PIDWithReset
+PIDWithResetScale
 Product
 Round
 Sin

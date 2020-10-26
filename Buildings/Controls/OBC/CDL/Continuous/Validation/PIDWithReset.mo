@@ -27,8 +27,7 @@ model PIDWithReset
     Ti=1,
     Td=1,
     yMin=-1,
-    y_reset=0.75)
-                 "Controller, reset to input value"
+    y_reset=0.75) "Controller, reset to input value"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
   Buildings.Controls.OBC.CDL.Continuous.IntegratorWithReset intWitRes2
     "Integrator whose output should be brought to the set point"
