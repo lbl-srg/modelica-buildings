@@ -46,9 +46,14 @@ block HWIsoVal
     annotation (Placement(transformation(extent={{180,-60},{220,-20}}),
       iconTransformation(extent={{100,-80},{140,-40}})));
 
+
 protected
   final parameter Integer boiInd[nBoi]={i for i in 1:nBoi}
     "Boiler index, {1,2,...,nBoi}";
+
+  Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triSam
+    "Sample valve position at start of shutdown process"
+    annotation (Placement(transformation(extent={{-70,40},{-50,60}})));
 
   Buildings.Controls.OBC.CDL.Routing.RealExtractor extIndSig(nin=nBoi)
     "Identify isolation valve position for boiler being disabled"
@@ -58,7 +63,7 @@ protected
     final p=1e-6,
     final k=1/chaHotWatIsoRat)
     "Determine time required to change valve position"
-    annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
+    annotation (Placement(transformation(extent={{-30,40},{-10,60}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Greater gre
     annotation (Placement(transformation(extent={{60,110},{80,130}})));
@@ -74,7 +79,7 @@ protected
 
   Buildings.Controls.OBC.CDL.Logical.Timer tim
     "Count the time after changing up-stream device status"
-    annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
+    annotation (Placement(transformation(extent={{-100,90},{-80,110}})));
 
   Buildings.Controls.OBC.CDL.Logical.And and2
     "Check if it is time to change isolation valve position"
@@ -168,7 +173,8 @@ equation
       color={0,0,127}));
 
   connect(tim.y, lin1.u)
-    annotation (Line(points={{-78,80},{38,80}}, color={0,0,127}));
+    annotation (Line(points={{-78,100},{-20,100},{-20,80},{38,80}},
+                                                color={0,0,127}));
 
   connect(chaPro, and2.u2)
     annotation (Line(points={{-180,-178},{-82,-178}}, color={255,0,255}));
@@ -278,26 +284,21 @@ equation
   connect(and2.y, booRep1.u)
     annotation (Line(points={{-58,-170},{58,-170}}, color={255,0,255}));
 
-  connect(tim.u, and2.y) annotation (Line(points={{-102,80},{-120,80},{-120,
-          -200},{-40,-200},{-40,-170},{-58,-170}}, color={255,0,255}));
+  connect(tim.u, and2.y) annotation (Line(points={{-102,100},{-120,100},{-120,
+          -200},{-50,-200},{-50,-170},{-58,-170}}, color={255,0,255}));
 
   connect(nexChaBoi, extIndSig.index)
     annotation (Line(points={{-180,0},{-90,0},{-90,38}}, color={255,127,0}));
 
-  connect(extIndSig.y, lin1.f1) annotation (Line(points={{-78,50},{-50,50},{-50,
-          84},{38,84}}, color={0,0,127}));
+  connect(addPar.y, lin1.x2) annotation (Line(points={{-8,50},{0,50},{0,76},{38,
+          76}},     color={0,0,127}));
 
-  connect(addPar.y, lin1.x2) annotation (Line(points={{-18,50},{-10,50},{-10,76},
-          {38,76}}, color={0,0,127}));
+  connect(tim.y, gre.u1) annotation (Line(points={{-78,100},{-20,100},{-20,120},
+          {58,120}},
+                 color={0,0,127}));
 
-  connect(extIndSig.y, addPar.u)
-    annotation (Line(points={{-78,50},{-42,50}}, color={0,0,127}));
-
-  connect(tim.y, gre.u1) annotation (Line(points={{-78,80},{-60,80},{-60,120},{58,
-          120}}, color={0,0,127}));
-
-  connect(addPar.y, gre.u2) annotation (Line(points={{-18,50},{-10,50},{-10,76},
-          {34,76},{34,112},{58,112}}, color={0,0,127}));
+  connect(addPar.y, gre.u2) annotation (Line(points={{-8,50},{0,50},{0,76},{34,76},
+          {34,112},{58,112}},         color={0,0,127}));
 
   connect(gre.y, and5.u3) annotation (Line(points={{82,120},{120,120},{120,132},
           {138,132}}, color={255,0,255}));
@@ -313,6 +314,14 @@ equation
 
   connect(con9.y, lin1.f2) annotation (Line(points={{22,100},{30,100},{30,72},{38,
           72}}, color={0,0,127}));
+  connect(addPar.u, triSam.y)
+    annotation (Line(points={{-32,50},{-48,50}}, color={0,0,127}));
+  connect(extIndSig.y, triSam.u)
+    annotation (Line(points={{-78,50},{-72,50}}, color={0,0,127}));
+  connect(triSam.y, lin1.f1) annotation (Line(points={{-48,50},{-40,50},{-40,84},
+          {38,84}}, color={0,0,127}));
+  connect(and2.y, triSam.trigger) annotation (Line(points={{-58,-170},{-50,-170},
+          {-50,20},{-60,20},{-60,38.2}}, color={255,0,255}));
 annotation (
   defaultComponentName="enaHotWatIsoVal",
   Diagram(
