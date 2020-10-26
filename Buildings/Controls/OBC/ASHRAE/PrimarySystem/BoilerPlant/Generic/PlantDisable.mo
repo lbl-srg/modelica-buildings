@@ -64,7 +64,7 @@ block PlantDisable
     annotation (Placement(transformation(extent={{180,-70},{220,-30}}),
       iconTransformation(extent={{100,-40},{140,0}})));
 
-// protected
+protected
   parameter Integer boiInd[nBoi]={i for i in 1:nBoi}
     "Boiler index vector";
 
@@ -204,11 +204,6 @@ block PlantDisable
     "Boolean to Real conversion"
     annotation (Placement(transformation(extent={{-90,30},{-70,50}})));
 
-  Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triSam1[nBoi] if
-    have_heaPriPum
-    "Sample isolation valve position when they start to close"
-    annotation (Placement(transformation(extent={{-120,-50},{-100,-30}})));
-
   Buildings.Controls.OBC.CDL.Logical.Switch swi[nBoi] if have_heaPriPum
     "Real switch"
     annotation (Placement(transformation(extent={{140,-60},{160,-40}})));
@@ -259,9 +254,6 @@ equation
 
   connect(reaRep.y, disHotWatIsoVal.uHotWatIsoVal) annotation (Line(points={{-58,-40},
           {0,-40},{0,-45},{18,-45}},           color={0,0,127}));
-
-  connect(reaToInt.y, disHotWatIsoVal.nexChaBoi) annotation (Line(points={{42,50},
-          {50,50},{50,24},{10,24},{10,-42},{18,-42}},    color={255,127,0}));
 
   connect(booRep2.u, truDel.y)
     annotation (Line(points={{-22,-10},{-38,-10}}, color={255,0,255}));
@@ -357,16 +349,6 @@ equation
   connect(booRep2.y, disHotWatIsoVal.uUpsDevSta) annotation (Line(points={{2,
           -10},{6,-10},{6,-55},{18,-55}}, color={255,0,255}));
 
-  connect(uHotWatIsoVal, triSam1.u)
-    annotation (Line(points={{-180,-40},{-122,-40}}, color={0,0,127}));
-
-  connect(triSam1.y, reaRep.u)
-    annotation (Line(points={{-98,-40},{-82,-40}}, color={0,0,127}));
-
-  connect(booRep.y, triSam1.trigger) annotation (Line(points={{-18,80},{-4,80},
-          {-4,74},{10,74},{10,26},{-130,26},{-130,-60},{-110,-60},{-110,-51.8}},
-        color={255,0,255}));
-
   connect(extIndSig.y, swi.u3) annotation (Line(points={{102,-50},{110,-50},{
           110,-58},{138,-58}}, color={0,0,127}));
 
@@ -379,6 +361,10 @@ equation
   connect(swi.y, yHotWatIsoVal)
     annotation (Line(points={{162,-50},{200,-50}}, color={0,0,127}));
 
+  connect(conInt.y, disHotWatIsoVal.nexChaBoi) annotation (Line(points={{-128,
+          70},{-126,70},{-126,20},{14,20},{14,-42},{18,-42}}, color={255,127,0}));
+  connect(uHotWatIsoVal, reaRep.u)
+    annotation (Line(points={{-180,-40},{-82,-40}}, color={0,0,127}));
   annotation (defaultComponentName=
     "plaDis",
     Icon(graphics={
