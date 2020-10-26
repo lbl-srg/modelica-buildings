@@ -1,49 +1,68 @@
 within Buildings.Controls.OBC.CDL.Continuous;
 block PIDWithReset
-  "P, PI, PD, and PID controller with limited output, anti-windup compensation and setpoint weighting"
+  "P, PI, PD, and PID controller with output reset"
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=
          Buildings.Controls.OBC.CDL.Types.SimpleController.PI "Type of controller";
   parameter Real k(
-    min=0) = 1 "Gain of controller";
-  parameter Modelica.SIunits.Time Ti(min=Constants.small) = 0.5
+    min=100*Constants.eps) = 1 "Gain of controller"
+    annotation (
+      Dialog(group="Control gains"));
+  parameter Modelica.SIunits.Time Ti(min=100*Constants.eps) = 0.5
     "Time constant of integrator block"
-    annotation (Dialog(enable=
+    annotation (Dialog(
+      group="Control gains",
+      enable=
           controllerType == CDL.Types.SimpleController.PI or
           controllerType == CDL.Types.SimpleController.PID));
   parameter Modelica.SIunits.Time Td(
-    min=0) = 0.1
+    min=100*Constants.eps) = 0.1
     "Time constant of derivative block"
-    annotation (Dialog(enable=
+    annotation (Dialog(
+      group="Control gains",
+      enable=
           controllerType == CDL.Types.SimpleController.PD or
           controllerType == CDL.Types.SimpleController.PID));
-  parameter Real yMax = 1 "Upper limit of output";
-  parameter Real yMin = 0 "Lower limit of output";
-  parameter Real wp(min=0) = 1 "Set-point weight for Proportional block (0..1)";
-  parameter Real wd(min=0) = 0 "Set-point weight for Derivative block (0..1)"
-       annotation(Dialog(enable=controllerType==CDL.Types.SimpleController.PD or
-                                controllerType==CDL.Types.SimpleController.PID));
-  parameter Real Ni(min=100*Modelica.Constants.eps) = 0.9
+
+  parameter Real r(min=100*Constants.eps) = 1
+    "Typical range of control error, used for scaling error";
+
+  parameter Real yMax = 1 "Upper limit of output"
+    annotation(Dialog(group="Limits"));
+  parameter Real yMin = 0 "Lower limit of output"
+    annotation(Dialog(group="Limits"));
+
+  parameter Real Ni(min=100*Constants.eps) = 0.9
     "Ni*Ti is time constant of anti-windup compensation"
-     annotation(Dialog(enable=controllerType==CDL.Types.SimpleController.PI or
-                              controllerType==CDL.Types.SimpleController.PID));
-  parameter Real Nd(min=100*Modelica.Constants.eps) = 10
+     annotation(Dialog(
+       tab="Advanced",
+       group="Integrator anti-windup",
+       enable=controllerType==CDL.Types.SimpleController.PI or
+              controllerType==CDL.Types.SimpleController.PID));
+  parameter Real Nd(min=100*Constants.eps) = 10
     "The higher Nd, the more ideal the derivative block"
-       annotation(Dialog(enable=controllerType==CDL.Types.SimpleController.PD or
-                                controllerType==CDL.Types.SimpleController.PID));
+      annotation (
+        Dialog(
+          tab="Advanced",
+          group="Derivative block",
+          enable=controllerType==CDL.Types.SimpleController.PD or
+                 controllerType==CDL.Types.SimpleController.PID));
 
   parameter Real xi_start=0
     "Initial value of integrator state"
     annotation (Dialog(
+      tab="Advanced",
       group="Initialization",
       enable=
        controllerType==CDL.Types.SimpleController.PI or
        controllerType==CDL.Types.SimpleController.PID));
+
   parameter Real yd_start=0 "Initial value of derivative output"
   annotation(Dialog(
-      group="Initialization",
-      enable=
-        controllerType==CDL.Types.SimpleController.PD or
-        controllerType==CDL.Types.SimpleController.PID));
+    tab="Advanced",
+    group="Initialization",
+    enable=
+      controllerType==CDL.Types.SimpleController.PD or
+      controllerType==CDL.Types.SimpleController.PID));
   parameter Boolean reverseActing = true
     "Set to true for reverse acting, or false for direct acting control action";
   parameter Real y_reset=xi_start
@@ -91,11 +110,11 @@ block PIDWithReset
   Buildings.Controls.OBC.CDL.Continuous.Feedback errD if with_D "D error"
     annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
   Buildings.Controls.OBC.CDL.Continuous.Feedback errI1 if with_I
-    "I error (before anti-windup componensation)"
+    "I error (before anti-windup compensation)"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Feedback errI2 if with_I
-    "I error (after anti-windup componensation)"
+    "I error (after anti-windup compensation)"
     annotation (Placement(transformation(extent={{-82,-10},{-62,10}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Limiter lim(
@@ -124,19 +143,12 @@ protected
     "Zero input signal"
     annotation(Evaluate=true, HideResult=true,
                Placement(transformation(extent={{-40,90},{-20,110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain uS_revAct(
-    final k=revAct) "Set point multiplied by reverse action sign"
+  Buildings.Controls.OBC.CDL.Continuous.Gain uS_revAct(final k=revAct/r)
+                    "Set point multiplied by reverse action sign"
     annotation (Placement(transformation(extent={{-200,30},{-180,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain uSetWp(
-    final k=wp) "Set point multiplied by weight for proportional gain"
-    annotation (Placement(transformation(extent={{-160,110},{-140,130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain uMea_revAct(
-    final k=revAct) "Set point multiplied by reverse action sign"
+  Buildings.Controls.OBC.CDL.Continuous.Gain uMea_revAct(final k=revAct/r)
+                    "Set point multiplied by reverse action sign"
     annotation (Placement(transformation(extent={{-180,-50},{-160,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain uSetWd(
-    final k=wd) if with_D
-    "Set point multiplied by weight for derivative gain"
-    annotation (Placement(transformation(extent={{-160,60},{-140,80}})));
   Buildings.Controls.OBC.CDL.Continuous.Add addPD(
     final k1=1,
     final k2=1) "Outputs P and D gains added"
@@ -285,20 +297,11 @@ equation
       color={255,0,255}));
   connect(u_s, uS_revAct.u) annotation (Line(points={{-240,0},{-212,0},{-212,40},
           {-202,40}},                    color={0,0,127}));
-  connect(uS_revAct.y, uSetWp.u) annotation (Line(points={{-178,40},{-170,40},{-170,
-          120},{-162,120}},
-                          color={0,0,127}));
   connect(u_m, uMea_revAct.u) annotation (Line(points={{0,-220},{0,-160},{-190,
           -160},{-190,-40},{-182,-40}},
                                   color={0,0,127}));
-  connect(uS_revAct.y, uSetWd.u) annotation (Line(points={{-178,40},{-170,40},{-170,
-          70},{-162,70}}, color={0,0,127}));
-  connect(uSetWp.y, errP.u1)
-    annotation (Line(points={{-138,120},{-102,120}}, color={0,0,127}));
   connect(errP.u2, uMea_revAct.y) annotation (Line(points={{-90,108},{-90,100},
           {-128,100},{-128,-40},{-158,-40}},color={0,0,127}));
-  connect(errD.u1, uSetWd.y) annotation (Line(points={{-102,70},{-138,70}},
-                          color={0,0,127}));
   connect(errD.u2, uMea_revAct.y) annotation (Line(points={{-90,58},{-90,48},{
           -128,48},{-128,-40},{-158,-40}},
                       color={0,0,127}));
@@ -356,6 +359,10 @@ equation
           -140}}, color={255,0,255}));
   connect(Izero.y, addPID.u2) annotation (Line(points={{2,-140},{34,-140},{34,84},
           {38,84}}, color={0,0,127}));
+  connect(errP.u1, uS_revAct.y) annotation (Line(points={{-102,120},{-170,120},{
+          -170,40},{-178,40}},  color={0,0,127}));
+  connect(errD.u1, uS_revAct.y) annotation (Line(points={{-102,70},{-170,70},{-170,
+          40},{-178,40}},      color={0,0,127}));
 annotation (defaultComponentName="conPID",
   Icon(
     coordinateSystem(extent={{-100,-100},{100,100}}),
@@ -435,34 +442,44 @@ Documentation(info="<html>
 PID controller in the standard form
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-y = k &nbsp; ( e(t) + 1 &frasl; T<sub>i</sub> &nbsp; &int; e(s) ds + T<sub>d</sub> de(t)&frasl;dt ),
+y<sub>u</sub> = k/r &nbsp; (e(t) + 1 &frasl; T<sub>i</sub> &nbsp; &int; e(&tau;) d&tau; + T<sub>d</sub> d&frasl;dt e(t)),
 </p>
 <p>
+with output reset,
 where
-<i>y</i> is the control signal,
-<i>e(t) = u<sub>s</sub> - u<sub>m</sub></i> is the control error,
+<i>y<sub>u</sub></i> is the control signal before output limitation,
+<i>e(t) = u<sub>s</sub>(t) - u<sub>m</sub>(t)</i> is the control error,
 with <i>u<sub>s</sub></i> being the set point and <i>u<sub>m</sub></i> being
 the measured quantity,
 <i>k</i> is the gain,
-<i>T<sub>i</sub></i> is the time constant of the integral term and
-<i>T<sub>d</sub></i> is the time constant of the derivative term.
+<i>T<sub>i</sub></i> is the time constant of the integral term,
+<i>T<sub>d</sub></i> is the time constant of the derivative term,
+and
+<i>r</i> is a scaling factor, with default <i>r=1</i>.
+The scaling factor should be set to the typical order of magnitude of the range of the error <i>e</i>.
+For example, you may set <i>r=100</i> to <i>r=1000</i>
+if the control input is a pressure of a heating water circulation pump in units of Pascal, or
+leave <i>r=1</i> if the control input is a room temperature.
 </p>
 <p>
 Note that the units of <i>k</i> are the inverse of the units of the control error,
 while the units of <i>T<sub>i</sub></i> and <i>T<sub>d</sub></i> are seconds.
 </p>
 <p>
-For detailed treatment of integrator anti-windup, set-point weights and output limitation, see
-<a href=\"modelica://Modelica.Blocks.Continuous.LimPID\">Modelica.Blocks.Continuous.LimPID</a>.
+The actual control output is
 </p>
-<h4>Options</h4>
-This controller can be configured as follows.
-<h5>P, PI, PD, or PID action</h5>
+<p align=\"center\" style=\"font-style:italic;\">
+y = min( y<sub>max</sub>, max( y<sub>min</sub>, y)),
+</p>
+<p>
+where <i>y<sub>min</sub></i> and <i>y<sub>max</sub></i> are limits for the control signal.
+</p>
+<h4>P, PI, PD, or PID action</h4>
 <p>
 Through the parameter <code>controllerType</code>, the controller can be configured
 as P, PI, PD or PID controller. The default configuration is PI.
 </p>
-<h5>Direct or reverse acting</h5>
+<h4>Reverse or direct action</h4>
 <p>
 Through the parameter <code>reverseActing</code>, the controller can be configured to
 be reverse or direct acting.
@@ -480,12 +497,100 @@ Thus,
   for a cooling coil with a two-way valve, set <code>reverseActing = false</code>.
   </li>
 </ul>
-<h5>Reset of the controller output</h5>
+<p>
+If <code>reverseAction=false</code>, then the error <i>e</i> above is multiplied by <i>-1</i>.
+</p>
+<h4>Anti-windup compensation</h4>
+<p>
+The controller anti-windup compensation is as follows:
+Instead of the above basic control law, the implementation is
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+y<sub>u</sub> = k &nbsp; (e(t) &frasl; r + 1 &frasl; T<sub>i</sub> &nbsp; &int; (-&Delta;y + e(&tau;) &frasl; r) d&tau; + T<sub>d</sub> &frasl; r d&frasl;dt e(t)),
+</p>
+<p>
+where the anti-windup compensation <i>&Delta;y</i> is
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+&Delta;y = (y<sub>u</sub> - y) &frasl; (k N<sub>i</sub>),
+</p>
+<p>
+where
+<i>N<sub>i</sub> &gt; 0</i> is the time constant for the anti-windup compensation.
+To accelerate the anti-windup, decrease <i>N<sub>i</sub></i>.
+</p>
+<p>
+Note that the anti-windup term <i>(-&Delta;y + e(&tau;) &frasl; r)</i> shows that the range of
+the typical control error <i>r</i> should be set to a reasonable value so that
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+e(&tau;) &frasl; r = (u<sub>s</sub>(&tau;) - u<sub>m</sub>(&tau;)) &frasl; r
+</p>
+<p>
+has order of magnitude one, and hence the anti-windup compensation should work well.
+</p>
+<h4>Reset of the controller output</h4>
 <p>
 Whenever the value of boolean input signal <code>trigger</code> changes from
 <code>false</code> to <code>true</code>, the controller output is reset by setting
 <code>y</code> to the value of the parameter <code>y_reset</code>.
 </p>
+<h4>Approximation of the derivative term</h4>
+<p>
+The derivative of the control error <i>d &frasl; dt e(t)</i> is approximated using
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+d&frasl;dt x(t) = (e(t)-x(t)) T<sub>d</sub> &frasl; N<sub>d</sub>,
+</p>
+<p>
+and
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+d&frasl;dt e(t) &asymp; N<sub>d</sub> (e(t)-x(t)),
+</p>
+<p>
+where <i>x(t)</i> is an internal state.
+</p>
+<h4>Guidance for tuning the control gains</h4>
+<p>
+The parameters of the controller can be manually adjusted by performing
+closed loop tests (= controller + plant connected
+together) and using the following strategy:
+</p>
+<ol>
+<li> Set very large limits, e.g., set <i>y<sub>max</sub> = 1000</i>.
+</li>
+<li>
+Select a <strong>P</strong>-controller and manually enlarge the parameter <code>k</code>
+(the total gain of the controller) until the closed-loop response
+cannot be improved any more.
+</li>
+<li>
+Select a <strong>PI</strong>-controller and manually adjust the parameters
+<code>k</code> and <code>Ti</code> (the time constant of the integrator).
+The first value of <code>Ti</code> can be selected such that it is in the
+order of the time constant of the oscillations occurring with
+the P-controller. If, e.g., oscillations in the order of <i>100</i> seconds
+occur in the previous step, start with <code>Ti=1/100</code> seconds.
+</li>
+<li>
+If you want to make the reaction of the control loop faster
+(but probably less robust against disturbances and measurement noise)
+select a <strong>PID</strong>-controller and manually adjust parameters
+<code>k</code>, <code>Ti</code>, <code>Td</code> (time constant of derivative block).
+</li>
+<li>
+Set the limits <code>yMax</code> and <code>yMin</code> according to your specification.
+</li>
+<li>
+Perform simulations such that the output of the PID controller
+goes in its limits. Tune <code>Ni</code> (<i>N<sub>i</sub> T<sub>i</sub></i> is the time constant of
+the anti-windup compensation) such that the input to the limiter
+block (= <code>lim.u</code>) goes quickly enough back to its limits.
+If <code>Ni</code> is decreased, this happens faster. If <code>Ni</code> is very large, the
+anti-windup compensation is not effective and the controller works bad.
+</li>
+</ol>
 <h4>References</h4>
 <p>
 R. Montgomery and R. McDowall (2008).
@@ -495,6 +600,12 @@ American Society of Heating Refrigerating and Air-Conditioning Engineers Inc. At
 </html>",
 revisions="<html>
 <ul>
+<li>
+October 15, 2020, by Michael Wetter:<br/>
+Added scaling factor <code>r</code>, removed set point weights <code>wp</code> and <code>wd</code>.
+Revised documentation.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2182\">issue 2182</a>.
+</li>
 <li>
 August 4, 2020, by Jianjun Hu:<br/>
 Removed the input <code>y_reset_in</code>.
