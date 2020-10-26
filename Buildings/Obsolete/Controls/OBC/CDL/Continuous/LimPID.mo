@@ -110,11 +110,11 @@ block LimPID
   Buildings.Controls.OBC.CDL.Continuous.Feedback errD if with_D "D error"
     annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
   Buildings.Controls.OBC.CDL.Continuous.Feedback errI1 if with_I
-    "I error (before anti-windup componensation)"
+    "I error (before anti-windup compensation)"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Feedback errI2 if with_I
-    "I error (after anti-windup componensation)"
+    "I error (after anti-windup compensation)"
     annotation (Placement(transformation(extent={{-82,-10},{-62,10}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Limiter lim(
@@ -470,7 +470,7 @@ revisions="<html>
 <ul>
 <li>
 August 4, 2020, by Jianjun Hu:<br/>
-Moved the block to 
+Moved the block to
 <a href=\"modelica://Buildings.Obsolete.Controls.OBC.CDL.Continous\">Buildings.Obsolete.Controls.OBC.CDL.Continous</a>.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2056\">issue 2056</a>.

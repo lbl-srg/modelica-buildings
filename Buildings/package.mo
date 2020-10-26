@@ -245,14 +245,16 @@ to <b style=\"color:blue\">existing</b> libraries:
 <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.PID
     </td>
     <td valign=\"top\">New implementation of the PID controller.<br/>
-                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2056\">issue 2056</a>.</td>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2056\">issue 2056</a> and
+                       for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2182\">issue 2182</a>.</td>
 </tr>
 <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.PIDWithReset
     </td>
     <td valign=\"top\">New implementation of the PID controller with output reset based on a boolean trigger.
                        This implementation allows to reset the output of the controller
                        to a parameter value. (Resetting it to an input was never used and is now removed for simplicity.)<br/>
-                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2056\">issue 2056</a>.</td>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2056\">issue 2056</a> and
+                       for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2182\">issue 2182</a>.</td>
 </tr>
 <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Logical.TimerAccumulating
     </td>
