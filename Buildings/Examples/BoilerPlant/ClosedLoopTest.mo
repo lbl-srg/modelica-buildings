@@ -286,7 +286,7 @@ First implementation.
         "Simulate and plot"),
     experiment(
       StartTime=259200,
-      StopTime=345600,
+      StopTime=432000,
       Tolerance=1e-06,
       __Dymola_Algorithm="Dassl"),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
