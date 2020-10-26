@@ -1420,18 +1420,19 @@ equation
   connect(staSetCon.yBoi, dowProCon.uBoiSet) annotation (Line(points={{-188,-10},
           {86,-10},{86,38},{118,38}}, color={255,0,255}));
 
-  connect(staSetCon.ySta, upProCon.uStaSet) annotation (Line(points={{-188,6},{20,
-          6},{20,83},{118,83}}, color={255,127,0}));
+  connect(staSetCon.ySta, upProCon.uStaSet) annotation (Line(points={{-188,6},{
+          20,6},{20,86},{118,86}},
+                                color={255,127,0}));
 
   connect(staSetCon.ySta, dowProCon.uStaSet) annotation (Line(points={{-188,6},{
           20,6},{20,30},{118,30}},
                                 color={255,127,0}));
 
   connect(staSetCon.yStaTyp, upProCon.uStaTyp) annotation (Line(points={{-188,10},
-          {24,10},{24,87},{118,87}},color={255,127,0}));
+          {24,10},{24,89},{118,89}},color={255,127,0}));
 
   connect(staSetCon.yChaUpEdg, upProCon.uStaUpPro) annotation (Line(points={{-188,2},
-          {58,2},{58,91},{118,91}},    color={255,0,255}));
+          {58,2},{58,92},{118,92}},    color={255,0,255}));
 
   connect(staSetCon.yChaDowEdg, dowProCon.uStaDowPro) annotation (Line(points={{-188,-6},
           {82,-6},{82,34},{118,34}},         color={255,0,255}));
@@ -1721,8 +1722,8 @@ equation
   connect(uBoiAva, staSetCon.uBoiAva) annotation (Line(points={{-420,70},{-300,70},
           {-300,-16},{-212,-16}},      color={255,0,255}));
 
-  connect(plaEna.yPla, upProCon.uPlaEna) annotation (Line(points={{-318,330},{-230,
-          330},{-230,80},{118,80}},                                  color={255,
+  connect(plaEna.yPla, upProCon.uPlaEna) annotation (Line(points={{-318,330},{
+          -230,330},{-230,83},{118,83}},                             color={255,
           0,255}));
 
   connect(plaDis.yHotWatIsoVal, yHotWatIsoVal) annotation (Line(points={{262,68},
@@ -1898,8 +1899,10 @@ equation
         color={255,0,255}));
   connect(conInt1.y, minBoiFloSet1.uStaSet) annotation (Line(points={{-368,-30},
           {-350,-30},{-350,4},{-342,4}}, color={255,127,0}));
-  connect(plaEna.yPla, dowProCon.uPlaEna) annotation (Line(points={{-318,330},{-230,
-          330},{-230,80},{14,80},{14,26},{118,26}}, color={255,0,255}));
+  connect(pre1.y, dowProCon.uStaChaPro) annotation (Line(points={{322,-10},{372,
+          -10},{372,-64},{78,-64},{78,26},{118,26}}, color={255,0,255}));
+  connect(pre1.y, upProCon.uStaChaPro) annotation (Line(points={{322,-10},{372,
+          -10},{372,-64},{78,-64},{78,80},{118,80}}, color={255,0,255}));
   annotation (Icon(coordinateSystem(extent={{-100,-220},{100,220}}),
        graphics={
         Rectangle(
