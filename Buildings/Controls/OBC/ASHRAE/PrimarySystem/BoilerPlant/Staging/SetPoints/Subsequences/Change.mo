@@ -187,18 +187,6 @@ protected
     "Integer change"
     annotation (Placement(transformation(extent={{340,-10},{360,10}})));
 
-  Buildings.Controls.OBC.CDL.Logical.And and2
-    "Produce edge output only during stage change and not at plant enable"
-    annotation (Placement(transformation(extent={{400,80},{420,100}})));
-
-  Buildings.Controls.OBC.CDL.Logical.And and1
-    "Produce edge output only during stage change and not at plant enable"
-    annotation (Placement(transformation(extent={{400,-10},{420,10}})));
-
-  Buildings.Controls.OBC.CDL.Logical.And and4
-    "Produce edge output only during stage change and not at plant enable"
-    annotation (Placement(transformation(extent={{400,-80},{420,-60}})));
-
   Buildings.Controls.OBC.CDL.Logical.Or or1
     "Trigger stage number sampler when plant is turned on or when staging conditions are met"
     annotation (Placement(transformation(extent={{100,100},{120,120}})));
@@ -318,20 +306,6 @@ equation
           -200},{-290,-200},{-290,-186},{-282,-186}}, color={255,0,255}));
   connect(reaToInt.y, cha.u) annotation (Line(points={{382,150},{400,150},{400,130},
           {330,130},{330,0},{338,0}}, color={255,127,0}));
-  connect(and2.y, yChaUpEdg) annotation (Line(points={{422,90},{440,90},{440,90},
-          {460,90}}, color={255,0,255}));
-  connect(cha.up, and2.u2) annotation (Line(points={{362,6},{372,6},{372,82},{398,
-          82}}, color={255,0,255}));
-  connect(cha.y, and1.u1)
-    annotation (Line(points={{362,0},{398,0}}, color={255,0,255}));
-  connect(cha.down, and4.u2) annotation (Line(points={{362,-6},{372,-6},{372,-78},
-          {398,-78}}, color={255,0,255}));
-  connect(and1.y, yChaEdg)
-    annotation (Line(points={{422,0},{460,0}}, color={255,0,255}));
-  connect(and4.y, yChaDowEdg)
-    annotation (Line(points={{422,-70},{460,-70}}, color={255,0,255}));
-  connect(pre1.u, and1.y) annotation (Line(points={{318,-110},{310,-110},{310,-30},
-          {430,-30},{430,0},{422,0}}, color={255,0,255}));
   connect(or1.y, triSam.trigger) annotation (Line(points={{122,110},{140,110},{140,
           138.2}}, color={255,0,255}));
   connect(or2.y, and5.u1)
@@ -340,12 +314,6 @@ equation
           -230,-85.25},{-162,-85.25}}, color={255,0,255}));
   connect(uPla, and5.u2) annotation (Line(points={{-460,160},{-388,160},{-388,
           -20},{-328,-20},{-328,-88},{-322,-88}}, color={255,0,255}));
-  connect(uPla, and2.u1) annotation (Line(points={{-460,160},{-388,160},{-388,
-          -220},{390,-220},{390,90},{398,90}}, color={255,0,255}));
-  connect(uPla, and1.u2) annotation (Line(points={{-460,160},{-388,160},{-388,
-          -220},{390,-220},{390,-8},{398,-8}}, color={255,0,255}));
-  connect(uPla, and4.u1) annotation (Line(points={{-460,160},{-388,160},{-388,
-          -220},{390,-220},{390,-70},{398,-70}}, color={255,0,255}));
   connect(uPla, cha1.u) annotation (Line(points={{-460,160},{-388,160},{-388,130},
           {-122,130}},      color={255,0,255}));
   connect(cha1.y, lat1.clr) annotation (Line(points={{-98,130},{-90,130},{-90,144},
@@ -378,6 +346,14 @@ equation
           -150,100},{-68,100},{-68,118},{-42,118}}, color={0,0,127}));
   connect(uPla, switch3.u2) annotation (Line(points={{-460,160},{-388,160},{-388,
           130},{-160,130},{-160,110},{-42,110}}, color={255,0,255}));
+  connect(cha.up, yChaUpEdg) annotation (Line(points={{362,6},{380,6},{380,92},
+          {460,92},{460,90}}, color={255,0,255}));
+  connect(cha.y, yChaEdg) annotation (Line(points={{362,0},{404,0},{404,0},{460,
+          0}}, color={255,0,255}));
+  connect(cha.down, yChaDowEdg) annotation (Line(points={{362,-6},{380,-6},{380,
+          -70},{460,-70}}, color={255,0,255}));
+  connect(cha.y, pre1.u) annotation (Line(points={{362,0},{370,0},{370,-80},{
+          310,-80},{310,-110},{318,-110}}, color={255,0,255}));
   annotation (defaultComponentName = "cha",
     Icon(graphics={
       Rectangle(
