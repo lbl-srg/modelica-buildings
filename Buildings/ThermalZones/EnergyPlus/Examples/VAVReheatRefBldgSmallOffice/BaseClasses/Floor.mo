@@ -94,7 +94,7 @@ model Floor "Model of a floor of the building"
   Buildings.Examples.VAVReheat.ThermalZones.RoomLeakage leaEas(
     redeclare package Medium = Medium,
     VRoo=205.265,
-    s=33.27/49.91,
+    s=18.46/27.69,
     azi=Buildings.Types.Azimuth.E,
     final use_windPressure=use_windPressure)
     "Model for air infiltration through the envelope"
@@ -110,7 +110,7 @@ model Floor "Model of a floor of the building"
   Buildings.Examples.VAVReheat.ThermalZones.RoomLeakage leaWes(
     redeclare package Medium = Medium,
     VRoo=205.265,
-    s=33.27/49.91,
+    s=18.46/27.69,
     azi=Buildings.Types.Azimuth.W,
     final use_windPressure=use_windPressure)
     "Model for air infiltration through the envelope"
