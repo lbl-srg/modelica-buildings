@@ -2,12 +2,12 @@ within Buildings.Examples.VAVReheat.Controls;
 block Economizer "Controller for economizer"
   import Buildings.Examples.VAVReheat.Controls.OperationModes;
   parameter Boolean have_reset = false
-    "Set to true to reset the outdoor air damper controllers whith the enable signal"
+    "Set to true to reset the outdoor air damper controllers with the enable signal"
     annotation(Evaluate=true);
   parameter Boolean have_frePro = false
-    "Set to true to enable freeze protection through mixed air temperature control";
+    "Set to true to enable freeze protection (mixed air low temperature control)";
   parameter Modelica.SIunits.Temperature TFreSet=277.15
-    "Lower limit for mixed air temperature for freeze protection"
+    "Lower limit of mixed air temperature for freeze protection"
     annotation(Dialog(enable=have_frePro), Evaluate=true);
   parameter Modelica.SIunits.TemperatureDifference dTLock(min=0.1) = 1
     "Temperature difference between return and outdoor air for economizer lockout";
@@ -21,7 +21,7 @@ block Economizer "Controller for economizer"
        iconTransformation(extent={{-40,-40},{40,40}},
         rotation=90,
         origin={0,-140})));
-  ControlBus controlBus
+  ControlBus controlBus "Control bus"
     annotation (Placement(transformation(extent={{30,-88},{50,-68}}),
         iconTransformation(extent={{30,-88},{50,-68}})));
   Modelica.Blocks.Interfaces.RealInput uOATSup
@@ -229,13 +229,13 @@ than the return air dry bulb, economizer cooling is disabled.
 </html>", revisions="<html>
 <ul>
 <li>
-October 9, 2020, by Antoine Gautier:<br/>
-Refactoring to allow supply air temperature control in sequence.<br/>
+October 27, 2020, by Antoine Gautier:<br/>
+Refactored for compatibility with new supply air temperature control.<br />
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2024\">#2024</a>.
 </li>
 <li>
-July 10, 2020, by Antoine Gautier:<br/>
+July 10, 2020, by Antoine Gautier:<br />
 Added optional reset signal.
 Corrected connections to <code>yOATFre</code>.<br/>
 This is for
@@ -244,13 +244,13 @@ and
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1995\">#1995</a>.
 </li>
 <li>
-December 20, 2016, by Michael Wetter:<br/>
-Added type conversion for enumeration when used as an array index.<br/>
+December 20, 2016, by Michael Wetter:<br />
+Added type conversion for enumeration when used as an array index.<br />
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/602\">#602</a>.
 </li>
 <li>
-April 26, 2016, by Michael Wetter:<br/>
+April 26, 2016, by Michael Wetter:<br />
 Changed controller for freeze protection as the old implementation closed
 the outdoor air damper during summer.
 This is

@@ -38,5 +38,12 @@ This model validates the supply air temperature control, as implemented in
 <a href=\"modelica://Buildings.Examples.VAVReheat.Controls.SupplyAirTemperature\">
 Buildings.Examples.VAVReheat.Controls.SupplyAirTemperature</a>
 </p>
+</html>",
+revisions="<html>
+<ul>
+<li>
+October 27, 2020, by Antoine Gautier:<br/>
+First implementation.
+</li>
 </html>"));
 end SupplyAirTemperature;

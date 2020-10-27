@@ -194,7 +194,7 @@ ASHRAE, Atlanta, GA, 2006.
 </html>", revisions="<html>
 <ul>
 <li>
-July 6, 2020, by Antoine Gautier:<br/>
+October 27, 2020, by Antoine Gautier:<br/>
 First implementation.<br/>
 </li>
 </ul>

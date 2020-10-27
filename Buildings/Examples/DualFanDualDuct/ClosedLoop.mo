@@ -1154,7 +1154,11 @@ cold-deck is constant. The revolutions of both supply fans are controlled
 in order to track a pressure difference between VAV damper
 inlet and room pressure of 30 Pascals. The return fan is controlled
 to track a building pressure of 30 Pascals above outside air pressure.
-There is also an economizer.
+There is also an economizer which is controlled to provide the following
+functions: freeze protection, minimum outside air requirement,
+and supply air cooling, see
+<a href=\"modelica://Buildings.Examples.VAVReheat.Controls.Economizer\">
+Buildings.Examples.VAVReheat.Controls.Economizer</a>.
 During night-time, the fans are switched off.
 The coils are controlled as follows: The preheat coil is controlled to
 maintain an air outlet temperature of 11&deg;C during day-time, and
@@ -1200,7 +1204,12 @@ windows. The model is similar to the
 Window 5 model and described in TARCOG 2006.
 </p>
 <p>
-Each thermal zone can have air flow from the HVAC system, through leakages of the building envelope (except for the core zone) and through bi-directional air exchange through open doors that connect adjacent zones. The bi-directional air exchange is modeled based on the differences in static pressure between adjacent rooms at a reference height plus the difference in static pressure across the door height as a function of the difference in air density.
+Each thermal zone can have air flow from the HVAC system, through leakages of
+the building envelope (except for the core zone) and through bi-directional air
+exchange through open doors that connect adjacent zones. The bi-directional air
+exchange is modeled based on the differences in static pressure between
+adjacent rooms at a reference height plus the difference in static pressure
+across the door height as a function of the difference in air density.
 There is also wind pressure acting on each facade. The wind pressure is a function
 of the wind speed and wind direction. Therefore, infiltration is a function of the
 flow imbalance of the HVAC system and of the wind conditions.
@@ -1225,6 +1234,12 @@ shading devices, Technical Report, Oct. 17, 2006.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 27, 2020, by Antoine Gautier:<br/>
+Adapt the model to the updated control of supply air temperature in VAV examples.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2024\">#2024</a>.
+</li>
 <li>
 July 11, 2019, by Michael Wetter:<br/>
 Changed wrong assignment of air-side nominal flow rate of preheat coil.

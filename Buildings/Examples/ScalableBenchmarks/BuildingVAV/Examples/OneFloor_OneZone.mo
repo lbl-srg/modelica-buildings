@@ -453,14 +453,20 @@ The control sequence regulates the supply fan speed to ensure a
 prescribed pressure rise of <code>850 Pa</code> when the supply fan runs
 during operation modes <i>occupied</i>, <i>unoccupied night set back</i>,
 <i>unoccupied warm-up</i> and <i>unoccupied pre-cool</i>.
-The economizer dampers are modulated to track the setpoint for the
-mixed air dry bulb temperature.
-Priority is given to maintain a minimum outside air volume flow rate.
-In each zone, the VAV damper is adjusted to meet the room temperature
-setpoint for cooling, or fully opened during heating.
-The room temperature setpoint for heating is tracked by varying
-the water flow rate through the reheat coil. There is also a
-finite state machine that transitions the mode of operation of
+The heating coil valve, outside air damper, and cooling coil valve are
+modulated in sequence to maintain the supply air temperature set point.
+The economizer control ensures the following functions:
+freeze protection, minimum outside air requirement, and supply air cooling,
+see
+<a href=\"modelica://Buildings.Examples.VAVReheat.Controls.Economizer\">
+Buildings.Examples.VAVReheat.Controls.Economizer</a>.
+The controller of the terminal units tracks the room air temperature set point
+based on a \"single maximum\" logic, see
+<a href=\"modelica://Buildings.Examples.VAVReheat.Controls.RoomVAV\">
+Buildings.Examples.VAVReheat.Controls.RoomVAV</a>.
+</p>
+<p>
+There is also a finite state machine that transitions the mode of operation of
 the HVAC system between the modes
 <i>occupied</i>, <i>unoccupied off</i>, <i>unoccupied night set back</i>,
 <i>unoccupied warm-up</i> and <i>unoccupied pre-cool</i>.
@@ -468,7 +474,6 @@ Local loop control is implemented using proportional and proportional-integral
 controllers, while the supervisory control is implemented
 using a finite state machine.
 </p>
-
 <p>
 The thermal room model computes transient heat conduction through
 walls, floors and ceilings and long-wave radiative heat exchange between
@@ -505,7 +510,13 @@ shading devices, Technical Report, Oct. 17, 2006.
 </html>", revisions="<html>
 <ul>
 <li>
-October 24, 2017, by Michael Wetter:<br/>
+October 27, 2020, by Antoine Gautier:<br/>
+Updated model for new supply air temperature control in VAV examples.<br />
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2024\">#2024</a>.
+</li>
+<li>
+October 24, 2017, by Michael Wetter:<br />
 Updated model for new fan controller that takes the on/off signal
 as an input.
 </li>
