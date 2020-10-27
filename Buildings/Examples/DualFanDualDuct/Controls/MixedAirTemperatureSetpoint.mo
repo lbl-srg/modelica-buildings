@@ -11,21 +11,29 @@ model MixedAirTemperatureSetpoint
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   Buildings.Utilities.Math.Average ave(nin=2)
     annotation (Placement(transformation(extent={{-20,-70},{0,-50}})));
-  Modelica.Blocks.Interfaces.RealInput TSupHeaSet
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSupHeaSet(
+    final unit="K",
+    displayUnit="degC")
     "Supply temperature setpoint for heating"
-    annotation (Placement(transformation(extent={{-140,40},{-100,80}}), iconTransformation(extent={{-140,40},{-100,80}})));
-  Modelica.Blocks.Interfaces.RealInput TSupCooSet
+    annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
+        iconTransformation(extent={{-140,20},{-100,60}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSupCooSet(
+    final unit="K",
+    displayUnit="degC")
     "Supply temperature setpoint for cooling"
-    annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
+    annotation (Placement(transformation(extent={{-140,-60},{-100,-20}}),
+        iconTransformation(extent={{-140,-60},{-100,-20}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput TSet(
+    final unit="K",
+    displayUnit="degC")
+   "Mixed air temperature setpoint"
+    annotation (Placement(transformation(extent={{100,-20},{140,20}}),
+        iconTransformation(extent={{100,-20},{140,20}})));
   Modelica.Blocks.Sources.Constant TPreCoo(k=273.15 + 13)
     "Setpoint during pre-cooling"
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
-  VAVReheat.Controls.ControlBus
-             controlBus
+  VAVReheat.Controls.ControlBus controlBus
     annotation (Placement(transformation(extent={{-10,-90},{10,-70}})));
-  Modelica.Blocks.Interfaces.RealOutput TSet "Mixed air temperature setpoint"
-    annotation (Placement(transformation(extent={{100,-20},{140,20}}),
-        iconTransformation(extent={{100,-20},{140,20}})));
   Modelica.Blocks.Routing.Multiplex2 multiplex2_1
     annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
 equation
@@ -66,7 +74,7 @@ equation
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(TSetMix.y, TSet) annotation (Line(
-      points={{81,0},{120,0}},
+      points={{81,0},{100,0},{100,0},{120,0}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(multiplex2_1.y, ave.u) annotation (Line(
@@ -74,11 +82,11 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(TSupCooSet, multiplex2_1.u2[1]) annotation (Line(
-      points={{-120,-60},{-90,-60},{-90,-66},{-62,-66}},
+      points={{-120,-40},{-90,-40},{-90,-66},{-62,-66}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(TSupHeaSet, multiplex2_1.u1[1]) annotation (Line(
-      points={{-120,60},{-90,60},{-90,-54},{-62,-54}},
+      points={{-120,40},{-90,40},{-90,-54},{-62,-54}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation(defaultComponentName="TMixSet");

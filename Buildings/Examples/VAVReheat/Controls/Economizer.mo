@@ -212,11 +212,11 @@ to fulfill three control functions.
 </p>
 <ol>
 <li>
-Minimum outside air requirement, based on the outdoor air flow rate
-measurement
+Freeze protection, based on the mixed air temperature measurement
 </li>
 <li>
-Freeze protection, based on the mixed air temperature measurement
+Minimum outside air requirement, based on the outdoor air flow rate
+measurement
 </li>
 <li>
 Supply air cooling, based on the logic implemented in

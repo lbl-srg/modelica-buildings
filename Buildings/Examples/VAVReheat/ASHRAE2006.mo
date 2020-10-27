@@ -221,7 +221,7 @@ equation
       index=1,
       extent={{6,3},{6,3}}));
   connect(conEco.controlBus, controlBus) annotation (Line(
-      points={{-69.3333,141.333},{-69.3333,120},{-240,120},{-240,-342}},
+      points={{-70.6667,141.467},{-70.6667,120},{-240,120},{-240,-342}},
       color={255,204,51},
       thickness=0.5));
   connect(modeSelector.yFan, conFanSup.uFan) annotation (Line(points={{-179.091,
@@ -274,7 +274,7 @@ equation
   connect(or2.y, conTSup.uEna) annotation (Line(points={{-38,-240},{20,-240},{
           20,-226},{28,-226}}, color={255,0,255}));
   connect(modeSelector.yEco, conEco.uEna) annotation (Line(points={{-179.091,
-          -314.636},{-160,-314.636},{-160,100},{-73.3333,100},{-73.3333,137.333}},
+          -314.545},{-160,-314.545},{-160,100},{-73.3333,100},{-73.3333,137.333}},
         color={255,0,255}));
   connect(TMix.T, conEco.TMix) annotation (Line(points={{40,-29},{40,166},{-90,
           166},{-90,148},{-81.3333,148}}, color={0,0,127}));
@@ -302,7 +302,7 @@ and a heating and cooling coil in the air handler unit. There is also a
 reheat coil and an air damper in each of the five zone inlet branches.
 The figure below shows the schematic diagram of the HVAC system
 </p>
-<p align=\"center\">
+<p>
 <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Examples/VAVReheat/vavSchematics.png\" border=\"1\"/>
 </p>
 <p>
@@ -315,18 +315,26 @@ for a description of the HVAC system and the building envelope.
 The control is an implementation of the control sequence
 <i>VAV 2A2-21232</i> of the Sequences of Operation for
 Common HVAC Systems (ASHRAE, 2006). In this control sequence, the
-supply fan speed is regulated based on the duct static pressure.
+supply fan speed is modulated based on the duct static pressure.
 The return fan controller tracks the supply fan air flow rate.
-The duct static pressure is adjusted
-so that at least one VAV damper is 90% open. The economizer dampers
-are modulated to track the setpoint for the mixed air dry bulb temperature.
-Priority is given to maintain a minimum outside air volume flow rate.
-In each zone, the VAV damper is adjusted to meet the room temperature
-setpoint for cooling, or fully opened during heating.
-The room temperature setpoint for heating is tracked by varying
-the water flow rate through the reheat coil. There is also a
-finite state machine that transitions the mode of operation of
-the HVAC system between the modes
+The duct static pressure set point is adjusted so that at least one 
+VAV damper is 90% open. 
+The heating coil valve, outside air damper, and cooling coil valve are 
+modulated in sequence to maintain the supply air temperature set point.
+The economizer control ensures the following functions:
+freeze protection, minimum outside air requirement, and supply air cooling, 
+see
+<a href=\"modelica://Buildings.Examples.VAVReheat.Controls.Economizer\">
+Buildings.Examples.VAVReheat.Controls.Economizer</a>.
+The control of the terminal units ensures the room temperature set point 
+tracking based on the \"dual maximum with constant volume heating\" logic,
+see
+<a href=\"modelica://Buildings.Examples.VAVReheat.Controls.RoomVAV\">
+Buildings.Examples.VAVReheat.Controls.RoomVAV</a>.
+</p>
+<p>
+There is also a finite state machine that transitions the mode of operation
+of the HVAC system between the modes
 <i>occupied</i>, <i>unoccupied off</i>, <i>unoccupied night set back</i>,
 <i>unoccupied warm-up</i> and <i>unoccupied pre-cool</i>.
 In the VAV model, all air flows are computed based on the
