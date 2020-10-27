@@ -45,5 +45,6 @@ revisions="<html>
 October 27, 2020, by Antoine Gautier:<br/>
 First implementation.
 </li>
+</ul>
 </html>"));
 end SupplyAirTemperature;

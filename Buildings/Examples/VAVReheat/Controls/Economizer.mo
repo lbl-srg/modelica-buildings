@@ -204,7 +204,10 @@ equation
         Text(
           extent={{-92,194},{-24,170}},
           lineColor={0,0,255},
-          textString="uOATSup")}),
+          textString="uOATSup"),        Text(
+        extent={{-140,288},{240,214}},
+        textString="%name",
+        lineColor={0,0,255})}),
     Documentation(info="<html>
 <p>
 This is a controller for an economizer, that adjusts the mixed air dampers

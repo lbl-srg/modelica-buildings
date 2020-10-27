@@ -456,8 +456,7 @@ during operation modes <i>occupied</i>, <i>unoccupied night set back</i>,
 The heating coil valve, outside air damper, and cooling coil valve are
 modulated in sequence to maintain the supply air temperature set point.
 The economizer control ensures the following functions:
-freeze protection, minimum outside air requirement, and supply air cooling,
-see
+minimum outside air requirement, and supply air cooling, see
 <a href=\"modelica://Buildings.Examples.VAVReheat.Controls.Economizer\">
 Buildings.Examples.VAVReheat.Controls.Economizer</a>.
 The controller of the terminal units tracks the room air temperature set point

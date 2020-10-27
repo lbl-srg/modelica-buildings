@@ -39,9 +39,9 @@ equation
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>
-This block computes the supply air temperature set point 
+This block computes the supply air temperature set point
 based on the actual operating mode.
-The default set point values are taken from the control sequence 
+The default set point values are taken from the control sequence
 <i>VAV 2A2-21232</i> of the Sequences of Operation for
 Common HVAC Systems (ASHRAE, 2006).
 <br />
@@ -82,5 +82,6 @@ ASHRAE, Atlanta, GA, 2006.
 October 27, 2020, by Antoine Gautier:<br/>
 First implementation.
 </li>
+</ul>
 </html>"));
 end SupplyAirTemperatureSetpoint;
