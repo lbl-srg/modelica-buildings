@@ -1,14 +1,15 @@
-within Buildings.ThermalZones.EnergyPlus.Validation;
-model OneZoneInitialTemperature
+within Buildings.ThermalZones.EnergyPlus.Validation.ThermalZone;
+model ZoneTemperatureInitialization
   "This example tests whether the zone mean air temperature is initialized correctly in EnergyPlus"
-  extends Buildings.ThermalZones.EnergyPlus.Validation.OneZone(zon(T_start=303.15));
+  extends Buildings.ThermalZones.EnergyPlus.Validation.ThermalZone.OneZone(
+    zon(T_start=303.15));
 
-  OutputVariable TRad(
+  Buildings.ThermalZones.EnergyPlus.OutputVariable TRad(
     key="LIVING ZONE",
     name="Zone Mean Radiant Temperature",
     y(final unit="K"))
     "Block that reads output from EnergyPlus"
-    annotation (Placement(transformation(extent={{60,40},{80,60}})));
+    annotation (Placement(transformation(extent={{60,20},{80,40}})));
   annotation (Documentation(info="<html>
 <p>
 Simple test case that verifies whether the zone mean air temperature is
@@ -21,9 +22,9 @@ First implementation.
 </li>
 </ul>
 </html>"),
- __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus/Validation/OneZoneInitialTemperature.mos"
+ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus/Validation/ThermalZone/ZoneTemperatureInitialization.mos"
         "Simulate and plot"),
 experiment(
       StopTime=86400,
       Tolerance=1e-06));
-end OneZoneInitialTemperature;
+end ZoneTemperatureInitialization;
