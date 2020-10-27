@@ -1322,9 +1322,6 @@ block Controller "Chiller plant controller"
   CDL.Interfaces.BooleanOutput yLeaChiWatPum "Lead pump status setpoint"
     annotation (Placement(transformation(extent={{800,560},{840,600}}),
         iconTransformation(extent={{100,60},{140,100}})));
-  CDL.Logical.Sources.Constant fixme1[nTowCel](k=fill(true, nTowCel))
-    "Fixme - ask Jianjun where this input should come from"
-    annotation (Placement(transformation(extent={{-400,-760},{-380,-740}})));
   Generic.EquipmentRotation.ControllerTwo equRot
     "fixme - rotates 2 pumps or groups of pumps"
     annotation (Placement(transformation(extent={{360,560},{380,580}})));
@@ -1339,6 +1336,9 @@ block Controller "Chiller plant controller"
   CDL.Logical.IntegerSwitch intSwi[2]
     "fixme - two devices or groups of devices"
     annotation (Placement(transformation(extent={{480,560},{500,580}})));
+  CDL.Logical.Xor xor[nTowCel]
+    "Outputs true when input signals are not the same. fixme - move to inside towCon"
+    annotation (Placement(transformation(extent={{-360,-760},{-340,-740}})));
 equation
   connect(staSetCon.uPla, plaEna.yPla) annotation(Line(points={{-168,72},{-480,
           72},{-480,-460},{-518,-460}},        color={255,0,255}));
@@ -1646,8 +1646,6 @@ equation
         color={255,0,255}));
   connect(chiWatPumCon.yLea, yLeaChiWatPum) annotation (Line(points={{606,534},
           {760,534},{760,580},{820,580}}, color={255,0,255}));
-  connect(fixme1.y, towCon.uChaCel) annotation (Line(points={{-378,-750},{-248,
-          -750},{-248,-700},{-208,-700}}, color={255,0,255}));
   connect(equRot.yDevRol, intSwi.u2) annotation (Line(points={{382,564},{410,
           564},{410,570},{478,570}}, color={255,0,255}));
   connect(conInt1.y, intSwi.u1) annotation (Line(points={{442,600},{460,600},{
@@ -1666,6 +1664,13 @@ equation
   connect(chiWatPumCon.yChiWatPum[1], equRot.uLagStaSet) annotation (Line(
         points={{606,507},{630,507},{630,630},{340,630},{340,570},{358,570}},
         color={255,0,255}));
+  connect(uTowSta, xor.u1) annotation (Line(points={{-820,390},{-776,390},{-776,
+          -750},{-362,-750}}, color={255,0,255}));
+  connect(towCon.yTowSta, xor.u2) annotation (Line(points={{-112,-660},{-100,
+          -660},{-100,-780},{-374,-780},{-374,-758},{-362,-758}}, color={255,0,
+          255}));
+  connect(xor.y, towCon.uChaCel) annotation (Line(points={{-338,-750},{-240,
+          -750},{-240,-700},{-208,-700}}, color={255,0,255}));
     annotation (Dialog(tab="Cooling Towers", group="Configuration"),
                 Dialog(tab="Chilled water pumps", group="Speed controller"),
                 Dialog(tab="Plant Reset", group="Time parameter"),
