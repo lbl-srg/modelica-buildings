@@ -19,7 +19,7 @@ model ZoneStatus
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse uWinSta(
     final width=0.3,
     final period=43200,
-    final startTime=1800)
+    final delay=1800)
     "Window on/off status"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},origin={-10,-80})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ramp2(

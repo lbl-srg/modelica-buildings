@@ -13,7 +13,7 @@ model TimerNegativeStartTime
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul(
     final width=0.7,
     final period=2,
-    startTime=-5)   "Block that outputs cyclic on and off"
+    delay=-5)   "Block that outputs cyclic on and off"
     annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
 
 equation

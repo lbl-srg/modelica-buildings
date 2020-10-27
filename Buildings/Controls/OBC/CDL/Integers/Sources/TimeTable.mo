@@ -8,7 +8,7 @@ block TimeTable "Table look-up with respect to time with constant segments"
      final unit="1") = 1
     "Time scale of first table column. Set to 3600 if time in table is in hours";
 
-  parameter Modelica.SIunits.Time period
+  parameter Modelica.SIunits.Time period(min=1E-6)
     "Periodicity of table";
 
   Interfaces.IntegerOutput y[nout] "Output of the table"
@@ -44,18 +44,11 @@ protected
     end for;
   end getIndex;
 
-  function round "Round function from Buildings.Controls.OBC.CDL.Continuous.Round"
-    input Real x "Argument";
-    input Real n "Digits";
-    output Real y "Rounded argument";
-  protected
-    Real fac = 10^n "Factor used for rounding";
-  algorithm
-    y :=if (x > 0) then floor(x*fac + 0.5)/fac else ceil(x*fac - 0.5)/fac;
-  end round;
-
 initial equation
-  t0 = round(integer(time/period)*period, 6);
+  t0 = Buildings.Utilities.Math.Functions.round(
+         x = integer(time/period)*period,
+         n = 6);
+
   assert(nT > 0, "No table values defined.");
 
   // Check that all values in the second column are Integer values
@@ -113,6 +106,11 @@ The table scope is repeated periodically with periodicity <code>period</code>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+October 19, 2020, by Michael Wetter:<br/>
+Revised to call <code>round()</code> as a function.<br/>
+For <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2170\">#2170</a>.
+</li>
 <li>
 October 7, 2020, by Michael Wetter:<br/>
 Revised implementation to add <code>timeSpan</code> and to guard against rounding errors.
