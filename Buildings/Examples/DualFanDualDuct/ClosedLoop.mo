@@ -536,12 +536,14 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     k=1,
     reverseActing=false) "Controller for cooling coil"
     annotation (Placement(transformation(extent={{290,-210},{310,-190}})));
-  Controls.MixedAirTemperature conTMix(k=0.05, Ti=1200)
-    "Controller for mixed air temperature"
-    annotation (Placement(transformation(extent={{-140,110},{-120,130}})));
   Controls.MixedAirTemperatureSetpoint TMixSet
     "Mixed air temperature set point"
     annotation (Placement(transformation(extent={{-190,110},{-170,130}})));
+  Buildings.Controls.OBC.CDL.Continuous.PID conTMix(
+    k=0.05,
+    Ti=1200,
+    reverseActing=false) "Controller for mixed air temperature"
+    annotation (Placement(transformation(extent={{-150,110},{-130,130}})));
 equation
   connect(fil.port_b, preHeaCoi.port_a1)
                                       annotation (Line(
@@ -596,7 +598,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(TMix.T, conEco.TMix) annotation (Line(
-      points={{40,-29},{40,140},{-90,140},{-90,118},{-81.3333,118}},
+      points={{40,-29},{40,100},{-100,100},{-100,118},{-81.3333,118}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(controlBus, conEco.controlBus) annotation (Line(
@@ -1068,8 +1070,7 @@ equation
   connect(modeSelector.yFan, wes.yFan) annotation (Line(points={{-117,-366},{
           1074,-366},{1074,73.2},{1097.47,73.2}}, color={255,0,255}));
   connect(modeSelector.yEco, conEco.uEna) annotation (Line(points={{-117,-376},
-          {-216,-376},{-216,100},{-73.3333,100},{-73.3333,107.333}},
-                                                                   color={255,0,
+          {-216,-376},{-216,94},{-73.3333,94},{-73.3333,107.333}}, color={255,0,
           255}));
   connect(conCooCoi.y, valCoo.y) annotation (Line(points={{311,-200},{360,-200},
           {360,-190},{368,-190}}, color={0,0,127}));
@@ -1094,10 +1095,6 @@ equation
       index=-1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(conTMix.yOA, conEco.uOATSup) annotation (Line(points={{-118,120},{
-          -110,120},{-110,128.667},{-81.3333,128.667}}, color={0,0,127}));
-  connect(TMixSet.TSet, conTMix.TMixSet) annotation (Line(points={{-168,120},{
-          -160,120},{-160,112},{-142,112}}, color={0,0,127}));
   connect(controlBus, TMixSet.controlBus) annotation (Line(
       points={{-240,-260},{-240,88},{-180,88},{-180,112}},
       color={255,204,51},
@@ -1107,17 +1104,17 @@ equation
       extent={{-3,-6},{-3,-6}},
       horizontalAlignment=TextAlignment.Right));
   connect(TSupSetHea.TSet, TMixSet.TSupHeaSet) annotation (Line(points={{-179,
-          -100},{-166,-100},{-166,60},{-200,60},{-200,126},{-192,126}}, color={
+          -100},{-166,-100},{-166,60},{-200,60},{-200,124},{-192,124}}, color={
           0,0,127}));
   connect(TSetCoo.TSet, TMixSet.TSupCooSet) annotation (Line(points={{-179,-200},
-          {-160,-200},{-160,66},{-196,66},{-196,114},{-192,114}}, color={0,0,
+          {-160,-200},{-160,66},{-196,66},{-196,116},{-192,116}}, color={0,0,
           127}));
-  connect(TRet.T, conTMix.TRet) annotation (Line(points={{92,171},{92,180},{
-          -160,180},{-160,124},{-142,124}}, color={0,0,127}));
-  connect(TOut.y, conTMix.TOut) annotation (Line(points={{-279,160},{-154,160},
-          {-154,120},{-142,120}}, color={0,0,127}));
-  connect(TMix.T, conTMix.TMix) annotation (Line(points={{40,-29},{40,140},{
-          -148,140},{-148,116},{-142,116}}, color={0,0,127}));
+  connect(conTMix.y, conEco.uOATSup) annotation (Line(points={{-128,120},{-110,
+          120},{-110,128.667},{-81.3333,128.667}}, color={0,0,127}));
+  connect(TMixSet.TSet, conTMix.u_s)
+    annotation (Line(points={{-168,120},{-152,120}}, color={0,0,127}));
+  connect(TMix.T, conTMix.u_m) annotation (Line(points={{40,-29},{40,100},{-140,
+          100},{-140,108}}, color={0,0,127}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-400,-400},{
             1400,640}})),
