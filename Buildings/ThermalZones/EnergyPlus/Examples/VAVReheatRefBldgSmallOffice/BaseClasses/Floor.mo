@@ -86,7 +86,7 @@ model Floor "Model of a floor of the building"
   Buildings.Examples.VAVReheat.ThermalZones.RoomLeakage leaSou(
     redeclare package Medium = Medium,
     VRoo=346.022,
-    s=49.91/33.27,
+    s=27.69/18.46,
     azi=Buildings.Types.Azimuth.S,
     final use_windPressure=use_windPressure)
     "Model for air infiltration through the envelope"
@@ -102,7 +102,7 @@ model Floor "Model of a floor of the building"
   Buildings.Examples.VAVReheat.ThermalZones.RoomLeakage leaNor(
     redeclare package Medium = Medium,
     VRoo=346.022,
-    s=49.91/33.27,
+    s=27.69/18.46,
     azi=Buildings.Types.Azimuth.N,
     final use_windPressure=use_windPressure)
     "Model for air infiltration through the envelope"
@@ -139,25 +139,25 @@ model Floor "Model of a floor of the building"
         iconTransformation(extent={{380,150},{400,170}})));
   Airflow.Multizone.DoorDiscretizedOpen opeSouCor(
     redeclare package Medium = Medium,
-    wOpe=10,
+    wOpe=10*(17.69 + 8.46)/(40.76 + 24.13),
     forceErrorControlOnFlow=false)
     "Opening between perimeter1 and core"
     annotation (Placement(transformation(extent={{84,0},{104,20}})));
   Airflow.Multizone.DoorDiscretizedOpen opeEasCor(
     redeclare package Medium = Medium,
-    wOpe=10,
+    wOpe=10*(17.69 + 8.46)/(40.76 + 24.13),
     forceErrorControlOnFlow=false)
     "Opening between perimeter2 and core"
     annotation (Placement(transformation(extent={{250,38},{270,58}})));
   Airflow.Multizone.DoorDiscretizedOpen opeNorCor(
     redeclare package Medium = Medium,
-    wOpe=10,
+    wOpe=10*(17.69 + 8.46)/(40.76 + 24.13),
     forceErrorControlOnFlow=false)
     "Opening between perimeter3 and core"
     annotation (Placement(transformation(extent={{80,74},{100,94}})));
   Airflow.Multizone.DoorDiscretizedOpen opeWesCor(
     redeclare package Medium = Medium,
-    wOpe=10,
+    wOpe=10*(17.69 + 8.46)/(40.76 + 24.13),
     forceErrorControlOnFlow=false)
     "Opening between perimeter3 and core"
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
