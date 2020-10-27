@@ -1339,6 +1339,10 @@ block Controller "Chiller plant controller"
   CDL.Logical.Xor xor[nTowCel]
     "Outputs true when input signals are not the same. fixme - move to inside towCon"
     annotation (Placement(transformation(extent={{-360,-760},{-340,-740}})));
+  CDL.Logical.Latch lat1
+    annotation (Placement(transformation(extent={{540,200},{560,220}})));
+  CDL.Logical.Latch lat2
+    annotation (Placement(transformation(extent={{560,150},{580,170}})));
 equation
   connect(staSetCon.uPla, plaEna.yPla) annotation(Line(points={{-168,72},{-480,
           72},{-480,-460},{-518,-460}},        color={255,0,255}));
@@ -1576,8 +1580,6 @@ equation
           220},{-490,220},{-490,204},{-424,204}}, color={0,0,127}));
   connect(falEdg.y, staSam.trigger) annotation (Line(points={{582,-80},{590,-80},
           {590,-40},{90,-40},{90,-31.8}}, color={255,0,255}));
-  connect(upProCon.yStaPro, desConWatPumSpeSwi.u2) annotation (Line(points={{368,
-          416},{480,416},{480,200},{618,200}}, color={255,0,255}));
   connect(upProCon.yDesConWatPumSpe, desConWatPumSpeSwi.u1) annotation (Line(
         points={{368,336},{592,336},{592,208},{618,208}}, color={0,0,127}));
   connect(dowProCon.yDesConWatPumSpe, desConWatPumSpeSwi.u3) annotation (Line(
@@ -1599,10 +1601,8 @@ equation
           180},{-310,180},{-310,-288},{272,-288}}, color={0,0,127}));
   connect(mulMin.y, upProCon.uConWatPumSpeSet) annotation (Line(points={{-338,
           180},{-310,180},{-310,308},{272,308}}, color={0,0,127}));
-  connect(upProCon.yStaPro, chiMinFloSet.u2) annotation (Line(points={{368,416},
-          {480,416},{480,150},{618,150}}, color={255,0,255}));
-  connect(upProCon.yChiWatMinFloSet, chiMinFloSet.u1) annotation (Line(points={
-          {368,384},{580,384},{580,158},{618,158}}, color={0,0,127}));
+  connect(upProCon.yChiWatMinFloSet, chiMinFloSet.u1) annotation (Line(points={{368,384},
+          {600,384},{600,158},{618,158}},           color={0,0,127}));
   connect(dowProCon.yChiWatMinFloSet, chiMinFloSet.u3) annotation (Line(points=
           {{368,-296},{450,-296},{450,142},{618,142}}, color={0,0,127}));
   connect(chiMinFloSet.y, minBypValCon.VChiWatSet_flow) annotation (Line(points=
@@ -1671,6 +1671,18 @@ equation
           255}));
   connect(xor.y, towCon.uChaCel) annotation (Line(points={{-338,-750},{-240,
           -750},{-240,-700},{-208,-700}}, color={255,0,255}));
+  connect(lat1.y, desConWatPumSpeSwi.u2) annotation (Line(points={{562,210},{
+          580,210},{580,200},{618,200}}, color={255,0,255}));
+  connect(lat2.y, chiMinFloSet.u2) annotation (Line(points={{582,160},{590,160},
+          {590,150},{618,150}}, color={255,0,255}));
+  connect(upProCon.yStaPro, lat1.u) annotation (Line(points={{368,416},{500,416},
+          {500,210},{538,210}}, color={255,0,255}));
+  connect(upProCon.yStaPro, lat2.u) annotation (Line(points={{368,416},{500,416},
+          {500,160},{558,160}}, color={255,0,255}));
+  connect(dowProCon.yStaPro, lat1.clr) annotation (Line(points={{368,-144},{380,
+          -144},{380,200},{538,200},{538,204}}, color={255,0,255}));
+  connect(dowProCon.yStaPro, lat2.clr) annotation (Line(points={{368,-144},{412,
+          -144},{412,154},{558,154}}, color={255,0,255}));
     annotation (Dialog(tab="Cooling Towers", group="Configuration"),
                 Dialog(tab="Chilled water pumps", group="Speed controller"),
                 Dialog(tab="Plant Reset", group="Time parameter"),
