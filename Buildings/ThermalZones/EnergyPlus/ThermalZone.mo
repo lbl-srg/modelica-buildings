@@ -87,12 +87,12 @@ model ThermalZone "Model to connect to an EnergyPlus thermal zone"
     final modelicaNameBuilding=modelicaNameBuilding,
     final modelicaNameThermalZone=modelicaNameThermalZone,
     final idfName=idfName,
-    final weaName=epWeaName,
+    final weaName=weaName,
     final zoneName=zoneName,
     final nFluPor=nPorts,
     final usePrecompiledFMU=usePrecompiledFMU,
     final fmuName=fmuName,
-    final verbosity=verbosity) "FMU zone adapter"
+    final logLevel=logLevel) "FMU zone adapter"
     annotation (Placement(transformation(extent={{80,100},{100,120}})));
 
 protected
@@ -144,17 +144,12 @@ protected
     "Converter for convective heat flow rate"
     annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
 
-//  Modelica.Blocks.Sources.RealExpression mIn_flow[nPorts](
-//    final y={ports[i].m_flow for i in 1:nPorts}) if nPorts > 0
-//    "Inlet mass flow rates"
-//    annotation (Placement(transformation(extent={{70,140},{90,160}})));
-
   final parameter String substanceName = "CO2" "Name of trace substance";
 
   final parameter Modelica.SIunits.MolarMass MM=
     Modelica.Media.IdealGases.Common.SingleGasesData.CO2.MM
     "Molar mass of the trace substance";
-  final parameter Real s[:]= {
+  final parameter Real s[Medium.nC]= {
     if ( Modelica.Utilities.Strings.isEqual(string1=Medium.extraPropertiesNames[i],
                                             string2=substanceName,
                                             caseSensitive=false))
@@ -191,13 +186,15 @@ protected
 
 
   Modelica.Blocks.Sources.RealExpression TAirIn[nPorts](
-    each y=293.15) if nPorts > 0
+    y=Medium.temperature(
+      state=Medium.setState_phX(
+        p=ports.p, h=inStream(ports.h_outflow), X=inStream(ports.Xi_outflow)))) if nPorts > 0
     "Temperature that the air has if it were flowing into the room"
     annotation (Placement(transformation(extent={{20,102},{40,122}})));
   Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor heaFloSen
     "Heat flow sensor"
     annotation (Placement(transformation(extent={{-32,-10},{-52,10}})));
-  HeatTransfer.Sources.PrescribedTemperature preTem
+  Buildings.HeatTransfer.Sources.PrescribedTemperature preTem
     "Port temperature"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
   Modelica.Blocks.Sources.RealExpression TFlu(y=Medium.temperature_phX(
@@ -350,7 +347,10 @@ equation
         Text(
           extent={{174,-126},{54,-176}},
           lineColor={255,255,255},
-          textString=DynamicSelect("", String(heaPorAir.T-273.15, format=".1f")))}),
+          textString=DynamicSelect("", String(heaPorAir.T-273.15, format=".1f"))),
+        Bitmap(extent={{134,-176},{174,-146}},
+          fileName="modelica://Buildings/Resources/Images/ThermalZones/EnergyPlus/EnergyPlusLogo.png",
+          visible=not usePrecompiledFMU)}),
    Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-200,-200},{200,200}})),
     Documentation(info="<html>

@@ -1,7 +1,9 @@
 within Buildings.ThermalZones.EnergyPlus.BaseClasses;
 class FMUOutputVariableClass
   "Class used to couple the FMU to retrieve output variables"
-extends ExternalObject;
+  extends Modelica.Icons.BasesPackage;
+  extends ExternalObject;
+
   function constructor
     "Construct to connect to an output variable in EnergyPlus"
     extends Modelica.Icons.Function;
@@ -12,33 +14,34 @@ extends ExternalObject;
       "Name of the Modelica instance that requests this output variable";
     input String idfName "Name of the IDF";
     input String weaName "Name of the weather file";
-    input String outputKey "EnergyPlus key of the output variable";
-    input String outputName "EnergyPlus name of the output variable as in the EnergyPlus .rdd or .mdd file";
+    input String name "EnergyPlus name of the output variable as in the EnergyPlus .rdd or .mdd file";
+    input String componentKey "EnergyPlus key of the output variable";
     input Boolean usePrecompiledFMU "Set to true to use precompiled FMU with name specified by input fmuName";
     input String fmuName
       "Specify if a pre-compiled FMU should be used instead of EnergyPlus (mainly for development)";
     input String buildingsLibraryRoot "Root directory of the Buildings library (used to find the spawn executable)";
-    input Buildings.ThermalZones.EnergyPlus.Types.Verbosity verbosity "Verbosity of EnergyPlus output";
+    input Buildings.ThermalZones.EnergyPlus.Types.LogLevels logLevel "LogLevels of EnergyPlus output";
     input Boolean printUnit "Set to true to print unit of OutputVariable objects to log file";
     output FMUOutputVariableClass adapter;
 
-    external "C" adapter = OutputVariableAllocate(
+    external "C" adapter = SpawnOutputVariableAllocate(
       modelicaNameBuilding,
       modelicaNameOutputVariable,
       idfName,
       weaName,
-      outputKey,
-      outputName,
+      name,
+      componentKey,
       usePrecompiledFMU,
       fmuName,
       buildingsLibraryRoot,
-      verbosity,
+      logLevel,
       printUnit)
-        annotation (
-          IncludeDirectory="modelica://Buildings/Resources/C-Sources/EnergyPlus",
-          Include="#include \"OutputVariableAllocate.c\"",
-          Library={"fmilib_shared", "dl"});
-          // dl provides dlsym to load EnergyPlus dll, which is needed by OpenModelica compiler
+      annotation (
+        Include="#include <EnergyPlusWrapper.c>",
+        IncludeDirectory="modelica://Buildings/Resources/C-Sources",
+        Library={"ModelicaBuildingsEnergyPlus", "fmilib_shared"});
+
+
 
     annotation (Documentation(info="<html>
 <p>
@@ -61,10 +64,9 @@ First implementation.
     extends Modelica.Icons.Function;
 
     input FMUOutputVariableClass adapter;
-    external "C" OutputVariableFree(adapter)
-        annotation (
-          IncludeDirectory="modelica://Buildings/Resources/C-Sources/EnergyPlus",
-          Include="#include \"OutputVariableFree.c\"");
+    external "C" EnergyPlusOutputVariableFree(adapter)
+      annotation (Library={"ModelicaBuildingsEnergyPlus", "fmilib_shared"});
+      // dl provides dlsym to load EnergyPlus dll, which is needed by OpenModelica compiler
 
   annotation(Documentation(info="<html>
 <p>

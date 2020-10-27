@@ -49,6 +49,7 @@ model PressureIndependent
     annotation (Placement(transformation(extent={{0,-90},{20,-70}})));
   Controls.Continuous.LimPID conPID(k=10,
     Ti=0.001,
+    controllerType=Modelica.Blocks.Types.SimpleController.PID,
     initType=Modelica.Blocks.Types.InitPID.InitialState)
     "Discharge flow rate controller"
     annotation (Placement(transformation(extent={{-70,-70},{-50,-50}})));

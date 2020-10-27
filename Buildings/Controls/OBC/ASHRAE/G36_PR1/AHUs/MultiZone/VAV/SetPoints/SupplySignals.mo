@@ -71,7 +71,7 @@ block SupplySignals "Multizone VAV AHU coil valve positions"
         iconTransformation(extent={{100,20},{140,60}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.LimPID conTSup(
+  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset conTSup(
     final controllerType=controllerType,
     final k=kTSup,
     final Ti=TiTSup,
@@ -79,8 +79,7 @@ protected
     final yMax=1,
     final yMin=-1,
     final y_reset=0,
-    final reverseAction=true,
-    final reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter)
+    final reverseActing=false)
     "Controller for supply air temperature control signal (to be used by heating coil, cooling coil and economizer)"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi
@@ -166,7 +165,7 @@ equation
     annotation (Line(points={{-38,30},{-28,30},{-28,68},{-2,68}},
       color={0,0,127}));
   connect(uSupFan, conTSup.trigger)
-    annotation (Line(points={{-120,80},{-80,80},{-80,8},{-58,8},{-58,18}},
+    annotation (Line(points={{-120,80},{-80,80},{-80,8},{-56,8},{-56,18}},
       color={255,0,255}));
 
 annotation (

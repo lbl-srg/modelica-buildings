@@ -186,7 +186,8 @@ partial model PartialDataCenter
   Buildings.Fluid.Actuators.Valves.TwoWayLinear val[numChi](
     redeclare each package Medium = MediumW,
     each m_flow_nominal=m1_flow_chi_nominal,
-    each dpValve_nominal=6000)
+    each dpValve_nominal=6000,
+    each use_inputFilter=false)
     "Shutoff valves"
     annotation (Placement(transformation(extent={{70,130},{50,150}})));
 
@@ -220,7 +221,6 @@ partial model PartialDataCenter
     each k=m1_flow_chi_nominal) "Gain effect"
     annotation (Placement(transformation(extent={{-130,60},{-110,80}})));
   Buildings.Applications.DataCenters.ChillerCooled.Controls.CoolingTowerSpeed cooTowSpeCon(
-    controllerType=Modelica.Blocks.Types.SimpleController.PI,
     yMin=0,
     Ti=60,
     k=0.1)
@@ -245,7 +245,6 @@ partial model PartialDataCenter
     "Mass flowrate of variable speed pumps"
     annotation (Placement(transformation(extent={{-220,-6},{-200,14}})));
   Buildings.Controls.Continuous.LimPID pumSpe(
-    controllerType=Modelica.Blocks.Types.SimpleController.PI,
     Ti=40,
     yMin=0.2,
     k=0.1)
@@ -258,9 +257,8 @@ partial model PartialDataCenter
     "Pump speed signal"
     annotation (Placement(transformation(extent={{-120,-20},{-100,0}})));
   Buildings.Controls.Continuous.LimPID ahuValSig(
-    controllerType=Modelica.Blocks.Types.SimpleController.PI,
-    Ti=40,
-    reverseAction=true,
+        Ti=40,
+    reverseActing=false,
     yMin=yValMinAHU,
     k=0.01)          "Valve position signal for the AHU"
     annotation (Placement(transformation(extent={{-82,-90},{-62,-70}})));
@@ -269,9 +267,8 @@ partial model PartialDataCenter
     annotation (Placement(transformation(extent={{-60,166},{-44,182}})));
 
   Buildings.Controls.Continuous.LimPID ahuFanSpeCon(
-    controllerType=Modelica.Blocks.Types.SimpleController.PI,
-    k=0.1,
-    reverseAction=true,
+        k=0.1,
+    reverseActing=false,
     yMin=0.2,
     Ti=240)   "Fan speed controller "
     annotation (Placement(transformation(extent={{-120,-170},{-100,-150}})));
@@ -313,8 +310,8 @@ equation
         points={{-50,110},{-50,140},{-42,140}},
         color={0,127,255},
         thickness=0.5));
-    connect(TCWRet.port_b, val[i].port_a) annotation (Line(points={{102,60},{
-            110,60},{110,140},{70,140}},
+    connect(TCWRet.port_b, val[i].port_a) annotation (Line(points={{102,60},{110,
+            60},{110,140},{70,140}},
             color={0,127,255},
             thickness=0.5));
   end for;
@@ -537,6 +534,11 @@ Taylor, S. T. (2014). How to design &amp; control waterside economizers. ASHRAE 
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+October 6, 2020, by Michael Wetter:<br/>
+Set <code>val.use_inputFilter=false</code> because pump worked against closed valve at <i>t=60</i> seconds,
+leading to negative pressure at pump inlet (because pump forces the mass flow rate).
+</li>
 <li>
 January 12, 2019, by Michael Wetter:<br/>
 Removed wrong <code>each</code>.

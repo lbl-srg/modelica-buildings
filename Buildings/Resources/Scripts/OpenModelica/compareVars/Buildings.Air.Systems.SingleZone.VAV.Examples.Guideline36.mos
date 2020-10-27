@@ -1,9 +1,9 @@
 compareVars :=
   {
-    "controller.TZonCooSet",
-    "controller.TZonHeaSet",
-    "controller.TZon",
-    "controller.yFan",
-    "controller.yHeaCoi",
-    "controller.yCooCoi"
+    "con.TZonCooSet",
+    "con.TZonHeaSet",
+    "con.TZon",
+    "con.yFan",
+    "con.yHeaCoi",
+    "con.yCooCoi"
   };

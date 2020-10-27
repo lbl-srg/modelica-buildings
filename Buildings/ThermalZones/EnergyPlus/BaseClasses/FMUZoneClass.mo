@@ -1,6 +1,8 @@
 within Buildings.ThermalZones.EnergyPlus.BaseClasses;
 class FMUZoneClass "Class used to couple the FMU to interact with a thermal zone"
-extends ExternalObject;
+  //extends Modelica.Icons.BasesPackage;
+  extends ExternalObject;
+
   function constructor
     "Construct to connect to a thermal zone in EnergyPlus"
     extends Modelica.Icons.Function;
@@ -16,11 +18,11 @@ extends ExternalObject;
     input String fmuName
       "Specify if a pre-compiled FMU should be used instead of EnergyPlus (mainly for development)";
     input String buildingsLibraryRoot "Root directory of the Buildings library (used to find the spawn executable)";
-    input Buildings.ThermalZones.EnergyPlus.Types.Verbosity verbosity "Verbosity of EnergyPlus output";
+    input Buildings.ThermalZones.EnergyPlus.Types.LogLevels logLevel "LogLevels of EnergyPlus output";
 
     output FMUZoneClass adapter;
 
-    external "C" adapter = ZoneAllocate(
+    external "C" adapter = SpawnZoneAllocate(
       modelicaNameBuilding,
       modelicaNameThermalZone,
       idfName,
@@ -29,12 +31,11 @@ extends ExternalObject;
       usePrecompiledFMU,
       fmuName,
       buildingsLibraryRoot,
-      verbosity)
+      logLevel)
         annotation (
-          IncludeDirectory="modelica://Buildings/Resources/C-Sources/EnergyPlus",
-          Include="#include \"ZoneAllocate.c\"",
-          Library={"fmilib_shared", "dl"});
-          // dl provides dlsym to load EnergyPlus dll, which is needed by OpenModelica compiler
+          Include="#include <EnergyPlusWrapper.c>",
+          IncludeDirectory="modelica://Buildings/Resources/C-Sources",
+          Library={"ModelicaBuildingsEnergyPlus", "fmilib_shared"});
 
     annotation (Documentation(info="<html>
 <p>
@@ -57,10 +58,11 @@ First implementation.
     extends Modelica.Icons.Function;
 
     input FMUZoneClass adapter;
-    external "C" ZoneFree(adapter)
-        annotation (
-          IncludeDirectory="modelica://Buildings/Resources/C-Sources/EnergyPlus",
-          Include="#include \"ZoneFree.c\"");
+    external "C" SpawnZoneFree(adapter)
+      annotation (
+        Include="#include <EnergyPlusWrapper.c>",
+        IncludeDirectory="modelica://Buildings/Resources/C-Sources",
+        Library={"ModelicaBuildingsEnergyPlus", "fmilib_shared"});
 
   annotation(Documentation(info="<html>
 <p>

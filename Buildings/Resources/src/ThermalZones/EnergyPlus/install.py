@@ -5,55 +5,102 @@
 #######################################################
 import os
 
+from multiprocessing import Pool
+
+import tempfile
 import tarfile
+import zipfile
 import urllib.request, urllib.parse, urllib.error
 import shutil
 
-src="https://spawn.s3.amazonaws.com/latest/Spawn-latest-Linux.tar.gz"
-
-file_path = os.path.dirname(os.path.realpath(__file__))
-des_dir=os.path.abspath(os.path.join(file_path, "..", "..", "..", "..", "Resources", "bin", "spawn-linux64"))
-tar_fil="spawn.tar.gz"
-
-# Download the file
-urllib.request.urlretrieve(src, tar_fil)
-
-# Find the name of the spawn executable
-fil_dic = {"bin/spawn": "", "README.md": "", "lib/libepfmi.so": "", "etc/Energy+.idd": ""}
-
-tar = tarfile.open(tar_fil)
-for key in fil_dic:
-    found = False
-    for nam in tar.getnames():
-#    print nam
-        if nam.endswith(key):
-            fil_dic[key] = nam
-            found = True
-    if not found:
-        raise IOError("Failed to find '{}'".format(key))
+def log(msg):
+    print(msg)
 
 
-# Extract and move the files
-for key in fil_dic:
-    tar.extract(fil_dic[key], path=".")
 
-    des_fil=os.path.join(des_dir, key)
+def get_distribution(dis):
+    file_path = os.path.dirname(os.path.realpath(__file__))
+    des_dir=os.path.abspath(os.path.join(file_path, "..", "..", "..", "..", "Resources", "bin", dis['des']))
+    tar_fil=os.path.basename(dis['src'])
 
-    # Create the target directory
-    try:
-        os.stat(os.path.dirname(des_fil))
-    except:
-        os.makedirs(os.path.dirname(des_fil))
+    # Download the file
+    log("Downloading {}".format(dis['src']))
+    urllib.request.urlretrieve(dis['src'], tar_fil)
 
-#    print("Renaming {} to {}".format(fil_dic[key], des_fil))
-    os.rename(fil_dic[key], des_fil)
-    print(("Wrote {}".format(des_fil)))
+    log("Extracting {}".format(tar_fil))
+    if tar_fil.endswith(".zip"):
+        # Make a tar.gz out of it.
+        with tempfile.TemporaryDirectory(prefix="tmp-Buildings-inst") as zip_dir:
+            with zipfile.ZipFile(tar_fil,"r") as zip_ref:
+                zip_ref.extractall(zip_dir)
+            new_name = tar_fil[:-3] + ".tar.gz"
+            with tarfile.open(new_name, 'w') as t:
+                t.add(zip_dir)
+        os.remove(tar_fil)
+        tar_fil = new_name
 
-# Delete the created empty directories
-top = fil_dic["README.md"].split(os.path.sep)[0]
-for root, dirs, files in os.walk(top, topdown=False):
-    for name in dirs:
-        os.rmdir(os.path.join(root, name))
-os.rmdir(top)
-# Delete the tar.gz file
-os.remove(tar_fil)
+    tar = tarfile.open(tar_fil)
+    for key in dis["files"]:
+        found = False
+        for nam in tar.getnames():
+    #    print nam
+            if nam.endswith(key):
+                dis["files"][key] = nam
+                found = True
+        if not found:
+            raise IOError("Failed to find '{}'".format(key))
+
+
+    # Extract and move the files
+    for key in dis["files"]:
+        tar.extract(dis["files"][key], path=".")
+
+        des_fil=os.path.join(des_dir,  key)
+
+        # Create the target directory
+        try:
+            os.stat(os.path.dirname(des_fil))
+        except:
+            os.makedirs(os.path.dirname(des_fil))
+
+    #    print("Renaming {} to {}".format("files"[key], des_fil))
+        os.rename(dis["files"][key], des_fil)
+        log(("Wrote {} {}".format(dis["files"][key], des_fil)))
+
+    # Delete the created empty directories
+    top = dis["files"]["README.md"].split(os.path.sep)[0]
+    for root, dirs, files in os.walk(top, topdown=False):
+        for name in dirs:
+            os.rmdir(os.path.join(root, name))
+    os.rmdir(top)
+    # Delete the tar.gz file
+    os.remove(tar_fil)
+
+
+if __name__ == "__main__":
+    dists = list()
+    dists.append(
+        {"src": "https://spawn.s3.amazonaws.com/latest/Spawn-latest-Linux.tar.gz",
+         "des": "spawn-linux64",
+         "files": {
+            "bin/spawn" : "",
+            "README.md" : "",
+            "lib/epfmi.so" : "",
+            "etc/Energy+.idd" : ""}
+        }
+    )
+    dists.append(
+        {"src": "https://spawn.s3.amazonaws.com/latest/Spawn-latest-win64.zip",
+         "des": "spawn-win64",
+         "files": {
+            "bin/epfmi.dll" : "",
+            "bin/spawn.exe" : "",
+            "bin/VCRUNTIME140.dll" : "",
+            "README.md" : "",
+            "lib/epfmi.lib" : "",
+            "etc/Energy+.idd" : ""}
+        }
+    )
+
+    p = Pool(2)
+    p.map(get_distribution, dists)
