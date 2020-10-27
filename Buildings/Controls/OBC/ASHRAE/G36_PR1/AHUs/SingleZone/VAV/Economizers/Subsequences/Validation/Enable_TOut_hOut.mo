@@ -87,13 +87,16 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant supFanSta(
     final k=true) "Supply fan status signal"
       annotation (Placement(transformation(extent={{-200,-80},{-180,-60}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul(delay=10,
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul(
+    final delay=10,
     final period=2000) "Boolean pulse signal"
     annotation (Placement(transformation(extent={{-200,80},{-180,100}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul1(delay=10,
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul1(
+    final delay=10,
     final period=2000) "Boolean pulse signal"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
-  CDL.Logical.Sources.Pulse booPul2(delay=10,
+  CDL.Logical.Sources.Pulse booPul2(
+    final delay=10,
     final period=2000) "Boolean pulse signal"
     annotation (Placement(transformation(extent={{-90,106},{-70,126}})));
 equation

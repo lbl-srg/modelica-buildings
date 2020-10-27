@@ -307,7 +307,7 @@ have been <b style=\"color:blue\">improved</b> in a
     <td valign=\"top\">Changed the default heating maximum airflow setpoint to 30% of the zone nominal airflow.<br/>
                        This is for
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2172\">issue 2172</a>.
-</tr>    
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL.Continuous</b>
     </td>
 </tr>
@@ -467,7 +467,7 @@ have been <b style=\"color:blue\">improved</b> in a
     <td valign=\"top\">Renamed parameter <code>startTime</code> to <code>delay</code>.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2170\">#2170</a>.<br/>
                        For Dymola, a conversion script makes this change.
-                       The pulses will start at an integer multiple of the period of the pulse.</td>
+                       The pulses will start at any integer multiples of the period of the pulse.</td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL.Logical</b>
     </td>

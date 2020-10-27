@@ -36,7 +36,8 @@ model TrueFalseHold "Validation model for the TrueFalseHold block"
     "Negation of input signal"
     annotation (Placement(transformation(extent={{-90,-60},{-70,-40}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul4(
-      delay=100, period=1500) "Boolean pulse input signal"
+    delay=100,
+    period=1500) "Boolean pulse input signal"
     annotation (Placement(transformation(extent={{20,60},{40,80}})));
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol4(trueHoldDuration=1000)
     "The block introduces a minimal offset between the input signal rising and falling edge"
@@ -50,7 +51,8 @@ model TrueFalseHold "Validation model for the TrueFalseHold block"
     "The block introduces a minimal offset between the input signal rising and falling edge"
     annotation (Placement(transformation(extent={{120,20},{140,40}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul6(
-      delay=100, period=1500) "Boolean pulse input signal"
+    delay=100,
+    period=1500) "Boolean pulse input signal"
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol6(trueHoldDuration=1000)
     "The block introduces a minimal offset between the input signal rising and falling edge"
