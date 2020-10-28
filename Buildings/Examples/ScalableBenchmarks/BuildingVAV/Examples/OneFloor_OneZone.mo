@@ -510,12 +510,12 @@ shading devices, Technical Report, Oct. 17, 2006.
 <ul>
 <li>
 October 27, 2020, by Antoine Gautier:<br/>
-Updated model for new supply air temperature control in VAV examples.<br />
-This is for
+Refactored the model for compatibility with the updated control of supply air
+temperature. This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2024\">#2024</a>.
 </li>
 <li>
-October 24, 2017, by Michael Wetter:<br />
+October 24, 2017, by Michael Wetter:<br/>
 Updated model for new fan controller that takes the on/off signal
 as an input.
 </li>

@@ -1236,8 +1236,8 @@ shading devices, Technical Report, Oct. 17, 2006.
 <ul>
 <li>
 October 27, 2020, by Antoine Gautier:<br/>
-Adapt the model to the updated control of supply air temperature in VAV examples.
-This is for
+Refactored the model for compatibility with the updated control of supply air
+temperature. This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2024\">#2024</a>.
 </li>
 <li>

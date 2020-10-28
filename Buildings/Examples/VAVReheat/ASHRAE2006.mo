@@ -357,44 +357,44 @@ ASHRAE, Atlanta, GA, 2006.
 <ul>
 <li>
 October 27, 2020, by Antoine Gautier:<br/>
-Refactored the supply air temperature control sequence.<br />
+Refactored the supply air temperature control sequence.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2024\">#2024</a>.
 </li>
 <li>
 July 10, 2020, by Antoine Gautier:<br/>
-Changed design and control parameters for outdoor air flow.<br />
+Changed design and control parameters for outdoor air flow.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2019\">#2019</a>.
 </li>
 <li>
 April 20, 2020, by Jianjun Hu:<br/>
 Exported actual VAV damper position as the measured input data for
-defining duct static pressure setpoint.<br />
+defining duct static pressure setpoint.<br/>
 This is
 for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1873\">#1873</a>.
 </li>
 <li>
-May 19, 2016, by Michael Wetter:<br />
+May 19, 2016, by Michael Wetter:<br/>
 Changed chilled water supply temperature to <i>6&deg;C</i>.
 This is
 for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/509\">#509</a>.
 </li>
 <li>
-April 26, 2016, by Michael Wetter:<br />
+April 26, 2016, by Michael Wetter:<br/>
 Changed controller for freeze protection as the old implementation closed
 the outdoor air damper during summer.
 This is
 for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/511\">#511</a>.
 </li>
 <li>
-January 22, 2016, by Michael Wetter:<br />
+January 22, 2016, by Michael Wetter:<br/>
 Corrected type declaration of pressure difference.
 This is
 for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/404\">#404</a>.
 </li>
 <li>
-September 24, 2015 by Michael Wetter:<br />
+September 24, 2015 by Michael Wetter:<br/>
 Set default temperature for medium to avoid conflicting
 start values for alias variables of the temperature
 of the building and the ambient air.

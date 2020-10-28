@@ -233,12 +233,12 @@ than the return air dry bulb, economizer cooling is disabled.
 <ul>
 <li>
 October 27, 2020, by Antoine Gautier:<br/>
-Refactored for compatibility with new supply air temperature control.<br />
+Refactored for compatibility with new supply air temperature control.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2024\">#2024</a>.
 </li>
 <li>
-July 10, 2020, by Antoine Gautier:<br />
+July 10, 2020, by Antoine Gautier:<br/>
 Added optional reset signal.
 Corrected connections to <code>yOATFre</code>.<br/>
 This is for
@@ -247,13 +247,13 @@ and
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1995\">#1995</a>.
 </li>
 <li>
-December 20, 2016, by Michael Wetter:<br />
-Added type conversion for enumeration when used as an array index.<br />
+December 20, 2016, by Michael Wetter:<br/>
+Added type conversion for enumeration when used as an array index.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/602\">#602</a>.
 </li>
 <li>
-April 26, 2016, by Michael Wetter:<br />
+April 26, 2016, by Michael Wetter:<br/>
 Changed controller for freeze protection as the old implementation closed
 the outdoor air damper during summer.
 This is

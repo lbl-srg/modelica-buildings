@@ -44,7 +44,7 @@ based on the actual operating mode.
 The default set point values are taken from the control sequence
 <i>VAV 2A2-21232</i> of the Sequences of Operation for
 Common HVAC Systems (ASHRAE, 2006).
-<br />
+<br/>
 </p>
 <table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\"
 style=\"border-collapse:collapse;\">
