@@ -137,27 +137,28 @@ model Floor "Model of a floor of the building"
     each displayUnit="degC") "Room air temperatures"
     annotation (Placement(transformation(extent={{380,150},{400,170}}),
         iconTransformation(extent={{380,150},{400,170}})));
+  // Openings (wOpe) are set to about half the length of the core facing wall of a zone
   Airflow.Multizone.DoorDiscretizedOpen opeSouCor(
     redeclare package Medium = Medium,
-    wOpe=10*(17.69 + 8.46)/(40.76 + 24.13),
+    wOpe=9,
     forceErrorControlOnFlow=false)
     "Opening between perimeter1 and core"
     annotation (Placement(transformation(extent={{84,0},{104,20}})));
   Airflow.Multizone.DoorDiscretizedOpen opeEasCor(
     redeclare package Medium = Medium,
-    wOpe=10*(17.69 + 8.46)/(40.76 + 24.13),
+    wOpe=4,
     forceErrorControlOnFlow=false)
     "Opening between perimeter2 and core"
     annotation (Placement(transformation(extent={{250,38},{270,58}})));
   Airflow.Multizone.DoorDiscretizedOpen opeNorCor(
     redeclare package Medium = Medium,
-    wOpe=10*(17.69 + 8.46)/(40.76 + 24.13),
+    wOpe=9,
     forceErrorControlOnFlow=false)
     "Opening between perimeter3 and core"
     annotation (Placement(transformation(extent={{80,74},{100,94}})));
   Airflow.Multizone.DoorDiscretizedOpen opeWesCor(
     redeclare package Medium = Medium,
-    wOpe=10*(17.69 + 8.46)/(40.76 + 24.13),
+    wOpe=4,
     forceErrorControlOnFlow=false)
     "Opening between perimeter3 and core"
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
