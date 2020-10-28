@@ -843,8 +843,7 @@ xxx
     <tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.Controller
         </td>
         <td valign=\"top\">Replaced the mode and setpoint calculation block with
-                           <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.ModeAndSetPoints\">
-                           Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.ModeAndSetPoints</a>.<br/>
+                           <code>Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.ModeAndSetPoints</code>.<br/>
                            This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1709\">#1709</a>
         </td>
     </tr>
@@ -1089,13 +1088,11 @@ xxx
         <td valign=\"top\">Reimplemented to add new block for specifying the minimum outdoor airfow setpoint.
                            The new block avoids vector-valued calculations.<br/>
                            The reimplemented controller needs to work with
-                           <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow.Zone\">
-                           Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow.Zone</a> and
-                           <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow.SumZone\">
-                           Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow.SumZone</a>,
+                           <code>Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow.Zone</code> and
+                           <code>Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow.SumZone</code>,
                            to calculate the zone level minimum outdoor airflow setpoints and then find the sum, the minimum and
                            the maximum of these setpoints. See
-                           <a href=\"modelica://Buildings.Examples.VAVReheat.Guideline36\">Buildings.Examples.VAVReheat.Guideline36</a>.
+                           <code>Buildings.Examples.VAVReheat.Guideline36</code>.
                            <br/>
                            This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1829\">#1829</a>.
         </td>
@@ -1109,8 +1106,7 @@ xxx
     <tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.ModeAndSetPoints
         </td>
         <td valign=\"top\">Removed from the library as it can be replaced by
-                           <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.ModeAndSetPoints\">
-                           Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.ModeAndSetPoints</a>.<br/>
+                           <code>Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.ModeAndSetPoints</code>.<br/>
                            This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1709\">#1709</a>
         </td>
     </tr>
@@ -1334,10 +1330,8 @@ xxx
                            Buildings.Fluid.Sources.MassFlowSource_h
         </td>
         <td valign=\"top\">Refactored handling of mass fractions which was needed to handle media such as
-                           <a href=\"modelica://Modelica.Media.IdealGases.MixtureGases.FlueGasSixComponents\">
-                           Modelica.Media.IdealGases.MixtureGases.FlueGasSixComponents</a> and
-                           <a href=\"modelica://Modelica.Media.IdealGases.MixtureGases.SimpleNaturalGas\">
-                           Modelica.Media.IdealGases.MixtureGases.SimpleNaturalGas</a>.<br/>
+                           <code>Modelica.Media.IdealGases.MixtureGases.FlueGasSixComponents</code> and
+                           <code>Modelica.Media.IdealGases.MixtureGases.SimpleNaturalGas</code>.<br/>
                            Prior to this change, use of these media led to a translation error.<br/>
                            This is for
                            <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1205\">IBPSA, #1205</a>.
