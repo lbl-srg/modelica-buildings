@@ -1,5 +1,6 @@
 within Buildings.Controls.OBC.CDL.Logical.Sources.Validation;
-model Pulse "Validation model for the Boolean Pulse block"
+model PulsePositiveStartTime
+  "Validation model for the Boolean Pulse block with positive, non-zero start time"
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul_a1(
     width=0.2,
@@ -80,10 +81,10 @@ model Pulse "Validation model for the Boolean Pulse block"
     annotation (Placement(transformation(extent={{70,-40},{90,-20}})));
   annotation (
   experiment(
-      StartTime=0,
-      StopTime=10,
+      StartTime=9,
+      StopTime=20,
       Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Logical/Sources/Validation/Pulse.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Logical/Sources/Validation/PulsePositiveStartTime.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
@@ -92,7 +93,7 @@ Validation test for the block
 Buildings.Controls.OBC.CDL.Logical.Sources.Pulse</a>.
 </p>
 <p>
-This validates the blocks with a start time of <i>0</i>.
+This validates the blocks with a start time of <i>9</i> seconds.
 All blocks with the same letter after the underscore are configured to produce
 the same output.
 </p>
@@ -100,19 +101,9 @@ the same output.
 <ul>
 <li>
 October 19, 2020, by Michael Wetter:<br/>
-Refactored test for systematic testing.<br/>
+First implementation.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2170\">#2170</a>.
-</li>
-<li>
-September 1, 2020, by Milica Grahovac:<br/>
-Added test cases for simulation time starting before and after the pulse <code>startTime</code>.
-This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2110\">#2110</a>.
-</li>
-<li>
-July 17, 2017, by Jianjun Hu:<br/>
-First implementation.
 </li>
 </ul>
 </html>"),
@@ -126,4 +117,4 @@ First implementation.
                 pattern = LinePattern.None,
                 fillPattern = FillPattern.Solid,
                 points = {{-36,60},{64,0},{-36,-60},{-36,60}})}));
-end Pulse;
+end PulsePositiveStartTime;

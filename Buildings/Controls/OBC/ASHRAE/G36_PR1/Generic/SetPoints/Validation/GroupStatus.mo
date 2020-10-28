@@ -14,7 +14,7 @@ model GroupStatus
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse winSta[2](
     final width={0.3,0.1},
     final period=fill(3600, 2),
-    final startTime={150,120}) "Window status"
+    final delay={150,120}) "Window status"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}}, origin={-50,-180})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ramp2(
     final offset=0,
@@ -36,12 +36,12 @@ model GroupStatus
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse zonOcc1(
     final width=0.8,
     final period=7200,
-    final startTime=1800) "Zone 1 occupied status"
+    delay=1800)           "Zone 1 occupied status"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}}, origin={-90,160})));
  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse zonOcc2(
     final width=0.8,
     final period=7200,
-    final startTime=2100) "Zone 2 occupied status"
+    delay=2100)           "Zone 2 occupied status"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}}, origin={-90,120})));
   Buildings.Controls.OBC.CDL.Logical.Not not1 "Logical not"
     annotation (Placement(transformation(extent={{-60,130},{-40,150}})));
@@ -62,7 +62,7 @@ model GroupStatus
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse lowOccHea[2](
     final width=fill(0.5, 2),
     final period=fill(3600, 2),
-    final startTime=fill(1000, 2)) "Lower than occupied heating setpoint"
+    final delay=fill(1000, 2)) "Lower than occupied heating setpoint"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
       origin={-130,40})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant higOccCoo[2](
@@ -83,7 +83,7 @@ model GroupStatus
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse endSetBac[2](
     final width=fill(0.8, 2),
     final period=fill(3600, 2),
-    final startTime=fill(900, 2)) "End setback"
+    final delay=fill(900, 2)) "End setback"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}}, origin={-130,-40})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant higUnoCoo[2](
     final k=fill(false, 2))
