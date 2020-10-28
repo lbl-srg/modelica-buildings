@@ -19,7 +19,7 @@ model TimerAccumulatingNegativeStartTime
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul(
     final width=0.5,
     final period=4,
-    startTime=-11)  "Block that outputs cyclic on and off"
+    delay=-11)  "Block that outputs cyclic on and off"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(
     final k=false) "Constant false"
@@ -27,7 +27,7 @@ model TimerAccumulatingNegativeStartTime
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse resTim(
     final width=0.5,
     final period=3.5,
-    startTime=-5)
+    delay=-5)
     "Block that outputs cyclic on and off, for resetting timer"
     annotation (Placement(transformation(extent={{-20,-70},{0,-50}})));
 

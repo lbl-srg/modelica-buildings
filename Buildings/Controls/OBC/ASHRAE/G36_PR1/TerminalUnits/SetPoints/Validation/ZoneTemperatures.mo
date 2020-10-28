@@ -57,7 +57,7 @@ model ZoneTemperatures "Validate block for zone set point"
     annotation (Placement(transformation(extent={{0,-100},{20,-80}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse winSta(
     final period=14400,
-    final startTime=1200)
+    final delay=1200)
     "Generate signal indicating window status"
     annotation (Placement(transformation(extent={{60,-30},{80,-10}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse occSta(
