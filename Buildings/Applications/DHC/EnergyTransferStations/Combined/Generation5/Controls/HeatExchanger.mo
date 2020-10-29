@@ -5,7 +5,7 @@ model HeatExchanger
 
   parameter
     Buildings.Applications.DHC.EnergyTransferStations.Types.ConnectionConfiguration
-    conCon "District heat exchanger configuration" annotation (Evaluate=true);
+    conCon "District connection configuration" annotation (Evaluate=true);
   parameter Real spePum1HexMin(final unit="1", min=0) = 0.1
     "Heat exchanger primary pump minimum speed (fractional)"
     annotation(Dialog(enable=not have_val1Hex));

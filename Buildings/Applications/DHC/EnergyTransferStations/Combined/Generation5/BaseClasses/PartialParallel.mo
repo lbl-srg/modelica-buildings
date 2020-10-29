@@ -16,7 +16,7 @@ model PartialParallel
   parameter
     Buildings.Applications.DHC.EnergyTransferStations.Types.ConnectionConfiguration
     conCon=Buildings.Applications.DHC.EnergyTransferStations.Types.ConnectionConfiguration.Pump
-    "District heat exchanger configuration" annotation (Evaluate=true);
+    "District connection configuration" annotation (Evaluate=true);
   parameter Integer nSysHea
     "Number of heating systems"
     annotation(Evaluate=true);

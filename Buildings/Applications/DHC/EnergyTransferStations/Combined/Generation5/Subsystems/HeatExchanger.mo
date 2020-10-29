@@ -9,7 +9,7 @@ model HeatExchanger
 
   parameter
     Buildings.Applications.DHC.EnergyTransferStations.Types.ConnectionConfiguration
-    conCon "District heat exchanger configuration" annotation (Evaluate=true);
+    conCon "District connection configuration" annotation (Evaluate=true);
   replaceable parameter Buildings.Fluid.Movers.Data.Generic perPum1(
     motorCooledByFluid=false)
     constrainedby Buildings.Fluid.Movers.Data.Generic
