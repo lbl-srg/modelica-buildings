@@ -9,9 +9,14 @@ model OneZone "Validation model for one zone"
     weaName = Modelica.Utilities.Files.loadResource(
       "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"),
     usePrecompiledFMU=false,
-    showWeatherData=false)
+    showWeatherData=true,
+    computeWetBulbTemperature=false)
     "Building model"
-    annotation (Placement(transformation(extent={{60,60},{80,80}})));
+    annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
+
+  parameter Modelica.SIunits.Volume VRoo = 453.1 "Room volume";
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal = VRoo*1.2*10/3600
+    "Nominal mass flow rate";
 
   Buildings.ThermalZones.EnergyPlus.ThermalZone zon(
     redeclare package Medium = Medium,
@@ -24,14 +29,14 @@ model OneZone "Validation model for one zone"
     linearized=true,
     from_dp=true,
     dp_nominal=100,
-    m_flow_nominal=47*6/3600*1.2)
+    m_flow_nominal=m_flow_nominal)
     "Duct resistance (to decouple room and outside pressure)"
     annotation (Placement(transformation(extent={{10,-50},{-10,-30}})));
-  Buildings.Fluid.Sources.MassFlowSource_T bou(
+  Buildings.Fluid.Sources.MassFlowSource_WeatherData bou(
     redeclare package Medium = Medium,
     nPorts=1,
-    m_flow=0,
-    T=293.15) "Boundary condition"
+    m_flow=m_flow_nominal)
+    "Boundary condition"
     annotation (Placement(transformation(extent={{-40,-90},{-20,-70}})));
   Buildings.Fluid.Sources.Boundary_pT freshAir(
     redeclare package Medium = Medium,
@@ -45,10 +50,14 @@ equation
     annotation (Line(points={{-20,-40},{-10,-40}}, color={0,127,255}));
   connect(duc.port_a, zon.ports[1]) annotation (Line(points={{10,-40},{18,-40},
           {18,-19.1}}, color={0,127,255}));
-  connect(bou.ports[1], zon.ports[2]) annotation (Line(points={{-20,-80},{22,
-          -80},{22,-19.1}}, color={0,127,255}));
+  connect(bou.ports[1], zon.ports[2]) annotation (Line(points={{-20,-80},{22,-80},
+          {22,-19.1}},      color={0,127,255}));
   connect(zon.qGai_flow, qIntGai.y)
     annotation (Line(points={{-2,10},{-19,10}}, color={0,0,127}));
+  connect(building.weaBus, bou.weaBus) annotation (Line(
+      points={{-60,-80},{-50,-80},{-50,-79.8},{-40,-79.8}},
+      color={255,204,51},
+      thickness=0.5));
   annotation (Documentation(info="<html>
 <p>
 Simple test case for one building with one thermal zone in which the room air temperature
