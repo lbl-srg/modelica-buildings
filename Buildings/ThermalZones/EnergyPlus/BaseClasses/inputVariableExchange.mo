@@ -13,8 +13,16 @@ function inputVariableExchange
   output Real y
     "Value send to EnergyPlus (equals u, but used to enable forcing a direct dependency for Actuators and Schedules)";
 external "C" SpawnInputVariableExchange(
-  adapter,initialCall,u,tModel,y)
-  annotation (Include="#include <EnergyPlusWrapper.c>",IncludeDirectory="modelica://Buildings/Resources/C-Sources",Library={"ModelicaBuildingsEnergyPlus","fmilib_shared"});
+  adapter,
+  initialCall,
+  u,
+  tModel,
+  y)
+  annotation (
+    Include="#include <EnergyPlusWrapper.c>",
+    IncludeDirectory="modelica://Buildings/Resources/C-Sources",
+    Library={"ModelicaBuildingsEnergyPlus",
+    "fmilib_shared"});
   annotation (
     Documentation(
       info="<html>

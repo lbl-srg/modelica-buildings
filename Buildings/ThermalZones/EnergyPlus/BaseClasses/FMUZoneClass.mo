@@ -26,7 +26,15 @@ class FMUZoneClass
       "LogLevels of EnergyPlus output";
     output FMUZoneClass adapter;
   external "C" adapter=SpawnZoneAllocate(
-    modelicaNameBuilding,modelicaNameThermalZone,idfName,weaName,zoneName,usePrecompiledFMU,fmuName,buildingsLibraryRoot,logLevel)
+    modelicaNameBuilding,
+    modelicaNameThermalZone,
+    idfName,
+    weaName,
+    zoneName,
+    usePrecompiledFMU,
+    fmuName,
+    buildingsLibraryRoot,
+    logLevel)
     annotation (Include="#include <EnergyPlusWrapper.c>",IncludeDirectory="modelica://Buildings/Resources/C-Sources",Library={"ModelicaBuildingsEnergyPlus","fmilib_shared"});
     annotation (
       Documentation(
@@ -47,13 +55,17 @@ First implementation.
 </ul>
 </html>"));
   end constructor;
+
   function destructor
     "Release storage"
     extends Modelica.Icons.Function;
     input FMUZoneClass adapter;
   external "C" SpawnZoneFree(
     adapter)
-    annotation (Include="#include <EnergyPlusWrapper.c>",IncludeDirectory="modelica://Buildings/Resources/C-Sources",Library={"ModelicaBuildingsEnergyPlus","fmilib_shared"});
+    annotation (
+      Include="#include <EnergyPlusWrapper.c>",
+      IncludeDirectory="modelica://Buildings/Resources/C-Sources",
+      Library={"ModelicaBuildingsEnergyPlus", "fmilib_shared"});
     annotation (
       Documentation(
         info="<html>

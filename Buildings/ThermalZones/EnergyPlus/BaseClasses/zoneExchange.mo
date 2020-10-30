@@ -37,8 +37,25 @@ function zoneExchange
   output Modelica.SIunits.Time tNext
     "Next time that the zone need to be invoked";
 external "C" SpawnZoneExchange(
-  adapter,initialCall,T,X,mInlet_flow,TAveInlet,QGaiRad_flow,AFlo,tModel,TRad,QCon_flow,dQCon_flow,QLat_flow,QPeo_flow,tNext)
-  annotation (Include="#include <EnergyPlusWrapper.c>",IncludeDirectory="modelica://Buildings/Resources/C-Sources",Library={"ModelicaBuildingsEnergyPlus","fmilib_shared"});
+  adapter,
+  initialCall,
+  T,
+  X,
+  mInlet_flow,
+  TAveInlet,
+  QGaiRad_flow,
+  AFlo,
+  tModel,
+  TRad,
+  QCon_flow,
+  dQCon_flow,
+  QLat_flow,
+  QPeo_flow,
+  tNext)
+  annotation (
+    Include="#include <EnergyPlusWrapper.c>",
+    IncludeDirectory="modelica://Buildings/Resources/C-Sources",
+    Library={"ModelicaBuildingsEnergyPlus", "fmilib_shared"});
   annotation (
     Documentation(
       info="<html>

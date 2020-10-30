@@ -7,8 +7,12 @@ function inputVariableInitialize
   input Modelica.SIunits.Time startTime
     "Start time of the simulation";
 external "C" SpawnInputVariableInstantiate(
-  adapter,startTime)
-  annotation (Include="#include <EnergyPlusWrapper.c>",IncludeDirectory="modelica://Buildings/Resources/C-Sources",Library={"ModelicaBuildingsEnergyPlus","fmilib_shared"});
+  adapter,
+  startTime)
+  annotation (
+    Include="#include <EnergyPlusWrapper.c>",
+    IncludeDirectory="modelica://Buildings/Resources/C-Sources",
+    Library={"ModelicaBuildingsEnergyPlus", "fmilib_shared"});
   annotation (
     Documentation(
       info="<html>

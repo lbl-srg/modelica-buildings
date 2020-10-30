@@ -30,8 +30,21 @@ class FMUOutputVariableClass
       "Set to true to print unit of OutputVariable objects to log file";
     output FMUOutputVariableClass adapter;
   external "C" adapter=SpawnOutputVariableAllocate(
-    modelicaNameBuilding,modelicaNameOutputVariable,idfName,weaName,name,componentKey,usePrecompiledFMU,fmuName,buildingsLibraryRoot,logLevel,printUnit)
-    annotation (Include="#include <EnergyPlusWrapper.c>",IncludeDirectory="modelica://Buildings/Resources/C-Sources",Library={"ModelicaBuildingsEnergyPlus","fmilib_shared"});
+    modelicaNameBuilding,
+    modelicaNameOutputVariable,
+    idfName,
+    weaName,
+    name,
+    componentKey,
+    usePrecompiledFMU,
+    fmuName,
+    buildingsLibraryRoot,
+    logLevel,
+    printUnit)
+    annotation (
+      Include="#include <EnergyPlusWrapper.c>",
+      IncludeDirectory="modelica://Buildings/Resources/C-Sources",
+      Library={"ModelicaBuildingsEnergyPlus","fmilib_shared"});
     annotation (
       Documentation(
         info="<html>

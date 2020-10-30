@@ -15,8 +15,16 @@ function outputVariableExchange
   output Modelica.SIunits.Time tNext
     "Next time that the zone need to be invoked";
 external "C" SpawnOutputVariableExchange(
-  adapter,initialCall,directDependency,tModel,y,tNext)
-  annotation (Include="#include <EnergyPlusWrapper.c>",IncludeDirectory="modelica://Buildings/Resources/C-Sources",Library={"ModelicaBuildingsEnergyPlus","fmilib_shared"});
+  adapter,
+  initialCall,
+  directDependency,
+  tModel,
+  y,
+  tNext)
+  annotation (
+    Include="#include <EnergyPlusWrapper.c>",
+    IncludeDirectory="modelica://Buildings/Resources/C-Sources",
+    Library={"ModelicaBuildingsEnergyPlus", "fmilib_shared"});
   annotation (
     Documentation(
       info="<html>

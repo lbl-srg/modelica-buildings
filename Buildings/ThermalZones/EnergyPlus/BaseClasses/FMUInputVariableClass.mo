@@ -35,8 +35,23 @@ class FMUInputVariableClass
       annotation (Dialog(tab="Debug"));
     output FMUInputVariableClass adapter;
   external "C" adapter=SpawnInputVariableAllocate(
-    objectType,modelicaNameBuilding,modelicaNameInputVariable,idfName,weaName,name,componentType,controlType,unit,usePrecompiledFMU,fmuName,buildingsLibraryRoot,logLevel)
-    annotation (Include="#include <EnergyPlusWrapper.c>",IncludeDirectory="modelica://Buildings/Resources/C-Sources",Library={"ModelicaBuildingsEnergyPlus","fmilib_shared"});
+    objectType,
+    modelicaNameBuilding,
+    modelicaNameInputVariable,
+    idfName,
+    weaName,
+    name,
+    componentType,
+    controlType,
+    unit,
+    usePrecompiledFMU,
+    fmuName,
+    buildingsLibraryRoot,
+    logLevel)
+    annotation (
+      Include="#include <EnergyPlusWrapper.c>",
+      IncludeDirectory="modelica://Buildings/Resources/C-Sources",
+      Library={"ModelicaBuildingsEnergyPlus", "fmilib_shared"});
     annotation (
       Documentation(
         info="<html>

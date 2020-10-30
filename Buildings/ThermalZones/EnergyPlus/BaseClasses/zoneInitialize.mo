@@ -13,8 +13,15 @@ function zoneInitialize
   output Real mSenFac
     "Factor for scaling the sensible thermal mass of the zone air volume";
 external "C" SpawnZoneInstantiate(
-  adapter,startTime,AFlo,V,mSenFac)
-  annotation (Include="#include <EnergyPlusWrapper.c>",IncludeDirectory="modelica://Buildings/Resources/C-Sources",Library={"ModelicaBuildingsEnergyPlus","fmilib_shared"});
+  adapter,
+  startTime,
+  AFlo,
+  V,
+  mSenFac)
+  annotation (
+    Include="#include <EnergyPlusWrapper.c>",
+    IncludeDirectory="modelica://Buildings/Resources/C-Sources",
+    Library={"ModelicaBuildingsEnergyPlus", "fmilib_shared"});
   annotation (
     Documentation(
       info="<html>
