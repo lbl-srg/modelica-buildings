@@ -74,13 +74,16 @@ model ThermalZone "Model to connect to an EnergyPlus thermal zone"
     displayUnit="degC")
     "Air temperature of the zone"
     annotation (Placement(transformation(extent={{200,-10},{220,10}}),
-        iconTransformation(extent={{200,128},{220,148}})));
+        iconTransformation(extent={{200,170},{220,190}})));
   Modelica.Blocks.Interfaces.RealOutput TRad(
     final unit="K",
     displayUnit="degC")
     "Radiative temperature of the zone" annotation (Placement(transformation(
-          extent={{200,-50},{220,-30}}), iconTransformation(extent={{200,90},{
-            220,110}})));
+          extent={{200,-50},{220,-30}}), iconTransformation(extent={{200,130},{
+            220,150}})));
+  Modelica.Blocks.Interfaces.RealOutput phi(final unit="1") "Relative humidity"
+    annotation (Placement(transformation(extent={{200,-130},{220,-110}}),
+        iconTransformation(extent={{200,90},{220,110}})));
 
   Buildings.ThermalZones.EnergyPlus.BaseClasses.FMUZoneAdapter fmuZon(
     final buildingsLibraryRoot=Buildings.ThermalZones.EnergyPlus.BaseClasses.buildingsLibraryRoot,
@@ -205,6 +208,15 @@ protected
           vol.XiOut,
           {1 - sum(vol.XiOut)}))) "Air temperature of control volume"
     annotation (Placement(transformation(extent={{-160,-10},{-140,10}})));
+  Modelica.Blocks.Sources.RealExpression pFlu(y=vol.medium.p) "Air pressure"
+    annotation (Placement(transformation(extent={{120,-110},{140,-90}})));
+
+  Utilities.Psychrometrics.Phi_pTX relHum "Relative humidity"
+    annotation (Placement(transformation(extent={{160,-80},{180,-60}})));
+  Controls.OBC.CDL.Continuous.Division X_w
+    "Water vapor mass fraction per kg total air"
+    annotation (Placement(transformation(extent={{120,-80},{140,-60}})));
+
 initial equation
   assert(idfName <> "", "Must provide the name of the fmu file.");
   assert(zoneName <> "", "Must provide the name of the zone.");
@@ -274,6 +286,18 @@ equation
     annotation (Line(points={{-42,-10},{-42,-50},{-12,-50}}, color={0,0,127}));
   connect(vol.XiOut[1], fmuZon.X_w) annotation (Line(points={{0,-45},{0,-20},{56,
           -20},{56,114},{78,114}}, color={0,0,127}));
+  connect(X_w.y, relHum.X_w)
+    annotation (Line(points={{142,-70},{159,-70}}, color={0,0,127}));
+  connect(vol.mXiOut[1], X_w.u1) annotation (Line(points={{11,-58},{64,-58},{64,
+          -64},{118,-64}}, color={0,0,127}));
+  connect(vol.mOut, X_w.u2) annotation (Line(points={{11,-50},{62,-50},{62,-76},
+          {118,-76}}, color={0,0,127}));
+  connect(TFlu.y, relHum.T) annotation (Line(points={{-139,0},{-134,0},{-134,16},
+          {148,16},{148,-62},{159,-62}}, color={0,0,127}));
+  connect(pFlu.y, relHum.p) annotation (Line(points={{141,-100},{148,-100},{148,
+          -78},{159,-78}}, color={0,0,127}));
+  connect(relHum.phi, phi) annotation (Line(points={{181,-70},{192,-70},{192,-120},
+          {210,-120}}, color={0,0,127}));
   annotation (
   defaultComponentName="zon",
    Icon(coordinateSystem(preserveAspectRatio=false,
@@ -309,7 +333,7 @@ equation
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Text(
-          extent={{118,116},{168,88}},
+          extent={{120,148},{170,120}},
           lineColor={0,0,0},
           fillColor={61,61,61},
           fillPattern=FillPattern.Solid,
@@ -335,11 +359,12 @@ equation
           textString="C_flow",
           visible=use_C_flow),
         Text(
-          extent={{116,154},{166,126}},
+          extent={{124,182},{174,154}},
           lineColor={0,0,0},
           fillColor={61,61,61},
           fillPattern=FillPattern.Solid,
-          textString="TAir"),
+          textString="TAir",
+          horizontalAlignment=TextAlignment.Right),
         Text(
           extent={{-58,244},{56,204}},
           lineColor={0,0,255},
@@ -350,7 +375,13 @@ equation
           textString=DynamicSelect("", String(heaPorAir.T-273.15, format=".1f"))),
         Bitmap(extent={{134,-176},{174,-146}},
           fileName="modelica://Buildings/Resources/Images/ThermalZones/EnergyPlus/EnergyPlusLogo.png",
-          visible=not usePrecompiledFMU)}),
+          visible=not usePrecompiledFMU),
+        Text(
+          extent={{132,114},{182,86}},
+          lineColor={0,0,0},
+          fillColor={61,61,61},
+          fillPattern=FillPattern.Solid,
+          textString="phi")}),
    Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-200,-200},{200,200}})),
     Documentation(info="<html>
