@@ -30,9 +30,9 @@ model OneZoneWithControl "Validation model for one zone"
     annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
   Controls.OBC.CDL.Continuous.Sources.Pulse TSet(
     amplitude=6,
-    period=86400,
+    period(displayUnit="d") = 86400,
     offset=273.15 + 16,
-    startTime=6*3600,
+    delay(displayUnit="h") = 21600,
     y(unit="K", displayUnit="degC"))
     "Setpoint for room air"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
@@ -58,9 +58,9 @@ model OneZoneWithControl "Validation model for one zone"
   Modelica.Blocks.Math.MatrixGain gai(K=120/AFlo*[0.4; 0.4; 0.2])
     "Matrix gain to split up heat gain in radiant, convective and latent gain"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
-  Modelica.Blocks.Sources.Pulse nPer(
+  Controls.OBC.CDL.Continuous.Sources.Pulse nPer(
     period(displayUnit="d") = 86400,
-    startTime(displayUnit="h") = 25200,
+    delay(displayUnit="h") = 25200,
     amplitude=2) "Number of persons"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
 
@@ -68,13 +68,13 @@ equation
   connect(TSet.y, conPID.u_s)
     annotation (Line(points={{-58,-70},{-52,-70}},color={0,0,127}));
   connect(conPID.u_m, zon.TAir) annotation (Line(points={{-40,-82},{-40,-92},{90,
-          -92},{90,53.8},{61,53.8}}, color={0,0,127}));
+          -92},{90,58},{61,58}},     color={0,0,127}));
   connect(conPID.y, addPar.u)
     annotation (Line(points={{-28,-70},{-22,-70}}, color={0,0,127}));
   connect(addPar.y,hea. TSet) annotation (Line(points={{2,-70},{10,-70},{10,-32},
           {16,-32}}, color={0,0,127}));
   connect(gai.u[1],nPer. y)
-    annotation (Line(points={{-42,50},{-59,50}},         color={0,0,127}));
+    annotation (Line(points={{-42,50},{-58,50}},         color={0,0,127}));
   connect(zon.qGai_flow, gai.y)
     annotation (Line(points={{18,50},{-19,50}}, color={0,0,127}));
   connect(fan.port_b, hea.port_a)
