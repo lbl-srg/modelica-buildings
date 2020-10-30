@@ -29,11 +29,7 @@ model StaticTwoPortConservationEquation
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
 
   // Outputs that are needed in models that extend this model
-  Modelica.Blocks.Interfaces.RealOutput hOut(unit="J/kg",
-                                             start=Medium.specificEnthalpy_pTX(
-                                                     p=Medium.p_default,
-                                                     T=Medium.T_default,
-                                                     X=Medium.X_default))
+  Modelica.Blocks.Interfaces.RealOutput hOut(final unit="J/kg")
     "Leaving specific enthalpy of the component"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90,
@@ -339,6 +335,13 @@ Buildings.Fluid.Interfaces.ConservationEquation</a>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+September 18, 2020, by Michael Wetter:<br/>
+Removed start value for <code>hOut</code> as it will be set by
+<a href=\"modelica://Buildings.Fluid.MixingVolumes.BaseClasses.PartialMixingVolume\">
+Buildings.Fluid.MixingVolumes.BaseClasses.PartialMixingVolume</a>.<br/>
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1397\">#1397</a>.
+</li>
 <li>
 February 12, 2019, by Filip Jorissen:<br/>
 Removed obsolete division by <code>TMax</code> in assert.<br/>

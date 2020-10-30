@@ -27,7 +27,7 @@ model SingleZoneFloorHeater
     annotation (Placement(transformation(extent={{-140,-110},{-100,-70}}),
     iconTransformation(extent={{-140,-110},{-100,-70}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.LimPID conPID(
+  Buildings.Controls.OBC.CDL.Continuous.PID conPID(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     Ti=900,
     u_s(unit="K", displayUnit="degC"),

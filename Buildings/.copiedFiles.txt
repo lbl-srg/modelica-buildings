@@ -73,6 +73,8 @@ Buildings/BoundaryConditions/SolarGeometry/BaseClasses/WallSolarAzimuth.mo
 Buildings/BoundaryConditions/SolarGeometry/BaseClasses/ZenithAngle.mo
 Buildings/BoundaryConditions/SolarGeometry/BaseClasses/package.mo
 Buildings/BoundaryConditions/SolarGeometry/BaseClasses/package.order
+Buildings/BoundaryConditions/SolarGeometry/BaseClasses/solarAzimuthNoEvent.mo
+Buildings/BoundaryConditions/SolarGeometry/BaseClasses/solarAzimuthWithEvent.mo
 Buildings/BoundaryConditions/SolarGeometry/Examples/IncidenceAngle.mo
 Buildings/BoundaryConditions/SolarGeometry/Examples/ZenithAngle.mo
 Buildings/BoundaryConditions/SolarGeometry/Examples/package.mo
@@ -1355,6 +1357,8 @@ Buildings/Resources/Images/Fluid/Sensors/onePortHex.png
 Buildings/Resources/Images/Fluid/Sensors/onePortHex.tiff
 Buildings/Resources/Images/Fluid/Sensors/twoPortHex.png
 Buildings/Resources/Images/Fluid/Sensors/twoPortHex.tiff
+Buildings/Resources/Images/Fluid/Sensors/warningIcon.png
+Buildings/Resources/Images/Fluid/Sensors/warningIcon.svg
 Buildings/Resources/Images/Fluid/Storage/Stratified.pdf
 Buildings/Resources/Images/Fluid/Storage/Stratified.png
 Buildings/Resources/Images/Fluid/Storage/Stratified.svg
@@ -1445,6 +1449,7 @@ Buildings/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/BaseClasses/Ex
 Buildings/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/BaseClasses/Examples/GetHeaderElement.mos
 Buildings/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/BaseClasses/Examples/GetTimeSpanTMY3.mos
 Buildings/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/BaseClasses/Examples/GetTimeSpanTMY3_NonzeroStart.mos
+Buildings/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/BaseClasses/Examples/LimitMin.mos
 Buildings/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/BaseClasses/Examples/LocalCivilTime.mos
 Buildings/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/BaseClasses/Examples/SolarTime.mos
 Buildings/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/Examples/ReaderTMY3.mos

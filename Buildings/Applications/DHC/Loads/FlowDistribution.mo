@@ -108,7 +108,7 @@ model FlowDistribution "Model of a building hydraulic distribution system"
         origin={-110,-40})));
   Modelica.Blocks.Interfaces.IntegerInput modChaOve if
     have_val and typDis == Type_dis.ChangeOver
-    "Operating mode in change-over (1 for heating, -1 for cooling)"
+    "Operating mode in change-over (1 for heating, 2 for cooling)"
     annotation (Placement(
       transformation(
       extent={{-20,-20},{20,20}},
