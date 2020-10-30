@@ -29,12 +29,6 @@
 #error Modelica Spawn coupling is only supported for Linux 64 bit. Your operating system is not 64 bit.
 #endif
 
-
-/* Check for Linux */
-#ifndef __linux__
-#error Modelica Spawn coupling is in this development phase only supported for Linux 64 bit. Windows and OS X will be supported later.
-#endif
-
 /* ********************************************************* */
 /* Thermal zone */
 extern void* EnergyPlusZoneAllocate(
