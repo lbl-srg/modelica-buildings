@@ -114,17 +114,17 @@ and then simulate the model. This will create the file
 <code>eplusout.rdd</code> that contains all output variables. The file has lines such as
 </p>
 <pre>
-Zone,Average,Zone Electric Equipment Electric Power [W]
+Zone,Average,Zone Electric Equipment Electricity Rate [W]
 </pre>
 <p>
 Next, instantiate the output variable in Modelica. To obtain the value of
-<code>Zone,Average,Zone Electric Equipment Electric Power [W]</code>
+<code>Zone,Average,Zone Electric Equipment Electricity Rate [W]</code>
 for the zone <code>LIVING ZONE</code>,
 the Modelica instantiation would be
 </p>
 <pre>
 Buildings.ThermalZones.EnergyPlus.OutputVariable equEle(
-  name=\"Zone Electric Equipment Electric Power\",
+  name=\"Zone Electric Equipment Electricity Rate\",
   key=\"LIVING ZONE\")
   \"Block that reads output from EnergyPlus\";
 </pre>
@@ -147,7 +147,7 @@ Some output variables <i>directly</i> depend on input variable, i.e.,
 if an input variable changes, the output changes immediately.
 Examples are
 the illuminance in a room that changes instantaneously when the window blind is changed, or
-the <code>Zone Electric Equipment Electric Power</code> which changes instantaneously
+the <code>Zone Electric Equipment Electricity Rate</code> which changes instantaneously
 when a schedule value switches it on
 (see
 <a href=\"modelica://Buildings.ThermalZones.EnergyPlus.Validation.Schedule.EquipmentScheduleOutputVariable\">

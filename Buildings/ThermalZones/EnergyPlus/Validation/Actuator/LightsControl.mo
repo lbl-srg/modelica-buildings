@@ -10,7 +10,7 @@ model LightsControl "Validation model for one actuator that controls the lights"
     annotation (Placement(transformation(extent={{100,100},{120,120}})));
 
   Buildings.ThermalZones.EnergyPlus.OutputVariable ligPow(
-    name="Lights Electric Power",
+    name="Lights Electricity Rate",
     key="LIVING ZONE Lights",
     y(final unit="W"))
     "Block that reads output from EnergyPlus"

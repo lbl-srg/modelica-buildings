@@ -4,7 +4,7 @@ model OneZoneOneOutputVariable
   extends Buildings.ThermalZones.EnergyPlus.Validation.ThermalZone.OneZone;
 
   Buildings.ThermalZones.EnergyPlus.OutputVariable equEle(
-    name="Zone Electric Equipment Electric Power",
+    name="Zone Electric Equipment Electricity Rate",
     key="LIVING ZONE",
     y(final unit="W"))
     "Block that reads output from EnergyPlus"

@@ -527,6 +527,8 @@ void spawnLogger(
        They are written for any logLevel. */
     bui->SpawnFormatMessage(signature, instanceName, fmi2_status_to_string(status), msg);
   }
+
+  va_end(argp);
 }
 
 /* Import the EnergyPlus FMU

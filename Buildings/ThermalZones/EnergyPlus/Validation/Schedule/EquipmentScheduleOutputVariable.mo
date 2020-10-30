@@ -3,7 +3,7 @@ model EquipmentScheduleOutputVariable
   "Validation case with a schedule that is not sampled, and output reader of the energy affected by the scheduled value"
   extends Buildings.ThermalZones.EnergyPlus.Validation.Schedule.EquipmentSchedule;
   Buildings.ThermalZones.EnergyPlus.OutputVariable equEle(
-    name="Zone Electric Equipment Electric Power",
+    name="Zone Electric Equipment Electricity Rate",
     key="LIVING ZONE",
     isDirectDependent=true,
     y(final unit="W"))
