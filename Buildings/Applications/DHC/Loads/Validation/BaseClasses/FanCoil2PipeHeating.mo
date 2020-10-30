@@ -20,7 +20,7 @@ model FanCoil2PipeHeating
     final have_weaBus=false,
     final have_pum=false,
     mHeaWat_flow_nominal=abs(QHea_flow_nominal/cpHeaWat_nominal/(
-      T_aHeaWat_nominal - T_bHeaWat_nominal)));
+        T_aHeaWat_nominal - T_bHeaWat_nominal)));
   import hexConfiguration = Buildings.Fluid.Types.HeatExchangerConfiguration;
   parameter Real k(min=0) = 1 "Gain of controller";
   parameter Modelica.SIunits.Time Ti(min=Modelica.Constants.small) = 10
@@ -60,6 +60,7 @@ model FanCoil2PipeHeating
   Buildings.Fluid.HeatExchangers.DryCoilEffectivenessNTU hex(
     redeclare final package Medium1 = Medium1,
     redeclare final package Medium2 = Medium2,
+    show_T=true,
     final configuration=hexConHea,
     final m1_flow_nominal=mHeaWat_flow_nominal,
     final m2_flow_nominal=mLoaHea_flow_nominal,
@@ -100,9 +101,9 @@ model FanCoil2PipeHeating
         rotation=0,
         origin={112,0})));
   Buildings.Applications.DHC.Loads.SimpleRoomODE TLoaODE(
-    TOutHea_nominal=273.15 - 5,
-    TIndHea_nominal=T_aLoaHea_nominal,
-    QHea_flow_nominal=QHea_flow_nominal)
+    TOut_nominal=278.15,
+    TInd_nominal=T_aLoaHea_nominal,
+    Q_flow_nominal=QHea_flow_nominal)
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain gaiHeaFlo(k=1/QHea_flow_nominal)
     annotation (Placement(transformation(extent={{-88,210},{-68,230}})));

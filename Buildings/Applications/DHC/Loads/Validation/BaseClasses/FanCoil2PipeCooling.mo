@@ -58,6 +58,7 @@ model FanCoil2PipeCooling
   Buildings.Fluid.HeatExchangers.DryCoilEffectivenessNTU hex(
     redeclare final package Medium1 = Medium1,
     redeclare final package Medium2 = Medium2,
+    show_T=true,
     final configuration=hexConCoo,
     final m1_flow_nominal=mChiWat_flow_nominal,
     final m2_flow_nominal=mLoaCoo_flow_nominal,
@@ -97,9 +98,9 @@ model FanCoil2PipeCooling
         rotation=0,
         origin={112,0})));
   Buildings.Applications.DHC.Loads.SimpleRoomODE TLoaODE(
-    TOutHea_nominal=273.15 - 5,
-    TIndHea_nominal=T_aLoaHea_nominal,
-    QHea_flow_nominal=QHea_flow_nominal)
+    TOut_nominal=313.15,
+    TInd_nominal=T_aLoaCoo_nominal,
+    Q_flow_nominal=-1*QCoo_flow_nominal)
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain gaiHeaFlo(k=1/QCoo_flow_nominal)
     annotation (Placement(transformation(extent={{-88,210},{-68,230}})));

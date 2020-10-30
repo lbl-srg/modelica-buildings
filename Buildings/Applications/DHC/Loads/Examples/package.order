@@ -3,5 +3,9 @@ CouplingRCZ6
 CouplingSpawnZ1
 CouplingSpawnZ6
 CouplingTimeSeries
+CouplingTimeSeries_Hospital
+CouplingTimeSeries_MediumOffice
+CouplingTimeSeries_PrimarySchool
+CouplingTimeSeries_Residential
 CouplingTimeSeriesSingleLoop
 BaseClasses

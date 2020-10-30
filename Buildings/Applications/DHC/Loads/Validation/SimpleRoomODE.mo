@@ -44,9 +44,9 @@ model SimpleRoomODE "Validation of the model SimpleRoomODE"
     "Prescribed heat flow rate"
     annotation (Placement(transformation(extent={{82,70},{62,90}})));
   Buildings.Applications.DHC.Loads.SimpleRoomODE rooOdeHea(
-    TOutHea_nominal=273.15,
-    TIndHea_nominal=293.15,
-    QHea_flow_nominal=QHea_flow_nominal,
+    TOut_nominal=273.15,
+    TInd_nominal=293.15,
+    Q_flow_nominal=QHea_flow_nominal,
     tau=tau) "ODE heated room model"
     annotation (Placement(transformation(extent={{-10,10},{10,30}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxTSet(k=297.15,
@@ -61,9 +61,9 @@ model SimpleRoomODE "Validation of the model SimpleRoomODE"
     "Scaling"
     annotation (Placement(transformation(extent={{60,-110},{80,-90}})));
   Buildings.Applications.DHC.Loads.SimpleRoomODE rooOdeCoo(
-    TOutHea_nominal=273.15,
-    TIndHea_nominal=293.15,
-    QHea_flow_nominal=QHea_flow_nominal,
+    TOut_nominal=303.15,
+    TInd_nominal=297.15,
+    Q_flow_nominal=-1*QCoo_flow_nominal,
     tau=tau) "ODE cooled room model"
     annotation (Placement(transformation(extent={{-10,-30},{10,-10}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain gai3(k=0.8) "Scaling"

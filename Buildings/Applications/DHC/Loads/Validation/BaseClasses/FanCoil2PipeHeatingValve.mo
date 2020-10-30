@@ -83,9 +83,9 @@ model FanCoil2PipeHeatingValve
         rotation=0,
         origin={110,0})));
   Buildings.Applications.DHC.Loads.SimpleRoomODE TLoaODE(
-    TOutHea_nominal=273.15 - 5,
-    TIndHea_nominal=T_aLoaHea_nominal,
-    QHea_flow_nominal=QHea_flow_nominal)
+    TOut_nominal=273.15 - 5,
+    TInd_nominal=T_aLoaHea_nominal,
+    Q_flow_nominal=QHea_flow_nominal)
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
   Fluid.Actuators.Valves.TwoWayEqualPercentage val(
     redeclare final package Medium=Medium1,

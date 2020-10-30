@@ -2,18 +2,18 @@
 model SimpleRoomODE
   "Simplified model for assessing room air temperature variations around a set point"
   extends Modelica.Blocks.Icons.Block;
-  parameter Modelica.SIunits.Temperature TOutHea_nominal(displayUnit="degC")
-    "Outdoor air temperature at heating nominal conditions"
+  parameter Modelica.SIunits.Temperature TOut_nominal(displayUnit="degC")
+    "Outdoor air temperature at heating or cooling nominal conditions"
     annotation(Dialog(group = "Nominal condition"));
-  parameter Modelica.SIunits.Temperature TIndHea_nominal(displayUnit="degC")
-    "Indoor air temperature at heating nominal conditions"
+  parameter Modelica.SIunits.Temperature TInd_nominal(displayUnit="degC")
+    "Indoor air temperature at heating or cooling nominal conditions"
     annotation(Dialog(group = "Nominal condition"));
-  parameter Modelica.SIunits.HeatFlowRate QHea_flow_nominal(min=0)
-    "Heating heat flow rate (for TInd=TIndHea_nominal, TOut=TOutHea_nominal,
+  parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal
+    "Heating or cooling heat flow rate (for TInd=TInd_nominal, TOut=TOut_nominal,
     with no internal gains, no solar radiation)"
     annotation(Dialog(group = "Nominal condition"));
   parameter Boolean steadyStateInitial = false
-    "true initializes T with dT(0)/dt=0, false initializes T with T(0)=TIndHea_nominal"
+    "true initializes T with dT(0)/dt=0, false initializes T with T(0)=TInd_nominal"
      annotation (Dialog(group="Initialization"), Evaluate=true);
   parameter Modelica.SIunits.Time tau = 1800
     "Time constant of the indoor temperature";
@@ -24,7 +24,8 @@ model SimpleRoomODE
     annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
       iconTransformation(extent={{-140,60},{-100,100}})));
   Modelica.Blocks.Interfaces.RealInput QReq_flow(
-    final quantity="HeatFlowRate", final unit="W")
+    final quantity="HeatFlowRate",
+    final unit="W")
     "Required heat flow rate to meet temperature set point (>=0 for heating)"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
@@ -40,13 +41,13 @@ model SimpleRoomODE
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 protected
   parameter Modelica.SIunits.ThermalConductance G=
-    -QHea_flow_nominal / (TOutHea_nominal - TIndHea_nominal)
+    -Q_flow_nominal / (TOut_nominal - TInd_nominal)
     "Lumped thermal conductance representing all temperature dependent heat transfer mechanisms";
 initial equation
   if steadyStateInitial then
     der(TAir) = 0;
   else
-    TAir = TIndHea_nominal;
+    TAir = TInd_nominal;
   end if;
 equation
   der(TAir) * tau = (QAct_flow - QReq_flow) / G + TSet -TAir;
