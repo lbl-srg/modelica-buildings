@@ -21,7 +21,7 @@ model Timer "Validation model for the Timer block"
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul1(
     final width=0.7,
     final period=2,
-    final startTime=-1)
+    final delay=-1)
     "Block that outputs cyclic on and off"
     annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
 
