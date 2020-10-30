@@ -39,14 +39,26 @@ protected
       "Building model"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
     annotation (Icon(graphics={Text(
-            extent={{-72,66},{42,-64}},
+            extent={{-76,60},{64,38}},
             lineColor={0,0,255},
             fillColor={255,255,255},
             fillPattern=FillPattern.None,
-            textString="qRad_flow = %qRad_flow
-qSen_flow = %qSen_flow
-qLat_flow = %qLat_flow",
-            horizontalAlignment=TextAlignment.Left)}));
+            horizontalAlignment=TextAlignment.Left,
+            textString="qRad_flow = %qRad_flow"),
+                               Text(
+            extent={{-74,14},{66,-8}},
+            lineColor={0,0,255},
+            fillColor={255,255,255},
+            fillPattern=FillPattern.None,
+            horizontalAlignment=TextAlignment.Left,
+            textString="qSen_flow = %qSen_flow"),
+                               Text(
+            extent={{-74,-30},{66,-52}},
+            lineColor={0,0,255},
+            fillColor={255,255,255},
+            fillPattern=FillPattern.None,
+            horizontalAlignment=TextAlignment.Left,
+            textString="qLat_flow = %qLat_flow")}));
   end OneZoneWithGainExposed;
 
   annotation (Documentation(info="<html>
