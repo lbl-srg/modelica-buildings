@@ -1,8 +1,11 @@
 within Buildings.ThermalZones.EnergyPlus;
-package UsersGuide "EnergyPlus package user's guide"
+package UsersGuide
+  "EnergyPlus package user's guide"
   extends Modelica.Icons.Information;
-  annotation (preferredView="info",
-Documentation(info="<html>
+  annotation (
+    preferredView="info",
+    Documentation(
+      info="<html>
 <h4>Overview</h4>
 <p>
 This user guide describes how to use the EnergyPlus building envelope model.
@@ -243,7 +246,8 @@ This limitation only affects Dymola. JModelica can simulate Modelica models
 for which the EnergyPlus model has multiple thermal zones, or for which
 multiple buildings are simulated in EnergyPlus.
 </p>
-</html>", revisions="<html>
+</html>",
+      revisions="<html>
 <ul>
 <li>
 April 20, 2020, by Kun Zhang: <br/>
