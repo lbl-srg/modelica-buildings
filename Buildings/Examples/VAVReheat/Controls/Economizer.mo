@@ -53,8 +53,8 @@ block Economizer "Controller for economizer"
   Buildings.Controls.Continuous.LimPID conV_flow(
     k=k,
     Ti=Ti,
-    yMax=0.995,
-    yMin=0.005,
+    yMax=1,
+    yMin=0,
     Td=60,
     y_reset=0,
     final reset=if have_reset then Buildings.Types.Reset.Parameter else
