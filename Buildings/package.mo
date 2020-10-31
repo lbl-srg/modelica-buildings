@@ -210,9 +210,14 @@ Version 8.0.0 is ... xxx
 The following <b style=\"color:blue\">new libraries</b> have been added:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2>
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.ThermalZones.EnergyPlus
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Package for Spawn of EnergyPlus that couples Modelica directly
+                     to the EnergyPlus envelope model.<br/>
+                     This allows simulating the envelope heat transfer
+                     of one or several buildings in EnergyPlus, and simulating HVAC and controls
+                     in Modelica. EnergyPlus objects are represented graphically as any other Modelica
+                     models, and the coupling and co-simulation is done automatically based on these models.
     </td>
     </tr>
 </table>
@@ -8697,21 +8702,27 @@ particular package.<br/>
    </td>
    <td valign=\"top\">Package for heat transfer in building constructions.</td>
 </tr>
-<tr><td valign=\"top\"><a href=\"modelica://Buildings.ThermalZones.Detailed.UsersGuide.MixedAir\">Rooms.MixedAir</a>
+<tr><td valign=\"top\"><a href=\"modelica://Buildings.ThermalZones.Detailed.UsersGuide.MixedAir\">ThermalZones.Detailed.UsersGuide.MixedAir</a>
    </td>
    <td valign=\"top\">Package for heat transfer in rooms and through the building envelope with the
                       room air being modeled using the mixed air assumption.</td>
 </tr>
-<tr><td valign=\"top\"><a href=\"modelica://Buildings.ThermalZones.Detailed.UsersGuide.MixedAir\">Rooms.CFD</a>
+<tr><td valign=\"top\"><a href=\"modelica://Buildings.ThermalZones.Detailed.UsersGuide.CFD\">ThermalZones.Detailed.UsersGuide.CFD</a>
    </td>
    <td valign=\"top\">Package for heat transfer in rooms and through the building envelope with the
                       room air being modeled using computational fluid dynamics.</td>
 </tr>
 
-<tr><td valign=\"top\"><a href=\"modelica://Buildings.ThermalZones.Detailed.Examples.FFD.UsersGuide\">Rooms.Examples.FFD</a>
+<tr><td valign=\"top\"><a href=\"modelica://Buildings.ThermalZones.Detailed.Examples.FFD.UsersGuide\">ThermalZones.Detailed.Examples.FFD.UsersGuide</a>
    </td>
    <td valign=\"top\">Package with examples that use the Fast Fluid Dynamics program for
-                      the computational fluid dynamics.</td>
+                    the computational fluid dynamics.</td>
+</tr>
+
+<tr><td valign=\"top\"><a href=\"modelica://Buildings.ThermalZones.EnergyPlus.UsersGuide\">ThermalZones.EnergyPlus.UsersGuide</a>
+   </td>
+   <td valign=\"top\">Package for Spawn of EnergyPlus with models that use EnergyPlus to simulate
+                    one or several building envelope models.</td>
 </tr>
 
 <tr><td valign=\"top\"><a href=\"modelica://Buildings.Utilities.IO.Python36.UsersGuide\">Utilities.IO.Python36</a>
