@@ -401,6 +401,8 @@ public class ConvertWeatherData{
     if(!filename.contains(".epw")) {
       System.err.println ("Name of weather data file should end with \".epw\". To convert weather data, run this program as");
       System.out.println("java -jar ConvertWeatherData.jar inputFile.epw");
+      System.out.println("or if spaces are present in the name, write name between \"\"");
+      System.out.println("java -jar ConvertWeatherData.jar \"inputFile .epw\"");
       System.exit(1);
     }
 

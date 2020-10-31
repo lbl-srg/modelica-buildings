@@ -1912,23 +1912,11 @@
 
   Output:Meter:MeterFileOnly,InteriorLights:Electricity,monthly;
 
-  Output:Meter:MeterFileOnly,Electricity:HVAC,monthly;
-
-  Output:Meter:MeterFileOnly,Gas:Facility,monthly;
-
-  Output:Meter:MeterFileOnly,Gas:HVAC,monthly;
-
   Output:Meter:MeterFileOnly,Electricity:Facility,runperiod;
 
   Output:Meter:MeterFileOnly,Electricity:Building,runperiod;
 
   Output:Meter:MeterFileOnly,InteriorLights:Electricity,runperiod;
-
-  Output:Meter:MeterFileOnly,Electricity:HVAC,runperiod;
-
-  Output:Meter:MeterFileOnly,Gas:Facility,runperiod;
-
-  Output:Meter:MeterFileOnly,Gas:HVAC,runperiod;
 
   Output:VariableDictionary,Regular;
 

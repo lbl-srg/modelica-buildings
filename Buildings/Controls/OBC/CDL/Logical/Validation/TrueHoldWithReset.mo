@@ -2,28 +2,30 @@ within Buildings.Controls.OBC.CDL.Logical.Validation;
 model TrueHoldWithReset "Validation model for the TrueHoldWithReset block"
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul(
-      period=9000, startTime=300) "Boolean pulse input signal"
+    period=9000,
+    delay=300) "Boolean pulse input signal"
     annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
   Buildings.Controls.OBC.CDL.Logical.TrueHoldWithReset truHol(
     duration=3600)
     "Block that holds a signal on for a requested time period"
     annotation (Placement(transformation(extent={{20,70},{40,90}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul1(
-      period=3600) "Boolean pulse input signal"
+    period=3600) "Boolean pulse input signal"
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
   Buildings.Controls.OBC.CDL.Logical.TrueHoldWithReset truHol1(
     duration=600)
     "Block that holds a signal on for a requested time period"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul2(
-      period=9000, startTime=300) "Boolean pulse input signal"
+    period=9000,
+    delay=300) "Boolean pulse input signal"
     annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
   Buildings.Controls.OBC.CDL.Logical.TrueHoldWithReset truHol2(
     duration=3600)
     "Block that holds a signal on for a requested time period"
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul3(
-      period=3600) "Boolean pulse input signal"
+    period=3600) "Boolean pulse input signal"
     annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
   Buildings.Controls.OBC.CDL.Logical.TrueHoldWithReset truHol3(
     duration=600)
@@ -35,19 +37,19 @@ model TrueHoldWithReset "Validation model for the TrueHoldWithReset block"
     annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));
 equation
   connect(booPul.y, truHol.u)
-    annotation (Line(points={{-19,80},{2,80},{19,80}},
+    annotation (Line(points={{-18,80},{-18,80},{18,80}},
                                                     color={255,0,255}));
   connect(booPul1.y, truHol1.u)
-    annotation (Line(points={{-19,30},{19,30}},
+    annotation (Line(points={{-18,30},{18,30}},
                                               color={255,0,255}));
   connect(booPul2.y, not2.u)
-    annotation (Line(points={{-19,-10},{-12,-10}}, color={255,0,255}));
+    annotation (Line(points={{-18,-10},{-12,-10}}, color={255,0,255}));
   connect(not2.y, truHol2.u)
-    annotation (Line(points={{11,-10},{19,-10}}, color={255,0,255}));
+    annotation (Line(points={{12,-10},{18,-10}}, color={255,0,255}));
   connect(booPul3.y, not3.u)
-    annotation (Line(points={{-19,-60},{-12,-60}}, color={255,0,255}));
+    annotation (Line(points={{-18,-60},{-12,-60}}, color={255,0,255}));
   connect(not3.y, truHol3.u)
-    annotation (Line(points={{11,-60},{19,-60}}, color={255,0,255}));
+    annotation (Line(points={{12,-60},{18,-60}}, color={255,0,255}));
   annotation (
   experiment(StopTime=15000.0, Tolerance=1e-06),
   __Dymola_Commands(
