@@ -11,6 +11,9 @@ package UsersGuide
 This user guide describes how to use the EnergyPlus building envelope model.
 </p>
 <p>
+Currently only Linux 64 bit is supported, other operating systems will be added later.
+</p>
+<p>
 To instanciate a building, proceed as follows:
 </p>
 <ol>
@@ -242,7 +245,7 @@ is set in the Dymola command line window.
 For Dymola 2021, this flag will be set to <code>true</code> by default.
 </p>
 <p>
-This limitation only affects Dymola. JModelica can simulate Modelica models
+This limitation only affects Dymola. OPTIMICA and JModelica can simulate Modelica models
 for which the EnergyPlus model has multiple thermal zones, or for which
 multiple buildings are simulated in EnergyPlus.
 </p>
