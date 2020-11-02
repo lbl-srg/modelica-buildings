@@ -1,9 +1,10 @@
 within Buildings.Experimental.DHC.Loads.Examples.BaseClasses;
-package GeojsonExportRC "Package with RC building zone models"
+package GeojsonExportRC
+  "Package with RC building zone models"
   extends Modelica.Icons.Package;
-
   annotation (
-  Documentation(info="
+    Documentation(
+      info="
 <html>
 <p>
 This package contains RC building zone models programmatically generated from 

@@ -1,8 +1,11 @@
 within Buildings.Experimental.DHC.CentralPlants.Combined;
-package Generation5 "Package of models for fifth generation DHC central plants"
+package Generation5
+  "Package of models for fifth generation DHC central plants"
   extends Modelica.Icons.VariantsPackage;
-
-annotation (preferredView="info", Documentation(info="<html>
+  annotation (
+    preferredView="info",
+    Documentation(
+      info="<html>
 <p>
 This package contains models for central plants in fifth generation
 district heating and cooling systems.

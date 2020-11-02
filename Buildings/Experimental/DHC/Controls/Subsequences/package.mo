@@ -1,8 +1,11 @@
 within Buildings.Experimental.DHC.Controls;
-package Subsequences "Package of control subsequences for DHC systems"
+package Subsequences
+  "Package of control subsequences for DHC systems"
   extends Modelica.Icons.VariantsPackage;
-
-annotation (preferredView="info", Documentation(info="<html>
+  annotation (
+    preferredView="info",
+    Documentation(
+      info="<html>
 <p>
 This package contains control subsequences used in district heating and
 cooling systems.

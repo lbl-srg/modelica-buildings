@@ -2,59 +2,66 @@ within Buildings.Experimental.DHC.Loads;
 model SimpleRoomODE
   "Simplified model for assessing room air temperature variations around a set point"
   extends Modelica.Blocks.Icons.Block;
-  parameter Modelica.SIunits.Temperature TOutHea_nominal(displayUnit="degC")
+  parameter Modelica.SIunits.Temperature TOutHea_nominal(
+    displayUnit="degC")
     "Outdoor air temperature at heating nominal conditions"
-    annotation(Dialog(group = "Nominal condition"));
-  parameter Modelica.SIunits.Temperature TIndHea_nominal(displayUnit="degC")
+    annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.SIunits.Temperature TIndHea_nominal(
+    displayUnit="degC")
     "Indoor air temperature at heating nominal conditions"
-    annotation(Dialog(group = "Nominal condition"));
-  parameter Modelica.SIunits.HeatFlowRate QHea_flow_nominal(min=0)
+    annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.SIunits.HeatFlowRate QHea_flow_nominal(
+    min=0)
     "Heating heat flow rate (for TInd=TIndHea_nominal, TOut=TOutHea_nominal,
     with no internal gains, no solar radiation)"
-    annotation(Dialog(group = "Nominal condition"));
-  parameter Boolean steadyStateInitial = false
+    annotation (Dialog(group="Nominal condition"));
+  parameter Boolean steadyStateInitial=false
     "true initializes T with dT(0)/dt=0, false initializes T with T(0)=TIndHea_nominal"
-     annotation (Dialog(group="Initialization"), Evaluate=true);
-  parameter Modelica.SIunits.Time tau = 1800
+    annotation (Dialog(group="Initialization"),Evaluate=true);
+  parameter Modelica.SIunits.Time tau=1800
     "Time constant of the indoor temperature";
   Modelica.Blocks.Interfaces.RealInput TSet(
     final quantity="ThermodynamicTemperature",
-    final unit="K", displayUnit="degC")
+    final unit="K",
+    displayUnit="degC")
     "Temperature set point for heating or cooling"
-    annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
-      iconTransformation(extent={{-140,60},{-100,100}})));
+    annotation (Placement(transformation(extent={{-140,60},{-100,100}}),iconTransformation(extent={{-140,60},{-100,100}})));
   Modelica.Blocks.Interfaces.RealInput QReq_flow(
-    final quantity="HeatFlowRate", final unit="W")
+    final quantity="HeatFlowRate",
+    final unit="W")
     "Required heat flow rate to meet temperature set point (>=0 for heating)"
-    annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
-      iconTransformation(extent={{-140,-20},{-100,20}})));
+    annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),iconTransformation(extent={{-140,-20},{-100,20}})));
   Modelica.Blocks.Interfaces.RealInput QAct_flow(
-    final quantity="HeatFlowRate", final unit="W")
+    final quantity="HeatFlowRate",
+    final unit="W")
     "Actual heating or cooling heat flow rate (>=0 for heating)"
-    annotation (Placement(transformation(extent={{-140,-100},{-100,-60}}),
-      iconTransformation(extent={{-140,-100},{-100,-60}})));
+    annotation (Placement(transformation(extent={{-140,-100},{-100,-60}}),iconTransformation(extent={{-140,-100},{-100,-60}})));
   Modelica.Blocks.Interfaces.RealOutput TAir(
     final quantity="ThermodynamicTemperature",
-    final unit="K", displayUnit="degC")
+    final unit="K",
+    displayUnit="degC")
     "Room air temperature"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 protected
-  parameter Modelica.SIunits.ThermalConductance G=
-    -QHea_flow_nominal / (TOutHea_nominal - TIndHea_nominal)
+  parameter Modelica.SIunits.ThermalConductance G=-QHea_flow_nominal/(TOutHea_nominal-TIndHea_nominal)
     "Lumped thermal conductance representing all temperature dependent heat transfer mechanisms";
 initial equation
   if steadyStateInitial then
-    der(TAir) = 0;
+    der(
+      TAir)=0;
   else
-    TAir = TIndHea_nominal;
+    TAir=TIndHea_nominal;
   end if;
 equation
-  der(TAir) * tau = (QAct_flow - QReq_flow) / G + TSet -TAir;
-  assert(TAir >= 273.15, "In " + getInstanceName() +
-    ": The computed indoor temperature is below 0°C.");
+  der(
+    TAir)*tau=(QAct_flow-QReq_flow)/G+TSet-TAir;
+  assert(
+    TAir >= 273.15,
+    "In "+getInstanceName()+": The computed indoor temperature is below 0°C.");
   annotation (
-  defaultComponentName="roo",
-  Documentation(info="<html>
+    defaultComponentName="roo",
+    Documentation(
+      info="<html>
 <p>
 This is a first order ODE model assessing the indoor air temperature variations
 around a set point, based on the difference between the required and actual
@@ -109,8 +116,7 @@ The two previous equations yield
 where <i>&tau; = C / G</i> is the time constant of the indoor temperature.
 </p>
 </html>",
-revisions=
-"<html>
+      revisions="<html>
 <ul>
 <li>
 February 21, 2020, by Antoine Gautier:<br/>
@@ -118,8 +124,10 @@ First implementation.
 </li>
 </ul>
 </html>"),
-  Icon(coordinateSystem(preserveAspectRatio=false),
-  graphics={
+    Icon(
+      coordinateSystem(
+        preserveAspectRatio=false),
+      graphics={
         Text(
           extent={{-88,16},{-8,-14}},
           lineColor={0,0,127},
@@ -148,5 +156,7 @@ First implementation.
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Right,
           textString="TAir")}),
-  Diagram(coordinateSystem(preserveAspectRatio=false)));
+    Diagram(
+      coordinateSystem(
+        preserveAspectRatio=false)));
 end SimpleRoomODE;
