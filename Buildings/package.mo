@@ -210,6 +210,13 @@ Version 8.0.0 is ... xxx
 The following <b style=\"color:blue\">new libraries</b> have been added:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2>
+<tr><td valign=\"top\">Buildings.Experimental.DHC
+    </td>
+    <td valign=\"top\">Package for district heating and cooling system modeling.<br/>
+                       The package contains components supporting the integration within
+                       the URBANopt SDK. The development is in progress.
+    </td>
+</tr>
 <tr><td valign=\"top\">Buildings.ThermalZones.EnergyPlus
     </td>
     <td valign=\"top\">Package for Spawn of EnergyPlus that couples Modelica directly
@@ -219,7 +226,7 @@ The following <b style=\"color:blue\">new libraries</b> have been added:
                      in Modelica. EnergyPlus objects are represented graphically as any other Modelica
                      models, and the coupling and co-simulation is done automatically based on these models.
     </td>
-    </tr>
+</tr>
 </table>
 <!-- New components for existing libraries -->
 <p>
@@ -538,6 +545,16 @@ have been <b style=\"color:blue\">improved</b> in a
     <td valign=\"top\">Upgraded the sequence according to ASHRAE Guideline 36, May 2020 version.<br/>
                        This is for
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1893\">issue 1893</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Experimental</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DistrictHeatingCooling
+    </td>
+    <td valign=\"top\">Moved package to <code>Buildings.Obsolete.DistrictHeatingCooling</code>.<br/>
+                       Generic components for DHC system modeling are now developed under
+                       <code>Buildings.Experimental.DHC</code>.
     </td>
 </tr>
 </table>
