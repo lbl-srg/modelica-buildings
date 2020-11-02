@@ -22,16 +22,23 @@ model ChilledWaterPumpSpeed
     "Deadband for critical point of speed signal";
   parameter Modelica.Blocks.Types.SimpleController controllerType=
     Modelica.Blocks.Types.SimpleController.PI
-    "Type of pump speed controller";
-  parameter Real k(final unit="1", final min=0) = 1 "Gain of controller";
+    "Type of pump speed controller"
+    annotation(Dialog(group="Speed Controller"));
+  parameter Real k(final unit="1", final min=0) = 1 "Gain of controller"
+    annotation(Dialog(group="Speed Controller"));
   parameter Modelica.SIunits.Time Ti(final min=Modelica.Constants.small)=60
-    "Time constant of Integrator block" annotation (Dialog(enable=
-          controllerType == Modelica.Blocks.Types.SimpleController.PI or
-          controllerType == Modelica.Blocks.Types.SimpleController.PID));
-  parameter Modelica.SIunits.Time Td(final min=0)=0.1
-    "Time constant of Derivative block" annotation (Dialog(enable=
-          controllerType == Modelica.Blocks.Types.SimpleController.PD or
-          controllerType == Modelica.Blocks.Types.SimpleController.PID));
+    "Time constant of Integrator block"
+    annotation(Dialog(
+    enable=controllerType == Modelica.Blocks.Types.SimpleController.PI or
+    controllerType == Modelica.Blocks.Types.SimpleController.PID,
+    group="Speed Controller"));
+  parameter Modelica.SIunits.Time Td(
+    final min=0)=0.1
+    "Time constant of Derivative block"
+    annotation (Dialog(
+    enable=controllerType == Modelica.Blocks.Types.SimpleController.PD or
+    controllerType == Modelica.Blocks.Types.SimpleController.PID,
+    group="Speed Controller"));
 
   Modelica.Blocks.Interfaces.RealInput masFloPum(
     final unit="kg/s")
@@ -103,11 +110,7 @@ First implementation.
 </html>", info="<html>
 <p>This model implements the control logic for variable speed pumps. The staging of pumps is implemented through an instance of <a href=\"modelica://Buildings.Applications.DataCenters.ChillerCooled.Controls.VariableSpeedPumpStage\">Buildings.Applications.DataCenters.ChillerCooled.Controls.VariableSpeedPumpStage</a>. </p>
 <p>The pump speed is controlled to maintain the pressure difference setpoint through a PID controller.</p>
-<p>The model inputs are the measured chilled water mass flow rate <i>masFloPum</i> and the pressure difference <i>dpMea</i> at a reference point from the demand side. The output <i>y</i> is a vector of pump speeds.</p>
+<p>The model inputs are the measured chilled water mass flow rate <code>masFloPum</code> and the pressure difference <code>dpMea</code> at a reference point from the demand side. The output <code>y</code> is a vector of pump speeds.</p>
 <p>The model currently only supports the control of up to two variable speed pumps.</p>
-</html>"),
-    experiment(
-      StopTime=86400,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Dassl"));
+</html>"));
 end ChilledWaterPumpSpeed;

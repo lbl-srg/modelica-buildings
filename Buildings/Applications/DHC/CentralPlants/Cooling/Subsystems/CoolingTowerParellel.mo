@@ -63,8 +63,7 @@ model CoolingTowerParellel
     each final unit="1")
     "On signal for cooling towers"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
-  Modelica.Blocks.Interfaces.RealInput speFan(
-    final unit="1")
+  Modelica.Blocks.Interfaces.RealInput uFanSpe(final unit="1")
     "Fan speed control signal"
     annotation (Placement(transformation(extent={{-140,0},{-100,40}})));
   Modelica.Blocks.Interfaces.RealInput TWetBul(
@@ -110,8 +109,8 @@ equation
     connect(val[i].port_b, cooTow[i].port_a) annotation (Line(points={{-40,0},{-10,0}},  color={0,127,255}));
     connect(cooTow[i].port_b, port_b) annotation (Line(points={{10,0},{100,0}},
                     color={0,127,255}));
-    connect(speFan, cooTow[i].y) annotation (Line(points={{-120,20},{-20,20},{-20,8},
-          {-12,8}},                 color={0,0,127}));
+    connect(uFanSpe, cooTow[i].y) annotation (Line(points={{-120,20},{-20,20},{
+            -20,8},{-12,8}}, color={0,0,127}));
     connect(TWetBul, cooTow[i].TAir) annotation (Line(points={{-120,-60},{-20,-60},{
           -20,4},{-12,4}},
                         color={0,0,127}));
@@ -274,7 +273,7 @@ First implementation.
 </li>
 </ul>
 </html>", info="<html>
-<p>This model implements a parallel cooling tower system with <i><span style=\"font-family: Courier New;\">num</span></i> identical cooling towers. </p>
+<p>This model implements a parallel cooling tower system with <code>num</code> identical cooling towers. </p>
 <p>The cooling tower type is replacable. <a href=\"modelica://Buildings.Fluid.HeatExchangers.CoolingTowers.Merkel\">Buildings.Fluid.HeatExchangers.CoolingTowers.Merkel</a> is currently used in this model. </p>
 </html>"),
     __Dymola_Commands);

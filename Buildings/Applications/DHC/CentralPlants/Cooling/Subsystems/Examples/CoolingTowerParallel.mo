@@ -68,7 +68,7 @@ model CoolingTowerParallel "Example model for parallel cooling tower model"
     "Water temperature"
     annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.LimPID conFan(
+  Buildings.Controls.Continuous.LimPID conFan(
     k=1,
     Ti=60,
     Td=10,
@@ -125,8 +125,9 @@ equation
   connect(senTCWLvg.port_b, vol.ports[1]) annotation (Line(points={{50,50},{60,
           50},{60,-20},{27.3333,-20}},
                               color={0,127,255}));
-  connect(conFan.y, cooTowPar.speFan) annotation (Line(points={{2,90},{6,90},{6,
-          70},{-10,70},{-10,52},{-2,52}}, color={0,0,127}));
+  connect(conFan.y, cooTowPar.uFanSpe) annotation (Line(points={{1,90},{6,90},{
+          6,70},{-10,70},{-10,52},{-2,52}},
+                                          color={0,0,127}));
   connect(cooTowPar.port_b, senTCWLvg.port_a)
     annotation (Line(points={{20,50},{30,50}}, color={0,127,255}));
   connect(vol.ports[3], pum.port_a) annotation (Line(points={{32.6667,-20},{-60,

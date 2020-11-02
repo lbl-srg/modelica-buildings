@@ -92,14 +92,15 @@ model ChillerStage
   Buildings.Controls.OBC.CDL.Integers.GreaterThreshold chiOne
     "On signal of chiller one"
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
-  Buildings.Controls.OBC.CDL.Integers.GreaterThreshold chiTwo(threshold=1)
+  Buildings.Controls.OBC.CDL.Integers.GreaterThreshold chiTwo(
+    final t=1)
     "On signal of chiller two"
     annotation (Placement(transformation(extent={{60,-20},{80,0}})));
-  Buildings.Controls.OBC.CDL.Continuous.LessEqualThreshold thrOneToTwo(
-    threshold=criPoiLoa + dQ) "Threshold of turning two chillers on"
+  Buildings.Controls.OBC.CDL.Continuous.LessThreshold thrOneToTwo(
+    final t=criPoiLoa + dQ) "Threshold of turning two chillers on"
     annotation (Placement(transformation(extent={{-90,-50},{-70,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold thrTwotoOne(threshold=
-    criPoiLoa - dQ) "Threshold of turning off the second chiller"
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold thrTwoToOne(
+    final t=criPoiLoa - dQ) "Threshold of turning off the second chiller"
     annotation (Placement(transformation(extent={{-90,-80},{-70,-60}})));
   Buildings.Controls.OBC.CDL.Logical.Not notOn "Not on"
     annotation (Placement(transformation(extent={{-90,10},{-70,30}})));
@@ -141,9 +142,9 @@ equation
     annotation (Line(points={{-62,-40},{-68,-40}}, color={255,0,255}));
   connect(QLoa, thrOneToTwo.u)
     annotation (Line(points={{-120,-40},{-92,-40}}, color={0,0,127}));
-  connect(QLoa, thrTwotoOne.u) annotation (Line(points={{-120,-40},{-96,-40},{-96,
+  connect(QLoa, thrTwoToOne.u) annotation (Line(points={{-120,-40},{-96,-40},{-96,
           -70},{-92,-70}}, color={0,0,127}));
-  connect(thrTwotoOne.y, twoToOne.condition) annotation (Line(points={{-68,-70},
+  connect(thrTwoToOne.y, twoToOne.condition) annotation (Line(points={{-68,-70},
           {-66,-70},{-66,-56},{-20,-56},{-20,-40},{-12,-40}}, color={255,0,255}));
   connect(on, notOn.u) annotation (Line(points={{-120,40},{-106,40},{-106,20},{-92,
           20}}, color={255,0,255}));
@@ -168,13 +169,13 @@ First implementation.
 </html>", info="<html>
 <p>This model implements staging control logic of two chillers according to the measured total cooling load. The control logic is as follows:</p>
 <ul>
-<li>When the plant enabling signal <i>on</i> changes from <i>false</i> to <i>true</i>, one chiller is enabled.</li>
-<li>When the total cooling load <i>QLoa</i> exceeds 80 percent (adjustable) of one chiller&apos;s nominal capacity <i>QEva_nominal</i>, a second chiller is enabled.</li>
-<li>When the total cooling load <i>QLoa</i> drops below 60 percent (adjustable) of one chiller&apos;s nominal capacity <i>QEva_nominal </i>(i.e., 30 percent each chiller), the second chiller is disabled. </li>
-<li>When the plant enabling signal <i>on</i> changes from <i>true</i> to<i> false</i>, the operating chiller is disabled.</li>
-<li>Parameter <i>tWai</i> assures a transitional time is kept between each operation.</li>
+<li>When the plant enabling signal <code>on</code> changes from <code>false</code> to <code>true</code>, one chiller is enabled.</li>
+<li>When the total cooling load <code>QLoa</code> exceeds 80 percent (adjustable) of one chiller&apos;s nominal capacity <code>QEva_nominal</code>, a second chiller is enabled.</li>
+<li>When the total cooling load <code>QLoa</code> drops below 60 percent (adjustable) of one chiller&apos;s nominal capacity <code>QEva_nominal </code>(i.e., 30 percent each chiller), the second chiller is disabled. </li>
+<li>When the plant enabling signal <code>on</code> changes from <code>true</code> to <code>false</code>, the operating chiller is disabled.</li>
+<li>Parameter <code>tWai</code> assures a transitional time is kept between each operation.</li>
 </ul>
-<p><br>It is assumed that both chillers have the same capacity of <i>QEva_nominal</i>.</p>
+<p><br>It is assumed that both chillers have the same capacity of <code>QEva_nominal</code>.</p>
 <p>Note: This model can be used for plants with two chillers with or without waterside econimizer (WSE). For plants with WSE, extra control logic on top of this model needs to be added.</p>
 </html>"));
 end ChillerStage;
