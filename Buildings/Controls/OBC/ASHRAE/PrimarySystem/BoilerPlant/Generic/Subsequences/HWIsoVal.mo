@@ -2,9 +2,6 @@ within Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Generic.Subsequen
 block HWIsoVal
     "Sequence of enable or disable hot water isolation valve"
 
-  parameter Integer nBoi = 3
-    "Total number of boiler, which is also the total number of hot water isolation valve";
-
   parameter Real chaHotWatIsoRat(
     final unit="1/s",
     displayUnit="1/s") = 1/60
@@ -20,15 +17,11 @@ block HWIsoVal
     annotation (Placement(transformation(extent={{-200,-198},{-160,-158}}),
       iconTransformation(extent={{-140,-100},{-100,-60}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput nexChaBoi
-    "Index of next boiler that should change status"
-    annotation (Placement(transformation(extent={{-200,-20},{-160,20}}),
-      iconTransformation(extent={{-140,60},{-100,100}})));
-
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uHotWatIsoVal[nBoi](
-    final unit=fill("1", nBoi),
-    final min=fill(0, nBoi),
-    final max=fill(1, nBoi))
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uHotWatIsoVal(
+    final unit="1",
+    displayUnit="1",
+    final min=0,
+    final max=1)
     "Hot water isolation valve position"
     annotation (Placement(transformation(extent={{-200,-120},{-160,-80}}),
       iconTransformation(extent={{-140,30},{-100,70}})));
@@ -38,26 +31,19 @@ block HWIsoVal
    annotation (Placement(transformation(extent={{180,120},{220,160}}),
       iconTransformation(extent={{100,40},{140,80}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yHotWatIsoVal[nBoi](
-    final unit=fill("1", nBoi),
-    final min=fill(0, nBoi),
-    final max=fill(1, nBoi))
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yHotWatIsoVal(
+    final unit="1",
+    displayUnit="1",
+    final min=0,
+    final max=1)
     "Hot water isolation valve position"
     annotation (Placement(transformation(extent={{180,-60},{220,-20}}),
       iconTransformation(extent={{100,-80},{140,-40}})));
 
-
 protected
-  final parameter Integer boiInd[nBoi]={i for i in 1:nBoi}
-    "Boiler index, {1,2,...,nBoi}";
-
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triSam
     "Sample valve position at start of shutdown process"
     annotation (Placement(transformation(extent={{-70,40},{-50,60}})));
-
-  Buildings.Controls.OBC.CDL.Routing.RealExtractor extIndSig(nin=nBoi)
-    "Identify isolation valve position for boiler being disabled"
-    annotation (Placement(transformation(extent={{-100,40},{-80,60}})));
 
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
     final p=1e-6,
@@ -66,6 +52,7 @@ protected
     annotation (Placement(transformation(extent={{-30,40},{-10,60}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Greater gre
+    "Check if time required for changing valve position has elapsed"
     annotation (Placement(transformation(extent={{60,110},{80,130}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con9(
@@ -85,89 +72,47 @@ protected
     "Check if it is time to change isolation valve position"
     annotation (Placement(transformation(extent={{-80,-180},{-60,-160}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Switch swi[nBoi]
+  Buildings.Controls.OBC.CDL.Logical.Switch swi
     "Logical switch"
-    annotation (Placement(transformation(extent={{120,-50},{140,-30}})));
+    annotation (Placement(transformation(extent={{140,-50},{160,-30}})));
 
-  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep1(
-    final nout=nBoi)
-    "Replicate boolean input"
-    annotation (Placement(transformation(extent={{60,-180},{80,-160}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Not not2[nBoi]
-    "Logical not"
-    annotation (Placement(transformation(extent={{-20,-90},{0,-70}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Switch swi1[nBoi]
-    "Logical switch"
-    annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Switch swi2[nBoi]
-    "Logical switch"
-    annotation (Placement(transformation(extent={{60,-20},{80,0}})));
-
-  Buildings.Controls.OBC.CDL.Integers.Equal intEqu[nBoi]
-    "Check next enabling isolation valve"
-    annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
-
-  Buildings.Controls.OBC.CDL.Routing.IntegerReplicator intRep(
-    final nout=nBoi)
-    "Replicate integer input"
-    annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-
-  Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep(
-    final nout=nBoi)
-    "Replicate real input"
-    annotation (Placement(transformation(extent={{80,70},{100,90}})));
-
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys3[nBoi](
-    final uLow=fill(0.025,nBoi),
-    final uHigh=fill(0.05, nBoi))
-    "Check if isolation valve is enabled"
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys3(
+    final uLow=0.025,
+    final uHigh=0.05)
+    "Check if isolation valve is disabled"
     annotation (Placement(transformation(extent={{-120,210},{-100,230}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys4[nBoi](
-    final uLow=fill(0.925,nBoi),
-    final uHigh=fill(0.975, nBoi))
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys4(
+    final uLow=0.925,
+    final uHigh=0.975)
     "Check if isolation valve is open more than 95%"
     annotation (Placement(transformation(extent={{-120,150},{-100,170}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Not not3[nBoi]
+  Buildings.Controls.OBC.CDL.Logical.Not not3
     "Logical not"
     annotation (Placement(transformation(extent={{-40,180},{-20,200}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Not not4[nBoi]
+  Buildings.Controls.OBC.CDL.Logical.Not not4
     "Logical not"
     annotation (Placement(transformation(extent={{-40,150},{-20,170}})));
 
-  Buildings.Controls.OBC.CDL.Logical.And and4[nBoi]
+  Buildings.Controls.OBC.CDL.Logical.And and4
     "Logical and"
     annotation (Placement(transformation(extent={{0,180},{20,200}})));
 
-  Buildings.Controls.OBC.CDL.Logical.And and3[nBoi]
+  Buildings.Controls.OBC.CDL.Logical.And and3
     "Logical and"
     annotation (Placement(transformation(extent={{0,210},{20,230}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Or  or2[nBoi]
+  Buildings.Controls.OBC.CDL.Logical.Or or2
     "Logical or"
     annotation (Placement(transformation(extent={{40,210},{60,230}})));
-
-  Buildings.Controls.OBC.CDL.Logical.MultiAnd mulAnd1(
-    final nu=nBoi)
-    "Logical and"
-    annotation (Placement(transformation(extent={{80,210},{100,230}})));
 
   Buildings.Controls.OBC.CDL.Logical.And3 and5
     "Check if the isolation valve has been fully open"
     annotation (Placement(transformation(extent={{140,130},{160,150}})));
 
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt[nBoi](
-    final k=boiInd)
-    "Boiler index array"
-    annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
-
 equation
-
   connect(con9.y, lin1.x1)
     annotation (Line(points={{22,100},{30,100},{30,88},{38,88}},
       color={0,0,127}));
@@ -179,50 +124,8 @@ equation
   connect(chaPro, and2.u2)
     annotation (Line(points={{-180,-178},{-82,-178}}, color={255,0,255}));
 
-  connect(booRep1.y, swi.u2)
-    annotation (Line(points={{82,-170},{100,-170},{100,-40},{118,-40}},
-      color={255,0,255}));
-
   connect(swi.y,yHotWatIsoVal)
-    annotation (Line(points={{142,-40},{200,-40}}, color={0,0,127}));
-
-  connect(booRep1.y, not2.u)
-    annotation (Line(points={{82,-170},{100,-170},{100,-110},{-40,-110},
-      {-40,-80},{-22,-80}},  color={255,0,255}));
-
-  connect(not2.y, swi1.u2)
-    annotation (Line(points={{2,-80},{20,-80},{20,-60},{58,-60}},
-      color={255,0,255}));
-
-  connect(swi1.y, swi.u3)
-    annotation (Line(points={{82,-60},{90,-60},{90,-48},{118,-48}},
-      color={0,0,127}));
-
-  connect(uHotWatIsoVal, swi1.u1)
-    annotation (Line(points={{-180,-100},{-140,-100},{-140,-52},{58,-52}},
-      color={0,0,127}));
-
-  connect(swi2.y, swi.u1)
-    annotation (Line(points={{82,-10},{100,-10},{100,-32},{118,-32}},
-      color={0,0,127}));
-
-  connect(nexChaBoi, intRep.u)
-    annotation (Line(points={{-180,0},{-82,0}},   color={255,127,0}));
-
-  connect(intRep.y, intEqu.u1)
-    annotation (Line(points={{-58,0},{-40,0},{-40,-10},{-22,-10}},
-                                                 color={255,127,0}));
-
-  connect(intEqu.y, swi2.u2)
-    annotation (Line(points={{2,-10},{58,-10}},
-                                              color={255,0,255}));
-
-  connect(lin1.y, reaRep.u)
-    annotation (Line(points={{62,80},{78,80}}, color={0,0,127}));
-
-  connect(reaRep.y, swi2.u1)
-    annotation (Line(points={{102,80},{120,80},{120,50},{40,50},{40,-2},{58,-2}},
-      color={0,0,127}));
+    annotation (Line(points={{162,-40},{200,-40}}, color={0,0,127}));
 
   connect(uHotWatIsoVal, hys4.u)
     annotation (Line(points={{-180,-100},{-140,-100},{-140,160},{-122,160}},
@@ -260,19 +163,8 @@ equation
     annotation (Line(points={{22,190},{30,190},{30,212},{38,212}},
       color={255,0,255}));
 
-  connect(mulAnd1.y, and5.u1)
-    annotation (Line(points={{102,220},{120,220},{120,148},{138,148}},
-      color={255,0,255}));
-
   connect(and5.y,yDisHotWatIsoVal)
     annotation (Line(points={{162,140},{200,140}}, color={255,0,255}));
-
-  connect(or2.y, mulAnd1.u)
-    annotation (Line(points={{62,220},{78,220}}, color={255,0,255}));
-
-  connect(conInt.y, intEqu.u2)
-    annotation (Line(points={{-58,-30},{-40,-30},{-40,-18},{-22,-18}},
-      color={255,127,0}));
 
   connect(uUpsDevSta, and5.u2)
     annotation (Line(points={{-180,-140},{-130,-140},{-130,140},{138,140}},
@@ -281,14 +173,8 @@ equation
   connect(uUpsDevSta, and2.u1) annotation (Line(points={{-180,-140},{-100,-140},
           {-100,-170},{-82,-170}},color={255,0,255}));
 
-  connect(and2.y, booRep1.u)
-    annotation (Line(points={{-58,-170},{58,-170}}, color={255,0,255}));
-
   connect(tim.u, and2.y) annotation (Line(points={{-102,100},{-120,100},{-120,
           -200},{-50,-200},{-50,-170},{-58,-170}}, color={255,0,255}));
-
-  connect(nexChaBoi, extIndSig.index)
-    annotation (Line(points={{-180,0},{-90,0},{-90,38}}, color={255,127,0}));
 
   connect(addPar.y, lin1.x2) annotation (Line(points={{-8,50},{0,50},{0,76},{38,
           76}},     color={0,0,127}));
@@ -303,23 +189,23 @@ equation
   connect(gre.y, and5.u3) annotation (Line(points={{82,120},{120,120},{120,132},
           {138,132}}, color={255,0,255}));
 
-  connect(uHotWatIsoVal, extIndSig.u) annotation (Line(points={{-180,-100},{
-          -110,-100},{-110,50},{-102,50}}, color={0,0,127}));
-
-  connect(uHotWatIsoVal, swi2.u3) annotation (Line(points={{-180,-100},{40,-100},
-          {40,-18},{58,-18}}, color={0,0,127}));
-
-  connect(uHotWatIsoVal, swi1.u3) annotation (Line(points={{-180,-100},{40,-100},
-          {40,-68},{58,-68}}, color={0,0,127}));
-
   connect(con9.y, lin1.f2) annotation (Line(points={{22,100},{30,100},{30,72},{38,
           72}}, color={0,0,127}));
   connect(addPar.u, triSam.y)
     annotation (Line(points={{-32,50},{-48,50}}, color={0,0,127}));
-  connect(extIndSig.y, triSam.u)
-    annotation (Line(points={{-78,50},{-72,50}}, color={0,0,127}));
   connect(triSam.y, lin1.f1) annotation (Line(points={{-48,50},{-40,50},{-40,84},
           {38,84}}, color={0,0,127}));
+  connect(or2.y, and5.u1) annotation (Line(points={{62,220},{120,220},{120,148},
+          {138,148}}, color={255,0,255}));
+  connect(uHotWatIsoVal, triSam.u) annotation (Line(points={{-180,-100},{-100,-100},
+          {-100,50},{-72,50}}, color={0,0,127}));
+  connect(lin1.y, swi.u1) annotation (Line(points={{62,80},{100,80},{100,-32},{138,
+          -32}}, color={0,0,127}));
+  connect(uHotWatIsoVal, swi.u3) annotation (Line(points={{-180,-100},{110,-100},
+          {110,-48},{138,-48}}, color={0,0,127}));
+
+  connect(and2.y, swi.u2) annotation (Line(points={{-58,-170},{-50,-170},{-50,-40},
+          {138,-40}}, color={255,0,255}));
   connect(and2.y, triSam.trigger) annotation (Line(points={{-58,-170},{-50,-170},
           {-50,20},{-60,20},{-60,38.2}}, color={255,0,255}));
 annotation (
@@ -404,13 +290,13 @@ annotation (
   <ul>
   <li>
   When there is a plant disable command (<code>chaPro=true</code>) and the boiler 
-  being diabled (<code>nexChaBoi</code>) has been shut off (<code>uUpsDevSta=true</code>), 
+  being diabled has been shut off (<code>uUpsDevSta=true</code>), 
   the boiler's isolation valve will be fully closed at a rate of change of position 
   <code>chaHotWatIsoRat</code>.
   </li>
   </ul>
   <p>
-  This sequence will generate array <code>yHoyWatIsoVal</code> which indicates 
+  This sequence will generate real signal <code>yHoyWatIsoVal</code> which indicates 
   hot water isolation valve position.
   </p>
   </html>", revisions="<html>
