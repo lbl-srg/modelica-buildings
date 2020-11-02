@@ -1,4 +1,4 @@
-within Buildings.Applications.DHC.CentralPlants;
+within Buildings.Experimental.DHC.CentralPlants;
 package Cooling "Package of models for central cooling production"
   extends Modelica.Icons.VariantsPackage;
 

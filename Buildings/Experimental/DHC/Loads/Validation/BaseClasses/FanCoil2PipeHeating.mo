@@ -1,8 +1,8 @@
-within Buildings.Applications.DHC.Loads.Validation.BaseClasses;
+within Buildings.Experimental.DHC.Loads.Validation.BaseClasses;
 model FanCoil2PipeHeating
   "Model of a two-pipe fan coil unit for heating,
   computing a required heating water mass flow rate"
-  extends Buildings.Applications.DHC.Loads.BaseClasses.PartialTerminalUnit(
+  extends Buildings.Experimental.DHC.Loads.BaseClasses.PartialTerminalUnit(
     redeclare package Medium1 = Buildings.Media.Water,
     redeclare package Medium2 = Buildings.Media.Air,
     final have_heaPor=false,
@@ -99,7 +99,7 @@ model FanCoil2PipeHeating
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={112,0})));
-  Buildings.Applications.DHC.Loads.SimpleRoomODE TLoaODE(
+  Buildings.Experimental.DHC.Loads.SimpleRoomODE TLoaODE(
     TOutHea_nominal=273.15 - 5,
     TIndHea_nominal=T_aLoaHea_nominal,
     QHea_flow_nominal=QHea_flow_nominal)
@@ -188,8 +188,8 @@ therefore takes the load as an input, and
 </li>
 <li>
 in conjunction with
-<a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution\">
-Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution</a>:
+<a href=\"modelica://Buildings.Experimental.DHC.Loads.BaseClasses.FlowDistribution\">
+Buildings.Experimental.DHC.Loads.BaseClasses.FlowDistribution</a>:
 it therefore computes the water mass flow rate required to meet the load.
 </li>
 </ul>
@@ -209,8 +209,8 @@ the air mass flow rate, from zero to its nominal value.
 <p>
 The controller tracks the load while the impact of an unmet load on the room
 air temperature is assessed with
-<a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.SimpleRoom\">
-Buildings.Applications.DHC.Loads.BaseClasses.SimpleRoom</a>.
+<a href=\"modelica://Buildings.Experimental.DHC.Loads.BaseClasses.SimpleRoom\">
+Buildings.Experimental.DHC.Loads.BaseClasses.SimpleRoom</a>.
 </p>
 </html>"),
 revisions=

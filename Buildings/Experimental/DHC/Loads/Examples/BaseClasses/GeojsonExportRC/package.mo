@@ -1,4 +1,4 @@
-within Buildings.Applications.DHC.Loads.Examples.BaseClasses;
+within Buildings.Experimental.DHC.Loads.Examples.BaseClasses;
 package GeojsonExportRC "Package with RC building zone models"
   extends Modelica.Icons.Package;
 

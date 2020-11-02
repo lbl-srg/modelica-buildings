@@ -1,4 +1,4 @@
-within Buildings.Applications.DHC.CentralPlants.Heating.Generation4;
+within Buildings.Experimental.DHC.CentralPlants.Heating.Generation4;
 package Controls "Package of control sequences for fourth generation DH central plants"
   extends Modelica.Icons.VariantsPackage;
 

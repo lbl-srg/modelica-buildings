@@ -1,4 +1,4 @@
-within Buildings.Applications.DHC.Loads.Validation;
+within Buildings.Experimental.DHC.Loads.Validation;
 model FlowDistributionPumpControl
   "Validation of the pump head computation in FlowDistribution"
   extends Modelica.Icons.Example;
@@ -7,7 +7,7 @@ model FlowDistributionPumpControl
   package Medium2 = Buildings.Media.Air
     "Load side medium";
   parameter String filNam=
-    "modelica://Buildings/Applications/DHC/Loads/Examples/Resources/SwissResidential_20190916.mos"
+    "modelica://Buildings/Resources/Data/Experimental/DHC/Loads/Examples/SwissResidential_20190916.mos"
     "File name with thermal loads as time series";
   parameter Integer nLoa=5
     "Number of served loads"
@@ -47,7 +47,7 @@ model FlowDistributionPumpControl
     max(terUniHea.dp_nominal) + 2 * nLoa * 5000
     "Nominal pressure drop in the distribution line";
   final parameter Modelica.SIunits.HeatFlowRate QHea_flow_nominal=
-    Experimental.DistrictHeatingCooling.SubStations.VaporCompression.BaseClasses.getPeakLoad(
+    Loads.BaseClasses.getPeakLoad(
       string="#Peak space heating load",
       filNam=Modelica.Utilities.Files.loadResource(filNam)) / facSca
     "Design heating heat flow rate (>=0)"
@@ -125,11 +125,11 @@ model FlowDistributionPumpControl
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-130,0})));
-  Buildings.Applications.DHC.Loads.FlowDistribution disCstDp(
+  Buildings.Experimental.DHC.Loads.FlowDistribution disCstDp(
     redeclare package Medium = Medium1,
     m_flow_nominal=m_flow_nominal,
     have_pum=true,
-    typCtr=Buildings.Applications.DHC.Loads.Types.PumpControlType.ConstantDp,
+    typCtr=Buildings.Experimental.DHC.Loads.Types.PumpControlType.ConstantDp,
     dp_nominal=dp_nominal,
     dpDis_nominal=dpDis_nominal,
     dpMin=dpSet,
@@ -190,11 +190,11 @@ model FlowDistributionPumpControl
     each final have_speVar=false)
     "Heating terminal unit"
     annotation (Placement(transformation(extent={{-10,118},{10,138}})));
-  Buildings.Applications.DHC.Loads.FlowDistribution disCstSpe(
+  Buildings.Experimental.DHC.Loads.FlowDistribution disCstSpe(
     redeclare package Medium = Medium1,
     m_flow_nominal=m_flow_nominal,
     have_pum=true,
-    typCtr=Buildings.Applications.DHC.Loads.Types.PumpControlType.ConstantSpeed,
+    typCtr=Buildings.Experimental.DHC.Loads.Types.PumpControlType.ConstantSpeed,
 
     dp_nominal=dp_nominal,
     dpDis_nominal=dpDis_nominal,
@@ -309,8 +309,8 @@ Documentation(
 info="<html>
 <p>
 This model validates the pump head computation algorithm implemented in
-<a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution\">
-Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution</a>.
+<a href=\"modelica://Buildings.Experimental.DHC.Loads.BaseClasses.FlowDistribution\">
+Buildings.Experimental.DHC.Loads.BaseClasses.FlowDistribution</a>.
 </p>
 </html>",
 revisions=
@@ -329,6 +329,6 @@ First implementation.
         coordinateSystem(preserveAspectRatio=false, extent={{-220,-240},{200,
             240}})),
     __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Applications/DHC/Loads/Validation/FlowDistributionPumpControl.mos"
+          "Resources/Scripts/Dymola/Experimental/DHC/Loads/Validation/FlowDistributionPumpControl.mos"
         "Simulate and plot"));
 end FlowDistributionPumpControl;

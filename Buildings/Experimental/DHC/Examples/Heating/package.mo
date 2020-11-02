@@ -1,4 +1,4 @@
-within Buildings.Applications.DHC.Examples;
+within Buildings.Experimental.DHC.Examples;
 package Heating "Package of example models for DH systems"
   extends Modelica.Icons.VariantsPackage;
 

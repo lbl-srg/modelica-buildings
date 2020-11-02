@@ -1,4 +1,4 @@
-within Buildings.Applications.DHC.Loads.Validation;
+within Buildings.Experimental.DHC.Loads.Validation;
 model SimpleRoomODE "Validation of the model SimpleRoomODE"
   extends Modelica.Icons.Example;
   package Medium1 = Buildings.Media.Water
@@ -43,7 +43,7 @@ model SimpleRoomODE "Validation of the model SimpleRoomODE"
   HeatTransfer.Sources.PrescribedHeatFlow prescribedHeatFlow1
     "Prescribed heat flow rate"
     annotation (Placement(transformation(extent={{82,70},{62,90}})));
-  Buildings.Applications.DHC.Loads.SimpleRoomODE rooOdeHea(
+  Buildings.Experimental.DHC.Loads.SimpleRoomODE rooOdeHea(
     TOutHea_nominal=273.15,
     TIndHea_nominal=293.15,
     QHea_flow_nominal=QHea_flow_nominal,
@@ -60,7 +60,7 @@ model SimpleRoomODE "Validation of the model SimpleRoomODE"
   Buildings.Controls.OBC.CDL.Continuous.Gain gai2(k=QCoo_flow_nominal)
     "Scaling"
     annotation (Placement(transformation(extent={{60,-110},{80,-90}})));
-  Buildings.Applications.DHC.Loads.SimpleRoomODE rooOdeCoo(
+  Buildings.Experimental.DHC.Loads.SimpleRoomODE rooOdeCoo(
     TOutHea_nominal=273.15,
     TIndHea_nominal=293.15,
     QHea_flow_nominal=QHea_flow_nominal,
@@ -163,8 +163,8 @@ equation
 <html>
 <p>
 This example validates
-<a href=\"Buildings.Applications.DHC.Loads.BaseClasses.SimpleRoomODE\">
-Buildings.Applications.DHC.Loads.BaseClasses.SimpleRoomODE</a> by comparison with
+<a href=\"Buildings.Experimental.DHC.Loads.BaseClasses.SimpleRoomODE\">
+Buildings.Experimental.DHC.Loads.BaseClasses.SimpleRoomODE</a> by comparison with
 <a href=\"Buildings.ThermalZones.ReducedOrder.RC.TwoElements\">
 Buildings.ThermalZones.ReducedOrder.RC.TwoElements</a>.
 <p>
@@ -188,7 +188,7 @@ First implementation.
 </ul>
 </html>"),
   __Dymola_Commands(file=
-"modelica://Buildings/Resources/Scripts/Dymola/Applications/DHC/Loads/Validation/SimpleRoomODE.mos"
+"modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Loads/Validation/SimpleRoomODE.mos"
 "Simulate and plot"),
     Diagram(coordinateSystem(extent={{-180,-200},{180,200}})));
 end SimpleRoomODE;

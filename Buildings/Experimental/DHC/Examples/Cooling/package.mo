@@ -1,4 +1,4 @@
-within Buildings.Applications.DHC.Examples;
+within Buildings.Experimental.DHC.Examples;
 package Cooling "Package of example models for DC systems"
   extends Modelica.Icons.VariantsPackage;
 

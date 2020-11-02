@@ -1,4 +1,4 @@
-within Buildings.Experimental.DistrictHeatingCooling.SubStations.VaporCompression.Validation;
+within Buildings.Obsolete.DistrictHeatingCooling.SubStations.VaporCompression.Validation;
 model HeatingCoolingHotwaterTimeSeries_dT "Validation model for substation"
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.Water "Fluid in the pipes";
@@ -16,10 +16,10 @@ model HeatingCoolingHotwaterTimeSeries_dT "Validation model for substation"
   Modelica.Blocks.Sources.Constant TWar(k=273.15 + 18)
     "Temperature of warm supply"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
-  Buildings.Experimental.DistrictHeatingCooling.SubStations.VaporCompression.HeatingCoolingHotwaterTimeSeries_dT subSta(
+  Buildings.Obsolete.DistrictHeatingCooling.SubStations.VaporCompression.HeatingCoolingHotwaterTimeSeries_dT subSta(
     redeclare package Medium = Medium,
     filNam=Modelica.Utilities.Files.loadResource(
-        "modelica://Buildings/Resources/Data/Experimental/DistrictHeatingCooling/SubStations/VaporCompression/RefBldgLargeOfficeNew2004_7.1_5.0_3C_USA_CA_SAN_FRANCISCO.mos"),
+        "modelica://Buildings/Resources/Data/Obsolete/DistrictHeatingCooling/SubStations/VaporCompression/RefBldgLargeOfficeNew2004_7.1_5.0_3C_USA_CA_SAN_FRANCISCO.mos"),
     show_T=true,
     TOut_nominal=273.15) "Substation model"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
@@ -50,7 +50,7 @@ equation
   connect(subSta.port_b, coo1.ports[1])
     annotation (Line(points={{19.9286,0},{40,0},{40,-40}}, color={0,127,255}));
   annotation(experiment(Tolerance=1e-08, StopTime=864000),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DistrictHeatingCooling/SubStations/VaporCompression/Validation/HeatingCoolingHotwaterTimeSeries_dT.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Obsolete/DistrictHeatingCooling/SubStations/VaporCompression/Validation/HeatingCoolingHotwaterTimeSeries_dT.mos"
         "Simulate and plot"),
     Documentation(
     info="<html>

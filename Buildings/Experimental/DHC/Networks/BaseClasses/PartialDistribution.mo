@@ -1,4 +1,4 @@
-within Buildings.Applications.DHC.Networks.BaseClasses;
+within Buildings.Experimental.DHC.Networks.BaseClasses;
 partial model PartialDistribution
   "Partial model for distribution network"
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium

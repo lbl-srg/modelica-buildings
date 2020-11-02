@@ -1,4 +1,4 @@
-within Buildings.Applications.DHC.EnergyTransferStations.Cooling;
+within Buildings.Experimental.DHC.EnergyTransferStations.Cooling;
 package Subsystems "Package of models for subsystems of DC ETS"
   extends Modelica.Icons.VariantsPackage;
 

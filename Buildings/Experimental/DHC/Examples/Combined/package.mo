@@ -1,4 +1,4 @@
-within Buildings.Applications.DHC.Examples;
+within Buildings.Experimental.DHC.Examples;
 package Combined "Package of example models for DHC systems"
   extends Modelica.Icons.VariantsPackage;
 

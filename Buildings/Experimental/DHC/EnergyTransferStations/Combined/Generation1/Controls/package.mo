@@ -1,4 +1,4 @@
-within Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation1;
+within Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation1;
 package Controls "Package of control sequences for first generation DHC ETS"
   extends Modelica.Icons.VariantsPackage;
 

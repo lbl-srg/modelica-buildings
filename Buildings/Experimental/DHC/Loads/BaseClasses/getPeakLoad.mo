@@ -1,4 +1,4 @@
-within Buildings.Experimental.DistrictHeatingCooling.SubStations.VaporCompression.BaseClasses;
+within Buildings.Experimental.DHC.Loads.BaseClasses;
 function getPeakLoad "Function that reads the peak load from the load profile"
   input String string "String that is written before the '=' sign";
   input String filNam "Name of data file with heating and cooling load"
@@ -73,8 +73,8 @@ terminates the simulation with an assertion.
 </p>
 <p>
 See
-<a href=\"modelica://Buildings.Experimental.DistrictHeatingCooling.SubStations.VaporCompression.BaseClasses.Validation.GetPeakLoad\">
-Buildings.Experimental.DistrictHeatingCooling.SubStations.VaporCompression.BaseClasses.Validation.GetPeakLoad</a>
+<a href=\"modelica://Buildings.Experimental.DHC.Loads.BaseClasses.Validation.GetPeakLoad\">
+Buildings.Experimental.DHC.Loads.BaseClasses.Validation.GetPeakLoad</a>
 for how to invoke this function.
 </p>
 </html>", revisions="<html>

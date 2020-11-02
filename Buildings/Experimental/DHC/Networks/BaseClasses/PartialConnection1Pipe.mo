@@ -1,4 +1,4 @@
-within Buildings.Applications.DHC.Networks.BaseClasses;
+within Buildings.Experimental.DHC.Networks.BaseClasses;
 partial model PartialConnection1Pipe
   "Partial model for connecting an agent to a one-pipe distribution network"
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium

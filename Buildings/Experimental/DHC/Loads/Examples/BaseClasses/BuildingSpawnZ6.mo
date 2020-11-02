@@ -1,7 +1,7 @@
-within Buildings.Applications.DHC.Loads.Examples.BaseClasses;
+within Buildings.Experimental.DHC.Loads.Examples.BaseClasses;
 model BuildingSpawnZ6
   "Six-zone EnergyPlus building model based on URBANopt GeoJSON export, with distribution pumps"
-  extends Buildings.Applications.DHC.Loads.BaseClasses.PartialBuilding(
+  extends Buildings.Experimental.DHC.Loads.BaseClasses.PartialBuilding(
     redeclare package Medium = Buildings.Media.Water,
     final have_eleHea=false,
     final have_eleCoo=false,
@@ -101,7 +101,7 @@ model BuildingSpawnZ6
     final mLoaCoo_flow_nominal=mLoa_flow_nominal)
     "Terminal unit"
     annotation (Placement(transformation(extent={{-140,-2},{-116,22}})));
-  Buildings.Applications.DHC.Loads.FlowDistribution disFloHea(
+  Buildings.Experimental.DHC.Loads.FlowDistribution disFloHea(
     redeclare package Medium = Medium,
     m_flow_nominal=sum(terUni.mHeaWat_flow_nominal .* terUni.facSca),
     have_pum=true,
@@ -109,10 +109,10 @@ model BuildingSpawnZ6
     nPorts_a1=nZon,
     nPorts_b1=nZon) "Heating water distribution system"
     annotation (Placement(transformation(extent={{-236,-188},{-216,-168}})));
-  Buildings.Applications.DHC.Loads.FlowDistribution disFloCoo(
+  Buildings.Experimental.DHC.Loads.FlowDistribution disFloCoo(
     redeclare package Medium = Medium,
     m_flow_nominal=sum(terUni.mChiWat_flow_nominal .* terUni.facSca),
-    typDis=Buildings.Applications.DHC.Loads.Types.DistributionType.ChilledWater,
+    typDis=Buildings.Experimental.DHC.Loads.Types.DistributionType.ChilledWater,
 
     have_pum=true,
     dp_nominal=100000,
@@ -220,8 +220,8 @@ building envelope model.
 It was generated from translating a GeoJSON model specified within the URBANopt UI.
 The heating and cooling loads are computed with a four-pipe
 fan coil unit model derived from
-<a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.PartialTerminalUnit\">
-Buildings.Applications.DHC.Loads.BaseClasses.PartialTerminalUnit</a>
+<a href=\"modelica://Buildings.Experimental.DHC.Loads.BaseClasses.PartialTerminalUnit\">
+Buildings.Experimental.DHC.Loads.BaseClasses.PartialTerminalUnit</a>
 and connected to the room model by means of fluid ports. The <code>Attic</code> zone
 is unconditionned, with a free floating temperature.
 </p>

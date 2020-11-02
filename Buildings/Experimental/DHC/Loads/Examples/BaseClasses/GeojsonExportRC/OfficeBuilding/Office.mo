@@ -1,4 +1,4 @@
-within Buildings.Applications.DHC.Loads.Examples.BaseClasses.GeojsonExportRC.OfficeBuilding;
+within Buildings.Experimental.DHC.Loads.Examples.BaseClasses.GeojsonExportRC.OfficeBuilding;
 model Office
   "This is the simulation model of Office within building OfficeBuilding"
 
@@ -107,7 +107,7 @@ model Office
       extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
       tableName="Internals",
       fileName=Modelica.Utilities.Files.loadResource(
-          "modelica://Buildings/Applications/DHC/Loads/Examples/BaseClasses/GeojsonExportRC/Resources/Data/OfficeBuilding/InternalGains_Office.txt"),
+          "modelica://Buildings/Resources/Data/Experimental/DHC/Loads/Examples/BaseClasses/GeojsonExportRC/OfficeBuilding/InternalGains_Office.txt"),
       columns={2,3,4})
       "Table with profiles for persons (radiative and convective) and machines (convective)"
       annotation (Placement(transformation(extent={{6,-60},{22,-44}})));

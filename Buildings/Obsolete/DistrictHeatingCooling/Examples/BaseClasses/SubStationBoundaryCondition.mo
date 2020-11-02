@@ -1,4 +1,4 @@
-within Buildings.Experimental.DistrictHeatingCooling.Examples.BaseClasses;
+within Buildings.Obsolete.DistrictHeatingCooling.Examples.BaseClasses;
 model SubStationBoundaryCondition
   "Model with boundary condition for the base case"
   extends Buildings.BaseClasses.BaseIcon;

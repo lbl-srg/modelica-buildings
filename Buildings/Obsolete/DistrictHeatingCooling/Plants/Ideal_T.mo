@@ -1,4 +1,4 @@
-within Buildings.Experimental.DistrictHeatingCooling.Plants;
+within Buildings.Obsolete.DistrictHeatingCooling.Plants;
 model Ideal_T
   "Ideal heating and cooling plant with leaving temperature as set point"
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(

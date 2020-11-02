@@ -1,4 +1,4 @@
-within Buildings.Applications.DHC;
+within Buildings.Experimental.DHC;
 package ThermalStorages "Package of thermal storages models used for district heating and cooling systems"
   extends Modelica.Icons.VariantsPackage;
 

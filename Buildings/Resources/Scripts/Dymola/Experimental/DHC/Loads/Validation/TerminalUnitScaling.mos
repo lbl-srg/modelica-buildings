@@ -1,4 +1,4 @@
-simulateModel("Buildings.Applications.DHC.Loads.Validation.TerminalUnitScaling",
+simulateModel("Buildings.Experimental.DHC.Loads.Validation.TerminalUnitScaling",
     method="cvode",
     tolerance=1e-6,
     numberOfIntervals=500,

@@ -1,4 +1,4 @@
-within Buildings.Applications.DHC.Loads.BaseClasses;
+within Buildings.Experimental.DHC.Loads.BaseClasses;
 partial model PartialBuilding "Partial class for building model"
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Source side medium (heating or chilled water)"
@@ -135,24 +135,24 @@ annotation (
 Partial model to be used for modeling the thermal loads on an energy
 transfer station or a dedicated plant.
 Models extending this class are typically used in conjunction with
-<a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution\">
-Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution</a>
+<a href=\"modelica://Buildings.Experimental.DHC.Loads.BaseClasses.FlowDistribution\">
+Buildings.Experimental.DHC.Loads.BaseClasses.FlowDistribution</a>
 and models extending
-<a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.PartialTerminalUnit\">
-Buildings.Applications.DHC.Loads.BaseClasses.PartialTerminalUnit</a>
+<a href=\"modelica://Buildings.Experimental.DHC.Loads.BaseClasses.PartialTerminalUnit\">
+Buildings.Experimental.DHC.Loads.BaseClasses.PartialTerminalUnit</a>
 as described in the schematics here under. 
 The fluid ports represent the connection between the production system and
 the building distribution system. 
 </p>
 <p>
 See various use cases in 
-<a href=\"modelica://Buildings.Applications.DHC.Loads.Examples\">
-Buildings.Applications.DHC.Loads.Examples</a>.
+<a href=\"modelica://Buildings.Experimental.DHC.Loads.Examples\">
+Buildings.Experimental.DHC.Loads.Examples</a>.
 <br>
 </p>
 <p>
 <img alt=\"image\"
-src=\"modelica://Buildings/Resources/Images/Applications/DHC/Loads/PartialBuilding.png\"/>
+src=\"modelica://Buildings/Resources/Images/Experimental/DHC/Loads/PartialBuilding.png\"/>
 </p>
 </html>",
 revisions=

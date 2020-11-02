@@ -1,4 +1,4 @@
-within Buildings.Experimental.DistrictHeatingCooling.Validation;
+within Buildings.Obsolete.DistrictHeatingCooling.Validation;
 model IdealSmallSystem "Validation model for a small system"
   extends Modelica.Icons.Example;
     package Medium = Buildings.Media.Water "Fluid in the pipes";
@@ -37,16 +37,16 @@ model IdealSmallSystem "Validation model for a small system"
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-110,-70})));
-  SubStations.Heating hea1(redeclare package Medium = Medium, Q_flow_nominal=200E3)
+  Obsolete.DistrictHeatingCooling.SubStations.Heating hea1(redeclare package Medium = Medium, Q_flow_nominal=200E3)
     "Heating load"
     annotation (Placement(transformation(extent={{2,-10},{22,10}})));
-  SubStations.Heating hea2(redeclare package Medium = Medium, Q_flow_nominal=100E3)
+  Obsolete.DistrictHeatingCooling.SubStations.Heating hea2(redeclare package Medium = Medium, Q_flow_nominal=100E3)
     "Heating load"
     annotation (Placement(transformation(extent={{98,-10},{118,10}})));
-  SubStations.Cooling coo1(redeclare package Medium = Medium, Q_flow_nominal=-150E3)
+  Obsolete.DistrictHeatingCooling.SubStations.Cooling coo1(redeclare package Medium = Medium, Q_flow_nominal=-150E3)
     "Cooling load"
     annotation (Placement(transformation(extent={{180,-10},{200,10}})));
-  SubStations.Cooling coo2(redeclare package Medium = Medium, Q_flow_nominal=-100E3)
+  Obsolete.DistrictHeatingCooling.SubStations.Cooling coo2(redeclare package Medium = Medium, Q_flow_nominal=-100E3)
     "Cooling load"
     annotation (Placement(transformation(extent={{260,-10},{280,10}})));
   Buildings.Fluid.FixedResistances.Pipe pip(
@@ -197,7 +197,7 @@ equation
   connect(TSetC.y, pla.TSetCoo) annotation (Line(points={{-139,90},{-134,90},{
           -134,64},{-122,64}}, color={0,0,127}));
   annotation(experiment(Tolerance=1E-06, StopTime=86400),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DistrictHeatingCooling/Validation/IdealSmallSystem.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Obsolete/DistrictHeatingCooling/Validation/IdealSmallSystem.mos"
         "Simulate and plot"),
     Documentation(
     info="<html>

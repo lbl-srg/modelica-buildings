@@ -1,4 +1,4 @@
-within Buildings.Experimental.DistrictHeatingCooling.Plants.Validation;
+within Buildings.Obsolete.DistrictHeatingCooling.Plants.Validation;
 model Plant_Carnot_T_ClosedLoop
   "Validation model for plant with ideal temperature control and vapor compression engines"
   extends Modelica.Icons.Example;
@@ -27,7 +27,7 @@ model Plant_Carnot_T_ClosedLoop
 
   final parameter Modelica.SIunits.MassFlowRate m_flow_nominal = Q_flow_nominal/4200/dT_nominal
     "Nominal mass flow rate";
-  HeatingCoolingCarnot_T pla(
+  Obsolete.DistrictHeatingCooling.Plants.HeatingCoolingCarnot_T pla(
     redeclare package Medium = Medium,
     show_T=true,
     m_flow_nominal=m_flow_nominal) "Heating and cooling plant"
@@ -114,7 +114,7 @@ equation
   connect(TOut.y[1], pla.TSink) annotation (Line(points={{-71,-10},{-62,-10},{-62,
           -6},{-52,-6}}, color={0,0,127}));
   annotation(experiment(Tolerance=1e-6, StopTime=259200),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DistrictHeatingCooling/Plants/Validation/Plant_Carnot_T_ClosedLoop.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Obsolete/DistrictHeatingCooling/Plants/Validation/Plant_Carnot_T_ClosedLoop.mos"
         "Simulate and plot"),
     Documentation(
     info="<html>

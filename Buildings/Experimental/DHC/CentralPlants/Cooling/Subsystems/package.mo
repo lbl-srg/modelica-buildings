@@ -1,4 +1,4 @@
-within Buildings.Applications.DHC.CentralPlants.Cooling;
+within Buildings.Experimental.DHC.CentralPlants.Cooling;
 package Subsystems "Package of models for subsystems of cooling plants"
   extends Modelica.Icons.VariantsPackage;
 

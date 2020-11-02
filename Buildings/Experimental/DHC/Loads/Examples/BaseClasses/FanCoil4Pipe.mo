@@ -1,4 +1,4 @@
-within Buildings.Applications.DHC.Loads.Examples.BaseClasses;
+within Buildings.Experimental.DHC.Loads.Examples.BaseClasses;
 model FanCoil4Pipe
   "Model of a sensible only four-pipe fan coil unit computing a required water mass flow rate"
   extends PartialFanCoil4Pipe(
@@ -22,8 +22,8 @@ info="<html>
 This is a simplified model of a sensible only four-pipe fan coil unit for heating and cooling. 
 It is intended to be coupled to a room model by means of fluid ports.
 See 
-<a href=\"modelica://Buildings.Applications.DHC.Loads.Examples.BaseClasses.PartialFanCoil4Pipe\">
-Buildings.Applications.DHC.Loads.Examples.BaseClasses.PartialFanCoil4Pipe</a>
+<a href=\"modelica://Buildings.Experimental.DHC.Loads.Examples.BaseClasses.PartialFanCoil4Pipe\">
+Buildings.Experimental.DHC.Loads.Examples.BaseClasses.PartialFanCoil4Pipe</a>
 for a description of the modeling principles.
 </p>
 </html>",

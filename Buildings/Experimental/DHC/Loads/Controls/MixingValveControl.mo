@@ -1,8 +1,8 @@
-within Buildings.Applications.DHC.Loads.Controls;
+within Buildings.Experimental.DHC.Loads.Controls;
 block MixingValveControl "Mixing valve controller"
   extends Modelica.Blocks.Icons.Block;
 
-  import Type_dis = Buildings.Applications.DHC.Loads.Types.DistributionType
+  import Type_dis = Buildings.Experimental.DHC.Loads.Types.DistributionType
     "Types of distribution system";
 
   parameter Type_dis typDis = Type_dis.HeatingWater
@@ -179,8 +179,8 @@ integral part is reset whenever the change-over mode is switched.
 </ul>
 <p>
 See
-<a href=\"modelica://Buildings.Applications.DHC.Controls.Validation.MixingValveControl\">
-Buildings.Applications.DHC.Controls.Validation.MixingValveControl</a>
+<a href=\"modelica://Buildings.Experimental.DHC.Controls.Validation.MixingValveControl\">
+Buildings.Experimental.DHC.Controls.Validation.MixingValveControl</a>
 for a simulation with change-over.
 </p>
 </html>",

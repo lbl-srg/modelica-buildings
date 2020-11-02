@@ -1,4 +1,4 @@
-within Buildings.Applications.DHC.Loads.Examples;
+within Buildings.Experimental.DHC.Loads.Examples;
 model CouplingTimeSeries
   "Example illustrating the coupling of a building model to heating water and chilled water loops"
   extends Modelica.Icons.Example;
@@ -6,10 +6,10 @@ model CouplingTimeSeries
     "Source side medium";
   parameter Modelica.SIunits.Time perAve = 600
     "Period for time averaged variables";
-  Buildings.Applications.DHC.Loads.Examples.BaseClasses.BuildingTimeSeries
+  Buildings.Experimental.DHC.Loads.Examples.BaseClasses.BuildingTimeSeries
     bui(
       filNam=
-      "modelica://Buildings/Applications/DHC/Loads/Examples/Resources/SwissResidential_20190916.mos",
+      "modelica://Buildings/Resources/Data/Experimental/DHC/Loads/Examples/SwissResidential_20190916.mos",
     k=1,
     Ti=10,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -132,13 +132,13 @@ equation
   Documentation(info="<html>
 <p>
 This example illustrates the use of
-<a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.PartialBuilding\">
-Buildings.Applications.DHC.Loads.BaseClasses.PartialBuilding</a>,
-<a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.PartialTerminalUnit\">
-Buildings.Applications.DHC.Loads.BaseClasses.PartialTerminalUnit</a>
+<a href=\"modelica://Buildings.Experimental.DHC.Loads.BaseClasses.PartialBuilding\">
+Buildings.Experimental.DHC.Loads.BaseClasses.PartialBuilding</a>,
+<a href=\"modelica://Buildings.Experimental.DHC.Loads.BaseClasses.PartialTerminalUnit\">
+Buildings.Experimental.DHC.Loads.BaseClasses.PartialTerminalUnit</a>
 and
-<a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution\">
-Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution</a>
+<a href=\"modelica://Buildings.Experimental.DHC.Loads.BaseClasses.FlowDistribution\">
+Buildings.Experimental.DHC.Loads.BaseClasses.FlowDistribution</a>
 in a configuration with
 </p>
 <ul>
@@ -162,6 +162,6 @@ First implementation.
   Diagram(
   coordinateSystem(preserveAspectRatio=false, extent={{-160,-140},{160,140}})),
   __Dymola_Commands(file=
-"modelica://Buildings/Resources/Scripts/Dymola/Applications/DHC/Loads/Examples/CouplingTimeSeries.mos"
+"modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Loads/Examples/CouplingTimeSeries.mos"
 "Simulate and plot"));
 end CouplingTimeSeries;

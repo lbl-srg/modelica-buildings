@@ -1,4 +1,4 @@
-within Buildings.Experimental.DistrictHeatingCooling.SubStations;
+within Buildings.Obsolete.DistrictHeatingCooling.SubStations;
 package VaporCompression "Package with substations that have a vapor compression engine for heating or cooling"
   extends Modelica.Icons.Package;
 

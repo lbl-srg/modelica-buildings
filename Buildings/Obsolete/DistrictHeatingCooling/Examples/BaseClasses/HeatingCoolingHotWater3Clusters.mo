@@ -1,6 +1,6 @@
-within Buildings.Experimental.DistrictHeatingCooling.Examples.BaseClasses;
+within Buildings.Obsolete.DistrictHeatingCooling.Examples.BaseClasses;
 partial model HeatingCoolingHotWater3Clusters
-  "Load models for Buildings.Experimental.DistrictHeatingCooling.Examples.HeatingCoolingHotWater3Clusters"
+  "Load models for Buildings.Obsolete.DistrictHeatingCooling.Examples.HeatingCoolingHotWater3Clusters"
   package Medium = Buildings.Media.Water "Fluid in the pipes";
 
   parameter Modelica.SIunits.Temperature TChiSup_nominal = 273.15 + 16
@@ -14,59 +14,59 @@ partial model HeatingCoolingHotWater3Clusters
     "Return temperature space heating system at TOut_nominal"
     annotation (Dialog(group="Nominal conditions"));
 
-  SubStations.VaporCompression.HeatingCoolingHotwaterTimeSeries_dT larOff1(
+  Obsolete.DistrictHeatingCooling.SubStations.VaporCompression.HeatingCoolingHotwaterTimeSeries_dT larOff1(
     redeclare package Medium = Medium,
     filNam=Modelica.Utilities.Files.loadResource(
-        "modelica://Buildings/Resources/Data/Experimental/DistrictHeatingCooling/SubStations/VaporCompression/RefBldgLargeOfficeNew2004_7.1_5.0_3C_USA_CA_SAN_FRANCISCO.mos"),
+        "modelica://Buildings/Resources/Data/Obsolete/DistrictHeatingCooling/SubStations/VaporCompression/RefBldgLargeOfficeNew2004_7.1_5.0_3C_USA_CA_SAN_FRANCISCO.mos"),
     final TChiSup_nominal=TChiSup_nominal,
     final THeaSup_nominal=THeaSup_nominal,
     final THeaRet_nominal=THeaRet_nominal,
     final TOut_nominal=273.15) "Large office"
     annotation (Placement(transformation(extent={{-300,60},{-260,100}})));
 
-  SubStations.VaporCompression.HeatingCoolingHotwaterTimeSeries_dT ret1(
+  Obsolete.DistrictHeatingCooling.SubStations.VaporCompression.HeatingCoolingHotwaterTimeSeries_dT ret1(
     redeclare package Medium = Medium,
     filNam=Modelica.Utilities.Files.loadResource(
-        "modelica://Buildings/Resources/Data/Experimental/DistrictHeatingCooling/SubStations/VaporCompression/RefBldgStand-aloneRetailNew2004_7.1_5.0_3C_USA_CA_SAN_FRANCISCO.mos"),
+        "modelica://Buildings/Resources/Data/Obsolete/DistrictHeatingCooling/SubStations/VaporCompression/RefBldgStand-aloneRetailNew2004_7.1_5.0_3C_USA_CA_SAN_FRANCISCO.mos"),
     final TChiSup_nominal=TChiSup_nominal,
     final THeaSup_nominal=THeaSup_nominal,
     final THeaRet_nominal=THeaRet_nominal,
     final TOut_nominal=273.15) "Retail"
     annotation (Placement(transformation(extent={{-180,60},{-140,100}})));
 
-  SubStations.VaporCompression.HeatingCoolingHotwaterTimeSeries_dT larOff2(
+  Obsolete.DistrictHeatingCooling.SubStations.VaporCompression.HeatingCoolingHotwaterTimeSeries_dT larOff2(
       redeclare package Medium = Medium,
       filNam=Modelica.Utilities.Files.loadResource(
-        "modelica://Buildings/Resources/Data/Experimental/DistrictHeatingCooling/SubStations/VaporCompression/RefBldgLargeOfficeNew2004_7.1_5.0_3C_USA_CA_SAN_FRANCISCO.mos"),
+        "modelica://Buildings/Resources/Data/Obsolete/DistrictHeatingCooling/SubStations/VaporCompression/RefBldgLargeOfficeNew2004_7.1_5.0_3C_USA_CA_SAN_FRANCISCO.mos"),
     final TChiSup_nominal=TChiSup_nominal,
     final THeaSup_nominal=THeaSup_nominal,
     final THeaRet_nominal=THeaRet_nominal,
     final TOut_nominal=273.15) "Large office"
     annotation (Placement(transformation(extent={{-60,60},{-20,100}})));
-  SubStations.VaporCompression.HeatingCoolingHotwaterTimeSeries_dT apa1(
+  Obsolete.DistrictHeatingCooling.SubStations.VaporCompression.HeatingCoolingHotwaterTimeSeries_dT apa1(
     redeclare package Medium = Medium,
     filNam=Modelica.Utilities.Files.loadResource(
-        "modelica://Buildings/Resources/Data/Experimental/DistrictHeatingCooling/SubStations/VaporCompression/RefBldgMidriseApartmentNew2004_7.1_5.0_3C_USA_CA_SAN_FRANCISCO.mos"),
+        "modelica://Buildings/Resources/Data/Obsolete/DistrictHeatingCooling/SubStations/VaporCompression/RefBldgMidriseApartmentNew2004_7.1_5.0_3C_USA_CA_SAN_FRANCISCO.mos"),
     final TChiSup_nominal=TChiSup_nominal,
     final THeaSup_nominal=THeaSup_nominal,
     final THeaRet_nominal=THeaRet_nominal,
     final TOut_nominal=273.15) "Midrise apartment"
     annotation (Placement(transformation(extent={{220,60},{260,100}})));
 
-  SubStations.VaporCompression.HeatingCoolingHotwaterTimeSeries_dT larOff3(
+  Obsolete.DistrictHeatingCooling.SubStations.VaporCompression.HeatingCoolingHotwaterTimeSeries_dT larOff3(
     redeclare package Medium = Medium,
     filNam=Modelica.Utilities.Files.loadResource(
-      "modelica://Buildings/Resources/Data/Experimental/DistrictHeatingCooling/SubStations/VaporCompression/RefBldgLargeOfficeNew2004_7.1_5.0_3C_USA_CA_SAN_FRANCISCO.mos"),
+      "modelica://Buildings/Resources/Data/Obsolete/DistrictHeatingCooling/SubStations/VaporCompression/RefBldgLargeOfficeNew2004_7.1_5.0_3C_USA_CA_SAN_FRANCISCO.mos"),
     final TChiSup_nominal=TChiSup_nominal,
     final THeaSup_nominal=THeaSup_nominal,
     final THeaRet_nominal=THeaRet_nominal,
     final TOut_nominal=273.15) "Large office"
     annotation (Placement(transformation(extent={{360,60},{400,100}})));
 
-  SubStations.VaporCompression.HeatingCoolingHotwaterTimeSeries_dT larOff4(
+  Obsolete.DistrictHeatingCooling.SubStations.VaporCompression.HeatingCoolingHotwaterTimeSeries_dT larOff4(
     redeclare package Medium = Medium,
     filNam=Modelica.Utilities.Files.loadResource(
-        "modelica://Buildings/Resources/Data/Experimental/DistrictHeatingCooling/SubStations/VaporCompression/RefBldgLargeOfficeNew2004_7.1_5.0_3C_USA_CA_SAN_FRANCISCO.mos"),
+        "modelica://Buildings/Resources/Data/Obsolete/DistrictHeatingCooling/SubStations/VaporCompression/RefBldgLargeOfficeNew2004_7.1_5.0_3C_USA_CA_SAN_FRANCISCO.mos"),
     show_T=true,
     final TChiSup_nominal=TChiSup_nominal,
     final THeaSup_nominal=THeaSup_nominal,
@@ -74,20 +74,20 @@ partial model HeatingCoolingHotWater3Clusters
     final TOut_nominal=273.15) "Large office"
     annotation (Placement(transformation(extent={{500,60},{540,100}})));
 
-  SubStations.VaporCompression.HeatingCoolingHotwaterTimeSeries_dT apa2(
+  Obsolete.DistrictHeatingCooling.SubStations.VaporCompression.HeatingCoolingHotwaterTimeSeries_dT apa2(
     redeclare package Medium = Medium,
     filNam=Modelica.Utilities.Files.loadResource(
-        "modelica://Buildings/Resources/Data/Experimental/DistrictHeatingCooling/SubStations/VaporCompression/RefBldgMidriseApartmentNew2004_7.1_5.0_3C_USA_CA_SAN_FRANCISCO.mos"),
+        "modelica://Buildings/Resources/Data/Obsolete/DistrictHeatingCooling/SubStations/VaporCompression/RefBldgMidriseApartmentNew2004_7.1_5.0_3C_USA_CA_SAN_FRANCISCO.mos"),
     final TChiSup_nominal=TChiSup_nominal,
     final THeaSup_nominal=THeaSup_nominal,
     final THeaRet_nominal=THeaRet_nominal,
     final TOut_nominal=273.15) "Midrise apartment"
     annotation (Placement(transformation(extent={{220,-160},{260,-120}})));
 
-  SubStations.VaporCompression.HeatingCoolingHotwaterTimeSeries_dT ret2(
+  Obsolete.DistrictHeatingCooling.SubStations.VaporCompression.HeatingCoolingHotwaterTimeSeries_dT ret2(
     redeclare package Medium = Medium,
     filNam=Modelica.Utilities.Files.loadResource(
-        "modelica://Buildings/Resources/Data/Experimental/DistrictHeatingCooling/SubStations/VaporCompression/RefBldgStand-aloneRetailNew2004_7.1_5.0_3C_USA_CA_SAN_FRANCISCO.mos"),
+        "modelica://Buildings/Resources/Data/Obsolete/DistrictHeatingCooling/SubStations/VaporCompression/RefBldgStand-aloneRetailNew2004_7.1_5.0_3C_USA_CA_SAN_FRANCISCO.mos"),
     final TChiSup_nominal=TChiSup_nominal,
     final THeaSup_nominal=THeaSup_nominal,
     final THeaRet_nominal=THeaRet_nominal,

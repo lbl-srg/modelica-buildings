@@ -1,4 +1,4 @@
-within Buildings.Applications.DHC.EnergyTransferStations;
+within Buildings.Experimental.DHC.EnergyTransferStations;
 package Heating "Package of models for DH energy transfer stations"
   extends Modelica.Icons.VariantsPackage;
 

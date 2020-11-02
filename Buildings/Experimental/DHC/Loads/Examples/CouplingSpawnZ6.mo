@@ -1,4 +1,4 @@
-within Buildings.Applications.DHC.Loads.Examples;
+within Buildings.Experimental.DHC.Loads.Examples;
 model CouplingSpawnZ6
   "Example illustrating the coupling of a building model to heating water and chilled water loops"
   extends Modelica.Icons.Example;
@@ -66,13 +66,13 @@ equation
   Documentation(info="<html>
 <p>
 This example illustrates the use of
-<a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.PartialBuilding\">
-Buildings.Applications.DHC.Loads.BaseClasses.PartialBuilding</a>,
-<a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.PartialTerminalUnit\">
-Buildings.Applications.DHC.Loads.BaseClasses.PartialTerminalUnit</a>
+<a href=\"modelica://Buildings.Experimental.DHC.Loads.BaseClasses.PartialBuilding\">
+Buildings.Experimental.DHC.Loads.BaseClasses.PartialBuilding</a>,
+<a href=\"modelica://Buildings.Experimental.DHC.Loads.BaseClasses.PartialTerminalUnit\">
+Buildings.Experimental.DHC.Loads.BaseClasses.PartialTerminalUnit</a>
 and
-<a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution\">
-Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution</a>
+<a href=\"modelica://Buildings.Experimental.DHC.Loads.BaseClasses.FlowDistribution\">
+Buildings.Experimental.DHC.Loads.BaseClasses.FlowDistribution</a>
 in a configuration with
 </p>
 <ul>
@@ -107,6 +107,6 @@ First implementation.
           lineColor={28,108,200},
           textString="")}),
     __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Applications/DHC/Loads/Examples/CouplingSpawnZ6.mos"
+          "Resources/Scripts/Dymola/Experimental/DHC/Loads/Examples/CouplingSpawnZ6.mos"
         "Simulate and plot"));
 end CouplingSpawnZ6;

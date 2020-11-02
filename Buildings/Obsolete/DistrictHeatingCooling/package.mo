@@ -1,4 +1,4 @@
-within Buildings.Experimental;
+within Buildings.Obsolete;
 package DistrictHeatingCooling "Models for district heating and cooling"
   extends Modelica.Icons.VariantsPackage;
 annotation (preferredView="info", Documentation(info="<html>

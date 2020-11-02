@@ -1,4 +1,4 @@
-within Buildings.Experimental.DistrictHeatingCooling.Examples;
+within Buildings.Obsolete.DistrictHeatingCooling.Examples;
 model IdealSystem3Clusters
   "Validation model for a small system with three clusters of buildings"
   extends Modelica.Icons.Example;
@@ -35,16 +35,16 @@ model IdealSystem3Clusters
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-280,-70})));
-  SubStations.Heating hea1(redeclare package Medium = Medium, Q_flow_nominal=200E3)
+  Obsolete.DistrictHeatingCooling.SubStations.Heating hea1(redeclare package Medium = Medium, Q_flow_nominal=200E3)
     "Heating load"
     annotation (Placement(transformation(extent={{-160,-10},{-140,10}})));
-  SubStations.Heating hea2(redeclare package Medium = Medium, Q_flow_nominal=
+  Obsolete.DistrictHeatingCooling.SubStations.Heating hea2(redeclare package Medium = Medium, Q_flow_nominal=
         200E3) "Heating load"
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
-  SubStations.Cooling coo1(redeclare package Medium = Medium, Q_flow_nominal=-250E3)
+  Obsolete.DistrictHeatingCooling.SubStations.Cooling coo1(redeclare package Medium = Medium, Q_flow_nominal=-250E3)
     "Cooling load"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
-  SubStations.Cooling coo2(redeclare package Medium = Medium, Q_flow_nominal=-100E3)
+  Obsolete.DistrictHeatingCooling.SubStations.Cooling coo2(redeclare package Medium = Medium, Q_flow_nominal=-100E3)
     "Cooling load"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   Buildings.Fluid.FixedResistances.Pipe pip(
@@ -81,16 +81,16 @@ model IdealSystem3Clusters
         -50E3; 18,-150E3; 18,-150E3; 24,-150E3], timeScale=3600, extrapolation=
         Modelica.Blocks.Types.Extrapolation.Periodic) "Cooling demand"
     annotation (Placement(transformation(extent={{-20,80},{0,100}})));
-  SubStations.Heating hea3(redeclare package Medium = Medium, Q_flow_nominal=200E3)
+  Obsolete.DistrictHeatingCooling.SubStations.Heating hea3(redeclare package Medium = Medium, Q_flow_nominal=200E3)
     "Heating load"
     annotation (Placement(transformation(extent={{160,-10},{180,10}})));
-  SubStations.Heating hea4(redeclare package Medium = Medium, Q_flow_nominal=100E3)
+  Obsolete.DistrictHeatingCooling.SubStations.Heating hea4(redeclare package Medium = Medium, Q_flow_nominal=100E3)
     "Heating load"
     annotation (Placement(transformation(extent={{220,-10},{240,10}})));
-  SubStations.Cooling coo3(redeclare package Medium = Medium, Q_flow_nominal=-200E3)
+  Obsolete.DistrictHeatingCooling.SubStations.Cooling coo3(redeclare package Medium = Medium, Q_flow_nominal=-200E3)
     "Cooling load"
     annotation (Placement(transformation(extent={{280,-10},{300,10}})));
-  SubStations.Cooling coo4(redeclare package Medium = Medium, Q_flow_nominal=-100E3)
+  Obsolete.DistrictHeatingCooling.SubStations.Cooling coo4(redeclare package Medium = Medium, Q_flow_nominal=-100E3)
     "Cooling load"
     annotation (Placement(transformation(extent={{340,-10},{360,10}})));
   Buildings.Fluid.FixedResistances.Pipe pip2(
@@ -127,20 +127,20 @@ model IdealSystem3Clusters
         -50E3; 18,-50E3; 18,-150E3; 24,-150E3], timeScale=3600, extrapolation=
         Modelica.Blocks.Types.Extrapolation.Periodic) "Cooling demand"
     annotation (Placement(transformation(extent={{300,80},{320,100}})));
-  SubStations.Heating hea5(redeclare package Medium = Medium, Q_flow_nominal=100E3)
+  Obsolete.DistrictHeatingCooling.SubStations.Heating hea5(redeclare package Medium = Medium, Q_flow_nominal=100E3)
     "Heating load"
     annotation (Placement(transformation(extent={{400,-10},{420,10}})));
   Modelica.Blocks.Sources.CombiTimeTable QHea5(table=[0,100E3; 6,100E3; 6,
         50E3; 18,50E3; 18,0E3; 24,0E3], timeScale=3600, extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic)
     "Heating demand"
     annotation (Placement(transformation(extent={{360,80},{380,100}})));
-  SubStations.Heating hea6(redeclare package Medium = Medium, Q_flow_nominal=200E3)
+  Obsolete.DistrictHeatingCooling.SubStations.Heating hea6(redeclare package Medium = Medium, Q_flow_nominal=200E3)
     "Heating load"
     annotation (Placement(transformation(extent={{160,-210},{180,-190}})));
-  SubStations.Heating hea7(redeclare package Medium = Medium, Q_flow_nominal=
+  Obsolete.DistrictHeatingCooling.SubStations.Heating hea7(redeclare package Medium = Medium, Q_flow_nominal=
         300E3) "Heating load"
     annotation (Placement(transformation(extent={{220,-210},{240,-190}})));
-  SubStations.Cooling coo5(redeclare package Medium = Medium, Q_flow_nominal=-150E3)
+  Obsolete.DistrictHeatingCooling.SubStations.Cooling coo5(redeclare package Medium = Medium, Q_flow_nominal=-150E3)
     "Cooling load"
     annotation (Placement(transformation(extent={{280,-210},{300,-190}})));
   Buildings.Fluid.FixedResistances.Pipe pip4(
@@ -301,7 +301,7 @@ equation
   connect(TSetC.y, pla.TSetCoo) annotation (Line(points={{-299,80},{-290,80},{-290,
           64},{-262,64}}, color={0,0,127}));
   annotation(experiment(Tolerance=1E-06, StopTime=86400),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DistrictHeatingCooling/Examples/IdealSystem3Clusters.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Obsolete/DistrictHeatingCooling/Examples/IdealSystem3Clusters.mos"
         "Simulate and plot"),
     Documentation(
     info="<html>

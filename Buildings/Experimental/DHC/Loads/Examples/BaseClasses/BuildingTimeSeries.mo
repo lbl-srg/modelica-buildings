@@ -1,7 +1,7 @@
-within Buildings.Applications.DHC.Loads.Examples.BaseClasses;
+within Buildings.Experimental.DHC.Loads.Examples.BaseClasses;
 model BuildingTimeSeries
   "Building model with heating and cooling loads provided as time series"
-  extends Buildings.Applications.DHC.Loads.BaseClasses.PartialBuilding(
+  extends Buildings.Experimental.DHC.Loads.BaseClasses.PartialBuilding(
     redeclare package Medium = Buildings.Media.Water,
     final have_fan=false,
     final have_pum=true,
@@ -43,13 +43,13 @@ model BuildingTimeSeries
     "Load side mass flow rate at nominal conditions in cooling mode"
     annotation(Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.HeatFlowRate QCoo_flow_nominal(max=-Modelica.Constants.eps)=
-    Buildings.Experimental.DistrictHeatingCooling.SubStations.VaporCompression.BaseClasses.getPeakLoad(
+    Buildings.Experimental.DHC.Loads.BaseClasses.getPeakLoad(
     string="#Peak space cooling load",
     filNam=Modelica.Utilities.Files.loadResource(filNam))
     "Design cooling heat flow rate (<=0)"
     annotation (Dialog(group="Design parameter"));
   parameter Modelica.SIunits.HeatFlowRate QHea_flow_nominal(min=Modelica.Constants.eps)=
-    Buildings.Experimental.DistrictHeatingCooling.SubStations.VaporCompression.BaseClasses.getPeakLoad(
+    Buildings.Experimental.DHC.Loads.BaseClasses.getPeakLoad(
     string="#Peak space heating load",
     filNam=Modelica.Utilities.Files.loadResource(filNam))
     "Design heating heat flow rate (>=0)"
@@ -108,7 +108,7 @@ model BuildingTimeSeries
     final riseTime=riseTime) if have_watHea
     "Heating terminal unit"
     annotation (Placement(transformation(extent={{70,-34},{90,-14}})));
-  Buildings.Applications.DHC.Loads.FlowDistribution disFloHea(
+  Buildings.Experimental.DHC.Loads.FlowDistribution disFloHea(
     redeclare package Medium = Medium,
     m_flow_nominal=mHeaWat_flow_nominal*facScaHea,
     have_pum=true,
@@ -117,10 +117,10 @@ model BuildingTimeSeries
     nPorts_b1=1) if have_watHea
     "Heating water distribution system"
     annotation (Placement(transformation(extent={{120,-80},{140,-60}})));
-  Buildings.Applications.DHC.Loads.FlowDistribution disFloCoo(
+  Buildings.Experimental.DHC.Loads.FlowDistribution disFloCoo(
     redeclare package Medium = Medium,
     final m_flow_nominal=mChiWat_flow_nominal*facScaCoo,
-    typDis=Buildings.Applications.DHC.Loads.Types.DistributionType.ChilledWater,
+    typDis=Buildings.Experimental.DHC.Loads.Types.DistributionType.ChilledWater,
     have_pum=true,
     dp_nominal=100000,
     nPorts_b1=1,

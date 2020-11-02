@@ -1,4 +1,4 @@
-within Buildings.Applications.DHC.EnergyTransferStations;
+within Buildings.Experimental.DHC.EnergyTransferStations;
 package Cooling "Package of models for DC energy transfer stations"
   extends Modelica.Icons.VariantsPackage;
 

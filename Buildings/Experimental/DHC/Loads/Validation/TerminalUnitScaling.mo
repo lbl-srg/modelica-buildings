@@ -1,4 +1,4 @@
-within Buildings.Applications.DHC.Loads.Validation;
+within Buildings.Experimental.DHC.Loads.Validation;
 model TerminalUnitScaling
   "Validation of the scaling factor of the terminal unit model"
   extends Modelica.Icons.Example;
@@ -126,8 +126,8 @@ equation
 "<html>
 <p>
 This example validates the scaling factor in terminal unit models inheriting from
-<a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.PartialTerminalUnit\">
-Buildings.Applications.DHC.Loads.BaseClasses.PartialTerminalUnit</a>.
+<a href=\"modelica://Buildings.Experimental.DHC.Loads.BaseClasses.PartialTerminalUnit\">
+Buildings.Experimental.DHC.Loads.BaseClasses.PartialTerminalUnit</a>.
 </p>
 </html>",
 revisions=
@@ -142,6 +142,6 @@ First implementation.
   Diagram(
   coordinateSystem(preserveAspectRatio=false, extent={{-120,-120},{120,120}})),
   __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Applications/DHC/Loads/Validation/TerminalUnitScaling.mos"
+          "Resources/Scripts/Dymola/Experimental/DHC/Loads/Validation/TerminalUnitScaling.mos"
         "Simulate and plot"));
 end TerminalUnitScaling;

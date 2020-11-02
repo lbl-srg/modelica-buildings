@@ -1,4 +1,4 @@
-within Buildings.Applications.DHC;
+within Buildings.Experimental.DHC;
 package Controls "Package of control sequences for DHC systems"
   extends Modelica.Icons.VariantsPackage;
 

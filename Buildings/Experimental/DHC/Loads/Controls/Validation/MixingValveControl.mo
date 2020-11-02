@@ -1,4 +1,4 @@
-within Buildings.Applications.DHC.Loads.Controls.Validation;
+within Buildings.Experimental.DHC.Loads.Controls.Validation;
 model MixingValveControl
   "Validation of mixing valve control in change-over mode"
   extends Modelica.Icons.Example;
@@ -6,10 +6,10 @@ model MixingValveControl
     "Source side medium";
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal = 1
     "Mass flow rate at nominal conditions";
-  Buildings.Applications.DHC.Loads.FlowDistribution disFlo(
+  Buildings.Experimental.DHC.Loads.FlowDistribution disFlo(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    typDis=Buildings.Applications.DHC.Loads.Types.DistributionType.ChangeOver,
+    typDis=Buildings.Experimental.DHC.Loads.Types.DistributionType.ChangeOver,
     have_pum=true,
     have_val=true,
     dp_nominal=100000,
@@ -172,11 +172,11 @@ Documentation(
 info="<html>
 <p>
 This model validates
-<a href=\"modelica://Buildings.Applications.DHC.Controls.MixingValveControl\">
-Buildings.Applications.DHC.Controls.MixingValveControl</a>
+<a href=\"modelica://Buildings.Experimental.DHC.Controls.MixingValveControl\">
+Buildings.Experimental.DHC.Controls.MixingValveControl</a>
 (as part of
-<a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution\">
-Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution</a>)
+<a href=\"modelica://Buildings.Experimental.DHC.Loads.BaseClasses.FlowDistribution\">
+Buildings.Experimental.DHC.Loads.BaseClasses.FlowDistribution</a>)
 in change-over mode.
 </p>
 </html>",
@@ -194,6 +194,6 @@ First implementation.
   experiment(
       StopTime=1000,
       Tolerance=1e-06),
-  __Dymola_Commands(file="Resources/Scripts/Dymola/Applications/DHC/Loads/Controls/Validation/MixingValveControl.mos"
+  __Dymola_Commands(file="Resources/Scripts/Dymola/Experimental/DHC/Loads/Controls/Validation/MixingValveControl.mos"
     "Simulate and plot"));
 end MixingValveControl;

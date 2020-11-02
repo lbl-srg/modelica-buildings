@@ -1,11 +1,11 @@
-within Buildings.Applications.DHC.Loads;
+within Buildings.Experimental.DHC.Loads;
 model FlowDistribution "Model of a building hydraulic distribution system"
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
     redeclare replaceable package Medium = Buildings.Media.Water,
     final allowFlowReversal=false);
-  import Type_dis = Buildings.Applications.DHC.Loads.Types.DistributionType
+  import Type_dis = Buildings.Experimental.DHC.Loads.Types.DistributionType
     "Types of distribution system";
-  import Type_ctr = Buildings.Applications.DHC.Loads.Types.PumpControlType
+  import Type_ctr = Buildings.Experimental.DHC.Loads.Types.PumpControlType
     "Types of distribution pump control";
   replaceable parameter Buildings.Fluid.Movers.Data.Generic per(
     pressure(
@@ -448,13 +448,13 @@ annotation (
 This model represents a two-pipe hydraulic distribution system serving multiple
 terminal units.
 It is primarily intended to be used in conjunction with models that extend
-<a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.PartialTerminalUnit\">
-Buildings.Applications.DHC.Loads.BaseClasses.PartialTerminalUnit</a>.
+<a href=\"modelica://Buildings.Experimental.DHC.Loads.BaseClasses.PartialTerminalUnit\">
+Buildings.Experimental.DHC.Loads.BaseClasses.PartialTerminalUnit</a>.
 The typical model structure for a whole building connected to an energy
 transfer station (or a dedicated plant) is illustrated in the schematics in
 the info section of
-<a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.PartialBuilding\">
-Buildings.Applications.DHC.Loads.BaseClasses.PartialBuilding</a>.
+<a href=\"modelica://Buildings.Experimental.DHC.Loads.BaseClasses.PartialBuilding\">
+Buildings.Experimental.DHC.Loads.BaseClasses.PartialBuilding</a>.
 </p>
 <p>
 The pipe network modeling is decoupled between a main distribution
@@ -514,8 +514,8 @@ The impact on the computational performance is illustrated
 <h4>Pump head computation</h4>
 <p>
 The pump head is computed as follows (see also
-<a href=\"modelica://Buildings.Applications.DHC.Loads.Validation.FlowDistributionPumpControl\">
-Buildings.Applications.DHC.Loads.Validation.FlowDistributionPumpControl</a>
+<a href=\"modelica://Buildings.Experimental.DHC.Loads.Validation.FlowDistributionPumpControl\">
+Buildings.Experimental.DHC.Loads.Validation.FlowDistributionPumpControl</a>
 for a comparison with an explicit modeling of the piping network).
 </p>
 <ul>
@@ -595,7 +595,7 @@ sensor must be set to zero.
 </ul>
 <p>
 <img alt=\"image\"
-src=\"modelica://Buildings/Resources/Images/Applications/DHC/Loads/FlowDistribution1.png\"/>
+src=\"modelica://Buildings/Resources/Images/Experimental/DHC/Loads/FlowDistribution1.png\"/>
 </p>
 <h4>Energy and mass dynamics</h4>
 <p>
@@ -628,12 +628,12 @@ turn out to be detrimental to computational performance.
 <p>
 The figure below compares the computational performance of this model
 (labelled <code>simple</code>, see model
-<a href=\"modelica://Buildings.Applications.DHC.Loads.Validation.BenchmarkFlowDistribution1\">
-Buildings.Applications.DHC.Loads.Validation.BenchmarkFlowDistribution1</a>)
+<a href=\"modelica://Buildings.Experimental.DHC.Loads.Validation.BenchmarkFlowDistribution1\">
+Buildings.Experimental.DHC.Loads.Validation.BenchmarkFlowDistribution1</a>)
 with an explicit modeling of the distribution network and
 the terminal unit actuators (labelled <code>detailed</code>, see model
-<a href=\"modelica://Buildings.Applications.DHC.Loads.Validation.BenchmarkFlowDistribution2\">
-Buildings.Applications.DHC.Loads.Validation.BenchmarkFlowDistribution2</a>).
+<a href=\"modelica://Buildings.Experimental.DHC.Loads.Validation.BenchmarkFlowDistribution2\">
+Buildings.Experimental.DHC.Loads.Validation.BenchmarkFlowDistribution2</a>).
 The models are simulated with the solver CVODE from Sundials.
 The impact of a varying number of connected loads, <code>nLoa</code>, is
 assessed on
@@ -655,7 +655,7 @@ also plotted for the model labelled <code>simple</code>, resp. <code>detailed</c
 </p>
 <p>
 <img alt=\"image\"
-src=\"modelica://Buildings/Resources/Images/Applications/DHC/Loads/FlowDistribution2.png\"/>
+src=\"modelica://Buildings/Resources/Images/Experimental/DHC/Loads/FlowDistribution2.png\"/>
 </p>
 </html>",
 revisions=

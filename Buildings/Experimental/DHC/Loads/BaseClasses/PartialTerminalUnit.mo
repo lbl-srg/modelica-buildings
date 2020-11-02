@@ -1,4 +1,4 @@
-within Buildings.Applications.DHC.Loads.BaseClasses;
+within Buildings.Experimental.DHC.Loads.BaseClasses;
 partial model PartialTerminalUnit "Partial model for HVAC terminal unit"
   replaceable package Medium1 = Modelica.Media.Interfaces.PartialMedium
     "Source side medium (heating or chilled water)"
@@ -448,14 +448,14 @@ Partial model to be used for modeling an HVAC terminal unit.
 </p>
 <p>
 The models inheriting from this class are typically used in conjunction with
-<a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution\">
-Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution</a>. They must
+<a href=\"modelica://Buildings.Experimental.DHC.Loads.BaseClasses.FlowDistribution\">
+Buildings.Experimental.DHC.Loads.BaseClasses.FlowDistribution</a>. They must
 compute a so-called required mass flow rate defined as the heating or chilled
 water mass flow rate needed to meet the load.
 It can be approximated using a control loop to avoid inverting a heat
 exchanger model as illustrated in
-<a href=\"modelica://Buildings.Applications.DHC.Loads.Examples\">
-Buildings.Applications.DHC.Loads.Examples</a>.
+<a href=\"modelica://Buildings.Experimental.DHC.Loads.Examples\">
+Buildings.Experimental.DHC.Loads.Examples</a>.
 </p>
 <p>
 The model connectivity can be modified to address various use cases:
@@ -463,8 +463,8 @@ The model connectivity can be modified to address various use cases:
 <ul>
 <li>
 On the source side (typically connected to
-<a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution\">
-Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution</a>):
+<a href=\"modelica://Buildings.Experimental.DHC.Loads.BaseClasses.FlowDistribution\">
+Buildings.Experimental.DHC.Loads.BaseClasses.FlowDistribution</a>):
 <ul>
 <li>
 Fluid ports for chilled water and heating water can be conditionally
@@ -487,12 +487,12 @@ can be conditionally instantiated by setting <code>have_heaPor</code> to true.
 Real input connectors can be conditionally instantiated by setting
 <code>have_QReq_flow</code> to true. Those connectors can be used to provide
 heating and cooling loads as time series, see 
-<a href=\"modelica://Buildings.Applications.DHC.Loads.Examples.CouplingTimeSeries\">
-Buildings.Applications.DHC.Loads.Examples.CouplingTimeSeries</a>
+<a href=\"modelica://Buildings.Experimental.DHC.Loads.Examples.CouplingTimeSeries\">
+Buildings.Experimental.DHC.Loads.Examples.CouplingTimeSeries</a>
 for an illustration of that use case.
 The impact on the room air temperature of an unmet load can be assessed with
-<a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.SimpleRoom\">
-Buildings.Applications.DHC.Loads.BaseClasses.SimpleRoom</a>.
+<a href=\"modelica://Buildings.Experimental.DHC.Loads.BaseClasses.SimpleRoom\">
+Buildings.Experimental.DHC.Loads.BaseClasses.SimpleRoom</a>.
 </li>
 </ul>
 </ul>
@@ -504,22 +504,22 @@ an infinite capacity.
 <h4>Connection with the flow distribution model</h4>
 <p>
 When connecting the model to
-<a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution\">
-Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution</a>:
+<a href=\"modelica://Buildings.Experimental.DHC.Loads.BaseClasses.FlowDistribution\">
+Buildings.Experimental.DHC.Loads.BaseClasses.FlowDistribution</a>:
 </p>
 <ul>
 <li>
 The nominal pressure drop on the source side (heating or chilled water) is 
 irrelevant as the computation of the pump head relies on a specific algorithm
 described in
-<a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution\">
-Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution</a>.
+<a href=\"modelica://Buildings.Experimental.DHC.Loads.BaseClasses.FlowDistribution\">
+Buildings.Experimental.DHC.Loads.BaseClasses.FlowDistribution</a>.
 </li>
 <li>
 The parameter <code>allowFlowReversal</code> must be set to <code>false</code> (default) 
 in consistency with
-<a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution\">
-Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution</a>.
+<a href=\"modelica://Buildings.Experimental.DHC.Loads.BaseClasses.FlowDistribution\">
+Buildings.Experimental.DHC.Loads.BaseClasses.FlowDistribution</a>.
 This requirement only applies to the source side.
 On the load side one is free to use whatever option suitable for the modeling needs.
 Note that typically for an air flow network connected to the outdoor 
@@ -555,8 +555,8 @@ The scaling factor type is real (not integer) to allow idealized modeling of
 a set of terminal units based on manufacturer data, while still being able to
 size the full set based on a peak load.
 See
-<a href=\"modelica://Buildings.Applications.DHC.Loads.Validation.TerminalUnitScaling\">
-Buildings.Applications.DHC.Loads.Validation.TerminalUnitScaling</a>
+<a href=\"modelica://Buildings.Experimental.DHC.Loads.Validation.TerminalUnitScaling\">
+Buildings.Experimental.DHC.Loads.Validation.TerminalUnitScaling</a>
 for an illustration of the use case when heating and cooling loads are
 provided by means of time series.
 </p>

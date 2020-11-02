@@ -1,7 +1,7 @@
-within Buildings.Applications.DHC.Loads.Examples.BaseClasses;
+within Buildings.Experimental.DHC.Loads.Examples.BaseClasses;
 model BuildingRCZ1Valve
   "One-zone RC building model with distribution pumps and mixing valves"
-  extends Buildings.Applications.DHC.Loads.BaseClasses.PartialBuilding(
+  extends Buildings.Experimental.DHC.Loads.BaseClasses.PartialBuilding(
     redeclare package Medium = Buildings.Media.Water,
     final have_eleHea=false,
     final have_eleCoo=false,
@@ -125,7 +125,7 @@ model BuildingRCZ1Valve
     annotation (Placement(transformation(extent={{-280,210},{-260,230}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum(nin=2)
     annotation (Placement(transformation(extent={{260,70},{280,90}})));
-  Buildings.Applications.DHC.Loads.Examples.BaseClasses.FanCoil4Pipe terUni(
+  Buildings.Experimental.DHC.Loads.Examples.BaseClasses.FanCoil4Pipe terUni(
     redeclare package Medium1 = Medium,
     redeclare package Medium2 = Medium2,
     QHea_flow_nominal=1000,
@@ -139,7 +139,7 @@ model BuildingRCZ1Valve
     mLoaHea_flow_nominal=1,
     mLoaCoo_flow_nominal=1) "Terminal unit"
     annotation (Placement(transformation(extent={{-160,-58},{-140,-38}})));
-  Buildings.Applications.DHC.Loads.FlowDistribution disFloHea(
+  Buildings.Experimental.DHC.Loads.FlowDistribution disFloHea(
     redeclare package Medium = Medium,
     m_flow_nominal=terUni.mHeaWat_flow_nominal,
     have_pum=true,
@@ -148,10 +148,10 @@ model BuildingRCZ1Valve
     nPorts_a1=1,
     nPorts_b1=1) "Heating water distribution system"
     annotation (Placement(transformation(extent={{-100,-120},{-80,-100}})));
-  Buildings.Applications.DHC.Loads.FlowDistribution disFloCoo(
+  Buildings.Experimental.DHC.Loads.FlowDistribution disFloCoo(
     redeclare package Medium = Medium,
     m_flow_nominal=terUni.mChiWat_flow_nominal,
-    typDis=Buildings.Applications.DHC.Loads.Types.DistributionType.ChilledWater,
+    typDis=Buildings.Experimental.DHC.Loads.Types.DistributionType.ChilledWater,
 
     have_pum=true,
     have_val=true,
@@ -349,15 +349,15 @@ This is a simplified one-zone building model based on a one-element
 reduced order room model.
 The corresponding heating and cooling loads are computed with a four-pipe
 fan coil unit model derived from
-<a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.PartialTerminalUnit\">
-Buildings.Applications.DHC.Loads.BaseClasses.PartialTerminalUnit</a>
+<a href=\"modelica://Buildings.Experimental.DHC.Loads.BaseClasses.PartialTerminalUnit\">
+Buildings.Experimental.DHC.Loads.BaseClasses.PartialTerminalUnit</a>
 and connected to the room model by means of fluid ports.
 </p>
 <p>
 The heating and chilled water distribution to the terminal units is modeled
 with an instance of
-<a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution\">
-Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution</a>
+<a href=\"modelica://Buildings.Experimental.DHC.Loads.BaseClasses.FlowDistribution\">
+Buildings.Experimental.DHC.Loads.BaseClasses.FlowDistribution</a>
 including a mixing valve to control the supply temperature.
 </p>
 </html>",

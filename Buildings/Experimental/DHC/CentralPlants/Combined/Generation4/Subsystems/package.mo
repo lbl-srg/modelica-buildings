@@ -1,4 +1,4 @@
-within Buildings.Applications.DHC.CentralPlants.Combined.Generation4;
+within Buildings.Experimental.DHC.CentralPlants.Combined.Generation4;
 package Subsystems "Package of models for subsystems of fourth generation DHC central plants"
   extends Modelica.Icons.VariantsPackage;
 

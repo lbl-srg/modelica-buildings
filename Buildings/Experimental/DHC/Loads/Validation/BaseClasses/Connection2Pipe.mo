@@ -1,4 +1,4 @@
-within Buildings.Applications.DHC.Loads.Validation.BaseClasses;
+within Buildings.Experimental.DHC.Loads.Validation.BaseClasses;
 model Connection2Pipe
   "Model for connecting an agent to a two-pipe distribution network, using fixed resistance pipe model"
   extends Networks.BaseClasses.PartialConnection2Pipe(

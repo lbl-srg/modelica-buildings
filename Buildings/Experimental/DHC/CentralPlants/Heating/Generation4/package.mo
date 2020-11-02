@@ -1,4 +1,4 @@
-within Buildings.Applications.DHC.CentralPlants.Heating;
+within Buildings.Experimental.DHC.CentralPlants.Heating;
 package Generation4 "Package of models for fourth generation DH plants"
   extends Modelica.Icons.VariantsPackage;
 

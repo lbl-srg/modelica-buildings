@@ -1,6 +1,6 @@
-within Buildings.Applications.DHC.Loads.Examples.BaseClasses;
+within Buildings.Experimental.DHC.Loads.Examples.BaseClasses;
 model BuildingSpawnZ1 "One-zone EnergyPlus building model"
-  extends Buildings.Applications.DHC.Loads.BaseClasses.PartialBuilding(
+  extends Buildings.Experimental.DHC.Loads.BaseClasses.PartialBuilding(
     redeclare package Medium = Buildings.Media.Water,
     final have_pum=false,
     final have_eleHea=false,
@@ -44,7 +44,7 @@ model BuildingSpawnZ1 "One-zone EnergyPlus building model"
       y(final unit="K", displayUnit="degC"))
     "Maximum temperature set point"
     annotation (Placement(transformation(extent={{-280,210},{-260,230}})));
-  Buildings.Applications.DHC.Loads.Examples.BaseClasses.FanCoil4Pipe terUni(
+  Buildings.Experimental.DHC.Loads.Examples.BaseClasses.FanCoil4Pipe terUni(
     redeclare package Medium1 = Medium,
     redeclare package Medium2 = Medium2,
     QHea_flow_nominal=2000,
@@ -58,17 +58,17 @@ model BuildingSpawnZ1 "One-zone EnergyPlus building model"
     mLoaHea_flow_nominal=1,
     mLoaCoo_flow_nominal=1) "Terminal unit"
     annotation (Placement(transformation(extent={{-160,-60},{-140,-40}})));
-  Buildings.Applications.DHC.Loads.FlowDistribution disFloHea(
+  Buildings.Experimental.DHC.Loads.FlowDistribution disFloHea(
     redeclare package Medium = Medium,
     m_flow_nominal=terUni.mHeaWat_flow_nominal,
     dp_nominal=100000,
     nPorts_a1=nZon,
     nPorts_b1=nZon) "Heating water distribution system"
     annotation (Placement(transformation(extent={{-120,-120},{-100,-100}})));
-  Buildings.Applications.DHC.Loads.FlowDistribution disFloCoo(
+  Buildings.Experimental.DHC.Loads.FlowDistribution disFloCoo(
     redeclare package Medium = Medium,
     m_flow_nominal=terUni.mChiWat_flow_nominal,
-    typDis=Buildings.Applications.DHC.Loads.Types.DistributionType.ChilledWater,
+    typDis=Buildings.Experimental.DHC.Loads.Types.DistributionType.ChilledWater,
 
     dp_nominal=100000,
     nPorts_a1=nZon,
@@ -138,8 +138,8 @@ This is a simplified one-zone building model based on EnergyPlus
 building envelope model.
 The heating and cooling loads are computed with a four-pipe
 fan coil unit model derived from
-<a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.PartialTerminalUnit\">
-Buildings.Applications.DHC.Loads.BaseClasses.PartialTerminalUnit</a>
+<a href=\"modelica://Buildings.Experimental.DHC.Loads.BaseClasses.PartialTerminalUnit\">
+Buildings.Experimental.DHC.Loads.BaseClasses.PartialTerminalUnit</a>
 and connected to the room model by means of fluid ports.
 </p>
 </html>",

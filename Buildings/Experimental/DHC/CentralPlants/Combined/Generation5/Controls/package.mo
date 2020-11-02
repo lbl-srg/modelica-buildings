@@ -1,4 +1,4 @@
-within Buildings.Applications.DHC.CentralPlants.Combined.Generation5;
+within Buildings.Experimental.DHC.CentralPlants.Combined.Generation5;
 package Controls "Package of control sequences for fifth generation DHC central plants"
   extends Modelica.Icons.VariantsPackage;
 

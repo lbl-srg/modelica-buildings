@@ -1,4 +1,4 @@
-within Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation1;
+within Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation1;
 package Subsystems "Package of models for subsystems of first generation DHC ETS"
   extends Modelica.Icons.VariantsPackage;
 

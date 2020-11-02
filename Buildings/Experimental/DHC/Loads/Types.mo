@@ -1,4 +1,4 @@
-within Buildings.Applications.DHC.Loads;
+within Buildings.Experimental.DHC.Loads;
 package Types "Package with type definitions"
   extends Modelica.Icons.TypesPackage;
   type DistributionType = enumeration(

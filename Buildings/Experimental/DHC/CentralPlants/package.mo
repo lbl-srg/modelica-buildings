@@ -1,4 +1,4 @@
-within Buildings.Applications.DHC;
+within Buildings.Experimental.DHC;
 package CentralPlants "Package of models for central plants"
   extends Modelica.Icons.VariantsPackage;
 

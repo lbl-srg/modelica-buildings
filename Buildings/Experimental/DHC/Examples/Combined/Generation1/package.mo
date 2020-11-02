@@ -1,4 +1,4 @@
-within Buildings.Applications.DHC.Examples.Combined;
+within Buildings.Experimental.DHC.Examples.Combined;
 package Generation1 "Package of example models for first generation DHC systems"
   extends Modelica.Icons.VariantsPackage;
 

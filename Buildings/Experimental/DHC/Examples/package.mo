@@ -1,4 +1,4 @@
-within Buildings.Applications.DHC;
+within Buildings.Experimental.DHC;
 package Examples "Collection of cases study"
   extends Modelica.Icons.ExamplesPackage;
 

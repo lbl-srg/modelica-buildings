@@ -1,7 +1,7 @@
-within Buildings.Applications.DHC.Loads.Examples.BaseClasses;
+within Buildings.Experimental.DHC.Loads.Examples.BaseClasses;
 partial model PartialFanCoil4Pipe
   "Partial model of a sensible only four-pipe fan coil unit computing a required water mass flow rate"
-  extends Buildings.Applications.DHC.Loads.BaseClasses.PartialTerminalUnit(
+  extends Buildings.Experimental.DHC.Loads.BaseClasses.PartialTerminalUnit(
     redeclare package Medium1 = Buildings.Media.Water,
     redeclare package Medium2 = Buildings.Media.Air,
     final have_watHea=true,
@@ -141,8 +141,8 @@ info="<html>
 This is a simplified partial model of a sensible only four-pipe fan coil unit
 for heating and cooling.
 It is intended to be used in conjunction with
-<a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution\">
-Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution</a>,
+<a href=\"modelica://Buildings.Experimental.DHC.Loads.BaseClasses.FlowDistribution\">
+Buildings.Experimental.DHC.Loads.BaseClasses.FlowDistribution</a>,
 and hence it computes the water mass flow rate required to meet the temperature
 set point.
 </p>

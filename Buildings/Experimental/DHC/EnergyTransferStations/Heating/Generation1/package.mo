@@ -1,4 +1,4 @@
-within Buildings.Applications.DHC.EnergyTransferStations.Heating;
+within Buildings.Experimental.DHC.EnergyTransferStations.Heating;
 package Generation1 "Package of models for first generation DH energy transfer stations"
   extends Modelica.Icons.VariantsPackage;
 

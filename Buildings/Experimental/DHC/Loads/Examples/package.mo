@@ -1,4 +1,4 @@
-within Buildings.Applications.DHC.Loads;
+within Buildings.Experimental.DHC.Loads;
 package Examples "Example models integrating multiple components"
   extends Modelica.Icons.ExamplesPackage;
 
@@ -6,8 +6,8 @@ package Examples "Example models integrating multiple components"
 annotation (preferredView="info", Documentation(info="<html>
 <p>
 This package contains advanced examples illustrating the use of the models in
-<a href=\"modelica://Buildings.Applications.DHC.Loads\">
-Buildings.Applications.DHC.Loads</a>.
+<a href=\"modelica://Buildings.Experimental.DHC.Loads\">
+Buildings.Experimental.DHC.Loads</a>.
 </p>
 </html>"));
 end Examples;

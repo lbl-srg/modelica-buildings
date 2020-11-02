@@ -1,4 +1,4 @@
-within Buildings.Applications.DHC.Networks.BaseClasses;
+within Buildings.Experimental.DHC.Networks.BaseClasses;
 partial model PartialDistribution1Pipe
   "Partial model for one-pipe distribution network"
   extends PartialDistribution;

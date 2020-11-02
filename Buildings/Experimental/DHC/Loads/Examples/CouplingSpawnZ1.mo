@@ -1,10 +1,10 @@
-within Buildings.Applications.DHC.Loads.Examples;
+within Buildings.Experimental.DHC.Loads.Examples;
 model CouplingSpawnZ1
   "Example illustrating the coupling of a building model to heating water and chilled water loops"
   extends Modelica.Icons.Example;
   package Medium1 = Buildings.Media.Water
     "Source side medium";
-  Buildings.Applications.DHC.Loads.Examples.BaseClasses.BuildingSpawnZ1 bui(
+  Buildings.Experimental.DHC.Loads.Examples.BaseClasses.BuildingSpawnZ1 bui(
     nPorts_aHeaWat=1,
     nPorts_aChiWat=1,
     nPorts_bHeaWat=1,
@@ -79,13 +79,13 @@ equation
   Documentation(info="<html>
 <p>
 This example illustrates the use of
-<a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.PartialBuilding\">
-Buildings.Applications.DHC.Loads.BaseClasses.PartialBuilding</a>,
-<a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.PartialTerminalUnit\">
-Buildings.Applications.DHC.Loads.BaseClasses.PartialTerminalUnit</a>
+<a href=\"modelica://Buildings.Experimental.DHC.Loads.BaseClasses.PartialBuilding\">
+Buildings.Experimental.DHC.Loads.BaseClasses.PartialBuilding</a>,
+<a href=\"modelica://Buildings.Experimental.DHC.Loads.BaseClasses.PartialTerminalUnit\">
+Buildings.Experimental.DHC.Loads.BaseClasses.PartialTerminalUnit</a>
 and
-<a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution\">
-Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution</a>
+<a href=\"modelica://Buildings.Experimental.DHC.Loads.BaseClasses.FlowDistribution\">
+Buildings.Experimental.DHC.Loads.BaseClasses.FlowDistribution</a>
 in a configuration with
 </p>
 <ul>
@@ -109,6 +109,6 @@ First implementation.
   Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-140},{160,80}})),
   __Dymola_Commands(file=
-"modelica://Buildings/Resources/Scripts/Dymola/Applications/DHC/Loads/Examples/CouplingSpawnZ1.mos"
+"modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Loads/Examples/CouplingSpawnZ1.mos"
 "Simulate and plot"));
 end CouplingSpawnZ1;

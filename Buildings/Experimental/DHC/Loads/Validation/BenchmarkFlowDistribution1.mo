@@ -1,4 +1,4 @@
-within Buildings.Applications.DHC.Loads.Validation;
+within Buildings.Experimental.DHC.Loads.Validation;
 model BenchmarkFlowDistribution1
   "Performance benchmark of building heating water flow distribution modeling"
   extends Modelica.Icons.Example;
@@ -7,7 +7,7 @@ model BenchmarkFlowDistribution1
   package Medium2 = Buildings.Media.Air
     "Load side medium";
   parameter String filNam=
-    "modelica://Buildings/Applications/DHC/Loads/Examples/Resources/SwissResidential_20190916.mos"
+    "modelica://Buildings/Resources/Data/Experimental/DHC/Loads/Examples/SwissResidential_20190916.mos"
     "File name with thermal loads as time series";
   parameter Integer nLoa=5
     "Number of served loads"
@@ -37,12 +37,12 @@ model BenchmarkFlowDistribution1
     sum(ter.mHeaWat_flow_nominal) * facSca
     "Nominal mass flow rate in the distribution line";
   final parameter Modelica.SIunits.HeatFlowRate QHea_flow_nominal(min=Modelica.Constants.eps)=
-    Buildings.Experimental.DistrictHeatingCooling.SubStations.VaporCompression.BaseClasses.getPeakLoad(
+    Buildings.Experimental.DHC.Loads.BaseClasses.getPeakLoad(
     string="#Peak space heating load",
     filNam=Modelica.Utilities.Files.loadResource(filNam)) / facSca
     "Design heating heat flow rate (>=0)"
     annotation (Dialog(group="Design parameter"));
-  Buildings.Applications.DHC.Loads.FlowDistribution disFloHea(
+  Buildings.Experimental.DHC.Loads.FlowDistribution disFloHea(
     redeclare package Medium = Medium1,
     m_flow_nominal=m_flow_nominal,
     have_pum=true,
@@ -133,16 +133,16 @@ This model is part of a computational performance benchmark between
 <ul>
 <li>
 a simplified modeling of the piping network as implemented in
-<a href=\"Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution\">
-Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution</a>
+<a href=\"Buildings.Experimental.DHC.Loads.BaseClasses.FlowDistribution\">
+Buildings.Experimental.DHC.Loads.BaseClasses.FlowDistribution</a>
 (see the corresponding example
-<a href=\"Buildings.Applications.DHC.Loads.Validation.BenchmarkFlowDistribution1\">
-Buildings.Applications.DHC.Loads.Validation.BenchmarkFlowDistribution1</a>), and
+<a href=\"Buildings.Experimental.DHC.Loads.Validation.BenchmarkFlowDistribution1\">
+Buildings.Experimental.DHC.Loads.Validation.BenchmarkFlowDistribution1</a>), and
 </li>
 <li>
 an explicit modeling of the piping network (see the corresponding example
-<a href=\"Buildings.Applications.DHC.Loads.Validation.BenchmarkFlowDistribution2\">
-Buildings.Applications.DHC.Loads.Validation.BenchmarkFlowDistribution2</a>).
+<a href=\"Buildings.Experimental.DHC.Loads.Validation.BenchmarkFlowDistribution2\">
+Buildings.Experimental.DHC.Loads.Validation.BenchmarkFlowDistribution2</a>).
 </li>
 </ul>
 </html>",
@@ -162,6 +162,6 @@ First implementation.
       StopTime=2000000,
       Tolerance=1e-06),
     __Dymola_Commands(file=
-"modelica://Buildings/Resources/Scripts/Dymola/Applications/DHC/Loads/Validation/BenchmarkFlowDistribution1.mos"
+"modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Loads/Validation/BenchmarkFlowDistribution1.mos"
 "Simulate and plot"));
 end BenchmarkFlowDistribution1;

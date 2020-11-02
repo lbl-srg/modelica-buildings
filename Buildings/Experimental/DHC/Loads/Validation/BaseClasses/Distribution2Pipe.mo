@@ -1,4 +1,4 @@
-within Buildings.Applications.DHC.Loads.Validation.BaseClasses;
+within Buildings.Experimental.DHC.Loads.Validation.BaseClasses;
 model Distribution2Pipe
   "Model of a two-pipe distribution network, using fixed resistance pipe model"
   extends Networks.BaseClasses.PartialDistribution2Pipe(

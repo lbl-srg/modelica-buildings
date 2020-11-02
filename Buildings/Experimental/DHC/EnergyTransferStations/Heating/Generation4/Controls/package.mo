@@ -1,4 +1,4 @@
-within Buildings.Applications.DHC.EnergyTransferStations.Heating.Generation4;
+within Buildings.Experimental.DHC.EnergyTransferStations.Heating.Generation4;
 package Controls "Package of control sequences for fourth generation DH ETS"
   extends Modelica.Icons.VariantsPackage;
 

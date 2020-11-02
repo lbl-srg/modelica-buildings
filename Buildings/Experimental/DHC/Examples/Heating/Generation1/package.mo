@@ -1,4 +1,4 @@
-within Buildings.Applications.DHC.Examples.Heating;
+within Buildings.Experimental.DHC.Examples.Heating;
 package Generation1 "Package of example models for first generation DH systems"
   extends Modelica.Icons.VariantsPackage;
 

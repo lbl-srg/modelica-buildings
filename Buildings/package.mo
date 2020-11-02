@@ -2442,7 +2442,7 @@ xxx
    The following new packages have been added:
    <ul>
    <li>
-   <code>Buildings.Experimental.DistrictHeatingCooling</code>
+   <code>Buildings.Obsolete.DistrictHeatingCooling</code>
    with models for district heating and cooling
    with bi-directional flow in the distribution pipes.
    </li>
@@ -2507,7 +2507,7 @@ xxx
    </p>
    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\">
 
-   <tr><td valign=\"top\">Buildings.Experimental.DistrictHeatingCooling
+   <tr><td valign=\"top\">Buildings.Obsolete.DistrictHeatingCooling
        </td>
        <td valign=\"top\">Package with models for district heating and cooling
                           with bi-directional flow in the distribution pipes.

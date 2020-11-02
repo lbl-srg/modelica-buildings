@@ -1,4 +1,4 @@
-within Buildings.Experimental.DistrictHeatingCooling;
+within Buildings.Obsolete.DistrictHeatingCooling;
 package Validation "Package with models for the validation of the bi-directional district heating and cooling system models"
   extends Modelica.Icons.ExamplesPackage;
 

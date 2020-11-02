@@ -1,4 +1,4 @@
-within Buildings.Experimental.DistrictHeatingCooling.Validation;
+within Buildings.Obsolete.DistrictHeatingCooling.Validation;
 model HeatingCoolingHotWaterSmall
   "Validation model for a system with heating, cooling and hot water"
   extends Modelica.Icons.Example;
@@ -62,20 +62,20 @@ model HeatingCoolingHotWaterSmall
     useMultipleHeatPorts=true,
     nSeg=1)
     annotation (Placement(transformation(extent={{-52,-70},{-72,-50}})));
-  SubStations.VaporCompression.HeatingCoolingHotwaterTimeSeries_dT larOff(
+  Obsolete.DistrictHeatingCooling.SubStations.VaporCompression.HeatingCoolingHotwaterTimeSeries_dT larOff(
       redeclare package Medium = Medium,
       filNam=Modelica.Utilities.Files.loadResource(
-        "modelica://Buildings/Resources/Data/Experimental/DistrictHeatingCooling/SubStations/VaporCompression/RefBldgLargeOfficeNew2004_7.1_5.0_3C_USA_CA_SAN_FRANCISCO.mos"),
+        "modelica://Buildings/Resources/Data/Obsolete/DistrictHeatingCooling/SubStations/VaporCompression/RefBldgLargeOfficeNew2004_7.1_5.0_3C_USA_CA_SAN_FRANCISCO.mos"),
     TOut_nominal=273.15) "Large office"
     annotation (Placement(transformation(extent={{-18,-20},{22,20}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
         Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos"),
       computeWetBulbTemperature=false) "File reader that reads weather data"
     annotation (Placement(transformation(extent={{-200,100},{-180,120}})));
-  SubStations.VaporCompression.HeatingCoolingHotwaterTimeSeries_dT ret(
+  Obsolete.DistrictHeatingCooling.SubStations.VaporCompression.HeatingCoolingHotwaterTimeSeries_dT ret(
     redeclare package Medium = Medium,
     filNam=Modelica.Utilities.Files.loadResource(
-      "modelica://Buildings/Resources/Data/Experimental/DistrictHeatingCooling/SubStations/VaporCompression/RefBldgStand-aloneRetailNew2004_7.1_5.0_3C_USA_CA_SAN_FRANCISCO.mos"),
+      "modelica://Buildings/Resources/Data/Obsolete/DistrictHeatingCooling/SubStations/VaporCompression/RefBldgStand-aloneRetailNew2004_7.1_5.0_3C_USA_CA_SAN_FRANCISCO.mos"),
     TOut_nominal=273.15) "Retail"
     annotation (Placement(transformation(extent={{80,-20},{120,20}})));
 
@@ -113,7 +113,7 @@ model HeatingCoolingHotWaterSmall
     smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative,
     y(each unit="K"),
     fileName=Modelica.Utilities.Files.loadResource(
-      "modelica://Buildings/Resources/Data/Experimental/DistrictHeatingCooling/Plants/AlamedaOceanT.mos"))
+      "modelica://Buildings/Resources/Data/Obsolete/DistrictHeatingCooling/Plants/AlamedaOceanT.mos"))
     "Temperature of the water reservoir (such as a river, lake or ocean)"
     annotation (Placement(transformation(extent={{-170,8},{-150,28}})));
 
@@ -180,7 +180,7 @@ equation
   connect(bayWatHex.TSouCoo, weaBus.TDryBul) annotation (Line(points={{-122,10},
           {-130,10},{-130,108},{-160,108}}, color={0,0,127}));
   annotation(experiment(Tolerance=1e-06, StopTime=31536000),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DistrictHeatingCooling/Validation/HeatingCoolingHotWaterSmall.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Obsolete/DistrictHeatingCooling/Validation/HeatingCoolingHotWaterSmall.mos"
         "Simulate and plot"),
     Documentation(
     info="<html>
