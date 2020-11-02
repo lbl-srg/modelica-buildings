@@ -6,105 +6,92 @@ model ClosedLoopTest "Closed loop testing model"
   replaceable package MediumW =
       Buildings.Media.Water "Medium model";
 
-  parameter Real TSet(
-    final unit="K",
-    displayUnit="degC",
-    final quantity="ThermodynamicTemperature") = 273.15+21.11
-    "Temperature setpoint for zone";
-
-//----------------------------------------------------------------------------//
-
-//----------------------------------------------------------------------------//
-
-//----------------------------------------------------------------------------//
-
-//----------------------------------------------------------------------------//
-
-//----------------------------------------------------------------------------//
-
-//--------------------------------------------------------------------------------//
-
-//--------------------------------------------------------------------------------//
-//--------------------------------------------------------------------------------//
-
-//--------------------------------------------------------------------------------//
-
-//--------------------------------------------------------------------------------//
-
-//--------------------------------------------------------------------------------//
-
-//------------------------------------------------------------------------------//
-//--- Weather data -------------------------------------------------------------//
-//------------------------------------------------------------------------------//
-
-  Buildings.Examples.BoilerPlant.PlantModel.BoilerPlant
-    boilerPlant(TRadRet_nominal=273.15 + 50,
-    cheVal(dpValve_nominal=10, dpFixed_nominal=1),
-    cheVal1(dpValve_nominal=10, dpFixed_nominal=2))
+  Buildings.Examples.BoilerPlant.PlantModel.BoilerPlant boilerPlant
+    "Boiler plant model"
     annotation (Placement(transformation(extent={{42,-10},{62,10}})));
-  Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Controller controller(
-    have_priOnl=true,
-    have_heaPriPum=true,
-    have_varPriPum=true,
-    have_varSecPum=false,
-    nSenPri=1,
-    nPumPri_nominal=2,
-    nPumSec=0,
-    nSenSec=0,
-    nPumSec_nominal=1,
-    VHotWatPri_flow_nominal=0.0006,
-    maxLocDpPri=4000,
-    minLocDpPri=4000,
-    VHotWatSec_flow_nominal=1e-6,
-    nBoi=2,
-    boiTyp={Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.BoilerTypes.condensingBoiler,
-        Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.BoilerTypes.condensingBoiler},
-    nSta=3,
-    staMat=[1,0; 0,1; 1,1],
-    boiDesCap={15000*0.8,15000*0.8},
-    boiFirMin={0.2,0.3},
-    minFloSet={0.2*0.0003,0.3*0.0003},
-    maxFloSet={0.0003,0.0003},
-    bypSetRat=0.000005,
-    nPumPri=2,
-    TMinSupNonConBoi=333.2,
-    k_bypVal=1,
-    Ti_bypVal=50,
-    Td_bypVal=0,
-    boiDesFlo={0.0003,0.0003},
-    k_priPum=1,
-    Ti_priPum=90,
-    Td_priPum=3,
-    minPriPumSpeSta={0,0,0},
-    speConTypPri=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpSpeedControlTypes.remoteDP)
+
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Controller controller(
+    final have_priOnl=true,
+    final have_heaPriPum=true,
+    final have_varPriPum=true,
+    final have_varSecPum=false,
+    final nSenPri=1,
+    final nPumPri_nominal=2,
+    final nPumSec=0,
+    final nSenSec=0,
+    final nPumSec_nominal=1,
+    final VHotWatPri_flow_nominal=0.0006,
+    final maxLocDpPri=4000,
+    final minLocDpPri=4000,
+    final VHotWatSec_flow_nominal=1e-6,
+    final nBoi=2,
+    final boiTyp={Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.BoilerTypes.condensingBoiler,
+          Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.BoilerTypes.condensingBoiler},
+    final nSta=3,
+    final staMat=[1,0; 0,1; 1,1],
+    final boiDesCap={15000*0.8,15000*0.8},
+    final boiFirMin={0.2,0.3},
+    final minFloSet={0.2*0.0003,0.3*0.0003},
+    final maxFloSet={0.0003,0.0003},
+    final bypSetRat=0.000005,
+    final nPumPri=2,
+    final TMinSupNonConBoi=333.2,
+    final k_bypVal=1,
+    final Ti_bypVal=50,
+    final Td_bypVal=0,
+    final boiDesFlo={0.0003,0.0003},
+    final k_priPum=1,
+    final Ti_priPum=90,
+    final Td_priPum=3,
+    final minPriPumSpeSta={0,0,0},
+    final speConTypPri=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpSpeedControlTypes.remoteDP)
+    "Boiler plant controller"
     annotation (Placement(transformation(extent={{-40,-20},{-20,20}})));
 
-  Controls.OBC.CDL.Continuous.PID conPID(controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PID,
-      k=1) annotation (Placement(transformation(extent={{50,50},{70,70}})));
-  Controls.OBC.CDL.Continuous.Sources.Constant con(k=273.15 + 21.11)
+protected
+  Buildings.Controls.OBC.CDL.Continuous.PID conPID(
+    final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PID,
+    final k=1)
+    "Radiator isolation valve controller"
+    annotation (Placement(transformation(extent={{50,50},{70,70}})));
+
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(
+    final k=273.15 + 21.11)
     "Zone temperature setpoint"
     annotation (Placement(transformation(extent={{10,50},{30,70}})));
-  Controls.OBC.CDL.Continuous.Add add2(k2=-1)
+
+  Buildings.Controls.OBC.CDL.Continuous.Add add2(
+    final k2=-1)
+    "Compute difference between measured zone temperature and setpoint"
     annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
-  Controls.OBC.CDL.Conversions.RealToInteger reaToInt
+
+  Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt
+    "Real to Integer conversion"
     annotation (Placement(transformation(extent={{70,-60},{90,-40}})));
-  Controls.OBC.CDL.Logical.Sources.Constant con3[2](k={true,true})
+
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con3[2](
+    final k=fill(true,2))
+    "Constant boiler availability status"
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
-  BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
-        Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
+
+  Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
+    final filNam=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
     "Weather data reader"
     annotation (Placement(transformation(extent={{-90,50},{-70,70}})));
-protected
-  BoundaryConditions.WeatherData.Bus weaBus
-    annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
-  Controls.OBC.CDL.Continuous.Sources.TimeTable timTab(
-    extrapolation=Buildings.Controls.OBC.CDL.Types.Extrapolation.Periodic,
-    smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments,
-    table=[-6,0; 8,10000; 18,0],
-    timeScale=3600) "Time table for internal heat gain"
-    annotation (Placement(transformation(extent={{-30,70},{-10,90}})));
-equation
 
+  Buildings.BoundaryConditions.WeatherData.Bus weaBus
+    "Weather bus"
+    annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
+
+  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable timTab(
+    final extrapolation=Buildings.Controls.OBC.CDL.Types.Extrapolation.Periodic,
+    final smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments,
+    final table=[-6,0; 8,10000; 18,0],
+    final timeScale=3600)
+    "Time table for internal heat gain"
+    annotation (Placement(transformation(extent={{-30,70},{-10,90}})));
+
+equation
   connect(controller.yBoi, boilerPlant.uBoiSta)
     annotation (Line(points={{-18,8.18182},{16,8.18182},{16,6},{40,6}},
                                                            color={255,0,255}));
@@ -174,6 +161,7 @@ equation
   connect(boilerPlant.VHotWat_flow, controller.VHotWatPri_flow) annotation (
       Line(points={{64,-8},{112,-8},{112,-80},{-80,-80},{-80,8.18182},{-42,8.18182}},
         color={0,0,127}));
+
   annotation (Documentation(info="<html>
 <p>
 This part of the system model adds to the model that is implemented in
