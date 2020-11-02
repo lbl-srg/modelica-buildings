@@ -1,12 +1,5 @@
-OneZone
-OneZoneCompareZoneTemperatureOutput
-OneZoneOneOutputVariable
-OneZoneOneOutputVariableSummer
-OneZoneTwoDifferentOutputVariables
-OneZoneTwoIdenticalOutputVariables
-OneZoneWithControl
-RefBldgSmallOffice
-ThreeZonesTwoBuildings
-TwoIdenticalOneZoneBuildings
-TwoIdenticalTwoZoneBuildings
-TwoIdenticalZones
+Actuator
+MultipleBuildings
+OutputVariable
+Schedule
+ThermalZone
