@@ -42,8 +42,7 @@ model EquationFitReversible_CoolingClosedLoop
     amplitude=-1,
     width=0.7,
     period=200,
-    offset=0,
-    startTime=0)
+    offset=0)
    "heat pump operational mode input signal"
    annotation (Placement(transformation(extent={{-90,-30},{-70,-10}})));
   Controls.OBC.CDL.Continuous.Sources.Pulse pulse(
@@ -66,7 +65,8 @@ model EquationFitReversible_CoolingClosedLoop
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=mLoa_flow_nominal,
-    addPowerToMedium=false)
+    addPowerToMedium=false,
+    nominalValuesDefineDefaultPressureCurve=true)
     "Chilled water pump"
     annotation (Placement(transformation(extent={{20,40},{0,60}})));
   MixingVolumes.MixingVolume vol(
@@ -87,8 +87,7 @@ model EquationFitReversible_CoolingClosedLoop
     amplitude=3,
     width=0.7,
     period=200,
-    offset=25 + 273.15,
-    startTime=0)
+    offset=25 + 273.15)
     "Source side entering water temperature"
     annotation (Placement(transformation(extent={{20,-90},{40,-70}})));
   Controls.OBC.CDL.Continuous.Sources.Pulse TLoaSet(
@@ -96,8 +95,7 @@ model EquationFitReversible_CoolingClosedLoop
     amplitude=1,
     width=0.7,
     period=200,
-    offset=6 + 273.15,
-    startTime=0)
+    offset=6 + 273.15)
     "Set point chilled water temperature"
     annotation (Placement(transformation(extent={{-90,30},{-70,50}})));
   Sources.Boundary_pT pre(
@@ -178,6 +176,12 @@ to the heatpump where it is cooled to meet the corresponding set point water tem
 
 </html>", revisions="<html>
 <ul>
+<li>
+October 19, 2020, by Michael Wetter:<br/>
+Removed <code>startTime=0</code> for pulse block.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2170\">#2170</a>.
+</li>
 <li>
 May 1, 2020, by Hagar Elarga:<br/>
 Corrected the <code>uMod</code> parameters and relocated the pressure source <code> pre</code> 

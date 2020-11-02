@@ -8,7 +8,7 @@ model TriggeredMovingMean "Validation model for the TriggeredMovingMean block"
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul(
     width=0.5,
     period=1,
-    startTime=-0.5) "Block that outputs trigger signals"
+    delay=-0.5) "Block that outputs trigger signals"
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
   Buildings.Controls.OBC.CDL.Discrete.TriggeredMovingMean triMovMea(n=3)
     "Triggered moving mean with 3 samples to average"
@@ -21,8 +21,7 @@ model TriggeredMovingMean "Validation model for the TriggeredMovingMean block"
     annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul1(
     width=0.5,
-    period=1,
-    startTime=0) "Block that outputs trigger signals"
+    period=1) "Block that outputs trigger signals"
     annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
 equation
 
