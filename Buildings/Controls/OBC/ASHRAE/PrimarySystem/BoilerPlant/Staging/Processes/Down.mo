@@ -239,7 +239,7 @@ protected
 
   Buildings.Controls.OBC.CDL.Logical.Edge edg1 if not have_priOnl
     "Generate pulse to signal start of pump change process"
-    annotation (Placement(transformation(extent={{-100,-260},{-80,-240}})));
+    annotation (Placement(transformation(extent={{-40,-250},{-20,-230}})));
 
   Buildings.Controls.OBC.CDL.Logical.Edge edg2 if not have_priOnl
     "Generate pulse to signal start of pump change process"
@@ -298,6 +298,10 @@ protected
     "Boolean True signal"
     annotation (Placement(transformation(extent={{-160,-170},{-140,-150}})));
 
+  Buildings.Controls.OBC.CDL.Logical.And and2 if not have_priOnl
+    "Logical And"
+    annotation (Placement(transformation(extent={{-80,-250},{-60,-230}})));
+
 equation
   connect(lat.y, minBypRes.uUpsDevSta) annotation (Line(points={{-200,0},{-196,
           0},{-196,28},{-172,28}},
@@ -352,8 +356,8 @@ equation
   connect(edg2.y, or2.u1) annotation (Line(points={{162,-236},{200,-236},{200,
           -240},{208,-240}}, color={255,0,255}));
 
-  connect(edg1.y, or2.u2) annotation (Line(points={{-78,-250},{66,-250},{66,
-          -248},{208,-248}}, color={255,0,255}));
+  connect(edg1.y, or2.u2) annotation (Line(points={{-18,-240},{66,-240},{66,-248},
+          {208,-248}},       color={255,0,255}));
 
   connect(or2.y, yPumChaPro)
     annotation (Line(points={{232,-240},{300,-240}}, color={255,0,255}));
@@ -363,9 +367,6 @@ equation
 
   connect(truDel.y, edg2.u) annotation (Line(points={{122,0},{126,0},{126,-236},
           {138,-236}}, color={255,0,255}));
-
-  connect(minBypRes.yMinBypRes, edg1.u) annotation (Line(points={{-148,20},{-110,
-          20},{-110,-250},{-102,-250}}, color={255,0,255}));
 
   connect(minBypRes.yMinBypRes, lat5.u) annotation (Line(points={{-148,20},{
           -110,20},{-110,40},{-72,40}},
@@ -493,9 +494,6 @@ equation
   connect(mulOr.y, booRep.u) annotation (Line(points={{-148,60},{-110,60},{-110,
           -130},{-2,-130}}, color={255,0,255}));
 
-  connect(mulOr.y, edg1.u) annotation (Line(points={{-148,60},{-110,60},{-110,-250},
-          {-102,-250}}, color={255,0,255}));
-
   connect(nexBoi.yEnaSmaBoi, yNexEnaBoi) annotation (Line(points={{-148,-75},{-76,
           -75},{-76,-86},{260,-86},{260,-150},{300,-150}}, color={255,127,0}));
 
@@ -521,6 +519,12 @@ equation
           {-230,-110},{-90,-110},{-90,70},{120,70},{120,34},{148,34}}, color={255,
           0,255}));
 
+  connect(and2.y, edg1.u)
+    annotation (Line(points={{-58,-240},{-42,-240}}, color={255,0,255}));
+  connect(mulOr.y, and2.u1) annotation (Line(points={{-148,60},{-110,60},{-110,-240},
+          {-82,-240}}, color={255,0,255}));
+  connect(nexBoi.yOnOff, and2.u2) annotation (Line(points={{-148,-66},{-100,-66},
+          {-100,-248},{-82,-248}}, color={255,0,255}));
 annotation (
   defaultComponentName="dowProCon",
   Diagram(coordinateSystem(preserveAspectRatio=false,

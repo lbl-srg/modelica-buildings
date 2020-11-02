@@ -29,14 +29,14 @@ block Up
   parameter Real delProSupTemSet(
     final unit="s",
     displayUnit="s",
-    final quantity="time")=300
+    final quantity="time") = 300
     "Process time-out for hot water supply temperature setpoint reset"
     annotation (Dialog(group="Time and delay parameters"));
 
   parameter Real delEnaMinFloSet(
     final unit="s",
     displayUnit="s",
-    final quantity="time")=60
+    final quantity="time") = 60
     "Enable delay after minimum flow setpoint is achieved in bypass valve"
     annotation (Dialog(group="Time and delay parameters"));
 
@@ -280,7 +280,7 @@ protected
 
   Buildings.Controls.OBC.CDL.Logical.Edge edg2 if not have_priOnl
     "Generate pulse to signal start of pump change process"
-    annotation (Placement(transformation(extent={{140,-246},{160,-226}})));
+    annotation (Placement(transformation(extent={{170,-240},{190,-220}})));
 
   Buildings.Controls.OBC.CDL.Logical.Or or2 if not have_priOnl
     "Check for pump change proces start signal"
@@ -341,6 +341,10 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Latch lat2
     "Hold status when plant enable is detected"
     annotation (Placement(transformation(extent={{-180,-130},{-160,-110}})));
+
+  Buildings.Controls.OBC.CDL.Logical.And and2 if not have_priOnl
+    "Logical And"
+    annotation (Placement(transformation(extent={{140,-240},{160,-220}})));
 
 equation
   connect(nexBoi.yNexEnaBoi, enaHotWatIsoVal.nexChaBoi) annotation (Line(points={{-148,
@@ -444,8 +448,8 @@ equation
   connect(edg.y, yStaChaPro)
     annotation (Line(points={{252,50},{300,50}}, color={255,0,255}));
 
-  connect(edg2.y, or2.u1) annotation (Line(points={{162,-236},{200,-236},{200,
-          -240},{208,-240}}, color={255,0,255}));
+  connect(edg2.y, or2.u1) annotation (Line(points={{192,-230},{200,-230},{200,-240},
+          {208,-240}},       color={255,0,255}));
 
   connect(edg1.y, or2.u2) annotation (Line(points={{-78,-250},{66,-250},{66,
           -248},{208,-248}}, color={255,0,255}));
@@ -461,9 +465,6 @@ equation
 
   connect(nexBoi.yNexEnaBoi, yNexEnaBoi) annotation (Line(points={{-148,-51},{160,
           -51},{160,-150},{300,-150}},     color={255,127,0}));
-
-  connect(truDel.y, edg2.u) annotation (Line(points={{122,0},{126,0},{126,-236},
-          {138,-236}}, color={255,0,255}));
 
   connect(lat5.y, and1.u1) annotation (Line(points={{-48,40},{-6,40},{-6,0},{-2,
           0}}, color={255,0,255}));
@@ -544,10 +545,6 @@ equation
           20},{-146,-128},{-132,-128}}, color={255,0,255}));
   connect(hotWatSupTemRes.yHotWatSupTemRes, or1.u2) annotation (Line(points={{-148,
           -20},{-146,-20},{-146,-128},{-132,-128}}, color={255,0,255}));
-  connect(minBypRes.yMinBypRes, edg1.u) annotation (Line(points={{-148,20},{-140,
-          20},{-140,-250},{-102,-250}}, color={255,0,255}));
-  connect(hotWatSupTemRes.yHotWatSupTemRes, edg1.u) annotation (Line(points={{-148,
-          -20},{-140,-20},{-140,-250},{-102,-250}}, color={255,0,255}));
   connect(or1.y, lat5.u) annotation (Line(points={{-108,-120},{-104,-120},{-104,
           40},{-72,40}}, color={255,0,255}));
   connect(or1.y, booRep.u) annotation (Line(points={{-108,-120},{-104,-120},{-104,
@@ -572,6 +569,14 @@ equation
   connect(uStaChaPro, lat4.clr) annotation (Line(points={{-260,-150},{-190,-150},
           {-190,-100},{-98,-100},{-98,70},{132,70},{132,-168},{156,-168},{156,
           -196},{158,-196}}, color={255,0,255}));
+  connect(hotWatSupTemRes.yHotWatSupTemRes, edg1.u) annotation (Line(points={{-148,
+          -20},{-146,-20},{-146,-250},{-102,-250}}, color={255,0,255}));
+  connect(and2.y, edg2.u)
+    annotation (Line(points={{162,-230},{168,-230}}, color={255,0,255}));
+  connect(truDel.y, and2.u1) annotation (Line(points={{122,0},{126,0},{126,-230},
+          {138,-230}}, color={255,0,255}));
+  connect(nexBoi.yOnOff, and2.u2) annotation (Line(points={{-148,-60},{-54,-60},
+          {-54,-238},{138,-238}}, color={255,0,255}));
 annotation (
   defaultComponentName="upProCon",
   Diagram(coordinateSystem(preserveAspectRatio=false,
