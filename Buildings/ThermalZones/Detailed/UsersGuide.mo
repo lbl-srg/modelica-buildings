@@ -1034,7 +1034,7 @@ Proc. of the 2014 ASHRAE/IBPSA-USA Building Simulation Conference, Atlanta, GA, 
 <li>If the users would like to return heat flow rates for ports and surfaces, they should revise the source codes in cosimulation.c and utility_isat.c in <span style=\"font-family: Courier New;\">Buildings\\Resources\\src\\ISAT\\</span> by outputing target values and assign them to modelica-shared variables.</li>
 </ul>
 <p>A description of the model assumptions and the implemention and validation of this room model can be found in <a href=\"https://www.tandfonline.com/doi/full/10.1080/19401493.2017.1288761\">Tian et al. (2018)</a> and in <a href=\"https://www.researchgate.net/profile/Wangda_Zuo/publication/333797408_Optimization_of_Workload_Distribution_of_Data_Centers_Based_on_a_Self-Learning_In_Situ_Adaptive_Tabulation_Model/links/5d0467bf299bf12e7be02981/Optimization-of-Workload-Distribution-of-Data-Centers-Based-on-a-Self-Learning-In-Situ-Adaptive-Tabulation-Model.pdf\">Han et al. (2019)</a>. </p>
-<p>Before running examples of the ISAT model, a fortran compiler needs to be installed. Please refer to <a href=\"https://www.colorado.edu/lab/sbs/data-center-package\">ISAT project website</a> for more detailed tutorials.</p>
+<p>Please refer to the <a href=\"https://www.colorado.edu/lab/sbs/data-center-package\">ISAT project website</a> for information on compiling the ISAT libraries and more detailed tutorials.</p>
 <h4>Implementation</h4>
 <p>This section explains how the data exchange between Modelica and ISAT is implemented. The section is only of interest to developers. Users may skip this section. </p>
 <h5>Interface to Modelica models</h5>
