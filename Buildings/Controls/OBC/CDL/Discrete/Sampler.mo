@@ -19,7 +19,9 @@ protected
   output Boolean firstTrigger(start=false, fixed=true)
     "Rising edge signals first sample instant";
 initial equation
-  t0 = time;
+  t0 = Buildings.Utilities.Math.Functions.round(
+         x = integer(time/samplePeriod)*samplePeriod,
+         n = 6);
 
 equation
   // Declarations that are used for all discrete blocks
@@ -87,6 +89,12 @@ via parameter <code>samplePeriod</code>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 19, 2020, by Michael Wetter:<br/>
+Refactored implementation.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2170\">#2170</a>.
+</li>
 <li>
 March 2, 2020, by Michael Wetter:<br/>
 Changed icon to display dynamically the output value.

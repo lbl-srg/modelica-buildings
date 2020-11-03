@@ -182,7 +182,9 @@ model Case600FF
     annotation (Placement(transformation(extent={{-96,-78},{-88,-70}})));
   Modelica.Blocks.Math.Product product
     annotation (Placement(transformation(extent={{-50,-60},{-40,-50}})));
-  Buildings.Fluid.Sensors.Density density(redeclare package Medium = MediumA)
+  Buildings.Fluid.Sensors.Density density(
+    redeclare package Medium = MediumA,
+    warnAboutOnePortConnection=false)
     "Air density inside the building"
     annotation (Placement(transformation(extent={{-40,-76},{-50,-66}})));
   Buildings.BoundaryConditions.WeatherData.Bus weaBus
@@ -239,7 +241,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(product.y, sinInf.m_flow_in)       annotation (Line(
-      points={{-39.5,-55},{-36,-55},{-36,-55.2},{4,-55.2}},
+      points={{-39.5,-55},{-36,-55},{-36,-55.2},{2.8,-55.2}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(density.port, roo.ports[1])  annotation (Line(
