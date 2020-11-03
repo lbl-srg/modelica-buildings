@@ -1,4 +1,4 @@
-within Buildings.Applications;
+within Buildings.Experimental;
 package CoolingPlants "Models for cooling plants"
   extends Modelica.Icons.VariantsPackage;
 

@@ -210,11 +210,20 @@ Version 8.0.0 is ... xxx
 The following <b style=\"color:blue\">new libraries</b> have been added:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2>
-<tr><td valign=\"top\">Buildings.Experimental.DHC
+<tr><td colspan=\"2\"><b>Buildings.Experimental</b>
     </td>
-    <td valign=\"top\">Package for district heating and cooling system modeling.<br/>
-                       The package contains components supporting the integration within
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.CoolingPlants<br/>
+                       Buildings.Experimental.DHC<br/>
+                       Buildings.Experimental.DomesticHotWater
+    </td>
+    <td valign=\"top\">Packages for modeling cooling plants, district heating
+                       and cooling systems, and domestic hot water systems.<br/>
+                       These packages contain components supporting the integration within
                        the URBANopt SDK. The development is in progress.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.ThermalZones</b>
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.ThermalZones.EnergyPlus

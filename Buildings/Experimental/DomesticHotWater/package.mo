@@ -1,4 +1,4 @@
-within Buildings.Applications;
+within Buildings.Experimental;
 package DomesticHotWater "Package of models for domestic hot water systems"
   extends Modelica.Icons.VariantsPackage;
 
