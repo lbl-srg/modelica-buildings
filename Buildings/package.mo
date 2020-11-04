@@ -324,7 +324,7 @@ have been <b style=\"color:blue\">improved</b> in a
     <td valign=\"top\">Changed the default heating maximum airflow setpoint to 30% of the zone nominal airflow.<br/>
                        This is for
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2172\">issue 2172</a>.
-</tr>    
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL.Continuous</b>
     </td>
 </tr>
@@ -493,13 +493,13 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Logical.Latch<br/>
-                       Buildings.Controls.OBC.CDL.Logical.Toggle 
+                       Buildings.Controls.OBC.CDL.Logical.Toggle
     </td>
     <td valign=\"top\">Removed the parameter <code>pre_y_start</code>, and made the initial output to be equal to
                        latch or toggle input when the clear input is <code>false</code>.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2177\">#2177</a>.<br/>
                        For Dymola, a conversion script makes this change.</td>
-</tr>  
+</tr>
 <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Logical.Timer
     </td>
     <td valign=\"top\">Removed <code>reset</code> boolean input and added boolean output <code>passed</code>

@@ -66,7 +66,7 @@ block Economizer "Controller for economizer"
   Modelica.Blocks.Sources.Constant closed(k=0) "Signal to close OA damper"
     annotation (Placement(transformation(extent={{30,30},{50,50}})));
   Modelica.Blocks.Math.Max max
-    "Takes bigger signal (OA damper opens for temp. control or for minimum outside air)"
+    "Takes higher signal (maximum damper opening between cooling and OA requirement)"
     annotation (Placement(transformation(extent={{80,-10},{100,10}})));
   Buildings.Controls.Continuous.LimPID yOATFre(
     k=k,
@@ -81,7 +81,7 @@ block Economizer "Controller for economizer"
     "Controller of outdoor damper to track freeze temperature setpoint"
     annotation (Placement(transformation(extent={{-30,70},{-10,90}})));
   Modelica.Blocks.Math.Min min
-    "Takes bigger signal (OA damper opens for temp. control or for minimum outside air)"
+    "Takes lower signal (limits damper opening for freeze protection)"
     annotation (Placement(transformation(extent={{30,-10},{50,10}})));
   Modelica.Blocks.Sources.Constant TFre(k=TFreSet)
     "Setpoint for freeze protection"
@@ -171,7 +171,7 @@ equation
   connect(closed.y, swiModClo.u3) annotation (Line(points={{51,40},{120,40},{
           120,-8},{128,-8}},
                          color={0,0,127}));
-  annotation (
+  annotation (defaultComponentName="conEco",
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{200,
             200}})),
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{200,200}}),
