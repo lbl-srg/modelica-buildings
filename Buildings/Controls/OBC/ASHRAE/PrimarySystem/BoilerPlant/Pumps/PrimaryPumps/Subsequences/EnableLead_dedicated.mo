@@ -34,7 +34,19 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Timer tim(
     final t=offTimThr)
     "Check if boiler disable time is greater than threshold"
-    annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
+    annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
+
+  Buildings.Controls.OBC.CDL.Logical.FallingEdge falEdg
+    "Detect plant being disabled"
+    annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
+
+  Buildings.Controls.OBC.CDL.Logical.And and2
+    "Logical And"
+    annotation (Placement(transformation(extent={{-30,-60},{-10,-40}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Latch lat
+    "Boolean latch"
+    annotation (Placement(transformation(extent={{-50,-20},{-30,0}})));
 
 equation
   connect(uPlaEna, leaPumSta.u)
@@ -48,12 +60,20 @@ equation
     annotation (Line(points={{-120,-50},{-82,-50}},
                                                 color={255,0,255}));
 
-  connect(not2.y, tim.u)
-    annotation (Line(points={{-58,-50},{-42,-50}},
-                                               color={255,0,255}));
-
-  connect(tim.passed, leaPumSta.clr) annotation (Line(points={{-18,-58},{50,-58},
+  connect(tim.passed, leaPumSta.clr) annotation (Line(points={{22,-58},{50,-58},
           {50,-6},{58,-6}}, color={255,0,255}));
+  connect(uPlaEna, falEdg.u) annotation (Line(points={{-120,50},{-90,50},{-90,
+          -10},{-82,-10}}, color={255,0,255}));
+  connect(and2.y, tim.u)
+    annotation (Line(points={{-8,-50},{-2,-50}}, color={255,0,255}));
+  connect(not2.y, and2.u2) annotation (Line(points={{-58,-50},{-50,-50},{-50,
+          -58},{-32,-58}}, color={255,0,255}));
+  connect(falEdg.y, lat.u)
+    annotation (Line(points={{-58,-10},{-52,-10}}, color={255,0,255}));
+  connect(uPlaEna, lat.clr) annotation (Line(points={{-120,50},{-56,50},{-56,
+          -16},{-52,-16}}, color={255,0,255}));
+  connect(lat.y, and2.u1) annotation (Line(points={{-28,-10},{-20,-10},{-20,-30},
+          {-40,-30},{-40,-50},{-32,-50}}, color={255,0,255}));
 annotation (
   defaultComponentName="enaLeaPriPum_dedicated",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={

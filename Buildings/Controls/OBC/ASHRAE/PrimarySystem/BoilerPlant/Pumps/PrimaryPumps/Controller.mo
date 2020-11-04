@@ -462,7 +462,7 @@ protected
     annotation (Placement(transformation(extent={{-192,-80},{-172,-60}})));
 
   Buildings.Controls.OBC.CDL.Integers.GreaterEqualThreshold intGreEquThr(
-    final t=2) if not have_heaPriPum
+    final t=1) if not have_heaPriPum
     "Ensure module does not enable lead pump"
     annotation (Placement(transformation(extent={{-76,-328},{-56,-308}})));
 
@@ -559,8 +559,7 @@ protected
      and temReg "Pump speed control using temperature sensors"
     annotation (Placement(transformation(extent={{-60,-548},{-40,-528}})));
 
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea[nBoi] if not
-    have_heaPriPum
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea[nBoi] if not have_heaPriPum
     "Boolean to Real conversion"
     annotation (Placement(transformation(extent={{-252,-80},{-232,-60}})));
 
@@ -579,8 +578,7 @@ protected
     "Replicate real input"
     annotation (Placement(transformation(extent={{196,-496},{216,-476}})));
 
-  Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea[nPum] if
-    have_heaPriPum
+  Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea[nPum] if have_heaPriPum
     "Convert integer to real number"
     annotation (Placement(transformation(extent={{-220,220},{-200,240}})));
 
@@ -635,13 +633,12 @@ protected
     "Sum of integer inputs"
     annotation (Placement(transformation(extent={{-200,-166},{-180,-146}})));
 
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt2[nPum] if
-    have_heaPriPum and (not have_priOnl)
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt2[nPum]
     "Convert boolean to integer"
     annotation (Placement(transformation(extent={{-248,-250},{-228,-230}})));
 
   Buildings.Controls.OBC.CDL.Integers.MultiSum mulSumInt2(
-    final nin=nBoi) if have_heaPriPum and (not have_priOnl)
+    final nin=nBoi)
     "Sum of integer inputs"
     annotation (Placement(transformation(extent={{-202,-250},{-182,-230}})));
 
@@ -706,20 +703,20 @@ protected
     annotation (Placement(transformation(extent={{58,100},{80,120}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.Generic.ChangeStatus
-    chaPumSta1(final nPum=nPum) if
-                        have_heaPriPum
+    chaPumSta1(
+    final nPum=nPum) if have_heaPriPum
     "Change lead pump status for headered primary pumps"
     annotation (Placement(transformation(extent={{58,66},{80,86}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.Generic.ChangeStatus
-    chaPumSta2(final nPum=nPum) if
-                        have_priOnl and have_heaPriPum
+    chaPumSta2(
+    final nPum=nPum) if have_priOnl and have_heaPriPum
     "Change lag pump status for headered primary pumps in a plant that is primary-only"
     annotation (Placement(transformation(extent={{128,-42},{150,-22}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.Generic.ChangeStatus
-    chaPumSta3(final nPum=nPum) if
-                        have_heaPriPum and (not have_priOnl)
+    chaPumSta3(
+    final nPum=nPum) if have_heaPriPum and (not have_priOnl)
     "Change lag pump status for headered primary pumps in a plant that is not primary-only"
     annotation (Placement(transformation(extent={{130,-182},{152,-162}})));
 
@@ -732,8 +729,8 @@ protected
     annotation (Placement(transformation(extent={{-148,-330},{-128,-310}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.Generic.ChangeStatus
-    chaPumSta4(final nPum=nPum) if
-                        not have_heaPriPum
+    chaPumSta4(
+    final nPum=nPum) if not have_heaPriPum
     "Change lag pump status for dedicated primary pumps"
     annotation (Placement(transformation(extent={{62,-314},{84,-294}})));
 
@@ -975,12 +972,6 @@ equation
   connect(enaDedLeaPum.yLea, chaPumSta.uLasLagPumSta) annotation (Line(points={
           {-178,110},{22,110},{22,115},{56,115}}, color={255,0,255}));
 
-  connect(conInt.y, chaPumSta.uNexLagPum) annotation (Line(points={{-252,200},{
-          -12,200},{-12,106},{56,106}}, color={255,127,0}));
-
-  connect(conInt.y, chaPumSta.uLasLagPum) annotation (Line(points={{-252,200},{
-          -12,200},{-12,102},{56,102}}, color={255,127,0}));
-
   connect(reaToInt.y, chaPumSta1.uNexLagPum) annotation (Line(points={{-18,230},
           {46,230},{46,72},{56,72}}, color={255,127,0}));
 
@@ -1052,11 +1043,6 @@ equation
   connect(greThr.y, enaDedLeaPum.uLeaBoiSta) annotation (Line(points={{-170,-70},
           {-166,-70},{-166,-42},{-218,-42},{-218,105},{-202,105}}, color={255,0,
           255}));
-  connect(uNexEnaBoi, intGreEquThr.u) annotation (Line(points={{-300,-300},{
-          -188,-300},{-188,-334},{-84,-334},{-84,-318},{-78,-318}}, color={255,
-          127,0}));
-  connect(uLasDisBoi, intLesEquThr.u) annotation (Line(points={{-300,-340},{-20,
-          -340},{-20,-318},{-14,-318}}, color={255,127,0}));
   connect(intGreEquThr.y, and2.u2) annotation (Line(points={{-54,-318},{-50,
           -318},{-50,-292},{-48,-292}}, color={255,0,255}));
   connect(and1.y, and2.u1)
@@ -1123,6 +1109,15 @@ equation
           -32},{248,-356},{-70,-356},{-70,-499},{-62,-499}}, color={255,0,255}));
   connect(logSwi.y, pumSpeTem.uHotWatPum) annotation (Line(points={{204,-32},{248,
           -32},{248,-356},{-70,-356},{-70,-530},{-62,-530}}, color={255,0,255}));
+  connect(mulSumInt2.y, intGreEquThr.u) annotation (Line(points={{-180,-240},{
+          -82,-240},{-82,-318},{-78,-318}}, color={255,127,0}));
+  connect(mulSumInt2.y, intLesEquThr.u) annotation (Line(points={{-180,-240},{
+          -82,-240},{-82,-298},{-20,-298},{-20,-318},{-14,-318}}, color={255,
+          127,0}));
+  connect(uNexEnaBoi, chaPumSta.uNexLagPum) annotation (Line(points={{-300,-300},
+          {-278,-300},{-278,98},{22,98},{22,106},{56,106}}, color={255,127,0}));
+  connect(uLasDisBoi, chaPumSta.uLasLagPum) annotation (Line(points={{-300,-340},
+          {-264,-340},{-264,96},{28,96},{28,102},{56,102}}, color={255,127,0}));
 annotation (defaultComponentName="priPumCon",
   Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-280,-660},{280,260}}),
   graphics={
