@@ -166,8 +166,8 @@ takes the load as an input, and
 </li>
 <li>
 in conjunction with
-<a href=\"modelica://Buildings.Experimental.DHC.Loads.BaseClasses.FlowDistribution\">
-Buildings.Experimental.DHC.Loads.BaseClasses.FlowDistribution</a>:
+<a href=\"modelica://Buildings.Experimental.DHC.Loads.FlowDistribution\">
+Buildings.Experimental.DHC.Loads.FlowDistribution</a>:
 it therefore computes the water mass flow rate required to meet the load.
 </li>
 </ul>
@@ -190,8 +190,8 @@ the air mass flow rate, from zero to its nominal value.
 <p>
 The controller tracks the load while the impact of an unmet load on the room
 air temperature is assessed with
-<a href=\"modelica://Buildings.Experimental.DHC.Loads.BaseClasses.SimpleRoom\">
-Buildings.Experimental.DHC.Loads.BaseClasses.SimpleRoom</a>.
+<a href=\"modelica://Buildings.Experimental.DHC.Loads.SimpleRoom\">
+Buildings.Experimental.DHC.Loads.SimpleRoom</a>.
 </p>
 </html>",
       revisions="<html>

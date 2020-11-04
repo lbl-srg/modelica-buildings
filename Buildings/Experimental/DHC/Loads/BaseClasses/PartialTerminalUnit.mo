@@ -457,8 +457,8 @@ Partial model to be used for modeling an HVAC terminal unit.
 </p>
 <p>
 The models inheriting from this class are typically used in conjunction with
-<a href=\"modelica://Buildings.Experimental.DHC.Loads.BaseClasses.FlowDistribution\">
-Buildings.Experimental.DHC.Loads.BaseClasses.FlowDistribution</a>. They must
+<a href=\"modelica://Buildings.Experimental.DHC.Loads.FlowDistribution\">
+Buildings.Experimental.DHC.Loads.FlowDistribution</a>. They must
 compute a so-called required mass flow rate defined as the heating or chilled
 water mass flow rate needed to meet the load.
 It can be approximated using a control loop to avoid inverting a heat
@@ -472,8 +472,8 @@ The model connectivity can be modified to address various use cases:
 <ul>
 <li>
 On the source side (typically connected to
-<a href=\"modelica://Buildings.Experimental.DHC.Loads.BaseClasses.FlowDistribution\">
-Buildings.Experimental.DHC.Loads.BaseClasses.FlowDistribution</a>):
+<a href=\"modelica://Buildings.Experimental.DHC.Loads.FlowDistribution\">
+Buildings.Experimental.DHC.Loads.FlowDistribution</a>):
 <ul>
 <li>
 Fluid ports for chilled water and heating water can be conditionally
@@ -495,13 +495,13 @@ can be conditionally instantiated by setting <code>have_heaPor</code> to true.
 <li>
 Real input connectors can be conditionally instantiated by setting
 <code>have_QReq_flow</code> to true. Those connectors can be used to provide
-heating and cooling loads as time series, see 
+heating and cooling loads as time series, see
 <a href=\"modelica://Buildings.Experimental.DHC.Loads.Examples.CouplingTimeSeries\">
 Buildings.Experimental.DHC.Loads.Examples.CouplingTimeSeries</a>
 for an illustration of that use case.
 The impact on the room air temperature of an unmet load can be assessed with
-<a href=\"modelica://Buildings.Experimental.DHC.Loads.BaseClasses.SimpleRoom\">
-Buildings.Experimental.DHC.Loads.BaseClasses.SimpleRoom</a>.
+<a href=\"modelica://Buildings.Experimental.DHC.Loads.SimpleRoom\">
+Buildings.Experimental.DHC.Loads.SimpleRoom</a>.
 </li>
 </ul>
 </ul>
@@ -513,28 +513,28 @@ an infinite capacity.
 <h4>Connection with the flow distribution model</h4>
 <p>
 When connecting the model to
-<a href=\"modelica://Buildings.Experimental.DHC.Loads.BaseClasses.FlowDistribution\">
-Buildings.Experimental.DHC.Loads.BaseClasses.FlowDistribution</a>:
+<a href=\"modelica://Buildings.Experimental.DHC.Loads.FlowDistribution\">
+Buildings.Experimental.DHC.Loads.FlowDistribution</a>:
 </p>
 <ul>
 <li>
-The nominal pressure drop on the source side (heating or chilled water) is 
+The nominal pressure drop on the source side (heating or chilled water) is
 irrelevant as the computation of the pump head relies on a specific algorithm
 described in
-<a href=\"modelica://Buildings.Experimental.DHC.Loads.BaseClasses.FlowDistribution\">
-Buildings.Experimental.DHC.Loads.BaseClasses.FlowDistribution</a>.
+<a href=\"modelica://Buildings.Experimental.DHC.Loads.FlowDistribution\">
+Buildings.Experimental.DHC.Loads.FlowDistribution</a>.
 </li>
 <li>
-The parameter <code>allowFlowReversal</code> must be set to <code>false</code> (default) 
+The parameter <code>allowFlowReversal</code> must be set to <code>false</code> (default)
 in consistency with
-<a href=\"modelica://Buildings.Experimental.DHC.Loads.BaseClasses.FlowDistribution\">
-Buildings.Experimental.DHC.Loads.BaseClasses.FlowDistribution</a>.
+<a href=\"modelica://Buildings.Experimental.DHC.Loads.FlowDistribution\">
+Buildings.Experimental.DHC.Loads.FlowDistribution</a>.
 This requirement only applies to the source side.
 On the load side one is free to use whatever option suitable for the modeling needs.
-Note that typically for an air flow network connected to the outdoor 
-(either at the room level for modeling infiltration or at the system level 
+Note that typically for an air flow network connected to the outdoor
+(either at the room level for modeling infiltration or at the system level
 for the fresh air source), the unidirectional air flow condition cannot be guaranted.
-The reason is the varying pressure of the outdoor air that can lead to a negative 
+The reason is the varying pressure of the outdoor air that can lead to a negative
 pressure difference at the terminal unit boundaries when the fan is off.
 </li>
 </ul>
@@ -542,20 +542,20 @@ pressure difference at the terminal unit boundaries when the fan is off.
 <p>
 Scaling is implemented by means of a scaling factor <code>facSca</code> being
 applied on each extensive quantity (mass and heat flow rate, electric power),
-except the heat or mass flow rate on the load side depending on 
+except the heat or mass flow rate on the load side depending on
 the value of <code>have_scaLoa</code>.
 </p>
 <ul>
 <li>
-If <code>have_scaLoa</code> is <code>true</code> (default), then the heat or mass flow rate 
-on the load side is scaled. This allows modeling, with a single instance, 
-multiple identical units serving an aggregated load, for instance, 
+If <code>have_scaLoa</code> is <code>true</code> (default), then the heat or mass flow rate
+on the load side is scaled. This allows modeling, with a single instance,
+multiple identical units serving an aggregated load, for instance,
 a thermal zone representing several rooms.
 </li>
 <li>
-If <code>have_scaLoa</code> is <code>false</code>, then the heat or mass flow rate 
-on the load side is not scaled. This allows modeling, with a single instance, 
-multiple identical units serving multiple identical rooms, for instance, 
+If <code>have_scaLoa</code> is <code>false</code>, then the heat or mass flow rate
+on the load side is not scaled. This allows modeling, with a single instance,
+multiple identical units serving multiple identical rooms, for instance,
 with only one zone model representing a single room.
 </li>
 </ul>

@@ -146,8 +146,8 @@ equation
 This is a simplified partial model of a sensible only four-pipe fan coil unit
 for heating and cooling.
 It is intended to be used in conjunction with
-<a href=\"modelica://Buildings.Experimental.DHC.Loads.BaseClasses.FlowDistribution\">
-Buildings.Experimental.DHC.Loads.BaseClasses.FlowDistribution</a>,
+<a href=\"modelica://Buildings.Experimental.DHC.Loads.FlowDistribution\">
+Buildings.Experimental.DHC.Loads.FlowDistribution</a>,
 and hence it computes the water mass flow rate required to meet the temperature
 set point.
 </p>

@@ -311,8 +311,8 @@ equation
       info="<html>
 <p>
 This model validates the pump head computation algorithm implemented in
-<a href=\"modelica://Buildings.Experimental.DHC.Loads.BaseClasses.FlowDistribution\">
-Buildings.Experimental.DHC.Loads.BaseClasses.FlowDistribution</a>.
+<a href=\"modelica://Buildings.Experimental.DHC.Loads.FlowDistribution\">
+Buildings.Experimental.DHC.Loads.FlowDistribution</a>.
 </p>
 </html>",
       revisions="<html>
