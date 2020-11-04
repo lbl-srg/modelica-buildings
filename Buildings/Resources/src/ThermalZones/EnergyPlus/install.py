@@ -78,9 +78,15 @@ def get_distribution(dis):
 
 
 if __name__ == "__main__":
+    # Commit, see https://gitlab.com/kylebenne/spawn/-/pipelines?scope=all&page=1
+    # Also available is latest/Spawn-latest-{Linux,win64,Darwin}
+    # The setup below lead to a specific commit being pulled.
+    commit = "1ad59a6dbf"
+    name_version = f"Spawn-0.0.1-{commit}"
+
     dists = list()
     dists.append(
-        {"src": "https://spawn.s3.amazonaws.com/latest/Spawn-latest-Linux.tar.gz",
+        {"src": f"https://spawn.s3.amazonaws.com/builds/{name_version}-Linux.tar.gz",
          "des": "spawn-linux64",
          "files": {
             "bin/spawn" : "",
@@ -90,7 +96,7 @@ if __name__ == "__main__":
         }
     )
     dists.append(
-        {"src": "https://spawn.s3.amazonaws.com/latest/Spawn-latest-win64.zip",
+        {"src": f"https://spawn.s3.amazonaws.com/builds/{name_version}-win64.zip",
          "des": "spawn-win64",
          "files": {
             "bin/epfmi.dll" : "",
