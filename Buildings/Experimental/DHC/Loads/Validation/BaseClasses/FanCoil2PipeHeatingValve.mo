@@ -184,8 +184,8 @@ the air mass flow rate, from zero to its nominal value.
 </ul>
 <p>
 The impact of an unmet load on the room air temperature is assessed with
-<a href=\"modelica://Buildings.Experimental.DHC.Loads.SimpleRoom\">
-Buildings.Experimental.DHC.Loads.SimpleRoom</a>.
+<a href=\"modelica://Buildings.Experimental.DHC.Loads.SimpleRoomODE\">
+Buildings.Experimental.DHC.Loads.SimpleRoomODE</a>.
 </p>
 </html>",
       revisions="<html>

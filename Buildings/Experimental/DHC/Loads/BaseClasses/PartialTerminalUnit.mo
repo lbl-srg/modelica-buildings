@@ -3,10 +3,14 @@ partial model PartialTerminalUnit
   "Partial model for HVAC terminal unit"
   replaceable package Medium1=Modelica.Media.Interfaces.PartialMedium
     "Source side medium (heating or chilled water)"
-    annotation (choices(choice(redeclare package Medium1=Buildings.Media.Water "Water"),choice(redeclare package Medium1=Buildings.Media.Antifreeze.PropyleneGlycolWater(property_T=293.15,X_a=0.40) "Propylene glycol water, 40% mass fraction")));
+    annotation (choices(choice(redeclare package Medium1=Buildings.Media.Water "Water"),choice(redeclare
+          package                                                                                                Medium1=
+            Buildings.Media.Antifreeze.PropyleneGlycolWater (                                                                                                            property_T=293.15,X_a=0.40) "Propylene glycol water, 40% mass fraction")));
   replaceable package Medium2=Modelica.Media.Interfaces.PartialMedium
     "Load side medium"
-    annotation (choices(choice(redeclare package Medium2=Buildings.Media.Air "Moist air"),choice(redeclare package Medium2=Buildings.Media.Water "Water")));
+    annotation (choices(choice(redeclare package Medium2=Buildings.Media.Air "Moist air"),choice(redeclare
+          package                                                                                                  Medium2=
+            Buildings.Media.Water                                                                                                                "Water")));
   parameter Boolean allowFlowReversal=false
     "Set to true to allow flow reversal on the source side"
     annotation (Dialog(tab="Assumptions"),Evaluate=true);
@@ -142,12 +146,14 @@ partial model PartialTerminalUnit
     annotation (Placement(transformation(extent={{-20,-20},{20,20}},rotation=0,origin={-220,180}),iconTransformation(extent={{-10,-10},{10,10}},rotation=0,origin={-130,40})));
   Modelica.Blocks.Interfaces.RealInput QReqHea_flow(
     final quantity="HeatFlowRate",
-    final unit="W") if have_QReq_flow and(have_watHea or have_chaOve or have_eleHea)
+    final unit="W") if have_QReq_flow and
+                                         (have_watHea or have_chaOve or have_eleHea)
     "Required heat flow rate to meet heating set point (>=0)"
     annotation (Placement(transformation(extent={{-20,-20},{20,20}},rotation=0,origin={-220,100}),iconTransformation(extent={{-10,-10},{10,10}},rotation=0,origin={-130,-20})));
   Modelica.Blocks.Interfaces.RealInput QReqCoo_flow(
     final quantity="HeatFlowRate",
-    final unit="W") if have_QReq_flow and(have_watCoo or have_eleCoo)
+    final unit="W") if have_QReq_flow and
+                                         (have_watCoo or have_eleCoo)
     "Required heat flow rate to meet cooling set point (<=0)"
     annotation (Placement(transformation(extent={{-20,-20},{20,20}},rotation=0,origin={-220,60}),iconTransformation(extent={{-10,-10},{10,10}},rotation=0,origin={-130,-42})));
   Modelica.Blocks.Interfaces.RealOutput QActHea_flow(
@@ -192,8 +198,7 @@ partial model PartialTerminalUnit
     annotation (Placement(transformation(extent={{200,60},{240,100}}),iconTransformation(extent={{120,-70},{140,-50}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_aLoa(
     redeclare final package Medium=Medium2,
-    p(
-      start=Medium2.p_default),
+    p(start=Medium2.p_default),
     m_flow(
       min=
         if allowFlowReversalLoa then
@@ -207,8 +212,7 @@ partial model PartialTerminalUnit
     annotation (Placement(transformation(extent={{190,-10},{210,10}}),iconTransformation(extent={{110,90},{130,110}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_bLoa(
     redeclare final package Medium=Medium2,
-    p(
-      start=Medium2.p_default),
+    p(start=Medium2.p_default),
     m_flow(
       max=
         if allowFlowReversalLoa then
@@ -230,8 +234,7 @@ partial model PartialTerminalUnit
     "Weather data bus"
     annotation (Placement(transformation(extent={{-16,224},{18,256}}),iconTransformation(extent={{-18,104},{16,136}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_aHeaWat(
-    p(
-      start=Medium1.p_default),
+    p(start=Medium1.p_default),
     redeclare final package Medium=Medium1,
     m_flow(
       min=
@@ -245,8 +248,7 @@ partial model PartialTerminalUnit
     "Heating water inlet port"
     annotation (Placement(transformation(extent={{-210,-230},{-190,-210}}),iconTransformation(extent={{-130,-110},{-110,-90}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_aChiWat(
-    p(
-      start=Medium1.p_default),
+    p(start=Medium1.p_default),
     redeclare final package Medium=Medium1,
     m_flow(
       min=
@@ -260,8 +262,7 @@ partial model PartialTerminalUnit
     "Chilled water inlet port"
     annotation (Placement(transformation(extent={{-210,-190},{-190,-170}}),iconTransformation(extent={{-130,-90},{-110,-70}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_bHeaWat(
-    p(
-      start=Medium1.p_default),
+    p(start=Medium1.p_default),
     redeclare final package Medium=Medium1,
     m_flow(
       max=
@@ -275,8 +276,7 @@ partial model PartialTerminalUnit
     "Heating water outlet port"
     annotation (Placement(transformation(extent={{210,-230},{190,-210}}),iconTransformation(extent={{130,-110},{110,-90}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_bChiWat(
-    p(
-      start=Medium1.p_default),
+    p(start=Medium1.p_default),
     redeclare final package Medium=Medium1,
     m_flow(
       max=
@@ -291,11 +291,13 @@ partial model PartialTerminalUnit
     annotation (Placement(transformation(extent={{210,-190},{190,-170}}),iconTransformation(extent={{130,-90},{110,-70}})));
   // COMPONENTS
   Buildings.Controls.OBC.CDL.Continuous.Gain scaQReqHea_flow(
-    k=1/facSca) if have_QReq_flow and(have_watHea or have_chaOve or have_eleHea)
+    k=1/facSca) if have_QReq_flow and
+                                     (have_watHea or have_chaOve or have_eleHea)
     "Scaling"
     annotation (Placement(transformation(extent={{-180,90},{-160,110}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain scaQReqCoo_flow(
-    k=1/facSca) if have_QReq_flow and(have_watCoo or have_eleCoo)
+    k=1/facSca) if have_QReq_flow and
+                                     (have_watCoo or have_eleCoo)
     "Scaling"
     annotation (Placement(transformation(extent={{-180,50},{-160,70}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain scaQActHea_flow(
@@ -375,16 +377,14 @@ partial model PartialTerminalUnit
     "Load side mass flow rate scaling"
     annotation (Placement(transformation(extent={{180,-10},{160,10}})));
   Fluid.HeatExchangers.RadiantSlabs.BaseClasses.HeatFlowRateMultiplier scaHeaFloCon(
-    k=
-      if have_scaLoa then
+    k=if have_scaLoa then
         facSca
       else
         1) if have_heaPor
     "Convective heat flow rate scaling"
     annotation (Placement(transformation(extent={{160,30},{180,50}})));
   Fluid.HeatExchangers.RadiantSlabs.BaseClasses.HeatFlowRateMultiplier scaHeaFloRad(
-    k=
-      if have_scaLoa then
+    k=if have_scaLoa then
         facSca
       else
         1) if have_heaPor
@@ -500,8 +500,8 @@ heating and cooling loads as time series, see
 Buildings.Experimental.DHC.Loads.Examples.CouplingTimeSeries</a>
 for an illustration of that use case.
 The impact on the room air temperature of an unmet load can be assessed with
-<a href=\"modelica://Buildings.Experimental.DHC.Loads.SimpleRoom\">
-Buildings.Experimental.DHC.Loads.SimpleRoom</a>.
+<a href=\"modelica://Buildings.Experimental.DHC.Loads.SimpleRoomODE\">
+Buildings.Experimental.DHC.Loads.SimpleRoomODE</a>.
 </li>
 </ul>
 </ul>
