@@ -276,7 +276,7 @@ protected
 
   Buildings.Controls.OBC.CDL.Logical.Edge edg1 if not have_priOnl
     "Generate pulse to signal start of pump change process"
-    annotation (Placement(transformation(extent={{-100,-260},{-80,-240}})));
+    annotation (Placement(transformation(extent={{-90,-250},{-70,-230}})));
 
   Buildings.Controls.OBC.CDL.Logical.Edge edg2 if not have_priOnl
     "Generate pulse to signal start of pump change process"
@@ -333,10 +333,6 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Or or1
     "Pass signal when plant is enabled or when stage-up process is initiated"
     annotation (Placement(transformation(extent={{-130,-130},{-110,-110}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Edge edg3
-    "Edge detector"
-    annotation (Placement(transformation(extent={{-220,-130},{-200,-110}})));
 
   Buildings.Controls.OBC.CDL.Logical.Latch lat2
     "Hold status when plant enable is detected"
@@ -451,8 +447,8 @@ equation
   connect(edg2.y, or2.u1) annotation (Line(points={{192,-230},{200,-230},{200,-240},
           {208,-240}},       color={255,0,255}));
 
-  connect(edg1.y, or2.u2) annotation (Line(points={{-78,-250},{66,-250},{66,
-          -248},{208,-248}}, color={255,0,255}));
+  connect(edg1.y, or2.u2) annotation (Line(points={{-68,-240},{66,-240},{66,-248},
+          {208,-248}},       color={255,0,255}));
 
   connect(enaBoi.yBoi, yBoi) annotation (Line(points={{82,8},{90,8},{90,110},{300,
           110}},     color={255,0,255}));
@@ -535,10 +531,6 @@ equation
           {-10,-30},{-10,-8},{-2,-8}}, color={255,0,255}));
   connect(con.y, and3.u2) annotation (Line(points={{-158,-150},{-30,-150},{-30,-190},
           {110,-190},{110,-160},{184,-160},{184,-8},{188,-8}}, color={255,0,255}));
-  connect(edg3.u, uPlaEna)
-    annotation (Line(points={{-222,-120},{-260,-120}}, color={255,0,255}));
-  connect(edg3.y, lat2.u)
-    annotation (Line(points={{-198,-120},{-182,-120}}, color={255,0,255}));
   connect(lat2.y, or1.u1)
     annotation (Line(points={{-158,-120},{-132,-120}}, color={255,0,255}));
   connect(minBypRes.yMinBypRes, or1.u2) annotation (Line(points={{-148,20},{-146,
@@ -569,14 +561,16 @@ equation
   connect(uStaChaPro, lat4.clr) annotation (Line(points={{-260,-150},{-190,-150},
           {-190,-100},{-98,-100},{-98,70},{132,70},{132,-168},{156,-168},{156,
           -196},{158,-196}}, color={255,0,255}));
-  connect(hotWatSupTemRes.yHotWatSupTemRes, edg1.u) annotation (Line(points={{-148,
-          -20},{-146,-20},{-146,-250},{-102,-250}}, color={255,0,255}));
   connect(and2.y, edg2.u)
     annotation (Line(points={{162,-230},{168,-230}}, color={255,0,255}));
   connect(truDel.y, and2.u1) annotation (Line(points={{122,0},{126,0},{126,-230},
           {138,-230}}, color={255,0,255}));
   connect(nexBoi.yOnOff, and2.u2) annotation (Line(points={{-148,-60},{-54,-60},
           {-54,-238},{138,-238}}, color={255,0,255}));
+  connect(or1.y, edg1.u) annotation (Line(points={{-108,-120},{-104,-120},{-104,
+          -240},{-92,-240}}, color={255,0,255}));
+  connect(uPlaEna, lat2.u)
+    annotation (Line(points={{-260,-120},{-182,-120}}, color={255,0,255}));
 annotation (
   defaultComponentName="upProCon",
   Diagram(coordinateSystem(preserveAspectRatio=false,
