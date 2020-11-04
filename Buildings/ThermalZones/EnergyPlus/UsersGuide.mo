@@ -14,7 +14,7 @@ package UsersGuide
 This user guide describes how to use the EnergyPlus building envelope model.
 </p>
 <p>
-Currently only Linux 64 bit is supported, other operating systems will be added later.
+Currently Windows 64 bit and Linux 64 bit are supported.
 </p>
 <p>
 To instanciate one or several buildnig models, proceed as follows:
