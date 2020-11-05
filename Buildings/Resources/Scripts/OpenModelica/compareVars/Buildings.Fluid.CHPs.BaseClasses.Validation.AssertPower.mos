@@ -1,8 +1,0 @@
-compareVars :=
-  {
-    "per.PEleMax",
-    "per.PEleMin",
-    "assPow.PEleDem",
-    "assPow.assMesP.u",
-    "assPow.assMesDP.u"
-  };

@@ -244,20 +244,25 @@ model System6
     "Temperature setpoint for boiler return"
     annotation (Placement(transformation(extent={{120,-270},{140,-250}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.PID conPIDBoi(
+ Buildings.Controls.OBC.CDL.Continuous.LimPID conPIDBoi(
     Td=1,
     Ti=120,
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     k=0.1,
-    reverseActing=false) "Controller for valve in boiler loop"
+    yMax=1,
+    yMin=0,
+    reverseAction=true) "Controller for valve in boiler loop"
     annotation (Placement(transformation(extent={{160,-270},{180,-250}})));
 //--------------------------------------------------------------------------------//
 
-  Buildings.Controls.OBC.CDL.Continuous.PID conPIDRad(
+  Buildings.Controls.OBC.CDL.Continuous.LimPID conPIDRad(
     Td=1,
     Ti=120,
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
-    k=0.1) "Controller for valve in radiator loop"
+    k=0.1,
+    yMax=1,
+    yMin=0)
+           "Controller for valve in radiator loop"
     annotation (Placement(transformation(extent={{-180,-20},{-160,0}})));
 //------------------------------------------------------------------------------//
   Buildings.Controls.OBC.CDL.Continuous.Line TSetSup
@@ -597,7 +602,7 @@ This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/673\"
 <li>
 July 2, 2015, by Michael Wetter:<br/>
 Changed control input for <code>conPIDBoi</code> and set
-<code>reverseActing=false</code>
+<code>reverseAction=true</code>
 to address issue
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/436\">#436</a>.
 </li>

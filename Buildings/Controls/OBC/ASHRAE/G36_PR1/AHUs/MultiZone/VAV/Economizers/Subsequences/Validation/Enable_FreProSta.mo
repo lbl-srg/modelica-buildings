@@ -20,7 +20,7 @@ model Enable_FreProSta
     "Outdoor air temperature is slightly below the cutoff"
     annotation (Placement(transformation(extent={{-80,140},{-60,160}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOutCut(
-    final k=TOutCutoff) "OA temperature high limit cutoff"
+    final k=TOutCutoff)
     annotation (Placement(transformation(extent={{-80,100},{-60,120}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant hOutBelowCutoff(
     final k=hOutCutoff - 1000)
@@ -46,16 +46,14 @@ model Enable_FreProSta
     final k=0) "Minimal allowed economizer damper position"
     annotation (Placement(transformation(extent={{-110,-90},{-90,-70}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant supFanSta(k=true)
-    "Supply fan status"
     annotation (Placement(transformation(extent={{-140,-40},{-120,-20}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul1(period=1800)
-    "Boolean pulse for generating freeze protection stage"
     annotation (Placement(transformation(extent={{-20,-160},{0,-140}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger freProSta1(
     integerTrue=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.FreezeProtectionStages.stage0,
     integerFalse=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.FreezeProtectionStages.stage1)
-    "Freeze protection stage changes from stage 0 to stage 1"
+    "Freese protection stage changes from stage 0 to stage 1"
     annotation (Placement(transformation(extent={{20,-160},{40,-140}})));
 
 equation

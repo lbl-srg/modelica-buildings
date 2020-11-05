@@ -1,6 +1,8 @@
 within Buildings.Controls.OBC.CDL.Logical;
 block Latch "Maintains a true signal until change condition"
 
+  parameter Boolean pre_y_start=false "Start value of pre(y) if clr=false";
+
   Interfaces.BooleanInput u "Latch input"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Interfaces.BooleanInput clr "Clear input"
@@ -9,14 +11,14 @@ block Latch "Maintains a true signal until change condition"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 initial equation
-  pre(y) = false;
+  pre(y) = pre_y_start;
   pre(u) = false;
   pre(clr) = false;
 
 equation
   when initial() then
     //scenario = 1;
-    y = if clr then false else u;
+    y = if clr then false else pre_y_start;
   elsewhen (not clr) and change(u) and (pre(u) == false) then
     //scenario = 2;
     y = not clr;
@@ -94,7 +96,7 @@ regardless of the value of the latch input <code>u</code>.
 </p>
 <p>
 At initial time, if <code>clr = false</code>, then the output will be 
-<code>y = u</code>. Otherwise it will be <code>y=false</code> 
+<code>y = pre_y_start</code>. Otherwise it will be <code>y=false</code> 
 (because the clear input <code>clr</code> is <code>true</code>).
 </p>
 
@@ -105,12 +107,6 @@ At initial time, if <code>clr = false</code>, then the output will be
 
 </html>", revisions="<html>
 <ul>
-<li>
-October 13, 2020, by Jianjun Hu:<br/>
-Removed the parameter <code>pre_y_start</code>, and made the initial output to be
-equal to latch input when the clear input is <code>false</code>.<br/>
-This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2177\">issue 2177</a>.
-</li>
 <li>
 March 9, 2020, by Michael Wetter:<br/>
 Simplified implementation, and made model work with OpenModelica.

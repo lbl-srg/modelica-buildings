@@ -5,11 +5,7 @@ model WetCoilCounterFlow
     redeclare replaceable package Medium2 =
       Modelica.Media.Interfaces.PartialCondensingGases,
     redeclare final model HexElement =
-      Buildings.Fluid.HeatExchangers.BaseClasses.HexElementLatent(simplify_mWat_flow=simplify_mWat_flow));
-
-  constant Boolean simplify_mWat_flow = true
-    "Set to true to cause port_a.m_flow + port_b.m_flow = 0 even if mWat_flow is non-zero. Used only if Medium.nX > 1"
-    annotation(HideResult=true);
+      Buildings.Fluid.HeatExchangers.BaseClasses.HexElementLatent);
 
   Modelica.SIunits.HeatFlowRate QSen2_flow = Q2_flow - QLat2_flow
     "Sensible heat input into air stream (negative if air is cooled)";
@@ -77,11 +73,6 @@ Buildings.Fluid.HeatExchangers.DryCoilCounterFlow</a> instead of this model.
 </p>
 </html>", revisions="<html>
 <ul>
-<li>
-May 1, 2020, by Michael Wetter:<br/>
-Added constant <code>simplify_mWat_flow</code>.<br/>
-This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1920\">#1920</a>.
-</li>
 <li>
 October 19, 2018, by Kino:<br/>
 Changed model to use a replaceable model as this allows translation in OpenModelica.<br/>

@@ -97,7 +97,7 @@ model WatersideEconomizer "Waterside economizer"
     final portFlowDirection_2=portFlowDirection_2,
     final portFlowDirection_3=portFlowDirection_3,
     final rhoStd=rhoStd[2],
-    final reverseActing=reverseActing)
+    final reverseAction=reverseAction)
     "Water-to-water heat exchanger"
     annotation (Placement(transformation(extent={{-10,-12},{10,4}})));
 

@@ -1,26 +1,16 @@
 within Buildings.Controls.OBC.Utilities.BaseClasses;
 block OptimalStartCalculation
   "Base class for the block OptimalStart"
-  parameter Real tOptMax(
-    final quantity="Time",
-    final unit="s") "Maximum optimal start time";
-  parameter Real thrOptOn(
-    final quantity="Time",
-    final unit="s")
+  parameter Modelica.SIunits.Time tOptMax "Maximum optimal start time";
+  parameter Modelica.SIunits.Time thrOptOn
     "Threshold time for the output optOn to become true";
-  parameter Real tOptDef(
-    final quantity="Time",
-    final unit="s")
+  parameter Modelica.SIunits.Time tOptDef
     "Default optimal start time";
   parameter Integer nDay "Number of previous days for averaging the temperature slope";
-  parameter Real uLow(
-    final quantity="TemperatureDifference",
-    final unit="K")
+  parameter Modelica.SIunits.TemperatureDifference uLow
     "Threshold to determine if the zone temperature reaches the occupied setpoint,
      should be a non-negative number";
-  parameter Real uHigh(
-    final quantity="TemperatureDifference",
-    final unit="K")
+  parameter Modelica.SIunits.TemperatureDifference uHigh
     "Threshold to determine the need to start the HVAC system before occupancy,
      should be greater than uLow";
 
@@ -52,17 +42,10 @@ block OptimalStartCalculation
     "Optimal start boolean output" annotation (
       Placement(transformation(extent={{440,-80},{480,-40}}),
         iconTransformation(extent={{100,-60},{140,-20}})));
-protected
-  parameter Real temSloDef(
-    final quantity="TemperatureSlope",
-    final unit="K/s") = 1/3600
-    "Default temperature slope in case of zero division";
 
-  CDL.Logical.Sources.SampleTrigger samTri(
-    final period=86400,
-    final delay=0)
-    "Trigger that triggers each midnight"
-    annotation (Placement(transformation(extent={{80,-50},{100,-30}})));
+protected
+  parameter Modelica.SIunits.TemperatureSlope temSloDef = 1/3600
+    "Default temperature slope in case of zero division";
 
   Buildings.Controls.OBC.CDL.Discrete.TriggeredMovingMean triMovMea(
     final n=nDay)
@@ -101,10 +84,12 @@ protected
     final uHigh=0,
     final uLow=-60) "Hysteresis to activate the optimal start"
     annotation (Placement(transformation(extent={{330,-90},{350,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesThr(final t=1E-15)
+  Buildings.Controls.OBC.CDL.Continuous.LessEqualThreshold lesEquThr(
+    final threshold=1E-15)
     "Avoid zero division"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesThr1(final t=1E-15)
+  Buildings.Controls.OBC.CDL.Continuous.LessEqualThreshold lesEquThr1(
+    final threshold=1E-15)
     "Avoid zero division"
     annotation (Placement(transformation(extent={{140,-10},{160,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxStaTim(
@@ -148,7 +133,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Latch lat
      "Stop calculation when the zone temperature reaches setpoint"
     annotation (Placement(transformation(extent={{-190,70},{-170,90}})));
-  Buildings.Controls.OBC.CDL.Logical.Timer tim
+  Buildings.Controls.OBC.CDL.Logical.Timer tim(final reset=true)
     "Record time duration for the zone temperature to reach setpoint"
     annotation (Placement(transformation(extent={{-180,0},{-160,20}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1
@@ -157,11 +142,23 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Division tOptCal
     "Calculate optimal start time using the averaged previous temperature slope"
     annotation (Placement(transformation(extent={{220,-10},{240,10}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.ModelTime modTim "Model time"
+    annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con1(final k=86400)
+  "Daily period"
+    annotation (Placement(transformation(extent={{0,-90},{20,-70}})));
+  Buildings.Controls.OBC.CDL.Continuous.Modulo mod "Get the modulo"
+    annotation (Placement(transformation(extent={{40,-70},{60,-50}})));
+  Buildings.Controls.OBC.CDL.Continuous.LessEqualThreshold lesEquThr2(
+    final threshold=1E-06)
+  "Get the instant when the simulation time arrives at midnight"
+    annotation (Placement(transformation(extent={{80,-70},{100,-50}})));
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triSam4
   "Get the sampled optimal start time at the same time each day"
     annotation (Placement(transformation(extent={{250,-10},{270,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(final t=
-        thrOptOn) "The threshold for optOn signal becomes true"
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
+    final threshold=thrOptOn)
+  "The threshold for optOn signal becomes true"
     annotation (Placement(transformation(extent={{320,-10},{340,10}})));
   Buildings.Controls.OBC.CDL.Logical.And and2 "Logical and"
     annotation (Placement(transformation(extent={{360,-40},{380,-20}})));
@@ -170,21 +167,18 @@ equation
   connect(tim.y, triSam.u)  annotation (Line(points={{-158,10},{-102,10}},
                                               color={0,0,127}));
   connect(falEdg.y, triSam.trigger) annotation (Line(points={{-98,-20},{-90,-20},
-          {-90,-1.8}}, color={255,0,255}));
+          {-90,-1.8}},                                                                     color={255,0,255}));
   connect(not1.y, lat.clr) annotation (Line(points={{-208,80},{-200,80},{-200,74},
           {-192,74}}, color={255,0,255}));
   connect(swi1.y, tOptCal.u2) annotation (Line(points={{202,0},{210,0},{210,-6},
           {218,-6}}, color={0,0,127}));
   connect(temSlo.y, triMovMea.u)  annotation (Line(points={{82,0},{98,0}},     color={0,0,127}));
-  connect(lesThr.y, swi.u2)
-    annotation (Line(points={{2,0},{18,0}}, color={255,0,255}));
-  connect(lesThr1.y, swi1.u2)
-    annotation (Line(points={{162,0},{178,0}}, color={255,0,255}));
+  connect(lesEquThr.y, swi.u2)   annotation (Line(points={{2,0},{18,0}},      color={255,0,255}));
+  connect(lesEquThr1.y, swi1.u2)    annotation (Line(points={{162,0},{178,0}},     color={255,0,255}));
   connect(TDif, hys.u) annotation (Line(points={{-300,120},{-272,120},{-272,80},
           {-262,80}},
                 color={0,0,127}));
-  connect(triMovMea.y, lesThr1.u)
-    annotation (Line(points={{122,0},{138,0}}, color={0,0,127}));
+  connect(triMovMea.y, lesEquThr1.u)   annotation (Line(points={{122,0},{138,0}},     color={0,0,127}));
   connect(staCal, triSam2.trigger) annotation (Line(points={{-300,40},{-120,40},
           {-120,100},{110,100},{110,108.2}},
                                     color={255,0,255}));
@@ -204,8 +198,8 @@ equation
           {-62,6}}, color={0,0,127}));
   connect(swi.y, temSlo.u2)    annotation (Line(points={{42,0},{46,0},{46,-6},{
           58,-6}},                                                                      color={0,0,127}));
-  connect(add1.y, lesThr.u)
-    annotation (Line(points={{-38,0},{-22,0}}, color={0,0,127}));
+  connect(add1.y, lesEquThr.u)   annotation (Line(points={{-38,0},{-22,0}},
+                                                                         color={0,0,127}));
   connect(add1.y, swi.u3) annotation (Line(points={{-38,0},{-30,0},{-30,-18},{8,
           -18},{8,-8},{18,-8}},
                             color={0,0,127}));
@@ -239,6 +233,13 @@ equation
   connect(lat.y, falEdg.u) annotation (Line(points={{-168,80},{-134,80},{-134,
           -20},{-122,-20}},
                       color={255,0,255}));
+  connect(modTim.y, mod.u1) annotation (Line(points={{22,-40},{28,-40},{28,-54},
+          {38,-54}}, color={0,0,127}));
+  connect(con1.y, mod.u2) annotation (Line(points={{22,-80},{28,-80},{28,-66},{
+          38,-66}}, color={0,0,127}));
+  connect(mod.y, lesEquThr2.u)   annotation (Line(points={{62,-60},{78,-60}}, color={0,0,127}));
+  connect(lesEquThr2.y, triMovMea.trigger) annotation (Line(points={{102,-60},{
+          110,-60},{110,-12}}, color={255,0,255}));
   connect(tOptCal.y, triSam4.u)   annotation (Line(points={{242,0},{248,0}}, color={0,0,127}));
   connect(staCal, triSam4.trigger) annotation (Line(points={{-300,40},{-260,40},
           {-260,-108},{260,-108},{260,-11.8}}, color={255,0,255}));
@@ -261,8 +262,6 @@ equation
           {388,-30}}, color={255,0,255}));
   connect(pre.y, optOn) annotation (Line(points={{412,-30},{428,-30},{428,-60},
           {460,-60},{460,-60}}, color={255,0,255}));
-  connect(samTri.y, triMovMea.trigger) annotation (Line(points={{102,-40},{110,-40},
-          {110,-12}}, color={255,0,255}));
    annotation (
 defaultComponentName="optStaCal",
   Documentation(info="<html>
@@ -275,10 +274,6 @@ Buildings.Controls.OBC.Utilities.OptimalStart</a>.
 </html>",
 revisions="<html>
 <ul>
-<li>
-October 20, 2020, by Michael Wetter:<br/>
-Reimplemented trigger the moving average computation.
-</li>
 <li>
 December 15, 2019, by Kun Zhang:<br/>
 First implementation.

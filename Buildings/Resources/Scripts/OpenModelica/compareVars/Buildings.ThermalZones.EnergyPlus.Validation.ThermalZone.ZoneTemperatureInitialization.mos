@@ -1,6 +1,0 @@
-compareVars :=
-  {
-    "zon.TAir",
-    "TRad.y",
-    "zon.TRad"
-  };

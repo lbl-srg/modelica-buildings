@@ -80,10 +80,7 @@ protected
     "Wet bulb temperature at nominal outlet conditions";
   final parameter Modelica.SIunits.MassFraction XEvaWetBulOut_nominal(fixed=false)
     "Water vapor mass fraction at nominal outlet wet bulb condition";
-  final parameter Modelica.SIunits.MassFraction dX_nominal(
-    min=-1,
-    max=0,
-    fixed=false)
+  final parameter Modelica.SIunits.MassFraction dX_nominal(max=0, fixed=false)
     "Driving potential for mass transfer";
 
   final parameter Modelica.SIunits.SpecificEnthalpy h_fg(fixed=false)
@@ -107,7 +104,7 @@ protected
   Boolean off=not on "Signal, true when component is off";
 
   Modelica.SIunits.Temperature TEvaWetBulOut "Wet bulb temperature at coil";
-  Modelica.SIunits.MassFraction dX(min=-1, max=0)
+  Modelica.SIunits.MassFraction dX
     "Difference in water vapor concentration that drives mass transfer";
 
   constant Modelica.SIunits.SpecificHeatCapacity cpAir_nominal=
@@ -575,12 +572,6 @@ Florida Solar Energy Center, Technical Report FSEC-CR-1537-05, January 2006.
 </p>
 </html>", revisions="<html>
 <ul>
-<li>
-May 7, 2020, by Michael Wetter:<br/>
-Corrected limits for <code>dX_nominal</code>.<br/>
-This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1933\">#1933</a>.
-</li>
 <li>
 April 13, 2017, by Michael Wetter:<br/>
 Removed input <code>TWat</code> that is not used.

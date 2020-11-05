@@ -1,25 +1,26 @@
 within Buildings.Examples.DualFanDualDuct.Controls;
 block RoomMixingBox "Controller for room mixing box"
   extends Modelica.Blocks.Icons.Block;
-
   parameter Modelica.SIunits.MassFlowRate m_flow_min "Minimum mass flow rate";
-  Buildings.Controls.OBC.CDL.Continuous.PID conHea(
+  Buildings.Controls.OBC.CDL.Continuous.LimPID conHea(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
+    yMax=1,
     Td=60,
+    yMin=0,
     k=0.1,
     Ti=120) "Controller for heating"
     annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.PID conCoo(
+  Buildings.Controls.OBC.CDL.Continuous.LimPID conCoo(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
-    reverseActing=false,
+    yMax=1,
+    reverseAction=true,
     Td=60,
     k=0.1,
-    Ti=120) "Controller for cooling (acts on damper)"
+    Ti=120,
+    yMin=0) "Controller for cooling (acts on damper)"
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
-  Modelica.Blocks.Interfaces.RealInput TRoo(
-    final quantity="ThermodynamicTemperature",
-    final unit = "K",
-    displayUnit = "degC", min=0)
+  Modelica.Blocks.Interfaces.RealInput TRoo(final quantity="ThermodynamicTemperature",
+                                          final unit = "K", displayUnit = "degC", min=0)
     "Measured room temperature"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
   Modelica.Blocks.Interfaces.RealOutput yHot "Signal for hot air damper"
@@ -30,12 +31,13 @@ block RoomMixingBox "Controller for room mixing box"
     "Measured air mass flow rate into the room"
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}}),
         iconTransformation(extent={{-140,-60},{-100,-20}})));
-  Buildings.Controls.OBC.CDL.Continuous.PID conFloRat(
+  Buildings.Controls.OBC.CDL.Continuous.LimPID conFloRat(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
+    yMax=1,
     Td=60,
+    yMin=0,
     k=0.1,
-    Ti=120,
-    r=m_flow_min)   "Controller for mass flow rate"
+    Ti=120) "Controller for mass flow rate"
     annotation (Placement(transformation(extent={{-42,30},{-22,50}})));
   Modelica.Blocks.Sources.Constant mAirSet(k=m_flow_min)
     "Set point for minimum air flow rate"
@@ -198,14 +200,5 @@ equation
 This controller outputs the control signal for the air damper for the hot deck and the cold deck.
 The control signal for the hot deck is the larger of the two signals needed to track the room heating
 temperature setpoint, and the minimum air flow rate.
-</html>", revisions="<html>
-<ul>
-<li>
-October 15, 2020, by Michael Wetter:<br/>
-Moved normalization of control error to PID controller.<br/>
-This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2182\">#2182</a>.
-</li>
-</ul>
 </html>"));
 end RoomMixingBox;

@@ -9,14 +9,13 @@ model Nand "Validation model for the Nand block"
     annotation (Placement(transformation(extent={{-26,-26},{-6,-6}})));
 
   Buildings.Controls.OBC.CDL.Logical.Nand nand1
-    "Outputs true if at least one input is false"
     annotation (Placement(transformation(extent={{26,-8},{46,12}})));
 
 equation
-  connect(booPul2.y, nand1.u2) annotation (Line(points={{-4,-16},{8,-16},{8,-6},
+  connect(booPul2.y, nand1.u2) annotation (Line(points={{-5,-16},{8,-16},{8,-6},
           {24,-6}}, color={255,0,255}));
-  connect(booPul1.y, nand1.u1) annotation (Line(points={{-4,18},{10,18},{10,2},
-          {24,2}},color={255,0,255}));
+  connect(booPul1.y, nand1.u1) annotation (Line(points={{-5,18},{10,18},{10,2},{
+          24,2}}, color={255,0,255}));
   annotation (
   experiment(StopTime=5.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Logical/Validation/Nand.mos"

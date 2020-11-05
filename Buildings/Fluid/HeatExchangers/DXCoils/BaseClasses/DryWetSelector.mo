@@ -61,7 +61,7 @@ block DryWetSelector "Selects results from dry or wet coil"
  output Real fraWet(min=0, max=1)
     "Fraction of results that are taken from the wet coil model";
 protected
-  output Modelica.SIunits.MassFraction dX(min=-1, max=1)
+  output Modelica.SIunits.MassFraction dX
     "Difference between apparatus dew point mass fraction of wet coil and inlet air mass fraction";
 equation
   dX = XADP-XEvaIn;
@@ -88,12 +88,6 @@ and the coil inlet mass fraction.
 </html>",
 revisions="<html>
 <ul>
-<li>
-May 7, 2020, by Michael Wetter:<br/>
-Corrected limits for <code>dX</code>.<br/>
-This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1933\">#1933</a>.
-</li>
 <li>
 April 13, 2017, by Michael Wetter:<br/>
 Removed temperature that is no longer needed.

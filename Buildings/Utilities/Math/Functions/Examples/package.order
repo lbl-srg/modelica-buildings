@@ -18,7 +18,6 @@ RegNonZeroPower
 RegNonZeroPowerDerivativeCheck
 RegNonZeroPowerDerivative_2_Check
 RegStep
-Round
 SmoothExponentialDerivativeCheck
 SmoothHeavisideDerivatives
 SmoothInterpolation

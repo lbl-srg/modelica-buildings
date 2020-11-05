@@ -7,7 +7,7 @@ partial model PartialChillerWSE
      final computeFlowResistance1=true,
      final computeFlowResistance2=true);
   extends Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.PartialControllerInterface(
-     final reverseActing=false);
+     final reverseAction=true);
   extends Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.ValvesParameters(
      numVal=4,
      final deltaM=deltaM1);
@@ -251,7 +251,7 @@ partial model PartialChillerWSE
     final yValWSE_start=yValWSE_start,
     final tauThrWayVal=tauWSE,
     final use_controller=use_controller,
-    final reverseActing=reverseActing,
+    final reverseAction=reverseAction,
     final show_T=show_T,
     final portFlowDirection_1=portFlowDirection_1,
     final portFlowDirection_2=portFlowDirection_2,

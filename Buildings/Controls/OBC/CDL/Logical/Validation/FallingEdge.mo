@@ -6,7 +6,6 @@ model FallingEdge "Validation model for the falling edge block"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 
   Buildings.Controls.OBC.CDL.Logical.FallingEdge falEdg
-    "Output true when input changes from true to false"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ramp2(
@@ -16,16 +15,15 @@ model FallingEdge "Validation model for the falling edge block"
     annotation (Placement(transformation(extent={{0,40},{20,60}})));
 
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triggeredSampler
-    "Trigger sampling of continuous signal"
     annotation (Placement(transformation(extent={{40,40},{60,60}})));
 equation
   connect(booPul.y, falEdg.u)
-    annotation (Line(points={{-18,0},{-18,0},{-2,0}},
+    annotation (Line(points={{-19,0},{-10,0},{-2,0}},
                                                     color={255,0,255}));
   connect(ramp2.y, triggeredSampler.u)
-    annotation (Line(points={{22,50},{22,50},{38,50}},   color={0,0,127}));
-  connect(falEdg.y, triggeredSampler.trigger) annotation (Line(points={{22,0},{
-          22,0},{50,0},{50,38.2}}, color={255,0,255}));
+    annotation (Line(points={{21,50},{29.5,50},{38,50}}, color={0,0,127}));
+  connect(falEdg.y, triggeredSampler.trigger) annotation (Line(points={{21,0},{
+          36,0},{50,0},{50,38.2}}, color={255,0,255}));
   annotation (
   experiment(StopTime=5.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Logical/Validation/FallingEdge.mos"

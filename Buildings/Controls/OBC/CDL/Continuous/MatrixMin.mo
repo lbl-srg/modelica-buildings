@@ -18,9 +18,8 @@ equation
     y = {min(u[i,:]) for i in 1:size(u, 1)};
   else
     y = {min(u[:,i]) for i in 1:size(u, 2)};
-  end if;
-
-annotation (
+  end if
+  annotation (
     defaultComponentName="matMin",
     Documentation(info="<html>
 <p>

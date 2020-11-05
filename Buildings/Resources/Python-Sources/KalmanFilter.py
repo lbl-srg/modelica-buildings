@@ -1,5 +1,5 @@
 ''' Python module that is used for the example
-    Buildings.Utilities.IO.Python36.Examples.Kalman
+    Buildings.Utilities.IO.Python27.Examples.Kalman
 '''
 def random(seed):
     ''' Return a random floating point number in the range [0.0, 1.0)

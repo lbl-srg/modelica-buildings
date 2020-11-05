@@ -1,7 +1,3 @@
 Constant
 Pulse
-PulseNegativeStartTime
-PulsePositiveStartTime
 SampleTrigger
-TimeTable
-TimeTableNegativeStartTime

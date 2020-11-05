@@ -1,5 +1,0 @@
-compareVars :=
-  {
-    "con.opeMod",
-    "powCon.PCon"
-  };

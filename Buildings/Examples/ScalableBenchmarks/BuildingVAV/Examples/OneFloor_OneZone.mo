@@ -187,11 +187,12 @@ model OneFloor_OneZone "Closed-loop model with 1 zone in 1 floor"
     "Setpoint for cooling coil"
     annotation (Placement(transformation(extent={{-238,-94},{-226,-82}})));
   Buildings.Controls.Continuous.LimPID cooCoiCon[nFlo](
-    each reverseActing=false,
+    each reverseAction=true,
     each Td=60,
     each initType=Modelica.Blocks.Types.InitPID.InitialState,
     each yMax=1,
     each yMin=0,
+    each controllerType=Modelica.Blocks.Types.SimpleController.PI,
     each Ti=600,
     each k=0.1) "Controller for cooling coil"
     annotation (Placement(transformation(extent={{-192,-94},{-180,-82}})));
@@ -200,6 +201,7 @@ model OneFloor_OneZone "Closed-loop model with 1 zone in 1 floor"
     each yMin=0,
     each Td=60,
     each initType=Modelica.Blocks.Types.InitPID.InitialState,
+    each controllerType=Modelica.Blocks.Types.SimpleController.PI,
     each Ti=600,
     each k=0.1)   "Controller for heating coil"
     annotation (Placement(transformation(extent={{-192,-66},{-180,-54}})));

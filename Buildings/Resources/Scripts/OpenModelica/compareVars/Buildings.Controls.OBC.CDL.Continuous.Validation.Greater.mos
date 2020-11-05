@@ -1,7 +1,6 @@
 compareVars :=
   {
-    "gre.u1",
-    "gre.u2",
-    "gre.y",
-    "greHys.y"
+    "greater1.u1",
+    "greater1.u2",
+    "greater1.y"
   };

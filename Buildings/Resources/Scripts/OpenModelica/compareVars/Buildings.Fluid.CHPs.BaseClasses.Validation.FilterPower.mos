@@ -1,7 +1,0 @@
-compareVars :=
-  {
-    "filPow.PEleDem",
-    "filPow.PEle",
-    "filPow.assPow.assMesP.u",
-    "filPow.assPow.assMesDP.u"
-  };

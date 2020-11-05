@@ -30,16 +30,28 @@ protected
 equation
   tmp = (Modelica.Math.sin(lat)*Modelica.Math.cos(zen) - Modelica.Math.sin(
     decAng))/(Modelica.Math.cos(lat)*Modelica.Math.sin(zen));
+
   arg = min(1.0, max(-1.0, tmp));
 
   solAziTem =  Modelica.Math.acos(arg); // Solar azimuth (A4.9a and b) as a positive number
 
-  // If outside the polar circle, the only non-differentiability is at night when the sun is set.
-  // Hence, we use noEvent.
-  // If inside the polar circle, there is a jump at (solar-)midnight when the sun can
-  // be above the horizon. Hence, we do not use noEvent(...)
-  // Written as one line with functions so that lat does not become structural parameter with JModelica.org
-  solAzi = if outsidePolarCircle then solarAzimuthNoEvent(solAziTem, solTim, day) else solarAzimuthWithEvent(solAziTem, solTim, day);
+  if outsidePolarCircle then
+    // Outside the polar circle, the only non-differentiability is at night when the sun is set.
+    // Hence, we use noEvent.
+    if noEvent(solTim - integer(solTim/day)*day < 43200) then
+      solAzi =-solAziTem;
+    else
+      solAzi = solAziTem;
+    end if;
+  else
+    // Inside the polar circle, there is a jump at (solar-)midnight when the sun can
+    // be above the horizon. Hence, we do not use noEvent(...)
+    if solTim - integer(solTim/day)*day < 43200 then
+      solAzi =-solAziTem;
+    else
+      solAzi = solAziTem;
+    end if;
+  end if;
 
   annotation (
     defaultComponentName="solAzi",
@@ -49,12 +61,6 @@ This component computes the solar azimuth angle.
 </p>
 </html>", revisions="<html>
 <ul>
-<li>
-June 9, 2020, by David Blum:<br/>
-Reformulated to use one-line if-statements.<br/>
-This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1373\">issue 1373</a>.
-</li>
 <li>
 October 13, 2017, by Michael Wetter:<br/>
 Reformulated to use equation rather than algorithm section.<br/>

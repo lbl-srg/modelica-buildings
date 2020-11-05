@@ -85,7 +85,7 @@ protected
     "Outdoor air temperature is slightly below the cutoff"
     annotation (Placement(transformation(extent={{-120,100},{-100,120}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOutCut1(
-    final k=TOutCutoff) "Outdoor temperature high limit cutoff"
+    final k=TOutCutoff)
     annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSupSetSig(
     final k=TSupSet) "Heating supply air temperature setpoint"

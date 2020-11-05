@@ -25,17 +25,11 @@ model ActuatorSignal
         rotation=270,
         origin={0,120})));
 
-  Modelica.Blocks.Interfaces.RealOutput y_actual
-    "Actual actuator position"
+  Modelica.Blocks.Interfaces.RealOutput y_actual "Actual valve position"
     annotation (Placement(transformation(extent={{40,60},{60,80}})));
 
   // Classes used to implement the filtered opening
 protected
-  parameter Boolean casePreInd = false
-    "In case of PressureIndependent the model I/O is modified"
-    annotation(Evaluate=true);
-  Modelica.Blocks.Interfaces.RealOutput y_internal(unit="1")
-    "Output connector for internal use (= y_actual if not casePreInd)";
   Modelica.Blocks.Interfaces.RealOutput y_filtered if use_inputFilter
     "Filtered valve position in the range 0..1"
     annotation (Placement(transformation(extent={{40,78},{60,98}}),
@@ -62,17 +56,15 @@ equation
   connect(y, filter.u) annotation (Line(
       points={{1.11022e-15,120},{1.11022e-15,88},{4.6,88}},
       color={0,0,127}));
-  connect(filter.y, y_internal) annotation (Line(
+  connect(filter.y, y_actual) annotation (Line(
       points={{20.7,88},{30,88},{30,70},{50,70}},
       color={0,0,127}));
   else
-    connect(y, y_internal) annotation (Line(
+    connect(y, y_actual) annotation (Line(
       points={{1.11022e-15,120},{0,120},{0,70},{50,70}},
       color={0,0,127}));
   end if;
-  if not casePreInd then
-    connect(y_internal, y_actual);
-  end if;
+
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics={
         Line(
@@ -123,13 +115,6 @@ for a description of the filter.
 </p>
 </html>", revisions="<html>
 <ul>
-<li>
-April 6, 2020, by Antoine Gautier:<br/>
-Add the boolean parameter <code>casePreInd</code>.<br/>
-This is needed for the computation of the damper opening in
-<a href=\"modelica://Buildings.Fluid.Actuators.Dampers.PressureIndependent\">
-Buildings.Fluid.Actuators.Dampers.PressureIndependent</a>.
-</li>
 <li>
 February 21, 2020, by Michael Wetter:<br/>
 Changed icon to display its operating state.<br/>

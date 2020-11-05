@@ -1,6 +1,6 @@
 compareVars :=
   {
-    "intGreEquThr.t",
+    "intGreEquThr.threshold",
     "intGreEquThr.u",
     "intGreEquThr.y"
   };

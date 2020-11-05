@@ -1,14 +1,10 @@
 within Buildings.Controls.OBC.Shade;
 block Shade_H "Shade controller with solar irradiation as input"
 
-  parameter Real HHigh(
-    final quantity="Irradiance",
-    final unit="W/m2")
+  parameter Modelica.SIunits.Irradiance HHigh
     "if y=0 and H>=HHigh, switch to y=1";
 
-  parameter Real HLow(
-    final quantity="Irradiance",
-    final unit="W/m2")
+  parameter Modelica.SIunits.Irradiance HLow
     "if y=1 and H<=HLow, switch to y=0";
 
   CDL.Interfaces.RealInput H(final unit = "W/m2")

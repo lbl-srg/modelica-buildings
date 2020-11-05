@@ -28,7 +28,7 @@ equation
   when {initial(), canRepeatWeatherFile and modTim > pre(tNext)} then
     // simulation time stamp went over the end time of the weather file
     //(last time stamp of the weather file + average increment)
-    tNext = if canRepeatWeatherFile then integer(modTim/lenWea)*lenWea + lenWea else time;
+    tNext = if canRepeatWeatherFile then noEvent(integer(modTim/lenWea))*lenWea + lenWea else time;
   end when;
   calTim = if canRepeatWeatherFile then modTim - tNext + lenWea else modTim;
 
@@ -59,7 +59,7 @@ Added <code>noEvent</code> to assertion to remove zero crossing function in OPTI
 </li>
 <li>
 January 29, 2020, by Filip Jorissen:<br/>
-Revised end time assert and added assert that verifies whether the time is before the
+Revised end time assert and added assert that verifies whether the time is before the 
 start time of the weather file.<br/>
 This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1281\">#1281</a>.
 </li>

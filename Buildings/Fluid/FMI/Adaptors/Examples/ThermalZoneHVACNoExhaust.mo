@@ -29,6 +29,7 @@ model ThermalZoneHVACNoExhaust
     startTime=7*3600) "Setpoint for room temperature"
     annotation (Placement(transformation(extent={{-120,40},{-100,60}})));
   Controls.Continuous.LimPID conPI(
+    controllerType=Modelica.Blocks.Types.SimpleController.PI,
     k=1,
     yMax=1,
     yMin=0,

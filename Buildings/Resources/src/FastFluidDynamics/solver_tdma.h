@@ -1,19 +1,19 @@
-/*
-	*
-	* @file   solver_tdma.h
-	*
-	* @brief Tri-Diagonal Matrix Algorithm Solver
-	*
-	* @author Mingang Jin, Qingyan Chen
-	*         Purdue University
-	*         Jin55@purdue.edu, YanChen@purdue.edu
-	*         Wangda Zuo
-	*         University of Miami
-	*         W.Zuo@miami.edu
-	*
-	* @date   8/3/2013
-	*
-	*/
+/****************************************************************************
+|
+|  \file   solver_tdma.h
+|
+|  \brief  Gauss-Seidel solvers
+|
+|  \author Mingang Jin, Qingyan Chen
+|          Purdue University
+|          Jin55@purdue.edu, YanChen@purdue.edu
+|          Wangda Zuo
+|          University of Miami, University of Colorado Boulder
+|          W.Zuo@miami.edu, wangda.zuo@colorado.edu
+|
+|  \date   8/3/2013
+|
+****************************************************************************/
 #ifndef _SOLVER_TDMA_H
 #define _SOLVER_TDMA_H
 #endif

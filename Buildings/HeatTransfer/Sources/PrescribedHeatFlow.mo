@@ -10,7 +10,6 @@ model PrescribedHeatFlow "Prescribed heat flow boundary condition"
 equation
   port.Q_flow = -Q_flow;
   annotation (
-    defaultComponentName="preHeaFlo",
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
             100,100}}), graphics={
         Line(

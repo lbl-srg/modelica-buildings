@@ -167,6 +167,7 @@ model TwoRoomsWithStorage
     yMax=1,
     Td=60,
     yMin=0.05,
+    controllerType=Modelica.Blocks.Types.SimpleController.PI,
     eOn=0.5,
     k=0.5,
     Ti=15) "Controller for pump"
@@ -244,7 +245,8 @@ model TwoRoomsWithStorage
     xi_start=1,
     Td=60,
     k=0.1,
-    Ti=120)
+    Ti=120,
+    controllerType=Modelica.Blocks.Types.SimpleController.PI)
     "Controller for pump"
     annotation (Placement(transformation(extent={{140,-50},{160,-30}})));
   Buildings.Fluid.Storage.Stratified tan(

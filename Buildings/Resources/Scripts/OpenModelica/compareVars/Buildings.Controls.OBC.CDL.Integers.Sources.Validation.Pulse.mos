@@ -1,7 +1,0 @@
-compareVars :=
-  {
-    "pul.y",
-    "pul1.y",
-    "pul2.y",
-    "pul3.y"
-  };

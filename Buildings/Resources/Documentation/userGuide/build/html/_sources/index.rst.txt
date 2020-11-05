@@ -32,7 +32,7 @@ Contents
 
    gettingStarted
    bestPractice
-   performance
+   workArounds
    prePostProcessing
    development
    help

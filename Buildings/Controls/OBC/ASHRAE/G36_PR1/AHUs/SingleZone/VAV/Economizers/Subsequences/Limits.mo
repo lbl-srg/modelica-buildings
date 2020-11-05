@@ -48,7 +48,7 @@ block Limits "Single zone VAV AHU minimum outdoor air control - damper position 
     final min=0,
     final max=1,
     final unit="1") = 1
-    "Physically fixed maximum position of the outdoor air damper"
+    "Physically fixed maximum position of the outdoor air (OA) damper"
     annotation(Dialog(tab="Commissioning", group="Physical damper position limits"));
   parameter Real outDamPhyPosMin(
     final min=0,
@@ -106,11 +106,11 @@ protected
     annotation (Placement(transformation(extent={{-140,50},{-120,70}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant outDamPhyPosMinSig(
     final k=outDamPhyPosMin)
-    "Physically fixed minimum position of the outdoor air damper"
+    "Physically fixed minimum position of the outdoor air (OA) damper"
     annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant outDamPhyPosMaxSig(
     final k=outDamPhyPosMax)
-    "Physically fixed maximum position of the outdoor air damper"
+    "Physically fixed maximum position of the outdoor air (OA) damper"
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yFanMaxSig(
     final k=yFanMax) "Maximum supply fan speed"

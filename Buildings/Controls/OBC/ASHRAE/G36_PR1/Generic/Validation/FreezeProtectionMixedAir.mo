@@ -9,7 +9,6 @@ model FreezeProtectionMixedAir
     "Freeze protection set point temperature";
 
   Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.FreezeProtectionMixedAir freProTMix(final TFreSet = TFreSet)
-    "Freeze protection signal based on mixed air temperature"
   annotation (Placement(transformation(extent={{0,0},{20,20}})));
 
   CDL.Continuous.Sources.Sine sin1(

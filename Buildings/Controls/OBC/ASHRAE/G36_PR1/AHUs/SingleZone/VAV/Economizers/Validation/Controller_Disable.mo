@@ -96,7 +96,7 @@ protected
     "Outdoor air temperature is below the cutoff"
     annotation (Placement(transformation(extent={{-120,100},{-100,120}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOutCut1(
-    final k=TOutCutoff) "Outdoor temperature high limit cutoff"
+    final k=TOutCutoff)
     annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TSup(
     final height=4,
@@ -118,7 +118,7 @@ protected
     amplitude=20,
     freqHz=1/1800,
     offset=272.15,
-    startTime=0) "Mixed air temperature"
+    startTime=0)
     annotation (Placement(transformation(extent={{140,-78},{160,-60}})));
 
 equation

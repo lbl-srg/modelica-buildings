@@ -1,12 +1,10 @@
 within Buildings.Controls.OBC.Utilities;
 block OptimalStart
   "Block that outputs the optimal start time for an HVAC system before occupancy"
-  parameter Real tOptMax(
-    final quantity="Time",
-    final unit="s",
-    displayUnit="h",
+  parameter Modelica.SIunits.Time tOptMax(
     final min=0,
-    max=21600) = 10800
+    max=21600,
+    displayUnit="h") = 10800
     "Maximum optimal start time";
   parameter Integer nDay(min=1) = 3
     "Number of previous days used to compute the optimal start up time";
@@ -14,22 +12,13 @@ block OptimalStart
     "Set to true to compute optimal start for heating";
   parameter Boolean computeCooling = false
     "Set to true to compute optimal start for cooling";
-  parameter Real uLow(
-    final quantity="TemperatureDifference",
-    final unit="K",
-    final min=0) = 0
+  parameter Modelica.SIunits.TemperatureDifference uLow(final min=0) = 0
     "Threshold to determine if the zone temperature reaches the occupied setpoint,
      must be a non-negative number";
-  parameter Real uHigh(
-    final quantity="TemperatureDifference",
-    final unit="K",
-    final min=0) = 0.5
+  parameter Modelica.SIunits.TemperatureDifference uHigh(final min=0) = 0.5
     "Threshold to determine the need to start the HVAC system before occupancy,
      must be greater than uLow";
-  parameter Real thrOptOn(
-    final quantity="Time",
-    final unit="s",
-    displayUnit="h",
+  parameter Modelica.SIunits.Time thrOptOn(
     final min=0,
     max=10800) = 60
     "Threshold time, optimal start on signal becomes true when tOpt larger than thrOptOn";
@@ -93,14 +82,8 @@ block OptimalStart
     final uHigh=uHigh) if computeCooling
     "Optimal start time for cooling system"
     annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
-  CDL.Continuous.GreaterThreshold hysSta(t=60, h=60)
-    "Hysteresis to activate the optimal start boolean output"
-    annotation (Placement(transformation(extent={{-70,-10},{-50,10}})));
 protected
-  parameter Real tOptDef(
-     final quantity="Time",
-    final unit="s",
-    displayUnit="h") = 3600
+  parameter Modelica.SIunits.Time tOptDef = 3600
     "Default optimal start time";
   Buildings.Controls.OBC.CDL.Continuous.Max max
     "Get the maximum optimal start time "
@@ -108,6 +91,11 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(p=-tOptMax,k=1)
     "Maximum optimal start time"
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysSta(
+    pre_y_start=false,
+    uHigh=60,
+    uLow=0)   "Hysteresis to activate the optimal start boolean output"
+    annotation (Placement(transformation(extent={{-70,-10},{-50,10}})));
   Buildings.Controls.OBC.CDL.Logical.Or or2
     "Get the optimal start boolean output"
     annotation (Placement(transformation(extent={{100,-50},{120,-30}})));
@@ -157,6 +145,9 @@ equation
                                                 color={0,0,127}));
   connect(tNexOcc, addPar.u) annotation (Line(points={{-160,-80},{-120,-80},{-120,
           0},{-102,0}},     color={0,0,127}));
+  connect(addPar.y, hysSta.u)   annotation (Line(points={{-78,0},{-72,0}}, color={0,0,127}));
+  connect(hysSta.y, falEdg.u) annotation (Line(points={{-48,0},{-32,0}},
+                      color={255,0,255}));
   connect(tNexOcc, optHea.tNexOcc) annotation (Line(points={{-160,-80},{-120,-80},
           {-120,62},{18,62}}, color={0,0,127}));
   connect(optCoo.tOpt, max.u2) annotation (Line(points={{42,-66},{88,-66},{88,
@@ -178,10 +169,6 @@ equation
           {98,-48}}, color={255,0,255}));
   connect(optHea.optOn, or2.u1) annotation (Line(points={{42,66},{92,66},{92,-40},
           {98,-40}}, color={255,0,255}));
-  connect(falEdg.u, hysSta.y)
-    annotation (Line(points={{-32,0},{-48,0}}, color={255,0,255}));
-  connect(addPar.y, hysSta.u)
-    annotation (Line(points={{-78,0},{-72,0}}, color={0,0,127}));
    annotation (
 defaultComponentName="optSta",
   Documentation(info="<html>
@@ -296,10 +283,6 @@ Buildings.Controls.OBC.Utilities.Validation</a>.
 </html>",
 revisions="<html>
 <ul>
-<li>
-August 6, 2020, by Michael Wetter:<br/>
-Replaced hysteresis with new inequality block.
-</li>
 <li>
 December 15, 2019, by Kun Zhang:<br/>
 First implementation.

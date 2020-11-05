@@ -34,10 +34,11 @@ model CoolingOnly
     "Outdoor air temperature"
     annotation (Placement(transformation(extent={{-110,-110},{-90,-90}})));
   Buildings.Controls.Continuous.LimPID conPID(
-    reverseActing=false,
+    reverseAction=true,
     Td=0,
     k=0.5,
     Ti=70,
+    controllerType=Modelica.Blocks.Types.SimpleController.PI,
     yMax=0.094) "Controller"
          annotation (Placement(transformation(extent={{-70,-20},{-50,0}})));
   Sources.MassFlowSource_T pum(
@@ -118,7 +119,7 @@ that regulates the water flow rate in the active beam.
 <ul>
 <li>
 May 15, 2019, by Jianjun Hu:<br/>
-Replaced fluid source. This is for
+Replaced fluid source. This is for 
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1072\"> #1072</a>.
 </li>
 <li>

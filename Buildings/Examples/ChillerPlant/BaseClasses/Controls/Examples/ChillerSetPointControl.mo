@@ -65,7 +65,8 @@ model ChillerSetPointControl
         extent={{-10,-10},{10,10}},
         origin={-170,30})));
   Buildings.Controls.Continuous.LimPID limPID(
-    reverseActing=false,
+    controllerType=Modelica.Blocks.Types.SimpleController.PI,
+    reverseAction=true,
     y_start=1,
     yMin=0,
     k=10,

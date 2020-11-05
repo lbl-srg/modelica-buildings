@@ -5,12 +5,11 @@ model Not "Validation model for the Not block"
       width=0.5, period=1.5) "Block that outputs cyclic on and off"
     annotation (Placement(transformation(extent={{-26,-10},{-6,10}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1
-    "Output true when input is false and output false when input is true"
     annotation (Placement(transformation(extent={{26,-10},{46,10}})));
 
 equation
   connect(booPul.y, not1.u)
-    annotation (Line(points={{-4,0},{-4,0},{24,0}},color={255,0,255}));
+    annotation (Line(points={{-5,0},{8,0},{24,0}}, color={255,0,255}));
   annotation (
   experiment(StopTime=5.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Logical/Validation/Not.mos"

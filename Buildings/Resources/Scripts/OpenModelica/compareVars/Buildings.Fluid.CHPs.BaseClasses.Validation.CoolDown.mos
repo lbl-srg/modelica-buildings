@@ -1,6 +1,0 @@
-compareVars :=
-  {
-    "actMod",
-    "runSig.y",
-    "cooDowOpt.y"
-  };

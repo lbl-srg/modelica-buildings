@@ -1,5 +1,10 @@
+PartialCFD
+ISATAirHeatMassBalance
+ISATExchange
+ISATThread
 CFDAirHeatMassBalance
 CFDExchange
+PartialExchange
 CFDFluidInterface
 CFDSurfaceInterface
 CFDThread
@@ -17,8 +22,14 @@ RadiationTemperature
 RoomHeatMassBalance
 SkyRadiationExchange
 SolarRadiationExchange
+isatExchangeData
+isatStartCosimulation
 cfdExchangeData
 cfdStartCosimulation
+PartialExchangeData
+PartialStartCosimulation
+PartialsendParameters
+Partialexchange
 to_W
 CFDSurfaceIdentifier
 ConstructionNumbers

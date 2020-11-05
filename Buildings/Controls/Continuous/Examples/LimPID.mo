@@ -14,7 +14,7 @@ model LimPID "Test model for PID controller with optional reverse action"
           annotation (Placement(transformation(extent={{-20,30},{0,50}})));
   Buildings.Controls.Continuous.LimPID limPIDRev(
     controllerType=Modelica.Blocks.Types.SimpleController.PID,
-    reverseActing=false,
+    reverseAction=true,
     Ti=1,
     Td=1,
     yMax=1,
