@@ -38,7 +38,9 @@ block Up
     displayUnit="s",
     final quantity="time") = 60
     "Enable delay after minimum flow setpoint is achieved in bypass valve"
-    annotation (Dialog(group="Time and delay parameters"));
+    annotation (Evaluate=true,
+      Dialog(group="Time and delay parameters",
+        enable=have_priOnl));
 
   parameter Real chaIsoValTim(
     final unit="s",
@@ -82,7 +84,9 @@ block Up
     final unit="1",
     displayUnit="1")=0.05
     "Relative error to the flow setpoint for checking if it has been achieved"
-    annotation (Dialog(tab="Advanced"));
+    annotation (Evaluate=true,
+      Dialog(tab="Advanced",
+        enable=have_priOnl));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uPlaEna
     "Plant enable signal"
