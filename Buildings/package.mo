@@ -213,12 +213,10 @@ The following <b style=\"color:blue\">new libraries</b> have been added:
 <tr><td colspan=\"2\"><b>Buildings.Experimental</b>
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Experimental.CoolingPlants<br/>
-                       Buildings.Experimental.DHC<br/>
-                       Buildings.Experimental.DomesticHotWater
+<tr><td valign=\"top\">Buildings.Experimental.DHC
     </td>
-    <td valign=\"top\">Packages for modeling cooling plants, district heating
-                       and cooling systems, and domestic hot water systems.<br/>
+    <td valign=\"top\">Packages for modeling district heating
+                       and cooling systems.<br/>
                        These packages contain components supporting the integration within
                        the URBANopt SDK. The development is in progress.
     </td>
