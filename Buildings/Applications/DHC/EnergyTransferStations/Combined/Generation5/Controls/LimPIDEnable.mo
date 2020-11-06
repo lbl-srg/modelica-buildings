@@ -20,7 +20,8 @@ block LimPIDEnable "PID controller with enable signal"
   parameter Real yMax = 1 "Upper limit of output";
   parameter Boolean reverseActing = true
     "Set to true for reverse acting, or false for direct acting control action";
-
+  parameter Real y_reset=yMin
+    "Value to which the controller output is reset if the boolean trigger has a rising edge";
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u_s
     "Connector of setpoint input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
@@ -94,7 +95,7 @@ with an additional Boolean input representing an enable signal.
 When enabled, the controller output is identical to
 <a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.LimPID\">
 Buildings.Controls.OBC.CDL.Continuous.LimPID</a>
-(and the controller integral term is reset to zero at 
+(and the controller integral term is reset to <code>yMin</code> at 
 enabling time).
 </li>
 <li>
