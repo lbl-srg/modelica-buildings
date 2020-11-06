@@ -10,12 +10,12 @@ block HWIsoVal
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uUpsDevSta
     "Status of device reset before enabling or disabling isolation valve"
     annotation (Placement(transformation(extent={{-200,-160},{-160,-120}}),
-      iconTransformation(extent={{-140,-70},{-100,-30}})));
+      iconTransformation(extent={{-140,-20},{-100,20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput chaPro
     "Indicate if there is a stage up or stage down command"
-    annotation (Placement(transformation(extent={{-200,-198},{-160,-158}}),
-      iconTransformation(extent={{-140,-100},{-100,-60}})));
+    annotation (Placement(transformation(extent={{-200,-200},{-160,-160}}),
+      iconTransformation(extent={{-140,-80},{-100,-40}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uHotWatIsoVal(
     final unit="1",
@@ -24,7 +24,7 @@ block HWIsoVal
     final max=1)
     "Hot water isolation valve position"
     annotation (Placement(transformation(extent={{-200,-120},{-160,-80}}),
-      iconTransformation(extent={{-140,30},{-100,70}})));
+      iconTransformation(extent={{-140,40},{-100,80}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yDisHotWatIsoVal
     "Status of hot water isolation valve control: true=disabled valve is fully closed"
@@ -122,7 +122,8 @@ equation
                                                 color={0,0,127}));
 
   connect(chaPro, and2.u2)
-    annotation (Line(points={{-180,-178},{-82,-178}}, color={255,0,255}));
+    annotation (Line(points={{-180,-180},{-132,-180},{-132,-178},{-82,-178}},
+                                                      color={255,0,255}));
 
   connect(swi.y,yHotWatIsoVal)
     annotation (Line(points={{162,-40},{200,-40}}, color={0,0,127}));
@@ -239,22 +240,17 @@ annotation (
         lineColor={0,0,255},
         textString="%name"),
       Text(
-        extent={{-96,-74},{-60,-86}},
+        extent={{-96,-54},{-60,-66}},
         lineColor={255,0,255},
         pattern=LinePattern.Dash,
         textString="chaPro"),
       Text(
-        extent={{-96,-42},{-46,-56}},
+        extent={{-96,8},{-66,-6}},
         lineColor={255,0,255},
         pattern=LinePattern.Dash,
         textString="uUpsDevSta"),
       Text(
-        extent={{-96,86},{-48,74}},
-        lineColor={255,127,0},
-        pattern=LinePattern.Dash,
-        textString="nexChaBoi"),
-      Text(
-        extent={{-96,58},{-42,46}},
+        extent={{-96,68},{-42,56}},
         lineColor={0,0,127},
         pattern=LinePattern.Dash,
         textString="uHotWatIsoVal"),
