@@ -1,5 +1,5 @@
 simulateModel("Buildings.Airflow.Multizone.Examples.Orifice", stopTime=1,
-   method="radau", tolerance=1e-06, resultFile="Orifice");
+   method="CVode", tolerance=1e-06, resultFile="Orifice");
 createPlot(id = 9,
  position = {75, 27, 537, 493},
  y = {"ori.V_flow"},

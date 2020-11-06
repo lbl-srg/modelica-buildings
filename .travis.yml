@@ -17,6 +17,17 @@ services:
   - docker
   - xvfb
 
+
+addons:
+  apt:
+    if: env(TEST_ARG) IS /*test-omc*/
+    sources:
+    - sourceline: "deb http://build.openmodelica.org/apt `lsb_release -cs` stable"
+      key_url: "http://build.openmodelica.org/apt/openmodelica.asc"
+    packages:
+    - omc=1.16.0-1
+    - omlib-modelica-3.2.3=3.2.3~20201013~234009~git~OM~maint~3.2.3-1
+
 env:
   global:
     - ENERGYPLUS_VERSION=EnergyPlus-9.3.0-baff08990c-Linux-x86_64
@@ -82,7 +93,7 @@ before_install:
        cp Buildings/Resources/Scripts/travis/dymola/dymola $HOME/bin/;
     fi;
   - if [[ "$TEST_ARG" == *test-optimica* ]]; then
-       docker pull "$DOCKER_USERNAME"/travis-ubuntu-1804-optimica;
+       docker pull "$DOCKER_USERNAME"/travis-ubuntu-1804-optimica:r17595;
        cp Buildings/Resources/Scripts/travis/optimica/jm_ipython.sh $HOME/bin/jm_ipython.sh;
     fi;
   - if [[ "$TEST_ARG" == *test-jmodelica* ]]; then

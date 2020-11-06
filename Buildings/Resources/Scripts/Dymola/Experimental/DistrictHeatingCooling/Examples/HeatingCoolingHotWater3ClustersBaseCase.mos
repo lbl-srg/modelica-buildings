@@ -1,3 +1,0 @@
-simulateModel("Buildings.Experimental.DistrictHeatingCooling.Examples.HeatingCoolingHotWater3ClustersBaseCase", stopTime=31536000, method="Cvode", tolerance=1E-06, resultFile="HeatingCoolingHotWater3ClustersBaseCase");
-createPlot(id=2, position={149, 178, 1693, 943}, y={"SPFHea.y", "SPFCoo.y"}, range={0.0, 32000000.0, -10.0, 90.0}, grid=true, filename="HeatingCoolingHotWater3ClustersBaseCase.mat", colors={{28,108,200}, {238,46,47}});
-createPlot(id=2, position={149, 178, 1693, 469}, y={"EEleHea.y", "EEleCoo.y", "ETheHea.y", "ETheHotWat.y", "ETheCoo.y"}, range={0.0, 32000000.0, -16000000000000.0, 10000000000000.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}, {0,0,0}});

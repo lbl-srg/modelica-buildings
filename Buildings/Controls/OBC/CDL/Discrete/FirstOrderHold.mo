@@ -25,8 +25,10 @@ protected
   Real c "Slope";
 
 initial equation
-  t0 = time;
-  pre(tSample) = time;
+  t0 = Buildings.Utilities.Math.Functions.round(
+         x = integer(time/samplePeriod)*samplePeriod,
+         n = 6);
+  pre(tSample) = t0;
   pre(uSample) = u;
   pre(pre_uSample) = u;
   pre(c) = 0.0;
@@ -36,10 +38,6 @@ equation
   sampleTrigger = sample(t0, samplePeriod);
   when sampleTrigger then
     firstTrigger = time <= t0 + samplePeriod/2;
-  end when;
-
-  // Declarations specific to this type of discrete block
-  when sampleTrigger then
     tSample = time;
     uSample = u;
     pre_uSample = pre(uSample);
@@ -81,6 +79,12 @@ values of the last two sampled input signals.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 19, 2020, by Michael Wetter:<br/>
+Refactored implementation.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2170\">#2170</a>.
+</li>
 <li>
 March 2, 2020, by Michael Wetter:<br/>
 Changed icon to display dynamically the output value.

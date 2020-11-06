@@ -2,13 +2,22 @@ within Buildings.Controls.OBC.CDL.Logical.Sources;
 block SampleTrigger "Generate sample trigger signal"
   parameter Modelica.SIunits.Time period(
     final min=Constants.small) "Sample period";
-  parameter Modelica.SIunits.Time startTime=0
-    "Time instant of first sample trigger";
+  parameter Modelica.SIunits.Time delay=0
+    "Delay time for output";
   Interfaces.BooleanOutput y  "Connector of Boolean output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
+protected
+  parameter Modelica.SIunits.Time t0(fixed=false)
+    "First sample time instant";
+
+initial equation
+  t0 = Buildings.Utilities.Math.Functions.round(
+         x = integer((time)/period)*period+mod(delay, period),
+         n = 6);
+
 equation
-  y = sample(startTime, period);
+  y = sample(t0, period);
   annotation (
     defaultComponentName="samTri",
     Icon(coordinateSystem(
@@ -53,7 +62,7 @@ equation
           textString="%name")}),
       Documentation(info="<html>
 <p>
-The Boolean output y is a trigger signal where the output y is only <code>true</code>
+The Boolean output <code>y</code> is a trigger signal that is only <code>true</code>
 at sample times (defined by parameter <code>period</code>) and is otherwise
 <code>false</code>.
 </p>
@@ -61,9 +70,17 @@ at sample times (defined by parameter <code>period</code>) and is otherwise
 <img src=\"modelica://Buildings/Resources/Images/Controls/OBC/CDL/Logical/Sources/SampleTrigger.png\"
      alt=\"SampleTrigger.png\" />
 </p>
-
+<p>
+The trigger signal is generated an infinite number of times, and aligned with time <code>time=delay</code>.
+</p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 19, 2020, by Michael Wetter:<br/>
+Refactored implementation.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2170\">#2170</a>.
+</li>
 <li>
 March 23, 2017, by Jianjun Hu:<br/>
 First implementation, based on the implementation of the

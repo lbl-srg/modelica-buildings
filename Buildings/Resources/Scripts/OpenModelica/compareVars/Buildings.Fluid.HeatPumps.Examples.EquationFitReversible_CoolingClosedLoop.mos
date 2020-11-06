@@ -2,6 +2,7 @@ compareVars :=
   {
     "heaPum.QSou_flow",
     "heaPum.QLoa_flow",
+    "uMod.y",
     "heaPum.sta_a1.T",
     "heaPum.sta_b1.T",
     "heaPum.COP",

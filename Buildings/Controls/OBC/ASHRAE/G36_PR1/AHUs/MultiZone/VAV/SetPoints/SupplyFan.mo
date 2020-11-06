@@ -116,16 +116,16 @@ block SupplyFan  "Block to control multi zone VAV AHU supply fan"
     final resAmo=resAmo,
     final maxRes=maxRes) "Static pressure setpoint reset using trim and respond logic"
     annotation (Placement(transformation(extent={{-130,-60},{-110,-40}})));
-  Buildings.Controls.OBC.CDL.Continuous.LimPID conSpe(
+  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset conSpe(
     final controllerType=controllerType,
     final k=k,
     final Ti=Ti,
     final Td=Td,
+    r=maxSet,
     final yMax=yFanMax,
     final yMin=yFanMin,
-    reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter,
     y_reset=yFanMin) "Supply fan speed control"
-    annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
+    annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
 
 protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerSpe(k=0)
@@ -182,16 +182,6 @@ protected
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu4
     "Check if current operation mode is warmup mode"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant gaiNor(
-    final k=maxSet)
-    "Gain for normalization of controller input"
-    annotation (Placement(transformation(extent={{-130,-100},{-110,-80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Division norPSet
-    "Normalization for pressure set point"
-    annotation (Placement(transformation(extent={{-70,-80},{-50,-60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Division norPMea
-    "Normalization of pressure measurement"
-    annotation (Placement(transformation(extent={{-70,-120},{-50,-100}})));
   Buildings.Controls.OBC.CDL.Discrete.FirstOrderHold firOrdHol(
     final samplePeriod=samplePeriod)
     "Extrapolation through the values of the last two sampled input signals"
@@ -211,7 +201,7 @@ equation
     annotation (Line(points={{102,70},{120,70},{120,-8},{0,-8},{0,-100},{78,-100}},
       color={255,0,255}));
   connect(conSpe.y, swi.u1)
-    annotation (Line(points={{-18,-70},{-4,-70},{-4,-108},{78,-108}},
+    annotation (Line(points={{-18,-50},{-4,-50},{-4,-108},{78,-108}},
       color={0,0,127}));
   connect(zerSpe.y, swi.u3)
     annotation (Line(points={{42,-80},{60,-80},{60,-92},{78,-92}},
@@ -271,24 +261,16 @@ equation
   connect(intEqu4.y, or2.u2)
     annotation (Line(points={{-38,10},{0,10},{0,32},{18,32}},
       color={255,0,255}));
-  connect(norPSet.y, conSpe.u_s)
-    annotation (Line(points={{-48,-70},{-42,-70}}, color={0,0,127}));
-  connect(norPMea.y, conSpe.u_m)
-    annotation (Line(points={{-48,-110},{-30,-110},{-30,-82}}, color={0,0,127}));
   connect(staPreSetRes.y, firOrdHol.u)
     annotation (Line(points={{-108,-50},{-102,-50}}, color={0,0,127}));
   connect(conSpe.trigger, or1.y)
-    annotation (Line(points={{-38,-82},{-38,-100},{0,-100},{0,-8},{120,-8},{120,
+    annotation (Line(points={{-36,-62},{-36,-100},{0,-100},{0,-8},{120,-8},{120,
           70},{102,70}},  color={255,0,255}));
-  connect(gaiNor.y, norPSet.u2) annotation (Line(points={{-108,-90},{-92,-90},{-92,
-          -76},{-72,-76}}, color={0,0,127}));
-  connect(ducStaPre, norPMea.u1) annotation (Line(points={{-180,-110},{-80,-110},
-          {-80,-104},{-72,-104}}, color={0,0,127}));
-  connect(gaiNor.y, norPMea.u2) annotation (Line(points={{-108,-90},{-92,-90},{-92,
-          -116},{-72,-116}}, color={0,0,127}));
-  connect(firOrdHol.y, norPSet.u1) annotation (Line(points={{-78,-50},{-76,-50},
-          {-76,-64},{-72,-64}}, color={0,0,127}));
 
+  connect(ducStaPre, conSpe.u_m) annotation (Line(points={{-180,-110},{-30,-110},
+          {-30,-62}}, color={0,0,127}));
+  connect(firOrdHol.y, conSpe.u_s)
+    annotation (Line(points={{-78,-50},{-42,-50}}, color={0,0,127}));
 annotation (
   defaultComponentName="conSupFan",
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-160,-140},{140,160}}),
@@ -414,6 +396,12 @@ that are occupied, etc.).
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 15, 2020, by Michael Wetter:<br/>
+Moved normalization of control error to PID controller.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2182\">#2182</a>.
+</li>
 <li>
 March 12, 2020, by Jianjun Hu:<br/>
 Removed the sum of flow rate as it is not used in any other sequences.<br/>
