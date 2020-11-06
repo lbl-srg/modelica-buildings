@@ -76,33 +76,33 @@ model BoilerPlant
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uBoiSta[2]
     "Boiler status signal"
     annotation (Placement(transformation(extent={{-360,100},{-320,140}}),
-      iconTransformation(extent={{-140,40},{-100,80}})));
+      iconTransformation(extent={{-140,60},{-100,100}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uPumSta[2]
     "Pump status signal"
     annotation (Placement(transformation(extent={{-360,20},{-320,60}}),
-      iconTransformation(extent={{-140,-20},{-100,20}})));
+      iconTransformation(extent={{-140,0},{-100,40}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uHotIsoVal[2](
     final unit="1",
     displayUnit="1")
     "Hot water isolation valve signal"
     annotation (Placement(transformation(extent={{-360,60},{-320,100}}),
-      iconTransformation(extent={{-140,10},{-100,50}})));
+      iconTransformation(extent={{-140,30},{-100,70}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uPumSpe[2](
     final unit="1",
     displayUnit="1")
     "Pump speed signal"
     annotation (Placement(transformation(extent={{-360,-20},{-320,20}}),
-      iconTransformation(extent={{-140,-50},{-100,-10}})));
+      iconTransformation(extent={{-140,-30},{-100,10}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uBypValSig(
     final unit="1",
     displayUnit="1")
     "Bypass valve signal"
     annotation (Placement(transformation(extent={{-360,-60},{-320,-20}}),
-      iconTransformation(extent={{-140,-80},{-100,-40}})));
+      iconTransformation(extent={{-140,-60},{-100,-20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput QRooInt_flowrate(
     final unit="W",
@@ -110,14 +110,14 @@ model BoilerPlant
     final quantity="EnergyFlowRate")
     "Room internal load flowrate"
     annotation (Placement(transformation(extent={{-360,190},{-320,230}}),
-      iconTransformation(extent={{-140,70},{-100,110}})));
+      iconTransformation(extent={{-140,90},{-100,130}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uRadIsoVal(
     final unit="1",
     displayUnit="1")
     "Radiator isolation valve signal"
     annotation (Placement(transformation(extent={{-360,150},{-320,190}}),
-      iconTransformation(extent={{-140,-110},{-100,-70}})));
+      iconTransformation(extent={{-140,-90},{-100,-50}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TOutAir(
     final unit="K",
@@ -125,8 +125,7 @@ model BoilerPlant
     final quantity="ThermodynamicTemperature")
     "Measured outdoor air temperature"
     annotation (Placement(transformation(extent={{-360,-100},{-320,-60}}),
-      iconTransformation(extent={{-140,70},{-100,110}},
-      rotation=90)));
+      iconTransformation(extent={{-140,-120},{-100,-80}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yZonTem(
     final unit="K",
@@ -615,5 +614,5 @@ First implementation.
      "modelica://Buildings/Resources/Scripts/Dymola/Examples/Tutorial/Boiler/System6.mos"
         "Simulate and plot"),
     experiment(Tolerance=1e-6, StopTime=172800),
-    Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
+    Icon(coordinateSystem(extent={{-100,-120},{100,120}})));
 end BoilerPlant;
