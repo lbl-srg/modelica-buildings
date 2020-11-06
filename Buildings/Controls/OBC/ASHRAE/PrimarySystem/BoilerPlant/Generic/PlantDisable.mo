@@ -208,8 +208,8 @@ equation
   connect(uPla, and2.u2) annotation (Line(points={{-180,120},{-140,120},{-140,
           10},{-34,10},{-34,-128},{-12,-128}},
                                            color={255,0,255}));
-  connect(uHotWatIsoVal, disHotWatIsoVal.uHotWatIsoVal) annotation (Line(points=
-         {{-180,-40},{0,-40},{0,-45},{18,-45}}, color={0,0,127}));
+  connect(uHotWatIsoVal, disHotWatIsoVal.uHotWatIsoVal) annotation (Line(points={{-180,
+          -40},{0,-40},{0,-44},{18,-44}},       color={0,0,127}));
   connect(disHotWatIsoVal.yDisHotWatIsoVal, mulAnd2.u[1:nBoi]) annotation (Line(
         points={{42,-44},{60,-44},{60,-90},{78,-90}},           color={255,0,255}));
   connect(disHotWatIsoVal.yDisHotWatIsoVal, mulAnd1.u[1:nBoi]) annotation (Line(
@@ -219,9 +219,7 @@ equation
   connect(uHotWatIsoVal, swi.u3) annotation (Line(points={{-180,-40},{0,-40},{0,
           -32},{130,-32},{130,-58},{138,-58}}, color={0,0,127}));
   connect(booRep2.y, disHotWatIsoVal.uUpsDevSta) annotation (Line(points={{2,-10},
-          {10,-10},{10,-55},{18,-55}}, color={255,0,255}));
-  connect(booRep1.y, disHotWatIsoVal.chaPro) annotation (Line(points={{-18,120},
-          {-10,120},{-10,70},{14,70},{14,-58},{18,-58}}, color={255,0,255}));
+          {10,-10},{10,-50},{18,-50}}, color={255,0,255}));
   connect(booRep2.y, swi.u2) annotation (Line(points={{2,-10},{10,-10},{10,-20},
           {120,-20},{120,-50},{138,-50}}, color={255,0,255}));
   connect(and3.y, lat1.u) annotation (Line(points={{-68,-70},{-66,-70},{-66,-80},
@@ -230,6 +228,8 @@ equation
           -100,-78},{-92,-78}}, color={255,0,255}));
   connect(not1.y, and3.u1) annotation (Line(points={{-108,-10},{-100,-10},{-100,
           -70},{-92,-70}}, color={255,0,255}));
+  connect(booRep2.y, disHotWatIsoVal.chaPro) annotation (Line(points={{2,-10},{10,
+          -10},{10,-56},{18,-56}}, color={255,0,255}));
   annotation (defaultComponentName="plaDis",
     Icon(graphics={
       Rectangle(
