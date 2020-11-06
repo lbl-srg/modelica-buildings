@@ -8,7 +8,7 @@ model ClosedLoopTest "Closed loop testing model"
 
   Buildings.Examples.BoilerPlant.PlantModel.BoilerPlant boilerPlant
     "Boiler plant model"
-    annotation (Placement(transformation(extent={{42,-10},{62,10}})));
+    annotation (Placement(transformation(extent={{42,-12},{62,12}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Controller controller(
     final have_priOnl=true,
@@ -61,7 +61,8 @@ protected
     annotation (Placement(transformation(extent={{10,50},{30,70}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Add add2(
-    final k2=-1)
+    final k1=+1.5,
+    final k2=-1.5)
     "Compute difference between measured zone temperature and setpoint"
     annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
 
@@ -93,18 +94,18 @@ protected
 
 equation
   connect(controller.yBoi, boilerPlant.uBoiSta)
-    annotation (Line(points={{-18,8.18182},{16,8.18182},{16,6},{40,6}},
+    annotation (Line(points={{-18,8.18182},{16,8.18182},{16,8},{40,8}},
                                                            color={255,0,255}));
   connect(controller.yHotWatIsoVal, boilerPlant.uHotIsoVal)
-    annotation (Line(points={{-18,5.45455},{16,5.45455},{16,3},{40,3}},
+    annotation (Line(points={{-18,5.45455},{16,5.45455},{16,5},{40,5}},
                                                            color={0,0,127}));
   connect(controller.yBypValPos, boilerPlant.uBypValSig)
-    annotation (Line(points={{-18,2.72727},{12,2.72727},{12,-6},{40,-6}},
+    annotation (Line(points={{-18,2.72727},{12,2.72727},{12,-4},{40,-4}},
                                                              color={0,0,127}));
   connect(con.y, conPID.u_s)
     annotation (Line(points={{32,60},{48,60}}, color={0,0,127}));
   connect(conPID.y, boilerPlant.uRadIsoVal) annotation (Line(points={{72,60},{78,
-          60},{78,34},{38,34},{38,-9},{40,-9}}, color={0,0,127}));
+          60},{78,34},{38,34},{38,-7},{40,-7}}, color={0,0,127}));
   connect(con.y, add2.u1) annotation (Line(points={{32,60},{34,60},{34,-44},{38,
           -44}}, color={0,0,127}));
   connect(reaToInt.u, add2.y)
@@ -136,7 +137,7 @@ equation
       horizontalAlignment=TextAlignment.Right));
 
   connect(weaBus.TDryBul, boilerPlant.TOutAir) annotation (Line(
-      points={{-50,60},{-28,60},{-28,40},{8,40},{8,-20},{43,-20},{43,-12}},
+      points={{-50,60},{-28,60},{-28,40},{8,40},{8,-8},{40,-8},{40,-10}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
@@ -144,11 +145,13 @@ equation
       extent={{-3,-6},{-3,-6}},
       horizontalAlignment=TextAlignment.Right));
   connect(timTab.y[1], boilerPlant.QRooInt_flowrate)
-    annotation (Line(points={{-8,80},{0,80},{0,9},{40,9}}, color={0,0,127}));
+    annotation (Line(points={{-8,80},{0,80},{0,11},{40,11}},
+                                                           color={0,0,127}));
   connect(controller.yPriPum, boilerPlant.uPumSta)
-    annotation (Line(points={{-18,0},{40,0}}, color={255,0,255}));
+    annotation (Line(points={{-18,0},{12,0},{12,2},{40,2}},
+                                              color={255,0,255}));
   connect(controller.yPriPumSpe, boilerPlant.uPumSpe) annotation (Line(points={{-18,
-          -2.72727},{4,-2.72727},{4,-3},{40,-3}},     color={0,0,127}));
+          -2.72727},{4,-2.72727},{4,-1},{40,-1}},     color={0,0,127}));
   connect(boilerPlant.ySupTem, controller.TSupPri) annotation (Line(points={{64,4},{
           100,4},{100,-68},{-68,-68},{-68,13.6364},{-42,13.6364}},     color={0,
           0,127}));
@@ -270,12 +273,12 @@ First implementation.
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-120,-100},{120,
             100}})),
     __Dymola_Commands(file=
-     "modelica://Buildings/Resources/Scripts/Dymola/Examples/Tutorial/Boiler/System6.mos"
+     "modelica://Buildings/Resources/Scripts/Dymola/Examples/BoilerPlant/ClosedLoopTest.mos"
         "Simulate and plot"),
     experiment(
       StartTime=259200,
       StopTime=432000,
       Tolerance=1e-06,
-      __Dymola_Algorithm="Dassl"),
+      __Dymola_Algorithm="Cvode"),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
 end ClosedLoopTest;
