@@ -16,7 +16,7 @@ block SideHot "Control block for hot side"
     final yMax=nSouAmb + 1,
     final reverseActing=true)
     "Controller for cold rejection"
-    annotation (Placement(transformation(extent={{-10,-210},{10,-190}})));
+    annotation (Placement(transformation(extent={{-70,-210},{-50,-190}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yCol(final unit="1")
     "Control signal for cold side" annotation (Placement(transformation(extent={
             {180,-180},{220,-140}}), iconTransformation(extent={{100,-100},{140,
@@ -60,22 +60,6 @@ block SideHot "Control block for hot side"
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant x2[nSouAmb](final k={(
         i) for i in 1:nSouAmb})                "x2"
     annotation (Placement(transformation(extent={{10,-110},{30,-90}})));
-  Buildings.Controls.OBC.CDL.Logical.Not not1
-    "Condenser loop isolation valve commanded closed"
-                                              annotation (Placement(
-        transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={100,-180})));
-  Buildings.Controls.OBC.CDL.Logical.And and1
-    "Tank in demand and condenser loop isolation valve commanded closed"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=180,
-        origin={50,-220})));
-  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol(trueHoldDuration=300,
-      falseHoldDuration=0)
-    "Holding the valve command signal to avoid short cycling"
-    annotation (Placement(transformation(extent={{40,-170},{60,-150}})));
 equation
   connect(min.u1, TTop) annotation (Line(points={{-92,-54},{-120,-54},{-120,-40},
           {-200,-40}},color={0,0,127}));
@@ -92,12 +76,14 @@ equation
   connect(mapFun.y, yAmb)
     annotation (Line(points={{112,-80},{200,-80}}, color={0,0,127}));
   connect(TSet, conColRej.u_s) annotation (Line(points={{-200,40},{-160,40},{
-          -160,-200},{-12,-200}},
+          -160,-200},{-72,-200}},
                              color={0,0,127}));
   connect(TTop, conColRej.u_m) annotation (Line(points={{-200,-40},{-120,-40},{
-          -120,-220},{0,-220},{0,-212}},color={0,0,127}));
-  connect(conColRej.y, yCol) annotation (Line(points={{12,-200},{140,-200},{140,
-          -160},{200,-160}}, color={0,0,127}));
+          -120,-220},{-60,-220},{-60,-212}},
+                                        color={0,0,127}));
+  connect(conColRej.y, yCol) annotation (Line(points={{-48,-200},{140,-200},{
+          140,-160},{200,-160}},
+                             color={0,0,127}));
   connect(conHeaRej.y, greThr.u) annotation (Line(points={{-48,-160},{-12,-160}},
                                color={0,0,127}));
   connect(x1.y,mapFun. x1) annotation (Line(points={{72,-60},{80,-60},{80,-72},
@@ -116,21 +102,12 @@ equation
           {88,-84}}, color={0,0,127}));
   connect(booToRea.y, yIsoAmb) annotation (Line(points={{152,-120},{200,-120}},
                                  color={0,0,127}));
-  connect(and1.y, conColRej.uEna) annotation (Line(points={{38,-220},{-4,-220},
-          {-4,-212}},  color={255,0,255}));
-  connect(greThr.y, truFalHol.u)
-    annotation (Line(points={{12,-160},{38,-160}}, color={255,0,255}));
-  connect(truFalHol.y, booToRea.u)
-    annotation (Line(points={{62,-160},{100,-160},{100,-120},{128,-120}},
-                                                     color={255,0,255}));
-  connect(truFalHol.y, not1.u) annotation (Line(points={{62,-160},{100,-160},{
-          100,-168}},                   color={255,0,255}));
-  connect(not1.y, and1.u2) annotation (Line(points={{100,-192},{100,-212},{62,
-          -212}}, color={255,0,255}));
-  connect(and2.y, and1.u1) annotation (Line(points={{132,100},{160,100},{160,
-          -220},{62,-220}}, color={255,0,255}));
   connect(TSet, conHeaRej.u_s) annotation (Line(points={{-200,40},{-160,40},{
           -160,-160},{-72,-160}}, color={0,0,127}));
+  connect(greThr.y, booToRea.u) annotation (Line(points={{12,-160},{120,-160},{
+          120,-120},{128,-120}}, color={255,0,255}));
+  connect(and2.y, conColRej.uEna) annotation (Line(points={{132,100},{160,100},
+          {160,-220},{-64,-220},{-64,-212}}, color={255,0,255}));
    annotation (
    defaultComponentName="conHot",
 Documentation(
