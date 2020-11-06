@@ -1068,6 +1068,16 @@ model Controller
     "Staging setpoint controller"
     annotation (Placement(transformation(extent={{-210,-18},{-190,18}})));
 
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.SetPoints.MinimumFlowSetPoint minBoiFloSet(
+    final nBoi=nBoi,
+    final nSta=nSta,
+    final staMat=staMat,
+    final minFloSet=minFloSet,
+    final maxFloSet=maxFloSet,
+    final bypSetRat=bypSetRat) if have_priOnl
+    "Minimum flow setpoint for the primary loop"
+    annotation (Placement(transformation(extent={{250,310},{270,330}})));
+
 protected
   parameter Boolean have_remDPRegPri = (speConTypPri == Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpSpeedControlTypes.remoteDP)
     "Boolean flag for primary pump speed control with remote differential pressure";
@@ -1191,16 +1201,6 @@ protected
     final holTimVal=holTimVal)
     "Hot water supply temperature setpoint reset controller"
     annotation (Placement(transformation(extent={{-140,170},{-120,190}})));
-
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.SetPoints.MinimumFlowSetPoint minBoiFloSet(
-    final nBoi=nBoi,
-    final nSta=nSta,
-    final staMat=staMat,
-    final minFloSet=minFloSet,
-    final maxFloSet=maxFloSet,
-    final bypSetRat=bypSetRat) if have_priOnl
-    "Minimum flow setpoint for the primary loop"
-    annotation (Placement(transformation(extent={{250,310},{270,330}})));
 
   Buildings.Controls.OBC.CDL.Logical.Or or2
     "Logical Or"
@@ -1414,6 +1414,10 @@ protected
     "Or operator for pump stage change signal from up-staging, down-staging and plant disable process controllers"
     annotation (Placement(transformation(extent={{58,-220},{78,-200}})));
 
+  Buildings.Controls.OBC.CDL.Logical.And and2
+    "Ensure stage-down process is not initiated when plant is disabled"
+    annotation (Placement(transformation(extent={{-20,40},{0,60}})));
+
 equation
   connect(staSetCon.yBoi, upProCon.uBoiSet) annotation (Line(points={{-188,-10},
           {64,-10},{64,95},{118,95}},color={255,0,255}));
@@ -1429,8 +1433,6 @@ equation
           {24,10},{24,89},{118,89}},color={255,127,0}));
   connect(staSetCon.yChaUpEdg, upProCon.uStaUpPro) annotation (Line(points={{-188,2},
           {58,2},{58,92},{118,92}},    color={255,0,255}));
-  connect(staSetCon.yChaDowEdg, dowProCon.uStaDowPro) annotation (Line(points={{-188,-6},
-          {82,-6},{82,34},{118,34}},         color={255,0,255}));
   connect(conSet.yMinBypValPos, bypValPos.uMinBypValPos) annotation (Line(
         points={{-38,-96},{110,-96},{110,-46},{118,-46}},color={0,0,127}));
   connect(staSetCon.yStaTyp, conSet.uStaTyp) annotation (Line(points={{-188,10},
@@ -1447,7 +1449,7 @@ equation
   connect(upProCon.yOnOff, logSwi.u1) annotation (Line(points={{142,96},{150,96},
           {150,150},{0,150},{0,338},{20,338}},      color={255,0,255}));
   connect(dowProCon.yOnOff, logSwi.u3) annotation (Line(points={{142,40},{154,40},
-          {154,140},{14,140},{14,322},{20,322}},    color={255,0,255}));
+          {154,144},{14,144},{14,322},{20,322}},    color={255,0,255}));
   connect(lat.y, intSwi.u2) annotation (Line(points={{-28,360},{10,360},{10,380},
           {18,380}},  color={255,0,255}));
   connect(upProCon.yLasDisBoi, intSwi.u1) annotation (Line(points={{142,88},{146,
@@ -1624,8 +1626,8 @@ equation
           -10},{372,300},{140,300},{140,318},{248,318}},
                                     color={255,0,255}));
 
-  connect(pre1.y, lat1.clr) annotation (Line(points={{322,-10},{372,-10},{372,160},
-          {-192,160},{-192,174},{-190,174}},
+  connect(pre1.y, lat1.clr) annotation (Line(points={{322,-10},{372,-10},{372,164},
+          {-192,164},{-192,174},{-190,174}},
                                          color={255,0,255}));
 
   connect(priPumCon.yHotWatPum, yPriPum)
@@ -1851,6 +1853,12 @@ equation
   connect(or1.y, priPumCon.uPumChaPro) annotation (Line(points={{80,-210},{100,
           -210},{100,-175.333},{118,-175.333}},
                                           color={255,0,255}));
+  connect(staSetCon.yChaDowEdg, and2.u2) annotation (Line(points={{-188,-6},{-40,
+          -6},{-40,42},{-22,42}}, color={255,0,255}));
+  connect(plaEna.yPla, and2.u1) annotation (Line(points={{-318,330},{-230,330},{
+          -230,50},{-22,50}}, color={255,0,255}));
+  connect(and2.y, dowProCon.uStaDowPro) annotation (Line(points={{2,50},{74,50},
+          {74,34},{118,34}}, color={255,0,255}));
   annotation (Icon(coordinateSystem(extent={{-100,-220},{100,220}}),
        graphics={
         Rectangle(
