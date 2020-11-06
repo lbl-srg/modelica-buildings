@@ -2,8 +2,11 @@ BuildingRCZ1Valve
 BuildingRCZ6
 BuildingSpawnZ1
 BuildingSpawnZ6
+BuildingSpawnZ6Wet
 BuildingTimeSeries
+BuildingTimeSeriesWet
 FanCoil4Pipe
 FanCoil4PipeHeatPorts
+FanCoil4PipeWetCoil
 PartialFanCoil4Pipe
 GeojsonExportRC

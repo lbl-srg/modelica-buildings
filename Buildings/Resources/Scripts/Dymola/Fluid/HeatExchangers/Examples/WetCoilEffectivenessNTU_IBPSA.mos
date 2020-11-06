@@ -1,0 +1,82 @@
+old_StoreProtectedVariables = Advanced.StoreProtectedVariables;
+Advanced.StoreProtectedVariables = true;
+simulateModel("Buildings.Fluid.HeatExchangers.Examples.WetCoilDiscretizedMassFlow",
+  tolerance=1e-6, stopTime=3600, method="cvode", resultFile="WetCoilDiscretizedMassFlow");
+simulateModel("Buildings.Fluid.HeatExchangers.Examples.WetCoilEffectivenessNTU",
+  tolerance=1e-6, stopTime=3600, method="Dassl", resultFile="WetCoilEffectivenessNTU");
+simulateModel("Buildings.Fluid.HeatExchangers.Examples.WetCoilEffectivenessNTU_IBPSA",
+  tolerance=1e-6, stopTime=3600, method="cvode", resultFile="WetCoilEffectivenessNTU_IBPSA");
+Advanced.StoreProtectedVariables = old_StoreProtectedVariables;
+createPlot(
+  id=1,
+  position={0, 0, 782, 636},
+  y={"Q_flow_nominal", "hex.Q2_flow"},
+  grid=true,
+  filename="WetCoilDiscretizedMassFlow.mat");
+createPlot(
+  id=1,
+  erase=false,
+  y={"hex.Q2_flow"},
+  grid=true,
+  filename="WetCoilEffectivenessNTU_IBPSA.mat");
+createPlot(
+  id=1,
+  erase=false,
+  y={"hex.Q2_flow", "hex.QLat2_flow"},
+  grid=true,
+  filename="WetCoilEffectivenessNTU.mat");
+createPlot(
+  id=2,
+  position={669, 15, 660, 504},
+  y={"m1_flow_nominal", "m2_flow_nominal", "hex.port_a1.m_flow", "hex.port_a2.m_flow"},
+  grid=true,
+  filename="WetCoilEffectivenessNTU_IBPSA.mat");
+createPlot(
+  id=2,
+  subPlot=2,
+  y={"T_a1_nominal", "T_a2_nominal", "hex.sta_a1.T", "hex.sta_a2.T"},
+  grid=true,
+  filename="WetCoilEffectivenessNTU_IBPSA.mat");
+createPlot(
+  id=2,
+  subPlot=3,
+  y={"X_w2_nominal", "hex.sta_a2.X[1]"},
+  grid=true,
+  filename="WetCoilEffectivenessNTU_IBPSA.mat");
+createPlot(
+  id=3,
+  position={1371, 2, 600, 400},
+  y={"hex.sta_b2.T", "T_b2_nominal"},
+  grid=true, filename="WetCoilDiscretizedMassFlow.mat");
+createPlot(
+  id=3,
+  y={"hex.sta_b2.T"},
+  erase=false,
+  grid=true,
+  filename="WetCoilEffectivenessNTU.mat");
+createPlot(
+  id=3,
+  y={"hex.sta_b2.T"},
+  erase=false,
+  grid=true,
+  filename="WetCoilEffectivenessNTU_IBPSA.mat");
+createPlot(
+  id=4,
+  position={1371, 466, 600, 400},
+  y={"hex.sta_b1.T"},
+  grid=true,
+  filename="WetCoilDiscretizedMassFlow.mat");
+createPlot(
+  id=4,
+  y={"hex.sta_b1.T"},
+  erase=false,
+  grid=true,
+  filename="WetCoilEffectivenessNTU.mat");
+createPlot(
+  id=4,
+  y={"hex.sta_b1.T", "T_b1_nominal"},
+  erase=false,
+  grid=true,
+  filename="WetCoilEffectivenessNTU_IBPSA.mat");
+
+

@@ -15,6 +15,5 @@ WetCoilCounterFlowPControl
 WetCoilDiscretizedMassFlow
 WetCoilDiscretizedPControl
 WetCoilEffectivenessNTU
-WetCoilEffectivenessNTUValidation
-WetCoilASHRAE2006
+WetCoilEffectivenessNTU_IBPSA
 BaseClasses

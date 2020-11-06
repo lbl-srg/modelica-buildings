@@ -13,6 +13,7 @@ PrescribedOutlet
 SensibleCooler_T
 WetCoilCounterFlow
 WetCoilDiscretized
+WetCoilEffectivesnessNTU
 ActiveBeams
 CoolingTowers
 DXCoils
@@ -21,3 +22,4 @@ Radiators
 Examples
 Validation
 BaseClasses
+

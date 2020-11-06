@@ -22,7 +22,7 @@ model WetCoilEffectivenessNTU_FVM
   Buildings.Fluid.Sources.Boundary_pT sin_2(
     redeclare package Medium = Medium2,
     use_p_in=true,
-    nPorts=3,
+    nPorts=4,
     T=273.15 + 10) "Boundary condition"
     annotation (Placement(transformation(extent={{-64,10},
             {-44,30}})));
@@ -32,23 +32,24 @@ model WetCoilEffectivenessNTU_FVM
     T=273.15 + 5,
     use_p_in=true,
     use_T_in=true,
-    nPorts=3) "Boundary condition"
+    nPorts=4) "Boundary condition"
     annotation (Placement(transformation(extent={{10,-10},
             {-10,10}}, origin={72,-10})));
     Modelica.Blocks.Sources.Ramp TWat(
     height=10,
     duration=60,
-    offset=273.15 + 30,
+    offset=5 + 273.15,
     startTime=60) "Water temperature"
-                 annotation (Placement(transformation(extent={{-100,44},{-80,64}})));
-  Modelica.Blocks.Sources.Constant TDb(k=293.15) "Drybulb temperature"
-    annotation (Placement(transformation(extent={{60,-78},{80,-58}})));
+                 annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
+  Modelica.Blocks.Sources.Constant TDb(k=30 + 273.15)
+                                                 "Drybulb temperature"
+    annotation (Placement(transformation(extent={{60,-90},{80,-70}})));
     Modelica.Blocks.Sources.Constant POut(k=101325)
       annotation (Placement(transformation(extent={{-100,10},{-80,30}})));
   Buildings.Fluid.Sources.Boundary_pT sin_1(
     redeclare package Medium = Medium1,
     use_p_in=true,
-    nPorts=3,
+    nPorts=4,
     p=300000,
     T=273.15 + 25)
     "Boundary condition" annotation (Placement(transformation(extent={{80,40},
@@ -58,11 +59,11 @@ model WetCoilEffectivenessNTU_FVM
     p=300000 + 5000,
     T=273.15 + 50,
     use_T_in=true,
-    nPorts=3)
+    nPorts=4)
     "Boundary condition" annotation (Placement(transformation(extent={{-62,40},
             {-42,60}})));
 
-  Buildings.Fluid.HeatExchangers.DryCoilEffectivenessNTU hexCou(
+  Buildings.Fluid.HeatExchangers.DryCoilEffectivenessNTU hexDry(
     redeclare package Medium1 = Medium1,
     redeclare package Medium2 = Medium2,
     dp1_nominal=500,
@@ -74,8 +75,7 @@ model WetCoilEffectivenessNTU_FVM
     configuration=Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow,
     show_T=true,
     T_a1_nominal=303.15,
-    T_a2_nominal=293.15)
-    "Heat exchanger"
+    T_a2_nominal=293.15) "Dry coil"
     annotation (Placement(transformation(extent={{-10,0},{10,20}})));
   WetEffectivenessNTU_Fuzzy_V2_2_4                       hexWetNtu(
     redeclare package Medium1 = Medium1,
@@ -113,73 +113,97 @@ model WetCoilEffectivenessNTU_FVM
     duration=60,
     offset=2*1e-3,
     startTime=360) "humidity boundary condition"
-                 annotation (Placement(transformation(extent={{60,-46},{80,-26}})));
+                 annotation (Placement(transformation(extent={{60,-50},{80,-30}})));
     Modelica.Blocks.Sources.Ramp PIn(
     height=200,
     duration=60,
     offset=101325,
     startTime=100) "Pressure boundary condition"
-                 annotation (Placement(transformation(extent={{60,-106},{80,-86}})));
+                 annotation (Placement(transformation(extent={{60,-132},{80,
+            -112}})));
+  WetCoilEffectivesnessNTU hexWetIBPSA(
+    redeclare package Medium1 = Medium1,
+    redeclare package Medium2 = Medium2,
+    show_T=true,
+    dp1_nominal=500,
+    dp2_nominal=10,
+    m1_flow_nominal=m1_flow,
+    m2_flow_nominal=m2_flow,
+    T_a1_nominal=303.15,
+    T_a2_nominal=293.15,
+    Q_flow_nominal=m2_flow*cp2*(24 - 20),
+    configuration=Buildings.Fluid.Types.HeatExchangerConfiguration.CrossFlowStream1UnmixedStream2Mixed)
+    annotation (Placement(transformation(extent={{-10,-90},{10,-70}})));
 equation
-  connect(TDb.y, sou_2.T_in) annotation (Line(points={{81,-68},{92,-68},{92,-6},
-          {84,-6}},  color={0,0,127}));
+  connect(TDb.y, sou_2.T_in) annotation (Line(points={{81,-80},{100,-80},{100,
+          -6},{84,-6}},
+                     color={0,0,127}));
   connect(TWat.y, sou_1.T_in)
-    annotation (Line(points={{-79,54},{-64,54}}, color={0,0,127}));
+    annotation (Line(points={{-79,60},{-72,60},{-72,54},{-64,54}},
+                                                 color={0,0,127}));
   connect(POut.y, sin_2.p_in) annotation (Line(
-      points={{-79,20},{-69.5,20},{-69.5,28},{-66,28}},
+      points={{-79,20},{-72,20},{-72,28},{-66,28}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(hexCou.port_a1, sou_1.ports[1]) annotation (Line(
-      points={{-10,16},{-24,16},{-24,52.6667},{-42,52.6667}},
+  connect(hexDry.port_a1, sou_1.ports[1]) annotation (Line(
+      points={{-10,16},{-24,16},{-24,53},{-42,53}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(hexWetNtu.port_a1, sou_1.ports[2]) annotation (Line(
-      points={{-10,-42},{-28,-42},{-28,50},{-42,50}},
+      points={{-10,-42},{-28,-42},{-28,51},{-42,51}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(hexCou.port_b2, sin_2.ports[1]) annotation (Line(
-      points={{-10,4},{-32,4},{-32,22.6667},{-44,22.6667}},
+  connect(hexDry.port_b2, sin_2.ports[1]) annotation (Line(
+      points={{-10,4},{-32,4},{-32,23},{-44,23}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(hexWetNtu.port_b2, sin_2.ports[2]) annotation (Line(
-      points={{-10,-54},{-36,-54},{-36,20},{-44,20}},
+      points={{-10,-54},{-36,-54},{-36,21},{-44,21}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(hexCou.port_b1, sin_1.ports[1]) annotation (Line(
-      points={{10,16},{34,16},{34,52.6667},{60,52.6667}},
+  connect(hexDry.port_b1, sin_1.ports[1]) annotation (Line(
+      points={{10,16},{34,16},{34,53},{60,53}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(hexWetNtu.port_b1, sin_1.ports[2]) annotation (Line(
-      points={{10,-42},{38,-42},{38,50},{60,50}},
+      points={{10,-42},{38,-42},{38,51},{60,51}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(hexCou.port_a2, sou_2.ports[1]) annotation (Line(
-      points={{10,4},{36,4},{36,-7.33333},{62,-7.33333}},
+  connect(hexDry.port_a2, sou_2.ports[1]) annotation (Line(
+      points={{10,4},{36,4},{36,-7},{62,-7}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(hexWetNtu.port_a2, sou_2.ports[2]) annotation (Line(
-      points={{10,-54},{32,-54},{32,-10},{62,-10}},
+      points={{10,-54},{32,-54},{32,-9},{62,-9}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(trapezoid.y, sin_1.p_in) annotation (Line(
       points={{61,80},{92,80},{92,58},{82,58}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(sou_1.ports[3], hexFVM.port_a1) annotation (Line(points={{-42,47.3333},
-          {-20,47.3333},{-20,-10},{-10,-10}}, color={0,127,255}));
-  connect(sin_2.ports[3], hexFVM.port_b2) annotation (Line(points={{-44,17.3333},
-          {-28,17.3333},{-28,-22},{-10,-22}}, color={0,127,255}));
+  connect(sou_1.ports[3], hexFVM.port_a1) annotation (Line(points={{-42,49},{-20,
+          49},{-20,-10},{-10,-10}},           color={0,127,255}));
+  connect(sin_2.ports[3], hexFVM.port_b2) annotation (Line(points={{-44,19},{-28,
+          19},{-28,-22},{-10,-22}},           color={0,127,255}));
   connect(hexFVM.port_a2, sou_2.ports[3]) annotation (Line(points={{10,-22},{38,
-          -22},{38,-12.6667},{62,-12.6667}}, color={0,127,255}));
+          -22},{38,-11},{62,-11}},           color={0,127,255}));
   connect(hexFVM.port_b1, sin_1.ports[3]) annotation (Line(points={{10,-10},{36,
-          -10},{36,47.3333},{60,47.3333}}, color={0,127,255}));
-  connect(PIn.y, sou_2.p_in) annotation (Line(points={{81,-96},{102,-96},{102,
+          -10},{36,49},{60,49}},           color={0,127,255}));
+  connect(PIn.y, sou_2.p_in) annotation (Line(points={{81,-122},{102,-122},{102,
           -2},{84,-2}}, color={0,0,127}));
-  connect(XIn1.y, sou_2.Xi_in[1]) annotation (Line(points={{81,-36},{96,-36},{
+  connect(XIn1.y, sou_2.Xi_in[1]) annotation (Line(points={{81,-40},{96,-40},{
           96,-14},{84,-14}}, color={0,0,127}));
+  connect(sou_2.ports[4], hexWetIBPSA.port_a2) annotation (Line(points={{62,-13},
+          {40,-13},{40,-86},{10,-86}}, color={0,127,255}));
+  connect(sin_2.ports[4], hexWetIBPSA.port_b2) annotation (Line(points={{-44,17},
+          {-40,17},{-40,-86},{-10,-86}}, color={0,127,255}));
+  connect(sou_1.ports[4], hexWetIBPSA.port_a1) annotation (Line(points={{-42,47},
+          {-26,47},{-26,-74},{-10,-74}}, color={0,127,255}));
+  connect(hexWetIBPSA.port_b1, sin_1.ports[4]) annotation (Line(points={{10,-74},
+          {36,-74},{36,47},{60,47}}, color={0,127,255}));
   annotation(experiment(Tolerance=1e-6, StopTime=360),
 __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Validation/WetCoilEffectivenessNTU.mos"
+          "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Validation/WetCoilEffectivenessNTU_FVM.mos"
         "Simulate and plot"),
 Documentation(info="<html>
 <p>
@@ -201,5 +225,6 @@ February 12, 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"),
+    Diagram(coordinateSystem(extent={{-140,-180},{140,180}})));
 end WetCoilEffectivenessNTU_FVM;

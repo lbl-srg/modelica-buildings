@@ -2,6 +2,7 @@ CouplingRCZ1Valve
 CouplingRCZ6
 CouplingSpawnZ1
 CouplingSpawnZ6
+CouplingSpawnZ6Wet
 CouplingTimeSeries
 CouplingTimeSeriesSingleLoop
 BaseClasses

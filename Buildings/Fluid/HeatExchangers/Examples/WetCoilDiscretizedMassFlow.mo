@@ -19,10 +19,10 @@ model WetCoilDiscretizedMassFlow
     allowFlowReversal2=true,
     dp1_nominal(displayUnit="Pa") = 3000,
     UA_nominal=Q_flow_nominal/Buildings.Fluid.HeatExchangers.BaseClasses.lmtd(
-        T_a1_nominal,
-        T_b1_nominal,
-        T_a2_nominal,
-        T_b2_nominal),
+      T_a1_nominal,
+      T_b1_nominal,
+      T_a2_nominal,
+      T_b2_nominal),
     show_T=true,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     annotation (Placement(transformation(extent={{80,20}, {100,40}})));

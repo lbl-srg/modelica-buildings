@@ -12,8 +12,15 @@ partial model EffectivenessNTUMassFlow
     "Nominal air inlet temperature";
   parameter Modelica.SIunits.Temperature T_b2_nominal=15 + 273.15
     "Nominal air outlet temperature";
-  parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal = m1_flow_nominal*4200*(T_a1_nominal-T_b1_nominal)
-    "Nominal heat transfer";
+  parameter Real RH_a2_nominal(unit="1", max=1) = 0.8
+    "Relative humidity of inlet at nominal condition";
+  parameter Modelica.SIunits.MassFraction X_w2_nominal(min=0,start=0)=
+    Buildings.Utilities.Psychrometrics.Functions.X_pTphi(
+      Medium2.p_default, T_a2_nominal, RH_a2_nominal)
+    "Absolute humidity of inlet at nominal condition";
+  parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal=
+    m1_flow_nominal * 4200 * (T_a1_nominal - T_b1_nominal)
+    "Nominal heat flow rate";
   parameter Modelica.SIunits.MassFlowRate m1_flow_nominal=0.1
     "Nominal mass flow rate medium 1";
   parameter Modelica.SIunits.MassFlowRate m2_flow_nominal=m1_flow_nominal*4200/
@@ -42,7 +49,8 @@ partial model EffectivenessNTUMassFlow
     T=T_a1_nominal) "Source for water"
     annotation (Placement(transformation(extent={{-2,52},{18,72}})));
 
-  Modelica.Blocks.Sources.Constant relHum(k=0.8) "Relative humidity"
+  Modelica.Blocks.Sources.Constant relHum(k=RH_a2_nominal)
+    "Relative humidity"
     annotation (Placement(transformation(extent={{100,-70},{120,-50}})));
   Buildings.Utilities.Psychrometrics.X_pTphi x_pTphi(use_p_in=false)
     annotation (Placement(transformation(extent={{150,-42},{170,-22}})));
@@ -86,7 +94,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(mWat_flow.y, sin_1.m_flow_in) annotation (Line(
-      points={{-21,110},{160,110},{160,68},{140,68}},
+      points={{-21,110},{160,110},{160,68},{142,68}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(mAirGai.y, mAir_flow.u) annotation (Line(
@@ -94,7 +102,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(mAir_flow.y, sin_2.m_flow_in) annotation (Line(
-      points={{-19,32},{0,32}},
+      points={{-19,32},{-2,32}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,

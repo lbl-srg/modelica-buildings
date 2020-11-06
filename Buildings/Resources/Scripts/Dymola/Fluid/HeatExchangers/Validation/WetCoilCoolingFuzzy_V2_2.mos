@@ -1,0 +1,30 @@
+old_StoreProtectedVariables = Advanced.StoreProtectedVariables;
+Advanced.StoreProtectedVariables = true;
+simulateModel(
+    "Buildings.Fluid.HeatExchangers.Validation.WetCoilCoolingFuzzy_V2_2",
+    stopTime=2000,
+    method="cvode",
+    tolerance=1e-6, resultFile="WetCoilCoolingFuzzy_V2_2");
+Advanced.StoreProtectedVariables = old_StoreProtectedVariables;
+createPlot(
+    id=1,
+    position={15, 15, 638, 762},
+    y={"senMasFlo1.m_flow", "m1_flow_nominal","senMasFlo2.m_flow", "m2_flow_nominal"},
+    grid=true);
+createPlot(
+    id=1,
+    y={"T1Inl.T", "T2Inl.T", "T1Out.T", "T2Out.T"},
+    grid=true,
+    subPlot=2);
+createPlot(
+    id=1,
+    y={"hexWetNtu.Q2_flow", "Q_flow_nominal", "hexWetNtu.QLat2_flow", "hexWetNtu.QSen2_flow"},
+    grid=true,
+    subPlot=3);
+createPlot(
+    id=2,
+    position={669, 15, 660, 504},
+    y={"hexWetNtu.dryWetCalcs.par.dryfra"},
+    grid=true);
+
+

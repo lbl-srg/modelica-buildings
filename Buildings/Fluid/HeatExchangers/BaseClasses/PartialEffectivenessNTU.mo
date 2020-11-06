@@ -6,8 +6,10 @@ model PartialEffectivenessNTU
       sensibleOnly2=true,
       Q1_flow = eps*QMax_flow,
       Q2_flow = -Q1_flow,
-      mWat1_flow = 0,
-      mWat2_flow = 0);
+      mWat1_flow = if sensibleOnly1 then 0 else Q1_flow*(cp1Wet-Medium1.specificHeatCapacityCp(state_a1_inflow))/cp1Wet/h_fg,
+      mWat2_flow = if sensibleOnly2 then 0 else Q2_flow*(cp2Wet-Medium2.specificHeatCapacityCp(state_a2_inflow))/cp2Wet/h_fg,
+      C1_flow=abs(m1_flow)*cp1Wet,
+      C2_flow=abs(m2_flow)*cp2Wet);
   import con = Buildings.Fluid.Types.HeatExchangerConfiguration;
   import flo = Buildings.Fluid.Types.HeatExchangerFlowRegime;
 
@@ -23,14 +25,23 @@ model PartialEffectivenessNTU
     "Nominal heat transfer"
     annotation (Dialog(group="Nominal thermal performance",
                        enable=use_Q_flow_nominal));
+
   parameter Modelica.SIunits.Temperature T_a1_nominal(fixed=use_Q_flow_nominal)
     "Nominal temperature at port a1"
     annotation (Dialog(group="Nominal thermal performance",
                        enable=use_Q_flow_nominal));
+  parameter Modelica.SIunits.MassFraction X_w1_nominal(min=0,start=0)
+    "Absolute humidity of inlet at nominal condition"
+    annotation (Dialog(group="Nominal thermal performance",
+                       enable=not sensibleOnly1));
   parameter Modelica.SIunits.Temperature T_a2_nominal(fixed=use_Q_flow_nominal)
     "Nominal temperature at port a2"
     annotation (Dialog(group="Nominal thermal performance",
                        enable=use_Q_flow_nominal));
+  parameter Modelica.SIunits.MassFraction X_w2_nominal(min=0,start=0)
+    "Absolute humidity of inlet at nominal condition"
+    annotation (Dialog(group="Nominal thermal performance",
+                       enable=not sensibleOnly2));
 
   parameter Real eps_nominal(fixed=not use_Q_flow_nominal)
     "Nominal heat transfer effectiveness"
@@ -50,6 +61,18 @@ model PartialEffectivenessNTU
     "Nominal number of transfer units";
 
 protected
+  final parameter Modelica.SIunits.SpecificEnthalpy h_fg=
+    Buildings.Utilities.Psychrometrics.Constants.h_fg
+    "Heat of evaporation of water";
+  final parameter Medium1.ThermodynamicState sta1_nominal = Medium1.setState_pTX(
+     T=T_a1_nominal,
+     p=Medium1.p_default,
+     X={X_w1_nominal, 1-X_w1_nominal}) "Default state for medium 1";
+  final parameter Medium2.ThermodynamicState sta2_nominal = Medium2.setState_pTX(
+     T=T_a2_nominal,
+     p=Medium2.p_default,
+     X={X_w2_nominal, 1-X_w2_nominal}) "Default state for medium 2";
+
   final parameter Medium1.ThermodynamicState sta1_default = Medium1.setState_pTX(
      T=Medium1.T_default,
      p=Medium1.p_default,
@@ -79,10 +102,80 @@ protected
     "Nominal temperature at port b1";
   parameter Modelica.SIunits.Temperature T_b2_nominal(fixed=false)
     "Nominal temperature at port b2";
+  parameter Modelica.SIunits.MassFraction xSat1_nominal=
+    Buildings.Utilities.Psychrometrics.Functions.X_pTphi(p=Medium1.p_default, T=T_a2_nominal, phi = 1)
+    "Absolute humidity of outlet at saturation condition";
+  parameter Modelica.SIunits.MassFraction xSat2_nominal=
+    Buildings.Utilities.Psychrometrics.Functions.X_pTphi(p=Medium2.p_default, T=T_a1_nominal, phi = 1)
+    "Absolute humidity of outlet at saturation condition";
   parameter flo flowRegime_nominal(fixed=false)
     "Heat exchanger flow regime at nominal flow rates";
+
+  parameter Modelica.SIunits.SpecificEnthalpy h_b1_max_nominal=
+    if sensibleOnly1
+    then 0
+    else
+      Buildings.Media.Air.specificEnthalpy_pTX(
+      T= T_a2_nominal,
+      p=Medium1.p_default,
+      X={min(xSat1_nominal,X_w1_nominal)})
+      "Outlet air enthalpy of Medium1";
+  parameter Modelica.SIunits.SpecificEnthalpy h_b2_max_nominal=
+    if sensibleOnly2
+    then 0
+    else
+      Buildings.Media.Air.specificEnthalpy_pTX(
+      T= T_a1_nominal,
+      p=Medium2.p_default,
+      X={min(xSat2_nominal,X_w2_nominal)})
+      "Outlet air enthalpy of Medium2";
+
   flo flowRegime(fixed=false, start=flowRegime_nominal)
     "Heat exchanger flow regime";
+
+  // todo: bidirectional flow
+  Modelica.SIunits.SpecificHeatCapacity cp1Wet=
+    if sensibleOnly1
+    then cp1_nominal
+    else max((inStream(port_a1.h_outflow) - h_b1_max) * Buildings.Utilities.Math.Functions.inverseXRegularized(T_in1 - T_in2, delta=1e-2),
+      Medium1.specificHeatCapacityCp(state_a1_inflow))
+      "Heat capacity used in the ficticious fluid when condensation occurs in Medium1, according to Braun-Lebrun model";
+  Modelica.SIunits.SpecificHeatCapacity cp2Wet=
+    if sensibleOnly2
+    then cp2_nominal
+    else max((inStream(port_a2.h_outflow) - h_b2_max) *Buildings.Utilities.Math.Functions.inverseXRegularized(T_in2 - T_in1, delta=1e-2),
+      Medium2.specificHeatCapacityCp(state_a2_inflow))
+      "Heat capacity used in the ficticious fluid when condensation occurs in Medium2, according to Braun-Lebrun model";
+
+  Modelica.SIunits.SpecificEnthalpy h_b1_max=
+    if sensibleOnly1
+    then 0
+    else Buildings.Media.Air.specificEnthalpy_pTX(
+      T= T_in2,
+      p=port_b1.p,
+      X={min(xSat1, inStream(port_a1.Xi_outflow[1]))})
+      "Outlet air enthalpy of Medium1 for perfect heat exchange";
+  Modelica.SIunits.SpecificEnthalpy h_b2_max=
+    if sensibleOnly2
+    then 0
+    else Buildings.Media.Air.specificEnthalpy_pTX(
+      T= T_in1,
+      p=port_b2.p,
+      X={min(xSat2, inStream(port_a2.Xi_outflow[1]))})
+      "Outlet air enthalpy of Medium2 for perfect heat exchange";
+
+  Modelica.SIunits.MassFraction xSat1=
+    if sensibleOnly1
+    then 0
+    else Buildings.Utilities.Psychrometrics.Functions.X_pTphi(p=port_b1.p, T=T_in2, phi = 1)
+      "Absolute humidity assuming saturated outlet condition for medium 1";
+  Modelica.SIunits.MassFraction xSat2=
+    if sensibleOnly2
+    then 0
+    else Buildings.Utilities.Psychrometrics.Functions.X_pTphi(p=port_b2.p, T=T_in1, phi = 1)
+      "Absolute humidity assuming saturated outlet condition for medium 2";
+
+  Real QLat1 = mWat1_flow*h_fg "Latent heat extracted from medium 1";
 initial equation
   assert(m1_flow_nominal > 0,
     "m1_flow_nominal must be positive, m1_flow_nominal = " + String(
@@ -91,8 +184,20 @@ initial equation
     "m2_flow_nominal must be positive, m2_flow_nominal = " + String(
     m2_flow_nominal));
 
-  cp1_nominal = Medium1.specificHeatCapacityCp(sta1_default);
-  cp2_nominal = Medium2.specificHeatCapacityCp(sta2_default);
+  // fixme: I don't understand these assignments: state_a1_inflow changes with
+  // time, yet it is assigned to cp1_nominal, and evaluated in an 'initial equation' section.
+  cp1_nominal = if sensibleOnly1
+    then Medium1.specificHeatCapacityCp(sta1_nominal)
+    else max((Medium1.specificEnthalpy(state_a1_inflow) - h_b1_max_nominal)
+        *Buildings.Utilities.Math.Functions.inverseXRegularized(
+          T_a1_nominal - T_a2_nominal, delta=1e-2),
+          Medium1.specificHeatCapacityCp(sta1_nominal));
+  cp2_nominal = if sensibleOnly2
+    then Medium2.specificHeatCapacityCp(sta2_nominal)
+    else max((Medium2.specificEnthalpy(state_a2_inflow) - h_b2_max_nominal)
+        *Buildings.Utilities.Math.Functions.inverseXRegularized(
+          T_a2_nominal - T_a1_nominal, delta=1e-2),
+          Medium2.specificHeatCapacityCp(sta2_nominal));
 
   // Heat transferred from fluid 1 to 2 at nominal condition
   C1_flow_nominal = m1_flow_nominal*cp1_nominal;
@@ -100,6 +205,7 @@ initial equation
   CMin_flow_nominal = min(C1_flow_nominal, C2_flow_nominal);
   CMax_flow_nominal = max(C1_flow_nominal, C2_flow_nominal);
   Z_nominal = CMin_flow_nominal/CMax_flow_nominal;
+
   Q_flow_nominal = m1_flow_nominal*cp1_nominal*(T_a1_nominal - T_b1_nominal);
   if use_Q_flow_nominal then
     Q_flow_nominal = -m2_flow_nominal*cp2_nominal*(T_a2_nominal - T_b2_nominal);
@@ -146,6 +252,44 @@ initial equation
     Z=Z_nominal,
     flowRegime=Integer(flowRegime_nominal)) else 0;
   UA_nominal = NTU_nominal*CMin_flow_nominal;
+
+  if not sensibleOnly1 then
+      assert(Buildings.Utilities.Psychrometrics.Functions.phi_pTX(
+        p=Medium1.p_default,
+       T=T_a1_nominal,
+       X_w=X_w1_nominal) <= 1, "In " + getInstanceName() +
+       ": The nominal inlet temperature of " +String(T_a1_nominal) +
+       " K and the nominal inlet absolute humidity of " +String(X_w1_nominal) +
+       " kg/kg result in a relative humidity of "
+          + String(100*Buildings.Utilities.Psychrometrics.Functions.phi_pTX(
+       p=Medium1.p_default,
+       T=T_a1_nominal,
+       X_w=X_w1_nominal))+
+    " %, which is larger than 100 %. This is non-physical.");
+  end if;
+
+  if not sensibleOnly2 then
+    assert(Buildings.Utilities.Psychrometrics.Functions.phi_pTX(
+       p=Medium2.p_default,
+       T=T_a2_nominal,
+       X_w=X_w2_nominal) <= 1, "In " + getInstanceName() +
+       ": The nominal inlet temperature of " +String(T_a2_nominal) +
+       " K and the nominal inlet absolute humidity of " +String(X_w2_nominal) +
+       " kg/kg result in a relative humidity of "
+       + String(100*Buildings.Utilities.Psychrometrics.Functions.phi_pTX(
+       p=Medium2.p_default,
+       T=T_a2_nominal,
+       X_w=X_w2_nominal))+
+       " %, which is larger than 100 %. This is non-physical.");
+  end if;
+  // todo: check using substance names
+  assert(sensibleOnly1 or Medium1.nXi > 0,
+    "In "+getInstanceName() + ": The model computes condensation in air,
+    but uses a medium that contains no water. Choose a different medium.");
+  assert(sensibleOnly2 or Medium2.nXi > 0,
+    "In "+getInstanceName() + ": The model computes condensation in air,
+    but uses a medium that contains no water. Choose a different medium.");
+
 equation
   // Assign the flow regime for the given heat exchanger configuration and capacity flow rates
   if (configuration == con.ParallelFlow) then
@@ -204,8 +348,8 @@ parallel flow, cross flow or counter flow.
 <p>
 The flow regimes depend on the heat exchanger configuration. All configurations
 defined in
-<a href=\"modelica://Buildings.Fluid.Types.HeatExchangerConfiguration\">
-Buildings.Fluid.Types.HeatExchangerConfiguration</a>
+<a href=\"modelica://IBPSA.Fluid.Types.HeatExchangerConfiguration\">
+IBPSA.Fluid.Types.HeatExchangerConfiguration</a>
 are supported.
 </p>
 <p>

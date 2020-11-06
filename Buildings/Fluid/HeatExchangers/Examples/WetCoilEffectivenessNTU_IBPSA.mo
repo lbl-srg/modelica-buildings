@@ -1,5 +1,5 @@
 within Buildings.Fluid.HeatExchangers.Examples;
-model WetCoilEffectivenessNTU
+model WetCoilEffectivenessNTU_IBPSA
   "Duplicates WetCoilCounterFlowMassFlow example using fuzzy model"
   extends Modelica.Icons.Example;
   extends
@@ -9,23 +9,20 @@ model WetCoilEffectivenessNTU
     sou_2(nPorts=1),
     sin_2(nPorts=1));
 
-  WetEffectivenessNTU_Fuzzy_V2_2_4 hex(
+  WetCoilEffectivesnessNTU       hex(
     redeclare package Medium1 = Medium1,
     redeclare package Medium2 = Medium2,
     m1_flow_nominal=m1_flow_nominal,
     m2_flow_nominal=m2_flow_nominal,
+    T_a1_nominal=T_a1_nominal,
+    T_a2_nominal=T_a2_nominal,
+    X_w2_nominal=X_w2_nominal,
+    Q_flow_nominal=Q_flow_nominal,
     dp2_nominal(displayUnit="Pa") = 200,
     allowFlowReversal1=true,
     allowFlowReversal2=true,
     dp1_nominal(displayUnit="Pa") = 3000,
-    UA_nominal=Q_flow_nominal/Buildings.Fluid.HeatExchangers.BaseClasses.lmtd(
-        T_a1_nominal,
-        T_b1_nominal,
-        T_a2_nominal,
-        T_b2_nominal),
-    show_T=true,
-    TWatOut_init=T_b1_nominal,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
+    show_T=true)
     "Heat exchanger"
     annotation (Placement(transformation(extent={{80,20},{100,40}})));
   Sensors.RelativeHumidityTwoPort senRelHum(
@@ -33,14 +30,6 @@ model WetCoilEffectivenessNTU
     m_flow_nominal=m2_flow_nominal)
     "Relative humidity sensor"
     annotation (Placement(transformation(extent={{60,14},{40,34}})));
-/*
-  Modelica.Blocks.Sources.CombiTimeTable resDis(
-    tableOnFile=true,
-    tableName="tab1",
-    fileName=ModelicaServices.ExternalReferences.loadResource("modelica://Buildings/Resources/Data/Fluid/HeatExchangers/Examples/WetCoilEffNtuMassFlowFuzzy_V2_2.mos"),
-    columns={2,3}) "Reference results from WetCoilDiscretizedMassFlow"
-    annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
-    */
 
 equation
   connect(sou_1.ports[1], hex.port_a1) annotation (Line(
@@ -65,7 +54,8 @@ equation
       smooth=Smooth.None));
   annotation (
     experiment(Tolerance=1E-6, StopTime=3600),
-    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/WetCoilEffectivenessNTU.mos"
+    __Dymola_Commands(
+      file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/WetCoilEffectivenessNTU_IBPSA.mos"
       "Simulate and plot"),
     Diagram(coordinateSystem(preserveAspectRatio=true,
       extent={{-100, -100},{200,200}})),
@@ -98,4 +88,4 @@ does not agree well over the second half which subjects the model to
 flow reversals.
 </p>
 </html>"));
-end WetCoilEffectivenessNTU;
+end WetCoilEffectivenessNTU_IBPSA;

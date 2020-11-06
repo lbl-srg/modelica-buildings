@@ -1,22 +1,16 @@
-//old_StoreProtectedVariables = Advanced.StoreProtectedVariables;
+old_StoreProtectedVariables = Advanced.StoreProtectedVariables;
 Advanced.StoreProtectedVariables = true;
 simulateModel("Buildings.Fluid.HeatExchangers.Examples.WetCoilEffectivenessNTU",
   tolerance=1e-6, stopTime=3600, method="Dassl", resultFile="WetCoilEffectivenessNTU");
-//Advanced.StoreProtectedVariables = old_StoreProtectedVariables;
+Advanced.StoreProtectedVariables = old_StoreProtectedVariables;
 createPlot(
   id=1,
   position={0, 0, 782, 636},
   y={"hex.Q2_flow", "hex.QLat2_flow", "resDis.y[1]", "resDis.y[2]"},
-  grid=true,
-  filename="WetCoilEffNtuMassFlowFuzzy_V2_2.mat");
+  grid=true);
 createPlot(
   id=1,
-  position={0, 0, 1614, 434},
   y={"hex.port_a1.m_flow", "hex.port_a2.m_flow"},
   grid=true,
   subPlot=2);
-createPlot(
-    id=2,
-    position={669, 15, 660, 504},
-    y={"hex.dryWetCalcs.par.dryfra", "hex.dryWetCalcs.par.dry.eps", "hex.dryWetCalcs.par.wet.epsSta"},
-    grid=true);
+
