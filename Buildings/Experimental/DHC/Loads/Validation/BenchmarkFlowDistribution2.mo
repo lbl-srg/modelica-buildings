@@ -173,15 +173,15 @@ This model is part of a computational performance benchmark between
 <ul>
 <li>
 a simplified modeling of the piping network as implemented in
-<a href=\"Buildings.Experimental.DHC.Loads.BaseClasses.FlowDistribution\">
-Buildings.Experimental.DHC.Loads.BaseClasses.FlowDistribution</a>
+<a href=\"modelica://Buildings.Experimental.DHC.Loads.FlowDistribution\">
+Buildings.Experimental.DHC.Loads.FlowDistribution</a>
 (see the corresponding example
-<a href=\"Buildings.Experimental.DHC.Loads.Validation.BenchmarkFlowDistribution1\">
+<a href=\"modelica://Buildings.Experimental.DHC.Loads.Validation.BenchmarkFlowDistribution1\">
 Buildings.Experimental.DHC.Loads.Validation.BenchmarkFlowDistribution1</a>), and
 </li>
 <li>
 an explicit modeling of the piping network (see the corresponding example
-<a href=\"Buildings.Experimental.DHC.Loads.Validation.BenchmarkFlowDistribution2\">
+<a href=\"modelica://Buildings.Experimental.DHC.Loads.Validation.BenchmarkFlowDistribution2\">
 Buildings.Experimental.DHC.Loads.Validation.BenchmarkFlowDistribution2</a>).
 </li>
 </ul>

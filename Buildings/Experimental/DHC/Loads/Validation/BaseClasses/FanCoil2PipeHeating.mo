@@ -93,8 +93,7 @@ model FanCoil2PipeHeating
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,origin={-110,0})));
   Fluid.Sources.Boundary_pT retAir(
     redeclare package Medium=Medium2,
-    p(
-      displayUnit="Pa"),
+    p(displayUnit="Pa"),
     use_T_in=true,
     nPorts=1)
     "Source for return air"
@@ -186,8 +185,8 @@ therefore takes the load as an input, and
 </li>
 <li>
 in conjunction with
-<a href=\"modelica://Buildings.Experimental.DHC.Loads.BaseClasses.FlowDistribution\">
-Buildings.Experimental.DHC.Loads.BaseClasses.FlowDistribution</a>:
+<a href=\"modelica://Buildings.Experimental.DHC.Loads.FlowDistribution\">
+Buildings.Experimental.DHC.Loads.FlowDistribution</a>:
 it therefore computes the water mass flow rate required to meet the load.
 </li>
 </ul>
@@ -207,8 +206,8 @@ the air mass flow rate, from zero to its nominal value.
 <p>
 The controller tracks the load while the impact of an unmet load on the room
 air temperature is assessed with
-<a href=\"modelica://Buildings.Experimental.DHC.Loads.BaseClasses.SimpleRoom\">
-Buildings.Experimental.DHC.Loads.BaseClasses.SimpleRoom</a>.
+<a href=\"modelica://Buildings.Experimental.DHC.Loads.SimpleRoomODE\">
+Buildings.Experimental.DHC.Loads.SimpleRoomODE</a>.
 </p>
 </html>"),
     revisions="<html>

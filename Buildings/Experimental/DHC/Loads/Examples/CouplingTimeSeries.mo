@@ -136,8 +136,8 @@ Buildings.Experimental.DHC.Loads.BaseClasses.PartialBuilding</a>,
 <a href=\"modelica://Buildings.Experimental.DHC.Loads.BaseClasses.PartialTerminalUnit\">
 Buildings.Experimental.DHC.Loads.BaseClasses.PartialTerminalUnit</a>
 and
-<a href=\"modelica://Buildings.Experimental.DHC.Loads.BaseClasses.FlowDistribution\">
-Buildings.Experimental.DHC.Loads.BaseClasses.FlowDistribution</a>
+<a href=\"modelica://Buildings.Experimental.DHC.Loads.FlowDistribution\">
+Buildings.Experimental.DHC.Loads.FlowDistribution</a>
 in a configuration with
 </p>
 <ul>

@@ -8,7 +8,7 @@ package Examples
       info="<html>
 <p>
 This package contains advanced examples illustrating the use of the models in
-<a href=\"modelica://Buildings.Experimental.DHC.CentraEnergyTransferStationslPlants.Combined.Generation1\">
+<a href=\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation1\">
 Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation1</a>.
 </p>
 </html>"));

@@ -151,17 +151,17 @@ initial equation
 Partial model to be used for modeling the thermal loads on an energy
 transfer station or a dedicated plant.
 Models extending this class are typically used in conjunction with
-<a href=\"modelica://Buildings.Experimental.DHC.Loads.BaseClasses.FlowDistribution\">
-Buildings.Experimental.DHC.Loads.BaseClasses.FlowDistribution</a>
+<a href=\"modelica://Buildings.Experimental.DHC.Loads.FlowDistribution\">
+Buildings.Experimental.DHC.Loads.FlowDistribution</a>
 and models extending
 <a href=\"modelica://Buildings.Experimental.DHC.Loads.BaseClasses.PartialTerminalUnit\">
 Buildings.Experimental.DHC.Loads.BaseClasses.PartialTerminalUnit</a>
-as described in the schematics here under. 
+as described in the schematics here under.
 The fluid ports represent the connection between the production system and
-the building distribution system. 
+the building distribution system.
 </p>
 <p>
-See various use cases in 
+See various use cases in
 <a href=\"modelica://Buildings.Experimental.DHC.Loads.Examples\">
 Buildings.Experimental.DHC.Loads.Examples</a>.
 <br>

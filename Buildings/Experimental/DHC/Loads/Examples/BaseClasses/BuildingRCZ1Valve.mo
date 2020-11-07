@@ -325,8 +325,8 @@ and connected to the room model by means of fluid ports.
 <p>
 The heating and chilled water distribution to the terminal units is modeled
 with an instance of
-<a href=\"modelica://Buildings.Experimental.DHC.Loads.BaseClasses.FlowDistribution\">
-Buildings.Experimental.DHC.Loads.BaseClasses.FlowDistribution</a>
+<a href=\"modelica://Buildings.Experimental.DHC.Loads.FlowDistribution\">
+Buildings.Experimental.DHC.Loads.FlowDistribution</a>
 including a mixing valve to control the supply temperature.
 </p>
 </html>",

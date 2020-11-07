@@ -17,25 +17,25 @@ import sys
 #    import matplotlib.pyplot as plt
 
 debug_solver = False
-model="Zones3"
-# Overwrite model with command line argument if specified
+models=["Zones1", "Zones3"]
+# Overwrite models with command line argument if specified
 if len(sys.argv) > 1:
   # If the argument is a file, then parse it to a model name
   if os.path.isfile(sys.argv[1]):
-    model = sys.argv[1].replace(os.path.sep, '.')[:-3]
+    models = sys.argv[1].replace(os.path.sep, '.')[:-3]
   else:
-    model=sys.argv[1]
+    models = sys.argv[1]
 
-
-print("*** Compiling {}".format(model))
 # Increase memory
 pymodelica.environ['JVM_ARGS'] = '-Xmx4096m'
 
-sys.stdout.flush()
+for model in models:
+  print("*** Compiling {}".format(model))
+  sys.stdout.flush()
 
-######################################################################
-# Compile fmu
-fmu_name = compile_fmu(model,
-                       version="2.0",
-                       compiler_log_level='warning',
-                       compiler_options = {"generate_html_diagnostics" : False})
+  ######################################################################
+  # Compile fmu
+  fmu_name = compile_fmu(model,
+                         version="2.0",
+                         compiler_log_level='warning',
+                         compiler_options = {"generate_html_diagnostics" : False})

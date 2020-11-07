@@ -185,11 +185,11 @@ equation
       info="<html>
 <p>
 This model validates
-<a href=\"modelica://Buildings.Experimental.DHC.Controls.MixingValveControl\">
-Buildings.Experimental.DHC.Controls.MixingValveControl</a>
+<a href=\"modelica://Buildings.Experimental.DHC.Loads.Controls.MixingValveControl\">
+Buildings.Experimental.DHC.Loads.Controls.MixingValveControl</a>
 (as part of
-<a href=\"modelica://Buildings.Experimental.DHC.Loads.BaseClasses.FlowDistribution\">
-Buildings.Experimental.DHC.Loads.BaseClasses.FlowDistribution</a>)
+<a href=\"modelica://Buildings.Experimental.DHC.Loads.FlowDistribution\">
+Buildings.Experimental.DHC.Loads.FlowDistribution</a>)
 in change-over mode.
 </p>
 </html>",

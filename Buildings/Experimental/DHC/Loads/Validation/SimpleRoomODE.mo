@@ -173,8 +173,8 @@ equation
 <html>
 <p>
 This example validates
-<a href=\"Buildings.Experimental.DHC.Loads.BaseClasses.SimpleRoomODE\">
-Buildings.Experimental.DHC.Loads.BaseClasses.SimpleRoomODE</a> by comparison with
+<a href=\"Buildings.Experimental.DHC.Loads.SimpleRoomODE\">
+Buildings.Experimental.DHC.Loads.SimpleRoomODE</a> by comparison with
 <a href=\"Buildings.ThermalZones.ReducedOrder.RC.TwoElements\">
 Buildings.ThermalZones.ReducedOrder.RC.TwoElements</a>.
 <p>
