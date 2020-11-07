@@ -170,26 +170,12 @@ partial model PartialChillerBorefield
   HeatTransfer.Sources.PrescribedHeatFlow loaCoo
     "Cooling load as prescribed heat flow rate"
     annotation (Placement(transformation(extent={{182,50},{162,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.LessThreshold noLoaHea(
-    final t=0.01,
-    final h=0.005)
-    "No heating load"
-    annotation (Placement(transformation(extent={{-210,-30},{-190,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.LessThreshold noLoaCoo(
-    final t=0.01,
-    final h=0.005)
-    "No cooling load"
-    annotation (Placement(transformation(extent={{-212,-110},{-192,-90}})));
-  Buildings.Controls.OBC.CDL.Logical.Not reqHea "Heating request"
-    annotation (Placement(transformation(extent={{-150,-30},{-130,-10}})));
-  Buildings.Controls.OBC.CDL.Logical.Not reqCoo "Cooling request"
-    annotation (Placement(transformation(extent={{-150,-110},{-130,-90}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDelHea(delayTime=300)
-    "Delay signal indicating no load"
-    annotation (Placement(transformation(extent={{-180,-30},{-160,-10}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDelCoo(delayTime=300)
-    "Delay signal indicating no load"
-    annotation (Placement(transformation(extent={{-180,-110},{-160,-90}})));
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold uHea(final t=0.01,
+      final h=0.005) "Enable heating"
+    annotation (Placement(transformation(extent={{-200,-30},{-180,-10}})));
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold uCoo(final t=0.01,
+      final h=0.005) "Enable cooling"
+    annotation (Placement(transformation(extent={{-200,-110},{-180,-90}})));
   Modelica.Blocks.Routing.RealPassThrough heaLoaNor
     "Connect with normalized heating load"
     annotation (Placement(transformation(extent={{-250,50},{-230,70}})));
@@ -265,32 +251,24 @@ equation
           {-101,-40},{-70,-40}},          color={0,127,255}));
   connect(heaWat.ports[1], pumHeaWat.port_a)
     annotation (Line(points={{40,24},{40,40},{30,40}}, color={0,127,255}));
-  connect(reqHea.y, ets.uHea) annotation (Line(points={{-128,-20},{-120,-20},{-120,
-          -46},{-14,-46}},      color={255,0,255}));
-  connect(reqCoo.y, ets.uCoo) annotation (Line(points={{-128,-100},{-120,-100},{
-          -120,-54},{-14,-54}}, color={255,0,255}));
-  connect(reqHea.u, truDelHea.y)
-    annotation (Line(points={{-152,-20},{-158,-20}}, color={255,0,255}));
-  connect(noLoaHea.y, truDelHea.u)
-    annotation (Line(points={{-188,-20},{-182,-20}}, color={255,0,255}));
-  connect(reqCoo.u, truDelCoo.y)
-    annotation (Line(points={{-152,-100},{-158,-100}}, color={255,0,255}));
-  connect(noLoaCoo.y, truDelCoo.u)
-    annotation (Line(points={{-190,-100},{-182,-100}}, color={255,0,255}));
   connect(heaLoaNor.y, gai3.u)
     annotation (Line(points={{-229,60},{-182,60}}, color={0,0,127}));
-  connect(heaLoaNor.y, noLoaHea.u) annotation (Line(points={{-229,60},{-220,60},
-          {-220,-20},{-212,-20}}, color={0,0,127}));
+  connect(heaLoaNor.y, uHea.u) annotation (Line(points={{-229,60},{-220,60},{
+          -220,-20},{-202,-20}}, color={0,0,127}));
   connect(heaLoaNor.y, gai1.u) annotation (Line(points={{-229,60},{-220,60},{-220,
           120},{60,120},{60,80},{52,80}}, color={0,0,127}));
   connect(loaCooNor.y, gai4.u)
     annotation (Line(points={{249,60},{222,60}}, color={0,0,127}));
   connect(loaCooNor.y, gai2.u) annotation (Line(points={{249,60},{240,60},{240,120},
           {80,120},{80,80},{90,80}}, color={0,0,127}));
-  connect(loaCooNor.y, noLoaCoo.u) annotation (Line(points={{249,60},{240,60},{240,
-          -120},{-222,-120},{-222,-100},{-214,-100}}, color={0,0,127}));
+  connect(loaCooNor.y, uCoo.u) annotation (Line(points={{249,60},{240,60},{240,
+          -120},{-222,-120},{-222,-100},{-202,-100}}, color={0,0,127}));
   connect(TDisWatSup.y[1], disWat.T_in) annotation (Line(points={{-309,-140},{
           -140,-140},{-140,-136},{-122,-136}}, color={0,0,127}));
+  connect(uCoo.y, ets.uCoo) annotation (Line(points={{-178,-100},{-120,-100},{
+          -120,-54},{-14,-54}}, color={255,0,255}));
+  connect(uHea.y, ets.uHea) annotation (Line(points={{-178,-20},{-120,-20},{
+          -120,-46},{-14,-46}}, color={255,0,255}));
   annotation (Diagram(
   coordinateSystem(preserveAspectRatio=false, extent={{-340,-220},{340,220}})),
   Documentation(
