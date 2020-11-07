@@ -235,8 +235,9 @@ equation
     annotation (Line(points={{28,80},{20,80},{20,52}},    color={0,0,127}));
   connect(gai3.y, loaHea.Q_flow)
     annotation (Line(points={{-158,60},{-140,60}}, color={0,0,127}));
-  connect(loaHea.port, volHeaWat.heatPort) annotation (Line(points={{-120,60},{-112,
-          60},{-112,10},{-111,10}}, color={191,0,0}));
+  connect(loaHea.port, volHeaWat.heatPort) annotation (Line(points={{-120,60},{
+          -112,60},{-112,10},{-111,10}},
+                                    color={191,0,0}));
   connect(pumChiWat.port_b, volChiWat.ports[1])
     annotation (Line(points={{130,40},{139,40},{139,2}}, color={0,127,255}));
   connect(volChiWat.ports[2], senTChiWatRet.port_a)
@@ -262,7 +263,7 @@ equation
   connect(loaCooNor.y, gai2.u) annotation (Line(points={{249,60},{240,60},{240,120},
           {80,120},{80,80},{90,80}}, color={0,0,127}));
   connect(loaCooNor.y, uCoo.u) annotation (Line(points={{249,60},{240,60},{240,
-          -120},{-222,-120},{-222,-100},{-202,-100}}, color={0,0,127}));
+          -120},{-220,-120},{-220,-100},{-202,-100}}, color={0,0,127}));
   connect(TDisWatSup.y[1], disWat.T_in) annotation (Line(points={{-309,-140},{
           -140,-140},{-140,-136},{-122,-136}}, color={0,0,127}));
   connect(uCoo.y, ets.uCoo) annotation (Line(points={{-178,-100},{-120,-100},{

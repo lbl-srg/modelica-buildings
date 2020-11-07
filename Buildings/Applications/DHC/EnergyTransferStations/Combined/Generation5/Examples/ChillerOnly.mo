@@ -13,8 +13,8 @@ model ChillerOnly
       string="#Peak space cooling load",
       filNam=Modelica.Utilities.Files.loadResource(filNam)),
     QHea_flow_nominal=Experimental.DistrictHeatingCooling.SubStations.VaporCompression.BaseClasses.getPeakLoad(
-    string="#Peak space heating load",
-    filNam=Modelica.Utilities.Files.loadResource(filNam)),
+      string="#Peak space heating load",
+      filNam=Modelica.Utilities.Files.loadResource(filNam)),
     ets(kHot=0.1, Ti=600));
 
   parameter String filNam=
