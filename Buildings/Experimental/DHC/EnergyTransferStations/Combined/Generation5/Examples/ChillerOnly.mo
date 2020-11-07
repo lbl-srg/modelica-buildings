@@ -22,10 +22,10 @@ model ChillerOnly
       tableOnFile=true,
       fileName=Modelica.Utilities.Files.loadResource(
         filNam)),
-    QCoo_flow_nominal=Experimental.DistrictHeatingCooling.SubStations.VaporCompression.BaseClasses.getPeakLoad(
+    QCoo_flow_nominal=Buildings.Experimental.DHC.Loads.BaseClasses.getPeakLoad(
       string="#Peak space cooling load",
       filNam=Modelica.Utilities.Files.loadResource(filNam)),
-    QHea_flow_nominal=Experimental.DistrictHeatingCooling.SubStations.VaporCompression.BaseClasses.getPeakLoad(
+    QHea_flow_nominal=Buildings.Experimental.DHC.Loads.BaseClasses.getPeakLoad(
       string="#Peak space heating load",
       filNam=Modelica.Utilities.Files.loadResource(filNam)),
     ets(
