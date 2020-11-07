@@ -22,10 +22,6 @@ model Supervisory1 "Supervisory controller"
   parameter Modelica.SIunits.Temperature THeaWatSupSetMin(
       displayUnit="degC")
     "Minimum value of heating water supply temperature set point";
-  parameter Modelica.SIunits.Temperature TChiWatSupSetMax(
-      displayUnit="degC")
-    "Maximum value of chilled water supply temperature set point";
-
   SideHot1 conHotSid(
     final nSouAmb=nSouAmb,
     final dTHys=dTHys,
@@ -34,7 +30,7 @@ model Supervisory1 "Supervisory controller"
     final k=kHot,
     final Ti=Ti)
     "Hot side controller"
-    annotation (Placement(transformation(extent={{-10,40},{10,60}})));
+    annotation (Placement(transformation(extent={{-10,32},{10,52}})));
   SideCold1 conColSid(
     final nSouAmb=nSouAmb,
     final dTHys=dTHys,
@@ -43,73 +39,81 @@ model Supervisory1 "Supervisory controller"
     final k=kCol,
     final Ti=Ti)
     "Cold side controller"
-    annotation (Placement(transformation(extent={{-10,-60},{10,-40}})));
+    annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.Max max1[nSouAmb]
     "Maximum of output control signals"
-    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
-  Reset resTSup(final THeaWatSupSetMin=THeaWatSupSetMin, final TChiWatSupSetMax=
-       TChiWatSupSetMax) "Supply temperature reset"
-    annotation (Placement(transformation(extent={{-80,-110},{-60,-90}})));
+    annotation (Placement(transformation(extent={{52,-10},{72,10}})));
+  Reset resTSup(final THeaWatSupSetMin=THeaWatSupSetMin)
+                         "Supply temperature reset"
+    annotation (Placement(transformation(extent={{-70,10},{-50,30}})));
   RejectionMode rejMod(
     final dTDea=dTDea)
     "Rejection mode selection"
     annotation (Placement(transformation(extent={{40,80},{60,100}})));
 equation
   connect(conHotSid.yAmb, max1.u1)
-    annotation (Line(points={{12,49},{28,49},{28,6},{38,6}}, color={0,0,127}));
-  connect(conColSid.yAmb, max1.u2) annotation (Line(points={{12,-51},{28,-51},{28,
-          -6},{38,-6}}, color={0,0,127}));
-  connect(resTSup.THeaWatSupSet, conHotSid.TSet) annotation (Line(points={{-58,-95},
-          {-28,-95},{-28,50},{-12,50}}, color={0,0,127}));
-  connect(resTSup.TChiWatSupSet, conColSid.TSet) annotation (Line(points={{-58,
-          -105},{-20,-105},{-20,-50},{-12,-50}},
-                                           color={0,0,127}));
-  connect(conHotSid.e, rejMod.dTHeaWat) annotation (Line(points={{12,52},{16,52},
+    annotation (Line(points={{12,41},{28,41},{28,6},{50,6}}, color={0,0,127}));
+  connect(conColSid.yAmb, max1.u2) annotation (Line(points={{12,-41},{28,-41},{
+          28,-6},{50,-6}},
+                        color={0,0,127}));
+  connect(resTSup.THeaWatSupSet, conHotSid.TSet) annotation (Line(points={{-48,20},
+          {-30,20},{-30,42},{-12,42}},  color={0,0,127}));
+  connect(conHotSid.e, rejMod.dTHeaWat) annotation (Line(points={{12,44},{16,44},
           {16,87},{38,87}}, color={0,0,127}));
-  connect(conColSid.e, rejMod.dTChiWat) annotation (Line(points={{12,-48},{20,-48},
-          {20,83},{38,83}}, color={0,0,127}));
-  connect(rejMod.yHeaRej, conHotSid.uRej) annotation (Line(points={{62,95},{70,95},
-          {70,68},{-20,68},{-20,54},{-12,54}}, color={255,0,255}));
-  connect(rejMod.yColRej, conColSid.uRej) annotation (Line(points={{62,85},{80,85},
-          {80,-20},{-20,-20},{-20,-46},{-12,-46}}, color={255,0,255}));
-  connect(conHotSid.yDem, rejMod.uHea) annotation (Line(points={{12,56},{26,56},
+  connect(conColSid.e, rejMod.dTChiWat) annotation (Line(points={{12,-38},{20,
+          -38},{20,83},{38,83}},
+                            color={0,0,127}));
+  connect(rejMod.yHeaRej, conHotSid.uRej) annotation (Line(points={{62,95},{70,
+          95},{70,68},{-20,68},{-20,46},{-12,46}},
+                                               color={255,0,255}));
+  connect(rejMod.yColRej, conColSid.uRej) annotation (Line(points={{62,85},{80,
+          85},{80,-26},{-20,-26},{-20,-36},{-12,-36}},
+                                                   color={255,0,255}));
+  connect(conHotSid.yDem, rejMod.uHea) annotation (Line(points={{12,48},{26,48},
           {26,96.8},{38,96.8}}, color={255,0,255}));
-  connect(conColSid.yDem, rejMod.uCoo) annotation (Line(points={{12,-44},{32,-44},
-          {32,93},{38,93}}, color={255,0,255}));
+  connect(conColSid.yDem, rejMod.uCoo) annotation (Line(points={{12,-34},{32,
+          -34},{32,93},{38,93}},
+                            color={255,0,255}));
   connect(max1.y, yAmb)
-    annotation (Line(points={{62,0},{140,0}}, color={0,0,127}));
-  connect(conHotSid.yIsoAmb, yIsoCon) annotation (Line(points={{12,44},{40,44},{
-          40,40},{140,40}}, color={0,0,127}));
-  connect(conColSid.yIsoAmb, yIsoEva) annotation (Line(points={{12,-56},{100,-56},
-          {100,20},{140,20}}, color={0,0,127}));
-  connect(conHotSid.yDem, yHea) annotation (Line(points={{12,56},{100,56},{100,100},
-          {140,100}}, color={255,0,255}));
-  connect(conColSid.yDem, yCoo) annotation (Line(points={{12,-44},{90,-44},{90,80},
-          {140,80}}, color={255,0,255}));
-  connect(uHea, conHotSid.uHeaCoo) annotation (Line(points={{-140,100},{-40,100},
-          {-40,58},{-12,58}}, color={255,0,255}));
-  connect(uCoo, conColSid.uHeaCoo) annotation (Line(points={{-140,80},{-60,80},{
-          -60,-42},{-12,-42}}, color={255,0,255}));
-  connect(uCoo, resTSup.uCoo) annotation (Line(points={{-140,80},{-100,80},{-100,
-          -97},{-82,-97}}, color={255,0,255}));
-  connect(uHea, resTSup.uHea) annotation (Line(points={{-140,100},{-96,100},{-96,
-          -92},{-82,-92}}, color={255,0,255}));
-  connect(THeaWatSupPreSet, resTSup.THeaWatSupPreSet) annotation (Line(points={{
-          -140,40},{-106,40},{-106,-103},{-82,-103}}, color={0,0,127}));
-  connect(TChiWatSupPreSet, resTSup.TChiWatSupPreSet) annotation (Line(points={{
-          -140,-40},{-112,-40},{-112,-108},{-82,-108}}, color={0,0,127}));
-  connect(TChiWatTop, conColSid.TTop) annotation (Line(points={{-140,-60},{-40,-60},
-          {-40,-54},{-12,-54}}, color={0,0,127}));
-  connect(TChiWatBot, conColSid.TBot) annotation (Line(points={{-140,-80},{-16,-80},
-          {-16,-58},{-12,-58}}, color={0,0,127}));
-  connect(THeaWatTop, conHotSid.TTop) annotation (Line(points={{-140,20},{-20,20},
-          {-20,46},{-12,46}}, color={0,0,127}));
-  connect(THeaWatBot, conHotSid.TBot) annotation (Line(points={{-140,0},{-16,0},
-          {-16,42},{-12,42}}, color={0,0,127}));
-  connect(resTSup.THeaWatSupSet, THeaWatSupSet) annotation (Line(points={{-58,-95},
-          {108,-95},{108,-40},{140,-40}}, color={0,0,127}));
-  connect(resTSup.TChiWatSupSet, TChiWatSupSet) annotation (Line(points={{-58,-105},
-          {114,-105},{114,-60},{140,-60}}, color={0,0,127}));
+    annotation (Line(points={{74,0},{96,0},{96,-20},{140,-20}},
+                                              color={0,0,127}));
+  connect(conHotSid.yIsoAmb, yIsoCon) annotation (Line(points={{12,36},{114,36},
+          {114,20},{140,20}},
+                            color={0,0,127}));
+  connect(conColSid.yIsoAmb, yIsoEva) annotation (Line(points={{12,-46},{100,
+          -46},{100,0},{140,0}},
+                              color={0,0,127}));
+  connect(conHotSid.yDem, yHea) annotation (Line(points={{12,48},{100,48},{100,
+          100},{140,100}},
+                      color={255,0,255}));
+  connect(conColSid.yDem, yCoo) annotation (Line(points={{12,-34},{90,-34},{90,
+          60},{140,60}},
+                     color={255,0,255}));
+  connect(THeaWatSupPreSet, resTSup.THeaWatSupPreSet) annotation (Line(points={{-140,20},
+          {-80,20},{-80,15},{-72,15}},                color={0,0,127}));
+  connect(TChiWatTop, conColSid.TTop) annotation (Line(points={{-140,-80},{-40,
+          -80},{-40,-44},{-12,-44}},
+                                color={0,0,127}));
+  connect(TChiWatBot, conColSid.TBot) annotation (Line(points={{-140,-100},{-20,
+          -100},{-20,-48},{-12,-48}},
+                                color={0,0,127}));
+  connect(THeaWatTop, conHotSid.TTop) annotation (Line(points={{-140,0},{-20,0},
+          {-20,38},{-12,38}}, color={0,0,127}));
+  connect(THeaWatBot, conHotSid.TBot) annotation (Line(points={{-140,-20},{-16,
+          -20},{-16,34},{-12,34}},
+                              color={0,0,127}));
+  connect(resTSup.THeaWatSupSet, THeaWatSupSet) annotation (Line(points={{-48,20},
+          {108,20},{108,-60},{140,-60}},  color={0,0,127}));
+  connect(uHeaHol.y, conHotSid.uHeaCoo) annotation (Line(points={{-88,100},{-30,
+          100},{-30,50},{-12,50}}, color={255,0,255}));
+  connect(uCooHol.y, conColSid.uHeaCoo) annotation (Line(points={{-88,60},{-40,
+          60},{-40,-32},{-12,-32}}, color={255,0,255}));
+  connect(TChiWatSupPreSet, conColSid.TSet) annotation (Line(points={{-140,-60},
+          {-60,-60},{-60,-40},{-12,-40}}, color={0,0,127}));
+  connect(uHeaHol.y, resTSup.uHea) annotation (Line(points={{-88,100},{-80,100},
+          {-80,26},{-72,26}}, color={255,0,255}));
+  connect(TChiWatSupPreSet, TChiWatSupSet) annotation (Line(points={{-140,-60},
+          {80,-60},{80,-80},{140,-80}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-120,-120},{120,
             120}})),

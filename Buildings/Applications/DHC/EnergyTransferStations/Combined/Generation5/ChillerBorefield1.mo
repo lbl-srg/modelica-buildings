@@ -9,7 +9,6 @@ model ChillerBorefield1
       final Ti=Ti,
       final dTDea=dTDea,
       final THeaWatSupSetMin=THeaWatSupSetMin,
-      final TChiWatSupSetMax=TChiWatSupSetMax,
       final dTHys=dTHys),
     chi(
       have_res=true,
@@ -17,6 +16,9 @@ model ChillerBorefield1
 
   parameter Modelica.SIunits.TemperatureDifference dTHys = 1.0
     "Temperature hysteresis for supervisory control"
+    annotation (Dialog(group="Supervisory controller"));
+  parameter Modelica.SIunits.TemperatureDifference dTDea = 0.5
+    "Temperature dead band for supervisory control"
     annotation (Dialog(group="Supervisory controller"));
 
 equation
