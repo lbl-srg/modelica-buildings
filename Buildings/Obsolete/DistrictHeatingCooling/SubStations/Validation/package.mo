@@ -1,4 +1,4 @@
-within Buildings.Experimental.DistrictHeatingCooling.SubStations;
+within Buildings.Obsolete.DistrictHeatingCooling.SubStations;
 package Validation "Package with models for validation"
   extends Modelica.Icons.ExamplesPackage;
 annotation (Documentation(info="<html>

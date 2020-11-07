@@ -1,4 +1,4 @@
-within Buildings.Applications.DomesticHotWater;
+within Buildings.Experimental.DomesticHotWater;
 package Controls "Package of control sequences for domestic hot water system"
   extends Modelica.Icons.VariantsPackage;
 

@@ -1,4 +1,4 @@
-within Buildings.Experimental.DistrictHeatingCooling;
+within Buildings.Obsolete.DistrictHeatingCooling;
 package Plants "Package with plant models"
   extends Modelica.Icons.VariantsPackage;
 

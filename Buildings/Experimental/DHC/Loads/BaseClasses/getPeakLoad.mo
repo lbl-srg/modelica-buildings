@@ -1,52 +1,62 @@
-within Buildings.Experimental.DistrictHeatingCooling.SubStations.VaporCompression.BaseClasses;
-function getPeakLoad "Function that reads the peak load from the load profile"
-  input String string "String that is written before the '=' sign";
-  input String filNam "Name of data file with heating and cooling load"
-   annotation (Dialog(
-        loadSelector(filter="Load file (*.mos)", caption=
-            "Select load file")));
-  output Real number "Number that is read from the file";
+within Buildings.Experimental.DHC.Loads.BaseClasses;
+function getPeakLoad
+  "Function that reads the peak load from the load profile"
+  input String string
+    "String that is written before the '=' sign";
+  input String filNam
+    "Name of data file with heating and cooling load"
+    annotation (Dialog(loadSelector(filter="Load file (*.mos)",caption="Select load file")));
+  output Real number
+    "Number that is read from the file";
 protected
- String lin "Line that is used in parser";
- Integer iLin "Line number";
- Integer index =  0 "Index of string 'string'";
- Integer staInd "Start index used when parsing a real number";
- Integer nexInd "Next index used when parsing a real number";
- Boolean found "Flag, true if 'string' has been found";
- Boolean EOF "Flag, true if EOF has been reached";
- String del "Found delimiter";
+  String lin
+    "Line that is used in parser";
+  Integer iLin
+    "Line number";
+  Integer index=0
+    "Index of string 'string'";
+  Integer staInd
+    "Start index used when parsing a real number";
+  Integer nexInd
+    "Next index used when parsing a real number";
+  Boolean found
+    "Flag, true if 'string' has been found";
+  Boolean EOF
+    "Flag, true if EOF has been reached";
+  String del
+    "Found delimiter";
 algorithm
   // Get line that contains 'string'
-  iLin :=0;
-  EOF :=false;
-  while (not EOF) and (index == 0) loop
-    iLin:=iLin + 1;
-    (lin, EOF) :=Modelica.Utilities.Streams.readLine(
+  iLin := 0;
+  EOF := false;
+  while(not EOF) and(index == 0) loop
+    iLin := iLin+1;
+    (lin,EOF) := Modelica.Utilities.Streams.readLine(
       fileName=filNam,
       lineNumber=iLin);
-    index :=Modelica.Utilities.Strings.find(
+    index := Modelica.Utilities.Strings.find(
       string=lin,
       searchString=string,
       startIndex=1,
       caseSensitive=true);
   end while;
-  assert(not EOF, "Error: Did not find '" + string + "' when scanning '" + filNam + "'."
-                      + "\n   Check for correct file syntax.");
-
+  assert(
+    not EOF,
+    "Error: Did not find '"+string+"' when scanning '"+filNam+"'."+"\n   Check for correct file syntax.");
   // Search for the equality sign
-  (del, nexInd) :=Modelica.Utilities.Strings.scanDelimiter(
+  (del,nexInd) := Modelica.Utilities.Strings.scanDelimiter(
     string=lin,
     startIndex=Modelica.Utilities.Strings.length(string)+1,
     requiredDelimiters={"="},
-    message="Failed to find '=' when reading peak load in '" + filNam + "'.");
-
+    message="Failed to find '=' when reading peak load in '"+filNam+"'.");
   // Read the value behind it.
-  number :=Modelica.Utilities.Strings.scanReal(
+  number := Modelica.Utilities.Strings.scanReal(
     string=lin,
     startIndex=nexInd,
-    message="Failed to read double value when reading peak load in '" + filNam + "'.");
-
-  annotation (Documentation(info="<html>
+    message="Failed to read double value when reading peak load in '"+filNam+"'.");
+  annotation (
+    Documentation(
+      info="<html>
 <p>
 Function that reads a double value from a text file.
 </p>
@@ -73,11 +83,12 @@ terminates the simulation with an assertion.
 </p>
 <p>
 See
-<a href=\"modelica://Buildings.Experimental.DistrictHeatingCooling.SubStations.VaporCompression.BaseClasses.Validation.GetPeakLoad\">
-Buildings.Experimental.DistrictHeatingCooling.SubStations.VaporCompression.BaseClasses.Validation.GetPeakLoad</a>
+<a href=\"modelica://Buildings.Experimental.DHC.Loads.BaseClasses.Validation.GetPeakLoad\">
+Buildings.Experimental.DHC.Loads.BaseClasses.Validation.GetPeakLoad</a>
 for how to invoke this function.
 </p>
-</html>", revisions="<html>
+</html>",
+      revisions="<html>
 <ul>
 <li>
 December 1, 2015, by Michael Wetter:<br/>

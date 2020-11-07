@@ -1,4 +1,4 @@
-within Buildings.Experimental.DistrictHeatingCooling.Plants.Validation;
+within Buildings.Obsolete.DistrictHeatingCooling.Plants.Validation;
 model Plant_T "Validation model for plant with ideal temperature control"
   extends Modelica.Icons.Example;
     package Medium = Buildings.Media.Water "Fluid in the pipes";
@@ -26,7 +26,7 @@ model Plant_T "Validation model for plant with ideal temperature control"
 
   final parameter Modelica.SIunits.MassFlowRate m_flow_nominal = Q_flow_nominal/4200/dT_nominal
     "Nominal mass flow rate";
-  Ideal_T pla(
+  Obsolete.DistrictHeatingCooling.Plants.Ideal_T pla(
     redeclare package Medium = Medium,
     show_T=true,
     m_flow_nominal=m_flow_nominal) "Heating and cooling plant"
@@ -86,7 +86,7 @@ equation
   connect(TSetC.y, pla.TSetCoo) annotation (Line(points={{-59,-20},{-40,-20},{-40,
           4},{-2,4}}, color={0,0,127}));
   annotation(experiment(Tolerance=1e-6, StopTime=86400),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DistrictHeatingCooling/Plants/Validation/Plant_T.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Obsolete/DistrictHeatingCooling/Plants/Validation/Plant_T.mos"
         "Simulate and plot"),
     Documentation(
     info="<html>

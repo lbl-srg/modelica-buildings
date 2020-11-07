@@ -1,4 +1,4 @@
-within Buildings.Applications.DomesticHotWater;
+within Buildings.Experimental.DomesticHotWater;
 package Examples "Collection of cases study"
   extends Modelica.Icons.ExamplesPackage;
 

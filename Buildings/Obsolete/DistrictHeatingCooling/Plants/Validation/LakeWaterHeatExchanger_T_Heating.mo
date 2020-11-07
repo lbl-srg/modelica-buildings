@@ -1,4 +1,4 @@
-within Buildings.Experimental.DistrictHeatingCooling.Plants.Validation;
+within Buildings.Obsolete.DistrictHeatingCooling.Plants.Validation;
 model LakeWaterHeatExchanger_T_Heating
   "Validation model for lake water heat exchanger in which it provides heating"
   extends Modelica.Icons.Example;
@@ -7,7 +7,7 @@ model LakeWaterHeatExchanger_T_Heating
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal = 100
     "Nominal mass flow rate";
 
-  LakeWaterHeatExchanger_T hex(redeclare package Medium = Medium,
+  Obsolete.DistrictHeatingCooling.Plants.LakeWaterHeatExchanger_T hex(redeclare package Medium = Medium,
     dpHex_nominal=10000,
     m_flow_nominal=m_flow_nominal) "Heat exchanger for free cooling"
     annotation (Placement(transformation(extent={{-30,-20},{-10,20}})));
@@ -100,7 +100,7 @@ equation
   connect(TSouCoo.y, hex.TSouCoo) annotation (Line(points={{-59,20},{-48,20},{
           -48,10},{-32,10}}, color={0,0,127}));
   annotation (    experiment(Tolerance=1e-6, StopTime=3600),
-    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DistrictHeatingCooling/Plants/Validation/LakeWaterHeatExchanger_T_Heating.mos"
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Obsolete/DistrictHeatingCooling/Plants/Validation/LakeWaterHeatExchanger_T_Heating.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>

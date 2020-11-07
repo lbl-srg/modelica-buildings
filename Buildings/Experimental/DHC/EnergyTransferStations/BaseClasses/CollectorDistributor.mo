@@ -1,16 +1,21 @@
-within Buildings.Applications.DHC.EnergyTransferStations.BaseClasses;
+within Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses;
 model CollectorDistributor
   "Model of a collector/distributor with zero pressure drop between connections"
   extends Networks.BaseClasses.PartialDistribution2Pipe(
-    mDis_flow_nominal=sum(mCon_flow_nominal),
-    final mDisCon_flow_nominal=fill(mDis_flow_nominal, nCon),
+    mDis_flow_nominal=sum(
+      mCon_flow_nominal),
+    final mDisCon_flow_nominal=fill(
+      mDis_flow_nominal,
+      nCon),
     final mEnd_flow_nominal=mDis_flow_nominal,
     final allowFlowReversal=true,
     final iConDpSen=-1,
     redeclare Connection2PipeLossless con[nCon],
-    redeclare model Model_pipDis = Fluid.FixedResistances.LosslessPipe);
+    redeclare model Model_pipDis=Fluid.FixedResistances.LosslessPipe);
   annotation (
-  defaultComponentName="colDis", Documentation(info="<html>
+    defaultComponentName="colDis",
+    Documentation(
+      info="<html>
 <p>
 This model represents a collector/distributor which connects
 <code>nCon</code> hydronic circuits in parallel.
@@ -34,7 +39,7 @@ in a supply through loop.
 </li>
 </ul>
 </html>",
-revisions="<html>
+      revisions="<html>
 <ul>
 <li>
 July 31, 2020, by Antoine Gautier:<br/>

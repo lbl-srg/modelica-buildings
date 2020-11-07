@@ -1,6 +1,6 @@
 old_hidden_avoid_double_computation=Hidden.AvoidDoubleComputation;
 Hidden.AvoidDoubleComputation=true;
-simulateModel("Buildings.Applications.DHC.Loads.Examples.CouplingSpawnZ1",
+simulateModel("Buildings.Experimental.DHC.Loads.Examples.CouplingSpawnZ1",
     method="cvode",
     tolerance=1e-6,
     numberOfIntervals=500,

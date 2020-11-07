@@ -1,9 +1,9 @@
-within Buildings.Experimental.DistrictHeatingCooling.SubStations.Validation;
+within Buildings.Obsolete.DistrictHeatingCooling.SubStations.Validation;
 model HeatingSubstation "Validation model for heating substation"
   extends Modelica.Icons.Example;
     package Medium = Buildings.Media.Water "Fluid in the pipes";
 
-  Buildings.Experimental.DistrictHeatingCooling.SubStations.Heating subSta(
+  Buildings.Obsolete.DistrictHeatingCooling.SubStations.Heating subSta(
     redeclare package Medium = Medium,
     Q_flow_nominal=100E3,
     show_T=true) "Substation"
@@ -55,7 +55,7 @@ equation
   connect(QHea.y, subSta.Q_flow)
     annotation (Line(points={{-59,16},{-30,16},{-2,16}}, color={0,0,127}));
   annotation(experiment(Tolerance=1e-6, StopTime=86400),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DistrictHeatingCooling/SubStations/Validation/HeatingSubstation.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Obsolete/DistrictHeatingCooling/SubStations/Validation/HeatingSubstation.mos"
         "Simulate and plot"),
     Documentation(
     info="<html>

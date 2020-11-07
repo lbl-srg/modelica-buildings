@@ -1,4 +1,4 @@
-within Buildings.Applications.CoolingPlants;
+within Buildings.Experimental.CoolingPlants;
 package Examples "Collection of cases study"
   extends Modelica.Icons.ExamplesPackage;
 

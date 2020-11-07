@@ -1,4 +1,4 @@
-within Buildings.Applications.CoolingPlants;
+within Buildings.Experimental.CoolingPlants;
 package Controls "Package of control sequences for cooling plants"
   extends Modelica.Icons.VariantsPackage;
 

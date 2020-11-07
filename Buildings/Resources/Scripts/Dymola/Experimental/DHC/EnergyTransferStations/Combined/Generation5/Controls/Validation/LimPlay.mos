@@ -1,4 +1,4 @@
-simulateModel("Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Controls.Validation.LimPlay",
+simulateModel("Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Controls.Validation.LimPlay",
     method="Cvode",
     tolerance=1e-6,
     stopTime=3,

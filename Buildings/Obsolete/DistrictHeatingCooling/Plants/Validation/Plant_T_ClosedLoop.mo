@@ -1,4 +1,4 @@
-within Buildings.Experimental.DistrictHeatingCooling.Plants.Validation;
+within Buildings.Obsolete.DistrictHeatingCooling.Plants.Validation;
 model Plant_T_ClosedLoop
   "Validation model for plant with ideal temperature control"
   extends Modelica.Icons.Example;
@@ -27,7 +27,7 @@ model Plant_T_ClosedLoop
 
   final parameter Modelica.SIunits.MassFlowRate m_flow_nominal = Q_flow_nominal/4200/dT_nominal
     "Nominal mass flow rate";
-  Ideal_T pla(
+  Obsolete.DistrictHeatingCooling.Plants.Ideal_T pla(
     redeclare package Medium = Medium,
     show_T=true,
     m_flow_nominal=m_flow_nominal) "Heating and cooling plant"
@@ -118,7 +118,7 @@ equation
   connect(pla.QHea_flow, EHea.u) annotation (Line(points={{-29,6},{-22,6},{-12,
           6},{-12,-40},{18,-40}}, color={0,0,127}));
   annotation(experiment(Tolerance=1e-6, StopTime=172800),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DistrictHeatingCooling/Plants/Validation/Plant_T_ClosedLoop.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Obsolete/DistrictHeatingCooling/Plants/Validation/Plant_T_ClosedLoop.mos"
         "Simulate and plot"),
     Documentation(
     info="<html>

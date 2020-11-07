@@ -1,4 +1,4 @@
-within Buildings.Applications.CoolingPlants;
+within Buildings.Experimental.CoolingPlants;
 package AirCooled "Package of models for air cooled cooling plant"
   extends Modelica.Icons.VariantsPackage;
 

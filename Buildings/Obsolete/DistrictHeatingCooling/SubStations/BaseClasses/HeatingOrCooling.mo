@@ -1,4 +1,4 @@
-within Buildings.Experimental.DistrictHeatingCooling.SubStations.BaseClasses;
+within Buildings.Obsolete.DistrictHeatingCooling.SubStations.BaseClasses;
 partial model HeatingOrCooling "Base class for heating or cooling substation"
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
     final m_flow(start=0),

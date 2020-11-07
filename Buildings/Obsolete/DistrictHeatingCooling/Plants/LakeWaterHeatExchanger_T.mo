@@ -1,4 +1,4 @@
-within Buildings.Experimental.DistrictHeatingCooling.Plants;
+within Buildings.Obsolete.DistrictHeatingCooling.Plants;
 model LakeWaterHeatExchanger_T "Heat exchanger with lake, ocean or river water"
   extends Buildings.Fluid.Interfaces.PartialFourPortInterface(
     redeclare final package Medium1 = Medium,
@@ -140,13 +140,13 @@ protected
       X=cat(1, inStream(port_a2.Xi_outflow),
                {1-sum(inStream(port_a2.Xi_outflow))}))) "Cold water inlet temperature"
     annotation (Placement(transformation(extent={{-40,98},{-20,118}})));
-  Utilities.Math.SmoothMax maxHeaLea(deltaX=0.1) "Maximum leaving temperature"
+  Buildings.Utilities.Math.SmoothMax maxHeaLea(deltaX=0.1) "Maximum leaving temperature"
     annotation (Placement(transformation(extent={{8,104},{28,124}})));
-  Utilities.Math.SmoothMin minHeaLvg(deltaX=0.1) "Minimum leaving temperature"
+  Buildings.Utilities.Math.SmoothMin minHeaLvg(deltaX=0.1) "Minimum leaving temperature"
     annotation (Placement(transformation(extent={{52,120},{72,140}})));
-  Utilities.Math.SmoothMax maxCooLea(deltaX=0.1) "Maximum leaving temperature"
+  Buildings.Utilities.Math.SmoothMax maxCooLea(deltaX=0.1) "Maximum leaving temperature"
     annotation (Placement(transformation(extent={{52,156},{72,176}})));
-  Utilities.Math.SmoothMin minCooLvg(deltaX=0.1) "Minimum leaving temperature"
+  Buildings.Utilities.Math.SmoothMin minCooLvg(deltaX=0.1) "Minimum leaving temperature"
     annotation (Placement(transformation(extent={{8,150},{28,170}})));
   Modelica.Blocks.Sources.Constant TAppHex(k=TApp)
     "Approach temperature difference"
@@ -159,9 +159,9 @@ protected
     annotation (Placement(transformation(extent={{40,220},{60,240}})));
   Modelica.Blocks.Math.Add QExc_flow(k1=-1) "Heat added to water reservoir"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
-  Utilities.Math.SmoothMax smoothMax(deltaX=0.1)
+  Buildings.Utilities.Math.SmoothMax smoothMax(deltaX=0.1)
     annotation (Placement(transformation(extent={{-10,198},{10,218}})));
-  Utilities.Math.SmoothMin smoothMin(deltaX=0.1)
+  Buildings.Utilities.Math.SmoothMin smoothMin(deltaX=0.1)
     annotation (Placement(transformation(extent={{-10,230},{10,250}})));
 
   Controller conCoo(final m_flow_nominal=m_flow_nominal)

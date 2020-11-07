@@ -1,5 +1,5 @@
 removePlots(false);
-simulateModel("Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Subsystems.Validation.Borefield",
+simulateModel("Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Subsystems.Validation.Borefield",
     method="Cvode",
     tolerance=1e-6,
     stopTime=20000,

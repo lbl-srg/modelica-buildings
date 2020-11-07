@@ -1,4 +1,4 @@
-within Buildings.Experimental.DistrictHeatingCooling.Plants.Validation;
+within Buildings.Obsolete.DistrictHeatingCooling.Plants.Validation;
 model LakeWaterHeatExchanger_T_Cooling
   "Validation model for lake water heat exchanger in which it provides cooling"
   extends LakeWaterHeatExchanger_T_Heating(
@@ -11,7 +11,7 @@ model LakeWaterHeatExchanger_T_Cooling
 
   annotation (
   experiment(Tolerance=1e-6, StopTime=3600),
-    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DistrictHeatingCooling/Plants/Validation/LakeWaterHeatExchanger_T_Cooling.mos"
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Obsolete/DistrictHeatingCooling/Plants/Validation/LakeWaterHeatExchanger_T_Cooling.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>

@@ -1,29 +1,28 @@
-within Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.Validation;
+within Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Validation;
 model ChillerBorefield1
   "Validation of the ETS model with heat recovery chiller"
   extends ChillerBorefield(
     redeclare Combined.Generation5.ChillerBorefield1 ets);
-
   annotation (
-  __Dymola_Commands(file=
-"modelica://Buildings/Resources/Scripts/Dymola/Applications/DHC/EnergyTransferStations/Combined/Generation5/Validation/ChillerBorefield1.mos"
-"Simulate and plot"),
-  experiment(
-    StopTime=20000,
-    Tolerance=1e-06),
-  Documentation(
-revisions="<html>
+    __Dymola_Commands(
+      file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/EnergyTransferStations/Combined/Generation5/Validation/ChillerBorefield1.mos" "Simulate and plot"),
+    experiment(
+      StopTime=20000,
+      Tolerance=1e-06),
+    Documentation(
+      revisions="<html>
 <ul>
 <li>
 July 31, 2020, by Antoine Gautier:<br/>
 First implementation
 </li>
 </ul>
-</html>", info="<html>
+</html>",
+      info="<html>
 <p>
 This model validates
-<a href=\"modelica://Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.ChillerBorefield1\">
-Buildings.Applications.DHC.EnergyTransferStations.Combined.Generation5.ChillerBorefield1</a>
+<a href=\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.ChillerBorefield1\">
+Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.ChillerBorefield1</a>
 in a system configuration including a geothermal borefield.
 </p>
 <ul>

@@ -1,4 +1,4 @@
-within Buildings.Experimental.DistrictHeatingCooling.Plants;
+within Buildings.Obsolete.DistrictHeatingCooling.Plants;
 model HeatingCoolingCarnot_T
   "Ideal heating and cooling plant with leaving temperature as set point and vapor compression engines that are approximated by Carnot cycles"
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(

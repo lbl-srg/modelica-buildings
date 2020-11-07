@@ -1,4 +1,4 @@
-within Buildings.Experimental.DistrictHeatingCooling.SubStations.VaporCompression;
+within Buildings.Obsolete.DistrictHeatingCooling.SubStations.VaporCompression;
 model HeatingCoolingHotwaterTimeSeries_dT
   "Substation for heating, cooling and domestic hot water with load as a time series"
 
@@ -36,17 +36,17 @@ model HeatingCoolingHotwaterTimeSeries_dT
                  caption="Select load file")));
 
   parameter Modelica.SIunits.HeatFlowRate QCoo_flow_nominal(max=-Modelica.Constants.eps)= gaiCoo *
-    Buildings.Experimental.DistrictHeatingCooling.SubStations.VaporCompression.BaseClasses.getPeakLoad(
+    Buildings.Experimental.DHC.Loads.BaseClasses.getPeakLoad(
       string="#Peak space cooling load",
       filNam=filNam) "Design heat flow rate"
     annotation(Dialog(group="Design parameter"));
   parameter Modelica.SIunits.HeatFlowRate QHea_flow_nominal(min=Modelica.Constants.eps)= gaiHea *
-    Buildings.Experimental.DistrictHeatingCooling.SubStations.VaporCompression.BaseClasses.getPeakLoad(
+    Buildings.Experimental.DHC.Loads.BaseClasses.getPeakLoad(
       string="#Peak space heating load",
       filNam=filNam) "Design heat flow rate"
     annotation(Dialog(group="Design parameter"));
   parameter Modelica.SIunits.HeatFlowRate QHotWat_flow_nominal(min=Modelica.Constants.eps)= gaiHotWat *
-    Buildings.Experimental.DistrictHeatingCooling.SubStations.VaporCompression.BaseClasses.getPeakLoad(
+    Buildings.Experimental.DHC.Loads.BaseClasses.getPeakLoad(
       string="#Peak water heating load",
       filNam=filNam) "Design heat flow rate for domestic hot water"
     annotation(Dialog(group="Design parameter"));
@@ -617,7 +617,7 @@ the following format:
 #Heating and Cooling Model loads for a SF large office
 #First column: Seconds in the year (loads are hourly)
 #Second column: cooling loads in Watts (as negative numbers).
-#Third column: space heating loads in Watts. Heating is a combination of electric space heating, gas space heating
+#Third column: space heating loads in Watts. Obsolete.DistrictHeatingCooling.SubStations.Heating is a combination of electric space heating, gas space heating
 #Gas heaters in the model were 80% efficient where electric heaters were 100% efficient. Here the total watts = electric watts + .80*(gas watts)
 #Fourth column: water heating = 0.8 * gas water watts
 #Peak space cooling load = -383165.6989 Watts

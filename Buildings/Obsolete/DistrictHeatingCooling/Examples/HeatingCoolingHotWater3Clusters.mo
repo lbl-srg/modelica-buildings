@@ -1,8 +1,8 @@
-within Buildings.Experimental.DistrictHeatingCooling.Examples;
+within Buildings.Obsolete.DistrictHeatingCooling.Examples;
 model HeatingCoolingHotWater3Clusters
   "Validation model for a system with three clusters of buildings"
   extends
-    Buildings.Experimental.DistrictHeatingCooling.Examples.BaseClasses.HeatingCoolingHotWater3Clusters(
+    Buildings.Obsolete.DistrictHeatingCooling.Examples.BaseClasses.HeatingCoolingHotWater3Clusters(
       PHea(nu=17), PCoo(nu=9));
   extends Modelica.Icons.Example;
     package Medium = Buildings.Media.Water "Fluid in the pipes";
@@ -231,7 +231,7 @@ public
     smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative,
     y(each unit="K"),
     fileName=Buildings.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath(
-      "modelica://Buildings/Resources/Data/Experimental/DistrictHeatingCooling/Plants/AlamedaOceanT.mos"))
+      "modelica://Buildings/Resources/Data/Obsolete/DistrictHeatingCooling/Plants/AlamedaOceanT.mos"))
     "Temperature of the water reservoir (such as a river, lake or ocean)"
     annotation (Placement(transformation(extent={{-460,48},{-440,68}})));
 equation
@@ -348,7 +348,7 @@ equation
           49.5},{-410,49.5},{-410,50},{-410,50},{-410,160},{-340,160},{-340,190}},
         color={0,0,127}));
   annotation(experiment(Tolerance=1E-06, StopTime=31536000),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DistrictHeatingCooling/Examples/HeatingCoolingHotWater3Clusters.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Obsolete/DistrictHeatingCooling/Examples/HeatingCoolingHotWater3Clusters.mos"
         "Simulate and plot"),
     Documentation(
     info="<html>

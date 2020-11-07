@@ -1,8 +1,8 @@
-within Buildings.Experimental.DistrictHeatingCooling.Examples;
+within Buildings.Obsolete.DistrictHeatingCooling.Examples;
 model HeatingCoolingHotWater3ClustersBaseCase
   "Base case for model of a system with 3 clusters"
   extends
-    Buildings.Experimental.DistrictHeatingCooling.Examples.BaseClasses.HeatingCoolingHotWater3Clusters(
+    Buildings.Obsolete.DistrictHeatingCooling.Examples.BaseClasses.HeatingCoolingHotWater3Clusters(
       larOff1(mixingVolumeEnergyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState),
       ret1(mixingVolumeEnergyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState),
       larOff2(mixingVolumeEnergyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState),
@@ -211,14 +211,14 @@ equation
           -146.429},{410,-146.429},{410,-146},{420,-146}},
                                                  color={191,0,0}));
   annotation(experiment(Tolerance=1E-06, StopTime=31536000),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DistrictHeatingCooling/Examples/HeatingCoolingHotWater3ClustersBaseCase.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Obsolete/DistrictHeatingCooling/Examples/HeatingCoolingHotWater3ClustersBaseCase.mos"
         "Simulate and plot"),
     Documentation(
     info="<html>
 <p>
 This is the base case model for
-<a href=\"modelica://Buildings.Experimental.DistrictHeatingCooling.Examples.HeatingCoolingHotWater3Clusters\">
-Buildings.Experimental.DistrictHeatingCooling.Examples.HeatingCoolingHotWater3Clusters</a>.
+<a href=\"modelica://Buildings.Obsolete.DistrictHeatingCooling.Examples.HeatingCoolingHotWater3Clusters\">
+Buildings.Obsolete.DistrictHeatingCooling.Examples.HeatingCoolingHotWater3Clusters</a>.
 </p>
 <p>
 Rather than being connected in a bi-directional district heating

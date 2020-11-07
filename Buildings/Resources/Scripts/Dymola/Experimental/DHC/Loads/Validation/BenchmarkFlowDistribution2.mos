@@ -1,4 +1,4 @@
-simulateModel("Buildings.Applications.DHC.Loads.Validation.BenchmarkFlowDistribution2",
+simulateModel("Buildings.Experimental.DHC.Loads.Validation.BenchmarkFlowDistribution2",
     method="cvode",
     tolerance=1e-6,
     numberOfIntervals=500,

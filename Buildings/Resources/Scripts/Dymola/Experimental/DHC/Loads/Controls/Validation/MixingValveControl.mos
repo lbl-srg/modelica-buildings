@@ -1,6 +1,6 @@
 old_flag = Advanced.StoreProtectedVariables;
 Advanced.StoreProtectedVariables = true;
-simulateModel("Buildings.Applications.DHC.Loads.Controls.Validation.MixingValveControl",
+simulateModel("Buildings.Experimental.DHC.Loads.Controls.Validation.MixingValveControl",
     method="cvode",
     tolerance=1e-6,
     numberOfIntervals=500,

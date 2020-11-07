@@ -1,4 +1,4 @@
-within Buildings.Experimental.DistrictHeatingCooling;
+within Buildings.Obsolete.DistrictHeatingCooling;
 package SubStations "Heating and cooling substations"
 extends Modelica.Icons.VariantsPackage;
 annotation (preferredView="info", Documentation(info="<html>

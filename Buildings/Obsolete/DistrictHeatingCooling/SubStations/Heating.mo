@@ -1,7 +1,7 @@
-within Buildings.Experimental.DistrictHeatingCooling.SubStations;
+within Buildings.Obsolete.DistrictHeatingCooling.SubStations;
 model Heating "Heating substation"
   extends
-    Buildings.Experimental.DistrictHeatingCooling.SubStations.BaseClasses.HeatingOrCooling(
+    Buildings.Obsolete.DistrictHeatingCooling.SubStations.BaseClasses.HeatingOrCooling(
     final m_flow_nominal = -Q_flow_nominal/cp_default/dTHex,
     mPum_flow(final k=-1/(cp_default*dTHex)));
 
