@@ -9,7 +9,7 @@ block Economizer "Controller for economizer"
   parameter Modelica.SIunits.Temperature TFreSet=277.15
     "Lower limit of mixed air temperature for freeze protection"
     annotation(Dialog(enable=have_frePro), Evaluate=true);
-  parameter Modelica.SIunits.TemperatureDifference dTLock(min=0.1) = 1
+  parameter Modelica.SIunits.TemperatureDifference dTLock(final min=0.1) = 1
     "Temperature difference between return and outdoor air for economizer lockout";
   parameter Modelica.SIunits.VolumeFlowRate VOut_flow_min(min=0)
     "Minimum outside air volume flow rate";

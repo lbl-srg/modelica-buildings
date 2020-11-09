@@ -355,7 +355,10 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     "Splitter for room supply"
     annotation (Placement(transformation(extent={{980,10},{1000,-10}})));
   Buildings.Examples.DualFanDualDuct.Controls.CoolingCoilTemperatureSetpoint
-    TSetCoo(TOn=285.15, TOff=313.15) "Set point for cooling coil"
+    TSetCoo(
+      TOn=285.15,
+      TOff=313.15)
+    "Set point for cooling coil"
     annotation (Placement(transformation(extent={{-200,-210},{-180,-190}})));
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
         Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
