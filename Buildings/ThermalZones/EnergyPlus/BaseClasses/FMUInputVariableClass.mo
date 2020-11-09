@@ -1,7 +1,6 @@
 within Buildings.ThermalZones.EnergyPlus.BaseClasses;
 class FMUInputVariableClass
   "Class used to couple the FMU to send values to actuators and schedules"
-  extends Modelica.Icons.BasesPackage;
   extends ExternalObject;
   function constructor
     "Construct to connect to a schedule in EnergyPlus"
