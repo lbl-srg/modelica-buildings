@@ -148,7 +148,7 @@ equation
     annotation (Line(points={{-8,80},{0,80},{0,11},{40,11}},
                                                            color={0,0,127}));
   connect(controller.yPriPum, boilerPlant.uPumSta)
-    annotation (Line(points={{-18,0},{12,0},{12,2},{40,2}},
+    annotation (Line(points={{-18,0},{4,0},{4,2},{40,2}},
                                               color={255,0,255}));
   connect(controller.yPriPumSpe, boilerPlant.uPumSpe) annotation (Line(points={{-18,
           -2.72727},{4,-2.72727},{4,-1},{40,-1}},     color={0,0,127}));
@@ -167,105 +167,18 @@ equation
 
   annotation (Documentation(info="<html>
 <p>
-This part of the system model adds to the model that is implemented in
-<a href=\"modelica://Buildings.Examples.Tutorial.Boiler.System5\">
-Buildings.Examples.Tutorial.Boiler.System5</a>
-weather data, and it changes the control to PI control.
-</p>
-<h4>Implementation</h4>
-<p>
-This model was built as follows:
-</p>
-<ol>
-<li>
-<p>
-First, we copied the model
-<a href=\"modelica://Buildings.Examples.Tutorial.Boiler.System5\">
-Buildings.Examples.Tutorial.Boiler.System5</a>
-and called it
-<code>Buildings.Examples.Tutorial.Boiler.System6</code>.
-</p>
-</li>
-<li>
-<p>
-Next, we added the weather data as shown in the figure below.
-</p>
-<p align=\"center\">
-<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/Boiler/System6Weather.png\" border=\"1\"/>
-</p>
-<p>
-The weather data reader is implemented using
-</p>
-<pre>
-  BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
-    filNam=\"modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos\")
-    \"Weather data reader\";
-</pre>
-<p>
-The yellow icon in the middle of the figure is an instance of
-<a href=\"modelica://Buildings.BoundaryConditions.WeatherData.Bus\">
-Buildings.BoundaryConditions.WeatherData.Bus</a>.
-This is required to extract the dry bulb temperature from the weather data bus.
-</p>
-<p>
-Note that we changed the instance <code>TOut</code> from
-<a href=\"modelica://Modelica.Thermal.HeatTransfer.Sources.FixedTemperature\">
-Modelica.Thermal.HeatTransfer.Sources.FixedTemperature</a>
-to
-<a href=\"modelica://Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature\">
-Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature</a>
-in order to use the dry-bulb temperature as an input signal.
-</p>
-</li>
-</ol>
-<!-- ============================================== -->
-<p>
-This completes the closed loop control.
-When simulating the model
-for <i>2</i> days, or <i>172800</i> seconds, the
-response shown below should be seen.
-</p>
-<p align=\"center\">
-<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/Boiler/System6Temperatures1.png\" border=\"1\"/>
-<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/Boiler/System6Temperatures2.png\" border=\"1\"/>
-</p>
-<p>
-The figure shows that the boiler temperature is regulated between
-<i>70</i>&deg;C and
-<i>90</i>&deg;C,
-that
-the boiler inlet temperature is above
-<i>60</i>&deg;C,
-and that the room temperature and the supply water temperature are
-maintained at their set point.
+This model couples the boiler plant model for a primary-only, condensing boiler
+plant with headered variable pumps 
+<a href=\"modelica://Buildings.Examples.BoilerPlant.PlantModel.BoilerPlant\">
+Buildings.Examples.BoilerPlant.PlantModel.BoilerPlant</a> with the boiler plant
+controller <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Controller\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Controller</a> developed
+as per ASHRAE RP-1711, March 2020 draft.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
-March 6, 2017, by Michael Wetter:<br/>
-Added missing density to computation of air mass flow rate.<br/>
-This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/673\">#673</a>.
-</li>
-<li>
-July 2, 2015, by Michael Wetter:<br/>
-Changed control input for <code>conPIDBoi</code> and set
-<code>reverseActing=false</code>
-to address issue
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/436\">#436</a>.
-</li>
-<li>
-December 22, 2014 by Michael Wetter:<br/>
-Removed <code>Modelica.Fluid.System</code>
-to address issue
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/311\">#311</a>.
-</li>
-<li>
-March 1, 2013, by Michael Wetter:<br/>
-Added nominal pressure drop for valves as
-this parameter no longer has a default value.
-</li>
-<li>
-January 27, 2012, by Michael Wetter:<br/>
+November 6, 2020, by Karthik Devaprasad:<br/>
 First implementation.
 </li>
 </ul>

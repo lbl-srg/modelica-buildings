@@ -594,25 +594,26 @@ equation
   connect(cheVal1.port_a, senRelPre2.port_a)
     annotation (Line(points={{10,-50},{40,-50}}, color={0,127,255}));
 
-  annotation (Documentation(info="<html>
-<p>
-This model implements the schematic for a primary-only, condensing boiler 
-plant with headered, variable-speed primary pumps, as defined in ASHRAE RP-1711,
-March 2020 draft.
-</p>
-</html>", revisions="<html>
-<ul>
-<li>
-October 28, 2020, by Karthik Devaprasad:<br/>
-First implementation.
-</li>
-</ul>
-</html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-320,-240},{320,
-            240}})),
-    __Dymola_Commands(file=
-     "modelica://Buildings/Resources/Scripts/Dymola/Examples/Tutorial/Boiler/System6.mos"
-        "Simulate and plot"),
-    experiment(Tolerance=1e-6, StopTime=172800),
-    Icon(coordinateSystem(extent={{-100,-120},{100,120}})));
+  annotation (defaultComponentName="boiPla",
+    Documentation(info="<html>
+      <p>
+      This model implements a primary-only, condensing boiler plant with headered, 
+      variable-speed primary pumps, as defined in ASHRAE RP-1711, March 2020 draft.
+      </p>
+      </html>", revisions="<html>
+      <ul>
+      <li>
+      October 28, 2020, by Karthik Devaprasad:<br/>
+      First implementation.
+      </li>
+      </ul>
+      </html>"),
+    Diagram(coordinateSystem(preserveAspectRatio=false,
+      extent={{-320,-240},{320,240}})),
+    Icon(coordinateSystem(extent={{-100,-120},{100,120}}),
+      graphics={
+        Text(
+          extent={{-100,160},{100,120}},
+          lineColor={0,0,255},
+          textString="%name")}));
 end BoilerPlant;

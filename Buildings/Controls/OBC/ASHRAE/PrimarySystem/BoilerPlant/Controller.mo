@@ -1859,7 +1859,9 @@ equation
           -230,50},{-22,50}}, color={255,0,255}));
   connect(and2.y, dowProCon.uStaDowPro) annotation (Line(points={{2,50},{74,50},
           {74,34},{118,34}}, color={255,0,255}));
-  annotation (Icon(coordinateSystem(extent={{-100,-220},{100,220}}),
+
+  annotation (defaultComponentName="boiPlaCon",
+    Icon(coordinateSystem(extent={{-100,-220},{100,220}}),
        graphics={
         Rectangle(
           extent={{-100,-220},{100,220}},
@@ -2138,7 +2140,7 @@ controller")}),
               <td>False</td>
             </tr>
             <tr>
-              <td>have_heaPri</td>
+              <td>have_heaPriPum</td>
               <td>True</td>
               <td>True</td>
               <td>True</td>
@@ -2161,7 +2163,7 @@ controller")}),
               <td>False</td>
             </tr>
             <tr>
-              <td>have_varPri</td>
+              <td>have_varPriPum</td>
               <td>True</td>
               <td>True</td>
               <td>True</td>
@@ -2184,7 +2186,7 @@ controller")}),
               <td>False</td>
             </tr>
             <tr>
-              <td>have_varSec</td>
+              <td>have_varSecPum</td>
               <td>NA</td>
               <td>NA</td>
               <td>True</td>
@@ -2207,7 +2209,7 @@ controller")}),
               <td>False</td>
             </tr>
             <tr>
-              <td>speConTyp_priPum</td>
+              <td>speConTypPri</td>
               <td>localDP</td>
               <td>remoteDP</td>
               <td>flowrate</td>
@@ -2230,7 +2232,7 @@ controller")}),
               <td>NA</td>
             </tr>
             <tr>
-              <td>speConTyp_secPum</td>
+              <td>speConTypSec</td>
               <td>NA</td>
               <td>NA</td>
               <td>localDP</td>
