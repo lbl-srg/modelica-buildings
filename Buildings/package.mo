@@ -210,6 +210,20 @@ Version 8.0.0 is ... xxx
 The following <b style=\"color:blue\">new libraries</b> have been added:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2>
+<tr><td colspan=\"2\"><b>Buildings.Experimental</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC
+    </td>
+    <td valign=\"top\">Packages for modeling district heating
+                       and cooling systems.<br/>
+                       These packages contain components supporting the integration within
+                       the URBANopt SDK. The development is in progress.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.ThermalZones</b>
+    </td>
+</tr>
 <tr><td valign=\"top\">Buildings.ThermalZones.EnergyPlus
     </td>
     <td valign=\"top\">Package for Spawn of EnergyPlus that couples Modelica directly
@@ -219,7 +233,7 @@ The following <b style=\"color:blue\">new libraries</b> have been added:
                      in Modelica. EnergyPlus objects are represented graphically as any other Modelica
                      models, and the coupling and co-simulation is done automatically based on these models.
     </td>
-    </tr>
+</tr>
 </table>
 <!-- New components for existing libraries -->
 <p>
@@ -563,6 +577,14 @@ have been <b style=\"color:blue\">improved</b> in a
     <td valign=\"top\">This block is now retired.<br/>
                        This is for
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2024\">issue 2024</a>.
+<tr><td colspan=\"2\"><b>Buildings.Experimental</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DistrictHeatingCooling
+    </td>
+    <td valign=\"top\">Moved package to <code>Buildings.Obsolete.DistrictHeatingCooling</code>.<br/>
+                       Generic components for DHC system modeling are now developed under
+                       <code>Buildings.Experimental.DHC</code>.
     </td>
 </tr>
 </table>
@@ -2545,7 +2567,7 @@ xxx
    The following new packages have been added:
    <ul>
    <li>
-   <code>Buildings.Experimental.DistrictHeatingCooling</code>
+   <code>Buildings.Obsolete.DistrictHeatingCooling</code>
    with models for district heating and cooling
    with bi-directional flow in the distribution pipes.
    </li>
@@ -2610,7 +2632,7 @@ xxx
    </p>
    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\">
 
-   <tr><td valign=\"top\">Buildings.Experimental.DistrictHeatingCooling
+   <tr><td valign=\"top\">Buildings.Obsolete.DistrictHeatingCooling
        </td>
        <td valign=\"top\">Package with models for district heating and cooling
                           with bi-directional flow in the distribution pipes.
