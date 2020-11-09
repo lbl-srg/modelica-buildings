@@ -42,6 +42,11 @@ package Steam
            else StateSelect.default))
     "Base properties (p, d, T, h, u, R, MM, sat) of water"
   SaturationProperties sat "Saturation properties at the medium pressure";
+  initial equation
+  assert(false, "In " + getInstanceName() +
+    ": This model is a beta version and is not fully validated yet.",
+    level = AssertionLevel.warning);
+
   equation
     // Temperature and pressure values must be within acceptable max & min bounds
     assert(T >= 273.15, "
@@ -797,41 +802,25 @@ protected
     annotation(smoothOrder=1, Inline=true);
   end g2;
 annotation (Documentation(info="<html>
-<p>This steam model based on IF97 formulations can be utilized for water 
-systems and components that require vapor phase (regeion 2, quality = 1). 
-This model design is largely copied from 
-<a href=\"modelica://Modelica.Media.Water.WaterIF97_R2pT\">Modelica.Media.Water.WaterIF97_R2pT</a>, 
-with the following main differences: </p>
+<p><b><span style=\"font-size: 11pt; color: #ff0000;\">This model is a beta version and is not fully validated yet. </span></b></p>
+<p>This steam model based on IF97 formulations can be utilized for water systems and components that require vapor phase (regeion 2, quality = 1). This model design is largely copied from <a href=\"modelica://Modelica.Media.Water.WaterIF97_R2pT\">Modelica.Media.Water.WaterIF97_R2pT</a>, with the following main differences: </p>
 <ol>
 <li>Only the functions related to region 2 are included.</li>
 <li>Automatic differentiation is provided for all thermodynamic property functions.</li>
-<li>The implementation is generally simplier in order to increase the likelyhood 
-of more efficient simulations. </li>
+<li>The implementation is generally simplier in order to increase the likelyhood of more efficient simulations. </li>
 </ol>
-<p>Thermodynamic properties are formulated from the International Association 
-for the Properties of Water and Steam (IAPWS) 1997 forumulations for water and 
-steam. The thermodynamic regions as determiend by IAPWS-IF97 are as follows: </p>
-<p align=\"center\"><img src=\"modelica://IBPSA/Resources/Images/Media/Steam/SteamIF97Region2.PNG\" alt=\"IF97 Water Steam Region 2\"/ width=\"1239\" height=\"821\"> </p>
+<p>Thermodynamic properties are formulated from the International Association for the Properties of Water and Steam (IAPWS) 1997 forumulations for water and steam. The thermodynamic regions as determiend by IAPWS-IF97 are as follows: </p>
+<p align=\"center\"><img src=\"modelica://IBPSA/Resources/Images/Media/Steam/SteamIF97Region2.PNG\" alt=\"IF97 Water Steam Region 2\"/> </p>
 <h4>Limitations </h4>
 <ul>
-<li>The properties are valid in Region 2 shown above. The valid temperature range 
-is <i>0 C &le; T &le; 800 C</i>, and the valid pressure range is <i>0 MPa &le; 
-p &le; 100 MPa</i>. </li>
-<li>When phase change is required, this model is to be used in combination with 
-the <a href=\"modelica://IBPSA.Media.Specialized.Water.HighTemperature\">IBPSA.Media.Specialized.Water.HighTemperature</a> 
-media model for incompressible liquid water for the liquid phase (quality = 0). </li>
-<li>The two-phase region 3 (e.g., mixed liquid and vapor), high temperature 
-region 5, and liquid region 1 are not included in this medium model. </li>
+<li>The properties are valid in Region 2 shown above. The valid temperature range is <i>0 C &le; T &le; 800 C</i>, and the valid pressure range is <i>0 MPa &le; p &le; 100 MPa</i>. </li>
+<li>When phase change is required, this model is to be used in combination with the <a href=\"modelica://IBPSA.Media.Specialized.Water.HighTemperature\">IBPSA.Media.Specialized.Water.HighTemperature</a> media model for incompressible liquid water for the liquid phase (quality = 0). </li>
+<li>The two-phase region 3 (e.g., mixed liquid and vapor), high temperature region 5, and liquid region 1 are not included in this medium model. </li>
 </ul>
 <h4>Applications </h4>
-<p>For numerical robustness, applications of this medium model assume the pressure, 
-and hence the saturation pressure, is constant throughout the simulation. This 
-is done to improve simulation performance by decoupling the pressure drop and 
-energy balance calculations. </p>
+<p>For numerical robustness, applications of this medium model assume the pressure, and hence the saturation pressure, is constant throughout the simulation. This is done to improve simulation performance by decoupling the pressure drop and energy balance calculations. </p>
 <h4>References </h4>
-<p>W. Wagner et al., &ldquo;The IAPWS industrial formulation 1997 for the thermodynamic 
-properties of water and steam,&rdquo; <i>J. Eng. Gas Turbines Power</i>, vol. 122, no. 
-1, pp. 150&ndash;180, 2000. </p>
+<p>W. Wagner et al., &ldquo;The IAPWS industrial formulation 1997 for the thermodynamic properties of water and steam,&rdquo; <i>J. Eng. Gas Turbines Power</i>, vol. 122, no. 1, pp. 150&ndash;180, 2000. </p>
 </html>", revisions="<html>
 <ul>
 <li>

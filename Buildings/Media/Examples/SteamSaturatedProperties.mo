@@ -32,6 +32,11 @@ model SteamSaturatedProperties
 protected
   constant Real conv(unit="1/s") = 1 "Conversion factor to satisfy unit check";
 
+initial equation
+  assert(false, "In " + getInstanceName() +
+    ": This model is a beta version and is not fully validated yet.",
+    level = AssertionLevel.warning);
+
 equation
     // Compute temperatures that are used as input to the functions
     pSat = pMin + conv*time * (pMax-pMin);
@@ -57,24 +62,10 @@ equation
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Media/Examples/SteamSaturatedProperties.mos"
         "Simulate and plot"),
       Documentation(info="<html>
-<p>
-This example checks the saturation properties of the medium.
-</p>
-<p>
-The steam medium is designed for single phase (saturated or
-superheated) vapor (<code>x=1</code>). The saturated state functions are
-provided for models involving phase change by implementing both
-the <a href=\"modelica://IBPSA.Media.Steam\">
-IBPSA.Media.Steam</a> model (vapor phase) and the
-<a href=\"modelica://IBPSA.Media.Water\"> IBPSA.Media.Water</a>
-model (liquid phase). See <a href=\"modelica://IBPSA.Media.Steam\">
-IBPSA.Media.Steam</a> for more information.
-</p>
-<p>
-Since the steam medium model assumes pressure is steady throughout
-simulation, these saturation properties are evaluted over the possible
-range of saturated pressure values.
-</p>
+<p><b><span style=\"font-size: 11pt; color: #ff0000;\">This model is a beta version and is not fully validated yet. </span></b></p>
+<p>This example checks the saturation properties of the medium. </p>
+<p>The steam medium is designed for single phase (saturated or superheated) vapor (<span style=\"font-family: monospace;\">x=1</span>). The saturated state functions are provided for models involving phase change by implementing both the <a href=\"modelica://IBPSA.Media.Steam\">IBPSA.Media.Steam</a> model (vapor phase) and the <a href=\"modelica://IBPSA.Media.Water\">IBPSA.Media.Water</a> model (liquid phase). See <a href=\"modelica://IBPSA.Media.Steam\">IBPSA.Media.Steam</a> for more information. </p>
+<p>Since the steam medium model assumes pressure is steady throughout simulation, these saturation properties are evaluted over the possible range of saturated pressure values. </p>
 </html>",
 revisions="<html>
 <ul>

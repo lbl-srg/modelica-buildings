@@ -17,6 +17,11 @@ model SteamProperties
   Modelica.Media.Interfaces.Types.DerDensityByPressure ddph
     "Density derivative w.r.t. pressure";
 
+initial equation
+  assert(false, "In " + getInstanceName() +
+    ": This model is a beta version and is not fully validated yet.",
+    level = AssertionLevel.warning);
+
 equation
 
    // Check setting the states
@@ -38,9 +43,8 @@ equation
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Media/Examples/SteamProperties.mos"
         "Simulate and plot"),
       Documentation(info="<html>
-<p>
-This example checks thermophysical properties of the medium.
-</p>
+<p><b><span style=\"font-size: 11pt; color: #ff0000;\">This model is a beta version and is not fully validated yet. </span></b></p>
+<p>This example checks thermophysical properties of the medium. </p>
 </html>",
 revisions="<html>
 <ul>

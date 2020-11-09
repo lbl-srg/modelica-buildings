@@ -14,6 +14,10 @@ model SteamDerivativeCheck "Model that tests the derivative implementation"
     constant Real convT(unit="K/s3") = 270
     "Conversion factor to satisfy unit check";
 initial equation
+  assert(false, "In " + getInstanceName() +
+    ": This model is a beta version and is not fully validated yet.",
+    level = AssertionLevel.warning);
+
      hVapSym = hVapCod;
      cpSym   = cpCod;
      cvSym   = cvCod;
@@ -46,11 +50,8 @@ equation
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Media/Examples/SteamDerivativeCheck.mos"
         "Simulate and plot"),
       Documentation(info="<html>
-<p>
-This example checks whether the function derivative
-is implemented correctly. If the derivative implementation
-is not correct, the model will stop with an assert statement.
-</p>
+<p><b><span style=\"font-size: 11pt; color: #ff0000;\">This model is a beta version and is not fully validated yet. </span></b></p>
+<p>This example checks whether the function derivative is implemented correctly. If the derivative implementation is not correct, the model will stop with an assert statement. </p>
 </html>",   revisions="<html>
 <ul>
 <li>
