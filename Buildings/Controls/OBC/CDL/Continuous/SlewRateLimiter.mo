@@ -3,11 +3,11 @@ block SlewRateLimiter "Limit the increase or decrease rate of input"
 
   parameter Real raisingSlewRate(
     min = Constants.small,
-    final unit = "1/s") "Speed with which to increase the output";
+    unit = "1/s") "Speed with which to increase the output";
 
   parameter Real fallingSlewRate(
     max = -Constants.small,
-    final unit = "1/s") = -raisingSlewRate "Speed with which to decrease the output";
+    unit = "1/s") = -raisingSlewRate "Speed with which to decrease the output";
 
   parameter Modelica.SIunits.Time Td(min=Constants.eps) = raisingSlewRate*10
     "Derivative time constant";
@@ -63,6 +63,15 @@ Smaller time constant <code>Td</code> means nearer ideal derivative.
 </html>", revisions="<html>
 <ul>
 <li>
+April 21, 2020, by Michael Wetter:<br/>
+Removed final attribute on unit because if the input quantity is power,
+then the rate limit is units of power per units of time.
+</li>
+<li>
+March 2, 2020, by Michael Wetter:<br/>
+Changed icon to display dynamically the output value.
+</li>
+<li>
 March 29, 2017, by Jianjun Hu:<br/>
 First implementation, based on the implementation of the
 Modelica Standard Library.
@@ -97,5 +106,9 @@ Modelica Standard Library.
       textString="%name",
       lineColor={0,0,255}),
     Line(
-      points={{-50,-70},{50,70}})}));
+      points={{-50,-70},{50,70}}),
+    Text(
+      extent={{226,60},{106,10}},
+      lineColor={0,0,0},
+      textString=DynamicSelect("", String(y, leftjustified=false, significantDigits=3)))}));
 end SlewRateLimiter;

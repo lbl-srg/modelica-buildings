@@ -25,11 +25,17 @@ model ActuatorSignal
         rotation=270,
         origin={0,120})));
 
-  Modelica.Blocks.Interfaces.RealOutput y_actual "Actual valve position"
+  Modelica.Blocks.Interfaces.RealOutput y_actual
+    "Actual actuator position"
     annotation (Placement(transformation(extent={{40,60},{60,80}})));
 
   // Classes used to implement the filtered opening
 protected
+  parameter Boolean casePreInd = false
+    "In case of PressureIndependent the model I/O is modified"
+    annotation(Evaluate=true);
+  Modelica.Blocks.Interfaces.RealOutput y_internal(unit="1")
+    "Output connector for internal use (= y_actual if not casePreInd)";
   Modelica.Blocks.Interfaces.RealOutput y_filtered if use_inputFilter
     "Filtered valve position in the range 0..1"
     annotation (Placement(transformation(extent={{40,78},{60,98}}),
@@ -56,41 +62,47 @@ equation
   connect(y, filter.u) annotation (Line(
       points={{1.11022e-15,120},{1.11022e-15,88},{4.6,88}},
       color={0,0,127}));
-  connect(filter.y, y_actual) annotation (Line(
+  connect(filter.y, y_internal) annotation (Line(
       points={{20.7,88},{30,88},{30,70},{50,70}},
       color={0,0,127}));
   else
-    connect(y, y_actual) annotation (Line(
+    connect(y, y_internal) annotation (Line(
       points={{1.11022e-15,120},{0,120},{0,70},{50,70}},
       color={0,0,127}));
   end if;
-
+  if not casePreInd then
+    connect(y_internal, y_actual);
+  end if;
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics={
         Line(
-          points={{0,40},{0,100}}),
+          points={{0,48},{0,108}}),
         Line(
           points={{0,70},{40,70}}),
         Rectangle(
           visible=use_inputFilter,
-          extent={{-30,40},{30,100}},
+          extent={{-32,40},{34,100}},
           lineColor={0,0,0},
           fillColor={135,135,135},
           fillPattern=FillPattern.Solid),
         Ellipse(
           visible=use_inputFilter,
-          extent={{-30,100},{30,40}},
+          extent={{-32,100},{34,40}},
           lineColor={0,0,0},
           fillColor={135,135,135},
           fillPattern=FillPattern.Solid),
         Text(
           visible=use_inputFilter,
-          extent={{-20,92},{20,48}},
+          extent={{-20,94},{22,48}},
           lineColor={0,0,0},
           fillColor={135,135,135},
           fillPattern=FillPattern.Solid,
           textString="M",
-          textStyle={TextStyle.Bold})}),
+          textStyle={TextStyle.Bold}),
+        Text(
+          extent={{-40,126},{-160,76}},
+          lineColor={0,0,0},
+          textString=DynamicSelect("", String(y, format=".2f")))}),
 Documentation(info="<html>
 <p>
 This model implements the filter that is used to approximate the travel
@@ -111,6 +123,19 @@ for a description of the filter.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 6, 2020, by Antoine Gautier:<br/>
+Add the boolean parameter <code>casePreInd</code>.<br/>
+This is needed for the computation of the damper opening in
+<a href=\"modelica://Buildings.Fluid.Actuators.Dampers.PressureIndependent\">
+Buildings.Fluid.Actuators.Dampers.PressureIndependent</a>.
+</li>
+<li>
+February 21, 2020, by Michael Wetter:<br/>
+Changed icon to display its operating state.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1294\">#1294</a>.
+</li>
 <li>
 November 14, 2019, by Michael Wetter:<br/>
 Set <code>start</code> attribute for <code>filter.x</code>.<br/>

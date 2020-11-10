@@ -2,8 +2,9 @@ within Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints;
 block ExhaustDamper
   "Control of actuated exhaust air dampers without fans"
 
-  parameter Modelica.SIunits.PressureDifference dpBuiSet(
-    displayUnit="Pa",
+  parameter Real dpBuiSet(
+    final unit="Pa",
+    final quantity="PressureDifference",
     max=30) = 12
     "Building static pressure difference relative to ambient (positive to pressurize the building)";
   parameter Real k(min=0, unit="1") = 0.5
@@ -37,12 +38,12 @@ block ExhaustDamper
     y(final unit="Pa", displayUnit="Pa"))
     "Control error"
     annotation (Placement(transformation(extent={{-30,50},{-10,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.LimPID conP(
+  Buildings.Controls.OBC.CDL.Continuous.PID conP(
     final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
     final k=k,
-    yMax=1,
-    yMin=0) "Building static pressure controller"
-    annotation (Placement(transformation(extent={{40,50},{60,70}})));
+    final r=dpBuiSet)
+               "Building static pressure controller"
+    annotation (Placement(transformation(extent={{20,50},{40,70}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi
     "Check if exhaust damper should be activated"
     annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
@@ -56,10 +57,6 @@ protected
     final k=dpBuiSet)
     "Building pressure setpoint"
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain gaiNor(
-    final k=1/dpBuiSet)
-    "Gain to normalize the control error"
-    annotation (Placement(transformation(extent={{0,50},{20,70}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer1(
     final k=0)
     "Zero constant"
@@ -78,18 +75,16 @@ equation
     annotation (Line(points={{-100,60},{-62,60}}, color={0,0,127}));
   connect(movMea.y, conErr.u1)
     annotation (Line(points={{-38,60},{-32,60}}, color={0,0,127}));
-  connect(conErr.y, gaiNor.u)
-    annotation (Line(points={{-8,60},{-2,60}},color={0,0,127}));
-  connect(gaiNor.y, conP.u_s)
-    annotation (Line(points={{22,60},{38,60}}, color={0,0,127}));
   connect(dpBuiSetPoi1.y, conErr.u2)
     annotation (Line(points={{-38,20},{-20,20},{-20,48}}, color={0,0,127}));
   connect(zer1.y, conP.u_m)
-    annotation (Line(points={{22,20},{50,20},{50,48}}, color={0,0,127}));
+    annotation (Line(points={{22,20},{30,20},{30,48}}, color={0,0,127}));
   connect(conP.y, swi.u1)
-    annotation (Line(points={{62,60},{66,60},{66,0},{20,0},{20,-22},{38,-22}},
+    annotation (Line(points={{42,60},{66,60},{66,0},{20,0},{20,-22},{38,-22}},
       color={0,0,127}));
 
+  connect(conErr.y, conP.u_s)
+    annotation (Line(points={{-8,60},{18,60}}, color={0,0,127}));
 annotation (
   defaultComponentName = "exhDam",
   Icon(graphics={
@@ -153,6 +148,12 @@ When <code>uSupFan = false</code>, the damper is closed.
 </ol>
 </html>", revisions="<html>
 <ul>
+<li>
+October 15, 2020, by Michael Wetter:<br/>
+Moved normalization of control error to PID controller.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2182\">#2182</a>.
+</li>
 <li>
 October 17, 2017, by Jianjun Hu:<br/>
 Changed model name.

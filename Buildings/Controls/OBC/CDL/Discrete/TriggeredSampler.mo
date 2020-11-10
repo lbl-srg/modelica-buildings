@@ -53,10 +53,14 @@ equation
         fillColor={255,255,255},
         fillPattern=FillPattern.Solid,
         extent={{-45.0,-10.0},{-25.0,10.0}}),
-                                        Text(
+      Text(
         extent={{-150,150},{150,110}},
         textString="%name",
-        lineColor={0,0,255})}),
+        lineColor={0,0,255}),
+      Text(
+        extent={{226,60},{106,10}},
+        lineColor={0,0,0},
+        textString=DynamicSelect("", String(y, leftjustified=false, significantDigits=3)))}),
     Documentation(info="<html>
 <p>
 Samples the continuous input signal whenever the trigger input
@@ -67,6 +71,10 @@ the initial value defined via parameter <code>y_start</code>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 2, 2020, by Michael Wetter:<br/>
+Changed icon to display dynamically the output value.
+</li>
 <li>
 May 18, 2017, by Michael Wetter:<br/>
 Corrected documentation.

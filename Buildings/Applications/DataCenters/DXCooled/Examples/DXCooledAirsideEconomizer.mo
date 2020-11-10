@@ -142,13 +142,15 @@ model DXCooledAirsideEconomizer
   Buildings.Fluid.Actuators.Dampers.MixingBox eco(
     redeclare package Medium = Medium,
     mOut_flow_nominal=mA_flow_nominal,
-    dpOut_nominal=20,
     mRec_flow_nominal=mA_flow_nominal,
-    dpRec_nominal=20,
     mExh_flow_nominal=mA_flow_nominal,
-    dpExh_nominal=20,
-    use_inputFilter=false)
-    "Airside economizer"
+    use_inputFilter=false,
+    dpDamExh_nominal=0.27,
+    dpDamOut_nominal=0.27,
+    dpDamRec_nominal=0.27,
+    dpFixExh_nominal=20,
+    dpFixOut_nominal=20,
+    dpFixRec_nominal=20) "Airside economizer"
     annotation (Placement(transformation(extent={{-160,-4},{-140,16}})));
   Buildings.Fluid.Sources.Outside out(
     redeclare package Medium = Medium,
@@ -162,13 +164,15 @@ model DXCooledAirsideEconomizer
     annotation (Placement(transformation(extent={{-170,60},{-150,80}})));
   Buildings.Fluid.Actuators.Dampers.Exponential dam1(
     redeclare package Medium = Medium,
-    m_flow_nominal=mA_flow_nominal)
+    m_flow_nominal=mA_flow_nominal,
+    dpDamper_nominal=0.27)
     "Open only when free cooling mode is activated"
     annotation (Placement(transformation(extent={{-20,2},{0,22}})));
   Buildings.Fluid.Actuators.Dampers.Exponential dam2(
     redeclare package Medium = Medium,
     m_flow_nominal=mA_flow_nominal,
-    y_start=0) "Open when mechanical cooling is activated"
+    y_start=0,
+    dpDamper_nominal=0.27) "Open when mechanical cooling is activated"
     annotation (Placement(transformation(extent={{-90,-70},{-70,-50}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTemMixAir(
     redeclare package Medium = Medium,
@@ -197,8 +201,7 @@ model DXCooledAirsideEconomizer
     yMin=minSpeFan,
     Ti=240,
     k=0.5,
-    controllerType=Modelica.Blocks.Types.SimpleController.PI,
-    reverseAction=true)
+    reverseActing=false)
     "Fan speed controller"
     annotation (Placement(transformation(extent={{80,-42},{100,-22}})));
   Buildings.Applications.DataCenters.DXCooled.Controls.Compressor speCon(

@@ -6,6 +6,10 @@ model GasConvection
      port_b(T(start=293.15)),
      dT(start=0));
   extends Buildings.BaseClasses.BaseIcon;
+
+  constant Boolean homotopyInitialization = true "= true, use homotopy method"
+    annotation(HideResult=true);
+
   parameter Buildings.HeatTransfer.Data.Gases.Generic gas
     "Thermophysical properties of gas fill"
    annotation(choicesAllMatching=true);
@@ -19,9 +23,6 @@ model GasConvection
   parameter Modelica.SIunits.Temperature T0 = 293.15
     "Temperature used to compute thermophysical properties";
 
-  parameter Boolean homotopyInitialization = true "= true, use homotopy method"
-    annotation(Evaluate=true, Dialog(tab="Advanced"));
-
   Modelica.Blocks.Interfaces.RealInput u
     "Input connector, used to scale the surface area to take into account an operable shading device"
     annotation (Placement(transformation(extent={{-140,50},{-100,90}}),
@@ -32,6 +33,7 @@ model GasConvection
   Modelica.SIunits.HeatFlux q_flow "Convective heat flux";
   Real Nu(min=0) "Nusselt number";
   Real Ra(min=0) "Rayleigh number";
+
 protected
   Modelica.SIunits.Temperature T_a
     "Temperature used for thermophysical properties at port_a";
@@ -64,6 +66,10 @@ initial equation
   Check the parameter for the gas thickness of the window model.");
 
   assert(isVertical or isHorizontal, "Only vertical and horizontal windows are implemented.");
+
+  assert(homotopyInitialization, "In " + getInstanceName() +
+    ": The constant homotopyInitialization has been modified from its default value. This constant will be removed in future releases.",
+    level = AssertionLevel.warning);
 
   // Computations that are used in the linearized model only
   Ra0 = Buildings.HeatTransfer.Convection.Functions.HeatFlux.rayleigh(
@@ -191,8 +197,15 @@ then all equations are linearized.
 TARCOG 2006: Carli, Inc., TARCOG: Mathematical models for calculation
 of thermal performance of glazing systems with our without
 shading devices, Technical Report, Oct. 17, 2006.
-</html>", revisions="<html>
+</html>",
+revisions="<html>
 <ul>
+<li>
+April 14, 2020, by Michael Wetter:<br/>
+Changed <code>homotopyInitialization</code> to a constant.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1341\">IBPSA, #1341</a>.
+</li>
 <li>
 March 13, 2015, by Michael Wetter:<br/>
 Added assertion as the gas layer is now by

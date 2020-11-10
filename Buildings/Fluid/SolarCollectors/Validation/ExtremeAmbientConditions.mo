@@ -151,7 +151,7 @@ This model validates the correct implementation of the heat transfer
 to the collector when ambient temperatures are very low or irradiation is very
 large.
 It applies a ramp boundary condition that reduces the ambient temperature
-to <i>-60</i>&circ;C to verify that the collector fluid temperature does not
+to <i>-60</i>&deg;C to verify that the collector fluid temperature does not
 drop below <code>Medium.T_min</code>.
 Afterwards, the solar irradiation is increased to overheat the collector.
 If the fluid temperature approaches <code>Medium.T_max</code>,

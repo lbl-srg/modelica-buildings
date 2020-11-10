@@ -11,7 +11,9 @@ model Suite "Model of a suite consisting of five rooms of the MIT system model"
   parameter Real scaM_flow "Scaling factor for mass flow rate";
   parameter Modelica.SIunits.MassFlowRate m0Tot_flow=
     scaM_flow*(5.196+2.8428+1.0044+0.9612+0.3624+0.1584);
-
+  parameter Real l(min=1e-10, max=1) = 0.0001
+    "Damper leakage, ratio of flow coefficients k(y=0)/k(y=1)"
+    annotation(Dialog(tab="Damper coefficients"));
   Buildings.Fluid.FixedResistances.Junction spl34(
     redeclare package Medium = Medium,
     m_flow_nominal=scaM_flow*{1,-1,-1},
@@ -111,42 +113,48 @@ model Suite "Model of a suite consisting of five rooms of the MIT system model"
     ADam=scaM_flow*0.49,
     m_flow_nominal=scaM_flow*5.196,
     VRoo=1820,
-    VPle=396) "Room model"
+    VPle=396,
+    final l=l) "Room model"
     annotation (Placement(transformation(extent={{-30,10},{-10,30}})));
   RoomVAV roo46(
     redeclare package Medium = Medium,
     ADam=scaM_flow*0.245,
     m_flow_nominal=scaM_flow*2.8428,
     VRoo=1210,
-    VPle=330) "Room model"
+    VPle=330,
+    final l=l) "Room model"
     annotation (Placement(transformation(extent={{30,10},{50,30}})));
   RoomVAV roo47(
     redeclare package Medium = Medium,
     ADam=scaM_flow*0.128,
     m_flow_nominal=scaM_flow*1.0044,
     VRoo=647,
-    VPle=125) "Room model"
+    VPle=125,
+    final l=l) "Room model"
     annotation (Placement(transformation(extent={{90,10},{110,30}})));
   RoomVAV roo48(
     redeclare package Medium = Medium,
     ADam=scaM_flow*0.128,
     m_flow_nominal=scaM_flow*0.9612,
     VRoo=385,
-    VPle=107) "Room model"
+    VPle=107,
+    final l=l) "Room model"
     annotation (Placement(transformation(extent={{150,10},{170,30}})));
   RoomVAV roo49(
     redeclare package Medium = Medium,
     ADam=scaM_flow*0.0494,
     m_flow_nominal=scaM_flow*0.3624,
     VRoo=48,
-    VPle=13) "Room model"
+    VPle=13,
+    final l=l) "Room model"
     annotation (Placement(transformation(extent={{210,10},{230,30}})));
   RoomVAV roo50(
     redeclare package Medium = Medium,
     ADam=scaM_flow*0.024,
     m_flow_nominal=scaM_flow*0.1584,
     VRoo=155,
-    VPle=43) "Room model"
+    VPle=43,
+    final l=l) "Room model"
     annotation (Placement(transformation(extent={{270,10},{290,30}})));
   Occupancy occ "Occupancy"
   annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));

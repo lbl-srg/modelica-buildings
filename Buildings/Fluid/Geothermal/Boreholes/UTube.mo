@@ -6,6 +6,9 @@ model UTube "Single U-tube borehole heat exchanger"
       computeFlowResistance=false, final linearizeFlowResistance=false);
   extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations;
 
+  constant Boolean homotopyInitialization = true "= true, use homotopy method"
+    annotation(HideResult=true);
+
   replaceable parameter Buildings.HeatTransfer.Data.Soil.Generic matSoi
     "Thermal properties of soil"
     annotation (choicesAllMatching=true, Dialog(group="Soil"),
@@ -69,9 +72,6 @@ model UTube "Single U-tube borehole heat exchanger"
   parameter Real B1=-0.605 "Shape coefficient for grout resistance"
     annotation(Dialog(group="Borehole"));
 
-  parameter Boolean homotopyInitialization = true "= true, use homotopy method"
-    annotation(Evaluate=true, Dialog(tab="Advanced"));
-
   Buildings.Fluid.Geothermal.Boreholes.BaseClasses.BoreholeSegment borHol[nVer](
     redeclare each final package Medium = Medium,
     each final matSoi=matSoi,
@@ -111,6 +111,12 @@ model UTube "Single U-tube borehole heat exchanger"
 protected
   parameter Modelica.SIunits.Height z[nVer]={hBor/nVer*(i - 0.5) for i in 1:
       nVer} "Distance from the surface to the considered segment";
+
+initial equation
+  assert(homotopyInitialization, "In " + getInstanceName() +
+    ": The constant homotopyInitialization has been modified from its default value. This constant will be removed in future releases.",
+    level = AssertionLevel.warning);
+
 equation
   Tdown[:] = borHol[:].pipFil.vol1.heatPort.T;
   Tup[:] = borHol[:].pipFil.vol2.heatPort.T;
@@ -288,6 +294,12 @@ International Journal Of Energy Research, 35:312&ndash;320, 2011.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 14, 2020, by Michael Wetter:<br/>
+Changed <code>homotopyInitialization</code> to a constant.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1341\">IBPSA, #1341</a>.
+</li>
 <li>
 December 23, 2015, by Michael Wetter:<br/>
 Updated documentation and added section about model assumptions and limitations.

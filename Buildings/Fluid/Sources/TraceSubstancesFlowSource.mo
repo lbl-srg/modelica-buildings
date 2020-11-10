@@ -116,7 +116,7 @@ Refactored implementation to provide default medium choice.
 This refactoring removes the dependency of the base class but is
 compatible with the previous implementation.<br/>
 This is for
-<a href=\"modelica://https://github.com/ibpsa/modelica-ibpsa/issues/1050\">#1050</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1050\">#1050</a>.
 </li>
 <li>
 January 26, 2016, by Michael Wetter:<br/>

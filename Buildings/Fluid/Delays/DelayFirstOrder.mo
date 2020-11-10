@@ -2,7 +2,7 @@ within Buildings.Fluid.Delays;
 model DelayFirstOrder
   "Delay element, approximated by a first order differential equation"
   extends Buildings.Fluid.MixingVolumes.MixingVolume(final V=V_nominal,
-                                                   final mSenFac=1);
+                                                 final mSenFac=1);
 
   parameter Modelica.SIunits.Time tau = 60 "Time constant at nominal flow"
     annotation (Dialog(tab="Dynamics", group="Nominal condition"));
@@ -11,13 +11,9 @@ protected
    parameter Modelica.SIunits.Volume V_nominal = m_flow_nominal*tau/rho_default
     "Volume of delay element";
   annotation (    Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,
-            100}}), graphics={Ellipse(
-          extent={{-100,98},{100,-102}},
-          lineColor={0,0,0},
-          fillPattern=FillPattern.Sphere,
-          fillColor={170,213,255}), Text(
-          extent={{-72,22},{68,-18}},
-          lineColor={0,0,0},
+            100}}), graphics={      Text(
+          extent={{-70,-26},{70,-66}},
+          lineColor={255,255,255},
           textString="tau=%tau")}),
 defaultComponentName="del",
     Documentation(info="<html>

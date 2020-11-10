@@ -1,8 +1,6 @@
 within Buildings.Controls.OBC.CDL.Logical;
 block Toggle "Toggles output value whenever its input turns true"
 
-  parameter Boolean pre_y_start=false "Start value of pre(y) if clr=false";
-
   Interfaces.BooleanInput u "Toggle input"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Interfaces.BooleanInput clr "Clear input"
@@ -10,38 +8,29 @@ block Toggle "Toggles output value whenever its input turns true"
   Interfaces.BooleanOutput y "Output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
-protected
-  Integer scenario "Scenario index";
-
 initial equation
-  pre(y) = pre_y_start;
+  pre(y) = false;
   pre(u) = false;
   pre(clr) = false;
-  pre(scenario) = 0;
 
 equation
   when initial() then
-    scenario = 1;
-  elsewhen (not clr) and ((pre(u) <> u) and (pre(u) == false)) and (pre(y) == false) then
-    scenario = 2;
-  elsewhen (not clr) and ((pre(u) <> u) and (pre(u) == false)) and (pre(y) == true) then
-    scenario = 3;
-  elsewhen (not clr) and ((pre(u) <> u) and (pre(u) == true)) then
-    scenario = 4;
+    //scenario = 1
+    y = if clr then false else u;
+  elsewhen (not clr) and change(u) and (pre(u) == false) and (pre(y) == false) then
+    //scenario = 2
+    y = true;
+  elsewhen (not clr) and change(u) and (pre(u) == false) and (pre(y) == true) then
+    //scenario = 3
+    y = false;
+  elsewhen (not clr) and change(u) and (pre(u) == true) then
+    //scenario = 4
+    y = pre(y);
   elsewhen clr then
-    scenario = 5;
+    //scenario = 5
+    y = false;
   end when;
 
-  if clr then
-    y = false;
-  else
-    if (scenario == 1) then y = if clr then false else pre(y);
-    elseif (scenario == 2) then y = true;
-    elseif (scenario == 3) then y = false;
-    elseif (scenario == 4) then y = pre(y);
-    else y = false;
-    end if;
-  end if;
 
 annotation (defaultComponentName="tog",
   Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
@@ -114,7 +103,7 @@ regardless of the value of the toggle input <code>u</code>.
 
 <p>
 At initial time, if <code>clr = false</code>, then the output will be 
-<code>y = pre_y_start</code>. Otherwise it will be <code>y=false</code> 
+<code>y = u</code>. Otherwise it will be <code>y=false</code> 
 (because the clear input <code>clr</code> is <code>true</code>).
 </p>
 
@@ -125,6 +114,16 @@ At initial time, if <code>clr = false</code>, then the output will be
 
 </html>", revisions="<html>
 <ul>
+<li>
+October 13, 2020, by Jianjun Hu:<br/>
+Removed the parameter <code>pre_y_start</code>, and made the initial output to be
+equal to toggle input when the clear input is <code>false</code>.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2177\">issue 2177</a>.
+</li>
+<li>
+March 9, 2020, by Michael Wetter:<br/>
+Simplified implementation, and made model work with OpenModelica.
+</li>
 <li>
 April 4, 2019, by Jianjun Hu:<br/>
 Corrected implementation that causes wrong output at initial stage. 

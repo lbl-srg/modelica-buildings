@@ -18,25 +18,18 @@ protected
 
   output Boolean sampleTrigger "True, if sample time instant";
 
-  output Boolean firstTrigger(start=false, fixed=true)
-    "Rising edge signals first sample instant";
-
 initial equation
-  t0 = time;
+  t0 = Buildings.Utilities.Math.Functions.round(
+         x = integer(time/samplePeriod)*samplePeriod,
+         n = 6);
   y = y_start;
 
 equation
   // Declarations that are used for all discrete blocks
   sampleTrigger = sample(t0, samplePeriod);
   when sampleTrigger then
-    firstTrigger = time <= t0 + samplePeriod/2;
-  end when;
-
-  // Declarations specific to this type of discrete block
-  when sampleTrigger then
     y = pre(u);
   end when;
-
 
   annotation (
 defaultComponentName="uniDel",
@@ -57,6 +50,16 @@ the output <code>y</code> is identical to parameter <code>y_start</code>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 19, 2020, by Michael Wetter:<br/>
+Refactored implementation.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2170\">#2170</a>.
+</li>
+<li>
+March 2, 2020, by Michael Wetter:<br/>
+Changed icon to display dynamically the output value.
+</li>
 <li>
 September 14, 2017, by Michael Wetter:<br/>
 Removed parameter <code>startTime</code> to allow model to work
@@ -90,28 +93,9 @@ Modelica Standard Library.
       textString="1"),
     Text(lineColor={0,0,127},
       extent={{-90.0,-90.0},{90.0,-10.0}},
-      textString="z")}),
-    Diagram(coordinateSystem(
-        preserveAspectRatio=true,
-        extent={{-100,-100},{100,100}}), graphics={
-        Rectangle(extent={{-60,60},{60,-60}}, lineColor={0,0,255}),
+      textString="z"),
         Text(
-          extent={{-160,10},{-140,-10}},
-          textString="u",
-          lineColor={0,0,255}),
-        Text(
-          extent={{115,10},{135,-10}},
-          textString="y",
-          lineColor={0,0,255}),
-        Line(points={{-100,0},{-60,0}}, color={0,0,255}),
-        Line(points={{60,0},{100,0}}, color={0,0,255}),
-        Line(points={{40,0},{-40,0}}),
-        Text(
-          extent={{-55,55},{55,5}},
+          extent={{226,60},{106,10}},
           lineColor={0,0,0},
-          textString="1"),
-        Text(
-          extent={{-55,-5},{55,-55}},
-          lineColor={0,0,0},
-          textString="z")}));
+          textString=DynamicSelect("", String(y, leftjustified=false, significantDigits=3)))}));
 end UnitDelay;

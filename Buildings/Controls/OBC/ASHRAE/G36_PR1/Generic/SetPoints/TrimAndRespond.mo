@@ -3,8 +3,14 @@ block TrimAndRespond "Block to inplement trim and respond logic"
   parameter Real iniSet  "Initial setpoint";
   parameter Real minSet  "Minimum setpoint";
   parameter Real maxSet  "Maximum setpoint";
-  parameter Modelica.SIunits.Time delTim(min=100*1E-15)  "Delay time";
-  parameter Modelica.SIunits.Time samplePeriod(min=1E-3)
+  parameter Real delTim(
+    final unit="s",
+    final quantity="Time",
+    final min=100*1E-15)  "Delay time";
+  parameter Real samplePeriod(
+    final unit="s",
+    final quantity="Time",
+    final min=1E-3)
     "Sample period of component";
   parameter Integer numIgnReq  "Number of ignored requests";
   parameter Real triAmo  "Trim amount";
@@ -26,10 +32,11 @@ block TrimAndRespond "Block to inplement trim and respond logic"
         iconTransformation(extent={{100,-20},{140,20}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueDelay tim(
-    final delayTime=delTim + samplePeriod)
+    final delayTime=delTim + samplePeriod,
+    final delayOnInit=true)
     "Send an on signal after some delay time"
     annotation (Placement(transformation(extent={{-200,160},{-180,180}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greThr
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr
     "Check if the real requests is more than ignored requests setting"
     annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
   Buildings.Controls.OBC.CDL.Logical.Switch netRes "Net setpoint reset value"
@@ -65,13 +72,13 @@ block TrimAndRespond "Block to inplement trim and respond logic"
     final samplePeriod=samplePeriod)
     "Sample number of requests"
     annotation (Placement(transformation(extent={{-160,-60},{-140,-40}})));
-  Buildings.Controls.OBC.CDL.Continuous.LessEqualThreshold lesEquThr1
+  Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesThr1
     "Check if trim and response amount have same sign"
     annotation (Placement(transformation(extent={{-120,-110},{-100,-90}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr2
     "Check if trim and response amount have opposite sign"
     annotation (Placement(transformation(extent={{-120,-180},{-100,-160}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr1
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr1
     "Check if response amount have positive sign"
     annotation (Placement(transformation(extent={{20,-160},{40,-140}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain gai(
@@ -230,9 +237,9 @@ equation
   connect(resAmoCon.y, pro1.u2)
     annotation (Line(points={{-178,-130},{-170,-130},{-170,-106},{-162,-106}},
       color={0,0,127}));
-  connect(pro1.y, lesEquThr1.u)
+  connect(pro1.y, lesThr1.u)
     annotation (Line(points={{-138,-100},{-122,-100}}, color={0,0,127}));
-  connect(lesEquThr1.y, assMes.u)
+  connect(lesThr1.y, assMes.u)
     annotation (Line(points={{-98,-100},{-82,-100}}, color={255,0,255}));
   connect(resAmoCon.y, pro2.u1)
     annotation (Line(points={{-178,-130},{-170,-130},{-170,-164},{-162,-164}},
@@ -240,9 +247,9 @@ equation
   connect(maxResCon.y, pro2.u2)
     annotation (Line(points={{-178,-200},{-170,-200},{-170,-176},{-162,-176}},
       color={0,0,127}));
-  connect(pro2.y, greEquThr.u)
+  connect(pro2.y, greThr2.u)
     annotation (Line(points={{-138,-170},{-122,-170}}, color={0,0,127}));
-  connect(greEquThr.y, assMes2.u)
+  connect(greThr2.y, assMes2.u)
     annotation (Line(points={{-98,-170},{-82,-170}}, color={255,0,255}));
   connect(resAmoCon.y, abs.u)
     annotation (Line(points={{-178,-130},{-122,-130}}, color={0,0,127}));
@@ -257,10 +264,9 @@ equation
   connect(minInp.y, swi3.u1)
     annotation (Line(points={{42,-120},{60,-120},{60,-142},{118,-142}},
       color={0,0,127}));
-  connect(resAmoCon.y, greEquThr1.u)
-    annotation (Line(points={{-178,-130},{-170,-130},{-170,-150},{18,-150}},
-      color={0,0,127}));
-  connect(greEquThr1.y, swi3.u2)
+  connect(resAmoCon.y, greThr1.u) annotation (Line(points={{-178,-130},{-170,-130},
+          {-170,-150},{18,-150}}, color={0,0,127}));
+  connect(greThr1.y, swi3.u2)
     annotation (Line(points={{42,-150},{118,-150}}, color={255,0,255}));
   connect(netRes.y, add1.u2)
     annotation (Line(points={{182,-30},{200,-30},{200,36},{-60,36},{-60,94},{-42,
@@ -353,6 +359,11 @@ src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/Generic/
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 13, 2020, by Jianjun Hu:<br/>
+Corrected to delay the true initial device status.
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1876\">#1876</a>.
+</li>
 <li>
 August 28, 2019, by Jianjun Hu:<br/>
 Added assertions and corrected implementation when response amount is negative.

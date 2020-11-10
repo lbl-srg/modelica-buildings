@@ -43,7 +43,11 @@ equation
           extent={{-150,-150},{150,-110}},
           lineColor={0,0,0},
           textString="duration=%duration"),
-        Line(points={{31,38},{86,38}})}),
+        Line(points={{31,38},{86,38}}),
+        Text(
+          extent={{226,60},{106,10}},
+          lineColor={0,0,0},
+          textString=DynamicSelect("", String(y, leftjustified=false, significantDigits=3)))}),
     Documentation(info="<html>
 <p>
 The Real output y is a ramp signal:
@@ -56,6 +60,10 @@ The Real output y is a ramp signal:
 
 </html>", revisions="<html>
 <ul>
+<li>
+March 2, 2020, by Michael Wetter:<br/>
+Changed icon to display dynamically the output value.
+</li>
 <li>
 March 16, 2017, by Jianjun Hu:<br/>
 First implementation, based on the implementation of the

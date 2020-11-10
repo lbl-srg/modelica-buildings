@@ -1,0 +1,20 @@
+#!/bin/bash
+# This is invoked from the Buildings directory.
+# Hence, we need to share one level up
+cur_dir=`pwd`
+bas_nam=`basename ${cur_dir}`
+sha_dir=`dirname ${cur_dir}`
+# If the current directory is part of the argument list,
+# replace it with . as the docker may have a different file structure
+arg_lis=`echo $@ | sed -e "s|${cur_dir}|.|g"`
+docker run \
+  --user=${UID} \
+  --mac-address=${MAC_ADDRESS} \
+  -v /tmp/.X11-unix:/tmp/.X11-unix \
+  -e DISPLAY=${DISPLAY} \
+  --detach=false \
+  --rm \
+  -v ${sha_dir}:/mnt/shared \
+  ${DOCKER_USERNAME}/travis_ubuntu-1804_dymola:2021-x86_64 /bin/bash -c \
+  "cd /mnt/shared/${bas_nam} && \
+   dymola ${arg_lis}"

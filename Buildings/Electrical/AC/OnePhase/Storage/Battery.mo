@@ -50,7 +50,7 @@ protected
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Modelica.Blocks.Math.Gain gain(final k=-1)
     "Gain that invert sign of the power (P<0 -> the load is consumed)"
-    annotation (Placement(transformation(extent={{22,10},{42,30}})));
+    annotation (Placement(transformation(extent={{20,10},{40,30}})));
 
   Modelica.Blocks.Math.Gain acdc_con_dis(final k = 2 - eta_DCAC)
     "Losses when P < 0"
@@ -67,7 +67,7 @@ equation
       smooth=Smooth.None));
 
   connect(gain.y, bat.Pow) annotation (Line(
-      points={{43,20},{68,20},{68,8.88178e-16},{60,8.88178e-16}},
+      points={{41,20},{68,20},{68,8.88178e-16},{60,8.88178e-16}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(bat.terminal, terminal) annotation (Line(
@@ -94,14 +94,12 @@ equation
       points={{8.88178e-16,108},{8.88178e-16,80},{-80,80},{-80,40},{-38,40}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(spl.y, gain.u) annotation (Line(
-      points={{-15,40},{0,40},{0,20},{20,20}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(spl.y, cha.P) annotation (Line(
-      points={{-15,40},{0,40},{0,60},{38,60}},
+      points={{-15,40},{20,40},{20,60},{38,60}},
       color={0,0,127},
       smooth=Smooth.None));
+  connect(P, gain.u)
+    annotation (Line(points={{0,108},{0,20},{18,20}}, color={0,0,127}));
   annotation (
 defaultComponentName="bat",
  Icon(coordinateSystem(
@@ -168,10 +166,11 @@ info="<html>
 Simple model of a battery.
 </p>
 <p>
-This model takes as an input the power to be stored in the battery (if <i>P &gt; 0</i>)
-or to be extracted from the battery. This model has a one phase AC connector
-and takes into account the efficiency of the conversion
-between DC and AC <i>&eta;<sub>DCAC</sub></i>.
+This model takes as an input the power to be extracted from the AC line and
+stored in the battery (if <i>P &gt; 0</i>)
+or to be fed into the AC line after being extracted from the battery.
+The actual power stored or extracted in the battery differs from <i>P</i> due
+to AC/DC conversion losses and battery charge and discharge efficiencies.
 </p>
 <p>
 The output connector <code>SOC</code> is the state of charge of the battery.
@@ -185,6 +184,15 @@ and that the state of charge remains between zero and one.
 </html>",
         revisions="<html>
 <ul>
+<li>
+April 2, 2020 by Michael Wetter:<br/>
+Corrected model and improved the documentation. The previous model extracted from
+the AC connector the input power <code>P</code> plus the AC/DC conversion losses, but <code>P</code>
+should be the power exchanged at the AC connector. Conversion losses are now only
+accounted for in the energy exchange at the battery.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1865\">issue 1865</a>.
+</li>
 <li>
 September 24, 2015 by Michael Wetter:<br/>
 Removed binding of <code>P_nominal</code> as

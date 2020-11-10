@@ -55,7 +55,11 @@ annotation (defaultComponentName="senEntFlo",
         Text(
           extent={{180,151},{20,99}},
           lineColor={0,0,0},
-          textString="H_flow")}),
+          textString="H_flow"),
+        Text(
+          extent={{-20,120},{-140,70}},
+          lineColor={0,0,0},
+          textString=DynamicSelect("", String(H_flow, leftjustified=false, significantDigits=3)))}),
   Documentation(info="<html>
 <p>
 This model outputs the enthalphy flow rate of the medium in the flow
@@ -78,6 +82,12 @@ Buildings.Fluid.Sensors.LatentEnthalpyFlowRate</a>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+February 25, 2020, by Michael Wetter:<br/>
+Changed icon to display its operating state.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1294\">#1294</a>.
+</li>
 <li>
 January 26, 2016, by Michael Wetter:<br/>
 Made unit assignment of output signal final.

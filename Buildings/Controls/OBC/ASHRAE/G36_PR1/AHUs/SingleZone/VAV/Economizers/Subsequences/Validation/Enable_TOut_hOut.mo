@@ -42,9 +42,14 @@ model Enable_TOut_hOut
     final offset=TOutCutoff - 4) "Outoor air temperature"
     annotation (Placement(transformation(extent={{-50,106},{-30,126}})));
 protected
-  final parameter Modelica.SIunits.Temperature TOutCutoff=297.15
+  final parameter Real TOutCutoff(
+    final unit="K",
+    final displayUnit="degC",
+    final quantity = "ThermodynamicTemperature")=297.15
     "Outdoor temperature high limit cutoff";
-  final parameter Modelica.SIunits.SpecificEnergy hOutCutoff=65100
+  final parameter Real hOutCutoff(
+    final unit="J/kg",
+    final quantity = "SpecificEnergy")=65100
     "Outdoor air enthalpy high limit cutoff";
   final parameter Real outDamPosMin=0.1
     "Minimum outdoor air damper position";
@@ -83,15 +88,15 @@ protected
     final k=true) "Supply fan status signal"
       annotation (Placement(transformation(extent={{-200,-80},{-180,-60}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul(
-    final startTime=10,
+    final delay=10,
     final period=2000) "Boolean pulse signal"
     annotation (Placement(transformation(extent={{-200,80},{-180,100}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul1(
-    final startTime=10,
+    final delay=10,
     final period=2000) "Boolean pulse signal"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
   CDL.Logical.Sources.Pulse booPul2(
-    final startTime=10,
+    final delay=10,
     final period=2000) "Boolean pulse signal"
     annotation (Placement(transformation(extent={{-90,106},{-70,126}})));
 equation
@@ -230,10 +235,9 @@ equation
           textString="No enthalpy
 sensor"),
         Text(
-          extent={{116,146},{244,118}},
+          extent={{116,146},{226,114}},
           lineColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
-          fontSize=12,
           textString="Tests fixed + differential drybulb")}),
 Documentation(info="<html>
 <p>

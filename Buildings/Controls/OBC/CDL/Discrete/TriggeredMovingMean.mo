@@ -20,17 +20,13 @@ block TriggeredMovingMean
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected
-  parameter Modelica.SIunits.Time t0(fixed=false) "First sample time instant";
   Integer iSample(start=0, fixed=true) "Sample numbering in the calculation";
   Integer counter(start=0, fixed=true)
       "Number of samples used for averaging calculation";
   Integer index(start=0, fixed=true) "Index of the vector ySample";
   Real ySample[n](
-    start=vector(zeros(n,1)),
+    start=zeros(n),
     each fixed=true) "Vector of samples to be averaged";
-
-initial equation
-  t0 = time;
 
 equation
   when {initial(), trigger} then
@@ -104,7 +100,11 @@ equation
         Text(
           extent={{56,92},{92,60}},
           lineColor={28,108,200},
-          textString="%n")}),
+          textString="%n"),
+        Text(
+          extent={{226,60},{106,10}},
+          lineColor={0,0,0},
+          textString=DynamicSelect("", String(y, leftjustified=false, significantDigits=3)))}),
 Documentation(info="<html>
 <p>
 Block that outputs the triggered moving mean value of an input signal.
@@ -118,6 +118,14 @@ and produces this value at its output <code>y</code>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+October 19, 2020, by Michael Wetter:<br/>
+Removed non-needed protected parameter <code>t0</code>.
+</li>
+<li>
+March 2, 2020, by Michael Wetter:<br/>
+Changed icon to display dynamically the output value.
+</li>
 <li>
 November 7, 2019, by Michael Wetter:<br/>
 Reformulated model to use an <code>equation</code> rather than an <code>algorithm</code> section.

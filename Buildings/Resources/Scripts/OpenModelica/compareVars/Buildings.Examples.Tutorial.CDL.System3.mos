@@ -1,0 +1,8 @@
+compareVars :=
+  {
+    "senTOut.T",
+    "boi.T",
+    "temSup.T",
+    "temRet.T",
+    "temRoo.T"
+  };

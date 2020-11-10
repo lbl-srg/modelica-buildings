@@ -4,17 +4,17 @@ model MixingBoxMinimumFlow
  extends Buildings.Fluid.Actuators.Dampers.MixingBox;
   import Modelica.Constants;
 
-  final parameter Modelica.SIunits.Area AOutMin = mOutMin_flow_nominal/rho_default/v_nominal
-    "Face area minimum outside air damper";
-
   parameter Modelica.SIunits.MassFlowRate mOutMin_flow_nominal
     "Mass flow rate minimum outside air damper"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.PressureDifference dpOutMin_nominal(min=0,
-                                                                 displayUnit="Pa")
-    "Pressure drop minimum outside air leg"
+  parameter Modelica.SIunits.PressureDifference dpDamOutMin_nominal(
+    min=0, displayUnit="Pa")
+    "Pressure drop of damper in minimum outside air leg"
      annotation (Dialog(group="Nominal condition"));
-
+  parameter Modelica.SIunits.PressureDifference dpFixOutMin_nominal(
+    min=0, displayUnit="Pa") = 0
+    "Pressure drop of duct and other resistances in minimum outside air leg"
+     annotation (Dialog(group="Nominal condition"));
   parameter Real yOutMin_start=y_start
     "Initial value of signal for minimum outside air damper"
     annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilter));
@@ -36,26 +36,25 @@ model MixingBoxMinimumFlow
     annotation (Placement(transformation(extent={{-52,58},{-32,78}}),
         iconTransformation(extent={{-52,58},{-32,78}})));
 
-  Buildings.Fluid.Actuators.Dampers.VAVBoxExponential damOAMin(
-    redeclare package Medium = Medium,
-    dp_nominalIncludesDamper=dp_nominalIncludesDamper,
-    from_dp=from_dp,
-    linearized=linearized,
-    use_deltaM=use_deltaM,
-    deltaM=deltaM,
-    v_nominal=v_nominal,
-    roundDuct=roundDuct,
-    ReC=ReC,
-    a=a,
-    b=b,
-    yL=yL,
-    yU=yU,
-    k0=k0,
-    k1=k1,
-    use_constant_density=use_constant_density,
-    allowFlowReversal=allowFlowReversal,
-    m_flow_nominal=mOutMin_flow_nominal,
-    dp_nominal=dpOutMin_nominal,
+  Buildings.Fluid.Actuators.Dampers.Exponential damOAMin(
+    redeclare final package Medium = Medium,
+    final from_dp=from_dp,
+    final linearized=linearized,
+    final use_deltaM=use_deltaM,
+    final deltaM=deltaM,
+    final roundDuct=roundDuct,
+    final ReC=ReC,
+    final a=a,
+    final b=b,
+    final yL=yL,
+    final yU=yU,
+    final k1=k1,
+    final l=l,
+    final use_constant_density=use_constant_density,
+    final allowFlowReversal=allowFlowReversal,
+    final m_flow_nominal=mOutMin_flow_nominal,
+    final dpDamper_nominal=dpDamOutMin_nominal,
+    final dpFixed_nominal=dpFixOutMin_nominal,
     final use_inputFilter=false) "Damper for minimum outside air intake"
     annotation (Placement(transformation(extent={{48,32},{68,52}})));
 protected
@@ -140,6 +139,14 @@ equation
 defaultComponentName="eco",
 Documentation(revisions="<html>
 <ul>
+<li>
+February 26, 2020, by Antoine Gautier:<br/>
+Updated parameter bindings consistently with refactoring of
+<a href=\"modelica://Buildings.Fluid.Actuators.BaseClasses.PartialDamperExponential\">
+Buildings.Fluid.Actuators.BaseClasses.PartialDamperExponential</a>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1188\">#1188</a>.
+</li>
 <li>
 March 24, 2017, by Michael Wetter:<br/>
 Renamed <code>filteredInput</code> to <code>use_inputFilter</code>.<br/>

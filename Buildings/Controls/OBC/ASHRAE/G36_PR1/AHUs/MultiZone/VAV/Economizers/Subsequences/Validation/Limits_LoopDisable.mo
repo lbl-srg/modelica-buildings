@@ -64,11 +64,17 @@ model Limits_LoopDisable
     annotation (Placement(transformation(extent={{160,-20},{180,0}})));
 
 protected
-  final parameter Modelica.SIunits.VolumeFlowRate VOutSet_flow=0.71
+  final parameter Real VOutSet_flow(
+    final unit="m3/s",
+    final quantity="VolumeFlowRate")=0.71
     "Example volumetric airflow setpoint, 15cfm/occupant, 100 occupants";
-  final parameter Modelica.SIunits.VolumeFlowRate minVOutSet_flow=0.61
+  final parameter Real minVOutSet_flow(
+    final unit="m3/s",
+    final quantity="VolumeFlowRate")=0.61
     "Volumetric airflow sensor output, minimum value in the example";
-  final parameter Modelica.SIunits.VolumeFlowRate incVOutSet_flow=0.2
+  final parameter Real incVOutSet_flow(
+    final unit="m3/s",
+    final quantity="VolumeFlowRate")=0.2
     "Maximum increase in airflow volume during the example simulation";
 
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant freProSta(
@@ -95,36 +101,36 @@ protected
     annotation (Placement(transformation(extent={{80,-60},{100,-40}})));
 
 equation
-  connect(VOut_flow.y, damLim.VOut_flow_normalized) annotation (Line(points={{-179,
-          70},{-140,70},{-140,-2},{-121,-2}}, color={0,0,127}));
+  connect(VOut_flow.y, damLim.VOut_flow_normalized) annotation (Line(points={{-178,70},
+          {-140,70},{-140,-6},{-122,-6}},     color={0,0,127}));
   connect(VOutMinSet_flow.y, damLim.VOutMinSet_flow_normalized) annotation (
-      Line(points={{-179,30},{-150,30},{-150,-5},{-121,-5}}, color={0,0,127}));
+      Line(points={{-178,30},{-150,30},{-150,-2},{-122,-2}}, color={0,0,127}));
   connect(fanSta.y, damLim.uSupFan)
-    annotation (Line(points={{-179,-10},{-160,-10},{-121,-10}}, color={255,0,255}));
+    annotation (Line(points={{-178,-10},{-178,-10},{-122,-10}}, color={255,0,255}));
   connect(freProSta.y, damLim.uFreProSta)
-    annotation (Line(points={{-179,-90},{-140,-90},{-140,-18},{-121,-18}}, color={255,127,0}));
-  connect(VOut1_flow.y, damLim1.VOut_flow_normalized) annotation (Line(points={
-          {-39,70},{0,70},{0,-2},{19,-2}}, color={0,0,127}));
+    annotation (Line(points={{-178,-90},{-140,-90},{-140,-14},{-122,-14}}, color={255,127,0}));
+  connect(VOut1_flow.y, damLim1.VOut_flow_normalized) annotation (Line(points={{-38,70},
+          {0,70},{0,-6},{18,-6}},          color={0,0,127}));
   connect(VOutMinSet1_flow.y, damLim1.VOutMinSet_flow_normalized) annotation (
-      Line(points={{-39,30},{-10,30},{-10,-5},{19,-5}}, color={0,0,127}));
+      Line(points={{-38,30},{-10,30},{-10,-2},{18,-2}}, color={0,0,127}));
   connect(fanStatus1.y, damLim1.uSupFan)
-    annotation (Line(points={{-39,-10},{19,-10}}, color={255,0,255}));
+    annotation (Line(points={{-38,-10},{18,-10}}, color={255,0,255}));
   connect(freProSta1.y, damLim1.uFreProSta)
-    annotation (Line(points={{-39,-90},{0,-90},{0,-18},{19,-18}}, color={255,127,0}));
+    annotation (Line(points={{-38,-90},{0,-90},{0,-14},{18,-14}}, color={255,127,0}));
   connect(VOut2_flow.y, damLim2.VOut_flow_normalized)
-    annotation (Line(points={{101,70},{140,70},{140,-2},{159,-2}}, color={0,0,127}));
+    annotation (Line(points={{102,70},{140,70},{140,-6},{158,-6}}, color={0,0,127}));
   connect(VOutMinSet2_flow.y, damLim2.VOutMinSet_flow_normalized)
-    annotation (Line(points={{101,30},{130,30},{130,-5},{159,-5}}, color={0,0,127}));
+    annotation (Line(points={{102,30},{130,30},{130,-2},{158,-2}}, color={0,0,127}));
   connect(fanStatus2.y, damLim2.uSupFan)
-    annotation (Line(points={{101,-10},{159,-10}}, color={255,0,255}));
+    annotation (Line(points={{102,-10},{158,-10}}, color={255,0,255}));
   connect(freProSta2.y, damLim2.uFreProSta)
-    annotation (Line(points={{101,-90},{140,-90},{140,-18},{159,-18}},color={255,127,0}));
+    annotation (Line(points={{102,-90},{140,-90},{140,-14},{158,-14}},color={255,127,0}));
   connect(opeMod.y, damLim.uOpeMod)
-    annotation (Line(points={{-179,-50},{-150,-50},{-150,-15},{-121,-15}}, color={255,127,0}));
+    annotation (Line(points={{-178,-50},{-150,-50},{-150,-18},{-122,-18}}, color={255,127,0}));
   connect(opeMod1.y, damLim1.uOpeMod)
-    annotation (Line(points={{-39,-50},{-10,-50},{-10,-15},{19,-15}}, color={255,127,0}));
+    annotation (Line(points={{-38,-50},{-10,-50},{-10,-18},{18,-18}}, color={255,127,0}));
   connect(opeMod2.y, damLim2.uOpeMod)
-    annotation (Line(points={{101,-50},{130,-50},{130,-15},{159,-15}}, color={255,127,0}));
+    annotation (Line(points={{102,-50},{130,-50},{130,-18},{158,-18}}, color={255,127,0}));
 
 annotation (
   experiment(StopTime=1800.0, Tolerance=1e-06),

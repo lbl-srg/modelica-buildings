@@ -4,7 +4,7 @@ model EquationFitReversible_CoolingClosedLoop
  package Medium = Buildings.Media.Water "Medium model";
 
   parameter Data.EquationFitReversible.Trane_Axiom_EXW240 per
-   "Reverse heat pump performance data"
+   "Reversible heat pump performance data"
    annotation (Placement(transformation(extent={{-90,-80},{-70,-60}})));
   parameter Modelica.SIunits.MassFlowRate mSou_flow_nominal=per.hea.mSou_flow
    "Source heat exchanger nominal mass flow rate";
@@ -16,10 +16,9 @@ model EquationFitReversible_CoolingClosedLoop
     redeclare package Medium2 = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    T1_start=281.4,
     per=per,
     scaling_factor=1)
-   "Water to Water heat pump"
+   "Reversible water to water heat pump"
    annotation (Placement(transformation(extent={{0,-30},{20,-10}})));
   Modelica.Blocks.Math.RealToInteger reaToInt
    "Real to integer conversion"
@@ -40,11 +39,10 @@ model EquationFitReversible_CoolingClosedLoop
    "Volume for source side"
    annotation (Placement(transformation(extent={{-70,-60},{-50,-40}})));
   Controls.OBC.CDL.Continuous.Sources.Pulse uMod(
-    amplitude=1,
-    width=0.5,
+    amplitude=-1,
+    width=0.7,
     period=200,
-    offset=-1,
-    startTime=0)
+    offset=0)
    "heat pump operational mode input signal"
    annotation (Placement(transformation(extent={{-90,-30},{-70,-10}})));
   Controls.OBC.CDL.Continuous.Sources.Pulse pulse(
@@ -67,7 +65,8 @@ model EquationFitReversible_CoolingClosedLoop
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=mLoa_flow_nominal,
-    addPowerToMedium=false)
+    addPowerToMedium=false,
+    nominalValuesDefineDefaultPressureCurve=true)
     "Chilled water pump"
     annotation (Placement(transformation(extent={{20,40},{0,60}})));
   MixingVolumes.MixingVolume vol(
@@ -88,8 +87,7 @@ model EquationFitReversible_CoolingClosedLoop
     amplitude=3,
     width=0.7,
     period=200,
-    offset=25 + 273.15,
-    startTime=0)
+    offset=25 + 273.15)
     "Source side entering water temperature"
     annotation (Placement(transformation(extent={{20,-90},{40,-70}})));
   Controls.OBC.CDL.Continuous.Sources.Pulse TLoaSet(
@@ -97,18 +95,16 @@ model EquationFitReversible_CoolingClosedLoop
     amplitude=1,
     width=0.7,
     period=200,
-    offset=6 + 273.15,
-    startTime=0)
+    offset=6 + 273.15)
     "Set point chilled water temperature"
     annotation (Placement(transformation(extent={{-90,30},{-70,50}})));
   Sources.Boundary_pT pre(
-      redeclare package Medium = Medium,
-      nPorts=1)
-    "Pressure source"
+    redeclare package Medium = Medium,
+    nPorts=1) "Pressure source."
     annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
+        extent={{10,-10},{-10,10}},
         rotation=0,
-        origin={-60,10})));
+        origin={60,50})));
 equation
   connect(souPum.ports[1], heaPum.port_a2)
    annotation (Line(points={{40,-50},{20,-50},{20,-26}},       color={0,127,255}));
@@ -128,7 +124,7 @@ equation
   connect(heaFlo.port, vol.heatPort)
    annotation (Line(points={{70,80},{80,80},{80,-2}},color={191,0,0}));
   connect(pum.port_a, vol.ports[1])
-   annotation (Line(points={{20,50},{58,50},{58,-10},{70,-10}},
+   annotation (Line(points={{20,50},{40,50},{40,-10},{70,-10}},
                                                              color={0,127,255}));
   connect(vol.ports[2], heaPum.port_b1)
    annotation (Line(points={{70,-14},{20,-14}},
@@ -145,9 +141,8 @@ equation
   connect(TLoaSet.y, heaPum.TSet)
    annotation (Line(points={{-68,40},{-26,40},{-26,-11},{-1.4,-11}},
                                                                 color={0,0,127}));
-  connect(heaPum.port_a1, pre.ports[1])
-   annotation (Line(points={{0,-14},{-32,-14},{-32,10},{-50,10}},
-                                                       color={0,127,255}));
+  connect(pum.port_a, pre.ports[1])
+    annotation (Line(points={{20,50},{50,50}}, color={0,127,255}));
      annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{120,100}}), graphics={
         Ellipse(lineColor = {75,138,73},
@@ -165,7 +160,7 @@ equation
              __Dymola_Commands(
   file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/Examples/EquationFitReversible_CoolingClosedLoop.mos"
         "Simulate and plot"),
-         experiment(Tolerance=1e-6, StopTime=1200),
+         experiment(Tolerance=1e-6, StopTime=2500),
 Documentation(info="<html>
 <p>
 Example that simulates the performance of
@@ -182,9 +177,20 @@ to the heatpump where it is cooled to meet the corresponding set point water tem
 </html>", revisions="<html>
 <ul>
 <li>
+October 19, 2020, by Michael Wetter:<br/>
+Removed <code>startTime=0</code> for pulse block.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2170\">#2170</a>.
+</li>
+<li>
+May 1, 2020, by Hagar Elarga:<br/>
+Corrected the <code>uMod</code> parameters and relocated the pressure source <code> pre</code> 
+to the pump suction side, i.e. maintain the pressure suction value at 3 bar to avoid cavitation.
+</li>
+<li>
 September 23, 2019, by Hagar Elarga:<br/>
 First implementation.
- </li>
- </ul>
- </html>"));
+</li>
+</ul>
+</html>"));
 end EquationFitReversible_CoolingClosedLoop;

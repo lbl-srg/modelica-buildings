@@ -6,30 +6,40 @@ block SupplySignals "Multizone VAV AHU coil valve positions"
     "Type of controller for supply air temperature signal";
   parameter Real kTSup(final unit="1/K")=0.05
     "Gain of controller for supply air temperature signal";
-  parameter Modelica.SIunits.Time TiTSup=600
+  parameter Real TiTSup(
+    final unit="s",
+    final quantity="Time")=600
     "Time constant of integrator block for supply temperature control signal"
     annotation(Dialog(
       enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
           or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
-  parameter Modelica.SIunits.Time TdTSup=0.1
+  parameter Real TdTSup(
+    final unit="s",
+    final quantity="Time")=0.1
     "Time constant of derivative block for supply temperature control signal"
     annotation(Dialog(enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
                           or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
-  parameter Real uHeaMax(min=-0.9)=-0.25
+  parameter Real uHeaMax(
+    final min=-0.9,
+    final unit="1")=-0.25
     "Upper limit of controller signal when heating coil is off. Require -1 < uHeaMax < uCooMin < 1.";
-  parameter Real uCooMin(max=0.9)=0.25
+  parameter Real uCooMin(
+    final max=0.9,
+    final unit="1")=0.25
     "Lower limit of controller signal when cooling coil is off. Require -1 < uHeaMax < uCooMin < 1.";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSup(
     final unit="K",
+    final displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Measured supply air temperature"
     annotation (Placement(transformation(extent={{-140,-40},{-100,0}}),
         iconTransformation(extent={{-140,-70},{-100,-30}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSupSet(
     final unit="K",
+    final displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Setpoint for supply air temperature"
     annotation (Placement(transformation(extent={{-140,10},{-100,50}}),
@@ -61,7 +71,7 @@ block SupplySignals "Multizone VAV AHU coil valve positions"
         iconTransformation(extent={{100,20},{140,60}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.LimPID conTSup(
+  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset conTSup(
     final controllerType=controllerType,
     final k=kTSup,
     final Ti=TiTSup,
@@ -69,8 +79,7 @@ protected
     final yMax=1,
     final yMin=-1,
     final y_reset=0,
-    final reverseAction=true,
-    final reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter)
+    final reverseActing=false)
     "Controller for supply air temperature control signal (to be used by heating coil, cooling coil and economizer)"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi
@@ -156,7 +165,7 @@ equation
     annotation (Line(points={{-38,30},{-28,30},{-28,68},{-2,68}},
       color={0,0,127}));
   connect(uSupFan, conTSup.trigger)
-    annotation (Line(points={{-120,80},{-80,80},{-80,8},{-58,8},{-58,18}},
+    annotation (Line(points={{-120,80},{-80,80},{-80,8},{-56,8},{-56,18}},
       color={255,0,255}));
 
 annotation (

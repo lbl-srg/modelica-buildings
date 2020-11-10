@@ -167,7 +167,6 @@ model TwoRoomsWithStorage
     yMax=1,
     Td=60,
     yMin=0.05,
-    controllerType=Modelica.Blocks.Types.SimpleController.PI,
     eOn=0.5,
     k=0.5,
     Ti=15) "Controller for pump"
@@ -245,8 +244,7 @@ model TwoRoomsWithStorage
     xi_start=1,
     Td=60,
     k=0.1,
-    Ti=120,
-    controllerType=Modelica.Blocks.Types.SimpleController.PI)
+    Ti=120)
     "Controller for pump"
     annotation (Placement(transformation(extent={{140,-50},{160,-30}})));
   Buildings.Fluid.Storage.Stratified tan(
@@ -456,7 +454,8 @@ model TwoRoomsWithStorage
   Buildings.Fluid.Actuators.Dampers.Exponential damSupByp(
     redeclare package Medium = MediumA,
     m_flow_nominal=2*VRoo*1.2*0.37/3600,
-    use_inputFilter=false)
+    use_inputFilter=false,
+    dpDamper_nominal=0.27)
     "Supply air damper that bypasses the heat recovery"
     annotation (Placement(transformation(extent={{160,510},{180,530}})));
   Buildings.Fluid.HeatExchangers.SensibleCooler_T coo(
@@ -563,13 +562,15 @@ Changed controller to output setpoint for supply air temperature for cooling coi
   Buildings.Fluid.Actuators.Dampers.Exponential damHex(
     redeclare package Medium = MediumA,
     m_flow_nominal=2*VRoo*1.2*0.37/3600,
-    use_inputFilter=false)
+    use_inputFilter=false,
+    dpDamper_nominal=0.27)
     "Supply air damper that closes the heat recovery"
     annotation (Placement(transformation(extent={{120,490},{140,510}})));
   Buildings.Fluid.Actuators.Dampers.Exponential damRetByp(
     redeclare package Medium = MediumA,
     m_flow_nominal=2*VRoo*1.2*0.37/3600,
-    use_inputFilter=false)
+    use_inputFilter=false,
+    dpDamper_nominal=0.27)
     "Return air damper that bypasses the heat recovery"
     annotation (Placement(transformation(extent={{180,450},{160,470}})));
   Modelica.StateGraph.InitialStep off "Pump and furnace off"
@@ -725,7 +726,7 @@ equation
       smooth=Smooth.None));
   connect(booToReaPum.y, pumBoi.y)
                                 annotation (Line(
-      points={{399,-120},{69.8,-120},{69.8,-158}},
+      points={{399,-120},{70,-120},{70,-158}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(rad1.heatPortCon, roo1.heaPorAir) annotation (Line(
@@ -787,7 +788,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(fanSup.m_flow_in, m_flow_out.y) annotation (Line(
-      points={{79.8,512},{79.8,516},{80,516},{80,520},{60,520},{60,510},{21,510}},
+      points={{80,512},{80,516},{80,516},{80,520},{60,520},{60,510},{21,510}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(fanRet.port_a, hex.port_b2) annotation (Line(
@@ -803,7 +804,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(m_flow_out.y, fanRet.m_flow_in) annotation (Line(
-      points={{21,510},{60,510},{60,476},{80.2,476},{80.2,472}},
+      points={{21,510},{60,510},{60,476},{80,476},{80,472}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(lea1.port_b, roo1.ports[2]) annotation (Line(
@@ -944,7 +945,7 @@ equation
       thickness=0.5,
       smooth=Smooth.None));
   connect(conPum.y, pumRad.y) annotation (Line(
-      points={{141,70},{200,70},{200,9.8},{208,9.8}},
+      points={{141,70},{200,70},{200,10},{208,10}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(TRoo1.T, conRoo1.u_m) annotation (Line(

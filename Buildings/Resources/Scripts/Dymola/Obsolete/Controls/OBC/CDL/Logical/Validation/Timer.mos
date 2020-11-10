@@ -1,0 +1,15 @@
+simulateModel("Buildings.Obsolete.Controls.OBC.CDL.Logical.Validation.Timer", stopTime=5.0, method="Cvode", tolerance=1e-06, resultFile="Timer2");
+createPlot(id=1, position={15, 10, 450, 600}, subPlot=1, y={"resetTimer.u"}, range={0.0, 5.0, -3.5, 3.5}, grid=true, colors={{238,46,47}});
+createPlot(id=1, position={15, 10, 450, 600}, subPlot=2, y={"resetTimer.y"}, range={0.0, 5.0, -3.5, 3.5}, grid=true, colors={{28,108,200}});
+
+createPlot(id=2, position={480, 10, 450, 600}, subPlot=1, y={"accuTimer.u", "accuTimer.reset"}, range={0.0, 5.0, -3.5, 3.5}, grid=true, colors={{238,46,47}, {238,46,47}});
+createPlot(id=2, position={480, 10, 450, 600}, subPlot=2, y={"accuTimer.y"}, range={0.0, 5.0, -3.5, 3.5}, grid=true, colors={{28,108,200}});
+
+createPlot(id=3, position={950, 10, 450, 600}, subPlot=1, y={"accuTimer1.u", "accuTimer1.reset"}, range={0.0, 5.0, -3.5, 3.5}, grid=true, colors={{238,46,47}, {238,46,47}});
+createPlot(id=3, position={950, 10, 450, 600}, subPlot=2, y={"accuTimer1.y"}, range={0.0, 5.0, -3.5, 3.5}, grid=true, colors={{28,108,200}});
+
+createPlot(id=4, position={1415, 10, 450, 600}, subPlot=1, y={"accuTimer2.u", "accuTimer2.reset"}, range={0.0, 5.0, -3.5, 3.5}, grid=true, colors={{238,46,47}, {238,46,47}});
+createPlot(id=4, position={1415, 10, 450, 600}, subPlot=2, y={"accuTimer2.y"}, range={0.0, 5.0, -3.5, 3.5}, grid=true, colors={{28,108,200}});
+
+createPlot(id=5, position={1880, 10, 450, 600}, subPlot=1, y={"accuTimer3.u", "accuTimer3.reset"}, range={0.0, 5.0, -3.5, 3.5}, grid=true, colors={{238,46,47}, {238,46,47}});
+createPlot(id=5, position={1880, 10, 450, 600}, subPlot=2, y={"accuTimer3.y"}, range={0.0, 5.0, -3.5, 3.5}, grid=true, colors={{28,108,200}});

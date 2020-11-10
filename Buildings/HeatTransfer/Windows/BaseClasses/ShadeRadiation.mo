@@ -2,6 +2,9 @@ within Buildings.HeatTransfer.Windows.BaseClasses;
 model ShadeRadiation
   "Model for infrared radiative heat balance of a layer that may or may not have a shade"
 
+  constant Boolean homotopyInitialization = true "= true, use homotopy method"
+    annotation(HideResult=true);
+
   parameter Modelica.SIunits.Area A "Heat transfer area";
   parameter Modelica.SIunits.Emissivity absIR_air
     "Infrared absorptivity of surface that faces air";
@@ -19,8 +22,6 @@ model ShadeRadiation
     "Infrared reflectivity of surface that faces glass";
   parameter Boolean linearize = false "Set to true to linearize emissive power"
   annotation (Evaluate=true);
-  parameter Boolean homotopyInitialization = true "= true, use homotopy method"
-    annotation(Evaluate=true, Dialog(tab="Advanced"));
 
   parameter Modelica.SIunits.Temperature T0=293.15
     "Temperature used to linearize radiative heat transfer"
@@ -86,6 +87,12 @@ protected
  Modelica.SIunits.RadiantPower E_air "Emissive power of surface that faces air";
  Modelica.SIunits.RadiantPower E_glass
     "Emissive power of surface that faces glass";
+
+initial equation
+  assert(homotopyInitialization, "In " + getInstanceName() +
+    ": The constant homotopyInitialization has been modified from its default value. This constant will be removed in future releases.",
+    level = AssertionLevel.warning);
+
 equation
   connect(TSha_internal, TSha);
   if thisSideHasShade then
@@ -218,6 +225,12 @@ that is absorbed by the shade.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 14, 2020, by Michael Wetter:<br/>
+Changed <code>homotopyInitialization</code> to a constant.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1341\">IBPSA, #1341</a>.
+</li>
 <li>
 May 30, 2014, by Michael Wetter:<br/>
 Removed undesirable annotation <code>Evaluate=true</code>.
