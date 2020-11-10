@@ -18,15 +18,15 @@ services:
   - xvfb
 
 
-addons:
-  apt:
-    if: env(TEST_ARG) IS /*test-omc*/
-    sources:
-    - sourceline: "deb http://build.openmodelica.org/apt `lsb_release -cs` stable"
-      key_url: "http://build.openmodelica.org/apt/openmodelica.asc"
-    packages:
-    - omc=1.16.0-1
-    - omlib-modelica-3.2.3=3.2.3~20201013~234009~git~OM~maint~3.2.3-1
+##addons:
+##  apt:
+##    if: env(TEST_ARG) IS /*test-omc*/
+##    sources:
+##    - sourceline: "deb http://build.openmodelica.org/apt `lsb_release -cs` stable"
+##      key_url: "http://build.openmodelica.org/apt/openmodelica.asc"
+##    packages:
+##    - omc=1.16.0-1
+##    - omlib-modelica-3.2.3=3.2.3~20201013~234009~git~OM~maint~3.2.3-1
 
 env:
   global:
@@ -88,7 +88,7 @@ env:
     - TEST_ARG="make test-dymola    PACKAGE=\"Buildings.Utilities\""
     - TEST_ARG="make test-optimica  PACKAGE=\"Buildings.Utilities\""
     - TEST_ARG="make test-jmodelica PACKAGE=\"Buildings.Utilities\""
-    - TEST_ARG="make test-omc"
+##    - TEST_ARG="make test-omc"
 
 before_install:
   - sudo apt-get -y install python3.6-minimal  # Provides /usr/bin/python3.6m
