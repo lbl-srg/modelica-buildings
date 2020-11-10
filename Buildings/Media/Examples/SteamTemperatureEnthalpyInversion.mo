@@ -7,10 +7,9 @@ model SteamTemperatureEnthalpyInversion
     T0=273.15+200,
     tol=1e-3);
 initial equation
-  assert(
-    false,
-    "In "+getInstanceName()+": This model is a beta version and is not fully validated yet.",
-    level=AssertionLevel.warning);
+  Modelica.Utilities.Streams.print(
+    "Warning:\n  In " + getInstanceName() +
+    ": This model is a beta version and is not fully validated yet.");
   annotation (
     experiment(
       Tolerance=1e-6,

@@ -41,10 +41,9 @@ protected
     unit="1/s")=1
     "Conversion factor to satisfy unit check";
 initial equation
-  assert(
-    false,
-    "In "+getInstanceName()+": This model is a beta version and is not fully validated yet.",
-    level=AssertionLevel.warning);
+  Modelica.Utilities.Streams.print(
+    "Warning:\n  In " + getInstanceName() +
+    ": This model is a beta version and is not fully validated yet.");
 equation
   // Compute temperatures that are used as input to the functions
   pSat=pMin+conv*time*(pMax-pMin);

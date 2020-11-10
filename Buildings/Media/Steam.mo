@@ -2,7 +2,8 @@ within Buildings.Media;
 package Steam
   "Package with model for region 2 (steam) water according to IF97 standard"
   extends IBPSA.Media.Interfaces.PartialPureSubstanceWithSat(
-    redeclare replaceable record FluidConstants=Modelica.Media.Interfaces.Types.TwoPhase.FluidConstants,
+    redeclare replaceable record FluidConstants =
+        Modelica.Media.Interfaces.Types.TwoPhase.FluidConstants,
     mediumName="WaterIF97_R2pT",
     substanceNames={"water"},
     singleState=false,
@@ -42,12 +43,10 @@ package Steam
     p(stateSelect= if preferredMediumStates then StateSelect.prefer
         else StateSelect.default))
     "Base properties (p, d, T, h, u, R, MM, sat) of water"
-    SaturationProperties sat
-      "Saturation properties at the medium pressure";
   initial equation
-    assert(false,
-      "In "+getInstanceName()+": This model is a beta version and is not fully validated yet.",
-      level=AssertionLevel.warning);
+    Modelica.Utilities.Streams.print(
+      "Warning:\n  In " + getInstanceName() +
+      ": This model is a beta version and is not fully validated yet.");
   equation
     // Temperature and pressure values must be within acceptable max & min bounds
     assert(T >= 273.15,
@@ -66,8 +65,6 @@ package Steam
     MM=fluidConstants[1].molarMass;
     h=specificEnthalpy_pT(p,T);
     d=density_pT(p,T);
-    sat.psat=p;
-    sat.Tsat=saturationTemperature_p(p);
     u=h-p/d;
     R=Modelica.Constants.R/fluidConstants[1].molarMass;
     h=state.h;
@@ -75,6 +72,7 @@ package Steam
     T=state.T;
     d=state.d;
   end BaseProperties;
+
   redeclare replaceable function density_ph
     "Computes density as a function of pressure and specific enthalpy"
     extends Modelica.Icons.Function;
@@ -85,6 +83,7 @@ package Steam
     d := rho_ph(p,h);
     annotation (Inline=true);
   end density_ph;
+
   redeclare replaceable function temperature_ph
     "Computes temperature as a function of pressure and specific enthalpy"
     extends Modelica.Icons.Function;
@@ -95,6 +94,7 @@ package Steam
     T := T_ph(p,h);
     annotation (Inline=true);
   end temperature_ph;
+
   redeclare replaceable function temperature_ps
     "Compute temperature from pressure and specific enthalpy"
     extends Modelica.Icons.Function;
@@ -105,6 +105,7 @@ package Steam
     T := Modelica.Media.Water.IF97_Utilities.T_ps(p,s);
     annotation (Inline=true);
   end temperature_ps;
+
   redeclare replaceable function density_ps
     "Computes density as a function of pressure and specific enthalpy"
     extends Modelica.Icons.Function;
@@ -115,6 +116,7 @@ package Steam
     d := Modelica.Media.Water.IF97_Utilities.rho_ps(p,s);
     annotation (Inline=true);
   end density_ps;
+
   redeclare replaceable function pressure_dT
     "Computes pressure as a function of density and temperature"
     extends Modelica.Icons.Function;
@@ -125,6 +127,7 @@ package Steam
     p := Modelica.Media.Water.IF97_Utilities.p_dT(d,T);
     annotation (Inline=true);
   end pressure_dT;
+
   redeclare replaceable function specificEnthalpy_dT
     "Computes specific enthalpy as a function of density and temperature"
     extends Modelica.Icons.Function;
@@ -135,6 +138,7 @@ package Steam
     h := Modelica.Media.Water.IF97_Utilities.h_dT(d,T);
     annotation (Inline=true);
   end specificEnthalpy_dT;
+
   redeclare replaceable function specificEnthalpy_pT
     "Computes specific enthalpy as a function of pressure and temperature"
     extends Modelica.Icons.Function;
@@ -145,6 +149,7 @@ package Steam
     h := h_pT(p,T);
     annotation (Inline=true);
   end specificEnthalpy_pT;
+
   redeclare replaceable function specificEnthalpy_ps
     "Computes specific enthalpy as a function of pressure and temperature"
     extends Modelica.Icons.Function;
@@ -155,6 +160,7 @@ package Steam
     h := Modelica.Media.Water.IF97_Utilities.h_ps(p,s);
     annotation (Inline=true);
   end specificEnthalpy_ps;
+
   redeclare replaceable function density_pT
     "Computes density as a function of pressure and temperature"
     extends Modelica.Icons.Function;
@@ -165,6 +171,7 @@ package Steam
     d := rho_pT(p,T);
     annotation (Inline=true);
   end density_pT;
+
   redeclare replaceable function extends dynamicViscosity
     "Return dynamic viscosity"
   algorithm
@@ -175,6 +182,7 @@ package Steam
       phase);
     annotation (Inline=true);
   end dynamicViscosity;
+
   redeclare replaceable function extends thermalConductivity
     "Return thermal conductivity"
   algorithm
@@ -185,36 +193,42 @@ package Steam
       phase);
     annotation (Inline=true);
   end thermalConductivity;
+
   redeclare replaceable function extends pressure
     "Return pressure"
   algorithm
     p := state.p;
     annotation (Inline=true);
   end pressure;
+
   redeclare replaceable function extends temperature
     "Return temperature"
   algorithm
     T := state.T;
     annotation (Inline=true);
   end temperature;
+
   redeclare replaceable function extends density
     "Return density"
   algorithm
     d := state.d;
     annotation (Inline=true);
   end density;
+
   redeclare replaceable function extends specificEnthalpy
     "Return specific enthalpy"
   algorithm
     h := state.h;
     annotation (Inline=true);
   end specificEnthalpy;
+
   redeclare replaceable function extends specificInternalEnergy
     "Return specific internal energy"
   algorithm
     u := state.h-state.p/state.d;
     annotation (Inline=true);
   end specificInternalEnergy;
+
   redeclare replaceable function extends specificEntropy
     "Return specific entropy"
   algorithm
@@ -223,18 +237,21 @@ package Steam
       state.T);
     annotation (Inline=true);
   end specificEntropy;
+
   redeclare replaceable function extends specificGibbsEnergy
     "Return specific Gibbs energy"
   algorithm
     g := state.h-state.T*specificEntropy(state);
     annotation (Inline=true);
   end specificGibbsEnergy;
+
   redeclare replaceable function extends specificHelmholtzEnergy
     "Return specific Helmholtz energy"
   algorithm
     f := state.h-state.p/state.d-state.T*specificEntropy(state);
     annotation (Inline=true);
   end specificHelmholtzEnergy;
+
   redeclare replaceable function extends specificHeatCapacityCp
     "Return specific heat capacity at constant pressure"
   algorithm
@@ -243,6 +260,7 @@ package Steam
       state.T);
     annotation (Inline=true);
   end specificHeatCapacityCp;
+
   redeclare replaceable function extends specificHeatCapacityCv
     "Return specific heat capacity at constant volume"
   algorithm
@@ -251,6 +269,7 @@ package Steam
       state.T);
     annotation (Inline=true);
   end specificHeatCapacityCv;
+
   redeclare function extends density_derh_p
     "Density derivative by specific enthalpy"
   algorithm
@@ -261,6 +280,7 @@ package Steam
       region);
     annotation (Inline=true);
   end density_derh_p;
+
   redeclare function extends density_derp_h
     "Density derivative by pressure"
   algorithm
@@ -271,6 +291,7 @@ package Steam
       region);
     annotation (Inline=true);
   end density_derp_h;
+
   redeclare replaceable function extends isentropicExponent
     "Return isentropic exponent"
   algorithm
@@ -280,6 +301,7 @@ package Steam
       region);
     annotation (Inline=true);
   end isentropicExponent;
+
   redeclare replaceable function extends isothermalCompressibility
     "Isothermal compressibility of water"
   algorithm
@@ -289,6 +311,7 @@ package Steam
       region);
     annotation (Inline=true);
   end isothermalCompressibility;
+
   redeclare replaceable function extends isobaricExpansionCoefficient
     "Isobaric expansion coefficient of water"
   algorithm
@@ -297,6 +320,7 @@ package Steam
       state.T,
       region);
   end isobaricExpansionCoefficient;
+
   redeclare replaceable function extends isentropicEnthalpy
     "Compute h(s,p)"
   algorithm
@@ -305,6 +329,7 @@ package Steam
       specificEntropy(refState),0);
     annotation (Inline=true);
   end isentropicEnthalpy;
+
   redeclare replaceable function extends molarMass
     "Return the molar mass of the medium"
   algorithm
@@ -317,18 +342,21 @@ package Steam
     T := Modelica.Media.Water.IF97_Utilities.BaseIF97.Basic.tsat(p);
     annotation (Inline=true);
   end saturationTemperature_p;
+
   redeclare replaceable function extends enthalpyOfSaturatedLiquid_sat
     "Return enthalpy of saturated liquid"
   algorithm
     hl := Modelica.Media.Water.IF97_Utilities.BaseIF97.Regions.hl_p(sat.psat);
     annotation (Inline=true);
   end enthalpyOfSaturatedLiquid_sat;
+
   redeclare replaceable function extends enthalpyOfSaturatedVapor_sat
     "Return enthalpy of saturated vapor"
   algorithm
     hv := Modelica.Media.Water.IF97_Utilities.BaseIF97.Regions.hv_p(sat.psat);
     annotation (Inline=true);
   end enthalpyOfSaturatedVapor_sat;
+
   redeclare replaceable function extends enthalpyOfVaporization_sat
     "Return enthalpy of vaporization"
   algorithm
@@ -336,6 +364,7 @@ package Steam
       enthalpyOfSaturatedLiquid_sat(sat);
     annotation (Inline=true);
   end enthalpyOfVaporization_sat;
+
   redeclare replaceable function extends entropyOfSaturatedLiquid_sat
     "Return entropy of saturated liquid"
   algorithm
@@ -344,12 +373,14 @@ package Steam
     annotation (
       Inline=true);
   end entropyOfSaturatedLiquid_sat;
+
   redeclare replaceable function extends entropyOfSaturatedVapor_sat
     "Return entropy of saturated vapor"
   algorithm
     sv := Modelica.Media.Water.IF97_Utilities.BaseIF97.Regions.sv_p(sat.psat);
     annotation (Inline=true);
   end entropyOfSaturatedVapor_sat;
+
   redeclare replaceable function extends entropyOfVaporization_sat
     "Return entropy of vaporization"
   algorithm
@@ -357,12 +388,14 @@ package Steam
       entropyOfSaturatedLiquid_sat(sat);
     annotation (Inline=true);
   end entropyOfVaporization_sat;
+
   redeclare replaceable function extends densityOfSaturatedLiquid_sat
     "Return density of saturated liquid"
   algorithm
     dl := Modelica.Media.Water.IF97_Utilities.BaseIF97.Regions.rhol_p(sat.psat)
     annotation (Inline=true);
   end densityOfSaturatedLiquid_sat;
+
   redeclare replaceable function extends densityOfSaturatedVapor_sat
     "Return density of saturated vapor"
   algorithm
@@ -380,6 +413,7 @@ package Steam
       p=p);
     annotation (Inline=true);
   end setState_pTX;
+
   redeclare function extends setState_phX
     "Return thermodynamic state as function of p, h and composition X or Xi"
   algorithm
@@ -390,6 +424,7 @@ package Steam
       p=p);
     annotation (Inline=true);
   end setState_phX;
+
   redeclare function extends setState_psX
     "Return thermodynamic state as function of p, s and composition X or Xi"
   algorithm
@@ -400,6 +435,7 @@ package Steam
       p=p);
     annotation (Inline=true);
   end setState_psX;
+
   redeclare function extends setState_dTX
     "Return thermodynamic state as function of d, T and composition X or Xi"
   algorithm
@@ -410,6 +446,7 @@ package Steam
       p=pressure_dT(d,T));
     annotation (Inline=true);
   end setState_dTX;
+
   redeclare function extends setSmoothState
     "Return thermodynamic state so that it smoothly approximates: if x > 0 then state_a else state_b"
     extends Modelica.Icons.Function;
@@ -484,6 +521,7 @@ Summing all mass fractions together results in
 </pre>
 </html>"));
   end setSmoothState;
+
   redeclare replaceable function extends saturationState_p
     "Return saturation property record from pressure"
   algorithm
@@ -536,6 +574,7 @@ protected
       smoothOrder=2,
       Inline=true);
   end rho_pT;
+
   function h_pT
     "Specific enthalpy as function or pressure and temperature"
     extends Modelica.Icons.Function;
@@ -556,6 +595,7 @@ protected
       smoothOrder=2,
       Inline=true);
   end h_pT;
+
   function s_pT
     "Specific entropy as function or pressure and temperature"
     extends Modelica.Icons.Function;
@@ -576,6 +616,7 @@ protected
       smoothOrder=2,
       Inline=true);
   end s_pT;
+
   function cp_pT
     "Specific heat capacity at constant pressure as function of pressure and temperature"
     extends Modelica.Icons.Function;
@@ -598,6 +639,7 @@ protected
       smoothOrder=2,
       Inline=true);
   end cp_pT;
+
   function cv_pT
     "Specific heat capacity at constant volume as function of pressure and temperature"
     extends Modelica.Icons.Function;
@@ -620,6 +662,7 @@ protected
       smoothOrder=2,
       Inline=true);
   end cv_pT;
+
   function T_ph
     "Temperature as function or pressure and enthalpy"
     extends Modelica.Icons.Function;
@@ -633,6 +676,7 @@ protected
       smoothOrder=2,
       Inline=true);
   end T_ph;
+
   function rho_ph
     "Density as function or pressure and enthalpy"
     extends Modelica.Icons.Function;
@@ -656,6 +700,7 @@ protected
       smoothOrder=2,
       Inline=true);
   end rho_ph;
+
   function s_ph
     "Specific entropy as function or pressure and enthalpy"
     extends Modelica.Icons.Function;
@@ -679,6 +724,7 @@ protected
       smoothOrder=2,
       Inline=true);
   end s_ph;
+
   function cp_ph
     "Specific heat capacity at constant pressure as function of pressure and enthalpy"
     extends Modelica.Icons.Function;
@@ -702,6 +748,7 @@ protected
       smoothOrder=2,
       Inline=true);
   end cp_ph;
+
   function cv_ph
     "Specific heat capacity at constant volume as function of pressure and enthalpy"
     extends Modelica.Icons.Function;
@@ -725,6 +772,7 @@ protected
       smoothOrder=2,
       Inline=true);
   end cv_ph;
+
   function tph2
     "Reverse function for region 2: T(p,h)"
     extends Modelica.Media.Water.IF97_Utilities.BaseIF97.Basic.tph2;
@@ -732,6 +780,7 @@ protected
       smoothOrder=1,
       Inline=true);
   end tph2;
+
   function g2
     "Gibbs function for region 2: g(p,T)"
     extends Modelica.Media.Water.IF97_Utilities.BaseIF97.Basic.g2;

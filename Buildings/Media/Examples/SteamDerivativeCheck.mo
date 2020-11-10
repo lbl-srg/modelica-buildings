@@ -22,10 +22,9 @@ model SteamDerivativeCheck
     unit="K/s3")=270
     "Conversion factor to satisfy unit check";
 initial equation
-  assert(
-    false,
-    "In "+getInstanceName()+": This model is a beta version and is not fully validated yet.",
-    level=AssertionLevel.warning);
+  Modelica.Utilities.Streams.print(
+    "Warning:\n  In " + getInstanceName() +
+    ": This model is a beta version and is not fully validated yet.");
   hVapSym=hVapCod;
   cpSym=cpCod;
   cvSym=cvCod;

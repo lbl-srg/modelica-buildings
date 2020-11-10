@@ -17,10 +17,9 @@ model SteamProperties
   Modelica.Media.Interfaces.Types.DerDensityByPressure ddph
     "Density derivative w.r.t. pressure";
 initial equation
-  assert(
-    false,
-    "In "+getInstanceName()+": This model is a beta version and is not fully validated yet.",
-    level=AssertionLevel.warning);
+  Modelica.Utilities.Streams.print(
+    "Warning:\n  In " + getInstanceName() +
+    ": This model is a beta version and is not fully validated yet.");
 equation
   // Check setting the states
   state_pTX=Medium.setState_pTX(
