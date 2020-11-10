@@ -1,9 +1,9 @@
-simulateModel("Buildings.Experimental.DHC.Loads.Examples.CouplingTimeSeries",
+simulateModel("Buildings.Experimental.DHC.Loads.Examples.CouplingTimeSeriesWet",
     method="cvode",
     tolerance=1e-6,
     numberOfIntervals=500,
     stopTime=31000000,
-    resultFile="CouplingTimeSeries");
+    resultFile="CouplingTimeSeriesWet");
 createPlot(
     id=1,
     position={1, 20, 492, 682},

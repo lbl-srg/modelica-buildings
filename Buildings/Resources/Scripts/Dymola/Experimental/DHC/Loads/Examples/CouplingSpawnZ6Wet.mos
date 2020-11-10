@@ -1,12 +1,12 @@
 old_hidden_avoid_double_computation=Hidden.AvoidDoubleComputation;
 Hidden.AvoidDoubleComputation=true;
-simulateModel("Buildings.Experimental.DHC.Loads.Examples.CouplingSpawnZ6",
+simulateModel("Buildings.Experimental.DHC.Loads.Examples.CouplingSpawnZ6Wet",
     method="cvode",
     tolerance=1e-6,
     numberOfIntervals=500,
     startTime=15724800.0,
     stopTime=16243200.0,
-    resultFile="CouplingSpawnZ6");
+    resultFile="CouplingSpawnZ6Wet");
 Hidden.AvoidDoubleComputation=old_hidden_avoid_double_computation;
 createPlot(
     id=1,
