@@ -1,36 +1,14 @@
 within Buildings.ThermalZones.EnergyPlus.Examples.VAVReheatRefBldgSmallOffice.BaseClasses;
 model Floor "Model of a floor of the building"
   extends
-    Buildings.ThermalZones.EnergyPlus.Examples.VAVReheatRefBldgSmallOffice.BaseClasses.PartialFloor(
-    final VRooCor=456.455,
-    final VRooSou=346.022,
-    final VRooNor=346.022,
-    final VRooEas=205.265,
-    final VRooWes=205.265,
-    intGaiFra(table=[0,0; 24,0]),
-    opeWesCor(wOpe=10*(17.69 + 8.46)/(40.76 + 24.13)),
-    opeSouCor(wOpe=10*(17.69 + 8.46)/(40.76 + 24.13)),
-    opeNorCor(wOpe=10*(17.69 + 8.46)/(40.76 + 24.13)),
-    opeEasCor(wOpe=10*(17.69 + 8.46)/(40.76 + 24.13)),
-    leaWes(res(m_flow(nominal=0.1))),
-    leaSou(res(m_flow(nominal=0.1))),
-    leaNor(res(m_flow(nominal=0.1))),
-    leaEas(res(m_flow(nominal=0.1))));
-
-
-
-  // Above, the volume V is for Spawn obtained in the initial equation section.
-  // Hence it is not known when the model is compiled. This leads to a
-  // warning in Dymola and an error in Optimica (Modelon#2020031339000191)
-  // if used in an expression for the nominal attribute of lea*(res(m_flow(nominal=....))).
-  // Assigning the nominal attribute to a constant avoids this warning and error.
+    Buildings.ThermalZones.EnergyPlus.Examples.VAVReheatRefBldgSmallOffice.BaseClasses.PartialFloor;
 
   final parameter Modelica.SIunits.Area AFloCor=cor.AFlo "Floor area corridor";
   final parameter Modelica.SIunits.Area AFloSou=sou.AFlo "Floor area south";
   final parameter Modelica.SIunits.Area AFloNor=nor.AFlo "Floor area north";
   final parameter Modelica.SIunits.Area AFloEas=eas.AFlo "Floor area east";
   final parameter Modelica.SIunits.Area AFloWes=wes.AFlo "Floor area west";
-  final parameter Modelica.SIunits.Area AFlo=AFloCor+AFloSou+AFloNor+AFloEas+AFloWes "Floor area west";
+  final parameter Modelica.SIunits.Area AFlo=AFloCor+AFloSou+AFloNor+AFloEas+AFloWes "Total floor area";
 
 
   Modelica.SIunits.Temperature TAirCor = cor.TAir
@@ -105,6 +83,12 @@ initial equation
   assert(abs(nor.V-VRooNor) < 0.01, "Volumes don't match. These had to be entered manually to avoid using a non-literal value.");
   assert(abs(eas.V-VRooEas) < 0.01, "Volumes don't match. These had to be entered manually to avoid using a non-literal value.");
   assert(abs(wes.V-VRooWes) < 0.01, "Volumes don't match. These had to be entered manually to avoid using a non-literal value.");
+  assert(abs(opeWesCor.wOpe-4) == 0.0, "wOpe in west zone doesn't match");
+
+  Modelica.Utilities.Streams.print(String(leaEas.s)+ ", MG test");
+  Modelica.Utilities.Streams.print(String(VRooWes)+ ", MG test");
+  Modelica.Utilities.Streams.print(String(opeWesCor.wOpe)+ ", MG test");
+  Modelica.Utilities.Streams.print(String(nor.T_start)+ ", MG test");
 equation
   connect(gai.y, cor.qGai_flow)          annotation (Line(
       points={{-79,110},{120,110},{120,66},{142,66}},

@@ -1,26 +1,35 @@
 within Buildings.ThermalZones.EnergyPlus;
-package UsersGuide "EnergyPlus package user's guide"
+package UsersGuide
+  "EnergyPlus package user's guide"
   extends Modelica.Icons.Information;
-  annotation (preferredView="info",
-Documentation(info="<html>
+  annotation (
+    preferredView="info",
+    Documentation(
+      info="<html>
 <h4>Overview</h4>
+<p align=\"right\">
+<img alt=\"Spawn logo\" src=\"modelica://Buildings/Resources/Images/ThermalZones/EnergyPlus/spawn_icon_darkbluetxlowres.png\"  style=\"float:right;height=203px;width:587px;\"/>
+</p>
 <p>
 This user guide describes how to use the EnergyPlus building envelope model.
 </p>
 <p>
-To instanciate a building, proceed as follows:
+Currently Windows 64 bit and Linux 64 bit are supported.
+</p>
+<p>
+To instanciate one or several buildnig models, proceed as follows:
 </p>
 <ol>
 <li>
 Create an instance of
-<a href=\"Buildings.ThermalZones.EnergyPlus.Building\">
-Buildings.ThermalZones.EnergyPlus.Building</a> for each building.
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus.Building\">
+Buildings.ThermalZones.EnergyPlus.Building</a> to specify the building model.
 This instance is automatically named <code>building</code> and this
-name must not be changed.
+name must not be changed.<br/>
 </li>
 <li>
 In the instance <code>building</code>, specify building-level parameters such as the
-EnergyPlus input file name and weather file name.<br/>
+EnergyPlus input file name and weather file name.
 </li>
 <li>
 For the weather file, both <code>.mos</code> and <code>.epw</code> files
@@ -45,7 +54,34 @@ as is done for any other fluid flow component.
 This instance will then connect the Modelica zone model with the
 EnergyPlus zone model.
 </li>
+<li>
+Optionally, to write to EnergyPlus actuators or schedules during the simulation,
+instantiate any number of
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus.Actuator\">
+Buildings.ThermalZones.EnergyPlus.Actuator</a>
+or
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus.Schedule\">
+Buildings.ThermalZones.EnergyPlus.Schedule</a> models.
+</li>
+<li>
+Optionally, to retrieve the current values of output variables from EnergyPlus,
+instantiate any number of
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus.OutputVariable\">
+Buildings.ThermalZones.EnergyPlus.OutputVariable</a> models.
+</li>
 </ol>
+<p>
+If you have more than one building, then repeat the above steps for each building and combine
+these building models in a top-level model.
+See for example
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus.Validation.MultipleBuildings.ThreeZonesTwoBuildings\">
+Buildings.ThermalZones.EnergyPlus.Validation.MultipleBuildings.ThreeZonesTwoBuildings</a>
+for how to combine two buildings in one Modelica model.
+</p>
+<p>
+For details of how to configure these models, see the information section of these models.
+</p>
+<h4>Conventions</h4>
 <p>
 The following conventions are made:
 </p>
@@ -239,11 +275,12 @@ is set in the Dymola command line window.
 For Dymola 2021, this flag will be set to <code>true</code> by default.
 </p>
 <p>
-This limitation only affects Dymola. JModelica can simulate Modelica models
+This limitation only affects Dymola. OPTIMICA and JModelica can simulate Modelica models
 for which the EnergyPlus model has multiple thermal zones, or for which
 multiple buildings are simulated in EnergyPlus.
 </p>
-</html>", revisions="<html>
+</html>",
+      revisions="<html>
 <ul>
 <li>
 April 20, 2020, by Kun Zhang: <br/>

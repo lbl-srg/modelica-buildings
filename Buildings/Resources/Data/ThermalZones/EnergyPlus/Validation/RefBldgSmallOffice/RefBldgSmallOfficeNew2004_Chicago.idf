@@ -66,14 +66,16 @@
 ! ***GENERAL SIMULATION PARAMETERS***
 ! Number of Zones: 6
 
-  Version,9.3;
+  Version,9.4;
 
   SimulationControl,
     YES,                     !- Do Zone Sizing Calculation
     YES,                     !- Do System Sizing Calculation
     YES,                     !- Do Plant Sizing Calculation
-    NO,                     !- Run Simulation for Sizing Periods
-    YES;                      !- Run Simulation for Weather File Run Periods
+    NO,                      !- Run Simulation for Sizing Periods
+    YES,                     !- Run Simulation for Weather File Run Periods
+    No,                      !- Do HVAC Sizing Simulation for Sizing Periods
+    1;                       !- Maximum Number of HVAC Sizing Simulation Passes
 
   Building,
     Ref Bldg Small Office New2004_v1.3_5.0,  !- Name
@@ -90,8 +92,8 @@
     1,                       !- Begin Month
     1,                       !- Begin Day of Month
     ,                        !- Begin Year
-     1,                      !- End Month
-     7,                      !- End Day of Month
+    1,                       !- End Month
+    7,                       !- End Day of Month
     ,                        !- End Year
     Sunday,                  !- Day of Week for Start Day
     No,                      !- Use Weather File Holidays and Special Days
@@ -259,7 +261,7 @@
     WinterDesignDay,         !- Day Type
     -20.6,                   !- Maximum Dry-Bulb Temperature {C}
     0.0,                     !- Daily Dry-Bulb Temperature Range {deltaC}
-    ,                        !- Dry-Bulb Temperature Range Modifier Type
+    DefaultMultipliers,      !- Dry-Bulb Temperature Range Modifier Type
     ,                        !- Dry-Bulb Temperature Range Modifier Day Schedule Name
     Wetbulb,                 !- Humidity Condition Type
     -20.6,                   !- Wetbulb or DewPoint at Maximum Dry-Bulb {C}
@@ -276,8 +278,8 @@
     ASHRAEClearSky,          !- Solar Model Indicator
     ,                        !- Beam Solar Day Schedule Name
     ,                        !- Diffuse Solar Day Schedule Name
-    ,                        !- ASHRAE Clear Sky Optical Depth for Beam Irradiance (taub) {dimensionless}
-    ,                        !- ASHRAE Clear Sky Optical Depth for Diffuse Irradiance (taud) {dimensionless}
+    0,                       !- ASHRAE Clear Sky Optical Depth for Beam Irradiance (taub) {dimensionless}
+    0,                       !- ASHRAE Clear Sky Optical Depth for Diffuse Irradiance (taud) {dimensionless}
     0.00;                    !- Sky Clearness
 
  ! CHICAGO_IL_USA Annual Cooling (WB=>MDB) .4%, MDB=31.2°C WB=25.5°C
@@ -289,7 +291,7 @@
     SummerDesignDay,         !- Day Type
     31.2,                    !- Maximum Dry-Bulb Temperature {C}
     10.7,                    !- Daily Dry-Bulb Temperature Range {deltaC}
-    ,                        !- Dry-Bulb Temperature Range Modifier Type
+    DefaultMultipliers,      !- Dry-Bulb Temperature Range Modifier Type
     ,                        !- Dry-Bulb Temperature Range Modifier Day Schedule Name
     Wetbulb,                 !- Humidity Condition Type
     25.5,                    !- Wetbulb or DewPoint at Maximum Dry-Bulb {C}
@@ -306,8 +308,8 @@
     ASHRAEClearSky,          !- Solar Model Indicator
     ,                        !- Beam Solar Day Schedule Name
     ,                        !- Diffuse Solar Day Schedule Name
-    ,                        !- ASHRAE Clear Sky Optical Depth for Beam Irradiance (taub) {dimensionless}
-    ,                        !- ASHRAE Clear Sky Optical Depth for Diffuse Irradiance (taud) {dimensionless}
+    0,                       !- ASHRAE Clear Sky Optical Depth for Beam Irradiance (taub) {dimensionless}
+    0,                       !- ASHRAE Clear Sky Optical Depth for Diffuse Irradiance (taud) {dimensionless}
     1.00;                    !- Sky Clearness
 
   Site:WaterMainsTemperature,
@@ -561,8 +563,8 @@
     0.0000,                  !- Z Origin {m}
     1,                       !- Type
     1,                       !- Multiplier
-    ,                        !- Ceiling Height {m}
-    ,                        !- Volume {m3}
+    Autocalculate,           !- Ceiling Height {m}
+    Autocalculate,           !- Volume {m3}
     autocalculate,           !- Floor Area {m2}
     ,                        !- Zone Inside Convection Algorithm
     ,                        !- Zone Outside Convection Algorithm
@@ -576,8 +578,8 @@
     0.0000,                  !- Z Origin {m}
     1,                       !- Type
     1,                       !- Multiplier
-    ,                        !- Ceiling Height {m}
-    ,                        !- Volume {m3}
+    Autocalculate,           !- Ceiling Height {m}
+    Autocalculate,           !- Volume {m3}
     autocalculate,           !- Floor Area {m2}
     ,                        !- Zone Inside Convection Algorithm
     ,                        !- Zone Outside Convection Algorithm
@@ -591,8 +593,8 @@
     0.0000,                  !- Z Origin {m}
     1,                       !- Type
     1,                       !- Multiplier
-    ,                        !- Ceiling Height {m}
-    ,                        !- Volume {m3}
+    Autocalculate,           !- Ceiling Height {m}
+    Autocalculate,           !- Volume {m3}
     autocalculate,           !- Floor Area {m2}
     ,                        !- Zone Inside Convection Algorithm
     ,                        !- Zone Outside Convection Algorithm
@@ -606,8 +608,8 @@
     0.0000,                  !- Z Origin {m}
     1,                       !- Type
     1,                       !- Multiplier
-    ,                        !- Ceiling Height {m}
-    ,                        !- Volume {m3}
+    Autocalculate,           !- Ceiling Height {m}
+    Autocalculate,           !- Volume {m3}
     autocalculate,           !- Floor Area {m2}
     ,                        !- Zone Inside Convection Algorithm
     ,                        !- Zone Outside Convection Algorithm
@@ -621,8 +623,8 @@
     0.0000,                  !- Z Origin {m}
     1,                       !- Type
     1,                       !- Multiplier
-    ,                        !- Ceiling Height {m}
-    ,                        !- Volume {m3}
+    Autocalculate,           !- Ceiling Height {m}
+    Autocalculate,           !- Volume {m3}
     autocalculate,           !- Floor Area {m2}
     ,                        !- Zone Inside Convection Algorithm
     ,                        !- Zone Outside Convection Algorithm
@@ -636,8 +638,8 @@
     0.0000,                  !- Z Origin {m}
     1,                       !- Type
     1,                       !- Multiplier
-    ,                        !- Ceiling Height {m}
-    ,                        !- Volume {m3}
+    Autocalculate,           !- Ceiling Height {m}
+    Autocalculate,           !- Volume {m3}
     autocalculate,           !- Floor Area {m2}
     ,                        !- Zone Inside Convection Algorithm
     ,                        !- Zone Outside Convection Algorithm
@@ -1669,7 +1671,7 @@
     0.3000,                  !- Fraction Radiant
     AUTOCALCULATE,           !- Sensible Heat Fraction
     ACTIVITY_SCH,            !- Activity Level Schedule Name
-    ,                        !- Carbon Dioxide Generation Rate {m3/s-W}
+    3.82E-8,                 !- Carbon Dioxide Generation Rate {m3/s-W}
     No,                      !- Enable ASHRAE 55 Comfort Warnings
     ZoneAveraged,            !- Mean Radiant Temperature Calculation Type
     ,                        !- Surface Name/Angle Factor List Name
@@ -1691,7 +1693,7 @@
     0.3000,                  !- Fraction Radiant
     AUTOCALCULATE,           !- Sensible Heat Fraction
     ACTIVITY_SCH,            !- Activity Level Schedule Name
-    ,                        !- Carbon Dioxide Generation Rate {m3/s-W}
+    3.82E-8,                 !- Carbon Dioxide Generation Rate {m3/s-W}
     No,                      !- Enable ASHRAE 55 Comfort Warnings
     ZoneAveraged,            !- Mean Radiant Temperature Calculation Type
     ,                        !- Surface Name/Angle Factor List Name
@@ -1713,7 +1715,7 @@
     0.3000,                  !- Fraction Radiant
     AUTOCALCULATE,           !- Sensible Heat Fraction
     ACTIVITY_SCH,            !- Activity Level Schedule Name
-    ,                        !- Carbon Dioxide Generation Rate {m3/s-W}
+    3.82E-8,                 !- Carbon Dioxide Generation Rate {m3/s-W}
     No,                      !- Enable ASHRAE 55 Comfort Warnings
     ZoneAveraged,            !- Mean Radiant Temperature Calculation Type
     ,                        !- Surface Name/Angle Factor List Name
@@ -1735,7 +1737,7 @@
     0.3000,                  !- Fraction Radiant
     AUTOCALCULATE,           !- Sensible Heat Fraction
     ACTIVITY_SCH,            !- Activity Level Schedule Name
-    ,                        !- Carbon Dioxide Generation Rate {m3/s-W}
+    3.82E-8,                 !- Carbon Dioxide Generation Rate {m3/s-W}
     No,                      !- Enable ASHRAE 55 Comfort Warnings
     ZoneAveraged,            !- Mean Radiant Temperature Calculation Type
     ,                        !- Surface Name/Angle Factor List Name
@@ -1757,7 +1759,7 @@
     0.3000,                  !- Fraction Radiant
     AUTOCALCULATE,           !- Sensible Heat Fraction
     ACTIVITY_SCH,            !- Activity Level Schedule Name
-    ,                        !- Carbon Dioxide Generation Rate {m3/s-W}
+    3.82E-8,                 !- Carbon Dioxide Generation Rate {m3/s-W}
     No,                      !- Enable ASHRAE 55 Comfort Warnings
     ZoneAveraged,            !- Mean Radiant Temperature Calculation Type
     ,                        !- Surface Name/Angle Factor List Name
@@ -2096,7 +2098,6 @@
     0.0000,                  !- Velocity Term Coefficient
     0.0000;                  !- Velocity Squared Term Coefficient
 
-
 ! ***SCHEDULES***
 
   Schedule:Compact,
@@ -2167,7 +2168,6 @@
     Until: 24:00,0.0,        !- Field 14
     For: AllOtherDays,       !- Field 16
     Until: 24:00,0.0;        !- Field 17
-
 
 ! ***SWH SCHEDULES***
 
@@ -2272,292 +2272,6 @@
     For: AllDays,            !- Field 2
     Until: 24:00,60.0;       !- Field 3
 
-! ***ECONOMICS***
-!   IN_EIAMonthlyRateGas, Source EIA historical Nov2003 thru Oct2004
-! Indiana 1999 state average electricity emissions factors based on eGRID, 1065, AirData
-! PSI_CS_CommercialElectricService, source http://www.cinergypsi.com/pdfs/RateCS.pdf, effective 2004-05-24
-! PSI_LLF_LowLoadFactorService,source http://www.cinergypsi.com/pdfs/RATELLF.pdf, effective 2004-05-24
-
-  UtilityCost:Tariff,
-    PSI_LLF_LowLoadFactorService,  !- Name
-    Electricity:Facility,    !- Output Meter Name
-    kWh,                     !- Conversion Factor Choice
-    ,                        !- Energy Conversion Factor
-    ,                        !- Demand Conversion Factor
-    ,                        !- Time of Use Period Schedule Name
-    ,                        !- Season Schedule Name
-    ,                        !- Month Schedule Name
-    HalfHour,                !- Demand Window Length
-    15.00,                   !- Monthly Charge or Variable Name
-    ,                        !- Minimum Monthly Charge or Variable Name
-    ,                        !- Real Time Pricing Charge Schedule Name
-    ,                        !- Customer Baseline Load Schedule Name
-    Comm Elect;              !- Group Name
-
-  UtilityCost:Charge:Block,
-    AnnualEnergyCharge,      !- Utility Cost Charge Block Name
-    PSI_LLF_LowLoadFactorService,  !- Tariff Name
-    totalEnergy,             !- Source Variable
-    Annual,                  !- Season
-    EnergyCharges,           !- Category Variable Name
-    ,                        !- Remaining Into Variable
-    ,                        !- Block Size Multiplier Value or Variable Name
-    300,                     !- Block Size 1 Value or Variable Name
-    0.108222,                !- Block 1 Cost per Unit Value or Variable Name
-    700,                     !- Block Size 2 Value or Variable Name
-    0.087021,                !- Block 2 Cost per Unit Value or Variable Name
-    1500,                    !- Block Size 3 Value or Variable Name
-    0.078420,                !- Block 3 Cost per Unit Value or Variable Name
-    remaining,               !- Block Size 4 Value or Variable Name
-    0.058320;                !- Block 4 Cost per Unit Value or Variable Name
-
-  UtilityCost:Charge:Block,
-    AnnualDemandBaseCharge,  !- Utility Cost Charge Block Name
-    PSI_LLF_LowLoadFactorService,  !- Tariff Name
-    totalEnergy,             !- Source Variable
-    Annual,                  !- Season
-    EnergyCharges,           !- Category Variable Name
-    ,                        !- Remaining Into Variable
-    TotalDemand,             !- Block Size Multiplier Value or Variable Name
-    190,                     !- Block Size 1 Value or Variable Name
-    0.0,                     !- Block 1 Cost per Unit Value or Variable Name
-    110,                     !- Block Size 2 Value or Variable Name
-    0.051773,                !- Block 2 Cost per Unit Value or Variable Name
-    remaining,               !- Block Size 3 Value or Variable Name
-    0.046965;                !- Block 3 Cost per Unit Value or Variable Name
-
-  UtilityCost:Charge:Simple,
-    FuelCostAdjustEnergyCharge,  !- Utility Cost Charge Simple Name
-    PSI_LLF_LowLoadFactorService,  !- Tariff Name
-    totalEnergy,             !- Source Variable
-    Annual,                  !- Season
-    EnergyCharges,           !- Category Variable Name
-    0.002028;                !- Cost per Unit Value or Variable Name
-
-  UtilityCost:Charge:Simple,
-    QualPollutionControlAdjustEnergyCharge,  !- Utility Cost Charge Simple Name
-    PSI_LLF_LowLoadFactorService,  !- Tariff Name
-    totalEnergy,             !- Source Variable
-    Annual,                  !- Season
-    EnergyCharges,           !- Category Variable Name
-    0.000536;                !- Cost per Unit Value or Variable Name
-
-  UtilityCost:Charge:Simple,
-    SoxNoxRiderAdjustEnergyCharge,  !- Utility Cost Charge Simple Name
-    PSI_LLF_LowLoadFactorService,  !- Tariff Name
-    totalEnergy,             !- Source Variable
-    Annual,                  !- Season
-    EnergyCharges,           !- Category Variable Name
-    0.001127;                !- Cost per Unit Value or Variable Name
-
-  UtilityCost:Charge:Simple,
-    DSMRiderAdjustEnergyCharge,  !- Utility Cost Charge Simple Name
-    PSI_LLF_LowLoadFactorService,  !- Tariff Name
-    totalEnergy,             !- Source Variable
-    Annual,                  !- Season
-    EnergyCharges,           !- Category Variable Name
-    -0.000370;               !- Cost per Unit Value or Variable Name
-
-  UtilityCost:Charge:Simple,
-    PurchPowerTrackerAdjustEnergyCharge,  !- Utility Cost Charge Simple Name
-    PSI_LLF_LowLoadFactorService,  !- Tariff Name
-    totalEnergy,             !- Source Variable
-    Annual,                  !- Season
-    EnergyCharges,           !- Category Variable Name
-    -0.000031;               !- Cost per Unit Value or Variable Name
-
-  UtilityCost:Charge:Simple,
-    MidwestISOAdjustEnergyCharge,  !- Utility Cost Charge Simple Name
-    PSI_LLF_LowLoadFactorService,  !- Tariff Name
-    totalEnergy,             !- Source Variable
-    Annual,                  !- Season
-    EnergyCharges,           !- Category Variable Name
-    -0.000216;               !- Cost per Unit Value or Variable Name
-
-  UtilityCost:Charge:Simple,
-    CleanCoalRiderEnergyCharge,  !- Utility Cost Charge Simple Name
-    PSI_LLF_LowLoadFactorService,  !- Tariff Name
-    totalEnergy,             !- Source Variable
-    Annual,                  !- Season
-    EnergyCharges,           !- Category Variable Name
-    0.000833;                !- Cost per Unit Value or Variable Name
-
-  UtilityCost:Qualify,
-    MinDemand75kw,           !- Utility Cost Qualify Name
-    PSI_LLF_LowLoadFactorService,  !- Tariff Name
-    TotalDemand,             !- Variable Name
-    Minimum,                 !- Qualify Type
-    75,                      !- Threshold Value or Variable Name
-    Annual,                  !- Season
-    Count,                   !- Threshold Test
-    12;                      !- Number of Months
-
-  UtilityCost:Charge:Simple,
-    TaxofeightPercent,       !- Utility Cost Charge Simple Name
-    PSI_LLF_LowLoadFactorService,  !- Tariff Name
-    SubTotal,                !- Source Variable
-    Annual,                  !- Season
-    Taxes,                   !- Category Variable Name
-    0.08;                    !- Cost per Unit Value or Variable Name
-
-!end  PSI_LLF_LowLoadFactorService
-
-  UtilityCost:Tariff,
-    PSI_CS_CommercialElectricService,  !- Name
-    Electricity:Facility,    !- Output Meter Name
-    kWh,                     !- Conversion Factor Choice
-    ,                        !- Energy Conversion Factor
-    ,                        !- Demand Conversion Factor
-    ,                        !- Time of Use Period Schedule Name
-    ,                        !- Season Schedule Name
-    ,                        !- Month Schedule Name
-    ,                        !- Demand Window Length
-    9.40,                    !- Monthly Charge or Variable Name
-    ,                        !- Minimum Monthly Charge or Variable Name
-    ,                        !- Real Time Pricing Charge Schedule Name
-    ,                        !- Customer Baseline Load Schedule Name
-    Comm Elect;              !- Group Name
-
-  UtilityCost:Charge:Block,
-    AnnualEnergyCharge,      !- Utility Cost Charge Block Name
-    PSI_CS_CommercialElectricService,  !- Tariff Name
-    totalEnergy,             !- Source Variable
-    Annual,                  !- Season
-    EnergyCharges,           !- Category Variable Name
-    ,                        !- Remaining Into Variable
-    ,                        !- Block Size Multiplier Value or Variable Name
-    300,                     !- Block Size 1 Value or Variable Name
-    0.082409,                !- Block 1 Cost per Unit Value or Variable Name
-    700,                     !- Block Size 2 Value or Variable Name
-    0.072873,                !- Block 2 Cost per Unit Value or Variable Name
-    1500,                    !- Block Size 3 Value or Variable Name
-    0.061696,                !- Block 3 Cost per Unit Value or Variable Name
-    remaining,               !- Block Size 4 Value or Variable Name
-    0.041179;                !- Block 4 Cost per Unit Value or Variable Name
-
-  UtilityCost:Charge:Simple,
-    FuelCostAdjustEnergyCharge,  !- Utility Cost Charge Simple Name
-    PSI_CS_CommercialElectricService,  !- Tariff Name
-    totalEnergy,             !- Source Variable
-    Annual,                  !- Season
-    EnergyCharges,           !- Category Variable Name
-    0.002028;                !- Cost per Unit Value or Variable Name
-
-  UtilityCost:Charge:Simple,
-    QualPollutionControlAdjustEnergyCharge,  !- Utility Cost Charge Simple Name
-    PSI_CS_CommercialElectricService,  !- Tariff Name
-    totalEnergy,             !- Source Variable
-    Annual,                  !- Season
-    EnergyCharges,           !- Category Variable Name
-    0.000536;                !- Cost per Unit Value or Variable Name
-
-  UtilityCost:Charge:Simple,
-    SoxNoxRiderAdjustEnergyCharge,  !- Utility Cost Charge Simple Name
-    PSI_CS_CommercialElectricService,  !- Tariff Name
-    totalEnergy,             !- Source Variable
-    Annual,                  !- Season
-    EnergyCharges,           !- Category Variable Name
-    0.001127;                !- Cost per Unit Value or Variable Name
-
-  UtilityCost:Charge:Simple,
-    DSMRiderAdjustEnergyCharge,  !- Utility Cost Charge Simple Name
-    PSI_CS_CommercialElectricService,  !- Tariff Name
-    totalEnergy,             !- Source Variable
-    Annual,                  !- Season
-    EnergyCharges,           !- Category Variable Name
-    0.000021;                !- Cost per Unit Value or Variable Name
-
-  UtilityCost:Charge:Simple,
-    PurchPowerTrackerAdjustEnergyCharge,  !- Utility Cost Charge Simple Name
-    PSI_CS_CommercialElectricService,  !- Tariff Name
-    totalEnergy,             !- Source Variable
-    Annual,                  !- Season
-    EnergyCharges,           !- Category Variable Name
-    0.000034;                !- Cost per Unit Value or Variable Name
-
-  UtilityCost:Charge:Simple,
-    MidwestISOAdjustEnergyCharge,  !- Utility Cost Charge Simple Name
-    PSI_CS_CommercialElectricService,  !- Tariff Name
-    totalEnergy,             !- Source Variable
-    Annual,                  !- Season
-    EnergyCharges,           !- Category Variable Name
-    -0.000203;               !- Cost per Unit Value or Variable Name
-
-  UtilityCost:Charge:Simple,
-    CleanCoalRiderEnergyCharge,  !- Utility Cost Charge Simple Name
-    PSI_CS_CommercialElectricService,  !- Tariff Name
-    totalEnergy,             !- Source Variable
-    Annual,                  !- Season
-    EnergyCharges,           !- Category Variable Name
-    0.000807;                !- Cost per Unit Value or Variable Name
-
-  UtilityCost:Qualify,
-    MaxDemand75kw,           !- Utility Cost Qualify Name
-    PSI_CS_CommercialElectricService,  !- Tariff Name
-    TotalDemand,             !- Variable Name
-    Maximum,                 !- Qualify Type
-    75,                      !- Threshold Value or Variable Name
-    Annual,                  !- Season
-    Count,                   !- Threshold Test
-    1;                       !- Number of Months
-
-  UtilityCost:Charge:Simple,
-    TaxofeightPercent,       !- Utility Cost Charge Simple Name
-    PSI_CS_CommercialElectricService,  !- Tariff Name
-    SubTotal,                !- Source Variable
-    Annual,                  !- Season
-    Taxes,                   !- Category Variable Name
-    0.08;                    !- Cost per Unit Value or Variable Name
-
-  UtilityCost:Tariff,
-    IN_EIAMonthlyRateGas,    !- Name
-    Gas:Facility,            !- Output Meter Name
-    MCF,                     !- Conversion Factor Choice
-    ,                        !- Energy Conversion Factor
-    ,                        !- Demand Conversion Factor
-    ,                        !- Time of Use Period Schedule Name
-    ,                        !- Season Schedule Name
-    ,                        !- Month Schedule Name
-    ,                        !- Demand Window Length
-    0.0,                     !- Monthly Charge or Variable Name
-    ,                        !- Minimum Monthly Charge or Variable Name
-    ,                        !- Real Time Pricing Charge Schedule Name
-    ,                        !- Customer Baseline Load Schedule Name
-    Comm Gas;                !- Group Name
-
-  UtilityCost:Charge:Simple,
-    MonthlyRateGasCharge,    !- Utility Cost Charge Simple Name
-    IN_EIAMonthlyRateGas,    !- Tariff Name
-    totalEnergy,             !- Source Variable
-    Annual,                  !- Season
-    EnergyCharges,           !- Category Variable Name
-    IN_MonthlyGasRates;      !- Cost per Unit Value or Variable Name
-
-  UtilityCost:Variable,
-    IN_MonthlyGasRates,      !- Name
-    IN_EIAMonthlyRateGas,    !- Tariff Name
-    Currency,                !- Variable Type
-    8.22,                    !- January Value
-    7.51,                    !- February Value
-    8.97,                    !- March Value
-    9.01,                    !- April Value
-    9.16,                    !- May Value
-    10.44,                   !- June Value
-    10.32,                   !- July Value
-    10.13,                   !- August Value
-    9.20,                    !- September Value
-    8.18,                    !- October Value
-    7.83,                    !- November Value
-    7.63;                    !- December Value
-
-  UtilityCost:Charge:Simple,
-    TaxofEightPercent,       !- Utility Cost Charge Simple Name
-    IN_EIAMonthlyRateGas,    !- Tariff Name
-    SubTotal,                !- Source Variable
-    Annual,                  !- Season
-    Taxes,                   !- Category Variable Name
-    0.08;                    !- Cost per Unit Value or Variable Name
-
 ! ***GENERAL REPORTING***
 
   OutputControl:ReportingTolerances,
@@ -2579,31 +2293,15 @@
 
   Output:Meter,Electricity:Facility,timestep;
 
-  Output:Meter,Fans:Electricity,timestep;
-
-  Output:Meter,Cooling:Electricity,timestep;
-
-  Output:Meter,Heating:Electricity,timestep;
-
   Output:Meter,InteriorLights:Electricity,timestep;
 
   Output:Meter,InteriorEquipment:Electricity,timestep;
-
-  Output:Meter,Gas:Facility,timestep;
-
-  Output:Meter,Heating:Gas,timestep;
-
-  Output:Meter,InteriorEquipment:Gas,timestep;
-
-  Output:Meter,Water Heater:WaterSystems:Gas,timestep;
 
   Output:Variable,*,Site Outdoor Air Drybulb Temperature,timestep;
 
   Output:Variable,*,Site Outdoor Air Humidity Ratio,timestep;
 
   Output:Variable,*,Site Outdoor Air Relative Humidity,timestep;
-
-  Output:Variable,*,Air System Outdoor Air Flow Fraction,timestep;
 
   Output:Variable,*,Air System Simulation Cycle On Off Status,timestep;
 
@@ -2621,117 +2319,6 @@
 
   OutputControl:Table:Style,
     HTML;                    !- Column Separator
-
-  Output:Table:SummaryReports,
-    AnnualBuildingUtilityPerformanceSummary,  !- Report 1 Name
-    InputVerificationandResultsSummary,  !- Report 2 Name
-    ClimaticDataSummary,     !- Report 3 Name
-    EnvelopeSummary,         !- Report 4 Name
-    EquipmentSummary,        !- Report 5 Name
-    ComponentSizingSummary,  !- Report 6 Name
-    HVACSizingSummary,       !- Report 7 Name
-    SystemSummary;           !- Report 8 Name
-
-  Output:Table:Monthly,
-    Emissions Data Summary,  !- Name
-    4,                       !- Digits After Decimal
-    CO2:Facility,            !- Variable or Meter 1 Name
-    SumOrAverage,            !- Aggregation Type for Variable or Meter 1
-    NOx:Facility,            !- Variable or Meter 2 Name
-    SumOrAverage,            !- Aggregation Type for Variable or Meter 2
-    SO2:Facility,            !- Variable or Meter 3 Name
-    SumOrAverage,            !- Aggregation Type for Variable or Meter 3
-    PM:Facility,             !- Variable or Meter 4 Name
-    SumOrAverage,            !- Aggregation Type for Variable or Meter 4
-    Hg:Facility,             !- Variable or Meter 5 Name
-    SumOrAverage,            !- Aggregation Type for Variable or Meter 5
-    WaterEnvironmentalFactors:Facility,  !- Variable or Meter 6 Name
-    SumOrAverage,            !- Aggregation Type for Variable or Meter 6
-    Carbon Equivalent:Facility,  !- Variable or Meter 7 Name
-    SumOrAverage;            !- Aggregation Type for Variable or Meter 7
-
-  Output:Table:Monthly,
-    Components of Peak Electrical Demand,  !- Name
-    3,                       !- Digits After Decimal
-    Electricity:Facility,    !- Variable or Meter 1 Name
-    SumOrAverage,            !- Aggregation Type for Variable or Meter 1
-    Electricity:Facility,    !- Variable or Meter 2 Name
-    Maximum,                 !- Aggregation Type for Variable or Meter 2
-    InteriorLights:Electricity,  !- Variable or Meter 3 Name
-    ValueWhenMaximumOrMinimum,  !- Aggregation Type for Variable or Meter 3
-    InteriorEquipment:Electricity,  !- Variable or Meter 4 Name
-    ValueWhenMaximumOrMinimum,  !- Aggregation Type for Variable or Meter 4
-    Fans:Electricity,        !- Variable or Meter 5 Name
-    ValueWhenMaximumOrMinimum,  !- Aggregation Type for Variable or Meter 5
-    Heating:Electricity,     !- Variable or Meter 6 Name
-    ValueWhenMaximumOrMinimum,  !- Aggregation Type for Variable or Meter 6
-    Cooling:Electricity,     !- Variable or Meter 7 Name
-    ValueWhenMaximumOrMinimum,  !- Aggregation Type for Variable or Meter 7
-    ExteriorLights:Electricity,  !- Variable or Meter 8 Name
-    ValueWhenMaximumOrMinimum,  !- Aggregation Type for Variable or Meter 8
-    Pumps:Electricity,       !- Variable or Meter 9 Name
-    ValueWhenMaximumOrMinimum,  !- Aggregation Type for Variable or Meter 9
-    HeatRejection:Electricity,  !- Variable or Meter 10 Name
-    ValueWhenMaximumOrMinimum,  !- Aggregation Type for Variable or Meter 10
-    ExteriorEquipment:Electricity,  !- Variable or Meter 11 Name
-    ValueWhenMaximumOrMinimum,  !- Aggregation Type for Variable or Meter 11
-    Humidification:Electricity,  !- Variable or Meter 12 Name
-    ValueWhenMaximumOrMinimum,  !- Aggregation Type for Variable or Meter 12
-    HeatRecovery:Electricity,!- Variable or Meter 13 Name
-    ValueWhenMaximumOrMinimum,  !- Aggregation Type for Variable or Meter 13
-    WaterSystems:Electricity,!- Variable or Meter 14 Name
-    ValueWhenMaximumOrMinimum,  !- Aggregation Type for Variable or Meter 14
-    Refrigeration:Electricity,  !- Variable or Meter 15 Name
-    ValueWhenMaximumOrMinimum,  !- Aggregation Type for Variable or Meter 15
-    Generators:Electricity,  !- Variable or Meter 16 Name
-    ValueWhenMaximumOrMinimum,  !- Aggregation Type for Variable or Meter 16
-    ElectricityProduced:Facility,  !- Variable or Meter 17 Name
-    ValueWhenMaximumOrMinimum;  !- Aggregation Type for Variable or Meter 17
-
-  Output:Table:Monthly,
-    Heating Part Load Performance,  !- Name
-    0,                       !- Digits After Decimal
-    Heating Coil Gas Rate,   !- Variable or Meter 1 Name
-    SumOrAverage,            !- Aggregation Type for Variable or Meter 1
-    Heating Coil Gas Rate,   !- Variable or Meter 2 Name
-    Maximum;                 !- Aggregation Type for Variable or Meter 2
-
-  Output:Table:Monthly,
-    Cooling Part Load Performance,  !- Name
-    0,                       !- Digits After Decimal
-    Cooling Coil Electric Power,  !- Variable or Meter 1 Name
-    SumOrAverage,            !- Aggregation Type for Variable or Meter 1
-    Cooling Coil Electric Power,  !- Variable or Meter 2 Name
-    Maximum;                 !- Aggregation Type for Variable or Meter 2
-
-  Output:Table:Monthly,
-    Fan Part Load Performance,  !- Name
-    0,                       !- Digits After Decimal
-    Fan Electric Power,      !- Variable or Meter 1 Name
-    SumOrAverage,            !- Aggregation Type for Variable or Meter 1
-    Fan Electric Power,      !- Variable or Meter 2 Name
-    Maximum;                 !- Aggregation Type for Variable or Meter 2
-
-  Output:Table:TimeBins,
-    *,                       !- Key Value
-    Zone Air Relative Humidity,  !- Variable Name
-    60,                      !- Interval Start
-    10,                      !- Interval Size
-    4;                       !- Interval Count
-
-  Output:Table:TimeBins,
-    *,                       !- Key Value
-    Air System Outdoor Air Flow Fraction,  !- Variable Name
-    0.00,                    !- Interval Start
-    0.20,                    !- Interval Size
-    5;                       !- Interval Count
-
-  Output:Table:TimeBins,
-    *,                       !- Key Value
-    Availability Manager Night Cycle Control Status,  !- Variable Name
-    0,                       !- Interval Start
-    1,                       !- Interval Size
-    4;                       !- Interval Count
 
 ! ***ENVIRONMENTAL FACTORS REPORTING***
 
@@ -2829,3 +2416,4 @@
     0,                       !- Nuclear High Level Emission Factor {g/MJ}
     ,                        !- Nuclear High Level Emission Factor Schedule Name
     0;                       !- Nuclear Low Level Emission Factor {m3/MJ}
+

@@ -51,20 +51,15 @@ protected
     final timeScale=timeScale) "Time table"
     annotation (Placement(transformation(extent={{-12,-10},{8,10}})));
 
-  function round "Round function from Buildings.Controls.OBC.CDL.Continuous.Round"
-    input Real x "Argument";
-    input Real n "Digits";
-    output Real y "Rounded argument";
-  protected
-    Real fac = 10^n "Factor used for rounding";
-  algorithm
-    y :=if (x > 0) then floor(x*fac + 0.5)/fac else ceil(x*fac - 0.5)/fac;
-  end round;
-
 initial equation
   // If the table has only one time stamp, then timeRange is zero.
   // We can then set t0 to be equal to the start of the simulation.
-  t0 = if nT == 1 then time else round(integer(time/timeRange)*timeRange, 6);
+  t0 = if nT == 1 then
+         time
+       else
+         Buildings.Utilities.Math.Functions.round(
+           x = integer(time/timeRange)*timeRange,
+           n = 6);
 
 equation
   connect(tab.y, y) annotation (Line(points={{9,0},{120,0}}, color={0,0,127}));
@@ -242,6 +237,11 @@ of <i>0.5</i> seconds outputs
 </html>",
 revisions="<html>
 <ul>
+<li>
+October 19, 2020, by Michael Wetter:<br/>
+Revised to call <code>round()</code> as a function.<br/>
+For <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2170\">#2170</a>.
+</li>
 <li>
 October 7, 2020, by Michael Wetter:<br/>
 Revised implementation to add <code>timeSpan</code>.

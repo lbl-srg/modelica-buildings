@@ -1,66 +1,60 @@
 within Buildings.ThermalZones.EnergyPlus;
-model Actuator "Block to write to an EnergyPlus actuator"
+model Actuator
+  "Block to write to an EnergyPlus actuator"
   extends Buildings.ThermalZones.EnergyPlus.BaseClasses.PartialEnergyPlusObject;
-
   parameter String variableName
     "Actuated component unique name in the EnergyPlus idf file";
-
   parameter String componentType
     "Actuated component type";
-
   parameter String controlType
     "Actuated component control type";
-
   parameter Buildings.ThermalZones.EnergyPlus.Types.Units unit
     "Unit of variable as used in Modelica"
-    annotation(choicesAllMatching = true);
-
-  Modelica.Blocks.Interfaces.RealInput u "Continuous input signal to be written to EnergyPlus"
+    annotation (choicesAllMatching=true);
+  Modelica.Blocks.Interfaces.RealInput u
+    "Continuous input signal to be written to EnergyPlus"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-
-  Modelica.Blocks.Interfaces.RealOutput y "Value written to EnergyPlus (use for direct dependency of Actuators and Schedules)"
-    annotation (Placement(transformation(extent={{100,-20},{140,20}}),
-        iconTransformation(extent={{100,-20},{140,20}})));
-
+  Modelica.Blocks.Interfaces.RealOutput y
+    "Value written to EnergyPlus (use for direct dependency of Actuators and Schedules)"
+    annotation (Placement(transformation(extent={{100,-20},{140,20}}),iconTransformation(extent={{100,-20},{140,20}})));
 protected
-  constant String modelicaNameInputVariable = getInstanceName()
+  constant String modelicaNameInputVariable=getInstanceName()
     "Name of this instance"
-    annotation(HideResult=true);
-
-  Buildings.ThermalZones.EnergyPlus.BaseClasses.FMUInputVariableClass adapter=
-      Buildings.ThermalZones.EnergyPlus.BaseClasses.FMUInputVariableClass(
-      objectType=1,
-      modelicaNameBuilding=modelicaNameBuilding,
-      modelicaNameInputVariable=modelicaNameInputVariable,
-      idfName=idfName,
-      weaName=weaName,
-      name=variableName,
-      componentType=componentType,
-      controlType=controlType,
-      unit=Buildings.ThermalZones.EnergyPlus.BaseClasses.getUnitAsString(unit),
-      usePrecompiledFMU=usePrecompiledFMU,
-      fmuName=fmuName,
-      buildingsLibraryRoot=Buildings.ThermalZones.EnergyPlus.BaseClasses.buildingsLibraryRoot,
-      logLevel=logLevel)
-   "Class to communicate with EnergyPlus";
-
+    annotation (HideResult=true);
+  Buildings.ThermalZones.EnergyPlus.BaseClasses.FMUInputVariableClass adapter=Buildings.ThermalZones.EnergyPlus.BaseClasses.FMUInputVariableClass(
+    objectType=1,
+    modelicaNameBuilding=modelicaNameBuilding,
+    modelicaNameInputVariable=modelicaNameInputVariable,
+    idfName=idfName,
+    weaName=weaName,
+    name=variableName,
+    componentType=componentType,
+    controlType=controlType,
+    unit=Buildings.ThermalZones.EnergyPlus.BaseClasses.getUnitAsString(unit),
+    usePrecompiledFMU=usePrecompiledFMU,
+    fmuName=fmuName,
+    buildingsLibraryRoot=Buildings.ThermalZones.EnergyPlus.BaseClasses.buildingsLibraryRoot,
+    logLevel=logLevel)
+    "Class to communicate with EnergyPlus";
 initial equation
-  assert(not usePrecompiledFMU, "Use of pre-compiled FMU is not supported for block Actuator.");
-
+  assert(
+    not usePrecompiledFMU,
+    "Use of pre-compiled FMU is not supported for block Actuator.");
   Buildings.ThermalZones.EnergyPlus.BaseClasses.inputVariableInitialize(
-    adapter = adapter,
-    startTime = time);
-
+    adapter=adapter,
+    startTime=time);
 equation
-    y = Buildings.ThermalZones.EnergyPlus.BaseClasses.inputVariableExchange(
-      adapter,
-      initial(),
-      u,
-      round(time, 1E-3));
-
+  y=Buildings.ThermalZones.EnergyPlus.BaseClasses.inputVariableExchange(
+    adapter,
+    initial(),
+    u,
+    round(
+      time,
+      1E-3));
   annotation (
-  defaultComponentName="act",
-    Documentation(info="<html>
+    defaultComponentName="act",
+    Documentation(
+      info="<html>
 <p>
 Block that writes to an EMS actuator object in EnergyPlus.
 </p>
@@ -196,7 +190,8 @@ in the example, the input <code>actSha.u</code> is set to <i>0</i> or <i>6</i>.
 Note that the entry <code>EnergyManagementSystem:Actuator</code> in the idf-file is optional.
 If specified, it will be ignored and the Modelica object be used instead.
 </p>
-</html>", revisions="<html>
+</html>",
+      revisions="<html>
 <ul>
 <li>
 November 13, 2019, by Michael Wetter:<br/>
@@ -204,15 +199,23 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Icon(graphics={
-        Polygon(points={{-42,28},{38,-28},{38,30},{-42,-28},{-42,28}},
-            lineColor={0,0,0}),
-        Line(points={{-62,0},{-42,0}}, color={0,0,0}),
-        Line(points={{38,0},{58,0}}, color={0,0,0}),
+    Icon(
+      graphics={
+        Polygon(
+          points={{-42,28},{38,-28},{38,30},{-42,-28},{-42,28}},
+          lineColor={0,0,0}),
+        Line(
+          points={{-62,0},{-42,0}},
+          color={0,0,0}),
+        Line(
+          points={{38,0},{58,0}},
+          color={0,0,0}),
         Line(
           points={{-10,0},{24,1.60689e-15}},
           color={0,0,0},
           origin={-2,10},
           rotation=90),
-        Rectangle(extent={{-22,34},{20,70}}, lineColor={0,0,0})}));
+        Rectangle(
+          extent={{-22,34},{20,70}},
+          lineColor={0,0,0})}));
 end Actuator;

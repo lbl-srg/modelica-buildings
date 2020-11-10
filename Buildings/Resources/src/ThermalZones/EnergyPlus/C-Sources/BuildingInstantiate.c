@@ -347,77 +347,52 @@ void generateFMU(FMUBuilding* bui, const char* modelicaBuildingsJsonFile){
   if (bui->logLevel >= MEDIUM)
     SpawnFormatMessage("Entered generateFMU with FMUPath = %s.\n", bui->fmuAbsPat);
 
-  if (bui->usePrecompiledFMU){
-    if( access( bui->precompiledFMUAbsPat, F_OK ) == -1 ) {
-      SpawnFormatError("Requested to use fmu '%s' which does not exist.", bui->precompiledFMUAbsPat);
-    }
-    cmd = "cp -p ";
-    len = strlen(cmd) + strlen(bui->fmuAbsPat) + 1 + strlen(bui->precompiledFMUAbsPat) + 1;
-    mallocString(len, "Failed to allocate memory in generateFMU().", &fulCmd, SpawnFormatError);
-
-    memset(fulCmd, '\0', len);
-    strcpy(fulCmd, cmd);
-    strcat(fulCmd, bui->precompiledFMUAbsPat);
-    strcat(fulCmd, " ");
-    strcat(fulCmd, bui->fmuAbsPat);
+  if( access(modelicaBuildingsJsonFile, F_OK ) == -1 ) {
+    SpawnFormatError("Requested to use json file '%s' which does not exist.", modelicaBuildingsJsonFile);
   }
-  else{
-    if( access(modelicaBuildingsJsonFile, F_OK ) == -1 ) {
-      SpawnFormatError("Requested to use json file '%s' which does not exist.", modelicaBuildingsJsonFile);
-    }
 #ifdef _WIN32 /* Win32 or Win64 */
-    cmd = "/Resources/bin/spawn-win64/bin/spawn.exe";
+  cmd = "/Resources/bin/spawn-win64/bin/spawn.exe";
 #elif __APPLE__
-    cmd = "/Resources/bin/spawn-darwin64/bin/spawn";
+  cmd = "/Resources/bin/spawn-darwin64/bin/spawn";
 #else
-    cmd = "/Resources/bin/spawn-linux64/bin/spawn";
+  cmd = "/Resources/bin/spawn-linux64/bin/spawn";
 #endif
-    optionFlags = " --no-compress "; /* Flag for command */
-    outputFlag = " --output-path "; /* Flag for command */
-    createFlag = " --create "; /* Flag for command */
-    len = strlen(bui->buildingsLibraryRoot) + strlen(cmd) + strlen(optionFlags)
-      + strlen(outputFlag) + strlen("\"") + strlen(bui->fmuAbsPat) + strlen("\"")
-      + strlen(createFlag) + strlen("\"") + strlen(modelicaBuildingsJsonFile) + strlen("\"")
-      + 1;
+  optionFlags = " --no-compress "; /* Flag for command */
+  outputFlag = " --output-path "; /* Flag for command */
+  createFlag = " --create "; /* Flag for command */
+  len = strlen(bui->buildingsLibraryRoot) + strlen(cmd) + strlen(optionFlags)
+    + strlen(outputFlag) + strlen("\"") + strlen(bui->fmuAbsPat) + strlen("\"")
+    + strlen(createFlag) + strlen("\"") + strlen(modelicaBuildingsJsonFile) + strlen("\"")
+    + 1;
 
-    mallocString(len, "Failed to allocate memory in generateFMU().", &fulCmd, SpawnFormatError);
-    memset(fulCmd, '\0', len);
-    strcpy(fulCmd, bui->buildingsLibraryRoot); /* This is for example /mtn/shared/Buildings */
-    strcat(fulCmd, cmd);
-    /* Check if the executable exists
-       Linux return 0, and Windows returns 2 if file does not exist */
-    if( access(fulCmd, F_OK ) != 0 ) {
-      SpawnFormatError("Executable '%s' does not exist: '%s'.", fulCmd, strerror(errno));
-    }
-    /* Make sure the file is executable */
-    /* Windows has no mode X_OK = 1, see https://docs.microsoft.com/en-us/cpp/c-runtime-library/reference/access-waccess?view=vs-2019 */
+  mallocString(len, "Failed to allocate memory in generateFMU().", &fulCmd, SpawnFormatError);
+  memset(fulCmd, '\0', len);
+  strcpy(fulCmd, bui->buildingsLibraryRoot); /* This is for example /mtn/shared/Buildings */
+  strcat(fulCmd, cmd);
+  /* Check if the executable exists
+     Linux return 0, and Windows returns 2 if file does not exist */
+  if( access(fulCmd, F_OK ) != 0 ) {
+    SpawnFormatError("Executable '%s' does not exist: '%s'.", fulCmd, strerror(errno));
+  }
+  /* Make sure the file is executable */
+  /* Windows has no mode X_OK = 1, see https://docs.microsoft.com/en-us/cpp/c-runtime-library/reference/access-waccess?view=vs-2019 */
 #ifndef _WIN32
-    if( access(fulCmd, X_OK ) != 0 ) {
-      SpawnFormatError("File '%s' exists, but fails to have executable flag set: '%s.", fulCmd, strerror(errno));
-    }
+  if( access(fulCmd, X_OK ) != 0 ) {
+    SpawnFormatError("File '%s' exists, but fails to have executable flag set: '%s.", fulCmd, strerror(errno));
+  }
 #endif
-    /* Continue building the command line */
-    strcat(fulCmd, optionFlags);
-    strcat(fulCmd, outputFlag);
-    strcat(fulCmd, "\"");
-    strcat(fulCmd, bui->fmuAbsPat);
-    strcat(fulCmd, "\"");
-    strcat(fulCmd, createFlag);
-    strcat(fulCmd, "\"");
-    strcat(fulCmd, modelicaBuildingsJsonFile);
-    strcat(fulCmd, "\"");
-  }
+  /* Continue building the command line */
+  strcat(fulCmd, optionFlags);
+  strcat(fulCmd, outputFlag);
+  strcat(fulCmd, "\"");
+  strcat(fulCmd, bui->fmuAbsPat);
+  strcat(fulCmd, "\"");
+  strcat(fulCmd, createFlag);
+  strcat(fulCmd, "\"");
+  strcat(fulCmd, modelicaBuildingsJsonFile);
+  strcat(fulCmd, "\"");
 
-  /* Remove the old fmu if it already exists */
-  if (access(bui->fmuAbsPat, F_OK) == 0) {
-    /* FMU exists. Delete it. */
-    retVal = remove(bui->fmuAbsPat);
-    if (retVal != 0){
-      SpawnFormatError("Failed to remove old FMU '%s': '%s'.", bui->fmuAbsPat, strerror(errno));
-   }
-  }
-
-  /* Copy or generate the FMU */
+  /* Generate the FMU */
   if (bui->logLevel >= MEDIUM)
     SpawnFormatMessage("Executing %s\n", fulCmd);
 
@@ -527,6 +502,8 @@ void spawnLogger(
        They are written for any logLevel. */
     bui->SpawnFormatMessage(signature, instanceName, fmi2_status_to_string(status), msg);
   }
+
+  va_end(argp);
 }
 
 /* Import the EnergyPlus FMU
@@ -640,6 +617,59 @@ void setReusableFMU(FMUBuilding* bui){
   }
 }
 
+
+int deleteFile(const char* fileName){
+  /* Remove file if it exists */
+  if (access(fileName, F_OK) == 0) {
+    /* FMU exists. Delete it. */
+    return remove(fileName);
+  }
+  else
+    return 0;
+}
+
+void copyBinaryFile(
+  const char* src,
+  const char* des,
+  void (*SpawnFormatError)(const char *string, ...)){
+
+    FILE* srcFil;
+    FILE* desFil;
+    size_t n, m;
+    unsigned char buff[8192];
+
+    srcFil = fopen(src, "rb");
+
+    if( srcFil == NULL )
+    {
+        SpawnFormatError("Failed to open %s, %s.", src, strerror(errno));
+     }
+
+    desFil = fopen(des, "wb");
+
+    if( desFil == NULL )
+    {
+      fclose(srcFil);
+      SpawnFormatError("Failed to open %s, %s.", des, strerror(errno));
+    }
+
+    do {
+        n = fread(buff, 1, sizeof buff, srcFil);
+        if (n)
+          m = fwrite(buff, 1, n, desFil);
+        else
+          m = 0;
+    } while ((n > 0) && (n == m));
+    if (m)
+      SpawnFormatError("Error during copying %s to %s.", src, des);
+
+    if ( fclose(srcFil) != 0 )
+      SpawnFormatError("Failed to close %s, %s.", src, strerror(errno));
+    if ( fclose(desFil) != 0 )
+      SpawnFormatError("Failed to close %s, %s.", des, strerror(errno));
+  }
+
+
 void generateAndInstantiateBuilding(FMUBuilding* bui){
   /* This is the first call for this idf file.
      Allocate memory and load the fmu.
@@ -662,7 +692,17 @@ void generateAndInstantiateBuilding(FMUBuilding* bui){
 
   setReusableFMU(bui);
 
-  generateFMU(bui, modelicaBuildingsJsonFile);
+  if ( deleteFile(bui->fmuAbsPat) != 0 )
+    SpawnFormatError("Failed to remove old FMU '%s': '%s'.", bui->fmuAbsPat, strerror(errno));
+
+  if (bui->usePrecompiledFMU){
+    if (bui->logLevel >= MEDIUM)
+      SpawnFormatMessage("Copying FMU %s to %s as buildings are identical.\n", bui->precompiledFMUAbsPat, bui->fmuAbsPat);
+    copyBinaryFile(bui->precompiledFMUAbsPat, bui->fmuAbsPat, SpawnFormatError);
+  }
+  else
+    generateFMU(bui, modelicaBuildingsJsonFile);
+
   free(modelicaBuildingsJsonFile);
 
   if( access( bui->fmuAbsPat, F_OK ) == -1 ) {

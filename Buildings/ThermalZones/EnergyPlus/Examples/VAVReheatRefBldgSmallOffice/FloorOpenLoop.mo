@@ -21,10 +21,23 @@ model FloorOpenLoop "Open loop model of one floor"
   Buildings.ThermalZones.EnergyPlus.Examples.VAVReheatRefBldgSmallOffice.BaseClasses.Floor flo(
       redeclare package Medium = Medium,
       use_windPressure=false,
-      opeWesCor(wOpe=10),
-      opeSouCor(wOpe=10),
-      opeNorCor(wOpe=10),
-      opeEasCor(wOpe=10),
+      final VRooCor=456.455,
+      final VRooSou=346.022,
+      final VRooNor=346.022,
+      final VRooEas=205.265,
+      final VRooWes=205.265,
+      opeWesCor(wOpe=4),
+      opeSouCor(wOpe=9),
+      opeNorCor(wOpe=9),
+      opeEasCor(wOpe=4),
+      leaWes(s=18.46/27.69),
+      leaSou(s=27.69/18.46),
+      leaNor(s=27.69/18.46),
+      leaEas(s=18.46/27.69),
+      leaWes(res(m_flow(nominal=0.1))),
+      leaSou(res(m_flow(nominal=0.1))),
+      leaNor(res(m_flow(nominal=0.1))),
+      leaEas(res(m_flow(nominal=0.1))),
       intGaiFra(table=[0,0.05;
              8,0.05;
              9,0.9;
@@ -43,6 +56,13 @@ model FloorOpenLoop "Open loop model of one floor"
       att(T_start=275.15))
     "One floor of the office building"
     annotation (Placement(transformation(extent={{32,-2},{86,28}})));
+  // We shoud be able to take all these values from energy plus zones - *mg  
+  // Above, the volume V is for Spawn obtained in the initial equation section.
+  // Hence it is not known when the model is compiled. This leads to a
+  // warning in Dymola and an error in Optimica (Modelon#2020031339000191)
+  // if used in an expression for the nominal attribute of lea*(res(m_flow(nominal=....))).
+  // Assigning the nominal attribute to a constant avoids this warning and error.
+
   Fluid.Sources.MassFlowSource_WeatherData bou[4](
     redeclare each package Medium = Medium,
     each m_flow=mOut_flow,
@@ -58,7 +78,7 @@ model FloorOpenLoop "Open loop model of one floor"
     redeclare package Medium = Medium,
     m_flow_nominal=mOut_flow,
     dp_nominal=10,
-    linearized=true)
+    linearized=true) "Small flow resistance for inlet"
     annotation (Placement(transformation(extent={{6,-64},{26,-44}})));
   Fluid.FixedResistances.PressureDrop res1[4](
     redeclare each package Medium = Medium,

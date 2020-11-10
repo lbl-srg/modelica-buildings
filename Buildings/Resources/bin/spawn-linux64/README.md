@@ -52,7 +52,8 @@ gu install native-image
 * Then follow the normal cmake build process.
 
 ```shell
-git clone --recurse-submodules https://github.com/NREL/spawn.git 
+git clone --recurse-submodules https://github.com/NREL/spawn.git
+cd spawn
 mkdir build
 cd build
 cmake ../
