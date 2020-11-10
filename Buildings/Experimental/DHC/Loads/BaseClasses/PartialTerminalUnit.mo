@@ -4,12 +4,12 @@ partial model PartialTerminalUnit
   replaceable package Medium1=Modelica.Media.Interfaces.PartialMedium
     "Source side medium (heating or chilled water)"
     annotation (choices(choice(redeclare package Medium1=Buildings.Media.Water "Water"),choice(redeclare
-          package                                                                                                Medium1=
+          package Medium1 =
             Buildings.Media.Antifreeze.PropyleneGlycolWater (                                                                                                            property_T=293.15,X_a=0.40) "Propylene glycol water, 40% mass fraction")));
   replaceable package Medium2=Modelica.Media.Interfaces.PartialMedium
     "Load side medium"
     annotation (choices(choice(redeclare package Medium2=Buildings.Media.Air "Moist air"),choice(redeclare
-          package                                                                                                  Medium2=
+          package                                                                                                  Medium2 =
             Buildings.Media.Water                                                                                                                "Water")));
   parameter Boolean allowFlowReversal=false
     "Set to true to allow flow reversal on the source side"
@@ -115,6 +115,15 @@ partial model PartialTerminalUnit
     displayUnit="degC")=273.15+26.7
     "Load side inlet temperature at nominal conditions in cooling mode"
     annotation (Dialog(group="Nominal condition",enable=have_watCoo));
+
+  parameter Modelica.SIunits.Temperature T_bLoaCoo_nominal=
+    if QCoo_flow_nominal < 0 then
+      T_aLoaCoo_nominal + QCoo_flow_nominal / cpLoaCoo_nominal / mLoaCoo_flow_nominal
+    else T_aLoaCoo_nominal
+    "Dummy outlet air temperature (sensible assumption for UA sizing) for testing only";
+  parameter Medium2.MassFraction X_wLoaCoo_nominal = 0.011
+    "Inlet air absolute humidity (AHRI 440 = 50% RH)";
+
   // Dynamics
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state"

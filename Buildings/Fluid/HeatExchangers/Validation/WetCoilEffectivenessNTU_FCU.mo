@@ -23,14 +23,14 @@ model WetCoilEffectivenessNTU_FCU
     T_a2_nominal=T_a2_nominal,
     X_w2_nominal=X_w2_nominal)
     "Cooling coil with nominal conditions for cooling at 16 degrees water inlet temperature"
-    annotation (Placement(transformation(extent={{-10,40},{10,60}})));
+    annotation (Placement(transformation(extent={{-10,76},{10,96}})));
   Sources.MassFlowSource_T bouAirCoo(
     redeclare package Medium = MediumAir,
     use_m_flow_in=true,
     T=300.15,
     X={X_w2_nominal,1 - X_w2_nominal},
     nPorts=1) "Air boundary: 27/19 dry/wet bulb temperature"
-    annotation (Placement(transformation(extent={{60,34},{40,54}})));
+    annotation (Placement(transformation(extent={{60,70},{40,90}})));
     // fixme: reformat the table so it is readable.
   Modelica.Blocks.Sources.CombiTimeTable cooData(smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments,
       table=[0,485,1176,2176,2934; 10000,420,1053,1948,2657; 20000,330,865,1600,
@@ -48,16 +48,16 @@ model WetCoilEffectivenessNTU_FCU
     annotation (Placement(transformation(extent={{60,-46},{40,-26}})));
   Modelica.Blocks.Math.Gain gainFloFcu16(k=1/4180/2)
     "Conversion factor from power to kg/s water "
-    annotation (Placement(transformation(extent={{-66,58},{-54,70}})));
+    annotation (Placement(transformation(extent={{-66,94},{-54,106}})));
   Modelica.Blocks.Math.Gain gain(k=1.2/3600)
     "Conversion factor from l/h to kg/s"
-    annotation (Placement(transformation(extent={{-2,70},{18,90}})));
+    annotation (Placement(transformation(extent={{-2,106},{18,126}})));
   Sources.MassFlowSource_T bouWatCoo16(
     use_m_flow_in=true,
     redeclare package Medium = MediumWater,
     T=289.15,
     nPorts=1) "Water boundary at 16 degrees"
-    annotation (Placement(transformation(extent={{-40,46},{-20,66}})));
+    annotation (Placement(transformation(extent={{-40,82},{-20,102}})));
   Sources.MassFlowSource_T bouWatCoo7(
     use_m_flow_in=true,
     redeclare package Medium = MediumWater,
@@ -128,20 +128,20 @@ model WetCoilEffectivenessNTU_FCU
     UA_nominal=cooCoi16_IBPSA.UA_nominal,
     dp1_nominal=0,
     dp2_nominal=0)
-    annotation (Placement(transformation(extent={{-10,16},{10,36}})));
+    annotation (Placement(transformation(extent={{-10,52},{10,72}})));
   Sources.MassFlowSource_T bouWatCoo1(
     use_m_flow_in=true,
     redeclare package Medium = MediumWater,
     T=289.15,
     nPorts=1) "Water boundary at 16 degrees"
-    annotation (Placement(transformation(extent={{-40,22},{-20,42}})));
+    annotation (Placement(transformation(extent={{-40,58},{-20,78}})));
   Sources.MassFlowSource_T bouAirCoo3(
     redeclare package Medium = MediumAir,
     use_m_flow_in=true,
     T=300.15,
     X={X_w2_nominal,1 - X_w2_nominal},
     nPorts=1) "Air boundary: 27/19 dry/wet bulb temperature"
-    annotation (Placement(transformation(extent={{60,10},{40,30}})));
+    annotation (Placement(transformation(extent={{60,46},{40,66}})));
   Sources.MassFlowSource_T bouWatCoo2(
     use_m_flow_in=true,
     redeclare package Medium = MediumWater,
@@ -198,16 +198,15 @@ equation
   //      "The models cooCoi7 and cooCoi7Reverse do
   //      not return identical results as required.");
   connect(gainFloFcu16.u, cooData.y[2])
-    annotation (Line(points={{-67.2,64},{-74,64},{-74,100},{-109,100}},
-                                                     color={0,0,127}));
+    annotation (Line(points={{-67.2,100},{-109,100}},color={0,0,127}));
   connect(gain.u, cooData.y[1])
-    annotation (Line(points={{-4,80},{-74,80},{-74,100},{-109,100}},
+    annotation (Line(points={{-4,116},{-56,116},{-56,100},{-109,100}},
                                                   color={0,0,127}));
   connect(gain.y, bouAirCoo.m_flow_in)
-    annotation (Line(points={{19,80},{68,80},{68,52},{62,52}},
+    annotation (Line(points={{19,116},{68,116},{68,88},{62,88}},
                                                           color={0,0,127}));
   connect(gainFloFcu16.y, bouWatCoo16.m_flow_in) annotation (Line(points={{-53.4,
-          64},{-42,64}},             color={0,0,127}));
+          100},{-42,100}},           color={0,0,127}));
   connect(gainFloFcu7.y,bouWatCoo7. m_flow_in)
     annotation (Line(points={{-53.4,-16},{-42,-16}}, color={0,0,127}));
   connect(gainFloFcu7.u, cooData.y[4]) annotation (Line(points={{-67.2,-16},{
@@ -216,11 +215,12 @@ equation
   connect(bouWatCoo7v2.m_flow_in, gainFloFcu7.y) annotation (Line(points={{-42,-76},
           {-50,-76},{-50,-16},{-53.4,-16}},
                                        color={0,0,127}));
-  connect(gain.y, bouAirCoo1.m_flow_in) annotation (Line(points={{19,80},{68,80},
-          {68,-28},{62,-28}},
+  connect(gain.y, bouAirCoo1.m_flow_in) annotation (Line(points={{19,116},{68,
+          116},{68,-28},{62,-28}},
                             color={0,0,127}));
-  connect(gain.y, bouAirCoo2.m_flow_in) annotation (Line(points={{19,80},{68,80},
-          {68,-88},{62,-88}}, color={0,0,127}));
+  connect(gain.y, bouAirCoo2.m_flow_in) annotation (Line(points={{19,116},{68,
+          116},{68,-88},{62,-88}},
+                              color={0,0,127}));
   connect(bouWatCoo7v2.ports[1], cooCoi7Param16_IBPSA.port_a1)
     annotation (Line(points={{-20,-84},{-10,-84}}, color={0,127,255}));
   connect(bouWatCoo7.ports[1], cooCoi7_IBPSA.port_a1)
@@ -230,39 +230,41 @@ equation
   connect(cooCoi7Param16_IBPSA.port_b1, sinWat.ports[2]) annotation (Line(
         points={{10,-84},{20,-84},{20,-80},{80,-80},{80,2},{110,2}}, color={0,127,
           255}));
-  connect(cooCoi16_IBPSA.port_b1, sinWat.ports[3]) annotation (Line(points={{10,56},
-          {20,56},{20,60},{80,60},{80,0.666667},{110,0.666667}},
+  connect(cooCoi16_IBPSA.port_b1, sinWat.ports[3]) annotation (Line(points={{10,92},
+          {20,92},{20,96},{80,96},{80,0.666667},{110,0.666667}},
                                         color={0,127,255}));
   connect(bouAirCoo1.ports[1], cooCoi7_IBPSA.port_a2)
     annotation (Line(points={{40,-36},{10,-36}}, color={0,127,255}));
   connect(bouAirCoo2.ports[1], cooCoi7Param16_IBPSA.port_a2)
     annotation (Line(points={{40,-96},{10,-96}}, color={0,127,255}));
   connect(sinAir.ports[1], cooCoi16_IBPSA.port_b2) annotation (Line(points={{-110,
-          3.33333},{-80,3.33333},{-80,44},{-10,44}},
+          3.33333},{-80,3.33333},{-80,80},{-10,80}},
                                            color={0,127,255}));
   connect(cooCoi7_IBPSA.port_b2, sinAir.ports[2]) annotation (Line(points={{-10,
           -36},{-80,-36},{-80,2},{-110,2}}, color={0,127,255}));
   connect(cooCoi7Param16_IBPSA.port_b2, sinAir.ports[3]) annotation (Line(
         points={{-10,-96},{-80,-96},{-80,0.666667},{-110,0.666667}}, color={0,127,
           255}));
-  connect(cooCoi16.port_b2, sinAir.ports[4]) annotation (Line(points={{-10,20},
-          {-80,20},{-80,-0.666667},{-110,-0.666667}},
+  connect(cooCoi16.port_b2, sinAir.ports[4]) annotation (Line(points={{-10,56},
+          {-80,56},{-80,-0.666667},{-110,-0.666667}},
                                       color={0,127,255}));
-  connect(cooCoi16.port_b1, sinWat.ports[4]) annotation (Line(points={{10,32},{
-          80,32},{80,-0.666667},{110,-0.666667}},
+  connect(cooCoi16.port_b1, sinWat.ports[4]) annotation (Line(points={{10,68},{
+          80,68},{80,-0.666667},{110,-0.666667}},
                                 color={0,127,255}));
-  connect(bouAirCoo.ports[1], cooCoi16_IBPSA.port_a2) annotation (Line(points={{40,44},
-          {10,44}},                        color={0,127,255}));
-  connect(bouWatCoo16.ports[1], cooCoi16_IBPSA.port_a1) annotation (Line(points=
-         {{-20,56},{-16,56},{-16,56},{-10,56}}, color={0,127,255}));
+  connect(bouAirCoo.ports[1], cooCoi16_IBPSA.port_a2) annotation (Line(points={{40,80},
+          {10,80}},                        color={0,127,255}));
+  connect(bouWatCoo16.ports[1], cooCoi16_IBPSA.port_a1) annotation (Line(points={{-20,92},
+          {-10,92}},                            color={0,127,255}));
   connect(bouWatCoo1.ports[1], cooCoi16.port_a1)
-    annotation (Line(points={{-20,32},{-10,32}}, color={0,127,255}));
-  connect(bouAirCoo3.ports[1], cooCoi16.port_a2) annotation (Line(points={{40,20},
-          {10,20}},                 color={0,127,255}));
-  connect(gain.y, bouAirCoo3.m_flow_in) annotation (Line(points={{19,80},{68,80},
-          {68,28},{62,28}}, color={0,0,127}));
+    annotation (Line(points={{-20,68},{-10,68}}, color={0,127,255}));
+  connect(bouAirCoo3.ports[1], cooCoi16.port_a2) annotation (Line(points={{40,56},
+          {10,56}},                 color={0,127,255}));
+  connect(gain.y, bouAirCoo3.m_flow_in) annotation (Line(points={{19,116},{68,
+          116},{68,64},{62,64}},
+                            color={0,0,127}));
   connect(gainFloFcu16.y, bouWatCoo1.m_flow_in) annotation (Line(points={{-53.4,
-          64},{-48,64},{-48,40},{-42,40}}, color={0,0,127}));
+          100},{-48,100},{-48,76},{-42,76}},
+                                           color={0,0,127}));
   connect(bouWatCoo2.ports[1], cooCoi7.port_a1)
     annotation (Line(points={{-20,-52},{-10,-52}}, color={0,127,255}));
   connect(cooCoi7.port_b1, sinWat.ports[5]) annotation (Line(points={{10,-52},{
@@ -283,10 +285,12 @@ equation
         color={0,127,255}));
   connect(bouWatCoo7v2.m_flow_in, bouWatCoo7v1.m_flow_in) annotation (Line(
         points={{-42,-76},{-50,-76},{-50,-106},{-42,-106}}, color={0,0,127}));
-  connect(gain.y, bouAirCoo5.m_flow_in) annotation (Line(points={{19,80},{19,
-          80.122},{68,80.122},{68,-118},{62,-118}}, color={0,0,127}));
-  connect(gain.y, bouAirCoo4.m_flow_in) annotation (Line(points={{19,80},{19,
-          78.122},{68,78.122},{68,-56},{62,-56}}, color={0,0,127}));
+  connect(gain.y, bouAirCoo5.m_flow_in) annotation (Line(points={{19,116},{19,
+          116.122},{68,116.122},{68,-118},{62,-118}},
+                                                    color={0,0,127}));
+  connect(gain.y, bouAirCoo4.m_flow_in) annotation (Line(points={{19,116},{19,
+          114.122},{68,114.122},{68,-56},{62,-56}},
+                                                  color={0,0,127}));
   connect(gainFloFcu7.y, bouWatCoo2.m_flow_in) annotation (Line(points={{-53.4,
           -16},{-53.4,-15.9756},{-50,-15.9756},{-50,-44},{-42,-44}}, color={0,0,
           127}));

@@ -2,5 +2,6 @@ Connection2Pipe
 Distribution2Pipe
 FanCoil2PipeCooling
 FanCoil2PipeCoolingWet
+FanCoil2PipeCoolingWet_IBPSA
 FanCoil2PipeHeating
 FanCoil2PipeHeatingValve

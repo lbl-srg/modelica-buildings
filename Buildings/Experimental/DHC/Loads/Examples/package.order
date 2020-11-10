@@ -3,6 +3,9 @@ CouplingRCZ6
 CouplingSpawnZ1
 CouplingSpawnZ6
 CouplingSpawnZ6Wet
+CouplingSpawnZ6Wet_IBPSA
 CouplingTimeSeries
+CouplingTimeSeriesWet
+CouplingTimeSeriesWet_IBPSA
 CouplingTimeSeriesSingleLoop
 BaseClasses

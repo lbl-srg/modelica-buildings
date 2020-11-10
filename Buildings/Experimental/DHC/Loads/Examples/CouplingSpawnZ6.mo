@@ -57,8 +57,9 @@ equation
   connect(sinChiWat.ports[1],bui.ports_bChiWat[1])
     annotation (Line(points={{120,-60},{80,-60},{80,-36},{60,-36}},color={0,127,255}));
   annotation (
-    experiment(
-      StopTime=604800,
+  experiment(
+      StartTime=15724800,
+      StopTime=16243200,
       Tolerance=1e-06),
     Documentation(
       info="<html>

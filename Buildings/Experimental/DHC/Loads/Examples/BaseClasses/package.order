@@ -3,10 +3,14 @@ BuildingRCZ6
 BuildingSpawnZ1
 BuildingSpawnZ6
 BuildingSpawnZ6Wet
+BuildingSpawnZ6Wet_IBPSA
 BuildingTimeSeries
 BuildingTimeSeriesWet
+BuildingTimeSeriesWet_IBPSA
 FanCoil4Pipe
 FanCoil4PipeHeatPorts
-FanCoil4PipeWetCoil
+FanCoil4PipeWet
+FanCoil4PipeWet_IBPSA
+FanCoil4PipeWet_bck
 PartialFanCoil4Pipe
 GeojsonExportRC

@@ -1,5 +1,5 @@
 within Buildings.Experimental.DHC.Loads.Examples.BaseClasses;
-model BuildingTimeSeries
+model BuildingTimeSeriesWet
   "Building model with heating and cooling loads provided as time series"
   extends Buildings.Experimental.DHC.Loads.BaseClasses.PartialBuilding(
     redeclare package Medium=Buildings.Media.Water,
@@ -135,7 +135,7 @@ model BuildingTimeSeries
     nPorts_a1=1) if have_watCoo
     "Chilled water distribution system"
     annotation (Placement(transformation(extent={{120,-270},{140,-250}})));
-  DHC.Loads.Validation.BaseClasses.FanCoil2PipeCooling terUniCoo(
+  DHC.Loads.Validation.BaseClasses.FanCoil2PipeCoolingWet terUniCoo(
     redeclare final package Medium1=Medium,
     redeclare final package Medium2=Medium2,
     final facSca=facScaCoo,
@@ -286,4 +286,4 @@ First implementation.
       coordinateSystem(
         preserveAspectRatio=false,
         extent={{-300,-300},{300,300}})));
-end BuildingTimeSeries;
+end BuildingTimeSeriesWet;

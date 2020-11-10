@@ -1,15 +1,17 @@
 within Buildings.Experimental.DHC.Loads.Examples.BaseClasses;
-model FanCoil4Pipe
+model FanCoil4PipeWet_IBPSA
   "Model of a sensible only four-pipe fan coil unit computing a required water mass flow rate"
   extends PartialFanCoil4Pipe(
     final have_TSen=true,
     final have_fluPor=true,
     final have_heaPor=false,
     final have_scaLoa=true,
-    hexCoo(
+    redeclare Buildings.Fluid.HeatExchangers.WetCoilEffectivesnessNTU hexCoo(
       final Q_flow_nominal=QCoo_flow_nominal,
       final T_a1_nominal=T_aChiWat_nominal,
-      final T_a2_nominal=T_aLoaCoo_nominal));
+      final T_a2_nominal=T_aLoaCoo_nominal,
+      final X_w2_nominal=X_wLoaCoo_nominal));
+
 equation
   connect(TSen,conCoo.u_m)
     annotation (Line(points={{-220,140},{-40,140},{-40,160},{0,160},{0,168}},color={0,0,127}));
@@ -39,4 +41,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end FanCoil4Pipe;
+end FanCoil4PipeWet_IBPSA;

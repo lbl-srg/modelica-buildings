@@ -63,7 +63,7 @@ partial model PartialFanCoil4Pipe
   Modelica.Blocks.Sources.RealExpression Q_flowHea(
     y=hexHea.Q2_flow)
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
-  Buildings.Fluid.HeatExchangers.DryCoilEffectivenessNTU hexCoo(
+  replaceable Buildings.Fluid.HeatExchangers.DryCoilEffectivenessNTU hexCoo(
     redeclare final package Medium1=Medium1,
     redeclare final package Medium2=Medium2,
     final configuration=hexConCoo,
@@ -71,9 +71,6 @@ partial model PartialFanCoil4Pipe
     final m2_flow_nominal=mLoaCoo_flow_nominal,
     final dp1_nominal=0,
     dp2_nominal=200,
-    final Q_flow_nominal=QCoo_flow_nominal,
-    final T_a1_nominal=T_aChiWat_nominal,
-    final T_a2_nominal=T_aLoaCoo_nominal,
     final allowFlowReversal1=allowFlowReversal,
     final allowFlowReversal2=allowFlowReversalLoa)
     annotation (Placement(transformation(extent={{0,4},{20,-16}})));
