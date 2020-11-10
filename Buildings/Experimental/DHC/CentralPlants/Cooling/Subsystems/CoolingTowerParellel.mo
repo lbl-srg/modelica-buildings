@@ -103,6 +103,11 @@ model CoolingTowerParellel
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea[num]
     "Boolean signal to real signal"
     annotation (Placement(transformation(extent={{-90,50},{-70,70}})));
+initial equation
+  Modelica.Utilities.Streams.print(
+    "Warning:\n  In " + getInstanceName() +
+    ": This model is a beta version and is not fully validated yet.");
+
 equation
   for i in 1:num loop
     connect(port_a, val[i].port_a) annotation (Line(points={{-100,0},{-60,0}},color={0,127,255}));

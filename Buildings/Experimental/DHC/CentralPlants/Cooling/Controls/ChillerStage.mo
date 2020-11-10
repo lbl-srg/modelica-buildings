@@ -1,4 +1,4 @@
-within Buildings.Applications.DHC.CentralPlants.Cooling.Controls;
+within Buildings.Experimental.DHC.CentralPlants.Cooling.Controls;
 model ChillerStage
   "Chiller staging controller for plants with two same size chillers"
   extends Modelica.Blocks.Icons.Block;
@@ -104,6 +104,12 @@ model ChillerStage
     annotation (Placement(transformation(extent={{-90,-80},{-70,-60}})));
   Buildings.Controls.OBC.CDL.Logical.Not notOn "Not on"
     annotation (Placement(transformation(extent={{-90,10},{-70,30}})));
+
+initial equation
+  Modelica.Utilities.Streams.print(
+    "Warning:\n  In " + getInstanceName() +
+    ": This model is a beta version and is not fully validated yet.");
+
 equation
   connect(off.outPort[1], offToOne.inPort) annotation (Line(points={{-50,59.5},{
           -50,44}},               color={0,0,0}));

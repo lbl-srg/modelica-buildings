@@ -1,4 +1,4 @@
-within Buildings.Applications.DHC.CentralPlants.Cooling.Controls;
+within Buildings.Experimental.DHC.CentralPlants.Cooling.Controls;
 model ChilledWaterPumpSpeed
   "Controller for up to two headed variable speed chilled water pumps"
   extends Modelica.Blocks.Icons.Block;
@@ -77,6 +77,10 @@ model ChilledWaterPumpSpeed
   Modelica.Blocks.Sources.Constant dpSetSca(final k=1)
     "Scaled differential pressure setpoint"
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
+initial equation
+  Modelica.Utilities.Streams.print(
+    "Warning:\n  In " + getInstanceName() +
+    ": This model is a beta version and is not fully validated yet.");
 
 equation
   connect(pumStaCon.masFloPum, masFloPum) annotation (Line(points={{-12,8},{-20,
