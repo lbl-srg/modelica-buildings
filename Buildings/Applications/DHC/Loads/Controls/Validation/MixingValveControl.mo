@@ -107,7 +107,7 @@ model MixingValveControl
     "Mode index, 1 for heating, 2 for cooling"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse modCha(
-    period=1000, startTime=1)
+    period=1000)
     "Boolean pulse for changing mode"
     annotation (Placement(transformation(extent={{-140,-10},{-120,10}})));
   Buildings.Controls.OBC.CDL.Logical.Not mod

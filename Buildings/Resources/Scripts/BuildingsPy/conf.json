@@ -106,5 +106,14 @@
          "rtol": 1E-8
     },
     "model_name": "Buildings.Examples.DualFanDualDuct.ClosedLoop"
+  },
+  {
+    "jmodelica": {
+      "simulate": false
+    },
+    "optimica": {
+      "simulate": false
+    },
+    "model_name": "Buildings.Applications.DHC.Loads.Controls.Validation.MixingValveControl"
   }
 ]
