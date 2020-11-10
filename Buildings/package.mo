@@ -356,6 +356,16 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2125\">issue 2125</a>.
     </td>
     </tr>
+<tr><td colspan=\"2\"><b>Buildings.Examples</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Examples.VAVReheat.Guideline36
+    </td>
+    <td valign=\"top\">Upgraded sequence of specifying operating mode according to G36 official release.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1893\">issue 1893</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.HeatExchangers.RadiantSlabs</b>
     </td>
     </tr>
@@ -367,16 +377,17 @@ have been <b style=\"color:blue\">improved</b> in a
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2009\">issue 2009</a>.
     </td>
 </tr>
-<tr><td colspan=\"2\"><b>Buildings.Examples</b>
+<tr><td colspan=\"2\"><b>Buildings.Media</b>
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Examples.VAVReheat.Guideline36
+<tr><td valign=\"top\">Buildings.Media.Refrigerants.R410A
     </td>
-    <td valign=\"top\">Upgraded sequence of specifying operating mode according to G36 official release.<br/>
-                       This is for
-                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1893\">issue 1893</a>.
+    <td valign=\"top\">Improved implementation, which now works with OpenModelica.<br/>
+                     This is for
+                     <a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/1414\\\">#1414</a>.
     </td>
 </tr>
+
 <tr><td colspan=\"2\"><b>xxx</b>
     </td>
 </tr>
