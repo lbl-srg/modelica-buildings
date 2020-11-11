@@ -383,8 +383,8 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td valign=\"top\">Buildings.Media.Refrigerants.R410A
     </td>
     <td valign=\"top\">Improved implementation, which now works with OpenModelica.<br/>
-                     This is for
-                     <a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/1414\\\">#1414</a>.
+                       This is for
+                       <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1414\">#1414</a>.
     </td>
 </tr>
 
