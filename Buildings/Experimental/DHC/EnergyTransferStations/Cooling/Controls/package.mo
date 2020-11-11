@@ -1,7 +1,7 @@
 within Buildings.Experimental.DHC.EnergyTransferStations.Cooling;
-package Controls
-  "Package of control sequences for DC ETS"
+package Controls "Package of control sequences for DC ETS"
   extends Modelica.Icons.VariantsPackage;
+
   annotation (
     preferredView="info",
     Documentation(
