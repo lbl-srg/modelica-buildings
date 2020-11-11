@@ -103,6 +103,10 @@ model CoolingDirectControlledReturn
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic)
     "Cooling demand"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
+initial equation
+  Modelica.Utilities.Streams.print(
+    "Warning:\n  In " + getInstanceName() +
+    ": This model is a beta version and is not fully validated yet.");
 equation
   connect(TSetDisRet_min.y,coo.TSetDisRet)
     annotation (Line(points={{-79,-54},{-12,-54}},color={0,0,127}));
@@ -144,6 +148,8 @@ equation
       Tolerance=1e-06),
     Documentation(
       info="<html>
+<p><b><span style=\"font-size: 11pt; color: #ff0000;\">
+This model is a beta version and is not fully validated yet.</span></b></p>
 <p>
 This model provides an example for the direct cooling energy transfer station 
 model, which contains in-building pumping and controls the district return 

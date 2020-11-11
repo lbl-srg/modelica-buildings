@@ -223,6 +223,10 @@ protected
   final parameter Modelica.SIunits.SpecificHeatCapacity cp_default=Medium.specificHeatCapacityCp(
     sta_default)
     "Specific heat capacity of the fluid";
+initial equation
+  Modelica.Utilities.Streams.print(
+    "Warning:\n  In " + getInstanceName() +
+    ": This model is a beta version and is not fully validated yet.");
 equation
   connect(port_a1,senTDisSup.port_a)
     annotation (Line(points={{-100,60},{-90,60}},color={0,127,255}));
@@ -326,6 +330,8 @@ equation
         preserveAspectRatio=false)),
     Documentation(
       info="<html>
+<p><b><span style=\"font-size: 11pt; color: #ff0000;\">
+This model is a beta version and is not fully validated yet.</span></b></p>
 <p>
 Direct cooling energy transfer station (ETS) model with in-building pumping 
 and deltaT control. The design is based on a typical district cooling ETS 

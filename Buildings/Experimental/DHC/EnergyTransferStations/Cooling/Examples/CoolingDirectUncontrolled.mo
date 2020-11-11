@@ -24,8 +24,7 @@ model CoolingDirectUncontrolled
     annotation (Placement(transformation(extent={{-10,-60},{10,-40}})));
   Buildings.Fluid.Sources.Boundary_pT souDis(
     redeclare package Medium=Medium,
-    p(
-      displayUnit="Pa")=300000+800,
+    p(displayUnit="Pa")=300000+800,
     use_T_in=true,
     T=280.15,
     nPorts=1)
@@ -33,8 +32,7 @@ model CoolingDirectUncontrolled
     annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
   Buildings.Fluid.Sources.Boundary_pT sinDis(
     redeclare package Medium=Medium,
-    p(
-      displayUnit="Pa")=300000,
+    p(displayUnit="Pa")=300000,
     T=289.15,
     nPorts=1)
     "District-side (primary) sink"
@@ -102,6 +100,10 @@ model CoolingDirectUncontrolled
     offset=273.15+6)
     "District supply temperature trapezoid signal"
     annotation (Placement(transformation(extent={{-140,-16},{-120,4}})));
+initial equation
+  Modelica.Utilities.Streams.print(
+    "Warning:\n  In " + getInstanceName() +
+    ": This model is a beta version and is not fully validated yet.");
 equation
   connect(tra.y,souDis.T_in)
     annotation (Line(points={{-119,-6},{-102,-6}},color={0,0,127}));
@@ -143,13 +145,14 @@ equation
       Tolerance=1e-06),
     Documentation(
       info="<html>
-<p>
-This model provides an example for the direct cooling energy transfer station 
-model, which does not contain in-building pumping or deltaT control. The 
-ultimate control lies with the thermostatic control valve at the lumped, 
-terminal building load. The control valve is modulated proportionally to the 
-instantaneous cooling load with respect to the maxiumum load.
-</p>
+<p><b><span style=\"font-size: 11pt; color: #ff0000;\">
+This model is a beta version and is not fully validated yet.</span></b></p>
+<p>This model provides an example for the direct cooling energy transfer 
+station model, which does not contain in-building pumping or deltaT 
+control. The ultimate control lies with the thermostatic control valve 
+at the lumped, terminal building load. The control valve is modulated 
+proportionally to the instantaneous cooling load with respect to the 
+maxiumum load. </p>
 </html>",
       revisions="<html>
 <ul>

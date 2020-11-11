@@ -20,8 +20,7 @@ model CoolingIndirectClosedBuildingLoop
     annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
   Buildings.Fluid.Sources.Boundary_pT souDis(
     redeclare package Medium=Medium,
-    p(
-      displayUnit="Pa")=300000+10000,
+    p(displayUnit="Pa")=300000+10000,
     use_T_in=false,
     T=278.15,
     nPorts=1)
@@ -142,6 +141,10 @@ model CoolingIndirectClosedBuildingLoop
     k2=-1)
     "Calculate approach temperature"
     annotation (Placement(transformation(extent={{40,110},{60,130}})));
+initial equation
+  Modelica.Utilities.Streams.print(
+    "Warning:\n  In " + getInstanceName() +
+    ": This model is a beta version and is not fully validated yet.");
 equation
   connect(coo.port_b2,pumBui.port_a)
     annotation (Line(points={{40,14},{-20,14},{-20,0}},color={0,127,255}));
@@ -204,6 +207,8 @@ equation
       Tolerance=1e-06),
     Documentation(
       info="<html>
+<p><b><span style=\"font-size: 11pt; color: #ff0000;\">
+This model is a beta version and is not fully validated yet.</span></b></p>
 <p>This model provides an example for the indirect cooling energy transfer station model. 
 The cooling load ramps up from zero and is modulated according to the QCoo table specification. 
 The secondary (building) chilled water is varaible flow, with the mass flow rate being adjusted 

@@ -219,6 +219,10 @@ protected
   final parameter Modelica.SIunits.SpecificHeatCapacity cp_default=Medium.specificHeatCapacityCp(
     sta_default)
     "Specific heat capacity of the fluid";
+initial equation
+  Modelica.Utilities.Streams.print(
+    "Warning:\n  In " + getInstanceName() +
+    ": This model is a beta version and is not fully validated yet.");
 equation
   connect(hex.port_a2,port_a2)
     annotation (Line(points={{40,-6},{60,-6},{60,-60},{100,-60}},color={0,127,255}));
@@ -323,6 +327,8 @@ equation
         extent={{-100,-100},{100,160}})),
     Documentation(
       info="<html>
+<p><b><span style=\"font-size: 11pt; color: #ff0000;\">
+This model is a beta version and is not fully validated yet.</span></b></p>
 <p>
 Indirect cooling energy transfer station (ETS) model that controls 
 the building chilled water supply temperature by modulating a 
