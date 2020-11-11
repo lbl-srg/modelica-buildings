@@ -50,12 +50,11 @@ protected
     input Medium.ThermodynamicState state2 "Medium state";
     input Real errAbs=errAbs "Absolute error threshold";
     input String message "Message for error reporting";
-
   protected
-              Real TErrAbs=abs(Medium.temperature(state1)-Medium.temperature(state2))
+    Real TErrAbs=abs(Medium.temperature(state1)-Medium.temperature(state2))
       "Absolute error in temperature";
   protected
-              Real pErrAbs=abs(Medium.pressure(state1)-Medium.pressure(state2))
+    Real pErrAbs=abs(Medium.pressure(state1)-Medium.pressure(state2))
       "Absolute error in pressure";
   algorithm
     assert(TErrAbs < errAbs, "Absolute temperature error: " + String(TErrAbs) +
@@ -63,7 +62,6 @@ protected
     assert(pErrAbs < errAbs, "Absolute pressure error: " + String(pErrAbs) +
        " Pa. Error in pressure of " + message);
   end checkState;
-
 equation
     // Compute temperatures that are used as input to the functions
     T = TMin + conv*time * (TMax-TMin);
