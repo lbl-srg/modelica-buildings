@@ -2,7 +2,10 @@
 old_StoreProtectedVariables = Advanced.StoreProtectedVariables;
 Advanced.StoreProtectedVariables = true;
 simulateModel("Buildings.Fluid.HeatExchangers.Validation.WetCoilEffectivenessNTU_IBPSA",
-    method="dassl",  tolerance=1e-06, stopTime=3600, resultFile="WetCoilEffectivenessNTU_IBPSA");
+    method="dassl",
+    tolerance=1e-06,
+    stopTime=1,
+    resultFile="WetCoilEffectivenessNTU_IBPSA");
 Advanced.StoreProtectedVariables = old_StoreProtectedVariables;
 createPlot(
     id=1,
