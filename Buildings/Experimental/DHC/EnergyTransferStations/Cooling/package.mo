@@ -1,5 +1,5 @@
 within Buildings.Experimental.DHC.EnergyTransferStations;
-package Cooling 
+package Cooling
   "Package of models for DC energy transfer stations"
   extends Modelica.Icons.VariantsPackage;
   annotation (

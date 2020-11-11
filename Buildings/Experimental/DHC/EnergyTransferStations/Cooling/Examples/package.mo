@@ -1,5 +1,5 @@
 within Buildings.Experimental.DHC.EnergyTransferStations.Cooling;
-package Examples 
+package Examples
   "Example models integrating multiple components"
   extends Modelica.Icons.ExamplesPackage;
   annotation (

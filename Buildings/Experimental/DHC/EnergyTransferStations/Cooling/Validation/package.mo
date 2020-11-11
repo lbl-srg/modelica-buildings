@@ -1,5 +1,5 @@
 within Buildings.Experimental.DHC.EnergyTransferStations.Cooling;
-package Validation 
+package Validation
   "Collection of validation models"
   extends Modelica.Icons.ExamplesPackage;
   annotation (
