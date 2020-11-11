@@ -1,7 +1,7 @@
 within Buildings.Experimental.DHC.EnergyTransferStations.Cooling;
-package Subsystems "Package of models for subsystems of DC ETS"
+package Subsystems 
+  "Package of models for subsystems of DC ETS"
   extends Modelica.Icons.VariantsPackage;
-
   annotation (
     preferredView="info",
     Documentation(
