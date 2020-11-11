@@ -71,7 +71,7 @@ If <code>from_dp=true</code>, we obtain: <br/>
 Sizes of nonlinear systems of equations: {7}<br/>
 Sizes after manipulation of the nonlinear systems: {<b>5</b>}<br/>
 If <code>from_dp=false</code>, we obtain: <br/>
-Sizes of nonlinear systems of equations: {7}<br />
+Sizes of nonlinear systems of equations: {7}<br/>
 Sizes after manipulation of the nonlinear systems: {<b>1</b>}<br/>
 </p>
 <p>
