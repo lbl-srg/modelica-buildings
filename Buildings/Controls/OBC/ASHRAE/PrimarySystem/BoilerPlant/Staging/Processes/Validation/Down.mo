@@ -142,28 +142,15 @@ model Down
     annotation (Placement(transformation(extent={{-120,-146},{-100,-126}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant uBoi[nBoi](
-    final k={true,true})
-    "Initial boiler status"
-    annotation (Placement(transformation(extent={{-260,170},{-240,190}})));
-
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1[nBoi](
     final k={false,true})
     "Boiler setpoints for stage 2"
     annotation (Placement(transformation(extent={{-334,70},{-314,90}})));
 
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi[nBoi]
-    "Pass initial boiler status and switch to signal from controller"
-    annotation (Placement(transformation(extent={{-220,190},{-200,210}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Latch lat[nBoi](
-    final pre_y_start=fill(false, nBoi))
-    "Hold true signal after change in boiler status"
-    annotation (Placement(transformation(extent={{-290,190},{-270,210}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Pre pre3[nBoi]
+  Buildings.Controls.OBC.CDL.Logical.Pre pre3[nBoi](
+    final pre_u_start={true,true})
     "Logical pre block"
-    annotation (Placement(transformation(extent={{-260,220},{-240,240}})));
+    annotation (Placement(transformation(extent={{-260,180},{-240,200}})));
 
   Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi1[nBoi]
     "Pass boiler setpoints for stage 3 after one stage change"
@@ -251,42 +238,25 @@ protected
     "Falling edge detector"
     annotation (Placement(transformation(extent={{-164,110},{-144,130}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Change cha[nBoi]
-    "Detect change in boiler status from controller"
-    annotation (Placement(transformation(extent={{-330,190},{-310,210}})));
-
   Buildings.Controls.OBC.CDL.Logical.Latch lat1[nBoi](
     final pre_y_start=fill(false, nBoi))
     "Hold true signal once first stage change is completed"
-    annotation (Placement(transformation(extent={{-90,60},{-70,80}})));
+    annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
 
   Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep(
     final nout=nBoi)
     "Boolean replicator"
-    annotation (Placement(transformation(extent={{-130,60},{-110,80}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant uBoi1[nBoi](
-    final k={true,true})
-    "Initial boiler status"
-    annotation (Placement(transformation(extent={{110,170},{130,190}})));
+    annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con5[nBoi](
     final k={false,true})
     "Boiler setpoints for stage 2"
     annotation (Placement(transformation(extent={{36,70},{56,90}})));
 
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi3[nBoi]
-    "Pass initial boiler status and switch to signal from controller"
-    annotation (Placement(transformation(extent={{150,190},{170,210}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Latch lat2[nBoi](
-    final pre_y_start=fill(false,nBoi))
-    "Hold true signal after change in boiler status"
-    annotation (Placement(transformation(extent={{80,190},{100,210}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Pre pre4[nBoi]
+  Buildings.Controls.OBC.CDL.Logical.Pre pre4[nBoi](
+    final pre_u_start={true,true})
     "Logical pre block"
-    annotation (Placement(transformation(extent={{110,220},{130,240}})));
+    annotation (Placement(transformation(extent={{110,180},{130,200}})));
 
   Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi4[nBoi]
     "Pass boiler setpoints for stage 3 after one stage change"
@@ -332,7 +302,7 @@ protected
 
   Buildings.Controls.OBC.CDL.Logical.Pre pre6
     "Logical pre block"
-    annotation (Placement(transformation(extent={{342,190},{362,210}})));
+    annotation (Placement(transformation(extent={{340,190},{360,210}})));
 
   Buildings.Controls.OBC.CDL.Logical.FallingEdge falEdg4
     "Falling edge detector"
@@ -360,42 +330,25 @@ protected
     "Falling edge detector"
     annotation (Placement(transformation(extent={{206,110},{226,130}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Change cha1[nBoi]
-    "Detect change in boiler status from controller"
-    annotation (Placement(transformation(extent={{40,190},{60,210}})));
-
   Buildings.Controls.OBC.CDL.Logical.Latch lat3[nBoi](
     final pre_y_start=fill(false,nBoi))
     "Hold true signal once first stage change is completed"
-    annotation (Placement(transformation(extent={{280,60},{300,80}})));
+    annotation (Placement(transformation(extent={{330,60},{350,80}})));
 
   Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep1(
     final nout=nBoi)
     "Boolean replicator"
-    annotation (Placement(transformation(extent={{240,60},{260,80}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant uBoi4[nBoi](
-    final k={true,true})
-    "Initial boiler status"
-    annotation (Placement(transformation(extent={{-260,-166},{-240,-146}})));
+    annotation (Placement(transformation(extent={{280,60},{300,80}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con20[nBoi](
     final k={false,true})
     "Boiler setpoints for stage 2"
     annotation (Placement(transformation(extent={{-334,-266},{-314,-246}})));
 
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi12[nBoi]
-    "Pass initial boiler status and switch to signal from controller"
-    annotation (Placement(transformation(extent={{-220,-146},{-200,-126}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Latch lat8[nBoi](
-    final pre_y_start=fill(false,nBoi))
-    "Hold true signal after change in boiler status"
-    annotation (Placement(transformation(extent={{-290,-146},{-270,-126}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Pre pre13[nBoi]
+  Buildings.Controls.OBC.CDL.Logical.Pre pre13[nBoi](
+    final pre_u_start={true,true})
     "Logical pre block"
-    annotation (Placement(transformation(extent={{-260,-116},{-240,-96}})));
+    annotation (Placement(transformation(extent={{-260,-160},{-240,-140}})));
 
   Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi13[nBoi]
     "Pass boiler setpoints for stage 3 after one stage change"
@@ -481,19 +434,15 @@ protected
     "Falling edge detector"
     annotation (Placement(transformation(extent={{-164,-226},{-144,-206}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Change cha4[nBoi]
-    "Detect change in boiler status from controller"
-    annotation (Placement(transformation(extent={{-330,-146},{-310,-126}})));
-
   Buildings.Controls.OBC.CDL.Logical.Latch lat9[nBoi](
     final pre_y_start=fill(false,nBoi))
     "Hold true signal once first stage change is completed"
-    annotation (Placement(transformation(extent={{-90,-276},{-70,-256}})));
+    annotation (Placement(transformation(extent={{-50,-280},{-30,-260}})));
 
   Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep4(
     final nout=nBoi)
     "Boolean replicator"
-    annotation (Placement(transformation(extent={{-130,-276},{-110,-256}})));
+    annotation (Placement(transformation(extent={{-90,-280},{-70,-260}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con12(
     final k=1.1*VNom_flow)
@@ -513,17 +462,19 @@ protected
     "Hold true signal after stage change"
     annotation (Placement(transformation(extent={{-130,-46},{-110,-26}})));
 
+  Buildings.Controls.OBC.CDL.Logical.Pre pre7
+    "Logical pre block"
+    annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Pre pre8
+    "Logical pre block"
+    annotation (Placement(transformation(extent={{240,60},{260,80}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Pre pre9
+    "Logical pre block"
+    annotation (Placement(transformation(extent={{-130,-280},{-110,-260}})));
+
 equation
-
-  connect(uBoi.y, logSwi.u3) annotation (Line(points={{-238,180},{-230,180},{
-          -230,192},{-222,192}},
-                            color={255,0,255}));
-
-  connect(lat.y, logSwi.u2)
-    annotation (Line(points={{-268,200},{-222,200}}, color={255,0,255}));
-
-  connect(pre3.y, logSwi.u1) annotation (Line(points={{-238,230},{-230,230},{
-          -230,208},{-222,208}}, color={255,0,255}));
 
   connect(con2.y, logSwi1.u1) annotation (Line(points={{-238,130},{-230,130},{
           -230,118},{-222,118}},
@@ -581,49 +532,28 @@ equation
   connect(falEdg1.y, pre2.u)
     annotation (Line(points={{-68,200},{-30,200}}, color={255,0,255}));
 
-  connect(pre2.y, or2.u2) annotation (Line(points={{-6,200},{0,200},{0,100},{
-          -140,100},{-140,112},{-132,112}}, color={255,0,255}));
-
   connect(booPul[1].y, falEdg2.u) annotation (Line(points={{-348,260},{-340,260},
           {-340,96},{-168,96},{-168,120},{-166,120}}, color={255,0,255}));
 
   connect(falEdg2.y, or2.u1)
     annotation (Line(points={{-142,120},{-132,120}}, color={255,0,255}));
 
-  connect(cha.y, lat.u)
-    annotation (Line(points={{-308,200},{-292,200}}, color={255,0,255}));
-
-  connect(pre3.y, cha.u) annotation (Line(points={{-238,230},{-230,230},{-230,
-          218},{-336,218},{-336,200},{-332,200}}, color={255,0,255}));
-
   connect(booRep.y, lat1.u)
-    annotation (Line(points={{-108,70},{-92,70}}, color={255,0,255}));
+    annotation (Line(points={{-58,70},{-42,70}},  color={255,0,255}));
 
-  connect(pre2.y, booRep.u) annotation (Line(points={{-6,200},{0,200},{0,100},{
-          -140,100},{-140,70},{-132,70}}, color={255,0,255}));
-
-  connect(lat1.y, logSwi1.u2) annotation (Line(points={{-68,70},{-60,70},{-60,
+  connect(lat1.y, logSwi1.u2) annotation (Line(points={{-18,70},{-10,70},{-10,
           50},{-160,50},{-160,74},{-226,74},{-226,110},{-222,110}}, color={255,
           0,255}));
 
-  connect(lat1[1].y, intSwi.u2) annotation (Line(points={{-68,70},{-60,70},{-60,
+  connect(lat1[1].y, intSwi.u2) annotation (Line(points={{-18,70},{-10,70},{-10,
           50},{-160,50},{-160,74},{-226,74},{-226,40},{-222,40}}, color={255,0,
           255}));
 
   connect(con1[1].y, lat1[1].clr) annotation (Line(points={{-312,80},{-150,80},
-          {-150,54},{-100,54},{-100,64},{-92,64}}, color={255,0,255}));
+          {-150,54},{-50,54},{-50,64},{-42,64}},   color={255,0,255}));
 
   connect(con1[1].y, lat1[2].clr) annotation (Line(points={{-312,80},{-150,80},
-          {-150,54},{-100,54},{-100,64},{-92,64}}, color={255,0,255}));
-
-  connect(uBoi1.y, logSwi3.u3) annotation (Line(points={{132,180},{140,180},{140,
-          192},{148,192}}, color={255,0,255}));
-
-  connect(lat2.y, logSwi3.u2)
-    annotation (Line(points={{102,200},{148,200}}, color={255,0,255}));
-
-  connect(pre4.y, logSwi3.u1) annotation (Line(points={{132,230},{140,230},{140,
-          208},{148,208}}, color={255,0,255}));
+          {-150,54},{-50,54},{-50,64},{-42,64}},   color={255,0,255}));
 
   connect(con6.y,logSwi4. u1) annotation (Line(points={{132,130},{140,130},{140,
           118},{148,118}},  color={255,0,255}));
@@ -665,10 +595,7 @@ equation
           30,30},{48,30}}, color={255,0,255}));
 
   connect(falEdg4.y,pre6. u)
-    annotation (Line(points={{302,200},{340,200}}, color={255,0,255}));
-
-  connect(pre6.y,or1. u2) annotation (Line(points={{364,200},{370,200},{370,100},
-          {230,100},{230,112},{238,112}},   color={255,0,255}));
+    annotation (Line(points={{302,200},{338,200}}, color={255,0,255}));
 
   connect(booPul1[1].y, falEdg5.u) annotation (Line(points={{22,260},{30,260},{30,
           96},{202,96},{202,120},{204,120}}, color={255,0,255}));
@@ -676,41 +603,21 @@ equation
   connect(falEdg5.y,or1. u1)
     annotation (Line(points={{228,120},{238,120}},   color={255,0,255}));
 
-  connect(cha1.y, lat2.u)
-    annotation (Line(points={{62,200},{78,200}}, color={255,0,255}));
-
-  connect(pre4.y, cha1.u) annotation (Line(points={{132,230},{140,230},{140,218},
-          {34,218},{34,200},{38,200}}, color={255,0,255}));
-
   connect(booRep1.y, lat3.u)
-    annotation (Line(points={{262,70},{278,70}}, color={255,0,255}));
+    annotation (Line(points={{302,70},{328,70}}, color={255,0,255}));
 
-  connect(pre6.y, booRep1.u) annotation (Line(points={{364,200},{370,200},{370,100},
-          {230,100},{230,70},{238,70}}, color={255,0,255}));
-
-  connect(lat3.y,logSwi4. u2) annotation (Line(points={{302,70},{310,70},{310,50},
-          {210,50},{210,74},{144,74},{144,110},{148,110}},          color={255,
+  connect(lat3.y,logSwi4. u2) annotation (Line(points={{352,70},{360,70},{360,
+          50},{210,50},{210,74},{144,74},{144,110},{148,110}},      color={255,
           0,255}));
-  connect(lat3[1].y, intSwi2.u2) annotation (Line(points={{302,70},{310,70},{310,
-          50},{210,50},{210,74},{144,74},{144,40},{148,40}}, color={255,0,255}));
+  connect(lat3[1].y, intSwi2.u2) annotation (Line(points={{352,70},{360,70},{
+          360,50},{210,50},{210,74},{144,74},{144,40},{148,40}},
+                                                             color={255,0,255}));
 
-  connect(con5[1].y,lat3 [1].clr) annotation (Line(points={{58,80},{220,80},{220,
-          54},{270,54},{270,64},{278,64}},         color={255,0,255}));
+  connect(con5[1].y,lat3 [1].clr) annotation (Line(points={{58,80},{220,80},{
+          220,54},{320,54},{320,64},{328,64}},     color={255,0,255}));
 
-  connect(con5[1].y,lat3 [2].clr) annotation (Line(points={{58,80},{220,80},{220,
-          54},{270,54},{270,64},{278,64}},         color={255,0,255}));
-
-  connect(uBoi4.y, logSwi12.u3) annotation (Line(points={{-238,-156},{-230,-156},
-          {-230,-144},{-222,-144}},
-                           color={255,0,255}));
-
-  connect(lat8.y, logSwi12.u2)
-    annotation (Line(points={{-268,-136},{-222,-136}},
-                                                   color={255,0,255}));
-
-  connect(pre13.y, logSwi12.u1) annotation (Line(points={{-238,-106},{-230,-106},
-          {-230,-128},{-222,-128}},
-                           color={255,0,255}));
+  connect(con5[1].y,lat3 [2].clr) annotation (Line(points={{58,80},{220,80},{
+          220,54},{320,54},{320,64},{328,64}},     color={255,0,255}));
 
   connect(con21.y, logSwi13.u1) annotation (Line(points={{-238,-206},{-230,-206},
           {-230,-218},{-222,-218}},
@@ -771,10 +678,6 @@ equation
     annotation (Line(points={{-68,-136},{-30,-136}},
                                                    color={255,0,255}));
 
-  connect(pre15.y, or5.u2) annotation (Line(points={{-6,-136},{0,-136},{0,-236},
-          {-140,-236},{-140,-224},{-132,-224}},
-                                          color={255,0,255}));
-
   connect(booPul4[1].y, falEdg14.u) annotation (Line(points={{-348,-76},{-340,-76},
           {-340,-240},{-168,-240},{-168,-216},{-166,-216}},
                                                   color={255,0,255}));
@@ -783,36 +686,24 @@ equation
     annotation (Line(points={{-142,-216},{-132,-216}},
                                                    color={255,0,255}));
 
-  connect(cha4.y, lat8.u)
-    annotation (Line(points={{-308,-136},{-292,-136}},
-                                                   color={255,0,255}));
-
-  connect(pre13.y, cha4.u) annotation (Line(points={{-238,-106},{-230,-106},{-230,
-          -118},{-336,-118},{-336,-136},{-332,-136}},
-                                          color={255,0,255}));
-
   connect(booRep4.y, lat9.u)
-    annotation (Line(points={{-108,-266},{-92,-266}},
+    annotation (Line(points={{-68,-270},{-52,-270}},
                                                  color={255,0,255}));
 
-  connect(pre15.y, booRep4.u) annotation (Line(points={{-6,-136},{0,-136},{0,-236},
-          {-140,-236},{-140,-266},{-132,-266}},
-                                             color={255,0,255}));
-
-  connect(lat9.y, logSwi13.u2) annotation (Line(points={{-68,-266},{-60,-266},{-60,
-          -286},{-160,-286},{-160,-262},{-226,-262},{-226,-226},{-222,-226}},
+  connect(lat9.y, logSwi13.u2) annotation (Line(points={{-28,-270},{-20,-270},{
+          -20,-286},{-160,-286},{-160,-262},{-226,-262},{-226,-226},{-222,-226}},
                                                            color={255,0,255}));
 
-  connect(lat9[1].y, intSwi8.u2) annotation (Line(points={{-68,-266},{-60,-266},
-          {-60,-286},{-160,-286},{-160,-262},{-226,-262},{-226,-296},{-222,-296}},
+  connect(lat9[1].y, intSwi8.u2) annotation (Line(points={{-28,-270},{-20,-270},
+          {-20,-286},{-160,-286},{-160,-262},{-226,-262},{-226,-296},{-222,-296}},
                                                              color={255,0,255}));
 
-  connect(con20[1].y, lat9[1].clr) annotation (Line(points={{-312,-256},{-150,-256},
-          {-150,-282},{-100,-282},{-100,-272},{-92,-272}},
+  connect(con20[1].y, lat9[1].clr) annotation (Line(points={{-312,-256},{-150,
+          -256},{-150,-282},{-60,-282},{-60,-276},{-52,-276}},
                                            color={255,0,255}));
 
-  connect(con20[1].y, lat9[2].clr) annotation (Line(points={{-312,-256},{-150,-256},
-          {-150,-282},{-100,-282},{-100,-272},{-92,-272}},
+  connect(con20[1].y, lat9[2].clr) annotation (Line(points={{-312,-256},{-150,
+          -256},{-150,-282},{-60,-282},{-60,-276},{-52,-276}},
                                            color={255,0,255}));
 
   connect(con12.y, swi2.u1) annotation (Line(points={{-68,-16},{-60,-16},{-60,-28},
@@ -834,11 +725,8 @@ equation
   connect(swi.y, dowProCon.uHotWatIsoVal) annotation (Line(points={{-198,280},{-170,
           280},{-170,192},{-162,192}}, color={0,0,127}));
 
-  connect(logSwi.y, dowProCon.uBoi) annotation (Line(points={{-198,200},{-174,200},
-          {-174,188},{-162,188}}, color={255,0,255}));
-
-  connect(dowProCon.yBoi, pre3.u) annotation (Line(points={{-138,204},{-130,204},
-          {-130,250},{-270,250},{-270,230},{-262,230}}, color={255,0,255}));
+  connect(dowProCon.yBoi, pre3.u) annotation (Line(points={{-138,198},{-130,198},
+          {-130,250},{-270,250},{-270,190},{-262,190}}, color={255,0,255}));
 
   connect(logSwi1.y, dowProCon.uBoiSet) annotation (Line(points={{-198,110},{-180,
           110},{-180,184},{-162,184}}, color={255,0,255}));
@@ -847,26 +735,23 @@ equation
           120},{-100,104},{-176,104},{-176,180},{-162,180}}, color={255,0,255}));
 
   connect(intSwi.y, dowProCon.uStaSet) annotation (Line(points={{-198,40},{-172,
-          40},{-172,172},{-162,172}}, color={255,127,0}));
+          40},{-172,176},{-162,176}}, color={255,127,0}));
 
   connect(pre1.y, dowProCon.uPumChaPro) annotation (Line(points={{-18,140},{-10,
           140},{-10,120},{-80,120},{-80,140},{-166,140},{-166,168},{-162,168}},
         color={255,0,255}));
 
-  connect(dowProCon.yStaChaPro, yStaChaPro.u) annotation (Line(points={{-138,197},
-          {-130,197},{-130,200},{-122,200}}, color={255,0,255}));
+  connect(dowProCon.yStaChaPro, yStaChaPro.u) annotation (Line(points={{-138,194},
+          {-126,194},{-126,200},{-122,200}}, color={255,0,255}));
 
   connect(dowProCon.yHotWatIsoVal, zerOrdHol.u) annotation (Line(points={{-138,190},
           {-130,190},{-130,176},{-62,176}}, color={0,0,127}));
 
-  connect(dowProCon.yPumChaPro, yPumChaPro.u) annotation (Line(points={{-138,169},
-          {-130,169},{-130,160},{-122,160}}, color={255,0,255}));
+  connect(dowProCon.yPumChaPro, yPumChaPro.u) annotation (Line(points={{-138,174},
+          {-130,174},{-130,160},{-122,160}}, color={255,0,255}));
 
-  connect(dowProCon1.yBoi, pre4.u) annotation (Line(points={{232,204},{240,204},
-          {240,250},{100,250},{100,230},{108,230}}, color={255,0,255}));
-
-  connect(logSwi3.y, dowProCon1.uBoi) annotation (Line(points={{172,200},{190,200},
-          {190,188},{208,188}}, color={255,0,255}));
+  connect(dowProCon1.yBoi, pre4.u) annotation (Line(points={{232,198},{240,198},
+          {240,250},{100,250},{100,190},{108,190}}, color={255,0,255}));
 
   connect(logSwi4.y, dowProCon1.uBoiSet) annotation (Line(points={{172,110},{190,
           110},{190,184},{208,184}}, color={255,0,255}));
@@ -875,14 +760,14 @@ equation
           120},{270,104},{194,104},{194,180},{208,180}}, color={255,0,255}));
 
   connect(intSwi2.y, dowProCon1.uStaSet) annotation (Line(points={{172,40},{198,
-          40},{198,172},{208,172}}, color={255,127,0}));
+          40},{198,176},{208,176}}, color={255,127,0}));
 
   connect(pre5.y, dowProCon1.uPumChaPro) annotation (Line(points={{352,140},{360,
           140},{360,120},{310,120},{310,140},{202,140},{202,168},{208,168}},
         color={255,0,255}));
 
-  connect(dowProCon1.yStaChaPro, yStaChaPro1.u) annotation (Line(points={{232,197},
-          {240,197},{240,200},{248,200}}, color={255,0,255}));
+  connect(dowProCon1.yStaChaPro, yStaChaPro1.u) annotation (Line(points={{232,194},
+          {244,194},{244,200},{248,200}}, color={255,0,255}));
 
   connect(con23.y, dowProCon4.VMinHotWatSet_flow) annotation (Line(points={{-158,
           -46},{-150,-46},{-150,-66},{-170,-66},{-170,-136},{-162,-136}}, color=
@@ -895,9 +780,6 @@ equation
           {-190,-56},{-190,-132},{-176,-132},{-176,-144},{-162,-144}}, color={0,
           0,127}));
 
-  connect(logSwi12.y, dowProCon4.uBoi) annotation (Line(points={{-198,-136},{-180,
-          -136},{-180,-148},{-162,-148}}, color={255,0,255}));
-
   connect(logSwi13.y, dowProCon4.uBoiSet) annotation (Line(points={{-198,-226},{
           -180,-226},{-180,-152},{-162,-152}}, color={255,0,255}));
 
@@ -905,38 +787,52 @@ equation
           -216},{-104,-232},{-176,-232},{-176,-156},{-162,-156}}, color={255,0,255}));
 
   connect(intSwi8.y, dowProCon4.uStaSet) annotation (Line(points={{-198,-296},{-172,
-          -296},{-172,-164},{-162,-164}}, color={255,127,0}));
+          -296},{-172,-160},{-162,-160}}, color={255,127,0}));
 
-  connect(dowProCon4.yBoi, pre13.u) annotation (Line(points={{-138,-132},{-130,-132},
-          {-130,-86},{-270,-86},{-270,-106},{-262,-106}}, color={255,0,255}));
+  connect(dowProCon4.yBoi, pre13.u) annotation (Line(points={{-138,-138},{-130,
+          -138},{-130,-86},{-270,-86},{-270,-150},{-262,-150}},
+                                                          color={255,0,255}));
 
-  connect(dowProCon4.yStaChaPro, yStaChaPro4.u) annotation (Line(points={{-138,-139},
-          {-130,-139},{-130,-136},{-122,-136}}, color={255,0,255}));
+  connect(dowProCon4.yStaChaPro, yStaChaPro4.u) annotation (Line(points={{-138,-142},
+          {-126,-142},{-126,-136},{-122,-136}}, color={255,0,255}));
 
   connect(dowProCon4.yHotWatIsoVal, zerOrdHol4.u) annotation (Line(points={{-138,
           -146},{-130,-146},{-130,-156},{-62,-156}}, color={0,0,127}));
 
-  connect(con1[1].y, lat[1].clr) annotation (Line(points={{-312,80},{-306,80},{-306,
-          194},{-292,194}}, color={255,0,255}));
+  connect(dowProCon1.yPumChaPro, yPumChaPro1.u) annotation (Line(points={{232,174},
+          {240,174},{240,160},{248,160}}, color={255,0,255}));
 
-  connect(con1[1].y, lat[2].clr) annotation (Line(points={{-312,80},{-306,80},{-306,
-          194},{-292,194}}, color={255,0,255}));
-
-  connect(con5[1].y, lat2[1].clr) annotation (Line(points={{58,80},{64,80},{64,194},
-          {78,194}}, color={255,0,255}));
-
-  connect(con5[1].y, lat2[2].clr) annotation (Line(points={{58,80},{64,80},{64,194},
-          {78,194}}, color={255,0,255}));
-
-  connect(con20[1].y, lat8[1].clr) annotation (Line(points={{-312,-256},{-306,-256},
-          {-306,-142},{-292,-142}}, color={255,0,255}));
-
-  connect(con20[1].y, lat8[2].clr) annotation (Line(points={{-312,-256},{-306,-256},
-          {-306,-142},{-292,-142}}, color={255,0,255}));
-
-  connect(dowProCon1.yPumChaPro, yPumChaPro1.u) annotation (Line(points={{232,169},
-          {240,169},{240,160},{248,160}}, color={255,0,255}));
-
+  connect(pre2.y, dowProCon.uStaChaPro) annotation (Line(points={{-6,200},{0,200},
+          {0,100},{-184,100},{-184,172},{-162,172}}, color={255,0,255}));
+  connect(pre6.y, dowProCon1.uStaChaPro) annotation (Line(points={{362,200},{
+          370,200},{370,100},{186,100},{186,172},{208,172}},
+                                                         color={255,0,255}));
+  connect(pre15.y, dowProCon4.uStaChaPro) annotation (Line(points={{-6,-136},{0,
+          -136},{0,-236},{-184,-236},{-184,-164},{-162,-164}}, color={255,0,255}));
+  connect(pre3.y, dowProCon.uBoi) annotation (Line(points={{-238,190},{-180,190},
+          {-180,188},{-162,188}}, color={255,0,255}));
+  connect(pre7.y, booRep.u)
+    annotation (Line(points={{-98,70},{-82,70}}, color={255,0,255}));
+  connect(pre2.y, pre7.u) annotation (Line(points={{-6,200},{0,200},{0,90},{
+          -140,90},{-140,70},{-122,70}}, color={255,0,255}));
+  connect(pre7.y, or2.u2) annotation (Line(points={{-98,70},{-90,70},{-90,94},{
+          -140,94},{-140,112},{-132,112}}, color={255,0,255}));
+  connect(pre4.y, dowProCon1.uBoi) annotation (Line(points={{132,190},{190,190},
+          {190,188},{208,188}}, color={255,0,255}));
+  connect(pre8.y, booRep1.u)
+    annotation (Line(points={{262,70},{278,70}}, color={255,0,255}));
+  connect(pre8.y, or1.u2) annotation (Line(points={{262,70},{270,70},{270,90},{
+          232,90},{232,112},{238,112}}, color={255,0,255}));
+  connect(pre6.y, pre8.u) annotation (Line(points={{362,200},{370,200},{370,100},
+          {226,100},{226,70},{238,70}}, color={255,0,255}));
+  connect(pre13.y, dowProCon4.uBoi) annotation (Line(points={{-238,-150},{-200,
+          -150},{-200,-148},{-162,-148}}, color={255,0,255}));
+  connect(booRep4.u, pre9.y)
+    annotation (Line(points={{-92,-270},{-108,-270}}, color={255,0,255}));
+  connect(pre15.y, pre9.u) annotation (Line(points={{-6,-136},{0,-136},{0,-236},
+          {-140,-236},{-140,-270},{-132,-270}}, color={255,0,255}));
+  connect(pre9.y, or5.u2) annotation (Line(points={{-108,-270},{-100,-270},{
+          -100,-240},{-136,-240},{-136,-224},{-132,-224}}, color={255,0,255}));
 annotation (
  experiment(
       StopTime=900,
