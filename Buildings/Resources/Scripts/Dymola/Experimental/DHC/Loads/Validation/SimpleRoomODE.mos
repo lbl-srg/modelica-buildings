@@ -10,7 +10,6 @@ createPlot(
     y={"romHeaUnm.TAir", "rooOdeHea.TAir", "romCooUnm.TAir", "rooOdeCoo.TAir"},
     grid=true,
     color=true,
-    filename="SimpleRoomODE.mat",
     displayUnits={"degC", "degC", "degC", "degC"});
 createPlot(
     id=1,

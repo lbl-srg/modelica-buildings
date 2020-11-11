@@ -60,6 +60,7 @@ model FanCoil2PipeCooling
   Buildings.Fluid.HeatExchangers.DryCoilEffectivenessNTU hex(
     redeclare final package Medium1=Medium1,
     redeclare final package Medium2=Medium2,
+    show_T=true,
     final configuration=hexConCoo,
     final m1_flow_nominal=mChiWat_flow_nominal,
     final m2_flow_nominal=mLoaCoo_flow_nominal,
@@ -96,9 +97,9 @@ model FanCoil2PipeCooling
     "Source for return air"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},rotation=0,origin={112,0})));
   Buildings.Experimental.DHC.Loads.SimpleRoomODE TLoaODE(
-    TOutHea_nominal=273.15-5,
-    TIndHea_nominal=T_aLoaHea_nominal,
-    QHea_flow_nominal=QHea_flow_nominal)
+    TOut_nominal=313.15,
+    TInd_nominal=T_aLoaCoo_nominal,
+    Q_flow_nominal=QCoo_flow_nominal)
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain gaiHeaFlo(
     k=1/QCoo_flow_nominal)
@@ -196,6 +197,11 @@ Buildings.Experimental.DHC.Loads.SimpleRoomODE</a>.
 </html>",
       revisions="<html>
 <ul>
+<li>
+October 20, 2020, by Hagar Elarga:<br/>
+Changed the <code>TLoaODE</code> parameters
+for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2236\">issue 2236</a>
+</li> 
 <li>
 February 21, 2020, by Antoine Gautier:<br/>
 First implementation.

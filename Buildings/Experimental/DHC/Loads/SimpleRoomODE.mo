@@ -2,21 +2,20 @@ within Buildings.Experimental.DHC.Loads;
 model SimpleRoomODE
   "Simplified model for assessing room air temperature variations around a set point"
   extends Modelica.Blocks.Icons.Block;
-  parameter Modelica.SIunits.Temperature TOutHea_nominal(
+  parameter Modelica.SIunits.Temperature TOut_nominal(
     displayUnit="degC")
-    "Outdoor air temperature at heating nominal conditions"
+    "Outdoor air temperature at heating or cooling nominal conditions"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Temperature TIndHea_nominal(
+  parameter Modelica.SIunits.Temperature TInd_nominal(
     displayUnit="degC")
-    "Indoor air temperature at heating nominal conditions"
+    "Indoor air temperature at heating or cooling nominal conditions"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.HeatFlowRate QHea_flow_nominal(
-    min=0)
-    "Heating heat flow rate (for TInd=TIndHea_nominal, TOut=TOutHea_nominal,
+  parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal
+    "Heating or cooling heat flow rate(for TInd=TInd_nominal, TOut=TOut_nominal,
     with no internal gains, no solar radiation)"
     annotation (Dialog(group="Nominal condition"));
   parameter Boolean steadyStateInitial=false
-    "true initializes T with dT(0)/dt=0, false initializes T with T(0)=TIndHea_nominal"
+    "true initializes T with dT(0)/dt=0, false initializes T with T(0)=TInd_nominal"
     annotation (Dialog(group="Initialization"),Evaluate=true);
   parameter Modelica.SIunits.Time tau=1800
     "Time constant of the indoor temperature";
@@ -43,14 +42,16 @@ model SimpleRoomODE
     "Room air temperature"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 protected
-  parameter Modelica.SIunits.ThermalConductance G=-QHea_flow_nominal/(TOutHea_nominal-TIndHea_nominal)
+  parameter Modelica.SIunits.ThermalConductance G=abs(
+    Q_flow_nominal)/abs(
+    TOut_nominal-TInd_nominal)
     "Lumped thermal conductance representing all temperature dependent heat transfer mechanisms";
 initial equation
   if steadyStateInitial then
     der(
       TAir)=0;
   else
-    TAir=TIndHea_nominal;
+    TAir=TInd_nominal;
   end if;
 equation
   der(
@@ -74,11 +75,11 @@ infiltration and ventilation) is assessed from the steady-state energy balance
 at heating nominal conditions as
 </p>
 <p style=\"font-style:italic;\">
-0 = Q&#775;<sub>heating, nom</sub> + G (T<sub>out, heating, nom</sub> - T<sub>ind, heating, nom</sub>).
+0 = Q&#775;<sub>heating/cooling, nom</sub> + G (T<sub>out, heating/cooling, nom</sub> - T<sub>ind, heating/cooling, nom</sub>).
 </p>
 <p>
 Note that it is important for the model representativeness that
-Q&#775;<sub>heating, nom</sub> be evaluated in close to steady-state conditions
+Q&#775;<sub>heating/cooling, nom</sub> be evaluated in close to steady-state conditions
 with no internal heat gains and no solar heat gains.
 </p>
 <p>
@@ -118,6 +119,10 @@ where <i>&tau; = C / G</i> is the time constant of the indoor temperature.
 </html>",
       revisions="<html>
 <ul>
+<li>
+October 20, 2020, by Hagar Elarga:<br/>
+Revised the implementation for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2236\">issue 2236</a>
+</li>
 <li>
 February 21, 2020, by Antoine Gautier:<br/>
 First implementation.

@@ -1,9 +1,9 @@
-simulateModel("Buildings.Experimental.DHC.Loads.Examples.CouplingTimeSeries",
+simulateModel("Buildings.Experimental.DHC.Loads.Examples.CouplingTimeSeries_Hospital",
     method="cvode",
     tolerance=1e-6,
-    numberOfIntervals=500,
+    outputInterval=3600,
     stopTime=604800.0,
-    resultFile="CouplingTimeSeries");
+    resultFile="CouplingTimeSeries_Hospital");
 createPlot(
     id=1,
     position={1, 20, 492, 682},
@@ -15,6 +15,7 @@ createPlot(
     id=1,
     y={"bui.terUniHea.QReqHea_flow", "bui.terUniHea.QActHea_flow"},
     grid=true,
+    autoscale=true,
     subPlot=2
 );
 createPlot(
@@ -40,10 +41,18 @@ createPlot(
     id=2,
     y={"bui.terUniHea.QActHea_flow"},
     grid=true,
+    autoscale=true,
     subPlot=3
 );
+createPlot(
+    id=2,
+    y={"bui.facScaHea"},
+    grid=true,
+    autoscale=true,
+    subPlot=4
+);
 plotExpression(
-    apply(CouplingTimeSeries.bui.terUniHea.facSca*CouplingTimeSeries.bui.terUniHea.QHea_flow_nominal),
+    apply(CouplingTimeSeries_Hospital.bui.terUniHea.facSca*CouplingTimeSeries_Hospital.bui.terUniHea.QHea_flow_nominal),
     false,
     "facSca*QHea_flow_nominal",
     2);
@@ -60,14 +69,19 @@ createPlot(
     grid=true,
     subPlot=2
 );
+
 createPlot(
     id=3,
-    y={"bui.terUniCoo.QActCoo_flow"},
+    y={"bui.facScaCoo"},
     grid=true,
+    autoscale=true,
     subPlot=3
 );
+
+
 plotExpression(
-    apply(CouplingTimeSeries.bui.terUniCoo.facSca*CouplingTimeSeries.bui.terUniCoo.QCoo_flow_nominal),
+    apply(CouplingTimeSeries_Hospital.bui.terUniCoo.facSca*CouplingTimeSeries_Hospital
+.bui.terUniCoo.QCoo_flow_nominal),
     false,
     "facSca*QCoo_flow_nominal",
     3);
@@ -84,4 +98,17 @@ createPlot(
     autoscale=true,
     grid=true,
     subPlot=2
+);
+createPlot(
+    id=5,
+    y={"bui.terUniHea.hex.sta_a1.T", "bui.terUniHea.hex.sta_b1.T"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=5,
+    subPlot=2,
+    y={"bui.terUniCoo.hex.sta_a1.T", "bui.terUniCoo.hex.sta_b1.T"},
+    autoscale=true,
+    grid=true
 );

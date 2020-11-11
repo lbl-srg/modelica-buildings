@@ -56,9 +56,11 @@ model SimpleRoomODE
     "Prescribed heat flow rate"
     annotation (Placement(transformation(extent={{82,70},{62,90}})));
   Buildings.Experimental.DHC.Loads.SimpleRoomODE rooOdeHea(
-    TOutHea_nominal=273.15,
-    TIndHea_nominal=293.15,
-    QHea_flow_nominal=QHea_flow_nominal,
+    TOut_nominal(
+      displayUnit="degC")=273.15,
+    TInd_nominal(
+      displayUnit="degC")=293.15,
+    Q_flow_nominal=QHea_flow_nominal,
     tau=tau)
     "ODE heated room model"
     annotation (Placement(transformation(extent={{-10,10},{10,30}})));
@@ -80,9 +82,11 @@ model SimpleRoomODE
     "Scaling"
     annotation (Placement(transformation(extent={{60,-110},{80,-90}})));
   Buildings.Experimental.DHC.Loads.SimpleRoomODE rooOdeCoo(
-    TOutHea_nominal=273.15,
-    TIndHea_nominal=293.15,
-    QHea_flow_nominal=QHea_flow_nominal,
+    TOut_nominal(
+      displayUnit="degC")=308.15,
+    TInd_nominal(
+      displayUnit="degC")=297.15,
+    Q_flow_nominal=QCoo_flow_nominal,
     tau=tau)
     "ODE cooled room model"
     annotation (Placement(transformation(extent={{-10,-30},{10,-10}})));
@@ -189,7 +193,12 @@ one requiring heating, and the second requiring cooling.
 </p>
 </html>",
       revisions="<html>
-<ul>
+      <ul>
+<li>
+October 20, 2020, by Hagar Elarga:<br/>
+Changed the <code>rooODECoo</code> parameters
+for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2236\">issue 2236</a>
+</li>     
 <li>
 February 21, 2020, by Antoine Gautier:<br/>
 First implementation.
