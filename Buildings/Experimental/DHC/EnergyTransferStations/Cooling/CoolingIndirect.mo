@@ -183,6 +183,7 @@ model CoolingIndirect
     annotation (Placement(transformation(extent={{60,100},{80,120}})));
   Buildings.Fluid.Sensors.MassFlowRate senMasFlo(
     redeclare package Medium=Medium)
+    "Mass flow rate sensor"
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTBuiSup(
     redeclare final package Medium=Medium,
@@ -208,7 +209,7 @@ model CoolingIndirect
   Modelica.Blocks.Math.Add dTDis(
     k1=-1,
     k2=+1)
-    "Temperatur difference on the district side"
+    "Temperature difference on the district side"
     annotation (Placement(transformation(extent={{-60,106},{-40,126}})));
 protected
   final parameter Medium.ThermodynamicState sta_default=Medium.setState_pTX(

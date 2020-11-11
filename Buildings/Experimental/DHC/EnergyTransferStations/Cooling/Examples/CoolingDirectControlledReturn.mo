@@ -31,6 +31,7 @@ model CoolingDirectControlledReturn
     yMax=0,
     yMin=-1,
     yCon_start=0)
+    "Energy transfer station"
     annotation (Placement(transformation(extent={{-10,-52},{10,-32}})));
   Modelica.Blocks.Sources.Constant TSetDisRet_min(
     k=273.15+16)
