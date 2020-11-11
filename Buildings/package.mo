@@ -287,7 +287,6 @@ to <b style=\"color:blue\">existing</b> libraries:
                        periods <code>nPeriods</code> specification.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2125\">issue 2125</a>.</td>
 </tr>
-
 <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Integer.TimeTable
     </td>
     <td valign=\"top\">Time table for <code>Integer</code> outputs.<br/>
@@ -297,7 +296,20 @@ to <b style=\"color:blue\">existing</b> libraries:
 <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Logical.TimeTable
     </td>
     <td valign=\"top\">Time table for <code>Boolean</code> outputs.<br/>
-                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2125\">issue 2125</a>.</td>
+                     This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2125\">issue 2125</a>.</td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Examples</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Examples.VAVReheat.Controls.SupplyAirTemperature
+    </td>
+    <td valign=\"top\">Control block for tracking the supply air temperature set point.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2024\">issue 2024</a>.</td>
+</tr>
+<tr><td valign=\"top\">Buildings.Examples.VAVReheat.Controls.SupplyAirTemperatureSetpoint
+    </td>
+    <td valign=\"top\">Computation of the supply air temperature set point based on the operation mode.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2024\">issue 2024</a>.</td>
 </tr>
 </table>
 <!-- Backward compatible changes -->
@@ -368,6 +380,16 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Examples</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Examples.DualFanDualDuct.ClosedLoop<br/>
+			    Buildings.Examples.VAVReheat.ASHRAE2006<br/>
+			    Buildings.Examples.ScalableBenchmarks.BuildingVAV.Examples.OneFloor_OneZone<br/>
+			    Buildings.Examples.ScalableBenchmarks.BuildingVAV.Examples.TwoFloor_TwoZone
+    </td>
+    <td valign=\"top\">Adapted the model to the updated control of supply air temperature.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2024\">issue 2024</a>.
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Examples.VAVReheat.Guideline36
@@ -481,13 +503,6 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2124\">#2124</a>.<br/>
                        For Dymola, a conversion script makes this change.</td>
 </tr>
-<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse
-    </td>
-    <td valign=\"top\">Renamed parameter <code>startTime</code> to <code>delay</code>.<br/>
-                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2170\">#2170</a>.<br/>
-                       For Dymola, a conversion script makes this change.
-                       The pulses will start at any integer multiples of the period of the pulse.</td>
-</tr>
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL.Logical</b>
     </td>
 </tr>
@@ -504,14 +519,6 @@ have been <b style=\"color:blue\">improved</b> in a
     <td valign=\"top\">Removed <code>reset</code> boolean input and added boolean output <code>passed</code>
                        to show if the time becomes greater than threshold time.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2101\">#2101</a>.
-</tr>
-<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Logical.Sources.Pulse<br/>
-                       Buildings.Controls.OBC.CDL.Logical.Sources.SampleTrigger
-    </td>
-    <td valign=\"top\">Renamed parameter <code>startTime</code> to <code>delay</code>.<br/>
-                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2170\">#2170</a>.<br/>
-                       For Dymola, a conversion script makes this change.
-                       The pulses and triggers will start at an integer multiple of the period of the pulse.</td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL.Integers</b>
     </td>
@@ -554,6 +561,22 @@ have been <b style=\"color:blue\">improved</b> in a
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1893\">issue 1893</a>.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.Examples.VAVReheat.Controls</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Examples.VAVReheat.Controls.Economizer
+    </td>
+    <td valign=\"top\">Updated the block with an input for enabling outdoor air damper opening and an input for
+                     economizer cooling signal.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2024\">issue 2024</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Examples.VAVReheat.Controls.EconomizerTemperatureControl
+    </td>
+    <td valign=\"top\">This block is now retired.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2024\">issue 2024</a>.
 <tr><td colspan=\"2\"><b>Buildings.Experimental</b>
     </td>
 </tr>
