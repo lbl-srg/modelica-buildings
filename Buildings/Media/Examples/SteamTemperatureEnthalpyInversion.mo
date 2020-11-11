@@ -28,10 +28,6 @@ March 24, 2020, by Kathryn Hinkelman:<br/>
 Relaxed absolute error tolerance.
 </li>
 <li>
-January 16, 2020, by Kathryn Hinkelman:<br/>
-Change medium to ideal steam to eliminate property discontinuities.
-</li>
-<li>
 September 12, 2019, by Yangyang Fu:<br/>
 First implementation.
 </li>

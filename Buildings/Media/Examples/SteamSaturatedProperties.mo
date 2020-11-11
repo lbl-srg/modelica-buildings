@@ -37,47 +37,31 @@ model SteamSaturatedProperties
   Modelica.SIunits.SpecificEntropy slv
     "Entropy of vaporization";
 protected
-  constant Real conv(
-    unit="1/s")=1
+  constant Real conv(unit="1/s")=1
     "Conversion factor to satisfy unit check";
 initial equation
-  Modelica.Utilities.Streams.print(
-    "Warning:\n  In " + getInstanceName() +
+  Modelica.Utilities.Streams.print("Warning:\n  In " + getInstanceName() +
     ": This model is a beta version and is not fully validated yet.");
 equation
   // Compute temperatures that are used as input to the functions
   pSat=pMin+conv*time*(pMax-pMin);
-  TSat_degC=Modelica.SIunits.Conversions.to_degC(
-    TSat);
+  TSat_degC=Modelica.SIunits.Conversions.to_degC(TSat);
   // Saturation state
-  sat=Medium.saturationState_p(
-    pSat);
+  sat=Medium.saturationState(pSat);
   TSat=sat.Tsat;
-  assert(
-    TSat > TMin,
-    "Temperature exceeded minimum value.\n"+"   TSat = "+String(
-      TSat));
-  assert(
-    TSat < TMax,
-    "Temperature exceeded maximum value.\n"+"   TSat = "+String(
-      TSat));
+  assert(TSat > TMin,
+    "Temperature exceeded minimum value.\n"+"   TSat = "+String(TSat));
+  assert(TSat < TMax,
+    "Temperature exceeded maximum value.\n"+"   TSat = "+String(TSat));
   // Check the implementation of the functions
-  dl=Medium.densityOfSaturatedLiquid_sat(
-    sat);
-  dv=Medium.densityOfSaturatedVapor_sat(
-    sat);
-  hl=Medium.enthalpyOfSaturatedLiquid_sat(
-    sat);
-  hv=Medium.enthalpyOfSaturatedVapor_sat(
-    sat);
-  hlv=Medium.enthalpyOfVaporization_sat(
-    sat);
-  sl=Medium.entropyOfSaturatedLiquid_sat(
-    sat);
-  sv=Medium.entropyOfSaturatedVapor_sat(
-    sat);
-  slv=Medium.entropyOfVaporization_sat(
-    sat);
+  dl=Medium.densityOfSaturatedLiquid(sat);
+  dv=Medium.densityOfSaturatedVapor(sat);
+  hl=Medium.enthalpyOfSaturatedLiquid(sat);
+  hv=Medium.enthalpyOfSaturatedVapor(sat);
+  hlv=Medium.enthalpyOfVaporization(sat);
+  sl=Medium.entropyOfSaturatedLiquid(sat);
+  sv=Medium.entropyOfSaturatedVapor(sat);
+  slv=Medium.entropyOfVaporization(sat);
   annotation (
     experiment(
       Tolerance=1e-6,

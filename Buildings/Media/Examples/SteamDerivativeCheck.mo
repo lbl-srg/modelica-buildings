@@ -18,8 +18,7 @@ model SteamDerivativeCheck
     "Specific heat capacity";
   Modelica.SIunits.SpecificHeatCapacity cvCod
     "Specific heat capacity";
-  constant Real convT(
-    unit="K/s3")=270
+  constant Real convT(unit="K/s3")=270
     "Conversion factor to satisfy unit check";
 initial equation
   Modelica.Utilities.Streams.print(
@@ -34,38 +33,20 @@ equation
     Medium.setState_pT(
       p=1e5,
       T=T));
-  assert(
-    abs(
-      hVapCod-hVapSym) < 1E-4*(1+abs(
-      hVapCod)),
-    "Model has an error");
-  der(
-    hVapCod)=der(
-    hVapSym);
+  assert(abs(hVapCod-hVapSym) < 1E-4*(1+abs(hVapCod)),"Model has an error");
+  der(hVapCod)=der(hVapSym);
   cpCod=Medium.specificHeatCapacityCp(
     Medium.setState_pT(
       p=1e5,
       T=T));
-  der(
-    cpCod)=der(
-    cpSym);
-  assert(
-    abs(
-      cpCod-cpSym) < 1E-4*(1+abs(
-      cvCod)),
-    "Model has an error");
+  der(cpCod)=der(cpSym);
+  assert(abs(cpCod-cpSym) < 1E-4*(1+abs(cvCod)),"Model has an error");
   cvCod=Medium.specificHeatCapacityCv(
     Medium.setState_pT(
       p=1e5,
       T=T));
-  der(
-    cvCod)=der(
-    cvSym);
-  assert(
-    abs(
-      cvCod-cvSym) < 1E-4*(1+abs(
-      cvCod)),
-    "Model has an error");
+  der(cvCod)=der(cvSym);
+  assert(abs(cvCod-cvSym) < 1E-4*(1+abs(cvCod)),"Model has an error");
   annotation (
     experiment(
       StartTime=0,

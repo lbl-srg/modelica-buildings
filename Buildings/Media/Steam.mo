@@ -1,7 +1,7 @@
 within Buildings.Media;
 package Steam
   "Package with model for region 2 (steam) water according to IF97 standard"
-  extends IBPSA.Media.Interfaces.PartialPureSubstanceWithSat(
+  extends Buildings.Media.Interfaces.PartialPureSubstanceWithSat(
     redeclare replaceable record FluidConstants =
         Modelica.Media.Interfaces.Types.TwoPhase.FluidConstants,
     mediumName="WaterIF97_R2pT",
@@ -59,7 +59,7 @@ package Steam
       "In "+getInstanceName()+": Pressure p exceeded its maximum allowed value of 100 MPa
       as required from medium model \""+mediumName+"\".");
     // Medium must be in a vapor state. A 2% error is deemed acceptable to account for numerical noise.
-    assert(T >= saturationTemperature_p(p)*0.98,
+    assert(T >= saturationTemperature(p)*0.98,
       "In "+getInstanceName()+": The fluid is in a liquid state, which violates the requirements for 
        medium model \""+mediumName+"\".");
     MM=fluidConstants[1].molarMass;
@@ -336,72 +336,72 @@ package Steam
     MM := fluidConstants[1].molarMass;
   end molarMass;
   // Saturation state functions
-  redeclare replaceable function extends saturationTemperature_p
+  redeclare replaceable function extends saturationTemperature
     "Return saturation temperature"
   algorithm
     T := Modelica.Media.Water.IF97_Utilities.BaseIF97.Basic.tsat(p);
     annotation (Inline=true);
-  end saturationTemperature_p;
+  end saturationTemperature;
 
-  redeclare replaceable function extends enthalpyOfSaturatedLiquid_sat
+  redeclare replaceable function extends enthalpyOfSaturatedLiquid
     "Return enthalpy of saturated liquid"
   algorithm
     hl := Modelica.Media.Water.IF97_Utilities.BaseIF97.Regions.hl_p(sat.psat);
     annotation (Inline=true);
-  end enthalpyOfSaturatedLiquid_sat;
+  end enthalpyOfSaturatedLiquid;
 
-  redeclare replaceable function extends enthalpyOfSaturatedVapor_sat
+  redeclare replaceable function extends enthalpyOfSaturatedVapor
     "Return enthalpy of saturated vapor"
   algorithm
     hv := Modelica.Media.Water.IF97_Utilities.BaseIF97.Regions.hv_p(sat.psat);
     annotation (Inline=true);
-  end enthalpyOfSaturatedVapor_sat;
+  end enthalpyOfSaturatedVapor;
 
-  redeclare replaceable function extends enthalpyOfVaporization_sat
+  redeclare replaceable function extends enthalpyOfVaporization
     "Return enthalpy of vaporization"
   algorithm
-    hlv := enthalpyOfSaturatedVapor_sat(sat)-
-      enthalpyOfSaturatedLiquid_sat(sat);
+    hlv := enthalpyOfSaturatedVapor(sat)-
+      enthalpyOfSaturatedLiquid(sat);
     annotation (Inline=true);
-  end enthalpyOfVaporization_sat;
+  end enthalpyOfVaporization;
 
-  redeclare replaceable function extends entropyOfSaturatedLiquid_sat
+  redeclare replaceable function extends entropyOfSaturatedLiquid
     "Return entropy of saturated liquid"
   algorithm
     sl := Modelica.Media.Water.IF97_Utilities.BaseIF97.Regions.sl_p(
       sat.psat);
     annotation (
       Inline=true);
-  end entropyOfSaturatedLiquid_sat;
+  end entropyOfSaturatedLiquid;
 
-  redeclare replaceable function extends entropyOfSaturatedVapor_sat
+  redeclare replaceable function extends entropyOfSaturatedVapor
     "Return entropy of saturated vapor"
   algorithm
     sv := Modelica.Media.Water.IF97_Utilities.BaseIF97.Regions.sv_p(sat.psat);
     annotation (Inline=true);
-  end entropyOfSaturatedVapor_sat;
+  end entropyOfSaturatedVapor;
 
-  redeclare replaceable function extends entropyOfVaporization_sat
+  redeclare replaceable function extends entropyOfVaporization
     "Return entropy of vaporization"
   algorithm
-    slv := entropyOfSaturatedVapor_sat(sat)-
-      entropyOfSaturatedLiquid_sat(sat);
+    slv := entropyOfSaturatedVapor(sat)-
+      entropyOfSaturatedLiquid(sat);
     annotation (Inline=true);
-  end entropyOfVaporization_sat;
+  end entropyOfVaporization;
 
-  redeclare replaceable function extends densityOfSaturatedLiquid_sat
+  redeclare replaceable function extends densityOfSaturatedLiquid
     "Return density of saturated liquid"
   algorithm
     dl := Modelica.Media.Water.IF97_Utilities.BaseIF97.Regions.rhol_p(sat.psat)
     annotation (Inline=true);
-  end densityOfSaturatedLiquid_sat;
+  end densityOfSaturatedLiquid;
 
-  redeclare replaceable function extends densityOfSaturatedVapor_sat
+  redeclare replaceable function extends densityOfSaturatedVapor
     "Return density of saturated vapor"
   algorithm
     dv := Modelica.Media.Water.IF97_Utilities.BaseIF97.Regions.rhov_p(sat.psat)
     annotation (Inline=true);
-  end densityOfSaturatedVapor_sat;
+  end densityOfSaturatedVapor;
   // Set state functions
   redeclare function extends setState_pTX
     "Return thermodynamic state as function of p, T and composition X or Xi"
@@ -522,11 +522,11 @@ Summing all mass fractions together results in
 </html>"));
   end setSmoothState;
 
-  redeclare replaceable function extends saturationState_p
+  redeclare replaceable function extends saturationState
     "Return saturation property record from pressure"
   algorithm
     sat.psat := p;
-    sat.Tsat := saturationTemperature_p(p);
+    sat.Tsat := saturationTemperature(p);
     annotation (
       smoothOrder=2,
       Documentation(
@@ -545,7 +545,7 @@ First implementation.
 </li>
 </ul>
 </html>"));
-  end saturationState_p;
+  end saturationState;
 //////////////////////////////////////////////////////////////////////
 // Protected classes.
 // These classes are only of use within this medium model.

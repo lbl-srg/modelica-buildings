@@ -4,8 +4,8 @@ package HighTemperature
   maxiumum temperature threshold"
   extends IBPSA.Media.Water(
     T_max=273.15+600);
-  replaceable function saturationTemperature_p
-    "Return saturation temperature (K) from a given pressure (Pa)"
+  replaceable function saturationTemperature
+    "Return saturation temperature from a given pressure"
     extends Modelica.Icons.Function;
     input AbsolutePressure p
       "Pressure";
@@ -14,13 +14,10 @@ package HighTemperature
   protected
     Real a[:]={2.2830066E+02,1.1893913E+00,5.2484699E-01,1.2416857E-01,-1.3714779E-02,5.5702047E-04}
       "Coefficients";
+    Real logP=log(p)
+      "Log of pressure";
   algorithm
-    T := a[1]+a[2]*log(
-      p)+a[3]*log(
-      p)^2+a[4]*log(
-      p)^3+a[5]*log(
-      p)^4+a[6]*log(
-      p)^5
+    T := a[1]+a[2]*logP+a[3]*logP^2+a[4]*logP^3+a[5]*logP^4+a[6]*logP^5
       "Saturation temperature";
     annotation (
       smoothOrder=2,
@@ -50,7 +47,7 @@ First implementation.
 </li>
 </ul>
 </html>"));
-  end saturationTemperature_p;
+  end saturationTemperature;
   annotation (
     preferredView="info",
     Documentation(
