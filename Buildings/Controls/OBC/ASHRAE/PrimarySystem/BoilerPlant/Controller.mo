@@ -81,7 +81,7 @@ model Controller
     "Number of ignored requests"
     annotation (Dialog(tab="Primary pump control parameters",
       group="Temperature-based speed regulation",
-      enable= speConTyp == Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpSpeedControlTypes.temperature));
+      enable= speConTypPri == Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpSpeedControlTypes.temperature));
 
   parameter Integer nPumPri_nominal(
     final max=nPumPri,
@@ -528,7 +528,7 @@ model Controller
     final min=1e-6) = 5*6894.75
     "Maximum primary loop local differential pressure setpoint"
     annotation (Dialog(tab="Primary pump control parameters", group="DP-based speed regulation",
-      enable = speConTyp == Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpSpeedControlTypes.localDP));
+      enable = speConTypPri == Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpSpeedControlTypes.localDP));
 
   parameter Real minLocDpPri(
     final unit="Pa",
@@ -538,7 +538,7 @@ model Controller
     "Minimum primary loop local differential pressure setpoint"
     annotation (Dialog(tab="Primary pump control parameters",
       group="DP-based speed regulation",
-      enable = speConTyp == Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpSpeedControlTypes.localDP));
+      enable = speConTypPri == Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpSpeedControlTypes.localDP));
 
   parameter Real offTimThr_priPum(
     final unit="s",
@@ -576,7 +576,7 @@ model Controller
     "Delay time"
     annotation (Dialog(tab="Primary pump control parameters",
       group="Temperature-based speed regulation",
-      enable = speConTyp == Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpSpeedControlTypes.temperature));
+      enable = speConTypPri == Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpSpeedControlTypes.temperature));
 
   parameter Real samPer_priPum(
     final unit="s",
@@ -586,7 +586,7 @@ model Controller
     "Sample period of component"
     annotation (Dialog(tab="Primary pump control parameters",
       group="Temperature-based speed regulation",
-      enable = speConTyp == Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpSpeedControlTypes.temperature));
+      enable = speConTypPri == Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpSpeedControlTypes.temperature));
 
   parameter Real triAmo_priPum(
     final unit="1",
@@ -594,7 +594,7 @@ model Controller
     "Trim amount"
     annotation (Dialog(tab="Primary pump control parameters",
       group="Temperature-based speed regulation",
-      enable = speConTyp == Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpSpeedControlTypes.temperature));
+      enable = speConTypPri == Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpSpeedControlTypes.temperature));
 
   parameter Real resAmo_priPum(
     final unit="1",
@@ -602,7 +602,7 @@ model Controller
     "Respond amount"
     annotation (Dialog(tab="Primary pump control parameters",
       group="Temperature-based speed regulation",
-      enable = speConTyp == Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpSpeedControlTypes.temperature));
+      enable = speConTypPri == Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpSpeedControlTypes.temperature));
 
   parameter Real maxRes_priPum(
     final unit="1",
@@ -610,7 +610,7 @@ model Controller
     "Maximum response per time interval"
     annotation (Dialog(tab="Primary pump control parameters",
       group="Temperature-based speed regulation",
-      enable = speConTyp == Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpSpeedControlTypes.temperature));
+      enable = speConTypPri == Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpSpeedControlTypes.temperature));
 
   parameter Real twoReqLimLow_priPum(
     final unit="K",
@@ -619,7 +619,7 @@ model Controller
     "Lower limit of hysteresis loop sending two requests"
     annotation (Dialog(tab="Primary pump control parameters",
       group="Temperature-based speed regulation",
-      enable = speConTyp == Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpSpeedControlTypes.temperature));
+      enable = speConTypPri == Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpSpeedControlTypes.temperature));
 
   parameter Real twoReqLimHig_priPum(
     final unit="K",
@@ -628,7 +628,7 @@ model Controller
     "Higher limit of hysteresis loop sending two requests"
     annotation (Dialog(tab="Primary pump control parameters",
       group="Temperature-based speed regulation",
-      enable = speConTyp == Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpSpeedControlTypes.temperature));
+      enable = speConTypPri == Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpSpeedControlTypes.temperature));
 
   parameter Real oneReqLimLow_priPum(
     final unit="K",
@@ -637,7 +637,7 @@ model Controller
     "Lower limit of hysteresis loop sending one request"
     annotation (Dialog(tab="Primary pump control parameters",
       group="Temperature-based speed regulation",
-      enable = speConTyp == Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpSpeedControlTypes.temperature));
+      enable = speConTypPri == Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpSpeedControlTypes.temperature));
 
   parameter Real oneReqLimHig_priPum(
     final unit="K",
@@ -646,7 +646,7 @@ model Controller
     "Higher limit of hysteresis loop sending one request"
     annotation (Dialog(tab="Primary pump control parameters",
       group="Temperature-based speed regulation",
-      enable = speConTyp == Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpSpeedControlTypes.temperature));
+      enable = speConTypPri == Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpSpeedControlTypes.temperature));
 
   parameter Real k_priPum(
     final unit="1",
@@ -735,7 +735,7 @@ model Controller
     final min=1e-6) = 5*6894.75
     "Maximum hot water loop local differential pressure setpoint in secondary loop"
     annotation (Dialog(tab="Secondary pump control parameters", group="DP-based speed regulation",
-      enable = speConTyp == Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpSpeedControlTypes.localDP));
+      enable = speConTypSec == Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpSpeedControlTypes.localDP));
 
   parameter Real minLocDpSec(
     final unit="Pa",
@@ -745,7 +745,7 @@ model Controller
     "Minimum hot water loop local differential pressure setpoint in secondary loop"
     annotation (Dialog(tab="Secondary pump control parameters",
       group="DP-based speed regulation",
-      enable = speConTyp == Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpSpeedControlTypes.localDP));
+      enable = speConTypSec == Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpSpeedControlTypes.localDP));
 
   parameter Real offTimThr(
     final unit="s",
