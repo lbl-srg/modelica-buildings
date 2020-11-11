@@ -1,0 +1,10 @@
+last-generated=2020-11-10
+statistics-simulation=
+{
+  "linear": " ",
+  "nonlinear": " ",
+  "numerical Jacobians": "0"
+}
+time=[0e+00, 1e+00]
+T=[4.731498107910156e+02, 4.731498107910156e+02]
+h=[2.8754135e+06, 2.8754135e+06]
