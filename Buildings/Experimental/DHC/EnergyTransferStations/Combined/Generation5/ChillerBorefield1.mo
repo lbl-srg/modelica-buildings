@@ -22,6 +22,10 @@ model ChillerBorefield1
 equation
   connect(conSup.THeaWatSupSet,chi.THeaWatSupSet)
     annotation (Line(points={{-238,19},{-24,19},{-24,-6},{-12,-6}},color={0,0,127}));
+  connect(tanHeaWat.TBot, conSup.THeaWatBot) annotation (Line(points={{-199,97},
+          {-186,97},{-186,86},{-266,86},{-266,23},{-262,23}}, color={0,0,127}));
+  connect(tanChiWat.TTop, conSup.TChiWatTop) annotation (Line(points={{221,115},
+          {242,115},{242,76},{-278,76},{-278,17},{-262,17}}, color={0,0,127}));
   annotation (
     defaultComponentName="ets",
     Documentation(

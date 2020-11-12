@@ -4,12 +4,14 @@ model ChillerBorefield
   extends ChillerOnly(
     ets(
       have_borFie=true,
-      datBorFie=datBorFie));
+      datBorFie=datBorFie,
+      kCol=0.05));
   parameter Integer nBorHol=64
     "Number of boreholes (must be a square number)";
   parameter Modelica.SIunits.Distance dxy=6
     "Distance in x-axis (and y-axis) between borehole axes";
-  final parameter Modelica.SIunits.Distance cooBor[nBorHol,2]=EnergyTransferStations.BaseClasses.computeCoordinates(
+  final parameter Modelica.SIunits.Distance cooBor[nBorHol,2]=
+    EnergyTransferStations.BaseClasses.computeCoordinates(
     nBorHol,
     dxy)
     "Coordinates of boreholes";
@@ -21,7 +23,8 @@ model ChillerBorefield
     annotation (Placement(transformation(extent={{60,180},{80,200}})));
   annotation (
     __Dymola_Commands(
-      file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/EnergyTransferStations/Combined/Generation5/Validation/ChillerBorefield.mos" "Simulate and plot"),
+      file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/EnergyTransferStations/Combined/Generation5/Validation/ChillerBorefield.mos"
+        "Simulate and plot"),
     experiment(
       StopTime=20000,
       Tolerance=1e-06),

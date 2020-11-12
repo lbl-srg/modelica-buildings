@@ -155,11 +155,11 @@ equation
     annotation (Line(points={{-12,-116},{-14,-116},{-14,-140},{-100,-140},{-100,-220},{-80,-220}},color={0,127,255}));
   connect(conSup.yAmb[1],borFie.u)
     annotation (Line(points={{-238,25},{-200,25},{-200,-212},{-82,-212}},color={0,0,127}));
-  connect(valIsoCon.y_actual, borFie.yValIso_actual[1]) annotation (Line(points
-        ={{-55,-113},{-40,-113},{-40,-198},{-90,-198},{-90,-217},{-82,-217}},
+  connect(valIsoCon.y_actual, borFie.yValIso_actual[1]) annotation (Line(points=
+         {{-55,-113},{-40,-113},{-40,-198},{-90,-198},{-90,-217},{-82,-217}},
         color={0,0,127}));
-  connect(valIsoEva.y_actual, borFie.yValIso_actual[2]) annotation (Line(points
-        ={{55,-113},{40,-113},{40,-200},{-88,-200},{-88,-215},{-82,-215}},
+  connect(valIsoEva.y_actual, borFie.yValIso_actual[2]) annotation (Line(points=
+         {{55,-113},{40,-113},{40,-200},{-88,-200},{-88,-215},{-82,-215}},
         color={0,0,127}));
   connect(borFie.PPum,totPPum.u[3])
     annotation (Line(points={{-58,-216},{240,-216},{240,-62},{258,-62},{258,-60}},color={0,0,127}));
@@ -175,11 +175,11 @@ equation
     annotation (Line(points={{-238,31},{-20,31},{-20,-2},{-12,-2}},color={255,0,255}));
   connect(conSup.yCoo,chi.uCoo)
     annotation (Line(points={{-238,29},{-22,29},{-22,-4},{-12,-4}},color={255,0,255}));
-  connect(valIsoCon.y_actual, conSup.yValIsoCon_actual) annotation (Line(points
-        ={{-55,-113},{-40,-113},{-40,-60},{-266,-60},{-266,15},{-262,15}},
+  connect(valIsoCon.y_actual, conSup.yValIsoCon_actual) annotation (Line(points=
+         {{-55,-113},{-40,-113},{-40,-60},{-266,-60},{-266,15},{-262,15}},
         color={0,0,127}));
-  connect(valIsoEva.y_actual, conSup.yValIsoEva_actual) annotation (Line(points
-        ={{55,-113},{40,-113},{40,-64},{-270,-64},{-270,13},{-262,13}}, color={
+  connect(valIsoEva.y_actual, conSup.yValIsoEva_actual) annotation (Line(points=
+         {{55,-113},{40,-113},{40,-64},{-270,-64},{-270,13},{-262,13}}, color={
           0,0,127}));
   annotation (
     Diagram(

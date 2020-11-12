@@ -59,8 +59,8 @@ model Supervisory1
   Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaWatBot(final unit="K",
       displayUnit="degC")
     "Heating water temperature at tank bottom"
-    annotation (Placement(transformation(extent={{-160,-40},{-120,0}}),iconTransformation(extent={{-204,
-            -36},{-164,4}})));
+    annotation (Placement(transformation(extent={{-160,-40},{-120,0}}),iconTransformation(extent={{-140,
+            -10},{-100,30}})));
 equation
   connect(conHotSid.yAmb,max1.u1)
     annotation (Line(points={{12,41},{28,41},{28,6},{50,6}},color={0,0,127}));

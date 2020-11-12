@@ -21,7 +21,8 @@ model ChillerOnly
     loa(
       tableOnFile=true,
       fileName=Modelica.Utilities.Files.loadResource(
-        filNam)),
+        filNam),
+      timeScale=1),
     QCoo_flow_nominal=Buildings.Experimental.DHC.Loads.BaseClasses.getPeakLoad(
       string="#Peak space cooling load",
       filNam=Modelica.Utilities.Files.loadResource(filNam)),
