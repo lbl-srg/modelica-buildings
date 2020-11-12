@@ -9,14 +9,33 @@ model CouplingTimeSeriesSingleLoop
   Buildings.Experimental.DHC.Loads.Examples.BaseClasses.BuildingTimeSeries buiCoo(
     have_watHea=false,
     filNam="modelica://Buildings/Resources/Data/Experimental/DHC/Loads/Examples/SwissResidential_20190916.mos",
+    delTAirCoo(
+      displayUnit="degC")=6,
+    delTAirHea(
+      displayUnit="degC")=18,
     k=1,
     Ti=10,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     use_inputFilter=false,
     nPorts_aChiWat=1,
     nPorts_bChiWat=1)
-    "Building wint cooling only"
+    "Building with cooling only"
     annotation (Placement(transformation(extent={{-10,100},{10,120}})));
+  Buildings.Experimental.DHC.Loads.Examples.BaseClasses.BuildingTimeSeries buiHea(
+    have_watCoo=false,
+    filNam="modelica://Buildings/Resources/Data/Experimental/DHC/Loads/Examples/SwissResidential_20190916.mos",
+    delTAirCoo(
+      displayUnit="degC")=6,
+    delTAirHea(
+      displayUnit="degC")=18,
+    k=1,
+    Ti=10,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    use_inputFilter=false,
+    nPorts_aHeaWat=1,
+    nPorts_bHeaWat=1)
+    "Building with heating only"
+    annotation (Placement(transformation(extent={{-10,-20},{10,0}})));
   Buildings.Fluid.Sources.Boundary_pT sinChiWat(
     redeclare package Medium=Medium1,
     p=300000,
@@ -27,7 +46,7 @@ model CouplingTimeSeriesSingleLoop
     y=buiCoo.T_aChiWat_nominal)
     "Chilled water supply temperature"
     annotation (Placement(transformation(extent={{-140,98},{-120,118}})));
-  Fluid.Sources.Boundary_pT supChiWat(
+  Buildings.Fluid.Sources.Boundary_pT supChiWat(
     redeclare package Medium=Medium1,
     use_T_in=true,
     nPorts=1)
@@ -55,24 +74,11 @@ model CouplingTimeSeriesSingleLoop
       unit="J"))
     "Actual energy used for cooling"
     annotation (Placement(transformation(extent={{80,60},{100,80}})));
-  BaseClasses.BuildingTimeSeries buiHea(
-    have_watCoo=false,
-    filNam="modelica://Buildings/Resources/Data/Experimental/DHC/Loads/Examples/SwissResidential_20190916.mos",
-    k=1,
-    Ti=10,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    use_inputFilter=false,
-    nPorts_aChiWat=1,
-    nPorts_bChiWat=1,
-    nPorts_aHeaWat=1,
-    nPorts_bHeaWat=1)
-    "Building with heating only"
-    annotation (Placement(transformation(extent={{-10,-20},{10,0}})));
   Modelica.Blocks.Sources.RealExpression THeaWatSup(
     y=buiHea.T_aHeaWat_nominal)
     "Heating water supply temperature"
     annotation (Placement(transformation(extent={{-140,-18},{-120,2}})));
-  Fluid.Sources.Boundary_pT supHeaWat(
+  Buildings.Fluid.Sources.Boundary_pT supHeaWat(
     redeclare package Medium=Medium1,
     use_T_in=true,
     nPorts=1)
@@ -136,6 +142,12 @@ equation
   connect(buiHea.QHea_flow,QAveHeaAct_flow.u)
     annotation (Line(points={{10.6667,-1.33333},{70,-1.33333},{70,-100},{78,-100}},color={0,0,127}));
   annotation (
+    Diagram(
+      coordinateSystem(
+        preserveAspectRatio=false,
+        extent={{-160,-140},{160,140}})),
+    __Dymola_Commands(
+      file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Loads/Examples/CouplingTimeSeriesSingleLoop.mos" "Simulate and plot"),
     experiment(
       StopTime=604800,
       Tolerance=1e-06),
@@ -169,15 +181,16 @@ secondary pumps.
       revisions="<html>
 <ul>
 <li>
+October 20, 2020, by Hagar Elarga:<br/>
+The default values of <code>facScaHeac</code>
+and <code>facScaCoo</code> are assigned to one.
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2201\">issue 2201</a> and
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2202\">issue 2202</a>.
+</li>  
+<li>
 September 18, 2020, by Jianjun Hu:<br/>
 First implementation.
 </li>
 </ul>
-</html>"),
-    Diagram(
-      coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-160,-140},{160,140}})),
-    __Dymola_Commands(
-      file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Loads/Examples/CouplingTimeSeriesSingleLoop.mos" "Simulate and plot"));
+</html>"));
 end CouplingTimeSeriesSingleLoop;

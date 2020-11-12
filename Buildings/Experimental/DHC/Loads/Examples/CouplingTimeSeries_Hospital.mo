@@ -1,5 +1,5 @@
 within Buildings.Experimental.DHC.Loads.Examples;
-model CouplingTimeSeries
+model CouplingTimeSeries_Hospital
   "Example illustrating the coupling of a building model to heating water and chilled water loops"
   extends Modelica.Icons.Example;
   package Medium1=Buildings.Media.Water
@@ -7,16 +7,22 @@ model CouplingTimeSeries
   parameter Modelica.SIunits.Time perAve=600
     "Period for time averaged variables";
   Buildings.Experimental.DHC.Loads.Examples.BaseClasses.BuildingTimeSeries bui(
-    filNam="modelica://Buildings/Resources/Data/Experimental/DHC/Loads/Examples/SwissResidential_20190916.mos",
+    filNam="modelica://Buildings/Resources/Data/Experimental/DHC/Loads/Examples/SwissHospital_20190916.mos",
+    facScaHea=1,
+    facScaCoo=1,
+    delTAirCoo(
+      displayUnit="degC")=6,
+    delTAirHea(
+      displayUnit="degC")=18,
     k=1,
     Ti=10,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     use_inputFilter=false,
+    nPorts_bHeaWat=1,
     nPorts_aHeaWat=1,
     nPorts_aChiWat=1,
-    nPorts_bHeaWat=1,
     nPorts_bChiWat=1)
-    "Building"
+    "Hospital time series heating and cooling loads."
     annotation (Placement(transformation(extent={{10,-4},{30,16}})));
   Buildings.Fluid.Sources.Boundary_pT sinHeaWat(
     redeclare package Medium=Medium1,
@@ -99,14 +105,6 @@ equation
     annotation (Line(points={{-62,44},{-80,44},{-80,40},{-99,40}},color={0,0,127}));
   connect(TChiWatSup.y,supChiWat.T_in)
     annotation (Line(points={{-99,-20},{-80,-20},{-80,-16},{-62,-16}},color={0,0,127}));
-  connect(supHeaWat.ports[1],bui.ports_aHeaWat[1])
-    annotation (Line(points={{-40,40},{0,40},{0,4},{10,4}},color={0,127,255}));
-  connect(supChiWat.ports[1],bui.ports_aChiWat[1])
-    annotation (Line(points={{-40,-20},{0,-20},{0,0},{10,0}},color={0,127,255}));
-  connect(bui.ports_bHeaWat[1],sinHeaWat.ports[1])
-    annotation (Line(points={{30,4},{60,4},{60,20},{120,20}},color={0,127,255}));
-  connect(sinChiWat.ports[1],bui.ports_bChiWat[1])
-    annotation (Line(points={{120,-20},{60,-20},{60,0},{30,0}},color={0,127,255}));
   connect(bui.QHea_flow,EHeaAct.u)
     annotation (Line(points={{30.6667,14.6667},{40,14.6667},{40,60},{90,60},{90,80},{98,80}},color={0,0,127}));
   connect(bui.QReqHea_flow,EHeaReq.u)
@@ -123,44 +121,37 @@ equation
     annotation (Line(points={{28.6667,-4.66667},{28.6316,-4.66667},{28.6316,-60},{28.6316,-100},{58,-100}},color={0,0,127}));
   connect(bui.QCoo_flow,QAveCooAct_flow.u)
     annotation (Line(points={{30.6667,13.3333},{40,13.3333},{40,-40},{90,-40},{90,-100},{98,-100}},color={0,0,127}));
+  connect(bui.ports_bHeaWat[1],sinHeaWat.ports[1])
+    annotation (Line(points={{30,4},{60,4},{60,20},{120,20}},color={0,127,255}));
+  connect(bui.ports_aHeaWat[1],supHeaWat.ports[1])
+    annotation (Line(points={{10,4},{0,4},{0,40},{-40,40}},color={0,127,255}));
+  connect(supChiWat.ports[1],bui.ports_aChiWat[1])
+    annotation (Line(points={{-40,-20},{0,-20},{0,0},{10,0}},color={0,127,255}));
+  connect(bui.ports_bChiWat[1],sinChiWat.ports[1])
+    annotation (Line(points={{30,0},{60,0},{60,-20},{120,-20}},color={0,127,255}));
   annotation (
-    experiment(
-      StopTime=604800,
-      Tolerance=1e-06),
-    Documentation(
-      info="<html>
-<p>
-This example illustrates the use of
-<a href=\"modelica://Buildings.Experimental.DHC.Loads.BaseClasses.PartialBuilding\">
-Buildings.Experimental.DHC.Loads.BaseClasses.PartialBuilding</a>,
-<a href=\"modelica://Buildings.Experimental.DHC.Loads.BaseClasses.PartialTerminalUnit\">
-Buildings.Experimental.DHC.Loads.BaseClasses.PartialTerminalUnit</a>
-and
-<a href=\"modelica://Buildings.Experimental.DHC.Loads.FlowDistribution\">
-Buildings.Experimental.DHC.Loads.FlowDistribution</a>
-in a configuration with
-</p>
-<ul>
-<li>
-space heating and cooling loads provided as time series, and
-</li>
-<li>
-secondary pumps.
-</li>
-</ul>
-</html>",
-      revisions="<html>
-<ul>
-<li>
-February 21, 2020, by Antoine Gautier:<br/>
-First implementation.
-</li>
-</ul>
-</html>"),
     Diagram(
       coordinateSystem(
         preserveAspectRatio=false,
         extent={{-160,-140},{160,140}})),
     __Dymola_Commands(
-      file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Loads/Examples/CouplingTimeSeries.mos" "Simulate and plot"));
-end CouplingTimeSeries;
+      file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Loads/Examples/CouplingTimeSeries_Hospital.mos" "Simulate and plot"),
+    experiment(
+      Tolerance=1e-6,
+      StopTime=86400),
+    Documentation(
+      info="<html>
+<p>
+This example demonstartes the hydraulic connection between a hospital's heating and cooling loads
+provided as time seriers to infinte sources of district heating and cooling.
+</p>
+</html>",
+      revisions="<html>
+<ul>
+<li>
+July 23, 2020, by Hagar Elarga:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
+end CouplingTimeSeries_Hospital;
