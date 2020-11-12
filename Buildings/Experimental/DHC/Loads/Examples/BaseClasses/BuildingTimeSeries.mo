@@ -149,6 +149,7 @@ model BuildingTimeSeries
     redeclare final package Medium2=MediumA,
     final facSca=facScaCoo,
     final QCoo_flow_nominal=QCoo_flow_nominal,
+    final QHea_flow_nominal=QHea_flow_nominal,
     final mChiWat_flow_nominal=mChiWat_flow_nominal,
     final mLoaCoo_flow_nominal=mLoaCoo_flow_nominal,
     final T_aChiWat_nominal=T_aChiWat_nominal,

@@ -51,7 +51,7 @@ createPlot(
 plotExpression(
     apply(CouplingTimeSeries_Residential.bui.terUniHea.facSca*CouplingTimeSeries_Residential.bui.terUniHea.QHea_flow_nominal),
     false,
-    "facSca*QHea_flow_nominal",
+    "facScaHea*QHea_flow_nominal",
     2);
 createPlot(
     id=3,

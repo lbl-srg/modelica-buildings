@@ -21,7 +21,7 @@ model CouplingTimeSeries_Residential
     nPorts_bHeaWat=1,
     nPorts_bChiWat=1)
     "Building"
-    annotation (Placement(transformation(extent={{10,-4},{30,16}})));
+    annotation (Placement(transformation(extent={{8,-2},{28,18}})));
   Buildings.Fluid.Sources.Boundary_pT sinHeaWat(
     redeclare package Medium=Medium1,
     p=300000,
@@ -104,29 +104,29 @@ equation
   connect(TChiWatSup.y,supChiWat.T_in)
     annotation (Line(points={{-99,-20},{-80,-20},{-80,-16},{-62,-16}},color={0,0,127}));
   connect(supHeaWat.ports[1],bui.ports_aHeaWat[1])
-    annotation (Line(points={{-40,40},{0,40},{0,4},{10,4}},color={0,127,255}));
+    annotation (Line(points={{-40,40},{0,40},{0,6},{8,6}},color={0,127,255}));
   connect(supChiWat.ports[1],bui.ports_aChiWat[1])
-    annotation (Line(points={{-40,-20},{0,-20},{0,0},{10,0}},color={0,127,255}));
+    annotation (Line(points={{-40,-20},{0,-20},{0,2},{8,2}},color={0,127,255}));
   connect(bui.ports_bHeaWat[1],sinHeaWat.ports[1])
-    annotation (Line(points={{30,4},{60,4},{60,20},{120,20}},color={0,127,255}));
+    annotation (Line(points={{28,6},{60,6},{60,20},{120,20}},color={0,127,255}));
   connect(sinChiWat.ports[1],bui.ports_bChiWat[1])
-    annotation (Line(points={{120,-20},{60,-20},{60,0},{30,0}},color={0,127,255}));
+    annotation (Line(points={{120,-20},{60,-20},{60,2},{28,2}},color={0,127,255}));
   connect(bui.QHea_flow,EHeaAct.u)
-    annotation (Line(points={{30.6667,14.6667},{40,14.6667},{40,60},{90,60},{90,80},{98,80}},color={0,0,127}));
+    annotation (Line(points={{28.6667,16.6667},{40,16.6667},{40,60},{90,60},{90,80},{98,80}},color={0,0,127}));
   connect(bui.QReqHea_flow,EHeaReq.u)
-    annotation (Line(points={{26.6667,-4.66667},{26.6667,-8},{36,-8},{36,80},{58,80}},color={0,0,127}));
+    annotation (Line(points={{24.6667,-2.66667},{24.6667,-8},{36,-8},{36,80},{58,80}},color={0,0,127}));
   connect(bui.QReqCoo_flow,ECooReq.u)
-    annotation (Line(points={{28.6667,-4.66667},{28.6667,-60},{58,-60}},color={0,0,127}));
+    annotation (Line(points={{26.6667,-2.66667},{26.6667,-60},{58,-60}},color={0,0,127}));
   connect(bui.QCoo_flow,ECooAct.u)
-    annotation (Line(points={{30.6667,13.3333},{40,13.3333},{40,-40},{90,-40},{90,-60},{98,-60}},color={0,0,127}));
+    annotation (Line(points={{28.6667,15.3333},{40,15.3333},{40,-40},{90,-40},{90,-60},{98,-60}},color={0,0,127}));
   connect(bui.QReqHea_flow,QAveHeaReq_flow.u)
-    annotation (Line(points={{26.6667,-4.66667},{26.6667,-7.90323},{35.9677,-7.90323},{35.9677,120},{58,120}},color={0,0,127}));
+    annotation (Line(points={{24.6667,-2.66667},{24.6667,-7.90323},{35.9677,-7.90323},{35.9677,120},{58,120}},color={0,0,127}));
   connect(bui.QHea_flow,QAveHeaAct_flow.u)
-    annotation (Line(points={{30.6667,14.6667},{40,14.6667},{40,60},{90,60},{90,120},{98,120}},color={0,0,127}));
+    annotation (Line(points={{28.6667,16.6667},{40,16.6667},{40,60},{90,60},{90,120},{98,120}},color={0,0,127}));
   connect(bui.QReqCoo_flow,QAveCooReq_flow.u)
-    annotation (Line(points={{28.6667,-4.66667},{28.6316,-4.66667},{28.6316,-60},{28.6316,-100},{58,-100}},color={0,0,127}));
+    annotation (Line(points={{26.6667,-2.66667},{28.6316,-2.66667},{28.6316,-100},{58,-100}},color={0,0,127}));
   connect(bui.QCoo_flow,QAveCooAct_flow.u)
-    annotation (Line(points={{30.6667,13.3333},{40,13.3333},{40,-40},{90,-40},{90,-100},{98,-100}},color={0,0,127}));
+    annotation (Line(points={{28.6667,15.3333},{40,15.3333},{40,-40},{90,-40},{90,-100},{98,-100}},color={0,0,127}));
   annotation (
     Diagram(
       coordinateSystem(
