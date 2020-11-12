@@ -27,12 +27,6 @@ model ASHRAE2006
     (mWes_flow_nominal/1.2)
     "Minimum discharge air flow rate ratio";
 
-  Modelica.Blocks.Sources.Constant TSupSetHea(y(
-      final quantity="ThermodynamicTemperature",
-      final unit="K",
-      displayUnit="degC",
-      min=0), k=273.15 + 10) "Supply air temperature setpoint for heating"
-    annotation (Placement(transformation(extent={{-180,-172},{-160,-152}})));
   Controls.FanVFD conFanSup(xSet_nominal(displayUnit="Pa") = 410, r_N_min=
         yFanMin)
     "Controller for fan"
@@ -44,7 +38,7 @@ model ASHRAE2006
 
   Controls.Economizer conEco(
     have_reset=true,
-    dT=1,
+    have_frePro=true,
     VOut_flow_min=Vot_flow_nominal,
     Ti=120,
     k=0.1) "Controller for economizer"
@@ -59,10 +53,8 @@ model ASHRAE2006
     nin=5,
     pMin=50) "Duct static pressure setpoint"
     annotation (Placement(transformation(extent={{160,-16},{180,4}})));
-  Controls.CoolingCoilTemperatureSetpoint TSetCoo "Setpoint for cooling coil"
-    annotation (Placement(transformation(extent={{-130,-212},{-110,-192}})));
   Controls.RoomVAV conVAVCor(ratVFloMin=ratVMinCor_flow, ratVFloHea=0.3)
-                             "Controller for terminal unit corridor"
+    "Controller for terminal unit corridor"
     annotation (Placement(transformation(extent={{530,32},{550,52}})));
   Controls.RoomVAV conVAVSou(ratVFloMin=ratVMinSou_flow, ratVFloHea=0.3)
                              "Controller for terminal unit south"
@@ -76,41 +68,15 @@ model ASHRAE2006
   Controls.RoomVAV conVAVWes(ratVFloMin=ratVMinWes_flow, ratVFloHea=0.3)
                              "Controller for terminal unit west"
     annotation (Placement(transformation(extent={{1240,28},{1260,48}})));
-  Buildings.Controls.Continuous.LimPID heaCoiCon(
-    yMax=1,
-    yMin=0,
-    Td=60,
-    initType=Modelica.Blocks.Types.InitPID.InitialState,
-    k=0.02,
-    Ti=300)
-           "Controller for heating coil"
-    annotation (Placement(transformation(extent={{-80,-212},{-60,-192}})));
-  Buildings.Controls.Continuous.LimPID cooCoiCon(
-    reverseActing=false,
-    Td=60,
-    initType=Modelica.Blocks.Types.InitPID.InitialState,
-    yMax=1,
-    yMin=0,
-    Ti=600,
-    k=0.1) "Controller for cooling coil"
-    annotation (Placement(transformation(extent={{-80,-250},{-60,-230}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swiHeaCoi
-    "Switch to switch off heating coil"
-    annotation (Placement(transformation(extent={{60,-220},{80,-200}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swiCooCoi
-    "Switch to switch off cooling coil"
-    annotation (Placement(transformation(extent={{60,-258},{80,-238}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant coiOff(k=0)
-    "Signal to switch water flow through coils off"
-    annotation (Placement(transformation(extent={{-60,-172},{-40,-152}})));
 
   Buildings.Controls.OBC.CDL.Logical.Or or2
-    annotation (Placement(transformation(extent={{0,-180},{20,-160}})));
+    annotation (Placement(transformation(extent={{-60,-250},{-40,-230}})));
+  Controls.SupplyAirTemperature conTSup "Supply air temperature controller"
+    annotation (Placement(transformation(extent={{30,-230},{50,-210}})));
+  Controls.SupplyAirTemperatureSetpoint TSupSet
+    "Supply air temperature set point"
+    annotation (Placement(transformation(extent={{-200,-230},{-180,-210}})));
 equation
-  connect(TSupSetHea.y, heaCoiCon.u_s) annotation (Line(
-      points={{-159,-162},{-96,-162},{-96,-202},{-82,-202}},
-      color={0,0,127},
-      pattern=LinePattern.Dash));
   connect(fanSup.port_b, dpDisSupFan.port_a) annotation (Line(
       points={{320,-40},{320,0},{320,-10},{320,-10}},
       color={0,0,0},
@@ -141,18 +107,7 @@ equation
       index=1,
       extent={{6,3},{6,3}}));
   connect(TRet.T, conEco.TRet) annotation (Line(
-      points={{100,151},{100,172},{-92,172},{-92,157.333},{-81.3333,157.333}},
-      color={0,0,127},
-      smooth=Smooth.None,
-      pattern=LinePattern.Dash));
-  connect(TMix.T, conEco.TMix) annotation (Line(
-      points={{40,-29},{40,168},{-90,168},{-90,153.333},{-81.3333,153.333}},
-      color={0,0,127},
-      smooth=Smooth.None,
-      pattern=LinePattern.Dash));
-  connect(conEco.TSupHeaSet, TSupSetHea.y) annotation (Line(
-      points={{-81.3333,145.333},{-156,145.333},{-156,-120},{-140,-120},{-140,
-          -162},{-159,-162}},
+      points={{100,151},{100,172},{-94,172},{-94,153.333},{-81.3333,153.333}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
@@ -172,29 +127,8 @@ equation
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
-  connect(TSetCoo.TSet, cooCoiCon.u_s) annotation (Line(
-      points={{-109,-202},{-96,-202},{-96,-240},{-82,-240}},
-      color={0,0,0},
-      smooth=Smooth.None,
-      pattern=LinePattern.Dash));
-  connect(TSetCoo.TSet, conEco.TSupCooSet) annotation (Line(
-      points={{-109,-202},{-100,-202},{-100,-114},{-150,-114},{-150,141.333},{
-          -81.3333,141.333}},
-      color={0,0,127},
-      smooth=Smooth.None,
-      pattern=LinePattern.Dash));
-  connect(TSupSetHea.y, TSetCoo.TSetHea) annotation (Line(
-      points={{-159,-162},{-140,-162},{-140,-202},{-132,-202}},
-      color={0,0,0},
-      smooth=Smooth.None,
-      pattern=LinePattern.Dash));
-  connect(modeSelector.cb, TSetCoo.controlBus) annotation (Line(
-      points={{-196.818,-303.182},{-152,-303.182},{-152,-210},{-121.8,-210}},
-      color={255,204,51},
-      thickness=0.5,
-      smooth=Smooth.None));
   connect(conEco.VOut_flow, VOut1.V_flow) annotation (Line(
-      points={{-81.3333,149.333},{-90,149.333},{-90,80},{-61,80},{-61,-20.9}},
+      points={{-81.3333,142.667},{-90,142.667},{-90,80},{-61,80},{-61,-20.9}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
@@ -287,36 +221,15 @@ equation
       index=1,
       extent={{6,3},{6,3}}));
   connect(conEco.controlBus, controlBus) annotation (Line(
-      points={{-76,150.667},{-76,120},{-240,120},{-240,-342}},
+      points={{-70.6667,141.467},{-70.6667,120},{-240,120},{-240,-342}},
       color={255,204,51},
       thickness=0.5));
-  connect(modeSelector.yFan, conFanSup.uFan) annotation (Line(points={{-179.545,
-          -310},{260,-310},{260,-30},{226,-30},{226,6},{238,6}}, color={255,0,
+  connect(modeSelector.yFan, conFanSup.uFan) annotation (Line(points={{-179.091,
+          -305.455},{260,-305.455},{260,-30},{226,-30},{226,6},{238,6}},
+                                                                 color={255,0,
           255}));
   connect(conFanSup.y, fanSup.y) annotation (Line(points={{261,0},{280,0},{280,
           -20},{310,-20},{310,-28}}, color={0,0,127}));
-  connect(modeSelector.yFan, swiCooCoi.u2) annotation (Line(points={{-179.545,
-          -310},{-20,-310},{-20,-248},{58,-248}},
-                                              color={255,0,255}));
-  connect(swiCooCoi.u1, cooCoiCon.y) annotation (Line(points={{58,-240},{-20,
-          -240},{-59,-240}},      color={0,0,127}));
-  connect(swiHeaCoi.u1, heaCoiCon.y)
-    annotation (Line(points={{58,-202},{-59,-202}}, color={0,0,127}));
-  connect(coiOff.y, swiCooCoi.u3) annotation (Line(points={{-38,-162},{-28,-162},
-          {-28,-256},{58,-256}},
-                              color={0,0,127}));
-  connect(coiOff.y, swiHeaCoi.u3) annotation (Line(points={{-38,-162},{-28,-162},
-          {-28,-218},{58,-218}},
-                              color={0,0,127}));
-  connect(TSup.T, cooCoiCon.u_m) annotation (Line(points={{340,-29},{340,-12},{
-          372,-12},{372,-268},{-70,-268},{-70,-252}}, color={0,0,127}));
-  connect(TSup.T, heaCoiCon.u_m) annotation (Line(points={{340,-29},{340,-12},{
-          372,-12},{372,-268},{-88,-268},{-88,-222},{-70,-222},{-70,-214}},
-        color={0,0,127}));
-  connect(gaiHeaCoi.u, swiHeaCoi.y)
-    annotation (Line(points={{98,-210},{82,-210},{82,-210}}, color={0,0,127}));
-  connect(gaiCooCoi.u, swiCooCoi.y) annotation (Line(points={{98,-248},{88,-248},
-          {88,-248},{82,-248}}, color={0,0,127}));
   connect(eco.yExh, conEco.yOA) annotation (Line(
       points={{-3,-34},{-2,-34},{-2,152},{-58.6667,152}},
       color={0,0,127},
@@ -325,13 +238,11 @@ equation
       points={{-16.8,-34},{-16.8,146.667},{-58.6667,146.667}},
       color={0,0,127},
       pattern=LinePattern.Dash));
-  connect(freSta.y, or2.u1) annotation (Line(points={{22,-92},{22,-92},{40,-92},
-          {40,-150},{-20,-150},{-20,-170},{-2,-170}},        color={255,0,255}));
-  connect(or2.u2, modeSelector.yFan) annotation (Line(points={{-2,-178},{-20,
-          -178},{-20,-310},{-179.545,-310}},
+  connect(freSta.y, or2.u1) annotation (Line(points={{22,-90},{40,-90},{40,-160},
+          {-80,-160},{-80,-240},{-62,-240}},                 color={255,0,255}));
+  connect(or2.u2, modeSelector.yFan) annotation (Line(points={{-62,-248},{-80,
+          -248},{-80,-305.455},{-179.091,-305.455}},
                                      color={255,0,255}));
-  connect(or2.y, swiHeaCoi.u2) annotation (Line(points={{22,-170},{40,-170},{40,
-          -190},{40,-190},{40,-210},{58,-210}}, color={255,0,255}));
   connect(cor.y_actual, pSetDuc.u[1]) annotation (Line(points={{612,58},{620,58},
           {620,74},{140,74},{140,-7.6},{158,-7.6}}, color={0,0,127}));
   connect(sou.y_actual, pSetDuc.u[2]) annotation (Line(points={{792,56},{800,56},
@@ -342,8 +253,41 @@ equation
           56},{1140,74},{140,74},{140,-5.2},{158,-5.2}}, color={0,0,127}));
   connect(wes.y_actual, pSetDuc.u[5]) annotation (Line(points={{1332,56},{1338,
           56},{1338,74},{140,74},{140,-4.4},{158,-4.4}}, color={0,0,127}));
-  connect(or2.y, conEco.uRes) annotation (Line(points={{22,-170},{60,-170},{60,
-          120},{-73.3333,120},{-73.3333,137.333}}, color={255,0,255}));
+  connect(TSup.T, conTSup.TSup) annotation (Line(
+      points={{340,-29},{340,-20},{360,-20},{360,-280},{0,-280},{0,-214},{28,
+          -214}},
+      color={0,0,127},
+      pattern=LinePattern.Dash));
+  connect(conTSup.yHea, gaiHeaCoi.u) annotation (Line(
+      points={{52,-214},{68,-214},{68,-210},{98,-210}},
+      color={0,0,127},
+      pattern=LinePattern.Dash));
+  connect(conTSup.yCoo, gaiCooCoi.u) annotation (Line(
+      points={{52,-226},{60,-226},{60,-248},{98,-248}},
+      color={0,0,127},
+      pattern=LinePattern.Dash));
+  connect(conTSup.yOA, conEco.uOATSup) annotation (Line(
+      points={{52,-220},{60,-220},{60,180},{-86,180},{-86,158.667},{-81.3333,
+          158.667}},
+      color={0,0,127},
+      pattern=LinePattern.Dash));
+  connect(or2.y, conTSup.uEna) annotation (Line(points={{-38,-240},{20,-240},{
+          20,-226},{28,-226}}, color={255,0,255}));
+  connect(modeSelector.yEco, conEco.uEna) annotation (Line(points={{-179.091,
+          -314.545},{-160,-314.545},{-160,100},{-73.3333,100},{-73.3333,137.333}},
+        color={255,0,255}));
+  connect(TMix.T, conEco.TMix) annotation (Line(points={{40,-29},{40,166},{-90,
+          166},{-90,148},{-81.3333,148}}, color={0,0,127}));
+  connect(controlBus, TSupSet.controlBus) annotation (Line(
+      points={{-240,-342},{-240,-228},{-190,-228}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%first",
+      index=-1,
+      extent={{-6,3},{-6,3}},
+      horizontalAlignment=TextAlignment.Right));
+  connect(TSupSet.TSet, conTSup.TSupSet)
+    annotation (Line(points={{-178,-220},{28,-220}}, color={0,0,127}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-380,-400},{1440,
             580}})),
@@ -358,7 +302,7 @@ and a heating and cooling coil in the air handler unit. There is also a
 reheat coil and an air damper in each of the five zone inlet branches.
 The figure below shows the schematic diagram of the HVAC system
 </p>
-<p align=\"center\">
+<p>
 <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Examples/VAVReheat/vavSchematics.png\" border=\"1\"/>
 </p>
 <p>
@@ -371,18 +315,25 @@ for a description of the HVAC system and the building envelope.
 The control is an implementation of the control sequence
 <i>VAV 2A2-21232</i> of the Sequences of Operation for
 Common HVAC Systems (ASHRAE, 2006). In this control sequence, the
-supply fan speed is regulated based on the duct static pressure.
+supply fan speed is modulated based on the duct static pressure.
 The return fan controller tracks the supply fan air flow rate.
-The duct static pressure is adjusted
-so that at least one VAV damper is 90% open. The economizer dampers
-are modulated to track the setpoint for the mixed air dry bulb temperature.
-Priority is given to maintain a minimum outside air volume flow rate.
-In each zone, the VAV damper is adjusted to meet the room temperature
-setpoint for cooling, or fully opened during heating.
-The room temperature setpoint for heating is tracked by varying
-the water flow rate through the reheat coil. There is also a
-finite state machine that transitions the mode of operation of
-the HVAC system between the modes
+The duct static pressure set point is adjusted so that at least one
+VAV damper is 90% open.
+The heating coil valve, outside air damper, and cooling coil valve are
+modulated in sequence to maintain the supply air temperature set point.
+The economizer control provides the following functions:
+freeze protection, minimum outside air requirement, and supply air cooling,
+see
+<a href=\"modelica://Buildings.Examples.VAVReheat.Controls.Economizer\">
+Buildings.Examples.VAVReheat.Controls.Economizer</a>.
+The controller of the terminal units tracks the room air temperature set point
+based on a \"dual maximum with constant volume heating\" logic, see
+<a href=\"modelica://Buildings.Examples.VAVReheat.Controls.RoomVAV\">
+Buildings.Examples.VAVReheat.Controls.RoomVAV</a>.
+</p>
+<p>
+There is also a finite state machine that transitions the mode of operation
+of the HVAC system between the modes
 <i>occupied</i>, <i>unoccupied off</i>, <i>unoccupied night set back</i>,
 <i>unoccupied warm-up</i> and <i>unoccupied pre-cool</i>.
 In the VAV model, all air flows are computed based on the
@@ -404,6 +355,12 @@ ASHRAE, Atlanta, GA, 2006.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 27, 2020, by Antoine Gautier:<br/>
+Refactored the supply air temperature control sequence.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2024\">#2024</a>.
+</li>
 <li>
 July 10, 2020, by Antoine Gautier:<br/>
 Changed design and control parameters for outdoor air flow.<br/>
@@ -449,5 +406,7 @@ This is for
     __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Examples/VAVReheat/ASHRAE2006.mos"
         "Simulate and plot"),
-    experiment(StopTime=172800, Tolerance=1e-06));
+    experiment(
+      StopTime=172800,
+      Tolerance=1e-06));
 end ASHRAE2006;
