@@ -1,4 +1,4 @@
-within Buildings.Experimental.DHC.Networks.BaseClasses;
+﻿within Buildings.Experimental.DHC.Networks.BaseClasses;
 model DifferenceEnthalpyFlowRate
   "Sensor outputing the difference between two enthalpy flow rates"
   extends Fluid.Interfaces.PartialFourPortInterface(
@@ -13,14 +13,20 @@ model DifferenceEnthalpyFlowRate
     final show_T=false);
   replaceable package Medium=Modelica.Media.Interfaces.PartialMedium
     "Medium in the component"
-    annotation (choices(choice(redeclare package Medium=Buildings.Media.Water "Water"),choice(redeclare package Medium=Buildings.Media.Antifreeze.PropyleneGlycolWater(property_T=293.15,X_a=0.40) "Propylene glycol water, 40% mass fraction")));
+    annotation (choices(choice(redeclare package Medium=Buildings.Media.Water "Water"),
+      choice(redeclare package Medium =
+        Buildings.Media.Antifreeze.PropyleneGlycolWater (
+          property_T=293.15,X_a=0.40) "Propylene glycol water, 40% mass fraction")));
+  parameter Boolean have_intTim = false
+    "Set to true to output the time intgral "
+    annotation(Evaluate=true);
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal(
     min=0)
     "Nominal mass flow rate"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.Time tau(
     min=0)=0
-    "Time constant at nominal flow rate (use tau=0 for steady-state sensor, but see user guide for potential problems)";
+    "Time constant at nominal flow rate";
   parameter Modelica.Blocks.Types.Init initType=Modelica.Blocks.Types.Init.InitialState
     "Type of initialization (InitialState and InitialOutput are identical)"
     annotation (Evaluate=true,Dialog(group="Initialization"));
@@ -41,7 +47,19 @@ model DifferenceEnthalpyFlowRate
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput dH_flow(
     final unit="W")
     "Difference in enthalpy flow rate between stream 1 and 2"
-    annotation (Placement(transformation(origin={120,0},extent={{-20,-20},{20,20}},rotation=0),iconTransformation(extent={{-20,-20},{20,20}},rotation=0,origin={120,0})));
+    annotation (Placement(transformation(origin={120,20},
+      extent={{-20,-20},{20,20}},rotation=0),
+      iconTransformation(extent={{-20,-20},{20,20}},rotation=0,origin={120,30})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput E(
+    final unit="J") if  have_intTim
+    "Time integral of enthalpy flow rate difference between stream 1 and 2"
+    annotation (Placement(transformation(
+      origin={120,-20},
+      extent={{-20,-20},{20,20}},
+      rotation=0), iconTransformation(
+      extent={{-20,-20},{20,20}},
+      rotation=0,
+      origin={120,-30})));
   Fluid.Sensors.EnthalpyFlowRate senEntFlo1(
     redeclare final package Medium=Medium,
     final m_flow_nominal=m_flow_nominal,
@@ -60,11 +78,12 @@ model DifferenceEnthalpyFlowRate
     final h_out_start=h_out_start)
     "Enthalpy flow rate of fluid stream 2"
     annotation (Placement(transformation(extent={{10,-70},{-10,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add2(
-    final k1=1,
-    final k2=-1)
+  Buildings.Controls.OBC.CDL.Continuous.Add dif(final k1=1, final k2=-1)
     "Compute the difference"
-    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
+    annotation (Placement(transformation(extent={{40,10},{60,30}})));
+  Modelica.Blocks.Continuous.Integrator int(y(unit="J")) if have_intTim
+    "Time integral computation"
+    annotation (Placement(transformation(extent={{40,-30},{60,-10}})));
 equation
   connect(port_a1,senEntFlo1.port_a)
     annotation (Line(points={{-100,60},{-10,60}},color={0,127,255}));
@@ -74,12 +93,16 @@ equation
     annotation (Line(points={{-100,-60},{-10,-60}},color={0,127,255}));
   connect(senEntFlo2.port_a,port_a2)
     annotation (Line(points={{10,-60},{100,-60}},color={0,127,255}));
-  connect(add2.y,dH_flow)
-    annotation (Line(points={{62,0},{120,0}},color={0,0,127}));
-  connect(senEntFlo1.H_flow,add2.u1)
-    annotation (Line(points={{0,49},{0,6},{38,6}},color={0,0,127}));
-  connect(senEntFlo2.H_flow,add2.u2)
-    annotation (Line(points={{0,-49},{0,-6},{38,-6}},color={0,0,127}));
+  connect(dif.y, dH_flow)
+    annotation (Line(points={{62,20},{120,20}}, color={0,0,127}));
+  connect(senEntFlo1.H_flow, dif.u1)
+    annotation (Line(points={{0,49},{0,26},{38,26}}, color={0,0,127}));
+  connect(senEntFlo2.H_flow, dif.u2)
+    annotation (Line(points={{0,-49},{0,14},{38,14}}, color={0,0,127}));
+  connect(int.y, E)
+    annotation (Line(points={{61,-20},{120,-20}}, color={0,0,127}));
+  connect(dif.y, int.u) annotation (Line(points={{62,20},{80,20},{80,0},{20,0},{
+          20,-20},{38,-20}}, color={0,0,127}));
   annotation (
     defaultComponentName="senDifEntFlo",
     Icon(
@@ -118,7 +141,7 @@ equation
           points={{100,0},{70,0}},
           color={0,0,127}),
         Text(
-          extent={{169,-10},{75,-40}},
+          extent={{173,26},{79,-4}},
           lineColor={0,0,0},
           textString="ΔH_flow"),
         Line(
@@ -132,7 +155,21 @@ equation
           color={0,128,255}),
         Line(
           points={{36,-60},{100,-60}},
-          color={0,128,255})}),
+          color={0,128,255}),
+        Text(
+          visible=have_intTim,
+          extent={{135,-16},{41,-46}},
+          lineColor={0,0,0},
+          textString="E"),
+        Text(
+          extent={{132,112},{12,62}},
+          lineColor={0,0,0},
+          textString=DynamicSelect("", String(dH_flow, leftjustified=false, significantDigits=0))),
+        Text(
+          visible=have_intTim,
+          extent={{132,-56},{12,-106}},
+          lineColor={0,0,0},
+          textString=DynamicSelect("", String(E, leftjustified=false, significantDigits=0)))}),
     Documentation(
       info="<html>
 <p>
