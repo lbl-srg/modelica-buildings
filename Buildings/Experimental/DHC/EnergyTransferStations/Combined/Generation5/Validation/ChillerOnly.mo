@@ -2,8 +2,7 @@ within Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Va
 model ChillerOnly
   "Validation of the ETS model with heat recovery chiller"
   extends BaseClasses.PartialChillerBorefield(
-    ets(
-      Ti=120));
+    ets(kCol=0.1, Ti=120));
   Modelica.Blocks.Sources.CombiTimeTable TDisWatSup(
     tableName="tab1",
     table=[

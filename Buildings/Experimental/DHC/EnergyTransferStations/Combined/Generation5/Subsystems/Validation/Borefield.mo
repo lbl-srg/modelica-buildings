@@ -42,8 +42,7 @@ model Borefield
     "Borefield design data"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
   Modelica.Blocks.Sources.TimeTable TInlVal(
-    y(
-      final unit="K",
+    y(final unit="K",
       displayUnit="degC"),
     table=[
       0,2;
@@ -78,12 +77,12 @@ equation
     annotation (Line(points={{60,0},{80,0},{80,-20},{0,-20}},color={0,127,255}));
   connect(TInlVal.y,conWat.T_in)
     annotation (Line(points={{-89,0},{-70,0},{-70,2},{-52,2}},color={0,0,127}));
-  connect(zer.y,borFie.yValIso[2])
-    annotation (Line(points={{-88,40},{30,40},{30,5},{38,5}},color={0,0,127}));
+  connect(zer.y, borFie.yValIso_actual[2]) annotation (Line(points={{-88,40},{
+          30,40},{30,5},{38,5}}, color={0,0,127}));
   connect(u.y,borFie.u)
     annotation (Line(points={{-88,80},{32,80},{32,8},{38,8}},color={0,0,127}));
-  connect(u.y,borFie.yValIso[1])
-    annotation (Line(points={{-88,80},{32,80},{32,3},{38,3}},color={0,0,127}));
+  connect(u.y, borFie.yValIso_actual[1]) annotation (Line(points={{-88,80},{32,
+          80},{32,3},{38,3}}, color={0,0,127}));
   annotation (
     Diagram(
       coordinateSystem(

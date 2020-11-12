@@ -75,9 +75,10 @@ model HeatExchanger
     "Time constant of integrator block"
     annotation (Dialog(group="Controls"));
   // IO CONNECTORS
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput yValIso[2]
-    "Isolation valves return position (index 1 for condenser)"
-    annotation (Placement(transformation(extent={{-140,80},{-100,120}}),iconTransformation(extent={{-140,-40},{-100,0}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput yValIso_actual[2]
+    "Isolation valves return position (index 1 for condenser)" annotation (
+      Placement(transformation(extent={{-140,80},{-100,120}}),
+        iconTransformation(extent={{-140,-40},{-100,0}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u
     "Control signal for secondary side (from supervisory)"
     annotation (Placement(transformation(extent={{-140,120},{-100,160}}),iconTransformation(extent={{-140,0},{-100,40}})));
@@ -238,8 +239,8 @@ equation
     annotation (Line(points={{29,-51},{28,-51},{28,0},{68,0}},color={0,0,127}));
   connect(totPPum.y,PPum)
     annotation (Line(points={{92,0},{120,0}},color={0,0,127}));
-  connect(yValIso,conHex.yValIso)
-    annotation (Line(points={{-120,100},{-92,100},{-92,163},{-72,163}},color={0,0,127}));
+  connect(yValIso_actual, conHex.yValIso) annotation (Line(points={{-120,100},{
+          -92,100},{-92,163},{-72,163}}, color={0,0,127}));
   connect(conHex.yPum2Hex,gai2.u)
     annotation (Line(points={{-48,160},{40,160},{40,130}},color={0,0,127}));
   connect(u,conHex.u)

@@ -120,16 +120,14 @@ model HeatExchanger
   Buildings.Controls.OBC.CDL.Logical.Or or2
     annotation (Placement(transformation(extent={{-160,90},{-140,110}})));
   Modelica.Blocks.Sources.RealExpression yValIsoCon(
-    y=
-      if time >= 2500 then
+    y=if time >= 2500 then
         1
       else
         0)
     "Condenser loop isolation valve opening"
     annotation (Placement(transformation(extent={{-230,70},{-210,90}})));
   Modelica.Blocks.Sources.RealExpression yValIsoEva(
-    y=
-      if time >= 500 then
+    y=if time >= 500 then
         1
       else
         0)
@@ -148,8 +146,7 @@ model HeatExchanger
     "Zero"
     annotation (Placement(transformation(extent={{-120,110},{-100,130}})));
   Modelica.Blocks.Sources.TimeTable TColVal(
-    y(
-      final unit="K",
+    y(final unit="K",
       displayUnit="degC"),
     table=[
       0,6;
@@ -163,8 +160,7 @@ model HeatExchanger
     "Cold side temperature values"
     annotation (Placement(transformation(extent={{-230,-50},{-210,-30}})));
   Modelica.Blocks.Sources.TimeTable THotVal(
-    y(
-      final unit="K",
+    y(final unit="K",
       displayUnit="degC"),
     table=[
       0,45;
@@ -178,8 +174,7 @@ model HeatExchanger
     "Hot side temperature values"
     annotation (Placement(transformation(extent={{-230,-90},{-210,-70}})));
   Modelica.Blocks.Sources.TimeTable TDisVal(
-    y(
-      final unit="K",
+    y(final unit="K",
       displayUnit="degC"),
     table=[
       0,8;
@@ -239,14 +234,14 @@ equation
     annotation (Line(points={{-209,100},{-180,100},{-180,92},{-162,92}},color={255,0,255}));
   connect(uHeaRej.y,or2.u1)
     annotation (Line(points={{-209,120},{-170,120},{-170,100},{-162,100}},color={255,0,255}));
-  connect(yValIsoCon.y,hexVal.yValIso[1])
-    annotation (Line(points={{-209,80},{-32,80},{-32,17},{-12,17}},color={0,0,127}));
-  connect(yValIsoCon.y,hexPum.yValIso[1])
-    annotation (Line(points={{-209,80},{-32,80},{-32,-63},{-12,-63}},color={0,0,127}));
-  connect(yValIsoEva.y,hexVal.yValIso[2])
-    annotation (Line(points={{-209,60},{-36,60},{-36,19},{-12,19}},color={0,0,127}));
-  connect(yValIsoEva.y,hexPum.yValIso[2])
-    annotation (Line(points={{-209,60},{-36,60},{-36,-61},{-12,-61}},color={0,0,127}));
+  connect(yValIsoCon.y, hexVal.yValIso_actual[1]) annotation (Line(points={{-209,
+          80},{-32,80},{-32,17},{-12,17}}, color={0,0,127}));
+  connect(yValIsoCon.y, hexPum.yValIso_actual[1]) annotation (Line(points={{-209,
+          80},{-32,80},{-32,-63},{-12,-63}}, color={0,0,127}));
+  connect(yValIsoEva.y, hexVal.yValIso_actual[2]) annotation (Line(points={{-209,
+          60},{-36,60},{-36,19},{-12,19}}, color={0,0,127}));
+  connect(yValIsoEva.y, hexPum.yValIso_actual[2]) annotation (Line(points={{-209,
+          60},{-36,60},{-36,-61},{-12,-61}}, color={0,0,127}));
   connect(or2.y,swi1.u2)
     annotation (Line(points={{-138,100},{-62,100}},color={255,0,255}));
   connect(sin1.y,swi1.u1)

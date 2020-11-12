@@ -52,6 +52,15 @@ model Supervisory1
     final dTDea=dTDea)
     "Rejection mode selection"
     annotation (Placement(transformation(extent={{40,80},{60,100}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatTop(final unit="K",
+      displayUnit="degC")
+    "Chilled water temperature at tank top"
+    annotation (Placement(transformation(extent={{-160,-100},{-120,-60}}),iconTransformation(extent={{-140,-70},{-100,-30}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaWatBot(final unit="K",
+      displayUnit="degC")
+    "Heating water temperature at tank bottom"
+    annotation (Placement(transformation(extent={{-160,-40},{-120,0}}),iconTransformation(extent={{-204,
+            -36},{-164,4}})));
 equation
   connect(conHotSid.yAmb,max1.u1)
     annotation (Line(points={{12,41},{28,41},{28,6},{50,6}},color={0,0,127}));
@@ -73,10 +82,10 @@ equation
     annotation (Line(points={{12,-34},{32,-34},{32,93},{38,93}},color={255,0,255}));
   connect(max1.y,yAmb)
     annotation (Line(points={{74,0},{96,0},{96,-20},{140,-20}},color={0,0,127}));
-  connect(conHotSid.yIsoAmb,yIsoCon)
-    annotation (Line(points={{12,36},{114,36},{114,20},{140,20}},color={0,0,127}));
-  connect(conColSid.yIsoAmb,yIsoEva)
-    annotation (Line(points={{12,-46},{100,-46},{100,0},{140,0}},color={0,0,127}));
+  connect(conHotSid.yValIso, yValIsoCon) annotation (Line(points={{12,36},{114,
+          36},{114,20},{140,20}}, color={0,0,127}));
+  connect(conColSid.yValIso, yValIsoEva) annotation (Line(points={{12,-46},{100,
+          -46},{100,0},{140,0}}, color={0,0,127}));
   connect(conHotSid.yDem,yHea)
     annotation (Line(points={{12,48},{100,48},{100,100},{140,100}},color={255,0,255}));
   connect(conColSid.yDem,yCoo)
@@ -84,9 +93,9 @@ equation
   connect(THeaWatSupPreSet,resTSup.THeaWatSupPreSet)
     annotation (Line(points={{-140,20},{-80,20},{-80,15},{-72,15}},color={0,0,127}));
   connect(TChiWatTop,conColSid.TTop)
-    annotation (Line(points={{-140,-80},{-40,-80},{-40,-44},{-12,-44}},color={0,0,127}));
+    annotation (Line(points={{-140,-80},{-60,-80},{-60,-44},{-12,-44}},color={0,0,127}));
   connect(TChiWatBot,conColSid.TBot)
-    annotation (Line(points={{-140,-100},{-20,-100},{-20,-48},{-12,-48}},color={0,0,127}));
+    annotation (Line(points={{-140,-60},{-20,-60},{-20,-48},{-12,-48}},  color={0,0,127}));
   connect(THeaWatTop,conHotSid.TTop)
     annotation (Line(points={{-140,0},{-20,0},{-20,38},{-12,38}},color={0,0,127}));
   connect(THeaWatBot,conHotSid.TBot)
@@ -98,11 +107,12 @@ equation
   connect(uCooHol.y,conColSid.uHeaCoo)
     annotation (Line(points={{-88,60},{-40,60},{-40,-32},{-12,-32}},color={255,0,255}));
   connect(TChiWatSupPreSet,conColSid.TSet)
-    annotation (Line(points={{-140,-60},{-60,-60},{-60,-40},{-12,-40}},color={0,0,127}));
+    annotation (Line(points={{-140,-40},{-60,-40},{-60,-40},{-12,-40}},color={0,0,127}));
   connect(uHeaHol.y,resTSup.uHea)
     annotation (Line(points={{-88,100},{-80,100},{-80,26},{-72,26}},color={255,0,255}));
   connect(TChiWatSupPreSet,TChiWatSupSet)
-    annotation (Line(points={{-140,-60},{80,-60},{80,-80},{140,-80}},color={0,0,127}));
+    annotation (Line(points={{-140,-40},{-40,-40},{-40,-80},{140,-80}},
+                                                                     color={0,0,127}));
   annotation (
     Icon(
       coordinateSystem(

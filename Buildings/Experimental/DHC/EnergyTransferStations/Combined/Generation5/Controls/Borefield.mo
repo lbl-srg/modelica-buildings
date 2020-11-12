@@ -20,8 +20,7 @@ model Borefield
     "Mixing valve controller"
     annotation (Placement(transformation(extent={{-10,-90},{10,-70}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxTBorWatEnt(
-    y(
-      final unit="K",
+    y(final unit="K",
       displayUnit="degC"),
     final k=TBorWatEntMax)
     "Maximum value of borefield water entering temperature"
@@ -54,9 +53,10 @@ model Borefield
   Buildings.Controls.OBC.CDL.Logical.And enaBor
     "Borefield enabled signal"
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput yValIso[2]
-    "Isolation valves return position (fractional)"
-    annotation (Placement(transformation(extent={{-140,-60},{-100,-20}}),iconTransformation(extent={{-140,-20},{-100,20}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput yValIso_actual[2]
+    "Isolation valves return position (fractional)" annotation (Placement(
+        transformation(extent={{-140,-60},{-100,-20}}), iconTransformation(
+          extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u
     "Control signal from supervisory"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}}),iconTransformation(extent={{-140,40},{-100,80}})));
@@ -93,8 +93,8 @@ model Borefield
 equation
   connect(multiMax1.y,opeVal.u)
     annotation (Line(points={{-68,-40},{-60,-40},{-60,-48},{-52,-48}},color={0,0,127}));
-  connect(yValIso,multiMax1.u)
-    annotation (Line(points={{-120,-40},{-92,-40}},color={0,0,127}));
+  connect(yValIso_actual, multiMax1.u)
+    annotation (Line(points={{-120,-40},{-92,-40}}, color={0,0,127}));
   connect(u,enaSup.u)
     annotation (Line(points={{-120,60},{-80,60},{-80,-20},{-52,-20}},color={0,0,127}));
   connect(enaSup.y,enaBor.u1)

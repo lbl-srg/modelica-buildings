@@ -52,7 +52,7 @@ equation
     annotation (Line(points={{-200,-40},{-100,-40},{-100,-172},{-92,-172}},color={0,0,127}));
   connect(greThr.y,booToRea.u)
     annotation (Line(points={{102,-140},{118,-140}},color={255,0,255}));
-  connect(booToRea.y,yIsoAmb)
+  connect(booToRea.y,yValIso)
     annotation (Line(points={{142,-140},{160,-140},{160,-120},{200,-120}},color={0,0,127}));
   connect(TSet,conPlaSeq.u_s)
     annotation (Line(points={{-200,40},{-160,40},{-160,-140},{-72,-140}},color={0,0,127}));

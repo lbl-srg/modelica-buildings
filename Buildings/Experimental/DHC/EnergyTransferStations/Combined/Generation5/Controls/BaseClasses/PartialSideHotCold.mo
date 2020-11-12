@@ -38,7 +38,7 @@ partial block PartialSideHotCold
     displayUnit="degC")
     "Temperature at bottom of tank"
     annotation (Placement(transformation(extent={{-220,-160},{-180,-120}}),iconTransformation(extent={{-140,-100},{-100,-60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yIsoAmb(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yValIso(
     final unit="1")
     "Ambient loop isolation valve control signal"
     annotation (Placement(transformation(extent={{180,-140},{220,-100}}),iconTransformation(extent={{100,-80},{140,-40}})));
@@ -107,8 +107,7 @@ partial block PartialSideHotCold
     "Error"
     annotation (Placement(transformation(extent={{180,-20},{220,20}}),iconTransformation(extent={{100,0},{140,40}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant deaBan(
-    k=
-      if reverseActing then
+    k=if reverseActing then
         -abs(
           dTDea)
       else

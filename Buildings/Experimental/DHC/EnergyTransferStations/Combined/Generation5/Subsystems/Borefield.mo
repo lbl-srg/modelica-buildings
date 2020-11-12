@@ -35,9 +35,10 @@ model Borefield
   parameter Real spePumBorMin=0.1
     "Borefield pump minimum speed";
   // IO VARIABLES
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput yValIso[2]
-    "Isolation valves return position (fractional)"
-    annotation (Placement(transformation(extent={{-140,20},{-100,60}}),iconTransformation(extent={{-140,20},{-100,60}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput yValIso_actual[2]
+    "Isolation valves return position (fractional)" annotation (Placement(
+        transformation(extent={{-140,20},{-100,60}}), iconTransformation(extent
+          ={{-140,20},{-100,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u
     "Control signal from supervisory"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}}),iconTransformation(extent={{-140,60},{-100,100}})));
@@ -122,8 +123,8 @@ equation
     annotation (Line(points={{80,-10},{80,-40},{-80,-40},{-80,-10}},color={0,127,255}));
   connect(u,con.u)
     annotation (Line(points={{-120,80},{-82,80}},color={0,0,127}));
-  connect(yValIso,con.yValIso)
-    annotation (Line(points={{-120,40},{-90,40},{-90,74},{-82,74}},color={0,0,127}));
+  connect(yValIso_actual, con.yValIso_actual) annotation (Line(points={{-120,40},
+          {-90,40},{-90,74},{-82,74}}, color={0,0,127}));
   connect(con.yValMix,val.y)
     annotation (Line(points={{-58,68},{-56,68},{-56,60},{-80,60},{-80,12}},color={0,0,127}));
   connect(port_a,val.port_1)

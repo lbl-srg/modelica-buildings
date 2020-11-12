@@ -5,16 +5,24 @@ block SideHot
   parameter Integer nSouAmb=1
     "Number of ambient sources to control"
     annotation (Evaluate=true);
-  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.P
+  parameter Modelica.SIunits.TemperatureDifference dTDea(min=0)=1
+    "Temperature dead band between set point tracking and heat rejection (absolute value)";
+  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=
+    Buildings.Controls.OBC.CDL.Types.SimpleController.P
     "Type of controller"
-    annotation (choices(choice=Buildings.Controls.OBC.CDL.Types.SimpleController.P,choice=Buildings.Controls.OBC.CDL.Types.SimpleController.PI));
+    annotation (choices(
+      choice=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
+      choice=Buildings.Controls.OBC.CDL.Types.SimpleController.PI));
   parameter Real k(
     min=0)=1
     "Gain of controller";
   parameter Modelica.SIunits.Time Ti(
     min=Buildings.Controls.OBC.CDL.Constants.small)=0.5
     "Time constant of integrator block"
-    annotation (Dialog(enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+    annotation (Dialog(
+      enable=controllerType ==
+        Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
+        controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   LimPIDEnable conColRej(
     final k=k,
     final Ti=Ti,
@@ -23,19 +31,18 @@ block SideHot
     final yMax=nSouAmb+1,
     final reverseActing=true)
     "Controller for cold rejection"
-    annotation (Placement(transformation(extent={{-110,-90},{-90,-70}})));
+    annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yCol(
     final unit="1")
     "Control signal for cold side"
-    annotation (Placement(transformation(extent={{180,-60},{220,-20}}),iconTransformation(extent={{100,-60},{140,-20}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
-    final t=Modelica.Constants.eps,
-    final h=0.5*Modelica.Constants.eps)
-    "At least one signal is non zero"
-    annotation (Placement(transformation(extent={{-50,-30},{-30,-10}})));
+    annotation (Placement(transformation(extent={{180,-80},{220,-40}}),
+      iconTransformation(extent={{100,-60},{140,-20}})));
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(final t=0.01)
+    "Control signal is non zero (with 1% tolerance)"
+    annotation (Placement(transformation(extent={{40,-30},{60,-10}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea
     "Convert DO to AO signal"
-    annotation (Placement(transformation(extent={{120,-10},{140,10}})));
+    annotation (Placement(transformation(extent={{80,-30},{100,-10}})));
   LimPIDEnable conHeaRej(
     final k=k,
     final Ti=Ti,
@@ -44,49 +51,31 @@ block SideHot
     final yMax=nSouAmb,
     final reverseActing=false)
     "Controller for heat rejection"
-    annotation (Placement(transformation(extent={{-110,-30},{-90,-10}})));
+    annotation (Placement(transformation(extent={{-50,-30},{-30,-10}})));
   Buildings.Controls.OBC.CDL.Continuous.Line mapFun[nSouAmb]
     "Mapping functions for controlled systems"
-    annotation (Placement(transformation(extent={{50,30},{70,50}})));
+    annotation (Placement(transformation(extent={{100,30},{120,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant x1[nSouAmb](
     final k={(i-1) for i in 1:nSouAmb})
     "x1"
-    annotation (Placement(transformation(extent={{10,50},{30,70}})));
+    annotation (Placement(transformation(extent={{60,50},{80,70}})));
   Buildings.Controls.OBC.CDL.Routing.RealReplicator rep(
     final nout=nSouAmb)
     "Replicate control signal"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,origin={-50,40})));
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+      rotation=0,origin={0,40})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant f1[nSouAmb](
     each final k=0)
     "f1"
-    annotation (Placement(transformation(extent={{-30,50},{-10,70}})));
+    annotation (Placement(transformation(extent={{20,50},{40,70}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant f2[nSouAmb](
     each final k=1)
     "f2"
-    annotation (Placement(transformation(extent={{10,10},{30,30}})));
+    annotation (Placement(transformation(extent={{60,10},{80,30}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant x2[nSouAmb](
     final k={(i) for i in 1:nSouAmb})
     "x2"
-    annotation (Placement(transformation(extent={{-30,10},{-10,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr1(
-    final t=0.01)
-    "At least one signal is non zero"
-    annotation (Placement(transformation(extent={{-50,-70},{-30,-50}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold uHeaHol(
-    trueHoldDuration=120,
-    falseHoldDuration=0)
-    "Hold heating enabled signal"
-    annotation (Placement(transformation(extent={{0,-30},{20,-10}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold uHeaHol1(
-    trueHoldDuration=120,
-    falseHoldDuration=0)
-    "Hold heating enabled signal"
-    annotation (Placement(transformation(extent={{0,-70},{20,-50}})));
-  Buildings.Controls.OBC.CDL.Logical.Not hotDom
-    "Hot side error dominates"
-    annotation (Placement(transformation(extent={{40,-70},{60,-50}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi
-    annotation (Placement(transformation(extent={{120,-50},{140,-30}})));
+    annotation (Placement(transformation(extent={{20,10},{40,30}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHeaCoo
     "Enable signal for heating or cooling"
     annotation (Placement(transformation(extent={{-220,80},{-180,120}}),iconTransformation(extent={{-140,60},{-100,100}})));
@@ -94,78 +83,95 @@ block SideHot
     final unit="K",
     displayUnit="degC")
     "Supply temperature set point (heating or chilled water)"
-    annotation (Placement(transformation(extent={{-220,0},{-180,40}}),iconTransformation(extent={{-140,-20},{-100,20}})));
+    annotation (Placement(transformation(extent={{-220,-40},{-180,0}}),
+                                                                      iconTransformation(extent={{-140,22},
+            {-100,62}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TTop(
     final unit="K",
     displayUnit="degC")
     "Temperature at top of tank"
-    annotation (Placement(transformation(extent={{-220,-60},{-180,-20}}),iconTransformation(extent={{-140,-60},{-100,-20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TBot(
-    final unit="K",
-    displayUnit="degC")
-    "Temperature at bottom of tank"
-    annotation (Placement(transformation(extent={{-220,-140},{-180,-100}}),iconTransformation(extent={{-140,-100},{-100,-60}})));
+    annotation (Placement(transformation(extent={{-220,-60},{-180,-20}}),iconTransformation(extent={{-140,
+            -20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yAmb[nSouAmb](
     each final unit="1")
     "Control signal for ambient sources"
     annotation (Placement(transformation(extent={{180,20},{220,60}}),iconTransformation(extent={{100,20},{140,60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yIsoAmb(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yValIso(
     final unit="1")
     "Ambient loop isolation valve control signal"
-    annotation (Placement(transformation(extent={{180,-20},{220,20}}),iconTransformation(extent={{100,-20},{140,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(
-    k=0)
-    "Zero"
-    annotation (Placement(transformation(extent={{-60,90},{-40,110}})));
+    annotation (Placement(transformation(extent={{180,-40},{220,0}}), iconTransformation(extent={{100,-20},{140,20}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput yValIsoCon_actual(final unit="1")
+            "Return position of condenser to ambient loop isolation valve"
+    annotation (Placement(transformation(extent={{-220,-100},{-180,-60}}),
+        iconTransformation(extent={{-140,-60},{-100,-20}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput yValIsoEva_actual(final unit="1")
+            "Return position of evaporator to ambient loop isolation valve"
+    annotation (Placement(transformation(extent={{-220,-140},{-180,-100}}),
+        iconTransformation(extent={{-140,-100},{-100,-60}})));
+  Buildings.Controls.OBC.CDL.Continuous.LessThreshold isValIsoConClo(final t=1E-6,
+      h=0.5E-6) "Check if isolation valve is closed"
+    annotation (Placement(transformation(extent={{-160,-90},{-140,-70}})));
+  Buildings.Controls.OBC.CDL.Continuous.LessThreshold isValIsoEvaClo(final t=1E-6,
+      h=0.5E-6) "At least one signal is non zero"
+    annotation (Placement(transformation(extent={{-160,-130},{-140,-110}})));
+  Buildings.Controls.OBC.CDL.Logical.And and2
+    annotation (Placement(transformation(extent={{-100,-90},{-80,-70}})));
+  Buildings.Controls.OBC.CDL.Continuous.AddParameter addDea(p=dTDea, k=1)
+    "Add dead band"
+    annotation (Placement(transformation(extent={{-100,-30},{-80,-10}})));
+  Modelica.Blocks.Discrete.ZeroOrderHold zeroOrderHold(samplePeriod=60)
+    annotation (Placement(transformation(extent={{120,-30},{140,-10}})));
 equation
-  connect(TBot,conHeaRej.u_m)
-    annotation (Line(points={{-200,-120},{-140,-120},{-140,-60},{-100,-60},{-100,-32}},color={0,0,127}));
   connect(mapFun.y,yAmb)
-    annotation (Line(points={{72,40},{200,40}},color={0,0,127}));
+    annotation (Line(points={{122,40},{200,40}},
+                                               color={0,0,127}));
   connect(TSet,conColRej.u_s)
-    annotation (Line(points={{-200,20},{-150,20},{-150,-80},{-112,-80}},color={0,0,127}));
+    annotation (Line(points={{-200,-20},{-150,-20},{-150,-60},{-12,-60}},
+                                                                        color={0,0,127}));
   connect(TTop,conColRej.u_m)
-    annotation (Line(points={{-200,-40},{-160,-40},{-160,-100},{-100,-100},{-100,-92}},color={0,0,127}));
+    annotation (Line(points={{-200,-40},{-40,-40},{-40,-76},{0,-76},{0,-72}},          color={0,0,127}));
   connect(conHeaRej.y,greThr.u)
-    annotation (Line(points={{-88,-20},{-52,-20}},color={0,0,127}));
+    annotation (Line(points={{-28,-20},{38,-20}}, color={0,0,127}));
   connect(x1.y,mapFun.x1)
-    annotation (Line(points={{32,60},{40,60},{40,48},{48,48}},color={0,0,127}));
+    annotation (Line(points={{82,60},{90,60},{90,48},{98,48}},color={0,0,127}));
   connect(conHeaRej.y,rep.u)
-    annotation (Line(points={{-88,-20},{-80,-20},{-80,40},{-62,40}},color={0,0,127}));
+    annotation (Line(points={{-28,-20},{-20,-20},{-20,40},{-12,40}},color={0,0,127}));
   connect(rep.y,mapFun.u)
-    annotation (Line(points={{-38,40},{48,40}},color={0,0,127}));
+    annotation (Line(points={{12,40},{98,40}}, color={0,0,127}));
   connect(f1.y,mapFun.f1)
-    annotation (Line(points={{-8,60},{0,60},{0,44},{48,44}},color={0,0,127}));
+    annotation (Line(points={{42,60},{50,60},{50,44},{98,44}},
+                                                            color={0,0,127}));
   connect(f2.y,mapFun.f2)
-    annotation (Line(points={{32,20},{40,20},{40,32},{48,32}},color={0,0,127}));
+    annotation (Line(points={{82,20},{90,20},{90,32},{98,32}},color={0,0,127}));
   connect(x2.y,mapFun.x2)
-    annotation (Line(points={{-8,20},{0,20},{0,36},{48,36}},color={0,0,127}));
-  connect(booToRea.y,yIsoAmb)
-    annotation (Line(points={{142,0},{200,0}},color={0,0,127}));
-  connect(TSet,conHeaRej.u_s)
-    annotation (Line(points={{-200,20},{-150,20},{-150,-20},{-112,-20}},color={0,0,127}));
-  connect(uHeaCoo,conColRej.uEna)
-    annotation (Line(points={{-200,100},{-120,100},{-120,-96},{-104,-96},{-104,-92}},color={255,0,255}));
-  connect(conColRej.y,greThr1.u)
-    annotation (Line(points={{-88,-80},{-80,-80},{-80,-60},{-52,-60}},color={0,0,127}));
-  connect(greThr.y,uHeaHol.u)
-    annotation (Line(points={{-28,-20},{-2,-20}},color={255,0,255}));
-  connect(uHeaHol.y,booToRea.u)
-    annotation (Line(points={{22,-20},{100,-20},{100,0},{118,0}},color={255,0,255}));
-  connect(greThr1.y,uHeaHol1.u)
-    annotation (Line(points={{-28,-60},{-2,-60}},color={255,0,255}));
-  connect(uHeaHol1.y,hotDom.u)
-    annotation (Line(points={{22,-60},{38,-60}},color={255,0,255}));
-  connect(hotDom.y,conHeaRej.uEna)
-    annotation (Line(points={{62,-60},{80,-60},{80,-40},{-104,-40},{-104,-32}},color={255,0,255}));
-  connect(swi.y,yCol)
-    annotation (Line(points={{142,-40},{200,-40}},color={0,0,127}));
-  connect(uHeaHol.y,swi.u2)
-    annotation (Line(points={{22,-20},{100,-20},{100,-40},{118,-40}},color={255,0,255}));
-  connect(conColRej.y,swi.u3)
-    annotation (Line(points={{-88,-80},{100,-80},{100,-48},{118,-48}},color={0,0,127}));
-  connect(zer.y,swi.u1)
-    annotation (Line(points={{-38,100},{86,100},{86,-32},{118,-32}},color={0,0,127}));
+    annotation (Line(points={{42,20},{50,20},{50,36},{98,36}},
+                                                            color={0,0,127}));
+  connect(conColRej.y, yCol)
+    annotation (Line(points={{12,-60},{200,-60}}, color={0,0,127}));
+  connect(TTop, conHeaRej.u_m) annotation (Line(points={{-200,-40},{-40,-40},{-40,
+          -32}}, color={0,0,127}));
+  connect(yValIsoCon_actual, isValIsoConClo.u)
+    annotation (Line(points={{-200,-80},{-162,-80}}, color={0,0,127}));
+  connect(yValIsoEva_actual, isValIsoEvaClo.u)
+    annotation (Line(points={{-200,-120},{-162,-120}}, color={0,0,127}));
+  connect(isValIsoConClo.y, and2.u2) annotation (Line(points={{-138,-80},{-130,-80},
+          {-130,-88},{-102,-88}}, color={255,0,255}));
+  connect(and2.y, conColRej.uEna)
+    annotation (Line(points={{-78,-80},{-4,-80},{-4,-72}}, color={255,0,255}));
+  connect(uHeaCoo, and2.u1) annotation (Line(points={{-200,100},{-120,100},{-120,
+          -80},{-102,-80}}, color={255,0,255}));
+  connect(isValIsoEvaClo.y, conHeaRej.uEna) annotation (Line(points={{-138,-120},
+          {-44,-120},{-44,-32}}, color={255,0,255}));
+  connect(TSet, addDea.u)
+    annotation (Line(points={{-200,-20},{-102,-20}}, color={0,0,127}));
+  connect(addDea.y, conHeaRej.u_s)
+    annotation (Line(points={{-78,-20},{-52,-20}}, color={0,0,127}));
+  connect(greThr.y, booToRea.u)
+    annotation (Line(points={{62,-20},{78,-20}}, color={255,0,255}));
+  connect(booToRea.y, zeroOrderHold.u)
+    annotation (Line(points={{102,-20},{118,-20}}, color={0,0,127}));
+  connect(zeroOrderHold.y, yValIso)
+    annotation (Line(points={{141,-20},{200,-20}}, color={0,0,127}));
   annotation (
     defaultComponentName="conHot",
     Documentation(
@@ -227,5 +233,5 @@ for heat rejection yields an output signal greater than zero
 </html>"),
     Diagram(
       coordinateSystem(
-        extent={{-180,-160},{180,160}})));
+        extent={{-180,-140},{180,140}})));
 end SideHot;

@@ -15,32 +15,26 @@ partial block PartialSupervisory
     final unit="K",
     displayUnit="degC")
     "Chilled water supply temperature set point"
-    annotation (Placement(transformation(extent={{-160,-80},{-120,-40}}),iconTransformation(extent={{-140,-50},{-100,-10}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatTop(
-    final unit="K",
-    displayUnit="degC")
-    "Chilled water temperature at tank top"
-    annotation (Placement(transformation(extent={{-160,-100},{-120,-60}}),iconTransformation(extent={{-140,-70},{-100,-30}})));
+    annotation (Placement(transformation(extent={{-160,-60},{-120,-20}}),iconTransformation(extent={{-140,
+            -30},{-100,10}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatBot(
     final unit="K",
     displayUnit="degC")
     "Chilled water temperature at tank bottom"
-    annotation (Placement(transformation(extent={{-160,-120},{-120,-80}}),iconTransformation(extent={{-140,-90},{-100,-50}})));
+    annotation (Placement(transformation(extent={{-160,-80},{-120,-40}}), iconTransformation(extent={{-140,
+            -50},{-100,-10}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaWatTop(
     final unit="K",
     displayUnit="degC")
     "Heating water temperature at tank top"
-    annotation (Placement(transformation(extent={{-160,-20},{-120,20}}),iconTransformation(extent={{-140,-10},{-100,30}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaWatBot(
-    final unit="K",
-    displayUnit="degC")
-    "Heating water temperature at tank bottom"
-    annotation (Placement(transformation(extent={{-160,-40},{-120,0}}),iconTransformation(extent={{-140,-30},{-100,10}})));
+    annotation (Placement(transformation(extent={{-160,-20},{-120,20}}),iconTransformation(extent={{-140,10},
+            {-100,50}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaWatSupPreSet(
     final unit="K",
     displayUnit="degC")
     "Heating water supply temperature set point"
-    annotation (Placement(transformation(extent={{-160,0},{-120,40}}),iconTransformation(extent={{-140,10},{-100,50}})));
+    annotation (Placement(transformation(extent={{-160,0},{-120,40}}),iconTransformation(extent={{-140,30},
+            {-100,70}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput THeaWatSupSet(
     final unit="K",
     displayUnit="degC")
@@ -51,14 +45,14 @@ partial block PartialSupervisory
     displayUnit="degC")
     "Chilled water supply temperature set point after reset"
     annotation (Placement(transformation(extent={{120,-100},{160,-60}}),iconTransformation(extent={{100,-70},{140,-30}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yIsoEva(
-    final unit="1")
-    "Evaporator to ambient loop isolation valve control signal"
-    annotation (Placement(transformation(extent={{120,-20},{160,20}}),iconTransformation(extent={{100,-30},{140,10}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yIsoCon(
-    final unit="1")
-    "Condenser to ambient loop isolation valve control signal"
-    annotation (Placement(transformation(extent={{120,0},{160,40}}),iconTransformation(extent={{100,-10},{140,30}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yValIsoEva(final unit="1")
+    "Evaporator to ambient loop isolation valve control signal" annotation (
+      Placement(transformation(extent={{120,-20},{160,20}}), iconTransformation(
+          extent={{100,-30},{140,10}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yValIsoCon(final unit="1")
+    "Condenser to ambient loop isolation valve control signal" annotation (
+      Placement(transformation(extent={{120,0},{160,40}}), iconTransformation(
+          extent={{100,-10},{140,30}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yAmb[nSouAmb](
     each final unit="1")
     "Control output for ambient sources"

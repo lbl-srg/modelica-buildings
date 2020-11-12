@@ -49,9 +49,6 @@ model SideCold
     final k={(i) for i in 1:nSouAmb})
     "x2"
     annotation (Placement(transformation(extent={{-20,-70},{0,-50}})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea
-    "Convert DO to AO signal"
-    annotation (Placement(transformation(extent={{140,-70},{160,-50}})));
   LimPIDEnable conTChiWatSup(
     final k=k,
     final Ti=Ti,
@@ -60,13 +57,12 @@ model SideCold
     final yMax=0,
     final reverseActing=true)
     "Controller for CHWST"
-    annotation (Placement(transformation(extent={{-130,-70},{-110,-50}})));
+    annotation (Placement(transformation(extent={{-110,-70},{-90,-50}})));
   Buildings.Controls.OBC.CDL.Continuous.Line mapFunTChiSupSet
     "Mapping function for CHWST reset"
     annotation (Placement(transformation(extent={{100,70},{120,90}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTChiWatSup(
-    y(
-      final unit="K",
+    y(final unit="K",
       displayUnit="degC"),
     final k=TChiWatSupSetMin)
     "Minimum value of chilled water supply temperature"
@@ -95,11 +91,6 @@ model SideCold
     final nin=nSouAmb)
     "Maximum value"
     annotation (Placement(transformation(extent={{90,-30},{110,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
-    final t=0.01,
-    final h=0.005)
-    "At least one signal is non zero"
-    annotation (Placement(transformation(extent={{120,-30},{140,-10}})));
   Buildings.Controls.OBC.CDL.Continuous.SlewRateLimiter ramLimHea(
     raisingSlewRate=0.1)
     "Limit the rate of change"
@@ -116,15 +107,24 @@ model SideCold
     final unit="K",
     displayUnit="degC")
     "Temperature at bottom of tank"
-    annotation (Placement(transformation(extent={{-220,-80},{-180,-40}}),iconTransformation(extent={{-140,-62},{-100,-22}})));
+    annotation (Placement(transformation(extent={{-216,-120},{-176,-80}}),
+                                                                         iconTransformation(extent={{-140,-62},{-100,-22}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yAmb[nSouAmb](
     each final unit="1")
     "Control signal for ambient sources"
     annotation (Placement(transformation(extent={{180,20},{220,60}}),iconTransformation(extent={{100,20},{140,60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yIsoAmb(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yValIso(
     final unit="1")
     "Ambient loop isolation valve control signal"
     annotation (Placement(transformation(extent={{180,-20},{220,20}}),iconTransformation(extent={{100,-20},{140,20}})));
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea
+    "Convert DO to AO signal"
+    annotation (Placement(transformation(extent={{60,-130},{80,-110}})));
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(t=0.01)
+    "Control signal is non zero (with 1% tolerance)"
+    annotation (Placement(transformation(extent={{20,-130},{40,-110}})));
+  Modelica.Blocks.Discrete.ZeroOrderHold zeroOrderHold(samplePeriod=60)
+    annotation (Placement(transformation(extent={{100,-130},{120,-110}})));
 equation
   connect(x1.y,mapFun.x1)
     annotation (Line(points={{2,0},{10,0},{10,8},{48,8}},color={0,0,127}));
@@ -137,9 +137,9 @@ equation
   connect(x2.y,mapFun.x2)
     annotation (Line(points={{2,-60},{44,-60},{44,-4},{48,-4}},color={0,0,127}));
   connect(TSet,conTChiWatSup.u_s)
-    annotation (Line(points={{-200,60},{-160,60},{-160,-60},{-132,-60}},color={0,0,127}));
+    annotation (Line(points={{-200,60},{-130,60},{-130,-60},{-112,-60}},color={0,0,127}));
   connect(TBot,conTChiWatSup.u_m)
-    annotation (Line(points={{-200,-60},{-166,-60},{-166,-80},{-120,-80},{-120,-72}},color={0,0,127}));
+    annotation (Line(points={{-196,-100},{-100,-100},{-100,-72}},                    color={0,0,127}));
   connect(f2[1].y,mapFunTChiSupSet.x2)
     annotation (Line(points={{22,100},{40,100},{40,76},{98,76}},color={0,0,127}));
   connect(minTChiWatSup.y,mapFunTChiSupSet.f2)
@@ -147,7 +147,7 @@ equation
   connect(TSet,mapFunTChiSupSet.f1)
     annotation (Line(points={{-200,60},{80,60},{80,84},{98,84}},color={0,0,127}));
   connect(conTChiWatSup.y,addPar.u)
-    annotation (Line(points={{-108,-60},{-72,-60}},color={0,0,127}));
+    annotation (Line(points={{-88,-60},{-72,-60}}, color={0,0,127}));
   connect(zer.y,max1.u1)
     annotation (Line(points={{-78,40},{-60,40},{-60,26},{-52,26}},color={0,0,127}));
   connect(uCol,addPar1.u)
@@ -166,20 +166,23 @@ equation
     annotation (Line(points={{72,0},{140,0},{140,40},{200,40}},color={0,0,127}));
   connect(mapFun.y,mulMax.u)
     annotation (Line(points={{72,0},{80,0},{80,-20},{88,-20}},color={0,0,127}));
-  connect(mulMax.y,greThr.u)
-    annotation (Line(points={{112,-20},{118,-20}},color={0,0,127}));
-  connect(greThr.y,booToRea.u)
-    annotation (Line(points={{142,-20},{150,-20},{150,-40},{120,-40},{120,-60},{138,-60}},color={255,0,255}));
-  connect(booToRea.y,yIsoAmb)
-    annotation (Line(points={{162,-60},{168,-60},{168,0},{200,0}},color={0,0,127}));
   connect(mapFunTChiSupSet.y,ramLimHea.u)
     annotation (Line(points={{122,80},{138,80}},color={0,0,127}));
   connect(ramLimHea.y,TChiWatSupSet)
     annotation (Line(points={{162,80},{200,80}},color={0,0,127}));
   connect(uHeaCoo,conTChiWatSup.uEna)
-    annotation (Line(points={{-200,120},{-140,120},{-140,-76},{-124,-76},{-124,-72}},color={255,0,255}));
+    annotation (Line(points={{-200,120},{-140,120},{-140,-76},{-104,-76},{-104,
+          -72}},                                                                     color={255,0,255}));
   connect(zer.y,mapFunTChiSupSet.x1)
     annotation (Line(points={{-78,40},{20,40},{20,80},{74,80},{74,88},{98,88}},color={0,0,127}));
+  connect(uCol, greThr.u) annotation (Line(points={{-200,0},{-160,0},{-160,-120},
+          {18,-120}}, color={0,0,127}));
+  connect(greThr.y, booToRea.u)
+    annotation (Line(points={{42,-120},{58,-120}}, color={255,0,255}));
+  connect(booToRea.y, zeroOrderHold.u)
+    annotation (Line(points={{82,-120},{98,-120}}, color={0,0,127}));
+  connect(zeroOrderHold.y, yValIso) annotation (Line(points={{121,-120},{160,
+          -120},{160,0},{200,0}}, color={0,0,127}));
   annotation (
     defaultComponentName="conCol",
     Documentation(
@@ -243,5 +246,8 @@ for the first ambient source is greater than zero.
 </html>"),
     Diagram(
       coordinateSystem(
-        extent={{-180,-140},{180,140}})));
+        extent={{-180,-140},{180,140}}), graphics={Text(
+          extent={{48,-80},{132,-110}},
+          lineColor={28,108,200},
+          textString="Using MSL hold dure to bug in Dymola")}));
 end SideCold;

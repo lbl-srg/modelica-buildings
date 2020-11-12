@@ -23,6 +23,14 @@ model Supervisory
   parameter Modelica.SIunits.Temperature TChiWatSupSetMin(
     displayUnit="degC")
     "Minimum value of chilled water supply temperature set point";
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput yValIsoCon_actual(final unit=
+       "1") "Return position of condenser to ambient loop isolation valve"
+    annotation (Placement(transformation(extent={{-160,-100},{-120,-60}}),
+        iconTransformation(extent={{-140,-90},{-100,-50}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput yValIsoEva_actual(final unit=
+       "1") "Return position of evaporator to ambient loop isolation valve"
+    annotation (Placement(transformation(extent={{-160,-120},{-120,-80}}),
+        iconTransformation(extent={{-140,-110},{-100,-70}})));
   SideHot conHot(
     final k=kHot,
     final Ti=Ti,
@@ -44,7 +52,7 @@ model Supervisory
   Reset resTSup(
     final THeaWatSupSetMin=THeaWatSupSetMin)
     "Supply temperature reset"
-    annotation (Placement(transformation(extent={{-70,-50},{-50,-30}})));
+    annotation (Placement(transformation(extent={{-70,-30},{-50,-10}})));
 equation
   connect(conHot.yAmb,max1.u1)
     annotation (Line(points={{12,34},{40,34},{40,6},{48,6}},color={0,0,127}));
@@ -53,37 +61,40 @@ equation
   connect(conHot.yCol,conCol.uCol)
     annotation (Line(points={{12,26},{16,26},{16,-16},{-20,-16},{-20,-28},{-12,-28}},color={0,0,127}));
   connect(resTSup.THeaWatSupSet,conHot.TSet)
-    annotation (Line(points={{-48,-40},{-30,-40},{-30,30},{-12,30}},color={0,0,127}));
+    annotation (Line(points={{-48,-20},{-30,-20},{-30,34.2},{-12,34.2}},
+                                                                    color={0,0,127}));
   connect(THeaWatTop,conHot.TTop)
-    annotation (Line(points={{-140,0},{-20,0},{-20,26},{-12,26}},color={0,0,127}));
-  connect(THeaWatBot,conHot.TBot)
-    annotation (Line(points={{-140,-20},{-16,-20},{-16,22},{-12,22}},color={0,0,127}));
+    annotation (Line(points={{-140,0},{-20,0},{-20,30},{-12,30}},color={0,0,127}));
   connect(max1.y,yAmb)
-    annotation (Line(points={{72,0},{100,0},{100,-20},{140,-20}},color={0,0,127}));
+    annotation (Line(points={{72,0},{90,0},{90,-20},{140,-20}},  color={0,0,127}));
   connect(TChiWatBot,conCol.TBot)
-    annotation (Line(points={{-140,-100},{-20,-100},{-20,-36.2},{-12,-36.2}},color={0,0,127}));
+    annotation (Line(points={{-140,-60},{-20,-60},{-20,-36.2},{-12,-36.2}},  color={0,0,127}));
   connect(THeaWatSupPreSet,resTSup.THeaWatSupPreSet)
-    annotation (Line(points={{-140,20},{-100,20},{-100,-45},{-72,-45}},color={0,0,127}));
-  connect(conHot.yIsoAmb,yIsoCon)
-    annotation (Line(points={{12,30},{60,30},{60,20},{140,20}},color={0,0,127}));
-  connect(conCol.yIsoAmb,yIsoEva)
-    annotation (Line(points={{12,-32},{100,-32},{100,0},{140,0}},color={0,0,127}));
+    annotation (Line(points={{-140,20},{-100,20},{-100,-25},{-72,-25}},color={0,0,127}));
+  connect(conHot.yValIso, yValIsoCon) annotation (Line(points={{12,30},{60,30},{
+          60,20},{140,20}}, color={0,0,127}));
+  connect(conCol.yValIso, yValIsoEva) annotation (Line(points={{12,-32},{100,-32},
+          {100,0},{140,0}}, color={0,0,127}));
   connect(resTSup.THeaWatSupSet,THeaWatSupSet)
-    annotation (Line(points={{-48,-40},{-30,-40},{-30,-60},{140,-60}},color={0,0,127}));
+    annotation (Line(points={{-48,-20},{-30,-20},{-30,-60},{140,-60}},color={0,0,127}));
   connect(conCol.TChiWatSupSet,TChiWatSupSet)
     annotation (Line(points={{12,-36},{20,-36},{20,-80},{140,-80}},color={0,0,127}));
   connect(TChiWatSupPreSet,conCol.TSet)
-    annotation (Line(points={{-140,-60},{-40,-60},{-40,-32},{-12,-32}},color={0,0,127}));
+    annotation (Line(points={{-140,-40},{-40,-40},{-40,-32},{-12,-32}},color={0,0,127}));
   connect(uHeaHol.y,conHot.uHeaCoo)
     annotation (Line(points={{-88,100},{-20,100},{-20,38},{-12,38}},color={255,0,255}));
   connect(uCooHol.y,conCol.uHeaCoo)
     annotation (Line(points={{-88,60},{-40,60},{-40,-24},{-12,-24}},color={255,0,255}));
   connect(uHeaHol.y,resTSup.uHea)
-    annotation (Line(points={{-88,100},{-80,100},{-80,-34},{-72,-34}},color={255,0,255}));
+    annotation (Line(points={{-88,100},{-80,100},{-80,-14},{-72,-14}},color={255,0,255}));
   connect(uHeaHol.y,yHea)
     annotation (Line(points={{-88,100},{140,100}},color={255,0,255}));
   connect(uCooHol.y,yCoo)
     annotation (Line(points={{-88,60},{140,60}},color={255,0,255}));
+  connect(yValIsoCon_actual, conHot.yValIsoCon_actual) annotation (Line(points=
+          {{-140,-80},{-28,-80},{-28,26},{-12,26}}, color={0,0,127}));
+  connect(yValIsoEva_actual, conHot.yValIsoEva_actual) annotation (Line(points=
+          {{-140,-100},{-26,-100},{-26,22},{-12,22}}, color={0,0,127}));
   annotation (
     Icon(
       coordinateSystem(
