@@ -9,7 +9,7 @@ Advanced.StoreProtectedVariables = old_StoreProtectedVariables;
 createPlot(
     id=1,
     position={0, 0, 1054, 1126},
-    y={"cooCoi7.Q1_flow", "cooCoi7Param16.Q1_flow", "cooCoi7_IBPSA.Q1_flow", "cooCoi7Param16_IBPSA.Q1_flow", "cooData.y[4]"},
+    y={"cooCoi7Param16.Q1_flow", "cooCoi7Param16_IBPSA.Q1_flow", "cooCoi7Param16_Dis.Q1_flow", "cooCoi7_IBPSA.Q1_flow", "cooData.y[4]"},
     autoscale = true,
     autoerase = true,
     autoreplot = true,
@@ -18,25 +18,25 @@ createPlot(
 createPlot(
     id=1,
     subPlot=2,
-    y={"cooCoi16.Q1_flow", "cooCoi16_IBPSA.Q1_flow", "cooData.y[2]"},
+    y={"cooCoi7Param16.QSen2_flow", "cooCoi7Param16_IBPSA.QSen2_flow", "cooCoi7Param16_Dis.QSen2_flow",  "cooCoi7_IBPSA.QSen2_flow"},
     autoscale = true,
     autoerase = true,
     autoreplot = true,
     grid = true,
     color = true);
-createPlot(
-    id=2,
-    position={1083, 1, 1054, 1128},
-    y={"cooCoi7_IBPSA.QSen2_flow", "cooCoi7.QSen2_flow"},
-    grid=true);
 plotExpression(
     apply(
         -1*WetCoilEffectivenessNTU_FCU[end].cooData.y[3]),
         false,
         "-cooData.y[3]",
-        2);
+        1);
 createPlot(
     id=2,
-    y={"cooCoi7.sta_b2.T", "cooCoi7_IBPSA.sta_b2.T"},
-    grid=true,
-    subPlot=2);
+    position={1083, 1, 1054, 1128},
+    y={"cooCoi16.Q1_flow", "cooCoi16_IBPSA.Q1_flow", "cooCoi16_Dis.Q1_flow", "cooData.y[2]"},
+    autoscale = true,
+    autoerase = true,
+    autoreplot = true,
+    grid = true,
+    color = true);
+
