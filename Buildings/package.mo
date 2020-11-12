@@ -339,6 +339,47 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2172\">issue 2172</a>.
 </tr>
+
+<tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.MovingMean<br/>
+                       Buildings.Controls.OBC.CDL.Continuous.PID<br/>
+                       Buildings.Controls.OBC.CDL.Continuous.PIDWithReset<br/>
+                       Buildings.Controls.OBC.CDL.Continuous.SlewRateLimiter<br/>
+                       Buildings.Controls.OBC.CDL.Continuous.Sources.CalendarTime<br/>
+                       Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse<br/>
+                       Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp<br/>
+                       Buildings.Controls.OBC.CDL.Continuous.Sources.Sine<br/>
+                       Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable<br/>
+                       Buildings.Controls.OBC.CDL.Discrete.DayType<br/>
+                       Buildings.Controls.OBC.CDL.Discrete.FirstOrderHold<br/>
+                       Buildings.Controls.OBC.CDL.Discrete.Sampler<br/>
+                       Buildings.Controls.OBC.CDL.Discrete.UnitDelay<br/>
+                       Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold<br/>
+                       Buildings.Controls.OBC.CDL.Integers.Sources.Pulse<br/>
+                       Buildings.Controls.OBC.CDL.Integers.Sources.TimeTable<br/>
+                       Buildings.Controls.OBC.CDL.Logical.Sources.Pulse<br/>
+                       Buildings.Controls.OBC.CDL.Logical.Sources.SampleTrigger<br/>
+                       Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable<br/>
+                       Buildings.Controls.OBC.CDL.Logical.Timer<br/>
+                       Buildings.Controls.OBC.CDL.Logical.TimerAccumulating<br/>
+                       Buildings.Controls.OBC.CDL.Logical.TriggeredTrapezoid<br/>
+                       Buildings.Controls.OBC.CDL.Logical.TrueDelay<br/>
+                       Buildings.Controls.OBC.CDL.Logical.TrueFalseHold<br/>
+                       Buildings.Controls.OBC.CDL.Logical.TrueHoldWithReset<br/>
+                       Buildings.Controls.OBC.CDL.Psychrometrics.DewPoint_TDryBulPhi<br/>
+                       Buildings.Controls.OBC.CDL.Psychrometrics.SpecificEnthalpy_TDryBulPhi<br/>
+                       Buildings.Controls.OBC.CDL.Psychrometrics.WetBulb_TDryBulPhi<br/>
+                       Buildings.Controls.OBC.CDL.SetPoints.SupplyReturnTemperatureReset<br/>
+                       Buildings.Controls.OBC.CDL.Utilities.SunRiseSet
+
+    </td>
+    <td valign=\"top\">Reformulated to remove dependency to <code>Modelica.SIunits</code>.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2243\">issue 2243</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL.Continuous</b>
     </td>
 </tr>
