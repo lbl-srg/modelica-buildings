@@ -8401,6 +8401,7 @@ versionDate="2020-05-28",
 dateModified="2020-05-28",
 uses(Modelica(version="3.2.3")),
 conversion(
+  noneFromVersion="7.0.0",
   from(version={"6.0.0"},
       script="modelica://Buildings/Resources/Scripts/Dymola/ConvertBuildings_from_6_to_7.0.0.mos")),
 preferredView="info",
