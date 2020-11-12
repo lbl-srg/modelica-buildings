@@ -76,25 +76,28 @@ model ConservationEquation "Lumped volume with mass and energy balance"
 
   // Set nominal attributes where literal values can be used.
   Medium.BaseProperties medium(
+    preferredMediumStates = energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState,
     p(start=p_start),
     h(start=hStart),
+    u(stateSelect=if ((not computeCSen) and energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState) then
+      StateSelect.prefer else StateSelect.never),
     T(start=T_start),
     Xi(start=X_start[1:Medium.nXi]),
     X(start=X_start),
     d(start=rho_start)) "Medium properties";
 
-  Modelica.SIunits.Energy U(start=fluidVolume*rho_start*
-    Medium.specificInternalEnergy(Medium.setState_pTX(
-     T=T_start,
-     p=p_start,
-     X=X_start[1:Medium.nXi])) +
-    (T_start - Medium.reference_T)*CSen,
-    nominal = 1E5) "Internal energy of fluid";
+  Modelica.SIunits.Energy U(
+    stateSelect=StateSelect.never,
+    start=fluidVolume*rho_start*
+      Medium.specificInternalEnergy(Medium.setState_pTX(
+        T=T_start,
+        p=p_start,
+        X=X_start[1:Medium.nXi]))
+        + (T_start - Medium.reference_T)*CSen) "Internal energy of fluid";
 
   Modelica.SIunits.Mass m(
-    start=fluidVolume*rho_start,
-    stateSelect=if massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState
-    then StateSelect.default else StateSelect.prefer)
+    min=Modelica.Constants.eps,
+    start=fluidVolume*rho_start)
     "Mass of fluid";
 
   Modelica.SIunits.Mass[Medium.nXi] mXi(
@@ -120,11 +123,8 @@ model ConservationEquation "Lumped volume with mass and energy balance"
   parameter Modelica.SIunits.Volume fluidVolume "Volume";
   final parameter Modelica.SIunits.HeatCapacity CSen=
     (mSenFac - 1)*rho_default*cp_default*fluidVolume
-    "Aditional heat capacity for implementing mFactor";
+    "Additional heat capacity for implementing mFactor";
 protected
-  Medium.EnthalpyFlowRate ports_H_flow[nPorts];
-  Modelica.SIunits.MassFlowRate ports_mXi_flow[nPorts,Medium.nXi];
-  Medium.ExtraPropertyFlowRate ports_mC_flow[nPorts,Medium.nC];
   parameter Modelica.SIunits.SpecificHeatCapacity cp_default=
   Medium.specificHeatCapacityCp(state=state_default)
     "Heat capacity, to compute additional dry mass";
@@ -144,6 +144,8 @@ protected
   // Density at medium default values, used to compute the size of control volumes
   final parameter Modelica.SIunits.Density rho_default=Medium.density(
     state=state_default) "Density, used to compute fluid mass";
+  final parameter Real mInv(final unit="1/kg") = 1/(fluidVolume*rho_default)
+    "Inverse of mass, used to scale internal state variable";
   // Parameter that is used to construct the vector mXi_flow
   final parameter Real s[Medium.nXi] = {if Modelica.Utilities.Strings.isEqual(
                                             string1=Medium.substanceNames[i],
@@ -159,6 +161,30 @@ protected
   // cannot differentiate the equations.
   constant Boolean _simplify_mWat_flow = simplify_mWat_flow and Medium.nX > 1
    "If true, then port_a.m_flow + port_b.m_flow = 0 even if mWat_flow is non-zero, and equations are simplified";
+
+  // The variable _u is used as a state. In the previous implementation, U
+  // was a state. However, setting the nominal attribute of U
+  // requires using the fluidVolume, which is a non-literal expression in some
+  // models. In this case, Dymola would simply set nominal=1, and the state
+  // is then not scaled properly, which can cause problems for the integrator.
+  // Therefore, we introduce  _u = U/(fluidVolume*rho_default), for which
+  // we can set the nominal attribute.
+  // Note that this is different from using medium.u if the expression
+  // U = m*medium.u + CSen*(medium.T-Medium.reference_T)
+  // is used. Therefore, the new variable _u has been introduced.
+  Medium.SpecificEnergy _u(
+    stateSelect = if (computeCSen and energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState)
+      then StateSelect.prefer else StateSelect.default,
+    nominal=1E4)
+    "Surrogate for specific energy, used as a state variable, and set to _u = U/(fluidVolume*rho_default)";
+
+  // Quantities exchanged through the fluid ports
+  Medium.EnthalpyFlowRate ports_H_flow[nPorts]
+    "Enthalpy flow rates at the ports";
+  Modelica.SIunits.MassFlowRate ports_mXi_flow[nPorts, Medium.nXi]
+    "Mass fraction flow rates at the ports";
+  Medium.ExtraPropertyFlowRate ports_mC_flow[nPorts, Medium.nC]
+    "Trace substance flow rates at the ports";
 
   // Conditional connectors
   Modelica.Blocks.Interfaces.RealInput mWat_flow_internal(unit="kg/s")
@@ -253,8 +279,11 @@ equation
   mXi = m*medium.Xi;
   if computeCSen then
     U = m*medium.u + CSen*(medium.T-Medium.reference_T);
+    // Internal state variable
+    _u = U * mInv;
   else
     U = m*medium.u;
+    _u = medium.u;
   end if;
   mC = m*C;
 
@@ -299,7 +328,7 @@ equation
   if massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState then
     0 = mb_flow + (if simplify_mWat_flow then 0 else mWat_flow_internal);
   else
-    der(m) = mb_flow + (if simplify_mWat_flow then 0 else mWat_flow_internal);
+    der(medium.d) = (mb_flow + (if simplify_mWat_flow then 0 else mWat_flow_internal))/fluidVolume;
   end if;
 
   if substanceDynamics == Modelica.Fluid.Types.Dynamics.SteadyState then
@@ -422,6 +451,17 @@ Buildings.Fluid.MixingVolumes.MixingVolume</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 12, 2020, by Michael Wetter and Filip Jorissen:<br/>
+Changed model to use density instead of mass as a prefered state.
+Using mass would require to setting <code>m(nominal=fluidVolume...</code>
+but <code>fluidVolume</code> is in some models not a literal value.
+Changed model to use either <code>medium.u</code> or a new variable <code>_u</code>
+as the state rather than <code>U</code> to avoid using <code>fluidVolume</code>
+in the expression for the nominal value.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1412\">1412</a>.
+</li>
 <li>
 April 26, 2019, by Filip Jorissen:<br/>
 Returning <code>getInstanceName()</code> in asserts.
