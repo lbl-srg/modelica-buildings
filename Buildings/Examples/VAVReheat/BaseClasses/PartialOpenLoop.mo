@@ -208,8 +208,8 @@ partial model PartialOpenLoop
     m_flow_nominal=m_flow_nominal,
     allowFlowReversal=allowFlowReversal)
     annotation (Placement(transformation(extent={{330,-50},{350,-30}})));
-  Buildings.Fluid.Sensors.RelativePressure dpDisSupFan(redeclare package Medium =
-        MediumA) "Supply fan static discharge pressure" annotation (Placement(
+  Buildings.Fluid.Sensors.RelativePressure dpDisSupFan(redeclare package Medium
+      = MediumA) "Supply fan static discharge pressure" annotation (Placement(
         transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
@@ -596,10 +596,10 @@ public
     annotation (Placement(transformation(extent={{100,-258},{120,-238}})));
   Buildings.Controls.OBC.CDL.Logical.OnOffController freSta(bandwidth=1)
     "Freeze stat for heating coil"
-    annotation (Placement(transformation(extent={{0,-102},{20,-82}})));
+    annotation (Placement(transformation(extent={{0,-100},{20,-80}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant freStaTSetPoi(k=273.15
          + 3) "Freeze stat set point for heating coil"
-    annotation (Placement(transformation(extent={{-40,-96},{-20,-76}})));
+    annotation (Placement(transformation(extent={{-40,-100},{-20,-80}})));
 equation
   connect(fanSup.port_b, dpDisSupFan.port_a) annotation (Line(
       points={{320,-40},{320,-10}},
@@ -843,9 +843,10 @@ equation
   connect(senRetFlo.port_b, TRet.port_a) annotation (Line(points={{340,140},{
           226,140},{110,140}}, color={0,127,255}));
   connect(freStaTSetPoi.y, freSta.reference)
-    annotation (Line(points={{-18,-86},{-2,-86}}, color={0,0,127}));
-  connect(freSta.u, TMix.T) annotation (Line(points={{-2,-98},{-10,-98},{-10,-70},
-          {20,-70},{20,-20},{40,-20},{40,-29}}, color={0,0,127}));
+    annotation (Line(points={{-18,-90},{-10,-90},{-10,-84},{-2,-84}},
+                                                  color={0,0,127}));
+  connect(freSta.u, TMix.T) annotation (Line(points={{-2,-96},{-6,-96},{-6,-68},
+          {20,-68},{20,-20},{40,-20},{40,-29}}, color={0,0,127}));
   connect(TMix.port_b, heaCoi.port_a2) annotation (Line(
       points={{50,-40},{98,-40}},
       color={0,127,255},

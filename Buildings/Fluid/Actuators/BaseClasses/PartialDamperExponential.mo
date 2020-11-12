@@ -167,7 +167,7 @@ mass flow rate <code>m_flow_nominal</code>, the nominal velocity
 <p>
 ASHRAE 825-RP lists the following parameter values as typical (note that the
 default values in the model correspond to opposed blades).
-<br />
+<br/>
 </p>
 <table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\"
 style=\"border-collapse:collapse;\">
