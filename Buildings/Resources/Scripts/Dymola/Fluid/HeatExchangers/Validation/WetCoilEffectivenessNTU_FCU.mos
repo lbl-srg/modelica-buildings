@@ -31,6 +31,15 @@ plotExpression(
         "-cooData.y[3]",
         1);
 createPlot(
+    id=1,
+    subPlot=3,
+    y={"m1_7_flow_nominal", "cooCoi7_IBPSA.port_a1.m_flow", "m2_flow_nominal", "cooCoi7_IBPSA.port_a2.m_flow"},
+    autoscale = true,
+    autoerase = true,
+    autoreplot = true,
+    grid = true,
+    color = true);
+createPlot(
     id=2,
     position={1083, 1, 1054, 1128},
     y={"cooCoi16.Q1_flow", "cooCoi16_IBPSA.Q1_flow", "cooCoi16_Dis.Q1_flow", "cooData.y[2]"},
@@ -39,4 +48,12 @@ createPlot(
     autoreplot = true,
     grid = true,
     color = true);
-
+createPlot(
+    id=2,
+    subPlot=2,
+    y={"m1_16_flow_nominal", "cooCoi16_IBPSA.port_a1.m_flow", "m2_flow_nominal", "cooCoi16_IBPSA.port_a2.m_flow"},
+    autoscale = true,
+    autoerase = true,
+    autoreplot = true,
+    grid = true,
+    color = true);

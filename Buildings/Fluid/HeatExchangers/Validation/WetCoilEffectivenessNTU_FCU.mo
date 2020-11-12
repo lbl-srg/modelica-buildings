@@ -4,30 +4,32 @@ model WetCoilEffectivenessNTU_FCU
   extends Modelica.Icons.Example;
   package MediumAir = Buildings.Media.Air;
   package MediumWater = Buildings.Media.Water;
-  // Nominal conditions refer to purely sensible cooling conditions (inlet
-  // water at 16 degC) that are used to parameterize coil models with UA
-  // as a parameter.
-  parameter Modelica.SIunits.MassFlowRate Q1_flow_nominal = 1176;
-  parameter Modelica.SIunits.MassFlowRate m1_flow_nominal=
-    Q1_flow_nominal / (T_b1_nominal - T_a1_nominal) / cp1_nominal;
+  parameter Modelica.SIunits.HeatFlowRate Q1_16_flow_nominal = 1176;
+  parameter Modelica.SIunits.HeatFlowRate Q1_7_flow_nominal = 2934;
+  parameter Modelica.SIunits.MassFlowRate m1_16_flow_nominal=
+    Q1_16_flow_nominal / (T_b1_16_nominal - T_a1_16_nominal) / cp1_nominal;
+  parameter Modelica.SIunits.MassFlowRate m1_7_flow_nominal=
+    Q1_7_flow_nominal / (T_b1_7_nominal - T_a1_7_nominal) / cp1_nominal;
   parameter Modelica.SIunits.MassFlowRate m2_flow_nominal = 485 * 1.2 / 3600;
-  parameter Modelica.SIunits.Temperature T_a1_nominal = 16 + 273.15;
-  parameter Modelica.SIunits.Temperature T_b1_nominal = T_a1_nominal + 2;
+  parameter Modelica.SIunits.Temperature T_a1_16_nominal = 16 + 273.15;
+  parameter Modelica.SIunits.Temperature T_b1_16_nominal = T_a1_16_nominal + 2;
+  parameter Modelica.SIunits.Temperature T_a1_7_nominal = 7 + 273.15;
+  parameter Modelica.SIunits.Temperature T_b1_7_nominal = T_a1_7_nominal + 5;
   parameter Modelica.SIunits.Temperature T_a2_nominal = 27 + 273.15;
-  parameter Modelica.SIunits.Temperature T_b2_nominal=
-    T_a2_nominal - Q1_flow_nominal / cp2_nominal / m2_flow_nominal;
   parameter Modelica.SIunits.MassFraction X_w2_nominal=0.010203;
-  parameter Modelica.SIunits.SpecificHeatCapacity cp1_nominal = MediumWater.specificHeatCapacityCp(
-    MediumWater.setState_pTX(MediumWater.p_default, T_a1_nominal))
+  parameter Modelica.SIunits.SpecificHeatCapacity cp1_nominal=
+    MediumWater.cp_const
     "Source side specific heat capacity at nominal conditions";
-  parameter Modelica.SIunits.SpecificHeatCapacity cp2_nominal = MediumAir.specificHeatCapacityCp(
-    MediumAir.setState_pTX(MediumAir.p_default, T_a2_nominal))
+  parameter Modelica.SIunits.SpecificHeatCapacity cp2_nominal=
+    MediumAir.specificHeatCapacityCp(
+      MediumAir.setState_pTX(MediumAir.p_default, T_a2_nominal))
     "Load side specific heat capacity at nominal conditions";
+  // UA calculated on sensible cooling operating point.
   parameter Modelica.SIunits.ThermalConductance CMin_nominal=
-      min(m1_flow_nominal * cp1_nominal, m2_flow_nominal * cp2_nominal)
+      min(m1_16_flow_nominal * cp1_nominal, m2_flow_nominal * cp2_nominal)
     "Minimum capacity flow rate at nominal conditions";
   parameter Modelica.SIunits.ThermalConductance CMax_nominal=
-      max(m1_flow_nominal * cp1_nominal, m2_flow_nominal * cp2_nominal)
+      max(m1_16_flow_nominal * cp1_nominal, m2_flow_nominal * cp2_nominal)
     "Maximum capacity flow rate at nominal conditions";
   parameter Real Z = CMin_nominal / CMax_nominal
     "Ratio of capacity flow rates (CMin/CMax) at nominal conditions";
@@ -36,20 +38,20 @@ model WetCoilEffectivenessNTU_FCU
     "Heat exchanger configuration";
   parameter Modelica.SIunits.ThermalConductance UA_nominal=
     Buildings.Fluid.HeatExchangers.BaseClasses.ntu_epsilonZ(
-    eps=abs(Q1_flow_nominal / (CMin_nominal * (T_a1_nominal - T_a2_nominal))),
+    eps=abs(Q1_16_flow_nominal / (CMin_nominal * (T_a1_16_nominal - T_a2_nominal))),
     Z=Z,
     flowRegime=Integer(hexCon)) * CMin_nominal
     "Thermal conductance at nominal conditions";
   Buildings.Fluid.HeatExchangers.WetCoilEffectivesnessNTU cooCoi16_IBPSA(
     redeclare package Medium1 = MediumWater,
     redeclare package Medium2 = MediumAir,
-    Q_flow_nominal=Q1_flow_nominal,
+    Q_flow_nominal=Q1_16_flow_nominal,
     dp1_nominal=0,
     dp2_nominal=0,
-    m1_flow_nominal=m1_flow_nominal,
+    m1_flow_nominal=m1_16_flow_nominal,
     configuration=hexCon,
     m2_flow_nominal=m2_flow_nominal,
-    T_a1_nominal=T_a1_nominal,
+    T_a1_nominal=T_a1_16_nominal,
     T_a2_nominal=T_a2_nominal,
     X_w2_nominal=X_w2_nominal)
     "Cooling coil with nominal conditions for cooling at 16 degrees water inlet temperature"
@@ -90,13 +92,13 @@ model WetCoilEffectivenessNTU_FCU
   Sources.MassFlowSource_T bouWatCoo16(
     use_m_flow_in=true,
     redeclare package Medium = MediumWater,
-    T=T_a1_nominal,
+    T=T_a1_16_nominal,
     nPorts=1) "Water boundary at 16 degrees"
     annotation (Placement(transformation(extent={{-40,82},{-20,102}})));
   Sources.MassFlowSource_T bouWatCoo7(
     use_m_flow_in=true,
     redeclare package Medium = MediumWater,
-    T=7 + 273.15,
+    T=T_a1_7_nominal,
     nPorts=1) "Water boundary at 7 degrees"
     annotation (Placement(transformation(extent={{-40,-14},{-20,6}})));
   Modelica.Blocks.Math.Gain gainFloFcu7(k=1/cp1_nominal/5)
@@ -108,11 +110,11 @@ model WetCoilEffectivenessNTU_FCU
     show_T=true,
     dp1_nominal=0,
     dp2_nominal=0,
-    m1_flow_nominal=2934/5/cp1_nominal,
+    m1_flow_nominal=m1_7_flow_nominal,
     configuration=hexCon,
     m2_flow_nominal=m2_flow_nominal,
-    Q_flow_nominal=2934,
-    T_a1_nominal=280.15,
+    Q_flow_nominal=Q1_7_flow_nominal,
+    T_a1_nominal=T_a1_7_nominal,
     T_a2_nominal=T_a2_nominal,
     X_w2_nominal=X_w2_nominal)
     "Cooling coil with nominal conditions for cooling at 7 degrees water inlet temperature"
@@ -128,28 +130,27 @@ model WetCoilEffectivenessNTU_FCU
   Buildings.Fluid.HeatExchangers.WetCoilEffectivesnessNTU cooCoi7Param16_IBPSA(
     redeclare package Medium1 = MediumWater,
     redeclare package Medium2 = MediumAir,
-    Q_flow_nominal=Q1_flow_nominal,
+    Q_flow_nominal=Q1_16_flow_nominal,
     dp1_nominal=0,
     dp2_nominal=0,
-    m1_flow_nominal=m1_flow_nominal,
+    m1_flow_nominal=m1_16_flow_nominal,
     configuration=hexCon,
     m2_flow_nominal=m2_flow_nominal,
-    T_a1_nominal=T_a1_nominal,
+    T_a1_nominal=T_a1_16_nominal,
     T_a2_nominal=T_a2_nominal,
     X_w2_nominal=X_w2_nominal)
     "Cooling coil with nominal conditions for cooling at 16 degrees water inlet temperature and boundary conditions of 7 degrees water inlet"
     annotation (Placement(transformation(extent={{-10,-66},{10,-46}})));
-
   Sources.MassFlowSource_T bouWatCoo7v2(
     use_m_flow_in=true,
     redeclare package Medium = MediumWater,
-    T=280.15,
+    T=T_a1_7_nominal,
     nPorts=1) "Water boundary at 7 degrees"
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
   Sources.MassFlowSource_T bouAirCoo2(
     redeclare package Medium = MediumAir,
     use_m_flow_in=true,
-    T=27 + 273.15,
+    T=T_a2_nominal,
     X={X_w2_nominal,1 - X_w2_nominal},
     nPorts=1)
     "Air boundary: 27/19 dry/wet bulb temperature"
@@ -158,7 +159,7 @@ model WetCoilEffectivenessNTU_FCU
     redeclare package Medium1 = MediumWater,
     redeclare package Medium2 = MediumAir,
     configuration=hexCon,
-    m1_flow_nominal=m1_flow_nominal,
+    m1_flow_nominal=m1_16_flow_nominal,
     m2_flow_nominal=m2_flow_nominal,
     UA_nominal=UA_nominal,
     dp1_nominal=0,
@@ -167,7 +168,7 @@ model WetCoilEffectivenessNTU_FCU
   Sources.MassFlowSource_T bouWatCoo1(
     use_m_flow_in=true,
     redeclare package Medium = MediumWater,
-    T=T_a1_nominal,
+    T=T_a1_16_nominal,
     nPorts=1) "Water boundary at 16 degrees"
     annotation (Placement(transformation(extent={{-40,58},{-20,78}})));
   Sources.MassFlowSource_T bouAirCoo3(
@@ -180,7 +181,7 @@ model WetCoilEffectivenessNTU_FCU
   Sources.MassFlowSource_T bouWatCoo7v1(
     use_m_flow_in=true,
     redeclare package Medium = MediumWater,
-    T=7 + 273.15,
+    T=T_a1_7_nominal,
     nPorts=1) "Water boundary at 7 degrees"
     annotation (Placement(transformation(extent={{-40,-90},{-20,-70}})));
   Sources.MassFlowSource_T bouAirCoo5(
@@ -195,7 +196,7 @@ model WetCoilEffectivenessNTU_FCU
     redeclare package Medium1 = MediumWater,
     redeclare package Medium2 = MediumAir,
     configuration=hexCon,
-    m1_flow_nominal=m1_flow_nominal,
+    m1_flow_nominal=m1_16_flow_nominal,
     m2_flow_nominal=m2_flow_nominal,
     UA_nominal=UA_nominal,
     dp1_nominal=0,
@@ -204,7 +205,7 @@ model WetCoilEffectivenessNTU_FCU
   WetCoilCounterFlow cooCoi16_Dis(
     redeclare package Medium1 = MediumWater,
     redeclare package Medium2 = MediumAir,
-    m1_flow_nominal=m1_flow_nominal,
+    m1_flow_nominal=m1_16_flow_nominal,
     m2_flow_nominal=m2_flow_nominal,
     dp2_nominal=0,
     allowFlowReversal1=true,
@@ -212,13 +213,13 @@ model WetCoilEffectivenessNTU_FCU
     dp1_nominal=0,
     UA_nominal=UA_nominal,
     show_T=true,
-    nEle=10,
+    nEle=50,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     annotation (Placement(transformation(extent={{-10,24},{10,44}})));
   Sources.MassFlowSource_T bouWatCoo3(
     use_m_flow_in=true,
     redeclare package Medium = MediumWater,
-    T=T_a1_nominal,
+    T=T_a1_16_nominal,
     nPorts=1) "Water boundary at 16 degrees"
     annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
   Sources.MassFlowSource_T bouAirCoo6(
@@ -231,7 +232,7 @@ model WetCoilEffectivenessNTU_FCU
   WetCoilCounterFlow cooCoi7Param16_Dis(
     redeclare package Medium1 = MediumWater,
     redeclare package Medium2 = MediumAir,
-    m1_flow_nominal=m1_flow_nominal,
+    m1_flow_nominal=m1_16_flow_nominal,
     m2_flow_nominal=m2_flow_nominal,
     dp2_nominal=0,
     allowFlowReversal1=true,
@@ -239,13 +240,13 @@ model WetCoilEffectivenessNTU_FCU
     dp1_nominal=0,
     UA_nominal=UA_nominal,
     show_T=true,
-    nEle=10,
+    nEle=50,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     annotation (Placement(transformation(extent={{-10,-124},{10,-104}})));
   Sources.MassFlowSource_T bouWatCoo7v3(
     use_m_flow_in=true,
     redeclare package Medium = MediumWater,
-    T=280.15,
+    T=T_a1_7_nominal,
     nPorts=1) "Water boundary at 7 degrees"
     annotation (Placement(transformation(extent={{-40,-118},{-20,-98}})));
   Sources.MassFlowSource_T bouAirCoo4(
