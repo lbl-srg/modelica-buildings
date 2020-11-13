@@ -26,6 +26,12 @@
     },
     "model_name": "Buildings.Fluid.Examples.FlowSystem.Simplified2"
   },
+      "optimica": {
+        "solver": "Radau5ODE"
+        "comment": "CVode requires 1000 times more Jacobian evaluations"
+    },
+    "model_name": "Buildings.Fluid.Interfaces.Examples.Humidifier_u"
+  },
   {
     "optimica": {
       "simulate": false,
@@ -124,6 +130,10 @@
   {
        "jmodelica": {
          "rtol": 1E-8
+    },
+       "optimica": {
+         "rtol": 1E-8
+         "comment": "CVode is very slow if tolerance is 1E-6."
     },
     "model_name": "Buildings.Examples.DualFanDualDuct.ClosedLoop"
   }
