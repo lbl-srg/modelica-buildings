@@ -6,7 +6,7 @@ model UACp "Calculates UA/Cp of the coil"
     annotation(HideResult=true);
 
   replaceable package Medium = Buildings.Media.Air constrainedby
-      Modelica.Media.Interfaces.PartialCondensingGases "Medium model"
+    Modelica.Media.Interfaces.PartialCondensingGases "Medium model"
       annotation (choicesAllMatching=true);
   replaceable parameter
     Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.NominalValues per
@@ -152,7 +152,7 @@ revisions="<html>
 <ul>
 <li>
 November 11, 2020, by Michael Wetter:<br/>
-Assigned a media, as otherwise the class would be partial.<br/>
+Refactored to integrate directly a base class that was used only once in the library.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2229\">#2229</a>.
 </li>
