@@ -37,7 +37,7 @@ model Supervisory
     final nSouAmb=nSouAmb,
     final controllerType=controllerType)
     "Hot side controller"
-    annotation (Placement(transformation(extent={{-10,20},{10,40}})));
+    annotation (Placement(transformation(extent={{0,20},{20,40}})));
   SideCold conCol(
     final k=kCol,
     final Ti=Ti,
@@ -45,7 +45,7 @@ model Supervisory
     final controllerType=controllerType,
     final TChiWatSupSetMin=TChiWatSupSetMin)
     "Cold side controller"
-    annotation (Placement(transformation(extent={{-10,-42},{10,-22}})));
+    annotation (Placement(transformation(extent={{0,-42},{20,-22}})));
   Buildings.Controls.OBC.CDL.Continuous.Max max1[nSouAmb]
     "Maximum of output control signals"
     annotation (Placement(transformation(extent={{50,-10},{70,10}})));
@@ -55,48 +55,50 @@ model Supervisory
     annotation (Placement(transformation(extent={{-70,10},{-50,30}})));
 equation
   connect(conHot.yAmb,max1.u1)
-    annotation (Line(points={{12,34},{40,34},{40,6},{48,6}},color={0,0,127}));
+    annotation (Line(points={{22,34},{40,34},{40,6},{48,6}},color={0,0,127}));
   connect(conCol.yAmb,max1.u2)
-    annotation (Line(points={{12,-28},{40,-28},{40,-6},{48,-6}},color={0,0,127}));
+    annotation (Line(points={{22,-28},{40,-28},{40,-6},{48,-6}},color={0,0,127}));
   connect(conHot.yCol,conCol.uCol)
-    annotation (Line(points={{12,26},{16,26},{16,-16},{-20,-16},{-20,-32.2},{
-          -12,-32.2}},                                                               color={0,0,127}));
+    annotation (Line(points={{22,26},{30,26},{30,0},{-14,0},{-14,-32.2},{-2,
+          -32.2}},                                                                   color={0,0,127}));
   connect(resTSup.THeaWatSupSet,conHot.TSet)
-    annotation (Line(points={{-48,20},{-30,20},{-30,34.2},{-12,34.2}},
+    annotation (Line(points={{-48,20},{-30,20},{-30,34.2},{-2,34.2}},
                                                                     color={0,0,127}));
   connect(THeaWatTop,conHot.TTop)
-    annotation (Line(points={{-140,0},{-20,0},{-20,30},{-12,30}},color={0,0,127}));
+    annotation (Line(points={{-140,0},{-26,0},{-26,30},{-2,30}}, color={0,0,127}));
   connect(max1.y,yAmb)
     annotation (Line(points={{72,0},{90,0},{90,-20},{140,-20}},  color={0,0,127}));
   connect(TChiWatBot,conCol.TBot)
-    annotation (Line(points={{-140,-60},{-20,-60},{-20,-40.4},{-12,-40.4}},  color={0,0,127}));
+    annotation (Line(points={{-140,-60},{-40,-60},{-40,-40.4},{-2,-40.4}},   color={0,0,127}));
   connect(THeaWatSupPreSet,resTSup.THeaWatSupPreSet)
-    annotation (Line(points={{-140,20},{-100,20},{-100,15},{-72,15}},  color={0,0,127}));
-  connect(conHot.yValIso, yValIsoCon) annotation (Line(points={{12,30},{60,30},{
-          60,20},{140,20}}, color={0,0,127}));
-  connect(conCol.yValIso, yValIsoEva) annotation (Line(points={{12,-32},{100,-32},
-          {100,0},{140,0}}, color={0,0,127}));
+    annotation (Line(points={{-140,20},{-80,20},{-80,15},{-72,15}},    color={0,0,127}));
+  connect(conHot.yValIso, yValIsoCon) annotation (Line(points={{22,30},{60,30},
+          {60,20},{140,20}},color={0,0,127}));
+  connect(conCol.yValIso, yValIsoEva) annotation (Line(points={{22,-32},{100,
+          -32},{100,0},{140,0}},
+                            color={0,0,127}));
   connect(resTSup.THeaWatSupSet,THeaWatSupSet)
     annotation (Line(points={{-48,20},{-30,20},{-30,-60},{140,-60}},  color={0,0,127}));
   connect(conCol.TChiWatSupSet,TChiWatSupSet)
-    annotation (Line(points={{12,-36},{20,-36},{20,-80},{140,-80}},color={0,0,127}));
+    annotation (Line(points={{22,-36},{100,-36},{100,-80},{140,-80}},
+                                                                   color={0,0,127}));
   connect(TChiWatSupPreSet,conCol.TSet)
-    annotation (Line(points={{-140,-40},{-40,-40},{-40,-36.2},{-12,-36.2}},
+    annotation (Line(points={{-140,-40},{-44,-40},{-44,-36.2},{-2,-36.2}},
                                                                        color={0,0,127}));
   connect(uHeaHol.y,conHot.uHeaCoo)
-    annotation (Line(points={{-88,100},{-20,100},{-20,38},{-12,38}},color={255,0,255}));
+    annotation (Line(points={{-88,100},{-20,100},{-20,38},{-2,38}}, color={255,0,255}));
   connect(uCooHol.y,conCol.uHeaCoo)
-    annotation (Line(points={{-88,60},{-40,60},{-40,-24},{-12,-24}},color={255,0,255}));
+    annotation (Line(points={{-88,60},{-40,60},{-40,-24},{-2,-24}}, color={255,0,255}));
   connect(uHeaHol.y,resTSup.uHea)
     annotation (Line(points={{-88,100},{-80,100},{-80,26},{-72,26}},  color={255,0,255}));
   connect(uHeaHol.y,yHea)
     annotation (Line(points={{-88,100},{140,100}},color={255,0,255}));
   connect(uCooHol.y,yCoo)
     annotation (Line(points={{-88,60},{140,60}},color={255,0,255}));
-  connect(yValIsoCon_actual, conHot.yValIsoCon_actual) annotation (Line(points=
-          {{-140,-80},{-28,-80},{-28,26},{-12,26}}, color={0,0,127}));
-  connect(yValIsoEva_actual, conHot.yValIsoEva_actual) annotation (Line(points=
-          {{-140,-100},{-26,-100},{-26,22},{-12,22}}, color={0,0,127}));
+  connect(yValIsoCon_actual, conHot.yValIsoCon_actual) annotation (Line(points={{-140,
+          -80},{-22,-80},{-22,26},{-2,26}},         color={0,0,127}));
+  connect(yValIsoEva_actual, conHot.yValIsoEva_actual) annotation (Line(points={{-140,
+          -100},{-18,-100},{-18,22},{-2,22}},         color={0,0,127}));
   annotation (
     Icon(
       coordinateSystem(

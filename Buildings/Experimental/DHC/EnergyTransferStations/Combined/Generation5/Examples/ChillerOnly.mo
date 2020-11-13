@@ -54,9 +54,10 @@ equation
     __Dymola_Commands(
       file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/EnergyTransferStations/Combined/Generation5/Examples/ChillerOnly.mos" "Simulate and plot"),
     experiment(
-      StartTime=6.5E6,
-      StopTime=7E6,
-      Tolerance=1e-06),
+      StartTime=5500000,
+      StopTime=8000000,
+      Tolerance=1e-06,
+      __Dymola_Algorithm="Cvode"),
     Documentation(
       revisions="<html>
 <ul>

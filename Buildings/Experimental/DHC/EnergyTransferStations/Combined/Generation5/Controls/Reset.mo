@@ -21,7 +21,7 @@ model Reset
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minSet(
     k=THeaWatSupSetMin)
     "Minimum value of HW set point"
-    annotation (Placement(transformation(extent={{-50,-30},{-30,-10}})));
+    annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swiHea
     "Switch"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
@@ -33,7 +33,7 @@ equation
   connect(THeaWatSupPreSet,swiHea.u1)
     annotation (Line(points={{-120,-50},{-80,-50},{-80,8},{-2,8}},color={0,0,127}));
   connect(minSet.y,swiHea.u3)
-    annotation (Line(points={{-28,-20},{-20,-20},{-20,-8},{-2,-8}},color={0,0,127}));
+    annotation (Line(points={{-38,-20},{-20,-20},{-20,-8},{-2,-8}},color={0,0,127}));
   connect(uHea,swiHea.u2)
     annotation (Line(points={{-120,60},{-60,60},{-60,0},{-2,0}},color={255,0,255}));
   connect(swiHea.y,ramLimHea.u)

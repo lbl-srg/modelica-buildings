@@ -3,12 +3,11 @@ model Chiller
   "Base subsystem with heat recovery chiller"
   replaceable package Medium=Modelica.Media.Interfaces.PartialMedium
     "Medium model"
-    annotation (choices(choice(redeclare package Medium=Buildings.Media.Water "Water"),choice(redeclare
-          package                                                                                               Medium=
-            Buildings.Media.Antifreeze.PropyleneGlycolWater (                                                                                                          property_T=293.15,X_a=0.40) "Propylene glycol water, 40% mass fraction")));
-  parameter Boolean have_res=true
-    "Set to true in case of internal reset of chilled water supply temperature"
-    annotation (Evaluate=true);
+    annotation (choices(
+      choice(redeclare package Medium=Buildings.Media.Water "Water"),
+      choice(redeclare package Medium =
+            Buildings.Media.Antifreeze.PropyleneGlycolWater (
+        property_T=293.15,X_a=0.40) "Propylene glycol water, 40% mass fraction")));
   parameter Boolean allowFlowReversal=false
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
     annotation (Dialog(tab="Assumptions"),Evaluate=true);
@@ -39,10 +38,6 @@ model Chiller
   parameter Modelica.SIunits.Pressure dpValEva_nominal=dpEva_nominal/2
     "Nominal pressure drop accross control valve on evaporator side"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Temperature TChiWatSupSetMin(
-    displayUnit="degC")=dat.TEvaLvgMin
-    "Minimum value of chilled water supply temperature set point"
-    annotation (Dialog(group="Controls"));
   parameter Modelica.SIunits.Temperature TConWatEntMin(
     displayUnit="degC")=dat.TConEntMin
     "Minimum value of condenser water entering temperature"
@@ -62,12 +57,7 @@ model Chiller
     final unit="K",
     displayUnit="degC")
     "Chilled water supply temperature set point (may be reset down)"
-    annotation (Placement(transformation(extent={{-240,108},{-200,148}}),iconTransformation(extent={{-140,-40},{-100,0}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaWatSupSet(
-    final unit="K",
-    displayUnit="degC") if have_res
-    "Heating water supply temperature set point"
-    annotation (Placement(transformation(extent={{-240,128},{-200,168}}),iconTransformation(extent={{-140,-20},{-100,20}})));
+    annotation (Placement(transformation(extent={{-240,120},{-200,160}}),iconTransformation(extent={{-140,-40},{-100,0}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_aChiWat(
     redeclare final package Medium=Medium,
     m_flow(
@@ -157,8 +147,6 @@ model Chiller
     "Evaporator pump"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},rotation=0,origin={-100,-60})));
   Experimental.DHC.EnergyTransferStations.Combined.Generation5.Controls.Chiller con(
-    final have_res=have_res,
-    final TChiWatSupSetMin=TChiWatSupSetMin,
     final TConWatEntMin=TConWatEntMin,
     final TEvaWatEntMax=TEvaWatEntMax)
     "Controller"
@@ -258,22 +246,14 @@ equation
     annotation (Line(points={{-48,132},{-44,132},{-44,90},{-160,90},{-160,40},{-140,40},{-140,48}},color={0,0,127}));
   connect(con.yChi,chi.on)
     annotation (Line(points={{-48,148},{-36,148},{-36,3},{-12,3}},color={255,0,255}));
-  connect(con.TChiWatSupSet,chi.TSet)
-    annotation (Line(points={{-48,144},{-40,144},{-40,-3},{-12,-3}},color={0,0,127}));
   connect(uHea,con.uHea)
     annotation (Line(points={{-220,188},{-180,188},{-180,148},{-72,148}},color={255,0,255}));
   connect(uCoo,con.uCoo)
     annotation (Line(points={{-220,168},{-186,168},{-186,146},{-72,146}},color={255,0,255}));
-  connect(TChiWatSupSet,con.TChiWatSupPreSet)
-    annotation (Line(points={{-220,128},{-186,128},{-186,142},{-72,142}},color={0,0,127}));
   connect(senTConEnt.T,con.TConWatEnt)
     annotation (Line(points={{-31,40},{-78,40},{-78,136},{-72,136}},color={0,0,127}));
   connect(senTEvaEnt.T,con.TEvaWatEnt)
     annotation (Line(points={{9,-40},{-80,-40},{-80,138},{-72,138}},color={0,0,127}));
-  connect(THeaWatSupSet,con.THeaWatSupSet)
-    annotation (Line(points={{-220,148},{-192,148},{-192,144},{-72,144}},color={0,0,127}));
-  connect(senTConLvg.T,con.THeaWatSup)
-    annotation (Line(points={{9,20},{-82,20},{-82,140},{-72,140}},color={0,0,127}));
   connect(splConMix.port_2,port_bHeaWat)
     annotation (Line(points={{130,60},{140,60},{140,100},{-180,100},{-180,60},{-200,60}},color={0,127,255}));
   connect(splEva.port_2,port_bChiWat)
@@ -316,6 +296,8 @@ equation
     annotation (Line(points={{-100,102},{-100,72}},color={0,0,127}));
   connect(booToRea.y,gai1.u)
     annotation (Line(points={{-82,180},{-100,180},{-100,126}},color={0,0,127}));
+  connect(TChiWatSupSet, chi.TSet) annotation (Line(points={{-220,140},{-188,
+          140},{-188,-3},{-12,-3}}, color={0,0,127}));
   annotation (
     defaultComponentName="chi",
     Icon(

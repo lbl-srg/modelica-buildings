@@ -111,7 +111,6 @@ model ChillerBorefield
     annotation (Dialog(group="Supervisory controller"));
   replaceable Subsystems.Chiller chi(
     redeclare final package Medium=MediumBui,
-    have_res=false,
     final perPumCon=perPumCon,
     final perPumEva=perPumEva,
     final dpCon_nominal=dpCon_nominal,
