@@ -23,7 +23,8 @@ protected
      "Time before simulation started";
    Real t_next(
     final quantity="Time",
-    final unit="s");
+    final unit="s")
+     "Next event time";
 
 initial equation
   t_past = time - 1000;
