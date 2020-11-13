@@ -17,8 +17,8 @@ model DifferenceEnthalpyFlowRate
       choice(redeclare package Medium =
         Buildings.Media.Antifreeze.PropyleneGlycolWater (
           property_T=293.15,X_a=0.40) "Propylene glycol water, 40% mass fraction")));
-  parameter Boolean have_intTim = false
-    "Set to true to output the time intgral "
+  parameter Boolean have_integrator = false
+    "Set to true to output the time integral "
     annotation(Evaluate=true);
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal(
     min=0)
@@ -51,7 +51,7 @@ model DifferenceEnthalpyFlowRate
       extent={{-20,-20},{20,20}},rotation=0),
       iconTransformation(extent={{-20,-20},{20,20}},rotation=0,origin={120,30})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput E(
-    final unit="J") if  have_intTim
+    final unit="J") if  have_integrator
     "Time integral of enthalpy flow rate difference between stream 1 and 2"
     annotation (Placement(transformation(
       origin={120,-20},
@@ -81,7 +81,7 @@ model DifferenceEnthalpyFlowRate
   Buildings.Controls.OBC.CDL.Continuous.Add dif(final k1=1, final k2=-1)
     "Compute the difference"
     annotation (Placement(transformation(extent={{40,10},{60,30}})));
-  Modelica.Blocks.Continuous.Integrator int(y(unit="J")) if have_intTim
+  Modelica.Blocks.Continuous.Integrator int(y(unit="J")) if have_integrator
     "Time integral computation"
     annotation (Placement(transformation(extent={{40,-30},{60,-10}})));
 equation
@@ -157,7 +157,7 @@ equation
           points={{36,-60},{100,-60}},
           color={0,128,255}),
         Text(
-          visible=have_intTim,
+          visible=have_integrator,
           extent={{135,-16},{41,-46}},
           lineColor={0,0,0},
           textString="E"),
@@ -166,7 +166,7 @@ equation
           lineColor={0,0,0},
           textString=DynamicSelect("", String(dH_flow, leftjustified=false, significantDigits=0))),
         Text(
-          visible=have_intTim,
+          visible=have_integrator,
           extent={{132,-56},{12,-106}},
           lineColor={0,0,0},
           textString=DynamicSelect("", String(E, leftjustified=false, significantDigits=0)))}),

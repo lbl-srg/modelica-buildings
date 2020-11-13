@@ -7,7 +7,7 @@ simulateModel("Buildings.Experimental.DHC.EnergyTransferStations.Combined.Genera
 Advanced.FilenameInLegend = true;
 createPlot(
     id=1,
-    position={4, 5, 546, 748},
+    position={4, 5, 546, 906},
     y={"ets.tanHeaWat.TTop", "ets.tanHeaWat.TBot", "senTHeaWatSup.T", "senTHeaWatRet.T", "ets.conSup.THeaWatSupPreSet", "ets.conSup.THeaWatSupSet"},
     autoscale=true,
     autoerase=true,
@@ -35,7 +35,7 @@ createPlot(
 createPlot(
     id=2,
     y={"ets.chi.pumCon.m_flow", "ets.chi.pumEva.m_flow", "ets.hex.pum1Hex.m_flow",  "ets.hex.pum2Hex.m_flow", "ets.borFie.pum.m_flow", "ets.hex.m1_flow_nominal", "ets.hex.m2_flow_nominal", "ets.borFie.m_flow_nominal"},
-    position={560, 7, 545, 747},
+    position={560, 7, 539, 607},
     autoscale=true,
     autoerase=true,
     autoreplot=true,
@@ -45,15 +45,6 @@ createPlot(
     id=2,
     y={"ets.valIsoEva.y_actual", "ets.valIsoCon.y_actual"},
     subPlot=2,
-    autoscale=true,
-    autoerase=true,
-    autoreplot=true,
-    grid=true,
-    color=true);
-createPlot(
-    id=2,
-    y={"ets.chi.chi.PLR2"},
-    subPlot=3,
     autoscale=true,
     autoerase=true,
     autoreplot=true,
@@ -79,12 +70,12 @@ createPlot(
     color=true);
 createPlot(
     id=4,
-    position={1672, 8, 553, 746},
+    position={1672, 8, 557, 898},
     y={"ets.chi.senTConEnt.T", "ets.chi.senTConLvg.T", "ets.chi.senTEvaEnt.T",  "ets.chi.senTEvaLvg.T", "ets.conSup.THeaWatSupSet", "ets.chi.chi.TSet"},
     grid=true);
 createPlot(
     id=4,
-    y={"ets.chi.chi.COP"},
+    y={"ets.chi.chi.COP", "ets.datChi.COP_nominal"},
     autoscale=true,
     autoerase=true,
     autoreplot=true,

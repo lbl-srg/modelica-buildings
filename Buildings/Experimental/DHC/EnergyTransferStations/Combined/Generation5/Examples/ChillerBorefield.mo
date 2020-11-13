@@ -4,7 +4,8 @@ model ChillerBorefield
   extends ChillerOnly(
     ets(
       have_borFie=true,
-      datBorFie=datBorFie));
+      datBorFie=datBorFie,
+      kCol=0.1));
   parameter Integer nBorHol=64
     "Number of boreholes (must be a square number)";
   parameter Modelica.SIunits.Distance dxy=6

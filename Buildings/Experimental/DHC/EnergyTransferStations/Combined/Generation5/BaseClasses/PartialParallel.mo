@@ -106,17 +106,20 @@ model PartialParallel
     annotation (Placement(transformation(extent={{-340,80},{-300,120}}),iconTransformation(extent={{-380,40},{-300,120}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uCoo
     "Cooling mode enabled signal"
-    annotation (Placement(transformation(extent={{-340,40},{-300,80}}),iconTransformation(extent={{-380,-40},{-300,40}})));
+    annotation (Placement(transformation(extent={{-340,40},{-300,80}}),iconTransformation(extent={{-380,
+            -20},{-300,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaWatSupSet(
     final unit="K",
-    displayUnit="degC")
-    "Heating water supply temperature set point"
-    annotation (Placement(transformation(extent={{-340,-80},{-300,-40}}),iconTransformation(extent={{-380,-120},{-300,-40}})));
+    displayUnit="degC") "Heating water supply temperature set point"
+    annotation (Placement(transformation(extent={{-340,-40},{-300,0}}),  iconTransformation(extent={{-380,
+            -80},{-300,0}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSupSet(
     final unit="K",
     displayUnit="degC")
     "Chilled water supply temperature set point"
-    annotation (Placement(transformation(extent={{-340,-40},{-300,0}}),iconTransformation(extent={{-380,-200},{-300,-120}})));
+    annotation (Placement(transformation(extent={{-340,-80},{-300,-40}}),
+                                                                       iconTransformation(extent={{-380,
+            -140},{-300,-60}})));
   // COMPONENTS
   replaceable Experimental.DHC.EnergyTransferStations.Combined.Generation5.Controls.BaseClasses.PartialSupervisory conSup
     constrainedby
@@ -214,7 +217,7 @@ equation
   connect(hex.PPum,totPPum.u[1])
     annotation (Line(points={{12,-254},{36,-254},{36,-60},{258,-60}},color={0,0,127}));
   connect(THeaWatSupSet,conSup.THeaWatSupPreSet)
-    annotation (Line(points={{-320,-60},{-290,-60},{-290,27},{-262,27}},color={0,0,127}));
+    annotation (Line(points={{-320,-20},{-292,-20},{-292,27},{-262,27}},color={0,0,127}));
   connect(port_aDis,hex.port_a1)
     annotation (Line(points={{-300,-260},{-10,-260}},color={0,127,255}));
   connect(hex.port_b1,port_bDis)
@@ -249,7 +252,7 @@ equation
   connect(valIsoCon.port_b,colAmbWat.port_aDisSup)
     annotation (Line(points={{-50,-120},{-30,-120},{-30,-106},{-20,-106}},color={0,127,255}));
   connect(TChiWatSupSet,conSup.TChiWatSupPreSet)
-    annotation (Line(points={{-320,-20},{-292,-20},{-292,21},{-262,21}},color={0,0,127}));
+    annotation (Line(points={{-320,-60},{-290,-60},{-290,21},{-262,21}},color={0,0,127}));
   connect(uCoo,conSup.uCoo)
     annotation (Line(points={{-320,60},{-292,60},{-292,29},{-262,29}},color={255,0,255}));
   connect(uHea,conSup.uHea)

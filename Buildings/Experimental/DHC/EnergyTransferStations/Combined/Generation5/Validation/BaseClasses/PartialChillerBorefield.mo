@@ -28,8 +28,8 @@ partial model PartialChillerBorefield
       QCoo_flow_nominal)/5/4186,
     mCon_flow_nominal=QHea_flow_nominal/5/4186,
     TEvaLvg_nominal=277.15,
-    capFunT={1,0,0,0,0,0},
-    EIRFunT={-0.14,-0.03,0,+0.03,0,0},
+    capFunT={1.72, 0.02, 0, -0.02, 0, 0},
+    EIRFunT={0.28, -0.02, 0, 0.02, 0, 0},
     EIRFunPLR={0.1,0.9,0},
     TEvaLvgMin=277.15,
     TEvaLvgMax=288.15,
@@ -48,7 +48,7 @@ partial model PartialChillerBorefield
     redeclare package Medium=Medium,
     nPorts=1)
     "Heating water boundary conditions"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=90,origin={40,14})));
+    annotation (Placement(transformation(extent={{10,-10},{-10,10}},rotation=90,origin={20,60})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TChiWatSupSet(
     k=7+273.15,
     y(final unit="K",
@@ -67,14 +67,13 @@ partial model PartialChillerBorefield
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,origin={90,40})));
   Fluid.Sensors.TemperatureTwoPort senTHeaWatRet(
     redeclare final package Medium=Medium,
-    m_flow_nominal=datChi.mCon_flow_nominal)
-    "Heating water return temperature"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,origin={-60,-40})));
+    m_flow_nominal=datChi.mCon_flow_nominal) "Heating water return temperature"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,origin={-80,-20})));
   Fluid.Sensors.TemperatureTwoPort senTChiWatRet(
     redeclare final package Medium=Medium,
     m_flow_nominal=datChi.mEva_flow_nominal)
     "Chilled water return temperature"
-    annotation (Placement(transformation(extent={{10,-10},{-10,10}},rotation=0,origin={90,-40})));
+    annotation (Placement(transformation(extent={{10,-10},{-10,10}},rotation=0,origin={120,-40})));
   replaceable Combined.Generation5.ChillerBorefield ets(
     redeclare package MediumBui=Medium,
     redeclare package MediumDis=Medium,
@@ -90,10 +89,10 @@ partial model PartialChillerBorefield
     dpCon_nominal=15E3,
     dpEva_nominal=15E3,
     datChi=datChi,
-    nPorts_aHeaWat=1,
     nPorts_bHeaWat=1,
     nPorts_bChiWat=1,
-    nPorts_aChiWat=1)
+    nPorts_aChiWat=1,
+    nPorts_aHeaWat=1)
     "ETS"
     annotation (Placement(transformation(extent={{-10,-84},{50,-24}})));
   Fluid.Sources.Boundary_pT disWat(
@@ -111,17 +110,17 @@ partial model PartialChillerBorefield
   Buildings.Controls.OBC.CDL.Continuous.Gain gai2(
     final k=mChiWat_flow_nominal)
     "Scale to nominal mass flow rate"
-    annotation (Placement(transformation(extent={{92,70},{112,90}})));
+    annotation (Placement(transformation(extent={{90,90},{110,110}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain gai1(
     final k=mHeaWat_flow_nominal)
     "Scale to nominal mass flow rate"
-    annotation (Placement(transformation(extent={{50,70},{30,90}})));
+    annotation (Placement(transformation(extent={{40,90},{20,110}})));
   Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses.Pump_m_flow pumHeaWat(
     redeclare package Medium=Medium,
     final m_flow_nominal=mHeaWat_flow_nominal,
     dp_nominal=100E3)
     "Heating water distribution pump"
-    annotation (Placement(transformation(extent={{30,30},{10,50}})));
+    annotation (Placement(transformation(extent={{10,30},{-10,50}})));
   Fluid.MixingVolumes.MixingVolume volHeaWat(
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     T_start=45+273.15,
@@ -248,31 +247,42 @@ partial model PartialChillerBorefield
     smoothness=Modelica.Blocks.Types.Smoothness.MonotoneContinuousDerivative1)
     "Thermal loads (y[1] is cooling load, y[2] is heating load)"
     annotation (Placement(transformation(extent={{-330,150},{-310,170}})));
+  Fluid.Sensors.TemperatureTwoPort senTDisWatSup(redeclare final package Medium =
+        Medium, m_flow_nominal=ets.hex.m1_flow_nominal)
+    "District water supply temperature" annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={-80,-80})));
+  Networks.BaseClasses.DifferenceEnthalpyFlowRate dHChiWat_flow(
+    redeclare package Medium=Medium, m_flow_nominal=mChiWat_flow_nominal)
+    "Variation of enthalpy flow rate"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={74,-22})));
+  Networks.BaseClasses.DifferenceEnthalpyFlowRate dHHeaWat_flow(redeclare
+      package Medium = Medium, m_flow_nominal=mHeaWat_flow_nominal)
+    "Variation of enthalpy flow rate" annotation (Placement(transformation(
+        extent={{10,-10},{-10,10}},
+        rotation=-90,
+        origin={26,10})));
+
 equation
-  connect(senTHeaWatRet.port_b,ets.ports_aHeaWat[1])
-    annotation (Line(points={{-50,-40},{-40,-40},{-40,-28},{-10,-28}},color={0,127,255}));
-  connect(ets.ports_bChiWat[1],senTChiWatSup.port_a)
-    annotation (Line(points={{50,-38},{64,-38},{64,40},{80,40}},color={0,127,255}));
-  connect(ets.ports_aChiWat[1],senTChiWatRet.port_b)
-    annotation (Line(points={{-10,-38},{-20,-38},{-20,0},{70,0},{70,-40},{80,-40}},color={0,127,255}));
   connect(TChiWatSupSet.y,ets.TChiWatSupSet)
-    annotation (Line(points={{-118,100},{-32,100},{-32,-70},{-14,-70}},color={0,0,127}));
+    annotation (Line(points={{-118,100},{-32,100},{-32,-64},{-14,-64}},color={0,0,127}));
   connect(THeaWatSupSet.y,ets.THeaWatSupSet)
-    annotation (Line(points={{-118,140},{-28,140},{-28,-62},{-14,-62}},color={0,0,127}));
-  connect(disWat.ports[1],ets.port_aDis)
-    annotation (Line(points={{-100,-138},{-100,-80},{-10,-80}},color={0,127,255}));
-  connect(ets.port_bDis,disWat.ports[2])
-    annotation (Line(points={{50,-80},{160,-80},{160,-180},{-100,-180},{-100,-142}},color={0,127,255}));
+    annotation (Line(points={{-118,140},{-28,140},{-28,-58},{-14,-58}},color={0,0,127}));
+  connect(ets.port_bDis,disWat.ports[1])
+    annotation (Line(points={{50,-80},{160,-80},{160,-180},{-100,-180},{-100,-138}},color={0,127,255}));
   connect(pumChiWat.port_a,senTChiWatSup.port_b)
     annotation (Line(points={{110,40},{100,40}},color={0,127,255}));
   connect(gai2.y,pumChiWat.m_flow_in)
-    annotation (Line(points={{114,80},{120,80},{120,52}},color={0,0,127}));
-  connect(ets.ports_bHeaWat[1],pumHeaWat.port_a)
-    annotation (Line(points={{50,-28},{60,-28},{60,40},{30,40}},color={0,127,255}));
+    annotation (Line(points={{112,100},{120,100},{120,52}},
+                                                         color={0,0,127}));
   connect(pumHeaWat.port_b,senTHeaWatSup.port_a)
-    annotation (Line(points={{10,40},{-50,40}},color={0,127,255}));
+    annotation (Line(points={{-10,40},{-50,40}},
+                                               color={0,127,255}));
   connect(gai1.y,pumHeaWat.m_flow_in)
-    annotation (Line(points={{28,80},{20,80},{20,52}},color={0,0,127}));
+    annotation (Line(points={{18,100},{0,100},{0,52}},color={0,0,127}));
   connect(gai3.y,loaHea.Q_flow)
     annotation (Line(points={{-158,60},{-140,60}},color={0,0,127}));
   connect(loaHea.port,volHeaWat.heatPort)
@@ -280,7 +290,7 @@ equation
   connect(pumChiWat.port_b,volChiWat.ports[1])
     annotation (Line(points={{130,40},{139,40},{139,2}},color={0,127,255}));
   connect(volChiWat.ports[2],senTChiWatRet.port_a)
-    annotation (Line(points={{139,-2},{139,-40},{100,-40}},color={0,127,255}));
+    annotation (Line(points={{139,-2},{139,-40},{130,-40}},color={0,127,255}));
   connect(senTHeaWatSup.port_b,volHeaWat.ports[1])
     annotation (Line(points={{-70,40},{-101,40},{-101,2}},color={0,127,255}));
   connect(gai4.y,loaCoo.Q_flow)
@@ -288,27 +298,49 @@ equation
   connect(loaCoo.port,volChiWat.heatPort)
     annotation (Line(points={{162,60},{149,60},{149,10}},color={191,0,0}));
   connect(volHeaWat.ports[2],senTHeaWatRet.port_a)
-    annotation (Line(points={{-101,-2},{-101,-40},{-70,-40}},color={0,127,255}));
+    annotation (Line(points={{-101,-2},{-101,-20},{-90,-20}},color={0,127,255}));
   connect(heaWat.ports[1],pumHeaWat.port_a)
-    annotation (Line(points={{40,24},{40,40},{30,40}},color={0,127,255}));
+    annotation (Line(points={{20,50},{20,40},{10,40}},color={0,127,255}));
   connect(heaLoaNor.y,gai3.u)
     annotation (Line(points={{-229,60},{-182,60}},color={0,0,127}));
   connect(heaLoaNor.y,uHea.u)
     annotation (Line(points={{-229,60},{-220,60},{-220,-20},{-202,-20}},color={0,0,127}));
   connect(heaLoaNor.y,gai1.u)
-    annotation (Line(points={{-229,60},{-220,60},{-220,120},{60,120},{60,80},{52,80}},color={0,0,127}));
+    annotation (Line(points={{-229,60},{-220,60},{-220,120},{60,120},{60,100},{42,
+          100}},                                                                      color={0,0,127}));
   connect(loaCooNor.y,gai4.u)
     annotation (Line(points={{249,60},{222,60}},color={0,0,127}));
   connect(loaCooNor.y,gai2.u)
-    annotation (Line(points={{249,60},{240,60},{240,120},{80,120},{80,80},{90,80}},color={0,0,127}));
+    annotation (Line(points={{249,60},{240,60},{240,120},{80,120},{80,100},{88,100}},
+                                                                                   color={0,0,127}));
   connect(loaCooNor.y,uCoo.u)
     annotation (Line(points={{249,60},{240,60},{240,-120},{-220,-120},{-220,-100},{-202,-100}},color={0,0,127}));
   connect(TDisWatSup.y[1],disWat.T_in)
     annotation (Line(points={{-309,-140},{-140,-140},{-140,-136},{-122,-136}},color={0,0,127}));
   connect(uCoo.y,ets.uCoo)
-    annotation (Line(points={{-178,-100},{-120,-100},{-120,-54},{-14,-54}},color={255,0,255}));
+    annotation (Line(points={{-178,-100},{-120,-100},{-120,-52},{-14,-52}},color={255,0,255}));
   connect(uHea.y,ets.uHea)
     annotation (Line(points={{-178,-20},{-120,-20},{-120,-46},{-14,-46}},color={255,0,255}));
+  connect(disWat.ports[2], senTDisWatSup.port_a) annotation (Line(points={{-100,
+          -142},{-100,-80},{-90,-80}}, color={0,127,255}));
+  connect(senTDisWatSup.port_b, ets.port_aDis)
+    annotation (Line(points={{-70,-80},{-10,-80}}, color={0,127,255}));
+  connect(ets.ports_bChiWat[1], dHChiWat_flow.port_a1)
+    annotation (Line(points={{50,-38},{68,-38},{68,-32}}, color={0,127,255}));
+  connect(dHChiWat_flow.port_b1, senTChiWatSup.port_a)
+    annotation (Line(points={{68,-12},{68,40},{80,40}}, color={0,127,255}));
+  connect(ets.ports_bHeaWat[1], dHHeaWat_flow.port_a1) annotation (Line(points={
+          {50,-28},{60,-28},{60,0},{32,0}}, color={0,127,255}));
+  connect(dHHeaWat_flow.port_b1, pumHeaWat.port_a)
+    annotation (Line(points={{32,20},{32,40},{10,40}}, color={0,127,255}));
+  connect(senTChiWatRet.port_b, dHChiWat_flow.port_a2) annotation (Line(points={
+          {110,-40},{100,-40},{100,0},{80,0},{80,-12}}, color={0,127,255}));
+  connect(dHChiWat_flow.port_b2, ets.ports_aChiWat[1]) annotation (Line(points={
+          {80,-32},{80,-100},{-20,-100},{-20,-38},{-10,-38}}, color={0,127,255}));
+  connect(senTHeaWatRet.port_b, dHHeaWat_flow.port_a2) annotation (Line(points={
+          {-70,-20},{-60,-20},{-60,20},{20,20}}, color={0,127,255}));
+  connect(dHHeaWat_flow.port_b2, ets.ports_aHeaWat[1]) annotation (Line(points={
+          {20,0},{-20,0},{-20,-28},{-10,-28}}, color={0,127,255}));
   annotation (
     Diagram(
       coordinateSystem(

@@ -7,6 +7,8 @@ block SideHot
     annotation (Evaluate=true);
   parameter Modelica.SIunits.TemperatureDifference dTDea(min=0)=1
     "Temperature dead band between set point tracking and heat rejection (absolute value)";
+  parameter Modelica.SIunits.TemperatureDifference dTLoc(min=0)=3
+    "Temperature difference for cold rejection lockout (absolute value)";
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=
     Buildings.Controls.OBC.CDL.Types.SimpleController.P
     "Type of controller"
@@ -83,7 +85,7 @@ block SideHot
     final unit="K",
     displayUnit="degC")
     "Supply temperature set point (heating or chilled water)"
-    annotation (Placement(transformation(extent={{-220,-40},{-180,0}}),
+    annotation (Placement(transformation(extent={{-220,-20},{-180,20}}),
                                                                       iconTransformation(extent={{-140,22},
             {-100,62}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TTop(
@@ -114,20 +116,26 @@ block SideHot
   Buildings.Controls.OBC.CDL.Continuous.LessThreshold isValIsoEvaClo(final t=1E-6,
       h=0.5E-6) "At least one signal is non zero"
     annotation (Placement(transformation(extent={{-160,-130},{-140,-110}})));
-  Buildings.Controls.OBC.CDL.Logical.And and2
-    annotation (Placement(transformation(extent={{-100,-90},{-80,-70}})));
+  Buildings.Controls.OBC.CDL.Logical.MultiAnd
+                                         mulAnd(nu=3)
+    annotation (Placement(transformation(extent={{-30,-110},{-10,-90}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addDea(p=dTDea, k=1)
     "Add dead band"
     annotation (Placement(transformation(extent={{-100,-30},{-80,-10}})));
   Modelica.Blocks.Discrete.ZeroOrderHold zeroOrderHold(samplePeriod=60)
     annotation (Placement(transformation(extent={{120,-30},{140,-10}})));
+  Buildings.Controls.OBC.CDL.Continuous.AddParameter addLoc(p=dTLoc, k=1)
+    "Add temperature difference for lockout"
+    annotation (Placement(transformation(extent={{-100,10},{-80,30}})));
+  Buildings.Controls.OBC.CDL.Continuous.Less          isValIsoConClo1(h=0.1)
+                "Check if isolation valve is closed"
+    annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
 equation
   connect(mapFun.y,yAmb)
     annotation (Line(points={{122,40},{200,40}},
                                                color={0,0,127}));
   connect(TSet,conColRej.u_s)
-    annotation (Line(points={{-200,-20},{-150,-20},{-150,-60},{-12,-60}},
-                                                                        color={0,0,127}));
+    annotation (Line(points={{-200,0},{-140,0},{-140,-60},{-12,-60}},   color={0,0,127}));
   connect(TTop,conColRej.u_m)
     annotation (Line(points={{-200,-40},{-40,-40},{-40,-76},{0,-76},{0,-72}},          color={0,0,127}));
   connect(conHeaRej.y,greThr.u)
@@ -154,16 +162,13 @@ equation
     annotation (Line(points={{-200,-80},{-162,-80}}, color={0,0,127}));
   connect(yValIsoEva_actual, isValIsoEvaClo.u)
     annotation (Line(points={{-200,-120},{-162,-120}}, color={0,0,127}));
-  connect(isValIsoConClo.y, and2.u2) annotation (Line(points={{-138,-80},{-130,-80},
-          {-130,-88},{-102,-88}}, color={255,0,255}));
-  connect(and2.y, conColRej.uEna)
-    annotation (Line(points={{-78,-80},{-4,-80},{-4,-72}}, color={255,0,255}));
-  connect(uHeaCoo, and2.u1) annotation (Line(points={{-200,100},{-120,100},{-120,
-          -80},{-102,-80}}, color={255,0,255}));
+  connect(mulAnd.y, conColRej.uEna) annotation (Line(points={{-8,-100},{-4,-100},
+          {-4,-72}}, color={255,0,255}));
   connect(isValIsoEvaClo.y, conHeaRej.uEna) annotation (Line(points={{-138,-120},
           {-44,-120},{-44,-32}}, color={255,0,255}));
   connect(TSet, addDea.u)
-    annotation (Line(points={{-200,-20},{-102,-20}}, color={0,0,127}));
+    annotation (Line(points={{-200,0},{-140,0},{-140,-20},{-102,-20}},
+                                                     color={0,0,127}));
   connect(addDea.y, conHeaRej.u_s)
     annotation (Line(points={{-78,-20},{-52,-20}}, color={0,0,127}));
   connect(greThr.y, booToRea.u)
@@ -172,6 +177,18 @@ equation
     annotation (Line(points={{102,-20},{118,-20}}, color={0,0,127}));
   connect(zeroOrderHold.y, yValIso)
     annotation (Line(points={{141,-20},{200,-20}}, color={0,0,127}));
+  connect(TSet, addLoc.u) annotation (Line(points={{-200,0},{-140,0},{-140,20},
+          {-102,20}}, color={0,0,127}));
+  connect(TTop, isValIsoConClo1.u1) annotation (Line(points={{-200,-40},{-160,
+          -40},{-160,60},{-102,60}}, color={0,0,127}));
+  connect(addLoc.y, isValIsoConClo1.u2) annotation (Line(points={{-78,20},{-70,
+          20},{-70,40},{-110,40},{-110,52},{-102,52}}, color={0,0,127}));
+  connect(uHeaCoo, mulAnd.u[1]) annotation (Line(points={{-200,100},{-120,100},
+          {-120,-95.3333},{-32,-95.3333}}, color={255,0,255}));
+  connect(isValIsoConClo.y, mulAnd.u[2]) annotation (Line(points={{-138,-80},{
+          -124,-80},{-124,-100},{-32,-100}}, color={255,0,255}));
+  connect(isValIsoConClo1.y, mulAnd.u[3]) annotation (Line(points={{-78,60},{
+          -60,60},{-60,-104.667},{-32,-104.667}}, color={255,0,255}));
   annotation (
     defaultComponentName="conHot",
     Documentation(
@@ -233,5 +250,8 @@ for heat rejection yields an output signal greater than zero
 </html>"),
     Diagram(
       coordinateSystem(
-        extent={{-180,-140},{180,140}})));
+        extent={{-180,-140},{180,140}}), graphics={Text(
+          extent={{48,-26},{132,-56}},
+          lineColor={28,108,200},
+          textString="Using MSL hold due to bug in Dymola")}));
 end SideHot;
