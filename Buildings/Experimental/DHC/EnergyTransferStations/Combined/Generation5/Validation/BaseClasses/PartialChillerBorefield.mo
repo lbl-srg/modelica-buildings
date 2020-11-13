@@ -253,20 +253,31 @@ partial model PartialChillerBorefield
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-80,-80})));
-  Networks.BaseClasses.DifferenceEnthalpyFlowRate dHChiWat_flow(
-    redeclare package Medium=Medium, m_flow_nominal=mChiWat_flow_nominal)
-    "Variation of enthalpy flow rate"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+  Networks.BaseClasses.DifferenceEnthalpyFlowRate dHFloChiWat(redeclare package
+      Medium = Medium,
+    have_integrator=true,
+                       m_flow_nominal=mChiWat_flow_nominal)
+    "Variation of enthalpy flow rate" annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
         rotation=90,
         origin={74,-22})));
-  Networks.BaseClasses.DifferenceEnthalpyFlowRate dHHeaWat_flow(redeclare
-      package Medium = Medium, m_flow_nominal=mHeaWat_flow_nominal)
+  Networks.BaseClasses.DifferenceEnthalpyFlowRate dHFloHeaWat(redeclare package
+      Medium = Medium,
+    have_integrator=true,
+                       m_flow_nominal=mHeaWat_flow_nominal)
     "Variation of enthalpy flow rate" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=-90,
         origin={26,10})));
-
+  Modelica.SIunits.Energy ECoo;
+  Modelica.SIunits.Efficiency EERSea = noEvent(if ECoo < 1E-6 then 0 else
+    abs(dHFloChiWat.E) / ECoo);
+  Modelica.SIunits.Efficiency COPSea = noEvent(if ECoo < 1E-6 then 0 else
+    (dHFloHeaWat.E - dHFloChiWat.E) / ECoo);
+initial equation
+  ECoo = 0;
 equation
+  der(ECoo) = ets.PCoo;
   connect(TChiWatSupSet.y,ets.TChiWatSupSet)
     annotation (Line(points={{-118,100},{-32,100},{-32,-64},{-14,-64}},color={0,0,127}));
   connect(THeaWatSupSet.y,ets.THeaWatSupSet)
@@ -325,22 +336,22 @@ equation
           -142},{-100,-80},{-90,-80}}, color={0,127,255}));
   connect(senTDisWatSup.port_b, ets.port_aDis)
     annotation (Line(points={{-70,-80},{-10,-80}}, color={0,127,255}));
-  connect(ets.ports_bChiWat[1], dHChiWat_flow.port_a1)
+  connect(ets.ports_bChiWat[1], dHFloChiWat.port_a1)
     annotation (Line(points={{50,-38},{68,-38},{68,-32}}, color={0,127,255}));
-  connect(dHChiWat_flow.port_b1, senTChiWatSup.port_a)
+  connect(dHFloChiWat.port_b1, senTChiWatSup.port_a)
     annotation (Line(points={{68,-12},{68,40},{80,40}}, color={0,127,255}));
-  connect(ets.ports_bHeaWat[1], dHHeaWat_flow.port_a1) annotation (Line(points={
-          {50,-28},{60,-28},{60,0},{32,0}}, color={0,127,255}));
-  connect(dHHeaWat_flow.port_b1, pumHeaWat.port_a)
+  connect(ets.ports_bHeaWat[1], dHFloHeaWat.port_a1) annotation (Line(points={{50,
+          -28},{60,-28},{60,0},{32,0}}, color={0,127,255}));
+  connect(dHFloHeaWat.port_b1, pumHeaWat.port_a)
     annotation (Line(points={{32,20},{32,40},{10,40}}, color={0,127,255}));
-  connect(senTChiWatRet.port_b, dHChiWat_flow.port_a2) annotation (Line(points={
-          {110,-40},{100,-40},{100,0},{80,0},{80,-12}}, color={0,127,255}));
-  connect(dHChiWat_flow.port_b2, ets.ports_aChiWat[1]) annotation (Line(points={
-          {80,-32},{80,-100},{-20,-100},{-20,-38},{-10,-38}}, color={0,127,255}));
-  connect(senTHeaWatRet.port_b, dHHeaWat_flow.port_a2) annotation (Line(points={
-          {-70,-20},{-60,-20},{-60,20},{20,20}}, color={0,127,255}));
-  connect(dHHeaWat_flow.port_b2, ets.ports_aHeaWat[1]) annotation (Line(points={
-          {20,0},{-20,0},{-20,-28},{-10,-28}}, color={0,127,255}));
+  connect(senTChiWatRet.port_b, dHFloChiWat.port_a2) annotation (Line(points={{110,
+          -40},{100,-40},{100,0},{80,0},{80,-12}}, color={0,127,255}));
+  connect(dHFloChiWat.port_b2, ets.ports_aChiWat[1]) annotation (Line(points={{80,
+          -32},{80,-100},{-20,-100},{-20,-38},{-10,-38}}, color={0,127,255}));
+  connect(senTHeaWatRet.port_b, dHFloHeaWat.port_a2) annotation (Line(points={{-70,
+          -20},{-60,-20},{-60,20},{20,20}}, color={0,127,255}));
+  connect(dHFloHeaWat.port_b2, ets.ports_aHeaWat[1]) annotation (Line(points={{20,
+          0},{-20,0},{-20,-28},{-10,-28}}, color={0,127,255}));
   annotation (
     Diagram(
       coordinateSystem(

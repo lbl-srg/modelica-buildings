@@ -1,6 +1,0 @@
-compareVars :=
-  {
-    "conPlaDirP.y",
-    "conPlaRevP.y",
-    "conPlaDirPI.y"
-  };
