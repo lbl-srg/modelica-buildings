@@ -102,22 +102,19 @@ model Chiller
     "Condenser three-way valve control"
     annotation (Placement(transformation(extent={{50,-290},{70,-270}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTChiWatSup(
-    y(
-      final unit="K",
+    y(final unit="K",
       displayUnit="degC"),
     final k=TChiWatSupSetMin)
     "Minimum value of chilled water supply temperature"
     annotation (Placement(transformation(extent={{30,-138},{50,-118}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxTEvaWatEnt(
-    y(
-      final unit="K",
+    y(final unit="K",
       displayUnit="degC"),
     final k=TEvaWatEntMax)
     "Maximum value of evaporator water entering temperature"
     annotation (Placement(transformation(extent={{-10,-230},{10,-210}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTConWatEnt(
-    y(
-      final unit="K",
+    y(final unit="K",
       displayUnit="degC"),
     final k=TConWatEntMin)
     "Minimum value of condenser water entering temperature"

@@ -33,8 +33,7 @@ model Chiller
     annotation (Placement(transformation(extent={{-10,-72},{10,-52}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant THeaWatSupSet(
     k=45+273.15,
-    y(
-      final unit="K",
+    y(final unit="K",
       displayUnit="degC"))
     "Heating water supply temperature set point"
     annotation (Placement(transformation(extent={{-120,30},{-100,50}})));
@@ -52,8 +51,7 @@ model Chiller
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,origin={-110,-62})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TChiWatSupSet(
     k=7+273.15,
-    y(
-      final unit="K",
+    y(final unit="K",
       displayUnit="degC"))
     "Chilled water supply temperature set point"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
@@ -86,8 +84,7 @@ model Chiller
     "Cooling enabled signal"
     annotation (Placement(transformation(extent={{-120,70},{-100,90}})));
   Modelica.Blocks.Sources.TimeTable THeaWatRet(
-    y(
-      final unit="K",
+    y(final unit="K",
       displayUnit="degC"),
     table=[
       0,44;
@@ -101,8 +98,7 @@ model Chiller
     "Heating water return temperature values"
     annotation (Placement(transformation(extent={{-190,-70},{-170,-50}})));
   Modelica.Blocks.Sources.TimeTable TChiWatRet(
-    y(
-      final unit="K",
+    y(final unit="K",
       displayUnit="degC"),
     table=[
       0,9;
