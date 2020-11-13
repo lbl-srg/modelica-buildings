@@ -87,10 +87,8 @@ model HeatExchanger
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u
     "Control signal for secondary side (from supervisory)"
     annotation (Placement(transformation(extent={{-260,100},{-220,140}}),iconTransformation(extent={{-140,60},{-100,100}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
-    final t=0.05,
-    final h=0.025)
-    "Check if secondary side is enabled"
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(final t=0.01,
+      final h=0.005) "Check for heat or cold rejection demand"
     annotation (Placement(transformation(extent={{-170,110},{-150,130}})));
   Buildings.Controls.OBC.CDL.Logical.And and2
     "At least one valve is open and HX circuit is enabled"
@@ -141,7 +139,7 @@ model HeatExchanger
     annotation (Placement(transformation(extent={{-10,150},{10,170}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swiOff2
     "Output zero if not enabled"
-    annotation (Placement(transformation(extent={{140,130},{160,150}})));
+    annotation (Placement(transformation(extent={{160,130},{180,150}})));
   Buildings.Controls.OBC.CDL.Continuous.Line mapSpe
     "Mapping function for pump speed"
     annotation (Placement(transformation(extent={{90,130},{110,150}})));
@@ -171,7 +169,7 @@ equation
   connect(T1HexWatLvg,delT.u2)
     annotation (Line(points={{-240,-40},{-180,-40},{-180,-26},{-172,-26}},color={0,0,127}));
   connect(swiOff1.y,y1Hex)
-    annotation (Line(points={{182,-60},{200,-60},{200,20},{240,20}},color={0,0,127}));
+    annotation (Line(points={{182,-60},{190,-60},{190,20},{240,20}},color={0,0,127}));
   connect(max1.y,swiOff1.u1)
     annotation (Line(points={{112,-60},{126,-60},{126,-52},{158,-52}},color={0,0,127}));
   connect(u,greThr.u)
@@ -215,7 +213,7 @@ equation
   connect(min1.y,max1.u2)
     annotation (Line(points={{72,-140},{80,-140},{80,-66},{88,-66}},color={0,0,127}));
   connect(swiOff2.y,yPum2Hex)
-    annotation (Line(points={{162,140},{180,140},{180,-20},{240,-20}},color={0,0,127}));
+    annotation (Line(points={{182,140},{200,140},{200,-20},{240,-20}},color={0,0,127}));
   connect(one.y,mapSpe.x2)
     annotation (Line(points={{62,100},{70,100},{70,136},{88,136}},color={0,0,127}));
   connect(one.y,mapSpe.f2)
@@ -225,13 +223,13 @@ equation
   connect(speMin.y,mapSpe.f1)
     annotation (Line(points={{12,160},{70,160},{70,144},{88,144}},color={0,0,127}));
   connect(mapSpe.y,swiOff2.u1)
-    annotation (Line(points={{112,140},{120,140},{120,148},{138,148}},color={0,0,127}));
+    annotation (Line(points={{112,140},{120,140},{120,148},{158,148}},color={0,0,127}));
   connect(pro.y,con1Hex.u_s)
     annotation (Line(points={{12,-60},{48,-60}},color={0,0,127}));
   connect(setAct.y,pro.u1)
     annotation (Line(points={{-28,-60},{-20,-60},{-20,-54},{-12,-54}},color={0,0,127}));
   connect(zer.y,swiOff2.u3)
-    annotation (Line(points={{12,40},{120,40},{120,132},{138,132}},color={0,0,127}));
+    annotation (Line(points={{12,40},{120,40},{120,132},{158,132}},color={0,0,127}));
   connect(zer.y,swiOff1.u3)
     annotation (Line(points={{12,40},{120,40},{120,-68},{158,-68}},color={0,0,127}));
   connect(hal.y,mapSpe.x1)
@@ -249,7 +247,8 @@ equation
   connect(mapVal.y,yVal2Hex)
     annotation (Line(points={{112,100},{210,100},{210,-60},{240,-60}},color={0,0,127}));
   connect(and2.y,swiOff2.u2)
-    annotation (Line(points={{-38,80},{-20,80},{-20,120},{130,120},{130,140},{138,140}},color={255,0,255}));
+    annotation (Line(points={{-38,80},{-20,80},{-20,120},{130,120},{130,140},{
+          158,140}},                                                                    color={255,0,255}));
   annotation (
     Diagram(
       coordinateSystem(
@@ -271,11 +270,10 @@ This block implements the control logic for the district heat exchanger,
 which realizes the interface between the building system and the district system.
 </p>
 <p>
-The input signal <code>u</code> is yielded by the hot side or cold side controller,
-see for instance
-<a href=\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Controls.SideHot\">
-Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Controls.SideHot</a>.
-The primary and secondary circuits are enabled to operate if the input signal
+The input signal <code>u</code> is yielded by the supervisory controller, see
+<a href=\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Controls.Supervisory\">
+Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Controls.Supervisory</a>.
+The primary and secondary circuits are enabled to operate if this input signal
 is greater than zero and the return position of at least one isolation valve
 is greater than 90%.
 When enabled,
@@ -290,16 +288,17 @@ for a control signal varying between 30% and 100%),
 </li>
 <li>
 the primary pump speed (or valve opening) is modulated with
-a PI loop controlling the temperature difference on the secondary side.
+a PI loop controlling the temperature difference accross the primary side
+of the heat exchanger.
 A set point (and gain) scheduling logic is implemented to allow changing the
 control parameters based on the active rejection mode (heat or cold rejection)
 of the ETS.
 </li>
 </ul>
 <p>
-Note that the secondary valve is needed to stabilize the control of the system
-when the secondary mass flow rate required to meet the heat or cold rejection
-demand is below the flow rate corresponding to the minimum pump speed.
+Note that the valve on the secondary side is needed to stabilize the control 
+of the system when the secondary mass flow rate required to meet the heat or 
+cold rejection demand is below the flow rate corresponding to the minimum pump speed.
 </p>
 </html>"));
 end HeatExchanger;

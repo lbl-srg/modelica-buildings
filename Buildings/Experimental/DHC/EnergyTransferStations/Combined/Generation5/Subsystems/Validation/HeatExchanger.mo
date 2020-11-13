@@ -17,12 +17,10 @@ model HeatExchanger
     "Secondary boundary conditions"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,origin={-110,-62})));
   Modelica.Blocks.Sources.BooleanExpression uHeaRej(
-    y=time >= 3000)
-    "Full heat rejection enabled signal"
+    y=time >= 3000) "Heat rejection enable signal"
     annotation (Placement(transformation(extent={{-230,110},{-210,130}})));
-  Modelica.Blocks.Sources.BooleanExpression uColRej(
-    y=time >= 1000 and time < 3000)
-    "Full cold rejection enabled signal"
+  Modelica.Blocks.Sources.BooleanExpression uEnaColRej(y=time >= 1000 and time <
+        3000) "Cold rejection enable signal"
     annotation (Placement(transformation(extent={{-230,90},{-210,110}})));
   Experimental.DHC.EnergyTransferStations.Combined.Generation5.Subsystems.HeatExchanger hexPum(
     redeclare final package Medium1=Medium,
@@ -36,7 +34,8 @@ model HeatExchanger
     T_b1Hex_nominal=277.15,
     T_a2Hex_nominal=275.15,
     T_b2Hex_nominal=279.15,
-    dT2HexSet={8,5})
+    dT1HexSet=
+      abs(hexPum.T_b1Hex_nominal-hexPum.T_a1Hex_nominal) .* {1+1/3,1})
     "Heat exchanger with primary pump"
     annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi
@@ -79,7 +78,8 @@ model HeatExchanger
     T_b1Hex_nominal=277.15,
     T_a2Hex_nominal=275.15,
     T_b2Hex_nominal=279.15,
-    dT2HexSet={8,5})
+    dT1HexSet=
+      abs(hexVal.T_b1Hex_nominal-hexVal.T_a1Hex_nominal) .* {1+1/3,1})
     "Heat exchanger with primary control valve"
     annotation (Placement(transformation(extent={{-10,10},{10,30}})));
   Fluid.Sources.Boundary_pT bou1Val(
@@ -190,8 +190,9 @@ model HeatExchanger
 equation
   connect(swi.y,bou2.T_in)
     annotation (Line(points={{-138,-60},{-130,-60},{-130,-58},{-122,-58}},color={0,0,127}));
-  connect(uColRej.y,swi.u2)
-    annotation (Line(points={{-209,100},{-180,100},{-180,40},{-160,40},{-160,-40},{-170,-40},{-170,-60},{-162,-60}},color={255,0,255}));
+  connect(uEnaColRej.y, swi.u2) annotation (Line(points={{-209,100},{-180,100},{
+          -180,40},{-160,40},{-160,-40},{-170,-40},{-170,-60},{-162,-60}},
+        color={255,0,255}));
   connect(hexPum.port_b1,senT1OutPum.port_a)
     annotation (Line(points={{10,-54},{40,-54},{40,-80},{60,-80}},color={0,127,255}));
   connect(senT1OutPum.port_b,bou1.ports[1])
@@ -230,8 +231,8 @@ equation
     annotation (Line(points={{-10,26},{-20,26},{-20,40},{50,40},{50,30}},color={0,127,255}));
   connect(senRelPre.port_b,senT1OutVal.port_a)
     annotation (Line(points={{50,10},{50,0},{60,0}},color={0,127,255}));
-  connect(uColRej.y,or2.u2)
-    annotation (Line(points={{-209,100},{-180,100},{-180,92},{-162,92}},color={255,0,255}));
+  connect(uEnaColRej.y, or2.u2) annotation (Line(points={{-209,100},{-180,100},{
+          -180,92},{-162,92}}, color={255,0,255}));
   connect(uHeaRej.y,or2.u1)
     annotation (Line(points={{-209,120},{-170,120},{-170,100},{-162,100}},color={255,0,255}));
   connect(yValIsoCon.y, hexVal.yValIso_actual[1]) annotation (Line(points={{-209,

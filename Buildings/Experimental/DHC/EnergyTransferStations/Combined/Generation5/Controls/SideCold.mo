@@ -200,7 +200,7 @@ First implementation
 </html>",
       info="<html>
 <p>
-This block serves as the controller for the cold side of the ETS in 
+This block serves as the controller for the cold side of the ETS in
 <a href=\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Controls.Supervisory\">
 Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Controls.Supervisory</a>.
 See

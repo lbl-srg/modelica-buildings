@@ -48,10 +48,10 @@ model Chiller
     annotation (Dialog(group="Controls"));
   // IO CONNECTORS
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHea
-    "Heating mode enabled signal"
+    "Heating enable signal"
     annotation (Placement(transformation(extent={{-240,168},{-200,208}}),iconTransformation(extent={{-140,20},{-100,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uCoo
-    "Cooling mode enabled signal"
+    "Cooling enable signal"
     annotation (Placement(transformation(extent={{-240,148},{-200,188}}),iconTransformation(extent={{-140,0},{-100,40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSupSet(
     final unit="K",

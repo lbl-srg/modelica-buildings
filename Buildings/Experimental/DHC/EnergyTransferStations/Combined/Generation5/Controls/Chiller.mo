@@ -9,40 +9,40 @@ model Chiller
     displayUnit="degC")
     "Maximum value of evaporator water entering temperature";
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uCoo
-    "Cooling mode enabled signal"
+    "Cooling enable signal"
     annotation (Placement(transformation(extent={{-200,20},{-160,60}}),
-      iconTransformation(extent={{-140,40},{-100,80}})));
+      iconTransformation(extent={{-140,10},{-100,50}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHea
-    "Heating mode enabled signal"
+    "Heating enable signal"
     annotation (Placement(transformation(extent={{-200,60},{-160,100}}),
-      iconTransformation(extent={{-140,60},{-100,100}})));
+      iconTransformation(extent={{-140,50},{-100,90}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TConWatEnt(
     final unit="K",
     displayUnit="degC")
     "Condenser water entering temperature"
-    annotation (Placement(transformation(extent={{-200,-320},{-160,-280}}),
-      iconTransformation(extent={{-140,-60},{-100,-20}})));
+    annotation (Placement(transformation(extent={{-200,-100},{-160,-60}}),
+      iconTransformation(extent={{-140,-90},{-100,-50}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TEvaWatEnt(
     final unit="K",
     displayUnit="degC")
     "Evaporator water entering temperature"
-    annotation (Placement(transformation(extent={{-200,-260},{-160,-220}}),
-      iconTransformation(extent={{-140,-40},{-100,0}})));
+    annotation (Placement(transformation(extent={{-200,-40},{-160,0}}),
+      iconTransformation(extent={{-140,-50},{-100,-10}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yValCon
     "Condenser mixing valve control signal"
-    annotation (Placement(transformation(extent={{160,-300},{200,-260}}),
-      iconTransformation(extent={{100,-100},{140,-60}})));
+    annotation (Placement(transformation(extent={{160,-80},{200,-40}}),
+      iconTransformation(extent={{100,-90},{140,-50}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yValEva
     "Evaporator mixing valve control signal"
-    annotation (Placement(transformation(extent={{160,-240},{200,-200}}),
-      iconTransformation(extent={{100,-60},{140,-20}})));
+    annotation (Placement(transformation(extent={{160,-20},{200,20}}),
+      iconTransformation(extent={{100,-50},{140,-10}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yChi
-    "Chiller enabled signal"
+    "Chiller enable signal"
     annotation (Placement(transformation(extent={{160,40},{200,80}}),
-      iconTransformation(extent={{100,60},{140,100}})));
+      iconTransformation(extent={{100,40},{140,80}})));
   Buildings.Controls.OBC.CDL.Logical.Or heaOrCoo
-    "Heating or cooling mode enabled"
-    annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
+    "Heating or cooling enabled"
+    annotation (Placement(transformation(extent={{-120,50},{-100,70}})));
   LimPIDEnable                         conValEva(
     final controllerType=Modelica.Blocks.Types.SimpleController.PI,
     final yMax=1,
@@ -53,7 +53,7 @@ model Chiller
       displayUnit="s")=60,
     final reverseActing=true)
     "Evaporator three-way valve control"
-    annotation (Placement(transformation(extent={{50,-230},{70,-210}})));
+    annotation (Placement(transformation(extent={{50,-10},{70,10}})));
   LimPIDEnable                         conValCon(
     final controllerType=Modelica.Blocks.Types.SimpleController.PI,
     final yMax=1,
@@ -64,42 +64,43 @@ model Chiller
       displayUnit="s")=60,
     final reverseActing=false)
     "Condenser three-way valve control"
-    annotation (Placement(transformation(extent={{50,-290},{70,-270}})));
+    annotation (Placement(transformation(extent={{50,-70},{70,-50}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxTEvaWatEnt(
     y(final unit="K",
       displayUnit="degC"),
     final k=TEvaWatEntMax)
     "Maximum value of evaporator water entering temperature"
-    annotation (Placement(transformation(extent={{-10,-230},{10,-210}})));
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTConWatEnt(
     y(final unit="K",
       displayUnit="degC"),
     final k=TConWatEntMin)
     "Minimum value of condenser water entering temperature"
-    annotation (Placement(transformation(extent={{-10,-290},{10,-270}})));
+    annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));
 equation
   connect(TEvaWatEnt,conValEva.u_m)
-    annotation (Line(points={{-180,-240},{60,-240},{60,-232}},color={0,0,127}));
+    annotation (Line(points={{-180,-20},{60,-20},{60,-12}},   color={0,0,127}));
   connect(TConWatEnt,conValCon.u_m)
-    annotation (Line(points={{-180,-300},{60,-300},{60,-292}},color={0,0,127}));
+    annotation (Line(points={{-180,-80},{60,-80},{60,-72}},   color={0,0,127}));
   connect(heaOrCoo.y,yChi)
-    annotation (Line(points={{-78,0},{140,0},{140,60},{180,60}},color={255,0,255}));
+    annotation (Line(points={{-98,60},{180,60}},                color={255,0,255}));
   connect(uHea,heaOrCoo.u1)
-    annotation (Line(points={{-180,80},{-140,80},{-140,0},{-102,0}},color={255,0,255}));
+    annotation (Line(points={{-180,80},{-140,80},{-140,60},{-122,60}},
+                                                                    color={255,0,255}));
   connect(uCoo,heaOrCoo.u2)
-    annotation (Line(points={{-180,40},{-120,40},{-120,-8},{-102,-8}},color={255,0,255}));
+    annotation (Line(points={{-180,40},{-140,40},{-140,52},{-122,52}},color={255,0,255}));
   connect(maxTEvaWatEnt.y,conValEva.u_s)
-    annotation (Line(points={{12,-220},{48,-220}},color={0,0,127}));
+    annotation (Line(points={{12,0},{48,0}},      color={0,0,127}));
   connect(minTConWatEnt.y,conValCon.u_s)
-    annotation (Line(points={{12,-280},{48,-280}},color={0,0,127}));
+    annotation (Line(points={{12,-60},{48,-60}},  color={0,0,127}));
   connect(conValEva.y, yValEva)
-    annotation (Line(points={{72,-220},{180,-220}}, color={0,0,127}));
-  connect(heaOrCoo.y, conValEva.uEna) annotation (Line(points={{-78,-0},{-40,-0},
-          {-40,-236},{56,-236},{56,-232}}, color={255,0,255}));
-  connect(heaOrCoo.y, conValCon.uEna) annotation (Line(points={{-78,-0},{-40,-0},
-          {-40,-296},{56,-296},{56,-292}}, color={255,0,255}));
-  connect(conValCon.y, yValCon) annotation (Line(points={{72,-280},{120,-280},{
-          120,-280},{180,-280}}, color={0,0,127}));
+    annotation (Line(points={{72,0},{180,0}},       color={0,0,127}));
+  connect(heaOrCoo.y, conValEva.uEna) annotation (Line(points={{-98,60},{-40,60},
+          {-40,-16},{56,-16},{56,-12}},    color={255,0,255}));
+  connect(heaOrCoo.y, conValCon.uEna) annotation (Line(points={{-98,60},{-40,60},
+          {-40,-76},{56,-76},{56,-72}},    color={255,0,255}));
+  connect(conValCon.y, yValCon) annotation (Line(points={{72,-60},{180,-60}},
+                                 color={0,0,127}));
   annotation (
     Icon(
       coordinateSystem(
@@ -108,7 +109,7 @@ equation
     Diagram(
       coordinateSystem(
         preserveAspectRatio=false,
-        extent={{-160,-320},{160,100}})),
+        extent={{-160,-120},{160,120}})),
     defaultComponentName="con",
     Documentation(
       revisions="<html>
@@ -145,24 +146,5 @@ supply temperature is reset with a PI loop controlling the heating
 water supply temperature.
 This has two effects, which occur in sequence.
 </p>
-<ol>
-<li>
-First a \"false load\" is generated on the evaporator: the part load ratio
-of the chiller increases, and so does the heat flow rate rejected by the
-condenser.
-This is true until the volume of the evaporator loop and the chilled
-water tank is fully recirculated.
-</li>
-<li>
-Then the temperature difference across the evaporator reaches back its
-original value (for an unvarying building load).
-However, the evaporator inlet temperature (corresponding to the tank top
-temperature) is now lowered. This will eventually trigger a cold
-rejection demand by
-<a href=\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Controls.SideCold1\">
-Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Controls.SideCold1</a>.
-The ambient sources are then used to \"false load\" the chiller.
-</li>
-</ol>
 </html>"));
 end Chiller;

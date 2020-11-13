@@ -89,8 +89,8 @@ equation
     annotation (Line(points={{-88,100},{-20,100},{-20,38},{-2,38}}, color={255,0,255}));
   connect(uCooHol.y,conCol.uHeaCoo)
     annotation (Line(points={{-88,60},{-40,60},{-40,-24},{-2,-24}}, color={255,0,255}));
-  connect(uHeaHol.y,resTSup.uHea)
-    annotation (Line(points={{-88,100},{-80,100},{-80,26},{-72,26}},  color={255,0,255}));
+  connect(uHeaHol.y, resTSup.uHea) annotation (Line(points={{-88,100},{-80,
+          100},{-80,26},{-72,26}}, color={255,0,255}));
   connect(uHeaHol.y,yHea)
     annotation (Line(points={{-88,100},{140,100}},color={255,0,255}));
   connect(uCooHol.y,yCoo)
@@ -125,10 +125,15 @@ Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.ChillerBo
 </p>
 <ul>
 <li>
-It provides the tank demand signals to enable the chiller system,
-based on the logic described in
-<a href=\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Controls.BaseClasses.PartialSideHotCold\">
-Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Controls.BaseClasses.PartialSideHotCold</a>.
+Heating (resp. cooling) is enabled based on the input signal <code>uHea</code> 
+(resp. <code>uCoo</code>) which is hold for 15', meaning that, 
+when enabled, a mode remains active for 15' and, 
+when disabled, a mode cannot be enabled again within 15'.
+The heating and cooling enable signals should be computed externally based on a shedule 
+(to lock out the system during off-hours) and ideally in conjunction with the number
+of requests yielded by the terminal unit controllers. Indeed, the heating water supply set 
+point is allowed to be reset down only when heating is disabled, in which
+case the system performance is improved due to a lower chiller lift.
 </li>
 <li>
 It resets the heating water supply temperature based on the logic described in

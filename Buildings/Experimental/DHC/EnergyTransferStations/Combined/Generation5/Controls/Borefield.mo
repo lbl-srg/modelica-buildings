@@ -51,7 +51,7 @@ model Borefield
     "Minimum pump speed"
     annotation (Placement(transformation(extent={{-40,74},{-20,94}})));
   Buildings.Controls.OBC.CDL.Logical.And enaBor
-    "Borefield enabled signal"
+    "Borefield enable signal"
     annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput yValIso_actual[2]
     "Isolation valves return position (fractional)" annotation (Placement(

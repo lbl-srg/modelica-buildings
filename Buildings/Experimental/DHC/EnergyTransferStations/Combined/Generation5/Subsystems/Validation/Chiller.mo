@@ -31,12 +31,6 @@ model Chiller
     dpEva_nominal=15E3)
     "Subsystem with heat recovery chiller"
     annotation (Placement(transformation(extent={{-10,-72},{10,-52}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant THeaWatSupSet(
-    k=45+273.15,
-    y(final unit="K",
-      displayUnit="degC"))
-    "Heating water supply temperature set point"
-    annotation (Placement(transformation(extent={{-120,30},{-100,50}})));
   Fluid.Sources.Boundary_pT evaWat(
     redeclare package Medium=Medium,
     use_T_in=true,
@@ -77,11 +71,11 @@ model Chiller
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},rotation=0,origin={70,-80})));
   Modelica.Blocks.Sources.BooleanExpression uHea(
     y=time < 4000)
-    "Heating enabled signal"
+    "Heating enable signal"
     annotation (Placement(transformation(extent={{-120,90},{-100,110}})));
   Modelica.Blocks.Sources.BooleanExpression uCoo(
     y=time >= 1000)
-    "Cooling enabled signal"
+    "Cooling enable signal"
     annotation (Placement(transformation(extent={{-120,70},{-100,90}})));
   Modelica.Blocks.Sources.TimeTable THeaWatRet(
     y(final unit="K",
@@ -112,8 +106,6 @@ model Chiller
     "Chilled water return temperature values"
     annotation (Placement(transformation(extent={{160,-70},{140,-50}})));
 equation
-  connect(THeaWatSupSet.y,chi.THeaWatSupSet)
-    annotation (Line(points={{-98,40},{-28,40},{-28,-62},{-12,-62}},color={0,0,127}));
   connect(chi.port_bHeaWat,senTHeaWatSup.port_a)
     annotation (Line(points={{-10,-56},{-40,-56},{-40,-40},{-70,-40}},color={0,127,255}));
   connect(senTHeaWatSup.port_b,conWat.ports[1])

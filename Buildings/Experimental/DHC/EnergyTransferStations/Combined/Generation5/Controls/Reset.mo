@@ -6,8 +6,8 @@ model Reset
     displayUnit="degC")
     "Minimum value of heating water supply temperature set point";
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHea
-    "Heating mode enabled signal"
-    annotation (Placement(transformation(extent={{-140,40},{-100,80}}),iconTransformation(extent={{-140,40},{-100,80}})));
+    "Heating enable signal" annotation (Placement(transformation(extent={{-140,
+            40},{-100,80}}), iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaWatSupPreSet(
     final unit="K",
     displayUnit="degC")
@@ -34,8 +34,8 @@ equation
     annotation (Line(points={{-120,-50},{-80,-50},{-80,8},{-2,8}},color={0,0,127}));
   connect(minSet.y,swiHea.u3)
     annotation (Line(points={{-38,-20},{-20,-20},{-20,-8},{-2,-8}},color={0,0,127}));
-  connect(uHea,swiHea.u2)
-    annotation (Line(points={{-120,60},{-60,60},{-60,0},{-2,0}},color={255,0,255}));
+  connect(uHea, swiHea.u2) annotation (Line(points={{-120,60},{-60,60},{-60,
+          0},{-2,0}}, color={255,0,255}));
   connect(swiHea.y,ramLimHea.u)
     annotation (Line(points={{22,0},{48,0}},color={0,0,127}));
   connect(ramLimHea.y,THeaWatSupSet)
@@ -61,18 +61,18 @@ First implementation
 <p>
 This block implements the supervisory reset of the heating water
 supply temperature.
-The heating water supply temperature is
-reset down whenever the heating demand signal
-yielded by the building automation system is <code>false</code>.
+The heating water supply temperature is reset down whenever the
+heating demand signal yielded by the building automation system
+is <code>false</code>.
 This enables operating the chiller at a reduced lift whenever
 there is no requirement on the water temperature supplied to the
 building system.
 </p>
 <p>
-Note that the chilled water supply temperature is not reset 
-for the sake of simplicity. It would indeed require a more 
+Note that the chilled water supply temperature is not reset
+for the sake of simplicity. It would indeed require a more
 involved algorithm preventing the reset in case it limits
-the cold rejection capacity considering the actual 
+the cold rejection capacity considering the actual
 district water temperature.
 </p>
 </html>"));

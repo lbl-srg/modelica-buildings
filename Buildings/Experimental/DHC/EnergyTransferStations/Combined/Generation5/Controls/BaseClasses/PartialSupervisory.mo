@@ -6,10 +6,10 @@ partial block PartialSupervisory
     "Number of ambient sources to control"
     annotation (Evaluate=true);
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHea
-    "Heating mode enabled signal"
+    "Heating enable signal"
     annotation (Placement(transformation(extent={{-160,80},{-120,120}}),iconTransformation(extent={{-140,70},{-100,110}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uCoo
-    "Cooling mode enabled signal"
+    "Cooling enable signal"
     annotation (Placement(transformation(extent={{-160,40},{-120,80}}),iconTransformation(extent={{-140,50},{-100,90}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSupPreSet(
     final unit="K",
@@ -64,11 +64,11 @@ partial block PartialSupervisory
     annotation (Placement(transformation(extent={{120,40},{160,80}}),iconTransformation(extent={{100,50},{140,90}})));
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold uHeaHol(
     trueHoldDuration=900)
-    "Hold heating enabled signal"
+    "Hold heating enable signal"
     annotation (Placement(transformation(extent={{-110,90},{-90,110}})));
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold uCooHol(
     trueHoldDuration=900)
-    "Hold cooling enabled signal"
+    "Hold cooling enable signal"
     annotation (Placement(transformation(extent={{-110,50},{-90,70}})));
 equation
   connect(uHea,uHeaHol.u)

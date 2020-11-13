@@ -19,8 +19,7 @@ model ChillerBorefield
         2
       else
         1,
-    dT1HexSet=abs(
-      T_b1Hex_nominal-T_a1Hex_nominal) .* {1+1/datChi.COP_nominal,1},
+    dT1HexSet=abs(T_b1Hex_nominal-T_a1Hex_nominal) .* {1+1/datChi.COP_nominal,1},
     VTanHeaWat=datChi.PLRMin*datChi.mCon_flow_nominal*5*60/1000,
     VTanChiWat=datChi.PLRMin*datChi.mEva_flow_nominal*5*60/1000,
     colChiWat(
@@ -168,8 +167,8 @@ equation
     annotation (Line(points={{222,60},{258,60}},color={0,0,127}));
   connect(chi.PChi,totPCoo.u[1])
     annotation (Line(points={{12,-4},{20,-4},{20,20},{258,20}},color={0,0,127}));
-  connect(uHea,conSup.uHea)
-    annotation (Line(points={{-320,100},{-290,100},{-290,31},{-262,31}},color={255,0,255}));
+  connect(uHea, conSup.uHea) annotation (Line(points={{-320,100},{-290,100},
+          {-290,31},{-262,31}}, color={255,0,255}));
   connect(conSup.yHea,chi.uHea)
     annotation (Line(points={{-238,31},{-20,31},{-20,-2},{-12,-2}},color={255,0,255}));
   connect(conSup.yCoo,chi.uCoo)
@@ -207,12 +206,11 @@ below.
 </p>
 <ul>
 <li>
-The heating and cooling functions are ensured by a heat recovery chiller, see
+The heating and cooling functions are provided by a heat recovery chiller, see
 <a href=\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Subsystems.Chiller\">
 Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Subsystems.Chiller</a>
 for the operating principles and modeling assumptions.
-The condenser and evaporator loops are equipped with 
-constant speed pumps.
+The condenser and evaporator loops are equipped with constant speed pumps.
 </li>
 <li>
 The supervisory controller ensures the load balancing between the condenser side
@@ -223,18 +221,18 @@ water supply temperature, see
 <a href=\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Controls.Supervisory\">
 Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Controls.Supervisory</a>
 for a detailed description.
-The borefield and district heat exchanger loops are equipped with 
-variable speed pumps.
+The borefield and district heat exchanger loops are equipped with
+variable speed pumps modulated by the supervisory controller.
 </li>
 </ul>
 <p>
 Note that the heating and cooling enable signals (<code>uHea</code> and <code>uCoo</code>)
-connected to this model should be switched to <code>false</code> when the 
-building has no corresponding demand (for instance, when the maximum of 
-the demand signal from the terminal unit controllers is zero).
+connected to this model should be switched to <code>false</code> when the
+building has no corresponding demand (e.g., based on the requests yielded by
+the terminal unit controllers, in conjunction with a schedule).
 This will significantly improve the system performance as it is a
 necessary condition for the chiller to be operated at a lower lift, see
-<a href=\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Controls.Reset\">
+<a href=\\\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Controls.Reset\\\">
 Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Controls.Reset</a>.
 <br/>
 </p>
