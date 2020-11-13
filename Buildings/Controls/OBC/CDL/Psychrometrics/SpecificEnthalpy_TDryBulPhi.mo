@@ -28,7 +28,7 @@ protected
     displayUnit="degC")
     "Dry bulb temperature in degree Celsius";
   Real p_w(
-    final quanity="Pressure",
+    final quantity="Pressure",
     final unit="Pa",
     displayUnit="Pa") "Water vapor pressure";
   Real w(final unit="1", nominal=0.01)

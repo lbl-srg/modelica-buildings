@@ -20,7 +20,7 @@ block DewPoint_TDryBulPhi
 
 protected
   Real p_w(
-    final quanity="Pressure",
+    final quantity="Pressure",
     final unit="Pa",
     displayUnit="Pa") "Water vapor pressure";
   constant Real C14=6.54 "Constant used in the equation";
