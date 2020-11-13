@@ -2,7 +2,7 @@ within Buildings.Experimental.DHC.Loads.Examples;
 model CouplingTimeSeriesSingleLoop
   "Example illustrating the coupling of a building model to heating water or chilled water loops"
   extends Modelica.Icons.Example;
-  package Medium1=Buildings.Media.Water
+  package MeduimW=Buildings.Media.Water
     "Source side medium";
   parameter Modelica.SIunits.Time perAve=600
     "Period for time averaged variables";
@@ -19,7 +19,7 @@ model CouplingTimeSeriesSingleLoop
     use_inputFilter=false,
     nPorts_aChiWat=1,
     nPorts_bChiWat=1)
-    "Building with cooling only"
+    "Residential building with time series cooling loads only"
     annotation (Placement(transformation(extent={{-10,100},{10,120}})));
   Buildings.Experimental.DHC.Loads.Examples.BaseClasses.BuildingTimeSeries buiHea(
     have_watCoo=false,
@@ -34,10 +34,10 @@ model CouplingTimeSeriesSingleLoop
     use_inputFilter=false,
     nPorts_aHeaWat=1,
     nPorts_bHeaWat=1)
-    "Building with heating only"
+    "Residential building with time series heating loads only"
     annotation (Placement(transformation(extent={{-10,-20},{10,0}})));
   Buildings.Fluid.Sources.Boundary_pT sinChiWat(
-    redeclare package Medium=Medium1,
+    redeclare package Medium=MeduimW,
     p=300000,
     nPorts=1)
     "Sink for chilled water"
@@ -47,7 +47,7 @@ model CouplingTimeSeriesSingleLoop
     "Chilled water supply temperature"
     annotation (Placement(transformation(extent={{-140,98},{-120,118}})));
   Buildings.Fluid.Sources.Boundary_pT supChiWat(
-    redeclare package Medium=Medium1,
+    redeclare package Medium=MeduimW,
     use_T_in=true,
     nPorts=1)
     "Chilled water supply"
@@ -79,13 +79,13 @@ model CouplingTimeSeriesSingleLoop
     "Heating water supply temperature"
     annotation (Placement(transformation(extent={{-140,-18},{-120,2}})));
   Buildings.Fluid.Sources.Boundary_pT supHeaWat(
-    redeclare package Medium=Medium1,
+    redeclare package Medium=MeduimW,
     use_T_in=true,
     nPorts=1)
     "Heating water supply"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,origin={-70,-12})));
-  Fluid.Sources.Boundary_pT sinHeaWat(
-    redeclare package Medium=Medium1,
+  Buildings.Fluid.Sources.Boundary_pT sinHeaWat(
+    redeclare package Medium=MeduimW,
     p=300000,
     nPorts=1)
     "Sink for heating water"

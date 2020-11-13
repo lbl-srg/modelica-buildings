@@ -52,7 +52,7 @@ plotExpression(
     apply(CouplingTimeSeries_Residential.bui.terUniHea.facSca*CouplingTimeSeries_Residential.bui.terUniHea.QHea_flow_nominal),
     false,
     "facScaHea*QHea_flow_nominal",
-    2);
+    id=2);
 createPlot(
     id=3,
     position={1016, 21, 485, 681},
@@ -76,8 +76,8 @@ createPlot(
 plotExpression(
     apply(CouplingTimeSeries_Residential.bui.terUniCoo.facSca*CouplingTimeSeries_Residential.bui.terUniCoo.QCoo_flow_nominal),
     false,
-    "facSca*QCoo_flow_nominal",
-    3);
+    "facScaCoo*QCoo_flow_nominal",
+    id=3);
 createPlot(
     id=4,
     position={75, 75, 542, 347},

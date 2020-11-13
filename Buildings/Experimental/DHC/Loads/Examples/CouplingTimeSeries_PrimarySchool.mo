@@ -1,8 +1,9 @@
 within Buildings.Experimental.DHC.Loads.Examples;
 model CouplingTimeSeries_PrimarySchool
-  "Example illustrating the coupling of a building model to heating water and chilled water loops"
+  "Example illustrating the coupling of a school building model to heating
+    water and chilled water loops"
   extends Modelica.Icons.Example;
-  package Medium1=Buildings.Media.Water
+  package MeduimW=Buildings.Media.Water
     "Source side medium";
   parameter Modelica.SIunits.Time perAve=600
     "Period for time averaged variables";
@@ -22,16 +23,16 @@ model CouplingTimeSeries_PrimarySchool
     nPorts_aChiWat=1,
     nPorts_bHeaWat=1,
     nPorts_bChiWat=1)
-    "School time series heating and cooling loads."
+    "School building with time series heating and cooling loads."
     annotation (Placement(transformation(extent={{10,-4},{30,16}})));
   Buildings.Fluid.Sources.Boundary_pT sinHeaWat(
-    redeclare package Medium=Medium1,
+    redeclare package Medium=MeduimW,
     p=300000,
     nPorts=1)
     "Sink for heating water"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},rotation=0,origin={130,20})));
   Buildings.Fluid.Sources.Boundary_pT sinChiWat(
-    redeclare package Medium=Medium1,
+    redeclare package Medium=MeduimW,
     p=300000,
     nPorts=1)
     "Sink for chilled water"
@@ -44,14 +45,14 @@ model CouplingTimeSeries_PrimarySchool
     y=bui.T_aChiWat_nominal)
     "Chilled water supply temperature"
     annotation (Placement(transformation(extent={{-120,-30},{-100,-10}})));
-  Fluid.Sources.Boundary_pT supHeaWat(
-    redeclare package Medium=Medium1,
+  Buildings.Fluid.Sources.Boundary_pT supHeaWat(
+    redeclare package Medium=MeduimW,
     use_T_in=true,
     nPorts=1)
     "Heating water supply"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,origin={-50,40})));
-  Fluid.Sources.Boundary_pT supChiWat(
-    redeclare package Medium=Medium1,
+  Buildings.Fluid.Sources.Boundary_pT supChiWat(
+    redeclare package Medium=MeduimW,
     use_T_in=true,
     nPorts=1)
     "Chilled water supply"
@@ -142,8 +143,8 @@ equation
     Documentation(
       info="<html>
 <p>
-This example demonstartes the hydraulic connection between a DOE-reference primary school 
-building's heating and cooling loads provided as time seriers to infinte sources 
+This example demonstrates the hydraulic connection between a DOE-reference primary school 
+building's heating and cooling loads provided as time series to infinite sources 
 of district heating and cooling.
 </p>
 </html>",

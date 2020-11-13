@@ -37,25 +37,19 @@ createPlot(
     grid=true,
     subPlot=2
 );
-createPlot(
-    id=2,
-    y={"bui.terUniHea.QActHea_flow"},
-    grid=true,
-    autoscale=true,
-    subPlot=3
-);
+
 createPlot(
     id=2,
     y={"bui.facScaHea"},
     grid=true,
     autoscale=true,
-    subPlot=4
+    subPlot=3
 );
 plotExpression(
     apply(CouplingTimeSeries_Hospital.bui.terUniHea.facSca*CouplingTimeSeries_Hospital.bui.terUniHea.QHea_flow_nominal),
     false,
-    "facSca*QHea_flow_nominal",
-    2);
+    "facScaHea*QHea_flow_nominal",
+    id=2);
 createPlot(
     id=3,
     position={1016, 21, 485, 681},
@@ -78,13 +72,12 @@ createPlot(
     subPlot=3
 );
 
-
 plotExpression(
     apply(CouplingTimeSeries_Hospital.bui.terUniCoo.facSca*CouplingTimeSeries_Hospital
 .bui.terUniCoo.QCoo_flow_nominal),
     false,
-    "facSca*QCoo_flow_nominal",
-    3);
+    "facScaCoo*QCoo_flow_nominal",
+    id=3);
 createPlot(
     id=4,
     position={75, 75, 542, 347},
