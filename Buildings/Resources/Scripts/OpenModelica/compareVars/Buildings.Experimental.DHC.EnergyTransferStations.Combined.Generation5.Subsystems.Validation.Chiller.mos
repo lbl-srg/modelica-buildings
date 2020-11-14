@@ -1,10 +1,8 @@
 compareVars :=
   {
-    "THeaWatSupSet.y",
     "senTHeaWatSup.T",
     "senTHeaWatRet.T",
     "TChiWatSupSet.y",
-    "chi.con.TChiWatSupSet",
     "senTChiWatSup.T",
     "senTChiWatRet.T",
     "chi.PChi",
