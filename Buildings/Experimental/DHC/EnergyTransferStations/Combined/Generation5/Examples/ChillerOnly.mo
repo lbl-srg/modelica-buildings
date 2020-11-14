@@ -54,10 +54,9 @@ equation
     __Dymola_Commands(
       file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/EnergyTransferStations/Combined/Generation5/Examples/ChillerOnly.mos" "Simulate and plot"),
     experiment(
-      StartTime=5500000,
-      StopTime=8000000,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Cvode"),
+      StartTime=6.5E6,
+      StopTime=7E6,
+      Tolerance=1e-06),
     Documentation(
       revisions="<html>
 <ul>
@@ -76,7 +75,7 @@ in a system configuration with no geothermal borefield.
 </p>
 <ul>
 <li>
-A load profile based on a whole building energy simulation is used to 
+A load profile based on a whole building energy simulation is used to
 represent realistic operating conditions.
 </li>
 <li>
@@ -84,7 +83,7 @@ The district water supply temperature varies on a monthly basis, with
 a minimum in January and a maximum in August.
 </li>
 <li>
-The other modeling assumptions are described in 
+The other modeling assumptions are described in
 <a href=\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Validation.BaseClasses.PartialChillerBorefield\">
 Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Validation.BaseClasses.PartialChillerBorefield</a>.
 </li>

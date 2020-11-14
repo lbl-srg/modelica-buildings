@@ -27,7 +27,7 @@ equation
     __Dymola_Commands(
       file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/EnergyTransferStations/Combined/Generation5/Validation/ChillerOnly.mos" "Simulate and plot"),
     experiment(
-      StopTime=172800,
+      StopTime=360000,
       Tolerance=1e-06),
     Documentation(
       revisions="<html>
@@ -47,16 +47,16 @@ in a system configuration with no geothermal borefield.
 </p>
 <ul>
 <li>
-A fictitious load profile is used, consisting in the succession of five load 
-patterns.  
+A fictitious load profile is used, consisting in the succession of five load
+patterns.
 </li>
 <li>
-Each load pattern is simulated with two values of the district water supply 
+Each load pattern is simulated with two values of the district water supply
 temperature, corresponding to typical extreme values over a whole year
  of operation.
 </li>
 <li>
-The other modeling assumptions are described in 
+The other modeling assumptions are described in
 <a href=\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Validation.BaseClasses.PartialChillerBorefield\">
 Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Validation.BaseClasses.PartialChillerBorefield</a>.
 </li>

@@ -25,7 +25,7 @@ model ChillerBorefield
       file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/EnergyTransferStations/Combined/Generation5/Validation/ChillerBorefield.mos"
         "Simulate and plot"),
     experiment(
-      StopTime=20000,
+      StopTime=360000,
       Tolerance=1e-06),
     Documentation(
       revisions="<html>
