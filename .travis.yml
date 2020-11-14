@@ -88,7 +88,7 @@ env:
     - TEST_ARG="make test-dymola    PACKAGE=\"Buildings.Utilities\""
     - TEST_ARG="make test-optimica  PACKAGE=\"Buildings.Utilities\""
     - TEST_ARG="make test-jmodelica PACKAGE=\"Buildings.Utilities\""
-    - TEST_ARG="make test-omc"
+##    - TEST_ARG="make test-omc"
 
 before_install:
   - sudo apt-get -y install python3.6-minimal  # Provides /usr/bin/python3.6m
