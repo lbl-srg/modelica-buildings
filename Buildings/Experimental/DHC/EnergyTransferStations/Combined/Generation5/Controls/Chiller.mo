@@ -139,12 +139,5 @@ the condenser (resp. evaporator) mixing valve is modulated with a PI
 loop controlling the minimum (resp. maximum) inlet temperature.
 </li>
 </ul>
-<p>
-Optionally, a chilled water supply temperature reset can be activated.
-In this case, if there is an actual heating demand, the chilled water
-supply temperature is reset with a PI loop controlling the heating
-water supply temperature.
-This has two effects, which occur in sequence.
-</p>
 </html>"));
 end Chiller;

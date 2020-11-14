@@ -8,8 +8,8 @@ model ChillerBorefield
       final controllerType=controllerType,
       final kHot=kHot,
       final kCol=kCol,
-      final Ti=Ti,
-      final dTDea=dTDea,
+      final TiHot=TiHot,
+      final TiCol=TiCol,
       final THeaWatSupSetMin=THeaWatSupSetMin,
       final TChiWatSupSetMin=TChiWatSupSetMin)
       constrainedby Controls.BaseClasses.PartialSupervisory,
@@ -76,16 +76,16 @@ model ChillerBorefield
   replaceable parameter Fluid.Geothermal.Borefields.Data.Borefield.Example datBorFie
     constrainedby Fluid.Geothermal.Borefields.Data.Borefield.Template
     "Borefield parameters"
-    annotation (Dialog(group="Borefield",enable=have_borFie),choicesAllMatching=true,Placement(transformation(extent={{140,222},{160,242}})));
+    annotation (Dialog(group="Borefield",enable=have_borFie),
+    choicesAllMatching=true,Placement(transformation(extent={{140,222},{160,242}})));
   replaceable parameter Buildings.Fluid.Movers.Data.Generic perPumBorFie(
     motorCooledByFluid=false)
     constrainedby Buildings.Fluid.Movers.Data.Generic
     "Record with performance data for borefield pump"
-    annotation (Dialog(group="Borefield",enable=have_borFie),choicesAllMatching=true,Placement(transformation(extent={{180,222},{200,242}})));
-  parameter Modelica.SIunits.TemperatureDifference dTDea=0.5
-    "Temperature dead band for supervisory control"
-    annotation (Dialog(group="Supervisory controller"));
-  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+    annotation (Dialog(group="Borefield",enable=have_borFie),
+    choicesAllMatching=true,Placement(transformation(extent={{180,222},{200,242}})));
+  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=
+    Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
     annotation (Dialog(group="Supervisory controller"));
   parameter Real kHot(
@@ -93,13 +93,21 @@ model ChillerBorefield
     "Gain of controller on hot side"
     annotation (Dialog(group="Supervisory controller"));
   parameter Real kCol(
-    min=0)=0.05
+    min=0)=0.1
     "Gain of controller on cold side"
     annotation (Dialog(group="Supervisory controller"));
-  parameter Modelica.SIunits.Time Ti(
+  parameter Modelica.SIunits.Time TiHot(
     min=Buildings.Controls.OBC.CDL.Constants.small)=300
-    "Time constant of integrator block (hot and cold side)"
-    annotation (Dialog(enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID,group="Supervisory controller"));
+    "Time constant of integrator block on hot side"
+    annotation (Dialog(group="Supervisory controller",
+      enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+      or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+  parameter Modelica.SIunits.Time TiCol(
+    min=Buildings.Controls.OBC.CDL.Constants.small)=120
+    "Time constant of integrator block on cold side"
+    annotation (Dialog(group="Supervisory controller",
+      enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+      or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   parameter Modelica.SIunits.Temperature THeaWatSupSetMin(
     displayUnit="degC")=datChi.TConEntMin+5
     "Minimum value of heating water supply temperature set point"
@@ -125,7 +133,8 @@ model ChillerBorefield
     final spePumBorMin=spePumBorMin,
     final dp_nominal=dpBorFie_nominal) if have_borFie
     "Borefield"
-    annotation (Dialog(group="Borefield",enable=have_borFie),Placement(transformation(extent={{-80,-230},{-60,-210}})));
+    annotation (Dialog(group="Borefield",enable=have_borFie),
+      Placement(transformation(extent={{-80,-230},{-60,-210}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerPPum(
     final k=0) if not have_borFie
     "Zero power"

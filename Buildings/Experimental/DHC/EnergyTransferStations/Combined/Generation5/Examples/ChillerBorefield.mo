@@ -4,8 +4,7 @@ model ChillerBorefield
   extends ChillerOnly(
     ets(
       have_borFie=true,
-      datBorFie=datBorFie,
-      kCol=0.1));
+      datBorFie=datBorFie));
   parameter Integer nBorHol=64
     "Number of boreholes (must be a square number)";
   parameter Modelica.SIunits.Distance dxy=6
@@ -42,30 +41,10 @@ This model validates
 <a href=\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.ChillerBorefield\">
 Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.ChillerBorefield</a>
 in a system configuration including a geothermal borefield.
+See
+<a href=\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Examples.ChillerOnly\">
+Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Examples.ChillerOnly</a>
+for the description of the main modeling assumptions.
 </p>
-<ul>
-<li>
-A load profile based on building energy simulation is used to represent realistic
-operating conditions.
-</li>
-<li>
-The district water supply temperature is constant.
-</li>
-<li>
-The building distribution pumps are variable speed and the flow rate
-is considered to vary linearly with the load (with no inferior limit).
-</li>
-<li>
-The Boolean enable signals for heating and cooling typically provided
-by the building automation system are here computed
-as falseif the load is lower than 1% of the nominal load for more than 300s.
-</li>
-<li>
-Simplified chiller performance data are used, which only represent a linear
-variation of the EIR with the evaporator outlet temperature and the
-condenser inlet temperature (the capacity is fixed and
-no variation of the performance at part load is considered).
-</li>
-</ul>
 </html>"));
 end ChillerBorefield;

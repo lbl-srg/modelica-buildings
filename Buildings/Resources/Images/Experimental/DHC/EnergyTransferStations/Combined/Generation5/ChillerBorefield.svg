@@ -17,6 +17,78 @@
        orient="auto"
        refY="0"
        refX="0"
+       id="marker6575"
+       style="overflow:visible">
+      <path
+         id="path6573"
+         d="m -5.4129913,-5.0456926 c 2.76,0 4.99999999,2.24 4.99999999,5.00000002 0,2.75999998 -2.23999999,4.99999998 -4.99999999,4.99999998"
+         style="fill:none;fill-rule:evenodd;stroke:#b3b3b3;stroke-width:1pt;stroke-opacity:1"
+         transform="scale(0.6)" />
+    </marker>
+    <marker
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="marker6393"
+       style="overflow:visible">
+      <path
+         id="path6391"
+         d="m -5.4129913,-5.0456926 c 2.76,0 4.99999999,2.24 4.99999999,5.00000002 0,2.75999998 -2.23999999,4.99999998 -4.99999999,4.99999998"
+         style="fill:none;fill-rule:evenodd;stroke:#b3b3b3;stroke-width:1pt;stroke-opacity:1"
+         transform="scale(0.6)" />
+    </marker>
+    <marker
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="marker5637"
+       style="overflow:visible">
+      <path
+         id="path5635"
+         d="m -5.4129913,-5.0456926 c 2.76,0 4.99999999,2.24 4.99999999,5.00000002 0,2.75999998 -2.23999999,4.99999998 -4.99999999,4.99999998"
+         style="fill:none;fill-rule:evenodd;stroke:none;stroke-width:1pt;stroke-opacity:1"
+         transform="scale(0.6)" />
+    </marker>
+    <marker
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="marker4941"
+       style="overflow:visible">
+      <path
+         id="path4939"
+         d="m -5.4129913,-5.0456926 c 2.76,0 4.99999999,2.24 4.99999999,5.00000002 0,2.75999998 -2.23999999,4.99999998 -4.99999999,4.99999998"
+         style="fill:none;fill-rule:evenodd;stroke:#b3b3b3;stroke-width:1pt;stroke-opacity:1"
+         transform="scale(0.6)" />
+    </marker>
+    <marker
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="marker4583"
+       style="overflow:visible">
+      <path
+         id="path4581"
+         d="m -5.4129913,-5.0456926 c 2.76,0 4.99999999,2.24 4.99999999,5.00000002 0,2.75999998 -2.23999999,4.99999998 -4.99999999,4.99999998"
+         style="fill:none;fill-rule:evenodd;stroke:#b3b3b3;stroke-width:1pt;stroke-opacity:1"
+         transform="scale(0.6)" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="CurveOut"
+       refX="0.0"
+       refY="0.0"
+       orient="auto">
+      <path
+         transform="scale(0.6)"
+         style="fill:none;fill-rule:evenodd;stroke:#b3b3b3;stroke-width:1pt;stroke-opacity:1"
+         d="M -5.4129913,-5.0456926 C -2.6529913,-5.0456926 -0.41299131,-2.8056926 -0.41299131,-0.045692580 C -0.41299131,2.7143074 -2.6529913,4.9543074 -5.4129913,4.9543074"
+         id="path3780" />
+    </marker>
+    <marker
+       orient="auto"
+       refY="0"
+       refX="0"
        id="marker2124"
        style="overflow:visible">
       <path
@@ -2245,7 +2317,7 @@
     <path
        id="path1696"
        d="m 318,2257.1583 -23,0 v 80"
-       style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#b3b3b3;stroke-width:0.5;stroke-miterlimit:3.9;stroke-dasharray:none;marker-end:url(#marker4398);stop-color:#000000" />
+       style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#b3b3b3;stroke-width:0.49889764;stroke-miterlimit:3.9000001;stroke-dasharray:none;marker-end:url(#marker4398);stop-color:#000000" />
     <text
        xml:space="preserve"
        style="font-size:6.66667px;line-height:1.25;font-family:Arial;-inkscape-font-specification:'Arial, Normal';display:inline"
@@ -2385,12 +2457,12 @@
     </g>
     <path
        id="path2118"
-       d="m 370,2372.1583 h 20 v -145 h 240 v 4.9625"
-       style="fill:none;fill-rule:evenodd;stroke:#b3b3b3;stroke-width:0.5;stroke-miterlimit:3.9;stop-color:#000000;marker-start:url(#marker2124)" />
+       d="m 370,2372.1583 h 20 v -150 h 240 v 9.9625"
+       style="fill:none;fill-rule:evenodd;stroke:#b3b3b3;stroke-width:0.5;stroke-miterlimit:3.9;marker-start:url(#marker2124);marker-end:url(#marker4583);stop-color:#000000" />
     <path
        id="path2120"
-       d="m 470,2227.1583 v 5"
-       style="fill:none;fill-rule:evenodd;stroke:#b3b3b3;stroke-width:0.5;stroke-miterlimit:3.9;stop-color:#000000" />
+       d="m 470,2222.1583 v 10"
+       style="fill:none;fill-rule:evenodd;stroke:#b3b3b3;stroke-width:0.5;stroke-miterlimit:3.9;marker-end:url(#marker4941);stop-color:#000000" />
     <path
        id="path1588-4-5-5-8"
        d="m 345,2417.1583 20,-40"
@@ -2415,6 +2487,26 @@
          y="2347.0002"
          x="322.75"
          id="tspan3756">3</tspan></text>
+    <path
+       style="fill:none;fill-rule:evenodd;stroke-width:0.498898;stroke-miterlimit:3.9;stroke-dasharray:none;stop-color:#000000;marker-end:url(#marker5637)"
+       d="M 465,2237.1583 H 340 v 99.9999"
+       id="path5633" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke-width:0.498898;stroke-miterlimit:3.9;stroke-dasharray:none;stop-color:#000000"
+       d="M 465,2237.1583 H 340 v 99.9999"
+       id="path5987" />
+    <path
+       style="font-variation-settings:normal;opacity:1;vector-effect:none;fill:none;fill-opacity:1;stroke:#b3b3b3;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:3.9;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker-end:url(#marker6393);stop-color:#000000;stop-opacity:1"
+       d="m 465,2237.1583 h -73.96609 m -2.00657,0 h -3.04022 m -11.98712,0 c -11.99431,0 -22.00569,0 -34,0 v 99.9999"
+       id="path6013" />
+    <path
+       style="font-variation-settings:normal;opacity:1;vector-effect:none;fill:none;fill-opacity:1;stroke:#b3b3b3;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:3.9;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;stop-color:#000000;stop-opacity:1"
+       d="m 376,2237.1583 h 7 v 0 h 1"
+       id="path6533" />
+    <path
+       style="font-variation-settings:normal;opacity:1;vector-effect:none;fill:none;fill-opacity:1;stroke:#b3b3b3;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:3.9;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker-end:url(#marker6575);stop-color:#000000;stop-opacity:1"
+       d="M 625,2237.1583 H 480 v -10 h -9.00916 m -1.97256,0 h -78.08639 m -1.97257,0 h -3.1289 m -1.83652,0 h -8.09433 m -1.97256,0 H 350 v 110"
+       id="path6571" />
   </g>
   <g
      transform="translate(-210,-2066.8689)"

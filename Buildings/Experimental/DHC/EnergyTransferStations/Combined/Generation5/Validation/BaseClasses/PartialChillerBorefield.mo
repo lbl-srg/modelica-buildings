@@ -65,15 +65,6 @@ partial model PartialChillerBorefield
     m_flow_nominal=datChi.mEva_flow_nominal)
     "Chilled water supply temperature"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,origin={90,40})));
-  Fluid.Sensors.TemperatureTwoPort senTHeaWatRet(
-    redeclare final package Medium=Medium,
-    m_flow_nominal=datChi.mCon_flow_nominal) "Heating water return temperature"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,origin={-60,-28})));
-  Fluid.Sensors.TemperatureTwoPort senTChiWatRet(
-    redeclare final package Medium=Medium,
-    m_flow_nominal=datChi.mEva_flow_nominal)
-    "Chilled water return temperature"
-    annotation (Placement(transformation(extent={{10,-10},{-10,10}},rotation=0,origin={90,0})));
   replaceable Combined.Generation5.ChillerBorefield ets(
     redeclare package MediumBui=Medium,
     redeclare package MediumDis=Medium,
@@ -95,6 +86,15 @@ partial model PartialChillerBorefield
     nPorts_aChiWat=1)
     "ETS"
     annotation (Placement(transformation(extent={{-10,-84},{50,-24}})));
+  Fluid.Sensors.TemperatureTwoPort senTHeaWatRet(
+    redeclare final package Medium=Medium,
+    m_flow_nominal=datChi.mCon_flow_nominal) "Heating water return temperature"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,origin={-60,-28})));
+  Fluid.Sensors.TemperatureTwoPort senTChiWatRet(
+    redeclare final package Medium=Medium,
+    m_flow_nominal=datChi.mEva_flow_nominal)
+    "Chilled water return temperature"
+    annotation (Placement(transformation(extent={{10,-10},{-10,10}},rotation=0,origin={90,0})));
   Fluid.Sources.Boundary_pT disWat(
     redeclare package Medium=Medium,
     use_T_in=true,
@@ -345,5 +345,22 @@ First implementation
 This is a partial model used as a base class to construct the
 validation and example models.
 </p>
+<ul>
+<li>
+The building distribution pumps are variable speed and the flow rate
+is considered to vary linearly with the load (with no inferior limit).
+</li>
+<li>
+The Boolean enable signals for heating and cooling typically provided
+by the building automation system are here computed based on the condition 
+that the load is greater than 1% of the nominal load.
+</li>
+<li>
+Simplified chiller performance data are used, which only represent a linear
+variation of the EIR and the capacity with the evaporator outlet temperature 
+and the condenser inlet temperature (no variation of the performance at part 
+load is considered).
+</li>
+</ul>
 </html>"));
 end PartialChillerBorefield;

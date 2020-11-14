@@ -6,20 +6,20 @@ block SideHot
     "Number of ambient sources to control"
     annotation (Evaluate=true);
   parameter Modelica.SIunits.TemperatureDifference dTDea(min=0)=1
-    "Temperature dead band between set point tracking and heat rejection (absolute value)";
-  parameter Modelica.SIunits.TemperatureDifference dTLoc(min=0)=3
-    "Temperature difference for cold rejection lockout (absolute value)";
+    "Temperature difference band between set point tracking and heat rejection (absolute value)";
+  parameter Modelica.SIunits.TemperatureDifference dTLoc(min=0)=dTDea + 2
+    "Temperature difference between set point tracking and cold rejection lockout (absolute value)";
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=
-    Buildings.Controls.OBC.CDL.Types.SimpleController.P
+    Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
     annotation (choices(
       choice=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
       choice=Buildings.Controls.OBC.CDL.Types.SimpleController.PI));
   parameter Real k(
-    min=0)=1
+    min=0)=0.1
     "Gain of controller";
   parameter Modelica.SIunits.Time Ti(
-    min=Buildings.Controls.OBC.CDL.Constants.small)=0.5
+    min=Buildings.Controls.OBC.CDL.Constants.small)=120
     "Time constant of integrator block"
     annotation (Dialog(
       enable=controllerType ==
@@ -205,46 +205,59 @@ First implementation
 This block serves as the controller for the hot side of the ETS in
 <a href=\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Controls.Supervisory\">
 Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Controls.Supervisory</a>.
-See
-<a href=\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Controls.BaseClasses.PartialSideHotCold\">
-Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Controls.BaseClasses.PartialSideHotCold</a>
-for the computation of the demand signal <code>yDem</code>.
-The other control signals are computed as follows.
+It computes the following control signals.
 </p>
 <ul>
 <li>
 Control signals for ambient sources <code>yAmb</code> (array)<br/>
 
-The controller for heat rejection is always enabled.
-It maintains the temperature at the bottom of the heating water tank
-at the heating water supply temperature set point.
+The controller for heat rejection is enabled when the return position 
+of the evaporator loop isolation valve is close to zero.
+When enabled, it maintains the temperature at the top of the heating water 
+tank at the heating water supply temperature set point plus a 
+dead band <code>dTDea</code>.
 The controller yields a control signal value between
-<code>0</code> and <code>nSouAmb</code>. The systems serving as
-ambient sources are then controlled in sequence by mapping the controller
-output to a <code>nSouAmb</code>-array of signals between
-<code>0</code> and <code>1</code>.
+<code>0</code> and <code>nSouAmb</code>.
+The systems serving as ambient sources are then controlled in sequence 
+by mapping the controller output to a <code>nSouAmb</code>-array of 
+signals between <code>0</code> and <code>1</code>.
 </li>
 <li>
-Control signal for cold rejection <code>yCol</code> <br/>
+Control signal for cold rejection <code>yCol</code><br/>
 
-The controller for cold rejection is enabled if the heating water
-tank is in demand and the condenser loop isolation valve is commanded
-to be closed (see below).
-It maintains the temperature at the top of the heating water tank
-at the heating water supply temperature set point.
-The controller yields a control signal value between
-<code>0</code> and <code>nSouAmb+1</code>.
-It is used to control in sequence the systems serving as ambient
-sources and ultimately to reset the chilled water supply temperature,
-see
+The controller for cold rejection is enabled if 
+<ul>
+<li>
+the return position of the condenser loop isolation valve is close to zero,
+and
+</li>
+<li>
+heating is enabled, and
+</li>
+<li>
+the temperature at the top of the heating water tank is below a safety 
+limit equal to the heating water supply temperature set point plus the 
+parameter <code>dTLoc</code>. This last condition limits the temperature 
+overshoot after the warmup periods, without having to finely tune the heat and 
+cold rejection controller parameters to guard against the disturbing effect
+of a varying district water temperature.
+</li>
+</ul>
+When enabled, the controller maintains the temperature at the top of the 
+heating water tank at the heating water supply temperature set point.
+The controller yields a signal between <code>0</code> and <code>nSouAmb+1</code>
+which is connected to 
 <a href=\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Controls.SideCold\">
-Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Controls.SideCold</a>.
+Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Controls.SideCold</a>
+where it is used to modulate in sequence the systems serving as ambient sources 
+and ultimately to reset down the chilled water supply temperature.
 </li>
 <li>
 Control signal for the condenser loop isolation valve <code>yIsoAmb</code><br/>
+
 The valve is commanded to be fully open whenever the controller
-for heat rejection yields an output signal greater than zero
-(with a true hold of 300s to avoid short cycling).
+for heat rejection yields an output signal greater than zero.
+The command signal is hold for 60s to avoid short cycling.
 </li>
 </ul>
 </html>"),

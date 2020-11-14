@@ -349,7 +349,7 @@ Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Subsystem
 </li>
 <li>
 The connection of the heating water and chilled water production systems
-and of the systems serving as ambient sources is realized in parallel.
+to the systems serving as ambient sources is realized in parallel.
 </li>
 <li>
 A replaceable partial class is used to represent a supervisory controller, which
@@ -376,18 +376,18 @@ modify the parameter binding with the nominal mass flow rate of each connection
 to each collector/distributor model, namely the parameter
 <code>mCon_flow_nominal</code> (array) of the components <code>colChiWat</code>,
 <code>colHeaWat</code> and <code>colAmbWat</code>.
-The connection index <code>1</code> for <code>colChiWat</code> and
+The connection index <code>1</code> for the components <code>colChiWat</code> and
 <code>colHeaWat</code> is reserved for the connection with the ambient source
 circuit. It increases with the distance from the buffer tank.
-The connection index <code>1</code> for <code>colAmbWat</code> is
+The connection index <code>1</code> for  the component <code>colAmbWat</code> is
 reserved for the connection with the district heat exchanger.
-Note that the order of the connections has no impact on the
-flow distribution as the connections are in parallel.
+Note that the order of the connections has no impact on the flow distribution 
+as the connections are in parallel.
 </li>
 </ul>
 <p>
-Note that this hydronic layout is not compatible with a compressor-less cooling
-mode using only the district heat exchanger.
+Eventually, note that this hydronic layout is not compatible with a 
+compressor-less cooling mode using only the district heat exchanger.
 </p>
 <p>
 <img alt=\"Sequence chart\"

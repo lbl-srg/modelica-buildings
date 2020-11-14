@@ -76,26 +76,17 @@ in a system configuration with no geothermal borefield.
 </p>
 <ul>
 <li>
-A load profile based on building energy simulation is used to represent realistic
-operating conditions.
+A load profile based on a whole building energy simulation is used to 
+represent realistic operating conditions.
 </li>
 <li>
-The district water supply temperature is constant.
+The district water supply temperature varies on a monthly basis, with
+a minimum in January and a maximum in August.
 </li>
 <li>
-The building distribution pumps are variable speed and the flow rate
-is considered to vary linearly with the load (with no inferior limit).
-</li>
-<li>
-The Boolean enable signals for heating and cooling typically provided
-by the building automation system are here computed
-as falseif the load is lower than 1% of the nominal load for more than 300s.
-</li>
-<li>
-Simplified chiller performance data are used, which only represent a linear
-variation of the EIR with the evaporator outlet temperature and the
-condenser inlet temperature (the capacity is fixed and
-no variation of the performance at part load is considered).
+The other modeling assumptions are described in 
+<a href=\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Validation.BaseClasses.PartialChillerBorefield\">
+Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Validation.BaseClasses.PartialChillerBorefield</a>.
 </li>
 </ul>
 </html>"));

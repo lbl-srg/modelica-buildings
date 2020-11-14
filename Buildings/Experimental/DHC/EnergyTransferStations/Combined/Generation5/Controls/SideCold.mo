@@ -9,16 +9,16 @@ model SideCold
     displayUnit="degC")
     "Minimum value of chilled water supply temperature set point";
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=
-    Buildings.Controls.OBC.CDL.Types.SimpleController.P
+    Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
     annotation (choices(
       choice=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
        choice=Buildings.Controls.OBC.CDL.Types.SimpleController.PI));
   parameter Real k(
-    min=0)=1
+    min=0)=0.1
     "Gain of controller";
   parameter Modelica.SIunits.Time Ti(
-    min=Buildings.Controls.OBC.CDL.Constants.small)=0.5
+    min=Buildings.Controls.OBC.CDL.Constants.small)=120
     "Time constant of integrator block"
     annotation (Dialog(enable=controllerType ==
       Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
@@ -203,11 +203,7 @@ First implementation
 This block serves as the controller for the cold side of the ETS in
 <a href=\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Controls.Supervisory\">
 Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Controls.Supervisory</a>.
-See
-<a href=\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Controls.BaseClasses.PartialSideHotCold\">
-Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Controls.BaseClasses.PartialSideHotCold</a>
-for the computation of the demand signal <code>yDem</code>.
-The other control signals are computed as follows.
+It computes the following control signals.
 </p>
 <ul>
 <li>
@@ -219,8 +215,8 @@ is processed as follows.
 <li>
 A controller is used to track the chilled water
 supply temperature (CHWST) set point.
-This controller is enabled if the chilled water
-tank is in demand. It yields a control signal value between
+This controller is enabled when cooling is enabled. 
+It yields a control signal value between
 <code>0</code> and <code>nSouAmb</code>.
 </li>
 <li>
@@ -243,8 +239,9 @@ parameter.
 <li>
 Control signal for the evaporator loop isolation valve <code>yIsoAmb</code><br/>
 
-The valve is commanded to be fully open whenever the control signal
-for the first ambient source is greater than zero.
+The valve is commanded to be fully open whenever the cold rejection control signal
+is greater than zero.
+The command signal is hold for 60s to avoid short cycling.
 </li>
 </ul>
 </html>"),

@@ -2,45 +2,54 @@ within Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Co
 model Supervisory
   "Supervisory controller"
   extends BaseClasses.PartialSupervisory;
-  parameter Modelica.SIunits.TemperatureDifference dTDea(
-    min=0)=0.5
-    "Temperature dead band (absolute value)";
-  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
-    "Type of controller";
+  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=
+    Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+    "Type of controller"
+    annotation (choices(
+      choice=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
+       choice=Buildings.Controls.OBC.CDL.Types.SimpleController.PI));
   parameter Real kHot(
-    min=0)=0.1
+    min=0)=0.05
     "Gain of controller on hot side";
   parameter Real kCol(
-    min=0)=0.2
+    min=0)=0.1
     "Gain of controller on cold side";
-  parameter Modelica.SIunits.Time Ti(
+  parameter Modelica.SIunits.Time TiHot(
     min=Buildings.Controls.OBC.CDL.Constants.small)=300
-    "Time constant of integrator block (hot and cold side)"
-    annotation (Dialog(enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+    "Time constant of integrator block on hot side"
+    annotation (Dialog(
+      enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+      or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+  parameter Modelica.SIunits.Time TiCol(
+    min=Buildings.Controls.OBC.CDL.Constants.small)=120
+    "Time constant of integrator block on cold side"
+    annotation (Dialog(
+      enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+      or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   parameter Modelica.SIunits.Temperature THeaWatSupSetMin(
     displayUnit="degC")
     "Minimum value of heating water supply temperature set point";
   parameter Modelica.SIunits.Temperature TChiWatSupSetMin(
     displayUnit="degC")
     "Minimum value of chilled water supply temperature set point";
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput yValIsoCon_actual(final unit=
-       "1") "Return position of condenser to ambient loop isolation valve"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput yValIsoCon_actual(
+    final unit="1") "Return position of condenser to ambient loop isolation valve"
     annotation (Placement(transformation(extent={{-160,-100},{-120,-60}}),
         iconTransformation(extent={{-140,-90},{-100,-50}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput yValIsoEva_actual(final unit=
-       "1") "Return position of evaporator to ambient loop isolation valve"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput yValIsoEva_actual(
+    final unit="1") "Return position of evaporator to ambient loop isolation valve"
     annotation (Placement(transformation(extent={{-160,-120},{-120,-80}}),
         iconTransformation(extent={{-140,-110},{-100,-70}})));
   SideHot conHot(
     final k=kHot,
-    final Ti=Ti,
+    final Ti=TiHot,
     final nSouAmb=nSouAmb,
     final controllerType=controllerType)
     "Hot side controller"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
   SideCold conCol(
     final k=kCol,
-    final Ti=Ti,
+    final Ti=TiCol,
     final nSouAmb=nSouAmb,
     final controllerType=controllerType,
     final TChiWatSupSetMin=TChiWatSupSetMin)
@@ -127,35 +136,34 @@ Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.ChillerBo
 <li>
 Heating (resp. cooling) is enabled based on the input signal <code>uHea</code> 
 (resp. <code>uCoo</code>) which is hold for 15', meaning that, 
-when enabled, a mode remains active for 15' and, 
-when disabled, a mode cannot be enabled again within 15'.
+when enabled, the mode remains active for at least 15' and, 
+when disabled, the mode cannot be enabled again for at least 15'.
 The heating and cooling enable signals should be computed externally based on a shedule 
-(to lock out the system during off-hours) and ideally in conjunction with the number
+(to lock out the system during off-hours), ideally in conjunction with the number
 of requests yielded by the terminal unit controllers. Indeed, the heating water supply set 
 point is allowed to be reset down only when heating is disabled, in which
 case the system performance is improved due to a lower chiller lift.
 </li>
 <li>
-It resets the heating water supply temperature based on the logic described in
+The controller resets the heating water supply temperature based on the logic described in
 <a href=\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Controls.Reset\">
 Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Controls.Reset</a>.
 Note that this resetting logic is meant to operate the chiller at low lift.
 The chilled water supply temperature may be also reset down by
-<a href=\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Controls.SideHot\">
-Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Controls.SideHot</a>
+<a href=\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Controls.SideCold\">
+Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Controls.SideCold</a>
 to maintain the heating water supply temperature set point.
 This second resetting logic is required for the heating function of the unit,
 but it has a negative impact on the lift.
 </li>
 <li>
-It controls the systems serving as ambient sources based on the logic described in
-<a href=\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Controls.SideCold\">
-Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Controls.SideCold</a>
-and
+Eventually the systems serving as ambient sources are controlled based on the
+maximum of the control signals <code>yAmb</code> yielded by
 <a href=\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Controls.SideHot\">
-Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Controls.SideHot</a>.
-The systems are controlled based on the
-maximum of the control signals yielded by the hot side and cold side controllers.
+Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Controls.SideHot</a>
+and
+<a href=\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Controls.SideCold\">
+Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Controls.SideCold</a>.
 </li>
 </ul>
 </html>"));
