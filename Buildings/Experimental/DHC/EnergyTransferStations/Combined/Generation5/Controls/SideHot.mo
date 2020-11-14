@@ -249,7 +249,7 @@ The controller yields a signal between <code>0</code> and <code>nSouAmb+1</code>
 which is connected to 
 <a href=\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Controls.SideCold\">
 Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Controls.SideCold</a>
-where it is used to modulate in sequence the systems serving as ambient sources 
+where it is used to control in sequence the systems serving as ambient sources 
 and ultimately to reset down the chilled water supply temperature.
 </li>
 <li>
@@ -257,7 +257,7 @@ Control signal for the condenser loop isolation valve <code>yIsoAmb</code><br/>
 
 The valve is commanded to be fully open whenever the controller
 for heat rejection yields an output signal greater than zero.
-The command signal is hold for 60s to avoid short cycling.
+The command signal is held for 60s to avoid short cycling.
 </li>
 </ul>
 </html>"),

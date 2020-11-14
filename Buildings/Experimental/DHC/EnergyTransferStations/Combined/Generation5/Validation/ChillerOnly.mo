@@ -52,7 +52,7 @@ patterns.
 </li>
 <li>
 Each load pattern is simulated with two values of the district water supply 
-temperature, corresponding to the typical extreme values over a whole year
+temperature, corresponding to typical extreme values over a whole year
  of operation.
 </li>
 <li>

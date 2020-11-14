@@ -356,9 +356,9 @@ by the building automation system are here computed based on the condition
 that the load is greater than 1% of the nominal load.
 </li>
 <li>
-Simplified chiller performance data are used, which only represent a linear
+Simplified chiller performance data are used, which represent a linear
 variation of the EIR and the capacity with the evaporator outlet temperature 
-and the condenser inlet temperature (no variation of the performance at part 
+and the condenser inlet temperature (no variation of the EIR at part 
 load is considered).
 </li>
 </ul>

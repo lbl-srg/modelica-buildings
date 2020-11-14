@@ -233,7 +233,7 @@ Chilled water supply temperature set point <code>TChiWatSupSet</code><br/>
 The remaining part of the cold rejection signal between
 <code>nSouAmb</code> and <code>nSouAmb+1</code> is used
 to reset the CHWST set point between a maximum value provided
-as a block input variable, and a minimum value provided as a
+as an input variable, and a minimum value provided as a
 parameter.
 </li>
 <li>
@@ -241,7 +241,7 @@ Control signal for the evaporator loop isolation valve <code>yIsoAmb</code><br/>
 
 The valve is commanded to be fully open whenever the cold rejection control signal
 is greater than zero.
-The command signal is hold for 60s to avoid short cycling.
+The command signal is held for 60s to avoid short cycling.
 </li>
 </ul>
 </html>"),

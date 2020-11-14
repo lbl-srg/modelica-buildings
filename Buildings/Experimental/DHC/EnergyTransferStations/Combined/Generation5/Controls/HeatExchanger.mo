@@ -288,7 +288,7 @@ for a control signal varying between 30% and 100%),
 </li>
 <li>
 the primary pump speed (or valve opening) is modulated with
-a PI loop controlling the temperature difference accross the primary side
+a PI loop controlling the temperature difference across the primary side
 of the heat exchanger.
 A set point (and gain) scheduling logic is implemented to allow changing the
 control parameters based on the active rejection mode (heat or cold rejection)
