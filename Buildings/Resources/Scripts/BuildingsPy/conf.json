@@ -132,8 +132,8 @@
          "rtol": 1E-8
     },
        "optimica": {
-         "rtol": 1E-8
-         "comment": "CVode is very slow if tolerance is 1E-6."
+         "solver": "Radau5ODE",
+         "comment": "CVode is very slow even with tolerance of 1E-8."
     },
     "model_name": "Buildings.Examples.DualFanDualDuct.ClosedLoop"
   }
