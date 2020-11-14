@@ -176,6 +176,7 @@ equation
 This model outputs the difference in enthalphy flow rate of the same 
 medium between two different streams: 
 <i>&Delta;H&#775; = m&#775;<sub>1</sub> h<sub>1</sub> - m&#775;<sub>2</sub> h<sub>2</sub></i>.
+Optionally the time integral of this quantity can be output.
 The sensor is ideal, i.e., it does not influence the fluid.
 </p>
 <p>
