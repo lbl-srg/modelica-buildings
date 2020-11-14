@@ -26,8 +26,9 @@
     },
     "model_name": "Buildings.Fluid.Examples.FlowSystem.Simplified2"
   },
+  {
       "optimica": {
-        "solver": "Radau5ODE"
+        "solver": "Radau5ODE",
         "comment": "CVode requires 1000 times more Jacobian evaluations"
     },
     "model_name": "Buildings.Fluid.Interfaces.Examples.Humidifier_u"
