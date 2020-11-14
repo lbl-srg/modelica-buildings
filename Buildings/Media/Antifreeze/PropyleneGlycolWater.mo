@@ -31,15 +31,15 @@ package PropyleneGlycolWater
     "Mass fraction of propylene glycol in water";
 
   redeclare model BaseProperties "Base properties"
-    Temperature T(stateSelect=
-      if preferredMediumStates then StateSelect.prefer else StateSelect.default)
-      "Temperature of medium";
+    Temperature T "Temperature of medium";
 
     InputAbsolutePressure p "Absolute pressure of medium";
     InputMassFraction[nXi] Xi=fill(0, 0)
       "Structurally independent mass fractions";
     InputSpecificEnthalpy h "Specific enthalpy of medium";
-    Modelica.SIunits.SpecificInternalEnergy u
+    Modelica.SIunits.SpecificInternalEnergy u(
+     nominal=1E4,
+     stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default)
       "Specific internal energy of medium";
     Modelica.SIunits.Density d=d_const "Density of medium";
     Modelica.SIunits.MassFraction[nX] X={1}

@@ -27,8 +27,12 @@ package PerfectGas "Model for air as a perfect gas"
   end ThermodynamicState;
 
   redeclare replaceable model extends BaseProperties(
-    p(stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default),
-    Xi(each stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default),
+    u(nominal=1E4,
+      stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default),
+    d(stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default),
+    Xi(
+      nominal={0.01},
+      each stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default),
     final standardOrderComponents=true)
 
     /* p, T, X = X[Water] are used as preferred states, since only then all
@@ -586,7 +590,7 @@ First implementation.
     "Return specific entropy of moist air as a function of pressure p, temperature T and composition X (only valid for phi<1)";
   function s_pTX_der = Modelica.Media.Air.MoistAir.s_pTX_der
     "Return specific entropy of moist air as a function of pressure p, temperature T and composition X (only valid for phi<1)";
-  annotation(preferredView="info", Documentation(info="<html>
+  annotation(Documentation(info="<html>
 <p>
 This package contains a <i>thermally perfect</i> model of moist air.
 </p>
@@ -636,6 +640,13 @@ space dimension</i>. CRC Press. 1998.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 6, 2020, by Michael Wetter and Filip Jorissen:<br/>
+Solved equation between pressure and density in the base properties
+for pressure, as this is what the symbolic formulation usually needs.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1412\">1412</a>.
+</li>
 <li>
 October 26, 2018, by Filip Jorissen and Michael Wetter:<br/>
 Now printing different messages if temperature is above or below its limit,
