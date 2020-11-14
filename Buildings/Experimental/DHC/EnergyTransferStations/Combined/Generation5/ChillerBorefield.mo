@@ -241,7 +241,7 @@ building has no corresponding demand (e.g., based on the requests yielded by
 the terminal unit controllers, in conjunction with a schedule).
 This will significantly improve the system performance as it is a
 necessary condition for the chiller to be operated at a lower lift, see
-<a href=\\\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Controls.Reset\\\">
+<a href=\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Controls.Reset\">
 Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Controls.Reset</a>.
 <br/>
 </p>
