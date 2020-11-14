@@ -4,13 +4,13 @@ simulateModel("Buildings.Experimental.DHC.EnergyTransferStations.Combined.Genera
     tolerance=1e-6,
     stopTime=5000,
     resultFile="Chiller");
-createPlot(id=1, position={4, 17, 540, 664}, y={"THeaWatSupSet.y", "senTHeaWatSup.T", "senTHeaWatRet.T"},
+createPlot(id=1, position={4, 17, 540, 664}, y={"senTHeaWatSup.T", "senTHeaWatRet.T"},
     autoscale=true,
     autoerase=true,
     autoreplot=true,
     grid=true,
     color=true);
-createPlot(id=1, position={4, 17, 540, 330}, y={"TChiWatSupSet.y", "chi.con.TChiWatSupSet", "senTChiWatSup.T", "senTChiWatRet.T"},
+createPlot(id=1, position={4, 17, 540, 330}, y={"TChiWatSupSet.y", "senTChiWatSup.T", "senTChiWatRet.T"},
     autoscale=true,
     autoerase=true,
     autoreplot=true,
