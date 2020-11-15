@@ -79,8 +79,7 @@ model ConservationEquation "Lumped volume with mass and energy balance"
     preferredMediumStates = energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState,
     p(start=p_start),
     h(start=hStart),
-    u(stateSelect=if ((not computeCSen) and energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState) then
-      StateSelect.prefer else StateSelect.never),
+    u(stateSelect=StateSelect.never),
     T(start=T_start),
     Xi(start=X_start[1:Medium.nXi]),
     X(start=X_start),
@@ -173,7 +172,7 @@ protected
   // U = m*medium.u + CSen*(medium.T-Medium.reference_T)
   // is used. Therefore, the new variable _u has been introduced.
   Medium.SpecificEnergy _u(
-    stateSelect = if (computeCSen and energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState)
+    stateSelect = if (energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState)
       then StateSelect.prefer else StateSelect.default,
     nominal=1E4)
     "Surrogate for specific energy, used as a state variable, and set to _u = U/(fluidVolume*rho_default)";
