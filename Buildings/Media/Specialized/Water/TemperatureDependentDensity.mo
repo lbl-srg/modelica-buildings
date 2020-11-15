@@ -28,12 +28,12 @@ package TemperatureDependentDensity
     "Specific heat capacity at constant pressure";
 
   redeclare model extends BaseProperties(
-    h(nominal=1E4,
-      stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default))
+    h(nominal=1E4))
      "Base properties"
 
   equation
-    h = (T - reference_T)*cp_const;
+    T = reference_T + h/cp_const;
+    //    h = (T - reference_T)*cp_const;
     u = h-reference_p/d;
     d = density(state);
     state.T = T;

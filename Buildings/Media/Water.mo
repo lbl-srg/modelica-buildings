@@ -19,15 +19,16 @@ package Water "Package with model for liquid water with constant density"
     final parameter Boolean standardOrderComponents=true
       "If true, and reducedX = true, the last element of X will be computed from the other ones";
     Modelica.SIunits.Density d=d_const "Density of medium";
-    Temperature T
+    Temperature T(
+      stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default,
+      nominal=100)
       "Temperature of medium";
     InputAbsolutePressure p "Absolute pressure of medium";
     InputMassFraction[nXi] Xi=fill(0, 0)
       "Structurally independent mass fractions";
     InputSpecificEnthalpy h "Specific enthalpy of medium";
     Modelica.SIunits.SpecificInternalEnergy u(
-      nominal=1E4,
-      stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default)
+      nominal=1E4)
       "Specific internal energy of medium";
 
     Modelica.SIunits.MassFraction[nX] X={1}
@@ -56,7 +57,8 @@ package Water "Package with model for liquid water with constant density"
       "Mass fraction as input signal connector";
 
   equation
-    h = cp_const*(T-reference_T);
+    T = reference_T + h/cp_const;
+    //    h = cp_const*(T-reference_T);
     u = h;
     state.T = T;
     state.p = p;

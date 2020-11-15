@@ -79,9 +79,9 @@ model ConservationEquation "Lumped volume with mass and energy balance"
     preferredMediumStates = energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState,
     p(start=p_start),
     h(start=hStart),
-    u(stateSelect=if ((not computeCSen) and energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState) then
-      StateSelect.prefer else StateSelect.never),
-    T(start=T_start),
+    T(stateSelect = if (energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState) then
+        StateSelect.prefer else StateSelect.never,
+      start=T_start),
     Xi(start=X_start[1:Medium.nXi]),
     X(start=X_start),
     d(start=rho_start)) "Medium properties";
@@ -172,11 +172,11 @@ protected
   // Note that this is different from using medium.u if the expression
   // U = m*medium.u + CSen*(medium.T-Medium.reference_T)
   // is used. Therefore, the new variable _u has been introduced.
-  Medium.SpecificEnergy _u(
-    stateSelect = if (computeCSen and energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState)
-      then StateSelect.prefer else StateSelect.default,
-    nominal=1E4)
-    "Surrogate for specific energy, used as a state variable, and set to _u = U/(fluidVolume*rho_default)";
+//   Medium.SpecificEnergy _u(
+//     stateSelect = if (computeCSen and energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState)
+//       then StateSelect.prefer else StateSelect.default,
+//     nominal=1E4)
+//     "Surrogate for specific energy, used as a state variable, and set to _u = U/(fluidVolume*rho_default)";
 
   // Quantities exchanged through the fluid ports
   Medium.EnthalpyFlowRate ports_H_flow[nPorts]
@@ -280,10 +280,10 @@ equation
   if computeCSen then
     U = m*medium.u + CSen*(medium.T-Medium.reference_T);
     // Internal state variable
-    _u = U * mInv;
+//    _u = U * mInv;
   else
     U = m*medium.u;
-    _u = medium.u;
+//    _u = medium.u;
   end if;
   mC = m*C;
 

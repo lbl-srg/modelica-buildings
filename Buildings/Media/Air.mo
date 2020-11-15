@@ -62,13 +62,13 @@ package Air
   InputSpecificEnthalpy h "Specific enthalpy of medium";
   Modelica.Media.Interfaces.Types.Density d "Density of medium";
   Modelica.Media.Interfaces.Types.Temperature T(
+   stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default,
    nominal=100)
    "Temperature of medium";
   Modelica.Media.Interfaces.Types.MassFraction[2] X(start=reference_X)
     "Mass fractions (= (component mass)/total mass  m_i/m)";
   Modelica.Media.Interfaces.Types.SpecificInternalEnergy u(
-   nominal=1E4,
-   stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default)
+   nominal=1E4)
     "Specific internal energy of medium";
   Modelica.Media.Interfaces.Types.SpecificHeatCapacity R
     "Gas constant (of mixture if applicable)";
@@ -98,7 +98,7 @@ package Air
   equation
     MM = 1/(X[1]/steam.MM+(X[2])/dryair.MM);
 
-    dT = T - reference_T;
+    T = dT + reference_T;
     h = dT*dryair.cp * X[2] +
        (dT * steam.cp + h_fg) * X[1];
     R = dryair.R*X[2] + steam.R*X[1];

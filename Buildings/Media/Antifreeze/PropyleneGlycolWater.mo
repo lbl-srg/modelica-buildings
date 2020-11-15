@@ -31,15 +31,15 @@ package PropyleneGlycolWater
     "Mass fraction of propylene glycol in water";
 
   redeclare model BaseProperties "Base properties"
-    Temperature T "Temperature of medium";
+    Temperature T(
+      stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default,
+      nominal=100) "Temperature of medium";
 
     InputAbsolutePressure p "Absolute pressure of medium";
     InputMassFraction[nXi] Xi=fill(0, 0)
       "Structurally independent mass fractions";
     InputSpecificEnthalpy h "Specific enthalpy of medium";
-    Modelica.SIunits.SpecificInternalEnergy u(
-     nominal=1E4,
-     stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default)
+    Modelica.SIunits.SpecificInternalEnergy u
       "Specific internal energy of medium";
     Modelica.SIunits.Density d=d_const "Density of medium";
     Modelica.SIunits.MassFraction[nX] X={1}
@@ -87,7 +87,8 @@ as required from medium model \"" + mediumName + "\".");
 In "   + getInstanceName() + ": Mass fraction x_a exceeded its maximum allowed value of " + String(X_a_max) + "
 as required from medium model \"" + mediumName + "\".");
 
-    h = cp_const*(T-reference_T);
+    T = reference_T + h/cp_const;
+    //    h = cp_const*(T-reference_T);
     u = h;
     state.T = T;
     state.p = p;

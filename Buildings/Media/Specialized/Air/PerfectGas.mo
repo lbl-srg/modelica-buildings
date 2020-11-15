@@ -22,13 +22,16 @@ package PerfectGas "Model for air as a perfect gas"
 
   redeclare record extends ThermodynamicState(
     p(start=p_default),
-    T(start=T_default),
+    T(start=T_default,
+      nominal=100),
     X(start=X_default)) "ThermodynamicState record for moist air"
   end ThermodynamicState;
 
   redeclare replaceable model extends BaseProperties(
-    u(nominal=1E4,
-      stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default),
+    u(nominal=1E4),
+    T(start=T_default,
+      stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default,
+      nominal=100),
     d(stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default),
     Xi(
       nominal={0.01},
