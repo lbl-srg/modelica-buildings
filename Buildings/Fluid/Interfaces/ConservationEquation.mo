@@ -79,6 +79,7 @@ model ConservationEquation "Lumped volume with mass and energy balance"
     preferredMediumStates = energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState,
     p(start=p_start),
     h(start=hStart),
+    u(stateSelect=StateSelect.never),
     T(stateSelect = if (energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState) then
         StateSelect.prefer else StateSelect.never,
       start=T_start),
@@ -172,11 +173,19 @@ protected
   // Note that this is different from using medium.u if the expression
   // U = m*medium.u + CSen*(medium.T-Medium.reference_T)
   // is used. Therefore, the new variable _u has been introduced.
+<<<<<<< HEAD
 //   Medium.SpecificEnergy _u(
 //     stateSelect = if (computeCSen and energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState)
 //       then StateSelect.prefer else StateSelect.default,
 //     nominal=1E4)
 //     "Surrogate for specific energy, used as a state variable, and set to _u = U/(fluidVolume*rho_default)";
+=======
+  Medium.SpecificEnergy _u(
+    stateSelect = if (energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState)
+      then StateSelect.prefer else StateSelect.default,
+    nominal=1E4)
+    "Surrogate for specific energy, used as a state variable, and set to _u = U/(fluidVolume*rho_default)";
+>>>>>>> IBPSASync_issue1412_humidifer_u_Cvode
 
   // Quantities exchanged through the fluid ports
   Medium.EnthalpyFlowRate ports_H_flow[nPorts]
