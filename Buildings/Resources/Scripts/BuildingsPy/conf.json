@@ -59,6 +59,16 @@
   },
   {
     "jmodelica": {
+      "simulate": false
+    },
+    "optimica": {
+      "simulate": false,
+      "comment": "Very slow progress, needs investigation"
+    },
+  "model_name": "Buildings.ThermalZones.EnergyPlus.Examples.VAVReheatRefBldgSmallOffice.FloorOpenLoop"
+  },
+  {
+    "jmodelica": {
         "translate": false
     },
     "optimica": {
