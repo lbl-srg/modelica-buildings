@@ -52,8 +52,9 @@
       "simulate": false
     },
     "optimica": {
+      "solver": "Radau5ODE",
       "rtol": 1E-8,
-      "comment": "Tolerance of 1E-7 would lead to very slow progress with commit fabaa64231692a2a2b6c044aff34f5ae6b3be868"
+      "comment": "Tolerance of 1E-7 would lead to very slow progress with Cvode, commit fabaa64231692a2a2b6c044aff34f5ae6b3be868"
     },
   "model_name": "Buildings.ThermalZones.Detailed.Validation.SingleZoneFloorWithHeating"
   },
