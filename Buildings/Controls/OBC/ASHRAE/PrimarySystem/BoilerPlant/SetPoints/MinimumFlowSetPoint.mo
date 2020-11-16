@@ -33,6 +33,13 @@ block MinimumFlowSetPoint "Hot water minimum flow setpoint"
     final min=0) = 0.001
     "Rate at which to reset bypass valve setpoint during stage change";
 
+  parameter Real delSamPer(
+    final unit="s",
+    displayUnit="s",
+    final quantity="time") = 0.001
+    "Sampling period for unit delay on current flowrate setpoint"
+    annotation(Dialog(tab="Advanced"));
+
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uOnOff
     "Signal indicating stage change with boilers being both enabled and disabled"
     annotation (Placement(transformation(extent={{-180,-30},{-140,10}}),
@@ -293,7 +300,7 @@ protected
     annotation (Placement(transformation(extent={{228,-50},{248,-30}})));
 
   Buildings.Controls.OBC.CDL.Discrete.UnitDelay uniDel(
-    final samplePeriod=1)
+    final samplePeriod=delSamPer)
     "Unit delay for Real signal"
     annotation (Placement(transformation(extent={{140,-120},{160,-100}})));
 
