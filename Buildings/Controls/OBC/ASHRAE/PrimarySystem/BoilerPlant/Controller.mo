@@ -1004,7 +1004,7 @@ model Controller
     final unit=fill("1",nBoi),
     displayUnit=fill("1",nBoi)) if have_heaPriPum
     "Boiler hot water isolation valve position vector"
-    annotation (Placement(transformation(extent={{400,150},{440,190}}),
+    annotation (Placement(transformation(extent={{400,100},{440,140}}),
       iconTransformation(extent={{100,40},{140,80}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yPriPumSpe[nPumPri](
@@ -1074,7 +1074,8 @@ model Controller
     final staMat=staMat,
     final minFloSet=minFloSet,
     final maxFloSet=maxFloSet,
-    final bypSetRat=bypSetRat) if have_priOnl
+    final bypSetRat=bypSetRat,
+    final delSamPer=1) if have_priOnl
     "Minimum flow setpoint for the primary loop"
     annotation (Placement(transformation(extent={{250,310},{270,330}})));
 
@@ -1239,7 +1240,8 @@ protected
     final staMat=fill(staMat, nSta),
     final minFloSet=fill(minFloSet, nSta),
     final maxFloSet=fill(maxFloSet, nSta),
-    final bypSetRat=fill(bypSetRat, nSta))
+    final bypSetRat=fill(bypSetRat, nSta),
+    final delSamPer=fill(1, nSta))
     "Calculate vector of minimum flow setpoints for all stages"
     annotation (Placement(transformation(extent={{-340,0},{-320,20}})));
 
@@ -1386,7 +1388,7 @@ protected
   Buildings.Controls.OBC.CDL.Discrete.UnitDelay uniDel4(
     final samplePeriod=1) if have_varPriPum
     "Unit delay"
-    annotation (Placement(transformation(extent={{320,-200},{340,-180}})));
+    annotation (Placement(transformation(extent={{320,-210},{340,-190}})));
 
   Buildings.Controls.OBC.CDL.Logical.IntegerSwitch intSwi1 if not have_priOnl
     "Integer switch"
@@ -1682,7 +1684,7 @@ equation
           0,255}));
 
   connect(plaDis.yHotWatIsoVal, yHotWatIsoVal) annotation (Line(points={{262,68},
-          {300,68},{300,170},{420,170}}, color={0,0,127}));
+          {300,68},{300,120},{420,120}}, color={0,0,127}));
 
   connect(plaDis.yHotWatIsoVal, uniDel2.u) annotation (Line(points={{262,68},{300,
           68},{300,50},{318,50}},                         color={0,0,127}));
@@ -1714,10 +1716,10 @@ equation
                                                           color={255,0,255}));
 
   connect(priPumCon.yPumSpe[1], uniDel4.u) annotation (Line(points={{142,
-          -193.067},{300,-193.067},{300,-190},{318,-190}},
+          -193.067},{300,-193.067},{300,-200},{318,-200}},
                                              color={0,0,127}));
-  connect(uniDel4.y, staSetCon.uPumSpe) annotation (Line(points={{342,-190},{360,
-          -190},{360,-228},{4,-228},{4,-140},{-270,-140},{-270,-7},{-212,-7}},
+  connect(uniDel4.y, staSetCon.uPumSpe) annotation (Line(points={{342,-200},{
+          360,-200},{360,-228},{4,-228},{4,-140},{-270,-140},{-270,-7},{-212,-7}},
         color={0,0,127}));
   connect(hotWatSupTemRes.TPlaHotWatSupSet, upProCon.THotWatSup) annotation (
       Line(points={{-118,184},{-100,184},{-100,107},{118,107}},
