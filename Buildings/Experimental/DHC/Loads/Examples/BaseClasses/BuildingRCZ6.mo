@@ -11,9 +11,7 @@ model BuildingRCZ6
     "Load side medium";
   parameter Integer nZon=6
     "Number of thermal zones";
-  parameter Integer facSca[nZon]=fill(
-    15,
-    nZon)
+  parameter Integer facSca[nZon]={15 for i in 1:nZon}
     "Scaling factor to be applied to on each extensive quantity";
   parameter Modelica.SIunits.MassFlowRate mLoa_flow_nominal[nZon]=fill(
     1,
