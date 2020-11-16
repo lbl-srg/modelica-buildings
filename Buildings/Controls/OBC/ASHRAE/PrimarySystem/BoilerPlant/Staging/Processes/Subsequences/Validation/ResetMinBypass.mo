@@ -5,36 +5,36 @@ model ResetMinBypass
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.Processes.Subsequences.ResetMinBypass
     minBypRes
     "Check if the setpoint has achieved"
-    annotation (Placement(transformation(extent={{40,38},{60,58}})));
+    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 
 protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul1(
     final width=0.15,
     final period=600)
     "Boolean pulse"
-    annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
+    annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
 
   Buildings.Controls.OBC.CDL.Logical.Not staUp
     "Stage up command"
-    annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
+    annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
 
   Buildings.Controls.OBC.CDL.Logical.Not upStrDev
     "Upstream device reset status"
-    annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
+    annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul2(
     final width=0.2,
     final period=600)
     "Boolean pulse"
-    annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
+    annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp minFloSet(
     final height=0.5,
-    final duration=60,
+    final duration=180,
     final offset=1,
-    final startTime=120)
+    final startTime=60)
     "Minimum boiler water flow setpoint"
-    annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
+    annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp meaFlo(
     final height=0.5,
@@ -42,26 +42,27 @@ protected
     final offset=1,
     final startTime=120)
     "Measured boiler water flow"
-    annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
+    annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
 
 equation
   connect(booPul2.y, upStrDev.u)
-    annotation (Line(points={{-58,50},{-42,50}}, color={255,0,255}));
+    annotation (Line(points={{-58,60},{-42,60}}, color={255,0,255}));
 
   connect(booPul1.y, staUp.u)
-    annotation (Line(points={{-58,10},{-42,10}}, color={255,0,255}));
+    annotation (Line(points={{-58,20},{-42,20}}, color={255,0,255}));
 
   connect(upStrDev.y, minBypRes.uUpsDevSta)
-    annotation (Line(points={{-18,50},{0,50},{0,56},{38,56}}, color={255,0,255}));
+    annotation (Line(points={{-18,60},{16,60},{16,8},{38,8}}, color={255,0,255}));
 
   connect(staUp.y, minBypRes.chaPro)
-    annotation (Line(points={{-18,10},{4,10},{4,52},{38,52}}, color={255,0,255}));
+    annotation (Line(points={{-18,20},{12,20},{12,4},{38,4}}, color={255,0,255}));
 
   connect(meaFlo.y,minBypRes.VHotWat_flow)
-    annotation (Line(points={{-18,-30},{8,-30},{8,44},{38,44}}, color={0,0,127}));
+    annotation (Line(points={{-18,-20},{12,-20},{12,-4},{38,-4}},
+                                                                color={0,0,127}));
 
-  connect(minFloSet.y, minBypRes.VMinHotWatSet_flow) annotation (Line(points={{
-          -18,-70},{12,-70},{12,40},{38,40}}, color={0,0,127}));
+  connect(minFloSet.y, minBypRes.VMinHotWatSet_flow) annotation (Line(points={{-18,-60},
+          {16,-60},{16,-8},{38,-8}},          color={0,0,127}));
 
 annotation (
  experiment(StopTime=600, Tolerance=1e-06),
