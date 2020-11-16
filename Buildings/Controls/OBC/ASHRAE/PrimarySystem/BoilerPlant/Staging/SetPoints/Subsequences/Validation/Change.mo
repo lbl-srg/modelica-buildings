@@ -209,17 +209,17 @@ protected
     annotation (Placement(transformation(extent={{100,-140},{120,-120}})));
 
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant u3(
-    final k=0)
+    final k=1)
     "Boiler stage"
     annotation (Placement(transformation(extent={{140,120},{160,140}})));
 
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant u4(
-    final k=0)
+    final k=1)
     "Boiler stage"
     annotation (Placement(transformation(extent={{140,-60},{160,-40}})));
 
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant u5(
-    final k=0)
+    final k=1)
     "Boiler stage"
     annotation (Placement(transformation(extent={{140,-240},{160,-220}})));
 
