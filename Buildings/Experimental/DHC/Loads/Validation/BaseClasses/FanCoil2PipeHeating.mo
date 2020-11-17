@@ -62,6 +62,7 @@ model FanCoil2PipeHeating
   Buildings.Fluid.HeatExchangers.DryCoilEffectivenessNTU hex(
     redeclare final package Medium1=Medium1,
     redeclare final package Medium2=Medium2,
+    show_T=true,
     final configuration=hexConHea,
     final m1_flow_nominal=mHeaWat_flow_nominal,
     final m2_flow_nominal=mLoaHea_flow_nominal,

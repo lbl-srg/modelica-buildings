@@ -2,19 +2,21 @@ within Buildings.Experimental.DHC.Loads.Examples.BaseClasses;
 model BuildingTimeSeries
   "Building model with heating and cooling loads provided as time series"
   extends Buildings.Experimental.DHC.Loads.BaseClasses.PartialBuilding(
-    redeclare package Medium=Buildings.Media.Water,
+    redeclare package Medium=MediumW,
     final have_fan=false,
     final have_pum=true,
     final have_eleHea=false,
     final have_eleCoo=false,
     final have_weaBus=false);
-  package Medium2=Buildings.Media.Air
-    "Load side medium";
+  package MediumA=Buildings.Media.Air
+    "Air medium";
+  package MediumW=Buildings.Media.Water
+    "Water medium";
   parameter String filNam
     "File name with thermal loads as time series";
-  parameter Real facScaHea=10
+  parameter Real facScaHea=1
     "Heating terminal unit scaling factor";
-  parameter Real facScaCoo=40
+  parameter Real facScaCoo=1
     "Cooling terminal unit scaling factor";
   parameter Modelica.SIunits.Temperature T_aHeaWat_nominal=273.15+40
     "Heating water inlet temperature at nominal conditions"
@@ -38,20 +40,24 @@ model BuildingTimeSeries
   parameter Modelica.SIunits.Temperature T_aLoaCoo_nominal=273.15+24
     "Load side inlet temperature at nominal conditions in cooling mode"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.MassFlowRate mLoaHea_flow_nominal=1
+  parameter Modelica.SIunits.MassFlowRate mLoaHea_flow_nominal=QHea_flow_nominal/(cp_air*delTAirHea)
     "Load side mass flow rate at nominal conditions in heating mode"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.MassFlowRate mLoaCoo_flow_nominal=1
+  parameter Modelica.SIunits.MassFlowRate mLoaCoo_flow_nominal=-QCoo_flow_nominal/(cp_air*delTAirCoo)
     "Load side mass flow rate at nominal conditions in cooling mode"
     annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.SIunits.TemperatureDifference delTAirCoo
+    "Nominal cooling air temperature difference across the terminal unit heat exchanger";
+  parameter Modelica.SIunits.TemperatureDifference delTAirHea
+    "Nominal heating air temperature difference across the terminal unit heat exchanger";
   parameter Modelica.SIunits.HeatFlowRate QCoo_flow_nominal(
-    max=-Modelica.Constants.eps)=Buildings.Experimental.DHC.Loads.BaseClasses.getPeakLoad(
+    max=-Modelica.Constants.eps)=facScaCoo*Buildings.Experimental.DHC.Loads.BaseClasses.getPeakLoad(
     string="#Peak space cooling load",
     filNam=Modelica.Utilities.Files.loadResource(filNam))
     "Design cooling heat flow rate (<=0)"
     annotation (Dialog(group="Design parameter"));
   parameter Modelica.SIunits.HeatFlowRate QHea_flow_nominal(
-    min=Modelica.Constants.eps)=Buildings.Experimental.DHC.Loads.BaseClasses.getPeakLoad(
+    min=Modelica.Constants.eps)=facScaHea*Buildings.Experimental.DHC.Loads.BaseClasses.getPeakLoad(
     string="#Peak space heating load",
     filNam=Modelica.Utilities.Files.loadResource(filNam))
     "Design heating heat flow rate (>=0)"
@@ -84,7 +90,7 @@ model BuildingTimeSeries
       each unit="W"),
     offset={0,0,0},
     columns={2,3,4},
-    smoothness=Modelica.Blocks.Types.Smoothness.MonotoneContinuousDerivative1)
+    smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments)
     "Reader for thermal loads (y[1] is cooling load, y[2] is heating load)"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTSet(
@@ -101,11 +107,11 @@ model BuildingTimeSeries
       displayUnit="degC"))
     "Maximum temperature set point"
     annotation (Placement(transformation(extent={{-280,210},{-260,230}})));
-  DHC.Loads.Validation.BaseClasses.FanCoil2PipeHeating terUniHea(
-    redeclare final package Medium1=Medium,
-    redeclare final package Medium2=Medium2,
+  Buildings.Experimental.DHC.Loads.Validation.BaseClasses.FanCoil2PipeHeating terUniHea(
+    redeclare final package Medium1=MediumW,
+    redeclare final package Medium2=MediumA,
     final facSca=facScaHea,
-    final QHea_flow_nominal=QHea_flow_nominal/facScaHea,
+    final QHea_flow_nominal=QHea_flow_nominal,
     final mHeaWat_flow_nominal=mHeaWat_flow_nominal,
     final mLoaHea_flow_nominal=mLoaHea_flow_nominal,
     final T_aHeaWat_nominal=T_aHeaWat_nominal,
@@ -120,8 +126,8 @@ model BuildingTimeSeries
     "Heating terminal unit"
     annotation (Placement(transformation(extent={{70,-34},{90,-14}})));
   Buildings.Experimental.DHC.Loads.FlowDistribution disFloHea(
-    redeclare package Medium=Medium,
-    m_flow_nominal=mHeaWat_flow_nominal*facScaHea,
+    redeclare package Medium=MediumW,
+    m_flow_nominal=mHeaWat_flow_nominal,
     have_pum=true,
     dp_nominal=100000,
     nPorts_a1=1,
@@ -129,8 +135,8 @@ model BuildingTimeSeries
     "Heating water distribution system"
     annotation (Placement(transformation(extent={{120,-80},{140,-60}})));
   Buildings.Experimental.DHC.Loads.FlowDistribution disFloCoo(
-    redeclare package Medium=Medium,
-    final m_flow_nominal=mChiWat_flow_nominal*facScaCoo,
+    redeclare package Medium=MediumW,
+    m_flow_nominal=mChiWat_flow_nominal,
     typDis=Buildings.Experimental.DHC.Loads.Types.DistributionType.ChilledWater,
     have_pum=true,
     dp_nominal=100000,
@@ -138,19 +144,16 @@ model BuildingTimeSeries
     nPorts_a1=1) if have_watCoo
     "Chilled water distribution system"
     annotation (Placement(transformation(extent={{120,-270},{140,-250}})));
-  DHC.Loads.Validation.BaseClasses.FanCoil2PipeCooling terUniCoo(
-    redeclare final package Medium1=Medium,
-    redeclare final package Medium2=Medium2,
+  Buildings.Experimental.DHC.Loads.Validation.BaseClasses.FanCoil2PipeCooling terUniCoo(
+    redeclare final package Medium1=MediumW,
+    redeclare final package Medium2=MediumA,
     final facSca=facScaCoo,
-    final QHea_flow_nominal=QHea_flow_nominal/facScaHea,
-    final QCoo_flow_nominal=QCoo_flow_nominal/facScaCoo,
+    final QCoo_flow_nominal=QCoo_flow_nominal,
+    final QHea_flow_nominal=QHea_flow_nominal,
     final mChiWat_flow_nominal=mChiWat_flow_nominal,
     final mLoaCoo_flow_nominal=mLoaCoo_flow_nominal,
-    final T_aHeaWat_nominal=T_aHeaWat_nominal,
     final T_aChiWat_nominal=T_aChiWat_nominal,
-    final T_bHeaWat_nominal=T_bHeaWat_nominal,
     final T_bChiWat_nominal=T_bChiWat_nominal,
-    final T_aLoaHea_nominal=T_aLoaHea_nominal,
     final T_aLoaCoo_nominal=T_aLoaCoo_nominal,
     final k=k,
     final Ti=Ti,
@@ -170,21 +173,23 @@ model BuildingTimeSeries
     final unit="W") if have_cooLoa
     "Cooling load"
     annotation (Placement(transformation(extent={{300,-20},{340,20}}),iconTransformation(extent={{-20,-20},{20,20}},rotation=-90,origin={260,-320})));
-  Buildings.Controls.OBC.CDL.Continuous.Add addPPum
-    "Sum pump power"
-    annotation (Placement(transformation(extent={{220,70},{240,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant noCoo(
-    k=0) if not have_watCoo
-    "No cooling system"
-    annotation (Placement(transformation(extent={{70,70},{90,90}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant noHea(
     k=0) if not have_watHea
     "No heating system"
-    annotation (Placement(transformation(extent={{70,110},{90,130}})));
+    annotation (Placement(transformation(extent={{80,120},{100,140}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant noCoo(
+    k=0) if not have_watCoo
+    "No cooling system"
+    annotation (Placement(transformation(extent={{80,78},{100,98}})));
   Buildings.Controls.OBC.CDL.Continuous.Add addPFan
     "Sum fan power"
-    annotation (Placement(transformation(extent={{220,110},{240,130}})));
+    annotation (Placement(transformation(extent={{222,120},{242,140}})));
+  Buildings.Controls.OBC.CDL.Continuous.Add addPPum
+    "Sum pump power"
+    annotation (Placement(transformation(extent={{222,70},{242,90}})));
 protected
+  parameter Modelica.SIunits.SpecificHeatCapacity cp_air=1005
+    "Air specific heat capacity";
   parameter Modelica.SIunits.SpecificHeatCapacity cpHeaWat_nominal=Medium.specificHeatCapacityCp(
     Medium.setState_pTX(
       Medium.p_default,
@@ -239,25 +244,25 @@ equation
   connect(loa.y[2],QReqHea_flow)
     annotation (Line(points={{21,0},{280,0},{280,40},{320,40}},color={0,0,127}));
   connect(disFloHea.PPum,addPPum.u1)
-    annotation (Line(points={{141,-78},{170,-78},{170,86},{218,86}},color={0,0,127}));
+    annotation (Line(points={{141,-78},{170,-78},{170,86},{220,86}},color={0,0,127}));
   connect(disFloCoo.PPum,addPPum.u2)
-    annotation (Line(points={{141,-268},{200,-268},{200,74},{218,74}},color={0,0,127}));
+    annotation (Line(points={{141,-268},{200,-268},{200,74},{220,74}},color={0,0,127}));
   connect(addPPum.y,PPum)
-    annotation (Line(points={{242,80},{320,80}},color={0,0,127}));
+    annotation (Line(points={{244,80},{320,80}},color={0,0,127}));
   connect(noHea.y,addPPum.u1)
-    annotation (Line(points={{92,120},{170,120},{170,86},{218,86}},color={0,0,127}));
+    annotation (Line(points={{102,130},{170,130},{170,86},{220,86}},color={0,0,127}));
   connect(noCoo.y,addPPum.u2)
-    annotation (Line(points={{92,80},{200,80},{200,74},{218,74}},color={0,0,127}));
+    annotation (Line(points={{102,88},{200,88},{200,74},{220,74}},color={0,0,127}));
   connect(addPFan.y,PFan)
-    annotation (Line(points={{242,120},{320,120}},color={0,0,127}));
+    annotation (Line(points={{244,130},{282,130},{282,120},{320,120}},color={0,0,127}));
   connect(noHea.y,addPFan.u1)
-    annotation (Line(points={{92,120},{200,120},{200,126},{218,126}},color={0,0,127}));
+    annotation (Line(points={{102,130},{200,130},{200,136},{220,136}},color={0,0,127}));
   connect(noCoo.y,addPFan.u2)
-    annotation (Line(points={{92,80},{200,80},{200,114},{218,114}},color={0,0,127}));
+    annotation (Line(points={{102,88},{200,88},{200,124},{220,124}},color={0,0,127}));
   connect(terUniCoo.PFan,addPFan.u2)
-    annotation (Line(points={{90.8333,36},{160,36},{160,114},{218,114}},color={0,0,127}));
+    annotation (Line(points={{90.8333,36},{160,36},{160,124},{220,124}},color={0,0,127}));
   connect(terUniHea.PFan,addPFan.u1)
-    annotation (Line(points={{90.8333,-24},{180,-24},{180,126},{218,126}},color={0,0,127}));
+    annotation (Line(points={{90.8333,-24},{180,-24},{180,136},{220,136}},color={0,0,127}));
   annotation (
     Documentation(
       info="
@@ -269,6 +274,15 @@ are provided as time series.
 </html>",
       revisions="<html>
 <ul>
+<li>
+October 20, 2020, by Hagar Elarga:<br/>
+The <code>mLoaHea_flow_nominal</code> and <code>mLoaCoo_flow_nominal</code> are 
+evaluated as a function of <code> QHea_flow_nominal</code> and 
+<code>QCoo_flow_nominal</code> respectively. The default values of <code>facScaHeac</code>
+and <code>facScaCoo</code> are assigned to one.
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2201\">issue 2201</a> and
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2202\">issue 2202</a>.
+</li>  
 <li>
 September 18, 2020, by Jianjun Hu:<br/>
 Changed flow distribution components and the terminal units to be conditional depending
