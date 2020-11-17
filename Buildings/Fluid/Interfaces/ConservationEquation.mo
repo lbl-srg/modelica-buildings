@@ -80,8 +80,7 @@ model ConservationEquation "Lumped volume with mass and energy balance"
     p(start=p_start),
     h(start=hStart),
     u(stateSelect=StateSelect.never),
-    T(stateSelect = if (energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState) then
-        StateSelect.prefer else StateSelect.never,
+    T(stateSelect=StateSelect.never,
       start=T_start),
     Xi(start=X_start[1:Medium.nXi]),
     X(start=X_start),
