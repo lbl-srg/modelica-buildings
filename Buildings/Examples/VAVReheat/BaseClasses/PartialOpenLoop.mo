@@ -126,7 +126,7 @@ partial model PartialOpenLoop
     final lat=lat,
     final use_windPressure=use_windPressure,
     final sampleModel=sampleModel) constrainedby
-    Buildings.ThermalZones.EnergyPlus.Examples.VAVReheatRefBldgSmallOffice.BaseClasses.PartialFloor
+    Buildings.ThermalZones.BaseClasses.PartialFloor
     "Model of a floor of the building that is served by this VAV system"
     annotation (Placement(transformation(extent={{772,396},{1100,616}})), choicesAllMatching=true);
 

@@ -1,7 +1,7 @@
 within Buildings.Examples.VAVReheat.ThermalZones;
 model Floor "Model of a floor of the building"
   extends
-    Buildings.ThermalZones.EnergyPlus.Examples.VAVReheatRefBldgSmallOffice.BaseClasses.PartialFloor(
+    Buildings.ThermalZones.BaseClasses.PartialFloor(
     final VRooCor=cor.AFlo * hRoo,
     final VRooSou=sou.AFlo * hRoo,
     final VRooNor=nor.AFlo * hRoo,

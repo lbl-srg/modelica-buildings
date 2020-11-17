@@ -1,7 +1,7 @@
 within Buildings.ThermalZones.EnergyPlus.Examples.VAVReheatRefBldgSmallOffice.BaseClasses;
 model Floor "Model of a floor of the building"
   extends
-    Buildings.ThermalZones.EnergyPlus.Examples.VAVReheatRefBldgSmallOffice.BaseClasses.PartialFloor;
+    Buildings.ThermalZones.BaseClasses.PartialFloor;
 
   final parameter Modelica.SIunits.Area AFloCor=cor.AFlo "Floor area corridor";
   final parameter Modelica.SIunits.Area AFloSou=sou.AFlo "Floor area south";

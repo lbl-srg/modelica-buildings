@@ -1,4 +1,4 @@
-within Buildings.ThermalZones.EnergyPlus.Examples.VAVReheatRefBldgSmallOffice.BaseClasses;
+within Buildings.ThermalZones.BaseClasses;
 partial model PartialFloor "Interface for a model of a floor of a building"
 
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
