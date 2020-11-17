@@ -29,6 +29,7 @@ package PerfectGas "Model for air as a perfect gas"
 
   redeclare replaceable model extends BaseProperties(
     u(nominal=1E4),
+    p(stateSelect=StateSelect.never),
     T(start=T_default,
       stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default,
       nominal=100),
@@ -47,6 +48,17 @@ package PerfectGas "Model for air as a perfect gas"
     constant Modelica.SIunits.MolarMass[2] MMX = {steam.MM,dryair.MM}
       "Molar masses of components";
 
+    Modelica.SIunits.TemperatureDifference dT(
+      nominal=10,
+      stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default) = T - reference_T
+      "Temperature difference used to compute enthalpy";
+    // Nominal value is 100/1E5=1E-3
+    Modelica.Media.Interfaces.Types.Density dd(
+      nominal=1E-3,
+      stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default) = d - dStp
+      "Density of medium";
+
+
     MassFraction X_steam "Mass fraction of steam water";
     MassFraction X_air "Mass fraction of air";
   equation
@@ -62,8 +74,8 @@ as required from medium model \"" + mediumName + "\".");
     X_steam  = Xi[Water];
     X_air    = 1-Xi[Water];
 
-    h = (T - reference_T)*dryair.cp * (1 - Xi[Water]) +
-        ((T-reference_T) * steam.cp + h_fg) * Xi[Water];
+    h = dT*dryair.cp * (1 - Xi[Water]) +
+        (dT * steam.cp + h_fg) * Xi[Water];
 
     R = dryair.R*(1 - X_steam) + steam.R*X_steam;
     //

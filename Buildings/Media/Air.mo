@@ -53,16 +53,16 @@ package Air
   final parameter Boolean standardOrderComponents=true
     "If true, and reducedX = true, the last element of X will be computed from the other ones";
 
-  InputAbsolutePressure p "Absolute pressure of medium";
+  InputAbsolutePressure p(stateSelect=StateSelect.never) "Absolute pressure of medium";
   InputMassFraction[1] Xi(
     start=X_default[1:1],
     nominal={0.01},
     each stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default)
     "Structurally independent mass fractions";
   InputSpecificEnthalpy h "Specific enthalpy of medium";
-  Modelica.Media.Interfaces.Types.Density d "Density of medium";
+  Modelica.Media.Interfaces.Types.Density d
+    "Density of medium";
   Modelica.Media.Interfaces.Types.Temperature T(
-   stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default,
    nominal=100)
    "Temperature of medium";
   Modelica.Media.Interfaces.Types.MassFraction[2] X(start=reference_X)
@@ -92,13 +92,18 @@ package Air
 
     // Declarations for Air only
   protected
-  Modelica.SIunits.TemperatureDifference dT(start=T_default-reference_T)
-    "Temperature difference used to compute enthalpy";
-
+    Modelica.SIunits.TemperatureDifference dT(
+      nominal=10,
+      stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default) = T - reference_T
+      "Temperature difference used to compute enthalpy";
+    // Nominal value is 100/1E5=1E-3
+    Modelica.Media.Interfaces.Types.Density dd(
+      nominal=1E-3,
+      stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default) = d - dStp
+      "Density of medium";
   equation
     MM = 1/(X[1]/steam.MM+(X[2])/dryair.MM);
 
-    T = dT + reference_T;
     h = dT*dryair.cp * X[2] +
        (dT * steam.cp + h_fg) * X[1];
     R = dryair.R*X[2] + steam.R*X[1];

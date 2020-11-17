@@ -98,7 +98,8 @@ model ConservationEquation "Lumped volume with mass and energy balance"
 
   Modelica.SIunits.Mass m(
     min=Modelica.Constants.eps,
-    start=fluidVolume*rho_start)
+    start=fluidVolume*rho_start,
+    stateSelect=StateSelect.never)
     "Mass of fluid";
 
   Modelica.SIunits.Mass[Medium.nXi] mXi(
