@@ -1,7 +1,7 @@
 within Buildings.ThermalZones.EnergyPlus.Examples;
-package VAVReheatRefBldgSmallOffice
-  "Package with VAV models for small office buildings"
+package VAVReheatRefBldgSmallOffice "Package with VAV models for small office buildings"
   extends Modelica.Icons.ExamplesPackage;
+
   annotation (
     preferredView="info",
     Documentation(
