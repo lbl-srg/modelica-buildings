@@ -3,8 +3,27 @@ model Guideline36
   "Variable air volume flow system with terminal reheat and five thermal zones controlled using an ASHRAE G36 controller"
   extends Buildings.Examples.VAVReheat.Guideline36(
     redeclare replaceable Buildings.ThermalZones.EnergyPlus.Examples.VAVReheatRefBldgSmallOffice.BaseClasses.Floor flo(
-      redeclare package Medium = MediumA));
-
+      redeclare package Medium = MediumA,
+      use_windPressure=false,
+      final VRooCor=456.455,
+      final VRooSou=346.022,
+      final VRooNor=346.022,
+      final VRooEas=205.265,
+      final VRooWes=205.265,
+      opeWesCor(wOpe=4),
+      opeSouCor(wOpe=9),
+      opeNorCor(wOpe=9),
+      opeEasCor(wOpe=4),
+      leaWes(s=18.46/27.69, res(m_flow(nominal=0.1))),
+      leaSou(s=27.69/18.46, res(m_flow(nominal=0.1))),
+      leaNor(s=27.69/18.46, res(m_flow(nominal=0.1))),
+      leaEas(s=18.46/27.69, res(m_flow(nominal=0.1))),
+      nor(T_start=275.15),
+      wes(T_start=275.15),
+      eas(T_start=275.15),
+      sou(T_start=275.15),
+      cor(T_start=275.15),
+      att(T_start=275.15)));
   annotation (
     __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus/Examples/VAVReheatRefBldgSmallOffice/Guideline36.mos"

@@ -30,14 +30,10 @@ model FloorOpenLoop "Open loop model of one floor"
       opeSouCor(wOpe=9),
       opeNorCor(wOpe=9),
       opeEasCor(wOpe=4),
-      leaWes(s=18.46/27.69),
-      leaSou(s=27.69/18.46),
-      leaNor(s=27.69/18.46),
-      leaEas(s=18.46/27.69),
-      leaWes(res(m_flow(nominal=0.1))),
-      leaSou(res(m_flow(nominal=0.1))),
-      leaNor(res(m_flow(nominal=0.1))),
-      leaEas(res(m_flow(nominal=0.1))),
+      leaWes(s=18.46/27.69, res(m_flow(nominal=0.1))),
+      leaSou(s=27.69/18.46, res(m_flow(nominal=0.1))),
+      leaNor(s=27.69/18.46, res(m_flow(nominal=0.1))),
+      leaEas(s=18.46/27.69, res(m_flow(nominal=0.1))),
       intGaiFra(table=[0,0.05;
              8,0.05;
              9,0.9;
@@ -56,7 +52,7 @@ model FloorOpenLoop "Open loop model of one floor"
       att(T_start=275.15))
     "One floor of the office building"
     annotation (Placement(transformation(extent={{32,-2},{86,28}})));
-  // We shoud be able to take all these values from energy plus zones - *mg  
+
   // Above, the volume V is for Spawn obtained in the initial equation section.
   // Hence it is not known when the model is compiled. This leads to a
   // warning in Dymola and an error in Optimica (Modelon#2020031339000191)
