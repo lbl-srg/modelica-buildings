@@ -85,10 +85,10 @@ initial equation
   assert(abs(wes.V-VRooWes) < 0.01, "Volumes don't match. These had to be entered manually to avoid using a non-literal value.");
   assert(abs(opeWesCor.wOpe-4) == 0.0, "wOpe in west zone doesn't match");
 
-  Modelica.Utilities.Streams.print(String(leaEas.s)+ ", MG test");
-  Modelica.Utilities.Streams.print(String(VRooWes)+ ", MG test");
-  Modelica.Utilities.Streams.print(String(opeWesCor.wOpe)+ ", MG test");
-  Modelica.Utilities.Streams.print(String(nor.T_start)+ ", MG test");
+  //Modelica.Utilities.Streams.print(String(leaEas.s)+ ", MG test");
+  //Modelica.Utilities.Streams.print(String(VRooWes)+ ", MG test");
+  //Modelica.Utilities.Streams.print(String(opeWesCor.wOpe)+ ", MG test");
+  //Modelica.Utilities.Streams.print(String(nor.T_start)+ ", MG test");
 equation
   connect(gai.y, cor.qGai_flow)          annotation (Line(
       points={{-79,110},{120,110},{120,66},{142,66}},
