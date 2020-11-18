@@ -337,6 +337,7 @@ void generateFMU(FMUBuilding* fmuBui, const char* modelicaBuildingsJsonFile){
   char* outputFlag;
   char* createFlag;
   char* fulCmd;
+  char* setExecutableFlag;
   size_t len;
   int retVal;
 
@@ -367,7 +368,7 @@ void generateFMU(FMUBuilding* fmuBui, const char* modelicaBuildingsJsonFile){
       SpawnFormatError("Requested to use json file '%s' which does not exist.", modelicaBuildingsJsonFile);
     }
     optionFlags = " --no-compress "; /* Flag for command */
-    outputFlag = " --output-path "; /* Flag for command */
+    outputFlag = "--output-path "; /* Flag for command */
     createFlag = " --create "; /* Flag for command */
     len = strlen(fmuBui->spawnLinuxExecutable) + strlen(optionFlags)
       + strlen(outputFlag) + strlen("\"") + strlen(FMUPath) + strlen("\"")
@@ -385,19 +386,29 @@ void generateFMU(FMUBuilding* fmuBui, const char* modelicaBuildingsJsonFile){
     /* Windows has no mode X_OK = 1, see https://docs.microsoft.com/en-us/cpp/c-runtime-library/reference/access-waccess?view=vs-2019 */
 #ifndef _WIN32
     if( access(fulCmd, X_OK ) != 0 ) {
-      SpawnFormatError("File '%s' exists, but fails to have executable flag set: '%s.", fulCmd, strerror(errno));
+      /*SpawnFormatError("File '%s' exists, but fails to have executable flag set: '%s.", fulCmd, strerror(errno)); */
+      SpawnFormatMessage("Spawn was not executable");
+      len = strlen("chmod +x ") + strlen(fmuBui->spawnLinuxExecutable) + 1;
+      mallocString(len, "Failed to allocate memory for chmod.", &setExecutableFlag, SpawnFormatError);
+      memset(setExecutableFlag, '\0', len);
+      strcpy(setExecutableFlag, "chmod +x ");
+      strcat(setExecutableFlag, fmuBui->spawnLinuxExecutable);
+      system(setExecutableFlag);
+      if( access(fulCmd, X_OK ) == 0 ) {
+      SpawnFormatMessage("Nevermind, it is now");
+      }
     }
 #endif
     /* Continue building the command line */
     strcat(fulCmd, optionFlags);
     strcat(fulCmd, outputFlag);
-    strcat(fulCmd, "\"");
+    /* strcat(fulCmd, "\""); */
     strcat(fulCmd, fmuBui->fmuAbsPat);
-    strcat(fulCmd, "\"");
+    /* strcat(fulCmd, "\""); */
     strcat(fulCmd, createFlag);
-    strcat(fulCmd, "\"");
+    /* strcat(fulCmd, "\""); */
     strcat(fulCmd, modelicaBuildingsJsonFile);
-    strcat(fulCmd, "\"");
+    /* strcat(fulCmd, "\""); */
   }
 
   /* Remove the old fmu if it already exists */
