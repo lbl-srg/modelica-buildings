@@ -45,27 +45,24 @@ model CollectorDistributor
     m_flow_nominal=m_flow_nominal)
     "Secondary supply temperature (measured)"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,origin={60,340})));
-  Fluid.Sensors.TemperatureTwoPort senT1_1Sup(redeclare final package Medium =
-        Medium, m_flow_nominal=m_flow_nominal)
-    "Primary supply temperature (measured)" annotation (Placement(
-        transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={-100,340})));
-  Fluid.Sensors.TemperatureTwoPort senT1_1Ret(redeclare final package Medium =
-        Medium, m_flow_nominal=m_flow_nominal)
-    "Primary return temperature (measured)" annotation (Placement(
-        transformation(
-        extent={{10,-10},{-10,10}},
-        rotation=0,
-        origin={-100,300})));
+  Fluid.Sensors.TemperatureTwoPort senT1_1Sup(
+    redeclare final package Medium=Medium,
+    m_flow_nominal=m_flow_nominal)
+    "Primary supply temperature (measured)"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,origin={-100,340})));
+  Fluid.Sensors.TemperatureTwoPort senT1_1Ret(
+    redeclare final package Medium=Medium,
+    m_flow_nominal=m_flow_nominal)
+    "Primary return temperature (measured)"
+    annotation (Placement(transformation(extent={{10,-10},{-10,10}},rotation=0,origin={-100,300})));
   Fluid.Sensors.TemperatureTwoPort senT2_1Ret(
     redeclare final package Medium=Medium,
     m_flow_nominal=m_flow_nominal)
     "Secondary return temperature (measured)"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},rotation=0,origin={60,300})));
-  Fluid.Sensors.MassFlowRate senMasFlo1_1(redeclare final package Medium =
-        Medium) "Primary mass flow rate (measured)"
+  Fluid.Sensors.MassFlowRate senMasFlo1_1(
+    redeclare final package Medium=Medium)
+    "Primary mass flow rate (measured)"
     annotation (Placement(transformation(extent={{-140,330},{-120,350}})));
   Fluid.Sensors.MassFlowRate senMasFlo2_1(
     redeclare final package Medium=Medium)
@@ -197,36 +194,29 @@ model CollectorDistributor
     k=40+273.15)
     "Primary supply temperature"
     annotation (Placement(transformation(extent={{-240,-10},{-220,10}})));
-  Fluid.Sensors.TemperatureTwoPort senT2_3Sup(redeclare final package Medium =
-        Medium, m_flow_nominal=m_flow_nominal)
-    "Secondary supply temperature (measured)" annotation (Placement(
-        transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={60,60})));
-  Fluid.Sensors.TemperatureTwoPort senT1_2Sup(redeclare final package Medium =
-        Medium, m_flow_nominal=m_flow_nominal)
-    "Primary supply temperature (measured)" annotation (Placement(
-        transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={-100,60})));
-  Fluid.Sensors.TemperatureTwoPort senT1_2Ret(redeclare final package Medium =
-        Medium, m_flow_nominal=m_flow_nominal)
-    "Primary return temperature (measured)" annotation (Placement(
-        transformation(
-        extent={{10,-10},{-10,10}},
-        rotation=0,
-        origin={-100,20})));
-  Fluid.Sensors.TemperatureTwoPort senT2_3Ret(redeclare final package Medium =
-        Medium, m_flow_nominal=m_flow_nominal)
-    "Secondary return temperature (measured)" annotation (Placement(
-        transformation(
-        extent={{10,-10},{-10,10}},
-        rotation=0,
-        origin={60,20})));
-  Fluid.Sensors.MassFlowRate senMasFlo1_2(redeclare final package Medium =
-        Medium) "Primary mass flow rate (measured)"
+  Fluid.Sensors.TemperatureTwoPort senT2_3Sup(
+    redeclare final package Medium=Medium,
+    m_flow_nominal=m_flow_nominal)
+    "Secondary supply temperature (measured)"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,origin={60,60})));
+  Fluid.Sensors.TemperatureTwoPort senT1_2Sup(
+    redeclare final package Medium=Medium,
+    m_flow_nominal=m_flow_nominal)
+    "Primary supply temperature (measured)"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,origin={-100,60})));
+  Fluid.Sensors.TemperatureTwoPort senT1_2Ret(
+    redeclare final package Medium=Medium,
+    m_flow_nominal=m_flow_nominal)
+    "Primary return temperature (measured)"
+    annotation (Placement(transformation(extent={{10,-10},{-10,10}},rotation=0,origin={-100,20})));
+  Fluid.Sensors.TemperatureTwoPort senT2_3Ret(
+    redeclare final package Medium=Medium,
+    m_flow_nominal=m_flow_nominal)
+    "Secondary return temperature (measured)"
+    annotation (Placement(transformation(extent={{10,-10},{-10,10}},rotation=0,origin={60,20})));
+  Fluid.Sensors.MassFlowRate senMasFlo1_2(
+    redeclare final package Medium=Medium)
+    "Primary mass flow rate (measured)"
     annotation (Placement(transformation(extent={{-140,50},{-120,70}})));
   Fluid.Sensors.MassFlowRate senMasFlo2_3(
     redeclare final package Medium=Medium)
@@ -271,20 +261,16 @@ model CollectorDistributor
     startTime=2000)
     "First secondary flow signal"
     annotation (Placement(transformation(extent={{220,90},{200,110}})));
-  Fluid.Sensors.TemperatureTwoPort senT2_4Sup(redeclare final package Medium =
-        Medium, m_flow_nominal=m_flow_nominal)
-    "Secondary supply temperature (measured)" annotation (Placement(
-        transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={60,-80})));
-  Fluid.Sensors.TemperatureTwoPort senT2_4Ret(redeclare final package Medium =
-        Medium, m_flow_nominal=m_flow_nominal)
-    "Secondary return temperature (measured)" annotation (Placement(
-        transformation(
-        extent={{10,-10},{-10,10}},
-        rotation=0,
-        origin={60,-120})));
+  Fluid.Sensors.TemperatureTwoPort senT2_4Sup(
+    redeclare final package Medium=Medium,
+    m_flow_nominal=m_flow_nominal)
+    "Secondary supply temperature (measured)"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,origin={60,-80})));
+  Fluid.Sensors.TemperatureTwoPort senT2_4Ret(
+    redeclare final package Medium=Medium,
+    m_flow_nominal=m_flow_nominal)
+    "Secondary return temperature (measured)"
+    annotation (Placement(transformation(extent={{10,-10},{-10,10}},rotation=0,origin={60,-120})));
   Fluid.Sensors.MassFlowRate senMasFlo2_4(
     redeclare final package Medium=Medium)
     "Secondary mass flow rate (measured)"
@@ -366,36 +352,29 @@ model CollectorDistributor
     k=40+273.15)
     "Primary supply temperature"
     annotation (Placement(transformation(extent={{-240,-290},{-220,-270}})));
-  Fluid.Sensors.TemperatureTwoPort senT2_5Sup(redeclare final package Medium =
-        Medium, m_flow_nominal=m_flow_nominal)
-    "Secondary supply temperature (measured)" annotation (Placement(
-        transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={60,-220})));
-  Fluid.Sensors.TemperatureTwoPort senT1_3Sup(redeclare final package Medium =
-        Medium, m_flow_nominal=m_flow_nominal)
-    "Primary supply temperature (measured)" annotation (Placement(
-        transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={-100,-220})));
-  Fluid.Sensors.TemperatureTwoPort senT1_3Ret(redeclare final package Medium =
-        Medium, m_flow_nominal=m_flow_nominal)
-    "Primary return temperature (measured)" annotation (Placement(
-        transformation(
-        extent={{10,-10},{-10,10}},
-        rotation=0,
-        origin={-100,-260})));
-  Fluid.Sensors.TemperatureTwoPort senT2_5Ret(redeclare final package Medium =
-        Medium, m_flow_nominal=m_flow_nominal)
-    "Secondary return temperature (measured)" annotation (Placement(
-        transformation(
-        extent={{10,-10},{-10,10}},
-        rotation=0,
-        origin={60,-260})));
-  Fluid.Sensors.MassFlowRate senMasFlo1_3(redeclare final package Medium =
-        Medium) "Primary mass flow rate (measured)"
+  Fluid.Sensors.TemperatureTwoPort senT2_5Sup(
+    redeclare final package Medium=Medium,
+    m_flow_nominal=m_flow_nominal)
+    "Secondary supply temperature (measured)"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,origin={60,-220})));
+  Fluid.Sensors.TemperatureTwoPort senT1_3Sup(
+    redeclare final package Medium=Medium,
+    m_flow_nominal=m_flow_nominal)
+    "Primary supply temperature (measured)"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,origin={-100,-220})));
+  Fluid.Sensors.TemperatureTwoPort senT1_3Ret(
+    redeclare final package Medium=Medium,
+    m_flow_nominal=m_flow_nominal)
+    "Primary return temperature (measured)"
+    annotation (Placement(transformation(extent={{10,-10},{-10,10}},rotation=0,origin={-100,-260})));
+  Fluid.Sensors.TemperatureTwoPort senT2_5Ret(
+    redeclare final package Medium=Medium,
+    m_flow_nominal=m_flow_nominal)
+    "Secondary return temperature (measured)"
+    annotation (Placement(transformation(extent={{10,-10},{-10,10}},rotation=0,origin={60,-260})));
+  Fluid.Sensors.MassFlowRate senMasFlo1_3(
+    redeclare final package Medium=Medium)
+    "Primary mass flow rate (measured)"
     annotation (Placement(transformation(extent={{-140,-230},{-120,-210}})));
   Fluid.Sensors.MassFlowRate senMasFlo2_5(
     redeclare final package Medium=Medium)
@@ -449,20 +428,16 @@ model CollectorDistributor
     nominalValuesDefineDefaultPressureCurve=true)
     "Secondary pump"
     annotation (Placement(transformation(extent={{190,-410},{170,-390}})));
-  Fluid.Sensors.TemperatureTwoPort senT2_6Sup(redeclare final package Medium =
-        Medium, m_flow_nominal=m_flow_nominal)
-    "Secondary supply temperature (measured)" annotation (Placement(
-        transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={60,-360})));
-  Fluid.Sensors.TemperatureTwoPort senT2_6Ret(redeclare final package Medium =
-        Medium, m_flow_nominal=m_flow_nominal)
-    "Secondary return temperature (measured)" annotation (Placement(
-        transformation(
-        extent={{10,-10},{-10,10}},
-        rotation=0,
-        origin={60,-400})));
+  Fluid.Sensors.TemperatureTwoPort senT2_6Sup(
+    redeclare final package Medium=Medium,
+    m_flow_nominal=m_flow_nominal)
+    "Secondary supply temperature (measured)"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,origin={60,-360})));
+  Fluid.Sensors.TemperatureTwoPort senT2_6Ret(
+    redeclare final package Medium=Medium,
+    m_flow_nominal=m_flow_nominal)
+    "Secondary return temperature (measured)"
+    annotation (Placement(transformation(extent={{10,-10},{-10,10}},rotation=0,origin={60,-400})));
   Fluid.Sensors.MassFlowRate senMasFlo2_6(
     redeclare final package Medium=Medium)
     "Secondary mass flow rate (measured)"
@@ -514,12 +489,12 @@ model CollectorDistributor
 equation
   connect(m1.y,sou1.m_flow_in)
     annotation (Line(points={{-218,380},{-160,380},{-160,352}},color={0,0,127}));
-  connect(senMasFlo1_1.port_b, senT1_1Sup.port_a)
-    annotation (Line(points={{-120,340},{-110,340}}, color={0,127,255}));
+  connect(senMasFlo1_1.port_b,senT1_1Sup.port_a)
+    annotation (Line(points={{-120,340},{-110,340}},color={0,127,255}));
   connect(senT2_1Sup.port_b,senMasFlo2_1.port_a)
     annotation (Line(points={{70,340},{130,340}},color={0,127,255}));
-  connect(sou1.port_b, senMasFlo1_1.port_a)
-    annotation (Line(points={{-150,340},{-140,340}}, color={0,127,255}));
+  connect(sou1.port_b,senMasFlo1_1.port_a)
+    annotation (Line(points={{-150,340},{-140,340}},color={0,127,255}));
   connect(coo.port_b,senT2_1Ret.port_a)
     annotation (Line(points={{80,300},{70,300}},color={0,127,255}));
   connect(T2_1Ret.y,conTChiWat1.u_s)
@@ -554,16 +529,16 @@ equation
     annotation (Line(points={{150,200},{221,200},{221,160}},color={0,127,255}));
   connect(sou2_2.port_b,coo1.port_a)
     annotation (Line(points={{170,160},{100,160}},color={0,127,255}));
-  connect(senT1_1Ret.port_b, bou1.ports[2]) annotation (Line(points={{-110,300},
-          {-180,300},{-180,318}}, color={0,127,255}));
+  connect(senT1_1Ret.port_b,bou1.ports[2])
+    annotation (Line(points={{-110,300},{-180,300},{-180,318}},color={0,127,255}));
   connect(sou2_1.port_b,coo.port_a)
     annotation (Line(points={{170,300},{100,300}},color={0,127,255}));
   connect(m2_2.y,sou2_2.m_flow_in)
     annotation (Line(points={{198,240},{180,240},{180,172}},color={0,0,127}));
-  connect(senT1_1Sup.port_b, colDis.port_aDisSup) annotation (Line(points={{-90,
-          340},{-80,340},{-80,320},{-60,320}}, color={0,127,255}));
-  connect(senT1_1Ret.port_a, colDis.port_bDisRet) annotation (Line(points={{-90,
-          300},{-80,300},{-80,314},{-60,314}}, color={0,127,255}));
+  connect(senT1_1Sup.port_b,colDis.port_aDisSup)
+    annotation (Line(points={{-90,340},{-80,340},{-80,320},{-60,320}},color={0,127,255}));
+  connect(senT1_1Ret.port_a,colDis.port_bDisRet)
+    annotation (Line(points={{-90,300},{-80,300},{-80,314},{-60,314}},color={0,127,255}));
   connect(colDis.ports_bCon[1],senT2_1Sup.port_a)
     annotation (Line(points={{-48,330},{-40,330},{-40,360},{44,360},{44,340},{50,340}},color={0,127,255}));
   connect(colDis.ports_bCon[2],senT2_2Sup.port_a)
@@ -573,53 +548,53 @@ equation
   connect(senT2_2Ret.port_b,colDis.ports_aCon[2])
     annotation (Line(points={{50,160},{20,160},{20,336},{-32,336},{-32,330}},color={0,127,255}));
   connect(colDis.port_bDisSup,colDis.port_aDisRet)
-    annotation (Line(points={{-20,320},{0,320},{0,314},{-20,314}},    color={0,127,255}));
-  connect(senMasFlo1_2.port_b, senT1_2Sup.port_a)
-    annotation (Line(points={{-120,60},{-110,60}}, color={0,127,255}));
-  connect(senT2_3Sup.port_b, senMasFlo2_3.port_a)
-    annotation (Line(points={{70,60},{130,60}}, color={0,127,255}));
-  connect(sou2.port_b, senMasFlo1_2.port_a)
-    annotation (Line(points={{-150,60},{-140,60}}, color={0,127,255}));
-  connect(coo2.port_b, senT2_3Ret.port_a)
-    annotation (Line(points={{80,20},{70,20}}, color={0,127,255}));
+    annotation (Line(points={{-20,320},{0,320},{0,314},{-20,314}},color={0,127,255}));
+  connect(senMasFlo1_2.port_b,senT1_2Sup.port_a)
+    annotation (Line(points={{-120,60},{-110,60}},color={0,127,255}));
+  connect(senT2_3Sup.port_b,senMasFlo2_3.port_a)
+    annotation (Line(points={{70,60},{130,60}},color={0,127,255}));
+  connect(sou2.port_b,senMasFlo1_2.port_a)
+    annotation (Line(points={{-150,60},{-140,60}},color={0,127,255}));
+  connect(coo2.port_b,senT2_3Ret.port_a)
+    annotation (Line(points={{80,20},{70,20}},color={0,127,255}));
   connect(T2_1Ret1.y,conTChiWat3.u_s)
     annotation (Line(points={{82,100},{74,100},{74,104},{76,104},{76,100},{88,100}},color={0,0,127}));
   connect(conTChiWat3.y,coo2.u)
     annotation (Line(points={{112,100},{120,100},{120,26},{102,26}},color={0,0,127}));
-  connect(senT2_3Ret.T, conTChiWat3.u_m) annotation (Line(points={{60,31},{60,40},
-          {100,40},{100,88}}, color={0,0,127}));
+  connect(senT2_3Ret.T,conTChiWat3.u_m)
+    annotation (Line(points={{60,31},{60,40},{100,40},{100,88}},color={0,0,127}));
   connect(senMasFlo2_3.port_b,vol2_2.ports[1])
     annotation (Line(points={{150,60},{217,60},{217,20}},color={0,127,255}));
   connect(bou2.ports[1],sou2.port_a)
     annotation (Line(points={{-180,42},{-180,60},{-170,60}},color={0,127,255}));
   connect(T2.y,bou2.T_in)
     annotation (Line(points={{-218,0},{-212,0},{-212,44},{-202,44}},color={0,0,127}));
-  connect(senT2_4Sup.port_b, senMasFlo2_4.port_a)
-    annotation (Line(points={{70,-80},{130,-80}}, color={0,127,255}));
-  connect(coo3.port_b, senT2_4Ret.port_a)
-    annotation (Line(points={{80,-120},{70,-120}}, color={0,127,255}));
+  connect(senT2_4Sup.port_b,senMasFlo2_4.port_a)
+    annotation (Line(points={{70,-80},{130,-80}},color={0,127,255}));
+  connect(coo3.port_b,senT2_4Ret.port_a)
+    annotation (Line(points={{80,-120},{70,-120}},color={0,127,255}));
   connect(T2_2Ret1.y,conTChiWat4.u_s)
     annotation (Line(points={{82,-40},{78,-40},{78,-36},{80,-36},{80,-40},{88,-40}},color={0,0,127}));
   connect(conTChiWat4.y,coo3.u)
     annotation (Line(points={{112,-40},{120,-40},{120,-114},{102,-114}},color={0,0,127}));
-  connect(senT2_4Ret.T, conTChiWat4.u_m) annotation (Line(points={{60,-109},{60,
-          -100},{100,-100},{100,-52}}, color={0,0,127}));
+  connect(senT2_4Ret.T,conTChiWat4.u_m)
+    annotation (Line(points={{60,-109},{60,-100},{100,-100},{100,-52}},color={0,0,127}));
   connect(senMasFlo2_4.port_b,vol1.ports[1])
     annotation (Line(points={{150,-80},{217,-80},{217,-120}},color={0,127,255}));
-  connect(senT1_2Ret.port_b, bou2.ports[2]) annotation (Line(points={{-110,20},{
-          -180,20},{-180,38}}, color={0,127,255}));
-  connect(senT1_2Sup.port_b, colDis1.port_aDisSup) annotation (Line(points={{-90,
-          60},{-80,60},{-80,40},{-60,40}}, color={0,127,255}));
-  connect(senT1_2Ret.port_a, colDis1.port_bDisRet) annotation (Line(points={{-90,
-          20},{-80,20},{-80,34},{-60,34}}, color={0,127,255}));
-  connect(colDis1.ports_bCon[1], senT2_3Sup.port_a) annotation (Line(points={{-48,
-          50},{-40,50},{-40,80},{44,80},{44,60},{50,60}}, color={0,127,255}));
-  connect(colDis1.ports_bCon[2], senT2_4Sup.port_a) annotation (Line(points={{-56,
-          50},{-56,76},{40,76},{40,-80},{50,-80}}, color={0,127,255}));
-  connect(senT2_3Ret.port_b, colDis1.ports_aCon[1]) annotation (Line(points={{50,
-          20},{24,20},{24,60},{-14,60},{-14,50},{-24,50}}, color={0,127,255}));
-  connect(senT2_4Ret.port_b, colDis1.ports_aCon[2]) annotation (Line(points={{50,
-          -120},{20,-120},{20,56},{-32,56},{-32,50}}, color={0,127,255}));
+  connect(senT1_2Ret.port_b,bou2.ports[2])
+    annotation (Line(points={{-110,20},{-180,20},{-180,38}},color={0,127,255}));
+  connect(senT1_2Sup.port_b,colDis1.port_aDisSup)
+    annotation (Line(points={{-90,60},{-80,60},{-80,40},{-60,40}},color={0,127,255}));
+  connect(senT1_2Ret.port_a,colDis1.port_bDisRet)
+    annotation (Line(points={{-90,20},{-80,20},{-80,34},{-60,34}},color={0,127,255}));
+  connect(colDis1.ports_bCon[1],senT2_3Sup.port_a)
+    annotation (Line(points={{-48,50},{-40,50},{-40,80},{44,80},{44,60},{50,60}},color={0,127,255}));
+  connect(colDis1.ports_bCon[2],senT2_4Sup.port_a)
+    annotation (Line(points={{-56,50},{-56,76},{40,76},{40,-80},{50,-80}},color={0,127,255}));
+  connect(senT2_3Ret.port_b,colDis1.ports_aCon[1])
+    annotation (Line(points={{50,20},{24,20},{24,60},{-14,60},{-14,50},{-24,50}},color={0,127,255}));
+  connect(senT2_4Ret.port_b,colDis1.ports_aCon[2])
+    annotation (Line(points={{50,-120},{20,-120},{20,56},{-32,56},{-32,50}},color={0,127,255}));
   connect(vol2_2.ports[2],val2_1.port_a)
     annotation (Line(points={{221,20},{190,20}},color={0,127,255}));
   connect(val2_1.port_b,coo2.port_a)
@@ -632,18 +607,18 @@ equation
     annotation (Line(points={{170,-120},{100,-120}},color={0,127,255}));
   connect(m2_4.y,val2_2.y)
     annotation (Line(points={{198,-40},{180,-40},{180,-108}},color={0,0,127}));
-  connect(senMasFlo1_3.port_b, senT1_3Sup.port_a)
-    annotation (Line(points={{-120,-220},{-110,-220}}, color={0,127,255}));
-  connect(senT2_5Sup.port_b, senMasFlo2_5.port_a)
-    annotation (Line(points={{70,-220},{130,-220}}, color={0,127,255}));
-  connect(coo4.port_b, senT2_5Ret.port_a)
-    annotation (Line(points={{80,-260},{70,-260}}, color={0,127,255}));
+  connect(senMasFlo1_3.port_b,senT1_3Sup.port_a)
+    annotation (Line(points={{-120,-220},{-110,-220}},color={0,127,255}));
+  connect(senT2_5Sup.port_b,senMasFlo2_5.port_a)
+    annotation (Line(points={{70,-220},{130,-220}},color={0,127,255}));
+  connect(coo4.port_b,senT2_5Ret.port_a)
+    annotation (Line(points={{80,-260},{70,-260}},color={0,127,255}));
   connect(T2_1Ret2.y,conTChiWat5.u_s)
     annotation (Line(points={{82,-180},{74,-180},{74,-176},{76,-176},{76,-180},{88,-180}},color={0,0,127}));
   connect(conTChiWat5.y,coo4.u)
     annotation (Line(points={{112,-180},{120,-180},{120,-254},{102,-254}},color={0,0,127}));
-  connect(senT2_5Ret.T, conTChiWat5.u_m) annotation (Line(points={{60,-249},{60,
-          -240},{100,-240},{100,-192}}, color={0,0,127}));
+  connect(senT2_5Ret.T,conTChiWat5.u_m)
+    annotation (Line(points={{60,-249},{60,-240},{100,-240},{100,-192}},color={0,0,127}));
   connect(vol2_3.ports[1],sou2_3.port_a)
     annotation (Line(points={{217,-260},{190,-260}},color={0,127,255}));
   connect(senMasFlo2_5.port_b,vol2_3.ports[2])
@@ -652,16 +627,16 @@ equation
     annotation (Line(points={{198,-180},{180,-180},{180,-248}},color={0,0,127}));
   connect(T3.y,bou3.T_in)
     annotation (Line(points={{-218,-280},{-212,-280},{-212,-236},{-202,-236}},color={0,0,127}));
-  connect(senT2_6Sup.port_b, senMasFlo2_6.port_a)
-    annotation (Line(points={{70,-360},{130,-360}}, color={0,127,255}));
-  connect(coo5.port_b, senT2_6Ret.port_a)
-    annotation (Line(points={{80,-400},{70,-400}}, color={0,127,255}));
+  connect(senT2_6Sup.port_b,senMasFlo2_6.port_a)
+    annotation (Line(points={{70,-360},{130,-360}},color={0,127,255}));
+  connect(coo5.port_b,senT2_6Ret.port_a)
+    annotation (Line(points={{80,-400},{70,-400}},color={0,127,255}));
   connect(T2_2Ret2.y,conTChiWat6.u_s)
     annotation (Line(points={{82,-320},{78,-320},{78,-316},{80,-316},{80,-320},{88,-320}},color={0,0,127}));
   connect(conTChiWat6.y,coo5.u)
     annotation (Line(points={{112,-320},{120,-320},{120,-394},{102,-394}},color={0,0,127}));
-  connect(senT2_6Ret.T, conTChiWat6.u_m) annotation (Line(points={{60,-389},{60,
-          -380},{100,-380},{100,-332}}, color={0,0,127}));
+  connect(senT2_6Ret.T,conTChiWat6.u_m)
+    annotation (Line(points={{60,-389},{60,-380},{100,-380},{100,-332}},color={0,0,127}));
   connect(vol3.ports[1],sou2_4.port_a)
     annotation (Line(points={{217,-400},{190,-400}},color={0,127,255}));
   connect(senMasFlo2_6.port_b,vol3.ports[2])
@@ -672,27 +647,24 @@ equation
     annotation (Line(points={{170,-260},{100,-260}},color={0,127,255}));
   connect(m2_6.y,sou2_4.m_flow_in)
     annotation (Line(points={{198,-320},{180,-320},{180,-388}},color={0,0,127}));
-  connect(colDis2.ports_bCon[1], senT2_5Sup.port_a) annotation (Line(points={{-48,
-          -230},{-40,-230},{-40,-200},{44,-200},{44,-220},{50,-220}}, color={0,127,
-          255}));
-  connect(colDis2.ports_bCon[2], senT2_6Sup.port_a) annotation (Line(points={{-56,
-          -230},{-56,-204},{40,-204},{40,-360},{50,-360}}, color={0,127,255}));
-  connect(senT2_5Ret.port_b, colDis2.ports_aCon[1]) annotation (Line(points={{50,
-          -260},{24,-260},{24,-220},{-14,-220},{-14,-230},{-24,-230}}, color={0,
-          127,255}));
-  connect(senT2_6Ret.port_b, colDis2.ports_aCon[2]) annotation (Line(points={{50,
-          -400},{20,-400},{20,-224},{-32,-224},{-32,-230}}, color={0,127,255}));
-  connect(bou3.ports[1], senMasFlo1_3.port_a) annotation (Line(points={{-180,
-          -238},{-180,-220},{-140,-220}},
-                                    color={0,127,255}));
-  connect(senT1_3Sup.port_b, colDis2.port_aDisSup) annotation (Line(points={{-90,
-          -220},{-80,-220},{-80,-240},{-60,-240}}, color={0,127,255}));
-  connect(senT1_3Ret.port_a, colDis2.port_bDisRet) annotation (Line(points={{-90,
-          -260},{-80,-260},{-80,-246},{-60,-246}}, color={0,127,255}));
-  connect(m1.y, sou2.m_flow_in) annotation (Line(points={{-218,380},{-140,380},{
-          -140,80},{-160,80},{-160,72}}, color={0,0,127}));
-  connect(bou3.ports[2], senT1_3Ret.port_b) annotation (Line(points={{-180,-242},
-          {-180,-260},{-110,-260}}, color={0,127,255}));
+  connect(colDis2.ports_bCon[1],senT2_5Sup.port_a)
+    annotation (Line(points={{-48,-230},{-40,-230},{-40,-200},{44,-200},{44,-220},{50,-220}},color={0,127,255}));
+  connect(colDis2.ports_bCon[2],senT2_6Sup.port_a)
+    annotation (Line(points={{-56,-230},{-56,-204},{40,-204},{40,-360},{50,-360}},color={0,127,255}));
+  connect(senT2_5Ret.port_b,colDis2.ports_aCon[1])
+    annotation (Line(points={{50,-260},{24,-260},{24,-220},{-14,-220},{-14,-230},{-24,-230}},color={0,127,255}));
+  connect(senT2_6Ret.port_b,colDis2.ports_aCon[2])
+    annotation (Line(points={{50,-400},{20,-400},{20,-224},{-32,-224},{-32,-230}},color={0,127,255}));
+  connect(bou3.ports[1],senMasFlo1_3.port_a)
+    annotation (Line(points={{-180,-238},{-180,-220},{-140,-220}},color={0,127,255}));
+  connect(senT1_3Sup.port_b,colDis2.port_aDisSup)
+    annotation (Line(points={{-90,-220},{-80,-220},{-80,-240},{-60,-240}},color={0,127,255}));
+  connect(senT1_3Ret.port_a,colDis2.port_bDisRet)
+    annotation (Line(points={{-90,-260},{-80,-260},{-80,-246},{-60,-246}},color={0,127,255}));
+  connect(m1.y,sou2.m_flow_in)
+    annotation (Line(points={{-218,380},{-140,380},{-140,80},{-160,80},{-160,72}},color={0,0,127}));
+  connect(bou3.ports[2],senT1_3Ret.port_b)
+    annotation (Line(points={{-180,-242},{-180,-260},{-110,-260}},color={0,127,255}));
   annotation (
     Documentation(
       info="<html>

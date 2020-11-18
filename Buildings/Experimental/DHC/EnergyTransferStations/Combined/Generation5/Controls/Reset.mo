@@ -6,18 +6,21 @@ model Reset
     displayUnit="degC")
     "Minimum value of heating water supply temperature set point";
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHea
-    "Heating enable signal" annotation (Placement(transformation(extent={{-140,
-            40},{-100,80}}), iconTransformation(extent={{-140,40},{-100,80}})));
+    "Heating enable signal"
+    annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
+    iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaWatSupPreSet(
     final unit="K",
     displayUnit="degC")
     "Heating water supply temperature set point"
-    annotation (Placement(transformation(extent={{-140,-70},{-100,-30}}),iconTransformation(extent={{-140,-70},{-100,-30}})));
+    annotation (Placement(transformation(extent={{-140,-70},{-100,-30}}),
+    iconTransformation(extent={{-140,-70},{-100,-30}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput THeaWatSupSet(
     final unit="K",
     displayUnit="degC")
     "Heating water supply temperature set point after reset"
-    annotation (Placement(transformation(extent={{100,-20},{140,20}}),iconTransformation(extent={{100,-20},{140,20}})));
+    annotation (Placement(transformation(extent={{100,-20},{140,20}}),
+    iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minSet(
     k=THeaWatSupSetMin)
     "Minimum value of HW set point"
@@ -34,8 +37,8 @@ equation
     annotation (Line(points={{-120,-50},{-80,-50},{-80,8},{-2,8}},color={0,0,127}));
   connect(minSet.y,swiHea.u3)
     annotation (Line(points={{-38,-20},{-20,-20},{-20,-8},{-2,-8}},color={0,0,127}));
-  connect(uHea, swiHea.u2) annotation (Line(points={{-120,60},{-60,60},{-60,
-          0},{-2,0}}, color={255,0,255}));
+  connect(uHea,swiHea.u2)
+    annotation (Line(points={{-120,60},{-60,60},{-60,0},{-2,0}},color={255,0,255}));
   connect(swiHea.y,ramLimHea.u)
     annotation (Line(points={{22,0},{48,0}},color={0,0,127}));
   connect(ramLimHea.y,THeaWatSupSet)

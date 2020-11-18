@@ -11,8 +11,8 @@ model ChillerBorefield
     "Distance in x-axis (and y-axis) between borehole axes";
   final parameter Modelica.SIunits.Distance cooBor[nBorHol,2]=
     EnergyTransferStations.BaseClasses.computeCoordinates(
-    nBorHol,
-    dxy)
+      nBorHol,
+      dxy)
     "Coordinates of boreholes";
   parameter Fluid.Geothermal.Borefields.Data.Borefield.Example datBorFie(
     conDat=Fluid.Geothermal.Borefields.Data.Configuration.Example(
@@ -22,8 +22,7 @@ model ChillerBorefield
     annotation (Placement(transformation(extent={{60,180},{80,200}})));
   annotation (
     __Dymola_Commands(
-      file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/EnergyTransferStations/Combined/Generation5/Validation/ChillerBorefield.mos"
-        "Simulate and plot"),
+      file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/EnergyTransferStations/Combined/Generation5/Validation/ChillerBorefield.mos" "Simulate and plot"),
     experiment(
       StopTime=360000,
       Tolerance=1e-06),

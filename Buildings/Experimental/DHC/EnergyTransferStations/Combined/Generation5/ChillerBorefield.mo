@@ -19,7 +19,8 @@ model ChillerBorefield
         2
       else
         1,
-    dT1HexSet=abs(T_b1Hex_nominal-T_a1Hex_nominal) .* {1+1/datChi.COP_nominal,1},
+    dT1HexSet=abs(
+      T_b1Hex_nominal-T_a1Hex_nominal) .* {1+1/datChi.COP_nominal,1},
     VTanHeaWat=datChi.PLRMin*datChi.mCon_flow_nominal*5*60/1000,
     VTanChiWat=datChi.PLRMin*datChi.mEva_flow_nominal*5*60/1000,
     colChiWat(
@@ -51,17 +52,20 @@ model ChillerBorefield
     annotation (Dialog(group="Chiller"));
   replaceable parameter Fluid.Chillers.Data.ElectricEIR.Generic datChi
     "Chiller performance data"
-    annotation (Dialog(group="Chiller"),choicesAllMatching=true,Placement(transformation(extent={{20,222},{40,242}})));
+    annotation (Dialog(group="Chiller"),choicesAllMatching=true,
+    Placement(transformation(extent={{20,222},{40,242}})));
   replaceable parameter Buildings.Fluid.Movers.Data.Generic perPumCon(
     motorCooledByFluid=false)
     constrainedby Buildings.Fluid.Movers.Data.Generic
     "Record with performance data for condenser pump"
-    annotation (Dialog(group="Chiller"),choicesAllMatching=true,Placement(transformation(extent={{60,222},{80,242}})));
+    annotation (Dialog(group="Chiller"),choicesAllMatching=true,
+    Placement(transformation(extent={{60,222},{80,242}})));
   replaceable parameter Buildings.Fluid.Movers.Data.Generic perPumEva(
     motorCooledByFluid=false)
     constrainedby Buildings.Fluid.Movers.Data.Generic
     "Record with performance data for evaporator pump"
-    annotation (Dialog(group="Chiller"),choicesAllMatching=true,Placement(transformation(extent={{100,222},{120,242}})));
+    annotation (Dialog(group="Chiller"),choicesAllMatching=true,
+    Placement(transformation(extent={{100,222},{120,242}})));
   parameter Modelica.SIunits.Temperature TBorWatEntMax=313.15
     "Maximum value of borefield water entering temperature"
     annotation (Dialog(group="Borefield",enable=have_borFie));
@@ -84,8 +88,7 @@ model ChillerBorefield
     "Record with performance data for borefield pump"
     annotation (Dialog(group="Borefield",enable=have_borFie),
     choicesAllMatching=true,Placement(transformation(extent={{180,222},{200,242}})));
-  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=
-    Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
     annotation (Dialog(group="Supervisory controller"));
   parameter Real kHot(
@@ -100,14 +103,14 @@ model ChillerBorefield
     min=Buildings.Controls.OBC.CDL.Constants.small)=300
     "Time constant of integrator block on hot side"
     annotation (Dialog(group="Supervisory controller",
-      enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
-      or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+    enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
+    controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   parameter Modelica.SIunits.Time TiCol(
     min=Buildings.Controls.OBC.CDL.Constants.small)=120
     "Time constant of integrator block on cold side"
-    annotation (Dialog(group="Supervisory controller",
-      enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
-      or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+    annotation (Dialog(group="Supervisory controller",enable=controllerType ==
+    Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
+    controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   parameter Modelica.SIunits.Temperature THeaWatSupSetMin(
     displayUnit="degC")=datChi.TConEntMin+5
     "Minimum value of heating water supply temperature set point"
@@ -134,7 +137,7 @@ model ChillerBorefield
     final dp_nominal=dpBorFie_nominal) if have_borFie
     "Borefield"
     annotation (Dialog(group="Borefield",enable=have_borFie),
-      Placement(transformation(extent={{-80,-230},{-60,-210}})));
+    Placement(transformation(extent={{-80,-230},{-60,-210}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerPPum(
     final k=0) if not have_borFie
     "Zero power"
@@ -162,12 +165,10 @@ equation
     annotation (Line(points={{-12,-116},{-14,-116},{-14,-140},{-100,-140},{-100,-220},{-80,-220}},color={0,127,255}));
   connect(conSup.yAmb[1],borFie.u)
     annotation (Line(points={{-238,25},{-200,25},{-200,-212},{-82,-212}},color={0,0,127}));
-  connect(valIsoCon.y_actual, borFie.yValIso_actual[1]) annotation (Line(points=
-         {{-55,-113},{-40,-113},{-40,-198},{-90,-198},{-90,-217},{-82,-217}},
-        color={0,0,127}));
-  connect(valIsoEva.y_actual, borFie.yValIso_actual[2]) annotation (Line(points=
-         {{55,-113},{40,-113},{40,-200},{-88,-200},{-88,-215},{-82,-215}},
-        color={0,0,127}));
+  connect(valIsoCon.y_actual,borFie.yValIso_actual[1])
+    annotation (Line(points={{-55,-113},{-40,-113},{-40,-198},{-90,-198},{-90,-217},{-82,-217}},color={0,0,127}));
+  connect(valIsoEva.y_actual,borFie.yValIso_actual[2])
+    annotation (Line(points={{55,-113},{40,-113},{40,-200},{-88,-200},{-88,-215},{-82,-215}},color={0,0,127}));
   connect(borFie.PPum,totPPum.u[3])
     annotation (Line(points={{-58,-216},{240,-216},{240,-62},{258,-62},{258,-60}},color={0,0,127}));
   connect(zerPPum.y,totPPum.u[3])
@@ -176,18 +177,16 @@ equation
     annotation (Line(points={{222,60},{258,60}},color={0,0,127}));
   connect(chi.PChi,totPCoo.u[1])
     annotation (Line(points={{12,-4},{20,-4},{20,20},{258,20}},color={0,0,127}));
-  connect(uHea, conSup.uHea) annotation (Line(points={{-320,100},{-290,100},
-          {-290,31},{-262,31}}, color={255,0,255}));
+  connect(uHea,conSup.uHea)
+    annotation (Line(points={{-320,100},{-290,100},{-290,31},{-262,31}},color={255,0,255}));
   connect(conSup.yHea,chi.uHea)
     annotation (Line(points={{-238,31},{-20,31},{-20,-2},{-12,-2}},color={255,0,255}));
   connect(conSup.yCoo,chi.uCoo)
     annotation (Line(points={{-238,29},{-22,29},{-22,-4},{-12,-4}},color={255,0,255}));
-  connect(valIsoCon.y_actual, conSup.yValIsoCon_actual) annotation (Line(points=
-         {{-55,-113},{-40,-113},{-40,-60},{-266,-60},{-266,15},{-262,15}},
-        color={0,0,127}));
-  connect(valIsoEva.y_actual, conSup.yValIsoEva_actual) annotation (Line(points=
-         {{55,-113},{40,-113},{40,-64},{-270,-64},{-270,13},{-262,13}}, color={
-          0,0,127}));
+  connect(valIsoCon.y_actual,conSup.yValIsoCon_actual)
+    annotation (Line(points={{-55,-113},{-40,-113},{-40,-60},{-266,-60},{-266,15},{-262,15}},color={0,0,127}));
+  connect(valIsoEva.y_actual,conSup.yValIsoEva_actual)
+    annotation (Line(points={{55,-113},{40,-113},{40,-64},{-270,-64},{-270,13},{-262,13}},color={0,0,127}));
   annotation (
     Diagram(
       coordinateSystem(

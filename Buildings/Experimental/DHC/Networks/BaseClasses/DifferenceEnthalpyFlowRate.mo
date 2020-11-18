@@ -14,12 +14,11 @@ model DifferenceEnthalpyFlowRate
   replaceable package Medium=Modelica.Media.Interfaces.PartialMedium
     "Medium in the component"
     annotation (choices(choice(redeclare package Medium=Buildings.Media.Water "Water"),
-      choice(redeclare package Medium =
-        Buildings.Media.Antifreeze.PropyleneGlycolWater (
-          property_T=293.15,X_a=0.40) "Propylene glycol water, 40% mass fraction")));
-  parameter Boolean have_integrator = false
+    choice(redeclare package Medium=Buildings.Media.Antifreeze.PropyleneGlycolWater(property_T=293.15,X_a=0.40)
+    "Propylene glycol water, 40% mass fraction")));
+  parameter Boolean have_integrator=false
     "Set to true to output the time integral "
-    annotation(Evaluate=true);
+    annotation (Evaluate=true);
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal(
     min=0)
     "Nominal mass flow rate"
@@ -47,19 +46,13 @@ model DifferenceEnthalpyFlowRate
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput dH_flow(
     final unit="W")
     "Difference in enthalpy flow rate between stream 1 and 2"
-    annotation (Placement(transformation(origin={120,20},
-      extent={{-20,-20},{20,20}},rotation=0),
-      iconTransformation(extent={{-20,-20},{20,20}},rotation=0,origin={120,30})));
+    annotation (Placement(transformation(origin={120,20},extent={{-20,-20},{20,20}},rotation=0),
+    iconTransformation(extent={{-20,-20},{20,20}},rotation=0,origin={120,30})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput E(
-    final unit="J") if  have_integrator
+    final unit="J") if have_integrator
     "Time integral of enthalpy flow rate difference between stream 1 and 2"
-    annotation (Placement(transformation(
-      origin={120,-20},
-      extent={{-20,-20},{20,20}},
-      rotation=0), iconTransformation(
-      extent={{-20,-20},{20,20}},
-      rotation=0,
-      origin={120,-30})));
+    annotation (Placement(transformation(origin={120,-20},extent={{-20,-20},{20,20}},rotation=0),
+    iconTransformation(extent={{-20,-20},{20,20}},rotation=0,origin={120,-30})));
   Fluid.Sensors.EnthalpyFlowRate senEntFlo1(
     redeclare final package Medium=Medium,
     final m_flow_nominal=m_flow_nominal,
@@ -78,10 +71,14 @@ model DifferenceEnthalpyFlowRate
     final h_out_start=h_out_start)
     "Enthalpy flow rate of fluid stream 2"
     annotation (Placement(transformation(extent={{10,-70},{-10,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add dif(final k1=1, final k2=-1)
+  Buildings.Controls.OBC.CDL.Continuous.Add dif(
+    final k1=1,
+    final k2=-1)
     "Compute the difference"
     annotation (Placement(transformation(extent={{40,10},{60,30}})));
-  Modelica.Blocks.Continuous.Integrator int(y(unit="J")) if have_integrator
+  Modelica.Blocks.Continuous.Integrator int(
+    y(
+      unit="J")) if have_integrator
     "Time integral computation"
     annotation (Placement(transformation(extent={{40,-30},{60,-10}})));
 equation
@@ -93,16 +90,16 @@ equation
     annotation (Line(points={{-100,-60},{-10,-60}},color={0,127,255}));
   connect(senEntFlo2.port_a,port_a2)
     annotation (Line(points={{10,-60},{100,-60}},color={0,127,255}));
-  connect(dif.y, dH_flow)
-    annotation (Line(points={{62,20},{120,20}}, color={0,0,127}));
-  connect(senEntFlo1.H_flow, dif.u1)
-    annotation (Line(points={{0,49},{0,26},{38,26}}, color={0,0,127}));
-  connect(senEntFlo2.H_flow, dif.u2)
-    annotation (Line(points={{0,-49},{0,14},{38,14}}, color={0,0,127}));
-  connect(int.y, E)
-    annotation (Line(points={{61,-20},{120,-20}}, color={0,0,127}));
-  connect(dif.y, int.u) annotation (Line(points={{62,20},{80,20},{80,0},{20,0},{
-          20,-20},{38,-20}}, color={0,0,127}));
+  connect(dif.y,dH_flow)
+    annotation (Line(points={{62,20},{120,20}},color={0,0,127}));
+  connect(senEntFlo1.H_flow,dif.u1)
+    annotation (Line(points={{0,49},{0,26},{38,26}},color={0,0,127}));
+  connect(senEntFlo2.H_flow,dif.u2)
+    annotation (Line(points={{0,-49},{0,14},{38,14}},color={0,0,127}));
+  connect(int.y,E)
+    annotation (Line(points={{61,-20},{120,-20}},color={0,0,127}));
+  connect(dif.y,int.u)
+    annotation (Line(points={{62,20},{80,20},{80,0},{20,0},{20,-20},{38,-20}},color={0,0,127}));
   annotation (
     defaultComponentName="senDifEntFlo",
     Icon(
@@ -164,23 +161,27 @@ equation
         Text(
           extent={{132,112},{12,62}},
           lineColor={0,0,0},
-          textString=DynamicSelect("", String(dH_flow, leftjustified=false, significantDigits=0))),
+          textString=DynamicSelect("",String(dH_flow,
+            leftjustified=false,
+            significantDigits=0))),
         Text(
           visible=have_integrator,
           extent={{132,-56},{12,-106}},
           lineColor={0,0,0},
-          textString=DynamicSelect("", String(E, leftjustified=false, significantDigits=0)))}),
+          textString=DynamicSelect("",String(E,
+            leftjustified=false,
+            significantDigits=0)))}),
     Documentation(
       info="<html>
 <p>
-This model outputs the difference in enthalphy flow rate of the same 
-medium between two different streams: 
+This model outputs the difference in enthalphy flow rate of the same
+medium between two different streams:
 <i>&Delta;H&#775; = m&#775;<sub>1</sub> h<sub>1</sub> - m&#775;<sub>2</sub> h<sub>2</sub></i>.
 Optionally the time integral of this quantity can be output.
 The sensor is ideal, i.e., it does not influence the fluid.
 </p>
 <p>
-By default the parameter <code>tau</code> is zero, so the 
+By default the parameter <code>tau</code> is zero, so the
 specific enthalpy that is used to compute each enthalpy flow rate
 is computed in steady-state.
 </p>

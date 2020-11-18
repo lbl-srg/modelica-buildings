@@ -1,5 +1,6 @@
 within Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Controls;
-block PIDWithEnable "PID controller with enable signal"
+block PIDWithEnable
+  "PID controller with enable signal"
   extends Modelica.Blocks.Icons.Block;
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller";

@@ -87,8 +87,10 @@ model HeatExchanger
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u
     "Control signal for secondary side (from supervisory)"
     annotation (Placement(transformation(extent={{-260,100},{-220,140}}),iconTransformation(extent={{-140,60},{-100,100}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(final t=0.01,
-      final h=0.005) "Check for heat or cold rejection demand"
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
+    final t=0.01,
+    final h=0.005)
+    "Check for heat or cold rejection demand"
     annotation (Placement(transformation(extent={{-170,110},{-150,130}})));
   Buildings.Controls.OBC.CDL.Logical.And and2
     "At least one valve is open and HX circuit is enabled"
@@ -247,8 +249,7 @@ equation
   connect(mapVal.y,yVal2Hex)
     annotation (Line(points={{112,100},{210,100},{210,-60},{240,-60}},color={0,0,127}));
   connect(and2.y,swiOff2.u2)
-    annotation (Line(points={{-38,80},{-20,80},{-20,120},{130,120},{130,140},{
-          158,140}}, color={255,0,255}));
+    annotation (Line(points={{-38,80},{-20,80},{-20,120},{130,120},{130,140},{158,140}},color={255,0,255}));
   annotation (
     Diagram(
       coordinateSystem(

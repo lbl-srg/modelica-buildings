@@ -1,5 +1,6 @@
 within Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Validation;
-package BaseClasses "Package with base classes"
+package BaseClasses
+  "Package with base classes"
   annotation (
     Documentation(
       info="<html>

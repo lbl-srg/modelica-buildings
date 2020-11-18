@@ -36,12 +36,13 @@ model Borefield
     "Borefield pump minimum speed";
   // IO VARIABLES
   Buildings.Controls.OBC.CDL.Interfaces.RealInput yValIso_actual[2]
-    "Isolation valves return position (fractional)" annotation (Placement(
-        transformation(extent={{-140,20},{-100,60}}), iconTransformation(extent=
-           {{-140,20},{-100,60}})));
+    "Isolation valves return position (fractional)"
+    annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
+    iconTransformation(extent={{-140,20},{-100,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u
     "Control signal from supervisory"
-    annotation (Placement(transformation(extent={{-140,60},{-100,100}}),iconTransformation(extent={{-140,60},{-100,100}})));
+    annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
+    iconTransformation(extent={{-140,60},{-100,100}})));
   // COMPONENTS
   Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear val(
     redeclare final package Medium=Medium,
@@ -123,8 +124,8 @@ equation
     annotation (Line(points={{80,-10},{80,-40},{-80,-40},{-80,-10}},color={0,127,255}));
   connect(u,con.u)
     annotation (Line(points={{-120,80},{-82,80}},color={0,0,127}));
-  connect(yValIso_actual, con.yValIso_actual) annotation (Line(points={{-120,40},
-          {-90,40},{-90,74},{-82,74}}, color={0,0,127}));
+  connect(yValIso_actual,con.yValIso_actual)
+    annotation (Line(points={{-120,40},{-90,40},{-90,74},{-82,74}},color={0,0,127}));
   connect(con.yValMix,val.y)
     annotation (Line(points={{-58,68},{-56,68},{-56,60},{-80,60},{-80,12}},color={0,0,127}));
   connect(port_a,val.port_1)
@@ -162,21 +163,21 @@ equation
     Documentation(
       info="<html>
 <p>
-This is a model for a borefield system with a variable speed pump 
+This is a model for a borefield system with a variable speed pump
 and a mixing valve modulated to maintain a maximum inlet temperature.
 </p>
 <p>
 The system is controlled based on the logic described in
 <a href=\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Controls.Borefield\">
 Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Controls.Borefield</a>.
-The pump flow rate is considered proportional to the pump speed 
-under the assumption of a constant flow resistance in the borefield loop. 
-This assumption is justified by the connection of the loop to the buffer tanks, 
+The pump flow rate is considered proportional to the pump speed
+under the assumption of a constant flow resistance in the borefield loop.
+This assumption is justified by the connection of the loop to the buffer tanks,
 and by the additional assumption that the bypass branch of the mixing valve
-is balanced with the direct branch.  
+is balanced with the direct branch.
 </p>
 <p>
-(The parameter <code>from_dp</code> of the valve model is set to false to 
+(The parameter <code>from_dp</code> of the valve model is set to false to
 simplify the system of algebraic equations, which, in this specific case,
 alleviates non-convergence issues.)
 </p>

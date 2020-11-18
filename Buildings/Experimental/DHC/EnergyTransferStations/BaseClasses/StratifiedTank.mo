@@ -3,10 +3,7 @@ model StratifiedTank
   "Stratified buffer tank model"
   replaceable package Medium=Modelica.Media.Interfaces.PartialMedium
     "Medium model"
-    annotation (choices(choice(redeclare package Medium=Buildings.Media.Water "Water"),
-      choice(redeclare package Medium =
-            Buildings.Media.Antifreeze.PropyleneGlycolWater (
-        property_T=293.15,X_a=0.40) "Propylene glycol water, 40% mass fraction")));
+    annotation (choices(choice(redeclare package Medium=Buildings.Media.Water "Water"),choice(redeclare package Medium=Buildings.Media.Antifreeze.PropyleneGlycolWater(property_T=293.15,X_a=0.40) "Propylene glycol water, 40% mass fraction")));
   final parameter Boolean allowFlowReversal=true
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
     annotation (Dialog(tab="Assumptions"),Evaluate=true);
@@ -234,7 +231,8 @@ July 31, 2020, by Antoine Gautier:<br/>
 First implementation
 </li>
 </ul>
-</html>", info="<html>
+</html>",
+      info="<html>
 <p>
 This is a four-port tank model based on
 <a href=\"modelica://Buildings.Fluid.Storage.Stratified\">

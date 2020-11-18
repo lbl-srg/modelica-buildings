@@ -9,9 +9,9 @@ model Borefield
     final unit="1")=0.1
     "Borefield pump minimum speed";
   Buildings.Controls.OBC.CDL.Interfaces.RealInput yValIso_actual[2]
-    "Isolation valves return position (fractional)" annotation (Placement(
-        transformation(extent={{-140,-60},{-100,-20}}), iconTransformation(
-          extent={{-140,-20},{-100,20}})));
+    "Isolation valves return position (fractional)"
+    annotation (Placement(transformation(extent={{-140,-60},{-100,-20}}),
+    iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u
     "Control signal from supervisory"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
@@ -44,7 +44,8 @@ model Borefield
     "Mixing valve controller"
     annotation (Placement(transformation(extent={{-10,-90},{10,-70}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxTBorWatEnt(
-    y(final unit="K",
+    y(
+      final unit="K",
       displayUnit="degC"),
     final k=TBorWatEntMax)
     "Maximum value of borefield water entering temperature"
@@ -97,15 +98,14 @@ model Borefield
 equation
   connect(multiMax1.y,opeVal.u)
     annotation (Line(points={{-68,-40},{-60,-40},{-60,-48},{-52,-48}},color={0,0,127}));
-  connect(yValIso_actual, multiMax1.u)
-    annotation (Line(points={{-120,-40},{-92,-40}}, color={0,0,127}));
+  connect(yValIso_actual,multiMax1.u)
+    annotation (Line(points={{-120,-40},{-92,-40}},color={0,0,127}));
   connect(u,enaSup.u)
     annotation (Line(points={{-120,60},{-80,60},{-80,-20},{-52,-20}},color={0,0,127}));
   connect(enaSup.y,enaBor.u1)
     annotation (Line(points={{-28,-20},{-20,-20},{-20,-30},{-12,-30}},color={255,0,255}));
   connect(opeVal.y,enaBor.u2)
-    annotation (Line(points={{-28,-48},{-20,-48},{-20,-38},{-12,-38}},
-                                                  color={255,0,255}));
+    annotation (Line(points={{-28,-48},{-20,-48},{-20,-38},{-12,-38}},color={255,0,255}));
   connect(enaBor.y,conMix.trigger)
     annotation (Line(points={{12,-30},{20,-30},{20,-96},{-6,-96},{-6,-92}},color={255,0,255}));
   connect(maxTBorWatEnt.y,conMix.u_s)
@@ -113,15 +113,15 @@ equation
   connect(runBor.y,yPum)
     annotation (Line(points={{92,60},{120,60}},color={0,0,127}));
   connect(TBorWatEnt,conMix.u_m)
-    annotation (Line(points={{-120,-100},{0,-100},{0,-92}}, color={0,0,127}));
+    annotation (Line(points={{-120,-100},{0,-100},{0,-92}},color={0,0,127}));
   connect(enaBor.y,runBor.u2)
-    annotation (Line(points={{12,-30},{20,-30},{20,20},{64,20},{64,60},{68,60}},  color={255,0,255}));
+    annotation (Line(points={{12,-30},{20,-30},{20,20},{64,20},{64,60},{68,60}},color={255,0,255}));
   connect(mapSpe.y,runBor.u1)
     annotation (Line(points={{42,80},{60,80},{60,68},{68,68}},color={0,0,127}));
   connect(u,mapSpe.u)
     annotation (Line(points={{-120,60},{0,60},{0,80},{18,80}},color={0,0,127}));
   connect(speMin.y,mapSpe.f1)
-    annotation (Line(points={{-18,84},{18,84}}, color={0,0,127}));
+    annotation (Line(points={{-18,84},{18,84}},color={0,0,127}));
   connect(min1.y,yValMix)
     annotation (Line(points={{92,-60},{120,-60}},color={0,0,127}));
   connect(conMix.y,min1.u2)

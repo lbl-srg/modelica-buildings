@@ -17,10 +17,12 @@ model HeatExchanger
     "Secondary boundary conditions"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,origin={-110,-62})));
   Modelica.Blocks.Sources.BooleanExpression uHeaRej(
-    y=time >= 3000) "Heat rejection enable signal"
+    y=time >= 3000)
+    "Heat rejection enable signal"
     annotation (Placement(transformation(extent={{-230,110},{-210,130}})));
-  Modelica.Blocks.Sources.BooleanExpression uEnaColRej(y=time >= 1000 and time <
-        3000) "Cold rejection enable signal"
+  Modelica.Blocks.Sources.BooleanExpression uEnaColRej(
+    y=time >= 1000 and time < 3000)
+    "Cold rejection enable signal"
     annotation (Placement(transformation(extent={{-230,90},{-210,110}})));
   Experimental.DHC.EnergyTransferStations.Combined.Generation5.Subsystems.HeatExchanger hexPum(
     redeclare final package Medium1=Medium,
@@ -34,8 +36,8 @@ model HeatExchanger
     T_b1Hex_nominal=277.15,
     T_a2Hex_nominal=275.15,
     T_b2Hex_nominal=279.15,
-    dT1HexSet=
-      abs(hexPum.T_b1Hex_nominal-hexPum.T_a1Hex_nominal) .* {1+1/3,1})
+    dT1HexSet=abs(
+      hexPum.T_b1Hex_nominal-hexPum.T_a1Hex_nominal) .* {1+1/3,1})
     "Heat exchanger with primary pump"
     annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi
@@ -78,8 +80,8 @@ model HeatExchanger
     T_b1Hex_nominal=277.15,
     T_a2Hex_nominal=275.15,
     T_b2Hex_nominal=279.15,
-    dT1HexSet=
-      abs(hexVal.T_b1Hex_nominal-hexVal.T_a1Hex_nominal) .* {1+1/3,1})
+    dT1HexSet=abs(
+      hexVal.T_b1Hex_nominal-hexVal.T_a1Hex_nominal) .* {1+1/3,1})
     "Heat exchanger with primary control valve"
     annotation (Placement(transformation(extent={{-10,10},{10,30}})));
   Fluid.Sources.Boundary_pT bou1Val(
@@ -120,14 +122,16 @@ model HeatExchanger
   Buildings.Controls.OBC.CDL.Logical.Or or2
     annotation (Placement(transformation(extent={{-160,90},{-140,110}})));
   Modelica.Blocks.Sources.RealExpression yValIsoCon(
-    y=if time >= 2500 then
+    y=
+      if time >= 2500 then
         1
       else
         0)
     "Condenser loop isolation valve opening"
     annotation (Placement(transformation(extent={{-230,70},{-210,90}})));
   Modelica.Blocks.Sources.RealExpression yValIsoEva(
-    y=if time >= 500 then
+    y=
+      if time >= 500 then
         1
       else
         0)
@@ -146,7 +150,8 @@ model HeatExchanger
     "Zero"
     annotation (Placement(transformation(extent={{-120,110},{-100,130}})));
   Modelica.Blocks.Sources.TimeTable TColVal(
-    y(final unit="K",
+    y(
+      final unit="K",
       displayUnit="degC"),
     table=[
       0,6;
@@ -160,7 +165,8 @@ model HeatExchanger
     "Cold side temperature values"
     annotation (Placement(transformation(extent={{-230,-50},{-210,-30}})));
   Modelica.Blocks.Sources.TimeTable THotVal(
-    y(final unit="K",
+    y(
+      final unit="K",
       displayUnit="degC"),
     table=[
       0,45;
@@ -174,7 +180,8 @@ model HeatExchanger
     "Hot side temperature values"
     annotation (Placement(transformation(extent={{-230,-90},{-210,-70}})));
   Modelica.Blocks.Sources.TimeTable TDisVal(
-    y(final unit="K",
+    y(
+      final unit="K",
       displayUnit="degC"),
     table=[
       0,8;
@@ -190,9 +197,8 @@ model HeatExchanger
 equation
   connect(swi.y,bou2.T_in)
     annotation (Line(points={{-138,-60},{-130,-60},{-130,-58},{-122,-58}},color={0,0,127}));
-  connect(uEnaColRej.y, swi.u2) annotation (Line(points={{-209,100},{-180,100},{
-          -180,40},{-160,40},{-160,-40},{-170,-40},{-170,-60},{-162,-60}},
-        color={255,0,255}));
+  connect(uEnaColRej.y,swi.u2)
+    annotation (Line(points={{-209,100},{-180,100},{-180,40},{-160,40},{-160,-40},{-170,-40},{-170,-60},{-162,-60}},color={255,0,255}));
   connect(hexPum.port_b1,senT1OutPum.port_a)
     annotation (Line(points={{10,-54},{40,-54},{40,-80},{60,-80}},color={0,127,255}));
   connect(senT1OutPum.port_b,bou1.ports[1])
@@ -231,18 +237,18 @@ equation
     annotation (Line(points={{-10,26},{-20,26},{-20,40},{50,40},{50,30}},color={0,127,255}));
   connect(senRelPre.port_b,senT1OutVal.port_a)
     annotation (Line(points={{50,10},{50,0},{60,0}},color={0,127,255}));
-  connect(uEnaColRej.y, or2.u2) annotation (Line(points={{-209,100},{-180,100},{
-          -180,92},{-162,92}}, color={255,0,255}));
+  connect(uEnaColRej.y,or2.u2)
+    annotation (Line(points={{-209,100},{-180,100},{-180,92},{-162,92}},color={255,0,255}));
   connect(uHeaRej.y,or2.u1)
     annotation (Line(points={{-209,120},{-170,120},{-170,100},{-162,100}},color={255,0,255}));
-  connect(yValIsoCon.y, hexVal.yValIso_actual[1]) annotation (Line(points={{-209,
-          80},{-32,80},{-32,17},{-12,17}}, color={0,0,127}));
-  connect(yValIsoCon.y, hexPum.yValIso_actual[1]) annotation (Line(points={{-209,
-          80},{-32,80},{-32,-63},{-12,-63}}, color={0,0,127}));
-  connect(yValIsoEva.y, hexVal.yValIso_actual[2]) annotation (Line(points={{-209,
-          60},{-36,60},{-36,19},{-12,19}}, color={0,0,127}));
-  connect(yValIsoEva.y, hexPum.yValIso_actual[2]) annotation (Line(points={{-209,
-          60},{-36,60},{-36,-61},{-12,-61}}, color={0,0,127}));
+  connect(yValIsoCon.y,hexVal.yValIso_actual[1])
+    annotation (Line(points={{-209,80},{-32,80},{-32,17},{-12,17}},color={0,0,127}));
+  connect(yValIsoCon.y,hexPum.yValIso_actual[1])
+    annotation (Line(points={{-209,80},{-32,80},{-32,-63},{-12,-63}},color={0,0,127}));
+  connect(yValIsoEva.y,hexVal.yValIso_actual[2])
+    annotation (Line(points={{-209,60},{-36,60},{-36,19},{-12,19}},color={0,0,127}));
+  connect(yValIsoEva.y,hexPum.yValIso_actual[2])
+    annotation (Line(points={{-209,60},{-36,60},{-36,-61},{-12,-61}},color={0,0,127}));
   connect(or2.y,swi1.u2)
     annotation (Line(points={{-138,100},{-62,100}},color={255,0,255}));
   connect(sin1.y,swi1.u1)
