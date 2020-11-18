@@ -232,7 +232,8 @@ model PartialParallel
     "Variation of enthalpy flow rate"
     annotation (Placement(transformation(extent={{-230,96},{-250,116}})));
 protected
-  parameter Boolean have_val1Hex=conCon == Buildings.Experimental.DHC.EnergyTransferStations.Types.ConnectionConfiguration.TwoWayValve
+  parameter Boolean have_val1Hex=conCon ==
+    Buildings.Experimental.DHC.EnergyTransferStations.Types.ConnectionConfiguration.TwoWayValve
     "True in case of control valve on district side, false in case of a pump";
 equation
   connect(hex.PPum,totPPum.u[1])
@@ -245,10 +246,10 @@ equation
     annotation (Line(points={{10,-260},{300,-260}},color={0,127,255}));
   connect(tanHeaWat.TTop,conSup.THeaWatTop)
     annotation (Line(points={{-199,115},{-182,115},{-182,82},{-274,82},{-274,25},
-          {-262,25}},                                                                       color={0,0,127}));
+          {-262,25}}, color={0,0,127}));
   connect(tanChiWat.TBot,conSup.TChiWatBot)
     annotation (Line(points={{221,97},{240,97},{240,78},{-270,78},{-270,19},{
-          -262,19}},                                                                   color={0,0,127}));
+          -262,19}}, color={0,0,127}));
   connect(hex.port_b2,colAmbWat.ports_aCon[1])
     annotation (Line(points={{-10,-248},{-20,-248},{-20,-160},{12,-160},{12,-116}},color={0,127,255}));
   connect(hex.port_a2,colAmbWat.ports_bCon[1])

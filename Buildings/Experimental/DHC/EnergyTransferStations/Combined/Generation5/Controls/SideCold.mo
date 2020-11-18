@@ -55,14 +55,13 @@ model SideCold
     final k={(i) for i in 1:nSouAmb})
     "x2"
     annotation (Placement(transformation(extent={{0,-70},{20,-50}})));
-  LimPIDEnable conTChiWatSup(
+  PIDWithEnable conTChiWatSup(
     final k=k,
     final Ti=Ti,
     final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     final yMin=-1,
     final yMax=0,
-    final reverseActing=true)
-    "Controller for CHWST"
+    final reverseActing=true) "Controller for CHWST"
     annotation (Placement(transformation(extent={{-128,-30},{-108,-10}})));
   Buildings.Controls.OBC.CDL.Continuous.Line mapFunTChiSupSet
     "Mapping function for CHWST reset"
@@ -151,8 +150,8 @@ equation
   connect(TSet,mapFunTChiSupSet.f1)
     annotation (Line(points={{-200,40},{20,40},{20,84},{98,84}},color={0,0,127}));
   connect(conTChiWatSup.y,addPar.u)
-    annotation (Line(points={{-106,-20},{-106,-18},{-104,-18},{-104,-20},{-100,
-          -20}},                                   color={0,0,127}));
+    annotation (Line(points={{-106,-20},{-100,-20}},
+                                                   color={0,0,127}));
   connect(uCol, subNumSou.u) annotation (Line(points={{-200,0},{-160,0},{-160,
           100},{-82,100}}, color={0,0,127}));
   connect(max1.y,mapFunTChiSupSet.u)
@@ -211,6 +210,7 @@ Control signals for ambient sources <code>yAmb</code> (array)<br/>
 
 The cold rejection control signal yielded by the hot side controller
 is processed as follows.
+</li>
 <ul>
 <li>
 A controller is used to track the chilled water
@@ -247,8 +247,5 @@ The command signal is held for 60s to avoid short cycling.
 </html>"),
     Diagram(
       coordinateSystem(
-        extent={{-180,-140},{180,140}}), graphics={Text(
-          extent={{48,-60},{132,-90}},
-          lineColor={28,108,200},
-          textString="Using MSL hold due to bug in Dymola")}));
+        extent={{-180,-140},{180,140}})));
 end SideCold;

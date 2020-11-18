@@ -27,7 +27,7 @@ model Pump_m_flow
       info="<html>
 <p>
 This is a steady-state model of a pump with ideally controlled 
-mass flow rate as input signal, and not heat added to the medium.
+mass flow rate as input signal, and no heat added to the medium.
 </p>
 </html>"));
 end Pump_m_flow;

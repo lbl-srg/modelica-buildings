@@ -8,6 +8,30 @@ model Borefield
   parameter Real spePumBorMin(
     final unit="1")=0.1
     "Borefield pump minimum speed";
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput yValIso_actual[2]
+    "Isolation valves return position (fractional)" annotation (Placement(
+        transformation(extent={{-140,-60},{-100,-20}}), iconTransformation(
+          extent={{-140,-20},{-100,20}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput u
+    "Control signal from supervisory"
+    annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
+    iconTransformation(extent={{-140,40},{-100,80}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yPum(
+    final unit="kg/s")
+    "Control signal for borefield pump"
+    annotation (Placement(transformation(extent={{100,40},{140,80}}),
+    iconTransformation(extent={{100,40},{140,80}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yValMix(
+    final unit="1")
+    "Control signal for borefield mixing valve"
+    annotation (Placement(transformation(extent={{100,-80},{140,-40}}),
+    iconTransformation(extent={{100,-80},{140,-40}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TBorWatEnt(
+    final unit="K",
+    displayUnit="degC")
+    "Borefield water entering temperature"
+    annotation (Placement(transformation(extent={{-140,-120},{-100,-80}}),
+    iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Continuous.PIDWithReset conMix(
     final yMin=0,
     final yMax=1,
@@ -31,7 +55,7 @@ model Borefield
     "True if at least one isolation valve is open"
     annotation (Placement(transformation(extent={{-50,-58},{-30,-38}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiMax multiMax1(
-    nin=2)
+    final nin=2)
     "Maximum opening"
     annotation (Placement(transformation(extent={{-90,-50},{-70,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold enaSup(
@@ -53,26 +77,6 @@ model Borefield
   Buildings.Controls.OBC.CDL.Logical.And enaBor
     "Borefield enable signal"
     annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput yValIso_actual[2]
-    "Isolation valves return position (fractional)" annotation (Placement(
-        transformation(extent={{-140,-60},{-100,-20}}), iconTransformation(
-          extent={{-140,-20},{-100,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput u
-    "Control signal from supervisory"
-    annotation (Placement(transformation(extent={{-140,40},{-100,80}}),iconTransformation(extent={{-140,40},{-100,80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yPum(
-    final unit="kg/s")
-    "Control signal for borefield pump"
-    annotation (Placement(transformation(extent={{100,40},{140,80}}),iconTransformation(extent={{100,40},{140,80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yValMix(
-    final unit="1")
-    "Control signal for borefield mixing valve"
-    annotation (Placement(transformation(extent={{100,-80},{140,-40}}),iconTransformation(extent={{100,-80},{140,-40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TBorWatEnt(
-    final unit="K",
-    displayUnit="degC")
-    "Borefield water entering temperature"
-    annotation (Placement(transformation(extent={{-140,-120},{-100,-80}}),iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Continuous.Line mapSpe
     "Mapping function for pump speed"
     annotation (Placement(transformation(extent={{20,70},{40,90}})));
@@ -109,7 +113,7 @@ equation
   connect(runBor.y,yPum)
     annotation (Line(points={{92,60},{120,60}},color={0,0,127}));
   connect(TBorWatEnt,conMix.u_m)
-    annotation (Line(points={{-120,-100},{0,-100},{0,-92}},                    color={0,0,127}));
+    annotation (Line(points={{-120,-100},{0,-100},{0,-92}}, color={0,0,127}));
   connect(enaBor.y,runBor.u2)
     annotation (Line(points={{12,-30},{20,-30},{20,20},{64,20},{64,60},{68,60}},  color={255,0,255}));
   connect(mapSpe.y,runBor.u1)
@@ -117,7 +121,7 @@ equation
   connect(u,mapSpe.u)
     annotation (Line(points={{-120,60},{0,60},{0,80},{18,80}},color={0,0,127}));
   connect(speMin.y,mapSpe.f1)
-    annotation (Line(points={{-18,84},{18,84}},                  color={0,0,127}));
+    annotation (Line(points={{-18,84},{18,84}}, color={0,0,127}));
   connect(min1.y,yValMix)
     annotation (Line(points={{92,-60},{120,-60}},color={0,0,127}));
   connect(conMix.y,min1.u2)

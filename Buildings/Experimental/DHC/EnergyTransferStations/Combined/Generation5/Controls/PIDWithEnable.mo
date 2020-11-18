@@ -1,6 +1,5 @@
 within Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Controls;
-block LimPIDEnable
-  "PID controller with enable signal"
+block PIDWithEnable "PID controller with enable signal"
   extends Modelica.Blocks.Icons.Block;
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller";
@@ -74,6 +73,7 @@ equation
   connect(valDis.y,swi1.u3)
     annotation (Line(points={{52,-40},{64,-40},{64,-8},{70,-8}},color={0,0,127}));
   annotation (
+    defaultComponentName="conPID",
     Icon(
       coordinateSystem(
         preserveAspectRatio=false)),
@@ -103,4 +103,4 @@ time integration of the control error).
 </li>
 </ul>
 </html>"));
-end LimPIDEnable;
+end PIDWithEnable;

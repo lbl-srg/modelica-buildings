@@ -248,13 +248,13 @@ equation
     annotation (Line(points={{112,100},{210,100},{210,-60},{240,-60}},color={0,0,127}));
   connect(and2.y,swiOff2.u2)
     annotation (Line(points={{-38,80},{-20,80},{-20,120},{130,120},{130,140},{
-          158,140}},                                                                    color={255,0,255}));
+          158,140}}, color={255,0,255}));
   annotation (
     Diagram(
       coordinateSystem(
         preserveAspectRatio=false,
         extent={{-220,-180},{220,180}})),
-    defaultComponentName="conHex",
+    defaultComponentName="con",
     Documentation(
       revisions="<html>
 <ul>

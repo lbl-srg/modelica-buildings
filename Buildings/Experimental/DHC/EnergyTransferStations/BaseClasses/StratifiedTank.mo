@@ -3,7 +3,10 @@ model StratifiedTank
   "Stratified buffer tank model"
   replaceable package Medium=Modelica.Media.Interfaces.PartialMedium
     "Medium model"
-    annotation (choices(choice(redeclare package Medium=Buildings.Media.Water "Water"),choice(redeclare package Medium=Buildings.Media.Antifreeze.PropyleneGlycolWater(property_T=293.15,X_a=0.40) "Propylene glycol water, 40% mass fraction")));
+    annotation (choices(choice(redeclare package Medium=Buildings.Media.Water "Water"),
+      choice(redeclare package Medium =
+            Buildings.Media.Antifreeze.PropyleneGlycolWater (
+        property_T=293.15,X_a=0.40) "Propylene glycol water, 40% mass fraction")));
   final parameter Boolean allowFlowReversal=true
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
     annotation (Dialog(tab="Assumptions"),Evaluate=true);
@@ -231,5 +234,31 @@ July 31, 2020, by Antoine Gautier:<br/>
 First implementation
 </li>
 </ul>
+</html>", info="<html>
+<p>
+This is a four-port tank model based on
+<a href=\"modelica://Buildings.Fluid.Storage.Stratified\">
+Buildings.Fluid.Storage.Stratified</a> 
+which includes the following features.
+</p>
+<ul>
+<li>
+The two fluid ports suffixed with <code>Top</code> are connected 
+to the fluid volume at the top of the tank.
+</li>
+<li>
+The two fluid ports suffixed with <code>Bot</code> are connected 
+to the fluid volume at the bottom of the tank.
+</li>
+<li>
+A unique heat port is exposed as an external connector. It is 
+meant to provide a uniform temperature boundary condition at 
+the external surface of the tank (outside insulation). 
+</li>
+<li>
+The model outputs the temperature of the fluid volumes at the top 
+and at the bottom of the tank.
+</li>
+</p>
 </html>"));
 end StratifiedTank;

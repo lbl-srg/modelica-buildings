@@ -1,4 +1,4 @@
-﻿within Buildings.Experimental.DHC.Networks.BaseClasses;
+within Buildings.Experimental.DHC.Networks.BaseClasses;
 model DifferenceEnthalpyFlowRate
   "Sensor outputing the difference between two enthalpy flow rates"
   extends Fluid.Interfaces.PartialFourPortInterface(
@@ -143,7 +143,7 @@ equation
         Text(
           extent={{173,26},{79,-4}},
           lineColor={0,0,0},
-          textString="ΔH_flow"),
+          textString="dH_flow"),
         Line(
           points={{-100,60},{-36,60}},
           color={0,128,255}),

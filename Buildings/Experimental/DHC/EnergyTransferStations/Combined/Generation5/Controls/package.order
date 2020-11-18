@@ -1,7 +1,7 @@
 Borefield
 Chiller
 HeatExchanger
-LimPIDEnable
+PIDWithEnable
 Reset
 SideCold
 SideHot

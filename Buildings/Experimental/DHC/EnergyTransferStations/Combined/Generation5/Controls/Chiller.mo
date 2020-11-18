@@ -43,27 +43,23 @@ model Chiller
   Buildings.Controls.OBC.CDL.Logical.Or heaOrCoo
     "Heating or cooling enabled"
     annotation (Placement(transformation(extent={{-120,50},{-100,70}})));
-  LimPIDEnable                         conValEva(
+  PIDWithEnable conValEva(
     final controllerType=Modelica.Blocks.Types.SimpleController.PI,
     final yMax=1,
     final yMin=0,
     y_reset=0,
     k=0.1,
-    Ti(
-      displayUnit="s")=60,
-    final reverseActing=true)
-    "Evaporator three-way valve control"
+    Ti(displayUnit="s") = 60,
+    final reverseActing=true) "Evaporator three-way valve control"
     annotation (Placement(transformation(extent={{50,-10},{70,10}})));
-  LimPIDEnable                         conValCon(
+  PIDWithEnable conValCon(
     final controllerType=Modelica.Blocks.Types.SimpleController.PI,
     final yMax=1,
     final yMin=0,
     y_reset=0,
     k=0.1,
-    Ti(
-      displayUnit="s")=60,
-    final reverseActing=false)
-    "Condenser three-way valve control"
+    Ti(displayUnit="s") = 60,
+    final reverseActing=false) "Condenser three-way valve control"
     annotation (Placement(transformation(extent={{50,-70},{70,-50}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxTEvaWatEnt(
     y(final unit="K",
@@ -120,7 +116,7 @@ First implementation
 </li>
 </ul>
 </html>",
-      info="<html>
+info="<html>
 <p>
 This is a controller for the chiller system, which includes the dedicated
 condenser and evaporator pumps.

@@ -25,14 +25,13 @@ block SideHot
       enable=controllerType ==
         Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
         controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
-  LimPIDEnable conColRej(
+  PIDWithEnable conColRej(
     final k=k,
     final Ti=Ti,
     final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     final yMin=0,
-    final yMax=nSouAmb+1,
-    final reverseActing=true)
-    "Controller for cold rejection"
+    final yMax=nSouAmb + 1,
+    final reverseActing=true) "Controller for cold rejection"
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yCol(
     final unit="1")
@@ -45,14 +44,13 @@ block SideHot
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea
     "Convert DO to AO signal"
     annotation (Placement(transformation(extent={{80,-10},{100,10}})));
-  LimPIDEnable conHeaRej(
+  PIDWithEnable conHeaRej(
     final k=k,
     final Ti=Ti,
     final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     final yMin=0,
     final yMax=nSouAmb,
-    final reverseActing=false)
-    "Controller for heat rejection"
+    final reverseActing=false) "Controller for heat rejection"
     annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Line mapFun[nSouAmb]
     "Mapping functions for controlled systems"
@@ -263,8 +261,5 @@ The command signal is held for 60s to avoid short cycling.
 </html>"),
     Diagram(
       coordinateSystem(
-        extent={{-180,-140},{180,140}}), graphics={Text(
-          extent={{48,-6},{132,-36}},
-          lineColor={28,108,200},
-          textString="Using MSL hold due to bug in Dymola")}));
+        extent={{-180,-140},{180,140}})));
 end SideHot;

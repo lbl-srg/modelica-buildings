@@ -41,6 +41,7 @@ equation
   connect(ramLimHea.y,THeaWatSupSet)
     annotation (Line(points={{72,0},{120,0}},color={0,0,127}));
   annotation (
+    defaultComponentName="resTSup",
     Icon(
       coordinateSystem(
         preserveAspectRatio=false)),

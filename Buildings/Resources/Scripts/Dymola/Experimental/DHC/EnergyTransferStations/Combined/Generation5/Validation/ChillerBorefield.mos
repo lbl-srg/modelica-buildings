@@ -61,7 +61,7 @@ createPlot(
     color=true);
 createPlot(
     id=3,
-    y={"ets.hex.conHex.absDelT.y", "ets.hex.conHex.setAct.y"},
+    y={"ets.hex.con.absDelT.y", "ets.hex.con.setAct.y"},
     subPlot=2,
     autoscale=true,
     autoerase=true,
