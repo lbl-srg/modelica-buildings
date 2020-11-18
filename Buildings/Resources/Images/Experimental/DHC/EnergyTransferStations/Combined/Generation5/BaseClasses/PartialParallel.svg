@@ -1140,10 +1140,6 @@
        d="m 334.75,2197.146 h 10"
        style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
     <path
-       id="path5067"
-       d="m 535,2242.1583 v -35"
-       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
-    <path
        id="path5111"
        d="m 690,2162.1583 v 35"
        style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
@@ -1336,11 +1332,11 @@
        id="path1692" />
     <path
        style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#b3b3b3;stroke-width:0.5;stroke-miterlimit:3.9;stroke-dasharray:none;stop-color:#000000"
-       d="m 775,2222.1583 v 35 H 385.97579 m -1.94124,0 h -3.20531 m -1.89609,0 h -2.93444 m -2.16697,0 H 322"
+       d="m 775,2222.1583 v 35 H 395.9052 m -2.08214,0 h -7.84727 m -1.94124,0 h -3.20531 m 0.17076,0 h -5.00129 m -2.16697,0 H 322"
        id="path1694" />
     <path
        style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#b3b3b3;stroke-width:0.5;stroke-miterlimit:3.9;stroke-dasharray:none;marker-end:url(#marker4398);stop-color:#000000"
-       d="m 318,2257.1583 h -23 v 80"
+       d="m 325,2257.1583 h -30 v 80"
        id="path1696" />
     <text
        id="text1564-4"
@@ -1369,11 +1365,11 @@
          style="font-style:italic;fill:#b3b3b3"
          x="224.09828"
          y="2380.28"
-         id="tspan6848">Heating enabled</tspan><tspan
+         id="tspan6848">Heating enable</tspan><tspan
          style="font-style:italic;fill:#b3b3b3"
          x="224.09828"
          y="2388.6294"
-         id="tspan6850">Cooling enabled</tspan><tspan
+         id="tspan6850">Cooling enable</tspan><tspan
          id="tspan8231"
          style="font-style:italic;fill:#b3b3b3"
          x="224.09828"
@@ -1540,7 +1536,7 @@
        id="path2549" />
     <path
        id="path2844"
-       d="m 10.196782,22.126674 0.01771,4.96119"
+       d="m 10.196783,22.126674 0.01771,4.96119"
        style="display:inline;fill:none;fill-rule:evenodd;stroke:#4d4d4d;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
     <g
        transform="translate(-590,-2050.0705)"
