@@ -1,6 +1,6 @@
 within Buildings.Experimental.DHC.Networks.BaseClasses;
 model DifferenceEnthalpyFlowRate
-  "Sensor outputing the difference between two enthalpy flow rates"
+  "Sensor outputting the difference between two enthalpy flow rates"
   extends Fluid.Interfaces.PartialFourPortInterface(
     redeclare final package Medium1=Medium,
     redeclare final package Medium2=Medium,
@@ -14,7 +14,8 @@ model DifferenceEnthalpyFlowRate
   replaceable package Medium=Modelica.Media.Interfaces.PartialMedium
     "Medium in the component"
     annotation (choices(choice(redeclare package Medium=Buildings.Media.Water "Water"),
-    choice(redeclare package Medium=Buildings.Media.Antifreeze.PropyleneGlycolWater(property_T=293.15,X_a=0.40)
+    choice(redeclare package Medium =
+            Buildings.Media.Antifreeze.PropyleneGlycolWater (                       property_T=293.15,X_a=0.40)
     "Propylene glycol water, 40% mass fraction")));
   parameter Boolean have_integrator=false
     "Set to true to output the time integral "
@@ -77,8 +78,7 @@ model DifferenceEnthalpyFlowRate
     "Compute the difference"
     annotation (Placement(transformation(extent={{40,10},{60,30}})));
   Modelica.Blocks.Continuous.Integrator int(
-    y(
-      unit="J")) if have_integrator
+    y(unit="J")) if have_integrator
     "Time integral computation"
     annotation (Placement(transformation(extent={{40,-30},{60,-10}})));
 equation
@@ -174,7 +174,7 @@ equation
     Documentation(
       info="<html>
 <p>
-This model outputs the difference in enthalphy flow rate of the same
+This model outputs the difference in enthalpy flow rate of the same
 medium between two different streams:
 <i>&Delta;H&#775; = m&#775;<sub>1</sub> h<sub>1</sub> - m&#775;<sub>2</sub> h<sub>2</sub></i>.
 Optionally the time integral of this quantity can be output.
