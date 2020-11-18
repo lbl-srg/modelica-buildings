@@ -210,7 +210,6 @@ Control signals for ambient sources <code>yAmb</code> (array)<br/>
 
 The cold rejection control signal yielded by the hot side controller
 is processed as follows.
-</li>
 <ul>
 <li>
 A controller is used to track the chilled water
@@ -227,6 +226,7 @@ and <code>nSouAmb</code> to a <code>nSouAmb</code>-array
 of signals between <code>0</code> and <code>1</code>.
 </li>
 </ul>
+</li>
 <li>
 Chilled water supply temperature set point <code>TChiWatSupSet</code><br/>
 

@@ -259,6 +259,6 @@ the external surface of the tank (outside insulation).
 The model outputs the temperature of the fluid volumes at the top 
 and at the bottom of the tank.
 </li>
-</p>
+</ul>
 </html>"));
 end StratifiedTank;
