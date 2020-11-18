@@ -12,7 +12,13 @@ jobs:
   sync-issue2204_gmt_mbl_master:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
+      - name: Checkout repo
+        uses: actions/checkout@v2
+        with:
+          lfs: true
+
+      - name: Checkout LFS objects
+        run: git lfs checkout
 
       - name: Merge master -> issue2204_gmt_mbl_master
         uses: devmasx/merge-branch@v1.3.1
