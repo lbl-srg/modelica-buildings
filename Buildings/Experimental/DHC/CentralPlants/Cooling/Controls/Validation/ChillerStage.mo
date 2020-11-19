@@ -18,6 +18,10 @@ model ChillerStage
     offset=0.5*chiStaCon.QEva_nominal)
     "Total cooling load"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
+initial equation 
+  Modelica.Utilities.Streams.print(
+    "Warning:\n  In " + getInstanceName() +
+    ": This model is a beta version and is not fully validated yet.");
 equation
   connect(on.y,chiStaCon.on)
     annotation (Line(points={{-39,30},{-28,30},{-28,4},{-12,4}},color={255,0,255}));

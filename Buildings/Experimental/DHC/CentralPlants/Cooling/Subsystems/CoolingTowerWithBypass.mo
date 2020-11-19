@@ -130,6 +130,7 @@ model CoolingTowerWithBypass
     redeclare final package Medium=Medium,
     final m_flow_nominal=m_flow_nominal,
     final T_start=Medium.T_default)
+    "Temperature sensor"
     annotation (Placement(transformation(extent={{60,10},{80,-10}})));
   Modelica.Blocks.Sources.Constant TSetByPas(
     final k=TMin)
