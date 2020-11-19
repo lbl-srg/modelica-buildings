@@ -1,7 +1,6 @@
 within Buildings.ThermalZones.EnergyPlus.BaseClasses;
 class FMUOutputVariableClass
   "Class used to couple the FMU to retrieve output variables"
-  extends Modelica.Icons.BasesPackage;
   extends ExternalObject;
   function constructor
     "Construct to connect to an output variable in EnergyPlus"

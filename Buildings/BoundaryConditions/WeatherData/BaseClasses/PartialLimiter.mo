@@ -13,7 +13,7 @@ annotation (
 defaultComponentName="lim",
 Documentation(info="<html>
 <p>
-Block that computes <i>y_internal=min(uMax, max(uMin, u)</i>,
+Block that computes <i>y_internal=min(uMax, max(uMin, u))</i>,
 where <code>y_internal</code> is a protected connector.
 </p>
 <p>

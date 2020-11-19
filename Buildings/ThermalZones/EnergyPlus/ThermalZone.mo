@@ -151,35 +151,29 @@ protected
     "Name of trace substance";
   final parameter Modelica.SIunits.MolarMass MM=Modelica.Media.IdealGases.Common.SingleGasesData.CO2.MM
     "Molar mass of the trace substance";
-  final parameter Real s[Medium.nC]={
-    if(Modelica.Utilities.Strings.isEqual(
-      string1=Medium.extraPropertiesNames[i],
-      string2=substanceName,
-      caseSensitive=false)) then
-      1
-    else
-      0 for i in 1:Medium.nC}
-    "Vector with zero everywhere except where CO2 is";
-  Modelica.Blocks.Math.Gain gaiCO2(
-    u(
-      final unit="W"),
-    k=3.82E-8*Modelica.Media.IdealGases.Common.SingleGasesData.CO2.MM/Modelica.Media.IdealGases.Common.SingleGasesData.Air.MM) if use_C_flow
-    "CO2 emission in kg/s per Watt heat released by people"
-    annotation (Placement(transformation(extent={{-160,-150},{-140,-130}})));
+  Modelica.Blocks.Routing.Replicator QPeaRep(
+    nout=Medium.nC) if use_C_flow
+    "Replicator to convert QPea_flow into a vector"
+    annotation (Placement(transformation(extent={{-100,-120},{-80,-100}})));
   Modelica.Blocks.Math.Add CTot_flow[Medium.nC](
     each final k1=1,
-    each final k2=1) if use_C_flow
+    final k2={
+      if(Modelica.Utilities.Strings.isEqual(
+        string1=Medium.extraPropertiesNames[i],
+        string2=substanceName,
+        caseSensitive=false)) then
+        3.82E-8*Modelica.Media.IdealGases.Common.SingleGasesData.CO2.MM/Modelica.Media.IdealGases.Common.SingleGasesData.Air.MM
+      else
+        0 for i in 1:Medium.nC},
+    u1(
+      each final unit="W")) if use_C_flow
     "Total trace substance flow rate"
-    annotation (Placement(transformation(extent={{-60,-136},{-40,-116}})));
+    annotation (Placement(transformation(extent={{-60,-100},{-40,-80}})));
   Buildings.Fluid.Sensors.MassFlowRate senMasFlo[nPorts](
     redeclare each final package Medium=Medium,
     each final allowFlowReversal=true)
     "Mass flow rate sensor"
     annotation (Placement(transformation(extent={{-10,10},{10,-10}},rotation=90,origin={0,-100})));
-  Modelica.Blocks.Math.MatrixGain matrixGain(
-    final K=s) if use_C_flow
-    "Gain to convert CO2 emission from scalar to vector"
-    annotation (Placement(transformation(extent={{-120,-150},{-100,-130}})));
   Modelica.Blocks.Sources.RealExpression TAirIn[nPorts](
     y=Medium.temperature(
       state=Medium.setState_phX(
@@ -246,12 +240,10 @@ equation
     annotation (Line(points={{-99,30},{-90,30},{-90,-22},{-84,-22}},color={0,0,127}));
   connect(mWat_flow.y,vol.mWat_flow)
     annotation (Line(points={{-61,-22},{-50,-22},{-50,-54},{-12,-54}},color={0,0,127}));
-  connect(fmuZon.QPeo_flow,gaiCO2.u)
-    annotation (Line(points={{101,104},{108,104},{108,-190},{-172,-190},{-172,-140},{-162,-140}},color={0,0,127}));
   connect(CTot_flow.y,vol.C_flow)
-    annotation (Line(points={{-39,-126},{-26,-126},{-26,-60},{-12,-60}},color={0,0,127}));
+    annotation (Line(points={{-39,-90},{-26,-90},{-26,-60},{-12,-60}},color={0,0,127}));
   connect(C_flow,CTot_flow.u1)
-    annotation (Line(points={{-220,-120},{-62,-120}},color={0,0,127}));
+    annotation (Line(points={{-220,-120},{-142,-120},{-142,-84},{-62,-84}},color={0,0,127}));
   for i in 1:nPorts loop
     connect(ports[i],senMasFlo[i].port_a)
       annotation (Line(points={{0,-150},{0,-110}},color={0,127,255}));
@@ -260,10 +252,6 @@ equation
     connect(senMasFlo[i].port_b,vol.ports[i])
       annotation (Line(points={{5.55112e-16,-90},{0,-90},{0,-66}},color={0,127,255}));
   end for;
-  connect(matrixGain.u[1],gaiCO2.y)
-    annotation (Line(points={{-122,-140},{-139,-140}},color={0,0,127}));
-  connect(matrixGain.y,CTot_flow.u2)
-    annotation (Line(points={{-99,-140},{-80,-140},{-80,-132},{-62,-132}},color={0,0,127}));
   connect(fmuZon.TInlet,TAirIn.y)
     annotation (Line(points={{78,106},{48,106},{48,112},{41,112}},color={0,0,127}));
   connect(TFlu.y,preTem.T)
@@ -292,6 +280,10 @@ equation
     annotation (Line(points={{141,-100},{148,-100},{148,-78},{159,-78}},color={0,0,127}));
   connect(relHum.phi,phi)
     annotation (Line(points={{181,-70},{192,-70},{192,-120},{210,-120}},color={0,0,127}));
+  connect(QPeaRep.y,CTot_flow.u2)
+    annotation (Line(points={{-79,-110},{-72,-110},{-72,-96},{-62,-96}},color={0,0,127}));
+  connect(QPeaRep.u,fmuZon.QPeo_flow)
+    annotation (Line(points={{-102,-110},{-114,-110},{-114,-140},{108,-140},{108,104},{101,104}},color={0,0,127}));
   annotation (
     defaultComponentName="zon",
     Icon(
@@ -300,84 +292,76 @@ equation
         extent={{-200,-200},{200,200}}),
       graphics={
         Rectangle(
-          extent={{-200,-200},{200,200}},
           lineColor={95,95,95},
           fillColor={95,95,95},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-176,182},{180,-182}},
-          lineColor={117,148,176},
           fillPattern=FillPattern.Solid,
-          fillColor=DynamicSelect({170,213,255},min(1,max(0,(1-(heaPorAir.T-295.15)/10)))*{28,108,200}+min(1,max(0,(heaPorAir.T-295.15)/10))*{255,0,0})),
+          extent={{-200,-200},{200,200}}),
+        Rectangle(
+          lineColor={117,148,176},
+          fillColor={170,213,255},
+          fillPattern=FillPattern.Solid,
+          extent={{-176,182},{180,-182}}),
         Bitmap(
+          visible=false,
           extent={{62,-190},{164,-88}},
-          fileName="modelica://Buildings/Resources/Images/Fluid/FMI/FMI_icon.png",
-          visible=usePrecompiledFMU),
+          fileName="modelica://Buildings/Resources/Images/Fluid/FMI/FMI_icon.png"),
         Text(
+          visible=false,
           extent={{-144,162},{-40,132}},
-          lineColor={0,0,0},
-          textString="%idfName",
-          visible=not usePrecompiledFMU),
+          textString="%idfName"),
         Text(
           extent={{-142,130},{-38,100}},
-          lineColor={0,0,0},
           textString="%zoneName"),
         Rectangle(
-          extent={{180,70},{200,-70}},
           lineColor={95,95,95},
           fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
+          fillPattern=FillPattern.Solid,
+          extent={{180,70},{200,-70}}),
         Text(
-          extent={{120,148},{170,120}},
-          lineColor={0,0,0},
           fillColor={61,61,61},
           fillPattern=FillPattern.Solid,
+          extent={{120,148},{170,120}},
           textString="TRad"),
         Text(
-          extent={{-60,12},{-22,-10}},
-          lineColor={0,0,0},
           fillColor={61,61,61},
           fillPattern=FillPattern.Solid,
+          extent={{-60,12},{-22,-10}},
           textString="air"),
         Rectangle(
-          extent={{186,70},{194,-70}},
           lineColor={95,95,95},
           fillColor={170,213,255},
-          fillPattern=FillPattern.Solid),
+          fillPattern=FillPattern.Solid,
+          extent={{186,70},{194,-70}}),
         Text(
           extent={{-202,118},{-126,86}},
-          lineColor={0,0,0},
           textString="q"),
         Text(
-          extent={{-188,-94},{-112,-126}},
+          visible=false,
           lineColor={0,0,127},
-          textString="C_flow",
-          visible=use_C_flow),
+          extent={{-188,-94},{-112,-126}},
+          textString="C_flow"),
         Text(
-          extent={{124,182},{174,154}},
-          lineColor={0,0,0},
           fillColor={61,61,61},
           fillPattern=FillPattern.Solid,
+          extent={{124,182},{174,154}},
           textString="TAir",
           horizontalAlignment=TextAlignment.Right),
         Text(
-          extent={{-58,244},{56,204}},
           lineColor={0,0,255},
+          extent={{-58,244},{56,204}},
           textString="%name"),
         Text(
-          extent={{174,-126},{54,-176}},
           lineColor={255,255,255},
-          textString=DynamicSelect("",String(heaPorAir.T-273.15,
-            format=".1f"))),
+          extent={{174,-126},{54,-176}},
+          textString=""),
         Bitmap(
+          visible=false,
           extent={{134,-176},{174,-146}},
-          fileName="modelica://Buildings/Resources/Images/ThermalZones/EnergyPlus/EnergyPlusLogo.png",
-          visible=not usePrecompiledFMU),
+          fileName="modelica://Buildings/Resources/Images/ThermalZones/EnergyPlus/EnergyPlusLogo.png"),
         Text(
-          extent={{132,114},{182,86}},
-          lineColor={0,0,0},
           fillColor={61,61,61},
           fillPattern=FillPattern.Solid,
+          extent={{132,114},{182,86}},
           textString="phi")}),
     Diagram(
       coordinateSystem(
