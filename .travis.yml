@@ -1,3 +1,4 @@
+os: Linux
 dist: bionic
 
 language: python
@@ -20,7 +21,6 @@ services:
 
 addons:
   apt:
-    if: env(TEST_ARG) =~ /test-AAAomc/
     sources:
     - sourceline: "deb http://build.openmodelica.org/apt bionic stable"
       key_url: "http://build.openmodelica.org/apt/openmodelica.asc"
