@@ -25,7 +25,8 @@ addons:
     - sourceline: "deb http://build.openmodelica.org/apt bionic stable"
       key_url: "http://build.openmodelica.org/apt/openmodelica.asc"
     packages:
-    - omc    
+    - omc
+    - omlib-modelica-3.2.3
 #    - omc=1.16.1
 
 env:
