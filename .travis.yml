@@ -1,3 +1,4 @@
+os: Linux
 dist: bionic
 
 language: python
@@ -20,14 +21,12 @@ services:
 
 addons:
   apt:
-#    if: env(TEST_ARG) IS /*test-omc*/
     sources:
     - sourceline: "deb http://build.openmodelica.org/apt bionic stable"
       key_url: "http://build.openmodelica.org/apt/openmodelica.asc"
     packages:
     - omc=1.16.1-1
     - omlib-modelica-3.2.3
-#    - omc=1.16.1
 
 env:
   global:
