@@ -20,12 +20,13 @@ services:
 
 addons:
   apt:
-    if: env(TEST_ARG) IS /*test-omc*/
+#    if: env(TEST_ARG) IS /*test-omc*/
     sources:
     - sourceline: "deb http://build.openmodelica.org/apt bionic stable"
       key_url: "http://build.openmodelica.org/apt/openmodelica.asc"
     packages:
-    - omc=1.16.1
+    - omc    
+#    - omc=1.16.1
 
 env:
   global:
