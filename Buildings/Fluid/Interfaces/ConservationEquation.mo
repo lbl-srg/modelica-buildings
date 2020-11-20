@@ -79,9 +79,7 @@ model ConservationEquation "Lumped volume with mass and energy balance"
     preferredMediumStates = energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState,
     p(start=p_start),
     h(start=hStart),
-    u(stateSelect=StateSelect.never),
-    T(stateSelect=StateSelect.never,
-      start=T_start),
+    T(start=T_start),
     Xi(start=X_start[1:Medium.nXi]),
     X(start=X_start),
     d(start=rho_start)) "Medium properties";
@@ -280,11 +278,8 @@ equation
   mXi = m*medium.Xi;
   if computeCSen then
     U = m*medium.u + CSen*(medium.T-Medium.reference_T);
-    // Internal state variable
-//    _u = U * mInv;
   else
     U = m*medium.u;
-//    _u = medium.u;
   end if;
   mC = m*C;
 
@@ -329,7 +324,7 @@ equation
   if massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState then
     0 = mb_flow + (if simplify_mWat_flow then 0 else mWat_flow_internal);
   else
-    der(medium.d) = (mb_flow + (if simplify_mWat_flow then 0 else mWat_flow_internal))/fluidVolume;
+    der(m) = mb_flow + (if simplify_mWat_flow then 0 else mWat_flow_internal);
   end if;
 
   if substanceDynamics == Modelica.Fluid.Types.Dynamics.SteadyState then

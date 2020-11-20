@@ -55,7 +55,7 @@ package PerfectGas "Model for air as a perfect gas"
     // Nominal value is 100/1E5=1E-3
     Modelica.Media.Interfaces.Types.Density dd(
       nominal=1E-3,
-      stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default) = d - dStp
+      stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default) = d - 1.2
       "Density of medium";
 
 

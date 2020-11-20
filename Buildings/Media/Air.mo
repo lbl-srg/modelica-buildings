@@ -2,7 +2,7 @@ within Buildings.Media;
 package Air
   "Package with moist air model that decouples pressure and temperature"
   extends Modelica.Media.Interfaces.PartialCondensingGases(
-     mediumName="Air",
+     mediumName="Buildings.Media.Air",
      final substanceNames={"water", "air"},
      final reducedX=true,
      final singleState = false,
@@ -53,16 +53,18 @@ package Air
   final parameter Boolean standardOrderComponents=true
     "If true, and reducedX = true, the last element of X will be computed from the other ones";
 
-  InputAbsolutePressure p(stateSelect=StateSelect.never) "Absolute pressure of medium";
+  InputAbsolutePressure p "Absolute pressure of medium";
   InputMassFraction[1] Xi(
     start=X_default[1:1],
     nominal={0.01},
     each stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default)
     "Structurally independent mass fractions";
   InputSpecificEnthalpy h "Specific enthalpy of medium";
-  Modelica.Media.Interfaces.Types.Density d
+  Modelica.SIunits.Density d
     "Density of medium";
-  Modelica.Media.Interfaces.Types.Temperature T(
+  Modelica.SIunits.Temperature T(
+   start=reference_T,
+   stateSelect=StateSelect.never,
    nominal=100)
    "Temperature of medium";
   Modelica.Media.Interfaces.Types.MassFraction[2] X(start=reference_X)
@@ -77,8 +79,10 @@ package Air
   ThermodynamicState state
     "Thermodynamic state record for optional functions";
 
-  Modelica.SIunits.Conversions.NonSIunits.Temperature_degC T_degC=
-    Modelica.SIunits.Conversions.to_degC(T) "Temperature of medium in [degC]";
+  Modelica.SIunits.Conversions.NonSIunits.Temperature_degC T_degC(
+      nominal=10,
+      stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default) = T - 273.15
+       "Temperature of medium in [degC]";
   Modelica.SIunits.Conversions.NonSIunits.Pressure_bar p_bar=
     Modelica.SIunits.Conversions.to_bar(p) "Absolute pressure of medium in [bar]";
 
@@ -90,17 +94,13 @@ package Air
   connector InputMassFraction = input Modelica.SIunits.MassFraction
     "Mass fraction as input signal connector";
 
-    // Declarations for Air only
   protected
-    Modelica.SIunits.TemperatureDifference dT(
-      nominal=10,
-      stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default) = T - reference_T
+    Modelica.SIunits.TemperatureDifference dT = T - reference_T
       "Temperature difference used to compute enthalpy";
-    // Nominal value is 100/1E5=1E-3
-    Modelica.Media.Interfaces.Types.Density dd(
-      nominal=1E-3,
-      stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default) = d - dStp
-      "Density of medium";
+    Modelica.SIunits.PressureDifference dp(
+      nominal=1000,
+      stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default) = p - reference_p
+      "Differential pressure";
   equation
     MM = 1/(X[1]/steam.MM+(X[2])/dryair.MM);
 

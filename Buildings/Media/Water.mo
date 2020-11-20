@@ -1,6 +1,7 @@
 within Buildings.Media;
 package Water "Package with model for liquid water with constant density"
    extends Modelica.Media.Water.ConstantPropertyLiquidWater(
+     mediumName="Buildings.Media.Water",
      p_default=300000,
      reference_p=300000,
      reference_T=273.15,
@@ -20,7 +21,7 @@ package Water "Package with model for liquid water with constant density"
       "If true, and reducedX = true, the last element of X will be computed from the other ones";
     Modelica.SIunits.Density d=d_const "Density of medium";
     Temperature T(
-      stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default,
+      stateSelect=StateSelect.never,
       nominal=100)
       "Temperature of medium";
     InputAbsolutePressure p "Absolute pressure of medium";
@@ -41,8 +42,9 @@ package Water "Package with model for liquid water with constant density"
       "Thermodynamic state record for optional functions";
 
 
-    Modelica.SIunits.Conversions.NonSIunits.Temperature_degC T_degC=
-        Modelica.SIunits.Conversions.to_degC(T)
+    Modelica.SIunits.Conversions.NonSIunits.Temperature_degC T_degC(
+      nominal=10,
+      stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default) = T - 273.15
       "Temperature of medium in [degC]";
     Modelica.SIunits.Conversions.NonSIunits.Pressure_bar p_bar=
         Modelica.SIunits.Conversions.to_bar(p)
@@ -58,7 +60,6 @@ package Water "Package with model for liquid water with constant density"
 
   equation
     T = reference_T + h/cp_const;
-    //    h = cp_const*(T-reference_T);
     u = h;
     state.T = T;
     state.p = p;
