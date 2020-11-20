@@ -1,0 +1,11 @@
+compareVars :=
+  {
+    "senTInl.T",
+    "senTOut.T",
+    "borFie.senTEnt.T",
+    "borFie.TBorWatEntMax",
+    "u.y",
+    "borFie.val.y_actual",
+    "borFie.pum.m_flow_actual",
+    "borFie.m_flow"
+  };
