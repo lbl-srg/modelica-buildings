@@ -101,6 +101,7 @@ model ConservationEquation "Lumped volume with mass and energy balance"
     "Mass of fluid";
 
   Modelica.SIunits.Mass[Medium.nXi] mXi(
+    each stateSelect=StateSelect.never,
     start=fluidVolume*rho_start*X_start[1:Medium.nXi])
     "Masses of independent components in the fluid";
   Modelica.SIunits.Mass[Medium.nC] mC(

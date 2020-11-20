@@ -58,14 +58,17 @@ public
   final parameter Boolean standardOrderComponents=true
     "If true, and reducedX = true, the last element of X will be computed from the other ones";
 
-  InputAbsolutePressure p "Absolute pressure of medium";
+  InputAbsolutePressure p(
+     stateSelect=StateSelect.avoid) "Absolute pressure of medium";
   InputMassFraction[1] Xi(
     start=X_default[1:1],
     nominal={0.01},
     each stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default)
     "Structurally independent mass fractions";
   InputSpecificEnthalpy h "Specific enthalpy of medium";
-  Modelica.SIunits.Density d "Density of medium";
+  Modelica.SIunits.Density d(
+     stateSelect=StateSelect.never)
+     "Density of medium";
   Modelica.SIunits.Temperature T(
    start=reference_T,
    nominal=100)
@@ -102,8 +105,8 @@ public
     Modelica.SIunits.TemperatureDifference dT = if reference_T_is_0degC then T_degC else T - reference_T
       "Temperature difference used to compute enthalpy";
     Modelica.SIunits.PressureDifference dp(
-      nominal=1000,
-      stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default) = p - reference_p
+      stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default,
+      nominal=1000) = p - reference_p
       "Differential pressure";
   equation
     MM = 1/(X[1]/steam.MM+(X[2])/dryair.MM);
