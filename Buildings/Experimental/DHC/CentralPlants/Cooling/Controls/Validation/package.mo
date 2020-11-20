@@ -6,7 +6,7 @@ package Validation "Collection of validation models"
 <p>
 This package contains validation models for the classes in
 <a href=\"modelica://Buildings.Experimental.DHC.CentralPlants.Cooling.Controls\">
-Buildings.Experimental.DHC.CentralPlants.Cooling</a>.
+Buildings.Experimental.DHC.CentralPlants.Cooling.Controls</a>.
 </p>
 </html>"));
 end Validation;
