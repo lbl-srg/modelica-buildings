@@ -24,6 +24,11 @@ package Air
     "Pressure for which fluid density is defined";
   constant Density dStp = 1.2 "Fluid density at pressure pStp";
 
+protected
+  constant Boolean reference_T_is_0degC = abs(reference_T-273.15) < 1E-6
+    "True if reference_T = 273.15 K, used to simplify equations";
+
+public
   // Redeclare ThermodynamicState to avoid the warning
   // "Base class ThermodynamicState is replaceable"
   // during model check
@@ -95,7 +100,7 @@ package Air
     "Mass fraction as input signal connector";
 
   protected
-    Modelica.SIunits.TemperatureDifference dT = T - reference_T
+    Modelica.SIunits.TemperatureDifference dT = if reference_T_is_0degC then T_degC else T - reference_T
       "Temperature difference used to compute enthalpy";
     Modelica.SIunits.PressureDifference dp(
       nominal=1000) = p - reference_p
