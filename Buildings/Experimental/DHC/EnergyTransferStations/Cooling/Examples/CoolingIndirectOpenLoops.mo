@@ -87,6 +87,7 @@ model CoolingIndirectOpenLoops
     annotation (Placement(transformation(extent={{-10,-30},{10,-10}})));
   Buildings.Fluid.Movers.FlowControlled_m_flow pumBui(
     redeclare package Medium=Medium,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=mBui_flow_nominal,
     inputType=Buildings.Fluid.Types.InputType.Constant,
     nominalValuesDefineDefaultPressureCurve=true,
