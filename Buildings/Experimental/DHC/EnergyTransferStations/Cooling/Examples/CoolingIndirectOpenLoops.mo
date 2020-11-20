@@ -69,7 +69,7 @@ model CoolingIndirectOpenLoops
     redeclare package Medium=Medium,
     mDis_flow_nominal=mDis_flow_nominal,
     mBui_flow_nominal=mBui_flow_nominal,
-    dpValve_nominal=60,
+    dpVal_nominal=60,
     dp1_nominal=500,
     dp2_nominal=500,
     Q_flow_nominal=18514,
@@ -87,6 +87,7 @@ model CoolingIndirectOpenLoops
     annotation (Placement(transformation(extent={{-10,-30},{10,-10}})));
   Buildings.Fluid.Movers.FlowControlled_m_flow pumBui(
     redeclare package Medium=Medium,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=mBui_flow_nominal,
     inputType=Buildings.Fluid.Types.InputType.Constant,
     nominalValuesDefineDefaultPressureCurve=true,
