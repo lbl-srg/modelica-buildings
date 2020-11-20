@@ -253,9 +253,10 @@ equation
           {160,96},{142,96}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true,
     extent={{-200,-140},{200,140}}), graphics={Text(
-          extent={{-62,42},{-6,30}},
+          extent={{-74,14},{28,-10}},
           lineColor={238,46,47},
-          textString="Dummy Q_flow_nominal")}),
+          textString="Cannot be parameterized with wet conditions",
+          horizontalAlignment=TextAlignment.Left)}),
     experiment(
       StopTime=100,
       Tolerance=1e-06,
