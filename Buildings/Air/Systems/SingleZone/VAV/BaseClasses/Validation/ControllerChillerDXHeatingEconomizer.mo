@@ -115,14 +115,6 @@ to <i>6</i> &deg;C
 <ul>
 <li>
 November 20, 2020, by David Blum:<br/>
-Turn fan on when setup cooling required.
-</li>
-<li>
-July 28, 2020, by Kun Zhang:<br/>
-Added cooling status input signal and removed obsoleted heating control signal.
-</li>
-<li>
-July 3, 2017, by Jianjun Hu:<br/>
 First implementation.
 </li>
 </ul>
