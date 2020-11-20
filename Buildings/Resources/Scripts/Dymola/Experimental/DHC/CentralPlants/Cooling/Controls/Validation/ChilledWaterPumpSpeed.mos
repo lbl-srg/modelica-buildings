@@ -19,9 +19,9 @@ createPlot(
 	id=1, 
 	position={71, -1, 892, 547}, 
 	y={"chiWatPumSpe.masFloPum"}, 
-	range={0.0, 1200.0, 0.2, 0.6000000000000001}, 
+	range={0.0, 1200.0, 0.2, 0.6}, 
 	grid=true, 
-	subPlot=102, 
+	subPlot=2, 
 	colors={{28,108,200}}, 
 	displayUnits={"kg/s"});
 createPlot(
@@ -30,7 +30,7 @@ createPlot(
 	y={"chiWatPumSpe.y[1]", "chiWatPumSpe.y[2]"}, 
 	range={0.0, 1200.0, -1.0, 2.0}, 
 	grid=true, 
-	subPlot=103, 
+	subPlot=3, 
 	colors={{28,108,200}, {238,46,47}}, 
 	displayUnits={"1", "1"});
 

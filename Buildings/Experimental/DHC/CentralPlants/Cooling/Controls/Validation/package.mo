@@ -1,4 +1,4 @@
-within Buildings.Applications.DHC.CentralPlants.Cooling.Controls;
+within Buildings.Experimental.DHC.CentralPlants.Cooling.Controls;
 package Validation
   "Collection of models that illustrate model use and test models"
   extends Modelica.Icons.ExamplesPackage;
