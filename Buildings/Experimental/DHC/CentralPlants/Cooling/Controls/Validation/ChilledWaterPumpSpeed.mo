@@ -23,7 +23,7 @@ model ChilledWaterPumpSpeed
     startTime=150)
     "Total chilled water mass flow rate"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
-initial equation 
+initial equation
   Modelica.Utilities.Streams.print(
     "Warning:\n  In " + getInstanceName() +
     ": This model is a beta version and is not fully validated yet.");
@@ -40,7 +40,7 @@ equation
       coordinateSystem(
         preserveAspectRatio=false)),
     experiment(
-      StopTime=86400,
+      StopTime=1200,
       Tolerance=1e-06),
     __Dymola_Commands(
       file="Resources/Scripts/Dymola/Experimental/DHC/CentralPlants/Cooling/Controls/Validation/ChilledWaterPumpSpeed.mos" "Simulate and Plot"),
