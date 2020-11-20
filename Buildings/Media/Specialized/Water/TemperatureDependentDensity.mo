@@ -27,13 +27,22 @@ package TemperatureDependentDensity
   constant Modelica.SIunits.SpecificHeatCapacity cp_const = 4184
     "Specific heat capacity at constant pressure";
 
+protected
+  constant Boolean reference_T_is_0degC = abs(reference_T-273.15) < 1E-6
+    "True if reference_T = 273.15 K, used to simplify equations";
+
+public
   redeclare model extends BaseProperties(
     h(nominal=1E4))
      "Base properties"
 
   equation
-    T = reference_T + h/cp_const;
-    //    h = (T - reference_T)*cp_const;
+    if reference_T_is_0degC then
+      T_degC = h/cp_const;
+    else
+      T = reference_T + h/cp_const;
+    end if;
+
     u = h-reference_p/d;
     d = density(state);
     state.T = T;

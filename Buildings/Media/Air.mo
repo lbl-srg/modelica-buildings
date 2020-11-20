@@ -28,10 +28,10 @@ protected
   constant Boolean reference_T_is_0degC = abs(reference_T-273.15) < 1E-6
     "True if reference_T = 273.15 K, used to simplify equations";
 
-public
   // Redeclare ThermodynamicState to avoid the warning
   // "Base class ThermodynamicState is replaceable"
   // during model check
+public
   redeclare record extends ThermodynamicState
     "ThermodynamicState record for moist air"
   end ThermodynamicState;
@@ -65,8 +65,7 @@ public
     each stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default)
     "Structurally independent mass fractions";
   InputSpecificEnthalpy h "Specific enthalpy of medium";
-  Modelica.SIunits.Density d
-    "Density of medium";
+  Modelica.SIunits.Density d "Density of medium";
   Modelica.SIunits.Temperature T(
    start=reference_T,
    nominal=100)
@@ -103,7 +102,8 @@ public
     Modelica.SIunits.TemperatureDifference dT = if reference_T_is_0degC then T_degC else T - reference_T
       "Temperature difference used to compute enthalpy";
     Modelica.SIunits.PressureDifference dp(
-      nominal=1000) = p - reference_p
+      nominal=1000,
+      stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default) = p - reference_p
       "Differential pressure";
   equation
     MM = 1/(X[1]/steam.MM+(X[2])/dryair.MM);

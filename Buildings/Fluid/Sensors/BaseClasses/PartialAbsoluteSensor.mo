@@ -49,7 +49,7 @@ revisions="<html>
 <ul>
 <li>
 September 20, 2020, by Michael Wetter:<br/>
-Introduced parameter <code>warnAboutOnePortConnection</code> and added assertion with level set to warning.<br/>
+Introduced parameter <code>warnAboutOnePortConnection</code> and added assertion with level set to warning.</br>
 This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1399\"> #1399</a>.
 </li>

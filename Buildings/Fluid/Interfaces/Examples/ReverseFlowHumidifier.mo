@@ -174,7 +174,7 @@ identical for forward flow and reverse flow.
 <ul>
 <li>
 September 20, 2020, by Michael Wetter:<br/>
-Updated model to use one port temperature sensor from Modelica Standard Library.<br/>
+Updated model to use one port temperature sensor from Modelica Standard Library.</br>
 This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1399\"> #1399</a>.
 </li>

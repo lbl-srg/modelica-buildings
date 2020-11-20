@@ -162,22 +162,6 @@ protected
   constant Boolean _simplify_mWat_flow = simplify_mWat_flow and Medium.nX > 1
    "If true, then port_a.m_flow + port_b.m_flow = 0 even if mWat_flow is non-zero, and equations are simplified";
 
-  // The variable _u is used as a state. In the previous implementation, U
-  // was a state. However, setting the nominal attribute of U
-  // requires using the fluidVolume, which is a non-literal expression in some
-  // models. In this case, Dymola would simply set nominal=1, and the state
-  // is then not scaled properly, which can cause problems for the integrator.
-  // Therefore, we introduce  _u = U/(fluidVolume*rho_default), for which
-  // we can set the nominal attribute.
-  // Note that this is different from using medium.u if the expression
-  // U = m*medium.u + CSen*(medium.T-Medium.reference_T)
-  // is used. Therefore, the new variable _u has been introduced.
-//   Medium.SpecificEnergy _u(
-//     stateSelect = if (computeCSen and energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState)
-//       then StateSelect.prefer else StateSelect.default,
-//     nominal=1E4)
-//     "Surrogate for specific energy, used as a state variable, and set to _u = U/(fluidVolume*rho_default)";
-
   // Quantities exchanged through the fluid ports
   Medium.EnthalpyFlowRate ports_H_flow[nPorts]
     "Enthalpy flow rates at the ports";
@@ -325,7 +309,7 @@ equation
   if massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState then
     0 = mb_flow + (if simplify_mWat_flow then 0 else mWat_flow_internal);
   else
-    der(m) = mb_flow + (if simplify_mWat_flow then 0 else mWat_flow_internal);
+    der(medium.d) = (mb_flow + (if simplify_mWat_flow then 0 else mWat_flow_internal))/fluidVolume;
   end if;
 
   if substanceDynamics == Modelica.Fluid.Types.Dynamics.SteadyState then

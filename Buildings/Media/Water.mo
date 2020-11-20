@@ -13,6 +13,11 @@ package Water "Package with model for liquid water with constant density"
   // cp_const and cv_const have been made final because the model sets u=h.
   extends Modelica.Icons.Package;
 
+protected
+  constant Boolean reference_T_is_0degC = abs(reference_T-273.15) < 1E-6
+    "True if reference_T = 273.15 K, used to simplify equations";
+
+public
   redeclare replaceable model BaseProperties "Base properties (p, d, T, h, u, R, MM and X and Xi) of a medium"
     parameter Boolean preferredMediumStates=false
       "= true if StateSelect.prefer shall be used for the independent property variables of the medium"
@@ -44,7 +49,7 @@ package Water "Package with model for liquid water with constant density"
 
     Modelica.SIunits.Conversions.NonSIunits.Temperature_degC T_degC(
       nominal=10,
-      stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default) = T - 273.15
+      stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default)
       "Temperature of medium in [degC]";
     Modelica.SIunits.Conversions.NonSIunits.Pressure_bar p_bar=
         Modelica.SIunits.Conversions.to_bar(p)
@@ -59,7 +64,13 @@ package Water "Package with model for liquid water with constant density"
       "Mass fraction as input signal connector";
 
   equation
-    T = reference_T + h/cp_const;
+    if reference_T_is_0degC then
+      T_degC = h/cp_const;
+    else
+      T = reference_T + h/cp_const;
+    end if;
+    T_degC = T - 273.15;
+
     u = h;
     state.T = T;
     state.p = p;
