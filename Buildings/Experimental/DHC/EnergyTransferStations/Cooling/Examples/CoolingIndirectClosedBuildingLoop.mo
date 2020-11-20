@@ -36,7 +36,7 @@ model CoolingIndirectClosedBuildingLoop
     redeclare package Medium=Medium,
     mDis_flow_nominal=mDis_flow_nominal,
     mBui_flow_nominal=mBui_flow_nominal,
-    dpValve_nominal=9000,
+    dpVal_nominal=9000,
     dp1_nominal=500,
     dp2_nominal=500,
     Q_flow_nominal=18514,

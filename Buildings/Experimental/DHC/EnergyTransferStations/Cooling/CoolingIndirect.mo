@@ -19,21 +19,21 @@ model CoolingIndirect
     final start=0.5)
     "Nominal mass flow rate of secondary (building) district cooling side";
   // Primary supply control valve
-  parameter Modelica.SIunits.PressureDifference dpValve_nominal(
+  parameter Modelica.SIunits.PressureDifference dpVal_nominal(
     final min=0,
-    final displayUnit="Pa")=6000
+    displayUnit="Pa")=6000
     "Nominal pressure drop of fully open control valve";
   // Heat exchanger
   parameter Modelica.SIunits.PressureDifference dp1_nominal(
     final min=0,
     start=500,
-    final displayUnit="Pa")
+    displayUnit="Pa")
     "Nominal pressure difference on primary side"
     annotation (Dialog(group="Heat exchanger"));
   parameter Modelica.SIunits.PressureDifference dp2_nominal(
     final min=0,
     start=500,
-    final displayUnit="Pa")
+    displayUnit="Pa")
     "Nominal pressure difference on secondary side"
     annotation (Dialog(group="Heat exchanger"));
   parameter Boolean use_Q_flow_nominal=true
@@ -45,17 +45,17 @@ model CoolingIndirect
     "Nominal heat transfer"
     annotation (Dialog(group="Heat exchanger"));
   parameter Modelica.SIunits.Temperature T_a1_nominal(
-    min=0+273,
-    max=100+273.15,
+    final min=0+273,
+    final max=100+273.15,
     start=5+273.15,
-    final displayUnit="K")
+    displayUnit="K")
     "Nominal temperature at port a1"
     annotation (Dialog(group="Heat exchanger"));
   parameter Modelica.SIunits.Temperature T_a2_nominal(
-    min=0+273,
-    max=100+273.15,
+    final min=0+273,
+    final max=100+273.15,
     start=7+273.15,
-    final displayUnit="K")
+    displayUnit="K")
     "Nominal temperature at port a2"
     annotation (Dialog(group="Heat exchanger"));
   parameter Modelica.SIunits.Efficiency eta(
@@ -73,7 +73,7 @@ model CoolingIndirect
     "Gain of controller"
     annotation (Dialog(tab="Controller"));
   parameter Modelica.SIunits.Time Ti(
-    min=Modelica.Constants.small)=120
+    final min=Modelica.Constants.small)=120
     "Time constant of integrator block"
     annotation (Dialog(tab="Controller",enable=controllerType == Modelica.Blocks.Types.SimpleController.PI or controllerType == Modelica.Blocks.Types.SimpleController.PID));
   parameter Modelica.SIunits.Time Td(
@@ -96,11 +96,11 @@ model CoolingIndirect
     "Set-point weight for Derivative block (0..1)"
     annotation (Dialog(tab="Controller",enable=controllerType == Modelica.Blocks.Types.SimpleController.PD or controllerType == Modelica.Blocks.Types.SimpleController.PID));
   parameter Real Ni(
-    min=100*Modelica.Constants.eps)=0.9
+    final min=100*Modelica.Constants.eps)=0.9
     "Ni*Ti is time constant of anti-windup compensation"
     annotation (Dialog(tab="Controller",enable=controllerType == Modelica.Blocks.Types.SimpleController.PI or controllerType == Modelica.Blocks.Types.SimpleController.PID));
   parameter Real Nd(
-    min=100*Modelica.Constants.eps)=10
+    final min=100*Modelica.Constants.eps)=10
     "The higher Nd, the more ideal the derivative block"
     annotation (Dialog(tab="Controller",enable=controllerType == Modelica.Blocks.Types.SimpleController.PD or controllerType == Modelica.Blocks.Types.SimpleController.PID));
   parameter Modelica.Blocks.Types.InitPID initType=Modelica.Blocks.Types.InitPID.DoNotUse_InitialIntegratorState
@@ -126,13 +126,13 @@ model CoolingIndirect
   Modelica.Blocks.Interfaces.RealOutput Q_flow(
     final quantity="Power",
     final unit="W",
-    final displayUnit="kW")
+    displayUnit="kW")
     "Measured power demand at the ETS"
     annotation (Placement(transformation(extent={{100,140},{120,160}})));
   Modelica.Blocks.Interfaces.RealOutput Q(
     final quantity="Energy",
     final unit="J",
-    final displayUnit="kWh")
+    displayUnit="kWh")
     "Measured energy consumption at the ETS"
     annotation (Placement(transformation(extent={{100,100},{120,120}})));
   Buildings.Fluid.HeatExchangers.PlateHeatExchangerEffectivenessNTU hex(
@@ -193,7 +193,7 @@ model CoolingIndirect
   Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage val(
     redeclare final package Medium=Medium,
     final m_flow_nominal=mDis_flow_nominal,
-    final dpValve_nominal=dpValve_nominal,
+    final dpValve_nominal=dpVal_nominal,
     riseTime(
       displayUnit="s")=60,
     y_start=0)

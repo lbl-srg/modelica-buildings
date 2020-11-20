@@ -79,8 +79,7 @@ model CoolingDirectControlledReturn
     "The higher Nd, the more ideal the derivative block"
     annotation (Dialog(tab="Controller",enable=controllerType == Modelica.Blocks.Types.SimpleController.PD or controllerType == Modelica.Blocks.Types.SimpleController.PID));
   parameter Modelica.Blocks.Types.InitPID initType=Modelica.Blocks.Types.InitPID.DoNotUse_InitialIntegratorState
-    "Type of initialization (1: no init, 2: steady state, 3: initial state, 
-      4: initial output)"
+    "Type of initialization (1: no init, 2: steady state, 3: initial state, 4: initial output)"
     annotation (Dialog(group="Initialization",tab="Controller"));
   parameter Real xi_start=0
     "Initial or guess value value for integrator output (= integrator state)"
