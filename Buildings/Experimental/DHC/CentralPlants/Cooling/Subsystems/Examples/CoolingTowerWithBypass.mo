@@ -32,8 +32,7 @@ model CoolingTowerWithBypass
     reference(
       unit="K",
       displayUnit="degC"),
-    u(
-      unit="K",
+    u(unit="K",
       displayUnit="degC"))
     "On/off controller"
     annotation (Placement(transformation(extent={{-10,-90},{10,-70}})));
@@ -86,7 +85,7 @@ model CoolingTowerWithBypass
   Buildings.BoundaryConditions.WeatherData.Bus weaBus
     "Weather data bus"
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
-initial equation 
+initial equation
   Modelica.Utilities.Streams.print(
     "Warning:\n  In " + getInstanceName() +
     ": This model is a beta version and is not fully validated yet.");
@@ -150,6 +149,6 @@ First implementation.
 </ul>
 </html>",
       info="<html>
-<p>This model validates the parallel connected cooling tower subsystem in <a href=\"modelica://Buildings.Applications.DHC.CentralPlants.Cooling.Subsystems.CoolingTowerWithBypass\">Buildings.Applications.DHC.CentralPlants.Cooling.Subsystems.CoolingTowerWithBypass</a>.</p>
+<p>This model validates the parallel connected cooling tower subsystem in <a href=\"modelica://Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems.CoolingTowerWithBypass\">Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems.CoolingTowerWithBypass</a>.</p>
 </html>"));
 end CoolingTowerWithBypass;

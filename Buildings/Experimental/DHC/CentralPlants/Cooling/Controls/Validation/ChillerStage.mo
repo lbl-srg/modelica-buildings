@@ -18,7 +18,7 @@ model ChillerStage
     offset=0.5*chiStaCon.QEva_nominal)
     "Total cooling load"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
-initial equation 
+initial equation
   Modelica.Utilities.Streams.print(
     "Warning:\n  In " + getInstanceName() +
     ": This model is a beta version and is not fully validated yet.");
@@ -49,6 +49,9 @@ First implementation.
 </ul>
 </html>",
       info="<html>
-<p>This model validates the chiller staging control logic implemented in <a href=\"modelica://Buildings.Applications.DHC.CentralPlants.Cooling.Controls.ChillerStage\">Buildings.Applications.DHC.CentralPlants.Cooling.Controls.ChillerStage</a>.</p>
+<p>This model validates the chiller staging control logic implemented in
+<a href=\"modelica://Buildings.Experimental.DHC.CentralPlants.Cooling.Controls.ChillerStage\">
+Buildings.Experimental.DHC.CentralPlants.Cooling.Controls.ChillerStage</a>.
+</p>
 </html>"));
 end ChillerStage;

@@ -29,8 +29,7 @@ model CoolingTowerParallel
     reference(
       unit="K",
       displayUnit="degC"),
-    u(
-      unit="K",
+    u(unit="K",
       displayUnit="degC"))
     "On/off controller"
     annotation (Placement(transformation(extent={{-10,-90},{10,-70}})));
@@ -100,7 +99,7 @@ model CoolingTowerParallel
     nominalValuesDefineDefaultPressureCurve=true)
     "Pump for chilled water loop"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
-initial equation 
+initial equation
   Modelica.Utilities.Streams.print(
     "Warning:\n  In " + getInstanceName() +
     ": This model is a beta version and is not fully validated yet.");
@@ -162,7 +161,7 @@ equation
       file="Resources/Scripts/Dymola/Experimental/DHC/CentralPlants/Cooling/Subsystems/Examples/CoolingTowerParallel.mos" "Simulate and Plot"),
     Documentation(
       info="<html>
-<p>This model validates the parallel connected cooling tower subsystem in <a href=\"modelica://Buildings.Applications.DHC.CentralPlants.Cooling.Subsystems.CoolingTowerParellel\">Buildings.Applications.DHC.CentralPlants.Cooling.Subsystems.CoolingTowerParellel</a>.</p>
+<p>This model validates the parallel connected cooling tower subsystem in <a href=\"modelica://Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems.CoolingTowerParellel\">Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems.CoolingTowerParellel</a>.</p>
 </html>",
       revisions="<html>
 <ul>

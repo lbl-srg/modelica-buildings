@@ -54,6 +54,9 @@ First implementation.
 </ul>
 </html>",
       info="<html>
-<p>This model validates the variable speed pump control logic implemented in <a href=\"modelica://Buildings.Applications.DHC.CentralPlants.Cooling.Controls.ChilledWaterPumpSpeed\">Buildings.Applications.DHC.CentralPlants.Cooling.Controls.ChilledWaterPumpSpeed</a>.</p>
+<p>This model validates the variable speed pump control logic implemented in 
+<a href=\"modelica://Buildings.Experimental.DHC.CentralPlants.Cooling.Controls.ChilledWaterPumpSpeed\">
+Buildings.Experimental.DHC.CentralPlants.Cooling.Controls.ChilledWaterPumpSpeed</a>.
+</p>
 </html>"));
 end ChilledWaterPumpSpeed;
