@@ -43,10 +43,10 @@ model ControllerChillerDXHeatingEconomizer
   Controls.SetPoints.OccupancySchedule           occSch(occupancy=3600*{8,18})
     "Occupancy schedule"
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
-  Modelica.Blocks.Sources.Sine mixAirTem1(
-    amplitude=7.5,
+  Modelica.Blocks.Sources.Sine supAirTem(
+    amplitude=7,
     freqHz=1/86400,
-    offset=13 + 273.15) "Mixed air temperature"
+    offset=13 + 273.15) "Supply air temperature"
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
 equation
 
@@ -62,8 +62,8 @@ equation
           {-79,-60}}, color={0,0,127}));
   connect(mixAirTem.y, con.TMix)
     annotation (Line(points={{-79,90},{4,90},{4,9},{38,9}}, color={0,0,127}));
-  connect(mixAirTem1.y, con.TSup) annotation (Line(points={{-79,-90},{6,-90},{6,
-          -9},{38,-9}}, color={0,0,127}));
+  connect(supAirTem.y, con.TSup) annotation (Line(points={{-79,-90},{6,-90},{6,-9},
+          {38,-9}}, color={0,0,127}));
    annotation (
   experiment(
       StopTime=172800,
@@ -74,8 +74,8 @@ equation
   Documentation(info="<html>
 <p>
 Validation test for the block
-<a href=\"modelica://Buildings.Air.Systems.SingleZone.VAV.BaseClasses.ControllerEconomizer\">
-Buildings.Air.Systems.SingleZone.VAV.BaseClasses.ControllerEconomizer</a>.
+<a href=\"modelica://Buildings.Air.Systems.SingleZone.VAV.BaseClasses.ControllerChillerDXHeatingEconomizer\">
+Buildings.Air.Systems.SingleZone.VAV.BaseClasses.ControllerChillerDXHeatingEconomizer</a>.
 </p>
 <p>
 The inputs include:
@@ -86,28 +86,37 @@ Mixed air temperature <code>mixAirTem</code>, varying from <i>12.5</i> &deg;C
 to <i>27.5</i> &deg;C
 </li>
 <li>
-Return air temperature <code>retAirTem</code>, varying from <i>17.0</i> &deg;C
-to <i>25.0</i> &deg;C
-</li>
-<li>
-Mixed air temperature setpoint <code>mixAirTemSet</code>, varying from <i>15.0
-</i> &deg;C to <i>25.0</i> &deg;C
+Return air temperature <code>retAirTem</code>, varying from <i>11.0</i> &deg;C
+to <i>31.0</i> &deg;C
 </li>
 <li>
 Outdoor air temperature <code>outAirTem</code>, varying from <i>12.0</i>
 &deg;C to <i>24.0</i> &deg;C
 </li>
 <li>
-Minimum outdoor air fraction <code>minOutAirFra</code>, varying from <i>0.05
-</i> to <i>0.35</i>
+Zone air temperature heating setpoint <code>TSetRooHea</code>, varying from <i>15.0</i>
+&deg;C to <i>18.0</i> &deg;C according to occupancy.
 </li>
 <li>
-Cooling status signal <code>cooSta</code>, set to true.
+Zone air temperature cooling setpoint <code>occSch</code>, with occupied hours
+between 08:00 and 18:00.
+</li>
+<li>
+Occupancy schedule <code>supAirTem</code>, varying from <i>20</i> &deg;C
+to <i>6</i> &deg;C
+</li>
+<li>
+Supply air temperature <code>supAirTem</code>, varying from <i>20</i> &deg;C
+to <i>6</i> &deg;C
 </li>
 </ul>
 
 </html>", revisions="<html>
 <ul>
+<li>
+November 20, 2020, by David Blum:<br/>
+Turn fan on when setup cooling required.
+</li>
 <li>
 July 28, 2020, by Kun Zhang:<br/>
 Added cooling status input signal and removed obsoleted heating control signal.
