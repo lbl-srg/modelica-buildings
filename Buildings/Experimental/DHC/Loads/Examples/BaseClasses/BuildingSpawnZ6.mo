@@ -11,9 +11,7 @@ model BuildingSpawnZ6
     "Medium model";
   parameter Integer nZon=5
     "Number of conditioned thermal zones";
-  parameter Integer facSca[nZon]=fill(
-    5,
-    nZon)
+  parameter Integer facSca[nZon]={5 for i in 1:nZon}
     "Scaling factor to be applied to on each extensive quantity";
   parameter Modelica.SIunits.MassFlowRate mLoa_flow_nominal[nZon]=fill(
     1,

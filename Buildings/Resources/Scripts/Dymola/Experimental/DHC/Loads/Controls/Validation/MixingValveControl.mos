@@ -4,6 +4,7 @@ simulateModel("Buildings.Experimental.DHC.Loads.Controls.Validation.MixingValveC
     method="cvode",
     tolerance=1e-6,
     numberOfIntervals=500,
+    startTime=0,
     stopTime=1000.0,
     resultFile="MixingValveControl");
 Advanced.StoreProtectedVariables = old_flag;
