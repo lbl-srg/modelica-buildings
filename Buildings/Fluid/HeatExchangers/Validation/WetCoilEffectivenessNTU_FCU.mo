@@ -358,14 +358,14 @@ equation
     annotation (Line(points={{-20,-108},{-10,-108}}, color={0,127,255}));
   connect(bouAirCoo4.ports[1],cooCoi7Param16_Dis. port_a2)
     annotation (Line(points={{40,-120},{10,-120}}, color={0,127,255}));
-  connect(cooCoi7Param16_Dis.port_b2, sinAir.ports[7]) annotation (Line(points={
-          {-10,-120},{-80,-120},{-80,-3.42857},{-110,-3.42857}}, color={0,127,255}));
+  connect(cooCoi7Param16_Dis.port_b2, sinAir.ports[7]) annotation (Line(points={{-10,
+          -120},{-80,-120},{-80,-3.42857},{-110,-3.42857}},      color={0,127,255}));
   connect(gainFloFcu7.y, bouWatCoo7v3.m_flow_in) annotation (Line(points={{-53.4,
           4},{-50,4},{-50,-100},{-42,-100}}, color={0,0,127}));
   connect(gain.y, bouAirCoo4.m_flow_in) annotation (Line(points={{19,116},{68,116},
           {68,-112},{62,-112}}, color={0,0,127}));
-  connect(cooCoi7Param16_Dis.port_b1, sinWat.ports[7]) annotation (Line(points={
-          {10,-108},{80,-108},{80,0},{110,0},{110,-3.42857}}, color={0,127,255}));
+  connect(cooCoi7Param16_Dis.port_b1, sinWat.ports[7]) annotation (Line(points={{10,-108},
+          {80,-108},{80,0},{110,0},{110,-3.42857}},           color={0,127,255}));
   annotation (experiment(
       StopTime=50000,
       Tolerance=1e-06,

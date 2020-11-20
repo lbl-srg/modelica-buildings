@@ -112,7 +112,7 @@ model WetCoilEffectivenessNTU_FVM
     height=30*1e-3,
     duration=60,
     offset=2*1e-3,
-    startTime=360) "humidity boundary condition"
+    startTime=360) "Humidity boundary condition"
                  annotation (Placement(transformation(extent={{60,-50},{80,-30}})));
     Modelica.Blocks.Sources.Ramp PIn(
     height=200,
