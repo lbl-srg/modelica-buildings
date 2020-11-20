@@ -21,7 +21,9 @@ model WetCoilEffectivenessNTU
   parameter Modelica.SIunits.Temperature T_b1_nominal=
     Modelica.SIunits.Conversions.from_degF(47.72)
     "Outlet water temperature";
-  parameter Real X_w2_nominal_IBPSA(min=0,max=1) = 0.01765
+  parameter Real X_w2_nominal_dry(min=0,max=1) = 0.0035383
+    "Inlet air humidity ratio: mass of water per mass of moist air";
+  parameter Real X_w2_nominal_wet(min=0,max=1) = 0.01765
     "Inlet air humidity ratio: mass of water per mass of moist air";
 
   parameter Modelica.SIunits.MassFlowRate m1_flow_nominal = 3.78
@@ -33,7 +35,9 @@ model WetCoilEffectivenessNTU
     "Nominal heat transfer";
   parameter Modelica.SIunits.ThermalConductance UA_nominal = 9495.5 / 2
     "Total thermal conductance at nominal flow, used to compute heat capacity";
-  parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal_IBPSA=50E3
+  parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal_dry = 44234
+    "Nominal heat transfer";
+  parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal_wet = 82722
     "Nominal heat transfer";
   parameter Types.HeatExchangerConfiguration hexCon=
     Types.HeatExchangerConfiguration.CrossFlowStream1UnmixedStream2Mixed
@@ -170,10 +174,10 @@ model WetCoilEffectivenessNTU
     dp1_nominal=0,
     configuration=hexCon,
     show_T=true,
-    Q_flow_nominal=Q_flow_nominal_IBPSA,
+    Q_flow_nominal=Q_flow_nominal_dry,
     T_a1_nominal=T_a1_nominal,
     T_a2_nominal=T_a2_nominal,
-    X_w2_nominal=X_w2_nominal_IBPSA)
+    X_w2_nominal=X_w2_nominal_dry)
     "Epsilon-NTU coil model"
     annotation (Placement(transformation(extent={{-40,4},{-20,24}})));
   Sources.MassFlowSource_T souWat2(
