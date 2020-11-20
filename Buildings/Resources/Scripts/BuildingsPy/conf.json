@@ -52,9 +52,8 @@
       "simulate": false
     },
     "optimica": {
-      "solver": "Radau5ODE",
-      "rtol": 1E-8,
-      "comment": "Tolerance of 1E-7 would lead to very slow progress with Cvode, commit fabaa64231692a2a2b6c044aff34f5ae6b3be868"
+      "simulate": false,
+      "comment": "Tolerance of 1E-7 would lead to very slow progress with Cvode, commit fabaa64231692a2a2b6c044aff34f5ae6b3be868. Also Radau5ODE 1e-8 is very slow"
     },
   "model_name": "Buildings.ThermalZones.Detailed.Validation.SingleZoneFloorWithHeating"
   },
@@ -144,8 +143,8 @@
          "rtol": 1E-8
     },
        "optimica": {
-         "solver": "Radau5ODE",
-         "comment": "CVode is very slow even with tolerance of 1E-8."
+         "simulate": false,
+         "comment": "Radau 1E-8 stops with EXIT OF RADAU5 AT X= 0.3675E+04, MORE THAN NMAX = 100000 STEPS ARE NEEDED."
     },
     "model_name": "Buildings.Examples.DualFanDualDuct.ClosedLoop"
   }
