@@ -29,11 +29,11 @@ package PerfectGas "Model for air as a perfect gas"
 
   redeclare replaceable model extends BaseProperties(
     u(nominal=1E4),
-    p(stateSelect=StateSelect.never),
+    p(stateSelect=StateSelect.avoid),
     T(start=T_default,
-      stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default,
+      stateSelect=StateSelect.avoid,
       nominal=100),
-    d(stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default),
+    d(stateSelect=StateSelect.avoid),
     Xi(
       nominal={0.01},
       each stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default),

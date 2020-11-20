@@ -64,12 +64,12 @@ package Air
     "Density of medium";
   Modelica.SIunits.Temperature T(
    start=reference_T,
-   stateSelect=StateSelect.never,
    nominal=100)
    "Temperature of medium";
   Modelica.Media.Interfaces.Types.MassFraction[2] X(start=reference_X)
     "Mass fractions (= (component mass)/total mass  m_i/m)";
   Modelica.Media.Interfaces.Types.SpecificInternalEnergy u(
+    stateSelect=StateSelect.avoid,
    nominal=1E4)
     "Specific internal energy of medium";
   Modelica.Media.Interfaces.Types.SpecificHeatCapacity R
@@ -98,8 +98,7 @@ package Air
     Modelica.SIunits.TemperatureDifference dT = T - reference_T
       "Temperature difference used to compute enthalpy";
     Modelica.SIunits.PressureDifference dp(
-      nominal=1000,
-      stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default) = p - reference_p
+      nominal=1000) = p - reference_p
       "Differential pressure";
   equation
     MM = 1/(X[1]/steam.MM+(X[2])/dryair.MM);

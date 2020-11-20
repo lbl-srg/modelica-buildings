@@ -21,7 +21,7 @@ package Water "Package with model for liquid water with constant density"
       "If true, and reducedX = true, the last element of X will be computed from the other ones";
     Modelica.SIunits.Density d=d_const "Density of medium";
     Temperature T(
-      stateSelect=StateSelect.never,
+      stateSelect=StateSelect.avoid,
       nominal=100)
       "Temperature of medium";
     InputAbsolutePressure p "Absolute pressure of medium";

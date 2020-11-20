@@ -84,6 +84,7 @@ model ConservationEquation "Lumped volume with mass and energy balance"
     X(start=X_start),
     d(start=rho_start)) "Medium properties";
 
+  /* Set StateSelect.never so that tool chooses medium.T_degC or medium.u */
   Modelica.SIunits.Energy U(
     stateSelect=StateSelect.never,
     start=fluidVolume*rho_start*
