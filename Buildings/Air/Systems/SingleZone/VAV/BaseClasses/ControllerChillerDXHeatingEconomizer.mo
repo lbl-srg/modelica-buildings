@@ -217,7 +217,7 @@ model ControllerChillerDXHeatingEconomizer
     final uHigh=0.05)
     "Hysteresis for heating"
     annotation (Placement(transformation(extent={{-30,120},{-10,140}})));
-  Buildings.Controls.OBC.CDL.Logical.MultiOr orFan(nu=2)
+  Buildings.Controls.OBC.CDL.Logical.MultiOr orFan(nu=3)
     "Switch fan on if heating, cooling, or occupied"
     annotation (Placement(transformation(extent={{40,94},{60,114}})));
   Modelica.Blocks.Logical.And and1 "Logical and"
@@ -275,16 +275,17 @@ equation
           -34,130},{-32,130}}, color={0,0,127}));
   connect(swiFan.u2, orFan.y)   annotation (Line(points={{68,130},{64,130},{64,104},{62,104}},
           color={255,0,255}));
-  connect(hysHea.y, orFan.u[1]) annotation (Line(points={{-8,130},{24,130},{24,107.5},
-          {38,107.5}},  color={255,0,255}));
+  connect(hysHea.y, orFan.u[1]) annotation (Line(points={{-8,130},{24,130},{24,
+          108.667},{38,108.667}},
+                        color={255,0,255}));
   connect(conEco.TMixSet, conCooVal.u_s) annotation (Line(points={{39,78},{-10,
           78},{-10,-20},{-2,-20}}, color={0,0,127}));
   connect(and1.y, chiOn) annotation (Line(points={{91,-30},{96,-30},{96,-54},{110,
           -54}},     color={255,0,255}));
   connect(conEco.yCoiSta, and1.u1) annotation (Line(points={{61,62},{64,62},{64,
           -30},{68,-30}}, color={255,0,255}));
-  connect(uOcc, orFan.u[2]) annotation (Line(points={{-120,0},{-14,0},{-14,100.5},
-          {38,100.5}},  color={255,0,255}));
+  connect(uOcc, orFan.u[2]) annotation (Line(points={{-120,0},{-14,0},{-14,104},
+          {38,104}},    color={255,0,255}));
   connect(TMix, conEco.TMix) annotation (Line(points={{-120,30},{-26,30},{-26,75},
           {39,75}}, color={0,0,127}));
   connect(TOut, conEco.TOut) annotation (Line(points={{-120,-40},{-66,-40},{-66,
@@ -302,6 +303,8 @@ equation
   connect(chiOnTRoo.y, conEco.cooSta) annotation (Line(points={{42,-70},{50,-70},
           {50,40},{34,40},{34,62},{39,62}}, color={255,0,255}));
 
+  connect(chiOnTRoo.y, orFan.u[3]) annotation (Line(points={{42,-70},{50,-70},{
+          50,40},{34,40},{34,99.3333},{38,99.3333}}, color={255,0,255}));
   annotation (
   defaultComponentName="conChiDXHeaEco",
   Icon(graphics={Line(points={{-100,-100},{0,2},{-100,100}}, color=
