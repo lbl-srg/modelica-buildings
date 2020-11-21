@@ -195,7 +195,12 @@ model WetCoilEffectivenessNTU
     nPorts=1)
     "Air source"
     annotation (Placement(transformation(extent={{140,90},{120,110}})));
+  Real isDryHexDis[hexDis.nEle];
+  Real dryFraHexDis = sum(isDryHexDis) / hexDis.nEle;
 equation
+  for iEle in 1:hexDis.nEle loop
+    isDryHexDis[iEle] = if abs(hexDis.ele[iEle].masExc.mWat_flow) < 1E-6 then 1 else 0;
+  end for;
   connect(hexWetNTU_IBPSA.port_b1, sinWat.ports[1]) annotation (Line(points={{-20,20},
           {0,20},{0,42.6667},{40,42.6667}},color={0,127,255}));
   connect(pAir.y, wetBulIn.p) annotation (Line(points={{119,-40},{110,-40},{110,

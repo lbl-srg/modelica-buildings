@@ -214,7 +214,10 @@ model WetCoilEffectivenessNTU_FCU
     UA_nominal=UA_nominal,
     show_T=true,
     nEle=50,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
+    tau1=0.1,
+    tau2=0.1,
+    tau_m=0.1)
     annotation (Placement(transformation(extent={{-10,24},{10,44}})));
   Sources.MassFlowSource_T bouWatCoo3(
     use_m_flow_in=true,
@@ -241,7 +244,10 @@ model WetCoilEffectivenessNTU_FCU
     UA_nominal=UA_nominal,
     show_T=true,
     nEle=50,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
+    tau1=0.1,
+    tau2=0.1,
+    tau_m=0.1)
     annotation (Placement(transformation(extent={{-10,-124},{10,-104}})));
   Sources.MassFlowSource_T bouWatCoo7v3(
     use_m_flow_in=true,
@@ -257,7 +263,12 @@ model WetCoilEffectivenessNTU_FCU
     nPorts=1)
     "Air boundary: 27/19 dry/wet bulb temperature"
     annotation (Placement(transformation(extent={{60,-130},{40,-110}})));
+  Real isDryHexDis[cooCoi7Param16_Dis.nEle];
+  Real dryFraHexDis = sum(isDryHexDis) / cooCoi7Param16_Dis.nEle;
 equation
+  for iEle in 1:cooCoi7Param16_Dis.nEle loop
+    isDryHexDis[iEle] = if abs(cooCoi7Param16_Dis.ele[iEle].masExc.mWat_flow) < 1E-6 then 1 else 0;
+  end for;
   // fixme: enable or delete the assertion
   //assert(abs(cooCoi7.Q1_flow-cooCoi7Reverse.Q1_flow)+
   //       abs(cooCoi7.mWat1_flow-cooCoi7Reverse.mWat2_flow)<1e-10,

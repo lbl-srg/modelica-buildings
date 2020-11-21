@@ -57,3 +57,12 @@ createPlot(
     autoreplot = true,
     grid = true,
     color = true);
+createPlot(
+    id=3,
+    position={1511, 83, 920, 554},
+    y={"dryFraHexDis", "cooCoi7Param16.dryWetCalcs.dryfra"},
+    autoscale = true,
+    autoerase = true,
+    autoreplot = true,
+    grid = true,
+    color = true);
