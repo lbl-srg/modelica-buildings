@@ -1,4 +1,4 @@
-within Buildings.Applications.DHC.Examples.Combined.Generation5.Unidirectional.Loads;
+within Buildings.Experimental.DHC.Examples.Combined.Generation5.Unidirectional.Loads;
 model BuildingRCZ1WithETS
   "Model of a building (RC 1 zone) with an energy transfer station"
   extends BaseClasses.PartialBuildingWithETS(

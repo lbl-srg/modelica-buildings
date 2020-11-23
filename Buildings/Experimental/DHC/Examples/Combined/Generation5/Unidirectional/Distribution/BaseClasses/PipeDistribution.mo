@@ -1,4 +1,4 @@
-within Buildings.Applications.DHC.Examples.Combined.Generation5.Unidirectional.Distribution.BaseClasses;
+within Buildings.Experimental.DHC.Examples.Combined.Generation5.Unidirectional.Distribution.BaseClasses;
 model PipeDistribution "DHC distribution pipe"
   extends Buildings.Fluid.FixedResistances.HydraulicDiameter(
     dp(nominal=1E5),

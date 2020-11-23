@@ -1,4 +1,4 @@
-within Buildings.Applications.DHC.Examples.Combined.Generation5.Unidirectional.Distribution;
+within Buildings.Experimental.DHC.Examples.Combined.Generation5.Unidirectional.Distribution;
 model UnidirectionalSeries
   "Hydraulic network for unidirectional series DHC system"
   extends BaseClasses.PartialDistributionSystem(

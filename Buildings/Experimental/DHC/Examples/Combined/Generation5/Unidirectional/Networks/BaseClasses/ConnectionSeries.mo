@@ -1,4 +1,4 @@
-within Buildings.Applications.DHC.Examples.Combined.Generation5.Unidirectional.Networks.BaseClasses;
+within Buildings.Experimental.DHC.Examples.Combined.Generation5.Unidirectional.Networks.BaseClasses;
 model ConnectionSeries "Model for connecting an agent to the DHC system"
   extends Applications.DHC.Networks.BaseClasses.PartialConnection1Pipe(
     redeclare model Model_pipDis = PipeDistribution (

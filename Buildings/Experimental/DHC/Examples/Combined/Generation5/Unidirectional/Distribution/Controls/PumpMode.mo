@@ -1,4 +1,4 @@
-within Buildings.Applications.DHC.Examples.Combined.Generation5.Unidirectional.Distribution.Controls;
+within Buildings.Experimental.DHC.Examples.Combined.Generation5.Unidirectional.Distribution.Controls;
 model PumpMode
   "Defines m flow of pums. 0 - \"winter mode\", abs (m_flow_BN) - \"summer mode\""
   extends Modelica.Blocks.Icons.Block;

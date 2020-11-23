@@ -1,4 +1,4 @@
-within Buildings.Applications.DHC.Examples.Combined.Generation5.Unidirectional.ThermalStorages;
+within Buildings.Experimental.DHC.Examples.Combined.Generation5.Unidirectional.ThermalStorages;
 model BoreField "Bore field model"
   extends Buildings.Fluid.Geothermal.Borefields.TwoUTubes(
     final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,

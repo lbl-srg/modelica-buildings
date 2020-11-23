@@ -1,4 +1,4 @@
-within Buildings.Applications.DHC.Examples.Combined.Generation5.Unidirectional.Examples;
+within Buildings.Experimental.DHC.Examples.Combined.Generation5.Unidirectional.Examples;
 model SeriesConstantFlowRCB3Z6
   "Example of series connection with constant district water mass flow rate, 3 RC building models (6 zones)"
   // allowFlowReversal must be true when using a switch box with valve due to leakage flow.

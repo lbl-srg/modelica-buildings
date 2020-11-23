@@ -1,4 +1,4 @@
-within Buildings.Applications.DHC.Examples.Combined.Generation5.Unidirectional.Data;
+within Buildings.Experimental.DHC.Examples.Combined.Generation5.Unidirectional.Data;
 record DesignDataSeries "Record with design data for series network"
   extends Modelica.Icons.Record;
   parameter Integer nBui = 3

@@ -1,4 +1,4 @@
-within Buildings.Applications.DHC.Examples.Combined.Generation5.Unidirectional;
+within Buildings.Experimental.DHC.Examples.Combined.Generation5.Unidirectional;
 package Controls "Package of control sequences for district heating and cooling systems"
   extends Modelica.Icons.VariantsPackage;
 

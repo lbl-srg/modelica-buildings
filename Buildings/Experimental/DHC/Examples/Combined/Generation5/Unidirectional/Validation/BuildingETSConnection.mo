@@ -1,4 +1,4 @@
-within Buildings.Applications.DHC.Examples.Combined.Generation5.Unidirectional.Validation;
+within Buildings.Experimental.DHC.Examples.Combined.Generation5.Unidirectional.Validation;
 model BuildingETSConnection
   "Validation of building and ETS connection"
   extends Modelica.Icons.Example;

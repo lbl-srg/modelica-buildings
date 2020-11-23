@@ -1,4 +1,4 @@
-within Buildings.Applications.DHC.Examples.Combined.Generation5.Unidirectional.Data;
+within Buildings.Experimental.DHC.Examples.Combined.Generation5.Unidirectional.Data;
 record DesignDataParallel
   "Record with design data for parallel network"
   extends Modelica.Icons.Record;

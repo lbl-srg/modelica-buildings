@@ -1,4 +1,4 @@
-﻿within Buildings.Applications.DHC.Examples.Combined.Generation5.Unidirectional.EnergyTransferStations;
+﻿within Buildings.Experimental.DHC.Examples.Combined.Generation5.Unidirectional.EnergyTransferStations;
 model ETSSimplified_bck
   "Simplified model of a substation producing heating hot water (heat pump) and chilled water (HX)"
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium

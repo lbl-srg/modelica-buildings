@@ -1,4 +1,4 @@
-within Buildings.Applications.DHC.Examples.Combined.Generation5.Unidirectional.Controls;
+within Buildings.Experimental.DHC.Examples.Combined.Generation5.Unidirectional.Controls;
 block ReverseFlowSwitchBoxPump
   "Controller for flow switch box with pumps"
   extends Modelica.Blocks.Icons.Block;

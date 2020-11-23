@@ -1,4 +1,4 @@
-within Buildings.Applications.DHC.Examples.Combined.Generation5.Unidirectional;
+within Buildings.Experimental.DHC.Examples.Combined.Generation5.Unidirectional;
 package Validation "Collection of validation models"
   extends Modelica.Icons.ExamplesPackage;
 

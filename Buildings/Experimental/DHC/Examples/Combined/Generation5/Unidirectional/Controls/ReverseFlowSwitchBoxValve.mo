@@ -1,4 +1,4 @@
-within Buildings.Applications.DHC.Examples.Combined.Generation5.Unidirectional.Controls;
+within Buildings.Experimental.DHC.Examples.Combined.Generation5.Unidirectional.Controls;
 block ReverseFlowSwitchBoxValve
   "Controller for flow switch box with valves"
   extends Modelica.Blocks.Icons.Block;

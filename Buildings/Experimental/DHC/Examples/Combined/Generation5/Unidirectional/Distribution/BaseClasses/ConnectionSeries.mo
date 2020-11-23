@@ -1,4 +1,4 @@
-within Buildings.Applications.DHC.Examples.Combined.Generation5.Unidirectional.Distribution.BaseClasses;
+within Buildings.Experimental.DHC.Examples.Combined.Generation5.Unidirectional.Distribution.BaseClasses;
 model ConnectionSeries "Model for connecting an agent to the DHC system"
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium "Medium model"
     annotation (__Dymola_choicesAllMatching=true);

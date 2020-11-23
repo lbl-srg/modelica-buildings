@@ -1,4 +1,4 @@
-within Buildings.Applications.DHC.Examples.Combined.Generation5.Unidirectional.Networks;
+within Buildings.Experimental.DHC.Examples.Combined.Generation5.Unidirectional.Networks;
 model UnidirectionalParallel
   "Hydraulic network for unidirectional parallel DHC system"
   extends Applications.DHC.Networks.BaseClasses.PartialDistribution2Pipe(

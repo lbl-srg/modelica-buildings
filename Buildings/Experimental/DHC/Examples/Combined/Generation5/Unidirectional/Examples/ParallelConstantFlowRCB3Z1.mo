@@ -1,4 +1,4 @@
-within Buildings.Applications.DHC.Examples.Combined.Generation5.Unidirectional.Examples;
+within Buildings.Experimental.DHC.Examples.Combined.Generation5.Unidirectional.Examples;
 model ParallelConstantFlowRCB3Z1
   "Example of series connection with constant district water mass flow rate, 3 RC building models (1 zone)"
   extends BaseClasses.PartialParallel(

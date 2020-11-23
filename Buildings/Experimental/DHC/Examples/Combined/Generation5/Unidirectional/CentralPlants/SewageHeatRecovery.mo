@@ -1,4 +1,4 @@
-within Buildings.Applications.DHC.Examples.Combined.Generation5.Unidirectional.CentralPlants;
+within Buildings.Experimental.DHC.Examples.Combined.Generation5.Unidirectional.CentralPlants;
 model SewageHeatRecovery "Model for sewage heat recovery plant"
   replaceable package Medium =
     Modelica.Media.Interfaces.PartialMedium

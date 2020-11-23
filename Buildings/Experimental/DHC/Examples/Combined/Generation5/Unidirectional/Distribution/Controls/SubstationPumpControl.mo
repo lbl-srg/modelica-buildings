@@ -1,4 +1,4 @@
-within Buildings.Applications.DHC.Examples.Combined.Generation5.Unidirectional.Distribution.Controls;
+within Buildings.Experimental.DHC.Examples.Combined.Generation5.Unidirectional.Distribution.Controls;
 model SubstationPumpControl
   extends Modelica.Blocks.Icons.Block;
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal

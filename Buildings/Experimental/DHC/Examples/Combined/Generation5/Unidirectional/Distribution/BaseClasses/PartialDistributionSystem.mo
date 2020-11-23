@@ -1,4 +1,4 @@
-within Buildings.Applications.DHC.Examples.Combined.Generation5.Unidirectional.Distribution.BaseClasses;
+within Buildings.Experimental.DHC.Examples.Combined.Generation5.Unidirectional.Distribution.BaseClasses;
 partial model PartialDistributionSystem
   "Partial model for distribution system"
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium

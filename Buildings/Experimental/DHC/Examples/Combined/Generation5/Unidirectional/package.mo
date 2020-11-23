@@ -1,4 +1,4 @@
-within Buildings.Applications.DHC.Examples.Combined.Generation5;
+within Buildings.Experimental.DHC.Examples.Combined.Generation5;
 package Unidirectional "Package with example models of unidirectional DHC systems"
   extends Modelica.Icons.VariantsPackage;
 

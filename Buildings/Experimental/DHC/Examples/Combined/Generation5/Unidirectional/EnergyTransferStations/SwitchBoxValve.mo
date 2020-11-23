@@ -1,4 +1,4 @@
-within Buildings.Applications.DHC.Examples.Combined.Generation5.Unidirectional.EnergyTransferStations;
+within Buildings.Experimental.DHC.Examples.Combined.Generation5.Unidirectional.EnergyTransferStations;
 model SwitchBoxValve
   "Model for mass flow rate redirection with three-port two-position directional valves"
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium

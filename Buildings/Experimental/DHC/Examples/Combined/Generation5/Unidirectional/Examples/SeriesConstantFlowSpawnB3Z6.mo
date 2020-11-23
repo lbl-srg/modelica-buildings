@@ -1,4 +1,4 @@
-within Buildings.Applications.DHC.Examples.Combined.Generation5.Unidirectional.Examples;
+within Buildings.Experimental.DHC.Examples.Combined.Generation5.Unidirectional.Examples;
 model SeriesConstantFlowSpawnB3Z6
   "Example of series connection with constant district water mass flow rate, 3 Spawn building models (6 zones)"
   extends BaseClasses.PartialSeries(

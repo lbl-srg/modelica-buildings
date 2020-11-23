@@ -1,4 +1,4 @@
-within Buildings.Applications.DHC.Examples.Combined.Generation5.Unidirectional.Distribution.Controls;
+within Buildings.Experimental.DHC.Examples.Combined.Generation5.Unidirectional.Distribution.Controls;
 block MainPump "Controller for main pump"
   extends Modelica.Blocks.Icons.Block;
   parameter Integer nMix(min=1) "Number of mixing points after the substations";
