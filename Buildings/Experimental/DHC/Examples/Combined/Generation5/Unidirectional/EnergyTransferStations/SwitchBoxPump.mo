@@ -9,17 +9,17 @@ model SwitchBoxPump "Model for mass flow rate redirection with pumps"
           property_T=293.15, X_a=0.40) "Propylene glycol water, 40% mass fraction")));
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal
     "Nominal mass flow rate";
-  Networks.BaseClasses.Junction splSup1(
+  DHC.EnergyTransferStations.BaseClasses.Junction splSup1(
     redeclare package Medium = Medium,
-    m_flow_nominal={1,1,1}*m_flow_nominal,
-    from_dp=false) "Flow splitter" annotation (Placement(transformation(
+    m_flow_nominal={1,1,1}*m_flow_nominal)
+    "Flow splitter" annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=-90,
         origin={-40,60})));
-  Networks.BaseClasses.Junction splSup2(
+  DHC.EnergyTransferStations.BaseClasses.Junction splSup2(
     redeclare package Medium = Medium,
-    m_flow_nominal={1,1,1}*m_flow_nominal,
-    from_dp=false) "Flow splitter" annotation (Placement(transformation(
+    m_flow_nominal={1,1,1}*m_flow_nominal)
+    "Flow splitter" annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=90,
         origin={40,-40})));
@@ -35,7 +35,7 @@ model SwitchBoxPump "Model for mass flow rate redirection with pumps"
   Modelica.Fluid.Interfaces.FluidPort_a port_aRet(redeclare package Medium =
         Medium) annotation (Placement(transformation(extent={{30,90},{50,110}}),
         iconTransformation(extent={{30,90},{50,110}})));
-  Controls.ReverseFlowSwitchBoxPump con "Switch box controller"
+  Controls.SwitchBoxPump con "Switch box controller"
     annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
   Modelica.Blocks.Interfaces.RealInput mFreCoo_flow(
     final unit="kg/s")
@@ -51,17 +51,15 @@ model SwitchBoxPump "Model for mass flow rate redirection with pumps"
     "Pump electricity consumption"
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),
       iconTransformation(extent={{100,-10},{120,10}})));
-  Networks.BaseClasses.Junction splSup3(
+  DHC.EnergyTransferStations.BaseClasses.Junction splSup3(
     redeclare package Medium = Medium,
-    m_flow_nominal={1,1,1}*m_flow_nominal,
-    from_dp=false) "Flow splitter" annotation (Placement(transformation(
+    m_flow_nominal={1,1,1}*m_flow_nominal) "Flow splitter" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-40,0})));
-  Networks.BaseClasses.Junction splSup4(
+  DHC.EnergyTransferStations.BaseClasses.Junction splSup4(
     redeclare package Medium = Medium,
-    m_flow_nominal={1,1,1}*m_flow_nominal,
-    from_dp=false) "Flow splitter" annotation (Placement(transformation(
+    m_flow_nominal={1,1,1}*m_flow_nominal) "Flow splitter" annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=90,
         origin={40,0})));

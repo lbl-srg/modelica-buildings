@@ -3,7 +3,10 @@ partial model PartialBuilding
   "Partial class for building model"
   replaceable package Medium=Modelica.Media.Interfaces.PartialMedium
     "Source side medium (heating or chilled water)"
-    annotation (choices(choice(redeclare package Medium=Buildings.Media.Water "Water"),choice(redeclare package Medium=Buildings.Media.Antifreeze.PropyleneGlycolWater(property_T=293.15,X_a=0.40) "Propylene glycol water, 40% mass fraction")));
+    annotation (choices(choice(redeclare package Medium=Buildings.Media.Water "Water"),choice(redeclare
+          package
+              Medium=Buildings.Media.Antifreeze.PropyleneGlycolWater (
+        property_T=293.15,X_a=0.40) "Propylene glycol water, 40% mass fraction")));
   parameter Integer nPorts_aHeaWat=0
     "Number of heating water inlet ports"
     annotation (Evaluate=true,Dialog(connectorSizing=true));
@@ -103,34 +106,26 @@ partial model PartialBuilding
     "Chilled water outlet ports"
     annotation (Placement(transformation(extent={{290,-300},{310,-220}}),iconTransformation(extent={{290,-220},{310,-140}})));
   Modelica.Blocks.Interfaces.RealOutput QHea_flow(
-    final quantity="HeatFlowRate",
     final unit="W") if have_heaLoa
     "Total heating heat flow rate transferred to the loads (>=0)"
     annotation (Placement(transformation(extent={{300,260},{340,300}}),iconTransformation(extent={{300,240},{340,280}})));
   Modelica.Blocks.Interfaces.RealOutput QCoo_flow(
-    final quantity="HeatFlowRate",
     final unit="W") if have_cooLoa
     "Total cooling heat flow rate transferred to the loads (<=0)"
     annotation (Placement(transformation(extent={{300,220},{340,260}}),iconTransformation(extent={{300,200},{340,240}})));
   Modelica.Blocks.Interfaces.RealOutput PHea(
-    final quantity="Power",
     final unit="W") if have_eleHea
     "Power drawn by decentralized heating equipment"
     annotation (Placement(transformation(extent={{300,180},{340,220}}),iconTransformation(extent={{300,160},{340,200}})));
   Modelica.Blocks.Interfaces.RealOutput PCoo(
-    quantity="Power",
     final unit="W") if have_eleCoo
     "Power drawn by decentralized cooling equipment"
     annotation (Placement(transformation(extent={{300,140},{340,180}}),iconTransformation(extent={{300,120},{340,160}})));
   Modelica.Blocks.Interfaces.RealOutput PFan(
-    final quantity="Power",
-    final unit="W") if have_fan
-    "Power drawn by fan motors"
+    final unit="W") if have_fan "Power drawn by fan motors"
     annotation (Placement(transformation(extent={{300,100},{340,140}}),iconTransformation(extent={{300,80},{340,120}})));
   Modelica.Blocks.Interfaces.RealOutput PPum(
-    final quantity="Power",
-    final unit="W") if have_pum
-    "Power drawn by pump motors"
+    final unit="W") if have_pum "Power drawn by pump motors"
     annotation (Placement(transformation(extent={{300,60},{340,100}}),iconTransformation(extent={{300,40},{340,80}})));
 initial equation
   assert(

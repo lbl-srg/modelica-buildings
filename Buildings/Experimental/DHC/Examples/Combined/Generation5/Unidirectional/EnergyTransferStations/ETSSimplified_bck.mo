@@ -5,7 +5,7 @@ model ETSSimplified_bck
     "Medium model for water"
     annotation (choicesAllMatching = true);
   outer
-    Buildings.Applications.DHC.Examples.FifthGeneration.Unidirectional.Data.DesignDataSeries
+    Buildings.Experimental.DHC.Examples.FifthGeneration.Unidirectional.Data.DesignDataSeries
     datDes "DHC systenm design data";
   // SYSTEM GENERAL
   parameter Boolean allowFlowReversalBui = false
@@ -374,7 +374,7 @@ model ETSSimplified_bck
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={40,-60})));
-  Buildings.Applications.DHC.EnergyTransferStations.BaseClasses.HydraulicHeader
+  Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses.HydraulicHeader
   decHeaWat(
     redeclare final package Medium=Medium,
     m_flow_nominal=mHeaWat_flow_nominal,
@@ -384,7 +384,7 @@ model ETSSimplified_bck
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={0,350})));
-  Buildings.Applications.DHC.EnergyTransferStations.BaseClasses.HydraulicHeader
+  Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses.HydraulicHeader
   decChiWat(
     redeclare final package Medium=Medium,
     m_flow_nominal=mChiWat_flow_nominal,

@@ -58,7 +58,7 @@ partial model PartialBuildingWithETS
         rotation=0,
         origin={-110,80})));
   // COMPONENTS
-  replaceable Buildings.Applications.DHC.Loads.BaseClasses.PartialBuilding bui(
+  replaceable Buildings.Experimental.DHC.Loads.BaseClasses.PartialBuilding bui(
     final allowFlowReversal=allowFlowReversalBui,
     nPorts_bHeaWat=1,
     nPorts_aHeaWat=1,

@@ -50,21 +50,21 @@ model SwitchBoxValve
     annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
       iconTransformation(extent={{-124,36},{-100,60}})));
   // COMPONENTS
-  Networks.BaseClasses.Junction splSup(
+  DHC.EnergyTransferStations.BaseClasses.Junction splSup(
     redeclare package Medium = Medium,
-    m_flow_nominal={1,1,1}*m_flow_nominal,
-    from_dp=false) "Flow splitter" annotation (Placement(transformation(
+    m_flow_nominal={1,1,1}*m_flow_nominal) "Flow splitter"
+    annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=-90,
         origin={-40,40})));
-  Networks.BaseClasses.Junction splRet(
+  DHC.EnergyTransferStations.BaseClasses.Junction splRet(
     redeclare package Medium = Medium,
-    m_flow_nominal={1,1,1}*m_flow_nominal,
-    from_dp=false) "Flow splitter" annotation (Placement(transformation(
+    m_flow_nominal={1,1,1}*m_flow_nominal) "Flow splitter"
+    annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=90,
         origin={40,0})));
-  Controls.ReverseFlowSwitchBoxValve con "Switch box controller"
+  Controls.SwitchBoxValve con "Switch box controller"
     annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
   Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear valSup(
     redeclare package Medium = Medium,

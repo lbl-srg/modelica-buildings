@@ -3,10 +3,16 @@ partial model PartialETS
   "Partial class for energy transfer station model"
   replaceable package MediumBui=Modelica.Media.Interfaces.PartialMedium
     "Building side medium"
-    annotation (choices(choice(redeclare package Medium=Buildings.Media.Water "Water"),choice(redeclare package Medium=Buildings.Media.Antifreeze.PropyleneGlycolWater(property_T=293.15,X_a=0.40) "Propylene glycol water, 40% mass fraction")));
+    annotation (choices(choice(redeclare package Medium=Buildings.Media.Water "Water"),choice(redeclare
+          package Medium =
+                      Buildings.Media.Antifreeze.PropyleneGlycolWater (
+        property_T=293.15,X_a=0.40) "Propylene glycol water, 40% mass fraction")));
   replaceable package MediumDis=Modelica.Media.Interfaces.PartialMedium
     "District side medium"
-    annotation (choices(choice(redeclare package Medium=Buildings.Media.Water "Water"),choice(redeclare package Medium=Buildings.Media.Antifreeze.PropyleneGlycolWater(property_T=293.15,X_a=0.40) "Propylene glycol water, 40% mass fraction")));
+    annotation (choices(choice(redeclare package Medium=Buildings.Media.Water "Water"),choice(redeclare
+          package Medium =
+                     Buildings.Media.Antifreeze.PropyleneGlycolWater (
+        property_T=293.15,X_a=0.40) "Propylene glycol water, 40% mass fraction")));
   parameter Integer nPorts_aHeaWat=0
     "Number of heating water return ports"
     annotation (Evaluate=true,Dialog(connectorSizing=true));
@@ -71,7 +77,8 @@ partial model PartialETS
       start=MediumBui.h_default,
       nominal=MediumBui.h_default)) if have_heaWat
     "Fluid connectors for heating water return (from building)"
-    annotation (Placement(transformation(extent={{-310,220},{-290,300}}),iconTransformation(extent={{-310,220},{-290,300}})));
+    annotation (Placement(transformation(extent={{-310,220},{-290,300}}),
+      iconTransformation(extent={{-310,220},{-290,300}})));
   Modelica.Fluid.Interfaces.FluidPorts_b ports_bHeaWat[nPorts_bHeaWat](
     redeclare each package Medium=MediumBui,
     each m_flow(
@@ -84,7 +91,8 @@ partial model PartialETS
       start=MediumBui.h_default,
       nominal=MediumBui.h_default)) if have_heaWat
     "Fluid connectors for heating water supply (to building)"
-    annotation (Placement(transformation(extent={{290,220},{310,300}}),iconTransformation(extent={{290,220},{310,300}})));
+    annotation (Placement(transformation(extent={{290,220},{310,300}}),
+      iconTransformation(extent={{290,220},{310,300}})));
   Modelica.Fluid.Interfaces.FluidPorts_a ports_aChiWat[nPorts_aChiWat](
     redeclare each package Medium=MediumBui,
     each m_flow(
@@ -97,7 +105,8 @@ partial model PartialETS
       start=MediumBui.h_default,
       nominal=MediumBui.h_default)) if have_chiWat
     "Fluid connectors for chilled water return (from building)"
-    annotation (Placement(transformation(extent={{-310,160},{-290,240}}),iconTransformation(extent={{-310,120},{-290,200}})));
+    annotation (Placement(transformation(extent={{-310,160},{-290,240}}),
+      iconTransformation(extent={{-310,120},{-290,200}})));
   Modelica.Fluid.Interfaces.FluidPorts_b ports_bChiWat[nPorts_bChiWat](
     redeclare each package Medium=MediumBui,
     each m_flow(
@@ -110,7 +119,8 @@ partial model PartialETS
       start=MediumBui.h_default,
       nominal=MediumBui.h_default)) if have_chiWat
     "Fluid connectors for chilled water supply (to building)"
-    annotation (Placement(transformation(extent={{290,160},{310,240}}),iconTransformation(extent={{290,120},{310,200}})));
+    annotation (Placement(transformation(extent={{290,160},{310,240}}),
+      iconTransformation(extent={{290,120},{310,200}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_aDis(
     redeclare package Medium=MediumDis,
     m_flow(
@@ -137,9 +147,6 @@ partial model PartialETS
       nominal=MediumDis.h_default))
     "Fluid connector for district water return"
     annotation (Placement(transformation(extent={{290,-270},{310,-250}}),iconTransformation(extent={{290,-270},{310,-250}})));
-  Buildings.BoundaryConditions.WeatherData.Bus weaBus if have_weaBus
-    "Weather data bus"
-    annotation (Placement(transformation(extent={{-16,250},{18,282}}),iconTransformation(extent={{-16,250},{18,282}})));
   Modelica.Blocks.Interfaces.RealOutput PHea(
     final unit="W") if have_eleHea
     "Power drawn by heating equipment"
@@ -156,6 +163,11 @@ partial model PartialETS
     final unit="W") if have_pum
     "Power drawn by pump motors"
     annotation (Placement(transformation(extent={{300,-80},{340,-40}}),iconTransformation(extent={{300,-80},{340,-40}})));
+  BoundaryConditions.WeatherData.Bus weaBus if have_weaBus
+    "Weather data bus"
+    annotation (Placement(
+        transformation(extent={{-20,260},{20,300}}), iconTransformation(extent={
+            {-242,162},{-222,182}})));
 initial equation
   assert(
     nPorts_aHeaWat == nPorts_bHeaWat,

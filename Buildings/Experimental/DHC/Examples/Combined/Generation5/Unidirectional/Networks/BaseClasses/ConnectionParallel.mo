@@ -1,6 +1,6 @@
 within Buildings.Experimental.DHC.Examples.Combined.Generation5.Unidirectional.Networks.BaseClasses;
 model ConnectionParallel "Model for connecting an agent to the DHC system"
-  extends Applications.DHC.Networks.BaseClasses.PartialConnection2Pipe(
+  extends Experimental.DHC.Networks.BaseClasses.PartialConnection2Pipe(
     redeclare model Model_pipDis = PipeDistribution (
       final dh=dhDis, final length=lDis),
     redeclare model Model_pipCon = PipeConnection (

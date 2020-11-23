@@ -1,7 +1,7 @@
 within Buildings.Experimental.DHC.Examples.Combined.Generation5.Unidirectional.Networks;
 model UnidirectionalSeries
   "Hydraulic network for unidirectional series DHC system"
-  extends Applications.DHC.Networks.BaseClasses.PartialDistribution1Pipe(
+  extends Experimental.DHC.Networks.BaseClasses.PartialDistribution1Pipe(
     redeclare BaseClasses.ConnectionSeries con[nCon](
       final lDis=lDis, final lCon=lCon, each final dhDis=dhDis, final dhCon=dhCon),
     redeclare model Model_pipDis = BaseClasses.PipeDistribution (

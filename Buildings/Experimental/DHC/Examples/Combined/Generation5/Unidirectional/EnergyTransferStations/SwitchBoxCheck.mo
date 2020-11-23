@@ -39,31 +39,27 @@ model SwitchBoxCheck "Model for mass flow rate redirection with check valves"
     annotation (Placement(transformation(
           extent={{30,90},{50,110}}), iconTransformation(extent={{30,90},{50,110}})));
   // COMPONENTS
-  Networks.BaseClasses.Junction splSup(
+  DHC.EnergyTransferStations.BaseClasses.Junction splSup(
     redeclare package Medium = Medium,
-    m_flow_nominal={1,1,1}*m_flow_nominal,
-    from_dp=false) "Flow splitter" annotation (Placement(transformation(
+    m_flow_nominal={1,1,1}*m_flow_nominal) "Flow splitter" annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=-90,
         origin={-40,40})));
-  Networks.BaseClasses.Junction splRet(
+  DHC.EnergyTransferStations.BaseClasses.Junction splRet(
     redeclare package Medium = Medium,
-    m_flow_nominal={1,1,1}*m_flow_nominal,
-    from_dp=false) "Flow splitter" annotation (Placement(transformation(
+    m_flow_nominal={1,1,1}*m_flow_nominal) "Flow splitter" annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=90,
         origin={40,40})));
-  Networks.BaseClasses.Junction splSup1(
+  DHC.EnergyTransferStations.BaseClasses.Junction splSup1(
     redeclare package Medium = Medium,
-    m_flow_nominal={1,1,1}*m_flow_nominal,
-    from_dp=false) "Flow splitter" annotation (Placement(transformation(
+    m_flow_nominal={1,1,1}*m_flow_nominal) "Flow splitter" annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=-90,
         origin={-40,-40})));
-  Networks.BaseClasses.Junction splRet1(
+  DHC.EnergyTransferStations.BaseClasses.Junction splRet1(
     redeclare package Medium = Medium,
-    m_flow_nominal={1,1,1}*m_flow_nominal,
-    from_dp=false) "Flow splitter" annotation (Placement(transformation(
+    m_flow_nominal={1,1,1}*m_flow_nominal) "Flow splitter" annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=90,
         origin={40,-40})));
