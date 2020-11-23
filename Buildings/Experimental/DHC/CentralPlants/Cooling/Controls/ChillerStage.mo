@@ -26,35 +26,42 @@ model ChillerStage
   Modelica.StateGraph.InitialStep off(
     nIn=1)
     "No cooling is demanded"
-    annotation (Placement(transformation(extent={{-10,10},{10,-10}},rotation=-90,origin={-50,70})));
+    annotation (Placement(transformation(extent={{-10,10},{10,-10}},rotation=-90,
+      origin={-50,70})));
   Modelica.StateGraph.StepWithSignal oneOn(
     nOut=2,
     nIn=2)
     "Status of one chiller on"
-    annotation (Placement(transformation(extent={{10,-10},{-10,10}},rotation=90,origin={-50,0})));
+    annotation (Placement(transformation(extent={{10,-10},{-10,10}},rotation=90,
+      origin={-50,0})));
   Modelica.StateGraph.StepWithSignal twoOn
     "Status of two chillers on"
-    annotation (Placement(transformation(extent={{10,-10},{-10,10}},rotation=90,origin={-50,-70})));
+    annotation (Placement(transformation(extent={{10,-10},{-10,10}},rotation=90,
+      origin={-50,-70})));
   Modelica.StateGraph.TransitionWithSignal offToOne(
     enableTimer=true,
     waitTime=tWai)
     "Condition of transition from off to one chiller on"
-    annotation (Placement(transformation(extent={{10,10},{-10,-10}},rotation=90,origin={-50,40})));
+    annotation (Placement(transformation(extent={{10,10},{-10,-10}},rotation=90,
+      origin={-50,40})));
   Modelica.StateGraph.TransitionWithSignal oneToTwo(
     enableTimer=true,
     waitTime=tWai)
     "Condition of transition from one chiller to two chillers"
-    annotation (Placement(transformation(extent={{10,10},{-10,-10}},rotation=90,origin={-50,-40})));
+    annotation (Placement(transformation(extent={{10,10},{-10,-10}},rotation=90,
+      origin={-50,-40})));
   Modelica.StateGraph.TransitionWithSignal twoToOne(
     enableTimer=true,
     waitTime=tWai)
     "Condition of transion from two chillers to one chiller"
-    annotation (Placement(transformation(extent={{-10,10},{10,-10}},rotation=90,origin={0,-40})));
+    annotation (Placement(transformation(extent={{-10,10},{10,-10}},rotation=90,
+      origin={0,-40})));
   Modelica.StateGraph.TransitionWithSignal oneToOff(
     enableTimer=true,
     waitTime=tWai)
     "Condition of transition from one chiller to off"
-    annotation (Placement(transformation(extent={{-10,10},{10,-10}},rotation=90,origin={-20,40})));
+    annotation (Placement(transformation(extent={{-10,10},{10,-10}},rotation=90,
+      origin={-20,40})));
   inner Modelica.StateGraph.StateGraphRoot stateGraphRoot
     "State graph root"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
