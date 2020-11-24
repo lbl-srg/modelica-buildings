@@ -57,6 +57,27 @@ partial model PartialBuildingWithETS
     ets.QHotWat_flow_nominal
     "Design heat flow rate for hot water production (>0)"
     annotation (Dialog(group="Nominal condition",enable=have_hotWat));
+  // Parameters for connect clauses.
+  final parameter Integer idxPHeaETS = max(
+    Modelica.Math.BooleanVectors.countTrue({bui.have_eleHea, ets.have_eleHea}),
+    1)
+    "Index for connecting the ETS output connector"
+    annotation (Evaluate=true);
+  final parameter Integer idxPCooETS = max(
+    Modelica.Math.BooleanVectors.countTrue({bui.have_eleCoo, ets.have_eleCoo}),
+    1)
+    "Index for connecting the ETS output connector"
+    annotation (Evaluate=true);
+  final parameter Integer idxPFanETS = max(
+    Modelica.Math.BooleanVectors.countTrue({bui.have_fan, ets.have_fan}),
+    1)
+    "Index for connecting the ETS output connector"
+    annotation (Evaluate=true);
+  final parameter Integer idxPPumETS = max(
+    Modelica.Math.BooleanVectors.countTrue({bui.have_pum, ets.have_pum}),
+    1)
+    "Index for connecting the ETS output connector"
+    annotation (Evaluate=true);
   // IO CONNECTORS
   Modelica.Fluid.Interfaces.FluidPort_a port_aDis(
     redeclare package Medium=MediumDis,
@@ -138,23 +159,19 @@ partial model PartialBuildingWithETS
       Placement(transformation(extent={{140,10},{180,50}}), iconTransformation(
           extent={{100,-100},{120,-80}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiSum totPHea(
-    final nin=Modelica.Math.BooleanVectors.countTrue(
-      {bui.have_eleHea, ets.have_eleHea})) if have_eleHea
+    final nin=Modelica.Math.BooleanVectors.countTrue({bui.have_eleHea, ets.have_eleHea}))
     "Total power drawn by heating equipment"
     annotation (Placement(transformation(extent={{110,80},{130,100}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiSum totPCoo(
-    final nin=Modelica.Math.BooleanVectors.countTrue(
-      {bui.have_eleCoo, ets.have_eleCoo})) if have_eleCoo
+    final nin=Modelica.Math.BooleanVectors.countTrue({bui.have_eleCoo, ets.have_eleCoo}))
     "Total power drawn by cooling equipment"
     annotation (Placement(transformation(extent={{90,60},{110,80}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiSum totPFan(
-    final nin=Modelica.Math.BooleanVectors.countTrue(
-      {bui.have_fan, ets.have_fan})) if have_fan
+    final nin=Modelica.Math.BooleanVectors.countTrue({bui.have_fan, ets.have_fan}))
     "Total power drawn by fan motors"
     annotation (Placement(transformation(extent={{110,40},{130,60}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiSum totPPum(
-    final nin=Modelica.Math.BooleanVectors.countTrue(
-      {bui.have_pum, ets.have_pum})) if have_pum
+    final nin=Modelica.Math.BooleanVectors.countTrue({bui.have_pum, ets.have_pum}))
     "Total power drawn by pump motors"
     annotation (Placement(transformation(extent={{90,20},{110,40}})));
 equation
@@ -200,19 +217,21 @@ equation
     annotation (Line(points={{112,30},{160,30}}, color={0,0,127}));
   connect(bui.PHea, totPHea.u[1]) annotation (Line(points={{32,56},{60,56},{60,90},
           {108,90}}, color={0,0,127}));
-  connect(ets.PHea, totPHea.u[2]) annotation (Line(points={{32,-48},{62,-48},{62,
-          90},{108,90}}, color={0,0,127}));
+  connect(ets.PHea, totPHea.u[idxPHeaETS]) annotation (Line(points={{32,-48},{62,
+          -48},{62,90},{108,90}},
+                         color={0,0,127}));
   connect(bui.PCoo, totPCoo.u[1]) annotation (Line(points={{32,52},{64,52},{64,70},
           {88,70}}, color={0,0,127}));
-  connect(ets.PCoo, totPCoo.u[2]) annotation (Line(points={{32,-52},{66,-52},{66,
-          70},{88,70}}, color={0,0,127}));
+  connect(ets.PCoo, totPCoo.u[idxPCooETS]) annotation (Line(points={{32,-52},{66,
+          -52},{66,70},{88,70}},
+                        color={0,0,127}));
   connect(bui.PFan, totPFan.u[1]) annotation (Line(points={{32,48},{68,48},{68,50},
           {108,50}}, color={0,0,127}));
-  connect(ets.PFan, totPFan.u[2]) annotation (Line(points={{32,-56},{70,-56},{70,
+  connect(ets.PFan, totPFan.u[idxPFanETS]) annotation (Line(points={{32,-56},{70,-56},{70,
           50},{108,50}}, color={0,0,127}));
   connect(bui.PPum, totPPum.u[1]) annotation (Line(points={{32,44},{72,44},{72,30},
           {88,30}}, color={0,0,127}));
-  connect(ets.PPum, totPPum.u[2]) annotation (Line(points={{32,-60},{74,-60},{74,
+  connect(ets.PPum, totPPum.u[idxPPumETS]) annotation (Line(points={{32,-60},{74,-60},{74,
           30},{88,30}}, color={0,0,127}));
   annotation (
     DefaultComponentName="bui",
