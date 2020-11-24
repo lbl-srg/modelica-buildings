@@ -6,7 +6,7 @@ model FanCoil4PipeWet
     final have_fluPor=true,
     final have_heaPor=false,
     final have_scaLoa=true,
-    redeclare Fluid.HeatExchangers.WetEffectivenessNTU_Fuzzy_V2_2_4 hexCoo(
+    redeclare Fluid.HeatExchangers.WetEffectivenessNTU_Fuzzy_V3 hexCoo(
       UA_nominal=abs(QCoo_flow_nominal / Fluid.HeatExchangers.BaseClasses.lmtd(
         T_aChiWat_nominal,
         T_bChiWat_nominal,

@@ -56,7 +56,7 @@ model FanCoil2PipeCoolingWet "Model of a sensible only two-pipe fan coil unit fo
     dp_nominal=200)
     "Fan"
     annotation (Placement(transformation(extent={{90,-10},{70,10}})));
-  Buildings.Fluid.HeatExchangers.WetEffectivenessNTU_Fuzzy_V2_2_4 hex(
+  Buildings.Fluid.HeatExchangers.WetEffectivenessNTU_Fuzzy_V3 hex(
     redeclare final package Medium1=Medium1,
     redeclare final package Medium2=Medium2,
     final configuration=hexConCoo,
