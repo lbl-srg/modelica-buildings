@@ -139,7 +139,7 @@ equation
       file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Loads/Examples/CouplingTimeSeries_Hospital.mos" "Simulate and plot"),
     experiment(
       Tolerance=1e-6,
-      StopTime=86400),
+      StopTime=604800),
     Documentation(
       info="<html>
 <p>
