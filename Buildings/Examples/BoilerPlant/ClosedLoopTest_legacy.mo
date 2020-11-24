@@ -49,7 +49,7 @@ model ClosedLoopTest_legacy "Closed loop testing model"
     nPumPri_nominal=2,
     nPumSec=0,
     nSenSec=0,
-    nPumSec_nominal=1,
+    nPumSec_nominal=0,
     VHotWatPri_flow_nominal=0.0006,
     maxLocDpPri=4000,
     minLocDpPri=4000,
@@ -280,7 +280,7 @@ First implementation.
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-120,-100},{120,
             100}})),
     __Dymola_Commands(file=
-     "modelica://Buildings/Resources/Scripts/Dymola/Examples/Tutorial/Boiler/System6.mos"
+     "modelica://Buildings/Resources/Scripts/Dymola/Examples/BoilerPlant/ClosedLoopTest_legacy.mos"
         "Simulate and plot"),
     experiment(
       StartTime=259200,

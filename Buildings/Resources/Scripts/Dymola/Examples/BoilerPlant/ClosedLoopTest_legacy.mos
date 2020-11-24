@@ -1,0 +1,20 @@
+﻿simulateModel("Buildings.Examples.BoilerPlant.ClosedLoopTest_legacy", startTime=259200,tolerance=1e-6, stopTime=432000, outputInterval=1, method="cvode", resultFile="ClosedLoopTest_legacy");
+removePlots(false);
+
+createPlot(id=1, position={0, 0, 1500, 978}, y={"boilerPlant.TOutAir"}, range={255000.0, 435000.0, -20.0, 0.0}, grid=true, colors={{28,108,200}}, displayUnits={"degC"});
+createPlot(id=1, position={0, 0, 1500, 104}, y={"boilerPlant.yZonTem"}, range={255000.0, 435000.0, 15.0, 25.0}, grid=true, subPlot=2, colors={{28,108,200}}, displayUnits={"degC"});
+createPlot(id=1, position={0, 0, 1500, 105}, y={"controller.supResReq"}, range={255000.0, 435000.0, -10.0, 10.0}, grid=true, subPlot=3, colors={{28,108,200}});
+createPlot(id=1, position={0, 0, 1500, 104}, y={"controller.plaEna.yPla"}, range={255000.0, 435000.0, -2.0, 2.0}, grid=true, subPlot=4, colors={{28,108,200}});
+createPlot(id=1, position={0, 0, 1500, 104}, y={"controller.staSetCon.ySta"}, range={255000.0, 435000.0, -5.0, 5.0}, grid=true, subPlot=5, colors={{28,108,200}});
+createPlot(id=1, position={0, 0, 1500, 104}, y={"controller.yHotWatIsoVal[1]"}, range={255000.0, 435000.0, -2.0, 2.0}, grid=true, subPlot=6, colors={{28,108,200}});
+createPlot(id=1, position={0, 0, 1500, 105}, y={"controller.yBoi[1]"}, range={255000.0, 435000.0, -1.0, 2.0}, grid=true, subPlot=7, colors={{28,108,200}});
+createPlot(id=1, position={0, 0, 1500, 104}, y={"controller.yHotWatIsoVal[2]"}, range={255000.0, 435000.0, -2.0, 2.0}, grid=true, subPlot=8, colors={{28,108,200}});
+createPlot(id=1, position={0, 0, 1500, 104}, y={"controller.yBoi[2]"}, range={255000.0, 435000.0, -2.0, 2.0}, grid=true, subPlot=9, colors={{28,108,200}});
+
+createPlot(id=2, position={0, 0, 1500, 939}, y={"controller.VHotWatPri_flow", "controller.VHotWatPri_flow_nominal"}, range={255000.0, 435000.0, -0.0005, 0.001}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=2, position={0, 0, 1500, 130}, y={"controller.yPriPum[1]"}, range={250000.0, 440000.0, -1.0, 2.0}, grid=true, subPlot=2, colors={{28,108,200}});
+createPlot(id=2, position={0, 0, 1500, 130}, y={"controller.yPriPum[2]"}, range={250000.0, 440000.0, -1.0, 2.0}, grid=true, subPlot=3, colors={{28,108,200}});
+createPlot(id=2, position={0, 0, 1500, 129}, y={"controller.dpHotWatPri_rem[1]", "controller.maxLocDpPri"}, range={250000.0, 440000.0, -5000.0, 10000.0}, grid=true, subPlot=4, colors={{28,108,200}, {238,46,47}});
+createPlot(id=2, position={0, 0, 1500, 130}, y={"controller.yPriPumSpe[1]"}, range={250000.0, 440000.0, -1.0, 2.0}, grid=true, subPlot=5, colors={{28,108,200}});
+createPlot(id=2, position={0, 0, 1500, 130}, y={"controller.VHotWatPri_flow", "controller.minBoiFloSet.VHotWatMinSet_flow"}, range={250000.0, 440000.0, -0.0002, 0.0004000000000000001}, grid=true, subPlot=6, colors={{28,108,200}, {238,46,47}});
+createPlot(id=2, position={0, 0, 1500, 130}, y={"controller.yBypValPos"}, range={250000.0, 440000.0, -1.0, 2.0}, grid=true, subPlot=7, colors={{28,108,200}});
