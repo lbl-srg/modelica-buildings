@@ -216,8 +216,7 @@ equation
           lineThickness=0.5),
         Rectangle(
           extent={{-44,50},{-40,10}},
-          lineColor={ERROR,
-                          0,0},
+          lineColor={0,0,0},
           fillColor={135,135,135},
           fillPattern=FillPattern.Solid),
         Rectangle(
@@ -330,7 +329,7 @@ The corresponding power consumption is
   + &beta;<sub>2</sub> T<sub>loa,ent</sub>/T<sub>RefHeaLoa</sub>
   + &beta;<sub>3</sub> T<sub>sou,ent</sub>/T<sub>RefHeaSou</sub>
   + &beta;<sub>4</sub> m&#775;<sub>loa,ent</sub>/(m&#775;<sub>loa,0</sub> &nbsp; s)
-  + &beta;<sub>5</sub> m&#775;<sub>sou,ent</sub>/(m&#775;<sub>sou,0</sub> &nbsp; s) &nbsp; P<sub>0</sub> &nbsp; s,
+  + &beta;<sub>5</sub> m&#775;<sub>sou,ent</sub>/(m&#775;<sub>sou,0</sub> &nbsp; s) ) &nbsp; P<sub>0</sub> &nbsp; s,
 </p>
 <p>
 where <i>P<sub>0</sub></i> is the design power consumption as specified by the parameter
