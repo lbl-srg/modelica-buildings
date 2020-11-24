@@ -1,0 +1,10 @@
+compareVars :=
+  {
+    "cooTowPar.TWetBul",
+    "cooTowPar.sta_a.T",
+    "cooTowPar.sta_b.T",
+    "conFan.u_s",
+    "conFan.u_m",
+    "onOffCon.reference",
+    "onOffCon.u"
+  };
