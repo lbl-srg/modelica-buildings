@@ -1,3 +1,4 @@
+os: Linux
 dist: bionic
 
 language: python
@@ -20,13 +21,13 @@ services:
 
 addons:
   apt:
-    if: env(TEST_ARG) IS /*test-omc*/
     sources:
-    - sourceline: "deb http://build.openmodelica.org/apt `lsb_release -cs` stable"
+    - sourceline: "deb http://build.openmodelica.org/apt bionic stable"
       key_url: "http://build.openmodelica.org/apt/openmodelica.asc"
     packages:
-    - omc=1.16.0-1
-    - omlib-modelica-3.2.3=3.2.3~20201013~234009~git~OM~maint~3.2.3-1
+    - omc=1.16.1-1
+    - omlib-modelica-3.2.3
+
 
 env:
   global:
@@ -98,7 +99,7 @@ before_install:
        cp Buildings/Resources/Scripts/travis/dymola/dymola $HOME/bin/;
     fi;
   - if [[ "$TEST_ARG" == *test-optimica* ]]; then
-       docker pull "$DOCKER_USERNAME"/travis-ubuntu-1804-optimica:r17595;
+       docker pull "$DOCKER_USERNAME"/travis-ubuntu-1804-optimica:r19089;
        cp Buildings/Resources/Scripts/travis/optimica/jm_ipython.sh $HOME/bin/jm_ipython.sh;
     fi;
   - if [[ "$TEST_ARG" == *test-jmodelica* ]]; then

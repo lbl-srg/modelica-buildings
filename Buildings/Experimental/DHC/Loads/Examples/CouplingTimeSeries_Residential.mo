@@ -3,7 +3,7 @@ model CouplingTimeSeries_Residential
   "Example illustrating the coupling of a residential building model to 
     heating water and chilled water loops"
   extends Modelica.Icons.Example;
-  package MeduimW=Buildings.Media.Water
+  package MediumW=Buildings.Media.Water
     "Source side medium";
   parameter Modelica.SIunits.Time perAve=600
     "Period for time averaged variables";
@@ -24,13 +24,13 @@ model CouplingTimeSeries_Residential
     "Residential building with time series heating and cooling loads"
     annotation (Placement(transformation(extent={{8,-2},{28,18}})));
   Buildings.Fluid.Sources.Boundary_pT sinHeaWat(
-    redeclare package Medium=MeduimW,
+    redeclare package Medium=MediumW,
     p=300000,
     nPorts=1)
     "Sink for heating water"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},rotation=0,origin={130,20})));
   Buildings.Fluid.Sources.Boundary_pT sinChiWat(
-    redeclare package Medium=MeduimW,
+    redeclare package Medium=MediumW,
     p=300000,
     nPorts=1)
     "Sink for chilled water"
@@ -44,13 +44,13 @@ model CouplingTimeSeries_Residential
     "Chilled water supply temperature"
     annotation (Placement(transformation(extent={{-120,-30},{-100,-10}})));
   Buildings.Fluid.Sources.Boundary_pT supHeaWat(
-    redeclare package Medium=MeduimW,
+    redeclare package Medium=MediumW,
     use_T_in=true,
     nPorts=1)
     "Heating water supply"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,origin={-50,40})));
   Buildings.Fluid.Sources.Boundary_pT supChiWat(
-    redeclare package Medium=MeduimW,
+    redeclare package Medium=MediumW,
     use_T_in=true,
     nPorts=1)
     "Chilled water supply"
