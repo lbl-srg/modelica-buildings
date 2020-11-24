@@ -2,12 +2,10 @@ within Buildings.Experimental.DHC.CentralPlants.Cooling.Examples;
 model CoolingPlantOpenLoop
   "Example to test the chiller cooling plant"
   extends Modelica.Icons.Example;
-
-  package Medium = Buildings.Media.Water "Medium model for water";
-
+  package Medium=Buildings.Media.Water
+    "Medium model for water";
   // chiller and cooling tower
-  redeclare parameter Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_York_YT_1055kW_5_96COP_Vanes
-    perChi
+  redeclare parameter Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_York_YT_1055kW_5_96COP_Vanes perChi
     "Performance data of chiller";
   parameter Modelica.SIunits.MassFlowRate mCHW_flow_nominal=18.3
     "Nominal chilled water mass flow rate";
@@ -17,18 +15,17 @@ model CoolingPlantOpenLoop
     "Nominal chilled water side pressure";
   parameter Modelica.SIunits.PressureDifference dpCW_nominal=46.2*1000
     "Nominal condenser water side pressure";
-  parameter Modelica.SIunits.Power QEva_nominal = mCHW_flow_nominal*4200*(6.67-18.56)
+  parameter Modelica.SIunits.Power QEva_nominal=mCHW_flow_nominal*4200*(6.67-18.56)
     "Nominal cooling capaciaty (Negative means cooling)";
-  parameter Modelica.SIunits.MassFlowRate mMin_flow = 0.03
+  parameter Modelica.SIunits.MassFlowRate mMin_flow=0.03
     "Minimum mass flow rate of single chiller";
-
   // control settings
   parameter Modelica.SIunits.Pressure dpSetPoi=68900
     "Differential pressure setpoint";
-  parameter Modelica.SIunits.Temperature TCHWSet = 273.15 + 8
+  parameter Modelica.SIunits.Temperature TCHWSet=273.15+8
     "Chilled water temperature setpoint";
-  parameter Modelica.SIunits.Time tWai=30 "Waiting time";
-
+  parameter Modelica.SIunits.Time tWai=30
+    "Waiting time";
   // pumps
   parameter Buildings.Fluid.Movers.Data.Generic perCHWPum(
     pressure=Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters(
@@ -44,7 +41,6 @@ model CoolingPlantOpenLoop
     "Nominal pressure drop of chilled water pumps";
   parameter Modelica.SIunits.Pressure dpCWPum_nominal=6000
     "Nominal pressure drop of chilled water pumps";
-
   Buildings.Experimental.DHC.CentralPlants.Cooling.Plant pla(
     perChi=perChi,
     perCHWPum=perCHWPum,
@@ -67,71 +63,81 @@ model CoolingPlantOpenLoop
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "District cooling plant"
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));
-  Buildings.Fluid.Sources.Boundary_pT watSin(redeclare package Medium=Medium,
-      nPorts=1)
+  Buildings.Fluid.Sources.Boundary_pT watSin(
+    redeclare package Medium=Medium,
+    nPorts=1)
     "Water sink"
     annotation (Placement(transformation(extent={{62,-30},{42,-10}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
     final computeWetBulbTemperature=true,
-    filNam=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos"))
+    filNam=Modelica.Utilities.Files.loadResource(
+      "modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos"))
     "Weather data"
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
-  Buildings.BoundaryConditions.WeatherData.Bus weaBus "Weather data bus"
+  Buildings.BoundaryConditions.WeatherData.Bus weaBus
+    "Weather data bus"
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
-  Modelica.Blocks.Sources.BooleanConstant on "On signal of the plant"
+  Modelica.Blocks.Sources.BooleanConstant on
+    "On signal of the plant"
     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
   Modelica.Blocks.Sources.Ramp dpMea(
     offset=0.5*dpSetPoi,
     height=0.4*dpSetPoi,
     startTime=21600,
-    duration=21600) "Measured pressure difference"
+    duration=21600)
+    "Measured pressure difference"
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
   Buildings.Fluid.Sources.MassFlowSource_T watSou(
-    redeclare package Medium = Medium,
+    redeclare package Medium=Medium,
     m_flow=pla.numChi*mCHW_flow_nominal,
     T=291.15,
-    nPorts=1) "Water source"
+    nPorts=1)
+    "Water source"
     annotation (Placement(transformation(extent={{60,10},{40,30}})));
   Buildings.Fluid.FixedResistances.PressureDrop res(
     dp_nominal=6000,
-    redeclare package Medium = Medium,
+    redeclare package Medium=Medium,
     m_flow_nominal=pla.numChi*mCHW_flow_nominal)
     "Flow resistance"
     annotation (Placement(transformation(extent={{12,-30},{32,-10}})));
-  Modelica.Blocks.Sources.Constant TCHWSupSet(k=TCHWSet)
+  Modelica.Blocks.Sources.Constant TCHWSupSet(
+    k=TCHWSet)
     "Chilled water supply temperature setpoint"
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
 initial equation
   Modelica.Utilities.Streams.print(
-    "Warning:\n  In " + getInstanceName() +
-    ": This model is a beta version and is not fully validated yet.");
-
+    "Warning:\n  In "+getInstanceName()+": This model is a beta version and is not fully validated yet.");
 equation
-  connect(weaDat.weaBus, weaBus) annotation (Line(
-      points={{-60,-50},{-50,-50}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(dpMea.y, pla.dpMea) annotation (Line(points={{-39,-10},{-32,-10},{-32,
-          7},{-22,7}},                                                     color={0,0,127}));
-  connect(weaBus.TWetBul, pla.TWetBul) annotation (Line(
-      points={{-50,-50},{-30,-50},{-30,2},{-22,2}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(on.y, pla.on) annotation (Line(points={{-39,50},{-30,50},{-30,18},{-22,
-          18}}, color={255,0,255}));
-  connect(watSou.ports[1], pla.port_a) annotation (Line(points={{40,20},{8,20},{
-          8,15},{0,15}}, color={0,127,255}));
-  connect(pla.port_b, res.port_a) annotation (Line(points={{0,5},{8,5},{8,-20},{
-          12,-20}}, color={0,127,255}));
-  connect(res.port_b, watSin.ports[1]) annotation (Line(points={{32,-20},{42,-20}}, color={0,127,255}));
-  connect(TCHWSupSet.y, pla.TCHWSupSet) annotation (Line(points={{-39,20},{-32,20},
-          {-32,13},{-22,13}}, color={0,0,127}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)),
-    experiment(StopTime=86400, Tolerance=1e-06),
-    __Dymola_Commands(file="Resources/Scripts/Dymola/Experimental/DHC/CentralPlants/Cooling/Examples/CoolingPlantOpenLoop.mos"
-        "Simulate and Plot"),
-    Documentation(info="<html>
+  connect(weaDat.weaBus,weaBus)
+    annotation (Line(points={{-60,-50},{-50,-50}},color={255,204,51},thickness=0.5));
+  connect(dpMea.y,pla.dpMea)
+    annotation (Line(points={{-39,-10},{-32,-10},{-32,7},{-22,7}},color={0,0,127}));
+  connect(weaBus.TWetBul,pla.TWetBul)
+    annotation (Line(points={{-50,-50},{-30,-50},{-30,2},{-22,2}},color={255,204,51},thickness=0.5));
+  connect(on.y,pla.on)
+    annotation (Line(points={{-39,50},{-30,50},{-30,18},{-22,18}},color={255,0,255}));
+  connect(watSou.ports[1],pla.port_a)
+    annotation (Line(points={{40,20},{8,20},{8,15},{0,15}},color={0,127,255}));
+  connect(pla.port_b,res.port_a)
+    annotation (Line(points={{0,5},{8,5},{8,-20},{12,-20}},color={0,127,255}));
+  connect(res.port_b,watSin.ports[1])
+    annotation (Line(points={{32,-20},{42,-20}},color={0,127,255}));
+  connect(TCHWSupSet.y,pla.TCHWSupSet)
+    annotation (Line(points={{-39,20},{-32,20},{-32,13},{-22,13}},color={0,0,127}));
+  annotation (
+    Icon(
+      coordinateSystem(
+        preserveAspectRatio=false)),
+    Diagram(
+      coordinateSystem(
+        preserveAspectRatio=false)),
+    experiment(
+      StopTime=86400,
+      Tolerance=1e-06),
+    __Dymola_Commands(
+      file="Resources/Scripts/Dymola/Experimental/DHC/CentralPlants/Cooling/Examples/CoolingPlantOpenLoop.mos" "Simulate and Plot"),
+    Documentation(
+      info="<html>
 <p>This model validates the district central cooling plant implemented in 
 <a href=\"modelica://Buildings.Experimental.DHC.CentralPlants.Cooling.Plant\">
 Buildings.Experimental.DHC.CentralPlants.Cooling.Plant</a>.
@@ -139,7 +145,8 @@ Buildings.Experimental.DHC.CentralPlants.Cooling.Plant</a>.
 <b><span style=\"font-size: 11pt; color: #ff0000;\">This model is a beta version and is not fully validated yet.</span></b>
 </body>
 </p>
-</html>", revisions="<html>
+</html>",
+      revisions="<html>
 <ul>
 <li>
 August 6, 2020 by Jing Wang:<br/>
