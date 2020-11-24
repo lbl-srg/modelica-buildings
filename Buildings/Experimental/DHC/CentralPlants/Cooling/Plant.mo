@@ -329,7 +329,9 @@ equation
           {-12,-46}}, color={0,0,127}));
   connect(chiStaCon.y, cooTowWitByp.on) annotation (Line(points={{-99,56},{-92,56},
           {-92,-46},{-62,-46}}, color={255,0,255}));
-  annotation (__Dymola_Commands,
+  annotation (
+  defaultComponentName="pla",
+  __Dymola_Commands,
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,-80},{160,100}})),
     experiment(
       StartTime=1.728e+007,

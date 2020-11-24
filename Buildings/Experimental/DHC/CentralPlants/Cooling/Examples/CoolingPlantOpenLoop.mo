@@ -7,7 +7,8 @@ model CoolingPlantOpenLoop
 
   // chiller and cooling tower
   redeclare parameter Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_York_YT_1055kW_5_96COP_Vanes
-    perChi;
+    perChi
+    "Performance data of chiller";
   parameter Modelica.SIunits.MassFlowRate mCHW_flow_nominal=18.3
     "Nominal chilled water mass flow rate";
   parameter Modelica.SIunits.MassFlowRate mCW_flow_nominal=34.7
