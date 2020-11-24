@@ -256,6 +256,11 @@ protected
     Medium.specificHeatCapacityCp(sta_default)
     "Specific heat capacity of the fluid";
 
+initial equation
+  Modelica.Utilities.Streams.print(
+    "Warning:\n  In " + getInstanceName() +
+    ": This model is a beta version and is not fully validated yet.");
+
 equation
 
   connect(senTCHWSup.port_b, port_b) annotation (Line(
@@ -322,8 +327,8 @@ equation
           50},{-82,50}}, color={255,0,255}));
   connect(chiOn.y, pumCW.u) annotation (Line(points={{-58,50},{-22,50},{-22,-46},
           {-12,-46}}, color={0,0,127}));
-  connect(chiStaCon.y, cooTowWitByp.on) annotation (Line(points={{-99,56},{-92,
-          56},{-92,-46},{-62,-46}}, color={255,0,255}));
+  connect(chiStaCon.y, cooTowWitByp.on) annotation (Line(points={{-99,56},{-92,56},
+          {-92,-46},{-62,-46}}, color={255,0,255}));
   annotation (__Dymola_Commands,
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,-80},{160,100}})),
     experiment(
@@ -333,18 +338,21 @@ equation
       __Dymola_Algorithm="Dassl"),
     __Dymola_experimentSetupOutput,
     Documentation(info="<html>
-<p>The schematic drawing of the Lejeune plant is shown as folowing.</p>
-<p><img src=\"Resources/Images/lejeunePlant/lejeune_schematic_drawing.jpg\" alt=\"image\"/> </p>
-<p>In addition, the parameters are listed as below.</p>
-<p>The parameters for the chiller plant.</p>
-<p><img src=\"Resources/Images/lejeunePlant/Chiller.png\" alt=\"image\"/> </p>
-<p>The parameters for the primary chilled water pump.</p>
-<p><img src=\"Resources/Images/lejeunePlant/PriCHWPum.png\" alt=\"image\"/> </p>
-<p>The parameters for the secondary chilled water pump.</p>
-<p><img src=\"Resources/Images/lejeunePlant/SecCHWPum1.png\" alt=\"image\"/> </p>
-<p><img src=\"Resources/Images/lejeunePlant/SecCHWPum2.png\" alt=\"image\"/> </p>
-<p>The parameters for the condenser water pump.</p>
-<p><img src=\"Resources/Images/lejeunePlant/CWPum.png\" alt=\"image\"/> </p>
+<p>
+This model showcases a generic district central cooling plant with two chillers as the cooling source.
+
+<body>
+<b><span style=\"font-size: 11pt; color: #ff0000;\">This model is a beta version and is not fully validated yet.</span></b>
+</body>
+
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+August 6, 2020 by Jing Wang:<br/>
+First implementation. 
+</li>
+</ul>
 </html>"),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}}),    graphics={
                                 Rectangle(

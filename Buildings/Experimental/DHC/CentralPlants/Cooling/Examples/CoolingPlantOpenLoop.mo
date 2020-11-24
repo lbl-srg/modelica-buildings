@@ -100,6 +100,10 @@ model CoolingPlantOpenLoop
   Modelica.Blocks.Sources.Constant TCHWSupSet(k=TCHWSet)
     "Chilled water supply temperature setpoint"
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
+initial equation
+  Modelica.Utilities.Streams.print(
+    "Warning:\n  In " + getInstanceName() +
+    ": This model is a beta version and is not fully validated yet.");
 
 equation
   connect(weaDat.weaBus, weaBus) annotation (Line(
@@ -125,5 +129,21 @@ equation
         coordinateSystem(preserveAspectRatio=false)),
     experiment(StopTime=86400, Tolerance=1e-06),
     __Dymola_Commands(file="Resources/Scripts/Dymola/Experimental/DHC/CentralPlants/Cooling/Examples/CoolingPlantOpenLoop.mos"
-        "Simulate and Plot"));
+        "Simulate and Plot"),
+    Documentation(info="<html>
+<p>This model validates the district central cooling plant implemented in 
+<a href=\"modelica://Buildings.Experimental.DHC.CentralPlants.Cooling.Plant\">
+Buildings.Experimental.DHC.CentralPlants.Cooling.Plant</a>.
+<body>
+<b><span style=\"font-size: 11pt; color: #ff0000;\">This model is a beta version and is not fully validated yet.</span></b>
+</body>
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+August 6, 2020 by Jing Wang:<br/>
+First implementation. 
+</li>
+</ul>
+</html>"));
 end CoolingPlantOpenLoop;
