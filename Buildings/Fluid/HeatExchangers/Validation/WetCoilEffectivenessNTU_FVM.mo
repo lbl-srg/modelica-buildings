@@ -77,7 +77,7 @@ model WetCoilEffectivenessNTU_FVM
     T_a1_nominal=303.15,
     T_a2_nominal=293.15) "Dry coil"
     annotation (Placement(transformation(extent={{-10,0},{10,20}})));
-  WetEffectivenessNTU_Fuzzy_V2_2_4                       hexWetNtu(
+  WetEffectivenessNTU_Fuzzy_V3                           hexWetNtu(
     redeclare package Medium1 = Medium1,
     redeclare package Medium2 = Medium2,
     dp1_nominal=500,

@@ -9,7 +9,7 @@ model WetCoilEffectivenessNTU
     sou_2(nPorts=1),
     sin_2(nPorts=1));
 
-  WetEffectivenessNTU_Fuzzy_V2_2_4 hex(
+  WetEffectivenessNTU_Fuzzy_V3     hex(
     redeclare package Medium1 = Medium1,
     redeclare package Medium2 = Medium2,
     m1_flow_nominal=m1_flow_nominal,

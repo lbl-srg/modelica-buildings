@@ -1,6 +1,7 @@
 WetEffectivenessNTU_Fuzzy_V2_2
 WetEffectivenessNTU_Fuzzy_V2_2_2
 WetEffectivenessNTU_Fuzzy_V2_2_4
+WetEffectivenessNTU_Fuzzy_V3
 ConstantEffectiveness
 DryCoilCounterFlow
 DryCoilDiscretized
@@ -22,4 +23,3 @@ Radiators
 Examples
 Validation
 BaseClasses
-
