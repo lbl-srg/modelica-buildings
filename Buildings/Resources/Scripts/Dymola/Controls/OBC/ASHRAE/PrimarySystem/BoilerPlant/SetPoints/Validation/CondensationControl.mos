@@ -1,0 +1,15 @@
+﻿simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.SetPoints.Validation.CondensationControl", startTime=0,tolerance=1e-6, stopTime=60, method="dassl", resultFile="CondensationControl");
+
+createPlot(id=1, position={0, 0, 1545, 978}, y={"conSet.THotWatRet", "conSet.TRetSet", "conSet.TRetMinAll"}, range={0.0, 60.0, 54.0, 66.0}, autoscale=false, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}});
+createPlot(id=1, position={0, 0, 1545, 496}, y={"conSet.yMinBypValPos"}, range={0.0, 60.0, 0.0, 1.2000000000000002}, autoscale=false, grid=true, subPlot=2, colors={{28,108,200}});
+
+createPlot(id=2, position={0, 0, 1545, 978}, y={"conSet1.THotWatRet", "conSet1.TRetSet", "conSet1.TRetMinAll"}, range={0.0, 60.0, 54.0, 66.0}, autoscale=false, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}});
+createPlot(id=2, position={0, 0, 1545, 322}, y={"conSet1.yMinPriPumSpe"}, range={0.0, 60.0, 0.1, 1.1}, autoscale=false, grid=true, subPlot=2, colors={{28,108,200}});
+createPlot(id=2, position={0, 0, 1545, 323}, y={"conSet1.yMaxSecPumSpe"}, range={0.0, 60.0, 0.0, 1.2000000000000002}, autoscale=false, grid=true, subPlot=3, colors={{28,108,200}});
+
+createPlot(id=3, position={0, 0, 1545, 978}, y={"conSet2.THotWatRet", "conSet1.TRetSet", "conSet1.TRetMinAll"}, range={0.0, 60.0, 54.0, 66.0}, autoscale=false, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}});
+createPlot(id=3, position={0, 0, 1545, 496}, y={"conSet2.yMaxSecPumSpe"}, range={0.0, 60.0, 0.0, 1.2000000000000002}, autoscale=false, grid=true, subPlot=2, colors={{28,108,200}});
+
+createPlot(id=4, position={0, 0, 1545, 978}, y={"conSet3.THotWatRet", "conSet3.TRetSet", "conSet3.TRetMinAll"}, range={0.0, 60.0, 54.0, 66.0}, autoscale=false, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}});
+createPlot(id=4, position={0, 0, 1545, 322}, y={"conSet3.yMinPriPumSpe"}, range={0.0, 60.0, 0.1, 1.1}, autoscale=false, grid=true, subPlot=2, colors={{28,108,200}});
+createPlot(id=4, position={0, 0, 1545, 323}, y={"conSet3.yMaxSecPumSpe"}, range={0.0, 60.0, 0.0, 1.2000000000000002}, autoscale=false, grid=true, subPlot=3, colors={{28,108,200}});

@@ -1,0 +1,15 @@
+compareVars :=
+  {
+    "enaLagSecPum.speLim",
+    "enaLagSecPum.speLim1",
+    "enaLagSecPum.speLim2",
+    "enaLagSecPum.uPumSpe",
+    "enaLagSecPum.timPer",
+    "enaLagSecPum.timPer1",
+    "enaLagSecPum.timPer2",
+    "enaLagSecPum.tim.y",
+    "enaLagSecPum.tim1.y",
+    "enaLagSecPum.tim2.y",
+    "yUp.y",
+    "yDow.y"
+  };

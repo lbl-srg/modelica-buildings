@@ -1,0 +1,26 @@
+﻿simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Generic.Validation.PlantEnable", startTime=0,tolerance=1e-6, stopTime=7200, outputInterval=1, method="dassl", resultFile="PlantDisable");
+removePlots(false);
+createPlot(id=1, position={0, 0, 1596, 998}, y={"plaEna.nIgnReq", "plaEna.supResReq"}, range={0.0, 7200.0, -2.0, 6.0}, grid=true, colors={{28,108,200}, {28,108,200}});
+createPlot(id=1, position={0, 0, 1596, 195}, y={"plaEna.TOutLoc", "plaEna.TOut"}, range={0.0, 7200.0, 298.5, 301.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}});
+createPlot(id=1, position={0, 0, 1596, 196}, y={"plaEna.enaSch.y[1]"}, range={0.0, 7200.0, -0.5, 1.5}, grid=true, subPlot=3, colors={{28,108,200}});
+createPlot(id=1, position={0, 0, 1596, 195}, y={"plaEna.tim.y", "plaEna.tim2.y", "plaEna.plaOffThrTim", "plaEna.plaOnThrTim"}, range={0.0, 7200.0, -1000.0, 4000.0}, grid=true, subPlot=4, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}});
+createPlot(id=1, position={0, 0, 1596, 196}, y={"plaEna.yPla"}, range={0.0, 7200.0, -0.5, 1.5}, grid=true, subPlot=5, colors={{28,108,200}});
+//ExportPlotAsImage("./Resources/Images/Controls/OBC/ASHRAE/PrimarySystem/BoilerPlant/Generic/PlantEnable.png", 1, true, false);
+
+createPlot(id=2, position={0, 0, 1596, 998}, y={"plaEna1.nIgnReq", "plaEna1.supResReq"}, range={0.0, 7200.0, -2.0, 6.0}, grid=true, colors={{28,108,200}, {28,108,200}});
+createPlot(id=2, position={0, 0, 1596, 195}, y={"plaEna1.TOutLoc", "plaEna1.TOut"}, range={0.0, 7200.0, 298.5, 301.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}});
+createPlot(id=2, position={0, 0, 1596, 196}, y={"plaEna1.enaSch.y[1]"}, range={0.0, 7200.0, -0.5, 1.5}, grid=true, subPlot=3, colors={{28,108,200}});
+createPlot(id=2, position={0, 0, 1596, 195}, y={"plaEna1.tim.y", "plaEna1.tim2.y", "plaEna1.plaOffThrTim", "plaEna1.plaOnThrTim"}, range={0.0, 7200.0, -1000.0, 4000.0}, grid=true, subPlot=4, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}});
+createPlot(id=2, position={0, 0, 1596, 196}, y={"plaEna1.yPla"}, range={0.0, 7200.0, -0.5, 1.5}, grid=true, subPlot=5, colors={{28,108,200}});
+
+createPlot(id=3, position={0, 0, 1596, 998}, y={"plaEna2.nIgnReq", "plaEna2.supResReq"}, range={0.0, 7200.0, -2.0, 6.0}, grid=true, colors={{28,108,200}, {28,108,200}});
+createPlot(id=3, position={0, 0, 1596, 195}, y={"plaEna2.TOutLoc", "plaEna2.TOut"}, range={0.0, 7200.0, 298.5, 301.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}});
+createPlot(id=3, position={0, 0, 1596, 196}, y={"plaEna2.enaSch.y[1]"}, range={0.0, 7200.0, -0.5, 1.5}, grid=true, subPlot=3, colors={{28,108,200}});
+createPlot(id=3, position={0, 0, 1596, 195}, y={"plaEna2.tim.y", "plaEna2.tim2.y", "plaEna2.plaOffThrTim", "plaEna2.plaOnThrTim"}, range={0.0, 7200.0, -1000.0, 4000.0}, grid=true, subPlot=4, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}});
+createPlot(id=3, position={0, 0, 1596, 196}, y={"plaEna2.yPla"}, range={0.0, 7200.0, -0.5, 1.5}, grid=true, subPlot=5, colors={{28,108,200}});
+
+createPlot(id=4, position={0, 0, 1596, 998}, y={"plaEna3.nIgnReq", "plaEna3.supResReq"}, range={0.0, 7200.0, -2.0, 6.0}, grid=true, colors={{28,108,200}, {28,108,200}});
+createPlot(id=4, position={0, 0, 1596, 195}, y={"plaEna3.TOutLoc", "plaEna3.TOut"}, range={0.0, 7200.0, 298.5, 301.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}});
+createPlot(id=4, position={0, 0, 1596, 196}, y={"plaEna3.enaSch.y[1]"}, range={0.0, 7200.0, -0.5, 1.5}, grid=true, subPlot=3, colors={{28,108,200}});
+createPlot(id=4, position={0, 0, 1596, 195}, y={"plaEna3.tim.y", "plaEna3.tim2.y", "plaEna3.plaOffThrTim", "plaEna3.plaOnThrTim"}, range={0.0, 7200.0, -1000.0, 4000.0}, grid=true, subPlot=4, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}});
+createPlot(id=4, position={0, 0, 1596, 196}, y={"plaEna3.yPla"}, range={0.0, 7200.0, -0.5, 1.5}, grid=true, subPlot=5, colors={{28,108,200}});

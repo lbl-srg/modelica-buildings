@@ -1,0 +1,12 @@
+simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.Processes.Subsequences.Validation.DisableBoiler", method="Cvode", stopTime=3600, tolerance=1e-06, resultFile="DisableBoiler");
+createPlot(id=1, position={20, 10, 800, 1200}, subPlot=1, y={"boiOnOff.nexEnaBoi","boiOnOff.nexDisBoi"}, range={0.0, 4.0, 0, 0.02}, grid=true, colors={{28,108,200},{238,46,47}});
+createPlot(id=1, position={20, 10, 800, 1200}, subPlot=2, y={"boiOnOff.uStaDow","boiOnOff.uUpsDevSta"}, range={0.0, 4.0, 0, 0.02}, grid=true, colors={{28,108,200},{238,46,47}});
+createPlot(id=1, position={20, 10, 800, 1200}, subPlot=3, y={"boiOnOff.uBoi[1]","boiOnOff.uBoi[2]", "boiOnOff.uBoi[3]"}, range={0.0, 4.0, 0, 0.02}, grid=true, colors={{28,108,200},{28,108,200},{28,108,200}});
+createPlot(id=1, position={20, 10, 800, 1200}, subPlot=4, y={"boiOnOff.yBoi[1]","boiOnOff.yBoi[2]", "boiOnOff.yBoi[3]"}, range={0.0, 4.0, 0, 0.02}, grid=true, colors={{28,108,200},{28,108,200},{28,108,200}});
+createPlot(id=1, position={20, 10, 800, 1200}, subPlot=5, y={"truFalHol.y"}, range={0.0, 4.0, 0, 0.02}, grid=true, colors={{28,108,200}});
+
+createPlot(id=2, position={830, 10, 800, 1200}, subPlot=1, y={"boiOff.nexEnaBoi","boiOff.nexDisBoi"}, range={0.0, 4.0, 0, 0.02}, grid=true, colors={{28,108,200},{238,46,47}});
+createPlot(id=2, position={830, 10, 800, 1200}, subPlot=2, y={"boiOff.uStaDow","boiOff.uUpsDevSta"}, range={0.0, 4.0, 0, 0.02}, grid=true, colors={{28,108,200},{238,46,47}});
+createPlot(id=2, position={830, 10, 800, 1200}, subPlot=3, y={"boiOff.uBoi[1]","boiOff.uBoi[2]", "boiOff.uBoi[3]"}, range={0.0, 4.0, 0, 0.02}, grid=true, colors={{28,108,200},{28,108,200},{28,108,200}});
+createPlot(id=2, position={830, 10, 800, 1200}, subPlot=4, y={"boiOff.yBoi[1]","boiOff.yBoi[2]", "boiOff.yBoi[3]"}, range={0.0, 4.0, 0, 0.02}, grid=true, colors={{28,108,200},{28,108,200},{28,108,200}});
+createPlot(id=2, position={830, 10, 800, 1200}, subPlot=5, y={"truFalHol1.y"}, range={0.0, 4.0, 0, 0.02}, grid=true, colors={{28,108,200}});

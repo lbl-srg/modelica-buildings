@@ -1,0 +1,32 @@
+simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.Validation.BoilerIndices", method="Dassl", stopTime=10, tolerance=1e-06, resultFile="BoilerIndices");
+
+createPlot(id=1, position={20, 10, 800, 700}, subPlot=1, y={"boiInd.nSta", "boiInd.nBoi", "boiInd.u"}, range={0.0, 1700.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}});
+createPlot(id=1, position={20, 10, 800, 700}, subPlot=2, y={"boiInd.yBoi[1]", "boiInd.yBoi[2]"}, range={0.0, 1700.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}});
+
+createPlot(id=2, position={850, 10, 800, 700}, subPlot=1, y={"boiInd1.nSta", "boiInd1.nBoi", "boiInd1.u"}, range={0.0, 1700.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}});
+createPlot(id=2, position={850, 10, 800, 700}, subPlot=2, y={"boiInd1.staMat[1, 1]", "boiInd1.staMat[1, 2]"}, range={0.0, 1700.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=2, position={850, 10, 800, 700}, subPlot=3, y={"boiInd1.yBoi[1]", "boiInd1.yBoi[2]"}, range={0.0, 1700.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}});
+
+createPlot(id=3, position={30, 20, 800, 700}, subPlot=1, y={"boiInd2.nSta", "boiInd2.nBoi", "boiInd2.u"}, range={0.0, 1700.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}});
+createPlot(id=3, position={30, 20, 800, 700}, subPlot=2, y={"boiInd2.staMat[2, 1]", "boiInd2.staMat[2, 2]"}, range={0.0, 1700.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=3, position={30, 20, 800, 700}, subPlot=3, y={"boiInd2.yBoi[1]", "boiInd2.yBoi[2]"}, range={0.0, 1700.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}});
+
+createPlot(id=4, position={860, 20, 800, 700}, subPlot=1, y={"boiInd3.nSta", "boiInd3.nBoi", "boiInd3.u"}, range={0.0, 1700.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}});
+createPlot(id=4, position={860, 20, 800, 700}, subPlot=2, y={"boiInd3.staMat[3, 1]", "boiInd3.staMat[3, 2]"}, range={0.0, 1700.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=4, position={860, 20, 800, 700}, subPlot=3, y={"boiInd3.yBoi[1]", "boiInd3.yBoi[2]"}, range={0.0, 1700.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}});
+
+createPlot(id=5, position={40, 30, 800, 700}, subPlot=1, y={"boiInd4.nSta", "boiInd4.nBoi", "boiInd4.u"}, range={0.0, 1700.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}});
+createPlot(id=5, position={40, 30, 800, 700}, subPlot=2, y={"boiInd4.yBoi[1]", "boiInd4.yBoi[2]", "boiInd4.yBoi[3]"}, range={0.0, 1700.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}});
+
+createPlot(id=6, position={870, 30, 800, 700}, subPlot=1, y={"boiInd5.nSta", "boiInd5.nBoi", "boiInd5.u"}, range={0.0, 1700.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}});
+createPlot(id=6, position={870, 30, 800, 700}, subPlot=2, y={"boiInd5.staMat[1, 1]", "boiInd5.staMat[1, 2]", "boiInd4.staMat[1, 3]"}, range={0.0, 1700.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}});
+createPlot(id=6, position={870, 30, 800, 700}, subPlot=3, y={"boiInd5.yBoi[1]", "boiInd5.yBoi[2]", "boiInd5.yBoi[3]"}, range={0.0, 1700.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}});
+
+createPlot(id=7, position={50, 40, 800, 700}, subPlot=1, y={"boiInd6.nSta", "boiInd6.nBoi", "boiInd6.u"}, range={0.0, 1700.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}});
+createPlot(id=7, position={50, 40, 800, 700}, subPlot=2, y={"boiInd6.staMat[3, 1]", "boiInd6.staMat[3, 2]", "boiInd5.staMat[3, 3]"}, range={0.0, 1700.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}});
+createPlot(id=7, position={50, 40, 800, 700}, subPlot=3, y={"boiInd6.yBoi[1]", "boiInd6.yBoi[2]", "boiInd6.yBoi[3]"}, range={0.0, 1700.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}});
+
+createPlot(id=8, position={880, 40, 800, 700}, subPlot=1, y={"boiInd7.nSta", "boiInd7.nBoi", "boiInd7.u"}, range={0.0, 1700.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}});
+createPlot(id=8, position={880, 40, 800, 700}, subPlot=2, y={"boiInd7.staMat[5, 1]", "boiInd7.staMat[5, 2]", "boiInd7.staMat[5, 3]"}, range={0.0, 1700.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}});
+createPlot(id=8, position={880, 40, 800, 700}, subPlot=3, y={"boiInd7.yBoi[1]", "boiInd7.yBoi[2]", "boiInd7.yBoi[3]"}, range={0.0, 1700.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}});
+//ExportPlotAsImage("./Resources/Images/Controls/OBC/ASHRAE/PrimarySystem/BoilerPlant/Staging/SetPoints/Subsequences/BoilerIndices.png", 7, true, false);

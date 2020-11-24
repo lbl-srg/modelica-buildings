@@ -1,0 +1,19 @@
+simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.Validation.Up", method="dassl", stopTime=7200, tolerance=1e-06, resultFile="Up");
+
+createPlot(id=1, position={0, 0, 1660, 998}, y={"staUp.VHotWat_flow", "staUp.VUpMinSet_flow"}, range={0.0, 7200.0, 0.8500000000000001, 1.05}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=1, position={0, 0, 1660, 246}, y={"staUp.THotWatSupSet", "staUp.THotWatSup"}, range={0.0, 7200.0, 79.80000000000001, 81.20000000000002}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}});
+createPlot(id=1, position={0, 0, 1660, 245}, y={"staUp.uAvaCur"}, range={0.0, 7200.0, 1.7, 2.3}, grid=true, subPlot=3, colors={{28,108,200}});
+createPlot(id=1, position={0, 0, 1660, 246}, y={"staUp.yStaUp"}, range={0.0, 7200.0, -0.2, 1.2000000000000002}, grid=true, subPlot=4, colors={{28,108,200}});
+
+createPlot(id=2, position={0, 0, 1660, 998}, y={"staUp1.VHotWat_flow", "staUp1.VUpMinSet_flow"}, range={0.0, 7200.0, 0.8500000000000001, 1.05}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=2, position={0, 0, 1660, 246}, y={"staUp1.THotWatSupSet", "staUp1.THotWatSup"}, range={0.0, 7200.0, 79.80000000000001, 81.20000000000002}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}});
+createPlot(id=2, position={0, 0, 1660, 245}, y={"staUp1.uAvaCur"}, range={0.0, 7200.0, 1.7, 2.3}, grid=true, subPlot=3, colors={{28,108,200}});
+createPlot(id=2, position={0, 0, 1660, 246}, y={"staUp1.yStaUp"}, range={0.0, 7200.0, -0.2, 1.2000000000000002}, grid=true, subPlot=4, colors={{28,108,200}});
+
+createPlot(id=3, position={0, 0, 1660, 998}, y={"staUp2.VHotWat_flow", "staUp2.VUpMinSet_flow"}, range={0.0, 7200.0, 0.8500000000000001, 1.05}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=3, position={0, 0, 1660, 246}, y={"staUp2.THotWatSupSet", "staUp2.THotWatSup"}, range={0.0, 7200.0, 79.80000000000001, 81.20000000000002}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}});
+createPlot(id=3, position={0, 0, 1660, 245}, y={"staUp2.uAvaCur"}, range={0.0, 7200.0, 1.7, 2.3}, grid=true, subPlot=3, colors={{28,108,200}});
+createPlot(id=3, position={0, 0, 1660, 246}, y={"staUp2.yStaUp"}, range={0.0, 7200.0, -0.2, 1.2000000000000002}, grid=true, subPlot=4, colors={{28,108,200}});
+//ExportPlotAsImage("./Resources/Images/Controls/OBC/ASHRAE/PrimarySystem/BoilerPlant/Staging/SetPoints/Subsequences/Up1.png", 1, true, false);
+//ExportPlotAsImage("./Resources/Images/Controls/OBC/ASHRAE/PrimarySystem/BoilerPlant/Staging/SetPoints/Subsequences/Up2.png", 2, true, false);
+//ExportPlotAsImage("./Resources/Images/Controls/OBC/ASHRAE/PrimarySystem/BoilerPlant/Staging/SetPoints/Subsequences/Up3.png", 3, true, false);

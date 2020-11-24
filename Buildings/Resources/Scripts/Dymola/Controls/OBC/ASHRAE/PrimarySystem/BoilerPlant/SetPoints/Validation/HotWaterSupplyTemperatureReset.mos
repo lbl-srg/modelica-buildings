@@ -1,0 +1,36 @@
+﻿simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.SetPoints.Validation.HotWaterSupplyTemperatureReset", startTime=0,tolerance=1e-6, stopTime=7200, method="dassl", resultFile="HotWaterSupplyTemperatureReset1");
+createPlot(id=1, position={0, 0, 1495, 998}, y={"hotWatSupTemRes.uHotWatPumSta[1]", "hotWatSupTemRes.uHotWatPumSta[2]"}, range={0.0, 7200.0, -0.5, 1.5}, grid=true, colors={{28,108,200}, {28,108,200}});
+createPlot(id=1, position={0, 0, 1495, 162}, y={"hotWatSupTemRes.nHotWatSupResReq", "hotWatSupTemRes.nHotWatResReqIgn"}, range={0.0, 7200.0, 1.6, 2.4000000000000004}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}});
+createPlot(id=1, position={0, 0, 1495, 162}, y={"hotWatSupTemRes.uStaCha"}, range={0.0, 7200.0, -2.0, 2.0}, grid=true, subPlot=3, colors={{28,108,200}});
+createPlot(id=1, position={0, 0, 1495, 163}, y={"hotWatSupTemRes.uTyp[1]", "hotWatSupTemRes.uCurStaSet"}, range={0.0, 7200.0, 0.8, 1.2000000000000002}, grid=true, subPlot=4, colors={{28,108,200}, {238,46,47}});
+createPlot(id=1, position={0, 0, 1495, 162}, y={"hotWatSupTemRes.TPlaHotWatSupSet"}, range={0.0, 7200.0, 300.0, 360.0}, grid=true, subPlot=5, colors={{28,108,200}});
+createPlot(id=1, position={0, 0, 1495, 162}, y={"hotWatSupTemRes.TBoiHotWatSupSet[1]", "hotWatSupTemRes.TBoiHotWatSupSet[2]"}, range={0.0, 7200.0, 300.0, 360.0}, grid=true, subPlot=6, colors={{28,108,200}, {238,46,47}});
+
+createPlot(id=2, position={0, 0, 1495, 998}, y={"hotWatSupTemRes1.uHotWatPumSta[1]", "hotWatSupTemRes1.uHotWatPumSta[2]"}, range={0.0, 7200.0, -0.5, 1.5}, grid=true, colors={{28,108,200}, {28,108,200}});
+createPlot(id=2, position={0, 0, 1495, 162}, y={"hotWatSupTemRes1.nHotWatSupResReq", "hotWatSupTemRes1.nHotWatResReqIgn"}, range={0.0, 7200.0, 1.6, 2.4000000000000004}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}});
+createPlot(id=2, position={0, 0, 1495, 162}, y={"hotWatSupTemRes1.uStaCha"}, range={0.0, 7200.0, -2.0, 2.0}, grid=true, subPlot=3, colors={{28,108,200}});
+createPlot(id=2, position={0, 0, 1495, 163}, y={"hotWatSupTemRes1.uTyp[1]", "hotWatSupTemRes1.uCurStaSet"}, range={0.0, 7200.0, 0.8, 1.2000000000000002}, grid=true, subPlot=4, colors={{28,108,200}, {238,46,47}});
+createPlot(id=2, position={0, 0, 1495, 162}, y={"hotWatSupTemRes1.TPlaHotWatSupSet"}, range={0.0, 7200.0, 300.0, 360.0}, grid=true, subPlot=5, colors={{28,108,200}});
+createPlot(id=2, position={0, 0, 1495, 162}, y={"hotWatSupTemRes1.TBoiHotWatSupSet[1]", "hotWatSupTemRes1.TBoiHotWatSupSet[2]"}, range={0.0, 7200.0, 300.0, 360.0}, grid=true, subPlot=6, colors={{28,108,200}, {238,46,47}});
+
+createPlot(id=3, position={0, 0, 1495, 998}, y={"hotWatSupTemRes2.uHotWatPumSta[1]", "hotWatSupTemRes2.uHotWatPumSta[2]"}, range={0.0, 7200.0, -0.5, 1.5}, grid=true, colors={{28,108,200}, {28,108,200}});
+createPlot(id=3, position={0, 0, 1495, 162}, y={"hotWatSupTemRes2.nHotWatSupResReq", "hotWatSupTemRes2.nHotWatResReqIgn"}, range={0.0, 7200.0, 1.6, 2.4000000000000004}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}});
+createPlot(id=3, position={0, 0, 1495, 162}, y={"hotWatSupTemRes2.uStaCha"}, range={0.0, 7200.0, -2.0, 2.0}, grid=true, subPlot=3, colors={{28,108,200}});
+createPlot(id=3, position={0, 0, 1495, 163}, y={"hotWatSupTemRes2.uTyp[1]", "hotWatSupTemRes2.uCurStaSet"}, range={0.0, 7200.0, 0.8, 1.2000000000000002}, grid=true, subPlot=4, colors={{28,108,200}, {238,46,47}});
+createPlot(id=3, position={0, 0, 1495, 162}, y={"hotWatSupTemRes2.TPlaHotWatSupSet"}, range={0.0, 7200.0, 300.0, 360.0}, grid=true, subPlot=5, colors={{28,108,200}});
+createPlot(id=3, position={0, 0, 1495, 162}, y={"hotWatSupTemRes2.TBoiHotWatSupSet[1]", "hotWatSupTemRes2.TBoiHotWatSupSet[2]"}, range={0.0, 7200.0, 300.0, 360.0}, grid=true, subPlot=6, colors={{28,108,200}, {238,46,47}});
+
+createPlot(id=4, position={0, 0, 1495, 998}, y={"hotWatSupTemRes3.uHotWatPumSta[1]", "hotWatSupTemRes3.uHotWatPumSta[2]"}, range={0.0, 7200.0, -0.5, 1.5}, grid=true, colors={{28,108,200}, {28,108,200}});
+createPlot(id=4, position={0, 0, 1495, 162}, y={"hotWatSupTemRes3.nHotWatSupResReq", "hotWatSupTemRes3.nHotWatResReqIgn"}, range={0.0, 7200.0, 1.6, 2.4000000000000004}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}});
+createPlot(id=4, position={0, 0, 1495, 162}, y={"hotWatSupTemRes3.uStaCha"}, range={0.0, 7200.0, -2.0, 2.0}, grid=true, subPlot=3, colors={{28,108,200}});
+createPlot(id=4, position={0, 0, 1495, 163}, y={"hotWatSupTemRes3.uTyp[1]", "hotWatSupTemRes3.uCurStaSet"}, range={0.0, 7200.0, 0.8, 1.2000000000000002}, grid=true, subPlot=4, colors={{28,108,200}, {238,46,47}});
+createPlot(id=4, position={0, 0, 1495, 162}, y={"hotWatSupTemRes3.TPlaHotWatSupSet"}, range={0.0, 7200.0, 300.0, 360.0}, grid=true, subPlot=5, colors={{28,108,200}});
+createPlot(id=4, position={0, 0, 1495, 162}, y={"hotWatSupTemRes3.TBoiHotWatSupSet[1]", "hotWatSupTemRes3.TBoiHotWatSupSet[2]"}, range={0.0, 7200.0, 300.0, 360.0}, grid=true, subPlot=6, colors={{28,108,200}, {238,46,47}});
+
+createPlot(id=5, position={0, 0, 1495, 998}, y={"hotWatSupTemRes4.uHotWatPumSta[1]", "hotWatSupTemRes4.uHotWatPumSta[2]"}, range={0.0, 7200.0, -0.5, 1.5}, grid=true, colors={{28,108,200}, {28,108,200}});
+createPlot(id=5, position={0, 0, 1495, 162}, y={"hotWatSupTemRes4.nHotWatSupResReq", "hotWatSupTemRes4.nHotWatResReqIgn"}, range={0.0, 7200.0, 0.0, 15.0}, grid=true, subPlot=2, colors={{28,108,200}, {28,108,200}});
+createPlot(id=5, position={0, 0, 1495, 162}, y={"hotWatSupTemRes4.uStaCha"}, range={0.0, 7200.0, -2.0, 2.0}, grid=true, subPlot=3, colors={{28,108,200}});
+createPlot(id=5, position={0, 0, 1495, 163}, y={"hotWatSupTemRes4.uCurStaSet"}, range={0.0, 7200.0, 0.0, 4.0}, grid=true, subPlot=4, colors={{28,108,200}});
+createPlot(id=5, position={0, 0, 1495, 162}, y={"hotWatSupTemRes4.TPlaHotWatSupSet"}, range={0.0, 7200.0, 348.0, 354.0}, grid=true, subPlot=5, colors={{28,108,200}});
+createPlot(id=5, position={0, 0, 1495, 162}, y={"hotWatSupTemRes4.TBoiHotWatSupSet[1]", "hotWatSupTemRes4.TBoiHotWatSupSet[2]"}, range={0.0, 7200.0, 330.0, 360.0}, grid=true, subPlot=6, colors={{28,108,200}, {238,46,47}});
+//ExportPlotAsImage("./Resources/Images/Controls/OBC/ASHRAE/PrimarySystem/BoilerPlant/SetPoints/HotWaterSupplyTemperatureReset.png", 5, true, false);

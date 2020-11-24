@@ -1,0 +1,7 @@
+simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.PrimaryPumps.Subsequences.Validation.Speed_flow", method="Cvode", stopTime=10, tolerance=1e-06, resultFile="Speed_flow");
+createPlot(id=1, position={0, 0, 1545, 998}, y={"hotPumSpe.uHotWatPum[1]", "hotPumSpe.uHotWatPum[2]"}, range={0.0, 10.0, -0.2, 1.2000000000000002}, grid=true, colors={{28,108,200}, {28,108,200}});
+createPlot(id=1, position={0, 0, 1545, 330}, y={"hotPumSpe.VHotWatPri_flow", "hotPumSpe.VHotWatSec_flow"}, range={0.0, 10.0, 6.5, 10.5}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}});
+createPlot(id=1, position={0, 0, 1545, 329}, y={"hotPumSpe.yHotWatPumSpe"}, range={0.0, 10.0, -0.2, 1.2000000000000002}, grid=true, subPlot=3, colors={{28,108,200}});
+createPlot(id=2, position={0, 0, 1545, 998}, y={"hotPumSpe1.uHotWatPum[1]", "hotPumSpe1.uHotWatPum[2]"}, range={0.0, 10.0, -0.2, 1.2000000000000002}, grid=true, colors={{28,108,200}, {28,108,200}});
+createPlot(id=2, position={0, 0, 1545, 330}, y={"hotPumSpe1.VHotWatDec_flow"}, range={0.0, 10.0, -0.6000000000000001, 0.8}, grid=true, subPlot=2, colors={{28,108,200}});
+createPlot(id=2, position={0, 0, 1545, 329}, y={"hotPumSpe1.yHotWatPumSpe"}, range={0.0, 10.0, -0.2, 1.2000000000000002}, grid=true, subPlot=3, colors={{28,108,200}});

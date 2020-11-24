@@ -1,0 +1,4 @@
+﻿simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.SetPoints.Subsequences.Validation.ProportionalRegulator", startTime=0,tolerance=1e-6, stopTime=60, method="dassl", resultFile="ProportionalRegulator");
+
+createPlot(id=1, position={0, 0, 1545, 978}, y={"proReg.THotWatRet", "proReg.TRetSet", "proReg.TRetMinAll"}, range={0.0, 60.0, 54.0, 66.0}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}});
+createPlot(id=1, position={0, 0, 1545, 486}, y={"proReg.yRegSig"}, range={0.0, 60.0, -0.1, 1.1}, autoscale=false, grid=true, subPlot=2, colors={{28,108,200}});
