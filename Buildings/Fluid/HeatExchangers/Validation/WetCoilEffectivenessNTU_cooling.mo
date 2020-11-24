@@ -91,7 +91,7 @@ model WetCoilEffectivenessNTU_cooling
     offset=0.5,
     startTime=1000)
     annotation (Placement(transformation(extent={{-190,-100},{-170,-80}})));
-  WetEffectivenessNTU_Fuzzy_V2_2_4 hexWetNtu(
+  WetEffectivenessNTU_Fuzzy_V3     hexWetNtu(
     redeclare final package Medium1 = Medium1,
     redeclare final package Medium2 = Medium2,
     final configuration=hexCon,

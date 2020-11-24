@@ -120,7 +120,7 @@ model WetCoilEffectivenessNTU
     annotation (Placement(transformation(extent={{-40,-98},{-20,-78}})));
   Modelica.Blocks.Sources.RealExpression pAir1(y=pAtm)  "Pressure"
     annotation (Placement(transformation(extent={{-100,-112},{-80,-88}})));
-  WetEffectivenessNTU_Fuzzy_V2_2_4 hexWetNTU(
+  WetEffectivenessNTU_Fuzzy_V3     hexWetNTU(
     redeclare package Medium1 = Medium_W,
     redeclare package Medium2 = Medium_A,
     UA_nominal=UA_nominal,
