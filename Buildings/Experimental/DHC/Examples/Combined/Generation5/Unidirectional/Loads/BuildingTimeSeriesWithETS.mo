@@ -1,7 +1,7 @@
 within Buildings.Experimental.DHC.Examples.Combined.Generation5.Unidirectional.Loads;
 model BuildingTimeSeriesWithETS
   "Model of a building with thermal loads as time series, with an energy transfer station"
-  extends Buildings.Experimental.DHC.Loads.BaseClasses.PartialBuildingWithETS(
+  extends BaseClasses.PartialBuildingWithETS(
     redeclare DHC.Loads.Examples.BaseClasses.BuildingTimeSeries bui(
       final filNam=filNam),
     ets(QChiWat_flow_nominal=sum(bui.terUniCoo.QCoo_flow_nominal),

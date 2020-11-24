@@ -1,7 +1,7 @@
 within Buildings.Experimental.DHC.Examples.Combined.Generation5.Unidirectional.Loads;
 model BuildingRCZ1WithETS
   "Model of a building (RC 1 zone) with an energy transfer station"
-  extends Buildings.Experimental.DHC.Loads.BaseClasses.PartialBuildingWithETS(
+  extends BaseClasses.PartialBuildingWithETS(
     redeclare DHC.Loads.Examples.BaseClasses.BuildingRCZ1Valve bui);
   BoundaryConditions.WeatherData.Bus weaBus
     "Weather data bus"

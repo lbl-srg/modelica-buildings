@@ -17,7 +17,8 @@ model ParallelConstantFlowRCB3Z1
     "Distribution pump mass flow rate"
     annotation (Placement(transformation(extent={{-280,-70},{-260,-50}})));
   Loads.BuildingRCZ1WithETS bui[nBui](
-    redeclare each final package Medium=Medium,
+    redeclare each final package MediumBui=Medium,
+    redeclare each final package MediumDis=Medium,
     each final allowFlowReversalBui=false,
     each final allowFlowReversalDis=allowFlowReversalDis)
     annotation (Placement(transformation(extent={{-10,170},{10,190}})));
@@ -43,18 +44,18 @@ model ParallelConstantFlowRCB3Z1
     annotation (Placement(transformation(extent={{-280,10},{-260,30}})));
 equation
   connect(massFlowMainPump.y, pumDis.m_flow_in) annotation (Line(points={{-259,-60},
-          {60,-60},{60,-60},{68,-60}},      color={0,0,127}));
+          {60,-60},{60,-60},{68,-60}}, color={0,0,127}));
   connect(pumSto.m_flow_in, massFlowMainPump.y) annotation (Line(points={{-180,
           -68},{-180,-60},{-259,-60}}, color={0,0,127}));
   connect(TSetHeaWatSup.y,bui. TSetHeaWat)
     annotation (Line(points={{-258,220},{-40,220},{-40,188},{-11,188}},
-                                     color={0,0,127}));
+     color={0,0,127}));
   connect(TSetChiWatSup.y,bui. TSetChiWat)
     annotation (Line(points={{-258,180},{-40,180},{-40,184},{-11,184}},
                                           color={0,0,127}));
-  connect(bui.port_b, dis.ports_aCon) annotation (Line(points={{10,180},{20,180},
+  connect(bui.port_bDis, dis.ports_aCon) annotation (Line(points={{10,180},{20,180},
           {20,160},{12,160},{12,150}}, color={0,127,255}));
-  connect(dis.ports_bCon, bui.port_a) annotation (Line(points={{-12,150},{-12,
+  connect(dis.ports_bCon, bui.port_aDis) annotation (Line(points={{-12,150},{-12,
           160},{-20,160},{-20,180},{-10,180}}, color={0,127,255}));
   for i in 1:nBui loop
     connect(weaDat.weaBus, bui[i].weaBus)

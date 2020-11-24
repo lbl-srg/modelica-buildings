@@ -11,9 +11,7 @@ model ETSSimplified
     final have_pum=true,
     final have_fan=false,
     nPorts_aHeaWat=1,
-    nPorts_bHeaWat=1,
-    nPorts_aChiWat=1,
-    nPorts_bChiWat=1);
+    nPorts_aChiWat=1);
   outer
     Data.DesignDataSeries datDes "DHC systenm design data";
   // SYSTEM GENERAL

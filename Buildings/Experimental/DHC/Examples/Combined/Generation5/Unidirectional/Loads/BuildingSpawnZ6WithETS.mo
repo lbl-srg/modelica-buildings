@@ -1,7 +1,7 @@
 within Buildings.Experimental.DHC.Examples.Combined.Generation5.Unidirectional.Loads;
 model BuildingSpawnZ6WithETS
   "Model of a building (Spawn 6 zones) with an energy transfer station"
-  extends Buildings.Experimental.DHC.Loads.BaseClasses.PartialBuildingWithETS(
+  extends BaseClasses.PartialBuildingWithETS(
     redeclare DHC.Loads.Examples.BaseClasses.BuildingSpawnZ6 bui(
       final idfName=idfName, final weaName=weaName));
   parameter String idfName=

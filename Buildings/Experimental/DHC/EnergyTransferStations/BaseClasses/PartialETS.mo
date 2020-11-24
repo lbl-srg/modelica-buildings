@@ -1,6 +1,7 @@
 within Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses;
 partial model PartialETS
   "Partial class for energy transfer station model"
+
   replaceable package MediumBui=Modelica.Media.Interfaces.PartialMedium
     "Building side medium"
     annotation (choices(choice(redeclare package Medium=Buildings.Media.Water "Water"),choice(redeclare
@@ -146,28 +147,33 @@ partial model PartialETS
       start=MediumDis.h_default,
       nominal=MediumDis.h_default))
     "Fluid connector for district water return"
-    annotation (Placement(transformation(extent={{290,-270},{310,-250}}),iconTransformation(extent={{290,-270},{310,-250}})));
+    annotation (Placement(transformation(extent={{290,-270},{310,-250}}),
+      iconTransformation(extent={{290,-270},{310,-250}})));
   Modelica.Blocks.Interfaces.RealOutput PHea(
     final unit="W") if have_eleHea
     "Power drawn by heating equipment"
-    annotation (Placement(transformation(extent={{300,40},{340,80}}),iconTransformation(extent={{300,40},{340,80}})));
+    annotation (Placement(transformation(extent={{300,40},{340,80}}),
+      iconTransformation(extent={{300,40},{340,80}})));
   Modelica.Blocks.Interfaces.RealOutput PCoo(
     final unit="W") if have_eleCoo
     "Power drawn by cooling equipment"
-    annotation (Placement(transformation(extent={{300,0},{340,40}}),iconTransformation(extent={{300,0},{340,40}})));
+    annotation (Placement(transformation(extent={{300,0},{340,40}}),
+      iconTransformation(extent={{300,0},{340,40}})));
   Modelica.Blocks.Interfaces.RealOutput PFan(
     final unit="W") if have_fan
     "Power drawn by fan motors"
-    annotation (Placement(transformation(extent={{300,-40},{340,0}}),iconTransformation(extent={{300,-40},{340,0}})));
+    annotation (Placement(transformation(extent={{300,-40},{340,0}}),
+      iconTransformation(extent={{300,-40},{340,0}})));
   Modelica.Blocks.Interfaces.RealOutput PPum(
     final unit="W") if have_pum
     "Power drawn by pump motors"
-    annotation (Placement(transformation(extent={{300,-80},{340,-40}}),iconTransformation(extent={{300,-80},{340,-40}})));
+    annotation (Placement(transformation(extent={{300,-80},{340,-40}}),
+      iconTransformation(extent={{300,-80},{340,-40}})));
   BoundaryConditions.WeatherData.Bus weaBus if have_weaBus
     "Weather data bus"
     annotation (Placement(
-        transformation(extent={{-20,260},{20,300}}), iconTransformation(extent={
-            {-242,162},{-222,182}})));
+      transformation(extent={{-20,260},{20,300}}),
+      iconTransformation(extent={{-14,254}, {14,282}})));
 initial equation
   assert(
     nPorts_aHeaWat == nPorts_bHeaWat,

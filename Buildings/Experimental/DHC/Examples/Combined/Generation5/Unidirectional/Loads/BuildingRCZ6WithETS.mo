@@ -1,7 +1,7 @@
 within Buildings.Experimental.DHC.Examples.Combined.Generation5.Unidirectional.Loads;
 model BuildingRCZ6WithETS
   "Model of a building (RC 6 zones) with an energy transfer station"
-  extends Buildings.Experimental.DHC.Loads.BaseClasses.PartialBuildingWithETS(
+  extends BaseClasses.PartialBuildingWithETS(
     redeclare DHC.Loads.Examples.BaseClasses.BuildingRCZ6 bui);
   BoundaryConditions.WeatherData.Bus weaBus
     "Weather data bus"
@@ -11,7 +11,7 @@ model BuildingRCZ6WithETS
 equation
   connect(weaBus, bui.weaBus)
   annotation (Line(
-      points={{-1,100},{-1.7,100},{-1.7,102.2}},
+      points={{-1,100},{0.1,100},{0.1,59.4}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
