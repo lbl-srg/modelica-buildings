@@ -18,7 +18,8 @@ model SeriesConstantFlowSpawnB3Z6
   parameter String weaName = "modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos"
     "Name of the weather file";
   Loads.BuildingSpawnZ6WithETS bui[nBui](
-    redeclare each final package Medium = Medium,
+    redeclare each final package MediumBui=Medium,
+    redeclare each final package MediumDis=Medium,
     final idfName=idfName,
     each final weaName=weaName,
     each final allowFlowReversalBui=false,
@@ -53,9 +54,9 @@ equation
   connect(TSetChiWatSup.y, bui.TSetChiWat)
     annotation (Line(points={{-258,180},{-40,180},{-40,184},{-11,184}},
                                           color={0,0,127}));
-  connect(dis.ports_bCon, bui.port_a) annotation (Line(points={{-12,150},{-12,
+  connect(dis.ports_bCon, bui.port_aDis) annotation (Line(points={{-12,150},{-12,
           160},{-20,160},{-20,180},{-10,180}}, color={0,127,255}));
-  connect(bui.port_b, dis.ports_aCon) annotation (Line(points={{10,180},{20,180},
+  connect(bui.port_bDis, dis.ports_aCon) annotation (Line(points={{10,180},{20,180},
           {20,160},{12,160},{12,150}}, color={0,127,255}));
   connect(mDisPla_flow.y, pla.mPum_flow) annotation (Line(points={{-259,20},{-180,
           20},{-180,4},{-161,4}}, color={0,0,127}));
@@ -75,7 +76,6 @@ Hidden.AvoidDoubleComputation=true;
 Advanced.SparseActivate=true")}),
   __Dymola_Commands,
   experiment(
-    StopTime=172800,
-    Tolerance=1e-06,
-    __Dymola_Algorithm="Cvode"));
+    StopTime=604800,
+    Tolerance=1e-06));
 end SeriesConstantFlowSpawnB3Z6;

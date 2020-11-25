@@ -14,7 +14,8 @@ model SeriesConstantFlowRCB3Z1
   parameter String weaName = "modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos"
     "Name of the weather file";
   Loads.BuildingRCZ1WithETS bui[nBui](
-    redeclare each final package Medium = Medium,
+    redeclare each final package MediumBui=Medium,
+    redeclare each final package MediumDis=Medium,
     each final allowFlowReversalBui=false,
     each final allowFlowReversalDis=allowFlowReversalDis)
     annotation (Placement(transformation(extent={{-10,170},{10,190}})));
@@ -53,9 +54,9 @@ equation
   connect(TSetChiWatSup.y,bui. TSetChiWat)
     annotation (Line(points={{-258,180},{-40,180},{-40,184},{-11,184}},
                                           color={0,0,127}));
-  connect(bui.port_b, dis.ports_aCon) annotation (Line(points={{10,180},{20,180},
+  connect(bui.port_bDis, dis.ports_aCon) annotation (Line(points={{10,180},{20,180},
           {20,160},{12,160},{12,150}}, color={0,127,255}));
-  connect(dis.ports_bCon, bui.port_a) annotation (Line(points={{-12,150},{-12,
+  connect(dis.ports_bCon, bui.port_aDis) annotation (Line(points={{-12,150},{-12,
           160},{-20,160},{-20,180},{-10,180}}, color={0,127,255}));
   for i in 1:nBui loop
     connect(weaDat.weaBus, bui[i].weaBus)
@@ -73,7 +74,6 @@ equation
   coordinateSystem(preserveAspectRatio=false, extent={{-360,-260},{360,260}})),
   __Dymola_Commands,
   experiment(
-      StopTime=3728000,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Cvode"));
+    StopTime=604800,
+    Tolerance=1e-06));
 end SeriesConstantFlowRCB3Z1;

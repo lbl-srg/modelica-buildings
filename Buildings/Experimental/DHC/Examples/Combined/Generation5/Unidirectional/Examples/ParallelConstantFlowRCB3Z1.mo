@@ -75,7 +75,6 @@ equation
   coordinateSystem(preserveAspectRatio=false, extent={{-360,-260},{360,260}})),
   __Dymola_Commands,
   experiment(
-    StopTime=172800,
-    Tolerance=1e-06,
-    __Dymola_Algorithm="Cvode"));
+    StopTime=604800,
+    Tolerance=1e-06));
 end ParallelConstantFlowRCB3Z1;

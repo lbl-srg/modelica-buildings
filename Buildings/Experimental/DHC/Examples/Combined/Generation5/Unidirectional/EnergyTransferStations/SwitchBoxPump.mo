@@ -63,7 +63,7 @@ model SwitchBoxPump "Model for mass flow rate redirection with pumps"
         extent={{10,10},{-10,-10}},
         rotation=90,
         origin={40,0})));
-  Networks.BaseClasses.Pump_m_flow pum1(
+  DHC.EnergyTransferStations.BaseClasses.Pump_m_flow pum1(
     redeclare package Medium = Medium,
     final m_flow_nominal=m_flow_nominal,
     final allowFlowReversal=false)
@@ -72,7 +72,7 @@ model SwitchBoxPump "Model for mass flow rate redirection with pumps"
         extent={{10,-10},{-10,10}},
         rotation=180,
         origin={0,0})));
-  Networks.BaseClasses.Pump_m_flow pum2(
+  DHC.EnergyTransferStations.BaseClasses.Pump_m_flow pum2(
     redeclare package Medium = Medium,
     final m_flow_nominal=m_flow_nominal,
     final allowFlowReversal=false)
@@ -123,7 +123,9 @@ equation
     annotation (Line(points={{40,-50},{40,-100}}, color={0,127,255}));
   connect(splSup3.port_1, port_aSup)
     annotation (Line(points={{-40,-10},{-40,-100}}, color={0,127,255}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
+  annotation (
+    defaultComponentName="floSwiBox",
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}), graphics={Rectangle(extent={{-100,100},{100,-100}},
             lineColor={0,0,127}, fillColor={255,255,255},
           fillPattern=FillPattern.Solid)}),                           Diagram(

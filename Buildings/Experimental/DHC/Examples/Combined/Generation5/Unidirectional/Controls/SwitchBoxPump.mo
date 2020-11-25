@@ -12,9 +12,10 @@ block SwitchBoxPump "Controller for flow switch box with pumps"
   Modelica.Blocks.Interfaces.RealOutput m_flow(
     final quantity="MassFlowRate", final unit="kg/s") "Mass flow rate"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
-  Modelica.Blocks.Logical.GreaterEqual heaDom
+  Buildings.Controls.OBC.CDL.Continuous.Greater
+                                       heaDom
     "Output true if heating mass flow rate dominates"
-    annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
+    annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
   Modelica.Blocks.Logical.Switch switchMode "Switch to select the mode"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Modelica.Blocks.Sources.Constant heatingModeOn(final k=0) "Signal for heating mode"
@@ -24,27 +25,28 @@ block SwitchBoxPump "Controller for flow switch box with pumps"
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol(
     trueHoldDuration=5*60)
     "True/false hold to remove the risk of chattering"
-    annotation (Placement(transformation(extent={{12,-10},{32,10}})));
+    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 equation
   connect(heatingModeOn.y, switchMode.u1) annotation (Line(points={{21,80},{40,
           80},{40,8},{58,8}},     color={0,0,127}));
   connect(switchMode.y, m_flow)
     annotation (Line(points={{81,0},{120,0}}, color={0,0,127}));
   connect(mFreCoo_flow, heaDom.u2) annotation (Line(points={{-120,-80},{-80,-80},
-          {-80,-8},{-22,-8}},color={0,0,127}));
+          {-80,-8},{-42,-8}},color={0,0,127}));
   connect(mFreCoo_flow, mNet_flow.u2)
     annotation (Line(points={{-120,-80},{-80,-80},{-80,-86},{-2,-86}},
                                                    color={0,0,127}));
   connect(mNet_flow.y, switchMode.u3) annotation (Line(points={{21,-80},{40,-80},
           {40,-8},{58,-8}}, color={0,0,127}));
   connect(heaDom.y, truFalHol.u)
-    annotation (Line(points={{1,0},{10,0}}, color={255,0,255}));
+    annotation (Line(points={{-18,0},{-2,0}},
+                                            color={255,0,255}));
   connect(truFalHol.y, switchMode.u2)
-    annotation (Line(points={{34,0},{58,0}}, color={255,0,255}));
+    annotation (Line(points={{22,0},{58,0}}, color={255,0,255}));
   connect(mSpaHea_flow, mNet_flow.u1) annotation (Line(points={{-120,80},{-80,
-          80},{-80,0},{-40,0},{-40,-74},{-2,-74}}, color={0,0,127}));
+          80},{-80,0},{-60,0},{-60,-74},{-2,-74}}, color={0,0,127}));
   connect(mSpaHea_flow, heaDom.u1) annotation (Line(points={{-120,80},{-80,80},
-          {-80,0},{-22,0}}, color={0,0,127}));
+          {-80,0},{-42,0}}, color={0,0,127}));
   annotation (Documentation(info="<html>
 <p>
 Controller for the mass flow rate for the switching box.

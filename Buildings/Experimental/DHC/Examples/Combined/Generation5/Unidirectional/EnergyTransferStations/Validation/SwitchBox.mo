@@ -1,0 +1,112 @@
+within Buildings.Experimental.DHC.Examples.Combined.Generation5.Unidirectional.EnergyTransferStations.Validation;
+model SwitchBox
+  "Validation of flow switch box"
+  extends Modelica.Icons.Example;
+
+  package Medium=Buildings.Media.Water
+    "Medium model";
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=1
+    "Nominal water mass flow rate";
+  Fluid.Delays.DelayFirstOrder volSup(
+    redeclare final package Medium = Medium,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
+    final m_flow_nominal=m_flow_nominal,
+    tau=60,
+    nPorts=3) "Mixing volume supply" annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={-70,0})));
+  Fluid.Delays.DelayFirstOrder volRet(
+    redeclare final package Medium = Medium,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
+    final m_flow_nominal=m_flow_nominal,
+    tau=60,
+    nPorts=3) "Mixing volume return" annotation (Placement(transformation(
+        extent={{-10,10},{10,-10}},
+        rotation=90,
+        origin={70,0})));
+  DHC.EnergyTransferStations.BaseClasses.Pump_m_flow pum1(
+    redeclare package Medium = Medium,
+    final m_flow_nominal=m_flow_nominal)
+    "Chilled water HX secondary pump"
+    annotation (Placement(transformation(extent={{10,-10},{-10,10}})));
+  DHC.EnergyTransferStations.BaseClasses.Pump_m_flow pum2(
+    redeclare package Medium = Medium,
+    final m_flow_nominal=m_flow_nominal)
+    "Chilled water HX secondary pump"
+    annotation (Placement(transformation(extent={{-10,50},{10,70}})));
+  SwitchBoxValve floSwiBoxChe(
+    final m_flow_nominal=m_flow_nominal,
+    redeclare final package Medium = Medium)
+    "Flow switch box - check valve"
+    annotation (Placement(transformation(extent={{-10,-60},{10,-40}})));
+  Fluid.Sensors.MassFlowRate senMasFlo(
+    redeclare final package Medium = Medium) "District water mass flow rate"
+    annotation (Placement(transformation(extent={{10,-10},{-10,10}},rotation=0,origin={0,-80})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant setMasFlo1(k=0.5)
+    "Set point for mass flow rate (normalized)"
+    annotation (Placement(transformation(extent={{-90,30},{-70,50}})));
+  Fluid.Sources.Boundary_pT disWatBou(redeclare package Medium = Medium,
+      nPorts=2) "District water boundary conditions" annotation (Placement(
+        transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={-70,-80})));
+  Modelica.Blocks.Sources.CombiTimeTable setMasFlo2(
+    tableName="tab1",
+    table=[0,0; 0.6,1; 0.7,0; 1,1],
+    extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
+    columns={2},
+    timeScale=1000) "Set point for mass flow rate (normalized)"
+    annotation (Placement(transformation(extent={{-90,70},{-70,90}})));
+  Buildings.Controls.OBC.CDL.Continuous.Gain gai2(final k=m_flow_nominal)
+    "Scale with nominal mass flow rate"
+    annotation (Placement(transformation(extent={{-46,70},{-26,90}})));
+  Buildings.Controls.OBC.CDL.Continuous.Gain gai1(final k=m_flow_nominal)
+    "Scale with nominal mass flow rate"
+    annotation (Placement(transformation(extent={{-46,30},{-26,50}})));
+equation
+  connect(pum1.port_b, volSup.ports[1]) annotation (Line(points={{-10,0},{-60,0},
+          {-60,-2.66667}}, color={0,127,255}));
+  connect(volSup.ports[2], pum2.port_a) annotation (Line(points={{-60,-4.44089e-16},
+          {-60,60},{-10,60}}, color={0,127,255}));
+  connect(pum2.port_b, volRet.ports[1]) annotation (Line(points={{10,60},{60,60},
+          {60,-2.66667}}, color={0,127,255}));
+  connect(volRet.ports[2], pum1.port_a) annotation (Line(points={{60,8.88178e-16},
+          {60,0},{10,0}}, color={0,127,255}));
+  connect(floSwiBoxChe.port_bSup, volSup.ports[3]) annotation (Line(points={{-4,
+          -40},{-4,-20},{-60,-20},{-60,2.66667}}, color={0,127,255}));
+  connect(floSwiBoxChe.port_aRet, volRet.ports[3]) annotation (Line(points={{4,-40},
+          {4,-20},{60,-20},{60,2.66667}}, color={0,127,255}));
+  connect(floSwiBoxChe.port_bRet, senMasFlo.port_a) annotation (Line(points={{4,-60},
+          {60,-60},{60,-80},{10,-80}},        color={0,127,255}));
+  connect(senMasFlo.port_b, disWatBou.ports[1]) annotation (Line(points={{-10,-80},
+          {-60,-80},{-60,-78}},      color={0,127,255}));
+  connect(disWatBou.ports[2], floSwiBoxChe.port_aSup) annotation (Line(points={{-60,-82},
+          {-60,-60},{-4,-60}},           color={0,127,255}));
+  connect(pum1.m_flow_actual, floSwiBoxChe.mFreCoo_flow) annotation (Line(
+        points={{-11,5},{-20,5},{-20,-53.2},{-11.2,-53.2}}, color={0,0,127}));
+  connect(pum2.m_flow_actual, floSwiBoxChe.mSpaHea_flow) annotation (Line(
+        points={{11,65},{20,65},{20,-34},{-16,-34},{-16,-45.2},{-11.2,-45.2}},
+        color={0,0,127}));
+  connect(setMasFlo2.y[1], gai2.u)
+    annotation (Line(points={{-69,80},{-48,80}}, color={0,0,127}));
+  connect(gai2.y, pum2.m_flow_in)
+    annotation (Line(points={{-24,80},{0,80},{0,72}}, color={0,0,127}));
+  connect(setMasFlo1.y, gai1.u)
+    annotation (Line(points={{-68,40},{-48,40}}, color={0,0,127}));
+  connect(gai1.y, pum1.m_flow_in)
+    annotation (Line(points={{-24,40},{0,40},{0,12}}, color={0,0,127}));
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+        coordinateSystem(preserveAspectRatio=false, extent={{-120,-120},{120,120}})),
+    experiment(StopTime=1000, __Dymola_Algorithm="Dassl"),
+    Documentation(info="<html>
+<p>
+Shows positive flow rate in district system
+within the limit of temporization 
+</p>
+</html>"),
+    __Dymola_Commands(
+    file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Examples/Combined/Generation5/Unidirectional/EnergyTransferStations/Validation/SwitchBox.mos"
+    "Simulate and plot"));
+end SwitchBox;

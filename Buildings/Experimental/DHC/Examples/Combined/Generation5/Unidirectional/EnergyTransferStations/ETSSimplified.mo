@@ -12,8 +12,7 @@ model ETSSimplified
     final have_fan=false,
     nPorts_aHeaWat=1,
     nPorts_aChiWat=1);
-  outer
-    Data.DesignDataSeries datDes "DHC systenm design data";
+  outer Data.DesignDataSeries datDes "DHC system design data";
   // SYSTEM GENERAL
   parameter Modelica.SIunits.TemperatureDifference dT_nominal = 5
     "Water temperature drop/increase accross load and source-side HX (always positive)"
@@ -161,13 +160,13 @@ model ETSSimplified
     final dp2_nominal=dp_nominal)
     "Heat pump (index 1 for condenser side)"
     annotation (Placement(transformation(extent={{10,116},{-10,136}})));
-  Networks.BaseClasses.Pump_m_flow pumEva(
+  DHC.EnergyTransferStations.BaseClasses.Pump_m_flow pumEva(
     redeclare final package Medium = MediumDis,
     final m_flow_nominal=mEva_flow_nominal,
     final allowFlowReversal=allowFlowReversalDis)
     "Heat pump evaporator water pump"
     annotation (Placement(transformation(extent={{-110,110},{-90,130}})));
-  Networks.BaseClasses.Pump_m_flow pum1HexChi(
+  DHC.EnergyTransferStations.BaseClasses.Pump_m_flow pum1HexChi(
     redeclare final package Medium = MediumDis,
     final m_flow_nominal=m1HexChi_flow_nominal,
     final allowFlowReversal=allowFlowReversalDis)
@@ -199,7 +198,7 @@ model ETSSimplified
     annotation (Placement(transformation(extent={{-10,10},{10,-10}},
         rotation=90,
         origin={150,180})));
-  Networks.BaseClasses.Pump_m_flow pumCon(
+  DHC.EnergyTransferStations.BaseClasses.Pump_m_flow pumCon(
     redeclare final package Medium = MediumBui,
     final m_flow_nominal=mCon_flow_nominal,
     final allowFlowReversal=allowFlowReversalBui)
@@ -236,10 +235,9 @@ model ETSSimplified
     final allowFlowReversal=allowFlowReversalBui,
     tau=60,
     final energyDynamics=mixingVolumeEnergyDynamics,
-    nPorts=3)
-    "Mixing volume representing building CHW primary"
+    nPorts=3) "Mixing volume representing building CHW primary"
     annotation (Placement(transformation(extent={{-110,-200},{-90,-180}})));
-  Networks.BaseClasses.Pump_m_flow pum2CooHex(
+  DHC.EnergyTransferStations.BaseClasses.Pump_m_flow pum2CooHex(
     redeclare package Medium = MediumBui,
     final m_flow_nominal=m2HexChi_flow_nominal,
     final allowFlowReversal=allowFlowReversalBui)
@@ -391,10 +389,10 @@ model ETSSimplified
       port_bDis.h_outflow,
       port_bDis.Xi_outflow) if  show_T
     "Medium properties in port_bDis";
-  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold enaHea(trueHoldDuration=300)
+  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold enaHea(trueHoldDuration=5*60)
     "Enable heating"
     annotation (Placement(transformation(extent={{-220,210},{-200,230}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold enaCoo(trueHoldDuration=300)
+  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold enaCoo(trueHoldDuration=5*60)
     "Enable cooling"
     annotation (Placement(transformation(extent={{-200,-110},{-180,-90}})));
 equation

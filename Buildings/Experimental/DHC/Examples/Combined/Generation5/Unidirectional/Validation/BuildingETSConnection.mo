@@ -2,6 +2,7 @@ within Buildings.Experimental.DHC.Examples.Combined.Generation5.Unidirectional.V
 model BuildingETSConnection
   "Validation of building and ETS connection"
   extends Modelica.Icons.Example;
+
   package Medium = Buildings.Media.Water "Medium model";
   parameter Boolean allowFlowReversalDis = false
     "Set to true to allow flow reversal on the district side"
