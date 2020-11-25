@@ -11,7 +11,7 @@ model Plant
     "= true, if actual temperature at port is computed"
     annotation (Dialog(tab="Advanced",group="Diagnostics"));
   // chiller parameters
-  replaceable parameter Buildings.Fluid.Chillers.Data.ElectricEIR.Generic perChi
+  parameter Buildings.Fluid.Chillers.Data.ElectricEIR.Generic perChi
     "Performance data of chiller"
     annotation (Dialog(group="Chiller"),choicesAllMatching=true,Placement(transformation(extent={{98,82},{112,96}})));
   parameter Modelica.SIunits.MassFlowRate mCHW_flow_nominal
@@ -49,12 +49,10 @@ model Plant
     "Fan power"
     annotation (Dialog(group="Cooling Tower"));
   // pump parameters
-  replaceable parameter Buildings.Fluid.Movers.Data.Generic perCHWPum
-    constrainedby Buildings.Fluid.Movers.Data.Generic
+  parameter Buildings.Fluid.Movers.Data.Generic perCHWPum
     "Performance data of chilled water pump"
     annotation (Dialog(group="Pump"),choicesAllMatching=true,Placement(transformation(extent={{120,82},{134,96}})));
-  replaceable parameter Buildings.Fluid.Movers.Data.Generic perCWPum
-    constrainedby Buildings.Fluid.Movers.Data.Generic
+  parameter Buildings.Fluid.Movers.Data.Generic perCWPum
     "Performance data of condenser water pump"
     annotation (Dialog(group="Pump"),choicesAllMatching=true,Placement(transformation(extent={{142,82},{156,96}})));
   parameter Modelica.SIunits.Pressure dpCHWPum_nominal
