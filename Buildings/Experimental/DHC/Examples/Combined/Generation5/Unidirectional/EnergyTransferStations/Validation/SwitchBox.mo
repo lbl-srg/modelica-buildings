@@ -35,10 +35,9 @@ model SwitchBox
     final m_flow_nominal=m_flow_nominal)
     "Chilled water HX secondary pump"
     annotation (Placement(transformation(extent={{-10,50},{10,70}})));
-  SwitchBoxValve floSwiBoxChe(
-    final m_flow_nominal=m_flow_nominal,
-    redeclare final package Medium = Medium)
-    "Flow switch box - check valve"
+  Buildings.Experimental.DHC.Examples.Combined.Generation5.Unidirectional.EnergyTransferStations.SwitchBox
+    floSwiBox(final m_flow_nominal=m_flow_nominal, redeclare final package
+      Medium = Medium) "Flow switch box"
     annotation (Placement(transformation(extent={{-10,-60},{10,-40}})));
   Fluid.Sensors.MassFlowRate senMasFlo(
     redeclare final package Medium = Medium) "District water mass flow rate"
@@ -74,21 +73,21 @@ equation
           {60,-2.66667}}, color={0,127,255}));
   connect(volRet.ports[2], pum1.port_a) annotation (Line(points={{60,8.88178e-16},
           {60,0},{10,0}}, color={0,127,255}));
-  connect(floSwiBoxChe.port_bSup, volSup.ports[3]) annotation (Line(points={{-4,
-          -40},{-4,-20},{-60,-20},{-60,2.66667}}, color={0,127,255}));
-  connect(floSwiBoxChe.port_aRet, volRet.ports[3]) annotation (Line(points={{4,-40},
+  connect(floSwiBox.port_bSup, volSup.ports[3]) annotation (Line(points={{-4,-40},
+          {-4,-20},{-60,-20},{-60,2.66667}}, color={0,127,255}));
+  connect(floSwiBox.port_aRet, volRet.ports[3]) annotation (Line(points={{4,-40},
           {4,-20},{60,-20},{60,2.66667}}, color={0,127,255}));
-  connect(floSwiBoxChe.port_bRet, senMasFlo.port_a) annotation (Line(points={{4,-60},
-          {60,-60},{60,-80},{10,-80}},        color={0,127,255}));
+  connect(floSwiBox.port_bRet, senMasFlo.port_a) annotation (Line(points={{4,-60},
+          {60,-60},{60,-80},{10,-80}}, color={0,127,255}));
   connect(senMasFlo.port_b, disWatBou.ports[1]) annotation (Line(points={{-10,-80},
           {-60,-80},{-60,-78}},      color={0,127,255}));
-  connect(disWatBou.ports[2], floSwiBoxChe.port_aSup) annotation (Line(points={{-60,-82},
-          {-60,-60},{-4,-60}},           color={0,127,255}));
-  connect(pum1.m_flow_actual, floSwiBoxChe.mFreCoo_flow) annotation (Line(
-        points={{-11,5},{-20,5},{-20,-53.2},{-11.2,-53.2}}, color={0,0,127}));
-  connect(pum2.m_flow_actual, floSwiBoxChe.mSpaHea_flow) annotation (Line(
-        points={{11,65},{20,65},{20,-34},{-16,-34},{-16,-45.2},{-11.2,-45.2}},
-        color={0,0,127}));
+  connect(disWatBou.ports[2], floSwiBox.port_aSup) annotation (Line(points={{-60,
+          -82},{-60,-60},{-4,-60}}, color={0,127,255}));
+  connect(pum1.m_flow_actual, floSwiBox.mFreCoo_flow) annotation (Line(points={
+          {-11,5},{-20,5},{-20,-53.2},{-11.2,-53.2}}, color={0,0,127}));
+  connect(pum2.m_flow_actual, floSwiBox.mSpaHea_flow) annotation (Line(points={
+          {11,65},{20,65},{20,-34},{-16,-34},{-16,-45.2},{-11.2,-45.2}}, color=
+          {0,0,127}));
   connect(setMasFlo2.y[1], gai2.u)
     annotation (Line(points={{-69,80},{-48,80}}, color={0,0,127}));
   connect(gai2.y, pum2.m_flow_in)

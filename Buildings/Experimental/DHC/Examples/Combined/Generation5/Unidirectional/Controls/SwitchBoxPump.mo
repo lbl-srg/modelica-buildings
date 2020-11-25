@@ -22,8 +22,8 @@ block SwitchBoxPump "Controller for flow switch box with pumps"
     annotation (Placement(transformation(extent={{0,70},{20,90}})));
   Modelica.Blocks.Math.Add mNet_flow(k1=-1) "Net mass flow rate"
     annotation (Placement(transformation(extent={{0,-90},{20,-70}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol(
-    trueHoldDuration=5*60)
+  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol(trueHoldDuration=5
+        *60)
     "True/false hold to remove the risk of chattering"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 equation

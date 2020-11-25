@@ -3,13 +3,7 @@ model BuildingRCZ1WithETS
   "Model of a building (RC 1 zone) with an energy transfer station"
   extends BaseClasses.PartialBuildingWithETS(
     redeclare DHC.Loads.Examples.BaseClasses.BuildingRCZ1Valve bui);
-  BoundaryConditions.WeatherData.Bus weaBus
-    "Weather data bus"
-    annotation (Placement(
-    transformation(extent={{-18,84},{16,116}}),
-    iconTransformation(extent={{-18,84},{16,116}})));
-equation
-  connect(weaBus, bui.weaBus)
+
   annotation (Line(
       points={{-1,100},{0.1,100},{0.1,59.4}},
       color={255,204,51},

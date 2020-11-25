@@ -60,7 +60,7 @@ equation
   for i in 1:nBui loop
     connect(weaDat.weaBus, bui[i].weaBus)
       annotation (Line(
-      points={{40,220},{-0.1,220},{-0.1,190}},
+      points={{40,220},{0,220},{0,186.8}},
       color={255,204,51},
       thickness=0.5));
   end for;

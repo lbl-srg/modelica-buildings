@@ -1,5 +1,5 @@
-within Buildings.Experimental.DHC.Examples.Combined.Generation5.Unidirectional.Controls;
-block SwitchBoxValve "Controller for flow switch box with valves"
+within Buildings.Experimental.DHC.Examples.Combined.Generation5.Unidirectional.EnergyTransferStations;
+block SwitchBoxController "Controller for flow switch box"
   extends Modelica.Blocks.Icons.Block;
   Modelica.Blocks.Interfaces.RealInput mSpaHea_flow(
     final quantity="MassFlowRate", final unit="kg/s")
@@ -21,8 +21,8 @@ block SwitchBoxValve "Controller for flow switch box with valves"
     "Output signal in case of dominating heating mode (direct flow)"
     annotation (Placement(transformation(extent={{0,70},{20,90}})));
 
-  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol(trueHoldDuration=5
-        *60)
+  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol(trueHoldDuration=
+        60)
     "True/false hold to remove the risk of chattering"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Modelica.Blocks.Sources.Constant cooModOn(final k=0)
@@ -62,4 +62,4 @@ Added documentation.
 </li>
 </ul>
 </html>"));
-end SwitchBoxValve;
+end SwitchBoxController;
