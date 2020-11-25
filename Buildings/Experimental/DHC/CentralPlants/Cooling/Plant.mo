@@ -7,11 +7,11 @@ model Plant
     min=1,
     max=2)=2
     "Number of chillers, maximum is 2";
-  parameter Boolean show_T=true
+  parameter Boolean show_T=false
     "= true, if actual temperature at port is computed"
     annotation (Dialog(tab="Advanced",group="Diagnostics"));
   // chiller parameters
-  replaceable parameter Buildings.Fluid.Chillers.Data.ElectricEIR.Generic perChi
+  parameter Buildings.Fluid.Chillers.Data.ElectricEIR.Generic perChi
     "Performance data of chiller"
     annotation (Dialog(group="Chiller"),choicesAllMatching=true,Placement(transformation(extent={{98,82},{112,96}})));
   parameter Modelica.SIunits.MassFlowRate mCHW_flow_nominal
@@ -20,7 +20,7 @@ model Plant
   parameter Modelica.SIunits.Pressure dpCHW_nominal
     "Pressure difference at the chilled water side"
     annotation (Dialog(group="Chiller"));
-  parameter Modelica.SIunits.Power QEva_nominal
+  parameter Modelica.SIunits.HeatFlowRate QEva_nominal
     "Nominal cooling capacity of single chiller (negative means cooling)"
     annotation (Dialog(group="Chiller"));
   parameter Modelica.SIunits.MassFlowRate mMin_flow
@@ -49,12 +49,10 @@ model Plant
     "Fan power"
     annotation (Dialog(group="Cooling Tower"));
   // pump parameters
-  replaceable parameter Buildings.Fluid.Movers.Data.Generic perCHWPum
-    constrainedby Buildings.Fluid.Movers.Data.Generic
+  parameter Buildings.Fluid.Movers.Data.Generic perCHWPum
     "Performance data of chilled water pump"
     annotation (Dialog(group="Pump"),choicesAllMatching=true,Placement(transformation(extent={{120,82},{134,96}})));
-  replaceable parameter Buildings.Fluid.Movers.Data.Generic perCWPum
-    constrainedby Buildings.Fluid.Movers.Data.Generic
+  parameter Buildings.Fluid.Movers.Data.Generic perCWPum
     "Performance data of condenser water pump"
     annotation (Dialog(group="Pump"),choicesAllMatching=true,Placement(transformation(extent={{142,82},{156,96}})));
   parameter Modelica.SIunits.Pressure dpCHWPum_nominal
@@ -79,8 +77,7 @@ model Plant
     "Type of mass balance: dynamic (3 initialization options) or steady state"
     annotation (Evaluate=true,Dialog(tab="Dynamics",group="Equations"));
   Medium.ThermodynamicState sta_a(
-    T(
-      start=273.15+16))=Medium.setState_phX(
+    T(start=273.15+16))=Medium.setState_phX(
     port_a.p,
     noEvent(
       actualStream(
@@ -90,8 +87,7 @@ model Plant
         port_a.Xi_outflow))) if show_T
     "Medium properties in port_a";
   Medium.ThermodynamicState sta_b(
-    T(
-      start=273.15+7))=Medium.setState_phX(
+    T(start=273.15+7))=Medium.setState_phX(
     port_b.p,
     noEvent(
       actualStream(
@@ -192,11 +188,11 @@ model Plant
     final m_flow_nominal=mCHW_flow_nominal)
     "Chilled water supply temperature"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,origin={130,-50})));
-  Buildings.Experimental.DHC.CentralPlants.Cooling.Controls.ChilledWaterPumpSpeed CHWPumCon(
+  Buildings.Experimental.DHC.CentralPlants.Cooling.Controls.ChilledWaterPumpSpeed
+    chiWatPumCon(
     tWai=0,
     final m_flow_nominal=mCHW_flow_nominal,
-    final dpSetPoi=dpSetPoi)
-    "Chilled water pump controller"
+    final dpSetPoi=dpSetPoi) "Chilled water pump controller"
     annotation (Placement(transformation(extent={{-120,-26},{-100,-6}})));
   Buildings.Experimental.DHC.CentralPlants.Cooling.Controls.ChillerStage chiStaCon(
     final tWai=tWai,
@@ -286,12 +282,12 @@ equation
     annotation (Line(points={{-160,60},{-122,60}},color={255,0,255}));
   connect(TWetBul,cooTowWitByp.TWetBul)
     annotation (Line(points={{-160,-60},{-76,-60},{-76,-52},{-62,-52}},color={0,0,127}));
-  connect(CHWPumCon.dpMea,dpMea)
-    annotation (Line(points={{-122,-20},{-160,-20}},color={0,0,127}));
-  connect(mPum_flow.y,CHWPumCon.masFloPum)
-    annotation (Line(points={{-121,8},{-132,8},{-132,-12},{-122,-12}},color={0,0,127}));
-  connect(CHWPumCon.y,pumCHW.u)
-    annotation (Line(points={{-99,-16},{-80,-16},{-80,8},{-40,8},{-40,60},{20,60},{20,54},{12,54}},color={0,0,127}));
+  connect(chiWatPumCon.dpMea, dpMea)
+    annotation (Line(points={{-122,-20},{-160,-20}}, color={0,0,127}));
+  connect(mPum_flow.y, chiWatPumCon.masFloPum) annotation (Line(points={{-121,8},
+          {-132,8},{-132,-12},{-122,-12}}, color={0,0,127}));
+  connect(chiWatPumCon.y, pumCHW.u) annotation (Line(points={{-99,-16},{-80,-16},
+          {-80,8},{-40,8},{-40,60},{20,60},{20,54},{12,54}}, color={0,0,127}));
   connect(bypValCon.y,valByp.y)
     annotation (Line(points={{119,0},{92,0}},color={0,0,127}));
   connect(mValByp_flow.y,bypValCon.u_m)
