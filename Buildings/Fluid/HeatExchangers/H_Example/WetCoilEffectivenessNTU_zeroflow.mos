@@ -1,0 +1,16 @@
+old_StoreProtectedVariables = Advanced.StoreProtectedVariables;
+Advanced.StoreProtectedVariables = true;
+simulateModel("Buildings.Fluid.HeatExchangers.H_Example.WetCoilEffectivenessNTU_zeroflow",
+  tolerance=1e-6, stopTime=3600, method="Dassl", resultFile="WetCoilEffectivenessNTU");
+Advanced.StoreProtectedVariables = old_StoreProtectedVariables;
+createPlot(
+  id=1,
+  position={0, 0, 782, 636},
+  y={"hex.Q2_flow", "hex.QLat2_flow", "resDis.y[1]", "resDis.y[2]"},
+  grid=true);
+createPlot(
+  id=1,
+  y={"hex.port_a1.m_flow", "hex.port_a2.m_flow"},
+  grid=true,
+  subPlot=2);
+

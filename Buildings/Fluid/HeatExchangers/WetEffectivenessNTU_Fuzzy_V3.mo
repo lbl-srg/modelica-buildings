@@ -62,10 +62,15 @@ model WetEffectivenessNTU_Fuzzy_V3
     "Water flow rate of condensate removed from the air stream";
 
 protected
-  Real delta=1E-4;
-  Real fac1 = if abs(m1_flow/m1_flow_nominal) >= delta then 1 else (1/delta * m1_flow/m1_flow_nominal)^2;
-  Real fac2 = if abs(m2_flow)/m2_flow_nominal >= delta then 1 else (1/delta * m2_flow/m2_flow_nominal)^2;
+  Real delta=1E-2;
+  Real deltay=1E-1;
+  Real fac1 = Buildings.Utilities.Math.Functions.smoothMin((1/delta * m1_flow/m1_flow_nominal)^2,1,deltay);
+  //Real fac1 = if abs(m1_flow/m1_flow_nominal) >= delta then 1 else (1/delta * m1_flow/m1_flow_nominal)^2;
+  Real fac2 = Buildings.Utilities.Math.Functions.smoothMin((1/delta * m2_flow/m2_flow_nominal)^2,1,deltay);
+  //Real fac2 = if abs(m2_flow)/m2_flow_nominal >= delta then 1 else (1/delta * m2_flow/m2_flow_nominal)^2;
   Real Qfac = fac1*fac2;
+
+
   Buildings.Fluid.HeatExchangers.HeaterCooler_u heaCoo(
     redeclare final package Medium = Medium1,
     dp_nominal = dp1_nominal,

@@ -149,10 +149,7 @@ model DryWetCalcsFuzzy_V3
   Modelica.SIunits.HeatFlowRate QLat_flow;
 
   //-- parameters for fuzzy logics
-  Real mu_CoiIn_Col;
-  Real mu_CoiOut_Col;
-  Real mu_CoiIn_War;
-  Real mu_CoiOut_War;
+  Real mu_CoiIn_Col, mu_CoiOut_War;
   Real mu_FW, mu_FD, mu_PW, w_FW, w_FD, w_PW;
 //   final parameter Real SigA=20;
 //   final parameter Real SigC=0.4;
@@ -165,9 +162,8 @@ model DryWetCalcsFuzzy_V3
   Modelica.SIunits.HeatFlowRate parQTot_flow;
   Modelica.SIunits.HeatFlowRate parQSen_flow;
 
-  Buildings.Fluid.HeatExchangers.BaseClasses.DryCalcsFuzzy_V2_2_2_1 fullydry(
+  Buildings.Fluid.HeatExchangers.BaseClasses.DryCalcsFuzzy_V3 fullydry(
   UAWat = UAWat,
-  dryfra = 1,
   mWat_flow = mWat_flow,
   cpWat = cpWat,
   TWatIn = TWatIn,
@@ -182,9 +178,8 @@ model DryWetCalcsFuzzy_V3
   mWat_flow_nominal=mWat_flow_nominal);
 
    //Buildings.Fluid.HeatExchangers.BaseClasses.WetcalcsFuzzy_V2_2_2 fullywet(
-  Buildings.Fluid.HeatExchangers.BaseClasses.WetcalcsFuzzy_V2_2_4 fullywet(
+  Buildings.Fluid.HeatExchangers.BaseClasses.WetcalcsFuzzy_V3 fullywet(
    UAWat = UAWat,
-  dryfra = 0,
   mWat_flow = mWat_flow,
   cpWat = cpWat,
   TWatIn = TWatIn,
@@ -270,10 +265,6 @@ equation
 
   mu_CoiIn_Col= Buildings.Utilities.Math.Functions.spliceFunction(
   pos=0,neg=1,x=fullywet.TSurAirIn-TAirInDewPoi,deltax=max(abs(fullydry.TSurAirOut- fullywet.TSurAirIn),1e-3));
-  mu_CoiOut_Col= Buildings.Utilities.Math.Functions.spliceFunction(
-  pos=0,neg=1,x=fullydry.TSurAirOut-TAirInDewPoi,deltax=0.1);
-  mu_CoiIn_War= Buildings.Utilities.Math.Functions.spliceFunction(
-  pos=1,neg=0,x=fullywet.TSurAirIn-TAirInDewPoi,deltax=0.1);
   mu_CoiOut_War= Buildings.Utilities.Math.Functions.spliceFunction(
   pos=1,neg=0,x=fullydry.TSurAirOut-TAirInDewPoi,deltax=max(abs(fullydry.TSurAirOut- fullywet.TSurAirIn),1e-3));
 
