@@ -6,8 +6,14 @@ simulateModel("Buildings.Fluid.HeatExchangers.Validation.WetCoilEffectivenessNTU
 Advanced.StoreProtectedVariables = old_StoreProtectedVariables;
 createPlot(
     id=1,
-    position={15, 10, 1970, 1563},
+    subPlot=1,
     y={"hexDry.Q2_flow", "hexWetNtu.Q2_flow", "hexFVM.Q2_flow", "hexWetIBPSA.Q2_flow"},
+    grid=true,
+    filename="WetCoilEffectivenessNTU_FVM.mat");
+createPlot(
+    id=1,
+    subPlot=2,
+    y={"dryFraHexDis","hexWetNtu.dryWetCalcs.w_FD"},
     grid=true,
     filename="WetCoilEffectivenessNTU_FVM.mat");
 

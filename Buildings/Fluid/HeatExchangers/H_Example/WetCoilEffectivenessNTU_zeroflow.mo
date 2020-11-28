@@ -8,7 +8,8 @@ model WetCoilEffectivenessNTU_zeroflow
     sin_1(nPorts=1),
     sou_2(nPorts=1),
     sin_2(nPorts=1),
-    mWatGai(table=[0,1; 0.1,1; 0.2,-1; 0.3,0; 0.5,0]));
+    mWatGai(table=[0,1; 0.1,1; 0.2,-1; 0.3,1; 0.8,1; 0.9,0; 1,0]),
+    mAirGai(table=[0,1; 0.5,1; 0.6,-1; 0.7,0; 1,0]));
 
   WetEffectivenessNTU_Fuzzy_V3     hex(
     redeclare package Medium1 = Medium1,
@@ -65,7 +66,11 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   annotation (
-    experiment(Tolerance=1E-6, StopTime=3600),
+    experiment(
+      StopTime=3600,
+      __Dymola_NumberOfIntervals=50000,
+      Tolerance=1e-06,
+      __Dymola_Algorithm="Dassl"),
     __Dymola_Commands(file=
           "\"Fluid/HeatExchangers/H_Example/WetCoilEffectivenessNTU_zeroflow.mos\""
         "Simulate and plot"),

@@ -16,9 +16,6 @@ model WetEffectivenessNTU_Fuzzy_V3
   parameter Real r_nominal=2/3
     "Ratio between air-side and water-side convective heat transfer coefficient"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Temperature TWatOut_init=283.15
-    "Guess value for the water outlet temperature that is used to initialize the iterations"
-    annotation (Dialog(group="Advanced"));
   parameter Boolean waterSideFlowDependent=true
     "Set to false to make water-side hA independent of mass flow rate"
     annotation (Dialog(tab="Heat transfer"));

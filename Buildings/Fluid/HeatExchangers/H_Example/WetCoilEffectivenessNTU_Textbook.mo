@@ -128,9 +128,8 @@ model WetCoilEffectivenessNTU_Textbook
     m2_flow_nominal=m2_flow_nominal,
     dp2_nominal=0,
     dp1_nominal=0,
-    configuration=hexCon,
-    show_T=true,
-    r_nominal=1) "Heat exchanger coil"
+    configuration=Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow,
+    show_T=true) "Heat exchanger coil"
     annotation (Placement(transformation(extent={{-40,64},{-20,84}})));
   Sources.MassFlowSource_T souWat1(
     redeclare package Medium = Medium_W,

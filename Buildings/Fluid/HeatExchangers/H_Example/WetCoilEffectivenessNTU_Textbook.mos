@@ -8,7 +8,6 @@ simulateModel("Buildings.Fluid.HeatExchangers.H_Example.WetCoilEffectivenessNTU_
 Advanced.StoreProtectedVariables = old_StoreProtectedVariables;
 createPlot(
     id=1,
-    position={59, 59, 1186, 1286},
     y={"hexWetNTU.Q1_flow", "hexWetNTU_IBPSA.Q1_flow", "hexDis.Q1_flow"},
     autoscale=true,
     autoerase=true,
@@ -26,7 +25,6 @@ createPlot(
     color=true);
 createPlot(
     id=2,
-    position={1255, 58, 1140, 1286},
     y={"hexWetNTU.dryWetCalcs.dryfra", "hexWetNTU.SHR", "dryFraHexDis"},
     autoscale=true,
     autoerase=true,

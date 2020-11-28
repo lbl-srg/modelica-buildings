@@ -1,4 +1,4 @@
-within Buildings.Fluid.HeatExchangers.Validation;
+within Buildings.Fluid.HeatExchangers.H_Example;
 model WetCoilEffectivenessNTU_FVM
   "Model that demonstrates use of a heat exchanger with condensation that uses the epsilon-NTU relation"
   extends Modelica.Icons.Example;
@@ -85,7 +85,7 @@ model WetCoilEffectivenessNTU_FVM
     m1_flow_nominal=m1_flow,
     m2_flow_nominal=m2_flow,
     UA_nominal=13854.5,
-    configuration=Buildings.Fluid.Types.HeatExchangerConfiguration.CrossFlowStream1UnmixedStream2Mixed,
+    configuration=Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow,
     show_T=true)
     "Heat exchanger"
     annotation (Placement(transformation(extent={{-10,-58},{10,-38}})));
@@ -107,7 +107,7 @@ model WetCoilEffectivenessNTU_FVM
     m2_flow_nominal=m2_flow,
     show_T=true,
     UA_nominal=13854.5,
-    nEle=100)           "Heat exchanger"
+    nEle=60)            "Heat exchanger"
     annotation (Placement(transformation(extent={{-10,-26},{10,-6}})));
     Modelica.Blocks.Sources.Ramp XIn1(
     height=30*1e-3,
@@ -144,6 +144,7 @@ equation
     for iEle in 1:hexFVM.nEle loop
     isDryHexDis[iEle] = if abs(hexFVM.ele[iEle].masExc.mWat_flow) < 1E-6 then 1 else 0;
   end for;
+
   connect(TDb.y, sou_2.T_in) annotation (Line(points={{81,-80},{100,-80},{100,
           -6},{84,-6}},
                      color={0,0,127}));

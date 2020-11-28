@@ -2,4 +2,5 @@ WetCoilEffectivenessNTU_zeroflow
 WetCoilEffectivenessNTU_Textbook
 WetCoilEffectivenessNTU_cooling
 WetCoilEffectivenessNTU_heating
+WetCoilEffectivenessNTU_FVM
 DummyExample

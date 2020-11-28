@@ -155,7 +155,7 @@ model WetCoilEffectivenessNTU_FCU
     nPorts=1)
     "Air boundary: 27/19 dry/wet bulb temperature"
     annotation (Placement(transformation(extent={{60,-72},{40,-52}})));
-  WetEffectivenessNTU_Fuzzy_V2_2_4 cooCoi16(
+  WetEffectivenessNTU_Fuzzy_V3 cooCoi16(
     redeclare package Medium1 = MediumWater,
     redeclare package Medium2 = MediumAir,
     configuration=hexCon,
@@ -192,7 +192,7 @@ model WetCoilEffectivenessNTU_FCU
     nPorts=1)
     "Air boundary: 27/19 dry/wet bulb temperature"
     annotation (Placement(transformation(extent={{60,-102},{40,-82}})));
-  WetEffectivenessNTU_Fuzzy_V2_2_4 cooCoi7Param16(
+  WetEffectivenessNTU_Fuzzy_V3 cooCoi7Param16(
     redeclare package Medium1 = MediumWater,
     redeclare package Medium2 = MediumAir,
     configuration=hexCon,
