@@ -141,9 +141,6 @@ equation
 <p>This model validates the district central cooling plant implemented in 
 <a href=\"modelica://Buildings.Experimental.DHC.CentralPlants.Cooling.Plant\">
 Buildings.Experimental.DHC.CentralPlants.Cooling.Plant</a>.
-<body>
-<b><span style=\"font-size: 11pt; color: #ff0000;\">This model is a beta version and is not fully validated yet.</span></b>
-</body>
 </p>
 </html>",
       revisions="<html>
