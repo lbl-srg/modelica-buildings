@@ -355,11 +355,6 @@ equation
       info="<html>
 <p>
 This model showcases a generic district central cooling plant with two chillers as the cooling source.
-
-<body>
-<b><span style=\"font-size: 11pt; color: #ff0000;\">This model is a beta version and is not fully validated yet.</span></b>
-</body>
-
 </p>
 </html>",
       revisions="<html>
