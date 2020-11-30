@@ -7,11 +7,11 @@ model Speed_primary_remoteDp
     "Chilled water pump speed control based remote pressure difference sensor"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
-protected
+//protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse pumSta[2](
-    final width=fill(0.95, 2),
+    final width=fill(0.9, 2),
     final period=fill(10, 2),
-    final startTime=fill(1, 2)) "Pump status"
+    final delay=fill(1, 2)) "Pump status"
     annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant difPreSet(
     final k=8.5*6894.75)
