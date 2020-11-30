@@ -70,7 +70,7 @@ protected
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse chaPro1(
     final period=24*60,
-    final startTime=5*60)
+    final delay=5*60)
     "Stage change process status signal"
     annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
 
@@ -92,7 +92,7 @@ protected
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse chaPro2(
     final period=32*60,
-    final startTime=5*60)
+    final delay=5*60)
     "Stage change process status signal"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
 
