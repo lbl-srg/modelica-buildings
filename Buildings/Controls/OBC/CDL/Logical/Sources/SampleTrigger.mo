@@ -1,14 +1,21 @@
 within Buildings.Controls.OBC.CDL.Logical.Sources;
 block SampleTrigger "Generate sample trigger signal"
-  parameter Modelica.SIunits.Time period(
+  parameter Real period(
+    final quantity="Time",
+    final unit="s",
     final min=Constants.small) "Sample period";
-  parameter Modelica.SIunits.Time delay=0
+  parameter Real delay(
+    final quantity="Time",
+    final unit="s")=0
     "Delay time for output";
   Interfaces.BooleanOutput y  "Connector of Boolean output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected
-  parameter Modelica.SIunits.Time t0(fixed=false)
+  parameter Real t0(
+    final quantity="Time",
+    final unit="s",
+    fixed=false)
     "First sample time instant";
 
 initial equation
@@ -75,6 +82,12 @@ The trigger signal is generated an infinite number of times, and aligned with ti
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 12, 2020, by Michael Wetter:<br/>
+Reformulated to remove dependency to <code>Modelica.SIunits</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2243\">issue 2243</a>.
+</li>
 <li>
 October 19, 2020, by Michael Wetter:<br/>
 Refactored implementation.<br/>
