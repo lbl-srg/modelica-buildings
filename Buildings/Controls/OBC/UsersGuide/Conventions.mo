@@ -27,13 +27,16 @@ a controller that outputs a control signal for a valve and a damper may output <
 and <code>yDam</code>.
 </li>
 <li>
-The following variables are frequently used for physical quantities:
+The following variables are frequently used:
 <ul>
 <li><code>T</code> for temperature,</li>
 <li><code>p</code> for pressure,</li>
 <li><code>dp</code> for pressure difference,</li>
 <li><code>m_flow</code> for mass flow rate and</li>
-<li><code>V_flow</code> for volumetric flow rate.</li>
+<li><code>V_flow</code> for volumetric flow rate,</li>
+<li><code>k</code> for the gain of PID controller,</li>
+<li><code>Ti</code> for the time constant of integrator block of PID controller,</li>
+<li><code>Td</code> for the time constant of derivative block of PID controller.</li>
 </ul>
 </li>
 <li>
@@ -69,6 +72,8 @@ Suffix <code>Set</code> for set point.
 <li>
 Suffix <code>Min</code> (<code>Max</code>) for minimum (maximum),
 such as in <code>TSupSetMin</code> for minimum supply temperature set point.
+See <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints.SupplyTemperature\">
+Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints.SupplyTemperature</a> 
 </li>
 </ul>
 </li>
@@ -90,7 +95,7 @@ Following table shows some examples of the commonly used names:
 <tr><td><code>uHea</code> (<code>uCoo</code>)</td><td>Heating (cooling) loop signal</td></tr>
 <tr><td><code>yPosMin</code> (<code>yPosMax</code>)</td><td>Minimum (maximum) position</td></tr>
 <tr><td><code>yDamSet</code> (<code>yValSet</code>)</td><td>Damper (valve) position setpoint</td></tr>
-
+<tr><td><code>yHeaCoi</code> (<code>yCooCoi</code>)</td><td>Heating (cooling) coil control signal</td></tr>
 <tr><td colspan=\"2\"><b>Parameter names</b></td></tr>
 <tr><th>Name</th> <th>Comments</th></tr>
 <tr><td><code>use_TMix</code></td><td>Set to true if mixed air temperature measurement is used</td></tr>
@@ -101,14 +106,13 @@ Following table shows some examples of the commonly used names:
 <tr><td><code>pMinSet</code> (<code>pMaxSet</code>)</td><td>Minimum (maximum) pressure setpoint for fan speed control</td></tr>
 <tr><td><code>TSupSetMin</code> (<code>TSupSetMax</code>)</td><td>Lowest (Highest) cooling supply air temperature</td></tr>
 <tr><td><code>TOccHeaSet</code> (<code>TUnoHeaSet</code>)</td><td>Zone occupied (unoccupied) heating setpoint</td></tr>
+<tr><td><code>TZonCooMax</code> (<code>TZonCooMin</code>)</td><td>Maximum (minimum) zone cooling setpoint when cooling is on</td></tr>
 <tr><td><code>retDamPhyPosMax</code> (<code>outDamPhyPosMax</code>)</td><td>Physically fixed maximum position of the return (outdoor) air damper</td></tr>
-
+<tr><td><code>samplePeriod</code></td><td>Sample period</td></tr>
+<tr><td><code>zonDisEffHea</code> (<code>zonDisEffCoo</code>)</td><td>Zone air distribution effectiveness during heating (cooling)</td></tr>
+<tr><td><code>VOutMin_flow</code></td><td>Calculated minimum outdoor airflow rate</td></tr>
 </table>
 <br/>
-
-
-
-
 
 <h4>Documentation</h4>
 <ol>
