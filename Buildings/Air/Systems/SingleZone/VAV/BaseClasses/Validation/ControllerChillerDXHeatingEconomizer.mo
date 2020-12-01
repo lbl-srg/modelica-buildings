@@ -26,21 +26,27 @@ model ControllerChillerDXHeatingEconomizer
     minOAFra=0.4,
     TSetSupAir=286.15) "Controller"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
-  Controls.OBC.CDL.Continuous.Sources.TimeTable           TSetRooHea(
-    table=[0,15 + 273.15; 8*3600,20 + 273.15; 18*3600,15 + 273.15; 24*3600,15 +
-        273.15],
+  Controls.OBC.CDL.Continuous.Sources.TimeTable  TSetRooHea(
+    table=[
+      0,      15 + 273.15;
+      8*3600, 20 + 273.15;
+      18*3600,15 + 273.15;
+      24*3600,15 + 273.15],
     smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments,
     extrapolation=Buildings.Controls.OBC.CDL.Types.Extrapolation.Periodic)
     "Heating setpoint for room temperature"
     annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
-  Controls.OBC.CDL.Continuous.Sources.TimeTable           TSetRooCoo(
-    table=[0,30 + 273.15; 8*3600,25 + 273.15; 18*3600,30 + 273.15; 24*3600,30 +
-        273.15],
+  Controls.OBC.CDL.Continuous.Sources.TimeTable TSetRooCoo(
+    table=[
+       0,      30 + 273.15;
+       8*3600, 25 + 273.15;
+      18*3600, 30 + 273.15;
+      24*3600, 30 + 273.15],
     smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments,
     extrapolation=Buildings.Controls.OBC.CDL.Types.Extrapolation.Periodic)
     "Cooling setpoint for room temperature"
     annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
-  Controls.SetPoints.OccupancySchedule           occSch(occupancy=3600*{8,18})
+  Controls.SetPoints.OccupancySchedule occSch(occupancy=3600*{8,18})
     "Occupancy schedule"
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
   Modelica.Blocks.Sources.Sine supAirTem(
@@ -49,7 +55,6 @@ model ControllerChillerDXHeatingEconomizer
     offset=13 + 273.15) "Supply air temperature"
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
 equation
-
   connect(con.TSetRooHea, TSetRooHea.y[1])
     annotation (Line(points={{38,6},{2,6},{2,60},{-78,60}}, color={0,0,127}));
   connect(con.TSetRooCoo, TSetRooCoo.y[1]) annotation (Line(points={{38,3},{20,3},

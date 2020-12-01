@@ -8,8 +8,7 @@ model ChillerDXHeatingEconomizer
   parameter Modelica.SIunits.Temperature TSupChi_nominal=279.15
     "Design value for chiller leaving water temperature";
 
-  Buildings.Air.Systems.SingleZone.VAV.BaseClasses.ControllerChillerDXHeatingEconomizer
-    con(
+  Buildings.Air.Systems.SingleZone.VAV.BaseClasses.ControllerChillerDXHeatingEconomizer con(
     minAirFlo=0.1,
     minOAFra=0.4,
     controllerTypeHea=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
