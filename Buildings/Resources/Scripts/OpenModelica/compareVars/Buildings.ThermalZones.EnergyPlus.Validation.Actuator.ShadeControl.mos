@@ -1,0 +1,13 @@
+compareVars :=
+  {
+    "shaT.THigh",
+    "shaT.TLow",
+    "zonWes.TAir",
+    "shaH.H",
+    "shaH.HHigh",
+    "shaH.HLow",
+    "shaT.y",
+    "shaH.y",
+    "cooWes.conPID.y",
+    "actSha.u"
+  };

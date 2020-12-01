@@ -1,3 +1,4 @@
+os: Linux
 dist: bionic
 
 language: python
@@ -17,6 +18,17 @@ services:
   - docker
   - xvfb
 
+
+addons:
+  apt:
+    sources:
+    - sourceline: "deb http://build.openmodelica.org/apt bionic stable"
+      key_url: "http://build.openmodelica.org/apt/openmodelica.asc"
+    packages:
+    - omc=1.16.1-1
+    - omlib-modelica-3.2.3
+
+
 env:
   global:
     - ENERGYPLUS_VERSION=EnergyPlus-9.3.0-baff08990c-Linux-x86_64
@@ -29,6 +41,9 @@ env:
     - TEST_ARG="make test-dymola    PACKAGE=\"Buildings.{Air,Examples}\""
     - TEST_ARG="make test-optimica  PACKAGE=\"Buildings.{Air,Examples}\""
     - TEST_ARG="make test-jmodelica PACKAGE=\"Buildings.{Air,Examples}\""
+    - TEST_ARG="make test-dymola    PACKAGE=\"Buildings.ThermalZones.EnergyPlus\""
+    - TEST_ARG="make test-optimica  PACKAGE=\"Buildings.ThermalZones.EnergyPlus\""
+    - TEST_ARG="make test-jmodelica PACKAGE=\"Buildings.ThermalZones.EnergyPlus\""
     - TEST_ARG="make test-dymola    PACKAGE=\"Buildings.ThermalZones.Detailed.{BaseClasses,Constructions,Examples}\""
     - TEST_ARG="make test-optimica  PACKAGE=\"Buildings.ThermalZones.Detailed.{BaseClasses,Constructions,Examples}\""
     - TEST_ARG="make test-jmodelica PACKAGE=\"Buildings.ThermalZones.Detailed.{BaseClasses,Constructions,Examples}\""
@@ -38,6 +53,12 @@ env:
     - TEST_ARG="make test-dymola    PACKAGE=\"Buildings.ThermalZones.Detailed.Validation.{Initialization,LBNL_71T,TestConditionalConstructions}\""
     - TEST_ARG="make test-optimica  PACKAGE=\"Buildings.ThermalZones.Detailed.Validation.{Initialization,LBNL_71T,TestConditionalConstructions}\""
     - TEST_ARG="make test-jmodelica PACKAGE=\"Buildings.ThermalZones.Detailed.Validation.{Initialization,LBNL_71T,TestConditionalConstructions}\""
+    - TEST_ARG="make test-dymola    PACKAGE=\"Buildings.ThermalZones.Detailed.FLEXLAB\""
+    - TEST_ARG="make test-optimica  PACKAGE=\"Buildings.ThermalZones.Detailed.FLEXLAB\""
+    - TEST_ARG="make test-jmodelica PACKAGE=\"Buildings.ThermalZones.Detailed.FLEXLAB\""
+    - TEST_ARG="make test-dymola    PACKAGE=\"Buildings.ThermalZones.ReducedOrder\""
+    - TEST_ARG="make test-optimica  PACKAGE=\"Buildings.ThermalZones.ReducedOrder\""
+    - TEST_ARG="make test-jmodelica PACKAGE=\"Buildings.ThermalZones.ReducedOrder\""
     - TEST_ARG="make test-dymola    PACKAGE=\"Buildings.{Applications,Experimental}\""
     - TEST_ARG="make test-optimica  PACKAGE=\"Buildings.{Applications,Experimental}\""
     - TEST_ARG="make test-jmodelica PACKAGE=\"Buildings.{Applications,Experimental}\""
@@ -53,12 +74,6 @@ env:
     - TEST_ARG="make test-dymola    PACKAGE=\"Buildings.Fluid.{MassExchangers,MixingVolumes,Movers,Sensors,SolarCollectors,Sources,Storage,Utilities}\""
     - TEST_ARG="make test-optimica  PACKAGE=\"Buildings.Fluid.{MassExchangers,MixingVolumes,Movers,Sensors,SolarCollectors,Sources,Storage,Utilities}\""
     - TEST_ARG="make test-jmodelica PACKAGE=\"Buildings.Fluid.{MassExchangers,MixingVolumes,Movers,Sensors,SolarCollectors,Sources,Storage,Utilities}\""
-    - TEST_ARG="make test-dymola    PACKAGE=\"Buildings.ThermalZones.Detailed.FLEXLAB\""
-    - TEST_ARG="make test-optimica  PACKAGE=\"Buildings.ThermalZones.Detailed.FLEXLAB\""
-    - TEST_ARG="make test-jmodelica PACKAGE=\"Buildings.ThermalZones.Detailed.FLEXLAB\""
-    - TEST_ARG="make test-dymola    PACKAGE=\"Buildings.ThermalZones.ReducedOrder\""
-    - TEST_ARG="make test-optimica  PACKAGE=\"Buildings.ThermalZones.ReducedOrder\""
-    - TEST_ARG="make test-jmodelica PACKAGE=\"Buildings.ThermalZones.ReducedOrder\""
     - TEST_ARG="make test-dymola    PACKAGE=\"Buildings.Electrical\""
     - TEST_ARG="make test-optimica  PACKAGE=\"Buildings.Electrical\""
     - TEST_ARG="make test-jmodelica PACKAGE=\"Buildings.Electrical\""
@@ -74,6 +89,7 @@ env:
     - TEST_ARG="make test-dymola    PACKAGE=\"Buildings.Utilities\""
     - TEST_ARG="make test-optimica  PACKAGE=\"Buildings.Utilities\""
     - TEST_ARG="make test-jmodelica PACKAGE=\"Buildings.Utilities\""
+    - TEST_ARG="make test-omc"
 
 before_install:
   - sudo apt-get -y install python3.6-minimal  # Provides /usr/bin/python3.6m
@@ -83,7 +99,7 @@ before_install:
        cp Buildings/Resources/Scripts/travis/dymola/dymola $HOME/bin/;
     fi;
   - if [[ "$TEST_ARG" == *test-optimica* ]]; then
-       docker pull "$DOCKER_USERNAME"/travis-ubuntu-1804-optimica:r17595;
+       docker pull "$DOCKER_USERNAME"/travis-ubuntu-1804-optimica:r19089;
        cp Buildings/Resources/Scripts/travis/optimica/jm_ipython.sh $HOME/bin/jm_ipython.sh;
     fi;
   - if [[ "$TEST_ARG" == *test-jmodelica* ]]; then

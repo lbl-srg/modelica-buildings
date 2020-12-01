@@ -60,7 +60,7 @@ model OptimalStartNoHeatingNoCooling
   Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse pul(
     amplitude=15,
     period(displayUnit="d") = 1209600,
-    startTime(displayUnit="d") = 604800)
+    delay(displayUnit="d") = 604800)
     "Range of outdoor dry bulb temperature"
     annotation (Placement(transformation(extent={{-210,-60},{-190,-40}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal TSetHea(

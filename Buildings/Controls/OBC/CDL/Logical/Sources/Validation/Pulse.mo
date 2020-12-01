@@ -1,39 +1,87 @@
 within Buildings.Controls.OBC.CDL.Logical.Sources.Validation;
 model Pulse "Validation model for the Boolean Pulse block"
 
-  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul(
-    width=0.5,
-    period=1,
-    nPeriod=-1)
-    "Block that generates pulse signal of type Boolean at simulation start time and has infinite number of periods"
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul_a1(
+    width=0.2,
+    period=2)
+    "Boolean pulse signal"
+    annotation (Placement(transformation(extent={{-90,40},{-70,60}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul_b1(
+    width=0.2,
+    period=2,
+    delay=0.1) "Boolean pulse signal"
+    annotation (Placement(transformation(extent={{-90,0},{-70,20}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul_c1(
+    width=0.2,
+    period=2,
+    delay=0.6) "Boolean pulse signal"
+    annotation (Placement(transformation(extent={{-90,-40},{-70,-20}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul_a2(
+    width=0.2,
+    period=2,
+    delay=2) "Boolean pulse signal"
+    annotation (Placement(transformation(extent={{-50,40},{-30,60}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul_b2(
+    width=0.2,
+    period=2,
+    delay=2.1) "Boolean pulse signal"
+    annotation (Placement(transformation(extent={{-50,0},{-30,20}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul_c2(
+    width=0.2,
+    period=2,
+    delay=2.6) "Boolean pulse signal"
+    annotation (Placement(transformation(extent={{-50,-40},{-30,-20}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul_a3(
+    width=0.2,
+    period=2,
+    delay=4) "Boolean pulse signal"
     annotation (Placement(transformation(extent={{-10,40},{10,60}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul3(
-    width=0.5,
-    period=1,
-    nPeriod=2)
-    "Block that generates pulse signal of type Boolean at simulation start time"
-    annotation (Placement(transformation(extent={{-10,-80},{10,-60}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul1(
-    width=0.5,
-    period=1,
-    nPeriod=1,
-    startTime=1.75)
-    "Block that generates pulse signal of type Boolean starting from after the simulation start time"
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul_b3(
+    width=0.2,
+    period=2,
+    delay=4.1) "Boolean pulse signal"
     annotation (Placement(transformation(extent={{-10,0},{10,20}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul2(
-    width=0.5,
-    period=1,
-    nPeriod=4,
-    startTime=-1.25)
-    "Block that generates pulse signal of type Boolean starting from before the simulation start time"
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul_c3(
+    width=0.2,
+    period=2,
+    delay=4.6) "Boolean pulse signal"
     annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
-
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul_a4(
+    width=0.2,
+    period=2,
+    delay=-2) "Boolean pulse signal"
+    annotation (Placement(transformation(extent={{30,40},{50,60}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul_b4(
+    width=0.2,
+    period=2,
+    delay=-1.9) "Boolean pulse signal"
+    annotation (Placement(transformation(extent={{30,0},{50,20}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul_c4(
+    width=0.2,
+    period=2,
+    delay=-1.4) "Boolean pulse signal"
+    annotation (Placement(transformation(extent={{30,-40},{50,-20}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul_a5(
+    width=0.2,
+    period=2,
+    delay=-4) "Boolean pulse signal"
+    annotation (Placement(transformation(extent={{70,40},{90,60}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul_b5(
+    width=0.2,
+    period=2,
+    delay=-3.9) "Boolean pulse signal"
+    annotation (Placement(transformation(extent={{70,0},{90,20}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul_c5(
+    width=0.2,
+    period=2,
+    delay=-3.4) "Boolean pulse signal"
+    annotation (Placement(transformation(extent={{70,-40},{90,-20}})));
   annotation (
   experiment(
-      StopTime=5,
+      StartTime=0,
+      StopTime=10,
       Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Logical/Sources/Validation/Pulse.mos"
         "Simulate and plot"),
@@ -43,13 +91,18 @@ Validation test for the block
 <a href=\"modelica://Buildings.Controls.OBC.CDL.Logical.Sources.Pulse\">
 Buildings.Controls.OBC.CDL.Logical.Sources.Pulse</a>.
 </p>
+<p>
+This validates the blocks with a start time of <i>0</i>.
+All blocks with the same letter after the underscore are configured to produce
+the same output.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>
-September 14, 2020, by Milica Grahovac:<br/>
-Added number of periods parameter <code>nPeriod</code> to the test instances.
+October 19, 2020, by Michael Wetter:<br/>
+Refactored test for systematic testing.<br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2125\">#2125</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2170\">#2170</a>.
 </li>
 <li>
 September 1, 2020, by Milica Grahovac:<br/>

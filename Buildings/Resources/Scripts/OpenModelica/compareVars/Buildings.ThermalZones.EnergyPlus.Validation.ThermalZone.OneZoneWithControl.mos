@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "zon.TAir",
+    "TSet.y",
+    "conPID.y"
+  };
