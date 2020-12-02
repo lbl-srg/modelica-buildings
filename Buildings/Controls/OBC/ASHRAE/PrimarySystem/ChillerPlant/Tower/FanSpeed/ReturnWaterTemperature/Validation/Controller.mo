@@ -22,7 +22,7 @@ protected
     annotation (Placement(transformation(extent={{-360,150},{-340,170}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse wseSta(
     final width=0.2, final period=3600,
-    startTime=-3000)
+    delay=-3000)
     "Waterside economizer enabling status"
     annotation (Placement(transformation(extent={{-360,50},{-340,70}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp plaCap(
