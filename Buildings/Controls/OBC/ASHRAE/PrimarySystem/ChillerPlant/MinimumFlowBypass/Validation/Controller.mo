@@ -17,7 +17,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse chiWatPum(
     final width=0.15,
     final period=4,
-    final startTime=0.1) "Chilled water pump on command"
+    final delay=0.1) "Chilled water pump on command"
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
   Buildings.Controls.OBC.CDL.Logical.Not not4 "Logical not"
     annotation (Placement(transformation(extent={{-40,50},{-20,70}})));

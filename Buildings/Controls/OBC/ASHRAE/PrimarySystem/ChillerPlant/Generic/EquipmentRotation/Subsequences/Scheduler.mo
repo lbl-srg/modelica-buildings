@@ -62,8 +62,8 @@ block Scheduler
     annotation (Placement(transformation(extent={{0,10},{20,30}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.SampleTrigger rotTri(
-    final period=rotationPeriod,
-    final delay=rotationPeriod) if simTimSta
+    final period=rotationPeriod, final delay=rotationPeriod) if
+                                   simTimSta
     "Sample trigger"
     annotation (Placement(transformation(extent={{-140,-120},{-120,-100}})));
 
