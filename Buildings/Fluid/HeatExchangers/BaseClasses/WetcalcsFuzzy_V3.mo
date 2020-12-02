@@ -75,6 +75,7 @@ model WetcalcsFuzzy_V3 "Wet coil model using esilon_C.mo function"
   //Modelica.SIunits.MassFlowRate mAir_flow_NonZero(min=0);
 
   Buildings.Utilities.Psychrometrics.hSat_pTSat hSatSurEffM(p=pAir,TSat=TSurEff);
+  Buildings.Utilities.Psychrometrics.hSat_pTSat hSatSurEffMinM(p=pAir,TSat=273.15+1);
 
   Modelica.SIunits.SpecificHeatCapacity cpEff
     "Effective specific heat: change in enthalpy with respect to
@@ -151,7 +152,8 @@ equation
     NTUAirSta = UAAir/(mAir_flow*cpAir);
 
 
-    hSatSurEff = hAirIn  +(hAirOut - hAirIn) /(1 - exp(-NTUAirSta)); // NTUAirSta is bounded as long as UAAir>0 due to the regularization of mAir_flow
+    //hSatSurEff = hAirIn  +(hAirOut - hAirIn) /(1 - exp(-NTUAirSta)); // NTUAirSta is bounded as long as UAAir>0 due to the regularization of mAir_flow
+    hSatSurEff = Buildings.Utilities.Math.Functions.smoothMax(hSatSurEffMinM.hSat, hAirIn  +(hAirOut - hAirIn) /(1 - exp(-NTUAirSta)),delta*1E4); // NTUAirSta is bounded as long as UAAir>0 due to the regularization of mAir_flow
 
 
     hSatSurEffM.hSat=hSatSurEff;

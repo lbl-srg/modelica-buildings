@@ -9,14 +9,11 @@ function wAirOut_min_checkup
   output Modelica.SIunits.MassFraction wAirOutRe "modofied air outlet humidity";
 
 
-  final parameter Modelica.SIunits.Temperature TAppMin=273.15 "minimal apparatus temperature for a non-frosting cooling coil (0 oC by default)";
+  final parameter Modelica.SIunits.Temperature TAppMin=273.15+2 "minimal apparatus temperature for a non-frosting cooling coil (0 oC by default)";
 protected
   Modelica.SIunits.PartialPressure pWat "partial water vapor pressure at the minimal apparatus temperature";
   Modelica.SIunits.MassFraction wSatTApp "absolute humidity at the minimal apparatus temperature";
   Modelica.SIunits.MassFraction wAirOutMin;
-
-
-
 
 algorithm
   pWat:=Buildings.Utilities.Psychrometrics.Functions.pW_TDewPoi(T=TAppMin);
