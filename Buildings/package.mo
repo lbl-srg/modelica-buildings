@@ -210,11 +210,30 @@ Version 8.0.0 is ... xxx
 The following <b style=\"color:blue\">new libraries</b> have been added:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2>
-<tr><td valign=\"top\">xxx
+<tr><td colspan=\"2\"><b>Buildings.Experimental</b>
     </td>
-    <td valign=\"top\">xxx.
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC
     </td>
-    </tr>
+    <td valign=\"top\">Packages for modeling district heating
+                       and cooling systems.<br/>
+                       These packages contain components supporting the integration within
+                       the URBANopt SDK. The development is in progress.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.ThermalZones</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.ThermalZones.EnergyPlus
+    </td>
+    <td valign=\"top\">Package for Spawn of EnergyPlus that couples Modelica directly
+                     to the EnergyPlus envelope model.<br/>
+                     This allows simulating the envelope heat transfer
+                     of one or several buildings in EnergyPlus, and simulating HVAC and controls
+                     in Modelica. EnergyPlus objects are represented graphically as any other Modelica
+                     models, and the coupling and co-simulation is done automatically based on these models.
+    </td>
+</tr>
 </table>
 <!-- New components for existing libraries -->
 <p>
@@ -268,7 +287,6 @@ to <b style=\"color:blue\">existing</b> libraries:
                        periods <code>nPeriods</code> specification.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2125\">issue 2125</a>.</td>
 </tr>
-
 <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Integer.TimeTable
     </td>
     <td valign=\"top\">Time table for <code>Integer</code> outputs.<br/>
@@ -278,7 +296,20 @@ to <b style=\"color:blue\">existing</b> libraries:
 <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Logical.TimeTable
     </td>
     <td valign=\"top\">Time table for <code>Boolean</code> outputs.<br/>
-                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2125\">issue 2125</a>.</td>
+                     This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2125\">issue 2125</a>.</td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Examples</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Examples.VAVReheat.Controls.SupplyAirTemperature
+    </td>
+    <td valign=\"top\">Control block for tracking the supply air temperature set point.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2024\">issue 2024</a>.</td>
+</tr>
+<tr><td valign=\"top\">Buildings.Examples.VAVReheat.Controls.SupplyAirTemperatureSetpoint
+    </td>
+    <td valign=\"top\">Computation of the supply air temperature set point based on the operation mode.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2024\">issue 2024</a>.</td>
 </tr>
 </table>
 <!-- Backward compatible changes -->
@@ -307,6 +338,47 @@ have been <b style=\"color:blue\">improved</b> in a
     <td valign=\"top\">Changed the default heating maximum airflow setpoint to 30% of the zone nominal airflow.<br/>
                        This is for
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2172\">issue 2172</a>.
+</tr>
+
+<tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.MovingMean<br/>
+                       Buildings.Controls.OBC.CDL.Continuous.PID<br/>
+                       Buildings.Controls.OBC.CDL.Continuous.PIDWithReset<br/>
+                       Buildings.Controls.OBC.CDL.Continuous.SlewRateLimiter<br/>
+                       Buildings.Controls.OBC.CDL.Continuous.Sources.CalendarTime<br/>
+                       Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse<br/>
+                       Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp<br/>
+                       Buildings.Controls.OBC.CDL.Continuous.Sources.Sine<br/>
+                       Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable<br/>
+                       Buildings.Controls.OBC.CDL.Discrete.DayType<br/>
+                       Buildings.Controls.OBC.CDL.Discrete.FirstOrderHold<br/>
+                       Buildings.Controls.OBC.CDL.Discrete.Sampler<br/>
+                       Buildings.Controls.OBC.CDL.Discrete.UnitDelay<br/>
+                       Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold<br/>
+                       Buildings.Controls.OBC.CDL.Integers.Sources.Pulse<br/>
+                       Buildings.Controls.OBC.CDL.Integers.Sources.TimeTable<br/>
+                       Buildings.Controls.OBC.CDL.Logical.Sources.Pulse<br/>
+                       Buildings.Controls.OBC.CDL.Logical.Sources.SampleTrigger<br/>
+                       Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable<br/>
+                       Buildings.Controls.OBC.CDL.Logical.Timer<br/>
+                       Buildings.Controls.OBC.CDL.Logical.TimerAccumulating<br/>
+                       Buildings.Controls.OBC.CDL.Logical.TriggeredTrapezoid<br/>
+                       Buildings.Controls.OBC.CDL.Logical.TrueDelay<br/>
+                       Buildings.Controls.OBC.CDL.Logical.TrueFalseHold<br/>
+                       Buildings.Controls.OBC.CDL.Logical.TrueHoldWithReset<br/>
+                       Buildings.Controls.OBC.CDL.Psychrometrics.DewPoint_TDryBulPhi<br/>
+                       Buildings.Controls.OBC.CDL.Psychrometrics.SpecificEnthalpy_TDryBulPhi<br/>
+                       Buildings.Controls.OBC.CDL.Psychrometrics.WetBulb_TDryBulPhi<br/>
+                       Buildings.Controls.OBC.CDL.SetPoints.SupplyReturnTemperatureReset<br/>
+                       Buildings.Controls.OBC.CDL.Utilities.SunRiseSet
+
+    </td>
+    <td valign=\"top\">Reformulated to remove dependency to <code>Modelica.SIunits</code>.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2243\">issue 2243</a>.
+    </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL.Continuous</b>
     </td>
@@ -337,6 +409,16 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2125\">issue 2125</a>.
     </td>
     </tr>
+<tr><td colspan=\"2\"><b>Buildings.Examples</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Examples.VAVReheat.Guideline36
+    </td>
+    <td valign=\"top\">Upgraded sequence of specifying operating mode according to G36 official release.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1893\">issue 1893</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.HeatExchangers.RadiantSlabs</b>
     </td>
     </tr>
@@ -348,14 +430,28 @@ have been <b style=\"color:blue\">improved</b> in a
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2009\">issue 2009</a>.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.Media</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Media.Refrigerants.R410A
+    </td>
+    <td valign=\"top\">Improved implementation, which now works with OpenModelica.<br/>
+                       This is for
+                       <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1414\">issue 1414</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Examples</b>
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Examples.VAVReheat.Guideline36
+<tr><td valign=\"top\">Buildings.Examples.DualFanDualDuct.ClosedLoop<br/>
+                       Buildings.Examples.VAVReheat.ASHRAE2006<br/>
+                       Buildings.Examples.VAVReheat.Guideline36<br/>
+                       Buildings.Examples.ScalableBenchmarks.BuildingVAV.Examples.OneFloor_OneZone<br/>
+                       Buildings.Examples.ScalableBenchmarks.BuildingVAV.Examples.TwoFloor_TwoZone
     </td>
-    <td valign=\"top\">Upgraded sequence of specifying operating mode according to G36 official release.<br/>
+    <td valign=\"top\">Adapted the model to the updated control of supply air temperature.<br/>
                        This is for
-                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1893\">issue 1893</a>.
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2024\">issue 2024</a>.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>xxx</b>
@@ -462,13 +558,6 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2124\">#2124</a>.<br/>
                        For Dymola, a conversion script makes this change.</td>
 </tr>
-<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse
-    </td>
-    <td valign=\"top\">Renamed parameter <code>startTime</code> to <code>delay</code>.<br/>
-                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2170\">#2170</a>.<br/>
-                       For Dymola, a conversion script makes this change.
-                       The pulses will start at any integer multiples of the period of the pulse.</td>
-</tr>
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL.Logical</b>
     </td>
 </tr>
@@ -485,14 +574,6 @@ have been <b style=\"color:blue\">improved</b> in a
     <td valign=\"top\">Removed <code>reset</code> boolean input and added boolean output <code>passed</code>
                        to show if the time becomes greater than threshold time.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2101\">#2101</a>.
-</tr>
-<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Logical.Sources.Pulse<br/>
-                       Buildings.Controls.OBC.CDL.Logical.Sources.SampleTrigger
-    </td>
-    <td valign=\"top\">Renamed parameter <code>startTime</code> to <code>delay</code>.<br/>
-                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2170\">#2170</a>.<br/>
-                       For Dymola, a conversion script makes this change.
-                       The pulses and triggers will start at an integer multiple of the period of the pulse.</td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL.Integers</b>
     </td>
@@ -533,6 +614,32 @@ have been <b style=\"color:blue\">improved</b> in a
     <td valign=\"top\">Upgraded the sequence according to ASHRAE Guideline 36, May 2020 version.<br/>
                        This is for
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1893\">issue 1893</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Examples.VAVReheat.Controls</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Examples.VAVReheat.Controls.Economizer
+    </td>
+    <td valign=\"top\">Updated the block with an input for enabling outdoor air damper opening and an input for
+                     economizer cooling signal.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2024\">issue 2024</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Examples.VAVReheat.Controls.EconomizerTemperatureControl
+    </td>
+    <td valign=\"top\">This block is now retired.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2024\">issue 2024</a>.
+<tr><td colspan=\"2\"><b>Buildings.Experimental</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DistrictHeatingCooling
+    </td>
+    <td valign=\"top\">Moved package to <code>Buildings.Obsolete.DistrictHeatingCooling</code>.<br/>
+                       Generic components for DHC system modeling are now developed under
+                       <code>Buildings.Experimental.DHC</code>.
     </td>
 </tr>
 </table>
@@ -2515,7 +2622,7 @@ xxx
    The following new packages have been added:
    <ul>
    <li>
-   <code>Buildings.Experimental.DistrictHeatingCooling</code>
+   <code>Buildings.Obsolete.DistrictHeatingCooling</code>
    with models for district heating and cooling
    with bi-directional flow in the distribution pipes.
    </li>
@@ -2580,7 +2687,7 @@ xxx
    </p>
    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\">
 
-   <tr><td valign=\"top\">Buildings.Experimental.DistrictHeatingCooling
+   <tr><td valign=\"top\">Buildings.Obsolete.DistrictHeatingCooling
        </td>
        <td valign=\"top\">Package with models for district heating and cooling
                           with bi-directional flow in the distribution pipes.
@@ -8697,21 +8804,27 @@ particular package.<br/>
    </td>
    <td valign=\"top\">Package for heat transfer in building constructions.</td>
 </tr>
-<tr><td valign=\"top\"><a href=\"modelica://Buildings.ThermalZones.Detailed.UsersGuide.MixedAir\">Rooms.MixedAir</a>
+<tr><td valign=\"top\"><a href=\"modelica://Buildings.ThermalZones.Detailed.UsersGuide.MixedAir\">ThermalZones.Detailed.UsersGuide.MixedAir</a>
    </td>
    <td valign=\"top\">Package for heat transfer in rooms and through the building envelope with the
                       room air being modeled using the mixed air assumption.</td>
 </tr>
-<tr><td valign=\"top\"><a href=\"modelica://Buildings.ThermalZones.Detailed.UsersGuide.MixedAir\">Rooms.CFD</a>
+<tr><td valign=\"top\"><a href=\"modelica://Buildings.ThermalZones.Detailed.UsersGuide.CFD\">ThermalZones.Detailed.UsersGuide.CFD</a>
    </td>
    <td valign=\"top\">Package for heat transfer in rooms and through the building envelope with the
                       room air being modeled using computational fluid dynamics.</td>
 </tr>
 
-<tr><td valign=\"top\"><a href=\"modelica://Buildings.ThermalZones.Detailed.Examples.FFD.UsersGuide\">Rooms.Examples.FFD</a>
+<tr><td valign=\"top\"><a href=\"modelica://Buildings.ThermalZones.Detailed.Examples.FFD.UsersGuide\">ThermalZones.Detailed.Examples.FFD.UsersGuide</a>
    </td>
    <td valign=\"top\">Package with examples that use the Fast Fluid Dynamics program for
-                      the computational fluid dynamics.</td>
+                    the computational fluid dynamics.</td>
+</tr>
+
+<tr><td valign=\"top\"><a href=\"modelica://Buildings.ThermalZones.EnergyPlus.UsersGuide\">ThermalZones.EnergyPlus.UsersGuide</a>
+   </td>
+   <td valign=\"top\">Package for Spawn of EnergyPlus with models that use EnergyPlus to simulate
+                    one or several building envelope models.</td>
 </tr>
 
 <tr><td valign=\"top\"><a href=\"modelica://Buildings.Utilities.IO.Python36.UsersGuide\">Utilities.IO.Python36</a>

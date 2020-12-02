@@ -3,10 +3,16 @@ block TriggeredTrapezoid "Triggered trapezoid generator"
 
   parameter Real amplitude "Amplitude of trapezoid";
 
-  parameter Modelica.SIunits.Time rising(final min=0) = 0
+  parameter Real rising(
+    final quantity="Time",
+    final unit="s",
+    final min=0) = 0
     "Rising duration of trapezoid";
 
-  parameter Modelica.SIunits.Time falling(final min=0) = rising
+  parameter Real falling(
+    final quantity="Time",
+    final unit="s",
+    final min=0) = rising
     "Falling duration of trapezoid";
 
   parameter Real offset=0 "Offset of output signal";
@@ -20,7 +26,9 @@ block TriggeredTrapezoid "Triggered trapezoid generator"
 protected
   discrete Real endValue "Value of y at time of recent edge";
   discrete Real rate "Current rising/falling rate";
-  discrete Modelica.SIunits.Time T
+  discrete Real T(
+    final quantity="Time",
+    final unit="s")
     "Predicted time of output reaching endValue";
 equation
   y = if time < T then endValue - (T - time)*rate else endValue;
@@ -103,6 +111,12 @@ Note, the case of edges before expiration of rising or falling is
 handled properly.</p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 12, 2020, by Michael Wetter:<br/>
+Reformulated to remove dependency to <code>Modelica.SIunits</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2243\">issue 2243</a>.
+</li>
 <li>
 January 3, 2017, by Michael Wetter:<br/>
 First implementation, based on the implementation of the
