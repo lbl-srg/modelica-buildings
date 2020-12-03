@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.CDL.Logical.Sources.Validation;
-model SampleTriggerPositiveStartTime
-  "Validation model for the SampleTrigger block with a positive start time"
+model SampleTriggerNegativeStartTime
+  "Validation model for the SampleTrigger block with a negative start time"
 
   Buildings.Controls.OBC.CDL.Logical.Sources.SampleTrigger samTri(
     period = 0.5)
@@ -10,7 +10,9 @@ model SampleTriggerPositiveStartTime
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ramp(
     duration=5,
     offset=0,
-    height=20) "Block that generates ramp signal"
+    height=20,
+    startTime=-2)
+               "Block that generates ramp signal"
     annotation (Placement(transformation(extent={{-30,60},{-10,80}})));
 
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triggeredSampler
@@ -18,14 +20,16 @@ model SampleTriggerPositiveStartTime
     annotation (Placement(transformation(extent={{20,60},{40,80}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.SampleTrigger samTri1(
-    period=0.5, delay=0.3)
+    period=0.5, delay=3.2)
     "Block that generates sample trigger signal"
     annotation (Placement(transformation(extent={{-30,-80},{-10,-60}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ramp1(
     duration=5,
     offset=0,
-    height=20) "Block that generates ramp signal"
+    height=20,
+    startTime=-2)
+               "Block that generates ramp signal"
     annotation (Placement(transformation(extent={{-30,-40},{-10,-20}})));
 
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triggeredSampler1
@@ -43,7 +47,7 @@ equation
           {30,-70},{30,-41.8}}, color={255,0,255}));
   annotation (
   experiment(StartTime=1.0, StopTime=6.0, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Logical/Sources/Validation/SampleTriggerPositiveStartTime.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Logical/Sources/Validation/SampleTriggerNegativeStartTime.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
@@ -70,4 +74,4 @@ First implementation.
                 pattern = LinePattern.None,
                 fillPattern = FillPattern.Solid,
                 points = {{-36,60},{64,0},{-36,-60},{-36,60}})}));
-end SampleTriggerPositiveStartTime;
+end SampleTriggerNegativeStartTime;

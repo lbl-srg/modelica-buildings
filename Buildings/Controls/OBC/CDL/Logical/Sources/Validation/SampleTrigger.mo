@@ -22,13 +22,13 @@ model SampleTrigger "Validation model for the SampleTrigger block"
     "Block that generates sample trigger signal"
     annotation (Placement(transformation(extent={{-30,-80},{-10,-60}})));
 
-  Continuous.Sources.Ramp ramp1(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ramp1(
     duration=5,
     offset=0,
     height=20) "Block that generates ramp signal"
     annotation (Placement(transformation(extent={{-30,-40},{-10,-20}})));
 
-  Discrete.TriggeredSampler triggeredSampler1
+  Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triggeredSampler1
     "Triggered sampler"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
 
@@ -51,9 +51,14 @@ Validation test for the block
 <a href=\"modelica://Buildings.Controls.OBC.CDL.Logical.Sources.SampleTrigger\">
 Buildings.Controls.OBC.CDL.Logical.Sources.SampleTrigger</a>.
 </p>
-
 </html>", revisions="<html>
 <ul>
+<li>
+December 03, 2020, by Milica Grahovac:<br/>
+Added a test case with a <code>delay</code> parameter set to a value larger than zero.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2282\">#2282</a>.
+</li>
 <li>
 July 17, 2017, by Jianjun Hu:<br/>
 First implementation.

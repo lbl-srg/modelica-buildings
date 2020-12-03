@@ -19,9 +19,7 @@ protected
     "First sample time instant";
 
 initial equation
-  t0 = Buildings.Utilities.Math.Functions.round(
-         x = integer(time/period),
-         n = 6);
+  t0 = time;
 
 equation
   y = sample(t0 + delay, period);
