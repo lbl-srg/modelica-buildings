@@ -22,7 +22,7 @@ services:
 addons:
   apt:
     sources:
-    - sourceline: "deb http://build.openmodelica.org/apt bionic stable"
+    - sourceline: "https://build.openmodelica.org/omc/builds/linux/releases/1.16.1/ bionic stable"
       key_url: "http://build.openmodelica.org/apt/openmodelica.asc"
     packages:
     - omc=1.16.1-1
