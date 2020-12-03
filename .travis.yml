@@ -6,6 +6,12 @@ language: python
 python:
   - "3.6"
 
+branches:
+  only:
+    - master
+    - /^maint_.*$/
+    - release
+
 cache: pip
 
 notifications:
