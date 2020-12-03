@@ -1,5 +1,6 @@
 within Buildings.Controls.OBC.CDL.Logical.Sources.Validation;
-model SampleTrigger "Validation model for the SampleTrigger block"
+model SampleTriggerPositiveStartTime
+  "Validation model for the SampleTrigger block with a positive start time"
 
   Buildings.Controls.OBC.CDL.Logical.Sources.SampleTrigger samTri(
     period = 0.5)
@@ -42,8 +43,8 @@ equation
   connect(samTri1.y, triggeredSampler1.trigger) annotation (Line(points={{-8,-70},
           {30,-70},{30,-41.8}}, color={255,0,255}));
   annotation (
-  experiment(StopTime=5.0, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Logical/Sources/Validation/SampleTrigger.mos"
+  experiment(StartTime=1.0, StopTime=6.0, Tolerance=1e-06),
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Logical/Sources/Validation/SampleTriggerPositiveStartTime.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
@@ -70,4 +71,4 @@ First implementation.
                 pattern = LinePattern.None,
                 fillPattern = FillPattern.Solid,
                 points = {{-36,60},{64,0},{-36,-60},{-36,60}})}));
-end SampleTrigger;
+end SampleTriggerPositiveStartTime;

@@ -20,11 +20,11 @@ protected
 
 initial equation
   t0 = Buildings.Utilities.Math.Functions.round(
-         x = integer((time)/period)*period+mod(delay, period),
+         x = integer(time/period),
          n = 6);
 
 equation
-  y = sample(t0, period);
+  y = sample(t0 + delay, period);
   annotation (
     defaultComponentName="samTri",
     Icon(coordinateSystem(
