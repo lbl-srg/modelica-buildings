@@ -1,5 +1,9 @@
 // Simulate
-simulateModel("Buildings.Experimental.DHC.CentralPlants.Cooling.Examples.CoolingPlantOpenLoop", stopTime=86400, method="dassl", tolerance=1e-06, resultFile="CoolingPlantOpenLoop");
+simulateModel("Buildings.Experimental.DHC.CentralPlants.Cooling.Examples.CoolingPlantOpenLoop", 
+	stopTime=86400, 
+	method="cvode", 
+	tolerance=1e-06, 
+	resultFile="CoolingPlantOpenLoop");
 // Plot commands
 removePlots(false);
 createPlot(id=1, 
