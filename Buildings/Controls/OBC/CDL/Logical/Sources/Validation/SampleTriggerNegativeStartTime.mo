@@ -29,7 +29,7 @@ model SampleTriggerNegativeStartTime
     offset=0,
     height=20,
     startTime=-2)
-               "Block that generates ramp signal"
+    "Block that generates ramp signal"
     annotation (Placement(transformation(extent={{-30,-40},{-10,-20}})));
 
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triggeredSampler1
@@ -55,7 +55,6 @@ Validation test for the block
 <a href=\"modelica://Buildings.Controls.OBC.CDL.Logical.Sources.SampleTrigger\">
 Buildings.Controls.OBC.CDL.Logical.Sources.SampleTrigger</a>.
 </p>
-
 </html>", revisions="<html>
 <ul>
 <li>

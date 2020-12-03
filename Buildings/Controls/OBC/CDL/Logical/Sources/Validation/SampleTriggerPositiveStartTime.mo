@@ -51,7 +51,6 @@ Validation test for the block
 <a href=\"modelica://Buildings.Controls.OBC.CDL.Logical.Sources.SampleTrigger\">
 Buildings.Controls.OBC.CDL.Logical.Sources.SampleTrigger</a>.
 </p>
-
 </html>", revisions="<html>
 <ul>
 <li>
