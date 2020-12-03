@@ -340,17 +340,10 @@ equation
     annotation (Line(points={{-99,56},{-92,56},{-92,-46},{-62,-46}},color={255,0,255}));
   annotation (
     defaultComponentName="pla",
-    __Dymola_Commands,
     Diagram(
       coordinateSystem(
         preserveAspectRatio=false,
         extent={{-140,-80},{160,100}})),
-    experiment(
-      StartTime=1.728e+007,
-      StopTime=1.73664e+007,
-      __Dymola_NumberOfIntervals=1440,
-      __Dymola_Algorithm="Dassl"),
-    __Dymola_experimentSetupOutput,
     Documentation(
       info="<html>
 <p>
