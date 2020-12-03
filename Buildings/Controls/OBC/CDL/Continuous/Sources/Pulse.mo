@@ -5,9 +5,14 @@ block Pulse "Generate pulse signal of type Real"
     final min=Constants.small,
     final max=1,
     final unit = "1") = 0.5 "Width of pulse in fraction of period";
-  parameter Modelica.SIunits.Time period(final min=Constants.small)
+  parameter Real period(
+    final quantity="Time",
+    final unit="s",
+    final min=Constants.small)
    "Time for one period";
-  parameter Modelica.SIunits.Time delay=0
+  parameter Real delay(
+    final quantity="Time",
+    final unit="s")=0
     "Delay time for output";
   parameter Real offset=0 "Offset of output signals";
 
@@ -106,6 +111,12 @@ The pulse signal is generated an infinite number of times, and aligned with time
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 12, 2020, by Michael Wetter:<br/>
+Reformulated to remove dependency to <code>Modelica.SIunits</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2243\">issue 2243</a>.
+</li>
 <li>
 October 19, 2020, by Michael Wetter:<br/>
 Refactored implementation, avoided state events.<br/>
