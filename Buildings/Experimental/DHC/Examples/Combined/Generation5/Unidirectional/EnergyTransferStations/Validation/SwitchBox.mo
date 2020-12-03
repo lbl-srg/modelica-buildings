@@ -85,7 +85,7 @@ equation
           -82},{-60,-60},{-4,-60}}, color={0,127,255}));
   connect(pum1.m_flow_actual, floSwiBox.mFreCoo_flow) annotation (Line(points={
           {-11,5},{-20,5},{-20,-53.2},{-11.2,-53.2}}, color={0,0,127}));
-  connect(pum2.m_flow_actual, floSwiBox.mSpaHea_flow) annotation (Line(points={
+  connect(pum2.m_flow_actual,floSwiBox.mHeaWat_flow)  annotation (Line(points={
           {11,65},{20,65},{20,-34},{-16,-34},{-16,-45.2},{-11.2,-45.2}}, color=
           {0,0,127}));
   connect(setMasFlo2.y[1], gai2.u)

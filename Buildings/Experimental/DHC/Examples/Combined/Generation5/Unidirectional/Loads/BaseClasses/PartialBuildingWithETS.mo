@@ -38,31 +38,29 @@ model PartialBuildingWithETS
     "Heat pump COP at nominal conditions"
     annotation(Dialog(group="ETS model parameters"));
   // IO CONNECTORS
-  Modelica.Blocks.Interfaces.RealInput TSetChiWat
-    "Chilled water set point"
-    annotation (Placement(transformation(
+  Modelica.Blocks.Interfaces.RealInput TChiWatSupSet
+    "Chilled water supply temperature set point" annotation (Placement(
+        transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
-        origin={-160,80}),
-        iconTransformation(
+        origin={-160,80}), iconTransformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-110,40})));
-  Modelica.Blocks.Interfaces.RealInput TSetHeaWat
-    "Heating water set point"
-    annotation (Placement(transformation(
+  Modelica.Blocks.Interfaces.RealInput THeaWatSupSet
+    "Heating water supply temperature set point" annotation (Placement(
+        transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
-        origin={-160,120}),
-        iconTransformation(
+        origin={-160,120}), iconTransformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-110,80})));
 equation
-  connect(TSetHeaWat, ets.TSetHeaWat) annotation (Line(points={{-160,120},{-80,120},
-          {-80,-50},{-32,-50}}, color={0,0,127}));
-  connect(TSetChiWat, ets.TSetChiWat) annotation (Line(points={{-160,80},{-88,80},
-          {-88,-58},{-32,-58}}, color={0,0,127}));
+  connect(THeaWatSupSet, ets.THeaWatSupSet) annotation (Line(points={{-160,120},
+          {-80,120},{-80,-48},{-32,-48}}, color={0,0,127}));
+  connect(TChiWatSupSet, ets.TChiWatSupSet) annotation (Line(points={{-160,80},
+          {-88,80},{-88,-54},{-32,-54}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end PartialBuildingWithETS;

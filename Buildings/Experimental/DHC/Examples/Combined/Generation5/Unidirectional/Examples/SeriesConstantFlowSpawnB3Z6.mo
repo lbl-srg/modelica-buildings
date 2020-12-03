@@ -5,8 +5,7 @@ model SeriesConstantFlowSpawnB3Z6
     final allowFlowReversal=allowFlowReversalDis,
     nBui=3,
     datDes(
-      mCon_flow_nominal={
-        max(bui[i].ets.m1HexChi_flow_nominal, bui[i].ets.mEva_flow_nominal) for i in 1:nBui},
+      mCon_flow_nominal=bui.ets.mDisWat_flow_nominal,
       epsPla=0.935));
   parameter String idfName[nBui] = fill(
     "modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus/Validation/RefBldgSmallOffice/RefBldgSmallOfficeNew2004_Chicago.idf",
@@ -25,8 +24,7 @@ model SeriesConstantFlowSpawnB3Z6
     each final allowFlowReversalBui=false,
     each final allowFlowReversalDis=allowFlowReversalDis)
     annotation (Placement(transformation(extent={{-10,170},{10,190}})));
-  Modelica.Blocks.Sources.Constant massFlowMainPump(
-    k=datDes.mDis_flow_nominal)
+  Modelica.Blocks.Sources.Constant masFloMaiPum(k=datDes.mDis_flow_nominal)
     "Distribution pump mass flow rate"
     annotation (Placement(transformation(extent={{-280,-70},{-260,-50}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetHeaWatSup[nBui](
@@ -40,25 +38,23 @@ model SeriesConstantFlowSpawnB3Z6
   Modelica.Blocks.Sources.Constant TSewWat(k=273.15 + 17)
     "Sewage water temperature"
     annotation (Placement(transformation(extent={{-280,50},{-260,70}})));
-  Modelica.Blocks.Sources.Constant mDisPla_flow(k=datDes.mPla_flow_nominal)
-    "District water flow rate to plant"
+  Modelica.Blocks.Sources.Constant masFloDisPla(k=datDes.mPla_flow_nominal)
+    "District water mass flow rate to plant"
     annotation (Placement(transformation(extent={{-280,10},{-260,30}})));
 equation
-  connect(massFlowMainPump.y, pumDis.m_flow_in) annotation (Line(points={{-259,
-          -60},{60,-60},{60,-60},{68,-60}}, color={0,0,127}));
-  connect(pumSto.m_flow_in, massFlowMainPump.y) annotation (Line(points={{-180,
-          -68},{-180,-60},{-259,-60}}, color={0,0,127}));
-  connect(TSetHeaWatSup.y, bui.TSetHeaWat)
-    annotation (Line(points={{-258,220},{-40,220},{-40,188},{-11,188}},
-                                         color={0,0,127}));
-  connect(TSetChiWatSup.y, bui.TSetChiWat)
-    annotation (Line(points={{-258,180},{-40,180},{-40,184},{-11,184}},
-                                          color={0,0,127}));
+  connect(masFloMaiPum.y, pumDis.m_flow_in) annotation (Line(points={{-259,-60},
+          {60,-60},{60,-60},{68,-60}}, color={0,0,127}));
+  connect(pumSto.m_flow_in, masFloMaiPum.y) annotation (Line(points={{-180,-68},
+          {-180,-60},{-259,-60}}, color={0,0,127}));
+  connect(TSetHeaWatSup.y, bui.THeaWatSupSet) annotation (Line(points={{-258,
+          220},{-40,220},{-40,188},{-11,188}}, color={0,0,127}));
+  connect(TSetChiWatSup.y, bui.TChiWatSupSet) annotation (Line(points={{-258,
+          180},{-40,180},{-40,184},{-11,184}}, color={0,0,127}));
   connect(dis.ports_bCon, bui.port_aDis) annotation (Line(points={{-12,150},{-12,
           160},{-20,160},{-20,180},{-10,180}}, color={0,127,255}));
   connect(bui.port_bDis, dis.ports_aCon) annotation (Line(points={{10,180},{20,180},
           {20,160},{12,160},{12,150}}, color={0,127,255}));
-  connect(mDisPla_flow.y, pla.mPum_flow) annotation (Line(points={{-259,20},{-180,
+  connect(masFloDisPla.y, pla.mPum_flow) annotation (Line(points={{-259,20},{-180,
           20},{-180,4},{-161,4}}, color={0,0,127}));
   connect(TSewWat.y, pla.TSewWat) annotation (Line(points={{-259,60},{-176,60},
           {-176,8},{-161,8}}, color={0,0,127}));

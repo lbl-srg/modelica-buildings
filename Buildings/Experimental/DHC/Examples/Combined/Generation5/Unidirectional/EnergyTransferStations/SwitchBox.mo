@@ -8,6 +8,9 @@ model SwitchBox
       choice(redeclare package Medium =
         Buildings.Media.Antifreeze.PropyleneGlycolWater (
           property_T=293.15, X_a=0.40) "Propylene glycol water, 40% mass fraction")));
+  parameter Boolean have_hotWat = false
+    "Set to true if the ETS supplies domestic hot water"
+    annotation (Evaluate=true);
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal
     "Nominal mass flow rate";
   parameter Modelica.SIunits.PressureDifference dpValve_nominal(
@@ -39,16 +42,20 @@ model SwitchBox
     "Return line inlet port"
     annotation (Placement(transformation(
           extent={{30,90},{50,110}}), iconTransformation(extent={{30,90},{50,110}})));
-  Modelica.Blocks.Interfaces.RealInput mFreCoo_flow(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput mFreCoo_flow(
     final unit="kg/s")
     "Mass flow rate for free cooling"
       annotation (Placement(transformation(extent={{-140,-60},{-100,-20}}),
-       iconTransformation(extent={{-124,-44},{-100,-20}})));
-  Modelica.Blocks.Interfaces.RealInput mSpaHea_flow(
-    final unit="kg/s")
-    "Mass flow rate for space heating"
+       iconTransformation(extent={{-140,-40},{-100,0}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput mHeaWat_flow(
+    final unit="kg/s") "Mass flow rate for heating water production"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
-      iconTransformation(extent={{-124,36},{-100,60}})));
+      iconTransformation(extent={{-140,2},{-100,42}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput mHotWat_flow(
+    final unit="kg/s") if have_hotWat
+    "Mass flow rate for hot water production" annotation (Placement(
+        transformation(extent={{-140,60},{-100,100}}), iconTransformation(
+          extent={{-140,40},{-100,80}})));
   // COMPONENTS
   DHC.EnergyTransferStations.BaseClasses.Junction splSup(
     redeclare package Medium = Medium,
@@ -65,7 +72,7 @@ model SwitchBox
         rotation=90,
         origin={40,0})));
   SwitchBoxController con "Switch box controller"
-    annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
+    annotation (Placement(transformation(extent={{-90,-30},{-70,-10}})));
   Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear valSup(
     redeclare package Medium = Medium,
     dpValve_nominal=dpValve_nominal,
@@ -86,15 +93,20 @@ model SwitchBox
     "Directional valve"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},origin={40,-40},
       rotation=-90)));
+  Modelica.Blocks.Sources.Constant zer(k=0) if not have_hotWat
+    "Replacement variable"
+    annotation (Placement(transformation(extent={{-46,70},{-66,90}})));
+  Controls.OBC.CDL.Continuous.Add add2
+    "Add flow rates for all heating applications"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={-80,20})));
 equation
   connect(port_bSup, splSup.port_2)
     annotation (Line(points={{-40,100},{-40,50}}, color={0,127,255}));
-  connect(mFreCoo_flow, con.mFreCoo_flow)
-    annotation (Line(points={{-120,-40},{-96,-40},{-96,-8},{-92,-8}},
-                                      color={0,0,127}));
-  connect(mSpaHea_flow, con.mSpaHea_flow)
-    annotation (Line(points={{-120,40},{-96,40},{-96,8},{-92,8}},
-                                      color={0,0,127}));
+  connect(mFreCoo_flow, con.mFreCoo_flow) annotation (Line(points={{-120,-40},{-96,
+          -40},{-96,-28},{-92,-28}},
+                                   color={0,0,127}));
   connect(splRet.port_1, port_aRet)
     annotation (Line(points={{40,10},{40,100}}, color={0,127,255}));
   connect(valSup.port_1, splSup.port_1)
@@ -110,14 +122,25 @@ equation
   connect(valSup.port_2, port_aSup) annotation (Line(points={{-40,-10},{-40,-100},{
           -40,-100}}, color={0,127,255}));
   connect(con.m_flow, valSup.y)
-    annotation (Line(points={{-68,0},{-52,0}}, color={0,0,127}));
-  connect(con.m_flow, valRet.y) annotation (Line(points={{-68,0},{-60,0},{-60,-20},
-          {60,-20},{60,-40},{52,-40}}, color={0,0,127}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
-            {100,100}}), graphics={Rectangle(extent={{-100,100},{100,-100}},
-            lineColor={0,0,127}, fillColor={255,255,255},
-          fillPattern=FillPattern.Solid)}),                           Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
+    annotation (Line(points={{-68,-20},{-60,-20},{-60,0},{-52,0}},
+                                               color={0,0,127}));
+  connect(con.m_flow, valRet.y) annotation (Line(points={{-68,-20},{60,-20},{60,
+          -40},{52,-40}},              color={0,0,127}));
+  connect(mHotWat_flow, add2.u1)
+    annotation (Line(points={{-120,80},{-74,80},{-74,32}}, color={0,0,127}));
+  connect(mHeaWat_flow, add2.u2)
+    annotation (Line(points={{-120,40},{-86,40},{-86,32}}, color={0,0,127}));
+  connect(zer.y, add2.u1)
+    annotation (Line(points={{-67,80},{-74,80},{-74,32}}, color={0,0,127}));
+  connect(add2.y, con.mHeaAll_flow) annotation (Line(points={{-80,8},{-80,0},{-96,
+          0},{-96,-12},{-92,-12}}, color={0,0,127}));
+  annotation (
+  defaultComponentName="swiFlo",
+  Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
+    {100,100}}), graphics={Rectangle(extent={{-100,100},{100,-100}},
+    lineColor={0,0,127}, fillColor={255,255,255},
+  fillPattern=FillPattern.Solid)}),                           Diagram(
+  coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
     Documentation(info="<html>
 <p>
 Model that is used to ensure that the substations obtain the supply from
