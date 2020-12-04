@@ -12,11 +12,13 @@ model TrueFalseHold "Validation model for the TrueFalseHold block"
     period=1000,
     width=0.25) "Boolean pulse input signal"
     annotation (Placement(transformation(extent={{-140,20},{-120,40}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol1(trueHoldDuration=1000)
+  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol1(
+    trueHoldDuration=1000)
     "The block introduces a minimal offset between the input signal rising and falling edge"
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul2(
-      shift=0, period=1500) "Boolean pulse input signal"
+    shift=0,
+    period=1500) "Boolean pulse input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-120,0}})));
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol2(trueHoldDuration=1000)
     "The block introduces a minimal offset between the input signal rising and falling edge"

@@ -76,7 +76,7 @@ at sample times (defined by parameter <code>period</code>) and is otherwise
 <p align=\"center\">
 <img src=\"modelica://Buildings/Resources/Images/Controls/OBC/CDL/Logical/Sources/SampleTrigger.png\"
      alt=\"SampleTrigger.png\" />
-     </p>
+</p>
 <p>
 The trigger signal is generated an infinite number of times, and aligned with time <code>time=delay</code>.
 </p>
