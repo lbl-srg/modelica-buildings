@@ -2,6 +2,39 @@ within Buildings.ThermalZones.EnergyPlus;
 package UsersGuide
   "EnergyPlus package user's guide"
   extends Modelica.Icons.Information;
+
+class SupportedOutputVariables "Supported output variables"
+  extends ModelicaReference.Icons.Information;
+
+  annotation (Documentation(info="<html>
+<h4>Overview</h4>
+<p>
+Using the model
+<a href=\"Buildings.ThermalZones.EnergyPlus.OutputVariable\">Buildings.ThermalZones.EnergyPlus.OutputVariable</a>,
+the current values of EnergyPlus output variables can be read into the Modelica model.
+The table below shows all output variables supported by Spawn.
+Which of these are available for a particular model depends on the EnergyPlus
+idf-file. To list the output variables that are available in your model, add the line
+<pre>
+Output:VariableDictionary, IDF;
+</pre>
+to the EnergyPlus idf-file. This will produce an EnergyPlus result data dictionary (rdd) file.
+</p>
+<h4>List of supported output variables</h4>
+<p>
+The table below lists the output variables. The name in the first column
+must be used as the value for the parameter <code>name</code>
+of
+<a href=\"Buildings.ThermalZones.EnergyPlus.OutputVariable\">
+Buildings.ThermalZones.EnergyPlus.OutputVariable</a>.
+</p>
+<table summary=\"Supported output variables\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr><th>OneZoneOneOutputVariable.name</th>       <th>Units in EnergyPlus</th>    <th>Units as received in Modelica</th> </tr>
+<tr><td>varName</td>         <td>degC</td>   <td>K</td>    </tr>
+</table>
+</p>
+  </html>"));
+end SupportedOutputVariables;
   annotation (
     preferredView="info",
     Documentation(

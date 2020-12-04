@@ -16,11 +16,12 @@ import shutil
 def log(msg):
     print(msg)
 
-
+def get_bin_directory():
+    file_path = os.path.dirname(os.path.realpath(__file__))
+    return os.path.abspath(os.path.join(file_path, "..", "..", "..", "..", "Resources", "bin"))
 
 def get_distribution(dis):
-    file_path = os.path.dirname(os.path.realpath(__file__))
-    des_dir=os.path.abspath(os.path.join(file_path, "..", "..", "..", "..", "Resources", "bin", dis['des']))
+    des_dir=os.path.join(get_bin_directory(), dis['des'])
     tar_fil=os.path.basename(dis['src'])
 
     # Download the file
@@ -76,12 +77,26 @@ def get_distribution(dis):
     # Delete the tar.gz file
     os.remove(tar_fil)
 
+def get_output_vars_as_json():
+    """ Return a json structure that contains the output variables supported by spawn
+    """
+    import os
+    import subprocess
+    import json
+
+    bin_dir = get_bin_directory()
+    spawn = os.path.join(bin_dir, "spawn-linux64", "bin", "spawn")
+
+    ret = subprocess.run([spawn, '--output-vars'], stdout=subprocess.PIPE, check=True)
+    vars = json.loads(ret.stdout)
+    print(f"****** {vars}")
+
 
 if __name__ == "__main__":
     # Commit, see https://gitlab.com/kylebenne/spawn/-/pipelines?scope=all&page=1
     # Also available is latest/Spawn-latest-{Linux,win64,Darwin}
     # The setup below lead to a specific commit being pulled.
-    commit = "1ad59a6dbf"
+    commit = "b3b0091383"
     name_version = f"Spawn-0.0.1-{commit}"
 
     dists = list()
@@ -109,4 +124,5 @@ if __name__ == "__main__":
     )
 
     p = Pool(2)
-    p.map(get_distribution, dists)
+    #fixme p.map(get_distribution, dists)
+    get_output_vars_as_json()
