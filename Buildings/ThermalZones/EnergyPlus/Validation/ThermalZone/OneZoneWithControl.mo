@@ -32,8 +32,7 @@ model OneZoneWithControl
     annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
   Controls.OBC.CDL.Continuous.Sources.Pulse TSet(
     shift(
-      displayUnit="h") =
-                       21600,
+      displayUnit="h")=21600,
     amplitude=6,
     period(
       displayUnit="d")=86400,
@@ -77,8 +76,7 @@ model OneZoneWithControl
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
   Controls.OBC.CDL.Continuous.Sources.Pulse nPer(
     shift(
-      displayUnit="h") =
-                       25200,
+      displayUnit="h")=25200,
     period(
       displayUnit="d")=86400,
     amplitude=2)

@@ -17,7 +17,8 @@ model SampleTrigger "Validation model for the SampleTrigger block"
     annotation (Placement(transformation(extent={{20,60},{40,80}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.SampleTrigger samTri1(
-    period=0.5, shift=1.3)
+    period=0.5,
+    shift=1.3)
     "Block that generates sample trigger signal"
     annotation (Placement(transformation(extent={{-30,-80},{-10,-60}})));
 

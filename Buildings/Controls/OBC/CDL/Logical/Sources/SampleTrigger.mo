@@ -77,9 +77,8 @@ at sample times (defined by parameter <code>period</code>) and is otherwise
 <img src=\"modelica://Buildings/Resources/Images/Controls/OBC/CDL/Logical/Sources/SampleTrigger.png\"
      alt=\"SampleTrigger.png\" />
      </p>
-     
 <p>
-The trigger signal is generated an infinite number of times before and after <code>time=shift</code>, with one trigger aligned with time <code>time=shift</code>.
+The trigger signal is generated an infinite number of times, and aligned with time <code>time=delay</code>.
 </p>
 </html>", revisions="<html>
 <ul>

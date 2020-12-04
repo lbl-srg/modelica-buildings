@@ -18,7 +18,8 @@ model SampleTriggerPositiveStartTime
     annotation (Placement(transformation(extent={{20,60},{40,80}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.SampleTrigger samTri1(
-    period=0.5, shift=0.3)
+    period=0.5,
+    shift=0.3)
     "Block that generates sample trigger signal"
     annotation (Placement(transformation(extent={{-30,-80},{-10,-60}})));
 
@@ -28,7 +29,8 @@ model SampleTriggerPositiveStartTime
     height=20) "Block that generates ramp signal"
     annotation (Placement(transformation(extent={{-30,-40},{-10,-20}})));
 
-  Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triggeredSampler1(y_start=-2)
+  Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triggeredSampler1(
+    y_start=-2)
     "Triggered sampler"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
 
