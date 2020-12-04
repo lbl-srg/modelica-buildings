@@ -7,21 +7,11 @@ convertClear();
 
 // Conversion for https://github.com/lbl-srg/modelica-buildings/issues/2282
 convertElement("Buildings.Controls.OBC.CDL.Logical.Sources.SampleTrigger",
-                "delay", "shift");
+                "startTime", "shift");
 convertElement("Buildings.Controls.OBC.CDL.Logical.Sources.Pulse",
-                "delay", "shift");
-convertElement("Buildings.Controls.OBC.CDL.Integers.Sources.Pulse",
-                "delay", "shift");
+                "startTime", "shift");
 convertElement("Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse",
-                "delay", "shift");
-
-// Conversion for https://github.com/lbl-srg/modelica-buildings/issues/2170
-convertElement("Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse",
-                "startTime", "delay");
-convertElement("Buildings.Controls.OBC.CDL.Logical.Sources.Pulse",
-                "startTime", "delay");
-convertElement("Buildings.Controls.OBC.CDL.Logical.Sources.SampleTrigger",
-                "startTime", "delay");
+                "startTime", "shift");
 
 // Conversion for https://github.com/lbl-srg/modelica-buildings/issues/2134
 convertClass("Buildings.Controls.OBC.CDL.Continuous.HysteresisWithHold",
@@ -70,9 +60,6 @@ convertElement(
 convertElement(
     "Buildings.Controls.OBC.CDL.Integers.LessThreshold",
     "threshold", "t");
-convertElement(
-    "Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse",
-    "nperiod", "nPeriod");
 
 // Conversion for https://github.com/lbl-srg/modelica-buildings/issues/2124
 convertClass("Buildings.Controls.OBC.CDL.Continuous.Validation.NumberOfRequests",
