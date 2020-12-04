@@ -19,7 +19,7 @@ model BuildingTimeSeries
     "Heating terminal unit scaling factor";
   parameter Real facScaCoo=40
     "Cooling terminal unit scaling factor";
-  parameter Modelica.SIunits.Temperature T_aHeaWat_nominal=273.15+40
+  parameter Modelica.SIunits.Temperature T_aHeaWat_nominal=273.15 + 40
     "Heating water inlet temperature at nominal conditions"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.Temperature T_bHeaWat_nominal(
@@ -27,7 +27,7 @@ model BuildingTimeSeries
     displayUnit="degC")=T_aHeaWat_nominal-5
     "Heating water outlet temperature at nominal conditions"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Temperature T_aChiWat_nominal=273.15+18
+  parameter Modelica.SIunits.Temperature T_aChiWat_nominal=273.15 + 18
     "Chilled water inlet temperature at nominal conditions "
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.Temperature T_bChiWat_nominal(
@@ -35,17 +35,17 @@ model BuildingTimeSeries
     displayUnit="degC")=T_aChiWat_nominal+5
     "Chilled water outlet temperature at nominal conditions"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Temperature T_aLoaHea_nominal=273.15+20
+  parameter Modelica.SIunits.Temperature T_aLoaHea_nominal=273.15 + 20
     "Load side inlet temperature at nominal conditions in heating mode"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Temperature T_aLoaCoo_nominal=273.15+24
+  parameter Modelica.SIunits.Temperature T_aLoaCoo_nominal=273.15 + 24
     "Load side inlet temperature at nominal conditions in cooling mode"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.MassFlowRate mLoaHea_flow_nominal=1
-    "Load side mass flow rate at nominal conditions in heating mode"
+  parameter Modelica.SIunits.MassFlowRate mLoaHeaUni_flow_nominal=1
+    "Load side mass flow rate at nominal conditions in heating mode (one unit)"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.MassFlowRate mLoaCoo_flow_nominal=1
-    "Load side mass flow rate at nominal conditions in cooling mode"
+  parameter Modelica.SIunits.MassFlowRate mLoaCooUni_flow_nominal=1
+    "Load side mass flow rate at nominal conditions in cooling mode (one unit)"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.HeatFlowRate QCoo_flow_nominal(
     max=-Modelica.Constants.eps)=Buildings.Experimental.DHC.Loads.BaseClasses.getPeakLoad(
@@ -113,8 +113,8 @@ model BuildingTimeSeries
     redeclare final package Medium2=Medium2,
     final facSca=facScaHea,
     final QHea_flow_nominal=QHea_flow_nominal/facScaHea,
-    final mHeaWat_flow_nominal=mHeaWat_flow_nominal,
-    final mLoaHea_flow_nominal=mLoaHea_flow_nominal,
+    final mHeaWat_flow_nominal=mHeaWat_flow_nominal/facScaHea,
+    final mLoaHea_flow_nominal=mLoaHeaUni_flow_nominal,
     final T_aHeaWat_nominal=T_aHeaWat_nominal,
     final T_bHeaWat_nominal=T_bHeaWat_nominal,
     final T_aLoaHea_nominal=T_aLoaHea_nominal,
@@ -151,8 +151,8 @@ model BuildingTimeSeries
     final facSca=facScaCoo,
     final QHea_flow_nominal=QHea_flow_nominal/facScaHea,
     final QCoo_flow_nominal=QCoo_flow_nominal/facScaCoo,
-    final mChiWat_flow_nominal=mChiWat_flow_nominal,
-    final mLoaCoo_flow_nominal=mLoaCoo_flow_nominal,
+    final mChiWat_flow_nominal=mChiWat_flow_nominal/facScaCoo,
+    final mLoaCoo_flow_nominal=mLoaCooUni_flow_nominal,
     final T_aHeaWat_nominal=T_aHeaWat_nominal,
     final T_aChiWat_nominal=T_aChiWat_nominal,
     final T_bHeaWat_nominal=T_bHeaWat_nominal,
