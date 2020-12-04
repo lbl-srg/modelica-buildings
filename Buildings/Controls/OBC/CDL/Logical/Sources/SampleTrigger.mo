@@ -4,10 +4,10 @@ block SampleTrigger "Generate sample trigger signal"
     final quantity="Time",
     final unit="s",
     final min=Constants.small) "Sample period";
-  parameter Real delay(
+  parameter Real shift(
     final quantity="Time",
     final unit="s")=0
-    "Delay time for output";
+    "shift time for output";
   Interfaces.BooleanOutput y  "Connector of Boolean output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
@@ -19,10 +19,12 @@ protected
     "First sample time instant";
 
 initial equation
-  t0 = time;
+  t0 = Buildings.Utilities.Math.Functions.round(
+         x = integer((time)/period)*period+mod(shift, period),
+         n = 6);
 
 equation
-  y = sample(t0 + delay, period);
+  y = sample(t0, period);
   annotation (
     defaultComponentName="samTri",
     Icon(coordinateSystem(
@@ -74,12 +76,19 @@ at sample times (defined by parameter <code>period</code>) and is otherwise
 <p align=\"center\">
 <img src=\"modelica://Buildings/Resources/Images/Controls/OBC/CDL/Logical/Sources/SampleTrigger.png\"
      alt=\"SampleTrigger.png\" />
-</p>
+     </p>
+     
 <p>
-The trigger signal is generated an infinite number of times, and aligned with time <code>time=delay</code>.
+The trigger signal is generated an infinite number of times before and after <code>time=shift</code>, with one trigger aligned with time <code>time=shift</code>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 03, 2020, by Milica Grahovac:<br/>
+Renamed <code>delay</code> parameter to <code>shift</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2282\">issue 2282</a>.
+</li>
 <li>
 November 12, 2020, by Michael Wetter:<br/>
 Reformulated to remove dependency to <code>Modelica.SIunits</code>.<br/>

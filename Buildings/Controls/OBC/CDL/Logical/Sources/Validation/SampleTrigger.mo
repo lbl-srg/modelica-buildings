@@ -17,8 +17,7 @@ model SampleTrigger "Validation model for the SampleTrigger block"
     annotation (Placement(transformation(extent={{20,60},{40,80}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.SampleTrigger samTri1(
-    period=0.5,
-    delay=2)
+    period=0.5, shift=1.3)
     "Block that generates sample trigger signal"
     annotation (Placement(transformation(extent={{-30,-80},{-10,-60}})));
 
@@ -55,7 +54,7 @@ Buildings.Controls.OBC.CDL.Logical.Sources.SampleTrigger</a>.
 <ul>
 <li>
 December 03, 2020, by Milica Grahovac:<br/>
-Added a test case with a <code>delay</code> parameter set to a value larger than zero.
+Added a test case with a <code>shift</code> parameter set to a value larger than zero.
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2282\">#2282</a>.
 </li>
