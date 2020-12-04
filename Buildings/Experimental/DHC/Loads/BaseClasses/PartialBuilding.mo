@@ -3,9 +3,11 @@ partial model PartialBuilding
   "Partial class for building model"
   replaceable package Medium=Modelica.Media.Interfaces.PartialMedium
     "Source side medium (heating or chilled water)"
-    annotation (choices(choice(redeclare package Medium=Buildings.Media.Water "Water"),choice(redeclare
-          package
-              Medium=Buildings.Media.Antifreeze.PropyleneGlycolWater (
+    annotation (
+      choices(
+        choice(redeclare package Medium=Buildings.Media.Water "Water"),
+        choice(redeclare package Medium=
+            Buildings.Media.Antifreeze.PropyleneGlycolWater (
         property_T=293.15,X_a=0.40) "Propylene glycol water, 40% mass fraction")));
   parameter Integer nPorts_aHeaWat=0
     "Number of heating water inlet ports"

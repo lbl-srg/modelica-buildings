@@ -229,7 +229,7 @@ model ETSSimplified
   Buildings.Fluid.Sensors.MassFlowRate senMasFloHeaWat(
     redeclare final package Medium = MediumBui,
     final allowFlowReversal=allowFlowReversalBui)
-    "Heating water mass flow rate (measured)"
+    "Heating water mass flow rate"
     annotation (Placement(transformation(extent={{-290,270},{-270,250}})));
   Buildings.Fluid.Delays.DelayFirstOrder volChiWat(
     redeclare final package Medium = MediumBui,
@@ -248,7 +248,7 @@ model ETSSimplified
   Buildings.Fluid.Sensors.MassFlowRate senMasFloChiWat(
     redeclare final package Medium = MediumBui,
     final allowFlowReversal=allowFlowReversalBui)
-    "Chilled water mass flow rate (measured)"
+    "Chilled water mass flow rate"
     annotation (Placement(transformation(extent={{-250,-110},{-230,-130}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold have_reqCoo(
     t=0.01 * mChiWat_flow_nominal)
@@ -281,8 +281,8 @@ model ETSSimplified
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
       rotation=-90,
       origin={100,150})));
-  Buildings.Fluid.Sources.Boundary_pT bouChiWat(redeclare final package Medium =
-        MediumBui, nPorts=1)
+  Buildings.Fluid.Sources.Boundary_pT bouChiWat(redeclare final package Medium
+      = MediumBui, nPorts=1)
     "Pressure boundary condition representing the expansion vessel"
     annotation (Placement(transformation(extent={{-162,-290},{-142,-270}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiSum PPumCooTot(nin=2)
@@ -466,6 +466,10 @@ model ETSSimplified
   Controls.OBC.CDL.Continuous.Add delT(final k2=-1) if have_hotWat
     "Compute DeltaT"
     annotation (Placement(transformation(extent={{-140,-30},{-120,-10}})));
+  Fluid.Sensors.MassFlowRate senMasFloHeaWatPri(redeclare final package Medium
+      = MediumBui, final allowFlowReversal=allowFlowReversalBui)
+    "Primary heating water mass flow rate"
+    annotation (Placement(transformation(extent={{40,270},{60,250}})));
 equation
   connect(senMasFloHeaWat.m_flow, have_reqHea.u) annotation (Line(points={{-280,
           249},{-280,220},{-262,220}}, color={0,0,127}));
@@ -568,8 +572,6 @@ equation
           {-170,-160},{-152,-160}}, color={255,0,255}));
   connect(enaCoo.y, conTChiWat.uEna) annotation (Line(points={{-178,-180},{-170,
           -180},{-170,-220},{-144,-220},{-144,-212}}, color={255,0,255}));
-  connect(heaPum.port_b1, bypHeaWatSup.port_1) annotation (Line(points={{
-          -10,220},{-20,220},{-20,260},{130,260}}, color={0,127,255}));
   connect(volHeaWatRet.ports[3], heaPum.port_a1) annotation (Line(points={{120,
           182.667},{120,180},{-20,180},{-20,208},{-10,208}},      color={0,127,255}));
   connect(heaPum.port_b2, volMixDis_b.ports[3]) annotation (Line(points={{10,220},
@@ -652,6 +654,10 @@ equation
           -26},{-142,-26}}, color={0,0,127}));
   connect(THotWatSupSet, delT.u1) annotation (Line(points={{-320,0},{-150,0},{-150,
           -14},{-142,-14}}, color={0,0,127}));
+  connect(heaPum.port_b1, senMasFloHeaWatPri.port_a) annotation (Line(points={{
+          -10,220},{-20,220},{-20,260},{40,260}}, color={0,127,255}));
+  connect(senMasFloHeaWatPri.port_b, bypHeaWatSup.port_1)
+    annotation (Line(points={{60,260},{130,260}}, color={0,127,255}));
   annotation (
   defaultComponentName="ets",
   Documentation(info="<html>
