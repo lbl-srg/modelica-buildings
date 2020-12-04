@@ -3,7 +3,10 @@ model BuildingRCZ1WithETS
   "Model of a building (RC 1 zone) with an energy transfer station"
   extends BaseClasses.PartialBuildingWithETS(
     redeclare DHC.Loads.Examples.BaseClasses.BuildingRCZ1Valve bui,
-    ets(have_hotWat=false));
+    ets(
+      have_hotWat=false,
+      QChiWat_flow_nominal=bui.terUni.QCoo_flow_nominal,
+      QHeaWat_flow_nominal=bui.terUni.QHea_flow_nominal));
 
   annotation (Line(
       points={{-1,100},{0.1,100},{0.1,59.4}},

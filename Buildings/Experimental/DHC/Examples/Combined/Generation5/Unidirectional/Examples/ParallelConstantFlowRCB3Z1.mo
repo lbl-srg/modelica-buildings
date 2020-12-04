@@ -62,15 +62,17 @@ equation
       thickness=0.5));
   end for;
   connect(masFloDisPla.y, pla.mPum_flow) annotation (Line(points={{-259,20},{-180,
-          20},{-180,4},{-161,4}}, color={0,0,127}));
-  connect(TSewWat.y, pla.TSewWat) annotation (Line(points={{-259,60},{-176,60},
-          {-176,8},{-161,8}}, color={0,0,127}));
+          20},{-180,4},{-162,4}}, color={0,0,127}));
+  connect(TSewWat.y, pla.TSewWat) annotation (Line(points={{-259,60},{-176,60},{
+          -176,8},{-162,8}},  color={0,0,127}));
   connect(dis.port_bDisSup, dis.port_aDisRet) annotation (Line(points={{20,140},
           {40,140},{40,134},{20,134}}, color={0,127,255}));
   annotation (
   Diagram(
   coordinateSystem(preserveAspectRatio=false, extent={{-360,-260},{360,260}})),
-  __Dymola_Commands,
+    __Dymola_Commands(
+  file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Examples/Combined/Generation5/Unidirectional/Examples/ParallelConstantFlowRCB3Z1.mos"
+  "Simulate and plot"),
   experiment(
     StopTime=604800,
     Tolerance=1e-06));

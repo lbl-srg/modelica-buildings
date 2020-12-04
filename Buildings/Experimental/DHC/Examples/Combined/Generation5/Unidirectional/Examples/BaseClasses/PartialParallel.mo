@@ -96,13 +96,29 @@ partial model PartialParallel "Partial model for parallel network"
     final dpDis_nominal=datDes.dpPla_nominal,
     final epsHex=datDes.epsPla) "Sewage heat recovery plant"
     annotation (Placement(transformation(extent={{-160,-10},{-140,10}})));
+  Fluid.Sensors.TemperatureTwoPort TDisWatSup(
+    redeclare final package Medium=Medium,
+    final m_flow_nominal=datDes.mDis_flow_nominal)
+    "District water supply temperature"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={-80,20})));
+  Fluid.Sensors.TemperatureTwoPort TDisWatRet(redeclare final package Medium =
+        Medium, final m_flow_nominal=datDes.mDis_flow_nominal)
+    "District water return temperature" annotation (Placement(transformation(
+        extent={{10,10},{-10,-10}},
+        rotation=90,
+        origin={-40,20})));
+  Fluid.Sensors.TemperatureTwoPort TDisWatBorLvg(redeclare final package Medium
+      = Medium, final m_flow_nominal=datDes.mDis_flow_nominal)
+    "District water borefield leaving temperature" annotation (Placement(
+        transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={-80,-40})));
 equation
   connect(bou.ports[1], pumDis.port_a)
     annotation (Line(points={{102,-20},{80,-20},{80,-50}}, color={0,127,255}));
-  connect(conPla.port_bDis, dis.port_aDisSup)
-    annotation (Line(points={{-80,0},{-80,140},{-20,140}}, color={0,127,255}));
-  connect(conSto.port_bDis, conPla.port_aDis)
-    annotation (Line(points={{-80,-80},{-80,-20}}, color={0,127,255}));
   connect(borFie.port_b, conSto.port_aCon) annotation (Line(points={{-120,-80},
           {-100,-80},{-100,-84},{-90,-84}}, color={0,127,255}));
   connect(pumDis.port_b, conSto.port_aDis) annotation (Line(points={{80,-70},{
@@ -116,8 +132,18 @@ equation
   connect(conSto.port_bCon, pumSto.port_a) annotation (Line(points={{-90,-90},{
           -100,-90},{-100,-100},{-200,-100},{-200,-80},{-190,-80}}, color={0,
           127,255}));
-  connect(dis.port_bDisRet, pumDis.port_a) annotation (Line(points={{-20,134},{
-          -40,134},{-40,0},{80,0},{80,-50}}, color={0,127,255}));
+  connect(conPla.port_bDis, TDisWatSup.port_a)
+    annotation (Line(points={{-80,0},{-80,10}}, color={0,127,255}));
+  connect(TDisWatSup.port_b, dis.port_aDisSup) annotation (Line(points={{-80,30},
+          {-80,140},{-20,140}}, color={0,127,255}));
+  connect(dis.port_bDisRet, TDisWatRet.port_a) annotation (Line(points={{-20,
+          134},{-40,134},{-40,30}}, color={0,127,255}));
+  connect(TDisWatRet.port_b, pumDis.port_a) annotation (Line(points={{-40,10},{
+          -40,0},{80,0},{80,-50}}, color={0,127,255}));
+  connect(conSto.port_bDis, TDisWatBorLvg.port_a)
+    annotation (Line(points={{-80,-80},{-80,-50}}, color={0,127,255}));
+  connect(TDisWatBorLvg.port_b, conPla.port_aDis)
+    annotation (Line(points={{-80,-30},{-80,-20}}, color={0,127,255}));
   annotation (Diagram(
     coordinateSystem(preserveAspectRatio=false, extent={{-360,-260},{360,260}})),
     experiment(StopTime=31536000, __Dymola_NumberOfIntervals=8760));

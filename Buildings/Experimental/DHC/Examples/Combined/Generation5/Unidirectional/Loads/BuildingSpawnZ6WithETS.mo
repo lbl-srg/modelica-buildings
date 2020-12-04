@@ -3,7 +3,11 @@ model BuildingSpawnZ6WithETS
   "Model of a building (Spawn 6 zones) with an energy transfer station"
   extends BaseClasses.PartialBuildingWithETS(
     redeclare DHC.Loads.Examples.BaseClasses.BuildingSpawnZ6 bui(
-      final idfName=idfName, final weaName=weaName));
+      final idfName=idfName, final weaName=weaName),
+    ets(
+      have_hotWat=false,
+      QChiWat_flow_nominal=sum(bui.terUni.QCoo_flow_nominal),
+      QHeaWat_flow_nominal=sum(bui.terUni.QHea_flow_nominal)));
   parameter String idfName=
     "modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus/Validation/RefBldgSmallOffice/RefBldgSmallOfficeNew2004_Chicago.idf"
     "Name of the IDF file"

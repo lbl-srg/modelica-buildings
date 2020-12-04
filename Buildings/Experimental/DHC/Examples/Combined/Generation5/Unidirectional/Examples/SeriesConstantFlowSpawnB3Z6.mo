@@ -55,9 +55,9 @@ equation
   connect(bui.port_bDis, dis.ports_aCon) annotation (Line(points={{10,180},{20,180},
           {20,160},{12,160},{12,150}}, color={0,127,255}));
   connect(masFloDisPla.y, pla.mPum_flow) annotation (Line(points={{-259,20},{-180,
-          20},{-180,4},{-161,4}}, color={0,0,127}));
-  connect(TSewWat.y, pla.TSewWat) annotation (Line(points={{-259,60},{-176,60},
-          {-176,8},{-161,8}}, color={0,0,127}));
+          20},{-180,4},{-162,4}}, color={0,0,127}));
+  connect(TSewWat.y, pla.TSewWat) annotation (Line(points={{-259,60},{-176,60},{
+          -176,8},{-162,8}},  color={0,0,127}));
   annotation (
   Diagram(
   coordinateSystem(preserveAspectRatio=false, extent={{-360,-260},{360,260}}),
@@ -67,10 +67,12 @@ equation
       lineColor={28,108,200},
       horizontalAlignment=TextAlignment.Left,
           textString="Simulation requires the first setting and is faster with the  second one
-
+          
 Hidden.AvoidDoubleComputation=true;
 Advanced.SparseActivate=true")}),
-  __Dymola_Commands,
+    __Dymola_Commands(
+  file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Examples/Combined/Generation5/Unidirectional/Examples/SeriesConstantFlowSpawnB3Z6.mos"
+  "Simulate and plot"),
   experiment(
     StopTime=604800,
     Tolerance=1e-06));

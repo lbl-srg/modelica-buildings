@@ -8,13 +8,13 @@ model BuildingTimeSeries
     final have_eleHea=false,
     final have_eleCoo=false,
     final have_weaBus=false);
-  package Medium2=Buildings.Media.Air
-    "Load side medium";
-  parameter String filNam
-    "File name with thermal loads as time series";
   parameter Boolean have_hotWat = false
     "Set to true if SHW load is included in the time series"
     annotation (Evaluate=true);
+  replaceable package Medium2=Buildings.Media.Air
+    "Load side medium";
+  parameter String filNam
+    "File name with thermal loads as time series";
   parameter Real facScaHea=10
     "Heating terminal unit scaling factor";
   parameter Real facScaCoo=40

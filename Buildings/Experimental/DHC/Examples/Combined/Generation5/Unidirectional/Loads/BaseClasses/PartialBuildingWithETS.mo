@@ -10,10 +10,7 @@ model PartialBuildingWithETS
       final THeaWatSup_nominal=THeaWatSup_nominal,
       final THeaWatRet_nominal=THeaWatRet_nominal,
       final dp_nominal=dp_nominal,
-      final COP_nominal=COP_nominal,
-      QChiWat_flow_nominal=sum(bui.terUni.QCoo_flow_nominal),
-      QHeaWat_flow_nominal=sum(bui.terUni.QHea_flow_nominal)));
-
+      final COP_nominal=COP_nominal));
   parameter Modelica.SIunits.TemperatureDifference dT_nominal(min=0)=5
     "Water temperature drop/increase accross load and source-side HX (always positive)"
     annotation(Dialog(group="ETS model parameters"));
@@ -58,9 +55,9 @@ model PartialBuildingWithETS
         origin={-110,80})));
 equation
   connect(THeaWatSupSet, ets.THeaWatSupSet) annotation (Line(points={{-160,120},
-          {-80,120},{-80,-48},{-32,-48}}, color={0,0,127}));
-  connect(TChiWatSupSet, ets.TChiWatSupSet) annotation (Line(points={{-160,80},
-          {-88,80},{-88,-54},{-32,-54}}, color={0,0,127}));
+          {-80,120},{-80,-46},{-34,-46}}, color={0,0,127}));
+  connect(TChiWatSupSet, ets.TChiWatSupSet) annotation (Line(points={{-160,80},{
+          -88,80},{-88,-52},{-34,-52}},  color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end PartialBuildingWithETS;

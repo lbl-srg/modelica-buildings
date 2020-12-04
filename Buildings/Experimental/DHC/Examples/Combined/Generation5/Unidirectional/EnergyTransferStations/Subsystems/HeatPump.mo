@@ -13,6 +13,9 @@ model HeatPump
     choice(redeclare package Medium =
       Buildings.Media.Antifreeze.PropyleneGlycolWater (property_T=293.15,X_a=0.40)
     "Propylene glycol water, 40% mass fraction")));
+  parameter Boolean have_pumCon = true
+    "Set to true to include a condenser pump"
+    annotation(Evaluate=true);
   parameter Real COP_nominal(final unit="1") = 5
     "Heat pump COP"
     annotation (Dialog(group="Nominal conditions"));
@@ -116,7 +119,7 @@ model HeatPump
   DHC.EnergyTransferStations.BaseClasses.Pump_m_flow pumCon(
     redeclare final package Medium = Medium1,
     final m_flow_nominal=m1_flow_nominal,
-    final allowFlowReversal=allowFlowReversal1)
+    final allowFlowReversal=allowFlowReversal1) if have_pumCon
     "Heat pump condenser water pump"
     annotation (Placement(transformation(extent={{-70,-70},{-50,-50}})));
   Controls.OBC.CDL.Continuous.Gain gai(k=m1_flow_nominal)
@@ -151,8 +154,11 @@ model HeatPump
     "Evaporator water mass flow rate" annotation (Placement(transformation(
           extent={{200,-60},{240,-20}}), iconTransformation(extent={{100,-50},{
             140,-10}})));
-  Controls.OBC.CDL.Continuous.Add           add2 "Adder"
+  Controls.OBC.CDL.Continuous.Add add2 "Adder"
     annotation (Placement(transformation(extent={{140,-10},{160,10}})));
+  Modelica.Blocks.Sources.Constant zer(final k=0) if not have_pumCon
+    "Replacement variable"
+    annotation (Placement(transformation(extent={{80,-110},{100,-90}})));
 equation
   connect(booToRea.y,gai. u)
     annotation (Line(points={{-118,100},{-110,100},{-110,120},{-102,120}},
@@ -168,9 +174,6 @@ equation
                                                    color={0,127,255}));
   connect(heaPum.port_b1,senTConLvg. port_a) annotation (Line(points={{20,-8},{40,
           -8},{40,10}},                        color={0,127,255}));
-  connect(pumCon.port_b,senTConEnt. port_a)
-    annotation (Line(points={{-50,-60},{-40,-60},{-40,-30}},
-                                                 color={0,127,255}));
   connect(senTConEnt.port_b,heaPum. port_a1) annotation (Line(points={{-40,-10},
           {-40,-8},{0,-8}},            color={0,127,255}));
   connect(senTConEnt.T,enaHeaPum. u3) annotation (Line(points={{-51,-20},{-150,-20},
@@ -199,8 +202,19 @@ equation
           220,40}}, color={0,0,127}));
   connect(pumCon.P, add2.u2) annotation (Line(points={{-49,-51},{0,-51},{0,-80},
           {120,-80},{120,-6},{138,-6}}, color={0,0,127}));
-  connect(pumEva.P, add2.u1) annotation (Line(points={{49,-51},{48,-51},{48,6},{
+  connect(pumEva.P, add2.u1) annotation (Line(points={{49,-51},{46,-51},{46,6},{
           138,6}}, color={0,0,127}));
+  connect(port_a1, port_a1)
+    annotation (Line(points={{-200,-60},{-200,-60}}, color={0,127,255}));
+  connect(pumCon.port_b, senTConEnt.port_a) annotation (Line(points={{-50,-60},{
+          -40,-60},{-40,-30}}, color={0,127,255}));
+  connect(zer.y, add2.u2) annotation (Line(points={{101,-100},{120,-100},{120,-6},
+          {138,-6}}, color={0,0,127}));
+  if not have_pumCon then
+    connect(port_a1, senTConEnt.port_a)
+      annotation (Line(points={{-200,-60},{-80,-60},
+        {-80,-80},{-40,-80},{-40,-30}}, color={0,127,255}));
+  end if;
   annotation (
   defaultComponentName="heaPum",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={

@@ -7,26 +7,26 @@ model BuildingTimeSeriesWithETS
       have_hotWat=true),
     ets(
       have_hotWat=true,
-      QChiWat_flow_nominal=QChi_flow_nominal,
+      QChiWat_flow_nominal=QCoo_flow_nominal,
       QHeaWat_flow_nominal=QHea_flow_nominal,
       QHotWat_flow_nominal=QHot_flow_nominal));
-  parameter Modelica.SIunits.HeatFlowRate QChi_flow_nominal(
+  parameter Modelica.SIunits.HeatFlowRate QCoo_flow_nominal(
     max=-Modelica.Constants.eps)=DHC.Loads.BaseClasses.getPeakLoad(
     string="#Peak space cooling load",
     filNam=Modelica.Utilities.Files.loadResource(filNam))
-    "Design cooling heat flow rate (<=0)"
+    "Space cooling design load (<=0)"
     annotation (Dialog(group="Design parameter"));
   parameter Modelica.SIunits.HeatFlowRate QHea_flow_nominal(
     min=Modelica.Constants.eps)=DHC.Loads.BaseClasses.getPeakLoad(
     string="#Peak space heating load",
     filNam=Modelica.Utilities.Files.loadResource(filNam))
-    "Design heating heat flow rate (>=0)"
+    "Space heating design load (>=0)"
     annotation (Dialog(group="Design parameter"));
   parameter Modelica.SIunits.HeatFlowRate QHot_flow_nominal(
     min=Modelica.Constants.eps)=DHC.Loads.BaseClasses.getPeakLoad(
     string="#Peak water heating load",
     filNam=Modelica.Utilities.Files.loadResource(filNam))
-    "Design heating heat flow rate (>=0)"
+    "Hot water design load (>=0)"
     annotation (Dialog(group="Design parameter"));
   parameter String filNam
     "Library path of the file with thermal loads as time series";
@@ -48,12 +48,12 @@ model BuildingTimeSeriesWithETS
         rotation=0,
         origin={-110,-80})));
 equation
-  connect(bui.QReqHotWat_flow, ets.loaSHW) annotation (Line(points={{14,6},{14,
-          -4},{-64,-4},{-64,-72},{-32,-72}}, color={0,0,127}));
+  connect(bui.QReqHotWat_flow, ets.loaSHW) annotation (Line(points={{14,6},{14,-4},
+          {-64,-4},{-64,-70},{-34,-70}},     color={0,0,127}));
   connect(THotWatSupSet, ets.THotWatSupSet) annotation (Line(points={{-160,-40},
-          {-100,-40},{-100,-60},{-32,-60}}, color={0,0,127}));
-  connect(TColWat, ets.TColWat) annotation (Line(points={{-160,-80},{-130,-80},
-          {-130,-66},{-32,-66}}, color={0,0,127}));
+          {-100,-40},{-100,-58},{-34,-58}}, color={0,0,127}));
+  connect(TColWat, ets.TColWat) annotation (Line(points={{-160,-80},{-130,-80},{
+          -130,-64},{-34,-64}},  color={0,0,127}));
   annotation (Line(
       points={{-1,100},{0.1,100},{0.1,71.4}},
       color={255,204,51},

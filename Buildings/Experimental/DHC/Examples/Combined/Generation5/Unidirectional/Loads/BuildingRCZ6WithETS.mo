@@ -2,7 +2,11 @@ within Buildings.Experimental.DHC.Examples.Combined.Generation5.Unidirectional.L
 model BuildingRCZ6WithETS
   "Model of a building (RC 6 zones) with an energy transfer station"
   extends BaseClasses.PartialBuildingWithETS(
-    redeclare DHC.Loads.Examples.BaseClasses.BuildingRCZ6 bui);
+    redeclare DHC.Loads.Examples.BaseClasses.BuildingRCZ6 bui,
+    ets(
+      have_hotWat=false,
+      QChiWat_flow_nominal=sum(bui.terUni.QCoo_flow_nominal),
+      QHeaWat_flow_nominal=sum(bui.terUni.QHea_flow_nominal)));
   annotation (Line(
       points={{-1,100},{0.1,100},{0.1,59.4}},
       color={255,204,51},

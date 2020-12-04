@@ -34,7 +34,7 @@ model SewageHeatRecovery "Model for sewage heat recovery plant"
     h_outflow(start=Medium.h_default, nominal=Medium.h_default))
     "District water outlet port" annotation (Placement(transformation(extent={{90,
             -10},{110,10}}), iconTransformation(extent={{90,-10},{110,10}})));
-  Modelica.Blocks.Interfaces.RealInput TSewWat(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSewWat(
     final unit="K",
     displayUnit="degC")
     "Sewage water temperature"
@@ -42,19 +42,24 @@ model SewageHeatRecovery "Model for sewage heat recovery plant"
         extent={{-20,-20},{20,20}},
         rotation=0,
         origin={-120,80}),  iconTransformation(
-        extent={{-10,-10},{10,10}},
+        extent={{-20,-20},{20,20}},
         rotation=0,
-        origin={-110,80})));
-  Modelica.Blocks.Interfaces.RealInput mPum_flow(
+        origin={-120,80})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput mPum_flow(
     final unit="kg/s")
     "Pumps mass flow rate"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
         origin={-120,40}), iconTransformation(
-        extent={{-10,-10},{10,10}},
+        extent={{-20,-20},{20,20}},
         rotation=0,
-        origin={-110,40})));
+        origin={-120,40})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput dH_flow(final unit="W")
+    "Variation of enthalpy flow rate across HX (leaving - entering)"
+                                                               annotation (
+      Placement(transformation(extent={{100,-100},{140,-60}}),
+        iconTransformation(extent={{100,40},{140,80}})));
   // COMPONENTS
   Fluid.HeatExchangers.ConstantEffectiveness hex(
     redeclare final package Medium1=Medium,
@@ -82,7 +87,7 @@ model SewageHeatRecovery "Model for sewage heat recovery plant"
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={40,0})));
+        origin={60,0})));
   Fluid.Sources.Boundary_pT souSew(
     redeclare final package Medium = Medium,
     final use_T_in=true,
@@ -112,6 +117,15 @@ model SewageHeatRecovery "Model for sewage heat recovery plant"
         extent={{-6,6},{6,-6}},
         rotation=180,
         origin={-40,20})));
+  DHC.Networks.BaseClasses.DifferenceEnthalpyFlowRate senDifEntFlo(
+    redeclare package Medium = Medium,
+    final m_flow_nominal=mDis_flow_nominal)
+    "Variation of enthalpy flow rate"
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={0,-40})));
+
 equation
   connect(senTSewOut.port_b, souSew.ports[1])
     annotation (Line(points={{-46,20},{-60,20},{-60,78}}, color={0,127,255}));
@@ -119,21 +133,27 @@ equation
     annotation (Line(points={{-60,74},{-60,80},{-10,80}},
                                                  color={0,127,255}));
   connect(pumDis.port_b, port_bDis)
-    annotation (Line(points={{50,0},{100,0}}, color={0,127,255}));
+    annotation (Line(points={{70,0},{100,0}}, color={0,127,255}));
   connect(souSew.T_in, TSewWat) annotation (Line(points={{-82,80},{-120,80}},
                           color={0,0,127}));
   connect(mPum_flow, pumSew.m_flow_in)
     annotation (Line(points={{-120,40},{0,40},{0,68}}, color={0,0,127}));
-  connect(pumSew.port_b, hex.port_a1) annotation (Line(points={{10,80},{62,80},{
-          62,20},{10,20}},                 color={0,127,255}));
+  connect(pumSew.port_b, hex.port_a1) annotation (Line(points={{10,80},{40,80},{
+          40,20},{10,20}},                 color={0,127,255}));
   connect(hex.port_b1, senTSewOut.port_a) annotation (Line(points={{-10,20},{-34,
           20}},                   color={0,127,255}));
-  connect(port_aDis, hex.port_a2) annotation (Line(points={{-100,0},{-20,0},{-20,
-          8},{-10,8}}, color={0,127,255}));
-  connect(hex.port_b2, pumDis.port_a) annotation (Line(points={{10,8},{20,8},{20,
-          0},{30,0}},     color={0,127,255}));
   connect(mPum_flow, pumDis.m_flow_in)
-    annotation (Line(points={{-120,40},{40,40},{40,12}}, color={0,0,127}));
+    annotation (Line(points={{-120,40},{60,40},{60,12}}, color={0,0,127}));
+  connect(senDifEntFlo.dH_flow, dH_flow) annotation (Line(points={{3,-52},{3,
+          -80},{120,-80}},              color={0,0,127}));
+  connect(port_aDis, senDifEntFlo.port_a2) annotation (Line(points={{-100,0},{
+          -80,0},{-80,-60},{-6,-60},{-6,-50}}, color={0,127,255}));
+  connect(senDifEntFlo.port_b2, hex.port_a2) annotation (Line(points={{-6,-30},
+          {-6,-20},{-20,-20},{-20,8},{-10,8}}, color={0,127,255}));
+  connect(hex.port_b2, senDifEntFlo.port_a1) annotation (Line(points={{10,8},{
+          20,8},{20,-20},{6,-20},{6,-30}}, color={0,127,255}));
+  connect(senDifEntFlo.port_b1, pumDis.port_a) annotation (Line(points={{6,-50},
+          {6,-60},{40,-60},{40,0},{50,0}}, color={0,127,255}));
   annotation (
   DefaultComponentName="pla",
   Icon(coordinateSystem(preserveAspectRatio=false),

@@ -149,26 +149,26 @@ partial model PartialETS
     "Fluid connector for district water return"
     annotation (Placement(transformation(extent={{290,-270},{310,-250}}),
       iconTransformation(extent={{290,-270},{310,-250}})));
-  Modelica.Blocks.Interfaces.RealOutput PHea(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput PHea(
     final unit="W") if have_eleHea
     "Power drawn by heating equipment"
     annotation (Placement(transformation(extent={{300,40},{340,80}}),
-      iconTransformation(extent={{300,40},{340,80}})));
-  Modelica.Blocks.Interfaces.RealOutput PCoo(
+      iconTransformation(extent={{300,40},{380,120}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput PCoo(
     final unit="W") if have_eleCoo
     "Power drawn by cooling equipment"
     annotation (Placement(transformation(extent={{300,0},{340,40}}),
-      iconTransformation(extent={{300,0},{340,40}})));
-  Modelica.Blocks.Interfaces.RealOutput PFan(
+      iconTransformation(extent={{300,0},{380,80}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput PFan(
     final unit="W") if have_fan
     "Power drawn by fan motors"
     annotation (Placement(transformation(extent={{300,-40},{340,0}}),
-      iconTransformation(extent={{300,-40},{340,0}})));
-  Modelica.Blocks.Interfaces.RealOutput PPum(
+      iconTransformation(extent={{300,-40},{380,40}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput PPum(
     final unit="W") if have_pum
     "Power drawn by pump motors"
     annotation (Placement(transformation(extent={{300,-80},{340,-40}}),
-      iconTransformation(extent={{300,-80},{340,-40}})));
+      iconTransformation(extent={{300,-80},{380,0}})));
   BoundaryConditions.WeatherData.Bus weaBus if have_weaBus
     "Weather data bus"
     annotation (Placement(

@@ -104,20 +104,34 @@ model PartialParallel
   // IO VARIABLES
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHea
     "Heating enable signal"
-    annotation (Placement(transformation(extent={{-340,80},{-300,120}}),iconTransformation(extent={{-380,40},{-300,120}})));
+    annotation (Placement(transformation(extent={{-340,80},{-300,120}}),
+      iconTransformation(extent={{-380,40},{-300,120}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uCoo
     "Cooling enable signal"
-    annotation (Placement(transformation(extent={{-340,40},{-300,80}}),iconTransformation(extent={{-380,-20},{-300,60}})));
+    annotation (Placement(transformation(extent={{-340,40},{-300,80}}),
+      iconTransformation(extent={{-380,-20},{-300,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaWatSupSet(
     final unit="K",
     displayUnit="degC")
     "Heating water supply temperature set point"
-    annotation (Placement(transformation(extent={{-340,-40},{-300,0}}),iconTransformation(extent={{-380,-80},{-300,0}})));
+    annotation (Placement(transformation(extent={{-340,-40},{-300,0}}),
+      iconTransformation(extent={{-380,-80},{-300,0}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSupSet(
     final unit="K",
     displayUnit="degC")
     "Chilled water supply temperature set point"
-    annotation (Placement(transformation(extent={{-340,-80},{-300,-40}}),iconTransformation(extent={{-380,-140},{-300,-60}})));
+    annotation (Placement(transformation(extent={{-340,-80},{-300,-40}}),
+      iconTransformation(extent={{-380,-140},{-300,-60}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput dHHeaWat_flow(
+    final unit="W")
+    "Heating water distributed energy flow rate"
+    annotation (Placement(transformation(extent={{300,120},{340,160}}),
+      iconTransformation(extent={{300,-120},{380,-40}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput dHChiWat_flow(
+    final unit="W")
+    "Chilled water distributed energy flow rate"
+    annotation (Placement(transformation(extent={{300,80},{340,120}}),
+      iconTransformation(extent={{300,-160},{380,-80}})));
   // COMPONENTS
   replaceable Generation5.Controls.BaseClasses.PartialSupervisory conSup
     constrainedby Generation5.Controls.BaseClasses.PartialSupervisory(
@@ -207,14 +221,6 @@ model PartialParallel
     nin=1)
     "Total power drawn by cooling equipment"
     annotation (Placement(transformation(extent={{260,10},{280,30}})));
-  Modelica.Blocks.Interfaces.RealOutput dHHeaWat_flow(
-    final unit="W")
-    "Heating water distributed energy flow rate"
-    annotation (Placement(transformation(extent={{300,120},{340,160}}),iconTransformation(extent={{300,-120},{340,-80}})));
-  Modelica.Blocks.Interfaces.RealOutput dHChiWat_flow(
-    final unit="W")
-    "Chilled water distributed energy flow rate"
-    annotation (Placement(transformation(extent={{300,80},{340,120}}),iconTransformation(extent={{300,-160},{340,-120}})));
   Networks.BaseClasses.DifferenceEnthalpyFlowRate dHFloChiWat(
     redeclare final package Medium=MediumBui,
     final m_flow_nominal=colChiWat.mDis_flow_nominal)
@@ -246,7 +252,8 @@ equation
   connect(hex.port_a2,colAmbWat.ports_bCon[1])
     annotation (Line(points={{10,-248},{20,-248},{20,-140},{-12,-140},{-12,-116}},color={0,127,255}));
   connect(totPPum.y,PPum)
-    annotation (Line(points={{282,-60},{320,-60}},color={0,0,127}));
+    annotation (Line(points={{282,-60},{312,-60},{312,-60},{320,-60}},
+                                                  color={0,0,127}));
   connect(hex.yValIso_actual[1],valIsoCon.y_actual)
     annotation (Line(points={{-12,-251},{-40,-251},{-40,-113},{-55,-113}},color={0,0,127}));
   connect(hex.yValIso_actual[2],valIsoEva.y_actual)
@@ -283,10 +290,6 @@ equation
     annotation (Line(points={{-70,-120},{-108,-120},{-108,-24}},color={0,127,255}));
   connect(colAmbWat.port_bDisRet,colHeaWat.ports_bCon[1])
     annotation (Line(points={{-20,-100},{-132,-100},{-132,-24}},color={0,127,255}));
-  connect(totPHea.y,PHea)
-    annotation (Line(points={{282,60},{320,60}},color={0,0,127}));
-  connect(totPCoo.y,PCoo)
-    annotation (Line(points={{282,20},{320,20}},color={0,0,127}));
   connect(tanChiWat.port_bBot,dHFloChiWat.port_a1)
     annotation (Line(points={{220,100},{250,100}},color={0,127,255}));
   connect(dHFloChiWat.port_b1,ports_bChiWat[1])
@@ -307,6 +310,10 @@ equation
     annotation (Line(points={{-230,100},{-220,100}},color={0,127,255}));
   connect(dHFloHeaWat.dH_flow,dHHeaWat_flow)
     annotation (Line(points={{-252,109},{-270,109},{-270,140},{320,140}},color={0,0,127}));
+  connect(totPCoo.y, PCoo)
+    annotation (Line(points={{282,20},{320,20}}, color={0,0,127}));
+  connect(totPHea.y, PHea)
+    annotation (Line(points={{282,60},{320,60}}, color={0,0,127}));
   annotation (
     Icon(
       coordinateSystem(
