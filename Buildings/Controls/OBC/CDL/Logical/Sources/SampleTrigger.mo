@@ -7,7 +7,7 @@ block SampleTrigger "Generate sample trigger signal"
   parameter Real shift(
     final quantity="Time",
     final unit="s")=0
-    "shift time for output";
+    "Shift time for output";
   Interfaces.BooleanOutput y  "Connector of Boolean output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 

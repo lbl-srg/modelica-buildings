@@ -7,13 +7,11 @@ model PulsePositiveStartTime
     period=2)
     "Boolean pulse signal"
     annotation (Placement(transformation(extent={{-90,40},{-70,60}})));
-
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul_b1(
     width=0.2,
     period=2,
     delay=0.1) "Boolean pulse signal"
     annotation (Placement(transformation(extent={{-90,0},{-70,20}})));
-
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul_c1(
     width=0.2,
     period=2,

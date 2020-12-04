@@ -12,7 +12,7 @@ model SampleTriggerNegativeStartTime
     offset=0,
     height=20,
     startTime=-2)
-               "Block that generates ramp signal"
+    "Block that generates ramp signal"
     annotation (Placement(transformation(extent={{-30,60},{-10,80}})));
 
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triggeredSampler
