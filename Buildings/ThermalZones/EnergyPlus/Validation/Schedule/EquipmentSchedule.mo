@@ -7,11 +7,11 @@ model EquipmentSchedule
     unit=Buildings.ThermalZones.EnergyPlus.Types.Units.Normalized)
     "Block that writes to the EnergyPlus schedule INTERMITTENT"
     annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse intLoaFra(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse intLoaFra(shift(
+      displayUnit="h") =
+                       25200,
     period(
-      displayUnit="d")=86400,
-    delay(
-      displayUnit="h")=25200)
+      displayUnit="d")=86400)
     "Schedule for fraction of internal loads"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
 equation
