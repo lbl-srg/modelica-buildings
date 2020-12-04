@@ -384,15 +384,6 @@ have been <b style=\"color:blue\">improved</b> in a
     <td valign=\"top\">Added option to specify a hysteresis, which by default is set to <i>0</i>.
     </td>
     </tr>
-<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Logical.Sources.SampleTrigger<br/>
-                       Buildings.Controls.OBC.CDL.Logical.Sources.Pulse<br/>
-                       Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse
-    </td>
-    <td valign=\"top\">Removed <code>startTime</code> parameter and replaced it with a <code>shift</code> parameter.<br/>
-                       This is for
-                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2170\">issue 2170</a>
-                       and <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2282\">issue 2282</a>.
-</tr>
 <tr><td colspan=\"2\"><b>Buildings.Examples</b>
     </td>
 </tr>
@@ -544,6 +535,14 @@ have been <b style=\"color:blue\">improved</b> in a
 </tr>
 <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse
     </td>
+    <td valign=\"top\">Removed <code>startTime</code> parameter and replaced it with a <code>shift</code> parameter.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2170\">issue 2170</a>
+                       and <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2282\">issue 2282</a>.<br/>
+                       For Dymola, a conversion script makes this change.</td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse
+    </td>
     <td valign=\"top\">Removed parameter <code>nperiod</code>.<br/>
                        This is for
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2170\">issue 2170</a>.
@@ -565,6 +564,15 @@ have been <b style=\"color:blue\">improved</b> in a
     <td valign=\"top\">Removed <code>reset</code> boolean input and added boolean output <code>passed</code>
                        to show if the time becomes greater than threshold time.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2101\">#2101</a>.
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Logical.Sources.SampleTrigger<br/>
+                       Buildings.Controls.OBC.CDL.Logical.Sources.Pulse
+    </td>
+    <td valign=\"top\">Removed <code>startTime</code> parameter and replaced it with a <code>shift</code> parameter.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2170\">issue 2170</a>
+                       and <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2282\">issue 2282</a>.<br/>
+                       For Dymola, a conversion script makes this change.</td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL.Integers</b>
     </td>

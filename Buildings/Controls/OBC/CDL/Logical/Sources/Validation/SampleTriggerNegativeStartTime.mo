@@ -47,7 +47,7 @@ equation
   connect(samTri1.y, triggeredSampler1.trigger) annotation (Line(points={{-8,-70},
           {30,-70},{30,-41.8}}, color={255,0,255}));
   annotation (
-  experiment(StartTime=1.0, StopTime=6.0, Tolerance=1e-06),
+  experiment(StartTime=-2.0, StopTime=3.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Logical/Sources/Validation/SampleTriggerNegativeStartTime.mos"
         "Simulate and plot"),
     Documentation(info="<html>
