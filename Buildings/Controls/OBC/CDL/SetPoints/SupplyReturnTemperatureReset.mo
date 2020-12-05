@@ -3,21 +3,37 @@ block SupplyReturnTemperatureReset
   "Block to compute the supply and return set point"
 
   parameter Real m = 1.3 "Exponent for heat transfer";
-  parameter Modelica.SIunits.Temperature TSup_nominal "Supply temperature"
+  parameter Real TSup_nominal(
+    final quantity="ThermodynamicTemperature",
+    final unit="K",
+    displayUnit="degC") "Supply temperature"
     annotation (Dialog(group="Nominal conditions"));
-  parameter Modelica.SIunits.Temperature TRet_nominal "Return temperature"
+  parameter Real TRet_nominal(
+    final quantity="ThermodynamicTemperature",
+    final unit="K",
+    displayUnit="degC") "Return temperature"
     annotation (Dialog(group="Nominal conditions"));
-  parameter Modelica.SIunits.Temperature TZon_nominal = 293.15 "Zone temperature"
+  parameter Real TZon_nominal(
+    final quantity="ThermodynamicTemperature",
+    final unit="K",
+    displayUnit="degC") = 293.15 "Zone temperature"
     annotation (Dialog(group="Nominal conditions"));
-  parameter Modelica.SIunits.Temperature TOut_nominal "Outside temperature"
+  parameter Real TOut_nominal(
+    final quantity="ThermodynamicTemperature",
+    final unit="K",
+    displayUnit="degC") "Outside temperature"
     annotation (Dialog(group="Nominal conditions"));
-  parameter Modelica.SIunits.TemperatureDifference dTOutHeaBal(displayUnit="K") = 8
+  parameter Real dTOutHeaBal(
+    final quantity="TemperatureDifference",
+    final unit="K",
+    displayUnit="K") = 8
     "Offset for heating curve";
 
   Interfaces.RealInput TSetZon(
     final quantity="ThermodynamicTemperature",
     final unit = "K",
-    displayUnit = "degC", min=200) "Zone setpoint temperature"
+    displayUnit = "degC",
+    min=200) "Zone setpoint temperature"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
   Interfaces.RealInput TOut(
     final quantity="ThermodynamicTemperature",
@@ -39,10 +55,16 @@ block SupplyReturnTemperatureReset
     annotation (Placement(transformation(extent={{100,-80},{140,-40}})));
 
 protected
-  parameter Modelica.SIunits.Temperature TOutOffSet_nominal =  TOut_nominal + dTOutHeaBal
+  parameter Real TOutOffSet_nominal(
+    final quantity="ThermodynamicTemperature",
+    final unit="K",
+    displayUnit="degC") =  TOut_nominal + dTOutHeaBal
     "Effective outside temperature for heat transfer at nominal conditions (takes into account zone heat gains)";
   Real qRel "Relative heating load = Q_flow/Q_flow_nominal";
-  Modelica.SIunits.Temperature TOutOffSet
+  Real TOutOffSet(
+    final quantity="ThermodynamicTemperature",
+    final unit="K",
+    displayUnit="degC")
     "Effective outside temperature for heat transfer (takes into account zone heat gains)";
 
 equation
@@ -77,8 +99,14 @@ shift the heating curve.
 </html>", revisions="<html>
 <ul>
 <li>
+November 12, 2020, by Michael Wetter:<br/>
+Reformulated to remove dependency to <code>Modelica.SIunits</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2243\">issue 2243</a>.
+</li>
+<li>
 January 3, 2020, by Jianjun Hu:<br/>
-Changed name from <code>HotWaterTemperatureReset</code> to 
+Changed name from <code>HotWaterTemperatureReset</code> to
 <code>SupplyReturnTemperatureReset</code>.
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/860\">#860</a>.
