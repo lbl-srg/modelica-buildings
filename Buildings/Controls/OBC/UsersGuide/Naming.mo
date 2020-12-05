@@ -8,7 +8,6 @@ the <code>Buildings</code> Library,
 see <a href=\"modelica://Buildings.UsersGuide.Conventions\">Buildings.UsersGuide.Conventions</a>.
 Some examples of the commonly used names in this package are shown as below.
 </p>
-
 <table summary=\"summary\" border=\"1\">
 <tr><td colspan=\"2\"><b>Instance names</b></td></tr>
 <tr><th>Name</th><th>Comments</th></tr>
