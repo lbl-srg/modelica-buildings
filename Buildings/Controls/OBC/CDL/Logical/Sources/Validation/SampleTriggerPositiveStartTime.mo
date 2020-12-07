@@ -11,7 +11,7 @@ model SampleTriggerPositiveStartTime
     duration=5,
     offset=0,
     height=20) "Block that generates ramp signal"
-    annotation (Placement(transformation(extent={{-30,60},{-10,80}})));
+    annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
 
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triggeredSampler
     "Triggered sampler"
@@ -23,12 +23,6 @@ model SampleTriggerPositiveStartTime
     "Block that generates sample trigger signal"
     annotation (Placement(transformation(extent={{-30,-80},{-10,-60}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ramp1(
-    duration=5,
-    offset=0,
-    height=20) "Block that generates ramp signal"
-    annotation (Placement(transformation(extent={{-30,-40},{-10,-20}})));
-
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triggeredSampler1(
     y_start=-2)
     "Triggered sampler"
@@ -36,13 +30,13 @@ model SampleTriggerPositiveStartTime
 
 equation
   connect(ramp.y, triggeredSampler.u)
-    annotation (Line(points={{-8,70},{18,70}}, color={0,0,127}));
+    annotation (Line(points={{-58,70},{18,70}},color={0,0,127}));
   connect(samTri.y, triggeredSampler.trigger) annotation (Line(points={{-8,30},{
           30,30},{30,58.2}},         color={255,0,255}));
-  connect(ramp1.y, triggeredSampler1.u)
-    annotation (Line(points={{-8,-30},{18,-30}}, color={0,0,127}));
   connect(samTri1.y, triggeredSampler1.trigger) annotation (Line(points={{-8,-70},
           {30,-70},{30,-41.8}}, color={255,0,255}));
+  connect(triggeredSampler1.u, ramp.y) annotation (Line(points={{18,-30},{-50,
+          -30},{-50,70},{-58,70}}, color={0,0,127}));
   annotation (
   experiment(StartTime=1.0, StopTime=6.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Logical/Sources/Validation/SampleTriggerPositiveStartTime.mos"
@@ -51,7 +45,9 @@ equation
 <p>
 Validation test for the block
 <a href=\"modelica://Buildings.Controls.OBC.CDL.Logical.Sources.SampleTrigger\">
-Buildings.Controls.OBC.CDL.Logical.Sources.SampleTrigger</a>.
+Buildings.Controls.OBC.CDL.Logical.Sources.SampleTrigger</a>
+with positive start time.
+The instances <code>samTri</code> and <code>samTri1</code> use a different value for the parameter <code>shift</code>.
 </p>
 </html>", revisions="<html>
 <ul>
