@@ -19,7 +19,10 @@ block DewPoint_TDryBulPhi
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected
-  Modelica.SIunits.Pressure p_w(displayUnit="Pa") "Water vapor pressure";
+  Real p_w(
+    final quantity="Pressure",
+    final unit="Pa",
+    displayUnit="Pa") "Water vapor pressure";
   constant Real C14=6.54 "Constant used in the equation";
   constant Real C15=14.526 "Constant used in the equation";
   constant Real C16=0.7389 "Constant used in the equation";
@@ -46,6 +49,12 @@ ASHRAE Handbook Fundamentals, p. 1.9, equation 39.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 12, 2020, by Michael Wetter:<br/>
+Reformulated to remove dependency to <code>Modelica.SIunits</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2243\">issue 2243</a>.
+</li>
 <li>
 September 29, 2020, by Michael Wetter:<br/>
 Removed unused input <code>p</code> and renamed block.<br/>

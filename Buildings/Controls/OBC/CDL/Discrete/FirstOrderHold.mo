@@ -1,7 +1,10 @@
 within Buildings.Controls.OBC.CDL.Discrete;
 block FirstOrderHold "First order hold of a sampled-data system"
 
-  parameter Modelica.SIunits.Time samplePeriod(min=1E-3)
+  parameter Real samplePeriod(
+    final quantity="Time",
+    final unit="s",
+    min=1E-3)
     "Sample period of component";
 
   Interfaces.RealInput u "Continuous input signal"
@@ -11,7 +14,10 @@ block FirstOrderHold "First order hold of a sampled-data system"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected
-  parameter Modelica.SIunits.Time t0(fixed=false)
+  parameter Real t0(
+    final quantity="Time",
+    final unit="s",
+    fixed=false)
     "First sample time instant";
 
   output Boolean sampleTrigger "True, if sample time instant";
@@ -19,7 +25,9 @@ protected
   output Boolean firstTrigger(start=false, fixed=true)
     "Rising edge signals first sample instant";
 
-  Modelica.SIunits.Time tSample "Time of sample";
+  Real tSample(
+    final quantity="Time",
+    final unit="s") "Time of sample";
   Real uSample "Value of sample";
   Real pre_uSample "Value of previous sample";
   Real c "Slope";
@@ -79,6 +87,12 @@ values of the last two sampled input signals.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 12, 2020, by Michael Wetter:<br/>
+Reformulated to remove dependency to <code>Modelica.SIunits</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2243\">issue 2243</a>.
+</li>
 <li>
 October 19, 2020, by Michael Wetter:<br/>
 Refactored implementation.<br/>
