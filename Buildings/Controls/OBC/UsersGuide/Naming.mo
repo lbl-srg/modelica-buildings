@@ -1,6 +1,7 @@
 within Buildings.Controls.OBC.UsersGuide;
 class Naming "Naming conventions in OBC package"
   annotation (preferredView="info",
+  defaultComponentName="obcNam",
   Documentation(info="<html>
 <p>
 The <code>Buildings.Control.OBC</code> package follows the naming conventions of
