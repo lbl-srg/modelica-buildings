@@ -25,6 +25,13 @@ block Scheduler
     "Rotation time period measured from simulation start"
     annotation(Dialog(group="Calendar", enable=simTimSta));
 
+  parameter Real iniRotDel(
+    final unit="s",
+    final quantity="Time",
+    displayUnit="s") = 1
+    "Delay before the first rotation measured from simulation start"
+    annotation(Dialog(group="Calendar", enable=simTimSta));
+
   parameter Boolean simTimSta = true
     "Measure rotation time from the simulation start";
 
@@ -63,7 +70,7 @@ block Scheduler
 
   Buildings.Controls.OBC.CDL.Logical.Sources.SampleTrigger rotTri(
     final period=rotationPeriod,
-    final startTime=rotationPeriod) if simTimSta
+    final startTime=0) if simTimSta
     "Sample trigger"
     annotation (Placement(transformation(extent={{-140,-120},{-120,-100}})));
 
@@ -119,6 +126,19 @@ protected
     final k=true) if (not weeInt and not simTimSta) "True signal"
     annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
 
+  Buildings.Controls.OBC.CDL.Logical.Timer tim(
+    final t=iniRotDel) if simTimSta
+    "Timer"
+    annotation (Placement(transformation(extent={{-60,-100},{-40,-80}})));
+
+  Buildings.Controls.OBC.CDL.Logical.And and1 if simTimSta
+    "Logical And"
+    annotation (Placement(transformation(extent={{20,-120},{40,-100}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(
+    final k=true) if simTimSta "True constant for the timer"
+    annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
+
 equation
   connect(dayCou1.y, intEqu2.u2) annotation (Line(points={{-118,-60},{30,-60},{30,
           12},{38,12}}, color={255,127,0}));
@@ -150,8 +170,14 @@ equation
           {-42,12}}, color={255,0,255}));
   connect(truSig.y, and2.u2) annotation (Line(points={{-78,10},{-60,10},{-60,12},
           {-42,12}}, color={255,0,255}));
-  connect(rotTri.y, yRot) annotation (Line(points={{-118,-110},{150,-110},{150,0},
-          {180,0}}, color={255,0,255}));
+  connect(rotTri.y, and1.u2) annotation (Line(points={{-118,-110},{-70,-110},{-70,
+          -118},{18,-118}},  color={255,0,255}));
+  connect(and1.y, yRot) annotation (Line(points={{42,-110},{150,-110},{150,0},{180,
+          0}},     color={255,0,255}));
+  connect(con.y, tim.u)
+    annotation (Line(points={{-78,-90},{-62,-90}}, color={255,0,255}));
+  connect(tim.passed, and1.u1) annotation (Line(points={{-38,-98},{0,-98},{0,
+          -110},{18,-110}}, color={255,0,255}));
   annotation (Diagram(coordinateSystem(extent={{-160,-140},{160,140}})),
       defaultComponentName="rotSch",
     Icon(graphics={
