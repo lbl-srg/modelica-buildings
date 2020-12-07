@@ -6,6 +6,12 @@ language: python
 python:
   - "3.6"
 
+branches:
+  only:
+    - master
+    - /^maint_.*$/
+    - release
+
 cache: pip
 
 notifications:
@@ -22,11 +28,11 @@ services:
 addons:
   apt:
     sources:
-    - sourceline: "deb http://build.openmodelica.org/apt bionic stable"
+    - sourceline: "deb https://build.openmodelica.org/omc/builds/linux/releases/1.16.1/ bionic release"
       key_url: "http://build.openmodelica.org/apt/openmodelica.asc"
     packages:
     - omc=1.16.1-1
-    - omlib-modelica-3.2.3
+    - omlib-modelica-3.2.2 #3.2.3 is not in https://build.openmodelica.org/omc/builds/linux/releases/1.16.1/dists/bionic/release/binary-amd64/Packages.gz
 
 
 env:

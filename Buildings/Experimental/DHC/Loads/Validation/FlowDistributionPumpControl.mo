@@ -74,8 +74,7 @@ model FlowDistributionPumpControl
     fileName=Modelica.Utilities.Files.loadResource(
       filNam),
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
-    y(
-      each unit="W"),
+    y(each unit="W"),
     offset={0,0,0},
     columns={2,3,4},
     smoothness=Modelica.Blocks.Types.Smoothness.MonotoneContinuousDerivative1)
@@ -83,8 +82,7 @@ model FlowDistributionPumpControl
     annotation (Placement(transformation(extent={{-180,20},{-160,40}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTSet(
     k=20+273.15,
-    y(
-      final unit="K",
+    y(final unit="K",
       displayUnit="degC"))
     "Minimum temperature set point"
     annotation (Placement(transformation(extent={{-180,60},{-160,80}})));

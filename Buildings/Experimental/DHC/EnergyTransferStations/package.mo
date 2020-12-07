@@ -1,7 +1,7 @@
 within Buildings.Experimental.DHC;
-package EnergyTransferStations
-  "Package of models for energy transfer stations"
+package EnergyTransferStations "Package of models for energy transfer stations"
   extends Modelica.Icons.VariantsPackage;
+
   annotation (
     preferredView="info",
     Documentation(

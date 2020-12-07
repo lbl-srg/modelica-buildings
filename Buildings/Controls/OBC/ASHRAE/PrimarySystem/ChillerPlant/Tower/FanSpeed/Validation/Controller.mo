@@ -17,7 +17,7 @@ model Controller "Validation sequence of controlling tower fan speed"
 protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse wseSta(
     final width=0.2, final period=3600,
-    delay=-3000)
+    shift=-3000)
     "Waterside economizer enabling status"
     annotation (Placement(transformation(extent={{-360,140},{-340,160}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp plaCap(

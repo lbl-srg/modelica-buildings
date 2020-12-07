@@ -7,7 +7,7 @@ model ControlLoop "Validate sequence of output head pressure control signal"
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul(
     final width=0.7,
     final period=5,
-    final delay=0.5) "Head pressure control enabling status"
+    final shift=0.5) "Head pressure control enabling status"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TConWatRet(
     final amplitude=-11,

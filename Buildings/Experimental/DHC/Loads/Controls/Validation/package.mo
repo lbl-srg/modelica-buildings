@@ -1,7 +1,7 @@
 within Buildings.Experimental.DHC.Loads.Controls;
-package Validation
-  "Collection of validation models"
+package Validation "Collection of validation models"
   extends Modelica.Icons.ExamplesPackage;
+
   annotation (
     preferredView="info",
     Documentation(

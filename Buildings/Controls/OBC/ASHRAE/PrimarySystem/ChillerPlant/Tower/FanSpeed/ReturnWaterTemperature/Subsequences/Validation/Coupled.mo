@@ -117,6 +117,6 @@ First implementation.
                 fillColor = {75,138,73},
                 pattern = LinePattern.None,
                 fillPattern = FillPattern.Solid,
-                points = {{-36,60},{64,0},{-36,-60},{-36,60}})}), 
+                points = {{-36,60},{64,0},{-36,-60},{-36,60}})}),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-140},{100,140}})));
 end Coupled;

@@ -70,12 +70,12 @@ protected
     annotation (Placement(transformation(extent={{-20,30},{0,50}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse enaPla(
     final period=7200,
-    final delay=200)
+    final shift=200)
     "Plant enabling status"
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse leaChiEna(
     final period=3600,
-    final delay=300) "Lead chiller enabling status"
+    final shift=300) "Lead chiller enabling status"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
 
 equation

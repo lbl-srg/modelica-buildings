@@ -1,4 +1,4 @@
-within Buildings.Occupants.BaseClasses;
+﻿within Buildings.Occupants.BaseClasses;
 function weibullVariableGeneration "Random variable generator from the Weibull distribution"
     input Real lambda "Parameter defining the Weibull distribution scale factor";
     input Real k "Parameter defining the Weibull distribution shape factor";

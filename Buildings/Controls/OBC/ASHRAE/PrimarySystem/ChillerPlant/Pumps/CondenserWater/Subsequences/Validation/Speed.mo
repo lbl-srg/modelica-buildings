@@ -21,7 +21,7 @@ protected
     annotation (Placement(transformation(extent={{0,10},{20,30}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse wseSta(
     final period=0.75,
-    final delay=0) "Waterside economizer status"
+    final shift=0) "Waterside economizer status"
     annotation (Placement(transformation(extent={{0,-30},{20,-10}})));
 
 equation

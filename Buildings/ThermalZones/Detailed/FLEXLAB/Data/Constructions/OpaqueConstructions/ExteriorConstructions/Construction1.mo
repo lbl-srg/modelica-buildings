@@ -8,7 +8,7 @@ record Construction1 =
     Buildings.HeatTransfer.Data.Solids.GypsumBoard(x=0.01588)},
     final nLay = 5)
   "North wall in FLEXLAB closets, west wall in XRA, east wall in XRB, west wall in X1A"
-  annotation(
+  annotation (
 defaultComponentPrefixes="parameter",
 defaultComponentName="datOpaCon",
 Documentation(info="<html>

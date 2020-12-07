@@ -40,8 +40,7 @@ partial model PartialChillerBorefield
     annotation (Placement(transformation(extent={{20,180},{40,200}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant THeaWatSupSet(
     k=45+273.15,
-    y(
-      final unit="K",
+    y(final unit="K",
       displayUnit="degC"))
     "Heating water supply temperature set point"
     annotation (Placement(transformation(extent={{-140,130},{-120,150}})));
@@ -52,8 +51,7 @@ partial model PartialChillerBorefield
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},rotation=90,origin={20,60})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TChiWatSupSet(
     k=7+273.15,
-    y(
-      final unit="K",
+    y(final unit="K",
       displayUnit="degC"))
     "Chilled water supply temperature set point"
     annotation (Placement(transformation(extent={{-140,90},{-120,110}})));
@@ -256,8 +254,7 @@ partial model PartialChillerBorefield
     "District water supply temperature"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,origin={-80,-80})));
   Modelica.Blocks.Continuous.Integrator EChi(
-    y(
-      unit="J"))
+    y(unit="J"))
     "Chiller electricity use"
     annotation (Placement(transformation(extent={{300,-70},{320,-50}})));
 equation

@@ -33,7 +33,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul1(
     final width=0.5,
     final period=15,
-    final delay=0) "Pulse signal"
+    final shift=0) "Pulse signal"
     annotation (Placement(transformation(extent={{-200,20},{-180,40}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul2(
@@ -49,7 +49,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul5(
     final width=0.5,
     final period=7,
-    final delay=0) "Pulse signal"
+    final shift=0) "Pulse signal"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul6(
@@ -60,7 +60,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul7(
     final width=0.5,
     final period=10,
-    final delay=1) "Pulse signal"
+    final shift=1) "Pulse signal"
     annotation (Placement(transformation(extent={{20,-100},{40,-80}})));
 
   Buildings.Controls.OBC.CDL.Logical.Not not1 "Not"

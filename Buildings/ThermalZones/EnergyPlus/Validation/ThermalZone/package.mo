@@ -1,7 +1,7 @@
 within Buildings.ThermalZones.EnergyPlus.Validation;
-package ThermalZone
-  "Collection of validation models for EnergyPlus thermal zones"
+package ThermalZone "Collection of validation models for EnergyPlus thermal zones"
   extends Modelica.Icons.Package;
+
   annotation (
     preferredView="info",
     Documentation(

@@ -13,7 +13,7 @@ model Controller "Validation sequence of tower cell controller"
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse wseSta(
     final width=0.15,
     final period=3600,
-    final delay=300) "Water side economizer status"
+    final shift=300) "Water side economizer status"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp chiStaGen(
     final height=1.2,

@@ -1,7 +1,7 @@
 within Buildings.Experimental;
-package DHC
-  "Models for district heating and cooling systems"
+package DHC "Models for district heating and cooling systems"
   extends Modelica.Icons.VariantsPackage;
+
   annotation (
     preferredView="info",
     Documentation(

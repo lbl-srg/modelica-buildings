@@ -11,7 +11,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse pumSta[2](
     final width=fill(0.9, 2),
     final period=fill(10, 2),
-    final delay=fill(1, 2)) "Pump status"
+    final shift=fill(1, 2)) "Pump status"
     annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant difPreSet(
     final k=8.5*6894.75)

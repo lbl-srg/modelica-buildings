@@ -1,7 +1,7 @@
 within Buildings.Experimental.DHC.Loads;
-package Examples
-  "Example models integrating multiple components"
+package Examples "Example models integrating multiple components"
   extends Modelica.Icons.ExamplesPackage;
+
   annotation (
     preferredView="info",
     Documentation(

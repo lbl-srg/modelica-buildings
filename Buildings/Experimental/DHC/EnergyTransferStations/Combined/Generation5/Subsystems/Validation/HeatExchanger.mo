@@ -122,16 +122,14 @@ model HeatExchanger
   Buildings.Controls.OBC.CDL.Logical.Or or2
     annotation (Placement(transformation(extent={{-160,90},{-140,110}})));
   Modelica.Blocks.Sources.RealExpression yValIsoCon(
-    y=
-      if time >= 2500 then
+    y=if time >= 2500 then
         1
       else
         0)
     "Condenser loop isolation valve opening"
     annotation (Placement(transformation(extent={{-230,70},{-210,90}})));
   Modelica.Blocks.Sources.RealExpression yValIsoEva(
-    y=
-      if time >= 500 then
+    y=if time >= 500 then
         1
       else
         0)
@@ -150,8 +148,7 @@ model HeatExchanger
     "Zero"
     annotation (Placement(transformation(extent={{-120,110},{-100,130}})));
   Modelica.Blocks.Sources.TimeTable TColVal(
-    y(
-      final unit="K",
+    y(final unit="K",
       displayUnit="degC"),
     table=[
       0,6;
@@ -165,8 +162,7 @@ model HeatExchanger
     "Cold side temperature values"
     annotation (Placement(transformation(extent={{-230,-50},{-210,-30}})));
   Modelica.Blocks.Sources.TimeTable THotVal(
-    y(
-      final unit="K",
+    y(final unit="K",
       displayUnit="degC"),
     table=[
       0,45;
@@ -180,8 +176,7 @@ model HeatExchanger
     "Hot side temperature values"
     annotation (Placement(transformation(extent={{-230,-90},{-210,-70}})));
   Modelica.Blocks.Sources.TimeTable TDisVal(
-    y(
-      final unit="K",
+    y(final unit="K",
       displayUnit="degC"),
     table=[
       0,8;

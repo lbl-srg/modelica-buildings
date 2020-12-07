@@ -18,7 +18,7 @@ equation
   dp = time*gain;
   m_flow = Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
     dp=dp,
-    k=  k,
+    k = k,
     m_flow_turbulent=m_flow_turbulent);
   der(m_flow) = der(m_flow_comp);
   err = m_flow-m_flow_comp;

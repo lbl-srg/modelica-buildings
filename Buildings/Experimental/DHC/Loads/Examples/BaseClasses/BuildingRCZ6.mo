@@ -35,8 +35,7 @@ model BuildingRCZ6
     k=fill(
       293.15,
       nZon),
-    y(
-      each final unit="K",
+    y(each final unit="K",
       each displayUnit="degC"))
     "Minimum temperature set point"
     annotation (Placement(transformation(extent={{-290,230},{-270,250}})));
@@ -44,8 +43,7 @@ model BuildingRCZ6
     k=fill(
       297.15,
       nZon),
-    y(
-      each final unit="K",
+    y(each final unit="K",
       each displayUnit="degC"))
     "Maximum temperature set point"
     annotation (Placement(transformation(extent={{-290,190},{-270,210}})));

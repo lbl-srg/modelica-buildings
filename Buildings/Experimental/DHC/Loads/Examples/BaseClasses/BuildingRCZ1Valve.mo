@@ -139,15 +139,13 @@ model BuildingRCZ1Valve
     annotation (Placement(transformation(extent={{4,-4},{-4,4}},rotation=90,origin={6,116})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTSet(
     k=293.15,
-    y(
-      final unit="K",
+    y(final unit="K",
       displayUnit="degC"))
     "Minimum temperature set point"
     annotation (Placement(transformation(extent={{-280,250},{-260,270}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxTSet(
     k=297.15,
-    y(
-      final unit="K",
+    y(final unit="K",
       displayUnit="degC"))
     "Maximum temperature set point"
     annotation (Placement(transformation(extent={{-280,210},{-260,230}})));
@@ -192,15 +190,13 @@ model BuildingRCZ1Valve
     annotation (Placement(transformation(extent={{-100,-160},{-80,-140}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetSecHea(
     k=308.15,
-    y(
-      final unit="K",
+    y(final unit="K",
       displayUnit="degC"))
     "Heating water secondary supply temperature set point"
     annotation (Placement(transformation(extent={{-260,-190},{-240,-170}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetSecChi(
     k=289.15,
-    y(
-      final unit="K",
+    y(final unit="K",
       displayUnit="degC"))
     "Chilled water secondary supply temperature set point"
     annotation (Placement(transformation(extent={{-260,-230},{-240,-210}})));

@@ -10,13 +10,13 @@ model EnableLead_headered
 protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse chiConWatIsoVal[2](
     final period=fill(3600, 2),
-    final delay=fill(300, 2))
+    final shift=fill(300, 2))
     "Chiller condenser water isolation valve status"
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse WSEConWatIsoVal(
     final period=3600,
-    final delay=800) "Water side economizer condenser water isolation valve status"
+    final shift=800) "Water side economizer condenser water isolation valve status"
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
 
 equation

@@ -44,8 +44,7 @@ model Borefield
     "Mixing valve controller"
     annotation (Placement(transformation(extent={{-10,-90},{10,-70}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxTBorWatEnt(
-    y(
-      final unit="K",
+    y(final unit="K",
       displayUnit="degC"),
     final k=TBorWatEntMax)
     "Maximum value of borefield water entering temperature"
