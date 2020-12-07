@@ -1942,6 +1942,7 @@ Buildings/Resources/src/convertEPW/doc/jquery/images/ui-icons_454545_256x240.png
 Buildings/Resources/src/convertEPW/doc/jquery/images/ui-icons_888888_256x240.png
 Buildings/Resources/src/convertEPW/doc/jquery/images/ui-icons_cd0a0a_256x240.png
 Buildings/Resources/src/convertEPW/doc/jquery/jquery-3.3.1.js
+Buildings/Resources/src/convertEPW/doc/jquery/jquery-3.5.1.js
 Buildings/Resources/src/convertEPW/doc/jquery/jquery-migrate-3.0.1.js
 Buildings/Resources/src/convertEPW/doc/jquery/jquery-ui.css
 Buildings/Resources/src/convertEPW/doc/jquery/jquery-ui.js

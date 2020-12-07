@@ -20,10 +20,15 @@ protected
   final parameter Integer nout=size(table, 2)-1
     "Dimension of output vector";
 
-  parameter Modelica.SIunits.Time t0(fixed=false)
+  parameter Real t0(
+    final quantity="Time",
+    final unit="s",
+    fixed=false)
     "First sample time instant";
 
-  parameter Modelica.SIunits.Time timeRange = timeScale * (table[end,1] - table[1,1])
+  parameter Real timeRange(
+    final quantity="Time",
+    final unit="s") = timeScale * (table[end,1] - table[1,1])
     "Range of time in table";
 
   final parameter Integer nT=size(table, 1)
@@ -237,6 +242,12 @@ of <i>0.5</i> seconds outputs
 </html>",
 revisions="<html>
 <ul>
+<li>
+November 12, 2020, by Michael Wetter:<br/>
+Reformulated to remove dependency to <code>Modelica.SIunits</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2243\">issue 2243</a>.
+</li>
 <li>
 October 19, 2020, by Michael Wetter:<br/>
 Revised to call <code>round()</code> as a function.<br/>

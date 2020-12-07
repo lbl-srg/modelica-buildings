@@ -8,7 +8,9 @@ block TimeTable
     final unit="1")=1
     "Time scale of first table column. Set to 3600 if time in table is in hours";
 
-  parameter Modelica.SIunits.Time period
+  parameter Real period(
+    final quantity="Time",
+    final unit="s")
     "Periodicity of table";
 
   Interfaces.BooleanOutput y[nout] "Output of the table"
@@ -79,6 +81,12 @@ The table scope is repeated periodically with periodicity <code>period</code>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+November 12, 2020, by Michael Wetter:<br/>
+Reformulated to remove dependency to <code>Modelica.SIunits</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2243\">issue 2243</a>.
+</li>
 <li>
 October 8, 2020, by Michael Wetter:<br/>
 Revised implementation to use integer time table for its implementation.

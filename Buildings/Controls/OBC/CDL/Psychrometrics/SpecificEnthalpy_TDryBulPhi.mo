@@ -23,9 +23,14 @@ block SpecificEnthalpy_TDryBulPhi
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected
-  Modelica.SIunits.Conversions.NonSIunits.Temperature_degC TDryBul_degC
+  Real TDryBul_degC(
+    final unit="degC",
+    displayUnit="degC")
     "Dry bulb temperature in degree Celsius";
-  Modelica.SIunits.Pressure p_w(displayUnit="Pa") "Water vapor pressure";
+  Real p_w(
+    final quantity="Pressure",
+    final unit="Pa",
+    displayUnit="Pa") "Water vapor pressure";
   Real w(final unit="1", nominal=0.01)
     "Water vapor mass fraction in kg per kg dry air";
 
@@ -49,6 +54,12 @@ The correlation used in this model is from the 2009 ASHRAE Handbook Fundamentals
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 12, 2020, by Michael Wetter:<br/>
+Reformulated to remove dependency to <code>Modelica.SIunits</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2243\">issue 2243</a>.
+</li>
 <li>
 September 29, 2020, by Michael Wetter:<br/>
 Removed input <code>p</code>, used instead a parameter for the atmospheric pressure and renamed block.<br/>

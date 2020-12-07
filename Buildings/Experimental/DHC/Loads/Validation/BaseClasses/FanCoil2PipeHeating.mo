@@ -93,7 +93,8 @@ model FanCoil2PipeHeating
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,origin={-110,0})));
   Fluid.Sources.Boundary_pT retAir(
     redeclare package Medium=Medium2,
-    p(displayUnit="Pa"),
+    p(
+      displayUnit="Pa"),
     use_T_in=true,
     nPorts=1)
     "Source for return air"

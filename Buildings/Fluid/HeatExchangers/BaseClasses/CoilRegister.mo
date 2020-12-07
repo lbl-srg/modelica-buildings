@@ -246,7 +246,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-extent={{-20,80},{ 0,100}},    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}), graphics={
         Rectangle(
           extent={{-70,80},{70,-80}},
@@ -297,6 +297,5 @@ extent={{-20,80},{ 0,100}},    Icon(coordinateSystem(preserveAspectRatio=false, 
         Text(
           extent={{-80,112},{-58,84}},
           lineColor={0,0,255},
-          textString="h")}),
-    Placement(transformation(extent={{-20,80},{0,100}})));
+          textString="h")}));
 end CoilRegister;
