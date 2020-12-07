@@ -20,7 +20,9 @@ block Timer
         iconTransformation(extent={{100,-100},{140,-60}})));
 
 protected
-  discrete Modelica.SIunits.Time entryTime "Time instant when u became true";
+  discrete Real entryTime(
+    final quantity="Time",
+    final unit="s") "Time instant when u became true";
 
 initial equation
   pre(entryTime) = time;
@@ -113,6 +115,12 @@ the output <code>passed</code> remains <code>false</code>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 12, 2020, by Michael Wetter:<br/>
+Reformulated to remove dependency to <code>Modelica.SIunits</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2243\">issue 2243</a>.
+</li>
 <li>
 August 28, 2020, by Michael Wetter:<br/>
 Revised implementation to correctly deal with non-zero simulation start time,

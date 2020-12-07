@@ -24,7 +24,7 @@ model SupplyReturnTemperatureReset "Test model for the heating curve"
     annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse TRoo1(
     offset=273.15 + 20,
-    startTime=0.5,
+    delay=0.5,
     amplitude=-5,
     period=1,
     y(unit="K"))  "Night set back from 20 degC to 15 degC"

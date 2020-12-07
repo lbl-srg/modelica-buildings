@@ -1,7 +1,9 @@
 within Buildings.Controls.OBC.CDL.Logical;
 block TrueHoldWithReset "Block that holds a true signal for at least a requested duration"
 
-  parameter Modelica.SIunits.Time duration "Time duration of the true output signal hold";
+  parameter Real duration(
+    final quantity="Time",
+    final unit="s") "Time duration of the true output signal hold";
 
   Interfaces.BooleanInput u "Boolean input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
@@ -141,6 +143,12 @@ alt=\"Input and output of the block\"/>
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 12, 2020, by Michael Wetter:<br/>
+Reformulated to remove dependency to <code>Modelica.SIunits</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2243\">issue 2243</a>.
+</li>
 <li>
 September 18, 2017, by Michael Wetter:<br/>
 Improved event handling.

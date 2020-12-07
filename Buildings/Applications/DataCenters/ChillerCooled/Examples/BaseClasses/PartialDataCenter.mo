@@ -186,7 +186,8 @@ partial model PartialDataCenter
   Buildings.Fluid.Actuators.Valves.TwoWayLinear val[numChi](
     redeclare each package Medium = MediumW,
     each m_flow_nominal=m1_flow_chi_nominal,
-    each dpValve_nominal=6000)
+    each dpValve_nominal=6000,
+    each use_inputFilter=false)
     "Shutoff valves"
     annotation (Placement(transformation(extent={{70,130},{50,150}})));
 
@@ -309,8 +310,8 @@ equation
         points={{-50,110},{-50,140},{-42,140}},
         color={0,127,255},
         thickness=0.5));
-    connect(TCWRet.port_b, val[i].port_a) annotation (Line(points={{102,60},{
-            110,60},{110,140},{70,140}},
+    connect(TCWRet.port_b, val[i].port_a) annotation (Line(points={{102,60},{110,
+            60},{110,140},{70,140}},
             color={0,127,255},
             thickness=0.5));
   end for;
@@ -533,6 +534,11 @@ Taylor, S. T. (2014). How to design &amp; control waterside economizers. ASHRAE 
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+October 6, 2020, by Michael Wetter:<br/>
+Set <code>val.use_inputFilter=false</code> because pump worked against closed valve at <i>t=60</i> seconds,
+leading to negative pressure at pump inlet (because pump forces the mass flow rate).
+</li>
 <li>
 January 12, 2019, by Michael Wetter:<br/>
 Removed wrong <code>each</code>.

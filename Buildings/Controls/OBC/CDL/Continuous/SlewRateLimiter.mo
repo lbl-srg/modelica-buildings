@@ -9,7 +9,10 @@ block SlewRateLimiter "Limit the increase or decrease rate of input"
     max = -Constants.small,
     unit = "1/s") = -raisingSlewRate "Speed with which to decrease the output";
 
-  parameter Modelica.SIunits.Time Td(min=Constants.eps) = raisingSlewRate*10
+  parameter Real Td(
+    final quantity="Time",
+    final unit="s",
+    min=Constants.eps) = raisingSlewRate*10
     "Derivative time constant";
 
   parameter Boolean enable = true
@@ -62,6 +65,12 @@ Smaller time constant <code>Td</code> means nearer ideal derivative.
 
 </html>", revisions="<html>
 <ul>
+<li>
+November 12, 2020, by Michael Wetter:<br/>
+Reformulated to remove dependency to <code>Modelica.SIunits</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2243\">issue 2243</a>.
+</li>
 <li>
 April 21, 2020, by Michael Wetter:<br/>
 Removed final attribute on unit because if the input quantity is power,
