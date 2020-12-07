@@ -13,6 +13,10 @@ convertElement("Buildings.Controls.OBC.CDL.Logical.Sources.Pulse",
 convertElement("Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse",
                 "startTime", "shift");
 
+convertModifiers("Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse",
+                {"nperiod"}, fill("",0), true);
+
+
 // Conversion for https://github.com/lbl-srg/modelica-buildings/issues/2134
 convertClass("Buildings.Controls.OBC.CDL.Continuous.HysteresisWithHold",
              "Buildings.Obsolete.Controls.OBC.CDL.Continuous.HysteresisWithHold");
