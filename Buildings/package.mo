@@ -284,7 +284,7 @@ to <b style=\"color:blue\">existing</b> libraries:
 <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Integers.Sources.Pulse
     </td>
     <td valign=\"top\"><code>Integer</code> pulse source signal.<br/>
-                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2125\">issue 2125</a> 
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2125\">issue 2125</a>
                        and <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2282\">issue 2282</a>.</td>
 </tr>
 <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Integers.Sources.TimeTable
@@ -535,7 +535,7 @@ have been <b style=\"color:blue\">improved</b> in a
 </tr>
 <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse
     </td>
-    <td valign=\"top\">Removed <code>startTime</code> parameter and replaced it with a <code>shift</code> parameter.<br/>
+    <td valign=\"top\">Removed <code>startTime</code> parameter. Introduced <code>shift</code> parameter.<br/>
                        This is for
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2170\">issue 2170</a>
                        and <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2282\">issue 2282</a>.<br/>
@@ -568,7 +568,7 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Logical.Sources.SampleTrigger<br/>
                        Buildings.Controls.OBC.CDL.Logical.Sources.Pulse
     </td>
-    <td valign=\"top\">Removed <code>startTime</code> parameter and replaced it with a <code>shift</code> parameter.<br/>
+    <td valign=\"top\">Removed <code>startTime</code> parameter. Introduced <code>shift</code> parameter.<br/>
                        This is for
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2170\">issue 2170</a>
                        and <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2282\">issue 2282</a>.<br/>
