@@ -106,7 +106,7 @@ Block that outputs a pulse signal as shown below.
      alt=\"Pulse.png\" />
      </p>
 <p>
-The pulse signal is generated an infinite number of times, and aligned with time <code>time=shift</code>.
+The pulse signal is generated an infinite number of times, and aligned with <code>time=shift</code>.
 </p>
 </html>", revisions="<html>
 <ul>

@@ -78,7 +78,7 @@ at sample times (defined by parameter <code>period</code>) and is otherwise
      alt=\"SampleTrigger.png\" />
 </p>
 <p>
-The trigger signal is generated an infinite number of times, and aligned with time <code>time=delay</code>.
+The trigger signal is generated an infinite number of times, and aligned with <code>time=delay</code>.
 </p>
 </html>", revisions="<html>
 <ul>
