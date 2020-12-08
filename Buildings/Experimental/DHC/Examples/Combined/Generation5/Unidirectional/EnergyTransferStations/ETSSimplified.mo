@@ -2,6 +2,7 @@
 model ETSSimplified
   "Simplified model of a substation producing heating hot water (heat pump) and chilled water (HX)"
   extends DHC.EnergyTransferStations.BaseClasses.PartialETS(
+    final typ=DHC.Types.DistrictSystemType.CombinedGeneration5,
     final have_weaBus=false,
     final have_chiWat=true,
     final have_heaWat=true,
