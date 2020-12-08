@@ -1,7 +1,6 @@
 within Buildings.Experimental.DHC.Loads.Examples;
 model CouplingTimeSeries_MediumOffice
-  "Example illustrating the coupling of a simultaneous heating and cooling
-    office building loads model to heating and chilled water loops."
+  "Example illustrating the coupling of a simultaneous heating and cooling office building loads model to heating and chilled water loops."
   extends Modelica.Icons.Example;
   package MediumW=Buildings.Media.Water
     "Source side medium";
