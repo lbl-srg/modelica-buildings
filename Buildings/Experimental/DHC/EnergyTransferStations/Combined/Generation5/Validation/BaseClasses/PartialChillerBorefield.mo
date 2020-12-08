@@ -68,8 +68,8 @@ partial model PartialChillerBorefield
     "Chilled water supply temperature"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,origin={90,40})));
   replaceable Combined.Generation5.ChillerBorefield ets(
-    redeclare package MediumBui=Medium,
-    redeclare package MediumDis=Medium,
+    redeclare package Medium1=Medium,
+    redeclare package Medium2=Medium,
     QChiWat_flow_nominal=QCoo_flow_nominal,
     QHeaWat_flow_nominal=QHea_flow_nominal,
     dp1Hex_nominal=20E3,
@@ -265,8 +265,8 @@ equation
     annotation (Line(points={{-118,100},{-32,100},{-32,-64},{-14,-64}},color={0,0,127}));
   connect(THeaWatSupSet.y,ets.THeaWatSupSet)
     annotation (Line(points={{-118,140},{-28,140},{-28,-58},{-14,-58}},color={0,0,127}));
-  connect(ets.port_bDis,disWat.ports[1])
-    annotation (Line(points={{50,-80},{160,-80},{160,-180},{-100,-180},{-100,-138}},color={0,127,255}));
+  connect(ets.port_b1,disWat.ports[1])
+    annotation (Line(points={{50,-76},{160,-76},{160,-180},{-100,-180},{-100,-138}},color={0,127,255}));
   connect(pumChiWat.port_a,senTChiWatSup.port_b)
     annotation (Line(points={{110,40},{100,40}},color={0,127,255}));
   connect(gai2.y,pumChiWat.m_flow_in)
@@ -313,8 +313,8 @@ equation
     annotation (Line(points={{-178,-20},{-120,-20},{-120,-46},{-14,-46}},color={255,0,255}));
   connect(disWat.ports[2],senTDisWatSup.port_a)
     annotation (Line(points={{-100,-142},{-100,-80},{-90,-80}},color={0,127,255}));
-  connect(senTDisWatSup.port_b,ets.port_aDis)
-    annotation (Line(points={{-70,-80},{-10,-80}},color={0,127,255}));
+  connect(senTDisWatSup.port_b,ets.port_a1)
+    annotation (Line(points={{-70,-80},{-40,-80},{-40,-76},{-10,-76}},color={0,127,255}));
   connect(ets.PCoo,EChi.u)
     annotation (Line(points={{52,-52},{60,-52},{60,-60},{298,-60}},color={0,0,127}));
   connect(ets.ports_bChiWat[1],senTChiWatSup.port_a)

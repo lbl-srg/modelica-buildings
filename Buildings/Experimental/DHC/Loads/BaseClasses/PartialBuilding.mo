@@ -21,34 +21,34 @@ partial model PartialBuilding
   parameter Integer nPorts_bChiWat=0
     "Number of chilled water outlet ports"
     annotation (Evaluate=true,Dialog(connectorSizing=true));
-  parameter Boolean have_watHea=true
-    "Set to true if the building has water based heating system"
+  parameter Boolean have_heaWat=false
+    "Set to true if the building has heating water system"
     annotation (Evaluate=true);
-  parameter Boolean have_watCoo=true
-    "Set to true if the building has water based cooling system"
+  parameter Boolean have_chiWat=false
+    "Set to true if the building has chilled water system"
     annotation (Evaluate=true);
-  parameter Boolean have_eleHea=true
+  parameter Boolean have_eleHea=false
     "Set to true if the building has decentralized electric heating equipment"
     annotation (Evaluate=true);
-  parameter Boolean have_eleCoo=true
+  parameter Boolean have_eleCoo=false
     "Set to true if the building has decentralized electric cooling equipment"
     annotation (Evaluate=true);
-  parameter Boolean have_fan=true
+  parameter Boolean have_fan=false
     "Set to true if the power drawn by fan motors is computed"
     annotation (Evaluate=true);
-  parameter Boolean have_pum=true
+  parameter Boolean have_pum=false
     "Set to true if the power drawn by pump motors is computed"
     annotation (Evaluate=true);
-  parameter Boolean have_weaBus=true
+  parameter Boolean have_weaBus=false
     "Set to true for weather bus"
     annotation (Evaluate=true);
   parameter Boolean allowFlowReversal=false
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
     annotation (Dialog(tab="Assumptions"),Evaluate=true);
-  final parameter Boolean have_heaLoa=have_watHea or have_eleHea
+  final parameter Boolean have_heaLoa=have_heaWat or have_eleHea
     "Set to true if the building has heating loads"
     annotation (Evaluate=true);
-  final parameter Boolean have_cooLoa=have_watCoo or have_eleCoo
+  final parameter Boolean have_cooLoa=have_chiWat or have_eleCoo
     "Set to true if the building has cooling loads"
     annotation (Evaluate=true);
   // IO CONNECTORS
@@ -65,7 +65,7 @@ partial model PartialBuilding
           0),
     each h_outflow(
       start=Medium.h_default,
-      nominal=Medium.h_default)) if have_watHea
+      nominal=Medium.h_default)) if have_heaWat
     "Heating water inlet ports"
     annotation (Placement(transformation(extent={{-310,-100},{-290,-20}}),iconTransformation(extent={{-310,-100},{-290,-20}})));
   Modelica.Fluid.Interfaces.FluidPorts_b ports_bHeaWat[nPorts_bHeaWat](
@@ -78,7 +78,7 @@ partial model PartialBuilding
           0),
     each h_outflow(
       start=Medium.h_default,
-      nominal=Medium.h_default)) if have_watHea
+      nominal=Medium.h_default)) if have_heaWat
     "Heating water outlet ports"
     annotation (Placement(transformation(extent={{290,-100},{310,-20}}),iconTransformation(extent={{290,-100},{310,-20}})));
   Modelica.Fluid.Interfaces.FluidPorts_a ports_aChiWat[nPorts_aChiWat](
@@ -91,7 +91,7 @@ partial model PartialBuilding
           0),
     each h_outflow(
       start=Medium.h_default,
-      nominal=Medium.h_default)) if have_watCoo
+      nominal=Medium.h_default)) if have_chiWat
     "Chilled water inlet ports"
     annotation (Placement(transformation(extent={{-310,-300},{-290,-220}}),iconTransformation(extent={{-310,-220},{-290,-140}})));
   Modelica.Fluid.Interfaces.FluidPorts_b ports_bChiWat[nPorts_bChiWat](
@@ -104,7 +104,7 @@ partial model PartialBuilding
           0),
     each h_outflow(
       start=Medium.h_default,
-      nominal=Medium.h_default)) if have_watCoo
+      nominal=Medium.h_default)) if have_chiWat
     "Chilled water outlet ports"
     annotation (Placement(transformation(extent={{290,-300},{310,-220}}),iconTransformation(extent={{290,-220},{310,-140}})));
   Modelica.Blocks.Interfaces.RealOutput QHea_flow(
