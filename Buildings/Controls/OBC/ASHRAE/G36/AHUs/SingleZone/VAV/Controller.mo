@@ -417,21 +417,19 @@ block Controller
     annotation (Placement(transformation(extent={{200,-250},{220,-230}}),
         iconTransformation(extent={{200,-240},{240,-200}})));
 
-  SetPoints.Supply setPoiVAV(final TSupSetMax=TSupSetMax, final TSupSetMin=
-        TSupSetMin)
+  Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.SetPoints.Supply setPoiVAV(
+    final TSupSetMax=TSupSetMax,
+    final TSupSetMin=TSupSetMin)
     "Supply air set point and fan signal for single zone VAV system"
     annotation (Placement(transformation(extent={{40,180},{60,200}})));
-  Buildings.Controls.OBC.CDL.Continuous.LimPID cooPI(
-    final reverseAction=true,
+  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset cooPI(
     final controllerType=controllerTypeCoo,
     final k=kCoo,
     final Ti=TiCoo,
-    final Td=TdCoo,
-    final reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter)
+    final Td=TdCoo)
     "Zone cooling control signal"
     annotation (Placement(transformation(extent={{-50,150},{-30,170}})));
-  Buildings.Controls.OBC.CDL.Continuous.LimPID heaPI(
-    final reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter,
+  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset heaPI(
     final controllerType=controllerTypeHea,
     final k=kHea,
     final Ti=TiHea,
@@ -482,7 +480,7 @@ block Controller
     final zonDisEffCoo=zonDisEffCoo)
     "Output the minimum outdoor airflow rate setpoint "
     annotation (Placement(transformation(extent={{40,50},{60,70}})));
-  Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.ZoneState zonSta
+  Buildings.Controls.OBC.ASHRAE.G36.ThermalZones.ZoneStates zonSta
     "Zone state"
     annotation (Placement(transformation(extent={{40,130},{60,150}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(
@@ -598,13 +596,12 @@ equation
   connect(switch.y, conEco.uSupFan) annotation (Line(points={{-58,-230},{60,
           -230},{60,-45.5},{118,-45.5}},
                                color={255,0,255}));
-  connect(heaPI.y, setPoiVAV.uHea) annotation (Line(points={{-28,220},{0,220},{
-          0,198.333},{38,198.333}},
-                               color={0,0,127}));
+  connect(heaPI.y, setPoiVAV.uHea) annotation (Line(points={{-28,220},{0,220},{0,
+          191},{38,191}},      color={0,0,127}));
   connect(heaPI.y, zonSta.uHea) annotation (Line(points={{-28,220},{0,220},{0,144},
           {38,144}},      color={0,0,127}));
   connect(cooPI.y, setPoiVAV.uCoo) annotation (Line(points={{-28,160},{-20,160},
-          {-20,195},{38,195}}, color={0,0,127}));
+          {-20,188},{38,188}}, color={0,0,127}));
   connect(cooPI.y, zonSta.uCoo) annotation (Line(points={{-28,160},{-20,160},{-20,
           136},{38,136}}, color={0,0,127}));
   connect(switch.y, heaPI.trigger) annotation (Line(points={{-58,-230},{-48,-230},

@@ -1,6 +1,8 @@
 within Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.Economizers.Subsequences;
 block Modulation "Outdoor and return air damper position modulation sequence for single zone VAV AHU"
 
+  parameter Boolean have_heaCoi = true
+    "True if the air handling unit has heating coil";
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller";
@@ -80,7 +82,8 @@ block Modulation "Outdoor and return air damper position modulation sequence for
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yHeaCoi(
     final min=0,
     final max=1,
-    final unit="1") "Heating coil control signal"
+    final unit="1") if have_heaCoi
+    "Heating coil control signal"
     annotation (Placement(transformation(extent={{120,30},{140,50}}),
       iconTransformation(extent={{100,40},{140,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yOutDamPos(
@@ -108,10 +111,10 @@ block Modulation "Outdoor and return air damper position modulation sequence for
 
 protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant outDamMinLimSig(
-      final k=uMin) "Minimal control loop signal for the outdoor air damper"
+    final k=uMin) "Minimal control loop signal for the outdoor air damper"
     annotation (Placement(transformation(extent={{-60,-88},{-40,-68}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant retDamMaxLimSig(
-      final k=uMax) "Maximal control loop signal for the return air damper"
+    final k=uMax) "Maximal control loop signal for the return air damper"
     annotation (Placement(transformation(extent={{-60,-34},{-40,-14}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Line outDamPos(
@@ -126,30 +129,32 @@ protected
     annotation (Placement(transformation(extent={{22,-10},{42,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Line HeaCoi(
     final limitBelow=true,
-    final limitAbove=true)
+    final limitAbove=true) if have_heaCoi
     "Heating coil signal is linearly proportional to the control signal between signal limits"
     annotation (Placement(transformation(extent={{22,30},{42,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant heaCoiMaxLimSig(
-    final k=1)
+    final k=1) if have_heaCoi
     "Maximal control loop signal for the heating coil"
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant heaCoiMinLimSig(
-    final k=0)
+    final k=0) if have_heaCoi
     "Minimum control loop signal for the heating coil"
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant uMaxHeaCoi(
     final k=1)
     "Maximal control loop signal for the heating coil"
     annotation (Placement(transformation(extent={{-60,90},{-40,110}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch enaDis
+  Buildings.Controls.OBC.CDL.Logical.Switch enaDis if have_heaCoi
     "Enable or disable the heating coil"
     annotation (Placement(transformation(extent={{76,30},{96,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant Off(
-    final k=0) "Off signal for heating coil"
+    final k=0) if have_heaCoi
+    "Off signal for heating coil"
     annotation (Placement(transformation(extent={{6,-90},{26,-70}})));
+
 equation
   connect(retDamMaxLimSig.y,retDamPos. x2)
-    annotation (Line(points={{-38,-24},{-12,-24},{-12,-4},{20,-4}},                 color={0,0,127}));
+    annotation (Line(points={{-38,-24},{-12,-24},{-12,-4},{20,-4}}, color={0,0,127}));
   connect(uTSup.y, retDamPos.u) annotation (Line(points={{-78,80},{4,80},{4,0},
           {20,0}},      color={0,0,127}));
   connect(uTSup.y, outDamPos.u) annotation (Line(points={{-78,80},{4,80},{4,-40},
@@ -197,7 +202,8 @@ equation
     annotation (Line(points={{46,-40},{130,-40}}, color={0,0,127}));
   connect(uSupFan, uTSup.trigger) annotation (Line(points={{-140,-110},{-96,-110},
           {-96,68}}, color={255,0,255}));
-  annotation (
+
+annotation (
     defaultComponentName = "mod",
     Icon(graphics={
         Rectangle(
