@@ -2,16 +2,16 @@ within Buildings.Experimental.DHC.Loads.Examples.BaseClasses;
 model BuildingTimeSeries
   "Building model with heating and cooling loads provided as time series"
   extends Buildings.Experimental.DHC.Loads.BaseClasses.PartialBuilding(
-    redeclare package Medium=MediumW,
+    redeclare package Medium=Medium1,
     final have_fan=false,
     final have_pum=true,
     final have_eleHea=false,
     final have_eleCoo=false,
     final have_weaBus=false);
-  package MediumA=Buildings.Media.Air
-    "Air medium";
-  package MediumW=Buildings.Media.Water
-    "Water medium";
+  package Medium2=Buildings.Media.Air
+    "Load side medium";
+  package Medium1=Buildings.Media.Water
+    "Source side medium";
   parameter String filNam
     "File name with thermal loads as time series";
   parameter Real facScaHea=1
@@ -108,8 +108,8 @@ model BuildingTimeSeries
     "Maximum temperature set point"
     annotation (Placement(transformation(extent={{-280,210},{-260,230}})));
   Buildings.Experimental.DHC.Loads.Validation.BaseClasses.FanCoil2PipeHeating terUniHea(
-    redeclare final package Medium1=MediumW,
-    redeclare final package Medium2=MediumA,
+    redeclare final package Medium1=Medium1,
+    redeclare final package Medium2=Medium2,
     final facSca=facScaHea,
     final QHea_flow_nominal=QHea_flow_nominal,
     final mHeaWat_flow_nominal=mHeaWat_flow_nominal,
@@ -126,7 +126,7 @@ model BuildingTimeSeries
     "Heating terminal unit"
     annotation (Placement(transformation(extent={{70,-34},{90,-14}})));
   Buildings.Experimental.DHC.Loads.FlowDistribution disFloHea(
-    redeclare package Medium=MediumW,
+    redeclare package Medium=Medium1,
     m_flow_nominal=mHeaWat_flow_nominal,
     have_pum=true,
     dp_nominal=100000,
@@ -135,7 +135,7 @@ model BuildingTimeSeries
     "Heating water distribution system"
     annotation (Placement(transformation(extent={{120,-80},{140,-60}})));
   Buildings.Experimental.DHC.Loads.FlowDistribution disFloCoo(
-    redeclare package Medium=MediumW,
+    redeclare package Medium=Medium1,
     m_flow_nominal=mChiWat_flow_nominal,
     typDis=Buildings.Experimental.DHC.Loads.Types.DistributionType.ChilledWater,
     have_pum=true,
@@ -145,8 +145,8 @@ model BuildingTimeSeries
     "Chilled water distribution system"
     annotation (Placement(transformation(extent={{120,-270},{140,-250}})));
   Buildings.Experimental.DHC.Loads.Validation.BaseClasses.FanCoil2PipeCooling terUniCoo(
-    redeclare final package Medium1=MediumW,
-    redeclare final package Medium2=MediumA,
+    redeclare final package Medium1=Medium1,
+    redeclare final package Medium2=Medium2,
     final facSca=facScaCoo,
     final QCoo_flow_nominal=QCoo_flow_nominal,
     final QHea_flow_nominal=QHea_flow_nominal,
