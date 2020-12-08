@@ -54,10 +54,10 @@ partial model PartialETS
   parameter Boolean have_weaBus=false
     "Set to true for weather bus"
     annotation (Evaluate=true);
-  parameter Boolean allowFlowReversal1=false
-    "Set to true to allow flow reversal on district side"
+  parameter Boolean allowFlowReversalSer=false
+    "Set to true to allow flow reversal on service side"
     annotation (Dialog(tab="Assumptions"),Evaluate=true);
-  parameter Boolean allowFlowReversal2=false
+  parameter Boolean allowFlowReversalBui=false
     "Set to true to allow flow reversal on building side"
     annotation (Dialog(tab="Assumptions"),Evaluate=true);
   parameter Modelica.SIunits.HeatFlowRate QChiWat_flow_nominal=0
@@ -74,7 +74,7 @@ partial model PartialETS
     redeclare each package Medium=MediumBui,
     each m_flow(
       min=
-        if allowFlowReversal2 then
+        if allowFlowReversalBui then
           -Modelica.Constants.inf
         else
           0),
@@ -88,7 +88,7 @@ partial model PartialETS
     redeclare each package Medium=MediumBui,
     each m_flow(
       max=
-        if allowFlowReversal2 then
+        if allowFlowReversalBui then
           +Modelica.Constants.inf
         else
           0),
@@ -102,7 +102,7 @@ partial model PartialETS
     redeclare each package Medium=MediumBui,
     each m_flow(
       min=
-        if allowFlowReversal2 then
+        if allowFlowReversalBui then
           -Modelica.Constants.inf
         else
           0),
@@ -116,7 +116,7 @@ partial model PartialETS
     redeclare each package Medium=MediumBui,
     each m_flow(
       max=
-        if allowFlowReversal2 then
+        if allowFlowReversalBui then
           +Modelica.Constants.inf
         else
           0),
@@ -128,7 +128,7 @@ partial model PartialETS
       iconTransformation(extent={{290,120},{310,200}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_aSerAmb(
     redeclare package Medium = MediumSer,
-    m_flow(min=if allowFlowReversal1 then -Modelica.Constants.inf else 0),
+    m_flow(min=if allowFlowReversalSer then -Modelica.Constants.inf else 0),
     h_outflow(start=MediumSer.h_default, nominal=MediumSer.h_default)) if
     typ == TypDisSys.CombinedGeneration5
     "Fluid connector for ambient water service supply line"
@@ -137,7 +137,7 @@ partial model PartialETS
         iconTransformation(extent={{-310,-210},{-290,-190}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_bSerAmb(
     redeclare package Medium = MediumSer,
-    m_flow(max=if allowFlowReversal1 then +Modelica.Constants.inf else 0),
+    m_flow(max=if allowFlowReversalSer then +Modelica.Constants.inf else 0),
     h_outflow(start=MediumSer.h_default, nominal=MediumSer.h_default)) if
     typ == TypDisSys.CombinedGeneration5
     "Fluid connector for ambient water service return line"
@@ -146,7 +146,7 @@ partial model PartialETS
         iconTransformation(extent={{290,-210},{310,-190}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_aSerHea(
     redeclare package Medium = MediumSerHea_a,
-    m_flow(min=if allowFlowReversal1 then -Modelica.Constants.inf else 0),
+    m_flow(min=if allowFlowReversalSer then -Modelica.Constants.inf else 0),
     h_outflow(start=MediumSerHea_a.h_default, nominal=MediumSerHea_a.h_default)) if
     typ <> TypDisSys.Cooling and
     typ <> TypDisSys.CombinedGeneration5
@@ -156,7 +156,7 @@ partial model PartialETS
         extent={{-310,-250},{-290,-230}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_bSerHea(
     redeclare package Medium = MediumSer,
-    m_flow(max=if allowFlowReversal1 then +Modelica.Constants.inf else 0),
+    m_flow(max=if allowFlowReversalSer then +Modelica.Constants.inf else 0),
     h_outflow(start=MediumSer.h_default, nominal=MediumSer.h_default)) if
     typ <> TypDisSys.Cooling and
     typ <> TypDisSys.CombinedGeneration5
@@ -166,7 +166,7 @@ partial model PartialETS
           extent={{290,-250},{310,-230}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_aSerCoo(
     redeclare package Medium = MediumSer,
-    m_flow(min=if allowFlowReversal1 then -Modelica.Constants.inf else 0),
+    m_flow(min=if allowFlowReversalSer then -Modelica.Constants.inf else 0),
     h_outflow(start=MediumSer.h_default, nominal=MediumSer.h_default)) if
     typ == TypDisSys.CombinedGeneration1 or
     typ == TypDisSys.CombinedGeneration2to4 or
@@ -175,7 +175,7 @@ partial model PartialETS
     annotation (Placement(transformation(extent={{-310,-290},{-290,-270}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_bSerCoo(
     redeclare package Medium = MediumSer,
-    m_flow(max=if allowFlowReversal1 then +Modelica.Constants.inf else 0),
+    m_flow(max=if allowFlowReversalSer then +Modelica.Constants.inf else 0),
     h_outflow(start=MediumSer.h_default, nominal=MediumSer.h_default)) if
     typ == TypDisSys.CombinedGeneration1 or
     typ == TypDisSys.CombinedGeneration2to4 or
