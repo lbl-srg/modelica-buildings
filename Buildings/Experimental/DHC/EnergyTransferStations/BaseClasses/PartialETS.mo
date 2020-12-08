@@ -188,11 +188,11 @@ partial model PartialETS
     "Weather data bus"
     annotation (Placement(transformation(extent={{-16,250},{18,282}}),
       iconTransformation(extent={{-16,250},{18,282}})));
-  Modelica.Blocks.Interfaces.RealOutput PHea(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput PHea(
     final unit="W") if have_eleHea
     "Power drawn by heating equipment"
     annotation (Placement(transformation(extent={{300,40},{340,80}}),
-      iconTransformation(extent={{300,40},{340,80}})));
+      iconTransformation(extent={{300,40},{380,120}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput PCoo(
     final unit="W") if have_eleCoo
     "Power drawn by cooling equipment"
@@ -208,11 +208,6 @@ partial model PartialETS
     "Power drawn by pump motors"
     annotation (Placement(transformation(extent={{300,-80},{340,-40}}),
       iconTransformation(extent={{300,-80},{380,0}})));
-  BoundaryConditions.WeatherData.Bus weaBus if have_weaBus
-    "Weather data bus"
-    annotation (Placement(
-      transformation(extent={{-20,260},{20,300}}),
-      iconTransformation(extent={{-14,254}, {14,282}})));
 initial equation
   assert(
     nPorts_aHeaWat == nPorts_bHeaWat,
