@@ -23,13 +23,13 @@ block LessCoupled
     final quantity=fill("ThermodynamicTemperature",nChi),
     displayUnit=fill("degC",nChi)) = {293.15, 293.15}
     "Design condenser water supply temperature (condenser entering) of each chiller"
-    annotation (Evaluate=true, Dialog(group="Return water temperature controller"));
+    annotation (Dialog(group="Return water temperature controller"));
   parameter Real TConWatRet_nominal[nChi](
     final unit=fill("K",nChi),
     final quantity=fill("ThermodynamicTemperature",nChi),
     displayUnit=fill("degC",nChi)) = {303.15, 303.15}
     "Design condenser water return temperature (condenser leaving) of each chiller"
-    annotation (Evaluate=true, Dialog(group="Return water temperature controller"));
+    annotation (Dialog(group="Return water temperature controller"));
 
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController supWatCon=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI

@@ -23,14 +23,14 @@ block SetpointController
      final quantity=fill("Power",nChi),
      displayUnit=fill("W",nChi))
     "Design chiller capacities vector"
-    annotation (Evaluate=true, Dialog(tab="General", group="Chiller configuration parameters"));
+    annotation (Dialog(tab="General", group="Chiller configuration parameters"));
 
   parameter Real chiMinCap[nChi](
      final unit=fill("W",nChi),
      final quantity=fill("Power",nChi),
      displayUnit=fill("W",nChi))
     "Chiller minimum cycling loads vector"
-    annotation (Evaluate=true, Dialog(tab="General", group="Chiller configuration parameters"));
+    annotation (Dialog(tab="General", group="Chiller configuration parameters"));
 
   parameter Integer chiTyp[nChi]={
     Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes.positiveDisplacement,
