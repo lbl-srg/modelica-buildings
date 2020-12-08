@@ -1,6 +1,6 @@
 within Buildings.Experimental.DHC.Examples.Combined.Generation5.Unidirectional.Loads.BaseClasses;
 model PartialBuildingWithETS
-  extends Buildings.Experimental.DHC.Loads.BaseClasses.PartialBuildingWithETS(
+  extends DHC.Loads.BaseClasses.PartialBuildingWithPartialETS(
     nPorts_heaWat=1,
     nPorts_chiWat=1,
     redeclare EnergyTransferStations.ETSSimplified ets(
