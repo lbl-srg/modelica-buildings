@@ -5,15 +5,21 @@ partial model PartialETS
     "District system type enumeration";
   replaceable package Medium1=Modelica.Media.Interfaces.PartialMedium
     "District side medium"
-    annotation (choices(choice(redeclare package Medium1=Buildings.Media.Water "Water"),choice(redeclare package Medium1=Buildings.Media.Steam "Steam")));
+    annotation (choices(choice(redeclare package Medium1=Buildings.Media.Water "Water"),choice(redeclare
+          package                                                                                                Medium1=
+            Buildings.Media.Steam                                                                                                              "Steam")));
   replaceable package Medium1b=Medium1
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "District side medium (heating medium leaving ETS)"
-    annotation (Dialog(enable=typ == TypDisSys.CombinedGeneration1 or typ == TypDisSys.HeatingGeneration1),choices(choice(redeclare package Medium1b=Buildings.Media.Water "Water")));
+    annotation (Dialog(enable=typ == TypDisSys.CombinedGeneration1 or typ == TypDisSys.HeatingGeneration1),choices(choice(redeclare
+          package                                                                                                                           Medium1b=
+            Buildings.Media.Water                                                                                                                                          "Water")));
   replaceable package Medium1ChiWat=Medium1
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "District side medium (cooling medium)"
-    annotation (Dialog(enable=typ == TypDisSys.CombinedGeneration1 or typ == TypDisSys.CombinedGeneration4 or typ == TypDisSys.Cooling),choices(choice(redeclare package Medium1ChiWat=Buildings.Media.Water "Water")));
+    annotation (Dialog(enable=typ == TypDisSys.CombinedGeneration1 or typ == TypDisSys.CombinedGeneration4 or typ == TypDisSys.Cooling),choices(choice(redeclare
+          package                                                                                                                                                        Medium1ChiWat=
+            Buildings.Media.Water                                                                                                                                                                            "Water")));
   replaceable package Medium2=Modelica.Media.Interfaces.PartialMedium
     "Building side medium"
     annotation (choices(choice(redeclare package Medium2=Buildings.Media.Water "Water")));
@@ -186,7 +192,7 @@ partial model PartialETS
     final unit="W") if have_eleHea
     "Power drawn by heating equipment"
     annotation (Placement(transformation(extent={{300,40},{340,80}}),
-      iconTransformation(extent={{300,40},{380,120}})));
+      iconTransformation(extent={{300,40},{340,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput PCoo(
     final unit="W") if have_eleCoo
     "Power drawn by cooling equipment"

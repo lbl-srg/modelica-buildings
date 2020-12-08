@@ -281,8 +281,8 @@ model ETSSimplified
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
       rotation=-90,
       origin={100,150})));
-  Buildings.Fluid.Sources.Boundary_pT bouChiWat(redeclare final package Medium
-      = MediumBui, nPorts=1)
+  Buildings.Fluid.Sources.Boundary_pT bouChiWat(redeclare final package Medium =
+        MediumBui, nPorts=1)
     "Pressure boundary condition representing the expansion vessel"
     annotation (Placement(transformation(extent={{-162,-290},{-142,-270}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiSum PPumCooTot(nin=2)
@@ -466,8 +466,8 @@ model ETSSimplified
   Controls.OBC.CDL.Continuous.Add delT(final k2=-1) if have_hotWat
     "Compute DeltaT"
     annotation (Placement(transformation(extent={{-140,-30},{-120,-10}})));
-  Fluid.Sensors.MassFlowRate senMasFloHeaWatPri(redeclare final package Medium
-      = MediumBui, final allowFlowReversal=allowFlowReversalBui)
+  Fluid.Sensors.MassFlowRate senMasFloHeaWatPri(redeclare final package Medium =
+        MediumBui, final allowFlowReversal=allowFlowReversalBui)
     "Primary heating water mass flow rate"
     annotation (Placement(transformation(extent={{40,270},{60,250}})));
 equation

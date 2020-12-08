@@ -37,7 +37,7 @@ model BuildingTimeSeriesWithETS
         transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
-        origin={-160,-40}), iconTransformation(
+        origin={-160,40}),  iconTransformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-110,-40})));
@@ -45,17 +45,17 @@ model BuildingTimeSeriesWithETS
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
-        origin={-160,-80}), iconTransformation(
+        origin={-160,0}),   iconTransformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-110,-80})));
 equation
   connect(bui.QReqHotWat_flow, ets.loaSHW) annotation (Line(points={{14,6},{14,-4},
           {-64,-4},{-64,-70},{-34,-70}},     color={0,0,127}));
-  connect(THotWatSupSet, ets.THotWatSupSet) annotation (Line(points={{-160,-40},
-          {-100,-40},{-100,-58},{-34,-58}}, color={0,0,127}));
-  connect(TColWat, ets.TColWat) annotation (Line(points={{-160,-80},{-130,-80},{
-          -130,-64},{-34,-64}},  color={0,0,127}));
+  connect(THotWatSupSet, ets.THotWatSupSet) annotation (Line(points={{-160,40},
+          {-100,40},{-100,-58},{-34,-58}},  color={0,0,127}));
+  connect(TColWat, ets.TColWat) annotation (Line(points={{-160,0},{-120,0},{
+          -120,-64},{-34,-64}},  color={0,0,127}));
   annotation (Line(
       points={{-1,100},{0.1,100},{0.1,71.4}},
       color={255,204,51},
