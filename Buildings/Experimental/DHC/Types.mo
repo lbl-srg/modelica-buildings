@@ -5,7 +5,7 @@ package Types  "Package with type definitions"
   type DistrictSystemType = enumeration(
       CombinedGeneration1
     "First generation district heating and cooling system",
-      CombinedGeneration4
+      CombinedGeneration2to4
     "Second to fourth generation district heating and cooling system",
       CombinedGeneration5
     "Fifth generation district heating and cooling system",
@@ -13,7 +13,7 @@ package Types  "Package with type definitions"
     "District cooling system",
       HeatingGeneration1
     "First generation district heating system",
-      HeatingGeneration4
+      HeatingGeneration2to4
     "Second to fourth generation district heating system")
     "Enumeration to define the type of district system"
     annotation (Documentation(info="<html>
@@ -31,7 +31,7 @@ package Types  "Package with type definitions"
   water)</td>
   </tr>
   <tr>
-  <td>CombinedGeneration4</td>
+  <td>CombinedGeneration2to4</td>
   <td>Second to fourth generation district heating and cooling system (using heating
   water and chilled water)</td>
   </tr>
@@ -49,7 +49,7 @@ package Types  "Package with type definitions"
   <td>First generation district heating system (using steam)</td>
   </tr>
   <tr>
-  <td>HeatingGeneration4</td>
+  <td>HeatingGeneration2to4</td>
   <td>Second to fourth generation district heating system (using heating
   water)</td>
   </tr>

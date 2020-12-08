@@ -1,16 +1,12 @@
 within Buildings.Experimental.DHC.Loads.BaseClasses;
 partial model PartialTerminalUnit
   "Partial model for HVAC terminal unit"
-  replaceable package Medium1=Modelica.Media.Interfaces.PartialMedium
-    "Source side medium (heating or chilled water)"
-    annotation (choices(choice(redeclare package Medium1=Buildings.Media.Water "Water"),
-      choice(redeclare package Medium1=
-            Buildings.Media.Antifreeze.PropyleneGlycolWater (                          property_T=293.15,X_a=0.40)
-      "Propylene glycol water, 40% mass fraction")));
-  replaceable package Medium2=Modelica.Media.Interfaces.PartialMedium
-    "Load side medium"
-    annotation (choices(choice(redeclare package Medium2=Buildings.Media.Air "Moist air"),
-    choice(redeclare package Medium2=Buildings.Media.Water "Water")));
+  replaceable package Medium1=Buildings.Media.Water
+    constrainedby Modelica.Media.Interfaces.PartialMedium
+    "Source side medium";
+  replaceable package Medium2=Buildings.Media.Air
+    constrainedby Modelica.Media.Interfaces.PartialMedium
+    "Load side medium";
   parameter Boolean allowFlowReversal=false
     "Set to true to allow flow reversal on the source side"
     annotation (Dialog(tab="Assumptions"),Evaluate=true);

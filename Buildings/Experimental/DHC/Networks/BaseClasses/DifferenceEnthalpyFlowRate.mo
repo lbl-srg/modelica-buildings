@@ -11,7 +11,7 @@ model DifferenceEnthalpyFlowRate
     final m2_flow_small=m_flow_small,
     final show_T=false);
   parameter Boolean have_integrator=false
-    "Set to true to output the time integral "
+    "Set to true to output the time integral"
     annotation (Evaluate=true);
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal(
     min=0)
@@ -40,11 +40,13 @@ model DifferenceEnthalpyFlowRate
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput dH_flow(
     final unit="W")
     "Difference in enthalpy flow rate between stream 1 and 2"
-    annotation (Placement(transformation(origin={120,20},extent={{-20,-20},{20,20}},rotation=0),iconTransformation(extent={{-20,-20},{20,20}},rotation=0,origin={120,30})));
+    annotation (Placement(transformation(origin={120,20},extent={{-20,-20},{20,20}},rotation=0),
+      iconTransformation(extent={{-20,-20},{20,20}},rotation=0,origin={120,30})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput E(
     final unit="J") if have_integrator
     "Time integral of enthalpy flow rate difference between stream 1 and 2"
-    annotation (Placement(transformation(origin={120,-20},extent={{-20,-20},{20,20}},rotation=0),iconTransformation(extent={{-20,-20},{20,20}},rotation=0,origin={120,-30})));
+    annotation (Placement(transformation(origin={120,-20},extent={{-20,-20},{20,20}},rotation=0),
+      iconTransformation(extent={{-20,-20},{20,20}},rotation=0,origin={120,-30})));
   Fluid.Sensors.EnthalpyFlowRate senEntFlo1(
     redeclare final package Medium=Medium1,
     final m_flow_nominal=m_flow_nominal,
@@ -69,8 +71,7 @@ model DifferenceEnthalpyFlowRate
     "Compute the difference"
     annotation (Placement(transformation(extent={{40,10},{60,30}})));
   Modelica.Blocks.Continuous.Integrator int(
-    y(
-      unit="J")) if have_integrator
+    y(unit="J")) if have_integrator
     "Time integral computation"
     annotation (Placement(transformation(extent={{40,-30},{60,-10}})));
 equation
