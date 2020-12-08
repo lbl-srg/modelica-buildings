@@ -1,6 +1,7 @@
 within Buildings.Experimental.DHC.Loads.BaseClasses;
 package Validation
   extends Modelica.Icons.ExamplesPackage;
+
   annotation (
     preferredView="info",
     Documentation(
