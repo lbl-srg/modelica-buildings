@@ -1,7 +1,6 @@
 within Buildings.Experimental.DHC.Loads.Examples;
 model CouplingTimeSeries_PrimarySchool
-  "Example illustrating the coupling of a school building model to heating
-    water and chilled water loops"
+  "Example illustrating the coupling of a school building model to heating water and chilled water loops"
   extends Modelica.Icons.Example;
   package MediumW=Buildings.Media.Water
     "Source side medium";
