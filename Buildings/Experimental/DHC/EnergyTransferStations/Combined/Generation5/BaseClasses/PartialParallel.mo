@@ -2,6 +2,7 @@ within Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Ba
 model PartialParallel
   "Partial ETS model with district heat exchanger and parallel connection of production systems"
   extends DHC.EnergyTransferStations.BaseClasses.PartialETS(
+    final typ=DHC.Types.DistrictSystemType.CombinedGeneration5,
     final have_heaWat=true,
     final have_chiWat=true,
     final have_pum=true,
@@ -12,8 +13,7 @@ model PartialParallel
     nPorts_aChiWat=1,
     nPorts_bHeaWat=1,
     nPorts_aHeaWat=1);
-  parameter EnergyTransferStations.Types.ConnectionConfiguration conCon=
-    EnergyTransferStations.Types.ConnectionConfiguration.Pump
+  parameter EnergyTransferStations.Types.ConnectionConfiguration conCon=EnergyTransferStations.Types.ConnectionConfiguration.Pump
     "District connection configuration"
     annotation (Evaluate=true);
   parameter Integer nSysHea
@@ -125,26 +125,26 @@ model PartialParallel
     "Supervisory controller"
     annotation (Placement(transformation(extent={{-260,12},{-240,32}})));
   Fluid.Actuators.Valves.TwoWayLinear valIsoEva(
-    redeclare final package Medium=MediumBui,
+    redeclare final package Medium=Medium2,
     final dpValve_nominal=dpValIso_nominal,
     final m_flow_nominal=colAmbWat.mDis_flow_nominal,
     use_inputFilter=false)
     "Evaporator to ambient loop isolation valve"
     annotation (Placement(transformation(extent={{70,-130},{50,-110}})));
   Fluid.Actuators.Valves.TwoWayLinear valIsoCon(
-    redeclare final package Medium=MediumBui,
+    redeclare final package Medium=Medium2,
     final dpValve_nominal=dpValIso_nominal,
     final m_flow_nominal=colAmbWat.mDis_flow_nominal,
     use_inputFilter=false)
     "Condenser to ambient loop isolation valve"
     annotation (Placement(transformation(extent={{-70,-130},{-50,-110}})));
   Subsystems.HeatExchanger hex(
-    redeclare final package Medium1=MediumDis,
-    redeclare final package Medium2=MediumBui,
+    redeclare final package Medium1=Medium1,
+    redeclare final package Medium2=Medium2,
     final perPum1=perPum1Hex,
     final perPum2=perPum2Hex,
-    final allowFlowReversal1=allowFlowReversalDis,
-    final allowFlowReversal2=allowFlowReversalBui,
+    final allowFlowReversal1=allowFlowReversal1,
+    final allowFlowReversal2=allowFlowReversal2,
     final conCon=conCon,
     final dp1Hex_nominal=dp1Hex_nominal,
     final dp2Hex_nominal=dp2Hex_nominal,
@@ -160,7 +160,7 @@ model PartialParallel
     "District heat exchanger"
     annotation (Placement(transformation(extent={{-10,-244},{10,-264}})));
   EnergyTransferStations.BaseClasses.StratifiedTank tanChiWat(
-    redeclare final package Medium=MediumBui,
+    redeclare final package Medium=Medium2,
     final m_flow_nominal=colChiWat.mDis_flow_nominal,
     final VTan=VTanChiWat,
     final hTan=hTanChiWat,
@@ -169,7 +169,7 @@ model PartialParallel
     "Chilled water tank"
     annotation (Placement(transformation(extent={{200,96},{220,116}})));
   EnergyTransferStations.BaseClasses.StratifiedTank tanHeaWat(
-    redeclare final package Medium=MediumBui,
+    redeclare final package Medium=Medium2,
     final m_flow_nominal=colHeaWat.mDis_flow_nominal,
     final VTan=VTanHeaWat,
     final hTan=hTanHeaWat,
@@ -178,19 +178,19 @@ model PartialParallel
     "Heating water tank"
     annotation (Placement(transformation(extent={{-220,96},{-200,116}})));
   EnergyTransferStations.BaseClasses.CollectorDistributor colChiWat(
-    redeclare final package Medium=MediumBui,
+    redeclare final package Medium=Medium2,
     final nCon=1+nSysCoo,
     mCon_flow_nominal={colAmbWat.mDis_flow_nominal})
     "Collector/distributor for chilled water"
     annotation (Placement(transformation(extent={{-20,10},{20,-10}},rotation=180,origin={120,-34})));
   EnergyTransferStations.BaseClasses.CollectorDistributor colHeaWat(
-    redeclare final package Medium=MediumBui,
+    redeclare final package Medium=Medium2,
     final nCon=1+nSysHea,
     mCon_flow_nominal={colAmbWat.mDis_flow_nominal})
     "Collector/distributor for heating water"
     annotation (Placement(transformation(extent={{20,10},{-20,-10}},rotation=180,origin={-120,-34})));
   EnergyTransferStations.BaseClasses.CollectorDistributor colAmbWat(
-    redeclare final package Medium=MediumBui,
+    redeclare final package Medium=Medium2,
     final nCon=nSouAmb,
     mCon_flow_nominal={hex.m2_flow_nominal})
     "Collector/distributor for ambient water"
@@ -216,12 +216,12 @@ model PartialParallel
     "Chilled water distributed energy flow rate"
     annotation (Placement(transformation(extent={{300,80},{340,120}}),iconTransformation(extent={{300,-160},{340,-120}})));
   Networks.BaseClasses.DifferenceEnthalpyFlowRate dHFloChiWat(
-    redeclare final package Medium=MediumBui,
+    redeclare final package Medium=Medium2,
     final m_flow_nominal=colChiWat.mDis_flow_nominal)
     "Variation of enthalpy flow rate"
     annotation (Placement(transformation(extent={{250,116},{270,96}})));
   Networks.BaseClasses.DifferenceEnthalpyFlowRate dHFloHeaWat(
-    redeclare final package Medium=MediumBui,
+    redeclare final package Medium=Medium2,
     final m_flow_nominal=colHeaWat.mDis_flow_nominal)
     "Variation of enthalpy flow rate"
     annotation (Placement(transformation(extent={{-230,96},{-250,116}})));
@@ -233,10 +233,10 @@ equation
     annotation (Line(points={{12,-254},{36,-254},{36,-60},{258,-60}},color={0,0,127}));
   connect(THeaWatSupSet,conSup.THeaWatSupPreSet)
     annotation (Line(points={{-320,-20},{-292,-20},{-292,27},{-262,27}},color={0,0,127}));
-  connect(port_aDis,hex.port_a1)
-    annotation (Line(points={{-300,-260},{-10,-260}},color={0,127,255}));
-  connect(hex.port_b1,port_bDis)
-    annotation (Line(points={{10,-260},{300,-260}},color={0,127,255}));
+  connect(port_a1,hex.port_a1)
+    annotation (Line(points={{-300,-220},{-280,-220},{-280,-260},{-10,-260}},color={0,127,255}));
+  connect(hex.port_b1,port_b1)
+    annotation (Line(points={{10,-260},{280,-260},{280,-220},{300,-220}},color={0,127,255}));
   connect(tanHeaWat.TTop,conSup.THeaWatTop)
     annotation (Line(points={{-199,115},{-182,115},{-182,82},{-274,82},{-274,25},{-262,25}},color={0,0,127}));
   connect(tanChiWat.TBot,conSup.TChiWatBot)

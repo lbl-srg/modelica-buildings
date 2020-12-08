@@ -1,12 +1,25 @@
 within Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses;
 partial model PartialETS
   "Partial class for energy transfer station model"
-  replaceable package MediumBui=Modelica.Media.Interfaces.PartialMedium
-    "Building side medium"
-    annotation (choices(choice(redeclare package Medium=Buildings.Media.Water "Water"),choice(redeclare package Medium=Buildings.Media.Antifreeze.PropyleneGlycolWater(property_T=293.15,X_a=0.40) "Propylene glycol water, 40% mass fraction")));
-  replaceable package MediumDis=Modelica.Media.Interfaces.PartialMedium
+  import TypDisSys=Buildings.Experimental.DHC.Types.DistrictSystemType
+    "District system type enumeration";
+  replaceable package Medium1=Modelica.Media.Interfaces.PartialMedium
     "District side medium"
-    annotation (choices(choice(redeclare package Medium=Buildings.Media.Water "Water"),choice(redeclare package Medium=Buildings.Media.Antifreeze.PropyleneGlycolWater(property_T=293.15,X_a=0.40) "Propylene glycol water, 40% mass fraction")));
+    annotation (choices(choice(redeclare package Medium1=Buildings.Media.Water "Water"),choice(redeclare package Medium1=Buildings.Media.Steam "Steam")));
+  replaceable package Medium1b=Medium1
+    constrainedby Modelica.Media.Interfaces.PartialMedium
+    "District side medium (heating medium leaving ETS)"
+    annotation (Dialog(enable=typ == TypDisSys.CombinedGeneration1 or typ == TypDisSys.HeatingGeneration1),choices(choice(redeclare package Medium1b=Buildings.Media.Water "Water")));
+  replaceable package Medium1ChiWat=Medium1
+    constrainedby Modelica.Media.Interfaces.PartialMedium
+    "District side medium (cooling medium)"
+    annotation (Dialog(enable=typ == TypDisSys.CombinedGeneration1 or typ == TypDisSys.CombinedGeneration4 or typ == TypDisSys.Cooling),choices(choice(redeclare package Medium1ChiWat=Buildings.Media.Water "Water")));
+  replaceable package Medium2=Modelica.Media.Interfaces.PartialMedium
+    "Building side medium"
+    annotation (choices(choice(redeclare package Medium2=Buildings.Media.Water "Water")));
+  parameter TypDisSys typ
+    "Type of district system"
+    annotation (Evaluate=true);
   parameter Integer nPorts_aHeaWat=0
     "Number of heating water return ports"
     annotation (Evaluate=true,Dialog(connectorSizing=true));
@@ -19,35 +32,35 @@ partial model PartialETS
   parameter Integer nPorts_bChiWat=0
     "Number of chilled water supply ports"
     annotation (Evaluate=true,Dialog(connectorSizing=true));
-  parameter Boolean have_heaWat=true
+  parameter Boolean have_heaWat=false
     "Set to true if the ETS supplies heating water"
     annotation (Evaluate=true);
-  parameter Boolean have_hotWat=true
+  parameter Boolean have_hotWat=false
     "Set to true if the ETS supplies domestic hot water"
     annotation (Evaluate=true);
-  parameter Boolean have_chiWat=true
+  parameter Boolean have_chiWat=false
     "Set to true if the ETS supplies chilled water"
     annotation (Evaluate=true);
-  parameter Boolean have_fan=true
+  parameter Boolean have_fan=false
     "Set to true if fans drawn power is computed"
     annotation (Evaluate=true);
-  parameter Boolean have_pum=true
+  parameter Boolean have_pum=false
     "Set to true if pumps drawn power is computed"
     annotation (Evaluate=true);
-  parameter Boolean have_eleHea=true
+  parameter Boolean have_eleHea=false
     "Set to true if the ETS has electric heating"
     annotation (Evaluate=true);
-  parameter Boolean have_eleCoo=true
+  parameter Boolean have_eleCoo=false
     "Set to true if the ETS has electric cooling"
     annotation (Evaluate=true);
-  parameter Boolean have_weaBus=true
+  parameter Boolean have_weaBus=false
     "Set to true for weather bus"
     annotation (Evaluate=true);
-  parameter Boolean allowFlowReversalBui=false
-    "Set to true to allow flow reversal on building side"
-    annotation (Dialog(tab="Assumptions"),Evaluate=true);
-  parameter Boolean allowFlowReversalDis=false
+  parameter Boolean allowFlowReversal1=false
     "Set to true to allow flow reversal on district side"
+    annotation (Dialog(tab="Assumptions"),Evaluate=true);
+  parameter Boolean allowFlowReversal2=false
+    "Set to true to allow flow reversal on building side"
     annotation (Dialog(tab="Assumptions"),Evaluate=true);
   parameter Modelica.SIunits.HeatFlowRate QChiWat_flow_nominal=0
     "Design heat flow rate for chilled water production (<0)"
@@ -60,83 +73,109 @@ partial model PartialETS
     annotation (Dialog(group="Nominal condition",enable=have_hotWat));
   // IO CONNECTORS
   Modelica.Fluid.Interfaces.FluidPorts_a ports_aHeaWat[nPorts_aHeaWat](
-    redeclare each package Medium=MediumBui,
+    redeclare each package Medium=Medium2,
     each m_flow(
       min=
-        if allowFlowReversalBui then
+        if allowFlowReversal2 then
           -Modelica.Constants.inf
         else
           0),
     each h_outflow(
-      start=MediumBui.h_default,
-      nominal=MediumBui.h_default)) if have_heaWat
+      start=Medium2.h_default,
+      nominal=Medium2.h_default)) if have_heaWat
     "Fluid connectors for heating water return (from building)"
     annotation (Placement(transformation(extent={{-310,220},{-290,300}}),iconTransformation(extent={{-310,220},{-290,300}})));
   Modelica.Fluid.Interfaces.FluidPorts_b ports_bHeaWat[nPorts_bHeaWat](
-    redeclare each package Medium=MediumBui,
+    redeclare each package Medium=Medium2,
     each m_flow(
       max=
-        if allowFlowReversalBui then
+        if allowFlowReversal2 then
           +Modelica.Constants.inf
         else
           0),
     each h_outflow(
-      start=MediumBui.h_default,
-      nominal=MediumBui.h_default)) if have_heaWat
+      start=Medium2.h_default,
+      nominal=Medium2.h_default)) if have_heaWat
     "Fluid connectors for heating water supply (to building)"
     annotation (Placement(transformation(extent={{290,220},{310,300}}),iconTransformation(extent={{290,220},{310,300}})));
   Modelica.Fluid.Interfaces.FluidPorts_a ports_aChiWat[nPorts_aChiWat](
-    redeclare each package Medium=MediumBui,
+    redeclare each package Medium=Medium2,
     each m_flow(
       min=
-        if allowFlowReversalBui then
+        if allowFlowReversal2 then
           -Modelica.Constants.inf
         else
           0),
     each h_outflow(
-      start=MediumBui.h_default,
-      nominal=MediumBui.h_default)) if have_chiWat
+      start=Medium2.h_default,
+      nominal=Medium2.h_default)) if have_chiWat
     "Fluid connectors for chilled water return (from building)"
     annotation (Placement(transformation(extent={{-310,160},{-290,240}}),iconTransformation(extent={{-310,120},{-290,200}})));
   Modelica.Fluid.Interfaces.FluidPorts_b ports_bChiWat[nPorts_bChiWat](
-    redeclare each package Medium=MediumBui,
+    redeclare each package Medium=Medium2,
     each m_flow(
       max=
-        if allowFlowReversalBui then
+        if allowFlowReversal2 then
           +Modelica.Constants.inf
         else
           0),
     each h_outflow(
-      start=MediumBui.h_default,
-      nominal=MediumBui.h_default)) if have_chiWat
+      start=Medium2.h_default,
+      nominal=Medium2.h_default)) if have_chiWat
     "Fluid connectors for chilled water supply (to building)"
     annotation (Placement(transformation(extent={{290,160},{310,240}}),iconTransformation(extent={{290,120},{310,200}})));
-  Modelica.Fluid.Interfaces.FluidPort_a port_aDis(
-    redeclare package Medium=MediumDis,
+  Modelica.Fluid.Interfaces.FluidPort_a port_a1(
+    redeclare package Medium=Medium1,
     m_flow(
       min=
-        if allowFlowReversalDis then
+        if allowFlowReversal1 then
           -Modelica.Constants.inf
         else
           0),
     h_outflow(
-      start=MediumDis.h_default,
-      nominal=MediumDis.h_default))
+      start=Medium1.h_default,
+      nominal=Medium1.h_default)) if typ <> TypDisSys.Cooling
     "Fluid connector for district water supply"
-    annotation (Placement(transformation(extent={{-310,-270},{-290,-250}})));
-  Modelica.Fluid.Interfaces.FluidPort_b port_bDis(
-    redeclare package Medium=MediumDis,
+    annotation (Placement(transformation(extent={{-310,-230},{-290,-210}}),iconTransformation(extent={{-310,-230},{-290,-210}})));
+  Modelica.Fluid.Interfaces.FluidPort_b port_b1(
+    redeclare package Medium=Medium1b,
     m_flow(
       max=
-        if allowFlowReversalDis then
+        if allowFlowReversal1 then
           +Modelica.Constants.inf
         else
           0),
     h_outflow(
-      start=MediumDis.h_default,
-      nominal=MediumDis.h_default))
+      start=Medium1b.h_default,
+      nominal=Medium1b.h_default)) if typ <> TypDisSys.Cooling
     "Fluid connector for district water return"
-    annotation (Placement(transformation(extent={{290,-270},{310,-250}}),iconTransformation(extent={{290,-270},{310,-250}})));
+    annotation (Placement(transformation(extent={{290,-230},{310,-210}}),iconTransformation(extent={{290,-230},{310,-210}})));
+  Modelica.Fluid.Interfaces.FluidPort_a port_a1ChiWat(
+    redeclare package Medium=Medium1ChiWat,
+    m_flow(
+      min=
+        if allowFlowReversal1 then
+          -Modelica.Constants.inf
+        else
+          0),
+    h_outflow(
+      start=Medium1ChiWat.h_default,
+      nominal=Medium1ChiWat.h_default)) if typ == TypDisSys.CombinedGeneration1 or typ == TypDisSys.CombinedGeneration4 or typ == TypDisSys.Cooling
+    "Fluid connector for district water supply"
+    annotation (Placement(transformation(extent={{-310,-290},{-290,-270}})));
+  Modelica.Fluid.Interfaces.FluidPort_b port_b1ChiWat(
+    redeclare package Medium=Medium1ChiWat,
+    m_flow(
+      max=
+        if allowFlowReversal1 then
+          +Modelica.Constants.inf
+        else
+          0),
+    h_outflow(
+      start=Medium1ChiWat.h_default,
+      nominal=Medium1ChiWat.h_default)) if typ == TypDisSys.CombinedGeneration1 or typ == TypDisSys.CombinedGeneration4 or typ == TypDisSys.Cooling
+    "Fluid connector for district water return"
+    annotation (Placement(transformation(extent={{290,-290},{310,-270}}),iconTransformation(extent={{290,-290},{310,-270}})));
   Buildings.BoundaryConditions.WeatherData.Bus weaBus if have_weaBus
     "Weather data bus"
     annotation (Placement(transformation(extent={{-16,250},{18,282}}),iconTransformation(extent={{-16,250},{18,282}})));
@@ -222,13 +261,7 @@ First implementation.
         Text(
           extent={{-148,-326},{152,-366}},
           lineColor={0,0,255},
-          textString="%name"),
-        Rectangle(
-          extent={{-298,-268},{300,-250}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={28,108,200},
-          fillPattern=FillPattern.Solid)}),
+          textString="%name")}),
     Diagram(
       coordinateSystem(
         preserveAspectRatio=false,
