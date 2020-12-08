@@ -167,7 +167,7 @@ model ETSSimplified
       iconTransformation(extent={{300,-200},{380,-120}})));
   // COMPONENTS
   Buildings.Fluid.Delays.DelayFirstOrder volMixDis_a(
-    redeclare final package Medium = MediumDis,
+    redeclare final package Medium = MediumSer,
     final nPorts=if have_hotWat then 4 else 3,
     final m_flow_nominal=mDisWat_flow_nominal,
     tau=600,
@@ -175,7 +175,7 @@ model ETSSimplified
     "Mixing volume to break algebraic loops and to emulate the delay of the substation"
     annotation (Placement(transformation(extent={{-270,-360},{-250,-380}})));
   Buildings.Fluid.Delays.DelayFirstOrder volMixDis_b(
-    redeclare final package Medium = MediumDis,
+    redeclare final package Medium = MediumSer,
     final nPorts=if have_hotWat then 4 else 3,
     final m_flow_nominal=mDisWat_flow_nominal,
     tau=600,
@@ -183,13 +183,13 @@ model ETSSimplified
     "Mixing volume to break algebraic loops and to emulate the delay of the substation"
     annotation (Placement(transformation(extent={{250,-360},{270,-380}})));
   DHC.EnergyTransferStations.BaseClasses.Pump_m_flow pum1HexChi(
-    redeclare final package Medium = MediumDis,
+    redeclare final package Medium = MediumSer,
     final m_flow_nominal=m1HexChi_flow_nominal,
-    final allowFlowReversal=allowFlowReversalDis)
+    final allowFlowReversal=allowFlowReversalSer)
     "Chilled water HX primary pump"
     annotation (Placement(transformation(extent={{110,-350},{90,-330}})));
   Buildings.Fluid.HeatExchangers.DryCoilEffectivenessNTU hexChi(
-    redeclare final package Medium1 = MediumDis,
+    redeclare final package Medium1 = MediumSer,
     redeclare final package Medium2 = MediumBui,
     final m1_flow_nominal=m1HexChi_flow_nominal,
     final m2_flow_nominal=m2HexChi_flow_nominal,
@@ -199,7 +199,7 @@ model ETSSimplified
     final Q_flow_nominal=QChiWat_flow_nominal,
     final T_a1_nominal=T1HexChiEnt_nominal,
     final T_a2_nominal=T2HexChiEnt_nominal,
-    final allowFlowReversal1=allowFlowReversalDis,
+    final allowFlowReversal1=allowFlowReversalSer,
     final allowFlowReversal2=allowFlowReversalBui)
     "Chilled water HX"
     annotation (Placement(transformation(extent={{10,-324},{-10,-344}})));
@@ -313,7 +313,7 @@ model ETSSimplified
         rotation=0,
         origin={160,-160})));
   SwitchBox swiFlo(
-    redeclare final package Medium = MediumDis,
+    redeclare final package Medium = MediumSer,
     final have_hotWat=have_hotWat,
     final m_flow_nominal=mDisWat_flow_nominal) "Flow switch box"
     annotation (Placement(transformation(extent={{-10,-390},{10,-370}})));
@@ -364,21 +364,21 @@ model ETSSimplified
         rotation=0,
         origin={110,-160})));
   // MISCELLANEOUS VARIABLES
-  MediumDis.ThermodynamicState sta_aDis=if allowFlowReversalDis then
-    MediumDis.setState_phX(port_aDis.p,
-      noEvent(actualStream(port_aDis.h_outflow)),
-      noEvent(actualStream(port_aDis.Xi_outflow))) else
-    MediumDis.setState_phX(port_aDis.p,
-      inStream(port_aDis.h_outflow),
-      inStream(port_aDis.Xi_outflow)) if show_T
+  MediumSer.ThermodynamicState sta_aDis=if allowFlowReversalSer then
+    MediumSer.setState_phX(port_aSerAmb.p,
+      noEvent(actualStream(port_aSerAmb.h_outflow)),
+      noEvent(actualStream(port_aSerAmb.Xi_outflow))) else
+    MediumSer.setState_phX(port_aSerAmb.p,
+      inStream(port_aSerAmb.h_outflow),
+      inStream(port_aSerAmb.Xi_outflow)) if show_T
     "Medium properties in port_aDis";
-  MediumDis.ThermodynamicState sta_bDis=if allowFlowReversalDis then
-    MediumDis.setState_phX(port_bDis.p,
-      noEvent(actualStream(port_bDis.h_outflow)),
-      noEvent(actualStream(port_bDis.Xi_outflow))) else
-    MediumDis.setState_phX(port_bDis.p,
-      port_bDis.h_outflow,
-      port_bDis.Xi_outflow) if  show_T
+  MediumSer.ThermodynamicState sta_bDis=if allowFlowReversalSer then
+    MediumSer.setState_phX(port_bSerAmb.p,
+      noEvent(actualStream(port_bSerAmb.h_outflow)),
+      noEvent(actualStream(port_bSerAmb.Xi_outflow))) else
+    MediumSer.setState_phX(port_bSerAmb.p,
+      port_bSerAmb.h_outflow,
+      port_bSerAmb.Xi_outflow) if  show_T
     "Medium properties in port_bDis";
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold enaHea(trueHoldDuration=5*60)
     "Enable heating"
@@ -388,11 +388,11 @@ model ETSSimplified
     annotation (Placement(transformation(extent={{-200,-190},{-180,-170}})));
   Subsystems.HeatPump heaPum(
     redeclare final package Medium1 = MediumBui,
-    redeclare final package Medium2 = MediumDis,
+    redeclare final package Medium2 = MediumSer,
     final COP_nominal=COP_nominal,
     final Q1_flow_nominal=QHeaWat_flow_nominal,
     final allowFlowReversal1=allowFlowReversalBui,
-    final allowFlowReversal2=allowFlowReversalDis,
+    final allowFlowReversal2=allowFlowReversalSer,
     final dT1_nominal=dT_nominal,
     final dT2_nominal=-dT_nominal,
     final dp1_nominal=dp_nominal,
@@ -403,12 +403,12 @@ model ETSSimplified
     annotation (Placement(transformation(extent={{230,310},{250,330}})));
   Subsystems.HeatPump heaPumSHW(
     redeclare final package Medium1 = MediumBui,
-    redeclare final package Medium2 = MediumDis,
+    redeclare final package Medium2 = MediumSer,
     final have_pumCon=false,
     final COP_nominal=COPHotWat_nominal,
     final Q1_flow_nominal=QHotWat_flow_nominal,
     final allowFlowReversal1=allowFlowReversalBui,
-    final allowFlowReversal2=allowFlowReversalDis,
+    final allowFlowReversal2=allowFlowReversalSer,
     final dT1_nominal=THotWatSup_nominal-TColWat_nominal,
     final dT2_nominal=-dT_nominal,
     final dp1_nominal=dp_nominal,
@@ -527,10 +527,6 @@ equation
   connect(gai2.y, pum1HexChi.m_flow_in)
     annotation (Line(points={{-58,-180},{100,-180},{100,-328}},
                                                           color={0,0,127}));
-  connect(swiFlo.port_bRet, port_bDis) annotation (Line(points={{4,-390},{4,-400},
-          {280,-400},{280,-260},{300,-260}}, color={0,127,255}));
-  connect(swiFlo.port_aSup, port_aDis) annotation (Line(points={{-4,-390},{-4,-400},
-          {-280,-400},{-280,-260},{-300,-260}}, color={0,127,255}));
   connect(PPumTot.y, PPum) annotation (Line(points={{252,400},{276,400},{276,-60},
           {320,-60}}, color={0,0,127}));
   connect(senT2HexChiEnt.port_b, pum2CooHex.port_a)
@@ -659,6 +655,10 @@ equation
           -10,220},{-20,220},{-20,260},{40,260}}, color={0,127,255}));
   connect(senMasFloHeaWatPri.port_b, bypHeaWatSup.port_1)
     annotation (Line(points={{60,260},{130,260}}, color={0,127,255}));
+  connect(port_aSerAmb, swiFlo.port_aSup) annotation (Line(points={{-300,-200},{
+          -280,-200},{-280,-400},{-4,-400},{-4,-390}}, color={0,127,255}));
+  connect(swiFlo.port_bRet, port_bSerAmb) annotation (Line(points={{4,-390},{4,-400},
+          {280,-400},{280,-200},{300,-200}}, color={0,127,255}));
   annotation (
   defaultComponentName="ets",
   Documentation(info="<html>

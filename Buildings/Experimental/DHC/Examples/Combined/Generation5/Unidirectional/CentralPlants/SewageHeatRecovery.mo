@@ -26,14 +26,16 @@ model SewageHeatRecovery "Model for sewage heat recovery plant"
     redeclare package Medium = Medium,
     m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
     h_outflow(start=Medium.h_default, nominal=Medium.h_default))
-    "District water inlet port" annotation (Placement(transformation(extent={{-110,
-            -10},{-90,10}}), iconTransformation(extent={{-110,-10},{-90,10}})));
+    "District water inlet port"
+    annotation (Placement(transformation(extent={{-110,
+     -10},{-90,10}}), iconTransformation(extent={{-110,-10},{-90,10}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_bDis(
     redeclare package Medium = Medium,
     m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
     h_outflow(start=Medium.h_default, nominal=Medium.h_default))
-    "District water outlet port" annotation (Placement(transformation(extent={{90,
-            -10},{110,10}}), iconTransformation(extent={{90,-10},{110,10}})));
+    "District water outlet port"
+    annotation (Placement(transformation(extent={{90,
+      -10},{110,10}}), iconTransformation(extent={{90,-10},{110,10}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSewWat(
     final unit="K",
     displayUnit="degC")
@@ -57,7 +59,7 @@ model SewageHeatRecovery "Model for sewage heat recovery plant"
         origin={-120,40})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput dH_flow(final unit="W")
     "Variation of enthalpy flow rate across HX (leaving - entering)"
-                                                               annotation (
+    annotation (
       Placement(transformation(extent={{100,-100},{140,-60}}),
         iconTransformation(extent={{100,40},{140,80}})));
   // COMPONENTS
@@ -118,14 +120,13 @@ model SewageHeatRecovery "Model for sewage heat recovery plant"
         rotation=180,
         origin={-40,20})));
   DHC.Networks.BaseClasses.DifferenceEnthalpyFlowRate senDifEntFlo(
-    redeclare package Medium = Medium,
+    redeclare package Medium1 = Medium,
     final m_flow_nominal=mDis_flow_nominal)
     "Variation of enthalpy flow rate"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={0,-40})));
-
 equation
   connect(senTSewOut.port_b, souSew.ports[1])
     annotation (Line(points={{-46,20},{-60,20},{-60,78}}, color={0,127,255}));

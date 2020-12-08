@@ -17,10 +17,10 @@ model SeriesConstantFlowTimeSeriesB3
     "Library paths of the files with thermal loads as time series";
   Loads.BuildingTimeSeriesWithETS bui[nBui](
     redeclare each final package MediumBui=Medium,
-    redeclare each final package MediumDis=Medium,
+    redeclare each final package MediumSer=Medium,
     final filNam=filNam,
     each final allowFlowReversalBui=false,
-    each final allowFlowReversalDis=allowFlowReversalDis)
+    each final allowFlowReversalSer=allowFlowReversalDis)
     annotation (Placement(transformation(extent={{-10,170},{10,190}})));
   Modelica.Blocks.Sources.Constant masFloMaiPum(k=datDes.mDis_flow_nominal)
     "Distribution pump mass flow rate"
