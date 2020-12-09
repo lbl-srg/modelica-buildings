@@ -31,7 +31,8 @@ model ConventionalSpring
         273.15],
     smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments,
     extrapolation=Buildings.Controls.OBC.CDL.Types.Extrapolation.Periodic,
-    y(unit="K",displayUnit="degC"))
+    y(each unit="K",
+      each displayUnit="degC"))
     "Cooling setpoint for room temperature"
     annotation (Placement(transformation(extent={{-40,-90},{-20,-70}})));
   Buildings.Controls.SetPoints.OccupancySchedule occSch(occupancy=3600*{8,18})
