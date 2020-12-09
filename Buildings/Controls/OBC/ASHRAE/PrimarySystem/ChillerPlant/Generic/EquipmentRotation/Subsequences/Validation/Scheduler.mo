@@ -42,6 +42,7 @@ model Scheduler
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.Scheduler
     rotSch4(
     final rotationPeriod=86400,
+    simTimSta=true,
     final weeInt=true,
     final houOfDay=12,
     final weeCou=4,

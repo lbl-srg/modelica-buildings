@@ -23,7 +23,9 @@ block WetBulb_TDryBulPhi
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected
-  Modelica.SIunits.Conversions.NonSIunits.Temperature_degC TDryBul_degC
+  Real TDryBul_degC(
+    final unit="degC",
+    displayUnit="degC")
     "Dry bulb temperature in degree Celsius";
   Real rh_per(min=0) "Relative humidity in percentage";
 
@@ -129,6 +131,12 @@ DOI: 10.1175/JAMC-D-11-0143.1
 </html>",
 revisions="<html>
 <ul>
+<li>
+November 12, 2020, by Michael Wetter:<br/>
+Reformulated to remove dependency to <code>Modelica.SIunits</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2243\">issue 2243</a>.
+</li>
 <li>
 September 29, 2020, by Michael Wetter:<br/>
 Removed unused input <code>p</code> and renamed block.<br/>

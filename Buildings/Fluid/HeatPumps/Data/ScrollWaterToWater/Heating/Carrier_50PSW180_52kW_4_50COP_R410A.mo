@@ -10,7 +10,6 @@ record Carrier_50PSW180_52kW_4_50COP_R410A =
     UACon = 8707.82060032,
     UAEva = 7982.84714185)
     "Calibrated parameters for Carrier 50PSW180"
-
   annotation (
     defaultComponentPrefixes = "parameter",
     defaultComponentName="datHeaPum",

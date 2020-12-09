@@ -978,7 +978,7 @@ block Controller "Chiller plant controller"
     annotation(Placement(transformation(extent={{800,380},{840,420}}),
       iconTransformation(extent={{100,130},{140,170}})));
 
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizer.Controller wseSta(
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizers.Controller wseSta(
     final holdPeriod=holdPeriod,
     final delDis=delDis,
     final TOffsetEna=TOffsetEna,
@@ -1108,7 +1108,7 @@ block Controller "Chiller plant controller"
     "Calculates the chiller stage status setpoint signal"
     annotation(Placement(transformation(extent={{-160,-68},{-80,100}})));
 
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Tower.Controller towCon(
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Towers.Controller towCon(
     final nTowCel=nTowCel,
     final totChiSta=totChiSta,
     final nConWatPum=nConWatPum,

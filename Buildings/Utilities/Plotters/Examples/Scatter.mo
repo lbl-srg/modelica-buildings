@@ -55,9 +55,9 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/
   Documentation(info="<html>
 <p>
 This example demonstrates the use of a scatter plotter
-that plots <i>(sin(t), cos(t)</i>, which will be a circle
+that plots <i>(sin(t), cos(t))</i>, which will be a circle
 with radius <i>1</i>,
-and <i>(sin(t), cos<sup>2</sup>(t)</i>, which will be an arc
+and <i>(sin(t), cos<sup>2</sup>(t))</i>, which will be an arc
 above the x-axis.
 The plots will be in the file specified
 in the plot configuration <code>plotConfiguration</code>.
