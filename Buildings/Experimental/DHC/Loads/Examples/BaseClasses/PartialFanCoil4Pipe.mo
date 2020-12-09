@@ -4,8 +4,8 @@ partial model PartialFanCoil4Pipe
   extends Buildings.Experimental.DHC.Loads.BaseClasses.PartialTerminalUnit(
     redeclare package Medium1=Buildings.Media.Water,
     redeclare package Medium2=Buildings.Media.Air,
-    final have_watHea=true,
-    final have_watCoo=true,
+    final have_heaWat=true,
+    final have_chiWat=true,
     final have_fan=true,
     final allowFlowReversal=false,
     final allowFlowReversalLoa=true,
