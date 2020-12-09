@@ -1,5 +1,5 @@
-within Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV;
-model CoolingCoil "Controller for cooling coil valve"
+within Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.SetPoints;
+block CoolingCoil "Controller for cooling coil valve"
 
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeCooCoi=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
@@ -102,16 +102,13 @@ Documentation(info="<html>
 This block outputs the cooling coil control signal if the fan is on and the zone status
 is <code>uZonSta = Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.ZoneStates.cooling</code>.
 Otherwise, the control signal for the coil is set to <code>0</code>.
+The implementation is according to the Section 5.18.5.3 of ASHRAE Guideline 36, May 2020.
 </p>
 </html>",revisions="<html>
 <ul>
 <li>
-March 13, 2020, by Jianjun Hu:<br/>
-Moved interfaces instances to be right after parameter section.
-</li>
-<li>
-August 1, 2019, by David Blum:<br/>
-First implementation.
+August 1, 2020, by Jianjun Hu:<br/>
+First implementation based on G36 official version.
 </li>
 </ul>
 </html>"));

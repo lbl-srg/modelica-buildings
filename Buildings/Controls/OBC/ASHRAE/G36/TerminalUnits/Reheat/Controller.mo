@@ -12,10 +12,10 @@ block Controller "Controller for room VAV box with reheat"
   parameter Boolean have_hotWatCoi=true
     "True: the system has hot water coil";
   // ---------------- Design parameters ----------------
-  parameter Real AZon(
+  parameter Real AFlo(
     final quantity="Area",
     final unit="m2")
-    "Zone area"
+    "Zone floor area"
     annotation (Dialog(group="Design conditions"));
   parameter Real desZonPop "Design zone population"
     annotation (Dialog(group="Design conditions"));
@@ -465,11 +465,11 @@ block Controller "Controller for room VAV box with reheat"
     final have_winSen=have_winSen,
     final have_occSen=have_occSen,
     final have_CO2Sen=have_CO2Sen,
-    final is_typTerUni=true,
-    final is_parFanPow=false,
-    final is_SZVAV=false,
+    final have_typTerUniWitCO2=true,
+    final have_parFanPowUniWitCO2=false,
+    final have_SZVAVWitCO2=false,
     final permit_occStandby=permit_occStandby,
-    final AZon=AZon,
+    final AFlo=AFlo,
     final desZonPop=desZonPop,
     final outAirRat_area=outAirRat_area,
     final outAirRat_occupant=outAirRat_occupant,

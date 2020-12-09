@@ -1,11 +1,12 @@
-within Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.Validation;
+within Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.SetPoints.Validation;
 model CoolingCoil "Validation of cooling coil model"
   final parameter Real TSupSet(
     final unit="K",
     final displayUnit="degC",
     final quantity="ThermodynamicTemperature")=291.15
     "Supply air temperature setpoint";
-  Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.CoolingCoil cooCoi(
+  Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.SetPoints.CoolingCoil
+                                                                    cooCoi(
       controllerTypeCooCoi=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
       kCooCoi=1) "Cooling coil controller"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
