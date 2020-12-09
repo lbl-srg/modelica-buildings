@@ -135,26 +135,6 @@
          "translate": false,
          "comment": "For testing only."
     },
-    "model_name": "Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.ConventionalSummer"
-  },
-  {
-       "jmodelica": {
-         "translate": false
-    },
-       "optimica": {
-         "translate": false,
-         "comment": "For testing only."
-    },
-    "model_name": "Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.Guideline36Summer"
-  },
-  {
-       "jmodelica": {
-         "translate": false
-    },
-       "optimica": {
-         "translate": false,
-         "comment": "For testing only."
-    },
     "model_name": "Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.ConventionalWinter"
   },
   {
