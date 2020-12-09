@@ -64,9 +64,9 @@ model OptimalStartHeatingCooling
   Buildings.Controls.OBC.CDL.Continuous.Add TOut "Outdoor dry bulb temperature"
     annotation (Placement(transformation(extent={{-170,-40},{-150,-20}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse pul(
+    shift(displayUnit="d") = 604800,
     amplitude=15,
-    period(displayUnit="d") = 1209600,
-    delay(displayUnit="d") = 604800)
+    period(displayUnit="d") = 1209600)
     "Range of outdoor dry bulb temperature"
     annotation (Placement(transformation(extent={{-210,-60},{-190,-40}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal TSetHea(

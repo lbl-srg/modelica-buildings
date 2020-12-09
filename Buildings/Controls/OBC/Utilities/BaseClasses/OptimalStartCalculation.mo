@@ -60,7 +60,7 @@ protected
 
   CDL.Logical.Sources.SampleTrigger samTri(
     final period=86400,
-    final delay=0)
+    final shift=0)
     "Trigger that triggers each midnight"
     annotation (Placement(transformation(extent={{80,-50},{100,-30}})));
 
