@@ -3,6 +3,8 @@ model BuildingTimeSeries
   "Building model with heating and cooling loads provided as time series"
   extends Buildings.Experimental.DHC.Loads.BaseClasses.PartialBuilding(
     redeclare package Medium=Buildings.Media.Water,
+    have_heaWat=true,
+    have_chiWat=true,
     final have_fan=false,
     final have_pum=true,
     final have_eleHea=false,
@@ -80,8 +82,7 @@ model BuildingTimeSeries
     fileName=Modelica.Utilities.Files.loadResource(
       filNam),
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
-    y(
-      each unit="W"),
+    y(each unit="W"),
     offset={0,0,0},
     columns={2,3,4},
     smoothness=Modelica.Blocks.Types.Smoothness.MonotoneContinuousDerivative1)
@@ -89,15 +90,13 @@ model BuildingTimeSeries
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTSet(
     k=293.15,
-    y(
-      final unit="K",
+    y(final unit="K",
       displayUnit="degC"))
     "Minimum temperature set point"
     annotation (Placement(transformation(extent={{-280,170},{-260,190}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxTSet(
     k=297.15,
-    y(
-      final unit="K",
+    y(final unit="K",
       displayUnit="degC"))
     "Maximum temperature set point"
     annotation (Placement(transformation(extent={{-280,210},{-260,230}})));
@@ -203,11 +202,13 @@ protected
     "Heating water mass flow rate at nominal conditions";
 equation
   connect(terUniHea.port_bHeaWat,disFloHea.ports_a1[1])
-    annotation (Line(points={{90,-32.3333},{90,-32},{146,-32},{146,-64},{140,-64}},color={0,127,255}));
+    annotation (Line(points={{90,-32.3333},{90,-32},{146,-32},{146,-64},{140,
+          -64}},                                                                   color={0,127,255}));
   connect(disFloHea.ports_b1[1],terUniHea.port_aHeaWat)
     annotation (Line(points={{120,-64},{64,-64},{64,-32.3333},{70,-32.3333}},color={0,127,255}));
   connect(terUniHea.mReqHeaWat_flow,disFloHea.mReq_flow[1])
-    annotation (Line(points={{90.8333,-27.3333},{90.8333,-28},{100,-28},{100,-74},{119,-74}},color={0,0,127}));
+    annotation (Line(points={{90.8333,-27.3333},{90.8333,-28},{100,-28},{100,
+          -74},{119,-74}},                                                                   color={0,0,127}));
   connect(disFloHea.QActTot_flow,QHea_flow)
     annotation (Line(points={{141,-76},{260,-76},{260,280},{320,280}},color={0,0,127}));
   connect(disFloCoo.QActTot_flow,QCoo_flow)
@@ -219,11 +220,13 @@ equation
   connect(disFloCoo.ports_b1[1],terUniCoo.port_aChiWat)
     annotation (Line(points={{120,-254},{60,-254},{60,29.3333},{70,29.3333}},color={0,127,255}));
   connect(terUniCoo.port_bChiWat,disFloCoo.ports_a1[1])
-    annotation (Line(points={{90,29.3333},{112,29.3333},{160,29.3333},{160,-254},{140,-254}},color={0,127,255}));
+    annotation (Line(points={{90,29.3333},{112,29.3333},{160,29.3333},{160,-254},
+          {140,-254}},                                                                       color={0,127,255}));
   connect(terUniCoo.mReqChiWat_flow,disFloCoo.mReq_flow[1])
     annotation (Line(points={{90.8333,31},{108,31},{108,-264},{119,-264}},color={0,0,127}));
   connect(minTSet.y,terUniHea.TSetHea)
-    annotation (Line(points={{-258,180},{-20,180},{-20,-20},{24,-20},{24,-19},{69.1667,-19}},color={0,0,127}));
+    annotation (Line(points={{-258,180},{-20,180},{-20,-20},{24,-20},{24,-19},{
+          69.1667,-19}},                                                                     color={0,0,127}));
   connect(maxTSet.y,terUniCoo.TSetCoo)
     annotation (Line(points={{-258,220},{0,220},{0,39.3333},{69.1667,39.3333}},color={0,0,127}));
   connect(ports_aHeaWat[1],disFloHea.port_a)
