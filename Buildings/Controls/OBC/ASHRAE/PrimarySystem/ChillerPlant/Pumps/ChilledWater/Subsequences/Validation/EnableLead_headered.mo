@@ -10,15 +10,15 @@ model EnableLead_headered
 protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse isoVal(
     final period=3600,
-    final startTime=300) "Isolation valve status"
+    final shift=300) "Isolation valve status"
     annotation (Placement(transformation(extent={{-20,50},{0,70}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse isoVal1(
     final period=3600,
-    final startTime=600) "Isolation valve status"
+    final shift=600) "Isolation valve status"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse isoVal2(
     final period=3600,
-    final startTime=1000) "Isolation valve status"
+    final shift=1000) "Isolation valve status"
     annotation (Placement(transformation(extent={{-20,-70},{0,-50}})));
 
 equation

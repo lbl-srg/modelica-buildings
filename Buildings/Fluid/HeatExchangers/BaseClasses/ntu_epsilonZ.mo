@@ -18,11 +18,10 @@ protected
     input Real eps(min=0, max=0.999) "Heat exchanger effectiveness";
     input Real Z(min=0, max=1) "Ratio of capacity flow rate (CMin/CMax)";
 
-    protected
-
+  protected
     Real NTUExp "Auxiliary variable";
 
-    algorithm
+  algorithm
     NTUExp := u^(-0.22);
     y := 1 - Modelica.Math.exp( ( Modelica.Math.exp( - u * Z * NTUExp)  - 1)  / (Z * NTUExp))-eps;
   end epsilon_ntuZ_crossFlowUnmixed;

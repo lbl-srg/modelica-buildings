@@ -1,0 +1,11 @@
+compareVars :=
+  {
+    "romHeaUnm.TAir",
+    "rooOdeHea.TAir",
+    "romCooUnm.TAir",
+    "rooOdeCoo.TAir",
+    "rooOdeHea.QReq_flow",
+    "rooOdeCoo.QReq_flow",
+    "rooOdeHea.QAct_flow",
+    "rooOdeCoo.QAct_flow"
+  };

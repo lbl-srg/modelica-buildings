@@ -32,13 +32,13 @@ block Up "Sequence for control devices when there is stage-up command"
     final quantity=fill("VolumeFlowRate",nChi),
     displayUnit=fill("m3/s",nChi))={0.0089,0.0089}
       "Minimum chilled water flow through each chiller"
-    annotation (Evaluate=true, Dialog(group="Reset CHW minimum flow setpoint"));
+    annotation (Dialog(group="Reset CHW minimum flow setpoint"));
   parameter Real maxFloSet[nChi](
     final unit=fill("m3/s",nChi),
     final quantity=fill("VolumeFlowRate",nChi),
     displayUnit=fill("m3/s",nChi))={0.025,0.025}
       "Maximum chilled water flow through each chiller"
-    annotation (Evaluate=true, Dialog(group="Reset CHW minimum flow setpoint"));
+    annotation (Dialog(group="Reset CHW minimum flow setpoint"));
   parameter Real aftByPasSetTim(
     final unit="s",
     final quantity="Time",

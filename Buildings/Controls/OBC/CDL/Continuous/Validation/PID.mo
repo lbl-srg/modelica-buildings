@@ -9,12 +9,6 @@ model PID "Test model for PID controller"
     Td=1,
     yMin=-1) "PID controller"
     annotation (Placement(transformation(extent={{-30,40},{-10,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.PID limPIDOri(
-    controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PID,
-    Ti=1,
-    Td=1,
-    yMin=-1) "PID controller"
-    annotation (Placement(transformation(extent={{-30,74},{-10,94}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant const(k=0.5)
     "Measurement data"
     annotation (Placement(transformation(extent={{-90,-22},{-70,-2}})));
@@ -59,12 +53,6 @@ equation
   connect(const.y, limPID.u_m) annotation (Line(
       points={{-68,-12},{-62,-12},{-62,30},{-20,30},{-20,38}},
       color={0,0,127}));
-  connect(pulse.y, limPIDOri.u_s) annotation (Line(
-      points={{-68,24},{-54,24},{-54,84},{-32,84}},
-      color={0,0,127}));
-  connect(const.y, limPIDOri.u_m) annotation (Line(
-      points={{-68,-12},{-62,-12},{-62,66},{-20,66},{-20,72}},
-      color={0,0,127}));
   connect(const.y, limPI.u_m)
     annotation (Line(points={{-68,-12},{-62,-12},{-62,-2},{-20,-2},{-20,0}},
                                                          color={0,0,127}));
@@ -98,15 +86,14 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/O
 Validation test for the block
 <a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.PID\">
 Buildings.Controls.OBC.CDL.Continuous.PID</a>.
-</p>
-<p>
-The model <code>limPIDOri</code> is the original
-implementation of the controller from the Modelica
-Standard Library. The models <code>limPID</code>
-is the implementations from the Buildings library.
+This tests the different settings for the controller types.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 15, 2020, by Michael Wetter:<br/>
+Removed instance <code>limPIDOri</code> which was identical to <code>limPID</code>.
+</li>
 <li>
 March 24, 2017, by Jianjun Hu:<br/>
 Added into CDL, simplified the validation model.

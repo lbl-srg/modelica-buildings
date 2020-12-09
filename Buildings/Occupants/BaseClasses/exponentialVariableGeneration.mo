@@ -1,4 +1,4 @@
-within Buildings.Occupants.BaseClasses;
+﻿within Buildings.Occupants.BaseClasses;
 function exponentialVariableGeneration "Random variable generator from the exponential distribution"
     input Real mu  "Mean exponential distribution";
     input Integer globalSeed "Seed for the random number generator";

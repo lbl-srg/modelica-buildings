@@ -1,4 +1,4 @@
-within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.ChilledWater.Subsequences;
+﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.ChilledWater.Subsequences;
 block EnableLead_headered
   "Sequence to enable or disable the lead pump of plants with headered primary chilled water pumps"
   parameter Integer nChi=2 "Total number of chiller CHW isolation valves";
@@ -6,7 +6,7 @@ block EnableLead_headered
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChiIsoVal[nChi]
     "True: chilled water isolation valve commended on"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yLea 
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yLea
     "Lead pump status setpoint"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 

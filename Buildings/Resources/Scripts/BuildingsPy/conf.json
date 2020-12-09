@@ -27,11 +27,26 @@
     "model_name": "Buildings.Fluid.Examples.FlowSystem.Simplified2"
   },
   {
+    "optimica": {
+      "simulate": false,
+      "comment": "See https://github.com/lbl-srg/modelica-buildings/issues/2231"
+    },
+  "model_name": "Buildings.ThermalZones.Detailed.Examples.FFD.ForcedConvection"
+  },
+  {
+    "optimica": {
+      "simulate": false,
+      "comment": "See https://github.com/lbl-srg/modelica-buildings/issues/2231"
+    },
+  "model_name": "Buildings.ThermalZones.Detailed.Examples.FFD.Tutorial.MixedConvection"
+  },
+  {
     "jmodelica": {
       "simulate": false
     },
     "optimica": {
-      "simulate": false
+      "rtol": 1E-8,
+      "comment": "Tolerance of 1E-7 would lead to very slow progress with commit fabaa64231692a2a2b6c044aff34f5ae6b3be868"
     },
   "model_name": "Buildings.ThermalZones.Detailed.Validation.SingleZoneFloorWithHeating"
   },
@@ -39,6 +54,10 @@
     "jmodelica": {
         "translate": false
     },
+    "optimica": {
+      "simulate": false,
+      "comment":  "See https://github.com/lbl-srg/modelica-buildings/issues/2235"
+  },
     "model_name": "Buildings.Utilities.IO.Python36.Examples.KalmanFilter"
   },
   {
@@ -67,7 +86,8 @@
         "translate": false
     },
     "optimica": {
-        "translate": false
+        "translate": false,
+        "comment": "Python 2.7 is not supported"
     },
     "model_name": "Buildings.Obsolete.Utilities.IO.Python27.Examples.KalmanFilter"
   },
@@ -76,7 +96,8 @@
       "translate": false
     },
     "optimica": {
-      "translate": false
+      "translate": false,
+      "comment": "Python 2.7 is not supported"
     },
    "model_name": "Buildings.Obsolete.Utilities.IO.Python27.Examples.SimpleRoom"
   },
@@ -85,7 +106,8 @@
          "translate": false
     },
        "optimica": {
-         "translate": false
+         "translate": false,
+         "comment": "Python 2.7 is not supported"
     },
     "model_name": "Buildings.Obsolete.Utilities.IO.Python27.Functions.Examples.Exchange"
   },
@@ -94,15 +116,13 @@
          "translate": false
     },
        "optimica": {
-         "translate": false
+         "translate": false,
+         "comment": "Python 2.7 is not supported"
     },
     "model_name": "Buildings.Obsolete.Utilities.IO.Python27.Functions.Examples.ExchangeWithPassPythonObject"
   },
   {
        "jmodelica": {
-         "rtol": 1E-8
-    },
-       "optimica": {
          "rtol": 1E-8
     },
     "model_name": "Buildings.Examples.DualFanDualDuct.ClosedLoop"

@@ -1,0 +1,16 @@
+simulateModel("Buildings.Examples.VAVReheat.Controls.Examples.SupplyAirTemperature", stopTime=3600, method="CVode", tolerance=1e-6, resultFile="SupplyAirTemperature");
+createPlot(
+    id=1,
+    position={14, 17, 582, 467},
+    y={"conTSup.yHea", "conTSup.yOA", "conTSup.yCoo"},
+    grid=true);
+createPlot(
+    id=1,
+    y={"uEna.y"},
+    grid=true,
+    subPlot=2);
+createPlot(
+    id=1,
+    y={"TSupSet.y", "TSup.y"},
+    grid=true,
+    subPlot=3);

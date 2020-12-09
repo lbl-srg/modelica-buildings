@@ -3,23 +3,20 @@ model ZoneState "Validation models of determining zone state"
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.ZoneState zonSta
     "Zone state"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse uCoo(
-    period=2,
-    offset=0,
-    startTime=1,
-    amplitude=1) "Cooling control signal"
-    annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse uHea(
-    period=2,
-    offset=0,
-    amplitude=1,
-    startTime=2) "Heating control signal"
-    annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
+  CDL.Continuous.Sources.TimeTable uHeaCoo(
+    table=[
+      0,0,0;
+      1,0,1;
+      2,1,0],
+    smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments,
+    extrapolation=Buildings.Controls.OBC.CDL.Types.Extrapolation.HoldLastPoint)
+    "Control signal for heating and cooling"
+    annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
 equation
-  connect(uHea.y, zonSta.uHea) annotation (Line(points={{-58,30},{-50,30},{-50,
-          4},{-2,4}},     color={0,0,127}));
-  connect(uCoo.y, zonSta.uCoo) annotation (Line(points={{-58,-30},{-50,-30},{
-          -50,-4},{-2,-4}}, color={0,0,127}));
+  connect(zonSta.uHea, uHeaCoo.y[1]) annotation (Line(points={{-2,4},{-38,4},{-38,
+          0},{-58,0}}, color={0,0,127}));
+  connect(zonSta.uCoo, uHeaCoo.y[2]) annotation (Line(points={{-2,-4},{-38,-4},{
+          -38,0},{-58,0}}, color={0,0,127}));
   annotation (experiment(StopTime=3, Interval=300, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36_PR1/AHUs/SingleZone/VAV/Validation/ZoneState.mos"
     "Simulate and plot"),
@@ -43,6 +40,12 @@ Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.ZoneState</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 19, 2020, by Michael Wetter:<br/>
+Refactored implementation, avoided state events.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2170\">#2170</a>.
+</li>
 <li>
 October 24, 2018, by David Blum:<br/>
 First implementation.

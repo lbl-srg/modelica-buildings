@@ -216,32 +216,5 @@ First implementation.
           extent={{30,-66},{50,-88}},
           lineColor={0,0,0},
           fillColor={0,0,0},
-          fillPattern=FillPattern.Solid)}),
-              Icon(
-      Rectangle(extent={{-36,-36},{-24,-72}},   style(
-          color=0,
-          fillColor=8,
-          fillPattern=8)),
-      Line(points=[-12,-52; 26,-52],    style(color=42, fillColor=45)),
-      Line(points=[-4,-40; -4,-68],    style(color=69, fillColor=47)),
-      Line(points=[-4,-68; -10,-58],    style(color=69, fillColor=47)),
-      Line(points=[-4,-68; 2,-58],      style(color=69, fillColor=47)),
-      Line(points=[14,-58; 26,-52],    style(color=42, fillColor=45)),
-      Line(points=[14,-46; 26,-52],    style(color=42, fillColor=45)),
-      Line(points=[16,-40; 16,-68],    style(color=69, fillColor=47)),
-      Line(points=[16,-68; 10,-58],     style(color=69, fillColor=47)),
-      Line(points=[16,-68; 22,-58],     style(color=69, fillColor=47)),
-      Rectangle(extent={{-36,66},{-24,30}},     style(
-          color=0,
-          fillColor=8,
-          fillPattern=8)),
-      Line(points=[-12,50; 26,50],      style(color=42, fillColor=45)),
-      Line(points=[-4,62; -4,34],      style(color=69, fillColor=47)),
-      Line(points=[-4,34; -10,44],      style(color=69, fillColor=47)),
-      Line(points=[-4,34; 2,44],        style(color=69, fillColor=47)),
-      Line(points=[14,44; 26,50],      style(color=42, fillColor=45)),
-      Line(points=[14,56; 26,50],      style(color=42, fillColor=45)),
-      Line(points=[16,62; 16,34],      style(color=69, fillColor=47)),
-      Line(points=[16,34; 10,44],       style(color=69, fillColor=47)),
-      Line(points=[16,34; 22,44],       style(color=69, fillColor=47))));
+          fillPattern=FillPattern.Solid)}));
 end HADryCoil;

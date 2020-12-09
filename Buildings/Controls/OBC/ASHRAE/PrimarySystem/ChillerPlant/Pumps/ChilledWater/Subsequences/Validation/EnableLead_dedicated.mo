@@ -17,7 +17,7 @@ model EnableLead_dedicated
 protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse leaChiEna(
     final period=3600,
-    final startTime=300) "Lead chiller enabling status"
+    final shift=300) "Lead chiller enabling status"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
   Buildings.Controls.OBC.CDL.Logical.Latch lat
     "Maintains a true signal until conditions changes"
@@ -27,7 +27,7 @@ protected
     annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse enaPla(
     final period=7200,
-    final startTime=200)
+    final shift=200)
     "Plant enabling status"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
 
