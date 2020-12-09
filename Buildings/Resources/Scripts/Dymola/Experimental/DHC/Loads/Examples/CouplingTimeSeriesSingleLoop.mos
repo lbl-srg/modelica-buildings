@@ -32,15 +32,15 @@ createPlot(
 );
 createPlot(
     id=2,
-    y={"buiCoo.terUniCoo.QActCoo_flow"},
+    y={"buiCoo.facScaCoo"},
     grid=true,
     subPlot=4
 );
 plotExpression(
     apply(CouplingTimeSeriesSingleLoop.buiCoo.terUniCoo.facSca*CouplingTimeSeriesSingleLoop.buiCoo.terUniCoo.QCoo_flow_nominal),
     false,
-    "facSca*QCoo_flow_nominal",
-    2);
+    "facScaCoo*QCoo_flow_nominal",
+    id=2);
 createPlot(
     id=3,
     position={1030, 10, 500, 1000},
@@ -63,15 +63,15 @@ createPlot(
 );
 createPlot(
     id=3,
-    y={"buiHea.terUniHea.QActHea_flow"},
+    y={"buiHea.facScaHea"},
     grid=true,
     subPlot=4
 );
 plotExpression(
     apply(CouplingTimeSeriesSingleLoop.buiHea.terUniHea.facSca*CouplingTimeSeriesSingleLoop.buiHea.terUniHea.QHea_flow_nominal),
     false,
-    "facSca*QHea_flow_nominal",
-    3);
+    "facScaHea*QHea_flow_nominal",
+    id=3);
 createPlot(
     id=4,
     position={1540, 10, 500, 500},
