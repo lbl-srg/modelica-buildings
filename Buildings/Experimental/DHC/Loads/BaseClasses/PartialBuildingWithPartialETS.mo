@@ -21,10 +21,10 @@ partial model PartialBuildingWithPartialETS
   parameter Integer nPorts_chiWat=0
     "Number of chilled water fluid ports"
     annotation (Evaluate=true);
-  parameter Boolean allowFlowReversal1=false
-    "Set to true to allow flow reversal on district side"
+  parameter Boolean allowFlowReversalSer=false
+    "Set to true to allow flow reversal on service side"
     annotation (Dialog(tab="Assumptions"),Evaluate=true);
-  parameter Boolean allowFlowReversal2=false
+  parameter Boolean allowFlowReversalBui=false
     "Set to true to allow flow reversal on building side"
     annotation (Dialog(tab="Assumptions"),Evaluate=true);
   // The following parameters are propagated up from building and ETS components.
@@ -94,7 +94,8 @@ partial model PartialBuildingWithPartialETS
   // IO CONNECTORS
   BoundaryConditions.WeatherData.Bus weaBus if have_weaBus
     "Weather data bus"
-    annotation (Placement(transformation(extent={{-20,100},{20,140}}),iconTransformation(extent={{-10,58},{10,78}})));
+    annotation (Placement(transformation(extent={{-20,100},{20,140}}),
+      iconTransformation(extent={{-10,58},{10,78}})));
   // COMPONENTS
   replaceable DHC.Loads.BaseClasses.PartialBuilding bui(
     redeclare final package Medium=MediumBui,
@@ -102,7 +103,7 @@ partial model PartialBuildingWithPartialETS
     final nPorts_bHeaWat=nPorts_heaWat,
     final nPorts_aChiWat=nPorts_chiWat,
     final nPorts_bChiWat=nPorts_chiWat,
-    final allowFlowReversal=allowFlowReversal2)
+    final allowFlowReversal=allowFlowReversalBui)
     "Building model "
     annotation (Placement(transformation(extent={{-30,8},{30,68}})));
   replaceable DHC.EnergyTransferStations.BaseClasses.PartialETS ets(
@@ -113,8 +114,8 @@ partial model PartialBuildingWithPartialETS
     final nPorts_bHeaWat=nPorts_heaWat,
     final nPorts_aChiWat=nPorts_chiWat,
     final nPorts_bChiWat=nPorts_chiWat,
-    final allowFlowReversal2=allowFlowReversal2,
-    final allowFlowReversal1=allowFlowReversal1)
+    final allowFlowReversalSer=allowFlowReversalSer,
+    final allowFlowReversalBui=allowFlowReversalBui)
     "Energy transfer station model"
     annotation (Placement(transformation(extent={{-30,-86},{30,-26}})));
   Modelica.Blocks.Interfaces.RealOutput QHea_flow(
@@ -169,7 +170,7 @@ partial model PartialBuildingWithPartialETS
     annotation (Placement(transformation(extent={{90,20},{110,40}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_aSerAmb(
     redeclare package Medium = MediumSer,
-    m_flow(min=if allowFlowReversal1 then -Modelica.Constants.inf else 0),
+    m_flow(min=if allowFlowReversalSer then -Modelica.Constants.inf else 0),
     h_outflow(start=MediumSer.h_default, nominal=MediumSer.h_default)) if
     typ == TypDisSys.CombinedGeneration5
     "Fluid connector for ambient water service supply line"
@@ -178,7 +179,7 @@ partial model PartialBuildingWithPartialETS
         iconTransformation(extent={{-110,-10},{-90,10}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_bSerAmb(
     redeclare package Medium = MediumSer,
-    m_flow(max=if allowFlowReversal1 then +Modelica.Constants.inf else 0),
+    m_flow(max=if allowFlowReversalSer then +Modelica.Constants.inf else 0),
     h_outflow(start=MediumSer.h_default, nominal=MediumSer.h_default)) if
     typ == TypDisSys.CombinedGeneration5
     "Fluid connector for ambient water service return line"
@@ -187,7 +188,7 @@ partial model PartialBuildingWithPartialETS
         iconTransformation(extent={{90,-10},{110,10}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_aSerHea(
     redeclare package Medium = MediumSerHea_a,
-    m_flow(min=if allowFlowReversal1 then -Modelica.Constants.inf else 0),
+    m_flow(min=if allowFlowReversalSer then -Modelica.Constants.inf else 0),
     h_outflow(start=MediumSerHea_a.h_default, nominal=MediumSerHea_a.h_default)) if
     typ <> TypDisSys.Cooling and
     typ <> TypDisSys.CombinedGeneration5
@@ -197,7 +198,7 @@ partial model PartialBuildingWithPartialETS
         extent={{-110,-50},{-90,-30}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_bSerHea(
     redeclare package Medium = MediumSer,
-    m_flow(max=if allowFlowReversal1 then +Modelica.Constants.inf else 0),
+    m_flow(max=if allowFlowReversalSer then +Modelica.Constants.inf else 0),
     h_outflow(start=MediumSer.h_default, nominal=MediumSer.h_default)) if
     typ <> TypDisSys.Cooling and
     typ <> TypDisSys.CombinedGeneration5
@@ -207,7 +208,7 @@ partial model PartialBuildingWithPartialETS
           extent={{90,-50},{110,-30}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_aSerCoo(
     redeclare package Medium = MediumSer,
-    m_flow(min=if allowFlowReversal1 then -Modelica.Constants.inf else 0),
+    m_flow(min=if allowFlowReversalSer then -Modelica.Constants.inf else 0),
     h_outflow(start=MediumSer.h_default, nominal=MediumSer.h_default)) if
     typ == TypDisSys.CombinedGeneration1 or
     typ == TypDisSys.CombinedGeneration2to4 or
@@ -217,7 +218,7 @@ partial model PartialBuildingWithPartialETS
        iconTransformation(extent={{-110,-90},{-90,-70}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_bSerCoo(
     redeclare package Medium = MediumSer,
-    m_flow(max=if allowFlowReversal1 then +Modelica.Constants.inf else 0),
+    m_flow(max=if allowFlowReversalSer then +Modelica.Constants.inf else 0),
     h_outflow(start=MediumSer.h_default, nominal=MediumSer.h_default)) if
     typ == TypDisSys.CombinedGeneration1 or
     typ == TypDisSys.CombinedGeneration2to4 or
@@ -277,19 +278,19 @@ equation
   connect(bui.PHea,totPHea.u[1])
     annotation (Line(points={{32,56},{60,56},{60,90},{108,90}},color={0,0,127}));
   connect(ets.PHea,totPHea.u[idxPHeaETS])
-    annotation (Line(points={{32,-50},{62,-50},{62,90},{108,90}},color={0,0,127}));
+    annotation (Line(points={{34,-48},{62,-48},{62,90},{108,90}},color={0,0,127}));
   connect(bui.PCoo,totPCoo.u[1])
     annotation (Line(points={{32,52},{64,52},{64,70},{88,70}},color={0,0,127}));
   connect(ets.PCoo,totPCoo.u[idxPCooETS])
-    annotation (Line(points={{32,-54},{66,-54},{66,70},{88,70}},color={0,0,127}));
+    annotation (Line(points={{34,-52},{66,-52},{66,70},{88,70}},color={0,0,127}));
   connect(bui.PFan,totPFan.u[1])
     annotation (Line(points={{32,48},{68,48},{68,50},{108,50}},color={0,0,127}));
   connect(ets.PFan,totPFan.u[idxPFanETS])
-    annotation (Line(points={{32,-58},{70,-58},{70,50},{108,50}},color={0,0,127}));
+    annotation (Line(points={{34,-56},{70,-56},{70,50},{108,50}},color={0,0,127}));
   connect(bui.PPum,totPPum.u[1])
     annotation (Line(points={{32,44},{72,44},{72,30},{88,30}},color={0,0,127}));
   connect(ets.PPum,totPPum.u[idxPPumETS])
-    annotation (Line(points={{32,-62},{74,-62},{74,30},{88,30}},color={0,0,127}));
+    annotation (Line(points={{34,-60},{74,-60},{74,30},{88,30}},color={0,0,127}));
   connect(port_aSerAmb, ets.port_aSerAmb) annotation (Line(points={{-140,-40},{-60,
           -40},{-60,-76},{-30,-76}}, color={0,127,255}));
   connect(port_aSerHea, ets.port_aSerHea)
