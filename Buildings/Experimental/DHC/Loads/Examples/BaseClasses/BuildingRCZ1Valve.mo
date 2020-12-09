@@ -3,6 +3,8 @@ model BuildingRCZ1Valve
   "One-zone RC building model with distribution pumps and mixing valves"
   extends Buildings.Experimental.DHC.Loads.BaseClasses.PartialBuilding(
     redeclare package Medium=Buildings.Media.Water,
+    final have_heaWat=true,
+    final have_chiWat=true,
     final have_eleHea=false,
     final have_eleCoo=false,
     final have_weaBus=true);

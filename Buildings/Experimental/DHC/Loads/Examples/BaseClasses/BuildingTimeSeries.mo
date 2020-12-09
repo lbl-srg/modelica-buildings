@@ -3,6 +3,8 @@ model BuildingTimeSeries
   "Building model with heating and cooling loads provided as time series"
   extends Buildings.Experimental.DHC.Loads.BaseClasses.PartialBuilding(
     redeclare package Medium=Buildings.Media.Water,
+    have_heaWat=true,
+    have_chiWat=true,
     final have_fan=false,
     final have_pum=true,
     final have_eleHea=false,
@@ -123,7 +125,7 @@ model BuildingTimeSeries
     final energyDynamics=energyDynamics,
     final tau=tau,
     final use_inputFilter=use_inputFilter,
-    final riseTime=riseTime) if have_watHea
+    final riseTime=riseTime) if have_heaWat
     "Heating terminal unit"
     annotation (Placement(transformation(extent={{70,-34},{90,-14}})));
   Buildings.Experimental.DHC.Loads.FlowDistribution disFloHea(
@@ -132,7 +134,7 @@ model BuildingTimeSeries
     have_pum=true,
     dp_nominal=100000,
     nPorts_a1=1,
-    nPorts_b1=1) if have_watHea
+    nPorts_b1=1) if have_heaWat
     "Heating water distribution system"
     annotation (Placement(transformation(extent={{120,-80},{140,-60}})));
   Buildings.Experimental.DHC.Loads.FlowDistribution disFloCoo(
@@ -142,7 +144,7 @@ model BuildingTimeSeries
     have_pum=true,
     dp_nominal=100000,
     nPorts_b1=1,
-    nPorts_a1=1) if have_watCoo
+    nPorts_a1=1) if have_chiWat
     "Chilled water distribution system"
     annotation (Placement(transformation(extent={{120,-270},{140,-250}})));
   DHC.Loads.Validation.BaseClasses.FanCoil2PipeCooling terUniCoo(
@@ -164,7 +166,7 @@ model BuildingTimeSeries
     final energyDynamics=energyDynamics,
     final tau=tau,
     final use_inputFilter=use_inputFilter,
-    final riseTime=riseTime) if have_watCoo
+    final riseTime=riseTime) if have_chiWat
     "Cooling terminal unit"
     annotation (Placement(transformation(extent={{70,26},{90,46}})));
   Modelica.Blocks.Interfaces.RealOutput QReqHea_flow(
@@ -180,11 +182,11 @@ model BuildingTimeSeries
     "Sum pump power"
     annotation (Placement(transformation(extent={{220,70},{240,90}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant noCoo(
-    k=0) if not have_watCoo
+    k=0) if not have_chiWat
     "No cooling system"
     annotation (Placement(transformation(extent={{70,70},{90,90}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant noHea(
-    k=0) if not have_watHea
+    k=0) if not have_heaWat
     "No heating system"
     annotation (Placement(transformation(extent={{70,110},{90,130}})));
   Buildings.Controls.OBC.CDL.Continuous.Add addPFan
