@@ -58,12 +58,7 @@ equation
     annotation (Line(points={{40,-40},{120,-40}}, color={0,127,255}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-180,-120},{
-            180,120}}),
-    graphics={Text(
-          extent={{-68,100},{64,74}},
-          lineColor={28,108,200},
-          textString="Simulation requires
-Hidden.AvoidDoubleComputation=true")}),
+            180,120}})),
    experiment(
       StopTime=172800,
       Tolerance=1e-06,

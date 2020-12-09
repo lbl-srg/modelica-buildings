@@ -53,10 +53,6 @@ equation
           220},{-20,220},{-20,188},{-11,188}}, color={0,0,127}));
   connect(TChiWatSupSet.y, bui.TChiWatSupSet) annotation (Line(points={{-230,
           200},{-40,200},{-40,184},{-11,184}}, color={0,0,127}));
-  connect(bui.port_bDis, dis.ports_aCon) annotation (Line(points={{10,180},{20,180},
-          {20,160},{12,160},{12,150}}, color={0,127,255}));
-  connect(dis.ports_bCon, bui.port_aDis) annotation (Line(points={{-12,150},{-12,
-          160},{-20,160},{-20,180},{-10,180}}, color={0,127,255}));
   connect(masFloDisPla.y, pla.mPum_flow) annotation (Line(points={{-219,20},{-180,
           20},{-180,4},{-162,4}}, color={0,0,127}));
   connect(TSewWat.y, pla.TSewWat) annotation (Line(points={{-259,40},{-176,40},{
@@ -65,6 +61,10 @@ equation
           180},{-40,180},{-40,176},{-11,176}}, color={0,0,127}));
   connect(TColWat.y, bui.TColWat) annotation (Line(points={{-168,160},{-40,160},
           {-40,172},{-11,172}}, color={0,0,127}));
+  connect(bui.port_bSerAmb, dis.ports_aCon) annotation (Line(points={{10,180},{
+          20,180},{20,160},{12,160},{12,150}}, color={0,127,255}));
+  connect(dis.ports_bCon, bui.port_aSerAmb) annotation (Line(points={{-12,150},
+          {-12,160},{-20,160},{-20,180},{-10,180}}, color={0,127,255}));
   annotation (
   Diagram(
   coordinateSystem(preserveAspectRatio=false, extent={{-360,-260},{360,260}})),
