@@ -380,10 +380,12 @@ model ETSSimplified
       port_bSerAmb.h_outflow,
       port_bSerAmb.Xi_outflow) if  show_T
     "Medium properties in port_bDis";
-  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold enaHea(trueHoldDuration=5*60)
+  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold enaHea(trueHoldDuration=15*
+        60)
     "Enable heating"
     annotation (Placement(transformation(extent={{-230,210},{-210,230}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold enaCoo(trueHoldDuration=5*60)
+  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold enaCoo(trueHoldDuration=15*
+        60)
     "Enable cooling"
     annotation (Placement(transformation(extent={{-200,-190},{-180,-170}})));
   Subsystems.HeatPump heaPum(
