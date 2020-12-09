@@ -63,6 +63,10 @@ def reportError(message):
     global IERR
     IERR=IERR+1
 
+def getRelativeMoPath(absoluteFileName):
+    import os
+    return absoluteFileName.replace(LIBHOME + os.path.sep, "", 1)
+
 #########################################################
 def report_empty_statements(fileName, start_line, next_line):
     filObj=open(fileName, 'r')
@@ -75,7 +79,7 @@ def report_empty_statements(fileName, start_line, next_line):
         else:
             if found_loop and lin.lstrip().startswith(next_line):
                 reportError("File '"
-                            + fileName.replace(LIBHOME + os.path.sep, "", 1)
+                            + getRelativeMoPath(fileName)
                             + "' contains an empty '" + start_line + " ... " + next_line +
                             "' on line '" + str(iLin) + "'.")
                 found_loop = False
@@ -91,7 +95,7 @@ def reportErrorIfContains(fileName, listOfStrings):
     for string in listOfStrings:
         if (filTex.find(string.lower()) > -1):
             reportError("File '"
-                        + fileName.replace(LIBHOME + os.path.sep, "", 1)
+                        + getRelativeMoPath(fileName)
                         + "' contains invalid string '"
                         + string + "'.")
 
@@ -104,7 +108,7 @@ def reportErrorIfContainsRegExp(fileName, listOfStrings):
         match = re.search(string, filTex, re.I)
         if match is not None:
             reportError("File '"
-                        + fileName.replace(LIBHOME + os.path.sep, "", 1)
+                        + getRelativeMoPath(fileName)
                         + "' contains invalid string regular expression '"
                         + string + "' in '"
                         + match.group() + "'.")
@@ -117,7 +121,7 @@ def reportErrorIfMissing(fileName, listOfStrings):
     for string in listOfStrings:
         if (filTex.find(string.lower()) == -1):
             reportError("File '"
-                        + fileName.replace(LIBHOME + os.path.sep, "", 1)
+                        + getRelativeMoPath(fileName)
                         + "' does not contain required string '"
                         + string + "'.")
 
@@ -146,8 +150,9 @@ for (path, dirs, files) in os.walk(LIBHOME):
             # Test .mo and .mos
             if foundMo or foundMos:
                 # Skip Utilities/Plotters/BaseClasses/PartialPlotter.mo because it contains <h1>
-                if filFulNam != "./Utilities/Plotters/BaseClasses/PartialPlotter.mo":
+                if getRelativeMoPath(filFulNam) != "Utilities/Plotters/BaseClasses/PartialPlotter.mo":
                     reportErrorIfContains(filFulNam, INVALID_IN_ALL)
+
             # Test .mos files only
             if foundMos:
                 reportErrorIfContains(filFulNam, INVALID_IN_MOS)
