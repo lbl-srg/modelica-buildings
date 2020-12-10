@@ -7,7 +7,7 @@ class Naming "Naming conventions in OBC package"
 The <code>Buildings.Control.OBC</code> package follows the naming conventions of
 the <code>Buildings</code> Library,
 see <a href=\"modelica://Buildings.UsersGuide.Conventions\">Buildings.UsersGuide.Conventions</a>.
-Some examples of the commonly used names in this package are shown as below.
+The table below shows some examples of commonly used names.
 </p>
 <table summary=\"summary\" border=\"1\">
 <tr><td colspan=\"2\"><b>Instance names</b></td></tr>
