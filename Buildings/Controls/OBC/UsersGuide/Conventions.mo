@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.UsersGuide;
-class Naming "Naming conventions in OBC package"
+class Conventions "Naming conventions in OBC package"
   annotation (preferredView="info",
   defaultComponentName="obcNam",
   Documentation(info="<html>
@@ -65,4 +65,4 @@ The table below shows some examples of commonly used names.
           pattern=LinePattern.None,
           fillPattern=FillPattern.Solid,
           extent={{-12.5,-12.5},{12.5,12.5}})}));
-end Naming;
+end Conventions;
