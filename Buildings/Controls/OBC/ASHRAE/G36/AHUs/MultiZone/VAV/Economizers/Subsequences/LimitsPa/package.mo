@@ -1,10 +1,8 @@
 within Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Subsequences;
-package Common "Sequences for units with a single common minimum outdoor air and economizer damper"
+package LimitsPa "Package of sequences to calculate the damper position limits of the economizer"
 annotation (preferredView="info", Documentation(info="<html>
 <p>
-The package contains the limit positions and damper modulation control
-for economizer with a single common outdoor air and economizer damper. The implementation
-is based Section 5.16.6 and 5.16.2.3.d of ASHRAE Guideline 36, May 2020.
+The package contains the calculation of economizer dampers position limits.
 </p>
 </html>"),
   Icon(graphics={
@@ -41,4 +39,4 @@ is based Section 5.16.6 and 5.16.2.3.d of ASHRAE Guideline 36, May 2020.
           pattern=LinePattern.None,
           fillPattern=FillPattern.Solid,
           extent={{-80.0,-80.0},{-20.0,-20.0}})}));
-end Common;
+end LimitsPa;
