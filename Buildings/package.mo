@@ -288,19 +288,19 @@ to <b style=\"color:blue\">existing</b> libraries:
                        becomes <code>true</code>.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2101\">issue 2101</a>.</td>
 </tr>
-<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Integer.Pulse
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Integers.Sources.Pulse
     </td>
-    <td valign=\"top\"><code>Integer</code> pulse source signal with a <code>startTime</code> parameter and an optional number of
-                       periods <code>nPeriods</code> specification.<br/>
-                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2125\">issue 2125</a>.</td>
+    <td valign=\"top\"><code>Integer</code> pulse source signal.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2125\">issue 2125</a>
+                       and <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2282\">issue 2282</a>.</td>
 </tr>
-<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Integer.TimeTable
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Integers.Sources.TimeTable
     </td>
     <td valign=\"top\">Time table for <code>Integer</code> outputs.<br/>
                        Each output is held constant between two consecutive entries in each column of the <code>table</code> parameters.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2125\">issue 2125</a>.</td>
 </tr>
-<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Logical.TimeTable
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable
     </td>
     <td valign=\"top\">Time table for <code>Boolean</code> outputs.<br/>
                      This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2125\">issue 2125</a>.</td>
@@ -346,7 +346,6 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2172\">issue 2172</a>.
 </tr>
-
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
     </td>
 </tr>
@@ -364,11 +363,8 @@ have been <b style=\"color:blue\">improved</b> in a
                        Buildings.Controls.OBC.CDL.Discrete.Sampler<br/>
                        Buildings.Controls.OBC.CDL.Discrete.UnitDelay<br/>
                        Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold<br/>
-                       Buildings.Controls.OBC.CDL.Integers.Sources.Pulse<br/>
-                       Buildings.Controls.OBC.CDL.Integers.Sources.TimeTable<br/>
                        Buildings.Controls.OBC.CDL.Logical.Sources.Pulse<br/>
                        Buildings.Controls.OBC.CDL.Logical.Sources.SampleTrigger<br/>
-                       Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable<br/>
                        Buildings.Controls.OBC.CDL.Logical.Timer<br/>
                        Buildings.Controls.OBC.CDL.Logical.TimerAccumulating<br/>
                        Buildings.Controls.OBC.CDL.Logical.TriggeredTrapezoid<br/>
@@ -387,33 +383,12 @@ have been <b style=\"color:blue\">improved</b> in a
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2243\">issue 2243</a>.
     </td>
 </tr>
-<tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL.Continuous</b>
-    </td>
-</tr>
 <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.Greater<br/>
                        Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold<br/>
                        Buildings.Controls.OBC.CDL.Continuous.Less<br/>
                        Buildings.Controls.OBC.CDL.Continuous.LessThreshold
     </td>
     <td valign=\"top\">Added option to specify a hysteresis, which by default is set to <i>0</i>.
-    </td>
-    </tr>
-<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse
-    </td>
-    <td valign=\"top\">Renamed parameter <code>nperiod</code> to <code>nPeriod</code>.
-    </td>
-    </tr>
-<tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL.Logical</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Logical.Sources.Pulse
-    </td>
-    <td valign=\"top\">Revised initial equation section to ensure an output of the block is <code>true</code> when simulation is started
-                       after boolean pulse <code>startTime</code> and the simulation start time is such that it falls within a time period during which the
-                       output is expected to be <code>true</code>.<br/>
-                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2110\">issue 2110</a>.<br/>
-                       Added an integer parameter to enable specification of number of periods.
-                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2125\">issue 2125</a>.
     </td>
     </tr>
 <tr><td colspan=\"2\"><b>Buildings.Examples</b>
@@ -444,7 +419,7 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
     <td valign=\"top\">Improved implementation, which now works with OpenModelica.<br/>
                        This is for
-                       <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1414\">issue 1414</a>.
+                       <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1414\">IBPSA, issue 1414</a>.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Examples</b>
@@ -461,12 +436,14 @@ have been <b style=\"color:blue\">improved</b> in a
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2024\">issue 2024</a>.
     </td>
 </tr>
-<tr><td colspan=\"2\"><b>xxx</b>
+<tr><td colspan=\"2\"><b>Buildings.Fluid</b>
     </td>
 </tr>
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.Fluid.FixedResistances.PlugFlowPipe
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Improved calculation of time constant to avoid negative values in some special cases.<br/>
+                     This is for
+                     <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1427\">IBPSA, issue 1427</a>.
     </td>
 </tr>
 </table>
@@ -565,6 +542,21 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2124\">#2124</a>.<br/>
                        For Dymola, a conversion script makes this change.</td>
 </tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse
+    </td>
+    <td valign=\"top\">Removed <code>startTime</code> parameter. Introduced <code>shift</code> parameter.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2170\">issue 2170</a>
+                       and <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2282\">issue 2282</a>.<br/>
+                       For Dymola, a conversion script makes this change.</td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse
+    </td>
+    <td valign=\"top\">Removed parameter <code>nperiod</code>.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2170\">issue 2170</a>.
+    </td>
+    </tr>
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL.Logical</b>
     </td>
 </tr>
@@ -581,6 +573,15 @@ have been <b style=\"color:blue\">improved</b> in a
     <td valign=\"top\">Removed <code>reset</code> boolean input and added boolean output <code>passed</code>
                        to show if the time becomes greater than threshold time.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2101\">#2101</a>.
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Logical.Sources.SampleTrigger<br/>
+                       Buildings.Controls.OBC.CDL.Logical.Sources.Pulse
+    </td>
+    <td valign=\"top\">Removed <code>startTime</code> parameter. Introduced <code>shift</code> parameter.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2170\">issue 2170</a>
+                       and <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2282\">issue 2282</a>.<br/>
+                       For Dymola, a conversion script makes this change.</td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL.Integers</b>
     </td>
