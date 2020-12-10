@@ -617,6 +617,19 @@ have been <b style=\"color:blue\">improved</b> in a
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1893\">issue 1893</a>.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.Controls.OBC.UnitConversions</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.UnitConversions.From_Btu<br/>
+                       Buildings.Controls.OBC.UnitConversions.From_quad<br/>
+                       Buildings.Controls.OBC.UnitConversions.To_Btu<br/>
+                       Buildings.Controls.OBC.UnitConversions.To_quad
+    </td>
+    <td valign=\"top\">Corrected quantity from <code>Work</code> to <code>Energy</code>.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2245\">#2245</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Examples.VAVReheat.Controls</b>
     </td>
 </tr>
