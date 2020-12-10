@@ -39,18 +39,6 @@ createPlot(
 );
 
 createPlot(
-    id=2,
-    y={"bui.facScaHea"},
-    grid=true,
-    autoscale=true,
-    subPlot=3
-);
-plotExpression(
-    apply(CouplingTimeSeries_Hospital.bui.terUniHea.facSca*CouplingTimeSeries_Hospital.bui.terUniHea.QHea_flow_nominal),
-    false,
-    "facScaHea*QHea_flow_nominal",
-    id=2);
-createPlot(
     id=3,
     position={1016, 21, 485, 681},
     y={"supChiWat.T_in", "bui.terUniCoo.T_aChiWat_nominal"},
@@ -65,20 +53,6 @@ createPlot(
 );
 
 createPlot(
-    id=3,
-    y={"bui.facScaCoo"},
-    grid=true,
-    autoscale=true,
-    subPlot=3
-);
-
-plotExpression(
-    apply(CouplingTimeSeries_Hospital.bui.terUniCoo.facSca*CouplingTimeSeries_Hospital
-.bui.terUniCoo.QCoo_flow_nominal),
-    false,
-    "facScaCoo*QCoo_flow_nominal",
-    id=3);
-createPlot(
     id=4,
     position={75, 75, 542, 347},
     y={"EHeaReq.y", "EHeaAct.y", "ECooReq.y", "ECooAct.y"},
@@ -92,16 +66,4 @@ createPlot(
     grid=true,
     subPlot=2
 );
-createPlot(
-    id=5,
-    y={"bui.terUniHea.hex.sta_a1.T", "bui.terUniHea.hex.sta_b1.T"},
-    autoscale=true,
-    grid=true
-);
-createPlot(
-    id=5,
-    subPlot=2,
-    y={"bui.terUniCoo.hex.sta_a1.T", "bui.terUniCoo.hex.sta_b1.T"},
-    autoscale=true,
-    grid=true
-);
+
