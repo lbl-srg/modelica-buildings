@@ -2,6 +2,9 @@ CouplingRCZ1Valve
 CouplingRCZ6
 CouplingSpawnZ1
 CouplingSpawnZ6
-CouplingTimeSeries
 CouplingTimeSeriesSingleLoop
+CouplingTimeSeries_Hospital
+CouplingTimeSeries_MediumOffice
+CouplingTimeSeries_PrimarySchool
+CouplingTimeSeries_Residential
 BaseClasses
