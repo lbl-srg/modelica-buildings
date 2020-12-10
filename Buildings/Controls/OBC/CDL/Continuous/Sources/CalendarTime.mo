@@ -7,7 +7,9 @@ model CalendarTime
   parameter Integer yearRef(min=firstYear, max=lastYear) = 2016
     "Year when time = 0, used if zerTim=Custom"
     annotation(Dialog(enable=zerTim==Buildings.Controls.OBC.CDL.Types.ZeroTime.Custom));
-  parameter Modelica.SIunits.Time offset = 0
+  parameter Real offset(
+    final quantity="Time",
+    final unit="s") = 0
     "Offset that is added to 'time', may be used for computing time in different time zone"
     annotation(Dialog(tab="Advanced"));
 
@@ -87,6 +89,12 @@ This is within the 2010-2020 range and is therefore allowed.
 </html>",
 revisions="<html>
 <ul>
+<li>
+November 12, 2020, by Michael Wetter:<br/>
+Reformulated to remove dependency to <code>Modelica.SIunits</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2243\">issue 2243</a>.
+</li>
 <li>
 March 2, 2020, by Michael Wetter:<br/>
 Changed icon to display dynamically the output value.

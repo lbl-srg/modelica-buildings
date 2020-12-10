@@ -1,7 +1,10 @@
 within Buildings.Controls.OBC.CDL.Discrete;
 block UnitDelay "Output the input signal with a unit delay"
 
-  parameter Modelica.SIunits.Time samplePeriod(min=1E-3)
+  parameter Real samplePeriod(
+    final quantity="Time",
+    final unit="s",
+    min=1E-3)
     "Sample period of component";
 
   parameter Real y_start=0 "Initial value of output signal";
@@ -13,7 +16,10 @@ block UnitDelay "Output the input signal with a unit delay"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected
-  parameter Modelica.SIunits.Time t0(fixed=false)
+  parameter Real t0(
+    final quantity="Time",
+    final unit="s",
+    fixed=false)
     "First sample time instant";
 
   output Boolean sampleTrigger "True, if sample time instant";
@@ -50,6 +56,12 @@ the output <code>y</code> is identical to parameter <code>y_start</code>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 12, 2020, by Michael Wetter:<br/>
+Reformulated to remove dependency to <code>Modelica.SIunits</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2243\">issue 2243</a>.
+</li>
 <li>
 October 19, 2020, by Michael Wetter:<br/>
 Refactored implementation.<br/>
