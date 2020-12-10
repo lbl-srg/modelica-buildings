@@ -2,59 +2,35 @@ within Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints;
 block SupplyTemperature
   "Supply air temperature setpoint for multi zone system"
 
-  parameter Real TSupSetMin(
-    final unit="K",
-    final displayUnit="degC",
-    final quantity="ThermodynamicTemperature") = 285.15
+  parameter Real TSupCooMin=285.15
     "Lowest cooling supply air temperature setpoint"
     annotation (Dialog(group="Temperatures"));
-  parameter Real TSupSetMax(
-    final unit="K",
-    final displayUnit="degC",
-    final quantity="ThermodynamicTemperature") = 291.15
+  parameter Real TSupCooMax=291.15
     "Highest cooling supply air temperature setpoint. It is typically 18 degC (65 degF) 
     in mild and dry climates, 16 degC (60 degF) or lower in humid climates"
     annotation (Dialog(group="Temperatures"));
-  parameter Real TSupSetDes(
-    final unit="K",
-    final displayUnit="degC",
-    final quantity="ThermodynamicTemperature") = 286.15
-    "Nominal supply air temperature setpoint"
-    annotation (Dialog(group="Temperatures"));
-  parameter Real TOutMin(
-    final unit="K",
-    final displayUnit="degC",
-    final quantity="ThermodynamicTemperature") = 289.15
+  parameter Real TOutMin=289.15
     "Lower value of the outdoor air temperature reset range. Typically value is 16 degC (60 degF)"
     annotation (Dialog(group="Temperatures"));
-  parameter Real TOutMax(
-    final unit="K",
-    final displayUnit="degC",
-    final quantity="ThermodynamicTemperature") = 294.15
+  parameter Real TOutMax=294.15
     "Higher value of the outdoor air temperature reset range. Typically value is 21 degC (70 degF)"
     annotation (Dialog(group="Temperatures"));
-  parameter Real TSupWarUpSetBac(
-    final unit="K",
-    final displayUnit="degC",
-    final quantity="ThermodynamicTemperature")=308.15
+  parameter Real TSupWarUpSetBac=308.15
     "Supply temperature in warm up and set back mode"
     annotation (Dialog(group="Temperatures"));
   parameter Real iniSet(
     final unit="K",
     final displayUnit="degC",
-    final quantity="ThermodynamicTemperature") = maxSet
+    final quantity="ThermodynamicTemperature") = TSupCooMax
     "Initial setpoint"
     annotation (Dialog(group="Trim and respond logic"));
   parameter Real maxSet(
     final unit="K",
     final displayUnit="degC",
-    final quantity="ThermodynamicTemperature") = TSupSetMax
+    final quantity="ThermodynamicTemperature") = TSupCooMax
     "Maximum setpoint"
     annotation (Dialog(group="Trim and respond logic"));
-  parameter Real minSet(
-    final unit="K",
-    final displayUnit="degC",
-    final quantity="ThermodynamicTemperature") = TSupSetDes
+  parameter Real minSet=TSupCooMin
     "Minimum setpoint"
     annotation (Dialog(group="Trim and respond logic"));
   parameter Real delTim(
@@ -95,26 +71,26 @@ block SupplyTemperature
     final displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Outdoor air temperature"
-    annotation (Placement(transformation(extent={{-180,40},{-140,80}}),
+    annotation (Placement(transformation(extent={{-180,100},{-140,140}}),
         iconTransformation(extent={{-140,20},{-100,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZonSetAve(
     final unit="K",
     final displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Average of heating and cooling setpoint"
-    annotation (Placement(transformation(extent={{-180,70},{-140,110}}),
+    annotation (Placement(transformation(extent={{-180,140},{-140,180}}),
         iconTransformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uSupFan
     "Supply fan status"
-    annotation (Placement(transformation(extent={{-180,-50},{-140,-10}}),
+    annotation (Placement(transformation(extent={{-180,-20},{-140,20}}),
         iconTransformation(extent={{-140,-60},{-100,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uOpeMod
     "System operation mode"
-    annotation (Placement(transformation(extent={{-180,-120},{-140,-80}}),
+    annotation (Placement(transformation(extent={{-180,-140},{-140,-100}}),
         iconTransformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uZonTemResReq
     "Zone cooling supply air temperature reset request"
-    annotation (Placement( transformation(extent={{-180,0},{-140,40}}),
+    annotation (Placement( transformation(extent={{-180,60},{-140,100}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TSupSet(
     final unit="K",
@@ -134,143 +110,161 @@ block SupplyTemperature
     final triAmo=triAmo,
     final resAmo=resAmo,
     final maxRes=maxRes) "Maximum cooling supply temperature reset"
-    annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
+    annotation (Placement(transformation(extent={{-100,90},{-80,110}})));
 
 protected
   Buildings.Controls.OBC.CDL.Continuous.Line lin
     "Supply temperature distributes linearly between minimum and maximum supply 
     air temperature, according to outdoor temperature"
-    annotation (Placement(transformation(extent={{20,40},{40,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minOutTem(k=TOutMin)
+    annotation (Placement(transformation(extent={{0,110},{20,130}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minOutTem(
+    final k=TOutMin)
     "Lower value of the outdoor air temperature reset range"
-    annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxOutTem(k=TOutMax)
+    annotation (Placement(transformation(extent={{-60,130},{-40,150}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxOutTem(
+    final k=TOutMax)
     "Higher value of the outdoor air temperature reset range"
-    annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minSupTem(k=TSupSetMin)
+    annotation (Placement(transformation(extent={{-60,90},{-40,110}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minSupTem(
+    final k=TSupCooMin)
     "Lowest cooling supply air temperature setpoint"
-    annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
-  Buildings.Controls.OBC.CDL.Logical.And and2
-    "Check if it is in Setup or Cool-down mode"
-    annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
+    annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
   Buildings.Controls.OBC.CDL.Logical.And and1
     "Check if it is in Warmup or Setback mode"
-    annotation (Placement(transformation(extent={{20,-100},{40,-80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant supTemWarUpSetBac(k=
-        TSupWarUpSetBac)
+    annotation (Placement(transformation(extent={{0,-120},{20,-100}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant supTemWarUpSetBac(
+    final k=TSupWarUpSetBac)
     "Supply temperature setpoint under warm-up and setback mode"
-    annotation (Placement(transformation(extent={{20,-130},{40,-110}})));
+    annotation (Placement(transformation(extent={{20,-160},{40,-140}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi1
-    "If operation mode is setup or cool-down, setpoint shall be 35 degC"
-    annotation (Placement(transformation(extent={{80,-60},{100,-40}})));
+    "If operation mode is warm-up or setback modes, setpoint shall be 35 degC"
+    annotation (Placement(transformation(extent={{80,-80},{100,-60}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi2
-    "If operation mode is setup or cool-down, setpoint shall be TSupSetMin"
-    annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
+    "If operation mode is setup or cool-down, setpoint shall be the lowest cooling supply setpoint"
+    annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
   Buildings.Controls.OBC.CDL.Continuous.Limiter TDea(
-    uMax=297.15,
-    uMin=294.15)
+    final uMax=297.15,
+    final uMin=294.15)
     "Limiter that outputs the dead band value for the supply air temperature"
-    annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
+    annotation (Placement(transformation(extent={{-100,150},{-80,170}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi3
     "Check output regarding supply fan status"
-    annotation (Placement(transformation(extent={{80,-10},{100,10}})));
-  Buildings.Controls.OBC.CDL.Integers.LessThreshold intLesThr(
-    threshold=Buildings.Controls.OBC.ASHRAE.G36.Types.OperationModes.warmUp)
-    "Check if operation mode index is less than warm-up mode index (4)"
-    annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
-  Buildings.Controls.OBC.CDL.Integers.GreaterThreshold intGreThr(
-    threshold=Buildings.Controls.OBC.ASHRAE.G36.Types.OperationModes.occupied)
-    "Check if operation mode index is greater than occupied mode index (1)"
-    annotation (Placement(transformation(extent={{-100,-90},{-80,-70}})));
+    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant cooDowMod(
+    final k=3) "Cooldown mode index"
+    annotation (Placement(transformation(extent={{-100,-110},{-80,-90}})));
   Buildings.Controls.OBC.CDL.Integers.LessThreshold intLesThr1(
-    threshold=Buildings.Controls.OBC.ASHRAE.G36.Types.OperationModes.unoccupied)
-    "Check if operation mode index is less than unoccupied mode index (7)"
-    annotation (Placement(transformation(extent={{-40,-100},{-20,-80}})));
+    final t=6)
+    "Check if operation mode index is less than 6 (freeze protection mode)"
+    annotation (Placement(transformation(extent={{-60,-120},{-40,-100}})));
   Buildings.Controls.OBC.CDL.Integers.GreaterThreshold intGreThr1(
-    threshold=Buildings.Controls.OBC.ASHRAE.G36.Types.OperationModes.setUp)
-    "Check if operation mode index is greater than set up mode index (3)"
-    annotation (Placement(transformation(extent={{-40,-130},{-20,-110}})));
+    final t=3)
+    "Check if operation mode index is greater than 3 (setup mode)"
+    annotation (Placement(transformation(extent={{-60,-160},{-40,-140}})));
+  Buildings.Controls.OBC.CDL.Integers.LessThreshold intLesThr2(
+    final t=3)
+    "Check if operation mode index is less than 3 (setup mode)"
+    annotation (Placement(transformation(extent={{-60,18},{-40,38}})));
+  Buildings.Controls.OBC.CDL.Integers.GreaterThreshold  intGreThr2(
+    final t=0)
+    "Check if operation mode index is greater than 0 (unoccupied mode)"
+    annotation (Placement(transformation(extent={{-60,-42},{-40,-22}})));
+  Buildings.Controls.OBC.CDL.Logical.And and2
+    "Check if it is in occupied or setup mode"
+    annotation (Placement(transformation(extent={{0,18},{20,38}})));
+  Buildings.Controls.OBC.CDL.Logical.Switch swi4
+    "If operation mode is occupied or setup ,mode, setpoint shall be reset"
+    annotation (Placement(transformation(extent={{40,50},{60,70}})));
+  Buildings.Controls.OBC.CDL.Integers.Equal intEqu
+    "Check if it is in cooldown mode"
+    annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
 
 equation
   connect(minOutTem.y, lin.x1)
-    annotation (Line(points={{-18,70},{0,70},{0,58},{18,58}},
+    annotation (Line(points={{-38,140},{-20,140},{-20,128},{-2,128}},
       color={0,0,127}));
   connect(TOut, lin.u)
-    annotation (Line(points={{-160,60},{-100,60},{-100,50},{18,50}},
+    annotation (Line(points={{-160,120},{-2,120}},
       color={0,0,127}));
   connect(maxOutTem.y, lin.x2)
-    annotation (Line(points={{-18,30},{0,30},{0,46},{18,46}},
+    annotation (Line(points={{-38,100},{-20,100},{-20,116},{-2,116}},
       color={0,0,127}));
   connect(minSupTem.y, lin.f2)
-    annotation (Line(points={{-78,-10},{10,-10},{10,42},{18,42}},
+    annotation (Line(points={{-78,60},{-10,60},{-10,112},{-2,112}},
       color={0,0,127}));
   connect(and1.y, swi1.u2)
-    annotation (Line(points={{42,-90},{60,-90},{60,-50},{78,-50}},
+    annotation (Line(points={{22,-110},{60,-110},{60,-70},{78,-70}},
       color={255,0,255}));
   connect(supTemWarUpSetBac.y, swi1.u1)
-    annotation (Line(points={{42,-120},{68,-120},{68,-42},{78,-42}},
+    annotation (Line(points={{42,-150},{68,-150},{68,-62},{78,-62}},
       color={0,0,127}));
-  connect(and2.y, swi2.u2)
-    annotation (Line(points={{-18,-50},{18,-50}},color={255,0,255}));
   connect(minSupTem.y, swi2.u1)
-    annotation (Line(points={{-78,-10},{0,-10},{0,-42},{18,-42}},
+    annotation (Line(points={{-78,60},{-10,60},{-10,-62},{18,-62}},
       color={0,0,127}));
   connect(swi2.y, swi1.u3)
-    annotation (Line(points={{42,-50},{50,-50},{50,-58},{78,-58}},
+    annotation (Line(points={{42,-70},{50,-70},{50,-78},{78,-78}},
       color={0,0,127}));
   connect(TZonSetAve, TDea.u)
-    annotation (Line(points={{-160,90},{-102,90}},
+    annotation (Line(points={{-160,160},{-102,160}},
       color={0,0,127}));
   connect(uSupFan, swi3.u2)
-    annotation (Line(points={{-160,-30},{-120,-30},{-120,10},{-60,10},{-60,0},
-      {78,0}}, color={255,0,255}));
+    annotation (Line(points={{-160,0},{98,0}}, color={255,0,255}));
   connect(swi1.y, swi3.u1)
-    annotation (Line(points={{102,-50},{110,-50},{110,-20},{68,-20},{68,8},{78,8}},
+    annotation (Line(points={{102,-70},{110,-70},{110,-40},{90,-40},{90,8},{98,8}},
       color={0,0,127}));
   connect(TDea.y, swi3.u3)
-    annotation (Line(points={{-78,90},{60,90},{60,-8},{78,-8}},
+    annotation (Line(points={{-78,160},{-30,160},{-30,-8},{98,-8}},
       color={0,0,127}));
   connect(intLesThr1.y, and1.u1)
-    annotation (Line(points={{-18,-90},{18,-90}},
+    annotation (Line(points={{-38,-110},{-2,-110}},
       color={255,0,255}));
   connect(intGreThr1.y, and1.u2)
-    annotation (Line(points={{-18,-120},{0,-120},{0,-98},{18,-98}},
+    annotation (Line(points={{-38,-150},{-20,-150},{-20,-118},{-2,-118}},
       color={255,0,255}));
-  connect(intLesThr.y, and2.u1)
-    annotation (Line(points={{-78,-50},{-42,-50}},color={255,0,255}));
-  connect(intGreThr.y, and2.u2)
-    annotation (Line(points={{-78,-80},{-60,-80},{-60,-58},{-42,-58}},
-      color={255,0,255}));
-  connect(uOpeMod, intLesThr.u)
-    annotation (Line(points={{-160,-100},{-120,-100},{-120,-50},{-102,-50}},
-      color={255,127,0}));
-  connect(uOpeMod, intGreThr.u)
-    annotation (Line(points={{-160,-100},{-120,-100},{-120,-80},{-102,-80}},
-      color={255,127,0}));
   connect(uOpeMod, intLesThr1.u)
-    annotation (Line(points={{-160,-100},{-60,-100},{-60,-90},{-42,-90}},
+    annotation (Line(points={{-160,-120},{-70,-120},{-70,-110},{-62,-110}},
       color={255,127,0}));
   connect(uOpeMod, intGreThr1.u)
-    annotation (Line(points={{-160,-100},{-120,-100},{-120,-120},{-42,-120}},
+    annotation (Line(points={{-160,-120},{-120,-120},{-120,-150},{-62,-150}},
       color={255,127,0}));
-  connect(lin.y, swi2.u3)
-    annotation (Line(points={{42,50},{50,50},{50,-30},{8,-30},{8,-58},{18,-58}},
-      color={0,0,127}));
   connect(uZonTemResReq, maxSupTemRes.numOfReq)
-    annotation (Line(points={{-160,20},{-112,20},{-112,22},{-102,22}},
+    annotation (Line(points={{-160,80},{-120,80},{-120,92},{-102,92}},
       color={255,127,0}));
   connect(uSupFan, maxSupTemRes.uDevSta)
-    annotation (Line(points={{-160,-30},{-120,-30},{-120,38},{-102,38}},
+    annotation (Line(points={{-160,0},{-130,0},{-130,108},{-102,108}},
       color={255,0,255}));
   connect(maxSupTemRes.y, lin.f1)
-    annotation (Line(points={{-78,30},{-60,30},{-60,54},{18,54}},
+    annotation (Line(points={{-78,100},{-70,100},{-70,124},{-2,124}},
       color={0,0,127}));
   connect(swi3.y, TSupSet)
-    annotation (Line(points={{102,0},{160,0}},   color={0,0,127}));
+    annotation (Line(points={{122,0},{160,0}},   color={0,0,127}));
+  connect(cooDowMod.y, intEqu.u2) annotation (Line(points={{-78,-100},{-70,-100},
+          {-70,-78},{-62,-78}}, color={255,127,0}));
+  connect(uOpeMod, intEqu.u1) annotation (Line(points={{-160,-120},{-120,-120},{
+          -120,-70},{-62,-70}}, color={255,127,0}));
+  connect(intEqu.y, swi2.u2)
+    annotation (Line(points={{-38,-70},{18,-70}}, color={255,0,255}));
+  connect(uOpeMod, intLesThr2.u) annotation (Line(points={{-160,-120},{-120,-120},
+          {-120,28},{-62,28}}, color={255,127,0}));
+  connect(uOpeMod, intGreThr2.u) annotation (Line(points={{-160,-120},{-120,-120},
+          {-120,-32},{-62,-32}}, color={255,127,0}));
+  connect(intLesThr2.y, and2.u1) annotation (Line(points={{-38,28},{-20,28},{-20,
+          28},{-2,28}}, color={255,0,255}));
+  connect(intGreThr2.y, and2.u2) annotation (Line(points={{-38,-32},{-20,-32},{-20,
+          20},{-2,20}}, color={255,0,255}));
+  connect(and2.y, swi4.u2) annotation (Line(points={{22,28},{30,28},{30,60},{38,
+          60}}, color={255,0,255}));
+  connect(lin.y, swi4.u1) annotation (Line(points={{22,120},{30,120},{30,68},{38,
+          68}}, color={0,0,127}));
+  connect(TDea.y, swi4.u3) annotation (Line(points={{-78,160},{-30,160},{-30,52},
+          {38,52}}, color={0,0,127}));
+  connect(swi4.y, swi2.u3) annotation (Line(points={{62,60},{70,60},{70,-40},{10,
+          -40},{10,-78},{18,-78}}, color={0,0,127}));
 
 annotation (
   defaultComponentName = "conTSupSet",
-  Icon(graphics={
+  Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
+       graphics={
         Rectangle(
         extent={{-100,-100},{100,100}},
         lineColor={0,0,127},
@@ -310,48 +304,51 @@ annotation (
           extent={{-124,146},{96,108}},
           lineColor={0,0,255},
           textString="%name")}),
-  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,-140},{140,120}})),
+  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,-180},{140,180}})),
   Documentation(info="<html>
 <p>
 Block that outputs the supply air temperature setpoint and the coil valve control
-inputs for VAV system with multiple zones, implemented according to the ASHRAE
-Guideline G36, PART 5.N.2 (Supply air temperature control).
+inputs for VAV system with multiple zones, implemented according to Section 5.16.2 of
+the ASHRAE Guideline G36, May 2020.
 </p>
 <p>
 The control loop is enabled when the supply air fan <code>uSupFan</code> is proven on,
-and disabled and the output set to Deadband otherwise.
+and disabled and the output set to deadband (no heating, minimum economizer) otherwise.
 </p>
 <p> The supply air temperature setpoint is computed as follows.</p>
-<h4>Setpoints for <code>TSupSetMin</code>, <code>TSupSetMax</code>,
-<code>TSupSetDes</code>, <code>TOutMin</code>, <code>TOutMax</code></h4>
+
+<h4>Setpoints for <code>TSupCooMin</code>, <code>TSupCooMax</code>,
+<code>TOutMin</code>, <code>TOutMax</code>
+</h4>
 <p>
+Per Section 3.1.4.1, the setpoints are design information.
+</p>
+<ul>
+<li>
+The <code>TSupCooMin</code> should be set no lower than the design coil leaving air
+temperature to prevent excessive chilled water temperature reset requests.
+</li>
+<li>
+The <code>TSupCooMax</code> is typically 18 &deg;C (65 &deg;F) in mild and dry climates
+and 16 &deg;C (60 &deg;F) or lower in humid climates. It should not typically be
+greater than 18 &deg;C (65 &deg;F).
+</li>
+<li>
 The default range of outdoor air temperature (<code>TOutMin=16&deg;C</code>,
 <code>TOutMax=21&deg;C</code>) used to reset the occupied mode <code>TSupSet</code>
 was chosen to maximize economizer hours. It may be preferable to use a lower
 range of outdoor air temperature (e.g. <code>TOutMin=13&deg;C</code>,
 <code>TOutMax=18&deg;C</code>) to minimize fan energy.
-</p>
-<p>
-The <code>TSupSetMin</code> variable is used during warm weather when little reheat
-is expected to minimize fan energy. It should not be set too low or it may cause
-excessive chilled water temperature reset requests which will reduce chiller
-plant efficiency. It should be set no lower than the design coil leaving air
-temperature.
-</p>
-<p>
-The <code>TSupSetMax</code> variable is typically 18 &deg;C in mild and dry climate,
-16 &deg;C or lower in humid climates. It should not typically be greater than
-18 &deg;C since this may lead to excessive fan energy that can offset the mechanical
-cooling savings from economizer operation.
-</p>
+</li>
+</ul>
 
-<h4>During occupied mode (<code>uOpeMod=1</code>)</h4>
+<h4>During occupied and Setup modes (<code>uOpeMod=1</code>, <code>uOpeMod=2</code>)</h4>
 <p>
-The <code>TSupSet</code> shall be reset from <code>TSupSetMin</code> when the outdoor
+The <code>TSupSet</code> shall be reset from <code>TSupCooMin</code> when the outdoor
 air temperature is <code>TOutMax</code> and above, proportionally up to
 maximum supply temperature when the outdoor air temperature is <code>TOutMin</code> and
 below. The maximum supply temperature shall be reset using trim and respond logic between
-<code>TSupSetDes</code> and <code>TSupSetMax</code>. Parameters suggested for the
+<code>TSupCooMin</code> and <code>TSupCooMax</code>. Parameters suggested for the
 trim and respond logic are shown in the table below. They require adjustment
 during the commissioning and tuning phase.
 </p>
@@ -360,8 +357,8 @@ during the commissioning and tuning phase.
 <tr><th> Variable </th> <th> Value </th> <th> Definition </th> </tr>
 <tr><td>Device</td><td>AHU Supply Fan</td> <td>Associated device</td></tr>
 <tr><td>SP0</td><td><code>iniSet</code></td><td>Initial setpoint</td></tr>
-<tr><td>SPmin</td><td><code>TSupSetDes</code></td><td>Minimum setpoint</td></tr>
-<tr><td>SPmax</td><td><code>TSupSetMax</code></td><td>Maximum setpoint</td></tr>
+<tr><td>SPmin</td><td><code>TSupCooMin</code></td><td>Minimum setpoint</td></tr>
+<tr><td>SPmax</td><td><code>TSupCooMax</code></td><td>Maximum setpoint</td></tr>
 <tr><td>Td</td><td><code>delTim</code></td><td>Delay timer</td></tr>
 <tr><td>T</td><td><code>samplePeriod</code></td><td>Time step</td></tr>
 <tr><td>I</td><td><code>numIgnReq</code></td><td>Number of ignored requests</td></tr>
@@ -374,34 +371,22 @@ during the commissioning and tuning phase.
 
 <p align=\"center\">
 <img alt=\"Image of set point reset\"
-src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/AHUs/MultiZone/VAVSupTempSet.png\"/>
+src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/AHUs/MultiZone/VAVSupTempSet.png\"/>
 </p>
 
-<h4>During Setup and Cool-down modes (<code>uOpeMod=2</code>, <code>uOpeMod=3</code>)</h4>
+<h4>During Cool-down modes (<code>uOpeMod=3</code>)</h4>
 <p>
-Supply air temperature setpoint <code>TSupSet</code> shall be <code>TSupSetMin</code>.
+Supply air temperature setpoint <code>TSupSet</code> shall be <code>TSupCooMin</code>.
 </p>
 <h4>During Setback and Warmup modes (<code>uOpeMod=4</code>, <code>uOpeMod=5</code>)</h4>
 <p>
 Supply air temperature setpoint <code>TSupSet</code> shall be <code>TSupWarUpSetBac</code>.
 </p>
-
-<h4>Valves control</h4>
-<p>
-Supply air temperature shall be controlled to setpoint using a control loop whose
-output is mapped to sequence the hot water valve or modulating electric heating
-coil (if applicable) or chilled water valves.
-</p>
 </html>",
 revisions="<html>
 <ul>
 <li>
-March 12, 2020, by Jianjun Hu:<br/>
-Propagated supply temperature setpoint of warmup and setback mode.<br/>
-This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1829\">#1829</a>.
-</li>
-<li>
-July 11, 2017, by Jianjun Hu:<br/>
+August 1, 2020, by Jianjun Hu:<br/>
 First implementation.
 </li>
 </ul>

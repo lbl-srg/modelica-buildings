@@ -399,8 +399,7 @@ block Controller
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput ducStaPre(
     final unit="Pa",
-    final displayUnit="Pa")
-    "Measured duct static pressure"
+    final displayUnit="Pa") "Measured duct static pressure"
     annotation (Placement(transformation(extent={{-240,190},{-200,230}}),
         iconTransformation(extent={{-240,230},{-200,270}})));
 

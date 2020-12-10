@@ -117,15 +117,14 @@ block SupplyFan  "Block to control multi zone VAV AHU supply fan"
     final maxRes=maxRes)
     "Static pressure setpoint reset using trim and respond logic"
     annotation (Placement(transformation(extent={{-130,-60},{-110,-40}})));
-  Buildings.Controls.OBC.CDL.Continuous.LimPID conSpe(
+  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset conSpe(
     final controllerType=controllerType,
     final k=k,
     final Ti=Ti,
     final Td=Td,
     final yMax=yFanMax,
     final yMin=yFanMin,
-    reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter,
-    y_reset=yFanMin) "Supply fan speed control"
+    final y_reset=yFanMin) "Supply fan speed control"
     annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
 
 protected
@@ -279,7 +278,7 @@ equation
   connect(staPreSetRes.y, firOrdHol.u)
     annotation (Line(points={{-108,-50},{-102,-50}}, color={0,0,127}));
   connect(conSpe.trigger, or1.y)
-    annotation (Line(points={{-38,-82},{-38,-100},{0,-100},{0,-8},{120,-8},{120,
+    annotation (Line(points={{-36,-82},{-36,-100},{0,-100},{0,-8},{120,-8},{120,
           70},{102,70}},  color={255,0,255}));
   connect(gaiNor.y, norPSet.u2) annotation (Line(points={{-108,-90},{-92,-90},{-92,
           -76},{-72,-76}}, color={0,0,127}));
@@ -369,8 +368,8 @@ annotation (
           textString="ySupFan")}),
   Documentation(info="<html>
 <p>
-Supply fan control for a multi zone VAV AHU according to
-ASHRAE guideline G36, PART 5.N.1 (Supply fan control).
+Supply fan control for a multi zone VAV AHU according to Section 5.16.1 of 
+ASHRAE Guideline G36, May 2020.
 </p>
 <h4>Supply fan start/stop</h4>
 <ul>
@@ -416,24 +415,7 @@ that are occupied, etc.).
 </html>", revisions="<html>
 <ul>
 <li>
-March 12, 2020, by Jianjun Hu:<br/>
-Removed the sum of flow rate as it is not used in any other sequences.<br/>
-This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1829\">issue 1829</a>.
-</li>
-<li>
-January 7, 2020, by Michael Wetter:<br/>
-Reformulated to avoid relying on the <code>final</code> keyword.<br/>
-This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1701\">issue 1701</a>.
-</li>
-<li>
-October 14, 2017, by Michael Wetter:<br/>
-Added normalization of pressure set point and measurement as the measured
-quantity is a few hundred Pascal.
-</li>
-<li>
-August 15, 2017, by Jianjun Hu:<br/>
+August 1, 2020, by Jianjun Hu:<br/>
 First implementation.
 </li>
 </ul>

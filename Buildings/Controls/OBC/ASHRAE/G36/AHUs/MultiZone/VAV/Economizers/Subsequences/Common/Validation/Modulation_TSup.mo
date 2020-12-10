@@ -1,4 +1,4 @@
-within Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Subsequences.Validation;
+within Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Subsequences.Common.Validation;
 model Modulation_TSup
   "Validation model for multi zone VAV AHU outdoor and return air damper position modulation sequence"
 

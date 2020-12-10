@@ -1,4 +1,4 @@
-within Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Subsequences.Validation;
+within Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Subsequences.Common.Validation;
 model Limits_LoopDisable
   "Validation model for the multi zone VAV AHU minimum outdoor air control - damper position limits"
 
