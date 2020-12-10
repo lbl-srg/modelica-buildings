@@ -141,22 +141,24 @@ partial model PartialOpenLoop
     T_a2_nominal=281.65) "Heating coil"
     annotation (Placement(transformation(extent={{118,-36},{98,-56}})));
 
-  Buildings.Fluid.HeatExchangers.WetCoilCounterFlow cooCoi(
+  replaceable Buildings.Fluid.HeatExchangers.WetCoilCounterFlow cooCoi(
     UA_nominal=3*m_flow_nominal*1000*15/
         Buildings.Fluid.HeatExchangers.BaseClasses.lmtd(
         T_a1=26.2,
         T_b1=12.8,
         T_a2=6,
         T_b2=16),
-    redeclare package Medium1 = MediumW,
-    redeclare package Medium2 = MediumA,
-    m1_flow_nominal=m_flow_nominal*1000*15/4200/10,
-    m2_flow_nominal=m_flow_nominal,
-    dp2_nominal=0,
-    dp1_nominal=0,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    allowFlowReversal1=false,
-    allowFlowReversal2=allowFlowReversal) "Cooling coil"
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) constrainedby
+    Buildings.Fluid.Interfaces.PartialFourPortInterface(
+      redeclare package Medium1 = MediumW,
+      redeclare package Medium2 = MediumA,
+      m1_flow_nominal=m_flow_nominal*1000*15/4200/10,
+      m2_flow_nominal=m_flow_nominal,
+      dp2_nominal=0,
+      dp1_nominal=0,
+      allowFlowReversal1=false,
+      allowFlowReversal2=allowFlowReversal)
+    "Cooling coil"
     annotation (Placement(transformation(extent={{210,-36},{190,-56}})));
   Buildings.Fluid.FixedResistances.PressureDrop dpRetDuc(
     m_flow_nominal=m_flow_nominal,
@@ -208,8 +210,8 @@ partial model PartialOpenLoop
     m_flow_nominal=m_flow_nominal,
     allowFlowReversal=allowFlowReversal)
     annotation (Placement(transformation(extent={{330,-50},{350,-30}})));
-  Buildings.Fluid.Sensors.RelativePressure dpDisSupFan(redeclare package Medium
-      = MediumA) "Supply fan static discharge pressure" annotation (Placement(
+  Buildings.Fluid.Sensors.RelativePressure dpDisSupFan(redeclare package Medium =
+        MediumA) "Supply fan static discharge pressure" annotation (Placement(
         transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
