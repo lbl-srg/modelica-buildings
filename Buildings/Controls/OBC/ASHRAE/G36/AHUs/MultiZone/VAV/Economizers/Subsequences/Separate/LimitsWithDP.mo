@@ -13,7 +13,7 @@ block LimitsWithDP
      final max=1)
      "Minimum supply fan speed";
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController dpCon=
-    Buildings.Controls.OBC.CDL.Types.SimpleController.PID
+    Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of differential pressure setpoint controller"
     annotation (Dialog(group="DP control"));
   parameter Real kDp(
@@ -163,8 +163,8 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.PIDWithReset maxRetDam(
     final controllerType=dpCon,
     final k=kDp,
-    Ti=TiDp,
-    Td=TdDp)                                                   "Maximum return air damper position"
+    final Ti=TiDp,
+    final Td=TdDp) "Maximum return air damper position"
     annotation (Placement(transformation(extent={{120,290},{140,310}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(
     final k=Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeProtectionStages.stage1)
@@ -218,10 +218,10 @@ protected
     final k=retDamPhyPosMax)
     "Physically fixed maximum position of the return air damper. This is the initial condition of the return air damper"
     annotation (Placement(transformation(extent={{-200,-250},{-180,-230}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch retDamPosMinSwitch
-    "A switch to deactivate the return air damper minimal outdoor airflow control"
+  Buildings.Controls.OBC.CDL.Logical.Switch retDamPosMaxSwi
+    "A switch to deactivate the return air damper maximum outdoor airflow control"
     annotation (Placement(transformation(extent={{180,-260},{200,-240}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch retDamPosMinSwitch1
+  Buildings.Controls.OBC.CDL.Logical.Switch retDamPosMinSwi
     "A switch to deactivate the return air damper minimal outdoor airflow control"
     annotation (Placement(transformation(extent={{180,-210},{200,-190}})));
 
@@ -296,21 +296,21 @@ equation
     annotation (Line(points={{102,60},{124,60},{124,288}},color={255,0,255}));
   connect(retDamPhyPosMaxSig.y, yRetDamPhyPosMax) annotation (Line(points={{-178,
           -240},{-140,-240},{-140,-290},{240,-290}}, color={0,0,127}));
-  connect(enaDis.y, retDamPosMinSwitch.u2) annotation (Line(points={{102,60},{124,
-          60},{124,-250},{178,-250}}, color={255,0,255}));
-  connect(maxRetDam.y, retDamPosMinSwitch.u1) annotation (Line(points={{142,300},
-          {160,300},{160,-242},{178,-242}}, color={0,0,127}));
-  connect(retDamPosMinSwitch.y, yRetDamPosMax) annotation (Line(points={{202,-250},
-          {240,-250}}, color={0,0,127}));
-  connect(retDamPhyPosMaxSig.y, retDamPosMinSwitch.u3) annotation (Line(points={{-178,
+  connect(enaDis.y, retDamPosMaxSwi.u2) annotation (Line(points={{102,60},{124,60},
+          {124,-250},{178,-250}}, color={255,0,255}));
+  connect(maxRetDam.y, retDamPosMaxSwi.u1) annotation (Line(points={{142,300},{160,
+          300},{160,-242},{178,-242}}, color={0,0,127}));
+  connect(retDamPosMaxSwi.y, yRetDamPosMax)
+    annotation (Line(points={{202,-250},{240,-250}}, color={0,0,127}));
+  connect(retDamPhyPosMaxSig.y, retDamPosMaxSwi.u3) annotation (Line(points={{-178,
           -240},{-140,-240},{-140,-258},{178,-258}}, color={0,0,127}));
-  connect(enaDis.y, retDamPosMinSwitch1.u2) annotation (Line(points={{102,60},{124,
-          60},{124,-200},{178,-200}}, color={255,0,255}));
-  connect(retDamPhyPosMinSig.y, retDamPosMinSwitch1.u1) annotation (Line(points={{-178,
-          -200},{-140,-200},{-140,-192},{178,-192}},  color={0,0,127}));
-  connect(retDamPhyPosMaxSig.y, retDamPosMinSwitch1.u3) annotation (Line(points={{-178,
+  connect(enaDis.y, retDamPosMinSwi.u2) annotation (Line(points={{102,60},{124,60},
+          {124,-200},{178,-200}}, color={255,0,255}));
+  connect(retDamPhyPosMinSig.y, retDamPosMinSwi.u1) annotation (Line(points={{-178,
+          -200},{-140,-200},{-140,-192},{178,-192}}, color={0,0,127}));
+  connect(retDamPhyPosMaxSig.y, retDamPosMinSwi.u3) annotation (Line(points={{-178,
           -240},{-140,-240},{-140,-208},{178,-208}}, color={0,0,127}));
-  connect(retDamPosMinSwitch1.y, yRetDamPosMin)
+  connect(retDamPosMinSwi.y, yRetDamPosMin)
     annotation (Line(points={{202,-200},{240,-200}}, color={0,0,127}));
   connect(outDamPhyPosMinSig.y, yOutDamPosMin)
     annotation (Line(points={{-178,-120},{240,-120}}, color={0,0,127}));
@@ -335,7 +335,7 @@ annotation (
 <p>
 Block that outputs the position limits of the return and outdoor air damper for units
 with a separated minimum outdoor air damper and differential pressure control.
-It is implemented according to Section 5.16.4 of the ASHRAE Guideline G36, May 2020.
+It is implemented according to Section 5.16.4 of the ASHRAE Guideline 36, May 2020.
 </p>
 <h4>Differential pressure setpoint across the minimum outdoor air damper</h4>
 <ul>
