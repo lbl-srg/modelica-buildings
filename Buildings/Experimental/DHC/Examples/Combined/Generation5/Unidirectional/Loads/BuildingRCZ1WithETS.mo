@@ -2,6 +2,8 @@ within Buildings.Experimental.DHC.Examples.Combined.Generation5.Unidirectional.L
 model BuildingRCZ1WithETS
   "Model of a building (RC 1 zone) with an energy transfer station"
   extends BaseClasses.PartialBuildingWithETS(
+    enaHeaCoo(t=1e-4 .* {ets.mHeaWat_flow_nominal,ets.mChiWat_flow_nominal}),
+    reqHeaCoo(y={bui.disFloHea.mReqTot_flow,bui.disFloCoo.mReqTot_flow}),
     redeclare DHC.Loads.Examples.BaseClasses.BuildingRCZ1Valve bui,
     ets(
       have_hotWat=false,

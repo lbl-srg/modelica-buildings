@@ -2,6 +2,8 @@ within Buildings.Experimental.DHC.Examples.Combined.Generation5.Unidirectional.L
 model BuildingTimeSeriesWithETS
   "Model of a building with thermal loads as time series, with an energy transfer station"
   extends BaseClasses.PartialBuildingWithETS(
+    enaHeaCoo(t=abs(1e-4 .* {QHeaWat_flow_nominal,QChiWat_flow_nominal})),
+    reqHeaCoo(y=abs({bui.QReqHea_flow,bui.QReqCoo_flow})),
     redeclare DHC.Loads.Examples.BaseClasses.BuildingTimeSeries bui(
       final filNam=filNam,
       have_hotWat=true,
@@ -50,12 +52,12 @@ model BuildingTimeSeriesWithETS
         rotation=0,
         origin={-110,-80})));
 equation
-  connect(bui.QReqHotWat_flow, ets.loaSHW) annotation (Line(points={{14,6},{14,-4},
-          {-64,-4},{-64,-70},{-34,-70}},     color={0,0,127}));
-  connect(THotWatSupSet, ets.THotWatSupSet) annotation (Line(points={{-160,40},
-          {-100,40},{-100,-58},{-34,-58}},  color={0,0,127}));
-  connect(TColWat, ets.TColWat) annotation (Line(points={{-160,0},{-120,0},{
-          -120,-64},{-34,-64}},  color={0,0,127}));
+  connect(bui.QReqHotWat_flow, ets.loaSHW) annotation (Line(points={{26,6},{26,-6},
+          {-64,-6},{-64,-74},{-34,-74}},     color={0,0,127}));
+  connect(THotWatSupSet, ets.THotWatSupSet) annotation (Line(points={{-160,40},{
+          -100,40},{-100,-66},{-34,-66}},   color={0,0,127}));
+  connect(TColWat, ets.TColWat) annotation (Line(points={{-160,0},{-120,0},{-120,
+          -70},{-34,-70}},       color={0,0,127}));
   annotation (Line(
       points={{-1,100},{0.1,100},{0.1,71.4}},
       color={255,204,51},

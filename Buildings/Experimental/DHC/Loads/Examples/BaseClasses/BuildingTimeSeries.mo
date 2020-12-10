@@ -85,7 +85,7 @@ model BuildingTimeSeries
       transformation(extent={{300,-140},{340,-100}}), iconTransformation(
       extent={{-20,-20},{20,20}},
       rotation=-90,
-      origin={140,-320})));
+      origin={260,-320})));
   Modelica.Blocks.Sources.CombiTimeTable loa(
     tableOnFile=true,
     tableName="tab1",
@@ -173,11 +173,11 @@ model BuildingTimeSeries
     final quantity="HeatFlowRate",
     final unit="W") if have_heaLoa
     "Heating load"
-    annotation (Placement(transformation(extent={{300,20},{340,60}}),iconTransformation(extent={{-20,-20},{20,20}},rotation=-90,origin={200,-320})));
+    annotation (Placement(transformation(extent={{300,20},{340,60}}),iconTransformation(extent={{-20,-20},{20,20}},rotation=-90,origin={178,-320})));
   Modelica.Blocks.Interfaces.RealOutput QReqCoo_flow(
     final quantity="HeatFlowRate",
     final unit="W") if have_cooLoa "Cooling load"
-    annotation (Placement(transformation(extent={{300,-20},{340,20}}),iconTransformation(extent={{-20,-20},{20,20}},rotation=-90,origin={260,-320})));
+    annotation (Placement(transformation(extent={{300,-20},{340,20}}),iconTransformation(extent={{-20,-20},{20,20}},rotation=-90,origin={220,-320})));
   Buildings.Controls.OBC.CDL.Continuous.Add addPPum
     "Sum pump power"
     annotation (Placement(transformation(extent={{220,70},{240,90}})));

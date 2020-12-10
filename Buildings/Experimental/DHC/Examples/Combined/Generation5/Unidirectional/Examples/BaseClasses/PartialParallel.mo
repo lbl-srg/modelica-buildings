@@ -2,8 +2,11 @@ within Buildings.Experimental.DHC.Examples.Combined.Generation5.Unidirectional.E
 partial model PartialParallel "Partial model for parallel network"
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.Water "Medium model";
-  parameter Boolean allowFlowReversal = false
-    "Set to true to allow flow reversal in the distribution and connections"
+  parameter Boolean allowFlowReversalSer = false
+    "Set to true to allow flow reversal in the service lines"
+    annotation(Dialog(tab="Assumptions"), Evaluate=true);
+  parameter Boolean allowFlowReversalBui = false
+    "Set to true to allow flow reversal for in-building systems"
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
   parameter Integer nBui = datDes.nBui
     "Number of buildings connected to DHC system"
@@ -38,7 +41,7 @@ partial model PartialParallel "Partial model for parallel network"
   DHC.EnergyTransferStations.BaseClasses.Pump_m_flow pumSto(
     redeclare final package Medium=Medium,
     final m_flow_nominal=datDes.mSto_flow_nominal,
-    final allowFlowReversal=allowFlowReversal)
+    final allowFlowReversal=allowFlowReversalSer)
     "Bore field pump"
     annotation (
       Placement(transformation(
@@ -53,7 +56,7 @@ partial model PartialParallel "Partial model for parallel network"
     lCon=10,
     final dhDis=datDes.dhDis[1],
     dhCon=0.10,
-    final allowFlowReversal=allowFlowReversal)
+    final allowFlowReversal=allowFlowReversalSer)
     "Connection to the plant"
     annotation (Placement(transformation(
       extent={{-10,-10},{10,10}},
@@ -70,7 +73,7 @@ partial model PartialParallel "Partial model for parallel network"
     final dhDis=datDes.dhDis,
     final dhCon=datDes.dhCon,
     final dhEnd=datDes.dhEnd,
-    final allowFlowReversal=allowFlowReversal)
+    final allowFlowReversal=allowFlowReversalSer)
     "Distribution network"
     annotation (Placement(transformation(extent={{-20,130},{20,150}})));
   Networks.BaseClasses.ConnectionSeries conSto(
@@ -81,7 +84,7 @@ partial model PartialParallel "Partial model for parallel network"
     lCon=0,
     final dhDis=datDes.dhDis[1],
     final dhCon=datDes.dhDis[1],
-    final allowFlowReversal=allowFlowReversal)
+    final allowFlowReversal=allowFlowReversalSer)
     "Connection to the bore field"
     annotation (Placement(
         transformation(
@@ -94,7 +97,8 @@ partial model PartialParallel "Partial model for parallel network"
     final mDis_flow_nominal=datDes.mPla_flow_nominal,
     final dpSew_nominal=datDes.dpPla_nominal,
     final dpDis_nominal=datDes.dpPla_nominal,
-    final epsHex=datDes.epsPla) "Sewage heat recovery plant"
+    final epsHex=datDes.epsPla)
+    "Sewage heat recovery plant"
     annotation (Placement(transformation(extent={{-160,-10},{-140,10}})));
   Fluid.Sensors.TemperatureTwoPort TDisWatSup(
     redeclare final package Medium=Medium,
@@ -103,19 +107,38 @@ partial model PartialParallel "Partial model for parallel network"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-80,20})));
-  Fluid.Sensors.TemperatureTwoPort TDisWatRet(redeclare final package Medium =
-        Medium, final m_flow_nominal=datDes.mDis_flow_nominal)
+  Fluid.Sensors.TemperatureTwoPort TDisWatRet(
+    redeclare final package Medium =Medium,
+    final m_flow_nominal=datDes.mDis_flow_nominal)
     "District water return temperature" annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=90,
         origin={-40,20})));
-  Fluid.Sensors.TemperatureTwoPort TDisWatBorLvg(redeclare final package Medium
-      = Medium, final m_flow_nominal=datDes.mDis_flow_nominal)
+  Fluid.Sensors.TemperatureTwoPort TDisWatBorLvg(
+    redeclare final package Medium =Medium,
+    final m_flow_nominal=datDes.mDis_flow_nominal)
     "District water borefield leaving temperature" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-80,-40})));
+  replaceable Loads.BaseClasses.PartialBuildingWithETS bui[nBui]
+    constrainedby Loads.BaseClasses.PartialBuildingWithETS(
+      redeclare each final package MediumBui=Medium,
+      redeclare each final package MediumSer=Medium,
+      each final allowFlowReversalBui=allowFlowReversalBui,
+      each final allowFlowReversalSer=allowFlowReversalSer)
+    "Building and ETS"
+    annotation (Placement(transformation(extent={{-10,170},{10,190}})));
+  Controls.OBC.CDL.Continuous.Sources.Constant           TSetHeaWatSup[nBui](k=bui.THeaWatSup_nominal)
+    "Heating water supply temperature set point"
+    annotation (Placement(transformation(extent={{-280,210},{-260,230}})));
+  Controls.OBC.CDL.Continuous.Sources.Constant           TSetChiWatSup[nBui](k=bui.TChiWatSup_nominal)
+    "Chilled water supply temperature set point"
+    annotation (Placement(transformation(extent={{-250,190},{-230,210}})));
+  Modelica.Blocks.Sources.Constant TSewWat(k=273.15 + 17)
+    "Sewage water temperature"
+    annotation (Placement(transformation(extent={{-280,30},{-260,50}})));
 equation
   connect(bou.ports[1], pumDis.port_a)
     annotation (Line(points={{102,-20},{80,-20},{80,-50}}, color={0,127,255}));
@@ -144,6 +167,16 @@ equation
     annotation (Line(points={{-80,-80},{-80,-50}}, color={0,127,255}));
   connect(TDisWatBorLvg.port_b, conPla.port_aDis)
     annotation (Line(points={{-80,-30},{-80,-20}}, color={0,127,255}));
+  connect(bui.port_bSerAmb, dis.ports_aCon) annotation (Line(points={{10,180},{
+          20,180},{20,160},{12,160},{12,150}}, color={0,127,255}));
+  connect(dis.ports_bCon, bui.port_aSerAmb) annotation (Line(points={{-12,150},
+          {-12,160},{-20,160},{-20,180},{-10,180}}, color={0,127,255}));
+  connect(TSetHeaWatSup.y, bui.THeaWatSupSet) annotation (Line(points={{-258,
+          220},{-20,220},{-20,188},{-11,188}}, color={0,0,127}));
+  connect(TSetChiWatSup.y, bui.TChiWatSupSet) annotation (Line(points={{-228,
+          200},{-24,200},{-24,184},{-11,184}}, color={0,0,127}));
+  connect(TSewWat.y, pla.TSewWat) annotation (Line(points={{-259,40},{-180,40},
+          {-180,8},{-162,8}}, color={0,0,127}));
   annotation (Diagram(
     coordinateSystem(preserveAspectRatio=false, extent={{-360,-260},{360,260}})),
     experiment(StopTime=31536000, __Dymola_NumberOfIntervals=8760));

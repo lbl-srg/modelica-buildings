@@ -53,11 +53,29 @@ model PartialBuildingWithETS
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-110,80})));
+  Modelica.Blocks.Sources.RealExpression reqHeaCoo[2]
+    "Signal representing heating and cooling request from building"
+    annotation (Placement(transformation(extent={{-120,-110},{-100,-90}})));
+  Controls.OBC.CDL.Continuous.GreaterThreshold enaHeaCoo[2]
+    "Threshold comparison to enable heating and cooling"
+    annotation (Placement(transformation(extent={{-80,-110},{-60,-90}})));
+  Modelica.Blocks.Sources.BooleanConstant enaSHW(k=true) if
+                                                         have_hotWat
+    "SHW production enable signal"
+    annotation (Placement(transformation(extent={{0,-130},{-20,-110}})));
 equation
   connect(THeaWatSupSet, ets.THeaWatSupSet) annotation (Line(points={{-160,120},
-          {-80,120},{-80,-46},{-34,-46}}, color={0,0,127}));
-  connect(TChiWatSupSet, ets.TChiWatSupSet) annotation (Line(points={{-160,80},{
-          -88,80},{-88,-52},{-34,-52}},  color={0,0,127}));
+          {-80,120},{-80,-58},{-34,-58}}, color={0,0,127}));
+  connect(TChiWatSupSet, ets.TChiWatSupSet) annotation (Line(points={{-160,80},
+          {-84,80},{-84,-62},{-34,-62}}, color={0,0,127}));
+  connect(reqHeaCoo.y, enaHeaCoo.u)
+    annotation (Line(points={{-99,-100},{-82,-100}}, color={0,0,127}));
+  connect(enaHeaCoo[1].y, ets.uHea) annotation (Line(points={{-58,-100},{-48,
+          -100},{-48,-46},{-34,-46}}, color={255,0,255}));
+  connect(enaHeaCoo[2].y, ets.uCoo) annotation (Line(points={{-58,-100},{-44,
+          -100},{-44,-50},{-34,-50}}, color={255,0,255}));
+  connect(enaSHW.y, ets.uSHW) annotation (Line(points={{-21,-120},{-36,-120},{
+          -36,-54},{-34,-54}}, color={255,0,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end PartialBuildingWithETS;

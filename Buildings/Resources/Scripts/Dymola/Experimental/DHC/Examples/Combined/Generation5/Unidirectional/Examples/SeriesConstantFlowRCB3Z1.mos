@@ -4,7 +4,6 @@ simulateModel("Buildings.Experimental.DHC.Examples.Combined.Generation5.Unidirec
     startTime=0,
     stopTime=604800,
     resultFile="SeriesConstantFlowRCB3Z1");
-Advanced.FilenameInLegend = true;
 createPlot(
     id=1,
     position={35, 35, 820, 912},

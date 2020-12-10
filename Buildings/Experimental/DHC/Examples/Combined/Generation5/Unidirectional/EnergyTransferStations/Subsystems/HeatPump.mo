@@ -159,6 +159,16 @@ model HeatPump
   Modelica.Blocks.Sources.Constant zer(final k=0) if not have_pumCon
     "Replacement variable"
     annotation (Placement(transformation(extent={{80,-110},{100,-90}})));
+  Controls.OBC.CDL.Continuous.GreaterThreshold staPum[2](
+    t=1e-2 .* {m1_flow_nominal, m2_flow_nominal},
+    h=0.5e-2 .* {m1_flow_nominal, m2_flow_nominal})
+    "Pump return status"
+    annotation (Placement(transformation(extent={{-80,-110},{-100,-90}})));
+  Controls.OBC.CDL.Logical.And ena "Enable heat pump if pump return status on"
+    annotation (Placement(transformation(extent={{-120,-110},{-140,-90}})));
+  Modelica.Blocks.Sources.Constant one(final k=1) if not have_pumCon
+    "Replacement variable"
+    annotation (Placement(transformation(extent={{60,-110},{40,-90}})));
 equation
   connect(booToRea.y,gai. u)
     annotation (Line(points={{-118,100},{-110,100},{-110,120},{-102,120}},
@@ -182,10 +192,8 @@ equation
           {-10,-5},{-2,-5}},  color={0,0,127}));
   connect(uEna, booToRea.u)
     annotation (Line(points={{-220,100},{-142,100}}, color={255,0,255}));
-  connect(TSupSet, enaHeaPum.u1) annotation (Line(points={{-220,-20},{-160,-20},
-          {-160,28},{-142,28}},   color={0,0,127}));
-  connect(uEna, enaHeaPum.u2) annotation (Line(points={{-220,100},{-180,100},{-180,
-          20},{-142,20}},   color={255,0,255}));
+  connect(TSupSet, enaHeaPum.u1) annotation (Line(points={{-220,-20},{-180,-20},
+          {-180,28},{-142,28}},   color={0,0,127}));
   connect(heaPum.port_b2, port_b2) annotation (Line(points={{0,-20},{-20,-20},{-20,
           40},{180,40},{180,60},{200,60}}, color={0,127,255}));
   connect(senTConLvg.port_b, port_b1)
@@ -215,6 +223,18 @@ equation
       annotation (Line(points={{-200,-60},{-80,-60},
         {-80,-80},{-40,-80},{-40,-30}}, color={0,127,255}));
   end if;
+  connect(pumCon.m_flow_actual, staPum[1].u) annotation (Line(points={{-49,-55},
+          {-38,-55},{-38,-100},{-78,-100}}, color={0,0,127}));
+  connect(pumEva.m_flow_actual, staPum[2].u) annotation (Line(points={{49,-55},{
+          20,-55},{20,-100},{-78,-100}}, color={0,0,127}));
+  connect(staPum[1].y, ena.u1)
+    annotation (Line(points={{-102,-100},{-118,-100}}, color={255,0,255}));
+  connect(staPum[2].y, ena.u2) annotation (Line(points={{-102,-100},{-106,-100},
+          {-106,-108},{-118,-108}}, color={255,0,255}));
+  connect(ena.y, enaHeaPum.u2) annotation (Line(points={{-142,-100},{-160,-100},
+          {-160,20},{-142,20}}, color={255,0,255}));
+  connect(one.y, staPum[1].u)
+    annotation (Line(points={{39,-100},{-78,-100}}, color={0,0,127}));
   annotation (
   defaultComponentName="heaPum",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={
