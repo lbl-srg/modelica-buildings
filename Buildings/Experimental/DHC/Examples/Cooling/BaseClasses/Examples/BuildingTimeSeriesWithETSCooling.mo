@@ -1,11 +1,11 @@
-within Buildings.Applications.DHC.Examples.Cooling.BaseClasses.Examples;
+within Buildings.Experimental.DHC.Examples.Cooling.BaseClasses.Examples;
 model BuildingTimeSeriesWithETSCooling
   "Example for testing the building model with prescribed cooling load profile"
   extends Modelica.Icons.Example;
 
   package Medium = Buildings.Media.Water "Medium model";
 
-  Buildings.Applications.DHC.Examples.Cooling.BaseClasses.BuildingTimeSeriesWithETSCooling
+  Buildings.Experimental.DHC.Examples.Cooling.BaseClasses.BuildingTimeSeriesWithETSCooling
     buiWitETS(
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -35,7 +35,7 @@ equation
           -50,-30},{-50,2},{-40,2}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
-    __Dymola_Commands(file="Resources/Scripts/Dymola/Applications/DHC/Examples/Cooling/BaseClasses/Examples/BuildingTimeSeriesWithETSCooling.mos"
+    __Dymola_Commands(file="Resources/Scripts/Dymola/Experimental/DHC/Examples/Cooling/BaseClasses/Examples/BuildingTimeSeriesWithETSCooling.mos"
         "Simulate and Plot"),
-    experiment(StopTime=86400, __Dymola_Algorithm="Dassl"));
+    experiment(StopTime=86400, __Dymola_Algorithm="cvode"));
 end BuildingTimeSeriesWithETSCooling;

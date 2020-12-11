@@ -1,4 +1,4 @@
-within Buildings.Applications.DHC.Examples.Cooling.BaseClasses;
+within Buildings.Experimental.DHC.Examples.Cooling.BaseClasses;
 model BuildingTimeSeriesWithETSCooling
   "Model of a building with thermal loads as time series, with an energy transfer station"
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
@@ -23,7 +23,7 @@ model BuildingTimeSeriesWithETSCooling
     "Library path of the file with thermal loads as time series"
     annotation (Dialog(group="Building"));
   final parameter Modelica.SIunits.Power Q_flow_nominal(max=-Modelica.Constants.eps)=
-    Buildings.Experimental.DistrictHeatingCooling.SubStations.VaporCompression.BaseClasses.getPeakLoad(
+    Buildings.Experimental.DHC.Loads.BaseClasses.getPeakLoad(
     string="#Peak space cooling load",
     filNam=Modelica.Utilities.Files.loadResource(filNam))
     "Design cooling heat flow rate (<=0)Nominal heat flow rate, negative";
@@ -54,13 +54,12 @@ model BuildingTimeSeriesWithETSCooling
     "Nominal mass flow rate through the bypass segment"
     annotation (Dialog(group="Energy transfer station"));
 
-  // IO CONNECTORS
 
   // COMPONENTS
-  replaceable DHC.Loads.Examples.BaseClasses.BuildingTimeSeriesHE bui(
+  replaceable Buildings.Experimental.DHC.Loads.Examples.BaseClasses.BuildingTimeSeries bui(
     have_watHea=true,
-    deltaTAirCoo=6,
-    deltaTAirHea=18,
+    delTAirCoo=6,
+    delTAirHea=18,
     loa(
     columns = {2,3}, timeScale=3600, offset={0,0}),
     T_aChiWat_nominal=TChiWatSup_nominal,
@@ -75,7 +74,7 @@ model BuildingTimeSeriesWithETSCooling
     final allowFlowReversal=allowFlowReversalBui)
     "Building"
     annotation (Placement(transformation(extent={{-10,40},{10,60}})));
-  replaceable DHC.EnergyTransferStations.Cooling.CoolingDirectControlledReturn ets(
+  replaceable Buildings.Experimental.DHC.EnergyTransferStations.Cooling.CoolingDirectControlledReturn ets(
     redeclare final package Medium = Medium,
     final mDis_flow_nominal=mDis_flow_nominal,
     final mBui_flow_nominal=mBui_flow_nominal,
@@ -91,7 +90,7 @@ model BuildingTimeSeriesWithETSCooling
   Modelica.Blocks.Sources.RealExpression THeaWatSup(y=bui.terUniHea.T_aHeaWat_nominal)
     "Heating water supply temperature"
     annotation (Placement(transformation(extent={{-90,80},{-70,100}})));
-  Fluid.Sources.Boundary_pT           supHeaWat(
+  Buildings.Fluid.Sources.Boundary_pT supHeaWat(
     redeclare package Medium = Medium,
     use_T_in=true,
     nPorts=1)
@@ -100,7 +99,7 @@ model BuildingTimeSeriesWithETSCooling
       extent={{-10,-10},{10,10}},
       rotation=0,
       origin={-50,90})));
-  Fluid.Sources.Boundary_pT           sinHeaWat(
+  Buildings.Fluid.Sources.Boundary_pT sinHeaWat(
     redeclare package Medium = Medium,
     p=300000,
     nPorts=1)
@@ -109,7 +108,7 @@ model BuildingTimeSeriesWithETSCooling
       extent={{10,-10},{-10,10}},
       rotation=0,
       origin={30,90})));
-  Fluid.Sensors.RelativePressure           senRelPre(redeclare package Medium =
+  Buildings.Fluid.Sensors.RelativePressure senRelPre(redeclare package Medium =
         Medium)
     "Pressure difference measurement"
     annotation (Placement(transformation(
@@ -205,7 +204,9 @@ equation
   connect(bui.PPum,PPum)  annotation (Line(points={{10.6667,52},{114,52},{114,
           50},{210,50}},
                    color={0,0,127}));
-  annotation (Line(
+  annotation (
+  defaultComponentName="buiWitETS",
+  Line(
       points={{-1,100},{0.1,100},{0.1,71.4}},
       color={255,204,51},
       thickness=0.5), Text(
