@@ -1,6 +1,6 @@
-within Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Subsequences.Common;
-block Modulation
-  "Outdoor and return air damper position modulation sequence for multi zone VAV AHU"
+within Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Subsequences.Modulations;
+block Reliefs
+  "Modulates dampers of economizer in buildings using relief damper or fan to control the pressure"
 
   parameter Real uMin(
     final max=0,
@@ -277,4 +277,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end Modulation;
+end Reliefs;
