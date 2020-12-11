@@ -4,7 +4,9 @@ model ASHRAE2006
   extends Modelica.Icons.Example;
   extends Buildings.Examples.VAVReheat.BaseClasses.PartialOpenLoop(
     heaCoi(show_T=true),
-    cooCoi(show_T=true));
+    cooCoi(
+      energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+      show_T=true));
 
   parameter Real ratVMinCor_flow(final unit="1")=
     max(1.5*VCorOA_flow_nominal, 0.15*mCor_flow_nominal/1.2) /

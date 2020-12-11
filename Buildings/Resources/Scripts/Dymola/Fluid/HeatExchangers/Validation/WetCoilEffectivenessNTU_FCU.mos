@@ -60,7 +60,7 @@ createPlot(
 createPlot(
     id=3,
     position={1511, 83, 920, 554},
-    y={"dryFraHexDis", "cooCoi7Param16.dryWetCalcs.dryfra"},
+    y={"dryFraHexDis", "cooCoi7Param16.dryWetCalcs.dryfra", "cooCoi16.dryWetCalcs.dryfra"},
     autoscale = true,
     autoerase = true,
     autoreplot = true,

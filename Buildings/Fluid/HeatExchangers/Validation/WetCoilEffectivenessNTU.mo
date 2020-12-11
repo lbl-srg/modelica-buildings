@@ -18,26 +18,33 @@ model WetCoilEffectivenessNTU
   parameter Modelica.SIunits.Temperature T_a1_nominal=
     Modelica.SIunits.Conversions.from_degF(42)
     "Inlet water temperature";
+  // TODO: double check this value: not consistent with computed
+  // Q1_flow_nominal = m1_flow_nominal * 4200 * (T_b1_nominal - T_a1_nominal)
   parameter Modelica.SIunits.Temperature T_b1_nominal=
     Modelica.SIunits.Conversions.from_degF(47.72)
     "Outlet water temperature";
   parameter Real X_w2_nominal_dry(min=0,max=1) = 0.0035383
     "Inlet air humidity ratio: mass of water per mass of moist air";
-  parameter Real X_w2_nominal_wet(min=0,max=1) = 0.01765
+  parameter Real X_w2_nominal_wet100s(min=0,max=1) = 0.0177
+    "Inlet air humidity ratio: mass of water per mass of moist air";
+  parameter Real X_w2_nominal_wet75s(min=0,max=1) = 0.0141
+    "Inlet air humidity ratio: mass of water per mass of moist air";
+  parameter Real X_w2_nominal_wet35s(min=0,max=1) = 0.0085
     "Inlet air humidity ratio: mass of water per mass of moist air";
 
   parameter Modelica.SIunits.MassFlowRate m1_flow_nominal = 3.78
     "Nominal mass flow rate of water";
   parameter Modelica.SIunits.MassFlowRate m2_flow_nominal = 2.646
     "Nominal mass flow rate of air";
-  parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal=
-    m1_flow_nominal * 4200 * abs(T_a1_nominal - T_b1_nominal)
-    "Nominal heat transfer";
   parameter Modelica.SIunits.ThermalConductance UA_nominal = 9495.5 / 2
     "Total thermal conductance at nominal flow, used to compute heat capacity";
-  parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal_dry = -44234
+  parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal_dry = 44234
     "Nominal heat transfer";
-  parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal_wet = -82722
+  parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal_wet100s = 85625
+    "Nominal heat transfer";
+  parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal_wet75s = 71368
+    "Nominal heat transfer";
+  parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal_wet35s = 46348
     "Nominal heat transfer";
   parameter Types.HeatExchangerConfiguration hexCon=
     Types.HeatExchangerConfiguration.CrossFlowStream1UnmixedStream2Mixed
@@ -173,10 +180,10 @@ model WetCoilEffectivenessNTU
     dp1_nominal=0,
     configuration=hexCon,
     show_T=true,
-    Q_flow_nominal=Q_flow_nominal_wet,
+    Q_flow_nominal=Q_flow_nominal_wet35s,
     T_a1_nominal=T_a1_nominal,
     T_a2_nominal=T_a2_nominal,
-    X_w2_nominal=X_w2_nominal_wet)
+    X_w2_nominal=X_w2_nominal_wet35s)
     "Epsilon-NTU coil model"
     annotation (Placement(transformation(extent={{-40,4},{-20,24}})));
   Sources.MassFlowSource_T souWat2(
@@ -201,7 +208,7 @@ equation
     isDryHexDis[iEle] = if abs(hexDis.ele[iEle].masExc.mWat_flow) < 1E-6 then 1 else 0;
   end for;
   connect(hexWetNTU_IBPSA.port_b1, sinWat.ports[1]) annotation (Line(points={{-20,20},
-          {0,20},{0,42.6667},{40,42.6667}},color={0,127,255}));
+          {8,20},{8,42.6667},{40,42.6667}},color={0,127,255}));
   connect(pAir.y, wetBulIn.p) annotation (Line(points={{119,-40},{110,-40},{110,
           -16},{119,-16}},     color={0,0,127}));
   connect(pAir1.y, wetBulOut.p) annotation (Line(points={{-79,-100},{-44,-100},{
@@ -235,8 +242,6 @@ equation
           {0,80},{0,40},{40,40}}, color={0,127,255}));
   connect(hexWetNTU_IBPSA.port_a2, RelHumIn.port_b) annotation (Line(points={{-20,8},
           {0,8},{0,-80},{10,-80}},      color={0,127,255}));
-  connect(souAir1.ports[1], hexWetNTU.port_a2) annotation (Line(points={{120,60},
-          {20,60},{20,68},{-20,68}},     color={0,127,255}));
   connect(hexWetNTU.port_b2, sinAir.ports[2]) annotation (Line(points={{-40,68},
           {-140,68},{-140,-40},{-160,-40}},   color={0,127,255}));
   connect(X_w2.y[1], souAir.Xi_in[1]) annotation (Line(points={{169,-80},{160,-80},
@@ -248,19 +253,21 @@ equation
   connect(sinAir.ports[3], hexDis.port_b2) annotation (Line(points={{-160,
           -42.6667},{-140,-42.6667},{-140,108},{-40,108}},
                                                  color={0,127,255}));
-  connect(souAir2.ports[1], hexDis.port_a2) annotation (Line(points={{120,100},{
-          20,100},{20,108},{-20,108}}, color={0,127,255}));
   connect(hexDis.port_b1, sinWat.ports[3]) annotation (Line(points={{-20,120},{
-          0,120},{0,38},{40,38},{40,37.3333}},
+          4,120},{4,38},{40,38},{40,37.3333}},
                                              color={0,127,255}));
   connect(X_w2.y[1], souAir2.Xi_in[1]) annotation (Line(points={{169,-80},{160,-80},
           {160,96},{142,96}}, color={0,0,127}));
+  connect(souAir1.ports[1], hexWetNTU.port_a2) annotation (Line(points={{120,60},
+          {20,60},{20,68},{-20,68}}, color={0,127,255}));
+  connect(souAir2.ports[1], hexDis.port_a2) annotation (Line(points={{120,100},{
+          20,100},{20,108},{-20,108}}, color={0,127,255}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true,
     extent={{-200,-140},{200,140}}), graphics={Text(
           extent={{-74,14},{28,-10}},
           lineColor={238,46,47},
-          textString="Cannot be parameterized with wet conditions",
-          horizontalAlignment=TextAlignment.Left)}),
+          horizontalAlignment=TextAlignment.Left,
+          textString="Cannot be parameterized with fully wet conditions")}),
     experiment(
       StopTime=100,
       Tolerance=1e-06,

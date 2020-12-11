@@ -126,7 +126,9 @@ equation
   annotation (
   experiment(
       StopTime=31000000,
-      Tolerance=1e-06),
+      __Dymola_NumberOfIntervals=8760,
+      Tolerance=1e-06,
+      __Dymola_Algorithm="Cvode"),
   Documentation(info="<html>
 <p>
 This example illustrates the use of
