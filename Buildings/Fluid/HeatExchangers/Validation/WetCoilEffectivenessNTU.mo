@@ -9,23 +9,15 @@ model WetCoilEffectivenessNTU
   constant Modelica.SIunits.AbsolutePressure pAtm = 101325
     "Atmospheric pressure";
 
-  parameter Modelica.SIunits.Temperature T_a2_nominal=
-    Modelica.SIunits.Conversions.from_degF(80)
-    "Inlet air temperature";
-  parameter Modelica.SIunits.Temperature T_b2_nominal=
-    Modelica.SIunits.Conversions.from_degF(53)
-    "Outlet air temperature";
   parameter Modelica.SIunits.Temperature T_a1_nominal=
     Modelica.SIunits.Conversions.from_degF(42)
     "Inlet water temperature";
-  parameter Modelica.SIunits.Temperature T_b1_nominal=
-    Modelica.SIunits.Conversions.from_degF(47.72)
-    "Outlet water temperature";
+  parameter Modelica.SIunits.Temperature T_a2_nominal=
+    Modelica.SIunits.Conversions.from_degF(80)
+    "Inlet air temperature";
 
-  // TODO: double check this value: not consistent with computed
-  parameter Modelica.SIunits.HeatFlowRate Q1_flow_nominal=
-    m1_flow_nominal * 4200 * (T_b1_nominal - T_a1_nominal)
-    "Nominal heat flow rate";
+  parameter Modelica.SIunits.ThermalConductance UA_nominal = 4748
+    "Total thermal conductance at nominal flow, from textbook";
 
   parameter Real X_w2_nominal_0s(min=0,max=1) = 0.0035383
     "Inlet air humidity ratio at 0s real time (100% dry)";
@@ -48,8 +40,6 @@ model WetCoilEffectivenessNTU
     "Nominal mass flow rate of water";
   parameter Modelica.SIunits.MassFlowRate m2_flow_nominal = 2.646
     "Nominal mass flow rate of air";
-  parameter Modelica.SIunits.ThermalConductance UA_nominal = 9495.5 / 2
-    "Total thermal conductance at nominal flow, used to compute heat capacity";
   parameter Types.HeatExchangerConfiguration hexCon=
     Types.HeatExchangerConfiguration.CrossFlowStream1UnmixedStream2Mixed
     "Heat exchanger configuration";
