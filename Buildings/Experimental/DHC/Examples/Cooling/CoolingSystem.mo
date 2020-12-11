@@ -4,7 +4,7 @@ model CoolingSystem "Example to test the district cooling network model"
 
   package Medium = Buildings.Media.Water "Medium model for water";
 
-  parameter Integer nBui = 3
+  parameter Integer nBui=1
     "Number of buildings connected to each distribution branch, excluding the most remote one";
 
   parameter Boolean allowFlowReversal = false
@@ -34,7 +34,7 @@ model CoolingSystem "Example to test the district cooling network model"
     "Differential pressure setpoint";
   parameter Modelica.SIunits.Temperature TCHWSet=273.15 + 7
     "Chilled water temperature setpoint";
-  parameter Modelica.SIunits.Time tWai=30 "Waiting time";
+  parameter Modelica.SIunits.Time tWai=0  "Waiting time";
 
   // pumps
   parameter Buildings.Fluid.Movers.Data.Generic perCHWPum(
@@ -53,49 +53,26 @@ model CoolingSystem "Example to test the district cooling network model"
     "Nominal pressure drop of chilled water pumps";
 
   // buildings
-  parameter String filNam="modelica://Buildings/Resources/Data/Applications/DHC/Examples/Cooling/Loads.txt"
+  parameter String filNam="modelica://Buildings/Resources/Data/Experimental/DHC/Examples/Cooling/Loads.txt"
     "Library path of the file with thermal loads as time series";
   final parameter Modelica.SIunits.Power Q_flow_nominal(max=-Modelica.Constants.eps)=
-    Buildings.Experimental.DistrictHeatingCooling.SubStations.VaporCompression.BaseClasses.getPeakLoad(
+    Buildings.Experimental.DHC.Loads.BaseClasses.getPeakLoad(
     string="#Peak space cooling load",
     filNam=Modelica.Utilities.Files.loadResource(filNam))
     "Design cooling heat flow rate (<=0)Nominal heat flow rate, negative";
   final parameter Modelica.SIunits.MassFlowRate mBui_flow_nominal(
     final min=0,
-    final start=0.5)=Q_flow_nominal/(cp*(bld4.TChiWatSup_nominal - bld4.TChiWatRet_nominal))
+    final start=0.5)=Q_flow_nominal/(cp*(bld[1].TChiWatSup_nominal - bld[1].TChiWatRet_nominal))
     "Nominal mass flow rate of building cooling side";
 
-  Buildings.Experimental.DHC.Examples.Cooling.BaseClasses.BuildingTimeSeriesWithETSCooling bld123[nBui](
+  Buildings.Experimental.DHC.Examples.Cooling.BaseClasses.BuildingTimeSeriesWithETSCooling bld[nBui](
     redeclare each package Medium = Medium,
     each filNam=filNam,
     each mDis_flow_nominal=mBui_flow_nominal,
     each mBui_flow_nominal=mBui_flow_nominal,
-    each mByp_flow_nominal=0.1)
-    "Building with cooling load"
-    annotation (Placement(transformation(extent={{20,40},{40,60}})));
-  Buildings.Experimental.DHC.Loads.Validation.BaseClasses.Distribution2Pipe disBra1(
-    redeclare package Medium = Medium,
-    nCon=nBui,
-    mDis_flow_nominal=4*mBui_flow_nominal,
-    mCon_flow_nominal={mBui_flow_nominal,mBui_flow_nominal,mBui_flow_nominal},
-    mEnd_flow_nominal=mBui_flow_nominal,
-    lDis={100,100,100},
-    lCon={50,50,50},
-    lEnd=50,
-    dhDis={0.4,0.3,0.2},
-    dhCon={0.1,0.1,0.1},
-    allowFlowReversal=allowFlowReversal,
-    dhEnd=0.1)
-    "Distribution branch 1"
-    annotation (Placement(transformation(extent={{10,0},{50,20}})));
-  Buildings.Experimental.DHC.Examples.Cooling.BaseClasses.BuildingTimeSeriesWithETSCooling bld4(
-    redeclare package Medium = Medium,
-    filNam=filNam,
-    mDis_flow_nominal=mBui_flow_nominal,
-    mBui_flow_nominal=mBui_flow_nominal,
-    mByp_flow_nominal=0.1)
-    "Building with cooling load"
-    annotation (Placement(transformation(extent={{90,0},{70,20}})));
+    each mByp_flow_nominal=0.01,
+    each energyDynamics=energyDynamics) "Building with cooling load"
+    annotation (Placement(transformation(extent={{10,40},{30,60}})));
   Buildings.Experimental.DHC.CentralPlants.Cooling.Plant pla(
     perChi=perChi,
     perCHWPum=perCHWPum,
@@ -130,37 +107,14 @@ model CoolingSystem "Example to test the district cooling network model"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
   Buildings.BoundaryConditions.WeatherData.Bus weaBus "Weather data bus"
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
-  Buildings.Experimental.DHC.Examples.Cooling.BaseClasses.BuildingTimeSeriesWithETSCooling bld8(
-    redeclare package Medium = Medium,
-    filNam=filNam,
-    mDis_flow_nominal=mBui_flow_nominal,
-    mBui_flow_nominal=mBui_flow_nominal,
-    mByp_flow_nominal=0.1)
-    "Building 8 with cooling load"
-    annotation (Placement(transformation(extent={{90,-80},{70,-60}})));
-  Buildings.Experimental.DHC.Loads.Validation.BaseClasses.Distribution2Pipe disBra2(
-    redeclare package Medium = Medium,
+  Loads.Validation.BaseClasses.Distribution2Pipe dis(
+    redeclare package Medium = Media.Water,
     nCon=nBui,
-    mDis_flow_nominal=4*mBui_flow_nominal,
-    mCon_flow_nominal={mBui_flow_nominal,mBui_flow_nominal,mBui_flow_nominal},
-    mEnd_flow_nominal=mBui_flow_nominal,
-    lDis={100,100,100},
-    lCon={50,50,50},
-    lEnd=50,
-    dhDis={0.4,0.3,0.2},
-    dhCon={0.1,0.1,0.1},
-    allowFlowReversal=allowFlowReversal,
-    dhEnd=0.1)
-    "Distribution branch 1"
-    annotation (Placement(transformation(extent={{10,-80},{50,-60}})));
-  Buildings.Experimental.DHC.Examples.Cooling.BaseClasses.BuildingTimeSeriesWithETSCooling bld567[nBui](
-    redeclare each package Medium = Medium,
-    each filNam=filNam,
-    each mDis_flow_nominal=mBui_flow_nominal,
-    each mBui_flow_nominal=mBui_flow_nominal,
-    each mByp_flow_nominal=0.1)
-    "Building 5,6,7 with cooling load"
-    annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
+    mDis_flow_nominal=nBui*mBui_flow_nominal,
+    mCon_flow_nominal=fill(mBui_flow_nominal, nBui),
+    dpDis_nominal(displayUnit="Pa") = fill(0, nBui))
+                          "Distribution pipes"
+    annotation (Placement(transformation(extent={{0,0},{40,20}})));
 protected
   parameter Modelica.SIunits.SpecificHeatCapacity cp=
    Medium.specificHeatCapacityCp(
@@ -168,12 +122,6 @@ protected
     "Default specific heat capacity of medium";
 
 equation
-  connect(disBra1.port_aDisRet,bld4. port_b) annotation (Line(points={{50,4},{58,
-          4},{58,10},{70,10}}, color={0,127,255}));
-  connect(disBra1.ports_bCon, bld123.port_a) annotation (Line(points={{18,20},{18,
-          30},{12,30},{12,50},{20,50}}, color={0,127,255}));
-  connect(bld123.port_b, disBra1.ports_aCon) annotation (Line(points={{40,50},{48,
-          50},{48,30},{42,30},{42,20}}, color={0,127,255}));
   connect(weaDat.weaBus,weaBus)  annotation (Line(
       points={{-60,-50},{-50,-50}},
       color={255,204,51},
@@ -184,37 +132,25 @@ equation
       thickness=0.5));
   connect(on.y,pla. on) annotation (Line(points={{-59,50},{-40,50},{-40,18},{-32,
           18}}, color={255,0,255}));
-  connect(pla.port_a, disBra1.port_bDisRet)
-    annotation (Line(points={{-10,15},{-4,15},{-4,4},{10,4}},
-                                                          color={0,127,255}));
-  connect(bld123[3].p_rel, pla.dpMea) annotation (Line(points={{41,53},{50,53},{
-          50,72},{-90,72},{-90,0},{-50,0},{-50,7},{-32,7}},  color={0,0,127}));
-  connect(disBra2.ports_bCon, bld567.port_a) annotation (Line(points={{18,-60},{
-          18,-52},{14,-52},{14,-30},{20,-30}},  color={0,127,255}));
-  connect(bld567.port_b, disBra2.ports_aCon) annotation (Line(points={{40,-30},{
-          46,-30},{46,-52},{42,-52},{42,-60}},  color={0,127,255}));
-  connect(disBra2.port_aDisRet, bld8.port_b) annotation (Line(points={{50,-76},{
-          60,-76},{60,-70},{70,-70}},  color={0,127,255}));
-  connect(pla.port_b, disBra2.port_aDisSup) annotation (Line(points={{-10,5},{4,
-          5},{4,-70},{10,-70}},
-                             color={0,127,255}));
-  connect(disBra2.port_bDisRet, pla.port_a) annotation (Line(points={{10,-76},{-4,
-          -76},{-4,15},{-10,15}},color={0,127,255}));
   connect(TCHWSupSet.y, pla.TCHWSupSet) annotation (Line(points={{-59,20},{-50,20},
           {-50,13},{-32,13}}, color={0,0,127}));
-  connect(pla.port_b, disBra1.port_aDisSup) annotation (Line(points={{-10,5},{4,
-          5},{4,10},{10,10}}, color={0,127,255}));
-  connect(bld8.port_a, disBra2.port_bDisSup) annotation (Line(points={{90,-70},{
-          96,-70},{96,-52},{58,-52},{58,-70},{50,-70}}, color={0,127,255}));
-  connect(bld4.port_a, disBra1.port_bDisSup) annotation (Line(points={{90,10},{96,
-          10},{96,26},{56,26},{56,10},{50,10}}, color={0,127,255}));
+  connect(pla.port_b, dis.port_aDisSup) annotation (Line(points={{-10,5},{-6,5},
+          {-6,10},{0,10}}, color={0,127,255}));
+  connect(dis.port_bDisRet, pla.port_a) annotation (Line(points={{0,4},{-6,4},{-6,
+          15},{-10,15}}, color={0,127,255}));
+  connect(dis.ports_bCon, bld.port_a)
+    annotation (Line(points={{8,20},{8,50},{10,50}}, color={0,127,255}));
+  connect(bld.port_b, dis.ports_aCon)
+    annotation (Line(points={{30,50},{32,50},{32,20}}, color={0,127,255}));
+  connect(bld[nBui].p_rel, pla.dpMea) annotation (Line(points={{31,53},{40,53},{40,
+          70},{-90,70},{-90,-20},{-50,-20},{-50,7},{-32,7}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     experiment(
       StopTime=86400,
       Tolerance=1e-06,
-      __Dymola_Algorithm="Dassl"),
+      __Dymola_Algorithm="Cvode"),
     __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Applications/DHC/Examples/Cooling/CoolingSystemNew.mos"
+          "Resources/Scripts/Dymola/Experimental/DHC/Examples/Cooling/CoolingSystem.mos"
         "Simulate and Plot"));
 end CoolingSystem;

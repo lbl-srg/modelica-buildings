@@ -28,10 +28,10 @@ model BuildingTimeSeriesWithETSCooling
     filNam=Modelica.Utilities.Files.loadResource(filNam))
     "Design cooling heat flow rate (<=0)Nominal heat flow rate, negative";
   parameter Modelica.SIunits.Temperature TChiWatSup_nominal=273.15 + 7
-    "Minimum setpoint temperature for district return"
+    "Chilled water supply temperature at nominal conditions "
     annotation (Dialog(group="Building"));
   parameter Modelica.SIunits.Temperature TChiWatRet_nominal=273.15 + 16
-    "Minimum setpoint temperature for district return"
+    "Chilled water return temperature at nominal conditions "
     annotation (Dialog(group="Building"));
 
   // ETS parameters
@@ -113,7 +113,8 @@ model BuildingTimeSeriesWithETSCooling
     "Pressure difference measurement"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
-        origin={0,20})));
+        origin={-60,-20},
+        rotation=-90)));
   Modelica.Blocks.Interfaces.RealOutput p_rel
     "Relative pressure of port_a minus port_b"
     annotation (    Placement(transformation(extent={{200,0},{220,20}}),
@@ -172,12 +173,8 @@ equation
           {-20,90},{-20,48},{-10,48}},color={0,127,255}));
   connect(bui.ports_bHeaWat[1],sinHeaWat. ports[1]) annotation (Line(points={{10,48},
           {20,48},{20,90}},                           color={0,127,255}));
-  connect(senRelPre.port_b, bui.ports_bChiWat[1]) annotation (Line(points={{10,20},
-          {20,20},{20,44},{10,44}},            color={0,127,255}));
-  connect(senRelPre.port_a, bui.ports_aChiWat[1]) annotation (Line(points={{-10,20},
-          {-20,20},{-20,44},{-10,44}},               color={0,127,255}));
-  connect(senRelPre.p_rel, p_rel) annotation (Line(points={{0,11},{0,10},{210,10}},
-                            color={0,0,127}));
+  connect(senRelPre.p_rel, p_rel) annotation (Line(points={{-69,-20},{-69,10},{
+          210,10}},         color={0,0,127}));
   connect(bui.QReqHea_flow,QAveHeaReq_flow. u) annotation (Line(points={{6.66667,
           39.3333},{6.66667,34},{60,34},{60,-6},{114,-6},{114,70},{118,70}},
                                                             color={0,0,127}));
@@ -204,6 +201,10 @@ equation
   connect(bui.PPum,PPum)  annotation (Line(points={{10.6667,52},{114,52},{114,
           50},{210,50}},
                    color={0,0,127}));
+  connect(senRelPre.port_a, ets.port_a1) annotation (Line(points={{-60,-10},{
+          -60,0},{-40,0},{-40,-24},{-10,-24}}, color={0,127,255}));
+  connect(senRelPre.port_b, port_b) annotation (Line(points={{-60,-30},{-60,-36},
+          {-40,-36},{-40,-60},{80,-60},{80,0},{100,0}}, color={0,127,255}));
   annotation (
   defaultComponentName="buiWitETS",
   Line(

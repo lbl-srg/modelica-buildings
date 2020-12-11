@@ -9,9 +9,9 @@ model BuildingTimeSeriesWithETSCooling
     buiWitETS(
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    filNam="modelica://Buildings/Resources/Data/Applications/DHC/CentralPlants/Cooling/Examples/Loads.txt",
+    filNam="modelica://Buildings/Resources/Data/Experimental/DHC/Examples/Cooling/BaseClasses/Examples/Loads.txt",
     TSetDisRet(displayUnit="K"),
-    mDis_flow_nominal=0.5,
+    mDis_flow_nominal=buiWitETS.mBui_flow_nominal,
     mByp_flow_nominal=0.01) "Building with ETS model"
     annotation (Placement(transformation(extent={{-40,-8},{-20,12}})));
 
@@ -35,7 +35,8 @@ equation
           -50,-30},{-50,2},{-40,2}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
-    __Dymola_Commands(file="Resources/Scripts/Dymola/Experimental/DHC/Examples/Cooling/BaseClasses/Examples/BuildingTimeSeriesWithETSCooling.mos"
+    __Dymola_Commands(file=
+          "Resources/Scripts/Dymola/Experimental/DHC/Examples/Cooling/BaseClasses/Examples/BuildingTimeSeriesWithETSCooling.mos"
         "Simulate and Plot"),
     experiment(StopTime=86400, __Dymola_Algorithm="cvode"));
 end BuildingTimeSeriesWithETSCooling;
