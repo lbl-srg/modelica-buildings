@@ -35,10 +35,10 @@ model Controller "Validation head pressure controller"
   CDL.Continuous.Sources.Ramp TChiWatSup1
     "Chilled water supply upstream of WSE"
     annotation (Placement(transformation(extent={{-180,-50},{-160,-30}})));
-  CDL.Continuous.Sources.Constant TOutWet1(k=273.15)
+  CDL.Continuous.Sources.Constant TOutWet1(k=303.15)
     "Outdoor wet bulb temperatur"
     annotation (Placement(transformation(extent={{-220,20},{-200,40}})));
-  CDL.Continuous.Sources.Constant TOut1(k=277.15)
+  CDL.Continuous.Sources.Constant TOut1(k=313.15)
     "Outdoor dry bulb temperature"
     annotation (Placement(transformation(extent={{-180,0},{-160,20}})));
   CDL.Continuous.Sources.Ramp TChiWatRet1 "Chilled water return temperature"
@@ -48,6 +48,14 @@ model Controller "Validation head pressure controller"
     annotation (Placement(transformation(extent={{-220,-70},{-200,-50}})));
   CDL.Continuous.Sources.Constant TChiWatFlo1(k=273.15) "Chilled water flow"
     annotation (Placement(transformation(extent={{-260,-90},{-240,-70}})));
+  CDL.Continuous.Sources.Constant TConWatRet(k=307.15)
+    "Condenser water return temperature"
+    annotation (Placement(transformation(extent={{-180,-140},{-160,-120}})));
+  CDL.Continuous.Sources.Constant TConWatSup(k=305.15)
+    "Condenser water supply temperature"
+    annotation (Placement(transformation(extent={{-220,-120},{-200,-100}})));
+  CDL.Continuous.Max max1
+    annotation (Placement(transformation(extent={{120,-30},{140,-10}})));
 protected
   CDL.Logical.Pre                        chiOneSta(final pre_u_start=false)
     "Chiller one status"
@@ -57,6 +65,15 @@ protected
     annotation (Placement(transformation(extent={{140,100},{160,120}})));
   CDL.Logical.Pre towSta1[4](final pre_u_start=false) "Tower cell status"
     annotation (Placement(transformation(extent={{100,160},{120,180}})));
+  CDL.Continuous.Sources.Ramp                        watLev(
+    final height=1.2,
+    final duration=3600,
+    final offset=0.5) "Water level in cooling tower"
+    annotation (Placement(transformation(extent={{-220,-180},{-200,-160}})));
+  CDL.Discrete.ZeroOrderHold                        zerOrdHol[4](final
+      samplePeriod=fill(5, 4))
+    "Output the input signal with a zero order hold"
+    annotation (Placement(transformation(extent={{100,-80},{120,-60}})));
 equation
 
   connect(chiPlaCon.uChiWatPum, uChiWatPum.y) annotation (Line(points={{-50,100},
@@ -115,6 +132,22 @@ equation
           -198,-60},{-80,-60},{-80,-10},{-50,-10}}, color={0,0,127}));
   connect(TChiWatFlo1.y, chiPlaCon.VChiWat_flow) annotation (Line(points={{-238,
           -80},{-70,-80},{-70,-20},{-50,-20}}, color={0,0,127}));
+  connect(TConWatRet.y, chiPlaCon.TConWatRet) annotation (Line(points={{-158,
+          -130},{-100,-130},{-100,-89},{-50,-89}}, color={0,0,127}));
+  connect(TConWatSup.y, chiPlaCon.TConWatSup) annotation (Line(points={{-198,
+          -110},{-120,-110},{-120,-99},{-50,-99}}, color={0,0,127}));
+  connect(chiPlaCon.yFanSpe[1], max1.u1) annotation (Line(points={{70,-20},{100,
+          -20},{100,-14},{118,-14}}, color={0,0,127}));
+  connect(chiPlaCon.yFanSpe[2], max1.u2) annotation (Line(points={{70,-20},{100,
+          -20},{100,-26},{118,-26}}, color={0,0,127}));
+  connect(max1.y, chiPlaCon.uFanSpe) annotation (Line(points={{142,-20},{160,
+          -20},{160,-180},{-80,-180},{-80,-115},{-50,-115}}, color={0,0,127}));
+  connect(watLev.y, chiPlaCon.watLev) annotation (Line(points={{-198,-170},{-60,
+          -170},{-60,-140},{-50,-140}}, color={0,0,127}));
+  connect(chiPlaCon.yIsoVal, zerOrdHol.u) annotation (Line(points={{70,-65},{80,
+          -65},{80,-70},{98,-70}}, color={0,0,127}));
+  connect(zerOrdHol.y, chiPlaCon.uChiLoa) annotation (Line(points={{122,-70},{
+          132,-70},{132,-200},{-278,-200},{-278,50},{-50,50}}, color={0,0,127}));
 annotation (
   experiment(StopTime=5.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/HeadPressure/Validation/Controller.mos"
