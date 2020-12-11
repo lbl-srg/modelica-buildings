@@ -18,19 +18,31 @@ model WetCoilEffectivenessNTU
   parameter Modelica.SIunits.Temperature T_a1_nominal=
     Modelica.SIunits.Conversions.from_degF(42)
     "Inlet water temperature";
-  // TODO: double check this value: not consistent with computed
-  // Q1_flow_nominal = m1_flow_nominal * 4200 * (T_b1_nominal - T_a1_nominal)
   parameter Modelica.SIunits.Temperature T_b1_nominal=
     Modelica.SIunits.Conversions.from_degF(47.72)
     "Outlet water temperature";
-  parameter Real X_w2_nominal_dry(min=0,max=1) = 0.0035383
-    "Inlet air humidity ratio: mass of water per mass of moist air";
-  parameter Real X_w2_nominal_wet100s(min=0,max=1) = 0.0177
-    "Inlet air humidity ratio: mass of water per mass of moist air";
-  parameter Real X_w2_nominal_wet75s(min=0,max=1) = 0.0141
-    "Inlet air humidity ratio: mass of water per mass of moist air";
-  parameter Real X_w2_nominal_wet35s(min=0,max=1) = 0.0085
-    "Inlet air humidity ratio: mass of water per mass of moist air";
+
+  // TODO: double check this value: not consistent with computed
+  parameter Modelica.SIunits.HeatFlowRate Q1_flow_nominal=
+    m1_flow_nominal * 4200 * (T_b1_nominal - T_a1_nominal)
+    "Nominal heat flow rate";
+
+  parameter Real X_w2_nominal_0s(min=0,max=1) = 0.0035383
+    "Inlet air humidity ratio at 0s real time (100% dry)";
+  parameter Real X_w2_nominal_100s(min=0,max=1) = 0.0177
+    "Inlet air humidity ratio at 100s real time (0% dry)";
+  parameter Real X_w2_nominal_75s(min=0,max=1) = 0.0141
+    "Inlet air humidity ratio at 75s real time (0% dry)";
+  parameter Real X_w2_nominal_35s(min=0,max=1) = 0.0085
+    "Inlet air humidity ratio at 35s real time (~40% dry)";
+  parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal_0s = 44234
+    "Reference heat flow rate at 0s real time (100% dry)";
+  parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal_100s = 85625
+    "Reference heat flow rate at 100s real time (0% dry)";
+  parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal_75s = 71368
+    "Reference heat flow rate at 75s real time (0% dry)";
+  parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal_35s = 46348
+    "Reference heat flow rate at 35s real time (~40% dry)";
 
   parameter Modelica.SIunits.MassFlowRate m1_flow_nominal = 3.78
     "Nominal mass flow rate of water";
@@ -38,14 +50,6 @@ model WetCoilEffectivenessNTU
     "Nominal mass flow rate of air";
   parameter Modelica.SIunits.ThermalConductance UA_nominal = 9495.5 / 2
     "Total thermal conductance at nominal flow, used to compute heat capacity";
-  parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal_dry = 44234
-    "Nominal heat transfer";
-  parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal_wet100s = 85625
-    "Nominal heat transfer";
-  parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal_wet75s = 71368
-    "Nominal heat transfer";
-  parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal_wet35s = 46348
-    "Nominal heat transfer";
   parameter Types.HeatExchangerConfiguration hexCon=
     Types.HeatExchangerConfiguration.CrossFlowStream1UnmixedStream2Mixed
     "Heat exchanger configuration";
@@ -127,7 +131,7 @@ model WetCoilEffectivenessNTU
     annotation (Placement(transformation(extent={{-40,-98},{-20,-78}})));
   Modelica.Blocks.Sources.RealExpression pAir1(y=pAtm)  "Pressure"
     annotation (Placement(transformation(extent={{-100,-112},{-80,-88}})));
-  WetEffectivenessNTU_Fuzzy_V3     hexWetNTU(
+  WetEffectivenessNTU_Fuzzy_V3 hexWetNTU(
     redeclare package Medium1 = Medium_W,
     redeclare package Medium2 = Medium_A,
     UA_nominal=UA_nominal,
@@ -180,10 +184,10 @@ model WetCoilEffectivenessNTU
     dp1_nominal=0,
     configuration=hexCon,
     show_T=true,
-    Q_flow_nominal=Q_flow_nominal_wet35s,
     T_a1_nominal=T_a1_nominal,
     T_a2_nominal=T_a2_nominal,
-    X_w2_nominal=X_w2_nominal_wet35s)
+    Q_flow_nominal=Q_flow_nominal_35s,
+    X_w2_nominal=X_w2_nominal_35s)
     "Epsilon-NTU coil model"
     annotation (Placement(transformation(extent={{-40,4},{-20,24}})));
   Sources.MassFlowSource_T souWat2(
