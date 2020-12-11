@@ -2,7 +2,7 @@ within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Validation;
 model Controller "Validation head pressure controller"
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Controller chiPlaCon
-    annotation (Placement(transformation(extent={{-150,-24},{10,124}})));
+    annotation (Placement(transformation(extent={{-40,-140},{60,160}})));
 equation
 
 annotation (
@@ -21,8 +21,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-  Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
-       graphics={
+  Icon(graphics={
         Ellipse(lineColor = {75,138,73},
                 fillColor={255,255,255},
                 fillPattern = FillPattern.Solid,
@@ -32,5 +31,5 @@ First implementation.
                 pattern = LinePattern.None,
                 fillPattern = FillPattern.Solid,
                 points = {{-36,60},{64,0},{-36,-60},{-36,60}})}), Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-140,-120},{140,120}})));
+        coordinateSystem(preserveAspectRatio=false, extent={{-680,-800},{680,800}})));
 end Controller;
