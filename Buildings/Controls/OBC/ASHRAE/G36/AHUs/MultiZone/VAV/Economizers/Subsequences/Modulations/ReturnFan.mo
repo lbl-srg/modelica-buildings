@@ -1,7 +1,9 @@
 within Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Subsequences.Modulations;
-block ReturnFanWithAirflow
-  "Modulates dampers of economizer in buildings using return fan with airflow tracking to control the pressure"
+block ReturnFan
+  "Modulates dampers of economizer in buildings using return fan to control the pressure"
 
+  parameter Boolean have_direct_control=true
+    "True: the building have direct pressure control";
   parameter Real uMin(
     final max=0,
     final unit="1")=-0.25
@@ -45,7 +47,8 @@ block ReturnFanWithAirflow
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRelDamPos(
     final min=0,
     final max=1,
-    final unit="1") "Relief air damper position"
+    final unit="1") if not have_direct_control
+    "Relief air damper position"
     annotation (Placement(transformation(extent={{120,-70},{160,-30}}),
         iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yOutDamPos(
@@ -70,11 +73,12 @@ protected
     annotation (Placement(transformation(extent={{40,30},{60,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Line relDamPos(
     final limitBelow=true,
-    final limitAbove=true)
+    final limitAbove=true) if not have_direct_control
     "Relief air damper position"
     annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(
-    final k=0) "Constant zero"
+    final k=0) if not have_direct_control
+    "Constant zero"
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant one(
     final k=1) "Constant one"
@@ -84,7 +88,7 @@ protected
     "First order hold to avoid too fast change of damper postion (which may cause freeze protection to be too slow to compensate)"
     annotation (Placement(transformation(extent={{80,30},{100,50}})));
   Buildings.Controls.OBC.CDL.Discrete.FirstOrderHold firOrdHolOutDam(
-    final samplePeriod=samplePeriod)
+    final samplePeriod=samplePeriod) if not have_direct_control
     "First order hold to avoid too fast change of damper position (which may cause freeze protection to be too slow to compensate)"
     annotation (Placement(transformation(extent={{80,-60},{100,-40}})));
 
@@ -131,13 +135,22 @@ annotation (defaultComponentName="ecoMod",
         Text(
           extent={{-94,148},{106,108}},
           lineColor={0,0,255},
-          textString="%name")}),
+          textString="%name"),
+        Line(
+          points={{-84,76},{-42,76},{40,-66},{110,-66}},
+          color={0,0,127},
+          pattern=LinePattern.Dash,
+          thickness=0.5),
+        Line(
+          points={{-82,-74},{-40,-74},{40,80},{92,80}},
+          color={0,0,127},
+          thickness=0.5)}),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,-120},{120,120}})),
   Documentation(info="<html>
 <p>
 Block modulates the damper of economizers of buildings with pressure controlled by
-return fan and airflow tracking. It is implemented according to Section 5.16.2.3,
-Figure 5.16.2.3-2 of ASHRAE Guideline 36, May 2020.
+return fan and airflow tracking. It is implemented according to Section 5.16.2.3.d,
+Figure 5.16.2.3-2 and Figure 5.16.2.3-3 of ASHRAE Guideline 36, May 2020.
 </p>
 <p>
 Return air damper position limits, which are the inputs to the sequence, are the outputs of
@@ -164,8 +177,13 @@ The modulation is shown as the control chart:
 <br/>
 </p>
 <p align=\"center\">
-<img alt=\"Image of the damper modulation for economizer in buildings with return fan plus airflow tracking\"
+<img alt=\"Image of the damper modulation for economizer in buildings with pressure controller by return fan\"
 src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/AHUs/MultiZone/VAV/Economizers/Subsequences/EcoMod_RetAir.png\"/>
+</p>
+<p>
+Note in the above chart, if the building has direct pressure control
+(<code>have_direct_control</code>), the profile for relief air damper control should
+be ignored.
 </p>
 </html>", revisions="<html>
 <ul>
@@ -175,4 +193,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end ReturnFanWithAirflow;
+end ReturnFan;

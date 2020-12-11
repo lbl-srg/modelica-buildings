@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Subsequences.LimitsPa;
 block SeparateWithDP
-  "Outdoor air and return air damper position limits for units with separated minimum outdoor damper and differential pressure control"
+  "Outdoor air and return air damper position limits for units with separated minimum outdoor air damper and differential pressure control"
 
   parameter Real dpDesOutDam_min(
     final unit="Pa",
@@ -22,11 +22,15 @@ block SeparateWithDP
   parameter Real TiDp(
     final unit="s",
     final quantity="Time")=0.5 "Time constant of integrator block"
-    annotation (Dialog(group="DP control"));
+    annotation (Dialog(group="DP control",
+      enable=dpCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
+             dpCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   parameter Real TdDp(
     final unit="s",
     final quantity="Time")=0.1 "Time constant of derivative block"
-    annotation (Dialog(group="DP control"));
+    annotation (Dialog(group="DP control",
+      enable=dpCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
+             dpCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   parameter Real retDamPhyPosMax(
     final min=0,
     final max=1,
