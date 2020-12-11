@@ -2,13 +2,13 @@ within Buildings.Controls.OBC.CDL.Logical.Sources.Validation;
 model SampleTrigger "Validation model for the SampleTrigger block"
 
   Buildings.Controls.OBC.CDL.Logical.Sources.SampleTrigger samTri(
-    period = 0.5, shift=0.5)
+    period = 0.5)
     "Block that generates sample trigger signal"
     annotation (Placement(transformation(extent={{-30,20},{-10,40}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ramp(
     duration=5,
-    offset=1,
+    offset=0,
     height=20) "Block that generates ramp signal"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
 
