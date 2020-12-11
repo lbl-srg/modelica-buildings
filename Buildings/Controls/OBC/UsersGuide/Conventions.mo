@@ -8,6 +8,26 @@ The <code>Buildings.Control.OBC</code> package follows the naming conventions of
 the <code>Buildings</code> Library,
 see <a href=\"modelica://Buildings.UsersGuide.Conventions\">Buildings.UsersGuide.Conventions</a>.
 The table below shows some examples of commonly used names.
+Note that the names are generally composed as follows:
+</p>
+<ul>
+<li>
+<p>If needed to understand the context, as a prefix <code>u</code> for input or <code>y</code> for output may be used.</p>
+</li>
+<li>
+<p>Next, the quantity is used, such as <code>TOut</code> or <code>TZonHea</code>.</p>
+</li>
+<li>
+<p>Finally, as a postfix a qualifier may be added, such as <code>Set</code> for setpoint, <code>Min</code> for minimum,
+or <code>Coo</code> for cooling.
+</p>
+</li>
+</ul>
+<p>
+Generally, we strife for short names, and therefore often prefix or postfix are omitted if
+the type of the variable is clear from the context.
+For example, a room temperature thermostat may simply use <code>T</code> as an input
+as it is clear that this will be the room temperature.
 </p>
 <table summary=\"summary\" border=\"1\">
 <tr><td colspan=\"2\"><b>Instance names</b></td></tr>
