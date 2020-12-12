@@ -58,12 +58,6 @@ Converts energy given in British thermal units [Btu] to joule [J].
 </html>", revisions="<html>
 <ul>
 <li>
-December 10, 2020, by Michael Wetter:<br/>
-Corrected <code>quantity</code> from <code>Work</code> to <code>Energy</code>.<br/>
-This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2245\">#2245</a>.
-</li>
-<li>
 July 05, 2018, by Milica Grahovac:<br/>
 Generated with <code>Buildings/Resources/src/Controls/OBC/UnitConversions/unit_converters.py</code>.<br/>
 First implementation.
