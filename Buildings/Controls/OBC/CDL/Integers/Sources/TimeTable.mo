@@ -8,7 +8,10 @@ block TimeTable "Table look-up with respect to time with constant segments"
      final unit="1") = 1
     "Time scale of first table column. Set to 3600 if time in table is in hours";
 
-  parameter Modelica.SIunits.Time period
+  parameter Real period(
+    final quantity="Time",
+    final unit="s",
+    min=1E-6)
     "Periodicity of table";
 
   Interfaces.IntegerOutput y[nout] "Output of the table"
@@ -18,21 +21,34 @@ protected
     "Dimension of output vector";
   final parameter Integer nT=size(table, 1)
     "Number of time stamps";
-  parameter Modelica.SIunits.Time t0(fixed=false)
+  parameter Real t0(
+    final quantity="Time",
+    final unit="s",
+    fixed=false)
     "First sample time instant";
 
-  final parameter Modelica.SIunits.Time timeStamps[:] = timeScale*table[1:end, 1] "Time stamps";
+  final parameter Real timeStamps[:](
+    each final quantity="Time",
+    each final unit="s") = timeScale*table[1:end, 1] "Time stamps";
   final parameter Integer val[:,:] = integer(table[1:end, 2:end] + ones(nT, nout) * Constants.small) "Table values as Integer";
 
   Integer idx(fixed=false) "Index for table lookup";
 
   function getIndex "Function to get the index for the table look-up"
-    input Modelica.SIunits.Time t "Current time";
-    input Modelica.SIunits.Time period "Time period";
-    input Modelica.SIunits.Time x[:] "Time stamps";
+    input Real t(
+    final quantity="Time",
+    final unit="s") "Current time";
+    input Real period(
+    final quantity="Time",
+    final unit="s") "Time period";
+    input Real x[:](
+    each final quantity="Time",
+    each final unit="s") "Time stamps";
     output Integer k "Index in table";
   protected
-    Modelica.SIunits.Time tS "Time shifted so it is within the period";
+    Real tS(
+    final quantity="Time",
+    final unit="s") "Time shifted so it is within the period";
   algorithm
     tS := mod(t, period);
     k := -1;
@@ -44,18 +60,11 @@ protected
     end for;
   end getIndex;
 
-  function round "Round function from Buildings.Controls.OBC.CDL.Continuous.Round"
-    input Real x "Argument";
-    input Real n "Digits";
-    output Real y "Rounded argument";
-  protected
-    Real fac = 10^n "Factor used for rounding";
-  algorithm
-    y :=if (x > 0) then floor(x*fac + 0.5)/fac else ceil(x*fac - 0.5)/fac;
-  end round;
-
 initial equation
-  t0 = round(integer(time/period)*period, 6);
+  t0 = Buildings.Utilities.Math.Functions.round(
+         x = integer(time/period)*period,
+         n = 6);
+
   assert(nT > 0, "No table values defined.");
 
   // Check that all values in the second column are Integer values
@@ -113,6 +122,17 @@ The table scope is repeated periodically with periodicity <code>period</code>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+November 12, 2020, by Michael Wetter:<br/>
+Reformulated to remove dependency to <code>Modelica.SIunits</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2243\">issue 2243</a>.
+</li>
+<li>
+October 19, 2020, by Michael Wetter:<br/>
+Revised to call <code>round()</code> as a function.<br/>
+For <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2170\">#2170</a>.
+</li>
 <li>
 October 7, 2020, by Michael Wetter:<br/>
 Revised implementation to add <code>timeSpan</code> and to guard against rounding errors.

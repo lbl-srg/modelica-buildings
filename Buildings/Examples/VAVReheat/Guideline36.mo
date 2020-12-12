@@ -67,9 +67,6 @@ model Guideline36
     annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swiFreSta "Switch for freeze stat"
     annotation (Placement(transformation(extent={{60,-202},{80,-182}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant freStaSetPoi1(
-    final k=273.15 + 3) "Freeze stat for heating coil"
-    annotation (Placement(transformation(extent={{-40,-96},{-20,-76}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yFreHeaCoi(final k=1)
     "Flow rate signal for heating coil when freeze stat is on"
     annotation (Placement(transformation(extent={{0,-192},{20,-172}})));
@@ -276,8 +273,8 @@ equation
     annotation (Line(points={{-18,-10},{-3,-10},{-3,-34}}, color={0,0,127}));
   connect(swiFreSta.y, gaiHeaCoi.u) annotation (Line(points={{82,-192},{88,-192},
           {88,-210},{98,-210}}, color={0,0,127}));
-  connect(freSta.y, swiFreSta.u2) annotation (Line(points={{22,-92},{40,-92},{40,
-          -192},{58,-192}},    color={255,0,255}));
+  connect(freSta.y, swiFreSta.u2) annotation (Line(points={{-128,-100},{40,-100},
+          {40,-192},{58,-192}},color={255,0,255}));
   connect(yFreHeaCoi.y, swiFreSta.u1) annotation (Line(points={{22,-182},{40,-182},
           {40,-184},{58,-184}}, color={0,0,127}));
   connect(zonToSys.ySumDesZonPop, conAHU.sumDesZonPop) annotation (Line(points={{302,589},

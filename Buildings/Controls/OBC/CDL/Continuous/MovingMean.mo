@@ -2,7 +2,10 @@ within Buildings.Controls.OBC.CDL.Continuous;
 block MovingMean
   "Block to output moving average"
 
-  parameter Modelica.SIunits.Time delta(min=1E-5)
+  parameter Real delta(
+    final quantity="Time",
+    final unit="s",
+    min=1E-5)
     "Time horizon over which the input is averaged";
 
   Interfaces.RealInput u "Connector of Real input signal"
@@ -11,7 +14,10 @@ block MovingMean
    annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected
-  parameter Modelica.SIunits.Time tStart(fixed=false) "Start time";
+  parameter Real tStart(
+    final quantity="Time",
+    final unit="s",
+    fixed=false) "Start time";
   Real mu "Internal integrator variable";
   Real muDel "Internal integrator variable with delay";
   Boolean mode(start=false, fixed=true) "Calculation mode";
@@ -114,6 +120,12 @@ for example.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 12, 2020, by Michael Wetter:<br/>
+Reformulated to remove dependency to <code>Modelica.SIunits</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2243\">issue 2243</a>.
+</li>
 <li>
 March 2, 2020, by Michael Wetter:<br/>
 Changed icon to display dynamically the output value.
