@@ -22,7 +22,7 @@ model BuildingTimeSeriesWithETSCooling
   parameter String filNam
     "Library path of the file with thermal loads as time series"
     annotation (Dialog(group="Building"));
-  final parameter Modelica.SIunits.Power Q_flow_nominal(max=-Modelica.Constants.eps)=
+  final parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal(max=-Modelica.Constants.eps)=
     Buildings.Experimental.DHC.Loads.BaseClasses.getPeakLoad(
     string="#Peak space cooling load",
     filNam=Modelica.Utilities.Files.loadResource(filNam))
@@ -53,9 +53,6 @@ model BuildingTimeSeriesWithETSCooling
     final start=0.5)
     "Nominal mass flow rate through the bypass segment"
     annotation (Dialog(group="Energy transfer station"));
-
-
-  // COMPONENTS
   replaceable Buildings.Experimental.DHC.Loads.Examples.BaseClasses.BuildingTimeSeries bui(
     have_watHea=true,
     delTAirCoo=6,
@@ -72,13 +69,14 @@ model BuildingTimeSeriesWithETSCooling
     final nPorts_aHeaWat=1,
     final nPorts_bHeaWat=1,
     final allowFlowReversal=allowFlowReversalBui)
-    "Building"
+    "Building model"
     annotation (Placement(transformation(extent={{-10,40},{10,60}})));
   replaceable Buildings.Experimental.DHC.EnergyTransferStations.Cooling.CoolingDirectControlledReturn ets(
     redeclare final package Medium = Medium,
     final mDis_flow_nominal=mDis_flow_nominal,
     final mBui_flow_nominal=mBui_flow_nominal,
     final mByp_flow_nominal=mByp_flow_nominal)
+    "Cooling energy transfer station"
     annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
   inner Modelica.Fluid.System system
     "System properties and default values"
@@ -155,6 +153,10 @@ protected
    Medium.specificHeatCapacityCp(
       Medium.setState_pTX(Medium.p_default, Medium.T_default, Medium.X_default))
     "Default specific heat capacity of medium";
+initial equation
+  Modelica.Utilities.Streams.print(
+    "Warning:\n  In " + getInstanceName() +
+    ": This model is a beta version and is not fully validated yet.");
 
 equation
   connect(port_a, ets.port_a1) annotation (Line(points={{-100,0},{-40,0},{-40,-24},
@@ -329,5 +331,27 @@ equation
           fillPattern=FillPattern.Solid,
           origin={57,-13},
           rotation=90)}),
-    Diagram(coordinateSystem(extent={{-100,-100},{200,100}})));
+    Diagram(coordinateSystem(extent={{-100,-100},{200,100}})),
+    Documentation(info="<html>
+This model integrates the <a href=\"modelica://Buildings.Experimental.DHC.Loads.Examples.BaseClasses.BuildingTimeSeries\">
+Buildings.Experimental.DHC.Loads.Examples.BaseClasses.BuildingTimeSeries</a>
+<li>
+and the <a href=\"modelica://Buildings.Experimental.DHC.Loads.Examples.BaseClasses.BuildingTimeSeries\">
+Buildings.Experimental.DHC.EnergyTransferStations.Cooling.CoolingDirectControlledReturn</a>.
+</li>
+<li>
+It has been adapted from an older version of PartialBuildingWithETS model.
+</li>
+<li>
+The official issue for the model development is <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2291\">
+#2291</a>.
+</li>
+</html>", revisions="<html>
+<ul>
+<li>
+December 13, 2020 by Jing Wang:<br/>
+First implementation. 
+</li>
+</ul>
+</html>"));
 end BuildingTimeSeriesWithETSCooling;

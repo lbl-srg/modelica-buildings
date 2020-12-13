@@ -15,7 +15,8 @@ model CoolingSystem "Example to test the district cooling network model"
 
   // chiller and cooling tower
   redeclare parameter Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_York_YT_1055kW_5_96COP_Vanes
-    perChi;
+    perChi
+    "Chiller performance data";
   parameter Modelica.SIunits.MassFlowRate mCHW_flow_nominal=18.3
     "Nominal chilled water mass flow rate";
   parameter Modelica.SIunits.MassFlowRate mCW_flow_nominal=34.7
@@ -24,16 +25,16 @@ model CoolingSystem "Example to test the district cooling network model"
     "Nominal chilled water side pressure";
   parameter Modelica.SIunits.PressureDifference dpCW_nominal=46.2*1000
     "Nominal condenser water side pressure";
-  parameter Modelica.SIunits.Power QEva_nominal = mCHW_flow_nominal*cp*(7-16)
-    "Nominal cooling capaciaty (Negative means cooling)";
+  parameter Modelica.SIunits.HeatFlowRate QEva_nominal = mCHW_flow_nominal*cp*(7-16)
+    "Nominal cooling capaciaty (negative means cooling)";
   parameter Modelica.SIunits.MassFlowRate mMin_flow = 0.03
     "Minimum mass flow rate of single chiller";
 
   // control settings
-  parameter Modelica.SIunits.Pressure dpSetPoi=68900
+  parameter Modelica.SIunits.PressureDifference dpSetPoi=68900
     "Differential pressure setpoint";
   parameter Modelica.SIunits.Temperature TCHWSet=273.15 + 7
-    "Chilled water temperature setpoint";
+    "Chilled water supply temperature setpoint";
   parameter Modelica.SIunits.Time tWai=0  "Waiting time";
 
   // pumps
@@ -47,15 +48,15 @@ model CoolingSystem "Example to test the district cooling network model"
       V_flow=mCW_flow_nominal/1000*{0.2,0.6,1.0,1.2},
       dp=(dpCW_nominal+60000+6000)*{1.2,1.1,1.0,0.6}))
     "Performance data for condenser water pumps";
-  parameter Modelica.SIunits.Pressure dpCHWPum_nominal=6000
+  parameter Modelica.SIunits.PressureDifference dpCHWPum_nominal=6000
     "Nominal pressure drop of chilled water pumps";
-  parameter Modelica.SIunits.Pressure dpCWPum_nominal=6000
-    "Nominal pressure drop of chilled water pumps";
+  parameter Modelica.SIunits.PressureDifference dpCWPum_nominal=6000
+    "Nominal pressure drop of condenser water pumps";
 
   // buildings
   parameter String filNam="modelica://Buildings/Resources/Data/Experimental/DHC/Examples/Cooling/Loads.txt"
     "Library path of the file with thermal loads as time series";
-  final parameter Modelica.SIunits.Power Q_flow_nominal(max=-Modelica.Constants.eps)=
+  final parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal(max=-Modelica.Constants.eps)=
     Buildings.Experimental.DHC.Loads.BaseClasses.getPeakLoad(
     string="#Peak space cooling load",
     filNam=Modelica.Utilities.Files.loadResource(filNam))
@@ -109,7 +110,7 @@ model CoolingSystem "Example to test the district cooling network model"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
   Buildings.BoundaryConditions.WeatherData.Bus weaBus "Weather data bus"
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
-  Loads.Validation.BaseClasses.Distribution2Pipe dis(
+  Buildings.Experimental.DHC.Loads.Validation.BaseClasses.Distribution2Pipe dis(
     redeclare package Medium = Media.Water,
     nCon=nBui,
     mDis_flow_nominal=nBui*mBui_flow_nominal,
@@ -122,6 +123,10 @@ protected
    Medium.specificHeatCapacityCp(
       Medium.setState_pTX(Medium.p_default, Medium.T_default, Medium.X_default))
     "Default specific heat capacity of medium";
+initial equation
+  Modelica.Utilities.Streams.print(
+    "Warning:\n  In " + getInstanceName() +
+    ": This model is a beta version and is not fully validated yet.");
 
 equation
   connect(weaDat.weaBus,weaBus)  annotation (Line(
@@ -152,7 +157,20 @@ equation
       StopTime=86400,
       Tolerance=1e-06,
       __Dymola_Algorithm="Cvode"),
-    __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Experimental/DHC/Examples/Cooling/CoolingSystem.mos"
-        "Simulate and Plot"));
+    __Dymola_Commands(file="Resources/Scripts/Dymola/Experimental/DHC/Examples/Cooling/CoolingSystem.mos"
+        "Simulate and Plot"),
+    Documentation(revisions="<html>
+<ul>
+<li>
+December 13, 2020 by Jing Wang:<br/>
+First implementation. 
+</li>
+</ul>
+</html>", info="<html>
+<p>
+This model demonstrates the modeling of a generic district cooling system with the central plant model
+<a href=\"modelica://Buildings.Experimental.DHC.CentralPlants.Cooling.Plant\">
+Buildings.Experimental.DHC.CentralPlants.Cooling.Plant</a>.
+</p>
+</html>"));
 end CoolingSystem;

@@ -27,6 +27,10 @@ model BuildingTimeSeriesWithETSCooling
     T=280.15,
     nPorts=1) "Water source"
     annotation (Placement(transformation(extent={{60,-40},{40,-20}})));
+initial equation
+  Modelica.Utilities.Streams.print(
+    "Warning:\n  In " + getInstanceName() +
+    ": This model is a beta version and is not fully validated yet.");
 
 equation
   connect(buiWitETS.port_b, watSin.ports[1]) annotation (Line(points={{-20,2},{-12,
@@ -38,5 +42,19 @@ equation
     __Dymola_Commands(file=
           "Resources/Scripts/Dymola/Experimental/DHC/Examples/Cooling/BaseClasses/Examples/BuildingTimeSeriesWithETSCooling.mos"
         "Simulate and Plot"),
-    experiment(StopTime=86400, __Dymola_Algorithm="cvode"));
+    experiment(StopTime=86400, __Dymola_Algorithm="cvode"),
+    Documentation(info="<html>
+<p>
+This model validates the model 
+<a href=\"modelica://Buildings.Experimental.DHC.Examples.Cooling.BaseClasses.BuildingTimeSeriesWithETSCooling\">
+Buildings.Experimental.DHC.Examples.Cooling.BaseClasses.BuildingTimeSeriesWithETSCooling</a>.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+December 13, 2020 by Jing Wang:<br/>
+First implementation. 
+</li>
+</ul>
+</html>"));
 end BuildingTimeSeriesWithETSCooling;
