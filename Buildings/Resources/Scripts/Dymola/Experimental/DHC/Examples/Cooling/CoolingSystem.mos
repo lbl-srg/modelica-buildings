@@ -1,36 +1,32 @@
 ﻿// Simulate
-simulateModel("Buildings.Experimental.DHC.Examples.Cooling.CoolingSystem", 
-    stopTime=86400, 
-    method="Cvode", 
-    tolerance=1e-06, 
-    resultFile="CoolingSystem");
+simulateModel("Buildings.Experimental.DHC.Examples.Cooling.CoolingSystem", stopTime=86400, method="Cvode", tolerance=1e-06, resultFile="CoolingSystem");
 // Plot commands
 removePlots(false);
 createPlot(
     id=1, 
-    position={20, 12, 645, 528}, 
-    y={"pla.port_a.p", "pla.port_b.p", "bld[1].port_a.p", "bld[1].port_b.p"}, 
-    range={0.0, 24.0, 0.0, 4.0}, 
+    position={20, 4, 591, 536}, 
+    y={"pla.port_a.p", "pla.port_b.p", "bld[1].p_rel", "bld[2].p_rel", "bld[3].p_rel"}, 
+    range={0.0, 24.0, -50000.0, 100000.0}, 
     grid=true, 
     filename="CoolingSystem.mat", 
-    colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}}, 
+    colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}, {0,0,0}}, 
     timeUnit="h", 
-    displayUnits={"bar", "bar", "bar", "bar"});
+    displayUnits={"bar", "bar", "", "", ""});
 createPlot(
     id=1, 
-    position={20, 12, 645, 528}, 
-    y={"bld[1].m_flow", "pla.port_a.m_flow"}, 
-    range={0.0, 24.0, 2.15, 2.35}, 
+    position={20, 4, 591, 536}, 
+    y={"pla.port_a.m_flow", "bld[1].m_flow", "bld[2].m_flow", "bld[3].m_flow"}, 
+    range={0.0, 24.0, 2.0, 8.0}, 
     grid=true, 
     subPlot=2, 
-    colors={{28,108,200}, {238,46,47}}, 
+    colors={{238,46,47}, {28,108,200}, {0,140,72}, {217,67,180}}, 
     timeUnit="h", 
-    displayUnits={"kg/s", "kg/s"});
+    displayUnits={"kg/s", "kg/s", "kg/s", "kg/s"});
 createPlot(
     id=1, 
-    position={20, 12, 645, 528}, 
+    position={20, 4, 591, 536}, 
     y={"pla.senTCHWSup.T", "bld[1].ets.senTDisRet.T"}, 
-    range={0.0, 24.0, 5.0, 25.0}, 
+    range={0.0, 24.0, 0.0, 30.0}, 
     grid=true, 
     subPlot=3, 
     colors={{28,108,200}, {238,46,47}}, 

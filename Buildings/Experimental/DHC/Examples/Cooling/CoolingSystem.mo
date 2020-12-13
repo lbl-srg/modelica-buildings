@@ -4,7 +4,7 @@ model CoolingSystem "Example to test the district cooling network model"
 
   package Medium = Buildings.Media.Water "Medium model for water";
 
-  parameter Integer nBui=1
+  parameter Integer nBui=3
     "Number of buildings connected to each distribution branch, excluding the most remote one";
 
   parameter Boolean allowFlowReversal = false
@@ -92,7 +92,9 @@ model CoolingSystem "Example to test the district cooling network model"
     dpCWPum_nominal=dpCWPum_nominal,
     tWai=tWai,
     dpSetPoi=dpSetPoi,
-    energyDynamics=energyDynamics)
+    energyDynamics=energyDynamics,
+    pumCHW(
+    yValve_start = fill(1,pla.numChi)))
     "District cooling plant"
     annotation (Placement(transformation(extent={{-30,0},{-10,20}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
@@ -112,7 +114,7 @@ model CoolingSystem "Example to test the district cooling network model"
     nCon=nBui,
     mDis_flow_nominal=nBui*mBui_flow_nominal,
     mCon_flow_nominal=fill(mBui_flow_nominal, nBui),
-    dpDis_nominal(displayUnit="Pa") = fill(0, nBui))
+    dpDis_nominal(displayUnit="Pa") = fill(1000, nBui))
                           "Distribution pipes"
     annotation (Placement(transformation(extent={{0,0},{40,20}})));
 protected
