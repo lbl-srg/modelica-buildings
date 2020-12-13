@@ -11,8 +11,7 @@ model Enable_FreProSta
     final quantity="SpecificEnergy")=65100
     "Outdoor air enthalpy high limit cutoff";
 
-  Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Subsequences.Enable
-    enaDis "Multi zone VAV AHU enable disable sequence"
+  Enable enaDis "Multi zone VAV AHU enable disable sequence"
     annotation (Placement(transformation(extent={{60,-40},{80,-20}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOutBelowCutoff(

@@ -191,8 +191,7 @@ block Controller "Multi zone VAV AHU economizer control sequence"
     final unit="1") "Outdoor air damper position"
     annotation (Placement(transformation(extent={{160,-60},{200,-20}})));
 
-  Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Subsequences.Enable
-    enaDis(
+  Subsequences.Enable enaDis(
     final use_enthalpy=use_enthalpy,
     final delTOutHis=delTOutHis,
     final delEntHis=delEntHis,

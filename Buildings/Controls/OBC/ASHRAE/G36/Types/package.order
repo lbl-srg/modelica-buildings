@@ -2,3 +2,5 @@ DemandLimitLevels
 FreezeProtectionStages
 OperationModes
 ZoneStates
+MultizoneAHUMinOADesigns
+BuildingPressureControlTypes

@@ -1,16 +1,12 @@
 within Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Subsequences.LimitsPa;
 block Common
-  "Damper position limits for units with common minimum outdoor air and economizer damper"
+  "Outdoor air and return air damper position limits for units with common damper"
 
-  constant Real yMin=-1 "Lower limit of control loop signal"
-    annotation (Dialog(tab="Commissioning", group="Controller"));
-  constant Real yMax=1 "Upper limit of control loop signal"
-    annotation (Dialog(tab="Commissioning", group="Controller"));
   parameter Real uRetDamMin(
     final min=yMin,
     final max=yMax,
     final unit="1") = 0.5
-    "Minimum control signal for the return air damper position limit"
+    "Loop signal value to start decreasing the maximum return air damper position"
     annotation (Dialog(tab="Commissioning", group="Controller"));
 
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=
@@ -24,7 +20,7 @@ block Common
 
   parameter Real Ti(
     final unit="s",
-    final quantity="Time")=1200
+    final quantity="Time")=120
     "Time constant of damper limit controller integrator block"
     annotation (Dialog(group="Controller",
     enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
@@ -116,18 +112,19 @@ block Common
     annotation (Placement(transformation(extent={{180,-110},{220,-70}}),
         iconTransformation(extent={{100,-100},{140,-60}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.LimPID damLimCon(
+  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset damLimCon(
     final controllerType=controllerType,
     final k=k,
     final Ti=Ti,
     final Td=Td,
     final yMax=yMax,
-    final yMin=yMin,
-    reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter)
+    final yMin=yMin)
     "Damper position limit controller"
     annotation (Placement(transformation(extent={{-140,180},{-120,200}})));
 
 protected
+  parameter Real yMin=0 "Lower limit of control loop signal";
+  parameter Real yMax=1 "Upper limit of control loop signal";
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant outDamPhyPosMinSig(
     final k=outDamPhyPosMin)
     "Physically fixed minimum position of the outdoor air damper. This is the initial position of the economizer damper"
@@ -175,11 +172,11 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Not not1 "Logical not block"
     annotation (Placement(transformation(extent={{-8,-110},{12,-90}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(
-    final k=Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeProtectionStages.stage1)
+    final k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.FreezeProtectionStages.stage1)
     "Freeze protection stage 1"
     annotation (Placement(transformation(extent={{-160,-170},{-140,-150}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt1(
-    final k=Buildings.Controls.OBC.ASHRAE.G36.Types.OperationModes.occupied)
+    final k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.occupied)
     "Occupied mode index"
     annotation (Placement(transformation(extent={{-160,-210},{-140,-190}})));
   Buildings.Controls.OBC.CDL.Integers.LessEqual intLesEqu
@@ -251,7 +248,7 @@ equation
   connect(uFreProSta, intLesEqu.u1)
     annotation (Line(points={{-200,-140},{-122,-140}}, color={255,127,0}));
   connect(damLimCon.trigger, uSupFan)
-    annotation (Line(points={{-138,178},{-138,166},{-100,166},{-100,-100},{-200,
+    annotation (Line(points={{-136,178},{-136,166},{-100,166},{-100,-100},{-200,
           -100}},               color={255,0,255}));
   connect(uSupFan, and2.u1) annotation (Line(points={{-200,-100},{-140,-100},{-140,
           -100},{-82,-100}}, color={255,0,255}));
@@ -380,6 +377,13 @@ src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/AHUs/Mul
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+July 10, 2020, by Antoine Gautier:<br/>
+Changed default value of integral time for minimum outdoor air control.
+Set <code>yMin</code> to 0.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2019\">#2019</a>.
+</li>
 <li>
 March 14, 2020, by Jianjun Hu:<br/>
 Replaced mulAnd by logic and block to avoid vector-valued calculation.<br/>

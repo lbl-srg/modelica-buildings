@@ -1,6 +1,5 @@
 within Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Subsequences;
-block Enable
-  "Multi zone VAV AHU economizer enable/disable switch"
+block Enable "Multi zone VAV AHU economizer enable/disable switch"
 
   parameter Boolean use_enthalpy = true
     "Set to true to evaluate outdoor air enthalpy in addition to temperature"
@@ -195,7 +194,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Not not1 "Logical not"
     annotation (Placement(transformation(extent={{0,-90},{20,-70}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(
-    final k=Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeProtectionStages.stage0)
+    final k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.FreezeProtectionStages.stage0)
     "Integer constant, stage 0"
     annotation (Placement(transformation(extent={{-138,30},{-118,50}})));
 

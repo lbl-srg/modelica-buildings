@@ -21,14 +21,11 @@ model Enable_TOut_hOut
     final falling=800) "Outdoor air enthalpy"
     annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
 
-  Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Subsequences.Enable
-    enaDis "Multi zone VAV AHU economizer enable disable sequence"
+  Enable enaDis "Multi zone VAV AHU economizer enable disable sequence"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
-  Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Subsequences.Enable
-    enaDis1 "Multi zone VAV AHU economizer enable disable sequence"
+  Enable enaDis1 "Multi zone VAV AHU economizer enable disable sequence"
     annotation (Placement(transformation(extent={{80,-40},{100,-20}})));
-  Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Subsequences.Enable
-    enaDis2(final use_enthalpy=false)
+  Enable enaDis2(final use_enthalpy=false)
     "Multi zone VAV AHU economizer enable disable sequence"
     annotation (Placement(transformation(extent={{220,-40},{240,-20}})));
 

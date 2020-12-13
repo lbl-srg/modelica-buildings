@@ -405,8 +405,7 @@ block Controller "Controller for room VAV box with reheat"
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.Reheat.Subsequences.ActiveAirFlow actAirSet(
     final VCooZonMax_flow=VCooZonMax_flow,
     final VHeaZonMin_flow=VHeaZonMin_flow,
-    final VHeaZonMax_flow=VHeaZonMax_flow)
-    "Active airflow setpoint"
+    final VHeaZonMax_flow=VHeaZonMax_flow) "Active airflow setpoint"
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.Reheat.Subsequences.SystemRequests sysReq(
     final have_hotWatCoi=have_hotWatCoi,
@@ -420,8 +419,7 @@ block Controller "Controller for room VAV box with reheat"
     final dTHys=dTHys,
     final floHys=floHys,
     final damPosHys=damPosHys,
-    final valPosHys=valPosHys)
-    "Specify system requests "
+    final valPosHys=valPosHys) "Specify system requests "
     annotation (Placement(transformation(extent={{120,-140},{140,-120}})));
   Buildings.Controls.OBC.ASHRAE.G36.ThermalZones.ControlLoops conLoo(
     final kCooCon=kCooCon,
@@ -445,14 +443,12 @@ block Controller "Controller for room VAV box with reheat"
     final floHys=floHys,
     final dTHys=dTHys,
     final damPosHys=damPosHys,
-    final valPosHys=valPosHys)
-    "Generate alarms"
+    final valPosHys=valPosHys) "Generate alarms"
     annotation (Placement(transformation(extent={{120,-200},{140,-180}})));
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.Reheat.Subsequences.Overrides setOve(
     final VZonMin_flow=VZonMin_flow,
     final VCooZonMax_flow=VCooZonMax_flow,
-    final VHeaZonMax_flow=VHeaZonMax_flow)
-    "Override setpoints"
+    final VHeaZonMax_flow=VHeaZonMax_flow) "Override setpoints"
     annotation (Placement(transformation(extent={{60,-100},{80,-80}})));
   Buildings.Controls.OBC.ASHRAE.G36.Generic.TimeSuppression timSup(
     final samplePeriod=samplePeriod,
@@ -495,8 +491,7 @@ block Controller "Controller for room VAV box with reheat"
     final TdDam=TdDam,
     final V_flow_nominal=V_flow_nominal,
     final dTHys=dTHys,
-    final looHys=looHys)
-    "Damper and valve control"
+    final looHys=looHys) "Damper and valve control"
     annotation (Placement(transformation(extent={{0,-40},{20,0}})));
 
 equation
