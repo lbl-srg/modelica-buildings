@@ -1,15 +1,15 @@
 within Buildings.Controls.OBC.UnitConversions;
-block From_quad "Block that converts work from quads to joule"
+block From_quad "Block that converts energy from quads to joule"
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u(
-    final quantity = "Work")
-    "Work in quads"
+    final quantity = "Energy")
+    "Energy in quads"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y(
     final unit = "J",
-    final quantity = "Work")
-    "Work in joule"
+    final quantity = "Energy")
+    "Energy in joule"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected
@@ -53,7 +53,7 @@ equation
         Line(points={{-90,0},{30,0}}, color={191,0,0})}),
         Documentation(info="<html>
 <p>
-Converts work given in quads [quad] to joule [J].
+Converts energy given in quads [quad] to joule [J].
 </p>
 </html>", revisions="<html>
 <ul>
