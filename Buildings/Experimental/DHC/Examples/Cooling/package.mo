@@ -1,7 +1,7 @@
 within Buildings.Experimental.DHC.Examples;
-package Cooling "Package of example models for DC systems"
+package Cooling
+  "Package of example models for DC systems"
   extends Modelica.Icons.VariantsPackage;
-
   annotation (
     preferredView="info",
     Documentation(
