@@ -9,5 +9,11 @@ compareVars :=
     "buiTesOutETSBui.PHea",
     "buiTesOutETSBui.PCoo",
     "buiTesOutETSBui.PFan",
-    "buiTesOutETSBui.PPum"
+    "buiTesOutETSBui.PPum",
+    "buiTesFacMul.PHea",
+    "buiTesFacMul.PCoo",
+    "buiTesFacMul.PFan",
+    "buiTesFacMul.PPum",
+    "buiTesFacMul.QHea_flow",
+    "buiTesFacMul.QCoo_flow"
   };
