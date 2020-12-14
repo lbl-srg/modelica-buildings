@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Subsequences;
-block Limits
+block Limits_
   "Multi zone VAV AHU minimum outdoor air control - damper position limits"
 
   constant Real yMin=-1 "Lower limit of control loop signal"
@@ -396,4 +396,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end Limits;
+end Limits_;

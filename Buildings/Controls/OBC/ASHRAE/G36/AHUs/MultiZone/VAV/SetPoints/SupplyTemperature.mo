@@ -2,31 +2,46 @@ within Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints;
 block SupplyTemperature
   "Supply air temperature setpoint for multi zone system"
 
-  parameter Real TSupCooMin=285.15
+  parameter Real TSupCooMin(
+    final unit="K",
+    displayUnit="degC",
+    final quantity="ThermodynamicTemperature")=285.15
     "Lowest cooling supply air temperature setpoint"
     annotation (Dialog(group="Temperatures"));
-  parameter Real TSupCooMax=291.15
+  parameter Real TSupCooMax(
+    final unit="K",
+    displayUnit="degC",
+    final quantity="ThermodynamicTemperature")=291.15
     "Highest cooling supply air temperature setpoint. It is typically 18 degC (65 degF) 
     in mild and dry climates, 16 degC (60 degF) or lower in humid climates"
     annotation (Dialog(group="Temperatures"));
-  parameter Real TOutMin=289.15
+  parameter Real TOutMin(
+    final unit="K",
+    displayUnit="degC",
+    final quantity="ThermodynamicTemperature")=289.15
     "Lower value of the outdoor air temperature reset range. Typically value is 16 degC (60 degF)"
     annotation (Dialog(group="Temperatures"));
-  parameter Real TOutMax=294.15
+  parameter Real TOutMax(
+    final unit="K",
+    displayUnit="degC",
+    final quantity="ThermodynamicTemperature")=294.15
     "Higher value of the outdoor air temperature reset range. Typically value is 21 degC (70 degF)"
     annotation (Dialog(group="Temperatures"));
-  parameter Real TSupWarUpSetBac=308.15
+  parameter Real TSupWarUpSetBac(
+    final unit="K",
+    displayUnit="degC",
+    final quantity="ThermodynamicTemperature")=308.15
     "Supply temperature in warm up and set back mode"
     annotation (Dialog(group="Temperatures"));
   parameter Real iniSet(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature") = TSupCooMax
     "Initial setpoint"
     annotation (Dialog(group="Trim and respond logic"));
   parameter Real maxSet(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature") = TSupCooMax
     "Maximum setpoint"
     annotation (Dialog(group="Trim and respond logic"));
@@ -49,33 +64,33 @@ block SupplyTemperature
     annotation(Dialog(group="Trim and respond logic"));
   parameter Real triAmo(
     final unit="K",
-    final displayUnit="K",
+    displayUnit="K",
     final quantity="TemperatureDifference") = 0.1
     "Trim amount"
     annotation (Dialog(group="Trim and respond logic"));
   parameter Real resAmo(
     final unit="K",
-    final displayUnit="K",
+    displayUnit="K",
     final quantity="TemperatureDifference") = -0.2
     "Response amount"
     annotation (Dialog(group="Trim and respond logic"));
   parameter Real maxRes(
     final unit="K",
-    final displayUnit="K",
+    displayUnit="K",
     final quantity="TemperatureDifference") = -0.6
     "Maximum response per time interval"
     annotation (Dialog(group="Trim and respond logic"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TOut(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Outdoor air temperature"
     annotation (Placement(transformation(extent={{-180,100},{-140,140}}),
         iconTransformation(extent={{-140,20},{-100,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZonSetAve(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Average of heating and cooling setpoint"
     annotation (Placement(transformation(extent={{-180,140},{-140,180}}),
@@ -94,7 +109,7 @@ block SupplyTemperature
         iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TSupSet(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Setpoint for supply air temperature"
     annotation (Placement(transformation(extent={{140,-20},{180,20}}),

@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Subsequences;
-package LimitsPa "Package of sequences to calculate the damper position limits of the economizer"
+package Limits "Package of sequences to calculate the damper position limits of the economizer"
 annotation (preferredView="info", Documentation(info="<html>
 <p>
 The package contains the calculation of economizer dampers position limits.
@@ -39,4 +39,4 @@ The package contains the calculation of economizer dampers position limits.
           pattern=LinePattern.None,
           fillPattern=FillPattern.Solid,
           extent={{-80.0,-80.0},{-20.0,-20.0}})}));
-end LimitsPa;
+end Limits;

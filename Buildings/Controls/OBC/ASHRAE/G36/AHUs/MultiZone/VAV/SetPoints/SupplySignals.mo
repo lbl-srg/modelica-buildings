@@ -1,5 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints;
-block SupplySignals "Multizone VAV AHU coil valve positions"
+block SupplySignals
+  "Multizone VAV AHU supply air temperature control loop and coil valves position"
 
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=
       Buildings.Controls.OBC.CDL.Types.SimpleController.PI
@@ -13,14 +14,12 @@ block SupplySignals "Multizone VAV AHU coil valve positions"
     annotation(Dialog(
       enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
           or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
-
   parameter Real TdTSup(
     final unit="s",
     final quantity="Time")=0.1
     "Time constant of derivative block for supply temperature control signal"
     annotation(Dialog(enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
                           or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
-
   parameter Real uHeaMax(
     final min=-0.9,
     final unit="1")=-0.25
@@ -71,16 +70,14 @@ block SupplySignals "Multizone VAV AHU coil valve positions"
         iconTransformation(extent={{100,20},{140,60}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.LimPID conTSup(
+  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset conTSup(
     final controllerType=controllerType,
     final k=kTSup,
     final Ti=TiTSup,
     final Td=TdTSup,
     final yMax=1,
     final yMin=-1,
-    final y_reset=0,
-    final reverseAction=true,
-    final reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter)
+    final y_reset=0)
     "Controller for supply air temperature control signal (to be used by heating coil, cooling coil and economizer)"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi
@@ -166,7 +163,7 @@ equation
     annotation (Line(points={{-38,30},{-28,30},{-28,68},{-2,68}},
       color={0,0,127}));
   connect(uSupFan, conTSup.trigger)
-    annotation (Line(points={{-120,80},{-80,80},{-80,8},{-58,8},{-58,18}},
+    annotation (Line(points={{-120,80},{-80,80},{-80,0},{-56,0},{-56,18}},
       color={255,0,255}));
 
 annotation (
@@ -214,8 +211,7 @@ annotation (
 <p>
 Block that outputs the supply temperature control loop signal,
 and the coil valve postions for VAV system with multiple zones,
-implemented according to the ASHRAE Guideline G36, PART 5.N.2
-(Supply air temperature control).
+implemented according to Section 5.16.2.3 of the ASHRAE Guideline G36, May 2020.
 </p>
 <p>
 The supply air temperature control loop signal <code>uTSup</code>
@@ -232,12 +228,22 @@ From <code>uTSup = uHeaMax</code> to <code>uTSup = -1</code>,
 Similarly, <code>uTSup = uCooMin</code> to <code>uTSup = +1</code>,
 <code>yCoo</code> increases linearly from <i>0</i> to <i>1</i>.
 </p>
+
+<p align=\"center\">
+<img alt=\"Image of supply temperature loop\"
+src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/AHUs/MultiZone/VAV/SetPoints/SupTemLoop.png\"/>
+</p>
+
 <p>
 The output <code>uTSup</code> can be used in a controller for the economizer.
 </p>
 </html>",
 revisions="<html>
 <ul>
+<li>
+August 1, 2020, by Jianjun Hu:<br/>
+Updated according to ASHRAE G36 official release.
+</li>
 <li>
 November 1, 2017, by Jianjun Hu:<br/>
 First implementation.

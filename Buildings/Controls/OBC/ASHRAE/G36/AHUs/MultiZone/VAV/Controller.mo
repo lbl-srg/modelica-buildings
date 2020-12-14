@@ -19,6 +19,13 @@ block Controller
     "Check if the AHU has AFMS (Airflow measurement station)"
     annotation (Dialog(group="System and building parameters"));
 
+  parameter Types.MultizoneAHUMinOADesigns minOADes
+    "Design of minimum outdoor air and economizer function";
+  parameter Types.BuildingPressureControlTypes buiPreCon
+    "Type of building pressure control system";
+  parameter Real aveTimRan=5
+    "Time horizon over which the outdoor air flow measurment is averaged";
+
   // ----------- Parameters for economizer control -----------
   parameter Boolean use_enthalpy=false
     "Set to true if enthalpy measurement is used in addition to temperature measurement"
@@ -167,21 +174,18 @@ block Controller
     final quantity="PressureDifference")=60
     "Initial pressure setpoint for fan speed control"
     annotation (Dialog(tab="Fan speed", group="Trim and respond for reseting duct static pressure setpoint"));
-
   parameter Real pMinSet(
     final unit="Pa",
     final displayUnit="Pa",
     final quantity="PressureDifference")=25
     "Minimum pressure setpoint for fan speed control"
     annotation (Dialog(tab="Fan speed", group="Trim and respond for reseting duct static pressure setpoint"));
-
   parameter Real pMaxSet(
     final unit="Pa",
     final displayUnit="Pa",
     final quantity="PressureDifference")=400
     "Maximum pressure setpoint for fan speed control"
     annotation (Dialog(tab="Fan speed", group="Trim and respond for reseting duct static pressure setpoint"));
-
   parameter Real pDelTim(
     final unit="s",
     final quantity="Time")=600
@@ -254,25 +258,18 @@ block Controller
     annotation (Dialog(tab="Minimum outdoor airflow rate", group="Nominal conditions"));
 
   // ----------- parameters for supply air temperature control  -----------
-  parameter Real TSupSetMin(
+  parameter Real TSupCooMin(
     final unit="K",
     final displayUnit="degC",
     final quantity="ThermodynamicTemperature")=285.15
     "Lowest cooling supply air temperature setpoint"
     annotation (Dialog(tab="Supply air temperature", group="Temperature limits"));
 
-  parameter Real TSupSetMax(
+  parameter Real TSupCooMax(
     final unit="K",
     final displayUnit="degC",
     final quantity="ThermodynamicTemperature")=291.15
     "Highest cooling supply air temperature setpoint. It is typically 18 degC (65 degF) in mild and dry climates, 16 degC (60 degF) or lower in humid climates"
-    annotation (Dialog(tab="Supply air temperature", group="Temperature limits"));
-
-  parameter Real TSupSetDes(
-    final unit="K",
-    final displayUnit="degC",
-    final quantity="ThermodynamicTemperature")=286.15
-    "Nominal supply air temperature setpoint"
     annotation (Dialog(tab="Supply air temperature", group="Temperature limits"));
 
   parameter Real TOutMin(
@@ -287,6 +284,13 @@ block Controller
     final displayUnit="degC",
     final quantity="ThermodynamicTemperature")=294.15
     "Higher value of the outdoor air temperature reset range. Typically value is 21 degC (70 degF)"
+    annotation (Dialog(tab="Supply air temperature", group="Temperature limits"));
+
+  parameter Real TSupWarUpSetBac(
+    final unit="K",
+    displayUnit="degC",
+    final quantity="ThermodynamicTemperature")=308.15
+    "Supply temperature in warm up and set back mode"
     annotation (Dialog(tab="Supply air temperature", group="Temperature limits"));
 
   parameter Real iniSetSupTem(
@@ -626,10 +630,10 @@ block Controller
 
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.SupplyTemperature
     supTemSetPoi(
+    final TSupCooMin=TSupCooMin,
+    final TSupCooMax=TSupCooMax,
+    final TSupWarUpSetBac=TSupWarUpSetBac,
     final samplePeriod=samplePeriod,
-    final TSupSetMin=TSupSetMin,
-    final TSupSetMax=TSupSetMax,
-    final TSupSetDes=TSupSetDes,
     final TOutMin=TOutMin,
     final TOutMax=TOutMax,
     final iniSet=iniSetSupTem,
@@ -640,40 +644,36 @@ block Controller
     final triAmo=triAmoSupTem,
     final resAmo=resAmoSupTem,
     final maxRes=maxResSupTem) "Setpoint for supply temperature"
-    annotation (Placement(transformation(extent={{0,170},{20,190}})));
+    annotation (Placement(transformation(extent={{-2,170},{18,190}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow.AHU
     sysOutAirSet(final VPriSysMax_flow=VPriSysMax_flow, final peaSysPop=
         peaSysPop) "Minimum outdoor airflow setpoint"
     annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
 
-  Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Controller eco(
+  Economizers.Controller eco(
+    minOADes=minOADes,
+    buiPreCon=buiPreCon,
+    aveTimRan=aveTimRan,
     final use_enthalpy=use_enthalpy,
     final delTOutHis=delTOutHis,
     final delEntHis=delEntHis,
     final retDamFulOpeTim=retDamFulOpeTim,
     final disDel=disDel,
-    final controllerTypeMinOut=controllerTypeMinOut,
-    final kMinOut=kMinOut,
-    final TiMinOut=TiMinOut,
-    final TdMinOut=TdMinOut,
+    final samplePeriod=samplePeriod,
     final retDamPhyPosMax=retDamPhyPosMax,
     final retDamPhyPosMin=retDamPhyPosMin,
     final outDamPhyPosMax=outDamPhyPosMax,
     final outDamPhyPosMin=outDamPhyPosMin,
-    final uHeaMax=uHeaMax,
-    final uCooMin=uCooMin,
     final uOutDamMax=(uHeaMax + uCooMin)/2,
     final uRetDamMin=(uHeaMax + uCooMin)/2,
     final TFreSet=TFreSet,
-    final controllerTypeFre=controllerTypeFre,
     final kFre=kFre,
     final TiFre=TiFre,
     final TdFre=TdFre,
-    final delta=delta,
     final use_TMix=use_TMix,
     final use_G36FrePro=use_G36FrePro) "Economizer controller"
-    annotation (Placement(transformation(extent={{140,-170},{160,-150}})));
+    annotation (Placement(transformation(extent={{140,-180},{160,-140}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.SupplySignals val(
     final controllerType=controllerTypeTSup,
@@ -683,6 +683,7 @@ block Controller
     final uHeaMax=uHeaMax,
     final uCooMin=uCooMin) "AHU coil valve control"
     annotation (Placement(transformation(extent={{80,-70},{100,-50}})));
+
 
 protected
   Buildings.Controls.OBC.CDL.Continuous.Division VOut_flow_normalized(
@@ -694,45 +695,45 @@ protected
 
 equation
   connect(eco.yRetDamPos, yRetDamPos)
-    annotation (Line(points={{161.25,-157.5},{180,-157.5},{180,-150},{220,-150}},
+    annotation (Line(points={{162,-154},{180,-154},{180,-150},{220,-150}},
       color={0,0,127}));
   connect(eco.yOutDamPos, yOutDamPos)
-    annotation (Line(points={{161.25,-162.5},{180,-162.5},{180,-190},{220,-190}},
+    annotation (Line(points={{162,-166},{180,-166},{180,-190},{220,-190}},
       color={0,0,127}));
   connect(eco.uSupFan, supFan.ySupFan)
-    annotation (Line(points={{138.75,-165},{-84,-165},{-84,217},{-138,217}},
+    annotation (Line(points={{138,-173},{-84,-173},{-84,217},{-138,217}},
       color={255,0,255}));
   connect(supFan.ySupFanSpe, ySupFanSpe)
     annotation (Line(points={{-138,210},{220,210}},
       color={0,0,127}));
   connect(TOut, eco.TOut)
-    annotation (Line(points={{-220,240},{-60,240},{-60,-150.625},{138.75,-150.625}},
+    annotation (Line(points={{-220,240},{-60,240},{-60,-162},{138,-162}},
       color={0,0,127}));
   connect(eco.TOutCut, TOutCut)
-    annotation (Line(points={{138.75,-152.5},{-74,-152.5},{-74,-60},{-220,-60}},
+    annotation (Line(points={{138,-164},{-74,-164},{-74,-60},{-220,-60}},
       color={0,0,127}));
   connect(eco.hOut, hOut)
-    annotation (Line(points={{138.75,-154.375},{-78,-154.375},{-78,-90},{-220,-90}},
+    annotation (Line(points={{138,-167},{-78,-167},{-78,-90},{-220,-90}},
       color={0,0,127}));
   connect(eco.hOutCut, hOutCut)
-    annotation (Line(points={{138.75,-155.625},{-94,-155.625},{-94,-120},{-220,-120}},
+    annotation (Line(points={{138,-169},{-94,-169},{-94,-120},{-220,-120}},
       color={0,0,127}));
   connect(eco.uOpeMod, uOpeMod)
-    annotation (Line(points={{138.75,-166.875},{60,-166.875},{60,-210},{-220,-210}},
+    annotation (Line(points={{138,-176},{60,-176},{60,-210},{-220,-210}},
       color={255,127,0}));
   connect(supTemSetPoi.TSupSet, TSupSet)
-    annotation (Line(points={{22,180},{220,180}}, color={0,0,127}));
+    annotation (Line(points={{20,180},{220,180}}, color={0,0,127}));
   connect(supTemSetPoi.TOut, TOut)
-    annotation (Line(points={{-2,184},{-60,184},{-60,240},{-220,240}},
+    annotation (Line(points={{-4,184},{-60,184},{-60,240},{-220,240}},
       color={0,0,127}));
   connect(supTemSetPoi.uSupFan, supFan.ySupFan)
-    annotation (Line(points={{-2,176},{-84,176},{-84,217},{-138,217}},
+    annotation (Line(points={{-4,176},{-84,176},{-84,217},{-138,217}},
       color={255,0,255}));
   connect(supTemSetPoi.uZonTemResReq, uZonTemResReq)
-    annotation (Line(points={{-2,180},{-52,180},{-52,-240},{-220,-240}},
+    annotation (Line(points={{-4,180},{-52,180},{-52,-240},{-220,-240}},
       color={255,127,0}));
   connect(supTemSetPoi.uOpeMod, uOpeMod)
-    annotation (Line(points={{-2,172},{-48,172},{-48,-210},{-220,-210}},
+    annotation (Line(points={{-4,172},{-48,172},{-48,-210},{-220,-210}},
       color={255,127,0}));
   connect(supFan.uOpeMod, uOpeMod)
     annotation (Line(points={{-162,218},{-180,218},{-180,-210},{-220,-210}},
@@ -744,7 +745,7 @@ equation
     annotation (Line(points={{-162,202},{-192,202},{-192,210},{-220,210}},
       color={0,0,127}));
   connect(supTemSetPoi.TZonSetAve, TZonSetPoiAve.y)
-    annotation (Line(points={{-2,188},{-20,188},{-20,280},{-138,280}},
+    annotation (Line(points={{-4,188},{-20,188},{-20,280},{-138,280}},
       color={0,0,127}));
   connect(supFan.ySupFan, ySupFan)
     annotation (Line(points={{-138,217},{60,217},{60,280},{220,280}},
@@ -753,7 +754,7 @@ equation
     annotation (Line(points={{-162,274},{-180,274},{-180,270},{-220,270}},
       color={0,0,127}));
   connect(eco.TMix, TMix)
-    annotation (Line(points={{138.75,-163.125},{-12,-163.125},{-12,-180},{-220,-180}},
+    annotation (Line(points={{138,-159},{-12,-159},{-12,-180},{-220,-180}},
       color={0,0,127}));
   connect(TSup, val.TSup)
     annotation (Line(points={{-220,-30},{-66,-30},{-66,-65},{78,-65}},
@@ -762,7 +763,7 @@ equation
     annotation (Line(points={{-138,217},{-84,217},{-84,-55},{78,-55}},
       color={255,0,255}));
   connect(val.uTSup, eco.uTSup)
-    annotation (Line(points={{102,-56},{120,-56},{120,-157.5},{138.75,-157.5}},
+    annotation (Line(points={{102,-56},{120,-56},{120,-156},{138,-156}},
       color={0,0,127}));
   connect(val.yHea, yHea)
     annotation (Line(points={{102,-60},{180,-60},{180,-30},{220,-30}},
@@ -771,16 +772,16 @@ equation
     annotation (Line(points={{102,-64},{180,-64},{180,-90},{220,-90}},
       color={0,0,127}));
   connect(supTemSetPoi.TSupSet, val.TSupSet)
-    annotation (Line(points={{22,180},{60,180},{60,-60},{78,-60}},
+    annotation (Line(points={{20,180},{60,180},{60,-60},{78,-60}},
       color={0,0,127}));
   connect(TZonHeaSet, TZonSetPoiAve.u1)
     annotation (Line(points={{-220,300},{-180,300},{-180,286},{-162,286}},
       color={0,0,127}));
   connect(eco.uFreProSta, uFreProSta)
-    annotation (Line(points={{138.75,-169.375},{66,-169.375},{66,-300},{-220,-300}},
+    annotation (Line(points={{138,-179},{66,-179},{66,-300},{-220,-300}},
       color={255,127,0}));
   connect(eco.VOut_flow_normalized, VOut_flow_normalized.y)
-    annotation (Line(points={{138.75,-159.375},{60,-159.375},{60,-120},{42,-120}},
+    annotation (Line(points={{138,-144},{60,-144},{60,-120},{42,-120}},
       color={0,0,127}));
   connect(VOut_flow_normalized.u1, VOut_flow)
     annotation (Line(points={{18,-114},{-160,-114},{-160,-150},{-220,-150}},
@@ -790,7 +791,7 @@ equation
   connect(sysOutAirSet.VDesOutAir_flow, VOut_flow_normalized.u2) annotation (
       Line(points={{-18,82},{0,82},{0,-126},{18,-126}}, color={0,0,127}));
   connect(sysOutAirSet.effOutAir_normalized, eco.VOutMinSet_flow_normalized)
-    annotation (Line(points={{-18,75},{-4,75},{-4,-161.25},{138.75,-161.25}},
+    annotation (Line(points={{-18,75},{-4,75},{-4,-141},{138,-141}},
         color={0,0,127}));
   connect(supFan.ySupFan, sysOutAirSet.uSupFan) annotation (Line(points={{-138,217},
           {-84,217},{-84,73},{-42,73}}, color={255,0,255}));
