@@ -60,15 +60,15 @@ partial model PartialETS
   parameter Boolean allowFlowReversalBui=false
     "Set to true to allow flow reversal on building side"
     annotation (Dialog(tab="Assumptions"),Evaluate=true);
-  parameter Modelica.SIunits.HeatFlowRate QChiWat_flow_nominal=0
-    "Design heat flow rate for chilled water production (<0)"
-    annotation (Dialog(group="Nominal condition",enable=have_chiWat));
   parameter Modelica.SIunits.HeatFlowRate QHeaWat_flow_nominal=0
     "Design heat flow rate for heating water production (>0)"
     annotation (Dialog(group="Nominal condition",enable=have_heaWat));
   parameter Modelica.SIunits.HeatFlowRate QHotWat_flow_nominal=0
     "Design heat flow rate for hot water production (>0)"
     annotation (Dialog(group="Nominal condition",enable=have_hotWat));
+  parameter Modelica.SIunits.HeatFlowRate QChiWat_flow_nominal=0
+    "Design heat flow rate for chilled water production (<0)"
+    annotation (Dialog(group="Nominal condition",enable=have_chiWat));
   // IO CONNECTORS
   Modelica.Fluid.Interfaces.FluidPorts_a ports_aHeaWat[nPorts_aHeaWat](
     redeclare each package Medium=MediumBui,
@@ -248,6 +248,20 @@ initial equation
 Partial model to be used for modeling an energy transfer station
 and optional in-building primary systems.
 </p>
+<p>
+The connectors to the service lines are configured based on an enumeration
+defining the type of district system, see
+<a href=\"modelica://Buildings.Experimental.DHC.Types.DistrictSystemType\">
+Buildings.Experimental.DHC.Types.DistrictSystemType</a>.
+</p>
+<p> 
+The connectors to the building distribution systems are configured based
+on the Boolean parameters <code>have_heaWat</code> and <code>have_chiWat</code>.
+In case of a heating service line, the model allows for using two
+different media at the inlet <code>port_aSerHea</code> and at the oulet
+<code>port_bSerHea</code> to represent a steam supply and condensate
+return.
+</p>
 </html>",
       revisions="<html>
 <ul>
@@ -275,7 +289,192 @@ First implementation.
         Text(
           extent={{-148,-326},{152,-366}},
           lineColor={0,0,255},
-          textString="%name")}),
+          textString="%name"),
+        Line(
+          points={{-142,300},{-140,372}},
+          color={0,0,255},
+          pattern=LinePattern.None),
+        Line(
+          points={{-142,354},{-138,274}},
+          color={0,0,255},
+          pattern=LinePattern.None),
+        Rectangle(
+          extent={{-300,-248},{-58,-232}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={255,0,0},
+          fillPattern=FillPattern.Solid,
+          visible=typ <> TypDisSys.Cooling and typ <> TypDisSys.CombinedGeneration5),
+        Rectangle(
+          extent={{20,-288},{300,-272}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={255,0,0},
+          fillPattern=FillPattern.Solid,
+          visible=typ == TypDisSys.CombinedGeneration1 or typ == TypDisSys.CombinedGeneration2to4
+               or typ == TypDisSys.Cooling),
+        Rectangle(
+          extent={{-300,-208},{-100,-192}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,255,255},
+          fillPattern=FillPattern.Solid,
+          visible=typ == TypDisSys.CombinedGeneration5),
+        Rectangle(
+          extent={{100,-208},{300,-192}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,255,255},
+          fillPattern=FillPattern.Solid,
+          visible=typ == TypDisSys.CombinedGeneration5),
+        Rectangle(
+          extent={{-25,-8},{25,8}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,255,255},
+          fillPattern=FillPattern.Solid,
+          visible=typ == TypDisSys.CombinedGeneration5,
+          origin={108,-167},
+          rotation=90),
+        Rectangle(
+          extent={{-25,-8},{25,8}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,255,255},
+          fillPattern=FillPattern.Solid,
+          visible=typ == TypDisSys.CombinedGeneration5,
+          origin={-108,-167},
+          rotation=90),
+        Rectangle(
+          extent={{-140,140},{140,-142}},
+          lineColor={27,0,55},
+          fillColor={170,213,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{58,-248},{300,-232}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,255},
+          fillPattern=FillPattern.Solid,
+          visible=typ <> TypDisSys.Cooling and typ <> TypDisSys.CombinedGeneration5),
+        Rectangle(
+          extent={{-45,-9},{45,9}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,255},
+          fillPattern=FillPattern.Solid,
+          visible=typ <> TypDisSys.Cooling and typ <> TypDisSys.CombinedGeneration5,
+          origin={67,-187},
+          rotation=90),
+        Rectangle(
+          extent={{-45,-8},{45,8}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={255,0,0},
+          fillPattern=FillPattern.Solid,
+          visible=typ <> TypDisSys.Cooling and typ <> TypDisSys.CombinedGeneration5,
+          origin={-66,-187},
+          rotation=90),
+        Rectangle(
+          extent={{-66,-8},{66,8}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={255,0,0},
+          fillPattern=FillPattern.Solid,
+          visible=typ == TypDisSys.CombinedGeneration1 or typ == TypDisSys.CombinedGeneration2to4
+               or typ == TypDisSys.Cooling,
+          origin={28,-208},
+          rotation=90),
+        Rectangle(
+          extent={{-302,-288},{-22,-272}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,255},
+          fillPattern=FillPattern.Solid,
+          visible=typ == TypDisSys.CombinedGeneration1 or typ == TypDisSys.CombinedGeneration2to4
+               or typ == TypDisSys.Cooling),
+        Rectangle(
+          extent={{-65,-8},{65,8}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,255},
+          fillPattern=FillPattern.Solid,
+          visible=typ == TypDisSys.CombinedGeneration1 or typ == TypDisSys.CombinedGeneration2to4
+               or typ == TypDisSys.Cooling,
+          origin={-30,-207},
+          rotation=90),
+        Rectangle(
+          extent={{-6,-8},{6,8}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,255},
+          fillPattern=FillPattern.Solid,
+          visible=have_chiWat,
+          origin={104,146},
+          rotation=90),
+        Rectangle(
+          extent={{-102,-8},{102,8}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,255},
+          fillPattern=FillPattern.Solid,
+          visible=have_chiWat,
+          origin={198,160},
+          rotation=0),
+        Rectangle(
+          extent={{-130,-8},{130,8}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,255},
+          fillPattern=FillPattern.Solid,
+          visible=have_heaWat,
+          origin={-170,260},
+          rotation=0),
+        Rectangle(
+          extent={{-102,-8},{102,8}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={238,46,47},
+          fillPattern=FillPattern.Solid,
+          origin={-198,160},
+          rotation=0,
+          visible=have_chiWat),
+        Rectangle(
+          extent={{-6,-8},{6,8}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={238,46,47},
+          fillPattern=FillPattern.Solid,
+          origin={-104,146},
+          rotation=90,
+          visible=have_chiWat),
+        Rectangle(
+          extent={{-130,-8},{130,8}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={238,46,47},
+          fillPattern=FillPattern.Solid,
+          origin={170,260},
+          rotation=0,
+          visible=have_heaWat),
+        Rectangle(
+          extent={{-56,-9},{56,9}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={238,46,47},
+          fillPattern=FillPattern.Solid,
+          origin={49,196},
+          rotation=90,
+          visible=have_heaWat),
+        Rectangle(
+          extent={{-56,-9},{56,9}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,255},
+          fillPattern=FillPattern.Solid,
+          origin={-49,196},
+          rotation=90,
+          visible=have_heaWat)}),
     Diagram(
       coordinateSystem(
         preserveAspectRatio=false,

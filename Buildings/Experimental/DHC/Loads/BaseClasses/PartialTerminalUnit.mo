@@ -315,8 +315,7 @@ partial model PartialTerminalUnit
     "Scaling"
     annotation (Placement(transformation(extent={{-180,50},{-160,70}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain scaQActHea_flow(
-    k=facSca) if have_heaWat or have_chaOve or have_eleHea
-    "Scaling"
+    k=facSca) if have_heaWat or have_chaOve or have_eleHea "Scaling"
     annotation (Placement(transformation(extent={{160,210},{180,230}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain scaQActCoo_flow(
     k=facSca) if have_chiWat or have_eleCoo

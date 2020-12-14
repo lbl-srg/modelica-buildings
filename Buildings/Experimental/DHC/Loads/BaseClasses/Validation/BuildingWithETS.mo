@@ -26,6 +26,7 @@ model BuildingWithETS
     annotation (Placement(transformation(extent={{-160,210},{-140,230}})));
   Fluid.Sources.MassFlowSource_T souDisSup(
     redeclare final package Medium=MediumS,
+    m_flow=m_flow_nominal,
     nPorts=1)
     "Source for district supply"
     annotation (Placement(transformation(extent={{-240,210},{-220,230}})));
@@ -60,6 +61,7 @@ model BuildingWithETS
     annotation (Placement(transformation(extent={{-160,-10},{-140,10}})));
   Fluid.Sources.MassFlowSource_T souDisSup1(
     redeclare final package Medium=MediumS,
+    m_flow=m_flow_nominal,
     nPorts=1)
     "Source for district supply"
     annotation (Placement(transformation(extent={{-240,-10},{-220,10}})));
@@ -76,6 +78,7 @@ model BuildingWithETS
     annotation (Placement(transformation(extent={{-200,-24},{-180,-4}})));
   Fluid.Sources.MassFlowSource_T souDisSup2(
     redeclare final package Medium=MediumW,
+    m_flow=m_flow_nominal,
     nPorts=1)
     "Source for district supply"
     annotation (Placement(transformation(extent={{-200,-50},{-180,-30}})));
@@ -91,6 +94,7 @@ model BuildingWithETS
     annotation (Placement(transformation(extent={{-160,-64},{-140,-44}})));
   Fluid.Sources.MassFlowSource_T souDisSup3(
     redeclare final package Medium=MediumW,
+    m_flow=m_flow_nominal,
     nPorts=1)
     "Source for district supply"
     annotation (Placement(transformation(extent={{-240,90},{-220,110}})));
@@ -118,7 +122,9 @@ model BuildingWithETS
     "Building and ETS component - Cooling only"
     annotation (Placement(transformation(extent={{-160,90},{-140,110}})));
   Fluid.Sources.MassFlowSource_T souDisSup4(redeclare final package Medium =
-        MediumW, nPorts=1)
+        MediumW,
+    m_flow=m_flow_nominal,
+                 nPorts=1)
     "Source for district supply"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   Fluid.Sources.Boundary_pT sinDisRet4(redeclare final package Medium = MediumW,
@@ -166,6 +172,7 @@ model BuildingWithETS
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Fluid.Sources.MassFlowSource_T souDisSup5(
     redeclare final package Medium = MediumW,
+    m_flow=m_flow_nominal,
     nPorts=1)
     "Source for district supply"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
@@ -180,7 +187,8 @@ model BuildingWithETS
     "Change in enthalpy flow rate "
     annotation (Placement(transformation(extent={{-40,-24},{-20,-4}})));
   Fluid.Sources.MassFlowSource_T souDisSup6(
-    redeclare final package Medium =MediumW, nPorts=1)
+    redeclare final package Medium =MediumW,
+    m_flow=m_flow_nominal,                   nPorts=1)
     "Source for district supply"
     annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
   Fluid.Sources.Boundary_pT sinDisRet6(
@@ -208,6 +216,7 @@ model BuildingWithETS
     annotation (Placement(transformation(extent={{0,210},{20,230}})));
   Fluid.Sources.MassFlowSource_T souDisSup7(
     redeclare final package Medium = MediumW,
+    m_flow=m_flow_nominal,
     nPorts=1)
     "Source for district supply"
     annotation (Placement(transformation(extent={{-80,210},{-60,230}})));
@@ -222,7 +231,9 @@ model BuildingWithETS
     "Change in enthalpy flow rate "
     annotation (Placement(transformation(extent={{-40,196},{-20,216}})));
   Fluid.Sources.MassFlowSource_T souDisSup8(redeclare final package Medium =
-        MediumW, nPorts=1)
+        MediumW,
+    m_flow=m_flow_nominal,
+                 nPorts=1)
     "Source for district supply"
     annotation (Placement(transformation(extent={{-240,-170},{-220,-150}})));
   Fluid.Sources.Boundary_pT sinDisRet8(redeclare final package Medium = MediumW,
@@ -255,17 +266,19 @@ model BuildingWithETS
     "Building and ETS component - Testing ETS output connectors"
     annotation (Placement(transformation(extent={{-160,-170},{-140,-150}})));
   Fluid.Sources.MassFlowSource_T souDisSup9(redeclare final package Medium =
-        MediumW, nPorts=1)
+        MediumW,
+    m_flow=m_flow_nominal,
+                 nPorts=1)
     "Source for district supply"
-    annotation (Placement(transformation(extent={{-82,-170},{-62,-150}})));
+    annotation (Placement(transformation(extent={{-80,-170},{-60,-150}})));
   Fluid.Sources.Boundary_pT sinDisRet9(redeclare final package Medium = MediumW,
       nPorts=1)
     "Sink for district return"
-    annotation (Placement(transformation(extent={{-82,-210},{-62,-190}})));
+    annotation (Placement(transformation(extent={{-80,-210},{-60,-190}})));
   Networks.BaseClasses.DifferenceEnthalpyFlowRate senDifEntFlo9(redeclare
       final package Medium1 = MediumW, final m_flow_nominal=m_flow_nominal)
     "Change in enthalpy flow rate "
-    annotation (Placement(transformation(extent={{-42,-184},{-22,-164}})));
+    annotation (Placement(transformation(extent={{-40,-184},{-20,-164}})));
   BaseClasses.BuildingWithETS buiTesOutETSBui(
     redeclare final package MediumSer = MediumW,
     redeclare final package MediumBui = MediumW,
@@ -290,7 +303,47 @@ model BuildingWithETS
       final have_eleHea=true,
       final have_eleCoo=true))
     "Building and ETS component - Testing ETS and building output connectors"
-    annotation (Placement(transformation(extent={{-2,-170},{18,-150}})));
+    annotation (Placement(transformation(extent={{0,-170},{20,-150}})));
+  Fluid.Sources.MassFlowSource_T souDisSup10(
+    redeclare final package Medium = MediumW,
+    m_flow=m_flow_nominal,
+    nPorts=1)
+    "Source for district supply"
+    annotation (Placement(transformation(extent={{100,-170},{120,-150}})));
+  Fluid.Sources.Boundary_pT sinDisRet10(redeclare final package Medium =
+        MediumW, nPorts=1)
+    "Sink for district return"
+    annotation (Placement(transformation(extent={{100,-210},{120,-190}})));
+  Networks.BaseClasses.DifferenceEnthalpyFlowRate senDifEntFlo10(redeclare
+      final package Medium1 = MediumW, final m_flow_nominal=m_flow_nominal)
+    "Change in enthalpy flow rate "
+    annotation (Placement(transformation(extent={{140,-184},{160,-164}})));
+  BaseClasses.BuildingWithETS buiTesFacMul(
+    redeclare final package MediumSer = MediumW,
+    redeclare final package MediumBui = MediumW,
+    nPorts_heaWat=1,
+    nPorts_chiWat=1,
+    facMul=2,
+    bui(
+      final have_heaWat=true,
+      final have_chiWat=true,
+      final have_fan=true,
+      final have_pum=true,
+      final have_eleHea=true,
+      final have_eleCoo=true),
+    ets(
+      final typ=TypDisSys.CombinedGeneration5,
+      final m_flow_nominal=m_flow_nominal,
+      final have_heaWat=true,
+      final have_chiWat=true,
+      QHeaWat_flow_nominal=1,
+      QChiWat_flow_nominal=-1,
+      final have_fan=true,
+      final have_pum=true,
+      final have_eleHea=true,
+      final have_eleCoo=true))
+    "Building and ETS component - Testing multiplier factor"
+    annotation (Placement(transformation(extent={{180,-170},{200,-150}})));
 equation
   connect(souDisSup.ports[1],senDifEntFlo.port_a1)
     annotation (Line(points={{-220,220},{-212,220},{-212,212},{-200,212}},color={0,127,255}));
@@ -376,15 +429,23 @@ equation
   connect(buiTesOutETS.port_bSerAmb, senDifEntFlo8.port_a2) annotation (Line(
         points={{-140,-160},{-120,-160},{-120,-180},{-180,-180}}, color={0,127,255}));
   connect(souDisSup9.ports[1],senDifEntFlo9.port_a1)
-    annotation (Line(points={{-62,-160},{-52,-160},{-52,-168},{-42,-168}},
+    annotation (Line(points={{-60,-160},{-52,-160},{-52,-168},{-40,-168}},
                                                                         color={0,127,255}));
   connect(sinDisRet9.ports[1],senDifEntFlo9.port_b2)
-    annotation (Line(points={{-62,-200},{-52,-200},{-52,-180},{-42,-180}},
+    annotation (Line(points={{-60,-200},{-52,-200},{-52,-180},{-40,-180}},
                                                                       color={0,127,255}));
   connect(senDifEntFlo9.port_b1, buiTesOutETSBui.port_aSerAmb) annotation (Line(
-        points={{-22,-168},{-12,-168},{-12,-160},{-2,-160}}, color={0,127,255}));
+        points={{-20,-168},{-12,-168},{-12,-160},{0,-160}},  color={0,127,255}));
   connect(buiTesOutETSBui.port_bSerAmb, senDifEntFlo9.port_a2) annotation (Line(
-        points={{18,-160},{38,-160},{38,-180},{-22,-180}}, color={0,127,255}));
+        points={{20,-160},{40,-160},{40,-180},{-20,-180}}, color={0,127,255}));
+  connect(souDisSup10.ports[1], senDifEntFlo10.port_a1) annotation (Line(points
+        ={{120,-160},{130,-160},{130,-168},{140,-168}}, color={0,127,255}));
+  connect(sinDisRet10.ports[1], senDifEntFlo10.port_b2) annotation (Line(points
+        ={{120,-200},{130,-200},{130,-180},{140,-180}}, color={0,127,255}));
+  connect(senDifEntFlo10.port_b1, buiTesFacMul.port_aSerAmb) annotation (Line(
+        points={{160,-168},{170,-168},{170,-160},{180,-160}}, color={0,127,255}));
+  connect(buiTesFacMul.port_bSerAmb, senDifEntFlo10.port_a2) annotation (Line(
+        points={{200,-160},{220,-160},{220,-180},{160,-180}}, color={0,127,255}));
   annotation (
     experiment(
       Tolerance=1e-6,
