@@ -1,6 +1,6 @@
 within Buildings.Experimental.DHC.Loads.BaseClasses.Validation;
 model BuildingWithETS
-  "Model that validates the PartialBuildingWithPartialETS class"
+  "Validation of the base class PartialBuildingWithPartialETS"
   extends Modelica.Icons.Example;
   import TypDisSys=Buildings.Experimental.DHC.Types.DistrictSystemType
     "District system type enumeration";
@@ -458,5 +458,13 @@ equation
     Diagram(
       coordinateSystem(
         preserveAspectRatio=false,
-        extent={{-260,-260},{260,260}})));
+        extent={{-260,-260},{260,260}})),
+    Documentation(info="<html>
+<p>
+This model validates
+<a href=\"modelica://Buildings.Experimental.DHC.Loads.BaseClasses.PartialBuildingWithPartialETS\">
+Buildings.Experimental.DHC.Loads.BaseClasses.PartialBuildingWithPartialETS</a>
+for various types of district system.
+</p>
+</html>"));
 end BuildingWithETS;

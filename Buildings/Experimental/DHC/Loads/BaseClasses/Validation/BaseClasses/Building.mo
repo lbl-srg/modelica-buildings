@@ -47,5 +47,13 @@ equation
         preserveAspectRatio=false)),
     Diagram(
       coordinateSystem(
-        preserveAspectRatio=false)));
+        preserveAspectRatio=false)),
+    Documentation(info="<html>
+<p> 
+This is a minimum example of a class extending 
+<a href=\"modelica://Buildings.Experimental.DHC.Loads.BaseClasses.PartialBuilding\">
+Buildings.Experimental.DHC.Loads.BaseClasses.PartialBuilding</a>
+developed for testing purposes only.
+</p>
+</html>"));
 end Building;

@@ -590,5 +590,13 @@ computed by the model.
 <img alt=\"image\"
 src=\"modelica://Buildings/Resources/Images/Experimental/DHC/Loads/PartialBuildingWithPartialETS.png\"/>
 </p>
+</html>",
+      revisions="<html>
+<ul>
+<li>
+December 14, 2020, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end PartialBuildingWithPartialETS;

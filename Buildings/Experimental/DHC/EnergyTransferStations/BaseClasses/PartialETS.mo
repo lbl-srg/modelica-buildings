@@ -1,6 +1,6 @@
 within Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses;
 partial model PartialETS
-  "Partial class for energy transfer station model"
+  "Partial class for modeling an energy transfer station"
   import TypDisSys=Buildings.Experimental.DHC.Types.DistrictSystemType
     "District system type enumeration";
   replaceable package MediumSer=Buildings.Media.Water
@@ -245,7 +245,7 @@ initial equation
     Documentation(
       info="<html>
 <p>
-Partial model to be used for modeling an energy transfer station 
+Partial class to be used for modeling an energy transfer station 
 and optional in-building primary systems.
 </p>
 <p>
