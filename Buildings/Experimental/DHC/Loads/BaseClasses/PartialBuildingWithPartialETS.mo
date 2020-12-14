@@ -103,32 +103,32 @@ partial model PartialBuildingWithPartialETS
     final unit="W") if bui.have_heaLoa
     "Total heating heat flow rate transferred to the loads (>=0)"
     annotation (Placement(transformation(extent={{220,180},{260,220}}),
-      iconTransformation(extent={{-10,-10},{10,10}},rotation=-90,origin={50,-110})));
+      iconTransformation(extent={{-20,-20},{20,20}},rotation=-90,origin={50,-120})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput QCoo_flow(
     final unit="W") if bui.have_cooLoa
     "Total cooling heat flow rate transferred to the loads (<=0)"
     annotation (Placement(transformation(extent={{220,160},{260,200}}),
-      iconTransformation(extent={{-10,-10},{10,10}},rotation=-90,origin={70,-110})));
+      iconTransformation(extent={{-20,-20},{20,20}},rotation=-90,origin={70,-120})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput PHea(
     final unit="W") if have_eleHea
     "Power drawn by heating equipment"
     annotation (Placement(transformation(extent={{220,140},{260,180}}),
-      iconTransformation(extent={{100,80},{120,100}})));
+      iconTransformation(extent={{100,70},{140,110}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput PCoo(
     final unit="W") if have_eleCoo
     "Power drawn by cooling equipment"
     annotation (Placement(transformation(extent={{220,120},{260,160}}),
-      iconTransformation(extent={{100,60},{120,80}})));
+      iconTransformation(extent={{100,50},{140,90}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput PFan(
     final unit="W") if have_fan
     "Power drawn by fan motors"
     annotation (Placement(transformation(extent={{220,100},{260,140}}),
-      iconTransformation(extent={{100,40},{120,60}})));
+      iconTransformation(extent={{100,30},{140,70}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput PPum(
     final unit="W") if have_pum
     "Power drawn by pump motors"
     annotation (Placement(transformation(extent={{220,80},{260,120}}),
-      iconTransformation(extent={{100,20},{120,40}})));
+      iconTransformation(extent={{100,10},{140,50}})));
   // COMPONENTS
   replaceable DHC.Loads.BaseClasses.PartialBuilding bui(
     redeclare final package Medium=MediumBui,
