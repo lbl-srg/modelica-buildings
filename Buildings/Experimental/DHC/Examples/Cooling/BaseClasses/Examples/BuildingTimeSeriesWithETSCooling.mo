@@ -46,6 +46,7 @@ equation
       file="Resources/Scripts/Dymola/Experimental/DHC/Examples/Cooling/BaseClasses/Examples/BuildingTimeSeriesWithETSCooling.mos" "Simulate and Plot"),
     experiment(
       StopTime=86400,
+      Tolerance=1e-06,
       __Dymola_Algorithm="cvode"),
     Documentation(
       info="<html>

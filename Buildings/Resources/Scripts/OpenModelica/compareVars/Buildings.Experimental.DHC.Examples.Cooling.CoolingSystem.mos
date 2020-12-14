@@ -1,0 +1,14 @@
+compareVars :=
+  {
+    "pla.port_a.p",
+    "pla.port_b.p",
+    "bld[1].p_rel",
+    "bld[2].p_rel",
+    "bld[3].p_rel",
+    "pla.port_a.m_flow",
+    "bld[1].m_flow",
+    "bld[2].m_flow",
+    "bld[3].m_flow",
+    "pla.senTCHWSup.T",
+    "bld[1].ets.senTDisRet.T"
+  };

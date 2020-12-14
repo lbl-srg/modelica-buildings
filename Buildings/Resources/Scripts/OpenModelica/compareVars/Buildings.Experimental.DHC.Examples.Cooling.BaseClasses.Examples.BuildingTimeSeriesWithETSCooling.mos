@@ -1,0 +1,11 @@
+compareVars :=
+  {
+    "buiWitETS.port_a.m_flow",
+    "buiWitETS.port_b.m_flow",
+    "buiWitETS.bui.QHea_flow",
+    "buiWitETS.bui.QCoo_flow",
+    "buiWitETS.ets.sta_a1.T",
+    "buiWitETS.ets.sta_b1.T",
+    "buiWitETS.ets.sta_a2.T",
+    "buiWitETS.ets.sta_b2.T"
+  };

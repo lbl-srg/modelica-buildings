@@ -31,6 +31,9 @@ model BuildingTimeSeriesWithETSCooling
   parameter Modelica.SIunits.Temperature TChiWatRet_nominal=273.15+16
     "Chilled water return temperature at nominal conditions "
     annotation (Dialog(group="Building"));
+  parameter Modelica.SIunits.Temperature T_aHeaWat_nominal=273.15+40
+    "Heating water inlet temperature at nominal conditions"
+    annotation (Dialog(group="Building"));
   // ETS parameters
   parameter Modelica.SIunits.Temperature TSetDisRet=TChiWatRet_nominal
     "Minimum setpoint temperature for district return"
@@ -85,7 +88,7 @@ model BuildingTimeSeriesWithETSCooling
     "Minimum setpoint temperature for district return"
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
   Modelica.Blocks.Sources.RealExpression THeaWatSup(
-    y=bui.terUniHea.T_aHeaWat_nominal)
+    y=T_aHeaWat_nominal)
     "Heating water supply temperature"
     annotation (Placement(transformation(extent={{-90,80},{-70,100}})));
   Buildings.Fluid.Sources.Boundary_pT supHeaWat(
@@ -108,46 +111,38 @@ model BuildingTimeSeriesWithETSCooling
     "Relative pressure of port_a minus port_b"
     annotation (Placement(transformation(extent={{200,0},{220,20}}),iconTransformation(extent={{100,20},{120,40}})));
   Modelica.Blocks.Continuous.Integrator EHeaReq(
-    y(
-      unit="J"))
+    y(unit="J"))
     "Time integral of heating load"
     annotation (Placement(transformation(extent={{120,20},{140,40}})));
   Modelica.Blocks.Continuous.Integrator EHeaAct(
-    y(
-      unit="J"))
+    y(unit="J"))
     "Actual energy used for heating"
     annotation (Placement(transformation(extent={{160,20},{180,40}})));
   Buildings.Controls.OBC.CDL.Continuous.MovingMean QAveHeaReq_flow(
-    y(
-      unit="W"),
+    y(unit="W"),
     final delta=perAve)
     "Time average of heating load"
     annotation (Placement(transformation(extent={{120,60},{140,80}})));
   Buildings.Controls.OBC.CDL.Continuous.MovingMean QAveHeaAct_flow(
-    y(
-      unit="W"),
+    y(unit="W"),
     final delta=perAve)
     "Time average of heating heat flow rate"
     annotation (Placement(transformation(extent={{160,60},{180,80}})));
   Modelica.Blocks.Continuous.Integrator ECooReq(
-    y(
-      unit="J"))
+    y(unit="J"))
     "Time integral of cooling load"
     annotation (Placement(transformation(extent={{120,-40},{140,-20}})));
   Modelica.Blocks.Continuous.Integrator ECooAct(
-    y(
-      unit="J"))
+    y(unit="J"))
     "Actual energy used for cooling"
     annotation (Placement(transformation(extent={{160,-40},{180,-20}})));
   Buildings.Controls.OBC.CDL.Continuous.MovingMean QAveCooReq_flow(
-    y(
-      unit="W"),
+    y(unit="W"),
     final delta=perAve)
     "Time average of cooling load"
     annotation (Placement(transformation(extent={{120,-80},{140,-60}})));
   Buildings.Controls.OBC.CDL.Continuous.MovingMean QAveCooAct_flow(
-    y(
-      unit="W"),
+    y(unit="W"),
     final delta=perAve)
     "Time average of cooling heat flow rate"
     annotation (Placement(transformation(extent={{160,-80},{180,-60}})));
@@ -184,21 +179,29 @@ equation
   connect(senRelPre.p_rel,p_rel)
     annotation (Line(points={{-69,-20},{-69,10},{210,10}},color={0,0,127}));
   connect(bui.QReqHea_flow,QAveHeaReq_flow.u)
-    annotation (Line(points={{6.66667,39.3333},{6.66667,34},{60,34},{60,-6},{114,-6},{114,70},{118,70}},color={0,0,127}));
+    annotation (Line(points={{6.66667,39.3333},{6.66667,34},{60,34},{60,-6},{
+          114,-6},{114,70},{118,70}},                                                                   color={0,0,127}));
   connect(bui.QReqHea_flow,EHeaReq.u)
-    annotation (Line(points={{6.66667,39.3333},{6.66667,34},{60,34},{60,-6},{114,-6},{114,30},{118,30}},color={0,0,127}));
+    annotation (Line(points={{6.66667,39.3333},{6.66667,34},{60,34},{60,-6},{
+          114,-6},{114,30},{118,30}},                                                                   color={0,0,127}));
   connect(bui.QHea_flow,QAveHeaAct_flow.u)
-    annotation (Line(points={{10.6667,58.6667},{114,58.6667},{114,56},{154,56},{154,70},{158,70}},color={0,0,127}));
+    annotation (Line(points={{10.6667,58.6667},{114,58.6667},{114,56},{154,56},
+          {154,70},{158,70}},                                                                     color={0,0,127}));
   connect(bui.QHea_flow,EHeaAct.u)
-    annotation (Line(points={{10.6667,58.6667},{114,58.6667},{114,56},{154,56},{154,30},{158,30}},color={0,0,127}));
+    annotation (Line(points={{10.6667,58.6667},{114,58.6667},{114,56},{154,56},
+          {154,30},{158,30}},                                                                     color={0,0,127}));
   connect(bui.QReqCoo_flow,ECooReq.u)
-    annotation (Line(points={{8.66667,39.3333},{8.66667,34},{60,34},{60,-6},{114,-6},{114,-30},{118,-30}},color={0,0,127}));
+    annotation (Line(points={{8.66667,39.3333},{8.66667,34},{60,34},{60,-6},{
+          114,-6},{114,-30},{118,-30}},                                                                   color={0,0,127}));
   connect(bui.QReqCoo_flow,QAveCooReq_flow.u)
-    annotation (Line(points={{8.66667,39.3333},{8.66667,36},{8,36},{8,34},{60,34},{60,-6},{114,-6},{114,-70},{118,-70}},color={0,0,127}));
+    annotation (Line(points={{8.66667,39.3333},{8.66667,36},{8,36},{8,34},{60,
+          34},{60,-6},{114,-6},{114,-70},{118,-70}},                                                                    color={0,0,127}));
   connect(bui.QCoo_flow,ECooAct.u)
-    annotation (Line(points={{10.6667,57.3333},{114,57.3333},{114,-6},{150,-6},{150,-30},{158,-30}},color={0,0,127}));
+    annotation (Line(points={{10.6667,57.3333},{114,57.3333},{114,-6},{150,-6},
+          {150,-30},{158,-30}},                                                                     color={0,0,127}));
   connect(bui.QCoo_flow,QAveCooAct_flow.u)
-    annotation (Line(points={{10.6667,57.3333},{114,57.3333},{114,-6},{150,-6},{150,-70},{158,-70}},color={0,0,127}));
+    annotation (Line(points={{10.6667,57.3333},{114,57.3333},{114,-6},{150,-6},
+          {150,-70},{158,-70}},                                                                     color={0,0,127}));
   connect(bui.PPum,PPum)
     annotation (Line(points={{10.6667,52},{114,52},{114,50},{210,50}},color={0,0,127}));
   connect(senRelPre.port_a,ets.port_a1)
