@@ -26,10 +26,16 @@ model DifferenceEnthalpyFlowRate
   parameter Boolean allowFlowReversal=true
     "= false to simplify equations, assuming, but not enforcing, no flow reversal"
     annotation (Dialog(tab="Assumptions"),Evaluate=true);
-  parameter Modelica.SIunits.SpecificEnthalpy h_out_start=Medium1.specificEnthalpy_pTX(
+  parameter Modelica.SIunits.SpecificEnthalpy h1_out_start=Medium1.specificEnthalpy_pTX(
     p=Medium1.p_default,
     T=Medium1.T_default,
     X=Medium1.X_default)
+    "Initial or guess value of measured specific enthalpy"
+    annotation (Dialog(group="Initialization"));
+  parameter Modelica.SIunits.SpecificEnthalpy h2_out_start=Medium2.specificEnthalpy_pTX(
+    p=Medium2.p_default,
+    T=Medium2.T_default,
+    X=Medium2.X_default)
     "Initial or guess value of measured specific enthalpy"
     annotation (Dialog(group="Initialization"));
   parameter Medium1.MassFlowRate m_flow_small(
@@ -62,7 +68,7 @@ model DifferenceEnthalpyFlowRate
     final tau=tau,
     final initType=initType,
     final allowFlowReversal=allowFlowReversal,
-    final h_out_start=h_out_start)
+    final h_out_start=h2_out_start)
     "Enthalpy flow rate of fluid stream 2"
     annotation (Placement(transformation(extent={{10,-70},{-10,-50}})));
   Buildings.Controls.OBC.CDL.Continuous.Add dif(

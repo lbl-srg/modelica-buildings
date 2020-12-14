@@ -438,10 +438,10 @@ equation
         points={{-20,-168},{-12,-168},{-12,-160},{0,-160}},  color={0,127,255}));
   connect(buiTesOutETSBui.port_bSerAmb, senDifEntFlo9.port_a2) annotation (Line(
         points={{20,-160},{40,-160},{40,-180},{-20,-180}}, color={0,127,255}));
-  connect(souDisSup10.ports[1], senDifEntFlo10.port_a1) annotation (Line(points
-        ={{120,-160},{130,-160},{130,-168},{140,-168}}, color={0,127,255}));
-  connect(sinDisRet10.ports[1], senDifEntFlo10.port_b2) annotation (Line(points
-        ={{120,-200},{130,-200},{130,-180},{140,-180}}, color={0,127,255}));
+  connect(souDisSup10.ports[1], senDifEntFlo10.port_a1) annotation (Line(points=
+         {{120,-160},{130,-160},{130,-168},{140,-168}}, color={0,127,255}));
+  connect(sinDisRet10.ports[1], senDifEntFlo10.port_b2) annotation (Line(points=
+         {{120,-200},{130,-200},{130,-180},{140,-180}}, color={0,127,255}));
   connect(senDifEntFlo10.port_b1, buiTesFacMul.port_aSerAmb) annotation (Line(
         points={{160,-168},{170,-168},{170,-160},{180,-160}}, color={0,127,255}));
   connect(buiTesFacMul.port_bSerAmb, senDifEntFlo10.port_a2) annotation (Line(
