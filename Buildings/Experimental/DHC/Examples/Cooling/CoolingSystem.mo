@@ -4,14 +4,14 @@ model CoolingSystem
   extends Modelica.Icons.Example;
   package Medium=Buildings.Media.Water
     "Medium model for water";
-  parameter Integer nBui=3
+  parameter Integer nBui=1
     "Number of buildings connected to each distribution branch, excluding the most remote one";
   parameter Boolean allowFlowReversal=false
     "Set to true to allow flow reversal in the distribution and connections";
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial
     "Type of energy dynamics: fixed initial";
   // chiller and cooling tower
-  redeclare parameter Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_York_YT_1055kW_5_96COP_Vanes perChi
+  parameter Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_York_YT_1055kW_5_96COP_Vanes perChi
     "Chiller performance data";
   parameter Modelica.SIunits.MassFlowRate mCHW_flow_nominal=18.3
     "Nominal chilled water mass flow rate";
@@ -28,7 +28,7 @@ model CoolingSystem
   // control settings
   parameter Modelica.SIunits.PressureDifference dpSetPoi=68900
     "Differential pressure setpoint";
-  parameter Modelica.SIunits.Temperature TCHWSet=273.15+7
+  parameter Modelica.SIunits.Temperature TCHWSet=273.15 + 7
     "Chilled water supply temperature setpoint";
   parameter Modelica.SIunits.Time tWai=0
     "Waiting time";
