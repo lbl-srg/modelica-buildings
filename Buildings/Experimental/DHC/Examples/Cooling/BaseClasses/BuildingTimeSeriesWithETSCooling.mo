@@ -5,35 +5,32 @@ model BuildingTimeSeriesWithETSCooling
     final m_flow_nominal=mDis_flow_nominal,
     final m_flow_small=1E-4*m_flow_nominal,
     final allowFlowReversal=allowFlowReversalDis);
-
-  parameter Boolean allowFlowReversalBui = false
+  parameter Boolean allowFlowReversalBui=false
     "Set to true to allow flow reversal on the building side"
-    annotation(Dialog(tab="Assumptions"), Evaluate=true);
-  parameter Boolean allowFlowReversalDis = false
+    annotation (Dialog(tab="Assumptions"),Evaluate=true);
+  parameter Boolean allowFlowReversalDis=false
     "Set to true to allow flow reversal on the district side"
-    annotation(Dialog(tab="Assumptions"), Evaluate=true);
-  parameter Modelica.SIunits.Time perAve = 600
+    annotation (Dialog(tab="Assumptions"),Evaluate=true);
+  parameter Modelica.SIunits.Time perAve=600
     "Period for time averaged variables";
-
   // building parameters
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state"
-    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
+    annotation (Evaluate=true,Dialog(tab="Dynamics",group="Equations"));
   parameter String filNam
     "Library path of the file with thermal loads as time series"
     annotation (Dialog(group="Building"));
-  final parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal(max=-Modelica.Constants.eps)=
-    Buildings.Experimental.DHC.Loads.BaseClasses.getPeakLoad(
+  final parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal(
+    max=-Modelica.Constants.eps)=Buildings.Experimental.DHC.Loads.BaseClasses.getPeakLoad(
     string="#Peak space cooling load",
     filNam=Modelica.Utilities.Files.loadResource(filNam))
     "Design cooling heat flow rate (<=0)Nominal heat flow rate, negative";
-  parameter Modelica.SIunits.Temperature TChiWatSup_nominal=273.15 + 7
+  parameter Modelica.SIunits.Temperature TChiWatSup_nominal=273.15+7
     "Chilled water supply temperature at nominal conditions "
     annotation (Dialog(group="Building"));
-  parameter Modelica.SIunits.Temperature TChiWatRet_nominal=273.15 + 16
+  parameter Modelica.SIunits.Temperature TChiWatRet_nominal=273.15+16
     "Chilled water return temperature at nominal conditions "
     annotation (Dialog(group="Building"));
-
   // ETS parameters
   parameter Modelica.SIunits.Temperature TSetDisRet=TChiWatRet_nominal
     "Minimum setpoint temperature for district return"
@@ -45,7 +42,7 @@ model BuildingTimeSeriesWithETSCooling
     annotation (Dialog(group="Energy transfer station"));
   parameter Modelica.SIunits.MassFlowRate mBui_flow_nominal(
     final min=0,
-    final start=0.5)=Q_flow_nominal/(cp*(TChiWatSup_nominal - TChiWatRet_nominal))
+    final start=0.5)=Q_flow_nominal/(cp*(TChiWatSup_nominal-TChiWatRet_nominal))
     "Nominal mass flow rate of building cooling side"
     annotation (Dialog(group="Energy transfer station"));
   parameter Modelica.SIunits.MassFlowRate mByp_flow_nominal(
@@ -58,7 +55,9 @@ model BuildingTimeSeriesWithETSCooling
     delTAirCoo=6,
     delTAirHea=18,
     loa(
-    columns = {2,3}, timeScale=3600, offset={0,0}),
+      columns={2,3},
+      timeScale=3600,
+      offset={0,0}),
     T_aChiWat_nominal=TChiWatSup_nominal,
     T_bChiWat_nominal=TChiWatRet_nominal,
     final energyDynamics=energyDynamics,
@@ -72,7 +71,7 @@ model BuildingTimeSeriesWithETSCooling
     "Building model"
     annotation (Placement(transformation(extent={{-10,40},{10,60}})));
   replaceable Buildings.Experimental.DHC.EnergyTransferStations.Cooling.CoolingDirectControlledReturn ets(
-    redeclare final package Medium = Medium,
+    redeclare final package Medium=Medium,
     final mDis_flow_nominal=mDis_flow_nominal,
     final mBui_flow_nominal=mBui_flow_nominal,
     final mByp_flow_nominal=mByp_flow_nominal)
@@ -81,151 +80,155 @@ model BuildingTimeSeriesWithETSCooling
   inner Modelica.Fluid.System system
     "System properties and default values"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
-
-  Modelica.Blocks.Sources.Constant TSetDisRet_min(k=TSetDisRet)
+  Modelica.Blocks.Sources.Constant TSetDisRet_min(
+    k=TSetDisRet)
     "Minimum setpoint temperature for district return"
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
-  Modelica.Blocks.Sources.RealExpression THeaWatSup(y=bui.terUniHea.T_aHeaWat_nominal)
+  Modelica.Blocks.Sources.RealExpression THeaWatSup(
+    y=bui.terUniHea.T_aHeaWat_nominal)
     "Heating water supply temperature"
     annotation (Placement(transformation(extent={{-90,80},{-70,100}})));
   Buildings.Fluid.Sources.Boundary_pT supHeaWat(
-    redeclare package Medium = Medium,
+    redeclare package Medium=Medium,
     use_T_in=true,
     nPorts=1)
     "Heating water supply"
-    annotation (Placement(transformation(
-      extent={{-10,-10},{10,10}},
-      rotation=0,
-      origin={-50,90})));
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,origin={-50,90})));
   Buildings.Fluid.Sources.Boundary_pT sinHeaWat(
-    redeclare package Medium = Medium,
+    redeclare package Medium=Medium,
     p=300000,
     nPorts=1)
     "Sink for heating water"
-    annotation (Placement(transformation(
-      extent={{10,-10},{-10,10}},
-      rotation=0,
-      origin={30,90})));
-  Buildings.Fluid.Sensors.RelativePressure senRelPre(redeclare package Medium =
-        Medium)
+    annotation (Placement(transformation(extent={{10,-10},{-10,10}},rotation=0,origin={30,90})));
+  Buildings.Fluid.Sensors.RelativePressure senRelPre(
+    redeclare package Medium=Medium)
     "Pressure difference measurement"
-    annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        origin={-60,-20},
-        rotation=-90)));
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},origin={-60,-20},rotation=-90)));
   Modelica.Blocks.Interfaces.RealOutput p_rel
     "Relative pressure of port_a minus port_b"
-    annotation (    Placement(transformation(extent={{200,0},{220,20}}),
-        iconTransformation(extent={{100,20},{120,40}})));
-  Modelica.Blocks.Continuous.Integrator EHeaReq(y(unit="J"))
+    annotation (Placement(transformation(extent={{200,0},{220,20}}),iconTransformation(extent={{100,20},{120,40}})));
+  Modelica.Blocks.Continuous.Integrator EHeaReq(
+    y(
+      unit="J"))
     "Time integral of heating load"
     annotation (Placement(transformation(extent={{120,20},{140,40}})));
-  Modelica.Blocks.Continuous.Integrator EHeaAct(y(unit="J"))
+  Modelica.Blocks.Continuous.Integrator EHeaAct(
+    y(
+      unit="J"))
     "Actual energy used for heating"
     annotation (Placement(transformation(extent={{160,20},{180,40}})));
-  Buildings.Controls.OBC.CDL.Continuous.MovingMean QAveHeaReq_flow(y(unit="W"),
-      final delta=perAve)
+  Buildings.Controls.OBC.CDL.Continuous.MovingMean QAveHeaReq_flow(
+    y(
+      unit="W"),
+    final delta=perAve)
     "Time average of heating load"
     annotation (Placement(transformation(extent={{120,60},{140,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.MovingMean QAveHeaAct_flow(y(unit="W"),
-      final delta=perAve)
+  Buildings.Controls.OBC.CDL.Continuous.MovingMean QAveHeaAct_flow(
+    y(
+      unit="W"),
+    final delta=perAve)
     "Time average of heating heat flow rate"
     annotation (Placement(transformation(extent={{160,60},{180,80}})));
-  Modelica.Blocks.Continuous.Integrator ECooReq(y(unit="J"))
+  Modelica.Blocks.Continuous.Integrator ECooReq(
+    y(
+      unit="J"))
     "Time integral of cooling load"
     annotation (Placement(transformation(extent={{120,-40},{140,-20}})));
-  Modelica.Blocks.Continuous.Integrator ECooAct(y(unit="J"))
+  Modelica.Blocks.Continuous.Integrator ECooAct(
+    y(
+      unit="J"))
     "Actual energy used for cooling"
     annotation (Placement(transformation(extent={{160,-40},{180,-20}})));
-  Buildings.Controls.OBC.CDL.Continuous.MovingMean QAveCooReq_flow(y(unit="W"),
-      final delta=perAve)
+  Buildings.Controls.OBC.CDL.Continuous.MovingMean QAveCooReq_flow(
+    y(
+      unit="W"),
+    final delta=perAve)
     "Time average of cooling load"
     annotation (Placement(transformation(extent={{120,-80},{140,-60}})));
-  Buildings.Controls.OBC.CDL.Continuous.MovingMean QAveCooAct_flow(y(unit="W"),
-      final delta=perAve)
+  Buildings.Controls.OBC.CDL.Continuous.MovingMean QAveCooAct_flow(
+    y(
+      unit="W"),
+    final delta=perAve)
     "Time average of cooling heat flow rate"
     annotation (Placement(transformation(extent={{160,-80},{180,-60}})));
-  Modelica.Blocks.Interfaces.RealOutput PPum "Power drawn by pump motors"
-    annotation (Placement(transformation(extent={{200,40},{220,60}}),
-        iconTransformation(extent={{100,60},{120,80}})));
+  Modelica.Blocks.Interfaces.RealOutput PPum
+    "Power drawn by pump motors"
+    annotation (Placement(transformation(extent={{200,40},{220,60}}),iconTransformation(extent={{100,60},{120,80}})));
 protected
-  parameter Modelica.SIunits.SpecificHeatCapacity cp=
-   Medium.specificHeatCapacityCp(
-      Medium.setState_pTX(Medium.p_default, Medium.T_default, Medium.X_default))
+  parameter Modelica.SIunits.SpecificHeatCapacity cp=Medium.specificHeatCapacityCp(
+    Medium.setState_pTX(
+      Medium.p_default,
+      Medium.T_default,
+      Medium.X_default))
     "Default specific heat capacity of medium";
 initial equation
   Modelica.Utilities.Streams.print(
-    "Warning:\n  In " + getInstanceName() +
-    ": This model is a beta version and is not fully validated yet.");
-
+    "Warning:\n  In "+getInstanceName()+": This model is a beta version and is not fully validated yet.");
 equation
-  connect(port_a, ets.port_a1) annotation (Line(points={{-100,0},{-40,0},{-40,-24},
-          {-10,-24}}, color={0,127,255}));
-  connect(ets.port_b1, bui.ports_aChiWat[1]) annotation (Line(points={{10,-24},{
-          20,-24},{20,0},{-20,0},{-20,44},{-10,44}},   color={0,127,255}));
-  connect(bui.ports_bChiWat[1], ets.port_a2) annotation (Line(points={{10,44},{40,
-          44},{40,-36},{10,-36}}, color={0,127,255}));
-  connect(ets.port_b2, port_b) annotation (Line(points={{-10,-36},{-40,-36},{-40,
-          -60},{80,-60},{80,0},{100,0}}, color={0,127,255}));
-  connect(TSetDisRet_min.y, ets.TSetDisRet) annotation (Line(points={{-59,-50},{
-          -20,-50},{-20,-42},{-12,-42}}, color={0,0,127}));
-  connect(supHeaWat.T_in,THeaWatSup. y) annotation (Line(points={{-62,94},{-66,94},
-          {-66,90},{-69,90}}, color={0,0,127}));
-  connect(supHeaWat.ports[1], bui.ports_aHeaWat[1]) annotation (Line(points={{-40,90},
-          {-20,90},{-20,48},{-10,48}},color={0,127,255}));
-  connect(bui.ports_bHeaWat[1],sinHeaWat. ports[1]) annotation (Line(points={{10,48},
-          {20,48},{20,90}},                           color={0,127,255}));
-  connect(senRelPre.p_rel, p_rel) annotation (Line(points={{-69,-20},{-69,10},{
-          210,10}},         color={0,0,127}));
-  connect(bui.QReqHea_flow,QAveHeaReq_flow. u) annotation (Line(points={{6.66667,
-          39.3333},{6.66667,34},{60,34},{60,-6},{114,-6},{114,70},{118,70}},
-                                                            color={0,0,127}));
-  connect(bui.QReqHea_flow,EHeaReq. u) annotation (Line(points={{6.66667,
-          39.3333},{6.66667,34},{60,34},{60,-6},{114,-6},{114,30},{118,30}},
-                                                 color={0,0,127}));
-  connect(bui.QHea_flow,QAveHeaAct_flow. u) annotation (Line(points={{10.6667,
-          58.6667},{114,58.6667},{114,56},{154,56},{154,70},{158,70}},
-                                                            color={0,0,127}));
-  connect(bui.QHea_flow,EHeaAct. u) annotation (Line(points={{10.6667,58.6667},
-          {114,58.6667},{114,56},{154,56},{154,30},{158,30}},
-                                                           color={0,0,127}));
-  connect(bui.QReqCoo_flow,ECooReq. u) annotation (Line(points={{8.66667,
-          39.3333},{8.66667,34},{60,34},{60,-6},{114,-6},{114,-30},{118,-30}},
-                                                     color={0,0,127}));
-  connect(bui.QReqCoo_flow,QAveCooReq_flow. u) annotation (Line(points={{8.66667,
-          39.3333},{8.66667,36},{8,36},{8,34},{60,34},{60,-6},{114,-6},{114,-70},
-          {118,-70}},                                           color={0,0,127}));
-  connect(bui.QCoo_flow,ECooAct. u) annotation (Line(points={{10.6667,57.3333},
-          {114,57.3333},{114,-6},{150,-6},{150,-30},{158,-30}},color={0,0,127}));
-  connect(bui.QCoo_flow,QAveCooAct_flow. u) annotation (Line(points={{10.6667,
-          57.3333},{114,57.3333},{114,-6},{150,-6},{150,-70},{158,-70}},
-                                                                color={0,0,127}));
-  connect(bui.PPum,PPum)  annotation (Line(points={{10.6667,52},{114,52},{114,
-          50},{210,50}},
-                   color={0,0,127}));
-  connect(senRelPre.port_a, ets.port_a1) annotation (Line(points={{-60,-10},{
-          -60,0},{-40,0},{-40,-24},{-10,-24}}, color={0,127,255}));
-  connect(senRelPre.port_b, port_b) annotation (Line(points={{-60,-30},{-60,-36},
-          {-40,-36},{-40,-60},{80,-60},{80,0},{100,0}}, color={0,127,255}));
+  connect(port_a,ets.port_a1)
+    annotation (Line(points={{-100,0},{-40,0},{-40,-24},{-10,-24}},color={0,127,255}));
+  connect(ets.port_b1,bui.ports_aChiWat[1])
+    annotation (Line(points={{10,-24},{20,-24},{20,0},{-20,0},{-20,44},{-10,44}},color={0,127,255}));
+  connect(bui.ports_bChiWat[1],ets.port_a2)
+    annotation (Line(points={{10,44},{40,44},{40,-36},{10,-36}},color={0,127,255}));
+  connect(ets.port_b2,port_b)
+    annotation (Line(points={{-10,-36},{-40,-36},{-40,-60},{80,-60},{80,0},{100,0}},color={0,127,255}));
+  connect(TSetDisRet_min.y,ets.TSetDisRet)
+    annotation (Line(points={{-59,-50},{-20,-50},{-20,-42},{-12,-42}},color={0,0,127}));
+  connect(supHeaWat.T_in,THeaWatSup.y)
+    annotation (Line(points={{-62,94},{-66,94},{-66,90},{-69,90}},color={0,0,127}));
+  connect(supHeaWat.ports[1],bui.ports_aHeaWat[1])
+    annotation (Line(points={{-40,90},{-20,90},{-20,48},{-10,48}},color={0,127,255}));
+  connect(bui.ports_bHeaWat[1],sinHeaWat.ports[1])
+    annotation (Line(points={{10,48},{20,48},{20,90}},color={0,127,255}));
+  connect(senRelPre.p_rel,p_rel)
+    annotation (Line(points={{-69,-20},{-69,10},{210,10}},color={0,0,127}));
+  connect(bui.QReqHea_flow,QAveHeaReq_flow.u)
+    annotation (Line(points={{6.66667,39.3333},{6.66667,34},{60,34},{60,-6},{114,-6},{114,70},{118,70}},color={0,0,127}));
+  connect(bui.QReqHea_flow,EHeaReq.u)
+    annotation (Line(points={{6.66667,39.3333},{6.66667,34},{60,34},{60,-6},{114,-6},{114,30},{118,30}},color={0,0,127}));
+  connect(bui.QHea_flow,QAveHeaAct_flow.u)
+    annotation (Line(points={{10.6667,58.6667},{114,58.6667},{114,56},{154,56},{154,70},{158,70}},color={0,0,127}));
+  connect(bui.QHea_flow,EHeaAct.u)
+    annotation (Line(points={{10.6667,58.6667},{114,58.6667},{114,56},{154,56},{154,30},{158,30}},color={0,0,127}));
+  connect(bui.QReqCoo_flow,ECooReq.u)
+    annotation (Line(points={{8.66667,39.3333},{8.66667,34},{60,34},{60,-6},{114,-6},{114,-30},{118,-30}},color={0,0,127}));
+  connect(bui.QReqCoo_flow,QAveCooReq_flow.u)
+    annotation (Line(points={{8.66667,39.3333},{8.66667,36},{8,36},{8,34},{60,34},{60,-6},{114,-6},{114,-70},{118,-70}},color={0,0,127}));
+  connect(bui.QCoo_flow,ECooAct.u)
+    annotation (Line(points={{10.6667,57.3333},{114,57.3333},{114,-6},{150,-6},{150,-30},{158,-30}},color={0,0,127}));
+  connect(bui.QCoo_flow,QAveCooAct_flow.u)
+    annotation (Line(points={{10.6667,57.3333},{114,57.3333},{114,-6},{150,-6},{150,-70},{158,-70}},color={0,0,127}));
+  connect(bui.PPum,PPum)
+    annotation (Line(points={{10.6667,52},{114,52},{114,50},{210,50}},color={0,0,127}));
+  connect(senRelPre.port_a,ets.port_a1)
+    annotation (Line(points={{-60,-10},{-60,0},{-40,0},{-40,-24},{-10,-24}},color={0,127,255}));
+  connect(senRelPre.port_b,port_b)
+    annotation (Line(points={{-60,-30},{-60,-36},{-40,-36},{-40,-60},{80,-60},{80,0},{100,0}},color={0,127,255}));
   annotation (
-  defaultComponentName="buiWitETS",
-  Line(
+    defaultComponentName="buiWitETS",
+    Line(
       points={{-1,100},{0.1,100},{0.1,71.4}},
       color={255,204,51},
-      thickness=0.5), Text(
+      thickness=0.5),
+    Text(
       string="%first",
       index=-1,
       extent={{-3,6},{-3,6}},
       horizontalAlignment=TextAlignment.Right),
-    Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
-         graphics={
+    Icon(
+      coordinateSystem(
+        extent={{-100,-100},{100,100}}),
+      graphics={
         Rectangle(
           extent={{-60,-34},{0,-40}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={0,0,255},
           fillPattern=FillPattern.Solid),
-        Rectangle(extent={{-100,100},{100,-100}}, lineColor={0,0,0}),
+        Rectangle(
+          extent={{-100,100},{100,-100}},
+          lineColor={0,0,0}),
         Rectangle(
           extent={{-60,-34},{0,-28}},
           lineColor={0,0,255},
@@ -268,37 +271,37 @@ equation
           pattern=LinePattern.None,
           fillColor={255,0,0},
           fillPattern=FillPattern.Solid),
-      Polygon(
-        points={{0,80},{-40,60},{40,60},{0,80}},
-        lineColor={95,95,95},
-        smooth=Smooth.None,
-        fillPattern=FillPattern.Solid,
-        fillColor={95,95,95}),
-      Rectangle(
+        Polygon(
+          points={{0,80},{-40,60},{40,60},{0,80}},
+          lineColor={95,95,95},
+          smooth=Smooth.None,
+          fillPattern=FillPattern.Solid,
+          fillColor={95,95,95}),
+        Rectangle(
           extent={{-40,60},{40,-40}},
           lineColor={150,150,150},
           fillPattern=FillPattern.Sphere,
           fillColor={255,255,255}),
-      Rectangle(
-        extent={{-30,30},{-10,50}},
-        lineColor={255,255,255},
-        fillColor={255,255,255},
-        fillPattern=FillPattern.Solid),
-      Rectangle(
-        extent={{10,30},{30,50}},
-        lineColor={255,255,255},
-        fillColor={255,255,255},
-        fillPattern=FillPattern.Solid),
-      Rectangle(
-        extent={{-30,-10},{-10,10}},
-        lineColor={255,255,255},
-        fillColor={255,255,255},
-        fillPattern=FillPattern.Solid),
-      Rectangle(
-        extent={{10,-10},{30,10}},
-        lineColor={255,255,255},
-        fillColor={255,255,255},
-        fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-30,30},{-10,50}},
+          lineColor={255,255,255},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{10,30},{30,50}},
+          lineColor={255,255,255},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-30,-10},{-10,10}},
+          lineColor={255,255,255},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{10,-10},{30,10}},
+          lineColor={255,255,255},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
         Rectangle(
           extent={{-20,-3},{20,3}},
           lineColor={0,0,255},
@@ -331,8 +334,11 @@ equation
           fillPattern=FillPattern.Solid,
           origin={57,-13},
           rotation=90)}),
-    Diagram(coordinateSystem(extent={{-100,-100},{200,100}})),
-    Documentation(info="<html>
+    Diagram(
+      coordinateSystem(
+        extent={{-100,-100},{200,100}})),
+    Documentation(
+      info="<html>
 This model integrates the <a href=\"modelica://Buildings.Experimental.DHC.Loads.Examples.BaseClasses.BuildingTimeSeries\">
 Buildings.Experimental.DHC.Loads.Examples.BaseClasses.BuildingTimeSeries</a>
 <li>
@@ -346,7 +352,8 @@ It has been adapted from an older version of PartialBuildingWithETS model.
 The official issue for the model development is <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2291\">
 #2291</a>.
 </li>
-</html>", revisions="<html>
+</html>",
+      revisions="<html>
 <ul>
 <li>
 December 13, 2020 by Jing Wang:<br/>
