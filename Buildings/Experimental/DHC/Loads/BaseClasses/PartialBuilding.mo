@@ -175,7 +175,7 @@ the building distribution system.
 See various use cases in
 <a href=\"modelica://Buildings.Experimental.DHC.Loads.Examples\">
 Buildings.Experimental.DHC.Loads.Examples</a>.
-<br>
+<br/>
 </p>
 <p>
 <img alt=\"image\"

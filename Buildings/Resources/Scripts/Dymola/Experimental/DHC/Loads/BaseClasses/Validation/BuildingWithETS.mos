@@ -5,7 +5,7 @@ simulateModel("Buildings.Experimental.DHC.Loads.BaseClasses.Validation.BuildingW
     resultFile="BuildingWithETS");
 createPlot(
     id=1,
-    position={15, 10, 592, 421},
+    position={15, 10, 820, 1045},
     y={"buiTesOutETS.PHea", "buiTesOutETS.PCoo", "buiTesOutETS.PFan", "buiTesOutETS.PPum","buiTesOutETSBui.QHea_flow", "buiTesOutETSBui.QCoo_flow", "buiTesOutETSBui.PHea","buiTesOutETSBui.PCoo", "buiTesOutETSBui.PFan", "buiTesOutETSBui.PPum"},
     autoscale=true,
     autoerase=true,
@@ -13,3 +13,12 @@ createPlot(
     grid=true,
     color=true,
     filename="BuildingWithETS.mat");
+createPlot(
+    id=1,
+    subPlot=2,
+    y={"buiTesFacMul.PHea", "buiTesFacMul.PCoo", "buiTesFacMul.PFan", "buiTesFacMul.PPum","buiTesFacMul.QHea_flow", "buiTesFacMul.QCoo_flow"},
+    autoscale=true,
+    autoerase=true,
+    autoreplot=true,
+    grid=true,
+    color=true);
