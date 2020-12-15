@@ -83,7 +83,7 @@ initial equation
   assert(abs(nor.V-VRooNor) < 0.01, "Volumes don't match. These had to be entered manually to avoid using a non-literal value.");
   assert(abs(eas.V-VRooEas) < 0.01, "Volumes don't match. These had to be entered manually to avoid using a non-literal value.");
   assert(abs(wes.V-VRooWes) < 0.01, "Volumes don't match. These had to be entered manually to avoid using a non-literal value.");
-  assert(abs(opeWesCor.wOpe-4) == 0.0, "wOpe in west zone doesn't match");
+  assert(abs(opeWesCor.wOpe-4) < 0.01, "wOpe in west zone doesn't match");
 
   //Modelica.Utilities.Streams.print(String(leaEas.s)+ ", MG test");
   //Modelica.Utilities.Streams.print(String(VRooWes)+ ", MG test");
