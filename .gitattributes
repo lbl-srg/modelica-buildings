@@ -1,0 +1,11 @@
+libModelicaBuildingsEnergyPlus*.* filter=lfs diff=lfs merge=lfs -text
+ModelicaBuildingsEnergyPlus*.dll filter=lfs diff=lfs merge=lfs -text
+ModelicaBuildingsEnergyPlus*.lib filter=lfs diff=lfs merge=lfs -text
+libepfmi*.* filter=lfs diff=lfs merge=lfs -text
+libfmilib*.* filter=lfs diff=lfs merge=lfs -text
+fmilib_shared*.* filter=lfs diff=lfs merge=lfs -text
+epfmi*.* filter=lfs diff=lfs merge=lfs -text
+VCRUNTIME*.dll filter=lfs diff=lfs merge=lfs -text
+Buildings/Resources/src/ThermalZones/EnergyPlus/FMUs/Zones1.fmu filter=lfs diff=lfs merge=lfs -text
+Buildings/Resources/src/ThermalZones/EnergyPlus/FMUs/Zones3.fmu filter=lfs diff=lfs merge=lfs -text
+Buildings/Resources/bin/spawn-*/bin/spawn filter=lfs diff=lfs merge=lfs -text

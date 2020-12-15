@@ -4,6 +4,35 @@
 clear
 
 convertClear();
+
+// Conversion for https://github.com/lbl-srg/modelica-buildings/issues/2282
+convertElement("Buildings.Controls.OBC.CDL.Logical.Sources.SampleTrigger",
+                "startTime", "shift");
+convertElement("Buildings.Controls.OBC.CDL.Logical.Sources.Pulse",
+                "startTime", "shift");
+convertElement("Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse",
+                "startTime", "shift");
+
+convertModifiers("Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse",
+                {"nperiod"}, fill("",0), true);
+
+
+// Conversion for https://github.com/lbl-srg/modelica-buildings/issues/2134
+convertClass("Buildings.Controls.OBC.CDL.Continuous.HysteresisWithHold",
+             "Buildings.Obsolete.Controls.OBC.CDL.Continuous.HysteresisWithHold");
+convertClass("Buildings.Controls.OBC.CDL.Continuous.ChangeSign",
+             "Buildings.Obsolete.Controls.OBC.CDL.Continuous.ChangeSign");
+
+
+// Conversion for https://github.com/lbl-srg/modelica-buildings/issues/2139
+convertClass("Buildings.Controls.OBC.CDL.Psychrometrics.TDewPoi_TDryBulPhi",
+             "Buildings.Obsolete.Controls.OBC.CDL.Psychrometrics.TDewPoi_TDryBulPhi");
+convertClass("Buildings.Controls.OBC.CDL.Psychrometrics.TWetBul_TDryBulPhi",
+             "Buildings.Obsolete.Controls.OBC.CDL.Psychrometrics.TWetBul_TDryBulPhi");
+convertClass("Buildings.Controls.OBC.CDL.Psychrometrics.h_TDryBulPhi",
+             "Buildings.Obsolete.Controls.OBC.CDL.Psychrometrics.h_TDryBulPhi");
+
+
 // Conversion for https://github.com/lbl-srg/modelica-buildings/issues/2076
 convertClass("Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold",
              "Buildings.Obsolete.Controls.OBC.CDL.Continuous.GreaterEqualThreshold");
@@ -36,6 +65,12 @@ convertElement(
     "Buildings.Controls.OBC.CDL.Integers.LessThreshold",
     "threshold", "t");
 
+// Conversion for https://github.com/lbl-srg/modelica-buildings/issues/2124
+convertClass("Buildings.Controls.OBC.CDL.Continuous.Validation.NumberOfRequests",
+             "Buildings.Obsolete.Controls.OBC.CDL.Continuous.Validation.NumberOfRequests");
+convertClass("Buildings.Controls.OBC.CDL.Continuous.NumberOfRequests",
+             "Buildings.Obsolete.Controls.OBC.CDL.Continuous.NumberOfRequests");
+
 // Conversion for https://github.com/ibpsa/modelica-ibpsa/issues/1365
 convertModifiers("Buildings.Controls.Continuous.LimPID", {"reverseAction"}, {"reverseActing=not %reverseAction%"});
 convertModifiers("Buildings.Controls.Continuous.PIDHysteresis", {"reverseAction"}, {"reverseActing=not %reverseAction%"});
@@ -51,3 +86,11 @@ convertClass(
 convertClass(
     "Buildings.Controls.OBC.CDL.Types.Reset",
     "Buildings.Obsolete.Controls.OBC.CDL.Types.Reset");
+
+
+// Conversion for https://github.com/lbl-srg/modelica-buildings/issues/2177
+// remove parameter pre_y_start
+convertModifiers("Buildings.Controls.OBC.CDL.Logical.Latch",
+                {"pre_y_start"}, fill("",0), true);
+convertModifiers("Buildings.Controls.OBC.CDL.Logical.Toggle",
+                {"pre_y_start"}, fill("",0), true);

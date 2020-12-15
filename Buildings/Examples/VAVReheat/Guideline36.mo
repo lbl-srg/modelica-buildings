@@ -20,35 +20,35 @@ model Guideline36
     V_flow_nominal=mCor_flow_nominal/1.2,
     AFlo=AFloCor,
     final samplePeriod=samplePeriod,
-    final VDisSetMin_flow=max(1.5*VCorOA_flow_nominal, 0.15*mCor_flow_nominal/1.2))
+    VDisSetMin_flow=max(1.5*VCorOA_flow_nominal, 0.15*mCor_flow_nominal/1.2))
     "Controller for terminal unit corridor"
     annotation (Placement(transformation(extent={{530,32},{550,52}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Controller conVAVSou(
     V_flow_nominal=mSou_flow_nominal/1.2,
     AFlo=AFloSou,
     final samplePeriod=samplePeriod,
-    final VDisSetMin_flow=max(1.5*VSouOA_flow_nominal, 0.15*mSou_flow_nominal/1.2))
+    VDisSetMin_flow=max(1.5*VSouOA_flow_nominal, 0.15*mSou_flow_nominal/1.2))
     "Controller for terminal unit south"
     annotation (Placement(transformation(extent={{700,30},{720,50}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Controller conVAVEas(
     V_flow_nominal=mEas_flow_nominal/1.2,
     AFlo=AFloEas,
     final samplePeriod=samplePeriod,
-    final VDisSetMin_flow=max(1.5*VEasOA_flow_nominal, 0.15*mEas_flow_nominal/1.2))
+    VDisSetMin_flow=max(1.5*VEasOA_flow_nominal, 0.15*mEas_flow_nominal/1.2))
     "Controller for terminal unit east"
     annotation (Placement(transformation(extent={{880,30},{900,50}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Controller conVAVNor(
     V_flow_nominal=mNor_flow_nominal/1.2,
     AFlo=AFloNor,
     final samplePeriod=samplePeriod,
-    final VDisSetMin_flow=max(1.5*VNorOA_flow_nominal, 0.15*mNor_flow_nominal/1.2))
+    VDisSetMin_flow=max(1.5*VNorOA_flow_nominal, 0.15*mNor_flow_nominal/1.2))
     "Controller for terminal unit north"
     annotation (Placement(transformation(extent={{1040,30},{1060,50}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Controller conVAVWes(
     V_flow_nominal=mWes_flow_nominal/1.2,
     AFlo=AFloWes,
     final samplePeriod=samplePeriod,
-    final VDisSetMin_flow=max(1.5*VWesOA_flow_nominal, 0.15*mWes_flow_nominal/1.2))
+    VDisSetMin_flow=max(1.5*VWesOA_flow_nominal, 0.15*mWes_flow_nominal/1.2))
     "Controller for terminal unit west"
     annotation (Placement(transformation(extent={{1240,28},{1260,48}})));
   Modelica.Blocks.Routing.Multiplex5 TDis "Discharge air temperatures"
@@ -67,9 +67,6 @@ model Guideline36
     annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swiFreSta "Switch for freeze stat"
     annotation (Placement(transformation(extent={{60,-202},{80,-182}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant freStaSetPoi1(
-    final k=273.15 + 3) "Freeze stat for heating coil"
-    annotation (Placement(transformation(extent={{-40,-96},{-20,-76}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yFreHeaCoi(final k=1)
     "Flow rate signal for heating coil when freeze stat is on"
     annotation (Placement(transformation(extent={{0,-192},{20,-172}})));
@@ -276,8 +273,8 @@ equation
     annotation (Line(points={{-18,-10},{-3,-10},{-3,-34}}, color={0,0,127}));
   connect(swiFreSta.y, gaiHeaCoi.u) annotation (Line(points={{82,-192},{88,-192},
           {88,-210},{98,-210}}, color={0,0,127}));
-  connect(freSta.y, swiFreSta.u2) annotation (Line(points={{22,-92},{40,-92},{40,
-          -192},{58,-192}},    color={255,0,255}));
+  connect(freSta.y, swiFreSta.u2) annotation (Line(points={{-128,-100},{40,-100},
+          {40,-192},{58,-192}},color={255,0,255}));
   connect(yFreHeaCoi.y, swiFreSta.u1) annotation (Line(points={{22,-182},{40,-182},
           {40,-184},{58,-184}}, color={0,0,127}));
   connect(zonToSys.ySumDesZonPop, conAHU.sumDesZonPop) annotation (Line(points={{302,589},

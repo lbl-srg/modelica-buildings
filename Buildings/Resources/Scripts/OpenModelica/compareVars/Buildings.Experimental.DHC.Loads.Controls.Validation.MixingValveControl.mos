@@ -1,0 +1,11 @@
+compareVars :=
+  {
+    "senTPriSup.T",
+    "TSetSecAct.y",
+    "senTSecRet.T",
+    "senTSecSup.T",
+    "mod.y",
+    "mSec_flow.y",
+    "disFlo.PPum",
+    "disFlo.val.y_actual"
+  };

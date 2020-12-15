@@ -58,8 +58,6 @@ Check the software requirements for the different versions of the Buildings libr
 Literature for Developers
 -------------------------
 
-See the `developer guide <Development>`_ of the `Buildings` library for conventions and guidelines.
-
 It is essential that users who develop new thermo-fluid models to understand the concept of stream connectors.
 Stream connectors are explained in the Modelica language definition, available at https://www.modelica.org/documents,
 and in the paper Franke et al. [Fra2009a]_.
@@ -68,6 +66,7 @@ Hence, we also recommend reading the paper about the standardization of thermo-f
 
 The `Modelica Web Reference <https://webref.modelica.university>`_ gives a concise overview, explanation and further links about the Modelica language.
 
+See :numref:`sec_sty_gui` for conventions and guidelines of the `Buildings` library.
 
 
 References

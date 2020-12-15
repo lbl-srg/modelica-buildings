@@ -4,7 +4,6 @@ AddParameter
 Atan
 Atan2
 Average
-ChangeSign
 Cos
 Division
 Exp
@@ -13,7 +12,6 @@ Gain
 Greater
 GreaterThreshold
 Hysteresis
-HysteresisWithHold
 IntegratorWithReset
 Less
 LessThreshold
@@ -31,7 +29,6 @@ MovingMean
 MultiMax
 MultiMin
 MultiSum
-NumberOfRequests
 PID
 PIDWithReset
 Product

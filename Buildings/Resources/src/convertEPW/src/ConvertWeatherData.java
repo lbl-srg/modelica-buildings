@@ -1,7 +1,7 @@
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.*;
-
+import java.util.Arrays;
 /** This program converts a weather file
   * from .epw format for EnergyPlus
   * to .mos format for Modelica.<p>
@@ -29,7 +29,7 @@ public class ConvertWeatherData{
     *@param time time(year, month, day, hour, minute) in weather data file
     *@return simulation time in seconds
     */
-  static public String getSimulationTime(int[] time)
+  static public String getSimulationTime(int[] time, boolean minuteFlag)
   {
     double simtime;
 
@@ -52,6 +52,11 @@ public class ConvertWeatherData{
     simtime = 24 * (simtime+(time[2]-1));// days to hours
     simtime = 60 * (simtime+time[3]); // hours to minutes
     simtime = 60 * (simtime+time[4]);// minutes to seconds
+
+    // if sub hourly data ara avaible flag becomes true
+    if (minuteFlag) {
+      simtime = simtime - 3600;
+    }
 
     return Double.toString(simtime);
   }
@@ -160,14 +165,18 @@ public class ConvertWeatherData{
     throws IOException
   {
     Scanner lineTokenizer;
+    Scanner lineTokenizerTemp;
     Scanner console;
+    Scanner lineChecker;
     String tmp, tmp2;
     String timeString;
     String[] preData = new String[30];
 		String[] missData = new String[30];
     int lineNum;    // line number in .epw file
     int[] time = new int[5];
-		int i;
+    int[] timeTemp = new int[5];
+    int i;
+    boolean minuteFlag;
 
  		missData[1] = "99.9";
     missData[2] = "99.9";
@@ -198,6 +207,8 @@ public class ConvertWeatherData{
 
 
     console = new Scanner(new File(filename));
+    lineChecker = new Scanner(new File(filename));
+    minuteFlag = false;
 
     // generate Head for .mos file
     myArr.add("#1");
@@ -205,6 +216,7 @@ public class ConvertWeatherData{
     // read first 8 lines for general information
     for(lineNum=1; lineNum<=8; lineNum++) {
       lineTokenizer = new Scanner(console.nextLine()).useDelimiter(LS);
+      lineChecker.nextLine();
       tmp= "#"+lineTokenizer.next();
       myArr.add(tmp);
       lineTokenizer.close(); // discard this line
@@ -227,9 +239,27 @@ public class ConvertWeatherData{
 	        throw new IOException("Expected more entries on line " + lineNum + ".");
         }
       }
+      // Check 9 and 10th lines for minutes field
+      if(lineNum == 9) {
+        // Go to 10th line
+        lineChecker.nextLine();
+        lineTokenizerTemp = new Scanner(lineChecker.nextLine()).useDelimiter(", *");
+        for(i=0; i<=4; i++){
+          timeTemp[i] = lineTokenizerTemp.nextInt();
+        }
+        // Check minutes field if minutes field present flag == True
+        if(time[4] > 0 || timeTemp[4] > 0 ) {
+          minuteFlag = true;
+         }
+        else {
+          minuteFlag = false;
+        }
+        lineChecker.close();
+        lineTokenizerTemp.close(); 
+       }
 
       // convert the time in seconds
-      timeString = getSimulationTime(time);
+      timeString = getSimulationTime(time,minuteFlag);
       tmp = timeString + "\t";
 
       // skip the flag for data quality
@@ -401,6 +431,8 @@ public class ConvertWeatherData{
     if(!filename.contains(".epw")) {
       System.err.println ("Name of weather data file should end with \".epw\". To convert weather data, run this program as");
       System.out.println("java -jar ConvertWeatherData.jar inputFile.epw");
+      System.out.println("or if spaces are present in the name, write name between \"\"");
+      System.out.println("java -jar ConvertWeatherData.jar \"inputFile .epw\"");
       System.exit(1);
     }
 
