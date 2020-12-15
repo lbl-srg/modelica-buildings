@@ -1,4 +1,4 @@
-last-generated=2020-12-08
+last-generated=2020-12-14
 statistics-simulation=
 {
   "linear": " ",
@@ -16,3 +16,9 @@ buiTesOutETSBui.PHea=[2e+00, 2e+00]
 buiTesOutETSBui.PCoo=[2e+00, 2e+00]
 buiTesOutETSBui.PFan=[2e+00, 2e+00]
 buiTesOutETSBui.PPum=[2e+00, 2e+00]
+buiTesFacMul.PHea=[4e+00, 4e+00]
+buiTesFacMul.PCoo=[4e+00, 4e+00]
+buiTesFacMul.PFan=[4e+00, 4e+00]
+buiTesFacMul.PPum=[4e+00, 4e+00]
+buiTesFacMul.QHea_flow=[2e+00, 2e+00]
+buiTesFacMul.QCoo_flow=[2e+00, 2e+00]

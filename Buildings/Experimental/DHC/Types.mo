@@ -64,6 +64,8 @@ package Types  "Package with type definitions"
   </html>"));
 
 annotation (Documentation(info="<html>
+<p>
 This package contains type definitions.
+</p>
 </html>"));
 end Types;

@@ -1,5 +1,5 @@
 within Buildings.Experimental.DHC.Loads.BaseClasses;
-package Validation
+package Validation "Collection of validation models"
   extends Modelica.Icons.ExamplesPackage;
 
   annotation (
@@ -7,9 +7,9 @@ package Validation
     Documentation(
       info="<html>
 <p>
-This package contains models that validate the base classes of
-<a href=\"modelica://Buildings.Obsolete.DistrictHeatingCooling.SubStations.VaporCompression\">
-Buildings.Obsolete.DistrictHeatingCooling.SubStations.VaporCompression</a>.
+This package contains models that validate the base classes in
+<a href=\"modelica://Buildings.Experimental.DHC.Loads.BaseClasses\">
+Buildings.Experimental.DHC.Loads.BaseClasses</a>.
 </p>
 </html>"));
 end Validation;
