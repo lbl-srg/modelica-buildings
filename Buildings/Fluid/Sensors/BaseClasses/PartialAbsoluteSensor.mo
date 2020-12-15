@@ -13,12 +13,24 @@ partial model PartialAbsoluteSensor
               X_a=0.40)
               "Propylene glycol water, 40% mass fraction")));
 
+  parameter Boolean warnAboutOnePortConnection = true
+   "Set to false to suppress warning about potential numerical issues, see Buildings.Fluid.Sensors.UsersGuide for more information"
+   annotation(HideResult=true);
   Modelica.Fluid.Interfaces.FluidPort_a port(redeclare package Medium=Medium, m_flow(min=0))
     annotation (Placement(transformation(
         origin={0,-100},
         extent={{-10,-10},{10,10}},
         rotation=90)));
 
+protected
+  parameter String instanceName = getInstanceName() "Name of the instance";
+initial equation
+  assert(not warnAboutOnePortConnection,
+  "Sensor " + instanceName + " can lead to numerical problems if connected to a scalar fluid port.
+  Only connect it to a vectorized fluid port, such as used in 'Buildings.Fluid.MixingVolumes`.
+  See Buildings.Fluid.Sensors.UsersGuide for more information.
+  To disable this warning, set 'warnAboutOnePortConnection = false' in " + instanceName + ".",
+  level=AssertionLevel.warning);
 equation
   port.m_flow = 0;
   port.h_outflow = 0;
@@ -35,6 +47,12 @@ Buildings.Fluid.Sensors.BaseClasses.PartialFlowSensor</a>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+September 20, 2020, by Michael Wetter:<br/>
+Introduced parameter <code>warnAboutOnePortConnection</code> and added assertion with level set to warning.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1399\"> #1399</a>.
+</li>
 <li>
 January 18, 2019, by Jianjun Hu:<br/>
 Limited the media choice.
@@ -63,5 +81,11 @@ First implementation.
 Implementation is based on <code>Modelica.Fluid</code>.
 </li>
 </ul>
-</html>"));
+</html>"),
+Icon(
+  graphics={
+    Bitmap(
+      visible = warnAboutOnePortConnection,
+      extent={{-96,-82},{-64,-50}},
+      fileName="modelica://Buildings/Resources/Images/Fluid/Sensors/warningIcon.png")}));
 end PartialAbsoluteSensor;

@@ -1,7 +1,10 @@
 within Buildings.Controls.OBC.CDL.Discrete;
 block ZeroOrderHold "Output the input signal with a zero order hold"
 
-  parameter Modelica.SIunits.Time samplePeriod(min=1E-3)
+  parameter Real samplePeriod(
+    final quantity="Time",
+    final unit="s",
+    min=1E-3)
     "Sample period of component";
 
   Interfaces.RealInput u "Continuous input signal"
@@ -11,7 +14,10 @@ block ZeroOrderHold "Output the input signal with a zero order hold"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected
-  parameter Modelica.SIunits.Time t0(fixed=false)
+  parameter Real t0(
+    final quantity="Time",
+    final unit="s",
+    fixed=false)
     "First sample time instant";
 
   output Real ySample(fixed=true, start=0)
@@ -23,7 +29,9 @@ protected
     "Rising edge signals first sample instant";
 
 initial equation
-  t0 = time;
+  t0 = Buildings.Utilities.Math.Functions.round(
+         x = integer(time/samplePeriod)*samplePeriod,
+         n = 6);
 
 equation
   // Declarations that are used for all discrete blocks
@@ -72,6 +80,18 @@ At initial time, the block feeds the input directly to the output.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 12, 2020, by Michael Wetter:<br/>
+Reformulated to remove dependency to <code>Modelica.SIunits</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2243\">issue 2243</a>.
+</li>
+<li>
+October 19, 2020, by Michael Wetter:<br/>
+Refactored implementation.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2170\">#2170</a>.
+</li>
 <li>
 March 2, 2020, by Michael Wetter:<br/>
 Changed icon to display dynamically the output value.

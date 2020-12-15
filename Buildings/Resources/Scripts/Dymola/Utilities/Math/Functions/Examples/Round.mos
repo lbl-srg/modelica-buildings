@@ -1,0 +1,2 @@
+simulateModel("Buildings.Utilities.Math.Functions.Examples.Round", startTime=-2, stopTime=2, method="Cvode", tolerance=1e-06, resultFile="Round");
+createPlot(id=1, position={35, 35, 1536, 906}, y={"ym2", "ym1", "y", "y1", "y2"}, range={-2.0, 2.0, -2.5, 2.5}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}, {0,0,0}});

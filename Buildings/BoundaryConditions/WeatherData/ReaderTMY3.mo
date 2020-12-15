@@ -1220,6 +1220,10 @@ On a console window, type<pre>
   cd Buildings/Resources/weatherdata
   java -jar ../bin/ConvertWeatherData.jar inputFile.epw
 </pre>
+  if inputFile contains space in the name:
+<pre>
+  java -jar ../bin/ConvertWeatherData.jar \"inputFile .epw\"
+</pre>
 This will generate the weather data file <code>inputFile.mos</code>, which can be read
 by the model
 <a href=\"modelica://Buildings.BoundaryConditions.WeatherData.ReaderTMY3\">
@@ -1466,6 +1470,17 @@ For instance, the unit must be
 </ul>
 </li>
 <li>
+<p>
+Hourly and subhourly timestamp are handled in a different way in <code>.epw</code> files.
+From the EnergyPlus Auxiliary Programs Document (v9.3.0, p. 63):
+In hourly data the minute field can be <code>00</code> or <code>60</code>. In this case as mentioned in the previous section, the weather data
+is reported at the hourly value and the minute field has to be ignored, writing <code>1, 60</code> or <code>1, 00</code> is equivalent.
+If the minute field is between <code>00</code> and <code>60</code>, the file becomes subhourly, in this case the timestamp corresponds to the
+minute field in the considered hour. For example: <code>1, 30</code> is equivalent to <i>00:30</i> and <code>3, 45</code> is equivalent to <i>02:45</i>.<br/>
+(Note the offset in the hour digit.)
+</p>
+</li>
+<li>
 The ReaderTMY3 should only be used with TMY3 data. It contains a time shift for solar radiation data
 that is explained below. This time shift needs to be removed if the user may want to
 use the ReaderTMY3 for other weather data types.
@@ -1527,6 +1542,12 @@ Technical Report, NREL/TP-581-43156, revised May 2008.
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+October 4, 2020, by Ettore Zanetti:<br/>
+Updated documentation for Java weather file generator.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1396\">#1396</a>.
+</li>
 <li>
 August 20, 2019, by Filip Jorissen:<br/>
 Better clarified the meaning of <code>time</code> in the documentation.<br/>

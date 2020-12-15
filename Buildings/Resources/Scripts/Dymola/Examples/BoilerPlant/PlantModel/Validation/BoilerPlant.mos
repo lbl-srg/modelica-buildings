@@ -1,0 +1,8 @@
+﻿simulateModel("Buildings.Examples.BoilerPlant.PlantModel.Validation.BoilerPlant", startTime=0,tolerance=1e-6, stopTime=30000, outputInterval=1, method="cvode", resultFile="BoilerPlantValidation");
+removePlots(false);
+
+createPlot(id=1, position={75, 75, 534, 336}, y={"boilerPlant.yZonTem", "hys1.uLow", "hys1.uHigh"}, range={0.0, 30000.0, 290.0, 298.0}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}});
+createPlot(id=1, position={75, 75, 534, 108}, y={"boilerPlant.uPumSpe[1]"}, range={0.0, 30000.0, 0.85, 1.15}, grid=true, subPlot=2, colors={{28,108,200}});
+createPlot(id=1, position={75, 75, 534, 109}, y={"boilerPlant.VHotWat_flow"}, range={0.0, 30000.0, -0.0001, 0.0007}, grid=true, subPlot=3, colors={{28,108,200}});
+createPlot(id=2, position={0, 0, 1510, 978}, y={"boilerPlant.ySupTem", "hys.uLow", "hys.uHigh"}, range={0.0, 30000.0, 290.0, 350.0}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}});
+createPlot(id=2, position={0, 0, 1510, 486}, y={"boilerPlant.uBoiSta[1]"}, range={0.0, 30000.0, -0.1, 1.1}, grid=true, subPlot=2, colors={{28,108,200}});

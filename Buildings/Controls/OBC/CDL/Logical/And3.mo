@@ -8,7 +8,7 @@ block And3 "Logical 'and3': y = u1 and u2 and u3"
     "Connector of second Boolean input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Interfaces.BooleanInput u3
-    "Connector of second Boolean input signal"
+    "Connector of third Boolean input signal"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
 
   Interfaces.BooleanOutput y "Connector of Boolean output signal"
