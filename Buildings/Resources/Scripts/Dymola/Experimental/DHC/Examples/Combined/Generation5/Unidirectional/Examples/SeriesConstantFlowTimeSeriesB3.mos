@@ -1,8 +1,10 @@
 simulateModel("Buildings.Experimental.DHC.Examples.Combined.Generation5.Unidirectional.Examples.SeriesConstantFlowTimeSeriesB3",
     method="cvode",
     tolerance=1e-6,
-    startTime=0,
-    stopTime=604800,
+    // startTime=0,
+    // stopTime=604800,
+    startTime=15724800.0,
+    stopTime=16329600.0,
     resultFile="SeriesConstantFlowTimeSeriesB3");
 createPlot(
     id=1,
