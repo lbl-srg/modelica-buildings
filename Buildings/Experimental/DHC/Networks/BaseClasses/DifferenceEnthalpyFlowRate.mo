@@ -38,9 +38,7 @@ model DifferenceEnthalpyFlowRate
     X=Medium2.X_default)
     "Initial or guess value of measured specific enthalpy"
     annotation (Dialog(group="Initialization"));
-  parameter Medium1.MassFlowRate m_flow_small(
-    min=0)=1E-4*abs(
-    m_flow_nominal)
+  parameter Medium1.MassFlowRate m_flow_small(min=0)=1E-4*abs(m_flow_nominal)
     "Small mass flow rate for regularization of zero flow"
     annotation (Dialog(tab="Advanced"));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput dH_flow(
@@ -59,7 +57,7 @@ model DifferenceEnthalpyFlowRate
     final tau=tau,
     final initType=initType,
     final allowFlowReversal=allowFlowReversal,
-    final h_out_start=h_out_start)
+    final h_out_start=h1_out_start)
     "Enthalpy flow rate of fluid stream 1"
     annotation (Placement(transformation(extent={{-10,70},{10,50}})));
   Fluid.Sensors.EnthalpyFlowRate senEntFlo2(
