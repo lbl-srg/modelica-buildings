@@ -69,7 +69,7 @@ equation
     Documentation(
     info="<html>
 <p>
-This model validates work unit conversion from quads to joule.
+This model validates energy unit conversion from quads to joule.
 </p>
 </html>",
 revisions="<html>

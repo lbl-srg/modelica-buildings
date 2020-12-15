@@ -31,14 +31,13 @@ model OneZoneWithControl
     "Fan"
     annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
   Controls.OBC.CDL.Continuous.Sources.Pulse TSet(
+    shift(
+      displayUnit="h")=21600,
     amplitude=6,
     period(
       displayUnit="d")=86400,
     offset=273.15+16,
-    delay(
-      displayUnit="h")=21600,
-    y(
-      unit="K",
+    y(unit="K",
       displayUnit="degC"))
     "Setpoint for room air"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
@@ -76,10 +75,10 @@ model OneZoneWithControl
     "Matrix gain to split up heat gain in radiant, convective and latent gain"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
   Controls.OBC.CDL.Continuous.Sources.Pulse nPer(
+    shift(
+      displayUnit="h")=25200,
     period(
       displayUnit="d")=86400,
-    delay(
-      displayUnit="h")=25200,
     amplitude=2)
     "Number of persons"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));

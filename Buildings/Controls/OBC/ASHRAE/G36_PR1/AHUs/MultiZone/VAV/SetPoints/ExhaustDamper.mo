@@ -132,7 +132,7 @@ annotation (
  Documentation(info="<html>
 <p>
 Control sequence for actuated exhaust damper <code>yExhDamPos</code>
-without fans. It is implemented according to ASHRAE Guidline 35 (G36), PART 5.N.8.
+without fans. It is implemented according to ASHRAE Guidline 36 (G36), PART 5.N.8.
 (for multi zone VAV AHU), PART 5.P.6 and PART3.2B.3 (for single zone VAV AHU).
 </p>
 <h4>Multi zone VAV AHU: Control of actuated exhaust dampers without fans (PART 5.N.8)</h4>

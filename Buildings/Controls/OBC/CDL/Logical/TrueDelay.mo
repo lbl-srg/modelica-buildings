@@ -2,7 +2,9 @@ within Buildings.Controls.OBC.CDL.Logical;
 block TrueDelay
   "Delay a rising edge of the input, but do not delay a falling edge."
 
-  parameter Modelica.SIunits.Time delayTime "Delay time";
+  parameter Real delayTime(
+    final quantity="Time",
+    final unit="s") "Delay time";
 
   parameter Boolean delayOnInit = false
     "Set to true to delay initial true input";
@@ -14,9 +16,15 @@ block TrueDelay
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected
-  parameter Modelica.SIunits.Time t_past(fixed=false)
+  parameter Real t_past(
+    final quantity="Time",
+    final unit="s",
+    fixed=false)
      "Time before simulation started";
-   Modelica.SIunits.Time t_next;
+   Real t_next(
+    final quantity="Time",
+    final unit="s")
+     "Next event time";
 
 initial equation
   t_past = time - 1000;
@@ -76,7 +84,7 @@ Block that delays a signal when it becomes <code>true</code>.
 </p>
 <p>
 A rising edge of the Boolean input <code>u</code> gives a delayed output.
-A falling edge of the input is immediately given to the output. If 
+A falling edge of the input is immediately given to the output. If
 <code>delayOnInit = true</code>, then a <code>true</code> input signal
 at the start time is also delayed, otherwise the input signal is
 produced immediately at the output.
@@ -95,6 +103,12 @@ is shown below.
 
 </html>", revisions="<html>
 <ul>
+<li>
+November 12, 2020, by Michael Wetter:<br/>
+Reformulated to remove dependency to <code>Modelica.SIunits</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2243\">issue 2243</a>.
+</li>
 <li>
 February 11, 2019, by Milica Grahovac:<br/>
 Added boolean input to enable delay of an initial true input.
