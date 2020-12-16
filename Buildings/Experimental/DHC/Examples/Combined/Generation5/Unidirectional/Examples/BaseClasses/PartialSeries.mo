@@ -11,7 +11,10 @@ partial model PartialSeries "Partial model for series network"
   parameter Integer nBui = datDes.nBui
     "Number of buildings connected to DHC system"
     annotation (Evaluate=true);
-  inner parameter Data.DesignDataSeries datDes "Design data"
+  inner parameter Data.DesignDataSeries datDes(
+    mCon_flow_nominal=bui.ets.mDisWat_flow_nominal,
+    epsPla=0.935)
+    "Design data"
     annotation (Placement(transformation(extent={{-340,220},{-320,240}})));
   // COMPONENTS
   ThermalStorages.BoreField borFie(

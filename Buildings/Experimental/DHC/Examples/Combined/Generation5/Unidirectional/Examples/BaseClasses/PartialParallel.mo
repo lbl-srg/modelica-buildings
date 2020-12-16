@@ -11,7 +11,9 @@ partial model PartialParallel "Partial model for parallel network"
   parameter Integer nBui = datDes.nBui
     "Number of buildings connected to DHC system"
     annotation (Evaluate=true);
-  inner parameter Data.DesignDataParallel datDes
+  inner parameter Data.DesignDataParallel datDes(
+    mCon_flow_nominal=bui.ets.mDisWat_flow_nominal,
+    epsPla=0.935)
     "Design data"
     annotation (Placement(transformation(extent={{-340,220},{-320,240}})));
   // COMPONENTS

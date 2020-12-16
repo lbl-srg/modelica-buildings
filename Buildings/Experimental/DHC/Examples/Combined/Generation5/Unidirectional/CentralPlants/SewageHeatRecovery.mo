@@ -139,10 +139,10 @@ equation
                           color={0,0,127}));
   connect(mPum_flow, pumSew.m_flow_in)
     annotation (Line(points={{-120,40},{0,40},{0,68}}, color={0,0,127}));
-  connect(pumSew.port_b, hex.port_a1) annotation (Line(points={{10,80},{40,80},{
-          40,20},{10,20}},                 color={0,127,255}));
-  connect(hex.port_b1, senTSewOut.port_a) annotation (Line(points={{-10,20},{-34,
-          20}},                   color={0,127,255}));
+  connect(pumSew.port_b, hex.port_a1) annotation (Line(points={{10,80},{40,80},
+          {40,20},{10,20}},                color={0,127,255}));
+  connect(hex.port_b1, senTSewOut.port_a) annotation (Line(points={{-10,20},{
+          -34,20}},               color={0,127,255}));
   connect(mPum_flow, pumDis.m_flow_in)
     annotation (Line(points={{-120,40},{60,40},{60,12}}, color={0,0,127}));
   connect(senDifEntFlo.dH_flow, dH_flow) annotation (Line(points={{3,-52},{3,

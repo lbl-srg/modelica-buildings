@@ -67,8 +67,7 @@ model SideCold
     "Mapping function for CHWST reset"
     annotation (Placement(transformation(extent={{100,70},{120,90}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTChiWatSup(
-    y(
-      final unit="K",
+    y(final unit="K",
       displayUnit="degC"),
     final k=TChiWatSupSetMin)
     "Minimum value of chilled water supply temperature"

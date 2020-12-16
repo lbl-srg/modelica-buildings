@@ -1,9 +1,11 @@
-simulateModel("Buildings.Experimental.DHC.Examples.Combined.Generation5.Unidirectional.Examples.ParallelConstantFlowRCB3Z1",
+simulateModel("Buildings.Experimental.DHC.Examples.Combined.Generation5.Unidirectional.Examples.SeriesConstantFlow",
     method="cvode",
     tolerance=1e-6,
-    startTime=0,
-    stopTime=604800,
-    resultFile="ParallelConstantFlowRCB3Z1");
+    // startTime=0,
+    // stopTime=604800,
+    startTime=15724800.0,
+    stopTime=16329600.0,
+    resultFile="SeriesConstantFlow");
 createPlot(
     id=1,
     position={35, 35, 820, 912},

@@ -1,6 +1,6 @@
-﻿within Buildings.Experimental.DHC.Examples.Combined.Generation5.Unidirectional.EnergyTransferStations;
-model ETSSimplified
-  "Simplified model of a substation producing heating hot water (heat pump) and chilled water (HX)"
+﻿within Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5;
+model HeatPumpSimplified
+  "Simplified model of a substation producing heating and hot water (heat pump) and chilled water (HX)"
   extends DHC.EnergyTransferStations.BaseClasses.PartialETS(
     final typ=DHC.Types.DistrictSystemType.CombinedGeneration5,
     final have_weaBus=false,
@@ -13,7 +13,9 @@ model ETSSimplified
     final have_fan=false,
     nPorts_aHeaWat=1,
     nPorts_aChiWat=1);
-  outer Data.DesignDataSeries datDes "DHC system design data";
+  outer
+    Buildings.Experimental.DHC.Examples.Combined.Generation5.Unidirectional.Data.DesignDataSeries
+    datDes "DHC system design data";
   // SYSTEM GENERAL
   parameter Modelica.SIunits.TemperatureDifference dT_nominal = 5
     "Water temperature drop/increase accross load and source-side HX (always positive)"
@@ -102,18 +104,16 @@ model ETSSimplified
     "Formulation of energy balance for mixing volume at inlet and outlet"
      annotation(Dialog(tab="Dynamics"));
   // IO CONNECTORS
-  Controls.OBC.CDL.Interfaces.BooleanInput uCoo
-    "Cooling enable signal"
-    annotation (Placement(transformation(extent={{-340,100},{-300,140}}),
-      iconTransformation(extent={{-380,20},{-300,100}})));
-  Controls.OBC.CDL.Interfaces.BooleanInput uHea
-    "Heating enable signal"
-    annotation (Placement(transformation(extent={{-340,140},{-300,180}}),
-      iconTransformation(extent={{-380,60},{-300,140}})));
-  Controls.OBC.CDL.Interfaces.BooleanInput uSHW if have_hotWat
-    "SHW production enable signal"
-    annotation (Placement(transformation(extent={{-340,60},{-300,100}}),
-      iconTransformation(extent={{-380,-20},{-300,60}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uCoo
+    "Cooling enable signal" annotation (Placement(transformation(extent={{-340,
+            100},{-300,140}}), iconTransformation(extent={{-380,20},{-300,100}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHea
+    "Heating enable signal" annotation (Placement(transformation(extent={{-340,
+            140},{-300,180}}), iconTransformation(extent={{-380,60},{-300,140}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uSHW if have_hotWat
+    "SHW production enable signal" annotation (Placement(transformation(extent=
+            {{-340,60},{-300,100}}), iconTransformation(extent={{-380,-20},{-300,
+            60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaWatSupSet(final unit="K",
       displayUnit="degC")
     "Heating water supply temperature set point" annotation (Placement(
@@ -222,7 +222,7 @@ model ETSSimplified
     redeclare final package Medium = MediumBui,
     final allowFlowReversal=allowFlowReversalBui)
     "Heating water mass flow rate"
-    annotation (Placement(transformation(extent={{-290,270},{-270,250}})));
+    annotation (Placement(transformation(extent={{-250,250},{-230,270}})));
   Buildings.Fluid.Delays.DelayFirstOrder volChiWat(
     redeclare final package Medium = MediumBui,
     final m_flow_nominal=m1HexChi_flow_nominal,
@@ -235,7 +235,7 @@ model ETSSimplified
     redeclare final package Medium = MediumBui,
     final allowFlowReversal=allowFlowReversalBui)
     "Chilled water mass flow rate"
-    annotation (Placement(transformation(extent={{-250,-110},{-230,-130}})));
+    annotation (Placement(transformation(extent={{-250,-130},{-230,-110}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain gai2(
     final k=m1HexChi_flow_nominal)
     annotation (Placement(transformation(extent={{-108,-210},{-88,-190}})));
@@ -260,8 +260,8 @@ model ETSSimplified
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
       rotation=-90,
       origin={60,150})));
-  Buildings.Fluid.Sources.Boundary_pT bouChiWat(redeclare final package Medium
-      = MediumBui, nPorts=1)
+  Buildings.Fluid.Sources.Boundary_pT bouChiWat(redeclare final package Medium =
+        MediumBui, nPorts=1)
     "Pressure boundary condition representing the expansion vessel"
     annotation (Placement(transformation(extent={{-162,-290},{-142,-270}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiSum PPumCooTot(nin=1)
@@ -290,9 +290,9 @@ model ETSSimplified
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={140,-280})));
-  SwitchBox swiFlo(
+  Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Subsystems.SwitchBox
+    swiFlo(
     redeclare final package Medium = MediumSer,
-    final have_hotWat=have_hotWat,
     final m_flow_nominal=mDisWat_flow_nominal) "Flow switch box"
     annotation (Placement(transformation(extent={{-10,-390},{10,-370}})));
   DHC.EnergyTransferStations.BaseClasses.Junction bypHeaWatSup(
@@ -331,7 +331,8 @@ model ETSSimplified
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold enaHea(trueHoldDuration=15*
         60) "Enable heating"
     annotation (Placement(transformation(extent={{-140,210},{-120,230}})));
-  Subsystems.HeatPump heaPum(
+  Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Subsystems.HeatPump
+    heaPum(
     redeclare final package Medium1 = MediumBui,
     redeclare final package Medium2 = MediumSer,
     final COP_nominal=COP_nominal,
@@ -343,10 +344,11 @@ model ETSSimplified
     final dp1_nominal=dp_nominal,
     final dp2_nominal=dp_nominal) "Subsystem for heating water production"
     annotation (Placement(transformation(extent={{-10,204},{10,224}})));
-  Controls.OBC.CDL.Continuous.MultiSum PCooTot(nin=1)
+  Buildings.Controls.OBC.CDL.Continuous.MultiSum PCooTot(nin=1)
     "Total power for space cooling (ETS included, building excluded)"
     annotation (Placement(transformation(extent={{230,310},{250,330}})));
-  Subsystems.HeatPump heaPumSHW(
+  Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Subsystems.HeatPump
+    heaPumSHW(
     redeclare final package Medium1 = MediumBui,
     redeclare final package Medium2 = MediumSer,
     final have_pumCon=false,
@@ -354,7 +356,7 @@ model ETSSimplified
     final Q1_flow_nominal=QHotWat_flow_nominal,
     final allowFlowReversal1=allowFlowReversalBui,
     final allowFlowReversal2=allowFlowReversalSer,
-    final dT1_nominal=THotWatSup_nominal-TColWat_nominal,
+    final dT1_nominal=THotWatSup_nominal - TColWat_nominal,
     final dT2_nominal=-dT_nominal,
     final dp1_nominal=dp_nominal,
     final dp2_nominal=dp_nominal) if have_hotWat
@@ -375,13 +377,13 @@ model ETSSimplified
     nPorts=1) if have_hotWat
     "Source for cold water"
     annotation (Placement(transformation(extent={{-48,-52},{-28,-32}})));
-  Controls.OBC.CDL.Continuous.Division div1 if have_hotWat
+  Buildings.Controls.OBC.CDL.Continuous.Division div1 if have_hotWat
     "Compute mass flow rate from load"
     annotation (Placement(transformation(extent={{-100,-50},{-80,-30}})));
-  Controls.OBC.CDL.Continuous.Gain gai(final k=cp_default) if  have_hotWat
-    "Times Cp"
+  Buildings.Controls.OBC.CDL.Continuous.Gain gai(final k=cp_default) if
+    have_hotWat "Times Cp"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
-  Controls.OBC.CDL.Continuous.MultiSum masFloHeaTot(final nin=2)
+  Buildings.Controls.OBC.CDL.Continuous.MultiSum masFloHeaTot(final nin=2)
     "Compute district water mass flow rate used for heating service"
     annotation (Placement(transformation(extent={{270,-150},{290,-130}})));
   Modelica.Blocks.Sources.Constant zer(final k=0) if not have_hotWat
@@ -406,17 +408,26 @@ model ETSSimplified
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={40,-120})));
-  Controls.OBC.CDL.Continuous.Add delT(final k2=-1) if have_hotWat
+  Buildings.Controls.OBC.CDL.Continuous.Add delT(final k2=-1) if have_hotWat
     "Compute DeltaT"
     annotation (Placement(transformation(extent={{-150,-10},{-130,10}})));
-  Fluid.Sensors.MassFlowRate senMasFloHeaWatPri(redeclare final package Medium
-      = MediumBui, final allowFlowReversal=allowFlowReversalBui)
+  Fluid.Sensors.MassFlowRate senMasFloHeaWatPri(redeclare final package Medium =
+        MediumBui, final allowFlowReversal=allowFlowReversalBui)
     "Primary heating water mass flow rate"
     annotation (Placement(transformation(extent={{30,270},{50,250}})));
-  Controls.OBC.CDL.Logical.TrueFalseHold enaSHW(
-    trueHoldDuration=15*60) if have_hotWat
-    "Enable SHW production"
+  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold enaSHW(trueHoldDuration=15*
+        60) if have_hotWat "Enable SHW production"
     annotation (Placement(transformation(extent={{-140,70},{-120,90}})));
+  Modelica.Blocks.Sources.Constant zer1(k=0) if
+                                               not have_hotWat
+    "Replacement variable"
+    annotation (Placement(transformation(extent={{-40,-250},{-20,-230}})));
+  Buildings.Controls.OBC.CDL.Continuous.Add masFloHea
+    "Service water mass flow rate for heating applications" annotation (
+      Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={0,-264})));
 equation
   connect(TChiWatSupSet, conTChiWat.u_s) annotation (Line(points={{-320,0},{-200,
           0},{-200,-200},{-152,-200}},  color={0,0,127}));
@@ -433,17 +444,17 @@ equation
   connect(pum1HexChi.m_flow_actual, mCoo_flow) annotation (Line(points={{89,-335},
           {82,-335},{82,-320},{276,-320},{276,-180},{320,-180}}, color={0,0,127}));
   connect(volMixDis_a.ports[1], swiFlo.port_bSup) annotation (Line(points={{-260,
-          -360},{-4,-360},{-4,-370}}, color={0,127,255}));
-  connect(swiFlo.port_aRet, volMixDis_b.ports[1]) annotation (Line(points={{4,-370},
-          {4,-360},{260,-360}}, color={0,127,255}));
+          -360},{-6,-360},{-6,-370}}, color={0,127,255}));
+  connect(swiFlo.port_aRet, volMixDis_b.ports[1]) annotation (Line(points={{6,-370},
+          {6,-360},{260,-360}}, color={0,127,255}));
   connect(volMixDis_b.ports[2], pum1HexChi.port_a) annotation (Line(points={{260,
           -360},{258,-360},{258,-340},{110,-340}},                       color={
           0,127,255}));
   connect(hexChi.port_b1, volMixDis_a.ports[2]) annotation (Line(points={{-10,-340},
           {-256,-340},{-256,-360},{-260,-360}},                     color={0,127,
           255}));
-  connect(pum1HexChi.m_flow_actual, swiFlo.mFreCoo_flow) annotation (Line(
-        points={{89,-335},{80,-335},{80,-356},{-20,-356},{-20,-382},{-12,-382}},
+  connect(pum1HexChi.m_flow_actual, swiFlo.mRev_flow) annotation (Line(points={
+          {89,-335},{80,-335},{80,-356},{-20,-356},{-20,-384},{-12,-384}},
         color={0,0,127}));
   connect(gai2.y, pum1HexChi.m_flow_in)
     annotation (Line(points={{-86,-200},{100,-200},{100,-328}},
@@ -451,7 +462,7 @@ equation
   connect(PPumTot.y, PPum) annotation (Line(points={{252,400},{276,400},{276,-60},
           {320,-60}}, color={0,0,127}));
   connect(ports_aHeaWat[1], senMasFloHeaWat.port_a) annotation (Line(points={{-300,
-          260},{-290,260}},                            color={0,127,255}));
+          260},{-250,260}},                            color={0,127,255}));
   connect(bypHeaWatSup.port_2, senTHeaWatSup.port_a)
     annotation (Line(points={{110,260},{130,260}}, color={0,127,255}));
   connect(senTHeaWatSup.port_b, ports_bHeaWat[1])
@@ -470,8 +481,8 @@ equation
           182.667},{80,180},{-20,180},{-20,208},{-10,208}},       color={0,127,255}));
   connect(heaPum.port_b2, volMixDis_b.ports[3]) annotation (Line(points={{10,220},
           {262,220},{262,-360},{260,-360}},              color={0,127,255}));
-  connect(volMixDis_a.ports[3], heaPum.port_a2) annotation (Line(points={{-260,-360},
-          {-260,-360},{-260,200},{20,200},{20,208},{10,208}},
+  connect(volMixDis_a.ports[3], heaPum.port_a2) annotation (Line(points={{-260,
+          -360},{-260,200},{14,200},{14,208},{10,208}},
         color={0,127,255}));
   connect(enaHea.y, heaPum.uEna) annotation (Line(points={{-118,220},{-40,220},{
           -40,216},{-12,216}},  color={255,0,255}));
@@ -487,7 +498,7 @@ equation
   connect(PCooTot.y, PCoo) annotation (Line(points={{252,320},{272,320},{272,20},
           {320,20}}, color={0,0,127}));
   connect(volMixDis_a.ports[4], heaPumSHW.port_a2) annotation (Line(points={{-260,
-          -360},{-258,-360},{-258,20},{20,20},{20,28},{10,28}},     color={0,127,
+          -360},{-258,-360},{-258,20},{14,20},{14,28},{10,28}},     color={0,127,
           255}));
   connect(heaPumSHW.port_b2, volMixDis_b.ports[4])
     annotation (Line(points={{10,40},{260,40},{260,-360}},
@@ -522,16 +533,12 @@ equation
   connect(heaPum.mEva_flow, masFloHeaTot.u[1]) annotation (Line(points={{12,211},
           {220,211},{220,-139},{268,-139}},
         color={0,0,127}));
-  connect(heaPum.mEva_flow, swiFlo.mHeaWat_flow) annotation (Line(points={{12,211},
-          {24,211},{24,-352},{-18,-352},{-18,-377.8},{-12,-377.8}}, color={0,0,127}));
-  connect(heaPumSHW.mEva_flow, swiFlo.mHotWat_flow) annotation (Line(points={{12,
-          31},{26,31},{26,-354},{-16,-354},{-16,-374},{-12,-374}}, color={0,0,127}));
   connect(PComTot.y, PHeaTot.u[2]) annotation (Line(points={{252,280},{260,280},
           {260,300},{220,300},{220,359},{228,359}}, color={0,0,127}));
   connect(zer.y, PPumHeaTot.u[2]) annotation (Line(points={{161,360},{174,360},{
           174,418},{188,418},{188,419}}, color={0,0,127}));
-  connect(senMasFloHeaWat.port_b, senTHeaWatRet.port_a) annotation (Line(points={{-270,
-          260},{-260,260},{-260,300},{10,300}},        color={0,127,255}));
+  connect(senMasFloHeaWat.port_b, senTHeaWatRet.port_a) annotation (Line(points={{-230,
+          260},{-220,260},{-220,300},{10,300}},        color={0,127,255}));
   connect(senTHeaWatRet.port_b, bypHeaWatRet.port_1) annotation (Line(points={{30,300},
           {120,300},{120,240},{110,240}},      color={0,127,255}));
   connect(senMasFloChiWat.port_b, senTChiWatRet.port_a)
@@ -549,10 +556,11 @@ equation
           {-20,220},{-20,260},{30,260}},          color={0,127,255}));
   connect(senMasFloHeaWatPri.port_b, bypHeaWatSup.port_1)
     annotation (Line(points={{50,260},{90,260}},  color={0,127,255}));
-  connect(port_aSerAmb, swiFlo.port_aSup) annotation (Line(points={{-300,-200},{
-          -280,-200},{-280,-400},{-4,-400},{-4,-390}}, color={0,127,255}));
-  connect(swiFlo.port_bRet, port_bSerAmb) annotation (Line(points={{4,-390},{4,-400},
-          {280,-400},{280,-200},{300,-200}}, color={0,127,255}));
+  connect(port_aSerAmb, swiFlo.port_aSup) annotation (Line(points={{-300,-200},
+          {-280,-200},{-280,-400},{-6,-400},{-6,-390}},color={0,127,255}));
+  connect(swiFlo.port_bRet, port_bSerAmb) annotation (Line(points={{6,-390},{6,
+          -400},{280,-400},{280,-200},{300,-200}},
+                                             color={0,127,255}));
   connect(uHea, enaHea.u) annotation (Line(points={{-320,160},{-240,160},{-240,220},
           {-142,220}}, color={255,0,255}));
   connect(conTChiWat.y, gai2.u)
@@ -565,8 +573,8 @@ equation
           {-80,36},{-12,36}}, color={255,0,255}));
   connect(div1.y, souColWat.m_flow_in) annotation (Line(points={{-78,-40},{-68,-40},
           {-68,-34},{-50,-34}}, color={0,0,127}));
-  connect(senTChiWatRet.port_b, volChiWat.ports[1]) annotation (Line(points={{
-          50,-120},{60,-120},{60,-280},{-102.667,-280}}, color={0,127,255}));
+  connect(senTChiWatRet.port_b, volChiWat.ports[1]) annotation (Line(points={{50,-120},
+          {60,-120},{60,-280},{-102.667,-280}},          color={0,127,255}));
   connect(volChiWat.ports[2], hexChi.port_a2) annotation (Line(points={{-100,
           -280},{-120,-280},{-120,-320},{-20,-320},{-20,-328},{-10,-328}},
         color={0,127,255}));
@@ -577,6 +585,14 @@ equation
     annotation (Line(points={{-142,-280},{-97.3333,-280}}, color={0,127,255}));
   connect(senTChiWatSup.T, conTChiWat.u_m) annotation (Line(points={{140,-269},
           {140,-220},{-140,-220},{-140,-212}}, color={0,0,127}));
+  connect(zer1.y, masFloHea.u2) annotation (Line(points={{-19,-240},{-8,-240},{
+          -8,-252},{-6,-252}}, color={0,0,127}));
+  connect(heaPumSHW.mEva_flow, masFloHea.u2) annotation (Line(points={{12,31},{
+          18,31},{18,-240},{-6,-240},{-6,-252}}, color={0,0,127}));
+  connect(heaPum.mEva_flow, masFloHea.u1) annotation (Line(points={{12,211},{20,
+          211},{20,-246},{6,-246},{6,-252}}, color={0,0,127}));
+  connect(masFloHea.y, swiFlo.mPos_flow) annotation (Line(points={{0,-276},{0,
+          -320},{-16,-320},{-16,-376},{-12,-376}}, color={0,0,127}));
   annotation (
   defaultComponentName="ets",
   Documentation(info="<html>
@@ -614,4 +630,4 @@ This is for
       StopTime=15000000,
       Tolerance=1e-06,
       __Dymola_Algorithm="Cvode"));
-end ETSSimplified;
+end HeatPumpSimplified;

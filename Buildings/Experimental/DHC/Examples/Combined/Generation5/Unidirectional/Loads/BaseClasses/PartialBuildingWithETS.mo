@@ -3,7 +3,9 @@ model PartialBuildingWithETS
   extends DHC.Loads.BaseClasses.PartialBuildingWithPartialETS(
     nPorts_heaWat=1,
     nPorts_chiWat=1,
-    redeclare EnergyTransferStations.ETSSimplified ets(
+    redeclare
+      Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.HeatPumpSimplified
+      ets(
       final dT_nominal=dT_nominal,
       final TChiWatSup_nominal=TChiWatSup_nominal,
       final TChiWatRet_nominal=TChiWatRet_nominal,

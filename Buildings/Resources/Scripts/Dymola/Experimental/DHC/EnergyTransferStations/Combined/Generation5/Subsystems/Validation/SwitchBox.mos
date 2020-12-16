@@ -1,5 +1,5 @@
 removePlots(false);
-simulateModel("Buildings.Experimental.DHC.Examples.Combined.Generation5.Unidirectional.EnergyTransferStations.Validation.SwitchBox",
+simulateModel("Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Subsystems.Validation.SwitchBox",
     method="cvode",
     tolerance=1e-6,
     startTime=0,
@@ -17,7 +17,7 @@ createPlot(
     filename="SwitchBox.mat");
 createPlot(
     id=1,
-    y={"floSwiBoxChe.valSup.y_actual", "floSwiBoxChe.valRet.y_actual"},
+    y={"floSwiBox.valSup.y_actual", "floSwiBox.valRet.y_actual"},
     subPlot=2,
     autoscale=true,
     autoerase=true,
