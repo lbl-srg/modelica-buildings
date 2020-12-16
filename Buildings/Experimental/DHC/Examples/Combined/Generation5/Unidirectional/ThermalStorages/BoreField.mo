@@ -32,12 +32,12 @@ model BoreField "Bore field model"
     final show_T=true);
   parameter Integer dBor = 10
   "Distance between boreholes";
-  Modelica.Blocks.Interfaces.RealOutput Q_flow
-    "Heat extracted from soil"
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput Q_flow(final unit="W")
+    "Rate at which heat is extracted from soil"
     annotation (Placement(transformation(extent={{100,-50},{120,-30}}),
-        iconTransformation(extent={{100,-50},{120,-30}})));
+      iconTransformation(extent={{100,-64},{140,-24}})));
 equation
-  connect(gaiQ_flow.y, Q_flow) annotation (Line(points={{1,80},{14,80},{14,54},
-          {96,54},{96,-40},{110,-40}},
+  connect(gaiQ_flow.y, Q_flow) annotation (Line(points={{1,80},{14,80},{14,54},{
+          96,54},{96,-40},{110,-40}},
                                     color={0,0,127}));
 end BoreField;
