@@ -3,13 +3,15 @@ model EnableLead_dedicated
     "Validate sequence for enabling lead pump of plants with dedicated primary hot water pumps"
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.PrimaryPumps.Subsequences.EnableLead_dedicated
-    enaLeaPriPum "Enable and disable lead hot water primary pump"
+    enaLeaPriPum
+    "Enable and disable lead hot water primary pump"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 
 protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul(
     final period=3600,
-    final startTime=300) "Boolean pulse source"
+    final shift=300)
+    "Boolean pulse source"
     annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
 
 equation

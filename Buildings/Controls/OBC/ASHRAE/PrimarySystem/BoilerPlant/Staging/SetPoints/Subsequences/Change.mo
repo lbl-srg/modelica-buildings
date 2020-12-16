@@ -18,7 +18,7 @@ block Change
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uStaChaProEnd
     "Signal indicating end of stage change process"
-    annotation (Placement(transformation(extent={{-480,-200},{-440,-160}}),
+    annotation (Placement(transformation(extent={{-480,-260},{-440,-220}}),
       iconTransformation(extent={{-140,70},{-100,110}},
         rotation=90)));
 
@@ -106,8 +106,7 @@ protected
     "Type converter"
     annotation (Placement(transformation(extent={{-320,90},{-300,110}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Latch lat(
-    final pre_y_start=true)
+  Buildings.Controls.OBC.CDL.Logical.Latch lat
     "Latch"
     annotation (Placement(transformation(extent={{-320,50},{-300,70}})));
 
@@ -178,8 +177,7 @@ protected
     "Ensure all conditions for stage change are satisfied"
     annotation (Placement(transformation(extent={{-160,-90},{-140,-70}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Latch lat2(
-    final pre_y_start=true)
+  Buildings.Controls.OBC.CDL.Logical.Latch lat2
     "Latch"
     annotation (Placement(transformation(extent={{-280,-190},{-260,-170}})));
 
@@ -232,6 +230,14 @@ protected
     final nin=nSta)
     "Find lowest available stage"
     annotation (Placement(transformation(extent={{-280,240},{-260,260}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Or or4
+    "Logical Or"
+    annotation (Placement(transformation(extent={{-340,-190},{-320,-170}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Not not2
+    "Logical Not"
+    annotation (Placement(transformation(extent={{-380,-190},{-360,-170}})));
 
 equation
   connect(reaToInt.y,ySta)
@@ -295,8 +301,6 @@ equation
           70},{278,70}}, color={255,0,255}));
   connect(pre1.y, staChaHol3.u)
     annotation (Line(points={{342,-110},{358,-110}}, color={255,0,255}));
-  connect(uStaChaProEnd, lat2.u)
-    annotation (Line(points={{-460,-180},{-282,-180}}, color={255,0,255}));
   connect(not1.y, mulAnd.u[2]) annotation (Line(points={{422,-110},{430,-110},{
           430,-140},{-200,-140},{-200,-78.25},{-162,-78.25}},
                                                           color={255,0,255}));
@@ -354,6 +358,14 @@ equation
           -70},{460,-70}}, color={255,0,255}));
   connect(cha.y, pre1.u) annotation (Line(points={{362,0},{370,0},{370,-80},{
           310,-80},{310,-110},{318,-110}}, color={255,0,255}));
+  connect(or4.y, lat2.u)
+    annotation (Line(points={{-318,-180},{-282,-180}}, color={255,0,255}));
+  connect(not2.y, or4.u1)
+    annotation (Line(points={{-358,-180},{-342,-180}}, color={255,0,255}));
+  connect(uPla, not2.u) annotation (Line(points={{-460,160},{-388,160},{-388,-180},
+          {-382,-180}}, color={255,0,255}));
+  connect(uStaChaProEnd, or4.u2) annotation (Line(points={{-460,-240},{-350,-240},
+          {-350,-188},{-342,-188}}, color={255,0,255}));
   annotation (defaultComponentName = "cha",
     Icon(graphics={
       Rectangle(
