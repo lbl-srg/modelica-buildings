@@ -18,37 +18,37 @@ partial model PartialBuilding
     annotation (Evaluate=true,Dialog(connectorSizing=true));
   parameter Boolean have_heaWat=false
     "Set to true if the building has heating water system"
-    annotation (Evaluate=true);
+    annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Boolean have_chiWat=false
     "Set to true if the building has chilled water system"
-    annotation (Evaluate=true);
+    annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Boolean have_eleHea=false
     "Set to true if the building has decentralized electric heating equipment"
-    annotation (Evaluate=true);
+    annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Boolean have_eleCoo=false
     "Set to true if the building has decentralized electric cooling equipment"
-    annotation (Evaluate=true);
+    annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Boolean have_fan=false
     "Set to true if fan power is computed"
-    annotation (Evaluate=true);
+    annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Boolean have_pum=false
     "Set to true if pump power is computed"
-    annotation (Evaluate=true);
+    annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Boolean have_weaBus=false
     "Set to true to use a weather bus"
-    annotation (Evaluate=true);
+    annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Real facMul(min=Modelica.Constants.eps)=1
     "Multiplier factor"
-    annotation (Evaluate=true);
+    annotation (Evaluate=true, Dialog(group="Scaling"));
   parameter Boolean allowFlowReversal=false
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
     annotation (Dialog(tab="Assumptions"),Evaluate=true);
   final parameter Boolean have_heaLoa=have_heaWat or have_eleHea
     "Set to true if the building has heating loads"
-    annotation (Evaluate=true);
+    annotation (Evaluate=true, Dialog(group="Configuration"));
   final parameter Boolean have_cooLoa=have_chiWat or have_eleCoo
     "Set to true if the building has cooling loads"
-    annotation (Evaluate=true);
+    annotation (Evaluate=true, Dialog(group="Configuration"));
   // IO CONNECTORS
   Buildings.BoundaryConditions.WeatherData.Bus weaBus if have_weaBus
     "Weather data bus"

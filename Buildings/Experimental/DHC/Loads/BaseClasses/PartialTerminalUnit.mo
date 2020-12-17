@@ -13,48 +13,42 @@ partial model PartialTerminalUnit
   parameter Boolean allowFlowReversalLoa=true
     "Set to true to allow flow reversal on the load side"
     annotation (Dialog(tab="Assumptions"),Evaluate=true);
-  parameter Real facSca(min=Modelica.Constants.eps)=1
-    "Scaling factor"
-    annotation (Evaluate=true);
-   parameter Real facMul(min=Modelica.Constants.eps)=1
-    "Zone multiplier factor"
-    annotation (Evaluate=true);
   parameter Boolean have_heaWat=false
     "Set to true if the system uses heating water"
-    annotation (Evaluate=true);
+    annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Boolean have_chiWat=false
     "Set to true if the system uses chilled water"
-    annotation (Evaluate=true);
+    annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Boolean have_chaOve=false
     "Set to true if the chilled water based heat exchanger operates in change-over"
-    annotation (Evaluate=true);
+    annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Boolean have_eleHea=false
     "Set to true if the system has electric heating equipment"
-    annotation (Evaluate=true);
+    annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Boolean have_eleCoo=false
     "Set to true if the system has electric cooling equipment"
-    annotation (Evaluate=true);
+    annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Boolean have_heaPor=false
     "Set to true for heat ports on the load side"
-    annotation (Evaluate=true);
+    annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Boolean have_fluPor=false
     "Set to true for fluid ports on the load side"
-    annotation (Evaluate=true);
+    annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Boolean have_TSen=false
     "Set to true for measured temperature as an input"
-    annotation (Evaluate=true);
+    annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Boolean have_QReq_flow=false
     "Set to true for required heat flow rate as an input"
-    annotation (Evaluate=true);
+    annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Boolean have_weaBus=false
     "Set to true to use a weather bus"
-    annotation (Evaluate=true);
+    annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Boolean have_fan=false
     "Set to true if fan power is computed"
-    annotation (Evaluate=true);
+    annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Boolean have_pum=false
     "Set to true if pump power is computed"
-    annotation (Evaluate=true);
+    annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Modelica.SIunits.HeatFlowRate QHea_flow_nominal(
     min=0)=0
     "Heat flow rate for water based heating at nominal conditions (>=0)"
@@ -80,9 +74,7 @@ partial model PartialTerminalUnit
     "Load side mass flow rate at nominal conditions in cooling mode"
     annotation (Dialog(group="Nominal condition",enable=have_chiWat));
   // AHRI 440 Standard Heating
-  parameter Modelica.SIunits.Temperature T_aHeaWat_nominal(
-    min=273.15,
-    displayUnit="degC")=273.15+60
+  parameter Modelica.SIunits.Temperature T_aHeaWat_nominal=273.15 + 60
     "Heating water inlet temperature at nominal conditions"
     annotation (Dialog(group="Nominal condition",enable=have_heaWat and not have_chaOve));
   parameter Modelica.SIunits.Temperature T_bHeaWat_nominal(
@@ -91,9 +83,7 @@ partial model PartialTerminalUnit
     "Heating water outlet temperature at nominal conditions"
     annotation (Dialog(group="Nominal condition",enable=have_heaWat and not have_chaOve));
   // AHRI 440 Standard Cooling
-  parameter Modelica.SIunits.Temperature T_aChiWat_nominal(
-    min=273.15,
-    displayUnit="degC")=273.15+7.2
+  parameter Modelica.SIunits.Temperature T_aChiWat_nominal=273.15 + 7.2
     "Chilled water inlet temperature at nominal conditions "
     annotation (Dialog(group="Nominal condition",enable=have_chiWat));
   parameter Modelica.SIunits.Temperature T_bChiWat_nominal(
@@ -101,16 +91,18 @@ partial model PartialTerminalUnit
     displayUnit="degC")=T_aChiWat_nominal+5.6
     "Chilled water outlet temperature at nominal conditions"
     annotation (Dialog(group="Nominal condition",enable=have_chiWat));
-  parameter Modelica.SIunits.Temperature T_aLoaHea_nominal(
-    min=273.15,
-    displayUnit="degC")=273.15+21.1
+  parameter Modelica.SIunits.Temperature T_aLoaHea_nominal=273.15 + 21.1
     "Load side inlet temperature at nominal conditions in heating mode"
     annotation (Dialog(group="Nominal condition",enable=have_heaWat and not have_chaOve));
-  parameter Modelica.SIunits.Temperature T_aLoaCoo_nominal(
-    min=273.15,
-    displayUnit="degC")=273.15+26.7
+  parameter Modelica.SIunits.Temperature T_aLoaCoo_nominal=273.15 + 26.7
     "Load side inlet temperature at nominal conditions in cooling mode"
     annotation (Dialog(group="Nominal condition",enable=have_chiWat));
+  parameter Real facSca(min=Modelica.Constants.eps)=1
+    "Scaling factor"
+    annotation (Evaluate=true, Dialog(group="Scaling"));
+   parameter Real facMul(min=Modelica.Constants.eps)=1
+    "Zone multiplier factor"
+    annotation (Evaluate=true, Dialog(group="Scaling"));
   // Dynamics
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state"
