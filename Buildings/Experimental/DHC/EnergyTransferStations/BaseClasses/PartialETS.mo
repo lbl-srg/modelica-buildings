@@ -40,19 +40,19 @@ partial model PartialETS
     "Set to true if the ETS supplies chilled water"
     annotation (Evaluate=true);
   parameter Boolean have_fan=false
-    "Set to true if fans drawn power is computed"
+    "Set to true if fan power is computed"
     annotation (Evaluate=true);
   parameter Boolean have_pum=false
-    "Set to true if pumps drawn power is computed"
+    "Set to true if pump power is computed"
     annotation (Evaluate=true);
   parameter Boolean have_eleHea=false
-    "Set to true if the ETS has electric heating"
+    "Set to true if the ETS has electric heating equipment"
     annotation (Evaluate=true);
   parameter Boolean have_eleCoo=false
-    "Set to true if the ETS has electric cooling"
+    "Set to true if the ETS has electric cooling equipment"
     annotation (Evaluate=true);
   parameter Boolean have_weaBus=false
-    "Set to true for weather bus"
+    "Set to true to use a weather bus"
     annotation (Evaluate=true);
   parameter Boolean allowFlowReversalSer=false
     "Set to true to allow flow reversal on service side"
@@ -62,13 +62,13 @@ partial model PartialETS
     annotation (Dialog(tab="Assumptions"),Evaluate=true);
   parameter Modelica.SIunits.HeatFlowRate QHeaWat_flow_nominal=0
     "Design heat flow rate for heating water production (>0)"
-    annotation (Dialog(group="Nominal condition",enable=have_heaWat));
+    annotation (Dialog(group="Nominal condition", enable=have_heaWat));
   parameter Modelica.SIunits.HeatFlowRate QHotWat_flow_nominal=0
     "Design heat flow rate for hot water production (>0)"
-    annotation (Dialog(group="Nominal condition",enable=have_hotWat));
+    annotation (Dialog(group="Nominal condition", enable=have_hotWat));
   parameter Modelica.SIunits.HeatFlowRate QChiWat_flow_nominal=0
     "Design heat flow rate for chilled water production (<0)"
-    annotation (Dialog(group="Nominal condition",enable=have_chiWat));
+    annotation (Dialog(group="Nominal condition", enable=have_chiWat));
   // IO CONNECTORS
   Modelica.Fluid.Interfaces.FluidPorts_a ports_aHeaWat[nPorts_aHeaWat](
     redeclare each package Medium=MediumBui,
@@ -253,14 +253,14 @@ The connectors to the service lines are configured based on an enumeration
 defining the type of district system, see
 <a href=\"modelica://Buildings.Experimental.DHC.Types.DistrictSystemType\">
 Buildings.Experimental.DHC.Types.DistrictSystemType</a>.
+In case of a heating service line, the model allows for using two
+different media at the inlet port <code>port_aSerHea</code> and at the oulet
+port <code>port_bSerHea</code> to represent a steam supply and condensate
+return.
 </p>
 <p> 
 The connectors to the building distribution systems are configured based
 on the Boolean parameters <code>have_heaWat</code> and <code>have_chiWat</code>.
-In case of a heating service line, the model allows for using two
-different media at the inlet <code>port_aSerHea</code> and at the oulet
-<code>port_bSerHea</code> to represent a steam supply and condensate
-return.
 </p>
 </html>",
       revisions="<html>
