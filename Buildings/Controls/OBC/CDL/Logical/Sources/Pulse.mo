@@ -9,10 +9,9 @@ block Pulse "Generate pulse signal of type Boolean"
     final quantity="Time",
     final unit="s",
     final min=Constants.small) "Time for one period";
-  parameter Real delay(
+  parameter Real shift(
     final quantity="Time",
-    final unit="s")=0
-    "Delay time for output";
+    final unit="s")=0 "Shift time for output";
   Interfaces.BooleanOutput y "Connector of Boolean output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
@@ -29,7 +28,7 @@ protected
     "First end of amplitude";
 initial algorithm
   t0 := Buildings.Utilities.Math.Functions.round(
-         x=integer((time)/period)*period + mod(delay, period),
+         x=integer((time)/period)*period + mod(shift, period),
          n=6);
   t1 := t0 + width*period;
 
@@ -130,7 +129,7 @@ equation
         Text(
           extent={{38,64},{96,40}},
           lineColor={135,135,135},
-          textString="%delay")}),
+          textString="%shift")}),
       Documentation(info="<html>
 <p>
 Block that outputs a pulse signal as shown below.
@@ -140,10 +139,16 @@ Block that outputs a pulse signal as shown below.
      alt=\"BooleanPulse.png\" />
 </p>
 <p>
-The pulse signal is generated an infinite number of times, and aligned with time <code>time=delay</code>.
+The pulse signal is generated an infinite number of times, and aligned with <code>time=shift</code>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 03, 2020, by Milica Grahovac:<br/>
+Renamed <code>delay</code> parameter to <code>shift</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2282\">issue 2282</a>.
+</li>
 <li>
 November 12, 2020, by Michael Wetter:<br/>
 Reformulated to remove dependency to <code>Modelica.SIunits</code>.<br/>

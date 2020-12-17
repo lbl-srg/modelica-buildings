@@ -14,7 +14,7 @@ model Pulse "Validation model for the Integer Pulse block"
     width=0.5,
     period=1,
     offset=1,
-    delay=1.75)
+    shift=1.75)
     "Block that generates pulse signal of type Integer starting from after the simulation start time"
     annotation (Placement(transformation(extent={{-10,0},{10,20}})));
 
@@ -23,7 +23,7 @@ model Pulse "Validation model for the Integer Pulse block"
     width=0.5,
     period=1,
     offset=-2,
-    delay=-1.25)
+    shift=-1.25)
     "Block that generates pulse signal of type Integer starting from before the simulation start time"
     annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
 

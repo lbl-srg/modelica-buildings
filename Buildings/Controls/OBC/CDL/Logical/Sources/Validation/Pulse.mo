@@ -10,73 +10,73 @@ model Pulse "Validation model for the Boolean Pulse block"
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul_b1(
     width=0.2,
     period=2,
-    delay=0.1) "Boolean pulse signal"
+    shift=0.1) "Boolean pulse signal"
     annotation (Placement(transformation(extent={{-90,0},{-70,20}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul_c1(
     width=0.2,
     period=2,
-    delay=0.6) "Boolean pulse signal"
+    shift=0.6) "Boolean pulse signal"
     annotation (Placement(transformation(extent={{-90,-40},{-70,-20}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul_a2(
     width=0.2,
     period=2,
-    delay=2) "Boolean pulse signal"
+    shift=2) "Boolean pulse signal"
     annotation (Placement(transformation(extent={{-50,40},{-30,60}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul_b2(
     width=0.2,
     period=2,
-    delay=2.1) "Boolean pulse signal"
+    shift=2.1) "Boolean pulse signal"
     annotation (Placement(transformation(extent={{-50,0},{-30,20}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul_c2(
     width=0.2,
     period=2,
-    delay=2.6) "Boolean pulse signal"
+    shift=2.6) "Boolean pulse signal"
     annotation (Placement(transformation(extent={{-50,-40},{-30,-20}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul_a3(
     width=0.2,
     period=2,
-    delay=4) "Boolean pulse signal"
+    shift=4) "Boolean pulse signal"
     annotation (Placement(transformation(extent={{-10,40},{10,60}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul_b3(
     width=0.2,
     period=2,
-    delay=4.1) "Boolean pulse signal"
+    shift=4.1) "Boolean pulse signal"
     annotation (Placement(transformation(extent={{-10,0},{10,20}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul_c3(
     width=0.2,
     period=2,
-    delay=4.6) "Boolean pulse signal"
+    shift=4.6) "Boolean pulse signal"
     annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul_a4(
     width=0.2,
     period=2,
-    delay=-2) "Boolean pulse signal"
+    shift=-2) "Boolean pulse signal"
     annotation (Placement(transformation(extent={{30,40},{50,60}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul_b4(
     width=0.2,
     period=2,
-    delay=-1.9) "Boolean pulse signal"
+    shift=-1.9) "Boolean pulse signal"
     annotation (Placement(transformation(extent={{30,0},{50,20}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul_c4(
     width=0.2,
     period=2,
-    delay=-1.4) "Boolean pulse signal"
+    shift=-1.4) "Boolean pulse signal"
     annotation (Placement(transformation(extent={{30,-40},{50,-20}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul_a5(
     width=0.2,
     period=2,
-    delay=-4) "Boolean pulse signal"
+    shift=-4) "Boolean pulse signal"
     annotation (Placement(transformation(extent={{70,40},{90,60}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul_b5(
     width=0.2,
     period=2,
-    delay=-3.9) "Boolean pulse signal"
+    shift=-3.9) "Boolean pulse signal"
     annotation (Placement(transformation(extent={{70,0},{90,20}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul_c5(
     width=0.2,
     period=2,
-    delay=-3.4) "Boolean pulse signal"
+    shift=-3.4) "Boolean pulse signal"
     annotation (Placement(transformation(extent={{70,-40},{90,-20}})));
   annotation (
   experiment(
