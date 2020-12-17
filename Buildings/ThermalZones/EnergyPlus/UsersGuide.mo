@@ -909,7 +909,7 @@ Buildings.ThermalZones.EnergyPlus.OutputVariable</a>.
   <td>Zone Exfiltration Sensible Heat Transfer Rate</td>
   <td>W</td>  <td>W</td>
   </tr> <tr>
-  <td>Zone Exh" + "aust Air Heat Transfer Rate</td>
+  <td>Zone Exhaust Air Heat Transfer Rate</td>
   <td>W</td>  <td>W</td>
   </tr> <tr>
   <td>Zone Exhaust Air Latent Heat Transfer Rate</td>

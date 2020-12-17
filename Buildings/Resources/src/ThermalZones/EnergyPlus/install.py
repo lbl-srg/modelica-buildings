@@ -44,7 +44,6 @@ def get_distribution(dis):
     for key in dis["files"]:
         found = False
         for nam in tar.getnames():
-    #    print nam
             if nam.endswith(key):
                 dis["files"][key] = nam
                 found = True
@@ -64,7 +63,6 @@ def get_distribution(dis):
         except:
             os.makedirs(os.path.dirname(des_fil))
 
-    #    print("Renaming {} to {}".format("files"[key], des_fil))
         os.rename(dis["files"][key], des_fil)
         log(("Wrote {} {}".format(dis["files"][key], des_fil)))
 
@@ -102,8 +100,6 @@ def get_output_var_html(allVars):
     txt = None
     template = env.get_template("output_vars_template.html")
     html = template.render(vars=allVars)
-#    with open(os.path.join(path_to_template, "temp.html"), mode="w", encoding="utf-8") as fil:
-#        fil.write(txt)
     return html
 
 def replace_output_var_table_in_mo(html):
@@ -162,7 +158,7 @@ if __name__ == "__main__":
     )
 
     p = Pool(2)
-    #fixme p.map(get_distribution, dists)
+    p.map(get_distribution, dists)
     js = get_output_vars_as_json()
     html = get_output_var_html(js)
     mo = replace_output_var_table_in_mo(html)
