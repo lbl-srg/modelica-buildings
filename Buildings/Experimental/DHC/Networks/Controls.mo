@@ -46,138 +46,148 @@ package Controls "Package of control blocks for distribution systems"
       y(final unit="K",
         displayUnit="degC"))
       "Minimum temperature at mixing points"
-      annotation (Placement(transformation(extent={{-70,-22},{-50,-2}})));
+      annotation (Placement(transformation(extent={{-70,-30},{-50,-10}})));
     Buildings.Controls.OBC.CDL.Continuous.MultiMax TMixMax(
       final nin=nMix,
       y(final unit="K",
         displayUnit="degC"))
       "Maximum temperature at mixing points"
-      annotation (Placement(transformation(extent={{-70,8},{-50,28}})));
+      annotation (Placement(transformation(extent={{-70,10},{-50,30}})));
     Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum(
       nin=nSou,
       k=fill(1, nSou))
-      annotation (Placement(transformation(extent={{-40,-142},{-20,-122}})));
+      annotation (Placement(transformation(extent={{-50,-130},{-30,-110}})));
     Buildings.Controls.OBC.CDL.Continuous.Add dTSou[nSou](each final k1=-1)
       "Temperature differences over source"
-      annotation (Placement(transformation(extent={{-70,-142},{-50,-122}})));
+      annotation (Placement(transformation(extent={{-80,-130},{-60,-110}})));
     Buildings.Controls.OBC.CDL.Continuous.Gain dTSou_nor(k=1/(sum(dTSou_nominal)))
       "Normalization of temperature difference over source"
-      annotation (Placement(transformation(extent={{-10,-142},{10,-122}})));
-    Buildings.Controls.OBC.CDL.Continuous.LimPID conShi(
+      annotation (Placement(transformation(extent={{-20,-130},{0,-110}})));
+    Buildings.Controls.OBC.CDL.Continuous.PID    conShi(
       controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
       k=k,
       Ti(displayUnit="min") = Ti,
       final yMax=1,
-      final yMin=-1,
-      initType=Buildings.Controls.OBC.CDL.Types.Init.InitialOutput)
+      final yMin=-1)
       "Controller to shift the min/max slopes"
-      annotation (Placement(transformation(extent={{20,-112},{40,-92}})));
+      annotation (Placement(transformation(extent={{10,-110},{30,-90}})));
     Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(k=0)
       "Set point for source dT"
-      annotation (Placement(transformation(extent={{-10,-92},{10,-72}})));
+      annotation (Placement(transformation(extent={{-50,-90},{-30,-70}})));
     Buildings.Controls.OBC.CDL.Continuous.Line uppCur "Upper curve"
-      annotation (Placement(transformation(extent={{30,8},{50,28}})));
+      annotation (Placement(transformation(extent={{30,10},{50,30}})));
     Buildings.Controls.OBC.CDL.Continuous.Sources.Constant one(k=1) "Constant 1"
-      annotation (Placement(transformation(extent={{-70,68},{-50,88}})));
+      annotation (Placement(transformation(extent={{-70,70},{-50,90}})));
     Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yMin(k=yPumMin)
       "Minimum pump speed"
-      annotation (Placement(transformation(extent={{-70,38},{-50,58}})));
+      annotation (Placement(transformation(extent={{-70,40},{-50,60}})));
     Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TMax_nominal(k=TMax)
       "Maximum temperature"
       annotation (Placement(transformation(extent={{-70,144},{-50,164}})));
     Buildings.Controls.OBC.CDL.Continuous.Add TMax_upper(k2=-delta,
       y(unit="K", displayUnit="degC"))
       "Upper value of upper slope after shifting it"
-      annotation (Placement(transformation(extent={{-30,138},{-10,158}})));
+      annotation (Placement(transformation(extent={{-30,150},{-10,170}})));
     Buildings.Controls.OBC.CDL.Continuous.Max sPos "Positive shift"
-      annotation (Placement(transformation(extent={{60,-94},{80,-74}})));
+      annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
     Buildings.Controls.OBC.CDL.Continuous.Min sNeg "Negative shift"
-      annotation (Placement(transformation(extent={{60,-132},{80,-112}})));
+      annotation (Placement(transformation(extent={{60,-150},{80,-130}})));
     Buildings.Controls.OBC.CDL.Continuous.AddParameter TMax_lower(p=-dTSlo, k=1)
       "Minimum temperatuer value of upper slope after shifting it"
-      annotation (Placement(transformation(extent={{10,137},{30,159}})));
+      annotation (Placement(transformation(extent={{10,149},{30,171}})));
     Buildings.Controls.OBC.CDL.Continuous.Line lowCur "Lower curve"
-      annotation (Placement(transformation(extent={{30,-22},{50,-2}})));
+      annotation (Placement(transformation(extent={{30,-30},{50,-10}})));
     Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TMin_nominal(k=TMin)
       "Minimum temperature"
-      annotation (Placement(transformation(extent={{-70,98},{-50,118}})));
+      annotation (Placement(transformation(extent={{-70,110},{-50,130}})));
     Buildings.Controls.OBC.CDL.Continuous.Add TMin_lower(k2=-delta,
       y(unit="K", displayUnit="degC"))
       "Lower value of lower slope after shifting it"
-      annotation (Placement(transformation(extent={{-30,98},{-10,118}})));
+      annotation (Placement(transformation(extent={{-30,110},{-10,130}})));
     Buildings.Controls.OBC.CDL.Continuous.AddParameter TMin_upper(p=+dTSlo, k=1)
       "Maximum temperatuer value of lower slope after shifting it"
-      annotation (Placement(transformation(extent={{10,98},{30,118}})));
+      annotation (Placement(transformation(extent={{10,110},{30,130}})));
     Buildings.Controls.OBC.CDL.Continuous.Max ySetPum "Change in pump signal"
       annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   equation
-    connect(TMix, TMixMin.u) annotation (Line(points={{-120,60},{-86,60},{-86,-12},
-            {-72,-12}},
+    connect(TMix, TMixMin.u) annotation (Line(points={{-120,60},{-80,60},{-80,-20},
+            {-72,-20}},
                   color={0,0,127}));
-    connect(TMix, TMixMax.u) annotation (Line(points={{-120,60},{-86,60},{-86,18},
-            {-72,18}},
+    connect(TMix, TMixMax.u) annotation (Line(points={{-120,60},{-80,60},{-80,20},
+            {-72,20}},
                   color={0,0,127}));
-    connect(dTSou.u1, TSouIn) annotation (Line(points={{-72,-126},{-90,-126},{-90,
+    connect(dTSou.u1, TSouIn) annotation (Line(points={{-82,-114},{-90,-114},{-90,
             0},{-120,0}}, color={0,0,127}));
-    connect(dTSou.u2, TSouOut) annotation (Line(points={{-72,-138},{-94,-138},{-94,
+    connect(dTSou.u2, TSouOut) annotation (Line(points={{-82,-126},{-94,-126},{-94,
             -60},{-120,-60}}, color={0,0,127}));
     connect(mulSum.u, dTSou.y)
-      annotation (Line(points={{-42,-132},{-48,-132}}, color={0,0,127}));
+      annotation (Line(points={{-52,-120},{-58,-120}}, color={0,0,127}));
     connect(mulSum.y, dTSou_nor.u)
-      annotation (Line(points={{-18,-132},{-12,-132}}, color={0,0,127}));
+      annotation (Line(points={{-28,-120},{-22,-120}}, color={0,0,127}));
     connect(dTSou_nor.y, conShi.u_m)
-      annotation (Line(points={{12,-132},{30,-132},{30,-114}}, color={0,0,127}));
-    connect(conShi.u_s, zer.y) annotation (Line(points={{18,-102},{16,-102},{16,-82},
-            {12,-82}},
+      annotation (Line(points={{2,-120},{20,-120},{20,-112}},  color={0,0,127}));
+    connect(conShi.u_s, zer.y) annotation (Line(points={{8,-100},{0,-100},{0,
+            -80},{-28,-80}},
                    color={0,0,127}));
     connect(uppCur.u, TMixMax.y)
-      annotation (Line(points={{28,18},{-48,18}}, color={0,0,127}));
-    connect(uppCur.f1, yMin.y) annotation (Line(points={{28,22},{-30,22},{-30,48},
-            {-48,48}}, color={0,0,127}));
-    connect(uppCur.f2, one.y) annotation (Line(points={{28,10},{-26,10},{-26,78},{
-            -48,78}}, color={0,0,127}));
+      annotation (Line(points={{28,20},{-48,20}}, color={0,0,127}));
+    connect(uppCur.f1, yMin.y) annotation (Line(points={{28,24},{-30,24},{-30,50},
+            {-48,50}}, color={0,0,127}));
+    connect(uppCur.f2, one.y) annotation (Line(points={{28,12},{-26,12},{-26,80},{
+            -48,80}}, color={0,0,127}));
     connect(TMax_nominal.y, TMax_upper.u1)
-      annotation (Line(points={{-48,154},{-32,154}}, color={0,0,127}));
-    connect(zer.y, sPos.u1) annotation (Line(points={{12,-82},{46,-82},{46,-78},{58,
-            -78}}, color={0,0,127}));
-    connect(zer.y, sNeg.u1) annotation (Line(points={{12,-82},{46,-82},{46,-116},{
-            58,-116}},
+      annotation (Line(points={{-48,154},{-40,154},{-40,166},{-32,166}},
+                                                     color={0,0,127}));
+    connect(zer.y, sPos.u1) annotation (Line(points={{-28,-80},{46,-80},{46,-54},
+            {58,-54}},
                    color={0,0,127}));
-    connect(conShi.y, sPos.u2) annotation (Line(points={{42,-102},{50,-102},{50,-90},
-            {58,-90}}, color={0,0,127}));
-    connect(conShi.y, sNeg.u2) annotation (Line(points={{42,-102},{50,-102},{50,-128},
-            {58,-128}},color={0,0,127}));
+    connect(zer.y, sNeg.u1) annotation (Line(points={{-28,-80},{46,-80},{46,
+            -134},{58,-134}},
+                   color={0,0,127}));
+    connect(conShi.y, sPos.u2) annotation (Line(points={{32,-100},{50,-100},{50,-66},
+            {58,-66}}, color={0,0,127}));
+    connect(conShi.y, sNeg.u2) annotation (Line(points={{32,-100},{50,-100},{50,-146},
+            {58,-146}},color={0,0,127}));
     connect(TMax_lower.u, TMax_upper.y)
-      annotation (Line(points={{8,148},{-8,148}},   color={0,0,127}));
-    connect(uppCur.x1, TMax_lower.y) annotation (Line(points={{28,26},{20,26},{20,
-            82},{42,82},{42,148},{32,148}}, color={0,0,127}));
-    connect(TMax_upper.y, uppCur.x2) annotation (Line(points={{-8,148},{0,148},{0,
-            14},{28,14}}, color={0,0,127}));
+      annotation (Line(points={{8,160},{-8,160}},   color={0,0,127}));
+    connect(uppCur.x1, TMax_lower.y) annotation (Line(points={{28,28},{20,28},{
+            20,80},{40,80},{40,160},{32,160}},
+                                            color={0,0,127}));
+    connect(TMax_upper.y, uppCur.x2) annotation (Line(points={{-8,160},{0,160},
+            {0,16},{28,16}},
+                          color={0,0,127}));
     connect(TMixMin.y, lowCur.u)
-      annotation (Line(points={{-48,-12},{28,-12}}, color={0,0,127}));
-    connect(TMin_nominal.y, TMin_lower.u1) annotation (Line(points={{-48,108},{-40,
-            108},{-40,114},{-32,114}}, color={0,0,127}));
+      annotation (Line(points={{-48,-20},{28,-20}}, color={0,0,127}));
+    connect(TMin_nominal.y, TMin_lower.u1) annotation (Line(points={{-48,120},{
+            -40,120},{-40,126},{-32,126}},
+                                       color={0,0,127}));
     connect(TMin_lower.y, TMin_upper.u)
-      annotation (Line(points={{-8,108},{8,108}}, color={0,0,127}));
-    connect(TMin_upper.y, lowCur.x2) annotation (Line(points={{32,108},{36,108},{36,
-            86},{16,86},{16,-16},{28,-16}}, color={0,0,127}));
-    connect(TMin_lower.y, lowCur.x1) annotation (Line(points={{-8,108},{-4,108},{-4,
-            -4},{28,-4}}, color={0,0,127}));
-    connect(lowCur.f1, one.y) annotation (Line(points={{28,-8},{-26,-8},{-26,78},{
-            -48,78}}, color={0,0,127}));
-    connect(lowCur.f2, yMin.y) annotation (Line(points={{28,-20},{-30,-20},{-30,48},
-            {-48,48}}, color={0,0,127}));
+      annotation (Line(points={{-8,120},{8,120}}, color={0,0,127}));
+    connect(TMin_upper.y, lowCur.x2) annotation (Line(points={{32,120},{36,120},
+            {36,84},{16,84},{16,-24},{28,-24}},
+                                            color={0,0,127}));
+    connect(TMin_lower.y, lowCur.x1) annotation (Line(points={{-8,120},{-4,120},
+            {-4,-12},{28,-12}},
+                          color={0,0,127}));
+    connect(lowCur.f1, one.y) annotation (Line(points={{28,-16},{-26,-16},{-26,80},
+            {-48,80}},color={0,0,127}));
+    connect(lowCur.f2, yMin.y) annotation (Line(points={{28,-28},{-30,-28},{-30,50},
+            {-48,50}}, color={0,0,127}));
     connect(uppCur.y, ySetPum.u1)
-      annotation (Line(points={{52,18},{56,18},{56,6},{58,6}}, color={0,0,127}));
-    connect(lowCur.y, ySetPum.u2) annotation (Line(points={{52,-12},{56,-12},{56,-6},
+      annotation (Line(points={{52,20},{56,20},{56,6},{58,6}}, color={0,0,127}));
+    connect(lowCur.y, ySetPum.u2) annotation (Line(points={{52,-20},{56,-20},{56,-6},
             {58,-6}}, color={0,0,127}));
     connect(ySetPum.y, y)
       annotation (Line(points={{82,0},{120,0}}, color={0,0,127}));
-    connect(sPos.y, TMax_upper.u2) annotation (Line(points={{82,-84},{88,-84},{88,
-            134},{-40,134},{-40,142},{-32,142}}, color={0,0,127}));
-    connect(sNeg.y, TMin_lower.u2) annotation (Line(points={{82,-122},{94,-122},{94,
-            94},{-40,94},{-40,102},{-32,102}},    color={0,0,127}));
-    annotation (Diagram(coordinateSystem(extent={{-100,-180},{100,180}})), Icon(
+    connect(sPos.y, TMax_upper.u2) annotation (Line(points={{82,-60},{88,-60},{
+            88,140},{-40,140},{-40,154},{-32,154}},
+                                                 color={0,0,127}));
+    connect(sNeg.y, TMin_lower.u2) annotation (Line(points={{82,-140},{94,-140},
+            {94,100},{-40,100},{-40,114},{-32,114}},
+                                                  color={0,0,127}));
+    annotation (
+      defaultComponentName="conPum",
+      Diagram(coordinateSystem(extent={{-100,-180},{100,180}})), Icon(
           coordinateSystem(extent={{-100,-100},{100,100}}), graphics={
           Ellipse(
             extent={{-52,52},{54,-52}},

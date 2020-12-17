@@ -113,9 +113,9 @@ partial model PartialParallel "Partial model for parallel network"
     redeclare final package Medium =Medium,
     final m_flow_nominal=datDes.mDis_flow_nominal)
     "District water return temperature" annotation (Placement(transformation(
-        extent={{10,10},{-10,-10}},
+        extent={{10,-10},{-10,10}},
         rotation=90,
-        origin={-40,20})));
+        origin={80,0})));
   Fluid.Sensors.TemperatureTwoPort TDisWatBorLvg(
     redeclare final package Medium =Medium,
     final m_flow_nominal=datDes.mDis_flow_nominal)
@@ -161,10 +161,11 @@ equation
     annotation (Line(points={{-80,0},{-80,10}}, color={0,127,255}));
   connect(TDisWatSup.port_b, dis.port_aDisSup) annotation (Line(points={{-80,30},
           {-80,140},{-20,140}}, color={0,127,255}));
-  connect(dis.port_bDisRet, TDisWatRet.port_a) annotation (Line(points={{-20,
-          134},{-40,134},{-40,30}}, color={0,127,255}));
-  connect(TDisWatRet.port_b, pumDis.port_a) annotation (Line(points={{-40,10},{
-          -40,0},{80,0},{80,-50}}, color={0,127,255}));
+  connect(dis.port_bDisRet, TDisWatRet.port_a) annotation (Line(points={{-20,134},
+          {-40,134},{-40,120},{80,120},{80,10}},
+                                    color={0,127,255}));
+  connect(TDisWatRet.port_b, pumDis.port_a) annotation (Line(points={{80,-10},{
+          80,-50}},                color={0,127,255}));
   connect(conSto.port_bDis, TDisWatBorLvg.port_a)
     annotation (Line(points={{-80,-80},{-80,-50}}, color={0,127,255}));
   connect(TDisWatBorLvg.port_b, conPla.port_aDis)

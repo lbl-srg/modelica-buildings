@@ -112,7 +112,7 @@ partial model PartialSeries "Partial model for series network"
     final m_flow_nominal=datDes.mDis_flow_nominal)
     "District water return temperature"
     annotation (Placement(transformation(
-        extent={{10,10},{-10,-10}},
+        extent={{10,-10},{-10,10}},
         rotation=90,
         origin={80,0})));
   Fluid.Sensors.TemperatureTwoPort TDisWatBorLvg(

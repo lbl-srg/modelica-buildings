@@ -1,6 +1,6 @@
 ﻿within Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5;
-model HeatPumpSimplified
-  "Simplified model of a substation producing heating and hot water (heat pump) and chilled water (HX)"
+model HeatPumpHeatExchanger
+  "Model of a substation producing heating and hot water with heat pumps and chilled water with HX"
   extends DHC.EnergyTransferStations.BaseClasses.PartialETS(
     final typ=DHC.Types.DistrictSystemType.CombinedGeneration5,
     final have_weaBus=false,
@@ -20,24 +20,24 @@ model HeatPumpSimplified
   parameter Modelica.SIunits.TemperatureDifference dT_nominal = 5
     "Water temperature drop/increase accross load and source-side HX (always positive)"
     annotation (Dialog(group="Nominal conditions"));
-  parameter Modelica.SIunits.Temperature TChiWatSup_nominal=18 + 273.15
+  parameter Modelica.SIunits.Temperature TChiWatSup_nominal=291.15
     "Chilled water supply temperature"
     annotation (Dialog(group="Nominal conditions"));
   parameter Modelica.SIunits.Temperature TChiWatRet_nominal=
     TChiWatSup_nominal + dT_nominal
     "Chilled water return temperature"
     annotation (Dialog(group="Nominal conditions"));
-  parameter Modelica.SIunits.Temperature THeaWatSup_nominal=40 + 273.15
+  parameter Modelica.SIunits.Temperature THeaWatSup_nominal=313.15
     "Heating water supply temperature"
     annotation (Dialog(group="Nominal conditions"));
   parameter Modelica.SIunits.Temperature THeaWatRet_nominal=
     THeaWatSup_nominal - dT_nominal
     "Heating water return temperature"
     annotation (Dialog(group="Nominal conditions"));
-  parameter Modelica.SIunits.Temperature THotWatSup_nominal=63 + 273.15
+  parameter Modelica.SIunits.Temperature THotWatSup_nominal=336.15
     "Hot water supply temperature"
     annotation (Dialog(group="Nominal conditions", enable=have_hotWat));
-  parameter Modelica.SIunits.Temperature TColWat_nominal=15 + 273.15
+  parameter Modelica.SIunits.Temperature TColWat_nominal=288.15
     "Cold water temperature"
     annotation (Dialog(group="Nominal conditions", enable=have_hotWat));
   parameter Modelica.SIunits.Pressure dp_nominal(displayUnit="Pa") = 50000
@@ -49,32 +49,22 @@ model HeatPumpSimplified
     annotation(Dialog(group="Nominal conditions"));
   final parameter Modelica.SIunits.MassFlowRate mChiWat_flow_nominal(min=0)=
     abs(QChiWat_flow_nominal / cp_default / (TChiWatSup_nominal - TChiWatRet_nominal))
-    "Heating water mass flow rate"
-    annotation(Dialog(group="Nominal conditions"));
-  final parameter Modelica.SIunits.HeatFlowRate QEvaHotWat_flow_nominal(max=0)=
-    if have_hotWat then -QHotWat_flow_nominal * (COPHotWat_nominal - 1) / COPHotWat_nominal
-    else 0
-    "SHW heat pump evaporator heat flow rate"
-    annotation(Dialog(group="Nominal conditions"));
-  final parameter Modelica.SIunits.MassFlowRate mEvaHotWat_flow_nominal(min=0)=
-    if have_hotWat then abs(QEvaHotWat_flow_nominal / cp_default / dT_nominal)
-    else 0
-    "SHW heat pump evaporator mass flow rate"
+    "Chilled water mass flow rate"
     annotation(Dialog(group="Nominal conditions"));
   final parameter Modelica.SIunits.MassFlowRate mDisWat_flow_nominal(min=0)=
-    max(heaPum.m2_flow_nominal + mEvaHotWat_flow_nominal, hexChi.m1_flow_nominal)
+    max(proHeaWat.m2_flow_nominal + proHotWat.m2_flow_nominal, hexChi.m1_flow_nominal)
     "District water mass flow rate"
-    annotation(Dialog(group="Nominal conditions"));
+    annotation (Dialog(group="Nominal conditions"));
   final parameter Modelica.SIunits.SpecificHeatCapacity cp_default=
     MediumBui.specificHeatCapacityCp(MediumBui.setState_pTX(
       p = MediumBui.p_default,
       T = MediumBui.T_default))
     "Specific heat capacity of the fluid";
-  //// Heat pump for heating water production
-  parameter Real COP_nominal(final unit="1") = 5
+  // Heat pump for heating water production
+  parameter Real COPHeaWat_nominal(final unit="1") = 5
     "COP of heat pump for heating water production"
     annotation (Dialog(group="Nominal conditions"));
-  //// Heat pump for hot water production
+  // Heat pump for hot water production
   parameter Real COPHotWat_nominal(final unit="1") = 2
     "COP of heat pump for hot water production"
     annotation (Dialog(group="Nominal conditions", enable=have_hotWat));
@@ -210,14 +200,15 @@ model HeatPumpSimplified
     annotation (Placement(transformation(extent={{10,-324},{-10,-344}})));
   Buildings.Fluid.Delays.DelayFirstOrder volHeaWatRet(
     redeclare final package Medium = MediumBui,
-    final m_flow_nominal=heaPum.m1_flow_nominal,
+    final m_flow_nominal=proHeaWat.m1_flow_nominal,
     tau=60,
     final energyDynamics=mixingVolumeEnergyDynamics,
     T_start=THeaWatSup_nominal,
-    nPorts=3) "Mixing volume representing building HHW primary"
-    annotation (Placement(transformation(extent={{-10,10},{10,-10}},
-      rotation=90,
-      origin={90,180})));
+    nPorts=3) "Mixing volume representing building HHW primary" annotation (
+      Placement(transformation(
+        extent={{-10,10},{10,-10}},
+        rotation=90,
+        origin={90,180})));
   Buildings.Fluid.Sensors.MassFlowRate senMasFloHeaWat(
     redeclare final package Medium = MediumBui,
     final allowFlowReversal=allowFlowReversalBui)
@@ -295,19 +286,17 @@ model HeatPumpSimplified
     redeclare final package Medium = MediumSer,
     final m_flow_nominal=mDisWat_flow_nominal) "Flow switch box"
     annotation (Placement(transformation(extent={{-10,-390},{10,-370}})));
-  DHC.EnergyTransferStations.BaseClasses.Junction bypHeaWatSup(
-   redeclare final package Medium = MediumBui,
-   final m_flow_nominal=heaPum.m1_flow_nominal*{1,-1,-1})
-   "Bypass heating water (supply)"
-    annotation (Placement(transformation(
+  DHC.EnergyTransferStations.BaseClasses.Junction bypHeaWatSup(redeclare final
+      package Medium = MediumBui, final m_flow_nominal=proHeaWat.m1_flow_nominal
+        *{1,-1,-1}) "Bypass heating water (supply)" annotation (Placement(
+        transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={100,260})));
-  DHC.EnergyTransferStations.BaseClasses.Junction bypHeaWatRet(
-   redeclare final package Medium = MediumBui,
-   final m_flow_nominal=heaPum.m1_flow_nominal*{1,-1,1})
-   "Bypass heating water (return)"
-    annotation (Placement(transformation(
+  DHC.EnergyTransferStations.BaseClasses.Junction bypHeaWatRet(redeclare final
+      package Medium = MediumBui, final m_flow_nominal=proHeaWat.m1_flow_nominal
+        *{1,-1,1}) "Bypass heating water (return)" annotation (Placement(
+        transformation(
         extent={{10,10},{-10,-10}},
         rotation=0,
         origin={100,240})));
@@ -332,10 +321,10 @@ model HeatPumpSimplified
         60) "Enable heating"
     annotation (Placement(transformation(extent={{-140,210},{-120,230}})));
   Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Subsystems.HeatPump
-    heaPum(
+    proHeaWat(
     redeclare final package Medium1 = MediumBui,
     redeclare final package Medium2 = MediumSer,
-    final COP_nominal=COP_nominal,
+    final COP_nominal=COPHeaWat_nominal,
     final Q1_flow_nominal=QHeaWat_flow_nominal,
     final allowFlowReversal1=allowFlowReversalBui,
     final allowFlowReversal2=allowFlowReversalSer,
@@ -348,7 +337,7 @@ model HeatPumpSimplified
     "Total power for space cooling (ETS included, building excluded)"
     annotation (Placement(transformation(extent={{230,310},{250,330}})));
   Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Subsystems.HeatPump
-    heaPumSHW(
+    proHotWat(
     redeclare final package Medium1 = MediumBui,
     redeclare final package Medium2 = MediumSer,
     final have_pumCon=false,
@@ -360,7 +349,7 @@ model HeatPumpSimplified
     final dT2_nominal=-dT_nominal,
     final dp1_nominal=dp_nominal,
     final dp2_nominal=dp_nominal) if have_hotWat
-    "Subsystem for service hot water production"
+    "Subsystem for hot water production"
     annotation (Placement(transformation(extent={{-10,24},{10,44}})));
   Fluid.Sources.Boundary_pT sinSHW(
     redeclare final package Medium = MediumBui,
@@ -477,37 +466,32 @@ equation
           -280},{200,-280},{200,200},{300,200}}, color={0,127,255}));
   connect(bypHeaWatRet.port_3, bypHeaWatSup.port_3)
     annotation (Line(points={{100,250},{100,250}}, color={0,127,255}));
-  connect(volHeaWatRet.ports[3], heaPum.port_a1) annotation (Line(points={{80,
-          182.667},{80,180},{-20,180},{-20,208},{-10,208}},       color={0,127,255}));
-  connect(heaPum.port_b2, volMixDis_b.ports[3]) annotation (Line(points={{10,220},
-          {262,220},{262,-360},{260,-360}},              color={0,127,255}));
-  connect(volMixDis_a.ports[3], heaPum.port_a2) annotation (Line(points={{-260,
-          -360},{-260,200},{14,200},{14,208},{10,208}},
-        color={0,127,255}));
-  connect(enaHea.y, heaPum.uEna) annotation (Line(points={{-118,220},{-40,220},{
-          -40,216},{-12,216}},  color={255,0,255}));
-  connect(THeaWatSupSet, heaPum.TSupSet) annotation (Line(points={{-320,40},{-40,
-          40},{-40,212},{-12,212}}, color={0,0,127}));
-  connect(heaPum.PPum, PPumHeaTot.u[1]) annotation (Line(points={{12,214},{172,
-          214},{172,421},{188,421}},
-                                color={0,0,127}));
+  connect(volHeaWatRet.ports[3], proHeaWat.port_a1) annotation (Line(points={{80,
+          182.667},{80,180},{-20,180},{-20,208},{-10,208}}, color={0,127,255}));
+  connect(proHeaWat.port_b2, volMixDis_b.ports[3]) annotation (Line(points={{10,
+          220},{262,220},{262,-360},{260,-360}}, color={0,127,255}));
+  connect(volMixDis_a.ports[3], proHeaWat.port_a2) annotation (Line(points={{-260,
+          -360},{-260,200},{14,200},{14,208},{10,208}}, color={0,127,255}));
+  connect(enaHea.y, proHeaWat.uEna) annotation (Line(points={{-118,220},{-40,220},
+          {-40,216},{-12,216}}, color={255,0,255}));
+  connect(THeaWatSupSet, proHeaWat.TSupSet) annotation (Line(points={{-320,40},{
+          -40,40},{-40,212},{-12,212}}, color={0,0,127}));
+  connect(proHeaWat.PPum, PPumHeaTot.u[1]) annotation (Line(points={{12,214},{172,
+          214},{172,421},{188,421}}, color={0,0,127}));
   connect(PHeaTot.y, PHea) annotation (Line(points={{252,360},{280,360},{280,60},
           {320,60}}, color={0,0,127}));
   connect(PPumCooTot.y, PCooTot.u[1]) annotation (Line(points={{212,380},{216,380},
           {216,320},{228,320}}, color={0,0,127}));
   connect(PCooTot.y, PCoo) annotation (Line(points={{252,320},{272,320},{272,20},
           {320,20}}, color={0,0,127}));
-  connect(volMixDis_a.ports[4], heaPumSHW.port_a2) annotation (Line(points={{-260,
-          -360},{-258,-360},{-258,20},{14,20},{14,28},{10,28}},     color={0,127,
-          255}));
-  connect(heaPumSHW.port_b2, volMixDis_b.ports[4])
-    annotation (Line(points={{10,40},{260,40},{260,-360}},
-                                                         color={0,127,255}));
-  connect(THotWatSupSet, heaPumSHW.TSupSet) annotation (Line(points={{-320,-40},
-          {-160,-40},{-160,32},{-12,32}},
-                                  color={0,0,127}));
-  connect(sinSHW.ports[1], heaPumSHW.port_b1) annotation (Line(points={{-50,60},
-          {-20,60},{-20,40},{-10,40}},  color={0,127,255}));
+  connect(volMixDis_a.ports[4], proHotWat.port_a2) annotation (Line(points={{-260,
+          -360},{-258,-360},{-258,20},{14,20},{14,28},{10,28}}, color={0,127,255}));
+  connect(proHotWat.port_b2, volMixDis_b.ports[4])
+    annotation (Line(points={{10,40},{260,40},{260,-360}}, color={0,127,255}));
+  connect(THotWatSupSet, proHotWat.TSupSet) annotation (Line(points={{-320,-40},
+          {-160,-40},{-160,32},{-12,32}}, color={0,0,127}));
+  connect(sinSHW.ports[1], proHotWat.port_b1) annotation (Line(points={{-50,60},
+          {-20,60},{-20,40},{-10,40}}, color={0,127,255}));
   connect(TColWat, souColWat.T_in) annotation (Line(points={{-320,-80},{-60,-80},
           {-60,-38},{-50,-38}}, color={0,0,127}));
   connect(gai.y, div1.u2) annotation (Line(points={{-98,0},{-80,0},{-80,-20},{-120,
@@ -516,7 +500,7 @@ equation
           -34},{-102,-34}}, color={0,0,127}));
   connect(masFloHeaTot.y, mHea_flow)
     annotation (Line(points={{292,-140},{320,-140}}, color={0,0,127}));
-  connect(heaPumSHW.mEva_flow, masFloHeaTot.u[2]) annotation (Line(points={{12,31},
+  connect(proHotWat.mEva_flow, masFloHeaTot.u[2]) annotation (Line(points={{12,31},
           {218,31},{218,-141},{268,-141}}, color={0,0,127}));
   connect(zer.y, masFloHeaTot.u[2]) annotation (Line(points={{161,360},{216,360},
           {216,-144},{268,-144},{268,-141}},color={0,0,127}));
@@ -524,15 +508,14 @@ equation
           {320,-100}}, color={0,0,127}));
   connect(zer.y, PComTot.u[2]) annotation (Line(points={{161,360},{216,360},{216,
           279},{228,279}},color={0,0,127}));
-  connect(heaPum.PHea, PComTot.u[1]) annotation (Line(points={{12,217},{222,217},
-          {222,282},{228,282},{228,281}},color={0,0,127}));
-  connect(heaPumSHW.PHea, PComTot.u[2]) annotation (Line(points={{12,37},{118,37},
-          {224,37},{224,279},{228,279}},         color={0,0,127}));
-  connect(heaPumSHW.PPum, PPumHeaTot.u[2]) annotation (Line(points={{12,34},{176,
+  connect(proHeaWat.PHea, PComTot.u[1]) annotation (Line(points={{12,217},{222,217},
+          {222,282},{228,282},{228,281}}, color={0,0,127}));
+  connect(proHotWat.PHea, PComTot.u[2]) annotation (Line(points={{12,37},{118,37},
+          {224,37},{224,279},{228,279}}, color={0,0,127}));
+  connect(proHotWat.PPum, PPumHeaTot.u[2]) annotation (Line(points={{12,34},{176,
           34},{176,420},{188,420},{188,419}}, color={0,0,127}));
-  connect(heaPum.mEva_flow, masFloHeaTot.u[1]) annotation (Line(points={{12,211},
-          {220,211},{220,-139},{268,-139}},
-        color={0,0,127}));
+  connect(proHeaWat.mEva_flow, masFloHeaTot.u[1]) annotation (Line(points={{12,211},
+          {220,211},{220,-139},{268,-139}}, color={0,0,127}));
   connect(PComTot.y, PHeaTot.u[2]) annotation (Line(points={{252,280},{260,280},
           {260,300},{220,300},{220,359},{228,359}}, color={0,0,127}));
   connect(zer.y, PPumHeaTot.u[2]) annotation (Line(points={{161,360},{174,360},{
@@ -543,7 +526,7 @@ equation
           {120,300},{120,240},{110,240}},      color={0,127,255}));
   connect(senMasFloChiWat.port_b, senTChiWatRet.port_a)
     annotation (Line(points={{-230,-120},{30,-120}}, color={0,127,255}));
-  connect(souColWat.ports[1], heaPumSHW.port_a1) annotation (Line(points={{-28,-42},
+  connect(souColWat.ports[1], proHotWat.port_a1) annotation (Line(points={{-28,-42},
           {-20,-42},{-20,28},{-10,28}}, color={0,127,255}));
   connect(delT.y, gai.u)
     annotation (Line(points={{-128,0},{-122,0}},     color={0,0,127}));
@@ -552,8 +535,8 @@ equation
   connect(THotWatSupSet, delT.u1) annotation (Line(points={{-320,-40},{-160,-40},
           {-160,6},{-152,6}},
                             color={0,0,127}));
-  connect(heaPum.port_b1, senMasFloHeaWatPri.port_a) annotation (Line(points={{-10,220},
-          {-20,220},{-20,260},{30,260}},          color={0,127,255}));
+  connect(proHeaWat.port_b1, senMasFloHeaWatPri.port_a) annotation (Line(points=
+         {{-10,220},{-20,220},{-20,260},{30,260}}, color={0,127,255}));
   connect(senMasFloHeaWatPri.port_b, bypHeaWatSup.port_1)
     annotation (Line(points={{50,260},{90,260}},  color={0,127,255}));
   connect(port_aSerAmb, swiFlo.port_aSup) annotation (Line(points={{-300,-200},
@@ -569,7 +552,7 @@ equation
           {-180,-220},{-144,-220},{-144,-212}}, color={255,0,255}));
   connect(uSHW, enaSHW.u)
     annotation (Line(points={{-320,80},{-142,80}}, color={255,0,255}));
-  connect(enaSHW.y, heaPumSHW.uEna) annotation (Line(points={{-118,80},{-80,80},
+  connect(enaSHW.y, proHotWat.uEna) annotation (Line(points={{-118,80},{-80,80},
           {-80,36},{-12,36}}, color={255,0,255}));
   connect(div1.y, souColWat.m_flow_in) annotation (Line(points={{-78,-40},{-68,-40},
           {-68,-34},{-50,-34}}, color={0,0,127}));
@@ -587,10 +570,10 @@ equation
           {140,-220},{-140,-220},{-140,-212}}, color={0,0,127}));
   connect(zer1.y, masFloHea.u2) annotation (Line(points={{-19,-240},{-8,-240},{
           -8,-252},{-6,-252}}, color={0,0,127}));
-  connect(heaPumSHW.mEva_flow, masFloHea.u2) annotation (Line(points={{12,31},{
-          18,31},{18,-240},{-6,-240},{-6,-252}}, color={0,0,127}));
-  connect(heaPum.mEva_flow, masFloHea.u1) annotation (Line(points={{12,211},{20,
-          211},{20,-246},{6,-246},{6,-252}}, color={0,0,127}));
+  connect(proHotWat.mEva_flow, masFloHea.u2) annotation (Line(points={{12,31},{18,
+          31},{18,-240},{-6,-240},{-6,-252}}, color={0,0,127}));
+  connect(proHeaWat.mEva_flow, masFloHea.u1) annotation (Line(points={{12,211},{
+          20,211},{20,-246},{6,-246},{6,-252}}, color={0,0,127}));
   connect(masFloHea.y, swiFlo.mPos_flow) annotation (Line(points={{0,-276},{0,
           -320},{-16,-320},{-16,-376},{-12,-376}}, color={0,0,127}));
   annotation (
@@ -630,4 +613,4 @@ This is for
       StopTime=15000000,
       Tolerance=1e-06,
       __Dymola_Algorithm="Cvode"));
-end HeatPumpSimplified;
+end HeatPumpHeatExchanger;
