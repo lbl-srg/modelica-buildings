@@ -3,7 +3,7 @@ partial model PartialBuilding
   "Partial class for building model"
   replaceable package Medium=Buildings.Media.Water
     constrainedby Modelica.Media.Interfaces.PartialMedium
-    "Source side medium";
+    "Medium in the building distribution system";
   parameter Integer nPorts_aHeaWat=0
     "Number of heating water inlet ports"
     annotation (Evaluate=true,Dialog(connectorSizing=true));
@@ -29,13 +29,13 @@ partial model PartialBuilding
     "Set to true if the building has decentralized electric cooling equipment"
     annotation (Evaluate=true);
   parameter Boolean have_fan=false
-    "Set to true if the power drawn by fan motors is computed"
+    "Set to true if fan power is computed"
     annotation (Evaluate=true);
   parameter Boolean have_pum=false
-    "Set to true if the power drawn by pump motors is computed"
+    "Set to true if pump power is computed"
     annotation (Evaluate=true);
   parameter Boolean have_weaBus=false
-    "Set to true for weather bus"
+    "Set to true to use a weather bus"
     annotation (Evaluate=true);
   parameter Real facMul(min=Modelica.Constants.eps)=1
     "Multiplier factor"

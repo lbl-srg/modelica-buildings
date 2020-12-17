@@ -49,13 +49,13 @@ partial model PartialBuildingWithPartialETS
     "Set to true if the building or ETS has electric cooling equipment"
     annotation (Evaluate=true);
   final parameter Boolean have_fan=bui.have_fan or ets.have_fan
-    "Set to true if the power drawn by fan motors is computed"
+    "Set to true if fan power is computed"
     annotation (Evaluate=true);
   final parameter Boolean have_pum=bui.have_pum or ets.have_pum
-    "Set to true if the power drawn by pump motors is computed"
+    "Set to true if pump power is computed"
     annotation (Evaluate=true);
   final parameter Boolean have_weaBus=bui.have_weaBus or ets.have_weaBus
-    "Set to true for weather bus"
+    "Set to true to use a weather bus"
     annotation (Evaluate=true);
   final parameter Modelica.SIunits.HeatFlowRate QChiWat_flow_nominal=
     ets.QChiWat_flow_nominal

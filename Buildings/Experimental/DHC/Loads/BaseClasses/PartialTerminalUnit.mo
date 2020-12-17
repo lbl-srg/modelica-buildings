@@ -3,12 +3,12 @@ partial model PartialTerminalUnit
   "Partial model for HVAC terminal unit"
   replaceable package Medium1=Buildings.Media.Water
     constrainedby Modelica.Media.Interfaces.PartialMedium
-    "Source side medium";
+    "Medium in the building distribution system";
   replaceable package Medium2=Buildings.Media.Air
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Load side medium";
   parameter Boolean allowFlowReversal=false
-    "Set to true to allow flow reversal on the source side"
+    "Set to true to allow flow reversal in building distribution system"
     annotation (Dialog(tab="Assumptions"),Evaluate=true);
   parameter Boolean allowFlowReversalLoa=true
     "Set to true to allow flow reversal on the load side"
@@ -20,19 +20,19 @@ partial model PartialTerminalUnit
     "Zone multiplier factor"
     annotation (Evaluate=true);
   parameter Boolean have_heaWat=false
-    "Set to true if the system has a heating water based heat exchanger"
+    "Set to true if the system uses heating water"
     annotation (Evaluate=true);
   parameter Boolean have_chiWat=false
-    "Set to true if the system has a chilled water based heat exchanger"
+    "Set to true if the system uses chilled water"
     annotation (Evaluate=true);
   parameter Boolean have_chaOve=false
     "Set to true if the chilled water based heat exchanger operates in change-over"
     annotation (Evaluate=true);
   parameter Boolean have_eleHea=false
-    "Set to true if the system has an electric heating equipment"
+    "Set to true if the system has electric heating equipment"
     annotation (Evaluate=true);
   parameter Boolean have_eleCoo=false
-    "Set to true if the system has an electric cooling equipment"
+    "Set to true if the system has electric cooling equipment"
     annotation (Evaluate=true);
   parameter Boolean have_heaPor=false
     "Set to true for heat ports on the load side"
@@ -47,13 +47,13 @@ partial model PartialTerminalUnit
     "Set to true for required heat flow rate as an input"
     annotation (Evaluate=true);
   parameter Boolean have_weaBus=false
-    "Set to true to enable the weather bus"
+    "Set to true to use a weather bus"
     annotation (Evaluate=true);
   parameter Boolean have_fan=false
-    "Set to true if the system has a fan"
+    "Set to true if fan power is computed"
     annotation (Evaluate=true);
   parameter Boolean have_pum=false
-    "Set to true if the system has a pump"
+    "Set to true if pump power is computed"
     annotation (Evaluate=true);
   parameter Modelica.SIunits.HeatFlowRate QHea_flow_nominal(
     min=0)=0
