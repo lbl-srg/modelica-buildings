@@ -1,7 +1,8 @@
 within Buildings.Experimental.DHC.Examples.Combined.Generation5.Unidirectional.CentralPlants;
 model SewageHeatRecovery "Model for sewage heat recovery plant"
   extends DHC.CentralPlants.BaseClasses.PartialPlant(
-    typ=DHC.Types.DistrictSystemType.CombinedGeneration5,
+    final typ=DHC.Types.DistrictSystemType.CombinedGeneration5,
+    final have_pum=true,
     have_weaBus=false);
 
   parameter Modelica.SIunits.MassFlowRate mSew_flow_nominal
@@ -72,7 +73,7 @@ model SewageHeatRecovery "Model for sewage heat recovery plant"
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={60,-40})));
+        origin={80,-40})));
   Fluid.Sources.Boundary_pT souSew(
     redeclare final package Medium = Medium,
     final use_T_in=true,
@@ -92,7 +93,7 @@ model SewageHeatRecovery "Model for sewage heat recovery plant"
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={0,80})));
+        origin={40,80})));
   Fluid.Sensors.TemperatureTwoPort senTSewOut(
     redeclare final package Medium=Medium,
     final allowFlowReversal=allowFlowReversal,
@@ -110,24 +111,26 @@ model SewageHeatRecovery "Model for sewage heat recovery plant"
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={0,-16})));
+  Controls.OBC.CDL.Continuous.MultiSum sumPPum(nin=2) "Sum pump power"
+    annotation (Placement(transformation(extent={{260,150},{280,170}})));
 equation
   connect(senTSewOut.port_b, souSew.ports[1])
     annotation (Line(points={{-46,20},{-60,20},{-60,78}}, color={0,127,255}));
   connect(souSew.ports[2], pumSew.port_a)
-    annotation (Line(points={{-60,74},{-60,80},{-10,80}},
+    annotation (Line(points={{-60,74},{-60,80},{30,80}},
                                                  color={0,127,255}));
   connect(souSew.T_in, TSewWat) annotation (Line(points={{-82,80},{-100,80},{-100,
           220},{-340,220}},
                           color={0,0,127}));
   connect(mPum_flow, pumSew.m_flow_in)
-    annotation (Line(points={{-340,140},{0,140},{0,92}},
+    annotation (Line(points={{-340,140},{40,140},{40,92}},
                                                        color={0,0,127}));
-  connect(pumSew.port_b, hex.port_a1) annotation (Line(points={{10,80},{40,80},
-          {40,20},{10,20}},                color={0,127,255}));
+  connect(pumSew.port_b, hex.port_a1) annotation (Line(points={{50,80},{60,80},
+          {60,20},{10,20}},                color={0,127,255}));
   connect(hex.port_b1, senTSewOut.port_a) annotation (Line(points={{-10,20},{
           -34,20}},               color={0,127,255}));
   connect(mPum_flow, pumDis.m_flow_in)
-    annotation (Line(points={{-340,140},{60,140},{60,-28}},
+    annotation (Line(points={{-340,140},{80,140},{80,-28}},
                                                          color={0,0,127}));
   connect(senDifEntFlo.dH_flow, dH_flow) annotation (Line(points={{3,-28},{3,-60},
           {290,-60},{290,120},{320,120}},
@@ -139,9 +142,16 @@ equation
   connect(port_aSerAmb, senDifEntFlo.port_a2) annotation (Line(points={{-300,40},
           {-280,40},{-280,-40},{-6,-40},{-6,-26}}, color={0,127,255}));
   connect(senDifEntFlo.port_b1, pumDis.port_a)
-    annotation (Line(points={{6,-26},{6,-40},{50,-40}}, color={0,127,255}));
-  connect(pumDis.port_b, port_bSerAmb) annotation (Line(points={{70,-40},{280,-40},
-          {280,40},{300,40}}, color={0,127,255}));
+    annotation (Line(points={{6,-26},{6,-40},{70,-40}}, color={0,127,255}));
+  connect(pumDis.port_b, port_bSerAmb) annotation (Line(points={{90,-40},{280,
+          -40},{280,40},{300,40}},
+                              color={0,127,255}));
+  connect(sumPPum.y, PPum) annotation (Line(points={{282,160},{294,160},{294,
+          160},{320,160}}, color={0,0,127}));
+  connect(pumSew.P, sumPPum.u[1]) annotation (Line(points={{51,89},{238,89},{
+          238,161},{258,161}}, color={0,0,127}));
+  connect(pumDis.P, sumPPum.u[2]) annotation (Line(points={{91,-31},{240,-31},{
+          240,159},{258,159}}, color={0,0,127}));
   annotation (
   DefaultComponentName="pla",
   Icon(coordinateSystem(preserveAspectRatio=false),

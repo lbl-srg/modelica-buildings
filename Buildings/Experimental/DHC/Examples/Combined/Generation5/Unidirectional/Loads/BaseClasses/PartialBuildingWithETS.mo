@@ -70,8 +70,8 @@ model PartialBuildingWithETS
   Controls.OBC.CDL.Continuous.GreaterThreshold enaHeaCoo[2]
     "Threshold comparison to enable heating and cooling"
     annotation (Placement(transformation(extent={{-80,-110},{-60,-90}})));
-  Modelica.Blocks.Sources.BooleanConstant enaSHW(k=true) if
-                                                         have_hotWat
+  Modelica.Blocks.Sources.BooleanConstant enaSHW(
+    final k=true) if have_hotWat
     "SHW production enable signal"
     annotation (Placement(transformation(extent={{0,-130},{-20,-110}})));
 equation

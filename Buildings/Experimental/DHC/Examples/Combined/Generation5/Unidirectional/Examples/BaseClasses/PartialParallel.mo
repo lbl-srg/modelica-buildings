@@ -2,6 +2,8 @@ within Buildings.Experimental.DHC.Examples.Combined.Generation5.Unidirectional.E
 partial model PartialParallel "Partial model for parallel network"
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.Water "Medium model";
+  constant Real facMul = 10
+    "Building loads multiplier factor";
   parameter Boolean allowFlowReversalSer = false
     "Set to true to allow flow reversal in the service lines"
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
@@ -119,13 +121,15 @@ partial model PartialParallel "Partial model for parallel network"
   Fluid.Sensors.TemperatureTwoPort TDisWatBorLvg(
     redeclare final package Medium =Medium,
     final m_flow_nominal=datDes.mDis_flow_nominal)
-    "District water borefield leaving temperature" annotation (Placement(
+    "District water borefield leaving temperature"
+    annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-80,-40})));
   replaceable Loads.BaseClasses.PartialBuildingWithETS bui[nBui]
     constrainedby Loads.BaseClasses.PartialBuildingWithETS(
+      bui(each final facMul=facMul),
       redeclare each final package MediumBui=Medium,
       redeclare each final package MediumSer=Medium,
       each final allowFlowReversalBui=allowFlowReversalBui,
@@ -148,10 +152,6 @@ equation
           {-100,-80},{-100,-84},{-90,-84}}, color={0,127,255}));
   connect(pumDis.port_b, conSto.port_aDis) annotation (Line(points={{80,-70},{
           80,-120},{-80,-120},{-80,-100}}, color={0,127,255}));
-  connect(pla.port_bDis, conPla.port_aCon) annotation (Line(points={{-140,0},{-100,
-          0},{-100,-4},{-90,-4}}, color={0,127,255}));
-  connect(conPla.port_bCon, pla.port_aDis) annotation (Line(points={{-90,-10},{-100,
-          -10},{-100,-20},{-200,-20},{-200,0},{-160,0}}, color={0,127,255}));
   connect(borFie.port_a, pumSto.port_b)
     annotation (Line(points={{-140,-80},{-170,-80}}, color={0,127,255}));
   connect(conSto.port_bCon, pumSto.port_a) annotation (Line(points={{-90,-90},{
@@ -174,12 +174,18 @@ equation
           20,180},{20,160},{12,160},{12,150}}, color={0,127,255}));
   connect(dis.ports_bCon, bui.port_aSerAmb) annotation (Line(points={{-12,150},
           {-12,160},{-20,160},{-20,180},{-10,180}}, color={0,127,255}));
-  connect(TSetHeaWatSup.y, bui.THeaWatSupSet) annotation (Line(points={{-258,
-          220},{-20,220},{-20,188},{-11,188}}, color={0,0,127}));
-  connect(TSetChiWatSup.y, bui.TChiWatSupSet) annotation (Line(points={{-228,
-          200},{-24,200},{-24,184},{-11,184}}, color={0,0,127}));
+  connect(TSetHeaWatSup.y, bui.THeaWatSupSet) annotation (Line(points={{-258,220},
+          {-20,220},{-20,189},{-12,189}},      color={0,0,127}));
+  connect(TSetChiWatSup.y, bui.TChiWatSupSet) annotation (Line(points={{-228,200},
+          {-24,200},{-24,187},{-12,187}},      color={0,0,127}));
   connect(TSewWat.y, pla.TSewWat) annotation (Line(points={{-259,40},{-180,40},
-          {-180,8},{-162,8}}, color={0,0,127}));
+          {-180,7.33333},{-161.333,7.33333}},
+                              color={0,0,127}));
+  connect(pla.port_bSerAmb, conPla.port_aCon) annotation (Line(points={{-140,1.33333},
+          {-100,1.33333},{-100,-4},{-90,-4}}, color={0,127,255}));
+  connect(conPla.port_bCon, pla.port_aSerAmb) annotation (Line(points={{-90,-10},
+          {-100,-10},{-100,-20},{-200,-20},{-200,1.33333},{-160,1.33333}},
+        color={0,127,255}));
   annotation (Diagram(
     coordinateSystem(preserveAspectRatio=false, extent={{-360,-260},{360,260}})),
     experiment(StopTime=31536000, __Dymola_NumberOfIntervals=8760));

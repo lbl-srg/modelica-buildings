@@ -17,17 +17,18 @@ model BuildingTimeSeriesWithETS
   parameter String filNam
     "Library path of the file with thermal loads as time series";
   final parameter Modelica.SIunits.HeatFlowRate QCoo_flow_nominal(
-    max=-Modelica.Constants.eps)=bui.QCoo_flow_nominal
+    max=-Modelica.Constants.eps)=bui.facMul * bui.QCoo_flow_nominal
     "Space cooling design load (<=0)"
     annotation (Dialog(group="Design parameter"));
   final parameter Modelica.SIunits.HeatFlowRate QHea_flow_nominal(
-    min=Modelica.Constants.eps)=bui.QHea_flow_nominal
+    min=Modelica.Constants.eps)=bui.facMul * bui.QHea_flow_nominal
     "Space heating design load (>=0)"
     annotation (Dialog(group="Design parameter"));
   final parameter Modelica.SIunits.HeatFlowRate QHot_flow_nominal(
-    min=Modelica.Constants.eps)=DHC.Loads.BaseClasses.getPeakLoad(
-    string="#Peak water heating load",
-    filNam=Modelica.Utilities.Files.loadResource(filNam))
+    min=Modelica.Constants.eps)=bui.facMul *
+    DHC.Loads.BaseClasses.getPeakLoad(
+      string="#Peak water heating load",
+      filNam=Modelica.Utilities.Files.loadResource(filNam))
     "Hot water design load (>=0)"
     annotation (Dialog(group="Design parameter"));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput THotWatSupSet(
@@ -67,5 +68,10 @@ equation
       string="%first",
       index=-1,
       extent={{-3,6},{-3,6}},
-      horizontalAlignment=TextAlignment.Right));
+      horizontalAlignment=TextAlignment.Right),
+    Documentation(info="<html>
+
+DOCUMENT facSca and facMul choices
+
+</html>"));
 end BuildingTimeSeriesWithETS;

@@ -30,12 +30,12 @@ equation
   connect(pumSto.m_flow_in, masFloMaiPum.y) annotation (Line(points={{-180,-68},
           {-180,-60},{-259,-60}}, color={0,0,127}));
   connect(masFloDisPla.y, pla.mPum_flow) annotation (Line(points={{-229,20},{
-          -184,20},{-184,4},{-162,4}},
+          -184,20},{-184,4.66667},{-161.333,4.66667}},
                                   color={0,0,127}));
   connect(THotWatSupSet.y, bui.THotWatSupSet) annotation (Line(points={{-198,
-          180},{-40,180},{-40,176},{-11,176}}, color={0,0,127}));
+          180},{-40,180},{-40,185},{-12,185}}, color={0,0,127}));
   connect(TColWat.y, bui.TColWat) annotation (Line(points={{-168,160},{-40,160},
-          {-40,172},{-11,172}}, color={0,0,127}));
+          {-40,183},{-12,183}}, color={0,0,127}));
   annotation (
   Diagram(
   coordinateSystem(preserveAspectRatio=false, extent={{-360,-260},{360,260}})),
