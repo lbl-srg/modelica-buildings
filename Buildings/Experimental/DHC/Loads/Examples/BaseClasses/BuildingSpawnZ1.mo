@@ -3,6 +3,8 @@ model BuildingSpawnZ1
   "One-zone EnergyPlus building model"
   extends Buildings.Experimental.DHC.Loads.BaseClasses.PartialBuilding(
     redeclare package Medium=Buildings.Media.Water,
+    final have_heaWat=true,
+    final have_chiWat=true,
     final have_pum=false,
     final have_eleHea=false,
     final have_eleCoo=false,
@@ -45,15 +47,13 @@ model BuildingSpawnZ1
     annotation (Placement(transformation(extent={{40,60},{60,80}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTSet(
     k=293.15,
-    y(
-      final unit="K",
+    y(final unit="K",
       displayUnit="degC"))
     "Minimum temperature set point"
     annotation (Placement(transformation(extent={{-280,250},{-260,270}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxTSet(
     k=297.15,
-    y(
-      final unit="K",
+    y(final unit="K",
       displayUnit="degC"))
     "Maximum temperature set point"
     annotation (Placement(transformation(extent={{-280,210},{-260,230}})));
@@ -101,39 +101,50 @@ equation
   connect(zon.ports[1],terUni.port_aLoa)
     annotation (Line(points={{58,-19.1},{62,-19.1},{62,-41.6667},{-140,-41.6667}},color={0,127,255}));
   connect(terUni.port_bHeaWat,disFloHea.ports_a1[1])
-    annotation (Line(points={{-140,-58.3333},{-140,-59.5833},{-100,-59.5833},{-100,-114}},color={0,127,255}));
+    annotation (Line(points={{-140,-58.3333},{-140,-59.5833},{-100,-59.5833},{
+          -100,-104}},                                                                    color={0,127,255}));
   connect(terUni.port_bChiWat,disFloCoo.ports_a1[1])
-    annotation (Line(points={{-140,-56.6667},{-80,-56.6667},{-80,-254},{-100,-254}},color={0,127,255}));
+    annotation (Line(points={{-140,-56.6667},{-80,-56.6667},{-80,-144},{-100,
+          -144}},                                                                   color={0,127,255}));
   connect(disFloHea.ports_b1[1],terUni.port_aHeaWat)
-    annotation (Line(points={{-120,-114},{-180,-114},{-180,-58.3333},{-160,-58.3333}},color={0,127,255}));
+    annotation (Line(points={{-120,-104},{-180,-104},{-180,-58.3333},{-160,
+          -58.3333}},                                                                 color={0,127,255}));
   connect(disFloCoo.ports_b1[1],terUni.port_aChiWat)
-    annotation (Line(points={{-120,-254},{-200,-254},{-200,-56.6667},{-160,-56.6667}},color={0,127,255}));
+    annotation (Line(points={{-120,-144},{-200,-144},{-200,-56.6667},{-160,
+          -56.6667}},                                                                 color={0,127,255}));
   connect(terUni.PFan,PFan)
     annotation (Line(points={{-139.167,-50},{260,-50},{260,120},{320,120}},color={0,0,127}));
   connect(terUni.mReqHeaWat_flow,disFloHea.mReq_flow[1])
-    annotation (Line(points={{-139.167,-53.3333},{-126,-53.3333},{-126,-124},{-121,-124}},color={0,0,127}));
+    annotation (Line(points={{-139.167,-53.3333},{-126,-53.3333},{-126,-114},{
+          -121,-114}},                                                                    color={0,0,127}));
   connect(terUni.mReqChiWat_flow,disFloCoo.mReq_flow[1])
-    annotation (Line(points={{-139.167,-55},{-139.167,-56},{-130,-56},{-130,-264},{-121,-264}},color={0,0,127}));
+    annotation (Line(points={{-139.167,-55},{-139.167,-56},{-130,-56},{-130,
+          -154},{-121,-154}},                                                                  color={0,0,127}));
   connect(terUni.port_bLoa,zon.ports[2])
-    annotation (Line(points={{-160,-41.6667},{-172,-41.6667},{-180,-41.6667},{-180,-19.1},{62,-19.1}},color={0,127,255}));
+    annotation (Line(points={{-160,-41.6667},{-172,-41.6667},{-180,-41.6667},{
+          -180,-19.1},{62,-19.1}},                                                                    color={0,127,255}));
   connect(disFloHea.QActTot_flow,QHea_flow)
-    annotation (Line(points={{-99,-126},{238,-126},{238,280},{320,280}},color={0,0,127}));
+    annotation (Line(points={{-99,-116},{238,-116},{238,280},{320,280}},color={0,0,127}));
   connect(disFloCoo.QActTot_flow,QCoo_flow)
-    annotation (Line(points={{-99,-266},{242,-266},{242,240},{320,240}},color={0,0,127}));
+    annotation (Line(points={{-99,-156},{242,-156},{242,240},{320,240}},color={0,0,127}));
   connect(zon.TAir,terUni.TSen)
-    annotation (Line(points={{81,13.8},{100,13.8},{100,-32},{-166,-32},{-166,-48.3333},{-160.833,-48.3333}},color={0,0,127}));
+    annotation (Line(points={{81,18},{100,18},{100,-32},{-166,-32},{-166,
+          -48.3333},{-160.833,-48.3333}},                                                                   color={0,0,127}));
   connect(maxTSet.y,terUni.TSetCoo)
-    annotation (Line(points={{-258,220},{-240,220},{-240,-46.6667},{-160.833,-46.6667}},color={0,0,127}));
+    annotation (Line(points={{-258,220},{-240,220},{-240,-46.6667},{-160.833,
+          -46.6667}},                                                                   color={0,0,127}));
   connect(minTSet.y,terUni.TSetHea)
     annotation (Line(points={{-258,260},{-220,260},{-220,-45},{-160.833,-45}},color={0,0,127}));
   connect(ports_aHeaWat[1],disFloHea.port_a)
-    annotation (Line(points={{-300,-60},{-280,-60},{-280,-120},{-120,-120}},color={0,127,255}));
+    annotation (Line(points={{-300,-60},{-280,-60},{-280,-110},{-120,-110}},color={0,127,255}));
   connect(ports_bHeaWat[1],disFloHea.port_b)
-    annotation (Line(points={{300,-60},{280,-60},{280,-120},{-100,-120}},color={0,127,255}));
+    annotation (Line(points={{300,-60},{280,-60},{280,-110},{-100,-110}},color={0,127,255}));
   connect(ports_aChiWat[1],disFloCoo.port_a)
-    annotation (Line(points={{-300,-260},{-120,-260}},color={0,127,255}));
+    annotation (Line(points={{-300,-260},{-210,-260},{-210,-150},{-120,-150}},
+                                                      color={0,127,255}));
   connect(ports_bChiWat[1],disFloCoo.port_b)
-    annotation (Line(points={{300,-260},{-100,-260}},color={0,127,255}));
+    annotation (Line(points={{300,-260},{100,-260},{100,-150},{-100,-150}},
+                                                     color={0,127,255}));
   annotation (
     Documentation(
       info="

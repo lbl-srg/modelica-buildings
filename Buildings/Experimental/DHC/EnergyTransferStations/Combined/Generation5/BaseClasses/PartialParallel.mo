@@ -2,6 +2,7 @@ within Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Ba
 model PartialParallel
   "Partial ETS model with district heat exchanger and parallel connection of production systems"
   extends DHC.EnergyTransferStations.BaseClasses.PartialETS(
+    final typ=DHC.Types.DistrictSystemType.CombinedGeneration5,
     final have_heaWat=true,
     final have_chiWat=true,
     final have_pum=true,
@@ -118,6 +119,16 @@ model PartialParallel
     displayUnit="degC")
     "Chilled water supply temperature set point"
     annotation (Placement(transformation(extent={{-340,-80},{-300,-40}}),iconTransformation(extent={{-380,-140},{-300,-60}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput dHHeaWat_flow(
+    final unit="W")
+    "Heating water distributed energy flow rate"
+    annotation (Placement(transformation(extent={{300,120},{340,160}}),
+      iconTransformation(extent={{300,-140},{380,-60}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput dHChiWat_flow(
+    final unit="W")
+    "Chilled water distributed energy flow rate"
+    annotation (Placement(transformation(extent={{300,80},{340,120}}),
+      iconTransformation(extent={{300,-180},{380,-100}})));
   // COMPONENTS
   replaceable Generation5.Controls.BaseClasses.PartialSupervisory conSup
     constrainedby Generation5.Controls.BaseClasses.PartialSupervisory(
@@ -139,11 +150,11 @@ model PartialParallel
     "Condenser to ambient loop isolation valve"
     annotation (Placement(transformation(extent={{-70,-130},{-50,-110}})));
   Subsystems.HeatExchanger hex(
-    redeclare final package Medium1=MediumDis,
+    redeclare final package Medium1=MediumSer,
     redeclare final package Medium2=MediumBui,
     final perPum1=perPum1Hex,
     final perPum2=perPum2Hex,
-    final allowFlowReversal1=allowFlowReversalDis,
+    final allowFlowReversal1=allowFlowReversalSer,
     final allowFlowReversal2=allowFlowReversalBui,
     final conCon=conCon,
     final dp1Hex_nominal=dp1Hex_nominal,
@@ -207,21 +218,13 @@ model PartialParallel
     nin=1)
     "Total power drawn by cooling equipment"
     annotation (Placement(transformation(extent={{260,10},{280,30}})));
-  Modelica.Blocks.Interfaces.RealOutput dHHeaWat_flow(
-    final unit="W")
-    "Heating water distributed energy flow rate"
-    annotation (Placement(transformation(extent={{300,120},{340,160}}),iconTransformation(extent={{300,-120},{340,-80}})));
-  Modelica.Blocks.Interfaces.RealOutput dHChiWat_flow(
-    final unit="W")
-    "Chilled water distributed energy flow rate"
-    annotation (Placement(transformation(extent={{300,80},{340,120}}),iconTransformation(extent={{300,-160},{340,-120}})));
   Networks.BaseClasses.DifferenceEnthalpyFlowRate dHFloChiWat(
-    redeclare final package Medium=MediumBui,
+    redeclare final package Medium1=MediumBui,
     final m_flow_nominal=colChiWat.mDis_flow_nominal)
     "Variation of enthalpy flow rate"
     annotation (Placement(transformation(extent={{250,116},{270,96}})));
   Networks.BaseClasses.DifferenceEnthalpyFlowRate dHFloHeaWat(
-    redeclare final package Medium=MediumBui,
+    redeclare final package Medium1=MediumBui,
     final m_flow_nominal=colHeaWat.mDis_flow_nominal)
     "Variation of enthalpy flow rate"
     annotation (Placement(transformation(extent={{-230,96},{-250,116}})));
@@ -233,10 +236,10 @@ equation
     annotation (Line(points={{12,-254},{36,-254},{36,-60},{258,-60}},color={0,0,127}));
   connect(THeaWatSupSet,conSup.THeaWatSupPreSet)
     annotation (Line(points={{-320,-20},{-292,-20},{-292,27},{-262,27}},color={0,0,127}));
-  connect(port_aDis,hex.port_a1)
-    annotation (Line(points={{-300,-260},{-10,-260}},color={0,127,255}));
-  connect(hex.port_b1,port_bDis)
-    annotation (Line(points={{10,-260},{300,-260}},color={0,127,255}));
+  connect(port_aSerAmb, hex.port_a1) annotation (Line(points={{-300,-200},{-280,
+          -200},{-280,-260},{-10,-260}}, color={0,127,255}));
+  connect(hex.port_b1, port_bSerAmb) annotation (Line(points={{10,-260},{280,-260},
+          {280,-200},{300,-200}}, color={0,127,255}));
   connect(tanHeaWat.TTop,conSup.THeaWatTop)
     annotation (Line(points={{-199,115},{-182,115},{-182,82},{-274,82},{-274,25},{-262,25}},color={0,0,127}));
   connect(tanChiWat.TBot,conSup.TChiWatBot)

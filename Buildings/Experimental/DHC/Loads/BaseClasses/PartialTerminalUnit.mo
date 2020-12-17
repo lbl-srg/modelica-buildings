@@ -1,9 +1,11 @@
 within Buildings.Experimental.DHC.Loads.BaseClasses;
 partial model PartialTerminalUnit
   "Partial model for HVAC terminal unit"
-  replaceable package Medium1=Modelica.Media.Interfaces.PartialMedium
-    "Source side medium (heating or chilled water)";
-  replaceable package Medium2=Modelica.Media.Interfaces.PartialMedium
+  replaceable package Medium1=Buildings.Media.Water
+    constrainedby Modelica.Media.Interfaces.PartialMedium
+    "Source side medium";
+  replaceable package Medium2=Buildings.Media.Air
+    constrainedby Modelica.Media.Interfaces.PartialMedium
     "Load side medium";
   parameter Boolean allowFlowReversal=false
     "Set to true to allow flow reversal on the source side"
@@ -12,11 +14,15 @@ partial model PartialTerminalUnit
     "Set to true to allow flow reversal on the load side"
     annotation (Dialog(tab="Assumptions"),Evaluate=true);
   parameter Real facSca=1
-    "Scaling factor to be applied to each extensive quantity";
-  parameter Boolean have_watHea=false
+    "Scaling factor to be applied to each extensive quantity"
+    annotation (Dialog(group="Scaling"));
+  parameter Boolean have_scaLoa=true
+    "Set to true to apply the scaling factor to the heat or mass flow rate on the load side"
+    annotation (Dialog(group="Scaling"));
+  parameter Boolean have_heaWat=false
     "Set to true if the system has a heating water based heat exchanger"
     annotation (Evaluate=true);
-  parameter Boolean have_watCoo=false
+  parameter Boolean have_chiWat=false
     "Set to true if the system has a chilled water based heat exchanger"
     annotation (Evaluate=true);
   parameter Boolean have_chaOve=false
@@ -52,59 +58,59 @@ partial model PartialTerminalUnit
   parameter Modelica.SIunits.HeatFlowRate QHea_flow_nominal(
     min=0)=0
     "Heat flow rate for water based heating at nominal conditions (>=0)"
-    annotation (Dialog(group="Nominal condition",enable=have_watHea));
+    annotation (Dialog(group="Nominal condition",enable=have_heaWat));
   parameter Modelica.SIunits.HeatFlowRate QCoo_flow_nominal(
     max=0)=0
     "Heat flow rate for water based cooling at nominal conditions (<=0)"
-    annotation (Dialog(group="Nominal condition",enable=have_watCoo));
+    annotation (Dialog(group="Nominal condition",enable=have_chiWat));
   parameter Modelica.SIunits.MassFlowRate mHeaWat_flow_nominal(
     min=0)=0
     "Heating water mass flow rate at nominal conditions"
-    annotation (Dialog(group="Nominal condition",enable=have_watHea));
+    annotation (Dialog(group="Nominal condition",enable=have_heaWat));
   parameter Modelica.SIunits.MassFlowRate mChiWat_flow_nominal(
     min=0)=0
     "Chilled water mass flow rate at nominal conditions"
-    annotation (Dialog(group="Nominal condition",enable=have_watCoo));
+    annotation (Dialog(group="Nominal condition",enable=have_chiWat));
   parameter Modelica.SIunits.MassFlowRate mLoaHea_flow_nominal(
     min=0)=0
     "Load side mass flow rate at nominal conditions in heating mode"
-    annotation (Dialog(group="Nominal condition",enable=have_watHea));
+    annotation (Dialog(group="Nominal condition",enable=have_heaWat));
   parameter Modelica.SIunits.MassFlowRate mLoaCoo_flow_nominal(
     min=0)=0
     "Load side mass flow rate at nominal conditions in cooling mode"
-    annotation (Dialog(group="Nominal condition",enable=have_watCoo));
+    annotation (Dialog(group="Nominal condition",enable=have_chiWat));
   // AHRI 440 Standard Heating
   parameter Modelica.SIunits.Temperature T_aHeaWat_nominal(
     min=273.15,
     displayUnit="degC")=273.15+60
     "Heating water inlet temperature at nominal conditions"
-    annotation (Dialog(group="Nominal condition",enable=have_watHea and not have_chaOve));
+    annotation (Dialog(group="Nominal condition",enable=have_heaWat and not have_chaOve));
   parameter Modelica.SIunits.Temperature T_bHeaWat_nominal(
     min=273.15,
     displayUnit="degC")=T_aHeaWat_nominal-22.2
     "Heating water outlet temperature at nominal conditions"
-    annotation (Dialog(group="Nominal condition",enable=have_watHea and not have_chaOve));
+    annotation (Dialog(group="Nominal condition",enable=have_heaWat and not have_chaOve));
   // AHRI 440 Standard Cooling
   parameter Modelica.SIunits.Temperature T_aChiWat_nominal(
     min=273.15,
     displayUnit="degC")=273.15+7.2
     "Chilled water inlet temperature at nominal conditions "
-    annotation (Dialog(group="Nominal condition",enable=have_watCoo));
+    annotation (Dialog(group="Nominal condition",enable=have_chiWat));
   parameter Modelica.SIunits.Temperature T_bChiWat_nominal(
     min=273.15,
     displayUnit="degC")=T_aChiWat_nominal+5.6
     "Chilled water outlet temperature at nominal conditions"
-    annotation (Dialog(group="Nominal condition",enable=have_watCoo));
+    annotation (Dialog(group="Nominal condition",enable=have_chiWat));
   parameter Modelica.SIunits.Temperature T_aLoaHea_nominal(
     min=273.15,
     displayUnit="degC")=273.15+21.1
     "Load side inlet temperature at nominal conditions in heating mode"
-    annotation (Dialog(group="Nominal condition",enable=have_watHea and not have_chaOve));
+    annotation (Dialog(group="Nominal condition",enable=have_heaWat and not have_chaOve));
   parameter Modelica.SIunits.Temperature T_aLoaCoo_nominal(
     min=273.15,
     displayUnit="degC")=273.15+26.7
     "Load side inlet temperature at nominal conditions in cooling mode"
-    annotation (Dialog(group="Nominal condition",enable=have_watCoo));
+    annotation (Dialog(group="Nominal condition",enable=have_chiWat));
   // Dynamics
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state"
@@ -126,40 +132,38 @@ partial model PartialTerminalUnit
   Modelica.Blocks.Interfaces.RealInput TSetHea(
     quantity="ThermodynamicTemperature",
     final unit="K",
-    displayUnit="degC") if have_watHea or have_chaOve or have_eleHea
+    displayUnit="degC") if have_heaWat or have_chaOve or have_eleHea
     "Heating set point"
     annotation (Placement(transformation(extent={{-20,-20},{20,20}},rotation=0,origin={-220,220}),
     iconTransformation(extent={{-10,-10},{10,10}},rotation=0,origin={-130,60})));
   Modelica.Blocks.Interfaces.RealInput TSetCoo(
     final quantity="ThermodynamicTemperature",
     final unit="K",
-    displayUnit="degC") if have_watCoo or have_eleCoo
+    displayUnit="degC") if have_chiWat or have_eleCoo
     "Cooling set point"
     annotation (Placement(transformation(extent={{-20,-20},{20,20}},rotation=0,origin={-220,180}),
     iconTransformation(extent={{-10,-10},{10,10}},rotation=0,origin={-130,40})));
   Modelica.Blocks.Interfaces.RealInput QReqHea_flow(
     final quantity="HeatFlowRate",
-    final unit="W") if have_QReq_flow and
-                                         (have_watHea or have_chaOve or have_eleHea)
+    final unit="W") if have_QReq_flow and (have_heaWat or have_chaOve or have_eleHea)
     "Required heat flow rate to meet heating set point (>=0)"
     annotation (Placement(transformation(extent={{-20,-20},{20,20}},rotation=0,origin={-220,100}),
     iconTransformation(extent={{-10,-10},{10,10}},rotation=0,origin={-130,-20})));
   Modelica.Blocks.Interfaces.RealInput QReqCoo_flow(
     final quantity="HeatFlowRate",
-    final unit="W") if have_QReq_flow and
-                                         (have_watCoo or have_eleCoo)
+    final unit="W") if have_QReq_flow and (have_chiWat or have_eleCoo)
     "Required heat flow rate to meet cooling set point (<=0)"
     annotation (Placement(transformation(extent={{-20,-20},{20,20}},rotation=0,origin={-220,60}),
     iconTransformation(extent={{-10,-10},{10,10}},rotation=0,origin={-130,-42})));
   Modelica.Blocks.Interfaces.RealOutput QActHea_flow(
     final quantity="HeatFlowRate",
-    final unit="W") if have_watHea or have_chaOve or have_eleHea
+    final unit="W") if have_heaWat or have_chaOve or have_eleHea
     "Heating heat flow rate transferred to the load (>=0)"
     annotation (Placement(transformation(extent={{200,200},{240,240}}),
     iconTransformation(extent={{120,70},{140,90}})));
   Modelica.Blocks.Interfaces.RealOutput QActCoo_flow(
     final quantity="HeatFlowRate",
-    final unit="W") if have_watCoo or have_eleCoo
+    final unit="W") if have_chiWat or have_eleCoo
     "Cooling heat flow rate transferred to the load (<=0)"
     annotation (Placement(transformation(extent={{200,180},{240,220}}),
     iconTransformation(extent={{120,50},{140,70}})));
@@ -189,13 +193,13 @@ partial model PartialTerminalUnit
     iconTransformation(extent={{120,-30},{140,-10}})));
   Modelica.Blocks.Interfaces.RealOutput mReqHeaWat_flow(
     final quantity="MassFlowRate",
-    final unit="kg/s") if have_watHea
+    final unit="kg/s") if have_heaWat
     "Required heating water flow rate to meet heating set point"
     annotation (Placement(transformation(extent={{200,80},{240,120}}),
     iconTransformation(extent={{120,-50},{140,-30}})));
   Modelica.Blocks.Interfaces.RealOutput mReqChiWat_flow(
     final quantity="MassFlowRate",
-    final unit="kg/s") if have_watCoo
+    final unit="kg/s") if have_chiWat
     "Required chilled water flow rate to meet cooling set point"
     annotation (Placement(transformation(extent={{200,60},{240,100}}),
     iconTransformation(extent={{120,-70},{140,-50}})));
@@ -252,7 +256,7 @@ partial model PartialTerminalUnit
           0),
     h_outflow(
       start=Medium1.h_default,
-      nominal=Medium1.h_default)) if have_watHea
+      nominal=Medium1.h_default)) if have_heaWat
     "Heating water inlet port"
     annotation (Placement(transformation(extent={{-210,-230},{-190,-210}}),iconTransformation(extent={{-130,-110},{-110,-90}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_aChiWat(
@@ -266,7 +270,7 @@ partial model PartialTerminalUnit
           0),
     h_outflow(
       start=Medium1.h_default,
-      nominal=Medium1.h_default)) if have_watCoo
+      nominal=Medium1.h_default)) if have_chiWat
     "Chilled water inlet port"
     annotation (Placement(transformation(extent={{-210,-190},{-190,-170}}),iconTransformation(extent={{-130,-90},{-110,-70}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_bHeaWat(
@@ -280,7 +284,7 @@ partial model PartialTerminalUnit
           0),
     h_outflow(
       start=Medium1.h_default,
-      nominal=Medium1.h_default)) if have_watHea
+      nominal=Medium1.h_default)) if have_heaWat
     "Heating water outlet port"
     annotation (Placement(transformation(extent={{210,-230},{190,-210}}),iconTransformation(extent={{130,-110},{110,-90}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_bChiWat(
@@ -294,26 +298,23 @@ partial model PartialTerminalUnit
           0),
     h_outflow(
       start=Medium1.h_default,
-      nominal=Medium1.h_default)) if have_watCoo
+      nominal=Medium1.h_default)) if have_chiWat
     "Chilled water outlet port"
     annotation (Placement(transformation(extent={{210,-190},{190,-170}}),iconTransformation(extent={{130,-90},{110,-70}})));
   // COMPONENTS
   Buildings.Controls.OBC.CDL.Continuous.Gain scaQReqHea_flow(
-    k=1/facSca) if have_QReq_flow and
-                                     (have_watHea or have_chaOve or have_eleHea)
+    k=1/facSca) if have_QReq_flow and (have_heaWat or have_chaOve or have_eleHea)
     "Scaling"
     annotation (Placement(transformation(extent={{-180,90},{-160,110}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain scaQReqCoo_flow(
-    k=1/facSca) if have_QReq_flow and
-                                     (have_watCoo or have_eleCoo)
+    k=1/facSca) if have_QReq_flow and (have_chiWat or have_eleCoo)
     "Scaling"
     annotation (Placement(transformation(extent={{-180,50},{-160,70}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain scaQActHea_flow(
-    k=facSca) if have_watHea or have_chaOve or have_eleHea
-    "Scaling"
+    k=facSca) if have_heaWat or have_chaOve or have_eleHea "Scaling"
     annotation (Placement(transformation(extent={{160,210},{180,230}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain scaQActCoo_flow(
-    k=facSca) if have_watCoo or have_eleCoo
+    k=facSca) if have_chiWat or have_eleCoo
     "Scaling"
     annotation (Placement(transformation(extent={{160,190},{180,210}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain scaPHea(
@@ -333,35 +334,35 @@ partial model PartialTerminalUnit
     "Scaling"
     annotation (Placement(transformation(extent={{160,110},{180,130}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain scaMasFloReqHeaWat(
-    k=facSca) if have_watHea
+    k=facSca) if have_heaWat
     "Scaling"
     annotation (Placement(transformation(extent={{160,90},{180,110}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain scaMasFloReqChiWat(
-    k=facSca) if have_watCoo
+    k=facSca) if have_chiWat
     "Scaling"
     annotation (Placement(transformation(extent={{160,70},{180,90}})));
   Fluid.BaseClasses.MassFlowRateMultiplier scaHeaWatFloInl(
     redeclare final package Medium=Medium1,
     final k=1/facSca,
-    final allowFlowReversal=allowFlowReversal) if have_watHea
+    final allowFlowReversal=allowFlowReversal) if have_heaWat
     "Mass flow rate scaling"
     annotation (Placement(transformation(extent={{-180,-230},{-160,-210}})));
   Fluid.BaseClasses.MassFlowRateMultiplier scaHeaWatFloOut(
     redeclare final package Medium=Medium1,
     final k=facSca,
-    final allowFlowReversal=allowFlowReversal) if have_watHea
+    final allowFlowReversal=allowFlowReversal) if have_heaWat
     "Mass flow rate scaling"
     annotation (Placement(transformation(extent={{160,-230},{180,-210}})));
   Fluid.BaseClasses.MassFlowRateMultiplier scaChiWatFloInl(
     redeclare final package Medium=Medium1,
     final k=1/facSca,
-    final allowFlowReversal=allowFlowReversal) if have_watCoo
+    final allowFlowReversal=allowFlowReversal) if have_chiWat
     "Mass flow rate scaling"
     annotation (Placement(transformation(extent={{-180,-190},{-160,-170}})));
   Fluid.BaseClasses.MassFlowRateMultiplier scaChiWatFloOut(
     redeclare final package Medium=Medium1,
     final k=facSca,
-    final allowFlowReversal=allowFlowReversal) if have_watCoo
+    final allowFlowReversal=allowFlowReversal) if have_chiWat
     "Mass flow rate scaling"
     annotation (Placement(transformation(extent={{160,-190},{180,-170}})));
   Fluid.BaseClasses.MassFlowRateMultiplier scaLoaMasFloOut(
@@ -475,8 +476,8 @@ Buildings.Experimental.DHC.Loads.FlowDistribution</a>):
 <ul>
 <li>
 Fluid ports for chilled water and heating water can be conditionally
-instantiated by respectively setting <code>have_watCoo</code> and
-<code>have_watHea</code> to true.
+instantiated by respectively setting <code>have_chiWat</code> and
+<code>have_heaWat</code> to true.
 </li>
 </ul>
 <li>
@@ -573,8 +574,8 @@ When modeling a change-over system:
 </p>
 <ul>
 <li>
-The parameters <code>have_watCoo</code> and <code>have_chaOve</code> must both be set to
-<code>true</code> and <code>have_watHea</code> must be set to <code>false</code>.
+The parameters <code>have_chiWat</code> and <code>have_chaOve</code> must both be set to
+<code>true</code> and <code>have_heaWat</code> must be set to <code>false</code>.
 </li>
 <li>
 The heat exchanger is sized by providing the nominal parameters for the cooling
