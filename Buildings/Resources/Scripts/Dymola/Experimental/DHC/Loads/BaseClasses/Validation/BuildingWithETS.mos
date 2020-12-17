@@ -16,7 +16,7 @@ createPlot(
 createPlot(
     id=1,
     subPlot=2,
-    y={"buiTesFacMul.PHea", "buiTesFacMul.PCoo", "buiTesFacMul.PFan", "buiTesFacMul.PPum","buiTesFacMul.QHea_flow", "buiTesFacMul.QCoo_flow"},
+    y={"buiTesFacSca.PHea", "buiTesFacSca.PCoo", "buiTesFacSca.PFan", "buiTesFacSca.PPum","buiTesFacSca.QHea_flow", "buiTesFacSca.QCoo_flow"},
     autoscale=true,
     autoerase=true,
     autoreplot=true,
