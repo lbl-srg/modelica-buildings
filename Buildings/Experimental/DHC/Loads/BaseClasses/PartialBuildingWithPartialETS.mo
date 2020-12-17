@@ -231,37 +231,35 @@ partial model PartialBuildingWithPartialETS
       transformation(extent={{210,-210},{230,-190}}), iconTransformation(
         extent={{90,-90},{110,-70}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain mulQHea_flow(
-    final k=facMul) if bui.have_heaLoa "Multiplier"
+    final k=facMul) if bui.have_heaLoa "Scaling"
     annotation (Placement(transformation(extent={{190,190},{210,210}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain mulQCoo_flow(
     final k=facMul) if bui.have_cooLoa
-    "Multiplier"
+    "Scaling"
     annotation (Placement(transformation(extent={{190,170},{210,190}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain mulPHea(
-    final k=facMul) if have_eleHea "Multiplier"
+    final k=facMul) if have_eleHea "Scaling"
     annotation (Placement(transformation(extent={{190,150},{210,170}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain mulPCoo(
-    final k=facMul) if have_eleCoo "Multiplier"
+    final k=facMul) if have_eleCoo "Scaling"
     annotation (Placement(transformation(extent={{190,130},{210,150}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain mulPFan(
-    final k=facMul) if have_fan "Multiplier"
+    final k=facMul) if have_fan "Scaling"
     annotation (Placement(transformation(extent={{190,110},{210,130}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain mulPPum(
-    final k=facMul) if have_pum "Multiplier"
+    final k=facMul) if have_pum "Scaling"
     annotation (Placement(transformation(extent={{190,90},{210,110}})));
   Fluid.BaseClasses.MassFlowRateMultiplier scaSerAmbInl(
     redeclare final package Medium = MediumSer,
     final k=1/facMul,
     final allowFlowReversal=allowFlowReversalSer) if
-    typ == TypDisSys.CombinedGeneration5
-    "Mass flow rate scaling"
+    typ == TypDisSys.CombinedGeneration5 "Mass flow rate scaling"
     annotation (Placement(transformation(extent={{-200,-130},{-180,-110}})));
   Fluid.BaseClasses.MassFlowRateMultiplier scaSerAmbOut(
     redeclare final package Medium = MediumSer,
     final k=facMul,
     final allowFlowReversal=allowFlowReversalSer) if
-    typ == TypDisSys.CombinedGeneration5
-    "Mass flow rate scaling"
+    typ == TypDisSys.CombinedGeneration5 "Mass flow rate scaling"
     annotation (Placement(transformation(extent={{180,-130},{200,-110}})));
   Fluid.BaseClasses.MassFlowRateMultiplier scaSerHeaInl(
     redeclare final package Medium = MediumSerHea_a,
@@ -553,12 +551,12 @@ Partial model to be used for modeling
 <ul>
 <li>
 an energy transfer station and the optional in-building primary systems,
-based on a model extending 
+based on a model extending
 <a href=\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses.PartialETS\">
 Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses.PartialETS</a>, and
 </li>
 <li>
-the served building, based on a model extending 
+the served building, based on a model extending
 <a href=\"modelica://Buildings.Experimental.DHC.Loads.BaseClasses.PartialBuilding\">
 Buildings.Experimental.DHC.Loads.BaseClasses.PartialBuilding</a>.
 </li>
@@ -570,8 +568,8 @@ of the composing systems.
 <p>
 The parameters defining the set of outside connectors of this class
 are <i>propagated up</i> from the ETS and building components.
-The connect clauses between the ETS and the building connectors 
-are automatically generated based on the previous parameters and the 
+The connect clauses between the ETS and the building connectors
+are automatically generated based on the previous parameters and the
 additional parameters <code>nPorts_heaWat</code> and <code>nPorts_chiWat</code>
 that need to be specified.
 In case of a heating service line, the model allows for using two
@@ -581,12 +579,19 @@ return.
 </p>
 <h4>Scaling</h4>
 <p>
-Scaling is implemented by means of a multiplier factor <code>facMul</code>
-being applied to each extensive quantity (mass and heat flow rate, electric power)
-computed by the model.
-<br/>
+Scaling is implemented by means of a multiplier factor <code>facMul</code>.
+Each extensive quantity (mass and heat flow rate, electric power)
+<i>flowing out</i> through fluid ports, or connected to an
+<i>output connector</i> is multiplied by <code>facMul</code>.
+Each extensive quantity (mass and heat flow rate, electric power)
+<i>flowing in</i> through fluid ports, or connected to an
+<i>input connector</i> is multiplied by <code>1/facMul</code>.
+This allows modeling, with a single instance,
+multiple identical buildings with identical energy transfer stations,
+served by the same service line.
 </p>
 <p>
+<br/>
 <img alt=\"image\"
 src=\"modelica://Buildings/Resources/Images/Experimental/DHC/Loads/PartialBuildingWithPartialETS.png\"/>
 </p>

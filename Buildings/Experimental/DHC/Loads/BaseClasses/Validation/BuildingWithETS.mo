@@ -342,7 +342,7 @@ model BuildingWithETS
       final have_pum=true,
       final have_eleHea=true,
       final have_eleCoo=true))
-    "Building and ETS component - Testing multiplier factor"
+    "Building and ETS component - Testing scaling factor"
     annotation (Placement(transformation(extent={{180,-170},{200,-150}})));
 equation
   connect(souDisSup.ports[1],senDifEntFlo.port_a1)
