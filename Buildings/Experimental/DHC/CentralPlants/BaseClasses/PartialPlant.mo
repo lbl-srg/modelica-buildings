@@ -3,10 +3,10 @@ partial model PartialPlant
   "Partial class for modeling a central plant"
   import TypDisSys=Buildings.Experimental.DHC.Types.DistrictSystemType
     "District system type enumeration";
-  replaceable package MediumSer=Buildings.Media.Water
+  replaceable package Medium=Buildings.Media.Water
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Service side medium";
-  replaceable package MediumSerHea_b=Buildings.Media.Water
+  replaceable package MediumHea_b=Buildings.Media.Water
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Service side medium at heating supply"
     annotation(Dialog(enable=
@@ -35,27 +35,27 @@ partial model PartialPlant
     annotation (Dialog(tab="Assumptions"),Evaluate=true);
   // IO CONNECTORS
   Modelica.Fluid.Interfaces.FluidPort_a port_aSerAmb(
-    redeclare package Medium = MediumSer,
+    redeclare package Medium = Medium,
     m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
-    h_outflow(start=MediumSer.h_default, nominal=MediumSer.h_default)) if
+    h_outflow(start=Medium.h_default, nominal=Medium.h_default)) if
     typ == TypDisSys.CombinedGeneration5
     "Fluid connector for ambient water service supply line"
     annotation (
       Placement(transformation(extent={{-310,30},{-290,50}}),
         iconTransformation(extent={{-310,30},{-290,50}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_bSerAmb(
-    redeclare package Medium = MediumSer,
+    redeclare package Medium = Medium,
     m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
-    h_outflow(start=MediumSer.h_default, nominal=MediumSer.h_default)) if
+    h_outflow(start=Medium.h_default, nominal=Medium.h_default)) if
     typ == TypDisSys.CombinedGeneration5
     "Fluid connector for ambient water service return line"
     annotation (
       Placement(transformation(extent={{290,30},{310,50}}),
         iconTransformation(extent={{290,30},{310,50}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_aSerHea(
-    redeclare package Medium = MediumSer,
+    redeclare package Medium = Medium,
     m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
-    h_outflow(start=MediumSer.h_default, nominal=MediumSer.h_default)) if
+    h_outflow(start=Medium.h_default, nominal=Medium.h_default)) if
     typ <> TypDisSys.Cooling and
     typ <> TypDisSys.CombinedGeneration5
     "Fluid connector for heating service supply line"
@@ -63,9 +63,9 @@ partial model PartialPlant
       transformation(extent={{-310,-10},{-290,10}}),    iconTransformation(
         extent={{-310,-10},{-290,10}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_bSerHea(
-    redeclare package Medium = MediumSerHea_b,
+    redeclare package Medium = MediumHea_b,
     m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
-    h_outflow(start=MediumSerHea_b.h_default, nominal=MediumSerHea_b.h_default)) if
+    h_outflow(start=MediumHea_b.h_default, nominal=MediumHea_b.h_default)) if
     typ <> TypDisSys.Cooling and
     typ <> TypDisSys.CombinedGeneration5
     "Fluid connector for heating service return line"
@@ -73,18 +73,18 @@ partial model PartialPlant
         transformation(extent={{290,-10},{310,10}}),    iconTransformation(
           extent={{290,-10},{310,10}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_aSerCoo(
-    redeclare package Medium = MediumSer,
+    redeclare package Medium = Medium,
     m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
-    h_outflow(start=MediumSer.h_default, nominal=MediumSer.h_default)) if
+    h_outflow(start=Medium.h_default, nominal=Medium.h_default)) if
     typ == TypDisSys.CombinedGeneration1 or
     typ == TypDisSys.CombinedGeneration2to4 or
     typ == TypDisSys.Cooling
     "Fluid connector for cooling service supply line"
     annotation (Placement(transformation(extent={{-310,-50},{-290,-30}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_bSerCoo(
-    redeclare package Medium = MediumSer,
+    redeclare package Medium = Medium,
     m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
-    h_outflow(start=MediumSer.h_default, nominal=MediumSer.h_default)) if
+    h_outflow(start=Medium.h_default, nominal=Medium.h_default)) if
     typ == TypDisSys.CombinedGeneration1 or
     typ == TypDisSys.CombinedGeneration2to4 or
     typ == TypDisSys.Cooling
@@ -217,79 +217,7 @@ First implementation.
           fillColor={238,46,47},
           fillPattern=FillPattern.Solid,
           visible=typ == TypDisSys.CombinedGeneration1 or typ == TypDisSys.CombinedGeneration2to4
-               or typ == TypDisSys.Cooling),
-        Rectangle(
-          extent={{-6,-8},{6,8}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={0,0,255},
-          fillPattern=FillPattern.Solid,
-          visible=have_chiWat,
-          origin={104,146},
-          rotation=90),
-        Rectangle(
-          extent={{-102,-8},{102,8}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={0,0,255},
-          fillPattern=FillPattern.Solid,
-          visible=have_chiWat,
-          origin={198,160},
-          rotation=0),
-        Rectangle(
-          extent={{-130,-8},{130,8}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={0,0,255},
-          fillPattern=FillPattern.Solid,
-          visible=have_heaWat,
-          origin={-170,260},
-          rotation=0),
-        Rectangle(
-          extent={{-102,-8},{102,8}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={238,46,47},
-          fillPattern=FillPattern.Solid,
-          origin={-198,160},
-          rotation=0,
-          visible=have_chiWat),
-        Rectangle(
-          extent={{-6,-8},{6,8}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={238,46,47},
-          fillPattern=FillPattern.Solid,
-          origin={-104,146},
-          rotation=90,
-          visible=have_chiWat),
-        Rectangle(
-          extent={{-130,-8},{130,8}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={238,46,47},
-          fillPattern=FillPattern.Solid,
-          origin={170,260},
-          rotation=0,
-          visible=have_heaWat),
-        Rectangle(
-          extent={{-56,-9},{56,9}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={238,46,47},
-          fillPattern=FillPattern.Solid,
-          origin={49,196},
-          rotation=90,
-          visible=have_heaWat),
-        Rectangle(
-          extent={{-56,-9},{56,9}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={0,0,255},
-          fillPattern=FillPattern.Solid,
-          origin={-49,196},
-          rotation=90,
-          visible=have_heaWat)}),
+               or typ == TypDisSys.Cooling)}),
     Diagram(
       coordinateSystem(
         preserveAspectRatio=false,
