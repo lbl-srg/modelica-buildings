@@ -4,16 +4,16 @@ partial model PartialBuilding
   replaceable package Medium=Buildings.Media.Water
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Source side medium";
-  parameter Integer nPorts_aHeaWat=1
+  parameter Integer nPorts_aHeaWat=0
     "Number of heating water inlet ports"
     annotation (Evaluate=true,Dialog(connectorSizing=true));
-  parameter Integer nPorts_bHeaWat=1
+  parameter Integer nPorts_bHeaWat=0
     "Number of heating water outlet ports"
     annotation (Evaluate=true,Dialog(connectorSizing=true));
-  parameter Integer nPorts_aChiWat=1
+  parameter Integer nPorts_aChiWat=0
     "Number of chilled water inlet ports"
     annotation (Evaluate=true,Dialog(connectorSizing=true));
-  parameter Integer nPorts_bChiWat=1
+  parameter Integer nPorts_bChiWat=0
     "Number of chilled water outlet ports"
     annotation (Evaluate=true,Dialog(connectorSizing=true));
   parameter Boolean have_heaWat=false
@@ -37,8 +37,8 @@ partial model PartialBuilding
   parameter Boolean have_weaBus=false
     "Set to true for weather bus"
     annotation (Evaluate=true);
-  parameter Real facSca(min=Modelica.Constants.eps)=1
-    "Scaling factor"
+  parameter Real facMul(min=Modelica.Constants.eps)=1
+    "Multiplier factor"
     annotation (Evaluate=true);
   parameter Boolean allowFlowReversal=false
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
@@ -111,13 +111,11 @@ partial model PartialBuilding
     annotation (Placement(transformation(extent={{290,-300},{310,-220}}),
       iconTransformation(extent={{290,-220},{310,-140}})));
   Modelica.Blocks.Interfaces.RealOutput QHea_flow(
-    final quantity="HeatFlowRate",
     final unit="W") if have_heaLoa
     "Total heating heat flow rate transferred to the loads (>=0)"
     annotation (Placement(transformation(extent={{300,260},{340,300}}),
       iconTransformation(extent={{300,240},{340,280}})));
   Modelica.Blocks.Interfaces.RealOutput QCoo_flow(
-    final quantity="HeatFlowRate",
     final unit="W") if have_cooLoa
     "Total cooling heat flow rate transferred to the loads (<=0)"
     annotation (Placement(transformation(extent={{300,220},{340,260}}),
@@ -146,48 +144,47 @@ partial model PartialBuilding
     "Power drawn by pump motors"
     annotation (Placement(transformation(extent={{300,60},{340,100}}),
       iconTransformation(extent={{300,40},{340,80}})));
-  Fluid.BaseClasses.MassFlowRateMultiplier scaHeaWatInl(
-    redeclare final package Medium = MediumSer,
-    final k=1/facSca,
-    final allowFlowReversal=allowFlowReversalSer) if
-    typ == TypDisSys.CombinedGeneration5 "Mass flow rate scaling"
+  Fluid.BaseClasses.MassFlowRateMultiplier scaHeaWatInl[nPorts_aHeaWat](
+    redeclare each final package Medium = Medium,
+    each final k=1/facMul,
+    each final allowFlowReversal=allowFlowReversal) if have_heaWat
+    "Mass flow rate scaling"
     annotation (Placement(transformation(extent={{-280,-70},{-260,-50}})));
-  Fluid.BaseClasses.MassFlowRateMultiplier scaChiWatInl(
-    redeclare final package Medium = MediumSer,
-    final k=1/facSca,
-    final allowFlowReversal=allowFlowReversalSer) if
-    typ == TypDisSys.CombinedGeneration5 "Mass flow rate scaling"
+  Fluid.BaseClasses.MassFlowRateMultiplier scaChiWatInl[nPorts_aChiWat](
+    redeclare each final package Medium = Medium,
+    each final k=1/facMul,
+    each final allowFlowReversal=allowFlowReversal) if have_chiWat
+    "Mass flow rate scaling"
     annotation (Placement(transformation(extent={{-280,-270},{-260,-250}})));
-  Fluid.BaseClasses.MassFlowRateMultiplier scaHeaWatOut(
-    redeclare final package Medium = MediumSer,
-    final k=facSca,
-    final allowFlowReversal=allowFlowReversalSer) if
-    typ == TypDisSys.CombinedGeneration5 "Mass flow rate scaling"
+  Fluid.BaseClasses.MassFlowRateMultiplier scaHeaWatOut[nPorts_bHeaWat](
+    redeclare each final package Medium = Medium,
+    each final k=facMul,
+    each final allowFlowReversal=allowFlowReversal) if have_heaWat
+    "Mass flow rate scaling"
     annotation (Placement(transformation(extent={{260,-70},{280,-50}})));
-  Fluid.BaseClasses.MassFlowRateMultiplier scaChiWatOut(
-    redeclare final package Medium = MediumSer,
-    final k=facSca,
-    final allowFlowReversal=allowFlowReversalSer) if
-    typ == TypDisSys.CombinedGeneration5 "Mass flow rate scaling"
+  Fluid.BaseClasses.MassFlowRateMultiplier scaChiWatOut[nPorts_bChiWat](
+    redeclare each final package Medium = Medium,
+    each final k=facMul,
+    each final allowFlowReversal=allowFlowReversal) if have_chiWat
+    "Mass flow rate scaling"
     annotation (Placement(transformation(extent={{260,-270},{280,-250}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain mulQHea_flow(
-    final k=facSca) if have_heaLoa "Scaling"
+    final k=facMul) if have_heaLoa "Scaling"
     annotation (Placement(transformation(extent={{270,270},{290,290}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain mulQCoo_flow(
-    final k=facSca) if have_cooLoa
-    "Scaling"
+    final k=facMul) if have_cooLoa "Scaling"
     annotation (Placement(transformation(extent={{270,230},{290,250}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain mulPHea(
-    final k=facSca) if have_eleHea "Scaling"
+    final k=facMul) if have_eleHea "Scaling"
     annotation (Placement(transformation(extent={{270,190},{290,210}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain mulPCoo(
-    final k=facSca) if have_eleCoo "Scaling"
+    final k=facMul) if have_eleCoo "Scaling"
     annotation (Placement(transformation(extent={{270,150},{290,170}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain mulPFan(
-    final k=facSca) if have_fan "Scaling"
+    final k=facMul) if have_fan "Scaling"
     annotation (Placement(transformation(extent={{270,110},{290,130}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain mulPPum(
-    final k=facSca) if have_pum "Scaling"
+    final k=facMul) if have_pum "Scaling"
     annotation (Placement(transformation(extent={{270,70},{290,90}})));
 initial equation
   assert(
@@ -201,14 +198,6 @@ initial equation
       nPorts_aChiWat)+") and outlet ports ("+String(
       nPorts_bChiWat)+") must be equal.");
 equation
-  connect(ports_aHeaWat[1], scaHeaWatInl.port_a) annotation (Line(points={{-300,
-          -60},{-280,-60},{-280,-60}}, color={0,127,255}));
-  connect(ports_aChiWat[1], scaChiWatInl.port_a)
-    annotation (Line(points={{-300,-260},{-280,-260}}, color={0,127,255}));
-  connect(scaHeaWatOut.port_b, ports_bHeaWat[1])
-    annotation (Line(points={{280,-60},{300,-60}}, color={0,127,255}));
-  connect(scaChiWatOut.port_b, ports_bChiWat[1])
-    annotation (Line(points={{280,-260},{300,-260}}, color={0,127,255}));
   connect(mulQHea_flow.y, QHea_flow)
     annotation (Line(points={{292,280},{320,280}}, color={0,0,127}));
   connect(mulQCoo_flow.y, QCoo_flow)
@@ -221,6 +210,14 @@ equation
     annotation (Line(points={{292,120},{320,120}}, color={0,0,127}));
   connect(mulPPum.y, PPum)
     annotation (Line(points={{292,80},{320,80}}, color={0,0,127}));
+  connect(ports_aChiWat, scaChiWatInl.port_a)
+    annotation (Line(points={{-300,-260},{-280,-260}}, color={0,127,255}));
+  connect(ports_aHeaWat, scaHeaWatInl.port_a)
+    annotation (Line(points={{-300,-60},{-280,-60}}, color={0,127,255}));
+  connect(scaHeaWatOut.port_b, ports_bHeaWat)
+    annotation (Line(points={{280,-60},{300,-60}}, color={0,127,255}));
+  connect(scaChiWatOut.port_b, ports_bChiWat)
+    annotation (Line(points={{280,-260},{300,-260}}, color={0,127,255}));
   annotation (
     defaultComponentName="bui",
     Documentation(
@@ -238,13 +235,26 @@ as described in the schematics here under.
 The fluid ports represent the connection between the production system and
 the building distribution system.
 </p>
+<h4>Scaling</h4>
+<p>
+Scaling is implemented by means of a multiplier factor <code>facMul</code>.
+Each extensive quantity (mass and heat flow rate, electric power)
+<i>flowing out</i> through fluid ports, or connected to an
+<i>output connector</i> is multiplied by <code>facMul</code>.
+Each extensive quantity (mass and heat flow rate, electric power)
+<i>flowing in</i> through fluid ports, or connected to an
+<i>input connector</i> is multiplied by <code>1/facMul</code>.
+This allows modeling, with a single instance,
+multiple identical buildings served by the same energy transfer station.
+</p>
+<h4>Examples</h4>
 <p>
 See various use cases in
 <a href=\"modelica://Buildings.Experimental.DHC.Loads.Examples\">
 Buildings.Experimental.DHC.Loads.Examples</a>.
-<br/>
 </p>
 <p>
+<br/>
 <img alt=\"image\"
 src=\"modelica://Buildings/Resources/Images/Experimental/DHC/Loads/PartialBuilding.png\"/>
 </p>

@@ -16,6 +16,9 @@ partial model PartialTerminalUnit
   parameter Real facSca(min=Modelica.Constants.eps)=1
     "Scaling factor"
     annotation (Evaluate=true);
+   parameter Real facMul(min=Modelica.Constants.eps)=1
+    "Zone multiplier factor"
+    annotation (Evaluate=true);
   parameter Boolean have_heaWat=false
     "Set to true if the system has a heating water based heat exchanger"
     annotation (Evaluate=true);
@@ -300,65 +303,66 @@ partial model PartialTerminalUnit
     annotation (Placement(transformation(extent={{210,-190},{190,-170}}),iconTransformation(extent={{130,-90},{110,-70}})));
   // COMPONENTS
   Buildings.Controls.OBC.CDL.Continuous.Gain scaQReqHea_flow(
-    k=1/facSca) if have_QReq_flow and (have_heaWat or have_chaOve or have_eleHea)
+    final k=1/facSca) if have_QReq_flow and (have_heaWat or have_chaOve or have_eleHea)
     "Scaling"
     annotation (Placement(transformation(extent={{-180,90},{-160,110}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain scaQReqCoo_flow(
-    k=1/facSca) if have_QReq_flow and (have_chiWat or have_eleCoo)
+    final k=1/facSca) if have_QReq_flow and (have_chiWat or have_eleCoo)
     "Scaling"
     annotation (Placement(transformation(extent={{-180,50},{-160,70}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain scaQActHea_flow(
-    k=facSca) if have_heaWat or have_chaOve or have_eleHea "Scaling"
+    final k=facSca*facMul) if have_heaWat or have_chaOve or have_eleHea
+    "Scaling"
     annotation (Placement(transformation(extent={{160,210},{180,230}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain scaQActCoo_flow(
-    k=facSca) if have_chiWat or have_eleCoo
+    final k=facSca*facMul) if have_chiWat or have_eleCoo
     "Scaling"
     annotation (Placement(transformation(extent={{160,190},{180,210}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain scaPHea(
-    k=facSca) if have_eleHea
+    final k=facSca*facMul) if have_eleHea
     "Scaling"
     annotation (Placement(transformation(extent={{160,170},{180,190}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain scaPCoo(
-    k=facSca) if have_eleCoo
+    final k=facSca*facMul) if have_eleCoo
     "Scaling"
     annotation (Placement(transformation(extent={{160,150},{180,170}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain scaPFan(
-    k=facSca) if have_fan
+    final k=facSca*facMul) if have_fan
     "Scaling"
     annotation (Placement(transformation(extent={{160,130},{180,150}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain scaPPum(
-    k=facSca) if have_pum
+    final k=facSca*facMul) if have_pum
     "Scaling"
     annotation (Placement(transformation(extent={{160,110},{180,130}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain scaMasFloReqHeaWat(
-    k=facSca) if have_heaWat
+    final k=facSca*facMul) if have_heaWat
     "Scaling"
     annotation (Placement(transformation(extent={{160,90},{180,110}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain scaMasFloReqChiWat(
-    k=facSca) if have_chiWat
+    final k=facSca*facMul) if have_chiWat
     "Scaling"
     annotation (Placement(transformation(extent={{160,70},{180,90}})));
   Fluid.BaseClasses.MassFlowRateMultiplier scaHeaWatFloInl(
     redeclare final package Medium=Medium1,
-    final k=1/facSca,
+    final k=1/facSca/facMul,
     final allowFlowReversal=allowFlowReversal) if have_heaWat
     "Mass flow rate scaling"
     annotation (Placement(transformation(extent={{-180,-230},{-160,-210}})));
   Fluid.BaseClasses.MassFlowRateMultiplier scaHeaWatFloOut(
     redeclare final package Medium=Medium1,
-    final k=facSca,
+    final k=facSca*facMul,
     final allowFlowReversal=allowFlowReversal) if have_heaWat
     "Mass flow rate scaling"
     annotation (Placement(transformation(extent={{160,-230},{180,-210}})));
   Fluid.BaseClasses.MassFlowRateMultiplier scaChiWatFloInl(
     redeclare final package Medium=Medium1,
-    final k=1/facSca,
+    final k=1/facSca/facMul,
     final allowFlowReversal=allowFlowReversal) if have_chiWat
     "Mass flow rate scaling"
     annotation (Placement(transformation(extent={{-180,-190},{-160,-170}})));
   Fluid.BaseClasses.MassFlowRateMultiplier scaChiWatFloOut(
     redeclare final package Medium=Medium1,
-    final k=facSca,
+    final k=facSca*facMul,
     final allowFlowReversal=allowFlowReversal) if have_chiWat
     "Mass flow rate scaling"
     annotation (Placement(transformation(extent={{160,-190},{180,-170}})));
@@ -544,8 +548,8 @@ Each extensive quantity (mass and heat flow rate, electric power)
 <i>flowing in</i> through fluid or heat ports, or connected to an
 <i>input connector</i> is multiplied by <code>1/facSca</code>.
 This allows modeling, with a single instance,
-multiple identical units serving an aggregated load (for instance,
-a thermal zone representing several rooms).
+multiple identical units served by the same distribution system,
+and serving an aggregated load (e.g., a thermal zone representing several rooms).
 </p>
 <p>
 The scaling factor type is real (not integer) to allow idealized modeling of

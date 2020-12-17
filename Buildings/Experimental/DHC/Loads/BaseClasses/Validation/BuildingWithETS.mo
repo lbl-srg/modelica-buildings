@@ -318,12 +318,12 @@ model BuildingWithETS
       final package Medium1 = MediumW, final m_flow_nominal=m_flow_nominal)
     "Change in enthalpy flow rate "
     annotation (Placement(transformation(extent={{140,-184},{160,-164}})));
-  BaseClasses.BuildingWithETS buiTesFacSca(
+  BaseClasses.BuildingWithETS buiTesFacMul(
     redeclare final package MediumSer = MediumW,
     redeclare final package MediumBui = MediumW,
     nPorts_heaWat=1,
     nPorts_chiWat=1,
-    facSca=2,
+    facMul=2,
     bui(
       final have_heaWat=true,
       final have_chiWat=true,
@@ -442,9 +442,9 @@ equation
          {{120,-160},{130,-160},{130,-168},{140,-168}}, color={0,127,255}));
   connect(sinDisRet10.ports[1], senDifEntFlo10.port_b2) annotation (Line(points=
          {{120,-200},{130,-200},{130,-180},{140,-180}}, color={0,127,255}));
-  connect(senDifEntFlo10.port_b1, buiTesFacSca.port_aSerAmb) annotation (Line(
+  connect(senDifEntFlo10.port_b1, buiTesFacMul.port_aSerAmb) annotation (Line(
         points={{160,-168},{170,-168},{170,-160},{180,-160}}, color={0,127,255}));
-  connect(buiTesFacSca.port_bSerAmb, senDifEntFlo10.port_a2) annotation (Line(
+  connect(buiTesFacMul.port_bSerAmb, senDifEntFlo10.port_a2) annotation (Line(
         points={{200,-160},{220,-160},{220,-180},{160,-180}}, color={0,127,255}));
   annotation (
     experiment(

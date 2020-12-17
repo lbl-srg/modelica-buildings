@@ -21,8 +21,8 @@ partial model PartialBuildingWithPartialETS
   parameter Integer nPorts_chiWat=0
     "Number of chilled water fluid ports"
     annotation (Evaluate=true);
-  parameter Real facSca = 1
-    "Scaling factor"
+  parameter Real facMul = 1
+    "Multiplier factor"
     annotation (Evaluate=true);
   parameter Boolean allowFlowReversalSer=false
     "Set to true to allow flow reversal on service side"
@@ -231,39 +231,39 @@ partial model PartialBuildingWithPartialETS
       transformation(extent={{210,-210},{230,-190}}), iconTransformation(
         extent={{90,-90},{110,-70}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain mulQHea_flow(
-    final k=facSca) if bui.have_heaLoa "Scaling"
+    final k=facMul) if bui.have_heaLoa "Scaling"
     annotation (Placement(transformation(extent={{190,190},{210,210}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain mulQCoo_flow(
-    final k=facSca) if bui.have_cooLoa
+    final k=facMul) if bui.have_cooLoa
     "Scaling"
     annotation (Placement(transformation(extent={{190,170},{210,190}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain mulPHea(
-    final k=facSca) if have_eleHea "Scaling"
+    final k=facMul) if have_eleHea "Scaling"
     annotation (Placement(transformation(extent={{190,150},{210,170}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain mulPCoo(
-    final k=facSca) if have_eleCoo "Scaling"
+    final k=facMul) if have_eleCoo "Scaling"
     annotation (Placement(transformation(extent={{190,130},{210,150}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain mulPFan(
-    final k=facSca) if have_fan "Scaling"
+    final k=facMul) if have_fan "Scaling"
     annotation (Placement(transformation(extent={{190,110},{210,130}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain mulPPum(
-    final k=facSca) if have_pum "Scaling"
+    final k=facMul) if have_pum "Scaling"
     annotation (Placement(transformation(extent={{190,90},{210,110}})));
   Fluid.BaseClasses.MassFlowRateMultiplier scaSerAmbInl(
     redeclare final package Medium = MediumSer,
-    final k=1/facSca,
+    final k=1/facMul,
     final allowFlowReversal=allowFlowReversalSer) if
     typ == TypDisSys.CombinedGeneration5 "Mass flow rate scaling"
     annotation (Placement(transformation(extent={{-200,-130},{-180,-110}})));
   Fluid.BaseClasses.MassFlowRateMultiplier scaSerAmbOut(
     redeclare final package Medium = MediumSer,
-    final k=facSca,
+    final k=facMul,
     final allowFlowReversal=allowFlowReversalSer) if
     typ == TypDisSys.CombinedGeneration5 "Mass flow rate scaling"
     annotation (Placement(transformation(extent={{180,-130},{200,-110}})));
   Fluid.BaseClasses.MassFlowRateMultiplier scaSerHeaInl(
     redeclare final package Medium = MediumSerHea_a,
-    final k=1/facSca,
+    final k=1/facMul,
     final allowFlowReversal=allowFlowReversalSer) if
     typ <> TypDisSys.Cooling and
     typ <> TypDisSys.CombinedGeneration5
@@ -271,7 +271,7 @@ partial model PartialBuildingWithPartialETS
     annotation (Placement(transformation(extent={{-200,-170},{-180,-150}})));
   Fluid.BaseClasses.MassFlowRateMultiplier scaSerHeaOut(
     redeclare final package Medium = MediumSer,
-    final k=facSca,
+    final k=facMul,
     final allowFlowReversal=allowFlowReversalSer) if
     typ <> TypDisSys.Cooling and
     typ <> TypDisSys.CombinedGeneration5
@@ -279,7 +279,7 @@ partial model PartialBuildingWithPartialETS
     annotation (Placement(transformation(extent={{180,-170},{200,-150}})));
   Fluid.BaseClasses.MassFlowRateMultiplier scaSerCooInl(
     redeclare final package Medium = MediumSer,
-    final k=1/facSca,
+    final k=1/facMul,
     final allowFlowReversal=allowFlowReversalSer) if
     typ == TypDisSys.CombinedGeneration1 or
     typ == TypDisSys.CombinedGeneration2to4 or
@@ -288,7 +288,7 @@ partial model PartialBuildingWithPartialETS
     annotation (Placement(transformation(extent={{-200,-210},{-180,-190}})));
   Fluid.BaseClasses.MassFlowRateMultiplier scaSerCooOut(
     redeclare final package Medium = MediumSer,
-    final k=facSca,
+    final k=facMul,
     final allowFlowReversal=allowFlowReversalSer) if
     typ == TypDisSys.CombinedGeneration1 or
     typ == TypDisSys.CombinedGeneration2to4 or
@@ -579,12 +579,19 @@ return.
 </p>
 <h4>Scaling</h4>
 <p>
-Scaling is implemented by means of a scaling factor <code>facSca</code>
-being applied to each extensive quantity (mass and heat flow rate, electric power)
-computed by the model.
-<br/>
+Scaling is implemented by means of a multiplier factor <code>facMul</code>.
+Each extensive quantity (mass and heat flow rate, electric power)
+<i>flowing out</i> through fluid ports, or connected to an
+<i>output connector</i> is multiplied by <code>facMul</code>.
+Each extensive quantity (mass and heat flow rate, electric power)
+<i>flowing in</i> through fluid ports, or connected to an
+<i>input connector</i> is multiplied by <code>1/facMul</code>.
+This allows modeling, with a single instance,
+multiple identical buildings with identical energy transfer stations,
+served by the same service line.
 </p>
 <p>
+<br/>
 <img alt=\"image\"
 src=\"modelica://Buildings/Resources/Images/Experimental/DHC/Loads/PartialBuildingWithPartialETS.png\"/>
 </p>
