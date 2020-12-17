@@ -14,22 +14,22 @@ partial model PartialPlant
       typ == TypDisSys.HeatingGeneration1));
   parameter TypDisSys typ
     "Type of district system"
-    annotation (Evaluate=true);
+    annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Boolean have_fan=false
     "Set to true if fan power is computed"
-    annotation (Evaluate=true);
+    annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Boolean have_pum=false
     "Set to true if pump power is computed"
-    annotation (Evaluate=true);
+    annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Boolean have_eleHea=false
     "Set to true if the plant has electric heating equipment"
-    annotation (Evaluate=true);
+    annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Boolean have_eleCoo=false
     "Set to true if the plant has electric cooling equipment"
-    annotation (Evaluate=true);
+    annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Boolean have_weaBus=false
     "Set to true to use a weather bus"
-    annotation (Evaluate=true);
+    annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Boolean allowFlowReversal=false
     "Set to true to allow flow reversal in service lines"
     annotation (Dialog(tab="Assumptions"),Evaluate=true);
