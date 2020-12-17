@@ -253,15 +253,13 @@ partial model PartialBuildingWithPartialETS
     redeclare final package Medium = MediumSer,
     final k=1/facMul,
     final allowFlowReversal=allowFlowReversalSer) if
-    typ == TypDisSys.CombinedGeneration5
-    "Mass flow rate scaling"
+    typ == TypDisSys.CombinedGeneration5 "Mass flow rate scaling"
     annotation (Placement(transformation(extent={{-200,-130},{-180,-110}})));
   Fluid.BaseClasses.MassFlowRateMultiplier scaSerAmbOut(
     redeclare final package Medium = MediumSer,
     final k=facMul,
     final allowFlowReversal=allowFlowReversalSer) if
-    typ == TypDisSys.CombinedGeneration5
-    "Mass flow rate scaling"
+    typ == TypDisSys.CombinedGeneration5 "Mass flow rate scaling"
     annotation (Placement(transformation(extent={{180,-130},{200,-110}})));
   Fluid.BaseClasses.MassFlowRateMultiplier scaSerHeaInl(
     redeclare final package Medium = MediumSerHea_a,

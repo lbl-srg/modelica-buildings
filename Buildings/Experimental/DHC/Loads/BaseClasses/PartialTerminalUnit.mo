@@ -13,12 +13,9 @@ partial model PartialTerminalUnit
   parameter Boolean allowFlowReversalLoa=true
     "Set to true to allow flow reversal on the load side"
     annotation (Dialog(tab="Assumptions"),Evaluate=true);
-  parameter Real facSca=1
-    "Scaling factor to be applied to each extensive quantity"
-    annotation (Dialog(group="Scaling"));
-  parameter Boolean have_scaLoa=true
-    "Set to true to apply the scaling factor to the heat or mass flow rate on the load side"
-    annotation (Dialog(group="Scaling"));
+  parameter Real facSca(min=Modelica.Constants.eps)=1
+    "Scaling factor"
+    annotation (Evaluate=true);
   parameter Boolean have_heaWat=false
     "Set to true if the system has a heating water based heat exchanger"
     annotation (Evaluate=true);
@@ -537,27 +534,19 @@ The reason is the varying pressure of the outdoor air that can lead to a negativ
 pressure difference at the terminal unit boundaries when the fan is off.
 </li>
 </ul>
-<h4>Scaling factor</h4>
+<h4>Scaling</h4>
 <p>
-Scaling is implemented by means of a scaling factor <code>facSca</code> being
-applied on each extensive quantity (mass and heat flow rate, electric power),
-except the heat or mass flow rate on the load side depending on
-the value of <code>have_scaLoa</code>.
+Scaling is implemented by means of a scaling factor <code>facSca</code>.
+Each extensive quantity (mass and heat flow rate, electric power) 
+<i>flowing out</i> through fluid or heat ports, or connected to an
+<i>output connector</i> is multiplied by <code>facSca</code>.
+Each extensive quantity (mass and heat flow rate, electric power) 
+<i>flowing in</i> through fluid or heat ports, or connected to an
+<i>input connector</i> is multiplied by <code>1/facSca</code>.
+This allows modeling, with a single instance,
+multiple identical units serving an aggregated load (for instance,
+a thermal zone representing several rooms).
 </p>
-<ul>
-<li>
-If <code>have_scaLoa</code> is <code>true</code> (default), then the heat or mass flow rate
-on the load side is scaled. This allows modeling, with a single instance,
-multiple identical units serving an aggregated load, for instance,
-a thermal zone representing several rooms.
-</li>
-<li>
-If <code>have_scaLoa</code> is <code>false</code>, then the heat or mass flow rate
-on the load side is not scaled. This allows modeling, with a single instance,
-multiple identical units serving multiple identical rooms, for instance,
-with only one zone model representing a single room.
-</li>
-</ul>
 <p>
 The scaling factor type is real (not integer) to allow idealized modeling of
 a set of terminal units based on manufacturer data, while still being able to
@@ -566,7 +555,7 @@ See
 <a href=\"modelica://Buildings.Experimental.DHC.Loads.Validation.TerminalUnitScaling\">
 Buildings.Experimental.DHC.Loads.Validation.TerminalUnitScaling</a>
 for an illustration of the use case when heating and cooling loads are
-provided by means of time series.
+provided as time series.
 </p>
 <h4>Change-over mode</h4>
 <p>

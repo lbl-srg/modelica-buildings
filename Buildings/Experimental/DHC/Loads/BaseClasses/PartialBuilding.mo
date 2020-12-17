@@ -4,16 +4,16 @@ partial model PartialBuilding
   replaceable package Medium=Buildings.Media.Water
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Source side medium";
-  parameter Integer nPorts_aHeaWat=0
+  parameter Integer nPorts_aHeaWat=1
     "Number of heating water inlet ports"
     annotation (Evaluate=true,Dialog(connectorSizing=true));
-  parameter Integer nPorts_bHeaWat=0
+  parameter Integer nPorts_bHeaWat=1
     "Number of heating water outlet ports"
     annotation (Evaluate=true,Dialog(connectorSizing=true));
-  parameter Integer nPorts_aChiWat=0
+  parameter Integer nPorts_aChiWat=1
     "Number of chilled water inlet ports"
     annotation (Evaluate=true,Dialog(connectorSizing=true));
-  parameter Integer nPorts_bChiWat=0
+  parameter Integer nPorts_bChiWat=1
     "Number of chilled water outlet ports"
     annotation (Evaluate=true,Dialog(connectorSizing=true));
   parameter Boolean have_heaWat=false
@@ -36,6 +36,9 @@ partial model PartialBuilding
     annotation (Evaluate=true);
   parameter Boolean have_weaBus=false
     "Set to true for weather bus"
+    annotation (Evaluate=true);
+  parameter Real facSca(min=Modelica.Constants.eps)=1
+    "Scaling factor"
     annotation (Evaluate=true);
   parameter Boolean allowFlowReversal=false
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
@@ -143,6 +146,49 @@ partial model PartialBuilding
     "Power drawn by pump motors"
     annotation (Placement(transformation(extent={{300,60},{340,100}}),
       iconTransformation(extent={{300,40},{340,80}})));
+  Fluid.BaseClasses.MassFlowRateMultiplier scaHeaWatInl(
+    redeclare final package Medium = MediumSer,
+    final k=1/facSca,
+    final allowFlowReversal=allowFlowReversalSer) if
+    typ == TypDisSys.CombinedGeneration5 "Mass flow rate scaling"
+    annotation (Placement(transformation(extent={{-280,-70},{-260,-50}})));
+  Fluid.BaseClasses.MassFlowRateMultiplier scaChiWatInl(
+    redeclare final package Medium = MediumSer,
+    final k=1/facSca,
+    final allowFlowReversal=allowFlowReversalSer) if
+    typ == TypDisSys.CombinedGeneration5 "Mass flow rate scaling"
+    annotation (Placement(transformation(extent={{-280,-270},{-260,-250}})));
+  Fluid.BaseClasses.MassFlowRateMultiplier scaHeaWatOut(
+    redeclare final package Medium = MediumSer,
+    final k=facSca,
+    final allowFlowReversal=allowFlowReversalSer) if
+    typ == TypDisSys.CombinedGeneration5 "Mass flow rate scaling"
+    annotation (Placement(transformation(extent={{260,-70},{280,-50}})));
+  Fluid.BaseClasses.MassFlowRateMultiplier scaChiWatOut(
+    redeclare final package Medium = MediumSer,
+    final k=facSca,
+    final allowFlowReversal=allowFlowReversalSer) if
+    typ == TypDisSys.CombinedGeneration5 "Mass flow rate scaling"
+    annotation (Placement(transformation(extent={{260,-270},{280,-250}})));
+  Buildings.Controls.OBC.CDL.Continuous.Gain mulQHea_flow(
+    final k=facSca) if have_heaLoa "Scaling"
+    annotation (Placement(transformation(extent={{270,270},{290,290}})));
+  Buildings.Controls.OBC.CDL.Continuous.Gain mulQCoo_flow(
+    final k=facSca) if have_cooLoa
+    "Scaling"
+    annotation (Placement(transformation(extent={{270,230},{290,250}})));
+  Buildings.Controls.OBC.CDL.Continuous.Gain mulPHea(
+    final k=facSca) if have_eleHea "Scaling"
+    annotation (Placement(transformation(extent={{270,190},{290,210}})));
+  Buildings.Controls.OBC.CDL.Continuous.Gain mulPCoo(
+    final k=facSca) if have_eleCoo "Scaling"
+    annotation (Placement(transformation(extent={{270,150},{290,170}})));
+  Buildings.Controls.OBC.CDL.Continuous.Gain mulPFan(
+    final k=facSca) if have_fan "Scaling"
+    annotation (Placement(transformation(extent={{270,110},{290,130}})));
+  Buildings.Controls.OBC.CDL.Continuous.Gain mulPPum(
+    final k=facSca) if have_pum "Scaling"
+    annotation (Placement(transformation(extent={{270,70},{290,90}})));
 initial equation
   assert(
     nPorts_aHeaWat == nPorts_bHeaWat,
@@ -154,6 +200,27 @@ initial equation
     "In "+getInstanceName()+": The numbers of chilled water inlet ports ("+String(
       nPorts_aChiWat)+") and outlet ports ("+String(
       nPorts_bChiWat)+") must be equal.");
+equation
+  connect(ports_aHeaWat[1], scaHeaWatInl.port_a) annotation (Line(points={{-300,
+          -60},{-280,-60},{-280,-60}}, color={0,127,255}));
+  connect(ports_aChiWat[1], scaChiWatInl.port_a)
+    annotation (Line(points={{-300,-260},{-280,-260}}, color={0,127,255}));
+  connect(scaHeaWatOut.port_b, ports_bHeaWat[1])
+    annotation (Line(points={{280,-60},{300,-60}}, color={0,127,255}));
+  connect(scaChiWatOut.port_b, ports_bChiWat[1])
+    annotation (Line(points={{280,-260},{300,-260}}, color={0,127,255}));
+  connect(mulQHea_flow.y, QHea_flow)
+    annotation (Line(points={{292,280},{320,280}}, color={0,0,127}));
+  connect(mulQCoo_flow.y, QCoo_flow)
+    annotation (Line(points={{292,240},{320,240}}, color={0,0,127}));
+  connect(mulPHea.y, PHea)
+    annotation (Line(points={{292,200},{320,200}}, color={0,0,127}));
+  connect(mulPCoo.y, PCoo)
+    annotation (Line(points={{292,160},{320,160}}, color={0,0,127}));
+  connect(mulPFan.y, PFan)
+    annotation (Line(points={{292,120},{320,120}}, color={0,0,127}));
+  connect(mulPPum.y, PPum)
+    annotation (Line(points={{292,80},{320,80}}, color={0,0,127}));
   annotation (
     defaultComponentName="bui",
     Documentation(
