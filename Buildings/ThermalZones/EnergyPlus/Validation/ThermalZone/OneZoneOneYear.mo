@@ -1,9 +1,7 @@
 within Buildings.ThermalZones.EnergyPlus.Validation.ThermalZone;
 model OneZoneOneYear
   "Validation model for one zone"
-  extends Buildings.ThermalZones.EnergyPlus.Validation.ThermalZone.OneZone(
-    building(
-        logLevel=Buildings.ThermalZones.EnergyPlus.Types.LogLevels.Verbose));
+  extends Buildings.ThermalZones.EnergyPlus.Validation.ThermalZone.OneZone;
 
   annotation (
     Documentation(
