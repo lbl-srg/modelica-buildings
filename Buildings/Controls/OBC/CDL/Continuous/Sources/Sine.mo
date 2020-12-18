@@ -1,10 +1,18 @@
 within Buildings.Controls.OBC.CDL.Continuous.Sources;
 block Sine "Generate sine signal"
   parameter Real amplitude=1 "Amplitude of sine wave";
-  parameter Modelica.SIunits.Frequency freqHz(start=1) "Frequency of sine wave";
-  parameter Modelica.SIunits.Angle phase=0 "Phase of sine wave";
+  parameter Real freqHz(
+    final quantity="Frequency",
+    final unit="Hz",
+    start=1) "Frequency of sine wave";
+  parameter Real phase(
+    final quantity="Angle",
+    final unit="rad",
+    displayUnit="deg")=0 "Phase of sine wave";
   parameter Real offset=0 "Offset of output signal";
-  parameter Modelica.SIunits.Time startTime=0 "Output = offset for time < startTime";
+  parameter Real startTime(
+    final quantity="Time",
+    final unit="s")=0 "Output = offset for time < startTime";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y "Connector of Real output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
@@ -57,6 +65,12 @@ Block that outputs a <code>sine</code>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 12, 2020, by Michael Wetter:<br/>
+Reformulated to remove dependency to <code>Modelica.SIunits</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2243\">issue 2243</a>.
+</li>
 <li>
 March 2, 2020, by Michael Wetter:<br/>
 Changed icon to display dynamically the output value.
