@@ -465,6 +465,15 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1893\">issue 1608</a>.
 </tr>
+<tr><td valign=\"top\">Buildings.Air.Systems.SingleZone.VAV.Examples.ChillerDXHeatingEconomizer
+    </td>
+    <td valign=\"top\">Moved and renamed to 
+                       <code>Buildings.Air.Systems.SingleZone.VAV.BaseClasses.ControllerChillerDXHeatingEconomizer</code>.
+                       Also a bug fix that enables the fan when cooling needed during unoccupied hours.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2265\">issue 2265</a>.<br/>
+                       For Dymola, a conversion script makes this change.</td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Controls.Continuous</b>
     </td>
 </tr>
