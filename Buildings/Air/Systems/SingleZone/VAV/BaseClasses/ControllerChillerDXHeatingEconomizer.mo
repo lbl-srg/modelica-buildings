@@ -318,7 +318,7 @@ heating coil and a cooling coil.
 <li>
 November 20, 2020, by David Blum:<br/>
 Turn fan on when setup cooling required.
-This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2265\">issue 2265</a>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2265\">issue 2265</a>.
 </li>
 <li>
 July 21, 2020, by Kun Zhang:<br/>
