@@ -16,12 +16,14 @@ Modelica\.Media\.Water\.ConstantPropertyLiquidWater \
 Modelica\.Fluid\.Machines\.BaseClasses\.PumpCharacteristics \
 MoistAirNonsaturated \
 MoistAirNoLiquid \
+Buildings\.Air\.Systems\.SingleZone\.VAV\.Examples\.ChillerDXHeatingEconomizer \
 )
 NEW=( Buildings\.Fluid\.Movers\.FlowMachine_Nrpm \
 Buildings\.Media\.ConstantPropertyLiquidWater \
 Buildings\.Fluid\.Movers\.BaseClasses\.Characteristics \
 MoistAirUnsaturated \
 MoistAirUnsaturated \
+Buildings\.Air\.Systems\.SingleZone\.VAV\.BaseClasses\.ControllerChillerDXHeatingEconomizer \
 )
 
 # Number of strings to replace
