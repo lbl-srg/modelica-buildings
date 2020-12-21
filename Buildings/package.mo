@@ -241,6 +241,11 @@ The following <b style=\"color:blue\">new libraries</b> have been added:
                      models, and the coupling and co-simulation is done automatically based on these models.
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.ThermalZones.BaseClasses
+    </td>
+    <td valign=\"top\">Package for thermal zone base classes.
+    </td>
+</tr>    
 </table>
 <!-- New components for existing libraries -->
 <p>
@@ -318,6 +323,7 @@ to <b style=\"color:blue\">existing</b> libraries:
     <td valign=\"top\">Computation of the supply air temperature set point based on the operation mode.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2024\">issue 2024</a>.</td>
 </tr>
+
 </table>
 <!-- Backward compatible changes -->
 <p>

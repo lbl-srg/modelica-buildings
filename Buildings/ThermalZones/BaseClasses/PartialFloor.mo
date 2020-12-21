@@ -271,15 +271,14 @@ equation
           textString="dP")}),
     Documentation(info="<html>
 <p>
-This is a partial model of one floor of the DOE reference office building.
+This is a partial model for one floor of the DOE reference office building.
 </p>
 </html>",
 revisions="<html>
 <ul>
 <li>
 November 15, 2019, by Milica Grahovac:<br/>
-First implementation of the partial floor model based on
-elements that are in common for all floor models.
+First implementation.
 </li>
 </ul>
 </html>"));
