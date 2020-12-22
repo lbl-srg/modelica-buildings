@@ -138,11 +138,13 @@ partial model PartialSeries "Partial model for series network"
   Modelica.Blocks.Sources.Constant TSewWat(k=273.15 + 17)
     "Sewage water temperature"
     annotation (Placement(transformation(extent={{-280,30},{-260,50}})));
-  Controls.OBC.CDL.Continuous.Sources.Constant           THeaWatSupSet[nBui](k=bui.THeaWatSup_nominal)
+  Controls.OBC.CDL.Continuous.Sources.Constant THeaWatSupSet[nBui](
+    k=bui.THeaWatSup_nominal)
     "Heating water supply temperature set point"
     annotation (Placement(transformation(extent={{-280,210},{-260,230}})));
-  Controls.OBC.CDL.Continuous.Sources.Constant           TChiWatSupSet[nBui](k=bui.TChiWatSup_nominal)
-                              "Chilled water supply temperature set point"
+  Controls.OBC.CDL.Continuous.Sources.Constant TChiWatSupSet[nBui](
+    k=bui.TChiWatSup_nominal)
+    "Chilled water supply temperature set point"
     annotation (Placement(transformation(extent={{-250,190},{-230,210}})));
 equation
   connect(bou.ports[1], pumDis.port_a)

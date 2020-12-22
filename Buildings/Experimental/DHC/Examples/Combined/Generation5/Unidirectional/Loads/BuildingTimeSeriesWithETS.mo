@@ -7,8 +7,8 @@ model BuildingTimeSeriesWithETS
     redeclare DHC.Loads.Examples.BaseClasses.BuildingTimeSeries bui(
       final filNam=filNam,
       have_hotWat=true,
-      facScaHea=10*QHea_flow_nominal/(1.7E5),
-      facScaCoo=40*QCoo_flow_nominal/(-1.5E5)),
+      facMulHea=10*QHea_flow_nominal/(1.7E5),
+      facMulCoo=40*QCoo_flow_nominal/(-1.5E5)),
     ets(
       have_hotWat=true,
       QChiWat_flow_nominal=QCoo_flow_nominal,
