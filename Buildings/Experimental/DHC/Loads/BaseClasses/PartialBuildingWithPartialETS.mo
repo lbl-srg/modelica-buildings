@@ -231,69 +231,71 @@ partial model PartialBuildingWithPartialETS
       transformation(extent={{210,-210},{230,-190}}), iconTransformation(
         extent={{90,-90},{110,-70}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain mulQHea_flow(
+    u(final unit="W"),
     final k=facMul) if bui.have_heaLoa "Scaling"
     annotation (Placement(transformation(extent={{190,190},{210,210}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain mulQCoo_flow(
+    u(final unit="W"),
     final k=facMul) if bui.have_cooLoa
     "Scaling"
     annotation (Placement(transformation(extent={{190,170},{210,190}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain mulPHea(
+    u(final unit="W"),
     final k=facMul) if have_eleHea "Scaling"
     annotation (Placement(transformation(extent={{190,150},{210,170}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain mulPCoo(
+    u(final unit="W"),
     final k=facMul) if have_eleCoo "Scaling"
     annotation (Placement(transformation(extent={{190,130},{210,150}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain mulPFan(
+    u(final unit="W"),
     final k=facMul) if have_fan "Scaling"
     annotation (Placement(transformation(extent={{190,110},{210,130}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain mulPPum(
+    u(final unit="W"),
     final k=facMul) if have_pum "Scaling"
     annotation (Placement(transformation(extent={{190,90},{210,110}})));
-  Fluid.BaseClasses.MassFlowRateMultiplier scaSerAmbInl(
+  Fluid.BaseClasses.MassFlowRateMultiplier mulSerAmbInl(
     redeclare final package Medium = MediumSer,
     final k=1/facMul,
     final allowFlowReversal=allowFlowReversalSer) if
-    typ == TypDisSys.CombinedGeneration5 "Mass flow rate scaling"
+    typ == TypDisSys.CombinedGeneration5 "Mass flow rate multiplier"
     annotation (Placement(transformation(extent={{-200,-130},{-180,-110}})));
-  Fluid.BaseClasses.MassFlowRateMultiplier scaSerAmbOut(
+  Fluid.BaseClasses.MassFlowRateMultiplier mulSerAmbOut(
     redeclare final package Medium = MediumSer,
     final k=facMul,
     final allowFlowReversal=allowFlowReversalSer) if
-    typ == TypDisSys.CombinedGeneration5 "Mass flow rate scaling"
+    typ == TypDisSys.CombinedGeneration5 "Mass flow rate multiplier"
     annotation (Placement(transformation(extent={{180,-130},{200,-110}})));
-  Fluid.BaseClasses.MassFlowRateMultiplier scaSerHeaInl(
+  Fluid.BaseClasses.MassFlowRateMultiplier mulSerHeaInl(
     redeclare final package Medium = MediumSerHea_a,
     final k=1/facMul,
     final allowFlowReversal=allowFlowReversalSer) if
     typ <> TypDisSys.Cooling and
-    typ <> TypDisSys.CombinedGeneration5
-    "Mass flow rate scaling"
+    typ <> TypDisSys.CombinedGeneration5 "Mass flow rate multiplier"
     annotation (Placement(transformation(extent={{-200,-170},{-180,-150}})));
-  Fluid.BaseClasses.MassFlowRateMultiplier scaSerHeaOut(
+  Fluid.BaseClasses.MassFlowRateMultiplier mulSerHeaOut(
     redeclare final package Medium = MediumSer,
     final k=facMul,
     final allowFlowReversal=allowFlowReversalSer) if
     typ <> TypDisSys.Cooling and
-    typ <> TypDisSys.CombinedGeneration5
-    "Mass flow rate scaling"
+    typ <> TypDisSys.CombinedGeneration5 "Mass flow rate multiplier"
     annotation (Placement(transformation(extent={{180,-170},{200,-150}})));
-  Fluid.BaseClasses.MassFlowRateMultiplier scaSerCooInl(
+  Fluid.BaseClasses.MassFlowRateMultiplier mulSerCooInl(
     redeclare final package Medium = MediumSer,
     final k=1/facMul,
     final allowFlowReversal=allowFlowReversalSer) if
     typ == TypDisSys.CombinedGeneration1 or
     typ == TypDisSys.CombinedGeneration2to4 or
-    typ == TypDisSys.Cooling
-    "Mass flow rate scaling"
+    typ == TypDisSys.Cooling "Mass flow rate multiplier"
     annotation (Placement(transformation(extent={{-200,-210},{-180,-190}})));
-  Fluid.BaseClasses.MassFlowRateMultiplier scaSerCooOut(
+  Fluid.BaseClasses.MassFlowRateMultiplier mulSerCooOut(
     redeclare final package Medium = MediumSer,
     final k=facMul,
     final allowFlowReversal=allowFlowReversalSer) if
     typ == TypDisSys.CombinedGeneration1 or
     typ == TypDisSys.CombinedGeneration2to4 or
-    typ == TypDisSys.Cooling
-    "Mass flow rate scaling"
+    typ == TypDisSys.Cooling "Mass flow rate multiplier"
     annotation (Placement(transformation(extent={{180,-210},{200,-190}})));
 initial equation
   assert(ets.have_heaWat == bui.have_heaWat,
@@ -379,29 +381,29 @@ equation
     annotation (Line(points={{162,100},{188,100}}, color={0,0,127}));
   connect(mulPPum.y, PPum)
     annotation (Line(points={{212,100},{240,100}}, color={0,0,127}));
-  connect(port_aSerCoo, scaSerCooInl.port_a)
+  connect(port_aSerCoo,mulSerCooInl. port_a)
     annotation (Line(points={{-220,-200},{-200,-200}}, color={0,127,255}));
-  connect(scaSerCooInl.port_b, ets.port_aSerCoo) annotation (Line(points={{-180,
+  connect(mulSerCooInl.port_b, ets.port_aSerCoo) annotation (Line(points={{-180,
           -200},{-160,-200},{-160,-84},{-30,-84}}, color={0,127,255}));
-  connect(scaSerCooOut.port_b, port_bSerCoo)
+  connect(mulSerCooOut.port_b, port_bSerCoo)
     annotation (Line(points={{200,-200},{220,-200}}, color={0,127,255}));
-  connect(ets.port_bSerCoo, scaSerCooOut.port_a) annotation (Line(points={{30,-84},
+  connect(ets.port_bSerCoo,mulSerCooOut. port_a) annotation (Line(points={{30,-84},
           {160,-84},{160,-200},{180,-200}}, color={0,127,255}));
-  connect(port_aSerHea, scaSerHeaInl.port_a)
+  connect(port_aSerHea,mulSerHeaInl. port_a)
     annotation (Line(points={{-220,-160},{-200,-160}}, color={0,127,255}));
-  connect(scaSerHeaInl.port_b, ets.port_aSerHea) annotation (Line(points={{-180,
+  connect(mulSerHeaInl.port_b, ets.port_aSerHea) annotation (Line(points={{-180,
           -160},{-164,-160},{-164,-80},{-30,-80}}, color={0,127,255}));
-  connect(port_aSerAmb, scaSerAmbInl.port_a)
+  connect(port_aSerAmb,mulSerAmbInl. port_a)
     annotation (Line(points={{-220,-120},{-200,-120}}, color={0,127,255}));
-  connect(scaSerAmbInl.port_b, ets.port_aSerAmb) annotation (Line(points={{-180,
+  connect(mulSerAmbInl.port_b, ets.port_aSerAmb) annotation (Line(points={{-180,
           -120},{-168,-120},{-168,-76},{-30,-76}}, color={0,127,255}));
-  connect(ets.port_bSerHea, scaSerHeaOut.port_a) annotation (Line(points={{30,-80},
+  connect(ets.port_bSerHea,mulSerHeaOut. port_a) annotation (Line(points={{30,-80},
           {164,-80},{164,-160},{180,-160}}, color={0,127,255}));
-  connect(scaSerHeaOut.port_b, port_bSerHea)
+  connect(mulSerHeaOut.port_b, port_bSerHea)
     annotation (Line(points={{200,-160},{220,-160}}, color={0,127,255}));
-  connect(ets.port_bSerAmb, scaSerAmbOut.port_a) annotation (Line(points={{30,-76},
+  connect(ets.port_bSerAmb,mulSerAmbOut. port_a) annotation (Line(points={{30,-76},
           {168,-76},{168,-120},{180,-120}}, color={0,127,255}));
-  connect(scaSerAmbOut.port_b, port_bSerAmb)
+  connect(mulSerAmbOut.port_b, port_bSerAmb)
     annotation (Line(points={{200,-120},{220,-120}}, color={0,127,255}));
   annotation (
     DefaultComponentName="bui",

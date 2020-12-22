@@ -144,46 +144,52 @@ partial model PartialBuilding
     "Power drawn by pump motors"
     annotation (Placement(transformation(extent={{300,60},{340,100}}),
       iconTransformation(extent={{300,40},{340,80}})));
-  Fluid.BaseClasses.MassFlowRateMultiplier scaHeaWatInl[nPorts_aHeaWat](
+  Fluid.BaseClasses.MassFlowRateMultiplier mulHeaWatInl[nPorts_aHeaWat](
     redeclare each final package Medium = Medium,
     each final k=1/facMul,
     each final allowFlowReversal=allowFlowReversal) if have_heaWat
-    "Mass flow rate scaling"
+    "Mass flow rate multiplier"
     annotation (Placement(transformation(extent={{-280,-70},{-260,-50}})));
-  Fluid.BaseClasses.MassFlowRateMultiplier scaChiWatInl[nPorts_aChiWat](
+  Fluid.BaseClasses.MassFlowRateMultiplier mulChiWatInl[nPorts_aChiWat](
     redeclare each final package Medium = Medium,
     each final k=1/facMul,
     each final allowFlowReversal=allowFlowReversal) if have_chiWat
-    "Mass flow rate scaling"
+    "Mass flow rate multiplier"
     annotation (Placement(transformation(extent={{-280,-270},{-260,-250}})));
-  Fluid.BaseClasses.MassFlowRateMultiplier scaHeaWatOut[nPorts_bHeaWat](
+  Fluid.BaseClasses.MassFlowRateMultiplier mulHeaWatOut[nPorts_bHeaWat](
     redeclare each final package Medium = Medium,
     each final k=facMul,
     each final allowFlowReversal=allowFlowReversal) if have_heaWat
-    "Mass flow rate scaling"
+    "Mass flow rate multiplier"
     annotation (Placement(transformation(extent={{260,-70},{280,-50}})));
-  Fluid.BaseClasses.MassFlowRateMultiplier scaChiWatOut[nPorts_bChiWat](
+  Fluid.BaseClasses.MassFlowRateMultiplier mulChiWatOut[nPorts_bChiWat](
     redeclare each final package Medium = Medium,
     each final k=facMul,
     each final allowFlowReversal=allowFlowReversal) if have_chiWat
-    "Mass flow rate scaling"
+    "Mass flow rate multiplier"
     annotation (Placement(transformation(extent={{260,-270},{280,-250}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain mulQHea_flow(
+    u(final unit="W"),
     final k=facMul) if have_heaLoa "Scaling"
     annotation (Placement(transformation(extent={{270,270},{290,290}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain mulQCoo_flow(
+    u(final unit="W"),
     final k=facMul) if have_cooLoa "Scaling"
     annotation (Placement(transformation(extent={{270,230},{290,250}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain mulPHea(
+    u(final unit="W"),
     final k=facMul) if have_eleHea "Scaling"
     annotation (Placement(transformation(extent={{270,190},{290,210}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain mulPCoo(
+    u(final unit="W"),
     final k=facMul) if have_eleCoo "Scaling"
     annotation (Placement(transformation(extent={{270,150},{290,170}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain mulPFan(
+    u(final unit="W"),
     final k=facMul) if have_fan "Scaling"
     annotation (Placement(transformation(extent={{270,110},{290,130}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain mulPPum(
+    u(final unit="W"),
     final k=facMul) if have_pum "Scaling"
     annotation (Placement(transformation(extent={{270,70},{290,90}})));
 initial equation
@@ -210,13 +216,13 @@ equation
     annotation (Line(points={{292,120},{320,120}}, color={0,0,127}));
   connect(mulPPum.y, PPum)
     annotation (Line(points={{292,80},{320,80}}, color={0,0,127}));
-  connect(ports_aChiWat, scaChiWatInl.port_a)
+  connect(ports_aChiWat,mulChiWatInl. port_a)
     annotation (Line(points={{-300,-260},{-280,-260}}, color={0,127,255}));
-  connect(ports_aHeaWat, scaHeaWatInl.port_a)
+  connect(ports_aHeaWat,mulHeaWatInl. port_a)
     annotation (Line(points={{-300,-60},{-280,-60}}, color={0,127,255}));
-  connect(scaHeaWatOut.port_b, ports_bHeaWat)
+  connect(mulHeaWatOut.port_b, ports_bHeaWat)
     annotation (Line(points={{280,-60},{300,-60}}, color={0,127,255}));
-  connect(scaChiWatOut.port_b, ports_bChiWat)
+  connect(mulChiWatOut.port_b, ports_bChiWat)
     annotation (Line(points={{280,-260},{300,-260}}, color={0,127,255}));
   annotation (
     defaultComponentName="bui",

@@ -116,9 +116,9 @@ model FanCoil2PipeHeatingValve
 equation
   connect(gaiFloNom2.y,fan.m_flow_in)
     annotation (Line(points={{78,180},{80,180},{80,12}},color={0,0,127}));
-  connect(fan.P,scaPFan.u)
+  connect(fan.P,mulPFan.u)
     annotation (Line(points={{69,9},{60,9},{60,140},{158,140}},color={0,0,127}));
-  connect(Q_flowHea.y,scaQActHea_flow.u)
+  connect(Q_flowHea.y,mulQActHea_flow.u)
     annotation (Line(points={{141,220},{150,220},{150,220},{158,220}},color={0,0,127}));
   connect(fan.port_b,hex.port_a2)
     annotation (Line(points={{70,0},{-60,0}},color={0,127,255}));
@@ -126,7 +126,7 @@ equation
     annotation (Line(points={{-80,0},{-100,0}},color={0,127,255}));
   connect(TSetHea,TLoaODE.TSet)
     annotation (Line(points={{-220,220},{-120,220},{-120,48},{-12,48}},color={0,0,127}));
-  connect(scaQReqHea_flow.y,TLoaODE.QReq_flow)
+  connect(mulQReqHea_flow.y,TLoaODE.QReq_flow)
     annotation (Line(points={{-158,100},{-100,100},{-100,40},{-12,40}},color={0,0,127}));
   connect(Q_flowHea.y,TLoaODE.QAct_flow)
     annotation (Line(points={{141,220},{150,220},{150,160},{-20,160},{-20,32},{-12,32}},color={0,0,127}));
@@ -138,9 +138,9 @@ equation
     annotation (Line(points={{-40,-90},{-40,-110}},color={0,127,255}));
   connect(con.y,val.y)
     annotation (Line(points={{12,220},{20,220},{20,-80},{-28,-80}},color={0,0,127}));
-  connect(senMasFlo.m_flow,scaMasFloReqHeaWat.u)
+  connect(senMasFlo.m_flow,mulMasFloReqHeaWat.u)
     annotation (Line(points={{-29,-120},{140,-120},{140,100},{158,100}},color={0,0,127}));
-  connect(scaQReqHea_flow.y,gaiHeaFlo.u)
+  connect(mulQReqHea_flow.y,gaiHeaFlo.u)
     annotation (Line(points={{-158,100},{-100,100},{-100,220},{-42,220}},color={0,0,127}));
   connect(gaiHeaFlo.y,con.u_s)
     annotation (Line(points={{-18,220},{-12,220}},color={0,0,127}));
@@ -158,9 +158,9 @@ equation
     annotation (Line(points={{-38,170},{24,170},{24,180},{28,180}},color={255,0,255}));
   connect(one.y,swi.u3)
     annotation (Line(points={{12,140},{26,140},{26,172},{28,172}},color={0,0,127}));
-  connect(senMasFlo.port_b,scaHeaWatFloOut.port_a)
+  connect(senMasFlo.port_b,mulHeaWatFloOut.port_a)
     annotation (Line(points={{-40,-130},{-40,-220},{160,-220}},color={0,127,255}));
-  connect(scaHeaWatFloInl.port_b,hex.port_a1)
+  connect(mulHeaWatFloInl.port_b,hex.port_a1)
     annotation (Line(points={{-160,-220},{-100,-220},{-100,-12},{-80,-12}},color={0,127,255}));
   annotation (
     Documentation(

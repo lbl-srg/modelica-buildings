@@ -13,22 +13,22 @@ model BuildingSpawnZ6
     "Medium model";
   parameter Integer nZon=5
     "Number of conditioned thermal zones";
-  parameter Integer facSca[nZon]={5 for i in 1:nZon}
-    "Scaling factor to be applied to on each extensive quantity";
+  parameter Integer facMulTerUni[nZon]={5 for i in 1:nZon}
+    "Multiplier factor for terminal units";
   parameter Modelica.SIunits.MassFlowRate mLoa_flow_nominal[nZon]=fill(
     1,
     nZon)
-    "Load side mass flow rate at nominal conditions"
+    "Load side mass flow rate at nominal conditions (single terminal unit)"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.HeatFlowRate QHea_flow_nominal[nZon]=fill(
     2000,
-    nZon) ./ facSca
-    "Design heating heat flow rate (>=0)"
+    nZon) ./ facMulTerUni
+    "Design heating heat flow rate (single terminal unit)"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.HeatFlowRate QCoo_flow_nominal[nZon]=fill(
     -2000,
-    nZon) ./ facSca
-    "Design cooling heat flow rate (<=0)"
+    nZon) ./ facMulTerUni
+    "Design cooling heat flow rate (single terminal unit)"
     annotation (Dialog(group="Nominal condition"));
   parameter String idfName="modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus/Validation/RefBldgSmallOffice/RefBldgSmallOfficeNew2004_Chicago.idf"
     "Name of the IDF file";
@@ -108,14 +108,14 @@ model BuildingSpawnZ6
     annotation (Placement(transformation(extent={{30,138},{52,158}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum(
     final nin=nZon)
-    annotation (Placement(transformation(extent={{260,110},{280,130}})));
+    annotation (Placement(transformation(extent={{230,110},{250,130}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum3(
     nin=2)
-    annotation (Placement(transformation(extent={{260,70},{280,90}})));
+    annotation (Placement(transformation(extent={{230,70},{250,90}})));
   BaseClasses.FanCoil4Pipe terUni[nZon](
     redeclare each final package Medium1=Medium,
     redeclare each final package Medium2=Medium2,
-    final facSca=facSca,
+    final facMul=facMulTerUni,
     final QHea_flow_nominal=QHea_flow_nominal,
     final QCoo_flow_nominal=QCoo_flow_nominal,
     each T_aLoaHea_nominal=293.15,
@@ -131,7 +131,7 @@ model BuildingSpawnZ6
   Buildings.Experimental.DHC.Loads.FlowDistribution disFloHea(
     redeclare package Medium=Medium,
     m_flow_nominal=sum(
-      terUni.mHeaWat_flow_nominal .* terUni.facSca),
+      terUni.mHeaWat_flow_nominal .* terUni.facMul),
     have_pum=true,
     dp_nominal=100000,
     nPorts_a1=nZon,
@@ -141,7 +141,7 @@ model BuildingSpawnZ6
   Buildings.Experimental.DHC.Loads.FlowDistribution disFloCoo(
     redeclare package Medium=Medium,
     m_flow_nominal=sum(
-      terUni.mChiWat_flow_nominal .* terUni.facSca),
+      terUni.mChiWat_flow_nominal .* terUni.facMul),
     typDis=Buildings.Experimental.DHC.Loads.Types.DistributionType.ChilledWater,
     have_pum=true,
     dp_nominal=100000,
@@ -202,19 +202,12 @@ equation
   connect(terUni.mReqHeaWat_flow,disFloHea.mReq_flow)
     annotation (Line(points={{-115,6},{-100,6},{-100,-90.5},{-237,-90.5},{-237,-182}},color={0,0,127}));
   connect(terUni.PFan,mulSum.u)
-    annotation (Line(points={{-115,10},{-100,10},{-100,220},{220,220},{220,120},{258,120}},color={0,0,127}));
-  connect(mulSum.y,PFan)
-    annotation (Line(points={{282,120},{302,120},{302,120},{320,120}},color={0,0,127}));
-  connect(PPum,mulSum3.y)
-    annotation (Line(points={{320,80},{302,80},{302,80},{282,80}},color={0,0,127}));
+    annotation (Line(points={{-115,10},{-100,10},{-100,220},{216,220},{216,120},
+          {228,120}},                                                                      color={0,0,127}));
   connect(disFloHea.PPum,mulSum3.u[1])
-    annotation (Line(points={{-215,-186},{220.5,-186},{220.5,81},{258,81}},color={0,0,127}));
+    annotation (Line(points={{-215,-186},{216,-186},{216,81},{228,81}},    color={0,0,127}));
   connect(disFloCoo.PPum,mulSum3.u[2])
-    annotation (Line(points={{-139,-228},{224,-228},{224,79},{258,79}},color={0,0,127}));
-  connect(disFloHea.QActTot_flow,QHea_flow)
-    annotation (Line(points={{-215,-184},{212,-184},{212,280},{320,280}},color={0,0,127}));
-  connect(disFloCoo.QActTot_flow,QCoo_flow)
-    annotation (Line(points={{-139,-226},{216,-226},{216,240},{320,240}},color={0,0,127}));
+    annotation (Line(points={{-139,-228},{222,-228},{222,79},{228,79}},color={0,0,127}));
   connect(znCore_ZN.TAir,terUni[1].TSen)
     annotation (Line(points={{65,80},{65,76},{80,76},{80,160},{-152,160},{-152,12},
           {-141,12}},                                                                           color={0,0,127}));
@@ -244,6 +237,14 @@ equation
     annotation (Line(points={{-300,-60},{-280,-60},{-280,-178},{-236,-178}},color={0,127,255}));
   connect(disFloHea.port_b,ports_bHeaWat[1])
     annotation (Line(points={{-216,-178},{280,-178},{280,-60},{300,-60}},color={0,127,255}));
+  connect(disFloHea.QActTot_flow, mulQHea_flow.u) annotation (Line(points={{-215,
+          -184},{214,-184},{214,280},{268,280}}, color={0,0,127}));
+  connect(mulSum3.y, mulPPum.u)
+    annotation (Line(points={{252,80},{268,80}}, color={0,0,127}));
+  connect(mulSum.y, mulPFan.u)
+    annotation (Line(points={{252,120},{268,120}}, color={0,0,127}));
+  connect(disFloCoo.QActTot_flow, mulQCoo_flow.u) annotation (Line(points={{
+          -139,-226},{218,-226},{218,240},{268,240}}, color={0,0,127}));
   annotation (
     Documentation(
       info="

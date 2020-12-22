@@ -14,8 +14,8 @@ model BuildingRCZ6
     "Load side medium";
   parameter Integer nZon=6
     "Number of thermal zones";
-  parameter Integer facSca[nZon]={15 for i in 1:nZon}
-    "Scaling factor to be applied to on each extensive quantity";
+  parameter Integer facMulTerUni[nZon]={15 for i in 1:nZon}
+    "Multiplier factor for terminal units";
   parameter Modelica.SIunits.MassFlowRate mLoa_flow_nominal[nZon]=fill(
     1,
     nZon)
@@ -23,7 +23,7 @@ model BuildingRCZ6
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.HeatFlowRate QHea_flow_nominal[nZon]=fill(
     10000,
-    nZon) ./ facSca
+    nZon) ./ facMulTerUni
     "Design heating heat flow rate (>=0)"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.HeatFlowRate QCoo_flow_nominal[nZon]=cat(
@@ -31,7 +31,7 @@ model BuildingRCZ6
     fill(
       -10000,
       nZon-1),
-    {-50000}) ./ facSca
+    {-50000}) ./ facMulTerUni
     "Design cooling heat flow rate (<=0)"
     annotation (Dialog(group="Nominal condition"));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTSet[nZon](
@@ -64,11 +64,11 @@ model BuildingRCZ6
     annotation (Placement(transformation(extent={{100,-20},{120,0}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum(
     nin=2)
-    annotation (Placement(transformation(extent={{260,70},{280,90}})));
+    annotation (Placement(transformation(extent={{240,70},{260,90}})));
   Buildings.Experimental.DHC.Loads.Examples.BaseClasses.FanCoil4PipeHeatPorts terUni[nZon](
     redeclare each final package Medium1=Medium,
     redeclare each final package Medium2=Medium2,
-    final facSca=facSca,
+    final facMul=facMulTerUni,
     final QHea_flow_nominal=QHea_flow_nominal,
     final QCoo_flow_nominal=QCoo_flow_nominal,
     each T_aLoaHea_nominal=293.15,
@@ -84,7 +84,7 @@ model BuildingRCZ6
   Buildings.Experimental.DHC.Loads.FlowDistribution disFloHea(
     redeclare package Medium=Medium,
     m_flow_nominal=sum(
-      terUni.mHeaWat_flow_nominal .* terUni.facSca),
+      terUni.mHeaWat_flow_nominal .* terUni.facMul),
     have_pum=true,
     dp_nominal=100000,
     nPorts_a1=nZon,
@@ -94,7 +94,7 @@ model BuildingRCZ6
   Buildings.Experimental.DHC.Loads.FlowDistribution disFloCoo(
     redeclare package Medium=Medium,
     m_flow_nominal=sum(
-      terUni.mChiWat_flow_nominal .* terUni.facSca),
+      terUni.mChiWat_flow_nominal .* terUni.facMul),
     typDis=Buildings.Experimental.DHC.Loads.Types.DistributionType.ChilledWater,
     have_pum=true,
     dp_nominal=100000,
@@ -157,16 +157,10 @@ equation
   connect(terUni.mReqChiWat_flow,disFloCoo.mReq_flow)
     annotation (Line(points={{-179.167,-55},{-179.167,-56},{-172,-56},{-172,
           -154},{-141,-154}},                                                                  color={0,0,127}));
-  connect(mulSum.y,PPum)
-    annotation (Line(points={{282,80},{320,80}},color={0,0,127}));
   connect(disFloHea.PPum,mulSum.u[1])
-    annotation (Line(points={{-119,-98},{240,-98},{240,81},{258,81}},  color={0,0,127}));
+    annotation (Line(points={{-119,-98},{224,-98},{224,81},{238,81}},  color={0,0,127}));
   connect(disFloCoo.PPum,mulSum.u[2])
-    annotation (Line(points={{-119,-158},{240,-158},{240,79},{258,79}},color={0,0,127}));
-  connect(disFloHea.QActTot_flow,QHea_flow)
-    annotation (Line(points={{-119,-96},{223.5,-96},{223.5,280},{320,280}},  color={0,0,127}));
-  connect(disFloCoo.QActTot_flow,QCoo_flow)
-    annotation (Line(points={{-119,-156},{230,-156},{230,240},{320,240}},color={0,0,127}));
+    annotation (Line(points={{-119,-158},{226,-158},{226,79},{238,79}},color={0,0,127}));
   connect(maxTSet.y,terUni.TSetCoo)
     annotation (Line(points={{-268,200},{-240,200},{-240,-46.6667},{-200.833,
           -46.6667}},                                                                   color={0,0,127}));
@@ -182,6 +176,12 @@ equation
   connect(ports_bChiWat[1],disFloCoo.port_b)
     annotation (Line(points={{300,-260},{90,-260},{90,-150},{-120,-150}},
                                                      color={0,127,255}));
+  connect(disFloHea.QActTot_flow, mulQHea_flow.u) annotation (Line(points={{
+          -119,-96},{220,-96},{220,280},{268,280}}, color={0,0,127}));
+  connect(disFloCoo.QActTot_flow, mulQCoo_flow.u) annotation (Line(points={{
+          -119,-156},{222,-156},{222,240},{268,240}}, color={0,0,127}));
+  connect(mulPPum.u, mulSum.y)
+    annotation (Line(points={{268,80},{262,80}}, color={0,0,127}));
   annotation (
     Documentation(
       info="

@@ -13,10 +13,10 @@ partial model PartialTerminalUnit
   parameter Boolean allowFlowReversalLoa=true
     "Set to true to allow flow reversal on the load side"
     annotation (Dialog(tab="Assumptions"),Evaluate=true);
-  parameter Real facSca(min=Modelica.Constants.eps)=1
-    "Scaling factor"
+  parameter Real facMul(min=Modelica.Constants.eps)=1
+    "Multiplier factor"
     annotation (Evaluate=true);
-   parameter Real facMul(min=Modelica.Constants.eps)=1
+   parameter Real facMulZon(min=Modelica.Constants.eps)=1
     "Zone multiplier factor"
     annotation (Evaluate=true);
   parameter Boolean have_heaWat=false
@@ -258,7 +258,8 @@ partial model PartialTerminalUnit
       start=Medium1.h_default,
       nominal=Medium1.h_default)) if have_heaWat
     "Heating water inlet port"
-    annotation (Placement(transformation(extent={{-210,-230},{-190,-210}}),iconTransformation(extent={{-130,-110},{-110,-90}})));
+    annotation (Placement(transformation(extent={{-210,-230},{-190,-210}}),
+      iconTransformation(extent={{-130,-110},{-110,-90}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_aChiWat(
     p(start=Medium1.p_default),
     redeclare final package Medium=Medium1,
@@ -272,7 +273,8 @@ partial model PartialTerminalUnit
       start=Medium1.h_default,
       nominal=Medium1.h_default)) if have_chiWat
     "Chilled water inlet port"
-    annotation (Placement(transformation(extent={{-210,-190},{-190,-170}}),iconTransformation(extent={{-130,-90},{-110,-70}})));
+    annotation (Placement(transformation(extent={{-210,-190},{-190,-170}}),
+      iconTransformation(extent={{-130,-90},{-110,-70}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_bHeaWat(
     p(start=Medium1.p_default),
     redeclare final package Medium=Medium1,
@@ -302,89 +304,97 @@ partial model PartialTerminalUnit
     "Chilled water outlet port"
     annotation (Placement(transformation(extent={{210,-190},{190,-170}}),iconTransformation(extent={{130,-90},{110,-70}})));
   // COMPONENTS
-  Buildings.Controls.OBC.CDL.Continuous.Gain scaQReqHea_flow(
-    final k=1/facSca) if have_QReq_flow and (have_heaWat or have_chaOve or have_eleHea)
+  Buildings.Controls.OBC.CDL.Continuous.Gain mulQReqHea_flow(
+    u(final unit="W"),
+    final k=1/facMul) if have_QReq_flow and (have_heaWat or have_chaOve or have_eleHea)
     "Scaling"
     annotation (Placement(transformation(extent={{-180,90},{-160,110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain scaQReqCoo_flow(
-    final k=1/facSca) if have_QReq_flow and (have_chiWat or have_eleCoo)
+  Buildings.Controls.OBC.CDL.Continuous.Gain mulQReqCoo_flow(
+    u(final unit="W"),
+    final k=1/facMul) if have_QReq_flow and (have_chiWat or have_eleCoo)
     "Scaling"
     annotation (Placement(transformation(extent={{-180,50},{-160,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain scaQActHea_flow(
-    final k=facSca*facMul) if have_heaWat or have_chaOve or have_eleHea
+  Buildings.Controls.OBC.CDL.Continuous.Gain mulQActHea_flow(
+    u(final unit="W"),
+    final k=facMul*facMulZon) if have_heaWat or have_chaOve or have_eleHea
     "Scaling"
     annotation (Placement(transformation(extent={{160,210},{180,230}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain scaQActCoo_flow(
-    final k=facSca*facMul) if have_chiWat or have_eleCoo
+  Buildings.Controls.OBC.CDL.Continuous.Gain mulQActCoo_flow(
+    u(final unit="W"),
+    final k=facMul*facMulZon) if have_chiWat or have_eleCoo
     "Scaling"
     annotation (Placement(transformation(extent={{160,190},{180,210}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain scaPHea(
-    final k=facSca*facMul) if have_eleHea
+  Buildings.Controls.OBC.CDL.Continuous.Gain mulPHea(
+    u(final unit="W"),
+    final k=facMul*facMulZon) if have_eleHea
     "Scaling"
     annotation (Placement(transformation(extent={{160,170},{180,190}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain scaPCoo(
-    final k=facSca*facMul) if have_eleCoo
+  Buildings.Controls.OBC.CDL.Continuous.Gain mulPCoo(
+    u(final unit="W"),
+    final k=facMul*facMulZon) if have_eleCoo
     "Scaling"
     annotation (Placement(transformation(extent={{160,150},{180,170}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain scaPFan(
-    final k=facSca*facMul) if have_fan
+  Buildings.Controls.OBC.CDL.Continuous.Gain mulPFan(
+    u(final unit="W"),
+    final k=facMul*facMulZon) if have_fan
     "Scaling"
     annotation (Placement(transformation(extent={{160,130},{180,150}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain scaPPum(
-    final k=facSca*facMul) if have_pum
+  Buildings.Controls.OBC.CDL.Continuous.Gain mulPPum(
+    u(final unit="W"),
+    final k=facMul*facMulZon) if have_pum
     "Scaling"
     annotation (Placement(transformation(extent={{160,110},{180,130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain scaMasFloReqHeaWat(
-    final k=facSca*facMul) if have_heaWat
+  Buildings.Controls.OBC.CDL.Continuous.Gain mulMasFloReqHeaWat(
+    u(final unit="kg/s"),
+    final k=facMul*facMulZon) if have_heaWat
     "Scaling"
     annotation (Placement(transformation(extent={{160,90},{180,110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain scaMasFloReqChiWat(
-    final k=facSca*facMul) if have_chiWat
+  Buildings.Controls.OBC.CDL.Continuous.Gain mulMasFloReqChiWat(
+    u(final unit="kg/s"),
+    final k=facMul*facMulZon) if have_chiWat
     "Scaling"
     annotation (Placement(transformation(extent={{160,70},{180,90}})));
-  Fluid.BaseClasses.MassFlowRateMultiplier scaHeaWatFloInl(
+  Fluid.BaseClasses.MassFlowRateMultiplier mulHeaWatFloInl(
     redeclare final package Medium=Medium1,
-    final k=1/facSca/facMul,
+    final k=1/facMul/facMulZon,
     final allowFlowReversal=allowFlowReversal) if have_heaWat
-    "Mass flow rate scaling"
+    "Mass flow rate multiplier"
     annotation (Placement(transformation(extent={{-180,-230},{-160,-210}})));
-  Fluid.BaseClasses.MassFlowRateMultiplier scaHeaWatFloOut(
+  Fluid.BaseClasses.MassFlowRateMultiplier mulHeaWatFloOut(
     redeclare final package Medium=Medium1,
-    final k=facSca*facMul,
+    final k=facMul*facMulZon,
     final allowFlowReversal=allowFlowReversal) if have_heaWat
-    "Mass flow rate scaling"
+    "Mass flow rate multiplier"
     annotation (Placement(transformation(extent={{160,-230},{180,-210}})));
-  Fluid.BaseClasses.MassFlowRateMultiplier scaChiWatFloInl(
+  Fluid.BaseClasses.MassFlowRateMultiplier mulChiWatFloInl(
     redeclare final package Medium=Medium1,
-    final k=1/facSca/facMul,
+    final k=1/facMul/facMulZon,
     final allowFlowReversal=allowFlowReversal) if have_chiWat
-    "Mass flow rate scaling"
+    "Mass flow rate multiplier"
     annotation (Placement(transformation(extent={{-180,-190},{-160,-170}})));
-  Fluid.BaseClasses.MassFlowRateMultiplier scaChiWatFloOut(
+  Fluid.BaseClasses.MassFlowRateMultiplier mulChiWatFloOut(
     redeclare final package Medium=Medium1,
-    final k=facSca*facMul,
+    final k=facMul*facMulZon,
     final allowFlowReversal=allowFlowReversal) if have_chiWat
-    "Mass flow rate scaling"
+    "Mass flow rate multiplier"
     annotation (Placement(transformation(extent={{160,-190},{180,-170}})));
-  Fluid.BaseClasses.MassFlowRateMultiplier scaLoaMasFloOut(
+  Fluid.BaseClasses.MassFlowRateMultiplier mulLoaMasFloOut(
     redeclare final package Medium=Medium2,
-    final k=facSca,
+    final k=facMul,
     final allowFlowReversal=allowFlowReversalLoa) if have_fluPor
-    "Load side mass flow rate scaling"
+    "Load side mass flow rate multiplier"
     annotation (Placement(transformation(extent={{-160,-10},{-180,10}})));
-  Fluid.BaseClasses.MassFlowRateMultiplier scaLoaMasFloInl(
+  Fluid.BaseClasses.MassFlowRateMultiplier mulLoaMasFloInl(
     redeclare final package Medium=Medium2,
-    final k=1/facSca,
+    final k=1/facMul,
     final allowFlowReversal=allowFlowReversalLoa) if have_fluPor
-    "Load side mass flow rate scaling"
+    "Load side mass flow rate multiplier"
     annotation (Placement(transformation(extent={{180,-10},{160,10}})));
-  Fluid.HeatExchangers.RadiantSlabs.BaseClasses.HeatFlowRateMultiplier scaHeaFloCon(
-    final k=facSca) if have_heaPor
-    "Convective heat flow rate scaling"
+  Fluid.HeatExchangers.RadiantSlabs.BaseClasses.HeatFlowRateMultiplier mulHeaFloCon(final k=
+        facMul) if     have_heaPor "Convective heat flow rate multiplier"
     annotation (Placement(transformation(extent={{160,30},{180,50}})));
-  Fluid.HeatExchangers.RadiantSlabs.BaseClasses.HeatFlowRateMultiplier scaHeaFloRad(
-    final k=facSca) if have_heaPor
-    "Radiative heat flow rate scaling"
+  Fluid.HeatExchangers.RadiantSlabs.BaseClasses.HeatFlowRateMultiplier mulHeaFloRad(final k=
+        facMul) if     have_heaPor "Radiative heat flow rate multiplier"
     annotation (Placement(transformation(extent={{160,-50},{180,-30}})));
 protected
   parameter Modelica.SIunits.SpecificHeatCapacity cpHeaWat_nominal=
@@ -412,41 +422,41 @@ protected
         T_aLoaCoo_nominal))
     "Load side fluid specific heat capacity at nominal conditions in cooling mode";
 equation
-  connect(QReqHea_flow,scaQReqHea_flow.u)
+  connect(QReqHea_flow,mulQReqHea_flow.u)
     annotation (Line(points={{-220,100},{-182,100}},color={0,0,127}));
-  connect(QReqCoo_flow,scaQReqCoo_flow.u)
+  connect(QReqCoo_flow,mulQReqCoo_flow.u)
     annotation (Line(points={{-220,60},{-182,60}},color={0,0,127}));
-  connect(scaQActHea_flow.y,QActHea_flow)
+  connect(mulQActHea_flow.y,QActHea_flow)
     annotation (Line(points={{182,220},{220,220}},color={0,0,127}));
-  connect(scaQActCoo_flow.y,QActCoo_flow)
+  connect(mulQActCoo_flow.y,QActCoo_flow)
     annotation (Line(points={{182,200},{192,200},{192,200},{220,200}},color={0,0,127}));
-  connect(scaPHea.y,PHea)
+  connect(mulPHea.y,PHea)
     annotation (Line(points={{182,180},{220,180}},color={0,0,127}));
-  connect(scaPCoo.y,PCoo)
+  connect(mulPCoo.y,PCoo)
     annotation (Line(points={{182,160},{220,160}},color={0,0,127}));
-  connect(scaPFan.y,PFan)
+  connect(mulPFan.y,PFan)
     annotation (Line(points={{182,140},{220,140}},color={0,0,127}));
-  connect(scaPPum.y,PPum)
+  connect(mulPPum.y,PPum)
     annotation (Line(points={{182,120},{220,120}},color={0,0,127}));
-  connect(scaMasFloReqHeaWat.y,mReqHeaWat_flow)
+  connect(mulMasFloReqHeaWat.y,mReqHeaWat_flow)
     annotation (Line(points={{182,100},{220,100}},color={0,0,127}));
-  connect(scaMasFloReqChiWat.y,mReqChiWat_flow)
+  connect(mulMasFloReqChiWat.y,mReqChiWat_flow)
     annotation (Line(points={{182,80},{220,80}},color={0,0,127}));
-  connect(port_aHeaWat,scaHeaWatFloInl.port_a)
+  connect(port_aHeaWat,mulHeaWatFloInl.port_a)
     annotation (Line(points={{-200,-220},{-180,-220}},color={0,127,255}));
-  connect(scaHeaWatFloOut.port_b,port_bHeaWat)
+  connect(mulHeaWatFloOut.port_b,port_bHeaWat)
     annotation (Line(points={{180,-220},{200,-220}},color={0,127,255}));
-  connect(port_aChiWat,scaChiWatFloInl.port_a)
+  connect(port_aChiWat,mulChiWatFloInl.port_a)
     annotation (Line(points={{-200,-180},{-180,-180}},color={0,127,255}));
-  connect(scaChiWatFloOut.port_b,port_bChiWat)
+  connect(mulChiWatFloOut.port_b,port_bChiWat)
     annotation (Line(points={{180,-180},{192,-180},{192,-180},{200,-180}},color={0,127,255}));
-  connect(scaLoaMasFloOut.port_b,port_bLoa)
+  connect(mulLoaMasFloOut.port_b,port_bLoa)
     annotation (Line(points={{-180,0},{-200,0}},color={0,127,255}));
-  connect(port_aLoa,scaLoaMasFloInl.port_a)
+  connect(port_aLoa,mulLoaMasFloInl.port_a)
     annotation (Line(points={{200,0},{180,0}},color={0,127,255}));
-  connect(scaHeaFloCon.port_b,heaPorCon)
+  connect(mulHeaFloCon.port_b,heaPorCon)
     annotation (Line(points={{180,40},{200,40}},color={191,0,0}));
-  connect(scaHeaFloRad.port_b,heaPorRad)
+  connect(mulHeaFloRad.port_b,heaPorRad)
     annotation (Line(points={{180,-40},{200,-40}},color={191,0,0}));
   annotation (
     defaultComponentName="ter",
@@ -540,21 +550,35 @@ pressure difference at the terminal unit boundaries when the fan is off.
 </ul>
 <h4>Scaling</h4>
 <p>
-Scaling is implemented by means of a scaling factor <code>facSca</code>.
-Each extensive quantity (mass and heat flow rate, electric power) 
-<i>flowing out</i> through fluid or heat ports, or connected to an
-<i>output connector</i> is multiplied by <code>facSca</code>.
-Each extensive quantity (mass and heat flow rate, electric power) 
-<i>flowing in</i> through fluid or heat ports, or connected to an
-<i>input connector</i> is multiplied by <code>1/facSca</code>.
-This allows modeling, with a single instance,
-multiple identical units served by the same distribution system,
-and serving an aggregated load (e.g., a thermal zone representing several rooms).
+Scaling is implemented by means of two multiplier factors.
 </p>
+<ul>
+<li>The parameter <code>facMul</code> serves as a terminal unit multiplier.
+Each extensive quantity (mass and heat flow rate, electric power)
+<i>flowing out</i> through fluid or heat ports, or connected to an
+<i>output connector</i> is multiplied by <code>facMul</code>.
+Each extensive quantity (mass and heat flow rate, electric power)
+<i>flowing in</i> through fluid or heat ports, or connected to an
+<i>input connector</i> is multiplied by <code>1/facMul</code>.
+This parameter allows modeling, with a single instance,
+multiple identical units served by the same distribution system,
+and serving <i>an aggregated load</i> (e.g., a thermal zone representing several rooms).
+</li>
+<li>
+<li>The parameter <code>facMulZon</code> serves as a thermal zone multiplier.
+Except for the variables connected to the load side, which are not affected by
+<code>facMulZon</code>, the logic is otherwise identical to the one described 
+for <code>facMul</code>.
+This parameter allows modeling, with a single instance (of both the terminal 
+unit model and the load model),
+multiple identical units served by the same distribution system,
+and serving <i>multiple identical loads</i> (e.g., a thermal zone representing a single room).
+</li>
+</ul>
 <p>
-The scaling factor type is real (not integer) to allow idealized modeling of
-a set of terminal units based on manufacturer data, while still being able to
-size the full set based on a peak load.
+Both multiplier factors are of type real (as opposed to integer) to allow 
+for instance modeling a set of terminal units based on manufacturer data, 
+while still being able to size the full set based on a peak load.
 See
 <a href=\"modelica://Buildings.Experimental.DHC.Loads.Validation.TerminalUnitScaling\">
 Buildings.Experimental.DHC.Loads.Validation.TerminalUnitScaling</a>
@@ -586,6 +610,18 @@ The computed required mass flow rate must be connected to
 <code>mReqChiWat_flow</code>.
 </li>
 </ul>
+<h4>Base class parameters</h4>
+<p>
+All the parameters of this base class that pertain to the nominal conditions 
+shall not be exposed in the derived class, as this would lead to an 
+overdetermined model.
+For instance, the nominal mass flow rate may not be exposed but rather 
+computed from the nominal heat flow rate, entering and leaving fluid temperature.
+However, those parameters are included in the base class because other components 
+are likely to reference them. For instance the distribution system model 
+may use the nominal mass flow rate of each terminal unit to compute
+the nominal mass flow rate of the circulation pump.
+</p>
 </html>",
       revisions="<html>
 <ul>

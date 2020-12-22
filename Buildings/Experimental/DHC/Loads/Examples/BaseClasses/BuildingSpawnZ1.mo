@@ -112,8 +112,6 @@ equation
   connect(disFloCoo.ports_b1[1],terUni.port_aChiWat)
     annotation (Line(points={{-120,-144},{-200,-144},{-200,-56.6667},{-160,
           -56.6667}},                                                                 color={0,127,255}));
-  connect(terUni.PFan,PFan)
-    annotation (Line(points={{-139.167,-50},{260,-50},{260,120},{320,120}},color={0,0,127}));
   connect(terUni.mReqHeaWat_flow,disFloHea.mReq_flow[1])
     annotation (Line(points={{-139.167,-53.3333},{-126,-53.3333},{-126,-114},{
           -121,-114}},                                                                    color={0,0,127}));
@@ -123,10 +121,6 @@ equation
   connect(terUni.port_bLoa,zon.ports[2])
     annotation (Line(points={{-160,-41.6667},{-172,-41.6667},{-180,-41.6667},{
           -180,-19.1},{62,-19.1}},                                                                    color={0,127,255}));
-  connect(disFloHea.QActTot_flow,QHea_flow)
-    annotation (Line(points={{-99,-116},{238,-116},{238,280},{320,280}},color={0,0,127}));
-  connect(disFloCoo.QActTot_flow,QCoo_flow)
-    annotation (Line(points={{-99,-156},{242,-156},{242,240},{320,240}},color={0,0,127}));
   connect(zon.TAir,terUni.TSen)
     annotation (Line(points={{81,18},{100,18},{100,-32},{-166,-32},{-166,
           -48.3333},{-160.833,-48.3333}},                                                                   color={0,0,127}));
@@ -145,6 +139,12 @@ equation
   connect(ports_bChiWat[1],disFloCoo.port_b)
     annotation (Line(points={{300,-260},{100,-260},{100,-150},{-100,-150}},
                                                      color={0,127,255}));
+  connect(terUni.PFan, mulPFan.u) annotation (Line(points={{-139.167,-50},{240,
+          -50},{240,120},{268,120}}, color={0,0,127}));
+  connect(disFloHea.QActTot_flow, mulQHea_flow.u) annotation (Line(points={{-99,
+          -116},{232,-116},{232,280},{268,280}}, color={0,0,127}));
+  connect(disFloCoo.QActTot_flow, mulQCoo_flow.u) annotation (Line(points={{-99,
+          -156},{236,-156},{236,240},{268,240}}, color={0,0,127}));
   annotation (
     Documentation(
       info="

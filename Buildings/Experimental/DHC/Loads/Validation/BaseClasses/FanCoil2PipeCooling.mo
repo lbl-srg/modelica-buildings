@@ -114,7 +114,7 @@ equation
     annotation (Line(points={{62,180},{80,180},{80,12}},color={0,0,127}));
   connect(con.y,gaiMasFlo.u)
     annotation (Line(points={{12,220},{38,220}},color={0,0,127}));
-  connect(fan.P,scaPFan.u)
+  connect(fan.P,mulPFan.u)
     annotation (Line(points={{69,9},{60,9},{60,140},{158,140}},color={0,0,127}));
   connect(fan.port_b,hex.port_a2)
     annotation (Line(points={{70,0},{-60,0}},color={0,127,255}));
@@ -124,15 +124,15 @@ equation
     annotation (Line(points={{141,200},{150,200},{150,160},{-20,160},{-20,32},{-12,32}},color={0,0,127}));
   connect(TLoaODE.TAir,retAir.T_in)
     annotation (Line(points={{12,40},{140,40},{140,4},{124,4}},color={0,0,127}));
-  connect(gaiMasFlo.y,scaMasFloReqChiWat.u)
+  connect(gaiMasFlo.y,mulMasFloReqChiWat.u)
     annotation (Line(points={{62,220},{100,220},{100,80},{158,80}},color={0,0,127}));
-  connect(scaQReqCoo_flow.y,TLoaODE.QReq_flow)
+  connect(mulQReqCoo_flow.y,TLoaODE.QReq_flow)
     annotation (Line(points={{-158,60},{-100,60},{-100,40},{-12,40}},color={0,0,127}));
-  connect(Q_flowCoo.y,scaQActCoo_flow.u)
+  connect(Q_flowCoo.y,mulQActCoo_flow.u)
     annotation (Line(points={{141,200},{158,200}},color={0,0,127}));
   connect(TSetCoo,TLoaODE.TSet)
     annotation (Line(points={{-220,180},{-120,180},{-120,48},{-12,48}},color={0,0,127}));
-  connect(scaQReqCoo_flow.y,gaiHeaFlo.u)
+  connect(mulQReqCoo_flow.y,gaiHeaFlo.u)
     annotation (Line(points={{-158,60},{-100,60},{-100,220},{-90,220}},color={0,0,127}));
   connect(gaiHeaFlo.y,con.u_s)
     annotation (Line(points={{-66,220},{-12,220}},color={0,0,127}));
@@ -148,9 +148,9 @@ equation
     annotation (Line(points={{-28,200},{-6,200},{-6,208}},color={255,0,255}));
   connect(gaiHeaFlo.y,greThr.u)
     annotation (Line(points={{-66,220},{-60,220},{-60,200},{-52,200}},color={0,0,127}));
-  connect(scaChiWatFloInl.port_b,hex.port_a1)
+  connect(mulChiWatFloInl.port_b,hex.port_a1)
     annotation (Line(points={{-160,-180},{-100,-180},{-100,-12},{-80,-12}},color={0,127,255}));
-  connect(hex.port_b1,scaChiWatFloOut.port_a)
+  connect(hex.port_b1,mulChiWatFloOut.port_a)
     annotation (Line(points={{-60,-12},{-40,-12},{-40,-180},{160,-180}},color={0,127,255}));
   annotation (
     Documentation(
