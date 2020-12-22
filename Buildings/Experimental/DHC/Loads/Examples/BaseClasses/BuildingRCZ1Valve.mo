@@ -153,7 +153,7 @@ model BuildingRCZ1Valve
     annotation (Placement(transformation(extent={{-280,210},{-260,230}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum(
     nin=2)
-    annotation (Placement(transformation(extent={{260,70},{280,90}})));
+    annotation (Placement(transformation(extent={{240,70},{260,90}})));
   Buildings.Experimental.DHC.Loads.Examples.BaseClasses.FanCoil4Pipe terUni(
     redeclare package Medium1=Medium,
     redeclare package Medium2=Medium2,
@@ -279,8 +279,6 @@ equation
   connect(disFloCoo.ports_b1[1],terUni.port_aChiWat)
     annotation (Line(points={{-100,-144},{-200,-144},{-200,-54.6667},{-160,
           -54.6667}},                                                                 color={0,127,255}));
-  connect(terUni.PFan,PFan)
-    annotation (Line(points={{-139.167,-48},{220,-48},{220,120},{320,120}},color={0,0,127}));
   connect(terUni.mReqHeaWat_flow,disFloHea.mReq_flow[1])
     annotation (Line(points={{-139.167,-51.3333},{-139.167,-52},{-120,-52},{
           -120,-114},{-101,-114}},                                                                  color={0,0,127}));
@@ -288,15 +286,9 @@ equation
     annotation (Line(points={{-139.167,-53},{-139.167,-54},{-122,-54},{-122,
           -154},{-101,-154}},                                                                  color={0,0,127}));
   connect(disFloHea.PPum,mulSum.u[1])
-    annotation (Line(points={{-79,-118},{240,-118},{240,81},{258,81}},color={0,0,127}));
+    annotation (Line(points={{-79,-118},{218,-118},{218,81},{238,81}},color={0,0,127}));
   connect(disFloCoo.PPum,mulSum.u[2])
-    annotation (Line(points={{-79,-158},{244,-158},{244,80},{258,80},{258,79}},color={0,0,127}));
-  connect(mulSum.y,PPum)
-    annotation (Line(points={{282,80},{298,80},{298,80},{320,80}},color={0,0,127}));
-  connect(disFloHea.QActTot_flow,QHea_flow)
-    annotation (Line(points={{-79,-116},{218,-116},{218,280},{320,280}},color={0,0,127}));
-  connect(disFloCoo.QActTot_flow,QCoo_flow)
-    annotation (Line(points={{-79,-156},{224,-156},{224,240},{320,240}},color={0,0,127}));
+    annotation (Line(points={{-79,-158},{220,-158},{220,79},{238,79}},         color={0,0,127}));
   connect(thermalZoneOneElement.TAir,terUni.TSen)
     annotation (Line(points={{67,102},{80,102},{80,-20},{-180,-20},{-180,
           -46.3333},{-160.833,-46.3333}},                                                               color={0,0,127}));
@@ -317,6 +309,14 @@ equation
     annotation (Line(points={{300,-60},{-20,-60},{-20,-110},{-80,-110}},color={0,127,255}));
   connect(ports_bChiWat[1],disFloCoo.port_b)
     annotation (Line(points={{300,-260},{-60,-260},{-60,-150},{-80,-150}},color={0,127,255}));
+  connect(mulSum.y, mulPPum.u)
+    annotation (Line(points={{262,80},{268,80}}, color={0,0,127}));
+  connect(disFloHea.QActTot_flow, mulQHea_flow.u) annotation (Line(points={{-79,
+          -116},{210,-116},{210,280},{268,280}}, color={0,0,127}));
+  connect(disFloCoo.QActTot_flow, mulQCoo_flow.u) annotation (Line(points={{-79,
+          -156},{214,-156},{214,240},{268,240}}, color={0,0,127}));
+  connect(terUni.PFan, mulPFan.u) annotation (Line(points={{-139.167,-48},{206,
+          -48},{206,120},{268,120}}, color={0,0,127}));
   annotation (
     Documentation(
       info="

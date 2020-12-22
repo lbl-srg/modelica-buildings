@@ -18,10 +18,10 @@ model BuildingTimeSeries
   parameter String filNam
     "File name with thermal loads as time series";
   // TODO: compute facSca* based on peak loads.
-  parameter Real facScaHea=1
-    "Heating terminal unit scaling factor"
+  parameter Real facMulHea=1
+    "Heating terminal unit multiplier factor"
     annotation(Dialog(enable=have_heaWat));
-  parameter Real facScaCoo=1
+  parameter Real facMulCoo=1
     "Cooling terminal unit scaling factor"
     annotation(Dialog(enable=have_chiWat));
   parameter Modelica.SIunits.Temperature T_aHeaWat_nominal=40+273.15
@@ -126,28 +126,28 @@ model BuildingTimeSeries
       displayUnit="degC"))
     "Maximum temperature set point"
     annotation (Placement(transformation(extent={{-280,210},{-260,230}})));
-  DHC.Loads.Validation.BaseClasses.FanCoil2PipeHeating terUniHea(
-    redeclare final package Medium1=Medium,
-    redeclare final package Medium2=Medium2,
-    final facSca=facScaHea,
-    final facMul=1,
-    final QHea_flow_nominal=QHea_flow_nominal/facScaHea,
-    final mHeaWat_flow_nominal=mHeaWat_flow_nominal/facScaHea,
-    final mLoaHea_flow_nominal=mLoaHea_flow_nominal,
-    final energyDynamics=energyDynamics,
-    final T_aHeaWat_nominal=T_aHeaWat_nominal,
-    final T_bHeaWat_nominal=T_bHeaWat_nominal,
-    final T_aLoaHea_nominal=T_aLoaHea_nominal,
+  replaceable DHC.Loads.Validation.BaseClasses.FanCoil2PipeHeating terUniHea(
     final k=k,
     final Ti=Ti,
     final tau=tau,
     final use_inputFilter=use_inputFilter,
     final riseTime=riseTime) if have_heaWat
+  constrainedby DHC.Loads.BaseClasses.PartialTerminalUnit(
+    redeclare final package Medium1=Medium,
+    redeclare final package Medium2=Medium2,
+    final facMul=facMulHea,
+    final facMulZon=1,
+    final QHea_flow_nominal=QHea_flow_nominal/facMulHea,
+    final mLoaHea_flow_nominal=mLoaHea_flow_nominal,
+    final energyDynamics=energyDynamics,
+    final T_aHeaWat_nominal=T_aHeaWat_nominal,
+    final T_bHeaWat_nominal=T_bHeaWat_nominal,
+    final T_aLoaHea_nominal=T_aLoaHea_nominal)
     "Heating terminal unit"
     annotation (Placement(transformation(extent={{70,-22},{90,-2}})));
   Buildings.Experimental.DHC.Loads.FlowDistribution disFloHea(
     redeclare package Medium=Medium,
-    m_flow_nominal=mHeaWat_flow_nominal*facScaHea,
+    m_flow_nominal=mHeaWat_flow_nominal,
     have_pum=true,
     dp_nominal=100000,
     nPorts_a1=1,
@@ -156,7 +156,7 @@ model BuildingTimeSeries
     annotation (Placement(transformation(extent={{120,-70},{140,-50}})));
   Buildings.Experimental.DHC.Loads.FlowDistribution disFloCoo(
     redeclare package Medium=Medium,
-    final m_flow_nominal=mChiWat_flow_nominal*facScaCoo,
+    final m_flow_nominal=mChiWat_flow_nominal,
     typDis=Buildings.Experimental.DHC.Loads.Types.DistributionType.ChilledWater,
     have_pum=true,
     dp_nominal=100000,
@@ -164,27 +164,25 @@ model BuildingTimeSeries
     nPorts_a1=1) if have_chiWat
     "Chilled water distribution system"
     annotation (Placement(transformation(extent={{120,-270},{140,-250}})));
-  DHC.Loads.Validation.BaseClasses.FanCoil2PipeCooling terUniCoo(
-    redeclare final package Medium1=Medium,
-    redeclare final package Medium2=Medium2,
-    final facSca=facScaCoo,
-    final facMul=1,
-    final QCoo_flow_nominal=QCoo_flow_nominal/facScaCoo,
-    final mChiWat_flow_nominal=mHeaWat_flow_nominal/facScaCoo,
-    final mLoaCoo_flow_nominal=mLoaCoo_flow_nominal,
-    final energyDynamics=energyDynamics,
-    final QHea_flow_nominal=QHea_flow_nominal/facScaHea,
-    final T_aHeaWat_nominal=T_aHeaWat_nominal,
-    final T_aChiWat_nominal=T_aChiWat_nominal,
-    final T_bHeaWat_nominal=T_bHeaWat_nominal,
-    final T_bChiWat_nominal=T_bChiWat_nominal,
+  replaceable DHC.Loads.Validation.BaseClasses.FanCoil2PipeCooling terUniCoo(
+    final QHea_flow_nominal=QHea_flow_nominal/facMulHea,
     final T_aLoaHea_nominal=T_aLoaHea_nominal,
-    final T_aLoaCoo_nominal=T_aLoaCoo_nominal,
     final k=k,
     final Ti=Ti,
     final tau=tau,
     final use_inputFilter=use_inputFilter,
     final riseTime=riseTime) if have_chiWat
+  constrainedby DHC.Loads.BaseClasses.PartialTerminalUnit(
+    redeclare final package Medium1=Medium,
+    redeclare final package Medium2=Medium2,
+    final facMul=facMulCoo,
+    final facMulZon=1,
+    final QCoo_flow_nominal=QCoo_flow_nominal/facMulCoo,
+    final mLoaCoo_flow_nominal=mLoaCoo_flow_nominal,
+    final energyDynamics=energyDynamics,
+    final T_aChiWat_nominal=T_aChiWat_nominal,
+    final T_bChiWat_nominal=T_bChiWat_nominal,
+    final T_aLoaCoo_nominal=T_aLoaCoo_nominal)
     "Cooling terminal unit"
     annotation (Placement(transformation(extent={{70,36},{90,56}})));
   Buildings.Controls.OBC.CDL.Continuous.Add addPPum
@@ -202,9 +200,11 @@ model BuildingTimeSeries
     "Sum fan power"
     annotation (Placement(transformation(extent={{240,110},{260,130}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain mulQReqHea_flow(
+    u(final unit="W"),
     final k=facMul) if have_heaLoa "Scaling"
     annotation (Placement(transformation(extent={{272,30},{292,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain mulQReqCoo_flow(
+    u(final unit="W"),
     final k=facMul) if have_cooLoa "Scaling"
     annotation (Placement(transformation(extent={{272,-10},{292,10}})));
 protected
@@ -270,13 +270,13 @@ equation
   connect(loa.y[3], QReqHotWat_flow) annotation (Line(points={{21,0},{46,0},{46,
           -120},{320,-120}}, color={0,0,127}));
     annotation (Line(points={{90.8333,-12},{180,-12},{180,126},{238,126}},color={0,0,127}));
-  connect(disFloCoo.port_b, scaChiWatOut[1].port_a)
+  connect(disFloCoo.port_b, mulChiWatOut[1].port_a)
     annotation (Line(points={{140,-260},{260,-260}}, color={0,127,255}));
-  connect(disFloHea.port_b, scaHeaWatOut[1].port_a)
+  connect(disFloHea.port_b, mulHeaWatOut[1].port_a)
     annotation (Line(points={{140,-60},{260,-60}}, color={0,127,255}));
-  connect(scaHeaWatInl[1].port_b, disFloHea.port_a)
+  connect(mulHeaWatInl[1].port_b, disFloHea.port_a)
     annotation (Line(points={{-260,-60},{120,-60}}, color={0,127,255}));
-  connect(scaChiWatInl[1].port_b, disFloCoo.port_a)
+  connect(mulChiWatInl[1].port_b, disFloCoo.port_a)
     annotation (Line(points={{-260,-260},{120,-260}}, color={0,127,255}));
   connect(addPFan.y, mulPFan.u)
     annotation (Line(points={{262,120},{268,120}}, color={0,0,127}));

@@ -8,8 +8,8 @@ model CouplingTimeSeries
     "Period for time averaged variables";
   Buildings.Experimental.DHC.Loads.Examples.BaseClasses.BuildingTimeSeries bui(
     filNam="modelica://Buildings/Resources/Data/Experimental/DHC/Loads/Examples/SwissResidential_20190916.mos",
-    facScaHea=10,
-    facScaCoo=40,
+    facMulHea=10,
+    facMulCoo=40,
     k=1,
     Ti=10,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,

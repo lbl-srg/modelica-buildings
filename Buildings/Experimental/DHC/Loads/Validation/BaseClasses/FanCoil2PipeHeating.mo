@@ -93,8 +93,7 @@ model FanCoil2PipeHeating
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,origin={-110,0})));
   Fluid.Sources.Boundary_pT retAir(
     redeclare package Medium=Medium2,
-    p(
-      displayUnit="Pa"),
+    p(displayUnit="Pa"),
     use_T_in=true,
     nPorts=1)
     "Source for return air"
@@ -128,11 +127,11 @@ equation
     annotation (Line(points={{78,180},{80,180},{80,12}},color={0,0,127}));
   connect(con.y,gaiMasFlo.u)
     annotation (Line(points={{12,220},{38,220}},color={0,0,127}));
-  connect(gaiMasFlo.y,scaMasFloReqHeaWat.u)
+  connect(gaiMasFlo.y,mulMasFloReqHeaWat.u)
     annotation (Line(points={{62,220},{100,220},{100,100},{158,100}},color={0,0,127}));
-  connect(fan.P,scaPFan.u)
+  connect(fan.P,mulPFan.u)
     annotation (Line(points={{69,9},{60,9},{60,20},{150,20},{150,140},{158,140}},color={0,0,127}));
-  connect(Q_flowHea.y,scaQActHea_flow.u)
+  connect(Q_flowHea.y,mulQActHea_flow.u)
     annotation (Line(points={{141,220},{150,220},{150,220},{158,220}},color={0,0,127}));
   connect(fan.port_b,hex.port_a2)
     annotation (Line(points={{70,0},{-60,0}},color={0,127,255}));
@@ -156,17 +155,17 @@ equation
     annotation (Line(points={{22,140},{24,140},{24,172},{28,172}},color={0,0,127}));
   connect(con1.y,swi.u2)
     annotation (Line(points={{-28,170},{20,170},{20,180},{28,180}},color={255,0,255}));
-  connect(scaQReqHea_flow.y,gaiHeaFlo.u)
+  connect(mulQReqHea_flow.y,gaiHeaFlo.u)
     annotation (Line(points={{-158,100},{-100,100},{-100,220},{-90,220}},color={0,0,127}));
-  connect(scaQReqHea_flow.y,TLoaODE.QReq_flow)
+  connect(mulQReqHea_flow.y,TLoaODE.QReq_flow)
     annotation (Line(points={{-158,100},{-100,100},{-100,40},{-12,40}},color={0,0,127}));
   connect(Q_flowHea.y,gaiHeaFlo1.u)
     annotation (Line(points={{141,220},{150,220},{150,160},{0,160},{0,178}},color={0,0,127}));
   connect(Q_flowHea.y,TLoaODE.QAct_flow)
     annotation (Line(points={{141,220},{150,220},{150,160},{-20,160},{-20,32},{-12,32}},color={0,0,127}));
-  connect(scaHeaWatFloInl.port_b,hex.port_a1)
+  connect(mulHeaWatFloInl.port_b,hex.port_a1)
     annotation (Line(points={{-160,-220},{-100,-220},{-100,-12},{-80,-12}},color={0,127,255}));
-  connect(hex.port_b1,scaHeaWatFloOut.port_a)
+  connect(hex.port_b1,mulHeaWatFloOut.port_a)
     annotation (Line(points={{-60,-12},{-40,-12},{-40,-220},{160,-220}},color={0,127,255}));
   connect(gaiHeaFlo.y,greThr.u)
     annotation (Line(points={{-66,220},{-60,220},{-60,200},{-52,200}},color={0,0,127}));

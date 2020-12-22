@@ -4,7 +4,10 @@ model BuildingWithETS
   extends
     Buildings.Experimental.DHC.Loads.BaseClasses.PartialBuildingWithPartialETS(
     redeclare ETS ets,
-    redeclare Building bui);
+    redeclare Building bui(
+      final QChiWat_flow_nominal=QChiWat_flow_nominal,
+      final QHeaWat_flow_nominal=QHeaWat_flow_nominal,
+      final m_flow_nominal=ets.m_flow_nominal));
   annotation (
     Icon(
       coordinateSystem(
