@@ -32,7 +32,8 @@ partial model PartialBuildingWithPartialETS
     annotation (Dialog(tab="Assumptions"),Evaluate=true);
   // The following parameters are propagated up from building and ETS components.
   final parameter TypDisSys typ=ets.typ
-    "Type of district system";
+    "Type of district system"
+    annotation (Evaluate=true);
   final parameter Boolean have_heaWat=ets.have_heaWat
     "Set to true if the ETS supplies heating water"
     annotation (Evaluate=true);

@@ -450,7 +450,8 @@ equation
       Tolerance=1e-6,
       StopTime=1.0),
     __Dymola_Commands(
-      file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Loads/BaseClasses/Validation/BuildingWithETS.mos" "Simulate and plot"),
+      file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Loads/BaseClasses/Validation/BuildingWithETS.mos"
+      "Simulate and plot"),
     Icon(
       coordinateSystem(
         preserveAspectRatio=false)),
