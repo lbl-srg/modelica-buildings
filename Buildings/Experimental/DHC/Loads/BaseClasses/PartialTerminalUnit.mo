@@ -545,7 +545,8 @@ pressure difference at the terminal unit boundaries when the fan is off.
 Scaling is implemented by means of two multiplier factors.
 </p>
 <ul>
-<li>The parameter <code>facMul</code> serves as a terminal unit multiplier.
+<li>
+The parameter <code>facMul</code> serves as a terminal unit multiplier.
 Each extensive quantity (mass and heat flow rate, electric power)
 <i>flowing out</i> through fluid or heat ports, or connected to an
 <i>output connector</i> is multiplied by <code>facMul</code>.
@@ -557,7 +558,7 @@ multiple identical units served by the same distribution system,
 and serving <i>an aggregated load</i> (e.g., a thermal zone representing several rooms).
 </li>
 <li>
-<li>The parameter <code>facMulZon</code> serves as a thermal zone multiplier.
+The parameter <code>facMulZon</code> serves as a thermal zone multiplier.
 Except for the variables connected to the load side, which are not affected by
 <code>facMulZon</code>, the logic is otherwise identical to the one described
 for <code>facMul</code>.
