@@ -20,10 +20,10 @@ model BuildingTimeSeries
   // TODO: compute facSca* based on peak loads.
   parameter Real facMulHea=1
     "Heating terminal unit multiplier factor"
-    annotation(Dialog(enable=have_heaWat));
+    annotation(Dialog(enable=have_heaWat, group="Scaling"));
   parameter Real facMulCoo=1
     "Cooling terminal unit scaling factor"
-    annotation(Dialog(enable=have_chiWat));
+    annotation(Dialog(enable=have_chiWat, group="Scaling"));
   parameter Modelica.SIunits.Temperature T_aHeaWat_nominal=40+273.15
     "Heating water inlet temperature at nominal conditions"
     annotation (Dialog(group="Nominal condition"));

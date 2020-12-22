@@ -15,10 +15,10 @@ partial model PartialTerminalUnit
     annotation (Dialog(tab="Assumptions"),Evaluate=true);
   parameter Real facMul(min=Modelica.Constants.eps)=1
     "Multiplier factor"
-    annotation (Evaluate=true);
+    annotation (Evaluate=true, Dialog(group="Scaling"));
    parameter Real facMulZon(min=Modelica.Constants.eps)=1
     "Zone multiplier factor"
-    annotation (Evaluate=true);
+    annotation (Evaluate=true, Dialog(group="Scaling"));
   parameter Boolean have_heaWat=false
     "Set to true if the system uses heating water"
     annotation (Evaluate=true, Dialog(group="Configuration"));
@@ -103,12 +103,6 @@ partial model PartialTerminalUnit
   parameter Modelica.SIunits.Temperature T_aLoaCoo_nominal=273.15 + 26.7
     "Load side inlet temperature at nominal conditions in cooling mode"
     annotation (Dialog(group="Nominal condition",enable=have_chiWat));
-  parameter Real facSca(min=Modelica.Constants.eps)=1
-    "Scaling factor"
-    annotation (Evaluate=true, Dialog(group="Scaling"));
-   parameter Real facMul(min=Modelica.Constants.eps)=1
-    "Zone multiplier factor"
-    annotation (Evaluate=true, Dialog(group="Scaling"));
   // Dynamics
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state"
