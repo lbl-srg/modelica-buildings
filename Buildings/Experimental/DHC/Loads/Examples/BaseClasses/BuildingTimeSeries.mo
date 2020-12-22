@@ -87,9 +87,9 @@ model BuildingTimeSeries
     final unit="W") if have_hotWat
     "SHW load" annotation (Placement(
       transformation(extent={{300,-140},{340,-100}}), iconTransformation(
-      extent={{-20,-20},{20,20}},
+      extent={{-40,-40},{40,40}},
       rotation=-90,
-      origin={260,-320})));
+      origin={280,-340})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput QReqHea_flow(
     final quantity="HeatFlowRate",
     final unit="W") if have_heaLoa
@@ -270,6 +270,9 @@ equation
   connect(loa.y[3], QReqHotWat_flow) annotation (Line(points={{21,0},{46,0},{46,
           -120},{320,-120}}, color={0,0,127}));
     annotation (Line(points={{90.8333,-12},{180,-12},{180,126},{238,126}},color={0,0,127}));
+  connect(loa.y[3], QReqHotWat_flow) annotation (Line(points={{-259,0},{46,0},{
+          46,-120},{320,-120}},
+                             color={0,0,127}));
   connect(disFloCoo.port_b, mulChiWatOut[1].port_a)
     annotation (Line(points={{140,-260},{260,-260}}, color={0,127,255}));
   connect(disFloHea.port_b, mulHeaWatOut[1].port_a)
@@ -294,7 +297,7 @@ equation
           -66},{220,-66},{220,280},{268,280}}, color={0,0,127}));
   connect(disFloCoo.QActTot_flow, mulQCoo_flow.u) annotation (Line(points={{141,
           -266},{224,-266},{224,240},{268,240}}, color={0,0,127}));
-  annotation (
+    annotation (Line(points={{90.8333,-12},{180,-12},{180,126},{238,126}},color={0,0,127}),
     Documentation(
       info="
 <html>
