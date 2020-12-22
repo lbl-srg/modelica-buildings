@@ -17,43 +17,43 @@ partial model PartialETS
     "Building side medium";
   parameter TypDisSys typ
     "Type of district system"
-    annotation (Evaluate=true);
+    annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Integer nPorts_aHeaWat=0
     "Number of heating water return ports"
-    annotation (Evaluate=true,Dialog(connectorSizing=true));
+    annotation (Evaluate=true,Dialog(group="Configuration", connectorSizing=true));
   parameter Integer nPorts_bHeaWat=0
     "Number of heating water supply ports"
-    annotation (Evaluate=true,Dialog(connectorSizing=true));
+    annotation (Evaluate=true,Dialog(group="Configuration", connectorSizing=true));
   parameter Integer nPorts_aChiWat=0
     "Number of chilled water return ports"
-    annotation (Evaluate=true,Dialog(connectorSizing=true));
+    annotation (Evaluate=true,Dialog(group="Configuration", connectorSizing=true));
   parameter Integer nPorts_bChiWat=0
     "Number of chilled water supply ports"
-    annotation (Evaluate=true,Dialog(connectorSizing=true));
+    annotation (Evaluate=true,Dialog(group="Configuration", connectorSizing=true));
   parameter Boolean have_heaWat=false
     "Set to true if the ETS supplies heating water"
-    annotation (Evaluate=true);
+    annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Boolean have_hotWat=false
     "Set to true if the ETS supplies domestic hot water"
-    annotation (Evaluate=true);
+    annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Boolean have_chiWat=false
     "Set to true if the ETS supplies chilled water"
-    annotation (Evaluate=true);
+    annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Boolean have_fan=false
     "Set to true if fan power is computed"
-    annotation (Evaluate=true);
+    annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Boolean have_pum=false
     "Set to true if pump power is computed"
-    annotation (Evaluate=true);
+    annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Boolean have_eleHea=false
     "Set to true if the ETS has electric heating equipment"
-    annotation (Evaluate=true);
+    annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Boolean have_eleCoo=false
     "Set to true if the ETS has electric cooling equipment"
-    annotation (Evaluate=true);
+    annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Boolean have_weaBus=false
     "Set to true to use a weather bus"
-    annotation (Evaluate=true);
+    annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Boolean allowFlowReversalSer=false
     "Set to true to allow flow reversal on service side"
     annotation (Dialog(tab="Assumptions"),Evaluate=true);
@@ -245,7 +245,7 @@ initial equation
     Documentation(
       info="<html>
 <p>
-Partial class to be used for modeling an energy transfer station 
+Partial class to be used for modeling an energy transfer station
 and optional in-building primary systems.
 </p>
 <p>
@@ -258,7 +258,7 @@ different media at the inlet port <code>port_aSerHea</code> and at the oulet
 port <code>port_bSerHea</code> to represent a steam supply and condensate
 return.
 </p>
-<p> 
+<p>
 The connectors to the building distribution systems are configured based
 on the Boolean parameters <code>have_heaWat</code> and <code>have_chiWat</code>.
 </p>

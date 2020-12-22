@@ -15,46 +15,46 @@ partial model PartialTerminalUnit
     annotation (Dialog(tab="Assumptions"),Evaluate=true);
   parameter Real facMul(min=Modelica.Constants.eps)=1
     "Multiplier factor"
-    annotation (Evaluate=true);
+    annotation (Evaluate=true, Dialog(group="Scaling"));
    parameter Real facMulZon(min=Modelica.Constants.eps)=1
     "Zone multiplier factor"
-    annotation (Evaluate=true);
+    annotation (Evaluate=true, Dialog(group="Scaling"));
   parameter Boolean have_heaWat=false
     "Set to true if the system uses heating water"
-    annotation (Evaluate=true);
+    annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Boolean have_chiWat=false
     "Set to true if the system uses chilled water"
-    annotation (Evaluate=true);
+    annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Boolean have_chaOve=false
     "Set to true if the chilled water based heat exchanger operates in change-over"
-    annotation (Evaluate=true);
+    annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Boolean have_eleHea=false
     "Set to true if the system has electric heating equipment"
-    annotation (Evaluate=true);
+    annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Boolean have_eleCoo=false
     "Set to true if the system has electric cooling equipment"
-    annotation (Evaluate=true);
+    annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Boolean have_heaPor=false
     "Set to true for heat ports on the load side"
-    annotation (Evaluate=true);
+    annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Boolean have_fluPor=false
     "Set to true for fluid ports on the load side"
-    annotation (Evaluate=true);
+    annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Boolean have_TSen=false
     "Set to true for measured temperature as an input"
-    annotation (Evaluate=true);
+    annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Boolean have_QReq_flow=false
     "Set to true for required heat flow rate as an input"
-    annotation (Evaluate=true);
+    annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Boolean have_weaBus=false
     "Set to true to use a weather bus"
-    annotation (Evaluate=true);
+    annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Boolean have_fan=false
     "Set to true if fan power is computed"
-    annotation (Evaluate=true);
+    annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Boolean have_pum=false
     "Set to true if pump power is computed"
-    annotation (Evaluate=true);
+    annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Modelica.SIunits.HeatFlowRate QHea_flow_nominal(
     min=0)=0
     "Heat flow rate for water based heating at nominal conditions (>=0)"
@@ -567,17 +567,17 @@ and serving <i>an aggregated load</i> (e.g., a thermal zone representing several
 <li>
 <li>The parameter <code>facMulZon</code> serves as a thermal zone multiplier.
 Except for the variables connected to the load side, which are not affected by
-<code>facMulZon</code>, the logic is otherwise identical to the one described 
+<code>facMulZon</code>, the logic is otherwise identical to the one described
 for <code>facMul</code>.
-This parameter allows modeling, with a single instance (of both the terminal 
+This parameter allows modeling, with a single instance (of both the terminal
 unit model and the load model),
 multiple identical units served by the same distribution system,
 and serving <i>multiple identical loads</i> (e.g., a thermal zone representing a single room).
 </li>
 </ul>
 <p>
-Both multiplier factors are of type real (as opposed to integer) to allow 
-for instance modeling a set of terminal units based on manufacturer data, 
+Both multiplier factors are of type real (as opposed to integer) to allow
+for instance modeling a set of terminal units based on manufacturer data,
 while still being able to size the full set based on a peak load.
 See
 <a href=\"modelica://Buildings.Experimental.DHC.Loads.Validation.TerminalUnitScaling\">
@@ -612,13 +612,13 @@ The computed required mass flow rate must be connected to
 </ul>
 <h4>Base class parameters</h4>
 <p>
-All the parameters of this base class that pertain to the nominal conditions 
-shall not be exposed in the derived class, as this would lead to an 
+All the parameters of this base class that pertain to the nominal conditions
+shall not be exposed in the derived class, as this would lead to an
 overdetermined model.
-For instance, the nominal mass flow rate may not be exposed but rather 
+For instance, the nominal mass flow rate may not be exposed but rather
 computed from the nominal heat flow rate, entering and leaving fluid temperature.
-However, those parameters are included in the base class because other components 
-are likely to reference them. For instance the distribution system model 
+However, those parameters are included in the base class because other components
+are likely to reference them. For instance the distribution system model
 may use the nominal mass flow rate of each terminal unit to compute
 the nominal mass flow rate of the circulation pump.
 </p>

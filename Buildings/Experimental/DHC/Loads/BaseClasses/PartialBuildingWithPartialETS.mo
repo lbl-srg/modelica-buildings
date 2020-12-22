@@ -17,13 +17,13 @@ partial model PartialBuildingWithPartialETS
     "Building side medium";
   parameter Integer nPorts_heaWat=0
     "Number of heating water fluid ports"
-    annotation (Evaluate=true);
+    annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Integer nPorts_chiWat=0
     "Number of chilled water fluid ports"
-    annotation (Evaluate=true);
+    annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Real facMul = 1
     "Multiplier factor"
-    annotation (Evaluate=true);
+    annotation (Evaluate=true, Dialog(group="Scaling"));
   parameter Boolean allowFlowReversalSer=false
     "Set to true to allow flow reversal on service side"
     annotation (Dialog(tab="Assumptions"),Evaluate=true);
@@ -33,31 +33,31 @@ partial model PartialBuildingWithPartialETS
   // The following parameters are propagated up from building and ETS components.
   final parameter TypDisSys typ=ets.typ
     "Type of district system"
-    annotation (Evaluate=true);
+    annotation (Evaluate=true, Dialog(group="Configuration"));
   final parameter Boolean have_heaWat=ets.have_heaWat
     "Set to true if the ETS supplies heating water"
-    annotation (Evaluate=true);
+    annotation (Evaluate=true, Dialog(group="Configuration"));
   final parameter Boolean have_hotWat=ets.have_hotWat
     "Set to true if the ETS supplies domestic hot water"
-    annotation (Evaluate=true);
+    annotation (Evaluate=true, Dialog(group="Configuration"));
   final parameter Boolean have_chiWat=ets.have_chiWat
     "Set to true if the ETS supplies chilled water"
-    annotation (Evaluate=true);
+    annotation (Evaluate=true, Dialog(group="Configuration"));
   final parameter Boolean have_eleHea=bui.have_eleHea or ets.have_eleHea
     "Set to true if the building or ETS has electric heating equipment"
-    annotation (Evaluate=true);
+    annotation (Evaluate=true, Dialog(group="Configuration"));
   final parameter Boolean have_eleCoo=bui.have_eleCoo or ets.have_eleCoo
     "Set to true if the building or ETS has electric cooling equipment"
-    annotation (Evaluate=true);
+    annotation (Evaluate=true, Dialog(group="Configuration"));
   final parameter Boolean have_fan=bui.have_fan or ets.have_fan
     "Set to true if fan power is computed"
-    annotation (Evaluate=true);
+    annotation (Evaluate=true, Dialog(group="Configuration"));
   final parameter Boolean have_pum=bui.have_pum or ets.have_pum
     "Set to true if pump power is computed"
-    annotation (Evaluate=true);
+    annotation (Evaluate=true, Dialog(group="Configuration"));
   final parameter Boolean have_weaBus=bui.have_weaBus or ets.have_weaBus
     "Set to true to use a weather bus"
-    annotation (Evaluate=true);
+    annotation (Evaluate=true, Dialog(group="Configuration"));
   final parameter Modelica.SIunits.HeatFlowRate QChiWat_flow_nominal=
     ets.QChiWat_flow_nominal
     "Design heat flow rate for chilled water production (<0)"
