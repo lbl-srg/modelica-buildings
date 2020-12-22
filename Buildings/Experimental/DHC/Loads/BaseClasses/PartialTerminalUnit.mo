@@ -80,9 +80,7 @@ partial model PartialTerminalUnit
     "Load side mass flow rate at nominal conditions in cooling mode"
     annotation (Dialog(group="Nominal condition",enable=have_chiWat));
   // AHRI 440 Standard Heating
-  parameter Modelica.SIunits.Temperature T_aHeaWat_nominal(
-    min=273.15,
-    displayUnit="degC")=273.15+60
+  parameter Modelica.SIunits.Temperature T_aHeaWat_nominal=273.15 + 60
     "Heating water inlet temperature at nominal conditions"
     annotation (Dialog(group="Nominal condition",enable=have_heaWat and not have_chaOve));
   parameter Modelica.SIunits.Temperature T_bHeaWat_nominal(
@@ -91,9 +89,7 @@ partial model PartialTerminalUnit
     "Heating water outlet temperature at nominal conditions"
     annotation (Dialog(group="Nominal condition",enable=have_heaWat and not have_chaOve));
   // AHRI 440 Standard Cooling
-  parameter Modelica.SIunits.Temperature T_aChiWat_nominal(
-    min=273.15,
-    displayUnit="degC")=273.15+7.2
+  parameter Modelica.SIunits.Temperature T_aChiWat_nominal=273.15 + 7.2
     "Chilled water inlet temperature at nominal conditions "
     annotation (Dialog(group="Nominal condition",enable=have_chiWat));
   parameter Modelica.SIunits.Temperature T_bChiWat_nominal(
@@ -101,14 +97,10 @@ partial model PartialTerminalUnit
     displayUnit="degC")=T_aChiWat_nominal+5.6
     "Chilled water outlet temperature at nominal conditions"
     annotation (Dialog(group="Nominal condition",enable=have_chiWat));
-  parameter Modelica.SIunits.Temperature T_aLoaHea_nominal(
-    min=273.15,
-    displayUnit="degC")=273.15+21.1
+  parameter Modelica.SIunits.Temperature T_aLoaHea_nominal=273.15 + 21.1
     "Load side inlet temperature at nominal conditions in heating mode"
     annotation (Dialog(group="Nominal condition",enable=have_heaWat and not have_chaOve));
-  parameter Modelica.SIunits.Temperature T_aLoaCoo_nominal(
-    min=273.15,
-    displayUnit="degC")=273.15+26.7
+  parameter Modelica.SIunits.Temperature T_aLoaCoo_nominal=273.15 + 26.7
     "Load side inlet temperature at nominal conditions in cooling mode"
     annotation (Dialog(group="Nominal condition",enable=have_chiWat));
   // Dynamics
