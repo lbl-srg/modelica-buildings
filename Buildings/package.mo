@@ -243,7 +243,12 @@ The following <b style=\"color:blue\">new libraries</b> have been added:
 </tr>
 <tr><td valign=\"top\">Buildings.ThermalZones.BaseClasses
     </td>
-    <td valign=\"top\">Package for thermal zone base classes.
+    <td valign=\"top\">Package for thermal zone base classes. The package includes the 
+                       <code>Buildings.ThermalZones.BaseClasses.PartialFloor</code> 
+                       model that facilitates elements of different building floor models, 
+                       including those based on Spawn of EnergyPlus.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1502\">issue 1502</a>.
     </td>
 </tr>    
 </table>
@@ -406,6 +411,19 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1893\">issue 1893</a>.
     </td>
+    <tr><td valign=\"top\">Buildings.Examples.BaseClasses.PartialOpenLoop
+    </td>
+    <td valign=\"top\">Declared the instance of the <code>Buildings.Examples.ThermalZones.Floor</code> in the model 
+                       as a replaceable class constrained by the <code>Buildings.ThermalZones.BaseClasses.PartialFloor</code> model.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1502\">issue 1502</a>.
+    </td>  
+<tr><td valign=\"top\">Buildings.Examples.ThermalZones.Floor
+    </td>
+    <td valign=\"top\">Refactored model to extend from the newly added <code>Buildings.ThermalZones.BaseClasses.PartialFloor</code> model.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1502\">issue 1502</a>.
+    </td>    
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.HeatExchangers.RadiantSlabs</b>
     </td>

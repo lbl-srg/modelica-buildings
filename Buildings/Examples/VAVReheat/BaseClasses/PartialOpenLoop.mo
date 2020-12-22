@@ -232,8 +232,8 @@ partial model PartialOpenLoop
     m_flow_nominal=m_flow_nominal,
     allowFlowReversal=allowFlowReversal)
     annotation (Placement(transformation(extent={{330,-50},{350,-30}})));
-  Buildings.Fluid.Sensors.RelativePressure dpDisSupFan(redeclare package Medium
-      = MediumA) "Supply fan static discharge pressure" annotation (Placement(
+  Buildings.Fluid.Sensors.RelativePressure dpDisSupFan(redeclare package Medium =
+        MediumA) "Supply fan static discharge pressure" annotation (Placement(
         transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
@@ -950,6 +950,10 @@ This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2019\">#2019</a>
 </li>
 <li>
+November 25, 2019, by Milica Grahovac:<br/>
+Declared the floor model as replaceable.
+</li>
+<li>
 September 26, 2017, by Michael Wetter:<br/>
 Separated physical model from control to facilitate implementation of alternate control
 sequences.
@@ -980,10 +984,6 @@ start values for alias variables of the temperature
 of the building and the ambient air.
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/426\">issue 426</a>.
-</li>
-<li>
-November 25, 2019, by Milica Grahovac:<br/>
-Declared the floor model as replaceable.
 </li>
 </ul>
 </html>"));
