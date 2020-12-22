@@ -138,14 +138,59 @@ partial model PartialSeries "Partial model for series network"
   Modelica.Blocks.Sources.Constant TSewWat(k=273.15 + 17)
     "Sewage water temperature"
     annotation (Placement(transformation(extent={{-280,30},{-260,50}})));
-  Controls.OBC.CDL.Continuous.Sources.Constant THeaWatSupSet[nBui](
-    k=bui.THeaWatSup_nominal)
-    "Heating water supply temperature set point"
-    annotation (Placement(transformation(extent={{-280,210},{-260,230}})));
+  Controls.OBC.CDL.Continuous.Sources.Constant THeaWatSupMaxSet[nBui](k=bui.THeaWatSup_nominal)
+    "Heating water supply temperature set point - Maximum value"
+    annotation (Placement(transformation(extent={{-250,210},{-230,230}})));
   Controls.OBC.CDL.Continuous.Sources.Constant TChiWatSupSet[nBui](
     k=bui.TChiWatSup_nominal)
     "Chilled water supply temperature set point"
-    annotation (Placement(transformation(extent={{-250,190},{-230,210}})));
+    annotation (Placement(transformation(extent={{-220,190},{-200,210}})));
+  Controls.OBC.CDL.Continuous.Sources.Constant THeaWatSupMinSet[nBui](
+    each k=28 + 273.15)
+    "Heating water supply temperature set point - Minimum value"
+    annotation (Placement(transformation(extent={{-280,230},{-260,250}})));
+  Results res(
+    PHeaPum=sum(bui.PHea),
+    PPumETS=sum(bui.ets.PPum),
+    PPumDis=pumDis.P,
+    PPumSto=pumSto.P,
+    PPumPla=pla.PPum,
+    QHea_flow=sum(bui.QHea_flow),
+    QCoo_flow=sum(bui.QCoo_flow))
+    "Simulation results";
+model Results
+  "Model to store the results of the simulation"
+  input Modelica.SIunits.Power PHeaPum "Total heat pump power";
+  input Modelica.SIunits.Power PPumETS "ETS pump power";
+  input Modelica.SIunits.Power PPumDis "Distribution pump power";
+  input Modelica.SIunits.Power PPumPla "Plant pump power";
+  input Modelica.SIunits.Power PPumSto "Storage pump power";
+  input Modelica.SIunits.Power QHea_flow "Heating flow rate";
+  input Modelica.SIunits.Power QCoo_flow "Cooling flow rate";
+  Modelica.SIunits.Power PPum "Total pump power";
+  Modelica.SIunits.Power PTot "Total power";
+  Real EHeaPum(start=0, fixed=true) "Heat pump electric energy";
+  Real EPumETS(start=0, fixed=true) "ETS pump electric energy";
+  Real EPumDis(start=0, fixed=true) "Distribution pump electric energy";
+  Real EPumPla(start=0, fixed=true) "Plant pump electric energy";
+  Real EPumSto(start=0, fixed=true) "Storage pump electric energy";
+  Real EPum(start=0, fixed=true) "Total pump electric energy";
+  Real ETot(start=0, fixed=true) "Total electric energy";
+  Real QHea(start=0, fixed=true) "Heating energy";
+  Real QCoo(start=0, fixed=true) "Cooling energy";
+equation
+  PPum = PPumETS + PPumDis + PPumPla + PPumSto;
+  PTot = PPum + PHeaPum;
+  der(EHeaPum) = PHeaPum;
+  der(EPumETS) = PPumETS;
+  der(EPumDis) = PPumDis;
+  der(EPumPla) = PPumPla;
+  der(EPumSto) = PPumSto;
+  der(EPum) = PPum;
+  der(ETot) = PTot;
+  der(QHea) = QHea_flow;
+  der(QCoo) = QCoo_flow;
+end Results;
 equation
   connect(bou.ports[1], pumDis.port_a)
     annotation (Line(points={{102,-20},{80,-20},{80,-50}}, color={0,127,255}));
@@ -177,15 +222,17 @@ equation
   connect(TSewWat.y, pla.TSewWat) annotation (Line(points={{-259,40},{-180,40},
           {-180,7.33333},{-161.333,7.33333}},
                               color={0,0,127}));
-  connect(THeaWatSupSet.y, bui.THeaWatSupSet) annotation (Line(points={{-258,220},
-          {-20,220},{-20,189},{-12,189}},      color={0,0,127}));
-  connect(TChiWatSupSet.y, bui.TChiWatSupSet) annotation (Line(points={{-228,200},
-          {-24,200},{-24,187},{-12,187}},      color={0,0,127}));
+  connect(THeaWatSupMaxSet.y, bui.THeaWatSupMaxSet) annotation (Line(points={{-228,
+          220},{-20,220},{-20,187},{-12,187}}, color={0,0,127}));
+  connect(TChiWatSupSet.y, bui.TChiWatSupSet) annotation (Line(points={{-198,200},
+          {-24,200},{-24,185},{-12,185}},      color={0,0,127}));
   connect(pla.port_bSerAmb, conPla.port_aCon) annotation (Line(points={{-140,1.33333},
           {-100,1.33333},{-100,-4},{-90,-4}}, color={0,127,255}));
   connect(conPla.port_bCon, pla.port_aSerAmb) annotation (Line(points={{-90,-10},
           {-100,-10},{-100,-20},{-200,-20},{-200,1.33333},{-160,1.33333}},
         color={0,127,255}));
+  connect(THeaWatSupMinSet.y, bui.THeaWatSupMinSet) annotation (Line(points={{-258,
+          240},{-16,240},{-16,189},{-12,189}}, color={0,0,127}));
   annotation (Diagram(
     coordinateSystem(preserveAspectRatio=false, extent={{-360,-260},{360,260}})),
     experiment(StopTime=31536000, __Dymola_NumberOfIntervals=8760));

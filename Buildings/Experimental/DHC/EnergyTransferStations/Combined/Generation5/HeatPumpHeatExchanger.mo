@@ -161,7 +161,7 @@ model HeatPumpHeatExchanger
     annotation ( Placement(transformation(extent={{300,-200},{340,-160}}),
       iconTransformation(extent={{300,-200},{380,-120}})));
   // COMPONENTS
-  Buildings.Fluid.Delays.DelayFirstOrder volMixDis_a(
+  Buildings.Fluid.Delays.DelayFirstOrder volMix_a(
     redeclare final package Medium = MediumSer,
     final nPorts=if have_hotWat then 4 else 3,
     final m_flow_nominal=mDisWat_flow_nominal,
@@ -169,7 +169,7 @@ model HeatPumpHeatExchanger
     final energyDynamics=mixingVolumeEnergyDynamics)
     "Mixing volume to break algebraic loops and to emulate the delay of the substation"
     annotation (Placement(transformation(extent={{-270,-360},{-250,-380}})));
-  Buildings.Fluid.Delays.DelayFirstOrder volMixDis_b(
+  Buildings.Fluid.Delays.DelayFirstOrder volMix_b(
     redeclare final package Medium = MediumSer,
     final nPorts=if have_hotWat then 4 else 3,
     final m_flow_nominal=mDisWat_flow_nominal,
@@ -432,16 +432,14 @@ equation
           {10,-340}},                              color={0,127,255}));
   connect(pum1HexChi.m_flow_actual, mCoo_flow) annotation (Line(points={{89,-335},
           {82,-335},{82,-320},{276,-320},{276,-180},{320,-180}}, color={0,0,127}));
-  connect(volMixDis_a.ports[1], swiFlo.port_bSup) annotation (Line(points={{-260,
-          -360},{-6,-360},{-6,-370}}, color={0,127,255}));
-  connect(swiFlo.port_aRet, volMixDis_b.ports[1]) annotation (Line(points={{6,-370},
+  connect(volMix_a.ports[1], swiFlo.port_bSup) annotation (Line(points={{-260,-360},
+          {-6,-360},{-6,-370}}, color={0,127,255}));
+  connect(swiFlo.port_aRet, volMix_b.ports[1]) annotation (Line(points={{6,-370},
           {6,-360},{260,-360}}, color={0,127,255}));
-  connect(volMixDis_b.ports[2], pum1HexChi.port_a) annotation (Line(points={{260,
-          -360},{258,-360},{258,-340},{110,-340}},                       color={
-          0,127,255}));
-  connect(hexChi.port_b1, volMixDis_a.ports[2]) annotation (Line(points={{-10,-340},
-          {-256,-340},{-256,-360},{-260,-360}},                     color={0,127,
-          255}));
+  connect(volMix_b.ports[2], pum1HexChi.port_a) annotation (Line(points={{260,-360},
+          {258,-360},{258,-340},{110,-340}}, color={0,127,255}));
+  connect(hexChi.port_b1, volMix_a.ports[2]) annotation (Line(points={{-10,-340},
+          {-256,-340},{-256,-360},{-260,-360}}, color={0,127,255}));
   connect(pum1HexChi.m_flow_actual, swiFlo.mRev_flow) annotation (Line(points={
           {89,-335},{80,-335},{80,-356},{-20,-356},{-20,-384},{-12,-384}},
         color={0,0,127}));
@@ -468,9 +466,9 @@ equation
     annotation (Line(points={{100,250},{100,250}}, color={0,127,255}));
   connect(volHeaWatRet.ports[3], proHeaWat.port_a1) annotation (Line(points={{80,
           182.667},{80,180},{-20,180},{-20,208},{-10,208}}, color={0,127,255}));
-  connect(proHeaWat.port_b2, volMixDis_b.ports[3]) annotation (Line(points={{10,
+  connect(proHeaWat.port_b2, volMix_b.ports[3]) annotation (Line(points={{10,
           220},{262,220},{262,-360},{260,-360}}, color={0,127,255}));
-  connect(volMixDis_a.ports[3], proHeaWat.port_a2) annotation (Line(points={{-260,
+  connect(volMix_a.ports[3], proHeaWat.port_a2) annotation (Line(points={{-260,
           -360},{-260,200},{14,200},{14,208},{10,208}}, color={0,127,255}));
   connect(enaHea.y, proHeaWat.uEna) annotation (Line(points={{-118,220},{-40,220},
           {-40,216},{-12,216}}, color={255,0,255}));
@@ -484,9 +482,10 @@ equation
           {216,320},{228,320}}, color={0,0,127}));
   connect(PCooTot.y, PCoo) annotation (Line(points={{252,320},{272,320},{272,20},
           {320,20}}, color={0,0,127}));
-  connect(volMixDis_a.ports[4], proHotWat.port_a2) annotation (Line(points={{-260,
-          -360},{-258,-360},{-258,20},{14,20},{14,28},{10,28}}, color={0,127,255}));
-  connect(proHotWat.port_b2, volMixDis_b.ports[4])
+  connect(volMix_a.ports[4], proHotWat.port_a2) annotation (Line(points={{-260,
+          -360},{-258,-360},{-258,20},{14,20},{14,28},{10,28}}, color={0,127,
+          255}));
+  connect(proHotWat.port_b2, volMix_b.ports[4])
     annotation (Line(points={{10,40},{260,40},{260,-360}}, color={0,127,255}));
   connect(THotWatSupSet, proHotWat.TSupSet) annotation (Line(points={{-320,-40},
           {-160,-40},{-160,32},{-12,32}}, color={0,0,127}));

@@ -136,15 +136,19 @@ partial model PartialParallel "Partial model for parallel network"
       each final allowFlowReversalSer=allowFlowReversalSer)
     "Building and ETS"
     annotation (Placement(transformation(extent={{-10,170},{10,190}})));
-  Controls.OBC.CDL.Continuous.Sources.Constant           TSetHeaWatSup[nBui](k=bui.THeaWatSup_nominal)
-    "Heating water supply temperature set point"
-    annotation (Placement(transformation(extent={{-280,210},{-260,230}})));
-  Controls.OBC.CDL.Continuous.Sources.Constant           TSetChiWatSup[nBui](k=bui.TChiWatSup_nominal)
+  Controls.OBC.CDL.Continuous.Sources.Constant THeaWatSupMaxSet[nBui](k=bui.THeaWatSup_nominal)
+    "Heating water supply temperature set point - Maximum value"
+    annotation (Placement(transformation(extent={{-250,210},{-230,230}})));
+  Controls.OBC.CDL.Continuous.Sources.Constant           TChiWatSupSet[nBui](k=bui.TChiWatSup_nominal)
     "Chilled water supply temperature set point"
-    annotation (Placement(transformation(extent={{-250,190},{-230,210}})));
+    annotation (Placement(transformation(extent={{-220,190},{-200,210}})));
   Modelica.Blocks.Sources.Constant TSewWat(k=273.15 + 17)
     "Sewage water temperature"
     annotation (Placement(transformation(extent={{-280,30},{-260,50}})));
+  Controls.OBC.CDL.Continuous.Sources.Constant THeaWatSupMinSet[nBui](each k=28
+         + 273.15)
+    "Heating water supply temperature set point - Minimum value"
+    annotation (Placement(transformation(extent={{-280,230},{-260,250}})));
 equation
   connect(bou.ports[1], pumDis.port_a)
     annotation (Line(points={{102,-20},{80,-20},{80,-50}}, color={0,127,255}));
@@ -174,10 +178,10 @@ equation
           20,180},{20,160},{12,160},{12,150}}, color={0,127,255}));
   connect(dis.ports_bCon, bui.port_aSerAmb) annotation (Line(points={{-12,150},
           {-12,160},{-20,160},{-20,180},{-10,180}}, color={0,127,255}));
-  connect(TSetHeaWatSup.y, bui.THeaWatSupSet) annotation (Line(points={{-258,220},
-          {-20,220},{-20,189},{-12,189}},      color={0,0,127}));
-  connect(TSetChiWatSup.y, bui.TChiWatSupSet) annotation (Line(points={{-228,200},
-          {-24,200},{-24,187},{-12,187}},      color={0,0,127}));
+  connect(THeaWatSupMaxSet.y, bui.THeaWatSupMaxSet) annotation (Line(points={{
+          -228,220},{-20,220},{-20,187},{-12,187}}, color={0,0,127}));
+  connect(TChiWatSupSet.y, bui.TChiWatSupSet) annotation (Line(points={{-198,
+          200},{-24,200},{-24,185},{-12,185}}, color={0,0,127}));
   connect(TSewWat.y, pla.TSewWat) annotation (Line(points={{-259,40},{-180,40},
           {-180,7.33333},{-161.333,7.33333}},
                               color={0,0,127}));
@@ -186,6 +190,8 @@ equation
   connect(conPla.port_bCon, pla.port_aSerAmb) annotation (Line(points={{-90,-10},
           {-100,-10},{-100,-20},{-200,-20},{-200,1.33333},{-160,1.33333}},
         color={0,127,255}));
+  connect(THeaWatSupMinSet.y, bui.THeaWatSupMinSet) annotation (Line(points={{
+          -258,240},{-16,240},{-16,189},{-12,189}}, color={0,0,127}));
   annotation (Diagram(
     coordinateSystem(preserveAspectRatio=false, extent={{-360,-260},{360,260}})),
     experiment(StopTime=31536000, __Dymola_NumberOfIntervals=8760));

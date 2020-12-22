@@ -17,11 +17,11 @@ model SeriesVariableFlow
   Controls.OBC.CDL.Continuous.Sources.Constant THotWatSupSet[nBui](
     k=fill(63 + 273.15, nBui))
     "Hot water supply temperature set point"
-    annotation (Placement(transformation(extent={{-220,170},{-200,190}})));
+    annotation (Placement(transformation(extent={{-190,170},{-170,190}})));
   Controls.OBC.CDL.Continuous.Sources.Constant TColWat[nBui](
     k=fill(15 + 273.15, nBui))
     "Cold water temperature"
-    annotation (Placement(transformation(extent={{-190,150},{-170,170}})));
+    annotation (Placement(transformation(extent={{-160,150},{-140,170}})));
   Buildings.Experimental.DHC.Networks.Controls.MainPump conPum(
     nMix=nBui,
     nSou=2,
@@ -34,12 +34,13 @@ model SeriesVariableFlow
     annotation (Placement(transformation(extent={{-240,-70},{-220,-50}})));
 equation
   connect(masFloDisPla.y, pla.mPum_flow) annotation (Line(points={{-229,20},{
-          -184,20},{-184,4},{-162,4}},
+          -184,20},{-184,4.66667},{-161.333,4.66667}},
                                   color={0,0,127}));
-  connect(THotWatSupSet.y, bui.THotWatSupSet) annotation (Line(points={{-198,
-          180},{-40,180},{-40,176},{-11,176}}, color={0,0,127}));
-  connect(TColWat.y, bui.TColWat) annotation (Line(points={{-168,160},{-40,160},
-          {-40,172},{-11,172}}, color={0,0,127}));
+  connect(THotWatSupSet.y, bui.THotWatSupSet) annotation (Line(points={{-168,
+          180},{-40,180},{-40,183},{-12,183}}, color={0,0,127}));
+  connect(TColWat.y, bui.TColWat) annotation (Line(points={{-138,160},{-40,160},
+          {-40,164},{-8,164},{-8,168}},
+                                color={0,0,127}));
   connect(pumDis.m_flow_in, gai.y)
     annotation (Line(points={{68,-60},{-218,-60}},
                                                  color={0,0,127}));

@@ -2,8 +2,9 @@ within Buildings.Experimental.DHC.Examples.Combined.Generation5.Unidirectional.L
 model BuildingTimeSeriesWithETS
   "Model of a building with thermal loads as time series, with an energy transfer station"
   extends BaseClasses.PartialBuildingWithETS(
-    enaHeaCoo(t=abs(1e-4 .* {QHeaWat_flow_nominal,QChiWat_flow_nominal})),
-    reqHeaCoo(y=abs({bui.QReqHea_flow,bui.QReqCoo_flow})),
+    loaHeaCoo(
+      y=abs({bui.QReqHea_flow,bui.QReqCoo_flow} ./
+            {bui.QHea_flow_nominal, bui.QCoo_flow_nominal})),
     redeclare DHC.Loads.Examples.BaseClasses.BuildingTimeSeries bui(
       final filNam=filNam,
       have_hotWat=true,
@@ -42,7 +43,7 @@ model BuildingTimeSeriesWithETS
         origin={-240,40}),  iconTransformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
-        origin={-120,50})));
+        origin={-120,30})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TColWat(
     final unit="K",
     displayUnit="degC")
@@ -52,15 +53,15 @@ model BuildingTimeSeriesWithETS
         rotation=0,
         origin={-240,0}),   iconTransformation(
         extent={{-20,-20},{20,20}},
-        rotation=0,
-        origin={-120,30})));
+        rotation=90,
+        origin={-80,-120})));
 equation
-  connect(bui.QReqHotWat_flow, ets.loaSHW) annotation (Line(points={{26,6},{26,-6},
-          {-64,-6},{-64,-74},{-34,-74}},     color={0,0,127}));
+  connect(bui.QReqHotWat_flow, ets.loaSHW) annotation (Line(points={{28,4},{28,
+          -6},{-64,-6},{-64,-74},{-34,-74}}, color={0,0,127}));
   connect(THotWatSupSet, ets.THotWatSupSet) annotation (Line(points={{-240,40},
-          {-100,40},{-100,-66},{-34,-66}},  color={0,0,127}));
-  connect(TColWat, ets.TColWat) annotation (Line(points={{-240,0},{-120,0},{
-          -120,-70},{-34,-70}},  color={0,0,127}));
+          {-56,40},{-56,-66},{-34,-66}},    color={0,0,127}));
+  connect(TColWat, ets.TColWat) annotation (Line(points={{-240,0},{-68,0},{-68,
+          -70},{-34,-70}},       color={0,0,127}));
   annotation (Line(
       points={{-1,100},{0.1,100},{0.1,71.4}},
       color={255,204,51},
