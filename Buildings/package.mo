@@ -489,6 +489,15 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1893\">issue 1608</a>.
 </tr>
+<tr><td valign=\"top\">Buildings.Air.Systems.SingleZone.VAV.ChillerDXHeatingEconomizerController
+    </td>
+    <td valign=\"top\">Moved and renamed to
+                       <code>Buildings.Air.Systems.SingleZone.VAV.BaseClasses.ControllerChillerDXHeatingEconomizer</code>.
+                       Also a bug fix was implemented that enables the fan when cooling needed during unoccupied hours.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2265\">issue 2265</a>.<br/>
+                       For Dymola, a conversion script makes this change.</td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Controls.Continuous</b>
     </td>
 </tr>
@@ -646,6 +655,19 @@ have been <b style=\"color:blue\">improved</b> in a
     <td valign=\"top\">Upgraded the sequence according to ASHRAE Guideline 36, May 2020 version.<br/>
                        This is for
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1893\">issue 1893</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Controls.OBC.UnitConversions</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.UnitConversions.From_Btu<br/>
+                       Buildings.Controls.OBC.UnitConversions.From_quad<br/>
+                       Buildings.Controls.OBC.UnitConversions.To_Btu<br/>
+                       Buildings.Controls.OBC.UnitConversions.To_quad
+    </td>
+    <td valign=\"top\">Corrected quantity from <code>Work</code> to <code>Energy</code>.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2245\">#2245</a>.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Examples.VAVReheat.Controls</b>

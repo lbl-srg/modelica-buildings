@@ -228,7 +228,7 @@ void advanceTime_completeIntegratorStep_enterEventMode(FMUBuilding* bui, const c
   void (*SpawnFormatError)(const char *string, ...) = bui->SpawnFormatError;
 
   if (bui->logLevel >= TIMESTEP)
-    SpawnFormatMessage("fmi2_import_enter_continuous_time_mode: ************ Setting EnergyPlus to continuous time mode at t = %.2f\n", time);
+    SpawnFormatMessage("fmi2_import_enter_continuous_time_mode: Setting EnergyPlus to continuous time mode at t = %.2f\n", time);
   status = fmi2_import_enter_continuous_time_mode(bui->fmu);
   if ( status != fmi2OK ) {
     SpawnFormatError("Failed to set time in building FMU for %s, returned status is %s.",
