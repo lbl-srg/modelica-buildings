@@ -1,8 +1,8 @@
-within Buildings.ThermalZones.EnergyPlus.Examples.VAVReheatRefBldgSmallOffice;
-model Guideline36
+within Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice;
+model Guideline36Winter
   "Variable air volume flow system with terminal reheat and five thermal zones controlled using an ASHRAE G36 controller"
   extends Buildings.Examples.VAVReheat.Guideline36(
-    redeclare replaceable Buildings.ThermalZones.EnergyPlus.Examples.VAVReheatRefBldgSmallOffice.BaseClasses.Floor flo,
+    redeclare replaceable Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.BaseClasses.Floor flo,
      ACHCor=4,
      ACHSou=4,
      ACHEas=6,
@@ -11,9 +11,12 @@ model Guideline36
 
   annotation (
     __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus/Examples/VAVReheatRefBldgSmallOffice/Guideline36.mos"
+          "modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus/Examples/SmallOffice/Guideline36Winter.mos"
         "Simulate and plot"),
-    experiment(StopTime=172800, Tolerance=1e-06),
+    experiment(
+      StartTime=432000,
+      StopTime=864000,
+      Tolerance=1e-07),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}}, preserveAspectRatio=true)),
     Diagram(coordinateSystem(
         preserveAspectRatio=false,extent={{-400,-320},{1380,680}})),
@@ -46,8 +49,8 @@ sequence is shown in the figure below.
 </p>
 <p>
 A similar model but with a different control sequence can be found in
-<a href=\"modelica://Buildings.ThermalZones.EnergyPlus.Examples.VAVReheatRefBldgSmallOffice.ASHRAE2006\">
-Buildings.ThermalZones.EnergyPlus.Examples.VAVReheatRefBldgSmallOffice.ASHRAE2006</a>..
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.ASHRAE2006Winter\">
+Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.ASHRAE2006Winter</a>..
 Note that this model, because of the frequent time sampling,
 has longer computing time than
 <a href=\"modelica://Buildings.Examples.VAVReheat.ASHRAE2006\">
@@ -66,4 +69,4 @@ Buildings.Examples.VAVReheat.Guideline36</a> model with an EnergyPlus thermal zo
 </ul>
 </html>"));
 
-end Guideline36;
+end Guideline36Winter;

@@ -1,5 +1,5 @@
-within Buildings.ThermalZones.EnergyPlus.Examples.VAVReheatRefBldgSmallOffice;
-model FloorOpenLoop "Open loop model of one floor"
+within Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice;
+model NoHVAC "Open loop model of one floor"
   extends Modelica.Icons.Example;
 
   replaceable package Medium = Buildings.Media.Air "Medium for air";
@@ -18,7 +18,7 @@ model FloorOpenLoop "Open loop model of one floor"
   BoundaryConditions.WeatherData.Bus weaBus "Weather data bus"
     annotation (Placement(transformation(extent={{-50,40},{-30,60}})));
 
-  Buildings.ThermalZones.EnergyPlus.Examples.VAVReheatRefBldgSmallOffice.BaseClasses.Floor flo(
+  Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.BaseClasses.Floor flo(
       redeclare package Medium = Medium,
       nor(T_start=275.15),
       wes(T_start=275.15),
@@ -104,14 +104,14 @@ equation
       color={255,204,51},
       thickness=0.5));
     annotation (
- __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus/Examples/VAVReheatRefBldgSmallOffice/FloorOpenLoop.mos"
+ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus/Examples/SmallOffice/NoHVAC.mos"
         "Simulate and plot"),
 experiment(
       StopTime=172800,
       Tolerance=1e-06),
 Documentation(info="<html>
 <p>
-Test case of one floor of the small office DOE reference building.
+Test case of the small office DOE reference building without an HVAC system.
 </p>
 </html>", revisions="<html>
 <ul>
@@ -125,4 +125,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end FloorOpenLoop;
+end NoHVAC;

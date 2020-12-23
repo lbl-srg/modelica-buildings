@@ -1,4 +1,4 @@
-within Buildings.ThermalZones.EnergyPlus.Examples.VAVReheatRefBldgSmallOffice.BaseClasses;
+within Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.BaseClasses;
 model Floor "Model of a floor of the building"
   extends
     Buildings.Examples.VAVReheat.BaseClasses.PartialFloor(
@@ -385,8 +385,8 @@ the instances of
 Buildings.Airflow.Multizone.DoorDiscretizedOpen</a> are made smaller.
 Their length has been reduced proportionally
 to the difference in length of the walls of the core zone of the two buildings.
-See also <a href=\"modelica://Buildings.ThermalZones.EnergyPlus.Examples.VAVReheatRefBldgSmallOffice\">
-Buildings.ThermalZones.EnergyPlus.Examples.VAVReheatRefBldgSmallOffice</a>
+See also <a href=\"modelica://Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice\">
+Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice</a>
 for a description of the differences in these buildings.
 </p>
 </html>",

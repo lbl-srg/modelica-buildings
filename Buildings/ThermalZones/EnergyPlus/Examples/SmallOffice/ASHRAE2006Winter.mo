@@ -1,8 +1,8 @@
-within Buildings.ThermalZones.EnergyPlus.Examples.VAVReheatRefBldgSmallOffice;
-model ASHRAE2006
-  "Variable air volume flow system with terminal reheat and five thermal zones using the EnergyPlus floor model"
+within Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice;
+model ASHRAE2006Winter
+  "Variable air volume flow system with terminal reheat and five thermal zones using a control sequence published by ASHRAE in 2006"
   extends Buildings.Examples.VAVReheat.ASHRAE2006(
-    redeclare replaceable Buildings.ThermalZones.EnergyPlus.Examples.VAVReheatRefBldgSmallOffice.BaseClasses.Floor flo,
+    redeclare replaceable Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.BaseClasses.Floor flo,
      ACHCor=4,
      ACHSou=4,
      ACHEas=6,
@@ -11,9 +11,12 @@ model ASHRAE2006
 
   annotation (
     __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus/Examples/VAVReheatRefBldgSmallOffice/ASHRAE2006.mos"
+          "modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus/Examples/SmallOffice/ASHRAE2006Winter.mos"
         "Simulate and plot"),
-    experiment(StopTime=172800, Tolerance=1e-06),
+    experiment(
+      StartTime=432000,
+      StopTime=864000,
+      Tolerance=1e-07),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}}, preserveAspectRatio=true)),
     Diagram(coordinateSystem(preserveAspectRatio=true,extent={{-380,-400},{1420,
             660}})),
@@ -63,8 +66,8 @@ using a finite state machine.
 </p>
 <p>
 A similar model but with a different control sequence can be found in
-<a href=\"modelica://Buildings.ThermalZones.EnergyPlus.Examples.VAVReheatRefBldgSmallOffice.Guideline36\">
-Buildings.ThermalZones.EnergyPlus.Examples.VAVReheatRefBldgSmallOffice.Guideline36</a>.
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.Guideline36Winter\">
+Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.Guideline36Winter</a>.
 </p>
 <h4>References</h4>
 <p>
@@ -81,4 +84,4 @@ Buildings.Examples.VAVReheat.ASHRAE2006</a> model with an EnergyPlus thermal zon
 </li>
 </ul>
 </html>"));
-end ASHRAE2006;
+end ASHRAE2006Winter;
