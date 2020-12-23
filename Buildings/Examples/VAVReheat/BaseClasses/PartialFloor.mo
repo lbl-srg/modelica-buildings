@@ -57,14 +57,6 @@ partial model PartialFloor "Interface for a model of a floor of a building"
         rotation=180,
         origin={-90,50})));
 
-  Modelica.Blocks.Math.MatrixGain gai(K=20*[0.4; 0.4; 0.2])
-    "Matrix gain to split up heat gain in radiant, convective and latent gain"
-    annotation (Placement(transformation(extent={{-100,100},{-80,120}})));
-  Modelica.Blocks.Sources.Constant uSha(k=0)
-    "Control signal for the shading device"
-    annotation (Placement(transformation(extent={{-80,170},{-60,190}})));
-  Modelica.Blocks.Routing.Replicator replicator(nout=1)
-    annotation (Placement(transformation(extent={{-40,170},{-20,190}})));
   BoundaryConditions.WeatherData.Bus weaBus "Weather bus"
     annotation (Placement(transformation(extent={{200,190},{220,210}})));
 
@@ -141,33 +133,12 @@ partial model PartialFloor "Interface for a model of a floor of a building"
     forceErrorControlOnFlow=false)
     "Opening between perimeter3 and core"
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
-  Modelica.Blocks.Sources.CombiTimeTable intGaiFra(
-    table=[0,0.05;
-           8,0.05;
-           9,0.9;
-           12,0.9;
-           12,0.8;
-           13,0.8;
-           13,1;
-           17,1;
-           19,0.1;
-           24,0.05],
-    timeScale=3600,
-    extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic)
-    "Fraction of internal heat gain"
-    annotation (Placement(transformation(extent={{-140,100},{-120,120}})));
-  Buildings.Fluid.Sensors.RelativePressure senRelPre(redeclare package Medium = Medium)
+  Buildings.Fluid.Sensors.RelativePressure senRelPre(redeclare package Medium
+      =                                                                         Medium)
     "Building pressure measurement"
     annotation (Placement(transformation(extent={{60,240},{40,260}})));
   Buildings.Fluid.Sources.Outside out(nPorts=1, redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{-58,240},{-38,260}})));
-
-  Modelica.Blocks.Math.Gain gaiIntNor[3](each k=kIntNor)
-    "Gain for internal heat gain amplification for north zone"
-    annotation (Placement(transformation(extent={{-60,134},{-40,154}})));
-  Modelica.Blocks.Math.Gain gaiIntSou[3](each k=2 - kIntNor)
-    "Gain to change the internal heat gain for south"
-    annotation (Placement(transformation(extent={{-60,-38},{-40,-18}})));
 
 equation
   connect(weaBus, leaSou.weaBus) annotation (Line(
@@ -198,19 +169,6 @@ equation
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
-  connect(gai.y, gaiIntSou.u) annotation (Line(
-      points={{-79,110},{-68,110},{-68,-28},{-62,-28}},
-      color={0,0,127},
-      pattern=LinePattern.Dash));
-  connect(gai.y, gaiIntNor.u) annotation (Line(
-      points={{-79,110},{-68,110},{-68,144},{-62,144}},
-      color={0,0,127},
-      pattern=LinePattern.Dash));
-  connect(intGaiFra.y, gai.u) annotation (Line(
-      points={{-119,110},{-102,110}},
-      color={0,0,127},
-      smooth=Smooth.None,
-      pattern=LinePattern.Dash));
   connect(multiplex5_1.y, TRooAir) annotation (Line(
       points={{361,290},{372,290},{372,160},{390,160}},
       color={0,0,127},
@@ -238,11 +196,6 @@ equation
       pattern=LinePattern.Dash));
   connect(temAirPer5.T, multiplex5_1.u5[1]) annotation (Line(
       points={{314,228},{322,228},{322,228},{332,228},{332,280},{338,280}},
-      color={0,0,127},
-      smooth=Smooth.None,
-      pattern=LinePattern.Dash));
-  connect(uSha.y, replicator.u) annotation (Line(
-      points={{-59,180},{-42,180}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));

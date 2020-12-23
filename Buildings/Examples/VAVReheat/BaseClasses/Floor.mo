@@ -1,7 +1,6 @@
 within Buildings.Examples.VAVReheat.BaseClasses;
 model Floor "Model of a floor of the building"
-  extends
-    Buildings.Examples.VAVReheat.BaseClasses.PartialFloor(
+  extends Buildings.Examples.VAVReheat.BaseClasses.PartialFloor(
     final VRooCor=cor.AFlo * hRoo,
     final VRooSou=sou.AFlo * hRoo,
     final VRooNor=nor.AFlo * hRoo,
@@ -255,6 +254,27 @@ model Floor "Model of a floor of the building"
     final sampleModel=sampleModel) "Core zone"
     annotation (Placement(transformation(extent={{144,36},{184,76}})));
 
+  Modelica.Blocks.Math.MatrixGain gai(K=20*[0.4; 0.4; 0.2])
+    "Matrix gain to split up heat gain in radiant, convective and latent gain"
+    annotation (Placement(transformation(extent={{-100,100},{-80,120}})));
+  Modelica.Blocks.Sources.CombiTimeTable intGaiFra(
+    table=[0,0.05; 8,0.05; 9,0.9; 12,0.9; 12,0.8; 13,0.8; 13,1; 17,1; 19,0.1;
+        24,0.05],
+    timeScale=3600,
+    extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic)
+    "Fraction of internal heat gain"
+    annotation (Placement(transformation(extent={{-140,100},{-120,120}})));
+  Modelica.Blocks.Math.Gain gaiIntNor[3](each k=kIntNor)
+    "Gain for internal heat gain amplification for north zone"
+    annotation (Placement(transformation(extent={{-60,134},{-40,154}})));
+  Modelica.Blocks.Math.Gain gaiIntSou[3](each k=2 - kIntNor)
+    "Gain to change the internal heat gain for south"
+    annotation (Placement(transformation(extent={{-60,-38},{-40,-18}})));
+  Modelica.Blocks.Sources.Constant uSha(k=0)
+    "Control signal for the shading device"
+    annotation (Placement(transformation(extent={{-100,170},{-80,190}})));
+  Modelica.Blocks.Routing.Replicator replicator(nout=1)
+    annotation (Placement(transformation(extent={{-60,170},{-40,190}})));
 equation
   connect(sou.surf_conBou[1], wes.surf_surBou[2]) annotation (Line(
       points={{170,-40.6667},{170,-54},{62,-54},{62,20},{28.2,20},{28.2,42.5}},
@@ -288,33 +308,28 @@ equation
       points={{38,40},{38,30},{160.2,30},{160.2,42.75}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(uSha.y, replicator.u) annotation (Line(
-      points={{-59,180},{-42,180}},
-      color={0,0,127},
-      smooth=Smooth.None,
-      pattern=LinePattern.Dash));
   connect(replicator.y, nor.uSha) annotation (Line(
-      points={{-19,180},{130,180},{130,154},{142.4,154}},
+      points={{-39,180},{130,180},{130,154},{142.4,154}},
       color={0,0,127},
       pattern=LinePattern.Dash,
       smooth=Smooth.None));
   connect(replicator.y, wes.uSha) annotation (Line(
-      points={{-19,180},{-6,180},{-6,74},{10.4,74}},
+      points={{-39,180},{-6,180},{-6,74},{10.4,74}},
       color={0,0,127},
       pattern=LinePattern.Dash,
       smooth=Smooth.None));
   connect(replicator.y, eas.uSha) annotation (Line(
-      points={{-19,180},{232,180},{232,94},{302.4,94}},
+      points={{-39,180},{232,180},{232,94},{302.4,94}},
       color={0,0,127},
       pattern=LinePattern.Dash,
       smooth=Smooth.None));
   connect(replicator.y, sou.uSha) annotation (Line(
-      points={{-19,180},{130,180},{130,-6},{142.4,-6}},
+      points={{-39,180},{130,180},{130,-6},{142.4,-6}},
       color={0,0,127},
       pattern=LinePattern.Dash,
       smooth=Smooth.None));
   connect(replicator.y, cor.uSha) annotation (Line(
-      points={{-19,180},{130,180},{130,74},{142.4,74}},
+      points={{-39,180},{130,180},{130,74},{142.4,74}},
       color={0,0,127},
       pattern=LinePattern.Dash,
       smooth=Smooth.None));
@@ -552,11 +567,6 @@ equation
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
-  connect(intGaiFra.y, gai.u) annotation (Line(
-      points={{-119,110},{-102,110}},
-      color={0,0,127},
-      smooth=Smooth.None,
-      pattern=LinePattern.Dash));
   connect(cor.ports[11], senRelPre.port_a) annotation (Line(
       points={{149,49.6364},{112,49.6364},{112,250},{60,250}},
       color={0,127,255},
@@ -567,21 +577,31 @@ equation
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
-  connect(gai.y, gaiIntNor.u) annotation (Line(
-      points={{-79,110},{-68,110},{-68,144},{-62,144}},
-      color={0,0,127},
-      pattern=LinePattern.Dash));
   connect(gaiIntNor.y, nor.qGai_flow) annotation (Line(
       points={{-39,144},{142.4,144}},
-      color={0,0,127},
-      pattern=LinePattern.Dash));
-  connect(gai.y, gaiIntSou.u) annotation (Line(
-      points={{-79,110},{-68,110},{-68,-28},{-62,-28}},
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(gaiIntSou.y, sou.qGai_flow) annotation (Line(
       points={{-39,-28},{68,-28},{68,-16},{142.4,-16}},
       color={0,0,127},
+      pattern=LinePattern.Dash));
+  connect(gai.y,gaiIntSou. u) annotation (Line(
+      points={{-79,110},{-68,110},{-68,-28},{-62,-28}},
+      color={0,0,127},
+      pattern=LinePattern.Dash));
+  connect(gai.y,gaiIntNor. u) annotation (Line(
+      points={{-79,110},{-68,110},{-68,144},{-62,144}},
+      color={0,0,127},
+      pattern=LinePattern.Dash));
+  connect(intGaiFra.y,gai. u) annotation (Line(
+      points={{-119,110},{-102,110}},
+      color={0,0,127},
+      smooth=Smooth.None,
+      pattern=LinePattern.Dash));
+  connect(uSha.y,replicator. u) annotation (Line(
+      points={{-79,180},{-62,180}},
+      color={0,0,127},
+      smooth=Smooth.None,
       pattern=LinePattern.Dash));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true,
         extent={{-160,-100},{380,500}},

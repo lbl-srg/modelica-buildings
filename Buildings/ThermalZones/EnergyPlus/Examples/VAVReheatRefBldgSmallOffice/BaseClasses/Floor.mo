@@ -65,16 +65,7 @@ model Floor "Model of a floor of the building"
     redeclare package Medium = Medium,
     zoneName="Attic",
     T_start=275.15)   "Attic zone"
-    annotation (Placement(transformation(extent={{310,400},{350,440}})));
-
-  Modelica.Blocks.Sources.Constant qConGai_flow(k=0) "Convective heat gain"
-    annotation (Placement(transformation(extent={{214,420},{234,440}})));
-  Modelica.Blocks.Sources.Constant qRadGai_flow(k=0) "Radiative heat gain"
-    annotation (Placement(transformation(extent={{214,460},{234,480}})));
-  Modelica.Blocks.Routing.Multiplex3 multiplex3_1 "Multiplex for internal gains"
-    annotation (Placement(transformation(extent={{260,420},{280,440}})));
-  Modelica.Blocks.Sources.Constant qLatGai_flow(k=0) "Latent heat gain"
-    annotation (Placement(transformation(extent={{214,380},{234,400}})));
+    annotation (Placement(transformation(extent={{300,-60},{340,-20}})));
 
 protected
   parameter String idfName=Modelica.Utilities.Files.loadResource(
@@ -91,6 +82,10 @@ protected
     "Building-level declarations"
     annotation (Placement(transformation(extent={{140,458},{160,478}})));
 
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant qGai_flow[3](k={0, 0, 0})
+    "Internal heat gain (computed already in EnergyPlus"
+    annotation (Placement(transformation(extent={{-140,-40},{-120,-20}})));
+
 initial equation
   assert(abs(cor.V-VRooCor) < 0.01, "Volumes don't match. These had to be entered manually to avoid using a non-literal value.");
   assert(abs(sou.V-VRooSou) < 0.01, "Volumes don't match. These had to be entered manually to avoid using a non-literal value.");
@@ -99,26 +94,7 @@ initial equation
   assert(abs(wes.V-VRooWes) < 0.01, "Volumes don't match. These had to be entered manually to avoid using a non-literal value.");
   assert(abs(opeWesCor.wOpe-4) < 0.01, "wOpe in west zone doesn't match");
 
-  //Modelica.Utilities.Streams.print(String(leaEas.s)+ ", MG test");
-  //Modelica.Utilities.Streams.print(String(VRooWes)+ ", MG test");
-  //Modelica.Utilities.Streams.print(String(opeWesCor.wOpe)+ ", MG test");
-  //Modelica.Utilities.Streams.print(String(nor.T_start)+ ", MG test");
 equation
-  connect(gai.y, cor.qGai_flow)          annotation (Line(
-      points={{-79,110},{120,110},{120,66},{142,66}},
-      color={0,0,127},
-      pattern=LinePattern.Dash,
-      smooth=Smooth.None));
-  connect(gai.y, eas.qGai_flow)          annotation (Line(
-      points={{-79,110},{226,110},{226,86},{302,86}},
-      color={0,0,127},
-      pattern=LinePattern.Dash,
-      smooth=Smooth.None));
-  connect(gai.y, wes.qGai_flow)          annotation (Line(
-      points={{-79,110},{-14,110},{-14,66},{10,66}},
-      color={0,0,127},
-      pattern=LinePattern.Dash,
-      smooth=Smooth.None));
   connect(sou.heaPorAir, temAirSou.port) annotation (Line(
       points={{164,-24},{224,-24},{224,100},{264,100},{264,350},{290,350}},
       color={191,0,0},
@@ -285,22 +261,18 @@ equation
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
-  connect(gaiIntNor.y, nor.qGai_flow) annotation (Line(
-      points={{-39,144},{52,144},{52,146},{142,146}},
-      color={0,0,127},
-      pattern=LinePattern.Dash));
-  connect(gaiIntSou.y, sou.qGai_flow) annotation (Line(
-      points={{-39,-28},{68,-28},{68,-14},{142,-14}},
-      color={0,0,127},
-      pattern=LinePattern.Dash));
-  connect(multiplex3_1.u1[1], qRadGai_flow.y) annotation (Line(points={{258,437},
-          {250,437},{250,470},{235,470}}, color={0,0,127}));
-  connect(multiplex3_1.u2[1], qConGai_flow.y)
-    annotation (Line(points={{258,430},{235,430}}, color={0,0,127}));
-  connect(multiplex3_1.u3[1], qLatGai_flow.y) annotation (Line(points={{258,423},
-          {258,422},{248,422},{248,390},{235,390}}, color={0,0,127}));
-  connect(multiplex3_1.y, att.qGai_flow)
-    annotation (Line(points={{281,430},{308,430}}, color={0,0,127}));
+  connect(sou.qGai_flow, qGai_flow.y) annotation (Line(points={{142,-14},{64,
+          -14},{64,-30},{-118,-30}}, color={0,0,127}));
+  connect(wes.qGai_flow, qGai_flow.y) annotation (Line(points={{10,66},{-60,66},
+          {-60,-30},{-118,-30}}, color={0,0,127}));
+  connect(eas.qGai_flow, qGai_flow.y) annotation (Line(points={{302,86},{200,86},
+          {200,110},{-60,110},{-60,-30},{-118,-30}}, color={0,0,127}));
+  connect(cor.qGai_flow, qGai_flow.y) annotation (Line(points={{142,66},{130,66},
+          {130,110},{-60,110},{-60,-30},{-118,-30}}, color={0,0,127}));
+  connect(nor.qGai_flow, qGai_flow.y) annotation (Line(points={{142,146},{-60,
+          146},{-60,-30},{-118,-30}}, color={0,0,127}));
+  connect(att.qGai_flow, qGai_flow.y) annotation (Line(points={{298,-30},{240,
+          -30},{240,-80},{-60,-80},{-60,-30},{-118,-30}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true,
         extent={{-160,-100},{380,500}},
         initialScale=0.1)),     Icon(coordinateSystem(
