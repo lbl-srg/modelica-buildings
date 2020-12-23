@@ -89,6 +89,7 @@ protected
     usePrecompiledFMU=usePrecompiledFMU,
     fmuName=fmuName,
     buildingsLibraryRoot=buildingsLibraryRoot,
+    initialTime=startTime,
     logLevel=logLevel)
     "Class to communicate with EnergyPlus";
   parameter Modelica.SIunits.Time startTime(

@@ -28,6 +28,7 @@ size_t AllocateBuildingDataStructure(
   int usePrecompiledFMU,
   const char* fmuName,
   const char* buildingsLibraryRoot,
+  const double initialTime,
   int logLevel,
   void (*SpawnMessage)(const char *string),
   void (*SpawnError)(const char *string),
@@ -38,7 +39,7 @@ size_t AllocateBuildingDataStructure(
   const size_t strLenWea = strlen(weaName);
 
   if (logLevel >= MEDIUM)
-    SpawnFormatMessage("AllocateBuildingDataStructure: Allocating data structure for building %lu with name %s", nFMU, modelicaNameBuilding);
+    SpawnFormatMessage("%.2f %s: Allocating data structure for building, nFMU=%lu\n", initialTime, modelicaNameBuilding, nFMU);
 
   /* Validate the input data */
   if (access(idfName, R_OK) != 0)
@@ -67,6 +68,9 @@ size_t AllocateBuildingDataStructure(
   Buildings_FMUS[nFMU]->GUID = NULL;
   /* Set flag that dll fmu functions are not yet created */
   Buildings_FMUS[nFMU]->dllfmu_created = fmi2_false;
+
+  /* Assign initial time, used for logging before time is set by Modelica during time stepping */
+  Buildings_FMUS[nFMU]->time = initialTime;
 
   /* Assign logging and error functions */
   Buildings_FMUS[nFMU]->logLevel          = logLevel;
@@ -168,8 +172,11 @@ size_t AllocateBuildingDataStructure(
   incrementBuildings_nFMU();
 
   if (logLevel >= MEDIUM)
-    SpawnFormatMessage("AllocateBuildingDataStructure: Leaving allocating data structure for building number %lu, name %s, ptr %p\n",
-      nFMU, modelicaNameBuilding, Buildings_FMUS[nFMU]);
+    SpawnFormatMessage("%.2f %s: AllocateBuildingDataStructure: Leaving allocating data structure for building number %lu, ptr %p\n",
+      initialTime,
+      modelicaNameBuilding,
+      nFMU,
+      Buildings_FMUS[nFMU]);
 
   return nFMU;
 }
@@ -184,7 +191,7 @@ void AddZoneToBuilding(FMUZone* zone, int logLevel){
 
 
   if (bui->logLevel >= MEDIUM)
-    SpawnFormatMessage("EnergyPlusFMU.c: Adding zone %lu with name %s\n", nZon, zone->modelicaNameThermalZone);
+    SpawnFormatMessage("%.2f %s: EnergyPlusFMU.c: Adding zone %lu with name %s\n", bui->time, bui->modelicaNameBuilding, nZon, zone->modelicaNameThermalZone);
 
   if (nZon == 0){
     bui->zones=malloc(sizeof(FMUZone *));
@@ -208,7 +215,7 @@ void AddZoneToBuilding(FMUZone* zone, int logLevel){
   checkAndSetVerbosity(bui, logLevel);
 
   if (bui->logLevel >= MEDIUM)
-    SpawnFormatMessage("EnergyPlusFMU.c: nZon = %d, nInp = %d, nOut = %d\n",
+    SpawnFormatMessage("%.2f, %s: EnergyPlusFMU.c: nZon = %d, nInp = %d, nOut = %d\n", bui->time, bui->modelicaNameBuilding,
       bui->nZon, bui->nInputVariables, bui->nOutputVariables);
 }
 
@@ -220,7 +227,9 @@ void AddInputVariableToBuilding(FMUInputVariable* ptrVar, int logLevel){
   void (*SpawnError)(const char *string) = bui->SpawnError;
 
   if (bui->logLevel >= MEDIUM)
-    SpawnFormatMessage("EnergyPlusFMU.c: Adding input variable %lu with name %s\n",
+    SpawnFormatMessage("%.2f, %s: EnergyPlusFMU.c: Adding input variable %lu with name %s\n",
+      bui->time,
+      bui->modelicaNameBuilding,
       nInputVariables+1,
       ptrVar->modelicaNameInputVariable);
 
@@ -246,7 +255,9 @@ void AddInputVariableToBuilding(FMUInputVariable* ptrVar, int logLevel){
   checkAndSetVerbosity(bui, logLevel);
 
   if (bui->logLevel >= MEDIUM)
-    SpawnFormatMessage("EnergyPlusFMU.c: nZon = %d, nInp = %d, nOut = %d\n",
+    SpawnFormatMessage("%.2f, %s: EnergyPlusFMU.c: nZon = %d, nInp = %d, nOut = %d\n",
+      bui->time,
+      bui->modelicaNameBuilding,
       bui->nZon, bui->nInputVariables, bui->nOutputVariables);
 }
 
@@ -258,7 +269,8 @@ void AddOutputVariableToBuilding(FMUOutputVariable* ptrVar, int logLevel){
   void (*SpawnFormatError)(const char *string, ...) = bui->SpawnFormatError;
 
   if (bui->logLevel >= MEDIUM)
-    SpawnFormatMessage("EnergyPlusFMU.c: Adding output variable %lu with name %s\n",
+    SpawnFormatMessage("%.2f, %s: Adding output variable %lu with name %s\n",
+      bui->time, bui->modelicaNameBuilding,
       nOutputVariables+1,
       ptrVar->modelicaNameOutputVariable);
 
@@ -284,7 +296,8 @@ void AddOutputVariableToBuilding(FMUOutputVariable* ptrVar, int logLevel){
   checkAndSetVerbosity(bui, logLevel);
 
   if (bui->logLevel >= MEDIUM)
-    SpawnFormatMessage("EnergyPlusFMU.c: nZon = %d, nInp = %d, nOut = %d\n",
+    SpawnFormatMessage("%.2f, %s: EnergyPlusFMU.c: nZon = %d, nInp = %d, nOut = %d\n",
+      bui->time, bui->modelicaNameBuilding,
       bui->nZon, bui->nInputVariables, bui->nOutputVariables);
 }
 
@@ -315,15 +328,16 @@ void FMUBuildingFree(FMUBuilding* bui){
 
   if ( bui != NULL ){
     if (bui->logLevel >= MEDIUM){
-      SpawnMessage("Entered FMUBuildingFree.");
-      SpawnFormatMessage("In FMUBuildingFree, %p, nZon = %d, nInpVar = %d, nOutVar = %d\n",
+      SpawnFormatMessage("%.2f, %s: Entered FMUBuildingFree.", bui->time, bui->modelicaNameBuilding);
+      SpawnFormatMessage("%.2f, %s: In FMUBuildingFree, %p, nZon = %d, nInpVar = %d, nOutVar = %d\n",
+      bui->time, bui->modelicaNameBuilding,
       bui, bui->nZon, bui->nInputVariables, bui->nOutputVariables);
     }
 
     /* Make sure no thermal zone or output variable uses this building */
     if (bui->nZon > 0 || bui->nInputVariables > 0 || bui->nOutputVariables > 0){
       if (bui->logLevel >= MEDIUM)
-        SpawnMessage("Exiting FMUBuildingFree without changes as building is still used.");
+        SpawnFormatMessage("%.2f, %s: Exiting FMUBuildingFree without changes as building is still used.", bui->time, bui->modelicaNameBuilding);
       return;
     }
 
@@ -331,19 +345,18 @@ void FMUBuildingFree(FMUBuilding* bui){
        fmi2_import_create_dllfmu was not successful */
     if (bui->dllfmu_created){
       if (bui->logLevel >= MEDIUM)
-        SpawnMessage("fmi2_import_terminate: terminating EnergyPlus.\n");
+        SpawnFormatMessage("%.2f, %s: Calling fmi2_import_terminate to terminate EnergyPlus.\n", bui->time, bui->modelicaNameBuilding);
       status = fmi2_import_terminate(bui->fmu);
        if (status != fmi2OK){
-        SpawnFormatMessage(
-          "fmi2Terminate returned with status %s for building %s.",
-          fmi2_status_to_string(status),
-          bui->modelicaNameBuilding);
+        SpawnFormatMessage("%.2f, %s: fmi2Terminate returned with status %s.",
+          bui->time, bui->modelicaNameBuilding,
+          fmi2_status_to_string(status));
       }
     }
     if (bui->fmu != NULL){
       if (bui->logLevel >= MEDIUM)
-        SpawnFormatMessage(
-          "fmi2_import_destroy_dllfmu: destroying dll fmu. for %s",
+        SpawnFormatMessage("%.2f, %s: fmi2_import_destroy_dllfmu: destroying dll fmu.",
+          bui->time,
           bui->modelicaNameBuilding);
       fmi2_import_destroy_dllfmu(bui->fmu);
       fmi2_import_free(bui->fmu);

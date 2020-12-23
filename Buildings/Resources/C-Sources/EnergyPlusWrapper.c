@@ -17,6 +17,18 @@
    environment that compiles the Modelica model.
 /* ********************************************************* */
 /* Thermal zone */
+
+#define my_printf(...) MyModelicaFormatMessage(__VA_ARGS__)
+
+void my_printf(const char *fmt, ...) {
+    va_list args;
+    va_start(args, fmt);
+    printf("****** ");
+    vprintf(fmt, args);
+    va_end(args);
+    fflush(stdout);
+}
+
 void* SpawnZoneAllocate(
   const char* modelicaNameBuilding,
   const char* modelicaNameThermalZone,
@@ -26,6 +38,7 @@ void* SpawnZoneAllocate(
   int usePrecompiledFMU,
   const char* fmuName,
   const char* buildingsLibraryRoot,
+  const double initialTime,
   const int logLevel){
 
     return EnergyPlusZoneAllocate(
@@ -37,10 +50,11 @@ void* SpawnZoneAllocate(
       usePrecompiledFMU,
       fmuName,
       buildingsLibraryRoot,
+      initialTime,
       logLevel,
       ModelicaMessage,
       ModelicaError,
-      ModelicaFormatMessage,
+      MyModelicaFormatMessage,
       ModelicaFormatError);
   }
 
@@ -109,6 +123,7 @@ void* SpawnInputVariableAllocate(
   int usePrecompiledFMU,
   const char* fmuName,
   const char* buildingsLibraryRoot,
+  const double initialTime,
   const int logLevel){
 
     return EnergyPlusInputVariableAllocate(
@@ -124,10 +139,11 @@ void* SpawnInputVariableAllocate(
       usePrecompiledFMU,
       fmuName,
       buildingsLibraryRoot,
+      initialTime,
       logLevel,
       ModelicaMessage,
       ModelicaError,
-      ModelicaFormatMessage,
+      MyModelicaFormatMessage,
       ModelicaFormatError);
   }
 
@@ -163,6 +179,7 @@ void* SpawnOutputVariableAllocate(
   int usePrecompiledFMU,
   const char* fmuName,
   const char* buildingsLibraryRoot,
+  const double initialTime,
   const int logLevel,
   int printUnit){
 
@@ -176,11 +193,12 @@ void* SpawnOutputVariableAllocate(
       usePrecompiledFMU,
       fmuName,
       buildingsLibraryRoot,
+      initialTime,
       logLevel,
       printUnit,
       ModelicaMessage,
       ModelicaError,
-      ModelicaFormatMessage,
+      MyModelicaFormatMessage,
       ModelicaFormatError);
   }
 

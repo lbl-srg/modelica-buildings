@@ -24,6 +24,7 @@ LBNL_EnergyPlus_EXPORT void* EnergyPlusInputVariableAllocate(
   int usePrecompiledFMU,
   const char* fmuName,
   const char* buildingsLibraryRoot,
+  const double initialTime,
   const int logLevel,
   void (*SpawnMessage)(const char *string),
   void (*SpawnError)(const char *string),

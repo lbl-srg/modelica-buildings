@@ -18,6 +18,9 @@ protected
   final parameter Boolean printUnit=building.printUnits
     "Set to true to print unit of OutputVariable objects to log file"
     annotation (Dialog(group="Diagnostics"));
+  parameter Modelica.SIunits.Time startTime(
+    fixed=false)
+    "Simulation start time";
   Modelica.Blocks.Interfaces.RealInput directDependency_in_internal
     "Needed to connect to conditional connector";
   Buildings.ThermalZones.EnergyPlus.BaseClasses.FMUOutputVariableClass adapter=Buildings.ThermalZones.EnergyPlus.BaseClasses.FMUOutputVariableClass(
@@ -30,6 +33,7 @@ protected
     usePrecompiledFMU=usePrecompiledFMU,
     fmuName=fmuName,
     buildingsLibraryRoot=Buildings.ThermalZones.EnergyPlus.BaseClasses.buildingsLibraryRoot,
+    initialTime=startTime,
     logLevel=logLevel,
     printUnit=printUnit)
     "Class to communicate with EnergyPlus";
@@ -43,6 +47,7 @@ initial equation
   assert(
     not usePrecompiledFMU,
     "Use of pre-compiled FMU is not supported for block OutputVariable.");
+  startTime=time;
   Buildings.ThermalZones.EnergyPlus.BaseClasses.outputVariableInitialize(
     adapter=adapter,
     startTime=time);

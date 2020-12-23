@@ -53,6 +53,7 @@ void* EnergyPlusZoneAllocate(
   int usePrecompiledFMU,
   const char* fmuName,
   const char* buildingsLibraryRoot,
+  const double initialTime,
   const int logLevel,
   void (*SpawnMessage)(const char *string),
   void (*SpawnError)(const char *string),
@@ -124,6 +125,8 @@ void* EnergyPlusZoneAllocate(
   mallocSpawnReals(5, &(zone->inputs), SpawnFormatError);
   mallocSpawnReals(4, &(zone->outputs), SpawnFormatError);
 
+  if (logLevel >= MEDIUM)
+    SpawnFormatMessage("%.2f %s: Allocated parameters %p\n", initialTime, modelicaNameThermalZone, zone->parameters);
   /* Assign structural data */
   buildVariableNames(
     zone->name,
@@ -181,7 +184,7 @@ void* EnergyPlusZoneAllocate(
       }
 
       if (logLevel >= MEDIUM){
-        SpawnFormatMessage("Assigning zone->bui = fmu with fmu at %p", fmu);
+        SpawnFormatMessage("Assigning zone to fmu with fmu at %p\n", fmu);
       }
       zone->bui = fmu;
       AddZoneToBuilding(zone, logLevel);
@@ -199,6 +202,7 @@ void* EnergyPlusZoneAllocate(
       usePrecompiledFMU,
       fmuName,
       buildingsLibraryRoot,
+      initialTime,
       logLevel,
       SpawnMessage,
       SpawnError,
@@ -210,7 +214,7 @@ void* EnergyPlusZoneAllocate(
 
     if (logLevel >= MEDIUM){
       for(i = 0; i < getBuildings_nFMU(); i++){
-         SpawnFormatMessage("ZoneAllocate: Building %s is at pointer %p",
+         SpawnFormatMessage("ZoneAllocate: Building %s is at address %p\n",
            (getBuildingsFMU(i))->modelicaNameBuilding,
            getBuildingsFMU(i));
       }
@@ -219,7 +223,7 @@ void* EnergyPlusZoneAllocate(
   }
 
   if (logLevel >= MEDIUM)
-    SpawnFormatMessage("Exiting allocation for %s with zone ptr at %p and building ptr at %p", modelicaNameThermalZone, zone, zone->bui);
+    SpawnFormatMessage("Exiting allocation for %s with zone ptr at %p and building ptr at %p\n", modelicaNameThermalZone, zone, zone->bui);
   /* Return a pointer to this zone */
   return (void*) zone;
 }

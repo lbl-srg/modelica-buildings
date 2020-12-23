@@ -1,7 +1,8 @@
 within Buildings.ThermalZones.EnergyPlus.Validation.Schedule;
 model EquipmentSchedule
   "Validation case with a schedule that is not sampled, e.g., updates only at the EnergyPlus zone time step"
-  extends Buildings.ThermalZones.EnergyPlus.Validation.ThermalZone.OneZone;
+  extends Buildings.ThermalZones.EnergyPlus.Validation.ThermalZone.OneZone(building(
+        logLevel=Buildings.ThermalZones.EnergyPlus.Types.LogLevels.Debug));
   Buildings.ThermalZones.EnergyPlus.Schedule schInt(
     name="INTERMITTENT",
     unit=Buildings.ThermalZones.EnergyPlus.Types.Units.Normalized)
