@@ -122,31 +122,13 @@ partial model PartialOpenLoop
     annotation (Placement(transformation(extent={{-136,-56},{-114,-34}})));
 
   replaceable ThermalZones.Floor flo(
-    redeclare final package Medium = MediumA,
     final lat=lat,
     final use_windPressure=use_windPressure,
     final sampleModel=sampleModel) constrainedby
-    Buildings.ThermalZones.BaseClasses.PartialFloor
+    Buildings.ThermalZones.BaseClasses.PartialFloor(
+      redeclare final package Medium = MediumA)
     "Model of a floor of the building that is served by this VAV system"
     annotation (Placement(transformation(extent={{772,396},{1100,616}})), choicesAllMatching=true);
-
-//  Buildings.Fluid.HeatExchangers.DryCoilCounterFlow heaCoi(
-//    redeclare package Medium1 = MediumW,
-//    redeclare package Medium2 = MediumA,
-//    UA_nominal = QHeaCoi_nominal/Buildings.Fluid.HeatExchangers.BaseClasses.lmtd(
-//      T_a1=45,
-//      T_b1=35,
-//      T_a2=3,
-//      T_b2=20),
-//    m2_flow_nominal=m_flow_nominal,
-//    allowFlowReversal1=false,
-//    allowFlowReversal2=allowFlowReversal,
-//    dp1_nominal=0,
-//    dp2_nominal=200 + 200 + 100 + 40,
-//    m1_flow_nominal=QHeaCoi_nominal/4200/10,
-//    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
-//    "Heating coil"
-//    annotation (Placement(transformation(extent={{118,-36},{98,-56}})));
 
   Buildings.Fluid.HeatExchangers.DryCoilEffectivenessNTU heaCoi(
     redeclare package Medium1 = MediumW,
