@@ -20,16 +20,6 @@ model FloorOpenLoop "Open loop model of one floor"
 
   Buildings.ThermalZones.EnergyPlus.Examples.VAVReheatRefBldgSmallOffice.BaseClasses.Floor flo(
       redeclare package Medium = Medium,
-      intGaiFra(table=[0,0.05;
-             8,0.05;
-             9,0.9;
-             12,0.9;
-             12,0.8;
-             13,0.8;
-             13,1;
-             17,1;
-             19,0.1;
-             24,0.05]),
       nor(T_start=275.15),
       wes(T_start=275.15),
       eas(T_start=275.15),
