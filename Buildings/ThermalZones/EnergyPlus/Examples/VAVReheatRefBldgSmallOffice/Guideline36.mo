@@ -2,7 +2,13 @@ within Buildings.ThermalZones.EnergyPlus.Examples.VAVReheatRefBldgSmallOffice;
 model Guideline36
   "Variable air volume flow system with terminal reheat and five thermal zones controlled using an ASHRAE G36 controller"
   extends Buildings.Examples.VAVReheat.Guideline36(
-    redeclare replaceable Buildings.ThermalZones.EnergyPlus.Examples.VAVReheatRefBldgSmallOffice.BaseClasses.Floor flo);
+    redeclare replaceable Buildings.ThermalZones.EnergyPlus.Examples.VAVReheatRefBldgSmallOffice.BaseClasses.Floor flo,
+     ACHCor=4,
+     ACHSou=4,
+     ACHEas=6,
+     ACHNor=4,
+     ACHWes=6);
+
   annotation (
     __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus/Examples/VAVReheatRefBldgSmallOffice/Guideline36.mos"
