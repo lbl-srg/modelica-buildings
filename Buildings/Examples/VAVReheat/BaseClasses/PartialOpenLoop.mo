@@ -121,7 +121,7 @@ partial model PartialOpenLoop
       nPorts=3) "Ambient conditions"
     annotation (Placement(transformation(extent={{-136,-56},{-114,-34}})));
 
-  replaceable ThermalZones.Floor flo(
+  replaceable Buildings.Examples.VAVReheat.ThermalZones.Floor flo(
     final lat=lat,
     final use_windPressure=use_windPressure,
     final sampleModel=sampleModel) constrainedby
