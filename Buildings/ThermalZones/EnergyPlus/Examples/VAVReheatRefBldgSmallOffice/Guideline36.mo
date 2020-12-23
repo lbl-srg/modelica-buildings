@@ -16,11 +16,6 @@ model Guideline36
       leaSou(s=27.69/18.46, res(m_flow(nominal=0.1))),
       leaNor(s=27.69/18.46, res(m_flow(nominal=0.1))),
       leaEas(s=18.46/27.69, res(m_flow(nominal=0.1))),
-      nor(T_start=275.15),
-      wes(T_start=275.15),
-      eas(T_start=275.15),
-      sou(T_start=275.15),
-      cor(T_start=275.15),
       att(T_start=275.15)));
   annotation (
     __Dymola_Commands(file=
