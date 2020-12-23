@@ -1,4 +1,4 @@
-within Buildings.Examples.VAVReheat.ThermalZones;
+within Buildings.Examples.VAVReheat.BaseClasses;
 model VAVBranch "Supply branch of a VAV system"
   extends Modelica.Blocks.Icons.Block;
   replaceable package MediumA = Modelica.Media.Interfaces.PartialMedium

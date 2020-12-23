@@ -1,4 +1,4 @@
-within Buildings.ThermalZones.BaseClasses;
+within Buildings.Examples.VAVReheat.BaseClasses;
 partial model PartialFloor "Interface for a model of a floor of a building"
 
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
@@ -68,7 +68,7 @@ partial model PartialFloor "Interface for a model of a floor of a building"
   BoundaryConditions.WeatherData.Bus weaBus "Weather bus"
     annotation (Placement(transformation(extent={{200,190},{220,210}})));
 
-  Buildings.Examples.VAVReheat.ThermalZones.RoomLeakage leaSou(
+  Buildings.Examples.VAVReheat.BaseClasses.RoomLeakage leaSou(
     redeclare package Medium = Medium,
     VRoo=VRooSou,
     s=49.91/33.27,
@@ -76,7 +76,7 @@ partial model PartialFloor "Interface for a model of a floor of a building"
     final use_windPressure=use_windPressure)
     "Model for air infiltration through the envelope"
     annotation (Placement(transformation(extent={{-58,380},{-22,420}})));
-  Buildings.Examples.VAVReheat.ThermalZones.RoomLeakage leaEas(
+  Buildings.Examples.VAVReheat.BaseClasses.RoomLeakage leaEas(
     redeclare package Medium = Medium,
     VRoo=VRooEas,
     s=33.27/49.91,
@@ -85,7 +85,7 @@ partial model PartialFloor "Interface for a model of a floor of a building"
     "Model for air infiltration through the envelope"
     annotation (Placement(transformation(extent={{-58,340},{-22,380}})));
 
-  Buildings.Examples.VAVReheat.ThermalZones.RoomLeakage leaNor(
+  Buildings.Examples.VAVReheat.BaseClasses.RoomLeakage leaNor(
     redeclare package Medium = Medium,
     VRoo=VRooNor,
     s=49.91/33.27,
@@ -94,7 +94,7 @@ partial model PartialFloor "Interface for a model of a floor of a building"
     "Model for air infiltration through the envelope"
     annotation (Placement(transformation(extent={{-56,300},{-20,340}})));
 
-  Buildings.Examples.VAVReheat.ThermalZones.RoomLeakage leaWes(
+  Buildings.Examples.VAVReheat.BaseClasses.RoomLeakage leaWes(
     redeclare package Medium = Medium,
     VRoo=VRooWes,
     s=33.27/49.91,

@@ -244,7 +244,7 @@ The following <b style=\"color:blue\">new libraries</b> have been added:
 <tr><td valign=\"top\">Buildings.ThermalZones.BaseClasses
     </td>
     <td valign=\"top\">Package for thermal zone base classes. The package includes the 
-                       <code>Buildings.ThermalZones.BaseClasses.PartialFloor</code> 
+                       <code>Buildings.Examples.VAVReheat.BaseClasses.PartialFloor</code> 
                        model that facilitates elements of different building floor models, 
                        including those based on Spawn of EnergyPlus.<br/>
                        This is for
@@ -414,13 +414,13 @@ have been <b style=\"color:blue\">improved</b> in a
     <tr><td valign=\"top\">Buildings.Examples.BaseClasses.PartialOpenLoop
     </td>
     <td valign=\"top\">Declared the instance of the <code>Buildings.Examples.ThermalZones.Floor</code> in the model 
-                       as a replaceable class constrained by the <code>Buildings.ThermalZones.BaseClasses.PartialFloor</code> model.<br/>
+                       as a replaceable class constrained by the <code>Buildings.Examples.VAVReheat.BaseClasses.PartialFloor</code> model.<br/>
                        This is for
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1502\">issue 1502</a>.
     </td>  
 <tr><td valign=\"top\">Buildings.Examples.ThermalZones.Floor
     </td>
-    <td valign=\"top\">Refactored model to extend from the newly added <code>Buildings.ThermalZones.BaseClasses.PartialFloor</code> model.<br/>
+    <td valign=\"top\">Refactored model to extend from the newly added <code>Buildings.Examples.VAVReheat.BaseClasses.PartialFloor</code> model.<br/>
                        This is for
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1502\">issue 1502</a>.
     </td>    
@@ -1039,7 +1039,7 @@ xxx
     <tr><td colspan=\"2\"><b>Buildings.Examples.VAVReheat</b>
         </td>
     </tr>
-    <tr><td valign=\"top\">Buildings.Examples.VAVReheat.ThermalZones.VAVBranch
+    <tr><td valign=\"top\">Buildings.Examples.VAVReheat.BaseClasses.VAVBranch
         </td>
         <td valign=\"top\">Added output connector for returned damper position.
         </td>
@@ -1168,7 +1168,7 @@ xxx
     <tr><td colspan=\"2\"><b>Buildings.Examples</b>
         </td>
     </tr>
-    <tr><td valign=\"top\">Buildings.Examples.VAVReheat.ThermalZones.Floor<br/>
+    <tr><td valign=\"top\">Buildings.Examples.VAVReheat.BaseClasses.Floor<br/>
                            Buildings.Examples.VAVReheat.ASHRAE2006<br/>
                            Buildings.Examples.VAVReheat.Guideline36<br/>
                            Buildings.Examples.DualFanDualDuct
@@ -1176,7 +1176,7 @@ xxx
         </td>
         <td valign=\"top\">Updated core zone geometry parameters related to room heat and mass balance.
                            This change was done in
-                           <code>Buildings.Examples.VAVReheat.ThermalZones.Floor</code>.<br/>
+                           <code>Buildings.Examples.VAVReheat.BaseClasses.Floor</code>.<br/>
                            This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1719\">#1719</a>.
        </td>
     </tr>

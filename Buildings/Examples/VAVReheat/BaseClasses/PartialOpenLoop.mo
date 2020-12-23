@@ -121,11 +121,11 @@ partial model PartialOpenLoop
       nPorts=3) "Ambient conditions"
     annotation (Placement(transformation(extent={{-136,-56},{-114,-34}})));
 
-  replaceable Buildings.Examples.VAVReheat.ThermalZones.Floor flo(
+  replaceable Buildings.Examples.VAVReheat.BaseClasses.Floor flo(
     final lat=lat,
     final use_windPressure=use_windPressure,
     final sampleModel=sampleModel) constrainedby
-    Buildings.ThermalZones.BaseClasses.PartialFloor(
+    Buildings.Examples.VAVReheat.BaseClasses.PartialFloor(
       redeclare final package Medium = MediumA)
     "Model of a floor of the building that is served by this VAV system"
     annotation (Placement(transformation(extent={{772,396},{1100,616}})), choicesAllMatching=true);
@@ -260,7 +260,7 @@ partial model PartialOpenLoop
         MediumA, m_flow_nominal=m_flow_nominal) "Outside air volume flow rate"
     annotation (Placement(transformation(extent={{-72,-44},{-50,-22}})));
 
-  Buildings.Examples.VAVReheat.ThermalZones.VAVBranch cor(
+  Buildings.Examples.VAVReheat.BaseClasses.VAVBranch cor(
     redeclare package MediumA = MediumA,
     redeclare package MediumW = MediumW,
     m_flow_nominal=mCor_flow_nominal,
@@ -268,28 +268,28 @@ partial model PartialOpenLoop
     allowFlowReversal=allowFlowReversal)
     "Zone for core of buildings (azimuth will be neglected)"
     annotation (Placement(transformation(extent={{570,22},{610,62}})));
-  Buildings.Examples.VAVReheat.ThermalZones.VAVBranch sou(
+  Buildings.Examples.VAVReheat.BaseClasses.VAVBranch sou(
     redeclare package MediumA = MediumA,
     redeclare package MediumW = MediumW,
     m_flow_nominal=mSou_flow_nominal,
     VRoo=VRooSou,
     allowFlowReversal=allowFlowReversal) "South-facing thermal zone"
     annotation (Placement(transformation(extent={{750,20},{790,60}})));
-  Buildings.Examples.VAVReheat.ThermalZones.VAVBranch eas(
+  Buildings.Examples.VAVReheat.BaseClasses.VAVBranch eas(
     redeclare package MediumA = MediumA,
     redeclare package MediumW = MediumW,
     m_flow_nominal=mEas_flow_nominal,
     VRoo=VRooEas,
     allowFlowReversal=allowFlowReversal) "East-facing thermal zone"
     annotation (Placement(transformation(extent={{930,20},{970,60}})));
-  Buildings.Examples.VAVReheat.ThermalZones.VAVBranch nor(
+  Buildings.Examples.VAVReheat.BaseClasses.VAVBranch nor(
     redeclare package MediumA = MediumA,
     redeclare package MediumW = MediumW,
     m_flow_nominal=mNor_flow_nominal,
     VRoo=VRooNor,
     allowFlowReversal=allowFlowReversal) "North-facing thermal zone"
     annotation (Placement(transformation(extent={{1090,20},{1130,60}})));
-  Buildings.Examples.VAVReheat.ThermalZones.VAVBranch wes(
+  Buildings.Examples.VAVReheat.BaseClasses.VAVBranch wes(
     redeclare package MediumA = MediumA,
     redeclare package MediumW = MediumW,
     m_flow_nominal=mWes_flow_nominal,
