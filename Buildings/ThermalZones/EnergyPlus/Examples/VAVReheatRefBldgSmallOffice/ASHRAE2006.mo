@@ -3,8 +3,6 @@ model ASHRAE2006
   "Variable air volume flow system with terminal reheat and five thermal zones using the EnergyPlus floor model"
   extends Buildings.Examples.VAVReheat.ASHRAE2006(
     redeclare replaceable Buildings.ThermalZones.EnergyPlus.Examples.VAVReheatRefBldgSmallOffice.BaseClasses.Floor flo(
-      redeclare package Medium = MediumA,
-      use_windPressure=false,
       final VRooCor=456.455,
       final VRooSou=346.022,
       final VRooNor=346.022,

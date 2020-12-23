@@ -20,7 +20,6 @@ model FloorOpenLoop "Open loop model of one floor"
 
   Buildings.ThermalZones.EnergyPlus.Examples.VAVReheatRefBldgSmallOffice.BaseClasses.Floor flo(
       redeclare package Medium = Medium,
-      use_windPressure=false,
       final VRooCor=456.455,
       final VRooSou=346.022,
       final VRooNor=346.022,

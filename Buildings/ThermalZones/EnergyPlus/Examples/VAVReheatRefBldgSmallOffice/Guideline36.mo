@@ -3,8 +3,6 @@ model Guideline36
   "Variable air volume flow system with terminal reheat and five thermal zones controlled using an ASHRAE G36 controller"
   extends Buildings.Examples.VAVReheat.Guideline36(
     redeclare replaceable Buildings.ThermalZones.EnergyPlus.Examples.VAVReheatRefBldgSmallOffice.BaseClasses.Floor flo(
-      redeclare package Medium = MediumA,
-      use_windPressure=false,
       final VRooCor=456.455,
       final VRooSou=346.022,
       final VRooNor=346.022,
