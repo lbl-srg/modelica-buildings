@@ -76,39 +76,26 @@ model PartialBuildingWithETS
         rotation=0,
         origin={-120,90})));
   // COMPONENTS
-  Modelica.Blocks.Sources.RealExpression loaHeaCoo[2](
-    y(each min=0, each max=1))
-    "Normalized heating and cooling load"
-    annotation (Placement(transformation(extent={{-150,-130},{-130,-110}})));
-  Controls.OBC.CDL.Continuous.GreaterThreshold enaHeaCoo[2](
-    each t=1e-4)
-    "Threshold comparison to enable heating and cooling"
-    annotation (Placement(transformation(extent={{-80,-130},{-60,-110}})));
-  Modelica.Blocks.Sources.BooleanConstant enaSHW(
-    final k=true) if have_hotWat
-    "SHW production enable signal"
-    annotation (Placement(transformation(extent={{0,-130},{-20,-110}})));
   Controls.OBC.CDL.Continuous.Line resTHeaWatSup "HW supply temperature reset"
     annotation (Placement(transformation(extent={{-110,-50},{-90,-30}})));
   Controls.OBC.CDL.Continuous.Sources.Constant zer(k=0) "Zero"
     annotation (Placement(transformation(extent={{-180,-30},{-160,-10}})));
   Controls.OBC.CDL.Continuous.Sources.Constant one(k=1) "One"
     annotation (Placement(transformation(extent={{-180,-70},{-160,-50}})));
+  Controls.OBC.CDL.Continuous.Gain mulPPumETS(u(final unit="W"), final k=facMul)
+    if                 have_pum "Scaling"
+    annotation (Placement(transformation(extent={{190,50},{210,70}})));
+  Controls.OBC.CDL.Interfaces.RealOutput PPumETS(final unit="W") if
+                       have_pum "ETS pump power" annotation (Placement(
+        transformation(extent={{220,40},{260,80}}), iconTransformation(
+        extent={{-20,-20},{20,20}},
+        rotation=90,
+        origin={90,120})));
 equation
   connect(TChiWatSupSet, ets.TChiWatSupSet) annotation (Line(points={{-240,80},{
           -52,80},{-52,-62},{-34,-62}},  color={0,0,127}));
-  connect(loaHeaCoo.y, enaHeaCoo.u)
-    annotation (Line(points={{-129,-120},{-82,-120}},color={0,0,127}));
-  connect(enaHeaCoo[1].y, ets.uHea) annotation (Line(points={{-58,-120},{-48,-120},
-          {-48,-46},{-34,-46}},       color={255,0,255}));
-  connect(enaHeaCoo[2].y, ets.uCoo) annotation (Line(points={{-58,-120},{-44,-120},
-          {-44,-50},{-34,-50}},       color={255,0,255}));
-  connect(enaSHW.y, ets.uSHW) annotation (Line(points={{-21,-120},{-36,-120},{
-          -36,-54},{-34,-54}}, color={255,0,255}));
   connect(resTHeaWatSup.y, ets.THeaWatSupSet) annotation (Line(points={{-88,-40},
           {-60,-40},{-60,-58},{-34,-58}}, color={0,0,127}));
-  connect(loaHeaCoo[1].y, resTHeaWatSup.u) annotation (Line(points={{-129,-120},
-          {-120,-120},{-120,-40},{-112,-40}}, color={0,0,127}));
   connect(THeaWatSupMaxSet, resTHeaWatSup.f2) annotation (Line(points={{-240,120},
           {-130,120},{-130,-48},{-112,-48}}, color={0,0,127}));
   connect(THeaWatSupMinSet, resTHeaWatSup.f1) annotation (Line(points={{-240,160},
@@ -117,6 +104,10 @@ equation
           {-126,-44},{-112,-44}}, color={0,0,127}));
   connect(zer.y, resTHeaWatSup.x1) annotation (Line(points={{-158,-20},{-116,-20},
           {-116,-32},{-112,-32}}, color={0,0,127}));
+  connect(mulPPumETS.y, PPumETS)
+    annotation (Line(points={{212,60},{240,60}}, color={0,0,127}));
+  connect(ets.PPum, mulPPumETS.u) annotation (Line(points={{34,-60},{180,-60},{
+          180,60},{188,60}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end PartialBuildingWithETS;

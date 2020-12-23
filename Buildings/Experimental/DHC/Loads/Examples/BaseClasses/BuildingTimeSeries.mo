@@ -266,13 +266,11 @@ equation
   connect(terUniCoo.PFan,addPFan.u2)
     annotation (Line(points={{90.8333,46},{160,46},{160,114},{238,114}},color={0,0,127}));
   connect(terUniHea.PFan,addPFan.u1)
-    annotation (Line(points={{90.8333,-24},{180,-24},{180,126},{218,126}},color={0,0,127}));
-  connect(loa.y[3], QReqHotWat_flow) annotation (Line(points={{21,0},{46,0},{46,
-          -120},{320,-120}}, color={0,0,127}));
     annotation (Line(points={{90.8333,-12},{180,-12},{180,126},{238,126}},color={0,0,127}));
-  connect(loa.y[3], QReqHotWat_flow) annotation (Line(points={{-259,0},{46,0},{
-          46,-120},{320,-120}},
-                             color={0,0,127}));
+  connect(loa.y[3], QReqHotWat_flow) annotation (Line(points={{-259,0},{46,0},{46,
+          -120},{320,-120}}, color={0,0,127}));
+  connect(loa.y[3], QReqHotWat_flow)
+    annotation (Line(points={{-259,0},{46,0},{ 46,-120},{320,-120}}, color={0,0,127}));
   connect(disFloCoo.port_b, mulChiWatOut[1].port_a)
     annotation (Line(points={{140,-260},{260,-260}}, color={0,127,255}));
   connect(disFloHea.port_b, mulHeaWatOut[1].port_a)
@@ -297,7 +295,7 @@ equation
           -66},{220,-66},{220,280},{268,280}}, color={0,0,127}));
   connect(disFloCoo.QActTot_flow, mulQCoo_flow.u) annotation (Line(points={{141,
           -266},{224,-266},{224,240},{268,240}}, color={0,0,127}));
-    annotation (Line(points={{90.8333,-12},{180,-12},{180,126},{238,126}},color={0,0,127}),
+    annotation (
     Documentation(
       info="
 <html>

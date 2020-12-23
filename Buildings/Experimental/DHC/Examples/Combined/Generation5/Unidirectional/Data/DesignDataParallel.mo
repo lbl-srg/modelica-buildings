@@ -17,9 +17,9 @@ record DesignDataParallel
     "Plant HX pressure drop at nomninal flow rate (primary = secondary)";
   parameter Real epsPla
     "Plant HX effectiveness (constant)";
-  parameter Modelica.SIunits.Temperature TLooMin = 273.15 + 6
+  parameter Modelica.SIunits.Temperature TLooMin = 6 + 273.15
     "Minimum loop temperature";
-  parameter Modelica.SIunits.Temperature TLooMax = 273.15 + 17
+  parameter Modelica.SIunits.Temperature TLooMax = 17 + 273.15
     "Maximum loop temperature";
   parameter Modelica.SIunits.Length lDis[nBui] = fill(100, nBui)
     "Length of distribution pipe (only counting warm or cold line, but not sum)";
@@ -27,10 +27,10 @@ record DesignDataParallel
     "Length of connection pipe (only counting warm or cold line, but not sum)";
   parameter Modelica.SIunits.Length lEnd = 10
     "Length of the end of the distribution line (supply only, not counting return line)";
-  parameter Modelica.SIunits.Length dhDis[nBui] = {0.25, 0.20, 0.15}
-    "Hydraulic diameter of the distribution pipe before each connection";
-  parameter Modelica.SIunits.Length dhCon[nBui] = fill(0.15, nBui)
-    "Hydraulic diameter of each connection pipe";
+  parameter Real dpDis_length_nominal(final unit="Pa/m") = 250
+    "Pressure drop per pipe length at nominal mass flow rate, distribution line";
+  parameter Real dpCon_length_nominal(final unit="Pa/m") = 250
+    "Pressure drop per pipe length at nominal mass flow rate, connection line";
   parameter Modelica.SIunits.Length dhEnd = dhDis[nBui]
     "Hydraulic diameter of the end of the distribution line";
   annotation (

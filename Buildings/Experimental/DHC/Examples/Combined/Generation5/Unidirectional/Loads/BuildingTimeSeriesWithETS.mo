@@ -2,9 +2,6 @@ within Buildings.Experimental.DHC.Examples.Combined.Generation5.Unidirectional.L
 model BuildingTimeSeriesWithETS
   "Model of a building with thermal loads as time series, with an energy transfer station"
   extends BaseClasses.PartialBuildingWithETS(
-    loaHeaCoo(
-      y=abs({bui.QReqHea_flow,bui.QReqCoo_flow} ./
-            {bui.QHea_flow_nominal, bui.QCoo_flow_nominal})),
     redeclare DHC.Loads.Examples.BaseClasses.BuildingTimeSeries bui(
       final filNam=filNam,
       have_hotWat=true,
@@ -55,6 +52,19 @@ model BuildingTimeSeriesWithETS
         extent={{-20,-20},{20,20}},
         rotation=90,
         origin={-80,-120})));
+  Controls.OBC.CDL.Continuous.Gain loaHeaNor(k=1/bui.QHea_flow_nominal)
+    "Normalized heating load"
+    annotation (Placement(transformation(extent={{-128,-110},{-108,-90}})));
+  Controls.OBC.CDL.Continuous.GreaterThreshold enaHeaCoo[2](each t=1e-4)
+    "Threshold comparison to enable heating and cooling"
+    annotation (Placement(transformation(extent={{-80,-130},{-60,-110}})));
+  Modelica.Blocks.Sources.BooleanConstant enaSHW(final k=true) if
+                     have_hotWat
+    "SHW production enable signal"
+    annotation (Placement(transformation(extent={{0,-130},{-20,-110}})));
+  Controls.OBC.CDL.Continuous.Gain loaCooNor(k=1/bui.QCoo_flow_nominal)
+    "Normalized cooling load"
+    annotation (Placement(transformation(extent={{-128,-150},{-108,-130}})));
 equation
   connect(bui.QReqHotWat_flow, ets.loaSHW) annotation (Line(points={{28,4},{28,
           -6},{-64,-6},{-64,-74},{-34,-74}}, color={0,0,127}));
@@ -62,6 +72,22 @@ equation
           {-56,40},{-56,-66},{-34,-66}},    color={0,0,127}));
   connect(TColWat, ets.TColWat) annotation (Line(points={{-240,0},{-68,0},{-68,
           -70},{-34,-70}},       color={0,0,127}));
+  connect(enaHeaCoo[1].y, ets.uHea) annotation (Line(points={{-58,-120},{-46,-120},
+          {-46,-46},{-34,-46}}, color={255,0,255}));
+  connect(enaHeaCoo[2].y, ets.uCoo) annotation (Line(points={{-58,-120},{-42,-120},
+          {-42,-50},{-34,-50}}, color={255,0,255}));
+  connect(enaSHW.y, ets.uSHW) annotation (Line(points={{-21,-120},{-38,-120},{-38,
+          -54},{-34,-54}}, color={255,0,255}));
+  connect(loaHeaNor.y, enaHeaCoo[1].u) annotation (Line(points={{-106,-100},{-100,
+          -100},{-100,-120},{-82,-120}}, color={0,0,127}));
+  connect(loaCooNor.y, enaHeaCoo[2].u) annotation (Line(points={{-106,-140},{-100,
+          -140},{-100,-120},{-82,-120}}, color={0,0,127}));
+  connect(bui.QReqHea_flow, loaHeaNor.u) annotation (Line(points={{20,4},{20,-2},
+          {-140,-2},{-140,-100},{-130,-100}}, color={0,0,127}));
+  connect(bui.QReqCoo_flow, loaCooNor.u) annotation (Line(points={{24,4},{24,-4},
+          {-136,-4},{-136,-140},{-130,-140}}, color={0,0,127}));
+  connect(loaHeaNor.y, resTHeaWatSup.u) annotation (Line(points={{-106,-100},{-100,
+          -100},{-100,-60},{-120,-60},{-120,-40},{-112,-40}}, color={0,0,127}));
   annotation (Line(
       points={{-1,100},{0.1,100},{0.1,71.4}},
       color={255,204,51},

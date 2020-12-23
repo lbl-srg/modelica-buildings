@@ -35,8 +35,7 @@ equation
   connect(THotWatSupSet.y, bui.THotWatSupSet) annotation (Line(points={{-168,
           180},{-24,180},{-24,183},{-12,183}}, color={0,0,127}));
   connect(TColWat.y, bui.TColWat) annotation (Line(points={{-138,160},{-40,160},
-          {-40,164},{-8,164},{-8,168}},
-                                color={0,0,127}));
+          {-40,164},{-8,164},{-8,168}}, color={0,0,127}));
   annotation (
   Diagram(
   coordinateSystem(preserveAspectRatio=false, extent={{-360,-260},{360,260}})),

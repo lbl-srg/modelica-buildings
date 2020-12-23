@@ -211,8 +211,6 @@ equation
           {120,-80},{120,-6},{138,-6}}, color={0,0,127}));
   connect(pumEva.P, add2.u1) annotation (Line(points={{49,-51},{46,-51},{46,6},{
           138,6}}, color={0,0,127}));
-  connect(port_a1, port_a1)
-    annotation (Line(points={{-200,-60},{-200,-60}}, color={0,127,255}));
   connect(pumCon.port_b, senTConEnt.port_a) annotation (Line(points={{-50,-60},{
           -40,-60},{-40,-30}}, color={0,127,255}));
   connect(zer.y, add2.u2) annotation (Line(points={{101,-100},{120,-100},{120,-6},
