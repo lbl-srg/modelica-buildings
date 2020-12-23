@@ -20,19 +20,6 @@ model FloorOpenLoop "Open loop model of one floor"
 
   Buildings.ThermalZones.EnergyPlus.Examples.VAVReheatRefBldgSmallOffice.BaseClasses.Floor flo(
       redeclare package Medium = Medium,
-      final VRooCor=456.455,
-      final VRooSou=346.022,
-      final VRooNor=346.022,
-      final VRooEas=205.265,
-      final VRooWes=205.265,
-      opeWesCor(wOpe=4),
-      opeSouCor(wOpe=9),
-      opeNorCor(wOpe=9),
-      opeEasCor(wOpe=4),
-      leaWes(s=18.46/27.69, res(m_flow(nominal=0.1))),
-      leaSou(s=27.69/18.46, res(m_flow(nominal=0.1))),
-      leaNor(s=27.69/18.46, res(m_flow(nominal=0.1))),
-      leaEas(s=18.46/27.69, res(m_flow(nominal=0.1))),
       intGaiFra(table=[0,0.05;
              8,0.05;
              9,0.9;
@@ -47,8 +34,7 @@ model FloorOpenLoop "Open loop model of one floor"
       wes(T_start=275.15),
       eas(T_start=275.15),
       sou(T_start=275.15),
-      cor(T_start=275.15),
-      att(T_start=275.15))
+      cor(T_start=275.15))
     "One floor of the office building"
     annotation (Placement(transformation(extent={{32,-2},{86,28}})));
 

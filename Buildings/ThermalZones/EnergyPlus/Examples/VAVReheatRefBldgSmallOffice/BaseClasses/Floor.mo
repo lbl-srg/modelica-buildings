@@ -1,7 +1,20 @@
 within Buildings.ThermalZones.EnergyPlus.Examples.VAVReheatRefBldgSmallOffice.BaseClasses;
 model Floor "Model of a floor of the building"
   extends
-    Buildings.Examples.VAVReheat.BaseClasses.PartialFloor;
+    Buildings.Examples.VAVReheat.BaseClasses.PartialFloor(
+      final VRooCor=456.455,
+      final VRooSou=346.022,
+      final VRooNor=346.022,
+      final VRooEas=205.265,
+      final VRooWes=205.265,
+      opeWesCor(wOpe=4),
+      opeSouCor(wOpe=9),
+      opeNorCor(wOpe=9),
+      opeEasCor(wOpe=4),
+      leaWes(s=18.46/27.69),
+      leaSou(s=27.69/18.46),
+      leaNor(s=27.69/18.46),
+      leaEas(s=18.46/27.69));
 
   final parameter Modelica.SIunits.Area AFloCor=cor.AFlo "Floor area corridor";
   final parameter Modelica.SIunits.Area AFloSou=sou.AFlo "Floor area south";
@@ -50,7 +63,8 @@ model Floor "Model of a floor of the building"
 
   ThermalZone att(
     redeclare package Medium = Medium,
-    zoneName="Attic") "Attic zone"
+    zoneName="Attic",
+    T_start=275.15)   "Attic zone"
     annotation (Placement(transformation(extent={{310,400},{350,440}})));
 
   Modelica.Blocks.Sources.Constant qConGai_flow(k=0) "Convective heat gain"
