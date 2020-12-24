@@ -106,13 +106,6 @@ initial equation
     "In "+getInstanceName()+": iConDpSen = "+String(
       iConDpSen)+" whereas it must be lower than "+String(
       nCon)+".");
-  assert(
-    mDis_flow_nominal >= sum(
-      mCon_flow_nominal),
-    "In "+getInstanceName()+": mDis_flow_nominal = "+String(
-      mDis_flow_nominal)+" whereas it must be higher than sum(mCon_flow_nominal) = "+String(
-      sum(
-        mCon_flow_nominal))+".");
 equation
   // Connecting outlets to inlets for all instances of connection component.
   if nCon >= 2 then
