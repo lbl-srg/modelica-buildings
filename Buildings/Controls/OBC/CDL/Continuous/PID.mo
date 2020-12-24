@@ -29,7 +29,7 @@ block PID
           controllerType == CDL.Types.SimpleController.PID));
 
   parameter Real r(min=100*Constants.eps) = 1
-    "Typical range of control error, used for scaling error";
+    "Typical range of control error, used for scaling the control error";
 
   parameter Real yMax = 1 "Upper limit of output"
     annotation(Dialog(group="Limits"));
