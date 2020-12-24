@@ -106,6 +106,15 @@
   },
   {
     "jmodelica": {
+      "simulate": false
+    },
+    "optimica": {
+      "rtol": 1E-7
+    },
+    "model_name": "Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.NoHVAC"
+  },
+  {
+    "jmodelica": {
         "translate": false
     },
     "optimica": {
