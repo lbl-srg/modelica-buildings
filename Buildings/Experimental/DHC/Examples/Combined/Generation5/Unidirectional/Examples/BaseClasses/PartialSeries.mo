@@ -4,6 +4,10 @@ partial model PartialSeries "Partial model for series network"
   package Medium = Buildings.Media.Water "Medium model";
   constant Real facMul = 10
     "Building loads multiplier factor";
+  parameter Real dpDis_length_nominal(final unit="Pa/m") = 250
+    "Pressure drop per pipe length at nominal flow rate - Distribution line";
+  parameter Real dpCon_length_nominal(final unit="Pa/m") = 250
+    "Pressure drop per pipe length at nominal flow rate - Connection line";
   parameter Boolean allowFlowReversalSer = true
     "Set to true to allow flow reversal in the service lines"
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
@@ -14,8 +18,7 @@ partial model PartialSeries "Partial model for series network"
     "Number of buildings connected to DHC system"
     annotation (Evaluate=true);
   inner parameter Data.DesignDataSeries datDes(
-    mCon_flow_nominal=bui.ets.mDisWat_flow_nominal,
-    epsPla=0.935)
+    mCon_flow_nominal=bui.ets.mDisWat_flow_nominal)
     "Design data"
     annotation (Placement(transformation(extent={{-340,220},{-320,240}})));
   // COMPONENTS
@@ -51,35 +54,34 @@ partial model PartialSeries "Partial model for series network"
       extent={{10,10},{-10,-10}},
       rotation=180,
       origin={-180,-80})));
-  Networks.BaseClasses.ConnectionSeries conPla(
-    redeclare final package Medium=Medium,
+  Networks.BaseClasses.ConnectionSeriesStandard conPla(
+    redeclare final package Medium = Medium,
     final mDis_flow_nominal=datDes.mDis_flow_nominal,
     final mCon_flow_nominal=datDes.mPla_flow_nominal,
     lDis=0,
-    lCon=10,
-    final dpDis_length_nominal=datDes.dpDis_length_nominal,
-    final dpCon_length_nominal=datDes.dpCon_length_nominal,
+    lCon=0,
+    final dhDis=0.2,
+    final dhCon=0.2,
     final allowFlowReversal=allowFlowReversalSer)
     "Connection to the plant"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-80,-10})));
-  Networks.BaseClasses.ConnectionSeries conSto(
-    redeclare final package Medium=Medium,
+  Networks.BaseClasses.ConnectionSeriesStandard conSto(
+    redeclare final package Medium = Medium,
     final mDis_flow_nominal=datDes.mDis_flow_nominal,
     final mCon_flow_nominal=datDes.mSto_flow_nominal,
     lDis=0,
     lCon=0,
-    final dpDis_length_nominal=datDes.dpDis_length_nominal,
-    final dpCon_length_nominal=datDes.dpCon_length_nominal,
+    final dhDis=0.2,
+    final dhCon=0.2,
     final allowFlowReversal=allowFlowReversalSer)
     "Connection to the bore field"
-    annotation (Placement(
-        transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={-80,-90})));
+    annotation (Placement(transformation(
+      extent={{-10,-10},{10,10}},
+      rotation=90,
+      origin={-80,-90})));
   CentralPlants.SewageHeatRecovery pla(
     redeclare final package Medium=Medium,
     final mSew_flow_nominal=datDes.mPla_flow_nominal,
@@ -94,11 +96,10 @@ partial model PartialSeries "Partial model for series network"
     final nCon=nBui,
     final mDis_flow_nominal=datDes.mDis_flow_nominal,
     final mCon_flow_nominal=datDes.mCon_flow_nominal,
+    final dp_length_nominal=datDes.dp_length_nominal,
     final lDis=datDes.lDis,
     final lCon=datDes.lCon,
     final lEnd=datDes.lEnd,
-    final dpDis_length_nominal=datDes.dpDis_length_nominal,
-    final dpCon_length_nominal=datDes.dpCon_length_nominal,
     final allowFlowReversal=allowFlowReversalSer)
     "Distribution network"
     annotation (Placement(transformation(extent={{-20,130},{20,150}})));

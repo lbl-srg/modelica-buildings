@@ -1,4 +1,6 @@
-ConnectionParallel
-ConnectionSeries
-PipeConnection
-PipeDistribution
+ConnectionParallelAutosize
+ConnectionParallelStandard
+ConnectionSeriesAutosize
+ConnectionSeriesStandard
+PipeAutosize
+PipeStandard

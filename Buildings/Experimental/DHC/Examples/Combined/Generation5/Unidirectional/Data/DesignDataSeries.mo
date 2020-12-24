@@ -12,18 +12,18 @@ record DesignDataSeries "Record with design data for series network"
     "Plant HX nominal mass flow rate (primary = secondary)";
   parameter Modelica.SIunits.MassFlowRate mSto_flow_nominal = 105
     "Storage nominal mass flow rate";
+  final parameter Real facDiv = mDis_flow_nominal / sum(mCon_flow_nominal)
+    "Diversity factor used to size the distribution system";
   parameter Modelica.SIunits.PressureDifference dpPla_nominal = 50000
     "Plant HX pressure drop at nomninal flow rate (primary = secondary)";
-  parameter Real epsPla
+  parameter Real epsPla = 0.935
     "Plant HX effectiveness (constant)";
-  parameter Modelica.SIunits.Temperature TLooMin = 6 + 273.15
+  parameter Modelica.SIunits.Temperature TLooMin = 273.15 + 6
     "Minimum loop temperature";
-  parameter Modelica.SIunits.Temperature TLooMax = 17 + 273.15
+  parameter Modelica.SIunits.Temperature TLooMax = 273.15 + 17
     "Maximum loop temperature";
-  parameter Real dpDis_length_nominal(final unit="Pa/m") = 250
-    "Pressure drop per pipe length at nominal mass flow rate, distribution line";
-  parameter Real dpCon_length_nominal(final unit="Pa/m") = 250
-    "Pressure drop per pipe length at nominal mass flow rate, connection line";
+  parameter Real dp_length_nominal(final unit="Pa/m") = 250
+    "Pressure drop per pipe length at nominal flow rate";
   parameter Modelica.SIunits.Length lDis[nBui] = fill(100, nBui)
     "Length of the distribution pipe before each connection";
   parameter Modelica.SIunits.Length lCon[nBui] = fill(10, nBui)

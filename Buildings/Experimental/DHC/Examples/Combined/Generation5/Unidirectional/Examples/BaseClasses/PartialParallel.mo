@@ -14,8 +14,7 @@ partial model PartialParallel "Partial model for parallel network"
     "Number of buildings connected to DHC system"
     annotation (Evaluate=true);
   inner parameter Data.DesignDataParallel datDes(
-    mCon_flow_nominal=bui.ets.mDisWat_flow_nominal,
-    epsPla=0.935)
+    mCon_flow_nominal=bui.ets.mDisWat_flow_nominal)
     "Design data"
     annotation (Placement(transformation(extent={{-340,220},{-320,240}})));
   // COMPONENTS
@@ -52,14 +51,14 @@ partial model PartialParallel "Partial model for parallel network"
         extent={{10,10},{-10,-10}},
         rotation=180,
         origin={-180,-80})));
-  Networks.BaseClasses.ConnectionSeries conPla(
+  Networks.BaseClasses.ConnectionSeriesStandard conPla(
     redeclare final package Medium=Medium,
     final mDis_flow_nominal=datDes.mDis_flow_nominal,
     final mCon_flow_nominal=datDes.mPla_flow_nominal,
     lDis=0,
-    lCon=10,
-    final dhDis=datDes.dhDis[1],
-    dhCon=0.10,
+    lCon=0,
+    dhDis=0.2,
+    dhCon=0.2,
     final allowFlowReversal=allowFlowReversalSer)
     "Connection to the plant"
     annotation (Placement(transformation(
@@ -69,25 +68,25 @@ partial model PartialParallel "Partial model for parallel network"
   Networks.UnidirectionalParallel dis(
     redeclare final package Medium=Medium,
     final nCon=nBui,
+    final dp_length_nominal=datDes.dp_length_nominal,
     final mDis_flow_nominal=datDes.mDis_flow_nominal,
     final mCon_flow_nominal=datDes.mCon_flow_nominal,
+    final mDisCon_flow_nominal=datDes.mDisCon_flow_nominal,
+    final mEnd_flow_nominal=datDes.mEnd_flow_nominal,
     final lDis=datDes.lDis,
     final lCon=datDes.lCon,
     final lEnd=datDes.lEnd,
-    final dhDis=datDes.dhDis,
-    final dhCon=datDes.dhCon,
-    final dhEnd=datDes.dhEnd,
     final allowFlowReversal=allowFlowReversalSer)
     "Distribution network"
     annotation (Placement(transformation(extent={{-20,130},{20,150}})));
-  Networks.BaseClasses.ConnectionSeries conSto(
+  Networks.BaseClasses.ConnectionSeriesStandard conSto(
     redeclare final package Medium=Medium,
     final mDis_flow_nominal=datDes.mDis_flow_nominal,
     final mCon_flow_nominal=datDes.mSto_flow_nominal,
     lDis=0,
     lCon=0,
-    final dhDis=datDes.dhDis[1],
-    final dhCon=datDes.dhDis[1],
+    dhDis=0.2,
+    dhCon=0.2,
     final allowFlowReversal=allowFlowReversalSer)
     "Connection to the bore field"
     annotation (Placement(
@@ -139,7 +138,7 @@ partial model PartialParallel "Partial model for parallel network"
   Controls.OBC.CDL.Continuous.Sources.Constant THeaWatSupMaxSet[nBui](k=bui.THeaWatSup_nominal)
     "Heating water supply temperature set point - Maximum value"
     annotation (Placement(transformation(extent={{-250,210},{-230,230}})));
-  Controls.OBC.CDL.Continuous.Sources.Constant           TChiWatSupSet[nBui](k=bui.TChiWatSup_nominal)
+  Controls.OBC.CDL.Continuous.Sources.Constant TChiWatSupSet[nBui](k=bui.TChiWatSup_nominal)
     "Chilled water supply temperature set point"
     annotation (Placement(transformation(extent={{-220,190},{-200,210}})));
   Modelica.Blocks.Sources.Constant TSewWat(k=273.15 + 17)
@@ -149,6 +148,15 @@ partial model PartialParallel "Partial model for parallel network"
          + 273.15)
     "Heating water supply temperature set point - Minimum value"
     annotation (Placement(transformation(extent={{-280,230},{-260,250}})));
+initial equation
+  for i in 1:nBui loop
+    Modelica.Utilities.Streams.print(
+      "Nominal mass flow rate in section " + String(i) + ": " +
+      String(datDes.mDisCon_flow_nominal[i]));
+  end for;
+  Modelica.Utilities.Streams.print(
+    "Nominal mass flow rate in end of line: " +
+    String(dis.mEnd_flow_nominal));
 equation
   connect(bou.ports[1], pumDis.port_a)
     annotation (Line(points={{102,-20},{80,-20},{80,-50}}, color={0,127,255}));

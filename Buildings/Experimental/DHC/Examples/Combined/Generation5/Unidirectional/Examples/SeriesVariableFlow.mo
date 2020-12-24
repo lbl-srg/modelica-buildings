@@ -4,7 +4,6 @@ model SeriesVariableFlow
   extends BaseClasses.PartialSeries(
     redeclare Loads.BuildingTimeSeriesWithETS bui[nBui](
       final filNam=filNam),
-    nBui=3,
     dis(show_TOut=true));
   parameter String filNam[nBui]={
     "modelica://Buildings/Resources/Data/Experimental/DHC/Loads/Examples/SwissOffice_20190916.mos",
@@ -53,11 +52,11 @@ equation
   connect(TDisWatRet.T, conPum.TSouIn[1]) annotation (Line(points={{69,0},{60,0},
           {60,80},{-304,80},{-304,-61},{-282,-61}},
                                             color={0,0,127}));
-  connect(TDisWatBorLvg.T, conPum.TSouIn[2]) annotation (Line(points={{-91,-40},
-          {-290,-40},{-290,-58},{-282,-58},{-282,-59}},
+  connect(TDisWatBorLvg.T, conPum.TSouIn[2]) annotation (Line(points={{-91,-60},
+          {-290,-60},{-290,-58},{-282,-58},{-282,-59}},
                                                   color={0,0,127}));
-  connect(TDisWatBorLvg.T, conPum.TSouOut[1]) annotation (Line(points={{-91,-40},
-          {-290,-40},{-290,-67},{-282,-67}},              color={0,0,127}));
+  connect(TDisWatBorLvg.T, conPum.TSouOut[1]) annotation (Line(points={{-91,-60},
+          {-290,-60},{-290,-67},{-282,-67}},              color={0,0,127}));
   connect(TDisWatSup.T, conPum.TSouOut[2]) annotation (Line(points={{-91,20},{-100,
           20},{-100,60},{-296,60},{-296,-65},{-282,-65}},
                                                    color={0,0,127}));

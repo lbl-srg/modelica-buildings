@@ -3,8 +3,7 @@ model SeriesConstantFlow
   "Example of series connection with constant district water mass flow rate"
   extends BaseClasses.PartialSeries(
     redeclare Loads.BuildingTimeSeriesWithETS bui[nBui](
-      final filNam=filNam),
-    nBui=3);
+      final filNam=filNam));
   parameter String filNam[nBui]={
     "modelica://Buildings/Resources/Data/Experimental/DHC/Loads/Examples/SwissOffice_20190916.mos",
     "modelica://Buildings/Resources/Data/Experimental/DHC/Loads/Examples/SwissResidential_20190916.mos",

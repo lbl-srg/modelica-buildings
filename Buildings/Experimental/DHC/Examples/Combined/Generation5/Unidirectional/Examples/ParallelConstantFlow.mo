@@ -3,8 +3,7 @@ model ParallelConstantFlow
   "Example of parallel connection with constant district water mass flow rate"
   extends BaseClasses.PartialParallel(
     redeclare Loads.BuildingTimeSeriesWithETS bui[nBui](
-      final filNam=filNam),
-    nBui=3);
+      final filNam=filNam));
   parameter String filNam[nBui]={
     "modelica://Buildings/Resources/Data/Experimental/DHC/Loads/Examples/SwissOffice_20190916.mos",
     "modelica://Buildings/Resources/Data/Experimental/DHC/Loads/Examples/SwissResidential_20190916.mos",
@@ -17,11 +16,11 @@ model ParallelConstantFlow
   Modelica.Blocks.Sources.Constant masFloDisPla(k=datDes.mPla_flow_nominal)
     "District water mass flow rate to plant"
     annotation (Placement(transformation(extent={{-250,10},{-230,30}})));
-  Controls.OBC.CDL.Continuous.Sources.Constant THotWatSupSet[nBui](k=fill(63 +
-        273.15, nBui)) "Service hot water supply temperature set point"
+  Controls.OBC.CDL.Continuous.Sources.Constant THotWatSupSet[nBui](
+    k=fill(63 + 273.15, nBui)) "Service hot water supply temperature set point"
     annotation (Placement(transformation(extent={{-190,170},{-170,190}})));
-  Controls.OBC.CDL.Continuous.Sources.Constant TColWat[nBui](k=fill(15 + 273.15,
-        nBui)) "Cold water temperature"
+  Controls.OBC.CDL.Continuous.Sources.Constant TColWat[nBui](
+    k=fill(15 + 273.15, nBui)) "Cold water temperature"
     annotation (Placement(transformation(extent={{-160,150},{-140,170}})));
 equation
   connect(masFloMaiPum.y, pumDis.m_flow_in) annotation (Line(points={{-259,-60},
