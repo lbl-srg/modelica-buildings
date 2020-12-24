@@ -365,7 +365,7 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     annotation (Placement(transformation(extent={{-390,170},{-370,190}})));
   BoundaryConditions.WeatherData.Bus weaBus "Weather Data Bus"
     annotation (Placement(transformation(extent={{-360,170},{-340,190}})));
-  Buildings.Examples.VAVReheat.ThermalZones.Floor flo(
+  Buildings.Examples.VAVReheat.BaseClasses.Floor flo(
     redeclare package Medium = MediumA,
     lat=lat)
     "Model of a floor of the building that is served by this VAV system"

@@ -1,9 +1,11 @@
-within Buildings.Examples;
-package VAVReheat "Variable air volume flow system with terminal reheat and five thermal zones"
+within Buildings.ThermalZones.EnergyPlus.Examples;
+package SmallOffice "Package with VAV models for small office buildings"
   extends Modelica.Icons.ExamplesPackage;
 
-
-  annotation (Documentation(info="<html>
+  annotation (
+    preferredView="info",
+    Documentation(
+      info="<html>
 <p>
 This package contains variable air volume flow models
 for office buildings.
@@ -48,4 +50,4 @@ As the sizing is scaled with the volumes of the thermal zones, the model <i>stru
 is the same, but the design capacities are different, as is the energy consumption.
 </p>
 </html>"));
-end VAVReheat;
+end SmallOffice;

@@ -318,6 +318,7 @@ to <b style=\"color:blue\">existing</b> libraries:
     <td valign=\"top\">Computation of the supply air temperature set point based on the operation mode.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2024\">issue 2024</a>.</td>
 </tr>
+
 </table>
 <!-- Backward compatible changes -->
 <p>
@@ -399,6 +400,19 @@ have been <b style=\"color:blue\">improved</b> in a
     <td valign=\"top\">Upgraded sequence of specifying operating mode according to G36 official release.<br/>
                        This is for
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1893\">issue 1893</a>.
+    </td>
+    <tr><td valign=\"top\">Buildings.Examples.VAVReheat.BaseClasses.PartialOpenLoop
+    </td>
+    <td valign=\"top\">Declared the rooms in a new model <code>Buildings.Examples.VAVReheat.BaseClasses.Floor</code>
+                       to allow use of the model with the Modelica or the Spawn envelope model.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1502\">issue 1502</a>.
+    </td>
+<tr><td valign=\"top\">Buildings.Examples.VAVReheat.BaseClasses.Floor
+    </td>
+    <td valign=\"top\">Refactored model to extend from the newly added <code>Buildings.Examples.VAVReheat.BaseClasses.PartialFloor</code> model.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1502\">issue 1502</a>.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.HeatExchangers.RadiantSlabs</b>
@@ -1015,7 +1029,7 @@ xxx
     <tr><td colspan=\"2\"><b>Buildings.Examples.VAVReheat</b>
         </td>
     </tr>
-    <tr><td valign=\"top\">Buildings.Examples.VAVReheat.ThermalZones.VAVBranch
+    <tr><td valign=\"top\">Buildings.Examples.VAVReheat.BaseClasses.VAVBranch
         </td>
         <td valign=\"top\">Added output connector for returned damper position.
         </td>
@@ -1144,7 +1158,7 @@ xxx
     <tr><td colspan=\"2\"><b>Buildings.Examples</b>
         </td>
     </tr>
-    <tr><td valign=\"top\">Buildings.Examples.VAVReheat.ThermalZones.Floor<br/>
+    <tr><td valign=\"top\">Buildings.Examples.VAVReheat.BaseClasses.Floor<br/>
                            Buildings.Examples.VAVReheat.ASHRAE2006<br/>
                            Buildings.Examples.VAVReheat.Guideline36<br/>
                            Buildings.Examples.DualFanDualDuct
@@ -1152,7 +1166,7 @@ xxx
         </td>
         <td valign=\"top\">Updated core zone geometry parameters related to room heat and mass balance.
                            This change was done in
-                           <code>Buildings.Examples.VAVReheat.ThermalZones.Floor</code>.<br/>
+                           <code>Buildings.Examples.VAVReheat.BaseClasses.Floor</code>.<br/>
                            This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1719\">#1719</a>.
        </td>
     </tr>
