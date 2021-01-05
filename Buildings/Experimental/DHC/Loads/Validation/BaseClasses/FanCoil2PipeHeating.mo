@@ -93,8 +93,7 @@ model FanCoil2PipeHeating
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,origin={-110,0})));
   Fluid.Sources.Boundary_pT retAir(
     redeclare package Medium=Medium2,
-    p(
-      displayUnit="Pa"),
+    p(displayUnit="Pa"),
     use_T_in=true,
     nPorts=1)
     "Source for return air"
@@ -120,7 +119,8 @@ model FanCoil2PipeHeating
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1(
     k=have_speVar)
     annotation (Placement(transformation(extent={{-50,160},{-30,180}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(t=1E-4*
+        QHea_flow_nominal, h=0.5E-4*QHea_flow_nominal)
     "Reset when demand rises from zero"
     annotation (Placement(transformation(extent={{-50,190},{-30,210}})));
 equation
