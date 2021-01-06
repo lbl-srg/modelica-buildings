@@ -204,7 +204,7 @@ protected
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul(
     final period=1200,
-    final startTime=1100)
+    final shift=1100)
     "Boolean pulse signal"
     annotation (Placement(transformation(extent={{-150,-120},{-130,-100}})));
 

@@ -209,9 +209,6 @@ equation
   connect(not5.y, yDown)
     annotation (Line(points={{92,-90},{160,-90}}, color={255,0,255}));
 
-  connect(or2.y, pre1.u) annotation (Line(points={{122,30},{134,30},{134,-18},{-10,
-          -18},{-10,-40},{-2,-40}}, color={255,0,255}));
-
   connect(pre1.y, edg1.u)
     annotation (Line(points={{22,-40},{38,-40}}, color={255,0,255}));
 
@@ -224,8 +221,10 @@ equation
           {98,22}}, color={255,0,255}));
   connect(tim2.passed, not5.u) annotation (Line(points={{-28,-98},{50,-98},{50,
           -90},{68,-90}}, color={255,0,255}));
-  connect(tim2.passed, pre2.u) annotation (Line(points={{-28,-98},{-10,-98},{
-          -10,-130},{8,-130}}, color={255,0,255}));
+  connect(or2.y, pre1.u) annotation (Line(points={{122,30},{130,30},{130,-12},{
+          -20,-12},{-20,-40},{-2,-40}}, color={255,0,255}));
+  connect(tim2.passed, pre2.u) annotation (Line(points={{-28,-98},{0,-98},{0,
+          -130},{8,-130}}, color={255,0,255}));
 annotation (
   defaultComponentName="enaLagSecPum",
   Icon(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{100,100}}),

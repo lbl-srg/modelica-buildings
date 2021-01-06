@@ -433,7 +433,6 @@ block Controller
     "Hot water pump speed control with local DP sensor"
     annotation (Placement(transformation(extent={{-60,-430},{-40,-410}})));
 
-
 protected
   parameter Boolean remDPReg = (speConTyp == Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpSpeedControlTypes.remoteDP)
     "Boolean flag for pump speed control with remote differential pressure";

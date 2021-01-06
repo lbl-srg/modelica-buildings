@@ -3,7 +3,9 @@ model ChangeStatus
   "Validate sequence for changing pump status"
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.Generic.ChangeStatus
-    chaPumSta(final nPum=3) "Scenario testing pump status changer"
+    chaPumSta(
+    final nPum=3)
+    "Scenario testing pump status changer"
     annotation (Placement(transformation(extent={{60,-10},{82,10}})));
 
 protected
@@ -14,7 +16,7 @@ protected
 
   Buildings.Controls.OBC.CDL.Logical.Sources.SampleTrigger samTri(
     final period=5,
-    final startTime=1)
+    final shift=1)
     "Sample trigger"
     annotation (Placement(transformation(extent={{-130,-10},{-110,10}})));
 

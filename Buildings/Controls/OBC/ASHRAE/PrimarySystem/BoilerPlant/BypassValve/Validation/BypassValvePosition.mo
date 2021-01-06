@@ -27,8 +27,7 @@ protected
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul(
     final width=0.5,
-    final period=300,
-    final startTime=0)
+    final period=300)
     "Boolean pulse generator"
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
 

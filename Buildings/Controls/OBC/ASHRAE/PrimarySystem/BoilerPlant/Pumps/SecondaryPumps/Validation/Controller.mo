@@ -140,7 +140,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul(
     final width=1,
     final period=3600,
-    final startTime=10)
+    final shift=10)
     "Boolean pulse"
     annotation (Placement(transformation(extent={{-260,190},{-240,210}})));
 
@@ -148,9 +148,8 @@ protected
     final amplitude=2,
     final width=1,
     final period=3500,
-    final nperiod=1,
     final offset=0,
-    final startTime=0)
+    final shift=10)
     "Real pulse"
     annotation (Placement(transformation(extent={{-270,150},{-250,170}})));
 
@@ -161,7 +160,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul1(
     final width=1,
     final period=3600,
-    final startTime=10)
+    final shift=10)
     "Boolean pulse"
     annotation (Placement(transformation(extent={{50,200},{70,220}})));
 
@@ -173,16 +172,15 @@ protected
     final amplitude=2,
     final width=1,
     final period=3500,
-    final nperiod=1,
     final offset=0,
-    final startTime=0)
+    final shift=0)
     "Real pulse"
     annotation (Placement(transformation(extent={{40,160},{60,180}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul2(
     final width=1,
     final period=3600,
-    final startTime=10)
+    final shift=10)
     "Boolean pulse"
     annotation (Placement(transformation(extent={{-260,50},{-240,70}})));
 
@@ -194,16 +192,15 @@ protected
     final amplitude=2,
     final width=1,
     final period=3500,
-    final nperiod=1,
     final offset=0,
-    final startTime=0)
+    final shift=10)
     "Real pulse"
     annotation (Placement(transformation(extent={{-260,10},{-240,30}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul3(
     final width=1,
     final period=3600,
-    final startTime=10)
+    final shift=10)
     "Boolean pulse"
     annotation (Placement(transformation(extent={{40,30},{60,50}})));
 
@@ -215,16 +212,15 @@ protected
     final amplitude=2,
     final width=1,
     final period=3500,
-    final nperiod=1,
     final offset=0,
-    final startTime=0)
+    final shift=0)
     "Real pulse"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul4(
     final width=1,
     final period=3600,
-    final startTime=10)
+    final shift=10)
     "Boolean pulse"
     annotation (Placement(transformation(extent={{-240,-180},{-220,-160}})));
 
@@ -236,16 +232,15 @@ protected
     final amplitude=2,
     final width=1,
     final period=3500,
-    final nperiod=1,
     final offset=0,
-    final startTime=0)
+    final shift=0)
     "Real pulse"
     annotation (Placement(transformation(extent={{-250,-220},{-230,-200}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul5(
     final width=0.5,
     final period=900,
-    final startTime=60)
+    final shift=60)
     "Boolean pulse"
     annotation (Placement(transformation(extent={{-240,-260},{-220,-240}})));
 
@@ -253,9 +248,8 @@ protected
     final amplitude=0.6,
     final width=0.5,
     final period=3600,
-    final nperiod=1,
     final offset=0.35,
-    final startTime=0)
+    final shift=0)
     "Real pulse"
     annotation (Placement(transformation(extent={{-260,100},{-240,120}})));
 
@@ -263,9 +257,8 @@ protected
     final amplitude=0.6,
     final width=0.5,
     final period=3600,
-    final nperiod=1,
     final offset=0.35,
-    final startTime=0)
+    final shift=0)
     "Real pulse"
     annotation (Placement(transformation(extent={{60,90},{80,110}})));
 
@@ -273,9 +266,8 @@ protected
     final amplitude=0.6,
     final width=0.5,
     final period=3600,
-    final nperiod=1,
     final offset=0.35,
-    final startTime=0)
+    final shift=0)
     "Real pulse"
     annotation (Placement(transformation(extent={{-260,-110},{-240,-90}})));
 
@@ -283,9 +275,8 @@ protected
     final amplitude=0.6,
     final width=0.5,
     final period=3600,
-    final nperiod=1,
     final offset=0.35,
-    final startTime=0)
+    final shift=0)
     "Real pulse"
     annotation (Placement(transformation(extent={{40,-170},{60,-150}})));
 

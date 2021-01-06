@@ -51,11 +51,6 @@ protected
     "Enabling boiler index"
     annotation (Placement(transformation(extent={{-160,70},{-140,90}})));
 
-  Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold zerOrdHol(
-    final samplePeriod=2)
-    "Output the input signal with a zero order hold"
-    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant valOne1(
     final k=1)
     "Valve one position, fully open"
@@ -66,14 +61,16 @@ protected
     "Disabling boiler index"
     annotation (Placement(transformation(extent={{60,70},{80,90}})));
 
-  Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold zerOrdHol1(
-    final samplePeriod=2)
-    "Output the input signal with a zero order hold"
-    annotation (Placement(transformation(extent={{160,-20},{180,0}})));
+  Buildings.Controls.OBC.CDL.Discrete.UnitDelay uniDel(
+    final samplePeriod=1)
+    "Unit delay"
+    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Switch swi
-    "Second boiler isolation valve position"
-    annotation (Placement(transformation(extent={{160,30},{180,50}})));
+  Buildings.Controls.OBC.CDL.Discrete.UnitDelay uniDel1(
+    final samplePeriod=1,
+    final y_start=1)
+    "Unit delay"
+    annotation (Placement(transformation(extent={{160,-20},{180,0}})));
 
 equation
   connect(booPul.y, staCha.u)
@@ -82,27 +79,11 @@ equation
   connect(booPul1.y, upsDevSta.u)
     annotation (Line(points={{-178,-30},{-162,-30}}, color={255,0,255}));
 
-  connect(valOne1.y, swi.u3)
-    annotation (Line(points={{42,20},{60,20},{60,32},{158,32}}, color={0,0,127}));
-
-  connect(zerOrdHol1.y, swi.u1)
-    annotation (Line(points={{182,-10},{200,-10},{200,20},{150,20},{150,48},
-      {158,48}}, color={0,0,127}));
-
-  connect(zerOrdHol.y, enaHotIsoVal.uHotWatIsoVal[1]) annotation (Line(points={{
-          -38,0},{-28,0},{-28,40},{-140,40},{-140,14},{-102,14}}, color={0,0,127}));
-
-  connect(valOne.y, enaHotIsoVal.uHotWatIsoVal[2]) annotation (Line(points={{-178,
-          20},{-150,20},{-150,16},{-102,16}}, color={0,0,127}));
-
   connect(enaBoi.y, enaHotIsoVal.nexChaBoi) annotation (Line(points={{-138,80},
           {-120,80},{-120,18},{-102,18}}, color={255,127,0}));
 
   connect(upsDevSta.y, enaHotIsoVal.uUpsDevSta) annotation (Line(points={{-138,
           -30},{-120,-30},{-120,5},{-102,5}}, color={255,0,255}));
-
-  connect(upsDevSta.y, swi.u2) annotation (Line(points={{-138,-30},{100,-30},{
-          100,40},{158,40}}, color={255,0,255}));
 
   connect(upsDevSta.y, disHotIsoVal.uUpsDevSta) annotation (Line(points={{-138,
           -30},{100,-30},{100,-5},{118,-5}}, color={255,0,255}));
@@ -119,14 +100,16 @@ equation
   connect(valOne1.y, disHotIsoVal.uHotWatIsoVal[1]) annotation (Line(points={{
           42,20},{60,20},{60,4},{118,4}}, color={0,0,127}));
 
-  connect(swi.y, disHotIsoVal.uHotWatIsoVal[2]) annotation (Line(points={{182,
-          40},{190,40},{190,60},{80,60},{80,6},{118,6}}, color={0,0,127}));
-
-  connect(disHotIsoVal.yHotWatIsoVal[2], zerOrdHol1.u) annotation (Line(points=
-          {{142,-5},{146,-5},{146,-10},{158,-10}}, color={0,0,127}));
-
-  connect(enaHotIsoVal.yHotWatIsoVal[2], zerOrdHol.u) annotation (Line(points={
-          {-78,5},{-70,5},{-70,0},{-62,0}}, color={0,0,127}));
+  connect(valOne.y, enaHotIsoVal.uHotWatIsoVal[1]) annotation (Line(points={{-178,
+          20},{-140,20},{-140,14},{-102,14}}, color={0,0,127}));
+  connect(enaHotIsoVal.yHotWatIsoVal[2], uniDel.u) annotation (Line(points={{-78,
+          5},{-70,5},{-70,0},{-62,0}}, color={0,0,127}));
+  connect(uniDel.y, enaHotIsoVal.uHotWatIsoVal[2]) annotation (Line(points={{-38,
+          0},{-30,0},{-30,40},{-110,40},{-110,16},{-102,16}}, color={0,0,127}));
+  connect(disHotIsoVal.yHotWatIsoVal[2], uniDel1.u) annotation (Line(points={{142,
+          -5},{150,-5},{150,-10},{158,-10}}, color={0,0,127}));
+  connect(uniDel1.y, disHotIsoVal.uHotWatIsoVal[2]) annotation (Line(points={{182,
+          -10},{190,-10},{190,30},{110,30},{110,6},{118,6}}, color={0,0,127}));
 
 annotation (
   experiment(StopTime=3600, Tolerance=1e-06),
