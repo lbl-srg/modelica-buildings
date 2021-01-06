@@ -70,35 +70,35 @@ block PartLoadRatios
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uUpCapDes(
     final unit="W",
-    final quantity="Power")
+    final quantity="HeatFlowRate")
     "Design capacity of the next available stage up"
     annotation (Placement(transformation(extent={{-420,-180},{-380,-140}}),
         iconTransformation(extent={{-140,80},{-100,120}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uCapReq(
     final unit="W",
-    final quantity="Power")
+    final quantity="HeatFlowRate")
     "Chilled water cooling capacity requirement"
     annotation (Placement(transformation(extent={{-420,-30},{-380,10}}),
     iconTransformation(extent={{-140,120},{-100,160}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uCapDes(
     final unit="W",
-    final quantity="Power")
+    final quantity="HeatFlowRate")
     "Design capacity of the current stage"
     annotation (Placement(transformation(extent={{-420,-70},{-380,-30}}),
         iconTransformation(extent={{-140,100},{-100,140}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uUpCapMin(
     final unit="W",
-    final quantity="Power")
+    final quantity="HeatFlowRate")
     "Minimal capacity of the next available stage up"
     annotation (Placement(transformation(extent={{-420,-300},{-380,-260}}),
         iconTransformation(extent={{-140,10},{-100,50}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uDowCapDes(
     final unit="W",
-    final quantity="Power")
+    final quantity="HeatFlowRate")
     "Design capacity of next available stage down"
     annotation (Placement(transformation(extent={{-420,-120},{-380,-80}}),
         iconTransformation(extent={{-140,60},{-100,100}})));
@@ -126,7 +126,7 @@ block PartLoadRatios
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uCapMin(
     final unit="W",
-    final quantity="Power")
+    final quantity="HeatFlowRate")
     "Minimal capacity of the current stage"
     annotation (Placement(transformation(extent={{-420,-240},{-380,-200}}),
         iconTransformation(extent={{-140,30},{-100,70}})));

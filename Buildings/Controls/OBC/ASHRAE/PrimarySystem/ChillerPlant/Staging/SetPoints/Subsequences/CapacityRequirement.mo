@@ -39,7 +39,7 @@ block CapacityRequirement
         iconTransformation(extent={{-140,-30},{-100,10}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y(
-    final quantity="Power",
+    final quantity="HeatFlowRate",
     final unit="W") "Chilled water cooling capacity requirement"
     annotation (Placement(transformation(extent={{140,110},{180,150}}),
         iconTransformation(extent={{100,-20},{140,20}})));
