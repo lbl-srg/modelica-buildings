@@ -1,7 +1,7 @@
 within Buildings.ThermalZones.EnergyPlus.Examples.VAVReheatRefBldgSmallOffice;
-package BaseClasses
-  "Package with base classes for Buildings.ThermalZones.EnergyPlus.Examples.VAVReheatRefBldgSmallOffice"
+package BaseClasses "Package with base classes for Buildings.ThermalZones.EnergyPlus.Examples.VAVReheatRefBldgSmallOffice"
   extends Modelica.Icons.BasesPackage;
+
   annotation (
     preferredView="info",
     Documentation(

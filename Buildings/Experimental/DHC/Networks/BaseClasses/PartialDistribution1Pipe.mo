@@ -2,7 +2,7 @@ within Buildings.Experimental.DHC.Networks.BaseClasses;
 partial model PartialDistribution1Pipe
   "Partial model for one-pipe distribution network"
   extends PartialDistribution;
-  replaceable model Model_pipDis=Fluid.Interfaces.PartialTwoPortInterface(
+  replaceable model Model_pipDis=Fluid.Interfaces.PartialTwoPortInterface (
     redeclare final package Medium=Medium,
     final allowFlowReversal=allowFlowReversal)
     "Model for distribution pipe";

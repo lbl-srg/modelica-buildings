@@ -42,8 +42,7 @@ model Borefield
     "Borefield design data"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
   Modelica.Blocks.Sources.TimeTable TInlVal(
-    y(
-      final unit="K",
+    y(final unit="K",
       displayUnit="degC"),
     table=[
       0,2;

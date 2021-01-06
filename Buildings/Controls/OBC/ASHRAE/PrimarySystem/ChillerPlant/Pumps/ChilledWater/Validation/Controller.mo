@@ -9,14 +9,14 @@ model Controller "Validate chiller water pump control sequence"
     annotation (Placement(transformation(extent={{80,150},{100,170}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.ChilledWater.Controller
     dedNoLoc(
-    final is_heaPum=false,
+    final have_heaPum=false,
     final nPum=3,
     final nPum_nominal=3)
     "Pump speed control for plant with dedicated primary chilled water pump and without local DP sensor"
     annotation (Placement(transformation(extent={{80,60},{100,80}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.ChilledWater.Controller
     dedLoc(
-    final is_heaPum=false,
+    final have_heaPum=false,
     final have_LocalSensor=true,
     final nPum=3,
     final nPum_nominal=3)
@@ -58,7 +58,7 @@ protected
     final amplitude=0.2*6894.75) "Local pressure difference sensor reading"
     annotation (Placement(transformation(extent={{-100,-120},{-80,-100}})));
   Buildings.Controls.OBC.CDL.Logical.Pre enaStaRet[3](
-    final pre_u_start={true,true,false}) 
+    final pre_u_start={true,true,false})
     "Pump enabled status return"
     annotation (Placement(transformation(extent={{-60,80},{-40,100}})));
   Buildings.Controls.OBC.CDL.Logical.TrueHoldWithReset leaChiProOn(
@@ -70,12 +70,12 @@ protected
     annotation (Placement(transformation(extent={{-20,30},{0,50}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse enaPla(
     final period=7200,
-    final startTime=200)
+    final shift=200)
     "Plant enabling status"
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse leaChiEna(
     final period=3600,
-    final startTime=300) "Lead chiller enabling status"
+    final shift=300) "Lead chiller enabling status"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
 
 equation

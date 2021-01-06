@@ -8,7 +8,7 @@ model Controller "Validate condenser water pump control sequence"
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.CondenserWater.Controller
     dedHavWse(
-    final is_heaPum=false)
+    final have_heaPum=false)
     "Condenser water pumps controller for plant with dedicated condenser water pump and have waterside economizer"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
 
@@ -54,7 +54,7 @@ model Controller "Validate condenser water pump control sequence"
     final amplitude=0.2,
     final period=900,
     final offset=0.3,
-    final startTime=100) "Pump speed setpoint"
+    final shift=100) "Pump speed setpoint"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant fal(
     final k=false) "Logical false"

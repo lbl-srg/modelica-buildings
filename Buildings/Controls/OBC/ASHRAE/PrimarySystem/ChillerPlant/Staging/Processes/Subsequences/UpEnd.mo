@@ -2,7 +2,7 @@
 block UpEnd "Sequence for ending stage-up process"
 
   parameter Integer nChi "Total number of chillers";
-  parameter Boolean is_parChi=true
+  parameter Boolean have_parChi=true
     "True: the plant has parallel chillers";
 
   parameter Real proOnTim(
@@ -28,13 +28,13 @@ block UpEnd "Sequence for ending stage-up process"
     final quantity=fill("VolumeFlowRate", nChi),
     displayUnit=fill("m3/s", nChi))
     "Minimum chilled water flow through each chiller"
-    annotation (Evaluate=true, Dialog(group="Reset CHW minimum flow setpoint"));
+    annotation (Dialog(group="Reset CHW minimum flow setpoint"));
   parameter Real maxFloSet[nChi](
     final unit=fill("m3/s", nChi),
     final quantity=fill("VolumeFlowRate", nChi),
     displayUnit=fill("m3/s", nChi))
     "Maximum chilled water flow through each chiller"
-    annotation (Evaluate=true, Dialog(group="Reset CHW minimum flow setpoint"));
+    annotation (Dialog(group="Reset CHW minimum flow setpoint"));
   parameter Real aftByPasSetTim(
     final unit="s",
     final quantity="Time",
@@ -149,7 +149,7 @@ protected
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.MinimumFlowBypass.FlowSetpoint
     minChiWatSet(
     final nChi=nChi,
-    final is_parChi=is_parChi,
+    final have_parChi=have_parChi,
     final byPasSetTim=byPasSetTim,
     final minFloSet=minFloSet,
     final maxFloSet=maxFloSet) "Reset minimum chilled water flow setpoint"

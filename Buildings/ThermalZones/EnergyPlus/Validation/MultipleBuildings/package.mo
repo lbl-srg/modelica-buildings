@@ -1,7 +1,7 @@
 within Buildings.ThermalZones.EnergyPlus.Validation;
-package MultipleBuildings
-  "Collection of validation models for multiple EnergyPlus buildings"
+package MultipleBuildings "Collection of validation models for multiple EnergyPlus buildings"
   extends Modelica.Icons.Package;
+
   annotation (
     preferredView="info",
     Documentation(

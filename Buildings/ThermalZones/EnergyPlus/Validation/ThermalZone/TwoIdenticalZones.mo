@@ -25,8 +25,7 @@ model TwoIdenticalZones
     smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments,
     tableName="EnergyPlus",
     columns=2:5,
-    y(
-      each unit="K",
+    y(each unit="K",
       each displayUnit="degC"),
     extrapolation=Modelica.Blocks.Types.Extrapolation.HoldLastPoint)
     "Data reader with results from EnergyPlus"

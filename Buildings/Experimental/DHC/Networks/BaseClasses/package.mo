@@ -1,7 +1,7 @@
 within Buildings.Experimental.DHC.Networks;
-package BaseClasses
-  "Package with base classes that are used by multiple models"
+package BaseClasses "Package with base classes that are used by multiple models"
   extends Modelica.Icons.BasesPackage;
+
   annotation (
     preferredView="info",
     Documentation(

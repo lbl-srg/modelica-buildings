@@ -2,8 +2,10 @@ within Buildings.Experimental.DHC.EnergyTransferStations;
 package Types
   "Package with type definitions"
   extends Modelica.Icons.TypesPackage;
-  type ConnectionConfiguration=enumeration(TwoWayValve
-    "Two-way valve on district side",Pump
+  type ConnectionConfiguration = enumeration(
+      TwoWayValve
+    "Two-way valve on district side",
+      Pump
     "Pump on district side")
     "Enumeration for the type of connection with the district network"
     annotation (Documentation(info="<html>

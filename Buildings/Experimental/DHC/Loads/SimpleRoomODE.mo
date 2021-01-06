@@ -1,4 +1,4 @@
-within Buildings.Experimental.DHC.Loads;
+﻿within Buildings.Experimental.DHC.Loads;
 model SimpleRoomODE
   "Simplified model for assessing room air temperature variations around a set point"
   extends Modelica.Blocks.Icons.Block;
