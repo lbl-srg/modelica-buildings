@@ -70,8 +70,7 @@ model BenchmarkFlowDistribution1
     fileName=Modelica.Utilities.Files.loadResource(
       filNam),
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
-    y(
-      each unit="W"),
+    y(each unit="W"),
     offset={0,0,0},
     columns={2,3,4},
     smoothness=Modelica.Blocks.Types.Smoothness.MonotoneContinuousDerivative1)
@@ -79,8 +78,7 @@ model BenchmarkFlowDistribution1
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTSet(
     k=293.15,
-    y(
-      final unit="K",
+    y(final unit="K",
       displayUnit="degC"))
     "Minimum temperature set point"
     annotation (Placement(transformation(extent={{-100,50},{-80,70}})));

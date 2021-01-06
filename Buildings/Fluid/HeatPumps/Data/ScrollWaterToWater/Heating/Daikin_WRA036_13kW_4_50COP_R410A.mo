@@ -10,7 +10,6 @@ record Daikin_WRA036_13kW_4_50COP_R410A =
     UACon = 2854.56883514,
     UAEva = 14984.5402787)
     "Calibrated parameters for Daikin WRA036"
-
   annotation (
     defaultComponentPrefixes = "parameter",
     defaultComponentName="datHeaPum",

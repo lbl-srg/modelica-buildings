@@ -3,12 +3,14 @@ partial model PartialConnection2Pipe
   "Partial model for connecting an agent to a two-pipe distribution network"
   replaceable package Medium=Modelica.Media.Interfaces.PartialMedium
     "Medium model"
-    annotation (choices(choice(redeclare package Medium=Buildings.Media.Water "Water"),choice(redeclare package Medium=Buildings.Media.Antifreeze.PropyleneGlycolWater(property_T=293.15,X_a=0.40) "Propylene glycol water, 40% mass fraction")));
-  replaceable model Model_pipDis=Fluid.Interfaces.PartialTwoPortInterface(
+    annotation (choices(choice(redeclare package Medium=Buildings.Media.Water "Water"),choice(redeclare
+          package                                                                                               Medium=
+            Buildings.Media.Antifreeze.PropyleneGlycolWater (                                                                                                          property_T=293.15,X_a=0.40) "Propylene glycol water, 40% mass fraction")));
+  replaceable model Model_pipDis=Fluid.Interfaces.PartialTwoPortInterface (
     redeclare final package Medium=Medium,
     final m_flow_nominal=mDis_flow_nominal,
     final allowFlowReversal=allowFlowReversal);
-  replaceable model Model_pipCon=Fluid.Interfaces.PartialTwoPortInterface(
+  replaceable model Model_pipCon=Fluid.Interfaces.PartialTwoPortInterface (
     redeclare final package Medium=Medium,
     final m_flow_nominal=mCon_flow_nominal,
     final allowFlowReversal=allowFlowReversal);

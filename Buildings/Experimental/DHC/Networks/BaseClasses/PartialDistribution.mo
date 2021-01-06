@@ -3,7 +3,9 @@ partial model PartialDistribution
   "Partial model for distribution network"
   replaceable package Medium=Modelica.Media.Interfaces.PartialMedium
     "Medium model"
-    annotation (choices(choice(redeclare package Medium=Buildings.Media.Water "Water"),choice(redeclare package Medium=Buildings.Media.Antifreeze.PropyleneGlycolWater(property_T=293.15,X_a=0.40) "Propylene glycol water, 40% mass fraction")));
+    annotation (choices(choice(redeclare package Medium=Buildings.Media.Water "Water"),choice(redeclare
+          package                                                                                               Medium=
+            Buildings.Media.Antifreeze.PropyleneGlycolWater (                                                                                                          property_T=293.15,X_a=0.40) "Propylene glycol water, 40% mass fraction")));
   parameter Integer nCon
     "Number of connections"
     annotation (Dialog(tab="General"),Evaluate=true);

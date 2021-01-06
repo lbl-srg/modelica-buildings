@@ -1,9 +1,14 @@
 within Buildings.ThermalZones.EnergyPlus.Types;
-type LogLevels=enumeration(Error
-  "Errors",Warning
-  "Warnings",Info
-  "Information",Verbose
-  "Verbose, log calls in initialization and shut-down",Debug
+type LogLevels = enumeration(
+    Error
+  "Errors",
+    Warning
+  "Warnings",
+    Info
+  "Information",
+    Verbose
+  "Verbose, log calls in initialization and shut-down",
+    Debug
   "Verbose, log everything at each time step")
   "Enumeration for logging"
   annotation (Documentation(info="<html>

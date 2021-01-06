@@ -10,7 +10,6 @@ record Daikin_WRA420_137kW_4_50COP_R410A =
     UACon = 24801.5921552,
     UAEva = 297902.470363)
     "Calibrated parameters for Daikin WRA420"
-
   annotation (
     defaultComponentPrefixes = "parameter",
     defaultComponentName="datHeaPum",

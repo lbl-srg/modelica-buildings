@@ -34,25 +34,21 @@ model CouplingTimeSeriesSingleLoop
     "Chilled water supply"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,origin={-70,104})));
   Modelica.Blocks.Continuous.Integrator ECooReq(
-    y(
-      unit="J"))
+    y(unit="J"))
     "Time integral of cooling load"
     annotation (Placement(transformation(extent={{40,60},{60,80}})));
   Buildings.Controls.OBC.CDL.Continuous.MovingMean QAveCooReq_flow(
-    y(
-      unit="W"),
+    y(unit="W"),
     final delta=perAve)
     "Time average of cooling load"
     annotation (Placement(transformation(extent={{40,20},{60,40}})));
   Buildings.Controls.OBC.CDL.Continuous.MovingMean QAveCooAct_flow(
-    y(
-      unit="W"),
+    y(unit="W"),
     final delta=perAve)
     "Time average of cooling heat flow rate"
     annotation (Placement(transformation(extent={{80,20},{100,40}})));
   Modelica.Blocks.Continuous.Integrator ECooAct(
-    y(
-      unit="J"))
+    y(unit="J"))
     "Actual energy used for cooling"
     annotation (Placement(transformation(extent={{80,60},{100,80}})));
   BaseClasses.BuildingTimeSeries buiHea(
@@ -85,24 +81,20 @@ model CouplingTimeSeriesSingleLoop
     "Sink for heating water"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},rotation=0,origin={110,-12})));
   Buildings.Controls.OBC.CDL.Continuous.MovingMean QAveHeaReq_flow(
-    y(
-      unit="W"),
+    y(unit="W"),
     final delta=perAve)
     "Time average of heating load"
     annotation (Placement(transformation(extent={{40,-110},{60,-90}})));
   Modelica.Blocks.Continuous.Integrator EHeaReq(
-    y(
-      unit="J"))
+    y(unit="J"))
     "Time integral of heating load"
     annotation (Placement(transformation(extent={{40,-70},{60,-50}})));
   Modelica.Blocks.Continuous.Integrator EHeaAct(
-    y(
-      unit="J"))
+    y(unit="J"))
     "Actual energy used for heating"
     annotation (Placement(transformation(extent={{80,-70},{100,-50}})));
   Buildings.Controls.OBC.CDL.Continuous.MovingMean QAveHeaAct_flow(
-    y(
-      unit="W"),
+    y(unit="W"),
     final delta=perAve)
     "Time average of heating heat flow rate"
     annotation (Placement(transformation(extent={{80,-110},{100,-90}})));

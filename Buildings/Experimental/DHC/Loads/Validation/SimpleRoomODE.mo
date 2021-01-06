@@ -33,8 +33,7 @@ model SimpleRoomODE
     annotation (Placement(transformation(extent={{30,110},{50,130}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTSet(
     k=293.15,
-    y(
-      final unit="K",
+    y(final unit="K",
       displayUnit="degC"))
     "Minimum temperature set point"
     annotation (Placement(transformation(extent={{-140,150},{-120,170}})));
@@ -64,8 +63,7 @@ model SimpleRoomODE
     annotation (Placement(transformation(extent={{-10,10},{10,30}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxTSet(
     k=297.15,
-    y(
-      final unit="K",
+    y(final unit="K",
       displayUnit="degC"))
     "Maximum temperature set point"
     annotation (Placement(transformation(extent={{-140,-170},{-120,-150}})));

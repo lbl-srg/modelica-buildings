@@ -49,7 +49,7 @@ protected
     final unit="kg/m3",
     final quantity="Density",
     displayUnit="kg/m3")=1000 "Water density";
-  
+
   constant Real cpWat(
     final unit="J/(kg.K)",
     final quantity="SpecificEntropy",

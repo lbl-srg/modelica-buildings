@@ -5,8 +5,7 @@ model OneZoneTwoDifferentOutputVariables
   Buildings.ThermalZones.EnergyPlus.OutputVariable incBeaSou(
     name="Surface Outside Face Incident Beam Solar Radiation Rate per Area",
     key="Living:South",
-    y(
-      final unit="W/m2"))
+    y(final unit="W/m2"))
     "Block that reads incident beam solar radiation on south window from EnergyPlus"
     annotation (Placement(transformation(extent={{60,0},{80,20}})));
   annotation (

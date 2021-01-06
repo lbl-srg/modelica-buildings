@@ -3,10 +3,14 @@ partial model PartialETS
   "Partial class for energy transfer station model"
   replaceable package MediumBui=Modelica.Media.Interfaces.PartialMedium
     "Building side medium"
-    annotation (choices(choice(redeclare package Medium=Buildings.Media.Water "Water"),choice(redeclare package Medium=Buildings.Media.Antifreeze.PropyleneGlycolWater(property_T=293.15,X_a=0.40) "Propylene glycol water, 40% mass fraction")));
+    annotation (choices(choice(redeclare package Medium=Buildings.Media.Water "Water"),choice(redeclare
+          package                                                                                               Medium=
+            Buildings.Media.Antifreeze.PropyleneGlycolWater (                                                                                                          property_T=293.15,X_a=0.40) "Propylene glycol water, 40% mass fraction")));
   replaceable package MediumDis=Modelica.Media.Interfaces.PartialMedium
     "District side medium"
-    annotation (choices(choice(redeclare package Medium=Buildings.Media.Water "Water"),choice(redeclare package Medium=Buildings.Media.Antifreeze.PropyleneGlycolWater(property_T=293.15,X_a=0.40) "Propylene glycol water, 40% mass fraction")));
+    annotation (choices(choice(redeclare package Medium=Buildings.Media.Water "Water"),choice(redeclare
+          package                                                                                               Medium=
+            Buildings.Media.Antifreeze.PropyleneGlycolWater (                                                                                                          property_T=293.15,X_a=0.40) "Propylene glycol water, 40% mass fraction")));
   parameter Integer nPorts_aHeaWat=0
     "Number of heating water return ports"
     annotation (Evaluate=true,Dialog(connectorSizing=true));

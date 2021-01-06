@@ -36,8 +36,7 @@ model BuildingSpawnZ6
     k=fill(
       293.15,
       nZon),
-    y(
-      each final unit="K",
+    y(each final unit="K",
       each displayUnit="degC"))
     "Minimum temperature set point"
     annotation (Placement(transformation(extent={{-280,250},{-260,270}})));
@@ -45,8 +44,7 @@ model BuildingSpawnZ6
     k=fill(
       297.15,
       nZon),
-    y(
-      each final unit="K",
+    y(each final unit="K",
       each displayUnit="degC"))
     "Maximum temperature set point"
     annotation (Placement(transformation(extent={{-280,210},{-260,230}})));

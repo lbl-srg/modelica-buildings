@@ -27,7 +27,7 @@ algorithm
                        table=table, iX=10, x=6*x, iY=1);
   assert(abs(y-3) < 1E-10, "Error in implementation of exchangeVaules.");
 
-annotation(
+annotation (
 experiment(Tolerance=1e-6, StopTime=1),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/Boreholes/BaseClasses/Examples/ExchangeValues.mos"
         "Simulate"),
