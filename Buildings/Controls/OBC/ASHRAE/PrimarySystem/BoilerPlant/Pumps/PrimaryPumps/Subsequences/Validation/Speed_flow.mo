@@ -22,7 +22,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse pumSta[2](
     final width=fill(0.95, 2),
     final period=fill(10, 2),
-    final startTime=fill(1, 2))
+    final shift=fill(1, 2))
     "Pump status"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
 

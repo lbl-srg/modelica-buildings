@@ -3,22 +3,29 @@ model EnableLead_headered
     "Validate sequence for enabling lead pump of plants with headered primary hot water pumps"
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.PrimaryPumps.Subsequences.EnableLead_headered
-    enaLeaPriPum(nBoi=2)
+    enaLeaPriPum(
+    final nBoi=2)
     "Enable lead hot water pump based on the status of hot water isolation valves"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 
-  CDL.Continuous.Sources.Pulse pul(period=600, startTime=300)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse pul(
+    final period=600,
+    final shift=300)
     "Real pulse signal"
     annotation (Placement(transformation(extent={{-50,20},{-30,40}})));
-  CDL.Continuous.Sources.Pulse pul1(period=1000, startTime=500)
+
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse pul1(
+    final period=1000,
+    final shift=500)
     "Real pulse signal"
     annotation (Placement(transformation(extent={{-50,-40},{-30,-20}})));
-equation
 
+equation
   connect(pul.y, enaLeaPriPum.uHotWatIsoVal[1]) annotation (Line(points={{-28,30},
           {-16,30},{-16,-1},{-2,-1}}, color={0,0,127}));
   connect(pul1.y, enaLeaPriPum.uHotWatIsoVal[2]) annotation (Line(points={{-28,-30},
           {-16,-30},{-16,1},{-2,1}}, color={0,0,127}));
+
 annotation (
   experiment(StopTime=3600.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/BoilerPlant/Pumps/PrimaryPumps/Subsequences/Validation/EnableLead_headered.mos"

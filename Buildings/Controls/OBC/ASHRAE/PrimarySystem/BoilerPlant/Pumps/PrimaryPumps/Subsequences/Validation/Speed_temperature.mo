@@ -32,7 +32,8 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse pumSta[2](
     final width=fill(0.95, 2),
     final period=fill(3600, 2),
-    final startTime=fill(1, 2)) "Pump status"
+    final shift=fill(1, 2))
+    "Pump status"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSecSup(
@@ -59,7 +60,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse pumSta1(
     final width=0.5,
     final period=1800,
-    final startTime=1)
+    final shift=1)
     "Pump status"
     annotation (Placement(transformation(extent={{-10,50},{10,70}})));
 

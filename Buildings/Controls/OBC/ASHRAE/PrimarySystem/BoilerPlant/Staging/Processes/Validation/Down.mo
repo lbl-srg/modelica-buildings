@@ -189,8 +189,7 @@ protected
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul[nBoi](
     final width=fill(0.1/1800, nBoi),
-    final period=fill(1800, nBoi),
-    final startTime=fill(0, nBoi))
+    final period=fill(1800, nBoi))
     "Boolean pulse to start initial stage change"
     annotation (Placement(transformation(extent={{-370,250},{-350,270}})));
 
@@ -202,7 +201,7 @@ protected
   Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold zerOrdHol[nBoi](
     final samplePeriod=fill(10, nBoi))
     "Zero order hold"
-    annotation (Placement(transformation(extent={{-60,166},{-40,186}})));
+    annotation (Placement(transformation(extent={{-60,170},{-40,190}})));
 
   Buildings.Controls.OBC.CDL.Logical.Pre pre1
     "Logical pre block"
@@ -238,8 +237,7 @@ protected
     "Falling edge detector"
     annotation (Placement(transformation(extent={{-164,110},{-144,130}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Latch lat1[nBoi](
-    final pre_y_start=fill(false, nBoi))
+  Buildings.Controls.OBC.CDL.Logical.Latch lat1[nBoi]
     "Hold true signal once first stage change is completed"
     annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
 
@@ -291,8 +289,7 @@ protected
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul1[nBoi](
     final width=fill(0.1/1800, nBoi),
-    final period=fill(1800, nBoi),
-    final startTime=fill(0, nBoi))
+    final period=fill(1800, nBoi))
     "Boolean pulse to start initial stage change"
     annotation (Placement(transformation(extent={{0,250},{20,270}})));
 
@@ -330,8 +327,7 @@ protected
     "Falling edge detector"
     annotation (Placement(transformation(extent={{206,110},{226,130}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Latch lat3[nBoi](
-    final pre_y_start=fill(false,nBoi))
+  Buildings.Controls.OBC.CDL.Logical.Latch lat3[nBoi]
     "Hold true signal once first stage change is completed"
     annotation (Placement(transformation(extent={{330,60},{350,80}})));
 
@@ -384,8 +380,7 @@ protected
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul4[nBoi](
     final width=fill(0.1/1800, nBoi),
-    final period=fill(1800, nBoi),
-    final startTime=fill(0, nBoi))
+    final period=fill(1800, nBoi))
     "Boolean pulse to start initial stage change"
     annotation (Placement(transformation(extent={{-370,-86},{-350,-66}})));
 
@@ -434,8 +429,7 @@ protected
     "Falling edge detector"
     annotation (Placement(transformation(extent={{-164,-226},{-144,-206}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Latch lat9[nBoi](
-    final pre_y_start=fill(false,nBoi))
+  Buildings.Controls.OBC.CDL.Logical.Latch lat9[nBoi]
     "Hold true signal once first stage change is completed"
     annotation (Placement(transformation(extent={{-50,-280},{-30,-260}})));
 
@@ -495,8 +489,8 @@ equation
           288},{-222,288}},
                        color={0,0,127}));
 
-  connect(zerOrdHol.y, swi.u3) annotation (Line(points={{-38,176},{-34,176},{
-          -34,260},{-230,260},{-230,272},{-222,272}},
+  connect(zerOrdHol.y, swi.u3) annotation (Line(points={{-38,180},{-34,180},{-34,
+          260},{-230,260},{-230,272},{-222,272}},
                                              color={0,0,127}));
 
   connect(falEdg.y, pre1.u) annotation (Line(points={{-68,160},{-46,160},{-46,
@@ -745,7 +739,7 @@ equation
           {-126,194},{-126,200},{-122,200}}, color={255,0,255}));
 
   connect(dowProCon.yHotWatIsoVal, zerOrdHol.u) annotation (Line(points={{-138,190},
-          {-130,190},{-130,176},{-62,176}}, color={0,0,127}));
+          {-130,190},{-130,180},{-62,180}}, color={0,0,127}));
 
   connect(dowProCon.yPumChaPro, yPumChaPro.u) annotation (Line(points={{-138,174},
           {-130,174},{-130,160},{-122,160}}, color={255,0,255}));
@@ -777,7 +771,7 @@ equation
           -36},{-20,-96},{-166,-96},{-166,-132},{-162,-132}}, color={0,0,127}));
 
   connect(swi4.y, dowProCon4.uHotWatIsoVal) annotation (Line(points={{-198,-56},
-          {-190,-56},{-190,-132},{-176,-132},{-176,-144},{-162,-144}}, color={0,
+          {-190,-56},{-190,-144},{-162,-144}},                         color={0,
           0,127}));
 
   connect(logSwi13.y, dowProCon4.uBoiSet) annotation (Line(points={{-198,-226},{
