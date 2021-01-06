@@ -228,6 +228,14 @@ The following <b style=\"color:blue\">new libraries</b> have been added:
                        the URBANopt SDK. The development is in progress.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.Media</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Media.Antifreeze.PropyleneGlycolWater
+    </td>
+    <td valign=\"top\">Package with medium model for propylene glycol water mixtures.
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1410\">IBPSA, issue 1410</a>.</td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.ThermalZones</b>
     </td>
 </tr>
@@ -318,7 +326,14 @@ to <b style=\"color:blue\">existing</b> libraries:
     <td valign=\"top\">Computation of the supply air temperature set point based on the operation mode.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2024\">issue 2024</a>.</td>
 </tr>
-
+<tr><td colspan=\"2\"><b>Buildings.Fluid</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Actuators.Valves.TwoWayButterfly
+    </td>
+    <td valign=\"top\">Two way valve with the flow characteristic of a butterfly valve.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/975\">IBPSA, issue 975</a>.</td>
+</tr>
 </table>
 <!-- Backward compatible changes -->
 <p>
@@ -458,6 +473,17 @@ have been <b style=\"color:blue\">improved</b> in a
     <td valign=\"top\">Improved calculation of time constant to avoid negative values in some special cases.<br/>
                      This is for
                      <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1427\">IBPSA, issue 1427</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Sensors.EnthalpyFlowRate<br/>
+                       Buildings.Fluid.Sensors.EntropyFlowRate<br/>
+                       Buildings.Fluid.Sensors.LatentEnthalpyFlowRate<br/>
+                       Buildings.Fluid.Sensors.SensibleEnthalpyFlowRate<br/>
+                       Buildings.Fluid.Sensors.VolumeFlowRate
+    </td>
+    <td valign=\"top\">Changed parameter values to use as default a steady-state sensor signal.<br/>
+                     This is for
+                     <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1406\">IBPSA, issue 1406</a>.
     </td>
 </tr>
 </table>
