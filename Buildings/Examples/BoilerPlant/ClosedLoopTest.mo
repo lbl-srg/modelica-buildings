@@ -137,7 +137,7 @@ equation
       horizontalAlignment=TextAlignment.Right));
 
   connect(weaBus.TDryBul, boilerPlant.TOutAir) annotation (Line(
-      points={{-50,60},{-28,60},{-28,40},{8,40},{8,-8},{40,-8},{40,-10}},
+      points={{-50,60},{-28,60},{-28,40},{8,40},{8,-10},{40,-10}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
@@ -183,8 +183,8 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-120,-100},{120,
-            100}})),
+    Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-120,-120},{120,
+            120}})),
     __Dymola_Commands(file=
      "modelica://Buildings/Resources/Scripts/Dymola/Examples/BoilerPlant/ClosedLoopTest.mos"
         "Simulate and plot"),

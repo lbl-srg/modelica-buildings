@@ -148,14 +148,14 @@ model BoilerPlant
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Measured return temperature"
-    annotation (Placement(transformation(extent={{320,20},{360,60}}),
+    annotation (Placement(transformation(extent={{320,40},{360,80}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yHotWatDp[1](
     final unit="Pa",
     displayUnit="Pa")
     "Hot water differential pressure between supply and return"
-    annotation (Placement(transformation(extent={{320,-20},{360,20}}),
+    annotation (Placement(transformation(extent={{320,-50},{360,-10}}),
       iconTransformation(extent={{100,-60},{140,-20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput VHotWat_flow(
@@ -163,7 +163,7 @@ model BoilerPlant
     displayUnit="m3/s",
     final quantity="VolumeFlowRate")
     "Measured flowrate in primary circuit"
-    annotation (Placement(transformation(extent={{320,-50},{360,-10}}),
+    annotation (Placement(transformation(extent={{320,-90},{360,-50}}),
       iconTransformation(extent={{100,-100},{140,-60}})));
 
   Buildings.Fluid.MixingVolumes.MixingVolume vol(
@@ -240,11 +240,11 @@ model BoilerPlant
     redeclare Fluid.Movers.Data.Pumps.Wilo.customPumpCurves per,
     final inputType=Buildings.Fluid.Types.InputType.Continuous,
     final addPowerToMedium=false,
-    final riseTime=120)
+    final riseTime=300)
     "Hot water primary pump-1"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
       rotation=90,
-      origin={-70,-70})));
+      origin={-70,-40})));
 
   Buildings.Fluid.FixedResistances.Junction spl1(
     redeclare package Medium = MediumW,
@@ -262,11 +262,11 @@ model BoilerPlant
     redeclare Fluid.Movers.Data.Pumps.Wilo.customPumpCurves per,
     final inputType=Buildings.Fluid.Types.InputType.Continuous,
     final addPowerToMedium=false,
-    final riseTime=120)
+    final riseTime=300)
     "Hot water primary pump-2"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
       rotation=90,
-      origin={10,-70})));
+      origin={10,-40})));
 
   Buildings.Fluid.FixedResistances.Junction spl2(
     redeclare package Medium = MediumW,
@@ -353,7 +353,7 @@ model BoilerPlant
 
   Buildings.Fluid.Sensors.Temperature zonTem(
     redeclare package Medium = Media.Air)
-    annotation (Placement(transformation(extent={{40,150},{60,170}})));
+    annotation (Placement(transformation(extent={{180,150},{200,170}})));
 
   Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage val3(
     redeclare package Medium = Media.Water,
@@ -381,12 +381,12 @@ model BoilerPlant
         Media.Water, m_flow_nominal=1000*0.0006)
     annotation (Placement(transformation(extent={{-20,110},{0,130}})));
 
-  Buildings.Fluid.Sensors.TemperatureTwoPort senTem1(redeclare package Medium =
-        Media.Water, m_flow_nominal=1000*0.0006)
-    annotation (Placement(transformation(extent={{160,110},{180,130}})));
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTem1(redeclare package Medium
+      = Media.Water, m_flow_nominal=1000*0.0006)
+    annotation (Placement(transformation(extent={{180,110},{200,130}})));
 
   Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep(nout=1)
-    annotation (Placement(transformation(extent={{260,-10},{280,10}})));
+    annotation (Placement(transformation(extent={{280,-40},{300,-20}})));
 
   Buildings.Fluid.FixedResistances.CheckValve cheVal(
     redeclare package Medium = Media.Water,
@@ -396,27 +396,28 @@ model BoilerPlant
     "Check valve to prevent reverse-flow through disabled pump"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
       rotation=90,
-      origin={-70,-40})));
+      origin={-70,-70})));
 
   Buildings.Fluid.FixedResistances.CheckValve cheVal1(
     redeclare package Medium = Media.Water,
     m_flow_nominal=mRad_flow_nominal/2,
+    CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
     dpValve_nominal=10,
     dpFixed_nominal=2)
     "Check valve to prevent reverse-flow through disabled pump"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
       rotation=90,
-      origin={10,-40})));
+      origin={10,-70})));
 
-  Buildings.Fluid.Sensors.RelativePressure senRelPre1(redeclare package Medium =
-        Media.Water)
+  Buildings.Fluid.Sensors.RelativePressure senRelPre1(redeclare package Medium
+      = Media.Water)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}}, rotation=90,
-        origin={-88,-40})));
+        origin={-90,-70})));
 
-  Buildings.Fluid.Sensors.RelativePressure senRelPre2(redeclare package Medium =
-        Media.Water)
+  Buildings.Fluid.Sensors.RelativePressure senRelPre2(redeclare package Medium
+      = Media.Water)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}}, rotation=90,
-        origin={40,-40})));
+        origin={-10,-70})));
 
 equation
   connect(theCon.port_b, vol.heatPort) annotation (Line(
@@ -459,13 +460,13 @@ equation
           26},{-242,26}},          color={0,0,127}));
   connect(uPumSpe, pro.u2) annotation (Line(points={{-340,0},{-260,0},{-260,14},
           {-242,14}},              color={0,0,127}));
-  connect(pro[1].y, pum.y) annotation (Line(points={{-218,20},{-100,20},{-100,-70},
-          {-82,-70}},              color={0,0,127}));
-  connect(pro[2].y, pum1.y) annotation (Line(points={{-218,20},{-100,20},{-100,-16},
-          {-20,-16},{-20,-70},{-2,-70}},                  color={0,0,127}));
+  connect(pro[1].y, pum.y) annotation (Line(points={{-218,20},{-100,20},{-100,
+          -40},{-82,-40}},         color={0,0,127}));
+  connect(pro[2].y, pum1.y) annotation (Line(points={{-218,20},{-100,20},{-100,
+          -16},{-20,-16},{-20,-40},{-2,-40}},             color={0,0,127}));
 
-  connect(uBypValSig, val.y) annotation (Line(points={{-340,-40},{-120,-40},{-120,
-          60},{90,60},{90,52}},       color={0,0,127}));
+  connect(uBypValSig, val.y) annotation (Line(points={{-340,-40},{-120,-40},{
+          -120,60},{90,60},{90,52}},  color={0,0,127}));
 
   connect(uHotIsoVal[1], val1.y) annotation (Line(points={{-340,70},{-340,80},{-140,
           80},{-140,-190},{30,-190},{30,-198}},          color={0,0,127}));
@@ -494,12 +495,13 @@ equation
   connect(spl6.port_3, boi1.port_a) annotation (Line(points={{140,-160},{140,-210},
           {90,-210}}, color={0,127,255}));
 
-  connect(zonTem.port, vol.ports[1]) annotation (Line(points={{50,150},{50,144},
-          {150,144},{150,150}},
+  connect(zonTem.port, vol.ports[1]) annotation (Line(points={{190,150},{190,
+          144},{150,144},{150,150}},
                             color={0,127,255}));
 
-  connect(zonTem.T, yZonTem) annotation (Line(points={{57,160},{60,160},{60,140},
-          {340,140}},color={0,0,127}));
+  connect(zonTem.T, yZonTem) annotation (Line(points={{197,160},{280,160},{280,
+          140},{340,140}},
+                     color={0,0,127}));
 
   connect(val3.port_b, rad.port_a)
     annotation (Line(points={{40,120},{80,120}},   color={0,127,255}));
@@ -518,10 +520,10 @@ equation
           16},{30,16},{30,0},{40,0}},              color={0,127,255}));
 
   connect(senVolFlo.port_b, spl4.port_1) annotation (Line(points={{60,0},{70,0},
-          {70,22},{-30,22},{-30,30}},                color={0,127,255}));
+          {70,20},{-30,20},{-30,30}},                color={0,127,255}));
 
-  connect(senVolFlo.V_flow, VHotWat_flow) annotation (Line(points={{50,11},{50,16},
-          {80,16},{80,-30},{340,-30}},             color={0,0,127}));
+  connect(senVolFlo.V_flow, VHotWat_flow) annotation (Line(points={{50,11},{50,
+          16},{80,16},{80,-70},{340,-70}},         color={0,0,127}));
 
   connect(spl6.port_2, spl5.port_2) annotation (Line(points={{150,-150},{210,-150},
           {210,30}},   color={0,127,255}));
@@ -542,58 +544,50 @@ equation
   connect(spl4.port_2, senTem.port_a) annotation (Line(points={{-30,50},{-30,120},
           {-20,120}},       color={0,127,255}));
 
-  connect(senTem.T, ySupTem) annotation (Line(points={{-10,131},{-10,140},{10,
-          140},{10,100},{340,100}},                 color={0,0,127}));
+  connect(senTem.T, ySupTem) annotation (Line(points={{-10,131},{-10,140},{270,
+          140},{270,100},{340,100}},                color={0,0,127}));
 
   connect(rad.port_b, senTem1.port_a)
-    annotation (Line(points={{100,120},{160,120}},
+    annotation (Line(points={{100,120},{180,120}},
                                                  color={0,127,255}));
 
-  connect(senTem1.port_b, spl5.port_1) annotation (Line(points={{180,120},{210,120},
-          {210,50}},       color={0,127,255}));
+  connect(senTem1.port_b, spl5.port_1) annotation (Line(points={{200,120},{210,
+          120},{210,50}},  color={0,127,255}));
 
-  connect(senTem1.T, yRetTem) annotation (Line(points={{170,131},{170,150},{280,
-          150},{280,40},{340,40}},
+  connect(senTem1.T, yRetTem) annotation (Line(points={{190,131},{190,134},{260,
+          134},{260,60},{340,60}},
                                 color={0,0,127}));
 
   connect(reaRep.y, yHotWatDp)
-    annotation (Line(points={{282,0},{340,0}},       color={0,0,127}));
+    annotation (Line(points={{302,-30},{340,-30}},   color={0,0,127}));
 
-  connect(senRelPre.p_rel, reaRep.u) annotation (Line(points={{90,71},{90,64},{240,
-          64},{240,0},{258,0}},             color={0,0,127}));
-
-  connect(pum.port_b, cheVal.port_a)
-    annotation (Line(points={{-70,-60},{-70,-50}},
-                                                 color={0,127,255}));
-
-  connect(cheVal.port_b, spl3.port_1) annotation (Line(points={{-70,-30},{-70,
-          -20},{-30,-20},{-30,-10}},
-                                color={0,127,255}));
-
-  connect(spl2.port_2, pum.port_a) annotation (Line(points={{-30,-90},{-30,-86},
-          {-70,-86},{-70,-80}}, color={0,127,255}));
-
-  connect(pum1.port_b, cheVal1.port_a)
-    annotation (Line(points={{10,-60},{10,-50}}, color={0,127,255}));
-
-  connect(cheVal1.port_b, spl3.port_3)
-    annotation (Line(points={{10,-30},{10,0},{-20,0}}, color={0,127,255}));
-
-  connect(spl2.port_3, pum1.port_a) annotation (Line(points={{-20,-100},{10,
-          -100},{10,-80}}, color={0,127,255}));
+  connect(senRelPre.p_rel, reaRep.u) annotation (Line(points={{90,71},{90,66},{
+          240,66},{240,-30},{278,-30}},     color={0,0,127}));
 
   connect(senRelPre1.port_a, cheVal.port_a)
-    annotation (Line(points={{-88,-50},{-70,-50}}, color={0,127,255}));
+    annotation (Line(points={{-90,-80},{-70,-80}}, color={0,127,255}));
 
   connect(senRelPre1.port_b, cheVal.port_b)
-    annotation (Line(points={{-88,-30},{-70,-30}}, color={0,127,255}));
+    annotation (Line(points={{-90,-60},{-70,-60}}, color={0,127,255}));
 
   connect(cheVal1.port_b, senRelPre2.port_b)
-    annotation (Line(points={{10,-30},{40,-30}}, color={0,127,255}));
+    annotation (Line(points={{10,-60},{-10,-60}},color={0,127,255}));
 
   connect(cheVal1.port_a, senRelPre2.port_a)
-    annotation (Line(points={{10,-50},{40,-50}}, color={0,127,255}));
+    annotation (Line(points={{10,-80},{-10,-80}},color={0,127,255}));
 
+  connect(spl2.port_2, cheVal.port_a) annotation (Line(points={{-30,-90},{-30,
+          -86},{-70,-86},{-70,-80}}, color={0,127,255}));
+  connect(cheVal.port_b, pum.port_a)
+    annotation (Line(points={{-70,-60},{-70,-50}}, color={0,127,255}));
+  connect(pum.port_b, spl3.port_1) annotation (Line(points={{-70,-30},{-70,-20},
+          {-30,-20},{-30,-10}}, color={0,127,255}));
+  connect(spl2.port_3, cheVal1.port_a) annotation (Line(points={{-20,-100},{10,
+          -100},{10,-80}}, color={0,127,255}));
+  connect(cheVal1.port_b, pum1.port_a)
+    annotation (Line(points={{10,-60},{10,-50}}, color={0,127,255}));
+  connect(pum1.port_b, spl3.port_3)
+    annotation (Line(points={{10,-30},{10,0},{-20,0}}, color={0,127,255}));
   annotation (defaultComponentName="boiPla",
     Documentation(info="<html>
       <p>
