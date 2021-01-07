@@ -1,8 +1,8 @@
 within Buildings.Media.Antifreeze;
-package PropyleneGlycolWater
-  "Package with model for propylene glycol - water with constant properties"
+package EthyleneGlycolWater
+  "Package with model for ethylene glycol - water with constant properties"
   extends Modelica.Media.Interfaces.PartialSimpleMedium(
-    mediumName="PropyleneGlycolWater(X_a = "
+    mediumName="EthyleneGlycolWater(X_a = "
       + String(X_a) + ", property_T = "
       + String(property_T) + ")",
     final cp_const=specificHeatCapacityCp_TX_a(T = property_T, X_a = X_a),
@@ -14,9 +14,9 @@ package PropyleneGlycolWater
     final T_min=fusionTemperature_TX_a(T = property_T, X_a = X_a),
     T_max=Modelica.SIunits.Conversions.from_degC(100),
     T0=273.15,
-    MM_const=(X_a/simplePropyleneGlycolWaterConstants[1].molarMass + (1
+    MM_const=(X_a/simpleEthyleneGlycolWaterConstants[1].molarMass + (1
          - X_a)/0.018015268)^(-1),
-    fluidConstants=simplePropyleneGlycolWaterConstants,
+    fluidConstants=simpleEthyleneGlycolWaterConstants,
     p_default=300000,
     reference_p=300000,
     reference_T=273.15,
@@ -108,42 +108,42 @@ as required from medium model \"" + mediumName + "\".");
   end BaseProperties;
 protected
   constant Modelica.SIunits.MassFraction X_a_min=0.
-    "Minimum allowed mass fraction of propylene glycol in water";
+    "Minimum allowed mass fraction of ethylene glycol in water";
   constant Modelica.SIunits.MassFraction X_a_max=0.6
     "Maximum allowed mass fraction of propylene glycol in water";
 
-  // Fluid constants based on pure Propylene Glycol
+  // Fluid constants based on pure Ethylene Glycol
   constant Modelica.Media.Interfaces.Types.Basic.FluidConstants[1]
-    simplePropyleneGlycolWaterConstants(
-    each chemicalFormula="C3H8O2",
-    each structureFormula="CH3CH(OH)CH2OH",
-    each casRegistryNumber="57-55-6",
-    each iupacName="1,2-Propylene glycol",
-    each molarMass=0.07609);
+    simpleEthyleneGlycolWaterConstants(
+    each chemicalFormula="C2H6O2",
+    each structureFormula="HOCH2CH2OH",
+    each casRegistryNumber="107-21-1",
+    each iupacName="Ethane-1,2-diol",
+    each molarMass=0.062068);
 
   // Coefficients for evaluation of physical properties
   constant Buildings.Media.Antifreeze.BaseClasses.PropertyCoefficients
     proCoe(
-    X_a_ref=0.307031,
-    T_ref=Modelica.SIunits.Conversions.from_degC(32.7083),
+    X_a_ref=0.308462,
+    T_ref=Modelica.SIunits.Conversions.from_degC(31.728),
     nX_a=6,
     nT={4,4,4,3,2,1},
     nTot=18,
-    a_d={1.018e3,-5.406e-1,-2.666e-3,1.347e-5,7.604e-1,-9.450e-3,5.541e-5,-1.343e-7,
-        -2.498e-3,2.700e-5,-4.018e-7,3.376e-9,-1.550e-4,2.829e-6,-7.175e-9,-1.131e-6,
-        -2.221e-8,2.342e-8},
-    a_eta={6.837e-1,-3.045e-2,2.525e-4,-1.399e-6,3.328e-2,-3.984e-4,4.332e-6,-1.860e-8,
-        5.453e-5,-8.600e-8,-1.593e-8,-4.465e-11,-3.900e-6,1.054e-7,-1.589e-9,-1.587e-8,
-        4.475e-10,3.564e-9},
-    a_Tf={-1.325e1,-3.820e-5,7.865e-7,-1.733e-9,-6.631e-1,6.774e-6,-6.242e-8,-7.819e-10,
-        -1.094e-2,5.332e-8,-4.169e-9,3.288e-11,-2.283e-4,-1.131e-8,1.918e-10,-3.409e-6,
-        8.035e-11,1.465e-8},
-    a_cp={3.882e3,2.699e0,-1.659e-3,-1.032e-5,-1.304e1,5.070e-2,-4.752e-5,
-        1.522e-6,-1.598e-1,9.534e-5,1.167e-5,-4.870e-8,3.539e-4,3.102e-5,-2.950e-7,
-        5.000e-5,-7.135e-7,-4.959e-7},
-    a_lambda={4.513e-1,7.955e-4,3.482e-8,-5.966e-9,-4.795e-3,-1.678e-5,8.941e-8,
-        1.493e-10,2.076e-5,1.563e-7,-4.615e-9,9.897e-12,-9.083e-8,-2.518e-9,
-        6.543e-11,-5.952e-10,-3.605e-11,2.104e-11})
+     a_d={1.034e3,-4.781e-1,-2.692e-3,4.725e-6,1.311e0,-6.876e-3,4.805e-5,1.690e-8,
+        7.490e-5,7.855e-5,-3.995e-7,4.982e-9,-1.062e-4,1.229e-6,-1.153e-8,-9.623e-7,
+        -7.221e-8,4.891e-8},
+    a_eta={4.705e-1,-2.550e-2,1.782e-4,-7.669e-7,2.471e-2,-1.171e-4,1.052e-6,-1.634e-8,
+        3.328e-6,-1.086e-6,-1.051e-8,-6.475e-10,1.695e-6,3.157e-9,4.063e-10,3.089e-8,
+        1.831e-10,-1.865e-9},
+    a_Tf={-1.525e1,-1.566e-6,-2.278e-7,2.169e-9,-8.080e-1,-1.339e-6,2.047e-08,-2.717e-11,
+        -1.334e-2,6.332e-8,2.373e-10,-2.183e-12,-7.293e-5,-1.764e-9,-2.442e-11,1.006e-6,
+        -7.662e-11,1.140e-9},
+    a_cp={3.737e3,2.930e0,-4.675e-3,-1.389e-5,-1.799e1,1.046e-1,-4.147e-4,1.847e-7,
+        -9.933e-2,3.516e-4,5.109e-6,-7.138e-8,2.610e-3,-1.189e-6,-1.643e-7,1.537e-5,
+        -4.272e-7,-1.618e-6},
+    a_lambda={4.720e-1,8.903e-4,-1.058e-6,-2.789e-9,-4.286e-3,-1.473e-5,1.059e-7,
+        -1.142e-10,1.747e-5,6.814e-8,-3.612e-9,2.365e-12, 3.017e-8,-2.412e-9,
+        4.004e-11,-1.322e-09,2.555e-11,2.678e-11})
     "Coefficients for evaluation of thermo-physical properties";
 
   replaceable function density_TX_a
@@ -176,8 +176,8 @@ protected
   May 2, 2018 by Massimo Cimmino:<br/>
   First implementation.
   This function is used by
-  <a href=\"modelica://Buildings.Media.Antifreeze.PropyleneGlycolWater\">
-  Buildings.Media.Antifreeze.PropyleneGlycolWater</a>.
+  <a href=\"modelica://Buildings.Media.Antifreeze.EthyleneGlycolWater\">
+  Buildings.Media.Antifreeze.EthyleneGlycolWater</a>.
   </li>
   </ul>
   </html>"));
@@ -214,8 +214,8 @@ IIR/IIF.
 May 2, 2018 by Massimo Cimmino:<br/>
 First implementation.
 This function is used by
-<a href=\"modelica://Buildings.Media.Antifreeze.PropyleneGlycolWater\">
-Buildings.Media.Antifreeze.PropyleneGlycolWater</a>.
+<a href=\"modelica://Buildings.Media.Antifreeze.EthyleneGlycolWater\">
+Buildings.Media.Antifreeze.EthyleneGlycolWater</a>.
 </li>
 </ul>
 </html>"));
@@ -251,8 +251,8 @@ IIR/IIF.
 May 2, 2018 by Massimo Cimmino:<br/>
 First implementation.
 This function is used by
-<a href=\"modelica://Buildings.Media.Antifreeze.PropyleneGlycolWater\">
-Buildings.Media.Antifreeze.PropyleneGlycolWater</a>.
+<a href=\"modelica://Buildings.Media.Antifreeze.EthyleneGlycolWater\">
+Buildings.Media.Antifreeze.EthyleneGlycolWater</a>.
 </li>
 </ul>
 </html>"));
@@ -353,8 +353,8 @@ IIR/IIF.
 March 16, 2018 by Massimo Cimmino:<br/>
 First implementation.
 This function is used by
-<a href=\"modelica://Buildings.Media.Antifreeze.PropyleneGlycolWater\">
-Buildings.Media.Antifreeze.PropyleneGlycolWater</a>.
+<a href=\"modelica://Buildings.Media.Antifreeze.EthyleneGlycolWater\">
+Buildings.Media.Antifreeze.EthyleneGlycolWater</a>.
 </li>
 </ul>
 </html>"));
@@ -390,24 +390,24 @@ IIR/IIF.
 March 16, 2018 by Massimo Cimmino:<br/>
 First implementation.
 This function is used by
-<a href=\"modelica://Buildings.Media.Antifreeze.PropyleneGlycolWater\">
-Buildings.Media.Antifreeze.PropyleneGlycolWater</a>.
+<a href=\"modelica://Buildings.Media.Antifreeze.EthyleneGlycolWater\">
+Buildings.Media.Antifreeze.EthyleneGlycolWater</a>.
 </li>
 </ul>
 </html>"));
   end thermalConductivity_TX_a;
 annotation(preferredView="info", Documentation(info="<html>
 <p>
-This medium package models propylene glycol - water mixtures.
+This medium package models ethylene glycol - water mixtures.
 </p>
 <p>
 The mass density, specific heat capacity, thermal conductivity and viscosity
 are assumed constant and evaluated at a set temperature and mass fraction of
-propylene glycol within the mixture. The dependence of the four properties
+ethylene glycol within the mixture. The dependence of the four properties
 are shown on the figure below.
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Media/Antifreeze/PropyleneGlycolWaterProperties.png\" border=\"1\"
+<img src=\"modelica://Buildings/Resources/Images/Media/Antifreeze/EthyleneGlycolWaterProperties.png\" border=\"1\"
 alt=\"Relative variation of specific heat capacity with temperature\"/>
 </p>
 <p>
@@ -415,23 +415,23 @@ The accuracy of the thermophysical properties is dependent on the temperature
 variations encountered during simulations.
 The figure below shows the relative error of the the four properties over a
 <i>10</i> &deg;C range around the temperature used to evaluate the constant
-properties. The maximum errors are <i>0.8</i> % for mass density, <i>1.5</i> %
-for specific heat capacity, <i>3.2</i> % for thermal conductivity and <i>250</i>
+properties. The maximum errors are <i>0.8</i> % for mass density, <i>2.7</i> %
+for specific heat capacity, <i>3.2</i> % for thermal conductivity and <i>160</i>
 % for dynamic viscosity.
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Media/Antifreeze/PropyleneGlycolWaterError10degC.png\" border=\"1\"
+<img src=\"modelica://Buildings/Resources/Images/Media/Antifreeze/EthyleneGlycolWaterError10degC.png\" border=\"1\"
 alt=\"Relative variation of specific heat capacity with temperature\"/>
 </p>
 <p>
 The figure below shows the relative error of the the four properties over a
 <i>20</i> &deg;C range around the temperature used to evaluate the constant
-proepties. The maximum errors are <i>1.6</i> % for mass density, <i>3.0</i> %
-for specific heat capacity, <i>6.2</i> % for thermal conductivity and <i>950</i>
+proepties. The maximum errors are <i>1.5</i> % for mass density, <i>5.3</i> %
+for specific heat capacity, <i>5.9</i> % for thermal conductivity and <i>500</i>
 % for dynamic viscosity.
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Media/Antifreeze/PropyleneGlycolWaterError20degC.png\" border=\"1\"
+<img src=\"modelica://Buildings/Resources/Images/Media/Antifreeze/EthyleneGlycolWaterError20degC.png\" border=\"1\"
 alt=\"Relative variation of specific heat capacity with temperature\"/>
 </p>
 <p>
@@ -441,7 +441,7 @@ if <i>T=0</i> &deg;C.
 <h4>Limitations</h4>
 <p>
 Density, specific heat capacity, thermal conductivity and viscosity are constant.
-The propylene glycol/water mixture is modeled as an incompressible liquid.
+The ethylene glycol/water mixture is modeled as an incompressible liquid.
 There are no phase changes. The medium is limited to temperatures below
 <i>100</i> &deg;C and mass fractions below <i>0.60</i>.
 As is the case for <a href=\"modelica://Buildings.Media.Water\">Buildings.Media.Water</a>,
@@ -455,21 +455,14 @@ constant thermophysical properties. A typical use of the package is (e.g. for
 a temperature of <i>20</i> &deg;C and a mass fraction of <i>0.40</i>):
 </p>
 <p>
-<code>Medium = Buildings.Media.Antifreeze.PropyleneGlycolWater(property_T=293.15, X_a=0.40)</code>
+<code>Medium = Buildings.Media.Antifreeze.EthyleneGlycolWater(property_T=293.15, X_a=0.40)</code>
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
-October 26, 2018, by Filip Jorissen and Michael Wetter:<br/>
-Now printing different messages if temperature or mass fraction is above or below its limit,
-and adding instance name as JModelica does not print the full instance name in the assertion.
-This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1045\">#1045</a>.
-</li>
-<li>
-March 16, 2018, by Massimo Cimmino:<br/>
+August 05, 2020, by Wen HU:<br/>
 First implementation.
 </li>
 </ul>
 </html>"));
-end PropyleneGlycolWater;
+end EthyleneGlycolWater;
