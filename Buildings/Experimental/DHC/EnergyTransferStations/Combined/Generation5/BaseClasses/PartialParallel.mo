@@ -122,13 +122,17 @@ model PartialParallel
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput dHHeaWat_flow(
     final unit="W")
     "Heating water distributed energy flow rate"
-    annotation (Placement(transformation(extent={{300,120},{340,160}}),
-      iconTransformation(extent={{300,-140},{380,-60}})));
+    annotation (Placement(transformation(extent={{300,140},{340,180}}),
+      iconTransformation(extent={{-40,-40},{40,40}},
+        rotation=-90,
+        origin={240,-340})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput dHChiWat_flow(
     final unit="W")
     "Chilled water distributed energy flow rate"
-    annotation (Placement(transformation(extent={{300,80},{340,120}}),
-      iconTransformation(extent={{300,-180},{380,-100}})));
+    annotation (Placement(transformation(extent={{300,100},{340,140}}),
+      iconTransformation(extent={{-40,-40},{40,40}},
+        rotation=-90,
+        origin={280,-340})));
   // COMPONENTS
   replaceable Generation5.Controls.BaseClasses.PartialSupervisory conSup
     constrainedby Generation5.Controls.BaseClasses.PartialSupervisory(
@@ -212,11 +216,11 @@ model PartialParallel
     annotation (Placement(transformation(extent={{260,-70},{280,-50}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiSum totPHea(
     nin=1)
-    "Total power drawn by heating equipment"
+    "Total power drawn by heating system"
     annotation (Placement(transformation(extent={{260,50},{280,70}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiSum totPCoo(
     nin=1)
-    "Total power drawn by cooling equipment"
+    "Total power drawn by cooling system"
     annotation (Placement(transformation(extent={{260,10},{280,30}})));
   Networks.BaseClasses.DifferenceEnthalpyFlowRate dHFloChiWat(
     redeclare final package Medium1=MediumBui,
@@ -249,7 +253,8 @@ equation
   connect(hex.port_a2,colAmbWat.ports_bCon[1])
     annotation (Line(points={{10,-248},{20,-248},{20,-140},{-12,-140},{-12,-116}},color={0,127,255}));
   connect(totPPum.y,PPum)
-    annotation (Line(points={{282,-60},{320,-60}},color={0,0,127}));
+    annotation (Line(points={{282,-60},{290,-60},{290,-80},{320,-80}},
+                                                  color={0,0,127}));
   connect(hex.yValIso_actual[1],valIsoCon.y_actual)
     annotation (Line(points={{-12,-251},{-40,-251},{-40,-113},{-55,-113}},color={0,0,127}));
   connect(hex.yValIso_actual[2],valIsoEva.y_actual)
@@ -287,9 +292,11 @@ equation
   connect(colAmbWat.port_bDisRet,colHeaWat.ports_bCon[1])
     annotation (Line(points={{-20,-100},{-132,-100},{-132,-24}},color={0,127,255}));
   connect(totPHea.y,PHea)
-    annotation (Line(points={{282,60},{320,60}},color={0,0,127}));
+    annotation (Line(points={{282,60},{290,60},{290,80},{320,80}},
+                                                color={0,0,127}));
   connect(totPCoo.y,PCoo)
-    annotation (Line(points={{282,20},{320,20}},color={0,0,127}));
+    annotation (Line(points={{282,20},{290,20},{290,0},{320,0}},
+                                                color={0,0,127}));
   connect(tanChiWat.port_bBot,dHFloChiWat.port_a1)
     annotation (Line(points={{220,100},{250,100}},color={0,127,255}));
   connect(dHFloChiWat.port_b1,ports_bChiWat[1])
@@ -299,7 +306,7 @@ equation
   connect(dHFloChiWat.port_a2,ports_aChiWat[1])
     annotation (Line(points={{270,112},{278,112},{278,200},{-300,200}},color={0,127,255}));
   connect(dHFloChiWat.dH_flow,dHChiWat_flow)
-    annotation (Line(points={{272,103},{294,103},{294,100},{320,100}},color={0,0,127}));
+    annotation (Line(points={{272,103},{294,103},{294,120},{320,120}},color={0,0,127}));
   connect(tanHeaWat.port_bTop,dHFloHeaWat.port_a1)
     annotation (Line(points={{-220,112},{-230,112}},color={0,127,255}));
   connect(dHFloHeaWat.port_b1,ports_bHeaWat[1])
@@ -309,7 +316,7 @@ equation
   connect(dHFloHeaWat.port_b2,tanHeaWat.port_aBot)
     annotation (Line(points={{-230,100},{-220,100}},color={0,127,255}));
   connect(dHFloHeaWat.dH_flow,dHHeaWat_flow)
-    annotation (Line(points={{-252,109},{-270,109},{-270,140},{320,140}},color={0,0,127}));
+    annotation (Line(points={{-252,109},{-270,109},{-270,160},{320,160}},color={0,0,127}));
   annotation (
     Icon(
       coordinateSystem(

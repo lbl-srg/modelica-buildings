@@ -320,7 +320,7 @@ equation
     annotation (Line(points={{-50,-28},{-10,-28}},color={0,127,255}));
   connect(senTChiWatRet.port_b,ets.ports_aChiWat[1])
     annotation (Line(points={{80,0},{-40,0},{-40,-38},{-10,-38}},color={0,127,255}));
-  connect(ets.PCoo, EChi.u) annotation (Line(points={{54,-50},{60,-50},{60,-60},
+  connect(ets.PCoo, EChi.u) annotation (Line(points={{54,-52},{60,-52},{60,-60},
           {298,-60}}, color={0,0,127}));
   annotation (
     Diagram(

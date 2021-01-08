@@ -44,10 +44,13 @@ partial model PartialBuildingWithPartialETS
     "Set to true if the ETS supplies chilled water"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   final parameter Boolean have_eleHea=bui.have_eleHea or ets.have_eleHea
-    "Set to true if the building or ETS has electric heating equipment"
+    "Set to true if the building or ETS has electric heating system"
+    annotation (Evaluate=true, Dialog(group="Configuration"));
+  final parameter Boolean have_fueHea=ets.have_fueHea
+    "Set to true if the ETS has fuel heating system"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   final parameter Boolean have_eleCoo=bui.have_eleCoo or ets.have_eleCoo
-    "Set to true if the building or ETS has electric cooling equipment"
+    "Set to true if the building or ETS has electric cooling system"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   final parameter Boolean have_fan=bui.have_fan or ets.have_fan
     "Set to true if fan power is computed"
@@ -70,6 +73,9 @@ partial model PartialBuildingWithPartialETS
     ets.QHotWat_flow_nominal
     "Design heat flow rate for hot water production (>0)"
     annotation (Dialog(group="Nominal condition",enable=have_hotWat));
+  final parameter Integer nFue=ets.nFue
+    "Number of fuel types"
+    annotation (Dialog(enable=have_fueHea));
   // Parameters for connect clauses.
   final parameter Integer idxPHeaETS=max(
     Modelica.Math.BooleanVectors.countTrue(
@@ -96,82 +102,6 @@ partial model PartialBuildingWithPartialETS
     "Index for connecting the ETS output connector"
     annotation (Evaluate=true);
   // IO CONNECTORS
-  BoundaryConditions.WeatherData.Bus weaBus if have_weaBus
-    "Weather data bus"
-    annotation (Placement(transformation(extent={{-20,180},{20,220}}),
-      iconTransformation(extent={{-10,52},{10,72}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput QHea_flow(
-    final unit="W") if bui.have_heaLoa
-    "Total heating heat flow rate transferred to the loads (>=0)"
-    annotation (Placement(transformation(extent={{220,180},{260,220}}),
-      iconTransformation(extent={{-20,-20},{20,20}},rotation=-90,origin={50,-120})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput QCoo_flow(
-    final unit="W") if bui.have_cooLoa
-    "Total cooling heat flow rate transferred to the loads (<=0)"
-    annotation (Placement(transformation(extent={{220,160},{260,200}}),
-      iconTransformation(extent={{-20,-20},{20,20}},rotation=-90,origin={70,-120})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput PHea(
-    final unit="W") if have_eleHea
-    "Power drawn by heating equipment"
-    annotation (Placement(transformation(extent={{220,140},{260,180}}),
-      iconTransformation(extent={{100,70},{140,110}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput PCoo(
-    final unit="W") if have_eleCoo
-    "Power drawn by cooling equipment"
-    annotation (Placement(transformation(extent={{220,120},{260,160}}),
-      iconTransformation(extent={{100,50},{140,90}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput PFan(
-    final unit="W") if have_fan
-    "Power drawn by fan motors"
-    annotation (Placement(transformation(extent={{220,100},{260,140}}),
-      iconTransformation(extent={{100,30},{140,70}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput PPum(
-    final unit="W") if have_pum
-    "Power drawn by pump motors"
-    annotation (Placement(transformation(extent={{220,80},{260,120}}),
-      iconTransformation(extent={{100,10},{140,50}})));
-  // COMPONENTS
-  replaceable DHC.Loads.BaseClasses.PartialBuilding bui(
-    redeclare final package Medium=MediumBui,
-    final nPorts_aHeaWat=nPorts_heaWat,
-    final nPorts_bHeaWat=nPorts_heaWat,
-    final nPorts_aChiWat=nPorts_chiWat,
-    final nPorts_bChiWat=nPorts_chiWat,
-    final allowFlowReversal=allowFlowReversalBui)
-    "Building model "
-    annotation (Placement(transformation(extent={{-30,8},{30,68}})));
-  replaceable DHC.EnergyTransferStations.BaseClasses.PartialETS ets(
-    redeclare final package MediumBui=MediumBui,
-    redeclare final package MediumSer=MediumSer,
-    redeclare final package MediumSerHea_a=MediumSerHea_a,
-    final nPorts_aHeaWat=nPorts_heaWat,
-    final nPorts_bHeaWat=nPorts_heaWat,
-    final nPorts_aChiWat=nPorts_chiWat,
-    final nPorts_bChiWat=nPorts_chiWat,
-    final allowFlowReversalSer=allowFlowReversalSer,
-    final allowFlowReversalBui=allowFlowReversalBui)
-    "Energy transfer station model"
-    annotation (Placement(transformation(extent={{-30,-86},{30,-26}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum totPHea(
-    final nin=Modelica.Math.BooleanVectors.countTrue(
-      {bui.have_eleHea,ets.have_eleHea}))
-    "Total power drawn by heating equipment"
-    annotation (Placement(transformation(extent={{160,150},{180,170}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum totPCoo(
-    final nin=Modelica.Math.BooleanVectors.countTrue(
-      {bui.have_eleCoo,ets.have_eleCoo}))
-    "Total power drawn by cooling equipment"
-    annotation (Placement(transformation(extent={{140,130},{160,150}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum totPFan(
-    final nin=Modelica.Math.BooleanVectors.countTrue(
-      {bui.have_fan,ets.have_fan}))
-    "Total power drawn by fan motors"
-    annotation (Placement(transformation(extent={{160,110},{180,130}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum totPPum(
-    final nin=Modelica.Math.BooleanVectors.countTrue(
-      {bui.have_pum,ets.have_pum}))
-    "Total power drawn by pump motors"
-    annotation (Placement(transformation(extent={{140,90},{160,110}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_aSerAmb(
     redeclare package Medium = MediumSer,
     m_flow(min=if allowFlowReversalSer then -Modelica.Constants.inf else 0),
@@ -231,6 +161,95 @@ partial model PartialBuildingWithPartialETS
     annotation (Placement(
       transformation(extent={{210,-210},{230,-190}}), iconTransformation(
         extent={{90,-90},{110,-70}})));
+  BoundaryConditions.WeatherData.Bus weaBus if have_weaBus
+    "Weather data bus"
+    annotation (Placement(transformation(extent={{-20,180},{20,220}}),
+      iconTransformation(extent={{-10,52},{10,72}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput QHea_flow(
+    final unit="W") if bui.have_heaLoa
+    "Total heating heat flow rate transferred to the loads (>=0)"
+    annotation (Placement(transformation(extent={{220,180},{260,220}}),
+      iconTransformation(extent={{-20,-20},{20,20}},rotation=-90,origin={50,-120})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput QCoo_flow(
+    final unit="W") if bui.have_cooLoa
+    "Total cooling heat flow rate transferred to the loads (<=0)"
+    annotation (Placement(transformation(extent={{220,160},{260,200}}),
+      iconTransformation(extent={{-20,-20},{20,20}},rotation=-90,origin={70,-120})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput PHea(
+    final unit="W") if have_eleHea and have_heaWat
+    "Power drawn by heating system"
+    annotation (Placement(transformation(extent={{220,140},{260,180}}),
+      iconTransformation(extent={{100,70},{140,110}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput PHot(
+    final unit="W") if have_eleHea and have_hotWat
+    "Power drawn by heating system for hot water production"
+    annotation (Placement(transformation(extent={{220,120},{260,160}}),
+        iconTransformation(extent={{100,70},{140,110}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput PCoo(
+    final unit="W") if have_eleCoo
+    "Power drawn by cooling system"
+    annotation (Placement(transformation(extent={{220,100},{260,140}}),
+      iconTransformation(extent={{100,50},{140,90}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput PFan(
+    final unit="W") if have_fan
+    "Power drawn by fan motors"
+    annotation (Placement(transformation(extent={{220,80},{260,120}}),
+      iconTransformation(extent={{100,30},{140,70}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput PPum(
+    final unit="W") if have_pum
+    "Power drawn by pump motors"
+    annotation (Placement(transformation(extent={{220,60},{260,100}}),
+      iconTransformation(extent={{100,10},{140,50}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput QFue_flow[nFue](
+    each final unit="W") if have_fueHea
+    "Fuel energy input rate"
+    annotation (
+      Placement(transformation(extent={{220,40},{260,80}}),
+        iconTransformation(extent={{-20,-20},{20,20}},
+        rotation=90,
+        origin={90,120})));
+  // COMPONENTS
+  replaceable DHC.Loads.BaseClasses.PartialBuilding bui(
+    redeclare final package Medium=MediumBui,
+    final nPorts_aHeaWat=nPorts_heaWat,
+    final nPorts_bHeaWat=nPorts_heaWat,
+    final nPorts_aChiWat=nPorts_chiWat,
+    final nPorts_bChiWat=nPorts_chiWat,
+    final allowFlowReversal=allowFlowReversalBui)
+    "Building model "
+    annotation (Placement(transformation(extent={{-30,8},{30,68}})));
+  replaceable DHC.EnergyTransferStations.BaseClasses.PartialETS ets(
+    redeclare final package MediumBui=MediumBui,
+    redeclare final package MediumSer=MediumSer,
+    redeclare final package MediumSerHea_a=MediumSerHea_a,
+    final nPorts_aHeaWat=nPorts_heaWat,
+    final nPorts_bHeaWat=nPorts_heaWat,
+    final nPorts_aChiWat=nPorts_chiWat,
+    final nPorts_bChiWat=nPorts_chiWat,
+    final allowFlowReversalSer=allowFlowReversalSer,
+    final allowFlowReversalBui=allowFlowReversalBui)
+    "Energy transfer station model"
+    annotation (Placement(transformation(extent={{-30,-86},{30,-26}})));
+  Buildings.Controls.OBC.CDL.Continuous.MultiSum totPHea(
+    final nin=Modelica.Math.BooleanVectors.countTrue(
+      {bui.have_eleHea,ets.have_eleHea}))
+    "Total power drawn by heating system"
+    annotation (Placement(transformation(extent={{160,150},{180,170}})));
+  Buildings.Controls.OBC.CDL.Continuous.MultiSum totPCoo(
+    final nin=Modelica.Math.BooleanVectors.countTrue(
+      {bui.have_eleCoo,ets.have_eleCoo}))
+    "Total power drawn by cooling system"
+    annotation (Placement(transformation(extent={{140,110},{160,130}})));
+  Buildings.Controls.OBC.CDL.Continuous.MultiSum totPFan(
+    final nin=Modelica.Math.BooleanVectors.countTrue(
+      {bui.have_fan,ets.have_fan}))
+    "Total power drawn by fan motors"
+    annotation (Placement(transformation(extent={{160,90},{180,110}})));
+  Buildings.Controls.OBC.CDL.Continuous.MultiSum totPPum(
+    final nin=Modelica.Math.BooleanVectors.countTrue(
+      {bui.have_pum,ets.have_pum}))
+    "Total power drawn by pump motors"
+    annotation (Placement(transformation(extent={{140,70},{160,90}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain mulQHea_flow(
     u(final unit="W"),
     final k=facMul) if bui.have_heaLoa "Scaling"
@@ -247,15 +266,15 @@ partial model PartialBuildingWithPartialETS
   Buildings.Controls.OBC.CDL.Continuous.Gain mulPCoo(
     u(final unit="W"),
     final k=facMul) if have_eleCoo "Scaling"
-    annotation (Placement(transformation(extent={{190,130},{210,150}})));
+    annotation (Placement(transformation(extent={{190,110},{210,130}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain mulPFan(
     u(final unit="W"),
     final k=facMul) if have_fan "Scaling"
-    annotation (Placement(transformation(extent={{190,110},{210,130}})));
+    annotation (Placement(transformation(extent={{190,90},{210,110}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain mulPPum(
     u(final unit="W"),
     final k=facMul) if have_pum "Scaling"
-    annotation (Placement(transformation(extent={{190,90},{210,110}})));
+    annotation (Placement(transformation(extent={{190,70},{210,90}})));
   Fluid.BaseClasses.MassFlowRateMultiplier mulSerAmbInl(
     redeclare final package Medium = MediumSer,
     final k=1/facMul,
@@ -298,6 +317,15 @@ partial model PartialBuildingWithPartialETS
     typ == TypDisSys.CombinedGeneration2to4 or
     typ == TypDisSys.Cooling "Mass flow rate multiplier"
     annotation (Placement(transformation(extent={{180,-210},{200,-190}})));
+  Buildings.Controls.OBC.CDL.Continuous.Gain mulPHot(
+    u(final unit="W"),
+    final k=facMul) if have_eleHea and have_hotWat
+    "Scaling"
+    annotation (Placement(transformation(extent={{190,130},{210,150}})));
+  Buildings.Controls.OBC.CDL.Continuous.Gain mulQFue_flow[nFue](u(final unit="W"),
+      final k=facMul) if
+                       have_eleHea "Scaling"
+    annotation (Placement(transformation(extent={{190,50},{210,70}})));
 initial equation
   assert(ets.have_heaWat == bui.have_heaWat,
     "In "+getInstanceName()+": The ETS component is configured with have_heaWat="+
@@ -338,25 +366,25 @@ equation
     annotation (Line(points={{32,56},{126,56},{126,160},{158,160}},
                                                                color={0,0,127}));
   connect(ets.PHea,totPHea.u[idxPHeaETS])
-    annotation (Line(points={{34,-48},{130,-48},{130,158},{158,158},{158,160}},
+    annotation (Line(points={{34,-50},{128,-50},{128,158},{158,158},{158,160}},
                                                                  color={0,0,127}));
   connect(bui.PCoo,totPCoo.u[1])
-    annotation (Line(points={{32,52},{64,52},{64,140},{138,140}},
+    annotation (Line(points={{32,52},{64,52},{64,120},{138,120}},
                                                               color={0,0,127}));
   connect(ets.PCoo,totPCoo.u[idxPCooETS])
-    annotation (Line(points={{34,-52},{66,-52},{66,138},{138,138},{138,140}},
+    annotation (Line(points={{34,-54},{66,-54},{66,118},{138,118},{138,120}},
                                                                 color={0,0,127}));
   connect(bui.PFan,totPFan.u[1])
-    annotation (Line(points={{32,48},{132,48},{132,120},{158,120}},
+    annotation (Line(points={{32,48},{134,48},{134,100},{158,100}},
                                                                color={0,0,127}));
   connect(ets.PFan,totPFan.u[idxPFanETS])
-    annotation (Line(points={{34,-56},{136,-56},{136,118},{158,118},{158,120}},
+    annotation (Line(points={{34,-58},{136,-58},{136,98},{158,98},{158,100}},
                                                                  color={0,0,127}));
   connect(bui.PPum,totPPum.u[1])
-    annotation (Line(points={{32,44},{72,44},{72,100},{138,100}},
+    annotation (Line(points={{32,44},{72,44},{72,80},{138,80}},
                                                               color={0,0,127}));
   connect(ets.PPum,totPPum.u[idxPPumETS])
-    annotation (Line(points={{34,-60},{74,-60},{74,98},{138,98},{138,100}},
+    annotation (Line(points={{34,-62},{74,-62},{74,78},{138,78},{138,80}},
                                                                 color={0,0,127}));
   connect(bui.QHea_flow, mulQHea_flow.u) annotation (Line(points={{32,64},{118,64},
           {118,200},{188,200}}, color={0,0,127}));
@@ -371,17 +399,17 @@ equation
   connect(mulPHea.y, PHea)
     annotation (Line(points={{212,160},{240,160}}, color={0,0,127}));
   connect(totPCoo.y, mulPCoo.u)
-    annotation (Line(points={{162,140},{188,140}}, color={0,0,127}));
+    annotation (Line(points={{162,120},{188,120}}, color={0,0,127}));
   connect(mulPCoo.y, PCoo)
-    annotation (Line(points={{212,140},{240,140}}, color={0,0,127}));
-  connect(totPFan.y, mulPFan.u)
-    annotation (Line(points={{182,120},{188,120}}, color={0,0,127}));
-  connect(mulPFan.y, PFan)
     annotation (Line(points={{212,120},{240,120}}, color={0,0,127}));
-  connect(totPPum.y, mulPPum.u)
-    annotation (Line(points={{162,100},{188,100}}, color={0,0,127}));
-  connect(mulPPum.y, PPum)
+  connect(totPFan.y, mulPFan.u)
+    annotation (Line(points={{182,100},{188,100}}, color={0,0,127}));
+  connect(mulPFan.y, PFan)
     annotation (Line(points={{212,100},{240,100}}, color={0,0,127}));
+  connect(totPPum.y, mulPPum.u)
+    annotation (Line(points={{162,80},{188,80}},   color={0,0,127}));
+  connect(mulPPum.y, PPum)
+    annotation (Line(points={{212,80},{240,80}},   color={0,0,127}));
   connect(port_aSerCoo,mulSerCooInl. port_a)
     annotation (Line(points={{-220,-200},{-200,-200}}, color={0,127,255}));
   connect(mulSerCooInl.port_b, ets.port_aSerCoo) annotation (Line(points={{-180,
@@ -406,6 +434,12 @@ equation
           {168,-76},{168,-120},{180,-120}}, color={0,127,255}));
   connect(mulSerAmbOut.port_b, port_bSerAmb)
     annotation (Line(points={{200,-120},{220,-120}}, color={0,127,255}));
+  connect(mulPHot.y, PHot)
+    annotation (Line(points={{212,140},{240,140}}, color={0,0,127}));
+  connect(mulQFue_flow.y, QFue_flow)
+    annotation (Line(points={{212,60},{240,60}}, color={0,0,127}));
+  connect(ets.QFue_flow, mulQFue_flow.u) annotation (Line(points={{34,-66},{140,
+          -66},{140,60},{188,60}}, color={0,0,127}));
   annotation (
     DefaultComponentName="bui",
     Icon(

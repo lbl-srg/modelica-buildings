@@ -163,7 +163,7 @@ equation
       info="<html>
 <p>
 This example validates the use of the unit multiplier and zone multiplier factors
-for models of terminal unit equipment inheriting from
+for models of terminal units inheriting from
 <a href=\"modelica://Buildings.Experimental.DHC.Loads.BaseClasses.PartialTerminalUnit\">
 Buildings.Experimental.DHC.Loads.BaseClasses.PartialTerminalUnit</a>.
 </p>

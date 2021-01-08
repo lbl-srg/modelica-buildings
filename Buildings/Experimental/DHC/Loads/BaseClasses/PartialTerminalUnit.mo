@@ -29,10 +29,10 @@ partial model PartialTerminalUnit
     "Set to true if the chilled water based heat exchanger operates in change-over"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Boolean have_eleHea=false
-    "Set to true if the system has electric heating equipment"
+    "Set to true if the system has electric heating system"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Boolean have_eleCoo=false
-    "Set to true if the system has electric cooling equipment"
+    "Set to true if the system has electric cooling system"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Boolean have_heaPor=false
     "Set to true for heat ports on the load side"
@@ -162,13 +162,13 @@ partial model PartialTerminalUnit
   Modelica.Blocks.Interfaces.RealOutput PHea(
     final quantity="Power",
     final unit="W") if have_eleHea
-    "Power drawn by heating equipment"
+    "Power drawn by heating system"
     annotation (Placement(transformation(extent={{200,160},{240,200}}),
     iconTransformation(extent={{120,30},{140,50}})));
   Modelica.Blocks.Interfaces.RealOutput PCoo(
     final quantity="Power",
     final unit="W") if have_eleCoo
-    "Power drawn by cooling equipment"
+    "Power drawn by cooling system"
     annotation (Placement(transformation(extent={{200,140},{240,180}}),
     iconTransformation(extent={{120,10},{140,30}})));
   Modelica.Blocks.Interfaces.RealOutput PFan(
@@ -509,7 +509,7 @@ Buildings.Experimental.DHC.Loads.SimpleRoomODE</a>.
 </ul>
 <p>
 The heating or cooling nominal capacity is provided for the water based heat
-exchangers only. Electric heating or cooling equipment is supposed to have
+exchangers only. Electric heating or cooling systems are supposed to have
 an infinite capacity.
 </p>
 <h4>Connection with the flow distribution model</h4>
