@@ -438,6 +438,8 @@ equation
     annotation (Line(points={{212,60},{240,60}}, color={0,0,127}));
   connect(ets.QFue_flow, mulQFue_flow.u) annotation (Line(points={{34,-66},{140,
           -66},{140,60},{188,60}}, color={0,0,127}));
+  connect(ets.PHot, mulPHot.u) annotation (Line(points={{34,-46},{62,-46},{62,140},
+          {188,140}}, color={0,0,127}));
   annotation (
     DefaultComponentName="bui",
     Icon(
