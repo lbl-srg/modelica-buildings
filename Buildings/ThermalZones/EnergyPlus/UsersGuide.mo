@@ -1133,7 +1133,7 @@ This user guide describes how to use the EnergyPlus building envelope model.
 Currently Windows 64 bit and Linux 64 bit are supported.
 </p>
 <p>
-To instanciate one or several buildnig models, proceed as follows:
+To instantiate one or several building models, proceed as follows:
 </p>
 <ol>
 <li>
@@ -1157,7 +1157,7 @@ in the instance <code>building</code>.
 </li>
 <li>
 In the model that contains the instance <code>building</code>,
-or in any model instanciated by that model, instantiate
+or in any model instantiated by that model, instantiate
 for each thermal zone an instance of
 <a href=\"modelica://Buildings.ThermalZones.EnergyPlus.ThermalZone\">
 Buildings.ThermalZones.EnergyPlus.ThermalZone</a>.
