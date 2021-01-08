@@ -9,7 +9,7 @@ package UsersGuide "User's Guide"
   defaultComponentName="useGui",
   Documentation(info="<html>
 <p>
-The <code>Buildings.Control.OBC</code> package follows the naming conventions of
+The <code>Buildings.Controls.OBC</code> package follows the naming conventions of
 the <code>Buildings</code> Library,
 see <a href=\"modelica://Buildings.UsersGuide.Conventions\">Buildings.UsersGuide.Conventions</a>.
 The table below shows some examples of commonly used names.
@@ -124,10 +124,8 @@ as it is clear that this will be the room temperature.
   annotation (preferredView="info",
   defaultComponentName="useGui",
   Documentation(info="<html>
-<p align=\"right\">
-<img alt=\"OBC logo\" src=\"modelica://Buildings/Resources/Images/Controls/OBC/OBC_stacked_150dpi_small.png\" style=\"float:right;\"/>
-</p>
 <p>
+<img alt=\"OBC logo\" src=\"modelica://Buildings/Resources/Images/Controls/OBC/OBC_stacked_150dpi_small.png\" style=\"float:right;\"/>
 The package <a href=\"modelica://Buildings.Controls.OBC\">Buildings.Controls.OBC</a>
 contains the Control Description Language (CDL) and models for building control that
 are implemented using CDL.
