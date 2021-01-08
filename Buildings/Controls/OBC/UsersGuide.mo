@@ -17,19 +17,19 @@ Note that the names are generally composed as follows:
 </p>
 <ul>
 <li>
-<p>If needed to understand the context, as a prefix <code>u</code> for input or <code>y</code> for output may be used.</p>
+<p>If needed to understand the context, a prefix <code>u</code> for input or <code>y</code> for output may be used.</p>
 </li>
 <li>
 <p>Next, the quantity is used, such as <code>TOut</code> or <code>TZonHea</code>.</p>
 </li>
 <li>
-<p>Finally, as a postfix a qualifier may be added, such as <code>Set</code> for setpoint, <code>Min</code> for minimum,
+<p>Finally, as a postfix a qualifier may be added, such as <code>Set</code> for set point, <code>Min</code> for minimum,
 or <code>Coo</code> for cooling.
 </p>
 </li>
 </ul>
 <p>
-Generally, we strife for short names, and therefore often prefix or postfix are omitted if
+Generally, we strive for short names, and therefore often prefix or postfix are omitted if
 the type of the variable is clear from the context.
 For example, a room temperature thermostat may simply use <code>T</code> as an input
 as it is clear that this will be the room temperature.
@@ -40,7 +40,7 @@ as it is clear that this will be the room temperature.
 <tr><td><code>TOut</code> (<code>hOut</code>)</td>
     <td>Outdoor air temperature (enthalpy)</td></tr>
 <tr><td><code>TZonHeaSet</code> (<code>TZonCooSet</code>)</td>
-    <td>Zone heating (cooling) setpoint temperature</td></tr>
+    <td>Zone heating (cooling) set point temperature</td></tr>
 <tr><td><code>VDis_flow</code></td>
     <td>Measured discharge airflow rate</td></tr>
 <tr><td><code>dpBui</code></td>
@@ -59,8 +59,6 @@ as it is clear that this will be the room temperature.
     <td>Heating (cooling) loop signal</td></tr>
 <tr><td><code>yPosMin</code> (<code>yPosMax</code>)</td>
     <td>Minimum (maximum) position</td></tr>
-<tr><td><code>yDamSet</code> (<code>yValSet</code>)</td>
-    <td>Damper (valve) position setpoint</td></tr>
 <tr><td><code>yHeaCoi</code> (<code>yCooCoi</code>)</td>
     <td>Heating (cooling) coil control signal</td></tr>
 <tr><td colspan=\"2\"><b>Parameter names</b></td></tr>
@@ -72,21 +70,21 @@ as it is clear that this will be the room temperature.
 <tr><td><code>AFlo</code></td>
     <td>Area of the zone</td></tr>
 <tr><td><code>VDisHeaSetMax_flow</code> (<code>VDisCooSetMax_flow</code>)</td>
-    <td>Zone maximum heating (cooling) airflow setpoint</td></tr>
+    <td>Zone maximum heating (cooling) airflow set point</td></tr>
 <tr><td><code>VOutPerAre_flow</code> (<code>VOutPerPer_flow</code>)</td>
-    <td>Outdoor air rate per unit area (person)</td></tr>
+    <td>Outdoor airflow rate per unit area (person)</td></tr>
 <tr><td><code>V_flow_nominal</code></td>
     <td>Nominal volume flow rate</td></tr>
 <tr><td><code>VOutMin_flow</code></td>
     <td>Calculated minimum outdoor airflow rate at design stage</td></tr>
 <tr><td><code>pMinSet</code> (<code>pMaxSet</code>)</td>
-    <td>Minimum (maximum) pressure setpoint for fan speed control</td></tr>
+    <td>Minimum (maximum) pressure set point for fan speed control</td></tr>
 <tr><td><code>TSupSetMin</code> (<code>TSupSetMax</code>)</td>
     <td>Lowest (Highest) cooling supply air temperature</td></tr>
 <tr><td><code>TOccHeaSet</code> (<code>TUnoHeaSet</code>)</td>
-    <td>Zone occupied (unoccupied) heating setpoint</td></tr>
+    <td>Zone occupied (unoccupied) heating set point</td></tr>
 <tr><td><code>TZonCooMax</code> (<code>TZonCooMin</code>)</td>
-    <td>Maximum (minimum) zone cooling setpoint when cooling is on</td></tr>
+    <td>Maximum (minimum) zone cooling set point when cooling is on</td></tr>
 <tr><td><code>retDamPhyPosMax</code> (<code>outDamPhyPosMax</code>)</td>
     <td>Physically fixed maximum position of the return (outdoor) air damper</td></tr>
 <tr><td><code>samplePeriod</code></td>
