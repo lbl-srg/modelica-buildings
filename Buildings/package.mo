@@ -8815,7 +8815,7 @@ how to get started, best practices, how to post-process results using Python,
 work-around for problems and how to develop models.<br/>
 </li>
 <li>
-Some of packages have their own
+Some packages have their own
 User's Guides that can be accessed by the links below.
 These User's Guides are explaining items that are specific to the
 particular package.<br/>
