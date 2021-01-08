@@ -46,8 +46,8 @@ partial model PartialBuildingWithPartialETS
   final parameter Boolean have_eleHea=bui.have_eleHea or ets.have_eleHea
     "Set to true if the building or ETS has electric heating system"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  final parameter Boolean have_fueHea=ets.have_fueHea
-    "Set to true if the ETS has fuel heating system"
+  final parameter Integer nFue=ets.nFue
+    "Number of fuel types (0 means no fuel heating system)"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   final parameter Boolean have_eleCoo=bui.have_eleCoo or ets.have_eleCoo
     "Set to true if the building or ETS has electric cooling system"
@@ -73,9 +73,6 @@ partial model PartialBuildingWithPartialETS
     ets.QHotWat_flow_nominal
     "Design heat flow rate for hot water production (>0)"
     annotation (Dialog(group="Nominal condition",enable=have_hotWat));
-  final parameter Integer nFue=ets.nFue
-    "Number of fuel types"
-    annotation (Dialog(enable=have_fueHea));
   // Parameters for connect clauses.
   final parameter Integer idxPHeaETS=max(
     Modelica.Math.BooleanVectors.countTrue(
@@ -201,7 +198,7 @@ partial model PartialBuildingWithPartialETS
     annotation (Placement(transformation(extent={{220,60},{260,100}}),
       iconTransformation(extent={{100,10},{140,50}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput QFue_flow[nFue](
-    each final unit="W") if have_fueHea
+    each final unit="W") if nFue>0
     "Fuel energy input rate"
     annotation (
       Placement(transformation(extent={{220,40},{260,80}}),

@@ -48,8 +48,8 @@ partial model PartialETS
   parameter Boolean have_eleHea=false
     "Set to true if the ETS has electric heating system"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  parameter Boolean have_fueHea=false
-    "Set to true if the ETS has fuel heating system"
+  parameter Integer nFue=0
+    "Number of fuel types (0 means no fuel heating system)"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Boolean have_eleCoo=false
     "Set to true if the ETS has electric cooling system"
@@ -72,12 +72,9 @@ partial model PartialETS
   parameter Modelica.SIunits.HeatFlowRate QChiWat_flow_nominal=0
     "Design heat flow rate for chilled water production (<0)"
     annotation (Dialog(group="Nominal condition", enable=have_chiWat));
-  parameter Integer nFue=1
-    "Number of fuel types"
-    annotation (Dialog(enable=have_fueHea));
   parameter Buildings.Fluid.Data.Fuels.Generic fue[nFue]
     "Fuel type"
-     annotation (choicesAllMatching = true, Dialog(enable=have_fueHea));
+     annotation (choicesAllMatching = true, Dialog(enable=nFue>0));
   // IO CONNECTORS
   Modelica.Fluid.Interfaces.FluidPorts_a ports_aHeaWat[nPorts_aHeaWat](
     redeclare each package Medium=MediumBui,
@@ -224,7 +221,7 @@ partial model PartialETS
     annotation (Placement(transformation(extent={{300,-100},{340,-60}}),
       iconTransformation(extent={{300,-100},{380,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput QFue_flow[nFue](
-    each final unit="W") if have_fueHea
+    each final unit="W") if nFue>0
     "Fuel energy input rate"
     annotation (
       Placement(transformation(extent={{300,-140},{340,-100}}),

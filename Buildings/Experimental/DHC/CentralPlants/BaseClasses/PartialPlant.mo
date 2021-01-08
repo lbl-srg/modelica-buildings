@@ -24,8 +24,8 @@ partial model PartialPlant
   parameter Boolean have_eleHea=false
     "Set to true if the plant has electric heating system"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  parameter Boolean have_fueHea=false
-    "Set to true if the plant has fuel heating system"
+  parameter Integer nFue=0
+    "Number of fuel types (0 means no fuel heating system)"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Boolean have_eleCoo=false
     "Set to true if the plant has electric cooling system"
@@ -36,12 +36,9 @@ partial model PartialPlant
   parameter Boolean allowFlowReversal=false
     "Set to true to allow flow reversal in service lines"
     annotation (Dialog(tab="Assumptions"),Evaluate=true);
-  parameter Integer nFue=1
-    "Number of fuel types"
-    annotation (Dialog(enable=have_fueHea));
   parameter Buildings.Fluid.Data.Fuels.Generic fue[nFue]
     "Fuel type"
-     annotation (choicesAllMatching = true, Dialog(enable=have_fueHea));
+     annotation (choicesAllMatching = true, Dialog(enable=nFue>0));
   // IO CONNECTORS
   Modelica.Fluid.Interfaces.FluidPort_a port_aSerAmb(
     redeclare package Medium = Medium,
@@ -126,7 +123,7 @@ partial model PartialPlant
     annotation (Placement(transformation(extent={{300,140},{340,180}}),
       iconTransformation(extent={{300,120},{380,200}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput QFue_flow[nFue](
-    each final unit="W") if have_fueHea
+    each final unit="W") if nFue>0
     "Fuel energy input rate"
     annotation (
       Placement(transformation(extent={{300,100},{340,140}}),
