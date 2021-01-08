@@ -122,8 +122,8 @@ as it is clear that this will be the room temperature.
   annotation (preferredView="info",
   defaultComponentName="useGui",
   Documentation(info="<html>
-<p>
 <img alt=\"OBC logo\" src=\"modelica://Buildings/Resources/Images/Controls/OBC/OBC_stacked_150dpi_small.png\" style=\"float:right;\"/>
+<p>
 The package <a href=\"modelica://Buildings.Controls.OBC\">Buildings.Controls.OBC</a>
 contains the Control Description Language (CDL) and models for building control that
 are implemented using CDL.

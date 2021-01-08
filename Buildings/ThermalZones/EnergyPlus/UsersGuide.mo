@@ -1125,9 +1125,7 @@ end SupportedOutputVariables;
     Documentation(
       info="<html>
 <h4>Overview</h4>
-<p align=\"right\">
 <img alt=\"Spawn logo\" src=\"modelica://Buildings/Resources/Images/ThermalZones/EnergyPlus/spawn_icon_darkbluetxlowres.png\"  style=\"float:right;height=203px;width:587px;\"/>
-</p>
 <p>
 This user guide describes how to use the EnergyPlus building envelope model.
 </p>
@@ -1143,7 +1141,7 @@ Create an instance of
 <a href=\"modelica://Buildings.ThermalZones.EnergyPlus.Building\">
 Buildings.ThermalZones.EnergyPlus.Building</a> to specify the building model.
 This instance is automatically named <code>building</code> and this
-name must not be changed.<br/>
+name must not be changed.
 </li>
 <li>
 In the instance <code>building</code>, specify building-level parameters such as the
