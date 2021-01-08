@@ -319,9 +319,10 @@ partial model PartialBuildingWithPartialETS
     final k=facMul) if have_eleHea and have_hotWat
     "Scaling"
     annotation (Placement(transformation(extent={{190,130},{210,150}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain mulQFue_flow[nFue](u(final unit="W"),
-      final k=facMul) if
-                       have_eleHea "Scaling"
+  Buildings.Controls.OBC.CDL.Continuous.Gain mulQFue_flow[nFue](
+    u(each final unit="W"),
+    each final k=facMul) if nFue>0
+    "Scaling"
     annotation (Placement(transformation(extent={{190,50},{210,70}})));
 initial equation
   assert(ets.have_heaWat == bui.have_heaWat,
