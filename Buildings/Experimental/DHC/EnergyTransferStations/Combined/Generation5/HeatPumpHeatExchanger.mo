@@ -404,9 +404,6 @@ model HeatPumpHeatExchanger
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={0,-264})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum PHeaTot(final nin=2)
-    "Total heat pump power"
-    annotation (Placement(transformation(extent={{230,50},{250,70}})));
 equation
   connect(TChiWatSupSet, conTChiWat.u_s) annotation (Line(points={{-320,0},{-200,
           0},{-200,-200},{-152,-200}},  color={0,0,127}));
@@ -434,8 +431,9 @@ equation
   connect(gai2.y, pum1HexChi.m_flow_in)
     annotation (Line(points={{-86,-200},{100,-200},{100,-328}},
                                                           color={0,0,127}));
-  connect(PPumTot.y, PPum) annotation (Line(points={{252,400},{276,400},{276,-60},
-          {320,-60}}, color={0,0,127}));
+  connect(PPumTot.y, PPum) annotation (Line(points={{252,400},{276,400},{276,
+          -80},{320,-80}},
+                      color={0,0,127}));
   connect(ports_aHeaWat[1], senMasFloHeaWat.port_a) annotation (Line(points={{-300,
           260},{-250,260}},                            color={0,127,255}));
   connect(bypHeaWatSup.port_2, senTHeaWatSup.port_a)
@@ -547,15 +545,10 @@ equation
           20,211},{20,-246},{6,-246},{6,-252}}, color={0,0,127}));
   connect(masFloHea.y, swiFlo.mPos_flow) annotation (Line(points={{0,-276},{0,
           -320},{-16,-320},{-16,-376},{-12,-376}}, color={0,0,127}));
-  connect(proHeaWat.PHea, PHeaTot.u[1]) annotation (Line(points={{12,217},{212,
-          217},{212,61},{228,61}},      color={0,0,127}));
-  connect(proHotWat.PHea, PHeaTot.u[2]) annotation (Line(points={{12,37},{212,
-          37},{212,59},{228,59}},
-                              color={0,0,127}));
-  connect(zer.y, PHeaTot.u[2]) annotation (Line(points={{161,360},{216,360},{
-          216,59},{228,59}},       color={0,0,127}));
-  connect(PHeaTot.y, PHea) annotation (Line(points={{252,60},{282,60},{282,60},{
-          320,60}}, color={0,0,127}));
+  connect(proHeaWat.PHea, PHea) annotation (Line(points={{12,217},{224,217},{
+          224,80},{320,80}}, color={0,0,127}));
+  connect(proHotWat.PHea, PHot) annotation (Line(points={{12,37},{288,37},{288,
+          40},{320,40}}, color={0,0,127}));
   annotation (
   defaultComponentName="ets",
   Documentation(info="<html>
