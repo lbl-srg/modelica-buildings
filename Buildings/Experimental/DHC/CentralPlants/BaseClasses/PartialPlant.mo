@@ -25,7 +25,7 @@ partial model PartialPlant
     "Set to true if the plant has electric heating system"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Integer nFue=0
-    "Number of fuel types (0 means no fuel heating system)"
+    "Number of fuel types (0 means no combustion system)"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Boolean have_eleCoo=false
     "Set to true if the plant has electric cooling system"

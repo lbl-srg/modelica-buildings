@@ -47,7 +47,7 @@ partial model PartialBuildingWithPartialETS
     "Set to true if the building or ETS has electric heating system"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   final parameter Integer nFue=ets.nFue
-    "Number of fuel types (0 means no fuel heating system)"
+    "Number of fuel types (0 means no combustion system)"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   final parameter Boolean have_eleCoo=bui.have_eleCoo or ets.have_eleCoo
     "Set to true if the building or ETS has electric cooling system"
@@ -61,18 +61,18 @@ partial model PartialBuildingWithPartialETS
   final parameter Boolean have_weaBus=bui.have_weaBus or ets.have_weaBus
     "Set to true to use a weather bus"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  final parameter Modelica.SIunits.HeatFlowRate QChiWat_flow_nominal=
-    ets.QChiWat_flow_nominal
-    "Design heat flow rate for chilled water production (<0)"
-    annotation (Dialog(group="Nominal condition",enable=have_chiWat));
-  final parameter Modelica.SIunits.HeatFlowRate QHeaWat_flow_nominal=
+  final parameter Modelica.SIunits.HeatFlowRate QHeaWat_flow_nominal(min=0)=
     ets.QHeaWat_flow_nominal
-    "Design heat flow rate for heating water production (>0)"
+    "Nominal capacity of heating system (>=0)"
     annotation (Dialog(group="Nominal condition",enable=have_heaWat));
-  final parameter Modelica.SIunits.HeatFlowRate QHotWat_flow_nominal=
+  final parameter Modelica.SIunits.HeatFlowRate QHotWat_flow_nominal(min=0)=
     ets.QHotWat_flow_nominal
-    "Design heat flow rate for hot water production (>0)"
+    "Nominal capacity of hot water production system (>=0)"
     annotation (Dialog(group="Nominal condition",enable=have_hotWat));
+  final parameter Modelica.SIunits.HeatFlowRate QChiWat_flow_nominal(max=0)=
+    ets.QChiWat_flow_nominal
+    "Nominal capacity of cooling system (<=0)"
+    annotation (Dialog(group="Nominal condition",enable=have_chiWat));
   // Parameters for connect clauses.
   final parameter Integer idxPHeaETS=max(
     Modelica.Math.BooleanVectors.countTrue(
@@ -106,7 +106,7 @@ partial model PartialBuildingWithPartialETS
     typ == TypDisSys.CombinedGeneration5
     "Fluid connector for ambient water service supply line"
     annotation (
-      Placement(transformation(extent={{-230,-130},{-210,-110}}),
+      Placement(transformation(extent={{-310,-210},{-290,-190}}),
         iconTransformation(extent={{-110,-10},{-90,10}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_bSerAmb(
     redeclare package Medium = MediumSer,
@@ -115,7 +115,7 @@ partial model PartialBuildingWithPartialETS
     typ == TypDisSys.CombinedGeneration5
     "Fluid connector for ambient water service return line"
     annotation (
-      Placement(transformation(extent={{210,-130},{230,-110}}),
+      Placement(transformation(extent={{290,-210},{310,-190}}),
         iconTransformation(extent={{90,-10},{110,10}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_aSerHea(
     redeclare package Medium = MediumSerHea_a,
@@ -125,7 +125,7 @@ partial model PartialBuildingWithPartialETS
     typ <> TypDisSys.CombinedGeneration5
     "Fluid connector for heating service supply line"
     annotation (Placement(
-      transformation(extent={{-230,-170},{-210,-150}}), iconTransformation(
+      transformation(extent={{-310,-250},{-290,-230}}), iconTransformation(
         extent={{-110,-50},{-90,-30}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_bSerHea(
     redeclare package Medium = MediumSer,
@@ -135,7 +135,7 @@ partial model PartialBuildingWithPartialETS
     typ <> TypDisSys.CombinedGeneration5
     "Fluid connector for heating service return line"
     annotation (Placement(
-        transformation(extent={{210,-170},{230,-150}}), iconTransformation(
+        transformation(extent={{290,-250},{310,-230}}), iconTransformation(
           extent={{90,-50},{110,-30}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_aSerCoo(
     redeclare package Medium = MediumSer,
@@ -145,7 +145,7 @@ partial model PartialBuildingWithPartialETS
     typ == TypDisSys.CombinedGeneration2to4 or
     typ == TypDisSys.Cooling
     "Fluid connector for cooling service supply line"
-    annotation (Placement(transformation(extent={{-230,-210},{-210,-190}}),
+    annotation (Placement(transformation(extent={{-310,-290},{-290,-270}}),
        iconTransformation(extent={{-110,-90},{-90,-70}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_bSerCoo(
     redeclare package Medium = MediumSer,
@@ -156,52 +156,47 @@ partial model PartialBuildingWithPartialETS
     typ == TypDisSys.Cooling
     "Fluid connector for cooling service return line"
     annotation (Placement(
-      transformation(extent={{210,-210},{230,-190}}), iconTransformation(
+      transformation(extent={{290,-290},{310,-270}}), iconTransformation(
         extent={{90,-90},{110,-70}})));
   BoundaryConditions.WeatherData.Bus weaBus if have_weaBus
     "Weather data bus"
-    annotation (Placement(transformation(extent={{-20,180},{20,220}}),
-      iconTransformation(extent={{-10,52},{10,72}})));
+    annotation (Placement(transformation(extent={{-20,260},{20,300}}),
+      iconTransformation(extent={{-10,90},{10,110}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput QHea_flow(
     final unit="W") if bui.have_heaLoa
     "Total heating heat flow rate transferred to the loads (>=0)"
-    annotation (Placement(transformation(extent={{220,180},{260,220}}),
+    annotation (Placement(transformation(extent={{300,260},{340,300}}),
       iconTransformation(extent={{-20,-20},{20,20}},rotation=-90,origin={50,-120})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput QCoo_flow(
     final unit="W") if bui.have_cooLoa
     "Total cooling heat flow rate transferred to the loads (<=0)"
-    annotation (Placement(transformation(extent={{220,160},{260,200}}),
+    annotation (Placement(transformation(extent={{300,220},{340,260}}),
       iconTransformation(extent={{-20,-20},{20,20}},rotation=-90,origin={70,-120})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput PHea(
-    final unit="W") if have_eleHea and have_heaWat
+    final unit="W") if have_eleHea
     "Power drawn by heating system"
-    annotation (Placement(transformation(extent={{220,140},{260,180}}),
+    annotation (Placement(transformation(extent={{300,182},{340,222}}),
       iconTransformation(extent={{100,70},{140,110}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput PHot(
-    final unit="W") if have_eleHea and have_hotWat
-    "Power drawn by heating system for hot water production"
-    annotation (Placement(transformation(extent={{220,120},{260,160}}),
-        iconTransformation(extent={{100,70},{140,110}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput PCoo(
     final unit="W") if have_eleCoo
     "Power drawn by cooling system"
-    annotation (Placement(transformation(extent={{220,100},{260,140}}),
+    annotation (Placement(transformation(extent={{300,140},{340,180}}),
       iconTransformation(extent={{100,50},{140,90}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput PFan(
     final unit="W") if have_fan
     "Power drawn by fan motors"
-    annotation (Placement(transformation(extent={{220,80},{260,120}}),
+    annotation (Placement(transformation(extent={{300,100},{340,140}}),
       iconTransformation(extent={{100,30},{140,70}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput PPum(
     final unit="W") if have_pum
     "Power drawn by pump motors"
-    annotation (Placement(transformation(extent={{220,60},{260,100}}),
+    annotation (Placement(transformation(extent={{300,60},{340,100}}),
       iconTransformation(extent={{100,10},{140,50}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput QFue_flow[nFue](
     each final unit="W") if nFue>0
     "Fuel energy input rate"
     annotation (
-      Placement(transformation(extent={{220,40},{260,80}}),
+      Placement(transformation(extent={{300,20},{340,60}}),
         iconTransformation(extent={{-20,-20},{20,20}},
         rotation=90,
         origin={90,120})));
@@ -231,73 +226,73 @@ partial model PartialBuildingWithPartialETS
     final nin=Modelica.Math.BooleanVectors.countTrue(
       {bui.have_eleHea,ets.have_eleHea}))
     "Total power drawn by heating system"
-    annotation (Placement(transformation(extent={{160,150},{180,170}})));
+    annotation (Placement(transformation(extent={{242,192},{262,212}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiSum totPCoo(
     final nin=Modelica.Math.BooleanVectors.countTrue(
       {bui.have_eleCoo,ets.have_eleCoo}))
     "Total power drawn by cooling system"
-    annotation (Placement(transformation(extent={{140,110},{160,130}})));
+    annotation (Placement(transformation(extent={{240,150},{260,170}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiSum totPFan(
     final nin=Modelica.Math.BooleanVectors.countTrue(
       {bui.have_fan,ets.have_fan}))
     "Total power drawn by fan motors"
-    annotation (Placement(transformation(extent={{160,90},{180,110}})));
+    annotation (Placement(transformation(extent={{240,110},{260,130}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiSum totPPum(
     final nin=Modelica.Math.BooleanVectors.countTrue(
       {bui.have_pum,ets.have_pum}))
     "Total power drawn by pump motors"
-    annotation (Placement(transformation(extent={{140,70},{160,90}})));
+    annotation (Placement(transformation(extent={{240,70},{260,90}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain mulQHea_flow(
     u(final unit="W"),
     final k=facMul) if bui.have_heaLoa "Scaling"
-    annotation (Placement(transformation(extent={{190,190},{210,210}})));
+    annotation (Placement(transformation(extent={{270,270},{290,290}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain mulQCoo_flow(
     u(final unit="W"),
     final k=facMul) if bui.have_cooLoa
     "Scaling"
-    annotation (Placement(transformation(extent={{190,170},{210,190}})));
+    annotation (Placement(transformation(extent={{270,230},{290,250}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain mulPHea(
     u(final unit="W"),
     final k=facMul) if have_eleHea "Scaling"
-    annotation (Placement(transformation(extent={{190,150},{210,170}})));
+    annotation (Placement(transformation(extent={{270,192},{290,212}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain mulPCoo(
     u(final unit="W"),
     final k=facMul) if have_eleCoo "Scaling"
-    annotation (Placement(transformation(extent={{190,110},{210,130}})));
+    annotation (Placement(transformation(extent={{270,150},{290,170}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain mulPFan(
     u(final unit="W"),
     final k=facMul) if have_fan "Scaling"
-    annotation (Placement(transformation(extent={{190,90},{210,110}})));
+    annotation (Placement(transformation(extent={{270,110},{290,130}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain mulPPum(
     u(final unit="W"),
     final k=facMul) if have_pum "Scaling"
-    annotation (Placement(transformation(extent={{190,70},{210,90}})));
+    annotation (Placement(transformation(extent={{270,70},{290,90}})));
   Fluid.BaseClasses.MassFlowRateMultiplier mulSerAmbInl(
     redeclare final package Medium = MediumSer,
     final k=1/facMul,
     final allowFlowReversal=allowFlowReversalSer) if
     typ == TypDisSys.CombinedGeneration5 "Mass flow rate multiplier"
-    annotation (Placement(transformation(extent={{-200,-130},{-180,-110}})));
+    annotation (Placement(transformation(extent={{-280,-210},{-260,-190}})));
   Fluid.BaseClasses.MassFlowRateMultiplier mulSerAmbOut(
     redeclare final package Medium = MediumSer,
     final k=facMul,
     final allowFlowReversal=allowFlowReversalSer) if
     typ == TypDisSys.CombinedGeneration5 "Mass flow rate multiplier"
-    annotation (Placement(transformation(extent={{180,-130},{200,-110}})));
+    annotation (Placement(transformation(extent={{260,-210},{280,-190}})));
   Fluid.BaseClasses.MassFlowRateMultiplier mulSerHeaInl(
     redeclare final package Medium = MediumSerHea_a,
     final k=1/facMul,
     final allowFlowReversal=allowFlowReversalSer) if
     typ <> TypDisSys.Cooling and
     typ <> TypDisSys.CombinedGeneration5 "Mass flow rate multiplier"
-    annotation (Placement(transformation(extent={{-200,-170},{-180,-150}})));
+    annotation (Placement(transformation(extent={{-280,-250},{-260,-230}})));
   Fluid.BaseClasses.MassFlowRateMultiplier mulSerHeaOut(
     redeclare final package Medium = MediumSer,
     final k=facMul,
     final allowFlowReversal=allowFlowReversalSer) if
     typ <> TypDisSys.Cooling and
     typ <> TypDisSys.CombinedGeneration5 "Mass flow rate multiplier"
-    annotation (Placement(transformation(extent={{180,-170},{200,-150}})));
+    annotation (Placement(transformation(extent={{260,-250},{280,-230}})));
   Fluid.BaseClasses.MassFlowRateMultiplier mulSerCooInl(
     redeclare final package Medium = MediumSer,
     final k=1/facMul,
@@ -305,7 +300,7 @@ partial model PartialBuildingWithPartialETS
     typ == TypDisSys.CombinedGeneration1 or
     typ == TypDisSys.CombinedGeneration2to4 or
     typ == TypDisSys.Cooling "Mass flow rate multiplier"
-    annotation (Placement(transformation(extent={{-200,-210},{-180,-190}})));
+    annotation (Placement(transformation(extent={{-280,-290},{-260,-270}})));
   Fluid.BaseClasses.MassFlowRateMultiplier mulSerCooOut(
     redeclare final package Medium = MediumSer,
     final k=facMul,
@@ -313,17 +308,12 @@ partial model PartialBuildingWithPartialETS
     typ == TypDisSys.CombinedGeneration1 or
     typ == TypDisSys.CombinedGeneration2to4 or
     typ == TypDisSys.Cooling "Mass flow rate multiplier"
-    annotation (Placement(transformation(extent={{180,-210},{200,-190}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain mulPHot(
-    u(final unit="W"),
-    final k=facMul) if have_eleHea and have_hotWat
-    "Scaling"
-    annotation (Placement(transformation(extent={{190,130},{210,150}})));
+    annotation (Placement(transformation(extent={{260,-290},{280,-270}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain mulQFue_flow[nFue](
     u(each final unit="W"),
     each final k=facMul) if nFue>0
     "Scaling"
-    annotation (Placement(transformation(extent={{190,50},{210,70}})));
+    annotation (Placement(transformation(extent={{270,30},{290,50}})));
 initial equation
   assert(ets.have_heaWat == bui.have_heaWat,
     "In "+getInstanceName()+": The ETS component is configured with have_heaWat="+
@@ -355,93 +345,89 @@ equation
   connect(ets.ports_bChiWat,bui.ports_aChiWat)
     annotation (Line(points={{30,-40},{46,-40},{46,-8},{-40,-8},{-40,20},{-30,20}},color={0,127,255}));
   connect(weaBus,bui.weaBus)
-    annotation (Line(points={{0,200},{0,59.4},{0.1,59.4}},       color={255,204,51},thickness=0.5),
+    annotation (Line(points={{0,280},{0,59.4},{0.1,59.4}},       color={255,204,51},thickness=0.5),
       Text(string="%first",index=-1,extent={{-3,6},{-3,6}},horizontalAlignment=TextAlignment.Right));
   connect(weaBus,ets.weaBus)
-    annotation (Line(points={{0,200},{0,72},{4,72},{4,-26},{0.1,-26},{0.1,-29.4}},color={255,204,51},thickness=0.5),
+    annotation (Line(points={{0,280},{0,72},{4,72},{4,-26},{0,-26},{0,-25.9}},    color={255,204,51},thickness=0.5),
       Text(string="%first",index=-1,extent={{-3,6},{-3,6}},horizontalAlignment=TextAlignment.Right));
   connect(bui.PHea,totPHea.u[1])
-    annotation (Line(points={{32,56},{126,56},{126,160},{158,160}},
+    annotation (Line(points={{32,56},{208,56},{208,202},{240,202}},
                                                                color={0,0,127}));
   connect(ets.PHea,totPHea.u[idxPHeaETS])
-    annotation (Line(points={{34,-50},{128,-50},{128,158},{158,158},{158,160}},
+    annotation (Line(points={{34,-48},{210,-48},{210,200},{240,200},{240,202}},
                                                                  color={0,0,127}));
   connect(bui.PCoo,totPCoo.u[1])
-    annotation (Line(points={{32,52},{64,52},{64,120},{138,120}},
+    annotation (Line(points={{32,52},{218,52},{218,160},{238,160}},
                                                               color={0,0,127}));
   connect(ets.PCoo,totPCoo.u[idxPCooETS])
-    annotation (Line(points={{34,-54},{66,-54},{66,118},{138,118},{138,120}},
+    annotation (Line(points={{34,-52},{220,-52},{220,158},{238,158},{238,160}},
                                                                 color={0,0,127}));
   connect(bui.PFan,totPFan.u[1])
-    annotation (Line(points={{32,48},{134,48},{134,100},{158,100}},
+    annotation (Line(points={{32,48},{224,48},{224,120},{238,120}},
                                                                color={0,0,127}));
   connect(ets.PFan,totPFan.u[idxPFanETS])
-    annotation (Line(points={{34,-58},{136,-58},{136,98},{158,98},{158,100}},
+    annotation (Line(points={{34,-56},{226,-56},{226,118},{238,118},{238,120}},
                                                                  color={0,0,127}));
   connect(bui.PPum,totPPum.u[1])
-    annotation (Line(points={{32,44},{72,44},{72,80},{138,80}},
+    annotation (Line(points={{32,44},{232,44},{232,80},{238,80}},
                                                               color={0,0,127}));
   connect(ets.PPum,totPPum.u[idxPPumETS])
-    annotation (Line(points={{34,-62},{74,-62},{74,78},{138,78},{138,80}},
+    annotation (Line(points={{34,-60},{230,-60},{230,82},{238,82},{238,80}},
                                                                 color={0,0,127}));
-  connect(bui.QHea_flow, mulQHea_flow.u) annotation (Line(points={{32,64},{118,64},
-          {118,200},{188,200}}, color={0,0,127}));
+  connect(bui.QHea_flow, mulQHea_flow.u) annotation (Line(points={{32,64},{200,64},
+          {200,280},{268,280}}, color={0,0,127}));
   connect(mulQHea_flow.y, QHea_flow)
-    annotation (Line(points={{212,200},{240,200}}, color={0,0,127}));
-  connect(bui.QCoo_flow, mulQCoo_flow.u) annotation (Line(points={{32,60},{122,60},
-          {122,180},{188,180}}, color={0,0,127}));
+    annotation (Line(points={{292,280},{320,280}}, color={0,0,127}));
+  connect(bui.QCoo_flow, mulQCoo_flow.u) annotation (Line(points={{32,60},{204,60},
+          {204,240},{268,240}}, color={0,0,127}));
   connect(mulQCoo_flow.y, QCoo_flow)
-    annotation (Line(points={{212,180},{240,180}}, color={0,0,127}));
+    annotation (Line(points={{292,240},{320,240}}, color={0,0,127}));
   connect(totPHea.y, mulPHea.u)
-    annotation (Line(points={{182,160},{188,160}}, color={0,0,127}));
+    annotation (Line(points={{264,202},{268,202}}, color={0,0,127}));
   connect(mulPHea.y, PHea)
-    annotation (Line(points={{212,160},{240,160}}, color={0,0,127}));
+    annotation (Line(points={{292,202},{320,202}}, color={0,0,127}));
   connect(totPCoo.y, mulPCoo.u)
-    annotation (Line(points={{162,120},{188,120}}, color={0,0,127}));
+    annotation (Line(points={{262,160},{268,160}}, color={0,0,127}));
   connect(mulPCoo.y, PCoo)
-    annotation (Line(points={{212,120},{240,120}}, color={0,0,127}));
+    annotation (Line(points={{292,160},{320,160}}, color={0,0,127}));
   connect(totPFan.y, mulPFan.u)
-    annotation (Line(points={{182,100},{188,100}}, color={0,0,127}));
+    annotation (Line(points={{262,120},{268,120}}, color={0,0,127}));
   connect(mulPFan.y, PFan)
-    annotation (Line(points={{212,100},{240,100}}, color={0,0,127}));
+    annotation (Line(points={{292,120},{300,120},{300,122},{306,122},{306,120},{
+          320,120}},                               color={0,0,127}));
   connect(totPPum.y, mulPPum.u)
-    annotation (Line(points={{162,80},{188,80}},   color={0,0,127}));
+    annotation (Line(points={{262,80},{268,80}},   color={0,0,127}));
   connect(mulPPum.y, PPum)
-    annotation (Line(points={{212,80},{240,80}},   color={0,0,127}));
+    annotation (Line(points={{292,80},{320,80}},   color={0,0,127}));
   connect(port_aSerCoo,mulSerCooInl. port_a)
-    annotation (Line(points={{-220,-200},{-200,-200}}, color={0,127,255}));
-  connect(mulSerCooInl.port_b, ets.port_aSerCoo) annotation (Line(points={{-180,
-          -200},{-160,-200},{-160,-84},{-30,-84}}, color={0,127,255}));
+    annotation (Line(points={{-300,-280},{-280,-280}}, color={0,127,255}));
+  connect(mulSerCooInl.port_b, ets.port_aSerCoo) annotation (Line(points={{-260,
+          -280},{-160,-280},{-160,-84},{-30,-84}}, color={0,127,255}));
   connect(mulSerCooOut.port_b, port_bSerCoo)
-    annotation (Line(points={{200,-200},{220,-200}}, color={0,127,255}));
+    annotation (Line(points={{280,-280},{300,-280}}, color={0,127,255}));
   connect(ets.port_bSerCoo,mulSerCooOut. port_a) annotation (Line(points={{30,-84},
-          {160,-84},{160,-200},{180,-200}}, color={0,127,255}));
+          {160,-84},{160,-280},{260,-280}}, color={0,127,255}));
   connect(port_aSerHea,mulSerHeaInl. port_a)
-    annotation (Line(points={{-220,-160},{-200,-160}}, color={0,127,255}));
-  connect(mulSerHeaInl.port_b, ets.port_aSerHea) annotation (Line(points={{-180,
-          -160},{-164,-160},{-164,-80},{-30,-80}}, color={0,127,255}));
+    annotation (Line(points={{-300,-240},{-280,-240}}, color={0,127,255}));
+  connect(mulSerHeaInl.port_b, ets.port_aSerHea) annotation (Line(points={{-260,
+          -240},{-164,-240},{-164,-80},{-30,-80}}, color={0,127,255}));
   connect(port_aSerAmb,mulSerAmbInl. port_a)
-    annotation (Line(points={{-220,-120},{-200,-120}}, color={0,127,255}));
-  connect(mulSerAmbInl.port_b, ets.port_aSerAmb) annotation (Line(points={{-180,
-          -120},{-168,-120},{-168,-76},{-30,-76}}, color={0,127,255}));
+    annotation (Line(points={{-300,-200},{-280,-200}}, color={0,127,255}));
+  connect(mulSerAmbInl.port_b, ets.port_aSerAmb) annotation (Line(points={{-260,
+          -200},{-168,-200},{-168,-76},{-30,-76}}, color={0,127,255}));
   connect(ets.port_bSerHea,mulSerHeaOut. port_a) annotation (Line(points={{30,-80},
-          {164,-80},{164,-160},{180,-160}}, color={0,127,255}));
+          {164,-80},{164,-240},{260,-240}}, color={0,127,255}));
   connect(mulSerHeaOut.port_b, port_bSerHea)
-    annotation (Line(points={{200,-160},{220,-160}}, color={0,127,255}));
+    annotation (Line(points={{280,-240},{300,-240}}, color={0,127,255}));
   connect(ets.port_bSerAmb,mulSerAmbOut. port_a) annotation (Line(points={{30,-76},
-          {168,-76},{168,-120},{180,-120}}, color={0,127,255}));
+          {168,-76},{168,-200},{260,-200}}, color={0,127,255}));
   connect(mulSerAmbOut.port_b, port_bSerAmb)
-    annotation (Line(points={{200,-120},{220,-120}}, color={0,127,255}));
-  connect(mulPHot.y, PHot)
-    annotation (Line(points={{212,140},{240,140}}, color={0,0,127}));
+    annotation (Line(points={{280,-200},{300,-200}}, color={0,127,255}));
   connect(mulQFue_flow.y, QFue_flow)
-    annotation (Line(points={{212,60},{240,60}}, color={0,0,127}));
-  connect(ets.QFue_flow, mulQFue_flow.u) annotation (Line(points={{34,-66},{140,
-          -66},{140,60},{188,60}}, color={0,0,127}));
-  connect(ets.PHot, mulPHot.u) annotation (Line(points={{34,-46},{62,-46},{62,140},
-          {188,140}}, color={0,0,127}));
+    annotation (Line(points={{292,40},{320,40}}, color={0,0,127}));
+  connect(ets.QFue_flow, mulQFue_flow.u) annotation (Line(points={{34,-64},{260,
+          -64},{260,40},{268,40}}, color={0,0,127}));
   annotation (
-    DefaultComponentName="bui",
     Icon(
       coordinateSystem(
         preserveAspectRatio=false,
@@ -580,7 +566,7 @@ equation
     Diagram(
       coordinateSystem(
         preserveAspectRatio=false,
-        extent={{-220,-220},{220,220}})),
+        extent={{-300,-300},{300,300}})),
     Documentation(info="<html>
 <p>
 Partial model to be used for modeling
