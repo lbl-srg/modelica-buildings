@@ -4,7 +4,7 @@ package UsersGuide
   extends Modelica.Icons.Information;
 
 class SupportedOutputVariables "Supported output variables"
-  extends ModelicaReference.Icons.Information;
+  extends Modelica.Icons.Information;
 
   annotation (
 preferredView="info",
