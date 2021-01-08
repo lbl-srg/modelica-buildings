@@ -84,10 +84,10 @@ model PartialBuildingWithETS
     annotation (Placement(transformation(extent={{-180,-70},{-160,-50}})));
   Controls.OBC.CDL.Continuous.Gain mulPPumETS(u(final unit="W"), final k=facMul) if
                        have_pum "Scaling"
-    annotation (Placement(transformation(extent={{190,-10},{210,10}})));
+    annotation (Placement(transformation(extent={{270,-10},{290,10}})));
   Controls.OBC.CDL.Interfaces.RealOutput PPumETS(final unit="W") if
                        have_pum "ETS pump power" annotation (Placement(
-        transformation(extent={{220,-20},{260,20}}),iconTransformation(
+        transformation(extent={{300,-20},{340,20}}),iconTransformation(
         extent={{-20,-20},{20,20}},
         rotation=90,
         origin={70,120})));
@@ -105,10 +105,9 @@ equation
   connect(zer.y, resTHeaWatSup.x1) annotation (Line(points={{-158,-20},{-116,-20},
           {-116,-32},{-112,-32}}, color={0,0,127}));
   connect(mulPPumETS.y, PPumETS)
-    annotation (Line(points={{212,0},{220,0},{226,0},{240,0}},
-                                                 color={0,0,127}));
-  connect(ets.PPum, mulPPumETS.u) annotation (Line(points={{34,-62},{180,-62},{
-          180,0},{188,0}},   color={0,0,127}));
+    annotation (Line(points={{292,0},{320,0}},   color={0,0,127}));
+  connect(ets.PPum, mulPPumETS.u) annotation (Line(points={{34,-60},{240,-60},{
+          240,0},{268,0}},   color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end PartialBuildingWithETS;

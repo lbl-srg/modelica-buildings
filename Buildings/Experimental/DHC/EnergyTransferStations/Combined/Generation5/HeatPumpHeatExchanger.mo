@@ -271,7 +271,7 @@ model HeatPumpHeatExchanger
     annotation (Placement(transformation(extent={{190,370},{210,390}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiSum PPumTot(nin=2)
     "Total pump power"
-    annotation (Placement(transformation(extent={{230,390},{250,410}})));
+    annotation (Placement(transformation(extent={{220,390},{240,410}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTHeaWatSup(
     redeclare final package Medium=MediumBui,
     final allowFlowReversal=allowFlowReversalBui,
@@ -404,15 +404,18 @@ model HeatPumpHeatExchanger
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={0,-264})));
+  Buildings.Controls.OBC.CDL.Continuous.MultiSum PHeaTot(final nin=2)
+    "Total power used for heating and hot water production"
+    annotation (Placement(transformation(extent={{270,70},{290,90}})));
 equation
   connect(TChiWatSupSet, conTChiWat.u_s) annotation (Line(points={{-320,0},{-200,
           0},{-200,-200},{-152,-200}},  color={0,0,127}));
   connect(pum1HexChi.P, PPumCooTot.u[1]) annotation (Line(points={{89,-331},{84,
           -331},{84,-322},{180,-322},{180,380},{188,380}}, color={0,0,127}));
-  connect(PPumHeaTot.y, PPumTot.u[1]) annotation (Line(points={{212,420},{220,420},
-          {220,401},{228,401}}, color={0,0,127}));
+  connect(PPumHeaTot.y, PPumTot.u[1]) annotation (Line(points={{212,420},{216,420},
+          {216,401},{218,401}}, color={0,0,127}));
   connect(PPumCooTot.y, PPumTot.u[2]) annotation (Line(points={{212,380},{216,380},
-          {216,399},{228,399}}, color={0,0,127}));
+          {216,399},{218,399}}, color={0,0,127}));
   connect(pum1HexChi.port_b, hexChi.port_a1) annotation (Line(points={{90,-340},
           {10,-340}},                              color={0,127,255}));
   connect(pum1HexChi.m_flow_actual, mCoo_flow) annotation (Line(points={{89,-335},
@@ -431,9 +434,8 @@ equation
   connect(gai2.y, pum1HexChi.m_flow_in)
     annotation (Line(points={{-86,-200},{100,-200},{100,-328}},
                                                           color={0,0,127}));
-  connect(PPumTot.y, PPum) annotation (Line(points={{252,400},{276,400},{276,
-          -80},{320,-80}},
-                      color={0,0,127}));
+  connect(PPumTot.y, PPum) annotation (Line(points={{242,400},{244,400},{244,-40},
+          {320,-40}}, color={0,0,127}));
   connect(ports_aHeaWat[1], senMasFloHeaWat.port_a) annotation (Line(points={{-300,
           260},{-250,260}},                            color={0,127,255}));
   connect(bypHeaWatSup.port_2, senTHeaWatSup.port_a)
@@ -545,10 +547,14 @@ equation
           20,211},{20,-246},{6,-246},{6,-252}}, color={0,0,127}));
   connect(masFloHea.y, swiFlo.mPos_flow) annotation (Line(points={{0,-276},{0,
           -320},{-16,-320},{-16,-376},{-12,-376}}, color={0,0,127}));
-  connect(proHeaWat.PHea, PHea) annotation (Line(points={{12,217},{224,217},{
-          224,80},{320,80}}, color={0,0,127}));
-  connect(proHotWat.PHea, PHot) annotation (Line(points={{12,37},{288,37},{288,
-          40},{320,40}}, color={0,0,127}));
+  connect(proHeaWat.PHea, PHeaTot.u[1]) annotation (Line(points={{12,217},{240,217},
+          {240,81},{268,81}},           color={0,0,127}));
+  connect(proHotWat.PHea, PHeaTot.u[2]) annotation (Line(points={{12,37},{240,37},
+          {240,79},{268,79}}, color={0,0,127}));
+  connect(zer.y, PHeaTot.u[2]) annotation (Line(points={{161,360},{242,360},{
+          242,78},{268,78},{268,79}},  color={0,0,127}));
+  connect(PHeaTot.y, PHea)
+    annotation (Line(points={{292,80},{320,80}}, color={0,0,127}));
   annotation (
   defaultComponentName="ets",
   Documentation(info="<html>
