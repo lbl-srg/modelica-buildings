@@ -120,12 +120,20 @@ as it is clear that this will be the room temperature.
           fillPattern=FillPattern.Solid,
           extent={{-12.5,-12.5},{12.5,12.5}})}));
   end Conventions;
-
   annotation (preferredView="info",
   Documentation(info="<html>
+<p align=\"right\">
+<img alt=\"OBC logo\" src=\"modelica://Buildings/Resources/Images/Controls/OBC/OBC_stacked_150dpi_small.png\" style=\"float:right;\"/>
+</p>
 <p>
 The package <a href=\"modelica://Buildings.Controls.OBC\">Buildings.Controls.OBC</a>
-contains models for building control. The control sequences, which include the HVAC
+contains the Control Description Language (CDL) and models for building control that
+are implemented using CDL.
+Both have been developed in the OpenBuildingControl project, see
+<a href=\"https://obc.lbl.gov\">obc.lbl.gov</a>.
+</p>
+<p>
+The control sequences, which include the HVAC
 airside system control
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1\">Buildings.Controls.OBC.ASHRAE.G36_PR1</a>,
 the outdoor lighting control <a href=\"modelica://Buildings.Controls.OBC.OutdoorLights\">Buildings.Controls.OBC.OutdoorLights</a>,
@@ -139,6 +147,11 @@ The package also contains models for unit conversions,
 and utilities models, such as
 <a href=\"modelica://Buildings.Controls.OBC.Utilities.OptimalStart\">Buildings.Controls.OBC.Utilities.OptimalStart</a>,
 which output the optimal start time for an HVAC system.
+</p>
+<p>
+The Control Description Language (CDL) can be found in
+<a href=\"modelica://Buildings.Controls.OBC.CDL\">Buildings.Controls.OBC.CDL</a>
+and its specification is at <a href=\"https://obc.lbl.gov\">obc.lbl.gov</a>.
 </p>
 </html>"),
   Icon(graphics={
