@@ -6,6 +6,7 @@ package UsersGuide "User's Guide"
     extends Modelica.Icons.Information;
 
   annotation (preferredView="info",
+  defaultComponentName="useGui",
   Documentation(info="<html>
 <p>
 The <code>Buildings.Control.OBC</code> package follows the naming conventions of
@@ -121,6 +122,7 @@ as it is clear that this will be the room temperature.
           extent={{-12.5,-12.5},{12.5,12.5}})}));
   end Conventions;
   annotation (preferredView="info",
+  defaultComponentName="useGui",
   Documentation(info="<html>
 <p align=\"right\">
 <img alt=\"OBC logo\" src=\"modelica://Buildings/Resources/Images/Controls/OBC/OBC_stacked_150dpi_small.png\" style=\"float:right;\"/>
