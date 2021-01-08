@@ -7,15 +7,16 @@ partial model PartialOpenLoop
 
   constant Integer numZon=5 "Total number of served VAV boxes";
 
-  parameter Modelica.SIunits.Volume VRooCor=AFloCor*flo.hRoo
+  parameter Modelica.SIunits.Volume VRooCor=flo.VRooCor
     "Room volume corridor";
-  parameter Modelica.SIunits.Volume VRooSou=AFloSou*flo.hRoo
+  parameter Modelica.SIunits.Volume VRooSou=flo.VRooSou
     "Room volume south";
-  parameter Modelica.SIunits.Volume VRooNor=AFloNor*flo.hRoo
+  parameter Modelica.SIunits.Volume VRooNor=flo.VRooNor
     "Room volume north";
-  parameter Modelica.SIunits.Volume VRooEas=AFloEas*flo.hRoo "Room volume east";
-  parameter Modelica.SIunits.Volume VRooWes=AFloWes*flo.hRoo "Room volume west";
-
+  parameter Modelica.SIunits.Volume VRooEas=flo.VRooEas
+    "Room volume east";
+  parameter Modelica.SIunits.Volume VRooWes=flo.VRooWes
+    "Room volume west";
 
   parameter Modelica.SIunits.Area AFloCor=flo.cor.AFlo "Floor area corridor";
   parameter Modelica.SIunits.Area AFloSou=flo.sou.AFlo "Floor area south";
@@ -28,19 +29,33 @@ partial model PartialOpenLoop
   final parameter Modelica.SIunits.Area ATot=sum(AFlo) "Total floor area";
 
   constant Real conv=1.2/3600 "Conversion factor for nominal mass flow rate";
-  parameter Modelica.SIunits.MassFlowRate mCor_flow_nominal=6*VRooCor*conv
+
+  parameter Real ACHCor(final unit="1/h")=6
+    "Design air change per hour core";
+  parameter Real ACHSou(final unit="1/h")=6
+    "Design air change per hour south";
+  parameter Real ACHEas(final unit="1/h")=9
+    "Design air change per hour east";
+  parameter Real ACHNor(final unit="1/h")=6
+    "Design air change per hour north";
+  parameter Real ACHWes(final unit="1/h")=7
+    "Design air change per hour west";
+
+  parameter Modelica.SIunits.MassFlowRate mCor_flow_nominal=ACHCor*VRooCor*conv
     "Design mass flow rate core";
-  parameter Modelica.SIunits.MassFlowRate mSou_flow_nominal=6*VRooSou*conv
-    "Design mass flow rate perimeter 1";
-  parameter Modelica.SIunits.MassFlowRate mEas_flow_nominal=9*VRooEas*conv
-    "Design mass flow rate perimeter 2";
-  parameter Modelica.SIunits.MassFlowRate mNor_flow_nominal=6*VRooNor*conv
-    "Design mass flow rate perimeter 3";
-  parameter Modelica.SIunits.MassFlowRate mWes_flow_nominal=7*VRooWes*conv
-    "Design mass flow rate perimeter 4";
+  parameter Modelica.SIunits.MassFlowRate mSou_flow_nominal=ACHSou*VRooSou*conv
+    "Design mass flow rate south";
+  parameter Modelica.SIunits.MassFlowRate mEas_flow_nominal=ACHEas*VRooEas*conv
+    "Design mass flow rate east";
+  parameter Modelica.SIunits.MassFlowRate mNor_flow_nominal=ACHNor*VRooNor*conv
+    "Design mass flow rate north";
+  parameter Modelica.SIunits.MassFlowRate mWes_flow_nominal=ACHWes*VRooWes*conv
+    "Design mass flow rate west";
+
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=0.7*(mCor_flow_nominal
        + mSou_flow_nominal + mEas_flow_nominal + mNor_flow_nominal +
       mWes_flow_nominal) "Nominal mass flow rate";
+
   parameter Modelica.SIunits.Angle lat=41.98*3.14159/180 "Latitude";
 
   parameter Real ratOAFlo_A(final unit="m3/(s.m2)") = 0.3e-3
@@ -91,9 +106,6 @@ partial model PartialOpenLoop
     "Building static pressure";
   parameter Real yFanMin = 0.1 "Minimum fan speed";
 
-//  parameter Modelica.SIunits.HeatFlowRate QHeaCoi_nominal= 2.5*yFanMin*m_flow_nominal*1000*(20 - 4)
-//    "Nominal capacity of heating coil";
-
   parameter Boolean allowFlowReversal=true
     "= false to simplify equations, assuming, but not enforcing, no flow reversal"
     annotation (Evaluate=true);
@@ -103,34 +115,27 @@ partial model PartialOpenLoop
   parameter Boolean sampleModel=true
     "Set to true to time-sample the model, which can give shorter simulation time if there is already time sampling in the system model"
     annotation (Evaluate=true, Dialog(tab=
-          "Experimental (may be changed in future releases)"));
+    "Experimental (may be changed in future releases)"));
 
   Buildings.Fluid.Sources.Outside amb(redeclare package Medium = MediumA,
       nPorts=3) "Ambient conditions"
     annotation (Placement(transformation(extent={{-136,-56},{-114,-34}})));
-//  Buildings.Fluid.HeatExchangers.DryCoilCounterFlow heaCoi(
-//    redeclare package Medium1 = MediumW,
-//    redeclare package Medium2 = MediumA,
-//    UA_nominal = QHeaCoi_nominal/Buildings.Fluid.HeatExchangers.BaseClasses.lmtd(
-//      T_a1=45,
-//      T_b1=35,
-//      T_a2=3,
-//      T_b2=20),
-//    m2_flow_nominal=m_flow_nominal,
-//    allowFlowReversal1=false,
-//    allowFlowReversal2=allowFlowReversal,
-//    dp1_nominal=0,
-//    dp2_nominal=200 + 200 + 100 + 40,
-//    m1_flow_nominal=QHeaCoi_nominal/4200/10,
-//    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
-//    "Heating coil"
-//    annotation (Placement(transformation(extent={{118,-36},{98,-56}})));
+
+  replaceable Buildings.Examples.VAVReheat.BaseClasses.Floor flo(
+    final lat=lat,
+    final use_windPressure=use_windPressure,
+    final sampleModel=sampleModel) constrainedby
+    Buildings.Examples.VAVReheat.BaseClasses.PartialFloor(
+      redeclare final package Medium = MediumA)
+    "Model of a floor of the building that is served by this VAV system"
+    annotation (Placement(transformation(extent={{772,396},{1100,616}})), choicesAllMatching=true);
 
   Buildings.Fluid.HeatExchangers.DryCoilEffectivenessNTU heaCoi(
     redeclare package Medium1 = MediumW,
     redeclare package Medium2 = MediumA,
     m1_flow_nominal=m_flow_nominal*1000*(10 - (-20))/4200/10,
     m2_flow_nominal=m_flow_nominal,
+    show_T=true,
     configuration=Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow,
     Q_flow_nominal=m_flow_nominal*1006*(16.7 - 8.5),
     dp1_nominal=0,
@@ -142,6 +147,7 @@ partial model PartialOpenLoop
     annotation (Placement(transformation(extent={{118,-36},{98,-56}})));
 
   Buildings.Fluid.HeatExchangers.WetCoilCounterFlow cooCoi(
+    show_T=true,
     UA_nominal=3*m_flow_nominal*1000*15/
         Buildings.Fluid.HeatExchangers.BaseClasses.lmtd(
         T_a1=26.2,
@@ -208,8 +214,8 @@ partial model PartialOpenLoop
     m_flow_nominal=m_flow_nominal,
     allowFlowReversal=allowFlowReversal)
     annotation (Placement(transformation(extent={{330,-50},{350,-30}})));
-  Buildings.Fluid.Sensors.RelativePressure dpDisSupFan(redeclare package Medium
-      = MediumA) "Supply fan static discharge pressure" annotation (Placement(
+  Buildings.Fluid.Sensors.RelativePressure dpDisSupFan(redeclare package Medium =
+        MediumA) "Supply fan static discharge pressure" annotation (Placement(
         transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
@@ -254,7 +260,7 @@ partial model PartialOpenLoop
         MediumA, m_flow_nominal=m_flow_nominal) "Outside air volume flow rate"
     annotation (Placement(transformation(extent={{-72,-44},{-50,-22}})));
 
-  Buildings.Examples.VAVReheat.ThermalZones.VAVBranch cor(
+  Buildings.Examples.VAVReheat.BaseClasses.VAVBranch cor(
     redeclare package MediumA = MediumA,
     redeclare package MediumW = MediumW,
     m_flow_nominal=mCor_flow_nominal,
@@ -262,28 +268,28 @@ partial model PartialOpenLoop
     allowFlowReversal=allowFlowReversal)
     "Zone for core of buildings (azimuth will be neglected)"
     annotation (Placement(transformation(extent={{570,22},{610,62}})));
-  Buildings.Examples.VAVReheat.ThermalZones.VAVBranch sou(
+  Buildings.Examples.VAVReheat.BaseClasses.VAVBranch sou(
     redeclare package MediumA = MediumA,
     redeclare package MediumW = MediumW,
     m_flow_nominal=mSou_flow_nominal,
     VRoo=VRooSou,
     allowFlowReversal=allowFlowReversal) "South-facing thermal zone"
     annotation (Placement(transformation(extent={{750,20},{790,60}})));
-  Buildings.Examples.VAVReheat.ThermalZones.VAVBranch eas(
+  Buildings.Examples.VAVReheat.BaseClasses.VAVBranch eas(
     redeclare package MediumA = MediumA,
     redeclare package MediumW = MediumW,
     m_flow_nominal=mEas_flow_nominal,
     VRoo=VRooEas,
     allowFlowReversal=allowFlowReversal) "East-facing thermal zone"
     annotation (Placement(transformation(extent={{930,20},{970,60}})));
-  Buildings.Examples.VAVReheat.ThermalZones.VAVBranch nor(
+  Buildings.Examples.VAVReheat.BaseClasses.VAVBranch nor(
     redeclare package MediumA = MediumA,
     redeclare package MediumW = MediumW,
     m_flow_nominal=mNor_flow_nominal,
     VRoo=VRooNor,
     allowFlowReversal=allowFlowReversal) "North-facing thermal zone"
     annotation (Placement(transformation(extent={{1090,20},{1130,60}})));
-  Buildings.Examples.VAVReheat.ThermalZones.VAVBranch wes(
+  Buildings.Examples.VAVReheat.BaseClasses.VAVBranch wes(
     redeclare package MediumA = MediumA,
     redeclare package MediumW = MediumW,
     m_flow_nominal=mWes_flow_nominal,
@@ -426,13 +432,7 @@ partial model PartialOpenLoop
   BoundaryConditions.WeatherData.Bus weaBus "Weather Data Bus"
     annotation (Placement(transformation(extent={{-330,170},{-310,190}}),
         iconTransformation(extent={{-360,170},{-340,190}})));
-  ThermalZones.Floor flo(
-    redeclare final package Medium = MediumA,
-    final lat=lat,
-    final use_windPressure=use_windPressure,
-    final sampleModel=sampleModel)
-    "Model of a floor of the building that is served by this VAV system"
-    annotation (Placement(transformation(extent={{772,396},{1100,616}})));
+
   Modelica.Blocks.Routing.DeMultiplex5 TRooAir(u(each unit="K", each
         displayUnit="degC")) "Demultiplex for room air temperature"
     annotation (Placement(transformation(extent={{490,160},{510,180}})));
@@ -695,44 +695,43 @@ equation
       thickness=0.5,
       smooth=Smooth.None));
   connect(splRetRoo1.port_3, flo.portsCor[2]) annotation (Line(
-      points={{640,10},{640,364},{874,364},{874,472},{898,472},{898,449.533},{
-          924.286,449.533}},
+      points={{640,10},{640,364},{874,364},{874,472},{898,472},{898,504.308},{
+          906.052,504.308}},
       color={0,127,255},
       thickness=0.5));
   connect(splRetSou.port_3, flo.portsSou[2]) annotation (Line(
-      points={{822,10},{822,350},{900,350},{900,420.2},{924.286,420.2}},
+      points={{822,10},{822,350},{900,350},{900,443.385},{906.052,443.385}},
       color={0,127,255},
       thickness=0.5));
   connect(splRetEas.port_3, flo.portsEas[2]) annotation (Line(
-      points={{1002,10},{1002,368},{1067.2,368},{1067.2,445.867}},
+      points={{1002,10},{1002,368},{1068.63,368},{1068.63,504.308}},
       color={0,127,255},
       thickness=0.5));
   connect(splRetNor.port_3, flo.portsNor[2]) annotation (Line(
-      points={{1152,10},{1152,446},{924.286,446},{924.286,478.867}},
+      points={{1152,10},{1152,446},{906.052,446},{906.052,561.846}},
       color={0,127,255},
       thickness=0.5));
   connect(splRetNor.port_2, flo.portsWes[2]) annotation (Line(
-      points={{1162,0},{1342,0},{1342,394},{854,394},{854,449.533}},
+      points={{1162,0},{1342,0},{1342,394},{817.635,394},{817.635,504.308}},
       color={0,127,255},
       thickness=0.5));
   connect(weaBus, flo.weaBus) annotation (Line(
-      points={{-320,180},{-320,506},{988.714,506}},
+      points={{-320,180},{-320,632.923},{978.783,632.923}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
   connect(flo.TRooAir, min.u) annotation (Line(
-      points={{1094.14,491.333},{1164.7,491.333},{1164.7,450},{1198,450}},
+      points={{1107.13,506},{1164.7,506},{1164.7,450},{1198,450}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
   connect(flo.TRooAir, ave.u) annotation (Line(
-      points={{1094.14,491.333},{1166,491.333},{1166,420},{1198,420}},
+      points={{1107.13,506},{1166,506},{1166,420},{1198,420}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
   connect(TRooAir.u, flo.TRooAir) annotation (Line(
-      points={{488,170},{480,170},{480,538},{1164,538},{1164,491.333},{1094.14,
-          491.333}},
+      points={{488,170},{480,170},{480,538},{1164,538},{1164,506},{1107.13,506}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
@@ -785,25 +784,25 @@ equation
       color={0,127,255},
       thickness=0.5));
   connect(VSupCor_flow.port_b, flo.portsCor[1]) annotation (Line(
-      points={{580,140},{580,372},{866,372},{866,480},{912.571,480},{912.571,
-          449.533}},
+      points={{580,140},{580,372},{866,372},{866,480},{891.791,480},{891.791,
+          504.308}},
       color={0,127,255},
       thickness=0.5));
 
   connect(VSupSou_flow.port_b, flo.portsSou[1]) annotation (Line(
-      points={{760,140},{760,356},{912.571,356},{912.571,420.2}},
+      points={{760,140},{760,356},{891.791,356},{891.791,443.385}},
       color={0,127,255},
       thickness=0.5));
   connect(VSupEas_flow.port_b, flo.portsEas[1]) annotation (Line(
-      points={{940,138},{940,376},{1055.49,376},{1055.49,445.867}},
+      points={{940,138},{940,376},{1054.37,376},{1054.37,504.308}},
       color={0,127,255},
       thickness=0.5));
   connect(VSupNor_flow.port_b, flo.portsNor[1]) annotation (Line(
-      points={{1100,142},{1100,498},{912.571,498},{912.571,478.867}},
+      points={{1100,142},{1100,498},{891.791,498},{891.791,561.846}},
       color={0,127,255},
       thickness=0.5));
   connect(VSupWes_flow.port_b, flo.portsWes[1]) annotation (Line(
-      points={{1300,138},{1300,384},{842.286,384},{842.286,449.533}},
+      points={{1300,138},{1300,384},{803.374,384},{803.374,504.308}},
       color={0,127,255},
       thickness=0.5));
   connect(VOut1.port_b, eco.port_Out) annotation (Line(
@@ -864,7 +863,7 @@ equation
       color={28,108,200},
       thickness=0.5));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-380,
-            -400},{1420,600}})), Documentation(info="<html>
+            -400},{1420,660}})), Documentation(info="<html>
 <p>
 This model consist of an HVAC system, a building envelope model and a model
 for air flow through building leakage and through open doors.
@@ -931,6 +930,10 @@ July 10, 2020, by Antoine Gautier:<br/>
 Added design parameters for outdoor air flow.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2019\">#2019</a>
+</li>
+<li>
+November 25, 2019, by Milica Grahovac:<br/>
+Declared the floor model as replaceable.
 </li>
 <li>
 September 26, 2017, by Michael Wetter:<br/>

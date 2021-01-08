@@ -228,6 +228,14 @@ The following <b style=\"color:blue\">new libraries</b> have been added:
                        the URBANopt SDK. The development is in progress.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.Media</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Media.Antifreeze.PropyleneGlycolWater
+    </td>
+    <td valign=\"top\">Package with medium model for propylene glycol water mixtures.
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1410\">IBPSA, issue 1410</a>.</td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.ThermalZones</b>
     </td>
 </tr>
@@ -318,6 +326,14 @@ to <b style=\"color:blue\">existing</b> libraries:
     <td valign=\"top\">Computation of the supply air temperature set point based on the operation mode.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2024\">issue 2024</a>.</td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Actuators.Valves.TwoWayButterfly
+    </td>
+    <td valign=\"top\">Two way valve with the flow characteristic of a butterfly valve.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/975\">IBPSA, issue 975</a>.</td>
+</tr>
 </table>
 <!-- Backward compatible changes -->
 <p>
@@ -400,6 +416,19 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1893\">issue 1893</a>.
     </td>
+    <tr><td valign=\"top\">Buildings.Examples.VAVReheat.BaseClasses.PartialOpenLoop
+    </td>
+    <td valign=\"top\">Declared the rooms in a new model <code>Buildings.Examples.VAVReheat.BaseClasses.Floor</code>
+                       to allow use of the model with the Modelica or the Spawn envelope model.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1502\">issue 1502</a>.
+    </td>
+<tr><td valign=\"top\">Buildings.Examples.VAVReheat.BaseClasses.Floor
+    </td>
+    <td valign=\"top\">Refactored model to extend from the newly added <code>Buildings.Examples.VAVReheat.BaseClasses.PartialFloor</code> model.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1502\">issue 1502</a>.
+    </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.HeatExchangers.RadiantSlabs</b>
     </td>
@@ -446,6 +475,17 @@ have been <b style=\"color:blue\">improved</b> in a
                      <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1427\">IBPSA, issue 1427</a>.
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Fluid.Sensors.EnthalpyFlowRate<br/>
+                       Buildings.Fluid.Sensors.EntropyFlowRate<br/>
+                       Buildings.Fluid.Sensors.LatentEnthalpyFlowRate<br/>
+                       Buildings.Fluid.Sensors.SensibleEnthalpyFlowRate<br/>
+                       Buildings.Fluid.Sensors.VolumeFlowRate
+    </td>
+    <td valign=\"top\">Changed parameter values to use as default a steady-state sensor signal.<br/>
+                     This is for
+                     <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1406\">IBPSA, issue 1406</a>.
+    </td>
+</tr>
 </table>
 <!-- Non-backward compatible changes to existing components -->
 <p>
@@ -464,6 +504,15 @@ have been <b style=\"color:blue\">improved</b> in a
                        Added CO2 monitoring.<br/>
                        This is for
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1893\">issue 1608</a>.
+</tr>
+<tr><td valign=\"top\">Buildings.Air.Systems.SingleZone.VAV.ChillerDXHeatingEconomizerController
+    </td>
+    <td valign=\"top\">Moved and renamed to
+                       <code>Buildings.Air.Systems.SingleZone.VAV.BaseClasses.ControllerChillerDXHeatingEconomizer</code>.
+                       Also a bug fix was implemented that enables the fan when cooling needed during unoccupied hours.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2265\">issue 2265</a>.<br/>
+                       For Dymola, a conversion script makes this change.</td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Controls.Continuous</b>
     </td>
@@ -1006,7 +1055,7 @@ xxx
     <tr><td colspan=\"2\"><b>Buildings.Examples.VAVReheat</b>
         </td>
     </tr>
-    <tr><td valign=\"top\">Buildings.Examples.VAVReheat.ThermalZones.VAVBranch
+    <tr><td valign=\"top\">Buildings.Examples.VAVReheat.BaseClasses.VAVBranch
         </td>
         <td valign=\"top\">Added output connector for returned damper position.
         </td>
@@ -1135,7 +1184,7 @@ xxx
     <tr><td colspan=\"2\"><b>Buildings.Examples</b>
         </td>
     </tr>
-    <tr><td valign=\"top\">Buildings.Examples.VAVReheat.ThermalZones.Floor<br/>
+    <tr><td valign=\"top\">Buildings.Examples.VAVReheat.BaseClasses.Floor<br/>
                            Buildings.Examples.VAVReheat.ASHRAE2006<br/>
                            Buildings.Examples.VAVReheat.Guideline36<br/>
                            Buildings.Examples.DualFanDualDuct
@@ -1143,7 +1192,7 @@ xxx
         </td>
         <td valign=\"top\">Updated core zone geometry parameters related to room heat and mass balance.
                            This change was done in
-                           <code>Buildings.Examples.VAVReheat.ThermalZones.Floor</code>.<br/>
+                           <code>Buildings.Examples.VAVReheat.BaseClasses.Floor</code>.<br/>
                            This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1719\">#1719</a>.
        </td>
     </tr>

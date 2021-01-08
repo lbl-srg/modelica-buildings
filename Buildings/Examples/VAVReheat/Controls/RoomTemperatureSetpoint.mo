@@ -15,11 +15,11 @@ block RoomTemperatureSetpoint "Set point scheduler for room temperature"
   Modelica.Blocks.Routing.IntegerPassThrough mode
     annotation (Placement(transformation(extent={{60,50},{80,70}})));
   Modelica.Blocks.Sources.RealExpression setPoiHea(
-     y=if (mode.y == Integer(OperationModes.occupied) or mode.y == Integer(OperationModes.unoccupiedWarmUp)
+     y(final unit="K")=if (mode.y == Integer(OperationModes.occupied) or mode.y == Integer(OperationModes.unoccupiedWarmUp)
          or mode.y == Integer(OperationModes.safety)) then THeaOn else THeaOff)
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
   Modelica.Blocks.Sources.RealExpression setPoiCoo(
-    y=if (mode.y == Integer(OperationModes.occupied) or
+    y(final unit="K")=if (mode.y == Integer(OperationModes.occupied) or
           mode.y == Integer(OperationModes.unoccupiedPreCool) or
           mode.y == Integer(OperationModes.safety)) then TCooOn else TCooOff)
     "Cooling setpoint"
