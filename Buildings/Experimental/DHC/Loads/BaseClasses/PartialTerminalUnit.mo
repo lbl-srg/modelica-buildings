@@ -57,11 +57,11 @@ partial model PartialTerminalUnit
     annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Modelica.SIunits.HeatFlowRate QHea_flow_nominal(
     min=0)=0
-    "Heat flow rate for water based heating at nominal conditions (>=0)"
+    "Nominal heating capacity (>=0)"
     annotation (Dialog(group="Nominal condition",enable=have_heaWat));
   parameter Modelica.SIunits.HeatFlowRate QCoo_flow_nominal(
     max=0)=0
-    "Heat flow rate for water based cooling at nominal conditions (<=0)"
+    "Nominal cooling capacity (<=0)"
     annotation (Dialog(group="Nominal condition",enable=have_chiWat));
   parameter Modelica.SIunits.MassFlowRate mHeaWat_flow_nominal(
     min=0)=0

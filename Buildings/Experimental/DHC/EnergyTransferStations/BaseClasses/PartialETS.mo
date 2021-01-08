@@ -34,7 +34,7 @@ partial model PartialETS
     "Set to true if the ETS supplies heating water"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Boolean have_hotWat=false
-    "Set to true if the ETS supplies domestic hot water"
+    "Set to true if the ETS supplies hot water"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Boolean have_chiWat=false
     "Set to true if the ETS supplies chilled water"
@@ -49,7 +49,7 @@ partial model PartialETS
     "Set to true if the ETS has electric heating system"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Integer nFue=0
-    "Number of fuel types (0 means no fuel heating system)"
+    "Number of fuel types (0 means no combustion system)"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Boolean have_eleCoo=false
     "Set to true if the ETS has electric cooling system"
@@ -63,14 +63,14 @@ partial model PartialETS
   parameter Boolean allowFlowReversalBui=false
     "Set to true to allow flow reversal on building side"
     annotation (Dialog(tab="Assumptions"),Evaluate=true);
-  parameter Modelica.SIunits.HeatFlowRate QHeaWat_flow_nominal=0
-    "Design heat flow rate for heating water production (>0)"
+  parameter Modelica.SIunits.HeatFlowRate QHeaWat_flow_nominal(min=0)=0
+    "Nominal capacity of heating system (>=0)"
     annotation (Dialog(group="Nominal condition", enable=have_heaWat));
-  parameter Modelica.SIunits.HeatFlowRate QHotWat_flow_nominal=0
-    "Design heat flow rate for hot water production (>0)"
+  parameter Modelica.SIunits.HeatFlowRate QHotWat_flow_nominal(min=0)=0
+    "Nominal capacity of hot water production system (>=0)"
     annotation (Dialog(group="Nominal condition", enable=have_hotWat));
-  parameter Modelica.SIunits.HeatFlowRate QChiWat_flow_nominal=0
-    "Design heat flow rate for chilled water production (<0)"
+  parameter Modelica.SIunits.HeatFlowRate QChiWat_flow_nominal(max=0)=0
+    "Nominal capacity of cooling system (<=0)"
     annotation (Dialog(group="Nominal condition", enable=have_chiWat));
   parameter Buildings.Fluid.Data.Fuels.Generic fue[nFue]
     "Fuel type"
@@ -190,42 +190,36 @@ partial model PartialETS
     annotation (Placement(
       transformation(extent={{290,-290},{310,-270}}), iconTransformation(
         extent={{290,-290},{310,-270}})));
-  Buildings.BoundaryConditions.WeatherData.Bus weaBus if have_weaBus
-    "Weather data bus"
-    annotation (Placement(transformation(extent={{-16,250},{18,282}}),
-      iconTransformation(extent={{-16,250},{18,282}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput PHea(
-    final unit="W") if have_eleHea and have_heaWat
-    "Power drawn by heating system for heating water production"
+    final unit="W") if have_eleHea
+    "Power drawn by heating system"
     annotation (Placement(transformation(extent={{300,60},{340,100}}),
-      iconTransformation(extent={{300,20},{380,100}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput PHot(
-    final unit="W") if have_eleHea and have_hotWat
-    "Power drawn by heating system for hot water production"
-    annotation (
-      Placement(transformation(extent={{300,20},{340,60}}), iconTransformation(
-          extent={{300,60},{380,140}})));
+      iconTransformation(extent={{300,40},{380,120}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput PCoo(
     final unit="W") if have_eleCoo
     "Power drawn by cooling system"
-    annotation (Placement(transformation(extent={{300,-20},{340,20}}),
-      iconTransformation(extent={{300,-20},{380,60}})));
+    annotation (Placement(transformation(extent={{300,20},{340,60}}),
+      iconTransformation(extent={{300,0},{380,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput PFan(
     final unit="W") if have_fan
     "Power drawn by fan motors"
-    annotation (Placement(transformation(extent={{300,-60},{340,-20}}),
-      iconTransformation(extent={{300,-60},{380,20}})));
+    annotation (Placement(transformation(extent={{300,-20},{340,20}}),
+      iconTransformation(extent={{300,-40},{380,40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput PPum(
     final unit="W") if have_pum
     "Power drawn by pump motors"
-    annotation (Placement(transformation(extent={{300,-100},{340,-60}}),
-      iconTransformation(extent={{300,-100},{380,-20}})));
+    annotation (Placement(transformation(extent={{300,-60},{340,-20}}),
+      iconTransformation(extent={{300,-80},{380,0}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput QFue_flow[nFue](
     each final unit="W") if nFue>0
     "Fuel energy input rate"
     annotation (
-      Placement(transformation(extent={{300,-140},{340,-100}}),
-        iconTransformation(extent={{300,-140},{380,-60}})));
+      Placement(transformation(extent={{300,-100},{340,-60}}),
+        iconTransformation(extent={{300,-120},{380,-40}})));
+  BoundaryConditions.WeatherData.Bus weaBus if have_weaBus
+    "Weather data bus"
+    annotation (Placement(transformation(extent={{-20,260},{20,300}}),
+      iconTransformation(extent={{-18,284},{18,318}})));
 initial equation
   assert(
     nPorts_aHeaWat == nPorts_bHeaWat,
@@ -268,7 +262,7 @@ and optional in-building primary systems.
 </p>
 <p>
 The connectors to the service lines are configured based on an enumeration
-defining the type of district system (<code>CombinedGeneration2to4</code> 
+defining the type of district system (<code>CombinedGeneration2to4</code>
 by default), see
 <a href=\"modelica://Buildings.Experimental.DHC.Types.DistrictSystemType\">
 Buildings.Experimental.DHC.Types.DistrictSystemType</a>.
