@@ -17,7 +17,6 @@ model BuildingTimeSeries
     "Load side medium";
   parameter String filNam
     "File name with thermal loads as time series";
-  // TODO: compute facSca* based on peak loads.
   parameter Real facMulHea=1
     "Heating terminal unit multiplier factor"
     annotation(Dialog(enable=have_heaWat, group="Scaling"));

@@ -23,10 +23,10 @@ partial model PartialBuilding
     "Set to true if the building has chilled water system"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Boolean have_eleHea=false
-    "Set to true if the building has decentralized electric heating equipment"
+    "Set to true if the building has decentralized electric heating system"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Boolean have_eleCoo=false
-    "Set to true if the building has decentralized electric cooling equipment"
+    "Set to true if the building has decentralized electric cooling system"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Boolean have_fan=false
     "Set to true if fan power is computed"
@@ -122,12 +122,12 @@ partial model PartialBuilding
       iconTransformation(extent={{300,200},{340,240}})));
   Modelica.Blocks.Interfaces.RealOutput PHea(
     final unit="W") if have_eleHea
-    "Power drawn by decentralized heating equipment"
+    "Power drawn by decentralized heating system"
     annotation (Placement(transformation(extent={{300,180},{340,220}}),
       iconTransformation(extent={{300,160},{340,200}})));
   Modelica.Blocks.Interfaces.RealOutput PCoo(
     final unit="W") if have_eleCoo
-    "Power drawn by decentralized cooling equipment"
+    "Power drawn by decentralized cooling system"
     annotation (Placement(transformation(extent={{300,140},{340,180}}),
       iconTransformation(extent={{300,120},{340,160}})));
   Modelica.Blocks.Interfaces.RealOutput PFan(

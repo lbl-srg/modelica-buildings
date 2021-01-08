@@ -85,49 +85,49 @@ Buildings.ThermalZones.EnergyPlus.OutputVariable</a>.
   <td>W</td>  <td>W</td>
   </tr> <tr>
   <td>Environmental Impact Electricity CH4 Emissions Mass</td>
-  <td>Kg</td>  <td>Kg</td>
+  <td>kg</td>  <td>kg</td>
   </tr> <tr>
   <td>Environmental Impact Electricity CO Emissions Mass</td>
-  <td>Kg</td>  <td>Kg</td>
+  <td>kg</td>  <td>kg</td>
   </tr> <tr>
   <td>Environmental Impact Electricity CO2 Emissions Mass</td>
-  <td>Kg</td>  <td>Kg</td>
+  <td>kg</td>  <td>kg</td>
   </tr> <tr>
   <td>Environmental Impact Electricity Hg Emissions Mass</td>
-  <td>Kg</td>  <td>Kg</td>
+  <td>kg</td>  <td>kg</td>
   </tr> <tr>
   <td>Environmental Impact Electricity N2O Emissions Mass</td>
-  <td>Kg</td>  <td>Kg</td>
+  <td>kg</td>  <td>kg</td>
   </tr> <tr>
   <td>Environmental Impact Electricity NH3 Emissions Mass</td>
-  <td>Kg</td>  <td>Kg</td>
+  <td>kg</td>  <td>kg</td>
   </tr> <tr>
   <td>Environmental Impact Electricity NMVOC Emissions Mass</td>
-  <td>Kg</td>  <td>Kg</td>
+  <td>kg</td>  <td>kg</td>
   </tr> <tr>
   <td>Environmental Impact Electricity NOx Emissions Mass</td>
-  <td>Kg</td>  <td>Kg</td>
+  <td>kg</td>  <td>kg</td>
   </tr> <tr>
   <td>Environmental Impact Electricity Nuclear High Level Waste Mass</td>
-  <td>Kg</td>  <td>Kg</td>
+  <td>kg</td>  <td>kg</td>
   </tr> <tr>
   <td>Environmental Impact Electricity Nuclear Low Level Waste Volume</td>
   <td>m3</td>  <td>m3</td>
   </tr> <tr>
   <td>Environmental Impact Electricity PM Emissions Mass</td>
-  <td>Kg</td>  <td>Kg</td>
+  <td>kg</td>  <td>kg</td>
   </tr> <tr>
   <td>Environmental Impact Electricity PM10 Emissions Mass</td>
-  <td>Kg</td>  <td>Kg</td>
+  <td>kg</td>  <td>kg</td>
   </tr> <tr>
   <td>Environmental Impact Electricity PM2.5 Emissions Mass</td>
-  <td>Kg</td>  <td>Kg</td>
+  <td>kg</td>  <td>kg</td>
   </tr> <tr>
   <td>Environmental Impact Electricity Pb Emissions Mass</td>
-  <td>Kg</td>  <td>Kg</td>
+  <td>kg</td>  <td>kg</td>
   </tr> <tr>
   <td>Environmental Impact Electricity SO2 Emissions Mass</td>
-  <td>Kg</td>  <td>Kg</td>
+  <td>kg</td>  <td>kg</td>
   </tr> <tr>
   <td>Environmental Impact Electricity Source Energy</td>
   <td>J</td>  <td>J</td>
@@ -136,49 +136,49 @@ Buildings.ThermalZones.EnergyPlus.OutputVariable</a>.
   <td>m3</td>  <td>L</td>
   </tr> <tr>
   <td>Environmental Impact Natural Gas CH4 Emissions Mass</td>
-  <td>Kg</td>  <td>Kg</td>
+  <td>kg</td>  <td>kg</td>
   </tr> <tr>
   <td>Environmental Impact Natural Gas CO Emissions Mass</td>
-  <td>Kg</td>  <td>Kg</td>
+  <td>kg</td>  <td>kg</td>
   </tr> <tr>
   <td>Environmental Impact Natural Gas CO2 Emissions Mass</td>
-  <td>Kg</td>  <td>Kg</td>
+  <td>kg</td>  <td>kg</td>
   </tr> <tr>
   <td>Environmental Impact Natural Gas Hg Emissions Mass</td>
-  <td>Kg</td>  <td>Kg</td>
+  <td>kg</td>  <td>kg</td>
   </tr> <tr>
   <td>Environmental Impact Natural Gas N2O Emissions Mass</td>
-  <td>Kg</td>  <td>Kg</td>
+  <td>kg</td>  <td>kg</td>
   </tr> <tr>
   <td>Environmental Impact Natural Gas NH3 Emissions Mass</td>
-  <td>Kg</td>  <td>Kg</td>
+  <td>kg</td>  <td>kg</td>
   </tr> <tr>
   <td>Environmental Impact Natural Gas NMVOC Emissions Mass</td>
-  <td>Kg</td>  <td>Kg</td>
+  <td>kg</td>  <td>kg</td>
   </tr> <tr>
   <td>Environmental Impact Natural Gas NOx Emissions Mass</td>
-  <td>Kg</td>  <td>Kg</td>
+  <td>kg</td>  <td>kg</td>
   </tr> <tr>
   <td>Environmental Impact Natural Gas Nuclear High Level Waste Mass</td>
-  <td>Kg</td>  <td>Kg</td>
+  <td>kg</td>  <td>kg</td>
   </tr> <tr>
   <td>Environmental Impact Natural Gas Nuclear Low Level Waste Volume</td>
   <td>m3</td>  <td>m3</td>
   </tr> <tr>
   <td>Environmental Impact Natural Gas PM Emissions Mass</td>
-  <td>Kg</td>  <td>Kg</td>
+  <td>kg</td>  <td>kg</td>
   </tr> <tr>
   <td>Environmental Impact Natural Gas PM10 Emissions Mass</td>
-  <td>Kg</td>  <td>Kg</td>
+  <td>kg</td>  <td>kg</td>
   </tr> <tr>
   <td>Environmental Impact Natural Gas PM2.5 Emissions Mass</td>
-  <td>Kg</td>  <td>Kg</td>
+  <td>kg</td>  <td>kg</td>
   </tr> <tr>
   <td>Environmental Impact Natural Gas Pb Emissions Mass</td>
-  <td>Kg</td>  <td>Kg</td>
+  <td>kg</td>  <td>kg</td>
   </tr> <tr>
   <td>Environmental Impact Natural Gas SO2 Emissions Mass</td>
-  <td>Kg</td>  <td>Kg</td>
+  <td>kg</td>  <td>kg</td>
   </tr> <tr>
   <td>Environmental Impact Natural Gas Source Energy</td>
   <td>J</td>  <td>J</td>
@@ -193,13 +193,13 @@ Buildings.ThermalZones.EnergyPlus.OutputVariable</a>.
   <td>J</td>  <td>J</td>
   </tr> <tr>
   <td>Environmental Impact Total CH4 Emissions Carbon Equivalent Mass</td>
-  <td>Kg</td>  <td>Kg</td>
+  <td>kg</td>  <td>kg</td>
   </tr> <tr>
   <td>Environmental Impact Total CO2 Emissions Carbon Equivalent Mass</td>
-  <td>Kg</td>  <td>Kg</td>
+  <td>kg</td>  <td>kg</td>
   </tr> <tr>
   <td>Environmental Impact Total N2O Emissions Carbon Equivalent Mass</td>
-  <td>Kg</td>  <td>Kg</td>
+  <td>kg</td>  <td>kg</td>
   </tr> <tr>
   <td>Exterior Lights Electric Energy</td>
   <td>J</td>  <td>J</td>
@@ -268,7 +268,7 @@ Buildings.ThermalZones.EnergyPlus.OutputVariable</a>.
   <td>1</td>  <td>%</td>
   </tr> <tr>
   <td>People Air Temperature</td>
-  <td>K</td>  <td>C</td>
+  <td>K</td>  <td>degC</td>
   </tr> <tr>
   <td>People Convective Heating Energy</td>
   <td>J</td>  <td>J</td>
@@ -322,7 +322,7 @@ Buildings.ThermalZones.EnergyPlus.OutputVariable</a>.
   <td>1</td>  <td>1</td>
   </tr> <tr>
   <td>Site Deep Ground Temperature</td>
-  <td>K</td>  <td>C</td>
+  <td>K</td>  <td>degC</td>
   </tr> <tr>
   <td>Site Diffuse Solar Radiation Rate per Area</td>
   <td>W/m2</td>  <td>W/m2</td>
@@ -343,13 +343,13 @@ Buildings.ThermalZones.EnergyPlus.OutputVariable</a>.
   <td>W/m2</td>  <td>W/m2</td>
   </tr> <tr>
   <td>Site Ground Temperature</td>
-  <td>K</td>  <td>C</td>
+  <td>K</td>  <td>degC</td>
   </tr> <tr>
   <td>Site Horizontal Infrared Radiation Rate per Area</td>
   <td>W/m2</td>  <td>W/m2</td>
   </tr> <tr>
   <td>Site Mains Water Temperature</td>
-  <td>K</td>  <td>C</td>
+  <td>K</td>  <td>degC</td>
   </tr> <tr>
   <td>Site Outdoor Air Barometric Pressure</td>
   <td>Pa</td>  <td>Pa</td>
@@ -358,10 +358,10 @@ Buildings.ThermalZones.EnergyPlus.OutputVariable</a>.
   <td>kg/m3</td>  <td>kg/m3</td>
   </tr> <tr>
   <td>Site Outdoor Air Dewpoint Temperature</td>
-  <td>K</td>  <td>C</td>
+  <td>K</td>  <td>degC</td>
   </tr> <tr>
   <td>Site Outdoor Air Drybulb Temperature</td>
-  <td>K</td>  <td>C</td>
+  <td>K</td>  <td>degC</td>
   </tr> <tr>
   <td>Site Outdoor Air Enthalpy</td>
   <td>J/kg</td>  <td>J/kg</td>
@@ -373,7 +373,7 @@ Buildings.ThermalZones.EnergyPlus.OutputVariable</a>.
   <td>1</td>  <td>%</td>
   </tr> <tr>
   <td>Site Outdoor Air Wetbulb Temperature</td>
-  <td>K</td>  <td>C</td>
+  <td>K</td>  <td>degC</td>
   </tr> <tr>
   <td>Site Precipitation Depth</td>
   <td>m</td>  <td>m</td>
@@ -382,13 +382,13 @@ Buildings.ThermalZones.EnergyPlus.OutputVariable</a>.
   <td>1</td>  <td>1</td>
   </tr> <tr>
   <td>Site Simple Factor Model Ground Temperature</td>
-  <td>K</td>  <td>C</td>
+  <td>K</td>  <td>degC</td>
   </tr> <tr>
   <td>Site Sky Diffuse Solar Radiation Luminous Efficacy</td>
   <td>lm/W</td>  <td>lm/W</td>
   </tr> <tr>
   <td>Site Sky Temperature</td>
-  <td>K</td>  <td>C</td>
+  <td>K</td>  <td>degC</td>
   </tr> <tr>
   <td>Site Snow on Ground Status</td>
   <td>1</td>  <td>1</td>
@@ -403,7 +403,7 @@ Buildings.ThermalZones.EnergyPlus.OutputVariable</a>.
   <td>rad</td>  <td>deg</td>
   </tr> <tr>
   <td>Site Surface Ground Temperature</td>
-  <td>K</td>  <td>C</td>
+  <td>K</td>  <td>degC</td>
   </tr> <tr>
   <td>Site Total Surface Heat Emission to Air</td>
   <td>J</td>  <td>J</td>
@@ -457,7 +457,7 @@ Buildings.ThermalZones.EnergyPlus.OutputVariable</a>.
   <td>W</td>  <td>W</td>
   </tr> <tr>
   <td>Surface Inside Face Adjacent Air Temperature</td>
-  <td>K</td>  <td>C</td>
+  <td>K</td>  <td>degC</td>
   </tr> <tr>
   <td>Surface Inside Face Beam Solar Radiation Heat Gain Rate</td>
   <td>W</td>  <td>W</td>
@@ -490,7 +490,7 @@ Buildings.ThermalZones.EnergyPlus.OutputVariable</a>.
   <td>W/m2</td>  <td>W/m2</td>
   </tr> <tr>
   <td>Surface Inside Face Convection Heat Transfer Coefficient</td>
-  <td>W/m2-K</td>  <td>W/m2-K</td>
+  <td>W/m2.K</td>  <td>W/m2.K</td>
   </tr> <tr>
   <td>Surface Inside Face Convection Model Equation Index</td>
   <td>1</td>  <td>1</td>
@@ -517,7 +517,7 @@ Buildings.ThermalZones.EnergyPlus.OutputVariable</a>.
   <td>W</td>  <td>W</td>
   </tr> <tr>
   <td>Surface Inside Face Interior Movable Insulation Temperature</td>
-  <td>K</td>  <td>C</td>
+  <td>K</td>  <td>degC</td>
   </tr> <tr>
   <td>Surface Inside Face Interior Windows Incident Beam Solar Radiation Energy</td>
   <td>J</td>  <td>J</td>
@@ -574,7 +574,7 @@ Buildings.ThermalZones.EnergyPlus.OutputVariable</a>.
   <td>W/m2</td>  <td>W/m2</td>
   </tr> <tr>
   <td>Surface Inside Face Temperature</td>
-  <td>K</td>  <td>C</td>
+  <td>K</td>  <td>degC</td>
   </tr> <tr>
   <td>Surface Outside Face Beam Solar Incident Angle Cosine Value</td>
   <td>1</td>  <td>1</td>
@@ -607,7 +607,7 @@ Buildings.ThermalZones.EnergyPlus.OutputVariable</a>.
   <td>W/m2</td>  <td>W/m2</td>
   </tr> <tr>
   <td>Surface Outside Face Convection Heat Transfer Coefficient</td>
-  <td>W/m2-K</td>  <td>W/m2-K</td>
+  <td>W/m2.K</td>  <td>W/m2.K</td>
   </tr> <tr>
   <td>Surface Outside Face Forced Convection Model Equation Index</td>
   <td>1</td>  <td>1</td>
@@ -658,10 +658,10 @@ Buildings.ThermalZones.EnergyPlus.OutputVariable</a>.
   <td>W/m2</td>  <td>W/m2</td>
   </tr> <tr>
   <td>Surface Outside Face Outdoor Air Drybulb Temperature</td>
-  <td>K</td>  <td>C</td>
+  <td>K</td>  <td>degC</td>
   </tr> <tr>
   <td>Surface Outside Face Outdoor Air Wetbulb Temperature</td>
-  <td>K</td>  <td>C</td>
+  <td>K</td>  <td>degC</td>
   </tr> <tr>
   <td>Surface Outside Face Outdoor Air Wind Direction</td>
   <td>rad</td>  <td>deg</td>
@@ -685,19 +685,19 @@ Buildings.ThermalZones.EnergyPlus.OutputVariable</a>.
   <td>1</td>  <td>1</td>
   </tr> <tr>
   <td>Surface Outside Face Temperature</td>
-  <td>K</td>  <td>C</td>
+  <td>K</td>  <td>degC</td>
   </tr> <tr>
   <td>Surface Outside Face Thermal Radiation to Air Heat Transfer Coefficient</td>
-  <td>W/m2-K</td>  <td>W/m2-K</td>
+  <td>W/m2.K</td>  <td>W/m2.K</td>
   </tr> <tr>
   <td>Surface Outside Face Thermal Radiation to Air Heat Transfer Rate</td>
   <td>W</td>  <td>W</td>
   </tr> <tr>
   <td>Surface Outside Face Thermal Radiation to Ground Heat Transfer Coefficient</td>
-  <td>W/m2-K</td>  <td>W/m2-K</td>
+  <td>W/m2.K</td>  <td>W/m2.K</td>
   </tr> <tr>
   <td>Surface Outside Face Thermal Radiation to Sky Heat Transfer Coefficient</td>
-  <td>W/m2-K</td>  <td>W/m2-K</td>
+  <td>W/m2.K</td>  <td>W/m2.K</td>
   </tr> <tr>
   <td>Surface Outside Normal Azimuth Angle</td>
   <td>rad</td>  <td>deg</td>
@@ -718,13 +718,13 @@ Buildings.ThermalZones.EnergyPlus.OutputVariable</a>.
   <td>rad</td>  <td>rad</td>
   </tr> <tr>
   <td>Surface Window Back Face Temperature Layer 1</td>
-  <td>K</td>  <td>C</td>
+  <td>K</td>  <td>degC</td>
   </tr> <tr>
   <td>Surface Window Blind Slat Angle</td>
   <td>rad</td>  <td>deg</td>
   </tr> <tr>
   <td>Surface Window Front Face Temperature Layer 1</td>
-  <td>K</td>  <td>C</td>
+  <td>K</td>  <td>degC</td>
   </tr> <tr>
   <td>Surface Window Gap Convective Heat Transfer Energy</td>
   <td>J</td>  <td>J</td>
@@ -985,25 +985,25 @@ Buildings.ThermalZones.EnergyPlus.OutputVariable</a>.
   <td>W</td>  <td>W</td>
   </tr> <tr>
   <td>Zone Mean Air Dewpoint Temperature</td>
-  <td>K</td>  <td>C</td>
+  <td>K</td>  <td>degC</td>
   </tr> <tr>
   <td>Zone Mean Air Humidity Ratio</td>
   <td>1</td>  <td>kgWater/kgDryAir</td>
   </tr> <tr>
   <td>Zone Mean Air Temperature</td>
-  <td>K</td>  <td>C</td>
+  <td>K</td>  <td>degC</td>
   </tr> <tr>
   <td>Zone Mean Radiant Temperature</td>
-  <td>K</td>  <td>C</td>
+  <td>K</td>  <td>degC</td>
   </tr> <tr>
   <td>Zone Operative Temperature</td>
-  <td>K</td>  <td>C</td>
+  <td>K</td>  <td>degC</td>
   </tr> <tr>
   <td>Zone Outdoor Air Drybulb Temperature</td>
-  <td>K</td>  <td>C</td>
+  <td>K</td>  <td>degC</td>
   </tr> <tr>
   <td>Zone Outdoor Air Wetbulb Temperature</td>
-  <td>K</td>  <td>C</td>
+  <td>K</td>  <td>degC</td>
   </tr> <tr>
   <td>Zone Outdoor Air Wind Direction</td>
   <td>rad</td>  <td>deg</td>
@@ -1054,7 +1054,7 @@ Buildings.ThermalZones.EnergyPlus.OutputVariable</a>.
   <td>s</td>  <td>hr</td>
   </tr> <tr>
   <td>Zone Thermal Comfort Clothing Surface Temperature</td>
-  <td>K</td>  <td>C</td>
+  <td>K</td>  <td>degC</td>
   </tr> <tr>
   <td>Zone Thermal Comfort Fanger Model PMV</td>
   <td>1</td>  <td>1</td>
@@ -1063,10 +1063,10 @@ Buildings.ThermalZones.EnergyPlus.OutputVariable</a>.
   <td>1</td>  <td>%</td>
   </tr> <tr>
   <td>Zone Thermal Comfort Mean Radiant Temperature</td>
-  <td>K</td>  <td>C</td>
+  <td>K</td>  <td>degC</td>
   </tr> <tr>
   <td>Zone Thermal Comfort Operative Temperature</td>
-  <td>K</td>  <td>C</td>
+  <td>K</td>  <td>degC</td>
   </tr> <tr>
   <td>Zone Total Internal Convective Heating Energy</td>
   <td>J</td>  <td>J</td>

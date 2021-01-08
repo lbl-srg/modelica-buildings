@@ -12,7 +12,7 @@ partial model PartialPlant
     annotation(Dialog(enable=
       typ == TypDisSys.CombinedGeneration1 or
       typ == TypDisSys.HeatingGeneration1));
-  parameter TypDisSys typ
+  parameter TypDisSys typ=TypDisSys.CombinedGeneration2to4
     "Type of district system"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Boolean have_fan=false
@@ -22,10 +22,13 @@ partial model PartialPlant
     "Set to true if pump power is computed"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Boolean have_eleHea=false
-    "Set to true if the plant has electric heating equipment"
+    "Set to true if the plant has electric heating system"
+    annotation (Evaluate=true, Dialog(group="Configuration"));
+  parameter Integer nFue=0
+    "Number of fuel types (0 means no fuel heating system)"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Boolean have_eleCoo=false
-    "Set to true if the plant has electric cooling equipment"
+    "Set to true if the plant has electric cooling system"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Boolean have_weaBus=false
     "Set to true to use a weather bus"
@@ -33,6 +36,9 @@ partial model PartialPlant
   parameter Boolean allowFlowReversal=false
     "Set to true to allow flow reversal in service lines"
     annotation (Dialog(tab="Assumptions"),Evaluate=true);
+  parameter Buildings.Fluid.Data.Fuels.Generic fue[nFue]
+    "Fuel type"
+     annotation (choicesAllMatching = true, Dialog(enable=nFue>0));
   // IO CONNECTORS
   Modelica.Fluid.Interfaces.FluidPort_a port_aSerAmb(
     redeclare package Medium = Medium,
@@ -98,12 +104,12 @@ partial model PartialPlant
       iconTransformation(extent={{-16,250},{18,282}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput PHea(
     final unit="W") if have_eleHea
-    "Power drawn by heating equipment"
+    "Power drawn by heating system"
     annotation (Placement(transformation(extent={{300,260},{340,300}}),
       iconTransformation(extent={{300,240},{380,320}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput PCoo(
     final unit="W") if have_eleCoo
-    "Power drawn by cooling equipment"
+    "Power drawn by cooling system"
     annotation (Placement(transformation(extent={{300,220},{340,260}}),
       iconTransformation(extent={{300,200},{380,280}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput PFan(
@@ -116,6 +122,12 @@ partial model PartialPlant
     "Power drawn by pump motors"
     annotation (Placement(transformation(extent={{300,140},{340,180}}),
       iconTransformation(extent={{300,120},{380,200}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput QFue_flow[nFue](
+    each final unit="W") if nFue>0
+    "Fuel energy input rate"
+    annotation (
+      Placement(transformation(extent={{300,100},{340,140}}),
+        iconTransformation(extent={{300,80},{380,160}})));
   annotation (
     defaultComponentName="plan",
     Documentation(
