@@ -6,7 +6,8 @@ model BuildingWithETS
     "District system type enumeration";
   package MediumW=Buildings.Media.Water
     "Water";
-  package MediumS=Modelica.Media.Water.IdealSteam
+  package MediumS=Modelica.Media.Water.IdealSteam (
+    h_default=2770E3)
     "Steam";
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=1
     "Nominal mass flow rate";
