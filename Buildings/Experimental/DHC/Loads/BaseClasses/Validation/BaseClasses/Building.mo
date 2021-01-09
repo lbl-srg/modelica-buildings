@@ -24,6 +24,7 @@ model Building
     annotation (Placement(transformation(extent={{240,70},{260,90}})));
   Fluid.HeatExchangers.HeaterCooler_u loaHea(
     redeclare final package Medium=Medium,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     final Q_flow_nominal=-QHeaWat_flow_nominal,
     final m_flow_nominal=m_flow_nominal,
     dp_nominal=0) if have_heaWat
@@ -31,6 +32,7 @@ model Building
     annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));
   Fluid.HeatExchangers.HeaterCooler_u loaCoo(
     redeclare final package Medium = Medium,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     final Q_flow_nominal=-QChiWat_flow_nominal,
     final m_flow_nominal=m_flow_nominal,
     dp_nominal=0) if  have_chiWat
