@@ -8815,7 +8815,7 @@ how to get started, best practices, how to post-process results using Python,
 work-around for problems and how to develop models.<br/>
 </li>
 <li>
-Some of packages have their own
+Some packages have their own
 User's Guides that can be accessed by the links below.
 These User's Guides are explaining items that are specific to the
 particular package.<br/>
@@ -8827,6 +8827,10 @@ particular package.<br/>
 <tr><td valign=\"top\"><a href=\"modelica://Buildings.BoundaryConditions.UsersGuide\">BoundaryConditions</a>
    </td>
    <td valign=\"top\">Package for computing boundary conditions, such as solar irradiation.</td>
+</tr>
+<tr><td valign=\"top\"><a href=\"modelica://Buildings.Controls.OBC\">Controls.OBC</a>
+   </td>
+   <td valign=\"top\">Package with the Control Description Language (CDL) and with control sequences that are implemented using CDL.</td>
 </tr>
 <tr><td valign=\"top\"><a href=\"modelica://Buildings.Fluid.UsersGuide\">Fluid</a>
    </td>
