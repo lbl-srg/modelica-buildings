@@ -43,7 +43,7 @@ endif()
 
 # Set compiler options
 if ( CMAKE_COMPILER_IS_GNUCC )
-    set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -Wall -Wextra -pedantic -Wmisleading-indentation -Wconversion")
+    set(CMAKE_C_FLAGS  "${CMAKE_CXX_FLAGS} -Wall -Wextra -pedantic -Wmisleading-indentation -Wconversion -Wno-unused-function -Wno-unused-parameter")
 endif()
 
 if ( MSVC )
