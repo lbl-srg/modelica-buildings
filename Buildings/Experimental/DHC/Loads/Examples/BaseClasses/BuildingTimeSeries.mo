@@ -64,7 +64,7 @@ model BuildingTimeSeries
     "Design heating heat flow rate (>=0)"
     annotation (Dialog(group="Design parameter"));
   parameter Real k(
-    min=0)=1
+    min=0)=0.1
     "Gain of controller";
   parameter Modelica.SIunits.Time Ti(
     min=Modelica.Constants.small)=10
