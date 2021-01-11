@@ -38,7 +38,7 @@ size_t AllocateBuildingDataStructure(
   const size_t strLenWea = strlen(weaName);
 
   if (logLevel >= MEDIUM)
-    SpawnFormatMessage("%.2f ----: Allocating data structure for building, nFMU=%lu\n", modelicaNameBuilding, nFMU);
+    SpawnFormatMessage("---- %s: Allocating data structure for building, nFMU=%lu\n", modelicaNameBuilding, nFMU);
 
   /* Validate the input data */
   if (access(idfName, R_OK) != 0)
@@ -171,7 +171,7 @@ size_t AllocateBuildingDataStructure(
   incrementBuildings_nFMU();
 
   if (logLevel >= MEDIUM)
-    SpawnFormatMessage("%.2f ----: AllocateBuildingDataStructure: Leaving allocating data structure for building number %lu, ptr %p\n",
+    SpawnFormatMessage("---- %s: AllocateBuildingDataStructure: Leaving allocating data structure for building number %lu, ptr %p\n",
       modelicaNameBuilding,
       nFMU,
       Buildings_FMUS[nFMU]);
@@ -188,7 +188,7 @@ void AddZoneToBuilding(FMUZone* zone, size_t logLevel){
 
 
   if (bui->logLevel >= MEDIUM)
-    SpawnFormatMessage("%.2f ----: EnergyPlusFMU.c: Adding zone %lu with name %s\n", bui->modelicaNameBuilding, nZon, zone->modelicaNameThermalZone);
+    SpawnFormatMessage("---- %s: EnergyPlusFMU.c: Adding zone %lu with name %s\n", bui->modelicaNameBuilding, nZon, zone->modelicaNameThermalZone);
 
   if (nZon == 0){
     bui->zones=malloc(sizeof(FMUZone *));
@@ -212,7 +212,7 @@ void AddZoneToBuilding(FMUZone* zone, size_t logLevel){
   checkAndSetVerbosity(bui, logLevel);
 
   if (bui->logLevel >= MEDIUM)
-    SpawnFormatMessage("%.2f ----: EnergyPlusFMU.c: nZon = %d, nInp = %d, nOut = %d\n", bui->modelicaNameBuilding,
+    SpawnFormatMessage("---- %s: EnergyPlusFMU.c: nZon = %d, nInp = %d, nOut = %d\n", bui->modelicaNameBuilding,
       bui->nZon, bui->nInputVariables, bui->nOutputVariables);
 }
 
@@ -265,7 +265,7 @@ void AddOutputVariableToBuilding(FMUOutputVariable* ptrVar, size_t logLevel){
   void (*SpawnFormatMessage)(const char *string, ...) = bui->SpawnFormatMessage;
 
   if (bui->logLevel >= MEDIUM)
-    SpawnFormatMessage("%.2f ----: Adding output variable %lu with name %s\n",
+    SpawnFormatMessage("---- %s: Adding output variable %lu with name %s\n",
       bui->modelicaNameBuilding,
       nOutputVariables+1,
       ptrVar->modelicaNameOutputVariable);
@@ -292,7 +292,7 @@ void AddOutputVariableToBuilding(FMUOutputVariable* ptrVar, size_t logLevel){
   checkAndSetVerbosity(bui, logLevel);
 
   if (bui->logLevel >= MEDIUM)
-    SpawnFormatMessage("%.2f ----: EnergyPlusFMU.c: nZon = %d, nInp = %d, nOut = %d\n",
+    SpawnFormatMessage("---- %s: EnergyPlusFMU.c: nZon = %d, nInp = %d, nOut = %d\n",
       bui->modelicaNameBuilding,
       bui->nZon, bui->nInputVariables, bui->nOutputVariables);
 }

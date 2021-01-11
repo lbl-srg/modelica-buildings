@@ -125,7 +125,7 @@ void* EnergyPlusZoneAllocate(
   mallocSpawnReals(4, &(zone->outputs), SpawnFormatError);
 
   if (logLevel >= MEDIUM)
-    SpawnFormatMessage("%.2f ----: Allocated parameters %p\n", modelicaNameThermalZone, zone->parameters);
+    SpawnFormatMessage("---- %s: Allocated parameters %p\n", modelicaNameThermalZone, zone->parameters);
   /* Assign structural data */
   buildVariableNames(
     zone->name,
@@ -159,7 +159,7 @@ void* EnergyPlusZoneAllocate(
   for(i = 0; i < nFMU; i++){
     FMUBuilding* fmu = getBuildingsFMU(i);
     if (logLevel >= MEDIUM){
-      SpawnFormatMessage("%.2f ----: Testing FMU %s for %s.\n", modelicaNameThermalZone, fmu->fmuAbsPat, modelicaNameBuilding);
+      SpawnFormatMessage("---- %s: Testing FMU %s for %s.\n", modelicaNameThermalZone, fmu->fmuAbsPat, modelicaNameBuilding);
     }
 
     if (strcmp(modelicaNameBuilding, fmu->modelicaNameBuilding) == 0){
