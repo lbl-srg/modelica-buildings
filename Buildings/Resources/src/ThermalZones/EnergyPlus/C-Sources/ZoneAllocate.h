@@ -21,7 +21,7 @@ LBNL_EnergyPlus_EXPORT void* EnergyPlusZoneAllocate(
   const char* fmuName,
   const char* buildingsLibraryRoot,
   const double initialTime,
-  const int logLevel,
+  const size_t logLevel,
   void (*SpawnMessage)(const char *string),
   void (*SpawnError)(const char *string),
   void (*SpawnFormatMessage)(const char *string, ...),

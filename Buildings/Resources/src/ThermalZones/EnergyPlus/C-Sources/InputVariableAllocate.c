@@ -14,7 +14,7 @@
 FMUInputVariable* checkForDoubleInputVariableDeclaration(
   const struct FMUBuilding* bui,
   const char* fmiName){
-  int iComVar;
+  size_t iComVar;
 
   for(iComVar = 0; iComVar < bui->nInputVariables; iComVar++){
     FMUInputVariable* ptrInpVar = (FMUInputVariable*)(bui->inputVariables[iComVar]);
@@ -32,8 +32,8 @@ FMUInputVariable* checkForDoubleInputVariableDeclaration(
 }
 
 void setInputVariablePointerIfAlreadyInstanciated(const char* modelicaNameInputVariable, FMUInputVariable** ptrFMUInputVariable){
-  int iBui;
-  int iCom;
+  size_t iBui;
+  size_t iCom;
   FMUBuilding* ptrBui;
   FMUInputVariable* ptrInpVar;
 
@@ -65,13 +65,13 @@ void* EnergyPlusInputVariableAllocate(
   const char* fmuName,
   const char* buildingsLibraryRoot,
   const double initialTime,
-  const int logLevel,
+  const size_t logLevel,
   void (*SpawnMessage)(const char *string),
   void (*SpawnError)(const char *string),
   void (*SpawnFormatMessage)(const char *string, ...),
   void (*SpawnFormatError)(const char *string, ...)){
   /* Note: The idfName is needed to unpack the fmu so that the valueReference can be obtained */
-  unsigned int i;
+  size_t i;
   FMUInputVariable* comVar = NULL;
 
   const size_t nFMU = getBuildings_nFMU();

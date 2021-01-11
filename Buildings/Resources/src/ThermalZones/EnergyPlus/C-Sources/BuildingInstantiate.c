@@ -197,6 +197,8 @@ void writeModelStructureForEnergyPlus(const FMUBuilding* bui, char** modelicaBui
   size_t lenNam;
   FILE* fp;
 
+  const char* MOD_BUI_JSON = "ModelicaBuildingsEnergyPlus.json";
+
   /* Initial size which will grow as needed */
   size = 1024;
 
@@ -234,7 +236,6 @@ void setAttributesReal(
   const spawnReals* ptrSpawnReals){
 
   const char* fmuNam = bui->fmuAbsPat;
-  const char* idfName = bui->idfName;
   size_t iFMI;
   fmi2_import_variable_t* var;
   bool found;
@@ -291,7 +292,6 @@ void setValueReferences(FMUBuilding* bui){
   size_t nv = fmi2_import_get_variable_list_size(vl);
 
   void (*SpawnFormatMessage)(const char *string, ...) = bui->SpawnFormatMessage;
-  void (*SpawnFormatError)(const char *string, ...) = bui->SpawnFormatError;
 
   /* Set value references for the zones by assigning the values obtained from the FMU */
   if (bui->logLevel >= MEDIUM)
@@ -342,7 +342,6 @@ void generateFMU(FMUBuilding* bui, const char* modelicaBuildingsJsonFile){
 
   void (*SpawnFormatMessage)(const char *string, ...) = bui->SpawnFormatMessage;
   void (*SpawnFormatError)(const char *string, ...) = bui->SpawnFormatError;
-  void (*SpawnError)(const char *string) = bui->SpawnError;
 
   if (bui->logLevel >= MEDIUM)
     SpawnFormatMessage("%.2f %s: Entered generateFMU with FMUPath = %s.\n", bui->time, bui->modelicaNameBuilding, bui->fmuAbsPat);
@@ -454,7 +453,7 @@ void setFMUDebugLevel(FMUBuilding* bui){
     fmi2_true,        /* Logging on */
     (size_t)nCatReq, /* nCategories */
     categories);        /* Which categories to log */
-  if( status != fmi2_status_ok ){
+  if( status != (fmi2Status)fmi2_status_ok ){
     bui->SpawnMessage("Log categories:");
     for(i = 0; i < nCatReq; i++){
       bui->SpawnFormatMessage("  Category[%u] = '%s'\n", i, categories[i]);
@@ -610,7 +609,7 @@ void importEnergyPlusFMU(FMUBuilding* bui){
 }
 
 void setReusableFMU(FMUBuilding* bui){
-  int iBui;
+  size_t iBui;
   FMUBuilding* ptrBui;
 
   for(iBui = 0; iBui < getBuildings_nFMU(); iBui++){

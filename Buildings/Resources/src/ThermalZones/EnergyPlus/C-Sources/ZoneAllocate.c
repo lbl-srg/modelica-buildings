@@ -12,7 +12,7 @@
 #include <stdio.h>
 
 void checkForDoubleZoneDeclaration(const struct FMUBuilding* fmuBld, const char* zoneName, char** doubleSpec){
-  int iZ;
+  size_t iZ;
   FMUZone** zones = (FMUZone**)(fmuBld->zones);
   for(iZ = 0; iZ < fmuBld->nZon; iZ++){
     if (!strcmp(zoneName, zones[iZ]->name)){
@@ -24,8 +24,8 @@ void checkForDoubleZoneDeclaration(const struct FMUBuilding* fmuBld, const char*
 }
 
 void setZonePointerIfAlreadyInstanciated(const char* modelicaNameThermalZone, FMUZone** ptrFMUZone){
-  int iBui;
-  int iZon;
+  size_t iBui;
+  size_t iZon;
   FMUBuilding* ptrBui;
   FMUZone* zon;
   *ptrFMUZone = NULL;
@@ -54,7 +54,7 @@ void* EnergyPlusZoneAllocate(
   const char* fmuName,
   const char* buildingsLibraryRoot,
   const double initialTime,
-  const int logLevel,
+  const size_t logLevel,
   void (*SpawnMessage)(const char *string),
   void (*SpawnError)(const char *string),
   void (*SpawnFormatMessage)(const char *string, ...),
@@ -184,7 +184,7 @@ void* EnergyPlusZoneAllocate(
       }
 
       if (logLevel >= MEDIUM){
-        SpawnFormatMessage("Assigning zone to fmu with fmu at %p\n", fmu);
+        SpawnFormatMessage("Assigning zone to building with building at %p\n", fmu);
       }
       zone->bui = fmu;
       AddZoneToBuilding(zone, logLevel);

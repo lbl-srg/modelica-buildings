@@ -22,7 +22,7 @@ LBNL_EnergyPlus_EXPORT void* EnergyPlusOutputVariableAllocate(
   const char* fmuName,
   const char* buildingsLibraryRoot,
   const double initialTime,
-  const int logLevel,
+  const size_t logLevel,
   int printUnit,
   void (*SpawnMessage)(const char *string),
   void (*SpawnError)(const char *string),

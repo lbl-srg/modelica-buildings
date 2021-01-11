@@ -76,7 +76,7 @@ void EnergyPlusOutputVariableExchange(
       SpawnFormatMessage("%.2f %s: fmi2_import_exit_initialization_mode: Enter exit initialization mode of FMU in exchange() for output variable.\n",
         bui->time, outVar->modelicaNameOutputVariable);
     status = fmi2_import_exit_initialization_mode(bui->fmu);
-    if( status != fmi2_status_ok ){
+    if( status != fmi2OK ){
       SpawnFormatError("Failed to exit initialization mode for FMU for building %s and output variable %s",
         bui->modelicaNameBuilding, outVar->modelicaNameOutputVariable);
     }

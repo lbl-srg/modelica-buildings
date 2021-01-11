@@ -87,7 +87,7 @@ void EnergyPlusZoneExchange(
     if (bui->logLevel >= MEDIUM)
       SpawnFormatMessage("%.2f %s: Enter exit initialization mode of FMU in exchange().\n", bui->time, zone->modelicaNameThermalZone);
     status = fmi2_import_exit_initialization_mode(bui->fmu);
-    if( status != fmi2_status_ok ){
+    if( status != (fmi2Status)fmi2_status_ok ){
       SpawnFormatError("Failed to exit initialization mode for FMU for building %s and zone %s",
         bui->modelicaNameBuilding, zone->modelicaNameThermalZone);
     }

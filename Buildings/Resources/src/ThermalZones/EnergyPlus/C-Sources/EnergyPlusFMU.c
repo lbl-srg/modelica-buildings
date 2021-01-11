@@ -29,7 +29,7 @@ size_t AllocateBuildingDataStructure(
   const char* fmuName,
   const char* buildingsLibraryRoot,
   const double initialTime,
-  int logLevel,
+  size_t logLevel,
   void (*SpawnMessage)(const char *string),
   void (*SpawnError)(const char *string),
   void (*SpawnFormatMessage)(const char *string, ...),
@@ -181,12 +181,11 @@ size_t AllocateBuildingDataStructure(
   return nFMU;
 }
 
-void AddZoneToBuilding(FMUZone* zone, int logLevel){
+void AddZoneToBuilding(FMUZone* zone, size_t logLevel){
   FMUBuilding* bui = zone->bui;
   const size_t nZon = bui->nZon;
 
   void (*SpawnFormatMessage)(const char *string, ...) = bui->SpawnFormatMessage;
-  void (*SpawnFormatError)(const char *string, ...) = bui->SpawnFormatError;
   void (*SpawnError)(const char *string) = bui->SpawnError;
 
 
@@ -219,7 +218,7 @@ void AddZoneToBuilding(FMUZone* zone, int logLevel){
       bui->nZon, bui->nInputVariables, bui->nOutputVariables);
 }
 
-void AddInputVariableToBuilding(FMUInputVariable* ptrVar, int logLevel){
+void AddInputVariableToBuilding(FMUInputVariable* ptrVar, size_t logLevel){
   FMUBuilding* bui = ptrVar->bui;
   const size_t nInputVariables = bui->nInputVariables;
 
@@ -261,12 +260,11 @@ void AddInputVariableToBuilding(FMUInputVariable* ptrVar, int logLevel){
       bui->nZon, bui->nInputVariables, bui->nOutputVariables);
 }
 
-void AddOutputVariableToBuilding(FMUOutputVariable* ptrVar, int logLevel){
+void AddOutputVariableToBuilding(FMUOutputVariable* ptrVar, size_t logLevel){
   FMUBuilding* bui = ptrVar->bui;
   const size_t nOutputVariables = bui->nOutputVariables;
 
   void (*SpawnFormatMessage)(const char *string, ...) = bui->SpawnFormatMessage;
-  void (*SpawnFormatError)(const char *string, ...) = bui->SpawnFormatError;
 
   if (bui->logLevel >= MEDIUM)
     SpawnFormatMessage("%.2f, %s: Adding output variable %lu with name %s\n",
@@ -322,9 +320,7 @@ size_t getBuildings_nFMU(){
 void FMUBuildingFree(FMUBuilding* bui){
   fmi2Status status;
 
-  void (*SpawnMessage)(const char *string) = bui->SpawnMessage;
   void (*SpawnFormatMessage)(const char *string, ...) = bui->SpawnFormatMessage;
-  void (*SpawnFormatError)(const char *string, ...) = bui->SpawnFormatError;
 
   if ( bui != NULL ){
     if (bui->logLevel >= MEDIUM){

@@ -16,7 +16,6 @@
 void EnergyPlusInputVariableInstantiate(
     void* object,
     double startTime){
-  fmi2_status_t status;
   FMUInputVariable* var = (FMUInputVariable*) object;
   FMUBuilding* bui = var->bui;
 

@@ -82,7 +82,7 @@ void setVariables(
       ptrReals->valsEP[i] = ptrReals->valsSI[i];
   }
   status = fmi2_import_set_real(bui->fmu, ptrReals->valRefs, ptrReals->n, ptrReals->valsEP);
-  if (status != fmi2OK) {
+  if (status != (fmi2_status_t)fmi2OK) {
     bui->SpawnFormatError("Failed to set variables for %s in FMU.\n",  modelicaInstanceName);
   }
 }
@@ -91,14 +91,14 @@ void stopIfResultsAreNaN(FMUBuilding* bui, const char* modelicaInstanceName, spa
   size_t i;
   fmi2_import_variable_t* fmiVar;
   const char* varNam;
-  size_t i_nan = -1;
+  int i_nan = -1;
 
   void (*SpawnFormatMessage)(const char *string, ...) = bui->SpawnFormatMessage;
   void (*SpawnFormatError)(const char *string, ...) = bui->SpawnFormatError;
 
   for(i=0; i < ptrReals->n; i++){
     if (isnan(ptrReals->valsSI[i])){
-      i_nan = i;
+      i_nan = (int)i;
       break;
     }
   }
@@ -107,9 +107,9 @@ void stopIfResultsAreNaN(FMUBuilding* bui, const char* modelicaInstanceName, spa
       fmiVar = fmi2_import_get_variable_by_vr(bui->fmu, fmi2_base_type_real, ptrReals->valRefs[i]);
       varNam = fmi2_import_get_variable_name(fmiVar);
       if (isnan(ptrReals->valsSI[i])){
-        bui->SpawnFormatMessage("%.2f %s: Received nan from EnergyPlus for %s at time = %.2f:\n", bui->time, modelicaInstanceName, bui->time);
+        SpawnFormatMessage("%.2f %s: Received nan from EnergyPlus for %s at time = %.2f:\n", bui->time, modelicaInstanceName, bui->time);
       }
-      bui->SpawnFormatMessage("%.2f %s:   %s = %.2f\n", bui->time, modelicaInstanceName, varNam, ptrReals->valsSI[i]);
+      SpawnFormatMessage("%.2f %s:   %s = %.2f\n", bui->time, modelicaInstanceName, varNam, ptrReals->valsSI[i]);
     }
     SpawnFormatError("%.2f %s: Terminating simulation because EnergyPlus returned nan for %s. See Modelica log file for details.",
        bui->time, modelicaInstanceName,
@@ -126,7 +126,7 @@ void getVariables(FMUBuilding* bui, const char* modelicaInstanceName, spawnReals
     bui->SpawnFormatMessage("%.2f %s: Getting real variables from EnergyPlus, mode = %s.\n", bui->time, modelicaInstanceName, fmuModeToString(bui->mode));
 */
   status = fmi2_import_get_real(bui->fmu, ptrReals->valRefs, ptrReals->n, ptrReals->valsEP);
-  if (status != fmi2OK) {
+  if (status != (fmi2_status_t)fmi2OK) {
     bui->SpawnFormatError("Failed to get variables for %s\n",
     modelicaInstanceName);
   }
@@ -267,7 +267,7 @@ void advanceTime_completeIntegratorStep_enterEventMode(FMUBuilding* bui, const c
     SpawnFormatMessage("%.2f %s: Calling fmi2_import_enter_event_mode: Enter event mode for FMU %s.\n", bui->time, modelicaInstanceName,
       bui->modelicaNameBuilding);
   status = fmi2_import_enter_event_mode(bui->fmu);
-  if (status != fmi2_status_ok){
+  if (status != (fmi2Status)fmi2_status_ok){
     SpawnFormatError("%.2f %s: Failed to enter event mode in EnergyPlusUtil.c, returned status is %s.", bui->time, modelicaInstanceName,
       fmi2_status_to_string(status));
   }
@@ -320,7 +320,7 @@ void saveAppendJSONElements(
   size_t n,
   size_t* bufLen,
   void (*SpawnFormatError)(const char *string, ...)){
-    int i;
+    size_t i;
     /* Write all values and value references in the format
         { "name": "V"},
         { "name": "AFlo"}
@@ -346,7 +346,7 @@ void replaceChar(char *str, char find, char replace){
   }
 }
 
-void checkAndSetVerbosity(FMUBuilding* bui, const int logLevel){
+void checkAndSetVerbosity(FMUBuilding* bui, size_t logLevel){
 
   if (getBuildings_nFMU() == 0){
     bui->logLevel = logLevel;
@@ -434,7 +434,6 @@ void getSimulationTemporaryDirectory(
   size_t lenCur;
   size_t lenSep;
   char* curDir;
-  char* namOnl;
   size_t lenCurDir = 256;
   const size_t incLenCurDir = 256;
   const size_t maxLenCurDir = 100000;
@@ -509,7 +508,6 @@ void buildVariableName(
   const char* secondPart,
   char* *ptrFullName,
   void (*SpawnFormatError)(const char *string, ...)){
-  size_t i;
   size_t len;
 
   len = strlen(modelicaInstanceName) + 1 + strlen(firstPart);
@@ -551,9 +549,9 @@ void buildVariableNames(
     for (i=0; i<nVar; i++)
       len = max(len, strlen(variableNames[i]));
 
-      *ptrVarNames = (char**)malloc(nVar * sizeof(char*));
-      if (*ptrVarNames == NULL)
-        SpawnFormatError("Failed to allocate memory for ptrVarNames in EnergyPlusZoneInstantiate.c. for %s", zoneName);
+    *ptrVarNames = (char**)malloc(nVar * sizeof(char*));
+    if (*ptrVarNames == NULL)
+      SpawnFormatError("Failed to allocate memory for ptrVarNames in EnergyPlusZoneInstantiate.c. for %s", zoneName);
 
     for (i=0; i<nVar; i++){
       mallocString(
