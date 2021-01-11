@@ -89,7 +89,6 @@ protected
     usePrecompiledFMU=usePrecompiledFMU,
     fmuName=fmuName,
     buildingsLibraryRoot=buildingsLibraryRoot,
-    initialTime=startTime,
     logLevel=logLevel)
     "Class to communicate with EnergyPlus";
   parameter Modelica.SIunits.Time startTime(
@@ -145,6 +144,7 @@ initial equation
   end if;
   startTime=time;
   counter=0;
+
   (AFlo,V,mSenFac)=Buildings.ThermalZones.EnergyPlus.BaseClasses.zoneInitialize(
     adapter=adapter,
     startTime=time);

@@ -23,7 +23,6 @@ class FMUOutputVariableClass
       "Specify if a pre-compiled FMU should be used instead of EnergyPlus (mainly for development)";
     input String buildingsLibraryRoot
       "Root directory of the Buildings library (used to find the spawn executable)";
-    input Modelica.SIunits.Time initialTime "Initial time of the simulation";
     input Buildings.ThermalZones.EnergyPlus.Types.LogLevels logLevel
       "LogLevels of EnergyPlus output";
     input Boolean printUnit
@@ -39,7 +38,6 @@ class FMUOutputVariableClass
     usePrecompiledFMU,
     fmuName,
     buildingsLibraryRoot,
-    initialTime,
     logLevel,
     printUnit)
     annotation (

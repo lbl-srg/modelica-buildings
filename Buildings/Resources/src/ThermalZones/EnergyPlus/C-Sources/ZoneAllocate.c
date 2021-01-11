@@ -53,7 +53,6 @@ void* EnergyPlusZoneAllocate(
   int usePrecompiledFMU,
   const char* fmuName,
   const char* buildingsLibraryRoot,
-  const double initialTime,
   const size_t logLevel,
   void (*SpawnMessage)(const char *string),
   void (*SpawnError)(const char *string),
@@ -126,7 +125,7 @@ void* EnergyPlusZoneAllocate(
   mallocSpawnReals(4, &(zone->outputs), SpawnFormatError);
 
   if (logLevel >= MEDIUM)
-    SpawnFormatMessage("%.2f %s: Allocated parameters %p\n", initialTime, modelicaNameThermalZone, zone->parameters);
+    SpawnFormatMessage("%.2f ----: Allocated parameters %p\n", modelicaNameThermalZone, zone->parameters);
   /* Assign structural data */
   buildVariableNames(
     zone->name,
@@ -160,7 +159,7 @@ void* EnergyPlusZoneAllocate(
   for(i = 0; i < nFMU; i++){
     FMUBuilding* fmu = getBuildingsFMU(i);
     if (logLevel >= MEDIUM){
-      SpawnFormatMessage("*** Testing building %s in FMU %s for %s.\n", modelicaNameBuilding, fmu->fmuAbsPat, modelicaNameThermalZone);
+      SpawnFormatMessage("%.2f ----: Testing FMU %s for %s.\n", modelicaNameThermalZone, fmu->fmuAbsPat, modelicaNameBuilding);
     }
 
     if (strcmp(modelicaNameBuilding, fmu->modelicaNameBuilding) == 0){
@@ -202,7 +201,6 @@ void* EnergyPlusZoneAllocate(
       usePrecompiledFMU,
       fmuName,
       buildingsLibraryRoot,
-      initialTime,
       logLevel,
       SpawnMessage,
       SpawnError,

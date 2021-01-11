@@ -33,7 +33,6 @@ protected
     usePrecompiledFMU=usePrecompiledFMU,
     fmuName=fmuName,
     buildingsLibraryRoot=Buildings.ThermalZones.EnergyPlus.BaseClasses.buildingsLibraryRoot,
-    initialTime=startTime,
     logLevel=logLevel,
     printUnit=printUnit)
     "Class to communicate with EnergyPlus";

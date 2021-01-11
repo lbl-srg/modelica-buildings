@@ -27,7 +27,6 @@ size_t AllocateBuildingDataStructure(
   int usePrecompiledFMU,
   const char* fmuName,
   const char* buildingsLibraryRoot,
-  const double initialTime,
   size_t logLevel,
   void (*SpawnMessage)(const char *string),
   void (*SpawnError)(const char *string),

@@ -22,7 +22,6 @@ class FMUZoneClass
       "Specify if a pre-compiled FMU should be used instead of EnergyPlus (mainly for development)";
     input String buildingsLibraryRoot
       "Root directory of the Buildings library (used to find the spawn executable)";
-    input Modelica.SIunits.Time initialTime "Initial time of the simulation";
     input Buildings.ThermalZones.EnergyPlus.Types.LogLevels logLevel
       "LogLevels of EnergyPlus output";
     output FMUZoneClass adapter;
@@ -35,7 +34,6 @@ class FMUZoneClass
     usePrecompiledFMU,
     fmuName,
     buildingsLibraryRoot,
-    initialTime,
     logLevel)
     annotation (Include="#include <EnergyPlusWrapper.c>",IncludeDirectory="modelica://Buildings/Resources/C-Sources",Library={"ModelicaBuildingsEnergyPlus","fmilib_shared"});
     annotation (

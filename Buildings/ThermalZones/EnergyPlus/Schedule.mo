@@ -31,7 +31,6 @@ protected
     usePrecompiledFMU=usePrecompiledFMU,
     fmuName=fmuName,
     buildingsLibraryRoot=Buildings.ThermalZones.EnergyPlus.BaseClasses.buildingsLibraryRoot,
-    initialTime=startTime,
     logLevel=logLevel)
     "Class to communicate with EnergyPlus";
 initial equation

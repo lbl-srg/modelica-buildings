@@ -64,7 +64,6 @@ void* EnergyPlusInputVariableAllocate(
   int usePrecompiledFMU,
   const char* fmuName,
   const char* buildingsLibraryRoot,
-  const double initialTime,
   const size_t logLevel,
   void (*SpawnMessage)(const char *string),
   void (*SpawnError)(const char *string),
@@ -79,7 +78,7 @@ void* EnergyPlusInputVariableAllocate(
   FMUInputVariable* doubleInpVarSpec = NULL;
 
   if (logLevel >= MEDIUM)
-    SpawnFormatMessage("%.2f, %s: Entered EnergyPlusInputVariableAllocate.\n", initialTime, modelicaNameInputVariable);
+    SpawnFormatMessage("%.2f ----: Entered EnergyPlusInputVariableAllocate.\n", modelicaNameInputVariable);
 
   if (objectType < 1 || objectType > 2)
     SpawnFormatError("Object type must be 1 or 2, received invalid value for %s.\n", modelicaNameInputVariable);
@@ -89,18 +88,18 @@ void* EnergyPlusInputVariableAllocate(
 
   if (comVar != NULL){
     if (logLevel >= MEDIUM)
-      SpawnFormatMessage("%.2f, %s: EnergyPlusInputVariableAllocate called more than once for %s.\n", initialTime, modelicaNameInputVariable);
+      SpawnFormatMessage("%.2f ----: EnergyPlusInputVariableAllocate called more than once for %s.\n", modelicaNameInputVariable);
     /* Return pointer to this zone */
     return (void*) comVar;
   }
   if (logLevel >= MEDIUM)
-    SpawnFormatMessage("%.2f, %s: First call for this instance %s.\n", initialTime, modelicaNameInputVariable);
+    SpawnFormatMessage("%.2f ----: First call for this instance %s.\n", modelicaNameInputVariable);
 
   /* ********************************************************************** */
   /* Initialize the input variable */
 
   if (logLevel >= MEDIUM)
-    SpawnFormatMessage("%.2f, %s: Initializing memory for input variable for %s.\n", initialTime, modelicaNameInputVariable);
+    SpawnFormatMessage("%.2f ----: Initializing memory for input variable for %s.\n", modelicaNameInputVariable);
 
   comVar = (FMUInputVariable*) malloc(sizeof(FMUInputVariable));
   if ( comVar == NULL )
@@ -178,12 +177,12 @@ void* EnergyPlusInputVariableAllocate(
   for(i = 0; i < nFMU; i++){
     FMUBuilding* fmu = getBuildingsFMU(i);
     if (logLevel >= MEDIUM){
-      SpawnFormatMessage("%.2f %s: Searching building %s in FMU %s for %s.\n", initialTime, modelicaNameInputVariable, modelicaNameBuilding, fmu->fmuAbsPat, modelicaNameInputVariable);
+      SpawnFormatMessage("%.2f ----: Searching building %s in FMU %s for %s.\n", modelicaNameInputVariable, modelicaNameBuilding, fmu->fmuAbsPat, modelicaNameInputVariable);
     }
 
     if (strcmp(modelicaNameBuilding, fmu->modelicaNameBuilding) == 0){
       if (logLevel >= MEDIUM){
-        SpawnFormatMessage("%.2f %s: *** Found a match.\n", initialTime, modelicaNameInputVariable);
+        SpawnFormatMessage("%.2f ----: *** Found a match.\n", modelicaNameInputVariable);
       }
       /* This is the same FMU as before. */
       doubleInpVarSpec = checkForDoubleInputVariableDeclaration(fmu, comVar->inputs->fmiNames[0]);
@@ -196,7 +195,7 @@ void* EnergyPlusInputVariableAllocate(
       else{
         /* This input variable has not yet been added to this building */
         if (logLevel >= MEDIUM){
-          SpawnFormatMessage("%.2f %s: Assigning comVar->bui = fmu with fmu at %p", initialTime, modelicaNameInputVariable, fmu);
+          SpawnFormatMessage("%.2f ----: Assigning comVar->bui = fmu with fmu at %p", modelicaNameInputVariable, fmu);
         }
         comVar->bui = fmu;
 
@@ -216,7 +215,6 @@ void* EnergyPlusInputVariableAllocate(
       usePrecompiledFMU,
       fmuName,
       buildingsLibraryRoot,
-      initialTime,
       logLevel,
       SpawnMessage,
       SpawnError,
@@ -227,17 +225,17 @@ void* EnergyPlusInputVariableAllocate(
 
     if (logLevel >= MEDIUM){
       for(i = 0; i < getBuildings_nFMU(); i++){
-         SpawnFormatMessage("%.2f %s: InputVariableAllocate.c: Building %s is at address %p",
-           initialTime, modelicaNameInputVariable,
+         SpawnFormatMessage("%.2f ----: InputVariableAllocate.c: Building %s is at address %p",
+           modelicaNameInputVariable,
            (getBuildingsFMU(i))->modelicaNameBuilding,
            getBuildingsFMU(i));
       }
-      SpawnFormatMessage("%.2f %s: Input variable ptr is at %p\n", initialTime, modelicaNameInputVariable, comVar);
+      SpawnFormatMessage("%.2f ----: Input variable ptr is at %p\n", modelicaNameInputVariable, comVar);
     }
   }
 
   if (logLevel >= MEDIUM)
-    SpawnFormatMessage("%.2f %s: Exiting allocation with input variable ptr at %p", initialTime, modelicaNameInputVariable, comVar);
+    SpawnFormatMessage("%.2f ----: Exiting allocation with input variable ptr at %p", modelicaNameInputVariable, comVar);
   /* Return a pointer to this input variable */
   return (void*) comVar;
 }

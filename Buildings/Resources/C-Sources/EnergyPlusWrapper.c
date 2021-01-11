@@ -38,7 +38,6 @@ void* SpawnZoneAllocate(
   int usePrecompiledFMU,
   const char* fmuName,
   const char* buildingsLibraryRoot,
-  const double initialTime,
   const int logLevel){
 
     return EnergyPlusZoneAllocate(
@@ -50,7 +49,6 @@ void* SpawnZoneAllocate(
       usePrecompiledFMU,
       fmuName,
       buildingsLibraryRoot,
-      initialTime,
       logLevel,
       ModelicaMessage,
       ModelicaError,
@@ -123,7 +121,6 @@ void* SpawnInputVariableAllocate(
   int usePrecompiledFMU,
   const char* fmuName,
   const char* buildingsLibraryRoot,
-  const double initialTime,
   const int logLevel){
 
     return EnergyPlusInputVariableAllocate(
@@ -139,7 +136,6 @@ void* SpawnInputVariableAllocate(
       usePrecompiledFMU,
       fmuName,
       buildingsLibraryRoot,
-      initialTime,
       logLevel,
       ModelicaMessage,
       ModelicaError,
@@ -179,7 +175,6 @@ void* SpawnOutputVariableAllocate(
   int usePrecompiledFMU,
   const char* fmuName,
   const char* buildingsLibraryRoot,
-  const double initialTime,
   const int logLevel,
   int printUnit){
 
@@ -193,7 +188,6 @@ void* SpawnOutputVariableAllocate(
       usePrecompiledFMU,
       fmuName,
       buildingsLibraryRoot,
-      initialTime,
       logLevel,
       printUnit,
       ModelicaMessage,
