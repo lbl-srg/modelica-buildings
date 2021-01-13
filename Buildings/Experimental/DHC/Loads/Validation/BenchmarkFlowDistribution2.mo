@@ -39,7 +39,7 @@ model BenchmarkFlowDistribution2
   final parameter Modelica.SIunits.PressureDifference dp_nominal=sum(
     dis.con.pipDisSup.dp_nominal)+sum(
     dis.con.pipDisRet.dp_nominal)+max(
-    ter.dp_nominal)
+    ter.dpSou_nominal)
     "Nominal pressure drop in the distribution line";
   final parameter Modelica.SIunits.HeatFlowRate QHea_flow_nominal=Loads.BaseClasses.getPeakLoad(
     string="#Peak space heating load",

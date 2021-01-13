@@ -10,17 +10,12 @@ model CouplingTimeSeriesSingleLoop
     have_heaWat=false,
     filNam="modelica://Buildings/Resources/Data/Experimental/DHC/Loads/Examples/SwissResidential_20190916.mos",
     facMulCoo=40,
-    k=1,
-    Ti=10,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    use_inputFilter=false,
     nPorts_aChiWat=1,
     nPorts_bChiWat=1)
     "Building wint cooling only"
     annotation (Placement(transformation(extent={{-10,100},{10,120}})));
   Buildings.Fluid.Sources.Boundary_pT sinChiWat(
     redeclare package Medium=Medium1,
-    p=300000,
     nPorts=1)
     "Sink for chilled water"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},rotation=0,origin={110,104})));
@@ -56,10 +51,6 @@ model CouplingTimeSeriesSingleLoop
     have_chiWat=false,
     filNam="modelica://Buildings/Resources/Data/Experimental/DHC/Loads/Examples/SwissResidential_20190916.mos",
     facMulHea=10,
-    k=1,
-    Ti=10,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    use_inputFilter=false,
     nPorts_aChiWat=1,
     nPorts_bChiWat=1,
     nPorts_aHeaWat=1,
@@ -78,7 +69,6 @@ model CouplingTimeSeriesSingleLoop
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,origin={-70,-12})));
   Fluid.Sources.Boundary_pT sinHeaWat(
     redeclare package Medium=Medium1,
-    p=300000,
     nPorts=1)
     "Sink for heating water"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},rotation=0,origin={110,-12})));

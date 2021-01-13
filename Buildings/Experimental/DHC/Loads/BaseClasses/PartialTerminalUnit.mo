@@ -103,16 +103,6 @@ partial model PartialTerminalUnit
   parameter Modelica.SIunits.Temperature T_aLoaCoo_nominal=273.15 + 26.7
     "Load side inlet temperature at nominal conditions in cooling mode"
     annotation (Dialog(group="Nominal condition",enable=have_chiWat));
-  // Dynamics
-  parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial
-    "Type of energy balance: dynamic (3 initialization options) or steady state"
-    annotation (Evaluate=true,Dialog(tab="Dynamics",group="Equations"));
-  final parameter Modelica.Fluid.Types.Dynamics massDynamics=energyDynamics
-    "Type of mass balance: dynamic (3 initialization options) or steady state"
-    annotation (Evaluate=true,Dialog(tab="Dynamics",group="Equations"));
-  parameter Modelica.SIunits.Time tau=1
-    "Time constant at nominal flow (if energyDynamics <> SteadyState)"
-    annotation (Dialog(tab="Dynamics",group="Nominal condition"));
   // IO connectors
   Modelica.Blocks.Interfaces.RealInput TSen(
     final quantity="ThermodynamicTemperature",
