@@ -280,7 +280,7 @@ The chiller enable schedule is inactive.
 </li>
 </ol>
 <p>
-The following state machine chart illustrates the transitions between plant enabling and disabling:
+The following state machine chart illustrates the transitions between plant enable and plant disable:
 </p>
 <p align=\"center\">
 <img alt=\"Image of chiller plant enable-disable state machine chart\"
