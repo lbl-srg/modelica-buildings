@@ -41,15 +41,16 @@ model FlowDistributionPumpControl
       nLoa-1))
     "Pressure drop between each connected unit at nominal conditions (supply line)";
   parameter Modelica.SIunits.PressureDifference dpSet=max(
-    terUniHea.dp_nominal)
+    terUniHea.dpSou_nominal)
     "Pressure difference set point";
-  final parameter Modelica.SIunits.MassFlowRate mCon_flow_nominal[nLoa]=terUniHea.mHeaWat_flow_nominal*facMul
+  final parameter Modelica.SIunits.MassFlowRate mCon_flow_nominal[nLoa]=
+    terUniHea.mHeaWat_flow_nominal*facMul
     "Nominal mass flow rate in each connection line";
   final parameter Modelica.SIunits.MassFlowRate m_flow_nominal=sum(
     mCon_flow_nominal)
     "Nominal mass flow rate in the distribution line";
   final parameter Modelica.SIunits.PressureDifference dp_nominal=max(
-    terUniHea.dp_nominal)+2*nLoa*5000
+    terUniHea.dpSou_nominal)+2*nLoa*5000
     "Nominal pressure drop in the distribution line";
   final parameter Modelica.SIunits.HeatFlowRate QHea_flow_nominal=Loads.BaseClasses.getPeakLoad(
     string="#Peak space heating load",
