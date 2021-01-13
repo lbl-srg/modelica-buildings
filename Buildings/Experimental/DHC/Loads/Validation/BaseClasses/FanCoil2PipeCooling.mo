@@ -24,7 +24,7 @@ model FanCoil2PipeCooling
       QCoo_flow_nominal/cpChiWat_nominal/(T_aChiWat_nominal-T_bChiWat_nominal)));
   import hexConfiguration=Buildings.Fluid.Types.HeatExchangerConfiguration;
   parameter Real k(
-    min=0)=0.1
+    min=0)=1
     "Gain of controller";
   parameter Modelica.SIunits.Time Ti(
     min=Modelica.Constants.small)=10
