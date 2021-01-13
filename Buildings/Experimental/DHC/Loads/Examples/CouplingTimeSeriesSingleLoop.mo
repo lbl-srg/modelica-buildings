@@ -8,7 +8,6 @@ model CouplingTimeSeriesSingleLoop
     "Period for time averaged variables";
   Buildings.Experimental.DHC.Loads.Examples.BaseClasses.BuildingTimeSeries buiCoo(
     have_heaWat=false,
-    allowFlowReversal=true,
     filNam="modelica://Buildings/Resources/Data/Experimental/DHC/Loads/Examples/SwissResidential_20190916.mos",
     facMulCoo=40,
     nPorts_aChiWat=1,
@@ -50,7 +49,6 @@ model CouplingTimeSeriesSingleLoop
     annotation (Placement(transformation(extent={{80,60},{100,80}})));
   BaseClasses.BuildingTimeSeries buiHea(
     have_chiWat=false,
-    allowFlowReversal=true,
     filNam="modelica://Buildings/Resources/Data/Experimental/DHC/Loads/Examples/SwissResidential_20190916.mos",
     facMulHea=10,
     nPorts_aChiWat=1,

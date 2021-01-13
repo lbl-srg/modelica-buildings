@@ -12,14 +12,13 @@ model FanCoil2PipeHeating
     final have_chiWat=false,
     final have_QReq_flow=true,
     allowFlowReversal=false,
-    final allowFlowReversalLoa=true,
+    allowFlowReversalLoa=true,
     final have_chaOve=false,
     final have_eleHea=false,
     final have_eleCoo=false,
     final have_TSen=false,
     final have_weaBus=false,
     final have_pum=false,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     mHeaWat_flow_nominal=abs(
       QHea_flow_nominal/cpHeaWat_nominal/(T_aHeaWat_nominal-T_bHeaWat_nominal)));
   import hexConfiguration=Buildings.Fluid.Types.HeatExchangerConfiguration;
@@ -29,24 +28,24 @@ model FanCoil2PipeHeating
   parameter Modelica.SIunits.Time Ti(
     min=Modelica.Constants.small)=10
     "Time constant of integrator block";
-  parameter Modelica.SIunits.PressureDifference dp_nominal(
+  parameter Modelica.SIunits.PressureDifference dpLoa_nominal(
     displayUnit="Pa") = 250
     "Load side pressure drop"
     annotation(Dialog(group="Nominal condition"));
   final parameter hexConfiguration hexConHea=hexConfiguration.CounterFlow
     "Heating heat exchanger configuration";
   parameter Boolean have_speVar=true
-    "Set to true for a variable speed fan (otherwise fan is always on)";
+    "Set to true for a variable speed fan (otherwise fan is always on)"
+    annotation (Evaluate=true, Dialog(group="Configuration"));
   Buildings.Fluid.Movers.FlowControlled_m_flow fan(
     redeclare final package Medium=Medium2,
     final allowFlowReversal=allowFlowReversalLoa,
     final m_flow_nominal=mLoaHea_flow_nominal,
-    redeclare Fluid.Movers.Data.Generic per,
+    redeclare final Fluid.Movers.Data.Generic per,
     nominalValuesDefineDefaultPressureCurve=true,
-    final energyDynamics=energyDynamics,
-    final massDynamics=massDynamics,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     use_inputFilter=false,
-    final dp_nominal=dp_nominal)
+    final dp_nominal=dpLoa_nominal)
     "Fan"
     annotation (Placement(transformation(extent={{50,-10},{30,10}})));
   Buildings.Controls.OBC.CDL.Continuous.PIDWithReset con(
@@ -63,7 +62,7 @@ model FanCoil2PipeHeating
     final m1_flow_nominal=mHeaWat_flow_nominal,
     final m2_flow_nominal=mLoaHea_flow_nominal,
     final dp1_nominal=0,
-    dp2_nominal=0,
+    final dp2_nominal=0,
     final Q_flow_nominal=QHea_flow_nominal,
     final T_a1_nominal=T_aHeaWat_nominal,
     final T_a2_nominal=T_aLoaHea_nominal,
@@ -116,14 +115,15 @@ model FanCoil2PipeHeating
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1(
     k=have_speVar)
     annotation (Placement(transformation(extent={{-50,160},{-30,180}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(t=1E-4, h=
-        0.5E-4)
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
+    t=1E-4,
+    h=0.5E-4)
     "Reset when demand rises from zero"
     annotation (Placement(transformation(extent={{-50,190},{-30,210}})));
   Fluid.FixedResistances.PressureDrop resLoa(
     redeclare final package Medium = Medium2,
     final m_flow_nominal=mLoaHea_flow_nominal,
-    final dp_nominal=dp_nominal)
+    final dp_nominal=dpLoa_nominal)
     "Load side pressure drop"
     annotation (Placement(transformation(extent={{80,-10},{60,10}})));
 equation

@@ -10,14 +10,12 @@ model BuildingTimeSeries
     final have_eleHea=false,
     final have_eleCoo=false,
     final have_weaBus=false);
-  parameter Boolean have_dumLoa = true
-    "TEST"
-    annotation (Evaluate=true);
+  replaceable package Medium2=Buildings.Media.Air
+    constrainedby Modelica.Media.Interfaces.PartialMedium
+    "Load side medium";
   parameter Boolean have_hotWat = false
     "Set to true if SHW load is included in the time series"
-    annotation (Evaluate=true);
-  replaceable package Medium2=Buildings.Media.Air
-    "Load side medium";
+    annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter String filNam
     "File name with thermal loads as time series";
   parameter Real facMulHea=1
@@ -80,14 +78,6 @@ model BuildingTimeSeries
   parameter Modelica.SIunits.Time Ti(
     min=Modelica.Constants.small)=10
     "Time constant of integrator block";
-  parameter Modelica.Fluid.Types.Dynamics energyDynamics=
-    Modelica.Fluid.Types.Dynamics.FixedInitial
-    "Type of energy balance for fan air volume"
-    annotation (Evaluate=true,Dialog(tab="Dynamics",group="Equations"));
-  parameter Modelica.SIunits.Time tau=1
-    "Time constant of fan air volume, used if energy or mass balance is dynamic"
-    annotation (Dialog(tab="Dynamics",group="Nominal condition",
-      enable=energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput QReqHotWat_flow(
     final unit="W") if have_hotWat
@@ -116,9 +106,8 @@ model BuildingTimeSeries
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
     y(each unit="W"),
     offset={0,0,0},
-    columns=if have_hotWat then {2,3,4} else {2,3},
-    smoothness=Modelica.Blocks.Types.Smoothness.MonotoneContinuousDerivative1) if
-       not have_dumLoa
+    columns={2,3,4},
+    smoothness=Modelica.Blocks.Types.Smoothness.MonotoneContinuousDerivative1)
     "Reader for thermal loads (y[1] is cooling load, y[2] is heating load)"
     annotation (Placement(transformation(extent={{-280,-10},{-260,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTSet(
@@ -144,7 +133,6 @@ model BuildingTimeSeries
     final facMulZon=1,
     final QHea_flow_nominal=QHea_flow_nominal/facMulHea,
     final mLoaHea_flow_nominal=mLoaHea_flow_nominal,
-    final energyDynamics=energyDynamics,
     final T_aHeaWat_nominal=T_aHeaWat_nominal,
     final T_bHeaWat_nominal=T_bHeaWat_nominal,
     final T_aLoaHea_nominal=T_aLoaHea_nominal)
@@ -186,7 +174,6 @@ model BuildingTimeSeries
     final facMulZon=1,
     final QCoo_flow_nominal=QCoo_flow_nominal/facMulCoo,
     final mLoaCoo_flow_nominal=mLoaCoo_flow_nominal,
-    final energyDynamics=energyDynamics,
     final T_aChiWat_nominal=T_aChiWat_nominal,
     final T_bChiWat_nominal=T_bChiWat_nominal,
     final T_aLoaCoo_nominal=T_aLoaCoo_nominal)
@@ -214,18 +201,6 @@ model BuildingTimeSeries
     u(final unit="W"),
     final k=facMul) if have_cooLoa "Scaling"
     annotation (Placement(transformation(extent={{272,-10},{292,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine dumCoo(
-    amplitude=QCoo_flow_nominal/2,
-                           freqHz=1/(3600*24),
-    offset=QCoo_flow_nominal/2) if                have_dumLoa
-        "Dummy load"
-    annotation (Placement(transformation(extent={{-280,70},{-260,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine dumHea(
-    amplitude=QHea_flow_nominal/2,
-                           freqHz=1/(3600*24),
-    offset=QHea_flow_nominal/2) if                have_dumLoa
-        "Dummy load"
-    annotation (Placement(transformation(extent={{-280,30},{-260,50}})));
 equation
   connect(terUniHea.port_bHeaWat,disFloHea.ports_a1[1])
     annotation (Line(points={{90,-20.3333},{90,-20},{146,-20},{146,-54},{140,
@@ -267,8 +242,8 @@ equation
     annotation (Line(points={{90.8333,46},{160,46},{160,114},{238,114}},color={0,0,127}));
   connect(terUniHea.PFan,addPFan.u1)
     annotation (Line(points={{90.8333,-12},{180,-12},{180,126},{238,126}},color={0,0,127}));
-  connect(loa.y[3], QReqHotWat_flow) annotation (Line(points={{-259,0},{46,0},{
-          46,-120},{320,-120}},
+  connect(loa.y[3], QReqHotWat_flow) annotation (Line(points={{-259,0},{40,0},{
+          40,-120},{320,-120}},
                              color={0,0,127}));
   connect(disFloCoo.port_b, mulChiWatOut[1].port_a)
     annotation (Line(points={{140,-260},{260,-260}}, color={0,127,255}));
@@ -294,14 +269,6 @@ equation
           -66},{220,-66},{220,280},{268,280}}, color={0,0,127}));
   connect(disFloCoo.QActTot_flow, mulQCoo_flow.u) annotation (Line(points={{141,
           -266},{224,-266},{224,240},{268,240}}, color={0,0,127}));
-  connect(dumHea.y, terUniHea.QReqHea_flow) annotation (Line(points={{-258,40},
-          {-40,40},{-40,-13.6667},{69.1667,-13.6667}},color={0,0,127}));
-  connect(dumCoo.y, terUniCoo.QReqCoo_flow) annotation (Line(points={{-258,80},
-          {-30,80},{-30,42.5},{69.1667,42.5}},color={0,0,127}));
-  connect(dumHea.y, mulQReqHea_flow.u) annotation (Line(points={{-258,40},{-40,
-          40},{-40,20},{240,20},{240,40},{270,40}}, color={0,0,127}));
-  connect(dumCoo.y, mulQReqCoo_flow.u) annotation (Line(points={{-258,80},{-30,
-          80},{-30,0},{270,0}}, color={0,0,127}));
     annotation (Line(points={{90.8333,-12},{180,-12},{180,126},{238,126}},color={0,0,127}),
     Documentation(
       info="

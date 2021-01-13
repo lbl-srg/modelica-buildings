@@ -12,14 +12,13 @@ model FanCoil2PipeCooling
     final have_chiWat=true,
     final have_QReq_flow=true,
     allowFlowReversal=false,
-    final allowFlowReversalLoa=true,
+    allowFlowReversalLoa=true,
     final have_chaOve=false,
     final have_eleHea=false,
     final have_eleCoo=false,
     final have_TSen=false,
     final have_weaBus=false,
     final have_pum=false,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     mChiWat_flow_nominal=abs(
       QCoo_flow_nominal/cpChiWat_nominal/(T_aChiWat_nominal-T_bChiWat_nominal)));
   import hexConfiguration=Buildings.Fluid.Types.HeatExchangerConfiguration;
@@ -29,12 +28,15 @@ model FanCoil2PipeCooling
   parameter Modelica.SIunits.Time Ti(
     min=Modelica.Constants.small)=10
     "Time constant of integrator block";
-  parameter Modelica.SIunits.PressureDifference dp_nominal(
+  parameter Modelica.SIunits.PressureDifference dpLoa_nominal(
     displayUnit="Pa") = 250
     "Load side pressure drop"
     annotation(Dialog(group="Nominal condition"));
   final parameter hexConfiguration hexConCoo=hexConfiguration.CounterFlow
     "Cooling heat exchanger configuration";
+  parameter Boolean have_speVar=true
+    "Set to true for a variable speed fan (otherwise fan is always on)"
+    annotation (Evaluate=true, Dialog(group="Configuration"));
   Buildings.Controls.OBC.CDL.Continuous.PIDWithReset con(
     final k=k,
     final Ti=Ti,
@@ -45,14 +47,12 @@ model FanCoil2PipeCooling
   Buildings.Fluid.Movers.FlowControlled_m_flow fan(
     redeclare final package Medium=Medium2,
     final allowFlowReversal=allowFlowReversalLoa,
-    m_flow_nominal=mLoaCoo_flow_nominal,
-    redeclare Fluid.Movers.Data.Generic per,
+    final m_flow_nominal=mLoaCoo_flow_nominal,
+    redeclare final Fluid.Movers.Data.Generic per,
     nominalValuesDefineDefaultPressureCurve=true,
-    final energyDynamics=energyDynamics,
-    final massDynamics=massDynamics,
-    final tau=tau,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     use_inputFilter=false,
-    final dp_nominal=dp_nominal)
+    final dp_nominal=dpLoa_nominal)
     "Fan"
     annotation (Placement(transformation(extent={{50,-10},{30,10}})));
   Buildings.Fluid.HeatExchangers.DryCoilEffectivenessNTU hex(
@@ -62,7 +62,7 @@ model FanCoil2PipeCooling
     final m1_flow_nominal=mChiWat_flow_nominal,
     final m2_flow_nominal=mLoaCoo_flow_nominal,
     final dp1_nominal=0,
-    dp2_nominal=0,
+    final dp2_nominal=0,
     final Q_flow_nominal=QCoo_flow_nominal,
     final T_a1_nominal=T_aChiWat_nominal,
     final T_a2_nominal=T_aLoaCoo_nominal,
@@ -80,7 +80,7 @@ model FanCoil2PipeCooling
   Buildings.Controls.OBC.CDL.Continuous.Gain gaiFloNom2(
     k=mLoaCoo_flow_nominal)
     "Scale air flow rate"
-    annotation (Placement(transformation(extent={{40,170},{60,190}})));
+    annotation (Placement(transformation(extent={{52,170},{72,190}})));
   Fluid.Sources.Boundary_pT sinAir(
     redeclare package Medium=Medium2,
     use_T_in=false,
@@ -104,19 +104,28 @@ model FanCoil2PipeCooling
   Buildings.Controls.OBC.CDL.Continuous.Gain gaiHeaFlo1(
     k=1/QCoo_flow_nominal)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=90,origin={0,190})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(t=1E-4, h=
-        0.5E-4)
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
+    t=1E-4,
+    h=0.5E-4)
     "Reset when demand rises from zero"
     annotation (Placement(transformation(extent={{-50,190},{-30,210}})));
   Fluid.FixedResistances.PressureDrop resLoa(
     redeclare final package Medium = Medium2,
     final m_flow_nominal=mLoaCoo_flow_nominal,
-    final dp_nominal=dp_nominal)
+    final dp_nominal=dpLoa_nominal)
     "Load side pressure drop"
     annotation (Placement(transformation(extent={{80,-10},{60,10}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant one(k=1)
+    "One constant"
+    annotation (Placement(transformation(extent={{-10,130},{10,150}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1(k=have_speVar)
+    annotation (Placement(transformation(extent={{-50,150},{-30,170}})));
+  Buildings.Controls.OBC.CDL.Logical.Switch swi
+    "Logical switch"
+    annotation (Placement(transformation(extent={{26,170},{46,190}})));
 equation
   connect(gaiFloNom2.y,fan.m_flow_in)
-    annotation (Line(points={{62,180},{80,180},{80,20},{40,20},{40,12}},
+    annotation (Line(points={{74,180},{80,180},{80,20},{40,20},{40,12}},
                                                         color={0,0,127}));
   connect(con.y,gaiMasFlo.u)
     annotation (Line(points={{12,220},{38,220}},color={0,0,127}));
@@ -146,8 +155,6 @@ equation
     annotation (Line(points={{0,208},{0,202},{6.66134e-16,202}},color={0,0,127}));
   connect(Q_flowCoo.y,gaiHeaFlo1.u)
     annotation (Line(points={{141,200},{150,200},{150,160},{0,160},{0,178},{-8.88178e-16,178}},color={0,0,127}));
-  connect(con.y,gaiFloNom2.u)
-    annotation (Line(points={{12,220},{20,220},{20,180},{38,180}},color={0,0,127}));
   connect(greThr.y,con.trigger)
     annotation (Line(points={{-28,200},{-6,200},{-6,208}},color={255,0,255}));
   connect(gaiHeaFlo.y,greThr.u)
@@ -160,6 +167,14 @@ equation
     annotation (Line(points={{102,0},{80,0}}, color={0,127,255}));
   connect(resLoa.port_b, fan.port_a)
     annotation (Line(points={{60,0},{50,0}}, color={0,127,255}));
+  connect(gaiFloNom2.u, swi.y)
+    annotation (Line(points={{50,180},{48,180}}, color={0,0,127}));
+  connect(con.y, swi.u1) annotation (Line(points={{12,220},{20,220},{20,188},{24,
+          188}}, color={0,0,127}));
+  connect(con1.y, swi.u2) annotation (Line(points={{-28,160},{-24,160},{-24,168},
+          {16,168},{16,180},{24,180}}, color={255,0,255}));
+  connect(one.y, swi.u3) annotation (Line(points={{12,140},{18,140},{18,172},{24,
+          172}}, color={0,0,127}));
   annotation (
     Documentation(
       info="<html>

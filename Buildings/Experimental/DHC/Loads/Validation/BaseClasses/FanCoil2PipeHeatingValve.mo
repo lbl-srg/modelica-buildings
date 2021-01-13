@@ -25,7 +25,7 @@ model FanCoil2PipeHeatingValve
     "Heating heat exchanger configuration";
   parameter Boolean have_speVar=true
     "Set to true for a variable speed fan (otherwise fan is always on)";
-  parameter Modelica.SIunits.PressureDifference dp_nominal(
+  parameter Modelica.SIunits.PressureDifference dpLoa_nominal(
     displayUnit="Pa") = 250
     "Load side pressure drop"
     annotation(Dialog(group="Nominal condition"));
@@ -33,14 +33,14 @@ model FanCoil2PipeHeatingValve
     "Nominal pressure drop on source side";
   Buildings.Fluid.Movers.FlowControlled_m_flow fan(
     redeclare final package Medium=Medium2,
-    final energyDynamics=energyDynamics,
     final allowFlowReversal=allowFlowReversalLoa,
-    m_flow_nominal=mLoaHea_flow_nominal,
-    redeclare Fluid.Movers.Data.Generic per,
+    final m_flow_nominal=mLoaHea_flow_nominal,
+    redeclare final Fluid.Movers.Data.Generic per,
     addPowerToMedium=true,
     nominalValuesDefineDefaultPressureCurve=true,
-    use_inputFilter=true,
-    final dp_nominal=dp_nominal)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    use_inputFilter=false,
+    final dp_nominal=dpLoa_nominal)
     "Fan"
     annotation (Placement(transformation(extent={{70,-10},{50,10}})));
   Buildings.Controls.OBC.CDL.Continuous.PID con(
@@ -58,7 +58,7 @@ model FanCoil2PipeHeatingValve
     final m1_flow_nominal=mHeaWat_flow_nominal,
     final m2_flow_nominal=mLoaHea_flow_nominal,
     final dp1_nominal=0,
-    dp2_nominal=0,
+    final dp2_nominal=0,
     final Q_flow_nominal=QHea_flow_nominal,
     final T_a1_nominal=T_aHeaWat_nominal,
     final T_a2_nominal=T_aLoaHea_nominal,
@@ -120,7 +120,7 @@ model FanCoil2PipeHeatingValve
   Fluid.FixedResistances.PressureDrop resLoa(
     redeclare final package Medium = Medium2,
     final m_flow_nominal=mLoaHea_flow_nominal,
-    final dp_nominal=dp_nominal)
+    final dp_nominal=dpLoa_nominal)
     "Load side pressure drop"
     annotation (Placement(transformation(extent={{94,-10},{74,10}})));
 equation
