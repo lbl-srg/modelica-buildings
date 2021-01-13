@@ -7,13 +7,10 @@ model CouplingTimeSeries
   parameter Modelica.SIunits.Time perAve=600
     "Period for time averaged variables";
   Buildings.Experimental.DHC.Loads.Examples.BaseClasses.BuildingTimeSeries bui(
+    allowFlowReversal=true,
     filNam="modelica://Buildings/Resources/Data/Experimental/DHC/Loads/Examples/SwissResidential_20190916.mos",
     facMulHea=10,
     facMulCoo=40,
-    k=1,
-    Ti=10,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    use_inputFilter=false,
     nPorts_aHeaWat=1,
     nPorts_aChiWat=1,
     nPorts_bHeaWat=1,
@@ -22,20 +19,18 @@ model CouplingTimeSeries
     annotation (Placement(transformation(extent={{10,-4},{30,16}})));
   Buildings.Fluid.Sources.Boundary_pT sinHeaWat(
     redeclare package Medium=Medium1,
-    p=300000,
     nPorts=1)
     "Sink for heating water"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},rotation=0,origin={130,20})));
   Buildings.Fluid.Sources.Boundary_pT sinChiWat(
     redeclare package Medium=Medium1,
-    p=300000,
     nPorts=1)
     "Sink for chilled water"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},rotation=0,origin={130,-20})));
   Modelica.Blocks.Sources.RealExpression THeaWatSup(
     y=bui.T_aHeaWat_nominal)
     "Heating water supply temperature"
-    annotation (Placement(transformation(extent={{-120,30},{-100,50}})));
+    annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
   Modelica.Blocks.Sources.RealExpression TChiWatSup(
     y=bui.T_aChiWat_nominal)
     "Chilled water supply temperature"
@@ -45,7 +40,7 @@ model CouplingTimeSeries
     use_T_in=true,
     nPorts=1)
     "Heating water supply"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,origin={-50,40})));
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,origin={-50,20})));
   Fluid.Sources.Boundary_pT supChiWat(
     redeclare package Medium=Medium1,
     use_T_in=true,
@@ -90,11 +85,11 @@ model CouplingTimeSeries
     annotation (Placement(transformation(extent={{100,-110},{120,-90}})));
 equation
   connect(supHeaWat.T_in,THeaWatSup.y)
-    annotation (Line(points={{-62,44},{-80,44},{-80,40},{-99,40}},color={0,0,127}));
+    annotation (Line(points={{-62,24},{-80,24},{-80,20},{-99,20}},color={0,0,127}));
   connect(TChiWatSup.y,supChiWat.T_in)
     annotation (Line(points={{-99,-20},{-80,-20},{-80,-16},{-62,-16}},color={0,0,127}));
   connect(supHeaWat.ports[1],bui.ports_aHeaWat[1])
-    annotation (Line(points={{-40,40},{0,40},{0,4},{10,4}},color={0,127,255}));
+    annotation (Line(points={{-40,20},{0,20},{0,4},{10,4}},color={0,127,255}));
   connect(supChiWat.ports[1],bui.ports_aChiWat[1])
     annotation (Line(points={{-40,-20},{0,-20},{0,0},{10,0}},color={0,127,255}));
   connect(bui.ports_bHeaWat[1],sinHeaWat.ports[1])
