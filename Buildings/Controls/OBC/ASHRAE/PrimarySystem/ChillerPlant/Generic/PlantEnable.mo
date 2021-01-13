@@ -279,6 +279,13 @@ The chiller enable schedule is inactive.
 </ul>
 </li>
 </ol>
+<p>
+The following state machine chart illustrates the transitions between plant enabling and disabling:
+</p>
+<p align=\"center\">
+<img alt=\"Image of chiller plant enable-disable state machine chart\"
+src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Generic/PlantEnableStateGraph.png\"/>
+</p>
 </html>",
 revisions="<html>
 <ul>

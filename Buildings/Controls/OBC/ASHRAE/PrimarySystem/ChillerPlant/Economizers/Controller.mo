@@ -271,6 +271,13 @@ for <code>delDis</code> time period.
 </li>
 </ul>
 <p>
+The following state machine chart illustrates the transitions between WSE enabled and disabled state:
+</p>
+<p align=\"center\">
+<img alt=\"Image of WSE enable-disable state machine chart\"
+src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Economizer/WaterSideEconomizerEnableDisableStateGraph.png\"/>
+</p>
+<p>
 The WSE control sequence uses the following subsequences:
 </p>
 <ul>
