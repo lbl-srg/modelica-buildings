@@ -392,12 +392,6 @@ initial equation
       true,
     "In "+getInstanceName()+": The configuration where have_val is true and have_pum is false is not allowed.");
 equation
-  assert(
-    senMasFlo.m_flow >= 0,
-    "In "+getInstanceName()+": senMasFlo.m_flow negative");
-  assert(
-    mAct_flow[1].y >= 0,
-    "In "+getInstanceName()+": mAct_flow[1] negative");
   // Connect statements involving conditionally removed components are
   // removed at translation time by Modelica specification.
   // Only obsolete statements corresponding to the default model structure need
