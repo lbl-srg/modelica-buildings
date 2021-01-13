@@ -104,8 +104,8 @@ model FanCoil2PipeCooling
   Buildings.Controls.OBC.CDL.Continuous.Gain gaiHeaFlo1(
     k=1/QCoo_flow_nominal)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=90,origin={0,190})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(t=-1E-4*
-        QCoo_flow_nominal, h=-0.5E-4*QCoo_flow_nominal)
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(t=1E-4, h=
+        0.5E-4)
     "Reset when demand rises from zero"
     annotation (Placement(transformation(extent={{-50,190},{-30,210}})));
   Fluid.FixedResistances.PressureDrop resLoa(
