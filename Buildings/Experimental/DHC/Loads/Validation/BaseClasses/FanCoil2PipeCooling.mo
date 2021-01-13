@@ -11,7 +11,7 @@ model FanCoil2PipeCooling
     final have_heaWat=false,
     final have_chiWat=true,
     final have_QReq_flow=true,
-    final allowFlowReversal=false,
+    allowFlowReversal=false,
     final allowFlowReversalLoa=true,
     final have_chaOve=false,
     final have_eleHea=false,
@@ -19,21 +19,20 @@ model FanCoil2PipeCooling
     final have_TSen=false,
     final have_weaBus=false,
     final have_pum=false,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     mChiWat_flow_nominal=abs(
       QCoo_flow_nominal/cpChiWat_nominal/(T_aChiWat_nominal-T_bChiWat_nominal)));
   import hexConfiguration=Buildings.Fluid.Types.HeatExchangerConfiguration;
   parameter Real k(
-    min=0)=1
+    min=0)=0.1
     "Gain of controller";
   parameter Modelica.SIunits.Time Ti(
     min=Modelica.Constants.small)=10
     "Time constant of integrator block";
-  parameter Boolean use_inputFilter=true
-    "= true, if fan speed is filtered with a 2nd order CriticalDamping filter"
-    annotation (Dialog(tab="Dynamics",group="Filtered speed"));
-  parameter Modelica.SIunits.Time riseTime=30
-    "Rise time of the filter (time to reach 99.6 % of the speed)"
-    annotation (Dialog(tab="Dynamics",group="Filtered speed",enable=use_inputFilter));
+  parameter Modelica.SIunits.PressureDifference dp_nominal(
+    displayUnit="Pa") = 250
+    "Load side pressure drop"
+    annotation(Dialog(group="Nominal condition"));
   final parameter hexConfiguration hexConCoo=hexConfiguration.CounterFlow
     "Cooling heat exchanger configuration";
   Buildings.Controls.OBC.CDL.Continuous.PIDWithReset con(
@@ -52,11 +51,10 @@ model FanCoil2PipeCooling
     final energyDynamics=energyDynamics,
     final massDynamics=massDynamics,
     final tau=tau,
-    final use_inputFilter=use_inputFilter,
-    final riseTime=riseTime,
-    dp_nominal=200)
+    use_inputFilter=false,
+    final dp_nominal=dp_nominal)
     "Fan"
-    annotation (Placement(transformation(extent={{90,-10},{70,10}})));
+    annotation (Placement(transformation(extent={{50,-10},{30,10}})));
   Buildings.Fluid.HeatExchangers.DryCoilEffectivenessNTU hex(
     redeclare final package Medium1=Medium1,
     redeclare final package Medium2=Medium2,
@@ -64,7 +62,7 @@ model FanCoil2PipeCooling
     final m1_flow_nominal=mChiWat_flow_nominal,
     final m2_flow_nominal=mLoaCoo_flow_nominal,
     final dp1_nominal=0,
-    dp2_nominal=200,
+    dp2_nominal=0,
     final Q_flow_nominal=QCoo_flow_nominal,
     final T_a1_nominal=T_aChiWat_nominal,
     final T_a2_nominal=T_aLoaCoo_nominal,
@@ -106,18 +104,26 @@ model FanCoil2PipeCooling
   Buildings.Controls.OBC.CDL.Continuous.Gain gaiHeaFlo1(
     k=1/QCoo_flow_nominal)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=90,origin={0,190})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(t=-1E-4*
+        QCoo_flow_nominal, h=-0.5E-4*QCoo_flow_nominal)
     "Reset when demand rises from zero"
     annotation (Placement(transformation(extent={{-50,190},{-30,210}})));
+  Fluid.FixedResistances.PressureDrop resLoa(
+    redeclare final package Medium = Medium2,
+    final m_flow_nominal=mLoaCoo_flow_nominal,
+    final dp_nominal=dp_nominal)
+    "Load side pressure drop"
+    annotation (Placement(transformation(extent={{80,-10},{60,10}})));
 equation
   connect(gaiFloNom2.y,fan.m_flow_in)
-    annotation (Line(points={{62,180},{80,180},{80,12}},color={0,0,127}));
+    annotation (Line(points={{62,180},{80,180},{80,20},{40,20},{40,12}},
+                                                        color={0,0,127}));
   connect(con.y,gaiMasFlo.u)
     annotation (Line(points={{12,220},{38,220}},color={0,0,127}));
   connect(fan.P,mulPFan.u)
-    annotation (Line(points={{69,9},{60,9},{60,140},{158,140}},color={0,0,127}));
+    annotation (Line(points={{29,9},{20,9},{20,140},{158,140}},color={0,0,127}));
   connect(fan.port_b,hex.port_a2)
-    annotation (Line(points={{70,0},{-60,0}},color={0,127,255}));
+    annotation (Line(points={{30,0},{-60,0}},color={0,127,255}));
   connect(hex.port_b2,sinAir.ports[1])
     annotation (Line(points={{-80,0},{-100,0}},color={0,127,255}));
   connect(Q_flowCoo.y,TLoaODE.QAct_flow)
@@ -142,8 +148,6 @@ equation
     annotation (Line(points={{141,200},{150,200},{150,160},{0,160},{0,178},{-8.88178e-16,178}},color={0,0,127}));
   connect(con.y,gaiFloNom2.u)
     annotation (Line(points={{12,220},{20,220},{20,180},{38,180}},color={0,0,127}));
-  connect(retAir.ports[1],fan.port_a)
-    annotation (Line(points={{102,0},{90,0}},color={0,127,255}));
   connect(greThr.y,con.trigger)
     annotation (Line(points={{-28,200},{-6,200},{-6,208}},color={255,0,255}));
   connect(gaiHeaFlo.y,greThr.u)
@@ -152,6 +156,10 @@ equation
     annotation (Line(points={{-160,-180},{-100,-180},{-100,-12},{-80,-12}},color={0,127,255}));
   connect(hex.port_b1,mulChiWatFloOut.port_a)
     annotation (Line(points={{-60,-12},{-40,-12},{-40,-180},{160,-180}},color={0,127,255}));
+  connect(retAir.ports[1], resLoa.port_a)
+    annotation (Line(points={{102,0},{80,0}}, color={0,127,255}));
+  connect(resLoa.port_b, fan.port_a)
+    annotation (Line(points={{60,0},{50,0}}, color={0,127,255}));
   annotation (
     Documentation(
       info="<html>

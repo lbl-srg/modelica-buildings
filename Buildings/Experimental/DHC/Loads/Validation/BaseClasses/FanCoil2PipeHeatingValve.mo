@@ -25,7 +25,11 @@ model FanCoil2PipeHeatingValve
     "Heating heat exchanger configuration";
   parameter Boolean have_speVar=true
     "Set to true for a variable speed fan (otherwise fan is always on)";
-  parameter Modelica.SIunits.PressureDifference dp_nominal=30000
+  parameter Modelica.SIunits.PressureDifference dp_nominal(
+    displayUnit="Pa") = 250
+    "Load side pressure drop"
+    annotation(Dialog(group="Nominal condition"));
+  parameter Modelica.SIunits.PressureDifference dpSou_nominal=30000
     "Nominal pressure drop on source side";
   Buildings.Fluid.Movers.FlowControlled_m_flow fan(
     redeclare final package Medium=Medium2,
@@ -36,9 +40,9 @@ model FanCoil2PipeHeatingValve
     addPowerToMedium=true,
     nominalValuesDefineDefaultPressureCurve=true,
     use_inputFilter=true,
-    dp_nominal=200)
+    final dp_nominal=dp_nominal)
     "Fan"
-    annotation (Placement(transformation(extent={{90,-10},{70,10}})));
+    annotation (Placement(transformation(extent={{70,-10},{50,10}})));
   Buildings.Controls.OBC.CDL.Continuous.PID con(
     Ti=10,
     yMax=1,
@@ -54,7 +58,7 @@ model FanCoil2PipeHeatingValve
     final m1_flow_nominal=mHeaWat_flow_nominal,
     final m2_flow_nominal=mLoaHea_flow_nominal,
     final dp1_nominal=0,
-    dp2_nominal=200,
+    dp2_nominal=0,
     final Q_flow_nominal=QHea_flow_nominal,
     final T_a1_nominal=T_aHeaWat_nominal,
     final T_a2_nominal=T_aLoaHea_nominal,
@@ -88,10 +92,10 @@ model FanCoil2PipeHeatingValve
   Fluid.Actuators.Valves.TwoWayEqualPercentage val(
     redeclare final package Medium=Medium1,
     final m_flow_nominal=mHeaWat_flow_nominal,
-    dpValve_nominal=5000,
+    dpValve_nominal=10000,
     use_inputFilter=false,
     final allowFlowReversal=allowFlowReversal,
-    dpFixed_nominal=dp_nominal-5000)
+    dpFixed_nominal=dpSou_nominal-10000)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=-90,origin={-40,-80})));
   Fluid.Sensors.MassFlowRate senMasFlo(
     redeclare final package Medium=Medium1,
@@ -113,15 +117,21 @@ model FanCoil2PipeHeatingValve
   Buildings.Controls.OBC.CDL.Logical.Switch swi
     "Logical switch"
     annotation (Placement(transformation(extent={{30,170},{50,190}})));
+  Fluid.FixedResistances.PressureDrop resLoa(
+    redeclare final package Medium = Medium2,
+    final m_flow_nominal=mLoaHea_flow_nominal,
+    final dp_nominal=dp_nominal)
+    "Load side pressure drop"
+    annotation (Placement(transformation(extent={{94,-10},{74,10}})));
 equation
   connect(gaiFloNom2.y,fan.m_flow_in)
-    annotation (Line(points={{78,180},{80,180},{80,12}},color={0,0,127}));
+    annotation (Line(points={{78,180},{60,180},{60,12}},color={0,0,127}));
   connect(fan.P,mulPFan.u)
-    annotation (Line(points={{69,9},{60,9},{60,140},{158,140}},color={0,0,127}));
+    annotation (Line(points={{49,9},{40,9},{40,140},{158,140}},color={0,0,127}));
   connect(Q_flowHea.y,mulQActHea_flow.u)
     annotation (Line(points={{141,220},{150,220},{150,220},{158,220}},color={0,0,127}));
   connect(fan.port_b,hex.port_a2)
-    annotation (Line(points={{70,0},{-60,0}},color={0,127,255}));
+    annotation (Line(points={{50,0},{-60,0}},color={0,127,255}));
   connect(hex.port_b2,sinAir.ports[1])
     annotation (Line(points={{-80,0},{-100,0}},color={0,127,255}));
   connect(TSetHea,TLoaODE.TSet)
@@ -148,8 +158,6 @@ equation
     annotation (Line(points={{141,220},{150,220},{150,160},{0,160},{0,178},{-8.88178e-16,178}},color={0,0,127}));
   connect(con.u_m,gaiHeaFlo1.y)
     annotation (Line(points={{0,208},{0,207},{6.66134e-16,207},{6.66134e-16,202}},color={0,0,127}));
-  connect(retAir.ports[1],fan.port_a)
-    annotation (Line(points={{100,0},{90,0}},color={0,127,255}));
   connect(gaiFloNom2.u,swi.y)
     annotation (Line(points={{54,180},{52,180}},color={0,0,127}));
   connect(con.y,swi.u1)
@@ -162,6 +170,10 @@ equation
     annotation (Line(points={{-40,-130},{-40,-220},{160,-220}},color={0,127,255}));
   connect(mulHeaWatFloInl.port_b,hex.port_a1)
     annotation (Line(points={{-160,-220},{-100,-220},{-100,-12},{-80,-12}},color={0,127,255}));
+  connect(retAir.ports[1], resLoa.port_a)
+    annotation (Line(points={{100,0},{94,0}}, color={0,127,255}));
+  connect(resLoa.port_b, fan.port_a)
+    annotation (Line(points={{74,0},{70,0}}, color={0,127,255}));
   annotation (
     Documentation(
       info="<html>
