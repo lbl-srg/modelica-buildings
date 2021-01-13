@@ -23,7 +23,7 @@ model BuildingTimeSeries
   parameter Real facMulCoo=1
     "Cooling terminal unit scaling factor"
     annotation(Dialog(enable=have_chiWat, group="Scaling"));
-  parameter Modelica.SIunits.Temperature T_aHeaWat_nominal=40+273.15
+  parameter Modelica.SIunits.Temperature T_aHeaWat_nominal=313.15
     "Heating water inlet temperature at nominal conditions"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.Temperature T_bHeaWat_nominal(
@@ -31,7 +31,7 @@ model BuildingTimeSeries
     displayUnit="degC")=T_aHeaWat_nominal-5
     "Heating water outlet temperature at nominal conditions"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Temperature T_aChiWat_nominal=18+273.15
+  parameter Modelica.SIunits.Temperature T_aChiWat_nominal=291.15
     "Chilled water inlet temperature at nominal conditions "
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.Temperature T_bChiWat_nominal(
@@ -56,32 +56,36 @@ model BuildingTimeSeries
     string="#Peak space cooling load",
     filNam=Modelica.Utilities.Files.loadResource(filNam))
     "Design cooling heat flow rate (<=0)"
-    annotation (Dialog(group="Design parameter"));
+    annotation (Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.HeatFlowRate QHea_flow_nominal(
     min=Modelica.Constants.eps)=Buildings.Experimental.DHC.Loads.BaseClasses.getPeakLoad(
     string="#Peak space heating load",
     filNam=Modelica.Utilities.Files.loadResource(filNam))
     "Design heating heat flow rate (>=0)"
-    annotation (Dialog(group="Design parameter"));
+    annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.SIunits.MassFlowRate mChiWat_flow_nominal=abs(
+    QCoo_flow_nominal/cp_default/(T_aChiWat_nominal-T_bChiWat_nominal))
+    "Chilled water mass flow rate at nominal conditions (all units)"
+    annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.SIunits.MassFlowRate mHeaWat_flow_nominal=abs(
+    QHea_flow_nominal/cp_default/(T_aHeaWat_nominal-T_bHeaWat_nominal))
+    "Heating water mass flow rate at nominal conditions (all units)"
+    annotation (Dialog(group="Nominal condition"));
   parameter Real k(
     min=0)=0.1
     "Gain of controller";
   parameter Modelica.SIunits.Time Ti(
     min=Modelica.Constants.small)=10
     "Time constant of integrator block";
-  parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial
+  parameter Modelica.Fluid.Types.Dynamics energyDynamics=
+    Modelica.Fluid.Types.Dynamics.FixedInitial
     "Type of energy balance for fan air volume"
     annotation (Evaluate=true,Dialog(tab="Dynamics",group="Equations"));
   parameter Modelica.SIunits.Time tau=1
     "Time constant of fan air volume, used if energy or mass balance is dynamic"
     annotation (Dialog(tab="Dynamics",group="Nominal condition",
       enable=energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState));
-  parameter Boolean use_inputFilter=true
-    "= true, if fan speed is filtered with a 2nd order CriticalDamping filter"
-    annotation (Dialog(tab="Dynamics",group="Filtered speed"));
-  parameter Modelica.SIunits.Time riseTime=30
-    "Rise time of the filter (time to reach 99.6 % of the speed)"
-    annotation (Dialog(tab="Dynamics",group="Filtered speed",enable=use_inputFilter));
+
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput QReqHotWat_flow(
     final unit="W") if have_hotWat
     "SHW load" annotation (Placement(
@@ -127,13 +131,11 @@ model BuildingTimeSeries
     annotation (Placement(transformation(extent={{-280,210},{-260,230}})));
   replaceable DHC.Loads.Validation.BaseClasses.FanCoil2PipeHeating terUniHea(
     final k=k,
-    final Ti=Ti,
-    final tau=tau,
-    final use_inputFilter=use_inputFilter,
-    final riseTime=riseTime) if have_heaWat
+    final Ti=Ti) if have_heaWat
   constrainedby DHC.Loads.BaseClasses.PartialTerminalUnit(
     redeclare final package Medium1=Medium,
     redeclare final package Medium2=Medium2,
+    final allowFlowReversal=allowFlowReversal,
     final facMul=facMulHea,
     final facMulZon=1,
     final QHea_flow_nominal=QHea_flow_nominal/facMulHea,
@@ -145,19 +147,23 @@ model BuildingTimeSeries
     "Heating terminal unit"
     annotation (Placement(transformation(extent={{70,-22},{90,-2}})));
   Buildings.Experimental.DHC.Loads.FlowDistribution disFloHea(
-    redeclare package Medium=Medium,
+    redeclare final package Medium=Medium,
+    final allowFlowReversal=allowFlowReversal,
     m_flow_nominal=mHeaWat_flow_nominal,
     have_pum=true,
+    typCtr=Buildings.Experimental.DHC.Loads.Types.PumpControlType.ConstantHead,
     dp_nominal=100000,
     nPorts_a1=1,
     nPorts_b1=1) if have_heaWat
     "Heating water distribution system"
     annotation (Placement(transformation(extent={{120,-70},{140,-50}})));
   Buildings.Experimental.DHC.Loads.FlowDistribution disFloCoo(
-    redeclare package Medium=Medium,
-    final m_flow_nominal=mChiWat_flow_nominal,
+    redeclare final package Medium=Medium,
+    final allowFlowReversal=allowFlowReversal,
+    m_flow_nominal=mChiWat_flow_nominal,
     typDis=Buildings.Experimental.DHC.Loads.Types.DistributionType.ChilledWater,
     have_pum=true,
+    typCtr=Buildings.Experimental.DHC.Loads.Types.PumpControlType.ConstantHead,
     dp_nominal=100000,
     nPorts_b1=1,
     nPorts_a1=1) if have_chiWat
@@ -167,13 +173,11 @@ model BuildingTimeSeries
     final QHea_flow_nominal=QHea_flow_nominal/facMulHea,
     final T_aLoaHea_nominal=T_aLoaHea_nominal,
     final k=k,
-    final Ti=Ti,
-    final tau=tau,
-    final use_inputFilter=use_inputFilter,
-    final riseTime=riseTime) if have_chiWat
+    final Ti=Ti) if have_chiWat
   constrainedby DHC.Loads.BaseClasses.PartialTerminalUnit(
     redeclare final package Medium1=Medium,
     redeclare final package Medium2=Medium2,
+    final allowFlowReversal=allowFlowReversal,
     final facMul=facMulCoo,
     final facMulZon=1,
     final QCoo_flow_nominal=QCoo_flow_nominal/facMulCoo,
@@ -206,25 +210,6 @@ model BuildingTimeSeries
     u(final unit="W"),
     final k=facMul) if have_cooLoa "Scaling"
     annotation (Placement(transformation(extent={{272,-10},{292,10}})));
-protected
-  parameter Modelica.SIunits.SpecificHeatCapacity cpHeaWat_nominal=
-    Medium.specificHeatCapacityCp(
-      Medium.setState_pTX(
-        Medium.p_default,
-        T_aHeaWat_nominal))
-    "Heating water specific heat capacity at nominal conditions";
-  parameter Modelica.SIunits.SpecificHeatCapacity cpChiWat_nominal=
-    Medium.specificHeatCapacityCp(
-      Medium.setState_pTX(
-        Medium.p_default,
-        T_aChiWat_nominal))
-    "Chilled water specific heat capacity at nominal conditions";
-  parameter Modelica.SIunits.MassFlowRate mChiWat_flow_nominal=abs(
-    QCoo_flow_nominal/cpChiWat_nominal/(T_aChiWat_nominal-T_bChiWat_nominal))
-    "Chilled water mass flow rate at nominal conditions (all units)";
-  parameter Modelica.SIunits.MassFlowRate mHeaWat_flow_nominal=abs(
-    QHea_flow_nominal/cpHeaWat_nominal/(T_aHeaWat_nominal-T_bHeaWat_nominal))
-    "Heating water mass flow rate at nominal conditions (all units)";
 equation
   connect(terUniHea.port_bHeaWat,disFloHea.ports_a1[1])
     annotation (Line(points={{90,-20.3333},{90,-20},{146,-20},{146,-54},{140,
