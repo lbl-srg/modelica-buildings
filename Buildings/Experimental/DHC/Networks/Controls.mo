@@ -8,15 +8,17 @@ package Controls "Package of control blocks for distribution systems"
     parameter Real yPumMin(min=0.01, max=1, final unit="1") = 0.05
       "Minimum pump speed";
     parameter Modelica.SIunits.Temperature TMin(
-      displayUnit="degC") = 281.15 "Minimum loop temperature";
+      displayUnit="degC") = 281.15
+      "Minimum loop temperature";
     parameter Modelica.SIunits.Temperature TMax(
       displayUnit="degC") = 291.15 "Maximum loop temperature";
     parameter Modelica.SIunits.TemperatureDifference dTSlo(min=1) = 2
       "Temperature difference for slope";
     parameter Boolean use_temperatureShift = true
       "Set to false to disable temperature shift of slopes";
-    final parameter Modelica.SIunits.TemperatureDifference delta(min=1)=
-      if use_temperatureShift then TMax-TMin-3*dTSlo else 0 "Maximum shift of slopes";
+    final parameter Modelica.SIunits.TemperatureDifference delta=
+      if use_temperatureShift then TMax-TMin-3*dTSlo else 0
+      "Maximum shift of slopes";
     parameter Modelica.SIunits.TemperatureDifference dTSou_nominal[nSou](
       each min=0) = fill(4, nSou) "Nominal temperature difference over source";
     parameter Real k=0.01

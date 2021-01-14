@@ -43,5 +43,19 @@ equation
   "Simulate and plot"),
   experiment(
     StopTime=604800,
-    Tolerance=1e-06));
+    Tolerance=1e-06),
+    Documentation(info="<html>
+<p>
+This is a model of a so-called \"reservoir network\", i.e., a fifth 
+generation district system with unidirectional mass flow rate in the
+district loop, and energy transfer stations connected in series.
+In this model, the temperature of the district loop is stabilized through 
+the operation of the plant and the borefield. 
+The main circulation pump has a constant mass flow rate. 
+Each substation takes water from the main district loop and feeds its return water back 
+into the main district loop downstream from the intake. 
+The pipes of the main loop are designed for a pressure drop of <i>250</i> Pa/m at 
+the design flow rate. 
+</p>
+</html>"));
 end SeriesConstantFlow;

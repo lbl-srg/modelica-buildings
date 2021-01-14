@@ -48,7 +48,7 @@ partial model PartialSeries "Partial model for series network"
         origin={112,-20})));
   DHC.EnergyTransferStations.BaseClasses.Pump_m_flow pumSto(
     redeclare final package Medium = Medium,
-    final m_flow_nominal=datDes.mSto_flow_nominal)
+    m_flow_nominal=datDes.mSto_flow_nominal)
     "Bore field pump"
     annotation (Placement(transformation(
       extent={{10,10},{-10,-10}},
@@ -94,6 +94,7 @@ partial model PartialSeries "Partial model for series network"
   Networks.UnidirectionalSeries dis(
     redeclare final package Medium = Medium,
     final nCon=nBui,
+    show_TOut=true,
     final mDis_flow_nominal=datDes.mDis_flow_nominal,
     final mCon_flow_nominal=datDes.mCon_flow_nominal,
     final dp_length_nominal=datDes.dp_length_nominal,
@@ -126,7 +127,7 @@ partial model PartialSeries "Partial model for series network"
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={-80,-60})));
+        origin={-80,-40})));
   replaceable Loads.BaseClasses.PartialBuildingWithETS bui[nBui]
     constrainedby Loads.BaseClasses.PartialBuildingWithETS(
       bui(each final facMul=facMul),
@@ -164,7 +165,7 @@ partial model PartialSeries "Partial model for series network"
     annotation (Placement(transformation(extent={{220,-150},{240,-130}})));
   Modelica.Blocks.Continuous.Integrator EPumPlan(initType=Modelica.Blocks.Types.Init.InitialState)
     "Plant pump electric energy"
-    annotation (Placement(transformation(extent={{220,-50},{240,-30}})));
+    annotation (Placement(transformation(extent={{220,30},{240,50}})));
   Controls.OBC.CDL.Continuous.MultiSum EPum(nin=4) "Total pump electric energy"
     annotation (Placement(transformation(extent={{280,110},{300,130}})));
   Controls.OBC.CDL.Continuous.MultiSum PHeaPump(final nin=nBui) "Heat pump power"
@@ -174,7 +175,15 @@ partial model PartialSeries "Partial model for series network"
     annotation (Placement(transformation(extent={{220,150},{240,170}})));
   Controls.OBC.CDL.Continuous.MultiSum ETot(nin=2) "Total electric energy"
     annotation (Placement(transformation(extent={{320,150},{340,170}})));
+  Buildings.Experimental.DHC.Loads.BaseClasses.ConstraintViolation conVio(
+    uMin=datDes.TLooMin,
+    uMax=datDes.TLooMax,
+    priTer=true,
+    final nu=3+nBui)
+    "Check if loop temperatures are within given range"
+    annotation (Placement(transformation(extent={{320,10},{340,30}})));
 equation
+  connect(dis.TOut, conVio.u[4:4+nBui-1]);
   connect(bou.ports[1], pumDis.port_a)
     annotation (Line(points={{102,-20},{80,-20},{80,-50}}, color={0,127,255}));
   connect(borFie.port_b, conSto.port_aCon) annotation (Line(points={{-120,-80},
@@ -195,9 +204,9 @@ equation
   connect(TDisWatRet.port_b, pumDis.port_a)
     annotation (Line(points={{80,-10},{80,-50}}, color={0,127,255}));
   connect(conSto.port_bDis, TDisWatBorLvg.port_a)
-    annotation (Line(points={{-80,-80},{-80,-70}}, color={0,127,255}));
+    annotation (Line(points={{-80,-80},{-80,-50}}, color={0,127,255}));
   connect(TDisWatBorLvg.port_b, conPla.port_aDis)
-    annotation (Line(points={{-80,-50},{-80,-20}}, color={0,127,255}));
+    annotation (Line(points={{-80,-30},{-80,-20}}, color={0,127,255}));
   connect(bui.port_bSerAmb, dis.ports_aCon) annotation (Line(points={{10,180},{20,
           180},{20,160},{12,160},{12,150}}, color={0,127,255}));
   connect(dis.ports_bCon, bui.port_aSerAmb) annotation (Line(points={{-12,150},{
@@ -217,7 +226,7 @@ equation
   connect(THeaWatSupMinSet.y, bui.THeaWatSupMinSet) annotation (Line(points={{-258,
           240},{-16,240},{-16,189},{-12,189}}, color={0,0,127}));
   connect(bui.PPumETS, PPumETS.u)
-    annotation (Line(points={{9,192},{9,200},{138,200}}, color={0,0,127}));
+    annotation (Line(points={{7,192},{7,200},{138,200}}, color={0,0,127}));
   connect(PPumETS.y, EPumETS.u)
     annotation (Line(points={{162,200},{218,200}}, color={0,0,127}));
   connect(pumDis.P, EPumDis.u)
@@ -225,14 +234,13 @@ equation
   connect(pumSto.P, EPumSto.u) annotation (Line(points={{-169,-71},{-160,-71},{-160,
           -140},{218,-140}}, color={0,0,127}));
   connect(pla.PPum, EPumPlan.u) annotation (Line(points={{-138.667,5.33333},{
-          -120,5.33333},{-120,-40},{218,-40}},
+          -120,5.33333},{-120,40},{218,40}},
                                           color={0,0,127}));
   connect(EPumETS.y, EPum.u[1]) annotation (Line(points={{241,200},{260,200},{
           260,121.5},{278,121.5}},
                                color={0,0,127}));
-  connect(EPumPlan.y, EPum.u[2]) annotation (Line(points={{241,-40},{260,-40},{
-          260,120.5},{278,120.5}},
-                               color={0,0,127}));
+  connect(EPumPlan.y, EPum.u[2]) annotation (Line(points={{241,40},{260,40},{260,
+          120.5},{278,120.5}}, color={0,0,127}));
   connect(EPumDis.y, EPum.u[3]) annotation (Line(points={{241,-80},{262,-80},{
           262,119.5},{278,119.5}},
                                color={0,0,127}));
@@ -247,7 +255,13 @@ equation
           300,161},{318,161}}, color={0,0,127}));
   connect(EPum.y, ETot.u[2]) annotation (Line(points={{302,120},{310,120},{310,
           159},{318,159}}, color={0,0,127}));
+  connect(TDisWatSup.T, conVio.u[1]) annotation (Line(points={{-91,20},{-100,20},
+          {-100,12},{-60,12},{-60,20},{318,20}},           color={0,0,127}));
+  connect(TDisWatBorLvg.T, conVio.u[2]) annotation (Line(points={{-91,-40},{-100,
+          -40},{-100,-30},{-60,-30},{-60,-40},{300,-40},{300,20},{318,20}},
+                                                        color={0,0,127}));
+  connect(TDisWatRet.T, conVio.u[3]) annotation (Line(points={{69,6.66134e-16},{
+          60,6.66134e-16},{60,20},{318,20}},           color={0,0,127}));
   annotation (Diagram(
-    coordinateSystem(preserveAspectRatio=false, extent={{-360,-260},{360,260}})),
-    experiment(StopTime=31536000, __Dymola_NumberOfIntervals=8760));
+    coordinateSystem(preserveAspectRatio=false, extent={{-360,-260},{360,260}})));
 end PartialSeries;

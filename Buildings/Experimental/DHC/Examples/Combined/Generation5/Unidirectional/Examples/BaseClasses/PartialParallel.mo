@@ -43,7 +43,7 @@ partial model PartialParallel "Partial model for parallel network"
       origin={112,-20})));
   DHC.EnergyTransferStations.BaseClasses.Pump_m_flow pumSto(
     redeclare final package Medium=Medium,
-    final m_flow_nominal=datDes.mSto_flow_nominal,
+    m_flow_nominal=datDes.mSto_flow_nominal,
     final allowFlowReversal=allowFlowReversalSer)
     "Bore field pump"
     annotation (
@@ -148,6 +148,12 @@ partial model PartialParallel "Partial model for parallel network"
          + 273.15)
     "Heating water supply temperature set point - Minimum value"
     annotation (Placement(transformation(extent={{-280,230},{-260,250}})));
+  Buildings.Experimental.DHC.Loads.BaseClasses.ConstraintViolation conVio(
+    uMin=datDes.TLooMin,
+    uMax=datDes.TLooMax,
+    priTer=true,
+    nu=3) "Check if loop temperatures are within given range"
+    annotation (Placement(transformation(extent={{300,30},{320,50}})));
 initial equation
   for i in 1:nBui loop
     Modelica.Utilities.Streams.print(
@@ -200,6 +206,13 @@ equation
         color={0,127,255}));
   connect(THeaWatSupMinSet.y, bui.THeaWatSupMinSet) annotation (Line(points={{
           -258,240},{-16,240},{-16,189},{-12,189}}, color={0,0,127}));
+  connect(TDisWatSup.T, conVio.u[1]) annotation (Line(points={{-91,20},{-100,20},
+          {-100,38.6667},{298,38.6667}}, color={0,0,127}));
+  connect(TDisWatRet.T, conVio.u[2]) annotation (Line(points={{69,0},{60,0},{60,
+          40},{298,40}}, color={0,0,127}));
+  connect(TDisWatBorLvg.T, conVio.u[3]) annotation (Line(points={{-91,-40},{
+          -102,-40},{-102,41.3333},{298,41.3333}},
+                                              color={0,0,127}));
   annotation (Diagram(
     coordinateSystem(preserveAspectRatio=false, extent={{-360,-260},{360,260}})),
     experiment(StopTime=31536000, __Dymola_NumberOfIntervals=8760));

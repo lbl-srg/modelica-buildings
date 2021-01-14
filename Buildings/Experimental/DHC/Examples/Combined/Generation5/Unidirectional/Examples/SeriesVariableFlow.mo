@@ -4,7 +4,10 @@ model SeriesVariableFlow
   extends BaseClasses.PartialSeries(
     redeclare Loads.BuildingTimeSeriesWithETS bui[nBui](
       final filNam=filNam),
-    dis(show_TOut=true));
+    datDes(
+      mDis_flow_nominal=69.5,
+      epsPla=0.91),
+    pumSto(m_flow_nominal=0.5*datDes.mSto_flow_nominal));
   parameter String filNam[nBui]={
     "modelica://Buildings/Resources/Data/Experimental/DHC/Loads/Examples/SwissOffice_20190916.mos",
     "modelica://Buildings/Resources/Data/Experimental/DHC/Loads/Examples/SwissResidential_20190916.mos",
@@ -52,11 +55,11 @@ equation
   connect(TDisWatRet.T, conPum.TSouIn[1]) annotation (Line(points={{69,0},{60,0},
           {60,80},{-304,80},{-304,-61},{-282,-61}},
                                             color={0,0,127}));
-  connect(TDisWatBorLvg.T, conPum.TSouIn[2]) annotation (Line(points={{-91,-60},
-          {-290,-60},{-290,-58},{-282,-58},{-282,-59}},
+  connect(TDisWatBorLvg.T, conPum.TSouIn[2]) annotation (Line(points={{-91,-40},
+          {-290,-40},{-290,-58},{-282,-58},{-282,-59}},
                                                   color={0,0,127}));
-  connect(TDisWatBorLvg.T, conPum.TSouOut[1]) annotation (Line(points={{-91,-60},
-          {-290,-60},{-290,-67},{-282,-67}},              color={0,0,127}));
+  connect(TDisWatBorLvg.T, conPum.TSouOut[1]) annotation (Line(points={{-91,-40},
+          {-290,-40},{-290,-67},{-282,-67}},              color={0,0,127}));
   connect(TDisWatSup.T, conPum.TSouOut[2]) annotation (Line(points={{-91,20},{-100,
           20},{-100,60},{-296,60},{-296,-65},{-282,-65}},
                                                    color={0,0,127}));
@@ -69,6 +72,6 @@ equation
   file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Examples/Combined/Generation5/Unidirectional/Examples/SeriesVariableFlow.mos"
   "Simulate and plot"),
   experiment(
-    StopTime=604800,
-    Tolerance=1e-06));
+      StopTime=604800,
+      Tolerance=1e-06));
 end SeriesVariableFlow;

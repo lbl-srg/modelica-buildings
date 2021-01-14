@@ -32,13 +32,13 @@ equation
   connect(masFloDisPla.y, pla.mPum_flow) annotation (Line(points={{-229,20},{
           -184,20},{-184,4.66667},{-161.333,4.66667}},
                                   color={0,0,127}));
-  connect(dis.port_bDisSup, dis.port_aDisRet) annotation (Line(points={{20,140},
-          {40,140},{40,134},{20,134}}, color={0,127,255}));
   connect(THotWatSupSet.y, bui.THotWatSupSet) annotation (Line(points={{-168,
           180},{-24,180},{-24,183},{-12,183}}, color={0,0,127}));
   connect(TColWat.y, bui.TColWat) annotation (Line(points={{-138,160},{-40,160},
           {-40,164},{-8,164},{-8,168}},
                                 color={0,0,127}));
+  connect(dis.port_bDisSup, dis.port_aDisRet) annotation (Line(points={{20,140},
+          {40,140},{40,134},{20,134}}, color={0,127,255}));
   annotation (
   Diagram(
   coordinateSystem(preserveAspectRatio=false, extent={{-360,-260},{360,260}})),
