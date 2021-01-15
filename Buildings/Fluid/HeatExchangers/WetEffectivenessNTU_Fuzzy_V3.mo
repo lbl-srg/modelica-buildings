@@ -477,20 +477,10 @@ equation
           textString="Air Side")}),
     Documentation(info="<html>
 <p>
-This model represents a cooling or heating coil that is capable of
-simulating the partially wet or fully wet regime in addition to 100% dry
-conditions.  The coil is  based primarily on the work of Braun (1988) and of Mitchell
+This model represents a cross-counter flow cooling or heating coil that is capable of
+simulating fully dry, partially wet and fully wet regimes. The coil is  based primarily on the work of Braun (1988) and of Mitchell
 and Braun (2012a and b), which is essentially an &epsilon;-NTU approach of
 the work of Elmahdy and Mitalas (1977).
-</p>
-
-<p>
-The wet coil model is a heat exchanger across two different
-fluids: medium 1 and medium 2. However, in this discussion, we will assume that
-medium 1 is water and medium 2 is air. Due to the use of psychrometric
-functions, medium 2 must be a air with water vapor,
-but any other fluid, such as glycol or air that is colder than medium 2 and
-hence will be heated, can be used for medium 1.
 </p>
 
 <p>
