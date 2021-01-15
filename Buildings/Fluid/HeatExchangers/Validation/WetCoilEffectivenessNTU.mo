@@ -40,8 +40,7 @@ model WetCoilEffectivenessNTU
     "Nominal mass flow rate of water";
   parameter Modelica.SIunits.MassFlowRate m2_flow_nominal = 2.646
     "Nominal mass flow rate of air";
-  parameter Types.HeatExchangerConfiguration hexCon=
-    Types.HeatExchangerConfiguration.CrossFlowStream1UnmixedStream2Mixed
+  parameter Types.HeatExchangerConfiguration hexCon=Types.HeatExchangerConfiguration.CrossFlowStream1MixedStream2Unmixed
     "Heat exchanger configuration";
 
   Buildings.Fluid.Sources.Boundary_pT sinAir(
