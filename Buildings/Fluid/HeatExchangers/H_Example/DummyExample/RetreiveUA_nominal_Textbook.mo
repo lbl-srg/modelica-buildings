@@ -156,12 +156,14 @@ model RetreiveUA_nominal_Textbook
         extent={{10,-10},{-10,10}},
         rotation=180,
         origin={18,66})));
-  UA_nominalFromOperatingCondition uA_nominalFromOperatingCondition
-    annotation (Placement(transformation(extent={{90,-318},{158,-206}})));
-  Modelica.Blocks.Sources.RealExpression mWatFlo(y=m1_flow_nominal)
-    annotation (Placement(transformation(extent={{-172,-294},{-132,-254}})));
-  Modelica.Blocks.Sources.RealExpression mAirFlo(y=m2_flow_nominal)
-    annotation (Placement(transformation(extent={{-124,-280},{-84,-240}})));
+  UA_nominalFromOperatingCondition uA_nominalFromOperatingCondition(
+    TAirOut=293.15,
+    wAirIn=0.037,
+    wAirOut=0.015,
+    TWatOut=289.17,
+    mAir_flow=m2_flow_nominal,
+    mWat_flow=m1_flow_nominal)
+    annotation (Placement(transformation(extent={{-104,-272},{12,-182}})));
 equation
   for iEle in 1:hexDis.nEle loop
     isDryHexDis[iEle] = if abs(hexDis.ele[iEle].masExc.mWat_flow) < 1E-6 then 1 else 0;
@@ -215,53 +217,10 @@ equation
           {-13,74},{-13,66},{8,66}}, color={0,127,255}));
   connect(TWatOut.port_b, sinWat.ports[2]) annotation (Line(points={{28,66},{34,
           66},{34,38},{80,38}}, color={0,127,255}));
-  connect(mWatFlo.y, uA_nominalFromOperatingCondition.mWatFlo) annotation (Line(
-      points={{-130,-274},{-32,-274},{-32,-273.2},{89.32,-273.2}},
-      color={85,255,255},
-      thickness=0.5,
-      pattern=LinePattern.Dash));
-  connect(uA_nominalFromOperatingCondition.wAirIn, senMasFraIn.X) annotation (
-      Line(
-      points={{89.32,-286.64},{34,-286.64},{34,-150},{86,-150},{86,-69},{100,
-          -69}},
-      color={85,255,255},
-      pattern=LinePattern.Dash,
-      thickness=0.5));
-  connect(TDryBulIn.T, uA_nominalFromOperatingCondition.TAirIn) annotation (
-      Line(
-      points={{60,-69},{58,-69},{58,-72},{56,-72},{56,-140},{24,-140},{24,-206},
-          {89.32,-206}},
-      color={85,255,255},
-      pattern=LinePattern.Dash,
-      thickness=0.5));
-  connect(TWatOut.T, uA_nominalFromOperatingCondition.TWatOut) annotation (Line(
-      points={{18,55},{18,52},{-16,52},{-16,-246.32},{89.32,-246.32}},
-      color={85,255,255},
-      pattern=LinePattern.Dash,
-      thickness=0.5));
-  connect(TWatIn.T, uA_nominalFromOperatingCondition.TWatIn) annotation (Line(
-      points={{-104,63},{-102,63},{-102,-232.88},{89.32,-232.88}},
-      color={85,255,255},
-      pattern=LinePattern.Dash,
-      thickness=0.5));
-  connect(mAirFlo.y, uA_nominalFromOperatingCondition.mAirFlo) annotation (Line(
-      points={{-82,-260},{4,-260},{4,-259.76},{89.32,-259.76}},
-      color={85,255,255},
-      pattern=LinePattern.Dash,
-      thickness=0.5));
-  connect(senMasFraOut.X, uA_nominalFromOperatingCondition.wAirOut) annotation (
-     Line(
-      points={{-120,-51},{-120,-300},{89.32,-300},{89.32,-300.08}},
-      color={85,255,255},
-      pattern=LinePattern.Dash,
-      thickness=0.5));
-  connect(TDryBulOut.T, uA_nominalFromOperatingCondition.TAirOut0) annotation (
-      Line(points={{-80,-51},{-78,-51},{-78,-216},{89.32,-216},{89.32,-219.44}},
-        color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true,
     extent={{-200,-340},{200,140}})),
     experiment(
-      StopTime=100,
+      StopTime=3600,
       Tolerance=1e-06,
       __Dymola_Algorithm="Cvode"),
     __Dymola_Commands(
