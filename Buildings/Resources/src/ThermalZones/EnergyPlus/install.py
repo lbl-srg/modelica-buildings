@@ -97,7 +97,6 @@ def get_output_var_html(allVars):
 
     path_to_template = os.path.dirname(os.path.realpath(__file__))
     env = jinja2.Environment(loader=jinja2.FileSystemLoader(path_to_template))
-    txt = None
     template = env.get_template("output_vars_template.html")
     html = template.render(vars=allVars)
     return html
@@ -130,7 +129,7 @@ if __name__ == "__main__":
     # Commit, see https://gitlab.com/kylebenne/spawn/-/pipelines?scope=all&page=1
     # Also available is latest/Spawn-latest-{Linux,win64,Darwin}
     # The setup below lead to a specific commit being pulled.
-    commit = "d385ac77c3"
+    commit = "7ce8ca410c"
     name_version = f"Spawn-0.0.1-{commit}"
 
     dists = list()
@@ -159,6 +158,6 @@ if __name__ == "__main__":
 
     p = Pool(2)
     p.map(get_distribution, dists)
-    js = get_output_vars_as_json()
-    html = get_output_var_html(js)
-    mo = replace_output_var_table_in_mo(html)
+#    js = get_output_vars_as_json()
+#    html = get_output_var_html(js)
+#    mo = replace_output_var_table_in_mo(html)
