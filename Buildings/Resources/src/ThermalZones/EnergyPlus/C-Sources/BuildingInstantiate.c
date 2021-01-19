@@ -466,18 +466,6 @@ void setFMUDebugLevel(FMUBuilding* bui){
   */
 }
 
-/* Logger function used for Spawn */
-void spawnLogger_dummy(
-  fmi2_component_environment_t env,
-  fmi2_string_t instanceName,
-  fmi2_status_t status,
-  fmi2_string_t category,
-  fmi2_string_t message, ...)
-{
-  FMUBuilding* bui = (FMUBuilding*)env;
-  bui->SpawnFormatMessage("%s.\n", "**** Suppressed log from simulator");
-}
-
 void spawnLogger(
   fmi2_component_environment_t env,
   fmi2_string_t instanceName,

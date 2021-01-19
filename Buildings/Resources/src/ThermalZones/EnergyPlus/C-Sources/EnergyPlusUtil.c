@@ -189,29 +189,29 @@ double do_event_iteration(FMUBuilding* bui, const char* modelicaInstanceName){
     SpawnFormatError("%.2f %s: Failed during call to fmi2NewDiscreteStates for building %s with status %s.", bui->time, modelicaInstanceName,
     bui->modelicaNameBuilding, fmi2_status_to_string(status));
   }
+
   if(eventInfo.terminateSimulation == fmi2True){
     SpawnFormatError("%.2f %s: EnergyPlus requested to terminate the simulation for building = %s.", bui->time, modelicaInstanceName,
     bui->modelicaNameBuilding);
   }
+
   if(eventInfo.nextEventTimeDefined == fmi2False){
     SpawnFormatError("%.2f %s: Expected EnergyPlus to set nextEventTimeDefined = true for building = %s.", bui->time, modelicaInstanceName,
     bui->modelicaNameBuilding);
   }
-  else{
-    tNext = eventInfo.nextEventTime;
-    if (bui->logLevel >= TIMESTEP)
-      SpawnFormatMessage("%.2f %s: Requested next event time: tNext = %.2f\n", bui->time, modelicaInstanceName, tNext);
-    if (tNext <= bui->time + 1E-6){
-      SpawnFormatError("EnergyPlus requested at time = %f a next event time of %f for modelicaInstance = %s. Zero time steps are not supported. Check with support.",
-      bui->time, tNext, modelicaInstanceName);
-    }
+
+  /* Assign tNext */
+  tNext = eventInfo.nextEventTime;
+  if (bui->logLevel >= TIMESTEP)
+    SpawnFormatMessage("%.2f %s: Requested next event time: tNext = %.2f\n", bui->time, modelicaInstanceName, tNext);
+  if (tNext <= bui->time + 1E-6){
+    SpawnFormatError("EnergyPlus requested at time = %f a next event time of %f for modelicaInstance = %s. Zero time steps are not supported. Check with support.",
+    bui->time, tNext, modelicaInstanceName);
   }
 
-  /* THIS WAS WRONG: if newDiscreteStatesNeeded is false, the FMU is in continuous time mode
-  setFMUMode(bui, continuousTimeMode); */
+
   if (bui->logLevel >= TIMESTEP)
-    SpawnFormatMessage("%.2f %s: Exiting do_event_iteration, mode = %s with tNext = %.2f\n", bui->time, modelicaInstanceName,
-      fmuModeToString(bui->mode), tNext);
+    SpawnFormatMessage("%.2f %s: Exiting do_event_iteration, mode = %s\n", bui->time, modelicaInstanceName, fmuModeToString(bui->mode));
   return tNext;
 }
 
