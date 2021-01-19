@@ -290,7 +290,7 @@ equation
     annotation (Line(points={{-178,-220},{28,-220}}, color={0,0,127}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-380,-400},{1440,
-            580}})),
+            660}})),
     Documentation(info="<html>
 <p>
 This model consist of an HVAC system, a building envelope model and a model
@@ -408,5 +408,6 @@ This is for
         "Simulate and plot"),
     experiment(
       StopTime=172800,
-      Tolerance=1e-06));
+      Tolerance=1e-06),
+    Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
 end ASHRAE2006;

@@ -263,6 +263,7 @@ Buildings/Fluid/Actuators/Valves/Examples/package.order
 Buildings/Fluid/Actuators/Valves/ThreeWayEqualPercentageLinear.mo
 Buildings/Fluid/Actuators/Valves/ThreeWayLinear.mo
 Buildings/Fluid/Actuators/Valves/ThreeWayTable.mo
+Buildings/Fluid/Actuators/Valves/TwoWayButterfly.mo
 Buildings/Fluid/Actuators/Valves/TwoWayEqualPercentage.mo
 Buildings/Fluid/Actuators/Valves/TwoWayLinear.mo
 Buildings/Fluid/Actuators/Valves/TwoWayPolynomial.mo
@@ -1172,11 +1173,14 @@ Buildings/Media/Air.mo
 Buildings/Media/Antifreeze/BaseClasses/PropertyCoefficients.mo
 Buildings/Media/Antifreeze/BaseClasses/package.mo
 Buildings/Media/Antifreeze/BaseClasses/package.order
+Buildings/Media/Antifreeze/EthyleneGlycolWater.mo
 Buildings/Media/Antifreeze/PropyleneGlycolWater.mo
+Buildings/Media/Antifreeze/Validation/BaseClasses/EthyleneGlycolWater.mo
 Buildings/Media/Antifreeze/Validation/BaseClasses/FluidProperties.mo
 Buildings/Media/Antifreeze/Validation/BaseClasses/PropyleneGlycolWater.mo
 Buildings/Media/Antifreeze/Validation/BaseClasses/package.mo
 Buildings/Media/Antifreeze/Validation/BaseClasses/package.order
+Buildings/Media/Antifreeze/Validation/EthyleneGlycolWater.mo
 Buildings/Media/Antifreeze/Validation/PropyleneGlycolWater.mo
 Buildings/Media/Antifreeze/Validation/package.mo
 Buildings/Media/Antifreeze/Validation/package.order
@@ -1299,6 +1303,7 @@ Buildings/Resources/Images/Controls/Continuous/Examples/SignalRankerY.png
 Buildings/Resources/Images/Controls/SetPoints/Examples/OccupancySchedule.png
 Buildings/Resources/Images/Controls/SetPoints/Examples/SupplyReturnTemperatureReset.png
 Buildings/Resources/Images/Controls/SetPoints/Table.png
+Buildings/Resources/Images/Fluid/Actuators/Valves/Examples/TwoWayButterfly.png
 Buildings/Resources/Images/Fluid/Actuators/Valves/Examples/TwoWayValveTable_kv.png
 Buildings/Resources/Images/Fluid/Actuators/threeWayValvePressureDropSeries.png
 Buildings/Resources/Images/Fluid/Actuators/valvePressureDropSeries.png
@@ -1367,6 +1372,10 @@ Buildings/Resources/Images/Fluid/Storage/StratifiedHex.png
 Buildings/Resources/Images/Fluid/Storage/StratifiedHex.svg
 Buildings/Resources/Images/IBPSA-logo-text.png
 Buildings/Resources/Images/IBPSA-logo.png
+Buildings/Resources/Images/Media/Antifreeze/EthyleneGlycol.py
+Buildings/Resources/Images/Media/Antifreeze/EthyleneGlycolWaterError10degC.png
+Buildings/Resources/Images/Media/Antifreeze/EthyleneGlycolWaterError20degC.png
+Buildings/Resources/Images/Media/Antifreeze/EthyleneGlycolWaterProperties.png
 Buildings/Resources/Images/Media/Antifreeze/PropyleneGlycolWaterError10degC.pdf
 Buildings/Resources/Images/Media/Antifreeze/PropyleneGlycolWaterError10degC.png
 Buildings/Resources/Images/Media/Antifreeze/PropyleneGlycolWaterError20degC.pdf
@@ -1791,6 +1800,7 @@ Buildings/Resources/Scripts/Dymola/Fluid/Storage/Validation/HeatExchangerDynamic
 Buildings/Resources/Scripts/Dymola/Fluid/Storage/Validation/HeatExchangerLocation.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Storage/Validation/StratifiedLoadingUnloading.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Storage/Validation/StratifiedNonUniformInitial.mos
+Buildings/Resources/Scripts/Dymola/Media/Antifreeze/Validation/EthyleneGlycolWater.mos
 Buildings/Resources/Scripts/Dymola/Media/Antifreeze/Validation/PropyleneGlycolWater.mos
 Buildings/Resources/Scripts/Dymola/Media/Examples/AirDerivativeCheck.mos
 Buildings/Resources/Scripts/Dymola/Media/Examples/AirProperties.mos
@@ -1916,7 +1926,6 @@ Buildings/Resources/Scripts/Dymola/Utilities/Time/Validation/CalendarTimeMonthsM
 Buildings/Resources/Scripts/Dymola/Utilities/Time/Validation/CalendarTimeMonthsPlus.mos
 Buildings/Resources/Scripts/JModelica/buildingspy_to_csv.py
 Buildings/Resources/Scripts/travis/dymola/dymola
-Buildings/Resources/Scripts/travis/jmodelica/jm_ipython.sh
 Buildings/Resources/bin/ConvertWeatherData.jar
 Buildings/Resources/src/convertEPW/Makefile
 Buildings/Resources/src/convertEPW/doc/ConvertWeatherData.html

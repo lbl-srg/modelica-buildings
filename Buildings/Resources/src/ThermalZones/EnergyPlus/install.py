@@ -130,7 +130,7 @@ if __name__ == "__main__":
     # Commit, see https://gitlab.com/kylebenne/spawn/-/pipelines?scope=all&page=1
     # Also available is latest/Spawn-latest-{Linux,win64,Darwin}
     # The setup below lead to a specific commit being pulled.
-    commit = "b3b0091383"
+    commit = "d385ac77c3"
     name_version = f"Spawn-0.0.1-{commit}"
 
     dists = list()
