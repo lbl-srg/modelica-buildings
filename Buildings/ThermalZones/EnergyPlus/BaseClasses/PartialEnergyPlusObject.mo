@@ -33,8 +33,7 @@ protected
     output Real y;
   algorithm
     y :=
-      if
-        (u > 0) then
+      if(u > 0) then
         floor(
           u/accuracy+0.5)*accuracy
       else

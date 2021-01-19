@@ -144,7 +144,6 @@ initial equation
   end if;
   startTime=time;
   counter=0;
-
   (AFlo,V,mSenFac)=Buildings.ThermalZones.EnergyPlus.BaseClasses.zoneInitialize(
     adapter=adapter,
     startTime=time);
