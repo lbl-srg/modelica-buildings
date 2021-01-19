@@ -27,17 +27,17 @@ size_t AllocateBuildingDataStructure(
   int usePrecompiledFMU,
   const char* fmuName,
   const char* buildingsLibraryRoot,
-  size_t logLevel,
+  const int logLevel,
   void (*SpawnMessage)(const char *string),
   void (*SpawnError)(const char *string),
   void (*SpawnFormatMessage)(const char *string, ...),
   void (*SpawnFormatError)(const char *string, ...));
 
-void AddZoneToBuilding(FMUZone* zone, size_t logLevel);
+void AddZoneToBuilding(FMUZone* zone, const int logLevel);
 
-void AddOutputVariableToBuilding(FMUOutputVariable* ptrOutVar, size_t logLevel);
+void AddOutputVariableToBuilding(FMUOutputVariable* ptrOutVar, const int logLevel);
 
-void AddInputVariableToBuilding(FMUInputVariable* ptrOutVar, size_t logLevel);
+void AddInputVariableToBuilding(FMUInputVariable* ptrOutVar, const int logLevel);
 
 FMUBuilding* getBuildingsFMU(size_t iFMU);
 

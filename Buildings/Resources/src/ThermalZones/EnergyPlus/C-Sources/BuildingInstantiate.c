@@ -427,7 +427,13 @@ void setFMUDebugLevel(FMUBuilding* bui){
   const size_t nCat = fmi2_import_get_log_categories_num(bui->fmu);
   /* Number of log categories needed from EnergyPlus. Note that Modelica has
      one more category for log at time step level */
-  const size_t nCatReq = (bui->logLevel <= nCat) ? bui->logLevel : nCat;
+  size_t nCatReq;
+  if ((size_t)(bui->logLevel) <= nCat){
+    nCatReq = (size_t)(bui->logLevel);
+  }
+  else{
+    nCatReq = nCat;
+  }
 /*
   if (nCat != 4){
     bui->SpawnFormatError("FMU %s specified %u categories, but require 4 categories.",

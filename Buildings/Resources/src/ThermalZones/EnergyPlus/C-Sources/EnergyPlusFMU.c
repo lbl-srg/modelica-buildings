@@ -28,7 +28,7 @@ size_t AllocateBuildingDataStructure(
   int usePrecompiledFMU,
   const char* fmuName,
   const char* buildingsLibraryRoot,
-  size_t logLevel,
+  const int logLevel,
   void (*SpawnMessage)(const char *string),
   void (*SpawnError)(const char *string),
   void (*SpawnFormatMessage)(const char *string, ...),
@@ -179,7 +179,7 @@ size_t AllocateBuildingDataStructure(
   return nFMU;
 }
 
-void AddZoneToBuilding(FMUZone* zone, size_t logLevel){
+void AddZoneToBuilding(FMUZone* zone, const int logLevel){
   FMUBuilding* bui = zone->bui;
   const size_t nZon = bui->nZon;
 
@@ -216,7 +216,7 @@ void AddZoneToBuilding(FMUZone* zone, size_t logLevel){
       bui->nZon, bui->nInputVariables, bui->nOutputVariables);
 }
 
-void AddInputVariableToBuilding(FMUInputVariable* ptrVar, size_t logLevel){
+void AddInputVariableToBuilding(FMUInputVariable* ptrVar, const int logLevel){
   FMUBuilding* bui = ptrVar->bui;
   const size_t nInputVariables = bui->nInputVariables;
 
@@ -257,7 +257,7 @@ void AddInputVariableToBuilding(FMUInputVariable* ptrVar, size_t logLevel){
       bui->nZon, bui->nInputVariables, bui->nOutputVariables);
 }
 
-void AddOutputVariableToBuilding(FMUOutputVariable* ptrVar, size_t logLevel){
+void AddOutputVariableToBuilding(FMUOutputVariable* ptrVar, const int logLevel){
   FMUBuilding* bui = ptrVar->bui;
   const size_t nOutputVariables = bui->nOutputVariables;
 

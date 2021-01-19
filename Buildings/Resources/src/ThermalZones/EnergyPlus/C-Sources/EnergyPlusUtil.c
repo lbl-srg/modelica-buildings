@@ -346,7 +346,7 @@ void replaceChar(char *str, char find, char replace){
   }
 }
 
-void checkAndSetVerbosity(FMUBuilding* bui, size_t logLevel){
+void checkAndSetVerbosity(FMUBuilding* bui, const int logLevel){
 
   if (getBuildings_nFMU() == 0){
     bui->logLevel = logLevel;

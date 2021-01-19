@@ -93,7 +93,7 @@ typedef struct FMUBuilding
   FMUMode mode; /* Mode that the FMU is in */
   size_t iFMU; /* Number of this FMU */
 
-  size_t logLevel; /* Log level */
+  int logLevel; /* Log level */
   void (*SpawnMessage)(const char *string);
   void (*SpawnError)(const char *string);
   void (*SpawnFormatMessage)(const char *string, ...);
