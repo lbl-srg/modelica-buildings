@@ -621,10 +621,11 @@ void loadFMU_setupExperiment_enterInitializationMode(FMUBuilding* bui, double st
 
   /* Instantiate the FMU for this building */
   generateAndInstantiateBuilding(bui);
+  bui->time = startTime;
+
   if (bui->logLevel >= MEDIUM)
     SpawnFormatMessage("%.3f %s: Instantiate building.\n", bui->time, modelicaInstanceName);
 
-  bui->time = startTime;
   setFMUMode(bui, instantiationMode);
 
   /* This function can only be called once per building FMU */

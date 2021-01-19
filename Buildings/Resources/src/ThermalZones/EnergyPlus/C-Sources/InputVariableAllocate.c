@@ -20,13 +20,13 @@ FMUInputVariable* checkForDoubleInputVariableDeclaration(
     FMUInputVariable* ptrInpVar = (FMUInputVariable*)(bui->inputVariables[iComVar]);
     if (!strcmp(fmiName, ptrInpVar->inputs->fmiNames[0])){
       if (bui->logLevel >= MEDIUM){
-        bui->SpawnFormatMessage("%.3f %s: *** Searched for input variable %s and found it.\n", bui->time, bui->modelicaNameBuilding, fmiName);
+        bui->SpawnFormatMessage("---- %s: *** Searched for input variable %s and found it.\n", bui->modelicaNameBuilding, fmiName);
       }
       return ptrInpVar;
     }
   }
   if (bui->logLevel >= MEDIUM){
-     bui->SpawnFormatMessage("%.3f %s: *** Searched for input variable %s in building but did not find it.\n", bui->time, bui->modelicaNameBuilding, fmiName);
+     bui->SpawnFormatMessage("---- %s: *** Searched for input variable %s in building but did not find it.\n", bui->modelicaNameBuilding, fmiName);
   }
   return NULL;
 }

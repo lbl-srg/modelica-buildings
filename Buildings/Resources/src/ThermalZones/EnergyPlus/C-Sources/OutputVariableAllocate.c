@@ -20,13 +20,13 @@ FMUOutputVariable* checkForDoubleOutputVariableDeclaration(
     FMUOutputVariable* ptrOutVar = (FMUOutputVariable*)(bui->outputVariables[iComVar]);
     if (!strcmp(fmiName, ptrOutVar->outputs->fmiNames[0])){
       if (bui->logLevel >= MEDIUM){
-        bui->SpawnFormatMessage("%.3f %s: Searched for output variable %s in building and found it.\n", bui->time, bui->modelicaNameBuilding, fmiName);
+        bui->SpawnFormatMessage("---- %s: Searched for output variable %s in building and found it.\n", bui->modelicaNameBuilding, fmiName);
       }
       return ptrOutVar;
     }
   }
   if (bui->logLevel >= MEDIUM){
-     bui->SpawnFormatMessage("%.3f %s: Searched for output variable %s in building but did not find it.\n", bui->time, bui->modelicaNameBuilding, fmiName);
+     bui->SpawnFormatMessage("---- %s: Searched for output variable %s in building but did not find it.\n", bui->modelicaNameBuilding, fmiName);
   }
   return NULL;
 }

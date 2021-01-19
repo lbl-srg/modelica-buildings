@@ -252,8 +252,7 @@ void AddInputVariableToBuilding(FMUInputVariable* ptrVar, size_t logLevel){
   checkAndSetVerbosity(bui, logLevel);
 
   if (bui->logLevel >= MEDIUM)
-    SpawnFormatMessage("%.3f %s: EnergyPlusFMU.c: nZon = %d, nInp = %d, nOut = %d\n",
-      bui->time,
+    SpawnFormatMessage("---- %s: EnergyPlusFMU.c: nZon = %d, nInp = %d, nOut = %d\n",
       bui->modelicaNameBuilding,
       bui->nZon, bui->nInputVariables, bui->nOutputVariables);
 }

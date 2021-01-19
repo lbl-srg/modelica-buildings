@@ -16,10 +16,9 @@
    correct version provided by the Modelica simulation
    environment that compiles the Modelica model.
 /* ********************************************************* */
-/* Thermal zone */
 
+/* Custom implementation of ModelicaFormatMessage that prints to stdout
 #define my_printf(...) MyModelicaFormatMessage(__VA_ARGS__)
-
 void my_printf(const char *fmt, ...) {
     va_list args;
     va_start(args, fmt);
@@ -27,6 +26,10 @@ void my_printf(const char *fmt, ...) {
     va_end(args);
     fflush(stdout);
 }
+*/
+
+/* Thermal zone */
+
 
 void* SpawnZoneAllocate(
   const char* modelicaNameBuilding,
@@ -51,7 +54,7 @@ void* SpawnZoneAllocate(
       logLevel,
       ModelicaMessage,
       ModelicaError,
-      MyModelicaFormatMessage,
+      ModelicaFormatMessage,
       ModelicaFormatError);
   }
 
@@ -138,7 +141,7 @@ void* SpawnInputVariableAllocate(
       logLevel,
       ModelicaMessage,
       ModelicaError,
-      MyModelicaFormatMessage,
+      ModelicaFormatMessage,
       ModelicaFormatError);
   }
 
@@ -191,7 +194,7 @@ void* SpawnOutputVariableAllocate(
       printUnit,
       ModelicaMessage,
       ModelicaError,
-      MyModelicaFormatMessage,
+      ModelicaFormatMessage,
       ModelicaFormatError);
   }
 
