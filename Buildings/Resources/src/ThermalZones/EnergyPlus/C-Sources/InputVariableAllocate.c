@@ -182,7 +182,8 @@ void* EnergyPlusInputVariableAllocate(
 
     if (strcmp(modelicaNameBuilding, fmu->modelicaNameBuilding) == 0){
       if (logLevel >= MEDIUM){
-        SpawnFormatMessage("---- %s: *** Found a match.\n", modelicaNameInputVariable);
+        SpawnFormatMessage("---- %s: FMU %s for %s contains this input variable.\n",
+          modelicaNameInputVariable, fmu->fmuAbsPat, modelicaNameBuilding);
       }
       /* This is the same FMU as before. */
       doubleInpVarSpec = checkForDoubleInputVariableDeclaration(fmu, comVar->inputs->fmiNames[0]);

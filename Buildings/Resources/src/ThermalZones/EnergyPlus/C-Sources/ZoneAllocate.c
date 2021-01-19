@@ -164,7 +164,8 @@ void* EnergyPlusZoneAllocate(
 
     if (strcmp(modelicaNameBuilding, fmu->modelicaNameBuilding) == 0){
       if (logLevel >= MEDIUM){
-        SpawnMessage("*** Found a match.\n");
+        SpawnFormatMessage("---- %s: FMU %s for %s contains this zone.\n",
+          modelicaNameThermalZone, fmu->fmuAbsPat, modelicaNameBuilding);
       }
       /* This is the same FMU as before. */
       doubleZoneSpec = NULL;

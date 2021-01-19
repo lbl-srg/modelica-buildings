@@ -467,7 +467,7 @@ void setFMUDebugLevel(FMUBuilding* bui){
 }
 
 /* Logger function used for Spawn */
-void spawnLogger(
+void spawnLogger_dummy(
   fmi2_component_environment_t env,
   fmi2_string_t instanceName,
   fmi2_status_t status,
@@ -478,7 +478,7 @@ void spawnLogger(
   bui->SpawnFormatMessage("%s.\n", "**** Suppressed log from simulator");
 }
 
-void Correct_spawnLogger(
+void spawnLogger(
   fmi2_component_environment_t env,
   fmi2_string_t instanceName,
   fmi2_status_t status,
@@ -487,7 +487,7 @@ void Correct_spawnLogger(
 {
   /* EnergyPlus has for category always "EnergyPlus message", so we don't report this here */
   int len;
-  const char* signature = "In %s: EnergyPlus %s: %s\n";
+  const char* signature = "%.2f %s: %s from EnergyPlus: %s\n";
   char msg[SPAWN_LOGGER_BUFFER_LENGTH];
 
   FMUBuilding* bui = (FMUBuilding*)env;
@@ -501,16 +501,16 @@ void Correct_spawnLogger(
 
   if (status == fmi2_status_ok || status == fmi2_status_pending || status == fmi2_status_discard){
     if (bui->logLevel >= QUIET)
-      bui->SpawnFormatMessage(signature, instanceName, "Info", msg);
+      bui->SpawnFormatMessage(signature, bui->time, instanceName, "Info", msg);
   }
   else if (status == fmi2_status_warning){
     if (bui->logLevel >= WARNINGS)
-      bui->SpawnFormatMessage(signature, instanceName, fmi2_status_to_string(status), msg);
+      bui->SpawnFormatMessage(signature, bui->time, instanceName, fmi2_status_to_string(status), msg);
   }
   else{
     /* This captures fmi2_status_error and fmi2_status_fatal.
        They are written for any logLevel. */
-    bui->SpawnFormatMessage(signature, instanceName, fmi2_status_to_string(status), msg);
+    bui->SpawnFormatMessage(signature, bui->time, instanceName, fmi2_status_to_string(status), msg);
   }
 
   va_end(argp);

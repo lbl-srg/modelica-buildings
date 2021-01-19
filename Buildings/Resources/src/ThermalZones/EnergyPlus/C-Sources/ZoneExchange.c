@@ -113,6 +113,7 @@ void EnergyPlusZoneExchange(
   /* Forward difference for QConSen_flow */
   zone->inputs->valsSI[0] = T + dT;
 
+/*
   SpawnFormatMessage("*** This is a test output %s", "\n");
   SpawnFormatMessage("*** This is a test output, bui %p\n", bui);
   SpawnFormatMessage("*** This is a test output, bui time =  %.2f\n", bui->time);
@@ -122,6 +123,7 @@ void EnergyPlusZoneExchange(
   SpawnFormatMessage("*** This is a test output,  TAir =  %.2f\n", zone->inputs->valsSI[0]);
   SpawnFormatMessage("*** This is a test output,  QGaiRad_flow =  %.2f\n", zone->inputs->valsSI[4]);
   SpawnFormatMessage("*** This is a test output,  bui->logLevel =  %d\n", bui->logLevel);
+*/
 
   if (bui->logLevel >= TIMESTEP)
     SpawnFormatMessage("%.2f %s: Input to fmu for zone: TAir = %.2f; \t QGaiRad_flow = %.2f\n",
@@ -130,7 +132,6 @@ void EnergyPlusZoneExchange(
       zone->inputs->valsSI[0],
       zone->inputs->valsSI[4]);
 
-  SpawnFormatMessage("*** Calling setVariables %s", "\n");
   setVariables(bui, zone->modelicaNameThermalZone, zone->inputs);
   getVariables(bui, zone->modelicaNameThermalZone, zone->outputs);
   QConSenPer_flow = zone->outputs->valsSI[1];
@@ -139,7 +140,6 @@ void EnergyPlusZoneExchange(
   getVariables(bui, zone->modelicaNameThermalZone, zone->outputs);
 
   *dQConSen_flow = (QConSenPer_flow-zone->outputs->valsSI[1])/dT;
-  SpawnFormatMessage("*** Computed dQConSen_flow %.2f\n", *dQConSen_flow);
   /* Get next event time, unless FMU is in initialization mode */
   if (bui->mode == initializationMode){
     if (bui->logLevel >= MEDIUM)
@@ -176,8 +176,6 @@ void EnergyPlusZoneExchange(
   if (bui->logLevel >= TIMESTEP)
     SpawnFormatMessage("%.2f %s: Returning from EnergyPlusZoneExchange with nextEventTime = %.2f, TRad_degC = %.2f, mode = %s, nZon=%d \n",
       bui->time, zone->modelicaNameThermalZone, *tNext, zone->outputs->valsEP[0], fmuModeToString(bui->mode), bui->nZon);
-
-  SpawnFormatMessage("*** Leaving exchange function %s", "\n");
 
   return;
 }
