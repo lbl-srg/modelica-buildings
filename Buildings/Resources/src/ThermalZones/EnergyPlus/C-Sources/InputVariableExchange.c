@@ -30,7 +30,7 @@ void EnergyPlusInputVariableExchange(
   void (*SpawnFormatError)(const char *string, ...) = bui->SpawnFormatError;
 
   if (bui->logLevel >= TIMESTEP)
-    SpawnFormatMessage("%.2f %s: Exchanging data with EnergyPlus: initialCall = %d, building ptr at %p.\n",
+    SpawnFormatMessage("%.3f %s: Exchanging data with EnergyPlus: initialCall = %d, building ptr at %p.\n",
       time, inpVar->modelicaNameInputVariable, initialCall, bui);
 
   if (! inpVar->isInstantiated){
@@ -46,12 +46,12 @@ void EnergyPlusInputVariableExchange(
   if (initialCall){
     inpVar->isInitialized = true; /* Set to true as it will be initialized right below */
     if (bui->logLevel >= MEDIUM)
-      SpawnFormatMessage("%.2f %s: Initial call for input variable.\n", time, inpVar->modelicaNameInputVariable);
+      SpawnFormatMessage("%.3f %s: Initial call for input variable.\n", time, inpVar->modelicaNameInputVariable);
   }
   else
   {
     if (bui->logLevel >= TIMESTEP)
-      SpawnFormatMessage("%.2f %s: Did not enter initialization mode for input variable, isInitialized = %d\n",
+      SpawnFormatMessage("%.3f %s: Did not enter initialization mode for input variable, isInitialized = %d\n",
         time, inpVar->modelicaNameInputVariable,
         inpVar->isInitialized);
   }
@@ -60,7 +60,7 @@ void EnergyPlusInputVariableExchange(
      but the FMU is still in initializationMode */
   if ((!initialCall) && bui->mode == initializationMode){
     if (bui->logLevel >= MEDIUM)
-      SpawnFormatMessage("%.2f %s: fmi2_import_exit_initialization_mode: Enter exit initialization mode of FMU in EnergyPlusInputVariableExchange().\n",
+      SpawnFormatMessage("%.3f %s: fmi2_import_exit_initialization_mode: Enter exit initialization mode of FMU in EnergyPlusInputVariableExchange().\n",
         time, inpVar->modelicaNameInputVariable);
     status = fmi2_import_exit_initialization_mode(bui->fmu);
     if( status != fmi2OK ){
@@ -83,7 +83,7 @@ void EnergyPlusInputVariableExchange(
 
 
   if (bui->logLevel >= TIMESTEP)
-    SpawnFormatMessage("%.2f %s: Input to fmu: u = %.2f\n",
+    SpawnFormatMessage("%.3f %s: Input to fmu: u = %.2f\n",
       time, inpVar->modelicaNameInputVariable,
       inpVar->inputs->valsSI[0]);
 
@@ -93,7 +93,7 @@ void EnergyPlusInputVariableExchange(
   *y = u;
 
   if (bui->logLevel >= TIMESTEP)
-    SpawnFormatMessage("%.2f %s: Returning from EnergyPlusInputVariableExchange().\n",
+    SpawnFormatMessage("%.3f %s: Returning from EnergyPlusInputVariableExchange().\n",
       time, inpVar->modelicaNameInputVariable);
 
   return;

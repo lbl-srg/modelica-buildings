@@ -33,7 +33,7 @@ void EnergyPlusOutputVariableExchange(
   void (*SpawnFormatError)(const char *string, ...) = bui->SpawnFormatError;
 
   if (bui->logLevel >= TIMESTEP)
-    SpawnFormatMessage("%.2f %s: Exchanging data with EnergyPlus: initialCall = %d, mode = %s, directDependency = %2.f, valueReference = %lu.\n",
+    SpawnFormatMessage("%.3f %s: Exchanging data with EnergyPlus: initialCall = %d, mode = %s, directDependency = %2.f, valueReference = %lu.\n",
       bui->time, outVar->modelicaNameOutputVariable,
       initialCall, fmuModeToString(bui->mode), directDependency, outVar->outputs->valRefs[0]);
 
@@ -49,7 +49,7 @@ void EnergyPlusOutputVariableExchange(
   if (initialCall){
     outVar->isInitialized = true; /* Set to true as it will be initialized right below */
     if (bui->logLevel >= MEDIUM)
-      SpawnFormatMessage("%.2f %s: Initial call for output variable at %p.f\n", bui->time, outVar->modelicaNameOutputVariable, outVar);
+      SpawnFormatMessage("%.3f %s: Initial call for output variable at %p.f\n", bui->time, outVar->modelicaNameOutputVariable, outVar);
 
     if (outVar->printUnit){
       if (outVar->outputs->units[0]) /* modelDescription.xml defines unit */
@@ -64,7 +64,7 @@ void EnergyPlusOutputVariableExchange(
   else
   {
     if (bui->logLevel >= TIMESTEP)
-      SpawnFormatMessage("%.2f %s: Did not enter initialization mode for output variable, isInitialized = %d\n",
+      SpawnFormatMessage("%.3f %s: Did not enter initialization mode for output variable, isInitialized = %d\n",
         bui->time, outVar->modelicaNameOutputVariable,
         outVar->isInitialized);
   }
@@ -73,7 +73,7 @@ void EnergyPlusOutputVariableExchange(
      but the FMU is still in initializationMode */
   if ((!initialCall) && bui->mode == initializationMode){
     if (bui->logLevel >= MEDIUM)
-      SpawnFormatMessage("%.2f %s: fmi2_import_exit_initialization_mode: Enter exit initialization mode of FMU in exchange() for output variable.\n",
+      SpawnFormatMessage("%.3f %s: fmi2_import_exit_initialization_mode: Enter exit initialization mode of FMU in exchange() for output variable.\n",
         bui->time, outVar->modelicaNameOutputVariable);
     status = fmi2_import_exit_initialization_mode(bui->fmu);
     if( status != fmi2OK ){
@@ -93,7 +93,7 @@ void EnergyPlusOutputVariableExchange(
   /* Get next event time, unless FMU is in initialization mode */
   if (bui->mode == initializationMode){
     if (bui->logLevel >= MEDIUM)
-      SpawnFormatMessage("%.2f %s: Returning current time %.0f as tNext due to initializationMode for zone = %s\n",
+      SpawnFormatMessage("%.3f %s: Returning current time %.0f as tNext due to initializationMode for zone = %s\n",
         bui->time, outVar->modelicaNameOutputVariable,
         bui->time,
         outVar->modelicaNameOutputVariable);
@@ -101,7 +101,7 @@ void EnergyPlusOutputVariableExchange(
   }
   else{
     if (bui->logLevel >= TIMESTEP)
-      SpawnFormatMessage("%.2f %s: Calling do_event_iteration\n",
+      SpawnFormatMessage("%.3f %s: Calling do_event_iteration\n",
         bui->time, outVar->modelicaNameOutputVariable);
     *tNext = do_event_iteration(bui, outVar->modelicaNameOutputVariable);
   }
@@ -111,7 +111,7 @@ void EnergyPlusOutputVariableExchange(
   *y = outVar->outputs->valsSI[0];
 
   if (bui->logLevel >= TIMESTEP)
-    SpawnFormatMessage("%.2f %s: Returning from OutputVariablesExchange with nextEventTime = %.2f, y = %.2f, mode = %s\n",
+    SpawnFormatMessage("%.3f %s: Returning from OutputVariablesExchange with nextEventTime = %.2f, y = %.2f, mode = %s\n",
     bui->time, outVar->modelicaNameOutputVariable,
     *tNext, *y, fmuModeToString(bui->mode));
 

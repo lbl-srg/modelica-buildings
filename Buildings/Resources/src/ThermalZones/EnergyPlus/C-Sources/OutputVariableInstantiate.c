@@ -20,7 +20,7 @@ void EnergyPlusOutputVariableInstantiate(
   FMUBuilding* bui = var->bui;
 
   if (bui->logLevel >= MEDIUM){
-    bui->SpawnFormatMessage("%.2f %s: Entered EnergyPlusOutputVariableInstantiate.\n",
+    bui->SpawnFormatMessage("%.3f %s: Entered EnergyPlusOutputVariableInstantiate.\n",
       startTime,
       var->modelicaNameOutputVariable);
   }

@@ -107,11 +107,11 @@ void stopIfResultsAreNaN(FMUBuilding* bui, const char* modelicaInstanceName, spa
       fmiVar = fmi2_import_get_variable_by_vr(bui->fmu, fmi2_base_type_real, ptrReals->valRefs[i]);
       varNam = fmi2_import_get_variable_name(fmiVar);
       if (isnan(ptrReals->valsSI[i])){
-        SpawnFormatMessage("%.2f %s: Received nan from EnergyPlus for %s at time = %.2f:\n", bui->time, modelicaInstanceName, bui->time);
+        SpawnFormatMessage("%.3f %s: Received nan from EnergyPlus for %s at time = %.2f:\n", bui->time, modelicaInstanceName, bui->time);
       }
-      SpawnFormatMessage("%.2f %s:   %s = %.2f\n", bui->time, modelicaInstanceName, varNam, ptrReals->valsSI[i]);
+      SpawnFormatMessage("%.3f %s:   %s = %.2f\n", bui->time, modelicaInstanceName, varNam, ptrReals->valsSI[i]);
     }
-    SpawnFormatError("%.2f %s: Terminating simulation because EnergyPlus returned nan for %s. See Modelica log file for details.",
+    SpawnFormatError("%.3f %s: Terminating simulation because EnergyPlus returned nan for %s. See Modelica log file for details.",
        bui->time, modelicaInstanceName,
        fmi2_import_get_variable_name(fmi2_import_get_variable_by_vr(bui->fmu, fmi2_base_type_real, ptrReals->valRefs[i_nan])));
   }
@@ -123,7 +123,7 @@ void getVariables(FMUBuilding* bui, const char* modelicaInstanceName, spawnReals
   fmi2_status_t status;
 /* fixme
   if (bui->logLevel >= TIMESTEP)
-    bui->SpawnFormatMessage("%.2f %s: Getting real variables from EnergyPlus, mode = %s.\n", bui->time, modelicaInstanceName, fmuModeToString(bui->mode));
+    bui->SpawnFormatMessage("%.3f %s: Getting real variables from EnergyPlus, mode = %s.\n", bui->time, modelicaInstanceName, fmuModeToString(bui->mode));
 */
   status = fmi2_import_get_real(bui->fmu, ptrReals->valRefs, ptrReals->n, ptrReals->valsEP);
   if (status != (fmi2_status_t)fmi2OK) {
@@ -157,7 +157,7 @@ double do_event_iteration(FMUBuilding* bui, const char* modelicaInstanceName){
   void (*SpawnFormatError)(const char *string, ...) = bui->SpawnFormatError;
 
   if (bui->logLevel >= TIMESTEP)
-    SpawnFormatMessage("%.2f %s: Entered do_event_iteration, mode = %s\n", bui->time, modelicaInstanceName, fmuModeToString(bui->mode));
+    SpawnFormatMessage("%.3f %s: Entered do_event_iteration, mode = %s\n", bui->time, modelicaInstanceName, fmuModeToString(bui->mode));
   /* Enter event mode if the FMU is in Continuous time mode
      because fmi2NewDiscreteStates can only be called in event mode */
   if (bui->mode == continuousTimeMode){
@@ -167,43 +167,43 @@ double do_event_iteration(FMUBuilding* bui, const char* modelicaInstanceName){
 
   /* Make sure we are in event mode (this is for debugging) */
   if (bui->mode != eventMode){
-    SpawnFormatError("%.2f %s: Expected to be in event mode, but was in %s, for FMU %s.", bui->time, modelicaInstanceName,
+    SpawnFormatError("%.3f %s: Expected to be in event mode, but was in %s, for FMU %s.", bui->time, modelicaInstanceName,
       fmuModeToString(bui->mode), bui->modelicaNameBuilding);
   }
 
   while (eventInfo.newDiscreteStatesNeeded && !eventInfo.terminateSimulation && i < nMax) {
     i++;
     if (bui->logLevel >= TIMESTEP)
-      SpawnFormatMessage("%.2f %s: Calling fmi2_import_new_discrete_states with event iteration counter i = %lu\n", bui->time, modelicaInstanceName,
+      SpawnFormatMessage("%.3f %s: Calling fmi2_import_new_discrete_states with event iteration counter i = %lu\n", bui->time, modelicaInstanceName,
         i);
     status = fmi2_import_new_discrete_states(bui->fmu, &eventInfo);
   }
   if (eventInfo.terminateSimulation){
-    SpawnFormatError("%.2f %s: FMU requested to terminate the simulation.", bui->time, modelicaInstanceName);
+    SpawnFormatError("%.3f %s: FMU requested to terminate the simulation.", bui->time, modelicaInstanceName);
   }
   if (i == nMax){
-    SpawnFormatError("%.2f %s: Did not converge during event iteration.", bui->time, modelicaInstanceName);
+    SpawnFormatError("%.3f %s: Did not converge during event iteration.", bui->time, modelicaInstanceName);
   }
 
   if (status != fmi2OK) {
-    SpawnFormatError("%.2f %s: Failed during call to fmi2NewDiscreteStates for building %s with status %s.", bui->time, modelicaInstanceName,
+    SpawnFormatError("%.3f %s: Failed during call to fmi2NewDiscreteStates for building %s with status %s.", bui->time, modelicaInstanceName,
     bui->modelicaNameBuilding, fmi2_status_to_string(status));
   }
 
   if(eventInfo.terminateSimulation == fmi2True){
-    SpawnFormatError("%.2f %s: EnergyPlus requested to terminate the simulation for building = %s.", bui->time, modelicaInstanceName,
+    SpawnFormatError("%.3f %s: EnergyPlus requested to terminate the simulation for building = %s.", bui->time, modelicaInstanceName,
     bui->modelicaNameBuilding);
   }
 
   if(eventInfo.nextEventTimeDefined == fmi2False){
-    SpawnFormatError("%.2f %s: Expected EnergyPlus to set nextEventTimeDefined = true for building = %s.", bui->time, modelicaInstanceName,
+    SpawnFormatError("%.3f %s: Expected EnergyPlus to set nextEventTimeDefined = true for building = %s.", bui->time, modelicaInstanceName,
     bui->modelicaNameBuilding);
   }
 
   /* Assign tNext */
   tNext = eventInfo.nextEventTime;
   if (bui->logLevel >= TIMESTEP)
-    SpawnFormatMessage("%.2f %s: Requested next event time: tNext = %.2f\n", bui->time, modelicaInstanceName, tNext);
+    SpawnFormatMessage("%.3f %s: Requested next event time: tNext = %.2f\n", bui->time, modelicaInstanceName, tNext);
   if (tNext <= bui->time + 1E-6){
     SpawnFormatError("EnergyPlus requested at time = %f a next event time of %f for modelicaInstance = %s. Zero time steps are not supported. Check with support.",
     bui->time, tNext, modelicaInstanceName);
@@ -211,7 +211,7 @@ double do_event_iteration(FMUBuilding* bui, const char* modelicaInstanceName){
 
 
   if (bui->logLevel >= TIMESTEP)
-    SpawnFormatMessage("%.2f %s: Exiting do_event_iteration, mode = %s\n", bui->time, modelicaInstanceName, fmuModeToString(bui->mode));
+    SpawnFormatMessage("%.3f %s: Exiting do_event_iteration, mode = %s\n", bui->time, modelicaInstanceName, fmuModeToString(bui->mode));
   return tNext;
 }
 
@@ -226,30 +226,30 @@ void advanceTime_completeIntegratorStep_enterEventMode(FMUBuilding* bui, const c
   void (*SpawnFormatError)(const char *string, ...) = bui->SpawnFormatError;
 
   if (bui->logLevel >= TIMESTEP)
-    SpawnFormatMessage("%.2f %s: fmi2_import_enter_continuous_time_mode: Setting EnergyPlus to continuous time mode with time = %.2f\n", bui->time, modelicaInstanceName, time);
+    SpawnFormatMessage("%.3f %s: fmi2_import_enter_continuous_time_mode: Setting EnergyPlus to continuous time mode with time = %.2f\n", bui->time, modelicaInstanceName, time);
   status = fmi2_import_enter_continuous_time_mode(bui->fmu);
   if ( status != fmi2OK ) {
-    SpawnFormatError("%.2f %s: Failed to set time in building FMU, returned status is %s.", bui->time, modelicaInstanceName,
+    SpawnFormatError("%.3f %s: Failed to set time in building FMU, returned status is %s.", bui->time, modelicaInstanceName,
       fmi2_status_to_string(status));
   }
   setFMUMode(bui, continuousTimeMode);
 
   if (bui->logLevel >= TIMESTEP)
-    SpawnFormatMessage("%.2f %s: fmi2_import_set_time: Setting time in EnergyPlus to time = %.2f.\n", bui->time, modelicaInstanceName,
+    SpawnFormatMessage("%.3f %s: fmi2_import_set_time: Setting time in EnergyPlus to time = %.2f.\n", bui->time, modelicaInstanceName,
     time);
 
   bui->time = time;
   status = fmi2_import_set_time(bui->fmu, time);
   if ( status != fmi2OK ) {
-    SpawnFormatError("%.2f %s: Failed to set time in building FMU, returned status is %s.", bui->time, modelicaInstanceName,
+    SpawnFormatError("%.3f %s: Failed to set time in building FMU, returned status is %s.", bui->time, modelicaInstanceName,
       fmi2_status_to_string(status));
   }
 
   if (bui->logLevel >= TIMESTEP)
-    SpawnFormatMessage("%.2f %s: fmi2_import_completed_integrator_step: Calling completed integrator step\n", bui->time, modelicaInstanceName);
+    SpawnFormatMessage("%.3f %s: fmi2_import_completed_integrator_step: Calling completed integrator step\n", bui->time, modelicaInstanceName);
   status = fmi2_import_completed_integrator_step(bui->fmu, fmi2_true, &enterEventMode, &terminateSimulation);
   if ( status != fmi2OK ) {
-    SpawnFormatError("%.2f %s: Failed to complete integrator step in building FMU, returned status is %s.", bui->time, modelicaInstanceName,
+    SpawnFormatError("%.3f %s: Failed to complete integrator step in building FMU, returned status is %s.", bui->time, modelicaInstanceName,
     fmi2_status_to_string(status));
   }
   if (enterEventMode){
@@ -264,11 +264,11 @@ void advanceTime_completeIntegratorStep_enterEventMode(FMUBuilding* bui, const c
   }
   /* Enter the FMU into event mode */
   if (bui->logLevel >= TIMESTEP)
-    SpawnFormatMessage("%.2f %s: Calling fmi2_import_enter_event_mode: Enter event mode for FMU %s.\n", bui->time, modelicaInstanceName,
+    SpawnFormatMessage("%.3f %s: Calling fmi2_import_enter_event_mode: Enter event mode for FMU %s.\n", bui->time, modelicaInstanceName,
       bui->modelicaNameBuilding);
   status = fmi2_import_enter_event_mode(bui->fmu);
   if (status != (fmi2Status)fmi2_status_ok){
-    SpawnFormatError("%.2f %s: Failed to enter event mode in EnergyPlusUtil.c, returned status is %s.", bui->time, modelicaInstanceName,
+    SpawnFormatError("%.3f %s: Failed to enter event mode in EnergyPlusUtil.c, returned status is %s.", bui->time, modelicaInstanceName,
       fmi2_status_to_string(status));
   }
   setFMUMode(bui, eventMode);
@@ -280,7 +280,7 @@ void advanceTime_completeIntegratorStep_enterEventMode(FMUBuilding* bui, const c
 void setFMUMode(FMUBuilding* bui, FMUMode mode){
   if (bui->logLevel >= MEDIUM){
     if (bui->logLevel >= TIMESTEP || mode == instantiationMode || mode == initializationMode)
-      bui->SpawnFormatMessage("%.2f %s: Switching to mode %s\n", bui->time, bui->modelicaNameBuilding, fmuModeToString(mode));
+      bui->SpawnFormatMessage("%.3f %s: Switching to mode %s\n", bui->time, bui->modelicaNameBuilding, fmuModeToString(mode));
   }
   bui->mode = mode;
 }
@@ -622,14 +622,14 @@ void loadFMU_setupExperiment_enterInitializationMode(FMUBuilding* bui, double st
   /* Instantiate the FMU for this building */
   generateAndInstantiateBuilding(bui);
   if (bui->logLevel >= MEDIUM)
-    SpawnFormatMessage("%.2f %s: Instantiate building.\n", bui->time, modelicaInstanceName);
+    SpawnFormatMessage("%.3f %s: Instantiate building.\n", bui->time, modelicaInstanceName);
 
   bui->time = startTime;
   setFMUMode(bui, instantiationMode);
 
   /* This function can only be called once per building FMU */
   if (bui->logLevel >= MEDIUM)
-    SpawnFormatMessage("%.2f %s: Calling fmi2_import_setup_experiment: Setting up experiment building at %p with startTime = %f.\n",
+    SpawnFormatMessage("%.3f %s: Calling fmi2_import_setup_experiment: Setting up experiment building at %p with startTime = %f.\n",
       bui->time,
       modelicaInstanceName, bui, startTime);
 
@@ -644,22 +644,22 @@ void loadFMU_setupExperiment_enterInitializationMode(FMUBuilding* bui, double st
       0);                   /* stopTime */
 
   if (bui->logLevel >= MEDIUM)
-    SpawnFormatMessage("%.2f %s: Returned from setting up experiment with status %s.\n", bui->time, modelicaInstanceName, fmi2_status_to_string(status));
+    SpawnFormatMessage("%.3f %s: Returned from setting up experiment with status %s.\n", bui->time, modelicaInstanceName, fmi2_status_to_string(status));
 
   if( status != fmi2_status_ok ){
-    SpawnFormatError("%.2f %s: Failed to setup experiment for FMU with name %s.", bui->time, modelicaInstanceName,  bui->fmuAbsPat);
+    SpawnFormatError("%.3f %s: Failed to setup experiment for FMU with name %s.", bui->time, modelicaInstanceName,  bui->fmuAbsPat);
   }
 
   /* Enter initialization mode, because getting parameters is only
      allowed in the initialization mode, see FMU state diagram in standard */
   if (bui->logLevel >= MEDIUM)
-    SpawnFormatMessage("%.2f %s: fmi2_import_enter_initialization_mode: Enter initialization mode of FMU with name %s.\n",
+    SpawnFormatMessage("%.3f %s: fmi2_import_enter_initialization_mode: Enter initialization mode of FMU with name %s.\n",
       bui->time,
       modelicaInstanceName,
       bui->fmuAbsPat);
   status = fmi2_import_enter_initialization_mode(bui->fmu);
   if( status != fmi2_status_ok ){
-    SpawnFormatError("%.2f %s: Failed to enter initialization mode for FMU with name %s.", bui->time, modelicaInstanceName,
+    SpawnFormatError("%.3f %s: Failed to enter initialization mode for FMU with name %s.", bui->time, modelicaInstanceName,
       bui->fmuAbsPat);
   }
   setFMUMode(bui, initializationMode);

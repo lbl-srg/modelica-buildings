@@ -45,7 +45,7 @@ void EnergyPlusZoneInstantiate(
   const char* modelicaName = zone->modelicaNameThermalZone;
 
   if (bui->logLevel >= MEDIUM){
-    bui->SpawnFormatMessage("%.2f %s: Entered EnergyPlusZoneInstantiate.\n", startTime, modelicaName);
+    bui->SpawnFormatMessage("%.3f %s: Entered EnergyPlusZoneInstantiate.\n", startTime, modelicaName);
   }
   /* Fixme: Here, in Dymola, bui is NULL for FMUZoneAdapterZones2, but it was not NULL
      when leaving EnergyPlusZoneAllocate */
@@ -65,7 +65,7 @@ void EnergyPlusZoneInstantiate(
     loadFMU_setupExperiment_enterInitializationMode(bui, startTime);
   }
   if (bui->logLevel >= MEDIUM)
-    bui->SpawnFormatMessage("%.2f %s: Getting parameters from EnergyPlus zone, bui at %p, zone at %p, zone->parameter at %p.\n", startTime, zone->modelicaNameThermalZone,
+    bui->SpawnFormatMessage("%.3f %s: Getting parameters from EnergyPlus zone, bui at %p, zone at %p, zone->parameter at %p.\n", startTime, zone->modelicaNameThermalZone,
       bui, zone, zone->parameters);
   getVariables(bui, modelicaName, zone->parameters);
 
@@ -78,5 +78,5 @@ void EnergyPlusZoneInstantiate(
   zone->isInstantiated = fmi2True;
 
   if (bui->logLevel >= MEDIUM)
-    bui->SpawnFormatMessage("%.2f %s: Zone is instantiated.\n", startTime, zone->modelicaNameThermalZone);
+    bui->SpawnFormatMessage("%.3f %s: Zone is instantiated.\n", startTime, zone->modelicaNameThermalZone);
 }
