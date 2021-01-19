@@ -205,6 +205,10 @@ src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/PrimarySystem/Ch
 revisions="<html>
 <ul>
 <li>
+January 19, 2021, by Milica Grahovac:<br/>
+Added state chart illustration.
+</li>
+<li>
 March 12, 2020, by Milica Grahovac:<br/>
 First implementation.
 </li>

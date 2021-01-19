@@ -296,6 +296,10 @@ Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizers.Subsequence
 revisions="<html>
 <ul>
 <li>
+January 19, 2021, by Milica Grahovac:<br/>
+Added state chart illustration.
+</li>
+<li>
 October 13, 2018, by Milica Grahovac:<br/>
 First implementation.
 </li>

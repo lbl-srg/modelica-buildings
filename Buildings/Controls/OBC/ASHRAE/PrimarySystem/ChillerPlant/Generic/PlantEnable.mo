@@ -290,6 +290,10 @@ src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/PrimarySystem/Ch
 revisions="<html>
 <ul>
 <li>
+January 19, 2021, by Milica Grahovac:<br/>
+Added state chart illustration.
+</li>
+<li>
 March 12, 2020, by Milica Grahovac:<br/>
 Removed initial stage determination as it is imlemented as a separate sequence. This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1831\">issue 1831</a>.
