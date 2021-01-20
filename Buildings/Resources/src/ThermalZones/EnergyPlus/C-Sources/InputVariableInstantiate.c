@@ -16,14 +16,15 @@
 void EnergyPlusInputVariableInstantiate(
     void* object,
     double startTime){
-  fmi2_status_t status;
   FMUInputVariable* var = (FMUInputVariable*) object;
   FMUBuilding* bui = var->bui;
 
   if (bui->logLevel >= MEDIUM){
-    bui->SpawnFormatMessage("Entered EnergyPlusInputVariableInstantiate for %s.\n",
+    bui->SpawnFormatMessage("%.3f %s: Entered EnergyPlusInputVariableInstantiate.\n",
+      startTime,
       var->modelicaNameInputVariable);
   }
+
   if (bui->fmu == NULL){
     /* EnergyPlus is not yet loaded.
        This section is only executed once if the 'initial equation' section is called multiple times.

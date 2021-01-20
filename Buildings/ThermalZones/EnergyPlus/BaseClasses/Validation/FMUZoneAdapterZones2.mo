@@ -18,6 +18,7 @@ model FMUZoneAdapterZones2
     weaName=Modelica.Utilities.Files.loadResource(
       "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"),
     usePrecompiledFMU=false,
+    logLevel=Buildings.ThermalZones.EnergyPlus.Types.LogLevels.Debug,
     showWeatherData=false)
     "Building model"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
@@ -30,6 +31,7 @@ model FMUZoneAdapterZones2
     usePrecompiledFMU=true,
     final fmuName=Modelica.Utilities.Files.loadResource(
       "modelica://Buildings/Resources/src/ThermalZones/EnergyPlus/FMUs/Zones3.fmu"),
+    logLevel=building.logLevel,
     final nFluPor=2)
     "Adapter to EnergyPlus"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
@@ -57,8 +59,7 @@ model FMUZoneAdapterZones2
     k=1/CZon,
     initType=Modelica.Blocks.Types.Init.InitialState,
     y_start=294.15,
-    y(
-      final unit="K",
+    y(final unit="K",
       displayUnit="degC"))
     "Zone air temperature"
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
@@ -71,6 +72,7 @@ model FMUZoneAdapterZones2
     usePrecompiledFMU=true,
     final fmuName=Modelica.Utilities.Files.loadResource(
       "modelica://Buildings/Resources/src/ThermalZones/EnergyPlus/FMUs/Zones3.fmu"),
+    logLevel=building.logLevel,
     final nFluPor=2)
     "Adapter to EnergyPlus"
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
@@ -78,8 +80,7 @@ model FMUZoneAdapterZones2
     k=1/CZon,
     initType=Modelica.Blocks.Types.Init.InitialState,
     y_start=294.15,
-    y(
-      final unit="K",
+    y(final unit="K",
       displayUnit="degC"))
     "Zone air temperature"
     annotation (Placement(transformation(extent={{60,-20},{80,0}})));

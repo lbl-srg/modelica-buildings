@@ -21,6 +21,7 @@ protected
   constant String modelicaNameInputVariable=getInstanceName()
     "Name of this instance"
     annotation (HideResult=true);
+
   Buildings.ThermalZones.EnergyPlus.BaseClasses.FMUInputVariableClass adapter=Buildings.ThermalZones.EnergyPlus.BaseClasses.FMUInputVariableClass(
     objectType=1,
     modelicaNameBuilding=modelicaNameBuilding,
