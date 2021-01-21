@@ -92,14 +92,14 @@ block Controller "Waterside economizer (WSE) enable/disable status"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatRet(
     final unit="K",
     final quantity="ThermodynamicTemperature")
-    "Chiller water return temperature upstream of the WSE"
+    "Chilled water return temperature upstream of the WSE"
     annotation (Placement(transformation(extent={{-220,40},{-180,80}}),
         iconTransformation(extent={{-140,20},{-100,60}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatRetDow(
     final unit="K",
     final quantity="ThermodynamicTemperature")
-    "Chiller water return temperature downstream of the WSE"
+    "Chilled water return temperature downstream of the WSE"
     annotation (Placement(transformation(extent={{-220,0},{-180,40}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
 

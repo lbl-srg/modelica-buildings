@@ -39,7 +39,7 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TChiWatRet(
     final amplitude=2,
     final freqHz=1/300,
-    final offset=aveTChiWatRet) "Chiller water return temeprature"
+    final offset=aveTChiWatRet) "Chilled water return temeprature"
     annotation (Placement(transformation(extent={{-140,-30},{-120,-10}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine chiWatFlow(
@@ -59,7 +59,7 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TChiWatRet1(
     final amplitude=2,
     final freqHz=1/300,
-    final offset=aveTChiWatRet) "Chiller water return temeprature"
+    final offset=aveTChiWatRet) "Chilled water return temeprature"
     annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine chiWatFlow1(
@@ -81,7 +81,7 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TChiWatRet2(
     final amplitude=2,
     final freqHz=1/300,
-    final offset=aveTChiWatRet) "Chiller water return temeprature"
+    final offset=aveTChiWatRet) "Chilled water return temeprature"
     annotation (Placement(transformation(extent={{60,-30},{80,-10}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine chiWatFlow2(
