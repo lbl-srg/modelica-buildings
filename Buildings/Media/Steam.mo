@@ -807,7 +807,7 @@ likelyhood of more efficient simulations. </li>
 Association for the Properties of Water and Steam (IAPWS) 1997 
 forumulations for water and steam. The thermodynamic regions as 
 determiend by IAPWS-IF97 are as follows: </p>
-<p align=\"center\"><img src=\"modelica://IBPSA/Resources/Images/Media/Steam/SteamIF97Region2.PNG\" 
+<p align=\"center\"><img src=\"modelica://Buildings/Resources/Images/Media/Steam/SteamIF97Region2.PNG\" 
 alt=\"IF97 Water Steam Region 2\"/> </p>
 <h4>Limitations </h4>
 <ul>
@@ -815,7 +815,7 @@ alt=\"IF97 Water Steam Region 2\"/> </p>
 range is <i>0 C &le; T &le; 800 C</i>, and the valid pressure range 
 is <i>0 MPa &le; p &le; 100 MPa</i>. </li>
 <li>When phase change is required, this model is to be used in combination 
-with the <a href=\"modelica://IBPSA.Media.Specialized.Water.HighTemperature\">IBPSA.Media.Specialized.Water.HighTemperature</a> 
+with the <a href=\"modelica://Buildings.Media.Water\">Buildings.Media.Water</a> 
 media model for incompressible liquid water for the liquid phase (quality = 0). </li>
 <li>The two-phase region 3 (e.g., mixed liquid and vapor), high temperature 
 region 5, and liquid region 1 are not included in this medium model. </li>
