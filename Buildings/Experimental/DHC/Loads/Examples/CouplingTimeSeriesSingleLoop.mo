@@ -9,6 +9,8 @@ model CouplingTimeSeriesSingleLoop
   Buildings.Experimental.DHC.Loads.Examples.BaseClasses.BuildingTimeSeries buiCoo(
     have_watHea=false,
     filNam="modelica://Buildings/Resources/Data/Experimental/DHC/Loads/Examples/SwissResidential_20190916.mos",
+    delTAirCoo=6,
+    delTAirHea=18,
     k=1,
     Ti=10,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -58,6 +60,8 @@ model CouplingTimeSeriesSingleLoop
   BaseClasses.BuildingTimeSeries buiHea(
     have_watCoo=false,
     filNam="modelica://Buildings/Resources/Data/Experimental/DHC/Loads/Examples/SwissResidential_20190916.mos",
+    delTAirCoo=6,
+    delTAirHea=18,
     k=1,
     Ti=10,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
