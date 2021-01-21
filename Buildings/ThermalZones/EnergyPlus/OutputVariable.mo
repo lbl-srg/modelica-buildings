@@ -46,6 +46,14 @@ initial equation
   Buildings.ThermalZones.EnergyPlus.BaseClasses.outputVariableInitialize(
     adapter=adapter,
     startTime=time);
+   Buildings.ThermalZones.EnergyPlus.BaseClasses.outputVariableExchange(
+       adapter,
+       true,
+       directDependency_in_internal,
+       round(
+         time,
+         1E-3));
+
   counter=0;
 equation
   if isDirectDependent then
@@ -53,13 +61,11 @@ equation
   else
     directDependency_in_internal=0;
   end if;
-  // The 'not initial()' triggers one sample when the continuous time simulation starts.
-  // This is required for the correct event handling. Otherwise the regression tests will fail.
-  // when {initial(), not initial(), time >= pre(tNext)} then
-  when {initial(),time >= pre(tNext),not initial()} then
+
+  when {initial(), time >= pre(tNext)} then
     (y,tNext)=Buildings.ThermalZones.EnergyPlus.BaseClasses.outputVariableExchange(
       adapter,
-      initial(),
+      false,
       directDependency_in_internal,
       round(
         time,
@@ -183,9 +189,22 @@ to the connector <code>directDependency</code>. What the value is is irrelevant,
 but a Modelica code generator will then understand that first the input needs to be sent
 to EnergyPlus before the output is requested.
 </p>
+<h4>Supported output variables</h4>
+<p>
+For a list of supported output variables, see
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus.UsersGuide.SupportedOutputVariables\">
+Buildings.ThermalZones.EnergyPlus.UsersGuide.SupportedOutputVariables</a>.
+</p>
 </html>",
       revisions="<html>
 <ul>
+<li>
+December 6, 2020, by Michael Wetter:<br/>
+Reformulated <code>when</code> condition to avoid using <code>not initial()</code>.
+Per the Modelica language definition, <code>when</code> clauses are not meant to contain
+<code>not initial()</code>.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2068\">#2068</a>.
+</li>
 <li>
 June 5, 2020, by Michael Wetter:<br/>
 Added option for declaring direct dependencies.

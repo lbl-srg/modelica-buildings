@@ -230,39 +230,36 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     redeclare package Medium = MediumA,
     m_flow_nominal=mAirCol_flow_nominal) "Cooling coil outlet temperature"
     annotation (Placement(transformation(extent={{410,-160},{430,-140}})));
-  Buildings.Fluid.Sensors.VolumeFlowRate VOut1(redeclare package Medium =
-        MediumA, m_flow_nominal=m_flow_nominal) "Outside air volume flow rate"
+  Buildings.Fluid.Sensors.VolumeFlowRate VOut1(
+    redeclare package Medium = MediumA,
+    m_flow_nominal=m_flow_nominal,
+    tau=1) "Outside air volume flow rate"
     annotation (Placement(transformation(extent={{-80,12},{-60,32}})));
-  Buildings.Examples.DualFanDualDuct.ThermalZones.SupplyBranch
-                                                    cor(
+  Buildings.Examples.DualFanDualDuct.ThermalZones.SupplyBranch cor(
     redeclare package MediumA = MediumA,
     m_flow_nominal=m0_flow_cor,
     VRoo=2698,
     from_dp=true) "Zone for core of buildings (azimuth will be neglected)"
     annotation (Placement(transformation(extent={{548,44},{616,112}})));
-  Buildings.Examples.DualFanDualDuct.ThermalZones.SupplyBranch
-                                                    sou(
+  Buildings.Examples.DualFanDualDuct.ThermalZones.SupplyBranch sou(
     redeclare package MediumA = MediumA,
     m_flow_nominal=m0_flow_sou,
     VRoo=568.77,
     from_dp=true) "South-facing thermal zone"
     annotation (Placement(transformation(extent={{686,42},{758,114}})));
-  Buildings.Examples.DualFanDualDuct.ThermalZones.SupplyBranch
-                                                    eas(
+  Buildings.Examples.DualFanDualDuct.ThermalZones.SupplyBranch eas(
     redeclare package MediumA = MediumA,
     m_flow_nominal=m0_flow_eas,
     VRoo=360.08,
     from_dp=true) "East-facing thermal zone"
     annotation (Placement(transformation(extent={{824,46},{892,114}})));
-  Buildings.Examples.DualFanDualDuct.ThermalZones.SupplyBranch
-                                                    nor(
+  Buildings.Examples.DualFanDualDuct.ThermalZones.SupplyBranch nor(
     redeclare package MediumA = MediumA,
     m_flow_nominal=m0_flow_nor,
     VRoo=568.77,
     from_dp=true) "North-facing thermal zone"
     annotation (Placement(transformation(extent={{964,46},{1032,114}})));
-  Buildings.Examples.DualFanDualDuct.ThermalZones.SupplyBranch
-                                                    wes(
+  Buildings.Examples.DualFanDualDuct.ThermalZones.SupplyBranch wes(
     redeclare package MediumA = MediumA,
     m_flow_nominal=m0_flow_wes,
     VRoo=360.08,
@@ -365,7 +362,7 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     annotation (Placement(transformation(extent={{-390,170},{-370,190}})));
   BoundaryConditions.WeatherData.Bus weaBus "Weather Data Bus"
     annotation (Placement(transformation(extent={{-360,170},{-340,190}})));
-  Buildings.Examples.VAVReheat.ThermalZones.Floor flo(
+  Buildings.Examples.VAVReheat.BaseClasses.Floor flo(
     redeclare package Medium = MediumA,
     lat=lat)
     "Model of a floor of the building that is served by this VAV system"

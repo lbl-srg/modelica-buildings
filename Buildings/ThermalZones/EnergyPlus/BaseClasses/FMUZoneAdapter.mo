@@ -128,7 +128,7 @@ protected
     output Real y;
   algorithm
     y :=
-      if(u > 0) then
+      if (u > 0) then
         floor(
           u/accuracy+0.5)*accuracy
       else
@@ -149,6 +149,20 @@ initial equation
     startTime=time);
   TAveInlet=293.15;
   m_flow_small=V*3*1.2/3600*1E-10;
+
+  Buildings.ThermalZones.EnergyPlus.BaseClasses.zoneExchange(
+      adapter,
+      true,
+      T,
+      X_w,
+      mInlet_flow,
+      TAveInlet,
+      QGaiRad_flow,
+      AFlo,
+      round(
+        time,
+        1E-3));
+
   assert(
     AFlo > 0,
     "Floor area must not be zero.");
@@ -166,15 +180,14 @@ equation
         fmuName) > 1,
       "If usePrecompiledFMU = true, must set parameter fmuName");
   end if;
-  // The 'not initial()' triggers one sample when the continuous time simulation starts.
-  // This is required for the correct event handling. Otherwise the regression tests will fail.
-  // when {initial(), not initial(), time >= pre(tNext)} then
-  when {initial(),time >= pre(tNext),not initial()} then
+
+  when {initial(), time >= pre(tNext)} then
+//    Modelica.Utilities.Streams.print("time = " + String(time) + "\t initial() = " + String(initial()) + "\t pre(counter) = " + String(pre(counter)) + "\t counter = " + String((counter)));
     // Initialization of output variables.
     TRooLast=T;
     dtLast=time-pre(
       tLast);
-    //  Modelica.Utilities.Streams.print("time = " + String(time) + "\t pre(tLast) = " + String(pre(tLast)) + "\t dtLast = " + String(dtLast));
+
     mInlet_flow=noEvent(
       sum(
         if m_flow[i] > 0 then
@@ -188,9 +201,9 @@ equation
         else
           0 for i in 1:nFluPor)+m_flow_small*pre(
         TAveInlet))/(mInlet_flow+m_flow_small));
-    (TRad,QConLast_flow,dQCon_flow,QLat_flow,QPeo_flow,tNext)=Buildings.ThermalZones.EnergyPlus.BaseClasses.zoneExchange(
+    (TRad, QConLast_flow, dQCon_flow, QLat_flow, QPeo_flow, tNext)=Buildings.ThermalZones.EnergyPlus.BaseClasses.zoneExchange(
       adapter,
-      initial(),
+      false,
       T,
       X_w,
       mInlet_flow,
@@ -223,6 +236,13 @@ of its class <code>adapter</code>, of EnergyPlus.
 </html>",
       revisions="<html>
 <ul>
+<li>
+December 6, 2020, by Michael Wetter:<br/>
+Reformulated <code>when</code> condition to avoid using <code>not initial()</code>.
+Per the Modelica language definition, <code>when</code> clauses are not meant to contain
+<code>not initial()</code>.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2068\">#2068</a>.
+</li>
 <li>
 April 04, 2018, by Thierry S. Nouidui:<br/>
 Added additional parameters for parametrizing

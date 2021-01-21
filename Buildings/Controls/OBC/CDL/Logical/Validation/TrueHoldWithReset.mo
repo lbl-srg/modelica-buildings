@@ -3,7 +3,7 @@ model TrueHoldWithReset "Validation model for the TrueHoldWithReset block"
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul(
     period=9000,
-    delay=300) "Boolean pulse input signal"
+    shift=300) "Boolean pulse input signal"
     annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
   Buildings.Controls.OBC.CDL.Logical.TrueHoldWithReset truHol(
     duration=3600)
@@ -18,7 +18,7 @@ model TrueHoldWithReset "Validation model for the TrueHoldWithReset block"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul2(
     period=9000,
-    delay=300) "Boolean pulse input signal"
+    shift=300) "Boolean pulse input signal"
     annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
   Buildings.Controls.OBC.CDL.Logical.TrueHoldWithReset truHol2(
     duration=3600)

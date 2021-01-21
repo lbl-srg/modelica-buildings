@@ -7,14 +7,19 @@ block PIDWithReset
     min=100*Constants.eps) = 1 "Gain of controller"
     annotation (
       Dialog(group="Control gains"));
-  parameter Modelica.SIunits.Time Ti(min=100*Constants.eps) = 0.5
+  parameter Real Ti(
+    final quantity="Time",
+    final unit="s",
+    min=100*Constants.eps) = 0.5
     "Time constant of integrator block"
     annotation (Dialog(
       group="Control gains",
       enable=
           controllerType == CDL.Types.SimpleController.PI or
           controllerType == CDL.Types.SimpleController.PID));
-  parameter Modelica.SIunits.Time Td(
+  parameter Real Td(
+    final quantity="Time",
+    final unit="s",
     min=100*Constants.eps) = 0.1
     "Time constant of derivative block"
     annotation (Dialog(
@@ -24,7 +29,7 @@ block PIDWithReset
           controllerType == CDL.Types.SimpleController.PID));
 
   parameter Real r(min=100*Constants.eps) = 1
-    "Typical range of control error, used for scaling error";
+    "Typical range of control error, used for scaling the control error";
 
   parameter Real yMax = 1 "Upper limit of output"
     annotation(Dialog(group="Limits"));
@@ -188,7 +193,10 @@ protected
 
 block Derivative "Block that approximates the derivative of the input"
   parameter Real k(unit="1") = 1 "Gains";
-  parameter Modelica.SIunits.Time T(min=1E-60)=0.01
+  parameter Real T(
+    final quantity="Time",
+    final unit="s",
+    min=1E-60)=0.01
     "Time constant (T>0 required)";
   parameter Real y_start=0 "Initial value of output (= state)"
     annotation(Dialog(group="Initialization"));
@@ -231,6 +239,12 @@ If <code>k=0</code>, the block reduces to <code>y=0</code>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 12, 2020, by Michael Wetter:<br/>
+Reformulated to remove dependency to <code>Modelica.SIunits</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2243\">issue 2243</a>.
+</li>
 <li>
 August 7, 2020, by Michael Wetter:<br/>
 Moved to protected block in PID controller because the derivative block is no longer part of CDL.
@@ -600,6 +614,12 @@ American Society of Heating Refrigerating and Air-Conditioning Engineers Inc. At
 </html>",
 revisions="<html>
 <ul>
+<li>
+November 12, 2020, by Michael Wetter:<br/>
+Reformulated to remove dependency to <code>Modelica.SIunits</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2243\">issue 2243</a>.
+</li>
 <li>
 October 15, 2020, by Michael Wetter:<br/>
 Added scaling factor <code>r</code>, removed set point weights <code>wp</code> and <code>wd</code>.

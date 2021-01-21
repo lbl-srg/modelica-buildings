@@ -273,8 +273,8 @@ equation
     annotation (Line(points={{-18,-10},{-3,-10},{-3,-34}}, color={0,0,127}));
   connect(swiFreSta.y, gaiHeaCoi.u) annotation (Line(points={{82,-192},{88,-192},
           {88,-210},{98,-210}}, color={0,0,127}));
-  connect(freSta.y, swiFreSta.u2) annotation (Line(points={{-128,-100},{40,-100},
-          {40,-192},{58,-192}},color={255,0,255}));
+  connect(freSta.y, swiFreSta.u2) annotation (Line(points={{22,-90},{40,-90},{
+          40,-192},{58,-192}}, color={255,0,255}));
   connect(yFreHeaCoi.y, swiFreSta.u1) annotation (Line(points={{22,-182},{40,-182},
           {40,-184},{58,-184}}, color={0,0,127}));
   connect(zonToSys.ySumDesZonPop, conAHU.sumDesZonPop) annotation (Line(points={{302,589},
@@ -326,9 +326,8 @@ equation
           {444,565.333},{444,560},{458,560}},color={255,0,255}));
   connect(booRep1.y, zonOutAirSet.uReqOutAir) annotation (Line(points={{482,560},
           {496,560},{496,460},{206,460},{206,593},{218,593}}, color={255,0,255}));
-  connect(flo.TRooAir, zonOutAirSet.TZon) annotation (Line(points={{1094.14,
-          491.333},{1164,491.333},{1164,660},{210,660},{210,590},{218,590}},
-                                                                    color={0,0,127}));
+  connect(flo.TRooAir, zonOutAirSet.TZon) annotation (Line(points={{1107.13,506},
+          {1164,506},{1164,660},{210,660},{210,590},{218,590}},     color={0,0,127}));
   connect(TDis.y, zonOutAirSet.TDis) annotation (Line(points={{241,370},{252,
           370},{252,414},{200,414},{200,587},{218,587}},
                                                     color={0,0,127}));
@@ -384,8 +383,8 @@ equation
           380},{-240,290},{-222,290}}, color={0,0,127}));
   connect(warCooTim.y, zonSta.warUpTim) annotation (Line(points={{-278,380},{-240,
           380},{-240,286},{-222,286}}, color={0,0,127}));
-  connect(flo.TRooAir, zonSta.TZon) annotation (Line(points={{1094.14,491.333},
-          {1164,491.333},{1164,660},{-250,660},{-250,274},{-222,274}}, color={0,
+  connect(flo.TRooAir, zonSta.TZon) annotation (Line(points={{1107.13,506},{
+          1164,506},{1164,660},{-250,660},{-250,274},{-222,274}},      color={0,
           0,127}));
   connect(zonSta.yCooTim, zonGroSta.uCooTim) annotation (Line(points={{-198,295},
           {-176,295},{-176,291},{-162,291}}, color={0,0,127}));
@@ -407,8 +406,8 @@ equation
     annotation (Line(points={{-198,271},{-162,271}}, color={255,0,255}));
   connect(zonSta.yEndSetUp, zonGroSta.uEndSetUp) annotation (Line(points={{-198,
           269},{-192,269},{-192,267},{-162,267}}, color={255,0,255}));
-  connect(flo.TRooAir, zonGroSta.TZon) annotation (Line(points={{1094.14,
-          491.333},{1164,491.333},{1164,660},{-250,660},{-250,263},{-162,263}},
+  connect(flo.TRooAir, zonGroSta.TZon) annotation (Line(points={{1107.13,506},{
+          1164,506},{1164,660},{-250,660},{-250,263},{-162,263}},
         color={0,0,127}));
   connect(falSta.y, zonGroSta.uWin) annotation (Line(points={{-278,340},{-172,
           340},{-172,261},{-162,261}}, color={255,0,255}));

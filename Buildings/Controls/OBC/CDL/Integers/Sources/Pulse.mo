@@ -5,10 +5,14 @@ block Pulse "Generate pulse signal of type Integer"
     final min=Constants.small,
     final max=1,
     final unit = "1") = 0.5 "Width of pulse in fraction of period";
-  parameter Modelica.SIunits.Time period(final min=Constants.small)
+  parameter Real period(
+    final quantity="Time",
+    final unit="s",
+    final min=Constants.small)
    "Time for one period";
-  parameter Modelica.SIunits.Time delay=0
-    "Delay time for output";
+  parameter Real shift(
+    final quantity="Time",
+    final unit="s")=0 "Shift time for output";
   parameter Integer offset=0 "Offset of output signals";
   Interfaces.IntegerOutput y "Connector of Pulse output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
@@ -17,7 +21,7 @@ protected
   Logical.Sources.Pulse booPul(
     final width=width,
     final period=period,
-    final delay=delay) "Boolean pulse"
+    final shift=shift) "Boolean pulse"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
   Conversions.BooleanToInteger booToInt(
     final integerTrue = offset + amplitude,
@@ -87,7 +91,7 @@ equation
         Text(
           extent={{38,64},{96,40}},
           lineColor={135,135,135},
-          textString="%delay"),  Line(points={{79,-70},{40,-70},{40,44},{-1,44},
+          textString="%shift"),  Line(points={{79,-70},{40,-70},{40,44},{-1,44},
               {-1,-70},{-41,-70},{-41,44},{-80,44}}),
         Polygon(
           points={{90,-70},{68,-62},{68,-78},{90,-70}},
@@ -103,17 +107,29 @@ Block that outputs a pulse signal as shown below.
      alt=\"Pulse.png\" />
      </p>
 <p>
-The pulse signal is generated an infinite number of times, and aligned with time <code>time=delay</code>.
+The pulse signal is generated an infinite number of times, and aligned with <code>time=shift</code>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 03, 2020, by Milica Grahovac:<br/>
+Renamed <code>delay</code> parameter to <code>shift</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2282\">issue 2282</a>.
+</li>
+<li>
+November 12, 2020, by Michael Wetter:<br/>
+Reformulated to remove dependency to <code>Modelica.SIunits</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2243\">issue 2243</a>.
+</li>
 <li>
 October 19, 2020, by Michael Wetter:<br/>
 Refactored implementation, avoided state events.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2170\">#2170</a>.
 </li>
-<li> 
+<li>
 September 8, 2020, by Milica Grahovac:<br/>
 First implementation, based on the implementation of <code>Real</code> pulse.
 </li>

@@ -1,6 +1,7 @@
 within Buildings.Fluid.Sensors;
 model EnthalpyFlowRate "Ideal enthalphy flow rate sensor"
-  extends Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor;
+  extends Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor(
+    tau=0);
   extends Modelica.Icons.RotationalSensor;
   Modelica.Blocks.Interfaces.RealOutput H_flow(final unit="W")
     "Enthalpy flow rate, positive if from port_a to port_b"
@@ -82,6 +83,12 @@ Buildings.Fluid.Sensors.LatentEnthalpyFlowRate</a>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+October 19, 2020, by Antoine Gautier:<br/>
+Changed default value for <code>tau</code> from <code>1</code> to <code>0</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1406\">#1406</a>.
+</li>
 <li>
 February 25, 2020, by Michael Wetter:<br/>
 Changed icon to display its operating state.<br/>

@@ -16,7 +16,21 @@
    correct version provided by the Modelica simulation
    environment that compiles the Modelica model.
 /* ********************************************************* */
+
+/* Custom implementation of ModelicaFormatMessage that prints to stdout
+#define my_printf(...) MyModelicaFormatMessage(__VA_ARGS__)
+void my_printf(const char *fmt, ...) {
+    va_list args;
+    va_start(args, fmt);
+    vprintf(fmt, args);
+    va_end(args);
+    fflush(stdout);
+}
+*/
+
 /* Thermal zone */
+
+
 void* SpawnZoneAllocate(
   const char* modelicaNameBuilding,
   const char* modelicaNameThermalZone,
