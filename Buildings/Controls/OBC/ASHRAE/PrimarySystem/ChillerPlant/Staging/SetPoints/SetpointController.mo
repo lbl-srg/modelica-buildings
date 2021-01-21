@@ -288,7 +288,7 @@ block SetpointController
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSup(
     final unit="K",
     final quantity="ThermodynamicTemperature")
-    "Chilled water return temperature"
+    "Chilled water supply temperature"
     annotation (Placement(transformation(extent={{-442,320},{-402,360}}),
     iconTransformation(extent={{-140,30},{-100,70}})));
 

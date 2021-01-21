@@ -77,7 +77,7 @@ block Down "Generates a stage down signal"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSup(
     final unit="K",
     final quantity="ThermodynamicTemperature")
-    "Chilled water return temperature"
+    "Chilled water supply temperature"
     annotation (Placement(transformation(extent={{-220,10},{-180,50}}),
     iconTransformation(extent={{-140,-40},{-100,0}})));
 

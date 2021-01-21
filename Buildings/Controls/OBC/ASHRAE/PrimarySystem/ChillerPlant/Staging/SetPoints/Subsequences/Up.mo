@@ -123,7 +123,7 @@ block Up "Generates a stage up signal"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSup(
     final unit="K",
     final quantity="ThermodynamicTemperature")
-    "Chilled water return temperature"
+    "Chilled water supply temperature"
     annotation (Placement(transformation(extent={{-200,-150},{-160,-110}}),
     iconTransformation(extent={{-140,10},{-100,50}})));
 
