@@ -40,7 +40,8 @@ protected
   constant Real conv(unit="1/s")=1
     "Conversion factor to satisfy unit check";
 initial equation
-  Modelica.Utilities.Streams.print("Warning:\n  In " + getInstanceName() +
+  Modelica.Utilities.Streams.print(
+    "Warning:\n  In " + getInstanceName() +
     ": This model is a beta version and is not fully validated yet.");
 equation
   // Compute temperatures that are used as input to the functions
