@@ -675,7 +675,7 @@ free energy for region 2.
 December 6, 2020, by Michael Wetter:<br/>
 Added <code>LateInline=true</code>.
 This is required for OCT-r17595_JM-r14295, otherwise
-<a href=\modelica://Buildings.Media.Examples.SteamDerivativeCheck\">
+<a href=\"modelica://Buildings.Media.Examples.SteamDerivativeCheck\">
 Buildings.Media.Examples.SteamDerivativeCheck</a>
 does not translate.
 </li>
