@@ -660,7 +660,27 @@ protected
     cv := R*(-g.tau*g.tau*g.gtautau+((g.gpi-g.tau*g.gtaupi)*(g.gpi-g.tau*g.gtaupi)/g.gpipi));
     annotation (
       smoothOrder=2,
-      Inline=true);
+      Inline=true,
+      LateInline = true,
+      Documentation(info="<html>
+<p>
+Specific heat at constant volume is computed from temperature and
+<code>p_default</code> using the IAPWS-IF97 relationship via the Gibbs
+free energy for region 2.
+</p>
+</html>", revision=
+         "<html>
+<ul>
+<li>
+December 6, 2020, by Michael Wetter:<br/>
+Added <code>LateInline=true</code>.
+This is required for OCT-r17595_JM-r14295, otherwise
+<a href=\modelica://Buildings.Media.Examples.SteamDerivativeCheck\">
+Buildings.Media.Examples.SteamDerivativeCheck</a>
+does not translate.
+</li>
+</ul>
+</html>"));
   end cv_pT;
 
   function T_ph

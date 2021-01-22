@@ -73,7 +73,7 @@ equation
       info="<html>
 <p><b><span style=\"font-size: 11pt; color: #ff0000;\">This model is a beta version and is not fully validated yet. </span></b></p>
 <p>This example checks the saturation properties of the medium. </p>
-<p>The steam medium is designed for single phase (saturated or superheated) vapor (<span style=\"font-family: monospace;\">x=1</span>). The saturated state functions are provided for models involving phase change by implementing both the <a href=\"modelica://IBPSA.Media.Steam\">IBPSA.Media.Steam</a> model (vapor phase) and the <a href=\"modelica://IBPSA.Media.Water\">IBPSA.Media.Water</a> model (liquid phase). See <a href=\"modelica://IBPSA.Media.Steam\">IBPSA.Media.Steam</a> for more information. </p>
+<p>The steam medium is designed for single phase (saturated or superheated) vapor (<span style=\"font-family: monospace;\">x=1</span>). The saturated state functions are provided for models involving phase change by implementing both the <a href=\"modelica://Buildings.Media.Steam\">Buildings.Media.Steam</a> model (vapor phase) and the <a href=\"modelica://Buildings.Media.Water\">Buildings.Media.Water</a> model (liquid phase). See <a href=\"modelica://Buildings.Media.Steam\">Buildings.Media.Steam</a> for more information. </p>
 <p>Since the steam medium model assumes pressure is steady throughout simulation, these saturation properties are evaluted over the possible range of saturated pressure values. </p>
 </html>",
       revisions="<html>

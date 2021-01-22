@@ -53,7 +53,6 @@ protected
   protected
     Real TErrAbs=abs(Medium.temperature(state1)-Medium.temperature(state2))
       "Absolute error in temperature";
-  protected
     Real pErrAbs=abs(Medium.pressure(state1)-Medium.pressure(state2))
       "Absolute error in pressure";
   algorithm
