@@ -1,6 +1,5 @@
 within Buildings.Media.Interfaces;
-partial package PartialPureSubstanceWithSat
-  "Partial pure substance model with saturation state functions"
+partial package PartialPureSubstanceWithSaturation "Partial pure substance model with saturation state functions"
   extends Modelica.Media.Interfaces.PartialPureSubstance;
 
   replaceable partial function saturationState
@@ -72,6 +71,7 @@ partial package PartialPureSubstanceWithSat
     input SaturationProperties sat "Saturation property record";
     output Density dv "Dew curve density";
   end densityOfSaturatedVapor;
+
   annotation (Documentation(revisions="<html>
 <ul>
 <li>
@@ -89,4 +89,4 @@ media. It is implemented in models requiring fluid phase change and
 when saturation properties are of primary interest, such as with 
 <a href=\"modelica://Buildings.Media.Steam\">Buildings.Media.Steam</a>. </p>
 </html>"));
-end PartialPureSubstanceWithSat;
+end PartialPureSubstanceWithSaturation;
