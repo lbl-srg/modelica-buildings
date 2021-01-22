@@ -2,19 +2,19 @@ within Buildings.Media.Interfaces;
 partial package PartialPureSubstanceWithSaturation "Partial pure substance model with saturation state functions"
   extends Modelica.Media.Interfaces.PartialPureSubstance;
 
-  replaceable partial function saturationState
-    "Return saturation property record from pressure"
+  replaceable partial function densityOfSaturatedLiquid
+       "Return density of saturated liquid"
     extends Modelica.Icons.Function;
-    input AbsolutePressure p "Pressure";
-    output SaturationProperties sat "Saturation property record";
-  end saturationState;
+    input SaturationProperties sat "Saturation property record";
+    output Density dl "Boiling curve density";
+  end densityOfSaturatedLiquid;
 
-  replaceable partial function saturationTemperature
-    "Return saturation temperature"
+  replaceable partial function densityOfSaturatedVapor
+    "Return density of saturated vapor"
     extends Modelica.Icons.Function;
-    input AbsolutePressure p "Pressure";
-    output Temperature T "Saturation temperature";
-  end saturationTemperature;
+    input SaturationProperties sat "Saturation property record";
+    output Density dv "Dew curve density";
+  end densityOfSaturatedVapor;
 
   replaceable partial function enthalpyOfSaturatedLiquid
     "Return enthalpy of saturated liquid"
@@ -58,19 +58,19 @@ partial package PartialPureSubstanceWithSaturation "Partial pure substance model
     output SpecificEntropy slv "Vaporization entropy";
   end entropyOfVaporization;
 
-  replaceable partial function densityOfSaturatedLiquid
-       "Return density of saturated liquid"
+  replaceable partial function saturationState
+    "Return saturation property record from pressure"
     extends Modelica.Icons.Function;
-    input SaturationProperties sat "Saturation property record";
-    output Density dl "Boiling curve density";
-  end densityOfSaturatedLiquid;
+    input AbsolutePressure p "Pressure";
+    output SaturationProperties sat "Saturation property record";
+  end saturationState;
 
-  replaceable partial function densityOfSaturatedVapor
-    "Return density of saturated vapor"
+  replaceable partial function saturationTemperature
+    "Return saturation temperature"
     extends Modelica.Icons.Function;
-    input SaturationProperties sat "Saturation property record";
-    output Density dv "Dew curve density";
-  end densityOfSaturatedVapor;
+    input AbsolutePressure p "Pressure";
+    output Temperature T "Saturation temperature";
+  end saturationTemperature;
 
   annotation (Documentation(revisions="<html>
 <ul>
