@@ -63,9 +63,9 @@ model RetreiveUA_nominal_Textbook
     "Sink for water"
     annotation (Placement(transformation(extent={{100,30},{80,50}})));
 
-  Modelica.Blocks.Sources.CombiTimeTable X_w2(table=[0,0.017; 1,0.01765],
-    timeScale=100) "Water mass fraction of entering air"
-    annotation (Placement(transformation(extent={{192,-90},{172,-70}})));
+  Modelica.Blocks.Sources.RealExpression X_w2(y=0.0173)
+    "Water mass fraction of entering air"
+    annotation (Placement(transformation(extent={{248,-104},{184,-66}})));
   Sensors.RelativeHumidityTwoPort RelHumIn(redeclare package Medium = Medium_A,
       m_flow_nominal=m2_flow_nominal) "Inlet relative humidity"
     annotation (Placement(transformation(extent={{30,-90},{10,-70}})));
@@ -157,13 +157,17 @@ model RetreiveUA_nominal_Textbook
         rotation=180,
         origin={18,66})));
   UA_nominalFromOperatingCondition uA_nominalFromOperatingCondition(
-    TAirOut=293.15,
-    wAirIn=0.037,
-    wAirOut=0.015,
-    TWatOut=289.17,
+    TAirIn=T_a2_nominal,
+    TAirOut=286.7305,
+    wAirIn=0.0173,
+    TWatIn=T_a1_nominal,
+    TWatOut=284.2178,
     mAir_flow=m2_flow_nominal,
     mWat_flow=m1_flow_nominal)
     annotation (Placement(transformation(extent={{-104,-272},{12,-182}})));
+  Modelica.Blocks.Sources.CombiTimeTable X_w1(table=[0,0.017; 1,0.01765],
+      timeScale=100) "Water mass fraction of entering air"
+    annotation (Placement(transformation(extent={{186,-174},{142,-130}})));
 equation
   for iEle in 1:hexDis.nEle loop
     isDryHexDis[iEle] = if abs(hexDis.ele[iEle].masExc.mWat_flow) < 1E-6 then 1 else 0;
@@ -191,9 +195,6 @@ equation
     annotation (Line(points={{60,-69},{60,0},{119,0}}, color={0,0,127}));
   connect(TDryBulIn.port_b, RelHumIn.port_a)
     annotation (Line(points={{50,-80},{30,-80}}, color={0,127,255}));
-  connect(X_w2.y[1], souAir.Xi_in[1]) annotation (Line(points={{171,-80},{160,
-          -80},{160,-84},{142,-84}},
-                                color={0,0,127}));
   connect(souWat2.ports[1], hexDis.port_a1)
     annotation (Line(points={{-160,120},{-40,120}}, color={0,127,255}));
   connect(sinAir.ports[2], hexDis.port_b2) annotation (Line(points={{-160,-42},{
@@ -202,9 +203,6 @@ equation
           20,100},{20,108},{-20,108}}, color={0,127,255}));
   connect(hexDis.port_b1, sinWat.ports[1]) annotation (Line(points={{-20,120},{
           0,120},{0,38},{80,38},{80,42}},    color={0,127,255}));
-  connect(X_w2.y[1], souAir2.Xi_in[1]) annotation (Line(points={{171,-80},{160,
-          -80},{160,96},{142,96}},
-                              color={0,0,127}));
   connect(TDryBulOut.port_a, hexWetNTU.port_b2) annotation (Line(points={{-70,-40},
           {-60,-40},{-60,62},{-50,62}}, color={0,127,255}));
   connect(RelHumIn.port_b, hexWetNTU.port_a2) annotation (Line(points={{10,-80},
@@ -217,15 +215,16 @@ equation
           {-13,74},{-13,66},{8,66}}, color={0,127,255}));
   connect(TWatOut.port_b, sinWat.ports[2]) annotation (Line(points={{28,66},{34,
           66},{34,38},{80,38}}, color={0,127,255}));
+  connect(X_w2.y, souAir.Xi_in[1]) annotation (Line(points={{180.8,-85},{162.4,-85},
+          {162.4,-84},{142,-84}}, color={0,0,127}));
+  connect(X_w2.y, souAir2.Xi_in[1]) annotation (Line(points={{180.8,-85},{180.8,
+          96},{142,96}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true,
     extent={{-200,-340},{200,140}})),
     experiment(
       StopTime=3600,
       Tolerance=1e-06,
       __Dymola_Algorithm="Cvode"),
-    __Dymola_Commands(
-    file="Resources/Scripts/Dymola/Fluid/HeatExchangers/Validation/WetCoilEffectivenessNTU.mos"
-  "Simulate and plot"),
   Documentation(info="<html>
 <p>
 This example duplicates an example from Mitchell and Braun 2012, example SM-2-1

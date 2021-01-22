@@ -7,7 +7,7 @@ model UA_nominalFromOperatingCondition
   parameter Modelica.SIunits.Temperature TAirIn = Modelica.SIunits.Conversions.from_degF(80);
   parameter Modelica.SIunits.Temperature TAirOut= Modelica.SIunits.Conversions.from_degF(53);
   parameter Modelica.SIunits.MassFraction wAirIn = 0.01765;
-  parameter Modelica.SIunits.MassFraction wAirOut= 0.01;
+  Modelica.SIunits.MassFraction wAirOut;
 
   parameter Modelica.SIunits.Temperature TWatIn=Modelica.SIunits.Conversions.from_degF(42);
   parameter Modelica.SIunits.Temperature TWatOut=Modelica.SIunits.Conversions.from_degF(47.72);
@@ -23,7 +23,7 @@ model UA_nominalFromOperatingCondition
   MediumW.ThermodynamicState staWat=MediumW.setState_phX(p=MediumW.p_default,h=MediumW.h_default,X=MediumW.X_default[1:MediumW.nXi]);
 
   Modelica.SIunits.SpecificHeatCapacity cpAir=MediumA.specificHeatCapacityCp(staAir);
- // Modelica.SIunits.SpecificHeatCapacity Cpw=MediumW.specificHeatCapacityCp(staWat);
+  Modelica.SIunits.SpecificHeatCapacity Cpw=MediumW.specificHeatCapacityCp(staWat);
   Modelica.SIunits.SpecificHeatCapacity cpEff
     "Effective specific heat: change in enthalpy with respect to
      temperature along the saturation line at the local water
@@ -57,6 +57,7 @@ equation
   hAirIn =MediumA.specificEnthalpy_pTX(p=MediumA.p_default,T=TAirIn,X={wAirIn,1-wAirIn});
   hAirOut=MediumA.specificEnthalpy_pTX(p=MediumA.p_default,T=TAirOut,X={wAirOut,1-wAirOut});
 
+  mWat_flow*Cpw*(TWatOut-TWatIn) = mAir_flow*(hAirIn-hAirOut);
   QTot_flow = mAir_flow*(hAirIn-hAirOut);// calculates wAirOut or Qtot
   // calculation of overall UAsta based on log mean enthalpy difference
   LMED=Buildings.Fluid.HeatExchangers.BaseClasses.lmtd(hAirIn/hunit*Tunit,

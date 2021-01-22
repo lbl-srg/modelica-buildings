@@ -3,3 +3,4 @@ Test_Smoothmin
 UA_nominalFromOperatingCondition
 RetreiveUA_nominal_Textbook
 simple_state_estimation
+test_algebraic_parameters
