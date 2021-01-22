@@ -1,7 +1,7 @@
 within Buildings.Media;
 package Steam
   "Package with model for region 2 (steam) water according to IF97 standard"
-  extends Buildings.Media.Interfaces.PartialPureSubstanceWithSat(
+  extends Buildings.Media.Interfaces.PartialPureSubstanceWithSaturation(
     redeclare replaceable record FluidConstants =
         Modelica.Media.Interfaces.Types.TwoPhase.FluidConstants,
     mediumName="WaterIF97_R2pT",
