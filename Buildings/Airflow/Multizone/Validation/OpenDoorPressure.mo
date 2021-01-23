@@ -80,8 +80,7 @@ equation
     experiment(
       StopTime=28800,
       Interval=600,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Cvode"),
+      Tolerance=1e-06),
     Documentation(info="<html>
 <p>
 This model validates the door model for the situation where there is only pressure-driven air flow.
