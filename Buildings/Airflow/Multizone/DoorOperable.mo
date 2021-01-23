@@ -98,7 +98,6 @@ Buildings.Airflow.Multizone.DoorOpen</a>, and for
 <i>y=0</i>, the door is assumed to be closed and the air flow rate is
 set to the air flow rate through the crack posed by the open door, <i>V&#775;<sub>clo</sub></i>.
 <p>
-<p>
 The air flow rate for the closed door is computed as
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
@@ -156,13 +155,13 @@ values other than <i>y = 0</i> and <i>y = 1</i>.
 <h4>References</h4>
 <ul>
 <li>
-<b>ASHRAE, 1997.</b>
+ASHRAE.
 <i>ASHRAE Fundamentals</i>,
 American Society of Heating, Refrigeration and Air-Conditioning
 Engineers, 1997.
 </li>
 <li>
-<b>Dols and Walton, 2002.</b>
+Dols and Walton.
 W. Stuart Dols and George N. Walton, <i>CONTAMW 2.0 User Manual,
 Multizone Airflow and Contaminant Transport Analysis Software</i>,
 Building and Fire Research Laboratory,
