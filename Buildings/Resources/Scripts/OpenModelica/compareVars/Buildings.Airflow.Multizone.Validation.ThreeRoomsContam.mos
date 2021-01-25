@@ -14,5 +14,5 @@ compareVars :=
     "oriEasTop.dp",
     "oriOutTop.dp",
     "oriOutBot.dp",
-    "dooOpeClo.dp[1]"
+    "dooOpeClo.dp"
   };
