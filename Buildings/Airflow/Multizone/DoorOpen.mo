@@ -61,7 +61,8 @@ Documentation(info="<html>
 Model for bi-directional air flow through a large opening such as a door.
 </p>
 <p>
-The air flow is composed of two components, a one-directional bulk air flow
+In this model, the air flow is composed of two components,
+a one-directional bulk air flow
 due to static pressure difference in the adjoining two thermal zones, and
 a two-directional airflow due to temperature-induced differences in density
 of the air in the two thermal zones.
@@ -84,7 +85,7 @@ The air flow rate due to static pressure difference is
 where
 <i>V&#775;</i> is the volumetric air flow rate,
 <i>C<sub>D</sub></i> is the discharge coefficient,
-<i>w</i> and <i>h</i> are the width and height of the opening
+<i>w</i> and <i>h</i> are the width and height of the opening,
 <i>&rho;<sub>0</sub></i> is the mass density at the medium default pressure, temperature and humidity,
 <i>m</i> is the flow exponent and
 <i>&Delta;p = p<sub>a</sub> - p<sub>b</sub></i> is the static pressure difference between
@@ -132,8 +133,9 @@ where <i>v(z)</i> is the velocity at height <i>z</i>. From the Bernoulli equatio
 <p align=\"center\" style=\"font-style:italic;\">
 v(z) = (2 g z &Delta;&rho; &frasl; &rho;<sub>0</sub>)<sup>1/2</sup>.
 </p>
+<p>
 The density difference can be written as
-
+</p>
 <p align=\"center\" style=\"font-style:italic;\">
   &Delta;&rho; = &rho;<sub>a</sub>-&rho;<sub>b</sub>
   &asymp; &rho;<sub>0</sub> (T<sub>b</sub> - T<sub>a</sub>) &frasl; T<sub>0</sub>,
@@ -162,15 +164,14 @@ The air flow rates due to static pressure difference and due to temperature-diff
 </li>
 <li>
 <p>
-For computing the neutral height, we assume <i>m&#775;<sub>ab,t</sub> =  &rho;<sub>0</sub> &nbsp; V&#775;<sub>ab,t</sub></i>.
-</p>
-</li>
-<li>
-<p>
-For buoyancy-driven air flow, the air density can be approximated as <i>&rho; = p<sub>0</sub> /(R T<sub>0</sub>)</i>,
+For buoyancy-driven air flow, a constant density can be used to convert air volume flow rate to air mass flow rate.
 </p>
 </li>
 </ul>
+<p>
+From these assumptions follows that the neutral height for buoyancy-driven air flow is at half of the height
+of the opening.
+</p>
 <h4>Notes</h4>
 <p>
 For a more detailed model, use
