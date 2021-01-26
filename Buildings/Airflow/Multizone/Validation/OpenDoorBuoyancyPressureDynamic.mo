@@ -1,6 +1,6 @@
 within Buildings.Airflow.Multizone.Validation;
 model OpenDoorBuoyancyPressureDynamic
-  "Model with one open and buoyancy and pressure driven flow"
+  "Model with open door and buoyancy and pressure driven flow"
   extends Modelica.Icons.Example;
 
   package Medium = Buildings.Media.Air "Medium model";
@@ -97,7 +97,7 @@ equation
         "Simulate and plot"),
     experiment(
       StopTime=14400,
-      Tolerance=1e-06),
+      Tolerance=1e-08),
     Documentation(info="<html>
 <p>
 This model validates the door model for the situation where there is air flow due to buoyancy and static pressure difference.
