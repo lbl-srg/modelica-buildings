@@ -502,6 +502,7 @@ instantiated by respectively setting <code>have_watCoo</code> and
 <code>have_watHea</code> to true.
 </li>
 </ul>
+</li>
 <li>
 On the load side (typically connected to a room model):
 <ul>

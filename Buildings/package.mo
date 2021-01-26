@@ -7978,6 +7978,7 @@ to model a coil without and with water vapor condensation. These models
 approximate the coil as a counterflow heat exchanger.
 </li>
 </ul>
+</li>
 <li>
 Revised air damper
 <code>Buildings.Fluid.Actuators.BaseClasses.exponentialDamper</code>.
@@ -8111,6 +8112,7 @@ the interface is sometimes useful during debugging.
 In <code>Buildings.Media.GasesPTDecoupled.MoistAir</code> and in
 <code>Buildings.Media.PerfectGases.MoistAir</code>, added function
 <code>enthalpyOfNonCondensingGas</code> and its derivative.
+</li>
 <li>
 In <code>Buildings.Media</code>,
 fixed bug in implementations of derivatives.
@@ -8133,6 +8135,7 @@ for computing the heat conduction between the top (or bottom) segment and
 the outside,
 the whole thickness of the water volume was used
 instead of only half the thickness.
+</li>
 <li>
 In <code>Buildings.Media.ConstantPropertyLiquidWater</code>, added the option to specify
 a compressibility. This can help reducing the size of the coupled nonlinear system of
@@ -8200,6 +8203,7 @@ Added the package
 <code>Buildings.Utilities.IO.BCVTB</code>
 which contains an interface to the
 <a href=\"http://simulationresearch.lbl.gov/bcvtb\">Building Controls Virtual Test Bed.</a>
+</li>
 <li>
 Updated license to Modelica License 2.
 </li>
@@ -8321,6 +8325,7 @@ be used as the flow coefficient (in [m3/h] or [USG/min]).
 <li>
 Added package <code>Buildings.Fluid.Storage</code>
 with models for thermal energy storage.
+</li>
 <li>
 Added a steady-state model for a heat and moisture exchanger with
 constant effectiveness.
@@ -8496,28 +8501,40 @@ on the Buildings library.
 </li>
 <li>
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_12_0\">Version 0.12.0 </a> (May 6, 2011)
+</li>
 <li>
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_11_0\">Version 0.11.0 </a> (March 17, 2011)
+</li>
 <li>
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_10_0\">Version 0.10.0 </a> (July 30, 2010)
+</li>
 <li>
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_9_1\">Version 0.9.1 </a> (June 24, 2010)
+</li>
 <li>
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_9_0\">Version 0.9.0 </a> (June 11, 2010)
+</li>
 <li>
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_8_0\">Version 0.8.0 </a> (February 6, 2010)
+</li>
 <li>
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_7_0\">Version 0.7.0 </a> (September 29, 2009)
+</li>
 <li>
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_6_0\">Version 0.6.0 </a> (May 15, 2009)
+</li>
 <li>
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_5_0\">Version 0.5.0 </a> (February 19, 2009)
+</li>
 <li>
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_4_0\">Version 0.4.0 </a> (October 31, 2008)
+</li>
 <li>
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_3_0\">Version 0.3.0 </a> (September 30, 2008)
+</li>
 <li>
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_2_0\">Version 0.2.0 </a> (June 17, 2008)
+</li>
 <li>
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_1_0\">Version 0.1.0 </a> (May 27, 2008)
 </li>
