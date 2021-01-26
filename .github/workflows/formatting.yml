@@ -61,13 +61,6 @@ jobs:
       - name: "Install BuildingsPy"
         run: pip3 install git+https://github.com/lbl-srg/BuildingsPy@master
 
-      - name: "Verify that all OpenModelica scripts are up to date, and no old scripts exist"
-        run : |
-              rm Resources/Scripts/OpenModelica/compareVars/*.mos
-              python -c 'import buildingspy.development.regressiontest as u; u.Tester().writeOpenModelicaResultDictionary()'
-              git status --porcelain Resources/Scripts/OpenModelica
-              test -z \"$$(git status --porcelain Resources/Scripts/OpenModelica)\"
-
       - name: "Test html syntax"
         run : ../bin/runUnitTests.py --validate-html-only
 
@@ -81,6 +74,13 @@ jobs:
 
       - name: "Verify files for invalid strings"
         run: ${GITHUB_WORKSPACE}/bin/verifyFiles.py
+
+      - name: "Verify that all OpenModelica scripts are up to date, and no old scripts exist"
+        run : |
+              rm Resources/Scripts/OpenModelica/compareVars/*.mos
+              python -c 'import buildingspy.development.regressiontest as u; u.Tester().writeOpenModelicaResultDictionary()'
+              git status --porcelain Resources/Scripts/OpenModelica
+              test -z $(git status --porcelain Resources/Scripts/OpenModelica)
 
       - name: "Test user guide"
         run : (cd Resources/Documentation/userGuide; make regressiontest)
