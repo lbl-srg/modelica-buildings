@@ -35,14 +35,6 @@ jobs:
           python-version: '3.6' # Version range or exact version of a Python version to use, using SemVer's version range syntax
           architecture: 'x64' # optional x64 or x86. Defaults to x64 if not specified
 
-      - name: "Verify that all OpenModelica scripts are up to date, and no old scripts exist"
-        run : |
-              rm Resources/Scripts/OpenModelica/compareVars/*.mos
-              python -c 'import buildingspy.development.regressiontest as u; u.Tester().writeOpenModelicaResultDictionary()'
-#              git status --porcelain Resources/Scripts/OpenModelica
-#              test -z "$$(git status --porcelain Resources/Scripts/OpenModelica)"
-
-
       - name: "Install pip"
         run: pip3 install --upgrade pip setuptools wheel
 
@@ -68,6 +60,13 @@ jobs:
 
       - name: "Install BuildingsPy"
         run: pip3 install git+https://github.com/lbl-srg/BuildingsPy@master
+
+      - name: "Verify that all OpenModelica scripts are up to date, and no old scripts exist"
+        run : |
+              rm Resources/Scripts/OpenModelica/compareVars/*.mos
+              python -c 'import buildingspy.development.regressiontest as u; u.Tester().writeOpenModelicaResultDictionary()'
+#              git status --porcelain Resources/Scripts/OpenModelica
+#              test -z "$$(git status --porcelain Resources/Scripts/OpenModelica)"
 
       - name: "Test html syntax"
         run : ../bin/runUnitTests.py --validate-html-only
