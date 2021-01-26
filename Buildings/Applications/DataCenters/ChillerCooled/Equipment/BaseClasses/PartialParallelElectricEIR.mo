@@ -147,6 +147,7 @@ Added <code>constrainedby</code> to instance <code>chi</code>
 in order for the parameter assignments to remain when the chiller is redeclared.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1118\">issue 1118</a>.
+</li>
 <li>
 June 30, 2017, by Yangyang Fu:<br/>
 First implementation.

@@ -216,7 +216,7 @@ Version 8.0.0 is ... xxx
 <p>
 The following <b style=\"color:blue\">new libraries</b> have been added:
 </p>
-<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2>
+<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\">
 <tr><td colspan=\"2\"><b>Buildings.Experimental</b>
     </td>
 </tr>
@@ -255,7 +255,7 @@ The following <b style=\"color:blue\">new libraries</b> have been added:
 The following <b style=\"color:blue\">new components</b> have been added
 to <b style=\"color:blue\">existing</b> libraries:
 </p>
-<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC</b>
     </td>
 </tr>
@@ -341,7 +341,7 @@ The following <b style=\"color:blue\">existing components</b>
 have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">backward compatible</b> way:
 </p>
-<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 <tr><td colspan=\"2\"><b>Buildings.Air</b>
     </td>
 </tr>
@@ -493,7 +493,7 @@ The following <b style=\"color:blue\">existing components</b>
 have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">non-backward compatible</b> way:
 </p>
-<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 <tr><td colspan=\"2\"><b>Buildings.Air</b>
     </td>
 </tr>
@@ -718,7 +718,7 @@ have been <b style=\"color:blue\">improved</b> in a
 The following <b style=\"color:red\">critical errors</b> have been fixed (i.e., errors
 that can lead to wrong simulation results):
 </p>
-<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 <tr><td colspan=\"2\"><b>xxx</b>
     </td>
 </tr>
@@ -734,7 +734,7 @@ The following <b style=\"color:red\">uncritical errors</b> have been fixed (i.e.
 that do <b style=\"color:red\">not</b> lead to wrong simulation results, e.g.,
 units are wrong or errors in documentation):
 </p>
-<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 <tr><td colspan=\"2\"><b>xxx</b>
     </td>
 </tr>
@@ -803,7 +803,7 @@ xxx
     <p>
     The following <b style=\"color:blue\">new libraries</b> have been added:
     </p>
-    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2>
+    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\">
     <tr><td valign=\"top\">Buildings.Controls.OBC.Utilities
         </td>
         <td valign=\"top\">Package with utility blocks, base classes and validation
@@ -832,7 +832,7 @@ xxx
     The following <b style=\"color:blue\">new components</b> have been added
     to <b style=\"color:blue\">existing</b> libraries:
     </p>
-    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
     <tr><td colspan=\"2\"><b>Buildings.Controls</b>
         </td>
     </tr>
@@ -914,7 +914,7 @@ xxx
     have been <b style=\"color:blue\">improved</b> in a
     <b style=\"color:blue\">backward compatible</b> way:
     </p>
-    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
     <tr><td colspan=\"2\"><b>Buildings.BoundaryConditions.WeatherData</b>
         </td>
     </tr>
@@ -1203,7 +1203,7 @@ xxx
     have been <b style=\"color:blue\">improved</b> in a
     <b style=\"color:blue\">non-backward compatible</b> way:
     </p>
-    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
     <tr><td colspan=\"2\"><b>Buildings.Airflow</b>
         </td>
     </tr>
@@ -1395,7 +1395,7 @@ xxx
     The following <b style=\"color:red\">critical errors</b> have been fixed (i.e., errors
     that can lead to wrong simulation results):
     </p>
-    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
     <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
         </td>
     </tr>
@@ -1487,7 +1487,7 @@ xxx
     that do <b style=\"color:red\">not</b> lead to wrong simulation results, e.g.,
     units are wrong or errors in documentation):
     </p>
-    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
     <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
         </td>
     </tr>
@@ -1539,7 +1539,7 @@ xxx
     <p>
     The following components have become <b style=\"color:blue\">obsolete</b>:
     </p>
-    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
     <tr><td colspan=\"2\"><b>Buildings.Obsolete</b>
         </td>
     </tr>
@@ -1595,6 +1595,7 @@ xxx
          A package with blocks for unit conversion.
        </li>
      </ul>
+   </li>
    <li>
      Various new control blocks have been added to <code>Buildings.Controls.OBC.CDL</code>.
    </li>
@@ -1604,7 +1605,7 @@ xxx
     <p>
     The following <b style=\"color:blue\">new libraries</b> have been added:
     </p>
-    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2>
+    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\">
     <tr><td valign=\"top\">Buildings.Controls.OBC.OutdoorLights
         </td>
         <td valign=\"top\">Package with outdoor lighting controllers.
@@ -1668,7 +1669,7 @@ xxx
     The following <b style=\"color:blue\">new components</b> have been added
     to <b style=\"color:blue\">existing</b> libraries:
     </p>
-    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
     <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
         </td>
         </tr>
@@ -1748,7 +1749,7 @@ xxx
     have been <b style=\"color:blue\">improved</b> in a
     <b style=\"color:blue\">backward compatible</b> way:
     </p>
-    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
     <tr><td colspan=\"2\"><b>Buildings.BoundaryConditions</b>
         </td>
     </tr>
@@ -1822,7 +1823,7 @@ xxx
     have been <b style=\"color:blue\">improved</b> in a
     <b style=\"color:blue\">non-backward compatible</b> way:
     </p>
-    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
     <tr><td colspan=\"2\"><b>Buildings.Airflow.Multizone</b>
         </td>
     </tr>
@@ -1991,7 +1992,7 @@ xxx
     The following <b style=\"color:red\">critical errors</b> have been fixed (i.e., errors
     that can lead to wrong simulation results):
     </p>
-    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
     <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
         </td>
     </tr>
@@ -2060,7 +2061,7 @@ xxx
     that do <b style=\"color:red\">not</b> lead to wrong simulation results, e.g.,
     units are wrong or errors in documentation):
     </p>
-    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
     <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.ASHRAE</b>
         </td>
     </tr>
@@ -2096,7 +2097,7 @@ xxx
    <p>
    The following <b style=\"color:blue\">new libraries</b> have been added:
    </p>
-   <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2>
+   <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\">
    <tr><td valign=\"top\">Buildings.Media.Antifreeze.PropyleneGlycolWater
        </td>
        <td valign=\"top\">Package with medium model for propylene glycol - water mixture.
@@ -2110,7 +2111,7 @@ xxx
    The following <b style=\"color:blue\">new components</b> have been added
    to <b style=\"color:blue\">existing</b> libraries:
    </p>
-   <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+   <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
    <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
        </td>
    </tr>
@@ -2144,7 +2145,7 @@ xxx
    have been <b style=\"color:blue\">improved</b> in a
    <b style=\"color:blue\">backward compatible</b> way:
    </p>
-   <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+   <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
    <tr><td colspan=\"2\"><b>Buildings.Airflow.Multizone</b>
        </td>
    </tr>
@@ -2266,7 +2267,7 @@ xxx
    The following <b style=\"color:red\">critical errors</b> have been fixed (i.e., errors
    that can lead to wrong simulation results):
    </p>
-   <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+   <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
    <tr><td colspan=\"2\"><b>Buildings.Fluid.Interfaces</b>
        </td>
    </tr>
@@ -2301,7 +2302,7 @@ xxx
    The following <b style=\"color:red\">critical errors</b> have been fixed (i.e., errors
    that can lead to wrong simulation results):
    </p>
-   <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+   <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
    <tr><td colspan=\"2\"><b>Buildings.Fluid.SolarCollectors</b>
        </td>
    </tr>
@@ -2359,7 +2360,7 @@ xxx
    <p>
    The following <b style=\"color:blue\">new libraries</b> have been added:
    </p>
-   <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2>
+   <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\">
    <tr><td valign=\"top\">Buildings.Applications.DataCenter
        </td>
        <td valign=\"top\">Library with component models and pre-configured
@@ -2396,7 +2397,7 @@ xxx
    The following <b style=\"color:blue\">new components</b> have been added
    to <b style=\"color:blue\">existing</b> libraries:
    </p>
-   <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+   <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
    <tr><td colspan=\"2\"><b>Buildings.Fluid.HeatExchangers</b>
        </td>
    </tr>
@@ -2439,7 +2440,7 @@ xxx
    have been <b style=\"color:blue\">improved</b> in a
    <b style=\"color:blue\">backward compatible</b> way:
    </p>
-   <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+   <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
    <tr><td colspan=\"2\"><b>Buildings.Fluid.Chillers</b>
        </td>
    </tr>
@@ -2530,7 +2531,7 @@ xxx
    have been <b style=\"color:blue\">improved</b> in a
    <b style=\"color:blue\">non-backward compatible</b> way:
    </p>
-   <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+   <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
     <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
        </td>
    </tr>
@@ -2578,7 +2579,7 @@ xxx
    The following <b style=\"color:red\">critical errors</b> have been fixed (i.e., errors
    that can lead to wrong simulation results):
    </p>
-   <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+   <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
    <tr><td colspan=\"2\"><b>Buildings.Airflow</b>
        </td>
    </tr>
@@ -2649,7 +2650,7 @@ xxx
    that do <b style=\"color:red\">not</b> lead to wrong simulation results, e.g.,
    units are wrong or errors in documentation):
    </p>
-   <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+   <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
    <tr><td colspan=\"2\"><b>Buildings.HeatTransfer</b>
        </td>
    </tr>
@@ -2716,6 +2717,7 @@ xxx
    that are suitable for district energy simulation.
    </li>
    </ul>
+   </li>
    <li>
    The package <code>Buildings.Rooms</code> has been renamed to <code>Buildings.ThermalZones.Detailed</code>.
    This was done because of the introduction of <code>Buildings.ThermalZones.ReducedOrder</code>,

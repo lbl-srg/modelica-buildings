@@ -525,6 +525,7 @@ The impact on the room air temperature of an unmet load can be assessed with
 Buildings.Experimental.DHC.Loads.SimpleRoomODE</a>.
 </li>
 </ul>
+</li>
 </ul>
 <p>
 The heating or cooling nominal capacity is provided for the water based heat
