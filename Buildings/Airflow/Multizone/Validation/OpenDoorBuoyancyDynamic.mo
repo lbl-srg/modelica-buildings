@@ -98,7 +98,7 @@ equation
         "Simulate and plot"),
     experiment(
       StopTime=14400,
-      Tolerance=1e-06),
+      Tolerance=1e-08),
     Documentation(info="<html>
 <p>
 This model validates the door model for the situation where there is only buoyancy-driven air flow.
