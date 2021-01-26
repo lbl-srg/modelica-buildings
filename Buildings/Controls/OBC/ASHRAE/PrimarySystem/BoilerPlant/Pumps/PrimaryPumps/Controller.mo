@@ -399,13 +399,12 @@ block Controller
     annotation (Placement(transformation(extent={{280,50},{320,90}}),
       iconTransformation(extent={{100,120},{140,160}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yPumSpe[nPum](
-    final min=fill(0, nPum),
-    final max=fill(1, nPum),
-    final unit=fill("1", nPum)) if have_varPriPum
-    "Hot water pump speed"
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yPumSpe(
+    final min=0,
+    final max=1,
+    final unit="1") if have_varPriPum "Hot water pump speed"
     annotation (Placement(transformation(extent={{280,-506},{320,-466}}),
-      iconTransformation(extent={{100,-160},{140,-120}})));
+        iconTransformation(extent={{100,-40},{140,0}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.PrimaryPumps.Subsequences.EnableLag_headered
     enaLagHotPum(
@@ -571,11 +570,6 @@ protected
     final k=1)
     "Constant one"
     annotation (Placement(transformation(extent={{-274,190},{-254,210}})));
-
-  Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep(
-    final nout=nPum) if have_varPriPum
-    "Replicate real input"
-    annotation (Placement(transformation(extent={{196,-496},{216,-476}})));
 
   Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea[nPum] if have_heaPriPum
     "Convert integer to real number"
@@ -872,9 +866,6 @@ equation
   connect(conInt.y, extIndSig.index) annotation (Line(points={{-252,200},{-140,200},
           {-140,-88},{-212,-88},{-212,-82}}, color={255,127,0}));
 
-  connect(reaRep.y, yPumSpe)
-    annotation (Line(points={{218,-486},{300,-486}},color={0,0,127}));
-
   connect(uBoiSta, booToInt1.u) annotation (Line(points={{-300,-70},{-270,-70},{
           -270,-156},{-252,-156}}, color={255,0,255}));
 
@@ -940,15 +931,6 @@ equation
 
   connect(not1.u, and5.y)
     annotation (Line(points={{48,-240},{22,-240}}, color={255,0,255}));
-
-  connect(mulOr.y, pre2.u)
-    annotation (Line(points={{232,70},{238,70}}, color={255,0,255}));
-
-  connect(pre2.y, yPumChaPro)
-    annotation (Line(points={{262,70},{300,70}}, color={255,0,255}));
-
-  connect(max.y, reaRep.u)
-    annotation (Line(points={{156,-486},{194,-486}}, color={0,0,127}));
 
   connect(pumSpeRemDp.yHotWatPumSpe, max.u2) annotation (Line(points={{-38,-460},
           {96,-460},{96,-492},{132,-492}}, color={0,0,127}));
@@ -1113,10 +1095,26 @@ equation
   connect(mulSumInt2.y, intLesEquThr.u) annotation (Line(points={{-180,-240},{
           -82,-240},{-82,-298},{-20,-298},{-20,-318},{-14,-318}}, color={255,
           127,0}));
-  connect(uNexEnaBoi, chaPumSta.uNexLagPum) annotation (Line(points={{-300,-300},
-          {-278,-300},{-278,98},{22,98},{22,106},{56,106}}, color={255,127,0}));
-  connect(uLasDisBoi, chaPumSta.uLasLagPum) annotation (Line(points={{-300,-340},
-          {-264,-340},{-264,96},{28,96},{28,102},{56,102}}, color={255,127,0}));
+  connect(uNexEnaBoi, chaPumSta.uNexLagPum) annotation (Line(points={{-300,-310},
+          {-278,-310},{-278,98},{22,98},{22,106},{56,106}}, color={255,127,0}));
+  connect(uLasDisBoi, chaPumSta.uLasLagPum) annotation (Line(points={{-300,-350},
+          {-264,-350},{-264,96},{28,96},{28,102},{56,102}}, color={255,127,0}));
+  connect(uHotWatPum, pumSpeLocDp.uHotWatPum) annotation (Line(points={{-300,140},
+          {-260,140},{-260,-416},{-62,-416}}, color={255,0,255}));
+  connect(uHotWatPum, pumSpeRemDp.uHotWatPum) annotation (Line(points={{-300,140},
+          {-260,140},{-260,-452},{-62,-452}}, color={255,0,255}));
+  connect(uHotWatPum, pumSpeFlo.uHotWatPum) annotation (Line(points={{-300,140},
+          {-260,140},{-260,-499},{-62,-499}}, color={255,0,255}));
+  connect(uHotWatPum, pumSpeTem.uHotWatPum) annotation (Line(points={{-300,140},
+          {-260,140},{-260,-530},{-62,-530}}, color={255,0,255}));
+  connect(uHotWatPum, cha.u) annotation (Line(points={{-300,140},{-260,140},{-260,
+          -218},{-252,-218}}, color={255,0,255}));
+  connect(mulOr.y, lat.clr) annotation (Line(points={{-198,-218},{-190,-218},{-190,
+          -202},{-212,-202},{-212,-196},{-202,-196}}, color={255,0,255}));
+  connect(cha.y, mulOr.u[1:nPum]) annotation (Line(points={{-228,-218},{-226,-218},
+          {-226,-218},{-222,-218}},     color={255,0,255}));
+  connect(max.y, yPumSpe)
+    annotation (Line(points={{156,-486},{300,-486}}, color={0,0,127}));
 annotation (defaultComponentName="priPumCon",
   Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-280,-660},{280,260}}),
   graphics={
