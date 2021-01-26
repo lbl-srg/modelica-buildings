@@ -82,8 +82,8 @@ model WetcalcsFuzzy_V3 "Wet coil model using esilon_C.mo function"
     "Effective specific heat: change in enthalpy with respect to
      temperature along the saturation line at the local water
      temperature";
-  Real cpEff0=2050;
-  Real cpWat0=4200;
+  constant Real cpEff0=2050;
+  constant Real cpWat0=4200;
 
   Modelica.SIunits.MassFlowRate UASta
     "Overall mass transfer coefficient for dry coil";

@@ -87,7 +87,7 @@ protected
     energyDynamics = energyDynamics,
     massDynamics = massDynamics)
     "Heat and moisture exchange with air stream"
-    annotation (Placement(transformation(extent={{-60,-70},{-80,-50}}))); 
+    annotation (Placement(transformation(extent={{-60,-70},{-80,-50}})));
   Buildings.Fluid.HeatExchangers.BaseClasses.HADryCoil hA(
     final UA_nominal = UA_nominal,
     final m_flow_nominal_a = m2_flow_nominal,

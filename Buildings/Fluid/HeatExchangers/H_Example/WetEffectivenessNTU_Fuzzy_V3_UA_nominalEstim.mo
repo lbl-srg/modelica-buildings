@@ -10,11 +10,11 @@ model WetEffectivenessNTU_Fuzzy_V3_UA_nominalEstim
   import con = Buildings.Fluid.Types.HeatExchangerConfiguration;
   import flo = Buildings.Fluid.Types.HeatExchangerFlowRegime;
 
-  
+
   parameter Real r_nominal=2/3
     "Ratio between air-side and water-side convective heat transfer coefficient"
     annotation (Dialog(group="Nominal condition"));
- 
+
   parameter Boolean waterSideFlowDependent=true
     "Set to false to make water-side hA independent of mass flow rate"
     annotation (Dialog(tab="Heat transfer"));
@@ -59,7 +59,7 @@ model WetEffectivenessNTU_Fuzzy_V3_UA_nominalEstim
 
 
   // parameters and variables for calculating UA-nominal ================================
-  parameter Modelica.SIunits.Temperature TAirIn = Modelica.SIunits.Conversions.from_degF(80) 
+  parameter Modelica.SIunits.Temperature TAirIn = Modelica.SIunits.Conversions.from_degF(80)
   "Nominal inlet air temperature"   annotation (Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.Temperature TAirOut= Modelica.SIunits.Conversions.from_degF(53);
   parameter Modelica.SIunits.MassFraction wAirIn = 0.01765;
@@ -67,7 +67,7 @@ model WetEffectivenessNTU_Fuzzy_V3_UA_nominalEstim
 
   parameter Modelica.SIunits.Temperature TWatIn=Modelica.SIunits.Conversions.from_degF(42);
   parameter Modelica.SIunits.Temperature TWatOut=Modelica.SIunits.Conversions.from_degF(47.72);
-  
+
   Modelica.SIunits.SpecificEnthalpy hAirIn;
   Modelica.SIunits.SpecificEnthalpy hAirOut;
   Medium2.ThermodynamicState staAir=Medium2.setState_phX(p=Medium2.p_default,h=Medium2.h_default,X=Medium2.X_default[1:Medium2.nXi]);
@@ -261,8 +261,8 @@ protected
      p=Medium2.p_default,
      X=Medium2.X_default[1:Medium2.nXi]) "Default state for medium 2";
 
-  
-  
+
+
 initial equation
 
   cp1_nominal = Medium1.specificHeatCapacityCp(sta1_default);

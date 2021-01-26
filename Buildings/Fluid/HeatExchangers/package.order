@@ -1,7 +1,3 @@
-WetEffectivenessNTU_Fuzzy_V2_2
-WetEffectivenessNTU_Fuzzy_V2_2_2
-WetEffectivenessNTU_Fuzzy_V2_2_4
-WetEffectivenessNTU_Fuzzy_V3
 ConstantEffectiveness
 DryCoilCounterFlow
 DryCoilDiscretized
@@ -15,6 +11,7 @@ SensibleCooler_T
 WetCoilCounterFlow
 WetCoilDiscretized
 WetCoilEffectivesnessNTU
+WetEffectivenessNTU_Fuzzy_V3
 ActiveBeams
 CoolingTowers
 DXCoils
