@@ -38,7 +38,7 @@ jobs:
       - name: "Verify that all OpenModelica scripts are up to date, and no old scripts exist"
         run : |
               rm Resources/Scripts/OpenModelica/compareVars/*.mos
-#              python -c 'import buildingspy.development.regressiontest as u; u.Tester().writeOpenModelicaResultDictionary()'
+              python -c 'import buildingspy.development.regressiontest as u; u.Tester().writeOpenModelicaResultDictionary()'
 #              git status --porcelain Resources/Scripts/OpenModelica
 #              test -z "$$(git status --porcelain Resources/Scripts/OpenModelica)"
 
