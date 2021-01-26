@@ -76,11 +76,11 @@ jobs:
         run: ${GITHUB_WORKSPACE}/bin/verifyFiles.py
 
       - name: "Verify that all OpenModelica scripts are up to date, and no old scripts exist"
-	      run : |
-	            rm Resources/Scripts/OpenModelica/compareVars/*.mos
-	            python -c 'import buildingspy.development.regressiontest as u; u.Tester().writeOpenModelicaResultDictionary()'
-	            git status --porcelain Resources/Scripts/OpenModelica
-	            test -z "$$(git status --porcelain Resources/Scripts/OpenModelica)"
+        run : |
+              rm Resources/Scripts/OpenModelica/compareVars/*.mos
+              python -c 'import buildingspy.development.regressiontest as u; u.Tester().writeOpenModelicaResultDictionary()'
+              git status --porcelain Resources/Scripts/OpenModelica
+              test -z "$$(git status --porcelain Resources/Scripts/OpenModelica)"
 
       - name: "Test user guide"
         run : (cd Resources/Documentation/userGuide; make regressiontest)
@@ -92,4 +92,4 @@ jobs:
         run : |
               cd ..
               python Buildings/Resources/src/Controls/OBC/UnitConversions/unit_converters.py
-	            git diff --exit-code Buildings
+              git diff --exit-code Buildings
