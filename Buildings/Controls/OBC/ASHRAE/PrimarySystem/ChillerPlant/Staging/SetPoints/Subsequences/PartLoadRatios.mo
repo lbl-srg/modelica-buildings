@@ -301,7 +301,7 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Product mult3 if anyVsdCen "Multiplier"
     annotation (Placement(transformation(extent={{100,-510},{120,-490}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Add add3 if anyVsdCen "Subtract"
+  Buildings.Controls.OBC.CDL.Continuous.Add add3 if anyVsdCen "Add"
     annotation (Placement(transformation(extent={{160,-482},{180,-462}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant const3(
