@@ -46,7 +46,7 @@ model RetreiveUA_nominal_Textbook
   Buildings.Fluid.Sources.Boundary_pT sinAir(
     redeclare package Medium = Medium_A,
     use_p_in=false,
-    nPorts=2)
+    nPorts=3)
     "Air sink"
     annotation (Placement(transformation(extent={{-180,-50},{-160,-30}})));
   Sources.MassFlowSource_T souAir(
@@ -101,14 +101,14 @@ model RetreiveUA_nominal_Textbook
     dp1_nominal=0,
     configuration=Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow,
     show_T=true) "Heat exchanger coil"
-    annotation (Placement(transformation(extent={{-50,58},{-30,78}})));
+    annotation (Placement(transformation(extent={{-50,60},{-30,80}})));
   Sources.MassFlowSource_T souWat1(
     redeclare package Medium = Medium_W,
     m_flow=m1_flow_nominal,
     T=T_a1_nominal,
     nPorts=1)
     "Source for water"
-    annotation (Placement(transformation(extent={{-180,70},{-160,90}})));
+    annotation (Placement(transformation(extent={{-180,64},{-160,84}})));
   WetCoilCounterFlow hexDis(
     redeclare package Medium1 = Medium_W,
     redeclare package Medium2 = Medium_A,
@@ -141,7 +141,7 @@ model RetreiveUA_nominal_Textbook
     use_Xi_in=true,
     nPorts=1)
     "Air source"
-    annotation (Placement(transformation(extent={{140,90},{120,110}})));
+    annotation (Placement(transformation(extent={{140,92},{120,112}})));
   Real isDryHexDis[hexDis.nEle];
   Real dryFraHexDis = sum(isDryHexDis) / hexDis.nEle;
   Sensors.TemperatureTwoPort TWatIn(redeclare package Medium = Medium_W,
@@ -164,10 +164,42 @@ model RetreiveUA_nominal_Textbook
     TWatOut=284.2178,
     mAir_flow=m2_flow_nominal,
     mWat_flow=m1_flow_nominal)
-    annotation (Placement(transformation(extent={{-104,-272},{12,-182}})));
+    annotation (Placement(transformation(extent={{-106,-326},{10,-236}})));
   Modelica.Blocks.Sources.CombiTimeTable X_w1(table=[0,0.017; 1,0.01765],
       timeScale=100) "Water mass fraction of entering air"
-    annotation (Placement(transformation(extent={{186,-174},{142,-130}})));
+    annotation (Placement(transformation(extent={{218,-174},{174,-130}})));
+  WetEffectivenessNTU_Fuzzy_V3_UA_nominalEstim
+                                   hexWetNTU1(
+    redeclare package Medium1 = Medium_W,
+    redeclare package Medium2 = Medium_A,
+    UA_nominal=UA_nominal,
+    m1_flow_nominal=m1_flow_nominal,
+    m2_flow_nominal=m2_flow_nominal,
+    dp2_nominal=0,
+    dp1_nominal=0,
+    configuration=Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow,
+    show_T=true) "Heat exchanger coil"
+    annotation (Placement(transformation(extent={{-34,-186},{-14,-166}})));
+
+  Sources.MassFlowSource_T souWat3(
+    redeclare package Medium = Medium_W,
+    m_flow=m1_flow_nominal,
+    T=T_a1_nominal,
+    nPorts=1)
+    "Source for water"
+    annotation (Placement(transformation(extent={{-180,-180},{-160,-160}})));
+  Sources.Boundary_pT                 sinWat1(redeclare package Medium =
+        Medium_W, nPorts=1)
+    "Sink for water"
+    annotation (Placement(transformation(extent={{70,-176},{50,-156}})));
+  Sources.MassFlowSource_T souAir1(
+    redeclare package Medium = Medium_A,
+    m_flow=m2_flow_nominal,
+    T=T_a2_nominal,
+    use_Xi_in=true,
+    nPorts=1)
+    "Air source"
+    annotation (Placement(transformation(extent={{128,-236},{108,-216}})));
 equation
   for iEle in 1:hexDis.nEle loop
     isDryHexDis[iEle] = if abs(hexDis.ele[iEle].masExc.mWat_flow) < 1E-6 then 1 else 0;
@@ -177,8 +209,8 @@ equation
   connect(pAir1.y, wetBulOut.p) annotation (Line(points={{-79,-100},{-44,-100},{
           -44,-96},{-41,-96}},color={0,0,127}));
   connect(senMasFraOut.port_b, sinAir.ports[1])
-    annotation (Line(points={{-130,-40},{-156,-40},{-156,-38},{-160,-38}},
-                                                     color={0,127,255}));
+    annotation (Line(points={{-130,-40},{-156,-40},{-156,-37.3333},{-160,
+          -37.3333}},                                color={0,127,255}));
   connect(TDryBulOut.port_b, senMasFraOut.port_a)
     annotation (Line(points={{-90,-40},{-110,-40}}, color={0,127,255}));
   connect(TDryBulOut.T, wetBulOut.TDryBul)
@@ -197,28 +229,39 @@ equation
     annotation (Line(points={{50,-80},{30,-80}}, color={0,127,255}));
   connect(souWat2.ports[1], hexDis.port_a1)
     annotation (Line(points={{-160,120},{-40,120}}, color={0,127,255}));
-  connect(sinAir.ports[2], hexDis.port_b2) annotation (Line(points={{-160,-42},{
-          -140,-42},{-140,108},{-40,108}},       color={0,127,255}));
-  connect(souAir2.ports[1], hexDis.port_a2) annotation (Line(points={{120,100},{
-          20,100},{20,108},{-20,108}}, color={0,127,255}));
+  connect(sinAir.ports[2], hexDis.port_b2) annotation (Line(points={{-160,-40},
+          {-140,-40},{-140,108},{-40,108}},      color={0,127,255}));
+  connect(souAir2.ports[1], hexDis.port_a2) annotation (Line(points={{120,102},
+          {20,102},{20,108},{-20,108}},color={0,127,255}));
   connect(hexDis.port_b1, sinWat.ports[1]) annotation (Line(points={{-20,120},{
           0,120},{0,38},{80,38},{80,42}},    color={0,127,255}));
   connect(TDryBulOut.port_a, hexWetNTU.port_b2) annotation (Line(points={{-70,-40},
-          {-60,-40},{-60,62},{-50,62}}, color={0,127,255}));
+          {-60,-40},{-60,64},{-50,64}}, color={0,127,255}));
   connect(RelHumIn.port_b, hexWetNTU.port_a2) annotation (Line(points={{10,-80},
-          {-10,-80},{-10,62},{-30,62}}, color={0,127,255}));
-  connect(souWat1.ports[1], TWatIn.port_a) annotation (Line(points={{-160,80},{
-          -138,80},{-138,74},{-114,74}}, color={0,127,255}));
+          {-10,-80},{-10,64},{-30,64}}, color={0,127,255}));
+  connect(souWat1.ports[1], TWatIn.port_a) annotation (Line(points={{-160,74},{
+          -114,74}},                     color={0,127,255}));
   connect(TWatIn.port_b, hexWetNTU.port_a1)
-    annotation (Line(points={{-94,74},{-50,74}}, color={0,127,255}));
-  connect(hexWetNTU.port_b1, TWatOut.port_a) annotation (Line(points={{-30,74},
-          {-13,74},{-13,66},{8,66}}, color={0,127,255}));
+    annotation (Line(points={{-94,74},{-72,74},{-72,76},{-50,76}},
+                                                 color={0,127,255}));
+  connect(hexWetNTU.port_b1, TWatOut.port_a) annotation (Line(points={{-30,76},
+          {-13,76},{-13,66},{8,66}}, color={0,127,255}));
   connect(TWatOut.port_b, sinWat.ports[2]) annotation (Line(points={{28,66},{34,
           66},{34,38},{80,38}}, color={0,127,255}));
   connect(X_w2.y, souAir.Xi_in[1]) annotation (Line(points={{180.8,-85},{162.4,-85},
           {162.4,-84},{142,-84}}, color={0,0,127}));
   connect(X_w2.y, souAir2.Xi_in[1]) annotation (Line(points={{180.8,-85},{180.8,
-          96},{142,96}}, color={0,0,127}));
+          98},{142,98}}, color={0,0,127}));
+  connect(sinAir.ports[3], hexWetNTU1.port_b2) annotation (Line(points={{-160,
+          -42.6667},{-138,-42.6667},{-138,-182},{-34,-182}}, color={0,127,255}));
+  connect(souWat3.ports[1], hexWetNTU1.port_a1)
+    annotation (Line(points={{-160,-170},{-34,-170}}, color={0,127,255}));
+  connect(sinWat1.ports[1], hexWetNTU1.port_b1) annotation (Line(points={{50,
+          -166},{20,-166},{20,-170},{-14,-170}}, color={0,127,255}));
+  connect(hexWetNTU1.port_a2, souAir1.ports[1]) annotation (Line(points={{-14,
+          -182},{76,-182},{76,-226},{108,-226}}, color={0,127,255}));
+  connect(X_w2.y, souAir1.Xi_in[1]) annotation (Line(points={{180.8,-85},{156,
+          -85},{156,-230},{130,-230}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true,
     extent={{-200,-340},{200,140}})),
     experiment(

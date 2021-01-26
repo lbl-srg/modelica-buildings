@@ -1,5 +1,5 @@
-within Buildings.Fluid.HeatExchangers;
-model WetEffectivenessNTU_Fuzzy_V3
+within Buildings.Fluid.HeatExchangers.H_Example;
+model WetEffectivenessNTU_Fuzzy_V3_UA_nominalEstim
   "Forced to prevent exact zero flow which caused difficulties in convergence for partially wet coil"
   extends Buildings.Fluid.Interfaces.PartialFourPortInterface(
     redeclare replaceable package Medium2 = Buildings.Media.Air);
@@ -10,12 +10,11 @@ model WetEffectivenessNTU_Fuzzy_V3
   import con = Buildings.Fluid.Types.HeatExchangerConfiguration;
   import flo = Buildings.Fluid.Types.HeatExchangerFlowRegime;
 
-  parameter Modelica.SIunits.ThermalConductance UA_nominal(min=0)
-    "Thermal conductance at nominal flow, used to compute heat capacity"
-    annotation(Dialog(tab="General", group="Nominal condition"));
+  
   parameter Real r_nominal=2/3
     "Ratio between air-side and water-side convective heat transfer coefficient"
     annotation (Dialog(group="Nominal condition"));
+ 
   parameter Boolean waterSideFlowDependent=true
     "Set to false to make water-side hA independent of mass flow rate"
     annotation (Dialog(tab="Heat transfer"));
@@ -58,11 +57,50 @@ model WetEffectivenessNTU_Fuzzy_V3
   Modelica.SIunits.MassFlowRate mWat_flow = dryWetCalcs.mCon_flow
     "Water flow rate of condensate removed from the air stream";
 
+
+  // parameters and variables for calculating UA-nominal ================================
+  parameter Modelica.SIunits.Temperature TAirIn = Modelica.SIunits.Conversions.from_degF(80) 
+  "Nominal inlet air temperature"   annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.SIunits.Temperature TAirOut= Modelica.SIunits.Conversions.from_degF(53);
+  parameter Modelica.SIunits.MassFraction wAirIn = 0.01765;
+  Modelica.SIunits.MassFraction wAirOut;
+
+  parameter Modelica.SIunits.Temperature TWatIn=Modelica.SIunits.Conversions.from_degF(42);
+  parameter Modelica.SIunits.Temperature TWatOut=Modelica.SIunits.Conversions.from_degF(47.72);
+  
+  Modelica.SIunits.SpecificEnthalpy hAirIn;
+  Modelica.SIunits.SpecificEnthalpy hAirOut;
+  Medium2.ThermodynamicState staAir=Medium2.setState_phX(p=Medium2.p_default,h=Medium2.h_default,X=Medium2.X_default[1:Medium2.nXi]);
+  Medium1.ThermodynamicState staWat=Medium1.setState_phX(p=Medium1.p_default,h=Medium1.h_default,X=Medium1.X_default[1:Medium1.nXi]);
+
+  Modelica.SIunits.SpecificHeatCapacity cpAir=Medium2.specificHeatCapacityCp(staAir);
+  Modelica.SIunits.SpecificHeatCapacity cpw=Medium1.specificHeatCapacityCp(staWat);
+  Modelica.SIunits.SpecificHeatCapacity cpEff
+    "Effective specific heat: change in enthalpy with respect to
+     temperature along the saturation line at the local water
+     temperature";
+
+  Modelica.SIunits.SpecificEnthalpy hunit=1;
+  Modelica.SIunits.Temperature Tunit=1;
+
+  Buildings.Utilities.Psychrometrics.hSat_pTSat hsatTWatIn(p=Medium2.p_default,TSat=TWatIn);
+  Buildings.Utilities.Psychrometrics.hSat_pTSat hsatTWatOut(p=Medium2.p_default,TSat=TWatOut);
+  Modelica.SIunits.SpecificEnthalpy LMED;
+
+  Modelica.SIunits.MassFlowRate UASta(min=0);
+  Modelica.SIunits.HeatFlowRate QTot_flow
+    "Total heat flow from air to water stream";
+  Modelica.SIunits.ThermalConductance UAAir(min=0,start=10)
+  "Air side convective heat transfer coefficient, including fin resistance";
+  Modelica.SIunits.ThermalConductance UAWat(min=0,start=20)
+  "Water side convective heat transfer coefficient";
+  parameter Modelica.SIunits.ThermalConductance UA_nominal(fixed=false, min=0)
+      "Thermal conductance at nominal flow, used to compute heat capacity";
+
+
 protected
-  Real delta=1E-2
-    "a parameter for normailization";
-  Real deltay=1E-1
-    "a parameter for normailization";
+  Real delta=1E-2;
+  Real deltay=1E-1;
   Real fac1 = Buildings.Utilities.Math.Functions.smoothMin((1/delta * m1_flow/m1_flow_nominal)^2,1,deltay);
   //Real fac1 = if abs(m1_flow/m1_flow_nominal) >= delta then 1 else (1/delta * m1_flow/m1_flow_nominal)^2;
   Real fac2 = Buildings.Utilities.Math.Functions.smoothMin((1/delta * m2_flow/m2_flow_nominal)^2,1,deltay);
@@ -71,11 +109,11 @@ protected
 
   Buildings.Fluid.HeatExchangers.HeaterCooler_u heaCoo(
     redeclare final package Medium = Medium1,
-    final dp_nominal = dp1_nominal,
-    final m_flow_nominal = m1_flow_nominal,
-    final energyDynamics = energyDynamics,
-    final massDynamics = massDynamics,
-    final Q_flow_nominal=-1)
+    dp_nominal = dp1_nominal,
+    m_flow_nominal = m1_flow_nominal,
+    energyDynamics = energyDynamics,
+    massDynamics = massDynamics,
+    Q_flow_nominal=-1)
     "Heat exchange with water stream"
     annotation (Placement(transformation(extent={{60,50},{80,70}})));
 
@@ -87,7 +125,7 @@ protected
     energyDynamics = energyDynamics,
     massDynamics = massDynamics)
     "Heat and moisture exchange with air stream"
-    annotation (Placement(transformation(extent={{-60,-70},{-80,-50}}))); 
+    annotation (Placement(transformation(extent={{-60,-70},{-80,-50}})));
   Buildings.Fluid.HeatExchangers.BaseClasses.HADryCoil hA(
     final UA_nominal = UA_nominal,
     final m_flow_nominal_a = m2_flow_nominal,
@@ -223,7 +261,10 @@ protected
      p=Medium2.p_default,
      X=Medium2.X_default[1:Medium2.nXi]) "Default state for medium 2";
 
+  
+  
 initial equation
+
   cp1_nominal = Medium1.specificHeatCapacityCp(sta1_default);
   cp2_nominal = Medium2.specificHeatCapacityCp(sta2_default);
   C1_flow_nominal = m1_flow_nominal*cp1_nominal;
@@ -253,6 +294,25 @@ initial equation
       configuration <= con.CrossFlowStream1UnmixedStream2Mixed,
       "Invalid heat exchanger configuration.");
   end if;
+
+  // caluclation of UA_nominal from nominal conditions ================================
+  hAirIn =Medium2.specificEnthalpy_pTX(p=Medium2.p_default,T=TAirIn,X={wAirIn,1-wAirIn});
+  hAirOut=Medium2.specificEnthalpy_pTX(p=Medium2.p_default,T=TAirOut,X={wAirOut,1-wAirOut});
+
+  m1_flow_nominal*cpw*(TWatOut-TWatIn) = m2_flow_nominal*(hAirIn-hAirOut);
+  QTot_flow = m2_flow_nominal*(hAirIn-hAirOut);// calculates wAirOut or Qtot
+
+  // calculation of overall UAsta based on log mean enthalpy difference
+  LMED=Buildings.Fluid.HeatExchangers.BaseClasses.lmtd(hAirIn/hunit*Tunit,
+                    hAirOut/hunit*Tunit,
+                    hsatTWatIn.hSat/hunit*Tunit,
+                    hsatTWatOut.hSat/hunit*Tunit)/Tunit*hunit; //Q: HX configuration?
+
+  QTot_flow=LMED*UASta;
+  cpEff= (hsatTWatOut.hSat-hsatTWatIn.hSat)/(TWatOut-TWatIn);
+  UASta = (UAAir/cpAir)/(1 + (cpEff*UAAir)/(cpAir*UAWat));
+  UAWat=UAAir/r_nominal;
+  UA_nominal = 1/ (1/UAAir  + 1/ UAWat);
 
 equation
   if allowFlowReversal1 then
@@ -1262,4 +1322,4 @@ issue 622</a> for more information.
 </html>"),
     __Dymola_Commands(file=
           "Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/WetCoilEffNtuMassFlowFuzzy.mos"));
-end WetEffectivenessNTU_Fuzzy_V3;
+end WetEffectivenessNTU_Fuzzy_V3_UA_nominalEstim;

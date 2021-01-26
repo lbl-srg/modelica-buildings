@@ -1,5 +1,5 @@
-within Buildings.Fluid.HeatExchangers;
-model WetEffectivenessNTU_Fuzzy_V3
+within Buildings.Fluid.HeatExchangers.H_Example;
+model WetEffectivenessNTU_Fuzzy_V3_backup
   "Forced to prevent exact zero flow which caused difficulties in convergence for partially wet coil"
   extends Buildings.Fluid.Interfaces.PartialFourPortInterface(
     redeclare replaceable package Medium2 = Buildings.Media.Air);
@@ -59,10 +59,8 @@ model WetEffectivenessNTU_Fuzzy_V3
     "Water flow rate of condensate removed from the air stream";
 
 protected
-  Real delta=1E-2
-    "a parameter for normailization";
-  Real deltay=1E-1
-    "a parameter for normailization";
+  Real delta=1E-2;
+  Real deltay=1E-1;
   Real fac1 = Buildings.Utilities.Math.Functions.smoothMin((1/delta * m1_flow/m1_flow_nominal)^2,1,deltay);
   //Real fac1 = if abs(m1_flow/m1_flow_nominal) >= delta then 1 else (1/delta * m1_flow/m1_flow_nominal)^2;
   Real fac2 = Buildings.Utilities.Math.Functions.smoothMin((1/delta * m2_flow/m2_flow_nominal)^2,1,deltay);
@@ -71,11 +69,11 @@ protected
 
   Buildings.Fluid.HeatExchangers.HeaterCooler_u heaCoo(
     redeclare final package Medium = Medium1,
-    final dp_nominal = dp1_nominal,
-    final m_flow_nominal = m1_flow_nominal,
-    final energyDynamics = energyDynamics,
-    final massDynamics = massDynamics,
-    final Q_flow_nominal=-1)
+    dp_nominal = dp1_nominal,
+    m_flow_nominal = m1_flow_nominal,
+    energyDynamics = energyDynamics,
+    massDynamics = massDynamics,
+    Q_flow_nominal=-1)
     "Heat exchange with water stream"
     annotation (Placement(transformation(extent={{60,50},{80,70}})));
 
@@ -87,7 +85,7 @@ protected
     energyDynamics = energyDynamics,
     massDynamics = massDynamics)
     "Heat and moisture exchange with air stream"
-    annotation (Placement(transformation(extent={{-60,-70},{-80,-50}}))); 
+    annotation (Placement(transformation(extent={{-60,-70},{-80,-50}})));
   Buildings.Fluid.HeatExchangers.BaseClasses.HADryCoil hA(
     final UA_nominal = UA_nominal,
     final m_flow_nominal_a = m2_flow_nominal,
@@ -1262,4 +1260,4 @@ issue 622</a> for more information.
 </html>"),
     __Dymola_Commands(file=
           "Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/WetCoilEffNtuMassFlowFuzzy.mos"));
-end WetEffectivenessNTU_Fuzzy_V3;
+end WetEffectivenessNTU_Fuzzy_V3_backup;

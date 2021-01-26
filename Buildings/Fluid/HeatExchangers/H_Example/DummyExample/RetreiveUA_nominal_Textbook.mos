@@ -27,7 +27,7 @@ createPlot(
     color=true);
 createPlot(
     id=2,
-    y={"uA_nominalFromOperatingCondition.QTot_flow","Q_flow_nominal","hexWetNTU.Q1_flow"},
+    y={"hexWetNTU.dryWetCalcs.TAirIn","uA_nominalFromOperatingCondition.TAirIn","TDryBulOut.T","uA_nominalFromOperatingCondition.TAirOut","TWatOut.T","uA_nominalFromOperatingCondition.TWatOut"},
     autoscale=true,
     autoerase=true,
     autoreplot=true,
@@ -36,7 +36,7 @@ createPlot(
 createPlot(
     id=2,
     subPlot=2,
-    y={"hexWetNTU.UA_nominal","uA_nominalFromOperatingCondition.UA"},
+    y={"hexWetNTU.UA_nominal","uA_nominalFromOperatingCondition.UA","hexWetNTU1.UA_nominal"},
     autoscale=true,
     autoerase=true,
     autoreplot=true,

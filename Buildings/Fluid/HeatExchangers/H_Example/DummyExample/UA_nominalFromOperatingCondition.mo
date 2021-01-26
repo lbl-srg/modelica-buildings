@@ -23,7 +23,7 @@ model UA_nominalFromOperatingCondition
   MediumW.ThermodynamicState staWat=MediumW.setState_phX(p=MediumW.p_default,h=MediumW.h_default,X=MediumW.X_default[1:MediumW.nXi]);
 
   Modelica.SIunits.SpecificHeatCapacity cpAir=MediumA.specificHeatCapacityCp(staAir);
-  Modelica.SIunits.SpecificHeatCapacity Cpw=MediumW.specificHeatCapacityCp(staWat);
+  Modelica.SIunits.SpecificHeatCapacity cpw=MediumW.specificHeatCapacityCp(staWat);
   Modelica.SIunits.SpecificHeatCapacity cpEff
     "Effective specific heat: change in enthalpy with respect to
      temperature along the saturation line at the local water
@@ -49,7 +49,7 @@ model UA_nominalFromOperatingCondition
   "Air side convective heat transfer coefficient, including fin resistance";
   output Modelica.SIunits.ThermalConductance UAWat(min=0,start=20)
   "Water side convective heat transfer coefficient";
-  output Modelica.SIunits.ThermalConductance UA(min=0,start=1/(1/10+1/20))
+  output Modelica.SIunits.ThermalConductance UA(fixed=false, min=0,start=1/(1/10+1/20))
     "UA is for the overall coil (i.e., both sides)";
 
 equation
@@ -57,7 +57,7 @@ equation
   hAirIn =MediumA.specificEnthalpy_pTX(p=MediumA.p_default,T=TAirIn,X={wAirIn,1-wAirIn});
   hAirOut=MediumA.specificEnthalpy_pTX(p=MediumA.p_default,T=TAirOut,X={wAirOut,1-wAirOut});
 
-  mWat_flow*Cpw*(TWatOut-TWatIn) = mAir_flow*(hAirIn-hAirOut);
+  mWat_flow*cpw*(TWatOut-TWatIn) = mAir_flow*(hAirIn-hAirOut);
   QTot_flow = mAir_flow*(hAirIn-hAirOut);// calculates wAirOut or Qtot
   // calculation of overall UAsta based on log mean enthalpy difference
   LMED=Buildings.Fluid.HeatExchangers.BaseClasses.lmtd(hAirIn/hunit*Tunit,
