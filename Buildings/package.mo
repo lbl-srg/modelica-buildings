@@ -761,7 +761,8 @@ Note:
 </p>
 <ul>
 <li>
-xxx
+This version also corrects a possible memory violation when reading weather data files that have very long lines,
+as reported in <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1432\">IBPSA, #1432</a>.
 </li>
 </ul>
 </html>"));
