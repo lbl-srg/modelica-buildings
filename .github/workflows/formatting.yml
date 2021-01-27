@@ -93,3 +93,6 @@ jobs:
               cd ..
               python Buildings/Resources/src/Controls/OBC/UnitConversions/unit_converters.py
               git diff --exit-code Buildings
+              
+      - name: Check for UTF-8 BOM
+        run: "! find . -name '*.mo' -print0 | xargs -0 grep -l $'^\\xEF\\xBB\\xBF' | grep ."              
