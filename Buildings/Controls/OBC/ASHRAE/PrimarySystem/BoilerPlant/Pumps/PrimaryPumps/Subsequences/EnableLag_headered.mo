@@ -133,37 +133,26 @@ protected
     "Add real inputs"
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Edge edg
-    "Rising edge"
-    annotation (Placement(transformation(extent={{-40,-150},{-20,-130}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Not not1
-    "Logical not"
-    annotation (Placement(transformation(extent={{0,-150},{20,-130}})));
-
   Buildings.Controls.OBC.CDL.Logical.And and2
     "Logical and"
     annotation (Placement(transformation(extent={{40,-130},{60,-110}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Pre pre2
-    "Breaks algebraic loops"
-    annotation (Placement(transformation(extent={{-80,-150},{-60,-130}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Edge edg1
-    "Rising edge"
-    annotation (Placement(transformation(extent={{-40,90},{-20,110}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Not not2
-    "Logical not"
-    annotation (Placement(transformation(extent={{0,90},{20,110}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Pre pre1
-    "Breaks algebraic loops"
-    annotation (Placement(transformation(extent={{-80,90},{-60,110}})));
-
   Buildings.Controls.OBC.CDL.Logical.And and1
     "Logical and"
     annotation (Placement(transformation(extent={{40,70},{60,90}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Change cha[nPum]
+    "Detect changes in primary pump status"
+    annotation (Placement(transformation(extent={{-120,120},{-100,140}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Not not1
+    "Logical Not"
+    annotation (Placement(transformation(extent={{-40,120},{-20,140}})));
+
+  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(
+    final nu=nPum)
+    "Multi Or"
+    annotation (Placement(transformation(extent={{-80,120},{-60,140}})));
 
 equation
   connect(VHotWat_flow,hotWatFloRat. u)
@@ -210,32 +199,13 @@ equation
     annotation (Line(points={{-98,80},{-90,80},{-90,60},{-100,60},{-100,-86},
       {-82,-86}}, color={0,0,127}));
 
-  connect(edg.y, not1.u)
-    annotation (Line(points={{-18,-140},{-2,-140}}, color={255,0,255}));
-
-  connect(edg.u, pre2.y)
-    annotation (Line(points={{-42,-140},{-58,-140}}, color={255,0,255}));
-
   connect(hys1.y, and2.u1)
     annotation (Line(points={{-18,-80},{-14,-80},{-14,-120},{38,-120}},
-      color={255,0,255}));
-
-  connect(not1.y, and2.u2)
-    annotation (Line(points={{22,-140},{30,-140},{30,-128},{38,-128}},
       color={255,0,255}));
 
   connect(and2.y, tim1.u)
     annotation (Line(points={{62,-120},{80,-120},{80,-104},{-6,-104},{-6,-80},
       {-2,-80}}, color={255,0,255}));
-
-  connect(edg1.y, not2.u)
-    annotation (Line(points={{-18,100},{-2,100}}, color={255,0,255}));
-
-  connect(edg1.u, pre1.y)
-    annotation (Line(points={{-42,100},{-58,100}}, color={255,0,255}));
-
-  connect(not2.y, and1.u1)
-    annotation (Line(points={{22,100},{30,100},{30,80},{38,80}}, color={255,0,255}));
 
   connect(hys.y, and1.u2)
     annotation (Line(points={{-18,40},{-12,40},{-12,72},{38,72}}, color={255,0,255}));
@@ -248,13 +218,19 @@ equation
     annotation (Line(points={{122,-80},{160,-80}}, color={255,0,255}));
   connect(tim.passed, yUp) annotation (Line(points={{22,32},{60,32},{60,40},{
           160,40}}, color={255,0,255}));
-  connect(tim.passed, pre1.u) annotation (Line(points={{22,32},{60,32},{60,40},
-          {80,40},{80,120},{-90,120},{-90,100},{-82,100}}, color={255,0,255}));
   connect(tim1.passed, not3.u) annotation (Line(points={{22,-88},{40,-88},{40,
           -80},{98,-80}}, color={255,0,255}));
-  connect(tim1.passed, pre2.u) annotation (Line(points={{22,-88},{40,-88},{40,
-          -100},{-90,-100},{-90,-140},{-82,-140}}, color={255,0,255}));
 
+  connect(uHotWatPum, cha.u) annotation (Line(points={{-160,0},{-130,0},{-130,130},
+          {-122,130}}, color={255,0,255}));
+  connect(cha.y, mulOr.u[1:2]) annotation (Line(points={{-98,130},{-90,130},{-90,
+          130},{-82,130}},     color={255,0,255}));
+  connect(mulOr.y, not1.u)
+    annotation (Line(points={{-58,130},{-42,130}}, color={255,0,255}));
+  connect(not1.y, and1.u1) annotation (Line(points={{-18,130},{30,130},{30,80},{
+          38,80}}, color={255,0,255}));
+  connect(not1.y, and2.u2) annotation (Line(points={{-18,130},{90,130},{90,-140},
+          {30,-140},{30,-128},{38,-128}}, color={255,0,255}));
 annotation (
   defaultComponentName="enaLagPriPum",
   Icon(coordinateSystem(preserveAspectRatio=false,
