@@ -381,8 +381,8 @@ Compared to the base class, which has been built for the models in
 <a href=\"modelica://Buildings.Examples.VAVReheat\">
 Buildings.Examples.VAVReheat</a> which are for a larger building,
 the instances of
-<a href=\"modelica://Buildings.Airflow.Multizone.DoorDiscretizedOpen\">
-Buildings.Airflow.Multizone.DoorDiscretizedOpen</a> are made smaller.
+<a href=\"modelica://Buildings.Airflow.Multizone.DoorOpen\">
+Buildings.Airflow.Multizone.DoorOpen</a> are made smaller.
 Their length has been reduced proportionally
 to the difference in length of the walls of the core zone of the two buildings.
 See also <a href=\"modelica://Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice\">
