@@ -10,6 +10,6 @@
 
 #include <ModelicaUtilities.h>
 
-int getTimeSpan(const char * fileName, const char * tabName, double* timeSpan);
+void getTimeSpan(const char * fileName, const char * tabName, double* timeSpan);
 
 #endif /* GETTIMESPAN_H_ */
