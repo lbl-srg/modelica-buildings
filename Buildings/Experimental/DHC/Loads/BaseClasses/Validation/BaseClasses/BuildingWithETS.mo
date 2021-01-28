@@ -22,5 +22,12 @@ This is a minimum example of a class extending
 Buildings.Experimental.DHC.Loads.BaseClasses.PartialBuildingWithPartialETS</a>
 developed for testing purposes only.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+December 14, 2020, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end BuildingWithETS;

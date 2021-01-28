@@ -67,13 +67,16 @@ equation
   connect(port_aSerCoo, port_bSerCoo) annotation (Line(points={{-300,-280},{0,
           -280},{0,-280},{300,-280}}, color={0,127,255}));
   connect(souPCoo.y,PCoo)
-    annotation (Line(points={{282,20},{320,20}},color={0,0,127}));
+    annotation (Line(points={{282,20},{302,20},{302,40},{320,40}},
+                                                color={0,0,127}));
   connect(souPFan.y,PFan)
-    annotation (Line(points={{282,-20},{320,-20}},color={0,0,127}));
+    annotation (Line(points={{282,-20},{302,-20},{302,0},{320,0}},
+                                                  color={0,0,127}));
   connect(souPPum.y,PPum)
-    annotation (Line(points={{282,-60},{320,-60}},color={0,0,127}));
+    annotation (Line(points={{282,-60},{302,-60},{302,-40},{320,-40}},
+                                                  color={0,0,127}));
   connect(souPHea.y,PHea)
-    annotation (Line(points={{282,60},{294,60},{294,60},{320,60}},color={0,0,127}));
+    annotation (Line(points={{282,60},{294,60},{294,80},{320,80}},color={0,0,127}));
   connect(port_aSerAmb, sinSerAmbSup.ports[1])
     annotation (Line(points={{-300,-200},{-280,-200}}, color={0,127,255}));
   connect(souSerAmbRet.ports[1], port_bSerAmb)
@@ -104,5 +107,12 @@ This is a minimum example of a class extending
 Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses.PartialETS</a>
 developed for testing purposes only.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+December 14, 2020, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end ETS;

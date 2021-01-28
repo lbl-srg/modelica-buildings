@@ -467,5 +467,12 @@ This model validates
 Buildings.Experimental.DHC.Loads.BaseClasses.PartialBuildingWithPartialETS</a>
 for various types of district system.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+December 14, 2020, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end BuildingWithETS;

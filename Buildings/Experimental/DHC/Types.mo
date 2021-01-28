@@ -55,13 +55,13 @@ package Types  "Package with type definitions"
   </tr>
   </table>
   </html>",revisions="<html>
-  <ul>
-  <li>
-  December 10, 2020, by Antoine Gautier:<br/>
-  First implementation.
-  </li>
-  </ul>
-  </html>"));
+<ul>
+<li>
+December 10, 2020, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 
 annotation (Documentation(info="<html>
 <p>
