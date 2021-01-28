@@ -609,6 +609,11 @@ the nominal mass flow rate of the circulation pump.
       revisions="<html>
 <ul>
 <li>
+December 21, 2020, by Antoine Gautier:<br/>
+Refactored scaling mechanism and renamed parameters.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2291\">issue 2291</a>.
+</li>
+<li>
 February 21, 2020, by Antoine Gautier:<br/>
 First implementation.
 </li>
