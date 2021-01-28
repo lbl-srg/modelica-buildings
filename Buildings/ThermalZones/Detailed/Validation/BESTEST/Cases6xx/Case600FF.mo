@@ -352,6 +352,7 @@ Added reference results.
 Changed implementation to make this model the base class
 for all BESTEST cases.
 Added computation of hourly and annual averaged room air temperature.
+</li>
 <li>
 October 6, 2011, by Michael Wetter:<br/>
 First implementation.

@@ -502,6 +502,7 @@ instantiated by respectively setting <code>have_watCoo</code> and
 <code>have_watHea</code> to true.
 </li>
 </ul>
+</li>
 <li>
 On the load side (typically connected to a room model):
 <ul>
@@ -525,6 +526,7 @@ The impact on the room air temperature of an unmet load can be assessed with
 Buildings.Experimental.DHC.Loads.SimpleRoomODE</a>.
 </li>
 </ul>
+</li>
 </ul>
 <p>
 The heating or cooling nominal capacity is provided for the water based heat
