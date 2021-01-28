@@ -63,6 +63,7 @@ The control strategy is as follows:
 <li>The chiller is enabled when
 <i>
   T<sub>chw,ent</sub> &gt; T<sub>chi,set</sub> + &Delta;T<sub>chi,ban</sub> </i>
+</li>
 <li>The chiller is disabled when
 <i>
   T<sub>chw,ent</sub> &le; T<sub>chi,set</sub></i>
