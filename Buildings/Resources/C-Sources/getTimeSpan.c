@@ -32,14 +32,18 @@ char *concat(const char *s1, const char *s2) {
 /*
  * Move the file pointer to the first character of the next line
  */
-void advanceToNextLine(FILE *fp){
+void advanceToNextLine(const char * fileName, FILE *fp, unsigned int* iLin, unsigned int* iCol){
   int c;
   while(1){
     c = fgetc(fp);
+    (*iCol)++;
     if (c == EOF) {
-       ModelicaFormatError("Received unexpected EOF in getTimeSpan.c when searching for new line.");
+       ModelicaFormatError("%s:%u,%u: Received unexpected EOF when searching for new line.",
+         fileName, *iLin, *iCol);
     }
     if (c == '\n'){
+      (*iLin)++;
+      *iCol = 1;
       /* Found the end of the line */
       return;
     }
@@ -64,6 +68,8 @@ void getTimeSpan(const char * fileName, const char * tabName, double* timeSpan) 
   FILE *fp;
   int c;
   int i = 0;
+  unsigned int iLin = 1;
+  unsigned int iCol = 1;
 
   /* create format string: "%*s tab1(rowCount, columnCount)" */
   char *tempString = concat("%*s ", tabName);
@@ -85,14 +91,16 @@ void getTimeSpan(const char * fileName, const char * tabName, double* timeSpan) 
 
    /* find the end of file header */
   while(1){
-    advanceToNextLine(fp);
+    advanceToNextLine(fileName, fp, &iLin, &iCol);
     c = getc(fp);
     if (c == EOF) {
-       ModelicaFormatError("Received unexpected EOF in getTimeSpan.c when searching for first character of line.");
+       ModelicaFormatError("%s:%u,%u: Received unexpected EOF when searching for first character of line.",
+       fileName, iLin, iCol);
     }
     if ( ungetc(c, fp) == EOF ){
       ModelicaError("Unexpected EOF when putting character back.");
     }
+    /* Don't advance iCol because of the ungetc above */
     if ( c != '#'){
       /* This not a header line.*/
       break;
@@ -102,18 +110,18 @@ void getTimeSpan(const char * fileName, const char * tabName, double* timeSpan) 
   /* find first time stamp */
   retVal = fscanf(fp, "%lf", &firstTimeStamp);
   if (retVal == EOF){
-    ModelicaFormatError("Received unexpected EOF in getTimeSpan.c when searching for first time stamp in %s.",
-    fileName);
+    ModelicaFormatError("%s:%u,%u: Received unexpected EOF when searching for first time stamp.",
+    fileName, iLin, iCol);
   }
 
   /* scan to file end, to find the last time stamp */
   for(i = 0; i < rowCount-1; i++) {
-    advanceToNextLine(fp);
+    advanceToNextLine(fileName, fp, &iLin, &iCol);
   }
   retVal = fscanf(fp, "%lf", &lastTimeStamp);
   if (retVal == EOF){
-    ModelicaFormatError("Received unexpected EOF in getTimeSpan.c when searching last time stamp in %s.",
-    fileName);
+    ModelicaFormatError("%s:%u,%u: Received unexpected EOF when searching last time stamp.",
+    fileName, iLin, iCol);
   }
   fclose(fp);
 
