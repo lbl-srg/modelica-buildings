@@ -261,7 +261,7 @@ equation
 <ul>
 <li>
 July 31, 2020, by Antoine Gautier:<br/>
-First implementation
+First implementation.
 </li>
 </ul>
 </html>",
@@ -297,8 +297,8 @@ of the ETS.
 </li>
 </ul>
 <p>
-Note that the valve on the secondary side is needed to stabilize the control 
-of the system when the secondary mass flow rate required to meet the heat or 
+Note that the valve on the secondary side is needed to stabilize the control
+of the system when the secondary mass flow rate required to meet the heat or
 cold rejection demand is below the flow rate corresponding to the minimum pump speed.
 </p>
 </html>"));

@@ -171,7 +171,7 @@ equation
     Documentation(
       info="<html>
 <p>
-This model outputs the difference in enthalpy flow rate 
+This model outputs the difference in enthalpy flow rate
 between two different streams:
 <i>&Delta;H&#775; = m&#775;<sub>1</sub> h<sub>1</sub> - m&#775;<sub>2</sub> h<sub>2</sub></i>.
 Optionally the time integral of this quantity can be output.
@@ -187,8 +187,8 @@ specific enthalpy that is used to compute each enthalpy flow rate
 is computed in steady-state,
 </li>
 <li>
-the medium is the same in both streams but the model 
-allows for specifying two different media to represent for 
+the medium is the same in both streams but the model
+allows for specifying two different media to represent for
 instance the gaseous and liquid state of the same substance.
 </li>
 </ul>
@@ -197,7 +197,7 @@ instance the gaseous and liquid state of the same substance.
 <ul>
 <li>
 October 8, 2020, by Antoine Gautier:<br/>
-First implementation
+First implementation.
 </li>
 </ul>
 </html>"));

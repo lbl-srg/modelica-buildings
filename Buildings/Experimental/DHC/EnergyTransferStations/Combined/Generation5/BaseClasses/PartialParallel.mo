@@ -395,11 +395,15 @@ compressor-less cooling mode using only the district heat exchanger.
 src=\"modelica://Buildings/Resources/Images/Experimental/DHC/EnergyTransferStations/Combined/Generation5/BaseClasses/PartialParallel.png\"/>
 </p>
 </html>",
-      revisions="<html>
+revisions="<html>
 <ul>
 <li>
+December 21, 2020, by Antoine Gautier:<br/>
+Added outputs for distributed energy flow rate.
+</li>
+<li>
 July 31, 2020, by Antoine Gautier:<br/>
-First implementation
+First implementation.
 </li>
 </ul>
 </html>"));
