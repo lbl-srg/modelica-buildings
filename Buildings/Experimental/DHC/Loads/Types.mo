@@ -88,7 +88,7 @@ Enumeration to define the type of distribution pump control.
   ConstantFlow
   </td>
   <td>
-  Use this setting for a constant flow system where terminal units are 
+  Use this setting for a constant flow system where terminal units are
   equipped with three-way valves and the pump operation can be
   approximated as constant flow and constant head.
   </td>
