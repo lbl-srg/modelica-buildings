@@ -77,11 +77,6 @@ model ASHRAE2006
     "Supply air temperature set point"
     annotation (Placement(transformation(extent={{-200,-230},{-180,-210}})));
 equation
-  connect(fanSup.port_b, dpDisSupFan.port_a) annotation (Line(
-      points={{320,-40},{320,0},{320,-10},{320,-10}},
-      color={0,0,0},
-      smooth=Smooth.None,
-      pattern=LinePattern.Dot));
   connect(controlBus, modeSelector.cb) annotation (Line(
       points={{-240,-342},{-152,-342},{-152,-303.182},{-196.818,-303.182}},
       color={255,204,51},
