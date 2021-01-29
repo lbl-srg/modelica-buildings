@@ -562,6 +562,7 @@ Hence,
 <p style=\"font-style:italic;\">
 dpPum = dp_nominal.
 </p>
+</li>
 <li>
 In case of a linear head,
 <p style=\"font-style:italic;\">
@@ -571,6 +572,7 @@ dpPum = dpMin + (dp_nominal - dpMin) * m_flow / m_flow_nominal.
 <li>
 In case of a constant speed, the pump head is computed based on the pump pressure
 curve and the total required mass flow rate.
+</li>
 <li>
 In case of a constant pressure difference at a given location, the pump head
 is computed according to the schematics hereunder, under the
@@ -606,9 +608,11 @@ is the corresponding flow coefficient (constant).
 </p>
 </li>
 </ul>
+</li>
+<li>
 <p>
 The pressure drop in the corresponding pipe segment of the return line
-is considered equal, hence the factor 2 in the above equation.
+is considered equal, hence the factor of 2 in the above equation.
 </p>
 <p>
 The default value for <code>dpDis_nominal</code> corresponds to a configuration

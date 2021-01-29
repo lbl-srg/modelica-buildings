@@ -1,0 +1,98 @@
+# Workflow for CI tests
+name: CI-documentation-and-format
+
+# Controls when the action will run.
+on:
+  # Triggers the workflow on push or pull request events but only for the master branch
+  push:
+    branches: [ master, maint_*, release* ]
+  pull_request:
+    branches: [ master, maint_*, release* ]
+
+# Allows you to run this workflow manually from the Actions tab
+#  workflow_dispatch:
+
+defaults:
+  run:
+    shell: bash
+    working-directory: Buildings
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+
+  test-formatting:
+    # Skip if the commit message contains "ci skip"
+    if: "!contains(github.event.head_commit.message, 'ci skip')"
+
+    runs-on: ubuntu-18.04
+
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-python@v2
+        with:
+          python-version: '3.6' # Version range or exact version of a Python version to use, using SemVer's version range syntax
+          architecture: 'x64' # optional x64 or x86. Defaults to x64 if not specified
+
+      - name: "Install pip"
+        run: pip3 install --upgrade pip setuptools wheel
+
+      - name: "Install sphinx and its dependencies"
+        run: pip3 install \
+          sphinx==2.1.2 \
+          sphinx-bootstrap-theme==0.7.1 \
+          sphinxcontrib-bibtex==0.4.2 \
+          sphinxcontrib-plantuml==0.17 \
+          alabaster==0.7.12 \
+          MarkupSafe==1.1.1 \
+          Pygments==2.4.2 \
+          snowballstemmer==1.9.0 \
+          docutils==0.15.2 \
+          Babel==2.7.0 \
+          requests==2.22.0 \
+          Jinja2==2.10.1 \
+          latexcodec==1.0.7 \
+          pybtex==0.22.2 \
+          pybtex-docutils==0.2.1 \
+          oset==0.1.3 \
+          PyYAML==5.1.2
+
+      - name: "Install BuildingsPy"
+        run: pip3 install git+https://github.com/lbl-srg/BuildingsPy@master
+
+      - name: "Test html syntax"
+        run : ../bin/runUnitTests.py --validate-html-only
+
+      - name: "Test experiment setup"
+        run : ../bin/runUnitTests.py --validate-experiment-setup
+
+      - name: "Test if package.order are correct"
+        run : |
+              python -c 'import buildingspy.development.refactor as r; r.write_package_order(".", recursive=True)'
+              git diff --exit-code .
+
+      - name: "Verify files for invalid strings"
+        run: ${GITHUB_WORKSPACE}/bin/verifyFiles.py
+
+      - name: "Verify that all OpenModelica scripts are up to date, and no old scripts exist"
+        run : |
+              rm Resources/Scripts/OpenModelica/compareVars/*.mos
+              python -c 'import buildingspy.development.regressiontest as u; u.Tester().writeOpenModelicaResultDictionary()'
+              git status --porcelain Resources/Scripts/OpenModelica
+              test -z $(git status --porcelain Resources/Scripts/OpenModelica)
+
+      - name: "Test user guide"
+        run : (cd Resources/Documentation/userGuide; make regressiontest)
+
+      - name: "Test heat pump documentation"
+        run : (cd Resources/src/fluid/heatpumps/calibration/doc; make regressiontest)
+
+      - name: "Check for UnitConversion package to be consistent with the script that generates it"
+        run : |
+              cd ..
+              python Buildings/Resources/src/Controls/OBC/UnitConversions/unit_converters.py
+              git diff --exit-code Buildings
+              
+      - name: Check for UTF-8 BOM
+        run: "! find . -name '*.mo' -print0 | xargs -0 grep -l $'^\\xEF\\xBB\\xBF' | grep ."              
