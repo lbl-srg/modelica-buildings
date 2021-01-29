@@ -137,6 +137,7 @@ Buildings/BoundaryConditions/WeatherData/BaseClasses/Examples/EquationOfTime.mo
 Buildings/BoundaryConditions/WeatherData/BaseClasses/Examples/GetAbsolutePath.mo
 Buildings/BoundaryConditions/WeatherData/BaseClasses/Examples/GetHeaderElement.mo
 Buildings/BoundaryConditions/WeatherData/BaseClasses/Examples/GetTimeSpanTMY3.mo
+Buildings/BoundaryConditions/WeatherData/BaseClasses/Examples/GetTimeSpanTMY3LongHeader.mo
 Buildings/BoundaryConditions/WeatherData/BaseClasses/Examples/GetTimeSpanTMY3_NonzeroStart.mo
 Buildings/BoundaryConditions/WeatherData/BaseClasses/Examples/LimitMin.mo
 Buildings/BoundaryConditions/WeatherData/BaseClasses/Examples/LocalCivilTime.mo
@@ -1264,6 +1265,7 @@ Buildings/Resources/C-Sources/jsonWriterFree.c
 Buildings/Resources/C-Sources/jsonWriterFree.h
 Buildings/Resources/C-Sources/jsonWriterInit.c
 Buildings/Resources/C-Sources/jsonWriterInit.h
+Buildings/Resources/Data/BoundaryConditions/WeatherData/BaseClasses/Examples/weatherWithLongHeader.mos
 Buildings/Resources/Data/BoundaryConditions/WeatherData/Validation/DecemberToJanuary.mos
 Buildings/Resources/Data/BoundaryConditions/WeatherData/Validation/TwoYears_DataOnceAMonth_TMY3.mos
 Buildings/Resources/Data/Fluid/FixedResistances/Validation/PlugFlowPipes/PipeDataAIT151218.mos
@@ -1472,6 +1474,7 @@ Buildings/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/BaseClasses/Ex
 Buildings/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/BaseClasses/Examples/GetAbsolutePath.mos
 Buildings/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/BaseClasses/Examples/GetHeaderElement.mos
 Buildings/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/BaseClasses/Examples/GetTimeSpanTMY3.mos
+Buildings/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/BaseClasses/Examples/GetTimeSpanTMY3LongHeader.mos
 Buildings/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/BaseClasses/Examples/GetTimeSpanTMY3_NonzeroStart.mos
 Buildings/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/BaseClasses/Examples/LimitMin.mos
 Buildings/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/BaseClasses/Examples/LocalCivilTime.mos
