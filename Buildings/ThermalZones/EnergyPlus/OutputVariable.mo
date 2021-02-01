@@ -45,13 +45,13 @@ initial equation
     "Use of pre-compiled FMU is not supported for block OutputVariable.");
   Buildings.ThermalZones.EnergyPlus.BaseClasses.outputVariableInitialize(
     adapter=adapter,
-    startTime=time);
+    startTime=startTime);
    Buildings.ThermalZones.EnergyPlus.BaseClasses.outputVariableExchange(
        adapter,
        true,
        directDependency_in_internal,
        round(
-         time,
+         startTime,
          1E-3));
 
   counter=0;
