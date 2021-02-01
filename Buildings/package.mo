@@ -418,6 +418,17 @@ have been <b style=\"color:blue\">improved</b> in a
     <td valign=\"top\">Added option to specify a hysteresis, which by default is set to <i>0</i>.
     </td>
     </tr>
+<tr><td colspan=\"2\"><b>Buildings.Controls.OBC.Utilities</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.Utilities.OptimalStart
+
+    </td>
+    <td valign=\"top\">Refactored sampling of history of temperature slope to only sample when control error requires optimal start up.<br/>
+                     This is for
+                     <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2345\">#2345</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Examples</b>
     </td>
 </tr>
