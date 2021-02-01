@@ -1,12 +1,11 @@
-
-simulateModel("Buildings.Fluid.HeatExchangers.H_Example.DummyExample.RetreiveUA_nominal_Textbook", stopTime=3600, method="Cvode", tolerance=1e-06)
+﻿
+simulateModel("Buildings.Fluid.HeatExchangers.H_Example.DummyExample.RetreiveUA_nominal_Textbook", stopTime=3600, method="Cvode", tolerance=1e-06);
 old_StoreProtectedVariables = Advanced.StoreProtectedVariables;
 Advanced.StoreProtectedVariables = true;
 simulateModel("Buildings.Fluid.HeatExchangers.H_Example.DummyExample.RetreiveUA_nominal_Textbook",
     method="cvode",
     tolerance=1e-06,
-    stopTime=100,
-    resultFile="RetreiveUA_nominal_Textbook");
+    stopTime=100 );
 Advanced.StoreProtectedVariables = old_StoreProtectedVariables;
 createPlot(
     id=1,
@@ -36,7 +35,16 @@ createPlot(
 createPlot(
     id=2,
     subPlot=2,
-    y={"hexWetNTU.UA_nominal","uA_nominalFromOperatingCondition.UA","hexWetNTU1.UA_nominal"},
+    y={"hexWetNTU.UA_nominal","uA_nominalFromOperatingCondition.UA","uA_nominalFromOperatingCondition_V2.UA"},
+    autoscale=true,
+    autoerase=true,
+    autoreplot=true,
+    grid=true,
+    color=true);
+createPlot(
+    id=3,
+    subPlot=1,
+    y={"uA_nominalFromOperatingCondition_V2.IsFulDry","uA_nominalFromOperatingCondition_V2.IsFulWet","uA_nominalFromOperatingCondition_V2.IsParWet"},
     autoscale=true,
     autoerase=true,
     autoreplot=true,

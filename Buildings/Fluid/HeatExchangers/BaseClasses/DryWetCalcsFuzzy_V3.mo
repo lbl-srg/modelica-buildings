@@ -1,6 +1,6 @@
 within Buildings.Fluid.HeatExchangers.BaseClasses;
 model DryWetCalcsFuzzy_V3
-  "V3 Simplifies the calculation of partially wet coil model."
+  "This model represents the swiching algorithm of the TK-fuzzy model for cooling coil applicaiton"
   input Real Qfac;
   replaceable package Medium2 = Modelica.Media.Interfaces.PartialMedium
     "Medium 2 in the component"
@@ -118,6 +118,8 @@ model DryWetCalcsFuzzy_V3
       Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=0,
         origin={150,-60})));
+  Modelica.SIunits.HeatFlowRate QLat_flow  "Latent heat transfer rate";
+
   Modelica.Blocks.Interfaces.RealOutput mCon_flow(
     quantity="MassFlowRate",
     final unit="kg/s")
@@ -126,7 +128,39 @@ model DryWetCalcsFuzzy_V3
       Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=0,
         origin={150,-100})));
+  Buildings.Fluid.HeatExchangers.BaseClasses.DryCalcsFuzzy_V3 fullydry(
+  UAWat = UAWat,
+  mWat_flow = mWat_flow,
+  cpWat = cpWat,
+  TWatIn = TWatIn,
+  UAAir = UAAir,
+  mAir_flow = mAir_flow,
+  mWatNonZer_flow = mWatNonZer_flow,
+  mAirNonZer_flow = mAirNonZer_flow,
+  cpAir = cpAir,
+  TAirIn = TAirIn,
+  final cfg = cfg,
+  mAir_flow_nominal=mAir_flow_nominal,
+  mWat_flow_nominal=mWat_flow_nominal);
 
+  Buildings.Fluid.HeatExchangers.BaseClasses.WetcalcsFuzzy_V3 fullywet(
+   UAWat = UAWat,
+  mWat_flow = mWat_flow,
+  cpWat = cpWat,
+  TWatIn = TWatIn,
+  UAAir = UAAir,
+  mAir_flow = mAir_flow,
+  mWatNonZer_flow = mWatNonZer_flow,
+  mAirNonZer_flow = mAirNonZer_flow,
+  cpAir = cpAir,
+  TAirIn = TAirIn,
+  final cfg = cfg,
+  mAir_flow_nominal=mAir_flow_nominal,
+  mWat_flow_nominal=mWat_flow_nominal,
+  pAir=pAir,wAirIn=wAirIn);
+
+
+protected
   Modelica.SIunits.MassFlowRate mAirNonZer_flow(min=Modelica.Constants.eps)=
     Buildings.Utilities.Math.Functions.smoothMax(
       x1=mAir_flow,
@@ -146,162 +180,29 @@ model DryWetCalcsFuzzy_V3
   Buildings.Utilities.Psychrometrics.pW_X pWIn(X_w=wAirIn,p_in=pAir);
   Buildings.Utilities.Psychrometrics.TDewPoi_pW TDewIn(p_w=pWIn.p_w);
 
-  Modelica.SIunits.HeatFlowRate QLat_flow;
-
   //-- parameters for fuzzy logics
-  Real mu_CoiIn_Col, mu_CoiOut_War;
-  Real mu_FW, mu_FD, mu_PW, w_FW, w_FD, w_PW;
-//   final parameter Real SigA=20;
-//   final parameter Real SigC=0.4;
+  Real mu_FW(unit="1",min=0, max=1), mu_FD(unit="1",min=0, max=1) "membership functions for Fully-Wet and Fully-Dry conditions";
+  Real w_FW(unit="1",min=0, max=1),  w_FD(unit="1",min=0, max=1) "normailized weight functions for Fully-Wet and Fully-Dry conditions";
+  Real dryfra(unit="1",min=0, max=1) "dry fraction of cooling coil, e.g., 0.3 means condensation occurs at the 30% heat exchanger length from the air inlet";
 
-  Real dryfra;
-  Modelica.SIunits.Temperature TSurTra;
-  //(start=0.5*(fullydry.TSurAirOut+fullywet.TSurAirIn));
-  //(start=fullywet.TSurAirIn);
-  //start=0.5*(fullydry.TSurAirOut+fullywet.TSurAirIn));
-  Modelica.SIunits.HeatFlowRate parQTot_flow;
-  Modelica.SIunits.HeatFlowRate parQSen_flow;
-
-  Buildings.Fluid.HeatExchangers.BaseClasses.DryCalcsFuzzy_V3 fullydry(
-  UAWat = UAWat,
-  mWat_flow = mWat_flow,
-  cpWat = cpWat,
-  TWatIn = TWatIn,
-  UAAir = UAAir,
-  mAir_flow = mAir_flow,
-  mWatNonZer_flow = mWatNonZer_flow,
-  mAirNonZer_flow = mAirNonZer_flow,
-  cpAir = cpAir,
-  TAirIn = TAirIn,
-  final cfg = cfg,
-  mAir_flow_nominal=mAir_flow_nominal,
-  mWat_flow_nominal=mWat_flow_nominal);
-
-   //Buildings.Fluid.HeatExchangers.BaseClasses.WetcalcsFuzzy_V2_2_2 fullywet(
-  Buildings.Fluid.HeatExchangers.BaseClasses.WetcalcsFuzzy_V3 fullywet(
-   UAWat = UAWat,
-  mWat_flow = mWat_flow,
-  cpWat = cpWat,
-  TWatIn = TWatIn,
-  UAAir = UAAir,
-  mAir_flow = mAir_flow,
-  mWatNonZer_flow = mWatNonZer_flow,
-  mAirNonZer_flow = mAirNonZer_flow,
-  cpAir = cpAir,
-  TAirIn = TAirIn,
-  final cfg = cfg,
-  mAir_flow_nominal=mAir_flow_nominal,
-  mWat_flow_nominal=mWat_flow_nominal,
-  pAir=pAir,wAirIn=wAirIn);
-
-  /*
-  Buildings.Fluid.HeatExchangers.BaseClasses.DryCalcsFuzzy_V2_2_2_1 pardry(
-  UAWat = UAWat,
-  dryfra = dryfra,
-  mWat_flow = mWat_flow,
-  cpWat = cpWat,
-  TWatIn = TWatInParDry,
-  UAAir = UAAir,
-  mAir_flow = mAir_flow,
-  mWatNonZer_flow = mWatNonZer_flow,
-  mAirNonZer_flow = mAirNonZer_flow,
-  cpAir = cpAir,
-  TAirIn = TAirIn,
-  final cfg = cfg,
-  mAir_flow_nominal=mAir_flow_nominal,
-  mWat_flow_nominal=mWat_flow_nominal);
-
-   Modelica.SIunits.Temperature TWatOut(start=15+273.15)
-   "Water temperature at the heat exchanger outlet";
-   Buildings.Fluid.HeatExchangers.BaseClasses.WetcalcsFuzzy_V2_2_4 parwet(
-   UAWat = UAWat,
-   dryfra = dryfra,
-   mWat_flow = mWat_flow,
-   cpWat = cpWat,
-   TWatIn = TWatIn,
-   UAAir = UAAir,
-   mAir_flow = mAir_flow,
-   mWatNonZer_flow = mWatNonZer_flow,
-   mAirNonZer_flow = mAirNonZer_flow,
-   cpAir = cpAir,
-   TAirIn = TAirInParWet,
-   final cfg = cfg,
-   mAir_flow_nominal=mAir_flow_nominal,
-   mWat_flow_nominal=mWat_flow_nominal,
-   pAir=pAir,wAirIn=wAirIn);
-   */
-
-/*   Modelica.SIunits.Temperature TWatOut0(start=15+273.15);
-  Buildings.Fluid.HeatExchangers.BaseClasses.WetcalcsFuzzy_V2_2_2_ parwet(
-  UAWat = UAWat,
-  dryfra = dryfra,
-  mWat_flow = mWat_flow,
-  cpWat = cpWat,
-  TWatIn = TWatIn,
-  UAAir = UAAir,
-  mAir_flow = mAir_flow,
-  mWatNonZer_flow = mWatNonZer_flow,
-  mAirNonZer_flow = mAirNonZer_flow,
-  cpAir = cpAir,
-  TAirIn = TAirInParWet,
-  final cfg = cfg,
-  TWatOut0= TWatOut0,
-  mAir_flow_nominal=mAir_flow_nominal,
-  mWat_flow_nominal=mWat_flow_nominal,
-  pAir=pAir,wAirIn=wAirIn); */
-
-  Modelica.SIunits.Temperature TAirInParWet;
-  Modelica.SIunits.Temperature TWatInParDry;
 
 equation
 
-  TAirInDewPoi =   TDewIn.T; //DK: added dew point temp at air outlet
+  TAirInDewPoi =   TDewIn.T;
 
-  // Fuzzy modeling
-//   mu_CoiIn_Col = sigmoid(x=fullywet.TSurAirIn-TAirInDewPoi,a=-SigA,c=SigC);
-//   mu_CoiOut_Col= sigmoid(x=fullydry.TSurAirOut-TAirInDewPoi,a=-SigA,c=-SigC);
-//   mu_CoiIn_War = sigmoid(x=fullywet.TSurAirIn-TAirInDewPoi,a=SigA,c=SigC);
-//   mu_CoiOut_War= sigmoid(x=fullydry.TSurAirOut-TAirInDewPoi,a=SigA,c=-SigC);
-
-  mu_CoiIn_Col= Buildings.Utilities.Math.Functions.spliceFunction(
+  mu_FW= Buildings.Utilities.Math.Functions.spliceFunction(
   pos=0,neg=1,x=fullywet.TSurAirIn-TAirInDewPoi,deltax=max(abs(fullydry.TSurAirOut- fullywet.TSurAirIn),1e-3));
-  mu_CoiOut_War= Buildings.Utilities.Math.Functions.spliceFunction(
+  mu_FD= Buildings.Utilities.Math.Functions.spliceFunction(
   pos=1,neg=0,x=fullydry.TSurAirOut-TAirInDewPoi,deltax=max(abs(fullydry.TSurAirOut- fullywet.TSurAirIn),1e-3));
 
-  mu_FW=mu_CoiIn_Col;
-  mu_FD=mu_CoiOut_War;
-  mu_PW=0;//mu_CoiIn_War*mu_CoiOut_Col;
-  w_FW=mu_FW/(mu_FW+mu_FD+mu_PW);
-  w_FD=mu_FD/(mu_FW+mu_FD+mu_PW);
-  w_PW=mu_PW/(mu_FW+mu_FD+mu_PW);
+  w_FW=mu_FW/(mu_FW+mu_FD);
+  w_FD=mu_FD/(mu_FW+mu_FD);
 
-     //if noEvent(w_PW<=0) then // note w_PW is guranteed to be >=0, there fore this means w_PW==0. Then only two options left.
-      TWatInParDry=TWatIn;
-      TAirInParWet=TAirIn;
-      //dryfra  = if w_FD ==1 then 1-1E-3 else 1E-3;  // Used for only analysis purposes.
-
-      TSurTra = TDewIn.T;
-      parQTot_flow=0;//fullywet.QTot_flow;
-      parQSen_flow=0;//fullywet.QSen_flow;
-      //TWatOut= if w_FD ==1 then fullydry.TWatOut else fullywet.TWatOut; // Used for only analysis purposes.
-     /*else
-
-     TWatInParDry=parwet.TWatOut;
-     TAirInParWet=pardry.TAirOut;
-
-     (pardry.TAirOut-TSurTra)*UAAir=(TSurTra-parwet.TWatOut)*UAWat;
-     TDewIn.T = TSurTra;
-     parQTot_flow=pardry.QTot_flow+parwet.QTot_flow;
-     parQSen_flow=pardry.QTot_flow+parwet.QSen_flow;
-     //TWatOut0=parwet.TWatOut;
-     TWatOut=parwet.TWatOut;
-  end if;*/
-
-  QTot_flow= -(w_FW*fullywet.QTot_flow+w_FD*fullydry.QTot_flow+w_PW*parQTot_flow)*Qfac;
-  QSen_flow= -(w_FW*fullywet.QSen_flow+w_FD*fullydry.QTot_flow+w_PW*parQSen_flow)*Qfac;
+  QTot_flow= -(w_FW*fullywet.QTot_flow+w_FD*fullydry.QTot_flow)*Qfac;
+  QSen_flow= -(w_FW*fullywet.QSen_flow+w_FD*fullydry.QTot_flow)*Qfac;
   dryfra= w_FD;
 
-  QLat_flow=QTot_flow-QSen_flow;// DK
+  QLat_flow=QTot_flow-QSen_flow;
   mCon_flow=QLat_flow/Buildings.Utilities.Psychrometrics.Constants.h_fg*Qfac;
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-140,-120},
             {140,120}}), graphics={
@@ -476,34 +377,17 @@ connections; there are too many
 connections to show graphically here")}),
     Documentation(revisions="<html>
 <ul>
-<li>
-April 19, 2017, by Michael Wetter:<br/>
-Renamed variables for consistency.
-</li>
-<li>
-April 14, 2017, by Michael Wetter:<br/>
-Changed sign of heat transfer so that sensible and total heat transfer
-have the same sign.<br/>
-Removed condensate temperature which is no longer needed.
-</li>
-<li>
-March 17, 2017, by Michael O'Keefe:<br/>
-First implementation. See
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/622\">
-issue 622</a> for more information.
-</li>
+<li>Jan 21, 2021, by Donghun Kim:<br>First implementation of the fuzzy model. See <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/622\">issue 622</a> for more information. </li>
 </ul>
 </html>", info="<html>
-<p>
-This model implements the calculation for a (possibly) dry/wet coil.
-Specifically, this model coordinates the 100% wet and 100% dry calculations to
-represent partially wet coil physics.
-</p>
-
-<p>
-See
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.WetEffectivenessNTU\">
-Buildings.Fluid.HeatExchangers.WetEffectivenessNTU</a> for documentation.
-</p>
+<p>The switching criteria for (counter-flow) cooling coil modes are as follows.</p>
+<p>R1: If the coil surface temperature at the air inlet is lower than the dew-point temperature at the inlet to the coil, then the cooling coil surface is fully-wet.</p>
+<p>R2: If the surface temperature at the air outlet section is higher than the dew-point temperature of the air at the inlet, then the cooling coil surface is fully-dry.</p>
+<p>At each point of a simulation time step, the fuzzy-modeling approach determines the weights for R1 and R2 respectively (namely &mu;<sub>FW</sub> and &mu;<sub>FD</sub>) from the dew-point and coil surface temperatures. </p>
+<p>It calculates total and sensible heat transfer rates according to the weights as follows. </p>
+<p>Q<sub>tot</sub>=&mu;<sub>FD</sub> Q<sub>tot,FD</sub>+&mu;<sub>FW</sub> Q<sub>tot,FW</sub></p>
+<p>Q<sub>sen</sub>=&mu;<sub>FD</sub> Q<sub>sen,FD</sub>+&mu;<sub>FW</sub> Q<sub>sen,FW</sub></p>
+<p>The fuzzy-modeling ensures &mu;<sub>FW</sub> + &mu;<sub>FD</sub> = 1, &mu;<sub>FW</sub> &gt;=0, &mu;<sub>FD</sub> &gt;=0, which means the fuzzy model outcomes of Qsen and Qtot are always convex combinations of heat transfer rates for fully-dry and fully-wet modes and therefore are always bounded by them. </p>
+<p>The modeling approach also results in n-th order differentiable model depending on the selection of the underlying membership functions. This cooling coil model is once continuously differentiable even at the transition (or mode-switching) points.</p>
 </html>"));
 end DryWetCalcsFuzzy_V3;

@@ -28,6 +28,9 @@ model DryCalcsFuzzy_V3 "Fully dry coil model"
   // -- misc.
   input Buildings.Fluid.Types.HeatExchangerFlowRegime cfg
     "The flow regime of the heat exchanger";
+  input Modelica.SIunits.MassFlowRate mAir_flow_nominal;
+  input Modelica.SIunits.MassFlowRate mWat_flow_nominal;
+  parameter Real delta = 1E-3 "Small value used for smoothing";
 
   output Modelica.SIunits.HeatFlowRate QTot_flow
     "Heat transferred from water to air";
@@ -54,11 +57,6 @@ model DryCalcsFuzzy_V3 "Fully dry coil model"
 
   output Modelica.SIunits.Temperature TSurAirOut
     "Surface Temperature at air outlet";
-  input Real delta = 1E-3 "Small value used for smoothing";
-  input Modelica.SIunits.MassFlowRate mAir_flow_nominal;
-  input Modelica.SIunits.MassFlowRate mWat_flow_nominal;
-
-//protected
 
 
 equation
@@ -86,27 +84,10 @@ equation
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(revisions="<html>
 <ul>
-<li>
-April 14, 2017, by Michael Wetter:<br/>
-Changed sign of heat transfer so that sensible and total heat transfer
-have the same sign.
-</li>
-<li>
-March 17, 2017, by Michael O'Keefe:<br/>
-First implementation. See
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/622\">
-issue 622</a> for more information.
-</li>
+<li>Jan 21, 2021, by Donghun Kim:<br>First implementation of the fuzzy model. See <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/622\">issue 622</a> for more information. </li>
 </ul>
 </html>", info="<html>
-<p>
-This model implements the calculation for a 100% dry coil.
-</p>
-
-<p>
-See
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.WetEffectivenessNTU\">
-Buildings.Fluid.HeatExchangers.WetEffectivenessNTU</a> for documentation.
-</p>
+<p>This model implements the calculation for a 100&percnt; dry coil. </p>
+<p>See Buildings.Fluid.HeatExchangers.DryCoilEffectivenessNTU for documentation. </p>
 </html>"));
 end DryCalcsFuzzy_V3;

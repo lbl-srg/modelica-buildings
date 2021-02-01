@@ -27,9 +27,9 @@ isobaricExpansionCoefficientWater
 lmtd
 ntu_epsilonZ
 prandtlNumberWater
-Examples
 sigmoid
 determineWaterIndex
 DryCalcsFuzzy_V3
 WetcalcsFuzzy_V3
 DryWetCalcsFuzzy_V3
+Examples
