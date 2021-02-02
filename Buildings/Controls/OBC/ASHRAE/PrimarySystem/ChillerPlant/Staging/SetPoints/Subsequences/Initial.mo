@@ -199,7 +199,7 @@ The following state machine chart illustrates the initial stage selection for pl
 </p>
 <p align=\"center\">
 <img alt=\"Image of initial stage selection state machine chart\"
-src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Staging/SetPoints/Subsequences/InitiatialStageSelectionStateGraph.png\"/>
+src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Staging/SetPoints/Subsequences/InitialStageSelectionStateGraph.png\"/>
 </p>
 </html>",
 revisions="<html>
