@@ -145,11 +145,6 @@ model Guideline36
     annotation (Placement(transformation(extent={{-140,220},{-120,240}})));
 
 equation
-  connect(fanSup.port_b, dpDisSupFan.port_a) annotation (Line(
-      points={{320,-40},{320,0},{320,-10},{320,-10}},
-      color={0,0,0},
-      smooth=Smooth.None,
-      pattern=LinePattern.Dot));
   connect(conVAVCor.TZon, TRooAir.y5[1]) annotation (Line(
       points={{470,106},{520,106},{520,275},{480,275}},
       color={0,0,127},

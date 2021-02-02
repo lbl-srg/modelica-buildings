@@ -2,8 +2,7 @@ within Buildings.Experimental.DHC.Networks.BaseClasses;
 model DifferenceEnthalpyFlowRate
   "Sensor outputting the difference between two enthalpy flow rates"
   extends Fluid.Interfaces.PartialFourPortInterface(
-    redeclare final package Medium1=Medium,
-    redeclare final package Medium2=Medium,
+    redeclare replaceable package Medium2=Medium1,
     final m1_flow_nominal=m_flow_nominal,
     final m2_flow_nominal=m_flow_nominal,
     final allowFlowReversal1=allowFlowReversal,
@@ -11,14 +10,8 @@ model DifferenceEnthalpyFlowRate
     final m1_flow_small=m_flow_small,
     final m2_flow_small=m_flow_small,
     final show_T=false);
-  replaceable package Medium=Modelica.Media.Interfaces.PartialMedium
-    "Medium in the component"
-    annotation (choices(choice(redeclare package Medium=Buildings.Media.Water "Water"),
-    choice(redeclare package Medium =
-            Buildings.Media.Antifreeze.PropyleneGlycolWater (                       property_T=293.15,X_a=0.40)
-    "Propylene glycol water, 40% mass fraction")));
   parameter Boolean have_integrator=false
-    "Set to true to output the time integral "
+    "Set to true to output the time integral"
     annotation (Evaluate=true);
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal(
     min=0)
@@ -33,43 +26,47 @@ model DifferenceEnthalpyFlowRate
   parameter Boolean allowFlowReversal=true
     "= false to simplify equations, assuming, but not enforcing, no flow reversal"
     annotation (Dialog(tab="Assumptions"),Evaluate=true);
-  parameter Modelica.SIunits.SpecificEnthalpy h_out_start=Medium.specificEnthalpy_pTX(
-    p=Medium.p_default,
-    T=Medium.T_default,
-    X=Medium.X_default)
+  parameter Modelica.SIunits.SpecificEnthalpy h1_out_start=Medium1.specificEnthalpy_pTX(
+    p=Medium1.p_default,
+    T=Medium1.T_default,
+    X=Medium1.X_default)
     "Initial or guess value of measured specific enthalpy"
     annotation (Dialog(group="Initialization"));
-  parameter Medium1.MassFlowRate m_flow_small(
-    min=0)=1E-4*abs(
-    m_flow_nominal)
+  parameter Modelica.SIunits.SpecificEnthalpy h2_out_start=Medium2.specificEnthalpy_pTX(
+    p=Medium2.p_default,
+    T=Medium2.T_default,
+    X=Medium2.X_default)
+    "Initial or guess value of measured specific enthalpy"
+    annotation (Dialog(group="Initialization"));
+  parameter Medium1.MassFlowRate m_flow_small(min=0)=1E-4*abs(m_flow_nominal)
     "Small mass flow rate for regularization of zero flow"
     annotation (Dialog(tab="Advanced"));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput dH_flow(
     final unit="W")
     "Difference in enthalpy flow rate between stream 1 and 2"
     annotation (Placement(transformation(origin={120,20},extent={{-20,-20},{20,20}},rotation=0),
-    iconTransformation(extent={{-20,-20},{20,20}},rotation=0,origin={120,30})));
+      iconTransformation(extent={{-20,-20},{20,20}},rotation=0,origin={120,30})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput E(
     final unit="J") if have_integrator
     "Time integral of enthalpy flow rate difference between stream 1 and 2"
     annotation (Placement(transformation(origin={120,-20},extent={{-20,-20},{20,20}},rotation=0),
-    iconTransformation(extent={{-20,-20},{20,20}},rotation=0,origin={120,-30})));
+      iconTransformation(extent={{-20,-20},{20,20}},rotation=0,origin={120,-30})));
   Fluid.Sensors.EnthalpyFlowRate senEntFlo1(
-    redeclare final package Medium=Medium,
+    redeclare final package Medium=Medium1,
     final m_flow_nominal=m_flow_nominal,
     final tau=tau,
     final initType=initType,
     final allowFlowReversal=allowFlowReversal,
-    final h_out_start=h_out_start)
+    final h_out_start=h1_out_start)
     "Enthalpy flow rate of fluid stream 1"
     annotation (Placement(transformation(extent={{-10,70},{10,50}})));
   Fluid.Sensors.EnthalpyFlowRate senEntFlo2(
-    redeclare final package Medium=Medium,
+    redeclare final package Medium=Medium2,
     final m_flow_nominal=m_flow_nominal,
     final tau=tau,
     final initType=initType,
     final allowFlowReversal=allowFlowReversal,
-    final h_out_start=h_out_start)
+    final h_out_start=h2_out_start)
     "Enthalpy flow rate of fluid stream 2"
     annotation (Placement(transformation(extent={{10,-70},{-10,-50}})));
   Buildings.Controls.OBC.CDL.Continuous.Add dif(
@@ -174,23 +171,33 @@ equation
     Documentation(
       info="<html>
 <p>
-This model outputs the difference in enthalpy flow rate of the same
-medium between two different streams:
+This model outputs the difference in enthalpy flow rate
+between two different streams:
 <i>&Delta;H&#775; = m&#775;<sub>1</sub> h<sub>1</sub> - m&#775;<sub>2</sub> h<sub>2</sub></i>.
 Optionally the time integral of this quantity can be output.
 The sensor is ideal, i.e., it does not influence the fluid.
 </p>
 <p>
-By default the parameter <code>tau</code> is zero, so the
-specific enthalpy that is used to compute each enthalpy flow rate
-is computed in steady-state.
+By default
 </p>
+<ul>
+<li>
+the parameter <code>tau</code> is zero, so the
+specific enthalpy that is used to compute each enthalpy flow rate
+is computed in steady-state,
+</li>
+<li>
+the medium is the same in both streams but the model
+allows for specifying two different media to represent for
+instance the gaseous and liquid state of the same substance.
+</li>
+</ul>
 </html>",
       revisions="<html>
 <ul>
 <li>
 October 8, 2020, by Antoine Gautier:<br/>
-First implementation
+First implementation.
 </li>
 </ul>
 </html>"));

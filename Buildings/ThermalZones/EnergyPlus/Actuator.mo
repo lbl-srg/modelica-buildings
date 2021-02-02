@@ -43,7 +43,7 @@ initial equation
     "Use of pre-compiled FMU is not supported for block Actuator.");
   Buildings.ThermalZones.EnergyPlus.BaseClasses.inputVariableInitialize(
     adapter=adapter,
-    startTime=time);
+    startTime=startTime);
 equation
   y=Buildings.ThermalZones.EnergyPlus.BaseClasses.inputVariableExchange(
     adapter,

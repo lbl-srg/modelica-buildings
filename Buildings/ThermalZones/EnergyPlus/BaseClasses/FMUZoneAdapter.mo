@@ -146,7 +146,7 @@ initial equation
   counter=0;
   (AFlo,V,mSenFac)=Buildings.ThermalZones.EnergyPlus.BaseClasses.zoneInitialize(
     adapter=adapter,
-    startTime=time);
+    startTime=startTime);
   TAveInlet=293.15;
   m_flow_small=V*3*1.2/3600*1E-10;
 

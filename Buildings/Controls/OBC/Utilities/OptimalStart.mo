@@ -78,7 +78,6 @@ block OptimalStart
   Buildings.Controls.OBC.Utilities.BaseClasses.OptimalStartCalculation optHea(
     final tOptMax=tOptMax,
     final thrOptOn=thrOptOn,
-    final tOptDef=tOptDef,
     final nDay=nDay,
     final uLow=uLow,
     final uHigh=uHigh) if computeHeating
@@ -87,7 +86,6 @@ block OptimalStart
   Buildings.Controls.OBC.Utilities.BaseClasses.OptimalStartCalculation optCoo(
     final tOptMax=tOptMax,
     final thrOptOn=thrOptOn,
-    final tOptDef=tOptDef,
     final nDay=nDay,
     final uLow=uLow,
     final uHigh=uHigh) if computeCooling
@@ -97,11 +95,6 @@ block OptimalStart
     "Hysteresis to activate the optimal start boolean output"
     annotation (Placement(transformation(extent={{-70,-10},{-50,10}})));
 protected
-  parameter Real tOptDef(
-     final quantity="Time",
-    final unit="s",
-    displayUnit="h") = 3600
-    "Default optimal start time";
   Buildings.Controls.OBC.CDL.Continuous.Max max
     "Get the maximum optimal start time "
     annotation (Placement(transformation(extent={{100,30},{120,50}})));
@@ -296,6 +289,13 @@ Buildings.Controls.OBC.Utilities.Validation</a>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+January 30, 2021, by Michael Wetter:<br/>
+Refactored sampling of history of temperature slope to only sample when control error requires optimal start up.
+Refactored guarding against division by zero.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2345\">#2345</a>.
+</li>
 <li>
 August 6, 2020, by Michael Wetter:<br/>
 Replaced hysteresis with new inequality block.
