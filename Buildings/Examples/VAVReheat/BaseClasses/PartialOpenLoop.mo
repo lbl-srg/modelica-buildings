@@ -106,6 +106,8 @@ partial model PartialOpenLoop
     "Building static pressure";
   parameter Real yFanMin = 0.1 "Minimum fan speed";
 
+  parameter Modelica.SIunits.Temperature THWSup=355.35;
+
   parameter Boolean allowFlowReversal=true
     "= false to simplify equations, assuming, but not enforcing, no flow reversal"
     annotation (Evaluate=true);
@@ -191,10 +193,10 @@ partial model PartialOpenLoop
     redeclare package Medium = MediumW,
     p=300000,
     T=318.15,
-    nPorts=1) "Sink for heating coil" annotation (Placement(transformation(
+    nPorts=6) "Sink for heating coil" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={80,-122})));
+        rotation=0,
+        origin={80,-238})));
   Buildings.Fluid.Sources.Boundary_pT sinCoo(
     redeclare package Medium = MediumW,
     p=300000,
@@ -249,7 +251,7 @@ partial model PartialOpenLoop
     annotation (Placement(transformation(extent={{30,-50},{50,-30}})));
   Buildings.Fluid.Sources.MassFlowSource_T souHea(
     redeclare package Medium = MediumW,
-    T=318.15,
+    T=THWSup,
     use_m_flow_in=true,
     nPorts=1)           "Source for heating coil" annotation (Placement(
         transformation(
@@ -265,7 +267,8 @@ partial model PartialOpenLoop
     redeclare package MediumW = MediumW,
     m_flow_nominal=mCor_flow_nominal,
     VRoo=VRooCor,
-    allowFlowReversal=allowFlowReversal)
+    allowFlowReversal=allowFlowReversal,
+    T_HW_nominal=THWSup)
     "Zone for core of buildings (azimuth will be neglected)"
     annotation (Placement(transformation(extent={{570,22},{610,62}})));
   Buildings.Examples.VAVReheat.BaseClasses.VAVBranch sou(
@@ -273,28 +276,32 @@ partial model PartialOpenLoop
     redeclare package MediumW = MediumW,
     m_flow_nominal=mSou_flow_nominal,
     VRoo=VRooSou,
-    allowFlowReversal=allowFlowReversal) "South-facing thermal zone"
+    allowFlowReversal=allowFlowReversal,
+    T_HW_nominal=THWSup)                                 "South-facing thermal zone"
     annotation (Placement(transformation(extent={{750,20},{790,60}})));
   Buildings.Examples.VAVReheat.BaseClasses.VAVBranch eas(
     redeclare package MediumA = MediumA,
     redeclare package MediumW = MediumW,
     m_flow_nominal=mEas_flow_nominal,
     VRoo=VRooEas,
-    allowFlowReversal=allowFlowReversal) "East-facing thermal zone"
+    allowFlowReversal=allowFlowReversal,
+    T_HW_nominal=THWSup)                                 "East-facing thermal zone"
     annotation (Placement(transformation(extent={{930,20},{970,60}})));
   Buildings.Examples.VAVReheat.BaseClasses.VAVBranch nor(
     redeclare package MediumA = MediumA,
     redeclare package MediumW = MediumW,
     m_flow_nominal=mNor_flow_nominal,
     VRoo=VRooNor,
-    allowFlowReversal=allowFlowReversal) "North-facing thermal zone"
+    allowFlowReversal=allowFlowReversal,
+    T_HW_nominal=THWSup)                                 "North-facing thermal zone"
     annotation (Placement(transformation(extent={{1090,20},{1130,60}})));
   Buildings.Examples.VAVReheat.BaseClasses.VAVBranch wes(
     redeclare package MediumA = MediumA,
     redeclare package MediumW = MediumW,
     m_flow_nominal=mWes_flow_nominal,
     VRoo=VRooWes,
-    allowFlowReversal=allowFlowReversal) "West-facing thermal zone"
+    allowFlowReversal=allowFlowReversal,
+    T_HW_nominal=THWSup)                                 "West-facing thermal zone"
     annotation (Placement(transformation(extent={{1290,20},{1330,60}})));
   Buildings.Fluid.FixedResistances.Junction splRetRoo1(
     redeclare package Medium = MediumA,
@@ -376,7 +383,7 @@ partial model PartialOpenLoop
     portFlowDirection_3=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
          else Modelica.Fluid.Types.PortFlowDirection.Leaving)
     "Splitter for room supply"
-    annotation (Placement(transformation(extent={{570,-30},{590,-50}})));
+    annotation (Placement(transformation(extent={{580,-30},{600,-50}})));
   Buildings.Fluid.FixedResistances.Junction splSupSou(
     redeclare package Medium = MediumA,
     m_flow_nominal={mSou_flow_nominal + mEas_flow_nominal + mNor_flow_nominal
@@ -393,7 +400,7 @@ partial model PartialOpenLoop
     portFlowDirection_3=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
          else Modelica.Fluid.Types.PortFlowDirection.Leaving)
     "Splitter for room supply"
-    annotation (Placement(transformation(extent={{750,-30},{770,-50}})));
+    annotation (Placement(transformation(extent={{760,-30},{780,-50}})));
   Buildings.Fluid.FixedResistances.Junction splSupEas(
     redeclare package Medium = MediumA,
     m_flow_nominal={mEas_flow_nominal + mNor_flow_nominal + mWes_flow_nominal,
@@ -409,7 +416,7 @@ partial model PartialOpenLoop
     portFlowDirection_3=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
          else Modelica.Fluid.Types.PortFlowDirection.Leaving)
     "Splitter for room supply"
-    annotation (Placement(transformation(extent={{930,-30},{950,-50}})));
+    annotation (Placement(transformation(extent={{940,-30},{960,-50}})));
   Buildings.Fluid.FixedResistances.Junction splSupNor(
     redeclare package Medium = MediumA,
     m_flow_nominal={mNor_flow_nominal + mWes_flow_nominal,mWes_flow_nominal,
@@ -425,7 +432,7 @@ partial model PartialOpenLoop
     portFlowDirection_3=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
          else Modelica.Fluid.Types.PortFlowDirection.Leaving)
     "Splitter for room supply"
-    annotation (Placement(transformation(extent={{1090,-30},{1110,-50}})));
+    annotation (Placement(transformation(extent={{1100,-30},{1120,-50}})));
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
         Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
     annotation (Placement(transformation(extent={{-360,170},{-340,190}})));
@@ -435,7 +442,9 @@ partial model PartialOpenLoop
 
   Modelica.Blocks.Routing.DeMultiplex5 TRooAir(u(each unit="K", each
         displayUnit="degC")) "Demultiplex for room air temperature"
-    annotation (Placement(transformation(extent={{490,160},{510,180}})));
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=270,
+        origin={488,286})));
 
   Fluid.Sensors.TemperatureTwoPort TSupCor(
     redeclare package Medium = MediumA,
@@ -590,16 +599,96 @@ protected
 public
   Buildings.Controls.OBC.CDL.Continuous.Gain gaiHeaCoi(k=m_flow_nominal*1000*40
         /4200/10) "Gain for heating coil mass flow rate"
-    annotation (Placement(transformation(extent={{100,-220},{120,-200}})));
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={124,-172})));
   Buildings.Controls.OBC.CDL.Continuous.Gain gaiCooCoi(k=m_flow_nominal*1000*15
         /4200/10) "Gain for cooling coil mass flow rate"
-    annotation (Placement(transformation(extent={{100,-258},{120,-238}})));
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={222,-174})));
   Buildings.Controls.OBC.CDL.Logical.OnOffController freSta(bandwidth=1)
     "Freeze stat for heating coil"
     annotation (Placement(transformation(extent={{0,-100},{20,-80}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant freStaTSetPoi(k=273.15
          + 3) "Freeze stat set point for heating coil"
     annotation (Placement(transformation(extent={{-40,-100},{-20,-80}})));
+  Fluid.Sources.MassFlowSource_T souHeaCor(
+    redeclare package Medium = MediumW,
+    T=THWSup,
+    use_m_flow_in=true,
+    nPorts=1) "Source for core zone reheat coil" annotation (Placement(
+        transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={540,38})));
+  Fluid.Sources.MassFlowSource_T souHeaSou(
+    redeclare package Medium = MediumW,
+    T=THWSup,
+    use_m_flow_in=true,
+    nPorts=1) "Source for south zone reheat coil" annotation (Placement(
+        transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={722,36})));
+  Fluid.Sources.MassFlowSource_T souHeaEas(
+    redeclare package Medium = MediumW,
+    T=THWSup,
+    use_m_flow_in=true,
+    nPorts=1) "Source for east zone reheat coil" annotation (Placement(
+        transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={896,36})));
+  Fluid.Sources.MassFlowSource_T souHeaNor(
+    redeclare package Medium = MediumW,
+    T=THWSup,
+    use_m_flow_in=true,
+    nPorts=1) "Source for north zone reheat coil" annotation (Placement(
+        transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={1058,36})));
+  Fluid.Sources.MassFlowSource_T souHeaWes(
+    redeclare package Medium = MediumW,
+    T=THWSup,
+    use_m_flow_in=true,
+    nPorts=1) "Source for west zone reheat coil" annotation (Placement(
+        transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={1252,36})));
+
+  Buildings.Controls.OBC.CDL.Continuous.Gain gaiHeaCoiCor(
+    k=cor.m_flow_HW_nominal) "Gain for core zone reheat coil mass flow rate"
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={504,46})));
+  Buildings.Controls.OBC.CDL.Continuous.Gain gaiHeaCoiSou(
+    k=sou.m_flow_HW_nominal) "Gain for south zone reheat coil mass flow rate"
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={690,44})));
+  Buildings.Controls.OBC.CDL.Continuous.Gain gaiHeaCoiEas(
+    k=eas.m_flow_HW_nominal) "Gain for east zone reheat coil mass flow rate"
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={862,44})));
+  Buildings.Controls.OBC.CDL.Continuous.Gain gaiHeaCoiNor(
+    k=nor.m_flow_HW_nominal) "Gain for north zone reheat coil mass flow rate"
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={1028,44})));
+  Buildings.Controls.OBC.CDL.Continuous.Gain gaiHeaCoiWes(
+    k=wes.m_flow_HW_nominal) "Gain for west zone reheat coil mass flow rate"
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={1218,44})));
 equation
   connect(fanSup.port_b, dpDisSupFan.port_a) annotation (Line(
       points={{320,-40},{320,-10}},
@@ -636,42 +725,42 @@ equation
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
-  connect(splSupRoo1.port_3, cor.port_a) annotation (Line(
-      points={{580,-30},{580,22}},
+  connect(splSupRoo1.port_3, cor.port_aAir) annotation (Line(
+      points={{590,-30},{590,-4},{590,22},{580,22}},
       color={0,127,255},
       thickness=0.5));
   connect(splSupRoo1.port_2, splSupSou.port_1) annotation (Line(
-      points={{590,-40},{750,-40}},
+      points={{600,-40},{760,-40}},
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
-  connect(splSupSou.port_3, sou.port_a) annotation (Line(
-      points={{760,-30},{760,20}},
+  connect(splSupSou.port_3, sou.port_aAir) annotation (Line(
+      points={{770,-30},{770,-6},{770,20},{760,20}},
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
   connect(splSupSou.port_2, splSupEas.port_1) annotation (Line(
-      points={{770,-40},{930,-40}},
+      points={{780,-40},{940,-40}},
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
-  connect(splSupEas.port_3, eas.port_a) annotation (Line(
-      points={{940,-30},{940,20}},
+  connect(splSupEas.port_3, eas.port_aAir) annotation (Line(
+      points={{950,-30},{950,-6},{950,20},{940,20}},
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
   connect(splSupEas.port_2, splSupNor.port_1) annotation (Line(
-      points={{950,-40},{1090,-40}},
+      points={{960,-40},{1100,-40}},
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
-  connect(splSupNor.port_3, nor.port_a) annotation (Line(
-      points={{1100,-30},{1100,20}},
+  connect(splSupNor.port_3, nor.port_aAir) annotation (Line(
+      points={{1110,-30},{1110,-6},{1110,20},{1100,20}},
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
-  connect(splSupNor.port_2, wes.port_a) annotation (Line(
-      points={{1110,-40},{1300,-40},{1300,20}},
+  connect(splSupNor.port_2, wes.port_aAir) annotation (Line(
+      points={{1120,-40},{1300,-40},{1300,20}},
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
@@ -731,7 +820,7 @@ equation
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
   connect(TRooAir.u, flo.TRooAir) annotation (Line(
-      points={{488,170},{480,170},{480,538},{1164,538},{1164,506},{1107.13,506}},
+      points={{488,298},{488,538},{1164,538},{1164,506},{1107.13,506}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
@@ -741,25 +830,25 @@ equation
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
-  connect(cor.port_b, TSupCor.port_a) annotation (Line(
-      points={{580,62},{580,82}},
+  connect(cor.port_bAir, TSupCor.port_a) annotation (Line(
+      points={{580,62},{580,72},{580,72},{580,82}},
       color={0,127,255},
       thickness=0.5));
 
-  connect(sou.port_b, TSupSou.port_a) annotation (Line(
-      points={{760,60},{760,82}},
+  connect(sou.port_bAir, TSupSou.port_a) annotation (Line(
+      points={{760,60},{760,72},{760,72},{760,82}},
       color={0,127,255},
       thickness=0.5));
-  connect(eas.port_b, TSupEas.port_a) annotation (Line(
-      points={{940,60},{940,80}},
+  connect(eas.port_bAir, TSupEas.port_a) annotation (Line(
+      points={{940,60},{940,70},{940,70},{940,80}},
       color={0,127,255},
       thickness=0.5));
-  connect(nor.port_b, TSupNor.port_a) annotation (Line(
-      points={{1100,60},{1100,84}},
+  connect(nor.port_bAir, TSupNor.port_a) annotation (Line(
+      points={{1100,60},{1100,72},{1100,72},{1100,84}},
       color={0,127,255},
       thickness=0.5));
-  connect(wes.port_b, TSupWes.port_a) annotation (Line(
-      points={{1300,60},{1300,80}},
+  connect(wes.port_bAir, TSupWes.port_a) annotation (Line(
+      points={{1300,60},{1300,70},{1300,70},{1300,80}},
       color={0,127,255},
       thickness=0.5));
 
@@ -826,15 +915,15 @@ equation
   connect(TSup.port_b, senSupFlo.port_a)
     annotation (Line(points={{350,-40},{400,-40}}, color={0,127,255}));
   connect(senSupFlo.port_b, splSupRoo1.port_1)
-    annotation (Line(points={{420,-40},{570,-40}}, color={0,127,255}));
+    annotation (Line(points={{420,-40},{580,-40}}, color={0,127,255}));
   connect(cooCoi.port_a1, souCoo.ports[1]) annotation (Line(
       points={{210,-52},{230,-52},{230,-110}},
       color={28,108,200},
       thickness=0.5));
-  connect(gaiHeaCoi.y, souHea.m_flow_in) annotation (Line(points={{122,-210},{124,
-          -210},{124,-132}},     color={0,0,127}));
-  connect(gaiCooCoi.y, souCoo.m_flow_in) annotation (Line(points={{122,-248},{222,
-          -248},{222,-132}},     color={0,0,127}));
+  connect(gaiHeaCoi.y, souHea.m_flow_in) annotation (Line(points={{124,-160},{
+          124,-132}},            color={0,0,127}));
+  connect(gaiCooCoi.y, souCoo.m_flow_in) annotation (Line(points={{222,-162},{
+          222,-132}},            color={0,0,127}));
   connect(dpDisSupFan.port_b, amb.ports[3]) annotation (Line(
       points={{320,10},{320,14},{-88,14},{-88,-47.9333},{-114,-47.9333}},
       color={0,0,0},
@@ -859,9 +948,44 @@ equation
       color={28,108,200},
       thickness=0.5));
   connect(heaCoi.port_b1, sinHea.ports[1]) annotation (Line(
-      points={{98,-52},{80,-52},{80,-112}},
+      points={{98,-52},{90,-52},{90,-234.667}},
       color={28,108,200},
       thickness=0.5));
+  connect(cor.port_bHotWat, sinHea.ports[2]) annotation (Line(points={{570.4,
+          29.2},{552,29.2},{552,-240},{322,-240},{322,-236},{90,-236}},
+                                          color={0,127,255}));
+  connect(sou.port_bHotWat, sinHea.ports[3]) annotation (Line(points={{750.4,
+          27.2},{734,27.2},{734,-240},{412,-240},{412,-237.333},{90,-237.333}},
+                                                  color={0,127,255}));
+  connect(eas.port_bHotWat, sinHea.ports[4]) annotation (Line(points={{930.4,
+          27.2},{918,27.2},{918,-240},{504,-240},{504,-238.667},{90,-238.667}},
+                                                  color={0,127,255}));
+  connect(nor.port_bHotWat, sinHea.ports[5]) annotation (Line(points={{1090.4,
+          27.2},{1078,27.2},{1078,-240},{90,-240}},
+                                            color={0,127,255}));
+  connect(wes.port_bHotWat, sinHea.ports[6]) annotation (Line(points={{1290.4,
+          27.2},{1278,27.2},{1278,-240},{90,-240},{90,-241.333}},
+                                                          color={0,127,255}));
+  connect(souHeaCor.m_flow_in, gaiHeaCoiCor.y)
+    annotation (Line(points={{528,46},{516,46}}, color={0,0,127}));
+  connect(souHeaSou.m_flow_in, gaiHeaCoiSou.y)
+    annotation (Line(points={{710,44},{702,44}}, color={0,0,127}));
+  connect(souHeaEas.m_flow_in, gaiHeaCoiEas.y)
+    annotation (Line(points={{884,44},{874,44}}, color={0,0,127}));
+  connect(souHeaNor.m_flow_in, gaiHeaCoiNor.y)
+    annotation (Line(points={{1046,44},{1040,44}}, color={0,0,127}));
+  connect(souHeaWes.m_flow_in, gaiHeaCoiWes.y)
+    annotation (Line(points={{1240,44},{1230,44}}, color={0,0,127}));
+  connect(souHeaCor.ports[1], cor.port_aHotWat) annotation (Line(points={{550,38},
+          {558,38},{558,40},{570,40}},         color={0,127,255}));
+  connect(souHeaSou.ports[1], sou.port_aHotWat) annotation (Line(points={{732,36},
+          {740,36},{740,38},{750,38}},         color={0,127,255}));
+  connect(souHeaEas.ports[1], eas.port_aHotWat) annotation (Line(points={{906,36},
+          {920,36},{920,38},{930,38}},         color={0,127,255}));
+  connect(souHeaNor.ports[1], nor.port_aHotWat) annotation (Line(points={{1068,36},
+          {1080,36},{1080,38},{1090,38}},         color={0,127,255}));
+  connect(souHeaWes.ports[1], wes.port_aHotWat) annotation (Line(points={{1262,36},
+          {1280,36},{1280,38},{1290,38}},         color={0,127,255}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-380,
             -400},{1420,660}})), Documentation(info="<html>
 <p>

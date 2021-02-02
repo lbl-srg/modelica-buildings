@@ -4,7 +4,12 @@ model ASHRAE2006
   extends Modelica.Icons.Example;
   extends Buildings.Examples.VAVReheat.BaseClasses.PartialOpenLoop(
     heaCoi(show_T=true),
-    cooCoi(show_T=true));
+    cooCoi(show_T=true),
+    cor(ratVFloHea=ratVFloHea),
+    sou(ratVFloHea=ratVFloHea),
+    eas(ratVFloHea=ratVFloHea),
+    nor(ratVFloHea=ratVFloHea),
+    wes(ratVFloHea=ratVFloHea));
 
   parameter Real ratVMinCor_flow(final unit="1")=
     max(1.5*VCorOA_flow_nominal, 0.15*mCor_flow_nominal/1.2) /
@@ -26,6 +31,8 @@ model ASHRAE2006
     max(1.5*VWesOA_flow_nominal, 0.15*mWes_flow_nominal/1.2) /
     (mWes_flow_nominal/1.2)
     "Minimum discharge air flow rate ratio";
+
+  final parameter Real ratVFloHea = 0.3 "Heating flow rate ratio";
 
   Controls.FanVFD conFanSup(xSet_nominal(displayUnit="Pa") = 410, r_N_min=
         yFanMin)
@@ -53,21 +60,21 @@ model ASHRAE2006
     nin=5,
     pMin=50) "Duct static pressure setpoint"
     annotation (Placement(transformation(extent={{160,-16},{180,4}})));
-  Controls.RoomVAV conVAVCor(ratVFloMin=ratVMinCor_flow, ratVFloHea=0.3)
+  Controls.RoomVAV conVAVCor(ratVFloMin=ratVMinCor_flow, ratVFloHea=ratVFloHea)
     "Controller for terminal unit corridor"
-    annotation (Placement(transformation(extent={{530,32},{550,52}})));
-  Controls.RoomVAV conVAVSou(ratVFloMin=ratVMinSou_flow, ratVFloHea=0.3)
+    annotation (Placement(transformation(extent={{486,88},{506,108}})));
+  Controls.RoomVAV conVAVSou(ratVFloMin=ratVMinSou_flow, ratVFloHea=ratVFloHea)
                              "Controller for terminal unit south"
-    annotation (Placement(transformation(extent={{700,30},{720,50}})));
-  Controls.RoomVAV conVAVEas(ratVFloMin=ratVMinEas_flow, ratVFloHea=0.3)
+    annotation (Placement(transformation(extent={{698,-126},{718,-106}})));
+  Controls.RoomVAV conVAVEas(ratVFloMin=ratVMinEas_flow, ratVFloHea=ratVFloHea)
                              "Controller for terminal unit east"
-    annotation (Placement(transformation(extent={{880,30},{900,50}})));
-  Controls.RoomVAV conVAVNor(ratVFloMin=ratVMinNor_flow, ratVFloHea=0.3)
+    annotation (Placement(transformation(extent={{880,-124},{900,-104}})));
+  Controls.RoomVAV conVAVNor(ratVFloMin=ratVMinNor_flow, ratVFloHea=ratVFloHea)
                              "Controller for terminal unit north"
-    annotation (Placement(transformation(extent={{1040,30},{1060,50}})));
-  Controls.RoomVAV conVAVWes(ratVFloMin=ratVMinWes_flow, ratVFloHea=0.3)
+    annotation (Placement(transformation(extent={{1046,-124},{1066,-104}})));
+  Controls.RoomVAV conVAVWes(ratVFloMin=ratVMinWes_flow, ratVFloHea=ratVFloHea)
                              "Controller for terminal unit west"
-    annotation (Placement(transformation(extent={{1240,28},{1260,48}})));
+    annotation (Placement(transformation(extent={{1246,-122},{1266,-102}})));
 
   Buildings.Controls.OBC.CDL.Logical.Or or2
     annotation (Placement(transformation(extent={{-60,-250},{-40,-230}})));
@@ -139,66 +146,61 @@ equation
       pattern=LinePattern.Dash));
 
   connect(conVAVCor.TRoo, TRooAir.y5[1]) annotation (Line(
-      points={{529,35},{520,35},{520,162},{511,162}},
+      points={{485,91},{520,91},{520,275},{480,275}},
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(conVAVSou.TRoo, TRooAir.y1[1]) annotation (Line(
-      points={{699,33},{690,33},{690,36},{680,36},{680,178},{511,178}},
+      points={{697,-123},{700,-123},{700,84},{690,84},{690,275},{496,275}},
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(TRooAir.y2[1], conVAVEas.TRoo) annotation (Line(
-      points={{511,174},{868,174},{868,33},{879,33}},
+      points={{492,275},{868,275},{868,-121},{879,-121}},
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(TRooAir.y3[1], conVAVNor.TRoo) annotation (Line(
-      points={{511,170},{1028,170},{1028,33},{1039,33}},
+      points={{488,275},{1028,275},{1028,-121},{1045,-121}},
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(TRooAir.y4[1], conVAVWes.TRoo) annotation (Line(
-      points={{511,166},{1220,166},{1220,31},{1239,31}},
+      points={{484,275},{1220,275},{1220,-119},{1245,-119}},
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(cor.yVAV, conVAVCor.yDam) annotation (Line(points={{566,50},{556,50},
-          {556,46.8},{551,46.8}},color={0,0,127}));
-  connect(cor.yVal, conVAVCor.yVal) annotation (Line(points={{566,34},{560,34},
-          {560,37},{551,37}},color={0,0,127}));
-  connect(conVAVSou.yDam, sou.yVAV) annotation (Line(points={{721,44.8},{730,
-          44.8},{730,48},{746,48}}, color={0,0,127}));
-  connect(conVAVSou.yVal, sou.yVal) annotation (Line(points={{721,35},{732.5,35},
-          {732.5,32},{746,32}}, color={0,0,127}));
-  connect(conVAVEas.yVal, eas.yVal) annotation (Line(points={{901,35},{912.5,35},
-          {912.5,32},{926,32}}, color={0,0,127}));
-  connect(conVAVEas.yDam, eas.yVAV) annotation (Line(points={{901,44.8},{910,
-          44.8},{910,48},{926,48}}, color={0,0,127}));
-  connect(conVAVNor.yDam, nor.yVAV) annotation (Line(points={{1061,44.8},{
-          1072.5,44.8},{1072.5,48},{1086,48}}, color={0,0,127}));
-  connect(conVAVNor.yVal, nor.yVal) annotation (Line(points={{1061,35},{1072.5,
-          35},{1072.5,32},{1086,32}}, color={0,0,127}));
-  connect(conVAVCor.TRooHeaSet, controlBus.TRooSetHea) annotation (Line(points={{528,49},
-          {480,49},{480,-342},{-240,-342}},          color={0,0,127}));
-  connect(conVAVCor.TRooCooSet, controlBus.TRooSetCoo) annotation (Line(points={{528,42},
-          {480,42},{480,-342},{-240,-342}},          color={0,0,127}));
-  connect(conVAVSou.TRooHeaSet, controlBus.TRooSetHea) annotation (Line(points={{698,47},
-          {660,47},{660,-342},{-240,-342}},          color={0,0,127}));
-  connect(conVAVSou.TRooCooSet, controlBus.TRooSetCoo) annotation (Line(points={{698,40},
-          {660,40},{660,-342},{-240,-342}},          color={0,0,127}));
-  connect(conVAVEas.TRooHeaSet, controlBus.TRooSetHea) annotation (Line(points={{878,47},
-          {850,47},{850,-342},{-240,-342}},          color={0,0,127}));
-  connect(conVAVEas.TRooCooSet, controlBus.TRooSetCoo) annotation (Line(points={{878,40},
-          {850,40},{850,-342},{-240,-342}},          color={0,0,127}));
-  connect(conVAVNor.TRooHeaSet, controlBus.TRooSetHea) annotation (Line(points={{1038,47},
-          {1020,47},{1020,-342},{-240,-342}},           color={0,0,127}));
-  connect(conVAVNor.TRooCooSet, controlBus.TRooSetCoo) annotation (Line(points={{1038,40},
-          {1020,40},{1020,-342},{-240,-342}},           color={0,0,127}));
-  connect(conVAVWes.TRooHeaSet, controlBus.TRooSetHea) annotation (Line(points={{1238,45},
-          {1202,45},{1202,-342},{-240,-342}},           color={0,0,127}));
-  connect(conVAVWes.TRooCooSet, controlBus.TRooSetCoo) annotation (Line(points={{1238,38},
-          {1202,38},{1202,-342},{-240,-342}},           color={0,0,127}));
+          {556,102.8},{507,102.8}},
+                                 color={0,0,127}));
+  connect(conVAVSou.yDam, sou.yVAV) annotation (Line(points={{719,-111.2},{730,
+          -111.2},{730,48},{746,48}},
+                                    color={0,0,127}));
+  connect(conVAVEas.yDam, eas.yVAV) annotation (Line(points={{901,-109.2},{910,
+          -109.2},{910,48},{926,48}},
+                                    color={0,0,127}));
+  connect(conVAVNor.yDam, nor.yVAV) annotation (Line(points={{1067,-109.2},{
+          1072.5,-109.2},{1072.5,48},{1086,48}},
+                                               color={0,0,127}));
+  connect(conVAVCor.TRooHeaSet, controlBus.TRooSetHea) annotation (Line(points={{484,105},
+          {474,105},{474,-342},{-240,-342}},         color={0,0,127}));
+  connect(conVAVCor.TRooCooSet, controlBus.TRooSetCoo) annotation (Line(points={{484,98},
+          {474,98},{474,-342},{-240,-342}},          color={0,0,127}));
+  connect(conVAVSou.TRooHeaSet, controlBus.TRooSetHea) annotation (Line(points={{696,
+          -109},{660,-109},{660,-342},{-240,-342}},  color={0,0,127}));
+  connect(conVAVSou.TRooCooSet, controlBus.TRooSetCoo) annotation (Line(points={{696,
+          -116},{660,-116},{660,-342},{-240,-342}},  color={0,0,127}));
+  connect(conVAVEas.TRooHeaSet, controlBus.TRooSetHea) annotation (Line(points={{878,
+          -107},{850,-107},{850,-342},{-240,-342}},  color={0,0,127}));
+  connect(conVAVEas.TRooCooSet, controlBus.TRooSetCoo) annotation (Line(points={{878,
+          -114},{850,-114},{850,-342},{-240,-342}},  color={0,0,127}));
+  connect(conVAVNor.TRooHeaSet, controlBus.TRooSetHea) annotation (Line(points={{1044,
+          -107},{1020,-107},{1020,-342},{-240,-342}},   color={0,0,127}));
+  connect(conVAVNor.TRooCooSet, controlBus.TRooSetCoo) annotation (Line(points={{1044,
+          -114},{1020,-114},{1020,-342},{-240,-342}},   color={0,0,127}));
+  connect(conVAVWes.TRooHeaSet, controlBus.TRooSetHea) annotation (Line(points={{1244,
+          -105},{1202,-105},{1202,-342},{-240,-342}},   color={0,0,127}));
+  connect(conVAVWes.TRooCooSet, controlBus.TRooSetCoo) annotation (Line(points={{1244,
+          -112},{1202,-112},{1202,-342},{-240,-342}},   color={0,0,127}));
 
-  connect(conVAVWes.yVal, wes.yVal) annotation (Line(points={{1261,33},{1272.5,
-          33},{1272.5,32},{1286,32}}, color={0,0,127}));
   connect(wes.yVAV, conVAVWes.yDam) annotation (Line(points={{1286,48},{1274,48},
-          {1274,42.8},{1261,42.8}}, color={0,0,127}));
+          {1274,-107.2},{1267,-107.2}},
+                                    color={0,0,127}));
   connect(occSch.tNexOcc, controlBus.dTNexOcc) annotation (Line(
       points={{-297,-204},{-240,-204},{-240,-342}},
       color={0,0,127},
@@ -259,11 +261,11 @@ equation
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(conTSup.yHea, gaiHeaCoi.u) annotation (Line(
-      points={{52,-214},{68,-214},{68,-210},{98,-210}},
+      points={{52,-214},{68,-214},{68,-184},{124,-184}},
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(conTSup.yCoo, gaiCooCoi.u) annotation (Line(
-      points={{52,-226},{60,-226},{60,-248},{98,-248}},
+      points={{52,-226},{60,-226},{60,-186},{222,-186}},
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(conTSup.yOA, conEco.uOATSup) annotation (Line(
@@ -288,6 +290,16 @@ equation
       horizontalAlignment=TextAlignment.Right));
   connect(TSupSet.TSet, conTSup.TSupSet)
     annotation (Line(points={{-178,-220},{28,-220}}, color={0,0,127}));
+  connect(conVAVCor.yVal, gaiHeaCoiCor.u) annotation (Line(points={{507,93},{
+          507,69.5},{492,69.5},{492,46}}, color={0,0,127}));
+  connect(conVAVSou.yVal, gaiHeaCoiSou.u) annotation (Line(points={{719,-121},{
+          719,-38.5},{678,-38.5},{678,44}}, color={0,0,127}));
+  connect(conVAVEas.yVal, gaiHeaCoiEas.u) annotation (Line(points={{901,-119},{
+          901,-37.5},{850,-37.5},{850,44}}, color={0,0,127}));
+  connect(conVAVNor.yVal, gaiHeaCoiNor.u) annotation (Line(points={{1067,-119},
+          {1067,-37.5},{1016,-37.5},{1016,44}}, color={0,0,127}));
+  connect(conVAVWes.yVal, gaiHeaCoiWes.u) annotation (Line(points={{1267,-117},
+          {1267,-37.5},{1206,-37.5},{1206,44}}, color={0,0,127}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-380,-400},{1440,
             660}})),

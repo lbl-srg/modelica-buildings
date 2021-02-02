@@ -11,7 +11,19 @@ model VAVBranch "Supply branch of a VAV system"
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal
     "Mass flow rate of this thermal zone";
+  parameter Real ratVFloHea = 1.0 "Flow rate ratio in heating mode";
   parameter Modelica.SIunits.Volume VRoo "Room volume";
+
+  parameter Modelica.SIunits.Temperature T_HW_nominal=355.35 "Reheat coil nominal inlet water temperature";
+
+  final parameter Modelica.SIunits.Temperature TAirInlNom = 281.65 "Inlet air nominal temperature";
+  final parameter Modelica.SIunits.Temperature TAirOutNom = 323.15 "Outlet air nominal temperature";
+  final parameter Modelica.SIunits.SpecificHeatCapacity CpAir = 1004 "Air specific heat capacity";
+  final parameter Modelica.SIunits.SpecificHeatCapacity CpWater = 4180 "Water specific heat capacity";
+  final parameter Modelica.SIunits.HeatFlowRate QFloNom = m_flow_nominal*ratVFloHea*CpAir*(TAirOutNom - TAirInlNom) "Nominal heat flow rate";
+  final parameter Modelica.SIunits.TemperatureDifference dTHWNom = 10 "Nominal hot water temperature delta";
+
+  final parameter Modelica.SIunits.MassFlowRate m_flow_HW_nominal = QFloNom/(CpWater * dTHWNom)  "Mass flow rate of hot water to reheat coil";
 
   Buildings.Fluid.Actuators.Dampers.PressureIndependent vav(
     redeclare package Medium = MediumA,
@@ -23,37 +35,30 @@ model VAVBranch "Supply branch of a VAV system"
         rotation=90,
         origin={-50,40})));
   Buildings.Fluid.HeatExchangers.DryCoilEffectivenessNTU terHea(
-    redeclare package Medium1 = MediumA,
-    redeclare package Medium2 = MediumW,
-    m1_flow_nominal=m_flow_nominal,
-    m2_flow_nominal=m_flow_nominal*1000*(50 - 17)/4200/10,
-    Q_flow_nominal=m_flow_nominal*1006*(50 - 16.7),
+    redeclare package Medium1 = MediumW,
+    redeclare package Medium2 = MediumA,
+    m1_flow_nominal=m_flow_HW_nominal,
+    m2_flow_nominal=m_flow_nominal*ratVFloHea,
+    Q_flow_nominal=QFloNom,
     configuration=Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow,
     dp1_nominal=0,
     from_dp2=true,
     dp2_nominal=0,
-    allowFlowReversal1=allowFlowReversal,
-    allowFlowReversal2=false,
-    T_a1_nominal=289.85,
-    T_a2_nominal=355.35) "Heat exchanger of terminal box" annotation (Placement(
+    allowFlowReversal1=false,
+    allowFlowReversal2=allowFlowReversal,
+    T_a1_nominal=T_HW_nominal,
+    T_a2_nominal=TAirInlNom) "Heat exchanger of terminal box" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={-44,0})));
-  Buildings.Fluid.Sources.Boundary_pT sinTer(
-    redeclare package Medium = MediumW,
-    p(displayUnit="Pa") = 3E5,
-    nPorts=1) "Sink for terminal box " annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=180,
-        origin={40,-20})));
-  Modelica.Fluid.Interfaces.FluidPort_a port_a(
-    redeclare package Medium = MediumA)
+        rotation=270,
+        origin={-44,-30})));
+  Modelica.Fluid.Interfaces.FluidPort_a port_aAir(redeclare package Medium =
+        MediumA)
     "Fluid connector a1 (positive design flow direction is from port_a1 to port_b1)"
     annotation (Placement(transformation(extent={{-60,-110},{-40,-90}}),
         iconTransformation(extent={{-60,-110},{-40,-90}})));
-  Modelica.Fluid.Interfaces.FluidPort_a port_b(
-    redeclare package Medium = MediumA)
+  Modelica.Fluid.Interfaces.FluidPort_a port_bAir(redeclare package Medium =
+        MediumA)
     "Fluid connector b (positive design flow direction is from port_a1 to port_b1)"
     annotation (Placement(transformation(extent={{-60,90},{-40,110}}),
         iconTransformation(extent={{-60,90},{-40,110}})));
@@ -70,28 +75,21 @@ model VAVBranch "Supply branch of a VAV system"
     annotation (Placement(transformation(extent={{0,70},{20,90}})));
   Modelica.Blocks.Math.Gain ACH(k=1/VRoo/1.2*3600) "Air change per hour"
     annotation (Placement(transformation(extent={{0,30},{20,50}})));
-  Fluid.Sources.MassFlowSource_T souTer(
-    redeclare package Medium = MediumW,
-    nPorts=1,
-    use_m_flow_in=true,
-    T=323.15) "Source for terminal box " annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=180,
-        origin={40,20})));
   Modelica.Blocks.Interfaces.RealInput yVAV "Signal for VAV damper"
                                                             annotation (
       Placement(transformation(extent={{-140,20},{-100,60}}),
         iconTransformation(extent={{-140,20},{-100,60}})));
-  Modelica.Blocks.Interfaces.RealInput yVal
-    "Actuator position for reheat valve (0: closed, 1: open)" annotation (
-      Placement(transformation(extent={{-140,-60},{-100,-20}}),
-        iconTransformation(extent={{-140,-60},{-100,-20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain gaiM_flow(
-    final k=m_flow_nominal*1000*15/4200/10) "Gain for mass flow rate"
-    annotation (Placement(transformation(extent={{80,2},{60,22}})));
   Modelica.Blocks.Interfaces.RealOutput y_actual "Actual VAV damper position"
     annotation (Placement(transformation(extent={{100,46},{120,66}}),
         iconTransformation(extent={{100,70},{120,90}})));
+  Modelica.Fluid.Interfaces.FluidPort_a port_aHotWat(redeclare package Medium =
+      MediumW) "Hot water inlet port"
+    annotation (Placement(transformation(extent={{-110,-20},{-90,0}}),
+        iconTransformation(extent={{-110,-20},{-90,0}})));
+  Modelica.Fluid.Interfaces.FluidPort_b port_bHotWat(redeclare package Medium =
+      MediumW) "Hot water outlet port"
+    annotation (Placement(transformation(extent={{-108,-74},{-88,-54}}),
+        iconTransformation(extent={{-108,-74},{-88,-54}})));
 equation
   connect(fraMasFlo.u, senMasFlo.m_flow) annotation (Line(
       points={{-2,80},{-24,80},{-24,70},{-39,70}},
@@ -108,35 +106,23 @@ equation
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
-  connect(souTer.ports[1], terHea.port_a2) annotation (Line(
-      points={{30,20},{-38,20},{-38,10}},
-      color={0,127,255},
-      smooth=Smooth.None,
-      thickness=0.5));
-  connect(port_a, terHea.port_a1) annotation (Line(
-      points={{-50,-100},{-50,-10}},
-      color={0,127,255},
-      smooth=Smooth.None,
-      thickness=0.5));
-  connect(senMasFlo.port_b, port_b) annotation (Line(
+  connect(senMasFlo.port_b, port_bAir) annotation (Line(
       points={{-50,80},{-50,100}},
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
-  connect(terHea.port_b1, vav.port_a) annotation (Line(
-      points={{-50,10},{-50,30}},
-      color={0,127,255},
-      thickness=0.5));
   connect(vav.y, yVAV) annotation (Line(points={{-62,40},{-120,40}},
                 color={0,0,127}));
-  connect(souTer.m_flow_in, gaiM_flow.y)
-    annotation (Line(points={{52,12},{58,12}}, color={0,0,127}));
-  connect(sinTer.ports[1], terHea.port_b2) annotation (Line(points={{30,-20},{
-          -38,-20},{-38,-10}}, color={0,127,255}));
-  connect(gaiM_flow.u, yVal) annotation (Line(points={{82,12},{90,12},{90,-40},
-          {-120,-40}}, color={0,0,127}));
   connect(vav.y_actual, y_actual)
     annotation (Line(points={{-57,45},{-57,56},{110,56}}, color={0,0,127}));
+  connect(port_aAir, terHea.port_a2) annotation (Line(points={{-50,-100},{-50,-40}},
+                                color={0,127,255}));
+  connect(vav.port_a, terHea.port_b2)
+    annotation (Line(points={{-50,30},{-50,-20}},          color={0,127,255}));
+  connect(port_aHotWat, terHea.port_a1) annotation (Line(points={{-100,-10},{-38,
+          -10},{-38,-20}},     color={0,127,255}));
+  connect(port_bHotWat, terHea.port_b1) annotation (Line(points={{-98,-64},{-38,
+          -64},{-38,-40}},     color={0,127,255}));
   annotation (Icon(
     graphics={
         Rectangle(
