@@ -53,17 +53,17 @@ model BuildingSpawnZ6
   Modelica.Blocks.Sources.Constant qConGai_flow(
     k=0)
     "Convective heat gain"
-    annotation (Placement(transformation(extent={{-60,130},{-40,150}})));
+    annotation (Placement(transformation(extent={{-60,104},{-40,124}})));
   Modelica.Blocks.Sources.Constant qRadGai_flow(
     k=0)
     "Radiative heat gain"
-    annotation (Placement(transformation(extent={{-60,170},{-40,190}})));
+    annotation (Placement(transformation(extent={{-60,144},{-40,164}})));
   Modelica.Blocks.Routing.Multiplex3 multiplex3_1
-    annotation (Placement(transformation(extent={{-20,130},{0,150}})));
+    annotation (Placement(transformation(extent={{-20,104},{0,124}})));
   Modelica.Blocks.Sources.Constant qLatGai_flow(
     k=0)
     "Latent heat gain"
-    annotation (Placement(transformation(extent={{-60,90},{-40,110}})));
+    annotation (Placement(transformation(extent={{-60,64},{-40,84}})));
   Buildings.ThermalZones.EnergyPlus.ThermalZone znAttic(
     redeclare package Medium=Medium2,
     zoneName="Attic")
@@ -151,23 +151,23 @@ model BuildingSpawnZ6
     annotation (Placement(transformation(extent={{-160,-230},{-140,-210}})));
 equation
   connect(qRadGai_flow.y,multiplex3_1.u1[1])
-    annotation (Line(points={{-39,180},{-26,180},{-26,147},{-22,147}},color={0,0,127},smooth=Smooth.None));
+    annotation (Line(points={{-39,154},{-26,154},{-26,121},{-22,121}},color={0,0,127},smooth=Smooth.None));
   connect(qConGai_flow.y,multiplex3_1.u2[1])
-    annotation (Line(points={{-39,140},{-22,140}},color={0,0,127},smooth=Smooth.None));
+    annotation (Line(points={{-39,114},{-22,114}},color={0,0,127},smooth=Smooth.None));
   connect(multiplex3_1.u3[1],qLatGai_flow.y)
-    annotation (Line(points={{-22,133},{-26,133},{-26,100},{-39,100}},color={0,0,127}));
+    annotation (Line(points={{-22,107},{-26,107},{-26,74},{-39,74}},  color={0,0,127}));
   connect(multiplex3_1.y,znAttic.qGai_flow)
-    annotation (Line(points={{1,140},{20,140},{20,114},{22,114}},color={0,0,127}));
+    annotation (Line(points={{1,114},{22,114}},                  color={0,0,127}));
   connect(multiplex3_1.y,znCore_ZN.qGai_flow)
-    annotation (Line(points={{1,140},{20,140},{20,72},{22,72}},color={0,0,127}));
+    annotation (Line(points={{1,114},{12,114},{12,72},{22,72}},color={0,0,127}));
   connect(multiplex3_1.y,znPerimeter_ZN_1.qGai_flow)
-    annotation (Line(points={{1,140},{20,140},{20,30},{22,30}},color={0,0,127}));
+    annotation (Line(points={{1,114},{12,114},{12,30},{22,30}},color={0,0,127}));
   connect(multiplex3_1.y,znPerimeter_ZN_2.qGai_flow)
-    annotation (Line(points={{1,140},{20,140},{20,-10},{22,-10}},color={0,0,127}));
+    annotation (Line(points={{1,114},{12,114},{12,-10},{22,-10}},color={0,0,127}));
   connect(multiplex3_1.y,znPerimeter_ZN_3.qGai_flow)
-    annotation (Line(points={{1,140},{20,140},{20,-50},{22,-50}},color={0,0,127}));
+    annotation (Line(points={{1,114},{12,114},{12,-50},{22,-50}},color={0,0,127}));
   connect(multiplex3_1.y,znPerimeter_ZN_4.qGai_flow)
-    annotation (Line(points={{1,140},{20,140},{20,-90},{22,-90}},color={0,0,127}));
+    annotation (Line(points={{1,114},{12,114},{12,-90},{22,-90}},color={0,0,127}));
   connect(znCore_ZN.ports[1],terUni[1].port_aLoa)
     annotation (Line(points={{42,42.9},{-8,42.9},{-8,20},{-116,20}},color={0,127,255}));
   connect(terUni[1].port_bLoa,znCore_ZN.ports[2])
@@ -209,11 +209,11 @@ equation
   connect(disFloCoo.PPum,mulSum3.u[2])
     annotation (Line(points={{-139,-228},{222,-228},{222,79},{228,79}},color={0,0,127}));
   connect(znCore_ZN.TAir,terUni[1].TSen)
-    annotation (Line(points={{65,80},{65,76},{80,76},{80,160},{-152,160},{-152,12},
-          {-141,12}},                                                                           color={0,0,127}));
+    annotation (Line(points={{65,80},{80,80},{80,198},{-152,198},{-152,12},{
+          -141,12}},                                                                            color={0,0,127}));
   connect(znPerimeter_ZN_1.TAir,terUni[2].TSen)
-    annotation (Line(points={{65,38},{72,38},{72,34},{80,34},{80,160},{-152,160},
-          {-152,12},{-141,12}},                                                                           color={0,0,127}));
+    annotation (Line(points={{65,38},{80,38},{80,198},{-152,198},{-152,12},{
+          -141,12}},                                                                                      color={0,0,127}));
   connect(znPerimeter_ZN_2.TAir,terUni[3].TSen)
     annotation (Line(points={{65,-2},{80,-2},{80,-140},{-152,-140},{-152,12},{-141,
           12}},                                                                             color={0,0,127}));
