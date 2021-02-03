@@ -215,6 +215,7 @@ and OPTIMICA (revision OCT-stable-r19089_JM-r14295).
 </p>
 <p>
 The following major changes have been done:
+</p>
 <ul>
 <li>
 The package <code>Buildings.ThermalZones.EnergyPlus</code>
@@ -245,7 +246,6 @@ control sequences using the Control Description Language that has been developed
 in the OpenBuildingControl project at <a href=\"https://obc.lbl.gov\">https://obc.lbl.gov</a>.
 </li>
 </ul>
-</p>
 </div>
 <p>
 For more details, please see the release notes below.
@@ -790,12 +790,6 @@ that can lead to wrong simulation results):
 </tr>
 </table>
 <!-- Uncritical errors -->
-<p>
-The following <b style=\"color:red\">uncritical errors</b> have been fixed (i.e., errors
-that do <b style=\"color:red\">not</b> lead to wrong simulation results, e.g.,
-units are wrong or errors in documentation):
-</p>
-</table>
 <p>
 Note:
 </p>
