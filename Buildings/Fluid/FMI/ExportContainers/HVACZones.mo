@@ -1,60 +1,58 @@
 within Buildings.Fluid.FMI.ExportContainers;
 partial block HVACZones
   "Partial block to export an HVAC system that has no radiative component and that serves multiple zones as an FMU"
-
-  replaceable package Medium =
-    Modelica.Media.Interfaces.PartialMedium "Medium in the component"
-      annotation (choices(
-        choice(redeclare package Medium = Buildings.Media.Air "Moist air")));
-  parameter Integer nZon(min=1)
+  replaceable package Medium=Modelica.Media.Interfaces.PartialMedium
+    "Medium in the component"
+    annotation (choices(choice(redeclare package Medium=Buildings.Media.Air "Moist air")));
+  parameter Integer nZon(
+    min=1)
     "Number of thermal zones served by the HVAC system";
-
-  parameter Integer nPorts(min=2)
+  parameter Integer nPorts(
+    min=2)
     "Number of fluid ports for each zone (must be the same for every zone)";
-
   // Set allowFlowReversal = true to get access to the states of the zone.
-  Interfaces.Outlet fluPor[nZon, nPorts](
-    redeclare each final package Medium = Medium,
-    each final use_p_in = false,
-    each final allowFlowReversal = true) "Fluid connectors"
+  Interfaces.Outlet fluPor[nZon,nPorts](
+    redeclare each final package Medium=Medium,
+    each final use_p_in=false,
+    each final allowFlowReversal=true)
+    "Fluid connectors"
     annotation (Placement(transformation(extent={{160,130},{180,150}})));
-
   Modelica.Blocks.Interfaces.RealInput TRadZon[nZon](
     each final unit="K",
-    each displayUnit="degC") "Radiative temperature of the zone"
-    annotation (Placement(transformation(
-          extent={{200,32},{160,72}}),  iconTransformation(extent={{180,52},{160,
-            72}})));
-
-  Modelica.Blocks.Interfaces.RealOutput QGaiRad_flow[nZon](each final unit="W")
+    each displayUnit="degC")
+    "Radiative temperature of the zone"
+    annotation (Placement(transformation(extent={{200,32},{160,72}}),iconTransformation(extent={{180,52},{160,72}})));
+  Modelica.Blocks.Interfaces.RealOutput QGaiRad_flow[nZon](
+    each final unit="W")
     "Radiant heat input into the zones (positive if heat gain)"
-    annotation (Placement(transformation(extent={{160,-60},{200,-20}}),
-        iconTransformation(extent={{160,-50},{180,-30}})));
-
-  Modelica.Blocks.Interfaces.RealOutput QGaiSenCon_flow[nZon](each final unit="W")
+    annotation (Placement(transformation(extent={{160,-60},{200,-20}}),iconTransformation(extent={{160,-50},{180,-30}})));
+  Modelica.Blocks.Interfaces.RealOutput QGaiSenCon_flow[nZon](
+    each final unit="W")
     "Convective sensible heat input into the zones (positive if heat gain)"
-    annotation (Placement(transformation(extent={{160,-110},{200,-70}}),
-        iconTransformation(extent={{160,-100},{180,-80}})));
-
-  Modelica.Blocks.Interfaces.RealOutput QGaiLat_flow[nZon](each final unit="W")
+    annotation (Placement(transformation(extent={{160,-110},{200,-70}}),iconTransformation(extent={{160,-100},{180,-80}})));
+  Modelica.Blocks.Interfaces.RealOutput QGaiLat_flow[nZon](
+    each final unit="W")
     "Latent heat input into the zones (positive if heat gain)"
-    annotation (Placement(transformation(extent={{160,-160},{200,-120}}),
-        iconTransformation(extent={{160,-150},{180,-130}})));
-
-  Adaptors.HVAC hvacAda[nZon](redeclare each final package Medium =
-        Medium, each final nPorts=nPorts)
+    annotation (Placement(transformation(extent={{160,-160},{200,-120}}),iconTransformation(extent={{160,-150},{180,-130}})));
+  Adaptors.HVAC hvacAda[nZon](
+    redeclare each final package Medium=Medium,
+    each final nPorts=nPorts)
     "Adapter between the HVAC supply and return air, and its connectors for the FMU"
     annotation (Placement(transformation(extent={{120,130},{140,150}})));
-
 equation
   for iZon in 1:nZon loop
     for iPor in 1:nPorts loop
-      connect(hvacAda[iZon].fluPor[iPor], fluPor[iZon, iPor]) annotation (Line(
-            points={{141,140},{154,140},{170,140}},           color={0,0,255}));
+      connect(hvacAda[iZon].fluPor[iPor],fluPor[iZon,iPor])
+        annotation (Line(points={{141,140},{154,140},{170,140}},color={0,0,255}));
     end for;
   end for;
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-160,-160},
-            {160,160}}), graphics={Rectangle(
+  annotation (
+    Icon(
+      coordinateSystem(
+        preserveAspectRatio=false,
+        extent={{-160,-160},{160,160}}),
+      graphics={
+        Rectangle(
           extent={{-160,160},{160,-160}},
           fillPattern=FillPattern.Solid,
           fillColor={255,255,255},
@@ -114,8 +112,12 @@ equation
           fillColor={135,135,135},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
-        Line(points={{-88,66},{-112,8}}, pattern=LinePattern.None),
-        Line(points={{-88,66},{-124,-56}}, color={0,0,0}),
+        Line(
+          points={{-88,66},{-112,8}},
+          pattern=LinePattern.None),
+        Line(
+          points={{-88,66},{-124,-56}},
+          color={0,0,0}),
         Rectangle(
           extent={{30,72},{80,64}},
           lineColor={0,0,0},
@@ -149,13 +151,18 @@ equation
           fillPattern=FillPattern.HorizontalCylinder,
           fillColor={0,127,255},
           origin={32,43},
-          rotation=90)}),                                        Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-160,-160},{160,160}}),
-        graphics={Text(
+          rotation=90)}),
+    Diagram(
+      coordinateSystem(
+        preserveAspectRatio=false,
+        extent={{-160,-160},{160,160}}),
+      graphics={
+        Text(
           extent={{104,152},{118,146}},
           lineColor={0,0,127},
           textString="[%nZon, %nPorts]")}),
-    Documentation(info="<html>
+    Documentation(
+      info="<html>
 <p>
 Model that is used as a container for an HVAC system that is
 to be exported as an FMU and that serves multiple zones.
@@ -282,7 +289,8 @@ The model has no pressure drop. Hence, the pressure drop
 of an air diffuser or of an exhaust grill needs to be modelled
 in models that are connected to <code>ports</code>.
 </p>
-</html>", revisions="<html>
+</html>",
+      revisions="<html>
 <ul>
 <li>
 January 18, 2019, by Jianjun Hu:<br/>

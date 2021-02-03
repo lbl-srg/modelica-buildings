@@ -5,22 +5,25 @@ model ScrollWaterToWater
     final UAEva=datHeaPum.UAEva*scaling_factor,
     final UACon=datHeaPum.UACon*scaling_factor,
     redeclare HeatPumps.Compressors.ScrollCompressor com(
-      redeclare final package ref = ref,
+      redeclare final package ref=ref,
       final volRat=datHeaPum.volRat,
       final V_flow_nominal=datHeaPum.V_flow_nominal*scaling_factor,
       final leaCoe=datHeaPum.leaCoe*scaling_factor,
       final etaEle=datHeaPum.etaEle,
       final PLos=datHeaPum.PLos*scaling_factor,
       final dTSup=datHeaPum.dTSup));
-
   parameter Buildings.Fluid.HeatPumps.Data.ScrollWaterToWater.Generic datHeaPum
-    "Heat pump data" annotation (choicesAllMatching=true, Placement(
-        transformation(extent={{-98,78},{-78,98}})));
-
-    annotation (Placement(transformation(extent={{100,-100},{120,-80}}),
-        iconTransformation(extent={{100,-100},{120,-80}})),
-              defaultComponentName="heaPum",
-    Documentation(info="<html>
+    "Heat pump data"
+    annotation (choicesAllMatching=true,Placement(transformation(extent={{-98,78},{-78,98}})));
+  annotation (
+    Placement(
+      transformation(
+        extent={{100,-100},{120,-80}}),
+      iconTransformation(
+        extent={{100,-100},{120,-80}})),
+    defaultComponentName="heaPum",
+    Documentation(
+      info="<html>
 <p>
 Model for a water to water heat pump with a scroll compressor, as described
 in Jin (2002). The thermodynamic heat pump cycle is represented below.
@@ -91,7 +94,8 @@ Parameter estimation based models of water source heat pumps.
 </i>
 PhD Thesis. Oklahoma State University. Stillwater, Oklahoma, USA. 2012.
 </p>
-</html>", revisions="<html>
+</html>",
+      revisions="<html>
 <ul>
 <li>
 May 30, 2017, by Filip Jorissen:<br/>

@@ -7,20 +7,17 @@ model Reset
     "Minimum value of heating water supply temperature set point";
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHea
     "Heating enable signal"
-    annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
-    iconTransformation(extent={{-140,40},{-100,80}})));
+    annotation (Placement(transformation(extent={{-140,40},{-100,80}}),iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaWatSupPreSet(
     final unit="K",
     displayUnit="degC")
     "Heating water supply temperature set point"
-    annotation (Placement(transformation(extent={{-140,-70},{-100,-30}}),
-    iconTransformation(extent={{-140,-70},{-100,-30}})));
+    annotation (Placement(transformation(extent={{-140,-70},{-100,-30}}),iconTransformation(extent={{-140,-70},{-100,-30}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput THeaWatSupSet(
     final unit="K",
     displayUnit="degC")
     "Heating water supply temperature set point after reset"
-    annotation (Placement(transformation(extent={{100,-20},{140,20}}),
-    iconTransformation(extent={{100,-20},{140,20}})));
+    annotation (Placement(transformation(extent={{100,-20},{140,20}}),iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minSet(
     k=THeaWatSupSetMin)
     "Minimum value of HW set point"

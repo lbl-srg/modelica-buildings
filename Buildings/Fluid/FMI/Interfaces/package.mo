@@ -1,9 +1,11 @@
 within Buildings.Fluid.FMI;
-package Interfaces "Package with interfaces for models that serves as an FMU container"
+package Interfaces
+  "Package with interfaces for models that serves as an FMU container"
   extends Modelica.Icons.InterfacesPackage;
-
-
-annotation (preferredView="info", Documentation(info="<html>
+  annotation (
+    preferredView="info",
+    Documentation(
+      info="<html>
 <p>
 This package contains connectors that are used to export fluid flow models
 as Functional Mockup Units.
@@ -18,6 +20,7 @@ Buildings.Fluid.FMI.Interfaces.Outlet</a>
 are hierarchical. This was done for the exported FMUs to have hierarchical
 names for their input and output signals.
 </p>
-</html>", revisions="<html>
+</html>",
+      revisions="<html>
 </html>"));
 end Interfaces;

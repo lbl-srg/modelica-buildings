@@ -1,25 +1,25 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.BaseClasses;
-record PerformanceCurve "Data record for a performance curve"
-  extends
-    Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.PerformanceCurve;
-//-----------------------------Performance curves-----------------------------//
-
+record PerformanceCurve
+  "Data record for a performance curve"
+  extends Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.PerformanceCurve;
+  //-----------------------------Performance curves-----------------------------//
   parameter Real capFunFFCon[:]
     "Polynomial coefficients for cooling capacity function of water flow fration at condensers"
     annotation (Dialog(group="Performance curves"));
-
   parameter Real EIRFunFFCon[:]
     "Polynomial coefficients for EIR function of water flow fration at condensers"
     annotation (Dialog(group="Performance curves"));
-//------------------------Range for performance curves------------------------//
-
+  //------------------------Range for performance curves------------------------//
   parameter Real ffConMin
     "Minimum water flow fraction at condensers for which performance data are valid"
     annotation (Dialog(group="Minimum and maximum values"));
   parameter Real ffConMax
     "Maximum water flow fraction at condensers for which performance data are valid"
     annotation (Dialog(group="Minimum and maximum values"));
-  annotation (defaultComponentName="per", Documentation(info="<html>
+  annotation (
+    defaultComponentName="per",
+    Documentation(
+      info="<html>
 <p>
 This record declares the data used to specify performance curves for water-cooled DX coils.
 </p>
@@ -30,7 +30,7 @@ Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.DXCoil</a>
 for a description of the data.
 </p>
 </html>",
-revisions="<html>
+      revisions="<html>
 <ul>
 <li>
 February 17, 2017 by Yangyang Fu:<br/>
@@ -38,7 +38,8 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Icon(graphics={
+    Icon(
+      graphics={
         Text(
           extent={{-95,53},{-12,-2}},
           lineColor={0,0,255},

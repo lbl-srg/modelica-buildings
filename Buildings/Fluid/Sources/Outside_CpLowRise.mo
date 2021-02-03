@@ -2,50 +2,72 @@ within Buildings.Fluid.Sources;
 model Outside_CpLowRise
   "Boundary that takes weather data as an input and computes wind pressure for low-rise buildings"
   extends Buildings.Fluid.Sources.BaseClasses.Outside;
-
-  parameter Real Cp0(min=0, max=1, final unit="1") = 0.6
+  parameter Real Cp0(
+    min=0,
+    max=1,
+    final unit="1")=0.6
     "Wind pressure coefficient for wind normal to wall";
-  parameter Real s(final min=0, final unit="1")
+  parameter Real s(
+    final min=0,
+    final unit="1")
     "Side ratio, s=length of this wall/length of adjacent wall";
-  parameter Modelica.SIunits.Angle azi "Surface azimuth (South:0, West:pi/2)"
+  parameter Modelica.SIunits.Angle azi
+    "Surface azimuth (South:0, West:pi/2)"
     annotation (choicesAllMatching=true);
-
-  Modelica.SIunits.Angle alpha "Wind incidence angle (0: normal to wall)";
-  Real CpAct(min=0, final unit="1") "Actual wind pressure coefficient";
-  Modelica.SIunits.Pressure pWin(displayUnit="Pa")
+  Modelica.SIunits.Angle alpha
+    "Wind incidence angle (0: normal to wall)";
+  Real CpAct(
+    min=0,
+    final unit="1")
+    "Actual wind pressure coefficient";
+  Modelica.SIunits.Pressure pWin(
+    displayUnit="Pa")
     "Change in pressure due to wind force";
 protected
-  Modelica.Blocks.Interfaces.RealInput pWea(min=0, nominal=1E5, final unit="Pa")
+  Modelica.Blocks.Interfaces.RealInput pWea(
+    min=0,
+    nominal=1E5,
+    final unit="Pa")
     "Pressure from weather bus";
-  Modelica.Blocks.Interfaces.RealInput vWin(final unit="m/s")
+  Modelica.Blocks.Interfaces.RealInput vWin(
+    final unit="m/s")
     "Wind speed from weather bus";
-  Modelica.Blocks.Interfaces.RealOutput pTot(min=0, nominal=1E5, final unit="Pa")
+  Modelica.Blocks.Interfaces.RealOutput pTot(
+    min=0,
+    nominal=1E5,
+    final unit="Pa")
     "Sum of atmospheric pressure and wind pressure";
-  final parameter Real G = Modelica.Math.log(s)
+  final parameter Real G=Modelica.Math.log(
+    s)
     "Natural logarithm of side ratio";
-
-  Modelica.Blocks.Interfaces.RealInput winDir(final unit="rad",
-                                              displayUnit="deg")
+  Modelica.Blocks.Interfaces.RealInput winDir(
+    final unit="rad",
+    displayUnit="deg")
     "Wind direction from weather bus";
-  Modelica.SIunits.Angle surOut = azi-Modelica.Constants.pi
+  Modelica.SIunits.Angle surOut=azi-Modelica.Constants.pi
     "Angle of surface that is used to compute angle of attack of wind";
-  Modelica.Blocks.Interfaces.RealInput d = Medium.density(
-    Medium.setState_pTX(p_in_internal, T_in_internal, X_in_internal));
-
+  Modelica.Blocks.Interfaces.RealInput d=Medium.density(
+    Medium.setState_pTX(
+      p_in_internal,
+      T_in_internal,
+      X_in_internal));
 equation
-  alpha = winDir-surOut;
-  CpAct = Buildings.Airflow.Multizone.BaseClasses.windPressureLowRise(
-            Cp0=Cp0, incAng=alpha, G=G);
-  pWin = 0.5*CpAct*d*vWin*vWin;
-  pTot = pWea + pWin;
-
-  connect(weaBus.winDir, winDir);
-  connect(weaBus.winSpe, vWin);
-  connect(weaBus.pAtm, pWea);
-  connect(p_in_internal, pTot);
-  connect(weaBus.TDryBul, T_in_internal);
-  annotation (defaultComponentName="out",
-    Documentation(info="<html>
+  alpha=winDir-surOut;
+  CpAct=Buildings.Airflow.Multizone.BaseClasses.windPressureLowRise(
+    Cp0=Cp0,
+    incAng=alpha,
+    G=G);
+  pWin=0.5*CpAct*d*vWin*vWin;
+  pTot=pWea+pWin;
+  connect(weaBus.winDir,winDir);
+  connect(weaBus.winSpe,vWin);
+  connect(weaBus.pAtm,pWea);
+  connect(p_in_internal,pTot);
+  connect(weaBus.TDryBul,T_in_internal);
+  annotation (
+    defaultComponentName="out",
+    Documentation(
+      info="<html>
 <p>
 This model describes boundary conditions for
 pressure, enthalpy, and species concentration that can be obtained
@@ -135,7 +157,7 @@ Gaithersburg, MD.
 </li>
 </ul>
 </html>",
-revisions="<html>
+      revisions="<html>
 <ul>
 <li>
 January 26, 2016, by Michael Wetter:<br/>
@@ -147,12 +169,14 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Icon(graphics={Text(
+    Icon(
+      graphics={
+        Text(
           visible=use_Cp_in,
           extent={{-140,92},{-92,62}},
           lineColor={0,0,255},
           textString="C_p"),
-          Text(
+        Text(
           visible=use_C_in,
           extent={{-154,-28},{-102,-62}},
           lineColor={0,0,255},

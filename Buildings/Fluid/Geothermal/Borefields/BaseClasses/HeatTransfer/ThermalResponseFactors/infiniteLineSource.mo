@@ -2,21 +2,25 @@ within Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalRes
 function infiniteLineSource
   "Infinite line source model for borehole heat exchangers"
   extends Modelica.Icons.Function;
-
-  input Real t "Time";
-  input Real aSoi "Ground thermal diffusivity";
-  input Real dis "Radial distance between borehole axes";
-
-  output Real h_ils "Thermal response factor of borehole 1 on borehole 2";
-
+  input Real t
+    "Time";
+  input Real aSoi
+    "Ground thermal diffusivity";
+  input Real dis
+    "Radial distance between borehole axes";
+  output Real h_ils
+    "Thermal response factor of borehole 1 on borehole 2";
 algorithm
-  h_ils := if t > 0.0 then
-              Buildings.Utilities.Math.Functions.exponentialIntegralE1(dis^2/(4*aSoi*t))
-           else
-              0.0;
-annotation (
-Inline=true,
-Documentation(info="<html>
+  h_ils :=
+    if t > 0.0 then
+      Buildings.Utilities.Math.Functions.exponentialIntegralE1(
+        dis^2/(4*aSoi*t))
+    else
+      0.0;
+  annotation (
+    Inline=true,
+    Documentation(
+      info="<html>
 <p>
 This function evaluates the infinite line source solution. This solution gives
 the relation between the constant heat transfer rate (per unit length) injected
@@ -44,7 +48,8 @@ where <i>&alpha;<sub>s</sub></i> is the ground thermal diffusivity. The
 exponential integral is implemented in
 <a href=\"modelica://Buildings.Utilities.Math.Functions.exponentialIntegralE1\">Buildings.Utilities.Math.Functions.exponentialIntegralE1</a>.
 </p>
-</html>", revisions="<html>
+</html>",
+      revisions="<html>
 <ul>
 <li>
 March 22, 2018 by Massimo Cimmino:<br/>

@@ -1,4 +1,5 @@
 within Buildings.Fluid.Geothermal.Boreholes.BaseClasses;
-package Examples "Example models to test base classes"
-extends Modelica.Icons.ExamplesPackage;
+package Examples
+  "Example models to test base classes"
+  extends Modelica.Icons.ExamplesPackage;
 end Examples;

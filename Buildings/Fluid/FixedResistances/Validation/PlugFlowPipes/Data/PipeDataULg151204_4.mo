@@ -5,10 +5,12 @@ record PipeDataULg151204_4
     T_start_out=27.7,
     T_start_in=31.2,
     m_flowIni=1.257,
-    final nCol = 6,
-    final filNam = Modelica.Utilities.Files.loadResource(
-  "modelica://Buildings/Resources/Data/Fluid/FixedResistances/Validation/PlugFlowPipes/PipeDataULg151204_4.mos"));
-  annotation (Documentation(revisions="<html>
+    final nCol=6,
+    final filNam=Modelica.Utilities.Files.loadResource(
+      "modelica://Buildings/Resources/Data/Fluid/FixedResistances/Validation/PlugFlowPipes/PipeDataULg151204_4.mos"));
+  annotation (
+    Documentation(
+      revisions="<html>
 <ul>
 <li>
 March 7, 2020, by Michael Wetter:<br/>
@@ -30,7 +32,8 @@ October 7, 2015 by Kevin Sartor:<br/>
 First implementation.
 </li>
 </ul>
-</html>", info="<html>
+</html>",
+      info="<html>
 <p>
 This data record contains the experimental data from the
 long test bench carried out at the University of Liège.

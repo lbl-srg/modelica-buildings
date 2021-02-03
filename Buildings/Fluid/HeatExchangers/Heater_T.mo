@@ -1,51 +1,47 @@
 within Buildings.Fluid.HeatExchangers;
-model Heater_T "Heater with prescribed outlet temperature"
+model Heater_T
+  "Heater with prescribed outlet temperature"
   extends Buildings.Fluid.HeatExchangers.BaseClasses.PartialPrescribedOutlet(
     outCon(
-      final QMin_flow = 0,
-      final QMax_flow = QMax_flow,
-      final mWatMax_flow = 0,
-      final mWatMin_flow = 0,
-      final use_TSet = true,
-      final use_X_wSet = false,
-      final energyDynamics = energyDynamics,
-      final massDynamics = Modelica.Fluid.Types.Dynamics.SteadyState,
+      final QMin_flow=0,
+      final QMax_flow=QMax_flow,
+      final mWatMax_flow=0,
+      final mWatMin_flow=0,
+      final use_TSet=true,
+      final use_X_wSet=false,
+      final energyDynamics=energyDynamics,
+      final massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
       final T_start=T_start,
       final X_start=Medium.X_default));
-
-  parameter Modelica.SIunits.HeatFlowRate QMax_flow(min=0) = Modelica.Constants.inf
+  parameter Modelica.SIunits.HeatFlowRate QMax_flow(
+    min=0)=Modelica.Constants.inf
     "Maximum heat flow rate for heating (positive)"
     annotation (Evaluate=true);
-
   parameter Modelica.SIunits.Temperature T_start=Medium.T_default
     "Start value of temperature"
-    annotation(Dialog(tab = "Initialization"));
-
+    annotation (Dialog(tab="Initialization"));
   // Dynamics
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState
     "Type of energy balance: dynamic (3 initialization options) or steady state"
-    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
-
+    annotation (Evaluate=true,Dialog(tab="Dynamics",group="Equations"));
   Modelica.Blocks.Interfaces.RealInput TSet(
     unit="K",
     displayUnit="degC")
     "Set point temperature of the fluid that leaves port_b"
-    annotation (Placement(transformation(origin={-120,80},
-              extent={{20,-20},{-20,20}},rotation=180)));
-
-  Modelica.Blocks.Interfaces.RealOutput Q_flow(unit="W")
+    annotation (Placement(transformation(origin={-120,80},extent={{20,-20},{-20,20}},rotation=180)));
+  Modelica.Blocks.Interfaces.RealOutput Q_flow(
+    unit="W")
     "Heat flow rate added to the fluid (if flow is from port_a to port_b)"
     annotation (Placement(transformation(extent={{100,70},{120,90}})));
-
 equation
-  connect(TSet, outCon.TSet) annotation (Line(points={{-120,80},{-96,80},{10,80},
-          {10,8},{19,8}}, color={0,0,127}));
-  connect(outCon.Q_flow, Q_flow) annotation (Line(points={{41,8},{80,8},{80,80},
-          {110,80}}, color={0,0,127}));
-
-    annotation (
+  connect(TSet,outCon.TSet)
+    annotation (Line(points={{-120,80},{-96,80},{10,80},{10,8},{19,8}},color={0,0,127}));
+  connect(outCon.Q_flow,Q_flow)
+    annotation (Line(points={{41,8},{80,8},{80,80},{110,80}},color={0,0,127}));
+  annotation (
     defaultComponentName="hea",
-Documentation(info="<html>
+    Documentation(
+      info="<html>
 <p>
 Model for an ideal heater that controls its outlet temperature to
 a prescribed outlet temperature.
@@ -115,7 +111,7 @@ and
 Buildings.Fluid.HeatExchangers.Validation.PrescribedOutlet_dynamic</a>.
 </p>
 </html>",
-revisions="<html>
+      revisions="<html>
 <ul>
 <li>
 September 10, 2018, by Michael Wetter:<br/>
@@ -133,14 +129,15 @@ Buildings, #763</a>.
 </li>
 </ul>
 </html>"),
-    Icon(graphics={
+    Icon(
+      graphics={
         Rectangle(
           extent={{-70,60},{70,-60}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={127,0,0},
           fillPattern=FillPattern.Solid),
-                   Text(
+        Text(
           extent={{18,-6},{62,-52}},
           lineColor={255,255,255},
           textString="+"),
@@ -181,5 +178,7 @@ Buildings, #763</a>.
           lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
-        Line(points={{-64,34},{-52,44},{-64,54}}, color={0,0,0})}));
+        Line(
+          points={{-64,34},{-52,44},{-64,54}},
+          color={0,0,0})}));
 end Heater_T;

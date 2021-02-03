@@ -4,122 +4,118 @@ model FlowControlled_dp
   extends Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine(
     final preVar=Buildings.Fluid.Movers.BaseClasses.Types.PrescribedVariable.PressureDifference,
     final computePowerUsingSimilarityLaws=per.havePressureCurve,
-    preSou(dp_start=dp_start, control_dp= not prescribeSystemPressure),
-    final stageInputs(each final unit="Pa") = heads,
-    final constInput(final unit="Pa") = constantHead,
+    preSou(
+      dp_start=dp_start,
+      control_dp=not prescribeSystemPressure),
+    final stageInputs(
+      each final unit="Pa")=heads,
+    final constInput(
+      final unit="Pa")=constantHead,
     filter(
       final y_start=dp_start,
-      u_nominal=abs(dp_nominal),
-      u(final unit="Pa"),
-      y(final unit="Pa")),
+      u_nominal=abs(
+        dp_nominal),
+      u(
+        final unit="Pa"),
+      y(
+        final unit="Pa")),
     eff(
       per(
-        final pressure = if per.havePressureCurve then
-          per.pressure
-        else
-          Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters(
-            V_flow = {i/(nOri-1)*2.0*m_flow_nominal/rho_default for i in 0:(nOri-1)},
-            dp =     {i/(nOri-1)*2.0*dp_nominal for i in (nOri-1):-1:0}),
-      final use_powerCharacteristic = if per.havePressureCurve then per.use_powerCharacteristic else false)));
-
+        final pressure=
+          if per.havePressureCurve then
+            per.pressure
+          else
+            Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters(
+              V_flow={i/(nOri-1)*2.0*m_flow_nominal/rho_default for i in 0:(nOri-1)},
+              dp={i/(nOri-1)*2.0*dp_nominal for i in(nOri-1):-1:0}),
+        final use_powerCharacteristic=
+          if per.havePressureCurve then
+            per.use_powerCharacteristic
+          else
+            false)));
   parameter Modelica.SIunits.PressureDifference dp_start(
     min=0,
-    displayUnit="Pa")=0 "Initial value of pressure raise"
-    annotation(Dialog(tab="Dynamics", group="Filtered speed"));
-
+    displayUnit="Pa")=0
+    "Initial value of pressure raise"
+    annotation (Dialog(tab="Dynamics",group="Filtered speed"));
   // For air, we set dp_nominal = 600 as default, for water we set 10000
   parameter Modelica.SIunits.PressureDifference dp_nominal(
     min=0,
     displayUnit="Pa")=
-      if rho_default < 500 then 500 else 10000 "Nominal pressure raise, used to normalized the filter if use_inputFilter=true,
+    if rho_default < 500 then
+      500
+    else
+      10000
+    "Nominal pressure raise, used to normalized the filter if use_inputFilter=true,
         to set default values of constantHead and heads, and
         and for default pressure curve if not specified in record per"
-    annotation(Dialog(group="Nominal condition"));
-
+    annotation (Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.PressureDifference constantHead(
     min=0,
     displayUnit="Pa")=dp_nominal
     "Constant pump head, used when inputType=Constant"
-    annotation(Dialog(enable=inputType == Buildings.Fluid.Types.InputType.Constant));
-
+    annotation (Dialog(enable=inputType == Buildings.Fluid.Types.InputType.Constant));
   // By default, set heads proportional to sqrt(speed/speed_nominal)
   parameter Modelica.SIunits.PressureDifference[:] heads(
     each min=0,
-    each displayUnit="Pa")=
-    dp_nominal*{(per.speeds[i]/per.speeds[end])^2 for i in 1:size(per.speeds, 1)}
+    each displayUnit="Pa")=dp_nominal*{(per.speeds[i]/per.speeds[end])^2 for i in 1:size(per.speeds,1)}
     "Vector of head set points, used when inputType=Stages"
-    annotation(Dialog(enable=inputType == Buildings.Fluid.Types.InputType.Stages));
-  parameter Boolean prescribeSystemPressure = false
+    annotation (Dialog(enable=inputType == Buildings.Fluid.Types.InputType.Stages));
+  parameter Boolean prescribeSystemPressure=false
     "=true, to control mover such that pressure difference is obtained across two remote points in system"
-    annotation(Evaluate=true, Dialog(tab="Advanced"));
-
+    annotation (Evaluate=true,Dialog(tab="Advanced"));
   Modelica.Blocks.Interfaces.RealInput dpMea(
     final quantity="PressureDifference",
     final displayUnit="Pa",
     final unit="Pa")=gain.u if prescribeSystemPressure
     "Measurement of pressure difference between two points where the set point should be obtained"
-    annotation (Placement(transformation(
-        extent={{20,-20},{-20,20}},
-        rotation=90,
-        origin={-80,120})));
-
-  Modelica.Blocks.Interfaces.RealInput dp_in(final unit="Pa") if
-    inputType == Buildings.Fluid.Types.InputType.Continuous
+    annotation (Placement(transformation(extent={{20,-20},{-20,20}},rotation=90,origin={-80,120})));
+  Modelica.Blocks.Interfaces.RealInput dp_in(
+    final unit="Pa") if inputType == Buildings.Fluid.Types.InputType.Continuous
     "Prescribed pressure rise"
-    annotation (Placement(transformation(
-        extent={{-20,-20},{20,20}},
-        rotation=-90,
-        origin={0,120}), iconTransformation(
-        extent={{-20,-20},{20,20}},
-        rotation=-90,
-        origin={0,120})));
-
-  Modelica.Blocks.Interfaces.RealOutput dp_actual(final unit="Pa")
+    annotation (Placement(transformation(extent={{-20,-20},{20,20}},rotation=-90,origin={0,120}),iconTransformation(extent={{-20,-20},{20,20}},rotation=-90,origin={0,120})));
+  Modelica.Blocks.Interfaces.RealOutput dp_actual(
+    final unit="Pa")
     "Pressure difference between the mover inlet and outlet"
-    annotation (Placement(transformation(extent={{100,40},{120,60}}),
-        iconTransformation(extent={{100,40},{120,60}})));
-
+    annotation (Placement(transformation(extent={{100,40},{120,60}}),iconTransformation(extent={{100,40},{120,60}})));
 protected
-  Modelica.Blocks.Math.Gain gain(final k=-1)
-    annotation (Placement(transformation(extent={{10,-10},{-10,10}},
-        rotation=90,
-        origin={36,30})));
+  Modelica.Blocks.Math.Gain gain(
+    final k=-1)
+    annotation (Placement(transformation(extent={{10,-10},{-10,10}},rotation=90,origin={36,30})));
 equation
-  assert(inputSwitch.u >= -1E-3,
-    "Pressure set point for mover cannot be negative. Obtained dp = " + String(inputSwitch.u));
-
+  assert(
+    inputSwitch.u >=-1E-3,
+    "Pressure set point for mover cannot be negative. Obtained dp = "+String(
+      inputSwitch.u));
   if use_inputFilter then
-    connect(filter.y, gain.u) annotation (Line(
-      points={{34.7,88},{36,88},{36,42}},
-      color={0,0,127},
-      smooth=Smooth.None));
+    connect(filter.y,gain.u)
+      annotation (Line(points={{34.7,88},{36,88},{36,42}},color={0,0,127},smooth=Smooth.None));
   else
-    connect(inputSwitch.y, gain.u) annotation (Line(
-      points={{1,50},{36,50},{36,42}},
-      color={0,0,127},
-      smooth=Smooth.None));
+    connect(inputSwitch.y,gain.u)
+      annotation (Line(points={{1,50},{36,50},{36,42}},color={0,0,127},smooth=Smooth.None));
   end if;
-
-  connect(inputSwitch.u, dp_in) annotation (Line(
-      points={{-22,50},{-26,50},{-26,80},{0,80},{0,120}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(preSou.dp_in, gain.y) annotation (Line(
-      points={{56,8},{56,14},{36,14},{36,19}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(senRelPre.p_rel, dp_actual) annotation (Line(points={{50.5,-26.35},{
-          50.5,-38},{74,-38},{74,50},{110,50}},
-                                           color={0,0,127}));
+  connect(inputSwitch.u,dp_in)
+    annotation (Line(points={{-22,50},{-26,50},{-26,80},{0,80},{0,120}},color={0,0,127},smooth=Smooth.None));
+  connect(preSou.dp_in,gain.y)
+    annotation (Line(points={{56,8},{56,14},{36,14},{36,19}},color={0,0,127},smooth=Smooth.None));
+  connect(senRelPre.p_rel,dp_actual)
+    annotation (Line(points={{50.5,-26.35},{50.5,-38},{74,-38},{74,50},{110,50}},color={0,0,127}));
   annotation (
-    Icon(graphics={
+    Icon(
+      graphics={
         Text(
           extent={{-40,126},{-160,76}},
           lineColor={0,0,127},
           visible=inputType == Buildings.Fluid.Types.InputType.Continuous or inputType == Buildings.Fluid.Types.InputType.Stages,
-          textString=DynamicSelect("dp", if inputType == Buildings.Fluid.Types.InputType.Continuous then String(dp_in, format=".0f") else String(stage)))}),
-  defaultComponentName="fan",
-  Documentation(info="<html>
+          textString=DynamicSelect("dp",
+            if inputType == Buildings.Fluid.Types.InputType.Continuous then
+              String(dp_in,
+                format=".0f")
+            else
+              String(stage)))}),
+    defaultComponentName="fan",
+    Documentation(
+      info="<html>
 <p>
 This model describes a fan or pump with prescribed head.
 The input connector provides the difference between

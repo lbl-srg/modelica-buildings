@@ -1,47 +1,44 @@
 within Buildings.Fluid.MixingVolumes.Validation;
-model MixingVolumeMassFlow "Test model for mass flow into and out of volume"
+model MixingVolumeMassFlow
+  "Test model for mass flow into and out of volume"
   extends Modelica.Icons.Example;
- package Medium = Buildings.Media.Air "Medium model";
-
-  parameter Modelica.SIunits.PressureDifference dp_nominal = 10
+  package Medium=Buildings.Media.Air
+    "Medium model";
+  parameter Modelica.SIunits.PressureDifference dp_nominal=10
     "Nominal pressure drop";
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal = 0.5
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=0.5
     "Nominal mass flow rate";
-
   Modelica.Fluid.Sources.MassFlowSource_T sou(
-    redeclare package Medium = Medium,
+    redeclare package Medium=Medium,
     nPorts=1,
     use_m_flow_in=false,
     m_flow=m_flow_nominal,
-    T=313.15) "Flow source and sink"
+    T=313.15)
+    "Flow source and sink"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   Sources.Boundary_pT bou(
-    redeclare package Medium = Medium,
+    redeclare package Medium=Medium,
     T=303.15,
-    nPorts=1) "Boundary condition"
-    annotation (
-      Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=180,
-        origin={50,0})));
+    nPorts=1)
+    "Boundary condition"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=180,origin={50,0})));
   Buildings.Fluid.MixingVolumes.MixingVolume vol(
     V=1,
-    redeclare package Medium = Medium,
+    redeclare package Medium=Medium,
     nPorts=2,
     allowFlowReversal=false,
     m_flow_nominal=m_flow_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     massDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial)
-              annotation (Placement(transformation(extent={{-10,0},{10,20}})));
-
+    annotation (Placement(transformation(extent={{-10,0},{10,20}})));
 equation
-  connect(sou.ports[1], vol.ports[1]) annotation (Line(
-      points={{-40,6.66134e-16},{-26,6.66134e-16},{-26,-5.55112e-16},{-2,-5.55112e-16}},
-      color={0,127,255}));
-  connect(bou.ports[1], vol.ports[2])
-    annotation (Line(points={{40,0},{2,0}}, color={0,127,255}));
-  annotation (Documentation(
-        info="<html>
+  connect(sou.ports[1],vol.ports[1])
+    annotation (Line(points={{-40,6.66134e-16},{-26,6.66134e-16},{-26,-5.55112e-16},{-2,-5.55112e-16}},color={0,127,255}));
+  connect(bou.ports[1],vol.ports[2])
+    annotation (Line(points={{40,0},{2,0}},color={0,127,255}));
+  annotation (
+    Documentation(
+      info="<html>
 <p>
 This model demonstrates the use of the mixing volume with air flowing into and out of the volume.
 </p>
@@ -56,7 +53,8 @@ the volume has the same pressure. Therefore, specifying an
 initial condition for the mass dynamics would yield to an overspecified
 initial value problem for the pressure of the medium.
 </p>
-</html>", revisions="<html>
+</html>",
+      revisions="<html>
 <ul>
 <li>
 January 22, 2016, by Michael Wetter:<br/>
@@ -80,7 +78,9 @@ First implementation.
 </li>
 </ul>
 </html>"),
- __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/Validation/MixingVolumeMassFlow.mos"
-        "Simulate and plot"),
-    experiment(Tolerance=1E-6, StopTime=10));
+    __Dymola_Commands(
+      file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/Validation/MixingVolumeMassFlow.mos" "Simulate and plot"),
+    experiment(
+      Tolerance=1E-6,
+      StopTime=10));
 end MixingVolumeMassFlow;

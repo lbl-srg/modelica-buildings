@@ -37,12 +37,10 @@ model Borefield
   // IO VARIABLES
   Buildings.Controls.OBC.CDL.Interfaces.RealInput yValIso_actual[2]
     "Isolation valves return position (fractional)"
-    annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
-    iconTransformation(extent={{-140,20},{-100,60}})));
+    annotation (Placement(transformation(extent={{-140,20},{-100,60}}),iconTransformation(extent={{-140,20},{-100,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u
     "Control signal from supervisory"
-    annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
-    iconTransformation(extent={{-140,60},{-100,100}})));
+    annotation (Placement(transformation(extent={{-140,60},{-100,100}}),iconTransformation(extent={{-140,60},{-100,100}})));
   // COMPONENTS
   Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear val(
     redeclare final package Medium=Medium,

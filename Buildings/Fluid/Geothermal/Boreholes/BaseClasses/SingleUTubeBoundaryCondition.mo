@@ -3,10 +3,11 @@ model SingleUTubeBoundaryCondition
   "Prescribed temperature at the outer boundary of a single U tube borehole"
   replaceable parameter Buildings.HeatTransfer.Data.Soil.Generic matSoi
     "Thermal properties of the soil"
-     annotation (choicesAllMatching=true);
+    annotation (choicesAllMatching=true);
   parameter Modelica.SIunits.Radius rExt=3
     "Distance from the brine where the calculation is performed";
-  parameter Modelica.SIunits.Height hSeg=10 "Height of the segment";
+  parameter Modelica.SIunits.Height hSeg=10
+    "Height of the segment";
   parameter Modelica.SIunits.Temperature TExt_start=283.15
     "Initial external temperature";
   parameter Modelica.SIunits.Time samplePeriod=604800
@@ -15,50 +16,65 @@ model SingleUTubeBoundaryCondition
     "Extentable array, used to store history of rate of heat flows";
   Modelica.SIunits.HeatFlowRate QAve_flow
     "Average heat flux over a time period";
-  Modelica.Blocks.Interfaces.RealInput Q_flow(unit="W")
+  Modelica.Blocks.Interfaces.RealInput Q_flow(
+    unit="W")
     "Heat flow rate at the center of the borehole, positive if heat is added to soil"
-     annotation (Placement(transformation(extent={{-120,-100},{-80,-60}})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b port "Heat port"
-    annotation (Placement(transformation(extent={{86,-10},
-            {106,10}}), iconTransformation(extent={{86,-10},
-            {106,10}})));
+    annotation (Placement(transformation(extent={{-120,-100},{-80,-60}})));
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b port
+    "Heat port"
+    annotation (Placement(transformation(extent={{86,-10},{106,10}}),iconTransformation(extent={{86,-10},{106,10}})));
 protected
-  final parameter Modelica.SIunits.SpecificHeatCapacity c= matSoi.c
+  final parameter Modelica.SIunits.SpecificHeatCapacity c=matSoi.c
     "Specific heat capacity of the soil";
-  final parameter Modelica.SIunits.ThermalConductivity k= matSoi.k
+  final parameter Modelica.SIunits.ThermalConductivity k=matSoi.k
     "Thermal conductivity of the soil";
-  final parameter Modelica.SIunits.Density d = matSoi.d "Density of the soil";
-  Modelica.SIunits.Energy UOld "Internal energy at the previous period";
+  final parameter Modelica.SIunits.Density d=matSoi.d
+    "Density of the soil";
+  Modelica.SIunits.Energy UOld
+    "Internal energy at the previous period";
   Modelica.SIunits.Energy U
     "Current internal energy, defined as U=0 for t=tStart";
-  final parameter Modelica.SIunits.Time startTime(fixed=false)
+  final parameter Modelica.SIunits.Time startTime(
+    fixed=false)
     "Start time of the simulation";
-  Integer iSam(min=1)
+  Integer iSam(
+    min=1)
     "Counter for how many time the model was sampled. Defined as iSam=1 when called at t=0";
 initial equation
-  U         = 0;
-  UOld      = 0;
-  startTime = time;
-  iSam      = 1;
-  port.T    = TExt_start;
-  QAve_flow = 0;
+  U=0;
+  UOld=0;
+  startTime=time;
+  iSam=1;
+  port.T=TExt_start;
+  QAve_flow=0;
 equation
-  der(U) = Q_flow;
-
-  when sample(startTime, samplePeriod) then
-    QAve_flow = (U-pre(UOld))/samplePeriod;
-    UOld      = U;
-    port.T    = TExt_start + Buildings.Fluid.Geothermal.Boreholes.BaseClasses.temperatureDrop(
-                                 table=table, iSam=pre(iSam),
-                                 Q_flow=QAve_flow, samplePeriod=samplePeriod,
-                                 rExt=rExt, hSeg=hSeg,
-                                 k=k, d=d, c=c);
-    iSam = pre(iSam)+1;
+  der(
+    U)=Q_flow;
+  when sample(
+    startTime,
+    samplePeriod) then
+    QAve_flow=(U-pre(
+      UOld))/samplePeriod;
+    UOld=U;
+    port.T=TExt_start+Buildings.Fluid.Geothermal.Boreholes.BaseClasses.temperatureDrop(
+      table=table,
+      iSam=pre(iSam),
+      Q_flow=QAve_flow,
+      samplePeriod=samplePeriod,
+      rExt=rExt,
+      hSeg=hSeg,
+      k=k,
+      d=d,
+      c=c);
+    iSam=pre(
+      iSam)+1;
   end when;
-
-annotation (
-    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
-            100,100}}), graphics={
+  annotation (
+    Icon(
+      coordinateSystem(
+        preserveAspectRatio=true,
+        extent={{-100,-100},{100,100}}),
+      graphics={
         Rectangle(
           extent={{-100,100},{100,-100}},
           lineColor={0,0,0},
@@ -82,7 +98,8 @@ annotation (
           lineColor={191,0,0},
           fillColor={191,0,0},
           fillPattern=FillPattern.Solid)}),
-          Documentation(info="<html>
+    Documentation(
+      info="<html>
 <p>
 This model computes the temperature boundary condition at the outer boundary of the borehole.
 It takes as an input the heat flow rate at the center of the borehole.
@@ -97,7 +114,7 @@ The computation of the temperature change of the boundary is computed using the 
 Buildings.Fluid.Geothermal.Boreholes.BaseClasses.temperatureDrop</a>.
 </p>
 </html>",
-revisions="<html>
+      revisions="<html>
 <ul>
 <li>
 June 26, 2018, by Michael Wetter:<br/>

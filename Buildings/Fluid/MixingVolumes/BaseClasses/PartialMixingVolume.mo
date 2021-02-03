@@ -1,73 +1,86 @@
 within Buildings.Fluid.MixingVolumes.BaseClasses;
 model PartialMixingVolume
   "Partial mixing volume with inlet and outlet ports (flow reversal is allowed)"
-
   extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations;
-  parameter Boolean initialize_p = not Medium.singleState
+  parameter Boolean initialize_p=not Medium.singleState
     "= true to set up initial equations for pressure"
-    annotation(HideResult=true, Evaluate=true, Dialog(tab="Advanced"));
-
+    annotation (HideResult=true,Evaluate=true,Dialog(tab="Advanced"));
   // We set prescribedHeatFlowRate=false so that the
   // volume works without the user having to set this advanced parameter,
   // but to get high robustness, a user can set it to the appropriate value
   // as described in the info section.
-  constant Boolean prescribedHeatFlowRate = false
+  constant Boolean prescribedHeatFlowRate=false
     "Set to true if the model has a prescribed heat flow at its heatPort. If the heat flow rate at the heatPort is only based on temperature difference, then set to false";
-
-  constant Boolean simplify_mWat_flow = true
+  constant Boolean simplify_mWat_flow=true
     "Set to true to cause port_a.m_flow + port_b.m_flow = 0 even if mWat_flow is non-zero";
-
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal(min=0)
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal(
+    min=0)
     "Nominal mass flow rate"
-    annotation(Dialog(group = "Nominal condition"));
+    annotation (Dialog(group="Nominal condition"));
   // Port definitions
-  parameter Integer nPorts=0 "Number of ports"
-    annotation(Evaluate=true, Dialog(connectorSizing=true, tab="General",group="Ports"));
-  parameter Modelica.SIunits.MassFlowRate m_flow_small(min=0) = 1E-4*abs(m_flow_nominal)
+  parameter Integer nPorts=0
+    "Number of ports"
+    annotation (Evaluate=true,Dialog(connectorSizing=true,tab="General",group="Ports"));
+  parameter Modelica.SIunits.MassFlowRate m_flow_small(
+    min=0)=1E-4*abs(
+    m_flow_nominal)
     "Small mass flow rate for regularization of zero flow"
-    annotation(Dialog(tab = "Advanced"));
-  parameter Boolean allowFlowReversal = true
+    annotation (Dialog(tab="Advanced"));
+  parameter Boolean allowFlowReversal=true
     "= false to simplify equations, assuming, but not enforcing, no flow reversal. Used only if model has two ports."
-    annotation(Dialog(tab="Assumptions"), Evaluate=true);
-  parameter Modelica.SIunits.Volume V "Volume";
+    annotation (Dialog(tab="Assumptions"),Evaluate=true);
+  parameter Modelica.SIunits.Volume V
+    "Volume";
   Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b ports[nPorts](
-      redeclare each package Medium = Medium) "Fluid inlets and outlets"
-    annotation (Placement(transformation(extent={{-40,-10},{40,10}},
-      origin={0,-100})));
-
-  Medium.Temperature T = Medium.temperature_phX(p=p, h=hOut_internal, X=cat(1,Xi,{1-sum(Xi)}))
+    redeclare each package Medium=Medium)
+    "Fluid inlets and outlets"
+    annotation (Placement(transformation(extent={{-40,-10},{40,10}},origin={0,-100})));
+  Medium.Temperature T=Medium.temperature_phX(
+    p=p,
+    h=hOut_internal,
+    X=cat(1,Xi,{1-sum(Xi)}))
     "Temperature of the fluid";
-  Modelica.Blocks.Interfaces.RealOutput U(unit="J")
+  Modelica.Blocks.Interfaces.RealOutput U(
+    unit="J")
     "Internal energy of the component";
-  Modelica.SIunits.Pressure p = if nPorts > 0 then ports[1].p else p_start
+  Modelica.SIunits.Pressure p=
+    if nPorts > 0 then
+      ports[1].p
+    else
+      p_start
     "Pressure of the fluid";
-  Modelica.Blocks.Interfaces.RealOutput m(unit="kg") "Mass of the component";
-  Modelica.SIunits.MassFraction Xi[Medium.nXi] = XiOut_internal
+  Modelica.Blocks.Interfaces.RealOutput m(
+    unit="kg")
+    "Mass of the component";
+  Modelica.SIunits.MassFraction Xi[Medium.nXi]=XiOut_internal
     "Species concentration of the fluid";
-  Modelica.Blocks.Interfaces.RealOutput mXi[Medium.nXi](each unit="kg")
+  Modelica.Blocks.Interfaces.RealOutput mXi[Medium.nXi](
+    each unit="kg")
     "Species mass of the component";
-  Medium.ExtraProperty C[Medium.nC](nominal=C_nominal) = COut_internal
+  Medium.ExtraProperty C[Medium.nC](
+    nominal=C_nominal)=COut_internal
     "Trace substance mixture content";
-  Modelica.Blocks.Interfaces.RealOutput mC[Medium.nC](each unit="kg")
+  Modelica.Blocks.Interfaces.RealOutput mC[Medium.nC](
+    each unit="kg")
     "Trace substance mass of the component";
-
 protected
   Buildings.Fluid.Interfaces.StaticTwoPortConservationEquation steBal(
-    final simplify_mWat_flow = simplify_mWat_flow,
+    final simplify_mWat_flow=simplify_mWat_flow,
     redeclare final package Medium=Medium,
-    final m_flow_nominal = m_flow_nominal,
-    final allowFlowReversal = allowFlowReversal,
-    final m_flow_small = m_flow_small,
+    final m_flow_nominal=m_flow_nominal,
+    final allowFlowReversal=allowFlowReversal,
+    final m_flow_small=m_flow_small,
     final prescribedHeatFlowRate=prescribedHeatFlowRate,
-    hOut(start=Medium.specificEnthalpy_pTX(
-                 p=p_start,
-                 T=T_start,
-                 X=X_start))) if
-         useSteadyStateTwoPort "Model for steady-state balance if nPorts=2"
-        annotation (Placement(transformation(extent={{20,0},{40,20}})));
+    hOut(
+      start=Medium.specificEnthalpy_pTX(
+        p=p_start,
+        T=T_start,
+        X=X_start))) if useSteadyStateTwoPort
+    "Model for steady-state balance if nPorts=2"
+    annotation (Placement(transformation(extent={{20,0},{40,20}})));
   Buildings.Fluid.Interfaces.ConservationEquation dynBal(
-    final simplify_mWat_flow = simplify_mWat_flow,
-    redeclare final package Medium = Medium,
+    final simplify_mWat_flow=simplify_mWat_flow,
+    redeclare final package Medium=Medium,
     final energyDynamics=energyDynamics,
     final massDynamics=massDynamics,
     final p_start=p_start,
@@ -75,52 +88,55 @@ protected
     final X_start=X_start,
     final C_start=C_start,
     final C_nominal=C_nominal,
-    final fluidVolume = V,
-    final initialize_p = initialize_p,
-    m(start=V*rho_start),
+    final fluidVolume=V,
+    final initialize_p=initialize_p,
+    m(
+      start=V*rho_start),
     nPorts=nPorts,
-    final mSenFac=mSenFac) if
-         not useSteadyStateTwoPort "Model for dynamic energy balance"
+    final mSenFac=mSenFac) if not useSteadyStateTwoPort
+    "Model for dynamic energy balance"
     annotation (Placement(transformation(extent={{60,0},{80,20}})));
-
   // Density at start values, used to compute initial values and start guesses
   parameter Modelica.SIunits.Density rho_start=Medium.density(
-   state=state_start) "Density, used to compute start and guess values";
-  final parameter Medium.ThermodynamicState state_default = Medium.setState_pTX(
-      T=Medium.T_default,
-      p=Medium.p_default,
-      X=Medium.X_default[1:Medium.nXi]) "Medium state at default values";
+    state=state_start)
+    "Density, used to compute start and guess values";
+  final parameter Medium.ThermodynamicState state_default=Medium.setState_pTX(
+    T=Medium.T_default,
+    p=Medium.p_default,
+    X=Medium.X_default[1:Medium.nXi])
+    "Medium state at default values";
   // Density at medium default values, used to compute the size of control volumes
   final parameter Modelica.SIunits.Density rho_default=Medium.density(
-    state=state_default) "Density, used to compute fluid mass";
-  final parameter Medium.ThermodynamicState state_start = Medium.setState_pTX(
-      T=T_start,
-      p=p_start,
-      X=X_start[1:Medium.nXi]) "Medium state at start values";
+    state=state_default)
+    "Density, used to compute fluid mass";
+  final parameter Medium.ThermodynamicState state_start=Medium.setState_pTX(
+    T=T_start,
+    p=p_start,
+    X=X_start[1:Medium.nXi])
+    "Medium state at start values";
   // See info section for why prescribedHeatFlowRate is used here.
   // The condition below may only be changed if StaticTwoPortConservationEquation
   // contains a correct solution for all foreseeable parameters/inputs.
   // See Buildings, issue 282 for a discussion.
-  final parameter Boolean useSteadyStateTwoPort=(nPorts == 2) and
-      (prescribedHeatFlowRate or (not allowFlowReversal)) and (
-      energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState) and (
-      massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState) and (
-      substanceDynamics == Modelica.Fluid.Types.Dynamics.SteadyState) and (
-      traceDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)
+  final parameter Boolean useSteadyStateTwoPort=(nPorts == 2) and(prescribedHeatFlowRate or(not allowFlowReversal)) and(energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState) and(massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState) and(substanceDynamics == Modelica.Fluid.Types.Dynamics.SteadyState) and(traceDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)
     "Flag, true if the model has two ports only and uses a steady state balance"
     annotation (Evaluate=true);
   // Outputs that are needed to assign the medium properties
-  Modelica.Blocks.Interfaces.RealOutput hOut_internal(unit="J/kg")
+  Modelica.Blocks.Interfaces.RealOutput hOut_internal(
+    unit="J/kg")
     "Internal connector for leaving temperature of the component";
-  Modelica.Blocks.Interfaces.RealOutput XiOut_internal[Medium.nXi](each unit="1")
+  Modelica.Blocks.Interfaces.RealOutput XiOut_internal[Medium.nXi](
+    each unit="1")
     "Internal connector for leaving species concentration of the component";
-  Modelica.Blocks.Interfaces.RealOutput COut_internal[Medium.nC](each unit="1")
+  Modelica.Blocks.Interfaces.RealOutput COut_internal[Medium.nC](
+    each unit="1")
     "Internal connector for leaving trace substances of the component";
-
   Buildings.HeatTransfer.Sources.PrescribedTemperature preTem
     "Port temperature"
     annotation (Placement(transformation(extent={{-40,-10},{-60,10}})));
-  Modelica.Blocks.Sources.RealExpression portT(y=T) "Port temperature"
+  Modelica.Blocks.Sources.RealExpression portT(
+    y=T)
+    "Port temperature"
     annotation (Placement(transformation(extent={{-10,-10},{-30,10}})));
   Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor heaFloSen
     "Heat flow sensor"
@@ -129,11 +145,14 @@ equation
   ///////////////////////////////////////////////////////////////////////////
   // asserts
   if not allowFlowReversal then
-    assert(ports[1].m_flow > -m_flow_small,
-  "In " + getInstanceName() + ": Model has flow reversal,
+    assert(
+      ports[1].m_flow >-m_flow_small,
+      "In "+getInstanceName()+": Model has flow reversal,
   but the parameter allowFlowReversal is set to false.
-  m_flow_small    = " + String(m_flow_small) + "
-  ports[1].m_flow = " + String(ports[1].m_flow) + "
+  m_flow_small    = "+String(
+        m_flow_small)+"
+  ports[1].m_flow = "+String(
+        ports[1].m_flow)+"
 ");
   end if;
   // Actual definition of port variables.
@@ -142,47 +161,42 @@ equation
   // and if it has only two ports,
   // then we use the same base class as for all other steady state models.
   if useSteadyStateTwoPort then
-  connect(steBal.port_a, ports[1]) annotation (Line(
-      points={{20,10},{10,10},{10,-20},{0,-20},{0,-20},{0,-100}},
-      color={0,127,255}));
-
-  connect(steBal.port_b, ports[2]) annotation (Line(
-      points={{40,10},{46,10},{46,-20},{0,-20},{0,-100}},
-      color={0,127,255}));
+    connect(steBal.port_a,ports[1])
+      annotation (Line(points={{20,10},{10,10},{10,-20},{0,-20},{0,-20},{0,-100}},color={0,127,255}));
+    connect(steBal.port_b,ports[2])
+      annotation (Line(points={{40,10},{46,10},{46,-20},{0,-20},{0,-100}},color={0,127,255}));
     U=0;
-    mXi=zeros(Medium.nXi);
+    mXi=zeros(
+      Medium.nXi);
     m=0;
-    mC=zeros(Medium.nC);
-    connect(hOut_internal,  steBal.hOut);
-    connect(XiOut_internal, steBal.XiOut);
-    connect(COut_internal,  steBal.COut);
+    mC=zeros(
+      Medium.nC);
+    connect(hOut_internal,steBal.hOut);
+    connect(XiOut_internal,steBal.XiOut);
+    connect(COut_internal,steBal.COut);
   else
-      connect(dynBal.ports, ports) annotation (Line(
-      points={{70,0},{70,-80},{62,-80},{2.22045e-15,-80},{2.22045e-15,-90},{2.22045e-15,
-            -100}},
-      color={0,127,255}));
+    connect(dynBal.ports,ports)
+      annotation (Line(points={{70,0},{70,-80},{62,-80},{2.22045e-15,-80},{2.22045e-15,-90},{2.22045e-15,-100}},color={0,127,255}));
     connect(U,dynBal.UOut);
     connect(mXi,dynBal.mXiOut);
     connect(m,dynBal.mOut);
     connect(mC,dynBal.mCOut);
-    connect(hOut_internal,  dynBal.hOut);
-    connect(XiOut_internal, dynBal.XiOut);
-    connect(COut_internal,  dynBal.COut);
+    connect(hOut_internal,dynBal.hOut);
+    connect(XiOut_internal,dynBal.XiOut);
+    connect(COut_internal,dynBal.COut);
   end if;
-
-  connect(portT.y, preTem.T)
-    annotation (Line(points={{-31,0},{-38,0}},   color={0,0,127}));
-  connect(heaFloSen.port_b, preTem.port)
-    annotation (Line(points={{-70,0},{-65,0},{-60,0}},    color={191,0,0}));
-  connect(heaFloSen.Q_flow, steBal.Q_flow) annotation (Line(points={{-80,-10},{
-          -80,-16},{6,-16},{6,18},{18,18}},
-                                     color={0,0,127}));
-  connect(heaFloSen.Q_flow, dynBal.Q_flow) annotation (Line(points={{-80,-10},{
-          -80,-10},{-80,-16},{6,-16},{6,24},{50,24},{50,16},{58,16}},
-                                                               color={0,0,127}));
+  connect(portT.y,preTem.T)
+    annotation (Line(points={{-31,0},{-38,0}},color={0,0,127}));
+  connect(heaFloSen.port_b,preTem.port)
+    annotation (Line(points={{-70,0},{-65,0},{-60,0}},color={191,0,0}));
+  connect(heaFloSen.Q_flow,steBal.Q_flow)
+    annotation (Line(points={{-80,-10},{-80,-16},{6,-16},{6,18},{18,18}},color={0,0,127}));
+  connect(heaFloSen.Q_flow,dynBal.Q_flow)
+    annotation (Line(points={{-80,-10},{-80,-10},{-80,-16},{6,-16},{6,24},{50,24},{50,16},{58,16}},color={0,0,127}));
   annotation (
-defaultComponentName="vol",
-Documentation(info="<html>
+    defaultComponentName="vol",
+    Documentation(
+      info="<html>
 <p>
 This is a partial model of an instantaneously mixed volume.
 It is used as the base class for all fluid volumes of the package
@@ -300,7 +314,8 @@ For simple models that uses this model, see
 <a href=\"modelica://Buildings.Fluid.MixingVolumes\">
 Buildings.Fluid.MixingVolumes</a>.
 </p>
-</html>", revisions="<html>
+</html>",
+      revisions="<html>
 <ul>
 <li>
 September 18, 2020, by Michael Wetter:<br/>
@@ -549,9 +564,12 @@ Buildings.Fluid.MixingVolumes.BaseClasses.ClosedVolume</a>.
 </li>
 </ul>
 </html>"),
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}), graphics={
-       Text(
+    Icon(
+      coordinateSystem(
+        preserveAspectRatio=false,
+        extent={{-100,-100},{100,100}}),
+      graphics={
+        Text(
           extent={{-60,-26},{56,-58}},
           lineColor={255,255,255},
           textString="V=%V"),
@@ -559,13 +577,14 @@ Buildings.Fluid.MixingVolumes.BaseClasses.ClosedVolume</a>.
           extent={{-152,100},{148,140}},
           textString="%name",
           lineColor={0,0,255}),
-       Ellipse(
+        Ellipse(
           extent={{-100,98},{100,-102}},
           lineColor={0,0,0},
           fillPattern=FillPattern.Sphere,
-          fillColor=DynamicSelect({170,213,255}, min(1, max(0, (1-(T-273.15)/50)))*{28,108,200}+min(1, max(0, (T-273.15)/50))*{255,0,0})),
+          fillColor=DynamicSelect({170,213,255},min(1,max(0,(1-(T-273.15)/50)))*{28,108,200}+min(1,max(0,(T-273.15)/50))*{255,0,0})),
         Text(
           extent={{62,28},{-58,-22}},
           lineColor={255,255,255},
-          textString=DynamicSelect("", String(T-273.15, format=".1f")))}));
+          textString=DynamicSelect("",String(T-273.15,
+            format=".1f")))}));
 end PartialMixingVolume;

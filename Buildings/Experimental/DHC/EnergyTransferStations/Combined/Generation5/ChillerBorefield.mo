@@ -52,20 +52,17 @@ model ChillerBorefield
     annotation (Dialog(group="Chiller"));
   replaceable parameter Fluid.Chillers.Data.ElectricEIR.Generic datChi
     "Chiller performance data"
-    annotation (Dialog(group="Chiller"),choicesAllMatching=true,
-    Placement(transformation(extent={{20,222},{40,242}})));
+    annotation (Dialog(group="Chiller"),choicesAllMatching=true,Placement(transformation(extent={{20,222},{40,242}})));
   replaceable parameter Buildings.Fluid.Movers.Data.Generic perPumCon(
     motorCooledByFluid=false)
     constrainedby Buildings.Fluid.Movers.Data.Generic
     "Record with performance data for condenser pump"
-    annotation (Dialog(group="Chiller"),choicesAllMatching=true,
-    Placement(transformation(extent={{60,222},{80,242}})));
+    annotation (Dialog(group="Chiller"),choicesAllMatching=true,Placement(transformation(extent={{60,222},{80,242}})));
   replaceable parameter Buildings.Fluid.Movers.Data.Generic perPumEva(
     motorCooledByFluid=false)
     constrainedby Buildings.Fluid.Movers.Data.Generic
     "Record with performance data for evaporator pump"
-    annotation (Dialog(group="Chiller"),choicesAllMatching=true,
-    Placement(transformation(extent={{100,222},{120,242}})));
+    annotation (Dialog(group="Chiller"),choicesAllMatching=true,Placement(transformation(extent={{100,222},{120,242}})));
   parameter Modelica.SIunits.Temperature TBorWatEntMax=313.15
     "Maximum value of borefield water entering temperature"
     annotation (Dialog(group="Borefield",enable=have_borFie));
@@ -80,14 +77,12 @@ model ChillerBorefield
   replaceable parameter Fluid.Geothermal.Borefields.Data.Borefield.Example datBorFie
     constrainedby Fluid.Geothermal.Borefields.Data.Borefield.Template
     "Borefield parameters"
-    annotation (Dialog(group="Borefield",enable=have_borFie),
-    choicesAllMatching=true,Placement(transformation(extent={{140,222},{160,242}})));
+    annotation (Dialog(group="Borefield",enable=have_borFie),choicesAllMatching=true,Placement(transformation(extent={{140,222},{160,242}})));
   replaceable parameter Buildings.Fluid.Movers.Data.Generic perPumBorFie(
     motorCooledByFluid=false)
     constrainedby Buildings.Fluid.Movers.Data.Generic
     "Record with performance data for borefield pump"
-    annotation (Dialog(group="Borefield",enable=have_borFie),
-    choicesAllMatching=true,Placement(transformation(extent={{180,222},{200,242}})));
+    annotation (Dialog(group="Borefield",enable=have_borFie),choicesAllMatching=true,Placement(transformation(extent={{180,222},{200,242}})));
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
     annotation (Dialog(group="Supervisory controller"));
@@ -102,15 +97,11 @@ model ChillerBorefield
   parameter Modelica.SIunits.Time TiHot(
     min=Buildings.Controls.OBC.CDL.Constants.small)=300
     "Time constant of integrator block on hot side"
-    annotation (Dialog(group="Supervisory controller",
-    enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
-    controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+    annotation (Dialog(group="Supervisory controller",enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   parameter Modelica.SIunits.Time TiCol(
     min=Buildings.Controls.OBC.CDL.Constants.small)=120
     "Time constant of integrator block on cold side"
-    annotation (Dialog(group="Supervisory controller",enable=controllerType ==
-    Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
-    controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+    annotation (Dialog(group="Supervisory controller",enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   parameter Modelica.SIunits.Temperature THeaWatSupSetMin(
     displayUnit="degC")=datChi.TConEntMin+5
     "Minimum value of heating water supply temperature set point"
@@ -136,8 +127,7 @@ model ChillerBorefield
     final spePumBorMin=spePumBorMin,
     final dp_nominal=dpBorFie_nominal) if have_borFie
     "Borefield"
-    annotation (Dialog(group="Borefield",enable=have_borFie),
-    Placement(transformation(extent={{-80,-230},{-60,-210}})));
+    annotation (Dialog(group="Borefield",enable=have_borFie),Placement(transformation(extent={{-80,-230},{-60,-210}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerPPum(
     final k=0) if not have_borFie
     "Zero power"

@@ -8,19 +8,18 @@ record Template
     "Soil data";
   parameter Buildings.Fluid.Geothermal.Borefields.Data.Configuration.Template conDat
     "Configuration data";
-
   annotation (
-  defaultComponentPrefixes="parameter",
-  defaultComponentName="borFieDat",
-Documentation(
-info="<html>
+    defaultComponentPrefixes="parameter",
+    defaultComponentName="borFieDat",
+    Documentation(
+      info="<html>
 <p>
 This record is a template for the records in
 <a href=\"modelica://Buildings.Fluid.Geothermal.Borefields.Data.Borefield\">
 Buildings.Fluid.Geothermal.Borefields.Data.Borefield</a>.
 </p>
 </html>",
-revisions="<html>
+      revisions="<html>
 <ul>
 <li>
 July 15, 2018, by Michael Wetter:<br/>

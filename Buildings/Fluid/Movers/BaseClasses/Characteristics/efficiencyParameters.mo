@@ -1,11 +1,18 @@
 within Buildings.Fluid.Movers.BaseClasses.Characteristics;
-record efficiencyParameters "Record for efficiency parameters"
+record efficiencyParameters
+  "Record for efficiency parameters"
   extends Modelica.Icons.Record;
   parameter Modelica.SIunits.VolumeFlowRate V_flow[:](
-    each min=0) "Volumetric flow rate at user-selected operating points";
-  parameter Modelica.SIunits.Efficiency eta[size(V_flow,1)](
-    each max=1) "Fan or pump efficiency at these flow rates";
-  annotation (Documentation(info="<html>
+    each min=0)
+    "Volumetric flow rate at user-selected operating points";
+  parameter Modelica.SIunits.Efficiency eta[size(
+    V_flow,
+    1)](
+    each max=1)
+    "Fan or pump efficiency at these flow rates";
+  annotation (
+    Documentation(
+      info="<html>
 <p>
 Data record for performance data that describe volume flow rate versus
 efficiency.
@@ -15,7 +22,7 @@ Both vectors, <code>r_V</code> and <code>eta</code>
 must have the same size.
 </p>
 </html>",
-revisions="<html>
+      revisions="<html>
 <ul>
 <li>
 September 28, 2011, by Michael Wetter:<br/>

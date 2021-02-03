@@ -1,8 +1,10 @@
 within Buildings.Fluid.HeatExchangers;
-package ActiveBeams "Package with active beams"
+package ActiveBeams
+  "Package with active beams"
   extends Modelica.Icons.VariantsPackage;
-
-annotation (Documentation(info="<html>
+  annotation (
+    Documentation(
+      info="<html>
 <p>
 This package contains models of active beams.
 See the

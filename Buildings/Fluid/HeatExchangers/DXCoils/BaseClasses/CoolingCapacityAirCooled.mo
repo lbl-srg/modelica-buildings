@@ -1,32 +1,39 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses;
 block CoolingCapacityAirCooled
   "Calculates cooling capacity at given temperature and flow fraction for air-cooled coils"
-  extends
-    Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialCoolingCapacity(
-  redeclare replaceable Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.Stage sta[nSta],
-  use_mCon_flow=false);
-
+  extends Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialCoolingCapacity(
+    redeclare replaceable Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.Stage sta[nSta],
+    use_mCon_flow=false);
 equation
- if stage > 0 then
+  if stage > 0 then
     for iSta in 1:nSta loop
-
-    Q_flow[iSta] = corFac[iSta]*cap_T[iSta]*cap_FF[iSta]*sta[iSta].nomVal.Q_flow_nominal;
-    EIR[iSta]    = corFac[iSta]*EIR_T[iSta]*EIR_FF[iSta]/sta[iSta].nomVal.COP_nominal;
+      Q_flow[iSta]=corFac[iSta]*cap_T[iSta]*cap_FF[iSta]*sta[iSta].nomVal.Q_flow_nominal;
+      EIR[iSta]=corFac[iSta]*EIR_T[iSta]*EIR_FF[iSta]/sta[iSta].nomVal.COP_nominal;
     end for;
- else //cooling coil off
-   Q_flow = fill(0, nSta);
-   EIR    = fill(0, nSta);
+  else
+    //cooling coil off
+    Q_flow=fill(
+      0,
+      nSta);
+    EIR=fill(
+      0,
+      nSta);
   end if;
-   annotation (
+  annotation (
     defaultComponentName="cooCap",
-    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
-                    graphics={
+    Icon(
+      coordinateSystem(
+        preserveAspectRatio=true,
+        extent={{-100,-100},{100,100}}),
+      graphics={
         Text(
           extent={{-100,100},{100,-100}},
           lineColor={0,0,255},
-          textStyle={TextStyle.Italic},
+          textStyle={
+            TextStyle.Italic},
           textString="f(T,m)")}),
-          Documentation(info="<html>
+    Documentation(
+      info="<html>
 <p>
 This model calculates cooling capacity and EIR for air-cooled DX coils in off-designed conditions based on
 performance modifers calculated in partial model
@@ -61,7 +68,7 @@ the cooling capacity of the coil at given inlet temperatures and mass flow rate 
      EIR(&theta;<sub>e,in</sub>, &theta;<sub>c,in</sub>, ff) = EIR<sub>&theta;</sub>(&theta;<sub>e,in</sub>, &theta;<sub>c,in</sub>) EIR<sub>FF</sub>(ff) &frasl; COP<sub>nominal</sub>
 </p>
 </html>",
-revisions="<html>
+      revisions="<html>
 <ul>
 <li>
 February 17, 2017 by Yangyang Fu:<br/>

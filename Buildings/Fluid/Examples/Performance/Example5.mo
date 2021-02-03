@@ -2,26 +2,38 @@ within Buildings.Fluid.Examples.Performance;
 model Example5
   "Example 5 model of Modelica code that is inefficiently compiled into C-code"
   extends Modelica.Icons.Example;
-  parameter Boolean efficient = false
-  annotation(Evaluate=true);
-
-  parameter Real[3] a = 1:3;
-  parameter Real b=sum(a);
-
+  parameter Boolean efficient=false
+    annotation (Evaluate=true);
+  parameter Real[3] a=1:3;
+  parameter Real b=sum(
+    a);
   Real c;
 initial equation
   c=0;
-
 equation
-  der(c) = sin(time)*(if efficient then b else sum(a));
-
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,
-            -40},{40,60}}),    graphics={Text(
+  der(
+    c)=sin(
+    time)*(
+    if efficient then
+      b
+    else
+      sum(
+        a));
+  annotation (
+    Diagram(
+      coordinateSystem(
+        preserveAspectRatio=false,
+        extent={{-120,-40},{40,60}}),
+      graphics={
+        Text(
           extent={{-62,24},{-18,-4}},
           lineColor={0,0,255},
           textString="See code")}),
-    experiment(Tolerance=1e-6, StopTime=20),
-    Documentation(revisions="<html>
+    experiment(
+      Tolerance=1e-6,
+      StopTime=20),
+    Documentation(
+      revisions="<html>
 <ul>
 <li>
 July 14, 2015, by Michael Wetter:<br/>
@@ -32,7 +44,8 @@ April 17, 2015, by Filip Jorissen:<br/>
 First implementation.
 </li>
 </ul>
-</html>", info="<html>
+</html>",
+      info="<html>
 <p>
 This example illustrates the impact of
 Modelica code formulations on the C-code.
@@ -75,7 +88,7 @@ models for building energy simulation.<br/>
 Submitted: 11th Modelica Conference. Paris, France. Sep. 2015.
 </li>
 </ul>
-</html>"), __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Fluid/Examples/Performance/Example5.mos"
-        "Simulate and plot"));
+</html>"),
+    __Dymola_Commands(
+      file="Resources/Scripts/Dymola/Fluid/Examples/Performance/Example5.mos" "Simulate and plot"));
 end Example5;

@@ -1,22 +1,30 @@
 within Buildings.Fluid.Chillers.Data;
-package BaseClasses "Base classes for package Data"
+package BaseClasses
+  "Base classes for package Data"
   extends Modelica.Icons.BasesPackage;
-
-  record Chiller "Base classes for chiller models"
+  record Chiller
+    "Base classes for chiller models"
     extends Modelica.Icons.Record;
-    parameter Modelica.SIunits.HeatFlowRate QEva_flow_nominal(max=0)
+    parameter Modelica.SIunits.HeatFlowRate QEva_flow_nominal(
+      max=0)
       "Reference capacity (negative number)"
       annotation (Dialog(group="Nominal condition"));
-    parameter Real COP_nominal "Reference coefficient of performance"
+    parameter Real COP_nominal
+      "Reference coefficient of performance"
       annotation (Dialog(group="Nominal condition"));
-
-    parameter Real PLRMax(min=0) "Maximum part load ratio";
-    parameter Real PLRMinUnl(min=0) "Minimum part unload ratio";
-    parameter Real PLRMin(min=0) "Minimum part load ratio";
-
-    parameter Real etaMotor(min=0, max=1)
+    parameter Real PLRMax(
+      min=0)
+      "Maximum part load ratio";
+    parameter Real PLRMinUnl(
+      min=0)
+      "Minimum part unload ratio";
+    parameter Real PLRMin(
+      min=0)
+      "Minimum part load ratio";
+    parameter Real etaMotor(
+      min=0,
+      max=1)
       "Fraction of compressor motor heat entering refrigerant";
-
     parameter Modelica.SIunits.MassFlowRate mEva_flow_nominal
       "Nominal mass flow at evaporator"
       annotation (Dialog(group="Nominal condition"));
@@ -26,18 +34,23 @@ package BaseClasses "Base classes for package Data"
     parameter Modelica.SIunits.Temperature TEvaLvg_nominal
       "Temperature of fluid leaving evaporator at nominal condition"
       annotation (Dialog(group="Nominal condition"));
-
-    constant Integer nCapFunT "Number of coefficients for capFunT"
+    constant Integer nCapFunT
+      "Number of coefficients for capFunT"
       annotation (Dialog(group="Performance curves"));
-    constant Integer nEIRFunT "Number of coefficients for EIRFunT"
+    constant Integer nEIRFunT
+      "Number of coefficients for EIRFunT"
       annotation (Dialog(group="Performance curves"));
-    constant Integer nEIRFunPLR "Number of coefficients for EIRFunPLR"
+    constant Integer nEIRFunPLR
+      "Number of coefficients for EIRFunPLR"
       annotation (Dialog(group="Performance curves"));
-    parameter Real capFunT[nCapFunT] "Biquadratic coefficients for capFunT"
+    parameter Real capFunT[nCapFunT]
+      "Biquadratic coefficients for capFunT"
       annotation (Dialog(group="Performance curves"));
-    parameter Real EIRFunT[nEIRFunT] "Biquadratic coefficients for EIRFunT"
+    parameter Real EIRFunT[nEIRFunT]
+      "Biquadratic coefficients for EIRFunT"
       annotation (Dialog(group="Performance curves"));
-    parameter Real EIRFunPLR[nEIRFunPLR] "Coefficients for EIRFunPLR"
+    parameter Real EIRFunPLR[nEIRFunPLR]
+      "Coefficients for EIRFunPLR"
       annotation (Dialog(group="Performance curves"));
     parameter Modelica.SIunits.Temperature TEvaLvgMin
       "Minimum value for leaving evaporator temperature"
@@ -45,14 +58,15 @@ package BaseClasses "Base classes for package Data"
     parameter Modelica.SIunits.Temperature TEvaLvgMax
       "Maximum value for leaving evaporator temperature"
       annotation (Dialog(group="Performance curves"));
-
-    annotation (preferredView="info",
-    Documentation(info="<html>
+    annotation (
+      preferredView="info",
+      Documentation(
+        info="<html>
 <p>
 This is the base record for chiller models.
 </p>
 </html>",
-  revisions="<html>
+        revisions="<html>
 <ul>
 <li>
 July 27, 2016, by Michael Wetter:<br/>
@@ -65,7 +79,8 @@ First implementation.
 </li>
 </ul>
 </html>"),
-      Icon(graphics={
+      Icon(
+        graphics={
           Text(
             extent={{-95,53},{-12,-2}},
             lineColor={0,0,255},
@@ -91,9 +106,10 @@ First implementation.
             lineColor={0,0,255},
             textString="%PLRMinUnl")}));
   end Chiller;
-
-  annotation(preferredView="info",
-  Documentation(info="<html>
+  annotation (
+    preferredView="info",
+    Documentation(
+      info="<html>
 This package contains the common parameters that are used
 to specify the performance data
 for the chiller models
@@ -102,7 +118,8 @@ Buildings.Fluid.Chillers.ElectricEIR</a>
 and
 <a href=\"Buildings.Fluid.Chillers.ElectricReformulatedEIR\">
 Buildings.Fluid.Chillers.ElectricReformulatedEIR</a>.
-</html>", revisions="<html>
+</html>",
+      revisions="<html>
 <ul>
 <li>
 September 17, 2010 by Michael Wetter:<br/>

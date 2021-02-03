@@ -4,72 +4,73 @@ model PlugFlowHeatLoss
   extends Fluid.Interfaces.PartialTwoPortTransport(
     final allowFlowReversal=true,
     final dp_start=0);
-    // allowFlowReversal set to true because this model is used for inlet and outlets
-
-  parameter Real C(unit="J/(K.m)")
+  // allowFlowReversal set to true because this model is used for inlet and outlets
+  parameter Real C(
+    unit="J/(K.m)")
     "Thermal capacity per unit length of pipe";
-  parameter Real R(unit="(m.K)/W")
+  parameter Real R(
+    unit="(m.K)/W")
     "Thermal resistance per unit length from fluid to boundary temperature";
-
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal "Nominal mass flow rate";
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal
+    "Nominal mass flow rate";
   parameter Modelica.SIunits.Temperature T_start
     "Initial output temperature";
-
-  final parameter Modelica.SIunits.Time tau_char=R*C "Characteristic delay time";
-
-  Modelica.Blocks.Interfaces.RealInput tau(unit="s") "Time delay at pipe level"
-    annotation (Placement(transformation(
-        extent={{-20,-20},{20,20}},
-        rotation=270,
-        origin={-60,100})));
+  final parameter Modelica.SIunits.Time tau_char=R*C
+    "Characteristic delay time";
+  Modelica.Blocks.Interfaces.RealInput tau(
+    unit="s")
+    "Time delay at pipe level"
+    annotation (Placement(transformation(extent={{-20,-20},{20,20}},rotation=270,origin={-60,100})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
     "Heat port to connect environment (negative if heat is lost to ambient)"
     annotation (Placement(transformation(extent={{-10,90},{10,110}})));
-
-  Modelica.SIunits.Temperature T_a_inflow(start=T_start)
+  Modelica.SIunits.Temperature T_a_inflow(
+    start=T_start)
     "Temperature at port_a for inflowing fluid";
-  Modelica.SIunits.Temperature T_b_outflow(start=T_start)
+  Modelica.SIunits.Temperature T_b_outflow(
+    start=T_start)
     "Temperature at port_b for outflowing fluid";
-  Modelica.SIunits.Temperature TAmb=heatPort.T "Environment temperature";
-
+  Modelica.SIunits.Temperature TAmb=heatPort.T
+    "Environment temperature";
 protected
   parameter Medium.ThermodynamicState sta_default=Medium.setState_pTX(
-      T=Medium.T_default,
-      p=Medium.p_default,
-      X=Medium.X_default) "Default medium state";
-  parameter Modelica.SIunits.SpecificHeatCapacity cp_default=
-      Medium.specificHeatCapacityCp(state=sta_default)
+    T=Medium.T_default,
+    p=Medium.p_default,
+    X=Medium.X_default)
+    "Default medium state";
+  parameter Modelica.SIunits.SpecificHeatCapacity cp_default=Medium.specificHeatCapacityCp(
+    state=sta_default)
     "Heat capacity of medium";
-
 equation
-  dp = 0;
-
-  port_a.h_outflow = inStream(port_b.h_outflow);
-
-  port_b.h_outflow =Medium.specificEnthalpy(
+  dp=0;
+  port_a.h_outflow=inStream(
+    port_b.h_outflow);
+  port_b.h_outflow=Medium.specificEnthalpy(
     Medium.setState_pTX(
       port_a.p,
       T_b_outflow,
-      port_b.Xi_outflow)) "Calculate enthalpy of output state";
-
-    T_a_inflow = Medium.temperature(
-      Medium.setState_phX(
-        port_a.p,
-        inStream(port_a.h_outflow),
-        port_b.Xi_outflow));
-
+      port_b.Xi_outflow))
+    "Calculate enthalpy of output state";
+  T_a_inflow=Medium.temperature(
+    Medium.setState_phX(
+      port_a.p,
+      inStream(
+        port_a.h_outflow),
+      port_b.Xi_outflow));
   // Heat losses
-  T_b_outflow = TAmb + (T_a_inflow - TAmb)*Modelica.Math.exp(-tau/tau_char);
-
-  heatPort.Q_flow = -Buildings.Utilities.Math.Functions.spliceFunction(
-    pos=(T_a_inflow - T_b_outflow)*cp_default,
+  T_b_outflow=TAmb+(T_a_inflow-TAmb)*Modelica.Math.exp(
+    -tau/tau_char);
+  heatPort.Q_flow=-Buildings.Utilities.Math.Functions.spliceFunction(
+    pos=(T_a_inflow-T_b_outflow)*cp_default,
     neg=0,
     x=port_a.m_flow,
     deltax=m_flow_nominal/1000)*port_a.m_flow;
-
   annotation (
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
-        graphics={
+    Icon(
+      coordinateSystem(
+        preserveAspectRatio=false,
+        extent={{-100,-100},{100,100}}),
+      graphics={
         Rectangle(
           extent={{-80,80},{80,-68}},
           lineColor={255,255,255},
@@ -85,7 +86,8 @@ equation
           lineColor={0,0,0},
           fillColor={238,46,47},
           fillPattern=FillPattern.Solid)}),
-    Documentation(info="<html>
+    Documentation(
+      info="<html>
 <p>
 Component that calculates the heat losses at the end of a plug flow pipe
 when the flow goes in the design direction.
@@ -134,7 +136,7 @@ as an input.
 This component is to be used in single pipes or in more advanced configurations
 where no influence from other pipes is considered.</p>
 </html>",
-revisions="<html>
+      revisions="<html>
 <ul>
 <li>
 December 6, 2017, by Michael Wetter:<br/>
@@ -157,6 +159,8 @@ September, 2015 by Marcus Fuchs:<br/>
 First implementation.</li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}})));
+    Diagram(
+      coordinateSystem(
+        preserveAspectRatio=false,
+        extent={{-100,-100},{100,100}})));
 end PlugFlowHeatLoss;

@@ -13,8 +13,7 @@ model PartialParallel
     nPorts_aChiWat=1,
     nPorts_bHeaWat=1,
     nPorts_aHeaWat=1);
-  parameter EnergyTransferStations.Types.ConnectionConfiguration conCon=
-    EnergyTransferStations.Types.ConnectionConfiguration.Pump
+  parameter EnergyTransferStations.Types.ConnectionConfiguration conCon=EnergyTransferStations.Types.ConnectionConfiguration.Pump
     "District connection configuration"
     annotation (Evaluate=true);
   parameter Integer nSysHea
@@ -122,17 +121,11 @@ model PartialParallel
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput dHHeaWat_flow(
     final unit="W")
     "Heating water distributed energy flow rate"
-    annotation (Placement(transformation(extent={{300,140},{340,180}}),
-      iconTransformation(extent={{-40,-40},{40,40}},
-        rotation=-90,
-        origin={240,-340})));
+    annotation (Placement(transformation(extent={{300,140},{340,180}}),iconTransformation(extent={{-40,-40},{40,40}},rotation=-90,origin={240,-340})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput dHChiWat_flow(
     final unit="W")
     "Chilled water distributed energy flow rate"
-    annotation (Placement(transformation(extent={{300,100},{340,140}}),
-      iconTransformation(extent={{-40,-40},{40,40}},
-        rotation=-90,
-        origin={280,-340})));
+    annotation (Placement(transformation(extent={{300,100},{340,140}}),iconTransformation(extent={{-40,-40},{40,40}},rotation=-90,origin={280,-340})));
   // COMPONENTS
   replaceable Generation5.Controls.BaseClasses.PartialSupervisory conSup
     constrainedby Generation5.Controls.BaseClasses.PartialSupervisory(
@@ -240,10 +233,10 @@ equation
     annotation (Line(points={{12,-254},{36,-254},{36,-60},{258,-60}},color={0,0,127}));
   connect(THeaWatSupSet,conSup.THeaWatSupPreSet)
     annotation (Line(points={{-320,-20},{-292,-20},{-292,27},{-262,27}},color={0,0,127}));
-  connect(port_aSerAmb, hex.port_a1) annotation (Line(points={{-300,-200},{-280,
-          -200},{-280,-260},{-10,-260}}, color={0,127,255}));
-  connect(hex.port_b1, port_bSerAmb) annotation (Line(points={{10,-260},{280,-260},
-          {280,-200},{300,-200}}, color={0,127,255}));
+  connect(port_aSerAmb,hex.port_a1)
+    annotation (Line(points={{-300,-200},{-280,-200},{-280,-260},{-10,-260}},color={0,127,255}));
+  connect(hex.port_b1,port_bSerAmb)
+    annotation (Line(points={{10,-260},{280,-260},{280,-200},{300,-200}},color={0,127,255}));
   connect(tanHeaWat.TTop,conSup.THeaWatTop)
     annotation (Line(points={{-199,115},{-182,115},{-182,82},{-274,82},{-274,25},{-262,25}},color={0,0,127}));
   connect(tanChiWat.TBot,conSup.TChiWatBot)
@@ -253,8 +246,7 @@ equation
   connect(hex.port_a2,colAmbWat.ports_bCon[1])
     annotation (Line(points={{10,-248},{20,-248},{20,-140},{-12,-140},{-12,-116}},color={0,127,255}));
   connect(totPPum.y,PPum)
-    annotation (Line(points={{282,-60},{290,-60},{290,-80},{320,-80}},
-                                                  color={0,0,127}));
+    annotation (Line(points={{282,-60},{290,-60},{290,-80},{320,-80}},color={0,0,127}));
   connect(hex.yValIso_actual[1],valIsoCon.y_actual)
     annotation (Line(points={{-12,-251},{-40,-251},{-40,-113},{-55,-113}},color={0,0,127}));
   connect(hex.yValIso_actual[2],valIsoEva.y_actual)
@@ -292,11 +284,9 @@ equation
   connect(colAmbWat.port_bDisRet,colHeaWat.ports_bCon[1])
     annotation (Line(points={{-20,-100},{-132,-100},{-132,-24}},color={0,127,255}));
   connect(totPHea.y,PHea)
-    annotation (Line(points={{282,60},{290,60},{290,80},{320,80}},
-                                                color={0,0,127}));
+    annotation (Line(points={{282,60},{290,60},{290,80},{320,80}},color={0,0,127}));
   connect(totPCoo.y,PCoo)
-    annotation (Line(points={{282,20},{290,20},{290,0},{320,0}},
-                                                color={0,0,127}));
+    annotation (Line(points={{282,20},{290,20},{290,0},{320,0}},color={0,0,127}));
   connect(tanChiWat.port_bBot,dHFloChiWat.port_a1)
     annotation (Line(points={{220,100},{250,100}},color={0,127,255}));
   connect(dHFloChiWat.port_b1,ports_bChiWat[1])
@@ -395,7 +385,7 @@ compressor-less cooling mode using only the district heat exchanger.
 src=\"modelica://Buildings/Resources/Images/Experimental/DHC/EnergyTransferStations/Combined/Generation5/BaseClasses/PartialParallel.png\"/>
 </p>
 </html>",
-revisions="<html>
+      revisions="<html>
 <ul>
 <li>
 December 21, 2020, by Antoine Gautier:<br/>

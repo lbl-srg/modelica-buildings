@@ -2,19 +2,19 @@ within Buildings.Fluid.HeatExchangers.BaseClasses;
 model HexElementSensible
   "Element of a heat exchanger with no humidity condensation"
   extends Buildings.Fluid.HeatExchangers.BaseClasses.PartialHexElement(
-   redeclare final Buildings.Fluid.MixingVolumes.BaseClasses.MixingVolumeHeatPort vol1(
-     final energyDynamics=energyDynamics,
-     final massDynamics=energyDynamics,
-     final initialize_p=initialize_p1,
-     prescribedHeatFlowRate=false),
-   redeclare final Buildings.Fluid.MixingVolumes.BaseClasses.MixingVolumeHeatPort vol2(
-     final energyDynamics=energyDynamics,
-     final massDynamics=energyDynamics,
-     final initialize_p=initialize_p2,
-     prescribedHeatFlowRate=false));
-
+    redeclare final Buildings.Fluid.MixingVolumes.BaseClasses.MixingVolumeHeatPort vol1(
+      final energyDynamics=energyDynamics,
+      final massDynamics=energyDynamics,
+      final initialize_p=initialize_p1,
+      prescribedHeatFlowRate=false),
+    redeclare final Buildings.Fluid.MixingVolumes.BaseClasses.MixingVolumeHeatPort vol2(
+      final energyDynamics=energyDynamics,
+      final massDynamics=energyDynamics,
+      final initialize_p=initialize_p2,
+      prescribedHeatFlowRate=false));
   annotation (
-    Documentation(info="<html>
+    Documentation(
+      info="<html>
 <p>
 Element of a heat exchanger with humidity condensation and
 with dynamics of the fluids and the solid.
@@ -26,7 +26,7 @@ Buildings.Fluid.HeatExchangers.BaseClasses.PartialHexElement</a>
 for a description of the physics.
 </p>
 </html>",
-revisions="<html>
+      revisions="<html>
 <ul>
 <li>
 June 18, 2014, by Michael Wetter:<br/>

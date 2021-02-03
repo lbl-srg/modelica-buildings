@@ -1,22 +1,22 @@
 within Buildings.Fluid.Actuators.Valves;
-model ThreeWayLinear "Three way valve with linear characteristics"
-    extends BaseClasses.PartialThreeWayValve(
-      redeclare TwoWayLinear res1(
-        final l=l[1]),
-      redeclare TwoWayLinear res3(
-        final l=l[2]));
-
+model ThreeWayLinear
+  "Three way valve with linear characteristics"
+  extends BaseClasses.PartialThreeWayValve(
+    redeclare TwoWayLinear res1(
+      final l=l[1]),
+    redeclare TwoWayLinear res3(
+      final l=l[2]));
 equation
-  connect(inv.y, res3.y) annotation (Line(points={{-62.6,46},{20,46},{20,-50},{
-          12,-50}},      color={0,0,127}));
-  connect(y_actual, inv.u2) annotation (Line(points={{50,70},{88,70},{88,34},{
-          -68,34},{-68,41.2}},
-                         color={0,0,127}));
-  connect(y_actual, res1.y) annotation (Line(points={{50,70},{88,70},{88,34},{
-          -50,34},{-50,12}},
-        color={0,0,127}));
-  annotation (defaultComponentName="val",
-Documentation(info="<html>
+  connect(inv.y,res3.y)
+    annotation (Line(points={{-62.6,46},{20,46},{20,-50},{12,-50}},color={0,0,127}));
+  connect(y_actual,inv.u2)
+    annotation (Line(points={{50,70},{88,70},{88,34},{-68,34},{-68,41.2}},color={0,0,127}));
+  connect(y_actual,res1.y)
+    annotation (Line(points={{50,70},{88,70},{88,34},{-50,34},{-50,12}},color={0,0,127}));
+  annotation (
+    defaultComponentName="val",
+    Documentation(
+      info="<html>
 <p>
 Three way valve with linear opening characteristic.
 </p><p>
@@ -35,7 +35,7 @@ Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve</a>
 for the implementation of the regularization near the origin.
 </p>
 </html>",
-revisions="<html>
+      revisions="<html>
 <ul>
 <li>
 November 5, 2019, by Michael Wetter:<br/>

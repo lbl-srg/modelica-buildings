@@ -1,10 +1,11 @@
 within Buildings.Fluid.Examples.Performance;
-model Example1v2 "Example 1 model with mixing volume"
+model Example1v2
+  "Example 1 model with mixing volume"
   extends Buildings.Fluid.Examples.Performance.BaseClasses.Example1;
-  parameter Modelica.SIunits.Time tau=10 "Time constant at nominal flow";
-
+  parameter Modelica.SIunits.Time tau=10
+    "Time constant at nominal flow";
   Fluid.Delays.DelayFirstOrder[nRes.k] vol(
-    redeclare each package Medium = Medium,
+    redeclare each package Medium=Medium,
     each m_flow_nominal=m_flow_nominal,
     each allowFlowReversal=allowFlowReversal.k,
     each nPorts=2,
@@ -12,22 +13,24 @@ model Example1v2 "Example 1 model with mixing volume"
     each energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Mixing volumes for adding states in enthalpy circuit"
     annotation (Placement(transformation(extent={{80,-8},{60,12}})));
-
 equation
   for i in 1:nRes.k loop
-    connect(vol[i].ports[1], res[i].port_b) annotation (Line(
-      points={{72,-8},{72,-10},{100,-10},{100,30},{90,30}},
-      color={0,127,255}));
-    connect(vol[i].ports[2], val.port_3) annotation (Line(
-      points={{68,-8},{68,-10},{20,-10},{20,20}},
-      color={0,127,255}));
-
+    connect(vol[i].ports[1],res[i].port_b)
+      annotation (Line(points={{72,-8},{72,-10},{100,-10},{100,30},{90,30}},color={0,127,255}));
+    connect(vol[i].ports[2],val.port_3)
+      annotation (Line(points={{68,-8},{68,-10},{20,-10},{20,20}},color={0,127,255}));
   end for;
-  annotation (experiment(
-      Tolerance=1e-6, StopTime=20),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-20},{100,
-            100}}), graphics),
-    Documentation(info="<html>
+  annotation (
+    experiment(
+      Tolerance=1e-6,
+      StopTime=20),
+    Diagram(
+      coordinateSystem(
+        preserveAspectRatio=false,
+        extent={{-100,-20},{100,100}}),
+      graphics),
+    Documentation(
+      info="<html>
 <p>
 This example is an extension of
 <a href=\"modelica://Buildings.Fluid.Examples.Performance.Example1v1\">
@@ -61,7 +64,8 @@ models for building energy simulation.<br/>
 Submitted: 11th Modelica Conference. Paris, France. Sep. 2015.
 </li>
 </ul>
-</html>", revisions="<html>
+</html>",
+      revisions="<html>
 <ul>
 <li>
 August 31, 2015, by Michael Wetter:<br/>
@@ -78,7 +82,6 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Fluid/Examples/Performance/Example1v2.mos"
-        "Simulate and plot"));
+    __Dymola_Commands(
+      file="Resources/Scripts/Dymola/Fluid/Examples/Performance/Example1v2.mos" "Simulate and plot"));
 end Example1v2;

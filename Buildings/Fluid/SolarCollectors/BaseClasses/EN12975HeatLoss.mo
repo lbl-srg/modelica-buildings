@@ -1,19 +1,21 @@
 within Buildings.Fluid.SolarCollectors.BaseClasses;
-block EN12975HeatLoss "Calculate the heat loss of a solar collector per EN12975"
+block EN12975HeatLoss
+  "Calculate the heat loss of a solar collector per EN12975"
   extends Buildings.Fluid.SolarCollectors.BaseClasses.PartialHeatLoss(
-    final QLos_nominal = -A_c * (C1 * dT_nominal - C2 * dT_nominal^2)
+    final QLos_nominal=-A_c*(C1*dT_nominal-C2*dT_nominal^2)
       "Heat loss at nominal condition, for reporting only",
-    QLos_internal = A_c/nSeg * {dT[i] * (C1 - C2 * dT[i]) for i in 1:nSeg});
-
-  parameter Modelica.SIunits.CoefficientOfHeatTransfer C1(final min=0)
+    QLos_internal=A_c/nSeg*{dT[i]*(C1-C2*dT[i]) for i in 1:nSeg});
+  parameter Modelica.SIunits.CoefficientOfHeatTransfer C1(
+    final min=0)
     "C1 from ratings data";
-
-  parameter Real C2(final unit = "W/(m2.K2)", final min=0)
+  parameter Real C2(
+    final unit="W/(m2.K2)",
+    final min=0)
     "C2 from ratings data";
-
-annotation (
-defaultComponentName="heaLos",
-Documentation(info="<html>
+  annotation (
+    defaultComponentName="heaLos",
+    Documentation(
+      info="<html>
 <p>
 This component computes the heat loss from the solar thermal collector
 to the environment. It is designed anticipating ratings data collected in
@@ -63,7 +65,7 @@ of Thermodynamics.
 CEN 2006, European Standard 12975-1:2006, European Committee for Standardization
 </p>
 </html>",
-revisions="<html>
+      revisions="<html>
 <ul>
 <li>
 December 17, 2017, by Michael Wetter:<br/>

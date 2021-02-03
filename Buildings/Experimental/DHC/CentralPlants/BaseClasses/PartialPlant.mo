@@ -9,125 +9,136 @@ partial model PartialPlant
   replaceable package MediumHea_b=Buildings.Media.Water
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Service side medium at heating supply"
-    annotation(Dialog(enable=
-      typ == TypDisSys.CombinedGeneration1 or
-      typ == TypDisSys.HeatingGeneration1));
+    annotation (Dialog(enable=typ == TypDisSys.CombinedGeneration1 or typ == TypDisSys.HeatingGeneration1));
   parameter TypDisSys typ=TypDisSys.CombinedGeneration2to4
     "Type of district system"
-    annotation (Evaluate=true, Dialog(group="Configuration"));
+    annotation (Evaluate=true,Dialog(group="Configuration"));
   parameter Boolean have_fan=false
     "Set to true if fan power is computed"
-    annotation (Evaluate=true, Dialog(group="Configuration"));
+    annotation (Evaluate=true,Dialog(group="Configuration"));
   parameter Boolean have_pum=false
     "Set to true if pump power is computed"
-    annotation (Evaluate=true, Dialog(group="Configuration"));
+    annotation (Evaluate=true,Dialog(group="Configuration"));
   parameter Boolean have_eleHea=false
     "Set to true if the plant has electric heating system"
-    annotation (Evaluate=true, Dialog(group="Configuration"));
+    annotation (Evaluate=true,Dialog(group="Configuration"));
   parameter Integer nFue=0
     "Number of fuel types (0 means no combustion system)"
-    annotation (Evaluate=true, Dialog(group="Configuration"));
+    annotation (Evaluate=true,Dialog(group="Configuration"));
   parameter Boolean have_eleCoo=false
     "Set to true if the plant has electric cooling system"
-    annotation (Evaluate=true, Dialog(group="Configuration"));
+    annotation (Evaluate=true,Dialog(group="Configuration"));
   parameter Boolean have_weaBus=false
     "Set to true to use a weather bus"
-    annotation (Evaluate=true, Dialog(group="Configuration"));
+    annotation (Evaluate=true,Dialog(group="Configuration"));
   parameter Boolean allowFlowReversal=false
     "Set to true to allow flow reversal in service lines"
     annotation (Dialog(tab="Assumptions"),Evaluate=true);
   parameter Buildings.Fluid.Data.Fuels.Generic fue[nFue]
     "Fuel type"
-     annotation (choicesAllMatching = true, Dialog(enable=nFue>0));
+    annotation (choicesAllMatching=true,Dialog(enable=nFue > 0));
   // IO CONNECTORS
   Modelica.Fluid.Interfaces.FluidPort_a port_aSerAmb(
-    redeclare package Medium = Medium,
-    m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
-    h_outflow(start=Medium.h_default, nominal=Medium.h_default)) if
-    typ == TypDisSys.CombinedGeneration5
+    redeclare package Medium=Medium,
+    m_flow(
+      min=
+        if allowFlowReversal then
+          -Modelica.Constants.inf
+        else
+          0),
+    h_outflow(
+      start=Medium.h_default,
+      nominal=Medium.h_default)) if typ == TypDisSys.CombinedGeneration5
     "Fluid connector for ambient water service supply line"
-    annotation (
-      Placement(transformation(extent={{-310,30},{-290,50}}),
-        iconTransformation(extent={{-310,30},{-290,50}})));
+    annotation (Placement(transformation(extent={{-310,30},{-290,50}}),iconTransformation(extent={{-310,30},{-290,50}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_bSerAmb(
-    redeclare package Medium = Medium,
-    m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
-    h_outflow(start=Medium.h_default, nominal=Medium.h_default)) if
-    typ == TypDisSys.CombinedGeneration5
+    redeclare package Medium=Medium,
+    m_flow(
+      max=
+        if allowFlowReversal then
+          +Modelica.Constants.inf
+        else
+          0),
+    h_outflow(
+      start=Medium.h_default,
+      nominal=Medium.h_default)) if typ == TypDisSys.CombinedGeneration5
     "Fluid connector for ambient water service return line"
-    annotation (
-      Placement(transformation(extent={{290,30},{310,50}}),
-        iconTransformation(extent={{290,30},{310,50}})));
+    annotation (Placement(transformation(extent={{290,30},{310,50}}),iconTransformation(extent={{290,30},{310,50}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_aSerHea(
-    redeclare package Medium = Medium,
-    m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
-    h_outflow(start=Medium.h_default, nominal=Medium.h_default)) if
-    typ <> TypDisSys.Cooling and
-    typ <> TypDisSys.CombinedGeneration5
+    redeclare package Medium=Medium,
+    m_flow(
+      min=
+        if allowFlowReversal then
+          -Modelica.Constants.inf
+        else
+          0),
+    h_outflow(
+      start=Medium.h_default,
+      nominal=Medium.h_default)) if typ <> TypDisSys.Cooling and typ <> TypDisSys.CombinedGeneration5
     "Fluid connector for heating service supply line"
-    annotation (Placement(
-      transformation(extent={{-310,-10},{-290,10}}),    iconTransformation(
-        extent={{-310,-10},{-290,10}})));
+    annotation (Placement(transformation(extent={{-310,-10},{-290,10}}),iconTransformation(extent={{-310,-10},{-290,10}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_bSerHea(
-    redeclare package Medium = MediumHea_b,
-    m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
-    h_outflow(start=MediumHea_b.h_default, nominal=MediumHea_b.h_default)) if
-    typ <> TypDisSys.Cooling and
-    typ <> TypDisSys.CombinedGeneration5
+    redeclare package Medium=MediumHea_b,
+    m_flow(
+      max=
+        if allowFlowReversal then
+          +Modelica.Constants.inf
+        else
+          0),
+    h_outflow(
+      start=MediumHea_b.h_default,
+      nominal=MediumHea_b.h_default)) if typ <> TypDisSys.Cooling and typ <> TypDisSys.CombinedGeneration5
     "Fluid connector for heating service return line"
-    annotation (Placement(
-        transformation(extent={{290,-10},{310,10}}),    iconTransformation(
-          extent={{290,-10},{310,10}})));
+    annotation (Placement(transformation(extent={{290,-10},{310,10}}),iconTransformation(extent={{290,-10},{310,10}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_aSerCoo(
-    redeclare package Medium = Medium,
-    m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
-    h_outflow(start=Medium.h_default, nominal=Medium.h_default)) if
-    typ == TypDisSys.CombinedGeneration1 or
-    typ == TypDisSys.CombinedGeneration2to4 or
-    typ == TypDisSys.Cooling
+    redeclare package Medium=Medium,
+    m_flow(
+      min=
+        if allowFlowReversal then
+          -Modelica.Constants.inf
+        else
+          0),
+    h_outflow(
+      start=Medium.h_default,
+      nominal=Medium.h_default)) if typ == TypDisSys.CombinedGeneration1 or typ == TypDisSys.CombinedGeneration2to4 or typ == TypDisSys.Cooling
     "Fluid connector for cooling service supply line"
     annotation (Placement(transformation(extent={{-310,-50},{-290,-30}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_bSerCoo(
-    redeclare package Medium = Medium,
-    m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
-    h_outflow(start=Medium.h_default, nominal=Medium.h_default)) if
-    typ == TypDisSys.CombinedGeneration1 or
-    typ == TypDisSys.CombinedGeneration2to4 or
-    typ == TypDisSys.Cooling
+    redeclare package Medium=Medium,
+    m_flow(
+      max=
+        if allowFlowReversal then
+          +Modelica.Constants.inf
+        else
+          0),
+    h_outflow(
+      start=Medium.h_default,
+      nominal=Medium.h_default)) if typ == TypDisSys.CombinedGeneration1 or typ == TypDisSys.CombinedGeneration2to4 or typ == TypDisSys.Cooling
     "Fluid connector for cooling service return line"
-    annotation (Placement(
-      transformation(extent={{290,-50},{310,-30}}),   iconTransformation(
-        extent={{290,-50},{310,-30}})));
+    annotation (Placement(transformation(extent={{290,-50},{310,-30}}),iconTransformation(extent={{290,-50},{310,-30}})));
   Buildings.BoundaryConditions.WeatherData.Bus weaBus if have_weaBus
     "Weather data bus"
-    annotation (Placement(transformation(extent={{-16,250},{18,282}}),
-      iconTransformation(extent={{-16,250},{18,282}})));
+    annotation (Placement(transformation(extent={{-16,250},{18,282}}),iconTransformation(extent={{-16,250},{18,282}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput PHea(
     final unit="W") if have_eleHea
     "Power drawn by heating system"
-    annotation (Placement(transformation(extent={{300,260},{340,300}}),
-      iconTransformation(extent={{300,240},{380,320}})));
+    annotation (Placement(transformation(extent={{300,260},{340,300}}),iconTransformation(extent={{300,240},{380,320}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput PCoo(
     final unit="W") if have_eleCoo
     "Power drawn by cooling system"
-    annotation (Placement(transformation(extent={{300,220},{340,260}}),
-      iconTransformation(extent={{300,200},{380,280}})));
+    annotation (Placement(transformation(extent={{300,220},{340,260}}),iconTransformation(extent={{300,200},{380,280}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput PFan(
     final unit="W") if have_fan
     "Power drawn by fan motors"
-    annotation (Placement(transformation(extent={{300,180},{340,220}}),
-      iconTransformation(extent={{300,160},{380,240}})));
+    annotation (Placement(transformation(extent={{300,180},{340,220}}),iconTransformation(extent={{300,160},{380,240}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput PPum(
     final unit="W") if have_pum
     "Power drawn by pump motors"
-    annotation (Placement(transformation(extent={{300,140},{340,180}}),
-      iconTransformation(extent={{300,120},{380,200}})));
+    annotation (Placement(transformation(extent={{300,140},{340,180}}),iconTransformation(extent={{300,120},{380,200}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput QFue_flow[nFue](
-    each final unit="W") if nFue>0
+    each final unit="W") if nFue > 0
     "Fuel energy input rate"
-    annotation (
-      Placement(transformation(extent={{300,100},{340,140}}),
-        iconTransformation(extent={{300,80},{380,160}})));
+    annotation (Placement(transformation(extent={{300,100},{340,140}}),iconTransformation(extent={{300,80},{380,160}})));
   annotation (
     defaultComponentName="plan",
     Documentation(
@@ -146,7 +157,7 @@ different media at the supply port <code>port_bSerHea</code> and at the return
 return.
 </p>
 </html>",
-revisions="<html>
+      revisions="<html>
 <ul>
 <li>
 December 21, 2020, by Antoine Gautier:<br/>
@@ -194,8 +205,7 @@ First implementation.
           pattern=LinePattern.None,
           fillColor={0,0,255},
           fillPattern=FillPattern.Solid,
-          visible=typ == TypDisSys.CombinedGeneration1 or typ == TypDisSys.CombinedGeneration2to4
-               or typ == TypDisSys.Cooling),
+          visible=typ == TypDisSys.CombinedGeneration1 or typ == TypDisSys.CombinedGeneration2to4 or typ == TypDisSys.Cooling),
         Rectangle(
           extent={{-300,32},{-140,48}},
           lineColor={0,0,255},
@@ -228,8 +238,7 @@ First implementation.
           pattern=LinePattern.None,
           fillColor={238,46,47},
           fillPattern=FillPattern.Solid,
-          visible=typ == TypDisSys.CombinedGeneration1 or typ == TypDisSys.CombinedGeneration2to4
-               or typ == TypDisSys.Cooling)}),
+          visible=typ == TypDisSys.CombinedGeneration1 or typ == TypDisSys.CombinedGeneration2to4 or typ == TypDisSys.Cooling)}),
     Diagram(
       coordinateSystem(
         preserveAspectRatio=false,

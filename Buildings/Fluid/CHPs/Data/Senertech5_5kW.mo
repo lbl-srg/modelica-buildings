@@ -1,5 +1,6 @@
 within Buildings.Fluid.CHPs.Data;
-record Senertech5_5kW "SENERTECH5_5kW"
+record Senertech5_5kW
+  "SENERTECH5_5kW"
   extends Buildings.Fluid.CHPs.Data.Generic(
     coeEtaQ={0.66,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
     coeEtaE={0.27,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
@@ -17,7 +18,7 @@ record Senertech5_5kW "SENERTECH5_5kW"
     PEleMax=5500,
     PEleMin=0,
     mWatMin_flow=0,
-    TWatMax=273.15 + 80,
+    TWatMax=273.15+80,
     use_powerRateLimit=true,
     use_fuelRateLimit=true,
     dPEleMax=1000000000,
@@ -26,15 +27,17 @@ record Senertech5_5kW "SENERTECH5_5kW"
     PCooDow=0,
     LHVFue=47.614e6);
   annotation (
-  defaultComponentPrefixes = "parameter",
-  defaultComponentName = "per",
-  Documentation(preferredView="info",
-  info="<html>
+    defaultComponentPrefixes="parameter",
+    defaultComponentName="per",
+    Documentation(
+      preferredView="info",
+      info="<html>
 <p>
 This is the record of parameters for CHP models from EnergyPlus example
 <code>MicroCogeneration</code>.
 </p>
-</html>",revisions="<html>
+</html>",
+      revisions="<html>
 <ul>
 <li>
 March 08, 2019, by Tea Zakula:<br/>

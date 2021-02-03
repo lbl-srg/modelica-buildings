@@ -1,5 +1,6 @@
 within Buildings.Fluid.CHPs.Data;
-record Generic "Generic data for CHP models"
+record Generic
+  "Generic data for CHP models"
   extends Modelica.Icons.Record;
   parameter Real[27] coeEtaQ
     "Vector of coefficients used to calculate thermal efficiency of the engine.
@@ -42,21 +43,21 @@ record Generic "Generic data for CHP models"
   parameter Boolean warmUpByTimeDelay=true
     "If true, the plant will be in warm-up mode depending on the delay time,
     otherwise depending on engine temperature ";
-  parameter Modelica.SIunits.Time timeDelayStart = 60
+  parameter Modelica.SIunits.Time timeDelayStart=60
     "Time delay between activation and power generation";
-  parameter Modelica.SIunits.Temperature TEngNom = 273.15+100
+  parameter Modelica.SIunits.Temperature TEngNom=273.15+100
     "Nominal engine operating temperature";
   parameter Boolean coolDownOptional=false
     "If true, cooldown is optional. The model will complete cooldown before
     switching to standby, but if reactivated during cooldown period, it
     will immediately switch into warm-up mode";
-  parameter Modelica.SIunits.Time timeDelayCool = 0
+  parameter Modelica.SIunits.Time timeDelayCool=0
     "Cooldown period";
   parameter Modelica.SIunits.Power PEleMax
     "Maximum power output";
-  parameter Modelica.SIunits.Power PEleMin = 0
+  parameter Modelica.SIunits.Power PEleMin=0
     "Minimum power output";
-  parameter Modelica.SIunits.MassFlowRate mWatMin_flow = 0
+  parameter Modelica.SIunits.MassFlowRate mWatMin_flow=0
     "Minimum cooling water mass flow rate";
   parameter Modelica.SIunits.Temperature TWatMax=373.15
     "Maximum cooling water temperature";
@@ -64,32 +65,39 @@ record Generic "Generic data for CHP models"
     "If true, the rate at which net power output can change is limited";
   parameter Boolean use_fuelRateLimit=false
     "If true, the rate at which fuel mass flow rate can change is limited";
-  parameter Real dPEleMax(final unit="W/s")
+  parameter Real dPEleMax(
+    final unit="W/s")
     "Maximum rate at which net power output can change";
-  parameter Real dmFueMax_flow(final unit="kg/s2")
+  parameter Real dmFueMax_flow(
+    final unit="kg/s2")
     "Maximum rate at which fuel mass flow rate can change";
   parameter Modelica.SIunits.Power PStaBy
     "Standby electric power";
   parameter Modelica.SIunits.Power PCooDow
     "Cooldown electric power";
-  parameter Real LHVFue(final unit="J/kg") = 47.614e6
+  parameter Real LHVFue(
+    final unit="J/kg")=47.614e6
     "Lower heating value of fuel";
-  parameter Real kF(final unit="1") = 1
+  parameter Real kF(
+    final unit="1")=1
     "Warm-up fuel coefficient";
-  parameter Real kP(final unit="1") = 1
+  parameter Real kP(
+    final unit="1")=1
     "Warm-up power coefficient";
-  parameter Real rFue(final unit="1") = 10
+  parameter Real rFue(
+    final unit="1")=10
     "Warm-up maximum fuel flow ratio";
-annotation (
-  defaultComponentPrefixes = "parameter",
-  defaultComponentName = "per",
-  Documentation(preferredView="info",
-  info="<html>
+  annotation (
+    defaultComponentPrefixes="parameter",
+    defaultComponentName="per",
+    Documentation(
+      preferredView="info",
+      info="<html>
 <p>
 This is the base record for CHP models.
 </p>
 </html>",
-revisions="<html>
+      revisions="<html>
 <ul>
 <li>
 April 8, 2020, by Antoine Gautier:<br/>

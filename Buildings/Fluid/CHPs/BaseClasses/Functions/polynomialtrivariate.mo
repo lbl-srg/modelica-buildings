@@ -2,30 +2,25 @@ within Buildings.Fluid.CHPs.BaseClasses.Functions;
 function polynomialtrivariate
   "Polynominal function used for efficiency calculation"
   extends Modelica.Icons.Function;
-
-  input Real x1 "Independent variable";
-  input Real x2 "Independent variable";
-  input Real x3 "Independent variable";
-  input Real a[27] "Coefficients";
-  output Real y "Result";
-
+  input Real x1
+    "Independent variable";
+  input Real x2
+    "Independent variable";
+  input Real x3
+    "Independent variable";
+  input Real a[27]
+    "Coefficients";
+  output Real y
+    "Result";
 protected
- Real x1Sq = x1^2;
- Real x2Sq = x2^2;
- Real x3Sq = x3^2;
-
+  Real x1Sq=x1^2;
+  Real x2Sq=x2^2;
+  Real x3Sq=x3^2;
 algorithm
-  y := a[1] + a[2]*x1Sq + a[3]*x1
-            + a[4]*x2Sq + a[5]*x2
-            + a[6]*x3Sq + a[7]*x3
-            + a[8]*x1Sq*x2Sq + a[9]*x1*x2 + a[10]*x1*x2Sq + a[11]*x1Sq*x2
-            + a[12]*x1Sq*x3Sq + a[13]*x1*x3 + a[14]*x1*x3Sq + a[15]*x1Sq*x3
-            + a[16]*x2Sq*x3Sq + a[17]*x2*x3 + a[18]*x2*x3Sq + a[19]*x2Sq*x3
-            + a[20]*x1Sq*x2Sq*x3Sq + a[21]*x1Sq*x2Sq*x3 + a[22]*x1Sq*x2*x3Sq + a[23]*x1*x2Sq*x3Sq
-            + a[24]*x1Sq*x2*x3 + a[25]*x1*x2Sq*x3 + a[26]*x1*x2*x3Sq
-            + a[27]*x1*x2*x3;
-
-annotation (Documentation(info="<html>
+  y := a[1]+a[2]*x1Sq+a[3]*x1+a[4]*x2Sq+a[5]*x2+a[6]*x3Sq+a[7]*x3+a[8]*x1Sq*x2Sq+a[9]*x1*x2+a[10]*x1*x2Sq+a[11]*x1Sq*x2+a[12]*x1Sq*x3Sq+a[13]*x1*x3+a[14]*x1*x3Sq+a[15]*x1Sq*x3+a[16]*x2Sq*x3Sq+a[17]*x2*x3+a[18]*x2*x3Sq+a[19]*x2Sq*x3+a[20]*x1Sq*x2Sq*x3Sq+a[21]*x1Sq*x2Sq*x3+a[22]*x1Sq*x2*x3Sq+a[23]*x1*x2Sq*x3Sq+a[24]*x1Sq*x2*x3+a[25]*x1*x2Sq*x3+a[26]*x1*x2*x3Sq+a[27]*x1*x2*x3;
+  annotation (
+    Documentation(
+      info="<html>
 <p>
 This function computes a trivariate fifth order polynomial.
 The polynomial has the form
@@ -62,7 +57,7 @@ y = a<sub>1</sub>
 + a<sub>27</sub> x<sub>1</sub> x<sub>2</sub> x<sub>3</sub>
 </p>
 </html>",
-revisions="<html>
+      revisions="<html>
 <ul>
 <li>
 March 10, 2019, by Tea Zakula:<br/>

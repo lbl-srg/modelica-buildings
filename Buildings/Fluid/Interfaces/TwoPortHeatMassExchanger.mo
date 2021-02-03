@@ -2,60 +2,62 @@ within Buildings.Fluid.Interfaces;
 model TwoPortHeatMassExchanger
   "Partial model transporting one fluid stream with storing mass or energy"
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
-    port_a(h_outflow(start=h_outflow_start)),
-    port_b(h_outflow(start=h_outflow_start)));
+    port_a(
+      h_outflow(
+        start=h_outflow_start)),
+    port_b(
+      h_outflow(
+        start=h_outflow_start)));
   extends Buildings.Fluid.Interfaces.TwoPortFlowResistanceParameters(
     final computeFlowResistance=true);
-
-  constant Boolean homotopyInitialization = true "= true, use homotopy method"
-    annotation(HideResult=true);
-
-  parameter Modelica.SIunits.Time tau = 30
+  constant Boolean homotopyInitialization=true
+    "= true, use homotopy method"
+    annotation (HideResult=true);
+  parameter Modelica.SIunits.Time tau=30
     "Time constant at nominal flow (if energyDynamics <> SteadyState)"
-     annotation (Dialog(tab = "Dynamics", group="Nominal condition"));
-
+    annotation (Dialog(tab="Dynamics",group="Nominal condition"));
   // Dynamics
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state"
-    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
+    annotation (Evaluate=true,Dialog(tab="Dynamics",group="Equations"));
   parameter Modelica.Fluid.Types.Dynamics massDynamics=energyDynamics
     "Type of mass balance: dynamic (3 initialization options) or steady state"
-    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
-
+    annotation (Evaluate=true,Dialog(tab="Dynamics",group="Equations"));
   // Initialization
-  parameter Medium.AbsolutePressure p_start = Medium.p_default
+  parameter Medium.AbsolutePressure p_start=Medium.p_default
     "Start value of pressure"
-    annotation(Dialog(tab = "Initialization"));
-  parameter Medium.Temperature T_start = Medium.T_default
+    annotation (Dialog(tab="Initialization"));
+  parameter Medium.Temperature T_start=Medium.T_default
     "Start value of temperature"
-    annotation(Dialog(tab = "Initialization"));
+    annotation (Dialog(tab="Initialization"));
   parameter Medium.MassFraction X_start[Medium.nX](
-    final quantity=Medium.substanceNames) = Medium.X_default
+    final quantity=Medium.substanceNames)=Medium.X_default
     "Start value of mass fractions m_i/m"
-    annotation (Dialog(tab="Initialization", enable=Medium.nXi > 0));
+    annotation (Dialog(tab="Initialization",enable=Medium.nXi > 0));
   parameter Medium.ExtraProperty C_start[Medium.nC](
-    final quantity=Medium.extraPropertiesNames)=fill(0, Medium.nC)
+    final quantity=Medium.extraPropertiesNames)=fill(
+    0,
+    Medium.nC)
     "Start value of trace substances"
-    annotation (Dialog(tab="Initialization", enable=Medium.nC > 0));
-
+    annotation (Dialog(tab="Initialization",enable=Medium.nC > 0));
   replaceable Buildings.Fluid.MixingVolumes.MixingVolume vol
-  constrainedby Buildings.Fluid.MixingVolumes.BaseClasses.PartialMixingVolume(
-    redeclare final package Medium = Medium,
-    nPorts = 2,
-    V=m_flow_nominal*tau/rho_default,
-    final allowFlowReversal=allowFlowReversal,
-    final mSenFac=1,
-    final m_flow_nominal = m_flow_nominal,
-    final energyDynamics=energyDynamics,
-    final massDynamics=massDynamics,
-    final p_start=p_start,
-    final T_start=T_start,
-    final X_start=X_start,
-    final C_start=C_start) "Volume for fluid stream"
-     annotation (Placement(transformation(extent={{-9,0},{11,-20}})));
-
+    constrainedby Buildings.Fluid.MixingVolumes.BaseClasses.PartialMixingVolume(
+      redeclare final package Medium=Medium,
+      nPorts=2,
+      V=m_flow_nominal*tau/rho_default,
+      final allowFlowReversal=allowFlowReversal,
+      final mSenFac=1,
+      final m_flow_nominal=m_flow_nominal,
+      final energyDynamics=energyDynamics,
+      final massDynamics=massDynamics,
+      final p_start=p_start,
+      final T_start=T_start,
+      final X_start=X_start,
+      final C_start=C_start)
+    "Volume for fluid stream"
+    annotation (Placement(transformation(extent={{-9,0},{11,-20}})));
   Buildings.Fluid.FixedResistances.PressureDrop preDro(
-    redeclare final package Medium = Medium,
+    redeclare final package Medium=Medium,
     final m_flow_nominal=m_flow_nominal,
     final deltaM=deltaM,
     final allowFlowReversal=allowFlowReversal,
@@ -63,47 +65,51 @@ model TwoPortHeatMassExchanger
     final from_dp=from_dp,
     final linearized=linearizeFlowResistance,
     final homotopyInitialization=homotopyInitialization,
-    final dp_nominal=dp_nominal) "Flow resistance"
+    final dp_nominal=dp_nominal)
+    "Flow resistance"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-
 protected
   parameter Medium.ThermodynamicState sta_default=Medium.setState_pTX(
-      T=Medium.T_default, p=Medium.p_default, X=Medium.X_default);
-  parameter Modelica.SIunits.Density rho_default=Medium.density(sta_default)
+    T=Medium.T_default,
+    p=Medium.p_default,
+    X=Medium.X_default);
+  parameter Modelica.SIunits.Density rho_default=Medium.density(
+    sta_default)
     "Density, used to compute fluid volume";
   parameter Medium.ThermodynamicState sta_start=Medium.setState_pTX(
-      T=T_start, p=p_start, X=X_start);
-  parameter Modelica.SIunits.SpecificEnthalpy h_outflow_start = Medium.specificEnthalpy(sta_start)
+    T=T_start,
+    p=p_start,
+    X=X_start);
+  parameter Modelica.SIunits.SpecificEnthalpy h_outflow_start=Medium.specificEnthalpy(
+    sta_start)
     "Start value for outflowing enthalpy";
-
 initial algorithm
-  assert((energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState) or
-          tau > Modelica.Constants.eps,
-"The parameter tau, or the volume of the model from which tau may be derived, is unreasonably small.
+  assert(
+    (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState) or tau > Modelica.Constants.eps,
+    "The parameter tau, or the volume of the model from which tau may be derived, is unreasonably small.
  You need to set energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState to model steady-state.
- Received tau = " + String(tau) + "\n");
-  assert((massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState) or
-          tau > Modelica.Constants.eps,
-"The parameter tau, or the volume of the model from which tau may be derived, is unreasonably small.
+ Received tau = "+String(
+      tau)+"\n");
+  assert(
+    (massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState) or tau > Modelica.Constants.eps,
+    "The parameter tau, or the volume of the model from which tau may be derived, is unreasonably small.
  You need to set massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState to model steady-state.
- Received tau = " + String(tau) + "\n");
-
-  assert(homotopyInitialization, "In " + getInstanceName() +
-    ": The constant homotopyInitialization has been modified from its default value. This constant will be removed in future releases.",
-    level = AssertionLevel.warning);
-
+ Received tau = "+String(
+      tau)+"\n");
+  assert(
+    homotopyInitialization,
+    "In "+getInstanceName()+": The constant homotopyInitialization has been modified from its default value. This constant will be removed in future releases.",
+    level=AssertionLevel.warning);
 equation
-  connect(vol.ports[2], port_b) annotation (Line(
-      points={{1,0},{100,0}},
-      color={0,127,255}));
-  connect(port_a, preDro.port_a) annotation (Line(
-      points={{-100,0},{-90,0},{-90,0},{-80,0},{-80,0},{-60,0}},
-      color={0,127,255}));
-  connect(preDro.port_b, vol.ports[1]) annotation (Line(
-      points={{-40,0},{1,0}},
-      color={0,127,255}));
+  connect(vol.ports[2],port_b)
+    annotation (Line(points={{1,0},{100,0}},color={0,127,255}));
+  connect(port_a,preDro.port_a)
+    annotation (Line(points={{-100,0},{-90,0},{-90,0},{-80,0},{-80,0},{-60,0}},color={0,127,255}));
+  connect(preDro.port_b,vol.ports[1])
+    annotation (Line(points={{-40,0},{1,0}},color={0,127,255}));
   annotation (
-    Documentation(info="<html>
+    Documentation(
+      info="<html>
 <p>
 This component transports one fluid stream.
 It provides the basic model for implementing dynamic and steady-state
@@ -141,7 +147,8 @@ The variable names follow the conventions used in
 Modelica.Fluid.Examples.HeatExchanger.BaseClasses.BasicHX
 </a>.
 </p>
-</html>", revisions="<html>
+</html>",
+      revisions="<html>
 <ul>
 <li>
 April 14, 2020, by Michael Wetter:<br/>
@@ -245,10 +252,12 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Icon(coordinateSystem(
+    Icon(
+      coordinateSystem(
         preserveAspectRatio=true,
         extent={{-100,-100},{100,100}},
-        grid={1,1}), graphics={
+        grid={1,1}),
+      graphics={
         Rectangle(
           extent={{-70,60},{70,-60}},
           lineColor={0,0,255},

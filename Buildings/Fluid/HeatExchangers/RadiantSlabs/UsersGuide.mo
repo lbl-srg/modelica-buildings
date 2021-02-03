@@ -1,8 +1,11 @@
 within Buildings.Fluid.HeatExchangers.RadiantSlabs;
-package UsersGuide "User's Guide"
+package UsersGuide
+  "User's Guide"
   extends Modelica.Icons.Information;
-  annotation (preferredView="info",
-  Documentation(info="<html>
+  annotation (
+    preferredView="info",
+    Documentation(
+      info="<html>
 <h4>Heat transfer through the slab</h4>
 <p>
 The figure below shows the thermal resistance network of the model for an

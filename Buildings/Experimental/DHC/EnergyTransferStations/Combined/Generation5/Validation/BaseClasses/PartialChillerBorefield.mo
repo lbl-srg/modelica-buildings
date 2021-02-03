@@ -40,7 +40,8 @@ partial model PartialChillerBorefield
     annotation (Placement(transformation(extent={{20,180},{40,200}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant THeaWatSupSet(
     k=45+273.15,
-    y(final unit="K",
+    y(
+      final unit="K",
       displayUnit="degC"))
     "Heating water supply temperature set point"
     annotation (Placement(transformation(extent={{-140,130},{-120,150}})));
@@ -51,7 +52,8 @@ partial model PartialChillerBorefield
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},rotation=90,origin={20,60})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TChiWatSupSet(
     k=7+273.15,
-    y(final unit="K",
+    y(
+      final unit="K",
       displayUnit="degC"))
     "Chilled water supply temperature set point"
     annotation (Placement(transformation(extent={{-140,90},{-120,110}})));
@@ -254,7 +256,8 @@ partial model PartialChillerBorefield
     "District water supply temperature"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,origin={-80,-80})));
   Modelica.Blocks.Continuous.Integrator EChi(
-    y(unit="J"))
+    y(
+      unit="J"))
     "Chiller electricity use"
     annotation (Placement(transformation(extent={{300,-70},{320,-50}})));
 equation
@@ -262,8 +265,8 @@ equation
     annotation (Line(points={{-118,100},{-32,100},{-32,-64},{-14,-64}},color={0,0,127}));
   connect(THeaWatSupSet.y,ets.THeaWatSupSet)
     annotation (Line(points={{-118,140},{-28,140},{-28,-58},{-14,-58}},color={0,0,127}));
-  connect(ets.port_bSerAmb, disWat.ports[1]) annotation (Line(points={{50,-74},{
-          160,-74},{160,-180},{-100,-180},{-100,-138}},  color={0,127,255}));
+  connect(ets.port_bSerAmb,disWat.ports[1])
+    annotation (Line(points={{50,-74},{160,-74},{160,-180},{-100,-180},{-100,-138}},color={0,127,255}));
   connect(pumChiWat.port_a,senTChiWatSup.port_b)
     annotation (Line(points={{110,40},{100,40}},color={0,127,255}));
   connect(gai2.y,pumChiWat.m_flow_in)
@@ -310,8 +313,8 @@ equation
     annotation (Line(points={{-178,-20},{-120,-20},{-120,-46},{-14,-46}},color={255,0,255}));
   connect(disWat.ports[2],senTDisWatSup.port_a)
     annotation (Line(points={{-100,-142},{-100,-80},{-90,-80}},color={0,127,255}));
-  connect(senTDisWatSup.port_b, ets.port_aSerAmb) annotation (Line(points={{-70,-80},
-          {-40,-80},{-40,-74},{-10,-74}},      color={0,127,255}));
+  connect(senTDisWatSup.port_b,ets.port_aSerAmb)
+    annotation (Line(points={{-70,-80},{-40,-80},{-40,-74},{-10,-74}},color={0,127,255}));
   connect(ets.ports_bChiWat[1],senTChiWatSup.port_a)
     annotation (Line(points={{50,-38},{70,-38},{70,40},{80,40}},color={0,127,255}));
   connect(ets.ports_bHeaWat[1],pumHeaWat.port_a)
@@ -320,8 +323,8 @@ equation
     annotation (Line(points={{-50,-28},{-10,-28}},color={0,127,255}));
   connect(senTChiWatRet.port_b,ets.ports_aChiWat[1])
     annotation (Line(points={{80,0},{-40,0},{-40,-38},{-10,-38}},color={0,127,255}));
-  connect(ets.PCoo, EChi.u) annotation (Line(points={{54,-52},{60,-52},{60,-60},
-          {298,-60}}, color={0,0,127}));
+  connect(ets.PCoo,EChi.u)
+    annotation (Line(points={{54,-52},{60,-52},{60,-60},{298,-60}},color={0,0,127}));
   annotation (
     Diagram(
       coordinateSystem(

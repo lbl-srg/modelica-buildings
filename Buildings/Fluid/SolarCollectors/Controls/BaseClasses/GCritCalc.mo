@@ -1,27 +1,35 @@
 within Buildings.Fluid.SolarCollectors.Controls.BaseClasses;
-model GCritCalc "Model calculating the critical insolation level"
-
+model GCritCalc
+  "Model calculating the critical insolation level"
   extends Modelica.Blocks.Icons.Block;
-
-  parameter Real slope(unit="W/(m2.K)") "Slope from ratings data";
-  parameter Real y_intercept "y_intercept from ratings data";
-
-  Modelica.Blocks.Interfaces.RealInput TIn(unit="K",
-  displayUnit = "degC", quantity = "ThermodynamicTemperature")
+  parameter Real slope(
+    unit="W/(m2.K)")
+    "Slope from ratings data";
+  parameter Real y_intercept
+    "y_intercept from ratings data";
+  Modelica.Blocks.Interfaces.RealInput TIn(
+    unit="K",
+    displayUnit="degC",
+    quantity="ThermodynamicTemperature")
     "Temperature of water entering the collector"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
-  Modelica.Blocks.Interfaces.RealOutput G_TC(unit="W/m2",
-  quantity = "RadiantEnergyFluenceRate") "Critical radiation level"
+  Modelica.Blocks.Interfaces.RealOutput G_TC(
+    unit="W/m2",
+    quantity="RadiantEnergyFluenceRate")
+    "Critical radiation level"
     annotation (Placement(transformation(extent={{100,-16},{132,16}})));
-  Modelica.Blocks.Interfaces.RealInput TEnv(unit="K",
-  displayUnit = "degC", quantity = "ThermodynamicTemperature")
+  Modelica.Blocks.Interfaces.RealInput TEnv(
+    unit="K",
+    displayUnit="degC",
+    quantity="ThermodynamicTemperature")
     "Ambient temperature at the collector"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
-
 equation
-  G_TC = -slope * (TIn - TEnv) / y_intercept;
-  annotation (defaultComponentName="criSol",
-  Documentation(info="<html>
+  G_TC=-slope*(TIn-TEnv)/y_intercept;
+  annotation (
+    defaultComponentName="criSol",
+    Documentation(
+      info="<html>
     <p>
       This component calculates the solar radiation necessary for the fluid
       in the collector to gain heat. It is used in the model
@@ -49,7 +57,7 @@ equation
       Edition), John Wiley &amp; Sons, Inc.<br/>
     </p>
  </html>",
-  revisions = "<html>
+      revisions="<html>
     <ul>
       <li>
         February 15, 2013 by Peter Grant <br/>

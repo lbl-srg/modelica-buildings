@@ -1,7 +1,9 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Examples;
-package PerformanceCurves "Package with sevral performance curves"
-
-  annotation (Documentation(info="<html>
+package PerformanceCurves
+  "Package with sevral performance curves"
+  annotation (
+    Documentation(
+      info="<html>
 <p>
 This package contains performance curves for the cooling capacity and the EIR
 of water-cooled DX cooling coils that are used in the examples.
@@ -11,7 +13,7 @@ The data are described in
 Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.DXCoil</a>.
 </p>
 </html>",
-revisions="<html>
+      revisions="<html>
 <ul>
 <li>
 December 17, 2012 by Michael Wetter:<br/>

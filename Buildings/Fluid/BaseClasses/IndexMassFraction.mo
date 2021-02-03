@@ -1,25 +1,29 @@
 within Buildings.Fluid.BaseClasses;
 block IndexMassFraction
   "Computes the index of a substance in the mass fraction vector Xi"
-  replaceable package Medium =
-      Modelica.Media.Interfaces.PartialCondensingGases "Medium model"
-      annotation (choices(
-        choice(redeclare package Medium = Buildings.Media.Air "Moist air")));
-  parameter String substanceName="" "Name of species substance";
-
+  replaceable package Medium=Modelica.Media.Interfaces.PartialCondensingGases
+    "Medium model"
+    annotation (choices(choice(redeclare package Medium=Buildings.Media.Air "Moist air")));
+  parameter String substanceName=""
+    "Name of species substance";
 protected
-  parameter Integer i_x = sum(
-    if Modelica.Utilities.Strings.isEqual(string1=Medium.substanceNames[i],
-                                          string2=substanceName,
-                                          caseSensitive=false) then i else 0
-                                          for i in 1:Medium.nXi) "Index of substance"
-                                          annotation(Evaluate=true);
+  parameter Integer i_x=sum(
+    if Modelica.Utilities.Strings.isEqual(
+      string1=Medium.substanceNames[i],
+      string2=substanceName,
+      caseSensitive=false) then
+      i
+    else
+      0 for i in 1:Medium.nXi)
+    "Index of substance"
+    annotation (Evaluate=true);
 initial equation
-  assert(i_x > 0, "Substance '" + substanceName + "' is not present in medium '"
-                  + Medium.mediumName + "'.\n"
-                  + "Change medium model to one that has '" + substanceName + "' as a substance.");
-
-  annotation (Documentation(info="<html>
+  assert(
+    i_x > 0,
+    "Substance '"+substanceName+"' is not present in medium '"+Medium.mediumName+"'.\n"+"Change medium model to one that has '"+substanceName+"' as a substance.");
+  annotation (
+    Documentation(
+      info="<html>
 <p>
 This block computes the index that the subtance with name
 <code>substanceName</code> has in the mass fraction vector <code>X</code>.
@@ -30,7 +34,8 @@ then the block writes an error message and terminates the simulation.
 This block is used for example to obtain the index of the subtance 'water'
 to obtain the water vapor concentration, or to measure any other mass fraction.
 </p>
-</html>", revisions="<html>
+</html>",
+      revisions="<html>
 <ul>
 <li>
 November 14, 2019, by Michael Wetter:<br/>

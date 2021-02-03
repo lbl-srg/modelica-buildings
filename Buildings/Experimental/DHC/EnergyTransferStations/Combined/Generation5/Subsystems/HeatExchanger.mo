@@ -13,8 +13,7 @@ model HeatExchanger
     motorCooledByFluid=false)
     constrainedby Buildings.Fluid.Movers.Data.Generic
     "Record with performance data for primary pump"
-    annotation (Dialog(enable=not have_val1Hex),choicesAllMatching=true,
-    Placement(transformation(extent={{-40,-140},{-20,-120}})));
+    annotation (Dialog(enable=not have_val1Hex),choicesAllMatching=true,Placement(transformation(extent={{-40,-140},{-20,-120}})));
   replaceable parameter Buildings.Fluid.Movers.Data.Generic perPum2(
     motorCooledByFluid=false)
     constrainedby Buildings.Fluid.Movers.Data.Generic
@@ -78,17 +77,14 @@ model HeatExchanger
   // IO CONNECTORS
   Buildings.Controls.OBC.CDL.Interfaces.RealInput yValIso_actual[2]
     "Isolation valves return position (index 1 for condenser)"
-    annotation (Placement(transformation(extent={{-140,80},{-100,120}}),
-    iconTransformation(extent={{-140,-40},{-100,0}})));
+    annotation (Placement(transformation(extent={{-140,80},{-100,120}}),iconTransformation(extent={{-140,-40},{-100,0}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u
     "Control signal for secondary side (from supervisory)"
-    annotation (Placement(transformation(extent={{-140,120},{-100,160}}),
-    iconTransformation(extent={{-140,0},{-100,40}})));
+    annotation (Placement(transformation(extent={{-140,120},{-100,160}}),iconTransformation(extent={{-140,0},{-100,40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput PPum(
     final unit="W")
     "Power drawn by pump motors"
-    annotation (Placement(transformation(extent={{100,-20},{140,20}}),
-    iconTransformation(extent={{100,-20},{140,20}})));
+    annotation (Placement(transformation(extent={{100,-20},{140,20}}),iconTransformation(extent={{100,-20},{140,20}})));
   // COMPONENTS
   Experimental.DHC.EnergyTransferStations.Combined.Generation5.Controls.HeatExchanger con(
     final conCon=conCon,

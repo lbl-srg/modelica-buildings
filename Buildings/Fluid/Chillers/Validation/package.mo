@@ -1,8 +1,11 @@
 within Buildings.Fluid.Chillers;
-package Validation "Collection of models that validate the chiller models"
+package Validation
+  "Collection of models that validate the chiller models"
   extends Modelica.Icons.ExamplesPackage;
-
-annotation (preferredView="info", Documentation(info="<html>
+  annotation (
+    preferredView="info",
+    Documentation(
+      info="<html>
 <p>
 This package contains models that validate the chiller models.
 The examples plot various outputs, which have been verified against

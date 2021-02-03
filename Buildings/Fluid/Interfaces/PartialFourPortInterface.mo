@@ -2,70 +2,107 @@ within Buildings.Fluid.Interfaces;
 partial model PartialFourPortInterface
   "Partial model transporting fluid between two ports without storing mass or energy"
   extends Buildings.Fluid.Interfaces.PartialFourPort;
-  parameter Modelica.SIunits.MassFlowRate m1_flow_nominal(min=0)
+  parameter Modelica.SIunits.MassFlowRate m1_flow_nominal(
+    min=0)
     "Nominal mass flow rate"
-    annotation(Dialog(group = "Nominal condition"));
-  parameter Modelica.SIunits.MassFlowRate m2_flow_nominal(min=0)
+    annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.SIunits.MassFlowRate m2_flow_nominal(
+    min=0)
     "Nominal mass flow rate"
-    annotation(Dialog(group = "Nominal condition"));
-  parameter Medium1.MassFlowRate m1_flow_small(min=0) = 1E-4*abs(m1_flow_nominal)
+    annotation (Dialog(group="Nominal condition"));
+  parameter Medium1.MassFlowRate m1_flow_small(
+    min=0)=1E-4*abs(
+    m1_flow_nominal)
     "Small mass flow rate for regularization of zero flow"
-    annotation(Dialog(tab = "Advanced"));
-  parameter Medium2.MassFlowRate m2_flow_small(min=0) = 1E-4*abs(m2_flow_nominal)
+    annotation (Dialog(tab="Advanced"));
+  parameter Medium2.MassFlowRate m2_flow_small(
+    min=0)=1E-4*abs(
+    m2_flow_nominal)
     "Small mass flow rate for regularization of zero flow"
-    annotation(Dialog(tab = "Advanced"));
+    annotation (Dialog(tab="Advanced"));
   // Diagnostics
-  parameter Boolean show_T = false
+  parameter Boolean show_T=false
     "= true, if actual temperature at port is computed"
-    annotation(Dialog(tab="Advanced",group="Diagnostics"));
-
-  Medium1.MassFlowRate m1_flow = port_a1.m_flow
+    annotation (Dialog(tab="Advanced",group="Diagnostics"));
+  Medium1.MassFlowRate m1_flow=port_a1.m_flow
     "Mass flow rate from port_a1 to port_b1 (m1_flow > 0 is design flow direction)";
-  Modelica.SIunits.PressureDifference dp1(displayUnit="Pa") = port_a1.p - port_b1.p
+  Modelica.SIunits.PressureDifference dp1(
+    displayUnit="Pa")=port_a1.p-port_b1.p
     "Pressure difference between port_a1 and port_b1";
-
-  Medium2.MassFlowRate m2_flow = port_a2.m_flow
+  Medium2.MassFlowRate m2_flow=port_a2.m_flow
     "Mass flow rate from port_a2 to port_b2 (m2_flow > 0 is design flow direction)";
-  Modelica.SIunits.PressureDifference dp2(displayUnit="Pa") = port_a2.p - port_b2.p
+  Modelica.SIunits.PressureDifference dp2(
+    displayUnit="Pa")=port_a2.p-port_b2.p
     "Pressure difference between port_a2 and port_b2";
-
-  Medium1.ThermodynamicState sta_a1=
-      Medium1.setState_phX(port_a1.p,
-                           noEvent(actualStream(port_a1.h_outflow)),
-                           noEvent(actualStream(port_a1.Xi_outflow))) if
-         show_T "Medium properties in port_a1";
-  Medium1.ThermodynamicState sta_b1=
-      Medium1.setState_phX(port_b1.p,
-                           noEvent(actualStream(port_b1.h_outflow)),
-                           noEvent(actualStream(port_b1.Xi_outflow))) if
-         show_T "Medium properties in port_b1";
-  Medium2.ThermodynamicState sta_a2=
-      Medium2.setState_phX(port_a2.p,
-                           noEvent(actualStream(port_a2.h_outflow)),
-                           noEvent(actualStream(port_a2.Xi_outflow))) if
-         show_T "Medium properties in port_a2";
-  Medium2.ThermodynamicState sta_b2=
-      Medium2.setState_phX(port_b2.p,
-                           noEvent(actualStream(port_b2.h_outflow)),
-                           noEvent(actualStream(port_b2.Xi_outflow))) if
-         show_T "Medium properties in port_b2";
+  Medium1.ThermodynamicState sta_a1=Medium1.setState_phX(
+    port_a1.p,
+    noEvent(
+      actualStream(
+        port_a1.h_outflow)),
+    noEvent(
+      actualStream(
+        port_a1.Xi_outflow))) if show_T
+    "Medium properties in port_a1";
+  Medium1.ThermodynamicState sta_b1=Medium1.setState_phX(
+    port_b1.p,
+    noEvent(
+      actualStream(
+        port_b1.h_outflow)),
+    noEvent(
+      actualStream(
+        port_b1.Xi_outflow))) if show_T
+    "Medium properties in port_b1";
+  Medium2.ThermodynamicState sta_a2=Medium2.setState_phX(
+    port_a2.p,
+    noEvent(
+      actualStream(
+        port_a2.h_outflow)),
+    noEvent(
+      actualStream(
+        port_a2.Xi_outflow))) if show_T
+    "Medium properties in port_a2";
+  Medium2.ThermodynamicState sta_b2=Medium2.setState_phX(
+    port_b2.p,
+    noEvent(
+      actualStream(
+        port_b2.h_outflow)),
+    noEvent(
+      actualStream(
+        port_b2.Xi_outflow))) if show_T
+    "Medium properties in port_b2";
 protected
-  Medium1.ThermodynamicState state_a1_inflow=
-    Medium1.setState_phX(port_a1.p, inStream(port_a1.h_outflow), inStream(port_a1.Xi_outflow))
+  Medium1.ThermodynamicState state_a1_inflow=Medium1.setState_phX(
+    port_a1.p,
+    inStream(
+      port_a1.h_outflow),
+    inStream(
+      port_a1.Xi_outflow))
     "state for medium inflowing through port_a1";
-  Medium1.ThermodynamicState state_b1_inflow=
-    Medium1.setState_phX(port_b1.p, inStream(port_b1.h_outflow), inStream(port_b1.Xi_outflow))
+  Medium1.ThermodynamicState state_b1_inflow=Medium1.setState_phX(
+    port_b1.p,
+    inStream(
+      port_b1.h_outflow),
+    inStream(
+      port_b1.Xi_outflow))
     "state for medium inflowing through port_b1";
-  Medium2.ThermodynamicState state_a2_inflow=
-    Medium2.setState_phX(port_a2.p, inStream(port_a2.h_outflow), inStream(port_a2.Xi_outflow))
+  Medium2.ThermodynamicState state_a2_inflow=Medium2.setState_phX(
+    port_a2.p,
+    inStream(
+      port_a2.h_outflow),
+    inStream(
+      port_a2.Xi_outflow))
     "state for medium inflowing through port_a2";
-  Medium2.ThermodynamicState state_b2_inflow=
-    Medium2.setState_phX(port_b2.p, inStream(port_b2.h_outflow), inStream(port_b2.Xi_outflow))
+  Medium2.ThermodynamicState state_b2_inflow=Medium2.setState_phX(
+    port_b2.p,
+    inStream(
+      port_b2.h_outflow),
+    inStream(
+      port_b2.Xi_outflow))
     "state for medium inflowing through port_b2";
-
   annotation (
-  preferredView="info",
-    Documentation(info="<html>
+    preferredView="info",
+    Documentation(
+      info="<html>
 <p>
 This component defines the interface for models that
 transport two fluid streams between four ports.
@@ -78,7 +115,8 @@ but it has four ports instead of two.
 The model is used by other models in this package that add heat transfer,
 mass transfer and pressure drop equations.
 </p>
-</html>", revisions="<html>
+</html>",
+      revisions="<html>
 <ul>
 <li>
 November 3, 2016, by Michael Wetter:<br/>

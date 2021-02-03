@@ -1,9 +1,10 @@
 within Buildings.Fluid.BaseClasses;
-package FlowModels "Flow models for pressure drop calculations"
+package FlowModels
+  "Flow models for pressure drop calculations"
   extends Modelica.Icons.BasesPackage;
-
-
-annotation (Documentation(info="<html>
+  annotation (
+    Documentation(
+      info="<html>
 <p>
 This package contains a basic flow model that is used by the
 various models that compute pressure drop.
@@ -43,7 +44,8 @@ Both functions are two times continuously differentiable.
 First and second order derivatives are provided
 in the function that have the suffix <code>_der</code> and <code>_der2</code>.
 </p>
-</html>", revisions="<html>
+</html>",
+      revisions="<html>
 <ul>
 <li>
 April 10, 2009 by Michael Wetter:<br/>

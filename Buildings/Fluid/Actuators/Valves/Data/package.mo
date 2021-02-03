@@ -1,8 +1,10 @@
 within Buildings.Fluid.Actuators.Valves;
-package Data "Data records for table-based valves"
+package Data
+  "Data records for table-based valves"
   extends Modelica.Icons.MaterialPropertiesPackage;
-
-  annotation(Documentation(info="<html>
+  annotation (
+    Documentation(
+      info="<html>
 <p>
 This package contains data for the valve
 <a href=\"modelica://Buildings.Fluid.Actuators.Valves.TwoWayTable\">

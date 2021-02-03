@@ -1,49 +1,52 @@
 within Buildings.Fluid.Actuators.Valves;
-model TwoWayPressureIndependent "Model of a pressure-independent two way valve"
+model TwoWayPressureIndependent
+  "Model of a pressure-independent two way valve"
   extends Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve(
-            final linearized = false,
-            from_dp=true,
-            phi=max(0.1*l, l + y_actual*(1 - l)));
-
-  parameter Real l2(min=1e-10) = 0.01
+    final linearized=false,
+    from_dp=true,
+    phi=max(
+      0.1*l,
+      l+y_actual*(1-l)));
+  parameter Real l2(
+    min=1e-10)=0.01
     "Gain for mass flow increase if pressure is above nominal pressure"
-    annotation(Dialog(tab="Advanced"));
-  parameter Real deltax = 0.02 "Transition interval for flow rate"
-    annotation(Dialog(tab="Advanced"));
-
+    annotation (Dialog(tab="Advanced"));
+  parameter Real deltax=0.02
+    "Transition interval for flow rate"
+    annotation (Dialog(tab="Advanced"));
 protected
-  parameter Real coeff1 = l2/dp_nominal*m_flow_nominal
+  parameter Real coeff1=l2/dp_nominal*m_flow_nominal
     "Parameter for avoiding unnecessary computations";
-  parameter Real coeff2 = 1/coeff1
+  parameter Real coeff2=1/coeff1
     "Parameter for avoiding unnecessary computations";
-  constant Real y2dd = 0
+  constant Real y2dd=0
     "Second derivative at second support point";
   Modelica.SIunits.MassFlowRate m_flow_set
     "Requested mass flow rate";
-  Modelica.SIunits.PressureDifference dp_min(displayUnit="Pa")
+  Modelica.SIunits.PressureDifference dp_min(
+    displayUnit="Pa")
     "Minimum pressure difference required for delivering requested mass flow rate";
-  Modelica.SIunits.PressureDifference dp_x, dp_x1, dp_x2, dp_y2, dp_y1
+  Modelica.SIunits.PressureDifference dp_x,dp_x1,dp_x2,dp_y2,dp_y1
     "Support points for interpolation flow functions";
-  Modelica.SIunits.MassFlowRate m_flow_x, m_flow_x1, m_flow_x2, m_flow_y2, m_flow_y1
+  Modelica.SIunits.MassFlowRate m_flow_x,m_flow_x1,m_flow_x2,m_flow_y2,m_flow_y1
     "Support points for interpolation flow functions";
   Modelica.SIunits.MassFlowRate m_flow_smooth
     "Smooth interpolation result between two flow regimes";
   Modelica.SIunits.PressureDifference dp_smooth
     "Smooth interpolation result between two flow regimes";
-
 equation
-  m_flow_set = m_flow_nominal*phi;
-  kVal = Kv_SI;
-  if (dpFixed_nominal > Modelica.Constants.eps) then
-    k = sqrt(1/(1/kFixed^2 + 1/kVal^2));
+  m_flow_set=m_flow_nominal*phi;
+  kVal=Kv_SI;
+  if(dpFixed_nominal > Modelica.Constants.eps) then
+    k=sqrt(
+      1/(1/kFixed^2+1/kVal^2));
   else
-    k = kVal;
+    k=kVal;
   end if;
-  dp_min = Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
-              m_flow=m_flow_set,
-              k=k,
-              m_flow_turbulent=m_flow_turbulent);
-
+  dp_min=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
+    m_flow=m_flow_set,
+    k=k,
+    m_flow_turbulent=m_flow_turbulent);
   if from_dp then
     m_flow_x=0;
     m_flow_x1=0;
@@ -51,42 +54,45 @@ equation
     dp_y1=0;
     dp_y2=0;
     dp_smooth=0;
-
-    dp_x = dp-dp_min;
-    dp_x1 = -dp_x2;
-    dp_x2 = deltax*dp_min;
+    dp_x=dp-dp_min;
+    dp_x1=-dp_x2;
+    dp_x2=deltax*dp_min;
     // min function ensures that m_flow_y1 does not increase further for dp_x > dp_x1
-    m_flow_y1 = Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
-                                  dp=min(dp, dp_min+dp_x1),
-                                  k=k,
-                                  m_flow_turbulent=m_flow_turbulent);
+    m_flow_y1=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
+      dp=min(dp,dp_min+dp_x1),
+      k=k,
+      m_flow_turbulent=m_flow_turbulent);
     // max function ensures that m_flow_y2 does not decrease further for dp_x < dp_x2
-    m_flow_y2 = m_flow_set + coeff1*max(dp_x,dp_x2);
-
-    m_flow_smooth = noEvent(smooth(2,
-        if dp_x <= dp_x1
-        then m_flow_y1
-        elseif dp_x >=dp_x2
-        then m_flow_y2
-        else Buildings.Utilities.Math.Functions.quinticHermite(
-                 x=dp_x,
-                 x1=dp_x1,
-                 x2=dp_x2,
-                 y1=m_flow_y1,
-                 y2=m_flow_y2,
-                 y1d= Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp_der(
-                                     dp=dp_min + dp_x1,
-                                     k=k,
-                                     m_flow_turbulent=m_flow_turbulent,
-                                     dp_der=1),
-                 y2d=coeff1,
-                 y1dd=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp_der2(
-                                     dp=dp_min + dp_x1,
-                                     k=k,
-                                     m_flow_turbulent=m_flow_turbulent,
-                                     dp_der=1,
-                                     dp_der2=0),
-                 y2dd=y2dd)));
+    m_flow_y2=m_flow_set+coeff1*max(
+      dp_x,
+      dp_x2);
+    m_flow_smooth=noEvent(
+      smooth(
+        2,
+        if dp_x <= dp_x1 then
+          m_flow_y1
+        elseif dp_x >= dp_x2 then
+          m_flow_y2
+        else
+          Buildings.Utilities.Math.Functions.quinticHermite(
+            x=dp_x,
+            x1=dp_x1,
+            x2=dp_x2,
+            y1=m_flow_y1,
+            y2=m_flow_y2,
+            y1d=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp_der(
+              dp=dp_min+dp_x1,
+              k=k,
+              m_flow_turbulent=m_flow_turbulent,
+              dp_der=1),
+            y2d=coeff1,
+            y1dd=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp_der2(
+              dp=dp_min+dp_x1,
+              k=k,
+              m_flow_turbulent=m_flow_turbulent,
+              dp_der=1,
+              dp_der2=0),
+            y2dd=y2dd)));
   else
     dp_x=0;
     dp_x1=0;
@@ -94,53 +100,55 @@ equation
     m_flow_y1=0;
     m_flow_y2=0;
     m_flow_smooth=0;
-
-    m_flow_x = m_flow-m_flow_set;
-    m_flow_x1 = -m_flow_x2;
-    m_flow_x2 = deltax*m_flow_set;
+    m_flow_x=m_flow-m_flow_set;
+    m_flow_x1=-m_flow_x2;
+    m_flow_x2=deltax*m_flow_set;
     // min function ensures that dp_y1 does not increase further for m_flow_x > m_flow_x1
-    dp_y1 = Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
-                                     m_flow=min(m_flow, m_flow_set + m_flow_x1),
-                                     k=k,
-                                     m_flow_turbulent=m_flow_turbulent);
+    dp_y1=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
+      m_flow=min(m_flow,m_flow_set+m_flow_x1),
+      k=k,
+      m_flow_turbulent=m_flow_turbulent);
     // max function ensures that dp_y2 does not decrease further for m_flow_x < m_flow_x2
-    dp_y2 = dp_min + coeff2*max(m_flow_x, m_flow_x2);
-
-    dp_smooth = noEvent(smooth(2,
-        if m_flow_x <= m_flow_x1
-        then dp_y1
-        elseif m_flow_x >=m_flow_x2
-        then dp_y2
-        else Buildings.Utilities.Math.Functions.quinticHermite(
-                 x=m_flow_x,
-                 x1=m_flow_x1,
-                 x2=m_flow_x2,
-                 y1=dp_y1,
-                 y2=dp_y2,
-                 y1d=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow_der(
-                                     m_flow=m_flow_set + m_flow_x1,
-                                     k=k,
-                                     m_flow_turbulent=m_flow_turbulent,
-                                     m_flow_der=1),
-                 y2d=coeff2,
-                 y1dd=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow_der2(
-                                     m_flow=m_flow_set + m_flow_x1,
-                                     k=k,
-                                     m_flow_turbulent=m_flow_turbulent,
-                                     m_flow_der=1,
-                                     m_flow_der2=0),
-                 y2dd=y2dd)));
+    dp_y2=dp_min+coeff2*max(
+      m_flow_x,
+      m_flow_x2);
+    dp_smooth=noEvent(
+      smooth(
+        2,
+        if m_flow_x <= m_flow_x1 then
+          dp_y1
+        elseif m_flow_x >= m_flow_x2 then
+          dp_y2
+        else
+          Buildings.Utilities.Math.Functions.quinticHermite(
+            x=m_flow_x,
+            x1=m_flow_x1,
+            x2=m_flow_x2,
+            y1=dp_y1,
+            y2=dp_y2,
+            y1d=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow_der(
+              m_flow=m_flow_set+m_flow_x1,
+              k=k,
+              m_flow_turbulent=m_flow_turbulent,
+              m_flow_der=1),
+            y2d=coeff2,
+            y1dd=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow_der2(
+              m_flow=m_flow_set+m_flow_x1,
+              k=k,
+              m_flow_turbulent=m_flow_turbulent,
+              m_flow_der=1,
+              m_flow_der2=0),
+            y2dd=y2dd)));
   end if;
-
-
   if homotopyInitialization then
     if from_dp then
-      m_flow=homotopy(actual=m_flow_smooth,
-                      simplified=m_flow_nominal_pos*dp/dp_nominal_pos);
+      m_flow=homotopy(
+        actual=m_flow_smooth,
+        simplified=m_flow_nominal_pos*dp/dp_nominal_pos);
     else
-        dp=homotopy(
-           actual=dp_smooth,
-           simplified=dp_nominal_pos*m_flow/m_flow_nominal_pos);
+      dp=homotopy(
+        actual=dp_smooth,
+        simplified=dp_nominal_pos*m_flow/m_flow_nominal_pos);
     end if;
   else
     if from_dp then
@@ -149,8 +157,10 @@ equation
       dp=dp_smooth;
     end if;
   end if;
-  annotation (defaultComponentName="val",
-Documentation(info="<html>
+  annotation (
+    defaultComponentName="val",
+    Documentation(
+      info="<html>
 <p>
 Two way valve with a pressure-independent valve opening characteristic.
 The mass flow rate is controlled such that it is nearly equal to its
@@ -217,7 +227,7 @@ Min and max functions are therefore used such that one equation
 can serve both puroposes.
 </p>
 </html>",
-revisions="<html>
+      revisions="<html>
 <ul>
 <li>
 August 7, 2020, by Ettore Zanetti:<br/>

@@ -1,20 +1,25 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses;
-block SpeedShift "Interpolates values between speeds"
-  parameter Integer nSta "Number of standard compressor speeds";
-  parameter Modelica.SIunits.AngularVelocity speSet[nSta](each displayUnit="1/min")
+block SpeedShift
+  "Interpolates values between speeds"
+  parameter Integer nSta
+    "Number of standard compressor speeds";
+  parameter Modelica.SIunits.AngularVelocity speSet[nSta](
+    each displayUnit="1/min")
     "Compressor speeds";
-  constant Boolean variableSpeedCoil "Flag, set to true to interpolate data";
-
-  Modelica.Blocks.Interfaces.RealInput speRat "Speed ratio"
+  constant Boolean variableSpeedCoil
+    "Flag, set to true to interpolate data";
+  Modelica.Blocks.Interfaces.RealInput speRat
+    "Speed ratio"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Modelica.Blocks.Interfaces.RealInput u[nSta] "Array to be interpolated"
+  Modelica.Blocks.Interfaces.RealInput u[nSta]
+    "Array to be interpolated"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
-  Modelica.Blocks.Interfaces.RealOutput y "Interpolated value"
+  Modelica.Blocks.Interfaces.RealOutput y
+    "Interpolated value"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   Modelica.Blocks.Interfaces.IntegerInput stage
     "Stage of coil, or 0/1 for variable-speed coil"
-    annotation (Placement(transformation(extent={{-140,70},{-100,110}}),
-        iconTransformation(extent={{-140,60},{-100,100}})));
+    annotation (Placement(transformation(extent={{-140,70},{-100,110}}),iconTransformation(extent={{-140,60},{-100,100}})));
 equation
   if variableSpeedCoil then
     y=Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Functions.speedShift(
@@ -22,10 +27,16 @@ equation
       speSet=speSet,
       u=u);
   else
-    y = if stage == 0 then 0  else u[stage];
+    y=
+      if stage == 0 then
+        0
+      else
+        u[stage];
   end if;
-  annotation (defaultComponentName="speSh",
-  Documentation(info="<html>
+  annotation (
+    defaultComponentName="speSh",
+    Documentation(
+      info="<html>
 <p>
 This block uses the
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Functions.speedShift\">
@@ -34,7 +45,7 @@ to interpolate the input array.
 Depending on input speed ratio and speed set array the input array <i>u</i> is interpolated.
 </p>
 </html>",
-revisions="<html>
+      revisions="<html>
 <ul>
 <li>
 August 24, 2012, by Michael Wetter:<br/>
@@ -54,11 +65,14 @@ First implementation.
 </li>
 </ul>
 </html>"),
-  Icon(coordinateSystem(
+    Icon(
+      coordinateSystem(
         preserveAspectRatio=true,
         extent={{-100,-100},{100,100}},
-        grid={1,1}), graphics={
-        Text(extent={{-120,140},{120,100}},
+        grid={1,1}),
+      graphics={
+        Text(
+          extent={{-120,140},{120,100}},
           lineColor={0,0,255},
           textString="%name"),
         Ellipse(
@@ -67,12 +81,24 @@ First implementation.
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           lineThickness=0.5),
-        Line(points={{0,68},{0,38}}, color={0,0,0}),
-        Line(points={{25,36},{39.2,56.3}},     color={0,0,0}),
-        Line(points={{-25,36},{-39.2,56.3}},     color={0,0,0}),
-        Line(points={{41,15},{65.8,23.9}},     color={0,0,0}),
-        Line(points={{-43,15},{-64.8,23.9}},     color={0,0,0}),
-        Line(points={{0,0},{9.02,28.6}}, color={0,0,0}),
+        Line(
+          points={{0,68},{0,38}},
+          color={0,0,0}),
+        Line(
+          points={{25,36},{39.2,56.3}},
+          color={0,0,0}),
+        Line(
+          points={{-25,36},{-39.2,56.3}},
+          color={0,0,0}),
+        Line(
+          points={{41,15},{65.8,23.9}},
+          color={0,0,0}),
+        Line(
+          points={{-43,15},{-64.8,23.9}},
+          color={0,0,0}),
+        Line(
+          points={{0,0},{9.02,28.6}},
+          color={0,0,0}),
         Polygon(
           points={{6,29},{12,27},{15,45},{6,29}},
           lineColor={0,0,0},
@@ -83,8 +109,12 @@ First implementation.
           lineColor={0,0,0},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid),
-        Line(points={{-66.4,-23.3},{-42,-14}}, color={0,0,0}),
-        Line(points={{66.4,-23.3},{41,-15}},     color={0,0,0}),
+        Line(
+          points={{-66.4,-23.3},{-42,-14}},
+          color={0,0,0}),
+        Line(
+          points={{66.4,-23.3},{41,-15}},
+          color={0,0,0}),
         Line(
           points={{-70,0},{-57,0}},
           color={0,0,0},

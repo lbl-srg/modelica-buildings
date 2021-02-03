@@ -2,38 +2,46 @@ within Buildings.Fluid.Movers.BaseClasses.Characteristics;
 function pressure
   "Pump or fan head away from the origin without correction for mover flow resistance"
   extends Modelica.Icons.Function;
-
-  input Modelica.SIunits.VolumeFlowRate V_flow "Volumetric flow rate";
-  input Real r_N(unit="1") "Relative revolution, r_N=N/N_nominal";
-  input Real d[:] "Derivatives of flow rate vs. pressure at the support points";
-  input Modelica.SIunits.PressureDifference dpMax(displayUnit="Pa")
+  input Modelica.SIunits.VolumeFlowRate V_flow
+    "Volumetric flow rate";
+  input Real r_N(
+    unit="1")
+    "Relative revolution, r_N=N/N_nominal";
+  input Real d[:]
+    "Derivatives of flow rate vs. pressure at the support points";
+  input Modelica.SIunits.PressureDifference dpMax(
+    displayUnit="Pa")
     "Maximum pressure drop at nominal speed, for regularisation";
   input Modelica.SIunits.VolumeFlowRate V_flow_max
     "Maximum flow rate at nominal speed, for regularisation";
   input Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParametersInternal per
     "Pressure performance data";
-
-  output Modelica.SIunits.PressureDifference dp(displayUnit="Pa") "Pressure raise";
-
+  output Modelica.SIunits.PressureDifference dp(
+    displayUnit="Pa")
+    "Pressure raise";
 protected
-  constant Real delta = 0.05
+  constant Real delta=0.05
     "Small number for r_N below which we don't care about the affinity laws";
-  constant Real delta2 = delta/2 "= delta/2";
-  Real r_R(unit="1") "Relative revolution, bounded below by delta";
-  Integer i "Integer to select data interval";
-  Modelica.SIunits.VolumeFlowRate rat "Ratio of V_flow/r_R";
-
+  constant Real delta2=delta/2
+    "= delta/2";
+  Real r_R(
+    unit="1")
+    "Relative revolution, bounded below by delta";
+  Integer i
+    "Integer to select data interval";
+  Modelica.SIunits.VolumeFlowRate rat
+    "Ratio of V_flow/r_R";
 algorithm
   // For r_N < delta, we restrict r_N in the term V_flow/r_N.
   // This is done using a cubic spline in a region 0.75*delta < r_N < 1.25*r_N
   // We call this restricted value r_R
   if r_N > delta then
-    r_R :=r_N;
+    r_R := r_N;
   elseif r_N < 0 then
     r_R := delta2;
   else
     // Restrict r_N using a spline
-    r_R :=Modelica.Fluid.Utilities.cubicHermite(
+    r_R := Modelica.Fluid.Utilities.cubicHermite(
       x=r_N,
       x1=0,
       x2=delta,
@@ -42,11 +50,11 @@ algorithm
       y1d=0,
       y2d=1);
   end if;
-
-  i :=1;
-
+  i := 1;
   rat := V_flow/r_R;
-  for j in 1:size(d, 1)-1 loop
+  for j in 1:size(
+    d,
+    1)-1 loop
     if rat > per.V_flow[j] then
       i := j;
     end if;
@@ -54,20 +62,22 @@ algorithm
   // In the assignment below,
   // dp -> 0 as r_N -> 0 quadratically, because rat is bounded
   // by the above regularization
-  if r_N>=0 then
-    dp:=r_N^2*Buildings.Utilities.Math.Functions.cubicHermiteLinearExtrapolation(
-              x=rat,
-              x1=per.V_flow[i],
-              x2=per.V_flow[i + 1],
-              y1=per.dp[i],
-              y2=per.dp[i + 1],
-              y1d=d[i],
-              y2d=d[i+1]);
+  if r_N >= 0 then
+    dp := r_N^2*Buildings.Utilities.Math.Functions.cubicHermiteLinearExtrapolation(
+      x=rat,
+      x1=per.V_flow[i],
+      x2=per.V_flow[i+1],
+      y1=per.dp[i],
+      y2=per.dp[i+1],
+      y1d=d[i],
+      y2d=d[i+1]);
   else
-    dp:=-r_N^2*(dpMax-dpMax/V_flow_max*V_flow);
+    dp :=-r_N^2*(dpMax-dpMax/V_flow_max*V_flow);
   end if;
-annotation(smoothOrder=1,
-Documentation(info="<html>
+  annotation (
+    smoothOrder=1,
+    Documentation(
+      info="<html>
 <p>
 This function computes the fan static
 pressure raise as a function of volume flow rate and revolution in the form
@@ -92,7 +102,7 @@ If the data <i>d</i> define a monotone decreasing sequence, then
 The function allows <i>r<sub>N</sub></i> to be zero.
 </p>
 </html>",
-  revisions="<html>
+      revisions="<html>
 <ul>
 <li>
 September 8, 2016, by Michael Wetter and Filip Jorissen:<br/>

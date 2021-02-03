@@ -1,43 +1,46 @@
 within Buildings.Fluid.Geothermal.Boreholes.BaseClasses;
-model BoreholeSegment "Vertical segment of a borehole"
+model BoreholeSegment
+  "Vertical segment of a borehole"
   extends Buildings.Fluid.Interfaces.PartialFourPortInterface(
-     redeclare final package Medium1 = Medium,
-     redeclare final package Medium2 = Medium,
-     final m1_flow_nominal = m_flow_nominal,
-     final m2_flow_nominal = m_flow_nominal,
-     final m1_flow_small =   m_flow_small,
-     final m2_flow_small =   m_flow_small,
-     final allowFlowReversal1=allowFlowReversal,
-     final allowFlowReversal2=allowFlowReversal);
+    redeclare final package Medium1=Medium,
+    redeclare final package Medium2=Medium,
+    final m1_flow_nominal=m_flow_nominal,
+    final m2_flow_nominal=m_flow_nominal,
+    final m1_flow_small=m_flow_small,
+    final m2_flow_small=m_flow_small,
+    final allowFlowReversal1=allowFlowReversal,
+    final allowFlowReversal2=allowFlowReversal);
   extends Buildings.Fluid.Interfaces.TwoPortFlowResistanceParameters;
-  extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations(T_start=TFil_start);
-  replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
-    "Medium in the component" annotation (choicesAllMatching=true);
-
-  constant Boolean homotopyInitialization = true "= true, use homotopy method"
-    annotation(HideResult=true);
-
+  extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations(
+    T_start=TFil_start);
+  replaceable package Medium=Modelica.Media.Interfaces.PartialMedium
+    "Medium in the component"
+    annotation (choicesAllMatching=true);
+  constant Boolean homotopyInitialization=true
+    "= true, use homotopy method"
+    annotation (HideResult=true);
   replaceable parameter Buildings.HeatTransfer.Data.Soil.Generic matSoi
     "Thermal properties of soil"
-    annotation (choicesAllMatching=true, Dialog(group="Soil"),
-    Placement(transformation(extent={{2,70},{22,90}})));
+    annotation (choicesAllMatching=true,Dialog(group="Soil"),Placement(transformation(extent={{2,70},{22,90}})));
   replaceable parameter Buildings.HeatTransfer.Data.BoreholeFillings.Generic matFil
     "Thermal properties of the filling material"
-    annotation (choicesAllMatching=true, Dialog(group="Filling material"),
-    Placement(transformation(extent={{-68,70},{-48,90}})));
-
+    annotation (choicesAllMatching=true,Dialog(group="Filling material"),Placement(transformation(extent={{-68,70},{-48,90}})));
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal
     "Nominal mass flow rate"
-    annotation(Dialog(group = "Nominal condition"));
-  parameter Modelica.SIunits.MassFlowRate m_flow_small(min=0) = 1E-4*abs(m_flow_nominal)
+    annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.SIunits.MassFlowRate m_flow_small(
+    min=0)=1E-4*abs(
+    m_flow_nominal)
     "Small mass flow rate for regularization of zero flow"
-    annotation(Dialog(tab = "Advanced"));
-
-  parameter Modelica.SIunits.Radius rTub=0.02 "Radius of the tubes"
+    annotation (Dialog(tab="Advanced"));
+  parameter Modelica.SIunits.Radius rTub=0.02
+    "Radius of the tubes"
     annotation (Dialog(group="Tubes"));
   parameter Modelica.SIunits.ThermalConductivity kTub=0.5
-    "Thermal conductivity of the tubes" annotation (Dialog(group="Tubes"));
-  parameter Modelica.SIunits.Length eTub=0.002 "Thickness of the tubes"
+    "Thermal conductivity of the tubes"
+    annotation (Dialog(group="Tubes"));
+  parameter Modelica.SIunits.Length eTub=0.002
+    "Thickness of the tubes"
     annotation (Dialog(group="Tubes"));
   parameter Modelica.SIunits.Temperature TFil_start=283.15
     "Initial temperature of the filling material"
@@ -46,23 +49,26 @@ model BoreholeSegment "Vertical segment of a borehole"
     "Radius of the soil used for the external boundary condition"
     annotation (Dialog(group="Soil"));
   parameter Modelica.SIunits.Temperature TExt_start=283.15
-    "Initial far field temperature" annotation (Dialog(group="Soil"));
-  parameter Integer nSta(min=1) = 10 "Number of state variables in the soil"
+    "Initial far field temperature"
+    annotation (Dialog(group="Soil"));
+  parameter Integer nSta(
+    min=1)=10
+    "Number of state variables in the soil"
     annotation (Dialog(group="Soil"));
   parameter Modelica.SIunits.Time samplePeriod=604800
     "Sample period for the external boundary condition"
     annotation (Dialog(group="Soil"));
-  parameter Modelica.SIunits.Radius rBor=0.1 "Radius of the borehole";
-  parameter Modelica.SIunits.Height hSeg "Height of the element";
+  parameter Modelica.SIunits.Radius rBor=0.1
+    "Radius of the borehole";
+  parameter Modelica.SIunits.Height hSeg
+    "Height of the element";
   parameter Modelica.SIunits.Length xC=0.05
     "Shank spacing, defined as the distance between the center of a pipe and the center of the borehole";
-
- parameter Boolean allowFlowReversal = true
+  parameter Boolean allowFlowReversal=true
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
-    annotation(Dialog(tab="Assumptions"), Evaluate=true);
-
- Buildings.Fluid.Geothermal.Boreholes.BaseClasses.HexInternalElement pipFil(
-    redeclare final package Medium = Medium,
+    annotation (Dialog(tab="Assumptions"),Evaluate=true);
+  Buildings.Fluid.Geothermal.Boreholes.BaseClasses.HexInternalElement pipFil(
+    redeclare final package Medium=Medium,
     final matFil=matFil,
     final matSoi=matSoi,
     final hSeg=hSeg,
@@ -110,10 +116,10 @@ model BoreholeSegment "Vertical segment of a borehole"
     final r_b=rExt,
     final steadyStateInitial=false,
     final TInt_start=TFil_start,
-    final TExt_start=TExt_start) "Heat conduction in the soil"
+    final TExt_start=TExt_start)
+    "Heat conduction in the soil"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
-  Buildings.Fluid.Geothermal.Boreholes.BaseClasses.SingleUTubeBoundaryCondition
-    TBouCon(
+  Buildings.Fluid.Geothermal.Boreholes.BaseClasses.SingleUTubeBoundaryCondition TBouCon(
     final matSoi=matSoi,
     final rExt=rExt,
     final hSeg=hSeg,
@@ -124,54 +130,31 @@ model BoreholeSegment "Vertical segment of a borehole"
 protected
   Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor heaFlo
     annotation (Placement(transformation(extent={{-30,-10},{-10,10}})));
-
 initial equation
-  assert(homotopyInitialization, "In " + getInstanceName() +
-    ": The constant homotopyInitialization has been modified from its default value. This constant will be removed in future releases.",
-    level = AssertionLevel.warning);
-
+  assert(
+    homotopyInitialization,
+    "In "+getInstanceName()+": The constant homotopyInitialization has been modified from its default value. This constant will be removed in future releases.",
+    level=AssertionLevel.warning);
 equation
-  connect(pipFil.port_b1, port_b1)
-                                annotation (Line(
-      points={{-50,6},{-40,6},{-40,60},{100,60}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(pipFil.port_a2, port_a2)
-                                annotation (Line(
-      points={{-50,-6},{-40,-6},{-40,-60},{100,-60}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(pipFil.port_b2, port_b2)
-                                annotation (Line(
-      points={{-70,-6},{-80,-6},{-80,-60},{-100,-60}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(pipFil.port, heaFlo.port_a)
-                                     annotation (Line(
-      points={{-50,6.10623e-16},{-45,6.10623e-16},{-45,1.22125e-15},{-40,
-          1.22125e-15},{-40,6.10623e-16},{-30,6.10623e-16}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(heaFlo.port_b, soi.port_a) annotation (Line(
-      points={{-10,6.10623e-16},{-7.5,6.10623e-16},{-7.5,1.22125e-15},{-5,
-          1.22125e-15},{-5,6.10623e-16},{-5.55112e-16,6.10623e-16}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(soi.port_b, TBouCon.port) annotation (Line(
-      points={{20,6.10623e-16},{30,6.10623e-16},{30,20},{80,20},{80,6.10623e-16},
-          {67.6,6.10623e-16}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(port_a1, pipFil.port_a1) annotation (Line(
-      points={{-100,60},{-80,60},{-80,6},{-70,6}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(heaFlo.Q_flow, TBouCon.Q_flow) annotation (Line(
-      points={{-20,-10},{-20,-20},{40,-20},{40,-8},{48,-8}},
-      color={0,0,127},
-      smooth=Smooth.None));
+  connect(pipFil.port_b1,port_b1)
+    annotation (Line(points={{-50,6},{-40,6},{-40,60},{100,60}},color={0,127,255},smooth=Smooth.None));
+  connect(pipFil.port_a2,port_a2)
+    annotation (Line(points={{-50,-6},{-40,-6},{-40,-60},{100,-60}},color={0,127,255},smooth=Smooth.None));
+  connect(pipFil.port_b2,port_b2)
+    annotation (Line(points={{-70,-6},{-80,-6},{-80,-60},{-100,-60}},color={0,127,255},smooth=Smooth.None));
+  connect(pipFil.port,heaFlo.port_a)
+    annotation (Line(points={{-50,6.10623e-16},{-45,6.10623e-16},{-45,1.22125e-15},{-40,1.22125e-15},{-40,6.10623e-16},{-30,6.10623e-16}},color={191,0,0},smooth=Smooth.None));
+  connect(heaFlo.port_b,soi.port_a)
+    annotation (Line(points={{-10,6.10623e-16},{-7.5,6.10623e-16},{-7.5,1.22125e-15},{-5,1.22125e-15},{-5,6.10623e-16},{-5.55112e-16,6.10623e-16}},color={191,0,0},smooth=Smooth.None));
+  connect(soi.port_b,TBouCon.port)
+    annotation (Line(points={{20,6.10623e-16},{30,6.10623e-16},{30,20},{80,20},{80,6.10623e-16},{67.6,6.10623e-16}},color={191,0,0},smooth=Smooth.None));
+  connect(port_a1,pipFil.port_a1)
+    annotation (Line(points={{-100,60},{-80,60},{-80,6},{-70,6}},color={0,127,255},smooth=Smooth.None));
+  connect(heaFlo.Q_flow,TBouCon.Q_flow)
+    annotation (Line(points={{-20,-10},{-20,-20},{40,-20},{40,-8},{48,-8}},color={0,0,127},smooth=Smooth.None));
   annotation (
-    Icon(graphics={
+    Icon(
+      graphics={
         Rectangle(
           extent={{-72,80},{68,-80}},
           lineColor={0,0,255},
@@ -200,7 +183,8 @@ equation
           lineColor={0,0,0},
           fillColor={192,192,192},
           fillPattern=FillPattern.Backward)}),
-    Documentation(info="<html>
+    Documentation(
+      info="<html>
 <p>
 Horizontal layer that is used to model a U-tube borehole heat exchanger.
 This model combines three models, each simulating a different aspect
@@ -225,7 +209,8 @@ The computation is done using the model
 <a href=\"modelica://Buildings.Fluid.Geothermal.Boreholes.BaseClasses.SingleUTubeBoundaryCondition\">
 Buildings.Fluid.Geothermal.Boreholes.BaseClasses.SingleUTubeBoundaryCondition</a>.
 </p>
-</html>", revisions="<html>
+</html>",
+      revisions="<html>
 <ul>
 <li>
 April 14, 2020, by Michael Wetter:<br/>

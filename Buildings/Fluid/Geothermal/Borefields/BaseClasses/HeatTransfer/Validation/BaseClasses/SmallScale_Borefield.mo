@@ -1,17 +1,15 @@
 within Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.Validation.BaseClasses;
 record SmallScale_Borefield
   "Borefield data record for the Cimmino and Bernier (2015) experiment"
-  extends
-    Buildings.Fluid.Geothermal.Borefields.Data.Borefield.Template(
-      filDat=Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.Validation.BaseClasses.SmallScale_Filling(),
-      soiDat=Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.Validation.BaseClasses.SmallScale_Soil(),
-      conDat=Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.Validation.BaseClasses.SmallScale_Configuration());
-
+  extends Buildings.Fluid.Geothermal.Borefields.Data.Borefield.Template(
+    filDat=Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.Validation.BaseClasses.SmallScale_Filling(),
+    soiDat=Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.Validation.BaseClasses.SmallScale_Soil(),
+    conDat=Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.Validation.BaseClasses.SmallScale_Configuration());
   annotation (
-  defaultComponentPrefixes="parameter",
-  defaultComponentName="borFieDat",
-Documentation(
-info="<html>
+    defaultComponentPrefixes="parameter",
+    defaultComponentName="borFieDat",
+    Documentation(
+      info="<html>
 <p>
 This record contains the borefield data of the Cimmino and
 Bernier (2015) experiment.
@@ -22,7 +20,7 @@ Cimmino, M. and Bernier, M. 2015. <i>Experimental determination of the
 g-functions of a small-scale geothermal borehole</i>. Geothermics 56: 60-71.
 </p>
 </html>",
-revisions="<html>
+      revisions="<html>
 <ul>
 <li>
 July 15, 2018, by Michael Wetter:<br/>

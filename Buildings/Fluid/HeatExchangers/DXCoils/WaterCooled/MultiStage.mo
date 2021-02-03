@@ -1,22 +1,29 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled;
-model MultiStage "Multi speed water-cooled DX coils"
+model MultiStage
+  "Multi speed water-cooled DX coils"
   extends Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialWaterCooledDXCoil(
-      redeclare final Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.MultiStage eva(
-        redeclare final Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.DXCoil datCoi=datCoi));
-
+    redeclare final Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.MultiStage eva(
+      redeclare final Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.DXCoil datCoi=datCoi));
   Modelica.Blocks.Interfaces.IntegerInput stage
     "Stage of cooling coil (0: off, 1: first stage, 2: second stage...)"
     annotation (Placement(transformation(extent={{-124,68},{-100,92}})));
-
 equation
-  connect(eva.stage, stage)
-   annotation (Line(points={{-11,8},{-90,8},{-90,80},{-112,80}},    color={255,127,0}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
-                                Text(
+  connect(eva.stage,stage)
+    annotation (Line(points={{-11,8},{-90,8},{-90,80},{-112,80}},color={255,127,0}));
+  annotation (
+    Icon(
+      coordinateSystem(
+        preserveAspectRatio=false),
+      graphics={
+        Text(
           extent={{54,100},{98,80}},
           lineColor={0,0,127},
-          textString="P"), Line(points={{-100,80},{-68,80},{-68,20}}, color={
-              255,128,0})}),    Documentation(revisions="<html>
+          textString="P"),
+        Line(
+          points={{-100,80},{-68,80},{-68,20}},
+          color={255,128,0})}),
+    Documentation(
+      revisions="<html>
 <ul>
 <li>
 March 21, 2017, by Michael Wetter:<br/>
@@ -33,7 +40,8 @@ February 16, 2017 by Yangyang Fu:<br/>
 First implementation.
 </li>
 </ul>
-</html>", info="<html>
+</html>",
+      info="<html>
 <p>
 This model can be used to simulate a water-cooled DX cooling coil with multiple
 operating stages. Depending on the used performance curves, each

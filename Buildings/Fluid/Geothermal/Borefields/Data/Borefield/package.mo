@@ -1,8 +1,10 @@
 within Buildings.Fluid.Geothermal.Borefields.Data;
-package Borefield "Collection of borefield data records"
+package Borefield
+  "Collection of borefield data records"
   extends Modelica.Icons.MaterialPropertiesPackage;
-
-annotation (Documentation(info="<html>
+  annotation (
+    Documentation(
+      info="<html>
 <p>
 This package contains data records for use with ground heat exchanger models
 in <a href=\"modelica://Buildings.Fluid.Geothermal.Borefields\">

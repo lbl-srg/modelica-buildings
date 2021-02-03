@@ -1,42 +1,49 @@
 within Buildings.Fluid.Actuators.Valves.Examples;
-model TwoWayValves "Two way valves with different opening characteristics"
+model TwoWayValves
+  "Two way valves with different opening characteristics"
   extends Modelica.Icons.Example;
-  package Medium = Buildings.Media.Water;
-
+  package Medium=Buildings.Media.Water;
   Buildings.Fluid.Actuators.Valves.TwoWayLinear valLin(
-    redeclare package Medium = Medium,
+    redeclare package Medium=Medium,
     l=0.05,
     m_flow_nominal=2,
     use_inputFilter=false,
-    dpValve_nominal=6000) "Valve model, linear opening characteristics"
+    dpValve_nominal=6000)
+    "Valve model, linear opening characteristics"
     annotation (Placement(transformation(extent={{0,70},{20,90}})));
-    Modelica.Blocks.Sources.Ramp y(
+  Modelica.Blocks.Sources.Ramp y(
     height=1,
     duration=1,
-    offset=0) "Control signal"
-                 annotation (Placement(transformation(extent={{-60,90},{-40,110}})));
+    offset=0)
+    "Control signal"
+    annotation (Placement(transformation(extent={{-60,90},{-40,110}})));
   Buildings.Fluid.Sources.Boundary_pT sou(
-    redeclare package Medium = Medium,
+    redeclare package Medium=Medium,
     nPorts=6,
     use_p_in=false,
-    p(displayUnit="Pa") = 306000,
-    T=293.15) "Boundary condition for flow source"  annotation (Placement(
-        transformation(extent={{-70,-10},{-50,10}})));
+    p(
+      displayUnit="Pa")=306000,
+    T=293.15)
+    "Boundary condition for flow source"
+    annotation (Placement(transformation(extent={{-70,-10},{-50,10}})));
   Buildings.Fluid.Sources.Boundary_pT sin(
-    redeclare package Medium = Medium,
+    redeclare package Medium=Medium,
     nPorts=6,
-    p(displayUnit="Pa") = 3E5,
-    T=293.15) "Boundary condition for flow sink"    annotation (Placement(
-        transformation(extent={{72,-10},{52,10}})));
+    p(
+      displayUnit="Pa")=3E5,
+    T=293.15)
+    "Boundary condition for flow sink"
+    annotation (Placement(transformation(extent={{72,-10},{52,10}})));
   Buildings.Fluid.Actuators.Valves.TwoWayQuickOpening valQui(
-    redeclare package Medium = Medium,
+    redeclare package Medium=Medium,
     l=0.05,
     m_flow_nominal=2,
     use_inputFilter=false,
-    dpValve_nominal=6000) "Valve model, quick opening characteristics"
+    dpValve_nominal=6000)
+    "Valve model, quick opening characteristics"
     annotation (Placement(transformation(extent={{0,30},{20,50}})));
   Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage valEqu(
-    redeclare package Medium = Medium,
+    redeclare package Medium=Medium,
     l=0.05,
     R=10,
     delta0=0.1,
@@ -45,85 +52,78 @@ model TwoWayValves "Two way valves with different opening characteristics"
     dpValve_nominal=6000)
     "Valve model, equal percentage opening characteristics"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
-
   TwoWayPressureIndependent valInd(
-    redeclare package Medium = Medium,
+    redeclare package Medium=Medium,
     m_flow_nominal=1,
     CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
     dpValve_nominal=10000,
     use_inputFilter=false,
     l=0.05,
-    l2=0.01) annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
+    l2=0.01)
+    annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
   TwoWayPolynomial valPol(
     c={0,0.5304,-0.7698,1.2278},
     l=0.05,
     m_flow_nominal=1,
     dpValve_nominal=10000,
     use_inputFilter=false,
-    redeclare package Medium = Medium,
+    redeclare package Medium=Medium,
     CvData=Buildings.Fluid.Types.CvTypes.OpPoint)
     "Valve with polynomial opening characteristic"
     annotation (Placement(transformation(extent={{0,-90},{20,-70}})));
   TwoWayButterfly valBut(
-    redeclare package Medium = Medium,
+    redeclare package Medium=Medium,
     Kvs=1492,
     use_inputFilter=false,
     m_flow_nominal=1,
-    l=0.05) "Butterfly valve"
+    l=0.05)
+    "Butterfly valve"
     annotation (Placement(transformation(extent={{0,-120},{20,-100}})));
 equation
-  connect(y.y, valLin.y) annotation (Line(
-      points={{-39,100},{10,100},{10,92}},
-      color={0,0,127}));
-  connect(y.y, valQui.y) annotation (Line(
-      points={{-39,100},{-12,100},{-12,60},{10,60},{10,52}},
-      color={0,0,127}));
-  connect(y.y, valEqu.y) annotation (Line(
-      points={{-39,100},{-12,100},{-12,20},{10,20},{10,12}},
-      color={0,0,127}));
-  connect(sou.ports[1], valLin.port_a) annotation (Line(
-      points={{-50,3.33333},{-27,3.33333},{-27,80},{0,80}},
-      color={0,127,255}));
-  connect(valQui.port_a, sou.ports[2]) annotation (Line(
-      points={{0,40},{-26,40},{-26,2},{-50,2}},
-      color={0,127,255}));
-  connect(valEqu.port_a, sou.ports[3]) annotation (Line(
-      points={{0,0},{-26,0},{-26,0.666667},{-50,0.666667}},
-      color={0,127,255}));
-  connect(valLin.port_b, sin.ports[1]) annotation (Line(
-      points={{20,80},{37,80},{37,3.33333},{52,3.33333}},
-      color={0,127,255}));
-  connect(valQui.port_b, sin.ports[2]) annotation (Line(
-      points={{20,40},{36,40},{36,2},{52,2}},
-      color={0,127,255}));
-  connect(valEqu.port_b, sin.ports[3]) annotation (Line(
-      points={{20,0},{36,0},{36,0.666667},{52,0.666667}},
-      color={0,127,255}));
-  connect(valInd.y, y.y) annotation (Line(
-      points={{10,-28},{10,-20},{-12,-20},{-12,100},{-39,100}},
-      color={0,0,127}));
-  connect(valInd.port_b, sin.ports[4]) annotation (Line(
-      points={{20,-40},{36,-40},{36,-0.666667},{52,-0.666667}},
-      color={0,127,255}));
-  connect(valInd.port_a, sou.ports[4]) annotation (Line(
-      points={{0,-40},{-26,-40},{-26,-0.666667},{-50,-0.666667}},
-      color={0,127,255}));
-  connect(valPol.port_b, sin.ports[5]) annotation (Line(points={{20,-80},{38,
-          -80},{38,-2},{52,-2}},     color={0,127,255}));
-  connect(valPol.port_a, sou.ports[5]) annotation (Line(points={{0,-80},{-28,
-          -80},{-28,-2},{-50,-2}},     color={0,127,255}));
-  connect(valPol.y, y.y) annotation (Line(points={{10,-68},{10,-60},{-12,-60},{-12,
-          100},{-39,100}},   color={0,0,127}));
-  connect(valBut.port_b, sin.ports[6]) annotation (Line(points={{20,-110},{40,
-          -110},{40,-3.33333},{52,-3.33333}}, color={0,127,255}));
-  connect(valBut.port_a, sou.ports[6]) annotation (Line(points={{0,-110},{-30,
-          -110},{-30,-3.33333},{-50,-3.33333}}, color={0,127,255}));
-  connect(valBut.y, y.y) annotation (Line(points={{10,-98},{10,-90},{-12,-90},{
-          -12,100},{-39,100}}, color={0,0,127}));
-    annotation (experiment(Tolerance=1e-6, StopTime=1.0),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Actuators/Valves/Examples/TwoWayValves.mos"
-        "Simulate and plot"),
-    Documentation(info="<html>
+  connect(y.y,valLin.y)
+    annotation (Line(points={{-39,100},{10,100},{10,92}},color={0,0,127}));
+  connect(y.y,valQui.y)
+    annotation (Line(points={{-39,100},{-12,100},{-12,60},{10,60},{10,52}},color={0,0,127}));
+  connect(y.y,valEqu.y)
+    annotation (Line(points={{-39,100},{-12,100},{-12,20},{10,20},{10,12}},color={0,0,127}));
+  connect(sou.ports[1],valLin.port_a)
+    annotation (Line(points={{-50,3.33333},{-27,3.33333},{-27,80},{0,80}},color={0,127,255}));
+  connect(valQui.port_a,sou.ports[2])
+    annotation (Line(points={{0,40},{-26,40},{-26,2},{-50,2}},color={0,127,255}));
+  connect(valEqu.port_a,sou.ports[3])
+    annotation (Line(points={{0,0},{-26,0},{-26,0.666667},{-50,0.666667}},color={0,127,255}));
+  connect(valLin.port_b,sin.ports[1])
+    annotation (Line(points={{20,80},{37,80},{37,3.33333},{52,3.33333}},color={0,127,255}));
+  connect(valQui.port_b,sin.ports[2])
+    annotation (Line(points={{20,40},{36,40},{36,2},{52,2}},color={0,127,255}));
+  connect(valEqu.port_b,sin.ports[3])
+    annotation (Line(points={{20,0},{36,0},{36,0.666667},{52,0.666667}},color={0,127,255}));
+  connect(valInd.y,y.y)
+    annotation (Line(points={{10,-28},{10,-20},{-12,-20},{-12,100},{-39,100}},color={0,0,127}));
+  connect(valInd.port_b,sin.ports[4])
+    annotation (Line(points={{20,-40},{36,-40},{36,-0.666667},{52,-0.666667}},color={0,127,255}));
+  connect(valInd.port_a,sou.ports[4])
+    annotation (Line(points={{0,-40},{-26,-40},{-26,-0.666667},{-50,-0.666667}},color={0,127,255}));
+  connect(valPol.port_b,sin.ports[5])
+    annotation (Line(points={{20,-80},{38,-80},{38,-2},{52,-2}},color={0,127,255}));
+  connect(valPol.port_a,sou.ports[5])
+    annotation (Line(points={{0,-80},{-28,-80},{-28,-2},{-50,-2}},color={0,127,255}));
+  connect(valPol.y,y.y)
+    annotation (Line(points={{10,-68},{10,-60},{-12,-60},{-12,100},{-39,100}},color={0,0,127}));
+  connect(valBut.port_b,sin.ports[6])
+    annotation (Line(points={{20,-110},{40,-110},{40,-3.33333},{52,-3.33333}},color={0,127,255}));
+  connect(valBut.port_a,sou.ports[6])
+    annotation (Line(points={{0,-110},{-30,-110},{-30,-3.33333},{-50,-3.33333}},color={0,127,255}));
+  connect(valBut.y,y.y)
+    annotation (Line(points={{10,-98},{10,-90},{-12,-90},{-12,100},{-39,100}},color={0,0,127}));
+  annotation (
+    experiment(
+      Tolerance=1e-6,
+      StopTime=1.0),
+    __Dymola_Commands(
+      file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Actuators/Valves/Examples/TwoWayValves.mos" "Simulate and plot"),
+    Documentation(
+      info="<html>
 <p>
 Test model for two way valves. Note that the
 leakage flow rate has been set to a large value
@@ -136,7 +136,8 @@ The parameter <code>filterOpening</code> is set to <code>false</code>,
 as this model is used to plot the flow at different opening signals
 without taking into account the travel time of the actuator.
 </p>
-</html>", revisions="<html>
+</html>",
+      revisions="<html>
 <ul>
 <li>
 July 8, 2018, by Filip Jorissen:<br/>
@@ -157,6 +158,10 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(extent={{-100,-140},{100,120}})),
-    Icon(coordinateSystem(extent={{-100,-140},{100,120}})));
+    Diagram(
+      coordinateSystem(
+        extent={{-100,-140},{100,120}})),
+    Icon(
+      coordinateSystem(
+        extent={{-100,-140},{100,120}})));
 end TwoWayValves;

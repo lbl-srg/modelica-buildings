@@ -2,41 +2,84 @@ within Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalRes
 function shaGFunction
   "Returns a SHA1 encryption of the formatted arguments for the g-function generation"
   extends Modelica.Icons.Function;
-  input Integer nBor "Number of boreholes";
-  input Modelica.SIunits.Position cooBor[nBor, 2] "Coordinates of boreholes";
-  input Modelica.SIunits.Height hBor "Borehole length";
-  input Modelica.SIunits.Height dBor "Borehole buried depth";
-  input Modelica.SIunits.Radius rBor "Borehole radius";
-  input Modelica.SIunits.ThermalDiffusivity aSoi "Ground thermal diffusivity used in g-function evaluation";
-  input Integer nSeg "Number of line source segments per borehole";
-  input Integer nTimSho "Number of time steps in short time region";
-  input Integer nTimLon "Number of time steps in long time region";
-  input Real ttsMax "Maximum adimensional time for gfunc calculation";
-
+  input Integer nBor
+    "Number of boreholes";
+  input Modelica.SIunits.Position cooBor[nBor,2]
+    "Coordinates of boreholes";
+  input Modelica.SIunits.Height hBor
+    "Borehole length";
+  input Modelica.SIunits.Height dBor
+    "Borehole buried depth";
+  input Modelica.SIunits.Radius rBor
+    "Borehole radius";
+  input Modelica.SIunits.ThermalDiffusivity aSoi
+    "Ground thermal diffusivity used in g-function evaluation";
+  input Integer nSeg
+    "Number of line source segments per borehole";
+  input Integer nTimSho
+    "Number of time steps in short time region";
+  input Integer nTimLon
+    "Number of time steps in long time region";
+  input Real ttsMax
+    "Maximum adimensional time for gfunc calculation";
   output String sha
-  "SHA1 encryption of the g-function arguments";
-
+    "SHA1 encryption of the g-function arguments";
 protected
-  constant String formatStrGen =  "1.3e" "String format for general parameters";
-  constant String formatStrCoo =  ".2f" "String format for coordinate";
+  constant String formatStrGen="1.3e"
+    "String format for general parameters";
+  constant String formatStrCoo=".2f"
+    "String format for coordinate";
 algorithm
-  sha := Buildings.Utilities.Cryptographics.sha(String(nBor, format=formatStrGen));
-  sha := Buildings.Utilities.Cryptographics.sha(sha + String(hBor, format=formatStrGen));
-  sha := Buildings.Utilities.Cryptographics.sha(sha + String(dBor, format=formatStrGen));
-  sha := Buildings.Utilities.Cryptographics.sha(sha + String(rBor, format=formatStrGen));
-  sha := Buildings.Utilities.Cryptographics.sha(sha + String(aSoi, format=formatStrGen));
-  sha := Buildings.Utilities.Cryptographics.sha(sha + String(nSeg, format=formatStrGen));
-  sha := Buildings.Utilities.Cryptographics.sha(sha + String(nTimSho, format=formatStrGen));
-  sha := Buildings.Utilities.Cryptographics.sha(sha + String(nTimLon, format=formatStrGen));
-  sha := Buildings.Utilities.Cryptographics.sha(sha + String(ttsMax, format=formatStrGen));
+  sha := Buildings.Utilities.Cryptographics.sha(
+    String(
+      nBor,
+      format=formatStrGen));
+  sha := Buildings.Utilities.Cryptographics.sha(
+    sha+String(
+      hBor,
+      format=formatStrGen));
+  sha := Buildings.Utilities.Cryptographics.sha(
+    sha+String(
+      dBor,
+      format=formatStrGen));
+  sha := Buildings.Utilities.Cryptographics.sha(
+    sha+String(
+      rBor,
+      format=formatStrGen));
+  sha := Buildings.Utilities.Cryptographics.sha(
+    sha+String(
+      aSoi,
+      format=formatStrGen));
+  sha := Buildings.Utilities.Cryptographics.sha(
+    sha+String(
+      nSeg,
+      format=formatStrGen));
+  sha := Buildings.Utilities.Cryptographics.sha(
+    sha+String(
+      nTimSho,
+      format=formatStrGen));
+  sha := Buildings.Utilities.Cryptographics.sha(
+    sha+String(
+      nTimLon,
+      format=formatStrGen));
+  sha := Buildings.Utilities.Cryptographics.sha(
+    sha+String(
+      ttsMax,
+      format=formatStrGen));
   for i in 1:nBor loop
-    sha := Buildings.Utilities.Cryptographics.sha(sha + String(cooBor[i, 1], format=formatStrCoo));
-    sha := Buildings.Utilities.Cryptographics.sha(sha + String(cooBor[i, 2], format=formatStrCoo));
+    sha := Buildings.Utilities.Cryptographics.sha(
+      sha+String(
+        cooBor[i,1],
+        format=formatStrCoo));
+    sha := Buildings.Utilities.Cryptographics.sha(
+      sha+String(
+        cooBor[i,2],
+        format=formatStrCoo));
   end for;
-
-annotation (
-Inline=false,
-Documentation(info="<html>
+  annotation (
+    Inline=false,
+    Documentation(
+      info="<html>
 <p>
 This function returns the SHA1 encryption of its arguments.
 </p>
@@ -53,7 +96,8 @@ is parsed.
 The SHA1 encryption is computed using
 <a href=\"modelica://Buildings.Utilities.Cryptographics.sha\">Buildings.Utilities.Cryptographics.sha</a>.
 </p>
-</html>", revisions="<html>
+</html>",
+      revisions="<html>
 <ul>
 <li>
 November 1, 2019 by Michael Wetter:<br/>

@@ -1,9 +1,11 @@
 within Buildings.Fluid.Geothermal.Borefields;
-package UsersGuide "User's Guide"
+package UsersGuide
+  "User's Guide"
   extends Modelica.Icons.Information;
-
-  annotation (preferredView="info",
-  Documentation(info="<html>
+  annotation (
+    preferredView="info",
+    Documentation(
+      info="<html>
 <p>
 This package contains borefield models. These models can simulate any arbitrary
 configuration of vertical boreholes with equal lengths with both short and
@@ -222,5 +224,4 @@ Proc. of the 10th Intertional ModelicaConference, p. 857-866. Lund, Sweden. Marc
 <a href=\"https://lirias.kuleuven.be/retrieve/270880\">https://lirias.kuleuven.be/retrieve/270880</a>.
 </p>
 </html>"));
-
 end UsersGuide;

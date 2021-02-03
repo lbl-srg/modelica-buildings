@@ -1,9 +1,11 @@
 within Buildings.Fluid.Storage;
-package UsersGuide "User's Guide"
+package UsersGuide
+  "User's Guide"
   extends Modelica.Icons.Information;
-
-  annotation (preferredView="info",
-  Documentation(info="<html>
+  annotation (
+    preferredView="info",
+    Documentation(
+      info="<html>
 <p>
 This user's guide describes the storage tank models.
 There are three storage tank models in the this package.

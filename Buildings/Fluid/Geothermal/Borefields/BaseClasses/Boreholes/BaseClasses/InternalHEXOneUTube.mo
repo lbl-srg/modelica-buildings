@@ -1,11 +1,10 @@
 within Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses;
 model InternalHEXOneUTube
   "Internal heat exchanger of a borehole for a single U-tube configuration"
-  extends
-    Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.PartialInternalHEX;
+  extends Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.PartialInternalHEX;
   extends Buildings.Fluid.Interfaces.FourPortHeatMassExchanger(
-    redeclare final package Medium1 = Medium,
-    redeclare final package Medium2 = Medium,
+    redeclare final package Medium1=Medium,
+    redeclare final package Medium2=Medium,
     T1_start=TFlu_start,
     T2_start=TFlu_start,
     final tau1=VTubSeg*rho1_nominal/m1_flow_nominal,
@@ -24,13 +23,13 @@ model InternalHEXOneUTube
       final m_flow_small=m2_flow_small,
       final V=VTubSeg,
       final mSenFac=mSenFac));
-
 protected
-  parameter Real Rgg_val(fixed=false) "Thermal resistance between the two grout zones";
-
+  parameter Real Rgg_val(
+    fixed=false)
+    "Thermal resistance between the two grout zones";
 public
-  Modelica.Blocks.Sources.RealExpression RVol1(y=
-    Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.convectionResistanceCircularPipe(
+  Modelica.Blocks.Sources.RealExpression RVol1(
+    y=Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.convectionResistanceCircularPipe(
       hSeg=hSeg,
       rTub=borFieDat.conDat.rTub,
       eTub=borFieDat.conDat.eTub,
@@ -41,8 +40,8 @@ public
       m_flow_nominal=m1_flow_nominal))
     "Convective and thermal resistance at fluid 1"
     annotation (Placement(transformation(extent={{-100,-2},{-80,18}})));
-  Modelica.Blocks.Sources.RealExpression RVol2(y=
-    Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.convectionResistanceCircularPipe(
+  Modelica.Blocks.Sources.RealExpression RVol2(
+    y=Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.convectionResistanceCircularPipe(
       hSeg=hSeg,
       rTub=borFieDat.conDat.rTub,
       eTub=borFieDat.conDat.eTub,
@@ -53,81 +52,81 @@ public
       m_flow_nominal=m2_flow_nominal))
     "Convective and thermal resistance at fluid 2"
     annotation (Placement(transformation(extent={{-100,-18},{-80,2}})));
-
-  Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.InternalResistancesOneUTube
-    intResUTub(
-      dynFil=dynFil,
-      hSeg=hSeg,
-      energyDynamics=energyDynamics,
-      Rgb_val=Rgb_val,
-      Rgg_val=Rgg_val,
-      RCondGro_val=RCondGro_val,
-      borFieDat=borFieDat,
-      T_start=TGro_start)
+  Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.InternalResistancesOneUTube intResUTub(
+    dynFil=dynFil,
+    hSeg=hSeg,
+    energyDynamics=energyDynamics,
+    Rgb_val=Rgb_val,
+    Rgg_val=Rgg_val,
+    RCondGro_val=RCondGro_val,
+    borFieDat=borFieDat,
+    T_start=TGro_start)
     "Internal resistances for a single U-tube configuration"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Thermal.HeatTransfer.Components.ConvectiveResistor RConv2
     "Pipe convective resistance"
-    annotation (Placement(transformation(extent={{-12,12},{12,-12}},
-        rotation=270,
-        origin={0,-28})));
+    annotation (Placement(transformation(extent={{-12,12},{12,-12}},rotation=270,origin={0,-28})));
   Modelica.Thermal.HeatTransfer.Components.ConvectiveResistor RConv1
     "Pipe convective resistance"
-    annotation (Placement(transformation(extent={{-12,-12},{12,12}},
-        rotation=90,
-        origin={0,28})));
+    annotation (Placement(transformation(extent={{-12,-12},{12,12}},rotation=90,origin={0,28})));
 initial equation
-  (x, Rgb_val, Rgg_val, RCondGro_val) =
-    Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.internalResistancesOneUTube(
-      hSeg=hSeg,
-      rBor=borFieDat.conDat.rBor,
-      rTub=borFieDat.conDat.rTub,
-      eTub=borFieDat.conDat.eTub,
-      sha=borFieDat.conDat.xC,
-      kFil=borFieDat.filDat.kFil,
-      kSoi=borFieDat.soiDat.kSoi,
-      kTub=borFieDat.conDat.kTub,
-      use_Rb=borFieDat.conDat.use_Rb,
-      Rb=borFieDat.conDat.Rb,
-      kMed=kMed,
-      muMed=muMed,
-      cpMed=cpMed,
-      m_flow_nominal=m1_flow_nominal,
-      printDebug=false);
-
+  (x,Rgb_val,Rgg_val,RCondGro_val)=Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.internalResistancesOneUTube(
+    hSeg=hSeg,
+    rBor=borFieDat.conDat.rBor,
+    rTub=borFieDat.conDat.rTub,
+    eTub=borFieDat.conDat.eTub,
+    sha=borFieDat.conDat.xC,
+    kFil=borFieDat.filDat.kFil,
+    kSoi=borFieDat.soiDat.kSoi,
+    kTub=borFieDat.conDat.kTub,
+    use_Rb=borFieDat.conDat.use_Rb,
+    Rb=borFieDat.conDat.Rb,
+    kMed=kMed,
+    muMed=muMed,
+    cpMed=cpMed,
+    m_flow_nominal=m1_flow_nominal,
+    printDebug=false);
 equation
-    assert(borFieDat.conDat.borCon == Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.SingleUTube,
-  "This model should be used for single U-type borefield, not double U-type. 
+  assert(
+    borFieDat.conDat.borCon == Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.SingleUTube,
+    "This model should be used for single U-type borefield, not double U-type. 
   Check that the conDat record has been correctly parametrized");
-  connect(RVol2.y, RConv2.Rc) annotation (Line(points={{-79,-8},{-60,-8},{-40,
-          -8},{-40,-28},{-12,-28}},
-                                color={0,0,127}));
-  connect(RVol1.y, RConv1.Rc) annotation (Line(points={{-79,8},{-40,8},{-40,28},
-          {-12,28}}, color={0,0,127}));
-  connect(vol1.heatPort, RConv1.fluid) annotation (Line(points={{-10,60},{-20,
-          60},{-20,40},{6.66134e-016,40}}, color={191,0,0}));
-  connect(RConv1.solid, intResUTub.port_1)
-    annotation (Line(points={{0,16},{0,16},{0,10}}, color={191,0,0}));
-  connect(RConv2.fluid, vol2.heatPort) annotation (Line(points={{0,-40},{20,-40},
-          {20,-60},{12,-60}}, color={191,0,0}));
-  connect(RConv2.solid, intResUTub.port_2) annotation (Line(points={{0,-16},{0,
-          -12},{16,-12},{16,0},{10,0}}, color={191,0,0}));
-  connect(intResUTub.port_wall, port_wall) annotation (Line(points={{0,0},{0,0},
-          {0,6},{-28,6},{-28,86},{0,86},{0,100}},             color={191,0,0}));
-    annotation (Dialog(tab="Dynamics"),
-    Icon(coordinateSystem(preserveAspectRatio=false, initialScale=0.1),
-                    graphics={Rectangle(
+  connect(RVol2.y,RConv2.Rc)
+    annotation (Line(points={{-79,-8},{-60,-8},{-40,-8},{-40,-28},{-12,-28}},color={0,0,127}));
+  connect(RVol1.y,RConv1.Rc)
+    annotation (Line(points={{-79,8},{-40,8},{-40,28},{-12,28}},color={0,0,127}));
+  connect(vol1.heatPort,RConv1.fluid)
+    annotation (Line(points={{-10,60},{-20,60},{-20,40},{6.66134e-016,40}},color={191,0,0}));
+  connect(RConv1.solid,intResUTub.port_1)
+    annotation (Line(points={{0,16},{0,16},{0,10}},color={191,0,0}));
+  connect(RConv2.fluid,vol2.heatPort)
+    annotation (Line(points={{0,-40},{20,-40},{20,-60},{12,-60}},color={191,0,0}));
+  connect(RConv2.solid,intResUTub.port_2)
+    annotation (Line(points={{0,-16},{0,-12},{16,-12},{16,0},{10,0}},color={191,0,0}));
+  connect(intResUTub.port_wall,port_wall)
+    annotation (Line(points={{0,0},{0,0},{0,6},{-28,6},{-28,86},{0,86},{0,100}},color={191,0,0}));
+  annotation (
+    Dialog(
+      tab="Dynamics"),
+    Icon(
+      coordinateSystem(
+        preserveAspectRatio=false,
+        initialScale=0.1),
+      graphics={
+        Rectangle(
           extent={{88,54},{-88,64}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={0,0,255},
-          fillPattern=FillPattern.Solid), Rectangle(
+          fillPattern=FillPattern.Solid),
+        Rectangle(
           extent={{88,-66},{-88,-56}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={0,0,255},
           fillPattern=FillPattern.Solid)}),
-    Documentation(info="<html>
+    Documentation(
+      info="<html>
 <p>
 Model for the heat transfer between the fluid and within the borehole filling
 for a single borehole segment. 
@@ -157,7 +156,8 @@ Thermal resistance and capacity models for borehole heat exchangers
 </i>.
 International Journal Of Energy Research, 35:312-320, 2011.
 </p>
-</html>", revisions="<html>
+</html>",
+      revisions="<html>
 <ul>
 <li>
 July 10, 2018, by Alex Laferri&egrave;re:<br/>
@@ -185,6 +185,9 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, initialScale=0.1),
-    graphics));
+    Diagram(
+      coordinateSystem(
+        preserveAspectRatio=false,
+        initialScale=0.1),
+      graphics));
 end InternalHEXOneUTube;

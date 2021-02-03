@@ -10,28 +10,23 @@ model Borefield
     "Borefield pump minimum speed";
   Buildings.Controls.OBC.CDL.Interfaces.RealInput yValIso_actual[2]
     "Isolation valves return position (fractional)"
-    annotation (Placement(transformation(extent={{-140,-60},{-100,-20}}),
-    iconTransformation(extent={{-140,-20},{-100,20}})));
+    annotation (Placement(transformation(extent={{-140,-60},{-100,-20}}),iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u
     "Control signal from supervisory"
-    annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
-    iconTransformation(extent={{-140,40},{-100,80}})));
+    annotation (Placement(transformation(extent={{-140,40},{-100,80}}),iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yPum(
     final unit="kg/s")
     "Control signal for borefield pump"
-    annotation (Placement(transformation(extent={{100,40},{140,80}}),
-    iconTransformation(extent={{100,40},{140,80}})));
+    annotation (Placement(transformation(extent={{100,40},{140,80}}),iconTransformation(extent={{100,40},{140,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yValMix(
     final unit="1")
     "Control signal for borefield mixing valve"
-    annotation (Placement(transformation(extent={{100,-80},{140,-40}}),
-    iconTransformation(extent={{100,-80},{140,-40}})));
+    annotation (Placement(transformation(extent={{100,-80},{140,-40}}),iconTransformation(extent={{100,-80},{140,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TBorWatEnt(
     final unit="K",
     displayUnit="degC")
     "Borefield water entering temperature"
-    annotation (Placement(transformation(extent={{-140,-120},{-100,-80}}),
-    iconTransformation(extent={{-140,-80},{-100,-40}})));
+    annotation (Placement(transformation(extent={{-140,-120},{-100,-80}}),iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Continuous.PIDWithReset conMix(
     final yMin=0,
     final yMax=1,

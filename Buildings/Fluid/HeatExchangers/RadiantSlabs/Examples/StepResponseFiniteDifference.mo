@@ -1,18 +1,23 @@
 within Buildings.Fluid.HeatExchangers.RadiantSlabs.Examples;
-model StepResponseFiniteDifference "Model that tests the radiant slab"
-  extends
-    Buildings.Fluid.HeatExchangers.RadiantSlabs.Examples.StepResponseEpsilonNTU(
-    sla(heatTransfer=Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.HeatTransfer.FiniteDifference));
- annotation(__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/RadiantSlabs/Examples/StepResponseFiniteDifference.mos"
-        "Simulate and plot"),
-          Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-120},
-            {100,100}})),
-Documentation(info="<html>
+model StepResponseFiniteDifference
+  "Model that tests the radiant slab"
+  extends Buildings.Fluid.HeatExchangers.RadiantSlabs.Examples.StepResponseEpsilonNTU(
+    sla(
+      heatTransfer=Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.HeatTransfer.FiniteDifference));
+  annotation (
+    __Dymola_Commands(
+      file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/RadiantSlabs/Examples/StepResponseFiniteDifference.mos" "Simulate and plot"),
+    Diagram(
+      coordinateSystem(
+        preserveAspectRatio=false,
+        extent={{-100,-120},{100,100}})),
+    Documentation(
+      info="<html>
 <p>
 This example models the step response of a radiant slab.
 </p>
 </html>",
-revisions="<html>
+      revisions="<html>
 <ul>
 <li>
 October 11, 2013, by Michael Wetter:<br/>

@@ -1,33 +1,41 @@
 within Buildings.Fluid.HeatExchangers.CoolingTowers;
-model FixedApproach "Cooling tower with constant approach temperature"
+model FixedApproach
+  "Cooling tower with constant approach temperature"
   extends Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.CoolingTower;
-
-  parameter Modelica.SIunits.TemperatureDifference TApp(min=0, displayUnit="K") = 2
+  parameter Modelica.SIunits.TemperatureDifference TApp(
+    min=0,
+    displayUnit="K")=2
     "Approach temperature difference";
-  Modelica.Blocks.Interfaces.RealInput TAir(min=0, unit="K")
+  Modelica.Blocks.Interfaces.RealInput TAir(
+    min=0,
+    unit="K")
     "Entering air dry or wet bulb temperature"
-     annotation (Placement(transformation(
-          extent={{-140,20},{-100,60}})));
-
+    annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
 protected
   Modelica.Blocks.Sources.RealExpression QWat_flow(
-    y = m_flow*(
-      Medium.specificEnthalpy(Medium.setState_pTX(
-      p=port_b.p,
-      T=TAir + TApp,
-      X=inStream(port_b.Xi_outflow))) - inStream(port_a.h_outflow)))
+    y=m_flow*(Medium.specificEnthalpy(
+      Medium.setState_pTX(
+        p=port_b.p,
+        T=TAir+TApp,
+        X=inStream(port_b.Xi_outflow)))-inStream(
+      port_a.h_outflow)))
     "Heat input into water"
     annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
 equation
-  connect(QWat_flow.y, preHea.Q_flow)
-    annotation (Line(points={{-59,-60},{-40,-60}}, color={0,0,127}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics={
+  connect(QWat_flow.y,preHea.Q_flow)
+    annotation (Line(points={{-59,-60},{-40,-60}},color={0,0,127}));
+  annotation (
+    Icon(
+      coordinateSystem(
+        preserveAspectRatio=false,
+        extent={{-100,-100},{100,100}}),
+      graphics={
         Text(
           extent={{-100,70},{-70,32}},
           lineColor={0,0,127},
           textString="TAir")}),
-    Documentation(info="<html>
+    Documentation(
+      info="<html>
 <p>
 Model for a steady-state or dynamic cooling tower with constant approach temperature.
 The approach temperature is the difference between the leaving water temperature and
@@ -43,7 +51,8 @@ For a more detailed model, use for example the
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.CoolingTowers.YorkCalc\">YorkCalc</a>
 model.
 </p>
-</html>", revisions="<html>
+</html>",
+      revisions="<html>
 <ul>
 <li>
 January 16, 2020, by Michael Wetter:<br/>

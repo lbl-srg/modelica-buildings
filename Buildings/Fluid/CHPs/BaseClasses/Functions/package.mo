@@ -1,8 +1,10 @@
 within Buildings.Fluid.CHPs.BaseClasses;
 package Functions
   extends Modelica.Icons.VariantsPackage;
-
-annotation (preferredView="info", Documentation(info="<html>
+  annotation (
+    preferredView="info",
+    Documentation(
+      info="<html>
 <p>
 This package contains functions for used
 in the blocks. The functions are used in

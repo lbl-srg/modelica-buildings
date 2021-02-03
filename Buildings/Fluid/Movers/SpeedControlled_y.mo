@@ -5,72 +5,75 @@ model SpeedControlled_y
     final preVar=Buildings.Fluid.Movers.BaseClasses.Types.PrescribedVariable.Speed,
     final nominalValuesDefineDefaultPressureCurve=false,
     final computePowerUsingSimilarityLaws=true,
-    final m_flow_nominal = max(per.pressure.V_flow)*rho_default,
-    final stageInputs(each final unit="1") = per.speeds,
-    final constInput(final unit="1") =       per.constantSpeed,
+    final m_flow_nominal=max(
+      per.pressure.V_flow)*rho_default,
+    final stageInputs(
+      each final unit="1")=per.speeds,
+    final constInput(
+      final unit="1")=per.constantSpeed,
     filter(
       final y_start=y_start,
       u_nominal=1,
-      u(final unit="1"),
-      y(final unit="1")),
+      u(
+        final unit="1"),
+      y(
+        final unit="1")),
     eff(
-      per(final pressure = per.pressure,
-          final use_powerCharacteristic = per.use_powerCharacteristic)),
-    gaiSpe(u(final unit="1"),
-           final k=1/per.speed_nominal));
-
+      per(
+        final pressure=per.pressure,
+        final use_powerCharacteristic=per.use_powerCharacteristic)),
+    gaiSpe(
+      u(
+        final unit="1"),
+      final k=1/per.speed_nominal));
   Modelica.Blocks.Interfaces.RealInput y(
-    unit="1") if
-    inputType == Buildings.Fluid.Types.InputType.Continuous
+    unit="1") if inputType == Buildings.Fluid.Types.InputType.Continuous
     "Constant normalized rotational speed"
-    annotation (Placement(transformation(
-        extent={{-20,-20},{20,20}},
-        rotation=-90,
-        origin={0,120}), iconTransformation(
-        extent={{-20,-20},{20,20}},
-        rotation=-90,
-        origin={0,120})));
-
+    annotation (Placement(transformation(extent={{-20,-20},{20,20}},rotation=-90,origin={0,120}),iconTransformation(extent={{-20,-20},{20,20}},rotation=-90,origin={0,120})));
 protected
-  Modelica.Blocks.Math.Gain gain(final k=-1) "Pressure gain"
-    annotation (Placement(transformation(extent={{10,-10},{-10,10}},
-        rotation=270,
-        origin={10,-20})));
+  Modelica.Blocks.Math.Gain gain(
+    final k=-1)
+    "Pressure gain"
+    annotation (Placement(transformation(extent={{10,-10},{-10,10}},rotation=270,origin={10,-20})));
 initial equation
-  assert(per.havePressureCurve,
-   "SpeedControlled_y requires to set the pressure vs. flow rate curve in record 'per'.");
-
+  assert(
+    per.havePressureCurve,
+    "SpeedControlled_y requires to set the pressure vs. flow rate curve in record 'per'.");
 equation
-  connect(gaiSpe.u, y)
-    annotation (Line(points={{-2.8,80},{0,80},{0,120}}, color={0,0,127}));
-  connect(gaiSpe.y, inputSwitch.u) annotation (Line(points={{-16.6,80},{-26,80},
-          {-26,50},{-22,50}}, color={0,0,127}));
-  connect(eff.dp, gain.u)
-    annotation (Line(points={{-11,-50},{10,-50},{10,-32}}, color={0,0,127}));
-  connect(gain.y, preSou.dp_in)
-    annotation (Line(points={{10,-9},{10,14},{56,14},{56,8},{56,8}},
-                                                     color={0,0,127}));
-
+  connect(gaiSpe.u,y)
+    annotation (Line(points={{-2.8,80},{0,80},{0,120}},color={0,0,127}));
+  connect(gaiSpe.y,inputSwitch.u)
+    annotation (Line(points={{-16.6,80},{-26,80},{-26,50},{-22,50}},color={0,0,127}));
+  connect(eff.dp,gain.u)
+    annotation (Line(points={{-11,-50},{10,-50},{10,-32}},color={0,0,127}));
+  connect(gain.y,preSou.dp_in)
+    annotation (Line(points={{10,-9},{10,14},{56,14},{56,8},{56,8}},color={0,0,127}));
   if use_inputFilter then
-    connect(filter.y, eff.y_in) annotation (Line(points={{34.7,88},{38,88},{38,26},
-            {-26,26},{-26,-46},{-26,-48},{-26,-46},{-26,-46}},
-                                      color={0,0,127}));
+    connect(filter.y,eff.y_in)
+      annotation (Line(points={{34.7,88},{38,88},{38,26},{-26,26},{-26,-46},{-26,-48},{-26,-46},{-26,-46}},color={0,0,127}));
   else
-    connect(inputSwitch.y, eff.y_in) annotation (Line(points={{1,50},{38,50},{38,
-            26},{-26,26},{-26,-46}},
-                                   color={0,0,127}));
+    connect(inputSwitch.y,eff.y_in)
+      annotation (Line(points={{1,50},{38,50},{38,26},{-26,26},{-26,-46}},color={0,0,127}));
   end if;
-
-    annotation (defaultComponentName="fan",
-    Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,
-            100}}),
-         graphics={
+  annotation (
+    defaultComponentName="fan",
+    Icon(
+      coordinateSystem(
+        preserveAspectRatio=true,
+        extent={{-100,-100},{100,100}}),
+      graphics={
         Text(
           extent={{-40,126},{-160,76}},
           lineColor={0,0,127},
           visible=inputType == Buildings.Fluid.Types.InputType.Continuous or inputType == Buildings.Fluid.Types.InputType.Stages,
-          textString=DynamicSelect("y", if inputType == Buildings.Fluid.Types.InputType.Continuous then String(y, format=".2f") else String(stage)))}),
-    Documentation(info="<html>
+          textString=DynamicSelect("y",
+            if inputType == Buildings.Fluid.Types.InputType.Continuous then
+              String(y,
+                format=".2f")
+            else
+              String(stage)))}),
+    Documentation(
+      info="<html>
 <p>
 This model describes a fan or pump with prescribed normalized speed.
 The input connector provides the normalized rotational speed (between 0 and 1).

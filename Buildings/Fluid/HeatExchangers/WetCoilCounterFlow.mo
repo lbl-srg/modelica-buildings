@@ -2,35 +2,32 @@ within Buildings.Fluid.HeatExchangers;
 model WetCoilCounterFlow
   "Counterflow coil with discretization along the flow paths and humidity condensation"
   extends Buildings.Fluid.HeatExchangers.DryCoilCounterFlow(
-    redeclare replaceable package Medium2 =
-      Modelica.Media.Interfaces.PartialCondensingGases,
-    redeclare final model HexElement =
-      Buildings.Fluid.HeatExchangers.BaseClasses.HexElementLatent(simplify_mWat_flow=simplify_mWat_flow));
-
-  constant Boolean simplify_mWat_flow = true
+    redeclare replaceable package Medium2=Modelica.Media.Interfaces.PartialCondensingGases,
+    redeclare final model HexElement=Buildings.Fluid.HeatExchangers.BaseClasses.HexElementLatent(
+      simplify_mWat_flow=simplify_mWat_flow));
+  constant Boolean simplify_mWat_flow=true
     "Set to true to cause port_a.m_flow + port_b.m_flow = 0 even if mWat_flow is non-zero. Used only if Medium.nX > 1"
-    annotation(HideResult=true);
-
-  Modelica.SIunits.HeatFlowRate QSen2_flow = Q2_flow - QLat2_flow
+    annotation (HideResult=true);
+  Modelica.SIunits.HeatFlowRate QSen2_flow=Q2_flow-QLat2_flow
     "Sensible heat input into air stream (negative if air is cooled)";
-
-  Modelica.SIunits.HeatFlowRate QLat2_flow=
-    Buildings.Utilities.Psychrometrics.Constants.h_fg * mWat_flow
+  Modelica.SIunits.HeatFlowRate QLat2_flow=Buildings.Utilities.Psychrometrics.Constants.h_fg*mWat_flow
     "Latent heat input into air (negative if air is dehumidified)";
-
   Real SHR(
     min=0,
     max=1,
-    unit="1") = QSen2_flow /
-      noEvent(if (Q2_flow > 1E-6 or Q2_flow < -1E-6) then Q2_flow else 1)
-       "Sensible to total heat ratio";
-
-  Modelica.SIunits.MassFlowRate mWat_flow = sum(ele[i].vol2.mWat_flow for i in 1:nEle)
+    unit="1")=QSen2_flow/noEvent(
+    if(Q2_flow > 1E-6 or Q2_flow <-1E-6) then
+      Q2_flow
+    else
+      1)
+    "Sensible to total heat ratio";
+  Modelica.SIunits.MassFlowRate mWat_flow=sum(
+    ele[i].vol2.mWat_flow for i in 1:nEle)
     "Water flow rate";
-
- annotation (
-defaultComponentName="cooCoi",
-    Documentation(info="<html>
+  annotation (
+    defaultComponentName="cooCoi",
+    Documentation(
+      info="<html>
 <p>
 Model of a discretized coil with water vapor condensation.
 The coil consists of two flow paths which are, at the design flow direction,
@@ -75,7 +72,8 @@ To model this coil for conditions without humidity condensation, use the model
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.DryCoilCounterFlow\">
 Buildings.Fluid.HeatExchangers.DryCoilCounterFlow</a> instead of this model.
 </p>
-</html>", revisions="<html>
+</html>",
+      revisions="<html>
 <ul>
 <li>
 May 1, 2020, by Michael Wetter:<br/>
@@ -135,10 +133,13 @@ May 27, 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), Icon(coordinateSystem(
+</html>"),
+    Icon(
+      coordinateSystem(
         preserveAspectRatio=false,
         extent={{-100,-100},{100,100}},
-        grid={2,2}), graphics={
+        grid={2,2}),
+      graphics={
         Rectangle(
           extent={{-70,80},{70,-80}},
           lineColor={0,0,255},
@@ -175,14 +176,18 @@ First implementation.
           pattern=LinePattern.None,
           fillColor={0,0,255},
           fillPattern=FillPattern.Solid)}),
-    Diagram(coordinateSystem(
+    Diagram(
+      coordinateSystem(
         preserveAspectRatio=true,
         extent={{-100,-100},{100,100}},
         grid={2,2},
-        initialScale=0.5), graphics={Text(
+        initialScale=0.5),
+      graphics={
+        Text(
           extent={{60,72},{84,58}},
           lineColor={0,0,255},
-          textString="water-side"), Text(
+          textString="water-side"),
+        Text(
           extent={{50,-32},{90,-38}},
           lineColor={0,0,255},
           textString="air-side")}));

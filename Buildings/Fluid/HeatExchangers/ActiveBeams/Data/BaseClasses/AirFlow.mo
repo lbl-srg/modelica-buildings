@@ -1,12 +1,20 @@
 within Buildings.Fluid.HeatExchangers.ActiveBeams.Data.BaseClasses;
-record AirFlow "Record for primary air parameters"
+record AirFlow
+  "Record for primary air parameters"
   extends Modelica.Icons.Record;
-  parameter Real r_V[:](each min=0, each final unit="1")
+  parameter Real r_V[:](
+    each min=0,
+    each final unit="1")
     "Normalized air volume flow rate at user-selected operating points";
-  parameter Real f[size(r_V, 1)](each min=0, each final unit="1")
+  parameter Real f[size(
+    r_V,
+    1)](
+    each min=0,
+    each final unit="1")
     "Normalized performance factor at these flow rates";
-
-  annotation (Documentation(info="<html>
+  annotation (
+    Documentation(
+      info="<html>
 <p>
 Data record for performance data that describe the air volume flow rate versus
 the change in the rate of heating or cooling.
@@ -18,7 +26,7 @@ Both vectors, <i>r<sub>V</sub></i> and <i>f</i>
 must have the same size.
 </p>
 </html>",
-revisions="<html>
+      revisions="<html>
 <ul>
 <li>
 June 13, 2016, by Michael Wetter:<br/>

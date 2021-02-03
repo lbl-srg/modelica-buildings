@@ -1,8 +1,10 @@
 within Buildings.Fluid.HeatPumps.Compressors.BaseClasses;
-package Validation "Validation package"
-extends Modelica.Icons.ExamplesPackage;
-
-annotation (Documentation(info="<html>
+package Validation
+  "Validation package"
+  extends Modelica.Icons.ExamplesPackage;
+  annotation (
+    Documentation(
+      info="<html>
 <p>
 This package contains validation models for the classes in
 <a href=\"modelica://Buildings.Fluid.HeatPumps.Compressors.BaseClasses\">

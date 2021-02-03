@@ -1,16 +1,15 @@
 within Buildings.Fluid.Geothermal.Borefields.Validation.BaseClasses;
 record SandBox_Soil
   "Soil data record for the Beier et al. (2011) experiment"
-  extends
-    Buildings.Fluid.Geothermal.Borefields.Data.Soil.Template(
-      kSoi=2.88,
-      cSoi=1275,
-      dSoi=2000);
+  extends Buildings.Fluid.Geothermal.Borefields.Data.Soil.Template(
+    kSoi=2.88,
+    cSoi=1275,
+    dSoi=2000);
   annotation (
-  defaultComponentPrefixes="parameter",
-  defaultComponentName="soiDat",
-Documentation(
-info="<html>
+    defaultComponentPrefixes="parameter",
+    defaultComponentName="soiDat",
+    Documentation(
+      info="<html>
 <p>
 This record contains the soil data of the Beier et al. (2011) experiment.
 </p>
@@ -21,7 +20,7 @@ vertical borehole ground heat exchanger models and thermal response test
 analysis</i>. Geothermics 40: 79-85.
 </p>
 </html>",
-revisions="<html>
+      revisions="<html>
 <ul>
 <li>
 July 15, 2018, by Michael Wetter:<br/>

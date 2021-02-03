@@ -1,71 +1,80 @@
 within Buildings.Fluid.HeatExchangers.Radiators;
-model RadiatorEN442_2 "Dynamic radiator for space heating"
-   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
-   show_T=true,
-   m_flow_nominal=abs(Q_flow_nominal/cp_nominal/(T_a_nominal-T_b_nominal)));
-   extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations(
-     final X_start = Medium.X_default,
-     final C_start = fill(0, Medium.nC),
-     final C_nominal = fill(1E-2, Medium.nC),
-     final mSenFac = 1 + 500*mDry/(VWat*cp_nominal*Medium.density(
-        Medium.setState_pTX(Medium.p_default, Medium.T_default, Medium.X_default))));
-
-  constant Boolean homotopyInitialization = true "= true, use homotopy method"
-    annotation(HideResult=true);
-
-  parameter Integer nEle(min=1) = 5
+model RadiatorEN442_2
+  "Dynamic radiator for space heating"
+  extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
+    show_T=true,
+    m_flow_nominal=abs(
+      Q_flow_nominal/cp_nominal/(T_a_nominal-T_b_nominal)));
+  extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations(
+    final X_start=Medium.X_default,
+    final C_start=fill(
+      0,
+      Medium.nC),
+    final C_nominal=fill(
+      1E-2,
+      Medium.nC),
+    final mSenFac=1+500*mDry/(VWat*cp_nominal*Medium.density(
+      Medium.setState_pTX(
+        Medium.p_default,
+        Medium.T_default,
+        Medium.X_default))));
+  constant Boolean homotopyInitialization=true
+    "= true, use homotopy method"
+    annotation (HideResult=true);
+  parameter Integer nEle(
+    min=1)=5
     "Number of elements used in the discretization";
-  parameter Real fraRad(min=0, max=1) = 0.35 "Fraction radiant heat transfer";
+  parameter Real fraRad(
+    min=0,
+    max=1)=0.35
+    "Fraction radiant heat transfer";
   // Assumptions
-
   parameter Modelica.SIunits.Power Q_flow_nominal
     "Nominal heating power (positive for heating)"
-    annotation(Dialog(group="Nominal condition"));
+    annotation (Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.Temperature T_a_nominal
     "Water inlet temperature at nominal condition"
-    annotation(Dialog(group="Nominal condition"));
+    annotation (Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.Temperature T_b_nominal
     "Water outlet temperature at nominal condition"
-    annotation(Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Temperature TAir_nominal = 293.15
+    annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.SIunits.Temperature TAir_nominal=293.15
     "Air temperature at nominal condition"
-    annotation(Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Temperature TRad_nominal = TAir_nominal
+    annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.SIunits.Temperature TRad_nominal=TAir_nominal
     "Radiative temperature at nominal condition"
-    annotation(Dialog(group="Nominal condition"));
-
-  parameter Real n = 1.24 "Exponent for heat transfer";
-  parameter Modelica.SIunits.Volume VWat = 5.8E-6*abs(Q_flow_nominal)
+    annotation (Dialog(group="Nominal condition"));
+  parameter Real n=1.24
+    "Exponent for heat transfer";
+  parameter Modelica.SIunits.Volume VWat=5.8E-6*abs(
+    Q_flow_nominal)
     "Water volume of radiator"
-    annotation(Dialog(tab = "Dynamics", enable = not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)));
-  parameter Modelica.SIunits.Mass mDry = 0.0263*abs(Q_flow_nominal)
+    annotation (Dialog(tab="Dynamics",enable=not(energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)));
+  parameter Modelica.SIunits.Mass mDry=0.0263*abs(
+    Q_flow_nominal)
     "Dry mass of radiator that will be lumped to water heat capacity"
-    annotation(Dialog(tab = "Dynamics", enable = not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)));
-  parameter Real deltaM(min=0.01) = 0.3
+    annotation (Dialog(tab="Dynamics",enable=not(energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)));
+  parameter Real deltaM(
+    min=0.01)=0.3
     "Fraction of nominal mass flow rate where transition to turbulent occurs"
-       annotation(Evaluate=true,
-                  Dialog(group = "Transition to laminar",
-                         enable = not linearized));
-
-  parameter Boolean from_dp = false
+    annotation (Evaluate=true,Dialog(group="Transition to laminar",enable=not linearized));
+  parameter Boolean from_dp=false
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
-    annotation (Evaluate=true, Dialog(tab="Advanced"));
-
-  parameter Modelica.SIunits.PressureDifference dp_nominal(displayUnit="Pa") = 0
+    annotation (Evaluate=true,Dialog(tab="Advanced"));
+  parameter Modelica.SIunits.PressureDifference dp_nominal(
+    displayUnit="Pa")=0
     "Pressure drop at nominal mass flow rate"
-    annotation(Dialog(group = "Nominal condition"));
-  parameter Boolean linearized = false
+    annotation (Dialog(group="Nominal condition"));
+  parameter Boolean linearized=false
     "= true, use linear relation between m_flow and dp for any flow rate"
-    annotation(Evaluate=true, Dialog(tab="Advanced"));
-
+    annotation (Evaluate=true,Dialog(tab="Advanced"));
   // Heat flow rates
-  Modelica.SIunits.HeatFlowRate QCon_flow = heatPortCon.Q_flow
+  Modelica.SIunits.HeatFlowRate QCon_flow=heatPortCon.Q_flow
     "Heat input into the water due to convective heat transfer with room air";
-  Modelica.SIunits.HeatFlowRate QRad_flow = heatPortRad.Q_flow
+  Modelica.SIunits.HeatFlowRate QRad_flow=heatPortRad.Q_flow
     "Heat input into the water due to radiative heat transfer with room";
-  Modelica.SIunits.HeatFlowRate Q_flow = QCon_flow + QRad_flow
+  Modelica.SIunits.HeatFlowRate Q_flow=QCon_flow+QRad_flow
     "Heat input into the water";
-
   // Heat ports
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPortCon
     "Heat port for convective heat transfer with room air temperature"
@@ -73,105 +82,120 @@ model RadiatorEN442_2 "Dynamic radiator for space heating"
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPortRad
     "Heat port for radiative heat transfer with room radiation temperature"
     annotation (Placement(transformation(extent={{10,62},{30,82}})));
-
   Buildings.Fluid.MixingVolumes.MixingVolume[nEle] vol(
-    redeclare each package Medium = Medium,
+    redeclare each package Medium=Medium,
     each nPorts=2,
     each V=VWat/nEle,
-    each final m_flow_nominal = m_flow_nominal,
+    each final m_flow_nominal=m_flow_nominal,
     each final energyDynamics=energyDynamics,
     each final massDynamics=massDynamics,
     each final p_start=p_start,
     each final T_start=T_start,
     each final X_start=X_start,
     each final C_start=C_start,
-    each final mSenFac=mSenFac) "Volume for fluid stream"
+    each final mSenFac=mSenFac)
+    "Volume for fluid stream"
     annotation (Placement(transformation(extent={{-9,0},{11,-20}})));
 protected
-   parameter Modelica.SIunits.SpecificHeatCapacity cp_nominal=
-      Medium.specificHeatCapacityCp(
-        Medium.setState_pTX(Medium.p_default, T_a_nominal, Medium.X_default))
+  parameter Modelica.SIunits.SpecificHeatCapacity cp_nominal=Medium.specificHeatCapacityCp(
+    Medium.setState_pTX(
+      Medium.p_default,
+      T_a_nominal,
+      Medium.X_default))
     "Specific heat capacity at nominal conditions";
-   parameter Modelica.SIunits.HeatFlowRate QEle_flow_nominal[nEle](
-      each fixed=false, each start=Q_flow_nominal/nEle)
+  parameter Modelica.SIunits.HeatFlowRate QEle_flow_nominal[nEle](
+    each fixed=false,
+    each start=Q_flow_nominal/nEle)
     "Nominal heating power of each element";
-   parameter Modelica.SIunits.Temperature TWat_nominal[nEle](
-      each fixed=false,
-      start={T_a_nominal - i/nEle * (T_a_nominal-T_b_nominal) for i in 1:nEle})
+  parameter Modelica.SIunits.Temperature TWat_nominal[nEle](
+    each fixed=false,
+    start={T_a_nominal-i/nEle*(T_a_nominal-T_b_nominal) for i in 1:nEle})
     "Water temperature in each element at nominal conditions";
-   parameter Modelica.SIunits.TemperatureDifference[nEle] dTRad_nominal(
-    each fixed=false, start={T_a_nominal - i/nEle * (T_a_nominal-T_b_nominal) - TRad_nominal
-    for i in 1:nEle})
+  parameter Modelica.SIunits.TemperatureDifference[nEle] dTRad_nominal(
+    each fixed=false,
+    start={T_a_nominal-i/nEle*(T_a_nominal-T_b_nominal)-TRad_nominal for i in 1:nEle})
     "Temperature difference for radiative heat transfer at nominal conditions";
-   parameter Modelica.SIunits.TemperatureDifference[nEle] dTCon_nominal(
-    each fixed=false, start={T_a_nominal - i/nEle * (T_a_nominal-T_b_nominal) - TAir_nominal
-    for i in 1:nEle})
+  parameter Modelica.SIunits.TemperatureDifference[nEle] dTCon_nominal(
+    each fixed=false,
+    start={T_a_nominal-i/nEle*(T_a_nominal-T_b_nominal)-TAir_nominal for i in 1:nEle})
     "Temperature difference for convective heat transfer at nominal conditions";
-
-   parameter Modelica.SIunits.ThermalConductance UAEle(fixed=false, min=0,
-     start=Q_flow_nominal/((T_a_nominal+T_b_nominal)/2-((1-fraRad)*TAir_nominal+fraRad*TRad_nominal))/nEle)
+  parameter Modelica.SIunits.ThermalConductance UAEle(
+    fixed=false,
+    min=0,
+    start=Q_flow_nominal/((T_a_nominal+T_b_nominal)/2-((1-fraRad)*TAir_nominal+fraRad*TRad_nominal))/nEle)
     "UA value at nominal condition for each element";
-
-   final parameter Real k = if T_b_nominal > TAir_nominal then 1 else -1
+  final parameter Real k=
+    if T_b_nominal > TAir_nominal then
+      1
+    else
+      -1
     "Parameter that is used to compute QEle_flow_nominal for heating or cooling mode";
-
-   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow[nEle] preCon(
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow[nEle] preCon(
     each final alpha=0)
     "Heat input into radiator from convective heat transfer"
-     annotation (Placement(transformation(extent={{-48,-48},{-28,-28}})));
-   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow[nEle] preRad(
+    annotation (Placement(transformation(extent={{-48,-48},{-28,-28}})));
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow[nEle] preRad(
     each final alpha=0)
     "Heat input into radiator from radiative heat transfer"
-     annotation (Placement(transformation(extent={{-48,-80},{-28,-60}})));
-
-   Modelica.SIunits.TemperatureDifference dTCon[nEle] = {heatPortCon.T - vol[i].T for i in 1:nEle}
+    annotation (Placement(transformation(extent={{-48,-80},{-28,-60}})));
+  Modelica.SIunits.TemperatureDifference dTCon[nEle]={heatPortCon.T-vol[i].T for i in 1:nEle}
     "Temperature difference for convective heat transfer";
-   Modelica.SIunits.TemperatureDifference dTRad[nEle] = {heatPortRad.T - vol[i].T for i in 1:nEle}
+  Modelica.SIunits.TemperatureDifference dTRad[nEle]={heatPortRad.T-vol[i].T for i in 1:nEle}
     "Temperature difference for radiative heat transfer";
-
-  Modelica.Blocks.Sources.RealExpression QCon[nEle](y={if homotopyInitialization
-         then homotopy(actual=(1 - fraRad) * UAEle * (heatPortCon.T - vol[i].T) *
-        Buildings.Utilities.Math.Functions.regNonZeroPower(
-        x=(heatPortCon.T - vol[i].T),
-        n=n - 1,
-        delta=0.05), simplified=(1 - fraRad) * UAEle .* abs(dTCon_nominal[i]) ^ (
-        n - 1) * (heatPortCon.T - vol[i].T)) else (1 - fraRad) * UAEle * (heatPortCon.T - vol[i].T) *
-        Buildings.Utilities.Math.Functions.regNonZeroPower(
-        x=(heatPortCon.T - vol[i].T),
-        n=n - 1,
-        delta=0.05) for i in 1:nEle}) "Convective heat flow rate"
+  Modelica.Blocks.Sources.RealExpression QCon[nEle](
+    y={
+      if homotopyInitialization then
+        homotopy(
+          actual=(1-fraRad)*UAEle*(heatPortCon.T-vol[i].T)*Buildings.Utilities.Math.Functions.regNonZeroPower(
+            x=(heatPortCon.T-vol[i].T),
+            n=n-1,
+            delta=0.05),
+          simplified=(1-fraRad)*UAEle .* abs(dTCon_nominal[i])^(n-1)*(heatPortCon.T-vol[i].T))
+      else
+        (1-fraRad)*UAEle*(heatPortCon.T-vol[i].T)*Buildings.Utilities.Math.Functions.regNonZeroPower(
+          x=(heatPortCon.T-vol[i].T),
+          n=n-1,
+          delta=0.05) for i in 1:nEle})
+    "Convective heat flow rate"
     annotation (Placement(transformation(extent={{-100,-48},{-80,-28}})));
-
-  Modelica.Blocks.Sources.RealExpression QRad[nEle](y={if homotopyInitialization
-         then homotopy(actual=fraRad * UAEle * (heatPortRad.T - vol[i].T) *
-        Buildings.Utilities.Math.Functions.regNonZeroPower(
-        x=(heatPortRad.T - vol[i].T),
-        n=n - 1,
-        delta=0.05), simplified=fraRad * UAEle * abs(dTRad_nominal[i]) ^ (n - 1)
-         * (heatPortRad.T - vol[i].T)) else fraRad * UAEle * (heatPortRad.T - vol[i].T) *
-        Buildings.Utilities.Math.Functions.regNonZeroPower(
-        x=(heatPortRad.T - vol[i].T),
-        n=n - 1,
-        delta=0.05) for i in 1:nEle}) "Radiative heat flow rate"
+  Modelica.Blocks.Sources.RealExpression QRad[nEle](
+    y={
+      if homotopyInitialization then
+        homotopy(
+          actual=fraRad*UAEle*(heatPortRad.T-vol[i].T)*Buildings.Utilities.Math.Functions.regNonZeroPower(
+            x=(heatPortRad.T-vol[i].T),
+            n=n-1,
+            delta=0.05),
+          simplified=fraRad*UAEle*abs(dTRad_nominal[i])^(n-1)*(heatPortRad.T-vol[i].T))
+      else
+        fraRad*UAEle*(heatPortRad.T-vol[i].T)*Buildings.Utilities.Math.Functions.regNonZeroPower(
+          x=(heatPortRad.T-vol[i].T),
+          n=n-1,
+          delta=0.05) for i in 1:nEle})
+    "Radiative heat flow rate"
     annotation (Placement(transformation(extent={{-100,-80},{-80,-60}})));
-
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preSumCon(
     final alpha=0)
     "Heat input into radiator from convective heat transfer"
     annotation (Placement(transformation(extent={{52,-60},{72,-40}})));
-  Modelica.Blocks.Math.Sum sumCon(nin=nEle, k=-ones(nEle))
+  Modelica.Blocks.Math.Sum sumCon(
+    nin=nEle,
+    k=-ones(
+      nEle))
     "Sum of convective heat flow rate"
     annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
-  Modelica.Blocks.Math.Sum sumRad(nin=nEle, k=-ones(nEle))
+  Modelica.Blocks.Math.Sum sumRad(
+    nin=nEle,
+    k=-ones(
+      nEle))
     "Sum of radiative heat flow rate"
     annotation (Placement(transformation(extent={{20,-90},{40,-70}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preSumRad(
     final alpha=0)
     "Heat input into radiator from radiative heat transfer"
     annotation (Placement(transformation(extent={{52,-90},{72,-70}})));
-
   Buildings.Fluid.FixedResistances.PressureDrop res(
-    redeclare final package Medium = Medium,
+    redeclare final package Medium=Medium,
     final allowFlowReversal=allowFlowReversal,
     final m_flow_nominal=m_flow_nominal,
     final from_dp=from_dp,
@@ -179,96 +203,89 @@ protected
     final homotopyInitialization=homotopyInitialization,
     final linearized=linearized,
     final deltaM=deltaM,
-    final show_T=false) "Pressure drop component"
+    final show_T=false)
+    "Pressure drop component"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-
 initial equation
   if T_b_nominal > TAir_nominal then
-     assert(T_a_nominal > T_b_nominal,
-       "In RadiatorEN442_2, T_a_nominal must be higher than T_b_nominal.");
-     assert(Q_flow_nominal > 0,
-       "In RadiatorEN442_2, nominal power must be bigger than zero if T_b_nominal > TAir_nominal.");
+    assert(
+      T_a_nominal > T_b_nominal,
+      "In RadiatorEN442_2, T_a_nominal must be higher than T_b_nominal.");
+    assert(
+      Q_flow_nominal > 0,
+      "In RadiatorEN442_2, nominal power must be bigger than zero if T_b_nominal > TAir_nominal.");
   else
-     assert(T_a_nominal < T_b_nominal,
-       "In RadiatorEN442_2, T_a_nominal must be lower than T_b_nominal.");
-     assert(Q_flow_nominal < 0,
-       "In RadiatorEN442_2, nominal power must be smaller than zero if T_b_nominal < TAir_nominal.");
+    assert(
+      T_a_nominal < T_b_nominal,
+      "In RadiatorEN442_2, T_a_nominal must be lower than T_b_nominal.");
+    assert(
+      Q_flow_nominal < 0,
+      "In RadiatorEN442_2, nominal power must be smaller than zero if T_b_nominal < TAir_nominal.");
   end if;
-  TWat_nominal[1] = T_a_nominal - QEle_flow_nominal[1]/m_flow_nominal/
-  Medium.specificHeatCapacityCp(
-        Medium.setState_pTX(Medium.p_default, T_a_nominal, Medium.X_default));
+  TWat_nominal[1]=T_a_nominal-QEle_flow_nominal[1]/m_flow_nominal/Medium.specificHeatCapacityCp(
+    Medium.setState_pTX(
+      Medium.p_default,
+      T_a_nominal,
+      Medium.X_default));
   for i in 2:nEle loop
-    TWat_nominal[i] = TWat_nominal[i-1] - QEle_flow_nominal[i]/m_flow_nominal/
-    Medium.specificHeatCapacityCp(
-        Medium.setState_pTX(Medium.p_default, TWat_nominal[i-1], Medium.X_default));
+    TWat_nominal[i]=TWat_nominal[i-1]-QEle_flow_nominal[i]/m_flow_nominal/Medium.specificHeatCapacityCp(
+      Medium.setState_pTX(
+        Medium.p_default,
+        TWat_nominal[i-1],
+        Medium.X_default));
   end for;
-  dTRad_nominal = TWat_nominal .- TRad_nominal;
-  dTCon_nominal = TWat_nominal .- TAir_nominal;
-  Q_flow_nominal = sum(QEle_flow_nominal);
-
+  dTRad_nominal=TWat_nominal .- TRad_nominal;
+  dTCon_nominal=TWat_nominal .- TAir_nominal;
+  Q_flow_nominal=sum(
+    QEle_flow_nominal);
   for i in 1:nEle loop
     // Use difference, TWat_nominal[i] - TRad/Air_nominal, to avoid larger system of equations
-    QEle_flow_nominal[i] = k * UAEle * (fraRad *
-      Buildings.Utilities.Math.Functions.powerLinearized(
-        x=k*TWat_nominal[i] - TRad_nominal,
-        n=n,
-        x0=0.1*k*(T_b_nominal-TRad_nominal)) + (1-fraRad) *
-      Buildings.Utilities.Math.Functions.powerLinearized(
-        x=k*TWat_nominal[i] - TAir_nominal,
-        n=n,
-        x0=0.1*k*(T_b_nominal-TAir_nominal)));
-   end for;
-
-  assert(homotopyInitialization, "In " + getInstanceName() +
-    ": The constant homotopyInitialization has been modified from its default value. This constant will be removed in future releases.",
-    level = AssertionLevel.warning);
-
-equation
-  connect(preCon.port, vol.heatPort)       annotation (Line(
-      points={{-28,-38},{-20,-38},{-20,-10},{-9,-10}},
-      color={191,0,0}));
-  connect(preRad.port, vol.heatPort)       annotation (Line(
-      points={{-28,-70},{-20,-70},{-20,-10},{-9,-10}},
-      color={191,0,0}));
-  connect(vol[nEle].ports[2], port_b) annotation (Line(
-      points={{3,5.55112e-16},{27.25,5.55112e-16},{27.25,1.11022e-15},{51.5,1.11022e-15},
-          {51.5,5.55112e-16},{100,5.55112e-16}},
-      color={0,127,255}));
-  for i in 1:nEle-1 loop
-    connect(vol[i].ports[2], vol[i+1].ports[1]) annotation (Line(
-        points={{3,5.55112e-16},{2,5.55112e-16},{2,1.11022e-15},{1,1.11022e-15},
-            {1,5.55112e-16},{-1,5.55112e-16}},
-        color={0,127,255}));
+    QEle_flow_nominal[i]=k*UAEle*(fraRad*Buildings.Utilities.Math.Functions.powerLinearized(
+      x=k*TWat_nominal[i]-TRad_nominal,
+      n=n,
+      x0=0.1*k*(T_b_nominal-TRad_nominal))+(1-fraRad)*Buildings.Utilities.Math.Functions.powerLinearized(
+      x=k*TWat_nominal[i]-TAir_nominal,
+      n=n,
+      x0=0.1*k*(T_b_nominal-TAir_nominal)));
   end for;
-  connect(QCon.y, preCon.Q_flow)                  annotation (Line(
-      points={{-79,-38},{-48,-38}},
-      color={0,0,127}));
-  connect(sumCon.u, QCon.y)          annotation (Line(
-      points={{18,-50},{-60,-50},{-60,-38},{-79,-38}},
-      color={0,0,127}));
-  connect(sumCon.y, preSumCon.Q_flow)     annotation (Line(
-      points={{41,-50},{52,-50}},
-      color={0,0,127}));
-  connect(preSumCon.port, heatPortCon)       annotation (Line(
-      points={{72,-50},{80,-50},{80,40},{-20,40},{-20,72}},
-      color={191,0,0}));
-  connect(QRad.y, preRad.Q_flow)       annotation (Line(
-      points={{-79,-70},{-48,-70}},
-      color={0,0,127}));
-  connect(QRad.y, sumRad.u) annotation (Line(
-      points={{-79,-70},{-60,-70},{-60,-80},{18,-80}},
-      color={0,0,127}));
-  connect(sumRad.y, preSumRad.Q_flow)        annotation (Line(
-      points={{41,-80},{52,-80}},
-      color={0,0,127}));
-  connect(preSumRad.port, heatPortRad)        annotation (Line(
-      points={{72,-80},{86,-80},{86,50},{20,50},{20,72}},
-      color={191,0,0}));
-  connect(res.port_a, port_a) annotation (Line(points={{-60,0},{-80,0},{-100,0}},
-                    color={0,127,255}));
-  connect(res.port_b, vol[1].ports[1])
-    annotation (Line(points={{-40,0},{-1,0}},      color={0,127,255}));
-  annotation ( Icon(graphics={
+  assert(
+    homotopyInitialization,
+    "In "+getInstanceName()+": The constant homotopyInitialization has been modified from its default value. This constant will be removed in future releases.",
+    level=AssertionLevel.warning);
+equation
+  connect(preCon.port,vol.heatPort)
+    annotation (Line(points={{-28,-38},{-20,-38},{-20,-10},{-9,-10}},color={191,0,0}));
+  connect(preRad.port,vol.heatPort)
+    annotation (Line(points={{-28,-70},{-20,-70},{-20,-10},{-9,-10}},color={191,0,0}));
+  connect(vol[nEle].ports[2],port_b)
+    annotation (Line(points={{3,5.55112e-16},{27.25,5.55112e-16},{27.25,1.11022e-15},{51.5,1.11022e-15},{51.5,5.55112e-16},{100,5.55112e-16}},color={0,127,255}));
+  for i in 1:nEle-1 loop
+    connect(vol[i].ports[2],vol[i+1].ports[1])
+      annotation (Line(points={{3,5.55112e-16},{2,5.55112e-16},{2,1.11022e-15},{1,1.11022e-15},{1,5.55112e-16},{-1,5.55112e-16}},color={0,127,255}));
+  end for;
+  connect(QCon.y,preCon.Q_flow)
+    annotation (Line(points={{-79,-38},{-48,-38}},color={0,0,127}));
+  connect(sumCon.u,QCon.y)
+    annotation (Line(points={{18,-50},{-60,-50},{-60,-38},{-79,-38}},color={0,0,127}));
+  connect(sumCon.y,preSumCon.Q_flow)
+    annotation (Line(points={{41,-50},{52,-50}},color={0,0,127}));
+  connect(preSumCon.port,heatPortCon)
+    annotation (Line(points={{72,-50},{80,-50},{80,40},{-20,40},{-20,72}},color={191,0,0}));
+  connect(QRad.y,preRad.Q_flow)
+    annotation (Line(points={{-79,-70},{-48,-70}},color={0,0,127}));
+  connect(QRad.y,sumRad.u)
+    annotation (Line(points={{-79,-70},{-60,-70},{-60,-80},{18,-80}},color={0,0,127}));
+  connect(sumRad.y,preSumRad.Q_flow)
+    annotation (Line(points={{41,-80},{52,-80}},color={0,0,127}));
+  connect(preSumRad.port,heatPortRad)
+    annotation (Line(points={{72,-80},{86,-80},{86,50},{20,50},{20,72}},color={191,0,0}));
+  connect(res.port_a,port_a)
+    annotation (Line(points={{-60,0},{-80,0},{-100,0}},color={0,127,255}));
+  connect(res.port_b,vol[1].ports[1])
+    annotation (Line(points={{-40,0},{-1,0}},color={0,127,255}));
+  annotation (
+    Icon(
+      graphics={
         Ellipse(
           extent={{-20,22},{20,-20}},
           fillColor={127,0,0},
@@ -294,8 +311,7 @@ equation
         Rectangle(
           extent={{-80,60},{80,-60}},
           lineColor={0,0,0},
-          fillColor=DynamicSelect({95,95,95},
-          max(0, min(1, -Q_flow/Q_flow_nominal))*{255,0,0}+(1-max(0, min(1, -Q_flow/Q_flow_nominal)))*{95,95,95}),
+          fillColor=DynamicSelect({95,95,95},max(0,min(1,-Q_flow/Q_flow_nominal))*{255,0,0}+(1-max(0,min(1,-Q_flow/Q_flow_nominal)))*{95,95,95}),
           fillPattern=FillPattern.Solid),
         Line(
           points={{-66,30},{66,30}}),
@@ -308,7 +324,8 @@ equation
         Line(
           points={{66,60},{66,-60}})}),
     defaultComponentName="rad",
-    Documentation(info="<html>
+    Documentation(
+      info="<html>
 <p>
 This is a model of a radiator that can be used as a dynamic or steady-state model.
 The required parameters are data that are typically available from
@@ -366,7 +383,8 @@ temperature.
 The default parameters for the heat capacities are valid for a flat plate radiator without fins,
 with one plate of water carying fluid, and a height of 0.42 meters.
 </p>
-</html>", revisions="<html>
+</html>",
+      revisions="<html>
 <ul>
 <li>
 April 14, 2020, by Michael Wetter:<br/>
@@ -471,5 +489,9 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(graphics={Rectangle(extent={{-62,78},{-46,50}}, lineColor={28,108,200})}));
+    Diagram(
+      graphics={
+        Rectangle(
+          extent={{-62,78},{-46,50}},
+          lineColor={28,108,200})}));
 end RadiatorEN442_2;

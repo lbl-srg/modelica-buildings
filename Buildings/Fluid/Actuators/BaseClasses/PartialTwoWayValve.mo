@@ -1,59 +1,82 @@
 within Buildings.Fluid.Actuators.BaseClasses;
-partial model PartialTwoWayValve "Partial model for a two way valve"
-
+partial model PartialTwoWayValve
+  "Partial model for a two way valve"
   extends Buildings.Fluid.BaseClasses.PartialResistance(
-       final dp_nominal=dpValve_nominal + dpFixed_nominal,
-       dp(nominal=6000),
-       final m_flow_turbulent = deltaM * abs(m_flow_nominal));
-
+    final dp_nominal=dpValve_nominal+dpFixed_nominal,
+    dp(
+      nominal=6000),
+    final m_flow_turbulent=deltaM*abs(
+      m_flow_nominal));
   extends Buildings.Fluid.Actuators.BaseClasses.ValveParameters(
-      rhoStd=Medium.density_pTX(101325, 273.15+4, Medium.X_default));
-
+    rhoStd=Medium.density_pTX(
+      101325,
+      273.15+4,
+      Medium.X_default));
   extends Buildings.Fluid.Actuators.BaseClasses.ActuatorSignal;
-  parameter Modelica.SIunits.PressureDifference dpFixed_nominal(displayUnit="Pa", min=0) = 0
+  parameter Modelica.SIunits.PressureDifference dpFixed_nominal(
+    displayUnit="Pa",
+    min=0)=0
     "Pressure drop of pipe and other resistances that are in series"
-     annotation(Dialog(group = "Nominal condition"));
-
-  parameter Real l(min=1e-10, max=1) = 0.0001
+    annotation (Dialog(group="Nominal condition"));
+  parameter Real l(
+    min=1e-10,
+    max=1)=0.0001
     "Valve leakage, l=Kv(y=0)/Kv(y=1)";
   input Real phi
     "Ratio actual to nominal mass flow rate of valve, phi=Kv(y)/Kv(y=1)";
-  parameter Real kFixed(unit="", min=0) = if dpFixed_nominal > Modelica.Constants.eps
-    then m_flow_nominal / sqrt(dpFixed_nominal) else 0
+  parameter Real kFixed(
+    unit="",
+    min=0)=
+    if dpFixed_nominal > Modelica.Constants.eps then
+      m_flow_nominal/sqrt(
+        dpFixed_nominal)
+    else
+      0
     "Flow coefficient of fixed resistance that may be in series with valve, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2).";
-  Real kVal(unit="", min=Modelica.Constants.small)
+  Real kVal(
+    unit="",
+    min=Modelica.Constants.small)
     "Flow coefficient of valve, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2).";
-  Real k(unit="", min=Modelica.Constants.small)
+  Real k(
+    unit="",
+    min=Modelica.Constants.small)
     "Flow coefficient of valve and pipe in series, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2).";
 initial equation
-  assert(dpFixed_nominal > -Modelica.Constants.eps, "In " + getInstanceName() +
-  ": Model requires dpFixed_nominal >= 0 but received dpFixed_nominal = "
-        + String(dpFixed_nominal) + " Pa.");
-  annotation (Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},
-            {100,100}}),       graphics={Rectangle(
-      extent={{-60,40},{60,-40}},
-      fillColor={255,255,255},
-      fillPattern=FillPattern.Solid,
-      pattern=LinePattern.None),
-    Polygon(
-      points={{0,0},{-76,60},{-76,-60},{0,0}},
-      lineColor={0,0,0},
-      fillColor=DynamicSelect({0,0,0}, y*{255,255,255}),
-      fillPattern=FillPattern.Solid),
-    Polygon(
-      points={{0,-0},{76,60},{76,-60},{0,0}},
-      lineColor={0,0,0},
-      fillColor={255,255,255},
-      fillPattern=FillPattern.Solid),
-    Line(
-      visible=use_inputFilter,
-      points={{-30,40},{30,40}}),
-    Line(
-      points={{0,40},{0,0}}),
-    Line(
-      visible=not use_inputFilter,
-      points={{0,100},{0,40}})}),
-Documentation(info="<html>
+  assert(
+    dpFixed_nominal >-Modelica.Constants.eps,
+    "In "+getInstanceName()+": Model requires dpFixed_nominal >= 0 but received dpFixed_nominal = "+String(
+      dpFixed_nominal)+" Pa.");
+  annotation (
+    Icon(
+      coordinateSystem(
+        preserveAspectRatio=true,
+        extent={{-100,-100},{100,100}}),
+      graphics={
+        Rectangle(
+          extent={{-60,40},{60,-40}},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None),
+        Polygon(
+          points={{0,0},{-76,60},{-76,-60},{0,0}},
+          lineColor={0,0,0},
+          fillColor=DynamicSelect({0,0,0},y*{255,255,255}),
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{0,-0},{76,60},{76,-60},{0,0}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Line(
+          visible=use_inputFilter,
+          points={{-30,40},{30,40}}),
+        Line(
+          points={{0,40},{0,0}}),
+        Line(
+          visible=not use_inputFilter,
+          points={{0,100},{0,40}})}),
+    Documentation(
+      info="<html>
 <p>
 Partial model for a two way valve. This is the base model for valves
 with different opening characteristics, such as linear, equal percentage,
@@ -93,7 +116,7 @@ different functions for the valve opening characteristics, because
 each valve opening characteristics has different parameters.
 </p>
 </html>",
-revisions="<html>
+      revisions="<html>
 <ul>
 
 <li>

@@ -1,5 +1,6 @@
 within Buildings.Fluid.CHPs.Data;
-record ValidationData2 "Validation data set 2"
+record ValidationData2
+  "Validation data set 2"
   extends Buildings.Fluid.CHPs.Data.Generic(
     coeEtaQ={0.66,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
     coeEtaE={0.27,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
@@ -14,11 +15,11 @@ record ValidationData2 "Validation data set 2"
     timeDelayStart=0,
     coolDownOptional=true,
     timeDelayCool=60,
-    TEngNom=273.15 + 100,
+    TEngNom=273.15+100,
     PEleMax=5500,
     PEleMin=0,
     mWatMin_flow=0.1,
-    TWatMax=273.15 + 80,
+    TWatMax=273.15+80,
     use_powerRateLimit=true,
     use_fuelRateLimit=true,
     dPEleMax=200,
@@ -27,10 +28,11 @@ record ValidationData2 "Validation data set 2"
     PCooDow=200,
     LHVFue=47.614e6);
   annotation (
-  defaultComponentPrefixes = "parameter",
-  defaultComponentName = "per",
-  Documentation(preferredView="info",
-  info="<html>
+    defaultComponentPrefixes="parameter",
+    defaultComponentName="per",
+    Documentation(
+      preferredView="info",
+      info="<html>
 <p>
 This is the record of parameters for CHP models derived from the parameters of
 EnergyPlus example <code>MicroCogeneration</code>, with following changes:
@@ -49,7 +51,8 @@ changed electric power consumptions during standby <code>PStaBy</code> and cool-
 <code>PCooDow</code> mode from 0 W to 100 W and 200 W respectively.
 </li>
 </ul>
-</html>",revisions="<html>
+</html>",
+      revisions="<html>
 <ul>
 <li>
 March 08, 2019, by Tea Zakula:<br/>

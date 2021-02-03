@@ -1,20 +1,13 @@
 within Buildings.Fluid.SolarCollectors;
-package Examples "Examples demonstrating the use of models in the SolarCollectors package"
+package Examples
+  "Examples demonstrating the use of models in the SolarCollectors package"
   extends Modelica.Icons.ExamplesPackage;
-
-
-
-
-
-
-
-
-
-  annotation(Documentation(info="<html>
+  annotation (
+    Documentation(
+      info="<html>
     <p>
       This package contains example model demonstrating the use of models in
       the SolarCollectors package.
     </p>
   </html>"));
-
 end Examples;

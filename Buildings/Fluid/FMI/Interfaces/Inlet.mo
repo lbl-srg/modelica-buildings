@@ -1,48 +1,44 @@
 within Buildings.Fluid.FMI.Interfaces;
-connector Inlet "Connector for fluid inlet"
-  replaceable package Medium =
-    Modelica.Media.Interfaces.PartialMedium "Medium in the component"
-      annotation (choices(
-        choice(redeclare package Medium = Buildings.Media.Air "Moist air"),
-        choice(redeclare package Medium = Buildings.Media.Water "Water"),
-        choice(redeclare package Medium =
-            Buildings.Media.Antifreeze.PropyleneGlycolWater (
-          property_T=293.15,
-          X_a=0.40)
-          "Propylene glycol water, 40% mass fraction")));
-
-  parameter Boolean use_p_in = true
+connector Inlet
+  "Connector for fluid inlet"
+  replaceable package Medium=Modelica.Media.Interfaces.PartialMedium
+    "Medium in the component"
+    annotation (choices(choice(redeclare package Medium=Buildings.Media.Air "Moist air"),choice(redeclare package Medium=Buildings.Media.Water "Water"),choice(redeclare package Medium=Buildings.Media.Antifreeze.PropyleneGlycolWater(property_T=293.15,X_a=0.40) "Propylene glycol water, 40% mass fraction")));
+  parameter Boolean use_p_in=true
     "= true to use a pressure from connector, false to output Medium.p_default"
-    annotation(Evaluate=true);
-
-  parameter Boolean allowFlowReversal = true
+    annotation (Evaluate=true);
+  parameter Boolean allowFlowReversal=true
     "= true to allow flow reversal, false restricts to design direction (inlet -> outlet)"
-    annotation(Dialog(tab="Assumptions"), Evaluate=true);
-
+    annotation (Dialog(tab="Assumptions"),Evaluate=true);
   input Medium.MassFlowRate m_flow
     "Mass flow rate from the connection point into the component";
-  Buildings.Fluid.FMI.Interfaces.PressureInput p if
-     use_p_in "Thermodynamic pressure in the connection point";
-
+  Buildings.Fluid.FMI.Interfaces.PressureInput p if use_p_in
+    "Thermodynamic pressure in the connection point";
   input Buildings.Fluid.FMI.Interfaces.FluidProperties forward(
-    redeclare final package Medium = Medium) "Inflowing properties";
+    redeclare final package Medium=Medium)
+    "Inflowing properties";
   output Buildings.Fluid.FMI.Interfaces.FluidProperties backward(
-    redeclare final package Medium = Medium) if
-       allowFlowReversal "Outflowing properties";
-
-annotation (defaultComponentName="inlet",
-  Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
-            {100,100}}), graphics={Polygon(
+    redeclare final package Medium=Medium) if allowFlowReversal
+    "Outflowing properties";
+  annotation (
+    defaultComponentName="inlet",
+    Icon(
+      coordinateSystem(
+        preserveAspectRatio=false,
+        extent={{-100,-100},{100,100}}),
+      graphics={
+        Polygon(
           points={{-100,100},{-100,-100},{100,0},{-100,100}},
           lineColor={0,0,255},
           smooth=Smooth.None,
           fillPattern=FillPattern.Solid,
           fillColor={0,0,255}),
-          Text(
+        Text(
           extent={{-58,134},{48,94}},
           lineColor={0,0,255},
           textString="%name")}),
-    Documentation(info="<html>
+    Documentation(
+      info="<html>
 <p>
 This is a connector for a fluid inlet.
 The connector takes as an input the
@@ -96,7 +92,8 @@ unless <code>Medium.nC=0</code>.
 <p>
 If <code>allowFlowReversal = false</code>, then these outputs are not present.
 </p>
-</html>", revisions="<html>
+</html>",
+      revisions="<html>
 <ul>
 <li>
 January 18, 2019, by Jianjun Hu:<br/>

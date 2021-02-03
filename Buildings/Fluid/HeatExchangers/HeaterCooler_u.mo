@@ -1,15 +1,17 @@
 within Buildings.Fluid.HeatExchangers;
-model HeaterCooler_u "Heater or cooler with prescribed heat flow rate"
+model HeaterCooler_u
+  "Heater or cooler with prescribed heat flow rate"
   extends Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger(
     redeclare final Buildings.Fluid.MixingVolumes.MixingVolume vol(
-    final prescribedHeatFlowRate=true));
-
+      final prescribedHeatFlowRate=true));
   parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal
     "Heat flow rate at u=1, positive for heating";
-  Modelica.Blocks.Interfaces.RealInput u(unit="1") "Control input"
-    annotation (Placement(transformation(
-          extent={{-140,40},{-100,80}})));
-  Modelica.Blocks.Interfaces.RealOutput Q_flow(unit="W")
+  Modelica.Blocks.Interfaces.RealInput u(
+    unit="1")
+    "Control input"
+    annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
+  Modelica.Blocks.Interfaces.RealOutput Q_flow(
+    unit="W")
     "Heat added to the fluid"
     annotation (Placement(transformation(extent={{100,50},{120,70}})));
 protected
@@ -17,23 +19,25 @@ protected
     final alpha=0)
     "Prescribed heat flow"
     annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
-  Modelica.Blocks.Math.Gain gai(k=Q_flow_nominal) "Gain"
+  Modelica.Blocks.Math.Gain gai(
+    k=Q_flow_nominal)
+    "Gain"
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
 equation
-  connect(u, gai.u) annotation (Line(
-      points={{-120,60},{-82,60}},
-      color={0,0,127}));
-  connect(gai.y, preHea.Q_flow) annotation (Line(
-      points={{-59,60},{-40,60}},
-      color={0,0,127}));
-  connect(preHea.port, vol.heatPort) annotation (Line(
-      points={{-20,60},{-9,60},{-9,-10}},
-      color={191,0,0}));
-  connect(gai.y, Q_flow) annotation (Line(
-      points={{-59,60},{-50,60},{-50,80},{80,80},{80,60},{110,60}},
-      color={0,0,127}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics={
+  connect(u,gai.u)
+    annotation (Line(points={{-120,60},{-82,60}},color={0,0,127}));
+  connect(gai.y,preHea.Q_flow)
+    annotation (Line(points={{-59,60},{-40,60}},color={0,0,127}));
+  connect(preHea.port,vol.heatPort)
+    annotation (Line(points={{-20,60},{-9,60},{-9,-10}},color={191,0,0}));
+  connect(gai.y,Q_flow)
+    annotation (Line(points={{-59,60},{-50,60},{-50,80},{80,80},{80,60},{110,60}},color={0,0,127}));
+  annotation (
+    Icon(
+      coordinateSystem(
+        preserveAspectRatio=false,
+        extent={{-100,-100},{100,100}}),
+      graphics={
         Rectangle(
           extent={{-100,8},{101,-5}},
           lineColor={0,0,255},
@@ -75,8 +79,9 @@ equation
           extent={{72,96},{116,68}},
           lineColor={0,0,127},
           textString="Q_flow")}),
-defaultComponentName="hea",
-Documentation(info="<html>
+    defaultComponentName="hea",
+    Documentation(
+      info="<html>
 <p>
 Model for an ideal heater or cooler with prescribed heat flow rate to the medium.
 </p>
@@ -114,7 +119,7 @@ the example
 Buildings.Fluid.HeatExchangers.Validation.HeaterCooler_u</a>.
 </p>
 </html>",
-revisions="<html>
+      revisions="<html>
 <ul>
 <li>
 November 3, 2016, by Michael Wetter:<br/>

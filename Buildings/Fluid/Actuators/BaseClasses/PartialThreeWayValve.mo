@@ -1,127 +1,137 @@
 within Buildings.Fluid.Actuators.BaseClasses;
-partial model PartialThreeWayValve "Partial three way valve"
+partial model PartialThreeWayValve
+  "Partial three way valve"
   extends Buildings.Fluid.BaseClasses.PartialThreeWayResistance(
-    m_flow_small = m_flow_nominal*1e-4,
-    final mDyn_flow_nominal = m_flow_nominal,
-      redeclare replaceable
-      Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve res1
-        constrainedby Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve(
-          deltaM=deltaM,
-          dp(start=dpValve_nominal/2),
-          from_dp=from_dp,
-          final linearized=linearized[1],
-          final homotopyInitialization=homotopyInitialization,
-          final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
-          final m_flow_nominal=m_flow_nominal,
-          final dpValve_nominal=dpValve_nominal,
-          final dpFixed_nominal=dpFixed_nominal[1],
-          final use_inputFilter=false),
-      redeclare FixedResistances.LosslessPipe res2(
-        m_flow_nominal=m_flow_nominal),
-      redeclare replaceable
-      Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve res3
-        constrainedby Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve(
-          deltaM=deltaM,
-          dp(start=dpValve_nominal/2),
-          from_dp=from_dp,
-          final linearized=linearized[2],
-          final homotopyInitialization=homotopyInitialization,
-          final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
-          final m_flow_nominal=m_flow_nominal,
-          final dpValve_nominal=dpValve_nominal/fraK^2,
-          final dpFixed_nominal=dpFixed_nominal[2],
-          final use_inputFilter=false));
-    extends Buildings.Fluid.Actuators.BaseClasses.ActuatorSignal;
-    extends Buildings.Fluid.Actuators.BaseClasses.ValveParameters(
-      rhoStd=Medium.density_pTX(101325, 273.15+4, Medium.X_default));
-
-  constant Boolean homotopyInitialization = true "= true, use homotopy method"
-    annotation(HideResult=true);
-
-  parameter Modelica.SIunits.PressureDifference dpFixed_nominal[2](each displayUnit="Pa",
-                                                         each min=0) = {0, 0}
+    m_flow_small=m_flow_nominal*1e-4,
+    final mDyn_flow_nominal=m_flow_nominal,
+    redeclare replaceable Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve res1
+      constrainedby Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve(
+        deltaM=deltaM,
+        dp(
+          start=dpValve_nominal/2),
+        from_dp=from_dp,
+        final linearized=linearized[1],
+        final homotopyInitialization=homotopyInitialization,
+        final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
+        final m_flow_nominal=m_flow_nominal,
+        final dpValve_nominal=dpValve_nominal,
+        final dpFixed_nominal=dpFixed_nominal[1],
+        final use_inputFilter=false),
+    redeclare FixedResistances.LosslessPipe res2(
+      m_flow_nominal=m_flow_nominal),
+    redeclare replaceable Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve res3
+      constrainedby Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve(
+        deltaM=deltaM,
+        dp(
+          start=dpValve_nominal/2),
+        from_dp=from_dp,
+        final linearized=linearized[2],
+        final homotopyInitialization=homotopyInitialization,
+        final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
+        final m_flow_nominal=m_flow_nominal,
+        final dpValve_nominal=dpValve_nominal/fraK^2,
+        final dpFixed_nominal=dpFixed_nominal[2],
+        final use_inputFilter=false));
+  extends Buildings.Fluid.Actuators.BaseClasses.ActuatorSignal;
+  extends Buildings.Fluid.Actuators.BaseClasses.ValveParameters(
+    rhoStd=Medium.density_pTX(
+      101325,
+      273.15+4,
+      Medium.X_default));
+  constant Boolean homotopyInitialization=true
+    "= true, use homotopy method"
+    annotation (HideResult=true);
+  parameter Modelica.SIunits.PressureDifference dpFixed_nominal[2](
+    each displayUnit="Pa",
+    each min=0)={0,0}
     "Nominal pressure drop of pipes and other equipment in flow legs at port_1 and port_3"
-    annotation(Dialog(group="Nominal condition"));
-
-  parameter Real fraK(min=0, max=1) = 0.7
+    annotation (Dialog(group="Nominal condition"));
+  parameter Real fraK(
+    min=0,
+    max=1)=0.7
     "Fraction Kv(port_3&rarr;port_2)/Kv(port_1&rarr;port_2)";
-  parameter Real[2] l(each min=0, each max=1) = {0.0001, 0.0001}
+  parameter Real[2] l(
+    each min=0,
+    each max=1)={0.0001,0.0001}
     "Valve leakage, l=Kv(y=0)/Kv(y=1)";
-  parameter Real deltaM = 0.02
+  parameter Real deltaM=0.02
     "Fraction of nominal flow rate where linearization starts, if y=1"
-    annotation(Dialog(group="Pressure-flow linearization"));
-
-  parameter Boolean[2] linearized = {false, false}
+    annotation (Dialog(group="Pressure-flow linearization"));
+  parameter Boolean[2] linearized={false,false}
     "= true, use linear relation between m_flow and dp for any flow rate"
-    annotation(Dialog(tab="Advanced"));
-
+    annotation (Dialog(tab="Advanced"));
 protected
-  Modelica.Blocks.Math.Feedback inv "Inversion of control signal"
+  Modelica.Blocks.Math.Feedback inv
+    "Inversion of control signal"
     annotation (Placement(transformation(extent={{-74,40},{-62,52}})));
-  Modelica.Blocks.Sources.Constant uni(final k=1)
+  Modelica.Blocks.Sources.Constant uni(
+    final k=1)
     "Outputs one for bypass valve"
     annotation (Placement(transformation(extent={{-92,40},{-80,52}})));
-
 initial equation
-  assert(homotopyInitialization, "In " + getInstanceName() +
-    ": The constant homotopyInitialization has been modified from its default value. This constant will be removed in future releases.",
-    level = AssertionLevel.warning);
-
+  assert(
+    homotopyInitialization,
+    "In "+getInstanceName()+": The constant homotopyInitialization has been modified from its default value. This constant will be removed in future releases.",
+    level=AssertionLevel.warning);
 equation
-  connect(uni.y, inv.u1)
-    annotation (Line(points={{-79.4,46},{-72.8,46}},
-                     color={0,0,127}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
-            -100},{100,100}}), graphics={
-    Rectangle(
-      extent={{-100,40},{100,-40}},
-      lineColor={0,0,0},
-      fillPattern=FillPattern.HorizontalCylinder,
-      fillColor={192,192,192}),
-    Rectangle(
-      extent={{-100,22},{100,-22}},
-      lineColor={0,0,0},
-      fillPattern=FillPattern.HorizontalCylinder,
-      fillColor={0,127,255}),
-    Rectangle(
-      extent={{-60,40},{60,-40}},
-      fillColor={255,255,255},
-      fillPattern=FillPattern.Solid,
-      pattern=LinePattern.None),
-    Polygon(
-      points={{0,0},{-76,60},{-76,-60},{0,0}},
-      lineColor={0,0,0},
-      fillColor=DynamicSelect({0,0,0}, y*{255,255,255}),
-      fillPattern=FillPattern.Solid),
-    Polygon(
-      points={{0,0},{76,60},{76,-60},{0,0}},
-      lineColor={0,0,0},
-      fillColor={255,255,255},
-      fillPattern=FillPattern.Solid),
-    Rectangle(
-      extent={{-40,-56},{40,-100}},
-      lineColor={0,0,0},
-      fillPattern=FillPattern.VerticalCylinder,
-      fillColor={192,192,192}),
-    Rectangle(
-      extent={{-22,-56},{22,-100}},
-      lineColor={0,0,0},
-      fillPattern=FillPattern.VerticalCylinder,
-      fillColor={0,127,255}),
-    Polygon(
+  connect(uni.y,inv.u1)
+    annotation (Line(points={{-79.4,46},{-72.8,46}},color={0,0,127}));
+  annotation (
+    Icon(
+      coordinateSystem(
+        preserveAspectRatio=true,
+        extent={{-100,-100},{100,100}}),
+      graphics={
+        Rectangle(
+          extent={{-100,40},{100,-40}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.HorizontalCylinder,
+          fillColor={192,192,192}),
+        Rectangle(
+          extent={{-100,22},{100,-22}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.HorizontalCylinder,
+          fillColor={0,127,255}),
+        Rectangle(
+          extent={{-60,40},{60,-40}},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None),
+        Polygon(
+          points={{0,0},{-76,60},{-76,-60},{0,0}},
+          lineColor={0,0,0},
+          fillColor=DynamicSelect({0,0,0},y*{255,255,255}),
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{0,0},{76,60},{76,-60},{0,0}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-40,-56},{40,-100}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.VerticalCylinder,
+          fillColor={192,192,192}),
+        Rectangle(
+          extent={{-22,-56},{22,-100}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.VerticalCylinder,
+          fillColor={0,127,255}),
+        Polygon(
           points={{0,0},{60,-76},{-60,-76},{0,0}},
           lineColor={0,0,0},
-          fillColor=DynamicSelect({0,0,0}, (1-y)*{255,255,255}),
+          fillColor=DynamicSelect({0,0,0},(1-y)*{255,255,255}),
           fillPattern=FillPattern.Solid),
-    Line(
-      visible=use_inputFilter,
-      points={{-30,40},{30,40}}),
-            Line(
-      points={{0,40},{0,0}}),
-    Line(
-      visible=not use_inputFilter,
-      points={{0,100},{0,40}})}),
-    Documentation(info="<html>
+        Line(
+          visible=use_inputFilter,
+          points={{-30,40},{30,40}}),
+        Line(
+          points={{0,40},{0,0}}),
+        Line(
+          visible=not use_inputFilter,
+          points={{0,100},{0,40}})}),
+    Documentation(
+      info="<html>
 <p>
 Partial model of a three way valve. This is the base model for valves
 with different opening characteristics, such as linear, equal percentage
@@ -148,7 +158,8 @@ Since this model uses two way valves to construct a three way valve, see
 Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve</a>
 for details regarding the valve implementation.
 </p>
-</html>", revisions="<html>
+</html>",
+      revisions="<html>
 <ul>
 <li>
 April 14, 2020, by Michael Wetter:<br/>

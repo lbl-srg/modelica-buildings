@@ -1,78 +1,103 @@
 within Buildings.Fluid.Actuators.BaseClasses;
-partial model ValveParameters "Model with parameters for valves"
-
+partial model ValveParameters
+  "Model with parameters for valves"
   parameter Buildings.Fluid.Types.CvTypes CvData=Buildings.Fluid.Types.CvTypes.OpPoint
     "Selection of flow coefficient"
-   annotation(Dialog(group = "Flow Coefficient"));
+    annotation (Dialog(group="Flow Coefficient"));
   parameter Real Kv(
-    fixed= if CvData==Buildings.Fluid.Types.CvTypes.Kv then true else false)
+    fixed=
+      if CvData == Buildings.Fluid.Types.CvTypes.Kv then
+        true
+      else
+        false)
     "Kv (metric) flow coefficient [m3/h/(bar)^(1/2)]"
-  annotation(Dialog(group = "Flow Coefficient",
-                    enable = (CvData==Buildings.Fluid.Types.CvTypes.Kv)));
+    annotation (Dialog(group="Flow Coefficient",enable=(CvData == Buildings.Fluid.Types.CvTypes.Kv)));
   parameter Real Cv(
-    fixed= if CvData==Buildings.Fluid.Types.CvTypes.Cv then true else false)
+    fixed=
+      if CvData == Buildings.Fluid.Types.CvTypes.Cv then
+        true
+      else
+        false)
     "Cv (US) flow coefficient [USG/min/(psi)^(1/2)]"
-  annotation(Dialog(group = "Flow Coefficient",
-                    enable = (CvData==Buildings.Fluid.Types.CvTypes.Cv)));
+    annotation (Dialog(group="Flow Coefficient",enable=(CvData == Buildings.Fluid.Types.CvTypes.Cv)));
   parameter Modelica.SIunits.Area Av(
-    fixed= if CvData==Buildings.Fluid.Types.CvTypes.Av then true else false)
+    fixed=
+      if CvData == Buildings.Fluid.Types.CvTypes.Av then
+        true
+      else
+        false)
     "Av (metric) flow coefficient"
-   annotation(Dialog(group = "Flow Coefficient",
-                     enable = (CvData==Buildings.Fluid.Types.CvTypes.Av)));
-
-  parameter Real deltaM = 0.02
+    annotation (Dialog(group="Flow Coefficient",enable=(CvData == Buildings.Fluid.Types.CvTypes.Av)));
+  parameter Real deltaM=0.02
     "Fraction of nominal flow rate where linearization starts, if y=1"
-    annotation(Dialog(group="Pressure-flow linearization"));
+    annotation (Dialog(group="Pressure-flow linearization"));
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal
     "Nominal mass flow rate"
-    annotation(Dialog(group = "Nominal condition"));
+    annotation (Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.PressureDifference dpValve_nominal(
-     displayUnit="Pa",
-     min=0,
-     fixed= if CvData==Buildings.Fluid.Types.CvTypes.OpPoint then true else false)
+    displayUnit="Pa",
+    min=0,
+    fixed=
+      if CvData == Buildings.Fluid.Types.CvTypes.OpPoint then
+        true
+      else
+        false)
     "Nominal pressure drop of fully open valve, used if CvData=Buildings.Fluid.Types.CvTypes.OpPoint"
-    annotation(Dialog(group="Nominal condition",
-               enable = (CvData==Buildings.Fluid.Types.CvTypes.OpPoint)));
-
+    annotation (Dialog(group="Nominal condition",enable=(CvData == Buildings.Fluid.Types.CvTypes.OpPoint)));
   parameter Modelica.SIunits.Density rhoStd
     "Inlet density for which valve coefficients are defined"
-  annotation(Dialog(group="Nominal condition", tab="Advanced"));
-
+    annotation (Dialog(group="Nominal condition",tab="Advanced"));
 protected
   parameter Real Kv_SI(
     min=0,
-    fixed= false)
+    fixed=false)
     "Flow coefficient for fully open valve in SI units, Kv=m_flow/sqrt(dp) [kg/s/(Pa)^(1/2)]"
-  annotation(Dialog(group = "Flow Coefficient",
-                    enable = (CvData==Buildings.Fluid.Types.CvTypes.OpPoint)));
+    annotation (Dialog(group="Flow Coefficient",enable=(CvData == Buildings.Fluid.Types.CvTypes.OpPoint)));
 initial equation
-  if  CvData == Buildings.Fluid.Types.CvTypes.OpPoint then
-    Kv_SI =           m_flow_nominal/sqrt(dpValve_nominal);
-    Kv    =           Kv_SI/(rhoStd/3600/sqrt(1E5));
-    Cv    =           Kv_SI/(rhoStd*0.0631/1000/sqrt(6895));
-    Av    =           Kv_SI/sqrt(rhoStd);
+  if CvData == Buildings.Fluid.Types.CvTypes.OpPoint then
+    Kv_SI=m_flow_nominal/sqrt(
+      dpValve_nominal);
+    Kv=Kv_SI/(rhoStd/3600/sqrt(
+      1E5));
+    Cv=Kv_SI/(rhoStd*0.0631/1000/sqrt(
+      6895));
+    Av=Kv_SI/sqrt(
+      rhoStd);
   elseif CvData == Buildings.Fluid.Types.CvTypes.Kv then
-    Kv_SI =           Kv*rhoStd/3600/sqrt(1E5)
+    Kv_SI=Kv*rhoStd/3600/sqrt(
+      1E5)
       "Unit conversion m3/(h*sqrt(bar)) to kg/(s*sqrt(Pa))";
-    Cv    =           Kv_SI/(rhoStd*0.0631/1000/sqrt(6895));
-    Av    =           Kv_SI/sqrt(rhoStd);
-    dpValve_nominal =  (m_flow_nominal/Kv_SI)^2;
+    Cv=Kv_SI/(rhoStd*0.0631/1000/sqrt(
+      6895));
+    Av=Kv_SI/sqrt(
+      rhoStd);
+    dpValve_nominal=(m_flow_nominal/Kv_SI)^2;
   elseif CvData == Buildings.Fluid.Types.CvTypes.Cv then
-    Kv_SI =           Cv*rhoStd*0.0631/1000/sqrt(6895)
+    Kv_SI=Cv*rhoStd*0.0631/1000/sqrt(
+      6895)
       "Unit conversion USG/(min*sqrt(psi)) to kg/(s*sqrt(Pa))";
-    Kv    =           Kv_SI/(rhoStd/3600/sqrt(1E5));
-    Av    =           Kv_SI/sqrt(rhoStd);
-    dpValve_nominal =  (m_flow_nominal/Kv_SI)^2;
+    Kv=Kv_SI/(rhoStd/3600/sqrt(
+      1E5));
+    Av=Kv_SI/sqrt(
+      rhoStd);
+    dpValve_nominal=(m_flow_nominal/Kv_SI)^2;
   else
-    assert(CvData == Buildings.Fluid.Types.CvTypes.Av, "Invalid value for CvData.
-Obtained CvData = " + String(CvData) + ".");
-    Kv_SI =           Av*sqrt(rhoStd);
-    Kv    =           Kv_SI/(rhoStd/3600/sqrt(1E5));
-    Cv    =           Kv_SI/(rhoStd*0.0631/1000/sqrt(6895));
-    dpValve_nominal =  (m_flow_nominal/Kv_SI)^2;
+    assert(
+      CvData == Buildings.Fluid.Types.CvTypes.Av,
+      "Invalid value for CvData.
+Obtained CvData = "+String(
+        CvData)+".");
+    Kv_SI=Av*sqrt(
+      rhoStd);
+    Kv=Kv_SI/(rhoStd/3600/sqrt(
+      1E5));
+    Cv=Kv_SI/(rhoStd*0.0631/1000/sqrt(
+      6895));
+    dpValve_nominal=(m_flow_nominal/Kv_SI)^2;
   end if;
-
-  annotation (Documentation(info="<html>
+  annotation (
+    Documentation(
+      info="<html>
 <p>
 Model that computes the flow coefficients of valves. This base class allows the following modeling options,
 which have been adapted from the valve implementation
@@ -113,7 +138,8 @@ Therefore, if
 <code>CvData &lt;&gt; Buildings.Fluid.Types.CvTypes.OpPoint</code>,
 then specifying a value for <code>dpValve_nominal</code> is a syntax error.
 </p>
-</html>", revisions="<html>
+</html>",
+      revisions="<html>
 <ul>
 <li>
 January 22, 2016, by Michael Wetter:<br/>

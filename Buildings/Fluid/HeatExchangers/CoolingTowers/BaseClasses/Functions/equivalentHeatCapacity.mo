@@ -2,62 +2,58 @@ within Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Functions;
 function equivalentHeatCapacity
   "Computes equivalent specific heat of moist air"
   extends Modelica.Icons.Function;
-  input Modelica.SIunits.Temperature TIn "Inlet temperature";
-  input Modelica.SIunits.Temperature TOut "Outlet temperature";
-
+  input Modelica.SIunits.Temperature TIn
+    "Inlet temperature";
+  input Modelica.SIunits.Temperature TOut
+    "Outlet temperature";
   output Modelica.SIunits.SpecificHeatCapacity equivalentHeatCapacity
     "Equivalent specific heat capacity";
-
 protected
   constant Modelica.SIunits.TemperatureDifference deltaT=0.01
     "Small temperature difference, used for regularization";
-
   Modelica.SIunits.Temperature TOutEps
     "Outlet temperature, bounded away from TIn";
-
   Modelica.SIunits.MassFraction XIn_w
     "Water vapor mass fraction per unit mass total air";
   Modelica.SIunits.MassFraction XOut_w
     "Water vapor mass fraction per unit mass total air";
-
-  Modelica.SIunits.SpecificEnthalpy hIn "Inlet specific enthalpy";
-  Modelica.SIunits.SpecificEnthalpy hOut "Outlet specific enthalpy";
-
+  Modelica.SIunits.SpecificEnthalpy hIn
+    "Inlet specific enthalpy";
+  Modelica.SIunits.SpecificEnthalpy hOut
+    "Outlet specific enthalpy";
 algorithm
-  TOutEps :=Buildings.Utilities.Math.Functions.smoothMax(
+  TOutEps := Buildings.Utilities.Math.Functions.smoothMax(
     x1=TOut,
-    x2=TIn + deltaT,
+    x2=TIn+deltaT,
     deltaX=deltaT/2);
   XIn_w := Buildings.Utilities.Psychrometrics.Functions.X_pTphi(
-      p = 101325,
-      T = TIn,
-      phi=1);
+    p=101325,
+    T=TIn,
+    phi=1);
   XOut_w := Buildings.Utilities.Psychrometrics.Functions.X_pTphi(
-      p = 101325,
-      T = TOutEps,
-      phi=1);
-
+    p=101325,
+    T=TOutEps,
+    phi=1);
   hIn := Buildings.Media.Air.specificEnthalpy_pTX(
     p=101325,
     T=TIn,
-    X={XIn_w, 1-XIn_w});
-
+    X={XIn_w,1-XIn_w});
   hOut := Buildings.Media.Air.specificEnthalpy_pTX(
     p=101325,
     T=TOutEps,
-    X={XOut_w, 1-XOut_w});
-
-  equivalentHeatCapacity := (hIn-hOut)/(TIn-TOutEps);
-
+    X={XOut_w,1-XOut_w});
+  equivalentHeatCapacity :=(hIn-hOut)/(TIn-TOutEps);
   annotation (
-  smoothOrder=1,
-Documentation(info="<html>
+    smoothOrder=1,
+    Documentation(
+      info="<html>
 <p>
 This function computes the equivalent specific heat of moist air 
 as the ratio of change in enthalpy relative to the change in 
 temperature of the air entering and leaving the tower. 
 </p>
-</html>", revisions="<html>
+</html>",
+      revisions="<html>
 <ul>
 <li>
 January 3, 2020, by Michael Wetter:<br/>

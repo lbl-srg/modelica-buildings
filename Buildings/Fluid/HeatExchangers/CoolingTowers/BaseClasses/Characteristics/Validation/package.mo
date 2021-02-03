@@ -1,8 +1,10 @@
 within Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Characteristics;
-package Validation "Collection of models that validate the cooling tower models"
+package Validation
+  "Collection of models that validate the cooling tower models"
   extends Modelica.Icons.ExamplesPackage;
-
-  annotation (Documentation(info="<html>
+  annotation (
+    Documentation(
+      info="<html>
 <p>
 This package contains models that validate the cooling tower power consumption.
 The examples plot various outputs, which have been verified against

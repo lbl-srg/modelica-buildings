@@ -1,21 +1,31 @@
 within Buildings.Fluid.Sensors;
-model Pressure "Ideal pressure sensor"
+model Pressure
+  "Ideal pressure sensor"
   extends Buildings.Fluid.Sensors.BaseClasses.PartialAbsoluteSensor(
-    final warnAboutOnePortConnection = false);
+    final warnAboutOnePortConnection=false);
   extends Modelica.Icons.RotationalSensor;
-  Modelica.Blocks.Interfaces.RealOutput p(final quantity="AbsolutePressure",
-                                          final unit="Pa",
-                                          min=0) "Pressure at port"
+  Modelica.Blocks.Interfaces.RealOutput p(
+    final quantity="AbsolutePressure",
+    final unit="Pa",
+    min=0)
+    "Pressure at port"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 equation
-  p = port.p;
-  annotation (defaultComponentName="senPre",
-  Icon(coordinateSystem(
+  p=port.p;
+  annotation (
+    defaultComponentName="senPre",
+    Icon(
+      coordinateSystem(
         preserveAspectRatio=false,
         extent={{-100,-100},{100,100}},
-        grid={1,1}), graphics={
-        Line(points={{70,0},{100,0}}, color={0,0,127}),
-        Line(points={{0,-70},{0,-100}}, color={0,127,255}),
+        grid={1,1}),
+      graphics={
+        Line(
+          points={{70,0},{100,0}},
+          color={0,0,127}),
+        Line(
+          points={{0,-70},{0,-100}},
+          color={0,127,255}),
         Text(
           extent={{-150,80},{150,120}},
           textString="%name",
@@ -24,18 +34,23 @@ equation
           extent={{151,-20},{57,-50}},
           lineColor={0,0,0},
           textString="p"),
-        Line(points={{70,0},{100,0}}, color={0,0,127}),
+        Line(
+          points={{70,0},{100,0}},
+          color={0,0,127}),
         Text(
           extent={{180,90},{60,40}},
           lineColor={0,0,0},
-          textString=DynamicSelect("", String(p, leftjustified=false, significantDigits=5)))}),
-    Documentation(info="<html>
+          textString=DynamicSelect("",String(p,
+            leftjustified=false,
+            significantDigits=5)))}),
+    Documentation(
+      info="<html>
 <p>
 This model outputs the absolute pressure of the fluid connected to its port.
 The sensor is ideal, i.e., it does not influence the fluid.
 </p>
 </html>",
-revisions="<html>
+      revisions="<html>
 <ul>
 <li>
 February 25, 2020, by Michael Wetter:<br/>

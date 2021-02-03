@@ -2,12 +2,13 @@ within Buildings.Fluid.Sources;
 model Outside
   "Boundary that takes weather data, and optionally trace substances, as an input"
   extends Buildings.Fluid.Sources.BaseClasses.Outside;
-
 equation
-  connect(weaBus.pAtm, p_in_internal);
-  connect(weaBus.TDryBul, T_in_internal);
-  annotation (defaultComponentName="out",
-    Documentation(info="<html>
+  connect(weaBus.pAtm,p_in_internal);
+  connect(weaBus.TDryBul,T_in_internal);
+  annotation (
+    defaultComponentName="out",
+    Documentation(
+      info="<html>
 <p>
 This model describes boundary conditions for
 pressure, enthalpy, and species concentration that can be obtained
@@ -36,7 +37,7 @@ the port into the boundary, the boundary definitions,
 with exception of boundary pressure, do not have an effect.
 </p>
 </html>",
-revisions="<html>
+      revisions="<html>
 <ul>
 <li>
 October 26, 2011 by Michael Wetter:<br/>

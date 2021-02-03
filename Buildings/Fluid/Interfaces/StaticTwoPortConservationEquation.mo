@@ -2,255 +2,280 @@ within Buildings.Fluid.Interfaces;
 model StaticTwoPortConservationEquation
   "Partial model for static energy and mass conservation equations"
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface;
-
-  constant Boolean simplify_mWat_flow = true
+  constant Boolean simplify_mWat_flow=true
     "Set to true to cause port_a.m_flow + port_b.m_flow = 0 even if mWat_flow is non-zero";
-
-  constant Boolean prescribedHeatFlowRate = false
+  constant Boolean prescribedHeatFlowRate=false
     "Set to true if the heat flow rate is not a function of a temperature difference to the fluid temperature";
-
-  parameter Boolean use_mWat_flow = false
+  parameter Boolean use_mWat_flow=false
     "Set to true to enable input connector for moisture mass flow rate"
-    annotation(Evaluate=true, Dialog(tab="Advanced"));
-
-  parameter Boolean use_C_flow = false
+    annotation (Evaluate=true,Dialog(tab="Advanced"));
+  parameter Boolean use_C_flow=false
     "Set to true to enable input connector for trace substance"
-    annotation(Evaluate=true, Dialog(tab="Advanced"));
-
-  Modelica.Blocks.Interfaces.RealInput Q_flow(unit="W")
+    annotation (Evaluate=true,Dialog(tab="Advanced"));
+  Modelica.Blocks.Interfaces.RealInput Q_flow(
+    unit="W")
     "Sensible plus latent heat flow rate transferred into the medium"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
-  Modelica.Blocks.Interfaces.RealInput mWat_flow(final quantity="MassFlowRate",
-                                                 unit="kg/s") if
-       use_mWat_flow "Moisture mass flow rate added to the medium"
+  Modelica.Blocks.Interfaces.RealInput mWat_flow(
+    final quantity="MassFlowRate",
+    unit="kg/s") if use_mWat_flow
+    "Moisture mass flow rate added to the medium"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
-  Modelica.Blocks.Interfaces.RealInput[Medium.nC] C_flow if
-       use_C_flow "Trace substance mass flow rate added to the medium"
+  Modelica.Blocks.Interfaces.RealInput[Medium.nC] C_flow if use_C_flow
+    "Trace substance mass flow rate added to the medium"
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
-
   // Outputs that are needed in models that extend this model
-  Modelica.Blocks.Interfaces.RealOutput hOut(final unit="J/kg")
+  Modelica.Blocks.Interfaces.RealOutput hOut(
+    final unit="J/kg")
     "Leaving specific enthalpy of the component"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={-50,110}), iconTransformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={-50,110})));
-
-  Modelica.Blocks.Interfaces.RealOutput XiOut[Medium.nXi](each unit="1",
-                                                          each min=0,
-                                                          each max=1)
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=90,origin={-50,110}),iconTransformation(extent={{-10,-10},{10,10}},rotation=90,origin={-50,110})));
+  Modelica.Blocks.Interfaces.RealOutput XiOut[Medium.nXi](
+    each unit="1",
+    each min=0,
+    each max=1)
     "Leaving species concentration of the component"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={0,110})));
-  Modelica.Blocks.Interfaces.RealOutput COut[Medium.nC](each min=0)
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=90,origin={0,110})));
+  Modelica.Blocks.Interfaces.RealOutput COut[Medium.nC](
+    each min=0)
     "Leaving trace substances of the component"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={50,110})));
-
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=90,origin={50,110})));
 protected
-  final parameter Boolean use_m_flowInv=
-    (prescribedHeatFlowRate or use_mWat_flow or use_C_flow)
+  final parameter Boolean use_m_flowInv=(prescribedHeatFlowRate or use_mWat_flow or use_C_flow)
     "Flag, true if m_flowInv is used in the model"
     annotation (Evaluate=true);
-  final parameter Real s[Medium.nXi] = {if Modelica.Utilities.Strings.isEqual(string1=Medium.substanceNames[i],
-                                            string2="Water",
-                                            caseSensitive=false)
-                                            then 1 else 0 for i in 1:Medium.nXi}
+  final parameter Real s[Medium.nXi]={
+    if Modelica.Utilities.Strings.isEqual(
+      string1=Medium.substanceNames[i],
+      string2="Water",
+      caseSensitive=false) then
+      1
+    else
+      0 for i in 1:Medium.nXi}
     "Vector with zero everywhere except where species is";
-
-  Real m_flowInv(unit="s/kg") "Regularization of 1/m_flow of port_a";
-
+  Real m_flowInv(
+    unit="s/kg")
+    "Regularization of 1/m_flow of port_a";
   Modelica.SIunits.MassFlowRate mXi_flow[Medium.nXi]
     "Mass flow rates of independent substances added to the medium";
-
   // Parameters for inverseXRegularized.
   // These are assigned here for efficiency reason.
   // Otherwise, they would need to be computed each time
   // the function is invocated.
-  final parameter Real deltaReg = m_flow_small/1E3
+  final parameter Real deltaReg=m_flow_small/1E3
     "Smoothing region for inverseXRegularized";
-
-  final parameter Real deltaInvReg = 1/deltaReg
+  final parameter Real deltaInvReg=1/deltaReg
     "Inverse value of delta for inverseXRegularized";
-
-  final parameter Real aReg = -15*deltaInvReg
+  final parameter Real aReg=-15*deltaInvReg
     "Polynomial coefficient for inverseXRegularized";
-  final parameter Real bReg = 119*deltaInvReg^2
+  final parameter Real bReg=119*deltaInvReg^2
     "Polynomial coefficient for inverseXRegularized";
-  final parameter Real cReg = -361*deltaInvReg^3
+  final parameter Real cReg=-361*deltaInvReg^3
     "Polynomial coefficient for inverseXRegularized";
-  final parameter Real dReg = 534*deltaInvReg^4
+  final parameter Real dReg=534*deltaInvReg^4
     "Polynomial coefficient for inverseXRegularized";
-  final parameter Real eReg = -380*deltaInvReg^5
+  final parameter Real eReg=-380*deltaInvReg^5
     "Polynomial coefficient for inverseXRegularized";
-  final parameter Real fReg = 104*deltaInvReg^6
+  final parameter Real fReg=104*deltaInvReg^6
     "Polynomial coefficient for inverseXRegularized";
-
-  final parameter Medium.ThermodynamicState state_default = Medium.setState_pTX(
-      T=Medium.T_default,
-      p=Medium.p_default,
-      X=Medium.X_default[1:Medium.nXi]) "Medium state at default values";
+  final parameter Medium.ThermodynamicState state_default=Medium.setState_pTX(
+    T=Medium.T_default,
+    p=Medium.p_default,
+    X=Medium.X_default[1:Medium.nXi])
+    "Medium state at default values";
   // Density at medium default values, used to compute the size of control volumes
-  final parameter Modelica.SIunits.SpecificHeatCapacity cp_default=
-    Medium.specificHeatCapacityCp(state=state_default)
+  final parameter Modelica.SIunits.SpecificHeatCapacity cp_default=Medium.specificHeatCapacityCp(
+    state=state_default)
     "Specific heat capacity, used to verify energy conservation";
-  constant Modelica.SIunits.TemperatureDifference dTMax(min=1) = 200
+  constant Modelica.SIunits.TemperatureDifference dTMax(
+    min=1)=200
     "Maximum temperature difference across the StaticTwoPortConservationEquation";
   // Conditional connectors
-  Modelica.Blocks.Interfaces.RealInput mWat_flow_internal(unit="kg/s")
+  Modelica.Blocks.Interfaces.RealInput mWat_flow_internal(
+    unit="kg/s")
     "Needed to connect to conditional connector";
   Modelica.Blocks.Interfaces.RealInput C_flow_internal[Medium.nC]
     "Needed to connect to conditional connector";
 initial equation
   // Assert that the substance with name 'water' has been found.
-  assert(Medium.nXi == 0 or abs(sum(s)-1) < 1e-5,
-      "If Medium.nXi > 1, then substance 'water' must be present for one component.'"
-         + Medium.mediumName + "'.\n"
-         + "Check medium model.");
-
+  assert(
+    Medium.nXi == 0 or abs(
+      sum(
+        s)-1) < 1e-5,
+    "If Medium.nXi > 1, then substance 'water' must be present for one component.'"+Medium.mediumName+"'.\n"+"Check medium model.");
 equation
   // Conditional connectors
-  connect(mWat_flow, mWat_flow_internal);
+  connect(mWat_flow,mWat_flow_internal);
   if not use_mWat_flow then
-    mWat_flow_internal = 0;
+    mWat_flow_internal=0;
   end if;
-
-  connect(C_flow, C_flow_internal);
+  connect(C_flow,C_flow_internal);
   if not use_C_flow then
-    C_flow_internal = zeros(Medium.nC);
+    C_flow_internal=zeros(
+      Medium.nC);
   end if;
-
   // Species flow rate from connector mWat_flow
-  mXi_flow = mWat_flow_internal * s;
-
+  mXi_flow=mWat_flow_internal*s;
   // Regularization of m_flow around the origin to avoid a division by zero
   // m_flowInv is only used if prescribedHeatFlowRate == true, or
   // if the input connectors mWat_flow or C_flow are enabled.
   if use_m_flowInv then
-    m_flowInv = Buildings.Utilities.Math.Functions.inverseXRegularized(
-                       x=port_a.m_flow,
-                       delta=deltaReg, deltaInv=deltaInvReg,
-                       a=aReg, b=bReg, c=cReg, d=dReg, e=eReg, f=fReg);
+    m_flowInv=Buildings.Utilities.Math.Functions.inverseXRegularized(
+      x=port_a.m_flow,
+      delta=deltaReg,
+      deltaInv=deltaInvReg,
+      a=aReg,
+      b=bReg,
+      c=cReg,
+      d=dReg,
+      e=eReg,
+      f=fReg);
   else
     // m_flowInv is not used.
-    m_flowInv = 0;
+    m_flowInv=0;
   end if;
-
   if prescribedHeatFlowRate then
-    assert(noEvent( abs(Q_flow) < dTMax*cp_default*max(m_flow_small/1E3, abs(m_flow))),
-   "In " + getInstanceName() + ":
-   The heat flow rate equals " + String(Q_flow) +
-   " W and the mass flow rate equals " + String(m_flow) + " kg/s,
-   which results in a temperature difference " +
-   String(abs(Q_flow)/ (cp_default*max(m_flow_small/1E3, abs(m_flow)))) +
-   " K > dTMax=" +String(dTMax) + " K.
+    assert(
+      noEvent(
+        abs(
+          Q_flow) < dTMax*cp_default*max(
+          m_flow_small/1E3,
+          abs(
+            m_flow))),
+      "In "+getInstanceName()+":
+   The heat flow rate equals "+String(
+        Q_flow)+" W and the mass flow rate equals "+String(
+        m_flow)+" kg/s,
+   which results in a temperature difference "+String(
+        abs(
+          Q_flow)/(cp_default*max(
+          m_flow_small/1E3,
+          abs(
+            m_flow))))+" K > dTMax="+String(
+        dTMax)+" K.
    This may indicate that energy is not conserved for small mass flow rates.
    The implementation may require prescribedHeatFlowRate = false.");
   end if;
-
   if allowFlowReversal then
     // Formulate hOut using spliceFunction. This avoids an event iteration.
     // The introduced error is small because deltax=m_flow_small/1e3
-    hOut = Buildings.Utilities.Math.Functions.regStep(y1=port_b.h_outflow,
-                                                    y2=port_a.h_outflow,
-                                                    x=port_a.m_flow,
-                                                    x_small=m_flow_small/1E3);
-    XiOut = Buildings.Utilities.Math.Functions.regStep(y1=port_b.Xi_outflow,
-                                                     y2=port_a.Xi_outflow,
-                                                     x=port_a.m_flow,
-                                                     x_small=m_flow_small/1E3);
-    COut = Buildings.Utilities.Math.Functions.regStep(y1=port_b.C_outflow,
-                                                    y2=port_a.C_outflow,
-                                                    x=port_a.m_flow,
-                                                    x_small=m_flow_small/1E3);
+    hOut=Buildings.Utilities.Math.Functions.regStep(
+      y1=port_b.h_outflow,
+      y2=port_a.h_outflow,
+      x=port_a.m_flow,
+      x_small=m_flow_small/1E3);
+    XiOut=Buildings.Utilities.Math.Functions.regStep(
+      y1=port_b.Xi_outflow,
+      y2=port_a.Xi_outflow,
+      x=port_a.m_flow,
+      x_small=m_flow_small/1E3);
+    COut=Buildings.Utilities.Math.Functions.regStep(
+      y1=port_b.C_outflow,
+      y2=port_a.C_outflow,
+      x=port_a.m_flow,
+      x_small=m_flow_small/1E3);
   else
-    hOut =  port_b.h_outflow;
-    XiOut = port_b.Xi_outflow;
-    COut =  port_b.C_outflow;
+    hOut=port_b.h_outflow;
+    XiOut=port_b.Xi_outflow;
+    COut=port_b.C_outflow;
   end if;
-
   //////////////////////////////////////////////////////////////////////////////////////////
   // Energy balance and mass balance
-
-    // Mass balance (no storage)
-    port_a.m_flow + port_b.m_flow = if simplify_mWat_flow then 0 else -mWat_flow_internal;
-
-    // Substance balance
-    // a) forward flow
-    if use_m_flowInv then
-      port_b.Xi_outflow = inStream(port_a.Xi_outflow) + mXi_flow * m_flowInv;
-    else // no water is added
-      assert(use_mWat_flow == false, "In " + getInstanceName() + ": Wrong implementation for forward flow.");
-      port_b.Xi_outflow = inStream(port_a.Xi_outflow);
-    end if;
-
-    // b) backward flow
-    if allowFlowReversal then
-      if use_m_flowInv then
-        port_a.Xi_outflow = inStream(port_b.Xi_outflow) - mXi_flow * m_flowInv;
-      else // no water added
-        assert(use_mWat_flow == false, "In " + getInstanceName() + ": Wrong implementation for reverse flow.");
-        port_a.Xi_outflow = inStream(port_b.Xi_outflow);
-      end if;
-    else // no  flow reversal
-      port_a.Xi_outflow = Medium.X_default[1:Medium.nXi];
-    end if;
-
-    // Energy balance.
-    // This equation is approximate since m_flow = port_a.m_flow is used for the mass flow rate
-    // at both ports. Since mWat_flow_internal << m_flow, the error is small.
-    if prescribedHeatFlowRate then
-      port_b.h_outflow = inStream(port_a.h_outflow) + Q_flow * m_flowInv;
-      if allowFlowReversal then
-        port_a.h_outflow = inStream(port_b.h_outflow) - Q_flow * m_flowInv;
-      else
-        port_a.h_outflow = Medium.h_default;
-      end if;
+  // Mass balance (no storage)
+  port_a.m_flow+port_b.m_flow=
+    if simplify_mWat_flow then
+      0
     else
-      // Case with prescribedHeatFlowRate == false.
-      // port_b.h_outflow is known and the equation needs to be solved for Q_flow.
-      // Hence, we cannot use m_flowInv as for m_flow=0, any Q_flow would satisfiy
-      // Q_flow * m_flowInv = 0.
-      // The same applies for port_b.Xi_outflow and mXi_flow.
-      port_a.m_flow * (inStream(port_a.h_outflow) - port_b.h_outflow)     = -Q_flow;
-      if allowFlowReversal then
-        port_a.m_flow * (inStream(port_b.h_outflow)  - port_a.h_outflow)  = +Q_flow;
-      else
-        // When allowFlowReversal = false, the downstream enthalpy does not matter.
-        // Therefore a dummy value is used to avoid algebraic loops
-        port_a.h_outflow = Medium.h_default;
-      end if;
-    end if;
-
-  // Transport of trace substances
-  if use_m_flowInv and use_C_flow then
-    port_b.C_outflow =  inStream(port_a.C_outflow) + C_flow_internal * m_flowInv;
-  else // no trace substance added.
-    assert(not use_C_flow, "In " + getInstanceName() + ": Wrong implementation of trace substance balance for forward flow.");
-    port_b.C_outflow =  inStream(port_a.C_outflow);
+      -mWat_flow_internal;
+  // Substance balance
+  // a) forward flow
+  if use_m_flowInv then
+    port_b.Xi_outflow=inStream(
+      port_a.Xi_outflow)+mXi_flow*m_flowInv;
+  else
+    // no water is added
+    assert(
+      use_mWat_flow == false,
+      "In "+getInstanceName()+": Wrong implementation for forward flow.");
+    port_b.Xi_outflow=inStream(
+      port_a.Xi_outflow);
   end if;
-
+  // b) backward flow
   if allowFlowReversal then
-    if use_C_flow then
-      port_a.C_outflow = inStream(port_b.C_outflow) - C_flow_internal * m_flowInv;
+    if use_m_flowInv then
+      port_a.Xi_outflow=inStream(
+        port_b.Xi_outflow)-mXi_flow*m_flowInv;
     else
-      port_a.C_outflow = inStream(port_b.C_outflow);
+      // no water added
+      assert(
+        use_mWat_flow == false,
+        "In "+getInstanceName()+": Wrong implementation for reverse flow.");
+      port_a.Xi_outflow=inStream(
+        port_b.Xi_outflow);
     end if;
   else
-    port_a.C_outflow = zeros(Medium.nC);
+    // no  flow reversal
+    port_a.Xi_outflow=Medium.X_default[1:Medium.nXi];
   end if;
-
+  // Energy balance.
+  // This equation is approximate since m_flow = port_a.m_flow is used for the mass flow rate
+  // at both ports. Since mWat_flow_internal << m_flow, the error is small.
+  if prescribedHeatFlowRate then
+    port_b.h_outflow=inStream(
+      port_a.h_outflow)+Q_flow*m_flowInv;
+    if allowFlowReversal then
+      port_a.h_outflow=inStream(
+        port_b.h_outflow)-Q_flow*m_flowInv;
+    else
+      port_a.h_outflow=Medium.h_default;
+    end if;
+  else
+    // Case with prescribedHeatFlowRate == false.
+    // port_b.h_outflow is known and the equation needs to be solved for Q_flow.
+    // Hence, we cannot use m_flowInv as for m_flow=0, any Q_flow would satisfiy
+    // Q_flow * m_flowInv = 0.
+    // The same applies for port_b.Xi_outflow and mXi_flow.
+    port_a.m_flow*(inStream(
+      port_a.h_outflow)-port_b.h_outflow)=-Q_flow;
+    if allowFlowReversal then
+      port_a.m_flow*(inStream(
+        port_b.h_outflow)-port_a.h_outflow)=+Q_flow;
+    else
+      // When allowFlowReversal = false, the downstream enthalpy does not matter.
+      // Therefore a dummy value is used to avoid algebraic loops
+      port_a.h_outflow=Medium.h_default;
+    end if;
+  end if;
+  // Transport of trace substances
+  if use_m_flowInv and use_C_flow then
+    port_b.C_outflow=inStream(
+      port_a.C_outflow)+C_flow_internal*m_flowInv;
+  else
+    // no trace substance added.
+    assert(
+      not use_C_flow,
+      "In "+getInstanceName()+": Wrong implementation of trace substance balance for forward flow.");
+    port_b.C_outflow=inStream(
+      port_a.C_outflow);
+  end if;
+  if allowFlowReversal then
+    if use_C_flow then
+      port_a.C_outflow=inStream(
+        port_b.C_outflow)-C_flow_internal*m_flowInv;
+    else
+      port_a.C_outflow=inStream(
+        port_b.C_outflow);
+    end if;
+  else
+    port_a.C_outflow=zeros(
+      Medium.nC);
+  end if;
   ////////////////////////////////////////////////////////////////////////////
   // No pressure drop in this model
-  port_a.p = port_b.p;
-
+  port_a.p=port_b.p;
   annotation (
     preferredView="info",
-    Documentation(info="<html>
+    Documentation(
+      info="<html>
 <p>
 This model transports fluid between its two ports, without storing mass or energy.
 It implements a steady-state conservation equation for energy and mass fractions.
@@ -333,7 +358,7 @@ For a model with a dynamic balance, and more fluid ports, use
 Buildings.Fluid.Interfaces.ConservationEquation</a>.
 </p>
 </html>",
-revisions="<html>
+      revisions="<html>
 <ul>
 <li>
 September 18, 2020, by Michael Wetter:<br/>
@@ -584,10 +609,13 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Icon(coordinateSystem(
+    Icon(
+      coordinateSystem(
         preserveAspectRatio=true,
         extent={{-100,-100},{100,100}},
-        grid={1,1}), graphics={Rectangle(
+        grid={1,1}),
+      graphics={
+        Rectangle(
           extent={{-100,100},{100,-100}},
           fillColor={135,135,135},
           fillPattern=FillPattern.Solid,
@@ -612,7 +640,9 @@ First implementation.
           extent={{61,103},{92,117}},
           lineColor={0,0,127},
           textString="COut"),
-        Line(points={{-42,55},{-42,-84}}, color={255,255,255}),
+        Line(
+          points={{-42,55},{-42,-84}},
+          color={255,255,255}),
         Polygon(
           points={{-42,67},{-50,45},{-34,45},{-42,67}},
           lineColor={255,255,255},
@@ -623,8 +653,16 @@ First implementation.
           lineColor={255,255,255},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
-        Line(points={{-56,-73},{81,-73}}, color={255,255,255}),
-        Line(points={{6,14},{6,-37}},     color={255,255,255}),
-        Line(points={{54,14},{6,14}},     color={255,255,255}),
-        Line(points={{6,-37},{-42,-37}},  color={255,255,255})}));
+        Line(
+          points={{-56,-73},{81,-73}},
+          color={255,255,255}),
+        Line(
+          points={{6,14},{6,-37}},
+          color={255,255,255}),
+        Line(
+          points={{54,14},{6,14}},
+          color={255,255,255}),
+        Line(
+          points={{6,-37},{-42,-37}},
+          color={255,255,255})}));
 end StaticTwoPortConservationEquation;

@@ -1,8 +1,10 @@
 within Buildings.Fluid.SolarCollectors;
-package Data "Data for solar thermal collectors"
-extends Modelica.Icons.MaterialPropertiesPackage;
-
-annotation (Documentation(info="<html>
+package Data
+  "Data for solar thermal collectors"
+  extends Modelica.Icons.MaterialPropertiesPackage;
+  annotation (
+    Documentation(
+      info="<html>
   <p>
     Package with performance data for solar thermal collectors. All solar collector data package
     names begin with an abbreviation of the type of collector it is.  The abbreviations are as

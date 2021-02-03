@@ -1,8 +1,11 @@
 within Buildings.Fluid.FMI;
-package UsersGuide "User's Guide"
+package UsersGuide
+  "User's Guide"
   extends Modelica.Icons.Information;
-  annotation (preferredView="info",
-  Documentation(info="<html>
+  annotation (
+    preferredView="info",
+    Documentation(
+      info="<html>
 <p>
 This user's guide describes the FMI package (Wetter et al., 2015).
 The FMI package has been implemented to facilitate the export

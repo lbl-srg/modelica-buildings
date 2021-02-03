@@ -1,8 +1,11 @@
 within Buildings.Fluid.HeatExchangers.DXCoils;
-package UsersGuide "User's Guide"
+package UsersGuide
+  "User's Guide"
   extends Modelica.Icons.Information;
-  annotation (preferredView="info",
-  Documentation(info="<html>
+  annotation (
+    preferredView="info",
+    Documentation(
+      info="<html>
 <p>
 This package contains models for direct evaporation cooling coils (DX coils).
 </p>
@@ -160,7 +163,8 @@ the bypass factor is a function of the current mass flow rate only.
   The air must flow from port a to port b. If there is reverse flow, then no cooling is provided and no power is consumed.
   </li>
 </ul>
-</html>", revisions="<html>
+</html>",
+      revisions="<html>
 <ul>
 <li>
 February 28, 2017 by Yangyang Fu:<br/>

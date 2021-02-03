@@ -1,8 +1,11 @@
 within Buildings.Fluid.Movers;
-package UsersGuide "User's Guide"
+package UsersGuide
+  "User's Guide"
   extends Modelica.Icons.Information;
-  annotation (preferredView="info",
-  Documentation(info="<html>
+  annotation (
+    preferredView="info",
+    Documentation(
+      info="<html>
 <p>
 This package contains models for fans and pumps. The same models
 are used for fans or pumps.
@@ -561,5 +564,4 @@ boundary condition and control signal.</a>
 Simulation Association</i>, p. 3505-3512. Chambery, France. August 2013.
 </p>
 </html>"));
-
 end UsersGuide;

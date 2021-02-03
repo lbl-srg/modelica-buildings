@@ -1,36 +1,47 @@
 within Buildings.Fluid.Sensors;
-model TraceSubstances "Ideal one port trace substances sensor"
+model TraceSubstances
+  "Ideal one port trace substances sensor"
   extends Buildings.Fluid.Sensors.BaseClasses.PartialAbsoluteSensor;
   extends Modelica.Icons.RotationalSensor;
-
-  parameter String substanceName = "CO2" "Name of trace substance";
-
-  Modelica.Blocks.Interfaces.RealOutput C(min=0)
+  parameter String substanceName="CO2"
+    "Name of trace substance";
+  Modelica.Blocks.Interfaces.RealOutput C(
+    min=0)
     "Trace substance in port medium"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
-
 protected
-  parameter Real s[:]= {
-    if ( Modelica.Utilities.Strings.isEqual(string1=Medium.extraPropertiesNames[i],
-                                            string2=substanceName,
-                                            caseSensitive=false))
-    then 1 else 0 for i in 1:Medium.nC}
+  parameter Real s[:]={
+    if(Modelica.Utilities.Strings.isEqual(
+      string1=Medium.extraPropertiesNames[i],
+      string2=substanceName,
+      caseSensitive=false)) then
+      1
+    else
+      0 for i in 1:Medium.nC}
     "Vector with zero everywhere except where species is"
-    annotation(Evaluate=true);
+    annotation (Evaluate=true);
 initial equation
-  assert(max(s) > 0.9, "Trace substance '" + substanceName + "' is not present in medium '"
-         + Medium.mediumName + "'.\n"
-         + "Check sensor parameter and medium model.");
+  assert(
+    max(
+      s) > 0.9,
+    "Trace substance '"+substanceName+"' is not present in medium '"+Medium.mediumName+"'.\n"+"Check sensor parameter and medium model.");
 equation
   // We obtain the species concentration with a vector multiplication
   // because Dymola 7.3 cannot find the derivative in the model
   // Buildings.Examples.VAVSystemCTControl.mo
   // if we set C = CVec[ind];
-  C = s*inStream(port.C_outflow);
-annotation (defaultComponentName="senTraSub",
-  Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
-        graphics={
-        Line(points={{0,-70},{0,-100}}, color={0,0,127}),
+  C=s*inStream(
+    port.C_outflow);
+  annotation (
+    defaultComponentName="senTraSub",
+    Icon(
+      coordinateSystem(
+        preserveAspectRatio=false,
+        extent={{-100,-100},{100,100}}),
+      graphics={
+        Line(
+          points={{0,-70},{0,-100}},
+          color={0,0,127}),
         Text(
           extent={{-150,80},{150,120}},
           textString="%name",
@@ -39,12 +50,17 @@ annotation (defaultComponentName="senTraSub",
           extent={{160,-30},{60,-60}},
           lineColor={0,0,0},
           textString="C"),
-        Line(points={{70,0},{100,0}}, color={0,0,127}),
+        Line(
+          points={{70,0},{100,0}},
+          color={0,0,127}),
         Text(
           extent={{180,90},{60,40}},
           lineColor={0,0,0},
-          textString=DynamicSelect("", String(C, leftjustified=false, significantDigits=3)))}),
-  Documentation(info="<html>
+          textString=DynamicSelect("",String(C,
+            leftjustified=false,
+            significantDigits=3)))}),
+    Documentation(
+      info="<html>
 <p>
 This model outputs the trace substances contained in the fluid connected to its port.
 The sensor is ideal, i.e., it does not influence the fluid.
@@ -59,7 +75,8 @@ Buildings.Fluid.Sensors.UsersGuide</a>
 prior to using this model to see about potential numerical problems if this sensor is used incorrectly
 in a system model.
 </p>
-</html>", revisions="<html>
+</html>",
+      revisions="<html>
 <ul>
 <li>
 September 21, 2020, by Michael Wetter:<br/>

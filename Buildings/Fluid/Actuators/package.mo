@@ -1,12 +1,14 @@
 within Buildings.Fluid;
-package Actuators "Package with actuator models such as valves and dampers"
+package Actuators
+  "Package with actuator models such as valves and dampers"
   extends Modelica.Icons.VariantsPackage;
-
-
-package UsersGuide "User's Guide"
-  extends Modelica.Icons.Information;
-  annotation (preferredView="info",
-  Documentation(info="<html>
+  package UsersGuide
+    "User's Guide"
+    extends Modelica.Icons.Information;
+    annotation (
+      preferredView="info",
+      Documentation(
+        info="<html>
 <h4>Pressure drop of valves</h4>
 <p>
 All two and three-way valves have a parameter
@@ -178,11 +180,11 @@ However, it can significantly increase computing time
 because it generates a state event whenever the valve position changes.
 </p>
 </html>"));
-
-end UsersGuide;
-
-
-annotation (preferredView="info", Documentation(info="<html>
+  end UsersGuide;
+  annotation (
+    preferredView="info",
+    Documentation(
+      info="<html>
 This package contains component models for actuators.
 </html>"));
 end Actuators;

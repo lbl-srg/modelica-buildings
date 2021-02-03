@@ -1,8 +1,10 @@
 within Buildings.Fluid.Examples.Performance;
-package PressureDrop "Package with various configurations of pressure drop models to analyze symbolic processing"
+package PressureDrop
+  "Package with various configurations of pressure drop models to analyze symbolic processing"
   extends Modelica.Icons.ExamplesPackage;
-
-annotation (Documentation(info="<html>
+  annotation (
+    Documentation(
+      info="<html>
 <p>
 This package contains examples that demonstrate how parameter
 settings and boundary conditions can affect the number and

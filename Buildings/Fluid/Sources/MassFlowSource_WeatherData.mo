@@ -2,32 +2,34 @@ within Buildings.Fluid.Sources;
 model MassFlowSource_WeatherData
   "Ideal flow source that produces a prescribed mass flow with prescribed
   trace substances, outside specific enthalpy and mass fraction "
-  extends Buildings.Fluid.Sources.BaseClasses.PartialSource(final verifyInputs=true);
-  parameter Boolean use_m_flow_in = false
+  extends Buildings.Fluid.Sources.BaseClasses.PartialSource(
+    final verifyInputs=true);
+  parameter Boolean use_m_flow_in=false
     "Get the mass flow rate from the input connector"
-    annotation(Evaluate=true, HideResult=true);
-  parameter Boolean use_C_in = false
+    annotation (Evaluate=true,HideResult=true);
+  parameter Boolean use_C_in=false
     "Get the trace substances from the input connector"
-    annotation(Evaluate=true, HideResult=true);
-  parameter Modelica.SIunits.MassFlowRate m_flow = 0
+    annotation (Evaluate=true,HideResult=true);
+  parameter Modelica.SIunits.MassFlowRate m_flow=0
     "Fixed mass flow rate going out of the fluid port"
-    annotation (Dialog(enable = not use_m_flow_in));
+    annotation (Dialog(enable=not use_m_flow_in));
   parameter Medium.ExtraProperty C[Medium.nC](
-    final quantity=Medium.extraPropertiesNames)=fill(0, Medium.nC)
+    final quantity=Medium.extraPropertiesNames)=fill(
+    0,
+    Medium.nC)
     "Fixed values of trace substances"
-    annotation (Dialog(enable = (not use_C_in) and Medium.nC > 0));
-  Modelica.Blocks.Interfaces.RealInput m_flow_in(final unit="kg/s") if
-       use_m_flow_in "Prescribed mass flow rate"
-    annotation (Placement(transformation(extent={{-120,60},{-80,100}}),
-      iconTransformation(extent={{-120,60},{-80,100}})));
+    annotation (Dialog(enable=(not use_C_in) and Medium.nC > 0));
+  Modelica.Blocks.Interfaces.RealInput m_flow_in(
+    final unit="kg/s") if use_m_flow_in
+    "Prescribed mass flow rate"
+    annotation (Placement(transformation(extent={{-120,60},{-80,100}}),iconTransformation(extent={{-120,60},{-80,100}})));
   Modelica.Blocks.Interfaces.RealInput C_in[Medium.nC](
     final quantity=Medium.extraPropertiesNames) if use_C_in
     "Prescribed boundary trace substances"
     annotation (Placement(transformation(extent={{-120,-100},{-80,-60}})));
-  Buildings.BoundaryConditions.WeatherData.Bus weaBus "Bus with weather data"
-    annotation (Placement(transformation(extent={{-110,-10},{-90,10}}),
-        iconTransformation(extent={{-120,-18},{-80,22}})));
-
+  Buildings.BoundaryConditions.WeatherData.Bus weaBus
+    "Bus with weather data"
+    annotation (Placement(transformation(extent={{-110,-10},{-90,10}}),iconTransformation(extent={{-120,-18},{-80,22}})));
 protected
   Modelica.Blocks.Interfaces.RealOutput TDryBul(
     final unit="K",
@@ -39,18 +41,16 @@ protected
   Modelica.Blocks.Interfaces.RealOutput h_out_internal(
     final unit="J/kg")
     "Needed to connect to conditional connector";
-
-  final parameter Boolean singleSubstance = (Medium.nX == 1)
-     "True if single substance medium";
-  Buildings.Utilities.Psychrometrics.X_pTphi x_pTphi if (not singleSubstance)
-      "Block to compute water vapor concentration";
+  final parameter Boolean singleSubstance=(Medium.nX == 1)
+    "True if single substance medium";
+  Buildings.Utilities.Psychrometrics.X_pTphi x_pTphi if(not singleSubstance)
+    "Block to compute water vapor concentration";
   Modelica.Blocks.Interfaces.RealOutput m_flow_in_internal(
     final unit="kg/s")
     "Needed to connect to conditional connector";
   Modelica.Blocks.Interfaces.RealInput h_in_internal(
     final unit="J/kg")
     "Needed to connect to conditional connector";
-
 equation
   Modelica.Fluid.Utilities.checkBoundary(
     Medium.mediumName,
@@ -59,58 +59,59 @@ equation
     true,
     X_in_internal,
     "MassFlowSourceFromOutside_h");
-
   // Connections and calculation to find specific enthalpy
-  connect(weaBus.pAtm, pAtm);
-  connect(weaBus.TDryBul, TDryBul);
-  h_out_internal = Medium.specificEnthalpy(Medium.setState_pTX(
-    pAtm, TDryBul, X_in_internal));
-
+  connect(weaBus.pAtm,pAtm);
+  connect(weaBus.TDryBul,TDryBul);
+  h_out_internal=Medium.specificEnthalpy(
+    Medium.setState_pTX(
+      pAtm,
+      TDryBul,
+      X_in_internal));
   // Connections to compute species concentration
-  connect(weaBus.pAtm, x_pTphi.p_in);
-  connect(weaBus.TDryBul, x_pTphi.T);
-  connect(weaBus.relHum, x_pTphi.phi);
-  connect(x_pTphi.X, X_in_internal);
-
-  connect(m_flow_in, m_flow_in_internal);
-  connect(C_in, C_in_internal);
-  connect(h_out_internal, h_in_internal);
-
+  connect(weaBus.pAtm,x_pTphi.p_in);
+  connect(weaBus.TDryBul,x_pTphi.T);
+  connect(weaBus.relHum,x_pTphi.phi);
+  connect(x_pTphi.X,X_in_internal);
+  connect(m_flow_in,m_flow_in_internal);
+  connect(C_in,C_in_internal);
+  connect(h_out_internal,h_in_internal);
   if singleSubstance then
-    X_in_internal = ones(Medium.nX);
+    X_in_internal=ones(
+      Medium.nX);
   end if;
   if not use_m_flow_in then
-    m_flow_in_internal = m_flow;
+    m_flow_in_internal=m_flow;
   end if;
   if not use_C_in then
-    C_in_internal = C;
+    C_in_internal=C;
   end if;
-
-  sum(ports.m_flow) = -m_flow_in_internal;
-  connect(medium.h, h_in_internal);
-  connect(medium.Xi, Xi_in_internal);
-  ports.C_outflow = fill(C_in_internal, nPorts);
-
-  connect(X_in_internal[1:Medium.nXi], Xi_in_internal);
-
+  sum(
+    ports.m_flow)=-m_flow_in_internal;
+  connect(medium.h,h_in_internal);
+  connect(medium.Xi,Xi_in_internal);
+  ports.C_outflow=fill(
+    C_in_internal,
+    nPorts);
+  connect(X_in_internal[1:Medium.nXi],Xi_in_internal);
   if not verifyInputs then
-    h_in_internal = Medium.h_default;
-    p_in_internal = Medium.p_default;
-    X_in_internal = Medium.X_default;
-    TDryBul       = Medium.T_default;
+    h_in_internal=Medium.h_default;
+    p_in_internal=Medium.p_default;
+    X_in_internal=Medium.X_default;
+    TDryBul=Medium.T_default;
   end if;
-
   for i in 1:nPorts loop
-    ports[i].p          = p_in_internal;
-    ports[i].h_outflow  = h_in_internal;
-    ports[i].Xi_outflow = Xi_in_internal;
+    ports[i].p=p_in_internal;
+    ports[i].h_outflow=h_in_internal;
+    ports[i].Xi_outflow=Xi_in_internal;
   end for;
-
-  annotation (defaultComponentName="bou",
-    Icon(coordinateSystem(
+  annotation (
+    defaultComponentName="bou",
+    Icon(
+      coordinateSystem(
         preserveAspectRatio=true,
         extent={{-100,-100},{100,100}},
-        grid={1,1}), graphics={
+        grid={1,1}),
+      graphics={
         Rectangle(
           extent={{35,45},{100,-45}},
           lineColor={0,0,0},
@@ -150,11 +151,13 @@ equation
           lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
-          textString="C"),        Text(
+          textString="C"),
+        Text(
           extent={{-161,110},{139,150}},
           textString="%name",
           lineColor={0,0,255})}),
-    Documentation(info="<html>
+    Documentation(
+      info="<html>
 <p>
 Models an ideal flow source, with prescribed values of flow rate and trace
 substances, with temperature and specific enthalpy from outside:
@@ -184,7 +187,7 @@ the port into the boundary, the boundary definitions,
 with exception of boundary flow rate, do not have an effect.
 </p>
 </html>",
-revisions="<html>
+      revisions="<html>
 <ul>
 <li>
 November 14, 2019, by Michael Wetter:<br/>

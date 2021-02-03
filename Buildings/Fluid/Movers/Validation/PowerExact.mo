@@ -2,15 +2,18 @@ within Buildings.Fluid.Movers.Validation;
 model PowerExact
   "Power calculation comparison among three mover types, using exact power computation for m_flow and dp"
   extends PowerSimplified(
-    pump_dp(per=per),
-    pump_m_flow(per=per));
+    pump_dp(
+      per=per),
+    pump_m_flow(
+      per=per));
   annotation (
-    experiment(Tolerance=1e-6, StopTime=200),
-    __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Movers/Validation/PowerExact.mos"
-        "Simulate and plot"),
-        Documentation(
-info="<html>
+    experiment(
+      Tolerance=1e-6,
+      StopTime=200),
+    __Dymola_Commands(
+      file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Movers/Validation/PowerExact.mos" "Simulate and plot"),
+    Documentation(
+      info="<html>
 <p>
 This example is identical to
 <a href=\"modelica://Buildings.Fluid.Movers.Validation.PowerSimplified\">
@@ -25,7 +28,7 @@ that is identical to the one from the speed controlled pump <code>pump_Nrpm</cod
 <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/Movers/Validation/PowerExact.png\"/>
 </p>
 </html>",
-revisions="<html>
+      revisions="<html>
 <ul>
 <li>
 March 2, 2016, by Filip Jorissen:<br/>

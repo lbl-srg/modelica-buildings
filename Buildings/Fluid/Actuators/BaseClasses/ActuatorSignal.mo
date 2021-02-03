@@ -1,80 +1,74 @@
 within Buildings.Fluid.Actuators.BaseClasses;
 model ActuatorSignal
   "Partial model that implements the filtered opening for valves and dampers"
-
   parameter Boolean use_inputFilter=true
     "= true, if opening is filtered with a 2nd order CriticalDamping filter"
-    annotation(Dialog(tab="Dynamics", group="Filtered opening"));
+    annotation (Dialog(tab="Dynamics",group="Filtered opening"));
   parameter Modelica.SIunits.Time riseTime=120
     "Rise time of the filter (time to reach 99.6 % of an opening step)"
-    annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilter));
-  parameter Integer order(min=1) = 2 "Order of filter"
-    annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilter));
+    annotation (Dialog(tab="Dynamics",group="Filtered opening",enable=use_inputFilter));
+  parameter Integer order(
+    min=1)=2
+    "Order of filter"
+    annotation (Dialog(tab="Dynamics",group="Filtered opening",enable=use_inputFilter));
   parameter Modelica.Blocks.Types.Init init=Modelica.Blocks.Types.Init.InitialOutput
     "Type of initialization (no init/steady state/initial state/initial output)"
-    annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilter));
-  parameter Real y_start=1 "Initial value of output"
-    annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilter));
-
-  Modelica.Blocks.Interfaces.RealInput y(min=0, max=1)
+    annotation (Dialog(tab="Dynamics",group="Filtered opening",enable=use_inputFilter));
+  parameter Real y_start=1
+    "Initial value of output"
+    annotation (Dialog(tab="Dynamics",group="Filtered opening",enable=use_inputFilter));
+  Modelica.Blocks.Interfaces.RealInput y(
+    min=0,
+    max=1)
     "Actuator position (0: closed, 1: open)"
-    annotation (Placement(transformation(extent={{-20,-20},{20,20}},
-          rotation=270,
-        origin={0,120}),iconTransformation(
-        extent={{-20,-20},{20,20}},
-        rotation=270,
-        origin={0,120})));
-
+    annotation (Placement(transformation(extent={{-20,-20},{20,20}},rotation=270,origin={0,120}),iconTransformation(extent={{-20,-20},{20,20}},rotation=270,origin={0,120})));
   Modelica.Blocks.Interfaces.RealOutput y_actual
     "Actual actuator position"
     annotation (Placement(transformation(extent={{40,60},{60,80}})));
-
-  // Classes used to implement the filtered opening
+// Classes used to implement the filtered opening
 protected
-  parameter Boolean casePreInd = false
+  parameter Boolean casePreInd=false
     "In case of PressureIndependent the model I/O is modified"
-    annotation(Evaluate=true);
-  Modelica.Blocks.Interfaces.RealOutput y_internal(unit="1")
+    annotation (Evaluate=true);
+  Modelica.Blocks.Interfaces.RealOutput y_internal(
+    unit="1")
     "Output connector for internal use (= y_actual if not casePreInd)";
   Modelica.Blocks.Interfaces.RealOutput y_filtered if use_inputFilter
     "Filtered valve position in the range 0..1"
-    annotation (Placement(transformation(extent={{40,78},{60,98}}),
-        iconTransformation(extent={{60,50},{80,70}})));
-
+    annotation (Placement(transformation(extent={{40,78},{60,98}}),iconTransformation(extent={{60,50},{80,70}})));
   Modelica.Blocks.Continuous.Filter filter(
-     final order=order,
-     f_cut=5/(2*Modelica.Constants.pi*riseTime),
-     final init=init,
-     final y_start=y_start,
-     final analogFilter=Modelica.Blocks.Types.AnalogFilter.CriticalDamping,
-     final filterType=Modelica.Blocks.Types.FilterType.LowPass,
-     x(each stateSelect=StateSelect.always,
-       each start=0)) if
-        use_inputFilter
+    final order=order,
+    f_cut=5/(2*Modelica.Constants.pi*riseTime),
+    final init=init,
+    final y_start=y_start,
+    final analogFilter=Modelica.Blocks.Types.AnalogFilter.CriticalDamping,
+    final filterType=Modelica.Blocks.Types.FilterType.LowPass,
+    x(
+      each stateSelect=StateSelect.always,
+      each start=0)) if use_inputFilter
     "Second order filter to approximate valve opening time, and to improve numerics"
     annotation (Placement(transformation(extent={{6,81},{20,95}})));
-
 equation
- connect(filter.y, y_filtered) annotation (Line(
-      points={{20.7,88},{50,88}},
-      color={0,0,127}));
+  connect(filter.y,y_filtered)
+    annotation (Line(points={{20.7,88},{50,88}},color={0,0,127}));
   if use_inputFilter then
-  connect(y, filter.u) annotation (Line(
-      points={{1.11022e-15,120},{1.11022e-15,88},{4.6,88}},
-      color={0,0,127}));
-  connect(filter.y, y_internal) annotation (Line(
-      points={{20.7,88},{30,88},{30,70},{50,70}},
-      color={0,0,127}));
+    connect(y,filter.u)
+      annotation (Line(points={{1.11022e-15,120},{1.11022e-15,88},{4.6,88}},color={0,0,127}));
+    connect(filter.y,y_internal)
+      annotation (Line(points={{20.7,88},{30,88},{30,70},{50,70}},color={0,0,127}));
   else
-    connect(y, y_internal) annotation (Line(
-      points={{1.11022e-15,120},{0,120},{0,70},{50,70}},
-      color={0,0,127}));
+    connect(y,y_internal)
+      annotation (Line(points={{1.11022e-15,120},{0,120},{0,70},{50,70}},color={0,0,127}));
   end if;
   if not casePreInd then
-    connect(y_internal, y_actual);
+    connect(y_internal,y_actual);
   end if;
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics={
+  annotation (
+    Icon(
+      coordinateSystem(
+        preserveAspectRatio=false,
+        extent={{-100,-100},{100,100}}),
+      graphics={
         Line(
           points={{0,48},{0,108}}),
         Line(
@@ -98,12 +92,15 @@ equation
           fillColor={135,135,135},
           fillPattern=FillPattern.Solid,
           textString="M",
-          textStyle={TextStyle.Bold}),
+          textStyle={
+            TextStyle.Bold}),
         Text(
           extent={{-40,126},{-160,76}},
           lineColor={0,0,0},
-          textString=DynamicSelect("", String(y, format=".2f")))}),
-Documentation(info="<html>
+          textString=DynamicSelect("",String(y,
+            format=".2f")))}),
+    Documentation(
+      info="<html>
 <p>
 This model implements the filter that is used to approximate the travel
 time of the actuator.
@@ -121,7 +118,8 @@ See
 Buildings.Fluid.Actuators.UsersGuide</a>
 for a description of the filter.
 </p>
-</html>", revisions="<html>
+</html>",
+      revisions="<html>
 <ul>
 <li>
 April 6, 2020, by Antoine Gautier:<br/>

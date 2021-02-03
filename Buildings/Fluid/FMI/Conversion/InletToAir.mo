@@ -2,135 +2,91 @@ within Buildings.Fluid.FMI.Conversion;
 block InletToAir
   "Conversion from real signals for a fluid to a Buildings.Fluid.FMI.Interfaces.Inlet connector"
   extends Modelica.Blocks.Icons.Block;
-
-  replaceable package Medium =
-    Modelica.Media.Interfaces.PartialMedium "Medium in the component"
-      annotation (choices(
-        choice(redeclare package Medium = Buildings.Media.Air "Moist air")));
-
-  parameter Boolean allowFlowReversal = true
+  replaceable package Medium=Modelica.Media.Interfaces.PartialMedium
+    "Medium in the component"
+    annotation (choices(choice(redeclare package Medium=Buildings.Media.Air "Moist air")));
+  parameter Boolean allowFlowReversal=true
     "= true to allow flow reversal, false restricts to design direction (inlet -> outlet)"
-    annotation(Evaluate=true);
-
+    annotation (Evaluate=true);
   Buildings.Fluid.FMI.Interfaces.Inlet inlet(
-    redeclare final package Medium = Medium,
+    redeclare final package Medium=Medium,
     final allowFlowReversal=allowFlowReversal,
-    final use_p_in=false) "Fluid outlet"
+    final use_p_in=false)
+    "Fluid outlet"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
-
   Modelica.Blocks.Interfaces.RealInput TAirZon(
     final unit="K",
-    displayUnit="degC") if
-       allowFlowReversal
+    displayUnit="degC") if allowFlowReversal
     "Zone air temperature"
-    annotation (Placement(
-        visible=allowFloWReserval,
-        transformation(extent={{-20,-20},{20,20}},
-        rotation=90,
-        origin={-60,-120}),
-        iconTransformation(
-        extent={{-20,-20},{20,20}},
-        rotation=90,
-        origin={-60,-120})));
+    annotation (Placement(visible=allowFloWReserval,transformation(extent={{-20,-20},{20,20}},rotation=90,origin={-60,-120}),iconTransformation(extent={{-20,-20},{20,20}},rotation=90,origin={-60,-120})));
   Modelica.Blocks.Interfaces.RealInput X_wZon(
-    final unit="kg/kg") if
-       Medium.nXi > 0 and allowFlowReversal
+    final unit="kg/kg") if Medium.nXi > 0 and allowFlowReversal
     "Zone air water mass fraction per total air mass"
-    annotation (Placement(
-        visible=allowFloWReserval,
-        transformation(extent={{-20,-20},{20,20}},
-        rotation=90,
-        origin={0,-120}),
-        iconTransformation(
-        extent={{-20,-20},{20,20}},
-        rotation=90,
-        origin={0,-120})));
+    annotation (Placement(visible=allowFloWReserval,transformation(extent={{-20,-20},{20,20}},rotation=90,origin={0,-120}),iconTransformation(extent={{-20,-20},{20,20}},rotation=90,origin={0,-120})));
   Modelica.Blocks.Interfaces.RealInput CZon[Medium.nC](
-    final quantity=Medium.extraPropertiesNames) if
-       allowFlowReversal
+    final quantity=Medium.extraPropertiesNames) if allowFlowReversal
     "Zone air trace substances"
-    annotation (Placement(
-        visible=allowFloWReserval,
-        transformation(extent={{-20,-20},{20,20}},
-        rotation=90,
-        origin={60,-120}),
-        iconTransformation(
-        extent={{-20,-20},{20,20}},
-        rotation=90,
-        origin={60,-120})));
-
+    annotation (Placement(visible=allowFloWReserval,transformation(extent={{-20,-20},{20,20}},rotation=90,origin={60,-120}),iconTransformation(extent={{-20,-20},{20,20}},rotation=90,origin={60,-120})));
   Modelica.Blocks.Interfaces.RealOutput m_flow(
-    final unit="kg/s") "Mass flow rate of the inlet"
+    final unit="kg/s")
+    "Mass flow rate of the inlet"
     annotation (Placement(transformation(extent={{100,60},{140,100}})));
-
-  Modelica.Blocks.Interfaces.RealOutput T(final unit="K") "Temperature of the inlet"
+  Modelica.Blocks.Interfaces.RealOutput T(
+    final unit="K")
+    "Temperature of the inlet"
     annotation (Placement(transformation(extent={{100,20},{140,60}})));
-
-  Modelica.Blocks.Interfaces.RealOutput X_w(final unit="kg/kg") if
-       Medium.nXi > 0
+  Modelica.Blocks.Interfaces.RealOutput X_w(
+    final unit="kg/kg") if Medium.nXi > 0
     "Water mass fraction per total air mass of the inlet"
     annotation (Placement(transformation(extent={{100,-60},{140,-20}})));
-
   Modelica.Blocks.Interfaces.RealOutput C[Medium.nC](
     final quantity=Medium.extraPropertiesNames)
     "Trace substances of the inlet"
     annotation (Placement(transformation(extent={{100,-100},{140,-60}})));
-
 protected
   Buildings.Fluid.FMI.Interfaces.FluidProperties bacPro_internal(
-    redeclare final package Medium = Medium)
+    redeclare final package Medium=Medium)
     "Internal connector for fluid properties for back flow";
-
   Modelica.Blocks.Interfaces.RealInput TAirZon_internal(
     final unit="K",
     displayUnit="degC")
     "Conditinal connector for zone air temperature";
-
   Modelica.Blocks.Interfaces.RealInput X_wZon_internal(
     final unit="kg/kg")
     "Internal connector for zone water vapor mass fraction";
-
   Modelica.Blocks.Interfaces.RealInput X_wZon_internal2(
-    final unit="kg/kg") = 0 if
-       Medium.nXi == 0 or not allowFlowReversal
+    final unit="kg/kg")=0 if Medium.nXi == 0 or not allowFlowReversal
     "Internal connector for zone water vapor mass fraction, required if X_wZon is removed";
   Modelica.Blocks.Interfaces.RealInput CZon_internal[Medium.nC]
     "Internal connector for trace substances";
 equation
   // Conditional connectors
-  connect(TAirZon_internal, TAirZon);
-  bacPro_internal.T = TAirZon_internal;
-
-  connect(bacPro_internal.X_w, X_wZon_internal);
-  connect(CZon_internal, CZon);
-
-  bacPro_internal.C = CZon_internal;
-
-  connect(X_wZon_internal, X_wZon);
-  connect(X_wZon_internal, X_wZon_internal2);
+  connect(TAirZon_internal,TAirZon);
+  bacPro_internal.T=TAirZon_internal;
+  connect(bacPro_internal.X_w,X_wZon_internal);
+  connect(CZon_internal,CZon);
+  bacPro_internal.C=CZon_internal;
+  connect(X_wZon_internal,X_wZon);
+  connect(X_wZon_internal,X_wZon_internal2);
   if not allowFlowReversal then
-    TAirZon_internal = Medium.T_default;
-    CZon_internal = zeros(Medium.nC);
+    TAirZon_internal=Medium.T_default;
+    CZon_internal=zeros(
+      Medium.nC);
   end if;
-
-  connect(inlet.backward, bacPro_internal);
-
+  connect(inlet.backward,bacPro_internal);
   // Mass flow rate
-  m_flow = inlet.m_flow;
-
+  m_flow=inlet.m_flow;
   // Temperature
-  T = inlet.forward.T;
-
+  T=inlet.forward.T;
   // Vapor concentration
- // X_w_internal = inlet.forward.X_w;
-  connect(inlet.forward.X_w, X_w);
-
+  // X_w_internal = inlet.forward.X_w;
+  connect(inlet.forward.X_w,X_w);
   // Species concentration
-  C = inlet.forward.C;
-
-
-  annotation (defaultComponentName = "con",
-    Documentation(info="<html>
+  C=inlet.forward.C;
+  annotation (
+    defaultComponentName="con",
+    Documentation(
+      info="<html>
 <p>
 Block that takes an inlet connector of type
 <a href=\"modelica://Buildings.Fluid.FMI.Interfaces.Inlet\">
@@ -169,7 +125,8 @@ See
 Buildings.Fluid.FMI.Adaptors.ThermalZone</a>
 for its usage.
 </p>
-</html>", revisions="<html>
+</html>",
+      revisions="<html>
 <ul>
 <li>
 January 18, 2019, by Jianjun Hu:<br/>
@@ -188,7 +145,8 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Icon(graphics={
+    Icon(
+      graphics={
         Text(
           extent={{58,60},{90,34}},
           lineColor={0,0,127},
@@ -205,7 +163,9 @@ First implementation.
           extent={{36,-66},{100,-92}},
           lineColor={0,0,127},
           textString="C"),
-        Line(points={{-80,0},{40,0}}, color={191,0,0}),
+        Line(
+          points={{-80,0},{40,0}},
+          color={191,0,0}),
         Polygon(
           points={{82,0},{22,20},{22,-20},{82,0}},
           lineColor={191,0,0},

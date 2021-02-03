@@ -1,31 +1,37 @@
 within Buildings.Fluid.FMI.ExportContainers.Examples.FMUs;
 block HeaterCooler_u
   "Declaration of an FMU that exports an ideal heater or cooler with prescribed heat flow rate"
-   extends Buildings.Fluid.FMI.ExportContainers.ReplaceableTwoPort(
-     redeclare replaceable package Medium = Buildings.Media.Air,
-     redeclare final Buildings.Fluid.HeatExchangers.HeaterCooler_u com(
+  extends Buildings.Fluid.FMI.ExportContainers.ReplaceableTwoPort(
+    redeclare replaceable package Medium=Buildings.Media.Air,
+    redeclare final Buildings.Fluid.HeatExchangers.HeaterCooler_u com(
       final m_flow_nominal=m_flow_nominal,
-      final dp_nominal=if use_p_in then dp_nominal else 0,
+      final dp_nominal=
+        if use_p_in then
+          dp_nominal
+        else
+          0,
       final Q_flow_nominal=Q_flow_nominal,
       massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
       energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState));
-
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=0.01
     "Nominal mass flow rate";
-  parameter Modelica.SIunits.PressureDifference dp_nominal(displayUnit="Pa")=0
+  parameter Modelica.SIunits.PressureDifference dp_nominal(
+    displayUnit="Pa")=0
     "Pressure";
   parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal=100
     "Heat flow rate at u=1, positive for heating";
-  Modelica.Blocks.Interfaces.RealInput u(min=0, max=1, unit="1")
+  Modelica.Blocks.Interfaces.RealInput u(
+    min=0,
+    max=1,
+    unit="1")
     "Control input"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
 equation
-  connect(com.u, u) annotation (Line(
-      points={{-12,6},{-40,6},{-40,60},{-120,60}},
-      color={0,0,127},
-      smooth=Smooth.None));
-
-  annotation (  Documentation(info="<html>
+  connect(com.u,u)
+    annotation (Line(points={{-12,6},{-40,6},{-40,60},{-120,60}},color={0,0,127},smooth=Smooth.None));
+  annotation (
+    Documentation(
+      info="<html>
 <p>
 This example demonstrates how to export an FMU with a heater
 that takes as an input signal the normalized heat flow rate.
@@ -40,7 +46,8 @@ See the
 <a href=\"modelica://Buildings.Fluid.FMI.UsersGuide\">user's guide</a>
 for the rationale.
 </p>
-</html>", revisions="<html>
+</html>",
+      revisions="<html>
 <ul>
 <li>
 January 22, 2016, by Michael Wetter:<br/>
@@ -54,9 +61,10 @@ First implementation.
 </li>
 </ul>
 </html>"),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FMI/ExportContainers/Examples/FMUs/HeaterCooler_u.mos"
-        "Export FMU"),
-    Icon(graphics={
+    __Dymola_Commands(
+      file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FMI/ExportContainers/Examples/FMUs/HeaterCooler_u.mos" "Export FMU"),
+    Icon(
+      graphics={
         Polygon(
           points={{22,-75},{52,-85},{22,-95},{22,-75}},
           lineColor={255,255,255},

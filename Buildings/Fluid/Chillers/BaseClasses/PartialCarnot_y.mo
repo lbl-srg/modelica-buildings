@@ -2,10 +2,12 @@ within Buildings.Fluid.Chillers.BaseClasses;
 partial model PartialCarnot_y
   "Partial chiller model with performance curve adjusted based on Carnot efficiency"
   extends Carnot(
-    final QCon_flow_nominal= P_nominal - QEva_flow_nominal,
-    final QEva_flow_nominal = if COP_is_for_cooling
-                              then -P_nominal * COP_nominal
-                              else -P_nominal * (COP_nominal-1),
+    final QCon_flow_nominal=P_nominal-QEva_flow_nominal,
+    final QEva_flow_nominal=
+      if COP_is_for_cooling then
+        -P_nominal*COP_nominal
+      else
+        -P_nominal*(COP_nominal-1),
     redeclare HeatExchangers.HeaterCooler_u con(
       final from_dp=from_dp1,
       final dp_nominal=dp1_nominal,
@@ -17,7 +19,7 @@ partial model PartialCarnot_y
       final massDynamics=energyDynamics,
       final homotopyInitialization=homotopyInitialization,
       final Q_flow_nominal=QCon_flow_nominal),
-      redeclare HeatExchangers.HeaterCooler_u eva(
+    redeclare HeatExchangers.HeaterCooler_u eva(
       final from_dp=from_dp2,
       final dp_nominal=dp2_nominal,
       final linearizeFlowResistance=linearizeFlowResistance2,
@@ -28,21 +30,27 @@ partial model PartialCarnot_y
       final massDynamics=energyDynamics,
       final homotopyInitialization=homotopyInitialization,
       final Q_flow_nominal=QEva_flow_nominal));
-
-  parameter Modelica.SIunits.Power P_nominal(min=0)
+  parameter Modelica.SIunits.Power P_nominal(
+    min=0)
     "Nominal compressor power (at y=1)"
     annotation (Dialog(group="Nominal condition"));
-
-  Modelica.Blocks.Interfaces.RealInput y(min=0, max=1, unit="1")
+  Modelica.Blocks.Interfaces.RealInput y(
+    min=0,
+    max=1,
+    unit="1")
     "Part load ratio of compressor"
     annotation (Placement(transformation(extent={{-140,70},{-100,110}})));
-
 protected
-  Modelica.SIunits.HeatFlowRate QCon_flow_internal(start=QCon_flow_nominal)=
-    P - QEva_flow_internal "Condenser heat input";
-  Modelica.SIunits.HeatFlowRate QEva_flow_internal(start=QEva_flow_nominal)=
-    if COP_is_for_cooling then -COP * P else (1-COP)*P "Evaporator heat input";
-
+  Modelica.SIunits.HeatFlowRate QCon_flow_internal(
+    start=QCon_flow_nominal)=P-QEva_flow_internal
+    "Condenser heat input";
+  Modelica.SIunits.HeatFlowRate QEva_flow_internal(
+    start=QEva_flow_nominal)=
+    if COP_is_for_cooling then
+      -COP*P
+    else
+      (1-COP)*P
+    "Evaporator heat input";
   Modelica.Blocks.Sources.RealExpression yEva_flow_in(
     y=QEva_flow_internal/QEva_flow_nominal)
     "Normalized evaporator heat flow rate"
@@ -51,26 +59,29 @@ protected
     y=QCon_flow_internal/QCon_flow_nominal)
     "Normalized condenser heat flow rate"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
-
-  Modelica.Blocks.Math.Gain PEle(final k=P_nominal)
+  Modelica.Blocks.Math.Gain PEle(
+    final k=P_nominal)
     "Electrical power consumption"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 equation
-
-  connect(PEle.y, P)
-    annotation (Line(points={{81,0},{110,0}}, color={0,0,127}));
-  connect(PEle.u, y) annotation (Line(points={{58,0},{58,0},{40,0},{40,90},{-92,
-          90},{-120,90}},          color={0,0,127}));
-  connect(yEva_flow_in.y, eva.u) annotation (Line(points={{-59,-40},{20,-40},{20,
-          -54},{12,-54}}, color={0,0,127}));
-  connect(yCon_flow_in.y, con.u) annotation (Line(points={{-59,40},{-48,40},{-40,
-          40},{-40,66},{-12,66}}, color={0,0,127}));
-  connect(con.Q_flow, QCon_flow) annotation (Line(points={{11,66},{20,66},{80,66},
-          {80,90},{110,90}}, color={0,0,127}));
-  connect(eva.Q_flow, QEva_flow) annotation (Line(points={{-11,-54},{-20,-54},{-20,
-          -90},{110,-90}}, color={0,0,127}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{100,100}}), graphics={
+  connect(PEle.y,P)
+    annotation (Line(points={{81,0},{110,0}},color={0,0,127}));
+  connect(PEle.u,y)
+    annotation (Line(points={{58,0},{58,0},{40,0},{40,90},{-92,90},{-120,90}},color={0,0,127}));
+  connect(yEva_flow_in.y,eva.u)
+    annotation (Line(points={{-59,-40},{20,-40},{20,-54},{12,-54}},color={0,0,127}));
+  connect(yCon_flow_in.y,con.u)
+    annotation (Line(points={{-59,40},{-48,40},{-40,40},{-40,66},{-12,66}},color={0,0,127}));
+  connect(con.Q_flow,QCon_flow)
+    annotation (Line(points={{11,66},{20,66},{80,66},{80,90},{110,90}},color={0,0,127}));
+  connect(eva.Q_flow,QEva_flow)
+    annotation (Line(points={{-11,-54},{-20,-54},{-20,-90},{110,-90}},color={0,0,127}));
+  annotation (
+    Icon(
+      coordinateSystem(
+        preserveAspectRatio=true,
+        extent={{-100,-100},{100,100}}),
+      graphics={
         Rectangle(
           extent={{-56,68},{58,50}},
           lineColor={0,0,0},
@@ -149,13 +160,19 @@ equation
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           textString="y"),
-        Text(extent={{66,28},{116,14}},   textString="P",
+        Text(
+          extent={{66,28},{116,14}},
+          textString="P",
           lineColor={0,0,127}),
-        Line(points={{-100,90},{-80,90},{-80,14},{22,14}},
-                                                    color={0,0,255}),
-        Line(points={{62,0},{100,0}},                 color={0,0,255})}),
-defaultComponentName="chi",
-Documentation(info="<html>
+        Line(
+          points={{-100,90},{-80,90},{-80,14},{22,14}},
+          color={0,0,255}),
+        Line(
+          points={{62,0},{100,0}},
+          color={0,0,255})}),
+    defaultComponentName="chi",
+    Documentation(
+      info="<html>
 <p>
 This is a partial model of a chiller whose coefficient of performance (COP) changes
 with temperatures in the same way as the Carnot efficiency changes.
@@ -163,7 +180,7 @@ This base class is used for the Carnot chiller and Carnot heat pump
 that uses the leaving fluid temperature as the control signal.
 </p>
 </html>",
-revisions="<html>
+      revisions="<html>
 <ul>
 <li>
 June 15, 2017, by Michael Wetter:<br/>

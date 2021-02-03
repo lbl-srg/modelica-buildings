@@ -1,42 +1,38 @@
 within Buildings.Fluid.Sensors.BaseClasses;
 partial model PartialAbsoluteSensor
   "Partial component to model a sensor that measures a potential variable"
-
   replaceable package Medium=Modelica.Media.Interfaces.PartialMedium
     "Medium in the sensor"
-    annotation (choices(
-        choice(redeclare package Medium = Buildings.Media.Air "Moist air"),
-        choice(redeclare package Medium = Buildings.Media.Water "Water"),
-        choice(redeclare package Medium =
-            Buildings.Media.Antifreeze.PropyleneGlycolWater (
-              property_T=293.15,
-              X_a=0.40)
-              "Propylene glycol water, 40% mass fraction")));
-
-  parameter Boolean warnAboutOnePortConnection = true
-   "Set to false to suppress warning about potential numerical issues, see Buildings.Fluid.Sensors.UsersGuide for more information"
-   annotation(HideResult=true);
-  Modelica.Fluid.Interfaces.FluidPort_a port(redeclare package Medium=Medium, m_flow(min=0))
-    annotation (Placement(transformation(
-        origin={0,-100},
-        extent={{-10,-10},{10,10}},
-        rotation=90)));
-
+    annotation (choices(choice(redeclare package Medium=Buildings.Media.Air "Moist air"),choice(redeclare package Medium=Buildings.Media.Water "Water"),choice(redeclare package Medium=Buildings.Media.Antifreeze.PropyleneGlycolWater(property_T=293.15,X_a=0.40) "Propylene glycol water, 40% mass fraction")));
+  parameter Boolean warnAboutOnePortConnection=true
+    "Set to false to suppress warning about potential numerical issues, see Buildings.Fluid.Sensors.UsersGuide for more information"
+    annotation (HideResult=true);
+  Modelica.Fluid.Interfaces.FluidPort_a port(
+    redeclare package Medium=Medium,
+    m_flow(
+      min=0))
+    annotation (Placement(transformation(origin={0,-100},extent={{-10,-10},{10,10}},rotation=90)));
 protected
-  parameter String instanceName = getInstanceName() "Name of the instance";
+  parameter String instanceName=getInstanceName()
+    "Name of the instance";
 initial equation
-  assert(not warnAboutOnePortConnection,
-  "Sensor " + instanceName + " can lead to numerical problems if connected to a scalar fluid port.
+  assert(
+    not warnAboutOnePortConnection,
+    "Sensor "+instanceName+" can lead to numerical problems if connected to a scalar fluid port.
   Only connect it to a vectorized fluid port, such as used in 'Buildings.Fluid.MixingVolumes`.
   See Buildings.Fluid.Sensors.UsersGuide for more information.
-  To disable this warning, set 'warnAboutOnePortConnection = false' in " + instanceName + ".",
-  level=AssertionLevel.warning);
+  To disable this warning, set 'warnAboutOnePortConnection = false' in "+instanceName+".",
+    level=AssertionLevel.warning);
 equation
-  port.m_flow = 0;
-  port.h_outflow = 0;
-  port.Xi_outflow = zeros(Medium.nXi);
-  port.C_outflow = zeros(Medium.nC);
-  annotation (Documentation(info="<html>
+  port.m_flow=0;
+  port.h_outflow=0;
+  port.Xi_outflow=zeros(
+    Medium.nXi);
+  port.C_outflow=zeros(
+    Medium.nC);
+  annotation (
+    Documentation(
+      info="<html>
 <p>
 Partial component to model an absolute sensor.
 The component can be used for pressure sensor models.
@@ -45,7 +41,7 @@ Use for other properties such as temperature or density is discouraged, because 
 Buildings.Fluid.Sensors.BaseClasses.PartialFlowSensor</a>.
 </p>
 </html>",
-revisions="<html>
+      revisions="<html>
 <ul>
 <li>
 September 20, 2020, by Michael Wetter:<br/>
@@ -82,10 +78,10 @@ Implementation is based on <code>Modelica.Fluid</code>.
 </li>
 </ul>
 </html>"),
-Icon(
-  graphics={
-    Bitmap(
-      visible = warnAboutOnePortConnection,
-      extent={{-96,-82},{-64,-50}},
-      fileName="modelica://Buildings/Resources/Images/Fluid/Sensors/warningIcon.png")}));
+    Icon(
+      graphics={
+        Bitmap(
+          visible=warnAboutOnePortConnection,
+          extent={{-96,-82},{-64,-50}},
+          fileName="modelica://Buildings/Resources/Images/Fluid/Sensors/warningIcon.png")}));
 end PartialAbsoluteSensor;

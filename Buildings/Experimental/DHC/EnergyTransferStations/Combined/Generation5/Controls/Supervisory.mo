@@ -4,8 +4,7 @@ model Supervisory
   extends BaseClasses.PartialSupervisory;
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
-    annotation (choices(choice=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
-    choice=Buildings.Controls.OBC.CDL.Types.SimpleController.PI));
+    annotation (choices(choice=Buildings.Controls.OBC.CDL.Types.SimpleController.P,choice=Buildings.Controls.OBC.CDL.Types.SimpleController.PI));
   parameter Real kHot(
     min=0)=0.05
     "Gain of controller on hot side";
@@ -15,15 +14,11 @@ model Supervisory
   parameter Modelica.SIunits.Time TiHot(
     min=Buildings.Controls.OBC.CDL.Constants.small)=300
     "Time constant of integrator block on hot side"
-    annotation (Dialog(enable=
-    controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
-    controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+    annotation (Dialog(enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   parameter Modelica.SIunits.Time TiCol(
     min=Buildings.Controls.OBC.CDL.Constants.small)=120
     "Time constant of integrator block on cold side"
-    annotation (Dialog(enable=
-    controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
-    controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+    annotation (Dialog(enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   parameter Modelica.SIunits.Temperature THeaWatSupSetMin(
     displayUnit="degC")
     "Minimum value of heating water supply temperature set point";
@@ -33,13 +28,11 @@ model Supervisory
   Buildings.Controls.OBC.CDL.Interfaces.RealInput yValIsoCon_actual(
     final unit="1")
     "Return position of condenser to ambient loop isolation valve"
-    annotation (Placement(transformation(extent={{-160,-100},{-120,-60}}),
-    iconTransformation(extent={{-140,-90},{-100,-50}})));
+    annotation (Placement(transformation(extent={{-160,-100},{-120,-60}}),iconTransformation(extent={{-140,-90},{-100,-50}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput yValIsoEva_actual(
     final unit="1")
     "Return position of evaporator to ambient loop isolation valve"
-    annotation (Placement(transformation(extent={{-160,-120},{-120,-80}}),
-    iconTransformation(extent={{-140,-110},{-100,-70}})));
+    annotation (Placement(transformation(extent={{-160,-120},{-120,-80}}),iconTransformation(extent={{-140,-110},{-100,-70}})));
   SideHot conHot(
     final k=kHot,
     final Ti=TiHot,

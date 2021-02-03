@@ -1,12 +1,14 @@
 within Buildings.Fluid;
-package Interfaces "Package with interfaces for fluid models"
+package Interfaces
+  "Package with interfaces for fluid models"
   extends Modelica.Icons.InterfacesPackage;
-
-
-package UsersGuide "User's Guide"
-  extends Modelica.Icons.Information;
-  annotation (preferredView="info",
-  Documentation(info="<html>
+  package UsersGuide
+    "User's Guide"
+    extends Modelica.Icons.Information;
+    annotation (
+      preferredView="info",
+      Documentation(
+        info="<html>
 <p>
 The package <code>Buildings.Fluid.Interface</code> consists of basic
 classes that can be used by developers to create new component models.
@@ -212,11 +214,11 @@ see the <i>info</i> section of the class.
 </table>
 
 </html>"));
-
-end UsersGuide;
-
-
-annotation (preferredView="info", Documentation(info="<html>
+  end UsersGuide;
+  annotation (
+    preferredView="info",
+    Documentation(
+      info="<html>
 <p>
 This package contains basic classes that are used to build
 component models that change the state of the

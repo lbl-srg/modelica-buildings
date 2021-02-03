@@ -1,11 +1,9 @@
 within Buildings.Fluid.Actuators.Valves.Data;
-record Linear = Generic (
-    y =  {0, 1},
-    phi = {0.0001, 1}) "Linear opening curve"
-  annotation (
-defaultComponentName="datValLin",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+record Linear=Generic(
+  y={0,1},
+  phi={0.0001,1})
+  "Linear opening curve"
+  annotation (defaultComponentName="datValLin",defaultComponentPrefixes="parameter",Documentation(info="<html>
 <p>
 Linear valve opening characteristics with
 a normalized leakage flow rate of <i>0.0001</i>.
@@ -17,7 +15,7 @@ as the implementation in
 Buildings.Fluid.Actuators.Valves.TwoWayLinear</a>
 is more efficient.
 </p>
-</html>", revisions="<html>
+</html>",revisions="<html>
 <ul>
 <li>
 December 12, 2014, by Michael Wetter:<br/>

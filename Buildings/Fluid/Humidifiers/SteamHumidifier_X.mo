@@ -5,28 +5,25 @@ model SteamHumidifier_X
     outCon(
       final T_start=293.15,
       final X_start=X_start,
-      final use_TSet = true,
-      final use_X_wSet = true,
-      final QMax_flow = Modelica.Constants.inf,
-      final QMin_flow = -Modelica.Constants.inf,
-      final mWatMax_flow = mWatMax_flow,
-      final mWatMin_flow = 0,
-      final energyDynamics = Modelica.Fluid.Types.Dynamics.SteadyState,
-      final massDynamics = massDynamics));
-
-  parameter Modelica.SIunits.MassFlowRate mWatMax_flow(min=0) = Modelica.Constants.inf
+      final use_TSet=true,
+      final use_X_wSet=true,
+      final QMax_flow=Modelica.Constants.inf,
+      final QMin_flow=-Modelica.Constants.inf,
+      final mWatMax_flow=mWatMax_flow,
+      final mWatMin_flow=0,
+      final energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+      final massDynamics=massDynamics));
+  parameter Modelica.SIunits.MassFlowRate mWatMax_flow(
+    min=0)=Modelica.Constants.inf
     "Maximum water mass flow rate addition (positive)"
     annotation (Evaluate=true);
-
-  parameter Modelica.SIunits.MassFraction X_start[Medium.nX] = Medium.X_default
+  parameter Modelica.SIunits.MassFraction X_start[Medium.nX]=Medium.X_default
     "Start value of mass fractions m_i/m"
     annotation (Dialog(tab="Initialization"));
-
   // Dynamics
-  parameter Modelica.Fluid.Types.Dynamics massDynamics = Modelica.Fluid.Types.Dynamics.SteadyState
+  parameter Modelica.Fluid.Types.Dynamics massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState
     "Type of mass balance: dynamic (3 initialization options) or steady state"
-    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
-
+    annotation (Evaluate=true,Dialog(tab="Dynamics",group="Equations"));
   // Set maximum to a high value to avoid users mistakenly entering relative humidity.
   Modelica.Blocks.Interfaces.RealInput X_w(
     unit="1",
@@ -34,41 +31,44 @@ model SteamHumidifier_X
     max=0.03)
     "Set point for water vapor mass fraction in kg/kg total air of the fluid that leaves port_b"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
-
-  Modelica.Blocks.Interfaces.RealOutput mWat_flow(unit="kg/s")
+  Modelica.Blocks.Interfaces.RealOutput mWat_flow(
+    unit="kg/s")
     "Water added to the fluid (if flow is from port_a to port_b)"
     annotation (Placement(transformation(extent={{100,50},{120,70}})));
-
-  Modelica.Blocks.Interfaces.RealOutput Q_flow(unit="W")
+  Modelica.Blocks.Interfaces.RealOutput Q_flow(
+    unit="W")
     "Heat flow rate added to the fluid (if flow is from port_a to port_b)"
     annotation (Placement(transformation(extent={{100,70},{120,90}})));
 protected
-  constant Modelica.SIunits.SpecificEnthalpy hSte = Medium.enthalpyOfCondensingGas(T=373.15)
+  constant Modelica.SIunits.SpecificEnthalpy hSte=Medium.enthalpyOfCondensingGas(
+    T=373.15)
     "Enthalpy of steam at 100 degree Celsius";
-
-  Modelica.SIunits.SpecificEnthalpy hLea=
-    inStream(port_a.h_outflow) +
-    {hSte} * (port_b.Xi_outflow - inStream(port_a.Xi_outflow))
+  Modelica.SIunits.SpecificEnthalpy hLea=inStream(
+    port_a.h_outflow)+{hSte}*(port_b.Xi_outflow-inStream(
+    port_a.Xi_outflow))
     "Approximation of leaving enthalpy, based on dh/dx=h_fg";
-
-  Modelica.Blocks.Sources.RealExpression TLea(y=
-    Medium.temperature_phX(p = port_b.p,
-                           h = hLea,
-                           X = port_b.Xi_outflow)) "Leaving air temperature"
+  Modelica.Blocks.Sources.RealExpression TLea(
+    y=Medium.temperature_phX(
+      p=port_b.p,
+      h=hLea,
+      X=port_b.Xi_outflow))
+    "Leaving air temperature"
     annotation (Placement(transformation(extent={{-10,10},{10,30}})));
 equation
-  connect(X_w, outCon.X_wSet)
-    annotation (Line(points={{-120,60},{-20,60},{-20,4},{19,4}},
-                                                             color={0,0,127}));
-  connect(outCon.mWat_flow, mWat_flow) annotation (Line(points={{41,4},{80,4},{80,
-          60},{110,60}}, color={0,0,127}));
-
-  connect(Q_flow, outCon.Q_flow) annotation (Line(points={{110,80},{90,80},{60,80},
-          {60,8},{41,8}}, color={0,0,127}));
-  connect(TLea.y, outCon.TSet)
-    annotation (Line(points={{11,20},{14,20},{14,8},{19,8}}, color={0,0,127}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics={
+  connect(X_w,outCon.X_wSet)
+    annotation (Line(points={{-120,60},{-20,60},{-20,4},{19,4}},color={0,0,127}));
+  connect(outCon.mWat_flow,mWat_flow)
+    annotation (Line(points={{41,4},{80,4},{80,60},{110,60}},color={0,0,127}));
+  connect(Q_flow,outCon.Q_flow)
+    annotation (Line(points={{110,80},{90,80},{60,80},{60,8},{41,8}},color={0,0,127}));
+  connect(TLea.y,outCon.TSet)
+    annotation (Line(points={{11,20},{14,20},{14,8},{19,8}},color={0,0,127}));
+  annotation (
+    Icon(
+      coordinateSystem(
+        preserveAspectRatio=false,
+        extent={{-100,-100},{100,100}}),
+      graphics={
         Rectangle(
           extent={{-70,60},{70,-60}},
           lineColor={0,0,255},
@@ -100,27 +100,26 @@ equation
           lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
-        Line(points={{-64,34},{-52,44},{-64,54}}, color={0,0,0}),
+        Line(
+          points={{-64,34},{-52,44},{-64,54}},
+          color={0,0,0}),
         Rectangle(
           extent={{44,-54},{40,52}},
           fillColor={255,101,101},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
         Polygon(
-          points={{28,-26},{40,-34},{40,-34},{28,-40},{28,-38},{36,-34},{36,-34},
-              {28,-28},{28,-26}},
+          points={{28,-26},{40,-34},{40,-34},{28,-40},{28,-38},{36,-34},{36,-34},{28,-28},{28,-26}},
           fillColor={255,101,101},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
         Polygon(
-          points={{28,10},{40,2},{40,2},{28,-4},{28,-2},{36,2},{36,2},{28,8},{28,
-              10}},
+          points={{28,10},{40,2},{40,2},{28,-4},{28,-2},{36,2},{36,2},{28,8},{28,10}},
           fillColor={255,101,101},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
         Polygon(
-          points={{28,42},{40,34},{40,34},{28,28},{28,30},{36,34},{36,34},{28,40},
-              {28,42}},
+          points={{28,42},{40,34},{40,34},{28,28},{28,30},{36,34},{36,34},{28,40},{28,42}},
           fillColor={255,101,101},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
@@ -141,20 +140,17 @@ equation
           lineColor={0,0,127},
           textString="Q_flow"),
         Polygon(
-          points={{56,-26},{44,-34},{44,-34},{56,-40},{56,-38},{48,-34},{48,-34},
-              {56,-28},{56,-26}},
+          points={{56,-26},{44,-34},{44,-34},{56,-40},{56,-38},{48,-34},{48,-34},{56,-28},{56,-26}},
           fillColor={255,101,101},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
         Polygon(
-          points={{56,10},{44,2},{44,2},{56,-4},{56,-2},{48,2},{48,2},{56,8},{56,
-              10}},
+          points={{56,10},{44,2},{44,2},{56,-4},{56,-2},{48,2},{48,2},{56,8},{56,10}},
           fillColor={255,101,101},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
         Polygon(
-          points={{56,42},{44,34},{44,34},{56,28},{56,30},{48,34},{48,34},{56,40},
-              {56,42}},
+          points={{56,42},{44,34},{44,34},{56,28},{56,30},{48,34},{48,34},{56,40},{56,42}},
           fillColor={255,101,101},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
@@ -164,20 +160,17 @@ equation
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
         Polygon(
-          points={{8,-26},{-4,-34},{-4,-34},{8,-40},{8,-38},{0,-34},{0,-34},{8,-28},
-              {8,-26}},
+          points={{8,-26},{-4,-34},{-4,-34},{8,-40},{8,-38},{0,-34},{0,-34},{8,-28},{8,-26}},
           fillColor={255,101,101},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
         Polygon(
-          points={{-20,-26},{-8,-34},{-8,-34},{-20,-40},{-20,-38},{-12,-34},{-12,
-              -34},{-20,-28},{-20,-26}},
+          points={{-20,-26},{-8,-34},{-8,-34},{-20,-40},{-20,-38},{-12,-34},{-12,-34},{-20,-28},{-20,-26}},
           fillColor={255,101,101},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
         Polygon(
-          points={{-20,10},{-8,2},{-8,2},{-20,-4},{-20,-2},{-12,2},{-12,2},{-20,
-              8},{-20,10}},
+          points={{-20,10},{-8,2},{-8,2},{-20,-4},{-20,-2},{-12,2},{-12,2},{-20,8},{-20,10}},
           fillColor={255,101,101},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
@@ -192,13 +185,13 @@ equation
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
         Polygon(
-          points={{-20,42},{-8,34},{-8,34},{-20,28},{-20,30},{-12,34},{-12,34},{
-              -20,40},{-20,42}},
+          points={{-20,42},{-8,34},{-8,34},{-20,28},{-20,30},{-12,34},{-12,34},{-20,40},{-20,42}},
           fillColor={255,101,101},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None)}),
-defaultComponentName="hum",
-Documentation(info="<html>
+    defaultComponentName="hum",
+    Documentation(
+      info="<html>
 <p>
 Model for a steam humidifier with a prescribed outlet water vapor mass fraction
 in kg/kg total air.
@@ -260,7 +253,7 @@ This model only adds water vapor for the flow from
 The water vapor of the reverse flow is not affected by this model.
 </p>
 </html>",
-revisions="<html>
+      revisions="<html>
 <ul>
 <li>
 May 10, 2017, by Michael Wetter:<br/>

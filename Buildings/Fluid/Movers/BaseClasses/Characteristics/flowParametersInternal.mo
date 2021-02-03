@@ -1,14 +1,20 @@
 within Buildings.Fluid.Movers.BaseClasses.Characteristics;
-record flowParametersInternal "Record for flow parameters with prescribed size"
+record flowParametersInternal
+  "Record for flow parameters with prescribed size"
   extends Modelica.Icons.Record;
-  parameter Integer n "Number of elements in each array"
-   annotation(Evaluate=true);
-  parameter Modelica.SIunits.VolumeFlowRate V_flow[n](each min=0)
+  parameter Integer n
+    "Number of elements in each array"
+    annotation (Evaluate=true);
+  parameter Modelica.SIunits.VolumeFlowRate V_flow[n](
+    each min=0)
     "Volume flow rate at user-selected operating points";
   parameter Modelica.SIunits.PressureDifference dp[n](
-     each min=0, each displayUnit="Pa")
+    each min=0,
+    each displayUnit="Pa")
     "Fan or pump total pressure at these flow rates";
-  annotation (Documentation(info="<html>
+  annotation (
+    Documentation(
+      info="<html>
 <p>
 Data record for performance data that describe volume flow rate versus
 pressure rise.
@@ -28,7 +34,7 @@ Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface</a>
 in the <code>initial algorithm</code> section, which is not supported.
 </p>
 </html>",
-revisions="<html>
+      revisions="<html>
 <ul>
 <li>
 April 11, 2016 by Michael Wetter:<br/>

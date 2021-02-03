@@ -29,14 +29,14 @@ model FanCoil2PipeCooling
     min=Modelica.Constants.small)=10
     "Time constant of integrator block";
   parameter Modelica.SIunits.PressureDifference dpLoa_nominal(
-    displayUnit="Pa") = 250
+    displayUnit="Pa")=250
     "Load side pressure drop"
-    annotation(Dialog(group="Nominal condition"));
+    annotation (Dialog(group="Nominal condition"));
   final parameter hexConfiguration hexConCoo=hexConfiguration.CounterFlow
     "Cooling heat exchanger configuration";
   parameter Boolean have_speVar=true
     "Set to true for a variable speed fan (otherwise fan is always on)"
-    annotation (Evaluate=true, Dialog(group="Configuration"));
+    annotation (Evaluate=true,Dialog(group="Configuration"));
   Buildings.Controls.OBC.CDL.Continuous.PIDWithReset con(
     final k=k,
     final Ti=Ti,
@@ -94,7 +94,7 @@ model FanCoil2PipeCooling
     "Source for return air"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},rotation=0,origin={112,0})));
   Buildings.Experimental.DHC.Loads.SimpleRoomODE TLoaODE(
-    TOutHea_nominal=273.15 - 5,
+    TOutHea_nominal=273.15-5,
     TIndHea_nominal=T_aLoaHea_nominal,
     QHea_flow_nominal=QHea_flow_nominal)
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
@@ -110,23 +110,24 @@ model FanCoil2PipeCooling
     "Reset when demand rises from zero"
     annotation (Placement(transformation(extent={{-50,190},{-30,210}})));
   Fluid.FixedResistances.PressureDrop resLoa(
-    redeclare final package Medium = Medium2,
+    redeclare final package Medium=Medium2,
     final m_flow_nominal=mLoaCoo_flow_nominal,
     final dp_nominal=dpLoa_nominal)
     "Load side pressure drop"
     annotation (Placement(transformation(extent={{80,-10},{60,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant one(k=1)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant one(
+    k=1)
     "One constant"
     annotation (Placement(transformation(extent={{-10,130},{10,150}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1(k=have_speVar)
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1(
+    k=have_speVar)
     annotation (Placement(transformation(extent={{-50,150},{-30,170}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi
     "Logical switch"
     annotation (Placement(transformation(extent={{26,170},{46,190}})));
 equation
   connect(gaiFloNom2.y,fan.m_flow_in)
-    annotation (Line(points={{74,180},{80,180},{80,20},{40,20},{40,12}},
-                                                        color={0,0,127}));
+    annotation (Line(points={{74,180},{80,180},{80,20},{40,20},{40,12}},color={0,0,127}));
   connect(con.y,gaiMasFlo.u)
     annotation (Line(points={{12,220},{38,220}},color={0,0,127}));
   connect(fan.P,mulPFan.u)
@@ -163,18 +164,18 @@ equation
     annotation (Line(points={{-160,-180},{-100,-180},{-100,-12},{-80,-12}},color={0,127,255}));
   connect(hex.port_b1,mulChiWatFloOut.port_a)
     annotation (Line(points={{-60,-12},{-40,-12},{-40,-180},{160,-180}},color={0,127,255}));
-  connect(retAir.ports[1], resLoa.port_a)
-    annotation (Line(points={{102,0},{80,0}}, color={0,127,255}));
-  connect(resLoa.port_b, fan.port_a)
-    annotation (Line(points={{60,0},{50,0}}, color={0,127,255}));
-  connect(gaiFloNom2.u, swi.y)
-    annotation (Line(points={{50,180},{48,180}}, color={0,0,127}));
-  connect(con.y, swi.u1) annotation (Line(points={{12,220},{20,220},{20,188},{24,
-          188}}, color={0,0,127}));
-  connect(con1.y, swi.u2) annotation (Line(points={{-28,160},{-24,160},{-24,168},
-          {16,168},{16,180},{24,180}}, color={255,0,255}));
-  connect(one.y, swi.u3) annotation (Line(points={{12,140},{18,140},{18,172},{24,
-          172}}, color={0,0,127}));
+  connect(retAir.ports[1],resLoa.port_a)
+    annotation (Line(points={{102,0},{80,0}},color={0,127,255}));
+  connect(resLoa.port_b,fan.port_a)
+    annotation (Line(points={{60,0},{50,0}},color={0,127,255}));
+  connect(gaiFloNom2.u,swi.y)
+    annotation (Line(points={{50,180},{48,180}},color={0,0,127}));
+  connect(con.y,swi.u1)
+    annotation (Line(points={{12,220},{20,220},{20,188},{24,188}},color={0,0,127}));
+  connect(con1.y,swi.u2)
+    annotation (Line(points={{-28,160},{-24,160},{-24,168},{16,168},{16,180},{24,180}},color={255,0,255}));
+  connect(one.y,swi.u3)
+    annotation (Line(points={{12,140},{18,140},{18,172},{24,172}},color={0,0,127}));
   annotation (
     Documentation(
       info="<html>

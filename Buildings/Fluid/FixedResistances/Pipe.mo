@@ -1,80 +1,66 @@
 within Buildings.Fluid.FixedResistances;
-model Pipe "Pipe with finite volume discretization along flow path"
+model Pipe
+  "Pipe with finite volume discretization along flow path"
   extends Buildings.Fluid.FixedResistances.BaseClasses.Pipe(
-   diameter=sqrt(4*m_flow_nominal/rho_default/v_nominal/Modelica.Constants.pi),
-   dp_nominal=2*dpStraightPipe_nominal,
-   preDro(dp(nominal=length*10)));
+    diameter=sqrt(
+      4*m_flow_nominal/rho_default/v_nominal/Modelica.Constants.pi),
+    dp_nominal=2*dpStraightPipe_nominal,
+    preDro(
+      dp(
+        nominal=length*10)));
   // Because dp_nominal is a non-literal value, we set
   // dp.nominal=100 instead of the default dp.nominal=dp_nominal,
   // because the latter is ignored by Dymola 2012 FD 01.
-
-  parameter Modelica.SIunits.Velocity v_nominal = 0.15
+  parameter Modelica.SIunits.Velocity v_nominal=0.15
     "Velocity at m_flow_nominal (used to compute default diameter)";
-  parameter Modelica.SIunits.Length roughness(min=0) = 2.5e-5
+  parameter Modelica.SIunits.Length roughness(
+    min=0)=2.5e-5
     "Absolute roughness of pipe, with a default for a smooth steel pipe (dummy if use_roughness = false)";
-  final parameter Modelica.SIunits.PressureDifference dpStraightPipe_nominal(displayUnit="Pa")=
-      Modelica.Fluid.Pipes.BaseClasses.WallFriction.Detailed.pressureLoss_m_flow(
-      m_flow=m_flow_nominal,
-      rho_a=rho_default,
-      rho_b=rho_default,
-      mu_a=mu_default,
-      mu_b=mu_default,
-      length=length,
-      diameter=diameter,
-      roughness=roughness,
-      m_flow_small=m_flow_small)
+  final parameter Modelica.SIunits.PressureDifference dpStraightPipe_nominal(
+    displayUnit="Pa")=Modelica.Fluid.Pipes.BaseClasses.WallFriction.Detailed.pressureLoss_m_flow(
+    m_flow=m_flow_nominal,
+    rho_a=rho_default,
+    rho_b=rho_default,
+    mu_a=mu_default,
+    mu_b=mu_default,
+    length=length,
+    diameter=diameter,
+    roughness=roughness,
+    m_flow_small=m_flow_small)
     "Pressure loss of a straight pipe at m_flow_nominal";
-
   parameter Boolean useMultipleHeatPorts=false
     "= true to use one heat port for each segment of the pipe, false to use a single heat port for the entire pipe";
-
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor conPipWal[nSeg](
-      each G=2*Modelica.Constants.pi*lambdaIns*length/nSeg/Modelica.Math.log((
-        diameter/2.0 + thicknessIns)/(diameter/2.0)))
+    each G=2*Modelica.Constants.pi*lambdaIns*length/nSeg/Modelica.Math.log(
+      (diameter/2.0+thicknessIns)/(diameter/2.0)))
     "Thermal conductance through pipe wall"
     annotation (Placement(transformation(extent={{-28,-38},{-8,-18}})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalCollector colAllToOne(m=nSeg) if
-       not useMultipleHeatPorts
-    "Connector to assign multiple heat ports to one heat port" annotation (
-      Placement(transformation(
-        extent={{-6,-6},{6,6}},
-        rotation=180,
-        origin={-50,10})));
-
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort if not
-    useMultipleHeatPorts
+  Modelica.Thermal.HeatTransfer.Components.ThermalCollector colAllToOne(
+    m=nSeg) if not useMultipleHeatPorts
+    "Connector to assign multiple heat ports to one heat port"
+    annotation (Placement(transformation(extent={{-6,-6},{6,6}},rotation=180,origin={-50,10})));
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort if not useMultipleHeatPorts
     "Single heat port that connects to outside of pipe wall (default, enabled when useMultipleHeatPorts=false)"
-    annotation (Placement(transformation(extent={{-10,40},{10,20}}),
-        iconTransformation(extent={{-10,60},{10,40}})));
-  Modelica.Fluid.Interfaces.HeatPorts_a heatPorts[nSeg] if
-       useMultipleHeatPorts
+    annotation (Placement(transformation(extent={{-10,40},{10,20}}),iconTransformation(extent={{-10,60},{10,40}})));
+  Modelica.Fluid.Interfaces.HeatPorts_a heatPorts[nSeg] if useMultipleHeatPorts
     "Multiple heat ports that connect to outside of pipe wall (enabled if useMultipleHeatPorts=true)"
-    annotation (Placement(transformation(extent={{-10,-70},{11,-50}}),
-        iconTransformation(extent={{-30,-60},{30,-40}})));
+    annotation (Placement(transformation(extent={{-10,-70},{11,-50}}),iconTransformation(extent={{-30,-60},{30,-40}})));
 equation
-  connect(conPipWal.port_b, vol.heatPort) annotation (Line(
-      points={{-8,-28},{-1,-28}},
-      color={191,0,0},
-      smooth=Smooth.None));
+  connect(conPipWal.port_b,vol.heatPort)
+    annotation (Line(points={{-8,-28},{-1,-28}},color={191,0,0},smooth=Smooth.None));
   if useMultipleHeatPorts then
-    connect(heatPorts, conPipWal.port_a) annotation (Line(
-        points={{0.5,-60},{-50,-60},{-50,-28},{-28,-28}},
-        color={191,0,0},
-        smooth=Smooth.None));
+    connect(heatPorts,conPipWal.port_a)
+      annotation (Line(points={{0.5,-60},{-50,-60},{-50,-28},{-28,-28}},color={191,0,0},smooth=Smooth.None));
   else
-    connect(colAllToOne.port_a, conPipWal.port_a) annotation (Line(
-        points={{-50,4},{-50,-28},{-28,-28}},
-        color={191,0,0},
-        smooth=Smooth.None));
-    connect(colAllToOne.port_b, heatPort) annotation (Line(
-        points={{-50,16},{-50,30},{5.55112e-16,30}},
-        color={191,0,0},
-        smooth=Smooth.None));
-
+    connect(colAllToOne.port_a,conPipWal.port_a)
+      annotation (Line(points={{-50,4},{-50,-28},{-28,-28}},color={191,0,0},smooth=Smooth.None));
+    connect(colAllToOne.port_b,heatPort)
+      annotation (Line(points={{-50,16},{-50,30},{5.55112e-16,30}},color={191,0,0},smooth=Smooth.None));
   end if;
   annotation (
     defaultComponentName="pip",
-    Documentation(info="<html>
+    Documentation(
+      info="<html>
 <p>
 Model of a pipe with flow resistance and optional heat exchange with environment.
 </p>
@@ -121,7 +107,8 @@ For a steady-state model of a flow resistance, use
 <a href=\"modelica://Buildings.Fluid.FixedResistances.PressureDrop\">
 Buildings.Fluid.FixedResistances.PressureDrop</a> instead of this model.
 </p>
-</html>", revisions="<html>
+</html>",
+      revisions="<html>
 <ul>
 <li>
 January 22, 2016, by Michael Wetter:<br/>

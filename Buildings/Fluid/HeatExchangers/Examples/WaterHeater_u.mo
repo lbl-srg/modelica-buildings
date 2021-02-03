@@ -3,33 +3,34 @@ model WaterHeater_u
   "Example model for the heater with prescribed heat input and water as the medium"
   extends Modelica.Icons.Example;
   extends Buildings.Fluid.HeatExchangers.Examples.BaseClasses.Heater(
-    redeclare package Medium = Buildings.Media.Water,
+    redeclare package Medium=Buildings.Media.Water,
     m_flow_nominal=V*1000/3600,
     Q_flow_nominal=100,
-    conPI(k=10),
-    vol(V=V/1000),
-    mov(nominalValuesDefineDefaultPressureCurve=true));
-
+    conPI(
+      k=10),
+    vol(
+      V=V/1000),
+    mov(
+      nominalValuesDefineDefaultPressureCurve=true));
   HeaterCooler_u hea(
-    redeclare package Medium = Medium,
+    redeclare package Medium=Medium,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=1000,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     T_start=289.15,
-    Q_flow_nominal=10*Q_flow_nominal) "Heater"
+    Q_flow_nominal=10*Q_flow_nominal)
+    "Heater"
     annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));
 equation
-  connect(hea.port_b, THeaOut.port_a) annotation (Line(
-      points={{0,-40},{20,-40}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(conPI.y, hea.u) annotation (Line(
-      points={{-39,30},{-30,30},{-30,-34},{-22,-34}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(mov.port_b, hea.port_a) annotation (Line(points={{-50,-40},{-20,-40}},
-                      color={0,127,255}));
-  annotation ( Documentation(info="<html>
+  connect(hea.port_b,THeaOut.port_a)
+    annotation (Line(points={{0,-40},{20,-40}},color={0,127,255},smooth=Smooth.None));
+  connect(conPI.y,hea.u)
+    annotation (Line(points={{-39,30},{-30,30},{-30,-34},{-22,-34}},color={0,0,127},smooth=Smooth.None));
+  connect(mov.port_b,hea.port_a)
+    annotation (Line(points={{-50,-40},{-20,-40}},color={0,127,255}));
+  annotation (
+    Documentation(
+      info="<html>
 <p>
 This example illustrates how to use the heater model that takes as an
 input the heat added to the medium.
@@ -46,7 +47,8 @@ See
 Buildings.Fluid.HeatExchangers.Examples.WaterHeater_T</a>
 for a model that takes the leaving water temperature as an input.
 </p>
-</html>", revisions="<html>
+</html>",
+      revisions="<html>
 <ul>
 <li>
 May 8, 2017, by Michael Wetter:<br/>
@@ -69,12 +71,16 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/WaterHeater_u.mos"
-        "Simulate and plot"),
+    __Dymola_Commands(
+      file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/WaterHeater_u.mos" "Simulate and plot"),
     experiment(
       StopTime=172800,
       Tolerance=1e-6),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            120,100}})),
-    Icon(coordinateSystem(extent={{-100,-100},{120,100}})));
+    Diagram(
+      coordinateSystem(
+        preserveAspectRatio=false,
+        extent={{-100,-100},{120,100}})),
+    Icon(
+      coordinateSystem(
+        extent={{-100,-100},{120,100}})));
 end WaterHeater_u;

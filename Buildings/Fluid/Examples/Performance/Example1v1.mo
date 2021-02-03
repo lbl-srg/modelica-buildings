@@ -1,23 +1,32 @@
 within Buildings.Fluid.Examples.Performance;
-model Example1v1 "Example 1 model without mixing volume"
+model Example1v1
+  "Example 1 model without mixing volume"
   extends Buildings.Fluid.Examples.Performance.BaseClasses.Example1(
-      allowFlowReversal(k=false), from_dp(k=true));
-
+    allowFlowReversal(
+      k=false),
+    from_dp(
+      k=true));
 equation
   for i in 1:nRes.k loop
-    connect(res[i].port_b, val.port_3) annotation (Line(
-      points={{90,30},{100,30},{100,-10},{20,-10},{20,20}},
-      color={0,127,255}));
+    connect(res[i].port_b,val.port_3)
+      annotation (Line(points={{90,30},{100,30},{100,-10},{20,-10},{20,20}},color={0,127,255}));
   end for;
-  annotation (experiment(
-      Tolerance=1e-6, StopTime=20),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-20},{100,
-            100}}), graphics={Ellipse(
+  annotation (
+    experiment(
+      Tolerance=1e-6,
+      StopTime=20),
+    Diagram(
+      coordinateSystem(
+        preserveAspectRatio=false,
+        extent={{-100,-20},{100,100}}),
+      graphics={
+        Ellipse(
           extent={{66,0},{74,-8}},
           lineColor={0,0,255},
           fillPattern=FillPattern.Solid,
           fillColor={0,0,255})}),
-    Documentation(info="<html>
+    Documentation(
+      info="<html>
 <p>
 This model demonstrates the impact of the <code>allowFlowReversal</code>
 and <code>from_dp</code> parameters on the sizes of nonlinear algebraic loops.
@@ -95,7 +104,8 @@ models for building energy simulation.<br/>
 Submitted: 11th Modelica Conference. Paris, France. Sep. 2015.
 </li>
 </ul>
-</html>", revisions="<html>
+</html>",
+      revisions="<html>
 <ul>
 <li>
 July 14, 2015, by Michael Wetter:<br/>
@@ -107,7 +117,6 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Fluid/Examples/Performance/Example1v1.mos"
-        "Simulate and plot"));
+    __Dymola_Commands(
+      file="Resources/Scripts/Dymola/Fluid/Examples/Performance/Example1v1.mos" "Simulate and plot"));
 end Example1v1;

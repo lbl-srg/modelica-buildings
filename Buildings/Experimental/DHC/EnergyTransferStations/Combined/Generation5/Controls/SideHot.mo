@@ -13,17 +13,14 @@ block SideHot
     "Temperature difference between set point tracking and cold rejection lockout (absolute value)";
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
-    annotation (choices(choice=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
-    choice=Buildings.Controls.OBC.CDL.Types.SimpleController.PI));
+    annotation (choices(choice=Buildings.Controls.OBC.CDL.Types.SimpleController.P,choice=Buildings.Controls.OBC.CDL.Types.SimpleController.PI));
   parameter Real k(
     min=0)=0.1
     "Gain of controller";
   parameter Modelica.SIunits.Time Ti(
     min=Buildings.Controls.OBC.CDL.Constants.small)=120
     "Time constant of integrator block"
-    annotation (Dialog(enable=
-    controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
-    controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+    annotation (Dialog(enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   PIDWithEnable conColRej(
     final k=k,
     final Ti=Ti,
@@ -36,8 +33,7 @@ block SideHot
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yCol(
     final unit="1")
     "Control signal for cold side"
-    annotation (Placement(transformation(extent={{180,-60},{220,-20}}),
-    iconTransformation(extent={{100,-60},{140,-20}})));
+    annotation (Placement(transformation(extent={{180,-60},{220,-20}}),iconTransformation(extent={{100,-60},{140,-20}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
     final t=0.01)
     "Control signal is non zero (with 1% tolerance)"
@@ -79,40 +75,33 @@ block SideHot
     annotation (Placement(transformation(extent={{20,30},{40,50}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHeaCoo
     "Enable signal for heating or cooling"
-    annotation (Placement(transformation(extent={{-220,80},{-180,120}}),
-    iconTransformation(extent={{-140,60},{-100,100}})));
+    annotation (Placement(transformation(extent={{-220,80},{-180,120}}),iconTransformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSet(
     final unit="K",
     displayUnit="degC")
     "Supply temperature set point (heating or chilled water)"
-    annotation (Placement(transformation(extent={{-220,-20},{-180,20}}),
-    iconTransformation(extent={{-140,22},{-100,62}})));
+    annotation (Placement(transformation(extent={{-220,-20},{-180,20}}),iconTransformation(extent={{-140,22},{-100,62}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TTop(
     final unit="K",
     displayUnit="degC")
     "Temperature at top of tank"
-    annotation (Placement(transformation(extent={{-220,-60},{-180,-20}}),
-    iconTransformation(extent={{-140,-20},{-100,20}})));
+    annotation (Placement(transformation(extent={{-220,-60},{-180,-20}}),iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yAmb[nSouAmb](
     each final unit="1")
     "Control signal for ambient sources"
-    annotation (Placement(transformation(extent={{180,40},{220,80}}),
-    iconTransformation(extent={{100,20},{140,60}})));
+    annotation (Placement(transformation(extent={{180,40},{220,80}}),iconTransformation(extent={{100,20},{140,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yValIso(
     final unit="1")
     "Ambient loop isolation valve control signal"
-    annotation (Placement(transformation(extent={{180,-20},{220,20}}),
-    iconTransformation(extent={{100,-20},{140,20}})));
+    annotation (Placement(transformation(extent={{180,-20},{220,20}}),iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput yValIsoCon_actual(
     final unit="1")
     "Return position of condenser to ambient loop isolation valve"
-    annotation (Placement(transformation(extent={{-220,-100},{-180,-60}}),
-    iconTransformation(extent={{-140,-60},{-100,-20}})));
+    annotation (Placement(transformation(extent={{-220,-100},{-180,-60}}),iconTransformation(extent={{-140,-60},{-100,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput yValIsoEva_actual(
     final unit="1")
     "Return position of evaporator to ambient loop isolation valve"
-    annotation (Placement(transformation(extent={{-220,-140},{-180,-100}}),
-    iconTransformation(extent={{-140,-100},{-100,-60}})));
+    annotation (Placement(transformation(extent={{-220,-140},{-180,-100}}),iconTransformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Continuous.LessThreshold isValIsoConClo(
     final t=1E-6,
     h=0.5E-6)

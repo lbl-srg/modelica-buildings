@@ -1,8 +1,11 @@
 within Buildings.Fluid.Movers.Data;
-package Pumps "Package containing data for pumps"
+package Pumps
+  "Package containing data for pumps"
   extends Modelica.Icons.Package;
-
-annotation (preferredView="info", Documentation(info="<html>
+  annotation (
+    preferredView="info",
+    Documentation(
+      info="<html>
 <p>
 This package contains data for pumps.
 </p>

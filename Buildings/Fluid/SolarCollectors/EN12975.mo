@@ -1,12 +1,13 @@
 within Buildings.Fluid.SolarCollectors;
-model EN12975 "Model of a concentrating solar collector"
-extends Buildings.Fluid.SolarCollectors.BaseClasses.PartialSolarCollector(final perPar=per);
-    parameter Buildings.Fluid.SolarCollectors.Data.GenericSolarCollector per
-    "Performance data"  annotation(choicesAllMatching=true,
-    Placement(transformation(extent={{60,-80},{80,-60}})));
-
+model EN12975
+  "Model of a concentrating solar collector"
+  extends Buildings.Fluid.SolarCollectors.BaseClasses.PartialSolarCollector(
+    final perPar=per);
+  parameter Buildings.Fluid.SolarCollectors.Data.GenericSolarCollector per
+    "Performance data"
+    annotation (choicesAllMatching=true,Placement(transformation(extent={{60,-80},{80,-60}})));
   BaseClasses.EN12975SolarGain solGai(
-    redeclare package Medium = Medium,
+    redeclare package Medium=Medium,
     final A_c=TotalArea_internal,
     final nSeg=nSeg,
     final y_intercept=per.y_intercept,
@@ -16,9 +17,9 @@ extends Buildings.Fluid.SolarCollectors.BaseClasses.PartialSolarCollector(final 
     final iamDiff=per.IAMDiff,
     final use_shaCoe_in=use_shaCoe_in)
     "Identifies heat gained from the sun using standard EN12975 calculations"
-     annotation (Placement(transformation(extent={{-20,38},{0,58}})));
+    annotation (Placement(transformation(extent={{-20,38},{0,58}})));
   BaseClasses.EN12975HeatLoss heaLos(
-    redeclare package Medium = Medium,
+    redeclare package Medium=Medium,
     final A_c=TotalArea_internal,
     final nSeg=nSeg,
     final y_intercept=per.y_intercept,
@@ -29,57 +30,36 @@ extends Buildings.Fluid.SolarCollectors.BaseClasses.PartialSolarCollector(final 
     final m_flow_nominal=per.mperA_flow_nominal*per.A*nPanels_internal,
     final cp_default=cp_default)
     "Calculates the heat lost to the surroundings using the EN12975 standard calculations"
-      annotation (Placement(transformation(extent={{-20,6},{0,26}})));
-
+    annotation (Placement(transformation(extent={{-20,6},{0,26}})));
 equation
   // Make sure the model is only used with the EN ratings data, and hence C1 > 0
-  assert(per.C1 > 0,
-    "The heat loss coefficient from the EN 12975 ratings data must be strictly positive. Obtained C1 = " + String(per.C1));
-  connect(shaCoe_internal, solGai.shaCoe_in);
-
-  connect(weaBus.TDryBul, heaLos.TEnv) annotation (Line(
-      points={{-100,96},{-88,96},{-88,22},{-22,22}},
-      color={255,204,51},
-      thickness=0.5,
-      smooth=Smooth.None), Text(
-      textString="%first",
-      index=-1,
-      extent={{-6,3},{-6,3}}));
-  connect(HDirTil.inc, solGai.incAng)    annotation (Line(
-      points={{-59,48},{-22,48}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(HDifTilIso.H, solGai.HSkyDifTil) annotation (Line(
-      points={{-59,80},{-50,80},{-50,56},{-22,56}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(HDirTil.H, solGai.HDirTil) annotation (Line(
-      points={{-59,52},{-22,52}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(shaCoe_in, solGai.shaCoe_in) annotation (Line(
-      points={{-120,26},{-50,26},{-50,44},{-22,44}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(heaLos.TFlu, temSen.T) annotation (Line(
-      points={{-22,10},{-28,10},{-28,-16},{-8,-16}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(heaLos.QLos, QLos.Q_flow) annotation (Line(
-      points={{1,16},{50,16}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(solGai.QSol_flow, heaGai.Q_flow) annotation (Line(
-      points={{1,48},{50,48}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(temSen.T, solGai.TFlu) annotation (Line(
-      points={{-8,-16},{-28,-16},{-28,40},{-22,40}},
-      color={0,0,127},
-      smooth=Smooth.None));
+  assert(
+    per.C1 > 0,
+    "The heat loss coefficient from the EN 12975 ratings data must be strictly positive. Obtained C1 = "+String(
+      per.C1));
+  connect(shaCoe_internal,solGai.shaCoe_in);
+  connect(weaBus.TDryBul,heaLos.TEnv)
+    annotation (Line(points={{-100,96},{-88,96},{-88,22},{-22,22}},color={255,204,51},thickness=0.5,smooth=Smooth.None),Text(textString="%first",index=-1,extent={{-6,3},{-6,3}}));
+  connect(HDirTil.inc,solGai.incAng)
+    annotation (Line(points={{-59,48},{-22,48}},color={0,0,127},smooth=Smooth.None));
+  connect(HDifTilIso.H,solGai.HSkyDifTil)
+    annotation (Line(points={{-59,80},{-50,80},{-50,56},{-22,56}},color={0,0,127},smooth=Smooth.None));
+  connect(HDirTil.H,solGai.HDirTil)
+    annotation (Line(points={{-59,52},{-22,52}},color={0,0,127},smooth=Smooth.None));
+  connect(shaCoe_in,solGai.shaCoe_in)
+    annotation (Line(points={{-120,26},{-50,26},{-50,44},{-22,44}},color={0,0,127},smooth=Smooth.None));
+  connect(heaLos.TFlu,temSen.T)
+    annotation (Line(points={{-22,10},{-28,10},{-28,-16},{-8,-16}},color={0,0,127},smooth=Smooth.None));
+  connect(heaLos.QLos,QLos.Q_flow)
+    annotation (Line(points={{1,16},{50,16}},color={0,0,127},smooth=Smooth.None));
+  connect(solGai.QSol_flow,heaGai.Q_flow)
+    annotation (Line(points={{1,48},{50,48}},color={0,0,127},smooth=Smooth.None));
+  connect(temSen.T,solGai.TFlu)
+    annotation (Line(points={{-8,-16},{-28,-16},{-28,40},{-22,40}},color={0,0,127},smooth=Smooth.None));
   annotation (
-  defaultComponentName="solCol",
-  Documentation(info="<html>
+    defaultComponentName="solCol",
+    Documentation(
+      info="<html>
 <h4>Overview</h4>
 <p>
 This component models a solar thermal collector according
@@ -105,7 +85,8 @@ capacity of copper.
 <p>
 <a href=\"http://www.energyplus.gov\">EnergyPlus 7.0.0 Engineering Reference</a>, October 13, 2011.<br/>
 </p>
-</html>", revisions="<html>
+</html>",
+      revisions="<html>
 <ul>
 <li>
 December 17, 2017, by Michael Wetter:<br/>
@@ -126,8 +107,11 @@ First implementation.
 </li>
 </ul>
 </html>"),
-      Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}), graphics={
+    Icon(
+      coordinateSystem(
+        preserveAspectRatio=false,
+        extent={{-100,-100},{100,100}}),
+      graphics={
         Polygon(
           points={{20,-75},{50,-85},{20,-95},{20,-75}},
           lineColor={255,255,255},
@@ -141,9 +125,7 @@ First implementation.
           fillColor={26,0,55},
           fillPattern=FillPattern.Solid),
         Line(
-          points={{-100,0},{-76,0},{-76,-90},{66,-90},{66,-60},{-64,-60},{-64,-30},
-              {66,-30},{66,0},{-64,0},{-64,28},{66,28},{66,60},{-64,60},{-64,86},
-              {78,86},{78,0},{98,0},{100,0}},
+          points={{-100,0},{-76,0},{-76,-90},{66,-90},{66,-60},{-64,-60},{-64,-30},{66,-30},{66,0},{-64,0},{-64,28},{66,28},{66,60},{-64,60},{-64,86},{78,86},{78,0},{98,0},{100,0}},
           color={0,128,255},
           thickness=1,
           smooth=Smooth.None),

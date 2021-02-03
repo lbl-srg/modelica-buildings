@@ -1,27 +1,24 @@
 within Buildings.Fluid.Sensors;
-model MassFractionTwoPort "Ideal two port mass fraction sensor"
+model MassFractionTwoPort
+  "Ideal two port mass fraction sensor"
   extends Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor(
-    redeclare replaceable package Medium =
-        Modelica.Media.Interfaces.PartialCondensingGases);
-  extends Buildings.Fluid.BaseClasses.IndexMassFraction(substanceName = "water");
+    redeclare replaceable package Medium=Modelica.Media.Interfaces.PartialCondensingGases);
+  extends Buildings.Fluid.BaseClasses.IndexMassFraction(
+    substanceName="water");
   extends Modelica.Icons.RotationalSensor;
-
   parameter Medium.MassFraction X_start=Medium.X_default[i_x]
     "Initial or guess value of output (= state)"
     annotation (Dialog(group="Initialization"));
-
-  Modelica.Blocks.Interfaces.RealOutput X(min=-1e-3,
-                                          max=1.001,
-                                          start=X_start,
-                                          final unit="kg/kg")
+  Modelica.Blocks.Interfaces.RealOutput X(
+    min=-1e-3,
+    max=1.001,
+    start=X_start,
+    final unit="kg/kg")
     "Mass fraction of the passing fluid"
-    annotation (Placement(transformation(
-        origin={0,110},
-        extent={{10,-10},{-10,10}},
-        rotation=270)));
-
+    annotation (Placement(transformation(origin={0,110},extent={{10,-10},{-10,10}},rotation=270)));
 protected
-  Medium.MassFraction XMed(start=X_start)
+  Medium.MassFraction XMed(
+    start=X_start)
     "Mass fraction to which the sensor is exposed";
   Medium.MassFraction XiVec[Medium.nXi](
     final quantity=Medium.substanceNames[1:Medium.nXi])
@@ -30,44 +27,64 @@ initial equation
   // Assign initial conditions
   if dynamic then
     if initType == Modelica.Blocks.Types.Init.SteadyState then
-      der(X) = 0;
-     elseif initType == Modelica.Blocks.Types.Init.InitialState or
-           initType == Modelica.Blocks.Types.Init.InitialOutput then
-      X = X_start;
+      der(
+        X)=0;
+    elseif initType == Modelica.Blocks.Types.Init.InitialState or initType == Modelica.Blocks.Types.Init.InitialOutput then
+      X=X_start;
     end if;
   end if;
 equation
   if allowFlowReversal then
-    XiVec = Modelica.Fluid.Utilities.regStep(
-              x=port_a.m_flow,
-              y1=port_b.Xi_outflow,
-              y2=port_a.Xi_outflow,
-              x_small=m_flow_small);
+    XiVec=Modelica.Fluid.Utilities.regStep(
+      x=port_a.m_flow,
+      y1=port_b.Xi_outflow,
+      y2=port_a.Xi_outflow,
+      x_small=m_flow_small);
   else
-    XiVec = port_b.Xi_outflow;
+    XiVec=port_b.Xi_outflow;
   end if;
-  XMed = if i_x > Medium.nXi then (1-sum(XiVec)) else XiVec[i_x];
+  XMed=
+    if i_x > Medium.nXi then
+      (1-sum(
+        XiVec))
+    else
+      XiVec[i_x];
   // Output signal of sensor
   if dynamic then
-    der(X)  = (XMed-X)*k*tauInv;
+    der(
+      X)=(XMed-X)*k*tauInv;
   else
-    X = XMed;
+    X=XMed;
   end if;
-annotation (defaultComponentName="senMasFra",
-  Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}},
-        grid={1,1}), graphics={
+  annotation (
+    defaultComponentName="senMasFra",
+    Icon(
+      coordinateSystem(
+        preserveAspectRatio=false,
+        extent={{-100,-100},{100,100}},
+        grid={1,1}),
+      graphics={
         Text(
           extent={{94,122},{0,92}},
           lineColor={0,0,0},
           textString="X"),
-        Line(points={{0,100},{0,70}}, color={0,0,127}),
-        Line(points={{-100,0},{-70,0}}, color={0,128,255}),
-        Line(points={{70,0},{100,0}}, color={0,128,255}),
+        Line(
+          points={{0,100},{0,70}},
+          color={0,0,127}),
+        Line(
+          points={{-100,0},{-70,0}},
+          color={0,128,255}),
+        Line(
+          points={{70,0},{100,0}},
+          color={0,128,255}),
         Text(
-         extent={{-20,120},{-140,70}},
+          extent={{-20,120},{-140,70}},
           lineColor={0,0,0},
-          textString=DynamicSelect("", String(X, leftjustified=false, significantDigits=3)))}),
-  Documentation(info="<html>
+          textString=DynamicSelect("",String(X,
+            leftjustified=false,
+            significantDigits=3)))}),
+    Documentation(
+      info="<html>
 <p>
 This model outputs the mass fraction of the passing fluid.
 The sensor is ideal, i.e. it does not influence the fluid.
@@ -78,7 +95,7 @@ Setting <code>tau=0</code> is <i>not</i> recommend. See
 Buildings.Fluid.Sensors.UsersGuide</a> for an explanation.
 </p>
 </html>",
-revisions="<html>
+      revisions="<html>
 <ul>
 <li>
 February 25, 2020, by Michael Wetter:<br/>

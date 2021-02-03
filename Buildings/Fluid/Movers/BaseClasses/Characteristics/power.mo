@@ -1,49 +1,59 @@
 within Buildings.Fluid.Movers.BaseClasses.Characteristics;
-function power "Flow vs. electrical power characteristics for fan or pump"
+function power
+  "Flow vs. electrical power characteristics for fan or pump"
   extends Modelica.Icons.Function;
   input Buildings.Fluid.Movers.BaseClasses.Characteristics.powerParameters per
     "Pressure performance data";
-  input Modelica.SIunits.VolumeFlowRate V_flow "Volumetric flow rate";
-  input Real r_N(unit="1") "Relative revolution, r_N=N/N_nominal";
-  input Real d[:] "Derivatives at support points for spline interpolation";
-  input Real delta "Small value for switching implementation around zero rpm";
-  output Modelica.SIunits.Power P "Power consumption";
-
+  input Modelica.SIunits.VolumeFlowRate V_flow
+    "Volumetric flow rate";
+  input Real r_N(
+    unit="1")
+    "Relative revolution, r_N=N/N_nominal";
+  input Real d[:]
+    "Derivatives at support points for spline interpolation";
+  input Real delta
+    "Small value for switching implementation around zero rpm";
+  output Modelica.SIunits.Power P
+    "Power consumption";
 protected
-   Integer n=size(per.V_flow, 1) "Dimension of data vector";
-
-   Modelica.SIunits.VolumeFlowRate rat "Ratio of V_flow/r_N";
-   Integer i "Integer to select data interval";
-
+  Integer n=size(
+    per.V_flow,
+    1)
+    "Dimension of data vector";
+  Modelica.SIunits.VolumeFlowRate rat
+    "Ratio of V_flow/r_N";
+  Integer i
+    "Integer to select data interval";
 algorithm
   if n == 1 then
     P := r_N^3*per.P[1];
   else
-    i :=1;
+    i := 1;
     // The use of the max function to avoids problems for low speeds
     // and turned off pumps
-    rat:=V_flow/
-            Buildings.Utilities.Math.Functions.smoothMax(
-              x1=r_N,
-              x2=0.1,
-              deltaX=delta);
+    rat := V_flow/Buildings.Utilities.Math.Functions.smoothMax(
+      x1=r_N,
+      x2=0.1,
+      deltaX=delta);
     for j in 1:n-1 loop
-       if rat > per.V_flow[j] then
-         i := j;
-       end if;
+      if rat > per.V_flow[j] then
+        i := j;
+      end if;
     end for;
     // Extrapolate or interpolate the data
-    P:=r_N^3*Buildings.Utilities.Math.Functions.cubicHermiteLinearExtrapolation(
-                x=rat,
-                x1=per.V_flow[i],
-                x2=per.V_flow[i + 1],
-                y1=per.P[i],
-                y2=per.P[i + 1],
-                y1d=d[i],
-                y2d=d[i+1]);
+    P := r_N^3*Buildings.Utilities.Math.Functions.cubicHermiteLinearExtrapolation(
+      x=rat,
+      x1=per.V_flow[i],
+      x2=per.V_flow[i+1],
+      y1=per.P[i],
+      y2=per.P[i+1],
+      y1d=d[i],
+      y2d=d[i+1]);
   end if;
-  annotation(smoothOrder=1,
-              Documentation(info="<html>
+  annotation (
+    smoothOrder=1,
+    Documentation(
+      info="<html>
 <p>
 This function computes the fan power consumption for given volume flow rate,
 speed and performance data. The power consumption is
@@ -65,7 +75,7 @@ If the data <i>d</i> define a monotone decreasing sequence, then
 <i>s(&middot;, d)</i> is a monotone decreasing function.
 </p>
 </html>",
-        revisions="<html>
+      revisions="<html>
 <ul>
 <li>
 February 26, 2014, by Filip Jorissen:<br/>

@@ -1,190 +1,168 @@
 within Buildings.Fluid.FMI.Adaptors;
 model HVAC
   "Adaptor for connecting an HVAC system to signal ports which then can be exposed at an FMI interface"
-
-  replaceable package Medium =
-    Modelica.Media.Interfaces.PartialMedium "Medium in the component"
-      annotation (choices(
-        choice(redeclare package Medium = Buildings.Media.Air "Moist air")));
-
+  replaceable package Medium=Modelica.Media.Interfaces.PartialMedium
+    "Medium in the component"
+    annotation (choices(choice(redeclare package Medium=Buildings.Media.Air "Moist air")));
   // Don't use annotation(Dialog(connectorSizing=true)) for nPorts because
   // otherwise, in Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.HVACZones
   // the fluid ports can not be assigned between the different zones by the user.
-  parameter Integer nPorts(min=2) "Number of ports"
-      annotation (Dialog(connectorSizing=false));
-
+  parameter Integer nPorts(
+    min=2)
+    "Number of ports"
+    annotation (Dialog(connectorSizing=false));
   Interfaces.Outlet fluPor[nPorts](
-    redeclare each final package Medium = Medium,
+    redeclare each final package Medium=Medium,
     each final allowFlowReversal=true,
-    each final use_p_in=false) "Fluid connector"
+    each final use_p_in=false)
+    "Fluid connector"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
-
   Modelica.Fluid.Interfaces.FluidPorts_b ports[nPorts](
-    redeclare each final package Medium = Medium)
+    redeclare each final package Medium=Medium)
     annotation (Placement(transformation(extent={{-110,40},{-90,-40}})));
-
   Modelica.Blocks.Interfaces.RealOutput TAirZon[nPorts](
     each final unit="K",
     each displayUnit="degC")
     "Temperature of the backward flowing medium in the connector outlet"
-    annotation (Placement(transformation(extent={{20,20},{-20,-20}},
-        rotation=90,
-        origin={-60,-120}),
-        iconTransformation(
-        extent={{20,20},{-20,-20}},
-        rotation=90,
-        origin={-60,-120})));
+    annotation (Placement(transformation(extent={{20,20},{-20,-20}},rotation=90,origin={-60,-120}),iconTransformation(extent={{20,20},{-20,-20}},rotation=90,origin={-60,-120})));
   Modelica.Blocks.Interfaces.RealOutput X_wZon[nPorts](
-    each final unit="kg/kg") if
-       Medium.nXi > 0
+    each final unit="kg/kg") if Medium.nXi > 0
     "Water mass fraction per total air mass of the backward flowing medium in the connector outlet"
-    annotation (Placement(transformation(extent={{20,20},{-20,-20}},
-        rotation=90,
-        origin={0,-120}),
-        iconTransformation(
-        extent={{20,20},{-20,-20}},
-        rotation=90,
-        origin={0,-120})));
-  Modelica.Blocks.Interfaces.RealOutput CZon[nPorts, Medium.nC](
-    final quantity=fill(Medium.extraPropertiesNames, nPorts))
+    annotation (Placement(transformation(extent={{20,20},{-20,-20}},rotation=90,origin={0,-120}),iconTransformation(extent={{20,20},{-20,-20}},rotation=90,origin={0,-120})));
+  Modelica.Blocks.Interfaces.RealOutput CZon[nPorts,Medium.nC](
+    final quantity=fill(
+      Medium.extraPropertiesNames,
+      nPorts))
     "Trace substances of the backward flowing medium in the connector outlet"
-    annotation (Placement(transformation(extent={{20,20},{-20,-20}},
-        rotation=90,
-        origin={60,-120}),
-        iconTransformation(
-        extent={{20,20},{-20,-20}},
-        rotation=90,
-        origin={60,-120})));
-
+    annotation (Placement(transformation(extent={{20,20},{-20,-20}},rotation=90,origin={60,-120}),iconTransformation(extent={{20,20},{-20,-20}},rotation=90,origin={60,-120})));
 protected
   Sources.MassFlowSource_T bou(
     final nPorts=nPorts,
-    redeclare final package Medium = Medium,
+    redeclare final package Medium=Medium,
     final use_m_flow_in=false,
     final use_T_in=true,
     final use_X_in=Medium.nXi > 0,
     final use_C_in=Medium.nC > 0,
-    final m_flow=0) "Boundary conditions for HVAC system"
+    final m_flow=0)
+    "Boundary conditions for HVAC system"
     annotation (Placement(transformation(extent={{0,-10},{-20,10}})));
-
   Buildings.Fluid.FMI.Conversion.AirToOutlet con[nPorts](
-      redeclare each final package Medium = Medium,
-      each final allowFlowReversal=true)
+    redeclare each final package Medium=Medium,
+    each final allowFlowReversal=true)
     "Converter between the different connectors"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
-
   Sensors.MassFlowRate senMasFlo[nPorts](
-    redeclare each final package Medium = Medium,
-    each allowFlowReversal=true) "Mass flow rate sensor"
+    redeclare each final package Medium=Medium,
+    each allowFlowReversal=true)
+    "Mass flow rate sensor"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-
   Buildings.Fluid.FMI.BaseClasses.X_w_toX x_w_toX(
-    redeclare final package Medium = Medium) if
-       Medium.nXi > 0 "Conversion from X_w to X"
+    redeclare final package Medium=Medium) if Medium.nXi > 0
+    "Conversion from X_w to X"
     annotation (Placement(transformation(extent={{40,-40},{20,-20}})));
-
   Modelica.Blocks.Sources.RealExpression hSup[nPorts](
     final y={inStream(ports[i].h_outflow) for i in 1:nPorts})
     "Supply air specific enthalpy"
     annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
-
   RealVectorExpression XiSup[nPorts](
-    each final n = Medium.nXi,
-    final y={inStream(ports[i].Xi_outflow) for i in 1:nPorts}) if
-       Medium.nXi > 0 "Water vapor concentration of supply air"
+    each final n=Medium.nXi,
+    final y={inStream(ports[i].Xi_outflow) for i in 1:nPorts}) if Medium.nXi > 0
+    "Water vapor concentration of supply air"
     annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
-
   RealVectorExpression CSup[nPorts](
     each final n=Medium.nC,
-    final y={inStream(ports[i].C_outflow) for i in 1:nPorts}) if
-       Medium.nC > 0 "Trace substance concentration of supply air"
+    final y={inStream(ports[i].C_outflow) for i in 1:nPorts}) if Medium.nC > 0
+    "Trace substance concentration of supply air"
     annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
-
   ///////////////////////////////////////////////////////////////////////////
   // Internal blocks
   block RealVectorExpression
     "Set vector output signal to a time varying vector Real expression"
-    parameter Integer n "Dimension of output signal";
-    Modelica.Blocks.Interfaces.RealOutput[n] y "Value of Real output"
-    annotation (Dialog(group="Time varying output signal"), Placement(
-        transformation(extent={{100,-10},{120,10}})));
-
-  annotation (Icon(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}}), graphics={
-        Rectangle(
-          extent={{-100,46},{94,-34}},
-          lineColor={0,0,0},
-          lineThickness=5.0,
-          fillColor={200,200,200},
-          fillPattern=FillPattern.Solid,
-          borderPattern=BorderPattern.Raised),
-        Rectangle(
-          extent={{-92,30},{100,-44}},
-          lineColor={0,0,0},
-          lineThickness=5.0,
-          fillColor={235,235,235},
-          fillPattern=FillPattern.Solid,
-          borderPattern=BorderPattern.Raised),
-        Text(
-          extent={{-96,15},{96,-15}},
-          lineColor={0,0,0},
-          textString="%y"),
-        Text(
-          extent={{-150,90},{140,50}},
-          textString="%name",
-          lineColor={0,0,255})}), Documentation(info="<html>
+    parameter Integer n
+      "Dimension of output signal";
+    Modelica.Blocks.Interfaces.RealOutput[n] y
+      "Value of Real output"
+      annotation (Dialog(group="Time varying output signal"),Placement(transformation(extent={{100,-10},{120,10}})));
+    annotation (
+      Icon(
+        coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}}),
+        graphics={
+          Rectangle(
+            extent={{-100,46},{94,-34}},
+            lineColor={0,0,0},
+            lineThickness=5.0,
+            fillColor={200,200,200},
+            fillPattern=FillPattern.Solid,
+            borderPattern=BorderPattern.Raised),
+          Rectangle(
+            extent={{-92,30},{100,-44}},
+            lineColor={0,0,0},
+            lineThickness=5.0,
+            fillColor={235,235,235},
+            fillPattern=FillPattern.Solid,
+            borderPattern=BorderPattern.Raised),
+          Text(
+            extent={{-96,15},{96,-15}},
+            lineColor={0,0,0},
+            textString="%y"),
+          Text(
+            extent={{-150,90},{140,50}},
+            textString="%name",
+            lineColor={0,0,255})}),
+      Documentation(
+        info="<html>
 <p>
 The (time varying) vector <code>Real</code> output signal of this block can be defined in its
 parameter menu via variable <code>y</code>. The purpose is to support the
 easy definition of vector-valued Real expressions in a block diagram.
 </p>
 </html>"));
-
   end RealVectorExpression;
-
 initial equation
-   assert(Medium.nXi < 2,
-   "The medium must have zero or one independent mass fraction Medium.nXi.");
+  assert(
+    Medium.nXi < 2,
+    "The medium must have zero or one independent mass fraction Medium.nXi.");
 equation
-
-  connect(con.outlet, fluPor)
-    annotation (Line(points={{81,70},{90,70},{90,0},{106,0},{106,0},{110,0},{110,
-          0}},                                        color={0,0,255}));
-  connect(senMasFlo.m_flow, con.m_flow) annotation (Line(points={{-70,11},{-70,11},
-          {-70,78},{58,78}},                           color={0,0,127}));
-  connect(hSup.y, con.h) annotation (Line(points={{-19,60},{20,60},{20,74},{58,74}},
-        color={0,0,127}));
+  connect(con.outlet,fluPor)
+    annotation (Line(points={{81,70},{90,70},{90,0},{106,0},{106,0},{110,0},{110,0}},color={0,0,255}));
+  connect(senMasFlo.m_flow,con.m_flow)
+    annotation (Line(points={{-70,11},{-70,11},{-70,78},{58,78}},color={0,0,127}));
+  connect(hSup.y,con.h)
+    annotation (Line(points={{-19,60},{20,60},{20,74},{58,74}},color={0,0,127}));
   for i in 1:nPorts loop
-    connect(XiSup[i].y, con[i].Xi) annotation (Line(points={{-19,40},{4,40},{28,40},{28,
-          66},{58,66}}, color={0,0,127}));
-    connect(CSup[i].y, con[i].C) annotation (Line(points={{-19,20},{32,20},{32,62},
-            {58,62}}, color={0,0,127}));
+    connect(XiSup[i].y,con[i].Xi)
+      annotation (Line(points={{-19,40},{4,40},{28,40},{28,66},{58,66}},color={0,0,127}));
+    connect(CSup[i].y,con[i].C)
+      annotation (Line(points={{-19,20},{32,20},{32,62},{58,62}},color={0,0,127}));
   end for;
-  connect(senMasFlo.port_b, bou.ports)
+  connect(senMasFlo.port_b,bou.ports)
     annotation (Line(points={{-60,0},{-40,0},{-20,0}},color={0,127,255}));
-  connect(ports, senMasFlo.port_a)
-    annotation (Line(points={{-100,0},{-90,0},{-80,0}}, color={0,127,255}));
-  connect(con[1].TAirZon, bou.T_in)
-    annotation (Line(points={{64,58},{64,4},{2,4}},  color={0,0,127}));
-  connect(con[1].X_wZon, x_w_toX.X_w) annotation (Line(points={{70,58},{70,4},{70,
-          -30},{42,-30}},        color={0,0,127}));
-  connect(x_w_toX.X, bou.X_in) annotation (Line(points={{18,-30},{12,-30},{12,-4},
-          {2,-4}},          color={0,0,127}));
-  connect(con[1].CZon, bou.C_in) annotation (Line(points={{76,58},{76,58},{76,
-          10},{76,-8},{2,-8}},
-                            color={0,0,127}));
-  connect(con.TAirZon, TAirZon) annotation (Line(points={{64,58},{64,-80},{-60,-80},
-          {-60,-120}}, color={0,0,127}));
-  connect(con.X_wZon, X_wZon) annotation (Line(points={{70,58},{70,58},{70,4},{70,
-          -86},{0,-86},{0,-120}}, color={0,0,127}));
-  connect(con.CZon, CZon) annotation (Line(points={{76,58},{76,58},{76,-42},{76,
-          -92},{60,-92},{60,-120}}, color={0,0,127}));
-  annotation (defaultComponentName="theZonAda",
-    Icon(coordinateSystem(
+  connect(ports,senMasFlo.port_a)
+    annotation (Line(points={{-100,0},{-90,0},{-80,0}},color={0,127,255}));
+  connect(con[1].TAirZon,bou.T_in)
+    annotation (Line(points={{64,58},{64,4},{2,4}},color={0,0,127}));
+  connect(con[1].X_wZon,x_w_toX.X_w)
+    annotation (Line(points={{70,58},{70,4},{70,-30},{42,-30}},color={0,0,127}));
+  connect(x_w_toX.X,bou.X_in)
+    annotation (Line(points={{18,-30},{12,-30},{12,-4},{2,-4}},color={0,0,127}));
+  connect(con[1].CZon,bou.C_in)
+    annotation (Line(points={{76,58},{76,58},{76,10},{76,-8},{2,-8}},color={0,0,127}));
+  connect(con.TAirZon,TAirZon)
+    annotation (Line(points={{64,58},{64,-80},{-60,-80},{-60,-120}},color={0,0,127}));
+  connect(con.X_wZon,X_wZon)
+    annotation (Line(points={{70,58},{70,58},{70,4},{70,-86},{0,-86},{0,-120}},color={0,0,127}));
+  connect(con.CZon,CZon)
+    annotation (Line(points={{76,58},{76,58},{76,-42},{76,-92},{60,-92},{60,-120}},color={0,0,127}));
+  annotation (
+    defaultComponentName="theZonAda",
+    Icon(
+      coordinateSystem(
         preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}}), graphics={
-                                   Rectangle(
+        extent={{-100,-100},{100,100}}),
+      graphics={
+        Rectangle(
           extent={{-100,100},{100,-100}},
           lineColor={0,0,0},
           fillPattern=FillPattern.Solid,
@@ -244,11 +222,14 @@ equation
           lineColor={0,0,255},
           fillColor={0,0,255},
           fillPattern=FillPattern.Solid),
-            Bitmap(extent={{30,-102},{92,-40}},fileName=
-            "modelica://Buildings/Resources/Images/Fluid/FMI/FMI_icon.png"),
-            Bitmap(extent={{-96,52},{-24,108}},fileName=
-            "modelica://Buildings/Resources/Images/Fluid/FMI/modelica_icon.png")}),
-    Documentation(info="<html>
+        Bitmap(
+          extent={{30,-102},{92,-40}},
+          fileName="modelica://Buildings/Resources/Images/Fluid/FMI/FMI_icon.png"),
+        Bitmap(
+          extent={{-96,52},{-24,108}},
+          fileName="modelica://Buildings/Resources/Images/Fluid/FMI/modelica_icon.png")}),
+    Documentation(
+      info="<html>
 <p>
 Adaptor that can be used to connect an HVAC system (with acausal ports)
 to input/output signals, which then can be exposed in an FMI interface.
@@ -328,7 +309,8 @@ See
 Buildings.Fluid.FMI.ExportContainers.HVACZone</a>
 for a model that uses this model.
 </p>
-</html>", revisions="<html>
+</html>",
+      revisions="<html>
 <ul>
 <li>
 January 18, 2019, by Jianjun Hu:<br/>

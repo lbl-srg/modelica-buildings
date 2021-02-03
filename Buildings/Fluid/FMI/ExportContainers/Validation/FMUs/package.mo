@@ -1,8 +1,11 @@
 within Buildings.Fluid.FMI.ExportContainers.Validation;
-package FMUs "Collection of validation models for FMU export"
+package FMUs
+  "Collection of validation models for FMU export"
   extends Modelica.Icons.ExamplesPackage;
-
-annotation (preferredView="info", Documentation(info="<html>
+  annotation (
+    preferredView="info",
+    Documentation(
+      info="<html>
 <p>
 This package contains validation models for the classes in
 <a href=\"modelica://Buildings.Fluid.FMI.ExportContainers\">

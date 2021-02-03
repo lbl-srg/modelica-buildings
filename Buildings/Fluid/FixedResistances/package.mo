@@ -1,8 +1,11 @@
 within Buildings.Fluid;
-package FixedResistances "Package with models for fixed flow resistances"
+package FixedResistances
+  "Package with models for fixed flow resistances"
   extends Modelica.Icons.VariantsPackage;
-
-  annotation (preferredView="info", Documentation(info="<html>
+  annotation (
+    preferredView="info",
+    Documentation(
+      info="<html>
 <p>
 This package contains component models for fixed flow resistances.
 By fixed flow resistance, we mean resistances that do not change the

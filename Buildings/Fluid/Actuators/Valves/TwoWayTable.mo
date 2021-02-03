@@ -1,54 +1,64 @@
 within Buildings.Fluid.Actuators.Valves;
-model TwoWayTable "Two way valve with table-specified flow characteristics"
+model TwoWayTable
+  "Two way valve with table-specified flow characteristics"
   extends BaseClasses.PartialTwoWayValveKv(
-    phi=max(0.1*l, phiLooUp.y[1]),
-    final l = phiLooUp.table[1, 2]);
-  parameter Data.Generic flowCharacteristics "Table with flow characteristics"
-    annotation (choicesAllMatching=true, Placement(transformation(extent={{-80,
-            60},{-60,80}})));
-
-  // Since the flow model Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow computes
-  // 1/k^2, the flowCharacteristics.phi[1] must not be zero.
-  // We therefore set a lower bound.
+    phi=max(
+      0.1*l,
+      phiLooUp.y[1]),
+    final l=phiLooUp.table[1,2]);
+  parameter Data.Generic flowCharacteristics
+    "Table with flow characteristics"
+    annotation (choicesAllMatching=true,Placement(transformation(extent={{-80,60},{-60,80}})));
+// Since the flow model Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow computes
+// 1/k^2, the flowCharacteristics.phi[1] must not be zero.
+// We therefore set a lower bound.
 protected
   Modelica.Blocks.Tables.CombiTable1D phiLooUp(
     final tableOnFile=false,
-    final table=[flowCharacteristics.y, cat(
+    final table=[
+      flowCharacteristics.y,cat(
         1,
-        {max(flowCharacteristics.phi[1], 1E-8)},
-        {flowCharacteristics.phi[i] for i in 2:size(flowCharacteristics.phi, 1)})],
+        {max(flowCharacteristics.phi[1],1E-8)},
+        {flowCharacteristics.phi[i] for i in 2:size(flowCharacteristics.phi,1)})],
     final columns=2:2,
     final smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative)
     "Normalized mass flow rate for the given valve position under the assumption of a constant pressure"
     annotation (Placement(transformation(extent={{70,60},{90,80}})));
-
 initial equation
-  assert(abs(flowCharacteristics.y[1]) < Modelica.Constants.eps,
+  assert(
+    abs(
+      flowCharacteristics.y[1]) < Modelica.Constants.eps,
     "flowCharateristics.y[1] must be 0.");
-  assert(abs(flowCharacteristics.y[size(flowCharacteristics.y, 1)] - 1) <
-    Modelica.Constants.eps,
+  assert(
+    abs(
+      flowCharacteristics.y[size(
+        flowCharacteristics.y,
+        1)]-1) < Modelica.Constants.eps,
     "flowCharateristics.y[end] must be 1.");
-  assert(abs(flowCharacteristics.phi[size(flowCharacteristics.phi, 1)] - 1) <
-    Modelica.Constants.eps,
+  assert(
+    abs(
+      flowCharacteristics.phi[size(
+        flowCharacteristics.phi,
+        1)]-1) < Modelica.Constants.eps,
     "flowCharateristics.phi[end] must be 1.");
-
   // Assert that the sequences are strictly monotonic increasing
-  assert(Buildings.Utilities.Math.Functions.isMonotonic(
-           x=flowCharacteristics.y,
-           strict=true),
-         "The values for y in flowCharacteristics must be strictly monotone increasing.");
-  assert(Buildings.Utilities.Math.Functions.isMonotonic(
-           x=flowCharacteristics.phi,
-           strict=true),
-         "The values for phi in flowCharacteristics must be strictly monotone increasing.");
-
+  assert(
+    Buildings.Utilities.Math.Functions.isMonotonic(
+      x=flowCharacteristics.y,
+      strict=true),
+    "The values for y in flowCharacteristics must be strictly monotone increasing.");
+  assert(
+    Buildings.Utilities.Math.Functions.isMonotonic(
+      x=flowCharacteristics.phi,
+      strict=true),
+    "The values for phi in flowCharacteristics must be strictly monotone increasing.");
 equation
-  connect(phiLooUp.u[1], y_actual) annotation (Line(
-      points={{68,70},{50,70}},
-      color={0,0,127}));
+  connect(phiLooUp.u[1],y_actual)
+    annotation (Line(points={{68,70},{50,70}},color={0,0,127}));
   annotation (
     defaultComponentName="val",
-    Documentation(info="<html>
+    Documentation(
+      info="<html>
 <p>
 Two way valve with opening characteristic that is configured through
 a table.
@@ -128,7 +138,8 @@ For an example that specifies an opening characteristics, see
 <a href=\"modelica://Buildings.Fluid.Actuators.Valves.Examples.TwoWayValveTable\">
 Buildings.Fluid.Actuators.Valves.Examples.TwoWayValveTable</a>.
 </p>
-</html>", revisions="<html>
+</html>",
+      revisions="<html>
 <ul>
 <li>
 August 7, 2020, by Ettore Zanetti:<br/>
@@ -169,8 +180,11 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}), graphics={
+    Icon(
+      coordinateSystem(
+        preserveAspectRatio=false,
+        extent={{-100,-100},{100,100}}),
+      graphics={
         Rectangle(
           origin={-56,-85},
           lineColor={64,64,64},

@@ -1,11 +1,13 @@
 within Buildings.Fluid.FixedResistances.Validation.PlugFlowPipes.Data;
 record PipeDataAIT151218
   "Experimental data from AIT monitoring data December 18, 2015"
-    extends BaseClasses.PipeDataBaseDefinition(
-      final nCol = 10,
-      final filNam = Modelica.Utilities.Files.loadResource(
-  "modelica://Buildings/Resources/Data/Fluid/FixedResistances/Validation/PlugFlowPipes/PipeDataAIT151218.mos"));
-     annotation (Documentation(revisions="<html>
+  extends BaseClasses.PipeDataBaseDefinition(
+    final nCol=10,
+    final filNam=Modelica.Utilities.Files.loadResource(
+      "modelica://Buildings/Resources/Data/Fluid/FixedResistances/Validation/PlugFlowPipes/PipeDataAIT151218.mos"));
+  annotation (
+    Documentation(
+      revisions="<html>
 <ul>
 <li>
 March 7, 2020, by Michael Wetter:<br/>
@@ -19,7 +21,8 @@ December 18, 2015 by Daniele Basciotti:<br/>
 First implementation.
 </li>
 </ul>
-</html>", info="<html>
+</html>",
+      info="<html>
 <p><b><span style=\"color: #008000;\">Overview</span></b> </p>
 <p>This record contains data of a real disitrict heating network for week-long period (23-29 Januar 2009) monitored by the Austrian Institut for Technology.</p>
 <p> Pipes are layed underground

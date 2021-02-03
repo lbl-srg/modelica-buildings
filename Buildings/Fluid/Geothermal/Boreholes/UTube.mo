@@ -1,79 +1,82 @@
 within Buildings.Fluid.Geothermal.Boreholes;
-model UTube "Single U-tube borehole heat exchanger"
+model UTube
+  "Single U-tube borehole heat exchanger"
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
     show_T=true);
-  extends Buildings.Fluid.Interfaces.TwoPortFlowResistanceParameters(final
-      computeFlowResistance=false, final linearizeFlowResistance=false);
+  extends Buildings.Fluid.Interfaces.TwoPortFlowResistanceParameters(
+    final computeFlowResistance=false,
+    final linearizeFlowResistance=false);
   extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations;
-
-  constant Boolean homotopyInitialization = true "= true, use homotopy method"
-    annotation(HideResult=true);
-
+  constant Boolean homotopyInitialization=true
+    "= true, use homotopy method"
+    annotation (HideResult=true);
   replaceable parameter Buildings.HeatTransfer.Data.Soil.Generic matSoi
     "Thermal properties of soil"
-    annotation (choicesAllMatching=true, Dialog(group="Soil"),
-    Placement(transformation(extent={{2,70},{22,90}})));
+    annotation (choicesAllMatching=true,Dialog(group="Soil"),Placement(transformation(extent={{2,70},{22,90}})));
   replaceable parameter Buildings.HeatTransfer.Data.BoreholeFillings.Generic matFil
     "Thermal properties of the filling material"
-    annotation (choicesAllMatching=true, Dialog(group="Borehole"),
-    Placement(transformation(extent={{-68,70},{-48,90}})));
-
-  parameter Modelica.SIunits.Radius rTub=0.02 "Radius of the tubes"
-    annotation(Dialog(group="Tubes"));
-  parameter Modelica.SIunits.ThermalConductivity kTub=0.5
-    "Thermal conductivity of the tube" annotation (Dialog(group="Tubes"));
-  parameter Modelica.SIunits.Length eTub=0.002 "Thickness of a tube"
+    annotation (choicesAllMatching=true,Dialog(group="Borehole"),Placement(transformation(extent={{-68,70},{-48,90}})));
+  parameter Modelica.SIunits.Radius rTub=0.02
+    "Radius of the tubes"
     annotation (Dialog(group="Tubes"));
-
-  parameter Modelica.SIunits.Height hBor "Total height of the borehole"
-    annotation(Dialog(group="Borehole"));
+  parameter Modelica.SIunits.ThermalConductivity kTub=0.5
+    "Thermal conductivity of the tube"
+    annotation (Dialog(group="Tubes"));
+  parameter Modelica.SIunits.Length eTub=0.002
+    "Thickness of a tube"
+    annotation (Dialog(group="Tubes"));
+  parameter Modelica.SIunits.Height hBor
+    "Total height of the borehole"
+    annotation (Dialog(group="Borehole"));
   parameter Integer nVer=10
     "Number of segments used for discretization in the vertical direction"
-      annotation(Dialog(group="Borehole"));
-  parameter Modelica.SIunits.Radius rBor=0.1 "Radius of the borehole";
-
+    annotation (Dialog(group="Borehole"));
+  parameter Modelica.SIunits.Radius rBor=0.1
+    "Radius of the borehole";
   parameter Modelica.SIunits.Radius rExt=3
     "Radius of the soil used for the external boundary condition"
     annotation (Dialog(group="Soil"));
-  parameter Integer nHor(min=1) = 10
+  parameter Integer nHor(
+    min=1)=10
     "Number of state variables in each horizontal layer of the soil"
     annotation (Dialog(group="Soil"));
-
   parameter Modelica.SIunits.Temperature TExt0_start=283.15
     "Initial far field temperature"
-    annotation (Dialog(tab="Initial temperature", group="Soil"));
-  parameter Modelica.SIunits.Temperature TExt_start[nVer]={if z[i] >= z0 then
-      TExt0_start + (z[i] - z0)*dT_dz else TExt0_start for i in 1:nVer}
+    annotation (Dialog(tab="Initial temperature",group="Soil"));
+  parameter Modelica.SIunits.Temperature TExt_start[nVer]={
+    if z[i] >= z0 then
+      TExt0_start+(z[i]-z0)*dT_dz
+    else
+      TExt0_start for i in 1:nVer}
     "Temperature of the undisturbed ground"
-    annotation (Dialog(tab="Initial temperature", group="Soil"));
-
+    annotation (Dialog(tab="Initial temperature",group="Soil"));
   parameter Modelica.SIunits.Temperature TFil0_start=TExt0_start
     "Initial temperature of the filling material for h = 0...z0"
-    annotation (Dialog(tab="Initial temperature", group="Filling material"));
+    annotation (Dialog(tab="Initial temperature",group="Filling material"));
   parameter Modelica.SIunits.Temperature TFil_start[nVer]=TExt_start
     "Temperature of the undisturbed ground"
-    annotation (Dialog(tab="Initial temperature", group="Filling material"));
-
+    annotation (Dialog(tab="Initial temperature",group="Filling material"));
   parameter Modelica.SIunits.Height z0=10
     "Depth below which the temperature gradient starts"
-    annotation (Dialog(tab="Initial temperature", group="Temperature profile"));
-  parameter Real dT_dz(unit="K/m") = 0.01
+    annotation (Dialog(tab="Initial temperature",group="Temperature profile"));
+  parameter Real dT_dz(
+    unit="K/m")=0.01
     "Vertical temperature gradient of the undisturbed soil for h below z0"
-    annotation (Dialog(tab="Initial temperature", group="Temperature profile"));
-
+    annotation (Dialog(tab="Initial temperature",group="Temperature profile"));
   parameter Modelica.SIunits.Time samplePeriod
     "Sample period for the external boundary condition"
     annotation (Dialog(group="Soil"));
   parameter Modelica.SIunits.Length xC=0.05
     "Shank spacing, defined as the distance between the center of a pipe and the center of the borehole"
-    annotation(Dialog(group="Borehole"));
-  parameter Real B0=17.44 "Shape coefficient for grout resistance"
-    annotation(Dialog(group="Borehole"));
-  parameter Real B1=-0.605 "Shape coefficient for grout resistance"
-    annotation(Dialog(group="Borehole"));
-
+    annotation (Dialog(group="Borehole"));
+  parameter Real B0=17.44
+    "Shape coefficient for grout resistance"
+    annotation (Dialog(group="Borehole"));
+  parameter Real B1=-0.605
+    "Shape coefficient for grout resistance"
+    annotation (Dialog(group="Borehole"));
   Buildings.Fluid.Geothermal.Boreholes.BaseClasses.BoreholeSegment borHol[nVer](
-    redeclare each final package Medium = Medium,
+    redeclare each final package Medium=Medium,
     each final matSoi=matSoi,
     each final matFil=matFil,
     each final hSeg=hBor/nVer,
@@ -87,7 +90,11 @@ model UTube "Single U-tube borehole heat exchanger"
     each final nSta=nHor,
     each final m_flow_nominal=m_flow_nominal,
     each final m_flow_small=m_flow_small,
-    final dp_nominal={if i == 1 then dp_nominal else 0 for i in 1:nVer},
+    final dp_nominal={
+      if i == 1 then
+        dp_nominal
+      else
+        0 for i in 1:nVer},
     TExt_start=TExt_start,
     TFil_start=TExt_start,
     each final homotopyInitialization=homotopyInitialization,
@@ -103,53 +110,45 @@ model UTube "Single U-tube borehole heat exchanger"
     each X_start=X_start,
     each C_start=C_start,
     each C_nominal=C_nominal,
-    each allowFlowReversal=allowFlowReversal) "Discretized borehole segments"
+    each allowFlowReversal=allowFlowReversal)
+    "Discretized borehole segments"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
-
-  Modelica.SIunits.Temperature Tdown[nVer] "Medium temperature in pipe 1";
-  Modelica.SIunits.Temperature Tup[nVer] "Medium temperature in pipe 2";
+  Modelica.SIunits.Temperature Tdown[nVer]
+    "Medium temperature in pipe 1";
+  Modelica.SIunits.Temperature Tup[nVer]
+    "Medium temperature in pipe 2";
 protected
-  parameter Modelica.SIunits.Height z[nVer]={hBor/nVer*(i - 0.5) for i in 1:
-      nVer} "Distance from the surface to the considered segment";
-
+  parameter Modelica.SIunits.Height z[nVer]={hBor/nVer*(i-0.5) for i in 1:nVer}
+    "Distance from the surface to the considered segment";
 initial equation
-  assert(homotopyInitialization, "In " + getInstanceName() +
-    ": The constant homotopyInitialization has been modified from its default value. This constant will be removed in future releases.",
-    level = AssertionLevel.warning);
-
+  assert(
+    homotopyInitialization,
+    "In "+getInstanceName()+": The constant homotopyInitialization has been modified from its default value. This constant will be removed in future releases.",
+    level=AssertionLevel.warning);
 equation
-  Tdown[:] = borHol[:].pipFil.vol1.heatPort.T;
-  Tup[:] = borHol[:].pipFil.vol2.heatPort.T;
-  connect(port_a, borHol[1].port_a1) annotation (Line(
-      points={{-100,5.55112e-16},{-60,5.55112e-16},{-60,6},{-20,6}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(port_b, borHol[1].port_b2) annotation (Line(
-      points={{100,5.55112e-16},{20,5.55112e-16},{20,-40},{-40,-40},{-40,-6},{
-          -20,-6}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(borHol[nVer].port_b1, borHol[nVer].port_a2) annotation (Line(
-      points={{5.55112e-16,6},{10,6},{10,-6},{5.55112e-16,-6}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  for i in 1:nVer - 1 loop
-    connect(borHol[i].port_b1, borHol[i + 1].port_a1) annotation (Line(
-        points={{5.55112e-16,6},{5.55112e-16,20},{-20,20},{-20,6}},
-        color={0,127,255},
-        smooth=Smooth.None));
-    connect(borHol[i].port_a2, borHol[i + 1].port_b2) annotation (Line(
-        points={{5.55112e-16,-6},{5.55112e-16,-20},{-20,-20},{-20,-6}},
-        color={0,127,255},
-        smooth=Smooth.None));
+  Tdown[:]=borHol[:].pipFil.vol1.heatPort.T;
+  Tup[:]=borHol[:].pipFil.vol2.heatPort.T;
+  connect(port_a,borHol[1].port_a1)
+    annotation (Line(points={{-100,5.55112e-16},{-60,5.55112e-16},{-60,6},{-20,6}},color={0,127,255},smooth=Smooth.None));
+  connect(port_b,borHol[1].port_b2)
+    annotation (Line(points={{100,5.55112e-16},{20,5.55112e-16},{20,-40},{-40,-40},{-40,-6},{-20,-6}},color={0,127,255},smooth=Smooth.None));
+  connect(borHol[nVer].port_b1,borHol[nVer].port_a2)
+    annotation (Line(points={{5.55112e-16,6},{10,6},{10,-6},{5.55112e-16,-6}},color={0,127,255},smooth=Smooth.None));
+  for i in 1:nVer-1 loop
+    connect(borHol[i].port_b1,borHol[i+1].port_a1)
+      annotation (Line(points={{5.55112e-16,6},{5.55112e-16,20},{-20,20},{-20,6}},color={0,127,255},smooth=Smooth.None));
+    connect(borHol[i].port_a2,borHol[i+1].port_b2)
+      annotation (Line(points={{5.55112e-16,-6},{5.55112e-16,-20},{-20,-20},{-20,-6}},color={0,127,255},smooth=Smooth.None));
   end for;
-    annotation (
+  annotation (
     defaultComponentName="borehole",
-    Icon(coordinateSystem(
+    Icon(
+      coordinateSystem(
         preserveAspectRatio=true,
         extent={{-100,-100},{100,100}},
         grid={2,2},
-        initialScale=0.5), graphics={
+        initialScale=0.5),
+      graphics={
         Rectangle(
           extent={{-70,80},{70,-80}},
           lineColor={0,0,255},
@@ -196,7 +195,8 @@ equation
           lineColor={0,0,0},
           fillColor={192,192,192},
           fillPattern=FillPattern.Backward)}),
-    Documentation(info="<html>
+    Documentation(
+      info="<html>
 <p>
 Model of a single U-tube borehole heat exchanger.
 The borehole heat exchanger is vertically discretized into <i>n<sub>seg</sub></i>
@@ -292,7 +292,8 @@ Thermal resistance and capacity models for borehole heat exchangers
 </i>.
 International Journal Of Energy Research, 35:312&ndash;320, 2011.
 </p>
-</html>", revisions="<html>
+</html>",
+      revisions="<html>
 <ul>
 <li>
 April 14, 2020, by Michael Wetter:<br/>

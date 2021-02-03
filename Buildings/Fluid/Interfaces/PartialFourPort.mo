@@ -1,63 +1,74 @@
 within Buildings.Fluid.Interfaces;
-partial model PartialFourPort "Partial model with four ports"
-
-  replaceable package Medium1 =
-    Modelica.Media.Interfaces.PartialMedium "Medium 1 in the component"
-      annotation (choices(
-        choice(redeclare package Medium = Buildings.Media.Air "Moist air"),
-        choice(redeclare package Medium = Buildings.Media.Water "Water"),
-        choice(redeclare package Medium =
-            Buildings.Media.Antifreeze.PropyleneGlycolWater (
-          property_T=293.15,
-          X_a=0.40)
-          "Propylene glycol water, 40% mass fraction")));
-  replaceable package Medium2 =
-    Modelica.Media.Interfaces.PartialMedium "Medium 2 in the component"
-      annotation (choices(
-        choice(redeclare package Medium = Buildings.Media.Air "Moist air"),
-        choice(redeclare package Medium = Buildings.Media.Water "Water"),
-        choice(redeclare package Medium =
-            Buildings.Media.Antifreeze.PropyleneGlycolWater (
-          property_T=293.15,
-          X_a=0.40)
-          "Propylene glycol water, 40% mass fraction")));
-
-  parameter Boolean allowFlowReversal1 = true
+partial model PartialFourPort
+  "Partial model with four ports"
+  replaceable package Medium1=Modelica.Media.Interfaces.PartialMedium
+    "Medium 1 in the component"
+    annotation (choices(choice(redeclare package Medium=Buildings.Media.Air "Moist air"),choice(redeclare package Medium=Buildings.Media.Water "Water"),choice(redeclare package Medium=Buildings.Media.Antifreeze.PropyleneGlycolWater(property_T=293.15,X_a=0.40) "Propylene glycol water, 40% mass fraction")));
+  replaceable package Medium2=Modelica.Media.Interfaces.PartialMedium
+    "Medium 2 in the component"
+    annotation (choices(choice(redeclare package Medium=Buildings.Media.Air "Moist air"),choice(redeclare package Medium=Buildings.Media.Water "Water"),choice(redeclare package Medium=Buildings.Media.Antifreeze.PropyleneGlycolWater(property_T=293.15,X_a=0.40) "Propylene glycol water, 40% mass fraction")));
+  parameter Boolean allowFlowReversal1=true
     "= false to simplify equations, assuming, but not enforcing, no flow reversal for medium 1"
-    annotation(Dialog(tab="Assumptions"), Evaluate=true);
-  parameter Boolean allowFlowReversal2 = true
+    annotation (Dialog(tab="Assumptions"),Evaluate=true);
+  parameter Boolean allowFlowReversal2=true
     "= false to simplify equations, assuming, but not enforcing, no flow reversal for medium 2"
-    annotation(Dialog(tab="Assumptions"), Evaluate=true);
-
+    annotation (Dialog(tab="Assumptions"),Evaluate=true);
   Modelica.Fluid.Interfaces.FluidPort_a port_a1(
-                     redeclare final package Medium = Medium1,
-                     m_flow(min=if allowFlowReversal1 then -Modelica.Constants.inf else 0),
-                     h_outflow(start = Medium1.h_default, nominal = Medium1.h_default))
+    redeclare final package Medium=Medium1,
+    m_flow(
+      min=
+        if allowFlowReversal1 then
+          -Modelica.Constants.inf
+        else
+          0),
+    h_outflow(
+      start=Medium1.h_default,
+      nominal=Medium1.h_default))
     "Fluid connector a1 (positive design flow direction is from port_a1 to port_b1)"
     annotation (Placement(transformation(extent={{-110,50},{-90,70}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b1(
-                     redeclare final package Medium = Medium1,
-                     m_flow(max=if allowFlowReversal1 then +Modelica.Constants.inf else 0),
-                     h_outflow(start = Medium1.h_default, nominal = Medium1.h_default))
+    redeclare final package Medium=Medium1,
+    m_flow(
+      max=
+        if allowFlowReversal1 then
+          +Modelica.Constants.inf
+        else
+          0),
+    h_outflow(
+      start=Medium1.h_default,
+      nominal=Medium1.h_default))
     "Fluid connector b1 (positive design flow direction is from port_a1 to port_b1)"
     annotation (Placement(transformation(extent={{110,50},{90,70}})));
-
   Modelica.Fluid.Interfaces.FluidPort_a port_a2(
-                     redeclare final package Medium = Medium2,
-                     m_flow(min=if allowFlowReversal2 then -Modelica.Constants.inf else 0),
-                     h_outflow(start = Medium2.h_default, nominal = Medium2.h_default))
+    redeclare final package Medium=Medium2,
+    m_flow(
+      min=
+        if allowFlowReversal2 then
+          -Modelica.Constants.inf
+        else
+          0),
+    h_outflow(
+      start=Medium2.h_default,
+      nominal=Medium2.h_default))
     "Fluid connector a2 (positive design flow direction is from port_a2 to port_b2)"
     annotation (Placement(transformation(extent={{90,-70},{110,-50}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b2(
-                     redeclare final package Medium = Medium2,
-                     m_flow(max=if allowFlowReversal2 then +Modelica.Constants.inf else 0),
-                     h_outflow(start = Medium2.h_default, nominal = Medium2.h_default))
+    redeclare final package Medium=Medium2,
+    m_flow(
+      max=
+        if allowFlowReversal2 then
+          +Modelica.Constants.inf
+        else
+          0),
+    h_outflow(
+      start=Medium2.h_default,
+      nominal=Medium2.h_default))
     "Fluid connector b2 (positive design flow direction is from port_a2 to port_b2)"
     annotation (Placement(transformation(extent={{-90,-70},{-110,-50}})));
-
   annotation (
     preferredView="info",
-    Documentation(info="<html>
+    Documentation(
+      info="<html>
 <p>
 This model defines an interface for components with four ports.
 The parameters <code>allowFlowReversal1</code> and
@@ -80,7 +91,8 @@ the parameters <code>port_a_exposesState</code>,
 are not implemented.
 </li>
 </ol>
-</html>", revisions="<html>
+</html>",
+      revisions="<html>
 <ul>
 <li>
 April 6, 2020, by Filip Jorissen:<br/>
@@ -144,17 +156,19 @@ are often iteration variables in nonlinear equation systems.
 </li>
 </ul>
 </html>"),
-    Icon(coordinateSystem(
-          preserveAspectRatio=true,
-          extent={{-100,-100},{100,100}},
-          grid={1,1}), graphics={
-      Text(
+    Icon(
+      coordinateSystem(
+        preserveAspectRatio=true,
+        extent={{-100,-100},{100,100}},
+        grid={1,1}),
+      graphics={
+        Text(
           extent={{-151,147},{149,107}},
           lineColor={0,0,255},
           fillPattern=FillPattern.HorizontalCylinder,
           fillColor={0,127,255},
           textString="%name"),
-      Polygon(
+        Polygon(
           points={{-5,10},{25,10},{-5,-10},{-5,10}},
           lineColor={0,128,255},
           fillColor={0,128,255},
@@ -162,7 +176,7 @@ are often iteration variables in nonlinear equation systems.
           visible=not allowFlowReversal1,
           origin={75,50},
           rotation=360),
-      Polygon(
+        Polygon(
           points={{10,10},{-20,-10},{10,-10},{10,10}},
           lineColor={0,128,255},
           fillColor={0,128,255},

@@ -10,36 +10,29 @@ model Chiller
     "Maximum value of evaporator water entering temperature";
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uCoo
     "Cooling enable signal"
-    annotation (Placement(transformation(extent={{-200,20},{-160,60}}),
-    iconTransformation(extent={{-140,10},{-100,50}})));
+    annotation (Placement(transformation(extent={{-200,20},{-160,60}}),iconTransformation(extent={{-140,10},{-100,50}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHea
     "Heating enable signal"
-    annotation (Placement(transformation(extent={{-200,60},{-160,100}}),
-    iconTransformation(extent={{-140,50},{-100,90}})));
+    annotation (Placement(transformation(extent={{-200,60},{-160,100}}),iconTransformation(extent={{-140,50},{-100,90}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TConWatEnt(
     final unit="K",
     displayUnit="degC")
     "Condenser water entering temperature"
-    annotation (Placement(transformation(extent={{-200,-100},{-160,-60}}),
-    iconTransformation(extent={{-140,-90},{-100,-50}})));
+    annotation (Placement(transformation(extent={{-200,-100},{-160,-60}}),iconTransformation(extent={{-140,-90},{-100,-50}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TEvaWatEnt(
     final unit="K",
     displayUnit="degC")
     "Evaporator water entering temperature"
-    annotation (Placement(transformation(extent={{-200,-40},{-160,0}}),
-    iconTransformation(extent={{-140,-50},{-100,-10}})));
+    annotation (Placement(transformation(extent={{-200,-40},{-160,0}}),iconTransformation(extent={{-140,-50},{-100,-10}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yValCon
     "Condenser mixing valve control signal"
-    annotation (Placement(transformation(extent={{160,-80},{200,-40}}),
-    iconTransformation(extent={{100,-90},{140,-50}})));
+    annotation (Placement(transformation(extent={{160,-80},{200,-40}}),iconTransformation(extent={{100,-90},{140,-50}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yValEva
     "Evaporator mixing valve control signal"
-    annotation (Placement(transformation(extent={{160,-20},{200,20}}),
-    iconTransformation(extent={{100,-50},{140,-10}})));
+    annotation (Placement(transformation(extent={{160,-20},{200,20}}),iconTransformation(extent={{100,-50},{140,-10}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yChi
     "Chiller enable signal"
-    annotation (Placement(transformation(extent={{160,40},{200,80}}),
-    iconTransformation(extent={{100,40},{140,80}})));
+    annotation (Placement(transformation(extent={{160,40},{200,80}}),iconTransformation(extent={{100,40},{140,80}})));
   Buildings.Controls.OBC.CDL.Logical.Or heaOrCoo
     "Heating or cooling enabled"
     annotation (Placement(transformation(extent={{-120,50},{-100,70}})));

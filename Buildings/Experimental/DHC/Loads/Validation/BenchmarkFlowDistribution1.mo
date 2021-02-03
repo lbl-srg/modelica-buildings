@@ -70,7 +70,8 @@ model BenchmarkFlowDistribution1
     fileName=Modelica.Utilities.Files.loadResource(
       filNam),
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
-    y(each unit="W"),
+    y(
+      each unit="W"),
     offset={0,0,0},
     columns={2,3,4},
     smoothness=Modelica.Blocks.Types.Smoothness.MonotoneContinuousDerivative1)
@@ -78,7 +79,8 @@ model BenchmarkFlowDistribution1
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTSet(
     k=293.15,
-    y(final unit="K",
+    y(
+      final unit="K",
       displayUnit="degC"))
     "Minimum temperature set point"
     annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
@@ -123,8 +125,7 @@ equation
   connect(disFloHea.port_b,sinHeaWat.ports[1])
     annotation (Line(points={{60,-80},{80,-80}},color={0,127,255}));
   connect(ter.mReqHeaWat_flow,disFloHea.mReq_flow)
-    annotation (Line(points={{60.8333,44.6667},{80,44.6667},{80,-60},{20,-60},{
-          20,-84},{39,-84}},                                                                     color={0,0,127}));
+    annotation (Line(points={{60.8333,44.6667},{80,44.6667},{80,-60},{20,-60},{20,-84},{39,-84}},color={0,0,127}));
   connect(THeaWatSup.y,supHeaWat.T_in)
     annotation (Line(points={{-78,-80},{-72,-80},{-72,-76},{-62,-76}},color={0,0,127}));
   connect(minTSet.y,reaRep.u)

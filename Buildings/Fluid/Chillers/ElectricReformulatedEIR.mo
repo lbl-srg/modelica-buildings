@@ -2,63 +2,70 @@ within Buildings.Fluid.Chillers;
 model ElectricReformulatedEIR
   "Electric chiller based on the DOE-2.1 model, but with performance as a function of condenser leaving instead of entering temperature"
   extends Buildings.Fluid.Chillers.BaseClasses.PartialElectric(
-  final QEva_flow_nominal = per.QEva_flow_nominal,
-  final COP_nominal= per.COP_nominal,
-  final PLRMax= per.PLRMax,
-  final PLRMinUnl= per.PLRMinUnl,
-  final PLRMin= per.PLRMin,
-  final etaMotor= per.etaMotor,
-  final mEva_flow_nominal= per.mEva_flow_nominal,
-  final mCon_flow_nominal= per.mCon_flow_nominal,
-  final TEvaLvg_nominal= per.TEvaLvg_nominal);
-
+    final QEva_flow_nominal=per.QEva_flow_nominal,
+    final COP_nominal=per.COP_nominal,
+    final PLRMax=per.PLRMax,
+    final PLRMinUnl=per.PLRMinUnl,
+    final PLRMin=per.PLRMin,
+    final etaMotor=per.etaMotor,
+    final mEva_flow_nominal=per.mEva_flow_nominal,
+    final mCon_flow_nominal=per.mCon_flow_nominal,
+    final TEvaLvg_nominal=per.TEvaLvg_nominal);
   parameter Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic per
     "Performance data"
-    annotation (choicesAllMatching = true,
-                Placement(transformation(extent={{40,80},{60,100}})));
-
+    annotation (choicesAllMatching=true,Placement(transformation(extent={{40,80},{60,100}})));
 protected
-  final parameter Modelica.SIunits.Conversions.NonSIunits.Temperature_degC
-    TConLvg_nominal_degC=
-    Modelica.SIunits.Conversions.to_degC(per.TConLvg_nominal)
+  final parameter Modelica.SIunits.Conversions.NonSIunits.Temperature_degC TConLvg_nominal_degC=Modelica.SIunits.Conversions.to_degC(
+    per.TConLvg_nominal)
     "Temperature of fluid leaving condenser at nominal condition";
-
   Modelica.SIunits.Conversions.NonSIunits.Temperature_degC TConLvg_degC
     "Temperature of fluid leaving condenser";
 initial equation
   // Verify correctness of performance curves, and write warning if error is bigger than 10%
   Buildings.Fluid.Chillers.BaseClasses.warnIfPerformanceOutOfBounds(
-     Buildings.Utilities.Math.Functions.biquadratic(a=per.capFunT,
-     x1=TEvaLvg_nominal_degC, x2=TConLvg_nominal_degC),
-     "Capacity as a function of temperature ",
-     "per.capFunT");
+    Buildings.Utilities.Math.Functions.biquadratic(
+      a=per.capFunT,
+      x1=TEvaLvg_nominal_degC,
+      x2=TConLvg_nominal_degC),
+    "Capacity as a function of temperature ",
+    "per.capFunT");
 equation
-  TConLvg_degC=Modelica.SIunits.Conversions.to_degC(TConLvg);
-
+  TConLvg_degC=Modelica.SIunits.Conversions.to_degC(
+    TConLvg);
   if on then
     // Compute the chiller capacity fraction, using a biquadratic curve.
     // Since the regression for capacity can have negative values (for unreasonable temperatures),
     // we constrain its return value to be non-negative. This prevents the solver to pick the
     // unrealistic solution.
-    capFunT = Buildings.Utilities.Math.Functions.smoothMax(
-      x1 = 1E-6,
-      x2 = Buildings.Utilities.Math.Functions.biquadratic(a=per.capFunT, x1=TEvaLvg_degC, x2=TConLvg_degC),
-      deltaX = 1E-7);
-/*    assert(capFunT > 0.1, "Error: Received capFunT = " + String(capFunT)  + ".\n"
+    capFunT=Buildings.Utilities.Math.Functions.smoothMax(
+      x1=1E-6,
+      x2=Buildings.Utilities.Math.Functions.biquadratic(
+        a=per.capFunT,
+        x1=TEvaLvg_degC,
+        x2=TConLvg_degC),
+      deltaX=1E-7);
+    /*    assert(capFunT > 0.1, "Error: Received capFunT = " + String(capFunT)  + ".\n"
            + "Coefficient for polynomial seem to be not valid for the encountered temperature range.\n"
            + "Temperatures are TConLvg_degC = " + String(TConLvg_degC) + " degC\n"
            + "                 TEvaLvg_degC = " + String(TEvaLvg_degC) + " degC");
-*/
-    // Chiller energy input ratio biquadratic curve.
-    EIRFunT = Buildings.Utilities.Math.Functions.biquadratic(a=per.EIRFunT, x1=TEvaLvg_degC, x2=TConLvg_degC);
+*/// Chiller energy input ratio biquadratic curve.
+    EIRFunT=Buildings.Utilities.Math.Functions.biquadratic(
+      a=per.EIRFunT,
+      x1=TEvaLvg_degC,
+      x2=TConLvg_degC);
     // Chiller energy input ratio bicubic curve
-    EIRFunPLR   = Buildings.Utilities.Math.Functions.bicubic(a=per.EIRFunPLR, x1=TConLvg_degC, x2=PLR2);
+    EIRFunPLR=Buildings.Utilities.Math.Functions.bicubic(
+      a=per.EIRFunPLR,
+      x1=TConLvg_degC,
+      x2=PLR2);
   else
-    capFunT   = 0;
-    EIRFunT   = 0;
-    EIRFunPLR = 0;
+    capFunT=0;
+    EIRFunT=0;
+    EIRFunPLR=0;
   end if;
-  annotation (Icon(graphics={
+  annotation (
+    Icon(
+      graphics={
         Rectangle(
           extent={{-104,66},{98,54}},
           lineColor={0,0,255},
@@ -114,7 +121,8 @@ equation
           smooth=Smooth.None,
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid)}),
-Documentation(info="<html>
+    Documentation(
+      info="<html>
 <p>
 Model of an electric chiller, based on the model by
 Hydeman et al. (2002) that has been developed in the CoolTools project
@@ -216,7 +224,7 @@ Component Models. <i>ASHRAE Transactions</i>, AC-02-9-1.
 </li>
 </ul>
 </html>",
-revisions="<html>
+      revisions="<html>
 <ul>
 <li>
 March 12, 2015, by Michael Wetter:<br/>

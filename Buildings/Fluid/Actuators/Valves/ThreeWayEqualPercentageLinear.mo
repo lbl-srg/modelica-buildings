@@ -1,35 +1,38 @@
 within Buildings.Fluid.Actuators.Valves;
 model ThreeWayEqualPercentageLinear
   "Three way valve with equal percentage and linear characteristics"
-    extends BaseClasses.PartialThreeWayValve(
-      redeclare TwoWayEqualPercentage res1(
-        R=R,
-        delta0=delta0,
-        final l=l[1]),
-      redeclare TwoWayLinear res3(
-        final l=l[2]));
-  parameter Real R = 50 "Rangeability, R=50...100 typically";
-  parameter Real delta0 = 0.01
+  extends BaseClasses.PartialThreeWayValve(
+    redeclare TwoWayEqualPercentage res1(
+      R=R,
+      delta0=delta0,
+      final l=l[1]),
+    redeclare TwoWayLinear res3(
+      final l=l[2]));
+  parameter Real R=50
+    "Rangeability, R=50...100 typically";
+  parameter Real delta0=0.01
     "Range of significant deviation from equal percentage law";
-
 equation
-  connect(inv.y, res3.y) annotation (Line(points={{-62.6,46},{20,46},{20,46},{
-          20,-50},{12,-50}},
-                         color={0,0,127}));
-  connect(y_actual, inv.u2) annotation (Line(points={{50,70},{84,70},{84,32},{-68,
-          32},{-68,41.2}},
-                         color={0,0,127}));
-  connect(y_actual, res1.y) annotation (Line(points={{50,70},{84,70},{84,32},{
-          -50,32},{-50,12}},
-        color={0,0,127}));
-  annotation (                       Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics={Text(
+  connect(inv.y,res3.y)
+    annotation (Line(points={{-62.6,46},{20,46},{20,46},{20,-50},{12,-50}},color={0,0,127}));
+  connect(y_actual,inv.u2)
+    annotation (Line(points={{50,70},{84,70},{84,32},{-68,32},{-68,41.2}},color={0,0,127}));
+  connect(y_actual,res1.y)
+    annotation (Line(points={{50,70},{84,70},{84,32},{-50,32},{-50,12}},color={0,0,127}));
+  annotation (
+    Icon(
+      coordinateSystem(
+        preserveAspectRatio=false,
+        extent={{-100,-100},{100,100}}),
+      graphics={
+        Text(
           extent={{-72,24},{-34,-20}},
-          lineColor=DynamicSelect({255,255,255}, (1-y)*{255,255,255}),
+          lineColor=DynamicSelect({255,255,255},(1-y)*{255,255,255}),
           fillPattern=FillPattern.Solid,
           textString="%%")}),
-defaultComponentName="val",
-Documentation(info="<html>
+    defaultComponentName="val",
+    Documentation(
+      info="<html>
 <p>
 Three way valve with equal percentage characteristics
 between <code>port_1</code> and <code>port_2</code>
@@ -52,7 +55,7 @@ Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve</a>
 for the implementation of the regularization near the origin.
 </p>
 </html>",
-revisions="<html>
+      revisions="<html>
 <ul>
 <li>
 February 21, 2020, by Michael Wetter:<br/>

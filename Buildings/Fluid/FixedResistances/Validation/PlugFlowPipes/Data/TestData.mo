@@ -1,22 +1,32 @@
 within Buildings.Fluid.FixedResistances.Validation.PlugFlowPipes.Data;
-model TestData "Example to check pipe data records"
-extends Modelica.Icons.Example;
-replaceable PipeDataAIT151218 pipeDataToBeRead constrainedby
-    BaseClasses.PipeDataBaseDefinition "Measurement dataset from AIT"
+model TestData
+  "Example to check pipe data records"
+  extends Modelica.Icons.Example;
+  replaceable PipeDataAIT151218 pipeDataToBeRead
+    constrainedby BaseClasses.PipeDataBaseDefinition
+    "Measurement dataset from AIT"
     annotation (Placement(transformation(extent={{-20,-8},{0,12}})));
-    Modelica.Blocks.Sources.CombiTimeTable combiTimeTable(
+  Modelica.Blocks.Sources.CombiTimeTable combiTimeTable(
     tableOnFile=true,
     tableName="dat",
     fileName=pipeDataToBeRead.filNam,
     columns=2:pipeDataToBeRead.nCol)
-      annotation (Placement(transformation(extent={{10,-10},{30,10}})));
+    annotation (Placement(transformation(extent={{10,-10},{30,10}})));
 equation
-
-      annotation (experiment(StopTime=603900, Interval=900, Tolerance=1e-6),
-      Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-40,-40},{60,40}})),
-      Documentation(info="<html>
+  annotation (
+    experiment(
+      StopTime=603900,
+      Interval=900,
+      Tolerance=1e-6),
+    Diagram(
+      coordinateSystem(
+        preserveAspectRatio=false,
+        extent={{-40,-40},{60,40}})),
+    Documentation(
+      info="<html>
     <p>Model used to visualize and check data of district heating networks</p>
-</html>",   revisions="<html>
+</html>",
+      revisions="<html>
 <ul>
 <li>
 March 7, 2020, by Michael Wetter:<br/>
@@ -34,7 +44,7 @@ December 18, 2015 by Daniele Basciotti:<br/>
 First implementation.
 </li>
 </ul>
-</html>"),__Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Fluid/FixedResistances/Validation/PlugFlowPipes/Data/TestData.mos"
-        "Simulate and plot"));
+</html>"),
+    __Dymola_Commands(
+      file="Resources/Scripts/Dymola/Fluid/FixedResistances/Validation/PlugFlowPipes/Data/TestData.mos" "Simulate and plot"));
 end TestData;

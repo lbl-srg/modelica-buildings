@@ -1,9 +1,11 @@
 within Buildings.Fluid.FixedResistances;
 model Junction
   "Flow splitter with fixed resistance at each port"
-    extends Buildings.Fluid.BaseClasses.PartialThreeWayResistance(
+  extends Buildings.Fluid.BaseClasses.PartialThreeWayResistance(
     m_flow_small=mDyn_flow_nominal*1e-4,
-    mDyn_flow_nominal = sum(abs(m_flow_nominal[:])/3),
+    mDyn_flow_nominal=sum(
+      abs(
+        m_flow_nominal[:])/3),
     redeclare Buildings.Fluid.FixedResistances.PressureDrop res1(
       from_dp=from_dp,
       final m_flow_nominal=m_flow_nominal[1],
@@ -25,43 +27,41 @@ model Junction
       linearized=linearized,
       homotopyInitialization=homotopyInitialization,
       deltaM=deltaM));
-
-  constant Boolean homotopyInitialization = true "= true, use homotopy method"
-    annotation(HideResult=true);
-
+  constant Boolean homotopyInitialization=true
+    "= true, use homotopy method"
+    annotation (HideResult=true);
   parameter Modelica.SIunits.MassFlowRate[3] m_flow_nominal
     "Mass flow rate. Set negative at outflowing ports."
-    annotation(Dialog(group = "Nominal condition"));
-
-  parameter Modelica.SIunits.Pressure[3] dp_nominal(each displayUnit = "Pa")
+    annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.SIunits.Pressure[3] dp_nominal(
+    each displayUnit="Pa")
     "Pressure drop at nominal mass flow rate, set to zero or negative number at outflowing ports."
-    annotation(Dialog(group = "Nominal condition"));
-
-  parameter Real deltaM(min=0) = 0.3
+    annotation (Dialog(group="Nominal condition"));
+  parameter Real deltaM(
+    min=0)=0.3
     "Fraction of nominal mass flow rate where transition to turbulent occurs"
-       annotation(Dialog(group = "Transition to laminar",
-                         enable = not linearized));
-
-  parameter Boolean linearized = false
+    annotation (Dialog(group="Transition to laminar",enable=not linearized));
+  parameter Boolean linearized=false
     "= true, use linear relation between m_flow and dp for any flow rate"
-    annotation(Dialog(tab="Advanced"));
-
+    annotation (Dialog(tab="Advanced"));
 initial equation
-  assert(homotopyInitialization, "In " + getInstanceName() +
-    ": The constant homotopyInitialization has been modified from its default value. This constant will be removed in future releases.",
-    level = AssertionLevel.warning);
-
-  annotation (Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
-            -100},{100,100}}), graphics={
+  assert(
+    homotopyInitialization,
+    "In "+getInstanceName()+": The constant homotopyInitialization has been modified from its default value. This constant will be removed in future releases.",
+    level=AssertionLevel.warning);
+  annotation (
+    Icon(
+      coordinateSystem(
+        preserveAspectRatio=true,
+        extent={{-100,-100},{100,100}}),
+      graphics={
         Polygon(
-          points={{-100,-46},{-32,-40},{-32,-100},{30,-100},{30,-36},{100,-30},
-              {100,38},{-100,52},{-100,-46}},
+          points={{-100,-46},{-32,-40},{-32,-100},{30,-100},{30,-36},{100,-30},{100,38},{-100,52},{-100,-46}},
           lineColor={0,0,0},
           fillColor={175,175,175},
           fillPattern=FillPattern.Solid),
         Polygon(
-          points={{-100,-34},{-18,-28},{-18,-100},{18,-100},{18,-26},{100,-20},
-              {100,22},{-100,38},{-100,-34}},
+          points={{-100,-34},{-18,-28},{-18,-100},{18,-100},{18,-26},{100,-20},{100,22},{-100,38},{-100,-34}},
           lineColor={0,0,0},
           fillPattern=FillPattern.HorizontalCylinder,
           fillColor={0,128,255}),
@@ -70,48 +70,51 @@ initial equation
           lineColor={0,0,255},
           textString="%name"),
         Rectangle(
-          extent=DynamicSelect({{-100,10},{-100,10}}, {{-100,10},{-100+100*min(1, max(0, port_1.m_flow*3/(abs(m_flow_nominal[1])+abs(m_flow_nominal[2])+abs(m_flow_nominal[3])))),-10}}),
+          extent=DynamicSelect({{-100,10},{-100,10}},{{-100,10},{-100+100*min(1,max(0,port_1.m_flow*3/(abs(m_flow_nominal[1])+abs(m_flow_nominal[2])+abs(m_flow_nominal[3])))),-10}}),
           lineColor={28,108,200},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
         Rectangle(
-          extent=DynamicSelect({{-100,10},{-100,10}}, {{0,10},{100*max(-1, min(0, port_1.m_flow*3/(abs(m_flow_nominal[1])+abs(m_flow_nominal[2])+abs(m_flow_nominal[3])))),-10}}),
+          extent=DynamicSelect({{-100,10},{-100,10}},{{0,10},{100*max(-1,min(0,port_1.m_flow*3/(abs(m_flow_nominal[1])+abs(m_flow_nominal[2])+abs(m_flow_nominal[3])))),-10}}),
           lineColor={28,108,200},
           fillColor={255,0,0},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
         Rectangle(
-          extent=DynamicSelect({{0,10}, {0,10}}, {{100,10}, {(1-min(1, max(0, port_2.m_flow*3/(abs(m_flow_nominal[1])+abs(m_flow_nominal[2])+abs(m_flow_nominal[3])))))*100,-10}}),
+          extent=DynamicSelect({{0,10},{0,10}},{{100,10},{(1-min(1,max(0,port_2.m_flow*3/(abs(m_flow_nominal[1])+abs(m_flow_nominal[2])+abs(m_flow_nominal[3])))))*100,-10}}),
           lineColor={28,108,200},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent=DynamicSelect({{0,10}, {0,10}}, {{0,10}, {-max(-1, min(0, port_2.m_flow*3/(abs(m_flow_nominal[1])+abs(m_flow_nominal[2])+abs(m_flow_nominal[3]))))*100,-10}}),
+          extent=DynamicSelect({{0,10},{0,10}},{{0,10},{-max(-1,min(0,port_2.m_flow*3/(abs(m_flow_nominal[1])+abs(m_flow_nominal[2])+abs(m_flow_nominal[3]))))*100,-10}}),
           lineColor={28,108,200},
           fillColor={255,0,0},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
         Rectangle(
-          extent=DynamicSelect({{-10,0},{-10,0}}, {{-10,-100+100*min(1, max(0, port_3.m_flow*3/(abs(m_flow_nominal[1])+abs(m_flow_nominal[2])+abs(m_flow_nominal[3]))))},{10,-100}}),
+          extent=DynamicSelect({{-10,0},{-10,0}},{{-10,-100+100*min(1,max(0,port_3.m_flow*3/(abs(m_flow_nominal[1])+abs(m_flow_nominal[2])+abs(m_flow_nominal[3]))))},{10,-100}}),
           lineColor={28,108,200},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
         Rectangle(
-          extent=DynamicSelect({{-10,0},{-10,0}}, {{-10, 100*max(-1, min(0, port_3.m_flow*3/(abs(m_flow_nominal[1])+abs(m_flow_nominal[2])+abs(m_flow_nominal[3]))))},{10,0}}),
+          extent=DynamicSelect({{-10,0},{-10,0}},{{-10,100*max(-1,min(0,port_3.m_flow*3/(abs(m_flow_nominal[1])+abs(m_flow_nominal[2])+abs(m_flow_nominal[3]))))},{10,0}}),
           lineColor={28,108,200},
           fillColor={255,0,0},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
         Ellipse(
           visible=not energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState,
-          extent=DynamicSelect({{-35,35},{35,-35}}, {{-0,port_1.m_flow*0},{0,-0}}),
+          extent=DynamicSelect({{-35,35},{35,-35}},{{
+            -0,
+            port_1.m_flow*0},{0,-0}}),
           lineColor={0,0,127},
           fillColor={0,0,127},
           fillPattern=FillPattern.Solid)}),
-defaultComponentName="jun",
-    Documentation(info="<html>
+    defaultComponentName="jun",
+    Documentation(
+      info="<html>
 <p>
 Model of a flow junction with an optional fixed resistance in each flow leg
 and an optional mixing volume at the junction.
@@ -155,7 +158,8 @@ Setting <code>energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial</code>
 can help reducing the size of the nonlinear
 system of equations.
 </p>
-</html>", revisions="<html>
+</html>",
+      revisions="<html>
 <ul>
 <li>
 April 14, 2020, by Michael Wetter:<br/>

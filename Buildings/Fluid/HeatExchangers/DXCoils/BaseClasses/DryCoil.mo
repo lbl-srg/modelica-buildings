@@ -1,19 +1,19 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses;
-model DryCoil "Calculates dry coil condition"
- extends
-    Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialCoilCondition;
-  replaceable package Medium =
-      Modelica.Media.Interfaces.PartialCondensingGases "Medium model"
-      annotation (choicesAllMatching=true);
+model DryCoil
+  "Calculates dry coil condition"
+  extends Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialCoilCondition;
+  replaceable package Medium=Modelica.Media.Interfaces.PartialCondensingGases
+    "Medium model"
+    annotation (choicesAllMatching=true);
 equation
-
-  connect(TEvaIn, cooCap.TEvaIn) annotation (Line(
-      points={{-110,5.55112e-16},{-32,5.55112e-16},{-32,45.2},{-15,45.2}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(mCon_flow, cooCap.mCon_flow) annotation (Line(points={{-110,-100},{
-          -92,-100},{-92,40},{-15,40}}, color={0,0,127}));
-  annotation (defaultComponentName="dryCoi", Documentation(info="<html>
+  connect(TEvaIn,cooCap.TEvaIn)
+    annotation (Line(points={{-110,5.55112e-16},{-32,5.55112e-16},{-32,45.2},{-15,45.2}},color={0,0,127},smooth=Smooth.None));
+  connect(mCon_flow,cooCap.mCon_flow)
+    annotation (Line(points={{-110,-100},{-92,-100},{-92,40},{-15,40}},color={0,0,127}));
+  annotation (
+    defaultComponentName="dryCoi",
+    Documentation(
+      info="<html>
 <p>
 This block calculates the rate of cooling and the coil surface condition
 under the assumption that the coil is dry.
@@ -28,7 +28,7 @@ Buildings.Fluid.HeatExchangers.DXCoils.UsersGuide</a>
 for an explanation of the model.
 </p>
 </html>",
-revisions="<html>
+      revisions="<html>
 <ul>
 <li>
 April 12, 2012 by Kaustubh Phalak:<br/>
@@ -37,7 +37,8 @@ First implementation.
 </ul>
 
 </html>"),
-    Icon(graphics={
+    Icon(
+      graphics={
         Rectangle(
           extent={{-54,36},{68,20}},
           lineColor={0,0,255},

@@ -3,34 +3,33 @@ model StaticTwoPortHeatMassExchanger
   "Partial model transporting fluid between two ports without storing mass or energy"
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface;
   extends Buildings.Fluid.Interfaces.TwoPortFlowResistanceParameters(
-    final computeFlowResistance=(abs(dp_nominal) > Modelica.Constants.eps));
-
-  constant Boolean sensibleOnly "Set to true if sensible exchange only";
+    final computeFlowResistance=(abs(
+      dp_nominal) > Modelica.Constants.eps));
+  constant Boolean sensibleOnly
+    "Set to true if sensible exchange only";
   constant Boolean prescribedHeatFlowRate
     "Set to true if the heat flow rate is not a function of the component temperature";
-
-  constant Boolean homotopyInitialization = true "= true, use homotopy method"
-    annotation(HideResult=true);
-
+  constant Boolean homotopyInitialization=true
+    "= true, use homotopy method"
+    annotation (HideResult=true);
   // Model inputs
   // Q_flow is the sensible plus latent heat flow rate
-  input Modelica.SIunits.HeatFlowRate Q_flow "Heat transferred into the medium";
+  input Modelica.SIunits.HeatFlowRate Q_flow
+    "Heat transferred into the medium";
   input Modelica.SIunits.MassFlowRate mWat_flow
     "Moisture mass flow rate added to the medium";
-
   // Models for conservation equations and pressure drop
   Buildings.Fluid.Interfaces.StaticTwoPortConservationEquation vol(
-    redeclare final package Medium = Medium,
-    final use_mWat_flow = not sensibleOnly,
-    final prescribedHeatFlowRate = prescribedHeatFlowRate,
-    final m_flow_nominal = m_flow_nominal,
+    redeclare final package Medium=Medium,
+    final use_mWat_flow=not sensibleOnly,
+    final prescribedHeatFlowRate=prescribedHeatFlowRate,
+    final m_flow_nominal=m_flow_nominal,
     final allowFlowReversal=allowFlowReversal,
     final m_flow_small=m_flow_small)
     "Control volume for steady-state energy and mass balance"
-    annotation (Placement(transformation(extent={{15,-10}, {35,10}})));
-
+    annotation (Placement(transformation(extent={{15,-10},{35,10}})));
   Buildings.Fluid.FixedResistances.PressureDrop preDro(
-    redeclare final package Medium = Medium,
+    redeclare final package Medium=Medium,
     final m_flow_nominal=m_flow_nominal,
     final deltaM=deltaM,
     final allowFlowReversal=allowFlowReversal,
@@ -38,57 +37,53 @@ model StaticTwoPortHeatMassExchanger
     final from_dp=from_dp,
     final linearized=linearizeFlowResistance,
     final homotopyInitialization=homotopyInitialization,
-    final dp_nominal=dp_nominal) "Flow resistance"
+    final dp_nominal=dp_nominal)
+    "Flow resistance"
     annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
-
   // Outputs that are needed in models that extend this model
-  Modelica.Blocks.Interfaces.RealOutput hOut(unit="J/kg")
+  Modelica.Blocks.Interfaces.RealOutput hOut(
+    unit="J/kg")
     "Leaving temperature of the component";
-
-  Modelica.Blocks.Interfaces.RealOutput XiOut[Medium.nXi](each unit="1",
-                                                          each min=0,
-                                                          each max=1)
+  Modelica.Blocks.Interfaces.RealOutput XiOut[Medium.nXi](
+    each unit="1",
+    each min=0,
+    each max=1)
     "Leaving species concentration of the component";
-  Modelica.Blocks.Interfaces.RealOutput COut[Medium.nC](each min=0)
+  Modelica.Blocks.Interfaces.RealOutput COut[Medium.nC](
+    each min=0)
     "Leaving trace substances of the component";
-
 protected
-  Modelica.Blocks.Sources.RealExpression heaInp(y=Q_flow)
+  Modelica.Blocks.Sources.RealExpression heaInp(
+    y=Q_flow)
     "Block to set heat input into volume"
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
-  Modelica.Blocks.Sources.RealExpression
-    masExc(final y=mWat_flow) "Block to set moisture exchange in volume"
+  Modelica.Blocks.Sources.RealExpression masExc(
+    final y=mWat_flow)
+    "Block to set moisture exchange in volume"
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
-
 initial equation
-  assert(homotopyInitialization, "In " + getInstanceName() +
-    ": The constant homotopyInitialization has been modified from its default value. This constant will be removed in future releases.",
-    level = AssertionLevel.warning);
-
+  assert(
+    homotopyInitialization,
+    "In "+getInstanceName()+": The constant homotopyInitialization has been modified from its default value. This constant will be removed in future releases.",
+    level=AssertionLevel.warning);
 equation
-  connect(vol.hOut, hOut);
-  connect(vol.XiOut, XiOut);
-  connect(vol.COut, COut);
-  connect(port_a,preDro. port_a) annotation (Line(
-      points={{-100,0},{-50,0}},
-      color={0,127,255}));
-  connect(preDro.port_b, vol.port_a) annotation (Line(
-      points={{-30,0},{15,0}},
-      color={0,127,255}));
-
-  connect(vol.port_b, port_b) annotation (Line(
-      points={{35,0},{67,0},{100,5.55112e-16}},
-      color={0,127,255}));
-
-  connect(heaInp.y, vol.Q_flow) annotation (Line(
-      points={{1,50},{6,50},{6,8},{13,8}},
-      color={0,0,127}));
-  connect(masExc.y, vol.mWat_flow) annotation (Line(
-      points={{1,30},{4,30},{4,4},{13,4}},
-      color={0,0,127}));
+  connect(vol.hOut,hOut);
+  connect(vol.XiOut,XiOut);
+  connect(vol.COut,COut);
+  connect(port_a,preDro.port_a)
+    annotation (Line(points={{-100,0},{-50,0}},color={0,127,255}));
+  connect(preDro.port_b,vol.port_a)
+    annotation (Line(points={{-30,0},{15,0}},color={0,127,255}));
+  connect(vol.port_b,port_b)
+    annotation (Line(points={{35,0},{67,0},{100,5.55112e-16}},color={0,127,255}));
+  connect(heaInp.y,vol.Q_flow)
+    annotation (Line(points={{1,50},{6,50},{6,8},{13,8}},color={0,0,127}));
+  connect(masExc.y,vol.mWat_flow)
+    annotation (Line(points={{1,30},{4,30},{4,4},{13,4}},color={0,0,127}));
   annotation (
     preferredView="info",
-    Documentation(info="<html>
+    Documentation(
+      info="<html>
 <p>
 This component transports fluid between its two ports, without
 storing mass or energy. It is based on
@@ -152,7 +147,8 @@ equations are formulated to guard against numerical problems near
 zero flow that can occur if <code>Q_flow</code> or <code>m_flow</code>
 are the results of an iterative solver.
 </p>
-</html>", revisions="<html>
+</html>",
+      revisions="<html>
 <ul>
 <li>
 April 14, 2020, by Michael Wetter:<br/>

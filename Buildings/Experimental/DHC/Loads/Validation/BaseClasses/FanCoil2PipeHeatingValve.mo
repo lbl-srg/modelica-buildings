@@ -26,9 +26,9 @@ model FanCoil2PipeHeatingValve
   parameter Boolean have_speVar=true
     "Set to true for a variable speed fan (otherwise fan is always on)";
   parameter Modelica.SIunits.PressureDifference dpLoa_nominal(
-    displayUnit="Pa") = 250
+    displayUnit="Pa")=250
     "Load side pressure drop"
-    annotation(Dialog(group="Nominal condition"));
+    annotation (Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.PressureDifference dpSou_nominal=30000
     "Nominal pressure drop on source side";
   Buildings.Fluid.Movers.FlowControlled_m_flow fan(
@@ -118,7 +118,7 @@ model FanCoil2PipeHeatingValve
     "Logical switch"
     annotation (Placement(transformation(extent={{30,170},{50,190}})));
   Fluid.FixedResistances.PressureDrop resLoa(
-    redeclare final package Medium = Medium2,
+    redeclare final package Medium=Medium2,
     final m_flow_nominal=mLoaHea_flow_nominal,
     final dp_nominal=dpLoa_nominal)
     "Load side pressure drop"
@@ -170,10 +170,10 @@ equation
     annotation (Line(points={{-40,-130},{-40,-220},{160,-220}},color={0,127,255}));
   connect(mulHeaWatFloInl.port_b,hex.port_a1)
     annotation (Line(points={{-160,-220},{-100,-220},{-100,-12},{-80,-12}},color={0,127,255}));
-  connect(retAir.ports[1], resLoa.port_a)
-    annotation (Line(points={{100,0},{94,0}}, color={0,127,255}));
-  connect(resLoa.port_b, fan.port_a)
-    annotation (Line(points={{74,0},{70,0}}, color={0,127,255}));
+  connect(retAir.ports[1],resLoa.port_a)
+    annotation (Line(points={{100,0},{94,0}},color={0,127,255}));
+  connect(resLoa.port_b,fan.port_a)
+    annotation (Line(points={{74,0},{70,0}},color={0,127,255}));
   annotation (
     Documentation(
       info="<html>

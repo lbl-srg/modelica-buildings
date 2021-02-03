@@ -2,58 +2,57 @@ within Buildings.Fluid.Sources;
 model MassFlowSource_h
   "Ideal flow source that produces a prescribed mass flow with prescribed specific enthalpy, composition and trace substances"
   extends Buildings.Fluid.Sources.BaseClasses.PartialSource_Xi_C;
-
-  parameter Boolean use_m_flow_in = false
+  parameter Boolean use_m_flow_in=false
     "Get the mass flow rate from the input connector"
-    annotation(Evaluate=true, HideResult=true, Dialog(group="Conditional inputs"));
-  parameter Modelica.SIunits.MassFlowRate m_flow = 0
+    annotation (Evaluate=true,HideResult=true,Dialog(group="Conditional inputs"));
+  parameter Modelica.SIunits.MassFlowRate m_flow=0
     "Fixed mass flow rate going out of the fluid port"
-    annotation (Dialog(enable = not use_m_flow_in,group="Fixed inputs"));
-
-  parameter Boolean use_h_in= false
+    annotation (Dialog(enable=not use_m_flow_in,group="Fixed inputs"));
+  parameter Boolean use_h_in=false
     "Get the specific enthalpy from the input connector"
-    annotation(Evaluate=true, HideResult=true, Dialog(group="Conditional inputs"));
-  parameter Medium.SpecificEnthalpy h = Medium.h_default
+    annotation (Evaluate=true,HideResult=true,Dialog(group="Conditional inputs"));
+  parameter Medium.SpecificEnthalpy h=Medium.h_default
     "Fixed value of specific enthalpy"
-    annotation (Dialog(enable = not use_h_in, group="Fixed inputs"));
-
-  Modelica.Blocks.Interfaces.RealInput m_flow_in(final unit="kg/s") if use_m_flow_in
+    annotation (Dialog(enable=not use_h_in,group="Fixed inputs"));
+  Modelica.Blocks.Interfaces.RealInput m_flow_in(
+    final unit="kg/s") if use_m_flow_in
     "Prescribed mass flow rate"
-    annotation (Placement(transformation(extent={{-140,60},{-100,100}}),iconTransformation(extent={{-140,60},
-            {-100,100}})));
-
-  Modelica.Blocks.Interfaces.RealInput h_in(final unit="J/kg") if use_h_in
+    annotation (Placement(transformation(extent={{-140,60},{-100,100}}),iconTransformation(extent={{-140,60},{-100,100}})));
+  Modelica.Blocks.Interfaces.RealInput h_in(
+    final unit="J/kg") if use_h_in
     "Prescribed boundary specific enthalpy"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
-
 protected
-  Modelica.Blocks.Interfaces.RealInput m_flow_in_internal(final unit="kg/s")
+  Modelica.Blocks.Interfaces.RealInput m_flow_in_internal(
+    final unit="kg/s")
     "Needed to connect to conditional connector";
-  Modelica.Blocks.Interfaces.RealInput h_in_internal(final unit="J/kg")
+  Modelica.Blocks.Interfaces.RealInput h_in_internal(
+    final unit="J/kg")
     "Needed to connect to conditional connector";
-
 equation
   // Mass flow rate
-  connect(m_flow_in, m_flow_in_internal);
+  connect(m_flow_in,m_flow_in_internal);
   if not use_m_flow_in then
-    m_flow_in_internal = m_flow;
+    m_flow_in_internal=m_flow;
   end if;
   for i in 1:nPorts loop
-    ports[i].p = p_in_internal;
+    ports[i].p=p_in_internal;
   end for;
-  sum(ports.m_flow) = -m_flow_in_internal;
+  sum(
+    ports.m_flow)=-m_flow_in_internal;
   // Enthalpy
-  connect(h_in, h_in_internal);
+  connect(h_in,h_in_internal);
   if not use_h_in then
-    h_in_internal = h;
+    h_in_internal=h;
   end if;
   for i in 1:nPorts loop
-     ports[i].h_outflow  = h_in_internal;
+    ports[i].h_outflow=h_in_internal;
   end for;
-  connect(medium.h, h_in_internal);
-
-  annotation (defaultComponentName="boundary",
-    Documentation(info="<html>
+  connect(medium.h,h_in_internal);
+  annotation (
+    defaultComponentName="boundary",
+    Documentation(
+      info="<html>
 <p>
 Models an ideal flow source, with prescribed values of flow rate, specific enthalpy, composition and trace substances:
 </p>
@@ -98,7 +97,7 @@ the port into the boundary, the boundary definitions,
 with exception of boundary flow rate, do not have an effect.
 </p>
 </html>",
-revisions="<html>
+      revisions="<html>
 <ul>
 <li>
 February 2nd, 2018 by Filip Jorissen<br/>
@@ -127,7 +126,8 @@ Implemenation is based on <code>Modelica.Fluid</code>.
 </li>
 </ul>
 </html>"),
-    Icon(graphics={
+    Icon(
+      graphics={
         Text(
           visible=use_m_flow_in,
           extent={{-185,132},{-45,100}},
@@ -168,7 +168,7 @@ Implemenation is based on <code>Modelica.Fluid</code>.
           lineColor={255,0,0},
           fillColor={255,0,0},
           fillPattern=FillPattern.Solid),
-                                  Text(
+        Text(
           extent={{-161,110},{139,150}},
           textString="%name",
           lineColor={0,0,255})}));

@@ -2,27 +2,33 @@ within Buildings.Fluid.HeatExchangers.BaseClasses;
 model PipeManifoldFlowDistributor
   "Manifold for heat exchanger register that distributes the mass flow rate equally"
   extends PartialPipeManifold;
-
 equation
-    // mass and momentum balance
-  port_b[1].m_flow = -port_a.m_flow/nPipPar;
-
+  // mass and momentum balance
+  port_b[1].m_flow=-port_a.m_flow/nPipPar;
   for i in 2:nPipPar loop
-    port_b[i].m_flow = port_b[1].m_flow;
+    port_b[i].m_flow=port_b[1].m_flow;
   end for;
-
-  port_b[1].p = port_a.p;
-
+  port_b[1].p=port_a.p;
   for i in 1:nPipPar loop
-    inStream(port_a.h_outflow)  = port_b[i].h_outflow;
-    inStream(port_a.Xi_outflow) = port_b[i].Xi_outflow;
-    inStream(port_a.C_outflow)  = port_b[i].C_outflow;
+    inStream(
+      port_a.h_outflow)=port_b[i].h_outflow;
+    inStream(
+      port_a.Xi_outflow)=port_b[i].Xi_outflow;
+    inStream(
+      port_a.C_outflow)=port_b[i].C_outflow;
   end for;
-  port_a.h_outflow  = sum(inStream(port_b[i].h_outflow) for i in 1:nPipPar)/nPipPar;
-  port_a.Xi_outflow = sum(inStream(port_b[i].Xi_outflow) for i in 1:nPipPar)/nPipPar;
-  port_a.C_outflow  = sum(inStream(port_b[i].C_outflow) for i in 1:nPipPar)/nPipPar;
-
-annotation (Documentation(info="<html>
+  port_a.h_outflow=sum(
+    inStream(
+      port_b[i].h_outflow) for i in 1:nPipPar)/nPipPar;
+  port_a.Xi_outflow=sum(
+    inStream(
+      port_b[i].Xi_outflow) for i in 1:nPipPar)/nPipPar;
+  port_a.C_outflow=sum(
+    inStream(
+      port_b[i].C_outflow) for i in 1:nPipPar)/nPipPar;
+  annotation (
+    Documentation(
+      info="<html>
 <p>
 This model distributes the mass flow rates equally between all instances
 of <code>port_b</code>.
@@ -43,7 +49,7 @@ Otherwise, no solution may exist, and therefore the simulation may
 stop with an error.
 </p>
 </html>",
-revisions="<html>
+      revisions="<html>
 <ul>
 <li>
 June 29, 2014, by Michael Wetter:<br/>
@@ -51,8 +57,11 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
-        graphics={
+    Icon(
+      coordinateSystem(
+        preserveAspectRatio=false,
+        extent={{-100,-100},{100,100}}),
+      graphics={
         Polygon(
           points={{26,48},{50,72},{54,72},{30,48},{26,48}},
           lineColor={0,0,255},

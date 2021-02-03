@@ -5,93 +5,89 @@ model PrescribedOutlet
     outCon(
       final T_start=T_start,
       final X_start=X_start,
-      final use_TSet = use_TSet,
-      final use_X_wSet = use_X_wSet,
-      final QMax_flow = QMax_flow,
-      final QMin_flow = QMin_flow,
-      final mWatMax_flow = mWatMax_flow,
-      final mWatMin_flow = mWatMin_flow,
-      final energyDynamics = energyDynamics,
-      final massDynamics = massDynamics));
-
-  parameter Modelica.SIunits.HeatFlowRate QMax_flow(min=0) = Modelica.Constants.inf
+      final use_TSet=use_TSet,
+      final use_X_wSet=use_X_wSet,
+      final QMax_flow=QMax_flow,
+      final QMin_flow=QMin_flow,
+      final mWatMax_flow=mWatMax_flow,
+      final mWatMin_flow=mWatMin_flow,
+      final energyDynamics=energyDynamics,
+      final massDynamics=massDynamics));
+  parameter Modelica.SIunits.HeatFlowRate QMax_flow(
+    min=0)=Modelica.Constants.inf
     "Maximum heat flow rate for heating (positive)"
-    annotation (Evaluate=true, Dialog(enable=use_TSet));
-  parameter Modelica.SIunits.HeatFlowRate QMin_flow(max=0) = -Modelica.Constants.inf
+    annotation (Evaluate=true,Dialog(enable=use_TSet));
+  parameter Modelica.SIunits.HeatFlowRate QMin_flow(
+    max=0)=-Modelica.Constants.inf
     "Maximum heat flow rate for cooling (negative)"
-    annotation (Evaluate=true, Dialog(enable=use_TSet));
-
-  parameter Modelica.SIunits.MassFlowRate mWatMax_flow(min=0) = Modelica.Constants.inf
+    annotation (Evaluate=true,Dialog(enable=use_TSet));
+  parameter Modelica.SIunits.MassFlowRate mWatMax_flow(
+    min=0)=Modelica.Constants.inf
     "Maximum water mass flow rate addition (positive)"
-    annotation (Evaluate=true, Dialog(enable=use_X_wSet));
-  parameter Modelica.SIunits.MassFlowRate mWatMin_flow(max=0) = -Modelica.Constants.inf
+    annotation (Evaluate=true,Dialog(enable=use_X_wSet));
+  parameter Modelica.SIunits.MassFlowRate mWatMin_flow(
+    max=0)=-Modelica.Constants.inf
     "Maximum water mass flow rate removal (negative)"
-    annotation (Evaluate=true, Dialog(enable=use_X_wSet));
-
-  parameter Modelica.SIunits.Temperature T_start = Medium.T_default
+    annotation (Evaluate=true,Dialog(enable=use_X_wSet));
+  parameter Modelica.SIunits.Temperature T_start=Medium.T_default
     "Start value of temperature"
-    annotation(Dialog(tab = "Initialization", enable=use_TSet));
-  parameter Modelica.SIunits.MassFraction X_start[Medium.nX] = Medium.X_default
+    annotation (Dialog(tab="Initialization",enable=use_TSet));
+  parameter Modelica.SIunits.MassFraction X_start[Medium.nX]=Medium.X_default
     "Start value of mass fractions m_i/m"
-    annotation (Dialog(tab="Initialization", enable=use_X_wSet and Medium.nXi > 0));
-
+    annotation (Dialog(tab="Initialization",enable=use_X_wSet and Medium.nXi > 0));
   // Dynamics
-  parameter Modelica.Fluid.Types.Dynamics energyDynamics = Modelica.Fluid.Types.Dynamics.SteadyState
+  parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState
     "Type of energy balance: dynamic (3 initialization options) or steady state"
-    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations", enable=use_TSet));
-
-  parameter Modelica.Fluid.Types.Dynamics massDynamics = energyDynamics
+    annotation (Evaluate=true,Dialog(tab="Dynamics",group="Equations",enable=use_TSet));
+  parameter Modelica.Fluid.Types.Dynamics massDynamics=energyDynamics
     "Type of mass balance: dynamic (3 initialization options) or steady state"
-    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations", enable=use_X_wSet));
-
-  parameter Boolean use_TSet = true
+    annotation (Evaluate=true,Dialog(tab="Dynamics",group="Equations",enable=use_X_wSet));
+  parameter Boolean use_TSet=true
     "Set to false to disable temperature set point"
-    annotation(Evaluate=true);
-
-  parameter Boolean use_X_wSet = true
+    annotation (Evaluate=true);
+  parameter Boolean use_X_wSet=true
     "Set to false to disable water vapor set point"
-    annotation(Evaluate=true);
-
+    annotation (Evaluate=true);
   Modelica.Blocks.Interfaces.RealInput TSet(
     unit="K",
     displayUnit="degC") if use_TSet
     "Set point temperature of the fluid that leaves port_b"
-    annotation (Placement(transformation(origin={-120,80},
-              extent={{20,-20},{-20,20}},rotation=180)));
-
-  Modelica.Blocks.Interfaces.RealInput X_wSet(unit="1") if use_X_wSet
+    annotation (Placement(transformation(origin={-120,80},extent={{20,-20},{-20,20}},rotation=180)));
+  Modelica.Blocks.Interfaces.RealInput X_wSet(
+    unit="1") if use_X_wSet
     "Set point for water vapor mass fraction of the fluid that leaves port_b"
-    annotation (Placement(transformation(origin={-120,40},
-              extent={{20,-20},{-20,20}},rotation=180)));
-
-  Modelica.Blocks.Interfaces.RealOutput Q_flow(unit="W")
+    annotation (Placement(transformation(origin={-120,40},extent={{20,-20},{-20,20}},rotation=180)));
+  Modelica.Blocks.Interfaces.RealOutput Q_flow(
+    unit="W")
     "Heat flow rate added to the fluid (if flow is from port_a to port_b)"
     annotation (Placement(transformation(extent={{100,70},{120,90}})));
-
-  Modelica.Blocks.Interfaces.RealOutput mWat_flow(unit="kg/s")
+  Modelica.Blocks.Interfaces.RealOutput mWat_flow(
+    unit="kg/s")
     "Water vapor mass flow rate added to the fluid (if flow is from port_a to port_b)"
     annotation (Placement(transformation(extent={{100,30},{120,50}})));
-
 equation
-  connect(outCon.X_wSet, X_wSet) annotation (Line(points={{19,4},{-20,4},{-20,
-          40},{-120,40}},
-                      color={0,0,127}));
-  connect(outCon.mWat_flow, mWat_flow) annotation (Line(points={{41,4},{80,4},{80,
-          40},{110,40}}, color={0,0,127}));
-  connect(outCon.TSet, TSet) annotation (Line(points={{19,8},{-16,8},{-16,80},{
-          -120,80}},
-                color={0,0,127}));
-  connect(outCon.Q_flow, Q_flow) annotation (Line(points={{41,8},{76,8},{76,80},
-          {110,80}}, color={0,0,127}));
-
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics={
+  connect(outCon.X_wSet,X_wSet)
+    annotation (Line(points={{19,4},{-20,4},{-20,40},{-120,40}},color={0,0,127}));
+  connect(outCon.mWat_flow,mWat_flow)
+    annotation (Line(points={{41,4},{80,4},{80,40},{110,40}},color={0,0,127}));
+  connect(outCon.TSet,TSet)
+    annotation (Line(points={{19,8},{-16,8},{-16,80},{-120,80}},color={0,0,127}));
+  connect(outCon.Q_flow,Q_flow)
+    annotation (Line(points={{41,8},{76,8},{76,80},{110,80}},color={0,0,127}));
+  annotation (
+    Icon(
+      coordinateSystem(
+        preserveAspectRatio=false,
+        extent={{-100,-100},{100,100}}),
+      graphics={
         Rectangle(
           extent={{-64,34},{-34,54}},
           lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
-        Line(points={{-64,34},{-52,44},{-64,54}}, color={0,0,0}),
+        Line(
+          points={{-64,34},{-52,44},{-64,54}},
+          color={0,0,0}),
         Text(
           extent={{-98,64},{-76,42}},
           lineColor={0,0,127},
@@ -149,8 +145,9 @@ equation
           extent={{72,108},{120,92}},
           lineColor={0,0,127},
           textString="Q_flow")}),
-defaultComponentName="preOut",
-Documentation(info="<html>
+    defaultComponentName="preOut",
+    Documentation(
+      info="<html>
 <p>
 Model that allows specifying the temperature and mass fraction of the fluid
 that leaves the model from <code>port_b</code>.
@@ -235,7 +232,7 @@ and
 Buildings.Fluid.HeatExchangers.Validation.PrescribedOutlet_dynamic</a>.
 </p>
 </html>",
-revisions="<html>
+      revisions="<html>
 <ul>
 <li>
 May 3, 2017, by Michael Wetter:<br/>

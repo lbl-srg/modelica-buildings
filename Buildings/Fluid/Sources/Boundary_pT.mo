@@ -2,86 +2,94 @@ within Buildings.Fluid.Sources;
 model Boundary_pT
   "Boundary with prescribed pressure, temperature, composition and trace substances"
   extends Buildings.Fluid.Sources.BaseClasses.PartialSource_Xi_C;
-
-  parameter Boolean use_p_in = false
+  parameter Boolean use_p_in=false
     "Get the pressure from the input connector"
-    annotation(Evaluate=true, HideResult=true, Dialog(group="Conditional inputs"));
-  parameter Medium.AbsolutePressure p = Medium.p_default
+    annotation (Evaluate=true,HideResult=true,Dialog(group="Conditional inputs"));
+  parameter Medium.AbsolutePressure p=Medium.p_default
     "Fixed value of pressure"
-    annotation (Dialog(enable = not use_p_in, group="Fixed inputs"));
-
-  parameter Boolean use_T_in= false
+    annotation (Dialog(enable=not use_p_in,group="Fixed inputs"));
+  parameter Boolean use_T_in=false
     "Get the temperature from the input connector"
-    annotation(Evaluate=true, HideResult=true,Dialog(group="Conditional inputs"));
-  parameter Medium.Temperature T = Medium.T_default
+    annotation (Evaluate=true,HideResult=true,Dialog(group="Conditional inputs"));
+  parameter Medium.Temperature T=Medium.T_default
     "Fixed value of temperature"
-    annotation (Dialog(enable = not use_T_in,group="Fixed inputs"));
-
-  Modelica.Blocks.Interfaces.RealInput p_in(final unit="Pa") if use_p_in
+    annotation (Dialog(enable=not use_T_in,group="Fixed inputs"));
+  Modelica.Blocks.Interfaces.RealInput p_in(
+    final unit="Pa") if use_p_in
     "Prescribed boundary pressure"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
-
-  Modelica.Blocks.Interfaces.RealInput T_in(final unit="K",
-                                            displayUnit="degC") if use_T_in
+  Modelica.Blocks.Interfaces.RealInput T_in(
+    final unit="K",
+    displayUnit="degC") if use_T_in
     "Prescribed boundary temperature"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
-
-    // Boolean constants to avoid a potential string comparison in an equation section
+// Boolean constants to avoid a potential string comparison in an equation section
 protected
-  constant Boolean checkWaterPressure = Medium.mediumName == "SimpleLiquidWater"
+  constant Boolean checkWaterPressure=Medium.mediumName == "SimpleLiquidWater"
     "Evaluates to true if the pressure should be checked";
-  constant Boolean checkAirPressure = Medium.mediumName == "Air"
+  constant Boolean checkAirPressure=Medium.mediumName == "Air"
     "Evaluates to true if the pressure should be checked";
-
-  Modelica.Blocks.Interfaces.RealInput T_in_internal(final unit="K",
-                                                     displayUnit="degC")
+  Modelica.Blocks.Interfaces.RealInput T_in_internal(
+    final unit="K",
+    displayUnit="degC")
     "Needed to connect to conditional connector";
-  Modelica.Blocks.Interfaces.RealInput h_internal=
-    Medium.specificEnthalpy(Medium.setState_pTX(p_in_internal, T_in_internal, X_in_internal))
+  Modelica.Blocks.Interfaces.RealInput h_internal=Medium.specificEnthalpy(
+    Medium.setState_pTX(
+      p_in_internal,
+      T_in_internal,
+      X_in_internal))
     "Internal connector for enthalpy";
-
 initial equation
   if not use_p_in then
     if checkWaterPressure then
-      assert(p_in_internal>1e4, "In "+getInstanceName() +
-        ": The parameter value p="+String(p_in_internal)+" is low for water. This is likely an error.");
+      assert(
+        p_in_internal > 1e4,
+        "In "+getInstanceName()+": The parameter value p="+String(
+          p_in_internal)+" is low for water. This is likely an error.");
     end if;
     if checkAirPressure then
-      assert(p_in_internal>5e4 and p_in_internal < 1.5e5, "In "+getInstanceName() +
-        ": The parameter value p="+String(p_in_internal)+" is not within a realistic range for air. This is likely an error.");
+      assert(
+        p_in_internal > 5e4 and p_in_internal < 1.5e5,
+        "In "+getInstanceName()+": The parameter value p="+String(
+          p_in_internal)+" is not within a realistic range for air. This is likely an error.");
     end if;
   end if;
 equation
   if use_p_in then
     if checkWaterPressure then
-      assert(p_in_internal>1e4, "In "+getInstanceName() +
-        ": The value of p_in="+String(p_in_internal)+" is low for water. This is likely an error.");
+      assert(
+        p_in_internal > 1e4,
+        "In "+getInstanceName()+": The value of p_in="+String(
+          p_in_internal)+" is low for water. This is likely an error.");
     end if;
     if checkAirPressure then
-      assert(p_in_internal>5e4 and p_in_internal < 1.5e5, "In "+getInstanceName() +
-        ": The value of p_in="+String(p_in_internal)+" is not within a realistic range for air. This is likely an error.");
+      assert(
+        p_in_internal > 5e4 and p_in_internal < 1.5e5,
+        "In "+getInstanceName()+": The value of p_in="+String(
+          p_in_internal)+" is not within a realistic range for air. This is likely an error.");
     end if;
   end if;
   // Pressure
-  connect(p_in, p_in_internal);
+  connect(p_in,p_in_internal);
   if not use_p_in then
-    p_in_internal = p;
+    p_in_internal=p;
   end if;
   for i in 1:nPorts loop
-    ports[i].p = p_in_internal;
+    ports[i].p=p_in_internal;
   end for;
-
   // Temperature
-  connect(T_in, T_in_internal);
+  connect(T_in,T_in_internal);
   if not use_T_in then
-    T_in_internal = T;
+    T_in_internal=T;
   end if;
   for i in 1:nPorts loop
-     ports[i].h_outflow  = h_internal;
+    ports[i].h_outflow=h_internal;
   end for;
-  connect(medium.h, h_internal);
-  annotation (defaultComponentName="bou",
-    Documentation(info="<html>
+  connect(medium.h,h_internal);
+  annotation (
+    defaultComponentName="bou",
+    Documentation(
+      info="<html>
 <p>
 Defines prescribed values for boundary conditions:
 </p>
@@ -127,7 +135,7 @@ the port into the boundary, the boundary definitions,
 with exception of boundary pressure, do not have an effect.
 </p>
 </html>",
-revisions="<html>
+      revisions="<html>
 <ul>
 <li>
 February 25, 2020, by Michael Wetter:<br/>
@@ -177,7 +185,8 @@ Implementation is based on <code>Modelica.Fluid</code>.
 </li>
 </ul>
 </html>"),
-    Icon(graphics={
+    Icon(
+      graphics={
         Text(
           visible=use_p_in,
           extent={{-152,134},{-68,94}},
@@ -200,11 +209,22 @@ Implementation is based on <code>Modelica.Fluid</code>.
           extent={{-100,100},{100,-100}},
           lineColor={0,0,0},
           fillPattern=FillPattern.Sphere,
-          fillColor=DynamicSelect({0,127,255},
-            min(1, max(0, (1-((if use_T_in then T_in else T)-273.15)/50)))*{28,108,200}+
-            min(1, max(0, ((if use_T_in then T_in else T)-273.15)/50))*{255,0,0})),
+          fillColor=DynamicSelect({0,127,255},min(1,max(0,(1-((
+            if use_T_in then
+              T_in
+            else
+              T)-273.15)/50)))*{28,108,200}+min(1,max(0,((
+            if use_T_in then
+              T_in
+            else
+              T)-273.15)/50))*{255,0,0})),
         Text(
           extent={{62,28},{-58,-22}},
           lineColor={255,255,255},
-          textString=DynamicSelect("", String((if use_T_in then T_in else T)-273.15, format=".1f")))}));
+          textString=DynamicSelect("",String((
+            if use_T_in then
+              T_in
+            else
+              T)-273.15,
+            format=".1f")))}));
 end Boundary_pT;

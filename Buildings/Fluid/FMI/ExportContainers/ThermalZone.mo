@@ -1,31 +1,33 @@
 within Buildings.Fluid.FMI.ExportContainers;
 partial block ThermalZone
   "Partial block to export a model of a thermal zone as an FMU"
-  replaceable package Medium =
-    Modelica.Media.Interfaces.PartialMedium "Medium in the component"
-      annotation (choices(
-        choice(redeclare package Medium = Buildings.Media.Air "Moist air")));
-
-  parameter Integer nPorts(min=2) "Number of fluid ports";
-
+  replaceable package Medium=Modelica.Media.Interfaces.PartialMedium
+    "Medium in the component"
+    annotation (choices(choice(redeclare package Medium=Buildings.Media.Air "Moist air")));
+  parameter Integer nPorts(
+    min=2)
+    "Number of fluid ports";
   Interfaces.Inlet fluPor[nPorts](
-    redeclare each final package Medium = Medium,
+    redeclare each final package Medium=Medium,
     each final use_p_in=false,
-    each final allowFlowReversal=true) "Fluid connector" annotation (Placement(
-        transformation(extent={{-180,150},{-160,170}}), iconTransformation(
-          extent={{-180,150},{-160,170}})));
-
+    each final allowFlowReversal=true)
+    "Fluid connector"
+    annotation (Placement(transformation(extent={{-180,150},{-160,170}}),iconTransformation(extent={{-180,150},{-160,170}})));
   Adaptors.ThermalZone theZonAda(
-    redeclare final package Medium = Medium,
+    redeclare final package Medium=Medium,
     final nPorts=nPorts)
     "Adapter between the HVAC supply and return air, and its connectors for the FMU"
     annotation (Placement(transformation(extent={{-140,150},{-120,170}})));
-
 equation
-  connect(theZonAda.fluPor, fluPor) annotation (Line(points={{-142.2,160},{
-          -142.2,160},{-144,160},{-170,160}},color={0,0,255}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-160,-140},
-            {160,180}}), graphics={Rectangle(
+  connect(theZonAda.fluPor,fluPor)
+    annotation (Line(points={{-142.2,160},{-142.2,160},{-144,160},{-170,160}},color={0,0,255}));
+  annotation (
+    Icon(
+      coordinateSystem(
+        preserveAspectRatio=false,
+        extent={{-160,-140},{160,180}}),
+      graphics={
+        Rectangle(
           extent={{-160,180},{160,-140}},
           fillPattern=FillPattern.Solid,
           fillColor={255,255,255},
@@ -54,9 +56,13 @@ equation
           extent={{84,72},{88,-32}},
           lineColor={95,95,95},
           fillColor={170,213,255},
-          fillPattern=FillPattern.Solid)}),                      Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-160,-140},{160,180}})),
-    Documentation(info="<html>
+          fillPattern=FillPattern.Solid)}),
+    Diagram(
+      coordinateSystem(
+        preserveAspectRatio=false,
+        extent={{-160,-140},{160,180}})),
+    Documentation(
+      info="<html>
 <p>
 Model that is used as a container for a single thermal zone
 that is to be exported as an FMU.
@@ -174,7 +180,8 @@ Buildings.Fluid.FMI.ExportContainers.Validation.RoomHVAC</a>
 shows conceptually how such an FMU can then be connected to a HVAC system
 that has signal flow.
 </p>
-</html>", revisions="<html>
+</html>",
+      revisions="<html>
 <ul>
 <li>
 January 18, 2019, by Jianjun Hu:<br/>

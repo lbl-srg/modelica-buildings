@@ -2,237 +2,212 @@ within Buildings.Fluid.Interfaces;
 model PrescribedOutlet
   "Component that assigns the outlet fluid property at port_a based on an input signal"
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface;
-
-  parameter Modelica.SIunits.HeatFlowRate QMax_flow(min=0) = Modelica.Constants.inf
+  parameter Modelica.SIunits.HeatFlowRate QMax_flow(
+    min=0)=Modelica.Constants.inf
     "Maximum heat flow rate for heating (positive)"
-    annotation (Evaluate=true, Dialog(enable=use_TSet));
-  parameter Modelica.SIunits.HeatFlowRate QMin_flow(max=0) = -Modelica.Constants.inf
+    annotation (Evaluate=true,Dialog(enable=use_TSet));
+  parameter Modelica.SIunits.HeatFlowRate QMin_flow(
+    max=0)=-Modelica.Constants.inf
     "Maximum heat flow rate for cooling (negative)"
-    annotation (Evaluate=true, Dialog(enable=use_TSet));
-  parameter Modelica.SIunits.MassFlowRate mWatMax_flow(min=0) = Modelica.Constants.inf
+    annotation (Evaluate=true,Dialog(enable=use_TSet));
+  parameter Modelica.SIunits.MassFlowRate mWatMax_flow(
+    min=0)=Modelica.Constants.inf
     "Maximum water mass flow rate addition (positive)"
-    annotation (Evaluate=true, Dialog(enable=use_X_wSet));
-
-  parameter Modelica.SIunits.MassFlowRate mWatMin_flow(max=0) = -Modelica.Constants.inf
+    annotation (Evaluate=true,Dialog(enable=use_X_wSet));
+  parameter Modelica.SIunits.MassFlowRate mWatMin_flow(
+    max=0)=-Modelica.Constants.inf
     "Maximum water mass flow rate removal (negative)"
-    annotation (Evaluate=true, Dialog(enable=use_X_wSet));
-
+    annotation (Evaluate=true,Dialog(enable=use_X_wSet));
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal
     "Nominal mass flow rate, used for regularization near zero flow"
-    annotation(Dialog(group = "Nominal condition"));
-
-  parameter Modelica.SIunits.Time tau(min=0) = 10
+    annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.SIunits.Time tau(
+    min=0)=10
     "Time constant at nominal flow rate (used if energyDynamics or massDynamics not equal Modelica.Fluid.Types.Dynamics.SteadyState)"
-    annotation(Dialog(tab = "Dynamics"));
+    annotation (Dialog(tab="Dynamics"));
   parameter Modelica.SIunits.Temperature T_start=Medium.T_default
     "Start value of temperature"
-    annotation(Dialog(tab = "Initialization", enable=use_TSet));
-  parameter Modelica.SIunits.MassFraction X_start[Medium.nX] = Medium.X_default
+    annotation (Dialog(tab="Initialization",enable=use_TSet));
+  parameter Modelica.SIunits.MassFraction X_start[Medium.nX]=Medium.X_default
     "Start value of mass fractions m_i/m"
-    annotation (Dialog(tab="Initialization", enable=use_X_wSet and Medium.nXi > 0));
-
+    annotation (Dialog(tab="Initialization",enable=use_X_wSet and Medium.nXi > 0));
   // Dynamics
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState
     "Type of energy balance: dynamic (3 initialization options) or steady state"
-    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations", enable=use_TSet));
-
+    annotation (Evaluate=true,Dialog(tab="Dynamics",group="Equations",enable=use_TSet));
   parameter Modelica.Fluid.Types.Dynamics massDynamics=energyDynamics
     "Type of mass balance: dynamic (3 initialization options) or steady state"
-    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations", enable=use_X_wSet));
-
-  parameter Boolean use_TSet = true
+    annotation (Evaluate=true,Dialog(tab="Dynamics",group="Equations",enable=use_X_wSet));
+  parameter Boolean use_TSet=true
     "Set to false to disable temperature set point"
-    annotation(Evaluate=true);
-
-  parameter Boolean use_X_wSet = true
+    annotation (Evaluate=true);
+  parameter Boolean use_X_wSet=true
     "Set to false to disable water vapor set point"
-    annotation(Evaluate=true);
-
-  Modelica.Blocks.Interfaces.RealInput TSet(unit="K", displayUnit="degC") if use_TSet
+    annotation (Evaluate=true);
+  Modelica.Blocks.Interfaces.RealInput TSet(
+    unit="K",
+    displayUnit="degC") if use_TSet
     "Set point temperature of the fluid that leaves port_b"
-    annotation (Placement(transformation(origin={-120,90},
-              extent={{20,-20},{-20,20}},rotation=180), iconTransformation(
-        extent={{10,-10},{-10,10}},
-        rotation=180,
-        origin={-110,80})));
-
-  Modelica.Blocks.Interfaces.RealInput X_wSet(unit="1") if use_X_wSet
+    annotation (Placement(transformation(origin={-120,90},extent={{20,-20},{-20,20}},rotation=180),iconTransformation(extent={{10,-10},{-10,10}},rotation=180,origin={-110,80})));
+  Modelica.Blocks.Interfaces.RealInput X_wSet(
+    unit="1") if use_X_wSet
     "Set point for water vapor mass fraction of the fluid that leaves port_b"
-    annotation (Placement(transformation(origin={-120,50},
-              extent={{20,-20},{-20,20}},rotation=180), iconTransformation(
-        extent={{10,-10},{-10,10}},
-        rotation=180,
-        origin={-110,40})));
-
-  Modelica.Blocks.Interfaces.RealOutput Q_flow(unit="W")
+    annotation (Placement(transformation(origin={-120,50},extent={{20,-20},{-20,20}},rotation=180),iconTransformation(extent={{10,-10},{-10,10}},rotation=180,origin={-110,40})));
+  Modelica.Blocks.Interfaces.RealOutput Q_flow(
+    unit="W")
     "Heat flow rate added to the fluid (if flow is from port_a to port_b)"
     annotation (Placement(transformation(extent={{100,70},{120,90}})));
-
-  Modelica.Blocks.Interfaces.RealOutput mWat_flow(unit="kg/s")
+  Modelica.Blocks.Interfaces.RealOutput mWat_flow(
+    unit="kg/s")
     "Water vapor mass flow rate added to the fluid (if flow is from port_a to port_b)"
     annotation (Placement(transformation(extent={{100,30},{120,50}})));
-
 protected
-  parameter Modelica.SIunits.SpecificHeatCapacity cp_default=
-      Medium.specificHeatCapacityCp(
-        Medium.setState_pTX(
-          p=Medium.p_default,
-          T=Medium.T_default,
-          X=Medium.X_default)) "Specific heat capacity at default medium state";
-
-  parameter Boolean restrictHeat = QMax_flow < Modelica.Constants.inf/10.0
+  parameter Modelica.SIunits.SpecificHeatCapacity cp_default=Medium.specificHeatCapacityCp(
+    Medium.setState_pTX(
+      p=Medium.p_default,
+      T=Medium.T_default,
+      X=Medium.X_default))
+    "Specific heat capacity at default medium state";
+  parameter Boolean restrictHeat=QMax_flow < Modelica.Constants.inf/10.0
     "Flag, true if maximum heating power is restricted"
-    annotation(Evaluate = true);
-  parameter Boolean restrictCool = QMin_flow > -Modelica.Constants.inf/10.0
+    annotation (Evaluate=true);
+  parameter Boolean restrictCool=QMin_flow >-Modelica.Constants.inf/10.0
     "Flag, true if maximum cooling power is restricted"
-    annotation(Evaluate = true);
-
-  parameter Boolean restrictHumi = mWatMax_flow < Modelica.Constants.inf/10.0
+    annotation (Evaluate=true);
+  parameter Boolean restrictHumi=mWatMax_flow < Modelica.Constants.inf/10.0
     "Flag, true if maximum humidification is restricted"
-    annotation(Evaluate = true);
-  parameter Boolean restrictDehu = mWatMin_flow > -Modelica.Constants.inf/10.0
+    annotation (Evaluate=true);
+  parameter Boolean restrictDehu=mWatMin_flow >-Modelica.Constants.inf/10.0
     "Flag, true if maximum dehumidification is restricted"
-    annotation(Evaluate = true);
-
-  parameter Modelica.SIunits.SpecificEnthalpy deltaH=
-    cp_default*1E-6
+    annotation (Evaluate=true);
+  parameter Modelica.SIunits.SpecificEnthalpy deltaH=cp_default*1E-6
     "Small value for deltaH used for regularization";
-
-  parameter Modelica.SIunits.MassFraction deltaXi = 1E-6
+  parameter Modelica.SIunits.MassFraction deltaXi=1E-6
     "Small mass fraction used for regularization";
-
   Modelica.SIunits.MassFlowRate m_flow_pos
     "Mass flow rate, or zero if reverse flow";
-
   Modelica.SIunits.MassFlowRate m_flow_non_zero
     "Mass flow rate bounded away from zero";
-
   Modelica.SIunits.SpecificEnthalpy hSet
     "Set point for enthalpy leaving port_b";
-
   Modelica.SIunits.Temperature T
     "Temperature of outlet state assuming unlimited capacity and taking dynamics into account";
-
   Modelica.SIunits.MassFraction Xi
     "Water vapor mass fraction of outlet state assuming unlimited capacity and taking dynamics into account";
-
   Modelica.SIunits.MassFraction Xi_instream[Medium.nXi]
     "Instreaming water vapor mass fraction at port_a";
-
   Modelica.SIunits.MassFraction Xi_outflow
     "Outstreaming water vapor mass fraction at port_a";
-
   Modelica.SIunits.SpecificEnthalpy dhAct
     "Actual enthalpy difference from port_a to port_b";
-
-  Real dXiAct(final unit="1")
+  Real dXiAct(
+    final unit="1")
     "Actual mass fraction difference from port_a to port_b";
-
-  Real k(start=1)
+  Real k(
+    start=1)
     "Gain to take flow rate into account for sensor time constant";
-
-  Real mNor_flow "Normalized mass flow rate";
-
-  Modelica.Blocks.Interfaces.RealInput TSet_internal(unit="K", displayUnit="degC")
+  Real mNor_flow
+    "Normalized mass flow rate";
+  Modelica.Blocks.Interfaces.RealInput TSet_internal(
+    unit="K",
+    displayUnit="degC")
     "Internal connector for set point temperature of the fluid that leaves port_b";
-
-  Modelica.Blocks.Interfaces.RealInput X_wSet_internal(unit="1")
+  Modelica.Blocks.Interfaces.RealInput X_wSet_internal(
+    unit="1")
     "Internal connector for set point for water vapor mass fraction of the fluid that leaves port_b";
-
 initial equation
   // Set initial conditions, unless use_{T,Xi}Set = false in which case
   // it is not a state.
   if use_TSet then
     if energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyStateInitial then
-      der(T) = 0;
+      der(
+        T)=0;
     elseif energyDynamics == Modelica.Fluid.Types.Dynamics.FixedInitial then
-      T = T_start;
+      T=T_start;
     end if;
   end if;
-
   if use_X_wSet then
     if massDynamics == Modelica.Fluid.Types.Dynamics.SteadyStateInitial then
-      der(Xi) = 0;
+      der(
+        Xi)=0;
     elseif massDynamics == Modelica.Fluid.Types.Dynamics.FixedInitial then
-      Xi = X_start[1];
+      Xi=X_start[1];
     end if;
   end if;
-
-  assert((energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState) or
-          tau > Modelica.Constants.eps,
-"The parameter tau, or the volume of the model from which tau may be derived, is unreasonably small.
+  assert(
+    (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState) or tau > Modelica.Constants.eps,
+    "The parameter tau, or the volume of the model from which tau may be derived, is unreasonably small.
  You need to set energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState to model steady-state.
- Received tau = " + String(tau) + "\n");
-  assert((massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState) or
-          tau > Modelica.Constants.eps,
-"The parameter tau, or the volume of the model from which tau may be derived, is unreasonably small.
+ Received tau = "+String(
+      tau)+"\n");
+  assert(
+    (massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState) or tau > Modelica.Constants.eps,
+    "The parameter tau, or the volume of the model from which tau may be derived, is unreasonably small.
  You need to set massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState to model steady-state.
- Received tau = " + String(tau) + "\n");
-
- if use_X_wSet then
-  assert(Medium.nX > 1, "If use_X_wSet = true, require a medium with water vapor, such as Buildings.Media.Air");
- end if;
-
+ Received tau = "+String(
+      tau)+"\n");
+  if use_X_wSet then
+    assert(
+      Medium.nX > 1,
+      "If use_X_wSet = true, require a medium with water vapor, such as Buildings.Media.Air");
+  end if;
 equation
   // Conditional connectors
   if not use_TSet then
-    TSet_internal = 293.15;
+    TSet_internal=293.15;
   end if;
-  connect(TSet, TSet_internal);
+  connect(TSet,TSet_internal);
   if not use_X_wSet then
-    X_wSet_internal = 0.01;
+    X_wSet_internal=0.01;
   end if;
-  connect(X_wSet, X_wSet_internal);
-
-  if (use_TSet and energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState) or
-     (use_X_wSet and massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState) then
-    mNor_flow = port_a.m_flow/m_flow_nominal;
-    k = Modelica.Fluid.Utilities.regStep(x=port_a.m_flow,
-                                         y1= mNor_flow,
-                                         y2=-mNor_flow,
-                                         x_small=m_flow_small);
+  connect(X_wSet,X_wSet_internal);
+  if(use_TSet and energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState) or(use_X_wSet and massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState) then
+    mNor_flow=port_a.m_flow/m_flow_nominal;
+    k=Modelica.Fluid.Utilities.regStep(
+      x=port_a.m_flow,
+      y1=mNor_flow,
+      y2=-mNor_flow,
+      x_small=m_flow_small);
   else
-    mNor_flow = 1;
-    k = 1;
+    mNor_flow=1;
+    k=1;
   end if;
-
   if use_TSet and energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState then
-    der(T) = (TSet_internal-T)*k/tau;
+    der(
+      T)=(TSet_internal-T)*k/tau;
   else
-    T = TSet_internal;
+    T=TSet_internal;
   end if;
-
   if use_X_wSet and massDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState then
-    der(Xi) = (X_wSet_internal-Xi)*k/tau;
+    der(
+      Xi)=(X_wSet_internal-Xi)*k/tau;
   else
-    Xi = X_wSet_internal;
+    Xi=X_wSet_internal;
   end if;
-
-  Xi_instream = inStream(port_a.Xi_outflow);
-
+  Xi_instream=inStream(
+    port_a.Xi_outflow);
   // Set point without any capacity limitation
-  hSet = if use_TSet then Medium.specificEnthalpy(
-    Medium.setState_pTX(
-      p = port_a.p,
-      T = T,
-      X = Xi_instream + fill(dXiAct, Medium.nXi)))
-        else Medium.h_default;
-
-  m_flow_pos = Buildings.Utilities.Math.Functions.smoothMax(
+  hSet=
+    if use_TSet then
+      Medium.specificEnthalpy(
+        Medium.setState_pTX(
+          p=port_a.p,
+          T=T,
+          X=Xi_instream+fill(dXiAct,Medium.nXi)))
+    else
+      Medium.h_default;
+  m_flow_pos=Buildings.Utilities.Math.Functions.smoothMax(
     x1=m_flow,
     x2=0,
     deltaX=m_flow_small);
-
-   if not restrictHeat and not restrictCool and
-      not restrictHumi and not restrictDehu then
-     m_flow_non_zero = Modelica.Constants.eps;
-   else
-     m_flow_non_zero = Buildings.Utilities.Math.Functions.smoothMax(
-       x1 = port_a.m_flow,
-       x2 = m_flow_small,
-       deltaX=m_flow_small/2);
-   end if;
-
+  if not restrictHeat and not restrictCool and not restrictHumi and not restrictDehu then
+    m_flow_non_zero=Modelica.Constants.eps;
+  else
+    m_flow_non_zero=Buildings.Utilities.Math.Functions.smoothMax(
+      x1=port_a.m_flow,
+      x2=m_flow_small,
+      deltaX=m_flow_small/2);
+  end if;
   // Compute mass fraction leaving the component.
   // Below, we use sum(Xi_instream) as Xi anyway has only one element.
   // However, scalar(Xi_instream) would not work as dim(Xi_instream) = 0
@@ -243,106 +218,118 @@ equation
   if use_X_wSet then
     if not restrictHumi and not restrictDehu then
       // No capacity limit
-      dXiAct = Xi_outflow-sum(Xi_instream);
-      Xi_outflow  = Xi;
-      mWat_flow   = m_flow_pos*(Xi - sum(Xi_instream));
+      dXiAct=Xi_outflow-sum(
+        Xi_instream);
+      Xi_outflow=Xi;
+      mWat_flow=m_flow_pos*(Xi-sum(
+        Xi_instream));
     else
       if restrictHumi and restrictDehu then
         // Capacity limits for heating and cooling
-        dXiAct =Buildings.Utilities.Math.Functions.smoothLimit(
-              x=Xi - sum(Xi_instream),
-              l=mWatMin_flow/m_flow_non_zero,
-              u=mWatMax_flow/m_flow_non_zero,
-              deltaX=deltaXi);
+        dXiAct=Buildings.Utilities.Math.Functions.smoothLimit(
+          x=Xi-sum(Xi_instream),
+          l=mWatMin_flow/m_flow_non_zero,
+          u=mWatMax_flow/m_flow_non_zero,
+          deltaX=deltaXi);
       elseif restrictHumi then
         // Capacity limit for heating only
-        dXiAct =Buildings.Utilities.Math.Functions.smoothMin(
-              x1=Xi - sum(Xi_instream),
-              x2=mWatMax_flow/m_flow_non_zero,
-              deltaX=deltaXi);
+        dXiAct=Buildings.Utilities.Math.Functions.smoothMin(
+          x1=Xi-sum(Xi_instream),
+          x2=mWatMax_flow/m_flow_non_zero,
+          deltaX=deltaXi);
       else
         // Capacity limit for cooling only
-        dXiAct =Buildings.Utilities.Math.Functions.smoothMax(
-              x1=Xi - sum(Xi_instream),
-              x2=mWatMin_flow/m_flow_non_zero,
-              deltaX=deltaXi);
+        dXiAct=Buildings.Utilities.Math.Functions.smoothMax(
+          x1=Xi-sum(Xi_instream),
+          x2=mWatMin_flow/m_flow_non_zero,
+          deltaX=deltaXi);
       end if;
-      Xi_outflow = sum(Xi_instream) + dXiAct;
-      mWat_flow  = m_flow_pos*dXiAct;
+      Xi_outflow=sum(
+        Xi_instream)+dXiAct;
+      mWat_flow=m_flow_pos*dXiAct;
     end if;
-    port_b.Xi_outflow = fill(Xi_outflow, Medium.nXi);
+    port_b.Xi_outflow=fill(
+      Xi_outflow,
+      Medium.nXi);
   else
-    Xi_outflow = sum(Xi_instream);
-    mWat_flow = 0;
-    dXiAct = 0;
-    port_b.Xi_outflow = Xi_instream;
+    Xi_outflow=sum(
+      Xi_instream);
+    mWat_flow=0;
+    dXiAct=0;
+    port_b.Xi_outflow=Xi_instream;
   end if;
-
   // Compute enthalpy leaving the component.
   if use_TSet then
     if not restrictHeat and not restrictCool then
       // No capacity limit
-      dhAct = 0;
-      port_b.h_outflow  = hSet;
-      Q_flow  =    m_flow_pos*(hSet - inStream(port_a.h_outflow));
+      dhAct=0;
+      port_b.h_outflow=hSet;
+      Q_flow=m_flow_pos*(hSet-inStream(
+        port_a.h_outflow));
     else
       if restrictHeat and restrictCool then
         // Capacity limits for heating and cooling
-        dhAct =Buildings.Utilities.Math.Functions.smoothLimit(
-              x=hSet - inStream(port_a.h_outflow),
-              l=QMin_flow/m_flow_non_zero,
-              u=QMax_flow/m_flow_non_zero,
-              deltaX=deltaH);
+        dhAct=Buildings.Utilities.Math.Functions.smoothLimit(
+          x=hSet-inStream(port_a.h_outflow),
+          l=QMin_flow/m_flow_non_zero,
+          u=QMax_flow/m_flow_non_zero,
+          deltaX=deltaH);
       elseif restrictHeat then
         // Capacity limit for heating only
-        dhAct =Buildings.Utilities.Math.Functions.smoothMin(
-              x1=hSet - inStream(port_a.h_outflow),
-              x2=QMax_flow/m_flow_non_zero,
-              deltaX=deltaH);
+        dhAct=Buildings.Utilities.Math.Functions.smoothMin(
+          x1=hSet-inStream(port_a.h_outflow),
+          x2=QMax_flow/m_flow_non_zero,
+          deltaX=deltaH);
       else
         // Capacity limit for cooling only
-        dhAct =Buildings.Utilities.Math.Functions.smoothMax(
-              x1=hSet - inStream(port_a.h_outflow),
-              x2=QMin_flow/m_flow_non_zero,
-              deltaX=deltaH);
+        dhAct=Buildings.Utilities.Math.Functions.smoothMax(
+          x1=hSet-inStream(port_a.h_outflow),
+          x2=QMin_flow/m_flow_non_zero,
+          deltaX=deltaH);
       end if;
-      port_b.h_outflow = inStream(port_a.h_outflow) + dhAct;
-      Q_flow = m_flow_pos*dhAct;
+      port_b.h_outflow=inStream(
+        port_a.h_outflow)+dhAct;
+      Q_flow=m_flow_pos*dhAct;
     end if;
   else
-    port_b.h_outflow = inStream(port_a.h_outflow);
-    Q_flow = 0;
-    dhAct = 0;
+    port_b.h_outflow=inStream(
+      port_a.h_outflow);
+    Q_flow=0;
+    dhAct=0;
   end if;
-
   // Outflowing property at port_a is unaffected by this model.
   if allowFlowReversal then
-    port_a.h_outflow =  inStream(port_b.h_outflow);
-    port_a.Xi_outflow = inStream(port_b.Xi_outflow);
-    port_a.C_outflow =  inStream(port_b.C_outflow);
+    port_a.h_outflow=inStream(
+      port_b.h_outflow);
+    port_a.Xi_outflow=inStream(
+      port_b.Xi_outflow);
+    port_a.C_outflow=inStream(
+      port_b.C_outflow);
   else
-    port_a.h_outflow =  Medium.h_default;
-    port_a.Xi_outflow = Medium.X_default[1:Medium.nXi];
-    port_a.C_outflow =  zeros(Medium.nC);
+    port_a.h_outflow=Medium.h_default;
+    port_a.Xi_outflow=Medium.X_default[1:Medium.nXi];
+    port_a.C_outflow=zeros(
+      Medium.nC);
   end if;
   // No pressure drop
-  dp = 0;
-
+  dp=0;
   // Mass balance (no storage)
-  port_a.m_flow + port_b.m_flow = 0;
-
+  port_a.m_flow+port_b.m_flow=0;
   // Transport of substances
-  port_b.C_outflow = inStream(port_a.C_outflow);
-
+  port_b.C_outflow=inStream(
+    port_a.C_outflow);
   if not allowFlowReversal then
-    assert(m_flow > -m_flow_small,
+    assert(
+      m_flow >-m_flow_small,
       "Reverting flow occurs even though allowFlowReversal is false");
   end if;
-
-    annotation (
-  defaultComponentName="heaCoo",
-  Icon(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{100,100}}),
-                      graphics={
+  annotation (
+    defaultComponentName="heaCoo",
+    Icon(
+      coordinateSystem(
+        preserveAspectRatio=false,
+        extent={{-100,-100},{100,100}}),
+      graphics={
         Rectangle(
           extent={{-99,6},{102,-4}},
           lineColor={0,0,255},
@@ -375,7 +362,9 @@ equation
           lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
-        Line(points={{-64,34},{-52,44},{-64,54}}, color={0,0,0}),
+        Line(
+          points={{-64,34},{-52,44},{-64,54}},
+          color={0,0,0}),
         Rectangle(
           extent={{-70,60},{-66,82}},
           lineColor={0,0,255},
@@ -424,7 +413,8 @@ equation
           pattern=LinePattern.None,
           fillColor={0,0,127},
           fillPattern=FillPattern.Solid)}),
-  Documentation(info="<html>
+    Documentation(
+      info="<html>
 <p>
 This model sets the temperature or the water vapor mass fraction
 of the medium that leaves <code>port_a</code>
@@ -465,7 +455,8 @@ In case of reverse flow,
 the fluid that leaves <code>port_a</code> has the same
 properties as the fluid that enters <code>port_b</code>.
 </p>
-</html>", revisions="<html>
+</html>",
+      revisions="<html>
 <ul>
 <li>
 March 19, 2018, by Michael Wetter:<br/>

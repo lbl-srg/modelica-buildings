@@ -2,42 +2,55 @@ within Buildings.Fluid.Actuators.BaseClasses;
 partial model PartialTwoWayValveKv
   "Partial model for a two way valve using a Kv characteristic"
   extends Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve;
-
 equation
- kVal = phi*Kv_SI;
- if (dpFixed_nominal > Modelica.Constants.eps) then
-   k = sqrt(1/(1/kFixed^2 + 1/kVal^2));
- else
-   k = kVal;
- end if;
-
- if linearized then
-   // This implementation yields m_flow_nominal = phi*kv_SI * sqrt(dp_nominal)
-   // if m_flow = m_flow_nominal and dp = dp_nominal
-   m_flow*m_flow_nominal_pos = k^2 * dp;
- else
-   if homotopyInitialization then
-     if from_dp then
-         m_flow=homotopy(actual=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(dp=dp, k=k,
-                                m_flow_turbulent=m_flow_turbulent),
-                                simplified=m_flow_nominal_pos*dp/dp_nominal_pos);
+  kVal=phi*Kv_SI;
+  if(dpFixed_nominal > Modelica.Constants.eps) then
+    k=sqrt(
+      1/(1/kFixed^2+1/kVal^2));
+  else
+    k=kVal;
+  end if;
+  if linearized then
+    // This implementation yields m_flow_nominal = phi*kv_SI * sqrt(dp_nominal)
+    // if m_flow = m_flow_nominal and dp = dp_nominal
+    m_flow*m_flow_nominal_pos=k^2*dp;
+  else
+    if homotopyInitialization then
+      if from_dp then
+        m_flow=homotopy(
+          actual=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
+            dp=dp,
+            k=k,
+            m_flow_turbulent=m_flow_turbulent),
+          simplified=m_flow_nominal_pos*dp/dp_nominal_pos);
       else
-         dp=homotopy(actual=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(m_flow=m_flow, k=k,
-                                m_flow_turbulent=m_flow_turbulent),
-                                simplified=dp_nominal_pos*m_flow/m_flow_nominal_pos);
-     end if;
-   else // do not use homotopy
-     if from_dp then
-       m_flow=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(dp=dp, k=k,
-                                m_flow_turbulent=m_flow_turbulent);
-      else
-        dp=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(m_flow=m_flow, k=k,
-                                m_flow_turbulent=m_flow_turbulent);
+        dp=homotopy(
+          actual=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
+            m_flow=m_flow,
+            k=k,
+            m_flow_turbulent=m_flow_turbulent),
+          simplified=dp_nominal_pos*m_flow/m_flow_nominal_pos);
       end if;
-    end if; // homotopyInitialization
- end if; // linearized
+    else
+      // do not use homotopy
+      if from_dp then
+        m_flow=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
+          dp=dp,
+          k=k,
+          m_flow_turbulent=m_flow_turbulent);
+      else
+        dp=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
+          m_flow=m_flow,
+          k=k,
+          m_flow_turbulent=m_flow_turbulent);
+      end if;
+    end if;
+  // homotopyInitialization
+  end if;
+  // linearized
   annotation (
-Documentation(info="<html>
+    Documentation(
+      info="<html>
 <p>
 Partial model for valves with different opening characteristics,
 such as linear, equal percentage or quick opening. This partial extends from
@@ -54,7 +67,7 @@ An example of such a code can be found in
 Buildings.Fluid.Actuators.Valves.TwoWayLinear</a>.
 </p>
 </html>",
-revisions="<html>
+      revisions="<html>
 <ul>
 <li>
 October 25, 2019, by Jianjun Hu:<br/>

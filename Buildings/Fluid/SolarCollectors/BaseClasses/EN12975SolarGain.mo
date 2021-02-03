@@ -1,27 +1,27 @@
 within Buildings.Fluid.SolarCollectors.BaseClasses;
-model EN12975SolarGain "Model calculating solar gains per the EN12975 standard"
+model EN12975SolarGain
+  "Model calculating solar gains per the EN12975 standard"
   extends Modelica.Blocks.Icons.Block;
   extends SolarCollectors.BaseClasses.PartialParameters;
-
-  replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
+  replaceable package Medium=Modelica.Media.Interfaces.PartialMedium
     "Medium in the system";
-
-  parameter Real B0 "1st incident angle modifer coefficient";
-  parameter Real B1 "2nd incident angle modifer coefficient";
-  parameter Boolean use_shaCoe_in = false
+  parameter Real B0
+    "1st incident angle modifer coefficient";
+  parameter Real B1
+    "2nd incident angle modifer coefficient";
+  parameter Boolean use_shaCoe_in=false
     "Enables an input connector for shaCoe"
-    annotation(Dialog(group="Shading"));
+    annotation (Dialog(group="Shading"));
   parameter Real shaCoe(
     min=0.0,
-    max=1.0) = 0 "Shading coefficient 0.0: no shading, 1.0: full shading"
-    annotation(Dialog(enable = not use_shaCoe_in,group="Shading"));
-
-  parameter Real iamDiff "Incidence angle modifier for diffuse radiation";
-
+    max=1.0)=0
+    "Shading coefficient 0.0: no shading, 1.0: full shading"
+    annotation (Dialog(enable=not use_shaCoe_in,group="Shading"));
+  parameter Real iamDiff
+    "Incidence angle modifier for diffuse radiation";
   Modelica.Blocks.Interfaces.RealInput shaCoe_in if use_shaCoe_in
     "Time varying input for the shading coefficient"
-    annotation(Placement(transformation(extent={{-140,-60},{-100,-20}})));
-
+    annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
   Modelica.Blocks.Interfaces.RealInput HSkyDifTil(
     unit="W/m2",
     quantity="RadiantEnergyFluenceRate")
@@ -30,54 +30,60 @@ model EN12975SolarGain "Model calculating solar gains per the EN12975 standard"
   Modelica.Blocks.Interfaces.RealInput incAng(
     quantity="Angle",
     unit="rad",
-    displayUnit="deg") "Incidence angle of the sun beam on a tilted surface"
+    displayUnit="deg")
+    "Incidence angle of the sun beam on a tilted surface"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Modelica.Blocks.Interfaces.RealInput HDirTil(
     unit="W/m2",
     quantity="RadiantEnergyFluenceRate")
     "Direct solar irradiation on a tilted surfce"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
-  Modelica.Blocks.Interfaces.RealOutput QSol_flow[nSeg](each final unit="W")
+  Modelica.Blocks.Interfaces.RealOutput QSol_flow[nSeg](
+    each final unit="W")
     "Solar heat gain"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   Modelica.Blocks.Interfaces.RealInput TFlu[nSeg](
-     each final unit="K",
-     each displayUnit="degC",
-     each final quantity="ThermodynamicTemperature")
+    each final unit="K",
+    each displayUnit="degC",
+    each final quantity="ThermodynamicTemperature")
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
-
 protected
-  constant Modelica.SIunits.TemperatureDifference dTMax = 1
+  constant Modelica.SIunits.TemperatureDifference dTMax=1
     "Safety temperature difference to prevent TFlu > Medium.T_max";
-  final parameter Modelica.SIunits.Temperature TMedMax = Medium.T_max-dTMax
+  final parameter Modelica.SIunits.Temperature TMedMax=Medium.T_max-dTMax
     "Fluid temperature above which there will be no heat gain computed to prevent TFlu > Medium.T_max";
-  final parameter Modelica.SIunits.Temperature TMedMax2 = TMedMax-dTMax
+  final parameter Modelica.SIunits.Temperature TMedMax2=TMedMax-dTMax
     "Fluid temperature below which there will be no heat loss computed to prevent TFlu < Medium.T_min";
-  Real iamBea "Incidence angle modifier for director solar radiation";
-  Modelica.Blocks.Interfaces.RealInput shaCoe_internal "Internally used shaCoe";
-
+  Real iamBea
+    "Incidence angle modifier for director solar radiation";
+  Modelica.Blocks.Interfaces.RealInput shaCoe_internal
+    "Internally used shaCoe";
 equation
-  connect(shaCoe_internal, shaCoe_in);
-
+  connect(shaCoe_internal,shaCoe_in);
   // E+ Equ (555)
-  iamBea = SolarCollectors.BaseClasses.IAM(incAng, B0, B1);
-
+  iamBea=SolarCollectors.BaseClasses.IAM(
+    incAng,
+    B0,
+    B1);
   // Modified from EnergyPlus Equ (559) by applying shade effect for direct solar radiation
   // Only solar heat gain is considered here
   if not use_shaCoe_in then
-    shaCoe_internal = shaCoe;
+    shaCoe_internal=shaCoe;
   end if;
-
-  for i in 1 : nSeg loop
-  QSol_flow[i] = A_c/nSeg*(y_intercept*(iamBea*HDirTil*(1.0 - shaCoe_internal) + iamDiff *
-  HSkyDifTil))*
-      smooth(1, if TFlu[i] < TMedMax2
-        then 1
-        else Buildings.Utilities.Math.Functions.smoothHeaviside(TMedMax-TFlu[i], dTMax));
+  for i in 1:nSeg loop
+    QSol_flow[i]=A_c/nSeg*(y_intercept*(iamBea*HDirTil*(1.0-shaCoe_internal)+iamDiff*HSkyDifTil))*smooth(
+      1,
+      if TFlu[i] < TMedMax2 then
+        1
+      else
+        Buildings.Utilities.Math.Functions.smoothHeaviside(
+          TMedMax-TFlu[i],
+          dTMax));
   end for;
   annotation (
     defaultComponentName="solGai",
-    Documentation(info="<html>
+    Documentation(
+      info="<html>
       <p>
         This component computes the solar heat gain of the solar thermal collector. It
         only calculates the solar heat gain without considering the heat loss to the
@@ -144,7 +150,7 @@ equation
       CEN 2006, European Standard 12975-1:2006, European Committee for Standardization
       </p>
     </html>",
-    revisions="<html>
+      revisions="<html>
 <ul>
 <li>
 January 12, 2019, by Michael Wetter:<br/>

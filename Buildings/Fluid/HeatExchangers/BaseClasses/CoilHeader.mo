@@ -1,35 +1,46 @@
 within Buildings.Fluid.HeatExchangers.BaseClasses;
-model CoilHeader "Header for a heat exchanger register"
+model CoilHeader
+  "Header for a heat exchanger register"
   extends Buildings.BaseClasses.BaseIcon;
-
-  replaceable package Medium =
-      Modelica.Media.Interfaces.PartialMedium "Medium in the component"
-      annotation (choicesAllMatching = true);
-  parameter Boolean allowFlowReversal = true
+  replaceable package Medium=Modelica.Media.Interfaces.PartialMedium
+    "Medium in the component"
+    annotation (choicesAllMatching=true);
+  parameter Boolean allowFlowReversal=true
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
-    annotation(Dialog(tab="Assumptions"), Evaluate=true);
-
-  parameter Integer nPipPar(min=1) "Number of parallel pipes in each register";
+    annotation (Dialog(tab="Assumptions"),Evaluate=true);
+  parameter Integer nPipPar(
+    min=1)
+    "Number of parallel pipes in each register";
   parameter Modelica.SIunits.MassFlowRate mStart_flow_a
     "Guess value for mass flow rate at port_a"
-    annotation(Dialog(group = "Initialization"));
-
+    annotation (Dialog(group="Initialization"));
   Modelica.Fluid.Interfaces.FluidPort_a port_a[nPipPar](
-        redeclare each final package Medium = Medium,
-        each m_flow(start=mStart_flow_a/nPipPar, min=if allowFlowReversal then -Modelica.Constants.inf else 0))
+    redeclare each final package Medium=Medium,
+    each m_flow(
+      start=mStart_flow_a/nPipPar,
+      min=
+        if allowFlowReversal then
+          -Modelica.Constants.inf
+        else
+          0))
     "Fluid connector a for medium (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
-
   Modelica.Fluid.Interfaces.FluidPort_b port_b[nPipPar](
-        redeclare each final package Medium = Medium,
-        each m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0))
+    redeclare each final package Medium=Medium,
+    each m_flow(
+      max=
+        if allowFlowReversal then
+          +Modelica.Constants.inf
+        else
+          0))
     "Fluid connector b for medium (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{110,-10},{90,10}})));
-
 equation
-  connect(port_a, port_b) annotation (Line(points={{-100,0},{-50,0},{-50,0},{
-          100,0},{100,0}},                                   color={0,127,255}));
-  annotation (Documentation(info="<html>
+  connect(port_a,port_b)
+    annotation (Line(points={{-100,0},{-50,0},{-50,0},{100,0},{100,0}},color={0,127,255}));
+  annotation (
+    Documentation(
+      info="<html>
 <p>
 Header for a heat exchanger coil.
 </p>
@@ -41,7 +52,7 @@ the flow. In latter versions, the model may be changed to define
 different flow reroutings in the coil header.
 </p>
 </html>",
-revisions="<html>
+      revisions="<html>
 <ul>
 <li>
 June 9, 2015 by Michael Wetter:<br/>
@@ -70,8 +81,11 @@ First implementation.
 </li>
 </ul>
 </html>"),
- Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
-        graphics={
+    Icon(
+      coordinateSystem(
+        preserveAspectRatio=false,
+        extent={{-100,-100},{100,100}}),
+      graphics={
         Rectangle(
           extent={{-100,-58},{100,-62}},
           lineColor={0,0,255},

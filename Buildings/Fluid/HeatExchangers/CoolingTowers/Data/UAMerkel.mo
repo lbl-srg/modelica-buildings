@@ -1,7 +1,7 @@
 within Buildings.Fluid.HeatExchangers.CoolingTowers.Data;
-record UAMerkel "UA correction factors for Merkel cooling towers"
+record UAMerkel
+  "UA correction factors for Merkel cooling towers"
   extends Modelica.Icons.Record;
-
   parameter Real cDifWB[3]={1,0.0081,0}
     "Polynomial coefficients for correction of design wet bulb minus actual wet bulb temperature"
     annotation (Dialog(group="Performance curves"));
@@ -11,31 +11,37 @@ record UAMerkel "UA correction factors for Merkel cooling towers"
   parameter Real cWatFra[3]={0.1082,1.667,-0.7713}
     "Polynomial coefficients for correction for fractional water flow rate"
     annotation (Dialog(group="Performance curves"));
-
-  parameter Real FRAirMin(min=0) = 0.2 "Minimum value for air flow fraction"
+  parameter Real FRAirMin(
+    min=0)=0.2
+    "Minimum value for air flow fraction"
     annotation (Dialog(group="Performance curves"));
-  parameter Real FRAirMax(min=0)= 1.0 "Maximum value for air flow fraction"
+  parameter Real FRAirMax(
+    min=0)=1.0
+    "Maximum value for air flow fraction"
     annotation (Dialog(group="Performance curves"));
-  parameter Real FRWatMin(min=0) = 0.3 "Minimum value for water flow fraction"
+  parameter Real FRWatMin(
+    min=0)=0.3
+    "Minimum value for water flow fraction"
     annotation (Dialog(group="Performance curves"));
-  parameter Real FRWatMax(min=0) = 1.0 "Maximum value for water flow fraction"
+  parameter Real FRWatMax(
+    min=0)=1.0
+    "Maximum value for water flow fraction"
     annotation (Dialog(group="Performance curves"));
-
   // Range for the curves
   parameter Modelica.SIunits.TemperatureDifference TDiffWBMin(
     max=0,
-    displayUnit="K")= -10
+    displayUnit="K")=-10
     "Minimum value for leaving evaporator temperature difference"
     annotation (Dialog(group="Performance curves"));
   parameter Modelica.SIunits.TemperatureDifference TDiffWBMax(
     min=0,
-    displayUnit="K")= 25
+    displayUnit="K")=25
     "Maximum value for leaving evaporator temperature difference"
     annotation (Dialog(group="Performance curves"));
-
   annotation (
-defaultComponentName="UACor",
-    Documentation(info="<html>
+    defaultComponentName="UACor",
+    Documentation(
+      info="<html>
 <p>
 This data record contains the cooling tower performance data for
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.CoolingTowers.Merkel\">
@@ -98,7 +104,8 @@ values for the respective adjustment factor functions obtained from
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.CoolingTowers.Data.UAMerkel\">
 Buildings.Fluid.HeatExchangers.CoolingTowers.Data.UAMerkel</a>.
 </p>
-</html>", revisions="<html>
+</html>",
+      revisions="<html>
 <ul>
 <li>
 October 22, 2019, by Yangyang Fu:<br/>

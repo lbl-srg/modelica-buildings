@@ -29,14 +29,14 @@ model FanCoil2PipeHeating
     min=Modelica.Constants.small)=10
     "Time constant of integrator block";
   parameter Modelica.SIunits.PressureDifference dpLoa_nominal(
-    displayUnit="Pa") = 250
+    displayUnit="Pa")=250
     "Load side pressure drop"
-    annotation(Dialog(group="Nominal condition"));
+    annotation (Dialog(group="Nominal condition"));
   final parameter hexConfiguration hexConHea=hexConfiguration.CounterFlow
     "Heating heat exchanger configuration";
   parameter Boolean have_speVar=true
     "Set to true for a variable speed fan (otherwise fan is always on)"
-    annotation (Evaluate=true, Dialog(group="Configuration"));
+    annotation (Evaluate=true,Dialog(group="Configuration"));
   Buildings.Fluid.Movers.FlowControlled_m_flow fan(
     redeclare final package Medium=Medium2,
     final allowFlowReversal=allowFlowReversalLoa,
@@ -89,7 +89,8 @@ model FanCoil2PipeHeating
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,origin={-110,0})));
   Fluid.Sources.Boundary_pT retAir(
     redeclare package Medium=Medium2,
-    p(displayUnit="Pa"),
+    p(
+      displayUnit="Pa"),
     use_T_in=true,
     nPorts=1)
     "Source for return air"
@@ -121,15 +122,14 @@ model FanCoil2PipeHeating
     "Reset when demand rises from zero"
     annotation (Placement(transformation(extent={{-50,190},{-30,210}})));
   Fluid.FixedResistances.PressureDrop resLoa(
-    redeclare final package Medium = Medium2,
+    redeclare final package Medium=Medium2,
     final m_flow_nominal=mLoaHea_flow_nominal,
     final dp_nominal=dpLoa_nominal)
     "Load side pressure drop"
     annotation (Placement(transformation(extent={{80,-10},{60,10}})));
 equation
   connect(gaiFloNom2.y,fan.m_flow_in)
-    annotation (Line(points={{78,180},{80,180},{80,140},{40,140},{40,12}},
-                                                        color={0,0,127}));
+    annotation (Line(points={{78,180},{80,180},{80,140},{40,140},{40,12}},color={0,0,127}));
   connect(con.y,gaiMasFlo.u)
     annotation (Line(points={{12,220},{38,220}},color={0,0,127}));
   connect(gaiMasFlo.y,mulMasFloReqHeaWat.u)
@@ -174,10 +174,10 @@ equation
     annotation (Line(points={{-66,220},{-60,220},{-60,200},{-52,200}},color={0,0,127}));
   connect(greThr.y,con.trigger)
     annotation (Line(points={{-28,200},{-6,200},{-6,208}},color={255,0,255}));
-  connect(retAir.ports[1], resLoa.port_a)
-    annotation (Line(points={{102,0},{80,0}}, color={0,127,255}));
-  connect(resLoa.port_b, fan.port_a)
-    annotation (Line(points={{60,0},{50,0}}, color={0,127,255}));
+  connect(retAir.ports[1],resLoa.port_a)
+    annotation (Line(points={{102,0},{80,0}},color={0,127,255}));
+  connect(resLoa.port_b,fan.port_a)
+    annotation (Line(points={{60,0},{50,0}},color={0,127,255}));
   annotation (
     Documentation(
       info="<html>
@@ -216,7 +216,8 @@ air temperature is assessed with
 <a href=\"modelica://Buildings.Experimental.DHC.Loads.SimpleRoomODE\">
 Buildings.Experimental.DHC.Loads.SimpleRoomODE</a>.
 </p>
-</html>", revisions="<html>
+</html>",
+      revisions="<html>
 <ul>
 <li>
 February 21, 2020, by Antoine Gautier:<br/>

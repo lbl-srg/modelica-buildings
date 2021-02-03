@@ -9,10 +9,9 @@ model ChillerBorefield
     "Number of boreholes (must be a square number)";
   parameter Modelica.SIunits.Distance dxy=6
     "Distance in x-axis (and y-axis) between borehole axes";
-  final parameter Modelica.SIunits.Distance cooBor[nBorHol,2]=
-    EnergyTransferStations.BaseClasses.computeCoordinates(
-      nBorHol,
-      dxy)
+  final parameter Modelica.SIunits.Distance cooBor[nBorHol,2]=EnergyTransferStations.BaseClasses.computeCoordinates(
+    nBorHol,
+    dxy)
     "Coordinates of boreholes";
   parameter Fluid.Geothermal.Borefields.Data.Borefield.Example datBorFie(
     conDat=Fluid.Geothermal.Borefields.Data.Configuration.Example(

@@ -2,28 +2,30 @@ within Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic;
 record DXCoil
   "Performance record for a DX Cooling Coil with one or multiple stages"
   extends Modelica.Icons.Record;
-  parameter Integer nSta(min=1) "Number of stages"
-    annotation (Evaluate = true,
-                Dialog(enable = not sinStaOpe));
-  parameter Real minSpeRat( min=0,max=1)=0.2 "Minimum speed ratio"
-    annotation (Dialog(enable = not sinStaOpe));
-  final parameter Boolean sinStaOpe = nSta == 1
+  parameter Integer nSta(
+    min=1)
+    "Number of stages"
+    annotation (Evaluate=true,Dialog(enable=not sinStaOpe));
+  parameter Real minSpeRat(
+    min=0,
+    max=1)=0.2
+    "Minimum speed ratio"
+    annotation (Dialog(enable=not sinStaOpe));
+  final parameter Boolean sinStaOpe=nSta == 1
     "The data record is used for single speed operation"
-    annotation(HideResult=true);
-
-  replaceable parameter
-    Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.Stage
-    sta[nSta]
-    constrainedby
-    Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.Stage
+    annotation (HideResult=true);
+  replaceable parameter Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.Stage sta[nSta]
+    constrainedby Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.Stage
     "Data record for coil performance at each stage";
-  parameter Modelica.SIunits.MassFlowRate m_flow_small = 0.0001*sta[nSta].nomVal.m_flow_nominal
+  parameter Modelica.SIunits.MassFlowRate m_flow_small=0.0001*sta[nSta].nomVal.m_flow_nominal
     "Small mass flow rate for regularization near zero flow"
     annotation (Dialog(group="Minimum conditions"));
-annotation (preferredView="info",
-defaultComponentName="datCoi",
-defaultComponentPrefixes="parameter",
-Documentation(info="<html>
+  annotation (
+    preferredView="info",
+    defaultComponentName="datCoi",
+    defaultComponentPrefixes="parameter",
+    Documentation(
+      info="<html>
 <p>
 This record declares the performance data for the air-cooled DX cooling coil model.
 The performance data are structured as follows:
@@ -111,7 +113,7 @@ quadratic function is used for stage one, then stage two must also use
 a quadratic function.
 </p>
 </html>",
-revisions="<html>
+      revisions="<html>
 <ul>
 <li>
 May 30, 2014, by Michael Wetter:<br/>

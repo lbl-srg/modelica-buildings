@@ -1,19 +1,13 @@
 within Buildings.Experimental.DHC;
-package Types  "Package with type definitions"
+package Types
+  "Package with type definitions"
   extends Modelica.Icons.TypesPackage;
-
-  type DistrictSystemType = enumeration(
-      CombinedGeneration1
-    "First generation district heating and cooling system",
-      CombinedGeneration2to4
-    "Second to fourth generation district heating and cooling system",
-      CombinedGeneration5
-    "Fifth generation district heating and cooling system",
-      Cooling
-    "District cooling system",
-      HeatingGeneration1
-    "First generation district heating system",
-      HeatingGeneration2to4
+  type DistrictSystemType=enumeration(CombinedGeneration1
+    "First generation district heating and cooling system",CombinedGeneration2to4
+    "Second to fourth generation district heating and cooling system",CombinedGeneration5
+    "Fifth generation district heating and cooling system",Cooling
+    "District cooling system",HeatingGeneration1
+    "First generation district heating system",HeatingGeneration2to4
     "Second to fourth generation district heating system")
     "Enumeration to define the type of district system"
     annotation (Documentation(info="<html>
@@ -62,8 +56,9 @@ First implementation.
 </li>
 </ul>
 </html>"));
-
-annotation (Documentation(info="<html>
+  annotation (
+    Documentation(
+      info="<html>
 <p>
 This package contains type definitions.
 </p>

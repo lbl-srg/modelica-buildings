@@ -2,206 +2,256 @@ within Buildings.Fluid.HeatExchangers.CoolingTowers;
 model YorkCalc
   "Cooling tower with variable speed using the York calculation for the approach temperature"
   extends Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.CoolingTower;
-
-  import cha =
-    Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Characteristics;
-
-  parameter Modelica.SIunits.Temperature TAirInWB_nominal = 273.15+25.55
+  import cha=Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Characteristics;
+  parameter Modelica.SIunits.Temperature TAirInWB_nominal=273.15+25.55
     "Design inlet air wet bulb temperature"
-      annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.TemperatureDifference TApp_nominal(displayUnit="K") = 3.89
+    annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.SIunits.TemperatureDifference TApp_nominal(
+    displayUnit="K")=3.89
     "Design approach temperature"
-      annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.TemperatureDifference TRan_nominal(displayUnit="K") = 5.56
+    annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.SIunits.TemperatureDifference TRan_nominal(
+    displayUnit="K")=5.56
     "Design range temperature (water in - water out)"
-      annotation (Dialog(group="Nominal condition"));
-  parameter Real fraPFan_nominal(unit="W/(kg/s)") = 275/0.15
+    annotation (Dialog(group="Nominal condition"));
+  parameter Real fraPFan_nominal(
+    unit="W/(kg/s)")=275/0.15
     "Fan power divided by water mass flow rate at design condition"
-    annotation(Dialog(group="Fan"));
-  parameter Modelica.SIunits.Power PFan_nominal = fraPFan_nominal*m_flow_nominal
+    annotation (Dialog(group="Fan"));
+  parameter Modelica.SIunits.Power PFan_nominal=fraPFan_nominal*m_flow_nominal
     "Fan power"
-    annotation(Dialog(group="Fan"));
-
+    annotation (Dialog(group="Fan"));
   replaceable parameter cha.fan fanRelPow(
-       r_V = {0, 0.1,   0.3,   0.6,   1},
-       r_P = {0, 0.1^3, 0.3^3, 0.6^3, 1})
+    r_V={0,0.1,0.3,0.6,1},
+    r_P={0,0.1^3,0.3^3,0.6^3,1})
     constrainedby cha.fan
     "Fan relative power consumption as a function of control signal, fanRelPow=P(y)/P(y=1)"
-    annotation (
-    choicesAllMatching=true,
-    Placement(transformation(extent={{60,60},{80,80}})),
-    Dialog(group="Fan"));
-
-  parameter Real yMin(min=0.01, max=1, unit="1") = 0.3
+    annotation (choicesAllMatching=true,Placement(transformation(extent={{60,60},{80,80}})),Dialog(group="Fan"));
+  parameter Real yMin(
+    min=0.01,
+    max=1,
+    unit="1")=0.3
     "Minimum control signal until fan is switched off (used for smoothing between forced and free convection regime)"
-    annotation(Dialog(group="Fan"));
-
-  parameter Real fraFreCon(min=0, max=1) = 0.125
+    annotation (Dialog(group="Fan"));
+  parameter Real fraFreCon(
+    min=0,
+    max=1)=0.125
     "Fraction of tower capacity in free convection regime";
-
-  Modelica.Blocks.Interfaces.RealInput y(unit="1") "Fan control signal"
-     annotation (Placement(transformation(
-          extent={{-140,60},{-100,100}})));
-
+  Modelica.Blocks.Interfaces.RealInput y(
+    unit="1")
+    "Fan control signal"
+    annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
   Modelica.Blocks.Interfaces.RealInput TAir(
     min=0,
     unit="K",
     displayUnit="degC")
     "Entering air wet bulb temperature"
-     annotation (Placement(transformation(
-          extent={{-140,20},{-100,60}})));
-
+    annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
   Modelica.Blocks.Interfaces.RealOutput PFan(
     final quantity="Power",
-    final unit="W")=
-      Buildings.Utilities.Math.Functions.spliceFunction(
-        pos=cha.normalizedPower(per=fanRelPow, r_V=y, d=fanRelPowDer) * PFan_nominal,
-        neg=0,
-        x=y-yMin+yMin/20,
-        deltax=yMin/20)
+    final unit="W")=Buildings.Utilities.Math.Functions.spliceFunction(
+    pos=cha.normalizedPower(
+      per=fanRelPow,
+      r_V=y,
+      d=fanRelPowDer)*PFan_nominal,
+    neg=0,
+    x=y-yMin+yMin/20,
+    deltax=yMin/20)
     "Electric power consumed by fan"
-    annotation (Placement(transformation(extent={{100,70},{120,90}}),
-        iconTransformation(extent={{100,70},{120,90}})));
-
+    annotation (Placement(transformation(extent={{100,70},{120,90}}),iconTransformation(extent={{100,70},{120,90}})));
   Buildings.Fluid.HeatExchangers.CoolingTowers.Correlations.BoundsYorkCalc bou
     "Bounds for correlation";
-
-  Modelica.SIunits.TemperatureDifference TRan(displayUnit="K")=
-    T_a - T_b
+  Modelica.SIunits.TemperatureDifference TRan(
+    displayUnit="K")=T_a-T_b
     "Range temperature";
-  Modelica.SIunits.TemperatureDifference TAppAct(displayUnit="K")=
-    Buildings.Utilities.Math.Functions.spliceFunction(
-      pos=TAppCor,
-      neg=TAppFreCon,
-      x=y-yMin+yMin/20,
-      deltax=yMin/20)
+  Modelica.SIunits.TemperatureDifference TAppAct(
+    displayUnit="K")=Buildings.Utilities.Math.Functions.spliceFunction(
+    pos=TAppCor,
+    neg=TAppFreCon,
+    x=y-yMin+yMin/20,
+    deltax=yMin/20)
     "Approach temperature difference";
-  Modelica.SIunits.MassFraction FRWat = m_flow/mWat_flow_nominal
+  Modelica.SIunits.MassFraction FRWat=m_flow/mWat_flow_nominal
     "Ratio actual over design water mass flow ratio";
-  Modelica.SIunits.MassFraction FRAir = y
+  Modelica.SIunits.MassFraction FRAir=y
     "Ratio actual over design air mass flow ratio";
-
 protected
-  package Water =  Buildings.Media.Water "Medium package for water";
-  parameter Real FRWat0(min=0, start=1, fixed=false)
+  package Water=Buildings.Media.Water
+    "Medium package for water";
+  parameter Real FRWat0(
+    min=0,
+    start=1,
+    fixed=false)
     "Ratio actual over design water mass flow ratio at nominal condition";
-  parameter Modelica.SIunits.Temperature TWatIn0(fixed=false)
+  parameter Modelica.SIunits.Temperature TWatIn0(
+    fixed=false)
     "Water inlet temperature at nominal condition";
-  parameter Modelica.SIunits.Temperature TWatOut_nominal(fixed=false)
+  parameter Modelica.SIunits.Temperature TWatOut_nominal(
+    fixed=false)
     "Water outlet temperature at nominal condition";
   parameter Modelica.SIunits.MassFlowRate mWat_flow_nominal(
     min=0,
     start=m_flow_nominal,
-    fixed=false) "Nominal water mass flow rate";
-
-  Modelica.SIunits.TemperatureDifference dTMax(displayUnit="K") = T_a - TAir
+    fixed=false)
+    "Nominal water mass flow rate";
+  Modelica.SIunits.TemperatureDifference dTMax(
+    displayUnit="K")=T_a-TAir
     "Maximum possible temperature difference";
-  Modelica.SIunits.TemperatureDifference TAppCor(min=0, displayUnit="K")=
-    Buildings.Fluid.HeatExchangers.CoolingTowers.Correlations.yorkCalc(
-      TRan=TRan,
-      TWetBul=TAir,
-      FRWat=FRWat,
-      FRAir=Buildings.Utilities.Math.Functions.smoothMax(
-        x1=FRWat/bou.liqGasRat_max,
-        x2=FRAir,
-        deltaX=0.01))
+  Modelica.SIunits.TemperatureDifference TAppCor(
+    min=0,
+    displayUnit="K")=Buildings.Fluid.HeatExchangers.CoolingTowers.Correlations.yorkCalc(
+    TRan=TRan,
+    TWetBul=TAir,
+    FRWat=FRWat,
+    FRAir=Buildings.Utilities.Math.Functions.smoothMax(
+      x1=FRWat/bou.liqGasRat_max,
+      x2=FRAir,
+      deltaX=0.01))
     "Approach temperature for forced convection";
-  Modelica.SIunits.TemperatureDifference TAppFreCon(min=0, displayUnit="K")=
-    (1-fraFreCon) * dTMax  + fraFreCon *
-      Buildings.Fluid.HeatExchangers.CoolingTowers.Correlations.yorkCalc(
-        TRan=TRan,
-        TWetBul=TAir,
-        FRWat=FRWat,
-        FRAir=1)
+  Modelica.SIunits.TemperatureDifference TAppFreCon(
+    min=0,
+    displayUnit="K")=(1-fraFreCon)*dTMax+fraFreCon*Buildings.Fluid.HeatExchangers.CoolingTowers.Correlations.yorkCalc(
+    TRan=TRan,
+    TWetBul=TAir,
+    FRWat=FRWat,
+    FRAir=1)
     "Approach temperature for free convection";
-
-  final parameter Real fanRelPowDer[size(fanRelPow.r_V,1)](each fixed=false)
+  final parameter Real fanRelPowDer[size(
+    fanRelPow.r_V,
+    1)](
+    each fixed=false)
     "Coefficients for fan relative power consumption as a function of control signal";
-
-  Modelica.SIunits.Temperature T_a "Temperature in port_a";
-  Modelica.SIunits.Temperature T_b "Temperature in port_b";
-
+  Modelica.SIunits.Temperature T_a
+    "Temperature in port_a";
+  Modelica.SIunits.Temperature T_b
+    "Temperature in port_b";
   Modelica.Blocks.Sources.RealExpression QWat_flow(
-    y = m_flow*(
-      Medium.specificEnthalpy(Medium.setState_pTX(
+    y=m_flow*(Medium.specificEnthalpy(
+      Medium.setState_pTX(
         p=port_b.p,
-        T=TAir + TAppAct,
-        X=inStream(port_b.Xi_outflow))) -
-      inStream(port_a.h_outflow)))
+        T=TAir+TAppAct,
+        X=inStream(port_b.Xi_outflow)))-inStream(
+      port_a.h_outflow)))
     "Heat input into water"
     annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
 initial equation
-  TWatOut_nominal = TAirInWB_nominal + TApp_nominal;
-  TRan_nominal = TWatIn0 - TWatOut_nominal; // by definition of the range temp.
-  TApp_nominal = Buildings.Fluid.HeatExchangers.CoolingTowers.Correlations.yorkCalc(
-                   TRan=TRan_nominal, TWetBul=TAirInWB_nominal,
-                   FRWat=FRWat0, FRAir=1); // this will be solved for FRWat0
-  mWat_flow_nominal = m_flow_nominal/FRWat0;
-
+  TWatOut_nominal=TAirInWB_nominal+TApp_nominal;
+  TRan_nominal=TWatIn0-TWatOut_nominal;
+  // by definition of the range temp.
+  TApp_nominal=Buildings.Fluid.HeatExchangers.CoolingTowers.Correlations.yorkCalc(
+    TRan=TRan_nominal,
+    TWetBul=TAirInWB_nominal,
+    FRWat=FRWat0,
+    FRAir=1);
+  // this will be solved for FRWat0
+  mWat_flow_nominal=m_flow_nominal/FRWat0;
   // Derivatives for spline that interpolates the fan relative power
-  fanRelPowDer = Buildings.Utilities.Math.Functions.splineDerivatives(
-            x=fanRelPow.r_V,
-            y=fanRelPow.r_P,
-            ensureMonotonicity=Buildings.Utilities.Math.Functions.isMonotonic(x=fanRelPow.r_P,
-                                                                              strict=false));
+  fanRelPowDer=Buildings.Utilities.Math.Functions.splineDerivatives(
+    x=fanRelPow.r_V,
+    y=fanRelPow.r_P,
+    ensureMonotonicity=Buildings.Utilities.Math.Functions.isMonotonic(
+      x=fanRelPow.r_P,
+      strict=false));
   // Check validity of relative fan power consumption at y=yMin and y=1
-  assert(cha.normalizedPower(per=fanRelPow, r_V=yMin, d=fanRelPowDer) > -1E-4,
-    "The fan relative power consumption must be non-negative for y=0."
-  + "\n   Obtained fanRelPow(0) = " + String(cha.normalizedPower(per=fanRelPow, r_V=yMin, d=fanRelPowDer))
-  + "\n   You need to choose different values for the parameter fanRelPow.");
-  assert(abs(1-cha.normalizedPower(per=fanRelPow, r_V=1, d=fanRelPowDer))<1E-4, "The fan relative power consumption must be one for y=1."
-  + "\n   Obtained fanRelPow(1) = " + String(cha.normalizedPower(per=fanRelPow, r_V=1, d=fanRelPowDer))
-  + "\n   You need to choose different values for the parameter fanRelPow."
-  + "\n   To increase the fan power, change fraPFan_nominal or PFan_nominal.");
-
+  assert(
+    cha.normalizedPower(
+      per=fanRelPow,
+      r_V=yMin,
+      d=fanRelPowDer) >-1E-4,
+    "The fan relative power consumption must be non-negative for y=0."+"\n   Obtained fanRelPow(0) = "+String(
+      cha.normalizedPower(
+        per=fanRelPow,
+        r_V=yMin,
+        d=fanRelPowDer))+"\n   You need to choose different values for the parameter fanRelPow.");
+  assert(
+    abs(
+      1-cha.normalizedPower(
+        per=fanRelPow,
+        r_V=1,
+        d=fanRelPowDer)) < 1E-4,
+    "The fan relative power consumption must be one for y=1."+"\n   Obtained fanRelPow(1) = "+String(
+      cha.normalizedPower(
+        per=fanRelPow,
+        r_V=1,
+        d=fanRelPowDer))+"\n   You need to choose different values for the parameter fanRelPow."+"\n   To increase the fan power, change fraPFan_nominal or PFan_nominal.");
   // Check that a medium is used that has the same definition of enthalpy vs. temperature.
   // This is needed because below, T_a=Water.temperature needed to be hard-coded to use
   // Water.* instead of Medium.* in the function calls due to a bug in OpenModelica.
-  assert(abs(Medium.specificEnthalpy_pTX(p=101325, T=273.15, X=Medium.X_default) -
-             Water.specificEnthalpy_pTX(p=101325, T=273.15, X=Medium.X_default)) < 1E-5 and
-         abs(Medium.specificEnthalpy_pTX(p=101325, T=293.15, X=Medium.X_default) -
-             Water.specificEnthalpy_pTX(p=101325, T=293.15, X=Medium.X_default)) < 1E-5,
-         "The selected medium has an enthalpy computation that is not consistent
+  assert(
+    abs(
+      Medium.specificEnthalpy_pTX(
+        p=101325,
+        T=273.15,
+        X=Medium.X_default)-Water.specificEnthalpy_pTX(
+        p=101325,
+        T=273.15,
+        X=Medium.X_default)) < 1E-5 and abs(
+      Medium.specificEnthalpy_pTX(
+        p=101325,
+        T=293.15,
+        X=Medium.X_default)-Water.specificEnthalpy_pTX(
+        p=101325,
+        T=293.15,
+        X=Medium.X_default)) < 1E-5,
+    "The selected medium has an enthalpy computation that is not consistent
   with the one in Buildings.Media.Water
   Use a different medium, such as Buildings.Media.Water.");
 equation
   // States at the inlet and outlet
-
   if allowFlowReversal then
     if homotopyInitialization then
-      T_a=Water.temperature(Water.setState_phX(p=port_a.p,
-                                 h=homotopy(actual=actualStream(port_a.h_outflow),
-                                            simplified=inStream(port_a.h_outflow)),
-                                 X=homotopy(actual=actualStream(port_a.Xi_outflow),
-                                            simplified=inStream(port_a.Xi_outflow))));
-      T_b=Water.temperature(Water.setState_phX(p=port_b.p,
-                                 h=homotopy(actual=actualStream(port_b.h_outflow),
-                                            simplified=port_b.h_outflow),
-                                 X=homotopy(actual=actualStream(port_b.Xi_outflow),
-                                            simplified=port_b.Xi_outflow)));
-
+      T_a=Water.temperature(
+        Water.setState_phX(
+          p=port_a.p,
+          h=homotopy(
+            actual=actualStream(port_a.h_outflow),
+            simplified=inStream(port_a.h_outflow)),
+          X=homotopy(
+            actual=actualStream(port_a.Xi_outflow),
+            simplified=inStream(port_a.Xi_outflow))));
+      T_b=Water.temperature(
+        Water.setState_phX(
+          p=port_b.p,
+          h=homotopy(
+            actual=actualStream(port_b.h_outflow),
+            simplified=port_b.h_outflow),
+          X=homotopy(
+            actual=actualStream(port_b.Xi_outflow),
+            simplified=port_b.Xi_outflow)));
     else
-      T_a=Water.temperature(Water.setState_phX(p=port_a.p,
-                                 h=actualStream(port_a.h_outflow),
-                                 X=actualStream(port_a.Xi_outflow)));
-      T_b=Water.temperature(Water.setState_phX(p=port_b.p,
-                                 h=actualStream(port_b.h_outflow),
-                                 X=actualStream(port_b.Xi_outflow)));
-    end if; // homotopyInitialization
-
-  else // reverse flow not allowed
-    T_a=Water.temperature(Water.setState_phX(p=port_a.p,
-                               h=inStream(port_a.h_outflow),
-                               X=inStream(port_a.Xi_outflow)));
-    T_b=Water.temperature(Water.setState_phX(p=port_b.p,
-                               h=inStream(port_b.h_outflow),
-                               X=inStream(port_b.Xi_outflow)));
+      T_a=Water.temperature(
+        Water.setState_phX(
+          p=port_a.p,
+          h=actualStream(port_a.h_outflow),
+          X=actualStream(port_a.Xi_outflow)));
+      T_b=Water.temperature(
+        Water.setState_phX(
+          p=port_b.p,
+          h=actualStream(port_b.h_outflow),
+          X=actualStream(port_b.Xi_outflow)));
+    end if;
+  // homotopyInitialization
+  else
+    // reverse flow not allowed
+    T_a=Water.temperature(
+      Water.setState_phX(
+        p=port_a.p,
+        h=inStream(port_a.h_outflow),
+        X=inStream(port_a.Xi_outflow)));
+    T_b=Water.temperature(
+      Water.setState_phX(
+        p=port_b.p,
+        h=inStream(port_b.h_outflow),
+        X=inStream(port_b.Xi_outflow)));
   end if;
-
-  connect(QWat_flow.y, preHea.Q_flow)
-    annotation (Line(points={{-59,-60},{-40,-60}}, color={0,0,127}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics={
+  connect(QWat_flow.y,preHea.Q_flow)
+    annotation (Line(points={{-59,-60},{-40,-60}},color={0,0,127}));
+  annotation (
+    Icon(
+      coordinateSystem(
+        preserveAspectRatio=false,
+        extent={{-100,-100},{100,100}}),
+      graphics={
         Text(
           extent={{-104,70},{-70,32}},
           lineColor={0,0,127},
@@ -270,7 +320,8 @@ equation
           extent={{-98,100},{-86,84}},
           lineColor={0,0,127},
           textString="y")}),
-Documentation(info="<html>
+    Documentation(
+      info="<html>
 <p>
 Model for a steady-state or dynamic cooling tower with variable speed fan using the York calculation for the
 approach temperature at off-design conditions.
@@ -365,7 +416,8 @@ instead of
 <p>
 <a href=\"http://www.energyplus.gov\">EnergyPlus 2.0.0 Engineering Reference</a>, April 9, 2007.
 </p>
-</html>", revisions="<html>
+</html>",
+      revisions="<html>
 <ul>
 <li>
 January 16, 2020, by Michael Wetter:<br/>

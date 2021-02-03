@@ -1,14 +1,16 @@
 within Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses;
-package Characteristics "Functions for fan characteristics"
-
-  annotation (Documentation(info="<html>
+package Characteristics
+  "Functions for fan characteristics"
+  annotation (
+    Documentation(
+      info="<html>
 <p>
 This package implements the performance curve for the fans,
 and a record for performance data that can be used with the performance
 curve.
 </p>
 </html>",
-revisions="<html>
+      revisions="<html>
 <ul>
 <li>
 June 4, 2016, by Michael Wetter:<br/>

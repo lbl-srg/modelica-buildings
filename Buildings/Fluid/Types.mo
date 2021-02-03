@@ -1,19 +1,19 @@
 within Buildings.Fluid;
-package Types "Package with type definitions"
+package Types
+  "Package with type definitions"
   extends Modelica.Icons.TypesPackage;
-
-  type EfficiencyCurves = enumeration(
-      Constant "constant",
-      Polynomial "Polynomial",
-      QuadraticLinear "quadratic in x1, linear in x2")
+  type EfficiencyCurves=enumeration(Constant
+    "constant",Polynomial
+    "Polynomial",QuadraticLinear
+    "quadratic in x1, linear in x2")
     "Enumeration to define the efficiency curves";
-  type CvTypes = enumeration(
-      OpPoint "flow coefficient defined by m_flow_nominal/sqrt(dp_nominal)",
-      Kv "Kv (metric) flow coefficient",
-      Cv "Cv (US) flow coefficient",
-      Av "Av (metric) flow coefficient")
-    "Enumeration to define the choice of valve flow coefficient" annotation (
-      Documentation(info="<html>
+  type CvTypes=enumeration(OpPoint
+    "flow coefficient defined by m_flow_nominal/sqrt(dp_nominal)",Kv
+    "Kv (metric) flow coefficient",Cv
+    "Cv (US) flow coefficient",Av
+    "Av (metric) flow coefficient")
+    "Enumeration to define the choice of valve flow coefficient"
+    annotation (Documentation(info="<html>
 
 <p>
 Enumeration to define the choice of valve flow coefficient
@@ -45,17 +45,15 @@ Users Guide</a>.
 </p>
 
 </html>"));
-  type HeatExchangerConfiguration = enumeration(
-      ParallelFlow "Parallel flow",
-      CounterFlow "Counter flow",
-      CrossFlowUnmixed "Cross flow, both streams unmixed",
-      CrossFlowStream1MixedStream2Unmixed
-        "Cross flow, stream 1 mixed, stream 2 unmixed",
-      CrossFlowStream1UnmixedStream2Mixed
-        "Cross flow, stream 1 unmixed, stream 2 mixed",
-      ConstantTemperaturePhaseChange "Constant temperature phase change in one stream")
+  type HeatExchangerConfiguration=enumeration(ParallelFlow
+    "Parallel flow",CounterFlow
+    "Counter flow",CrossFlowUnmixed
+    "Cross flow, both streams unmixed",CrossFlowStream1MixedStream2Unmixed
+    "Cross flow, stream 1 mixed, stream 2 unmixed",CrossFlowStream1UnmixedStream2Mixed
+    "Cross flow, stream 1 unmixed, stream 2 mixed",ConstantTemperaturePhaseChange
+    "Constant temperature phase change in one stream")
     "Enumeration for heat exchanger construction"
-  annotation(Documentation(info="<html>
+    annotation (Documentation(info="<html>
 <p>
  Enumeration that defines the heat exchanger construction.
 </p>
@@ -82,8 +80,7 @@ Note that for a given heat exchanger, the
  Buildings.Fluid.Types.HeatExchangerFlowRegime</a> can change to parallel flow if one of the two capacity flow rates reverts
  its direction.
  </p>
-</html>", revisions=
-          "<html>
+</html>",revisions="<html>
 <ul>
 <li>
 March 27, 2017, by Michael Wetter:<br/>
@@ -98,16 +95,15 @@ First implementation.
 </li>
 </ul>
 </html>"));
-
-  type HeatExchangerFlowRegime = enumeration(
-      ParallelFlow "Parallel flow",
-      CounterFlow "Counter flow",
-      CrossFlowUnmixed "Cross flow, both streams unmixed",
-      CrossFlowCMinMixedCMaxUnmixed "Cross flow, CMin mixed,   CMax unmixed",
-      CrossFlowCMinUnmixedCMaxMixed "Cross flow, CMin unmixed, CMax mixed",
-      ConstantTemperaturePhaseChange "Constant temperature phase change in one stream")
+  type HeatExchangerFlowRegime=enumeration(ParallelFlow
+    "Parallel flow",CounterFlow
+    "Counter flow",CrossFlowUnmixed
+    "Cross flow, both streams unmixed",CrossFlowCMinMixedCMaxUnmixed
+    "Cross flow, CMin mixed,   CMax unmixed",CrossFlowCMinUnmixedCMaxMixed
+    "Cross flow, CMin unmixed, CMax mixed",ConstantTemperaturePhaseChange
+    "Constant temperature phase change in one stream")
     "Enumeration for heat exchanger flow configuration"
-  annotation(Documentation(info="<html>
+    annotation (Documentation(info="<html>
 <p>
  Enumeration to define the heat exchanger flow regime.
 </p>
@@ -128,7 +124,7 @@ The following heat exchanger flow regimes are available in this enumeration:
 <tr><td>CrossFlowCMinUnmixedCMaxMixed</td><td>Cross flow, CMin unmixed, CMax mixed</td></tr>
 <tr><td>ConstantTemperaturePhaseChange</td><td>Constant temperature phase change in one stream</td></tr>
 </table>
-</html>", revisions="<html>
+</html>",revisions="<html>
 <ul>
 <li>
 March 27, 2017, by Michael Wetter:<br/>
@@ -143,10 +139,11 @@ First implementation.
 </li>
 </ul>
 </html>"));
-  type InputType = enumeration(
-      Constant "Use parameter to set stage",
-      Stages "Use integer input to select stage",
-      Continuous "Use continuous, real input") "Input options for movers"
+  type InputType=enumeration(Constant
+    "Use parameter to set stage",Stages
+    "Use integer input to select stage",Continuous
+    "Use continuous, real input")
+    "Input options for movers"
     annotation (Documentation(info="<html>
 <p>
 This type allows defining which type of input should be used for movers.
@@ -163,7 +160,7 @@ a series of possible set points that can be switched using an integer input, or
 a continuously variable set point.
 </li>
 </ol>
-</html>", revisions="<html>
+</html>",revisions="<html>
 <ul>
 <li>
 April 2, 2015, by Filip Jorissen:<br/>
@@ -171,8 +168,10 @@ First implementation.
 </li>
 </ul>
 </html>"));
-
- annotation (preferredView="info", Documentation(info="<html>
+  annotation (
+    preferredView="info",
+    Documentation(
+      info="<html>
 <p>
 This package contains type definitions.
 </p>

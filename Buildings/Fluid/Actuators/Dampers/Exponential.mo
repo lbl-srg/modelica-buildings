@@ -5,35 +5,47 @@ model Exponential
 equation
   // Pressure drop calculation
   if linearized then
-    m_flow*m_flow_nominal_pos = k^2*dp;
+    m_flow*m_flow_nominal_pos=k^2*dp;
   else
     if homotopyInitialization then
       if from_dp then
         m_flow=homotopy(
-            actual=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
-                  dp=dp, k=k,
-                  m_flow_turbulent=m_flow_turbulent),
-            simplified=m_flow_nominal_pos*dp/dp_nominal_pos);
+          actual=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
+            dp=dp,
+            k=k,
+            m_flow_turbulent=m_flow_turbulent),
+          simplified=m_flow_nominal_pos*dp/dp_nominal_pos);
       else
         dp=homotopy(
-            actual=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
-                  m_flow=m_flow, k=k,
-                  m_flow_turbulent=m_flow_turbulent),
-            simplified=dp_nominal_pos*m_flow/m_flow_nominal_pos);
-        end if;  // from_dp
-    else // do not use homotopy
+          actual=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
+            m_flow=m_flow,
+            k=k,
+            m_flow_turbulent=m_flow_turbulent),
+          simplified=dp_nominal_pos*m_flow/m_flow_nominal_pos);
+      end if;
+    // from_dp
+    else
+      // do not use homotopy
       if from_dp then
         m_flow=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
-                  dp=dp, k=k, m_flow_turbulent=m_flow_turbulent);
+          dp=dp,
+          k=k,
+          m_flow_turbulent=m_flow_turbulent);
       else
         dp=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
-                  m_flow=m_flow, k=k, m_flow_turbulent=m_flow_turbulent);
-      end if;  // from_dp
-    end if; // homotopyInitialization
-  end if; // linearized
-annotation (
-defaultComponentName="damExp",
-Documentation(info="<html>
+          m_flow=m_flow,
+          k=k,
+          m_flow_turbulent=m_flow_turbulent);
+      end if;
+    // from_dp
+    end if;
+  // homotopyInitialization
+  end if;
+  // linearized
+  annotation (
+    defaultComponentName="damExp",
+    Documentation(
+      info="<html>
 <p>
 Model of two flow resistances in series:
 </p>
@@ -61,7 +73,8 @@ parameter values, see the partial model
 <a href=\"modelica://Buildings.Fluid.Actuators.BaseClasses.PartialDamperExponential\">
 Buildings.Fluid.Actuators.BaseClasses.PartialDamperExponential</a>.
 </p>
-</html>", revisions="<html>
+</html>",
+      revisions="<html>
 <ul>
 <li>
 December 23, 2019, by Antoine Gautier:<br/>
@@ -113,16 +126,22 @@ July 20, 2007 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},
-            {100,100}}), graphics={
+</html>"),
+    Icon(
+      coordinateSystem(
+        preserveAspectRatio=true,
+        extent={{-100,-100},{100,100}}),
+      graphics={
         Rectangle(
           extent={{-100,22},{100,-24}},
           lineColor={0,0,0},
           fillPattern=FillPattern.HorizontalCylinder,
-          fillColor={0,127,255}),  Polygon(
+          fillColor={0,127,255}),
+        Polygon(
           points={{-26,12},{22,54},{22,42},{-26,0},{-26,12}},
           lineColor={0,0,0},
-          fillPattern=FillPattern.Solid), Polygon(
+          fillPattern=FillPattern.Solid),
+        Polygon(
           points={{-22,-32},{26,10},{26,-2},{-22,-44},{-22,-32}},
           lineColor={0,0,0},
           fillPattern=FillPattern.Solid)}));

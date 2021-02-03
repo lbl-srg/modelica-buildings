@@ -1,14 +1,24 @@
 within Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Characteristics;
-function normalizedPower "Normalized flow vs. normalized power characteristics for fan"
+function normalizedPower
+  "Normalized flow vs. normalized power characteristics for fan"
   extends Modelica.Icons.Function;
-  input Characteristics.fan per "Fan relative power consumption";
-  input Real r_V(unit="1") "Volumetric flow rate divided by nominal flow rate";
-  input Real d[:] "Derivatives at support points for spline interpolation";
-  output Modelica.SIunits.Efficiency r_P(max=1) "Normalized power consumption";
+  input Characteristics.fan per
+    "Fan relative power consumption";
+  input Real r_V(
+    unit="1")
+    "Volumetric flow rate divided by nominal flow rate";
+  input Real d[:]
+    "Derivatives at support points for spline interpolation";
+  output Modelica.SIunits.Efficiency r_P(
+    max=1)
+    "Normalized power consumption";
 protected
-Integer n = size(per.r_V, 1) "Number of data points";
-Integer i "Integer to select data interval";
-
+  Integer n=size(
+    per.r_V,
+    1)
+    "Number of data points";
+  Integer i
+    "Integer to select data interval";
 algorithm
   if n == 1 then
     r_P := per.r_V[1];
@@ -20,20 +30,20 @@ algorithm
         i := j;
       end if;
     end for;
-
-  // Extrapolate or interpolate the data
-  r_P:=Buildings.Utilities.Math.Functions.cubicHermiteLinearExtrapolation(
-    x=r_V,
-    x1=per.r_V[i],
-    x2=per.r_V[i + 1],
-    y1=per.r_P[i],
-    y2=per.r_P[i + 1],
-    y1d=d[i],
-    y2d=d[i+1]);
+    // Extrapolate or interpolate the data
+    r_P := Buildings.Utilities.Math.Functions.cubicHermiteLinearExtrapolation(
+      x=r_V,
+      x1=per.r_V[i],
+      x2=per.r_V[i+1],
+      y1=per.r_P[i],
+      y2=per.r_P[i+1],
+      y1d=d[i],
+      y2d=d[i+1]);
   end if;
-
-annotation(smoothOrder=1,
-Documentation(info="<html>
+  annotation (
+    smoothOrder=1,
+    Documentation(
+      info="<html>
 <p>
 This function computes the fan normalized power consumption
 for a given normalized volume flow rate
@@ -54,7 +64,8 @@ The function <i>s(&middot;, &middot;)</i> is a cubic hermite spline.
 If the data <i>d</i> define a monotone decreasing sequence, then
 <i>s(&middot;, d)</i> is a monotone decreasing function.
 </p>
-</html>", revisions="<html>
+</html>",
+      revisions="<html>
 <ul>
 <li>
 December, 22, 2019, by Kathryn Hinkelman:<br/>
@@ -75,5 +86,6 @@ September 28, 2011, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), smoothOrder=1);
+</html>"),
+    smoothOrder=1);
 end normalizedPower;

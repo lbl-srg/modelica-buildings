@@ -15,8 +15,7 @@ model FlowDistribution
     motorCooledByFluid=false)
     constrainedby Buildings.Fluid.Movers.Data.Generic
     "Record with performance data"
-    annotation (choicesAllMatching=true,
-      Placement(transformation(extent={{70,-100},{90,-80}})));
+    annotation (choicesAllMatching=true,Placement(transformation(extent={{70,-100},{90,-80}})));
   parameter Integer nPorts_a1=0
     "Number of terminal units return ports"
     annotation (Dialog(connectorSizing=true),Evaluate=true);
@@ -92,8 +91,7 @@ model FlowDistribution
     annotation (Evaluate=true,Dialog(tab="Dynamics",group="Equations"));
   parameter Modelica.SIunits.Time tau=120
     "Time constant of fluid temperature variation at nominal flow rate"
-    annotation (Dialog(tab="Dynamics",group="Nominal condition",
-      enable=energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState));
+    annotation (Dialog(tab="Dynamics",group="Nominal condition",enable=energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState));
   // IO CONNECTORS
   Modelica.Fluid.Interfaces.FluidPorts_a ports_a1[nPorts_a1](
     redeclare each final package Medium=Medium,
@@ -107,8 +105,7 @@ model FlowDistribution
       start=Medium.h_default,
       nominal=Medium.h_default))
     "Terminal units return ports"
-    annotation (Placement(transformation(extent={{-110,160},{-90,240}}),
-      iconTransformation(extent={{90,20},{110,100}})));
+    annotation (Placement(transformation(extent={{-110,160},{-90,240}}),iconTransformation(extent={{90,20},{110,100}})));
   Modelica.Fluid.Interfaces.FluidPorts_b ports_b1[nPorts_b1](
     redeclare each final package Medium=Medium,
     each m_flow(
@@ -121,42 +118,35 @@ model FlowDistribution
       start=Medium.h_default,
       nominal=Medium.h_default))
     "Terminal units supply ports"
-    annotation (Placement(transformation(extent={{90,160},{110,240}}),
-      iconTransformation(extent={{-110,20},{-90,100}})));
+    annotation (Placement(transformation(extent={{90,160},{110,240}}),iconTransformation(extent={{-110,20},{-90,100}})));
   Modelica.Blocks.Interfaces.RealInput mReq_flow[nUni](
     each final quantity="MassFlowRate")
     "Heating or chilled water flow rate required to meet the load"
-    annotation (Placement(transformation(extent={{-20,-20},{20,20}},rotation=0,origin={-120,260}),
-      iconTransformation(extent={{-10,-10},{10,10}},rotation=0,origin={-110,-40})));
+    annotation (Placement(transformation(extent={{-20,-20},{20,20}},rotation=0,origin={-120,260}),iconTransformation(extent={{-10,-10},{10,10}},rotation=0,origin={-110,-40})));
   Modelica.Blocks.Interfaces.IntegerInput modChaOve if have_val and typDis == Type_dis.ChangeOver
     "Operating mode in change-over (1 for heating, 2 for cooling)"
-    annotation (Placement(transformation(extent={{-20,-20},{20,20}},rotation=0,origin={-120,-60}),
-      iconTransformation(extent={{-120,-70},{-100,-50}})));
+    annotation (Placement(transformation(extent={{-20,-20},{20,20}},rotation=0,origin={-120,-60}),iconTransformation(extent={{-120,-70},{-100,-50}})));
   Modelica.Blocks.Interfaces.RealInput TSupSet(
     final quantity="ThermodynamicTemperature",
     final unit="K",
     displayUnit="degC") if have_val
     "Supply temperature set point"
-    annotation (Placement(transformation(extent={{-20,-20},{20,20}},rotation=0,origin={-120,-100}),
-      iconTransformation(extent={{-10,-10},{10,10}},rotation=0,origin={-110,-80})));
+    annotation (Placement(transformation(extent={{-20,-20},{20,20}},rotation=0,origin={-120,-100}),iconTransformation(extent={{-10,-10},{10,10}},rotation=0,origin={-110,-80})));
   Modelica.Blocks.Interfaces.RealOutput mReqTot_flow(
     final quantity="MassFlowRate",
     final unit="kg/s")
     "Total heating or chilled water flow rate required to meet the loads"
-    annotation (Placement(transformation(extent={{100,240},{140,280}}),
-      iconTransformation(extent={{100,-50},{120,-30}})));
+    annotation (Placement(transformation(extent={{100,240},{140,280}}),iconTransformation(extent={{100,-50},{120,-30}})));
   Modelica.Blocks.Interfaces.RealOutput QActTot_flow(
     final quantity="HeatFlowRate",
     final unit="W")
     "Total heat flow rate transferred to the loads (>=0 for heating)"
-    annotation (Placement(transformation(extent={{100,120},{140,160}}),
-      iconTransformation(extent={{100,-70},{120,-50}})));
+    annotation (Placement(transformation(extent={{100,120},{140,160}}),iconTransformation(extent={{100,-70},{120,-50}})));
   Modelica.Blocks.Interfaces.RealOutput PPum(
     final quantity="Power",
     final unit="W") if have_pum
     "Power drawn by pump motor"
-    annotation (Placement(transformation(extent={{100,60},{140,100}}),
-      iconTransformation(extent={{100,-90},{120,-70}})));
+    annotation (Placement(transformation(extent={{100,60},{140,100}}),iconTransformation(extent={{100,-90},{120,-70}})));
   // COMPONENTS
   Buildings.Controls.OBC.CDL.Continuous.MultiSum sumMasFloReq(
     final k=fill(

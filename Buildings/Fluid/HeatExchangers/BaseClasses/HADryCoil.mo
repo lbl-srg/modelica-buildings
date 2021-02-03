@@ -2,102 +2,142 @@ within Buildings.Fluid.HeatExchangers.BaseClasses;
 model HADryCoil
   "Sensible convective heat transfer model for air to water coil"
   extends Modelica.Blocks.Icons.Block;
-
-  parameter Modelica.SIunits.ThermalConductance UA_nominal(min=0)
+  parameter Modelica.SIunits.ThermalConductance UA_nominal(
+    min=0)
     "Thermal conductance at nominal flow"
-          annotation(Dialog(tab="General", group="Nominal condition"));
-
+    annotation (Dialog(tab="General",group="Nominal condition"));
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal_w
     "Water mass flow rate"
-          annotation(Dialog(tab="General", group="Nominal condition"));
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal_a "Air mass flow rate"
-          annotation(Dialog(tab="General", group="Nominal condition"));
-
-  Modelica.Blocks.Interfaces.RealInput m1_flow(final unit="kg/s") "Mass flow rate medium 1"
+    annotation (Dialog(tab="General",group="Nominal condition"));
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal_a
+    "Air mass flow rate"
+    annotation (Dialog(tab="General",group="Nominal condition"));
+  Modelica.Blocks.Interfaces.RealInput m1_flow(
+    final unit="kg/s")
+    "Mass flow rate medium 1"
     annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
-  Modelica.Blocks.Interfaces.RealInput m2_flow(final unit="kg/s") "Mass flow rate medium 2"
+  Modelica.Blocks.Interfaces.RealInput m2_flow(
+    final unit="kg/s")
+    "Mass flow rate medium 2"
     annotation (Placement(transformation(extent={{-120,-80},{-100,-60}})));
-  Modelica.Blocks.Interfaces.RealInput T_1(final unit="K") "Temperature medium 1"
+  Modelica.Blocks.Interfaces.RealInput T_1(
+    final unit="K")
+    "Temperature medium 1"
     annotation (Placement(transformation(extent={{-120,20},{-100,40}})));
-  Modelica.Blocks.Interfaces.RealInput T_2(final unit="K") "Temperature medium 2"
+  Modelica.Blocks.Interfaces.RealInput T_2(
+    final unit="K")
+    "Temperature medium 2"
     annotation (Placement(transformation(extent={{-120,-40},{-100,-20}})));
-
-  Modelica.Blocks.Interfaces.RealOutput hA_1(final unit="W/K")
-    "Convective heat transfer medium 1" annotation (Placement(transformation(
-          extent={{100,60},{120,80}})));
-  Modelica.Blocks.Interfaces.RealOutput hA_2(final unit="W/K")
-    "Convective heat transfer medium 2" annotation (Placement(transformation(
-          extent={{100,-80},{120,-60}})));
-
-  parameter Real r_nominal(min=0)=0.5
+  Modelica.Blocks.Interfaces.RealOutput hA_1(
+    final unit="W/K")
+    "Convective heat transfer medium 1"
+    annotation (Placement(transformation(extent={{100,60},{120,80}})));
+  Modelica.Blocks.Interfaces.RealOutput hA_2(
+    final unit="W/K")
+    "Convective heat transfer medium 2"
+    annotation (Placement(transformation(extent={{100,-80},{120,-60}})));
+  parameter Real r_nominal(
+    min=0)=0.5
     "Ratio between air-side and water-side convective heat transfer coefficient"
-          annotation(Dialog(tab="General", group="Nominal condition"));
-  parameter Modelica.SIunits.ThermalConductance hA_nominal_w(min=0)=UA_nominal * (r_nominal+1)/r_nominal
+    annotation (Dialog(tab="General",group="Nominal condition"));
+  parameter Modelica.SIunits.ThermalConductance hA_nominal_w(
+    min=0)=UA_nominal*(r_nominal+1)/r_nominal
     "Water side convective heat transfer coefficient"
-          annotation(Dialog(tab="General", group="Nominal condition"));
-  parameter Modelica.SIunits.ThermalConductance hA_nominal_a(min=0)=r_nominal * hA_nominal_w
+    annotation (Dialog(tab="General",group="Nominal condition"));
+  parameter Modelica.SIunits.ThermalConductance hA_nominal_a(
+    min=0)=r_nominal*hA_nominal_w
     "Air side convective heat transfer coefficient, including fin resistance"
-          annotation(Dialog(tab="General", group="Nominal condition"));
-  parameter Real n_w(min=0, max=1)=0.85
+    annotation (Dialog(tab="General",group="Nominal condition"));
+  parameter Real n_w(
+    min=0,
+    max=1)=0.85
     "Water-side exponent for convective heat transfer coefficient, h~m_flow^n";
-  parameter Real n_a(min=0, max=1)=0.8
+  parameter Real n_a(
+    min=0,
+    max=1)=0.8
     "Air-side exponent for convective heat transfer coefficient, h~m_flow^n";
-  parameter Modelica.SIunits.Temperature T0_w=
-          Modelica.SIunits.Conversions.from_degC(20) "Water temperature"
-          annotation(Dialog(tab="General", group="Nominal condition"));
-  parameter Modelica.SIunits.Temperature T0_a=
-          Modelica.SIunits.Conversions.from_degC(20) "Air temperature"
-          annotation(Dialog(tab="General", group="Nominal condition"));
+  parameter Modelica.SIunits.Temperature T0_w=Modelica.SIunits.Conversions.from_degC(
+    20)
+    "Water temperature"
+    annotation (Dialog(tab="General",group="Nominal condition"));
+  parameter Modelica.SIunits.Temperature T0_a=Modelica.SIunits.Conversions.from_degC(
+    20)
+    "Air temperature"
+    annotation (Dialog(tab="General",group="Nominal condition"));
   parameter Boolean waterSideFlowDependent=true
     "Set to false to make water-side hA independent of mass flow rate"
-    annotation(Dialog(tab="Advanced", group="Modeling detail"), Evaluate=true);
-  parameter Boolean airSideFlowDependent = true
+    annotation (Dialog(tab="Advanced",group="Modeling detail"),Evaluate=true);
+  parameter Boolean airSideFlowDependent=true
     "Set to false to make air-side hA independent of mass flow rate"
-    annotation(Dialog(tab="Advanced", group="Modeling detail"), Evaluate=true);
-  parameter Boolean waterSideTemperatureDependent = true
+    annotation (Dialog(tab="Advanced",group="Modeling detail"),Evaluate=true);
+  parameter Boolean waterSideTemperatureDependent=true
     "Set to false to make water-side hA independent of temperature"
-    annotation(Dialog(tab="Advanced", group="Modeling detail"), Evaluate=true);
-  parameter Boolean airSideTemperatureDependent = true
+    annotation (Dialog(tab="Advanced",group="Modeling detail"),Evaluate=true);
+  parameter Boolean airSideTemperatureDependent=true
     "Set to false to make air-side hA independent of temperature"
-    annotation(Dialog(tab="Advanced", group="Modeling detail"), Evaluate=true);
+    annotation (Dialog(tab="Advanced",group="Modeling detail"),Evaluate=true);
 protected
-  Real x_a(min=0)
+  Real x_a(
+    min=0)
     "Factor for air side temperature dependent variation of heat transfer coefficient";
-  Real x_w(min=0)
+  Real x_w(
+    min=0)
     "Factor for water side temperature dependent variation of heat transfer coefficient";
-  parameter Real s_w(min=0, fixed=false)
+  parameter Real s_w(
+    min=0,
+    fixed=false)
     "Coefficient for temperature dependence of water side heat transfer coefficient";
-  Real fm_w "Fraction of actual to nominal mass flow rate";
-  Real fm_a "Fraction of actual to nominal mass flow rate";
+  Real fm_w
+    "Fraction of actual to nominal mass flow rate";
+  Real fm_a
+    "Fraction of actual to nominal mass flow rate";
 initial equation
-  s_w =  if waterSideTemperatureDependent then
-            0.014/(1+0.014*Modelica.SIunits.Conversions.to_degC(T0_w)) else
-              1;
+  s_w=
+    if waterSideTemperatureDependent then
+      0.014/(1+0.014*Modelica.SIunits.Conversions.to_degC(
+        T0_w))
+    else
+      1;
 equation
-  fm_w = if waterSideFlowDependent then
-              m1_flow / m_flow_nominal_w else 1;
-  fm_a = if airSideFlowDependent then
-              m2_flow / m_flow_nominal_a else 1;
-  x_w = if waterSideTemperatureDependent then
-         1 + s_w * (T_1-T0_w) else
-              1;
-  x_a = if airSideTemperatureDependent then
-         1 + 7.8532E-4 * (T_2-T0_a) else
-              1;
+  fm_w=
+    if waterSideFlowDependent then
+      m1_flow/m_flow_nominal_w
+    else
+      1;
+  fm_a=
+    if airSideFlowDependent then
+      m2_flow/m_flow_nominal_a
+    else
+      1;
+  x_w=
+    if waterSideTemperatureDependent then
+      1+s_w*(T_1-T0_w)
+    else
+      1;
+  x_a=
+    if airSideTemperatureDependent then
+      1+7.8532E-4*(T_2-T0_a)
+    else
+      1;
   if waterSideFlowDependent then
-    hA_1 = x_w * hA_nominal_w
-               * Buildings.Utilities.Math.Functions.regNonZeroPower(fm_w, n_w, 0.1);
+    hA_1=x_w*hA_nominal_w*Buildings.Utilities.Math.Functions.regNonZeroPower(
+      fm_w,
+      n_w,
+      0.1);
   else
-    hA_1 = x_w * hA_nominal_w;
+    hA_1=x_w*hA_nominal_w;
   end if;
-
   if airSideFlowDependent then
-    hA_2 = x_a * hA_nominal_a
-               * Buildings.Utilities.Math.Functions.regNonZeroPower(fm_a, n_a, 0.1);
+    hA_2=x_a*hA_nominal_a*Buildings.Utilities.Math.Functions.regNonZeroPower(
+      fm_a,
+      n_a,
+      0.1);
   else
-    hA_2 = x_a * hA_nominal_a;
+    hA_2=x_a*hA_nominal_a;
   end if;
-annotation (Documentation(info="<html>
+  annotation (
+    Documentation(
+      info="<html>
 <p>
 Model for sensible convective heat transfer coefficients for an air to water coil.
 </p>
@@ -130,7 +170,7 @@ Berkeley, CA, 1999.
 </li>
 </ul>
 </html>",
-revisions="<html>
+      revisions="<html>
 <ul>
 <li>
 April 9, 2017, by Michael Wetter:<br/>
@@ -150,8 +190,12 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}), graphics={            Text(
+    Icon(
+      coordinateSystem(
+        preserveAspectRatio=false,
+        extent={{-100,-100},{100,100}}),
+      graphics={
+        Text(
           extent={{-60,90},{66,0}},
           lineColor={0,0,0},
           fillColor={255,255,255},

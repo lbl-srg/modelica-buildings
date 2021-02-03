@@ -1,15 +1,16 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses;
-partial block EssentialParameters "A partial block for essential parameters"
-
-  replaceable parameter
-    Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.DXCoil datCoi
-    constrainedby
-    Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.DXCoil
+partial block EssentialParameters
+  "A partial block for essential parameters"
+  replaceable parameter Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.DXCoil datCoi
+    constrainedby Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.DXCoil
     "Performance data"
     annotation (Placement(transformation(extent={{-80,82},{-68,94}})));
 protected
-  parameter Integer nSta=datCoi.nSta "Number of stages";
-  annotation ( Documentation(info="<html>
+  parameter Integer nSta=datCoi.nSta
+    "Number of stages";
+  annotation (
+    Documentation(
+      info="<html>
 <p>
 This partial block declares parameters that are required by most classes
 in the package
@@ -17,7 +18,7 @@ in the package
 Buildings.Fluid.HeatExchangers.DXCoils</a>.
 </p>
 </html>",
-revisions="<html>
+      revisions="<html>
 <ul>
 <li>
 February 17, 2017 by Yangyang Fu:<br/>

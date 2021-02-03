@@ -2,33 +2,44 @@ within Buildings.Fluid.Examples.Performance;
 model Example6
   "Example 6 model of Modelica code that is inefficiently compiled into C-code"
   extends Modelica.Icons.Example;
-  parameter Integer nCapacitors = 500;
-  parameter Real R = 0.001;
-   //annotation(Evaluate=true);
-  parameter Real C = 1000;
-   //annotation(Evaluate=true);
-
+  parameter Integer nCapacitors=500;
+  parameter Real R=0.001;
+  //annotation(Evaluate=true);
+  parameter Real C=1000;
+  //annotation(Evaluate=true);
   Real[nCapacitors] T;
   Real[nCapacitors+1] Q_flow;
 initial equation
-  T = fill(273.15,nCapacitors);
+  T=fill(
+    273.15,
+    nCapacitors);
 equation
-  Q_flow[1]=((273.15+sin(time))-T[1])/R;
-  der(T[1])=(Q_flow[1]-Q_flow[2])/C;
+  Q_flow[1]=((273.15+sin(
+    time))-T[1])/R;
+  der(
+    T[1])=(Q_flow[1]-Q_flow[2])/C;
   for i in 2:nCapacitors loop
-    Q_flow[i] = (T[i-1] - T[i])/R;
-    der(T[i])=(Q_flow[i]-Q_flow[i+1])/C;
+    Q_flow[i]=(T[i-1]-T[i])/R;
+    der(
+      T[i])=(Q_flow[i]-Q_flow[i+1])/C;
   end for;
-  Q_flow[nCapacitors+1]=0; //adiabatic
-
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,
-            -40},{40,60}}),    graphics={Text(
+  Q_flow[nCapacitors+1]=0;
+  //adiabatic
+  annotation (
+    Diagram(
+      coordinateSystem(
+        preserveAspectRatio=false,
+        extent={{-120,-40},{40,60}}),
+      graphics={
+        Text(
           extent={{-62,24},{-18,-4}},
           lineColor={0,0,255},
           textString="See code")}),
     experiment(
-      Tolerance=1e-6, StopTime=100),
-    Documentation(revisions="<html>
+      Tolerance=1e-6,
+      StopTime=100),
+    Documentation(
+      revisions="<html>
 <ul>
 <li>
 April 11, 2016 by Michael Wetter:<br/>
@@ -44,7 +55,8 @@ April 17, 2015, by Filip Jorissen:<br/>
 First implementation.
 </li>
 </ul>
-</html>", info="<html>
+</html>",
+      info="<html>
 <p>This example, together with
 <a href=\"modelica://Buildings.Fluid.Examples.Performance.Example7\">
 Buildings.Fluid.Examples.Performance.Example7</a>,
@@ -97,7 +109,6 @@ Submitted: 11th Modelica Conference. Paris, France. Sep. 2015.
 </li>
 </ul>
 </html>"),
-    __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Fluid/Examples/Performance/Example6.mos"
-        "Simulate and plot"));
+    __Dymola_Commands(
+      file="Resources/Scripts/Dymola/Fluid/Examples/Performance/Example6.mos" "Simulate and plot"));
 end Example6;

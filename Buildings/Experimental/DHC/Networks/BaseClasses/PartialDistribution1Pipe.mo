@@ -2,7 +2,7 @@ within Buildings.Experimental.DHC.Networks.BaseClasses;
 partial model PartialDistribution1Pipe
   "Partial model for one-pipe distribution network"
   extends PartialDistribution;
-  replaceable model Model_pipDis=Fluid.Interfaces.PartialTwoPortInterface (
+  replaceable model Model_pipDis=Fluid.Interfaces.PartialTwoPortInterface(
     redeclare final package Medium=Medium,
     final allowFlowReversal=allowFlowReversal)
     "Model for distribution pipe";
@@ -23,31 +23,25 @@ partial model PartialDistribution1Pipe
     annotation (Evaluate=true,Dialog(tab="Dynamics",group="Equations"));
   parameter Modelica.SIunits.Time tau=10
     "Time constant at nominal flow for dynamic energy and momentum balance"
-    annotation (Dialog(tab="Dynamics",group="Nominal condition",
-      enable=not energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState));
+    annotation (Dialog(tab="Dynamics",group="Nominal condition",enable=not energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState));
   // IO CONNECTORS
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput dH_flow[nCon](
     each final unit="W") if show_entFlo
     "Difference in enthalpy flow rate between connection supply and return"
-    annotation (Placement(transformation(extent={{100,-60},{140,-20}}),
-        iconTransformation(extent={{200,50},{240,90}})));
+    annotation (Placement(transformation(extent={{100,-60},{140,-20}}),iconTransformation(extent={{200,50},{240,90}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput mCon_flow[nCon](
     each final unit="kg/s")
     "Connection supply mass flow rate (measured)"
-    annotation (Placement(transformation(extent={{100,60},{140,100}}),
-      iconTransformation(extent={{200,30},{240,70}})));
+    annotation (Placement(transformation(extent={{100,60},{140,100}}),iconTransformation(extent={{200,30},{240,70}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput mByp_flow[nCon](
     each final unit="kg/s")
     "Bypass mass flow rate"
-    annotation (Placement(transformation(extent={{100,20},{140,60}}),
-      iconTransformation(extent={{200,10},{240,50}})));
+    annotation (Placement(transformation(extent={{100,20},{140,60}}),iconTransformation(extent={{200,10},{240,50}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TOut[nCon](
     final unit="K",
     displayUnit="degC") if show_TOut
     "Temperature in distribution line at each connection outlet"
-    annotation (
-      Placement(transformation(extent={{100,-100},{140,-60}}),
-        iconTransformation(extent={{200,-80},{240,-40}})));
+    annotation (Placement(transformation(extent={{100,-100},{140,-60}}),iconTransformation(extent={{200,-80},{240,-40}})));
   // COMPONENTS
   replaceable PartialConnection1Pipe con[nCon](
     redeclare each final package Medium=Medium,
@@ -85,10 +79,10 @@ equation
     annotation (Line(points={{12,3},{20,3},{20,20},{92,20},{92,40},{120,40}},color={0,0,127}));
   connect(con.mCon_flow,mCon_flow)
     annotation (Line(points={{12,5},{18,5},{18,22},{90,22},{90,80},{120,80}},color={0,0,127}));
-  connect(con.dH_flow, dH_flow) annotation (Line(points={{12,7},{24,7},{24,-40},
-          {120,-40}}, color={0,0,127}));
-  connect(con.TOut, TOut) annotation (Line(points={{12,9},{22,9},{22,-80},{120,
-          -80}}, color={0,0,127}));
+  connect(con.dH_flow,dH_flow)
+    annotation (Line(points={{12,7},{24,7},{24,-40},{120,-40}},color={0,0,127}));
+  connect(con.TOut,TOut)
+    annotation (Line(points={{12,9},{22,9},{22,-80},{120,-80}},color={0,0,127}));
   annotation (
     Documentation(
       info="

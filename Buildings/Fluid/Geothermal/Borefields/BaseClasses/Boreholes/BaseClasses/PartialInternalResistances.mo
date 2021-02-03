@@ -5,7 +5,8 @@ partial model PartialInternalResistances
     "Length of the internal heat exchanger";
   parameter Modelica.SIunits.Temperature T_start
     "Initial temperature of the filling material";
-  parameter Data.Borefield.Template borFieDat "Borefield data"
+  parameter Data.Borefield.Template borFieDat
+    "Borefield data"
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
   parameter Modelica.SIunits.ThermalResistance Rgb_val
     "Thermal resistance between grout zone and borehole wall";
@@ -13,11 +14,10 @@ partial model PartialInternalResistances
     "Thermal resistance between: pipe wall to capacity in grout";
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state"
-    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
+    annotation (Evaluate=true,Dialog(tab="Dynamics",group="Equations"));
   parameter Boolean dynFil=true
-      "Set to false to remove the dynamics of the filling material."
-      annotation (Dialog(tab="Dynamics"));
-
+    "Set to false to remove the dynamics of the filling material."
+    annotation (Dialog(tab="Dynamics"));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_1
     "Thermal connection for pipe 1"
     annotation (Placement(transformation(extent={{-10,90},{10,110}})));
@@ -27,32 +27,37 @@ partial model PartialInternalResistances
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_2
     "Thermal connection for borehole wall"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+  annotation (
+    Icon(
+      coordinateSystem(
+        preserveAspectRatio=false),
+      graphics={
         Rectangle(
           extent={{-100,100},{100,-100}},
           lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
-        Line(points={{0,0},{0,10},{-10,20},{10,40},{-10,60},{10,80},{0,90},{0,
-              100}},
-            color={0,0,0},
+        Line(
+          points={{0,0},{0,10},{-10,20},{10,40},{-10,60},{10,80},{0,90},{0,100}},
+          color={0,0,0},
           thickness=0.5),
         Line(
-          points={{0,-70.7107},{0,-40},{-10,-30},{10,-10},{-10,10},{10,30},{0,
-              40},{-7.10543e-015,70.7107}},
+          points={{0,-70.7107},{0,-40},{-10,-30},{10,-10},{-10,10},{10,30},{0,40},{-7.10543e-015,70.7107}},
           color={0,0,0},
           origin={50,50},
           rotation=45,
           thickness=0.5),
         Line(
-          points={{0,-50},{0,-40},{-10,-30},{10,-10},{-10,10},{10,30},{0,40},{0,
-              50}},
+          points={{0,-50},{0,-40},{-10,-30},{10,-10},{-10,10},{10,30},{0,40},{0,50}},
           color={0,0,0},
           origin={50,0},
           rotation=-90,
-          thickness=0.5)}),                                      Diagram(
-        coordinateSystem(preserveAspectRatio=false)),
-        Documentation(info="<html>
+          thickness=0.5)}),
+    Diagram(
+      coordinateSystem(
+        preserveAspectRatio=false)),
+    Documentation(
+      info="<html>
 <p>
 Partial model to implement the inner resistance network of a borehole segment.
 </p>
@@ -61,7 +66,8 @@ The partial model uses a thermal port representing a uniform borehole wall for
 that segment, and at least two other thermal ports (one for each tube going through the borehole
 segment).
 </p>
-</html>", revisions="<html>
+</html>",
+      revisions="<html>
 <ul>
 <li>
 July 5, 2018, by Alex Laferri&egrave;re:<br/>

@@ -2,94 +2,114 @@ within Buildings.Fluid.Interfaces;
 partial model PartialTwoPortTransport
   "Partial element transporting fluid between two ports without storage of mass or energy"
   extends Buildings.Fluid.Interfaces.PartialTwoPort;
-
   // Advanced
   // Note: value of dp_start shall be refined by derived model,
   // based on local dp_nominal
-  parameter Modelica.SIunits.PressureDifference dp_start(displayUnit="Pa") = 0
+  parameter Modelica.SIunits.PressureDifference dp_start(
+    displayUnit="Pa")=0
     "Guess value of dp = port_a.p - port_b.p"
-    annotation(Dialog(tab = "Advanced"));
-  parameter Medium.MassFlowRate m_flow_start = 0
+    annotation (Dialog(tab="Advanced"));
+  parameter Medium.MassFlowRate m_flow_start=0
     "Guess value of m_flow = port_a.m_flow"
-    annotation(Dialog(tab = "Advanced"));
+    annotation (Dialog(tab="Advanced"));
   // Note: value of m_flow_small shall be refined by derived model,
   // based on local m_flow_nominal
   parameter Medium.MassFlowRate m_flow_small
     "Small mass flow rate for regularization of zero flow"
-    annotation(Dialog(tab = "Advanced"));
-
+    annotation (Dialog(tab="Advanced"));
   // Diagnostics
-  parameter Boolean show_T = true
+  parameter Boolean show_T=true
     "= true, if temperatures at port_a and port_b are computed"
-    annotation(Dialog(tab="Advanced",group="Diagnostics"));
-  parameter Boolean show_V_flow = true
+    annotation (Dialog(tab="Advanced",group="Diagnostics"));
+  parameter Boolean show_V_flow=true
     "= true, if volume flow rate at inflowing port is computed"
-    annotation(Dialog(tab="Advanced",group="Diagnostics"));
-
+    annotation (Dialog(tab="Advanced",group="Diagnostics"));
   // Variables
   Medium.MassFlowRate m_flow(
-     min=if allowFlowReversal then -Modelica.Constants.inf else 0,
-     start = m_flow_start) "Mass flow rate in design flow direction";
-  Modelica.SIunits.PressureDifference dp(start=dp_start,
-                                         displayUnit="Pa")
+    min=
+      if allowFlowReversal then
+        -Modelica.Constants.inf
+      else
+        0,
+    start=m_flow_start)
+    "Mass flow rate in design flow direction";
+  Modelica.SIunits.PressureDifference dp(
+    start=dp_start,
+    displayUnit="Pa")
     "Pressure difference between port_a and port_b (= port_a.p - port_b.p)";
-
-  Modelica.SIunits.VolumeFlowRate V_flow=
-      m_flow/Modelica.Fluid.Utilities.regStep(m_flow,
-                  Medium.density(
-                    Medium.setState_phX(
-                      p = port_a.p,
-                      h = inStream(port_a.h_outflow),
-                      X = inStream(port_a.Xi_outflow))),
-                  Medium.density(
-                       Medium.setState_phX(
-                         p = port_b.p,
-                         h = inStream(port_b.h_outflow),
-                         X = inStream(port_b.Xi_outflow))),
-                  m_flow_small) if show_V_flow
+  Modelica.SIunits.VolumeFlowRate V_flow=m_flow/Modelica.Fluid.Utilities.regStep(
+    m_flow,
+    Medium.density(
+      Medium.setState_phX(
+        p=port_a.p,
+        h=inStream(port_a.h_outflow),
+        X=inStream(port_a.Xi_outflow))),
+    Medium.density(
+      Medium.setState_phX(
+        p=port_b.p,
+        h=inStream(port_b.h_outflow),
+        X=inStream(port_b.Xi_outflow))),
+    m_flow_small) if show_V_flow
     "Volume flow rate at inflowing port (positive when flow from port_a to port_b)";
-
-  Medium.Temperature port_a_T=
-      Modelica.Fluid.Utilities.regStep(port_a.m_flow,
-                  Medium.temperature(
-                    Medium.setState_phX(
-                      p = port_a.p,
-                      h = inStream(port_a.h_outflow),
-                      X = inStream(port_a.Xi_outflow))),
-                  Medium.temperature(Medium.setState_phX(port_a.p, port_a.h_outflow, port_a.Xi_outflow)),
-                  m_flow_small) if show_T
+  Medium.Temperature port_a_T=Modelica.Fluid.Utilities.regStep(
+    port_a.m_flow,
+    Medium.temperature(
+      Medium.setState_phX(
+        p=port_a.p,
+        h=inStream(port_a.h_outflow),
+        X=inStream(port_a.Xi_outflow))),
+    Medium.temperature(
+      Medium.setState_phX(
+        port_a.p,
+        port_a.h_outflow,
+        port_a.Xi_outflow)),
+    m_flow_small) if show_T
     "Temperature close to port_a, if show_T = true";
-  Medium.Temperature port_b_T=
-      Modelica.Fluid.Utilities.regStep(port_b.m_flow,
-                  Medium.temperature(
-                    Medium.setState_phX(
-                      p = port_b.p,
-                      h = inStream(port_b.h_outflow),
-                      X = inStream(port_b.Xi_outflow))),
-                  Medium.temperature(Medium.setState_phX(port_b.p, port_b.h_outflow, port_b.Xi_outflow)),
-                  m_flow_small) if show_T
+  Medium.Temperature port_b_T=Modelica.Fluid.Utilities.regStep(
+    port_b.m_flow,
+    Medium.temperature(
+      Medium.setState_phX(
+        p=port_b.p,
+        h=inStream(port_b.h_outflow),
+        X=inStream(port_b.Xi_outflow))),
+    Medium.temperature(
+      Medium.setState_phX(
+        port_b.p,
+        port_b.h_outflow,
+        port_b.Xi_outflow)),
+    m_flow_small) if show_T
     "Temperature close to port_b, if show_T = true";
 equation
   // Pressure drop in design flow direction
-  dp = port_a.p - port_b.p;
-
+  dp=port_a.p-port_b.p;
   // Design direction of mass flow rate
-  m_flow = port_a.m_flow;
-  assert(m_flow > -m_flow_small or allowFlowReversal,
-      "Reverting flow occurs even though allowFlowReversal is false");
-
+  m_flow=port_a.m_flow;
+  assert(
+    m_flow >-m_flow_small or allowFlowReversal,
+    "Reverting flow occurs even though allowFlowReversal is false");
   // Mass balance (no storage)
-  port_a.m_flow + port_b.m_flow = 0;
-
+  port_a.m_flow+port_b.m_flow=0;
   // Transport of substances
-  port_a.Xi_outflow = if allowFlowReversal then inStream(port_b.Xi_outflow) else Medium.X_default[1:Medium.nXi];
-  port_b.Xi_outflow = inStream(port_a.Xi_outflow);
-
-  port_a.C_outflow = if allowFlowReversal then inStream(port_b.C_outflow) else zeros(Medium.nC);
-  port_b.C_outflow = inStream(port_a.C_outflow);
-
+  port_a.Xi_outflow=
+    if allowFlowReversal then
+      inStream(
+        port_b.Xi_outflow)
+    else
+      Medium.X_default[1:Medium.nXi];
+  port_b.Xi_outflow=inStream(
+    port_a.Xi_outflow);
+  port_a.C_outflow=
+    if allowFlowReversal then
+      inStream(
+        port_b.C_outflow)
+    else
+      zeros(
+        Medium.nC);
+  port_b.C_outflow=inStream(
+    port_a.C_outflow);
   annotation (
-    Documentation(info="<html>
+    Documentation(
+      info="<html>
 <p>
 This component transports fluid between its two ports, without storing mass or energy.
 Energy may be exchanged with the environment though, e.g., in the form of work.
@@ -119,7 +139,8 @@ This declaration is omitted as in building energy simulation,
 many models use multiple media, an in practice,
 users have not used this global definition to assign parameters.
 </p>
-</html>", revisions="<html>
+</html>",
+      revisions="<html>
 <ul>
 <li>
 September 15, 2016, by Michael Wetter:<br/>

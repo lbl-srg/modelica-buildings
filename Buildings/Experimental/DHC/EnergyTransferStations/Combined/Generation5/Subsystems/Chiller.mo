@@ -3,9 +3,7 @@ model Chiller
   "Base subsystem with heat recovery chiller"
   replaceable package Medium=Modelica.Media.Interfaces.PartialMedium
     "Medium model"
-    annotation (choices(choice(redeclare package Medium=Buildings.Media.Water "Water"),
-    choice(redeclare package Medium=Buildings.Media.Antifreeze.PropyleneGlycolWater(property_T=293.15,X_a=0.40)
-    "Propylene glycol water, 40% mass fraction")));
+    annotation (choices(choice(redeclare package Medium=Buildings.Media.Water "Water"),choice(redeclare package Medium=Buildings.Media.Antifreeze.PropyleneGlycolWater(property_T=293.15,X_a=0.40) "Propylene glycol water, 40% mass fraction")));
   parameter Boolean allowFlowReversal=false
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
     annotation (Dialog(tab="Assumptions"),Evaluate=true);
@@ -47,18 +45,15 @@ model Chiller
   // IO CONNECTORS
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHea
     "Heating enable signal"
-    annotation (Placement(transformation(extent={{-240,168},{-200,208}}),
-    iconTransformation(extent={{-140,20},{-100,60}})));
+    annotation (Placement(transformation(extent={{-240,168},{-200,208}}),iconTransformation(extent={{-140,20},{-100,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uCoo
     "Cooling enable signal"
-    annotation (Placement(transformation(extent={{-240,148},{-200,188}}),
-    iconTransformation(extent={{-140,0},{-100,40}})));
+    annotation (Placement(transformation(extent={{-240,148},{-200,188}}),iconTransformation(extent={{-140,0},{-100,40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSupSet(
     final unit="K",
     displayUnit="degC")
     "Chilled water supply temperature set point (may be reset down)"
-    annotation (Placement(transformation(extent={{-240,120},{-200,160}}),
-    iconTransformation(extent={{-140,-40},{-100,0}})));
+    annotation (Placement(transformation(extent={{-240,120},{-200,160}}),iconTransformation(extent={{-140,-40},{-100,0}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_aChiWat(
     redeclare final package Medium=Medium,
     m_flow(
@@ -71,8 +66,7 @@ model Chiller
       start=Medium.h_default,
       nominal=Medium.h_default))
     "Fluid port for chilled water return"
-    annotation (Placement(transformation(extent={{190,-70},{210,-50}}),
-    iconTransformation(extent={{90,-70},{110,-50}})));
+    annotation (Placement(transformation(extent={{190,-70},{210,-50}}),iconTransformation(extent={{90,-70},{110,-50}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_bChiWat(
     redeclare final package Medium=Medium,
     m_flow(
@@ -85,8 +79,7 @@ model Chiller
       start=Medium.h_default,
       nominal=Medium.h_default))
     "Fluid port for chilled water supply"
-    annotation (Placement(transformation(extent={{190,50},{210,70}}),
-    iconTransformation(extent={{90,50},{110,70}})));
+    annotation (Placement(transformation(extent={{190,50},{210,70}}),iconTransformation(extent={{90,50},{110,70}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_aHeaWat(
     redeclare final package Medium=Medium,
     m_flow(
@@ -99,8 +92,7 @@ model Chiller
       start=Medium.h_default,
       nominal=Medium.h_default))
     "Fluid port for heating water return"
-    annotation (Placement(transformation(extent={{-210,-70},{-190,-50}}),
-    iconTransformation(extent={{-110,-70},{-90,-50}})));
+    annotation (Placement(transformation(extent={{-210,-70},{-190,-50}}),iconTransformation(extent={{-110,-70},{-90,-50}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_bHeaWat(
     redeclare final package Medium=Medium,
     m_flow(
@@ -113,18 +105,15 @@ model Chiller
       start=Medium.h_default,
       nominal=Medium.h_default))
     "Fluid port for heating water supply"
-    annotation (Placement(transformation(extent={{-210,50},{-190,70}}),
-    iconTransformation(extent={{-110,50},{-90,70}})));
+    annotation (Placement(transformation(extent={{-210,50},{-190,70}}),iconTransformation(extent={{-110,50},{-90,70}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput PChi(
     final unit="W")
     "Chiller power"
-    annotation (Placement(transformation(extent={{200,-20},{240,20}}),
-    iconTransformation(extent={{100,0},{140,40}})));
+    annotation (Placement(transformation(extent={{200,-20},{240,20}}),iconTransformation(extent={{100,0},{140,40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput PPum(
     final unit="W")
     "Pump power"
-    annotation (Placement(transformation(extent={{200,-160},{240,-120}}),
-    iconTransformation(extent={{100,-40},{140,0}})));
+    annotation (Placement(transformation(extent={{200,-160},{240,-120}}),iconTransformation(extent={{100,-40},{140,0}})));
   // COMPONENTS
   Fluid.Chillers.ElectricEIR chi(
     redeclare final package Medium1=Medium,

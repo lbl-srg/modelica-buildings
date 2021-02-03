@@ -1,50 +1,49 @@
 within Buildings.Fluid.FMI.ExportContainers;
 partial block HVACZone
   "Partial block to export an HVAC system that has no radiative component and that serves multiple zones as an FMU"
-
-  replaceable package Medium =
-    Modelica.Media.Interfaces.PartialMedium "Medium in the component"
-      annotation (choices(
-        choice(redeclare package Medium = Buildings.Media.Air "Moist air")));
-
+  replaceable package Medium=Modelica.Media.Interfaces.PartialMedium
+    "Medium in the component"
+    annotation (choices(choice(redeclare package Medium=Buildings.Media.Air "Moist air")));
   // Set allowFlowReversal = true to get access to the states of the zone.
-  Interfaces.Outlet fluPor[size(hvacAda.fluPor, 1)](
-    redeclare each final package Medium = Medium,
+  Interfaces.Outlet fluPor[size(
+    hvacAda.fluPor,
+    1)](
+    redeclare each final package Medium=Medium,
     each final use_p_in=false,
-    each final allowFlowReversal=true) "Fluid connector"
+    each final allowFlowReversal=true)
+    "Fluid connector"
     annotation (Placement(transformation(extent={{160,130},{180,150}})));
-
   Modelica.Blocks.Interfaces.RealInput TRadZon(
     final unit="K",
-    displayUnit="degC") "Radiative temperature of the zone"
-    annotation (Placement(transformation(
-          extent={{200,40},{160,80}}), iconTransformation(extent={{182,50},{160,
-            72}})));
-
-  Modelica.Blocks.Interfaces.RealOutput QGaiRad_flow(final unit="W")
+    displayUnit="degC")
+    "Radiative temperature of the zone"
+    annotation (Placement(transformation(extent={{200,40},{160,80}}),iconTransformation(extent={{182,50},{160,72}})));
+  Modelica.Blocks.Interfaces.RealOutput QGaiRad_flow(
+    final unit="W")
     "Radiant heat input into zone (positive if heat gain)"
-    annotation (Placement(transformation(extent={{160,-60},{200,-20}}),
-        iconTransformation(extent={{160,-50},{180,-30}})));
-
-  Modelica.Blocks.Interfaces.RealOutput QGaiSenCon_flow(final unit="W")
+    annotation (Placement(transformation(extent={{160,-60},{200,-20}}),iconTransformation(extent={{160,-50},{180,-30}})));
+  Modelica.Blocks.Interfaces.RealOutput QGaiSenCon_flow(
+    final unit="W")
     "Convective sensible heat input into zone (positive if heat gain)"
-    annotation (Placement(transformation(extent={{160,-110},{200,-70}}),
-        iconTransformation(extent={{160,-100},{180,-80}})));
-
-  Modelica.Blocks.Interfaces.RealOutput QGaiLat_flow(final unit="W")
+    annotation (Placement(transformation(extent={{160,-110},{200,-70}}),iconTransformation(extent={{160,-100},{180,-80}})));
+  Modelica.Blocks.Interfaces.RealOutput QGaiLat_flow(
+    final unit="W")
     "Latent heat input into zone (positive if heat gain)"
-    annotation (Placement(transformation(extent={{160,-160},{200,-120}}),
-        iconTransformation(extent={{160,-150},{180,-130}})));
-
-  Adaptors.HVAC hvacAda(redeclare final package Medium = Medium)
+    annotation (Placement(transformation(extent={{160,-160},{200,-120}}),iconTransformation(extent={{160,-150},{180,-130}})));
+  Adaptors.HVAC hvacAda(
+    redeclare final package Medium=Medium)
     "Adapter between the HVAC supply and return air, and its connectors for the FMU"
     annotation (Placement(transformation(extent={{120,130},{140,150}})));
-
 equation
-  connect(hvacAda.fluPor, fluPor) annotation (Line(points={{141,140},{150,140},
-          {170,140}},           color={0,0,255}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-160,-160},
-            {160,160}}), graphics={Rectangle(
+  connect(hvacAda.fluPor,fluPor)
+    annotation (Line(points={{141,140},{150,140},{170,140}},color={0,0,255}));
+  annotation (
+    Icon(
+      coordinateSystem(
+        preserveAspectRatio=false,
+        extent={{-160,-160},{160,160}}),
+      graphics={
+        Rectangle(
           extent={{-160,160},{160,-160}},
           fillPattern=FillPattern.Solid,
           fillColor={255,255,255},
@@ -105,10 +104,18 @@ equation
           fillColor={135,135,135},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
-        Line(points={{-88,66},{-112,8}}, pattern=LinePattern.None),
-        Line(points={{-88,66},{-124,-56}}, color={0,0,0})}),     Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-160,-160},{160,160}})),
-    Documentation(info="<html>
+        Line(
+          points={{-88,66},{-112,8}},
+          pattern=LinePattern.None),
+        Line(
+          points={{-88,66},{-124,-56}},
+          color={0,0,0})}),
+    Diagram(
+      coordinateSystem(
+        preserveAspectRatio=false,
+        extent={{-160,-160},{160,160}})),
+    Documentation(
+      info="<html>
 <p>
 Model that is used as a container for an HVAC system that is
 to be exported as an FMU and that serves a single zone.
@@ -217,7 +224,8 @@ The model has no pressure drop. Hence, the pressure drop
 of an air diffuser or of an exhaust grill needs to be modelled
 in models that are connected to <code>ports</code>.
 </p>
-</html>", revisions="<html>
+</html>",
+      revisions="<html>
 <ul>
 <li>
 January 18, 2019, by Jianjun Hu:<br/>

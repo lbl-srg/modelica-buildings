@@ -1,11 +1,19 @@
 within Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Characteristics;
-record fan "Record for fan power consumption"
+record fan
+  "Record for fan power consumption"
   extends Modelica.Icons.Record;
-  parameter Real r_V[:](each min=0, each unit="1")
+  parameter Real r_V[:](
+    each min=0,
+    each unit="1")
     "Volumetric flow rate divided by nominal flow rate at user-selected operating points";
-  parameter Real r_P[size(r_V,1)](each max=1)
+  parameter Real r_P[size(
+    r_V,
+    1)](
+    each max=1)
     "Fan relative power consumption at these flow rates such that r_P = 1 for r_V=1";
-  annotation (Documentation(info="<html>
+  annotation (
+    Documentation(
+      info="<html>
 <p>
 Data record for performance data that describe normalized volume flow rate versus
 normalized fan power consumption.
@@ -15,7 +23,7 @@ Both vectors, <code>r_V</code> and <code>r_P</code>
 must have the same size.
 </p>
 </html>",
-revisions="<html>
+      revisions="<html>
 <ul>
 <li>
 June 4, 2016, by Michael Wetter:<br/>

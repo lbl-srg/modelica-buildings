@@ -1,53 +1,45 @@
 within Buildings.Fluid.HeatExchangers.BaseClasses;
-model PartialHexElement "Element of a heat exchanger 2"
+model PartialHexElement
+  "Element of a heat exchanger 2"
   extends Buildings.Fluid.Interfaces.FourPortHeatMassExchanger;
-
-  parameter Boolean initialize_p1 = not Medium1.singleState
+  parameter Boolean initialize_p1=not Medium1.singleState
     "Set to true to initialize the pressure of volume 1"
-    annotation(HideResult=true, Evaluate=true, Dialog(tab="Advanced"));
-  parameter Boolean initialize_p2 = not Medium2.singleState
+    annotation (HideResult=true,Evaluate=true,Dialog(tab="Advanced"));
+  parameter Boolean initialize_p2=not Medium2.singleState
     "Set to true to initialize the pressure of volume 2"
-    annotation(HideResult=true, Evaluate=true, Dialog(tab="Advanced"));
-
+    annotation (HideResult=true,Evaluate=true,Dialog(tab="Advanced"));
   parameter Modelica.SIunits.ThermalConductance UA_nominal
     "Thermal conductance at nominal flow, used to compute time constant"
-     annotation(Dialog(group = "Nominal condition"));
-  parameter Modelica.SIunits.Time tau_m(min=0) = 60
+    annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.SIunits.Time tau_m(
+    min=0)=60
     "Time constant of metal at nominal UA value"
-          annotation(Dialog(tab="General", group="Nominal condition",
-          enable=not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyStateInitial)));
+    annotation (Dialog(tab="General",group="Nominal condition",enable=not(energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyStateInitial)));
   parameter Modelica.SIunits.HeatCapacity C=2*UA_nominal*tau_m
     "Heat capacity of metal (= cp*m)";
-
   Modelica.Blocks.Interfaces.RealInput Gc_1
     "Signal representing the convective thermal conductance medium 1 in [W/K]"
-    annotation (Placement(transformation(
-        origin={-40,100},
-        extent={{-20,-20},{20,20}},
-        rotation=270)));
+    annotation (Placement(transformation(origin={-40,100},extent={{-20,-20},{20,20}},rotation=270)));
   Modelica.Blocks.Interfaces.RealInput Gc_2
     "Signal representing the convective thermal conductance medium 2 in [W/K]"
-    annotation (Placement(transformation(
-        origin={40,-100},
-        extent={{-20,-20},{20,20}},
-        rotation=90)));
-
+    annotation (Placement(transformation(origin={40,-100},extent={{-20,-20},{20,20}},rotation=90)));
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor mas(
     C=C,
-    T(stateSelect=StateSelect.always,
+    T(
+      stateSelect=StateSelect.always,
       fixed=(energyDynamics == Modelica.Fluid.Types.Dynamics.FixedInitial)),
-    der_T( fixed=(energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyStateInitial))) if
-       not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)
+    der_T(
+      fixed=(energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyStateInitial))) if not(energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)
     "Mass of metal"
-    annotation (Placement(transformation(
-        origin={-82,0},
-        extent={{-10,-10},{10,10}},
-        rotation=90)));
-
-  Modelica.Thermal.HeatTransfer.Components.Convection con1(dT(min=-200))
+    annotation (Placement(transformation(origin={-82,0},extent={{-10,-10},{10,10}},rotation=90)));
+  Modelica.Thermal.HeatTransfer.Components.Convection con1(
+    dT(
+      min=-200))
     "Convection (and conduction) on fluid side 1"
     annotation (Placement(transformation(extent={{-50,50},{-30,70}})));
-  Modelica.Thermal.HeatTransfer.Components.Convection con2(dT(min=-200))
+  Modelica.Thermal.HeatTransfer.Components.Convection con2(
+    dT(
+      min=-200))
     "Convection (and conduction) on fluid side 2"
     annotation (Placement(transformation(extent={{-50,-30},{-30,-50}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heaPor1
@@ -57,31 +49,25 @@ model PartialHexElement "Element of a heat exchanger 2"
     "Heat port for heat exchange with the control volume 2"
     annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
 equation
-  connect(Gc_1, con1.Gc) annotation (Line(points={{-40,100},{-40,76},{-40,70}},
-                    color={0,0,127}));
-  connect(Gc_2, con2.Gc) annotation (Line(points={{40,-100},{40,-76},{-40,-76},
-          {-40,-50}},                   color={0,0,127}));
-  connect(con1.solid,mas. port) annotation (Line(points={{-50,60},{-66,60},{-66,
-          0},{-70,0},{-72,0},{-72,-6.12323e-16}},
-                           color={191,0,0}));
-  connect(con1.fluid, vol1.heatPort) annotation (Line(
-      points={{-30,60},{-10,60}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(con2.fluid, vol2.heatPort) annotation (Line(
-      points={{-30,-40},{20,-40},{20,-60},{12,-60}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(con2.solid, con1.solid) annotation (Line(
-      points={{-50,-40},{-66,-40},{-66,60},{-50,60}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(vol1.heatPort, heaPor1) annotation (Line(points={{-10,60},{-20,60},{-20,
-          88},{0,88},{0,100}}, color={191,0,0}));
-  connect(vol2.heatPort, heaPor2) annotation (Line(points={{12,-60},{18,-60},{20,
-          -60},{20,-90},{0,-90},{0,-100}}, color={191,0,0}));
+  connect(Gc_1,con1.Gc)
+    annotation (Line(points={{-40,100},{-40,76},{-40,70}},color={0,0,127}));
+  connect(Gc_2,con2.Gc)
+    annotation (Line(points={{40,-100},{40,-76},{-40,-76},{-40,-50}},color={0,0,127}));
+  connect(con1.solid,mas.port)
+    annotation (Line(points={{-50,60},{-66,60},{-66,0},{-70,0},{-72,0},{-72,-6.12323e-16}},color={191,0,0}));
+  connect(con1.fluid,vol1.heatPort)
+    annotation (Line(points={{-30,60},{-10,60}},color={191,0,0},smooth=Smooth.None));
+  connect(con2.fluid,vol2.heatPort)
+    annotation (Line(points={{-30,-40},{20,-40},{20,-60},{12,-60}},color={191,0,0},smooth=Smooth.None));
+  connect(con2.solid,con1.solid)
+    annotation (Line(points={{-50,-40},{-66,-40},{-66,60},{-50,60}},color={191,0,0},smooth=Smooth.None));
+  connect(vol1.heatPort,heaPor1)
+    annotation (Line(points={{-10,60},{-20,60},{-20,88},{0,88},{0,100}},color={191,0,0}));
+  connect(vol2.heatPort,heaPor2)
+    annotation (Line(points={{12,-60},{18,-60},{20,-60},{20,-90},{0,-90},{0,-100}},color={191,0,0}));
   annotation (
-    Documentation(info="<html>
+    Documentation(
+      info="<html>
 <p>
 Element of a heat exchanger
 with dynamics of the fluids and the solid.
@@ -136,7 +122,7 @@ to redeclare the volume as <code>final</code>, thereby avoiding
 that a GUI displays the volume as a replaceable component.
 </p>
 </html>",
-revisions="<html>
+      revisions="<html>
 <ul>
 <li>
 October 19, 2017, by Michael Wetter:<br/>
@@ -209,11 +195,17 @@ March 25, 2008, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"),    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}), graphics={Text(
+</html>"),
+    Icon(
+      coordinateSystem(
+        preserveAspectRatio=false,
+        extent={{-100,-100},{100,100}}),
+      graphics={
+        Text(
           extent={{-84,114},{-62,86}},
           lineColor={0,0,255},
-          textString="h"), Text(
+          textString="h"),
+        Text(
           extent={{58,-92},{84,-120}},
           lineColor={0,0,255},
           textString="h")}));

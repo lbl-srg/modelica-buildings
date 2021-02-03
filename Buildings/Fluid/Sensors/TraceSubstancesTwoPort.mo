@@ -1,75 +1,99 @@
 within Buildings.Fluid.Sensors;
-model TraceSubstancesTwoPort "Ideal two port sensor for trace substance"
+model TraceSubstancesTwoPort
+  "Ideal two port sensor for trace substance"
   extends Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor;
   extends Modelica.Icons.RotationalSensor;
-  Modelica.Blocks.Interfaces.RealOutput C(min=0,
-                                          start=C_start)
+  Modelica.Blocks.Interfaces.RealOutput C(
+    min=0,
+    start=C_start)
     "Trace substance of the passing fluid"
-    annotation (Placement(transformation(
-        origin={0,110},
-        extent={{10,-10},{-10,10}},
-        rotation=270)));
-
-  parameter String substanceName = "CO2" "Name of trace substance";
-  parameter Real C_start(min=0) = 0
+    annotation (Placement(transformation(origin={0,110},extent={{10,-10},{-10,10}},rotation=270)));
+  parameter String substanceName="CO2"
+    "Name of trace substance";
+  parameter Real C_start(
+    min=0)=0
     "Initial or guess value of output (= state)"
     annotation (Dialog(group="Initialization"));
-
 protected
-  constant Real sumC_nominal = sum(Medium.C_nominal) "Sum of Medium.C_nominal";
-  Real CMed(min=0, start=C_start, nominal=
-    if sumC_nominal > Modelica.Constants.eps then sumC_nominal else 1)
+  constant Real sumC_nominal=sum(
+    Medium.C_nominal)
+    "Sum of Medium.C_nominal";
+  Real CMed(
+    min=0,
+    start=C_start,
+    nominal=
+      if sumC_nominal > Modelica.Constants.eps then
+        sumC_nominal
+      else
+        1)
     "Medium trace substance to which the sensor is exposed";
-  parameter Real s[:]= {
-    if ( Modelica.Utilities.Strings.isEqual(string1=Medium.extraPropertiesNames[i],
-                                            string2=substanceName,
-                                            caseSensitive=false))
-    then 1 else 0 for i in 1:Medium.nC}
+  parameter Real s[:]={
+    if(Modelica.Utilities.Strings.isEqual(
+      string1=Medium.extraPropertiesNames[i],
+      string2=substanceName,
+      caseSensitive=false)) then
+      1
+    else
+      0 for i in 1:Medium.nC}
     "Vector with zero everywhere except where species is";
 initial equation
-  assert(max(s) > 0.9, "Trace substance '" + substanceName + "' is not present in medium '"
-         + Medium.mediumName + "'.\n"
-         + "Check sensor parameter and medium model.");
-
+  assert(
+    max(
+      s) > 0.9,
+    "Trace substance '"+substanceName+"' is not present in medium '"+Medium.mediumName+"'.\n"+"Check sensor parameter and medium model.");
   if dynamic then
     if initType == Modelica.Blocks.Types.Init.SteadyState then
-      der(C) = 0;
-     elseif initType == Modelica.Blocks.Types.Init.InitialState or
-           initType == Modelica.Blocks.Types.Init.InitialOutput then
-      C = C_start;
+      der(
+        C)=0;
+    elseif initType == Modelica.Blocks.Types.Init.InitialState or initType == Modelica.Blocks.Types.Init.InitialOutput then
+      C=C_start;
     end if;
   end if;
 equation
   if allowFlowReversal then
-     CMed = Modelica.Fluid.Utilities.regStep(
-              x=port_a.m_flow,
-              y1=s*port_b.C_outflow,
-              y2=s*port_a.C_outflow,
-              x_small=m_flow_small);
+    CMed=Modelica.Fluid.Utilities.regStep(
+      x=port_a.m_flow,
+      y1=s*port_b.C_outflow,
+      y2=s*port_a.C_outflow,
+      x_small=m_flow_small);
   else
-     CMed = s*port_b.C_outflow;
+    CMed=s*port_b.C_outflow;
   end if;
   // Output signal of sensor
   if dynamic then
-    der(C) = (CMed-C)*k*tauInv;
+    der(
+      C)=(CMed-C)*k*tauInv;
   else
-    C = CMed;
+    C=CMed;
   end if;
-annotation (defaultComponentName="senTraSub",
-  Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
-        graphics={
+  annotation (
+    defaultComponentName="senTraSub",
+    Icon(
+      coordinateSystem(
+        preserveAspectRatio=false,
+        extent={{-100,-100},{100,100}}),
+      graphics={
         Text(
           extent={{82,122},{0,92}},
           lineColor={0,0,0},
           textString="C"),
-        Line(points={{0,100},{0,70}}, color={0,0,127}),
-        Line(points={{-100,0},{-70,0}}, color={0,128,255}),
-        Line(points={{70,0},{100,0}}, color={0,128,255}),
+        Line(
+          points={{0,100},{0,70}},
+          color={0,0,127}),
+        Line(
+          points={{-100,0},{-70,0}},
+          color={0,128,255}),
+        Line(
+          points={{70,0},{100,0}},
+          color={0,128,255}),
         Text(
           extent={{-20,120},{-140,70}},
           lineColor={0,0,0},
-          textString=DynamicSelect("", String(C, leftjustified=false, significantDigits=3)))}),
-  Documentation(info="<html>
+          textString=DynamicSelect("",String(C,
+            leftjustified=false,
+            significantDigits=3)))}),
+    Documentation(
+      info="<html>
 <p>
 This model outputs the trace substance of the passing fluid.
 The sensor is ideal, i.e., it does not influence the fluid.
@@ -79,7 +103,8 @@ Setting <code>tau=0</code> is <i>not</i> recommend. See
 <a href=\"modelica://Buildings.Fluid.Sensors.UsersGuide\">
 Buildings.Fluid.Sensors.UsersGuide</a> for an explanation.
 </p>
-</html>", revisions="<html>
+</html>",
+      revisions="<html>
 <ul>
 <li>
 February 25, 2020, by Michael Wetter:<br/>

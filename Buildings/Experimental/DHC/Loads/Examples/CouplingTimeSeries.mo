@@ -47,38 +47,46 @@ model CouplingTimeSeries
     "Chilled water supply"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,origin={-50,-20})));
   Modelica.Blocks.Continuous.Integrator EHeaReq(
-    y(unit="J"))
+    y(
+      unit="J"))
     "Time integral of heating load"
     annotation (Placement(transformation(extent={{60,70},{80,90}})));
   Modelica.Blocks.Continuous.Integrator EHeaAct(
-    y(unit="J"))
+    y(
+      unit="J"))
     "Actual energy used for heating"
     annotation (Placement(transformation(extent={{100,70},{120,90}})));
   Modelica.Blocks.Continuous.Integrator ECooReq(
-    y(unit="J"))
+    y(
+      unit="J"))
     "Time integral of cooling load"
     annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
   Modelica.Blocks.Continuous.Integrator ECooAct(
-    y(unit="J"))
+    y(
+      unit="J"))
     "Actual energy used for cooling"
     annotation (Placement(transformation(extent={{100,-70},{120,-50}})));
   Buildings.Controls.OBC.CDL.Continuous.MovingMean QAveHeaReq_flow(
-    y(unit="W"),
+    y(
+      unit="W"),
     final delta=perAve)
     "Time average of heating load"
     annotation (Placement(transformation(extent={{60,110},{80,130}})));
   Buildings.Controls.OBC.CDL.Continuous.MovingMean QAveHeaAct_flow(
-    y(unit="W"),
+    y(
+      unit="W"),
     final delta=perAve)
     "Time average of heating heat flow rate"
     annotation (Placement(transformation(extent={{100,110},{120,130}})));
   Buildings.Controls.OBC.CDL.Continuous.MovingMean QAveCooReq_flow(
-    y(unit="W"),
+    y(
+      unit="W"),
     final delta=perAve)
     "Time average of cooling load"
     annotation (Placement(transformation(extent={{60,-110},{80,-90}})));
   Buildings.Controls.OBC.CDL.Continuous.MovingMean QAveCooAct_flow(
-    y(unit="W"),
+    y(
+      unit="W"),
     final delta=perAve)
     "Time average of cooling heat flow rate"
     annotation (Placement(transformation(extent={{100,-110},{120,-90}})));
@@ -96,28 +104,21 @@ equation
   connect(sinChiWat.ports[1],bui.ports_bChiWat[1])
     annotation (Line(points={{120,-20},{60,-20},{60,0},{30,0}},color={0,127,255}));
   connect(bui.QHea_flow,EHeaAct.u)
-    annotation (Line(points={{30.6667,14.6667},{40,14.6667},{40,60},{90,60},{90,
-          80},{98,80}},                                                                      color={0,0,127}));
+    annotation (Line(points={{30.6667,14.6667},{40,14.6667},{40,60},{90,60},{90,80},{98,80}},color={0,0,127}));
   connect(bui.QReqHea_flow,EHeaReq.u)
-    annotation (Line(points={{26.6667,-5.33333},{26.6667,-8},{36,-8},{36,80},{
-          58,80}},                                                                    color={0,0,127}));
+    annotation (Line(points={{26.6667,-5.33333},{26.6667,-8},{36,-8},{36,80},{58,80}},color={0,0,127}));
   connect(bui.QReqCoo_flow,ECooReq.u)
-    annotation (Line(points={{28,-5.33333},{28,-60},{58,-60}},          color={0,0,127}));
+    annotation (Line(points={{28,-5.33333},{28,-60},{58,-60}},color={0,0,127}));
   connect(bui.QCoo_flow,ECooAct.u)
-    annotation (Line(points={{30.6667,13.3333},{40,13.3333},{40,-40},{90,-40},{
-          90,-60},{98,-60}},                                                                     color={0,0,127}));
+    annotation (Line(points={{30.6667,13.3333},{40,13.3333},{40,-40},{90,-40},{90,-60},{98,-60}},color={0,0,127}));
   connect(bui.QReqHea_flow,QAveHeaReq_flow.u)
-    annotation (Line(points={{26.6667,-5.33333},{26.6667,-7.90323},{35.9677,
-          -7.90323},{35.9677,120},{58,120}},                                                                  color={0,0,127}));
+    annotation (Line(points={{26.6667,-5.33333},{26.6667,-7.90323},{35.9677,-7.90323},{35.9677,120},{58,120}},color={0,0,127}));
   connect(bui.QHea_flow,QAveHeaAct_flow.u)
-    annotation (Line(points={{30.6667,14.6667},{40,14.6667},{40,60},{90,60},{90,
-          120},{98,120}},                                                                      color={0,0,127}));
+    annotation (Line(points={{30.6667,14.6667},{40,14.6667},{40,60},{90,60},{90,120},{98,120}},color={0,0,127}));
   connect(bui.QReqCoo_flow,QAveCooReq_flow.u)
-    annotation (Line(points={{28,-5.33333},{28.6316,-5.33333},{28.6316,-60},{
-          28.6316,-100},{58,-100}},                                                                        color={0,0,127}));
+    annotation (Line(points={{28,-5.33333},{28.6316,-5.33333},{28.6316,-60},{28.6316,-100},{58,-100}},color={0,0,127}));
   connect(bui.QCoo_flow,QAveCooAct_flow.u)
-    annotation (Line(points={{30.6667,13.3333},{40,13.3333},{40,-40},{90,-40},{
-          90,-100},{98,-100}},                                                                     color={0,0,127}));
+    annotation (Line(points={{30.6667,13.3333},{40,13.3333},{40,-40},{90,-40},{90,-100},{98,-100}},color={0,0,127}));
   annotation (
     experiment(
       StopTime=604800,

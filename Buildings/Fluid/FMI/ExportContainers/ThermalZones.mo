@@ -1,40 +1,40 @@
 within Buildings.Fluid.FMI.ExportContainers;
 partial block ThermalZones
   "Partial block to export a model of multiple thermal zones as an FMU"
-
-  replaceable package Medium =
-    Modelica.Media.Interfaces.PartialMedium "Medium in the component"
-      annotation (choices(
-        choice(redeclare package Medium = Buildings.Media.Air "Moist air")));
-
-  parameter Integer nZon(min=1)
+  replaceable package Medium=Modelica.Media.Interfaces.PartialMedium
+    "Medium in the component"
+    annotation (choices(choice(redeclare package Medium=Buildings.Media.Air "Moist air")));
+  parameter Integer nZon(
+    min=1)
     "Number of thermal zones in this container";
-  parameter Integer nPorts(min=2)
+  parameter Integer nPorts(
+    min=2)
     "Number of fluid ports for each zone (must be the same for every zone)";
-
-
-  Interfaces.Inlet fluPor[nZon, nPorts](
-    redeclare each final package Medium = Medium,
+  Interfaces.Inlet fluPor[nZon,nPorts](
+    redeclare each final package Medium=Medium,
     each final use_p_in=false,
-    each final allowFlowReversal=true) "Fluid connectors" annotation (Placement(
-        transformation(extent={{-180,150},{-160,170}}), iconTransformation(
-          extent={{-180,150},{-160,170}})));
-
+    each final allowFlowReversal=true)
+    "Fluid connectors"
+    annotation (Placement(transformation(extent={{-180,150},{-160,170}}),iconTransformation(extent={{-180,150},{-160,170}})));
   Adaptors.ThermalZone theZonAda[nZon](
-    redeclare each final package Medium = Medium,
+    redeclare each final package Medium=Medium,
     each final nPorts=nPorts)
     "Adapter between the HVAC supply and return air, and its connectors for the FMU"
     annotation (Placement(transformation(extent={{-140,150},{-120,170}})));
-
 equation
   for iZon in 1:nZon loop
     for iPor in 1:nPorts loop
-      connect(theZonAda[iZon].fluPor[iPor], fluPor[iZon, iPor]) annotation (Line(points={{-142.2,160},{
-          -142.2,160},{-144,160},{-170,160}},color={0,0,255}));
+      connect(theZonAda[iZon].fluPor[iPor],fluPor[iZon,iPor])
+        annotation (Line(points={{-142.2,160},{-142.2,160},{-144,160},{-170,160}},color={0,0,255}));
     end for;
   end for;
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-160,-140},
-            {160,180}}), graphics={Rectangle(
+  annotation (
+    Icon(
+      coordinateSystem(
+        preserveAspectRatio=false,
+        extent={{-160,-140},{160,180}}),
+      graphics={
+        Rectangle(
           extent={{-160,180},{160,-140}},
           fillPattern=FillPattern.Solid,
           fillColor={255,255,255},
@@ -84,13 +84,18 @@ equation
           extent={{78,-32},{82,-68}},
           lineColor={95,95,95},
           fillColor={170,213,255},
-          fillPattern=FillPattern.Solid)}),                      Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-160,-140},{160,180}}),
-        graphics={Text(
+          fillPattern=FillPattern.Solid)}),
+    Diagram(
+      coordinateSystem(
+        preserveAspectRatio=false,
+        extent={{-160,-140},{160,180}}),
+      graphics={
+        Text(
           extent={{-118,172},{-104,166}},
           lineColor={0,0,127},
           textString="[%nZon, %nPorts]")}),
-    Documentation(info="<html>
+    Documentation(
+      info="<html>
     <p>
 Model that is used as a container for a multiple thermal zones
 that are to be exported as an FMU.
@@ -215,7 +220,8 @@ Buildings.Fluid.FMI.ExportContainers.Validation.RoomHVAC</a>
 shows conceptually how such an FMU can then be connected to a HVAC system
 that has signal flow.
 </p>
-</html>", revisions="<html>
+</html>",
+      revisions="<html>
 <ul>
 <li>
 January 18, 2019, by Jianjun Hu:<br/>

@@ -1,36 +1,36 @@
 within Buildings.Fluid.FMI.ExportContainers.Examples.FMUs;
-block IdealSource_m_flow "Declaration of an FMU that exports a mass flow source and sink"
-   extends Buildings.Fluid.FMI.ExportContainers.PartialTwoPort(
-     redeclare replaceable package Medium = Buildings.Media.Air);
-
-  Modelica.Blocks.Interfaces.RealInput m_flow_in(final unit="kg/s")
+block IdealSource_m_flow
+  "Declaration of an FMU that exports a mass flow source and sink"
+  extends Buildings.Fluid.FMI.ExportContainers.PartialTwoPort(
+    redeclare replaceable package Medium=Buildings.Media.Air);
+  Modelica.Blocks.Interfaces.RealInput m_flow_in(
+    final unit="kg/s")
     "Prescribed mass flow rate"
-    annotation (Placement(transformation(
-        extent={{-20,-20},{20,20}},
-        origin={-120,70}), iconTransformation(extent={{-120,70},{-100,90}})));
-
+    annotation (Placement(transformation(extent={{-20,-20},{20,20}},origin={-120,70}),iconTransformation(extent={{-120,70},{-100,90}})));
 equation
-  assert(abs(inlet.m_flow-outlet.m_flow) < 1E-2,
-  "The mass flow rate of port_a and port_b is not conserved.
+  assert(
+    abs(
+      inlet.m_flow-outlet.m_flow) < 1E-2,
+    "The mass flow rate of port_a and port_b is not conserved.
   This indicates a wrong configuration of your system model.");
-  outlet.m_flow = m_flow_in;
-
+  outlet.m_flow=m_flow_in;
   // We use connect statements
   // because outlet.backward and inlet.backward
   // is removed if allowFlowReversal=false.
   // The connect is applied on the components of the port
   // to avoid also connecting the mass flow rate which would
   // yield an overdetermined system of equations.
-  connect(inlet.forward, outlet.forward);
-  connect(outlet.backward, inlet.backward);
-  connect(outlet.p, inlet.p);
-
+  connect(inlet.forward,outlet.forward);
+  connect(outlet.backward,inlet.backward);
+  connect(outlet.p,inlet.p);
   annotation (
-  Documentation(info="<html>
+    Documentation(
+      info="<html>
 <p>
 This example demonstrates how to export an FMU that sets the mass flow rate.
 </p>
-</html>", revisions="<html>
+</html>",
+      revisions="<html>
 <ul>
 <li>
 September 24, 2015 by Michael Wetter:<br/>
@@ -43,16 +43,19 @@ First implementation.
 </li>
 </ul>
 </html>"),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FMI/ExportContainers/Examples/FMUs/IdealSource_m_flow.mos"
-        "Export FMU"),
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}), graphics={
+    __Dymola_Commands(
+      file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FMI/ExportContainers/Examples/FMUs/IdealSource_m_flow.mos" "Export FMU"),
+    Icon(
+      coordinateSystem(
+        preserveAspectRatio=false,
+        extent={{-100,-100},{100,100}}),
+      graphics={
         Rectangle(
           extent={{-100,14},{100,-16}},
           lineColor={0,0,0},
           fillColor={0,127,255},
           fillPattern=FillPattern.HorizontalCylinder),
-                              Text(
+        Text(
           extent={{-94,110},{-50,52}},
           lineColor={0,0,127},
           textString="m_flow"),

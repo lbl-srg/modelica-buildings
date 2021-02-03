@@ -1,8 +1,10 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data;
-package Generic "Package with generic performance curves"
+package Generic
+  "Package with generic performance curves"
   extends Modelica.Icons.MaterialPropertiesPackage;
-
-  annotation (Documentation(info="<html>
+  annotation (
+    Documentation(
+      info="<html>
 <p>
 This package contains performance curves for the cooling capacity and the EIR
 of water-cooled DX cooling coils.
@@ -13,7 +15,7 @@ The data are described in
 Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.DXCoil</a>.
 </p>
 </html>",
-revisions="<html>
+      revisions="<html>
 <ul>
 <li>
 July 23, 2012 by Kaustubh Phalak:<br/>

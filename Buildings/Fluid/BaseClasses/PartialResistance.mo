@@ -1,64 +1,94 @@
 within Buildings.Fluid.BaseClasses;
-partial model PartialResistance "Partial model for a hydraulic resistance"
-    extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
-     show_T=false,
-     dp(nominal=if dp_nominal_pos > Modelica.Constants.eps
-          then dp_nominal_pos else 1),
-     m_flow(
-        nominal=if m_flow_nominal_pos > Modelica.Constants.eps
-          then m_flow_nominal_pos else 1),
-     final m_flow_small = 1E-4*abs(m_flow_nominal));
-
-  constant Boolean homotopyInitialization = true "= true, use homotopy method"
-    annotation(HideResult=true);
-
-  parameter Boolean from_dp = false
+partial model PartialResistance
+  "Partial model for a hydraulic resistance"
+  extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
+    show_T=false,
+    dp(
+      nominal=
+        if dp_nominal_pos > Modelica.Constants.eps then
+          dp_nominal_pos
+        else
+          1),
+    m_flow(
+      nominal=
+        if m_flow_nominal_pos > Modelica.Constants.eps then
+          m_flow_nominal_pos
+        else
+          1),
+    final m_flow_small=1E-4*abs(
+      m_flow_nominal));
+  constant Boolean homotopyInitialization=true
+    "= true, use homotopy method"
+    annotation (HideResult=true);
+  parameter Boolean from_dp=false
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
-    annotation (Evaluate=true, Dialog(tab="Advanced"));
-
-  parameter Modelica.SIunits.PressureDifference dp_nominal(displayUnit="Pa")
+    annotation (Evaluate=true,Dialog(tab="Advanced"));
+  parameter Modelica.SIunits.PressureDifference dp_nominal(
+    displayUnit="Pa")
     "Pressure drop at nominal mass flow rate"
-    annotation(Dialog(group = "Nominal condition"));
-
-  parameter Boolean linearized = false
+    annotation (Dialog(group="Nominal condition"));
+  parameter Boolean linearized=false
     "= true, use linear relation between m_flow and dp for any flow rate"
-    annotation(Evaluate=true, Dialog(tab="Advanced"));
-
-  parameter Modelica.SIunits.MassFlowRate m_flow_turbulent(min=0)
+    annotation (Evaluate=true,Dialog(tab="Advanced"));
+  parameter Modelica.SIunits.MassFlowRate m_flow_turbulent(
+    min=0)
     "Turbulent flow if |m_flow| >= m_flow_turbulent";
-
 protected
-  parameter Medium.ThermodynamicState sta_default=
-     Medium.setState_pTX(T=Medium.T_default, p=Medium.p_default, X=Medium.X_default);
-  parameter Modelica.SIunits.DynamicViscosity eta_default=Medium.dynamicViscosity(sta_default)
+  parameter Medium.ThermodynamicState sta_default=Medium.setState_pTX(
+    T=Medium.T_default,
+    p=Medium.p_default,
+    X=Medium.X_default);
+  parameter Modelica.SIunits.DynamicViscosity eta_default=Medium.dynamicViscosity(
+    sta_default)
     "Dynamic viscosity, used to compute transition to turbulent flow regime";
-
-  final parameter Modelica.SIunits.MassFlowRate m_flow_nominal_pos = abs(m_flow_nominal)
+  final parameter Modelica.SIunits.MassFlowRate m_flow_nominal_pos=abs(
+    m_flow_nominal)
     "Absolute value of nominal flow rate";
-  final parameter Modelica.SIunits.PressureDifference dp_nominal_pos(displayUnit="Pa") = abs(dp_nominal)
+  final parameter Modelica.SIunits.PressureDifference dp_nominal_pos(
+    displayUnit="Pa")=abs(
+    dp_nominal)
     "Absolute value of nominal pressure difference";
 initial equation
-  assert(homotopyInitialization, "In " + getInstanceName() +
-    ": The constant homotopyInitialization has been modified from its default value. This constant will be removed in future releases.",
-    level = AssertionLevel.warning);
-
+  assert(
+    homotopyInitialization,
+    "In "+getInstanceName()+": The constant homotopyInitialization has been modified from its default value. This constant will be removed in future releases.",
+    level=AssertionLevel.warning);
 equation
   // Isenthalpic state transformation (no storage and no loss of energy)
-  port_a.h_outflow = if allowFlowReversal then inStream(port_b.h_outflow) else Medium.h_default;
-  port_b.h_outflow = inStream(port_a.h_outflow);
-
+  port_a.h_outflow=
+    if allowFlowReversal then
+      inStream(
+        port_b.h_outflow)
+    else
+      Medium.h_default;
+  port_b.h_outflow=inStream(
+    port_a.h_outflow);
   // Mass balance (no storage)
-  port_a.m_flow + port_b.m_flow = 0;
-
+  port_a.m_flow+port_b.m_flow=0;
   // Transport of substances
-  port_a.Xi_outflow = if allowFlowReversal then inStream(port_b.Xi_outflow) else Medium.X_default[1:Medium.nXi];
-  port_b.Xi_outflow = inStream(port_a.Xi_outflow);
-
-  port_a.C_outflow = if allowFlowReversal then inStream(port_b.C_outflow) else zeros(Medium.nC);
-  port_b.C_outflow = inStream(port_a.C_outflow);
-
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics={
+  port_a.Xi_outflow=
+    if allowFlowReversal then
+      inStream(
+        port_b.Xi_outflow)
+    else
+      Medium.X_default[1:Medium.nXi];
+  port_b.Xi_outflow=inStream(
+    port_a.Xi_outflow);
+  port_a.C_outflow=
+    if allowFlowReversal then
+      inStream(
+        port_b.C_outflow)
+    else
+      zeros(
+        Medium.nC);
+  port_b.C_outflow=inStream(
+    port_a.C_outflow);
+  annotation (
+    Icon(
+      coordinateSystem(
+        preserveAspectRatio=false,
+        extent={{-100,-100},{100,100}}),
+      graphics={
         Rectangle(
           extent={{-100,40},{100,-40}},
           lineColor={0,0,0},
@@ -77,19 +107,20 @@ equation
           pattern=LinePattern.None,
           lineColor={255,255,255}),
         Rectangle(
-          extent=DynamicSelect({{-100,10},{-100,10}}, {{100,10},{100+200*max(-1, min(0, m_flow/(abs(m_flow_nominal)))),-10}}),
+          extent=DynamicSelect({{-100,10},{-100,10}},{{100,10},{100+200*max(-1,min(0,m_flow/(abs(m_flow_nominal)))),-10}}),
           lineColor={28,108,200},
           fillColor={255,0,0},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
         Rectangle(
-          extent=DynamicSelect({{-100,10},{-100,10}}, {{-100,10},{-100+200*min(1, max(0, m_flow/abs(m_flow_nominal))),-10}}),
+          extent=DynamicSelect({{-100,10},{-100,10}},{{-100,10},{-100+200*min(1,max(0,m_flow/abs(m_flow_nominal))),-10}}),
           lineColor={28,108,200},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None)}),
-          defaultComponentName="res",
-Documentation(info="<html>
+    defaultComponentName="res",
+    Documentation(
+      info="<html>
 <p>
 Partial model for a flow resistance, possible with variable flow coefficient.
 Models that extend this class need to implement an equation that relates
@@ -102,7 +133,8 @@ See for example
 Buildings.Fluid.FixedResistances.PressureDrop</a> for a model that extends
 this base class.
 </p>
-</html>", revisions="<html>
+</html>",
+      revisions="<html>
 <ul>
 <li>
 April 14, 2020, by Michael Wetter:<br/>

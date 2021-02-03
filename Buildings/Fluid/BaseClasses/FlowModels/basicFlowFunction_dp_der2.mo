@@ -2,12 +2,15 @@ within Buildings.Fluid.BaseClasses.FlowModels;
 function basicFlowFunction_dp_der2
   "2nd derivative of flow function2nd derivative of function that computes mass flow rate for given pressure drop"
   extends Modelica.Icons.Function;
-
-  input Modelica.SIunits.PressureDifference dp(displayUnit="Pa")
+  input Modelica.SIunits.PressureDifference dp(
+    displayUnit="Pa")
     "Pressure difference between port_a and port_b (= port_a.p - port_b.p)";
-  input Real k(min=0, unit="")
+  input Real k(
+    min=0,
+    unit="")
     "Flow coefficient, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)";
-  input Modelica.SIunits.MassFlowRate m_flow_turbulent(min=0)
+  input Modelica.SIunits.MassFlowRate m_flow_turbulent(
+    min=0)
     "Mass flow rate where transition to turbulent flow occurs";
   input Real dp_der
     "1st derivative of pressure difference between port_a and port_b (= port_a.p - port_b.p)";
@@ -16,22 +19,27 @@ function basicFlowFunction_dp_der2
   output Real m_flow_der2
     "2nd derivative of mass flow rate in design flow direction";
 protected
-  Modelica.SIunits.PressureDifference dp_turbulent = (m_flow_turbulent/k)^2
+  Modelica.SIunits.PressureDifference dp_turbulent=(m_flow_turbulent/k)^2
     "Pressure where flow changes to turbulent";
   Real dpNorm=dp/dp_turbulent
     "Normalised pressure difference";
   Real dpNormSq=dpNorm^2
     "Square of normalised pressure difference";
 algorithm
- m_flow_der2 := if noEvent(abs(dp)>dp_turbulent)
-                 then 0.5*k/sqrt(abs(dp))*(-0.5/dp * dp_der^2 + dp_der2)
-                 else m_flow_turbulent/dp_turbulent*(
-                       (1.40625  + (0.78125*dpNormSq - 1.6875)*dpNormSq)*dp_der2
-                     + (-3.375 + 3.125*dpNormSq)*dpNorm/dp_turbulent*dp_der^2);
-
- annotation (smoothOrder=0,
- Inline=false,
-Documentation(info="<html>
+  m_flow_der2 :=
+    if noEvent(
+      abs(
+        dp) > dp_turbulent) then
+      0.5*k/sqrt(
+        abs(
+          dp))*(-0.5/dp*dp_der^2+dp_der2)
+    else
+      m_flow_turbulent/dp_turbulent*((1.40625+(0.78125*dpNormSq-1.6875)*dpNormSq)*dp_der2+(-3.375+3.125*dpNormSq)*dpNorm/dp_turbulent*dp_der^2);
+  annotation (
+    smoothOrder=0,
+    Inline=false,
+    Documentation(
+      info="<html>
 <p>
 Function that implements the second order derivative of
 <a href=\"modelica://Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp\">
@@ -39,7 +47,7 @@ Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp</a>
 with respect to the mass flow rate.
 </p>
 </html>",
-revisions="<html>
+      revisions="<html>
 <ul>
 <li>
 January 4, 2019, by Michael Wetter:<br/>

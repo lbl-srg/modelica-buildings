@@ -10,27 +10,22 @@ model SideCold
     "Minimum value of chilled water supply temperature set point";
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
-    annotation (choices(choice=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
-    choice=Buildings.Controls.OBC.CDL.Types.SimpleController.PI));
+    annotation (choices(choice=Buildings.Controls.OBC.CDL.Types.SimpleController.P,choice=Buildings.Controls.OBC.CDL.Types.SimpleController.PI));
   parameter Real k(
     min=0)=0.1
     "Gain of controller";
   parameter Modelica.SIunits.Time Ti(
     min=Buildings.Controls.OBC.CDL.Constants.small)=120
     "Time constant of integrator block"
-    annotation (Dialog(enable=
-    controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
-    controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+    annotation (Dialog(enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uCol
     "Cold rejection control signal"
-    annotation (Placement(transformation(extent={{-220,-20},{-180,20}}),
-    iconTransformation(extent={{-140,-22},{-100,18}})));
+    annotation (Placement(transformation(extent={{-220,-20},{-180,20}}),iconTransformation(extent={{-140,-22},{-100,18}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TChiWatSupSet(
     final unit="K",
     displayUnit="degC")
     "Chilled water supply temperature set point"
-    annotation (Placement(transformation(extent={{180,60},{220,100}}),
-    iconTransformation(extent={{100,-60},{140,-20}})));
+    annotation (Placement(transformation(extent={{180,60},{220,100}}),iconTransformation(extent={{100,-60},{140,-20}})));
   Buildings.Controls.OBC.CDL.Continuous.Line mapFun[nSouAmb]
     "Mapping functions for ambient source control"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
@@ -99,30 +94,25 @@ model SideCold
     annotation (Placement(transformation(extent={{140,70},{160,90}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHeaCoo
     "Enable signal for heating or cooling"
-    annotation (Placement(transformation(extent={{-220,100},{-180,140}}),
-    iconTransformation(extent={{-140,60},{-100,100}})));
+    annotation (Placement(transformation(extent={{-220,100},{-180,140}}),iconTransformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSet(
     final unit="K",
     displayUnit="degC")
     "Supply temperature set point (heating or chilled water)"
-    annotation (Placement(transformation(extent={{-220,20},{-180,60}}),
-    iconTransformation(extent={{-140,-62},{-100,-22}})));
+    annotation (Placement(transformation(extent={{-220,20},{-180,60}}),iconTransformation(extent={{-140,-62},{-100,-22}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TBot(
     final unit="K",
     displayUnit="degC")
     "Temperature at bottom of tank"
-    annotation (Placement(transformation(extent={{-220,-100},{-180,-60}}),
-    iconTransformation(extent={{-140,-104},{-100,-64}})));
+    annotation (Placement(transformation(extent={{-220,-100},{-180,-60}}),iconTransformation(extent={{-140,-104},{-100,-64}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yAmb[nSouAmb](
     each final unit="1")
     "Control signal for ambient sources"
-    annotation (Placement(transformation(extent={{180,20},{220,60}}),
-    iconTransformation(extent={{100,20},{140,60}})));
+    annotation (Placement(transformation(extent={{180,20},{220,60}}),iconTransformation(extent={{100,20},{140,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yValIso(
     final unit="1")
     "Ambient loop isolation valve control signal"
-    annotation (Placement(transformation(extent={{180,-20},{220,20}}),
-    iconTransformation(extent={{100,-20},{140,20}})));
+    annotation (Placement(transformation(extent={{180,-20},{220,20}}),iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea
     "Convert DO to AO signal"
     annotation (Placement(transformation(extent={{40,-110},{60,-90}})));

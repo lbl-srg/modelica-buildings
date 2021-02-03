@@ -1,17 +1,22 @@
 within Buildings.Fluid.HeatExchangers.RadiantSlabs.Examples;
 model SingleCircuitMultipleCircuitFiniteDifference
   "Model that tests the radiant slab with multiple parallel circuits"
-  extends
-    Buildings.Fluid.HeatExchangers.RadiantSlabs.Examples.SingleCircuitMultipleCircuitEpsilonNTU(
-    sla1(heatTransfer=Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.HeatTransfer.FiniteDifference),
-    sla2(heatTransfer=Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.HeatTransfer.FiniteDifference),
-    sla3(heatTransfer=Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.HeatTransfer.FiniteDifference));
-
- annotation(__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/RadiantSlabs/Examples/SingleCircuitMultipleCircuitFiniteDifference.mos"
-        "Simulate and plot"),
-          Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-140,-160},
-            {160,160}})),
-Documentation(info="<html>
+  extends Buildings.Fluid.HeatExchangers.RadiantSlabs.Examples.SingleCircuitMultipleCircuitEpsilonNTU(
+    sla1(
+      heatTransfer=Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.HeatTransfer.FiniteDifference),
+    sla2(
+      heatTransfer=Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.HeatTransfer.FiniteDifference),
+    sla3(
+      heatTransfer=Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.HeatTransfer.FiniteDifference));
+  annotation (
+    __Dymola_Commands(
+      file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/RadiantSlabs/Examples/SingleCircuitMultipleCircuitFiniteDifference.mos" "Simulate and plot"),
+    Diagram(
+      coordinateSystem(
+        preserveAspectRatio=true,
+        extent={{-140,-160},{160,160}})),
+    Documentation(
+      info="<html>
 <p>
 This example compares the results of two models of a single circuit that are arranged in
 parallel, versus a model that directly implements two parallel circuits.
@@ -22,7 +27,7 @@ The model is exposed to a step change in pressure, which causes forward and reve
 flow.
 </p>
 </html>",
-revisions="<html>
+      revisions="<html>
 <ul>
 <li>
 October 11, 2013, by Michael Wetter:<br/>
