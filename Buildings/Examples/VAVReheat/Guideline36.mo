@@ -555,6 +555,12 @@ its input.
 </html>", revisions="<html>
 <ul>
 <li>
+February 03, 2021, by Baptiste Ravache:<br/>
+Refactored the sizing of the heating coil in the VAVBranch (renamed VAVReheatBox) class.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2059\">#2024</a>.
+</li>
+<li>
 July 10, 2020, by Antoine Gautier:<br/>
 Changed design and control parameters for outdoor air flow.<br/>
 This is for

@@ -1,5 +1,5 @@
 within Buildings.Examples.VAVReheat.BaseClasses;
-model VAVBranch "Supply branch of a VAV system"
+model VAVReheatBox "Supply box of a VAV system with a hot water reheat coil"
   extends Modelica.Blocks.Icons.Block;
   replaceable package MediumA = Modelica.Media.Interfaces.PartialMedium
     "Medium model for air" annotation (choicesAllMatching=true);
@@ -14,10 +14,10 @@ model VAVBranch "Supply branch of a VAV system"
   parameter Real ratVFloHea = 1.0 "Flow rate ratio in heating mode";
   parameter Modelica.SIunits.Volume VRoo "Room volume";
 
-  parameter Modelica.SIunits.Temperature T_HW_nominal=355.35 "Reheat coil nominal inlet water temperature";
+  parameter Modelica.SIunits.Temperature THotWat_nominal=355.35 "Reheat coil nominal inlet water temperature";
 
-  final parameter Modelica.SIunits.Temperature TAirInlNom = 281.65 "Inlet air nominal temperature";
-  final parameter Modelica.SIunits.Temperature TAirOutNom = 323.15 "Outlet air nominal temperature";
+  final parameter Modelica.SIunits.Temperature TAirInlNom = 288.15 "Inlet air nominal temperature";
+  final parameter Modelica.SIunits.Temperature TAirOutNom = 305.15 "Outlet air nominal temperature";
   final parameter Modelica.SIunits.SpecificHeatCapacity CpAir = 1004 "Air specific heat capacity";
   final parameter Modelica.SIunits.SpecificHeatCapacity CpWater = 4180 "Water specific heat capacity";
   final parameter Modelica.SIunits.HeatFlowRate QFloNom = m_flow_nominal*ratVFloHea*CpAir*(TAirOutNom - TAirInlNom) "Nominal heat flow rate";
@@ -28,8 +28,9 @@ model VAVBranch "Supply branch of a VAV system"
   Buildings.Fluid.Actuators.Dampers.PressureIndependent vav(
     redeclare package Medium = MediumA,
     m_flow_nominal=m_flow_nominal,
-    dpDamper_nominal=220 + 20,
-    allowFlowReversal=allowFlowReversal) "VAV box for room" annotation (
+    dpDamper_nominal=20,
+    allowFlowReversal=allowFlowReversal,
+    dpFixed_nominal=130)                 "VAV box for room" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -46,7 +47,7 @@ model VAVBranch "Supply branch of a VAV system"
     dp2_nominal=0,
     allowFlowReversal1=false,
     allowFlowReversal2=allowFlowReversal,
-    T_a1_nominal=T_HW_nominal,
+    T_a1_nominal=THotWat_nominal,
     T_a2_nominal=TAirInlNom) "Heat exchanger of terminal box" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
@@ -82,11 +83,13 @@ model VAVBranch "Supply branch of a VAV system"
   Modelica.Blocks.Interfaces.RealOutput y_actual "Actual VAV damper position"
     annotation (Placement(transformation(extent={{100,46},{120,66}}),
         iconTransformation(extent={{100,70},{120,90}})));
-  Modelica.Fluid.Interfaces.FluidPort_a port_aHotWat(redeclare package Medium =
+  Modelica.Fluid.Interfaces.FluidPort_a port_aHotWat(redeclare package Medium
+      =
       MediumW) "Hot water inlet port"
     annotation (Placement(transformation(extent={{-110,-20},{-90,0}}),
         iconTransformation(extent={{-110,-20},{-90,0}})));
-  Modelica.Fluid.Interfaces.FluidPort_b port_bHotWat(redeclare package Medium =
+  Modelica.Fluid.Interfaces.FluidPort_b port_bHotWat(redeclare package Medium
+      =
       MediumW) "Hot water outlet port"
     annotation (Placement(transformation(extent={{-108,-74},{-88,-54}}),
         iconTransformation(extent={{-108,-74},{-88,-54}})));
@@ -208,4 +211,4 @@ and requires a discharge air flow rate set-point (normalized to the nominal valu
 as a control signal.
 </p>
 </html>"));
-end VAVBranch;
+end VAVReheatBox;

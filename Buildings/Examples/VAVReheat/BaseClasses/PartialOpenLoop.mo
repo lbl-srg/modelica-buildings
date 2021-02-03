@@ -106,7 +106,7 @@ partial model PartialOpenLoop
     "Building static pressure";
   parameter Real yFanMin = 0.1 "Minimum fan speed";
 
-  parameter Modelica.SIunits.Temperature THWSup=355.35;
+  parameter Modelica.SIunits.Temperature THotWat_nominal=318.15 "Reheat coil nominal inlet water temperature";
 
   parameter Boolean allowFlowReversal=true
     "= false to simplify equations, assuming, but not enforcing, no flow reversal"
@@ -251,7 +251,7 @@ partial model PartialOpenLoop
     annotation (Placement(transformation(extent={{30,-50},{50,-30}})));
   Buildings.Fluid.Sources.MassFlowSource_T souHea(
     redeclare package Medium = MediumW,
-    T=THWSup,
+    T=THotWat_nominal,
     use_m_flow_in=true,
     nPorts=1)           "Source for heating coil" annotation (Placement(
         transformation(
@@ -262,46 +262,46 @@ partial model PartialOpenLoop
         MediumA, m_flow_nominal=m_flow_nominal) "Outside air volume flow rate"
     annotation (Placement(transformation(extent={{-72,-44},{-50,-22}})));
 
-  Buildings.Examples.VAVReheat.BaseClasses.VAVBranch cor(
+  Buildings.Examples.VAVReheat.BaseClasses.VAVReheatBox cor(
     redeclare package MediumA = MediumA,
     redeclare package MediumW = MediumW,
     m_flow_nominal=mCor_flow_nominal,
     VRoo=VRooCor,
     allowFlowReversal=allowFlowReversal,
-    T_HW_nominal=THWSup)
+    THotWat_nominal=THotWat_nominal)
     "Zone for core of buildings (azimuth will be neglected)"
     annotation (Placement(transformation(extent={{570,22},{610,62}})));
-  Buildings.Examples.VAVReheat.BaseClasses.VAVBranch sou(
+  Buildings.Examples.VAVReheat.BaseClasses.VAVReheatBox sou(
     redeclare package MediumA = MediumA,
     redeclare package MediumW = MediumW,
     m_flow_nominal=mSou_flow_nominal,
     VRoo=VRooSou,
     allowFlowReversal=allowFlowReversal,
-    T_HW_nominal=THWSup)                                 "South-facing thermal zone"
+    THotWat_nominal=THotWat_nominal) "South-facing thermal zone"
     annotation (Placement(transformation(extent={{750,20},{790,60}})));
-  Buildings.Examples.VAVReheat.BaseClasses.VAVBranch eas(
+  Buildings.Examples.VAVReheat.BaseClasses.VAVReheatBox eas(
     redeclare package MediumA = MediumA,
     redeclare package MediumW = MediumW,
     m_flow_nominal=mEas_flow_nominal,
     VRoo=VRooEas,
     allowFlowReversal=allowFlowReversal,
-    T_HW_nominal=THWSup)                                 "East-facing thermal zone"
+    THotWat_nominal=THotWat_nominal) "East-facing thermal zone"
     annotation (Placement(transformation(extent={{930,20},{970,60}})));
-  Buildings.Examples.VAVReheat.BaseClasses.VAVBranch nor(
+  Buildings.Examples.VAVReheat.BaseClasses.VAVReheatBox nor(
     redeclare package MediumA = MediumA,
     redeclare package MediumW = MediumW,
     m_flow_nominal=mNor_flow_nominal,
     VRoo=VRooNor,
     allowFlowReversal=allowFlowReversal,
-    T_HW_nominal=THWSup)                                 "North-facing thermal zone"
+    THotWat_nominal=THotWat_nominal) "North-facing thermal zone"
     annotation (Placement(transformation(extent={{1090,20},{1130,60}})));
-  Buildings.Examples.VAVReheat.BaseClasses.VAVBranch wes(
+  Buildings.Examples.VAVReheat.BaseClasses.VAVReheatBox wes(
     redeclare package MediumA = MediumA,
     redeclare package MediumW = MediumW,
     m_flow_nominal=mWes_flow_nominal,
     VRoo=VRooWes,
     allowFlowReversal=allowFlowReversal,
-    T_HW_nominal=THWSup)                                 "West-facing thermal zone"
+    THotWat_nominal=THotWat_nominal) "West-facing thermal zone"
     annotation (Placement(transformation(extent={{1290,20},{1330,60}})));
   Buildings.Fluid.FixedResistances.Junction splRetRoo1(
     redeclare package Medium = MediumA,
@@ -615,7 +615,7 @@ public
     annotation (Placement(transformation(extent={{-40,-100},{-20,-80}})));
   Fluid.Sources.MassFlowSource_T souHeaCor(
     redeclare package Medium = MediumW,
-    T=THWSup,
+    T=THotWat_nominal,
     use_m_flow_in=true,
     nPorts=1) "Source for core zone reheat coil" annotation (Placement(
         transformation(
@@ -624,7 +624,7 @@ public
         origin={540,38})));
   Fluid.Sources.MassFlowSource_T souHeaSou(
     redeclare package Medium = MediumW,
-    T=THWSup,
+    T=THotWat_nominal,
     use_m_flow_in=true,
     nPorts=1) "Source for south zone reheat coil" annotation (Placement(
         transformation(
@@ -633,7 +633,7 @@ public
         origin={722,36})));
   Fluid.Sources.MassFlowSource_T souHeaEas(
     redeclare package Medium = MediumW,
-    T=THWSup,
+    T=THotWat_nominal,
     use_m_flow_in=true,
     nPorts=1) "Source for east zone reheat coil" annotation (Placement(
         transformation(
@@ -642,7 +642,7 @@ public
         origin={896,36})));
   Fluid.Sources.MassFlowSource_T souHeaNor(
     redeclare package Medium = MediumW,
-    T=THWSup,
+    T=THotWat_nominal,
     use_m_flow_in=true,
     nPorts=1) "Source for north zone reheat coil" annotation (Placement(
         transformation(
@@ -651,7 +651,7 @@ public
         origin={1058,36})));
   Fluid.Sources.MassFlowSource_T souHeaWes(
     redeclare package Medium = MediumW,
-    T=THWSup,
+    T=THotWat_nominal,
     use_m_flow_in=true,
     nPorts=1) "Source for west zone reheat coil" annotation (Placement(
         transformation(

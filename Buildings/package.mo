@@ -445,6 +445,13 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1502\">issue 1502</a>.
     </td>
+    <tr><td valign=\"top\">Buildings.Examples.VAVReheat.BaseClasses.VAVBranch
+    </td>
+    <td valign=\"top\">Renamed to <code>VAVReheatBox</code>, refactored reheat coil sizing and moved water source out of class to
+		<code>Buildings.Examples.VAVReheat.BaseClasses.PartialOpenLoop</code>.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2059\">issue 2059</a>.
+    </td>
 <tr><td valign=\"top\">Buildings.Examples.VAVReheat.BaseClasses.Floor
     </td>
     <td valign=\"top\">Refactored model to extend from the newly added <code>Buildings.Examples.VAVReheat.BaseClasses.PartialFloor</code> model.<br/>
