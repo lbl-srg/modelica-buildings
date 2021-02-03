@@ -387,7 +387,7 @@ the simulation will stop with an error.
 <p>
 This model computes in Modelica the air energy, mass and species
 balance. Outside air infiltration needs to be modeled in Modelica,
-any infiltration that the EnergyPlus model may specify is ignored.
+because any infiltration that the EnergyPlus model may specify is ignored.
 The convective heat transfer with the building fabric,
 the long-wave and the short-wave radiation are computed by EnergyPlus.
 </p>
