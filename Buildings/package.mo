@@ -753,17 +753,21 @@ that can lead to wrong simulation results):
 </table>
 <!-- Uncritical errors -->
 <p>
-The following <b style=\"color:red\">uncritical errors</b> have been fixed (i.e., errors
+The following <b style=\"color:red\">uncritical errors</b" + "> have been fixed (i.e., errors
 that do <b style=\"color:red\">not</b> lead to wrong simulation results, e.g.,
 units are wrong or errors in documentation):
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>xxx</b>
+<tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL.Continuous</b>
     </td>
 </tr>
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.Greater<br/>
+				Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold<br/>
+				Buildings.Controls.OBC.CDL.Continuous.Less<br/>
+				Buildings.Controls.OBC.CDL.Continuous.LessThreshold
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Corrected documentation.<br/>
+			    This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2246\">issue 2246</a>.
     </td>
 </tr>
 </table>

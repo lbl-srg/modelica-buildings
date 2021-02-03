@@ -156,9 +156,9 @@ is greater than a threshold <code>t</code>, optionally within a hysteresis <code
 </p>
 <p>
 The parameter <code>h</code> is used to specify a hysteresis.
-If <i>h &gt; 0</i>, then the output switches to <code>true</code> if <i>u &gt; t</i>,
+If <i>h &ne; 0</i>, then the output switches to <code>true</code> if <i>u &gt; t</i>,
 where <i>t</i> is the threshold,
-and it switches to <code>false</code> if <i>u &gt; t-h</i>.
+and it switches to <code>false</code> if <i>u &lt; t-h</i>.
 </p>
 <p>
 Enabling hysteresis can avoid frequent switching.
@@ -170,6 +170,11 @@ To disable hysteresis, set <code>h=0</code>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 3, 2021, by Antoine Gautier:<br/>
+Corrected documentation.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2246\">issue 2246</a>.
+</li>
 <li>
 August 5, 2020, by Michael Wetter:<br/>
 Added hysteresis.<br/>
