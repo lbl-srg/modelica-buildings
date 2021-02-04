@@ -17,10 +17,13 @@ cmake_minimum_required(VERSION 3.8)
 # Create position independent code
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
+if(NOT CMAKE_BUILD_TYPE)
+  set(CMAKE_BUILD_TYPE "Release")
+  message(STATUS "Build type not specified: Use Release by default")
+endif(NOT CMAKE_BUILD_TYPE)
+
 # find_package(Java REQUIRED)
 # include(UseJava)
-
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CMAKE_BUILD_TYPE}")
 
 set(BUILDINGS_INSTALL_PREFIX "${CMAKE_SOURCE_DIR}/Buildings")
 
@@ -43,7 +46,7 @@ endif()
 
 # Set compiler options
 if ( CMAKE_COMPILER_IS_GNUCC )
-    set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -Wall -Wextra -pedantic -Wmisleading-indentation -Wconversion")
+    set(CMAKE_C_FLAGS  "${CMAKE_CXX_FLAGS} -O3 -Wall -Wextra -pedantic -Wmisleading-indentation -Wconversion -Wno-unused-function -Wno-unused-parameter")
 endif()
 
 if ( MSVC )

@@ -216,6 +216,13 @@ air temperature is assessed with
 <a href=\"modelica://Buildings.Experimental.DHC.Loads.SimpleRoomODE\">
 Buildings.Experimental.DHC.Loads.SimpleRoomODE</a>.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+February 21, 2020, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"),
     revisions="<html>
 <ul>

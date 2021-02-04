@@ -332,7 +332,7 @@ equation
 <ul>
 <li>
 July 31, 2020, by Antoine Gautier:<br/>
-First implementation
+First implementation.
 </li>
 </ul>
 </html>",
@@ -348,13 +348,13 @@ is considered to vary linearly with the load (with no inferior limit).
 </li>
 <li>
 The Boolean enable signals for heating and cooling typically provided
-by the building automation system are here computed based on the condition 
+by the building automation system are here computed based on the condition
 that the load is greater than 1% of the nominal load.
 </li>
 <li>
 Simplified chiller performance data are used, which represent a linear
-variation of the EIR and the capacity with the evaporator outlet temperature 
-and the condenser inlet temperature (no variation of the EIR at part 
+variation of the EIR and the capacity with the evaporator outlet temperature
+and the condenser inlet temperature (no variation of the EIR at part
 load is considered).
 </li>
 </ul>

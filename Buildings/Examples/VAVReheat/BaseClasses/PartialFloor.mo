@@ -113,28 +113,26 @@ partial model PartialFloor "Interface for a model of a floor of a building"
   Modelica.Blocks.Routing.Multiplex5 multiplex5_1
     annotation (Placement(transformation(extent={{340,280},{360,300}})));
 
-  Airflow.Multizone.DoorDiscretizedOpen opeSouCor(redeclare package Medium =
-        Medium, wOpe=10,
-    forceErrorControlOnFlow=false)
+  Airflow.Multizone.DoorOpen opeSouCor(
+    redeclare package Medium = Medium,
+    wOpe=10)
     "Opening between perimeter1 and core"
     annotation (Placement(transformation(extent={{84,0},{104,20}})));
-  Airflow.Multizone.DoorDiscretizedOpen opeEasCor(redeclare package Medium =
-        Medium, wOpe=10,
-    forceErrorControlOnFlow=false)
+  Airflow.Multizone.DoorOpen opeEasCor(
+    redeclare package Medium = Medium,
+    wOpe=10)
     "Opening between perimeter2 and core"
     annotation (Placement(transformation(extent={{250,38},{270,58}})));
-  Airflow.Multizone.DoorDiscretizedOpen opeNorCor(redeclare package Medium =
-        Medium, wOpe=10,
-    forceErrorControlOnFlow=false)
+  Airflow.Multizone.DoorOpen opeNorCor(
+    redeclare package Medium = Medium,
+    wOpe=10)
     "Opening between perimeter3 and core"
     annotation (Placement(transformation(extent={{80,74},{100,94}})));
-  Airflow.Multizone.DoorDiscretizedOpen opeWesCor(redeclare package Medium =
-        Medium, wOpe=10,
-    forceErrorControlOnFlow=false)
+  Airflow.Multizone.DoorOpen opeWesCor(redeclare package Medium =
+        Medium, wOpe=10)
     "Opening between perimeter3 and core"
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
-  Buildings.Fluid.Sensors.RelativePressure senRelPre(redeclare package Medium
-      =                                                                         Medium)
+  Buildings.Fluid.Sensors.RelativePressure senRelPre(redeclare package Medium = Medium)
     "Building pressure measurement"
     annotation (Placement(transformation(extent={{60,240},{40,260}})));
   Buildings.Fluid.Sources.Outside out(nPorts=1, redeclare package Medium = Medium)
@@ -229,6 +227,13 @@ This is a partial model for one floor of the DOE reference office building.
 </html>",
 revisions="<html>
 <ul>
+<li>
+January 25, 2021, by Michael Wetter:<br/>
+Replaced door model with the new model <a href=\"modelica://Buildings.Airflow.Multizone.DoorOpen\">
+Buildings.Airflow.Multizone.DoorOpen</a>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1353\">IBPSA, #1353</a>.
+</li>
 <li>
 November 15, 2019, by Milica Grahovac:<br/>
 First implementation.

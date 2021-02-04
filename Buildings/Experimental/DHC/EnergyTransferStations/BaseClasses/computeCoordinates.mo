@@ -26,7 +26,7 @@ algorithm
 <ul>
 <li>
 July 31, 2020, by Antoine Gautier:<br/>
-First implementation
+First implementation.
 </li>
 </ul>
 </html>",
@@ -34,7 +34,7 @@ First implementation
 <p>
 This function computes the coordinates of boreholes evenly
 distributed along the <code>x</code> and <code>y</code> axis,
-given the number of boreholes (which must be the square of 
+given the number of boreholes (which must be the square of
 an integer).
 </p>
 </html>"));

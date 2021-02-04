@@ -473,6 +473,7 @@ instantiated by respectively setting <code>have_chiWat</code> and
 <code>have_heaWat</code> to true.
 </li>
 </ul>
+</li>
 <li>
 On the load side (typically connected to a room model):
 <ul>
@@ -496,6 +497,7 @@ The impact on the room air temperature of an unmet load can be assessed with
 Buildings.Experimental.DHC.Loads.SimpleRoomODE</a>.
 </li>
 </ul>
+</li>
 </ul>
 <p>
 The heating or cooling nominal capacity is provided for the water based heat
@@ -608,6 +610,11 @@ the nominal mass flow rate of the circulation pump.
 </html>",
       revisions="<html>
 <ul>
+<li>
+December 21, 2020, by Antoine Gautier:<br/>
+Refactored scaling mechanism and renamed parameters.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2291\">issue 2291</a>.
+</li>
 <li>
 February 21, 2020, by Antoine Gautier:<br/>
 First implementation.

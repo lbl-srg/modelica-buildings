@@ -14,19 +14,19 @@
 FMUOutputVariable* checkForDoubleOutputVariableDeclaration(
   const struct FMUBuilding* bui,
   const char* fmiName){
-  int iComVar;
+  size_t iComVar;
 
   for(iComVar = 0; iComVar < bui->nOutputVariables; iComVar++){
     FMUOutputVariable* ptrOutVar = (FMUOutputVariable*)(bui->outputVariables[iComVar]);
     if (!strcmp(fmiName, ptrOutVar->outputs->fmiNames[0])){
       if (bui->logLevel >= MEDIUM){
-        bui->SpawnFormatMessage("*** Searched for output variable %s in building and found it.\n", fmiName);
+        bui->SpawnFormatMessage("---- %s: Searched for output variable %s in building and found it.\n", bui->modelicaNameBuilding, fmiName);
       }
       return ptrOutVar;
     }
   }
   if (bui->logLevel >= MEDIUM){
-     bui->SpawnFormatMessage("*** Searched for output variable %s in building but did not find it.\n", fmiName);
+     bui->SpawnFormatMessage("---- %s: Searched for output variable %s in building but did not find it.\n", bui->modelicaNameBuilding, fmiName);
   }
   return NULL;
 }
@@ -76,24 +76,24 @@ void* EnergyPlusOutputVariableAllocate(
   FMUOutputVariable* doubleOutVarSpec = NULL;
 
   if (logLevel >= MEDIUM)
-    SpawnFormatMessage("Entered EnergyPlusOutputVariableAllocate for zone %s.\n", modelicaNameOutputVariable);
+    SpawnFormatMessage("---- %s: Entered EnergyPlusOutputVariableAllocate.\n", modelicaNameOutputVariable);
 
   /* Dymola 2019FD01 calls in some cases the allocator twice. In this case, simply return the previously instanciated zone pointer */
   setOutputVariablePointerIfAlreadyInstantiated(modelicaNameOutputVariable, &comVar);
   if (comVar != NULL){
     if (logLevel >= MEDIUM)
-      SpawnFormatMessage("*** EnergyPlusOutputVariableAllocate called more than once for %s.\n", modelicaNameOutputVariable);
+      SpawnFormatMessage("---- %s: EnergyPlusOutputVariableAllocate called more than once.\n", modelicaNameOutputVariable);
     /* Return pointer to this zone */
     return (void*) comVar;
   }
   if (logLevel >= MEDIUM)
-    SpawnFormatMessage("*** First call for this instance %s.\n", modelicaNameOutputVariable);
+    SpawnFormatMessage("---- %s: First call for this instance.\n", modelicaNameOutputVariable);
 
   /* ********************************************************************** */
   /* Initialize the output variable */
 
   if (logLevel >= MEDIUM)
-    SpawnFormatMessage("*** Initializing memory for output variable for %s.\n", modelicaNameOutputVariable);
+    SpawnFormatMessage("---- %s: Initializing memory for output variable for %s.\n", modelicaNameOutputVariable);
 
   comVar = (FMUOutputVariable*) malloc(sizeof(FMUOutputVariable));
   if ( comVar == NULL )
@@ -152,12 +152,15 @@ void* EnergyPlusOutputVariableAllocate(
   for(i = 0; i < nFMU; i++){
     FMUBuilding* fmu = getBuildingsFMU(i);
     if (logLevel >= MEDIUM){
-      SpawnFormatMessage("*** Testing building %s in FMU %s for %s.\n", modelicaNameBuilding, fmu->fmuAbsPat, modelicaNameOutputVariable);
+      SpawnFormatMessage("---- %s: Searching building %s in FMU %s.\n",
+      modelicaNameOutputVariable,
+      modelicaNameBuilding, fmu->fmuAbsPat, modelicaNameOutputVariable);
     }
 
     if (strcmp(modelicaNameBuilding, fmu->modelicaNameBuilding) == 0){
       if (logLevel >= MEDIUM){
-        SpawnMessage("*** Found a match.\n");
+        SpawnFormatMessage("---- %s: FMU %s for %s contains this input variable.\n",
+          modelicaNameOutputVariable, fmu->fmuAbsPat, modelicaNameBuilding);
       }
       /* This is the same FMU as before. */
       doubleOutVarSpec = checkForDoubleOutputVariableDeclaration(fmu, comVar->outputs->fmiNames[0]);
@@ -166,7 +169,8 @@ void* EnergyPlusOutputVariableAllocate(
         /* This output variable has already been specified. We can just point to the same
            data structure */
         if (logLevel >= MEDIUM){
-          SpawnFormatMessage("Assigning comVar '%s' to previously used outvar at %p",
+          SpawnFormatMessage("---- %s: Assigning comVar '%s' to previously used outvar at %p",
+          modelicaNameOutputVariable,
           comVar->outputs->fmiNames[0],
           comVar);
         }
@@ -178,7 +182,7 @@ void* EnergyPlusOutputVariableAllocate(
       else{
         /* This output variable has not yet been added to this building */
         if (logLevel >= MEDIUM){
-          SpawnFormatMessage("Assigning comVar->bui = fmu with fmu at %p", fmu);
+          SpawnFormatMessage("---- %s: Assigning comVar->bui = fmu with fmu at %p", modelicaNameOutputVariable, fmu);
         }
         comVar->bui = fmu;
 
@@ -208,16 +212,17 @@ void* EnergyPlusOutputVariableAllocate(
 
     if (logLevel >= MEDIUM){
       for(i = 0; i < getBuildings_nFMU(); i++){
-         SpawnFormatMessage("OutputVariableAllocate.c: Building %s is at pointer %p",
+         SpawnFormatMessage("---- %s: OutputVariableAllocate.c: Building %s is at address %p",
+           modelicaNameOutputVariable,
            (getBuildingsFMU(i))->modelicaNameBuilding,
            getBuildingsFMU(i));
       }
-      SpawnFormatMessage("Output variable ptr is at %p\n", comVar);
+      SpawnFormatMessage("---- %s: Output variable ptr is at %p\n", modelicaNameOutputVariable, comVar);
     }
   }
 
   if (logLevel >= MEDIUM)
-    SpawnFormatMessage("Exiting allocation for %s with output variable ptr at %p", modelicaNameOutputVariable, comVar);
+    SpawnFormatMessage("---- %s: Exiting allocation with output variable ptr at %p", modelicaNameOutputVariable, comVar);
   /* Return a pointer to this output variable */
   return (void*) comVar;
 }

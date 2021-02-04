@@ -16,11 +16,18 @@ model BuildingWithETS
       coordinateSystem(
         preserveAspectRatio=false)),
     Documentation(info="<html>
-<p> 
-This is a minimum example of a class extending 
+<p>
+This is a minimum example of a class extending
 <a href=\"modelica://Buildings.Experimental.DHC.Loads.BaseClasses.PartialBuildingWithPartialETS\">
 Buildings.Experimental.DHC.Loads.BaseClasses.PartialBuildingWithPartialETS</a>
 developed for testing purposes only.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+December 14, 2020, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end BuildingWithETS;

@@ -276,8 +276,13 @@ The connectors to the building distribution systems are configured based
 on the Boolean parameters <code>have_heaWat</code> and <code>have_chiWat</code>.
 </p>
 </html>",
-      revisions="<html>
+revisions="<html>
 <ul>
+<li>
+December 21, 2020, by Antoine Gautier:<br/>
+Refactored to support all DHC system types.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2291\">issue 2291</a>.
+</li>
 <li>
 July 31, 2020, by Antoine Gautier:<br/>
 First implementation.

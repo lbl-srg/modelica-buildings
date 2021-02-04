@@ -299,6 +299,11 @@ are provided as time series.
       revisions="<html>
 <ul>
 <li>
+December 21, 2020, by Antoine Gautier:<br/>
+Refactored for optional hot water and multiplier factor.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2291\">issue 2291</a>.
+</li>
+<li>
 September 18, 2020, by Jianjun Hu:<br/>
 Changed flow distribution components and the terminal units to be conditional depending
 on if there is water-based heating, or cooling system.

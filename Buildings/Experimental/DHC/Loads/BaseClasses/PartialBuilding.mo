@@ -269,8 +269,13 @@ Buildings.Experimental.DHC.Loads.Examples</a>.
 src=\"modelica://Buildings/Resources/Images/Experimental/DHC/Loads/PartialBuilding.png\"/>
 </p>
 </html>",
-      revisions="<html>
+revisions="<html>
 <ul>
+<li>
+December 21, 2020, by Antoine Gautier:<br/>
+Added multiplier factor.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2291\">issue 2291</a>.
+</li>
 <li>
 February 21, 2020, by Antoine Gautier:<br/>
 First implementation.
