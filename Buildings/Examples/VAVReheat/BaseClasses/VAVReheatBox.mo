@@ -11,10 +11,10 @@ model VAVReheatBox "Supply box of a VAV system with a hot water reheat coil"
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal
     "Mass flow rate of this thermal zone";
-  parameter Real ratVFloHea = 1.0 "Flow rate ratio in heating mode";
+  parameter Real ratVFloHea(start=1.0, min=0, max=1, unit="1") "Flow rate ratio in heating mode";
   parameter Modelica.SIunits.Volume VRoo "Room volume";
 
-  parameter Modelica.SIunits.Temperature THotWat_nominal=355.35 "Reheat coil nominal inlet water temperature";
+  parameter Modelica.SIunits.Temperature THotWat_nominal(start=355.35) "Reheat coil nominal inlet water temperature";
 
   final parameter Modelica.SIunits.Temperature TAirInl_nominal = 288.15 "Inlet air nominal temperature";
   final parameter Modelica.SIunits.Temperature TAirOut_nominal = 305.15 "Outlet air nominal temperature";
@@ -34,7 +34,7 @@ model VAVReheatBox "Supply box of a VAV system with a hot water reheat coil"
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={-50,40})));
+        origin={0,10})));
   Buildings.Fluid.HeatExchangers.DryCoilEffectivenessNTU terHea(
     redeclare package Medium1 = MediumW,
     redeclare package Medium2 = MediumA,
@@ -50,82 +50,89 @@ model VAVReheatBox "Supply box of a VAV system with a hot water reheat coil"
     T_a1_nominal=THotWat_nominal,
     T_a2_nominal=TAirInl_nominal) "Heat exchanger of terminal box" annotation (Placement(
         transformation(
-        extent={{-10,-10},{10,10}},
+        extent={{-10,10},{10,-10}},
         rotation=270,
-        origin={-44,-30})));
-  Modelica.Fluid.Interfaces.FluidPort_a port_aAir(redeclare package Medium =
-        MediumA)
-    "Fluid connector a1 (positive design flow direction is from port_a1 to port_b1)"
-    annotation (Placement(transformation(extent={{-60,-110},{-40,-90}}),
-        iconTransformation(extent={{-60,-110},{-40,-90}})));
-  Modelica.Fluid.Interfaces.FluidPort_a port_bAir(redeclare package Medium =
-        MediumA)
-    "Fluid connector b (positive design flow direction is from port_a1 to port_b1)"
-    annotation (Placement(transformation(extent={{-60,90},{-40,110}}),
-        iconTransformation(extent={{-60,90},{-40,110}})));
-  Buildings.Fluid.Sensors.MassFlowRate senMasFlo(
+        origin={-6,-50})));
+
+  Fluid.Sensors.TemperatureTwoPort senTem(
     redeclare package Medium = MediumA,
-    allowFlowReversal=allowFlowReversal)
-    "Sensor for mass flow rate" annotation (Placement(
+    initType=Modelica.Blocks.Types.Init.InitialState,
+    m_flow_nominal=m_flow_nominal,
+    allowFlowReversal=allowFlowReversal) "Supply Air Temperature Sensor" annotation (Placement(
         transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
-        origin={-50,70})));
-  Modelica.Blocks.Math.Gain fraMasFlo(k=1/m_flow_nominal)
-    "Fraction of mass flow rate, relative to nominal flow"
-    annotation (Placement(transformation(extent={{0,70},{20,90}})));
-  Modelica.Blocks.Math.Gain ACH(k=1/VRoo/1.2*3600) "Air change per hour"
-    annotation (Placement(transformation(extent={{0,30},{20,50}})));
+        origin={0,48})));
+  Fluid.Sensors.VolumeFlowRate senVolFlo(
+    redeclare package Medium = MediumA,
+    initType=Modelica.Blocks.Types.Init.InitialState,
+    m_flow_nominal=m_flow_nominal,
+    allowFlowReversal=allowFlowReversal) "Supply Air Volumetric Flow Rate Sensor" annotation (Placement(
+        transformation(
+        extent={{-10,10},{10,-10}},
+        rotation=90,
+        origin={0,76})));
+
+
+  Modelica.Fluid.Interfaces.FluidPort_a port_aAir(redeclare package Medium =
+        MediumA)
+    "Fluid connector a1 (positive design flow direction is from port_a1 to port_b1)"
+    annotation (Placement(transformation(extent={{-10,-110},{10,-90}}),
+        iconTransformation(extent={{-10,-110},{10,-90}})));
+  Modelica.Fluid.Interfaces.FluidPort_a port_bAir(redeclare package Medium =
+        MediumA)
+    "Fluid connector b (positive design flow direction is from port_a1 to port_b1)"
+    annotation (Placement(transformation(extent={{-10,90},{10,110}}),
+        iconTransformation(extent={{-10,90},{10,110}})));
   Modelica.Blocks.Interfaces.RealInput yVAV "Signal for VAV damper"
                                                             annotation (
-      Placement(transformation(extent={{-140,20},{-100,60}}),
-        iconTransformation(extent={{-140,20},{-100,60}})));
+      Placement(transformation(extent={{-140,36},{-100,76}}),
+        iconTransformation(extent={{-140,36},{-100,76}})));
   Modelica.Blocks.Interfaces.RealOutput y_actual "Actual VAV damper position"
-    annotation (Placement(transformation(extent={{100,46},{120,66}}),
-        iconTransformation(extent={{100,70},{120,90}})));
-  Modelica.Fluid.Interfaces.FluidPort_a port_aHotWat(redeclare package Medium
-      =
+    annotation (Placement(transformation(extent={{100,14},{120,34}}),
+        iconTransformation(extent={{100,0},{120,20}})));
+  Modelica.Fluid.Interfaces.FluidPort_a port_aHotWat(redeclare package Medium =
       MediumW) "Hot water inlet port"
     annotation (Placement(transformation(extent={{-110,-20},{-90,0}}),
         iconTransformation(extent={{-110,-20},{-90,0}})));
-  Modelica.Fluid.Interfaces.FluidPort_b port_bHotWat(redeclare package Medium
-      =
+  Modelica.Fluid.Interfaces.FluidPort_b port_bHotWat(redeclare package Medium =
       MediumW) "Hot water outlet port"
     annotation (Placement(transformation(extent={{-108,-74},{-88,-54}}),
         iconTransformation(extent={{-108,-74},{-88,-54}})));
+  Modelica.Blocks.Interfaces.RealOutput TSup "Supply Air Temperature"
+    annotation (Placement(transformation(extent={{100,30},{120,50}}),
+        iconTransformation(extent={{100,30},{120,50}})));
+  Modelica.Blocks.Interfaces.RealOutput VSup_flow
+    "Supply Air Volumetric Flow Rate"
+    annotation (Placement(transformation(extent={{100,60},{120,80}}),
+        iconTransformation(extent={{100,60},{120,80}})));
+
 equation
-  connect(fraMasFlo.u, senMasFlo.m_flow) annotation (Line(
-      points={{-2,80},{-24,80},{-24,70},{-39,70}},
-      color={0,0,127},
-      smooth=Smooth.None,
-      pattern=LinePattern.Dash));
-  connect(vav.port_b, senMasFlo.port_a) annotation (Line(
-      points={{-50,50},{-50,60}},
-      color={0,127,255},
-      smooth=Smooth.None,
-      thickness=0.5));
-  connect(ACH.u, senMasFlo.m_flow) annotation (Line(
-      points={{-2,40},{-24,40},{-24,70},{-39,70}},
-      color={0,0,127},
-      smooth=Smooth.None,
-      pattern=LinePattern.Dash));
-  connect(senMasFlo.port_b, port_bAir) annotation (Line(
-      points={{-50,80},{-50,100}},
-      color={0,127,255},
-      smooth=Smooth.None,
-      thickness=0.5));
-  connect(vav.y, yVAV) annotation (Line(points={{-62,40},{-120,40}},
-                color={0,0,127}));
+  connect(vav.y, yVAV) annotation (Line(points={{-12,10},{-66,10},{-66,56},{-120,
+          56}}, color={0,0,127}));
   connect(vav.y_actual, y_actual)
-    annotation (Line(points={{-57,45},{-57,56},{110,56}}, color={0,0,127}));
-  connect(port_aAir, terHea.port_a2) annotation (Line(points={{-50,-100},{-50,-40}},
+    annotation (Line(points={{-7,15},{-7,24},{110,24}},   color={0,0,127}));
+  connect(port_aAir, terHea.port_a2) annotation (Line(points={{0,-100},{0,-60}},
                                 color={0,127,255}));
   connect(vav.port_a, terHea.port_b2)
-    annotation (Line(points={{-50,30},{-50,-20}},          color={0,127,255}));
-  connect(port_aHotWat, terHea.port_a1) annotation (Line(points={{-100,-10},{-38,
-          -10},{-38,-20}},     color={0,127,255}));
-  connect(port_bHotWat, terHea.port_b1) annotation (Line(points={{-98,-64},{-38,
-          -64},{-38,-40}},     color={0,127,255}));
+    annotation (Line(points={{-4.44089e-16,0},{3.55271e-15,0},{3.55271e-15,-40}},
+                                                           color={0,127,255}));
+  connect(port_aHotWat, terHea.port_a1) annotation (Line(points={{-100,-10},{-12,
+          -10},{-12,-40}},     color={0,127,255}));
+  connect(port_bHotWat, terHea.port_b1) annotation (Line(points={{-98,-64},{-12,
+          -64},{-12,-60}},     color={0,127,255}));
+  connect(y_actual, y_actual)
+    annotation (Line(points={{110,24},{110,24}}, color={0,0,127}));
+  connect(vav.port_b, senTem.port_a) annotation (Line(points={{6.66134e-16,20},{
+          0,20},{0,38},{-4.44089e-16,38}}, color={0,127,255}));
+  connect(senTem.port_b, senVolFlo.port_a)
+    annotation (Line(points={{0,58},{0,66}}, color={0,127,255}));
+  connect(senVolFlo.port_b, port_bAir)
+    annotation (Line(points={{0,86},{0,86},{0,100}}, color={0,127,255}));
+  connect(senVolFlo.V_flow, VSup_flow) annotation (Line(points={{11,76},{60,76},
+          {60,70},{110,70}}, color={0,0,127}));
+  connect(senTem.T, TSup) annotation (Line(points={{11,48},{60,48},{60,40},{110,
+          40}}, color={0,0,127}));
   annotation (Icon(
     graphics={
         Rectangle(
@@ -133,10 +140,10 @@ equation
           lineColor={0,0,0},
           fillPattern=FillPattern.HorizontalCylinder,
           fillColor={0,127,255},
-          origin={-68.1286,6.07},
+          origin={-18.1286,6.07},
           rotation=90),
         Rectangle(
-          extent={{-68,-20},{-26,-60}},
+          extent={{-18,-20},{24,-60}},
           fillPattern=FillPattern.Solid,
           fillColor={175,175,175},
           pattern=LinePattern.None),
@@ -145,59 +152,59 @@ equation
           lineColor={0,0,0},
           fillPattern=FillPattern.HorizontalCylinder,
           fillColor={192,192,192},
-          origin={-82,-76.8},
+          origin={-32,-76.8},
           rotation=90),
         Rectangle(
           extent={{102.2,-11.6667},{130.2,-25.6667}},
           lineColor={0,0,0},
           fillPattern=FillPattern.HorizontalCylinder,
           fillColor={0,127,255},
-          origin={-67.6667,-78.2},
+          origin={-17.6667,-78.2},
           rotation=90),
         Polygon(
-          points={{-62,32},{-34,48},{-34,46},{-62,30},{-62,32}},
+          points={{-12,32},{16,48},{16,46},{-12,30},{-12,32}},
           pattern=LinePattern.None,
           smooth=Smooth.None,
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           lineColor={0,0,0}),
         Polygon(
-          points={{-68,-28},{-34,-28},{-34,-30},{-68,-30},{-68,-28}},
+          points={{-18,-28},{16,-28},{16,-30},{-18,-30},{-18,-28}},
           pattern=LinePattern.None,
           smooth=Smooth.None,
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           lineColor={0,0,0}),
         Polygon(
-          points={{-68,-52},{-34,-52},{-34,-54},{-68,-54},{-68,-52}},
+          points={{-18,-52},{16,-52},{16,-54},{-18,-54},{-18,-52}},
           pattern=LinePattern.None,
           smooth=Smooth.None,
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           lineColor={0,0,0}),
         Polygon(
-          points={{-48,-34},{-34,-28},{-34,-30},{-48,-36},{-48,-34}},
+          points={{2,-34},{16,-28},{16,-30},{2,-36},{2,-34}},
           pattern=LinePattern.None,
           smooth=Smooth.None,
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           lineColor={0,0,0}),
         Polygon(
-          points={{-48,-34},{-34,-40},{-34,-42},{-48,-36},{-48,-34}},
+          points={{2,-34},{16,-40},{16,-42},{2,-36},{2,-34}},
           pattern=LinePattern.None,
           smooth=Smooth.None,
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           lineColor={0,0,0}),
         Polygon(
-          points={{-48,-46},{-34,-52},{-34,-54},{-48,-48},{-48,-46}},
+          points={{2,-46},{16,-52},{16,-54},{2,-48},{2,-46}},
           pattern=LinePattern.None,
           smooth=Smooth.None,
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           lineColor={0,0,0}),
         Polygon(
-          points={{-48,-46},{-34,-40},{-34,-42},{-48,-48},{-48,-46}},
+          points={{2,-46},{16,-40},{16,-42},{2,-48},{2,-46}},
           pattern=LinePattern.None,
           smooth=Smooth.None,
           fillColor={0,0,0},
