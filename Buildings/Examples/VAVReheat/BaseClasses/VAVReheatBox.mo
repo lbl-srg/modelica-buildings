@@ -16,14 +16,14 @@ model VAVReheatBox "Supply box of a VAV system with a hot water reheat coil"
 
   parameter Modelica.SIunits.Temperature THotWat_nominal=355.35 "Reheat coil nominal inlet water temperature";
 
-  final parameter Modelica.SIunits.Temperature TAirInlNom = 288.15 "Inlet air nominal temperature";
-  final parameter Modelica.SIunits.Temperature TAirOutNom = 305.15 "Outlet air nominal temperature";
-  final parameter Modelica.SIunits.SpecificHeatCapacity CpAir = 1004 "Air specific heat capacity";
-  final parameter Modelica.SIunits.SpecificHeatCapacity CpWater = 4180 "Water specific heat capacity";
-  final parameter Modelica.SIunits.HeatFlowRate QFloNom = m_flow_nominal*ratVFloHea*CpAir*(TAirOutNom - TAirInlNom) "Nominal heat flow rate";
-  final parameter Modelica.SIunits.TemperatureDifference dTHWNom = 10 "Nominal hot water temperature delta";
+  final parameter Modelica.SIunits.Temperature TAirInl_nominal = 288.15 "Inlet air nominal temperature";
+  final parameter Modelica.SIunits.Temperature TAirOut_nominal = 305.15 "Outlet air nominal temperature";
+  final parameter Modelica.SIunits.SpecificHeatCapacity cpAir = 1004 "Air specific heat capacity";
+  final parameter Modelica.SIunits.SpecificHeatCapacity cpWater = 4180 "Water specific heat capacity";
+  final parameter Modelica.SIunits.HeatFlowRate Q_nominal = m_flow_nominal*ratVFloHea*cpAir*(TAirOut_nominal - TAirInl_nominal) "Nominal heat flow rate";
+  final parameter Modelica.SIunits.TemperatureDifference dTHotWat_nominal = 10 "Nominal hot water temperature delta";
 
-  final parameter Modelica.SIunits.MassFlowRate m_flow_HW_nominal = QFloNom/(CpWater * dTHWNom)  "Mass flow rate of hot water to reheat coil";
+  final parameter Modelica.SIunits.MassFlowRate mHotWat_flow_nominal = Q_nominal/(cpWater * dTHotWat_nominal)  "Mass flow rate of hot water to reheat coil";
 
   Buildings.Fluid.Actuators.Dampers.PressureIndependent vav(
     redeclare package Medium = MediumA,
@@ -38,9 +38,9 @@ model VAVReheatBox "Supply box of a VAV system with a hot water reheat coil"
   Buildings.Fluid.HeatExchangers.DryCoilEffectivenessNTU terHea(
     redeclare package Medium1 = MediumW,
     redeclare package Medium2 = MediumA,
-    m1_flow_nominal=m_flow_HW_nominal,
+    m1_flow_nominal=mHotWat_flow_nominal,
     m2_flow_nominal=m_flow_nominal*ratVFloHea,
-    Q_flow_nominal=QFloNom,
+    Q_flow_nominal=Q_nominal,
     configuration=Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow,
     dp1_nominal=0,
     from_dp2=true,
@@ -48,7 +48,7 @@ model VAVReheatBox "Supply box of a VAV system with a hot water reheat coil"
     allowFlowReversal1=false,
     allowFlowReversal2=allowFlowReversal,
     T_a1_nominal=THotWat_nominal,
-    T_a2_nominal=TAirInlNom) "Heat exchanger of terminal box" annotation (Placement(
+    T_a2_nominal=TAirInl_nominal) "Heat exchanger of terminal box" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
@@ -204,10 +204,10 @@ equation
           fillPattern=FillPattern.Solid,
           lineColor={0,0,0})}), Documentation(info="<html>
 <p>
-Model for a VAV supply branch. 
-The terminal VAV box has a pressure independent damper and a water reheat coil. 
-The pressure independent damper model includes an idealized flow rate controller 
-and requires a discharge air flow rate set-point (normalized to the nominal value) 
+Model for a VAV supply branch.
+The terminal VAV box has a pressure independent damper and a water reheat coil.
+The pressure independent damper model includes an idealized flow rate controller
+and requires a discharge air flow rate set-point (normalized to the nominal value)
 as a control signal.
 </p>
 </html>"));

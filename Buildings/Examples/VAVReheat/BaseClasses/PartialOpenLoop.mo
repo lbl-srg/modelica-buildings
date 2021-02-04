@@ -660,31 +660,31 @@ public
         origin={1252,36})));
 
   Buildings.Controls.OBC.CDL.Continuous.Gain gaiHeaCoiCor(
-    k=cor.m_flow_HW_nominal) "Gain for core zone reheat coil mass flow rate"
+    k=cor.mHotWat_flow_nominal) "Gain for core zone reheat coil mass flow rate"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={504,46})));
   Buildings.Controls.OBC.CDL.Continuous.Gain gaiHeaCoiSou(
-    k=sou.m_flow_HW_nominal) "Gain for south zone reheat coil mass flow rate"
+    k=sou.mHotWat_flow_nominal) "Gain for south zone reheat coil mass flow rate"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={690,44})));
   Buildings.Controls.OBC.CDL.Continuous.Gain gaiHeaCoiEas(
-    k=eas.m_flow_HW_nominal) "Gain for east zone reheat coil mass flow rate"
+    k=eas.mHotWat_flow_nominal) "Gain for east zone reheat coil mass flow rate"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={862,44})));
   Buildings.Controls.OBC.CDL.Continuous.Gain gaiHeaCoiNor(
-    k=nor.m_flow_HW_nominal) "Gain for north zone reheat coil mass flow rate"
+    k=nor.mHotWat_flow_nominal) "Gain for north zone reheat coil mass flow rate"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={1028,44})));
   Buildings.Controls.OBC.CDL.Continuous.Gain gaiHeaCoiWes(
-    k=wes.m_flow_HW_nominal) "Gain for west zone reheat coil mass flow rate"
+    k=wes.mHotWat_flow_nominal) "Gain for west zone reheat coil mass flow rate"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
