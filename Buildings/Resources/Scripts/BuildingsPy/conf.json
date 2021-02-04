@@ -27,13 +27,6 @@
     "model_name": "Buildings.Fluid.Examples.FlowSystem.Simplified2"
   },
   {
-      "optimica": {
-        "solver": "Radau5ODE",
-        "comment": "CVode requires 1000 times more Jacobian evaluations"
-    },
-    "model_name": "Buildings.Fluid.Interfaces.Examples.Humidifier_u"
-  },
-  {
     "optimica": {
       "simulate": false,
       "comment": "See https://github.com/lbl-srg/modelica-buildings/issues/2231"
@@ -52,20 +45,10 @@
       "simulate": false
     },
     "optimica": {
-      "simulate": false,
-      "comment": "Tolerance of 1E-7 would lead to very slow progress with Cvode, commit fabaa64231692a2a2b6c044aff34f5ae6b3be868. Also Radau5ODE 1e-8 is very slow"
+      "rtol": 1E-8,
+      "comment": "Tolerance of 1E-7 would lead to very slow progress with commit fabaa64231692a2a2b6c044aff34f5ae6b3be868"
     },
   "model_name": "Buildings.ThermalZones.Detailed.Validation.SingleZoneFloorWithHeating"
-  },
-  {
-    "jmodelica": {
-      "simulate": false
-    },
-    "optimica": {
-      "simulate": false,
-      "comment": "Very slow progress, needs investigation"
-    },
-  "model_name": "Buildings.ThermalZones.EnergyPlus.Examples.VAVReheatRefBldgSmallOffice.FloorOpenLoop"
   },
   {
     "jmodelica": {
@@ -204,10 +187,6 @@
   {
        "jmodelica": {
          "rtol": 1E-8
-    },
-       "optimica": {
-         "simulate": false,
-         "comment": "Radau 1E-8 stops with EXIT OF RADAU5 AT X= 0.3675E+04, MORE THAN NMAX = 100000 STEPS ARE NEEDED."
     },
     "model_name": "Buildings.Examples.DualFanDualDuct.ClosedLoop"
   }
