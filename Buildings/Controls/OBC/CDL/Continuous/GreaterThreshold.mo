@@ -155,10 +155,11 @@ Block that outputs <code>true</code> if the Real input <code>u</code>
 is greater than a threshold <code>t</code>, optionally within a hysteresis <code>h</code>.
 </p>
 <p>
-The parameter <code>h</code> is used to specify a hysteresis.
+The parameter <code>h &ge; 0</code> is used to specify a hysteresis.
 If <i>h &ne; 0</i>, then the output switches to <code>true</code> if <i>u &gt; t</i>,
 where <i>t</i> is the threshold,
-and it switches to <code>false</code> if <i>u &lt; t-h</i>.
+and it switches to <code>false</code> if <i>u &lt; t - h</i>.
+If <i>h = 0</i>, the output is <i>y = u &gt; t</i>.
 </p>
 <p>
 Enabling hysteresis can avoid frequent switching.

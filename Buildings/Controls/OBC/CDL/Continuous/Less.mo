@@ -163,9 +163,10 @@ Block that outputs <code>true</code> if the Real input <code>u1</code>
 is less than the Real input <code>u2</code>, optionally within a hysteresis <code>h</code>.
 </p>
 <p>
-The parameter <code>h</code> is used to specify a hysteresis.
+The parameter <code>h &ge; 0</code> is used to specify a hysteresis.
 If <i>h &ne; 0</i>, then the output switches to <code>true</code> if <i>u<sub>1</sub> &lt; u<sub>2</sub></i>,
-and it switches to <code>false</code> if <i>u<sub>1</sub> &gt; u<sub>2</sub>+h</i>.
+and it switches to <code>false</code> if <i>u<sub>1</sub> &gt; u<sub>2</sub> + h</i>.
+If <i>h = 0</i>, the output is <i>y = u<sub>1</sub> &lt; u<sub>2</sub></i>.
 </p>
 <p>
 Enabling hysteresis can avoid frequent switching.
