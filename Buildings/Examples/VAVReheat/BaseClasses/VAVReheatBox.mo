@@ -18,7 +18,7 @@ model VAVReheatBox "Supply box of a VAV system with a hot water reheat coil"
     "Reheat coil nominal inlet water temperature";
   parameter Modelica.SIunits.Temperature THotWatOut_nominal(
     displayUnit="degC")=THotWatInl_nominal-10
-    "Reheat coil nominal inlet water temperature";
+    "Reheat coil nominal outlet water temperature";
   parameter Modelica.SIunits.Temperature TAirInl_nominal(
     displayUnit="degC") = 288.15
     "Inlet air nominal temperature";
