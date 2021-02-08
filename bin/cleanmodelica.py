@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 """Deletes all temporary files created by Dymola, starting
    at the current working directory and recursively searching the 
    subdirectories for files.
