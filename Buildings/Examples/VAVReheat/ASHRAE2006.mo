@@ -32,8 +32,6 @@ model ASHRAE2006
     (mWes_flow_nominal/1.2)
     "Minimum discharge air flow rate ratio";
 
-  final parameter Real ratVFloHea = 0.3 "Heating flow rate ratio";
-
   Controls.FanVFD conFanSup(xSet_nominal(displayUnit="Pa") = 410, r_N_min=
         yFanMin)
     "Controller for fan"
