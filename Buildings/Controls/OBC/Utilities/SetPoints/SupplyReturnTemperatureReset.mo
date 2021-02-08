@@ -1,4 +1,4 @@
-within Buildings.Controls.OBC.CDL.SetPoints;
+within Buildings.Controls.OBC.Utilities.SetPoints;
 block SupplyReturnTemperatureReset
   "Block to compute the supply and return set point"
 
@@ -29,25 +29,25 @@ block SupplyReturnTemperatureReset
     displayUnit="K") = 8
     "Offset for heating curve";
 
-  Interfaces.RealInput TSetZon(
+  CDL.Interfaces.RealInput TSetZon(
     final quantity="ThermodynamicTemperature",
     final unit = "K",
     displayUnit = "degC",
     min=200) "Zone setpoint temperature"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
-  Interfaces.RealInput TOut(
+  CDL.Interfaces.RealInput TOut(
     final quantity="ThermodynamicTemperature",
     final unit = "K",
     displayUnit = "degC",
     min=200) "Outside temperature"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
-  Interfaces.RealOutput TSup(
+  CDL.Interfaces.RealOutput TSup(
     final quantity="ThermodynamicTemperature",
     final unit = "K",
     displayUnit = "degC",
     min=200) "Setpoint for supply temperature"
     annotation (Placement(transformation(extent={{100,40},{140,80}})));
-  Interfaces.RealOutput TRet(
+  CDL.Interfaces.RealOutput TRet(
     final quantity="ThermodynamicTemperature",
     final unit = "K",
     displayUnit = "degC",
