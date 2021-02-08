@@ -20,7 +20,7 @@ model VAVReheatBox "Supply box of a VAV system with a hot water reheat coil"
     displayUnit="degC")=THotWatInl_nominal-10
     "Reheat coil nominal outlet water temperature";
   parameter Modelica.SIunits.Temperature TAirInl_nominal(
-    displayUnit="degC") = 288.15
+    displayUnit="degC") = 12 + 273.15
     "Inlet air nominal temperature";
   parameter Modelica.SIunits.HeatFlowRate QHea_flow_nominal=
     m_flow_nominal * ratVFloHea * cpAir * (35 + 273.15 - TAirInl_nominal)
@@ -90,7 +90,7 @@ model VAVReheatBox "Supply box of a VAV system with a hot water reheat coil"
         transformation(
         extent={{-10,10},{10,-10}},
         rotation=270,
-        origin={-6,-50})));
+        origin={-6,-30})));
   Fluid.Sensors.TemperatureTwoPort senTem(
     redeclare package Medium = MediumA,
     initType=Modelica.Blocks.Types.Init.InitialState,
@@ -124,15 +124,15 @@ equation
   connect(vav.y_actual, y_actual)
     annotation (Line(points={{-7,15},{-7,24},{20,24},{20,0},{110,0}},
                                                           color={0,0,127}));
-  connect(port_aAir, terHea.port_a2) annotation (Line(points={{0,-100},{0,-60}},
+  connect(port_aAir, terHea.port_a2) annotation (Line(points={{0,-100},{0,-40}},
                                 color={0,127,255}));
   connect(vav.port_a, terHea.port_b2)
-    annotation (Line(points={{-4.44089e-16,0},{3.55271e-15,0},{3.55271e-15,-40}},
+    annotation (Line(points={{-4.44089e-16,0},{3.55271e-15,0},{3.55271e-15,-20}},
                                                            color={0,127,255}));
-  connect(port_aHotWat, terHea.port_a1) annotation (Line(points={{-100,0},{-12,0},
-          {-12,-40}},          color={0,127,255}));
-  connect(port_bHotWat, terHea.port_b1) annotation (Line(points={{-100,-60},{-12,
-          -60},{-12,-60}},     color={0,127,255}));
+  connect(port_aHotWat, terHea.port_a1) annotation (Line(points={{-100,0},{-12,
+          0},{-12,-20}},       color={0,127,255}));
+  connect(port_bHotWat, terHea.port_b1) annotation (Line(points={{-100,-60},{
+          -12,-60},{-12,-40}}, color={0,127,255}));
   connect(y_actual, y_actual)
     annotation (Line(points={{110,0},{110,0}},   color={0,0,127}));
   connect(vav.port_b, senTem.port_a) annotation (Line(points={{6.66134e-16,20},{
