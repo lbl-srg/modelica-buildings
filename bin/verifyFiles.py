@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 #####################################################################
 # This script checks mo and mos files for invalid syntax.
 #
