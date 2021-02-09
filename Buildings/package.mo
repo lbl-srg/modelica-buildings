@@ -209,9 +209,47 @@ Each class (i.e., model, block and function) must be used in an example or valid
         annotation (Documentation(info="<html>
 <div class=\"release-summary\">
 <p>
-Version 8.0.0 is ... xxx
+Version 8.0.0 is a major release that contains the first version of the Spawn of EnergyPlus coupling.
+The library has been tested with Dymola 2021, JModelica (revision 14023),
+and OPTIMICA (revision OCT-stable-r19089_JM-r14295).
 </p>
+<p>
+The following major changes have been done:
+</p>
+<ul>
+<li>
+The package <code>Buildings.ThermalZones.EnergyPlus</code>
+contains the first version of the Spawn of EnergyPlus coupling that is being developed
+at <a href=\"https://lbl-srg.github.io/soep\">https://lbl-srg.github.io/soep</a>.
+The Spawn coupling allows to model HVAC and controls in Modelica, and graphically connect to
+EnergyPlus models for thermal zones, schedules, EMS actuators and output variables.
+This allows for example to model HVAC systems, HVAC controls and controls for active facade systems in Modelica,
+and use the EnergyPlus envelope model to simulate heat transfer through the building envelope, including the
+heat and light transmission through the windows for the current control signal of the active shade.
+</li>
+<li>
+The package
+<code>Buildings.Experimental.DHC</code> contains models for district heating and cooling systems
+that are being developed for the URBANopt District Energy System software.
+</li>
+<li>
+The new media <code>Buildings.Media.Antifreeze.PropyleneGlycolWater</code> allows modeling
+of propylene-glycol water mixtures.
+</li>
+<li>
+New simplified door models for bi-directional air exchange between thermal zones are
+implemented in <code>Buildings.Airflow.Multizone</code>.
+</li>
+<li>
+Various other models have been improved or added, in particular for modeling of
+control sequences using the Control Description Language that has been developed
+in the OpenBuildingControl project at <a href=\"https://obc.lbl.gov\">https://obc.lbl.gov</a>.
+</li>
+</ul>
 </div>
+<p>
+For more details, please see the release notes below.
+</p>
 <!-- New libraries -->
 <p>
 The following <b style=\"color:blue\">new libraries</b> have been added:
