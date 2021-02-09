@@ -87,7 +87,7 @@ void buildJSONModelStructureForEnergyPlus(
   /* Write zone names */
   for(i = 0; i < bui->nZon; i++){
     if (i == 0){
-      saveAppend(buffer, "    \"exc\": [\n", size, SpawnFormatError);
+      saveAppend(buffer, "    \"zones\": [\n", size, SpawnFormatError);
     }
     openJSONModelBracket(buffer, size, SpawnFormatError);
     buildJSONKeyValue(buffer, 4, "name", exc[i]->name, false, size, SpawnFormatError);
