@@ -109,8 +109,9 @@ to specify building-level parameters.",
 Model that declares building-level specifications for Spawn of EnergyPlus.
 </p>
 <p>
-Each EnergyPlus idf file must have one instance of this model, which
-is used to configure EnergyPlus.
+This model is used to configure EnergyPlus.
+Each EnergyPlus idf file must have one instance of this model, and the
+instance name must be <code>building</code>.
 The instance must be placed in the model hierarchy at the same or at a higher level
 than the EnergyPlus objects that are related to the EnergyPlus idf file specified in
 this model through the parameter <code>idfName</code>.

@@ -377,15 +377,16 @@ connects to the thermal zone with name <code>zoneName</code>.
 The <code>idfName</code> needs to be specified in an instance of
 <a href=\"Buildings.ThermalZones.EnergyPlus.Building\">
 Buildings.ThermalZones.EnergyPlus.Building</a>
-that is placed at this or at a higher hierarchy-level of the model.
+that is named <code>building</code>, and that is placed at this 
+or at a higher hierarchy-level of the model.
 If the FMU is already instantiated by another instance of this model,
 it will use the already instantiated FMU. Hence, for each thermal zone
 in an EnergyPlus FMU, one instance of this model needs to be used.
 </p>
 <p>
-If there are two instances that declare the same
-<code>idfName</code> and the same <code>zoneName</code>,
-the simulation will stop with an error.
+If there are two instances that declare the same <code>zoneName</code>
+and use the same <code>building</code> component (i.e., the same 
+<code>idfName</code>), the simulation will stop with an error.
 </p>
 <h4>Main Equations</h4>
 <p>
