@@ -374,6 +374,10 @@ Model for a thermal zone that is implemented in EnergyPlus.
 <p>
 This model instantiates the FMU with the name <code>idfName</code> and
 connects to the thermal zone with name <code>zoneName</code>.
+The <code>idfName</code> needs to be specified in an instance of
+<a href=\"Buildings.ThermalZones.EnergyPlus.Building\">
+Buildings.ThermalZones.EnergyPlus.Building</a>
+that is placed at this or at a higher hierarchy-level of the model.
 If the FMU is already instantiated by another instance of this model,
 it will use the already instantiated FMU. Hence, for each thermal zone
 in an EnergyPlus FMU, one instance of this model needs to be used.
