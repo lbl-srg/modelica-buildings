@@ -4,6 +4,7 @@ Building
 OutputVariable
 Schedule
 ThermalZone
+ZoneSurface
 Types
 Examples
 Validation
