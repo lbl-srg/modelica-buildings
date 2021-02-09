@@ -33,7 +33,7 @@ size_t AllocateBuildingDataStructure(
   void (*SpawnFormatMessage)(const char *string, ...),
   void (*SpawnFormatError)(const char *string, ...));
 
-void AddZoneToBuilding(FMUZone* zone, const int logLevel);
+void AddZoneToBuilding(FMUExchange* zone, const int logLevel);
 
 void AddOutputVariableToBuilding(FMUOutputVariable* ptrOutVar, const int logLevel);
 

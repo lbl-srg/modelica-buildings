@@ -108,7 +108,7 @@ void* EnergyPlusInputVariableAllocate(
   /* Some tools such as OpenModelica may optimize the code resulting in initialize()
     not being called. Hence, we set a flag so we can force it to be called in exchange()
     in case it is not called in initialize().
-    This behavior was observed when simulating Buildings.ThermalZones.EnergyPlus.BaseClasses.Validation.FMUZoneAdapter
+    This behavior was observed when simulating Buildings.ThermalZones.EnergyPlus.BaseClasses.Validation.FMUExchangeAdapter
   */
   comVar->isInstantiated = fmi2False;
   comVar->isInitialized = fmi2False;

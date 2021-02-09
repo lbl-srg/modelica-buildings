@@ -29,7 +29,7 @@ void EnergyPlusInputVariableInstantiate(
     /* EnergyPlus is not yet loaded.
        This section is only executed once if the 'initial equation' section is called multiple times.
        Moreover, it is called from the 'initial equation' section rather than than constructor
-       because we only know how many zones and output variables there are after all constructors have been called.
+       because we only know how many exc and output variables there are after all constructors have been called.
        Hence we cannot construct the FMU in the constructor because we don't know which
        is the last constructor to be called.
     */

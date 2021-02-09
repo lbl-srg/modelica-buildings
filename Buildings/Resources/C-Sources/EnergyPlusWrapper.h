@@ -31,7 +31,7 @@
 
 /* ********************************************************* */
 /* Thermal zone */
-extern void* EnergyPlusZoneAllocate(
+extern void* EnergyPlusExchangeAllocate(
   const char* modelicaNameBuilding,
   const char* modelicaNameThermalZone,
   const char* idfName,
@@ -41,6 +41,9 @@ extern void* EnergyPlusZoneAllocate(
   const char* fmuName,
   const char* buildingsLibraryRoot,
   const int logLevel,
+  const char* parOutNames[],
+  const char* inpNames[],
+  const char* outNames[],
   void (*SpawnMessage)(const char *string),
   void (*SpawnError)(const char *string),
   void (*SpawnFormatMessage)(const char *string, ...),

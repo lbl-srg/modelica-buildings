@@ -11,16 +11,19 @@
 #include "EnergyPlusUtil.h"
 
 /* Create the structure and return a pointer to its address. */
-LBNL_EnergyPlus_EXPORT void* EnergyPlusZoneAllocate(
+LBNL_EnergyPlus_EXPORT void* EnergyPlusExchangeAllocate(
   const char* modelicaNameBuilding,
-  const char* modelicaNameThermalZone,
+  const char* modelicaName,
   const char* idfName,
   const char* weaName,
-  const char* zoneName,
+  const char* epName,
   int usePrecompiledFMU,
   const char* fmuName,
   const char* buildingsLibraryRoot,
   const int logLevel,
+  const char* parOutNames[],
+  const char* inpNames[],
+  const char* outNames[],
   void (*SpawnMessage)(const char *string),
   void (*SpawnError)(const char *string),
   void (*SpawnFormatMessage)(const char *string, ...),

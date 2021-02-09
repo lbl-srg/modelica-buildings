@@ -24,6 +24,9 @@ class FMUZoneClass
       "Root directory of the Buildings library (used to find the spawn executable)";
     input Buildings.ThermalZones.EnergyPlus.Types.LogLevels logLevel
       "LogLevels of EnergyPlus output";
+    input String parOutNames[:] "Names of parameter in modelDescription.xml file";
+    input String inpNames[:] "Names of inputs in modelDescription.xml file";
+    input String outNames[:] "Names of outputs in modelDescription.xml file";
     output FMUZoneClass adapter;
   external "C" adapter=SpawnZoneAllocate(
     modelicaNameBuilding,
@@ -34,8 +37,13 @@ class FMUZoneClass
     usePrecompiledFMU,
     fmuName,
     buildingsLibraryRoot,
-    logLevel)
-    annotation (Include="#include <EnergyPlusWrapper.c>",IncludeDirectory="modelica://Buildings/Resources/C-Sources",Library={"ModelicaBuildingsEnergyPlus","fmilib_shared"});
+    logLevel,
+    parOutNames,
+    inpNames,
+    outNames)
+    annotation (Include="#include <EnergyPlusWrapper.c>",
+    IncludeDirectory="modelica://Buildings/Resources/C-Sources",
+    Library={"ModelicaBuildingsEnergyPlus","fmilib_shared"});
     annotation (
       Documentation(
         info="<html>

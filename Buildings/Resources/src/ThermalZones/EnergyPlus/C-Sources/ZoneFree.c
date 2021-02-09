@@ -12,7 +12,7 @@
 
 void EnergyPlusZoneFree(void* object){
   if ( object != NULL ){
-    FMUZone* zone = (FMUZone*) object;
+    FMUExchange* zone = (FMUExchange*) object;
 
     /* The building may not have been instanciated yet if there was an error during instantiation */
     if (zone->bui != NULL){

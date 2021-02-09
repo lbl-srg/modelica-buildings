@@ -155,7 +155,7 @@ size_t AllocateBuildingDataStructure(
 
   /* Initialize thermal zone data */
   Buildings_FMUS[nFMU]->nZon = 0;
-  Buildings_FMUS[nFMU]->zones = NULL;
+  Buildings_FMUS[nFMU]->exchange = NULL;
 
   /* Initialize input variable data */
   Buildings_FMUS[nFMU]->nInputVariables = 0;
@@ -179,7 +179,7 @@ size_t AllocateBuildingDataStructure(
   return nFMU;
 }
 
-void AddZoneToBuilding(FMUZone* zone, const int logLevel){
+void AddZoneToBuilding(FMUExchange* zone, const int logLevel){
   FMUBuilding* bui = zone->bui;
   const size_t nZon = bui->nZon;
 
@@ -188,25 +188,25 @@ void AddZoneToBuilding(FMUZone* zone, const int logLevel){
 
 
   if (bui->logLevel >= MEDIUM)
-    SpawnFormatMessage("---- %s: EnergyPlusFMU.c: Adding zone %lu with name %s\n", bui->modelicaNameBuilding, nZon, zone->modelicaNameThermalZone);
+    SpawnFormatMessage("---- %s: EnergyPlusFMU.c: Adding zone %lu with name %s\n", bui->modelicaNameBuilding, nZon, zone->modelicaName);
 
   if (nZon == 0){
-    bui->zones=malloc(sizeof(FMUZone *));
-    if ( bui->zones== NULL )
-      SpawnError("Not enough memory in EnergyPlusFMU.c. to allocate zones.");
+    bui->exchange=malloc(sizeof(FMUExchange *));
+    if ( bui->exchange== NULL )
+      SpawnError("Not enough memory in EnergyPlusFMU.c. to allocate exc.");
   }
   else{
-    /* We already have nZon > 0 zones */
+    /* We already have nZon > 0 exc */
 
-    /* Increment size of vector that contains the zones. */
-    bui->zones = realloc(bui->zones, (nZon + 1) * sizeof(FMUZone*));
-    if (bui->zones == NULL){
-      SpawnError("Not enough memory in EnergyPlusFMU.c. to allocate memory for bld->zones.");
+    /* Increment size of vector that contains the exc. */
+    bui->exchange = realloc(bui->exchange, (nZon + 1) * sizeof(FMUExchange*));
+    if (bui->exchange == NULL){
+      SpawnError("Not enough memory in EnergyPlusFMU.c. to allocate memory for bld->exc.");
     }
   }
   /* Assign the zone */
-  bui->zones[nZon] = zone;
-  /* Increment the count of zones to this building. */
+  bui->exchange[nZon] = zone;
+  /* Increment the count of exc to this building. */
   bui->nZon++;
 
   checkAndSetVerbosity(bui, logLevel);
@@ -366,8 +366,8 @@ void FMUBuildingFree(FMUBuilding* bui){
       free(bui->idfName);
     if (bui->weather != NULL)
       free(bui->weather);
-    if (bui->zones != NULL)
-      free(bui->zones);
+    if (bui->exchange != NULL)
+      free(bui->exchange);
     if (bui->outputVariables != NULL)
       free(bui->outputVariables);
     if (bui->tmpDir != NULL)

@@ -14,7 +14,7 @@
 
 
 /*
-void setParametersInEnergyPlus(FMUZone* zone, double* parValues){
+void setParametersInEnergyPlus(FMUExchange* zone, double* parValues){
   fmi2Status status;
 
   if (bui->logLevel >= MEDIUM)
@@ -26,7 +26,7 @@ void setParametersInEnergyPlus(FMUZone* zone, double* parValues){
     parValues);
   if (status != fmi2OK ){
     SpawnFormatError("Failed to set parameters for building %s, zone %s.",
-    bui->modelicaNameBuilding, zone->modelicaNameThermalZone);
+    bui->modelicaNameBuilding, zone->modelicaName);
   }
   return;
 }
@@ -40,14 +40,14 @@ void EnergyPlusZoneInstantiate(
     double* AFlo,
     double* V,
     double* mSenFac){
-  FMUZone* zone = (FMUZone*) object;
+  FMUExchange* zone = (FMUExchange*) object;
   FMUBuilding* bui = zone->bui;
-  const char* modelicaName = zone->modelicaNameThermalZone;
+  const char* modelicaName = zone->modelicaName;
 
   if (bui->logLevel >= MEDIUM){
     bui->SpawnFormatMessage("%.3f %s: Entered EnergyPlusZoneInstantiate.\n", startTime, modelicaName);
   }
-  /* Fixme: Here, in Dymola, bui is NULL for FMUZoneAdapterZones2, but it was not NULL
+  /* Fixme: Here, in Dymola, bui is NULL for FMUExchangeAdapterZones2, but it was not NULL
      when leaving EnergyPlusZoneAllocate */
   /* if (bui->nZon == 1)
     SpawnFormatError("*** Entering loadFMU_setupExperiment_enterInitializationMode, ptrBui=%p", bui);// with nZon=%d", bui->nZon); */
@@ -58,14 +58,14 @@ void EnergyPlusZoneInstantiate(
     /* EnergyPlus is not yet loaded.
        This section is only executed once if the 'initial equation' section is called multiple times.
        Moreover, it is called from the 'initial equation' section rather than than constructor
-       because we only know how many zones and output variables there are after all constructors have been called.
+       because we only know how many exc and output variables there are after all constructors have been called.
        Hence we cannot construct the FMU in the constructor because we don't know which
        is the last constructor to be called.
     */
     loadFMU_setupExperiment_enterInitializationMode(bui, startTime);
   }
   if (bui->logLevel >= MEDIUM)
-    bui->SpawnFormatMessage("%.3f %s: Getting parameters from EnergyPlus zone, bui at %p, zone at %p, zone->parameter at %p.\n", startTime, zone->modelicaNameThermalZone,
+    bui->SpawnFormatMessage("%.3f %s: Getting parameters from EnergyPlus zone, bui at %p, zone at %p, zone->parameter at %p.\n", startTime, zone->modelicaName,
       bui, zone, zone->parameters);
   getVariables(bui, modelicaName, zone->parameters);
 
@@ -78,5 +78,5 @@ void EnergyPlusZoneInstantiate(
   zone->isInstantiated = fmi2True;
 
   if (bui->logLevel >= MEDIUM)
-    bui->SpawnFormatMessage("%.3f %s: Zone is instantiated.\n", startTime, zone->modelicaNameThermalZone);
+    bui->SpawnFormatMessage("%.3f %s: Zone is instantiated.\n", startTime, zone->modelicaName);
 }

@@ -62,7 +62,7 @@ void buildJSONModelStructureForEnergyPlus(
   size_t i;
   size_t iWri;
   size_t nSch;
-  FMUZone** zones = (FMUZone**)bui->zones;
+  FMUExchange** exc = (FMUExchange**)bui->exchange;
   FMUInputVariable** inpVars= NULL;
   FMUOutputVariable** outVars = NULL;
   /* Total number of models */
@@ -87,10 +87,10 @@ void buildJSONModelStructureForEnergyPlus(
   /* Write zone names */
   for(i = 0; i < bui->nZon; i++){
     if (i == 0){
-      saveAppend(buffer, "    \"zones\": [\n", size, SpawnFormatError);
+      saveAppend(buffer, "    \"exc\": [\n", size, SpawnFormatError);
     }
     openJSONModelBracket(buffer, size, SpawnFormatError);
-    buildJSONKeyValue(buffer, 4, "name", zones[i]->name, false, size, SpawnFormatError);
+    buildJSONKeyValue(buffer, 4, "name", exc[i]->name, false, size, SpawnFormatError);
     closeJSONModelBracket(buffer, i, bui->nZon, size, SpawnFormatError);
   }
   iMod = bui->nZon;
@@ -283,7 +283,7 @@ void setAttributesReal(
 
 void setValueReferences(FMUBuilding* bui){
   size_t i;
-  FMUZone* zone;
+  FMUExchange* zone;
   FMUInputVariable* inpVar;
   FMUOutputVariable* outVar;
 
@@ -293,12 +293,12 @@ void setValueReferences(FMUBuilding* bui){
 
   void (*SpawnFormatMessage)(const char *string, ...) = bui->SpawnFormatMessage;
 
-  /* Set value references for the zones by assigning the values obtained from the FMU */
+  /* Set value references for the exc by assigning the values obtained from the FMU */
   if (bui->logLevel >= MEDIUM)
-    SpawnFormatMessage("---- %s: Setting variable references for zones.\n", bui->modelicaNameBuilding);
+    SpawnFormatMessage("---- %s: Setting variable references for exc.\n", bui->modelicaNameBuilding);
 
   for(i = 0; i < bui->nZon; i++){
-    zone = (FMUZone*) bui->zones[i];
+    zone = (FMUExchange*) bui->exchange[i];
     setAttributesReal(bui, vl, vrl, nv, zone->parameters);
     setAttributesReal(bui, vl, vrl, nv, zone->inputs);
     setAttributesReal(bui, vl, vrl, nv, zone->outputs);

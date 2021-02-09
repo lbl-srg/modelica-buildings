@@ -89,7 +89,10 @@ protected
     usePrecompiledFMU=usePrecompiledFMU,
     fmuName=fmuName,
     buildingsLibraryRoot=buildingsLibraryRoot,
-    logLevel=logLevel)
+    logLevel=logLevel,
+    parOutNames = {"V", "AFlo", "mSenFac"},
+    inpNames = {"T", "X", "mInlets_flow", "TAveInlet", "QGaiRad_flow"},
+    outNames = {"TRad", "QConSen_flow", "QLat_flow", "QPeo_flow"})
     "Class to communicate with EnergyPlus";
   parameter Modelica.SIunits.Time startTime(
     fixed=false)

@@ -74,8 +74,8 @@ typedef struct FMUBuilding
   char* modelicaNameBuilding; /* Name of the Modelica instance of this zone */
   fmi2Byte* idfName; /* if usePrecompiledFMU == true, the user-specified fmu name, else the idf name */
   fmi2Byte* weather;
-  size_t nZon; /* Number of zones that use this FMU */
-  void** zones; /* Pointers to all zones*/
+  size_t nZon; /* Number of exc that use this FMU */
+  void** exchange; /* Pointers to all exc*/
 
   size_t nInputVariables; /* Number of input variables that this FMU has */
   void** inputVariables; /* Pointers to all input variables */
@@ -112,10 +112,10 @@ typedef struct spawnReals{
 } spawnReals;
 
 
-typedef struct FMUZone
+typedef struct FMUExchange
 {
   FMUBuilding* bui; /* Pointer to building with this zone */
-  char* modelicaNameThermalZone; /* Name of the Modelica instance of this zone */
+  char* modelicaName; /* Name of the Modelica instance of this zone */
   char* name;      /* Name of this zone in the idf file */
 
   char** parOutNames;
@@ -129,7 +129,7 @@ typedef struct FMUZone
   fmi2Boolean isInstantiated; /* Flag set to true when the zone has been completely instantiated */
   fmi2Boolean isInitialized;  /* Flag set to true after the zone has executed all get/set calls in the initializion mode
                                 of the FMU */
-} FMUZone;
+} FMUExchange;
 
 
 typedef struct FMUInputVariable

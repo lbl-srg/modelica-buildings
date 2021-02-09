@@ -40,9 +40,12 @@ void* SpawnZoneAllocate(
   int usePrecompiledFMU,
   const char* fmuName,
   const char* buildingsLibraryRoot,
-  const int logLevel){
+  const int logLevel,
+  const char* parOutNames[],
+  const char* inpNames[],
+  const char* outNames[]){
 
-    return EnergyPlusZoneAllocate(
+    return EnergyPlusExchangeAllocate(
       modelicaNameBuilding,
       modelicaNameThermalZone,
       idfName,
@@ -52,6 +55,9 @@ void* SpawnZoneAllocate(
       fmuName,
       buildingsLibraryRoot,
       logLevel,
+      parOutNames,
+      inpNames,
+      outNames,
       ModelicaMessage,
       ModelicaError,
       ModelicaFormatMessage,
