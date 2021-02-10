@@ -20,6 +20,6 @@
 #include "fmilib.h"
 #include "JM/jm_portability.h"
 
-LBNL_EnergyPlus_EXPORT void EnergyPlusInputOutputInstantiate(void* object, double t0, double* AFlo, double* V, double* mSenFac);
+LBNL_EnergyPlus_EXPORT void EnergyPlusInputOutputInstantiate(void* object, double t0, double *parOut);
 
 #endif

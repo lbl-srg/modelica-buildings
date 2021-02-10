@@ -42,9 +42,9 @@ extern void* EnergyPlusExchangeAllocate(
   const char* buildingsLibraryRoot,
   const int logLevel,
   const char* jsonName,
-  char** parOutNames,
-  char** inpNames,
-  char** outNames,
+  const char** parOutNames,
+  const char** inpNames,
+  const char** outNames,
   const int nParOut,
   const int nInp,
   const int nOut,
@@ -53,7 +53,7 @@ extern void* EnergyPlusExchangeAllocate(
   void (*SpawnFormatMessage)(const char *string, ...),
   void (*SpawnFormatError)(const char *string, ...));
 
-extern void EnergyPlusInputOutputInstantiate(void* object, double t0, double* AFlo, double* V, double* mSenFac);
+extern void EnergyPlusInputOutputInstantiate(void* object, double t0, double *parOut);
 
 extern void EnergyPlusInputOutputExchange(
   void* object,

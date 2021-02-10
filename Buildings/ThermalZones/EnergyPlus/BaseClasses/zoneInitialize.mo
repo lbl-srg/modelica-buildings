@@ -6,18 +6,13 @@ function zoneInitialize
     "External object";
   input Modelica.SIunits.Time startTime
     "Start time of the simulation";
-  output Modelica.SIunits.Area AFlo
-    "Zone floor area";
-  output Modelica.SIunits.Volume V
-    "Zone air volume";
-  output Real mSenFac
-    "Factor for scaling the sensible thermal mass of the zone air volume";
+  input Integer nParOut "Number of elements in parOut";
+  output Real parOut[nParOut]
+    "Parameter values returned from EnergyPlus";
 external "C" SpawnInputOutputInstantiate(
   adapter,
   startTime,
-  AFlo,
-  V,
-  mSenFac)
+  parOut)
   annotation (
     Include="#include <EnergyPlusWrapper.c>",
     IncludeDirectory="modelica://Buildings/Resources/C-Sources",

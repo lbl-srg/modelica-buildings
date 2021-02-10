@@ -42,9 +42,9 @@ void* SpawnInputOutputAllocate(
   const char* buildingsLibraryRoot,
   const int logLevel,
   const char* jsonName,
-  char** parOutNames,
-  char** inpNames,
-  char** outNames,
+  const char** parOutNames,
+  const char** inpNames,
+  const char** outNames,
   const int nParOut,
   const int nInp,
   const int nOut){
@@ -75,11 +75,8 @@ void* SpawnInputOutputAllocate(
 void SpawnInputOutputInstantiate(
     void* object,
     double startTime,
-    double* AFlo,
-    double* V,
-    double* mSenFac){
-
-      EnergyPlusInputOutputInstantiate(object, startTime, AFlo, V, mSenFac);
+    double *parOut){
+      EnergyPlusInputOutputInstantiate(object, startTime, parOut);
 }
 
 void SpawnInputOutputExchange(

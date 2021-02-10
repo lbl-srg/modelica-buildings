@@ -37,12 +37,11 @@ void setParametersInEnergyPlus(FMUInOut* zone, double* parValues){
 void EnergyPlusInputOutputInstantiate(
     void* object,
     double startTime,
-    double* AFlo,
-    double* V,
-    double* mSenFac){
+    double *parOut){
   FMUInOut* zone = (FMUInOut*) object;
   FMUBuilding* bui = zone->bui;
   const char* modelicaName = zone->modelicaName;
+  size_t i;
 
   if (bui->logLevel >= MEDIUM){
     bui->SpawnFormatMessage("%.3f %s: Entered EnergyPlusInputOutputInstantiate.\n", startTime, modelicaName);
@@ -70,9 +69,10 @@ void EnergyPlusInputOutputInstantiate(
   getVariables(bui, modelicaName, zone->parameters);
 
   /* Assign the floor area and the volume of the zone */
-  *V = zone->parameters->valsSI[0];
-  *AFlo = zone->parameters->valsSI[1];
-  *mSenFac = zone->parameters->valsSI[2];
+  for(i = 0; i < zone->parameters->n; i++){
+    *parOut = zone->parameters->valsSI[i];
+    parOut++; /* Increment to next element */
+  }
 
   /* Set flag to indicate that this zone has been properly initialized */
   zone->isInstantiated = fmi2True;
