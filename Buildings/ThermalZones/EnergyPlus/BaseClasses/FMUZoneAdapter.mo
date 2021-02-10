@@ -91,7 +91,7 @@ protected
     buildingsLibraryRoot=buildingsLibraryRoot,
     logLevel=logLevel,
     jsonName = "zones",
-    parOutNames = {"V", "AFlo", "mSenFac"},
+    parOutNames = {"AFlo", "V", "mSenFac"},
     inpNames = {"T", "X", "mInlets_flow", "TAveInlet", "QGaiRad_flow"},
     outNames = {"TRad", "QConSen_flow", "QLat_flow", "QPeo_flow"},
     nParOut = 3,
