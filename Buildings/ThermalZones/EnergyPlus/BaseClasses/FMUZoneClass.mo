@@ -24,11 +24,16 @@ class FMUZoneClass
       "Root directory of the Buildings library (used to find the spawn executable)";
     input Buildings.ThermalZones.EnergyPlus.Types.LogLevels logLevel
       "LogLevels of EnergyPlus output";
+    input String jsonName "Name of the object in the json configuration file";
     input String parOutNames[:] "Names of parameter in modelDescription.xml file";
     input String inpNames[:] "Names of inputs in modelDescription.xml file";
     input String outNames[:] "Names of outputs in modelDescription.xml file";
+    input Integer nParOut "Number of parameters";
+    input Integer nInp "Number of inputs";
+    input Integer nOut "Number of outputs";
+
     output FMUZoneClass adapter;
-  external "C" adapter=SpawnZoneAllocate(
+  external "C" adapter=SpawnInputOutputAllocate(
     modelicaNameBuilding,
     modelicaNameThermalZone,
     idfName,
@@ -38,9 +43,13 @@ class FMUZoneClass
     fmuName,
     buildingsLibraryRoot,
     logLevel,
+    jsonName,
     parOutNames,
     inpNames,
-    outNames)
+    outNames,
+    nParOut,
+    nInp,
+    nOut)
     annotation (Include="#include <EnergyPlusWrapper.c>",
     IncludeDirectory="modelica://Buildings/Resources/C-Sources",
     Library={"ModelicaBuildingsEnergyPlus","fmilib_shared"});
@@ -68,7 +77,7 @@ First implementation.
     "Release storage"
     extends Modelica.Icons.Function;
     input FMUZoneClass adapter;
-  external "C" SpawnZoneFree(
+  external "C" SpawnInputOutputFree(
     adapter)
     annotation (
       Include="#include <EnergyPlusWrapper.c>",

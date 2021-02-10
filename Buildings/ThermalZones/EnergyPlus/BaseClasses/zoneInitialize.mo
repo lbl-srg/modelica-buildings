@@ -12,7 +12,7 @@ function zoneInitialize
     "Zone air volume";
   output Real mSenFac
     "Factor for scaling the sensible thermal mass of the zone air volume";
-external "C" SpawnZoneInstantiate(
+external "C" SpawnInputOutputInstantiate(
   adapter,
   startTime,
   AFlo,

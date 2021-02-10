@@ -90,9 +90,13 @@ protected
     fmuName=fmuName,
     buildingsLibraryRoot=buildingsLibraryRoot,
     logLevel=logLevel,
+    jsonName = "zones",
     parOutNames = {"V", "AFlo", "mSenFac"},
     inpNames = {"T", "X", "mInlets_flow", "TAveInlet", "QGaiRad_flow"},
-    outNames = {"TRad", "QConSen_flow", "QLat_flow", "QPeo_flow"})
+    outNames = {"TRad", "QConSen_flow", "QLat_flow", "QPeo_flow"},
+    nParOut = 3,
+    nInp = 5,
+    nOut = 4)
     "Class to communicate with EnergyPlus";
   parameter Modelica.SIunits.Time startTime(
     fixed=false)

@@ -179,7 +179,7 @@ size_t AllocateBuildingDataStructure(
   return nFMU;
 }
 
-void AddZoneToBuilding(FMUExchange* zone, const int logLevel){
+void AddZoneToBuilding(FMUInOut* zone, const int logLevel){
   FMUBuilding* bui = zone->bui;
   const size_t nZon = bui->nZon;
 
@@ -191,7 +191,7 @@ void AddZoneToBuilding(FMUExchange* zone, const int logLevel){
     SpawnFormatMessage("---- %s: EnergyPlusFMU.c: Adding zone %lu with name %s\n", bui->modelicaNameBuilding, nZon, zone->modelicaName);
 
   if (nZon == 0){
-    bui->exchange=malloc(sizeof(FMUExchange *));
+    bui->exchange=malloc(sizeof(FMUInOut *));
     if ( bui->exchange== NULL )
       SpawnError("Not enough memory in EnergyPlusFMU.c. to allocate exc.");
   }
@@ -199,7 +199,7 @@ void AddZoneToBuilding(FMUExchange* zone, const int logLevel){
     /* We already have nZon > 0 exc */
 
     /* Increment size of vector that contains the exc. */
-    bui->exchange = realloc(bui->exchange, (nZon + 1) * sizeof(FMUExchange*));
+    bui->exchange = realloc(bui->exchange, (nZon + 1) * sizeof(FMUInOut*));
     if (bui->exchange == NULL){
       SpawnError("Not enough memory in EnergyPlusFMU.c. to allocate memory for bld->exc.");
     }

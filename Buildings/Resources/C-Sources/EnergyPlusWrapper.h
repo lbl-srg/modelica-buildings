@@ -41,17 +41,21 @@ extern void* EnergyPlusExchangeAllocate(
   const char* fmuName,
   const char* buildingsLibraryRoot,
   const int logLevel,
-  const char* parOutNames[],
-  const char* inpNames[],
-  const char* outNames[],
+  const char* jsonName,
+  char** parOutNames,
+  char** inpNames,
+  char** outNames,
+  const int nParOut,
+  const int nInp,
+  const int nOut,
   void (*SpawnMessage)(const char *string),
   void (*SpawnError)(const char *string),
   void (*SpawnFormatMessage)(const char *string, ...),
   void (*SpawnFormatError)(const char *string, ...));
 
-extern void EnergyPlusZoneInstantiate(void* object, double t0, double* AFlo, double* V, double* mSenFac);
+extern void EnergyPlusInputOutputInstantiate(void* object, double t0, double* AFlo, double* V, double* mSenFac);
 
-extern void EnergyPlusZoneExchange(
+extern void EnergyPlusInputOutputExchange(
   void* object,
   int initialCall,
   double T,
@@ -68,7 +72,7 @@ extern void EnergyPlusZoneExchange(
   double* QPeo_flow,
   double* tNext);
 
-extern void EnergyPlusZoneFree(void* object);
+extern void EnergyPlusInputOutputFree(void* object);
 
 /* ********************************************************* */
 /* Input variables */

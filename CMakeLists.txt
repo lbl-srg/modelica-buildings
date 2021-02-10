@@ -94,18 +94,18 @@ add_library( ModelicaBuildingsEnergyPlus SHARED
   Buildings/Resources/src/ThermalZones/EnergyPlus/C-Sources/InputVariableExchange.c
   Buildings/Resources/src/ThermalZones/EnergyPlus/C-Sources/EnergyPlusUtil.c
   Buildings/Resources/src/ThermalZones/EnergyPlus/C-Sources/OutputVariableFree.c
-  Buildings/Resources/src/ThermalZones/EnergyPlus/C-Sources/ZoneFree.c
-  Buildings/Resources/src/ThermalZones/EnergyPlus/C-Sources/ZoneExchange.c
+  Buildings/Resources/src/ThermalZones/EnergyPlus/C-Sources/InputOutputFree.c
+  Buildings/Resources/src/ThermalZones/EnergyPlus/C-Sources/InputOutputExchange.c
   Buildings/Resources/src/ThermalZones/EnergyPlus/C-Sources/OutputVariableExchange.c
   Buildings/Resources/src/ThermalZones/EnergyPlus/C-Sources/InputVariableAllocate.c
   Buildings/Resources/src/ThermalZones/EnergyPlus/C-Sources/InputVariableFree.c
-  Buildings/Resources/src/ThermalZones/EnergyPlus/C-Sources/ZoneInstantiate.c
+  Buildings/Resources/src/ThermalZones/EnergyPlus/C-Sources/InputOutputInstantiate.c
   Buildings/Resources/src/ThermalZones/EnergyPlus/C-Sources/BuildingInstantiate.c
   Buildings/Resources/src/ThermalZones/EnergyPlus/C-Sources/InputVariableInstantiate.c
   Buildings/Resources/src/ThermalZones/EnergyPlus/C-Sources/OutputVariableAllocate.c
   Buildings/Resources/src/ThermalZones/EnergyPlus/C-Sources/EnergyPlusFMU.c
   Buildings/Resources/src/ThermalZones/EnergyPlus/C-Sources/cryptographicsHash.c
-  Buildings/Resources/src/ThermalZones/EnergyPlus/C-Sources/ZoneAllocate.c
+  Buildings/Resources/src/ThermalZones/EnergyPlus/C-Sources/InputOutputAllocate.c
   Buildings/Resources/src/ThermalZones/EnergyPlus/C-Sources/OutputVariableInstantiate.c
 )
 

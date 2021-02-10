@@ -112,12 +112,13 @@ typedef struct spawnReals{
 } spawnReals;
 
 
-typedef struct FMUExchange
+typedef struct FMUInOut
 {
   FMUBuilding* bui; /* Pointer to building with this zone */
   char* modelicaName; /* Name of the Modelica instance of this zone */
   char* name;      /* Name of this zone in the idf file */
 
+  char* jsonName; /* Name of the json keyword */
   char** parOutNames;
   char** inpNames;
   char** outNames;
@@ -129,7 +130,7 @@ typedef struct FMUExchange
   fmi2Boolean isInstantiated; /* Flag set to true when the zone has been completely instantiated */
   fmi2Boolean isInitialized;  /* Flag set to true after the zone has executed all get/set calls in the initializion mode
                                 of the FMU */
-} FMUExchange;
+} FMUInOut;
 
 
 typedef struct FMUInputVariable

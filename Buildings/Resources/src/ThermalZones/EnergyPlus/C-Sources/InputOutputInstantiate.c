@@ -6,7 +6,7 @@
  */
 
 #include "EnergyPlusFMU.h"
-#include "ZoneInstantiate.h"
+#include "InputOutputInstantiate.h"
 
 #include <stdlib.h>
 #include <string.h>
@@ -14,7 +14,7 @@
 
 
 /*
-void setParametersInEnergyPlus(FMUExchange* zone, double* parValues){
+void setParametersInEnergyPlus(FMUInOut* zone, double* parValues){
   fmi2Status status;
 
   if (bui->logLevel >= MEDIUM)
@@ -34,25 +34,25 @@ void setParametersInEnergyPlus(FMUExchange* zone, double* parValues){
 
 /* This function is called for each zone in the 'initial equation section'
 */
-void EnergyPlusZoneInstantiate(
+void EnergyPlusInputOutputInstantiate(
     void* object,
     double startTime,
     double* AFlo,
     double* V,
     double* mSenFac){
-  FMUExchange* zone = (FMUExchange*) object;
+  FMUInOut* zone = (FMUInOut*) object;
   FMUBuilding* bui = zone->bui;
   const char* modelicaName = zone->modelicaName;
 
   if (bui->logLevel >= MEDIUM){
-    bui->SpawnFormatMessage("%.3f %s: Entered EnergyPlusZoneInstantiate.\n", startTime, modelicaName);
+    bui->SpawnFormatMessage("%.3f %s: Entered EnergyPlusInputOutputInstantiate.\n", startTime, modelicaName);
   }
-  /* Fixme: Here, in Dymola, bui is NULL for FMUExchangeAdapterZones2, but it was not NULL
-     when leaving EnergyPlusZoneAllocate */
+  /* Fixme: Here, in Dymola, bui is NULL for FMUInOutAdapterZones2, but it was not NULL
+     when leaving EnergyPlusInputOutputAllocate */
   /* if (bui->nZon == 1)
     SpawnFormatError("*** Entering loadFMU_setupExperiment_enterInitializationMode, ptrBui=%p", bui);// with nZon=%d", bui->nZon); */
   if (bui == NULL){
-    bui->SpawnFormatError("Pointer bui is NULL in EnergyPlusZoneInstantiate for %s. For Dymola 2020x, make sure you set 'Hidden.AvoidDoubleComputation=true'. See Buildings.ThermalZones.EnergyPlus.UsersGuide.", modelicaName);
+    bui->SpawnFormatError("Pointer bui is NULL in EnergyPlusInputOutputInstantiate for %s. For Dymola 2020x, make sure you set 'Hidden.AvoidDoubleComputation=true'. See Buildings.ThermalZones.EnergyPlus.UsersGuide.", modelicaName);
   }
   if (bui->fmu == NULL){
     /* EnergyPlus is not yet loaded.

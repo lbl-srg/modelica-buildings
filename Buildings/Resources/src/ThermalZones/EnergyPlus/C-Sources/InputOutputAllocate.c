@@ -4,7 +4,7 @@
  * Michael Wetter, LBNL                  2/14/2018
  */
 
-#include "ZoneAllocate.h"
+#include "InputOutputAllocate.h"
 #include "EnergyPlusFMU.h"
 
 #include <stdlib.h>
@@ -13,29 +13,29 @@
 
 void checkForDoubleExchangeDeclaration(const struct FMUBuilding* fmuBld, const char* epName, char** doubleSpec){
   size_t iZ;
-  FMUExchange** exc = (FMUExchange**)(fmuBld->exchange);
+  FMUInOut** ptrInOut = (FMUInOut**)(fmuBld->exchange);
   for(iZ = 0; iZ < fmuBld->nZon; iZ++){
-    if (!strcmp(epName, exc[iZ]->name)){
-      *doubleSpec = exc[iZ]->modelicaName;
+    if (!strcmp(epName, ptrInOut[iZ]->name)){
+      *doubleSpec = ptrInOut[iZ]->modelicaName;
       break;
     }
   }
   return;
 }
 
-void setExchangePointerIfAlreadyInstanciated(const char* modelicaName, FMUExchange** ptrFMUExchange){
+void setExchangePointerIfAlreadyInstanciated(const char* modelicaName, FMUInOut** ptrFMUInOut){
   size_t iBui;
   size_t iZon;
   FMUBuilding* ptrBui;
-  FMUExchange* zon;
-  *ptrFMUExchange = NULL;
+  FMUInOut* zon;
+  *ptrFMUInOut = NULL;
 
   for(iBui = 0; iBui < getBuildings_nFMU(); iBui++){
     ptrBui = getBuildingsFMU(iBui);
     for(iZon = 0; iZon < ptrBui->nZon; iZon++){
-      zon = (FMUExchange*)(ptrBui->exchange[iZon]);
+      zon = (FMUInOut*)(ptrBui->exchange[iZon]);
       if (strcmp(modelicaName, zon->modelicaName) == 0){
-        *ptrFMUExchange = zon;
+        *ptrFMUInOut = zon;
         return;
       }
     }
@@ -54,9 +54,13 @@ void* EnergyPlusExchangeAllocate(
   const char* fmuName,
   const char* buildingsLibraryRoot,
   const int logLevel,
-  const char* parOutNames[],
-  const char* inpNames[],
-  const char* outNames[],
+  const char* jsonName,
+  const char** parOutNames,
+  const char** inpNames,
+  const char** outNames,
+  const int nParOut,
+  const int nInp,
+  const int nOut,
   void (*SpawnMessage)(const char *string),
   void (*SpawnError)(const char *string),
   void (*SpawnFormatMessage)(const char *string, ...),
@@ -64,7 +68,7 @@ void* EnergyPlusExchangeAllocate(
   /* Note: The idfName is needed to unpack the fmu so that the valueReference
      for the zone with epName can be obtained */
   size_t i;
-  FMUExchange* exc;
+  FMUInOut* ptrInOut;
   const size_t nFMU = getBuildings_nFMU();
   /* Name used to check for duplicate zone entries in the same building */
   char* doubleZoneSpec;
@@ -75,12 +79,12 @@ void* EnergyPlusExchangeAllocate(
   }
 
   /* Dymola 2019FD01 calls in some cases the allocator twice. In this case, simply return the previously instanciated zone pointer */
-  setExchangePointerIfAlreadyInstanciated(modelicaName, &exc);
-  if (exc != NULL){
+  setExchangePointerIfAlreadyInstanciated(modelicaName, &ptrInOut);
+  if (ptrInOut != NULL){
     if (logLevel >= MEDIUM)
       SpawnFormatMessage("---- %s: EnergyPlusExchangeAllocate called more than once for this zone.\n", modelicaName);
     /* Return pointer to this zone */
-    return (void*) exc;
+    return (void*) ptrInOut;
   }
   if (logLevel >= MEDIUM)
     SpawnFormatMessage("---- %s: First call for this instance.\n", modelicaName);
@@ -91,71 +95,81 @@ void* EnergyPlusExchangeAllocate(
   if (logLevel >= MEDIUM)
     SpawnFormatMessage("---- %s: Initializing memory for zone.\n", modelicaName);
 
-  exc = (FMUExchange*) malloc(sizeof(FMUExchange));
-  if ( exc == NULL )
+  ptrInOut = (FMUInOut*) malloc(sizeof(FMUInOut));
+  if ( ptrInOut == NULL )
     SpawnError("Not enough memory in EnergyPlusExchangeAllocate.c. to allocate zone.");
 
   /* Some tools such as OpenModelica may optimize the code resulting in initialize()
      not being called. Hence, we set a flag so we can force it to be called in exchange()
      in case it is not called in initialize().
-     This behavior was observed when simulating Buildings.ThermalZones.EnergyPlus.BaseClasses.Validation.FMUExchangeAdapter
+     This behavior was observed when simulating Buildings.ThermalZones.EnergyPlus.BaseClasses.Validation.FMUInOutAdapter
   */
-  exc->isInstantiated = fmi2False;
-  exc->isInitialized = fmi2False;
+  ptrInOut->isInstantiated = fmi2False;
+  ptrInOut->isInitialized = fmi2False;
 
   /* Assign the Modelica instance name */
   mallocString(
     strlen(modelicaName)+1,
     "Not enough memory in EnergyPlusExchangeAllocate.c. to allocate Modelica instance name.",
-    &(exc->modelicaName),
+    &(ptrInOut->modelicaName),
     SpawnFormatError);
-  strcpy(exc->modelicaName, modelicaName);
+  strcpy(ptrInOut->modelicaName, modelicaName);
 
   /* Assign the zone name */
   mallocString(
     strlen(epName)+1,
     "Not enough memory in EnergyPlusExchangeAllocate.c. to allocate zone name.",
-    &(exc->name),
+    &(ptrInOut->name),
     SpawnFormatError);
-  strcpy(exc->name, epName);
+  strcpy(ptrInOut->name, epName);
+
+  /* Assign the json name */
+  mallocString(
+    strlen(jsonName)+1,
+    "Not enough memory in EnergyPlusExchangeAllocate.c. to allocate json name.",
+    &(ptrInOut->jsonName),
+    SpawnFormatError);
+  strcpy(ptrInOut->jsonName, jsonName);
+
+
 
   /* Allocate parameters, inputs and outputs */
-  mallocSpawnReals(3, &(exc->parameters), SpawnFormatError);
-  mallocSpawnReals(5, &(exc->inputs), SpawnFormatError);
-  mallocSpawnReals(4, &(exc->outputs), SpawnFormatError);
+  mallocSpawnReals((size_t)nParOut, &(ptrInOut->parameters), SpawnFormatError);
+  mallocSpawnReals((size_t)nInp, &(ptrInOut->inputs), SpawnFormatError);
+  mallocSpawnReals((size_t)nOut, &(ptrInOut->outputs), SpawnFormatError);
 
   if (logLevel >= MEDIUM)
-    SpawnFormatMessage("---- %s: Allocated parameters %p\n", modelicaName, exc->parameters);
+    SpawnFormatMessage("---- %s: Allocated parameters %p\n", modelicaName, ptrInOut->parameters);
   /* Assign structural data */
   buildVariableNames(
-    exc->name,
+    ptrInOut->name,
     parOutNames,
-    exc->parameters->n,
-    &(exc->parOutNames),
-    &(exc->parameters->fmiNames),
+    ptrInOut->parameters->n,
+    &(ptrInOut->parOutNames),
+    &(ptrInOut->parameters->fmiNames),
     SpawnFormatError);
 
   buildVariableNames(
-    exc->name,
+    ptrInOut->name,
     inpNames,
-    exc->inputs->n,
-    &(exc->inpNames),
-    &(exc->inputs->fmiNames),
+    ptrInOut->inputs->n,
+    &(ptrInOut->inpNames),
+    &(ptrInOut->inputs->fmiNames),
     SpawnFormatError);
 
   buildVariableNames(
-    exc->name,
+    ptrInOut->name,
     outNames,
-    exc->outputs->n,
-    &(exc->outNames),
-    &(exc->outputs->fmiNames),
+    ptrInOut->outputs->n,
+    &(ptrInOut->outNames),
+    &(ptrInOut->outputs->fmiNames),
     SpawnFormatError);
 
   /* ********************************************************************** */
   /* Initialize the pointer for the FMU to which this zone belongs */
 
   /* Check if there is already an FMU for the Building to which this zone belongs to. */
-  exc->bui = NULL;
+  ptrInOut->bui = NULL;
   for(i = 0; i < nFMU; i++){
     FMUBuilding* fmu = getBuildingsFMU(i);
     if (logLevel >= MEDIUM){
@@ -186,14 +200,14 @@ void* EnergyPlusExchangeAllocate(
       if (logLevel >= MEDIUM){
         SpawnFormatMessage("---- %s: Assigning zone to building with building at %p\n", modelicaName, fmu);
       }
-      exc->bui = fmu;
-      AddZoneToBuilding(exc, logLevel);
+      ptrInOut->bui = fmu;
+      AddZoneToBuilding(ptrInOut, logLevel);
 
       break;
     }
   }
   /* Check if we found an FMU */
-  if (exc->bui == NULL){
+  if (ptrInOut->bui == NULL){
     /* Did not find an FMU. */
     i = AllocateBuildingDataStructure(
       modelicaNameBuilding,
@@ -207,9 +221,9 @@ void* EnergyPlusExchangeAllocate(
       SpawnError,
       SpawnFormatMessage,
       SpawnFormatError);
-    exc->bui = getBuildingsFMU(i);
+    ptrInOut->bui = getBuildingsFMU(i);
 
-    AddZoneToBuilding(exc, logLevel);
+    AddZoneToBuilding(ptrInOut, logLevel);
 
     if (logLevel >= MEDIUM){
       for(i = 0; i < getBuildings_nFMU(); i++){
@@ -218,13 +232,13 @@ void* EnergyPlusExchangeAllocate(
            (getBuildingsFMU(i))->modelicaNameBuilding,
            getBuildingsFMU(i));
       }
-      SpawnFormatMessage("---- %s: Exchange ptr is at %p\n", modelicaName, exc);
+      SpawnFormatMessage("---- %s: Exchange ptr is at %p\n", modelicaName, ptrInOut);
     }
   }
 
   if (logLevel >= MEDIUM)
-    SpawnFormatMessage("---- %s: Exiting allocation with zone ptr at %p and building ptr at %p\n", modelicaName, exc, exc->bui);
+    SpawnFormatMessage("---- %s: Exiting allocation with zone ptr at %p and building ptr at %p\n", modelicaName, ptrInOut, ptrInOut->bui);
   /* Return a pointer to this zone */
-  return (void*) exc;
+  return (void*) ptrInOut;
 }
 

@@ -31,7 +31,7 @@ void my_printf(const char *fmt, ...) {
 /* Thermal zone */
 
 
-void* SpawnZoneAllocate(
+void* SpawnInputOutputAllocate(
   const char* modelicaNameBuilding,
   const char* modelicaNameThermalZone,
   const char* idfName,
@@ -41,9 +41,13 @@ void* SpawnZoneAllocate(
   const char* fmuName,
   const char* buildingsLibraryRoot,
   const int logLevel,
-  const char* parOutNames[],
-  const char* inpNames[],
-  const char* outNames[]){
+  const char* jsonName,
+  char** parOutNames,
+  char** inpNames,
+  char** outNames,
+  const int nParOut,
+  const int nInp,
+  const int nOut){
 
     return EnergyPlusExchangeAllocate(
       modelicaNameBuilding,
@@ -55,26 +59,30 @@ void* SpawnZoneAllocate(
       fmuName,
       buildingsLibraryRoot,
       logLevel,
+      jsonName,
       parOutNames,
       inpNames,
       outNames,
+      nParOut,
+      nInp,
+      nOut,
       ModelicaMessage,
       ModelicaError,
       ModelicaFormatMessage,
       ModelicaFormatError);
   }
 
-void SpawnZoneInstantiate(
+void SpawnInputOutputInstantiate(
     void* object,
     double startTime,
     double* AFlo,
     double* V,
     double* mSenFac){
 
-      EnergyPlusZoneInstantiate(object, startTime, AFlo, V, mSenFac);
+      EnergyPlusInputOutputInstantiate(object, startTime, AFlo, V, mSenFac);
 }
 
-void SpawnZoneExchange(
+void SpawnInputOutputExchange(
   void* object,
   int initialCall,
   double T,
@@ -91,7 +99,7 @@ void SpawnZoneExchange(
   double* QPeo_flow,
   double* tNext){
 
-    EnergyPlusZoneExchange(
+    EnergyPlusInputOutputExchange(
       object,
       initialCall,
       T,
@@ -109,9 +117,9 @@ void SpawnZoneExchange(
       tNext);
   }
 
-void SpawnZoneFree(void* object){
+void SpawnInputOutputFree(void* object){
 
-    EnergyPlusZoneFree(object);
+    EnergyPlusInputOutputFree(object);
 }
 
 /* ********************************************************* */

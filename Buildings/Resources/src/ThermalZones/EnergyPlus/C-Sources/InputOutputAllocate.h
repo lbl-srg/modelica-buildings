@@ -3,8 +3,8 @@
  *
  * Michael Wetter, LBNL                  2/9/2019
  */
-#ifndef Buildings_ZoneAllocate_h
-#define Buildings_ZoneAllocate_h
+#ifndef Buildings_InputOutputAllocate_h
+#define Buildings_InputOutputAllocate_h
 
 #include "EnergyPlusTypes.h"
 #include "EnergyPlusFMU.h"
@@ -21,9 +21,13 @@ LBNL_EnergyPlus_EXPORT void* EnergyPlusExchangeAllocate(
   const char* fmuName,
   const char* buildingsLibraryRoot,
   const int logLevel,
-  const char* parOutNames[],
-  const char* inpNames[],
-  const char* outNames[],
+  const char* jsonName,
+  const char** parOutNames,
+  const char** inpNames,
+  const char** outNames,
+  const int nParOut,
+  const int nInp,
+  const int nOut,
   void (*SpawnMessage)(const char *string),
   void (*SpawnError)(const char *string),
   void (*SpawnFormatMessage)(const char *string, ...),

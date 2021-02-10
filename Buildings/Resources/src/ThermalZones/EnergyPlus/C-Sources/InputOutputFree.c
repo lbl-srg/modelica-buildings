@@ -5,20 +5,20 @@
  * Thierry S. Nouidui, LBNL              4/03/2018
  */
 
-#include "ZoneFree.h"
+#include "InputOutputFree.h"
 #include "EnergyPlusFMU.h"
 
 #include <stdlib.h>
 
-void EnergyPlusZoneFree(void* object){
+void EnergyPlusInputOutputFree(void* object){
   if ( object != NULL ){
-    FMUExchange* zone = (FMUExchange*) object;
+    FMUInOut* ptrInOut = (FMUInOut*) object;
 
     /* The building may not have been instanciated yet if there was an error during instantiation */
-    if (zone->bui != NULL){
-      zone->bui->nZon--;
-      FMUBuildingFree(zone->bui);
+    if (ptrInOut->bui != NULL){
+      ptrInOut->bui->nZon--;
+      FMUBuildingFree(ptrInOut->bui);
     }
-    free(zone);
+    free(ptrInOut);
   }
 }

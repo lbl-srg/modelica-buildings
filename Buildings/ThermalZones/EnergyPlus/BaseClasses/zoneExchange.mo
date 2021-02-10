@@ -36,7 +36,7 @@ function zoneExchange
     "Total heat gain from people, to be used to optionall compute CO2 emitted (positive if heat is added to zone air)";
   output Modelica.SIunits.Time tNext
     "Next time that the zone need to be invoked";
-external "C" SpawnZoneExchange(
+external "C" SpawnInputOutputExchange(
   adapter,
   initialCall,
   T,

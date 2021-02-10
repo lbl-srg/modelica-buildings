@@ -62,7 +62,7 @@ void buildJSONModelStructureForEnergyPlus(
   size_t i;
   size_t iWri;
   size_t nSch;
-  FMUExchange** exc = (FMUExchange**)bui->exchange;
+  FMUInOut** ptrInOut = (FMUInOut**)bui->exchange;
   FMUInputVariable** inpVars= NULL;
   FMUOutputVariable** outVars = NULL;
   /* Total number of models */
@@ -84,13 +84,15 @@ void buildJSONModelStructureForEnergyPlus(
 
   /* model information */
   saveAppend(buffer, "  \"model\": {\n", size, SpawnFormatError);
-  /* Write zone names */
+  /* Write zone or surface names */
   for(i = 0; i < bui->nZon; i++){
     if (i == 0){
-      saveAppend(buffer, "    \"zones\": [\n", size, SpawnFormatError);
+      saveAppend(buffer, "    \"", size, SpawnFormatError);
+      saveAppend(buffer, ptrInOut[i]->jsonName, size, SpawnFormatError);
+      saveAppend(buffer, "\": [\n", size, SpawnFormatError);
     }
     openJSONModelBracket(buffer, size, SpawnFormatError);
-    buildJSONKeyValue(buffer, 4, "name", exc[i]->name, false, size, SpawnFormatError);
+    buildJSONKeyValue(buffer, 4, "name", ptrInOut[i]->name, false, size, SpawnFormatError);
     closeJSONModelBracket(buffer, i, bui->nZon, size, SpawnFormatError);
   }
   iMod = bui->nZon;
@@ -283,7 +285,7 @@ void setAttributesReal(
 
 void setValueReferences(FMUBuilding* bui){
   size_t i;
-  FMUExchange* zone;
+  FMUInOut* zone;
   FMUInputVariable* inpVar;
   FMUOutputVariable* outVar;
 
@@ -293,12 +295,12 @@ void setValueReferences(FMUBuilding* bui){
 
   void (*SpawnFormatMessage)(const char *string, ...) = bui->SpawnFormatMessage;
 
-  /* Set value references for the exc by assigning the values obtained from the FMU */
+  /* Set value references for the ptrInOut by assigning the values obtained from the FMU */
   if (bui->logLevel >= MEDIUM)
-    SpawnFormatMessage("---- %s: Setting variable references for exc.\n", bui->modelicaNameBuilding);
+    SpawnFormatMessage("---- %s: Setting variable references for ptrInOut.\n", bui->modelicaNameBuilding);
 
   for(i = 0; i < bui->nZon; i++){
-    zone = (FMUExchange*) bui->exchange[i];
+    zone = (FMUInOut*) bui->exchange[i];
     setAttributesReal(bui, vl, vrl, nv, zone->parameters);
     setAttributesReal(bui, vl, vrl, nv, zone->inputs);
     setAttributesReal(bui, vl, vrl, nv, zone->outputs);
@@ -684,7 +686,7 @@ void generateAndInstantiateBuilding(FMUBuilding* bui){
   void (*SpawnFormatError)(const char *string, ...) = bui->SpawnFormatError;
 
   if (bui->logLevel >= MEDIUM)
-    SpawnFormatMessage("---- %s: Entered EnergyPlusZoneAllocateAndInstantiateBuilding.\n", bui->modelicaNameBuilding);
+    SpawnFormatMessage("---- %s: Entered EnergyPlusInputOutputAllocateAndInstantiateBuilding.\n", bui->modelicaNameBuilding);
 
   if (bui->usePrecompiledFMU)
     SpawnFormatMessage("---- %s: Using pre-compiled FMU %s\n", bui->modelicaNameBuilding, bui->precompiledFMUAbsPat);
