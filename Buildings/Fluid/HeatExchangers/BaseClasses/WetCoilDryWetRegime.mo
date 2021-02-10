@@ -1,6 +1,6 @@
 within Buildings.Fluid.HeatExchangers.BaseClasses;
-model DryWetCalcsFuzzy_V3
-  "This model represents the swiching algorithm of the TK-fuzzy model for cooling coil applicaiton"
+model WetCoilDryWetRegime
+  "This model represents the switching algorithm of the TK-fuzzy model for cooling coil applicaiton"
   input Real Qfac;
   replaceable package Medium2 = Modelica.Media.Interfaces.PartialMedium
     "Medium 2 in the component"
@@ -128,37 +128,37 @@ model DryWetCalcsFuzzy_V3
       Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=0,
         origin={150,-100})));
-  Buildings.Fluid.HeatExchangers.BaseClasses.DryCalcsFuzzy_V3 fullydry(
-  UAWat = UAWat,
-  mWat_flow = mWat_flow,
-  cpWat = cpWat,
-  TWatIn = TWatIn,
-  UAAir = UAAir,
-  mAir_flow = mAir_flow,
-  mWatNonZer_flow = mWatNonZer_flow,
-  mAirNonZer_flow = mAirNonZer_flow,
-  cpAir = cpAir,
-  TAirIn = TAirIn,
-  final cfg = cfg,
-  mAir_flow_nominal=mAir_flow_nominal,
-  mWat_flow_nominal=mWat_flow_nominal);
+  Buildings.Fluid.HeatExchangers.BaseClasses.WetCoilDryRegime fullydry(
+    UAWat=UAWat,
+    mWat_flow=mWat_flow,
+    cpWat=cpWat,
+    TWatIn=TWatIn,
+    UAAir=UAAir,
+    mAir_flow=mAir_flow,
+    mWatNonZer_flow=mWatNonZer_flow,
+    mAirNonZer_flow=mAirNonZer_flow,
+    cpAir=cpAir,
+    TAirIn=TAirIn,
+    final cfg=cfg,
+    mAir_flow_nominal=mAir_flow_nominal,
+    mWat_flow_nominal=mWat_flow_nominal);
 
-  Buildings.Fluid.HeatExchangers.BaseClasses.WetcalcsFuzzy_V3 fullywet(
-   UAWat = UAWat,
-  mWat_flow = mWat_flow,
-  cpWat = cpWat,
-  TWatIn = TWatIn,
-  UAAir = UAAir,
-  mAir_flow = mAir_flow,
-  mWatNonZer_flow = mWatNonZer_flow,
-  mAirNonZer_flow = mAirNonZer_flow,
-  cpAir = cpAir,
-  TAirIn = TAirIn,
-  final cfg = cfg,
-  mAir_flow_nominal=mAir_flow_nominal,
-  mWat_flow_nominal=mWat_flow_nominal,
-  pAir=pAir,wAirIn=wAirIn);
-
+  Buildings.Fluid.HeatExchangers.BaseClasses.WetCoilWetRegime fullywet(
+    UAWat=UAWat,
+    mWat_flow=mWat_flow,
+    cpWat=cpWat,
+    TWatIn=TWatIn,
+    UAAir=UAAir,
+    mAir_flow=mAir_flow,
+    mWatNonZer_flow=mWatNonZer_flow,
+    mAirNonZer_flow=mAirNonZer_flow,
+    cpAir=cpAir,
+    TAirIn=TAirIn,
+    final cfg=cfg,
+    mAir_flow_nominal=mAir_flow_nominal,
+    mWat_flow_nominal=mWat_flow_nominal,
+    pAir=pAir,
+    wAirIn=wAirIn);
 
 protected
   Modelica.SIunits.MassFlowRate mAirNonZer_flow(min=Modelica.Constants.eps)=
@@ -184,7 +184,6 @@ protected
   Real mu_FW(unit="1",min=0, max=1), mu_FD(unit="1",min=0, max=1) "membership functions for Fully-Wet and Fully-Dry conditions";
   Real w_FW(unit="1",min=0, max=1),  w_FD(unit="1",min=0, max=1) "normailized weight functions for Fully-Wet and Fully-Dry conditions";
   Real dryfra(unit="1",min=0, max=1) "dry fraction of cooling coil, e.g., 0.3 means condensation occurs at the 30% heat exchanger length from the air inlet";
-
 
 equation
 
@@ -390,4 +389,4 @@ connections to show graphically here")}),
 <p>The fuzzy-modeling ensures &mu;<sub>FW</sub> + &mu;<sub>FD</sub> = 1, &mu;<sub>FW</sub> &gt;=0, &mu;<sub>FD</sub> &gt;=0, which means the fuzzy model outcomes of Qsen and Qtot are always convex combinations of heat transfer rates for fully-dry and fully-wet modes and therefore are always bounded by them. </p>
 <p>The modeling approach also results in n-th order differentiable model depending on the selection of the underlying membership functions. This cooling coil model is once continuously differentiable even at the transition (or mode-switching) points.</p>
 </html>"));
-end DryWetCalcsFuzzy_V3;
+end WetCoilDryWetRegime;

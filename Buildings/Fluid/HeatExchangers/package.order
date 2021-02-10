@@ -10,7 +10,7 @@ PrescribedOutlet
 SensibleCooler_T
 WetCoilCounterFlow
 WetCoilDiscretized
-WetEffectivenessNTU_Fuzzy_V3
+WetCoiEffectivenessNTU
 ActiveBeams
 CoolingTowers
 DXCoils

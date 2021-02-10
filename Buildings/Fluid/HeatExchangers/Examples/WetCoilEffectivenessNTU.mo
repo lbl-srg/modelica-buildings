@@ -9,7 +9,7 @@ model WetCoilEffectivenessNTU
     sou_2(nPorts=1),
     sin_2(nPorts=1));
 
-  WetEffectivenessNTU_Fuzzy_V3     hex(
+  WetCoiEffectivenessNTU hex(
     redeclare package Medium1 = Medium1,
     redeclare package Medium2 = Medium2,
     m1_flow_nominal=m1_flow_nominal,
@@ -24,9 +24,7 @@ model WetCoilEffectivenessNTU
         T_a2_nominal,
         T_b2_nominal),
     show_T=true,
-    TWatOut_init=T_b1_nominal,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
-    "Heat exchanger"
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState) "Heat exchanger"
     annotation (Placement(transformation(extent={{80,20},{100,40}})));
   Sensors.RelativeHumidityTwoPort senRelHum(
     redeclare package Medium = Medium2,

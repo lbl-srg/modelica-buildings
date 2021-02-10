@@ -7,5 +7,3 @@ PrescribedOutlet_dynamic
 WetCoilDiscretizedInitialization
 WetCoilDiscretizedInitializationPerfectGases
 WetCoilEffectivenessNTU
-WetCoilEffectivenessNTU_FCU
-WetCoilEffectivenessNTU_FVM

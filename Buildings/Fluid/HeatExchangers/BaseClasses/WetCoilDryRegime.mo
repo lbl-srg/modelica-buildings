@@ -1,5 +1,5 @@
 within Buildings.Fluid.HeatExchangers.BaseClasses;
-model DryCalcsFuzzy_V3 "Fully dry coil model"
+model WetCoilDryRegime "Fully dry coil model"
 
   // - water
   input Modelica.SIunits.ThermalConductance UAWat
@@ -58,12 +58,10 @@ model DryCalcsFuzzy_V3 "Fully dry coil model"
   output Modelica.SIunits.Temperature TSurAirOut
     "Surface Temperature at air outlet";
 
-
 equation
 
   UA = 1/ (1 / UAAir + 1 / UAWat)
                                  "UA is for the overall coil (i.e., both sides)";
-
 
     eps=epsilon_C(UA=UA, C1_flow=CWat_flow, C2_flow=CAir_flow,
                 flowRegime=Integer(cfg), CMin_flow_nominal= CMin_flow_nominal, CMax_flow_nominal=CMax_flow_nominal, delta= delta);
@@ -73,7 +71,6 @@ equation
     TWatOut=TWatIn+QTot_flow/(mWatNonZer_flow*cpWat);
 
     (TAirOut-TSurAirOut)*UAAir=(TSurAirOut-TWatIn)*UAWat;
-
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
           Rectangle(
@@ -90,4 +87,4 @@ equation
 <p>This model implements the calculation for a 100&percnt; dry coil. </p>
 <p>See Buildings.Fluid.HeatExchangers.DryCoilEffectivenessNTU for documentation. </p>
 </html>"));
-end DryCalcsFuzzy_V3;
+end WetCoilDryRegime;

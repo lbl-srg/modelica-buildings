@@ -1,7 +1,5 @@
 CoilHeader
 CoilRegister
-DryCalcsFuzzy_V3
-DryWetCalcsFuzzy_V3
 DuctManifoldFixedResistance
 DuctManifoldFlowDistributor
 DuctManifoldNoResistance
@@ -22,7 +20,9 @@ PipeManifoldFixedResistance
 PipeManifoldFlowDistributor
 PipeManifoldNoResistance
 RayleighNumber
-WetcalcsFuzzy_V3
+WetCoilDryRegime
+WetCoilDryWetRegime
+WetCoilWetRegime
 determineWaterIndex
 dynamicViscosityWater
 epsilon_C

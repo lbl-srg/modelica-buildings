@@ -1,5 +1,5 @@
 within Buildings.Fluid.HeatExchangers.BaseClasses;
-model WetcalcsFuzzy_V3 "Fully Wet coil model using esilon_C.mo function"
+model WetCoilWetRegime "Fully Wet coil model using esilon_C.mo function"
   // - water
   input Modelica.SIunits.ThermalConductance UAWat
     "UA for water side";
@@ -14,7 +14,6 @@ model WetcalcsFuzzy_V3 "Fully Wet coil model using esilon_C.mo function"
     "Water temperature at inlet";
 
   input Modelica.SIunits.MassFlowRate mWat_flow_nominal;
-
 
   // -- air
   input Modelica.SIunits.Pressure pAir
@@ -35,7 +34,6 @@ model WetcalcsFuzzy_V3 "Fully Wet coil model using esilon_C.mo function"
     "The configuration of the heat exchanger";
   input Modelica.SIunits.MassFlowRate mAir_flow_nominal;
 
-
   Modelica.SIunits.SpecificEnthalpy hAirIn
     "Specific enthalpy of air at inlet conditions";
   Buildings.Utilities.Psychrometrics.hSat_pTSat hSatWatInM(p=pAir,TSat=TWatIn)
@@ -49,8 +47,6 @@ model WetcalcsFuzzy_V3 "Fully Wet coil model using esilon_C.mo function"
    "deriviative of saturated moist air enthalpy at water inlet temperature";
   Real NonZerDelWatTem
   " regularization water temperature difference betwee inlet and outlet";
-
-
 
   output Modelica.SIunits.HeatFlowRate QTot_flow
     "Total heat flow from water to air stream";
@@ -91,7 +87,6 @@ model WetcalcsFuzzy_V3 "Fully Wet coil model using esilon_C.mo function"
   parameter Real tau=6*60
     "time constant for the state estimation: introduced to avoid the algebraic loop of the wet coil equations";
 
-
   Modelica.SIunits.MassFlowRate UASta
     "Overall mass transfer coefficient for dry coil";
 
@@ -100,8 +95,6 @@ model WetcalcsFuzzy_V3 "Fully Wet coil model using esilon_C.mo function"
 
   Real epsSta(start=0.66, unit="1")
     "Effectiveness for heat exchanger (e*)";
-
-
 
   Modelica.SIunits.MassFlowRate CStaMin
       "min of product of mass flow rates and specific
@@ -189,4 +182,4 @@ equation
 <p>Mitchell, John W., and James E. Braun. 2012a. Principles of heating, ventilation, and air conditioning in buildings. Hoboken, N.J.: Wiley. </p>
 <p>Mitchell, John W., and James E. Braun. 2012b. &quot;Supplementary Material Chapter 2: Heat Exchangers for Cooling Applications&quot;. Excerpt from Principles of heating, ventilation, and air conditioning in buildings. Hoboken, N.J.: Wiley. Available online: http://bcs.wiley.com/he-bcs/Books?action=index&amp;itemId=0470624574&amp;bcsId=7185 </p>
 </html>"));
-end WetcalcsFuzzy_V3;
+end WetCoilWetRegime;
