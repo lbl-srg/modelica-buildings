@@ -209,11 +209,12 @@ equation
         else
           0 for i in 1:nFluPor)+m_flow_small*pre(
         TAveInlet))/(mInlet_flow+m_flow_small));
+    // Below, the term X_w/(1.-X_w) is for conversion from kg/kg_total_air (Modelica) to kg/kg_dry_air (EnergyPlus)
     (TRad, QConLast_flow, dQCon_flow, QLat_flow, QPeo_flow, tNext)=Buildings.ThermalZones.EnergyPlus.BaseClasses.zoneExchange(
       adapter,
       false,
       T,
-      X_w,
+      X_w/(1.-X_w),
       mInlet_flow,
       TAveInlet,
       QGaiRad_flow,

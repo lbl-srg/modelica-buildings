@@ -104,7 +104,7 @@ void EnergyPlusInputOutputExchange(
   /* Set input values, which are of the order below
      const char* inpNames[] = {"T", "X", "mInlets_flow", "TAveInlet", "QGaiRad_flow"};
   */
-  ptrInOut->inputs->valsSI[1] = X/(1.-X); /* Conversion from kg/kg_total_air to kg/kg_dry_air */
+  ptrInOut->inputs->valsSI[1] = X;
   ptrInOut->inputs->valsSI[2] = mInlets_flow;
   ptrInOut->inputs->valsSI[3] = TAveInlet;
   ptrInOut->inputs->valsSI[4] = QGaiRad_flow;
