@@ -389,8 +389,10 @@ but not in Modelica.
 </p>
 <p>
 If there are two instances that declare the same <code>zoneName</code>
-and use the same <code>building</code> component (i.e., the same 
-<code>idfName</code>), the simulation will stop with an error.
+and have in the model hierarchy the same instance of
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus.Building\">
+Buildings.ThermalZones.EnergyPlus.Building</a>,
+then the simulation will stop with an error.
 </p>
 <h4>Main Equations</h4>
 <p>
