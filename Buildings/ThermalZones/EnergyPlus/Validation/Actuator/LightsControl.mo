@@ -12,13 +12,9 @@ model LightsControl
   Buildings.ThermalZones.EnergyPlus.OutputVariable ligPow(
     name="Lights Electricity Rate",
     key="LIVING ZONE Lights",
-<<<<<<< HEAD
-    y(final unit="W"))
-=======
     isDirectDependent=true,
     y(
       final unit="W"))
->>>>>>> master
     "Block that reads output from EnergyPlus"
     annotation (Placement(transformation(extent={{100,60},{120,80}})));
   Controls.OBC.CDL.Utilities.SunRiseSet sunRiseSet(
