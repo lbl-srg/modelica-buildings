@@ -11,7 +11,7 @@ block Controller "Head pressure controller"
   parameter Boolean have_WSE=true
     "Flag indicating if the plant has waterside economizer"
     annotation (Dialog(group="Plant"));
-  parameter Boolean fixSpePum=true
+  parameter Boolean fixSpePum=false
     "Flag indicating if the plant has fixed speed condenser water pumps"
     annotation (Dialog(group="Plant", enable=not have_WSE));
   parameter Real minChiLif=10
@@ -48,7 +48,7 @@ block Controller "Head pressure controller"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput desConWatPumSpe(
     final min=0,
     final max=1,
-    final unit="1") if not ((not have_WSE) and fixSpePum)
+    final unit="1") if (not have_WSE and varSpePum) or have_WSE
     "Design condenser water pump speed for current stage"
     annotation (Placement(transformation(extent={{-140,0},{-100,40}}),
       iconTransformation(extent={{-140,-40},{-100,0}})));
@@ -72,14 +72,14 @@ block Controller "Head pressure controller"
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yHeaPreConVal(
     final min=0,
     final max=1,
-    final unit="1") if not ((not have_WSE) and not fixSpePum)
+    final unit="1") if have_WSE or (not have_WSE and not varSpePum)
     "Head pressure control valve position"
     annotation (Placement(transformation(extent={{100,0},{140,40}}),
       iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yConWatPumSpeSet(
     final min=0,
     final max=1,
-    final unit="1") if not ((not have_WSE) and fixSpePum)
+    final unit="1") if (not have_WSE and varSpePum) or have_WSE
     "Condenser water pump speed setpoint"
     annotation (Placement(transformation(extent={{100,-50},{140,-10}}),
       iconTransformation(extent={{100,-80},{140,-40}})));
@@ -94,7 +94,7 @@ block Controller "Head pressure controller"
     annotation (Placement(transformation(extent={{-20,80},{0,100}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure.Subsequences.MappingWithoutWSE
     noWSE(
-    final fixSpePum=fixSpePum,
+    final fixSpePum=not varSpePum,
     final minTowSpe=minTowSpe,
     final minConWatPumSpe=minConWatPumSpe,
     final minHeaPreValPos=minHeaPreValPos) if not have_WSE
@@ -109,6 +109,8 @@ block Controller "Head pressure controller"
     annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
 
 protected
+  parameter Boolean varSpePum = not fixSpePum or have_WSE
+    "Flag to indicate if the plant has variable speed condenser water pumps";
   Buildings.Controls.OBC.CDL.Logical.Switch swi if have_HeaPreConSig
     annotation (Placement(transformation(extent={{-20,-110},{0,-90}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(
