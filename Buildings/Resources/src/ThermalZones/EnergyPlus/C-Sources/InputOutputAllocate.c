@@ -144,6 +144,8 @@ void* EnergyPlusExchangeAllocate(
   ptrInOut->isInstantiated = fmi2False;
   ptrInOut->isInitialized = fmi2False;
 
+  ptrInOut->valueReferenceIsSet = fmi2False;
+
   /* Assign the Modelica instance name */
   mallocString(
     strlen(modelicaName)+1,

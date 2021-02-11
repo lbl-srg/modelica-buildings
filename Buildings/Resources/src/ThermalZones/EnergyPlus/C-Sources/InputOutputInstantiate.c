@@ -63,6 +63,12 @@ void EnergyPlusInputOutputInstantiate(
     */
     loadFMU_setupExperiment_enterInitializationMode(bui, startTime);
   }
+
+  if (! zone->valueReferenceIsSet){
+    bui->SpawnFormatError("Value reference is not set for %s. For Dymola 2020x, make sure you set 'Hidden.AvoidDoubleComputation=true'. See Buildings.ThermalZones.EnergyPlus.UsersGuide.",
+      modelicaName);
+  }
+
   if (bui->logLevel >= MEDIUM)
     bui->SpawnFormatMessage("%.3f %s: Getting parameters from EnergyPlus zone, bui at %p, zone at %p, zone->parameter at %p.\n", startTime, zone->modelicaName,
       bui, zone, zone->parameters);

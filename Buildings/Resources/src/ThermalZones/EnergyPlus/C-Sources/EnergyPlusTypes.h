@@ -120,6 +120,7 @@ typedef struct spawnDerivatives{
   fmi2Real* vals;  /* Values of the derivatives */
 } spawnDerivatives;
 
+
 typedef struct FMUInOut
 {
   FMUBuilding* bui; /* Pointer to building with this zone */
@@ -139,6 +140,9 @@ typedef struct FMUInOut
   fmi2Boolean isInstantiated; /* Flag set to true when the zone has been completely instantiated */
   fmi2Boolean isInitialized;  /* Flag set to true after the zone has executed all get/set calls in the initializion mode
                                 of the FMU */
+  bool valueReferenceIsSet;         /* Flag, set to true after value references are set,
+                                       and used to check for Dymola 2020x whether the flag 'Hidden.AvoidDoubleComputation=true' is set */
+
 } FMUInOut;
 
 
@@ -150,13 +154,14 @@ typedef struct FMUInputVariable
   char* componentType;              /* Component type in the idf file if actuator, else void pointer */
   char* controlType;                /* Control type in the idf file if actuator, else void pointer */
   char* unit;                       /* Unit specified in the Modelica model */
-  bool valueReferenceIsSet;         /* Flag, set to true after value references are set,
-                                       and used to check for Dymola 2020x whether the flag 'Hidden.AvoidDoubleComputation=true' is set */
   spawnReals* inputs;               /* Outputs (vector with 1 element) */
 
   fmi2Boolean isInstantiated;       /* Flag set to true when the input variable has been completely instantiated */
   fmi2Boolean isInitialized;        /* Flag set to true after the input variable has executed a get call in the initializion mode
                                        of the FMU */
+  bool valueReferenceIsSet;         /* Flag, set to true after value references are set,
+                                       and used to check for Dymola 2020x whether the flag 'Hidden.AvoidDoubleComputation=true' is set */
+
 } FMUInputVariable;
 
 typedef struct FMUOutputVariable
@@ -166,8 +171,6 @@ typedef struct FMUOutputVariable
   char* name;                       /* Name of this output variable in the idf file */
   char* key;                        /* Key of this output variable in the idf file */
 
-  bool valueReferenceIsSet;         /* Flag, set to true after value references are set,
-                                       and used to check for Dymola 2020x whether the flag 'Hidden.AvoidDoubleComputation=true' is set */
   spawnReals* outputs;              /* Outputs (vector with 1 element) */
 
   bool printUnit;                   /* Flag whether unit diagnostics should be printed */
@@ -176,6 +179,10 @@ typedef struct FMUOutputVariable
   fmi2Boolean isInitialized;        /* Flag set to true after the output variable has executed a get call in the initializion mode
                                        of the FMU */
   size_t count;                     /* Counter for how many Modelica instances use this output variable */
+
+  bool valueReferenceIsSet;         /* Flag, set to true after value references are set,
+                                       and used to check for Dymola 2020x whether the flag 'Hidden.AvoidDoubleComputation=true' is set */
+
 } FMUOutputVariable;
 
 #endif

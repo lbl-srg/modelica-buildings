@@ -285,7 +285,7 @@ void setAttributesReal(
 
 void setValueReferences(FMUBuilding* bui){
   size_t i;
-  FMUInOut* zone;
+  FMUInOut* ptrInOut;
   FMUInputVariable* inpVar;
   FMUOutputVariable* outVar;
 
@@ -300,10 +300,11 @@ void setValueReferences(FMUBuilding* bui){
     SpawnFormatMessage("---- %s: Setting variable references for ptrInOut.\n", bui->modelicaNameBuilding);
 
   for(i = 0; i < bui->nZon; i++){
-    zone = (FMUInOut*) bui->exchange[i];
-    setAttributesReal(bui, vl, vrl, nv, zone->parameters);
-    setAttributesReal(bui, vl, vrl, nv, zone->inputs);
-    setAttributesReal(bui, vl, vrl, nv, zone->outputs);
+    ptrInOut = (FMUInOut*) bui->exchange[i];
+    setAttributesReal(bui, vl, vrl, nv, ptrInOut->parameters);
+    setAttributesReal(bui, vl, vrl, nv, ptrInOut->inputs);
+    setAttributesReal(bui, vl, vrl, nv, ptrInOut->outputs);
+    ptrInOut->valueReferenceIsSet = true;
   }
 
   /* Set value references for the input variables by assigning the values obtained from the FMU */
