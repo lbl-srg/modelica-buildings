@@ -1,4 +1,4 @@
-﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic;
+within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic;
 block PlantEnable "Sequence to enable and disable plant"
 
   parameter Boolean have_WSE = true
@@ -231,8 +231,8 @@ annotation (
           textString="STOP")}),
  Documentation(info="<html>
 <p>
-Block that generate chiller plant enable signals and output the initial plant stage,
-according to ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II –
+Block that generates chiller plant enable signals and output the initial plant stage,
+according to ASHRAE RP-1711 Advanced Sequences of Operatoin for HVAC Systems Phase II -
 Central Plants and Hydronic Systems (Draft 4 on January 7, 2019), section 5.2.2 and
 5.2.4.13 Table 2.
 </p>
