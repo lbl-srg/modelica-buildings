@@ -129,7 +129,7 @@ protected
     "Time averaged inlet temperature";
   discrete Modelica.SIunits.Temperature TRooLast
     "Room air temperature at last sampling";
-  discrete Real dQCon_flow(
+  discrete Real dQCon_flow_dT(
     final unit="W/K")
     "Derivative dQCon_flow / dT";
   discrete Modelica.SIunits.HeatFlowRate QConLast_flow(
@@ -227,14 +227,14 @@ equation
     QConLast_flow = y[2];
     QLat_flow = y[3];
     QPeo_flow = y[4];
-    dQCon_flow = y[5];
+    dQCon_flow_dT = y[5];
     tNext = y[6];
 
     tLast=time;
     counter=pre(
       counter)+1;
   end when;
-  QCon_flow=QConLast_flow+(T-TRooLast)*dQCon_flow;
+  QCon_flow=QConLast_flow+(T-TRooLast)*dQCon_flow_dT;
   annotation (
     defaultComponentName="fmuZon",
     Icon(
