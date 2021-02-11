@@ -25,12 +25,15 @@ class FMUZoneClass
     input Buildings.ThermalZones.EnergyPlus.Types.LogLevels logLevel
       "LogLevels of EnergyPlus output";
     input String jsonName "Name of the object in the json configuration file";
-    input String parOutNames[:] "Names of parameter in modelDescription.xml file";
-    input String inpNames[:] "Names of inputs in modelDescription.xml file";
-    input String outNames[:] "Names of outputs in modelDescription.xml file";
     input Integer nParOut "Number of parameters";
-    input Integer nInp "Number of inputs";
-    input Integer nOut "Number of outputs";
+    input Integer nInp "Size of inpNames";
+    input Integer nOut "Size of outNames";
+    input Integer nDer "Size of derivatives";
+    input String parOutNames[nParOut] "Names of parameter in modelDescription.xml file";
+    input String inpNames[nInp] "Names of inputs in modelDescription.xml file";
+    input String outNames[nOut] "Names of outputs in modelDescription.xml file";
+    input Integer derivatives_structure[nDer, 2] "List of derivatives (1-based index, [i,j] means dy_i/du_j";
+    input Real derivatives_delta[nDer] "Increments for derivative calculation";
 
     output FMUZoneClass adapter;
   external "C" adapter=SpawnInputOutputAllocate(
@@ -44,12 +47,15 @@ class FMUZoneClass
     buildingsLibraryRoot,
     logLevel,
     jsonName,
+    nParOut,
+    nInp,
+    nOut,
+    nDer,
     parOutNames,
     inpNames,
     outNames,
-    nParOut,
-    nInp,
-    nOut)
+    derivatives_structure,
+    derivatives_delta)
     annotation (Include="#include <EnergyPlusWrapper.c>",
     IncludeDirectory="modelica://Buildings/Resources/C-Sources",
     Library={"ModelicaBuildingsEnergyPlus","fmilib_shared"});

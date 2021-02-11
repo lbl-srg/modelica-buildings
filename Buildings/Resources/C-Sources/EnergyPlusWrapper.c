@@ -42,12 +42,15 @@ void* SpawnInputOutputAllocate(
   const char* buildingsLibraryRoot,
   const int logLevel,
   const char* jsonName,
-  const char** parOutNames,
-  const char** inpNames,
-  const char** outNames,
   const int nParOut,
   const int nInp,
-  const int nOut){
+  const int nOut,
+  const int nDer,
+  char** parOutNames,
+  char** inpNames,
+  char** outNames,
+  const int* derivatives,
+  const double* derivatives_delta){
 
     return EnergyPlusExchangeAllocate(
       modelicaNameBuilding,
@@ -60,12 +63,15 @@ void* SpawnInputOutputAllocate(
       buildingsLibraryRoot,
       logLevel,
       jsonName,
-      parOutNames,
-      inpNames,
-      outNames,
       nParOut,
       nInp,
       nOut,
+      nDer,
+      (const char**)parOutNames,
+      (const char**)inpNames,
+      (const char**)outNames,
+      (const int**)derivatives,
+      derivatives_delta,
       ModelicaMessage,
       ModelicaError,
       ModelicaFormatMessage,
@@ -82,36 +88,15 @@ void SpawnInputOutputInstantiate(
 void SpawnInputOutputExchange(
   void* object,
   int initialCall,
-  double T,
-  double X,
-  double mInlets_flow,
-  double TAveInlet,
-  double QGaiRad_flow,
+  const double* u,
   double AFlo,
-  double time,
-  double* TRad,
-  double* QConSen_flow,
-  double* dQConSen_flow,
-  double* QLat_flow,
-  double* QPeo_flow,
-  double* tNext){
+  double* y){
 
     EnergyPlusInputOutputExchange(
       object,
       initialCall,
-      T,
-      X,
-      mInlets_flow,
-      TAveInlet,
-      QGaiRad_flow,
-      AFlo,
-      time,
-      TRad,
-      QConSen_flow,
-      dQConSen_flow,
-      QLat_flow,
-      QPeo_flow,
-      tNext);
+      u,
+      y);
   }
 
 void SpawnInputOutputFree(void* object){

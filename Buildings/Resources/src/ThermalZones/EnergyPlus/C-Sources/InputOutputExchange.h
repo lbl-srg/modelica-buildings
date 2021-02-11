@@ -15,18 +15,7 @@
 LBNL_EnergyPlus_EXPORT void EnergyPlusInputOutputExchange(
   void* object,
   int initialCall,
-  double T,
-  double X,
-  double mInlets_flow,
-  double TAveInlet,
-  double QGaiRad_flow,
-  double AFlo,
-  double time,
-  double* TRad,
-  double* QConSen_flow,
-  double* dQConSen_flow,
-  double* QLat_flow,
-  double* QPeo_flow,
-  double* tNext);
+  const double* u,
+  double* y);
 
 #endif

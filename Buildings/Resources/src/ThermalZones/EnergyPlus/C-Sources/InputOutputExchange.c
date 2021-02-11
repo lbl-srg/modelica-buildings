@@ -30,33 +30,24 @@ bool allZonesAreInitialized(FMUBuilding* bui){
 void EnergyPlusInputOutputExchange(
   void* object,
   int initialCall,
-  double T,
-  double X,
-  double mInlets_flow,
-  double TAveInlet,
-  double QGaiRad_flow,
-  double AFlo,
-  double time,
-  double* TRad,
-  double* QConSen_flow,
-  double* dQConSen_flow,
-  double* QLat_flow,
-  double* QPeo_flow,
-  double* tNext){
+  const double* u,
+  double* y){
 
   FMUInOut* ptrInOut = (FMUInOut*) object;
   FMUBuilding* bui = ptrInOut->bui;
 
   fmi2Status status;
 
-  const double dT = 0.01; /* Increment for derivative approximation */
-  double QConSenPer_flow;
+  size_t iU;
+  size_t iY;
+  size_t iDer;
+  const size_t nInp = ptrInOut->inputs->n;
+  const size_t nOut = ptrInOut->outputs->n;
+  const size_t nDer = ptrInOut->derivatives->n;
+  const double time = u[nInp];
 
   void (*SpawnFormatMessage)(const char *string, ...) = bui->SpawnFormatMessage;
   void (*SpawnFormatError)(const char *string, ...) = bui->SpawnFormatError;
-
-  /* Time need to be guarded against rounding error */
-  /* *tNext = round((floor(time/3600.0)+1) * 3600.0); */
 
   if (bui->logLevel >= TIMESTEP)
     SpawnFormatMessage("%.3f %s: Exchanging data with EnergyPlus: initialCall = %d, mode = %s, ptrInOut = %s.\n", bui->time, ptrInOut->modelicaName,
@@ -95,62 +86,48 @@ void EnergyPlusInputOutputExchange(
     setFMUMode(bui, eventMode);
   }
 
-
+  /* Check whether time in Modelica advanced compared to the last call to the building */
   if ( (time - bui->time) > 0.001 ) {
     /* Real time advanced */
     advanceTime_completeIntegratorStep_enterEventMode(bui, ptrInOut->modelicaName, time);
   }
 
-  /* Set input values, which are of the order below
-     const char* inpNames[] = {"T", "X", "mInlets_flow", "TAveInlet", "QGaiRad_flow"};
-  */
-  ptrInOut->inputs->valsSI[1] = X;
-  ptrInOut->inputs->valsSI[2] = mInlets_flow;
-  ptrInOut->inputs->valsSI[3] = TAveInlet;
-  ptrInOut->inputs->valsSI[4] = QGaiRad_flow;
+ /* Set inputs */
+  for(iU = 0; iU < nInp; iU++){
+    ptrInOut->inputs->valsSI[iU] = u[iU];
+  }
 
+  /* Compute derivatives dy_i/du_j */
+  for(iDer = 0; iDer < nDer; iDer++){
+    iY = ptrInOut->derivatives->structure[iDer][0];
+    iU = ptrInOut->derivatives->structure[iDer][1];
+    /* Change value of iU-th input to the FMU, using forward difference */
+    ptrInOut->inputs->valsSI[iU] = u[iU] + ptrInOut->derivatives->delta[iDer];
+    /* Evaluate y(u + du_j) */
+    setVariables(bui, ptrInOut->modelicaName, ptrInOut->inputs);
+    getVariables(bui, ptrInOut->modelicaName, ptrInOut->outputs);
+    /* Store value of y_i(u + du_j). This is not yet the derivative! */
+    ptrInOut->derivatives->vals[iDer] = ptrInOut->outputs->valsSI[iY];
+    /* Reset the input to the non-perturbed value */
+    ptrInOut->inputs->valsSI[iU] = u[iU];
+  }
 
-  /* Forward difference for QConSen_flow */
-  ptrInOut->inputs->valsSI[0] = T + dT;
-
-/*
-  SpawnFormatMessage("*** This is a test output %s", "\n");
-  SpawnFormatMessage("*** This is a test output, bui %p\n", bui);
-  SpawnFormatMessage("*** This is a test output, bui time =  %.2f\n", bui->time);
-  SpawnFormatMessage("*** This is a test output, ptrInOut %p\n", ptrInOut);
-  SpawnFormatMessage("*** This is a test output, modelicaName %s\n", ptrInOut->modelicaName);
-  SpawnFormatMessage("*** This is a test output, ptrInOut->inputs %p\n", ptrInOut->inputs);
-  SpawnFormatMessage("*** This is a test output,  TAir =  %.2f\n", ptrInOut->inputs->valsSI[0]);
-  SpawnFormatMessage("*** This is a test output,  QGaiRad_flow =  %.2f\n", ptrInOut->inputs->valsSI[4]);
-  SpawnFormatMessage("*** This is a test output,  bui->logLevel =  %d\n", bui->logLevel);
-*/
-
-  if (bui->logLevel >= TIMESTEP)
-    SpawnFormatMessage("%.3f %s: Input to fmu for ptrInOut: TAir = %.2f; \t QGaiRad_flow = %.2f\n",
-      bui->time,
-      ptrInOut->modelicaName,
-      ptrInOut->inputs->valsSI[0],
-      ptrInOut->inputs->valsSI[4]);
-
-  setVariables(bui, ptrInOut->modelicaName, ptrInOut->inputs);
-  getVariables(bui, ptrInOut->modelicaName, ptrInOut->outputs);
-  QConSenPer_flow = ptrInOut->outputs->valsSI[1];
-  ptrInOut->inputs->valsSI[0] = T;
+  // Evaluate the FMU for the non-perturbed output */
   setVariables(bui, ptrInOut->modelicaName, ptrInOut->inputs);
   getVariables(bui, ptrInOut->modelicaName, ptrInOut->outputs);
 
-  *dQConSen_flow = (QConSenPer_flow - ptrInOut->outputs->valsSI[1])/dT;
   /* Get next event time, unless FMU is in initialization mode */
   if (bui->mode == initializationMode){
     if (bui->logLevel >= MEDIUM)
       SpawnFormatMessage("%.3f %s: Returning current time as tNext due to initializationMode for exchange.\n",
          bui->time, ptrInOut->modelicaName);
-    *tNext = bui->time; /* Return start time for next event time */
+    y[nOut+nDer] = bui->time; /* Return start time for next event time */
   }
   else{
     if (bui->logLevel >= TIMESTEP)
       SpawnFormatMessage("%.3f %s: Calling do_event_iteration after setting inputs for exchange.\n", bui->time, ptrInOut->modelicaName);
-    *tNext = do_event_iteration(bui, ptrInOut->modelicaName);
+    /* Assign next synchronization time */
+    y[nOut+nDer] = do_event_iteration(bui, ptrInOut->modelicaName);
     /* After the event iteration, we must get the output. Otherwise, we get the
        discrete output before the time event, and not after.
        To test, run SingleZone.mo in EnergyPlus/src
@@ -158,24 +135,18 @@ void EnergyPlusInputOutputExchange(
     getVariables(bui, ptrInOut->modelicaName, ptrInOut->outputs);
   }
 
-  /* Assign output values, which are of the order below
-     const char* outNames[] = {"TRad", "QConSen_flow", "QLat_flow", "QPeo_flow"};
-  */
-  /* Check for what seems to be an error, possibly due to unstable simulation */
-  if (ptrInOut->outputs->valsSI[0] > 373.15 || ptrInOut->outputs->valsSI[0] < 173.15)
-    SpawnFormatError("%.3f %s: Radiative temperature is %.2f K in exchange",
-      bui->time,
-      ptrInOut->modelicaName,
-      ptrInOut->outputs->valsSI[0]);
-
-  *TRad         = ptrInOut->outputs->valsSI[0];
-  *QConSen_flow = ptrInOut->outputs->valsSI[1];
-  *QLat_flow    = ptrInOut->outputs->valsSI[2];
-  *QPeo_flow    = ptrInOut->outputs->valsSI[3];
-
-  if (bui->logLevel >= TIMESTEP)
-    SpawnFormatMessage("%.3f %s: Returning from EnergyPlusInputOutputExchange with nextEventTime = %.2f, TRad_degC = %.2f, mode = %s, nZon=%d \n",
-      bui->time, ptrInOut->modelicaName, *tNext, ptrInOut->outputs->valsEP[0], fmuModeToString(bui->mode), bui->nZon);
+  /* Assign output values */
+  for(iY = 0; iY < nOut; iY++){
+    y[iY] = ptrInOut->outputs->valsSI[iY];
+  }
+  /* Compute the derivative values */
+  for(iDer = 0; iDer < nDer; iDer++){
+    iY = ptrInOut->derivatives->structure[iDer][0];
+    ptrInOut->derivatives->vals[iDer] -= ptrInOut->outputs->valsSI[iY];
+    ptrInOut->derivatives->vals[iDer] /= ptrInOut->derivatives->delta[iDer];
+    /* Assign value to output array */
+    y[nOut + iDer] = ptrInOut->derivatives->vals[iDer];
+  }
 
   return;
 }

@@ -42,12 +42,15 @@ extern void* EnergyPlusExchangeAllocate(
   const char* buildingsLibraryRoot,
   const int logLevel,
   const char* jsonName,
-  const char** parOutNames,
-  const char** inpNames,
-  const char** outNames,
   const int nParOut,
   const int nInp,
   const int nOut,
+  const int nDer,
+  const char** parOutNames,
+  const char** inpNames,
+  const char** outNames,
+  const int** derivatives,
+  const double* derivatives_delta,
   void (*SpawnMessage)(const char *string),
   void (*SpawnError)(const char *string),
   void (*SpawnFormatMessage)(const char *string, ...),
@@ -58,19 +61,8 @@ extern void EnergyPlusInputOutputInstantiate(void* object, double t0, double *pa
 extern void EnergyPlusInputOutputExchange(
   void* object,
   int initialCall,
-  double T,
-  double X,
-  double mInlets_flow,
-  double TAveInlet,
-  double QGaiRad_flow,
-  double AFlo,
-  double time,
-  double* TRad,
-  double* QConSen_flow,
-  double* dQConSen_flow,
-  double* QLat_flow,
-  double* QPeo_flow,
-  double* tNext);
+  const double* u,
+  double* y);
 
 extern void EnergyPlusInputOutputFree(void* object);
 

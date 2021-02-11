@@ -21,38 +21,69 @@ void mallocString(const size_t nChar, const char *error_message, char** str, voi
 }
 
 void mallocSpawnReals(const size_t n, spawnReals** r, void (*SpawnFormatError)(const char *string, ...)){
-  size_t i;
-  *r = (spawnReals*)malloc(n * sizeof(spawnReals));
+
+  *r = NULL;
+  *r = (spawnReals*)malloc(sizeof(spawnReals));
   if ( *r == NULL)
     SpawnFormatError("%s", "Failed to allocate memory for spawnReals in EnergyPlusUtil.c.");
 
   (*r)->valsEP = NULL;
+  (*r)->valsEP = (fmi2Real*)malloc(n * sizeof(fmi2Real));
+  if ((*r)->valsEP == NULL)
+    SpawnFormatError("%s", "Failed to allocate memory for (*r)->valsEP in EnergyPlus.c");
+
   (*r)->valsSI = NULL;
+  (*r)->valsSI = (fmi2Real*)malloc(n * sizeof(fmi2Real));
+  if ((*r)->valsSI == NULL)
+    SpawnFormatError("%s", "Failed to allocate memory for (*r)->valsSI in EnergyPlus.c");
+
   (*r)->units = NULL;
+  (*r)->units = (fmi2_import_unit_t**)malloc(n * sizeof(fmi2_import_unit_t*));
+  if ((*r)->units == NULL)
+    SpawnFormatError("%s", "Failed to allocate memory for (*r)->units in EnergyPlus.c");
+
   (*r)->valRefs = NULL;
+  (*r)->valRefs = (fmi2ValueReference*)malloc(n * sizeof(fmi2ValueReference));
+  if ((*r)->valRefs == NULL)
+    SpawnFormatError("%s", "Failed to allocate memory for (*r)->valRefs in EnergyPlus.c");
+
   (*r)->fmiNames = NULL;
-  for(i = 0; i < n; i++){
-    (*r)->valsEP = (fmi2Real*)malloc(n * sizeof(fmi2Real));
-    if ((*r)->valsEP == NULL)
-      SpawnFormatError("%s", "Failed to allocate memory for (*r)->valsEP in EnergyPlus.c");
+  (*r)->fmiNames = (fmi2Byte**)malloc(n * sizeof(fmi2Byte*));
+  if ((*r)->fmiNames == NULL)
+    SpawnFormatError("%s", "Failed to allocate memory for (*r)->fmiNames in EnergyPlus.c");
 
-    (*r)->valsSI = (fmi2Real*)malloc(n * sizeof(fmi2Real));
-    if ((*r)->valsSI == NULL)
-      SpawnFormatError("%s", "Failed to allocate memory for (*r)->valsSI in EnergyPlus.c");
+ (*r)->n = n;
+}
 
-    (*r)->units = (fmi2_import_unit_t**)malloc(n * sizeof(fmi2_import_unit_t*));
-    if ((*r)->units == NULL)
-      SpawnFormatError("%s", "Failed to allocate memory for (*r)->units in EnergyPlus.c");
+void mallocSpawnDerivatives(const size_t n, spawnDerivatives** r, void (*SpawnFormatError)(const char *string, ...)){
 
-    (*r)->valRefs = (fmi2ValueReference*)malloc(n * sizeof(fmi2ValueReference));
-    if ((*r)->valRefs == NULL)
-      SpawnFormatError("%s", "Failed to allocate memory for (*r)->valRefs in EnergyPlus.c");
+  const size_t len = sizeof(size_t *) * 2 + sizeof(size_t) * n * 2;
 
-    (*r)->fmiNames = (fmi2Byte**)malloc(n * sizeof(fmi2Byte*));
-    if ((*r)->fmiNames == NULL)
-      SpawnFormatError("%s", "Failed to allocate memory for (*r)->fmiNames in EnergyPlus.c");
-  }
+  *r = NULL;
+  *r = (spawnDerivatives*)malloc(sizeof(spawnDerivatives));
+  if ( *r == NULL )
+    SpawnFormatError("%s", "Failed to allocate memory for spawnDerivatives in EnergyPlusUtil.c.");
+
+  (*r)->structure = NULL;
+  (*r)->delta = NULL;
+  (*r)->vals = NULL;
+
+  /* If there are no derivatives, then len = 0, but we still need derivatives->n = 0 to be set */
   (*r)->n = n;
+
+  if (n > 0){
+    (*r)->structure = (size_t **)malloc(len);
+    if ((*r)->structure == NULL)
+      SpawnFormatError("%s", "Failed to allocate memory for (*r)->structure in EnergyPlus.c");
+
+    (*r)->delta = (fmi2Real*)malloc(n * sizeof(fmi2Real));
+    if ((*r)->delta == NULL)
+      SpawnFormatError("%s", "Failed to allocate memory for (*r)->delta in EnergyPlus.c");
+
+    (*r)->vals = (fmi2Real*)malloc(n * sizeof(fmi2Real));
+    if ((*r)->vals == NULL)
+      SpawnFormatError("%s", "Failed to allocate memory for (*r)->vals in EnergyPlus.c");
+  }
 }
 
 char* fmuModeToString(FMUMode mode){

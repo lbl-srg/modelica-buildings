@@ -111,6 +111,14 @@ typedef struct spawnReals{
   fmi2Byte** fmiNames; /* Full names, as listed in modelDescripton.xml file */
 } spawnReals;
 
+typedef struct spawnDerivatives{
+  size_t n;        /* Number of derivatives */
+  /* Note that structure below uses a 0-based index (as we use it in C) rather than the 1-based
+     index that Modelica uses when initializing the C structure */
+  size_t** structure; /* 2-d array with list of derivatives (0-based index, [i,j] means dy_i/du_j */
+  fmi2Real* delta; /* Step used to compute the derivatives */
+  fmi2Real* vals;  /* Values of the derivatives */
+} spawnDerivatives;
 
 typedef struct FMUInOut
 {
@@ -123,9 +131,10 @@ typedef struct FMUInOut
   char** inpNames;
   char** outNames;
 
-  spawnReals* parameters; /* Parameters */
-  spawnReals* inputs;     /* Inputs */
-  spawnReals* outputs;    /* Outputs */
+  spawnReals* parameters;        /* Parameters */
+  spawnReals* inputs;            /* Inputs */
+  spawnReals* outputs;           /* Outputs */
+  spawnDerivatives* derivatives; /* Derivatives */
 
   fmi2Boolean isInstantiated; /* Flag set to true when the zone has been completely instantiated */
   fmi2Boolean isInitialized;  /* Flag set to true after the zone has executed all get/set calls in the initializion mode

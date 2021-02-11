@@ -37,6 +37,8 @@
 #define SPAWN_LOGGER_BUFFER_LENGTH 1000
 
 void mallocSpawnReals(const size_t n, spawnReals** r, void (*SpawnFormatError)(const char *string, ...));
+void mallocSpawnDerivatives(const size_t n, spawnDerivatives** r, void (*SpawnFormatError)(const char *string, ...));
+
 
 void mallocString(
   size_t nChar,

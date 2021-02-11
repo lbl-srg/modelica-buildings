@@ -77,6 +77,10 @@ block FMUZoneAdapter
     "Total heat gain from people, to be used for optional computation of CO2 released"
     annotation (Placement(transformation(extent={{100,-70},{120,-50}}),iconTransformation(extent={{100,-70},{120,-50}})));
 protected
+  constant Integer nOut = 4 "Number of outputs";
+  constant Integer nDer = 1 "Number of derivatives";
+  constant Integer nY = nOut + nDer + 1 "Size of output vector of exchange function";
+
   parameter Modelica.SIunits.MassFlowRate m_flow_small(
     fixed=false)
     "Small mass flow rate used to avoid TAveInlet = 0";
@@ -94,13 +98,18 @@ protected
     parOutNames = {"AFlo", "V", "mSenFac"},
     inpNames = {"T", "X", "mInlets_flow", "TAveInlet", "QGaiRad_flow"},
     outNames = {"TRad", "QConSen_flow", "QLat_flow", "QPeo_flow"},
+    derivatives_structure = {{2, 1}},
+    derivatives_delta = {0.01},
     nParOut = 3,
     nInp = 5,
-    nOut = 4)
+    nOut = nOut,
+    nDer = nDer)
     "Class to communicate with EnergyPlus";
   parameter Modelica.SIunits.Time startTime(
     fixed=false)
     "Simulation start time";
+  Real y[nY] "Output of exchange function";
+
   Modelica.SIunits.Time tNext(
     start=startTime,
     fixed=true)
@@ -159,17 +168,11 @@ initial equation
   m_flow_small=V*3*1.2/3600*1E-10;
 
   Buildings.ThermalZones.EnergyPlus.BaseClasses.zoneExchange(
-      adapter,
-      true,
-      T,
-      X_w,
-      mInlet_flow,
-      TAveInlet,
-      QGaiRad_flow,
-      AFlo,
-      round(
-        time,
-        1E-3));
+    adapter = adapter,
+    initialCall = true,
+    nY = nY,
+    u = {T, X_w/(1.-X_w), mInlet_flow, TAveInlet, QGaiRad_flow, round(time, 1E-3)},
+    AFlo = AFlo);
 
   assert(
     AFlo > 0,
@@ -209,19 +212,24 @@ equation
         else
           0 for i in 1:nFluPor)+m_flow_small*pre(
         TAveInlet))/(mInlet_flow+m_flow_small));
+
+
+
     // Below, the term X_w/(1.-X_w) is for conversion from kg/kg_total_air (Modelica) to kg/kg_dry_air (EnergyPlus)
-    (TRad, QConLast_flow, dQCon_flow, QLat_flow, QPeo_flow, tNext)=Buildings.ThermalZones.EnergyPlus.BaseClasses.zoneExchange(
-      adapter,
-      false,
-      T,
-      X_w/(1.-X_w),
-      mInlet_flow,
-      TAveInlet,
-      QGaiRad_flow,
-      AFlo,
-      round(
-        time,
-        1E-3));
+    y = Buildings.ThermalZones.EnergyPlus.BaseClasses.zoneExchange(
+      adapter = adapter,
+      initialCall = false,
+      nY = nY,
+      u = {T, X_w/(1.-X_w), mInlet_flow, TAveInlet, QGaiRad_flow, round(time, 1E-3)},
+      AFlo = AFlo);
+
+    TRad = y[1];
+    QConLast_flow = y[2];
+    QLat_flow = y[3];
+    QPeo_flow = y[4];
+    dQCon_flow = y[5];
+    tNext = y[6];
+
     tLast=time;
     counter=pre(
       counter)+1;
