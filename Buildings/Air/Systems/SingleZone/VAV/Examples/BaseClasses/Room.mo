@@ -208,7 +208,8 @@ model Room
     annotation (Placement(transformation(extent={{-180,-94},{-160,-74}})));
   Modelica.Blocks.Math.Product product
     annotation (Placement(transformation(extent={{-120,-100},{-100,-80}})));
-  Buildings.Fluid.Sensors.Density density(redeclare package Medium = MediumA)
+  Buildings.Fluid.Sensors.Density density(redeclare package Medium = MediumA,
+      warnAboutOnePortConnection=false)
     "Air density inside the building"
     annotation (Placement(transformation(extent={{0,-100},{-20,-80}})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor senTZon

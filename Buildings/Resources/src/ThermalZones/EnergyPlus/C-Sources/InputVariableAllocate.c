@@ -14,26 +14,26 @@
 FMUInputVariable* checkForDoubleInputVariableDeclaration(
   const struct FMUBuilding* bui,
   const char* fmiName){
-  int iComVar;
+  size_t iComVar;
 
   for(iComVar = 0; iComVar < bui->nInputVariables; iComVar++){
     FMUInputVariable* ptrInpVar = (FMUInputVariable*)(bui->inputVariables[iComVar]);
     if (!strcmp(fmiName, ptrInpVar->inputs->fmiNames[0])){
       if (bui->logLevel >= MEDIUM){
-        bui->SpawnFormatMessage("*** Searched for input variable %s in building and found it.\n", fmiName);
+        bui->SpawnFormatMessage("---- %s: *** Searched for input variable %s and found it.\n", bui->modelicaNameBuilding, fmiName);
       }
       return ptrInpVar;
     }
   }
   if (bui->logLevel >= MEDIUM){
-     bui->SpawnFormatMessage("*** Searched for input variable %s in building but did not find it.\n", fmiName);
+     bui->SpawnFormatMessage("---- %s: *** Searched for input variable %s in building but did not find it.\n", bui->modelicaNameBuilding, fmiName);
   }
   return NULL;
 }
 
 void setInputVariablePointerIfAlreadyInstanciated(const char* modelicaNameInputVariable, FMUInputVariable** ptrFMUInputVariable){
-  int iBui;
-  int iCom;
+  size_t iBui;
+  size_t iCom;
   FMUBuilding* ptrBui;
   FMUInputVariable* ptrInpVar;
 
@@ -70,7 +70,7 @@ void* EnergyPlusInputVariableAllocate(
   void (*SpawnFormatMessage)(const char *string, ...),
   void (*SpawnFormatError)(const char *string, ...)){
   /* Note: The idfName is needed to unpack the fmu so that the valueReference can be obtained */
-  unsigned int i;
+  size_t i;
   FMUInputVariable* comVar = NULL;
 
   const size_t nFMU = getBuildings_nFMU();
@@ -78,27 +78,28 @@ void* EnergyPlusInputVariableAllocate(
   FMUInputVariable* doubleInpVarSpec = NULL;
 
   if (logLevel >= MEDIUM)
-    SpawnFormatMessage("Entered EnergyPlusInputVariableAllocate for zone %s.\n", modelicaNameInputVariable);
+    SpawnFormatMessage("---- %s: Entered EnergyPlusInputVariableAllocate.\n", modelicaNameInputVariable);
 
   if (objectType < 1 || objectType > 2)
     SpawnFormatError("Object type must be 1 or 2, received invalid value for %s.\n", modelicaNameInputVariable);
 
   /* Dymola 2019FD01 calls in some cases the allocator twice. In this case, simply return the previously instanciated zone pointer */
   setInputVariablePointerIfAlreadyInstanciated(modelicaNameInputVariable, &comVar);
+
   if (comVar != NULL){
     if (logLevel >= MEDIUM)
-      SpawnFormatMessage("*** EnergyPlusInputVariableAllocate called more than once for %s.\n", modelicaNameInputVariable);
+      SpawnFormatMessage("---- %s: EnergyPlusInputVariableAllocate called more than once for %s.\n", modelicaNameInputVariable);
     /* Return pointer to this zone */
     return (void*) comVar;
   }
   if (logLevel >= MEDIUM)
-    SpawnFormatMessage("*** First call for this instance %s.\n", modelicaNameInputVariable);
+    SpawnFormatMessage("---- %s: First call for this instance %s.\n", modelicaNameInputVariable);
 
   /* ********************************************************************** */
   /* Initialize the input variable */
 
   if (logLevel >= MEDIUM)
-    SpawnFormatMessage("*** Initializing memory for input variable for %s.\n", modelicaNameInputVariable);
+    SpawnFormatMessage("---- %s: Initializing memory for input variable for %s.\n", modelicaNameInputVariable);
 
   comVar = (FMUInputVariable*) malloc(sizeof(FMUInputVariable));
   if ( comVar == NULL )
@@ -176,12 +177,13 @@ void* EnergyPlusInputVariableAllocate(
   for(i = 0; i < nFMU; i++){
     FMUBuilding* fmu = getBuildingsFMU(i);
     if (logLevel >= MEDIUM){
-      SpawnFormatMessage("*** Testing building %s in FMU %s for %s.\n", modelicaNameBuilding, fmu->fmuAbsPat, modelicaNameInputVariable);
+      SpawnFormatMessage("---- %s: Searching building %s in FMU %s for %s.\n", modelicaNameInputVariable, modelicaNameBuilding, fmu->fmuAbsPat, modelicaNameInputVariable);
     }
 
     if (strcmp(modelicaNameBuilding, fmu->modelicaNameBuilding) == 0){
       if (logLevel >= MEDIUM){
-        SpawnMessage("*** Found a match.\n");
+        SpawnFormatMessage("---- %s: FMU %s for %s contains this input variable.\n",
+          modelicaNameInputVariable, fmu->fmuAbsPat, modelicaNameBuilding);
       }
       /* This is the same FMU as before. */
       doubleInpVarSpec = checkForDoubleInputVariableDeclaration(fmu, comVar->inputs->fmiNames[0]);
@@ -194,7 +196,7 @@ void* EnergyPlusInputVariableAllocate(
       else{
         /* This input variable has not yet been added to this building */
         if (logLevel >= MEDIUM){
-          SpawnFormatMessage("Assigning comVar->bui = fmu with fmu at %p", fmu);
+          SpawnFormatMessage("---- %s: Assigning comVar->bui = fmu with fmu at %p", modelicaNameInputVariable, fmu);
         }
         comVar->bui = fmu;
 
@@ -224,16 +226,17 @@ void* EnergyPlusInputVariableAllocate(
 
     if (logLevel >= MEDIUM){
       for(i = 0; i < getBuildings_nFMU(); i++){
-         SpawnFormatMessage("InputVariableAllocate.c: Building %s is at pointer %p",
+         SpawnFormatMessage("---- %s: InputVariableAllocate.c: Building %s is at address %p",
+           modelicaNameInputVariable,
            (getBuildingsFMU(i))->modelicaNameBuilding,
            getBuildingsFMU(i));
       }
-      SpawnFormatMessage("Input variable ptr is at %p\n", comVar);
+      SpawnFormatMessage("---- %s: Input variable ptr is at %p\n", modelicaNameInputVariable, comVar);
     }
   }
 
   if (logLevel >= MEDIUM)
-    SpawnFormatMessage("Exiting allocation for %s with input variable ptr at %p", modelicaNameInputVariable, comVar);
+    SpawnFormatMessage("---- %s: Exiting allocation with input variable ptr at %p", modelicaNameInputVariable, comVar);
   /* Return a pointer to this input variable */
   return (void*) comVar;
 }

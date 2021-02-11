@@ -386,7 +386,9 @@ the simulation will stop with an error.
 <h4>Main Equations</h4>
 <p>
 This model computes in Modelica the air energy, mass and species
-balance. The convective heat transfer with the building fabric,
+balance. Outside air infiltration needs to be modeled in Modelica,
+because any infiltration that the EnergyPlus model may specify is ignored.
+The convective heat transfer with the building fabric,
 the long-wave and the short-wave radiation are computed by EnergyPlus.
 </p>
 <h5>Heat and mass balance</h5>
@@ -412,13 +414,20 @@ to the room air. Note that this requires a medium model that has trace substance
 <p>
 If the EnergyPlus model computes internal heat gains
 such as from people or equipment, then their sensible convective
-and latent heat gains are added to the the room model.
+and latent heat gains are automatically added to this room model,
+and the radiant fraction is added to the EnergyPlus envelope and thus
+treated correctly.
+In addition, if desired, radiant, convective and latent heat gains
+in units of <i>W/m<sup>2</sup></i>
+can be added using the input connector <code>qGai_flow</code>.
+</p>
+<p>
 Similarly, if people are modeled in EnergyPlus (using the
 EnergyPlus <code>People</code> object), <i>and</i> if the
 Modelica <code>Medium</code> contains CO2 (e.g., if
 <code>Medium.nC &gt; 0</code> and
 there is a <code>Medium.substanceName = \"CO2\"</code>),
-then the CO2 emitted by the people is added to this volume.
+then the CO2 emitted by the people is automatically added to this volume.
 However, the \"Generic Contaminant\" modeled in EnergyPlus is not
 added to the air volume. (Because EnergyPlus does not declare the
 name of the species or its molar mass and hence it cannot be matched

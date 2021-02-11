@@ -1,0 +1,10 @@
+compareVars :=
+  {
+    "weaDat.weaBus.TDryBul",
+    "flo.att.TAir",
+    "flo.sou.TAir",
+    "flo.eas.TAir",
+    "flo.nor.TAir",
+    "flo.wes.TAir",
+    "flo.cor.TAir"
+  };

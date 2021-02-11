@@ -7,19 +7,15 @@ model CouplingTimeSeriesSingleLoop
   parameter Modelica.SIunits.Time perAve=600
     "Period for time averaged variables";
   Buildings.Experimental.DHC.Loads.Examples.BaseClasses.BuildingTimeSeries buiCoo(
-    have_watHea=false,
+    have_heaWat=false,
     filNam="modelica://Buildings/Resources/Data/Experimental/DHC/Loads/Examples/SwissResidential_20190916.mos",
-    k=1,
-    Ti=10,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    use_inputFilter=false,
+    facMulCoo=40,
     nPorts_aChiWat=1,
     nPorts_bChiWat=1)
     "Building wint cooling only"
     annotation (Placement(transformation(extent={{-10,100},{10,120}})));
   Buildings.Fluid.Sources.Boundary_pT sinChiWat(
     redeclare package Medium=Medium1,
-    p=300000,
     nPorts=1)
     "Sink for chilled water"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},rotation=0,origin={110,104})));
@@ -52,12 +48,9 @@ model CouplingTimeSeriesSingleLoop
     "Actual energy used for cooling"
     annotation (Placement(transformation(extent={{80,60},{100,80}})));
   BaseClasses.BuildingTimeSeries buiHea(
-    have_watCoo=false,
+    have_chiWat=false,
     filNam="modelica://Buildings/Resources/Data/Experimental/DHC/Loads/Examples/SwissResidential_20190916.mos",
-    k=1,
-    Ti=10,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    use_inputFilter=false,
+    facMulHea=10,
     nPorts_aChiWat=1,
     nPorts_bChiWat=1,
     nPorts_aHeaWat=1,
@@ -76,7 +69,6 @@ model CouplingTimeSeriesSingleLoop
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,origin={-70,-12})));
   Fluid.Sources.Boundary_pT sinHeaWat(
     redeclare package Medium=Medium1,
-    p=300000,
     nPorts=1)
     "Sink for heating water"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},rotation=0,origin={110,-12})));
@@ -106,9 +98,9 @@ equation
   connect(sinChiWat.ports[1],buiCoo.ports_bChiWat[1])
     annotation (Line(points={{100,104},{10,104}},color={0,127,255}));
   connect(buiCoo.QReqCoo_flow,ECooReq.u)
-    annotation (Line(points={{8.66667,99.3333},{8.66667,70},{38,70}},color={0,0,127}));
+    annotation (Line(points={{8,98.6667},{8,70},{38,70}},            color={0,0,127}));
   connect(buiCoo.QReqCoo_flow,QAveCooReq_flow.u)
-    annotation (Line(points={{8.66667,99.3333},{8.66667,30},{38,30}},color={0,0,127}));
+    annotation (Line(points={{8,98.6667},{8,30},{38,30}},            color={0,0,127}));
   connect(buiCoo.QCoo_flow,ECooAct.u)
     annotation (Line(points={{10.6667,117.333},{70,117.333},{70,70},{78,70}},color={0,0,127}));
   connect(buiCoo.QCoo_flow,QAveCooAct_flow.u)
@@ -120,13 +112,14 @@ equation
   connect(buiHea.ports_bHeaWat[1],sinHeaWat.ports[1])
     annotation (Line(points={{10,-12},{100,-12}},color={0,127,255}));
   connect(buiHea.QReqHea_flow,EHeaReq.u)
-    annotation (Line(points={{6.66667,-20.6667},{6.66667,-60},{38,-60}},color={0,0,127}));
+    annotation (Line(points={{6.66667,-21.3333},{6.66667,-60},{38,-60}},color={0,0,127}));
   connect(buiHea.QReqHea_flow,QAveHeaReq_flow.u)
-    annotation (Line(points={{6.66667,-20.6667},{6.66667,-100},{38,-100}},color={0,0,127}));
+    annotation (Line(points={{6.66667,-21.3333},{6.66667,-100},{38,-100}},color={0,0,127}));
   connect(buiHea.QHea_flow,EHeaAct.u)
     annotation (Line(points={{10.6667,-1.33333},{70,-1.33333},{70,-60},{78,-60}},color={0,0,127}));
   connect(buiHea.QHea_flow,QAveHeaAct_flow.u)
-    annotation (Line(points={{10.6667,-1.33333},{70,-1.33333},{70,-100},{78,-100}},color={0,0,127}));
+    annotation (Line(points={{10.6667,-1.33333},{70,-1.33333},{70,-100},{78,
+          -100}},                                                                  color={0,0,127}));
   annotation (
     experiment(
       StopTime=604800,

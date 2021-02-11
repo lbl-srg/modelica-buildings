@@ -21,6 +21,7 @@ protected
   constant String modelicaNameInputVariable=getInstanceName()
     "Name of this instance"
     annotation (HideResult=true);
+
   Buildings.ThermalZones.EnergyPlus.BaseClasses.FMUInputVariableClass adapter=Buildings.ThermalZones.EnergyPlus.BaseClasses.FMUInputVariableClass(
     objectType=1,
     modelicaNameBuilding=modelicaNameBuilding,
@@ -42,7 +43,7 @@ initial equation
     "Use of pre-compiled FMU is not supported for block Actuator.");
   Buildings.ThermalZones.EnergyPlus.BaseClasses.inputVariableInitialize(
     adapter=adapter,
-    startTime=time);
+    startTime=startTime);
 equation
   y=Buildings.ThermalZones.EnergyPlus.BaseClasses.inputVariableExchange(
     adapter,

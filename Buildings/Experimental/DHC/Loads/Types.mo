@@ -13,7 +13,7 @@ package Types
     annotation (Documentation(info="<html>
 <p>
 Enumeration to define the type of distribution system.
-<br>
+<br/>
 </p>
 <table border=\"1\" summary=\"Explanation of the enumeration\">
 <tr>
@@ -72,7 +72,7 @@ First implementation.
     annotation (Documentation(info="<html>
 <p>
 Enumeration to define the type of distribution pump control.
-<br>
+<br/>
 </p>
 <table border=\"1\" summary=\"Explanation of the enumeration\">
 <tr>
@@ -96,7 +96,7 @@ Enumeration to define the type of distribution pump control.
   ConstantFlow
   </td>
   <td>
-  Use this setting for a constant flow system where terminal units are 
+  Use this setting for a constant flow system where terminal units are
   equipped with three-way valves and the pump operation can be
   approximated as constant flow and constant head.
   </td>

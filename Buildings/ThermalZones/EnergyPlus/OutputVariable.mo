@@ -45,13 +45,13 @@ initial equation
     "Use of pre-compiled FMU is not supported for block OutputVariable.");
   Buildings.ThermalZones.EnergyPlus.BaseClasses.outputVariableInitialize(
     adapter=adapter,
-    startTime=time);
+    startTime=startTime);
    Buildings.ThermalZones.EnergyPlus.BaseClasses.outputVariableExchange(
        adapter,
        true,
        directDependency_in_internal,
        round(
-         time,
+         startTime,
          1E-3));
 
   counter=0;
@@ -188,6 +188,12 @@ If the output depends on multiple inputs, just multiply these inputs before conn
 to the connector <code>directDependency</code>. What the value is is irrelevant,
 but a Modelica code generator will then understand that first the input needs to be sent
 to EnergyPlus before the output is requested.
+</p>
+<h4>Supported output variables</h4>
+<p>
+For a list of supported output variables, see
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus.UsersGuide.SupportedOutputVariables\">
+Buildings.ThermalZones.EnergyPlus.UsersGuide.SupportedOutputVariables</a>.
 </p>
 </html>",
       revisions="<html>

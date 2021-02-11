@@ -53,12 +53,13 @@ to not export all symbols but only the needed ones */
   #define max( a, b ) ( ((a) > (b)) ? (a) : (b) )
 #endif
 
-static char* MOD_BUI_JSON = "ModelicaBuildingsEnergyPlus.json";
-
 #ifdef _WIN32 /* Win32 or Win64 */
 #define access(a, b) (_access_s(a, b))
 #endif
-static char* SEPARATOR = "/";
+
+#ifndef SEPARATOR
+#define SEPARATOR "/"
+#endif
 
 typedef enum {instantiationMode, initializationMode, eventMode, continuousTimeMode} FMUMode;
 

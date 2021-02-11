@@ -230,7 +230,7 @@ equation
 <ul>
 <li>
 July 31, 2020, by Antoine Gautier:<br/>
-First implementation
+First implementation.
 </li>
 </ul>
 </html>",
@@ -238,25 +238,25 @@ First implementation
 <p>
 This is a four-port tank model based on
 <a href=\"modelica://Buildings.Fluid.Storage.Stratified\">
-Buildings.Fluid.Storage.Stratified</a> 
+Buildings.Fluid.Storage.Stratified</a>
 which includes the following features.
 </p>
 <ul>
 <li>
-The two fluid ports suffixed with <code>Top</code> are connected 
+The two fluid ports suffixed with <code>Top</code> are connected
 to the fluid volume at the top of the tank.
 </li>
 <li>
-The two fluid ports suffixed with <code>Bot</code> are connected 
+The two fluid ports suffixed with <code>Bot</code> are connected
 to the fluid volume at the bottom of the tank.
 </li>
 <li>
-A unique heat port is exposed as an external connector. It is 
-meant to provide a uniform temperature boundary condition at 
-the external surface of the tank (outside insulation). 
+A unique heat port is exposed as an external connector. It is
+meant to provide a uniform temperature boundary condition at
+the external surface of the tank (outside insulation).
 </li>
 <li>
-The model outputs the temperature of the fluid volumes at the top 
+The model outputs the temperature of the fluid volumes at the top
 and at the bottom of the tank.
 </li>
 </ul>
