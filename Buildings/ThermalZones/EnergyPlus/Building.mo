@@ -65,7 +65,7 @@ Your model is using an outer \"building\" component to declare building-level pa
 an inner \"building\" component is not defined.
 Drag one instance of Buildings.ThermalZones.EnergyPlus.Building into your model,
 above all declarations of Buildings.ThermalZones.EnergyPlus.ThermalZone,
-to specify building-level parameters.",
+to specify building-level parameters. This instance must have the name \"building\".",
     Icon(
       graphics={
         Bitmap(
