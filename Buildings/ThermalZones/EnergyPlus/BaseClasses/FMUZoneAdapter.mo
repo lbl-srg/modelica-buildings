@@ -96,14 +96,14 @@ protected
     logLevel=logLevel,
     jsonName = "zones",
     parOutNames = {"AFlo", "V", "mSenFac"},
-    inpNames = {"T", "X", "mInlets_flow", "TAveInlet", "QGaiRad_flow"},
-    outNames = {"TRad", "QConSen_flow", "QLat_flow", "QPeo_flow"},
-    derivatives_structure = {{2, 1}},
-    derivatives_delta = {0.01},
     nParOut = 3,
+    inpNames = {"T", "X", "mInlets_flow", "TAveInlet", "QGaiRad_flow"},
     nInp = 5,
+    outNames = {"TRad", "QConSen_flow", "QLat_flow", "QPeo_flow"},
     nOut = nOut,
-    nDer = nDer)
+    derivatives_structure = {{2, 1}},
+    nDer = nDer,
+    derivatives_delta = {0.01})
     "Class to communicate with EnergyPlus";
   parameter Modelica.SIunits.Time startTime(
     fixed=false)

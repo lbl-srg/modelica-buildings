@@ -57,7 +57,7 @@ void mallocSpawnReals(const size_t n, spawnReals** r, void (*SpawnFormatError)(c
 
 void mallocSpawnDerivatives(const size_t n, spawnDerivatives** r, void (*SpawnFormatError)(const char *string, ...)){
 
-  const size_t len = sizeof(size_t *) * 2 + sizeof(size_t) * n * 2;
+  size_t i;
 
   *r = NULL;
   *r = (spawnDerivatives*)malloc(sizeof(spawnDerivatives));
@@ -72,9 +72,14 @@ void mallocSpawnDerivatives(const size_t n, spawnDerivatives** r, void (*SpawnFo
   (*r)->n = n;
 
   if (n > 0){
-    (*r)->structure = (size_t **)malloc(len);
-    if ((*r)->structure == NULL)
-      SpawnFormatError("%s", "Failed to allocate memory for (*r)->structure in EnergyPlus.c");
+
+    (*r)->structure = (size_t **)malloc( n * sizeof(size_t*) );
+    for(i = 0; i < n; i++){
+      (*r)->structure[i] = NULL;
+      (*r)->structure[i] = (size_t*)malloc( 2 * sizeof(size_t));
+      if ((*r)->structure[i] == NULL)
+        SpawnFormatError("Failed to allocate memory for (*r)->structure[%i] in EnergyPlus.c", i);
+    }
 
     (*r)->delta = (fmi2Real*)malloc(n * sizeof(fmi2Real));
     if ((*r)->delta == NULL)

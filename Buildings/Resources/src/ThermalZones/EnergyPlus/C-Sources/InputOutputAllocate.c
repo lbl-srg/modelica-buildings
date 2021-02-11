@@ -13,18 +13,22 @@
 
 void initializeDerivativeStructure(
   spawnDerivatives** r,
-  const int** derivatives_structure,
+  const int* derivatives_structure,
   const double* derivatives_delta)
   {
     size_t i;
+
     for(i = 0; i < (*r)->n; i++){
       /* Below, we subtract 1 because Modelica uses 1-based index, but in C, we use
          0-based index.
          derivatives_structure[i][0] is the index for y
          derivatives_structure[i][1] is the index for u
+
+         Also note that Modelica passes a 1-d array, see
+         Modelica Language Specification 3.4, p. 168
       */
-      (*r)->structure[i][0] = (size_t)(derivatives_structure[i][0]) - 1;
-      (*r)->structure[i][1] = (size_t)(derivatives_structure[i][1]) - 1;
+      (*r)->structure[i][0] = (size_t)(derivatives_structure[2*i]  ) - 1;
+      (*r)->structure[i][1] = (size_t)(derivatives_structure[2*i+1]) - 1;
       (*r)->delta[i] = derivatives_delta[i];
       (*r)->vals[i] = 0;
     }
@@ -74,15 +78,17 @@ void* EnergyPlusExchangeAllocate(
   const char* buildingsLibraryRoot,
   const int logLevel,
   const char* jsonName,
-  const int nParOut,
-  const int nInp,
-  const int nOut,
-  const int nDer,
   const char** parOutNames,
+  const size_t nParOut,
   const char** inpNames,
+  const size_t nInp,
   const char** outNames,
-  const int** derivatives_structure,
+  const size_t nOut,
+  const int* derivatives_structure,
+  const size_t k,
+  const size_t n,
   const double* derivatives_delta,
+  const size_t nDer,
   void (*SpawnMessage)(const char *string),
   void (*SpawnError)(const char *string),
   void (*SpawnFormatMessage)(const char *string, ...),
@@ -96,8 +102,17 @@ void* EnergyPlusExchangeAllocate(
   char* doubleZoneSpec;
 
   if (logLevel >= MEDIUM){
-    SpawnFormatMessage("---- %s: Entered EnergyPlusExchangeAllocate%s.\n", modelicaName);
+    SpawnFormatMessage("---- %s: Entered EnergyPlusExchangeAllocate.\n", modelicaName);
     SpawnFormatMessage("---- %s: Buildings library root is at %s\n", modelicaName, buildingsLibraryRoot);
+  }
+
+  /* Check arguments */
+  if (k != 2){
+    SpawnFormatMessage("---- %s: Require argument k = 2, obtained k = %i.\n", modelicaName, k);
+  }
+  if (n != nDer){
+    SpawnFormatMessage("---- %s: Require arguments n = nDer, obtained n = %i, nDer = %i.\n",
+      modelicaName, n, nDer);
   }
 
   /* Dymola 2019FD01 calls in some cases the allocator twice. In this case, simply return the previously instanciated zone pointer */
@@ -160,6 +175,7 @@ void* EnergyPlusExchangeAllocate(
 
   /* Allocate derivatives */
   mallocSpawnDerivatives((size_t)nDer, &(ptrInOut->derivatives), SpawnFormatError);
+
   /* Initialize derivative structure */
   initializeDerivativeStructure(&(ptrInOut->derivatives), derivatives_structure, derivatives_delta);
 
