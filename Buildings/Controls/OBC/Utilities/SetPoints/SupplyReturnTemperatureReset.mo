@@ -55,8 +55,10 @@ block SupplyReturnTemperatureReset
     annotation (Placement(transformation(extent={{100,-80},{140,-40}})));
 
 protected
-  CDL.Continuous.Sources.Constant dTOutHeaBal_nominal(final k=dTOutHeaBal, y(
-        final quantity="TemperatureDifference", final unit="K"))
+  CDL.Continuous.Sources.Constant dTOutHeaBal_nominal(final k=dTOutHeaBal,
+    y(
+     final quantity="TemperatureDifference",
+     final unit="K"))
     "Offset of outdoor temperature to take into account heat gain"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   CDL.Continuous.Sources.Constant TSup_nom(
