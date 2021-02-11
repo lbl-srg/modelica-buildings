@@ -382,6 +382,10 @@ or at a higher hierarchy-level of the model.
 If the FMU is already instantiated by another instance of this model,
 it will use the already instantiated FMU. Hence, for each thermal zone
 in an EnergyPlus FMU, one instance of this model needs to be used.
+See <a href=\"modelica://Buildings.ThermalZones.EnergyPlus.UsersGuide\">
+Buildings.ThermalZones.EnergyPlus.UsersGuide</a>
+for how zones are simulated that are declared in the EnergyPlus input data file
+but not in Modelica.
 </p>
 <p>
 If there are two instances that declare the same <code>zoneName</code>
