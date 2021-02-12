@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "vavBra.yVAV",
+    "vavBra.yVal",
+    "vavBra.port_b.h_outflow"
+  };

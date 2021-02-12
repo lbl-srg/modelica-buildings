@@ -60,10 +60,14 @@ equation
             -100},{120,100}})),                                  Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
             120,100}})),
-    experiment(StopTime=25200, __Dymola_Algorithm="Dassl"),
+    experiment(
+      StopTime=25200,
+      Tolerance=1e-06),
     Documentation(info="<html>
 This model validates the obsolete VAVBranch model.
 </html>",
       revisions="<html>
-</html>"));
+</html>"),
+    __Dymola_Commands(file="Resources/Scripts/Dymola/Obsolete/Examples/VAVReheat/Validation/VAVBranch.mos"
+        "Simulate and plot"));
 end VAVBranch;

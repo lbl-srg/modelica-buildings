@@ -103,5 +103,4 @@ convertModifiers("Buildings.Controls.OBC.CDL.Logical.Toggle",
 // Point VAVBranch to the Obsolete version and add hardcoded values as parameters.
 convertClass(
   "Buildings.Examples.VAVReheat.BaseClasses.VAVBranch",
-  "Buildings.Obsolete.Examples.VAVReheat.BaseClasses.VAVBranch"
-  );
+  "Buildings.Obsolete.Examples.VAVReheat.BaseClasses.VAVBranch");
