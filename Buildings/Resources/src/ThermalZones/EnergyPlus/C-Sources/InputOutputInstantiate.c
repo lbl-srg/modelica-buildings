@@ -46,10 +46,6 @@ void EnergyPlusInputOutputInstantiate(
   if (bui->logLevel >= MEDIUM){
     bui->SpawnFormatMessage("%.3f %s: Entered EnergyPlusInputOutputInstantiate.\n", startTime, modelicaName);
   }
-  /* Fixme: Here, in Dymola, bui is NULL for FMUInOutAdapterZones2, but it was not NULL
-     when leaving EnergyPlusInputOutputAllocate */
-  /* if (bui->nZon == 1)
-    SpawnFormatError("*** Entering loadFMU_setupExperiment_enterInitializationMode, ptrBui=%p", bui);// with nZon=%d", bui->nZon); */
   if (bui == NULL){
     bui->SpawnFormatError("Pointer bui is NULL in EnergyPlusInputOutputInstantiate for %s. For Dymola 2020x, make sure you set 'Hidden.AvoidDoubleComputation=true'. See Buildings.ThermalZones.EnergyPlus.UsersGuide.", modelicaName);
   }
@@ -79,6 +75,8 @@ void EnergyPlusInputOutputInstantiate(
     *parOut = zone->parameters->valsSI[i];
     parOut++; /* Increment to next element */
   }
+  /* Assign dummy value to force initialization. Modelica allocates this array sufficiently large, e.g, nPar+1 */
+  *parOut = 1;
 
   /* Set flag to indicate that this zone has been properly initialized */
   zone->isInstantiated = fmi2True;

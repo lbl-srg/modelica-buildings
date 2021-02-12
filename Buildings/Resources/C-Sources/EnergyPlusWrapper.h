@@ -32,6 +32,7 @@
 /* ********************************************************* */
 /* Thermal zone */
 extern void* EnergyPlusExchangeAllocate(
+  const int objectType,
   const char* modelicaNameBuilding,
   const char* modelicaNameThermalZone,
   const char* idfName,
@@ -74,38 +75,6 @@ extern void EnergyPlusInputOutputExchange(
   double* y);
 
 extern void EnergyPlusInputOutputFree(void* object);
-
-/* ********************************************************* */
-/* Input variables */
-extern void* EnergyPlusInputVariableAllocate(
-  const int objectType,
-  const char* modelicaNameBuilding,
-  const char* modelicaNameInputVariable,
-  const char* idfName,
-  const char* weaName,
-  const char* name,
-  const char* componentType,
-  const char* controlType,
-  const char* unit,
-  int usePrecompiledFMU,
-  const char* fmuName,
-  const char* buildingsLibraryRoot,
-  const int logLevel,
-  void (*SpawnMessage)(const char *string),
-  void (*SpawnError)(const char *string),
-  void (*SpawnFormatMessage)(const char *string, ...),
-  void (*SpawnFormatError)(const char *string, ...));
-
-extern void EnergyPlusInputVariableInstantiate(void* object, double t0);
-
-extern void EnergyPlusInputVariableExchange(
-  void* object,
-  int initialCall,
-  double u,
-  double time,
-  double* y);
-
-extern void EnergyPlusInputVariableFree(void* object);
 
 /* ********************************************************* */
 /* Output variables */

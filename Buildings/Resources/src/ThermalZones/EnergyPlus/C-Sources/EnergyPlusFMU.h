@@ -33,11 +33,9 @@ size_t AllocateBuildingDataStructure(
   void (*SpawnFormatMessage)(const char *string, ...),
   void (*SpawnFormatError)(const char *string, ...));
 
-void AddZoneToBuilding(FMUInOut* zone, const int logLevel);
+void AddExchangeObjectToBuilding(FMUInOut* exchangeObject, const int logLevel);
 
 void AddOutputVariableToBuilding(FMUOutputVariable* ptrOutVar, const int logLevel);
-
-void AddInputVariableToBuilding(FMUInputVariable* ptrOutVar, const int logLevel);
 
 FMUBuilding* getBuildingsFMU(size_t iFMU);
 

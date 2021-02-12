@@ -14,40 +14,67 @@ model Schedule
     "Value written to EnergyPlus (use for direct dependency of Actuators and Schedules)"
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),iconTransformation(extent={{100,-20},{140,20}})));
 protected
-  constant String modelicaNameInputVariable=getInstanceName()
-    "Name of this instance"
-    annotation (HideResult=true);
+  constant Integer nParOut = 0 "Number of parameter values retrieved from EnergyPlus";
+  constant Integer nOut = 0 "Number of outputs";
+  constant Integer nDer = 0 "Number of derivatives";
+  constant Integer nY = nOut + nDer + 1 "Size of output vector of exchange function";
 
-  Buildings.ThermalZones.EnergyPlus.BaseClasses.FMUInputVariableClass adapter=Buildings.ThermalZones.EnergyPlus.BaseClasses.FMUInputVariableClass(
+  final parameter Real dummy(
+    fixed=false)
+    "Dummy value to force initialization before call to exchange";
+
+  final parameter String unitString = Buildings.ThermalZones.EnergyPlus.BaseClasses.getUnitAsString(unit) "Unit as a string";
+  Buildings.ThermalZones.EnergyPlus.BaseClasses.FMUZoneClass adapter=Buildings.ThermalZones.EnergyPlus.BaseClasses.FMUZoneClass(
     objectType=2,
     modelicaNameBuilding=modelicaNameBuilding,
-    modelicaNameInputVariable=modelicaNameInputVariable,
+    modelicaInstanceName=modelicaInstanceName,
     idfName=idfName,
     weaName=weaName,
-    name=name,
-    componentType="",
-    controlType="",
-    unit=Buildings.ThermalZones.EnergyPlus.BaseClasses.getUnitAsString(unit),
+    epName=name,
     usePrecompiledFMU=usePrecompiledFMU,
     fmuName=fmuName,
     buildingsLibraryRoot=Buildings.ThermalZones.EnergyPlus.BaseClasses.buildingsLibraryRoot,
-    logLevel=logLevel)
+    logLevel=logLevel,
+    jsonName = "schedules",
+    jsonKeysValues=
+        "        \"name\": \"" + name + "\",
+        \"unit\": \"" + unitString + "\",
+        \"fmiName\": \"" + name + "_" + modelicaInstanceName + "\"",
+    parOutNames = fill("", 0),
+    parOutUnits = fill("", 0),
+    nParOut = nParOut,
+    inpNames = {modelicaInstanceName},
+    inpUnits = {unitString},
+    nInp = 1,
+    outNames = fill("", 0),
+    outUnits = fill("", 0),
+    nOut = nOut,
+    derivatives_structure = fill( fill(0, 2), 0),
+    nDer = nDer,
+    derivatives_delta = fill(0, 0))
     "Class to communicate with EnergyPlus";
+
+  Real yEP[nY] "Output of exchange function";
+
 initial equation
   assert(
     not usePrecompiledFMU,
     "Use of pre-compiled FMU is not supported for block Schedule.");
-  Buildings.ThermalZones.EnergyPlus.BaseClasses.inputVariableInitialize(
+  {dummy} = Buildings.ThermalZones.EnergyPlus.BaseClasses.zoneInitialize(
     adapter=adapter,
-    startTime=startTime);
+    startTime=startTime,
+    nParOut=nParOut);
+
 equation
-  y=Buildings.ThermalZones.EnergyPlus.BaseClasses.inputVariableExchange(
-    adapter,
-    initial(),
-    u,
-    round(
-      time,
-      1E-3));
+  yEP = Buildings.ThermalZones.EnergyPlus.BaseClasses.zoneExchange(
+    adapter = adapter,
+    initialCall = initial(),
+    nY = nY,
+    u = {u, round(time, 1E-3)},
+    dummy = dummy);
+
+  y = yEP[1];
+
   annotation (
     defaultComponentName="sch",
     Icon(

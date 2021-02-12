@@ -12,6 +12,7 @@
 
 /* Create the structure and return a pointer to its address. */
 LBNL_EnergyPlus_EXPORT void* EnergyPlusExchangeAllocate(
+  const int objectType,
   const char* modelicaNameBuilding,
   const char* modelicaName,
   const char* idfName,
@@ -25,7 +26,7 @@ LBNL_EnergyPlus_EXPORT void* EnergyPlusExchangeAllocate(
   const char* jsonKeysValues,
   const char** parOutNames,
   const size_t nParOut,
-  const char** parUnits,
+  const char** parOutUnits,
   const size_t nParOutUni,
   const char** inpNames,
   const size_t nInp,

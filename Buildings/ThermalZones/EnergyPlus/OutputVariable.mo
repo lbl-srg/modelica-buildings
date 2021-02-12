@@ -22,7 +22,7 @@ protected
     "Needed to connect to conditional connector";
   Buildings.ThermalZones.EnergyPlus.BaseClasses.FMUOutputVariableClass adapter=Buildings.ThermalZones.EnergyPlus.BaseClasses.FMUOutputVariableClass(
     modelicaNameBuilding=modelicaNameBuilding,
-    modelicaNameOutputVariable=modelicaNameOutputVariable,
+    modelicaNameOutputVariable=modelicaInstanceName,
     idfName=idfName,
     weaName=weaName,
     name=name,

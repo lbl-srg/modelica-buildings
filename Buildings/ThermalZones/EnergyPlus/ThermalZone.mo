@@ -81,7 +81,7 @@ model ThermalZone
   Buildings.ThermalZones.EnergyPlus.BaseClasses.FMUZoneAdapter fmuZon(
     final buildingsLibraryRoot=Buildings.ThermalZones.EnergyPlus.BaseClasses.buildingsLibraryRoot,
     final modelicaNameBuilding=modelicaNameBuilding,
-    final modelicaNameThermalZone=modelicaNameThermalZone,
+    final modelicaInstanceName=modelicaInstanceName,
     final idfName=idfName,
     final weaName=weaName,
     final zoneName=zoneName,
@@ -92,7 +92,7 @@ model ThermalZone
     "FMU zone adapter"
     annotation (Placement(transformation(extent={{80,100},{100,120}})));
 protected
-  constant String modelicaNameThermalZone=getInstanceName()
+  constant String modelicaInstanceName=getInstanceName()
     "Name of this instance"
     annotation (HideResult=true);
   constant Modelica.SIunits.SpecificEnergy h_fg=Medium.enthalpyOfCondensingGas(

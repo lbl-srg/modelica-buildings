@@ -12,13 +12,13 @@
 #include <math.h>
 #include <string.h>
 
-bool allZonesAreInitialized(FMUBuilding* bui){
+bool areAllInputOutputObjectsInitialized(FMUBuilding* bui){
   void** exc = bui->exchange;
   size_t i;
-  FMUInOut* zon;
-  for(i = 0; i < bui->nZon; i++){
-    zon = (FMUInOut*)exc[i];
-    if (! zon->isInitialized)
+  FMUInOut* ptrInOut;
+  for(i = 0; i < bui->nExcObj; i++){
+    ptrInOut = (FMUInOut*)exc[i];
+    if (! ptrInOut->isInitialized)
       return false;
   }
   return true;

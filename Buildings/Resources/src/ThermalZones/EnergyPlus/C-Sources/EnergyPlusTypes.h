@@ -64,6 +64,8 @@ to not export all symbols but only the needed ones */
 typedef enum {instantiationMode, initializationMode, eventMode, continuousTimeMode} FMUMode;
 
 enum logLevels {ERRORS = 1, WARNINGS = 2, QUIET = 3, MEDIUM = 4, TIMESTEP = 5};
+enum objectTypes {THERMALZONE = 1, SCHEDULE = 2, ACTUATOR = 3, OUTPUT = 4, SURFACE = 5};
+
 
 typedef struct FMUBuilding
 {
@@ -74,11 +76,8 @@ typedef struct FMUBuilding
   char* modelicaNameBuilding; /* Name of the Modelica instance of this zone */
   fmi2Byte* idfName; /* if usePrecompiledFMU == true, the user-specified fmu name, else the idf name */
   fmi2Byte* weather;
-  size_t nZon; /* Number of exc that use this FMU */
-  void** exchange; /* Pointers to all exc*/
-
-  size_t nInputVariables; /* Number of input variables that this FMU has */
-  void** inputVariables; /* Pointers to all input variables */
+  size_t nExcObj; /* Number of exc that use this FMU */
+  void** exchange; /* Pointers to all exchange objects*/
 
   size_t nOutputVariables; /* Number of output variables that this FMU has */
   void** outputVariables; /* Pointers to all output variables */
@@ -124,6 +123,7 @@ typedef struct spawnDerivatives{
 
 typedef struct FMUInOut
 {
+  int objectType; /* Type of the EnergyPlus object */
   FMUBuilding* bui; /* Pointer to building with this zone */
   char* modelicaName; /* Name of the Modelica instance of this zone */
 
@@ -145,25 +145,6 @@ typedef struct FMUInOut
                                        and used to check for Dymola 2020x whether the flag 'Hidden.AvoidDoubleComputation=true' is set */
 
 } FMUInOut;
-
-
-typedef struct FMUInputVariable
-{
-  FMUBuilding* bui;              /* Pointer to building with this input variable */
-  char* modelicaNameInputVariable; /* Name of the Modelica instance of this zone */
-  char* name;                       /* Name of this schedule or EMS actuator in the idf file */
-  char* componentType;              /* Component type in the idf file if actuator, else void pointer */
-  char* controlType;                /* Control type in the idf file if actuator, else void pointer */
-  char* unit;                       /* Unit specified in the Modelica model */
-  spawnReals* inputs;               /* Outputs (vector with 1 element) */
-
-  fmi2Boolean isInstantiated;       /* Flag set to true when the input variable has been completely instantiated */
-  fmi2Boolean isInitialized;        /* Flag set to true after the input variable has executed a get call in the initializion mode
-                                       of the FMU */
-  bool valueReferenceIsSet;         /* Flag, set to true after value references are set,
-                                       and used to check for Dymola 2020x whether the flag 'Hidden.AvoidDoubleComputation=true' is set */
-
-} FMUInputVariable;
 
 typedef struct FMUOutputVariable
 {

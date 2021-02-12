@@ -32,6 +32,7 @@ void my_printf(const char *fmt, ...) {
 
 
 void* SpawnInputOutputAllocate(
+  const int objectType,
   const char* modelicaNameBuilding,
   const char* modelicaNameThermalZone,
   const char* idfName,
@@ -62,6 +63,7 @@ void* SpawnInputOutputAllocate(
   const size_t nDer){
 
     return EnergyPlusExchangeAllocate(
+      objectType,
       modelicaNameBuilding,
       modelicaNameThermalZone,
       idfName,
@@ -107,7 +109,7 @@ void SpawnInputOutputExchange(
   void* object,
   int initialCall,
   const double* u,
-  double AFlo,
+  double dummy,
   double* y){
 
     EnergyPlusInputOutputExchange(
@@ -121,63 +123,6 @@ void SpawnInputOutputFree(void* object){
 
     EnergyPlusInputOutputFree(object);
 }
-
-/* ********************************************************* */
-/* Input variables */
-void* SpawnInputVariableAllocate(
-  const int objectType,
-  const char* modelicaNameBuilding,
-  const char* modelicaNameInputVariable,
-  const char* idfName,
-  const char* weaName,
-  const char* name,
-  const char* componentType,
-  const char* controlType,
-  const char* unit,
-  int usePrecompiledFMU,
-  const char* fmuName,
-  const char* buildingsLibraryRoot,
-  const int logLevel){
-
-    return EnergyPlusInputVariableAllocate(
-      objectType,
-      modelicaNameBuilding,
-      modelicaNameInputVariable,
-      idfName,
-      weaName,
-      name,
-      componentType,
-      controlType,
-      unit,
-      usePrecompiledFMU,
-      fmuName,
-      buildingsLibraryRoot,
-      logLevel,
-      ModelicaMessage,
-      ModelicaError,
-      ModelicaFormatMessage,
-      ModelicaFormatError);
-  }
-
-void SpawnInputVariableInstantiate(void* object, double t0){
-
-    EnergyPlusInputVariableInstantiate(object, t0);
-  }
-
-void SpawnInputVariableExchange(
-  void* object,
-  int initialCall,
-  double u,
-  double time,
-  double* y){
-
-    EnergyPlusInputVariableExchange(object, initialCall, u, time, y);
-  }
-
-void SpawnInputVariableFree(void* object){
-
-    EnergyPlusInputVariableFree(object);
-  }
 
 /* ********************************************************* */
 /* Output variables */

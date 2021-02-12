@@ -3,12 +3,12 @@ block FMUZoneAdapter
   "Block that interacts with this EnergyPlus zone"
   extends Modelica.Blocks.Icons.Block;
   constant String buildingsLibraryRoot
-    "Root directory of the Buildings library (used to find the spawn executable"
+    "Root directory of the Buildings library (used to find the spawn executable)"
     annotation (HideResult=true);
   constant String modelicaNameBuilding
     "Name of the building to which this thermal zone belongs to"
     annotation (HideResult=true);
-  constant String modelicaNameThermalZone=getInstanceName()
+  constant String modelicaInstanceName=getInstanceName()
     "Name of this instance"
     annotation (HideResult=true);
   parameter String idfName
@@ -77,16 +77,23 @@ block FMUZoneAdapter
     "Total heat gain from people, to be used for optional computation of CO2 released"
     annotation (Placement(transformation(extent={{100,-70},{120,-50}}),iconTransformation(extent={{100,-70},{120,-50}})));
 protected
+  constant Integer nParOut = 3 "Number of parameter values retrieved from EnergyPlus";
+  constant Integer nInp = 5 "Number of inputs";
   constant Integer nOut = 4 "Number of outputs";
   constant Integer nDer = 1 "Number of derivatives";
   constant Integer nY = nOut + nDer + 1 "Size of output vector of exchange function";
+
+  final parameter Real dummy(
+    fixed=false)
+    "Dummy value to force initialization before call to exchange";
 
   parameter Modelica.SIunits.MassFlowRate m_flow_small(
     fixed=false)
     "Small mass flow rate used to avoid TAveInlet = 0";
   Buildings.ThermalZones.EnergyPlus.BaseClasses.FMUZoneClass adapter=Buildings.ThermalZones.EnergyPlus.BaseClasses.FMUZoneClass(
+    objectType=1,
     modelicaNameBuilding=modelicaNameBuilding,
-    modelicaNameThermalZone=modelicaNameThermalZone,
+    modelicaInstanceName=modelicaInstanceName,
     idfName=idfName,
     weaName=weaName,
     epName=zoneName,
@@ -98,10 +105,10 @@ protected
     jsonKeysValues = "        \"name\": \"" + zoneName + "\"",
     parOutNames = {"AFlo", "V", "mSenFac"},
     parOutUnits = {"m2", "m3", "1"},
-    nParOut = 3,
+    nParOut = nParOut,
     inpNames = {"T", "X", "mInlets_flow", "TAveInlet", "QGaiRad_flow"},
     inpUnits = {"K", "1", "kg/s", "K", "W"},
-    nInp = 5,
+    nInp = nInp,
     outNames = {"TRad", "QConSen_flow", "QLat_flow", "QPeo_flow"},
     outUnits = {"K", "W", "W", "W"},
     nOut = nOut,
@@ -112,7 +119,7 @@ protected
   parameter Modelica.SIunits.Time startTime(
     fixed=false)
     "Simulation start time";
-  Real y[nY] "Output of exchange function";
+  Real yEP[nY] "Output of exchange function";
 
   Modelica.SIunits.Time tNext(
     start=startTime,
@@ -164,10 +171,10 @@ initial equation
   end if;
   startTime=time;
   counter=0;
-  {AFlo,V,mSenFac}=Buildings.ThermalZones.EnergyPlus.BaseClasses.zoneInitialize(
+  {AFlo,V,mSenFac, dummy}=Buildings.ThermalZones.EnergyPlus.BaseClasses.zoneInitialize(
     adapter=adapter,
     startTime=startTime,
-    nParOut=3);
+    nParOut=nParOut);
   TAveInlet=293.15;
   m_flow_small=V*3*1.2/3600*1E-10;
 
@@ -176,7 +183,7 @@ initial equation
     initialCall = true,
     nY = nY,
     u = {T, X_w/(1.-X_w), mInlet_flow, TAveInlet, QGaiRad_flow, round(time, 1E-3)},
-    AFlo = AFlo);
+    dummy = dummy);
 
   assert(
     AFlo > 0,
@@ -220,19 +227,19 @@ equation
 
 
     // Below, the term X_w/(1.-X_w) is for conversion from kg/kg_total_air (Modelica) to kg/kg_dry_air (EnergyPlus)
-    y = Buildings.ThermalZones.EnergyPlus.BaseClasses.zoneExchange(
+    yEP = Buildings.ThermalZones.EnergyPlus.BaseClasses.zoneExchange(
       adapter = adapter,
       initialCall = false,
       nY = nY,
       u = {T, X_w/(1.-X_w), mInlet_flow, TAveInlet, QGaiRad_flow, round(time, 1E-3)},
-      AFlo = AFlo);
+      dummy = dummy);
 
-    TRad = y[1];
-    QConLast_flow = y[2];
-    QLat_flow = y[3];
-    QPeo_flow = y[4];
-    dQCon_flow_dT = y[5];
-    tNext = y[6];
+    TRad = yEP[1];
+    QConLast_flow = yEP[2];
+    QLat_flow = yEP[3];
+    QPeo_flow = yEP[4];
+    dQCon_flow_dT = yEP[5];
+    tNext = yEP[6];
 
     tLast=time;
     counter=pre(

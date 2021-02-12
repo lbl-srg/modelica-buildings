@@ -7,8 +7,8 @@ function zoneInitialize
   input Modelica.SIunits.Time startTime
     "Start time of the simulation";
   input Integer nParOut "Number of elements in parOut";
-  output Real parOut[nParOut]
-    "Parameter values returned from EnergyPlus";
+  output Real parOut[nParOut+1]
+    "Parameter values returned from EnergyPlus. Last element is a dummy value to force call before exchange";
 external "C" SpawnInputOutputInstantiate(
   adapter,
   startTime,

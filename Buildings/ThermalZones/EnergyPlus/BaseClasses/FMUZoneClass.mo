@@ -6,10 +6,11 @@ class FMUZoneClass
   function constructor
     "Construct to connect to a thermal zone in EnergyPlus"
     extends Modelica.Icons.Function;
+    input Integer objectType "Type of the object (1: ThermalZone, 2: Schedule, 3: Actuator)";
     input String modelicaNameBuilding
       "Name of this Modelica building instance that connects to this thermal zone";
-    input String modelicaNameThermalZone
-      "Name of the Modelica instance of this thermal zone";
+    input String modelicaInstanceName
+      "Name of the Modelica instance of this object";
     input String idfName
       "Name of the IDF";
     input String weaName
@@ -41,8 +42,9 @@ class FMUZoneClass
 
     output FMUZoneClass adapter;
   external "C" adapter=SpawnInputOutputAllocate(
+    objectType,
     modelicaNameBuilding,
-    modelicaNameThermalZone,
+    modelicaInstanceName,
     idfName,
     weaName,
     epName,

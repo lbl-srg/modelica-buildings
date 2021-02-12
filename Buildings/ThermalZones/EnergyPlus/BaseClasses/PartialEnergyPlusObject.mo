@@ -8,7 +8,7 @@ protected
   constant String modelicaNameBuilding=building.modelicaNameBuilding
     "Name of the building to which this output variable belongs to"
     annotation (HideResult=true);
-  constant String modelicaNameOutputVariable=getInstanceName()
+  constant String modelicaInstanceName=getInstanceName()
     "Name of this instance"
     annotation (HideResult=true);
   final parameter String idfName=building.idfName
@@ -27,13 +27,15 @@ protected
   parameter Modelica.SIunits.Time startTime(
     fixed=false)
     "Simulation start time";
+
   function round
     input Real u;
     input Real accuracy;
     output Real y;
   algorithm
     y :=
-      if(u > 0) then
+      if
+        (u > 0) then
         floor(
           u/accuracy+0.5)*accuracy
       else

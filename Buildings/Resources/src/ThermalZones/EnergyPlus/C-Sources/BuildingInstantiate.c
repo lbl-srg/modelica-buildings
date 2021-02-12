@@ -61,16 +61,26 @@ void buildJSONModelStructureForEnergyPlus(
   const FMUBuilding* bui, char* *buffer, size_t* size, char** modelHash){
   size_t i;
   size_t iWri;
-  size_t nSch;
   FMUInOut** ptrInOut = (FMUInOut**)bui->exchange;
-  FMUInputVariable** inpVars= NULL;
-  FMUOutputVariable** outVars = NULL;
-  /* Total number of models */
-  const size_t nMod = bui->nZon + bui->nInputVariables + bui->nOutputVariables;
+
   /* Number of models written to json so far */
   size_t iMod = 0;
+  int objectType;
+  size_t objectCount[5] = {0, 0, 0, 0, 0};
 
   void (*SpawnFormatError)(const char *string, ...) = bui->SpawnFormatError;
+
+  /* Total number of models */
+  const size_t nMod = bui->nExcObj + bui->nOutputVariables;
+
+  /* Count number of objects */
+  for(objectType = THERMALZONE; objectType < SURFACE; objectType++){
+    for(i = 0; i < bui->nExcObj; i++){
+        if ( ptrInOut[i]->objectType == objectType ){
+          objectCount[objectType]++;
+        }
+    }
+  }
 
   saveAppend(buffer, "{\n", size, SpawnFormatError);
   buildJSONKeyValue(buffer, 1, "version", "0.1", true, size, SpawnFormatError);
@@ -84,95 +94,29 @@ void buildJSONModelStructureForEnergyPlus(
 
   /* model information */
   saveAppend(buffer, "  \"model\": {\n", size, SpawnFormatError);
-  /* Write zone or surface names */
-  for(i = 0; i < bui->nZon; i++){
-    if (i == 0){
-      saveAppend(buffer, "    \"", size, SpawnFormatError);
-      saveAppend(buffer, ptrInOut[i]->jsonName, size, SpawnFormatError);
-      saveAppend(buffer, "\": [\n", size, SpawnFormatError);
-    }
-    openJSONModelBracket(buffer, size, SpawnFormatError);
-    saveAppend(buffer, ptrInOut[i]->jsonKeysValues, size, SpawnFormatError);
-    saveAppend(buffer, "\n", size, SpawnFormatError);
-    closeJSONModelBracket(buffer, i, bui->nZon, size, SpawnFormatError);
-  }
-  iMod = bui->nZon;
-  if (iMod > 0)
-    closeJSONModelArrayBracket(buffer, iMod, nMod, size, SpawnFormatError);
 
-
-  /* Write schedule names */
-  if (bui->nInputVariables > 0)
-    inpVars = (FMUInputVariable**)bui->inputVariables;
-
-  /* Count the number of schedules */
-  nSch = 0;
-  for(i = 0; i < bui->nInputVariables; i++){
-    if (inpVars[i]->componentType == NULL){
-      /* This is a schedule, not an EMS actuator */
-      nSch++;
-    }
-  }
-  /* Write the schedule objects, if any. */
-  iWri = 0;
-  for(i = 0; i < bui->nInputVariables; i++){
-    if (inpVars[i]->componentType == NULL){ /* Found a schedule */
-      if (iWri == 0){
-        saveAppend(buffer, "    \"schedules\": [\n", size, SpawnFormatError);
+  /* Write all json objects (thermal zones, actuators, etc.) */
+  for(objectType = THERMALZONE; objectType < SURFACE; objectType++){
+    for(i = 0, iWri = 0; i < bui->nExcObj; i++){
+      if ( ptrInOut[i]->objectType == objectType ) {
+        /* Check if json keyword needs to be written */
+        if (iWri == 0){
+          saveAppend(buffer, "    \"", size, SpawnFormatError);
+          saveAppend(buffer, ptrInOut[i]->jsonName, size, SpawnFormatError);
+          saveAppend(buffer, "\": [\n", size, SpawnFormatError);
+        }
+        /* Write content */
+        openJSONModelBracket(buffer, size, SpawnFormatError);
+        saveAppend(buffer, ptrInOut[i]->jsonKeysValues, size, SpawnFormatError);
+        saveAppend(buffer, "\n", size, SpawnFormatError);
+        closeJSONModelBracket(buffer, iWri, objectCount[objectType], size, SpawnFormatError);
+        iWri++;
       }
-      openJSONModelBracket(buffer, size, SpawnFormatError);
-      buildJSONKeyValue(buffer, 4, "name", inpVars[i]->name, true, size, SpawnFormatError);
-      buildJSONKeyValue(buffer, 4, "unit", inpVars[i]->unit, true, size, SpawnFormatError);
-      buildJSONKeyValue(buffer, 4, "fmiName", inpVars[i]->inputs->fmiNames[0], false, size, SpawnFormatError);
-      closeJSONModelBracket(buffer, iWri, nSch, size, SpawnFormatError);
-      iWri++;
     }
-  }
-  if (nSch > 0){
-    iMod += nSch;
-    closeJSONModelArrayBracket(buffer, iMod, nMod, size, SpawnFormatError);
-  }
 
-
-  /* Write the EMS actuator objects, if any */
-  iWri = 0;
-  for(i = 0; i < bui->nInputVariables; i++){
-    if (inpVars[i]->componentType != NULL){ /* Found an EMS actuator */
-      if (iWri == 0){
-        saveAppend(buffer, "    \"emsActuators\": [\n", size, SpawnFormatError);
-      }
-      openJSONModelBracket(buffer, size, SpawnFormatError);
-      buildJSONKeyValue(buffer, 4, "variableName", inpVars[i]->name, true, size, SpawnFormatError);
-      buildJSONKeyValue(buffer, 4, "componentType", inpVars[i]->componentType, true, size, SpawnFormatError);
-      buildJSONKeyValue(buffer, 4, "controlType", inpVars[i]->controlType, true, size, SpawnFormatError);
-      buildJSONKeyValue(buffer, 4, "unit", inpVars[i]->unit, true, size, SpawnFormatError);
-      buildJSONKeyValue(buffer, 4, "fmiName", inpVars[i]->inputs->fmiNames[0], false, size, SpawnFormatError);
-      closeJSONModelBracket(buffer, iWri, bui->nInputVariables-nSch, size, SpawnFormatError);
-      iWri++;
-    }
-  }
-  if (bui->nInputVariables-nSch > 0){
-    iMod += bui->nInputVariables-nSch;
-    closeJSONModelArrayBracket(buffer, iMod, nMod, size, SpawnFormatError);
-  }
-
-  /* Write output names */
-  if (bui->nOutputVariables > 0){
-    outVars = (FMUOutputVariable**)bui->outputVariables;
-  }
-  for(i = 0; i < bui->nOutputVariables; i++){
-    if (i == 0){
-      saveAppend(buffer, "    \"outputVariables\": [\n", size, SpawnFormatError);
-    }
-    openJSONModelBracket(buffer, size, SpawnFormatError);
-    buildJSONKeyValue(buffer, 4, "name", outVars[i]->name, true, size, SpawnFormatError);
-    buildJSONKeyValue(buffer, 4, "key",  outVars[i]->key,  true, size, SpawnFormatError);
-    buildJSONKeyValue(buffer, 4, "fmiName",  outVars[i]->outputs->fmiNames[0], false, size, SpawnFormatError);
-    closeJSONModelBracket(buffer, i, bui->nOutputVariables, size, SpawnFormatError);
-  }
-  if (bui->nOutputVariables > 0){
-    iMod += bui->nOutputVariables;
-    closeJSONModelArrayBracket(buffer, iMod, nMod, size, SpawnFormatError);
+    iMod += iWri;
+    if (iWri > 0)
+      closeJSONModelArrayBracket(buffer, iMod, nMod, size, SpawnFormatError);
   }
 
   /* Close json object for model */
@@ -287,7 +231,6 @@ void setAttributesReal(
 void setValueReferences(FMUBuilding* bui){
   size_t i;
   FMUInOut* ptrInOut;
-  FMUInputVariable* inpVar;
   FMUOutputVariable* outVar;
 
   fmi2_import_variable_list_t* vl = fmi2_import_get_variable_list(bui->fmu, 0);
@@ -300,7 +243,7 @@ void setValueReferences(FMUBuilding* bui){
   if (bui->logLevel >= MEDIUM)
     SpawnFormatMessage("---- %s: Setting variable references for ptrInOut.\n", bui->modelicaNameBuilding);
 
-  for(i = 0; i < bui->nZon; i++){
+  for(i = 0; i < bui->nExcObj; i++){
     ptrInOut = (FMUInOut*) bui->exchange[i];
     setAttributesReal(bui, vl, vrl, nv, ptrInOut->parameters);
     setAttributesReal(bui, vl, vrl, nv, ptrInOut->inputs);
@@ -311,12 +254,6 @@ void setValueReferences(FMUBuilding* bui){
   /* Set value references for the input variables by assigning the values obtained from the FMU */
   if (bui->logLevel >= MEDIUM)
     SpawnFormatMessage("---- %s: Setting variable references for input variables.\n", bui->modelicaNameBuilding);
-
-  for(i = 0; i < bui->nInputVariables; i++){
-    inpVar = (FMUInputVariable*) bui->inputVariables[i];
-    setAttributesReal(bui, vl, vrl, nv, inpVar->inputs);
-    inpVar->valueReferenceIsSet = true;
-  }
 
   /* Set value references for the output variables by assigning the values obtained from the FMU */
   if (bui->logLevel >= MEDIUM)

@@ -50,31 +50,31 @@ void initializeUnitsModelica(
     }
   }
 
-void checkForDoubleExchangeDeclaration(const struct FMUBuilding* fmuBld, const char* jsonKeysValues, char** doubleSpec){
-  size_t iZ;
+void checkForDoubleExchangeDeclaration(const struct FMUBuilding* fmuBld, const int objectType, const char* jsonKeysValues, char** doubleSpec){
+  size_t iExcObj;
   FMUInOut** ptrInOut = (FMUInOut**)(fmuBld->exchange);
-  for(iZ = 0; iZ < fmuBld->nZon; iZ++){
-    if (!strcmp(jsonKeysValues, ptrInOut[iZ]->jsonKeysValues)){
-      *doubleSpec = ptrInOut[iZ]->modelicaName;
+  for(iExcObj = 0; iExcObj < fmuBld->nExcObj; iExcObj++){
+    if (((objectType == ptrInOut[iExcObj]->objectType)) && (strcmp(jsonKeysValues, ptrInOut[iExcObj]->jsonKeysValues) == 0)){
+      *doubleSpec = ptrInOut[iExcObj]->modelicaName;
       break;
     }
   }
   return;
 }
 
-void setExchangePointerIfAlreadyInstanciated(const char* modelicaName, FMUInOut** ptrFMUInOut){
+void setExchangePointerIfAlreadyInstanciated(const char* modelicaName, const int objectType, FMUInOut** ptrFMUInOut){
   size_t iBui;
-  size_t iZon;
+  size_t iExcObj;
   FMUBuilding* ptrBui;
-  FMUInOut* zon;
+  FMUInOut* ptrInOut;
   *ptrFMUInOut = NULL;
 
   for(iBui = 0; iBui < getBuildings_nFMU(); iBui++){
     ptrBui = getBuildingsFMU(iBui);
-    for(iZon = 0; iZon < ptrBui->nZon; iZon++){
-      zon = (FMUInOut*)(ptrBui->exchange[iZon]);
-      if (strcmp(modelicaName, zon->modelicaName) == 0){
-        *ptrFMUInOut = zon;
+    for(iExcObj = 0; iExcObj < ptrBui->nExcObj; iExcObj++){
+      ptrInOut = (FMUInOut*)(ptrBui->exchange[iExcObj]);
+      if ((objectType == ptrInOut->objectType) && (strcmp(modelicaName, ptrInOut->modelicaName) == 0)){
+        *ptrFMUInOut = ptrInOut;
         return;
       }
     }
@@ -84,6 +84,7 @@ void setExchangePointerIfAlreadyInstanciated(const char* modelicaName, FMUInOut*
 
 /* Create the structure and return a pointer to its address. */
 void* EnergyPlusExchangeAllocate(
+  const int objectType,
   const char* modelicaNameBuilding,
   const char* modelicaName,
   const char* idfName,
@@ -147,7 +148,7 @@ void* EnergyPlusExchangeAllocate(
   }
 
   /* Dymola 2019FD01 calls in some cases the allocator twice. In this case, simply return the previously instanciated zone pointer */
-  setExchangePointerIfAlreadyInstanciated(modelicaName, &ptrInOut);
+  setExchangePointerIfAlreadyInstanciated(modelicaName, objectType, &ptrInOut);
   if (ptrInOut != NULL){
     if (logLevel >= MEDIUM)
       SpawnFormatMessage("---- %s: EnergyPlusExchangeAllocate called more than once for this zone.\n", modelicaName);
@@ -176,6 +177,9 @@ void* EnergyPlusExchangeAllocate(
   ptrInOut->isInitialized = fmi2False;
 
   ptrInOut->valueReferenceIsSet = fmi2False;
+
+  /* Assign the object type */
+  ptrInOut->objectType = objectType;
 
   /* Assign the Modelica instance name */
   mallocString(
@@ -260,15 +264,27 @@ void* EnergyPlusExchangeAllocate(
 
     if (strcmp(modelicaNameBuilding, fmu->modelicaNameBuilding) == 0){
       if (logLevel >= MEDIUM){
-        SpawnFormatMessage("---- %s: FMU %s for %s contains this zone.\n",
+        SpawnFormatMessage("---- %s: FMU %s for %s contains this exchange object.\n",
           modelicaName, fmu->fmuAbsPat, modelicaNameBuilding);
       }
-      /* This is the same FMU as before. */
+      /* This is the same FMU as before. Check for double declaration of objects that set inputs to EnergyPlus */
       doubleZoneSpec = NULL;
-      checkForDoubleExchangeDeclaration(fmu, jsonKeysValues, &doubleZoneSpec);
+      checkForDoubleExchangeDeclaration(fmu, THERMALZONE, jsonKeysValues, &doubleZoneSpec);
       if (doubleZoneSpec != NULL){
         SpawnFormatError(
           "Modelica model specifies zone '%s' twice, once in %s and once in %s, both belonging to building %s. Each zone must only be specified once per building.",
+        jsonKeysValues, modelicaName, doubleZoneSpec, fmu->modelicaNameBuilding);
+      }
+      checkForDoubleExchangeDeclaration(fmu, SCHEDULE, jsonKeysValues, &doubleZoneSpec);
+      if (doubleZoneSpec != NULL){
+        SpawnFormatError(
+          "Modelica model specifies schedule '%s' twice, once in %s and once in %s, both belonging to building %s. Each schedule must only be specified once per building.",
+        jsonKeysValues, modelicaName, doubleZoneSpec, fmu->modelicaNameBuilding);
+      }
+      checkForDoubleExchangeDeclaration(fmu, ACTUATOR, jsonKeysValues, &doubleZoneSpec);
+      if (doubleZoneSpec != NULL){
+        SpawnFormatError(
+          "Modelica model specifies actuator '%s' twice, once in %s and once in %s, both belonging to building %s. Each actuator must only be specified once per building.",
         jsonKeysValues, modelicaName, doubleZoneSpec, fmu->modelicaNameBuilding);
       }
 
@@ -283,7 +299,7 @@ void* EnergyPlusExchangeAllocate(
         SpawnFormatMessage("---- %s: Assigning zone to building with building at %p\n", modelicaName, fmu);
       }
       ptrInOut->bui = fmu;
-      AddZoneToBuilding(ptrInOut, logLevel);
+      AddExchangeObjectToBuilding(ptrInOut, logLevel);
 
       break;
     }
@@ -305,7 +321,7 @@ void* EnergyPlusExchangeAllocate(
       SpawnFormatError);
     ptrInOut->bui = getBuildingsFMU(i);
 
-    AddZoneToBuilding(ptrInOut, logLevel);
+    AddExchangeObjectToBuilding(ptrInOut, logLevel);
 
     if (logLevel >= MEDIUM){
       for(i = 0; i < getBuildings_nFMU(); i++){

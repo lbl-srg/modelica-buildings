@@ -16,7 +16,7 @@ void EnergyPlusInputOutputFree(void* object){
 
     /* The building may not have been instanciated yet if there was an error during instantiation */
     if (ptrInOut->bui != NULL){
-      ptrInOut->bui->nZon--;
+      ptrInOut->bui->nExcObj--;
       FMUBuildingFree(ptrInOut->bui);
     }
     free(ptrInOut);

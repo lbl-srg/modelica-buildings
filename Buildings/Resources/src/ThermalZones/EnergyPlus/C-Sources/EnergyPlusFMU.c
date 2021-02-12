@@ -153,13 +153,9 @@ size_t AllocateBuildingDataStructure(
     Buildings_FMUS[nFMU]->precompiledFMUAbsPat = NULL;
   }
 
-  /* Initialize thermal zone data */
-  Buildings_FMUS[nFMU]->nZon = 0;
+  /* Initialize exchange object data */
+  Buildings_FMUS[nFMU]->nExcObj = 0;
   Buildings_FMUS[nFMU]->exchange = NULL;
-
-  /* Initialize input variable data */
-  Buildings_FMUS[nFMU]->nInputVariables = 0;
-  Buildings_FMUS[nFMU]->inputVariables = NULL;
 
   /* Initialize output variable data */
   Buildings_FMUS[nFMU]->nOutputVariables = 0;
@@ -179,82 +175,41 @@ size_t AllocateBuildingDataStructure(
   return nFMU;
 }
 
-void AddZoneToBuilding(FMUInOut* zone, const int logLevel){
-  FMUBuilding* bui = zone->bui;
-  const size_t nZon = bui->nZon;
+void AddExchangeObjectToBuilding(FMUInOut* ptrInOut, const int logLevel){
+  FMUBuilding* bui = ptrInOut->bui;
+  const size_t nExcObj = bui->nExcObj;
 
   void (*SpawnFormatMessage)(const char *string, ...) = bui->SpawnFormatMessage;
   void (*SpawnError)(const char *string) = bui->SpawnError;
 
 
   if (bui->logLevel >= MEDIUM)
-    SpawnFormatMessage("---- %s: EnergyPlusFMU.c: Adding zone %lu with name %s\n", bui->modelicaNameBuilding, nZon, zone->modelicaName);
+    SpawnFormatMessage("---- %s: EnergyPlusFMU.c: Adding object %lu with name %s\n", bui->modelicaNameBuilding, nExcObj, ptrInOut->modelicaName);
 
-  if (nZon == 0){
+  if (nExcObj == 0){
     bui->exchange=malloc(sizeof(FMUInOut *));
     if ( bui->exchange== NULL )
       SpawnError("Not enough memory in EnergyPlusFMU.c. to allocate exc.");
   }
   else{
-    /* We already have nZon > 0 exc */
+    /* We already have nExcObj > 0 exc */
 
     /* Increment size of vector that contains the exc. */
-    bui->exchange = realloc(bui->exchange, (nZon + 1) * sizeof(FMUInOut*));
+    bui->exchange = realloc(bui->exchange, (nExcObj + 1) * sizeof(FMUInOut*));
     if (bui->exchange == NULL){
       SpawnError("Not enough memory in EnergyPlusFMU.c. to allocate memory for bld->exc.");
     }
   }
-  /* Assign the zone */
-  bui->exchange[nZon] = zone;
-  /* Increment the count of exc to this building. */
-  bui->nZon++;
+  /* Assign the exchange object */
+  bui->exchange[nExcObj] = ptrInOut;
+  /* Increment the count of exchange objects to this building. */
+  bui->nExcObj++;
 
   checkAndSetVerbosity(bui, logLevel);
 
   if (bui->logLevel >= MEDIUM)
-    SpawnFormatMessage("---- %s: EnergyPlusFMU.c: nZon = %d, nInp = %d, nOut = %d\n", bui->modelicaNameBuilding,
-      bui->nZon, bui->nInputVariables, bui->nOutputVariables);
-}
-
-void AddInputVariableToBuilding(FMUInputVariable* ptrVar, const int logLevel){
-  FMUBuilding* bui = ptrVar->bui;
-  const size_t nInputVariables = bui->nInputVariables;
-
-  void (*SpawnFormatMessage)(const char *string, ...) = bui->SpawnFormatMessage;
-  void (*SpawnError)(const char *string) = bui->SpawnError;
-
-  if (bui->logLevel >= MEDIUM)
-    SpawnFormatMessage("%.3f %s: EnergyPlusFMU.c: Adding input variable %lu with name %s\n",
-      bui->time,
-      bui->modelicaNameBuilding,
-      nInputVariables+1,
-      ptrVar->modelicaNameInputVariable);
-
-  if (nInputVariables == 0){
-    bui->inputVariables=malloc(sizeof(FMUInputVariable *));
-    if ( bui->inputVariables== NULL )
-      SpawnError("Not enough memory in EnergyPlusFMU.c. to allocate input variables.");
-  }
-  else{
-    /* We already have nInputVariables > 0 input variables. */
-
-    /* Increment size of vector that contains the input variables. */
-    bui->inputVariables = realloc(bui->inputVariables, (nInputVariables + 1) * sizeof(FMUInputVariable*));
-    if (bui->inputVariables == NULL){
-      SpawnError("Not enough memory in EnergyPlusFMU.c. to allocate memory for fmu->inputVariables.");
-    }
-  }
-  /* Assign the input variable */
-  bui->inputVariables[nInputVariables] = ptrVar;
-  /* Increment the count of input variables of this building. */
-  bui->nInputVariables++;
-
-  checkAndSetVerbosity(bui, logLevel);
-
-  if (bui->logLevel >= MEDIUM)
-    SpawnFormatMessage("---- %s: EnergyPlusFMU.c: nZon = %d, nInp = %d, nOut = %d\n",
-      bui->modelicaNameBuilding,
-      bui->nZon, bui->nInputVariables, bui->nOutputVariables);
+    SpawnFormatMessage("---- %s: EnergyPlusFMU.c: nExcObj = %d\n", bui->modelicaNameBuilding,
+      bui->nExcObj);
 }
 
 void AddOutputVariableToBuilding(FMUOutputVariable* ptrVar, const int logLevel){
@@ -291,9 +246,9 @@ void AddOutputVariableToBuilding(FMUOutputVariable* ptrVar, const int logLevel){
   checkAndSetVerbosity(bui, logLevel);
 
   if (bui->logLevel >= MEDIUM)
-    SpawnFormatMessage("---- %s: EnergyPlusFMU.c: nZon = %d, nInp = %d, nOut = %d\n",
+    SpawnFormatMessage("---- %s: EnergyPlusFMU.c: nExcObj = %d\n",
       bui->modelicaNameBuilding,
-      bui->nZon, bui->nInputVariables, bui->nOutputVariables);
+      bui->nExcObj);
 }
 
 FMUBuilding* getBuildingsFMU(size_t iFMU){
@@ -322,13 +277,13 @@ void FMUBuildingFree(FMUBuilding* bui){
   if ( bui != NULL ){
     if (bui->logLevel >= MEDIUM){
       SpawnFormatMessage("%.3f %s: Entered FMUBuildingFree.\n", bui->time, bui->modelicaNameBuilding);
-      SpawnFormatMessage("%.3f %s: In FMUBuildingFree, %p, nZon = %d, nInpVar = %d, nOutVar = %d\n",
+      SpawnFormatMessage("%.3f %s: In FMUBuildingFree, %p, nExcObj = %d\n",
       bui->time, bui->modelicaNameBuilding,
-      bui, bui->nZon, bui->nInputVariables, bui->nOutputVariables);
+      bui, bui->nExcObj);
     }
 
     /* Make sure no thermal zone or output variable uses this building */
-    if (bui->nZon > 0 || bui->nInputVariables > 0 || bui->nOutputVariables > 0){
+    if (bui->nExcObj > 0 || bui->nOutputVariables > 0){
       if (bui->logLevel >= MEDIUM)
         SpawnFormatMessage("%.3f %s: Exiting FMUBuildingFree without changes as building is still used.\n", bui->time, bui->modelicaNameBuilding);
       return;
