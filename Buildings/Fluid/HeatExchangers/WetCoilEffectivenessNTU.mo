@@ -63,10 +63,10 @@ protected
     "a parameter for normailization";
   Real delta1=1E-1
     "a parameter for normailization";
-  Real fac1 = Buildings.Utilities.Math.Functions.smoothMin((1/delta * m1_flow/m1_flow_nominal)^2,1,delta1);
-  //Real fac1 = if abs(m1_flow/m1_flow_nominal) >= delta then 1 else (1/delta * m1_flow/m1_flow_nominal)^2;
-  Real fac2 = Buildings.Utilities.Math.Functions.smoothMin((1/delta * m2_flow/m2_flow_nominal)^2,1,delta1);
-  //Real fac2 = if abs(m2_flow)/m2_flow_nominal >= delta then 1 else (1/delta * m2_flow/m2_flow_nominal)^2;
+  Real fac1 = Buildings.Utilities.Math.Functions.smoothMin(
+    (1/delta * m1_flow/m1_flow_nominal)^2,1,delta1);
+  Real fac2 = Buildings.Utilities.Math.Functions.smoothMin(
+    (1/delta * m2_flow/m2_flow_nominal)^2,1,delta1);
   Real Qfac = fac1*fac2;
 
   Buildings.Fluid.HeatExchangers.HeaterCooler_u heaCoo(
@@ -104,7 +104,8 @@ protected
     final cfg=flowRegime,
     final mWat_flow_nominal=m1_flow_nominal,
     final mAir_flow_nominal=m2_flow_nominal,
-    Qfac=Qfac) "Dry/wet calculations block"
+    Qfac=Qfac)
+    "Dry/wet calculations block"
     annotation (Placement(transformation(extent={{-20,-40},{60,40}})));
   Modelica.Blocks.Sources.RealExpression cp_a1Exp(
     final y = if allowFlowReversal1

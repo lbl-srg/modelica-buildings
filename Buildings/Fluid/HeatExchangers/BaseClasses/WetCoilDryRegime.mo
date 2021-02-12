@@ -84,7 +84,9 @@ equation
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(revisions="<html>
 <ul>
-<li>Jan 21, 2021, by Donghun Kim:<br>First implementation of the fuzzy model. See <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/622\">issue 622</a> for more information. </li>
+<li>Jan 21, 2021, by Donghun Kim:<br>First implementation of the fuzzy model. 
+See <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/622\">issue 622</a> 
+for more information.</li>
 </ul>
 </html>", info="<html>
 <p>This model implements the calculation for a 100% dry coil. </p>

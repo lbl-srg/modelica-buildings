@@ -181,13 +181,16 @@ protected
   Buildings.Utilities.Psychrometrics.TDewPoi_pW TDewIn(p_w=pWIn.p_w);
 
   //-- parameters for fuzzy logics
-  Real mu_FW(unit="1",min=0, max=1), mu_FD(unit="1",min=0, max=1) "membership functions for Fully-Wet and Fully-Dry conditions";
-  Real w_FW(unit="1",min=0, max=1),  w_FD(unit="1",min=0, max=1) "normailized weight functions for Fully-Wet and Fully-Dry conditions";
-  Real dryfra(unit="1",min=0, max=1) "dry fraction of cooling coil, e.g., 0.3 means condensation occurs at the 30% heat exchanger length from the air inlet";
+  Real mu_FW(final unit="1", min=0, max=1), mu_FD(unit="1",min=0, max=1)
+    "membership functions for Fully-Wet and Fully-Dry conditions";
+  Real w_FW(final unit="1", min=0, max=1),  w_FD(unit="1",min=0, max=1)
+    "normailized weight functions for Fully-Wet and Fully-Dry conditions";
+  Real dryFra(final unit="1", min=0, max=1)
+    "dry fraction, e.g., 0.3 means condensation occurs at 30% HX length from air inlet";
 
 equation
 
-  TAirInDewPoi =   TDewIn.T;
+  TAirInDewPoi=TDewIn.T;
 
   mu_FW= Buildings.Utilities.Math.Functions.spliceFunction(
   pos=0,neg=1,x=fullywet.TSurAirIn-TAirInDewPoi,deltax=max(abs(fullydry.TSurAirOut- fullywet.TSurAirIn),1e-3));

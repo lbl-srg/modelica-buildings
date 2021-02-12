@@ -25,7 +25,7 @@ createPlot(
 createPlot(
     id=2,
     position={1255, 58, 1140, 1286},
-    y={"hexWetNTU.dryWetCalcs.dryfra", "hexDis.fraDry", "hexWetNTU.SHR"},
+    y={"hexWetNTU.dryWetCalcs.dryFra", "hexDis.dryFra", "hexWetNTU.SHR"},
     autoscale=true,
     autoerase=true,
     autoreplot=true,
