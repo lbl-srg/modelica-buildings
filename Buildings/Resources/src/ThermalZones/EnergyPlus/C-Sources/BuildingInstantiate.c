@@ -92,7 +92,8 @@ void buildJSONModelStructureForEnergyPlus(
       saveAppend(buffer, "\": [\n", size, SpawnFormatError);
     }
     openJSONModelBracket(buffer, size, SpawnFormatError);
-    buildJSONKeyValue(buffer, 4, "name", ptrInOut[i]->name, false, size, SpawnFormatError);
+    saveAppend(buffer, ptrInOut[i]->jsonKeysValues, size, SpawnFormatError);
+    saveAppend(buffer, "\n", size, SpawnFormatError);
     closeJSONModelBracket(buffer, i, bui->nZon, size, SpawnFormatError);
   }
   iMod = bui->nZon;

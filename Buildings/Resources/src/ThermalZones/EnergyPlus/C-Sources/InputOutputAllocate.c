@@ -50,11 +50,11 @@ void initializeUnitsModelica(
     }
   }
 
-void checkForDoubleExchangeDeclaration(const struct FMUBuilding* fmuBld, const char* epName, char** doubleSpec){
+void checkForDoubleExchangeDeclaration(const struct FMUBuilding* fmuBld, const char* jsonKeysValues, char** doubleSpec){
   size_t iZ;
   FMUInOut** ptrInOut = (FMUInOut**)(fmuBld->exchange);
   for(iZ = 0; iZ < fmuBld->nZon; iZ++){
-    if (!strcmp(epName, ptrInOut[iZ]->name)){
+    if (!strcmp(jsonKeysValues, ptrInOut[iZ]->jsonKeysValues)){
       *doubleSpec = ptrInOut[iZ]->modelicaName;
       break;
     }
@@ -94,6 +94,7 @@ void* EnergyPlusExchangeAllocate(
   const char* buildingsLibraryRoot,
   const int logLevel,
   const char* jsonName,
+  const char* jsonKeysValues,
   const char** parOutNames,
   const size_t nParOut,
   const char** parOutUnits,
@@ -115,8 +116,7 @@ void* EnergyPlusExchangeAllocate(
   void (*SpawnError)(const char *string),
   void (*SpawnFormatMessage)(const char *string, ...),
   void (*SpawnFormatError)(const char *string, ...)){
-  /* Note: The idfName is needed to unpack the fmu so that the valueReference
-     for the zone with epName can be obtained */
+  /* Note: The idfName is needed to unpack the fmu so that the valueReference can be obtained */
   size_t i;
   FMUInOut* ptrInOut;
   const size_t nFMU = getBuildings_nFMU();
@@ -185,14 +185,6 @@ void* EnergyPlusExchangeAllocate(
     SpawnFormatError);
   strcpy(ptrInOut->modelicaName, modelicaName);
 
-  /* Assign the zone name */
-  mallocString(
-    strlen(epName)+1,
-    "Not enough memory in EnergyPlusExchangeAllocate.c. to allocate zone name.",
-    &(ptrInOut->name),
-    SpawnFormatError);
-  strcpy(ptrInOut->name, epName);
-
   /* Assign the json name */
   mallocString(
     strlen(jsonName)+1,
@@ -200,6 +192,14 @@ void* EnergyPlusExchangeAllocate(
     &(ptrInOut->jsonName),
     SpawnFormatError);
   strcpy(ptrInOut->jsonName, jsonName);
+
+  /* Assign the json keys and values string */
+  mallocString(
+    strlen(jsonKeysValues)+1,
+    "Not enough memory in EnergyPlusExchangeAllocate.c. to allocate the json keys and values string.",
+    &(ptrInOut->jsonKeysValues),
+    SpawnFormatError);
+  strcpy(ptrInOut->jsonKeysValues, jsonKeysValues);
 
   /* Allocate parameters, inputs and outputs */
   mallocSpawnReals((size_t)nParOut, &(ptrInOut->parameters), SpawnFormatError);
@@ -224,7 +224,7 @@ void* EnergyPlusExchangeAllocate(
     SpawnFormatMessage("---- %s: Allocated parameters %p\n", modelicaName, ptrInOut->parameters);
   /* Assign structural data */
   buildVariableNames(
-    ptrInOut->name,
+    epName,
     parOutNames,
     ptrInOut->parameters->n,
     &(ptrInOut->parOutNames),
@@ -232,7 +232,7 @@ void* EnergyPlusExchangeAllocate(
     SpawnFormatError);
 
   buildVariableNames(
-    ptrInOut->name,
+    epName,
     inpNames,
     ptrInOut->inputs->n,
     &(ptrInOut->inpNames),
@@ -240,7 +240,7 @@ void* EnergyPlusExchangeAllocate(
     SpawnFormatError);
 
   buildVariableNames(
-    ptrInOut->name,
+    epName,
     outNames,
     ptrInOut->outputs->n,
     &(ptrInOut->outNames),
@@ -265,11 +265,11 @@ void* EnergyPlusExchangeAllocate(
       }
       /* This is the same FMU as before. */
       doubleZoneSpec = NULL;
-      checkForDoubleExchangeDeclaration(fmu, epName, &doubleZoneSpec);
+      checkForDoubleExchangeDeclaration(fmu, jsonKeysValues, &doubleZoneSpec);
       if (doubleZoneSpec != NULL){
         SpawnFormatError(
           "Modelica model specifies zone '%s' twice, once in %s and once in %s, both belonging to building %s. Each zone must only be specified once per building.",
-        epName, modelicaName, doubleZoneSpec, fmu->modelicaNameBuilding);
+        jsonKeysValues, modelicaName, doubleZoneSpec, fmu->modelicaNameBuilding);
       }
 
       if (usePrecompiledFMU){

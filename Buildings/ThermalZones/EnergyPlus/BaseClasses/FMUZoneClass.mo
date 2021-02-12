@@ -14,8 +14,8 @@ class FMUZoneClass
       "Name of the IDF";
     input String weaName
       "Name of the weather file";
-    input String zoneName
-      "Name of the thermal zone";
+    input String epName
+      "Name of the object in EnergyPlus";
     input Boolean usePrecompiledFMU
       "Set to true to use precompiled FMU with name specified by input fmuName";
     input String fmuName
@@ -25,6 +25,7 @@ class FMUZoneClass
     input Buildings.ThermalZones.EnergyPlus.Types.LogLevels logLevel
       "LogLevels of EnergyPlus output";
     input String jsonName "Name of the object in the json configuration file";
+    input String jsonKeysValues "Keys and values string to be written to the json configuration file";
     input String parOutNames[nParOut] "Names of parameter in modelDescription.xml file";
     input String parOutUnits[nParOut] "Modelica units of the parameters";
     input Integer nParOut "Number of parameters";
@@ -44,12 +45,13 @@ class FMUZoneClass
     modelicaNameThermalZone,
     idfName,
     weaName,
-    zoneName,
+    epName,
     usePrecompiledFMU,
     fmuName,
     buildingsLibraryRoot,
     logLevel,
     jsonName,
+    jsonKeysValues,
     parOutNames,
     nParOut,
     parOutUnits,

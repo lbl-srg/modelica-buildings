@@ -580,7 +580,7 @@ void buildVariableName(
 
 
 void buildVariableNames(
-  const char* epName,
+  const char* name,
   const char** variableNames,
   const size_t nVar,
   char** *ptrVarNames,
@@ -595,7 +595,7 @@ void buildVariableNames(
 
     *ptrVarNames = (char**)malloc(nVar * sizeof(char*));
     if (*ptrVarNames == NULL)
-      SpawnFormatError("Failed to allocate memory for ptrVarNames in EnergyPlusInputOutputInstantiate.c. for %s", epName);
+      SpawnFormatError("Failed to allocate memory for ptrVarNames in EnergyPlusInputOutputInstantiate.c. for %s", name);
 
     for (i=0; i<nVar; i++){
       mallocString(
@@ -615,12 +615,12 @@ void buildVariableNames(
     len = 0;
     for (i=0; i<nVar; i++){
       /* Use +1 to account for the comma */
-      len = max(len, strlen(epName) + 1 + strlen(variableNames[i]));
+      len = max(len, strlen(name) + 1 + strlen(variableNames[i]));
     }
 
     *ptrFullNames = (char**)malloc(nVar * sizeof(char*));
     if (*ptrFullNames == NULL)
-      SpawnFormatError("Failed to allocate memory for ptrFullNames in EnergyPlusInputOutputInstantiate.c for %s.", epName);
+      SpawnFormatError("Failed to allocate memory for ptrFullNames in EnergyPlusInputOutputInstantiate.c for %s.", name);
 
     for (i=0; i<nVar; i++){
       mallocString(
@@ -632,7 +632,7 @@ void buildVariableNames(
     /* Copy the string */
     for (i=0; i<nVar; i++){
       memset((*ptrFullNames)[i], '\0', len+1);
-      strcpy((*ptrFullNames)[i], epName);
+      strcpy((*ptrFullNames)[i], name);
       strcat((*ptrFullNames)[i], "_");
       strcat((*ptrFullNames)[i], variableNames[i]);
     }

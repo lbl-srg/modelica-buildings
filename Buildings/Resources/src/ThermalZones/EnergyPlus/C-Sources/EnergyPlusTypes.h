@@ -126,9 +126,9 @@ typedef struct FMUInOut
 {
   FMUBuilding* bui; /* Pointer to building with this zone */
   char* modelicaName; /* Name of the Modelica instance of this zone */
-  char* name;      /* Name of this zone in the idf file */
 
-  char* jsonName; /* Name of the json keyword */
+  char* jsonName;        /* Name of the json keyword */
+  char* jsonKeysValues;  /* Keys and values string to be written to the json configuration file */
   char** parOutNames;
   char** inpNames;
   char** outNames;

@@ -22,6 +22,7 @@ LBNL_EnergyPlus_EXPORT void* EnergyPlusExchangeAllocate(
   const char* buildingsLibraryRoot,
   const int logLevel,
   const char* jsonName,
+  const char* jsonKeysValues,
   const char** parOutNames,
   const size_t nParOut,
   const char** parUnits,
