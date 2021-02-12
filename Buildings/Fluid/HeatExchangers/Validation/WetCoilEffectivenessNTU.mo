@@ -91,7 +91,7 @@ model WetCoilEffectivenessNTU
     annotation (Placement(transformation(extent={{-40,-98},{-20,-78}})));
   Modelica.Blocks.Sources.RealExpression pAir1(y=pAtm) "Air pressure"
     annotation (Placement(transformation(extent={{-100,-112},{-80,-88}})));
-  WetCoiEffectivenessNTU hexWetNTU(
+  Buildings.Fluid.HeatExchangers.WetCoilEffectivenessNTU hexWetNTU(
     redeclare package Medium1 = Medium_W,
     redeclare package Medium2 = Medium_A,
     UA_nominal=UA_nominal,
@@ -199,17 +199,17 @@ equation
 <p>
 This model duplicates an example from Mitchell and Braun 2012, example SM-2-1
 (Mitchell and Braun 2012) to validate a single case for the
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.WetCoiEffectivenessNTU\">
-Buildings.Fluid.HeatExchangers.WetCoiEffectivenessNTU</a> 
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.WetCoilEffectivenessNTU\">
+Buildings.Fluid.HeatExchangers.WetCoilEffectivenessNTU</a>
 model.
 </p>
 <h4>Validation</h4>
 <p>
-The example is a steady-state analysis of a wet coil with constant air 
-and water inlet temperature and mass flow rate, and a varying air inlet 
+The example is a steady-state analysis of a wet coil with constant air
+and water inlet temperature and mass flow rate, and a varying air inlet
 humidity as specified in the model setup.
 The reference used for validation is the published experimental data.
-A discretized wet coil model is also used for comparison. 
+A discretized wet coil model is also used for comparison.
 </p>
 <p>
 The slight deviations we find are believed due to differences in the tolerance

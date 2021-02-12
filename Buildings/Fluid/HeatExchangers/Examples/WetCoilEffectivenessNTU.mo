@@ -9,7 +9,7 @@ model WetCoilEffectivenessNTU
     sou_2(nPorts=1),
     sin_2(nPorts=1));
 
-  WetCoiEffectivenessNTU hex(
+  Buildings.Fluid.HeatExchangers.WetCoilEffectivenessNTU hex(
     redeclare package Medium1 = Medium1,
     redeclare package Medium2 = Medium2,
     m1_flow_nominal=m1_flow_nominal,
@@ -24,8 +24,7 @@ model WetCoilEffectivenessNTU
         T_a2_nominal,
         T_b2_nominal),
     show_T=true,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
-    "Heat exchanger"
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState) "Heat exchanger"
     annotation (Placement(transformation(extent={{80,20},{100,40}})));
 
   Sensors.RelativeHumidityTwoPort senRelHum(
@@ -73,11 +72,11 @@ issue 622</a> for more information.
 </html>", info="<html>
 <p>
 This example is meant to create a comparison of
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.WetCoiEffectivenessNTU\">
-Buildings.Fluid.HeatExchangers.WetCoiEffectivenessNTU</a> 
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.WetCoilEffectivenessNTU\">
+Buildings.Fluid.HeatExchangers.WetCoilEffectivenessNTU</a>
 (which is simulated here) versus
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.WetCoilCounterFlow\">
-Buildings.Fluid.HeatExchangers.WetCoilCounterFlow</a> 
+Buildings.Fluid.HeatExchangers.WetCoilCounterFlow</a>
 over a similar example.
 It is intended to be compared with
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.Examples.WetCoilCounterFlowMassFlow\">
@@ -85,8 +84,8 @@ Buildings.Fluid.HeatExchangers.Examples.WetCoilCounterFlowMassFlow</a>).
 </p>
 <p>
 The two models match approximately (considering that
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.WetCoiEffectivenessNTU\">
-Buildings.Fluid.HeatExchangers.WetCoiEffectivenessNTU</a> 
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.WetCoilEffectivenessNTU\">
+Buildings.Fluid.HeatExchangers.WetCoilEffectivenessNTU</a>
 does not have dynamics) over the first half of the simulation but
 do not agree well over the second half which subjects the model to
 flow reversal.

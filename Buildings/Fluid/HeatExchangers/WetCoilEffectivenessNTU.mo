@@ -1,5 +1,5 @@
 within Buildings.Fluid.HeatExchangers;
-model WetCoiEffectivenessNTU
+model WetCoilEffectivenessNTU
   "Heat exchanger with effectiveness - NTU relation and with moisture condensation"
   extends Buildings.Fluid.Interfaces.PartialFourPortInterface(
     redeclare replaceable package Medium2 = Buildings.Media.Air);
@@ -506,4 +506,4 @@ equation
 </html>"),
     __Dymola_Commands(file=
           "Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/WetCoilEffNtuMassFlowFuzzy.mos"));
-end WetCoiEffectivenessNTU;
+end WetCoilEffectivenessNTU;
