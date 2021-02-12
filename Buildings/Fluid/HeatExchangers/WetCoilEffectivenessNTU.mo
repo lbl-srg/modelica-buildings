@@ -163,10 +163,14 @@ protected
       Medium2.temperature(state_a2_inflow))
     "Temperature at port a2"
     annotation (Placement(transformation(extent={{-98,-8},{-84,4}})));
-  Modelica.Blocks.Sources.RealExpression m_flow_a1Exp(final y=Buildings.Utilities.Math.Functions.regNonZeroPower(x=port_a1.m_flow,n=1,delta=delta*m1_flow_nominal))
+  Modelica.Blocks.Sources.RealExpression m_flow_a1Exp(
+    final y=Buildings.Utilities.Math.Functions.regNonZeroPower(
+      x=port_a1.m_flow,n=1,delta=delta*m1_flow_nominal))
     "Absolute value of mass flow rate on water side"
     annotation (Placement(transformation(extent={{-98,30},{-84,42}})));
-  Modelica.Blocks.Sources.RealExpression m_flow_a2Exp(final y=Buildings.Utilities.Math.Functions.regNonZeroPower(x=port_a2.m_flow,n=1,delta=delta*m2_flow_nominal))
+  Modelica.Blocks.Sources.RealExpression m_flow_a2Exp(
+    final y=Buildings.Utilities.Math.Functions.regNonZeroPower(
+      x=port_a2.m_flow,n=1,delta=delta*m2_flow_nominal))
     "Absolute value of mass flow rate on air side"
     annotation (Placement(transformation(extent={{-98,-36},{-84,-24}})));
   final parameter Integer nWat=

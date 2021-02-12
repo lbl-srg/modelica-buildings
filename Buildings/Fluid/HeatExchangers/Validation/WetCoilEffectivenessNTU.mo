@@ -8,41 +8,21 @@ model WetCoilEffectivenessNTU
 
   constant Modelica.SIunits.AbsolutePressure pAtm = 101325
     "Atmospheric pressure";
-
   parameter Modelica.SIunits.Temperature T_a1_nominal=
     Modelica.SIunits.Conversions.from_degF(42)
     "Inlet water temperature";
   parameter Modelica.SIunits.Temperature T_a2_nominal=
     Modelica.SIunits.Conversions.from_degF(80)
     "Inlet air temperature";
-
   parameter Modelica.SIunits.ThermalConductance UA_nominal = 4748
     "Total thermal conductance at nominal flow, from textbook";
-
-  parameter Real X_w2_nominal_0s(min=0,max=1) = 0.0035383
-    "Inlet air humidity ratio at 0s real time (100% dry)";
-  parameter Real X_w2_nominal_100s(min=0,max=1) = 0.0177
-    "Inlet air humidity ratio at 100s real time (0% dry)";
-  parameter Real X_w2_nominal_75s(min=0,max=1) = 0.0141
-    "Inlet air humidity ratio at 75s real time (0% dry)";
-  parameter Real X_w2_nominal_35s(min=0,max=1) = 0.0085
-    "Inlet air humidity ratio at 35s real time (~40% dry)";
-  parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal_0s = 44234
-    "Reference heat flow rate at 0s real time (100% dry)";
-  parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal_100s = 85625
-    "Reference heat flow rate at 100s real time (0% dry)";
-  parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal_75s = 71368
-    "Reference heat flow rate at 75s real time (0% dry)";
-  parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal_35s = 46348
-    "Reference heat flow rate at 35s real time (~40% dry)";
-
   parameter Modelica.SIunits.MassFlowRate m1_flow_nominal = 3.78
     "Nominal mass flow rate of water";
   parameter Modelica.SIunits.MassFlowRate m2_flow_nominal = 2.646
     "Nominal mass flow rate of air";
-  parameter Types.HeatExchangerConfiguration hexCon=Types.HeatExchangerConfiguration.CrossFlowStream1MixedStream2Unmixed
+  parameter Types.HeatExchangerConfiguration hexCon=
+    Types.HeatExchangerConfiguration.CrossFlowStream1MixedStream2Unmixed
     "Heat exchanger configuration";
-
   Buildings.Fluid.Sources.Boundary_pT sinAir(
     redeclare package Medium = Medium_A,
     use_p_in=false,
