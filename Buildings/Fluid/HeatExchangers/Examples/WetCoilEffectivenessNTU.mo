@@ -1,6 +1,6 @@
 within Buildings.Fluid.HeatExchangers.Examples;
 model WetCoilEffectivenessNTU
-  "Duplicates WetCoilCounterFlowMassFlow example using fuzzy model"
+  "Model that tests the wet coil effectiveness-NTU model with variable mass flow rates"
   extends Modelica.Icons.Example;
   extends
     Buildings.Fluid.HeatExchangers.Examples.BaseClasses.EffectivenessNTUMassFlow(
@@ -24,21 +24,15 @@ model WetCoilEffectivenessNTU
         T_a2_nominal,
         T_b2_nominal),
     show_T=true,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState) "Heat exchanger"
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
+    "Heat exchanger"
     annotation (Placement(transformation(extent={{80,20},{100,40}})));
+
   Sensors.RelativeHumidityTwoPort senRelHum(
     redeclare package Medium = Medium2,
     m_flow_nominal=m2_flow_nominal)
     "Relative humidity sensor"
     annotation (Placement(transformation(extent={{60,14},{40,34}})));
-/*
-  Modelica.Blocks.Sources.CombiTimeTable resDis(
-    tableOnFile=true,
-    tableName="tab1",
-    fileName=ModelicaServices.ExternalReferences.loadResource("modelica://Buildings/Resources/Data/Fluid/HeatExchangers/Examples/WetCoilEffNtuMassFlowFuzzy_V2_2.mos"),
-    columns={2,3}) "Reference results from WetCoilDiscretizedMassFlow"
-    annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
-    */
 
 equation
   connect(sou_1.ports[1], hex.port_a1) annotation (Line(
@@ -78,22 +72,24 @@ issue 622</a> for more information.
 </ul>
 </html>", info="<html>
 <p>
-This example model is meant to create a comparison of the
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.WetEffectivenessNTU\">
-WetEffectivenessNTU</a> model (which is tested here) versus a
+This example is meant to create a comparison of
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.WetCoiEffectivenessNTU\">
+Buildings.Fluid.HeatExchangers.WetCoiEffectivenessNTU</a> 
+(which is simulated here) versus
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.WetCoilCounterFlow\">
-WetCoilCounterFlow</a> model over a similar example (compare this example with
+Buildings.Fluid.HeatExchangers.WetCoilCounterFlow</a> 
+over a similar example.
+It is intended to be compared with
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.Examples.WetCoilCounterFlowMassFlow\">
-WetCoilCounterFlowMassFlow</a>).
+Buildings.Fluid.HeatExchangers.Examples.WetCoilCounterFlowMassFlow</a>).
 </p>
-
 <p>
-The two models correspond approximately (realizing that the
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.WetEffectivenessNTU\">
-WetEffectivenessNTU
-</a> model does not have dynamics) over the first half of the simulation but
-does not agree well over the second half which subjects the model to
-flow reversals.
+The two models match approximately (considering that
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.WetCoiEffectivenessNTU\">
+Buildings.Fluid.HeatExchangers.WetCoiEffectivenessNTU</a> 
+does not have dynamics) over the first half of the simulation but
+do not agree well over the second half which subjects the model to
+flow reversal.
 </p>
 </html>"));
 end WetCoilEffectivenessNTU;

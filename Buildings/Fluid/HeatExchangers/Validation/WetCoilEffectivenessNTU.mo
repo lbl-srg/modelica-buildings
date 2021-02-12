@@ -1,6 +1,6 @@
 within Buildings.Fluid.HeatExchangers.Validation;
 model WetCoilEffectivenessNTU
-  "Model validation of the WetCoilEffNtu model compared with a reference"
+  "Model that validates the wet coil effectiveness-NTU model"
   extends Modelica.Icons.Example;
 
   package Medium_W = Buildings.Media.Water;
@@ -75,7 +75,7 @@ model WetCoilEffectivenessNTU
   Modelica.Blocks.Sources.RealExpression pAir(y=pAtm) "Air pressure"
     annotation (Placement(transformation(extent={{140,-52},{120,-28}})));
   Buildings.Utilities.Psychrometrics.TWetBul_TDryBulXi wetBulIn(redeclare
-      package Medium = Medium_A)
+      package Medium = Medium_A) "Computation of wet bulb temperature"
     annotation (Placement(transformation(extent={{120,-18},{140,2}})));
   Sensors.MassFractionTwoPort senMasFraIn(redeclare package Medium = Medium_A,
       m_flow_nominal=m2_flow_nominal) "Water mass fraction of entering air"
@@ -87,9 +87,9 @@ model WetCoilEffectivenessNTU
       m_flow_nominal=m2_flow_nominal) "Dry bulb temperature of leaving air"
     annotation (Placement(transformation(extent={{-70,-30},{-90,-50}})));
   Buildings.Utilities.Psychrometrics.TWetBul_TDryBulXi wetBulOut(redeclare
-      package Medium = Medium_A)
+      package Medium = Medium_A) "Computation of wet bulb temperature"
     annotation (Placement(transformation(extent={{-40,-98},{-20,-78}})));
-  Modelica.Blocks.Sources.RealExpression pAir1(y=pAtm)  "Pressure"
+  Modelica.Blocks.Sources.RealExpression pAir1(y=pAtm) "Air pressure"
     annotation (Placement(transformation(extent={{-100,-112},{-80,-88}})));
   WetCoiEffectivenessNTU hexWetNTU(
     redeclare package Medium1 = Medium_W,
@@ -100,7 +100,7 @@ model WetCoilEffectivenessNTU
     dp2_nominal=0,
     dp1_nominal=0,
     configuration=hexCon,
-    show_T=true) "Heat exchanger coil"
+    show_T=true) "Effectiveness-NTU coil model"
     annotation (Placement(transformation(extent={{-40,-4},{-20,16}})));
   Sources.MassFlowSource_T souWat1(
     redeclare package Medium = Medium_W,
@@ -120,7 +120,7 @@ model WetCoilEffectivenessNTU
     dp1_nominal=0,
     UA_nominal=UA_nominal,
     show_T=true,
-    nEle=50,
+    nEle=30,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
     tau1=0.1,
     tau2=0.1,
@@ -198,27 +198,26 @@ equation
   "Simulate and plot"),
   Documentation(info="<html>
 <p>
-This example duplicates an example from Mitchell and Braun 2012, example SM-2-1
+This model duplicates an example from Mitchell and Braun 2012, example SM-2-1
 (Mitchell and Braun 2012) to validate a single case for the
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.WetEffectivenessNTU\">
-Buildings.Fluid.HeatExchangers.WetEffectivenessNTU</a> model.
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.WetCoiEffectivenessNTU\">
+Buildings.Fluid.HeatExchangers.WetCoiEffectivenessNTU</a> 
+model.
 </p>
-
 <h4>Validation</h4>
-
 <p>
-The example is a steady-state analysis of a partially wet coil with the inlet
-conditions as specified in the model setup.
+The example is a steady-state analysis of a wet coil with constant air 
+and water inlet temperature and mass flow rate, and a varying air inlet 
+humidity as specified in the model setup.
+The reference used for validation is the published experimental data.
+A discretized wet coil model is also used for comparison. 
 </p>
-
 <p>
 The slight deviations we find are believed due to differences in the tolerance
 of the solver algorithms employed as well as differences in media property
 calculations for air and water.
 </p>
-
 <h4>References</h4>
-
 <p>
 Mitchell, John W., and James E. Braun. 2012.
 \"Supplementary Material Chapter 2: Heat Exchangers for Cooling Applications\".
