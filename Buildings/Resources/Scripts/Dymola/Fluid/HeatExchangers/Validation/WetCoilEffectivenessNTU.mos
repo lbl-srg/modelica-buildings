@@ -36,7 +36,7 @@ createPlot(
 createPlot(
     id=2,
     subPlot=2,
-    y={"hexWetNTU.dryWetCalcs.w_PW", "hexWetNTU.dryWetCalcs.w_FW","hexWetNTU.dryWetCalcs.w_FD"},
+    y={"hexWetNTU.dryWetCalcs.w_FW","hexWetNTU.dryWetCalcs.w_FD"},
     autoscale=true,
     autoerase=true,
     autoreplot=true,
