@@ -256,8 +256,7 @@ equation
           origin={-97,-54},
           rotation=90)}),       Documentation(info="<html>
 <p>
-Model for a VAV supply branch.
-The terminal VAV box has a pressure independent damper and a water reheat coil.
+Model for a VAV terminal box with a water reheat coil and pressure independent damper.
 The pressure independent damper model includes an idealized flow rate controller
 and requires a discharge air flow rate set-point (normalized to the nominal value)
 as a control signal.

@@ -98,3 +98,18 @@ convertModifiers("Buildings.Controls.OBC.CDL.Logical.Latch",
                 {"pre_y_start"}, fill("",0), true);
 convertModifiers("Buildings.Controls.OBC.CDL.Logical.Toggle",
                 {"pre_y_start"}, fill("",0), true);
+
+// Conversion for https://github.com/lbl-srg/modelica-buildings/issues/2059
+// Point VAVBranch to the Obsolete version and add hardcoded values as parameters.
+convertClass(
+  "Buildings.Examples.VAVReheat{}.BaseClasses.VAVBranch",
+  "Buildings.Obsolete.Examples.VAVReheat.VAVBranch"
+  );
+convertModifiers("Buildings.Obsolete.Examples.VAVReheat.VAVBranch",
+                {},
+                {"ratVFloHea=1",
+                "THotWatInl_nominal=82.2",
+                "THotWatOut_nominal=40",
+                "TAirInl_nominal=16.7",
+                "QHea_flow_nominal=m_flow_nominal*1006*(50-16.7)"},
+                true)

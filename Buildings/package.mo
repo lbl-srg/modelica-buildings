@@ -445,13 +445,6 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1502\">issue 1502</a>.
     </td>
-    <tr><td valign=\"top\">Buildings.Examples.VAVReheat.BaseClasses.VAVBranch
-    </td>
-    <td valign=\"top\">Renamed to <code>VAVReheatBox</code>, refactored reheat coil sizing and moved water source out of class to
-		<code>Buildings.Examples.VAVReheat.BaseClasses.PartialOpenLoop</code>.<br/>
-                       This is for
-                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2059\">issue 2059</a>.
-    </td>
 <tr><td valign=\"top\">Buildings.Examples.VAVReheat.BaseClasses.Floor
     </td>
     <td valign=\"top\">Refactored model to extend from the newly added <code>Buildings.Examples.VAVReheat.BaseClasses.PartialFloor</code> model.<br/>
@@ -739,6 +732,20 @@ have been <b style=\"color:blue\">improved</b> in a
     <td valign=\"top\">Moved package to <code>Buildings.Obsolete.DistrictHeatingCooling</code>.<br/>
                        Generic components for DHC system modeling are now developed under
                        <code>Buildings.Experimental.DHC</code>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Examples</b>
+    </td>
+</tr>,
+<tr><td valign=\"top\">Buildings.Examples.VAVReheat.BaseClasses.VAVBranch</td>
+    <td valign=\"top\">Moved package to <code>Buildings.Obsolete.Examples.VAVReheat.VAVBranch</code>
+    and refactored reheat coil sizing. Exposed sizing parameters
+		<code>ratVFloHea</code>, <code>THotWatInl_nominal</code>,
+    <code>THotWatOut_nominal</code>, <code>TAirInl_nominal</code> and
+    <code>QHea_flow_nominal</code>. This class is now a wrapper for the
+    preferred class <code>Buildings.Examples.VAVReheat.BaseClasses.VAVReheatBox</code>
+		<br/> This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2059\">issue 2059</a>.
+    <br/> For Dymola, a conversion script makes this change.
     </td>
 </tr>
 </table>
