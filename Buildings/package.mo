@@ -736,15 +736,13 @@ have been <b style=\"color:blue\">improved</b> in a
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Examples</b>
     </td>
-</tr>,
-<tr><td valign=\"top\">Buildings.Examples.VAVReheat.BaseClasses.VAVBranch</td>
-    <td valign=\"top\">Moved package to <code>Buildings.Obsolete.Examples.VAVReheat.VAVBranch</code>
-    and refactored reheat coil sizing. Exposed sizing parameters
-		<code>ratVFloHea</code>, <code>THotWatInl_nominal</code>,
-    <code>THotWatOut_nominal</code>, <code>TAirInl_nominal</code> and
-    <code>QHea_flow_nominal</code>. This class is now a wrapper for the
+</tr>
+<tr><td valign=\"top\">Buildings.Examples.VAVReheat.BaseClasses.VAVBranch
+    </td>
+    <td valign=\"top\">Moved to <code>Buildings.Obsolete.Examples.VAVReheat.VAVBranch</code>
+    ,refactored reheat coil sizing and exposed sizing parameters. This class is now a wrapper for the
     preferred class <code>Buildings.Examples.VAVReheat.BaseClasses.VAVReheatBox</code>
-		<br/> This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2059\">issue 2059</a>.
+    <br/> This is for <a href=\\\"https://github.com/lbl-srg/modelica-buildings/issues/2059\\\">issue 2059</a>.
     <br/> For Dymola, a conversion script makes this change.
     </td>
 </tr>
