@@ -1,6 +1,6 @@
-within Buildings.Controls.OBC.CDL.SetPoints.Validation;
+within Buildings.Controls.OBC.Utilities.SetPoints.Validation;
 model SupplyReturnTemperatureReset "Test model for the heating curve"
-  Buildings.Controls.OBC.CDL.SetPoints.SupplyReturnTemperatureReset heaCur(
+  Buildings.Controls.OBC.Utilities.SetPoints.SupplyReturnTemperatureReset heaCur(
     m=1,
     TSup_nominal=333.15,
     TRet_nominal=313.15,
@@ -13,7 +13,7 @@ model SupplyReturnTemperatureReset "Test model for the heating curve"
     offset=263.15,
     y(unit="K")) "Outdoor temperature varying from -10 degC to 30 degC"
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
-  Buildings.Controls.OBC.CDL.SetPoints.SupplyReturnTemperatureReset
+  Buildings.Controls.OBC.Utilities.SetPoints.SupplyReturnTemperatureReset
   heaCur1(
     m=1,
     dTOutHeaBal=15,
@@ -55,7 +55,7 @@ equation
       color={0,0,127}));
 
 annotation (experiment(Tolerance=1e-6, StopTime=1.0),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/SetPoints/Validation/SupplyReturnTemperatureReset.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/Utilities/SetPoints/Validation/SupplyReturnTemperatureReset.mos"
       "Simulate and plot"),
   Documentation(info="<html>
 <p>
@@ -73,7 +73,7 @@ an outside temperature of
 The figure below shows the computed supply and return water temperatures.
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Controls/OBC/CDL/SetPoints/SupplyReturnTemperatureReset.png\"
+<img src=\"modelica://Buildings/Resources/Images/Controls/OBC/Utilities/SetPoints/SupplyReturnTemperatureReset.png\"
 border=\"1\"
 alt=\"Supply and return water temperatures.\"/>
 </p>

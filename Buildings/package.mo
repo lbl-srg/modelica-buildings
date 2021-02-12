@@ -439,7 +439,7 @@ have been <b style=\"color:blue\">improved</b> in a
                        Buildings.Controls.OBC.CDL.Psychrometrics.DewPoint_TDryBulPhi<br/>
                        Buildings.Controls.OBC.CDL.Psychrometrics.SpecificEnthalpy_TDryBulPhi<br/>
                        Buildings.Controls.OBC.CDL.Psychrometrics.WetBulb_TDryBulPhi<br/>
-                       Buildings.Controls.OBC.CDL.SetPoints.SupplyReturnTemperatureReset<br/>
+                       Buildings.Controls.OBC.Utilities.SetPoints.SupplyReturnTemperatureReset<br/>
                        Buildings.Controls.OBC.CDL.Utilities.SunRiseSet
 
     </td>
@@ -592,6 +592,23 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1365\">IBPSA, #1365</a>.<br/>
                        For Dymola, a conversion script makes this change.</td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.Controls.OBC.ASHRAE.G36_PR1</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.Controller
+    </td>
+    <td valign=\"top\">Updated the block of specifying operating mode and setpoints.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1893\">issue 1893</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.OperationMode
+    </td>
+    <td valign=\"top\">Upgraded the sequence according to ASHRAE Guideline 36, May 2020 version.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1893\">issue 1893</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL.Continuous</b>
     </td>
 </tr>
@@ -716,21 +733,14 @@ have been <b style=\"color:blue\">improved</b> in a
                        For Dymola, a conversion script will rename existing instance to use
                        the old versions which have been moved to the <code>Buildings.Obsolete</code> package.</td>
 </tr>
-<tr><td colspan=\"2\"><b>Buildings.Controls.OBC.ASHRAE.G36_PR1</b>
+<tr><td colspan=\"2\"><b>Buildings.Controls.OBC.Utilities</b>
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.Controller
+<tr><td valign=\"top\">Buildings.Controls.OBC.Utilities.SetPoints
     </td>
-    <td valign=\"top\">Updated the block of specifying operating mode and setpoints.<br/>
+    <td valign=\"top\">Moved package from <code>Buildings.Controls.OBC.CDL.SetPoints</code>.<br/>
                        This is for
-                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1893\">issue 1893</a>.
-    </td>
-</tr>
-<tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.OperationMode
-    </td>
-    <td valign=\"top\">Upgraded the sequence according to ASHRAE Guideline 36, May 2020 version.<br/>
-                       This is for
-                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1893\">issue 1893</a>.
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2355\">#2355</a>.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.UnitConversions</b>
@@ -1316,7 +1326,7 @@ as reported in <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1432\">I
                            For Dymola, a conversion script makes this change.
         </td>
     </tr>
-    <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.SetPoints.SupplyReturnTemperatureReset
+    <tr><td valign=\"top\">Buildings.Controls.OBC.Utilities.SetPoints.SupplyReturnTemperatureReset
         </td>
         <td valign=\"top\">Changed name from <code>HotWaterTemperatureReset</code> to <code>SupplyReturnTemperatureReset</code>.<br/>
                            This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/860\">#860</a>.<br/>

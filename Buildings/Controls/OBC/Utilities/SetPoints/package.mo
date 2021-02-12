@@ -1,4 +1,4 @@
-within Buildings.Controls.OBC.CDL;
+within Buildings.Controls.OBC.Utilities;
 package SetPoints "Package with blocks for setpoint resets"
 
 annotation (preferredView="info", Documentation(info="<html>
