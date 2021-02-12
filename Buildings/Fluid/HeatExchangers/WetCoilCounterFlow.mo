@@ -28,6 +28,7 @@ model WetCoilCounterFlow
   Modelica.SIunits.MassFlowRate mWat_flow = sum(ele[i].vol2.mWat_flow for i in 1:nEle)
     "Water flow rate";
 
+protected
   Real dryFra(final unit="1") = Modelica.Math.BooleanVectors.countTrue(
     {abs(ele[i].vol2.mWat_flow)<Modelica.Constants.eps for i in 1:nEle}) / nEle
     "Dry fraction";

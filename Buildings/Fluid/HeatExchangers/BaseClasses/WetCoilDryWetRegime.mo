@@ -202,7 +202,7 @@ equation
 
   QTot_flow= -(w_FW*fullywet.QTot_flow+w_FD*fullydry.QTot_flow)*Qfac;
   QSen_flow= -(w_FW*fullywet.QSen_flow+w_FD*fullydry.QTot_flow)*Qfac;
-  dryfra= w_FD;
+  dryFra= w_FD;
 
   QLat_flow=QTot_flow-QSen_flow;
   mCon_flow=QLat_flow/Buildings.Utilities.Psychrometrics.Constants.h_fg*Qfac;
