@@ -546,7 +546,10 @@ Buildings.Fluid.HeatExchangers.Validation.WetCoilEffectivenessNTU</a>.
 &quot;Methodologies for the Design and Control of 
 Central Cooling Plants&quot;. 
 PhD Thesis. University of Wisconsin - Madison. 
-Available online: https://minds.wisconsin.edu/handle/1793/46694</p>
+Available 
+<a href=\"https://minds.wisconsin.edu/handle/1793/46694\">
+online</a>.
+</p>
 <p>Mitchell, John W., and James E. Braun. 2012a. 
 Principles of heating, ventilation, and air conditioning in buildings. 
 Hoboken, N.J.: Wiley.</p>
@@ -554,7 +557,10 @@ Hoboken, N.J.: Wiley.</p>
 &quot;Supplementary Material Chapter 2: Heat Exchangers for Cooling Applications&quot;. 
 Excerpt from Principles of heating, ventilation, and air conditioning in buildings. 
 Hoboken, N.J.: Wiley. 
-Available online: http://bcs.wiley.com/he-bcs/Books?action=index&amp;itemId=0470624574&amp;bcsId=7185 </p>
+Available 
+<a href=\"http://bcs.wiley.com/he-bcs/Books?action=index&amp;itemId=0470624574&amp;bcsId=7185\">
+online</a>.
+</p>
 <p>Elmahdy, A.H. and Mitalas, G.P. 1977. 
 &quot;A Simple Model for Cooling and Dehumidifying Coils for Use 
 In Calculating Energy Requirements for Buildings&quot;. 
