@@ -1,5 +1,5 @@
 within Buildings.Fluid.HeatExchangers.Examples;
-model WetCoilEffectivenessNTU
+model WetCoilEffectivenessNTUMassFlow
   "Model that tests the wet coil effectiveness-NTU model with variable mass flow rates"
   extends Modelica.Icons.Example;
   extends
@@ -56,7 +56,8 @@ equation
       smooth=Smooth.None));
   annotation (
     experiment(Tolerance=1E-6, StopTime=3600),
-    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/WetCoilEffectivenessNTU.mos"
+    __Dymola_Commands(
+    file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/WetCoilEffectivenessNTUMassFlow.mos"
       "Simulate and plot"),
     Diagram(coordinateSystem(preserveAspectRatio=true,
       extent={{-100, -100},{200,200}})),
@@ -71,16 +72,15 @@ issue 622</a> for more information.
 </ul>
 </html>", info="<html>
 <p>
-This example is meant to create a comparison of
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.WetCoilEffectivenessNTU\">
-Buildings.Fluid.HeatExchangers.WetCoilEffectivenessNTU</a>
-(which is simulated here) versus
+This example is similar to 
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.Examples.WetCoilCounterFlowMassFlow\">
+Buildings.Fluid.HeatExchangers.Examples.WetCoilCounterFlowMassFlow</a>
+except that the coil model 
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.WetCoilCounterFlow\">
 Buildings.Fluid.HeatExchangers.WetCoilCounterFlow</a>
-over a similar example.
-It is intended to be compared with
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.Examples.WetCoilCounterFlowMassFlow\">
-Buildings.Fluid.HeatExchangers.Examples.WetCoilCounterFlowMassFlow</a>).
+is replaced here by
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.WetCoilEffectivenessNTU\">
+Buildings.Fluid.HeatExchangers.WetCoilEffectivenessNTU</a>.
 </p>
 <p>
 The two models match approximately (considering that
@@ -91,4 +91,4 @@ do not agree well over the second half which subjects the model to
 flow reversal.
 </p>
 </html>"));
-end WetCoilEffectivenessNTU;
+end WetCoilEffectivenessNTUMassFlow;

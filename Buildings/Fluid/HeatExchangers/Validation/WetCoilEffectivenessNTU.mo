@@ -76,7 +76,7 @@ model WetCoilEffectivenessNTU
     annotation (Placement(transformation(extent={{140,-52},{120,-28}})));
   Buildings.Utilities.Psychrometrics.TWetBul_TDryBulXi wetBulIn(redeclare
       package Medium = Medium_A) "Computation of wet bulb temperature"
-    annotation (Placement(transformation(extent={{120,-18},{140,2}})));
+    annotation (Placement(transformation(extent={{120,-20},{140,0}})));
   Sensors.MassFractionTwoPort senMasFraIn(redeclare package Medium = Medium_A,
       m_flow_nominal=m2_flow_nominal) "Water mass fraction of entering air"
     annotation (Placement(transformation(extent={{110,-90},{90,-70}})));
@@ -88,7 +88,7 @@ model WetCoilEffectivenessNTU
     annotation (Placement(transformation(extent={{-70,-30},{-90,-50}})));
   Buildings.Utilities.Psychrometrics.TWetBul_TDryBulXi wetBulOut(redeclare
       package Medium = Medium_A) "Computation of wet bulb temperature"
-    annotation (Placement(transformation(extent={{-40,-98},{-20,-78}})));
+    annotation (Placement(transformation(extent={{-40,-100},{-20,-80}})));
   Modelica.Blocks.Sources.RealExpression pAir1(y=pAtm) "Air pressure"
     annotation (Placement(transformation(extent={{-100,-112},{-80,-88}})));
   Buildings.Fluid.HeatExchangers.WetCoilEffectivenessNTU hexWetNTU(
@@ -144,26 +144,29 @@ model WetCoilEffectivenessNTU
     annotation (Placement(transformation(extent={{140,30},{120,50}})));
 equation
   connect(pAir.y, wetBulIn.p) annotation (Line(points={{119,-40},{110,-40},{110,
-          -16},{119,-16}},     color={0,0,127}));
-  connect(pAir1.y, wetBulOut.p) annotation (Line(points={{-79,-100},{-44,-100},{
-          -44,-96},{-41,-96}},color={0,0,127}));
+          -18},{119,-18}},     color={0,0,127}));
+  connect(pAir1.y, wetBulOut.p) annotation (Line(points={{-79,-100},{-44,-100},
+          {-44,-98},{-41,-98}},
+                              color={0,0,127}));
   connect(senMasFraOut.port_b, sinAir.ports[1])
     annotation (Line(points={{-130,-40},{-156,-40},{-156,-38},{-160,-38}},
                                                      color={0,127,255}));
   connect(TDryBulOut.port_b, senMasFraOut.port_a)
     annotation (Line(points={{-90,-40},{-110,-40}}, color={0,127,255}));
   connect(TDryBulOut.T, wetBulOut.TDryBul)
-    annotation (Line(points={{-80,-51},{-80,-80},{-41,-80}}, color={0,0,127}));
-  connect(senMasFraOut.X, wetBulOut.Xi[1]) annotation (Line(points={{-120,-51},{
-          -120,-88},{-41,-88}},                       color={0,0,127}));
+    annotation (Line(points={{-80,-51},{-80,-82},{-41,-82}}, color={0,0,127}));
+  connect(senMasFraOut.X, wetBulOut.Xi[1]) annotation (Line(points={{-120,-51},
+          {-120,-90},{-41,-90}},                      color={0,0,127}));
   connect(souAir.ports[1], senMasFraIn.port_a)
     annotation (Line(points={{120,-80},{110,-80}}, color={0,127,255}));
   connect(senMasFraIn.port_b, TDryBulIn.port_a)
     annotation (Line(points={{90,-80},{70,-80}}, color={0,127,255}));
   connect(senMasFraIn.X, wetBulIn.Xi[1])
-    annotation (Line(points={{100,-69},{100,-8},{119,-8}}, color={0,0,127}));
+    annotation (Line(points={{100,-69},{100,-10},{119,-10}},
+                                                           color={0,0,127}));
   connect(TDryBulIn.T, wetBulIn.TDryBul)
-    annotation (Line(points={{60,-69},{60,0},{119,0}}, color={0,0,127}));
+    annotation (Line(points={{60,-69},{60,-2},{119,-2}},
+                                                       color={0,0,127}));
   connect(TDryBulIn.port_b, RelHumIn.port_a)
     annotation (Line(points={{50,-80},{30,-80}}, color={0,127,255}));
   connect(souWat1.ports[1], hexWetNTU.port_a1) annotation (Line(points={{-160,12},
@@ -206,10 +209,10 @@ model.
 <h4>Validation</h4>
 <p>
 The example is a steady-state analysis of a wet coil with constant air
-and water inlet temperature and mass flow rate, and a varying air inlet
-humidity as specified in the model setup.
+and water inlet temperature and mass flow rate, and an increasing air inlet
+humidity which triggers the transition from a fully-dry to a fully-wet regime.
 The reference used for validation is the published experimental data.
-A discretized wet coil model is also used for comparison.
+A discretized wet coil model is also simulated for comparison.
 </p>
 <p>
 The slight deviations we find are believed due to differences in the tolerance
