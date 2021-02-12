@@ -191,8 +191,7 @@ equation
     extent={{-200,-120},{200,120}})),
     experiment(
       StopTime=100,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Cvode"),
+      Tolerance=1e-06),
     __Dymola_Commands(
     file="Resources/Scripts/Dymola/Fluid/HeatExchangers/Validation/WetCoilEffectivenessNTU.mos"
   "Simulate and plot"),

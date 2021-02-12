@@ -1,15 +1,15 @@
 ﻿old_StoreProtectedVariables = Advanced.StoreProtectedVariables;
 Advanced.StoreProtectedVariables = true;
 simulateModel("Buildings.Fluid.HeatExchangers.Validation.WetCoilEffectivenessNTU",
-    method="cvode",
-    tolerance=1e-06,
     stopTime=100,
-    resultFile="WetCoilEffectivenessNTU");
+    method="cvode",
+    tolerance=1e-6,
+    resultFile="WetCoilEffectivenessNTU_Validation");
 Advanced.StoreProtectedVariables = old_StoreProtectedVariables;
 createPlot(
     id=1,
     position={59, 59, 1186, 1286},
-    y={"hexWetNTU.Q1_flow", "hexWetNTU_IBPSA.Q1_flow", "hexDis.Q1_flow"},
+    y={"hexWetNTU.Q1_flow", "hexDis.Q1_flow"},
     autoscale=true,
     autoerase=true,
     autoreplot=true,
@@ -18,7 +18,7 @@ createPlot(
 createPlot(
     id=1,
     subPlot=2,
-    y={"hexWetNTU.sta_b2.T", "hexWetNTU_IBPSA.sta_b2.T", "hexDis.sta_b2.T"},
+    y={"hexWetNTU.sta_b2.T", "hexDis.sta_b2.T"},
     autoscale=true,
     autoerase=true,
     autoreplot=true,
