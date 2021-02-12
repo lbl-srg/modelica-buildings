@@ -107,6 +107,7 @@ typedef struct spawnReals{
   fmi2Real* valsEP; /* Values as used by EnergyPlus */
   fmi2Real* valsSI; /* vals in SI units as used by Modelica */
   fmi2_import_unit_t** units; /* Unit type, or NULL if not specified */
+  char** unitsModelica;        /* Unit specified in the Modelica model */
   fmi2ValueReference* valRefs; /* Value references */
   fmi2Byte** fmiNames; /* Full names, as listed in modelDescripton.xml file */
 } spawnReals;

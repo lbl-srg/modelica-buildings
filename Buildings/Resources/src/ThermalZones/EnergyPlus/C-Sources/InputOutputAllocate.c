@@ -34,6 +34,22 @@ void initializeDerivativeStructure(
     }
   }
 
+void initializeUnitsModelica(
+  spawnReals** ptrReals,
+  const char** vals,
+  const char* errMsg,
+  void (*SpawnFormatError)(const char *string, ...))
+  {
+    size_t i;
+    for(i = 0; i < (*ptrReals)->n; i++){
+      mallocString(
+        strlen(vals[i])+1,
+        errMsg,
+        &( (*ptrReals)->unitsModelica[i] ), SpawnFormatError);
+      strcpy( (*ptrReals)->unitsModelica[i], vals[i]);
+    }
+  }
+
 void checkForDoubleExchangeDeclaration(const struct FMUBuilding* fmuBld, const char* epName, char** doubleSpec){
   size_t iZ;
   FMUInOut** ptrInOut = (FMUInOut**)(fmuBld->exchange);
@@ -80,10 +96,16 @@ void* EnergyPlusExchangeAllocate(
   const char* jsonName,
   const char** parOutNames,
   const size_t nParOut,
+  const char** parOutUnits,
+  const size_t nParOutUni,
   const char** inpNames,
   const size_t nInp,
+  const char** inpUnits,
+  const size_t nInpUni,
   const char** outNames,
   const size_t nOut,
+  const char** outUnits,
+  const size_t nOutUni,
   const int* derivatives_structure,
   const size_t k,
   const size_t n,
@@ -107,6 +129,15 @@ void* EnergyPlusExchangeAllocate(
   }
 
   /* Check arguments */
+  if (nParOut != nParOutUni){
+    SpawnFormatMessage("---- %s: Require arguments nParOut and nParOutUni to be equal.\n", modelicaName);
+  }
+  if (nInp != nInpUni){
+    SpawnFormatMessage("---- %s: Require arguments nInp and nInpUni to be equal.\n", modelicaName);
+  }
+  if (nOut != nOutUni){
+    SpawnFormatMessage("---- %s: Require arguments nOut and nOutUni to be equal.\n", modelicaName);
+  }
   if (k != 2){
     SpawnFormatMessage("---- %s: Require argument k = 2, obtained k = %i.\n", modelicaName, k);
   }
@@ -180,6 +211,14 @@ void* EnergyPlusExchangeAllocate(
 
   /* Initialize derivative structure */
   initializeDerivativeStructure(&(ptrInOut->derivatives), derivatives_structure, derivatives_delta);
+
+  /* Initialize units */
+  initializeUnitsModelica(
+    &(ptrInOut->parameters), parOutUnits, "Failed to allocate memory for Modelica units of parameters", SpawnFormatError);
+  initializeUnitsModelica(
+    &(ptrInOut->inputs), inpUnits, "Failed to allocate memory for Modelica units of inputs", SpawnFormatError);
+  initializeUnitsModelica(
+    &(ptrInOut->outputs), outUnits, "Failed to allocate memory for Modelica units of outputs", SpawnFormatError);
 
   if (logLevel >= MEDIUM)
     SpawnFormatMessage("---- %s: Allocated parameters %p\n", modelicaName, ptrInOut->parameters);

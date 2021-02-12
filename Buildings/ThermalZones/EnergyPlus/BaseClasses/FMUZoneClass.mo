@@ -26,10 +26,13 @@ class FMUZoneClass
       "LogLevels of EnergyPlus output";
     input String jsonName "Name of the object in the json configuration file";
     input String parOutNames[nParOut] "Names of parameter in modelDescription.xml file";
+    input String parOutUnits[nParOut] "Modelica units of the parameters";
     input Integer nParOut "Number of parameters";
     input String inpNames[nInp] "Names of inputs in modelDescription.xml file";
+    input String inpUnits[nInp] "Modelica units of the inputs";
     input Integer nInp "Size of inpNames";
     input String outNames[nOut] "Names of outputs in modelDescription.xml file";
+    input String outUnits[nOut] "Modelica units of the outputs";
     input Integer nOut "Size of outNames";
     input Integer derivatives_structure[nDer, 2] "List of derivatives (1-based index, [i,j] means dy_i/du_j";
     input Integer nDer "Size of derivatives";
@@ -49,9 +52,15 @@ class FMUZoneClass
     jsonName,
     parOutNames,
     nParOut,
+    parOutUnits,
+    nParOut,
     inpNames,
     nInp,
+    inpUnits,
+    nInp,
     outNames,
+    nOut,
+    outUnits,
     nOut,
     derivatives_structure,
     2,

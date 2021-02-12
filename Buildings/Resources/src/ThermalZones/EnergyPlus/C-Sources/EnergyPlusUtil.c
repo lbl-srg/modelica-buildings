@@ -21,7 +21,7 @@ void mallocString(const size_t nChar, const char *error_message, char** str, voi
 }
 
 void mallocSpawnReals(const size_t n, spawnReals** r, void (*SpawnFormatError)(const char *string, ...)){
-
+  size_t i;
   *r = NULL;
   *r = (spawnReals*)malloc(sizeof(spawnReals));
   if ( *r == NULL)
@@ -41,6 +41,14 @@ void mallocSpawnReals(const size_t n, spawnReals** r, void (*SpawnFormatError)(c
   (*r)->units = (fmi2_import_unit_t**)malloc(n * sizeof(fmi2_import_unit_t*));
   if ((*r)->units == NULL)
     SpawnFormatError("%s", "Failed to allocate memory for (*r)->units in EnergyPlus.c");
+
+  (*r)->unitsModelica = NULL;
+  (*r)->unitsModelica = (char**)malloc(n * sizeof(char*));
+  if ((*r)->unitsModelica == NULL)
+    SpawnFormatError("%s", "Failed to allocate memory for (*r)->units in EnergyPlus.c");
+  for(i = 0; i < n; i++){
+    (*r)->unitsModelica[i] = NULL;
+  }
 
   (*r)->valRefs = NULL;
   (*r)->valRefs = (fmi2ValueReference*)malloc(n * sizeof(fmi2ValueReference));
