@@ -28,6 +28,10 @@ model WetCoilCounterFlow
   Modelica.SIunits.MassFlowRate mWat_flow = sum(ele[i].vol2.mWat_flow for i in 1:nEle)
     "Water flow rate";
 
+  Real fraDry(final unit="1") = Modelica.Math.BooleanVectors.countTrue(
+    {abs(ele[i].vol2.mWat_flow)<Modelica.Constants.eps for i in 1:nEle}) / nEle
+    "Dry fraction";
+
  annotation (
 defaultComponentName="cooCoi",
     Documentation(info="<html>
@@ -179,11 +183,5 @@ First implementation.
         preserveAspectRatio=true,
         extent={{-100,-100},{100,100}},
         grid={2,2},
-        initialScale=0.5), graphics={Text(
-          extent={{60,72},{84,58}},
-          lineColor={0,0,255},
-          textString="water-side"), Text(
-          extent={{50,-32},{90,-38}},
-          lineColor={0,0,255},
-          textString="air-side")}));
+        initialScale=0.5)));
 end WetCoilCounterFlow;
