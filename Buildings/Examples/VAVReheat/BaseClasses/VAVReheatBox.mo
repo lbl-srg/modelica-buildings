@@ -261,5 +261,14 @@ The pressure independent damper model includes an idealized flow rate controller
 and requires a discharge air flow rate set-point (normalized to the nominal value)
 as a control signal.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+February 12, 2021, by Baptiste Ravache:<br/>
+First implementation, based on <code>Buildings.Obsolete.Examples.VAVReheat.BaseClasses.VAVBranch</code><br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2059\">#2024</a>.
+</li>
+</ul>
 </html>"));
 end VAVReheatBox;

@@ -739,10 +739,9 @@ have been <b style=\"color:blue\">improved</b> in a
 </tr>
 <tr><td valign=\"top\">Buildings.Examples.VAVReheat.BaseClasses.VAVBranch
     </td>
-    <td valign=\"top\">Moved to <code>Buildings.Obsolete.Examples.VAVReheat.VAVBranch</code>
-    ,refactored reheat coil sizing and exposed sizing parameters. This class is now a wrapper for the
-    preferred class <code>Buildings.Examples.VAVReheat.BaseClasses.VAVReheatBox</code>
-    <br/> This is for <a href=\\\"https://github.com/lbl-srg/modelica-buildings/issues/2059\\\">issue 2059</a>.
+    <td valign=\"top\">Moved to <code>Buildings.Obsolete.Examples.VAVReheat.BaseClasses.VAVBranch</code>
+    and replaced by <code>Buildings.Examples.VAVReheat.BaseClasses.VAVReheatBox</code>.
+    <br/> This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2059\">issue #2059</a>.
     <br/> For Dymola, a conversion script makes this change.
     </td>
 </tr>
@@ -752,7 +751,8 @@ have been <b style=\"color:blue\">improved</b> in a
 The following <b style=\"color:red\">critical errors</b> have been fixed (i.e., errors
 that can lead to wrong simulation results):
 </p>
-<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collaps"
+               + "e;\">
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL.Integers</b>
     </td>
 </tr>
