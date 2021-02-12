@@ -163,7 +163,7 @@ equation
 <li>Jan 21, 2021, by Donghun Kim:<br>First implementation of the fuzzy model. See <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/622\">issue 622</a> for more information. </li>
 </ul>
 </html>", info="<html>
-<p>This model implements the calculation for a 100&percnt; wet coil. </p>
+<p>This model implements the calculation for a 100% wet coil. </p>
 <p>The equations from Braun (1988) and Mitchell and Braun (2012a and b), which are essentially the extension of the &epsilon;-NTU approach to simultaneous sensible and latent heat transfer, are utilized. </p>
 <p>The mathematical equations are analogous to that of the sensible heat exchanger. The key change is that the heat transfer is deriven by an enthalpy difference not by an temperature difference. This change in the deriving potential results in redefining capacitances and heat transfer coefficients accordinlgy.</p>
 <p>The total heat transfer rate is expressed as</p>
