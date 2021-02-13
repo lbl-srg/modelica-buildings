@@ -101,7 +101,7 @@ model WetCoilEffectivenessNTU
     UA_nominal=UA_nominal,
     show_T=true,
     nEle=30,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     tau1=0.1,
     tau2=0.1,
     tau_m=0.1)
