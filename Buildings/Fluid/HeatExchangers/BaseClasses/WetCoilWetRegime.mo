@@ -1,9 +1,10 @@
 within Buildings.Fluid.HeatExchangers.BaseClasses;
-model WetCoilWetRegime "Fully wet coil model using esilon_C.mo function"
+model WetCoilWetRegime
+  "Fully wet coil model using esilon_C.mo function"
+
   // - water
   input Modelica.SIunits.ThermalConductance UAWat
     "UA for water side";
-
   input Modelica.SIunits.MassFlowRate mWat_flow
     "Mass flow rate for water";
   input Modelica.SIunits.MassFlowRate mWatNonZer_flow
@@ -12,9 +13,7 @@ model WetCoilWetRegime "Fully wet coil model using esilon_C.mo function"
     "Specific heat capacity of water";
   input Modelica.SIunits.Temperature TWatIn
     "Water temperature at inlet";
-
   input Modelica.SIunits.MassFlowRate mWat_flow_nominal;
-
   // -- air
   input Modelica.SIunits.Pressure pAir
     "Pressure on air-side of coil";

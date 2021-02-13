@@ -1,6 +1,6 @@
 within Buildings.Fluid.HeatExchangers.BaseClasses;
 model WetCoilDryWetRegime
-  "This model represents the switching algorithm of the TK-fuzzy model for cooling coil applicaiton"
+  "Model implementing the switching algorithm of the TK-fuzzy model for cooling coil application"
   input Real Qfac;
   replaceable package Medium2 = Modelica.Media.Interfaces.PartialMedium
     "Medium 2 in the component"

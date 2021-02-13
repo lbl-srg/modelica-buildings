@@ -1,5 +1,6 @@
 within Buildings.Fluid.HeatExchangers.BaseClasses;
-model WetCoilDryRegime "Fully dry coil model"
+model WetCoilDryRegime
+  "Fully dry coil model"
 
   // - water
   input Modelica.SIunits.ThermalConductance UAWat
@@ -89,7 +90,12 @@ See <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/622\">issue 6
 for more information.</li>
 </ul>
 </html>", info="<html>
-<p>This model implements the calculation for a 100% dry coil. </p>
-<p>See Buildings.Fluid.HeatExchangers.DryCoilEffectivenessNTU for documentation. </p>
+<p>This model implements the calculation for a 100% dry coil.</p>
+<p>
+See 
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DryCoilEffectivenessNTU\">
+Buildings.Fluid.HeatExchangers.DryCoilEffectivenessNTU</a>
+for documentation. 
+</p>
 </html>"));
 end WetCoilDryRegime;

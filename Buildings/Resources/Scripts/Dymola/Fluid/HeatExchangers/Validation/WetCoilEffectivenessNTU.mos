@@ -25,6 +25,15 @@ createPlot(
     grid=true,
     color=true);
 createPlot(
+    id=1,
+    subPlot=3,
+    y={"RelHumOut_eps.phi", "RelHumOut_dis.phi"},
+    autoscale=true,
+    autoerase=true,
+    autoreplot=true,
+    grid=true,
+    color=true);
+createPlot(
     id=2,
     position={1255, 58, 1140, 1286},
     y={"hexWetNTU.dryWetCalcs.dryFra", "hexDis.dryFra", "hexWetNTU.SHR"},
