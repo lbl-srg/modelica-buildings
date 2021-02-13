@@ -379,7 +379,7 @@ connections; there are too many
 connections to show graphically here")}),
     Documentation(revisions="<html>
 <ul>
-<li>Jan 21, 2021, by Donghun Kim:<br>First implementation of the fuzzy model. See <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/622\">issue 622</a> for more information. </li>
+<li>Jan 21, 2021, by Donghun Kim:<br/>First implementation of the fuzzy model. See <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/622\">issue 622</a> for more information. </li>
 </ul>
 </html>", info="<html>
 <p>The switching criteria for (counter-flow) cooling coil modes are as follows.</p>
