@@ -751,8 +751,7 @@ have been <b style=\"color:blue\">improved</b> in a
 The following <b style=\"color:red\">critical errors</b> have been fixed (i.e., errors
 that can lead to wrong simulation results):
 </p>
-<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collaps"
-               + "e;\">
+<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL.Integers</b>
     </td>
 </tr>
