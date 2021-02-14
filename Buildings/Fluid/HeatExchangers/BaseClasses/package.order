@@ -23,6 +23,7 @@ RayleighNumber
 WetCoilDryRegime
 WetCoilDryWetRegime
 WetCoilWetRegime
+WetCoilUARated
 determineWaterIndex
 dynamicViscosityWater
 epsilon_C

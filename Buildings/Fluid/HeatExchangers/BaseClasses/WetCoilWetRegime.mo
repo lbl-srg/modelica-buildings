@@ -59,7 +59,7 @@ model WetCoilWetRegime
     "Temperature at the air outlet";
    Modelica.SIunits.SpecificEnthalpy hAirOut
     "Specific enthalpy of moist air at the air outlet";
-  Buildings.Utilities.Psychrometrics.hSat_pTSat hSatWatOutM(p=pAir,TSat=TWatOutHat)
+  Buildings.Utilities.Psychrometrics.hSat_pTSat hSatWatOutM(p=pAir,TSat=TWatOutEst)
     "model to calculate saturated specific enthalpy of air at water outlet tempreature";
   Modelica.SIunits.SpecificEnthalpy hSatWatOut
     "saturated specific enthalpy of air at water outlet tempreature";
@@ -105,8 +105,11 @@ model WetCoilWetRegime
   "analogus to CMax_flow_nominal, only for a regularization";
   Modelica.SIunits.MassFlowRate deltaCStaMin=delta*min(mAir_flow_nominal,mWat_flow_nominal*cpEff0/cpWat0)
       "min of product of mass flow rates and specific heats, analogous to Cmin";
-  Modelica.SIunits.Temperature TWatOutHat(start=273.15+10)
+  Modelica.SIunits.Temperature TWatOutEst
     "state_estimation of Temperature of water at outlet";
+
+initial equation
+  TWatOutEst=0.5*(TWatIn+ TAirIn); //273.15+10;
 
 equation
 
@@ -114,7 +117,7 @@ equation
     hSatWatIn=hSatWatInM.hSat;
     dhSatdTWatIn=(hSatWatIn_dT_M.hSat-hSatWatInM.hSat)/dTWat; // dTWat is a parameter
     hSatWatOut= hSatWatOutM.hSat;
-    NonZerDelWatTem=Buildings.Utilities.Math.Functions.regNonZeroPower(x=TWatOutHat-TWatIn,n=1,delta=0.1);
+    NonZerDelWatTem=Buildings.Utilities.Math.Functions.regNonZeroPower(x=TWatOutEst-TWatIn,n=1,delta=0.1);
     cpEff = Buildings.Utilities.Math.Functions.smoothMax(
     (hSatWatOut - hSatWatIn)/NonZerDelWatTem,
     dhSatdTWatIn,
@@ -150,7 +153,7 @@ equation
     QSen_flow= Buildings.Utilities.Math.Functions.smoothMin(mAir_flow*cpAir*(TAirIn-TAirOut),QTot_flow,delta*mWatNonZer_flow*cpWat0*5); // the last term is only for regularization with DTWater=5oC
 
     (TAirIn-TSurAirIn)*UAAir=(TSurAirIn-TWatOut)*UAWat;
-    der(TWatOutHat)=-1/tau*TWatOutHat+1/tau*TWatOut;
+    der(TWatOutEst)=-1/tau*TWatOutEst+1/tau*TWatOut;
 
   annotation (Icon(graphics={
           Rectangle(

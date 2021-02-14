@@ -11,6 +11,7 @@ SensibleCooler_T
 WetCoilCounterFlow
 WetCoilDiscretized
 WetCoilEffectivenessNTU
+WetCoilEffectivenessNTUWithRated
 ActiveBeams
 CoolingTowers
 DXCoils
