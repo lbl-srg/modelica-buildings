@@ -1,11 +1,11 @@
-within Buildings.Controls.OBC.CDL.SetPoints;
+within Buildings.Controls.OBC.Utilities.SetPoints;
 package Validation "Collection of models that validate the SetPoints blocks of the CDL"
 
 annotation (preferredView="info", Documentation(info="<html>
 <p>
 This package contains models that validate the blocks in
-<a href=\"modelica://Buildings.Controls.OBC.CDL.SetPoints\">
-Buildings.Controls.OBC.CDL.SetPoints</a>.
+<a href=\"modelica://Buildings.Controls.OBC.Utilities.SetPoints\">
+Buildings.Controls.OBC.Utilities.SetPoints</a>.
 </p>
 <p>
 The examples plot various outputs, which have been verified against

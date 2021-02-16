@@ -112,6 +112,7 @@ experiment(
 Documentation(info="<html>
 <p>
 Test case of the small office DOE reference building without an HVAC system.
+Each thermal zone has a constant air flow rate of unconditioned outside air.
 </p>
 </html>", revisions="<html>
 <ul>

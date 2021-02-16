@@ -65,7 +65,7 @@ Your model is using an outer \"building\" component to declare building-level pa
 an inner \"building\" component is not defined.
 Drag one instance of Buildings.ThermalZones.EnergyPlus.Building into your model,
 above all declarations of Buildings.ThermalZones.EnergyPlus.ThermalZone,
-to specify building-level parameters.",
+to specify building-level parameters. This instance must have the name \"building\".",
     Icon(
       graphics={
         Bitmap(
@@ -109,8 +109,9 @@ to specify building-level parameters.",
 Model that declares building-level specifications for Spawn of EnergyPlus.
 </p>
 <p>
-Each EnergyPlus idf file must have one instance of this model, which
-is used to configure EnergyPlus.
+This model is used to configure EnergyPlus.
+Each EnergyPlus idf file must have one instance of this model, and the
+instance name must be <code>building</code>.
 The instance must be placed in the model hierarchy at the same or at a higher level
 than the EnergyPlus objects that are related to the EnergyPlus idf file specified in
 this model through the parameter <code>idfName</code>.

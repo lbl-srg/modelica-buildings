@@ -20,17 +20,17 @@ model BuildingSpawnZ1
   Modelica.Blocks.Sources.Constant qConGai_flow(
     k=0)
     "Convective heat gain"
-    annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
+    annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
   Modelica.Blocks.Sources.Constant qRadGai_flow(
     k=0)
     "Radiative heat gain"
-    annotation (Placement(transformation(extent={{-80,100},{-60,120}})));
+    annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
   Modelica.Blocks.Routing.Multiplex3 multiplex3_1
-    annotation (Placement(transformation(extent={{-34,60},{-14,80}})));
+    annotation (Placement(transformation(extent={{-20,0},{0,20}})));
   Modelica.Blocks.Sources.Constant qLatGai_flow(
     k=0)
     "Latent heat gain"
-    annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
+    annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   Buildings.ThermalZones.EnergyPlus.ThermalZone zon(
     redeclare package Medium=Medium2,
     zoneName="Core_ZN",
@@ -91,13 +91,13 @@ model BuildingSpawnZ1
     annotation (Placement(transformation(extent={{-120,-160},{-100,-140}})));
 equation
   connect(qRadGai_flow.y,multiplex3_1.u1[1])
-    annotation (Line(points={{-59,110},{-40,110},{-40,77},{-36,77}},color={0,0,127},smooth=Smooth.None));
+    annotation (Line(points={{-59,80},{-40,80},{-40,17},{-22,17}},  color={0,0,127},smooth=Smooth.None));
   connect(qConGai_flow.y,multiplex3_1.u2[1])
-    annotation (Line(points={{-59,70},{-48,70},{-42,70},{-36,70}},color={0,0,127},smooth=Smooth.None));
+    annotation (Line(points={{-59,40},{-48,40},{-48,10},{-22,10}},color={0,0,127},smooth=Smooth.None));
   connect(multiplex3_1.u3[1],qLatGai_flow.y)
-    annotation (Line(points={{-36,63},{-40,63},{-40,30},{-59,30}},color={0,0,127}));
+    annotation (Line(points={{-22,3},{-40,3},{-40,0},{-59,0}},    color={0,0,127}));
   connect(multiplex3_1.y,zon.qGai_flow)
-    annotation (Line(points={{-13,70},{16,70},{16,10},{38,10}},color={0,0,127}));
+    annotation (Line(points={{1,10},{38,10}},                  color={0,0,127}));
   connect(zon.ports[1],terUni.port_aLoa)
     annotation (Line(points={{58,-19.1},{62,-19.1},{62,-41.6667},{-140,-41.6667}},color={0,127,255}));
   connect(terUni.port_bHeaWat,disFloHea.ports_a1[1])
@@ -119,8 +119,8 @@ equation
     annotation (Line(points={{-139.167,-55},{-139.167,-56},{-130,-56},{-130,
           -154},{-121,-154}},                                                                  color={0,0,127}));
   connect(terUni.port_bLoa,zon.ports[2])
-    annotation (Line(points={{-160,-41.6667},{-172,-41.6667},{-180,-41.6667},{
-          -180,-19.1},{62,-19.1}},                                                                    color={0,127,255}));
+    annotation (Line(points={{-160,-41.6667},{-162,-41.6667},{-162,-24},{58,-24},
+          {58,-19.1},{62,-19.1}},                                                                     color={0,127,255}));
   connect(zon.TAir,terUni.TSen)
     annotation (Line(points={{81,18},{100,18},{100,-32},{-166,-32},{-166,
           -48.3333},{-160.833,-48.3333}},                                                                   color={0,0,127}));
@@ -130,14 +130,14 @@ equation
   connect(minTSet.y,terUni.TSetHea)
     annotation (Line(points={{-258,260},{-220,260},{-220,-45},{-160.833,-45}},color={0,0,127}));
   connect(ports_aHeaWat[1],disFloHea.port_a)
-    annotation (Line(points={{-300,-60},{-280,-60},{-280,-110},{-120,-110}},color={0,127,255}));
+    annotation (Line(points={{-300,-60},{-288,-60},{-288,-110},{-120,-110}},color={0,127,255}));
   connect(ports_bHeaWat[1],disFloHea.port_b)
-    annotation (Line(points={{300,-60},{280,-60},{280,-110},{-100,-110}},color={0,127,255}));
+    annotation (Line(points={{300,-60},{288,-60},{288,-110},{-100,-110}},color={0,127,255}));
   connect(ports_aChiWat[1],disFloCoo.port_a)
-    annotation (Line(points={{-300,-260},{-210,-260},{-210,-150},{-120,-150}},
-                                                      color={0,127,255}));
+    annotation (Line(points={{-300,-260},{-288,-260},{-288,-246},{-200,-246},{
+          -200,-150},{-120,-150}},                    color={0,127,255}));
   connect(ports_bChiWat[1],disFloCoo.port_b)
-    annotation (Line(points={{300,-260},{100,-260},{100,-150},{-100,-150}},
+    annotation (Line(points={{300,-260},{288,-260},{288,-150},{-100,-150}},
                                                      color={0,127,255}));
   connect(terUni.PFan, mulPFan.u) annotation (Line(points={{-139.167,-50},{240,
           -50},{240,120},{268,120}}, color={0,0,127}));
