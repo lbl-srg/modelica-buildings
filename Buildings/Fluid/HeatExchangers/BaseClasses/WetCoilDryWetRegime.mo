@@ -141,7 +141,7 @@ model WetCoilDryWetRegime
     TAirIn=TAirIn,
     final cfg=cfg,
     mAir_flow_nominal=mAir_flow_nominal,
-    mWat_flow_nominal=mWat_flow_nominal);
+    mWat_flow_nominal=mWat_flow_nominal) "Fully-dry coil model";
 
   Buildings.Fluid.HeatExchangers.BaseClasses.WetCoilWetRegime fullywet(
     UAWat=UAWat,
@@ -158,7 +158,7 @@ model WetCoilDryWetRegime
     mAir_flow_nominal=mAir_flow_nominal,
     mWat_flow_nominal=mWat_flow_nominal,
     pAir=pAir,
-    wAirIn=wAirIn);
+    wAirIn=wAirIn) "Fully-wet coil model";
 
 protected
   Modelica.SIunits.MassFlowRate mAirNonZer_flow(min=Modelica.Constants.eps)=
@@ -182,11 +182,11 @@ protected
 
   //-- parameters for fuzzy logics
   Real mu_FW(final unit="1", min=0, max=1), mu_FD(unit="1",min=0, max=1)
-    "membership functions for Fully-Wet and Fully-Dry conditions";
+    "Membership functions for Fully-Wet and Fully-Dry conditions";
   Real w_FW(final unit="1", min=0, max=1),  w_FD(unit="1",min=0, max=1)
-    "normailized weight functions for Fully-Wet and Fully-Dry conditions";
+    "Normailized weight functions for Fully-Wet and Fully-Dry conditions";
   Real dryFra(final unit="1", min=0, max=1)
-    "dry fraction, e.g., 0.3 means condensation occurs at 30% HX length from air inlet";
+    "Dry fraction, e.g., 0.3 means condensation occurs at 30% HX length from air inlet";
 
 equation
 
@@ -379,17 +379,27 @@ connections; there are too many
 connections to show graphically here")}),
     Documentation(revisions="<html>
 <ul>
-<li>Jan 21, 2021, by Donghun Kim:<br/>First implementation of the fuzzy model. See <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/622\">issue 622</a> for more information. </li>
+<li>Jan 21, 2021, by Donghun Kim:<br/>First implementation of the fuzzy model. 
+See <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/622\">issue 622</a> for more information. </li>
 </ul>
 </html>", info="<html>
 <p>The switching criteria for (counter-flow) cooling coil modes are as follows.</p>
-<p>R1: If the coil surface temperature at the air inlet is lower than the dew-point temperature at the inlet to the coil, then the cooling coil surface is fully-wet.</p>
-<p>R2: If the surface temperature at the air outlet section is higher than the dew-point temperature of the air at the inlet, then the cooling coil surface is fully-dry.</p>
-<p>At each point of a simulation time step, the fuzzy-modeling approach determines the weights for R1 and R2 respectively (namely &mu;<sub>FW</sub> and &mu;<sub>FD</sub>) from the dew-point and coil surface temperatures. </p>
-<p>It calculates total and sensible heat transfer rates according to the weights as follows. </p>
+<p>R1: If the coil surface temperature at the air inlet is lower than the dew-point 
+temperature at the inlet to the coil, then the cooling coil surface is fully-wet.</p>
+<p>R2: If the surface temperature at the air outlet section is higher than 
+the dew-point temperature of the air at the inlet, then the cooling coil surface is fully-dry.</p>
+<p>At each point of a simulation time step, the fuzzy-modeling approach determines 
+the weights for R1 and R2 respectively (namely &mu;<sub>FW</sub> and &mu;<sub>FD</sub>) 
+from the dew-point and coil surface temperatures.</p>
+<p>It calculates total and sensible heat transfer rates according to the weights as follows.</p>
 <p>Q<sub>tot</sub>=&mu;<sub>FD</sub> Q<sub>tot,FD</sub>+&mu;<sub>FW</sub> Q<sub>tot,FW</sub></p>
 <p>Q<sub>sen</sub>=&mu;<sub>FD</sub> Q<sub>sen,FD</sub>+&mu;<sub>FW</sub> Q<sub>sen,FW</sub></p>
-<p>The fuzzy-modeling ensures &mu;<sub>FW</sub> + &mu;<sub>FD</sub> = 1, &mu;<sub>FW</sub> &gt;=0, &mu;<sub>FD</sub> &gt;=0, which means the fuzzy model outcomes of Qsen and Qtot are always convex combinations of heat transfer rates for fully-dry and fully-wet modes and therefore are always bounded by them. </p>
-<p>The modeling approach also results in n-th order differentiable model depending on the selection of the underlying membership functions. This cooling coil model is once continuously differentiable even at the transition (or mode-switching) points.</p>
+<p>The fuzzy-modeling ensures &mu;<sub>FW</sub> + &mu;<sub>FD</sub> = 1, 
+&mu;<sub>FW</sub> &gt;=0, &mu;<sub>FD</sub> &gt;=0, which means the fuzzy 
+model outcomes of Qsen and Qtot are always convex combinations of heat transfer 
+rates for fully-dry and fully-wet modes and therefore are always bounded by them. </p>
+<p>The modeling approach also results in n-th order differentiable model
+depending on the selection of the underlying membership functions. This cooling 
+coil model is once continuously differentiable even at the transition (or mode-switching) points.</p>
 </html>"));
 end WetCoilDryWetRegime;

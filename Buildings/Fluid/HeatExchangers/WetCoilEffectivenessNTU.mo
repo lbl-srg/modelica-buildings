@@ -16,18 +16,7 @@ model WetCoilEffectivenessNTU
   parameter Real r_nominal=2/3
     "Ratio between air-side and water-side convective heat transfer coefficient"
     annotation (Dialog(group="Nominal condition"));
-  parameter Boolean waterSideFlowDependent=true
-    "Set to false to make water-side hA independent of mass flow rate"
-    annotation (Dialog(tab="Heat transfer"));
-  parameter Boolean airSideFlowDependent=true
-    "Set to false to make air-side hA independent of mass flow rate"
-    annotation (Dialog(tab="Heat transfer"));
-  parameter Boolean waterSideTemperatureDependent=false
-    "Set to false to make water-side hA independent of temperature"
-    annotation (Dialog(tab="Heat transfer"));
-  parameter Boolean airSideTemperatureDependent=false
-    "Set to false to make air-side hA independent of temperature"
-    annotation (Dialog(tab="Heat transfer"));
+
   parameter Buildings.Fluid.Types.HeatExchangerConfiguration configuration=
     con.CounterFlow
     "Heat exchanger configuration";
@@ -59,6 +48,19 @@ model WetCoilEffectivenessNTU
     "Water flow rate of condensate removed from the air stream";
 
 protected
+    parameter Boolean waterSideFlowDependent=true
+    "Set to false to make water-side hA independent of mass flow rate"
+    annotation (Dialog(tab="Heat transfer"));
+  parameter Boolean airSideFlowDependent=true
+    "Set to false to make air-side hA independent of mass flow rate"
+    annotation (Dialog(tab="Heat transfer"));
+  parameter Boolean waterSideTemperatureDependent=false
+    "Set to false to make water-side hA independent of temperature"
+    annotation (Dialog(tab="Heat transfer"));
+  parameter Boolean airSideTemperatureDependent=false
+    "Set to false to make air-side hA independent of temperature"
+    annotation (Dialog(tab="Heat transfer"));
+
   Real delta=1E-2
     "a parameter for normailization";
   Real delta1=1E-1
@@ -575,7 +577,8 @@ Fuzzy identification of systems and its applications to modeling and control.
 &nbsp;IEEE transactions on systems, man, and cybernetics, (1), pp.116-132.</p>
 </html>",                    revisions="<html>
 <ul>
-<li>Jan 21, 2021, by Donghun Kim:<br/>First implementation of the fuzzy model. See <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/622\">issue 622</a> for more information. </li>
+<li>Jan 21, 2021, by Donghun Kim:<br/>First implementation of the fuzzy model. 
+See <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/622\">issue 622</a> for more information. </li>
 </ul>
 </html>"),
     __Dymola_Commands(file=
