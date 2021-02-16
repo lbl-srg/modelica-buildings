@@ -2,6 +2,7 @@ within Buildings.Experimental.DHC.Examples.Combined.Generation5.Unidirectional.N
 model UnidirectionalSeries
   "Hydraulic network for unidirectional series DHC system"
   extends DHC.Networks.BaseClasses.PartialDistribution1Pipe(
+    tau=5*60,
     redeclare BaseClasses.ConnectionSeriesAutosize con[nCon](
       each final dp_length_nominal=dp_length_nominal,
       final lDis=lDis,
