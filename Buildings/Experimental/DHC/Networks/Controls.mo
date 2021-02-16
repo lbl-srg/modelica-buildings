@@ -51,8 +51,7 @@ package Controls "Package of control blocks for distribution systems"
       annotation (Placement(transformation(extent={{-70,-30},{-50,-10}})));
     Buildings.Controls.OBC.CDL.Continuous.MultiMax TMixMax(
       final nin=nMix,
-      y(final unit="K",
-        displayUnit="degC"))
+      y(final unit="K", displayUnit="degC"))
       "Maximum temperature at mixing points"
       annotation (Placement(transformation(extent={{-70,10},{-50,30}})));
     Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum(
@@ -65,9 +64,9 @@ package Controls "Package of control blocks for distribution systems"
     Buildings.Controls.OBC.CDL.Continuous.Gain dTSou_nor(k=1/(sum(dTSou_nominal)))
       "Normalization of temperature difference over source"
       annotation (Placement(transformation(extent={{-20,-130},{0,-110}})));
-    Buildings.Controls.OBC.CDL.Continuous.PID    conShi(
+    Buildings.Controls.OBC.CDL.Continuous.PID conShi(
       controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
-      k=k,
+      final k=k,
       Ti(displayUnit="min") = Ti,
       final yMax=1,
       final yMin=-1)
@@ -85,16 +84,19 @@ package Controls "Package of control blocks for distribution systems"
       annotation (Placement(transformation(extent={{-70,40},{-50,60}})));
     Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TMax_nominal(k=TMax)
       "Maximum temperature"
-      annotation (Placement(transformation(extent={{-70,144},{-50,164}})));
+      annotation (Placement(transformation(extent={{-70,150},{-50,170}})));
     Buildings.Controls.OBC.CDL.Continuous.Add TMax_upper(k2=-delta,
-      y(unit="K", displayUnit="degC"))
+      y(final unit="K", displayUnit="degC"))
       "Upper value of upper slope after shifting it"
       annotation (Placement(transformation(extent={{-30,150},{-10,170}})));
     Buildings.Controls.OBC.CDL.Continuous.Max sPos "Positive shift"
       annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
     Buildings.Controls.OBC.CDL.Continuous.Min sNeg "Negative shift"
       annotation (Placement(transformation(extent={{60,-150},{80,-130}})));
-    Buildings.Controls.OBC.CDL.Continuous.AddParameter TMax_lower(p=-dTSlo, k=1)
+    Buildings.Controls.OBC.CDL.Continuous.AddParameter TMax_lower(
+      final p=-dTSlo,
+      final k=1,
+      y(final unit="K", displayUnit="degC"))
       "Minimum temperatuer value of upper slope after shifting it"
       annotation (Placement(transformation(extent={{10,149},{30,171}})));
     Buildings.Controls.OBC.CDL.Continuous.Line lowCur "Lower curve"
@@ -102,11 +104,15 @@ package Controls "Package of control blocks for distribution systems"
     Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TMin_nominal(k=TMin)
       "Minimum temperature"
       annotation (Placement(transformation(extent={{-70,110},{-50,130}})));
-    Buildings.Controls.OBC.CDL.Continuous.Add TMin_lower(k2=-delta,
+    Buildings.Controls.OBC.CDL.Continuous.Add TMin_lower(
+      final k2=-delta,
       y(unit="K", displayUnit="degC"))
       "Lower value of lower slope after shifting it"
       annotation (Placement(transformation(extent={{-30,110},{-10,130}})));
-    Buildings.Controls.OBC.CDL.Continuous.AddParameter TMin_upper(p=+dTSlo, k=1)
+    Buildings.Controls.OBC.CDL.Continuous.AddParameter TMin_upper(
+      final p=+dTSlo,
+      final k=1,
+      y(final unit="K", displayUnit="degC"))
       "Maximum temperatuer value of lower slope after shifting it"
       annotation (Placement(transformation(extent={{10,110},{30,130}})));
     Buildings.Controls.OBC.CDL.Continuous.Max ySetPum "Change in pump signal"
@@ -138,7 +144,7 @@ package Controls "Package of control blocks for distribution systems"
     connect(uppCur.f2, one.y) annotation (Line(points={{28,12},{-26,12},{-26,80},{
             -48,80}}, color={0,0,127}));
     connect(TMax_nominal.y, TMax_upper.u1)
-      annotation (Line(points={{-48,154},{-40,154},{-40,166},{-32,166}},
+      annotation (Line(points={{-48,160},{-40,160},{-40,166},{-32,166}},
                                                      color={0,0,127}));
     connect(zer.y, sPos.u1) annotation (Line(points={{-28,-80},{46,-80},{46,-54},
             {58,-54}},

@@ -14,7 +14,7 @@ partial model PartialParallel "Partial model for parallel network"
     "Number of buildings connected to DHC system"
     annotation (Evaluate=true);
   inner parameter Data.DesignDataParallel datDes(
-    mCon_flow_nominal=bui.ets.mDisWat_flow_nominal)
+    final mCon_flow_nominal=bui.ets.mDisWat_flow_nominal)
     "Design data"
     annotation (Placement(transformation(extent={{-340,220},{-320,240}})));
   // COMPONENTS
@@ -27,7 +27,7 @@ partial model PartialParallel "Partial model for parallel network"
         origin={-130,-80})));
   DHC.EnergyTransferStations.BaseClasses.Pump_m_flow pumDis(
     redeclare final package Medium=Medium,
-    final m_flow_nominal=datDes.mDis_flow_nominal)
+    final m_flow_nominal=datDes.mPumDis_flow_nominal)
     "Distribution pump"
     annotation (Placement(transformation(
       extent={{10,-10},{-10,10}},
@@ -43,7 +43,7 @@ partial model PartialParallel "Partial model for parallel network"
       origin={112,-20})));
   DHC.EnergyTransferStations.BaseClasses.Pump_m_flow pumSto(
     redeclare final package Medium=Medium,
-    m_flow_nominal=datDes.mSto_flow_nominal,
+    final m_flow_nominal=datDes.mSto_flow_nominal,
     final allowFlowReversal=allowFlowReversalSer)
     "Bore field pump"
     annotation (
@@ -53,7 +53,7 @@ partial model PartialParallel "Partial model for parallel network"
         origin={-180,-80})));
   Networks.BaseClasses.ConnectionSeriesStandard conPla(
     redeclare final package Medium=Medium,
-    final mDis_flow_nominal=datDes.mDis_flow_nominal,
+    final mDis_flow_nominal=datDes.mPipDis_flow_nominal,
     final mCon_flow_nominal=datDes.mPla_flow_nominal,
     lDis=0,
     lCon=0,
@@ -69,7 +69,7 @@ partial model PartialParallel "Partial model for parallel network"
     redeclare final package Medium=Medium,
     final nCon=nBui,
     final dp_length_nominal=datDes.dp_length_nominal,
-    final mDis_flow_nominal=datDes.mDis_flow_nominal,
+    final mDis_flow_nominal=datDes.mPipDis_flow_nominal,
     final mCon_flow_nominal=datDes.mCon_flow_nominal,
     final mDisCon_flow_nominal=datDes.mDisCon_flow_nominal,
     final mEnd_flow_nominal=datDes.mEnd_flow_nominal,

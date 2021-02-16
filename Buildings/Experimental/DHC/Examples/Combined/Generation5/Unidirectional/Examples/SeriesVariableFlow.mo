@@ -5,15 +5,16 @@ model SeriesVariableFlow
     redeclare Loads.BuildingTimeSeriesWithETS bui[nBui](
       final filNam=filNam),
     datDes(
-      mDis_flow_nominal=69.5,
-      epsPla=0.91),
-    pumSto(m_flow_nominal=0.5*datDes.mSto_flow_nominal));
+      mPumDis_flow_nominal=97.3,
+      mPipDis_flow_nominal=69.5,
+      epsPla=0.91));
   parameter String filNam[nBui]={
     "modelica://Buildings/Resources/Data/Experimental/DHC/Loads/Examples/SwissOffice_20190916.mos",
     "modelica://Buildings/Resources/Data/Experimental/DHC/Loads/Examples/SwissResidential_20190916.mos",
     "modelica://Buildings/Resources/Data/Experimental/DHC/Loads/Examples/SwissHospital_20190916.mos"}
     "Library paths of the files with thermal loads as time series";
-  Modelica.Blocks.Sources.Constant masFloDisPla(k=datDes.mPla_flow_nominal)
+  Modelica.Blocks.Sources.Constant masFloDisPla(
+    k=datDes.mPla_flow_nominal)
     "District water flow rate to plant"
     annotation (Placement(transformation(extent={{-250,10},{-230,30}})));
   Controls.OBC.CDL.Continuous.Sources.Constant THotWatSupSet[nBui](
@@ -31,7 +32,8 @@ model SeriesVariableFlow
     TMax=290.15,
     use_temperatureShift=false) "Main pump controller"
     annotation (Placement(transformation(extent={{-280,-70},{-260,-50}})));
-  Controls.OBC.CDL.Continuous.Gain gai(k=datDes.mDis_flow_nominal)
+  Controls.OBC.CDL.Continuous.Gain gai(
+    k=datDes.mPumDis_flow_nominal)
     "Scale with nominal mass flow rate"
     annotation (Placement(transformation(extent={{-240,-70},{-220,-50}})));
 equation
@@ -71,7 +73,5 @@ equation
     __Dymola_Commands(
   file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Examples/Combined/Generation5/Unidirectional/Examples/SeriesVariableFlow.mos"
   "Simulate and plot"),
-  experiment(
-      StopTime=604800,
-      Tolerance=1e-06));
+  experiment(StopTime=6048000, __Dymola_Algorithm="Cvode"));
 end SeriesVariableFlow;

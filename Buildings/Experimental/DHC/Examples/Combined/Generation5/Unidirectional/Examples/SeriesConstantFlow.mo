@@ -9,10 +9,12 @@ model SeriesConstantFlow
     "modelica://Buildings/Resources/Data/Experimental/DHC/Loads/Examples/SwissResidential_20190916.mos",
     "modelica://Buildings/Resources/Data/Experimental/DHC/Loads/Examples/SwissHospital_20190916.mos"}
     "Library paths of the files with thermal loads as time series";
-  Modelica.Blocks.Sources.Constant masFloMaiPum(k=datDes.mDis_flow_nominal)
+  Modelica.Blocks.Sources.Constant masFloMaiPum(
+    k=datDes.mPumDis_flow_nominal)
     "Distribution pump mass flow rate"
     annotation (Placement(transformation(extent={{-280,-70},{-260,-50}})));
-  Modelica.Blocks.Sources.Constant masFloDisPla(k=datDes.mPla_flow_nominal)
+  Modelica.Blocks.Sources.Constant masFloDisPla(
+    k=datDes.mPla_flow_nominal)
     "District water flow rate to plant"
     annotation (Placement(transformation(extent={{-250,10},{-230,30}})));
   Controls.OBC.CDL.Continuous.Sources.Constant THotWatSupSet[nBui](
