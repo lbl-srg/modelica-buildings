@@ -51,3 +51,12 @@ createPlot(
     autoreplot=true,
     grid=true,
     color=true);
+createPlot(
+    id=3,
+    position={771, 947, 952, 562},
+    y={"hexDis.UA_nominal", "hexWetNTU.UA_nominal", "hexWetNTU_TX.UA_nominal"},
+    autoscale=true,
+    autoerase=true,
+    autoreplot=true,
+    grid=true,
+    color=true);

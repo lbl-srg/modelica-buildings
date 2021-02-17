@@ -8,6 +8,7 @@ model WetCoilEffectivenessNTU
 
   constant Modelica.SIunits.AbsolutePressure pAtm = 101325
     "Atmospheric pressure";
+
   parameter Modelica.SIunits.Temperature T_a1_nominal=
     Modelica.SIunits.Conversions.from_degF(42)
     "Inlet water temperature";
@@ -15,12 +16,12 @@ model WetCoilEffectivenessNTU
     Modelica.SIunits.Conversions.from_degF(80)
     "Inlet air temperature";
   parameter Modelica.SIunits.Temperature T_b1_nominal_wet=
-    273.15+11.1
+    273.15+11.0678
     "Outlet water temperature in fully wet conditions";
   parameter Modelica.SIunits.Temperature T_b2_nominal_wet=
-    273.15+13.6
+    273.15+13.5805
     "Outlet air temperature in fully wet conditions";
-  parameter Real X_w_nominal_wet = 0.0173
+  parameter Real X_w_a2_nominal_wet = 0.0173
     "Inlet water mass fraction in fully wet conditions";
   parameter Modelica.SIunits.ThermalConductance UA_nominal = 4748
     "Total thermal conductance at nominal flow, from textbook";
@@ -147,7 +148,7 @@ model WetCoilEffectivenessNTU
     redeclare package Medium2 = Medium_A,
     T_a2_nominal=T_a2_nominal,
     T_b2_nominal=T_b2_nominal_wet,
-    X_a2_nominal=X_w_nominal_wet,
+    X_w_a2_nominal=X_w_a2_nominal_wet,
     T_a1_nominal=T_a1_nominal,
     T_b1_nominal=T_b1_nominal_wet,
     m1_flow_nominal=m1_flow_nominal,

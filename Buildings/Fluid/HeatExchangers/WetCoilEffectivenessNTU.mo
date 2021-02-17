@@ -42,8 +42,8 @@ model WetCoilEffectivenessNTU
     annotation (Dialog(
       group="Nominal thermal performance",
       enable=not use_UA_nominal));
-  parameter Modelica.SIunits.MassFraction X_a2_nominal(fixed=not use_UA_nominal)
-    "Absolute humidity of inlet air at a rated condition"
+  parameter Modelica.SIunits.MassFraction X_w_a2_nominal(fixed=not use_UA_nominal)
+    "Water mass fraction of inlet air at a rated condition (in kg/kg total air)"
     annotation (Dialog(
       group="Nominal thermal performance",
       enable=not use_UA_nominal));
@@ -83,7 +83,7 @@ model WetCoilEffectivenessNTU
     "Water flow rate of condensate removed from the air stream";
 
 protected
-    parameter Boolean waterSideFlowDependent=true
+  parameter Boolean waterSideFlowDependent=true
     "Set to false to make water-side hA independent of mass flow rate"
     annotation (Dialog(tab="Heat transfer"));
   parameter Boolean airSideFlowDependent=true
@@ -112,7 +112,7 @@ protected
     final r_nominal=r_nominal,
     final TAirIn=T_a2_nominal,
     final TAirOut=T_b2_nominal,
-    final wAirIn=X_a2_nominal,
+    final wAirIn=X_w_a2_nominal,
     final TWatIn=T_a1_nominal,
     final TWatOut=T_b1_nominal,
     final mAir_flow=m2_flow_nominal,

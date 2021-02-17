@@ -10,5 +10,8 @@ compareVars :=
     "hexDis.dryFra",
     "hexWetNTU.SHR",
     "hexWetNTU.dryWetCalcs.w_FW",
-    "hexWetNTU.dryWetCalcs.w_FD"
+    "hexWetNTU.dryWetCalcs.w_FD",
+    "hexDis.UA_nominal",
+    "hexWetNTU.UA_nominal",
+    "hexWetNTU_TX.UA_nominal"
   };
