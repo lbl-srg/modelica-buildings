@@ -150,7 +150,6 @@ protected
     "Model for convective heat transfer coefficient"
     annotation (Placement(transformation(extent={{-68,-13},{-50,9}})));
   BaseClasses.WetCoilDryWetRegime dryWetCalcs(
-    redeclare final package Medium2 = Medium2,
     final cfg=flowRegime,
     final mWat_flow_nominal=m1_flow_nominal,
     final mAir_flow_nominal=m2_flow_nominal,

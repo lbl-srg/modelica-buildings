@@ -79,7 +79,7 @@ model WetCoilWetRegime
   constant Real cpWat0=4200 "Used for scaling";
   parameter Real delta = 1E-3 "Small value used for smoothing";
   constant Modelica.SIunits.SpecificHeatCapacity cpDum=1
-  "Dummy cp to eliminate the warning message of the unit mismatch when using the eps-NTU model for the wet coil";
+    "Dummy cp to eliminate the warning message of the unit mismatch when using the eps-NTU model for the wet coil";
   constant Modelica.SIunits.TemperatureDifference dTWat=0.1;
   parameter Real tau=6*60
     "Time constant for the state estimation: introduced to avoid the algebraic loop of the wet coil equations";
@@ -94,14 +94,17 @@ model WetCoilWetRegime
     "Effectiveness for heat exchanger (e*)";
 
   Modelica.SIunits.MassFlowRate CStaMin
-      "Min of product of mass flow rates and specific heats; analogous to Cmin";
+   "Min of product of mass flow rates and specific heats; analogous to Cmin";
 
-  Modelica.SIunits.MassFlowRate CStaMin_flow_nominal= min(mAir_flow_nominal,mWat_flow_nominal*cpEff0/cpWat0)
-  "Analogus to CMin_flow_nominal, only for a regularization";
-  Modelica.SIunits.MassFlowRate CStaMax_flow_nominal= max(mAir_flow_nominal,mWat_flow_nominal*cpEff0/cpWat0)
-  "Analogus to CMax_flow_nominal, only for a regularization";
-  Modelica.SIunits.MassFlowRate deltaCStaMin=delta*min(mAir_flow_nominal,mWat_flow_nominal*cpEff0/cpWat0)
-      "Min of product of mass flow rates and specific heats, analogous to Cmin";
+  Modelica.SIunits.MassFlowRate CStaMin_flow_nominal= min(
+    mAir_flow_nominal,mWat_flow_nominal*cpEff0/cpWat0)
+    "Analogus to CMin_flow_nominal, only for a regularization";
+  Modelica.SIunits.MassFlowRate CStaMax_flow_nominal= max(
+    mAir_flow_nominal,mWat_flow_nominal*cpEff0/cpWat0)
+    "Analogus to CMax_flow_nominal, only for a regularization";
+  Modelica.SIunits.MassFlowRate deltaCStaMin=delta*min(
+    mAir_flow_nominal,mWat_flow_nominal*cpEff0/cpWat0)
+    "Min of product of mass flow rates and specific heats, analogous to Cmin";
   Modelica.SIunits.Temperature TWatOutEst
     "State_estimation of Temperature of water at outlet";
 

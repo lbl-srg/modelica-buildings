@@ -2,8 +2,12 @@ within Buildings.Fluid.HeatExchangers.BaseClasses;
 model WetCoilUARated
   "This model calculates overall heat transfer coefficient, i.e., UA-value, from a rated condition for a cooling coil. 
   Specify a rated condition either in fully-dry or fully-wet coil regime. Avoid that on partially-wet regime."
-  replaceable package MediumA=Buildings.Media.Air;
-  replaceable package MediumW=Buildings.Media.Water;
+  replaceable package MediumA=Buildings.Media.Air
+    constrainedby Modelica.Media.Interfaces.PartialMedium
+    "Air-side medium";
+  replaceable package MediumW=Buildings.Media.Water
+    constrainedby Modelica.Media.Interfaces.PartialMedium
+    "Water-side medium";
 
   parameter Boolean use_UA_nominal = false
     "Set to true to specify UA_nominal, or to false to use nominal conditions"

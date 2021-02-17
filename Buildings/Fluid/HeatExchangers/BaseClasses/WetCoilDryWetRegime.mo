@@ -2,9 +2,6 @@ within Buildings.Fluid.HeatExchangers.BaseClasses;
 model WetCoilDryWetRegime
   "Model implementing the switching algorithm of the TK-fuzzy model for cooling coil application"
   input Real Qfac;
-  replaceable package Medium2 = Modelica.Media.Interfaces.PartialMedium
-    "Medium 2 in the component"
-    annotation (choicesAllMatching = true);
 
   parameter Modelica.SIunits.MassFlowRate mWat_flow_nominal(min=0)
     "Nominal mass flow rate for water"
