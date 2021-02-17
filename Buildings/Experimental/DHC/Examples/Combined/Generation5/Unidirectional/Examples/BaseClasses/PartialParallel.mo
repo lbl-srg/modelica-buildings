@@ -154,6 +154,32 @@ partial model PartialParallel "Partial model for parallel network"
     priTer=true,
     nu=3) "Check if loop temperatures are within given range"
     annotation (Placement(transformation(extent={{300,30},{320,50}})));
+  Controls.OBC.CDL.Continuous.MultiSum PPumETS(final nin=nBui)
+    "ETS pump power"
+    annotation (Placement(transformation(extent={{120,190},{140,210}})));
+  Modelica.Blocks.Continuous.Integrator EPumETS(initType=Modelica.Blocks.Types.Init.InitialState)
+    "ETS pump electric energy"
+    annotation (Placement(transformation(extent={{200,190},{220,210}})));
+  Modelica.Blocks.Continuous.Integrator EPumPlan(initType=Modelica.Blocks.Types.Init.InitialState)
+    "Plant pump electric energy"
+    annotation (Placement(transformation(extent={{200,50},{220,70}})));
+  Controls.OBC.CDL.Continuous.MultiSum EPum(nin=4)
+    "Total pump electric energy"
+    annotation (Placement(transformation(extent={{260,110},{280,130}})));
+  Controls.OBC.CDL.Continuous.MultiSum PHeaPump(final nin=nBui)
+    "Heat pump power"
+    annotation (Placement(transformation(extent={{120,150},{140,170}})));
+  Modelica.Blocks.Continuous.Integrator EHeaPum(initType=Modelica.Blocks.Types.Init.InitialState)
+    "Heat pump electric energy"
+    annotation (Placement(transformation(extent={{200,150},{220,170}})));
+  Controls.OBC.CDL.Continuous.MultiSum ETot(nin=2) "Total electric energy"
+    annotation (Placement(transformation(extent={{300,150},{320,170}})));
+  Modelica.Blocks.Continuous.Integrator EPumDis(initType=Modelica.Blocks.Types.Init.InitialState)
+    "Distribution pump electric energy"
+    annotation (Placement(transformation(extent={{200,-90},{220,-70}})));
+  Modelica.Blocks.Continuous.Integrator EPumSto(initType=Modelica.Blocks.Types.Init.InitialState)
+    "Storage pump electric energy"
+    annotation (Placement(transformation(extent={{200,-150},{220,-130}})));
 initial equation
   for i in 1:nBui loop
     Modelica.Utilities.Streams.print(
@@ -213,6 +239,37 @@ equation
   connect(TDisWatBorLvg.T, conVio.u[3]) annotation (Line(points={{-91,-40},{
           -102,-40},{-102,41.3333},{298,41.3333}},
                                               color={0,0,127}));
+  connect(bui.PPumETS,PPumETS. u)
+    annotation (Line(points={{7,192},{7,200},{118,200}}, color={0,0,127}));
+  connect(PPumETS.y,EPumETS. u)
+    annotation (Line(points={{142,200},{198,200}}, color={0,0,127}));
+  connect(pla.PPum,EPumPlan. u) annotation (Line(points={{-138.667,5.33333},{
+          -108,5.33333},{-108,44},{180,44},{180,60},{198,60}},
+                                          color={0,0,127}));
+  connect(EPumETS.y,EPum. u[1]) annotation (Line(points={{221,200},{240,200},{
+          240,121.5},{258,121.5}},
+                               color={0,0,127}));
+  connect(EPumPlan.y,EPum. u[2]) annotation (Line(points={{221,60},{240,60},{
+          240,120.5},{258,120.5}},
+                               color={0,0,127}));
+  connect(EPumDis.y,EPum. u[3]) annotation (Line(points={{221,-80},{242,-80},{
+          242,119.5},{258,119.5}},
+                               color={0,0,127}));
+  connect(EPumSto.y,EPum. u[4]) annotation (Line(points={{221,-140},{244,-140},
+          {244,118.5},{258,118.5}},color={0,0,127}));
+  connect(bui.PHea,PHeaPump. u) annotation (Line(points={{12,189},{100,189},{
+          100,160},{118,160}},
+                           color={0,0,127}));
+  connect(PHeaPump.y,EHeaPum. u)
+    annotation (Line(points={{142,160},{198,160}}, color={0,0,127}));
+  connect(EHeaPum.y,ETot. u[1]) annotation (Line(points={{221,160},{280,160},{
+          280,161},{298,161}}, color={0,0,127}));
+  connect(EPum.y,ETot. u[2]) annotation (Line(points={{282,120},{290,120},{290,
+          159},{298,159}}, color={0,0,127}));
+  connect(pumDis.P, EPumDis.u)
+    annotation (Line(points={{71,-71},{71,-80},{198,-80}}, color={0,0,127}));
+  connect(pumSto.P, EPumSto.u) annotation (Line(points={{-169,-71},{-160,-71},{
+          -160,-140},{198,-140}}, color={0,0,127}));
   annotation (Diagram(
     coordinateSystem(preserveAspectRatio=false, extent={{-360,-260},{360,260}})),
     experiment(StopTime=31536000, __Dymola_NumberOfIntervals=8760));

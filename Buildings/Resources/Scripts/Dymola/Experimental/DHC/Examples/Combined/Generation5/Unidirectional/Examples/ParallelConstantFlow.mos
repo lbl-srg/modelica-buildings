@@ -2,7 +2,9 @@ simulateModel("Buildings.Experimental.DHC.Examples.Combined.Generation5.Unidirec
     method="cvode",
     tolerance=1e-6,
     startTime=0,
-    stopTime=604800,
+    stopTime=31536000,
+    numberOfIntervals=8760,
+    // stopTime=604800,
     // startTime=15724800.0,
     // stopTime=16329600.0,
     resultFile="ParallelConstantFlow");
@@ -18,7 +20,7 @@ createPlot(id=1,
 createPlot(
     id=2,
     position={782, 11, 637, 839},
-    y={"EEleTot.y", "EHeaPum.y"},
+    y={"ETot.y", "EHeaPum.y", "EPum.y"},
     timeUnit="d",
     autoscale=true,
     autoerase=true,
@@ -28,7 +30,7 @@ createPlot(
 createPlot(
     id=2,
     subPlot=2,
-    y={"EPumPro.y", "EPumPla.y", "EPumDis.y"},
+    y={"EPumETS.y", "EPumPla.y", "EPumDis.y", "EPumSto.y", "EPum.y"},
     timeUnit="d",
     autoscale=true,
     autoerase=true,
@@ -38,7 +40,7 @@ createPlot(
 createPlot(
     id=3,
     position={26, 894, 592, 641},
-    y={"datDes.mDis_flow_nominal", "bui[1].ets.hexChi.m1_flow_nominal", "bui[2].ets.hexChi.m1_flow_nominal", "bui[3].ets.hexChi.m1_flow_nominal"},
+    y={"datDes.mPumDis_flow_nominal", "bui[1].ets.hexChi.m1_flow_nominal", "bui[2].ets.hexChi.m1_flow_nominal", "bui[3].ets.hexChi.m1_flow_nominal"},
     timeUnit="d",
     autoscale=true,
     autoerase=true,
@@ -117,7 +119,7 @@ createPlot(
 createPlot(
     id=6,
     position={869, 37, 822, 908},
-    y={"bui[1].ets.PCom", "bui[2].ets.PCom", "bui[3].ets.PCom", "bui[1].ets.PPum", "bui[2].ets.PPum", "bui[3].ets.PPum"},
+    y={"bui[1].ets.PHea", "bui[2].ets.PHea", "bui[3].ets.PHea", "bui[1].ets.PPum", "bui[2].ets.PPum", "bui[3].ets.PPum"},
     autoscale=true,
     autoerase=true,
     autoreplot=true,
