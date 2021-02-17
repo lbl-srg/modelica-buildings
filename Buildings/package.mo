@@ -209,9 +209,47 @@ Each class (i.e., model, block and function) must be used in an example or valid
         annotation (Documentation(info="<html>
 <div class=\"release-summary\">
 <p>
-Version 8.0.0 is ... xxx
+Version 8.0.0 is a major release that contains the first version of the Spawn of EnergyPlus coupling.
+The library has been tested with Dymola 2021, JModelica (revision 14023),
+and OPTIMICA (revision OCT-stable-r19089_JM-r14295).
 </p>
+<p>
+The following major changes have been done:
+</p>
+<ul>
+<li>
+The package <code>Buildings.ThermalZones.EnergyPlus</code>
+contains the first version of the Spawn of EnergyPlus coupling that is being developed
+at <a href=\"https://lbl-srg.github.io/soep\">https://lbl-srg.github.io/soep</a>.
+The Spawn coupling allows to model HVAC and controls in Modelica, and graphically connect to
+EnergyPlus models for thermal zones, schedules, EMS actuators and output variables.
+This allows for example to model HVAC systems, HVAC controls and controls for active facade systems in Modelica,
+and use the EnergyPlus envelope model to simulate heat transfer through the building envelope, including the
+heat and light transmission through the windows for the current control signal of the active shade.
+</li>
+<li>
+The package
+<code>Buildings.Experimental.DHC</code> contains models for district heating and cooling systems
+that are being developed for the URBANopt District Energy System software.
+</li>
+<li>
+The new media <code>Buildings.Media.Antifreeze.PropyleneGlycolWater</code> allows modeling
+of propylene-glycol water mixtures.
+</li>
+<li>
+New simplified door models for bi-directional air exchange between thermal zones are
+implemented in <code>Buildings.Airflow.Multizone</code>.
+</li>
+<li>
+Various other models have been improved or added, in particular for modeling of
+control sequences using the Control Description Language that has been developed
+in the OpenBuildingControl project at <a href=\"https://obc.lbl.gov\">https://obc.lbl.gov</a>.
+</li>
+</ul>
 </div>
+<p>
+For more details, please see the release notes below.
+</p>
 <!-- New libraries -->
 <p>
 The following <b style=\"color:blue\">new libraries</b> have been added:
@@ -401,7 +439,7 @@ have been <b style=\"color:blue\">improved</b> in a
                        Buildings.Controls.OBC.CDL.Psychrometrics.DewPoint_TDryBulPhi<br/>
                        Buildings.Controls.OBC.CDL.Psychrometrics.SpecificEnthalpy_TDryBulPhi<br/>
                        Buildings.Controls.OBC.CDL.Psychrometrics.WetBulb_TDryBulPhi<br/>
-                       Buildings.Controls.OBC.CDL.SetPoints.SupplyReturnTemperatureReset<br/>
+                       Buildings.Controls.OBC.Utilities.SetPoints.SupplyReturnTemperatureReset<br/>
                        Buildings.Controls.OBC.CDL.Utilities.SunRiseSet
 
     </td>
@@ -554,6 +592,23 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1365\">IBPSA, #1365</a>.<br/>
                        For Dymola, a conversion script makes this change.</td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.Controls.OBC.ASHRAE.G36_PR1</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.Controller
+    </td>
+    <td valign=\"top\">Updated the block of specifying operating mode and setpoints.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1893\">issue 1893</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.OperationMode
+    </td>
+    <td valign=\"top\">Upgraded the sequence according to ASHRAE Guideline 36, May 2020 version.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1893\">issue 1893</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL.Continuous</b>
     </td>
 </tr>
@@ -678,21 +733,14 @@ have been <b style=\"color:blue\">improved</b> in a
                        For Dymola, a conversion script will rename existing instance to use
                        the old versions which have been moved to the <code>Buildings.Obsolete</code> package.</td>
 </tr>
-<tr><td colspan=\"2\"><b>Buildings.Controls.OBC.ASHRAE.G36_PR1</b>
+<tr><td colspan=\"2\"><b>Buildings.Controls.OBC.Utilities</b>
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.Controller
+<tr><td valign=\"top\">Buildings.Controls.OBC.Utilities.SetPoints
     </td>
-    <td valign=\"top\">Updated the block of specifying operating mode and setpoints.<br/>
+    <td valign=\"top\">Moved package from <code>Buildings.Controls.OBC.CDL.SetPoints</code>.<br/>
                        This is for
-                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1893\">issue 1893</a>.
-    </td>
-</tr>
-<tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.OperationMode
-    </td>
-    <td valign=\"top\">Upgraded the sequence according to ASHRAE Guideline 36, May 2020 version.<br/>
-                       This is for
-                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1893\">issue 1893</a>.
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2355\">#2355</a>.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.UnitConversions</b>
@@ -769,12 +817,16 @@ that do <b style=\"color:red\">not</b> lead to wrong simulation results, e.g.,
 units are wrong or errors in documentation):
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>xxx</b>
+<tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL.Continuous</b>
     </td>
 </tr>
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.Greater<br/>
+                       Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold<br/>
+                       Buildings.Controls.OBC.CDL.Continuous.Less<br/>
+                       Buildings.Controls.OBC.CDL.Continuous.LessThreshold
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Corrected documentation.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2246\">issue 2246</a>.
     </td>
 </tr>
 </table>
@@ -1285,7 +1337,7 @@ as reported in <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1432\">I
                            For Dymola, a conversion script makes this change.
         </td>
     </tr>
-    <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.SetPoints.SupplyReturnTemperatureReset
+    <tr><td valign=\"top\">Buildings.Controls.OBC.Utilities.SetPoints.SupplyReturnTemperatureReset
         </td>
         <td valign=\"top\">Changed name from <code>HotWaterTemperatureReset</code> to <code>SupplyReturnTemperatureReset</code>.<br/>
                            This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/860\">#860</a>.<br/>

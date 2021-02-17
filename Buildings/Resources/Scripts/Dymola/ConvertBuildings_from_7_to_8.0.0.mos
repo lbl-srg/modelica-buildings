@@ -5,6 +5,10 @@ clear
 
 convertClear();
 
+// Conversion for https://github.com/lbl-srg/modelica-buildings/issues/2355
+convertClass("Buildings.Controls.OBC.CDL.SetPoints.SupplyReturnTemperatureReset",
+             "Buildings.Controls.OBC.Utilities.SetPoints.SupplyReturnTemperatureReset");
+
 // Conversion for https://github.com/lbl-srg/modelica-buildings/issues/2265
 convertClass("Buildings.Air.Systems.SingleZone.VAV.ChillerDXHeatingEconomizerController",
              "Buildings.Air.Systems.SingleZone.VAV.BaseClasses.ControllerChillerDXHeatingEconomizer");
