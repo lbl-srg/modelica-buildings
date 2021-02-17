@@ -3,7 +3,12 @@ model SeriesConstantFlow
   "Example of series connection with constant district water mass flow rate"
   extends BaseClasses.PartialSeries(
     redeclare Loads.BuildingTimeSeriesWithETS bui[nBui](
-      final filNam=filNam));
+      final filNam=filNam),
+    datDes(
+      mPumDis_flow_nominal=95,
+      mPipDis_flow_nominal=95,
+      dp_length_nominal=250,
+      epsPla=0.935));
   parameter String filNam[nBui]={
     "modelica://Buildings/Resources/Data/Experimental/DHC/Loads/Examples/SwissOffice_20190916.mos",
     "modelica://Buildings/Resources/Data/Experimental/DHC/Loads/Examples/SwissResidential_20190916.mos",
@@ -44,8 +49,10 @@ equation
   file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Examples/Combined/Generation5/Unidirectional/Examples/SeriesConstantFlow.mos"
   "Simulate and plot"),
   experiment(
-    StopTime=604800,
-    Tolerance=1e-06),
+      StopTime=31536000,
+      __Dymola_NumberOfIntervals=8760,
+      Tolerance=1e-06,
+      __Dymola_Algorithm="Cvode"),
     Documentation(info="<html>
 <p>
 This is a model of a so-called \"reservoir network\", i.e., a fifth 

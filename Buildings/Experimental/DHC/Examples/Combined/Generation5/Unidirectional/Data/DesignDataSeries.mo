@@ -31,6 +31,6 @@ record DesignDataSeries "Record with design data for series network"
   parameter Modelica.SIunits.Length lEnd = sum(lDis)
     "Length of the end of the distribution line (after last connection)";
   annotation (
-    defaultComponentPrefix="datDes",
+    defaultComponentName="datDes",
     defaultComponentPrefixes="inner");
 end DesignDataSeries;

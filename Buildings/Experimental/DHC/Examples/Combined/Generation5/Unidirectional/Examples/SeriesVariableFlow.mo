@@ -7,6 +7,7 @@ model SeriesVariableFlow
     datDes(
       mPumDis_flow_nominal=97.3,
       mPipDis_flow_nominal=69.5,
+      dp_length_nominal=250,
       epsPla=0.91));
   parameter String filNam[nBui]={
     "modelica://Buildings/Resources/Data/Experimental/DHC/Loads/Examples/SwissOffice_20190916.mos",
@@ -73,5 +74,9 @@ equation
     __Dymola_Commands(
   file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Examples/Combined/Generation5/Unidirectional/Examples/SeriesVariableFlow.mos"
   "Simulate and plot"),
-  experiment(StopTime=6048000, __Dymola_Algorithm="Cvode"));
+  experiment(
+      StopTime=31536000,
+      __Dymola_NumberOfIntervals=8760,
+      Tolerance=1e-06,
+      __Dymola_Algorithm="Cvode"));
 end SeriesVariableFlow;

@@ -2,6 +2,7 @@ within Buildings.Experimental.DHC.Examples.Combined.Generation5.Unidirectional.N
 model ConnectionSeriesAutosize
   "Model for connecting an agent to the DHC system"
   extends ConnectionSeriesStandard(
+    tau=5*60,
     redeclare replaceable model Model_pipDis = PipeAutosize (
       roughness=7e-6,
       fac=1.5,

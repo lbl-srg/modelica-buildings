@@ -5,6 +5,10 @@ model BuildingTimeSeriesWithETS
     redeclare DHC.Loads.Examples.BaseClasses.BuildingTimeSeries bui(
       final filNam=filNam,
       have_hotWat=true,
+      T_aHeaWat_nominal=ets.THeaWatSup_nominal,
+      T_bHeaWat_nominal=ets.THeaWatRet_nominal,
+      T_aChiWat_nominal=ets.TChiWatSup_nominal,
+      T_bChiWat_nominal=ets.TChiWatRet_nominal,
       facMulHea=10*QHea_flow_nominal/(1.7E5),
       facMulCoo=40*QCoo_flow_nominal/(-1.5E5)),
     ets(
@@ -37,7 +41,7 @@ model BuildingTimeSeriesWithETS
         transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
-        origin={-240,40}),  iconTransformation(
+        origin={-320,40}),  iconTransformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
         origin={-120,30})));
@@ -48,46 +52,51 @@ model BuildingTimeSeriesWithETS
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
-        origin={-240,0}),   iconTransformation(
+        origin={-320,0}),   iconTransformation(
         extent={{-20,-20},{20,20}},
         rotation=90,
         origin={-80,-120})));
   Controls.OBC.CDL.Continuous.Gain loaHeaNor(k=1/bui.QHea_flow_nominal)
     "Normalized heating load"
-    annotation (Placement(transformation(extent={{-128,-110},{-108,-90}})));
+    annotation (Placement(transformation(extent={{-220,-110},{-200,-90}})));
   Controls.OBC.CDL.Continuous.GreaterThreshold enaHeaCoo[2](each t=1e-4)
     "Threshold comparison to enable heating and cooling"
-    annotation (Placement(transformation(extent={{-80,-130},{-60,-110}})));
-  Modelica.Blocks.Sources.BooleanConstant enaSHW(final k=true) if
-                     have_hotWat
+    annotation (Placement(transformation(extent={{-110,-130},{-90,-110}})));
+  Modelica.Blocks.Sources.BooleanConstant enaSHW(
+    final k=true) if have_hotWat
     "SHW production enable signal"
     annotation (Placement(transformation(extent={{0,-130},{-20,-110}})));
   Controls.OBC.CDL.Continuous.Gain loaCooNor(k=1/bui.QCoo_flow_nominal)
     "Normalized cooling load"
-    annotation (Placement(transformation(extent={{-128,-150},{-108,-130}})));
+    annotation (Placement(transformation(extent={{-220,-150},{-200,-130}})));
 equation
   connect(bui.QReqHotWat_flow, ets.loaSHW) annotation (Line(points={{28,4},{28,
-          -6},{-64,-6},{-64,-74},{-34,-74}}, color={0,0,127}));
-  connect(THotWatSupSet, ets.THotWatSupSet) annotation (Line(points={{-240,40},
-          {-56,40},{-56,-66},{-34,-66}},    color={0,0,127}));
-  connect(TColWat, ets.TColWat) annotation (Line(points={{-240,0},{-68,0},{-68,
-          -70},{-34,-70}},       color={0,0,127}));
-  connect(enaHeaCoo[1].y, ets.uHea) annotation (Line(points={{-58,-120},{-46,-120},
-          {-46,-46},{-34,-46}}, color={255,0,255}));
-  connect(enaHeaCoo[2].y, ets.uCoo) annotation (Line(points={{-58,-120},{-42,-120},
-          {-42,-50},{-34,-50}}, color={255,0,255}));
+          -10},{-64,-10},{-64,-74},{-34,-74}},
+                                             color={0,0,127}));
+  connect(THotWatSupSet, ets.THotWatSupSet) annotation (Line(points={{-320,40},
+          {-136,40},{-136,-66},{-34,-66}},  color={0,0,127}));
+  connect(TColWat, ets.TColWat) annotation (Line(points={{-320,0},{-148,0},{
+          -148,-70},{-34,-70}},  color={0,0,127}));
+  connect(enaHeaCoo[1].y, ets.uHea) annotation (Line(points={{-88,-120},{-40,
+          -120},{-40,-46},{-34,-46}},
+                                color={255,0,255}));
+  connect(enaHeaCoo[2].y, ets.uCoo) annotation (Line(points={{-88,-120},{-40,
+          -120},{-40,-50},{-34,-50}},
+                                color={255,0,255}));
   connect(enaSHW.y, ets.uSHW) annotation (Line(points={{-21,-120},{-38,-120},{-38,
           -54},{-34,-54}}, color={255,0,255}));
-  connect(loaHeaNor.y, enaHeaCoo[1].u) annotation (Line(points={{-106,-100},{-100,
-          -100},{-100,-120},{-82,-120}}, color={0,0,127}));
-  connect(loaCooNor.y, enaHeaCoo[2].u) annotation (Line(points={{-106,-140},{-100,
-          -140},{-100,-120},{-82,-120}}, color={0,0,127}));
-  connect(bui.QReqHea_flow, loaHeaNor.u) annotation (Line(points={{20,4},{20,-2},
-          {-140,-2},{-140,-100},{-130,-100}}, color={0,0,127}));
+  connect(loaHeaNor.y, enaHeaCoo[1].u) annotation (Line(points={{-198,-100},{
+          -120,-100},{-120,-120},{-112,-120}},
+                                         color={0,0,127}));
+  connect(loaCooNor.y, enaHeaCoo[2].u) annotation (Line(points={{-198,-140},{
+          -120,-140},{-120,-120},{-112,-120}},
+                                         color={0,0,127}));
+  connect(bui.QReqHea_flow, loaHeaNor.u) annotation (Line(points={{20,4},{20,-6},
+          {-238,-6},{-238,-100},{-222,-100}}, color={0,0,127}));
   connect(bui.QReqCoo_flow, loaCooNor.u) annotation (Line(points={{24,4},{24,-4},
-          {-136,-4},{-136,-140},{-130,-140}}, color={0,0,127}));
-  connect(loaHeaNor.y, resTHeaWatSup.u) annotation (Line(points={{-106,-100},{-100,
-          -100},{-100,-60},{-120,-60},{-120,-40},{-112,-40}}, color={0,0,127}));
+          {-240,-4},{-240,-140},{-222,-140}}, color={0,0,127}));
+  connect(loaHeaNor.y, resTHeaWatSup.u) annotation (Line(points={{-198,-100},{
+          -120,-100},{-120,-40},{-112,-40}},                  color={0,0,127}));
   annotation (Line(
       points={{-1,100},{0.1,100},{0.1,71.4}},
       color={255,204,51},
@@ -100,5 +109,7 @@ equation
 
 DOCUMENT facSca and facMul choices
 
-</html>"));
+</html>"),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-300,-300},{
+            300,300}})));
 end BuildingTimeSeriesWithETS;

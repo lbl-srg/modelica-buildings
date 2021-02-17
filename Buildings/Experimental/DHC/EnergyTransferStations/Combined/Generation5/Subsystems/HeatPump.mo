@@ -17,15 +17,21 @@ model HeatPump "Base subsystem with water to water heat pump"
     annotation(Evaluate=true);
   parameter Real COP_nominal(final unit="1") = 5
     "Heat pump COP"
-    annotation (Dialog(group="Nominal conditions"));
+    annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.SIunits.Temperature TCon_nominal = 303.15
+    "Condenser outlet temperature used to compute COP_nominal"
+    annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.SIunits.Temperature TEva_nominal = 278.15
+    "Evaporator outlet temperature used to compute COP_nominal"
+    annotation (Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.HeatFlowRate Q1_flow_nominal(min=0)
     "Heating heat flow rate"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.TemperatureDifference dT1_nominal(
-    final min=0) = 10 "Temperature difference condenser outlet-inlet"
+    final min=0) = 5 "Temperature difference condenser outlet-inlet"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.TemperatureDifference dT2_nominal(
-    final max=0) = -10 "Temperature difference evaporator outlet-inlet"
+    final max=0) = -5 "Temperature difference evaporator outlet-inlet"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.Pressure dp1_nominal(displayUnit="Pa")
     "Pressure difference over condenser"
@@ -100,6 +106,8 @@ model HeatPump "Base subsystem with water to water heat pump"
     redeclare final package Medium2 = Medium2,
     final dTEva_nominal=dT2_nominal,
     final dTCon_nominal=dT1_nominal,
+    final TCon_nominal=TCon_nominal,
+    final TEva_nominal=TEva_nominal,
     final allowFlowReversal1=allowFlowReversal1,
     final allowFlowReversal2=allowFlowReversal2,
     final use_eta_Carnot_nominal=false,

@@ -13,40 +13,43 @@ model HeatPumpHeatExchanger
     final have_fan=false,
     nPorts_aHeaWat=1,
     nPorts_aChiWat=1);
-  outer
-    Buildings.Experimental.DHC.Examples.Combined.Generation5.Unidirectional.Data.DesignDataSeries
-    datDes "DHC system design data";
   // SYSTEM GENERAL
-  parameter Modelica.SIunits.TemperatureDifference dT_nominal = 5
+  parameter Modelica.SIunits.Temperature TDisWatMin
+    "District water minimum temperature"
+    annotation (Dialog(group="DHC system"));
+  parameter Modelica.SIunits.Temperature TDisWatMax
+    "District water maximum temperature"
+    annotation (Dialog(group="DHC system"));
+  parameter Modelica.SIunits.TemperatureDifference dT_nominal(min=0) = 5
     "Water temperature drop/increase accross load and source-side HX (always positive)"
-    annotation (Dialog(group="Nominal conditions"));
+    annotation (Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.Temperature TChiWatSup_nominal=291.15
     "Chilled water supply temperature"
     annotation (Dialog(group="Nominal conditions"));
-  parameter Modelica.SIunits.Temperature TChiWatRet_nominal=
+  final parameter Modelica.SIunits.Temperature TChiWatRet_nominal=
     TChiWatSup_nominal + dT_nominal
     "Chilled water return temperature"
-    annotation (Dialog(group="Nominal conditions"));
+    annotation (Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.Temperature THeaWatSup_nominal=313.15
     "Heating water supply temperature"
-    annotation (Dialog(group="Nominal conditions"));
-  parameter Modelica.SIunits.Temperature THeaWatRet_nominal=
+    annotation (Dialog(group="Nominal condition"));
+  final parameter Modelica.SIunits.Temperature THeaWatRet_nominal=
     THeaWatSup_nominal - dT_nominal
     "Heating water return temperature"
-    annotation (Dialog(group="Nominal conditions"));
-  parameter Modelica.SIunits.Temperature THotWatSup_nominal=336.15
+    annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.SIunits.Temperature THotWatSup_nominal=63+273.15
     "Hot water supply temperature"
-    annotation (Dialog(group="Nominal conditions", enable=have_hotWat));
-  parameter Modelica.SIunits.Temperature TColWat_nominal=288.15
-    "Cold water temperature"
-    annotation (Dialog(group="Nominal conditions", enable=have_hotWat));
+    annotation (Dialog(group="Nominal condition", enable=have_hotWat));
+  parameter Modelica.SIunits.Temperature TColWat_nominal=15+273.15
+    "Cold water temperature (for hot water production)"
+    annotation (Dialog(group="Nominal condition", enable=have_hotWat));
   parameter Modelica.SIunits.Pressure dp_nominal(displayUnit="Pa") = 50000
     "Pressure difference at nominal flow rate (for each flow leg)"
-    annotation(Dialog(group="Nominal conditions"));
+    annotation(Dialog(group="Nominal condition"));
   final parameter Modelica.SIunits.MassFlowRate mHeaWat_flow_nominal(min=0)=
     abs(QHeaWat_flow_nominal / cpBui_default / (THeaWatSup_nominal - THeaWatRet_nominal))
     "Heating water mass flow rate"
-    annotation(Dialog(group="Nominal conditions"));
+    annotation(Dialog(group="Nominal condition"));
   final parameter Modelica.SIunits.MassFlowRate mChiWat_flow_nominal(min=0)=
     abs(QChiWat_flow_nominal / cpBui_default / (TChiWatSup_nominal - TChiWatRet_nominal))
     "Chilled water mass flow rate"
@@ -55,11 +58,11 @@ model HeatPumpHeatExchanger
     QHotWat_flow_nominal * (COPHotWat_nominal - 1) / COPHotWat_nominal /
     cpSer_default / dT_nominal
     "Evaporator water mass flow rate of heat pump for hot water production"
-    annotation (Dialog(group="Nominal conditions", enable=have_hotWat));
+    annotation (Dialog(group="Nominal condition", enable=have_hotWat));
   final parameter Modelica.SIunits.MassFlowRate mDisWat_flow_nominal(min=0)=
     max(proHeaWat.m2_flow_nominal + mEvaHotWat_flow_nominal, hexChi.m1_flow_nominal)
     "District water mass flow rate"
-    annotation (Dialog(group="Nominal conditions"));
+    annotation (Dialog(group="Nominal condition"));
   final parameter Modelica.SIunits.SpecificHeatCapacity cpBui_default=
     MediumBui.specificHeatCapacityCp(MediumBui.setState_pTX(
       p = MediumBui.p_default,
@@ -71,30 +74,22 @@ model HeatPumpHeatExchanger
       T = MediumSer.T_default))
     "Specific heat capacity of the fluid";
   // Heat pump for heating water production
-  parameter Real COPHeaWat_nominal(final unit="1") = 5
+  parameter Real COPHeaWat_nominal(final unit="1")
     "COP of heat pump for heating water production"
-    annotation (Dialog(group="Nominal conditions"));
+    annotation (Dialog(group="Nominal condition"));
   // Heat pump for hot water production
-  parameter Real COPHotWat_nominal(final unit="1") = 2
+  parameter Real COPHotWat_nominal(final unit="1")
     "COP of heat pump for hot water production"
-    annotation (Dialog(group="Nominal conditions", enable=have_hotWat));
+    annotation (Dialog(group="Nominal condition", enable=have_hotWat));
   // District HX
-  final parameter Modelica.SIunits.Temperature T1HexChiEnt_nominal=
-    datDes.TLooMax
-    "CHW HX primary entering temperature"
-     annotation (Dialog(group="Nominal conditions"));
-  final parameter Modelica.SIunits.Temperature T2HexChiEnt_nominal=
-    TChiWatRet_nominal
-    "CHW HX secondary entering temperature"
-     annotation (Dialog(group="Nominal conditions"));
   final parameter Modelica.SIunits.MassFlowRate m1HexChi_flow_nominal(min=0)=
     abs(QChiWat_flow_nominal / cpSer_default / dT_nominal)
     "CHW HX primary mass flow rate"
-    annotation(Dialog(group="Nominal conditions"));
+    annotation(Dialog(group="Nominal condition"));
   final parameter Modelica.SIunits.MassFlowRate m2HexChi_flow_nominal(min=0)=
     abs(QChiWat_flow_nominal / cpSer_default / (THeaWatSup_nominal - THeaWatRet_nominal))
     "CHW HX secondary mass flow rate"
-    annotation(Dialog(group="Nominal conditions"));
+    annotation(Dialog(group="Nominal condition"));
   // Diagnostics
    parameter Boolean show_T = true
     "= true, if actual temperature at port is computed"
@@ -206,8 +201,8 @@ model HeatPumpHeatExchanger
     final dp2_nominal=dp_nominal/2,
     configuration=Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow,
     final Q_flow_nominal=QChiWat_flow_nominal,
-    final T_a1_nominal=T1HexChiEnt_nominal,
-    final T_a2_nominal=T2HexChiEnt_nominal,
+    final T_a1_nominal=TDisWatMax,
+    final T_a2_nominal=TChiWatRet_nominal,
     final allowFlowReversal1=allowFlowReversalSer,
     final allowFlowReversal2=allowFlowReversalBui)
     "Chilled water HX"
@@ -304,9 +299,11 @@ model HeatPumpHeatExchanger
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={100,260})));
-  DHC.EnergyTransferStations.BaseClasses.Junction bypHeaWatRet(redeclare final
-      package Medium = MediumBui, final m_flow_nominal=proHeaWat.m1_flow_nominal
-        *{1,-1,1}) "Bypass heating water (return)" annotation (Placement(
+  DHC.EnergyTransferStations.BaseClasses.Junction bypHeaWatRet(
+    redeclare final package Medium = MediumBui,
+    final m_flow_nominal=proHeaWat.m1_flow_nominal*{1,-1,1})
+    "Bypass heating water (return)"
+    annotation (Placement(
         transformation(
         extent={{10,10},{-10,-10}},
         rotation=0,
@@ -314,11 +311,12 @@ model HeatPumpHeatExchanger
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold enaHea(
     trueHoldDuration=15*60) "Enable heating"
     annotation (Placement(transformation(extent={{-140,210},{-120,230}})));
-  Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Subsystems.HeatPump
-    proHeaWat(
+  Subsystems.HeatPump proHeaWat(
     redeclare final package Medium1 = MediumBui,
     redeclare final package Medium2 = MediumSer,
     final COP_nominal=COPHeaWat_nominal,
+    final TCon_nominal=THeaWatSup_nominal,
+    final TEva_nominal=TDisWatMin-dT_nominal,
     final Q1_flow_nominal=QHeaWat_flow_nominal,
     final allowFlowReversal1=allowFlowReversalBui,
     final allowFlowReversal2=allowFlowReversalSer,
@@ -327,12 +325,13 @@ model HeatPumpHeatExchanger
     final dp1_nominal=dp_nominal,
     final dp2_nominal=dp_nominal) "Subsystem for heating water production"
     annotation (Placement(transformation(extent={{-10,204},{10,224}})));
-  Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Subsystems.HeatPump
-    proHotWat(
+  Subsystems.HeatPump proHotWat(
     redeclare final package Medium1 = MediumBui,
     redeclare final package Medium2 = MediumSer,
     final have_pumCon=false,
     final COP_nominal=COPHotWat_nominal,
+    final TCon_nominal=THotWatSup_nominal,
+    final TEva_nominal=TDisWatMin-dT_nominal,
     final Q1_flow_nominal=QHotWat_flow_nominal,
     final allowFlowReversal1=allowFlowReversalBui,
     final allowFlowReversal2=allowFlowReversalSer,

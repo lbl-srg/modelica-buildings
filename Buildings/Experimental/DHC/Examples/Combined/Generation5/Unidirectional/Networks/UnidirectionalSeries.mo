@@ -10,6 +10,8 @@ model UnidirectionalSeries
       final dhDis=dhDis,
       final dhCon=dhCon),
     redeclare model Model_pipDis = BaseClasses.PipeAutosize (
+      roughness=7e-6,
+      fac=1.5,
       final dp_length_nominal=dp_length_nominal,
       final dh=dhEnd,
       final length=lEnd));

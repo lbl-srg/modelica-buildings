@@ -63,7 +63,7 @@ partial model PartialSeries "Partial model for series network"
     final dhDis=0.2,
     final dhCon=0.2,
     final allowFlowReversal=allowFlowReversalSer)
-    "Connection to the plant"
+    "Connection to the plant (pressure drop lumped in plant and network model)"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -77,7 +77,7 @@ partial model PartialSeries "Partial model for series network"
     final dhDis=0.2,
     final dhCon=0.2,
     final allowFlowReversal=allowFlowReversalSer)
-    "Connection to the bore field"
+    "Connection to the bore field (pressure drop lumped in plant and network model)"
     annotation (Placement(transformation(
       extent={{-10,-10},{10,10}},
       rotation=90,
