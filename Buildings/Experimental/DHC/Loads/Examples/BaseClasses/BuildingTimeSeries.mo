@@ -201,14 +201,6 @@ model BuildingTimeSeries
     u(final unit="W"),
     final k=facMul) if have_cooLoa "Scaling"
     annotation (Placement(transformation(extent={{272,-10},{292,10}})));
-  Buildings.Experimental.DHC.Loads.BaseClasses.AssertLoad assLoaHea(
-    final Q_flow_nominal=QHea_flow_nominal) if have_heaWat
-    "Check if load is met"
-    annotation (Placement(transformation(extent={{160,240},{180,260}})));
-  Buildings.Experimental.DHC.Loads.BaseClasses.AssertLoad assLoaCoo(
-    final Q_flow_nominal=QCoo_flow_nominal) if have_chiWat
-    "Check if load is met"
-    annotation (Placement(transformation(extent={{160,180},{180,200}})));
 equation
   connect(terUniHea.port_bHeaWat,disFloHea.ports_a1[1])
     annotation (Line(points={{90,-20.3333},{90,-20},{146,-20},{146,-54},{140,
@@ -277,16 +269,6 @@ equation
           -66},{220,-66},{220,280},{268,280}}, color={0,0,127}));
   connect(disFloCoo.QActTot_flow, mulQCoo_flow.u) annotation (Line(points={{141,
           -266},{224,-266},{224,240},{268,240}}, color={0,0,127}));
-  connect(disFloHea.QActTot_flow, assLoaHea.QAct_flow) annotation (Line(points={
-          {141,-66},{220,-66},{220,220},{140,220},{140,245},{158,245}}, color={0,
-          0,127}));
-  connect(loa.y[2], assLoaHea.QReq_flow) annotation (Line(points={{-259,0},{120,
-          0},{120,255},{158,255}}, color={0,0,127}));
-  connect(disFloCoo.QActTot_flow, assLoaCoo.QAct_flow) annotation (Line(points={
-          {141,-266},{224,-266},{224,170},{140,170},{140,185},{158,185}}, color=
-         {0,0,127}));
-  connect(loa.y[1], assLoaCoo.QReq_flow) annotation (Line(points={{-259,0},{124,
-          0},{124,195},{158,195}}, color={0,0,127}));
     annotation (
     Documentation(
       info="
