@@ -5,7 +5,7 @@ record DesignDataParallel
   parameter Integer nBui = 3
     "Number of served buildings"
     annotation(Evaluate=true);
-  parameter Modelica.SIunits.MassFlowRate mPumDis_flow_nominal = 95
+  parameter Modelica.SIunits.MassFlowRate mPumDis_flow_nominal = 150
     "Nominal mass flow rate of main distribution pump";
   parameter Modelica.SIunits.MassFlowRate mPipDis_flow_nominal = mPumDis_flow_nominal
     "Nominal mass flow rate for main pipe sizing";
@@ -42,6 +42,6 @@ record DesignDataParallel
   parameter Modelica.SIunits.Length lEnd = 0
     "Length of the end of the distribution line (supply only, not counting return line)";
   annotation (
-    defaultComponentPrefix="datDes",
+    defaultComponentName="datDes",
     defaultComponentPrefixes="inner");
 end DesignDataParallel;

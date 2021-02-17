@@ -3,14 +3,20 @@ model ParallelConstantFlow
   "Example of parallel connection with constant district water mass flow rate"
   extends BaseClasses.PartialParallel(
     redeclare Loads.BuildingTimeSeriesWithETS bui[nBui](
-      final filNam=filNam));
+      final filNam=filNam),
+    datDes(
+      mPumDis_flow_nominal=150,
+      mPipDis_flow_nominal=150,
+      dp_length_nominal=250,
+      epsPla=0.91),
+    dis(show_entFlo=true));
   parameter String filNam[nBui]={
     "modelica://Buildings/Resources/Data/Experimental/DHC/Loads/Examples/SwissOffice_20190916.mos",
     "modelica://Buildings/Resources/Data/Experimental/DHC/Loads/Examples/SwissResidential_20190916.mos",
     "modelica://Buildings/Resources/Data/Experimental/DHC/Loads/Examples/SwissHospital_20190916.mos"}
     "Library paths of the files with thermal loads as time series";
   Modelica.Blocks.Sources.Constant masFloMaiPum(
-    k=datDes.mDis_flow_nominal)
+    k=datDes.mPumDis_flow_nominal)
     "Distribution pump mass flow rate"
     annotation (Placement(transformation(extent={{-280,-70},{-260,-50}})));
   Modelica.Blocks.Sources.Constant masFloDisPla(k=datDes.mPla_flow_nominal)

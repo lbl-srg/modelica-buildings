@@ -4,7 +4,7 @@ partial model PartialParallel "Partial model for parallel network"
   package Medium = Buildings.Media.Water "Medium model";
   constant Real facMul = 10
     "Building loads multiplier factor";
-  parameter Boolean allowFlowReversalSer = false
+  parameter Boolean allowFlowReversalSer = true
     "Set to true to allow flow reversal in the service lines"
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
   parameter Boolean allowFlowReversalBui = false
@@ -60,7 +60,7 @@ partial model PartialParallel "Partial model for parallel network"
     dhDis=0.2,
     dhCon=0.2,
     final allowFlowReversal=allowFlowReversalSer)
-    "Connection to the plant"
+    "Connection to the plant (pressure drop lumped in plant and network model)"
     annotation (Placement(transformation(
       extent={{-10,-10},{10,10}},
       rotation=90,
@@ -81,14 +81,14 @@ partial model PartialParallel "Partial model for parallel network"
     annotation (Placement(transformation(extent={{-20,130},{20,150}})));
   Networks.BaseClasses.ConnectionSeriesStandard conSto(
     redeclare final package Medium=Medium,
-    final mDis_flow_nominal=datDes.mDis_flow_nominal,
+    final mDis_flow_nominal=datDes.mPipDis_flow_nominal,
     final mCon_flow_nominal=datDes.mSto_flow_nominal,
     lDis=0,
     lCon=0,
     dhDis=0.2,
     dhCon=0.2,
     final allowFlowReversal=allowFlowReversalSer)
-    "Connection to the bore field"
+    "Connection to the bore field (pressure drop lumped in plant and network model)"
     annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
@@ -105,21 +105,21 @@ partial model PartialParallel "Partial model for parallel network"
     annotation (Placement(transformation(extent={{-160,-10},{-140,10}})));
   Fluid.Sensors.TemperatureTwoPort TDisWatSup(
     redeclare final package Medium=Medium,
-    final m_flow_nominal=datDes.mDis_flow_nominal)
+    final m_flow_nominal=datDes.mPumDis_flow_nominal)
     "District water supply temperature"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-80,20})));
   Fluid.Sensors.TemperatureTwoPort TDisWatRet(
     redeclare final package Medium =Medium,
-    final m_flow_nominal=datDes.mDis_flow_nominal)
+    final m_flow_nominal=datDes.mPumDis_flow_nominal)
     "District water return temperature" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
         origin={80,0})));
   Fluid.Sensors.TemperatureTwoPort TDisWatBorLvg(
     redeclare final package Medium =Medium,
-    final m_flow_nominal=datDes.mDis_flow_nominal)
+    final m_flow_nominal=datDes.mPumDis_flow_nominal)
     "District water borefield leaving temperature"
     annotation (Placement(
         transformation(
