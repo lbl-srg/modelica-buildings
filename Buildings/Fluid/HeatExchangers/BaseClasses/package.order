@@ -22,8 +22,8 @@ PipeManifoldNoResistance
 RayleighNumber
 WetCoilDryRegime
 WetCoilDryWetRegime
-WetCoilWetRegime
 WetCoilUARated
+WetCoilWetRegime
 determineWaterIndex
 dynamicViscosityWater
 epsilon_C
