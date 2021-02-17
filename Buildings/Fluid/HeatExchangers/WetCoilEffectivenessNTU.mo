@@ -10,12 +10,47 @@ model WetCoilEffectivenessNTU
   import con = Buildings.Fluid.Types.HeatExchangerConfiguration;
   import flo = Buildings.Fluid.Types.HeatExchangerFlowRegime;
 
-  parameter Modelica.SIunits.ThermalConductance UA_nominal(min=0)
+  parameter Boolean use_UA_nominal = false
+    "Set to true to specify UA_nominal, or to false to use nominal conditions"
+    annotation (Evaluate=true,
+                Dialog(group="Nominal thermal performance"));
+
+  parameter Modelica.SIunits.ThermalConductance UA_nominal(
+    fixed=use_UA_nominal, min=0, start=1/(1/10+1/20))
     "Thermal conductance at nominal flow, used to compute heat capacity"
-    annotation(Dialog(tab="General", group="Nominal condition"));
+    annotation(Dialog(
+      group="Nominal thermal performance",
+      enable=use_UA_nominal));
+
+  parameter Modelica.SIunits.Temperature T_a1_nominal(fixed=not use_UA_nominal)
+    "Water inlet temperature at a rated condition"
+    annotation (Dialog(
+      group="Nominal thermal performance",
+      enable=not use_UA_nominal));
+  parameter Modelica.SIunits.Temperature T_b1_nominal(fixed=not use_UA_nominal)
+    "Water outlet temperature at a rated condition"
+    annotation (Dialog(
+      group="Nominal thermal performance",
+      enable=not use_UA_nominal));
+  parameter Modelica.SIunits.Temperature T_a2_nominal(fixed=not use_UA_nominal)
+    "Air inlet temperature at a rated condition"
+    annotation (Dialog(
+      group="Nominal thermal performance",
+      enable=not use_UA_nominal));
+  parameter Modelica.SIunits.Temperature T_b2_nominal(fixed=not use_UA_nominal)
+    "Air outlet temperature  at a rated condition"
+    annotation (Dialog(
+      group="Nominal thermal performance",
+      enable=not use_UA_nominal));
+  parameter Modelica.SIunits.MassFraction X_a2_nominal(fixed=not use_UA_nominal)
+    "Absolute humidity of inlet air at a rated condition"
+    annotation (Dialog(
+      group="Nominal thermal performance",
+      enable=not use_UA_nominal));
+
   parameter Real r_nominal=2/3
     "Ratio between air-side and water-side convective heat transfer coefficient"
-    annotation (Dialog(group="Nominal condition"));
+    annotation (Dialog(group="Nominal thermal performance"));
 
   parameter Buildings.Fluid.Types.HeatExchangerConfiguration configuration=
     con.CounterFlow
@@ -62,14 +97,27 @@ protected
     annotation (Dialog(tab="Heat transfer"));
 
   Real delta=1E-2
-    "a parameter for normailization";
+    "Parameter for normalization";
   Real delta1=1E-1
-    "a parameter for normailization";
+    "Parameter for normalization";
   Real fac1 = Buildings.Utilities.Math.Functions.smoothMin(
     (1/delta * m1_flow/m1_flow_nominal)^2,1,delta1);
   Real fac2 = Buildings.Utilities.Math.Functions.smoothMin(
     (1/delta * m2_flow/m2_flow_nominal)^2,1,delta1);
   Real Qfac = fac1*fac2;
+
+  Buildings.Fluid.HeatExchangers.BaseClasses.WetCoilUARated UAFroRated(
+    final use_UA_nominal=use_UA_nominal,
+    final UA=UA_nominal,
+    final r_nominal=r_nominal,
+    final TAirIn=T_a2_nominal,
+    final TAirOut=T_b2_nominal,
+    final wAirIn=X_a2_nominal,
+    final TWatIn=T_a1_nominal,
+    final TWatOut=T_b1_nominal,
+    final mAir_flow=m2_flow_nominal,
+    final mWat_flow=m1_flow_nominal)
+    "Model that computes UA_nominal";
 
   Buildings.Fluid.HeatExchangers.HeaterCooler_u heaCoo(
     redeclare final package Medium = Medium1,
