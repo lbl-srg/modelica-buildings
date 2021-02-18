@@ -1,8 +1,8 @@
-FMUZoneAdapter
-FMUZoneClass
 PartialEnergyPlusObject
+SpawnExternalObject
+ThermalZoneAdapter
+exchange
 getUnitAsString
-zoneExchange
-zoneInitialize
+initialize
 buildingsLibraryRoot
 Validation

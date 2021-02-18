@@ -31,7 +31,7 @@ protected
     fixed=false)
     "Dummy value to force initialization before call to exchange";
 
-  Buildings.ThermalZones.EnergyPlus.BaseClasses.FMUZoneClass adapter=Buildings.ThermalZones.EnergyPlus.BaseClasses.FMUZoneClass(
+  Buildings.ThermalZones.EnergyPlus.BaseClasses.SpawnExternalObject adapter=Buildings.ThermalZones.EnergyPlus.BaseClasses.SpawnExternalObject(
     objectType=4,
     modelicaNameBuilding=modelicaNameBuilding,
     modelicaInstanceName=modelicaInstanceName,
@@ -75,14 +75,14 @@ initial equation
     not usePrecompiledFMU,
     "Use of pre-compiled FMU is not supported for block OutputVariable.");
 
-  {dummy}=Buildings.ThermalZones.EnergyPlus.BaseClasses.zoneInitialize(
+  {dummy}=Buildings.ThermalZones.EnergyPlus.BaseClasses.initialize(
     adapter=adapter,
     startTime=startTime,
     nParOut=nParOut);
 
   /* The last argument of u will be ignored as the C code only processes 1 element of u,
      but Modelica is tricked into thinking that there is a dependency on directDependency_in_internal */
-  Buildings.ThermalZones.EnergyPlus.BaseClasses.zoneExchange(
+  Buildings.ThermalZones.EnergyPlus.BaseClasses.exchange(
     adapter = adapter,
     initialCall = true,
     nY = nY,
@@ -98,7 +98,7 @@ equation
   end if;
 
   when {initial(), time >= pre(tNext)} then
-    yEP = Buildings.ThermalZones.EnergyPlus.BaseClasses.zoneExchange(
+    yEP = Buildings.ThermalZones.EnergyPlus.BaseClasses.exchange(
       adapter = adapter,
       initialCall = false,
       nY = nY,

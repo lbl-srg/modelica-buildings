@@ -1,8 +1,8 @@
 within Buildings.ThermalZones.EnergyPlus.BaseClasses;
-function zoneInitialize
+function initialize
   "Initialization for an EnergyPlus thermal zone"
   extends Modelica.Icons.Function;
-  input Buildings.ThermalZones.EnergyPlus.BaseClasses.FMUZoneClass adapter
+  input Buildings.ThermalZones.EnergyPlus.BaseClasses.SpawnExternalObject adapter
     "External object";
   input Modelica.SIunits.Time startTime
     "Start time of the simulation";
@@ -31,4 +31,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end zoneInitialize;
+end initialize;

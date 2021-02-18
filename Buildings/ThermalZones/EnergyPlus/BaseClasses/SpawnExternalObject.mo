@@ -1,5 +1,5 @@
 within Buildings.ThermalZones.EnergyPlus.BaseClasses;
-class FMUZoneClass
+class SpawnExternalObject
   "Class used to couple the FMU to interact with a thermal zone"
   //extends Modelica.Icons.BasesPackage;
   extends ExternalObject;
@@ -41,7 +41,7 @@ class FMUZoneClass
     input Integer nDer "Size of derivatives";
     input Real derivatives_delta[nDer] "Increments for derivative calculation";
 
-    output FMUZoneClass adapter;
+    output SpawnExternalObject adapter;
   external "C" adapter=ModelicaSpawnAllocate(
     objectType,
     modelicaNameBuilding,
@@ -99,7 +99,7 @@ First implementation.
   function destructor
     "Release storage"
     extends Modelica.Icons.Function;
-    input FMUZoneClass adapter;
+    input SpawnExternalObject adapter;
   external "C" ModelicaSpawnFree(
     adapter)
     annotation (
@@ -150,4 +150,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end FMUZoneClass;
+end SpawnExternalObject;

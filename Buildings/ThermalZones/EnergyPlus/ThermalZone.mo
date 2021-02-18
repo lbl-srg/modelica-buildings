@@ -78,7 +78,7 @@ model ThermalZone
     final unit="1")
     "Relative humidity"
     annotation (Placement(transformation(extent={{200,-130},{220,-110}}),iconTransformation(extent={{200,90},{220,110}})));
-  Buildings.ThermalZones.EnergyPlus.BaseClasses.FMUZoneAdapter fmuZon(
+  Buildings.ThermalZones.EnergyPlus.BaseClasses.ThermalZoneAdapter fmuZon(
     final buildingsLibraryRoot=Buildings.ThermalZones.EnergyPlus.BaseClasses.buildingsLibraryRoot,
     final modelicaNameBuilding=modelicaNameBuilding,
     final modelicaInstanceName=modelicaInstanceName,

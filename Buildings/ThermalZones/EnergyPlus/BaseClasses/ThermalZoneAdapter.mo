@@ -1,5 +1,5 @@
 within Buildings.ThermalZones.EnergyPlus.BaseClasses;
-block FMUZoneAdapter
+block ThermalZoneAdapter
   "Block that interacts with this EnergyPlus zone"
   extends Modelica.Blocks.Icons.Block;
   constant String buildingsLibraryRoot
@@ -90,7 +90,7 @@ protected
   parameter Modelica.SIunits.MassFlowRate m_flow_small(
     fixed=false)
     "Small mass flow rate used to avoid TAveInlet = 0";
-  Buildings.ThermalZones.EnergyPlus.BaseClasses.FMUZoneClass adapter=Buildings.ThermalZones.EnergyPlus.BaseClasses.FMUZoneClass(
+  Buildings.ThermalZones.EnergyPlus.BaseClasses.SpawnExternalObject adapter=Buildings.ThermalZones.EnergyPlus.BaseClasses.SpawnExternalObject(
     objectType=1,
     modelicaNameBuilding=modelicaNameBuilding,
     modelicaInstanceName=modelicaInstanceName,
@@ -172,14 +172,14 @@ initial equation
   end if;
   startTime=time;
   counter=0;
-  {AFlo,V,mSenFac, dummy}=Buildings.ThermalZones.EnergyPlus.BaseClasses.zoneInitialize(
+  {AFlo,V,mSenFac, dummy}=Buildings.ThermalZones.EnergyPlus.BaseClasses.initialize(
     adapter=adapter,
     startTime=startTime,
     nParOut=nParOut);
   TAveInlet=293.15;
   m_flow_small=V*3*1.2/3600*1E-10;
 
-  Buildings.ThermalZones.EnergyPlus.BaseClasses.zoneExchange(
+  Buildings.ThermalZones.EnergyPlus.BaseClasses.exchange(
     adapter = adapter,
     initialCall = true,
     nY = nY,
@@ -228,7 +228,7 @@ equation
 
 
     // Below, the term X_w/(1.-X_w) is for conversion from kg/kg_total_air (Modelica) to kg/kg_dry_air (EnergyPlus)
-    yEP = Buildings.ThermalZones.EnergyPlus.BaseClasses.zoneExchange(
+    yEP = Buildings.ThermalZones.EnergyPlus.BaseClasses.exchange(
       adapter = adapter,
       initialCall = false,
       nY = nY,
@@ -287,4 +287,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end FMUZoneAdapter;
+end ThermalZoneAdapter;

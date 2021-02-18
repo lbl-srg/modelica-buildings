@@ -25,7 +25,7 @@ protected
     "Dummy value to force initialization before call to exchange";
 
   final parameter String unitString = Buildings.ThermalZones.EnergyPlus.BaseClasses.getUnitAsString(unit) "Unit as a string";
-  Buildings.ThermalZones.EnergyPlus.BaseClasses.FMUZoneClass adapter=Buildings.ThermalZones.EnergyPlus.BaseClasses.FMUZoneClass(
+  Buildings.ThermalZones.EnergyPlus.BaseClasses.SpawnExternalObject adapter=Buildings.ThermalZones.EnergyPlus.BaseClasses.SpawnExternalObject(
     objectType=2,
     modelicaNameBuilding=modelicaNameBuilding,
     modelicaInstanceName=modelicaInstanceName,
@@ -62,13 +62,13 @@ initial equation
   assert(
     not usePrecompiledFMU,
     "Use of pre-compiled FMU is not supported for block Schedule.");
-  {dummy} = Buildings.ThermalZones.EnergyPlus.BaseClasses.zoneInitialize(
+  {dummy} = Buildings.ThermalZones.EnergyPlus.BaseClasses.initialize(
     adapter=adapter,
     startTime=startTime,
     nParOut=nParOut);
 
 equation
-  yEP = Buildings.ThermalZones.EnergyPlus.BaseClasses.zoneExchange(
+  yEP = Buildings.ThermalZones.EnergyPlus.BaseClasses.exchange(
     adapter = adapter,
     initialCall = initial(),
     nY = nY,

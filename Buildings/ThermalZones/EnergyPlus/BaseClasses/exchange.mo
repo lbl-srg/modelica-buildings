@@ -1,8 +1,8 @@
 within Buildings.ThermalZones.EnergyPlus.BaseClasses;
-function zoneExchange
+function exchange
   "Exchange the values with the EnergyPlus thermal zone"
   extends Modelica.Icons.Function;
-  input Buildings.ThermalZones.EnergyPlus.BaseClasses.FMUZoneClass adapter
+  input Buildings.ThermalZones.EnergyPlus.BaseClasses.SpawnExternalObject adapter
     "External object";
   input Boolean initialCall
     "Set to true if initial() is true, false otherwise";
@@ -37,4 +37,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end zoneExchange;
+end exchange;
