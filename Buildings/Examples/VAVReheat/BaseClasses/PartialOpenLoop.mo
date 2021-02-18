@@ -278,7 +278,8 @@ partial model PartialOpenLoop
     ratVFloHea=ratVFloHea,
     THotWatInl_nominal=THotWatInl_nominal,
     THotWatOut_nominal=THotWatInl_nominal-10,
-    TAirInl_nominal=12+273.15)
+    TAirInl_nominal=12+273.15,
+    QHea_flow_nominal=mCor_flow_nominal*ratVFloHea*cpAir*(32-12))
     "Zone for core of buildings (azimuth will be neglected)"
     annotation (Placement(transformation(extent={{570,22},{610,62}})));
   Buildings.Examples.VAVReheat.BaseClasses.VAVReheatBox sou(
@@ -290,7 +291,8 @@ partial model PartialOpenLoop
     ratVFloHea=ratVFloHea,
     THotWatInl_nominal=THotWatInl_nominal,
     THotWatOut_nominal=THotWatInl_nominal-10,
-    TAirInl_nominal=12+273.15)
+    TAirInl_nominal=12+273.15,
+    QHea_flow_nominal=mSou_flow_nominal*ratVFloHea*cpAir*(32-12))
     "South-facing thermal zone"
     annotation (Placement(transformation(extent={{750,20},{790,60}})));
   Buildings.Examples.VAVReheat.BaseClasses.VAVReheatBox eas(
@@ -302,7 +304,8 @@ partial model PartialOpenLoop
     ratVFloHea=ratVFloHea,
     THotWatInl_nominal=THotWatInl_nominal,
     THotWatOut_nominal=THotWatInl_nominal-10,
-    TAirInl_nominal=12+273.15)
+    TAirInl_nominal=12+273.15,
+    QHea_flow_nominal=mEas_flow_nominal*ratVFloHea*cpAir*(32-12))
     "East-facing thermal zone"
     annotation (Placement(transformation(extent={{930,20},{970,60}})));
   Buildings.Examples.VAVReheat.BaseClasses.VAVReheatBox nor(
@@ -314,7 +317,8 @@ partial model PartialOpenLoop
     ratVFloHea=ratVFloHea,
     THotWatInl_nominal=THotWatInl_nominal,
     THotWatOut_nominal=THotWatInl_nominal-10,
-    TAirInl_nominal=12+273.15)
+    TAirInl_nominal=12+273.15,
+    QHea_flow_nominal=mNor_flow_nominal*ratVFloHea*cpAir*(32-12))
     "North-facing thermal zone"
     annotation (Placement(transformation(extent={{1090,20},{1130,60}})));
   Buildings.Examples.VAVReheat.BaseClasses.VAVReheatBox wes(
@@ -326,7 +330,8 @@ partial model PartialOpenLoop
     ratVFloHea=ratVFloHea,
     THotWatInl_nominal=THotWatInl_nominal,
     THotWatOut_nominal=THotWatInl_nominal-10,
-    TAirInl_nominal=12+273.15)
+    TAirInl_nominal=12+273.15,
+    QHea_flow_nominal=mWes_flow_nominal*ratVFloHea*cpAir*(32-12))
     "West-facing thermal zone"
     annotation (Placement(transformation(extent={{1290,20},{1330,60}})));
   Buildings.Fluid.FixedResistances.Junction splRetRoo1(
@@ -495,6 +500,12 @@ partial model PartialOpenLoop
   /*fanRet*/
 
 protected
+  constant Modelica.SIunits.SpecificHeatCapacity cpAir=
+    Buildings.Utilities.Psychrometrics.Constants.cpAir
+    "Air specific heat capacity";
+  constant Modelica.SIunits.SpecificHeatCapacity cpWatLiq=
+    Buildings.Utilities.Psychrometrics.Constants.cpWatLiq
+    "Water specific heat capacity";
   model Results "Model to store the results of the simulation"
     parameter Modelica.SIunits.Area A "Floor area";
     input Modelica.SIunits.Power PFan "Fan energy";
