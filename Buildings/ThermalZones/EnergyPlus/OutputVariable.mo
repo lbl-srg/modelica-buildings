@@ -2,6 +2,8 @@ within Buildings.ThermalZones.EnergyPlus;
 model OutputVariable
   "Block to read an EnergyPlus output variable for use in Modelica"
   extends Buildings.ThermalZones.EnergyPlus.BaseClasses.PartialEnergyPlusObject;
+  extends Buildings.ThermalZones.EnergyPlus.BaseClasses.Synchronize.ObjectSynchronizer;
+
   parameter String name
     "EnergyPlus name of the output variable as in the EnergyPlus .rdd or .mdd file";
   parameter String key
@@ -26,13 +28,11 @@ protected
   constant Integer nOut = 1 "Number of outputs";
   constant Integer nDer = 0 "Number of derivatives";
   constant Integer nY = nOut + nDer + 1 "Size of output vector of exchange function";
-
-  final parameter Real dummy(
-    fixed=false)
-    "Dummy value to force initialization before call to exchange";
+  parameter Integer nObj(fixed=false, start=0) "Total number of Spawn objects in building";
 
   Buildings.ThermalZones.EnergyPlus.BaseClasses.SpawnExternalObject adapter=Buildings.ThermalZones.EnergyPlus.BaseClasses.SpawnExternalObject(
     objectType=4,
+    startTime=startTime,
     modelicaNameBuilding=modelicaNameBuilding,
     modelicaInstanceName=modelicaInstanceName,
     idfName=idfName,
@@ -73,19 +73,18 @@ initial equation
     not usePrecompiledFMU,
     "Use of pre-compiled FMU is not supported for block OutputVariable.");
 
-  {dummy}=Buildings.ThermalZones.EnergyPlus.BaseClasses.initialize(
+  nObj=Buildings.ThermalZones.EnergyPlus.BaseClasses.initialize(
     adapter=adapter,
-    startTime=startTime,
-    nParOut=nParOut);
+    isSynchronized=building.isSynchronized);
 
   /* The last argument of u will be ignored as the C code only processes 1 element of u,
      but Modelica is tricked into thinking that there is a dependency on directDependency_in_internal */
-  Buildings.ThermalZones.EnergyPlus.BaseClasses.exchange(
-    adapter = adapter,
-    initialCall = true,
-    nY = nY,
-    u = {round(time, 1E-3), directDependency_in_internal},
-    dummy = dummy);
+//   Buildings.ThermalZones.EnergyPlus.BaseClasses.exchange(
+//     adapter = adapter,
+//     initialCall = true,
+//     nY = nY,
+//     u = {round(time, 1E-3), directDependency_in_internal},
+//     dummy = dummy);
 
 equation
   if isDirectDependent then
@@ -100,11 +99,14 @@ equation
       initialCall = false,
       nY = nY,
       u = {round(time, 1E-3), directDependency_in_internal},
-      dummy = dummy);
+      dummy = nObj);
 
     y = yEP[1];
     tNext = yEP[2];
   end when;
+
+  nObj = sync.synchronize.done;
+
   annotation (
     defaultComponentName="out",
     Icon(

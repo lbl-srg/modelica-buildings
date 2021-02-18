@@ -1,8 +1,4 @@
-last-generated=2021-02-17
-statistics-initialization=
-{
-  "linear": "0"
-}
+last-generated=2021-02-11
 statistics-simulation=
 {
   "linear": " ",

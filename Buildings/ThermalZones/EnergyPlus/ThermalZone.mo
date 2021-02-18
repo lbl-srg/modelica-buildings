@@ -92,9 +92,6 @@ model ThermalZone
     "FMU zone adapter"
     annotation (Placement(transformation(extent={{80,100},{100,120}})));
 protected
-  constant String modelicaInstanceName=getInstanceName()
-    "Name of this instance"
-    annotation (HideResult=true);
   constant Modelica.SIunits.SpecificEnergy h_fg=Medium.enthalpyOfCondensingGas(
     273.15+37)
     "Latent heat of water vapor";

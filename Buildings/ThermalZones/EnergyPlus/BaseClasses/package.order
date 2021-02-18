@@ -6,3 +6,5 @@ getUnitAsString
 initialize
 buildingsLibraryRoot
 Validation
+Synchronize
+getParameters

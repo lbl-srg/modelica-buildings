@@ -1,7 +1,9 @@
 within Buildings.ThermalZones.EnergyPlus.BaseClasses;
-block ThermalZoneAdapter
+model ThermalZoneAdapter
   "Block that interacts with this EnergyPlus zone"
   extends Modelica.Blocks.Icons.Block;
+  extends Buildings.ThermalZones.EnergyPlus.BaseClasses.Synchronize.ObjectSynchronizer;
+
   constant String buildingsLibraryRoot
     "Root directory of the Buildings library (used to find the spawn executable)"
     annotation (HideResult=true);
@@ -82,16 +84,14 @@ protected
   constant Integer nOut = 4 "Number of outputs";
   constant Integer nDer = 1 "Number of derivatives";
   constant Integer nY = nOut + nDer + 1 "Size of output vector of exchange function";
-
-  final parameter Real dummy(
-    fixed=false)
-    "Dummy value to force initialization before call to exchange";
+  parameter Integer nObj(fixed=false, start=0) "Total number of Spawn objects in building";
 
   parameter Modelica.SIunits.MassFlowRate m_flow_small(
     fixed=false)
     "Small mass flow rate used to avoid TAveInlet = 0";
   Buildings.ThermalZones.EnergyPlus.BaseClasses.SpawnExternalObject adapter=Buildings.ThermalZones.EnergyPlus.BaseClasses.SpawnExternalObject(
     objectType=1,
+    startTime=startTime,
     modelicaNameBuilding=modelicaNameBuilding,
     modelicaInstanceName=modelicaInstanceName,
     idfName=idfName,
@@ -161,6 +161,8 @@ protected
         ceil(
           u/accuracy-0.5)*accuracy;
   end round;
+
+
 initial equation
   if usePrecompiledFMU then
     assert(
@@ -169,19 +171,24 @@ initial equation
       "If usePrecompiledFMU = true, must set parameter fmuName");
   end if;
   startTime=time;
-  {AFlo,V,mSenFac, dummy}=Buildings.ThermalZones.EnergyPlus.BaseClasses.initialize(
+  nObj=Buildings.ThermalZones.EnergyPlus.BaseClasses.initialize(
     adapter=adapter,
-    startTime=startTime,
-    nParOut=nParOut);
+    isSynchronized=building.isSynchronized);
+
+  {AFlo, V, mSenFac} = Buildings.ThermalZones.EnergyPlus.BaseClasses.getParameters(
+    adapter=adapter,
+    nParOut = nParOut,
+    isSynchronized = nObj);
+
   TAveInlet=293.15;
   m_flow_small=V*3*1.2/3600*1E-10;
 
-  Buildings.ThermalZones.EnergyPlus.BaseClasses.exchange(
-    adapter = adapter,
-    initialCall = true,
-    nY = nY,
-    u = {T, X_w/(1.-X_w), mInlet_flow, TAveInlet, QGaiRad_flow, round(time, 1E-3)},
-    dummy = dummy);
+//    Buildings.ThermalZones.EnergyPlus.BaseClasses.exchange(
+//      adapter = adapter,
+//      initialCall = true,
+//      nY = nY,
+//      u = {T, X_w/(1.-X_w), mInlet_flow, TAveInlet, QGaiRad_flow, round(time, 1E-3)},
+//      dummy = nObj);
 
   assert(
     AFlo > 0,
@@ -229,7 +236,7 @@ equation
       initialCall = false,
       nY = nY,
       u = {T, X_w/(1.-X_w), mInlet_flow, TAveInlet, QGaiRad_flow, round(time, 1E-3)},
-      dummy = dummy);
+      dummy = AFlo);
 
     TRad = yEP[1];
     QConLast_flow = yEP[2];
@@ -241,6 +248,9 @@ equation
     tLast=time;
   end when;
   QCon_flow=QConLast_flow+(T-TRooLast)*dQCon_flow_dT;
+
+  sync.synchronize.done = nObj;
+
   annotation (
     defaultComponentName="fmuZon",
     Icon(

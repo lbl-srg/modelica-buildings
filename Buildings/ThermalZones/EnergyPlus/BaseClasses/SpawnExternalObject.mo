@@ -7,6 +7,8 @@ class SpawnExternalObject
     "Construct to connect to a thermal zone in EnergyPlus"
     extends Modelica.Icons.Function;
     input Integer objectType "Type of the object (1: ThermalZone, 2: Schedule, 3: Actuator)";
+    input Modelica.SIunits.Time startTime
+      "Start time of the simulation";
     input String modelicaNameBuilding
       "Name of this Modelica building instance that connects to this thermal zone";
     input String modelicaInstanceName
@@ -44,6 +46,7 @@ class SpawnExternalObject
     output SpawnExternalObject adapter;
   external "C" adapter=ModelicaSpawnAllocate(
     objectType,
+    startTime,
     modelicaNameBuilding,
     modelicaInstanceName,
     idfName,

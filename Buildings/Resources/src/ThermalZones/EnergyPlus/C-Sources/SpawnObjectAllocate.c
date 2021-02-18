@@ -88,6 +88,7 @@ void setExchangePointerIfAlreadyInstanciated(const char* modelicaName, const int
 /* Create the structure and return a pointer to its address. */
 void* EnergyPlusSpawnAllocate(
   const int objectType,
+  double startTime,
   const char* modelicaNameBuilding,
   const char* modelicaName,
   const char* idfName,
@@ -314,6 +315,7 @@ void* EnergyPlusSpawnAllocate(
   if (ptrSpaObj->bui == NULL){
     /* Did not find an FMU. */
     i = AllocateBuildingDataStructure(
+      startTime,
       modelicaNameBuilding,
       idfName,
       weaName,

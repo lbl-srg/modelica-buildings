@@ -30,6 +30,7 @@ void my_printf(const char *fmt, ...) {
 
 void* ModelicaSpawnAllocate(
   const int objectType,
+  double startTime,
   const char* modelicaNameBuilding,
   const char* modelicaNameThermalZone,
   const char* idfName,
@@ -62,6 +63,7 @@ void* ModelicaSpawnAllocate(
 
     return EnergyPlusSpawnAllocate(
       objectType,
+      startTime,
       modelicaNameBuilding,
       modelicaNameThermalZone,
       idfName,
@@ -99,9 +101,16 @@ void* ModelicaSpawnAllocate(
 
 void ModelicaSpawnInstantiate(
     void* object,
-    double startTime,
+    double isSynchronized,
+    int *nObj){
+      EnergyPlusSpawnInstantiate(object, nObj);
+}
+
+void ModelicaSpawnGetParameters(
+    void* object,
+    double isSynchronized,
     double *parOut){
-      EnergyPlusSpawnInstantiate(object, startTime, parOut);
+      EnergyPlusSpawnGetParameters(object, parOut);
 }
 
 void ModelicaSpawnExchange(

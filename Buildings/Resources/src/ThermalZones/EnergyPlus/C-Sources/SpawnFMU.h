@@ -21,6 +21,7 @@ void decrementBuildings_nFMU();
 size_t getBuildings_nFMU();
 
 size_t AllocateBuildingDataStructure(
+  double startTime,
   const char* modelicaNameBuilding,
   const char* idfName,
   const char* weaName,

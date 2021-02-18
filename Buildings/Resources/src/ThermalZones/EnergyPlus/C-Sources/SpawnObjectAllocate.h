@@ -13,6 +13,7 @@
 /* Create the structure and return a pointer to its address. */
 LBNL_Spawn_EXPORT void* EnergyPlusSpawnAllocate(
   const int objectType,
+  double startTime,
   const char* modelicaNameBuilding,
   const char* modelicaName,
   const char* idfName,

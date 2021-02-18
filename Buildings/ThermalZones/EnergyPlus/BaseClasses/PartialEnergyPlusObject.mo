@@ -2,6 +2,7 @@ within Buildings.ThermalZones.EnergyPlus.BaseClasses;
 partial model PartialEnergyPlusObject
   "Partial definitions of an EnergyPlus object"
   extends Modelica.Blocks.Icons.Block;
+
   outer Buildings.ThermalZones.EnergyPlus.Building building
     "Building-level declarations";
 protected

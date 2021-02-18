@@ -22,6 +22,7 @@ static size_t Buildings_nFMU = 0;     /* Number of FMUs */
 static struct FMUBuilding** Buildings_FMUS; /* Array with pointers to all FMUs */
 
 size_t AllocateBuildingDataStructure(
+  double startTime,
   const char* modelicaNameBuilding,
   const char* idfName,
   const char* weaName,
@@ -68,8 +69,8 @@ size_t AllocateBuildingDataStructure(
   /* Set flag that dll fmu functions are not yet created */
   Buildings_FMUS[nFMU]->dllfmu_created = fmi2_false;
 
-  /* Assign time to a recognizable value */
-  Buildings_FMUS[nFMU]->time = -9999;
+  /* Assign start time */
+  Buildings_FMUS[nFMU]->time = startTime;
 
   /* Assign logging and error functions */
   Buildings_FMUS[nFMU]->logLevel          = logLevel;

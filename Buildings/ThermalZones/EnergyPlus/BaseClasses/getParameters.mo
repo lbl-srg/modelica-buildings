@@ -1,16 +1,15 @@
 within Buildings.ThermalZones.EnergyPlus.BaseClasses;
-function initialize
-  "Initialization for an EnergyPlus thermal zone"
+function getParameters "Get parameters for an EnergyPlus object"
   extends Modelica.Icons.Function;
   input Buildings.ThermalZones.EnergyPlus.BaseClasses.SpawnExternalObject adapter
     "External object";
+  input Integer nParOut "Number of elements in parOut";
   input Real isSynchronized "Set to variable that is used to synchronize the objects";
-  output Integer nObj
-    "Returns 1 from C, used to force synchronization";
-external "C" ModelicaSpawnInstantiate(
+  output Real parOut[nParOut] "Parameter values returned from EnergyPlus";
+external "C" ModelicaSpawnGetParameters(
   adapter,
   isSynchronized,
-  nObj)
+  parOut)
   annotation (
     Include="#include <EnergyPlusWrapper.c>",
     IncludeDirectory="modelica://Buildings/Resources/C-Sources",
@@ -24,9 +23,9 @@ External function to obtain parameters from the EnergyPlus FMU.
 </html>",
       revisions="<html>
 <ul><li>
-March 1, 2018, by Michael Wetter:<br/>
+February 18, 2021, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
 </html>"));
-end initialize;
+end getParameters;

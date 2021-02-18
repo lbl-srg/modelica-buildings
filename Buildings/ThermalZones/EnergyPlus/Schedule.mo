@@ -2,6 +2,8 @@ within Buildings.ThermalZones.EnergyPlus;
 model Schedule
   "Block to write to an EnergyPlus schedule"
   extends Buildings.ThermalZones.EnergyPlus.BaseClasses.PartialEnergyPlusObject;
+  extends Buildings.ThermalZones.EnergyPlus.BaseClasses.Synchronize.ObjectSynchronizer;
+
   parameter String name
     "Name of schedule";
   parameter Buildings.ThermalZones.EnergyPlus.Types.Units unit
@@ -19,14 +21,12 @@ protected
   constant Integer nOut = 0 "Number of outputs";
   constant Integer nDer = 0 "Number of derivatives";
   constant Integer nY = nOut + nDer + 1 "Size of output vector of exchange function";
-
-  final parameter Real dummy(
-    fixed=false)
-    "Dummy value to force initialization before call to exchange";
+  parameter Integer nObj(fixed=false, start=0) "Total number of Spawn objects in building";
 
   final parameter String unitString = Buildings.ThermalZones.EnergyPlus.BaseClasses.getUnitAsString(unit) "Unit as a string";
   Buildings.ThermalZones.EnergyPlus.BaseClasses.SpawnExternalObject adapter=Buildings.ThermalZones.EnergyPlus.BaseClasses.SpawnExternalObject(
     objectType=2,
+    startTime=startTime,
     modelicaNameBuilding=modelicaNameBuilding,
     modelicaInstanceName=modelicaInstanceName,
     idfName=idfName,
@@ -62,20 +62,21 @@ initial equation
   assert(
     not usePrecompiledFMU,
     "Use of pre-compiled FMU is not supported for block Schedule.");
-  {dummy} = Buildings.ThermalZones.EnergyPlus.BaseClasses.initialize(
+  nObj = Buildings.ThermalZones.EnergyPlus.BaseClasses.initialize(
     adapter=adapter,
-    startTime=startTime,
-    nParOut=nParOut);
+    isSynchronized=building.isSynchronized);
 
 equation
   yEP = Buildings.ThermalZones.EnergyPlus.BaseClasses.exchange(
     adapter = adapter,
-    initialCall = initial(),
+    initialCall = false,
     nY = nY,
     u = {u, round(time, 1E-3)},
-    dummy = dummy);
+    dummy = nObj);
 
   y = yEP[1];
+
+  nObj = sync.synchronize.done;
 
   annotation (
     defaultComponentName="sch",
