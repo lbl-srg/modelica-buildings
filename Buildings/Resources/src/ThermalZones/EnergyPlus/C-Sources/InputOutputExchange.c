@@ -65,6 +65,17 @@ void EnergyPlusInputOutputExchange(
     ptrInOut->isInitialized = true; /* Set to true as it will be initialized right below */
     if (bui->logLevel >= MEDIUM)
       SpawnFormatMessage("%.3f %s: Initial call for exchange.\n", bui->time, ptrInOut->modelicaName);
+
+    if (ptrInOut->printUnit){
+      /* The above statement is only true for outputs, hence we know the outputs->units[0] exists */
+      if (ptrInOut->outputs->units[0]) /* modelDescription.xml defines unit */
+        SpawnFormatMessage("Output %s.y has in Modelica the unit %s.\n",
+          ptrInOut->modelicaName,
+          fmi2_import_get_unit_name(ptrInOut->outputs->units[0]));
+      else
+        SpawnFormatMessage("Output %s.y has same unit as received from EnergyPlus, but EnergyPlus does not define the unit of this output.\n",
+          ptrInOut->modelicaName);
+      }
   }
   else
   {

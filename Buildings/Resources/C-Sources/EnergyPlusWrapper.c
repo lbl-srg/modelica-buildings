@@ -28,9 +28,6 @@ void my_printf(const char *fmt, ...) {
 }
 */
 
-/* Thermal zone */
-
-
 void* SpawnInputOutputAllocate(
   const int objectType,
   const char* modelicaNameBuilding,
@@ -42,6 +39,7 @@ void* SpawnInputOutputAllocate(
   const char* fmuName,
   const char* buildingsLibraryRoot,
   const int logLevel,
+  const int printUnit,
   const char* jsonName,
   const char* jsonKeysValues,
   char** parOutNames,
@@ -73,6 +71,7 @@ void* SpawnInputOutputAllocate(
       fmuName,
       buildingsLibraryRoot,
       logLevel,
+      printUnit,
       jsonName,
       jsonKeysValues,
       (const char**)parOutNames,
@@ -120,61 +119,7 @@ void SpawnInputOutputExchange(
   }
 
 void SpawnInputOutputFree(void* object){
-
     EnergyPlusInputOutputFree(object);
 }
-
-/* ********************************************************* */
-/* Output variables */
-void* SpawnOutputVariableAllocate(
-  const char* modelicaNameBuilding,
-  const char* modelicaNameOutputVariable,
-  const char* idfName,
-  const char* weaName,
-  const char* variableName,
-  const char* componentKey,
-  int usePrecompiledFMU,
-  const char* fmuName,
-  const char* buildingsLibraryRoot,
-  const int logLevel,
-  int printUnit){
-
-    return EnergyPlusOutputVariableAllocate(
-      modelicaNameBuilding,
-      modelicaNameOutputVariable,
-      idfName,
-      weaName,
-      variableName,
-      componentKey,
-      usePrecompiledFMU,
-      fmuName,
-      buildingsLibraryRoot,
-      logLevel,
-      printUnit,
-      ModelicaMessage,
-      ModelicaError,
-      ModelicaFormatMessage,
-      ModelicaFormatError);
-  }
-
-void SpawnOutputVariableInstantiate(void* object, double t0){
-    EnergyPlusOutputVariableInstantiate(object, t0);
-  }
-
-void SpawnOutputVariableExchange(
-  void* object,
-  int initialCall,
-  double directDependency,
-  double time,
-  double* y,
-  double* tNext){
-
-    EnergyPlusOutputVariableExchange(object, initialCall, directDependency, time, y, tNext);
-  }
-
-void SpawnOutputVariableFree(void* object){
-
-    EnergyPlusOutputVariableFree(object);
-  }
 
 #endif

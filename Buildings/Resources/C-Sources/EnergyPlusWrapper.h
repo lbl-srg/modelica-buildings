@@ -42,6 +42,7 @@ extern void* EnergyPlusExchangeAllocate(
   const char* fmuName,
   const char* buildingsLibraryRoot,
   const int logLevel,
+  const int printUnit,
   const char* jsonName,
   const char* jsonKeysValues,
   const char** parOutNames,
@@ -75,36 +76,5 @@ extern void EnergyPlusInputOutputExchange(
   double* y);
 
 extern void EnergyPlusInputOutputFree(void* object);
-
-/* ********************************************************* */
-/* Output variables */
-extern void* EnergyPlusOutputVariableAllocate(
-  const char* modelicaNameBuilding,
-  const char* modelicaNameOutputVariable,
-  const char* idfName,
-  const char* weaName,
-  const char* variableName,
-  const char* componentKey,
-  int usePrecompiledFMU,
-  const char* fmuName,
-  const char* buildingsLibraryRoot,
-  const int logLevel,
-  int printUnit,
-  void (*SpawnMessage)(const char *string),
-  void (*SpawnError)(const char *string),
-  void (*SpawnFormatMessage)(const char *string, ...),
-  void (*SpawnFormatError)(const char *string, ...));
-
-extern void EnergyPlusOutputVariableInstantiate(void* object, double t0);
-
-extern void EnergyPlusOutputVariableExchange(
-  void* object,
-  int initialCall,
-  double directDependency,
-  double time,
-  double* y,
-  double* tNext);
-
-extern void EnergyPlusOutputVariableFree(void* object);
 
 #endif

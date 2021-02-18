@@ -41,12 +41,15 @@ void initializeUnitsModelica(
   void (*SpawnFormatError)(const char *string, ...))
   {
     size_t i;
-    for(i = 0; i < (*ptrReals)->n; i++){
-      mallocString(
-        strlen(vals[i])+1,
-        errMsg,
-        &( (*ptrReals)->unitsModelica[i] ), SpawnFormatError);
-      strcpy( (*ptrReals)->unitsModelica[i], vals[i]);
+    if ( *ptrReals != NULL){
+      /* Only execute if this Modelica object has parameters, inputs or outputs. */
+      for(i = 0; i < (*ptrReals)->n; i++){
+        mallocString(
+          strlen(vals[i])+1,
+          errMsg,
+          &( (*ptrReals)->unitsModelica[i] ), SpawnFormatError);
+        strcpy( (*ptrReals)->unitsModelica[i], vals[i]);
+      }
     }
   }
 
@@ -94,6 +97,7 @@ void* EnergyPlusExchangeAllocate(
   const char* fmuName,
   const char* buildingsLibraryRoot,
   const int logLevel,
+  const int printUnit,
   const char* jsonName,
   const char* jsonKeysValues,
   const char** parOutNames,
@@ -168,6 +172,7 @@ void* EnergyPlusExchangeAllocate(
   if ( ptrInOut == NULL )
     SpawnError("Not enough memory in EnergyPlusExchangeAllocate.c. to allocate zone.");
 
+  ptrInOut->printUnit = printUnit;
   /* Some tools such as OpenModelica may optimize the code resulting in initialize()
      not being called. Hence, we set a flag so we can force it to be called in exchange()
      in case it is not called in initialize().
@@ -227,10 +232,11 @@ void* EnergyPlusExchangeAllocate(
   if (logLevel >= MEDIUM)
     SpawnFormatMessage("---- %s: Allocated parameters %p\n", modelicaName, ptrInOut->parameters);
   /* Assign structural data */
+
   buildVariableNames(
     epName,
     parOutNames,
-    ptrInOut->parameters->n,
+    (size_t)nParOut,
     &(ptrInOut->parOutNames),
     &(ptrInOut->parameters->fmiNames),
     SpawnFormatError);
@@ -238,7 +244,7 @@ void* EnergyPlusExchangeAllocate(
   buildVariableNames(
     epName,
     inpNames,
-    ptrInOut->inputs->n,
+    (size_t)nInp,
     &(ptrInOut->inpNames),
     &(ptrInOut->inputs->fmiNames),
     SpawnFormatError);
@@ -246,7 +252,7 @@ void* EnergyPlusExchangeAllocate(
   buildVariableNames(
     epName,
     outNames,
-    ptrInOut->outputs->n,
+    (size_t)nOut,
     &(ptrInOut->outNames),
     &(ptrInOut->outputs->fmiNames),
     SpawnFormatError);

@@ -15,6 +15,7 @@ model Schedule
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),iconTransformation(extent={{100,-20},{140,20}})));
 protected
   constant Integer nParOut = 0 "Number of parameter values retrieved from EnergyPlus";
+  constant Integer nInp = 1 "Number of inputs";
   constant Integer nOut = 0 "Number of outputs";
   constant Integer nDer = 0 "Number of derivatives";
   constant Integer nY = nOut + nDer + 1 "Size of output vector of exchange function";
@@ -35,23 +36,24 @@ protected
     fmuName=fmuName,
     buildingsLibraryRoot=Buildings.ThermalZones.EnergyPlus.BaseClasses.buildingsLibraryRoot,
     logLevel=logLevel,
+    printUnit=false,
     jsonName = "schedules",
     jsonKeysValues=
         "        \"name\": \"" + name + "\",
         \"unit\": \"" + unitString + "\",
         \"fmiName\": \"" + name + "_" + modelicaInstanceName + "\"",
-    parOutNames = fill("", 0),
-    parOutUnits = fill("", 0),
+    parOutNames = fill("", nParOut),
+    parOutUnits = fill("", nParOut),
     nParOut = nParOut,
     inpNames = {modelicaInstanceName},
     inpUnits = {unitString},
-    nInp = 1,
-    outNames = fill("", 0),
-    outUnits = fill("", 0),
+    nInp = nInp,
+    outNames = fill("", nOut),
+    outUnits = fill("", nOut),
     nOut = nOut,
-    derivatives_structure = fill( fill(0, 2), 0),
+    derivatives_structure = fill( fill(nDer, 2), nDer),
     nDer = nDer,
-    derivatives_delta = fill(0, 0))
+    derivatives_delta = fill(0, nDer))
     "Class to communicate with EnergyPlus";
 
   Real yEP[nY] "Output of exchange function";

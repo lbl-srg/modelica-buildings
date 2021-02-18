@@ -157,10 +157,6 @@ size_t AllocateBuildingDataStructure(
   Buildings_FMUS[nFMU]->nExcObj = 0;
   Buildings_FMUS[nFMU]->exchange = NULL;
 
-  /* Initialize output variable data */
-  Buildings_FMUS[nFMU]->nOutputVariables = 0;
-  Buildings_FMUS[nFMU]->outputVariables = NULL;
-
   /* Create the temporary directory */
   createDirectory(Buildings_FMUS[nFMU]->tmpDir, SpawnFormatError);
 
@@ -212,45 +208,6 @@ void AddExchangeObjectToBuilding(FMUInOut* ptrInOut, const int logLevel){
       bui->nExcObj);
 }
 
-void AddOutputVariableToBuilding(FMUOutputVariable* ptrVar, const int logLevel){
-  FMUBuilding* bui = ptrVar->bui;
-  const size_t nOutputVariables = bui->nOutputVariables;
-
-  void (*SpawnFormatMessage)(const char *string, ...) = bui->SpawnFormatMessage;
-
-  if (bui->logLevel >= MEDIUM)
-    SpawnFormatMessage("---- %s: Adding output variable %lu with name %s\n",
-      bui->modelicaNameBuilding,
-      nOutputVariables+1,
-      ptrVar->modelicaNameOutputVariable);
-
-  if (nOutputVariables == 0){
-    bui->outputVariables=malloc(sizeof(FMUOutputVariable *));
-    if ( bui->outputVariables== NULL )
-      bui->SpawnError("Not enough memory in EnergyPlusFMU.c. to allocate output variables.");
-  }
-  else{
-    /* We already have nOutputVariables > 0 output variables. */
-
-    /* Increment size of vector that contains the output variables. */
-    bui->outputVariables = realloc(bui->outputVariables, (nOutputVariables + 1) * sizeof(FMUOutputVariable*));
-    if (bui->outputVariables == NULL){
-      bui->SpawnError("Not enough memory in EnergyPlusFMU.c. to allocate memory for fmu->outputVariables.");
-    }
-  }
-  /* Assign the output variable */
-  bui->outputVariables[nOutputVariables] = ptrVar;
-  /* Increment the count of output variables of this building. */
-  bui->nOutputVariables++;
-
-  checkAndSetVerbosity(bui, logLevel);
-
-  if (bui->logLevel >= MEDIUM)
-    SpawnFormatMessage("---- %s: EnergyPlusFMU.c: nExcObj = %d\n",
-      bui->modelicaNameBuilding,
-      bui->nExcObj);
-}
-
 FMUBuilding* getBuildingsFMU(size_t iFMU){
   return Buildings_FMUS[iFMU];
 }
@@ -283,7 +240,7 @@ void FMUBuildingFree(FMUBuilding* bui){
     }
 
     /* Make sure no thermal zone or output variable uses this building */
-    if (bui->nExcObj > 0 || bui->nOutputVariables > 0){
+    if (bui->nExcObj > 0){
       if (bui->logLevel >= MEDIUM)
         SpawnFormatMessage("%.3f %s: Exiting FMUBuildingFree without changes as building is still used.\n", bui->time, bui->modelicaNameBuilding);
       return;
@@ -323,8 +280,6 @@ void FMUBuildingFree(FMUBuilding* bui){
       free(bui->weather);
     if (bui->exchange != NULL)
       free(bui->exchange);
-    if (bui->outputVariables != NULL)
-      free(bui->outputVariables);
     if (bui->tmpDir != NULL)
       free(bui->tmpDir);
     if (bui->modelHash != NULL)

@@ -92,17 +92,13 @@ endif()
 
 add_library( ModelicaBuildingsEnergyPlus SHARED
   Buildings/Resources/src/ThermalZones/EnergyPlus/C-Sources/EnergyPlusUtil.c
-  Buildings/Resources/src/ThermalZones/EnergyPlus/C-Sources/OutputVariableFree.c
   Buildings/Resources/src/ThermalZones/EnergyPlus/C-Sources/InputOutputFree.c
   Buildings/Resources/src/ThermalZones/EnergyPlus/C-Sources/InputOutputExchange.c
-  Buildings/Resources/src/ThermalZones/EnergyPlus/C-Sources/OutputVariableExchange.c
   Buildings/Resources/src/ThermalZones/EnergyPlus/C-Sources/InputOutputInstantiate.c
   Buildings/Resources/src/ThermalZones/EnergyPlus/C-Sources/BuildingInstantiate.c
-  Buildings/Resources/src/ThermalZones/EnergyPlus/C-Sources/OutputVariableAllocate.c
   Buildings/Resources/src/ThermalZones/EnergyPlus/C-Sources/EnergyPlusFMU.c
   Buildings/Resources/src/ThermalZones/EnergyPlus/C-Sources/cryptographicsHash.c
   Buildings/Resources/src/ThermalZones/EnergyPlus/C-Sources/InputOutputAllocate.c
-  Buildings/Resources/src/ThermalZones/EnergyPlus/C-Sources/OutputVariableInstantiate.c
 )
 
 target_include_directories( ModelicaBuildingsEnergyPlus

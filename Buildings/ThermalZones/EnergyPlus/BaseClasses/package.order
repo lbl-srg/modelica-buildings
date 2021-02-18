@@ -1,10 +1,7 @@
-FMUOutputVariableClass
 FMUZoneAdapter
 FMUZoneClass
 PartialEnergyPlusObject
 getUnitAsString
-outputVariableExchange
-outputVariableInitialize
 zoneExchange
 zoneInitialize
 buildingsLibraryRoot

@@ -25,6 +25,7 @@ class FMUZoneClass
       "Root directory of the Buildings library (used to find the spawn executable)";
     input Buildings.ThermalZones.EnergyPlus.Types.LogLevels logLevel
       "LogLevels of EnergyPlus output";
+    input Boolean printUnit "Set to true to print units for OutputVariable object. Must be false for all other objects";
     input String jsonName "Name of the object in the json configuration file";
     input String jsonKeysValues "Keys and values string to be written to the json configuration file";
     input String parOutNames[nParOut] "Names of parameter in modelDescription.xml file";
@@ -52,6 +53,7 @@ class FMUZoneClass
     fmuName,
     buildingsLibraryRoot,
     logLevel,
+    printUnit,
     jsonName,
     jsonKeysValues,
     parOutNames,

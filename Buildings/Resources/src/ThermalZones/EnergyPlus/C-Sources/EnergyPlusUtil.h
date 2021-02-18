@@ -80,19 +80,12 @@ void getSimulationTemporaryDirectory(
 
 void createDirectory(const char* dirName, void (*SpawnFormatError)(const char *string, ...));
 
-void buildVariableName(
-  const char* modelicaInstanceName,
-  const char* firstPart,
-  const char* secondPart,
-  char* *ptrFullName,
-  void (*SpawnFormatError)(const char *string, ...));
-
 void buildVariableNames(
   const char* firstPart,
   const char** secondParts,
   const size_t nVar,
   char** *ptrVarNames,
-  char** *ptrFullNames,
+  char** *ptrFMINames,
   void (*SpawnFormatError)(const char *string, ...));
 
 void loadFMU_setupExperiment_enterInitializationMode(FMUBuilding* bui, double startTime);

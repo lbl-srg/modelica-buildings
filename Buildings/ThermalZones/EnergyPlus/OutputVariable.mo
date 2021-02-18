@@ -20,19 +20,50 @@ protected
     annotation (Dialog(group="Diagnostics"));
   Modelica.Blocks.Interfaces.RealInput directDependency_in_internal
     "Needed to connect to conditional connector";
-  Buildings.ThermalZones.EnergyPlus.BaseClasses.FMUOutputVariableClass adapter=Buildings.ThermalZones.EnergyPlus.BaseClasses.FMUOutputVariableClass(
+
+  constant Integer nParOut = 0 "Number of parameter values retrieved from EnergyPlus";
+  constant Integer nInp = 1 "Number of inputs";
+  constant Integer nOut = 1 "Number of outputs";
+  constant Integer nDer = 0 "Number of derivatives";
+  constant Integer nY = nOut + nDer + 1 "Size of output vector of exchange function";
+
+  final parameter Real dummy(
+    fixed=false)
+    "Dummy value to force initialization before call to exchange";
+
+  Buildings.ThermalZones.EnergyPlus.BaseClasses.FMUZoneClass adapter=Buildings.ThermalZones.EnergyPlus.BaseClasses.FMUZoneClass(
+    objectType=4,
     modelicaNameBuilding=modelicaNameBuilding,
-    modelicaNameOutputVariable=modelicaInstanceName,
+    modelicaInstanceName=modelicaInstanceName,
     idfName=idfName,
     weaName=weaName,
-    name=name,
-    componentKey=key,
+    epName=name,
     usePrecompiledFMU=usePrecompiledFMU,
     fmuName=fmuName,
     buildingsLibraryRoot=Buildings.ThermalZones.EnergyPlus.BaseClasses.buildingsLibraryRoot,
     logLevel=logLevel,
-    printUnit=printUnit)
+    printUnit=printUnit,
+    jsonName = "outputVariables",
+    jsonKeysValues=
+        "        \"name\": \"" + name + "\",
+        \"key\": \"" + key + "\",
+        \"fmiName\": \"" + name + "_" + key + "\"",
+    parOutNames = fill("", nParOut),
+    parOutUnits = fill("", nParOut),
+    nParOut = nParOut,
+    inpNames = fill("", nInp),
+    inpUnits = fill("", nInp),
+    nInp = 0,
+    outNames = {key},
+    outUnits = fill("", nOut),
+    nOut = nOut,
+    derivatives_structure = fill( fill(nDer, 2), nDer),
+    nDer = nDer,
+    derivatives_delta = fill(0, nDer))
     "Class to communicate with EnergyPlus";
+
+  Real yEP[nY] "Output of exchange function";
+
   Modelica.SIunits.Time tNext(
     start=startTime,
     fixed=true)
@@ -43,16 +74,20 @@ initial equation
   assert(
     not usePrecompiledFMU,
     "Use of pre-compiled FMU is not supported for block OutputVariable.");
-  Buildings.ThermalZones.EnergyPlus.BaseClasses.outputVariableInitialize(
+
+  {dummy}=Buildings.ThermalZones.EnergyPlus.BaseClasses.zoneInitialize(
     adapter=adapter,
-    startTime=startTime);
-   Buildings.ThermalZones.EnergyPlus.BaseClasses.outputVariableExchange(
-       adapter,
-       true,
-       directDependency_in_internal,
-       round(
-         startTime,
-         1E-3));
+    startTime=startTime,
+    nParOut=nParOut);
+
+  /* The last argument of u will be ignored as the C code only processes 1 element of u,
+     but Modelica is tricked into thinking that there is a dependency on directDependency_in_internal */
+  Buildings.ThermalZones.EnergyPlus.BaseClasses.zoneExchange(
+    adapter = adapter,
+    initialCall = true,
+    nY = nY,
+    u = {round(time, 1E-3), directDependency_in_internal},
+    dummy = dummy);
 
   counter=0;
 equation
@@ -63,13 +98,16 @@ equation
   end if;
 
   when {initial(), time >= pre(tNext)} then
-    (y,tNext)=Buildings.ThermalZones.EnergyPlus.BaseClasses.outputVariableExchange(
-      adapter,
-      false,
-      directDependency_in_internal,
-      round(
-        time,
-        1E-3));
+    yEP = Buildings.ThermalZones.EnergyPlus.BaseClasses.zoneExchange(
+      adapter = adapter,
+      initialCall = false,
+      nY = nY,
+      u = {round(time, 1E-3), directDependency_in_internal},
+      dummy = dummy);
+
+    y = yEP[1];
+    tNext = yEP[2];
+
     counter=pre(
       counter)+1;
   end when;

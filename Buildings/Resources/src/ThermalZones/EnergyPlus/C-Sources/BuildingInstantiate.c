@@ -71,7 +71,7 @@ void buildJSONModelStructureForEnergyPlus(
   void (*SpawnFormatError)(const char *string, ...) = bui->SpawnFormatError;
 
   /* Total number of models */
-  const size_t nMod = bui->nExcObj + bui->nOutputVariables;
+  const size_t nMod = bui->nExcObj;
 
   /* Count number of objects */
   for(objectType = THERMALZONE; objectType < SURFACE; objectType++){
@@ -231,7 +231,6 @@ void setAttributesReal(
 void setValueReferences(FMUBuilding* bui){
   size_t i;
   FMUInOut* ptrInOut;
-  FMUOutputVariable* outVar;
 
   fmi2_import_variable_list_t* vl = fmi2_import_get_variable_list(bui->fmu, 0);
   const fmi2_value_reference_t* vrl = fmi2_import_get_value_referece_list(vl);
@@ -249,20 +248,6 @@ void setValueReferences(FMUBuilding* bui){
     setAttributesReal(bui, vl, vrl, nv, ptrInOut->inputs);
     setAttributesReal(bui, vl, vrl, nv, ptrInOut->outputs);
     ptrInOut->valueReferenceIsSet = true;
-  }
-
-  /* Set value references for the input variables by assigning the values obtained from the FMU */
-  if (bui->logLevel >= MEDIUM)
-    SpawnFormatMessage("---- %s: Setting variable references for input variables.\n", bui->modelicaNameBuilding);
-
-  /* Set value references for the output variables by assigning the values obtained from the FMU */
-  if (bui->logLevel >= MEDIUM)
-    SpawnFormatMessage("---- %s: Setting variable references for output variables.\n", bui->modelicaNameBuilding);
-
-  for(i = 0; i < bui->nOutputVariables; i++){
-    outVar = (FMUOutputVariable*) bui->outputVariables[i];
-    setAttributesReal(bui, vl, vrl, nv, outVar->outputs);
-    outVar->valueReferenceIsSet = true;
   }
 
   /* Free the variable list */

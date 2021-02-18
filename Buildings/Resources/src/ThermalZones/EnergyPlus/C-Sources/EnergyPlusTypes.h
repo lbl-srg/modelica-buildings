@@ -79,9 +79,6 @@ typedef struct FMUBuilding
   size_t nExcObj; /* Number of exc that use this FMU */
   void** exchange; /* Pointers to all exchange objects*/
 
-  size_t nOutputVariables; /* Number of output variables that this FMU has */
-  void** outputVariables; /* Pointers to all output variables */
-
   char* tmpDir; /* Temporary directory used by EnergyPlus */
   char* fmuAbsPat; /* Absolute name of the fmu */
   bool usePrecompiledFMU; /* if true, a pre-compiled FMU will be used (for debugging) */
@@ -138,6 +135,8 @@ typedef struct FMUInOut
   spawnReals* outputs;           /* Outputs */
   spawnDerivatives* derivatives; /* Derivatives */
 
+  bool printUnit;                   /* Flag whether unit diagnostics should be printed (used for OutputVariable) */
+
   fmi2Boolean isInstantiated; /* Flag set to true when the zone has been completely instantiated */
   fmi2Boolean isInitialized;  /* Flag set to true after the zone has executed all get/set calls in the initializion mode
                                 of the FMU */
@@ -145,26 +144,5 @@ typedef struct FMUInOut
                                        and used to check for Dymola 2020x whether the flag 'Hidden.AvoidDoubleComputation=true' is set */
 
 } FMUInOut;
-
-typedef struct FMUOutputVariable
-{
-  FMUBuilding* bui;              /* Pointer to building with this output variable */
-  char* modelicaNameOutputVariable; /* Name of the Modelica instance of this zone */
-  char* name;                       /* Name of this output variable in the idf file */
-  char* key;                        /* Key of this output variable in the idf file */
-
-  spawnReals* outputs;              /* Outputs (vector with 1 element) */
-
-  bool printUnit;                   /* Flag whether unit diagnostics should be printed */
-
-  fmi2Boolean isInstantiated;       /* Flag set to true when the output variable has been completely instantiated */
-  fmi2Boolean isInitialized;        /* Flag set to true after the output variable has executed a get call in the initializion mode
-                                       of the FMU */
-  size_t count;                     /* Counter for how many Modelica instances use this output variable */
-
-  bool valueReferenceIsSet;         /* Flag, set to true after value references are set,
-                                       and used to check for Dymola 2020x whether the flag 'Hidden.AvoidDoubleComputation=true' is set */
-
-} FMUOutputVariable;
 
 #endif

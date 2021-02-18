@@ -35,8 +35,6 @@ size_t AllocateBuildingDataStructure(
 
 void AddExchangeObjectToBuilding(FMUInOut* exchangeObject, const int logLevel);
 
-void AddOutputVariableToBuilding(FMUOutputVariable* ptrOutVar, const int logLevel);
-
 FMUBuilding* getBuildingsFMU(size_t iFMU);
 
 void FMUBuildingFree(FMUBuilding* bui);

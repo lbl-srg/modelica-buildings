@@ -101,6 +101,7 @@ protected
     fmuName=fmuName,
     buildingsLibraryRoot=buildingsLibraryRoot,
     logLevel=logLevel,
+    printUnit=false,
     jsonName = "zones",
     jsonKeysValues = "        \"name\": \"" + zoneName + "\"",
     parOutNames = {"AFlo", "V", "mSenFac"},
