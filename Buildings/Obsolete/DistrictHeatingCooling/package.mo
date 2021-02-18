@@ -1,9 +1,10 @@
 within Buildings.Obsolete;
 package DistrictHeatingCooling "Models for district heating and cooling"
   extends Modelica.Icons.VariantsPackage;
+
 annotation (preferredView="info", Documentation(info="<html>
 <p>
-This package contains models for district heating and cooling systems
+This package contains obsolete models for district heating and cooling systems
 such as the ones described by Schluck et al. (2015).
 </p>
 <h4>References</h4>
