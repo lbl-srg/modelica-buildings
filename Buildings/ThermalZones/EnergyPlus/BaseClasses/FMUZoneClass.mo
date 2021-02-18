@@ -42,7 +42,7 @@ class FMUZoneClass
     input Real derivatives_delta[nDer] "Increments for derivative calculation";
 
     output FMUZoneClass adapter;
-  external "C" adapter=SpawnInputOutputAllocate(
+  external "C" adapter=ModelicaSpawnAllocate(
     objectType,
     modelicaNameBuilding,
     modelicaInstanceName,
@@ -100,7 +100,7 @@ First implementation.
     "Release storage"
     extends Modelica.Icons.Function;
     input FMUZoneClass adapter;
-  external "C" SpawnInputOutputFree(
+  external "C" ModelicaSpawnFree(
     adapter)
     annotation (
       Include="#include <EnergyPlusWrapper.c>",

@@ -61,7 +61,7 @@ void buildJSONModelStructureForEnergyPlus(
   const FMUBuilding* bui, char* *buffer, size_t* size, char** modelHash){
   size_t i;
   size_t iWri;
-  FMUInOut** ptrInOut = (FMUInOut**)bui->exchange;
+  SpawnObject** ptrSpaObj = (SpawnObject**)bui->exchange;
 
   /* Number of models written to json so far */
   size_t iMod = 0;
@@ -76,7 +76,7 @@ void buildJSONModelStructureForEnergyPlus(
   /* Count number of objects */
   for(objectType = THERMALZONE; objectType < SURFACE; objectType++){
     for(i = 0; i < bui->nExcObj; i++){
-        if ( ptrInOut[i]->objectType == objectType ){
+        if ( ptrSpaObj[i]->objectType == objectType ){
           objectCount[objectType]++;
         }
     }
@@ -98,16 +98,16 @@ void buildJSONModelStructureForEnergyPlus(
   /* Write all json objects (thermal zones, actuators, etc.) */
   for(objectType = THERMALZONE; objectType < SURFACE; objectType++){
     for(i = 0, iWri = 0; i < bui->nExcObj; i++){
-      if ( ptrInOut[i]->objectType == objectType ) {
+      if ( ptrSpaObj[i]->objectType == objectType ) {
         /* Check if json keyword needs to be written */
         if (iWri == 0){
           saveAppend(buffer, "    \"", size, SpawnFormatError);
-          saveAppend(buffer, ptrInOut[i]->jsonName, size, SpawnFormatError);
+          saveAppend(buffer, ptrSpaObj[i]->jsonName, size, SpawnFormatError);
           saveAppend(buffer, "\": [\n", size, SpawnFormatError);
         }
         /* Write content */
         openJSONModelBracket(buffer, size, SpawnFormatError);
-        saveAppend(buffer, ptrInOut[i]->jsonKeysValues, size, SpawnFormatError);
+        saveAppend(buffer, ptrSpaObj[i]->jsonKeysValues, size, SpawnFormatError);
         saveAppend(buffer, "\n", size, SpawnFormatError);
         closeJSONModelBracket(buffer, iWri, objectCount[objectType], size, SpawnFormatError);
         iWri++;
@@ -230,7 +230,7 @@ void setAttributesReal(
 
 void setValueReferences(FMUBuilding* bui){
   size_t i;
-  FMUInOut* ptrInOut;
+  SpawnObject* ptrSpaObj;
 
   fmi2_import_variable_list_t* vl = fmi2_import_get_variable_list(bui->fmu, 0);
   const fmi2_value_reference_t* vrl = fmi2_import_get_value_referece_list(vl);
@@ -238,16 +238,16 @@ void setValueReferences(FMUBuilding* bui){
 
   void (*SpawnFormatMessage)(const char *string, ...) = bui->SpawnFormatMessage;
 
-  /* Set value references for the ptrInOut by assigning the values obtained from the FMU */
+  /* Set value references for the ptrSpaObj by assigning the values obtained from the FMU */
   if (bui->logLevel >= MEDIUM)
-    SpawnFormatMessage("---- %s: Setting variable references for ptrInOut.\n", bui->modelicaNameBuilding);
+    SpawnFormatMessage("---- %s: Setting variable references for ptrSpaObj.\n", bui->modelicaNameBuilding);
 
   for(i = 0; i < bui->nExcObj; i++){
-    ptrInOut = (FMUInOut*) bui->exchange[i];
-    setAttributesReal(bui, vl, vrl, nv, ptrInOut->parameters);
-    setAttributesReal(bui, vl, vrl, nv, ptrInOut->inputs);
-    setAttributesReal(bui, vl, vrl, nv, ptrInOut->outputs);
-    ptrInOut->valueReferenceIsSet = true;
+    ptrSpaObj = (SpawnObject*) bui->exchange[i];
+    setAttributesReal(bui, vl, vrl, nv, ptrSpaObj->parameters);
+    setAttributesReal(bui, vl, vrl, nv, ptrSpaObj->inputs);
+    setAttributesReal(bui, vl, vrl, nv, ptrSpaObj->outputs);
+    ptrSpaObj->valueReferenceIsSet = true;
   }
 
   /* Free the variable list */
@@ -438,7 +438,7 @@ void spawnLogger(
 
 /* Import the EnergyPlus FMU
 */
-void importEnergyPlusFMU(FMUBuilding* bui){
+void importSpawnFMU(FMUBuilding* bui){
   const fmi2Boolean visible = fmi2False;
 
   /* fmi2_import_model_counts_t  mc; */
@@ -610,7 +610,7 @@ void generateAndInstantiateBuilding(FMUBuilding* bui){
   void (*SpawnFormatError)(const char *string, ...) = bui->SpawnFormatError;
 
   if (bui->logLevel >= MEDIUM)
-    SpawnFormatMessage("---- %s: Entered EnergyPlusInputOutputAllocateAndInstantiateBuilding.\n", bui->modelicaNameBuilding);
+    SpawnFormatMessage("---- %s: Entered EnergyPlusSpawnAllocateAndInstantiateBuilding.\n", bui->modelicaNameBuilding);
 
   if (bui->usePrecompiledFMU)
     SpawnFormatMessage("---- %s: Using pre-compiled FMU %s\n", bui->modelicaNameBuilding, bui->precompiledFMUAbsPat);
@@ -639,7 +639,7 @@ void generateAndInstantiateBuilding(FMUBuilding* bui){
     SpawnFormatError("Requested to load fmu '%s' which does not exist.", bui->fmuAbsPat);
   }
 
-  importEnergyPlusFMU(bui);
+  importSpawnFMU(bui);
 
   if (bui->logLevel >= MEDIUM)
     SpawnFormatMessage("---- %s: FMU is at %p.\n", bui->modelicaNameBuilding, bui->fmu);

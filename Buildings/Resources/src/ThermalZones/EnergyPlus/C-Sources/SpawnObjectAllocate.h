@@ -3,15 +3,15 @@
  *
  * Michael Wetter, LBNL                  2/9/2019
  */
-#ifndef Buildings_InputOutputAllocate_h
-#define Buildings_InputOutputAllocate_h
+#ifndef Buildings_SpawnObjectAllocate_h
+#define Buildings_SpawnObjectAllocate_h
 
-#include "EnergyPlusTypes.h"
-#include "EnergyPlusFMU.h"
-#include "EnergyPlusUtil.h"
+#include "SpawnTypes.h"
+#include "SpawnFMU.h"
+#include "SpawnUtil.h"
 
 /* Create the structure and return a pointer to its address. */
-LBNL_EnergyPlus_EXPORT void* EnergyPlusExchangeAllocate(
+LBNL_Spawn_EXPORT void* EnergyPlusSpawnAllocate(
   const int objectType,
   const char* modelicaNameBuilding,
   const char* modelicaName,

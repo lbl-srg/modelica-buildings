@@ -12,7 +12,7 @@ function zoneExchange
     "Dummy value (used to force Modelica tools to call initialize())";
   output Real y[nY] "Output values. First all outputs, then all derivatives, then next event time";
 
-external "C" SpawnInputOutputExchange(
+external "C" ModelicaSpawnExchange(
   adapter,
   initialCall,
   u,

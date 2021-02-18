@@ -1,5 +1,5 @@
-#ifndef _Spawn_declared
-#define _Spawn_declared
+#ifndef Spawn_declared
+#define Spawn_declared
 
 #include <ModelicaUtilities.h>
 #include "EnergyPlusWrapper.h"
@@ -28,7 +28,7 @@ void my_printf(const char *fmt, ...) {
 }
 */
 
-void* SpawnInputOutputAllocate(
+void* ModelicaSpawnAllocate(
   const int objectType,
   const char* modelicaNameBuilding,
   const char* modelicaNameThermalZone,
@@ -60,7 +60,7 @@ void* SpawnInputOutputAllocate(
   const double* derivatives_delta,
   const size_t nDer){
 
-    return EnergyPlusExchangeAllocate(
+    return EnergyPlusSpawnAllocate(
       objectType,
       modelicaNameBuilding,
       modelicaNameThermalZone,
@@ -97,29 +97,29 @@ void* SpawnInputOutputAllocate(
       ModelicaFormatError);
   }
 
-void SpawnInputOutputInstantiate(
+void ModelicaSpawnInstantiate(
     void* object,
     double startTime,
     double *parOut){
-      EnergyPlusInputOutputInstantiate(object, startTime, parOut);
+      EnergyPlusSpawnInstantiate(object, startTime, parOut);
 }
 
-void SpawnInputOutputExchange(
+void ModelicaSpawnExchange(
   void* object,
   int initialCall,
   const double* u,
   double dummy,
   double* y){
 
-    EnergyPlusInputOutputExchange(
+    EnergyPlusSpawnExchange(
       object,
       initialCall,
       u,
       y);
   }
 
-void SpawnInputOutputFree(void* object){
-    EnergyPlusInputOutputFree(object);
+void ModelicaSpawnFree(void* object){
+    EnergyPlusSpawnObjectFree(object);
 }
 
 #endif

@@ -3,10 +3,10 @@
  *
  * Michael Wetter, LBNL                  2/9/2019
  */
-#ifndef Buildings_EnergyPlusUtil_h
-#define Buildings_EnergyPlusUtil_h
+#ifndef Buildings_SpawnUtil_h
+#define Buildings_SpawnUtil_h
 
-#include "EnergyPlusTypes.h"
+#include "SpawnTypes.h"
 #include "BuildingInstantiate.h"
 
 #include <stdio.h>

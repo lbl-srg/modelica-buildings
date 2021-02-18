@@ -3,16 +3,16 @@
  *
  * Michael Wetter, LBNL                  2/9/2019
  */
-#ifndef Buildings_InputOutputExchange_h
-#define Buildings_InputOutputExchange_h
+#ifndef Buildings_SpawnObjectExchange_h
+#define Buildings_SpawnObjectExchange_h
 
-#include "EnergyPlusTypes.h"
-#include "EnergyPlusFMU.h"
-#include "InputOutputInstantiate.h"
+#include "SpawnTypes.h"
+#include "SpawnFMU.h"
+#include "SpawnObjectInstantiate.h"
 #include "FMI2/fmi2_import_capi.h"
 
 
-LBNL_EnergyPlus_EXPORT void EnergyPlusInputOutputExchange(
+LBNL_Spawn_EXPORT void EnergyPlusSpawnExchange(
   void* object,
   int initialCall,
   const double* u,

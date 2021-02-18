@@ -22,7 +22,7 @@ protected
     "Needed to connect to conditional connector";
 
   constant Integer nParOut = 0 "Number of parameter values retrieved from EnergyPlus";
-  constant Integer nInp = 1 "Number of inputs";
+  constant Integer nInp = 0 "Number of inputs";
   constant Integer nOut = 1 "Number of outputs";
   constant Integer nDer = 0 "Number of derivatives";
   constant Integer nY = nOut + nDer + 1 "Size of output vector of exchange function";

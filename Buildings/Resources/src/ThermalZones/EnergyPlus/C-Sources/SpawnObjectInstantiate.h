@@ -3,11 +3,11 @@
  *
  * Michael Wetter, LBNL                  2/9/2019
  */
-#ifndef Buildings_InputOutputInstantiate_h
-#define Buildings_InputOutputInstantiate_h
+#ifndef Buildings_SpawnObjectInstantiate_h
+#define Buildings_SpawnObjectInstantiate_h
 
-#include "EnergyPlusTypes.h"
-#include "EnergyPlusFMU.h"
+#include "SpawnTypes.h"
+#include "SpawnFMU.h"
 #include "BuildingInstantiate.h"
 
 #include <stdio.h>
@@ -20,6 +20,6 @@
 #include "fmilib.h"
 #include "JM/jm_portability.h"
 
-LBNL_EnergyPlus_EXPORT void EnergyPlusInputOutputInstantiate(void* object, double t0, double *parOut);
+LBNL_Spawn_EXPORT void EnergyPlusSpawnInstantiate(void* object, double t0, double *parOut);
 
 #endif

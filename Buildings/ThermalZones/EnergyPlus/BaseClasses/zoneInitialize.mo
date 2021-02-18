@@ -9,7 +9,7 @@ function zoneInitialize
   input Integer nParOut "Number of elements in parOut";
   output Real parOut[nParOut+1]
     "Parameter values returned from EnergyPlus. Last element is a dummy value to force call before exchange";
-external "C" SpawnInputOutputInstantiate(
+external "C" ModelicaSpawnInstantiate(
   adapter,
   startTime,
   parOut)

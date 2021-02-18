@@ -5,10 +5,10 @@
  * Thierry S. Nouidui, LBNL              3/23/2018
  */
 
-#include "EnergyPlusUtil.h"
+#include "SpawnUtil.h"
 
-#ifndef Buildings_EnergyPlusUtil_c
-#define Buildings_EnergyPlusUtil_c
+#ifndef Buildings_SpawnUtil_c
+#define Buildings_SpawnUtil_c
 
 #include <stdlib.h>
 #include <string.h>
@@ -26,7 +26,7 @@ void mallocSpawnReals(const size_t n, spawnReals** r, void (*SpawnFormatError)(c
 
   *r = (spawnReals*)malloc(sizeof(spawnReals));
   if ( *r == NULL)
-    SpawnFormatError("%s", "Failed to allocate memory for spawnReals in EnergyPlusUtil.c.");
+    SpawnFormatError("%s", "Failed to allocate memory for spawnReals in SpawnUtil.c.");
 
   (*r)->valsEP = NULL;
   (*r)->valsSI = NULL;
@@ -75,7 +75,7 @@ void mallocSpawnDerivatives(const size_t n, spawnDerivatives** r, void (*SpawnFo
   *r = NULL;
   *r = (spawnDerivatives*)malloc(sizeof(spawnDerivatives));
   if ( *r == NULL )
-    SpawnFormatError("%s", "Failed to allocate memory for spawnDerivatives in EnergyPlusUtil.c.");
+    SpawnFormatError("%s", "Failed to allocate memory for spawnDerivatives in SpawnUtil.c.");
 
   (*r)->structure = NULL;
   (*r)->delta = NULL;
@@ -303,7 +303,7 @@ void advanceTime_completeIntegratorStep_enterEventMode(FMUBuilding* bui, const c
   }
   if (enterEventMode){
     SpawnFormatError(
-      "Unexpected value for enterEventMode in EnergyPlusUtil.c at t = %.2f for FMU for %s",
+      "Unexpected value for enterEventMode in SpawnUtil.c at t = %.2f for FMU for %s",
       time, modelicaInstanceName);
   }
   if (terminateSimulation){
@@ -317,7 +317,7 @@ void advanceTime_completeIntegratorStep_enterEventMode(FMUBuilding* bui, const c
       bui->modelicaNameBuilding);
   status = fmi2_import_enter_event_mode(bui->fmu);
   if (status != (fmi2Status)fmi2_status_ok){
-    SpawnFormatError("%.3f %s: Failed to enter event mode in EnergyPlusUtil.c, returned status is %s.", bui->time, modelicaInstanceName,
+    SpawnFormatError("%.3f %s: Failed to enter event mode in SpawnUtil.c, returned status is %s.", bui->time, modelicaInstanceName,
       fmi2_status_to_string(status));
   }
   setFMUMode(bui, eventMode);
@@ -460,7 +460,7 @@ char * getFileNameWithoutExtension(
 
   mallocString(
     lenNam+1,
-    "Failed to allocate memory for temporary directory name in EnergyPlusUtil.c",
+    "Failed to allocate memory for temporary directory name in SpawnUtil.c",
     &namOnl,
     SpawnFormatError);
 
@@ -507,7 +507,7 @@ void getSimulationTemporaryDirectory(
       lenCurDir += incLenCurDir;
       if (lenCurDir > maxLenCurDir){
         SpawnFormatError(
-          "Temporary directories with names longer than %lu characters are not supported in EnergyPlusFMU.c unless you change maxLenCurDir.",
+          "Temporary directories with names longer than %lu characters are not supported in SpawnFMU.c unless you change maxLenCurDir.",
           maxLenCurDir);
       }
       curDir = realloc(curDir, lenCurDir * sizeof(char));
@@ -519,7 +519,7 @@ void getSimulationTemporaryDirectory(
     }
     else{ /* Other error than insufficient length */
       SpawnFormatError(
-        "Unknown error when allocating memory for temporary directory in EnergyPlusFMU.c. for %s",
+        "Unknown error when allocating memory for temporary directory in SpawnFMU.c. for %s",
         modelicaNameBuilding);
     }
   }
@@ -535,7 +535,7 @@ void getSimulationTemporaryDirectory(
 
   mallocString(
     lenCur+lenSep+lenPre+lenNam+1,
-    "Failed to allocate memory for temporary directory name in EnergyPlusUtil.c.",
+    "Failed to allocate memory for temporary directory name in SpawnUtil.c.",
     dirNam,
     SpawnFormatError);
   memset(*dirNam, '\0', (lenCur+lenSep+lenPre+lenNam+1));
@@ -575,12 +575,12 @@ void buildVariableNames(
 
     *ptrVarNames = (char**)malloc(nVar * sizeof(char*));
     if (*ptrVarNames == NULL)
-      SpawnFormatError("Failed to allocate memory for ptrVarNames in EnergyPlusInputOutputInstantiate.c. for %s", name);
+      SpawnFormatError("Failed to allocate memory for ptrVarNames in EnergyPlusSpawnInstantiate.c. for %s", name);
 
     for (i=0; i<nVar; i++){
       mallocString(
         len+1,
-        "Failed to allocate memory for ptrVarNames[i] in EnergyPlusInputOutputInstantiate.c.",
+        "Failed to allocate memory for ptrVarNames[i] in EnergyPlusSpawnInstantiate.c.",
         &((*ptrVarNames)[i]),
         SpawnFormatError);
     }
@@ -600,12 +600,12 @@ void buildVariableNames(
 
     *ptrFMINames = (char**)malloc(nVar * sizeof(char*));
     if (*ptrFMINames == NULL)
-      SpawnFormatError("Failed to allocate memory for ptrFMINames in EnergyPlusInputOutputInstantiate.c for %s.", name);
+      SpawnFormatError("Failed to allocate memory for ptrFMINames in EnergyPlusSpawnInstantiate.c for %s.", name);
 
     for (i=0; i<nVar; i++){
       mallocString(
         len+1,
-        "Failed to allocate memory for ptrFMINames[i] in EnergyPlusInputOutputInstantiate.c.",
+        "Failed to allocate memory for ptrFMINames[i] in EnergyPlusSpawnInstantiate.c.",
         &((*ptrFMINames)[i]),
         SpawnFormatError);
     }

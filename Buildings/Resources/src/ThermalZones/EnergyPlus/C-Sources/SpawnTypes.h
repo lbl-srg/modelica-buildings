@@ -2,8 +2,8 @@
  * Type definitions for EnergyPlus.
  */
 
-#ifndef Buildings_EnergyPlusTypes_h /* Not needed since it is only a typedef; added for safety */
-#define Buildings_EnergyPlusTypes_h
+#ifndef Buildings_SpawnTypes_h /* Not needed since it is only a typedef; added for safety */
+#define Buildings_SpawnTypes_h
 
 #include <stdbool.h>
 #include <stdio.h>
@@ -37,16 +37,16 @@ extern "C" {
 #endif
 #ifdef _MSC_VER
 #ifdef EXTERNAL_FUNCTION_EXPORT
-# define LBNL_EnergyPlus_EXPORT __declspec( dllexport )
+# define LBNL_Spawn_EXPORT __declspec( dllexport )
 #else
-# define LBNL_EnergyPlus_EXPORT __declspec( dllimport )
+# define LBNL_Spawn_EXPORT __declspec( dllimport )
 #endif
 #elif __GNUC__ >= 4
 /* In gnuc, all symbols are by default exported. It is still often useful,
 to not export all symbols but only the needed ones */
-# define LBNL_EnergyPlus_EXPORT __attribute__ ((visibility("default")))
+# define LBNL_Spawn_EXPORT __attribute__ ((visibility("default")))
 #else
-# define LBNL_EnergyPlus_EXPORT
+# define LBNL_Spawn_EXPORT
 #endif
 
 #ifndef max
@@ -118,7 +118,7 @@ typedef struct spawnDerivatives{
 } spawnDerivatives;
 
 
-typedef struct FMUInOut
+typedef struct SpawnObject
 {
   int objectType; /* Type of the EnergyPlus object */
   FMUBuilding* bui; /* Pointer to building with this zone */
@@ -143,6 +143,6 @@ typedef struct FMUInOut
   bool valueReferenceIsSet;         /* Flag, set to true after value references are set,
                                        and used to check for Dymola 2020x whether the flag 'Hidden.AvoidDoubleComputation=true' is set */
 
-} FMUInOut;
+} SpawnObject;
 
 #endif

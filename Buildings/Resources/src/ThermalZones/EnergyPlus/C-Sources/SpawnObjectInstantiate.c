@@ -5,8 +5,8 @@
  * Thierry S. Nouidui, LBNL              3/23/2018
  */
 
-#include "EnergyPlusFMU.h"
-#include "InputOutputInstantiate.h"
+#include "SpawnFMU.h"
+#include "SpawnObjectInstantiate.h"
 
 #include <stdlib.h>
 #include <string.h>
@@ -14,7 +14,7 @@
 
 
 /*
-void setParametersInEnergyPlus(FMUInOut* zone, double* parValues){
+void setParametersInEnergyPlus(SpawnObject* zone, double* parValues){
   fmi2Status status;
 
   if (bui->logLevel >= MEDIUM)
@@ -34,20 +34,20 @@ void setParametersInEnergyPlus(FMUInOut* zone, double* parValues){
 
 /* This function is called for each zone in the 'initial equation section'
 */
-void EnergyPlusInputOutputInstantiate(
+void EnergyPlusSpawnInstantiate(
     void* object,
     double startTime,
     double *parOut){
-  FMUInOut* zone = (FMUInOut*) object;
+  SpawnObject* zone = (SpawnObject*) object;
   FMUBuilding* bui = zone->bui;
   const char* modelicaName = zone->modelicaName;
   size_t i;
 
   if (bui->logLevel >= MEDIUM){
-    bui->SpawnFormatMessage("%.3f %s: Entered EnergyPlusInputOutputInstantiate.\n", startTime, modelicaName);
+    bui->SpawnFormatMessage("%.3f %s: Entered EnergyPlusSpawnInstantiate.\n", startTime, modelicaName);
   }
   if (bui == NULL){
-    bui->SpawnFormatError("Pointer bui is NULL in EnergyPlusInputOutputInstantiate for %s. For Dymola 2020x, make sure you set 'Hidden.AvoidDoubleComputation=true'. See Buildings.ThermalZones.EnergyPlus.UsersGuide.", modelicaName);
+    bui->SpawnFormatError("Pointer bui is NULL in EnergyPlusSpawnInstantiate for %s. For Dymola 2020x, make sure you set 'Hidden.AvoidDoubleComputation=true'. See Buildings.ThermalZones.EnergyPlus.UsersGuide.", modelicaName);
   }
   if (bui->fmu == NULL){
     /* EnergyPlus is not yet loaded.

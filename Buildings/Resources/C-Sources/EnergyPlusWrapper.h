@@ -31,7 +31,7 @@
 
 /* ********************************************************* */
 /* Thermal zone */
-extern void* EnergyPlusExchangeAllocate(
+extern void* EnergyPlusSpawnAllocate(
   const int objectType,
   const char* modelicaNameBuilding,
   const char* modelicaNameThermalZone,
@@ -67,14 +67,14 @@ extern void* EnergyPlusExchangeAllocate(
   void (*SpawnFormatMessage)(const char *string, ...),
   void (*SpawnFormatError)(const char *string, ...));
 
-extern void EnergyPlusInputOutputInstantiate(void* object, double t0, double *parOut);
+extern void EnergyPlusSpawnInstantiate(void* object, double t0, double *parOut);
 
-extern void EnergyPlusInputOutputExchange(
+extern void EnergyPlusSpawnExchange(
   void* object,
   int initialCall,
   const double* u,
   double* y);
 
-extern void EnergyPlusInputOutputFree(void* object);
+extern void EnergyPlusSpawnObjectFree(void* object);
 
 #endif

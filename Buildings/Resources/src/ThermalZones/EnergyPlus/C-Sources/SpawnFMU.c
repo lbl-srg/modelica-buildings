@@ -4,10 +4,10 @@
  * Michael Wetter, LBNL                  2/14/2018
  */
 
-#include "EnergyPlusFMU.h"
+#include "SpawnFMU.h"
 
-#ifndef Buildings_EnergyPlusFMU_c
-#define Buildings_EnergyPlusFMU_c
+#ifndef Buildings_SpawnFMU_c
+#define Buildings_SpawnFMU_c
 
 #include <stdlib.h>
 #include <string.h>
@@ -56,11 +56,11 @@ size_t AllocateBuildingDataStructure(
   else
     Buildings_FMUS = realloc(Buildings_FMUS, (nFMU+1) * sizeof(struct FMUBuilding*));
   if ( Buildings_FMUS == NULL )
-    SpawnError("Not enough memory in EnergyPlusFMU.c. to allocate array for Buildings_FMU.");
+    SpawnError("Not enough memory in SpawnFMU.c. to allocate array for Buildings_FMU.");
 
   Buildings_FMUS[nFMU] = malloc(sizeof(FMUBuilding));
   if ( Buildings_FMUS[nFMU] == NULL )
-    SpawnError("Not enough memory in EnergyPlusFMU.c. to allocate array for Buildings_FMU[0].");
+    SpawnError("Not enough memory in SpawnFMU.c. to allocate array for Buildings_FMU[0].");
 
   Buildings_FMUS[nFMU]->fmu = NULL;
   Buildings_FMUS[nFMU]->context = NULL;
@@ -81,7 +81,7 @@ size_t AllocateBuildingDataStructure(
   /* Assign the modelica name for this building */
   mallocString(
     (strlen(modelicaNameBuilding)+1),
-    "Not enough memory in EnergyPlusFMU.c. to allocate modelicaNameBuilding.",
+    "Not enough memory in SpawnFMU.c. to allocate modelicaNameBuilding.",
     &(Buildings_FMUS[nFMU]->modelicaNameBuilding),
     SpawnFormatError);
   strcpy(Buildings_FMUS[nFMU]->modelicaNameBuilding, modelicaNameBuilding);
@@ -89,7 +89,7 @@ size_t AllocateBuildingDataStructure(
   /* Assign the Buildings library root */
   mallocString(
     (strlen(buildingsLibraryRoot)+1),
-    "Not enough memory in EnergyPlusFMU.c. to allocate buildingsLibraryRoot.",
+    "Not enough memory in SpawnFMU.c. to allocate buildingsLibraryRoot.",
     &(Buildings_FMUS[nFMU]->buildingsLibraryRoot),
     SpawnFormatError);
   strcpy(Buildings_FMUS[nFMU]->buildingsLibraryRoot, buildingsLibraryRoot);
@@ -98,7 +98,7 @@ size_t AllocateBuildingDataStructure(
   if (usePrecompiledFMU){
     mallocString(
       (strlen(fmuName)+1),
-      "Not enough memory in EnergyPlusFMU.c. to allocate idfName.",
+      "Not enough memory in SpawnFMU.c. to allocate idfName.",
       &(Buildings_FMUS[nFMU]->idfName),
       SpawnFormatError);
     strcpy(Buildings_FMUS[nFMU]->idfName, fmuName);
@@ -106,7 +106,7 @@ size_t AllocateBuildingDataStructure(
   else{
     mallocString(
       (strlen(idfName)+1),
-      "Not enough memory in EnergyPlusFMU.c. to allocate idfName.",
+      "Not enough memory in SpawnFMU.c. to allocate idfName.",
       &(Buildings_FMUS[nFMU]->idfName),
       SpawnFormatError);
     strcpy(Buildings_FMUS[nFMU]->idfName, idfName);
@@ -115,7 +115,7 @@ size_t AllocateBuildingDataStructure(
   /* Assign the weather name */
   mallocString(
     (strLenWea+1),
-    "Not enough memory in EnergyPlusFMU.c. to allocate weather.",
+    "Not enough memory in SpawnFMU.c. to allocate weather.",
     &(Buildings_FMUS[nFMU]->weather),
     SpawnFormatError);
   strcpy(Buildings_FMUS[nFMU]->weather, weaName);
@@ -171,8 +171,8 @@ size_t AllocateBuildingDataStructure(
   return nFMU;
 }
 
-void AddExchangeObjectToBuilding(FMUInOut* ptrInOut, const int logLevel){
-  FMUBuilding* bui = ptrInOut->bui;
+void AddSpawnObjectToBuilding(SpawnObject* ptrSpaObj, const int logLevel){
+  FMUBuilding* bui = ptrSpaObj->bui;
   const size_t nExcObj = bui->nExcObj;
 
   void (*SpawnFormatMessage)(const char *string, ...) = bui->SpawnFormatMessage;
@@ -180,31 +180,31 @@ void AddExchangeObjectToBuilding(FMUInOut* ptrInOut, const int logLevel){
 
 
   if (bui->logLevel >= MEDIUM)
-    SpawnFormatMessage("---- %s: EnergyPlusFMU.c: Adding object %lu with name %s\n", bui->modelicaNameBuilding, nExcObj, ptrInOut->modelicaName);
+    SpawnFormatMessage("---- %s: SpawnFMU.c: Adding object %lu with name %s\n", bui->modelicaNameBuilding, nExcObj, ptrSpaObj->modelicaName);
 
   if (nExcObj == 0){
-    bui->exchange=malloc(sizeof(FMUInOut *));
+    bui->exchange=malloc(sizeof(SpawnObject *));
     if ( bui->exchange== NULL )
-      SpawnError("Not enough memory in EnergyPlusFMU.c. to allocate exc.");
+      SpawnError("Not enough memory in SpawnFMU.c. to allocate exc.");
   }
   else{
     /* We already have nExcObj > 0 exc */
 
     /* Increment size of vector that contains the exc. */
-    bui->exchange = realloc(bui->exchange, (nExcObj + 1) * sizeof(FMUInOut*));
+    bui->exchange = realloc(bui->exchange, (nExcObj + 1) * sizeof(SpawnObject*));
     if (bui->exchange == NULL){
-      SpawnError("Not enough memory in EnergyPlusFMU.c. to allocate memory for bld->exc.");
+      SpawnError("Not enough memory in SpawnFMU.c. to allocate memory for bld->exc.");
     }
   }
   /* Assign the exchange object */
-  bui->exchange[nExcObj] = ptrInOut;
+  bui->exchange[nExcObj] = ptrSpaObj;
   /* Increment the count of exchange objects to this building. */
   bui->nExcObj++;
 
   checkAndSetVerbosity(bui, logLevel);
 
   if (bui->logLevel >= MEDIUM)
-    SpawnFormatMessage("---- %s: EnergyPlusFMU.c: nExcObj = %d\n", bui->modelicaNameBuilding,
+    SpawnFormatMessage("---- %s: SpawnFMU.c: nExcObj = %d\n", bui->modelicaNameBuilding,
       bui->nExcObj);
 }
 
