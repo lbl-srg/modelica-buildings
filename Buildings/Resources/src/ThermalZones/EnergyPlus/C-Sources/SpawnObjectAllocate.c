@@ -53,7 +53,7 @@ void initializeUnitsModelica(
     }
   }
 
-void checkForDoubleExchangeDeclaration(const struct FMUBuilding* fmuBld, const int objectType, const char* jsonKeysValues, char** doubleSpec){
+void checkForDoubleDeclaration(const struct FMUBuilding* fmuBld, const int objectType, const char* jsonKeysValues, char** doubleSpec){
   size_t iExcObj;
   SpawnObject** ptrSpaObj = (SpawnObject**)(fmuBld->exchange);
   for(iExcObj = 0; iExcObj < fmuBld->nExcObj; iExcObj++){
@@ -125,8 +125,8 @@ void* EnergyPlusSpawnAllocate(
   size_t i;
   SpawnObject* ptrSpaObj;
   const size_t nFMU = getBuildings_nFMU();
-  /* Name used to check for duplicate zone entries in the same building */
-  char* doubleZoneSpec;
+  /* Name used to check for duplicate entries of the same object in the same building */
+  char* doubleObjectSpec;
 
   if (logLevel >= MEDIUM){
     SpawnFormatMessage("---- %s: Entered EnergyPlusSpawnAllocate.\n", modelicaName);
@@ -274,24 +274,24 @@ void* EnergyPlusSpawnAllocate(
           modelicaName, fmu->fmuAbsPat, modelicaNameBuilding);
       }
       /* This is the same FMU as before. Check for double declaration of objects that set inputs to EnergyPlus */
-      doubleZoneSpec = NULL;
-      checkForDoubleExchangeDeclaration(fmu, THERMALZONE, jsonKeysValues, &doubleZoneSpec);
-      if (doubleZoneSpec != NULL){
+      doubleObjectSpec = NULL;
+      checkForDoubleDeclaration(fmu, THERMALZONE, jsonKeysValues, &doubleObjectSpec);
+      if (doubleObjectSpec != NULL){
         SpawnFormatError(
           "Modelica model specifies zone '%s' twice, once in %s and once in %s, both belonging to building %s. Each zone must only be specified once per building.",
-        jsonKeysValues, modelicaName, doubleZoneSpec, fmu->modelicaNameBuilding);
+        jsonKeysValues, modelicaName, doubleObjectSpec, fmu->modelicaNameBuilding);
       }
-      checkForDoubleExchangeDeclaration(fmu, SCHEDULE, jsonKeysValues, &doubleZoneSpec);
-      if (doubleZoneSpec != NULL){
+      checkForDoubleDeclaration(fmu, SCHEDULE, jsonKeysValues, &doubleObjectSpec);
+      if (doubleObjectSpec != NULL){
         SpawnFormatError(
           "Modelica model specifies schedule '%s' twice, once in %s and once in %s, both belonging to building %s. Each schedule must only be specified once per building.",
-        jsonKeysValues, modelicaName, doubleZoneSpec, fmu->modelicaNameBuilding);
+        jsonKeysValues, modelicaName, doubleObjectSpec, fmu->modelicaNameBuilding);
       }
-      checkForDoubleExchangeDeclaration(fmu, ACTUATOR, jsonKeysValues, &doubleZoneSpec);
-      if (doubleZoneSpec != NULL){
+      checkForDoubleDeclaration(fmu, ACTUATOR, jsonKeysValues, &doubleObjectSpec);
+      if (doubleObjectSpec != NULL){
         SpawnFormatError(
           "Modelica model specifies actuator '%s' twice, once in %s and once in %s, both belonging to building %s. Each actuator must only be specified once per building.",
-        jsonKeysValues, modelicaName, doubleZoneSpec, fmu->modelicaNameBuilding);
+        jsonKeysValues, modelicaName, doubleObjectSpec, fmu->modelicaNameBuilding);
       }
 
       if (usePrecompiledFMU){

@@ -68,8 +68,6 @@ protected
     start=startTime,
     fixed=true)
     "Next sampling time";
-  Integer counter
-    "Counter for number of calls to EnergyPlus during time steps";
 initial equation
   assert(
     not usePrecompiledFMU,
@@ -89,7 +87,6 @@ initial equation
     u = {round(time, 1E-3), directDependency_in_internal},
     dummy = dummy);
 
-  counter=0;
 equation
   if isDirectDependent then
     connect(directDependency,directDependency_in_internal);
@@ -107,9 +104,6 @@ equation
 
     y = yEP[1];
     tNext = yEP[2];
-
-    counter=pre(
-      counter)+1;
   end when;
   annotation (
     defaultComponentName="out",

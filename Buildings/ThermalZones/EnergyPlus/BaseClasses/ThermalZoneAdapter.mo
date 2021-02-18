@@ -148,8 +148,6 @@ protected
     fixed=false,
     start=0)
     "Convective sensible heat to be added to zone air if T = TRooLast";
-  Integer counter
-    "Counter for number of calls to EnergyPlus during time steps";
   function round
     input Real u;
     input Real accuracy;
@@ -171,7 +169,6 @@ initial equation
       "If usePrecompiledFMU = true, must set parameter fmuName");
   end if;
   startTime=time;
-  counter=0;
   {AFlo,V,mSenFac, dummy}=Buildings.ThermalZones.EnergyPlus.BaseClasses.initialize(
     adapter=adapter,
     startTime=startTime,
@@ -205,7 +202,6 @@ equation
   end if;
 
   when {initial(), time >= pre(tNext)} then
-//    Modelica.Utilities.Streams.print("time = " + String(time) + "\t initial() = " + String(initial()) + "\t pre(counter) = " + String(pre(counter)) + "\t counter = " + String((counter)));
     // Initialization of output variables.
     TRooLast=T;
     dtLast=time-pre(
@@ -243,8 +239,6 @@ equation
     tNext = yEP[6];
 
     tLast=time;
-    counter=pre(
-      counter)+1;
   end when;
   QCon_flow=QConLast_flow+(T-TRooLast)*dQCon_flow_dT;
   annotation (
