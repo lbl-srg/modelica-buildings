@@ -50,7 +50,7 @@ equation
   Diagram(
   coordinateSystem(preserveAspectRatio=false, extent={{-360,-260},{360,260}})),
     __Dymola_Commands(
-  file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Examples/Combined/Generation5/Unidirectional/Examples/ParallelConstantFlow.mos"
+  file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Examples/Combined/Generation5/Examples/ParallelConstantFlow.mos"
   "Simulate and plot"),
   experiment(
     StopTime=604800,

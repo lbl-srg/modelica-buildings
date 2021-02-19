@@ -60,7 +60,8 @@ model HeatPump "Base subsystem with water to water heat pump"
     "Mass flow rate on evaporator side"
     annotation (Dialog(group="Nominal condition"));
   // IO CONNECTORS
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uEna "Enable signal"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uEna(start=false)
+    "Enable signal"
     annotation (
       Placement(transformation(extent={{-240,100},{-200,140}}),
         iconTransformation(extent={{-140,70},{-100,110}})));
@@ -179,7 +180,8 @@ model HeatPump "Base subsystem with water to water heat pump"
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-40,-20})));
-  Buildings.Controls.OBC.CDL.Logical.Switch enaHeaPum
+  Buildings.Controls.OBC.CDL.Logical.Switch enaHeaPum(
+    u2(start=false))
     "Enable heat pump by switching to actual set point"
     annotation (Placement(transformation(extent={{-140,10},{-120,30}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add2 "Adder"
@@ -188,6 +190,7 @@ model HeatPump "Base subsystem with water to water heat pump"
     "Replacement variable"
     annotation (Placement(transformation(extent={{80,-110},{100,-90}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold staPum[2](
+    y(each start=false),
     t=1e-2 .* {m1_flow_nominal,m2_flow_nominal},
     h=0.5e-2 .* {m1_flow_nominal, m2_flow_nominal})
     "Pump return status"
@@ -253,8 +256,8 @@ equation
           20,-55},{20,-100},{-78,-100}}, color={0,0,127}));
   connect(staPum[1].y, ena.u1)
     annotation (Line(points={{-102,-100},{-118,-100}}, color={255,0,255}));
-  connect(staPum[2].y, ena.u2) annotation (Line(points={{-102,-100},{-106,-100},
-          {-106,-108},{-118,-108}}, color={255,0,255}));
+  connect(staPum[2].y, ena.u2) annotation (Line(points={{-102,-100},{-110,-100},
+          {-110,-108},{-118,-108}}, color={255,0,255}));
   connect(ena.y, enaHeaPum.u2) annotation (Line(points={{-142,-100},{-160,-100},
           {-160,20},{-142,20}}, color={255,0,255}));
   connect(one.y, staPum[1].u)

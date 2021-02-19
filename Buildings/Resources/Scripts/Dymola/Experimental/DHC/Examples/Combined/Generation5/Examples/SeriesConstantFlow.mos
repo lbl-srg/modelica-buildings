@@ -1,4 +1,5 @@
-simulateModel("Buildings.Experimental.DHC.Examples.Combined.Generation5.Unidirectional.Examples.SeriesConstantFlow",
+removePlots();
+simulateModel("Buildings.Experimental.DHC.Examples.Combined.Generation5.Examples.SeriesConstantFlow",
     method="cvode",
     tolerance=1e-6,
     // startTime=0,
