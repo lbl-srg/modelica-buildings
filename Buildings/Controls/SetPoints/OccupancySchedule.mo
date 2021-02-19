@@ -17,7 +17,7 @@ block OccupancySchedule "Occupancy schedule with look-ahead"
     "Outputs true if occupied at current time"
     annotation (Placement(transformation(extent={{100,-70},{120,-50}})));
 
-protected
+//protected
   final parameter Integer nRow = size(occupancy,1)
     "Number of rows in the schedule";
 
@@ -103,8 +103,9 @@ initial algorithm
  end if;
  tOcc    := occupancy[nexStaInd]+iPerSta*period;
  tNonOcc := occupancy[nexStoInd]+iPerSto*period;
- occupied := tNonOcc < tOcc;
 
+ occupied := tNonOcc < tOcc;
+ Modelica.Utilities.Streams.print("*** fixme: Compared tNonOcc < tOcc = " + String(tNonOcc) + " < " + String(tOcc) + " to give occupied = " + String(occupied));
  // Now, correct if the first entry is vaccant instead of occupied
  if not firstEntryOccupied then
    (nexStaInd, nexStoInd) := switchInteger(nexStaInd, nexStoInd);
@@ -112,9 +113,13 @@ initial algorithm
    (tOcc, tNonOcc)        := switchReal(tOcc,      tNonOcc);
    occupied := not occupied;
  end if;
+ Modelica.Utilities.Streams.print("*** fixme: End of initial algorithm: occupied = " + String(occupied));
 
 equation
-  when time >= pre(tOcc) then
+  assert(occupied == false, "*** fixme: Expected occupied = false, but received occupied = " + String(occupied));
+  when time >= 1E100 + pre(tOcc) then
+    assert(false, "Entered when clause which should not happen");
+
     // Changed the index that computes the time until the next occupancy
     nexStaInd = if pre(nexStaInd) + 2 <= nRow then (pre(nexStaInd) + 2)
                 else (if firstEntryOccupied then 1 else 2);
@@ -126,8 +131,9 @@ equation
     nexStoInd = pre(nexStoInd);
     iPerSto   = pre(iPerSto);
     tNonOcc   = pre(tNonOcc);
-  elsewhen time >= pre(tNonOcc) then
+  elsewhen time >= 1E100 + pre(tNonOcc) then
     // Changed the index that computes the time until the next non-occupancy
+    assert(false, "Entered when clause which should not happen");
     nexStoInd = if pre(nexStoInd) + 2 <= nRow then (pre(nexStoInd) + 2)
                 else (if firstEntryOccupied then 2 else 1);
     iPerSto = if pre(nexStoInd) + 2 <= nRow then pre(iPerSto)
