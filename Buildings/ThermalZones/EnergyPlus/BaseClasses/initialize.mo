@@ -23,7 +23,13 @@ External function to obtain parameters from the EnergyPlus FMU.
 </p>
 </html>",
       revisions="<html>
-<ul><li>
+<ul>
+<li>
+February 18, 2021, by Michael Wetter:<br/>
+Refactor synchronization of constructors.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2360\">#2360</a>.
+</li>
+<li>
 March 1, 2018, by Michael Wetter:<br/>
 First implementation.
 </li>

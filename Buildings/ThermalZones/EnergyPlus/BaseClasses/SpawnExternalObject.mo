@@ -92,6 +92,11 @@ will be used to store the data structure needed to communicate with EnergyPlus.
         revisions="<html>
 <ul>
 <li>
+February 18, 2021, by Michael Wetter:<br/>
+Refactor synchronization of constructors.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2360\">#2360</a>.
+</li>
+<li>
 February 14, 2018, by Michael Wetter:<br/>
 First implementation.
 </li>
@@ -119,6 +124,11 @@ Destructor that frees the memory of the object.
         revisions="<html>
 <ul>
 <li>
+February 18, 2021, by Michael Wetter:<br/>
+Refactor synchronization of constructors.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2360\">#2360</a>.
+</li>
+<li>
 February 14, 2018, by Michael Wetter:<br/>
 First implementation.
 </li>
@@ -138,6 +148,11 @@ of the data structure needed to communicate with the EnergyPlus FMU.
 </html>",
       revisions="<html>
 <ul>
+<li>
+February 18, 2021, by Michael Wetter:<br/>
+Refactor synchronization of constructors.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2360\">#2360</a>.
+</li>
 <li>
 April 04, 2018, by Thierry S. Nouidui:<br/>
 Added additional parameters for parametrizing

@@ -183,13 +183,6 @@ initial equation
   TAveInlet=293.15;
   m_flow_small=V*3*1.2/3600*1E-10;
 
-//    Buildings.ThermalZones.EnergyPlus.BaseClasses.exchange(
-//      adapter = adapter,
-//      initialCall = true,
-//      nY = nY,
-//      u = {T, X_w/(1.-X_w), mInlet_flow, TAveInlet, QGaiRad_flow, round(time, 1E-3)},
-//      dummy = nObj);
-
   assert(
     AFlo > 0,
     "Floor area must not be zero.");
@@ -269,6 +262,11 @@ of its class <code>adapter</code>, of EnergyPlus.
 </html>",
       revisions="<html>
 <ul>
+<li>
+February 18, 2021, by Michael Wetter:<br/>
+Refactor synchronization of constructors.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2360\">#2360</a>.
+</li>
 <li>
 December 6, 2020, by Michael Wetter:<br/>
 Reformulated <code>when</code> condition to avoid using <code>not initial()</code>.

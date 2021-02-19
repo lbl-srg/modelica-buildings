@@ -142,6 +142,11 @@ extension <code>.mos</code> replaced with <code>.epw</code>.
       revisions="<html>
 <ul>
 <li>
+February 18, 2021, by Michael Wetter:<br/>
+Refactor synchronization of constructors.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2360\">#2360</a>.
+</li>
+<li>
 January 28, 2020, by Michael Wetter:<br/>
 First implementation.
 </li>

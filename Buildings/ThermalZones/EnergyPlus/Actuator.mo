@@ -228,6 +228,11 @@ If specified, it will be ignored and the Modelica object be used instead.
       revisions="<html>
 <ul>
 <li>
+February 18, 2021, by Michael Wetter:<br/>
+Refactor synchronization of constructors.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2360\">#2360</a>.
+</li>
+<li>
 November 13, 2019, by Michael Wetter:<br/>
 First implementation.
 </li>

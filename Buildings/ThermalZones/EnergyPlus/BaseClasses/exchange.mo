@@ -31,7 +31,13 @@ External function that exchanges data with EnergyPlus for the current thermal zo
 </p>
 </html>",
       revisions="<html>
-<ul><li>
+<ul>
+<li>
+February 18, 2021, by Michael Wetter:<br/>
+Refactor synchronization of constructors.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2360\">#2360</a>.
+</li>
+<li>
 February 14, 2018, by Michael Wetter:<br/>
 First implementation.
 </li>

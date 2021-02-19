@@ -174,6 +174,11 @@ will cause the value to be sent to EnergyPlus without any unit conversion.
       revisions="<html>
 <ul>
 <li>
+February 18, 2021, by Michael Wetter:<br/>
+Refactor synchronization of constructors.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2360\">#2360</a>.
+</li>
+<li>
 November 8, 2019, by Michael Wetter:<br/>
 First implementation.
 </li>

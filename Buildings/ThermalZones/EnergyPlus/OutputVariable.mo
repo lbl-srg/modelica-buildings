@@ -186,29 +186,25 @@ based on the information that EnergyPlus provides.)
 </p>
 <h4>Direct dependency of output</h4>
 <p>
-Some output variables <i>directly</i> depend on input variable, i.e.,
+Some output variables <i>directly</i> depend on input variables, i.e.,
 if an input variable changes, the output changes immediately.
 Examples are
 the illuminance in a room that changes instantaneously when the window blind is changed, or
-the <code>Zone Electric Equipment Electricity Rate</code> which changes instantaneously
+the output variable <code>Zone Electric Equipment Electricity Rate</code> which changes instantaneously
 when a schedule value switches it on
 (see
 <a href=\"modelica://Buildings.ThermalZones.EnergyPlus.Validation.Schedule.EquipmentScheduleOutputVariable\">
 Buildings.ThermalZones.EnergyPlus.Validation.Schedule.EquipmentScheduleOutputVariable</a>).
-For such variables, set <code>isDirectDependent=true</code>.
-In contrast, an output variables does not depend directly on an input variable if
-it is a continuous time state, or if it only depends on time such as weather data.
-Examples are
-the zone air temperature <code>Zone Mean Air Temperature</code> which only changes <i>after</i>
-time lapsed, i.e., EnergyPlus made a time step, or
-<code>Surface Outside Face Incident Beam Solar Radiation Rate per Area</code> which does of course
-not change if an occupancy schedule changes.
-For these variables, leave <code>isDirectDependent=false</code>.
+For such variables, users should set <code>isDirectDependent=true</code>.
+Output variables that do not depend directly on an input variable include
+continuous time states such as the inside temperature of a wall
+and variables that only depend on time such as weather data.
+For these variables, users should leave <code>isDirectDependent=false</code>.
 </p>
 <p>
-If <code>isDirectDependent=true</code>, the input connector <code>directDependency</code>
-is enabled.
-You need to connect this input to the output(s) of these instance of
+If a user sets <code>isDirectDependent=true</code>, then the model enables
+the input connector <code>directDependency</code>.
+Users then need to connect this input to the output(s) of these instance of
 <a href=\"modelica://Buildings.ThermalZones.EnergyPlus.Actuator\">
 Buildings.ThermalZones.EnergyPlus.Actuator</a>
 or
@@ -218,7 +214,7 @@ on which this output directly depends on.
 See for example
 <a href=\"modelica://Buildings.ThermalZones.EnergyPlus.Validation.Schedule.EquipmentScheduleOutputVariable\">
 Buildings.ThermalZones.EnergyPlus.Validation.Schedule.EquipmentScheduleOutputVariable</a>.
-If the output depends on multiple inputs, just multiply these inputs before connecting their product
+If the output depends on multiple inputs, just multiply these inputs and connect their product
 to the connector <code>directDependency</code>. What the value is is irrelevant,
 but a Modelica code generator will then understand that first the input needs to be sent
 to EnergyPlus before the output is requested.
@@ -232,6 +228,11 @@ Buildings.ThermalZones.EnergyPlus.UsersGuide.SupportedOutputVariables</a>.
 </html>",
       revisions="<html>
 <ul>
+<li>
+February 18, 2021, by Michael Wetter:<br/>
+Refactor synchronization of constructors.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2360\">#2360</a>.
+</li>
 <li>
 December 6, 2020, by Michael Wetter:<br/>
 Reformulated <code>when</code> condition to avoid using <code>not initial()</code>.

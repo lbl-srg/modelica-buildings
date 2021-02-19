@@ -61,6 +61,11 @@ Partial model for an EnergyPlus object.
       revisions="<html>
 <ul>
 <li>
+February 18, 2021, by Michael Wetter:<br/>
+Refactor synchronization of constructors.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2360\">#2360</a>.
+</li>
+<li>
 April 04, 2018, by Thierry S. Nouidui:<br/>
 Added additional parameters for parametrizing
 the EnergyPlus model.
