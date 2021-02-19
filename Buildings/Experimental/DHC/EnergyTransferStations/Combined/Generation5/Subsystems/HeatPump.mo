@@ -13,15 +13,21 @@ model HeatPump "Base subsystem with water to water heat pump"
       Buildings.Media.Antifreeze.PropyleneGlycolWater (property_T=293.15,X_a=0.40)
     "Propylene glycol water, 40% mass fraction")));
   parameter Boolean have_pumCon = true
-    "Set to true to include a condenser pump"
+    "Set to true to include a condenser pump (false for external pump)"
     annotation(Evaluate=true);
-  parameter Real COP_nominal(final unit="1") = 5
+  parameter Boolean have_varFloCon = true
+    "Set to true for a variable condenser flow"
+    annotation(Evaluate=true, Dialog(enable=have_pumCon));
+  parameter Boolean have_varFloEva = true
+    "Set to true for a variable evaporator flow"
+    annotation(Evaluate=true);
+  parameter Real COP_nominal(final unit="1")
     "Heat pump COP"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Temperature TCon_nominal = 303.15
+  parameter Modelica.SIunits.Temperature TCon_nominal
     "Condenser outlet temperature used to compute COP_nominal"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Temperature TEva_nominal = 278.15
+  parameter Modelica.SIunits.Temperature TEva_nominal
     "Evaporator outlet temperature used to compute COP_nominal"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.HeatFlowRate Q1_flow_nominal(min=0)
@@ -56,14 +62,24 @@ model HeatPump "Base subsystem with water to water heat pump"
   // IO CONNECTORS
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uEna "Enable signal"
     annotation (
-      Placement(transformation(extent={{-240,80},{-200,120}}),
-        iconTransformation(extent={{-140,0},{-100,40}})));
+      Placement(transformation(extent={{-240,100},{-200,140}}),
+        iconTransformation(extent={{-140,70},{-100,110}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSupSet(
     final unit="K",
     displayUnit="degC")
     "Supply temperature set point"
     annotation (Placement(transformation(extent={{-240,-40},{-200,0}}),
-      iconTransformation(extent={{-140,-40},{-100, 0}})));
+      iconTransformation(extent={{-140,10},{-100,50}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput m1_flow(
+    final unit="kg/s") if have_varFloCon and have_pumCon
+    "Condenser mass flow rate"
+    annotation (Placement(transformation(extent={{-240,60},{-200,100}}),
+      iconTransformation(extent={{-140,-20},{-100,20}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput m2_flow(
+    final unit="kg/s") if have_varFloEva
+    "Evaporator mass flow rate"
+    annotation (Placement(transformation(extent={{-240,20},{-200,60}}),
+      iconTransformation(extent={{-140,-50},{-100,-10}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_a2(
     redeclare final package Medium = Medium2,
     m_flow(min=if allowFlowReversal2 then -Modelica.Constants.inf else 0),
@@ -100,6 +116,11 @@ model HeatPump "Base subsystem with water to water heat pump"
     final unit="W") "Pump power"
     annotation (Placement(transformation(extent={{200,-20},{240,20}}),
     iconTransformation(extent={{100,-20},{140,20}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput mEva_flow(final unit="kg/s")
+    "Evaporator water mass flow rate"
+    annotation (Placement(transformation(
+      extent={{200,-60},{240,-20}}), iconTransformation(extent={{100,-50},{
+        140,-10}})));
   // COMPONENTS
   Fluid.HeatPumps.Carnot_TCon heaPum(
     redeclare final package Medium1 = Medium1,
@@ -129,12 +150,16 @@ model HeatPump "Base subsystem with water to water heat pump"
     final allowFlowReversal=allowFlowReversal1) if have_pumCon
     "Heat pump condenser water pump"
     annotation (Placement(transformation(extent={{-70,-70},{-50,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain gai(k=m1_flow_nominal)
-    annotation (Placement(transformation(extent={{-100,110},{-80,130}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant floConNom(
+    final k=m1_flow_nominal) if not have_varFloCon
+    "Nominal flow rate"
+    annotation (Placement(transformation(extent={{-100,80},{-120,100}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea
-    annotation (Placement(transformation(extent={{-140,90},{-120,110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain gai1(k=m2_flow_nominal)
-    annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
+    annotation (Placement(transformation(extent={{-180,110},{-160,130}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant floEvaNom(
+    final k=m2_flow_nominal) if not have_varFloEva
+    "Nominal flow rate"
+    annotation (Placement(transformation(extent={{0,80},{-20,100}})));
   Fluid.Sensors.TemperatureTwoPort senTConLvg(
     redeclare final package Medium = Medium1,
     final allowFlowReversal=allowFlowReversal1,
@@ -157,18 +182,15 @@ model HeatPump "Base subsystem with water to water heat pump"
   Buildings.Controls.OBC.CDL.Logical.Switch enaHeaPum
     "Enable heat pump by switching to actual set point"
     annotation (Placement(transformation(extent={{-140,10},{-120,30}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput mEva_flow(final unit="kg/s")
-    "Evaporator water mass flow rate" annotation (Placement(transformation(
-          extent={{200,-60},{240,-20}}), iconTransformation(extent={{100,-50},{
-            140,-10}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add2 "Adder"
     annotation (Placement(transformation(extent={{140,-10},{160,10}})));
   Modelica.Blocks.Sources.Constant zer(final k=0) if not have_pumCon
     "Replacement variable"
     annotation (Placement(transformation(extent={{80,-110},{100,-90}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold staPum[2](t=1e-2 .* {
-        m1_flow_nominal,m2_flow_nominal}, h=0.5e-2 .* {m1_flow_nominal,
-        m2_flow_nominal}) "Pump return status"
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold staPum[2](
+    t=1e-2 .* {m1_flow_nominal,m2_flow_nominal},
+    h=0.5e-2 .* {m1_flow_nominal, m2_flow_nominal})
+    "Pump return status"
     annotation (Placement(transformation(extent={{-80,-110},{-100,-90}})));
   Buildings.Controls.OBC.CDL.Logical.And ena
     "Enable heat pump if pump return status on"
@@ -176,16 +198,13 @@ model HeatPump "Base subsystem with water to water heat pump"
   Modelica.Blocks.Sources.Constant one(final k=1) if not have_pumCon
     "Replacement variable"
     annotation (Placement(transformation(extent={{60,-110},{40,-90}})));
+  Buildings.Controls.OBC.CDL.Continuous.Product floCon if have_pumCon
+    "Zero flow rate if not enabled"
+    annotation (Placement(transformation(extent={{-120,110},{-100,130}})));
+  Buildings.Controls.OBC.CDL.Continuous.Product floEva
+    "Zero flow rate if not enabled"
+    annotation (Placement(transformation(extent={{-20,110},{0,130}})));
 equation
-  connect(booToRea.y,gai. u)
-    annotation (Line(points={{-118,100},{-110,100},{-110,120},{-102,120}},
-                                                     color={0,0,127}));
-  connect(gai.y,pumCon. m_flow_in) annotation (Line(points={{-78,120},{-60,120},
-          {-60,-48}},  color={0,0,127}));
-  connect(gai1.y,pumEva. m_flow_in)
-    annotation (Line(points={{-78,80},{60,80},{60,-48}},     color={0,0,127}));
-  connect(booToRea.y,gai1. u) annotation (Line(points={{-118,100},{-110,100},{-110,
-          80},{-102,80}}, color={0,0,127}));
   connect(pumEva.port_b,heaPum. port_a2)
     annotation (Line(points={{50,-60},{40,-60},{40,-20},{20,-20}},
                                                    color={0,127,255}));
@@ -198,7 +217,7 @@ equation
   connect(enaHeaPum.y,heaPum. TSet) annotation (Line(points={{-118,20},{-10,20},
           {-10,-5},{-2,-5}},  color={0,0,127}));
   connect(uEna, booToRea.u)
-    annotation (Line(points={{-220,100},{-142,100}}, color={255,0,255}));
+    annotation (Line(points={{-220,120},{-182,120}}, color={255,0,255}));
   connect(TSupSet, enaHeaPum.u1) annotation (Line(points={{-220,-20},{-180,-20},
           {-180,28},{-142,28}},   color={0,0,127}));
   connect(heaPum.port_b2, port_b2) annotation (Line(points={{0,-20},{-20,-20},{-20,
@@ -240,6 +259,22 @@ equation
           {-160,20},{-142,20}}, color={255,0,255}));
   connect(one.y, staPum[1].u)
     annotation (Line(points={{39,-100},{-78,-100}}, color={0,0,127}));
+  connect(booToRea.y, floCon.u1) annotation (Line(points={{-158,120},{-140,120},
+          {-140,126},{-122,126}}, color={0,0,127}));
+  connect(m1_flow, floCon.u2) annotation (Line(points={{-220,80},{-140,80},{-140,
+          114},{-122,114}}, color={0,0,127}));
+  connect(booToRea.y, floEva.u1) annotation (Line(points={{-158,120},{-140,120},
+          {-140,134},{-40,134},{-40,126},{-22,126}}, color={0,0,127}));
+  connect(floConNom.y, floCon.u2) annotation (Line(points={{-122,90},{-130,90},{
+          -130,114},{-122,114}}, color={0,0,127}));
+  connect(m2_flow, floEva.u2) annotation (Line(points={{-220,40},{-40,40},{-40,114},
+          {-22,114}}, color={0,0,127}));
+  connect(floEvaNom.y, floEva.u2) annotation (Line(points={{-22,90},{-30,90},{-30,
+          114},{-22,114}}, color={0,0,127}));
+  connect(floEva.y, pumEva.m_flow_in)
+    annotation (Line(points={{2,120},{60,120},{60,-48}}, color={0,0,127}));
+  connect(floCon.y, pumCon.m_flow_in)
+    annotation (Line(points={{-98,120},{-60,120},{-60,-48}}, color={0,0,127}));
   annotation (
   defaultComponentName="heaPum",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={
