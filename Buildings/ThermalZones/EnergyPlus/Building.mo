@@ -40,9 +40,9 @@ model Building
     synchronize
     "Connector that synchronizes all Spawn objects of this buildings";
 
-  Real synchronization_done = synchronize.done;
+  Real synchronization_done = synchronize.done
+    "Intermediate variable as acausal connectors cannot be used in the algorithm section";
   Real isSynchronized "Flag used to synchronize Spawn objects";
-  Real dummy;
 
 protected
   Linux64Binaries linux64Binaries if generatePortableFMU
@@ -69,8 +69,7 @@ equation
   connect(weaDat.weaBus,weaBus)
     annotation (Line(points={{10,0},{100,0}},color={255,204,51},thickness=0.5),Text(string="%second",index=1,extent={{6,3},{6,3}},horizontalAlignment=TextAlignment.Left));
 algorithm
-  dummy := synchronization_done;
-  isSynchronized := 0;
+  isSynchronized := synchronization_done;
   annotation (
     defaultComponentName="building",
     defaultComponentPrefixes="inner",

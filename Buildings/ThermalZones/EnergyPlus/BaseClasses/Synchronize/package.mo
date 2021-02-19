@@ -7,7 +7,7 @@ for Spawn.
 The implementation is based on
 Elmqvist et al. (2015) and
 the code provided in
-<a href=\"https://github.com/modelica/ModelicaSpecification/issues/2842#issuecomment-776194950\">Modelica #2842</a>.
+<a href=\"https://github.com/modelica/ModelicaSpecification/issues/2842\">Modelica #2842</a>.
 </p>
 <h4>References</h4>
 <p>
