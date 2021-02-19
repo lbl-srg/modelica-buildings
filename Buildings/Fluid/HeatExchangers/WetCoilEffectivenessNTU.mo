@@ -42,12 +42,12 @@ model WetCoilEffectivenessNTU
     annotation (Dialog(
       group="Nominal thermal performance",
       enable=not use_UA_nominal));
-  parameter Modelica.SIunits.MassFraction X_w_a2_nominal(fixed=not use_UA_nominal)
-    "Water mass fraction of inlet air at a rated condition (in kg/kg total air)"
+  parameter Modelica.SIunits.MassFraction w_a2_nominal(fixed=not use_UA_nominal)
+    "Humidity ratio of inlet air at a rated condition (in kg/kg dry air)"
     annotation (Dialog(
       group="Nominal thermal performance",
       enable=not use_UA_nominal));
-
+  
   parameter Real r_nominal=2/3
     "Ratio between air-side and water-side convective heat transfer coefficient"
     annotation (Dialog(group="Nominal thermal performance"));
@@ -83,6 +83,10 @@ model WetCoilEffectivenessNTU
     "Water flow rate of condensate removed from the air stream";
 
 protected
+
+  final parameter Modelica.SIunits.MassFraction X_w_a2_nominal=w_a2_nominal/(1+w_a2_nominal)
+    "Water mass fraction of inlet air at a rated condition (in kg/kg total air)";
+
   parameter Boolean waterSideFlowDependent=true
     "Set to false to make water-side hA independent of mass flow rate"
     annotation (Dialog(tab="Heat transfer"));
@@ -112,7 +116,7 @@ protected
     final r_nominal=r_nominal,
     final TAirIn=T_a2_nominal,
     final TAirOut=T_b2_nominal,
-    final wAirIn=X_w_a2_nominal,
+    final X_wAirIn=X_w_a2_nominal,
     final TWatIn=T_a1_nominal,
     final TWatOut=T_b1_nominal,
     final mAir_flow=m2_flow_nominal,
@@ -376,7 +380,7 @@ equation
   connect(cp_a1Exp.y, dryWetCalcs.cpWat) annotation (Line(points={{-29.3,24},{
           -22.8571,24},{-22.8571,23.3333}},
                                    color={0,0,127}));
-  connect(XWat_a2Exp.y, dryWetCalcs.wAirIn) annotation (Line(points={{-29.3,4},
+  connect(XWat_a2Exp.y, dryWetCalcs.X_wAirIn) annotation (Line(points={{-29.3,4},
           {-22.8571,4},{-22.8571,3.33333}},  color={0,0,127}));
   connect(p_a2Exp.y, dryWetCalcs.pAir) annotation (Line(points={{-29.3,-4},{
           -22.8571,-4},{-22.8571,-3.33333}},

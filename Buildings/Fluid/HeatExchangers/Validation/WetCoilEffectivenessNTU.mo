@@ -51,9 +51,7 @@ model WetCoilEffectivenessNTU
     nPorts=3)
     "Sink for water"
     annotation (Placement(transformation(extent={{50,10},{30,30}})));
-  Modelica.Blocks.Sources.CombiTimeTable X_w2(
-    table=[0,0.0035383; 1,0.01765],
-    timeScale=100) "Water mass fraction of entering air"
+  Buildings.Utilities.Psychrometrics.ToTotalAir conversion
     annotation (Placement(transformation(extent={{190,-90},{170,-70}})));
   Sensors.RelativeHumidityTwoPort RelHumIn(redeclare package Medium = Medium_A,
       m_flow_nominal=m2_flow_nominal) "Inlet relative humidity"
@@ -148,7 +146,7 @@ model WetCoilEffectivenessNTU
     redeclare package Medium2 = Medium_A,
     T_a2_nominal=T_a2_nominal,
     T_b2_nominal=T_b2_nominal_wet,
-    X_w_a2_nominal=X_w_a2_nominal_wet,
+    w_a2_nominal=X_w_a2_nominal_wet/(1 - X_w_a2_nominal_wet),
     T_a1_nominal=T_a1_nominal,
     T_b1_nominal=T_b1_nominal_wet,
     m1_flow_nominal=m1_flow_nominal,
@@ -174,6 +172,9 @@ model WetCoilEffectivenessNTU
     nPorts=1)
     "Source for water"
     annotation (Placement(transformation(extent={{-180,-30},{-160,-10}})));
+  Modelica.Blocks.Sources.CombiTimeTable w_a2(table=[0,0.0035383; 1,0.01765],
+      timeScale=100) "Absolute humidity of entering air"
+    annotation (Placement(transformation(extent={{196,-34},{176,-14}})));
 equation
   connect(pAir.y, wetBulIn.p) annotation (Line(points={{119,-30},{112,-30},{112,
           -8},{119,-8}},       color={0,0,127}));
@@ -202,14 +203,10 @@ equation
   connect(hexWetNTU.port_b1, sinWat.ports[1]) annotation (Line(points={{-10,20},
           {16,20},{16,22.6667},{30,22.6667}},
                                   color={0,127,255}));
-  connect(X_w2.y[1], souAir.Xi_in[1]) annotation (Line(points={{169,-80},{160,-80},
-          {160,-64},{142,-64}}, color={0,0,127}));
   connect(souWat.ports[1], hexDis.port_a1) annotation (Line(points={{-160,80},{-40,
           80},{-40,72},{-30,72}}, color={0,127,255}));
   connect(hexDis.port_b1, sinWat.ports[2]) annotation (Line(points={{-10,72},{20,
           72},{20,20},{30,20}},              color={0,127,255}));
-  connect(X_w2.y[1], souAir2.Xi_in[1]) annotation (Line(points={{169,-80},{160,-80},
-          {160,36},{142,36}}, color={0,0,127}));
   connect(souAir2.ports[1], hexDis.port_a2) annotation (Line(points={{120,40},{
           0,40},{0,60},{-10,60}},      color={0,127,255}));
   connect(hexWetNTU.port_b2, TDryBulOut.port_a) annotation (Line(points={{-30,8},
@@ -231,14 +228,20 @@ equation
     annotation (Line(points={{-100,60},{-110,60}}, color={0,127,255}));
   connect(hexWetNTU_TX.port_b1, sinWat.ports[3]) annotation (Line(points={{-10,-28},
           {20,-28},{20,17.3333},{30,17.3333}}, color={0,127,255}));
-  connect(X_w2.y[1], souAir1.Xi_in[1]) annotation (Line(points={{169,-80},{160,-80},
-          {160,-104},{142,-104}}, color={0,0,127}));
   connect(souAir1.ports[1], hexWetNTU_TX.port_a2) annotation (Line(points={{120,
           -100},{0,-100},{0,-40},{-10,-40}}, color={0,127,255}));
   connect(sinAir.ports[3], hexWetNTU_TX.port_b2) annotation (Line(points={{-160,
           -64.6667},{-130,-64.6667},{-130,-40},{-30,-40}}, color={0,127,255}));
   connect(souWat2.ports[1], hexWetNTU_TX.port_a1) annotation (Line(points={{-160,
           -20},{-40,-20},{-40,-28},{-30,-28}}, color={0,127,255}));
+  connect(w_a2.y[1], conversion.XiDry) annotation (Line(points={{175,-24},{172,
+          -24},{172,-50},{196,-50},{196,-80},{191,-80}}, color={0,0,127}));
+  connect(conversion.XiTotalAir, souAir.Xi_in[1]) annotation (Line(points={{169,
+          -80},{158,-80},{158,-64},{142,-64}}, color={0,0,127}));
+  connect(conversion.XiTotalAir, souAir1.Xi_in[1]) annotation (Line(points={{
+          169,-80},{154,-80},{154,-104},{142,-104}}, color={0,0,127}));
+  connect(conversion.XiTotalAir, souAir2.Xi_in[1]) annotation (Line(points={{
+          169,-80},{158,-80},{158,36},{142,36}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true,
     extent={{-200,-120},{200,120}})),
     experiment(

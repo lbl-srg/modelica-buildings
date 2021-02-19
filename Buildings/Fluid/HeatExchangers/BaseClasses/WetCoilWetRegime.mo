@@ -27,7 +27,7 @@ model WetCoilWetRegime
     "Specific heat capacity of moist air at constant pressure";
   input Modelica.SIunits.Temperature TAirIn
     "Temperature of air at inlet";
-  input Modelica.SIunits.MassFraction wAirIn
+  input Modelica.SIunits.MassFraction X_wAirIn
     "Mass fraction of water in moist air at inlet";
   input Buildings.Fluid.Types.HeatExchangerFlowRegime cfg
     "The configuration of the heat exchanger";
@@ -113,7 +113,7 @@ initial equation
 
 equation
 
-    hAirIn=Buildings.Media.Air.specificEnthalpy_pTX(p=pAir,T=TAirIn,X={wAirIn,1-wAirIn});
+    hAirIn=Buildings.Media.Air.specificEnthalpy_pTX(p=pAir,T=TAirIn,X={X_wAirIn,1-X_wAirIn});
     hSatWatIn=hSatWatInM.hSat;
     dhSatdTWatIn=(hSatWatIn_dT_M.hSat-hSatWatInM.hSat)/dTWat; // dTWat is a parameter
     hSatWatOut= hSatWatOutM.hSat;

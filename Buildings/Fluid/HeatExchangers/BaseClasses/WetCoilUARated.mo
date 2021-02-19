@@ -20,8 +20,8 @@ model WetCoilUARated
     "Air inlet temperature at a rated condition";
   parameter Modelica.SIunits.Temperature TAirOut
     "Air outlet temperature  at a rated condition";
-  parameter Modelica.SIunits.MassFraction wAirIn
-    "Absolute humidity [kg/kg-air] of inlet air at a rated condition";
+  parameter Modelica.SIunits.MassFraction X_wAirIn
+    "Mass fraction of water in inlet air at a rated condition";
   parameter Modelica.SIunits.Temperature TWatIn
     "Water inlet temperature at a rated condition";
   parameter Modelica.SIunits.Temperature TWatOut
@@ -37,8 +37,8 @@ model WetCoilUARated
 protected
   constant Modelica.SIunits.SpecificEnthalpy hfg=
     Buildings.Utilities.Psychrometrics.Constants.h_fg;
-  parameter Modelica.SIunits.MassFraction wAirOut(fixed=false)
-    "Absolute humidity of outgoing air at a rated condition";
+  parameter Modelica.SIunits.MassFraction X_wAirOut(fixed=false)
+    "Mass fraction of water in outgoing air at a rated condition";
   parameter Modelica.SIunits.SpecificEnthalpy hAirIn(fixed=false)
     "Enthalpy of incoming moist air at a rated condition";
   parameter Modelica.SIunits.SpecificEnthalpy hAirOut(fixed=false)
@@ -65,25 +65,25 @@ protected
   Modelica.SIunits.AbsolutePressure pSatTWatIn=
     Buildings.Utilities.Psychrometrics.Functions.saturationPressure(TWatIn)
     "Saturation pressure of water at the water inlet temperature";
-  Modelica.SIunits.MassFraction wSatTWatIn=
+  Modelica.SIunits.MassFraction X_wSatTWatIn=
     Buildings.Utilities.Psychrometrics.Functions.X_pSatpphi(
       pSat=pSatTWatIn, p=MediumA.p_default, phi=1)
-    "Absolute humidity of the moist air at the water inlet temperature";
+    "Mass fraction of water in saturated moist air at the water inlet temperature";
   Modelica.SIunits.SpecificEnthalpy hSatTWatIn=
     Buildings.Media.Air.specificEnthalpy_pTX(
-      p=MediumA.p_default, T=TWatIn, X={wSatTWatIn,1-wSatTWatIn})
+      p=MediumA.p_default, T=TWatIn, X={X_wSatTWatIn,1-X_wSatTWatIn})
     "Enthalpy of saturated moist air at the water inlet temperature";
 
   Modelica.SIunits.AbsolutePressure pSatTWatOut=
     Buildings.Utilities.Psychrometrics.Functions.saturationPressure(TWatOut)
     "Saturation pressure of water at the water oulet temperature";
-  Modelica.SIunits.MassFraction wSatTWatOut=
+  Modelica.SIunits.MassFraction X_wSatTWatOut=
     Buildings.Utilities.Psychrometrics.Functions.X_pSatpphi(
       pSat=pSatTWatOut, p=MediumA.p_default, phi=1)
-    "Absolute humidity of the moist air at the water oulet temperature";
+    "Mass fraction of water in saturated moist air at the water outlet temperature";
   Modelica.SIunits.SpecificEnthalpy hSatTWatOut=
     Buildings.Media.Air.specificEnthalpy_pTX(
-      p=MediumA.p_default, T=TWatOut, X={wSatTWatOut,1-wSatTWatOut})
+      p=MediumA.p_default, T=TWatOut, X={X_wSatTWatOut,1-X_wSatTWatOut})
     "Enthalpy of saturated moist air at the water oulet temperature";
 
   parameter Modelica.SIunits.SpecificEnthalpy LMED(fixed=false)
@@ -111,14 +111,14 @@ initial equation
       "For a heating coil, use other heat exchanger models.");
 
     hAirIn=MediumA.specificEnthalpy_pTX(
-      p=MediumA.p_default, T=TAirIn, X={wAirIn, 1-wAirIn});
+      p=MediumA.p_default, T=TAirIn, X={X_wAirIn, 1-X_wAirIn});
     hAirOut=MediumA.specificEnthalpy_pTX(
-      p=MediumA.p_default, T=TAirOut, X={wAirOut, 1-wAirOut});
+      p=MediumA.p_default, T=TAirOut, X={X_wAirOut, 1-X_wAirOut});
 
     QTot_flow = mAir_flow*(hAirIn-hAirOut);
 
-    IsFulDry=(wSatTWatIn>=wAirIn);
-    IsFulWet=(wSatTWatOut<=wAirIn);
+    IsFulDry=(X_wSatTWatIn>=X_wAirIn);
+    IsFulWet=(X_wSatTWatOut<=X_wAirIn);
     IsParWet= (not IsFulDry) and (not IsFulWet);
 
     assert(not IsParWet,
@@ -148,8 +148,8 @@ initial equation
   else
     TAirIn=MediumA.T_default;
     TAirOut=MediumA.T_default;
-    wAirIn=MediumA.X_default[1];
-    wAirOut=MediumA.X_default[1];
+    X_wAirIn=MediumA.X_default[1];
+    X_wAirOut=MediumA.X_default[1];
     TWatIn=MediumA.T_default;
     TWatOut=MediumA.T_default;
     hAirIn=MediumA.h_default;

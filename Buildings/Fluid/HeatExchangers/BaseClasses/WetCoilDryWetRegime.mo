@@ -90,11 +90,11 @@ model WetCoilDryWetRegime
     "Inlet air absolute pressure"
     annotation (Placement(transformation(extent={{-160,-20},{-140,0}}),
         iconTransformation(extent={{-160,-20},{-140,0}})));
-  Modelica.Blocks.Interfaces.RealInput wAirIn(
+  Modelica.Blocks.Interfaces.RealInput X_wAirIn(
     min=0,
     max=1,
     unit="1")
-    "Humidity ratio of water at inlet (kg water/kg moist air)"
+    "Mass fraction of water in inlet air (kg water/kg total air)"
     annotation (
       Placement(transformation(extent={{-160,0},{-140,20}}), iconTransformation(
           extent={{-160,0},{-140,20}})));
@@ -155,7 +155,7 @@ model WetCoilDryWetRegime
     mAir_flow_nominal=mAir_flow_nominal,
     mWat_flow_nominal=mWat_flow_nominal,
     pAir=pAir,
-    wAirIn=wAirIn) "Fully-wet coil model";
+    X_wAirIn=X_wAirIn) "Fully-wet coil model";
 
 protected
   Modelica.SIunits.MassFlowRate mAirNonZer_flow(min=Modelica.Constants.eps)=
@@ -174,7 +174,7 @@ protected
   Modelica.SIunits.Temperature TAirInDewPoi
     "Dew point temperature of incoming air";
 
-  Buildings.Utilities.Psychrometrics.pW_X pWIn(X_w=wAirIn,p_in=pAir);
+  Buildings.Utilities.Psychrometrics.pW_X pWIn(X_w=X_wAirIn,p_in=pAir);
   Buildings.Utilities.Psychrometrics.TDewPoi_pW TDewIn(p_w=pWIn.p_w);
 
   //-- parameters for fuzzy logics
