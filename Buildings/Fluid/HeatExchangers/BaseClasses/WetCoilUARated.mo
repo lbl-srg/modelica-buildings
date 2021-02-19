@@ -1,7 +1,10 @@
 within Buildings.Fluid.HeatExchangers.BaseClasses;
 model WetCoilUARated
-  "This model calculates overall heat transfer coefficient, i.e., UA-value, from a rated condition for a cooling coil. 
-  Specify a rated condition either in fully-dry or fully-wet coil regime. Avoid that on partially-wet regime."
+  "This model calculates the overall heat transfer coefficient, i.e., UA-value, 
+  from cooling coil data for a rated condition."
+   //Specify cooling coil data either in a fully-dry or fully-wet coil regime.
+   // Avoid providing an operating point in partially-wet regime.
+
   replaceable package MediumA=Buildings.Media.Air
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Air-side medium";
@@ -18,7 +21,7 @@ model WetCoilUARated
   parameter Modelica.SIunits.Temperature TAirOut
     "Air outlet temperature  at a rated condition";
   parameter Modelica.SIunits.MassFraction wAirIn
-    "Absolute humidity of inlet air at a rated condition";
+    "Absolute humidity [kg/kg-air] of inlet air at a rated condition";
   parameter Modelica.SIunits.Temperature TWatIn
     "Water inlet temperature at a rated condition";
   parameter Modelica.SIunits.Temperature TWatOut
@@ -119,7 +122,7 @@ initial equation
     IsParWet= (not IsFulDry) and (not IsFulWet);
 
     assert(not IsParWet,
-      "Partially dry nominal condition is not allowed at this moment. " +
+      "Cooling coil data under partially dry condition is not allowed at this moment. " +
       "Specify either fully-dry or fully-wet nominal condition");
 
     if IsFulDry then
@@ -127,9 +130,9 @@ initial equation
         TAirIn,
         TAirOut,
         TWatIn,
-        TWatOut)/Tunit*hunit; // The value of LMED calculated from this equation is used as that of LMTD.
-      QTot_flow=LMED*UASta; // The value of UASta calculated from this equation is used as that of UA.
-      cpEff= Modelica.Constants.inf*cpunit; // cpEff is not used for fully-dry
+        TWatOut)/Tunit*hunit;
+      QTot_flow=LMED*UASta;
+      cpEff= Modelica.Constants.inf*cpunit;
       UA= UASta*cpunit;
     else //fully wet
       // calculation of overall UAsta based on log mean enthalpy difference
@@ -169,5 +172,9 @@ initial equation
         lineColor={0,0,0},
         fillColor={255,255,255},
         fillPattern=FillPattern.Solid)}), Diagram(
-      coordinateSystem(preserveAspectRatio=false)));
+      coordinateSystem(preserveAspectRatio=false)),
+    Documentation(revisions="<html>
+February 18, 2021 by Donghun Kim<br/>
+First implementation
+</html>"));
 end WetCoilUARated;
