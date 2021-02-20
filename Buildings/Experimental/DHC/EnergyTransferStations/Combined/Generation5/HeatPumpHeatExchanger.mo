@@ -1,6 +1,6 @@
-﻿within Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5;
+within Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5;
 model HeatPumpHeatExchanger
-  "Model of a substation producing heating and hot water with heat pumps and chilled water with HX"
+  "Model of a substation with heat pump and compressor-less cooling"
   extends DHC.EnergyTransferStations.BaseClasses.PartialETS(
     final typ=DHC.Types.DistrictSystemType.CombinedGeneration5,
     final have_weaBus=false,
@@ -20,6 +20,12 @@ model HeatPumpHeatExchanger
   parameter Boolean have_varFloEva = true
     "Set to true for heat pumps with variable evaporator flow"
     annotation(Evaluate=true);
+  parameter Real ratFloMin(
+    final unit="1",
+    final min=0,
+    final max=1)=0.3
+    "Minimum condenser or evaporator mass flow rate (ratio to nominal)"
+    annotation (Dialog(enable=have_varFloCon or have_varFloEva));
   parameter Modelica.SIunits.Temperature TDisWatMin
     "District water minimum temperature"
     annotation (Dialog(group="DHC system"));
@@ -87,12 +93,6 @@ model HeatPumpHeatExchanger
   parameter Real COPHotWat_nominal(final unit="1")
     "COP of heat pump for hot water production"
     annotation (Dialog(group="Nominal condition", enable=have_hotWat));
-  parameter Real ratFloMin(
-    final unit="1",
-    final min=0,
-    final max=1)=0.5
-    "Minimum condenser or evaporator mass flow rate (ratio to nominal)"
-    annotation (Dialog(enable=have_varFloCon or have_varFloEva));
   // District HX
   final parameter Modelica.SIunits.MassFlowRate m1HexChi_flow_nominal(min=0)=
     abs(QChiWat_flow_nominal / cpSer_default / dT_nominal)
@@ -102,10 +102,7 @@ model HeatPumpHeatExchanger
     abs(QChiWat_flow_nominal / cpSer_default / (THeaWatSup_nominal - THeaWatRet_nominal))
     "CHW HX secondary mass flow rate"
     annotation(Dialog(group="Nominal condition"));
-  // Diagnostics
-   parameter Boolean show_T = true
-    "= true, if actual temperature at port is computed"
-    annotation(Dialog(tab="Advanced",group="Diagnostics"));
+  // Dynamics
   parameter Modelica.Fluid.Types.Dynamics mixingVolumeEnergyDynamics=
     Modelica.Fluid.Types.Dynamics.FixedInitial
     "Formulation of energy balance for mixing volume at inlet and outlet"
@@ -268,8 +265,8 @@ model HeatPumpHeatExchanger
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
       rotation=-90,
       origin={60,150})));
-  Buildings.Fluid.Sources.Boundary_pT bouChiWat(redeclare final package Medium
-      = MediumBui, nPorts=1)
+  Buildings.Fluid.Sources.Boundary_pT bouChiWat(redeclare final package Medium =
+        MediumBui, nPorts=1)
     "Pressure boundary condition representing the expansion vessel"
     annotation (Placement(transformation(extent={{-162,-290},{-142,-270}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiSum PPumCooTot(nin=1)
@@ -401,8 +398,8 @@ model HeatPumpHeatExchanger
   Buildings.Controls.OBC.CDL.Continuous.Add delT(final k2=-1) if have_hotWat
     "Compute DeltaT needed on condenser side"
     annotation (Placement(transformation(extent={{-150,-10},{-130,10}})));
-  Fluid.Sensors.MassFlowRate senMasFloHeaWatPri(redeclare final package Medium
-      = MediumBui, final allowFlowReversal=allowFlowReversalBui)
+  Fluid.Sensors.MassFlowRate senMasFloHeaWatPri(redeclare final package Medium =
+        MediumBui, final allowFlowReversal=allowFlowReversalBui)
     "Primary heating water mass flow rate"
     annotation (Placement(transformation(extent={{30,270},{50,250}})));
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold enaSHW(trueHoldDuration=15*
@@ -651,18 +648,49 @@ equation
   defaultComponentName="ets",
   Documentation(info="<html>
 <p>
-Heating hot water is produced at low temperature (typically 40°C) with a water-to-water heat pump.
-Chilled water is produced at high temperature (typically 19°C) with a heat exchanger.
+This model represents an energy transfer station as illustrated in the schematics
+below.
+</p>
+<ul>
+<li>
+The heating functions are provided by water-to-water heat pumps.
+The heating hot water is typically produced at low temperature, 
+for instance 40&deg;C.
+By default the condenser and evaporator loops are operated
+with variable mass flow rate, with a lower limit specified by the ratio
+<code>ratFloMin</code>.
+The model can also represent constant flow condenser and evaporator loops
+by setting <code>have_varFloCon</code> and <code>have_varFloEva</code>
+to <code>false</code>.
+</li>
+<li>
+The cooling function is provided in a compressor-less mode by a heat exchanger 
+connected to the service line.
+The chilled water is typically produced at high temperature, for instance
+19&deg;C.
+</li>
+</ul>
+<h4>Controls</h4>
+<p>
+Heating (resp. cooling) is enabled based on the input signal <code>uHea</code>
+(resp. <code>uCoo</code>) which is held for 15', meaning that,
+when enabled, the mode remains active for at least 15' and,
+when disabled, the mode cannot be enabled again for at least 15'.
+The heating and cooling enable signals should be computed externally based 
+on a schedule (to lock out the system during off-hours), ideally in conjunction 
+with the number of requests yielded by the terminal unit controllers, or any
+other signal representative of the heating load.
 </p>
 <p>
-The time series data are interpolated using
-Fritsch-Butland interpolation. This uses
-cubic Hermite splines such that y preserves the monotonicity and
-der(y) is continuous, also if extrapolated.
+Variable flow.
 </p>
+<p>
+Switch box
+</p>
+<h4>Modeling considerations</h4>
 <p>
 There is a control volume at each of the two fluid ports
-that are exposed by this model. These approximate the dynamics
+that serve as connectors with the service line. These approximate the dynamics
 of the substation, and they also generally avoid nonlinear system
 of equations if multiple substations are connected to each other.
 </p>

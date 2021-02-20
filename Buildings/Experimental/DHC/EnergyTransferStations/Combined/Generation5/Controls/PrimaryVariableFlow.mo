@@ -11,7 +11,7 @@ block PrimaryVariableFlow
   parameter Real ratFloMin(
     final unit="1",
     final min=0,
-    final max=1)=0.5
+    final max=1)=0.3
     "Minimum mass flow rate (ratio to nominal)";
   constant Modelica.SIunits.SpecificHeatCapacity cp=
     Buildings.Utilities.Psychrometrics.Constants.cpWatLiq
@@ -37,7 +37,7 @@ block PrimaryVariableFlow
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput m_flow(final unit="kg/s")
     "Mass flow rate"
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),
-                   iconTransformation(extent={{100,-20},{140,20}})));
+      iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Continuous.Abs abs1 "Absolute value"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 equation
