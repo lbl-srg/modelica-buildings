@@ -130,25 +130,25 @@ void* EnergyPlusSpawnAllocate(
   char* doubleObjectSpec;
 
   if (logLevel >= MEDIUM){
-    SpawnFormatMessage("---- %s: Entered EnergyPlusSpawnAllocate.\n", modelicaName);
-    SpawnFormatMessage("---- %s: Buildings library root is at %s\n", modelicaName, buildingsLibraryRoot);
+    SpawnFormatMessage("%.3f %s: Entered EnergyPlusSpawnAllocate.\n", startTime, modelicaName);
+    SpawnFormatMessage("%.3f %s: Buildings library root is at %s\n", startTime, modelicaName, buildingsLibraryRoot);
   }
 
   /* Check arguments */
   if (nParOut != nParOutUni){
-    SpawnFormatMessage("---- %s: Require arguments nParOut and nParOutUni to be equal.\n", modelicaName);
+    SpawnFormatMessage("%.3f %s: Require arguments nParOut and nParOutUni to be equal.\n", startTime, modelicaName);
   }
   if (nInp != nInpUni){
-    SpawnFormatMessage("---- %s: Require arguments nInp and nInpUni to be equal.\n", modelicaName);
+    SpawnFormatMessage("%.3f %s: Require arguments nInp and nInpUni to be equal.\n", startTime, modelicaName);
   }
   if (nOut != nOutUni){
-    SpawnFormatMessage("---- %s: Require arguments nOut and nOutUni to be equal.\n", modelicaName);
+    SpawnFormatMessage("%.3f %s: Require arguments nOut and nOutUni to be equal.\n", startTime, modelicaName);
   }
   if (k != 2){
-    SpawnFormatMessage("---- %s: Require argument k = 2, obtained k = %i.\n", modelicaName, k);
+    SpawnFormatMessage("%.3f %s: Require argument k = 2, obtained k = %i.\n", startTime, modelicaName, k);
   }
   if (n != nDer){
-    SpawnFormatMessage("---- %s: Require arguments n = nDer, obtained n = %i, nDer = %i.\n",
+    SpawnFormatMessage("%.3f %s: Require arguments n = nDer, obtained n = %i, nDer = %i.\n",
       modelicaName, n, nDer);
   }
 
@@ -156,18 +156,18 @@ void* EnergyPlusSpawnAllocate(
   setExchangePointerIfAlreadyInstanciated(modelicaName, objectType, &ptrSpaObj);
   if (ptrSpaObj != NULL){
     if (logLevel >= MEDIUM)
-      SpawnFormatMessage("---- %s: EnergyPlusSpawnAllocate called more than once for this zone.\n", modelicaName);
+      SpawnFormatMessage("%.3f %s: EnergyPlusSpawnAllocate called more than once for this zone.\n", startTime, modelicaName);
     /* Return pointer to this zone */
     return (void*) ptrSpaObj;
   }
   if (logLevel >= MEDIUM)
-    SpawnFormatMessage("---- %s: First call for this instance.\n", modelicaName);
+    SpawnFormatMessage("%.3f %s: First call for this instance.\n", startTime, modelicaName);
 
   /* ********************************************************************** */
   /* Initialize the zone */
 
   if (logLevel >= MEDIUM)
-    SpawnFormatMessage("---- %s: Initializing memory for zone.\n", modelicaName);
+    SpawnFormatMessage("%.3f %s: Initializing memory for zone.\n", startTime, modelicaName);
 
   ptrSpaObj = (SpawnObject*) malloc(sizeof(SpawnObject));
   if ( ptrSpaObj == NULL )
@@ -231,7 +231,7 @@ void* EnergyPlusSpawnAllocate(
     &(ptrSpaObj->outputs), outUnits, "Failed to allocate memory for Modelica units of outputs", SpawnFormatError);
 
   if (logLevel >= MEDIUM)
-    SpawnFormatMessage("---- %s: Allocated parameters %p\n", modelicaName, ptrSpaObj->parameters);
+    SpawnFormatMessage("%.3f %s: Allocated parameters %p\n", startTime, modelicaName, ptrSpaObj->parameters);
   /* Assign structural data */
 
   buildVariableNames(
@@ -266,13 +266,13 @@ void* EnergyPlusSpawnAllocate(
   for(i = 0; i < nFMU; i++){
     FMUBuilding* fmu = getBuildingsFMU(i);
     if (logLevel >= MEDIUM){
-      SpawnFormatMessage("---- %s: Testing FMU %s for %s.\n", modelicaName, fmu->fmuAbsPat, modelicaNameBuilding);
+      SpawnFormatMessage("%.3f %s: Testing FMU %s for %s.\n", startTime, modelicaName, fmu->fmuAbsPat, modelicaNameBuilding);
     }
 
     if (strcmp(modelicaNameBuilding, fmu->modelicaNameBuilding) == 0){
       if (logLevel >= MEDIUM){
-        SpawnFormatMessage("---- %s: FMU %s for %s contains this exchange object.\n",
-          modelicaName, fmu->fmuAbsPat, modelicaNameBuilding);
+        SpawnFormatMessage("%.3f %s: FMU %s for %s contains this exchange object.\n",
+          startTime, modelicaName, fmu->fmuAbsPat, modelicaNameBuilding);
       }
       /* This is the same FMU as before. Check for double declaration of objects that set inputs to EnergyPlus */
       doubleObjectSpec = NULL;
@@ -303,7 +303,7 @@ void* EnergyPlusSpawnAllocate(
       }
 
       if (logLevel >= MEDIUM){
-        SpawnFormatMessage("---- %s: Assigning zone to building with building at %p\n", modelicaName, fmu);
+        SpawnFormatMessage("%.3f %s: Assigning zone to building with building at %p\n", startTime, modelicaName, fmu);
       }
       ptrSpaObj->bui = fmu;
       AddSpawnObjectToBuilding(ptrSpaObj, logLevel);
@@ -333,17 +333,18 @@ void* EnergyPlusSpawnAllocate(
 
     if (logLevel >= MEDIUM){
       for(i = 0; i < getBuildings_nFMU(); i++){
-         SpawnFormatMessage("---- %s: Building %s is at address %p\n",
+         SpawnFormatMessage("%.3f %s: Building %s is at address %p\n",
+           startTime,
            modelicaName,
            (getBuildingsFMU(i))->modelicaNameBuilding,
            getBuildingsFMU(i));
       }
-      SpawnFormatMessage("---- %s: Exchange ptr is at %p\n", modelicaName, ptrSpaObj);
+      SpawnFormatMessage("%.3f %s: Exchange ptr is at %p\n", startTime, modelicaName, ptrSpaObj);
     }
   }
 
   if (logLevel >= MEDIUM)
-    SpawnFormatMessage("---- %s: Exiting allocation with zone ptr at %p and building ptr at %p\n", modelicaName, ptrSpaObj, ptrSpaObj->bui);
+    SpawnFormatMessage("%.3f %s: Exiting allocation with zone ptr at %p and building ptr at %p\n", startTime, modelicaName, ptrSpaObj, ptrSpaObj->bui);
   /* Return a pointer to this zone */
   return (void*) ptrSpaObj;
 }

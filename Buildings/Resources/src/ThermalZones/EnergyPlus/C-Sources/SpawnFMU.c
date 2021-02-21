@@ -39,7 +39,7 @@ size_t AllocateBuildingDataStructure(
   const size_t strLenWea = strlen(weaName);
 
   if (logLevel >= MEDIUM)
-    SpawnFormatMessage("---- %s: Allocating data structure for building, nFMU=%lu\n", modelicaNameBuilding, nFMU);
+    SpawnFormatMessage("%.3f %s: Allocating data structure for building, nFMU=%lu\n", startTime, modelicaNameBuilding, nFMU);
 
   /* Validate the input data */
   if (access(idfName, R_OK) != 0)
@@ -164,7 +164,8 @@ size_t AllocateBuildingDataStructure(
   incrementBuildings_nFMU();
 
   if (logLevel >= MEDIUM)
-    SpawnFormatMessage("---- %s: AllocateBuildingDataStructure: Leaving allocating data structure for building number %lu, ptr %p\n",
+    SpawnFormatMessage("%.3f %s: AllocateBuildingDataStructure: Leaving allocating data structure for building number %lu, ptr %p\n",
+      startTime,
       modelicaNameBuilding,
       nFMU,
       Buildings_FMUS[nFMU]);
@@ -181,7 +182,8 @@ void AddSpawnObjectToBuilding(SpawnObject* ptrSpaObj, const int logLevel){
 
 
   if (bui->logLevel >= MEDIUM)
-    SpawnFormatMessage("---- %s: SpawnFMU.c: Adding object %lu with name %s\n", bui->modelicaNameBuilding, nExcObj, ptrSpaObj->modelicaName);
+    SpawnFormatMessage("%.3f %s: Adding object %lu with name %s in AddSpawnObjectToBuilding.\n",
+      bui->time, bui->modelicaNameBuilding, nExcObj, ptrSpaObj->modelicaName);
 
   if (nExcObj == 0){
     bui->exchange=malloc(sizeof(SpawnObject *));
@@ -205,7 +207,9 @@ void AddSpawnObjectToBuilding(SpawnObject* ptrSpaObj, const int logLevel){
   checkAndSetVerbosity(bui, logLevel);
 
   if (bui->logLevel >= MEDIUM)
-    SpawnFormatMessage("---- %s: SpawnFMU.c: nExcObj = %d\n", bui->modelicaNameBuilding,
+    SpawnFormatMessage("%.3f %s: Number of exchange objects at end of AddSpawnObjectToBuilding: nExcObj = %d\n",
+      bui->time,
+      bui->modelicaNameBuilding,
       bui->nExcObj);
 }
 
