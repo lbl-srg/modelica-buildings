@@ -1,9 +1,6 @@
 within Buildings.Fluid.HeatExchangers.BaseClasses;
 model WetCoilUARated
-  "This model calculates the overall heat transfer coefficient, i.e., UA-value, 
-  from cooling coil data for a rated condition."
-   //Specify cooling coil data either in a fully-dry or fully-wet coil regime.
-   // Avoid providing an operating point in partially-wet regime.
+  "Model that calculates the UA-value from cooling coil data at rated conditions."
 
   replaceable package MediumA=Buildings.Media.Air
     constrainedby Modelica.Media.Interfaces.PartialMedium
@@ -174,7 +171,20 @@ initial equation
         fillPattern=FillPattern.Solid)}), Diagram(
       coordinateSystem(preserveAspectRatio=false)),
     Documentation(revisions="<html>
-February 18, 2021 by Donghun Kim<br/>
+<ul>
+<li>
+February 18, 2021 by Donghun Kim:<br/>
 First implementation
+</li>
+</ul>
+</html>", info="<html>
+<p>
+This model calculates the overall heat transfer coefficient, i.e., UA-value, 
+from cooling coil data at rated conditions.
+</p>
+<p>
+The current implementation is only valid for rated  a fully-dry or fully-wet coil regime.
+   // Avoid providing an operating point in partially-wet regime.
+</p>
 </html>"));
 end WetCoilUARated;

@@ -47,7 +47,7 @@ model WetCoilEffectivenessNTU
     annotation (Dialog(
       group="Nominal thermal performance",
       enable=not use_UA_nominal));
-  
+
   parameter Real r_nominal=2/3
     "Ratio between air-side and water-side convective heat transfer coefficient"
     annotation (Dialog(group="Nominal thermal performance"));
@@ -83,7 +83,6 @@ model WetCoilEffectivenessNTU
     "Water flow rate of condensate removed from the air stream";
 
 protected
-
   final parameter Modelica.SIunits.MassFraction X_w_a2_nominal=w_a2_nominal/(1+w_a2_nominal)
     "Water mass fraction of inlet air at a rated condition (in kg/kg total air)";
 
@@ -589,6 +588,13 @@ Buildings.Fluid.HeatExchangers.BaseClasses.WetCoilDryWetRegime</a>.
 <h4>Assumptions and limitations</h4>
 <p>This model contains the following assumptions and limitations:</p>
 <p>Medium 2 must be air due to the use of various psychrometric functions.</p>
+<p>
+When parameterizing this model with rated conditions (with the parameter
+<code>use_UA_nominal</code> set to <code>false</code>), those should 
+correspond to a fully-dry or a fully-wet coil regime.
+The modeling uncertainty yielded by partially-wet rated conditions
+has not been assessed yet.
+</p>
 <p>The model uses steady-state physics. That is, no dynamics associated
 with water and coil materials are considered.</p>
 <p>The Lewis number, which relates the mass transfer coefficient to the heat transfer

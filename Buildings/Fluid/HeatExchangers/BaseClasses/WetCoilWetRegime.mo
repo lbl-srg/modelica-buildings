@@ -113,56 +113,65 @@ initial equation
 
 equation
 
-    hAirIn=Buildings.Media.Air.specificEnthalpy_pTX(p=pAir,T=TAirIn,X={X_wAirIn,1-X_wAirIn});
-    hSatWatIn=hSatWatInM.hSat;
-    dhSatdTWatIn=(hSatWatIn_dT_M.hSat-hSatWatInM.hSat)/dTWat; // dTWat is a parameter
-    hSatWatOut= hSatWatOutM.hSat;
-    NonZerDelWatTem=Buildings.Utilities.Math.Functions.regNonZeroPower(x=TWatOutEst-TWatIn,n=1,delta=0.1);
-    cpEff = Buildings.Utilities.Math.Functions.smoothMax(
-    (hSatWatOut - hSatWatIn)/NonZerDelWatTem,
-    dhSatdTWatIn,
-    cpEff0*delta);
+  hAirIn=Buildings.Media.Air.specificEnthalpy_pTX(p=pAir,T=TAirIn,X={X_wAirIn,1-X_wAirIn});
+  hSatWatIn=hSatWatInM.hSat;
+  dhSatdTWatIn=(hSatWatIn_dT_M.hSat-hSatWatInM.hSat)/dTWat; // dTWat is a parameter
+  hSatWatOut= hSatWatOutM.hSat;
+  NonZerDelWatTem=Buildings.Utilities.Math.Functions.regNonZeroPower(x=TWatOutEst-TWatIn,n=1,delta=0.1);
+  cpEff = Buildings.Utilities.Math.Functions.smoothMax(
+  (hSatWatOut - hSatWatIn)/NonZerDelWatTem,
+  dhSatdTWatIn,
+  cpEff0*delta);
 
-    CStaMin=Buildings.Utilities.Math.Functions.smoothMin(
-    mAir_flow,
-    mWat_flow*cpWat/cpEff,
-    deltaCStaMin/4);
+  CStaMin=Buildings.Utilities.Math.Functions.smoothMin(
+  mAir_flow,
+  mWat_flow*cpWat/cpEff,
+  deltaCStaMin/4);
 
-    UASta = (UAAir/cpAir)/(1 + (cpEff*UAAir)/(cpAir*UAWat));
+  UASta = (UAAir/cpAir)/(1 + (cpEff*UAAir)/(cpAir*UAWat));
 
-    epsSta=epsilon_C(
-    UA=UASta*cpDum,
-    C1_flow=mWat_flow*cpWat/cpEff*cpDum,
-    C2_flow=mAir_flow*cpDum,
-    flowRegime=Integer(cfg),
-    CMin_flow_nominal=CStaMin_flow_nominal*cpDum,
-    CMax_flow_nominal=CStaMax_flow_nominal*cpDum,
-    delta=delta);
+  epsSta=epsilon_C(
+  UA=UASta*cpDum,
+  C1_flow=mWat_flow*cpWat/cpEff*cpDum,
+  C2_flow=mAir_flow*cpDum,
+  flowRegime=Integer(cfg),
+  CMin_flow_nominal=CStaMin_flow_nominal*cpDum,
+  CMax_flow_nominal=CStaMax_flow_nominal*cpDum,
+  delta=delta);
 
-    QTot_flow = epsSta*CStaMin*(hAirIn  - hSatWatIn);
+  QTot_flow = epsSta*CStaMin*(hAirIn  - hSatWatIn);
 
-    QTot_flow = mAir_flow*(hAirIn- hAirOut);
-    QTot_flow = mWat_flow*cpWat*(TWatOut-TWatIn);
+  QTot_flow = mAir_flow*(hAirIn- hAirOut);
+  QTot_flow = mWat_flow*cpWat*(TWatOut-TWatIn);
 
-    NTUAirSta = UAAir/(mAir_flow*cpAir);
+  NTUAirSta = UAAir/(mAir_flow*cpAir);
 
-    hSatSurEff = Buildings.Utilities.Math.Functions.smoothMax(hSatSurEffMinM.hSat, hAirIn  +(hAirOut - hAirIn) /(1 - exp(-NTUAirSta)),delta*1E4); // NTUAirSta is bounded as long as UAAir>0 due to the regularization of mAir_flow
+  hSatSurEff = Buildings.Utilities.Math.Functions.smoothMax(
+    hSatSurEffMinM.hSat, hAirIn  +(hAirOut - hAirIn) /
+    (1 - exp(-NTUAirSta)),delta*1E4); // NTUAirSta is bounded as long as UAAir>0 due to the regularization of mAir_flow
 
-    hSatSurEffM.hSat=hSatSurEff;
-    TAirOut = TSurEff +(TAirIn  - TSurEff)*exp(-NTUAirSta);
-    QSen_flow= Buildings.Utilities.Math.Functions.smoothMin(mAir_flow*cpAir*(TAirIn-TAirOut),QTot_flow,delta*mWatNonZer_flow*cpWat0*5); // the last term is only for regularization with DTWater=5oC
+  hSatSurEffM.hSat=hSatSurEff;
+  TAirOut = TSurEff +(TAirIn  - TSurEff)*exp(-NTUAirSta);
+  QSen_flow= Buildings.Utilities.Math.Functions.smoothMin(
+    mAir_flow*cpAir*(TAirIn-TAirOut),QTot_flow,
+    delta*mWatNonZer_flow*cpWat0*5); // the last term is only for regularization with DTWater=5oC
 
-    (TAirIn-TSurAirIn)*UAAir=(TSurAirIn-TWatOut)*UAWat;
-    der(TWatOutEst)=-1/tau*TWatOutEst+1/tau*TWatOut;
+  (TAirIn-TSurAirIn)*UAAir=(TSurAirIn-TWatOut)*UAWat;
+  der(TWatOutEst)=-1/tau*TWatOutEst+1/tau*TWatOut;
 
-  annotation (Icon(graphics={
-          Rectangle(
-          extent={{-100,100},{100,-100}},
-          lineColor={28,108,200},
-          fillColor={170,213,255},
-          fillPattern=FillPattern.Solid)}), Documentation(revisions="<html>
+annotation (Icon(graphics={
+        Rectangle(
+        extent={{-100,100},{100,-100}},
+        lineColor={28,108,200},
+        fillColor={170,213,255},
+        fillPattern=FillPattern.Solid)}), Documentation(revisions="<html>
 <ul>
-<li>Jan 21, 2021, by Donghun Kim:<br/>First implementation of the fuzzy model. See <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/622\">issue 622</a> for more information. </li>
+<li>Jan 21, 2021, by Donghun Kim:<br/>First implementation of the fuzzy model. 
+See 
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/622\">
+issue 622</a> 
+for more information. 
+</li>
 </ul>
 </html>", info="<html>
 <p>This model implements the calculation for a 100% wet coil. </p>
@@ -192,7 +201,8 @@ here as csat=(h<sub>sat</sub>(T<sub>wat,out</sub>)-h<sub>sat</sub>(T<sub>wat,in<
 <p align=\"center\">Cr*=min(C*<sub>air</sub>,C*<sub>wat</sub>)/max(C*<sub>air</sub>,C*<sub>wat</sub>)
 and C*<sub>min</sub>=min(C*<sub>air</sub>,C*<sub>wat</sub>).</p>
 <p><br/>The number of transfer unit for the wet-coil is defined as NTU*=UA*/C*<sub>min</sub>, where </p>
-<p align=\"center\">UA*=1/(1/(UA<sub>air</sub>/c<sub>p,air</sub>)+1/(UA<sub>wat</sub>/csat). </p>
+<p align=\"center\">UA*=1/(1/(UA<sub>air</sub>/c<sub>p,air</sub>)+1/(UA<sub>wat</sub>/csat). 
+</p>
 <h4>References </h4>
 <p>Braun, James E. 1988.
 &quot;Methodologies for the Design and Control of Central Cooling Plants&quot;.
