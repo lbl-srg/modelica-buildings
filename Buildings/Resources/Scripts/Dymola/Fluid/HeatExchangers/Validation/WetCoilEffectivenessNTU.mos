@@ -9,7 +9,7 @@ Advanced.StoreProtectedVariables = old_StoreProtectedVariables;
 createPlot(
     id=1,
     position={59, 59, 1186, 1286},
-    y={"hexWetNTU.Q1_flow", "hexDis.Q1_flow"},
+    y={"hexWetNTU.Q1_flow", "hexDis.Q1_flow", "hexWetNTU_TX.Q1_flow"},
     autoscale=true,
     autoerase=true,
     autoreplot=true,
@@ -18,7 +18,7 @@ createPlot(
 createPlot(
     id=1,
     subPlot=2,
-    y={"hexWetNTU.sta_b2.T", "hexDis.sta_b2.T"},
+    y={"hexWetNTU.sta_b2.T", "hexDis.sta_b2.T", "hexWetNTU_TX.sta_b2.T"},
     autoscale=true,
     autoerase=true,
     autoreplot=true,

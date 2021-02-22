@@ -2,8 +2,10 @@ compareVars :=
   {
     "hexWetNTU.Q1_flow",
     "hexDis.Q1_flow",
+    "hexWetNTU_TX.Q1_flow",
     "hexWetNTU.sta_b2.T",
     "hexDis.sta_b2.T",
+    "hexWetNTU_TX.sta_b2.T",
     "RelHumOut_eps.phi",
     "RelHumOut_dis.phi",
     "hexWetNTU.dryWetCalcs.dryFra",
