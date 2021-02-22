@@ -179,12 +179,14 @@ First implementation
 </ul>
 </html>", info="<html>
 <p>
-This model calculates the overall heat transfer coefficient, i.e., UA-value, 
-from cooling coil data at rated conditions.
+This model calculates the overall heat transfer coefficient, i.e., 
+UA-value, from cooling coil data at rated conditions.
 </p>
 <p>
-The current implementation is only valid for rated  a fully-dry or fully-wet coil regime.
-   // Avoid providing an operating point in partially-wet regime.
+The main limitation of the current implementation is that the rated 
+conditions should correspond to a fully-dry or a fully-wet coil regime.
+The modeling uncertainty yielded by partially-wet rated conditions
+has not been assessed yet.
 </p>
 </html>"));
 end WetCoilUARated;
