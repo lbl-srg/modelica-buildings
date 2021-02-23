@@ -1,4 +1,4 @@
-within Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Controls;
+﻿within Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Controls;
 block SwitchBox "Controller for flow switch box"
   extends Modelica.Blocks.Icons.Block;
   parameter Real trueHoldDuration(
@@ -51,9 +51,19 @@ equation
           {58,-8}}, color={0,0,127}));
   annotation (Documentation(info="<html>
 <p>
-Controller for the mass flow rate of the switch box 
-<a href=\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Subsystems.SwitchBox\">
-Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Subsystems.SwitchBox</a>.
+This block implements a control logic preventing flow reversal in the 
+service line, for instance with the hydronic configuration of 
+<a href=\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.HeatPumpHeatExchanger\">
+Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.HeatPumpHeatExchanger</a>.
+The block requires two input signals representing the mass flow rate contributing
+to a positive flow direction <code>mPos_flow</code> and the mass flow contributing
+to a reverse flow direction <code>mRev_flow</code>.
+The output signal <code>y</code> switches to maintain <code>mPos_flow ≥ mRev_flow</code>  
+with a temporization avoiding short cycling. 
+Due to the temporization, the mass flow rate may transiently change direction as
+illustrated in
+<a href=\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Subsystems.Validation.SwitchBox\">
+Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Subsystems.Validation.SwitchBox</a>.
 </p>
 </html>", revisions="<html>
 <ul>

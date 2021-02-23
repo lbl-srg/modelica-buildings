@@ -1,4 +1,4 @@
-within Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Subsystems;
+﻿within Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Subsystems;
 model HeatPump "Base subsystem with water to water heat pump"
   replaceable package Medium1=Modelica.Media.Interfaces.PartialMedium
     "Medium model on condenser side"
@@ -296,5 +296,36 @@ equation
           lineColor={27,0,55},
           fillColor={170,213,255},
           fillPattern=FillPattern.Solid)}), Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-200,-140},{200,140}})));
+        coordinateSystem(preserveAspectRatio=false, extent={{-200,-140},{200,140}})),
+    Documentation(info="<html>
+<p>
+This model represents a water-to-water heat pump, an evaporator water pump,
+and an optional condenser water pump if <code>have_pumCon</code> is set to
+<code>true</code>.
+The heat pump model is documented in
+<a href=\"modelica://Buildings.Fluid.HeatPumps.Carnot_TCon\">
+Buildings.Fluid.HeatPumps.Carnot_TCon</a>.
+By default variable speed pumps are considered.
+Constant speed pumps may also be represented by setting <code>have_varFloEva</code> 
+and <code>have_varFloCon</code> to <code>false</code>.
+</p>
+<h4>Controls</h4>
+<p>
+The system is enabled when the input control signal <code>uEna</code> switches to 
+<code>true</code>. 
+When enabled,
+</p>
+<ul>
+<li>
+the evaporator and optionally the condenser water pump are commanded on and supply either
+the mass flow rate set point provided as an input in the case of variable speed pumps,
+or the nominal mass flow rate in the case of constant speed pumps,
+</li>
+<li>
+the heat pump is commanded on when the evaporator and optionally the condenser water pump
+are proven on. When enabled, the heat pump controller—idealized in this model—tracks the
+supply temperature set point at the condenser outlet. 
+</li>
+</ul>
+</html>"));
 end HeatPump;

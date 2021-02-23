@@ -697,13 +697,25 @@ with the number of requests yielded by the terminal unit controllers, or any
 other signal representative of the heating load.
 </p>
 <p>
-When enabled
+When enabled,
+</p>
 <ul>
 <li>
-
+the heat pumps and the evaporator and condenser water pumps are controlled 
+based on the principles described in
+<a href=\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Subsystems.HeatPump\">
+Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Subsystems.HeatPump</a>.
+The evaporator and condenser water mass flow rates are computed based on the 
+logic described in
+<a href=\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Controls.PrimaryVariableFlow\">
+Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Controls.PrimaryVariableFlow</a>.
+</li>
+<li>
+the cooling heat exchanger primary pump is modulated based on a PI control
+loop tracking the chilled water supply temperature at the outlet of the heat exchanger 
+secondary side.
 </li>
 </ul>
-</p>
 <h4>Modeling considerations</h4>
 <p>
 There is a control volume at each of the two fluid ports

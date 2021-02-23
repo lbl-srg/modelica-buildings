@@ -134,8 +134,14 @@ equation
   coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
     Documentation(info="<html>
 <p>
-Model that is used to ensure that the substations obtain the supply from
-the upstream connection of the district loop in the reservoir network models.
+This model represents an hydronic arrangement avoid flow reversal in the service line,
+for instance when connecting an energy transfer station such as the one modeled in
+<a href=\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.HeatPumpHeatExchanger\">
+Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.HeatPumpHeatExchanger</a>.
+For that intent, two three-port two-position directional valves are used. The valves are 
+actuated based on the logic described in
+<a href=\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Controls.SwitchBox\">
+Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Controls.SwitchBox</a>.
 </p>
 </html>", revisions="<html>
 <ul>

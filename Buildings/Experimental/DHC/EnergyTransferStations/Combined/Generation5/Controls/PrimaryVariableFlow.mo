@@ -1,6 +1,6 @@
 within Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Controls;
 block PrimaryVariableFlow
-  "Block that computes the variable mass flow rate through condenser or evaporator"
+  "Ideal control of condenser or evaporator variable flow rate"
   extends Modelica.Blocks.Icons.Block;
   parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal
     "Heat flow rate at nominal conditions (>0 for condenser)";
@@ -54,5 +54,17 @@ equation
   annotation (
     defaultComponentName="conFlo",
     Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+        coordinateSystem(preserveAspectRatio=false)),
+    Documentation(info="<html>
+<p>
+This block implements an ideal control of the evaporator (or condenser) water 
+mass flow rate.
+The control intent aims to maintain a constant water temperature difference
+<code>dT_nominal</code> across the heat exchanger, within the limit of a 
+minimum mass flow rate ratio <code>ratFloMin</code>.
+For computational performance and to avoid the use of a PI controller, 
+the required mass flow rate is computed based on a signal representative of 
+the load.
+</p>
+</html>"));
 end PrimaryVariableFlow;
