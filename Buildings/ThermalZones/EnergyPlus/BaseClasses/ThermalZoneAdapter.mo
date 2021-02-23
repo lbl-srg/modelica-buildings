@@ -221,8 +221,6 @@ equation
           0 for i in 1:nFluPor)+m_flow_small*pre(
         TAveInlet))/(mInlet_flow+m_flow_small));
 
-
-
     // Below, the term X_w/(1.-X_w) is for conversion from kg/kg_total_air (Modelica) to kg/kg_dry_air (EnergyPlus)
     yEP = Buildings.ThermalZones.EnergyPlus.BaseClasses.exchange(
       adapter = adapter,
@@ -240,6 +238,7 @@ equation
 
     tLast=time;
   end when;
+
   QCon_flow=QConLast_flow+(T-TRooLast)*dQCon_flow_dT;
 
   sync.synchronize.done = nObj;

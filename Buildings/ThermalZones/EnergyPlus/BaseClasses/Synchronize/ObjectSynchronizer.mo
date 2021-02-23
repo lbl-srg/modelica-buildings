@@ -1,8 +1,8 @@
 within Buildings.ThermalZones.EnergyPlus.BaseClasses.Synchronize;
 block ObjectSynchronizer "Model that synchronizes an object"
-  outer Buildings.ThermalZones.EnergyPlus.Building building;
+  outer Buildings.ThermalZones.EnergyPlus.Building building "Reference to outer building model";
   Buildings.ThermalZones.EnergyPlus.BaseClasses.Synchronize.SynchronizeModel
-    sync;
+    sync "Model that synchronize the Spawn objects";
 equation
   connect(building.synchronize, sync.synchronize);
 

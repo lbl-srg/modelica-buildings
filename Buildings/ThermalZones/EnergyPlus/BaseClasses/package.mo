@@ -5,7 +5,7 @@ package BaseClasses "Package with base classes for Buildings.ThermalZones.Energy
     string=Modelica.Utilities.Files.fullPathName(Modelica.Utilities.Files.loadResource("modelica://Buildings/legal.html")),
     searchString="Buildings/legal.html",
     replaceString="Buildings")
-    "Root directory of the Buildings library (used to find the spawn executable";
+    "Root directory of the Buildings library (used to find the spawn executable)";
 
   annotation (
     preferredView="info",

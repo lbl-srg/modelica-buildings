@@ -27,7 +27,7 @@ external "C" ModelicaSpawnExchange(
     Documentation(
       info="<html>
 <p>
-External function that exchanges data with EnergyPlus for the current thermal zone.
+External function that exchanges data with EnergyPlus.
 </p>
 </html>",
       revisions="<html>
