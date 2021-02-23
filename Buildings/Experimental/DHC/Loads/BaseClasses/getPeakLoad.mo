@@ -29,9 +29,7 @@ algorithm
   // Get line that contains 'string'
   iLin := 0;
   EOF := false;
-  while
-       (not EOF) and
-                    (index == 0) loop
+  while(not EOF) and(index == 0) loop
     iLin := iLin+1;
     (lin,EOF) := Modelica.Utilities.Streams.readLine(
       fileName=filNam,

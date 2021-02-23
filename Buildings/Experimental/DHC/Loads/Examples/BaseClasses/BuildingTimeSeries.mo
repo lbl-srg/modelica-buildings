@@ -269,7 +269,7 @@ equation
           -66},{220,-66},{220,280},{268,280}}, color={0,0,127}));
   connect(disFloCoo.QActTot_flow, mulQCoo_flow.u) annotation (Line(points={{141,
           -266},{224,-266},{224,240},{268,240}}, color={0,0,127}));
-    annotation (
+    annotation (Line(points={{90.8333,-12},{180,-12},{180,126},{238,126}},color={0,0,127}),
     Documentation(
       info="
 <html>
