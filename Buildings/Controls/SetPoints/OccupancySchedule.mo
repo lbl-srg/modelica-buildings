@@ -18,7 +18,7 @@ block OccupancySchedule "Occupancy schedule with look-ahead"
     annotation (Placement(transformation(extent={{100,-70},{120,-50}})));
 
 protected
-  parameter Integer nRow = size(occupancy,1)
+  final parameter Integer nRow = size(occupancy,1)
     "Number of rows in the schedule";
 
   discrete Modelica.SIunits.Time tOcc "Time when next occupancy starts";
