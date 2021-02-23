@@ -648,14 +648,20 @@ equation
   defaultComponentName="ets",
   Documentation(info="<html>
 <p>
-This model represents an energy transfer station as illustrated in the schematics
-below.
+This model represents an energy transfer station as described in Sommer (2020).
 </p>
 <ul>
 <li>
+The cooling function is provided in a compressor-less mode by a heat exchanger 
+connected to the service line.
+The chilled water is typically produced at high temperature, for instance
+19&deg;C.
+</li>
+<li>
 The heating functions are provided by water-to-water heat pumps.
-The heating hot water is typically produced at low temperature, 
-for instance 40&deg;C.
+</li>
+<ul>
+<li>
 By default the condenser and evaporator loops are operated
 with variable mass flow rate, with a lower limit specified by the ratio
 <code>ratFloMin</code>.
@@ -664,11 +670,20 @@ by setting <code>have_varFloCon</code> and <code>have_varFloEva</code>
 to <code>false</code>.
 </li>
 <li>
-The cooling function is provided in a compressor-less mode by a heat exchanger 
-connected to the service line.
-The chilled water is typically produced at high temperature, for instance
-19&deg;C.
+The condenser water is provided by mixing the flow rate from the direct connection
+to the service line to the flow rate from the secondary side of the cooling 
+heat exchanger.
+The hydronic arrangement modeled in 
+<a href=\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Subsystems.SwitchBox\">
+Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Subsystems.SwitchBox</a>
+ensures that the resulting fluid stream in the service line always flows 
+in the same direction. 
 </li>
+<li>
+The heating hot water is typically produced at low temperature, 
+for instance 40&deg;C.
+</li>
+</ul>
 </ul>
 <h4>Controls</h4>
 <p>
@@ -682,10 +697,12 @@ with the number of requests yielded by the terminal unit controllers, or any
 other signal representative of the heating load.
 </p>
 <p>
-Variable flow.
-</p>
-<p>
-Switch box
+When enabled
+<ul>
+<li>
+
+</li>
+</ul>
 </p>
 <h4>Modeling considerations</h4>
 <p>
@@ -693,6 +710,13 @@ There is a control volume at each of the two fluid ports
 that serve as connectors with the service line. These approximate the dynamics
 of the substation, and they also generally avoid nonlinear system
 of equations if multiple substations are connected to each other.
+</p>
+<h4>References</h4>
+<p>
+Sommer T., Sulzer M., Wetter M., Sotnikov A., Mennel S., Stettler C.
+<i>The reservoir network: A new network topology for district heating
+and cooling.</i> 
+Energy, Volume 199, 15 May 2020, 117418.
 </p>
 </html>",
   revisions="<html>

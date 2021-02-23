@@ -51,7 +51,9 @@ equation
           {58,-8}}, color={0,0,127}));
   annotation (Documentation(info="<html>
 <p>
-Controller for the mass flow rate for the switching box.
+Controller for the mass flow rate of the switch box 
+<a href=\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Subsystems.SwitchBox\">
+Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Subsystems.SwitchBox</a>.
 </p>
 </html>", revisions="<html>
 <ul>
