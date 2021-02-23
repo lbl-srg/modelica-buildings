@@ -12,7 +12,7 @@ model VAVBranch "Supply branch of a VAV system"
   parameter Modelica.SIunits.Volume VRoo "Room volume";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TRooHeaSet(
-    final quantity="ThermodynamicTemperure",
+    final quantity="ThermodynamicTemperature",
     final unit = "K",
     displayUnit = "degC",
     min=0)
