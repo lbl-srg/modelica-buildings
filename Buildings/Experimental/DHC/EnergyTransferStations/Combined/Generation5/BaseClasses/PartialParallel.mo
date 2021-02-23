@@ -105,18 +105,15 @@ model PartialParallel
   // IO VARIABLES
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHea
     "Heating enable signal"
-    annotation (Placement(transformation(extent={{-340,80},{-300,120}}),
-      iconTransformation(extent={{-380,40},{-300,120}})));
+    annotation (Placement(transformation(extent={{-340,80},{-300,120}}),iconTransformation(extent={{-380,40},{-300,120}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uCoo
     "Cooling enable signal"
-    annotation (Placement(transformation(extent={{-340,40},{-300,80}}),
-      iconTransformation(extent={{-380,-20},{-300,60}})));
+    annotation (Placement(transformation(extent={{-340,40},{-300,80}}),iconTransformation(extent={{-380,-20},{-300,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaWatSupSet(
     final unit="K",
     displayUnit="degC")
     "Heating water supply temperature set point"
-    annotation (Placement(transformation(extent={{-340,-40},{-300,0}}),
-      iconTransformation(extent={{-380,-80},{-300,0}})));
+    annotation (Placement(transformation(extent={{-340,-40},{-300,0}}),iconTransformation(extent={{-380,-80},{-300,0}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSupSet(
     final unit="K",
     displayUnit="degC")
