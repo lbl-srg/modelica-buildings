@@ -104,10 +104,13 @@ equation
 This model validates that
 <a href=\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Subsystems.SwitchBox\">
 Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Subsystems.SwitchBox</a>
-maintains a positive flow rate in the district line outside of the temporization 
+maintains a positive flow rate in the district line outside of the temporization
 period set by the controller.
 </p>
 </html>"),
+  experiment(
+      StopTime=1000,
+      Tolerance=1e-06),
     __Dymola_Commands(
     file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/EnergyTransferStations/Combined/Generation5/Subsystems/Validation/SwitchBox.mos"
     "Simulate and plot"));

@@ -53,8 +53,8 @@ equation
   file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Examples/Combined/Generation5/Examples/ParallelConstantFlow.mos"
   "Simulate and plot"),
   experiment(
-    StopTime=604800,
-    Tolerance=1e-06),
+      StopTime=604800,
+      Tolerance=1e-06),
     Documentation(revisions="<html>
 <ul>
 <li>
@@ -67,7 +67,7 @@ First implementation.
 This model is identical to
 <a href=\"Buildings.Experimental.DHC.Examples.Combined.Generation5.Examples.SeriesConstantFlow\">
 Buildings.Experimental.DHC.Examples.Combined.Generation5.Examples.SeriesConstantFlow</a>
-except for the energy transfer stations that are connected in parallel and 
+except for the energy transfer stations that are connected in parallel and
 for the pipe sizing parameters that are adjusted consequently.
 </p>
 </html>"));

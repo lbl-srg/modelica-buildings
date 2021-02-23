@@ -74,16 +74,14 @@ equation
   file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Examples/Combined/Generation5/Examples/SeriesVariableFlow.mos"
   "Simulate and plot"),
   experiment(
-      StopTime=31536000,
-      __Dymola_NumberOfIntervals=8760,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Cvode"),
+      StopTime=604800,
+      Tolerance=1e-06),
     Documentation(revisions="<html>
 <ul>
 <li>
 February 23, 2021, by Antoine Gautier:<br/>
 Refactored with base classes from the <code>DHC</code> package.<br/>
-This is for 
+This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1769\">
 issue 1769</a>.
 </li>

@@ -189,5 +189,32 @@
          "rtol": 1E-8
     },
     "model_name": "Buildings.Examples.DualFanDualDuct.ClosedLoop"
+  },
+  {
+    "jmodelica": {
+      "translate": false
+    },
+    "optimica": {
+      "translate": false
+    },
+    "model_name": "Buildings.Experimental.DHC.Examples.Combined.Generation5.Examples.ParallelConstantFlow"
+  },
+  {
+    "jmodelica": {
+      "translate": false
+    },
+    "optimica": {
+      "translate": false
+    },
+    "model_name": "Buildings.Experimental.DHC.Examples.Combined.Generation5.Examples.SeriesConstantFlow"
+  },
+  {
+    "jmodelica": {
+      "translate": false
+    },
+    "optimica": {
+      "translate": false
+    },
+    "model_name": "Buildings.Experimental.DHC.Examples.Combined.Generation5.Examples.SeriesVariableFlow"
   }
 ]
