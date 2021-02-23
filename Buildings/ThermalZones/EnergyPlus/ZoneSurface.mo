@@ -19,13 +19,14 @@ model ZoneSurface
     final unit="W",
     final quanity="Power")
     "Net heat flow rate from the thermal zone to the surface (positive if surface is cold)"
-    annotation (Placement(transformation(extent={{100,-20},{140,20}}),iconTransformation(extent={{100,40},
+    annotation (Placement(transformation(extent={{100,20},{140,60}}), iconTransformation(extent={{100,40},
             {140,80}})));
   Modelica.Blocks.Interfaces.RealOutput q_flow(
     final unit="W/m2",
     final quanity="HeatFlux")
     "Net heat flux from the thermal zone to the surface (positive if surface is cold)"
-    annotation (Placement(transformation(extent={{100,-20},{140,20}}),iconTransformation(extent={{100,-80},
+    annotation (Placement(transformation(extent={{100,-60},{140,-20}}),
+                                                                      iconTransformation(extent={{100,-80},
             {140,-40}})));
 protected
   constant String modelicaNameInputVariable=getInstanceName()
