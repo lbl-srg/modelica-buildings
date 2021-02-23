@@ -83,9 +83,6 @@ protected
     tNonOcc := occupancy[nexStoInd] + iPerSto*period;
 
     occupied := tNonOcc < tOcc;
-    Modelica.Utilities.Streams.print("*** fixme: Compared tNonOcc < tOcc = " +
-      String(tNonOcc) + " < " + String(tOcc) + " to give occupied = " + String(
-      occupied));
     // Now, correct if the first entry is vaccant instead of occupied
     if not firstEntryOccupied then
      (nexStaInd, nexStoInd) := switchInteger(nexStaInd, nexStoInd);
@@ -139,8 +136,6 @@ initial equation
   end for;
 
   (tOcc, tNonOcc, occupied, tNext) = getOutput(t = time, period = period, occupancy= occupancy, firstEntryOccupied = firstEntryOccupied, nRow=nRow);
- Modelica.Utilities.Streams.print("*** fixme: End of initial algorithm: occupied = " + String(occupied));
-  assert(occupied == false, "*** fixme: End of initial algorithm: Expected occupied = false, but received occupied = " + String(occupied));
 
 equation
   when time >= pre(tNext) then
