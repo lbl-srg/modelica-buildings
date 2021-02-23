@@ -2,5 +2,7 @@ compareVars :=
   {
     "vavBra.yVAV",
     "vavBra.yVal",
-    "vavBra.port_b.h_outflow"
+    "TSupAir.y",
+    "vavBra.terHea.sta_b1.T",
+    "vavBra.senMasFlo.m_flow"
   };
