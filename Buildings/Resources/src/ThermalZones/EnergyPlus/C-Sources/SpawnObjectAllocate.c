@@ -152,26 +152,26 @@ void* EnergyPlusSpawnAllocate(
       modelicaName, n, nDer);
   }
 
-  /* Dymola 2019FD01 calls in some cases the allocator twice. In this case, simply return the previously instanciated zone pointer */
+  /* Dymola 2019FD01 calls in some cases the allocator twice. In this case, simply return the previously instanciated Spawn object pointer */
   setExchangePointerIfAlreadyInstanciated(modelicaName, objectType, &ptrSpaObj);
   if (ptrSpaObj != NULL){
     if (logLevel >= MEDIUM)
-      SpawnFormatMessage("%.3f %s: EnergyPlusSpawnAllocate called more than once for this zone.\n", startTime, modelicaName);
-    /* Return pointer to this zone */
+      SpawnFormatMessage("%.3f %s: EnergyPlusSpawnAllocate called more than once for this object.\n", startTime, modelicaName);
+    /* Return pointer to this Spawn object */
     return (void*) ptrSpaObj;
   }
   if (logLevel >= MEDIUM)
     SpawnFormatMessage("%.3f %s: First call for this instance.\n", startTime, modelicaName);
 
   /* ********************************************************************** */
-  /* Initialize the zone */
+  /* Initialize the Spawn object */
 
   if (logLevel >= MEDIUM)
-    SpawnFormatMessage("%.3f %s: Initializing memory for zone.\n", startTime, modelicaName);
+    SpawnFormatMessage("%.3f %s: Initializing memory for object.\n", startTime, modelicaName);
 
   ptrSpaObj = (SpawnObject*) malloc(sizeof(SpawnObject));
   if ( ptrSpaObj == NULL )
-    SpawnError("Not enough memory in EnergyPlusSpawnAllocate.c. to allocate zone.");
+    SpawnError("Not enough memory in EnergyPlusSpawnAllocate.c. to allocate Spawn object.");
 
   ptrSpaObj->printUnit = printUnit;
   /* Some tools such as OpenModelica may optimize the code resulting in initialize()
@@ -259,9 +259,9 @@ void* EnergyPlusSpawnAllocate(
     SpawnFormatError);
 
   /* ********************************************************************** */
-  /* Initialize the pointer for the FMU to which this zone belongs */
+  /* Initialize the pointer for the FMU to which this Spawn object belongs */
 
-  /* Check if there is already an FMU for the Building to which this zone belongs to. */
+  /* Check if there is already an FMU for the Building to which this Spawn object belongs to. */
   ptrSpaObj->bui = NULL;
   for(i = 0; i < nFMU; i++){
     FMUBuilding* fmu = getBuildingsFMU(i);
@@ -303,7 +303,7 @@ void* EnergyPlusSpawnAllocate(
       }
 
       if (logLevel >= MEDIUM){
-        SpawnFormatMessage("%.3f %s: Assigning zone to building with building at %p\n", startTime, modelicaName, fmu);
+        SpawnFormatMessage("%.3f %s: Assigning Spawn object to building with building at %p\n", startTime, modelicaName, fmu);
       }
       ptrSpaObj->bui = fmu;
       AddSpawnObjectToBuilding(ptrSpaObj, logLevel);
@@ -344,8 +344,8 @@ void* EnergyPlusSpawnAllocate(
   }
 
   if (logLevel >= MEDIUM)
-    SpawnFormatMessage("%.3f %s: Exiting allocation with zone ptr at %p and building ptr at %p\n", startTime, modelicaName, ptrSpaObj, ptrSpaObj->bui);
-  /* Return a pointer to this zone */
+    SpawnFormatMessage("%.3f %s: Exiting allocation with Spawn object ptr at %p and building ptr at %p\n", startTime, modelicaName, ptrSpaObj, ptrSpaObj->bui);
+  /* Return a pointer to this Spawn object */
   return (void*) ptrSpaObj;
 }
 

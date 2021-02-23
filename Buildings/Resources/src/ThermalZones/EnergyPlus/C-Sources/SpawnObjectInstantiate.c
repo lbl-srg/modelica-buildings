@@ -18,9 +18,9 @@
 void EnergyPlusSpawnInstantiate(
     void* object,
     int *nObj){
-  SpawnObject* zone = (SpawnObject*) object;
-  FMUBuilding* bui = zone->bui;
-  const char* modelicaName = zone->modelicaName;
+  SpawnObject* ptrSpaObj = (SpawnObject*) object;
+  FMUBuilding* bui = ptrSpaObj->bui;
+  const char* modelicaName = ptrSpaObj->modelicaName;
 
   if (bui->logLevel >= MEDIUM){
     bui->SpawnFormatMessage("%.3f %s: Entered EnergyPlusSpawnInstantiate.\n", bui->time, modelicaName);
@@ -39,25 +39,25 @@ void EnergyPlusSpawnInstantiate(
     loadFMU_setupExperiment_enterInitializationMode(bui, bui->time);
   }
 
-  if (! zone->valueReferenceIsSet){
+  if (! ptrSpaObj->valueReferenceIsSet){
     bui->SpawnFormatError("Value reference is not set for %s. For Dymola 2020x, make sure you set 'Hidden.AvoidDoubleComputation=true'. See Buildings.ThermalZones.EnergyPlus.UsersGuide.",
       modelicaName);
   }
 
   /* Get parameter values from EnergyPlus */
   if (bui->logLevel >= MEDIUM)
-    bui->SpawnFormatMessage("%.3f %s: Getting parameters from EnergyPlus zone, bui at %p, zone at %p, zone->parameter at %p.\n", bui->time, zone->modelicaName,
-      bui, zone, zone->parameters);
-  getVariables(bui, modelicaName, zone->parameters);
+    bui->SpawnFormatMessage("%.3f %s: Getting parameters from EnergyPlus, bui at %p, Spawn object at %p, parameter at %p.\n", bui->time, ptrSpaObj->modelicaName,
+      bui, ptrSpaObj, ptrSpaObj->parameters);
+  getVariables(bui, modelicaName, ptrSpaObj->parameters);
 
   /* Assign nObj to synchronize all Spawn objects of this building */
   *nObj = 1;
 
-  /* Set flag to indicate that this zone has been properly initialized */
-  zone->isInstantiated = fmi2True;
+  /* Set flag to indicate that this Spawn object has been properly initialized */
+  ptrSpaObj->isInstantiated = fmi2True;
 
   if (bui->logLevel >= MEDIUM)
-    bui->SpawnFormatMessage("%.3f %s: Zone is instantiated.\n", bui->time, zone->modelicaName);
+    bui->SpawnFormatMessage("%.3f %s: Spawn object is instantiated.\n", bui->time, ptrSpaObj->modelicaName);
 }
 
 
@@ -66,9 +66,9 @@ void EnergyPlusSpawnInstantiate(
 void EnergyPlusSpawnGetParameters(
     void* object,
     double *parOut){
-  SpawnObject* zone = (SpawnObject*) object;
-  FMUBuilding* bui = zone->bui;
-  const char* modelicaName = zone->modelicaName;
+  SpawnObject* ptrSpaObj = (SpawnObject*) object;
+  FMUBuilding* bui = ptrSpaObj->bui;
+  const char* modelicaName = ptrSpaObj->modelicaName;
   size_t i;
 
   if (bui->logLevel >= MEDIUM){
@@ -76,10 +76,10 @@ void EnergyPlusSpawnGetParameters(
   }
 
   /* Assign the parameters for this object */
-  for(i = 0; i < zone->parameters->n; i++){
-    *parOut = zone->parameters->valsSI[i];
+  for(i = 0; i < ptrSpaObj->parameters->n; i++){
+    *parOut = ptrSpaObj->parameters->valsSI[i];
     parOut++; /* Increment to next element */
   }
   if (bui->logLevel >= MEDIUM)
-    bui->SpawnFormatMessage("%.3f %s: Leaving EnergyPlusSpawnGetParameters.\n", bui->time, zone->modelicaName);
+    bui->SpawnFormatMessage("%.3f %s: Leaving EnergyPlusSpawnGetParameters.\n", bui->time, ptrSpaObj->modelicaName);
 }

@@ -244,7 +244,7 @@ void FMUBuildingFree(FMUBuilding* bui){
       bui, bui->nExcObj);
     }
 
-    /* Make sure no thermal zone or output variable uses this building */
+    /* Make sure no Spawn object uses this building */
     if (bui->nExcObj > 0){
       if (bui->logLevel >= MEDIUM)
         SpawnFormatMessage("%.3f %s: Exiting FMUBuildingFree without changes as building is still used.\n", bui->time, bui->modelicaNameBuilding);

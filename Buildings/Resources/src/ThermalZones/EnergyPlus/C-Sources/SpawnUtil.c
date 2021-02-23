@@ -568,7 +568,7 @@ void buildVariableNames(
       *ptrFMINames = NULL;
       return;
     }
-    /* Compute longest output plus zone name */
+    /* Compute longest name */
     len = 0;
     for (i=0; i<nVar; i++)
       len = max(len, strlen(variableNames[i]));
@@ -591,7 +591,7 @@ void buildVariableNames(
       strcpy((*ptrVarNames)[i], variableNames[i]);
     }
 
-    /* Compute longest output plus zone name */
+    /* Compute longest name */
     len = 0;
     for (i=0; i<nVar; i++){
       /* Use +1 to account for the comma */
