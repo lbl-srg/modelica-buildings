@@ -27,7 +27,7 @@ model VAVBranch "Supply branch of a VAV system"
     redeclare package Medium2 = MediumW,
     m1_flow_nominal=m_flow_nominal,
     m2_flow_nominal=m_flow_nominal*1000*(50 - 17)/4200/10,
-    Q_flow_nominal=m_flow_nominal*1006*(50 - 16.7),
+    Q_flow_nominal=m_flow_nominal*1006*(16.7 - 50),
     configuration=Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow,
     dp1_nominal=0,
     from_dp2=true,

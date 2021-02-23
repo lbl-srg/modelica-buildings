@@ -162,7 +162,7 @@ model ChillerDXHeatingEconomizer
     final dp1_nominal=0,
     final dp2_nominal=0,
     final m2_flow_nominal=mAir_flow_nominal,
-    final Q_flow_nominal=-QCoo_flow_nominal,
+    final Q_flow_nominal=QCoo_flow_nominal,
     final configuration=Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow,
     final allowFlowReversal1=false,
     final allowFlowReversal2=false,

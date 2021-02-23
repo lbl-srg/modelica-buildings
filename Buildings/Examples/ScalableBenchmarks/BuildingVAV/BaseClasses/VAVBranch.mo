@@ -12,7 +12,7 @@ model VAVBranch "Supply branch of a VAV system"
   parameter Modelica.SIunits.Volume VRoo "Room volume";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TRooHeaSet(
-    final quantity="ThermodynamicTemperature",
+    final quantity="ThermodynamicTemperure",
     final unit = "K",
     displayUnit = "degC",
     min=0)
@@ -64,7 +64,7 @@ model VAVBranch "Supply branch of a VAV system"
     redeclare package Medium2 = MediumW,
     m1_flow_nominal=m_flow_nominal,
     m2_flow_nominal=m_flow_nominal*1000*(50 - 17)/4200/10,
-    Q_flow_nominal=m_flow_nominal*1006*(50 - 16.7),
+    Q_flow_nominal=m_flow_nominal*1006*(16.7 - 50),
     configuration=Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow,
     dp1_nominal=0,
     from_dp2=true,
@@ -255,10 +255,10 @@ annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
           textString="TRooAir")}),
      Documentation(info="<html>
 <p>
-Model for a VAV supply branch. 
-The terminal VAV box has a pressure independent damper and a water reheat coil. 
-The pressure independent damper model includes an idealized flow rate controller 
-and requires a discharge air flow rate set-point (normalized to the nominal value) 
+Model for a VAV supply branch.
+The terminal VAV box has a pressure independent damper and a water reheat coil.
+The pressure independent damper model includes an idealized flow rate controller
+and requires a discharge air flow rate set-point (normalized to the nominal value)
 as a control signal.
 </p>
 </html>", revisions="<html>

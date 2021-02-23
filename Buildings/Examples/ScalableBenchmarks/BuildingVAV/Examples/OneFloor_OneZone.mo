@@ -49,7 +49,7 @@ model OneFloor_OneZone "Closed-loop model with 1 zone in 1 floor"
     each allowFlowReversal2=false,
     each m2_flow_nominal=m_flow_nominal*1000*(10 - (-20))/4200/10,
     each configuration=Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow,
-    each Q_flow_nominal=m_flow_nominal*1006*(16.7 - 8.5),
+    each Q_flow_nominal=m_flow_nominal*1006*(8.5 - 16.7),
     each dp1_nominal=0,
     each dp2_nominal=0,
     each T_a1_nominal=281.65,
