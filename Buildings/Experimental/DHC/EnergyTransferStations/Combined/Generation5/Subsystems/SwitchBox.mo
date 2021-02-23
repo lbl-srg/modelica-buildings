@@ -134,7 +134,7 @@ equation
   coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
     Documentation(info="<html>
 <p>
-This model represents an hydronic arrangement avoid flow reversal in the service line,
+This model represents a hydronic arrangement avoid flow reversal in the service line,
 for instance when connecting an energy transfer station such as the one modeled in
 <a href=\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.HeatPumpHeatExchanger\">
 Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.HeatPumpHeatExchanger</a>.
@@ -145,6 +145,13 @@ Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Controls.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 23, 2021, by Antoine Gautier:<br/>
+Refactored with three-way valves instead of pumps.<br/>
+This is for 
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1769\">
+issue 1769</a>.
+</li>
 <li>
 January 16, 2020, by Michael Wetter:<br/>
 Added documentation.

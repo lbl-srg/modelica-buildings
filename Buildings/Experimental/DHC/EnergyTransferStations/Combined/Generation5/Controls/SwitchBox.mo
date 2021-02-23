@@ -9,13 +9,13 @@ block SwitchBox "Controller for flow switch box"
     final quantity="Time",
     final unit="s") = trueHoldDuration
     "false hold duration";
-  Modelica.Blocks.Interfaces.RealInput mPos_flow(final unit="kg/s")
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput mPos_flow(final unit="kg/s")
     "Service water mass flow rate in positive direction"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
-  Modelica.Blocks.Interfaces.RealInput mRev_flow(final unit="kg/s")
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput mRev_flow(final unit="kg/s")
     "Service water mass flow rate in reverse direction"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
-  Modelica.Blocks.Interfaces.RealOutput y(final unit="1")
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput y(final unit="1")
     "Control output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
   Modelica.Blocks.Logical.GreaterEqual posDom
@@ -67,6 +67,10 @@ Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Subsystem
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 23, 2021, by Antoine Gautier:<br/>
+Refactored with CDL connectors.
+</li>
 <li>
 January 23, 2020, by Michael Wetter:<br/>
 Added <a href=\"modelica://Buildings.Controls.OBC.CDL.Logical.TrueFalseHold\">

@@ -1,5 +1,5 @@
 within Buildings.Experimental.DHC.Examples.Combined.Generation5.Networks.BaseClasses;
-model PipeAutosize "Building service connection pipe"
+model PipeAutosize "Pipe model with autosizing"
   extends Buildings.Fluid.FixedResistances.PressureDrop(
     final deltaM =  eta_default*dh/4*Modelica.Constants.pi*ReC/m_flow_nominal_pos,
     final dp_nominal=dp_length_nominal*length);

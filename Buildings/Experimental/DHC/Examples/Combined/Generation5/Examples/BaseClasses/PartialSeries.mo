@@ -275,5 +275,26 @@ equation
   connect(TDisWatRet.T, conVio.u[3]) annotation (Line(points={{69,6.66134e-16},{
           60,6.66134e-16},{60,20},{318,20}},           color={0,0,127}));
   annotation (Diagram(
-    coordinateSystem(preserveAspectRatio=false, extent={{-360,-260},{360,260}})));
+    coordinateSystem(preserveAspectRatio=false, extent={{-360,-260},{360,260}})),
+      Documentation(revisions="<html>
+<ul>
+<li>
+February 23, 2021, by Antoine Gautier:<br/>
+Refactored with base classes from the <code>DHC</code> package.<br/>
+This is for 
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1769\">
+issue 1769</a>.
+</li>
+<li>
+January 16, 2020, by Michael Wetter:<br/>
+Added documentation.
+</li>
+</ul>
+</html>", info="<html>
+<p>
+Partial model that is used by the reservoir network models.
+The reservoir network models extend this model, add controls,
+and configure some component sizes.
+</p>
+</html>"));
 end PartialSeries;

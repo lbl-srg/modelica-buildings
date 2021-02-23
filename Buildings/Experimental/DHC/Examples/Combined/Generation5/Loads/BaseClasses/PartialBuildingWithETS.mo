@@ -1,5 +1,6 @@
 within Buildings.Experimental.DHC.Examples.Combined.Generation5.Loads.BaseClasses;
 model PartialBuildingWithETS
+  "Partial model with ETS model and partial building model"
   extends DHC.Loads.BaseClasses.PartialBuildingWithPartialETS(
     nPorts_heaWat=1,
     nPorts_chiWat=1,

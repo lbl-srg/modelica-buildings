@@ -24,6 +24,10 @@ block PrimaryVariableFlow
     annotation (
       Placement(transformation(extent={{-140,-20},{-100,20}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput m_flow(final unit="kg/s")
+    "Mass flow rate"
+    annotation (Placement(transformation(extent={{100,-20},{140,20}}),
+      iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant masFloMin(
     final k=ratFloMin*m_flow_nominal)
     "Minimum mass flow rate"
@@ -34,10 +38,6 @@ block PrimaryVariableFlow
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Max masFlo "Mass flow rate"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput m_flow(final unit="kg/s")
-    "Mass flow rate"
-    annotation (Placement(transformation(extent={{100,-20},{140,20}}),
-      iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Continuous.Abs abs1 "Absolute value"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 equation
@@ -66,5 +66,10 @@ For computational performance and to avoid the use of a PI controller,
 the required mass flow rate is computed based on a signal representative of 
 the load.
 </p>
+</html>", revisions="<html>
+<li>
+February 23, 2021, by Antoine Gautier:<br/>
+First implementation.
+</li>
 </html>"));
 end PrimaryVariableFlow;

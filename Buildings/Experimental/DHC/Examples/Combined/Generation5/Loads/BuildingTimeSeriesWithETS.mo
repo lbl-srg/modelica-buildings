@@ -1,6 +1,6 @@
 within Buildings.Experimental.DHC.Examples.Combined.Generation5.Loads;
 model BuildingTimeSeriesWithETS
-  "Model of a building with thermal loads as time series, with an energy transfer station"
+  "Model of a building with loads provided as time series, connected to an ETS"
   extends BaseClasses.PartialBuildingWithETS(
     redeclare DHC.Loads.Examples.BaseClasses.BuildingTimeSeries bui(
       final filNam=filNam,

@@ -1,5 +1,5 @@
 ﻿within Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Subsystems;
-model HeatPump "Base subsystem with water to water heat pump"
+model HeatPump "Base subsystem with water-to-water heat pump"
   replaceable package Medium1=Modelica.Media.Interfaces.PartialMedium
     "Medium model on condenser side"
     annotation (choices(choice(redeclare package Medium=Buildings.Media.Water "Water"),
@@ -302,7 +302,7 @@ equation
 This model represents a water-to-water heat pump, an evaporator water pump,
 and an optional condenser water pump if <code>have_pumCon</code> is set to
 <code>true</code>.
-The heat pump model is documented in
+The heat pump model is described in
 <a href=\"modelica://Buildings.Fluid.HeatPumps.Carnot_TCon\">
 Buildings.Fluid.HeatPumps.Carnot_TCon</a>.
 By default variable speed pumps are considered.
@@ -317,7 +317,7 @@ When enabled,
 </p>
 <ul>
 <li>
-the evaporator and optionally the condenser water pump are commanded on and supply either
+the evaporator and optionally the condenser water pumps are commanded on and supply either
 the mass flow rate set point provided as an input in the case of variable speed pumps,
 or the nominal mass flow rate in the case of constant speed pumps,
 </li>
@@ -325,6 +325,13 @@ or the nominal mass flow rate in the case of constant speed pumps,
 the heat pump is commanded on when the evaporator and optionally the condenser water pump
 are proven on. When enabled, the heat pump controller—idealized in this model—tracks the
 supply temperature set point at the condenser outlet. 
+</li>
+</ul>
+</html>", revisions="<html>
+<ul>
+<li>
+February 23, 2021, by Antoine Gautier:<br/>
+First implementation.
 </li>
 </ul>
 </html>"));

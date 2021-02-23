@@ -654,8 +654,8 @@ This model represents an energy transfer station as described in Sommer (2020).
 <li>
 The cooling function is provided in a compressor-less mode by a heat exchanger 
 connected to the service line.
-The chilled water is typically produced at high temperature, for instance
-19&deg;C.
+The chilled water is typically produced at high temperature and distributed
+to radiant cooling systems, for instance at 19&deg;C.
 </li>
 <li>
 The heating functions are provided by water-to-water heat pumps.
@@ -670,7 +670,7 @@ by setting <code>have_varFloCon</code> and <code>have_varFloEva</code>
 to <code>false</code>.
 </li>
 <li>
-The condenser water is provided by mixing the flow rate from the direct connection
+The evaporator water is supplied by mixing the flow rate from the direct connection
 to the service line to the flow rate from the secondary side of the cooling 
 heat exchanger.
 The hydronic arrangement modeled in 
@@ -694,7 +694,7 @@ when disabled, the mode cannot be enabled again for at least 15'.
 The heating and cooling enable signals should be computed externally based 
 on a schedule (to lock out the system during off-hours), ideally in conjunction 
 with the number of requests yielded by the terminal unit controllers, or any
-other signal representative of the heating load.
+other signal representative of the load.
 </p>
 <p>
 When enabled,
@@ -718,9 +718,9 @@ secondary side.
 </ul>
 <h4>Modeling considerations</h4>
 <p>
-There is a control volume at each of the two fluid ports
-that serve as connectors with the service line. These approximate the dynamics
-of the substation, and they also generally avoid nonlinear system
+There is a control volume at each of the two fluid ports that serve as inlet and outlet
+of the heating and cooling systems. These approximate the dynamics
+of the substation, and they also generally avoid nonlinear systems
 of equations if multiple substations are connected to each other.
 </p>
 <h4>References</h4>
@@ -733,6 +733,13 @@ Energy, Volume 199, 15 May 2020, 117418.
 </html>",
   revisions="<html>
 <ul>
+<li>
+February 23, 2021, by Antoine Gautier:<br/>
+Refactored with subsystem models and partial ETS base class.<br/>
+This is for 
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1769\">
+issue 1769</a>.
+</li>
 <li>
 December 12, 2017, by Michael Wetter:<br/>
 Removed call to <code>Modelica.Utilities.Files.loadResource</code>.<br/>

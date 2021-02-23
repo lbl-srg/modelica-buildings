@@ -32,5 +32,10 @@ record DesignDataSeries "Record with design data for series network"
     "Length of the end of the distribution line (after last connection)";
   annotation (
     defaultComponentName="datDes",
-    defaultComponentPrefixes="inner");
+    defaultComponentPrefixes="inner",
+    Documentation(info="<html>
+<p>
+This record contains parameter declarations used in example models of DHC systems.
+</p>
+</html>"));
 end DesignDataSeries;

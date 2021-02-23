@@ -1,5 +1,5 @@
 within Buildings.Experimental.DHC.Examples.Combined.Generation5.ThermalStorages;
-model BoreField "Bore field model"
+model BoreField "Geothermal borefield model"
   extends Buildings.Fluid.Geothermal.Borefields.TwoUTubes(
     final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     final tLoaAgg(displayUnit="h") = 3600,

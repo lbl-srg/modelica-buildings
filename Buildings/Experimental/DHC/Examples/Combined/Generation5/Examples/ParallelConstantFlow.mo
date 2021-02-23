@@ -54,5 +54,21 @@ equation
   "Simulate and plot"),
   experiment(
     StopTime=604800,
-    Tolerance=1e-06));
+    Tolerance=1e-06),
+    Documentation(revisions="<html>
+<ul>
+<li>
+February 23, 2021, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
+</html>", info="<html>
+<p>
+This model is identical to
+<a href=\"Buildings.Experimental.DHC.Examples.Combined.Generation5.Examples.SeriesConstantFlow\">
+Buildings.Experimental.DHC.Examples.Combined.Generation5.Examples.SeriesConstantFlow</a>
+except for the energy transfer stations that are connected in parallel and 
+for the pipe sizing parameters that are adjusted consequently.
+</p>
+</html>"));
 end ParallelConstantFlow;

@@ -43,5 +43,10 @@ record DesignDataParallel
     "Length of the end of the distribution line (supply only, not counting return line)";
   annotation (
     defaultComponentName="datDes",
-    defaultComponentPrefixes="inner");
+    defaultComponentPrefixes="inner",
+    Documentation(info="<html>
+<p>
+This record contains parameter declarations used in example models of DHC systems.
+</p>
+</html>"));
 end DesignDataParallel;

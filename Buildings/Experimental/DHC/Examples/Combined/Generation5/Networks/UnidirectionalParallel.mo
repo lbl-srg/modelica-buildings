@@ -1,6 +1,6 @@
 within Buildings.Experimental.DHC.Examples.Combined.Generation5.Networks;
 model UnidirectionalParallel
-  "Hydraulic network for unidirectional parallel DHC system"
+  "Hydronic network for unidirectional parallel DHC system"
   extends Experimental.DHC.Networks.BaseClasses.PartialDistribution2Pipe(
     tau=5*60,
     redeclare BaseClasses.ConnectionParallelAutosize con[nCon](
@@ -44,4 +44,11 @@ model UnidirectionalParallel
     start=0.2,
     min=0.01)
     "Hydraulic diameter of the end of the distribution line";
+  annotation (Documentation(info="<html>
+<p>
+Model of a two-pipe distribution network with built-in computation
+of the pipe diameters based on the pressure drop per pipe length 
+at nominal flow rate.
+</p>
+</html>"));
 end UnidirectionalParallel;

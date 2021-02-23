@@ -1,6 +1,6 @@
 within Buildings.Experimental.DHC.Examples.Combined.Generation5.Networks;
 model UnidirectionalSeries
-  "Hydraulic network for unidirectional series DHC system"
+  "Hydronic network for unidirectional series DHC system"
   extends DHC.Networks.BaseClasses.PartialDistribution1Pipe(
     tau=5*60,
     redeclare BaseClasses.ConnectionSeriesAutosize con[nCon](
@@ -40,12 +40,20 @@ model UnidirectionalSeries
     "Hydraulic diameter of of the end of the distribution line (after last connection)";
   annotation (Documentation(info="<html>
 <p>
+Model of a one-pipe distribution network with built-in computation
+of the pipe diameter based on the pressure drop per pipe length 
+at nominal flow rate.
+</p>
+<h4>Modeling considerations</h4>
+<p>
 Note that <code>dhDis</code> needs to be vectorized, even if the same value 
-is computed for each array element in case of a series network. 
-This is because the same class  
-Buildings.Experimental.DHC.Examples.Combined.Generation5.Unidirectional.Networks.BaseClasses.ConnectionSeriesAutosize
-is used for all connections, so the initialzation system of equations
-would be overdetermined if using a scalar variable.
+is computed for each array element in case of a one-pipe network. 
+This is because the pipe diameter is computed at initialization by the model
+<a href=\"Buildings.Experimental.DHC.Examples.Combined.Generation5.Networks.BaseClasses.ConnectionSeriesAutosize\">
+Buildings.Experimental.DHC.Examples.Combined.Generation5.Networks.BaseClasses.ConnectionSeriesAutosize</a>
+which is instantiated for each connection.
+So the initialization system of equations would be overdetermined if using 
+a parameter binding with a scalar variable.
 </p>
 </html>"));
 end UnidirectionalSeries;
