@@ -170,6 +170,7 @@ equation
 
 annotation (
   defaultComponentName = "supSig",
+  __cdl(generatePointlist=false, controlledDevice="Multizone AHU"),
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
         extent={{-100,-100},{100,100}},

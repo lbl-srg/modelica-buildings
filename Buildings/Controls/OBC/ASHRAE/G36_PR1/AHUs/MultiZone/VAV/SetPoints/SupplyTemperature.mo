@@ -266,6 +266,7 @@ equation
 
 annotation (
   defaultComponentName = "conTSupSet",
+  __cdl(generatePointlist=false, controlledDevice="Multizone AHU"),
   Icon(graphics={
         Rectangle(
         extent={{-100,-100},{100,100}},

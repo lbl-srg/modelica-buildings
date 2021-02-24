@@ -329,6 +329,7 @@ equation
 
 annotation (
     defaultComponentName="conEco",
+    __cdl(generatePointlist=false, controlledDevice="Multizone AHU"),
     Icon(coordinateSystem(extent={{-160,-160},{160,160}}),
          graphics={
         Rectangle(

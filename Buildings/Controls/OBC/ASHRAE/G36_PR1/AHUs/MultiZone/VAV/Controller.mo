@@ -380,21 +380,27 @@ block Controller
     final quantity="ThermodynamicTemperature")
     "Zone air temperature cooling setpoint"
     annotation (Placement(transformation(extent={{-240,250},{-200,290}}),
-        iconTransformation(extent={{-240,290},{-200,330}})));
+        iconTransformation(extent={{-240,290},{-200,330}})),
+        __cdl(connection(hardwired=false),
+              trend(interval=120, enable=true)));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TOut(
     final unit="K",
     final displayUnit="degC",
     final quantity="ThermodynamicTemperature") "Outdoor air temperature"
     annotation (Placement(transformation(extent={{-240,220},{-200,260}}),
-        iconTransformation(extent={{-240,260},{-200,300}})));
+        iconTransformation(extent={{-240,260},{-200,300}})),
+        __cdl(connection(hardwired=true),
+              trend(interval=120, enable=true)));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput ducStaPre(
     final unit="Pa",
     final displayUnit="Pa")
     "Measured duct static pressure"
     annotation (Placement(transformation(extent={{-240,190},{-200,230}}),
-        iconTransformation(extent={{-240,230},{-200,270}})));
+        iconTransformation(extent={{-240,230},{-200,270}})),
+        __cdl(connection(hardwired=true),
+              trend(interval=120, enable=true)));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput sumDesZonPop(
     final min=0,
@@ -455,7 +461,9 @@ block Controller
     final quantity="ThermodynamicTemperature")
     "Measured supply air temperature"
     annotation (Placement(transformation(extent={{-240,-50},{-200,-10}}),
-        iconTransformation(extent={{-240,-70},{-200,-30}})));
+        iconTransformation(extent={{-240,-70},{-200,-30}})),
+        __cdl(connection(hardwired=true),
+              trend(interval=120, enable=true)));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TOutCut(
     final unit="K",
@@ -484,7 +492,9 @@ block Controller
     final quantity = "VolumeFlowRate")
     "Measured outdoor volumetric airflow rate"
     annotation (Placement(transformation(extent={{-240,-170},{-200,-130}}),
-        iconTransformation(extent={{-240,-190},{-200,-150}})));
+        iconTransformation(extent={{-240,-190},{-200,-150}})),
+        __cdl(connection(hardwired=true),
+              trend(interval=120, enable=true)));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TMix(
     final unit="K",
@@ -492,7 +502,9 @@ block Controller
     final quantity = "ThermodynamicTemperature") if use_TMix
     "Measured mixed air temperature, used for freeze protection if use_TMix=true"
     annotation (Placement(transformation(extent={{-240,-200},{-200,-160}}),
-        iconTransformation(extent={{-240,-230},{-200,-190}})));
+        iconTransformation(extent={{-240,-230},{-200,-190}})),
+        __cdl(connection(hardwired=true),
+              trend(interval=120, enable=true)));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uOpeMod
     "AHU operation mode status signal"
@@ -518,14 +530,18 @@ block Controller
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput ySupFan
     "Supply fan status, true if fan should be on"
     annotation (Placement(transformation(extent={{200,260},{240,300}}),
-        iconTransformation(extent={{200,280},{240,320}})));
+        iconTransformation(extent={{200,280},{240,320}})),
+        __cdl(connection(hardwired=false),
+              trend(interval=120, enable=true)));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput ySupFanSpe(
     final min=0,
     final max=1,
     final unit="1") "Supply fan speed"
     annotation (Placement(transformation(extent={{200,190},{240,230}}),
-        iconTransformation(extent={{200,220},{240,260}})));
+        iconTransformation(extent={{200,220},{240,260}})),
+        __cdl(connection(hardwired=true),
+              trend(interval=120, enable=true)));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TSupSet(
     final unit="K",
@@ -533,7 +549,9 @@ block Controller
     final quantity="ThermodynamicTemperature")
     "Setpoint for supply air temperature"
     annotation (Placement(transformation(extent={{200,160},{240,200}}),
-        iconTransformation(extent={{200,160},{240,200}})));
+        iconTransformation(extent={{200,160},{240,200}})),
+        __cdl(connection(hardwired=true),
+              trend(interval=120, enable=true)));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput VDesUncOutAir_flow(
     final min=0,
@@ -569,28 +587,36 @@ block Controller
     final unit="1")
     "Control signal for heating"
     annotation (Placement(transformation(extent={{200,-50},{240,-10}}),
-        iconTransformation(extent={{200,-140},{240,-100}})));
+        iconTransformation(extent={{200,-140},{240,-100}})),
+        __cdl(connection(hardwired=false),
+              trend(interval=120, enable=true)));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yCoo(
     final min=0,
     final max=1,
     final unit="1") "Control signal for cooling"
     annotation (Placement(transformation(extent={{200,-110},{240,-70}}),
-        iconTransformation(extent={{200,-200},{240,-160}})));
+        iconTransformation(extent={{200,-200},{240,-160}})),
+        __cdl(connection(hardwired=false),
+              trend(interval=120, enable=true)));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRetDamPos(
     final min=0,
     final max=1,
     final unit="1") "Return air damper position"
     annotation (Placement(transformation(extent={{200,-170},{240,-130}}),
-        iconTransformation(extent={{200,-260},{240,-220}})));
+        iconTransformation(extent={{200,-260},{240,-220}})),
+        __cdl(connection(hardwired=false),
+              trend(interval=120, enable=true)));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yOutDamPos(
     final min=0,
     final max=1,
     final unit="1") "Outdoor air damper position"
     annotation (Placement(transformation(extent={{200,-210},{240,-170}}),
-        iconTransformation(extent={{200,-320},{240,-280}})));
+        iconTransformation(extent={{200,-320},{240,-280}})),
+        __cdl(connection(hardwired=false),
+              trend(interval=120, enable=true)));
 
   Buildings.Controls.OBC.CDL.Continuous.Average TZonSetPoiAve
     "Average of all zone set points"
@@ -617,7 +643,9 @@ block Controller
     final yFanMax=yFanMax,
     final yFanMin=yFanMin)
     "Supply fan controller"
-    annotation (Placement(transformation(extent={{-160,200},{-140,220}})));
+    annotation (Placement(transformation(extent={{-160,200},{-140,220}})),
+        __cdl(generatePointlist=true,
+              propagate(instance="ducStaPre", connection(hardwired=true), trend(interval=120, enable=true))));
 
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints.SupplyTemperature
     supTemSetPoi(
@@ -635,12 +663,16 @@ block Controller
     final triAmo=triAmoSupTem,
     final resAmo=resAmoSupTem,
     final maxRes=maxResSupTem) "Setpoint for supply temperature"
-    annotation (Placement(transformation(extent={{0,170},{20,190}})));
+    annotation (Placement(transformation(extent={{0,170},{20,190}})),
+        __cdl(generatePointlist=true,
+              propagate(instance="TOut", connection(hardwired=false), trend(interval=120, enable=true))));
 
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow.AHU
-    sysOutAirSet(final VPriSysMax_flow=VPriSysMax_flow, final peaSysPop=
-        peaSysPop) "Minimum outdoor airflow setpoint"
-    annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
+    sysOutAirSet(
+    final VPriSysMax_flow=VPriSysMax_flow,
+    final peaSysPop=peaSysPop) "Minimum outdoor airflow setpoint"
+    annotation (Placement(transformation(extent={{-40,70},{-20,90}})),
+        __cdl(generatePointlist=true));
 
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.Economizers.Controller eco(
     final use_enthalpy=use_enthalpy,
@@ -668,7 +700,13 @@ block Controller
     final delta=delta,
     final use_TMix=use_TMix,
     final use_G36FrePro=use_G36FrePro) "Economizer controller"
-    annotation (Placement(transformation(extent={{140,-170},{160,-150}})));
+    annotation (Placement(transformation(extent={{140,-170},{160,-150}})),
+        __cdl(generatePointlist=true,
+              propagate(instance="damLim", generatePointlist=true),
+              propagate(instance="enaDis", generatePointlist=true),
+              propagate(instance="mod", generatePointlist=true),
+              propagate(instance="TOut", connection(hardwired=true), trend(interval=120, enable=true)),
+              propagate(instance="TMix", connection(hardwired=false), trend(interval=120, enable=true))));
 
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints.SupplySignals val(
     final controllerType=controllerTypeTSup,
@@ -677,7 +715,9 @@ block Controller
     final TdTSup=TdTSup,
     final uHeaMax=uHeaMax,
     final uCooMin=uCooMin) "AHU coil valve control"
-    annotation (Placement(transformation(extent={{80,-70},{100,-50}})));
+    annotation (Placement(transformation(extent={{80,-70},{100,-50}})),
+        __cdl(generatePointlist=true,
+              propagate(instance="TSup", connection(hardwired=false), trend(interval=120, enable=true))));
 
 protected
   Buildings.Controls.OBC.CDL.Continuous.Division VOut_flow_normalized(
@@ -815,6 +855,7 @@ equation
           {-220,0},{-126,0},{-126,77},{-42,77}}, color={0,0,127}));
 
 annotation (defaultComponentName="conAHU",
+    __cdl(generatePointlist=true, controlledDevice="Multizone AHU"),
     Diagram(coordinateSystem(extent={{-200,-320},{200,320}}, initialScale=0.2)),
     Icon(coordinateSystem(extent={{-200,-360},{200,360}}, initialScale=0.2),
         graphics={Rectangle(

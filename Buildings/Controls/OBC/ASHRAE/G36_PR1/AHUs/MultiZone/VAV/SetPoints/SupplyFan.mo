@@ -266,13 +266,14 @@ equation
   connect(conSpe.trigger, or1.y)
     annotation (Line(points={{-36,-62},{-36,-100},{0,-100},{0,-8},{120,-8},{120,
           70},{102,70}},  color={255,0,255}));
-
   connect(ducStaPre, conSpe.u_m) annotation (Line(points={{-180,-110},{-30,-110},
           {-30,-62}}, color={0,0,127}));
   connect(firOrdHol.y, conSpe.u_s)
     annotation (Line(points={{-78,-50},{-42,-50}}, color={0,0,127}));
+
 annotation (
   defaultComponentName="conSupFan",
+  __cdl(generatePointlist=false, controlledDevice="Multizone AHU"),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-160,-140},{140,160}}),
         graphics={
         Rectangle(

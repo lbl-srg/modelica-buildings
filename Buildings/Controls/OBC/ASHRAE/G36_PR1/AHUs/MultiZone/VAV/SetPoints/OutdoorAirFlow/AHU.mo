@@ -298,6 +298,7 @@ equation
           130},{40,150},{22,150}}, color={0,0,127}));
 annotation (
   defaultComponentName="ahuOutAirSet",
+  __cdl(generatePointlist=false, controlledDevice="Multizone AHU"),
   Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
        graphics={Rectangle(
           extent={{-100,100},{100,-100}},
