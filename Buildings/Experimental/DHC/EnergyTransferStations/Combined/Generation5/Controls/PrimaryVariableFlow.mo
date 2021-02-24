@@ -57,19 +57,21 @@ equation
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>
-This block implements an ideal control of the evaporator (or condenser) water 
+This block implements an ideal control of the evaporator (or condenser) water
 mass flow rate.
 The control intent aims to maintain a constant water temperature difference
-<code>dT_nominal</code> across the heat exchanger, within the limit of a 
+<code>dT_nominal</code> across the heat exchanger, within the limit of a
 minimum mass flow rate ratio <code>ratFloMin</code>.
-For computational performance and to avoid the use of a PI controller, 
-the required mass flow rate is computed based on a signal representative of 
+For computational performance and to avoid the use of a PI controller,
+the required mass flow rate is computed based on a signal representative of
 the load.
 </p>
 </html>", revisions="<html>
+<ul>
 <li>
 February 23, 2021, by Antoine Gautier:<br/>
 First implementation.
 </li>
+</ul>
 </html>"));
 end PrimaryVariableFlow;

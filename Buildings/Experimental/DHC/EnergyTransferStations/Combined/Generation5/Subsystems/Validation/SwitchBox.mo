@@ -98,7 +98,6 @@ equation
           65},{20,65},{20,-28},{-16,-28},{-16,-46},{-12,-46}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-120,-120},{120,120}})),
-    experiment(StopTime=1000, __Dymola_Algorithm="Dassl"),
     Documentation(info="<html>
 <p>
 This model validates that

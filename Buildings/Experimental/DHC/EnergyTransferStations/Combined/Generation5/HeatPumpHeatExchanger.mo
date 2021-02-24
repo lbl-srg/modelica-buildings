@@ -652,14 +652,13 @@ This model represents an energy transfer station as described in Sommer (2020).
 </p>
 <ul>
 <li>
-The cooling function is provided in a compressor-less mode by a heat exchanger 
+The cooling function is provided in a compressor-less mode by a heat exchanger
 connected to the service line.
 The chilled water is typically produced at high temperature and distributed
 to radiant cooling systems, for instance at 19&deg;C.
 </li>
 <li>
 The heating functions are provided by water-to-water heat pumps.
-</li>
 <ul>
 <li>
 By default the condenser and evaporator loops are operated
@@ -671,19 +670,20 @@ to <code>false</code>.
 </li>
 <li>
 The evaporator water is supplied by mixing the flow rate from the direct connection
-to the service line to the flow rate from the secondary side of the cooling 
+to the service line to the flow rate from the secondary side of the cooling
 heat exchanger.
-The hydronic arrangement modeled in 
+The hydronic arrangement modeled in
 <a href=\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Subsystems.SwitchBox\">
 Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Subsystems.SwitchBox</a>
-ensures that the resulting fluid stream in the service line always flows 
-in the same direction. 
+ensures that the resulting fluid stream in the service line always flows
+in the same direction.
 </li>
 <li>
-The heating hot water is typically produced at low temperature, 
+The heating hot water is typically produced at low temperature,
 for instance 40&deg;C.
 </li>
 </ul>
+</li>
 </ul>
 <h4>Controls</h4>
 <p>
@@ -691,8 +691,8 @@ Heating (resp. cooling) is enabled based on the input signal <code>uHea</code>
 (resp. <code>uCoo</code>) which is held for 15', meaning that,
 when enabled, the mode remains active for at least 15' and,
 when disabled, the mode cannot be enabled again for at least 15'.
-The heating and cooling enable signals should be computed externally based 
-on a schedule (to lock out the system during off-hours), ideally in conjunction 
+The heating and cooling enable signals should be computed externally based
+on a schedule (to lock out the system during off-hours), ideally in conjunction
 with the number of requests yielded by the terminal unit controllers, or any
 other signal representative of the load.
 </p>
@@ -701,18 +701,18 @@ When enabled,
 </p>
 <ul>
 <li>
-the heat pumps and the evaporator and condenser water pumps are controlled 
+the heat pumps and the evaporator and condenser water pumps are controlled
 based on the principles described in
 <a href=\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Subsystems.HeatPump\">
 Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Subsystems.HeatPump</a>.
-The evaporator and condenser water mass flow rates are computed based on the 
+The evaporator and condenser water mass flow rates are computed based on the
 logic described in
 <a href=\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Controls.PrimaryVariableFlow\">
 Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Controls.PrimaryVariableFlow</a>.
 </li>
 <li>
 the cooling heat exchanger primary pump is modulated based on a PI control
-loop tracking the chilled water supply temperature at the outlet of the heat exchanger 
+loop tracking the chilled water supply temperature at the outlet of the heat exchanger
 secondary side.
 </li>
 </ul>
@@ -727,7 +727,7 @@ of equations if multiple substations are connected to each other.
 <p>
 Sommer T., Sulzer M., Wetter M., Sotnikov A., Mennel S., Stettler C.
 <i>The reservoir network: A new network topology for district heating
-and cooling.</i> 
+and cooling.</i>
 Energy, Volume 199, 15 May 2020, 117418.
 </p>
 </html>",
@@ -736,7 +736,7 @@ Energy, Volume 199, 15 May 2020, 117418.
 <li>
 February 23, 2021, by Antoine Gautier:<br/>
 Refactored with subsystem models and partial ETS base class.<br/>
-This is for 
+This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1769\">
 issue 1769</a>.
 </li>
