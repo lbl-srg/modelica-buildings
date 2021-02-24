@@ -20,4 +20,20 @@ model ConnectionParallelAutosize
     "Pressure drop per pipe length at nominal flow rate";
   parameter Modelica.SIunits.Length dhDisRet
     "Hydraulic diameter of the return distribution pipe";
+  annotation (Documentation(revisions="<html>
+<ul>
+<li>
+February 23, 2021, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
+</html>", info="<html>
+<p>
+This model represents the supply and return lines to connect an
+agent (e.g., an energy transfer station) to a two-pipe main distribution
+system.
+The instances of the pipe model are autosized based on the pressure 
+drop per pipe length at nominal flow rate.
+</p>
+</html>"));
 end ConnectionParallelAutosize;

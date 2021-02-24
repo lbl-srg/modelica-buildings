@@ -25,5 +25,22 @@ annotation (
           extent={{-100,22},{100,-24}},
           lineColor={0,0,0},
           fillPattern=FillPattern.HorizontalCylinder,
-          fillColor={0,140,72})}));
+          fillColor={0,140,72})}),
+    Documentation(revisions="<html>
+<ul>
+<li>
+February 23, 2021, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
+</html>", info="<html>
+<p>
+This model is similar to
+<a href=\"Buildings.Fluid.FixedResistances.HydraulicDiameter\">
+Buildings.Fluid.FixedResistances.HydraulicDiameter</a>
+except that a binding equation is provided to compute the nominal fluid velocity
+from the hydraulic diameter (as opposed to the hydraulic diameter being
+computed from the nominal fluid velocity in the original model).
+</p>
+</html>"));
 end PipeStandard;

@@ -40,7 +40,7 @@ model UnidirectionalSeries
     "Hydraulic diameter of of the end of the distribution line (after last connection)";
   annotation (Documentation(info="<html>
 <p>
-Model of a one-pipe distribution network with built-in computation
+This model represents a one-pipe distribution network with built-in computation
 of the pipe diameter based on the pressure drop per pipe length 
 at nominal flow rate.
 </p>
@@ -55,5 +55,12 @@ which is instantiated for each connection.
 So the initialization system of equations would be overdetermined if using 
 a parameter binding with a scalar variable.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+February 23, 2021, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end UnidirectionalSeries;

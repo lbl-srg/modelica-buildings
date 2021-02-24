@@ -17,4 +17,20 @@ model ConnectionSeriesAutosize
       final dp_length_nominal=dp_length_nominal));
   parameter Real dp_length_nominal(final unit="Pa/m") = 250
     "Pressure drop per pipe length at nominal flow rate";
+  annotation (Documentation(revisions="<html>
+<ul>
+<li>
+February 23, 2021, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
+</html>", info="<html>
+<p>
+This model represents the supply and return lines to connect an
+agent (e.g., an energy transfer station) to a one-pipe main distribution
+system.
+The instances of the pipe model are autosized based on the pressure drop per pipe length 
+at nominal flow rate.
+</p>
+</html>"));
 end ConnectionSeriesAutosize;

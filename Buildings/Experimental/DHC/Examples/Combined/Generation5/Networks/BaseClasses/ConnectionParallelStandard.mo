@@ -21,4 +21,20 @@ model ConnectionParallelStandard
     "Hydraulic diameter of the distribution pipe";
   parameter Modelica.SIunits.Length dhCon
     "Hydraulic diameter of the connection pipe";
+  annotation (Documentation(revisions="<html>
+<ul>
+<li>
+February 23, 2021, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
+</html>", info="<html>
+<p>
+This model represents the supply and return lines to connect an
+agent (e.g., an energy transfer station) to a two-pipe main distribution
+system.
+The instances of the pipe model are parameterized with the
+hydraulic diameter.
+</p>
+</html>"));
 end ConnectionParallelStandard;

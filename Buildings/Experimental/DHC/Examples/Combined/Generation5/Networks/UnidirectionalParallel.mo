@@ -46,9 +46,16 @@ model UnidirectionalParallel
     "Hydraulic diameter of the end of the distribution line";
   annotation (Documentation(info="<html>
 <p>
-Model of a two-pipe distribution network with built-in computation
+This model represents a two-pipe distribution network with built-in computation
 of the pipe diameters based on the pressure drop per pipe length 
 at nominal flow rate.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+February 23, 2021, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end UnidirectionalParallel;

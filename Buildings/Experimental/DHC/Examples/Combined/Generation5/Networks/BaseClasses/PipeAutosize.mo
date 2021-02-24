@@ -1,5 +1,5 @@
 within Buildings.Experimental.DHC.Examples.Combined.Generation5.Networks.BaseClasses;
-model PipeAutosize "Pipe model with autosizing"
+model PipeAutosize "Pipe model parameterized with pressure drop per pipe length"
   extends Buildings.Fluid.FixedResistances.PressureDrop(
     final deltaM =  eta_default*dh/4*Modelica.Constants.pi*ReC/m_flow_nominal_pos,
     final dp_nominal=dp_length_nominal*length);
@@ -82,27 +82,42 @@ annotation (
           fillColor={0,140,72})}),
     Documentation(info="<html>
 <p>
-The model is a duplicate of 
-Buildings.Fluid.FixedResistances.HydraulicDiameter
-except that 
-
-<code>dp_nominal</code> is assigned a value that does not need
+This model is similar to
+<a href=\"Buildings.Fluid.FixedResistances.HydraulicDiameter\">
+Buildings.Fluid.FixedResistances.HydraulicDiameter</a>
+except for the modifications below which allow to use this model for computing the 
+hydraulic diameter at initialization, based on the pressure drop per pipe length 
+at nominal flow rate, and in a configuration where the model is not
+instantiated directly but rather used in a redeclare statement within
+a top-level component (such as 
+<a href=\"Buildings.Experimental.DHC.Examples.Combined.Generation5.Networks.UnidirectionalSeries\">
+Buildings.Experimental.DHC.Examples.Combined.Generation5.Networks.UnidirectionalSeries</a>).
+</p>
+<ul>
+<li>
+The parameter <code>v_nominal</code> is computed based on the nominal flow rate.
+</li>
+<li>
+An initial equation is used to compute the hydraulic diameter <code>dh</code>.
+However, <code>dh</code> is not declared with <code>fixed=false</code> 
+because this class is intended to be used in redeclare statements
+that would not allow a parameter without a default value or a binding.
+The attribute <code>fixed=false</code> is only introduced at the top level.
+</li>
+<li>
+The parameter <code>dp_nominal</code> is assigned a value that does not need
 to be computed at initialization.
 This is required per Modelica specification because 
 the structural parameter <code>computeFlowResistance</code>
 depends on <code>dp_nominal</code>.
-
-<code>v_nominal</code> is computed based on the nominal flow rate.
-
-An initial equation is used to compute the hydronic diameter.
-
-However, dh is not declared with <code>fixed=false</code> because this class
-is used in a redeclare statement that would not allow a
-parameter without a default value or a binding.
-The <code>fixed=false</code> is only used at the top level,
-in our case in
-Buildings.Experimental.DHC.Examples.Combined.Generation5.Unidirectional.Networks.UnidirectionalSeries
-
-</p>
+</li>
+</ul>
+</html>", revisions="<html>
+<ul>
+<li>
+February 23, 2021, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end PipeAutosize;
