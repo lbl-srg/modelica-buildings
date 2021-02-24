@@ -273,7 +273,6 @@ equation
           -160,-140},{198,-140}}, color={0,0,127}));
   annotation (Diagram(
     coordinateSystem(preserveAspectRatio=false, extent={{-360,-260},{360,260}})),
-    experiment(StopTime=31536000, __Dymola_NumberOfIntervals=8760),
     Documentation(revisions="<html>
 <ul>
 <li>

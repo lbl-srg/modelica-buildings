@@ -749,10 +749,5 @@ This is for
 </ul>
 </html>"),
     Diagram(coordinateSystem(extent={{-300,-420},{300,440}})),
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-300,-300},{300,300}})),
-    experiment(
-      StartTime=10000000,
-      StopTime=15000000,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Cvode"));
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-300,-300},{300,300}})));
 end HeatPumpHeatExchanger;
