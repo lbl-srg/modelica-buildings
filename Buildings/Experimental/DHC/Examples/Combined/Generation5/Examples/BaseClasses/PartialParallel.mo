@@ -161,7 +161,7 @@ partial model PartialParallel "Partial model for parallel network"
   Modelica.Blocks.Continuous.Integrator EPumETS(initType=Modelica.Blocks.Types.Init.InitialState)
     "ETS pump electric energy"
     annotation (Placement(transformation(extent={{200,190},{220,210}})));
-  Modelica.Blocks.Continuous.Integrator EPumPlan(initType=Modelica.Blocks.Types.Init.InitialState)
+  Modelica.Blocks.Continuous.Integrator EPumPla(initType=Modelica.Blocks.Types.Init.InitialState)
     "Plant pump electric energy"
     annotation (Placement(transformation(extent={{200,50},{220,70}})));
   Controls.OBC.CDL.Continuous.MultiSum EPum(nin=4)
@@ -244,15 +244,13 @@ equation
     annotation (Line(points={{7,192},{7,200},{118,200}}, color={0,0,127}));
   connect(PPumETS.y,EPumETS. u)
     annotation (Line(points={{142,200},{198,200}}, color={0,0,127}));
-  connect(pla.PPum,EPumPlan. u) annotation (Line(points={{-138.667,5.33333},{
-          -108,5.33333},{-108,44},{180,44},{180,60},{198,60}},
-                                          color={0,0,127}));
+  connect(pla.PPum, EPumPla.u) annotation (Line(points={{-138.667,5.33333},{
+          -108,5.33333},{-108,44},{180,44},{180,60},{198,60}}, color={0,0,127}));
   connect(EPumETS.y,EPum. u[1]) annotation (Line(points={{221,200},{240,200},{
           240,121.5},{258,121.5}},
                                color={0,0,127}));
-  connect(EPumPlan.y,EPum. u[2]) annotation (Line(points={{221,60},{240,60},{
-          240,120.5},{258,120.5}},
-                               color={0,0,127}));
+  connect(EPumPla.y, EPum.u[2]) annotation (Line(points={{221,60},{240,60},{240,
+          120.5},{258,120.5}}, color={0,0,127}));
   connect(EPumDis.y,EPum. u[3]) annotation (Line(points={{221,-80},{242,-80},{
           242,119.5},{258,119.5}},
                                color={0,0,127}));

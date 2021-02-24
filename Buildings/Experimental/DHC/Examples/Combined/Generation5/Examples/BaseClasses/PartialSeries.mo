@@ -170,8 +170,7 @@ partial model PartialSeries "Partial model for series network"
     initType=Modelica.Blocks.Types.Init.InitialState)
     "Storage pump electric energy"
     annotation (Placement(transformation(extent={{220,-150},{240,-130}})));
-  Modelica.Blocks.Continuous.Integrator EPumPlan(
-    initType=Modelica.Blocks.Types.Init.InitialState)
+  Modelica.Blocks.Continuous.Integrator EPumPla(initType=Modelica.Blocks.Types.Init.InitialState)
     "Plant pump electric energy"
     annotation (Placement(transformation(extent={{220,30},{240,50}})));
   Controls.OBC.CDL.Continuous.MultiSum EPum(nin=4)
@@ -245,13 +244,12 @@ equation
     annotation (Line(points={{71,-71},{71,-80},{218,-80}}, color={0,0,127}));
   connect(pumSto.P, EPumSto.u) annotation (Line(points={{-169,-71},{-160,-71},{-160,
           -140},{218,-140}}, color={0,0,127}));
-  connect(pla.PPum, EPumPlan.u) annotation (Line(points={{-138.667,5.33333},{
-          -120,5.33333},{-120,40},{218,40}},
-                                          color={0,0,127}));
+  connect(pla.PPum, EPumPla.u) annotation (Line(points={{-138.667,5.33333},{
+          -120,5.33333},{-120,40},{218,40}}, color={0,0,127}));
   connect(EPumETS.y, EPum.u[1]) annotation (Line(points={{241,200},{260,200},{
           260,121.5},{278,121.5}},
                                color={0,0,127}));
-  connect(EPumPlan.y, EPum.u[2]) annotation (Line(points={{241,40},{260,40},{260,
+  connect(EPumPla.y, EPum.u[2]) annotation (Line(points={{241,40},{260,40},{260,
           120.5},{278,120.5}}, color={0,0,127}));
   connect(EPumDis.y, EPum.u[3]) annotation (Line(points={{241,-80},{262,-80},{
           262,119.5},{278,119.5}},
