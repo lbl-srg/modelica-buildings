@@ -8,6 +8,7 @@ model VAVBranch "Validation for the VAVBranch class"
   Buildings.Obsolete.Examples.VAVReheat.BaseClasses.VAVBranch vavBra(
     redeclare package MediumA = MediumA,
     redeclare package MediumW = MediumW,
+    terHea(show_T=true),
     m_flow_nominal=45,
     VRoo=275) annotation (Placement(transformation(extent={{20,-20},{60,20}})));
 
@@ -20,6 +21,7 @@ model VAVBranch "Validation for the VAVBranch class"
         rotation=90,
         origin={40,70})));
   Modelica.Blocks.Sources.Ramp TSupAir(
+    y(final unit="K", displayUnit="degC"),
     height=5,
     duration(displayUnit="h") = 3600,
     offset=285,
@@ -64,7 +66,11 @@ equation
       StopTime=25200,
       Tolerance=1e-06),
     Documentation(info="<html>
-This model validates the obsolete VAVBranch model.
+<p>
+This model validates the obsolete model
+<a href=\"modelica://Buildings.Obsolete.Examples.VAVReheat.BaseClasses.VAVBranch\">
+Buildings.Obsolete.Examples.VAVReheat.BaseClasses.VAVBranch</a>.
+</p>
 </html>",
       revisions="<html>
 </html>"),

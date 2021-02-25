@@ -2,5 +2,18 @@
 // Simulate commands
 simulateModel("Buildings.Obsolete.Examples.VAVReheat.Validation.VAVBranch", stopTime=25200, method="Cvode", tolerance=1e-06, resultFile="VAVBranch");
 // Plot commands
-createPlot(id=1, position={5, 2, 592, 404}, y={"vavBra.yVAV", "vavBra.yVal"}, range={0.0, 26000.0, -0.5, 1.5}, grid=true, colors={{28,108,200}, {238,46,47}});
-createPlot(id=1, position={5, 2, 592, 404}, y={"vavBra.port_b.h_outflow"}, range={0.0, 26000.0, -20000.0, 80000.0}, grid=true, subPlot=102, colors={{238,46,47}}, displayUnits={"J/kg"});
+createPlot(
+    id=1,
+    position={5, 2, 898, 1108},
+    y={"vavBra.yVAV", "vavBra.yVal"},
+    grid=true);
+createPlot(
+    id=1,
+    y={"TSupAir.y", "vavBra.terHea.sta_b1.T"},
+    grid=true,
+    subPlot=102);
+createPlot(
+    id=1,
+    y={"vavBra.senMasFlo.m_flow"},
+    grid=true,
+    subPlot=103);
