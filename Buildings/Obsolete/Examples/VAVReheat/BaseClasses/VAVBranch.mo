@@ -224,6 +224,10 @@ as a control signal.
 </html>", revisions="<html>
 <ul>
 <li>
+February 25, 2021, by Baptiste Ravache:<br/>
+Inverse the sign of terHea.Q_flow_nominal to respect the heat flow convention.
+</li>
+<li>
 February 12, 2021, by Baptiste Ravache:<br/>
 Replaced by <code>Buildings.Examples.VAVReheat.BaseClasses.VAVReheatBox</code> and 
 moved to <code>Obsolete</code>.<br/>

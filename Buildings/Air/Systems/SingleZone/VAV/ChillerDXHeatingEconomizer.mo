@@ -627,6 +627,10 @@ feedback control of damper positions. The cooling coil is a dry coil model.
 </html>", revisions="<html>
 <ul>
 <li>
+February 25, 2021, by Baptiste Ravache:<br/>
+Inverse the sign of cooCoi.Q_flow_nominal to respect the heat flow convention.
+</li>
+<li>
 September 08, 2017, by Thierry S. Nouidui:<br/>
 Removed experiment annotation.
 </li>

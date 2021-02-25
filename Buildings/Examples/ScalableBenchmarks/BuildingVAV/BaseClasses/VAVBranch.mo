@@ -264,6 +264,10 @@ as a control signal.
 </html>", revisions="<html>
 <ul>
 <li>
+February 25, 2021 by Baptiste Ravache:<br/>
+Inverse the sign of terHea.Q_flow_nominal to respect the heat flow convention.
+</li>
+<li>
 June 6, 2017 by Jianjun Hu:<br/>
 First implementation, based on Buildings library.
 </li>

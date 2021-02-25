@@ -509,6 +509,10 @@ shading devices, Technical Report, Oct. 17, 2006.
 </html>", revisions="<html>
 <ul>
 <li>
+February 25, 2021, by Baptiste Ravache:<br/>
+Inverse the sign of hex[nFlo].Q_flow_nominal to respect the heat flow convention.
+</li>
+<li>
 October 27, 2020, by Antoine Gautier:<br/>
 Refactored the model for compatibility with the updated control of supply air
 temperature. This is for
