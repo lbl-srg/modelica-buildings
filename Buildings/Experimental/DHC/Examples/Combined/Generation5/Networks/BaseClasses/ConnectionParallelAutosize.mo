@@ -6,7 +6,7 @@ model ConnectionParallelAutosize
     redeclare replaceable model Model_pipDis = PipeAutosize (
       roughness=7e-6,
       fac=1.5,
-      dh=dhDis,
+      dh(fixed=true)=dhDis,
       final length=lDis,
       final dp_length_nominal=dp_length_nominal),
     pipDisRet(dh=dhDisRet),
@@ -14,7 +14,7 @@ model ConnectionParallelAutosize
       roughness=2.5e-5,
       fac=2,
       final length=2*lCon,
-      final dh=dhCon,
+      final dh(fixed=true)=dhCon,
       final dp_length_nominal=dp_length_nominal));
   parameter Real dp_length_nominal(final unit="Pa/m") = 250
     "Pressure drop per pipe length at nominal flow rate";

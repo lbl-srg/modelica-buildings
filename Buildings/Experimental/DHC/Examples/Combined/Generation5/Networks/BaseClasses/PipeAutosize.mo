@@ -4,7 +4,7 @@ model PipeAutosize "Pipe model parameterized with pressure drop per pipe length"
     final deltaM =  eta_default*dh/4*Modelica.Constants.pi*ReC/m_flow_nominal_pos,
     final dp_nominal=dp_length_nominal*length);
 
-  parameter Modelica.SIunits.Length dh
+  parameter Modelica.SIunits.Length dh(fixed=false)
     "Hydraulic diameter (assuming a round cross section area)";
 
   parameter Real dp_length_nominal(final unit="Pa/m") = 250
@@ -87,29 +87,22 @@ This model is similar to
 Buildings.Fluid.FixedResistances.HydraulicDiameter</a>
 except for the modifications below which allow to use this model for computing the 
 hydraulic diameter at initialization, based on the pressure drop per pipe length 
-at nominal flow rate, and in a configuration where the model is not
-instantiated directly but rather used in a redeclare statement within
-a top-level component (such as 
-<a href=\"Buildings.Experimental.DHC.Examples.Combined.Generation5.Networks.UnidirectionalSeries\">
-Buildings.Experimental.DHC.Examples.Combined.Generation5.Networks.UnidirectionalSeries</a>).
+at nominal flow rate.
 </p>
 <ul>
 <li>
 The parameter <code>v_nominal</code> is computed based on the nominal flow rate.
 </li>
 <li>
-An initial equation is used to compute the hydraulic diameter <code>dh</code>.
-However, <code>dh</code> is not declared with <code>fixed=false</code> 
-because this class is intended to be used in redeclare statements
-that would not allow a parameter without a default value or a binding.
-The attribute <code>fixed=false</code> is only introduced at the top level.
+The equation <code>dp_nominal = fac*dpStraightPipe_nominal</code> is 
+solved at initialization for the hydraulic diameter <code>dh</code>.
 </li>
 <li>
 The parameter <code>dp_nominal</code> is assigned a value that does not need
 to be computed at initialization.
 This is required per Modelica specification because 
 the structural parameter <code>computeFlowResistance</code>
-depends on <code>dp_nominal</code>.
+depends on <code>dp_nominal</code> and must be evaluated at compile time.
 </li>
 </ul>
 </html>", revisions="<html>

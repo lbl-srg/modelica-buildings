@@ -14,7 +14,7 @@ model UnidirectionalParallel
       roughness=7e-6,
       fac=1.5,
       final dp_length_nominal=dp_length_nominal,
-      final dh=dhEnd,
+      final dh(fixed=true)=dhEnd,
       final length=2*lEnd));
   parameter Real dp_length_nominal(final unit="Pa/m") = 250
     "Pressure drop per pipe length at nominal flow rate";
