@@ -135,8 +135,10 @@ when enabled, the mode remains active for at least 15' and,
 when disabled, the mode cannot be enabled again for at least 15'.
 The heating and cooling enable signals should be computed externally based on a schedule
 (to lock out the system during off-hours), ideally in conjunction with the number
-of requests yielded by the terminal unit controllers. Indeed, the heating water supply set
-point is allowed to be reset down only when heating is disabled, in which
+of requests yielded by the terminal unit controllers, or any
+other signal representative of the load.
+Indeed, the heating water supply set point is allowed to be reset down 
+only when heating is disabled, in which
 case the system performance is improved due to a lower chiller lift.
 </li>
 <li>

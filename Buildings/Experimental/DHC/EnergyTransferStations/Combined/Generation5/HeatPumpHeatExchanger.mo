@@ -670,7 +670,7 @@ to <code>false</code>.
 </li>
 <li>
 The evaporator water is supplied by mixing the flow rate from the direct connection
-to the service line to the flow rate from the secondary side of the cooling
+to the service line to the flow rate from the primary side of the cooling
 heat exchanger.
 The hydronic arrangement modeled in
 <a href=\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Subsystems.SwitchBox\">
