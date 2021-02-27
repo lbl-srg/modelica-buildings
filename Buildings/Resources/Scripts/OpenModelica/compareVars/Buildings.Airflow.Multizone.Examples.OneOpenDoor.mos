@@ -4,8 +4,8 @@ compareVars :=
     "dooOpe.vBA",
     "dooOpeClo.vAB",
     "dooOpeClo.vBA",
-    "dooOpe.mAB_flow",
-    "dooOpe.mBA_flow",
-    "dooOpeClo.mAB_flow",
-    "dooOpeClo.mBA_flow"
+    "dooOpe.port_a1.m_flow",
+    "dooOpe.port_a2.m_flow",
+    "dooOpeClo.port_a1.m_flow",
+    "dooOpeClo.port_a2.m_flow"
   };

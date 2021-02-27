@@ -5,7 +5,9 @@ partial model DoorDiscretized
 
   parameter Integer nCom=10 "Number of compartments for the discretization";
 
-  parameter Modelica.SIunits.PressureDifference dp_turbulent(min=0) = 0.01
+  parameter Modelica.SIunits.PressureDifference dp_turbulent(
+    min=0,
+    displayUnit="Pa") = 0.01
     "Pressure difference where laminar and turbulent flow relation coincide. Recommended: 0.01";
 
   Modelica.SIunits.PressureDifference dpAB[nCom](each nominal=1)
@@ -93,7 +95,12 @@ equation
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={0,0,0},
-          fillPattern=FillPattern.Solid)}),
+          fillPattern=FillPattern.Solid),
+        Line(points={{-54,48},{-36,48}}, color={0,0,0}),
+        Line(points={{-54,20},{-36,20}}, color={0,0,0}),
+        Line(points={{-54,-6},{-36,-6}}, color={0,0,0}),
+        Line(points={{-54,-58},{-36,-58}}, color={0,0,0}),
+        Line(points={{-54,-32},{-36,-32}}, color={0,0,0})}),
     Documentation(info="<html>
 <p>
 This is a partial model for the bi-directional air flow through a door.
