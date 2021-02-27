@@ -149,15 +149,14 @@ if __name__ == "__main__":
          "files": {
             "bin/epfmi.dll" : "",
             "bin/spawn.exe" : "",
-            "bin/VCRUNTIME140.dll" : "",
             "README.md" : "",
             "lib/epfmi.lib" : "",
             "etc/Energy+.idd" : ""}
         }
     )
 
-    p = Pool(2)
-    p.map(get_distribution, dists)
+    #p = Pool(2)
+    #p.map(get_distribution, dists)
     js = get_output_vars_as_json()
     html = get_output_var_html(js)
     mo = replace_output_var_table_in_mo(html)
