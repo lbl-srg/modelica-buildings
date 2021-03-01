@@ -3,6 +3,15 @@ model OneZoneOneYear
   "Validation model for one zone"
   extends Buildings.ThermalZones.EnergyPlus.Validation.ThermalZone.OneZone;
 
+  Controls.OBC.CDL.Continuous.MovingMean TAirMea(delta(displayUnit="d") = 86400,
+      y(
+      final unit="K",
+      displayUnit="degC"))
+              "Moving mean of air temperature"
+    annotation (Placement(transformation(extent={{60,8},{80,28}})));
+equation
+  connect(TAirMea.u, zon.TAir)
+    annotation (Line(points={{58,18},{41,18}}, color={0,0,127}));
   annotation (
     Documentation(
       info="<html>
@@ -22,7 +31,6 @@ First implementation.
     __Dymola_Commands(
       file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus/Validation/ThermalZone/OneZoneOneYear.mos" "Simulate and plot"),
     experiment(
-      StartTime=31276800,
       StopTime=31536000,
       Tolerance=1e-06,
       __Dymola_Algorithm="Cvode"));
