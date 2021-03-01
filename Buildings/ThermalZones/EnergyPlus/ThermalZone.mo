@@ -78,10 +78,10 @@ model ThermalZone
     final unit="1")
     "Relative humidity"
     annotation (Placement(transformation(extent={{200,-130},{220,-110}}),iconTransformation(extent={{200,90},{220,110}})));
-  Buildings.ThermalZones.EnergyPlus.BaseClasses.FMUZoneAdapter fmuZon(
+  Buildings.ThermalZones.EnergyPlus.BaseClasses.ThermalZoneAdapter fmuZon(
     final buildingsLibraryRoot=Buildings.ThermalZones.EnergyPlus.BaseClasses.buildingsLibraryRoot,
     final modelicaNameBuilding=modelicaNameBuilding,
-    final modelicaNameThermalZone=modelicaNameThermalZone,
+    final modelicaInstanceName=modelicaInstanceName,
     final idfName=idfName,
     final weaName=weaName,
     final zoneName=zoneName,
@@ -92,9 +92,6 @@ model ThermalZone
     "FMU zone adapter"
     annotation (Placement(transformation(extent={{80,100},{100,120}})));
 protected
-  constant String modelicaNameThermalZone=getInstanceName()
-    "Name of this instance"
-    annotation (HideResult=true);
   constant Modelica.SIunits.SpecificEnergy h_fg=Medium.enthalpyOfCondensingGas(
     273.15+37)
     "Latent heat of water vapor";
@@ -123,10 +120,8 @@ protected
   Modelica.Blocks.Math.Gain mWat_flow(
     final k(
       unit="kg/J")=1/h_fg,
-    u(
-      final unit="W"),
-    y(
-      final unit="kg/s"))
+    u(final unit="W"),
+    y(final unit="kg/s"))
     "Water flow rate due to latent heat gain"
     annotation (Placement(transformation(extent={{-82,-32},{-62,-12}})));
   Modelica.Blocks.Math.Add QConLat_flow(
@@ -158,7 +153,8 @@ protected
   Modelica.Blocks.Math.Add CTot_flow[Medium.nC](
     each final k1=1,
     final k2={
-      if(Modelica.Utilities.Strings.isEqual(
+      if
+        (Modelica.Utilities.Strings.isEqual(
         string1=Medium.extraPropertiesNames[i],
         string2=substanceName,
         caseSensitive=false)) then
@@ -375,19 +371,32 @@ Model for a thermal zone that is implemented in EnergyPlus.
 <p>
 This model instantiates the FMU with the name <code>idfName</code> and
 connects to the thermal zone with name <code>zoneName</code>.
+The <code>idfName</code> needs to be specified in an instance of
+<a href=\"Buildings.ThermalZones.EnergyPlus.Building\">
+Buildings.ThermalZones.EnergyPlus.Building</a>
+that is named <code>building</code>, and that is placed at this 
+or at a higher hierarchy-level of the model.
 If the FMU is already instantiated by another instance of this model,
 it will use the already instantiated FMU. Hence, for each thermal zone
 in an EnergyPlus FMU, one instance of this model needs to be used.
+See <a href=\"modelica://Buildings.ThermalZones.EnergyPlus.UsersGuide\">
+Buildings.ThermalZones.EnergyPlus.UsersGuide</a>
+for how zones are simulated that are declared in the EnergyPlus input data file
+but not in Modelica.
 </p>
 <p>
-If there are two instances that declare the same
-<code>idfName</code> and the same <code>zoneName</code>,
-the simulation will stop with an error.
+If there are two instances that declare the same <code>zoneName</code>
+and have in the model hierarchy the same instance of
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus.Building\">
+Buildings.ThermalZones.EnergyPlus.Building</a>,
+then the simulation will stop with an error.
 </p>
 <h4>Main Equations</h4>
 <p>
 This model computes in Modelica the air energy, mass and species
-balance. The convective heat transfer with the building fabric,
+balance. Outside air infiltration needs to be modeled in Modelica,
+because any infiltration that the EnergyPlus model may specify is ignored.
+The convective heat transfer with the building fabric,
 the long-wave and the short-wave radiation are computed by EnergyPlus.
 </p>
 <h5>Heat and mass balance</h5>
@@ -413,13 +422,20 @@ to the room air. Note that this requires a medium model that has trace substance
 <p>
 If the EnergyPlus model computes internal heat gains
 such as from people or equipment, then their sensible convective
-and latent heat gains are added to the the room model.
+and latent heat gains are automatically added to this room model,
+and the radiant fraction is added to the EnergyPlus envelope and thus
+treated correctly.
+In addition, if desired, radiant, convective and latent heat gains
+in units of <i>W/m<sup>2</sup></i>
+can be added using the input connector <code>qGai_flow</code>.
+</p>
+<p>
 Similarly, if people are modeled in EnergyPlus (using the
 EnergyPlus <code>People</code> object), <i>and</i> if the
 Modelica <code>Medium</code> contains CO2 (e.g., if
 <code>Medium.nC &gt; 0</code> and
 there is a <code>Medium.substanceName = \"CO2\"</code>),
-then the CO2 emitted by the people is added to this volume.
+then the CO2 emitted by the people is automatically added to this volume.
 However, the \"Generic Contaminant\" modeled in EnergyPlus is not
 added to the air volume. (Because EnergyPlus does not declare the
 name of the species or its molar mass and hence it cannot be matched

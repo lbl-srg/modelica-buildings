@@ -25,7 +25,7 @@ model SingleZoneFloorWithHeating
   parameter Modelica.SIunits.Volume VRoo=VRooSou+VRooEas+VRooNor+VRooWes+VRooCor
     "Total floor volume";
 
-  Buildings.Examples.VAVReheat.ThermalZones.Floor flo(
+  Buildings.Examples.VAVReheat.BaseClasses.Floor flo(
     redeclare package Medium = Medium,
     use_windPressure=false,
     lat=lat,
@@ -188,8 +188,8 @@ This model compares the heating energy demand of a single-zone floor model
 <a href=\"modelica://Buildings.ThermalZones.Detailed.Validation.BaseClasses.SingleZoneFloor\">
 Buildings.ThermalZones.Detailed.Validation.BaseClasses.SingleZoneFloor</a>
 with the total heating energy demand of a five-zone floor model
-<a href=\"modelica://Buildings.Examples.VAVReheat.ThermalZones.Floor\">
-Buildings.Examples.VAVReheat.ThermalZones.Floor</a>.
+<a href=\"modelica://Buildings.Examples.VAVReheat.BaseClasses.Floor\">
+Buildings.Examples.VAVReheat.BaseClasses.Floor</a>.
 </p>
 <p>
 The nominal mass flowrate of the single zone floor model is consistent with the
