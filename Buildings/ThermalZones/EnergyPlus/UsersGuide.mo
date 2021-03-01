@@ -19,11 +19,14 @@ Which of these are available for a particular model depends on the EnergyPlus
 idf-file. To list the EMS actuator objects that are available in your model, add the line
 </p>
 <pre>
-fixme --- update line below
-Output:VariableDictionary, IDF;
+Output:EnergyManagementSystem,
+  Verbose,                 !- Actuator Availability Dictionary Reporting
+  Verbose,                 !- Internal Variable Availability Dictionary Reporting
+  Verbose;                 !- EMS Runtime Language Debug Output Level
 </pre>
 <p>
-to the EnergyPlus idf-file. This will produce an EnergyPlus result data dictionary (rdd) file -- fixme.
+to the EnergyPlus idf-file. This will produce an EnergyPlus EMS data dictionary (<code>*.edd</code>) file that lists
+the actuators for this model. Those that are listed in the <code>*.edd</code> file and in the table below are supported.
 </p>
 <h4>List of supported EnergyPlus EMS actuator objects</h4>
 <p>
