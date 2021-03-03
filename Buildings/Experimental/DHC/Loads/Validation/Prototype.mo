@@ -38,7 +38,7 @@ model Prototype
     columns={2,3,4},
     smoothness=Modelica.Blocks.Types.Smoothness.MonotoneContinuousDerivative1)
     "Reader for thermal loads (y[1] is cooling load, y[2] is heating load)"
-    annotation (Placement(transformation(extent={{-270,150},{-250,170}})));
+    annotation (Placement(transformation(extent={{-210,110},{-190,130}})));
   Fluid.HeatExchangers.PlateHeatExchangerEffectivenessNTU hex(
     redeclare package Medium1=Medium,
     redeclare package Medium2=Medium,
@@ -54,31 +54,31 @@ model Prototype
       Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
-        origin={-174,0})));
+        origin={-114,-40})));
   Fluid.Sensors.TemperatureTwoPort senTSup(redeclare package Medium = Medium,
       m_flow_nominal=m_flow_nominal)
-    annotation (Placement(transformation(extent={{-130,10},{-110,30}})));
+    annotation (Placement(transformation(extent={{-70,-30},{-50,-10}})));
   Fluid.Sources.Boundary_pT serSup(
     redeclare package Medium = Medium,
     p=Medium.p_default + 10E4,
     T=TSupSer_nominal - 40,
     nPorts=1) "Service supply"
-    annotation (Placement(transformation(extent={{-270,10},{-250,30}})));
+    annotation (Placement(transformation(extent={{-210,-30},{-190,-10}})));
   Fluid.Actuators.Valves.TwoWayEqualPercentage val(
     redeclare package Medium=Medium,
     m_flow_nominal=m_flow_nominal,
     dpValve_nominal=dp_nominal,
     dpFixed_nominal=dp_nominal)
-    annotation (Placement(transformation(extent={{-210,10},{-190,30}})));
+    annotation (Placement(transformation(extent={{-150,-30},{-130,-10}})));
   Fluid.Sources.Boundary_pT serRet(redeclare package Medium = Medium, nPorts=1)
     "Service return"
-    annotation (Placement(transformation(extent={{-270,-30},{-250,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.PID conPID(k=0.1, Ti=120)
-    annotation (Placement(transformation(extent={{-230,50},{-210,70}})));
+    annotation (Placement(transformation(extent={{-210,-70},{-190,-50}})));
+  Buildings.Controls.OBC.CDL.Continuous.PID conPID(k=0.01, Ti=60)
+    annotation (Placement(transformation(extent={{-170,10},{-150,30}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant temSupSet(
     y(final unit="K", displayUnit="degC"),
     k=TSupSet_nominal)
-    annotation (Placement(transformation(extent={{-270,90},{-250,110}})));
+    annotation (Placement(transformation(extent={{-210,50},{-190,70}})));
   Fluid.Movers.FlowControlled_m_flow pum(
     redeclare package Medium=Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
@@ -86,59 +86,59 @@ model Prototype
     per(pressure(V_flow=m_flow_nominal/1000*{0,1,2}, dp=dp_nominal*{2,1,0})),
     use_inputFilter=false,
     dp_nominal=dp_nominal)
-    annotation (Placement(transformation(extent={{-30,10},{-10,30}})));
+    annotation (Placement(transformation(extent={{30,-30},{50,-10}})));
   EnergyMassFlow masFlo(
     tau=tau,
     Q_flow_nominal=Q_flow_nominal,
     m_flow_nominal=m_flow_nominal)
-    annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
+    annotation (Placement(transformation(extent={{0,30},{20,50}})));
   Fluid.Delays.DelayFirstOrder del(
     redeclare package Medium=Medium,
     tau=10*tau,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=m_flow_nominal, nPorts=3)
-    annotation (Placement(transformation(extent={{30,20},{50,40}})));
+    annotation (Placement(transformation(extent={{90,-20},{110,0}})));
   HeatTransfer.Sources.PrescribedHeatFlow heaFlo "Heat flow rate" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={20,50})));
+        origin={80,10})));
   Fluid.Sensors.TemperatureTwoPort senTRet(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal)
-    annotation (Placement(transformation(extent={{-130,-30},{-150,-10}})));
+    annotation (Placement(transformation(extent={{-70,-70},{-90,-50}})));
   Fluid.Sources.Boundary_pT bou2(
     redeclare package Medium=Medium, nPorts=1)
               annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=-90,
-        origin={40,0})));
+        origin={100,-40})));
   Buildings.Controls.OBC.CDL.Continuous.MovingMean movMea(delta=10*tau)
-    annotation (Placement(transformation(extent={{50,160},{70,180}})));
+    annotation (Placement(transformation(extent={{110,130},{130,150}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add2(k2=-1)
-    annotation (Placement(transformation(extent={{0,150},{20,170}})));
+    annotation (Placement(transformation(extent={{60,110},{80,130}})));
   Fluid.HeatExchangers.HeaterCooler_u hea(
     redeclare package Medium=Medium,
     m_flow_nominal=m_flow_nominal,
-    dp_nominal=0,
+    dp_nominal=dp_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     u(unit="W"),
     Q_flow_nominal=1)
-    annotation (Placement(transformation(extent={{70,10},{90,30}})));
+    annotation (Placement(transformation(extent={{130,-30},{150,-10}})));
   Utilities.Math.IntegratorWithReset int(reset=Buildings.Types.Reset.Parameter)
-    annotation (Placement(transformation(extent={{50,130},{70,150}})));
+    annotation (Placement(transformation(extent={{110,90},{130,110}})));
   Modelica.Blocks.Sources.BooleanExpression booleanExpression(y=time > 1E4)
     "Reset to cancel the effect of the warmup period"
-    annotation (Placement(transformation(extent={{20,90},{40,110}})));
+    annotation (Placement(transformation(extent={{80,50},{100,70}})));
   Modelica.Blocks.Sources.RealExpression realExpression(y=hex.Q2_flow)
-    annotation (Placement(transformation(extent={{-50,130},{-30,150}})));
+    annotation (Placement(transformation(extent={{10,90},{30,110}})));
   Utilities.Math.IntegratorWithReset int1(
     y_start=1E-6,
     reset=Buildings.Types.Reset.Parameter,
     y_reset=1E-6)
-    annotation (Placement(transformation(extent={{90,110},{110,130}})));
+    annotation (Placement(transformation(extent={{150,70},{170,90}})));
   Buildings.Controls.OBC.CDL.Continuous.Division NMBE
-    annotation (Placement(transformation(extent={{130,130},{150,150}})));
+    annotation (Placement(transformation(extent={{190,90},{210,110}})));
 protected
   parameter Modelica.SIunits.TemperatureDifference dT1_nominal = 20
     "Nominal Delta-T: change default btw cooling and heating applications";
@@ -147,72 +147,82 @@ protected
     "Nominal mass flow rate";
 equation
   connect(hex.port_b2, senTSup.port_a)
-    annotation (Line(points={{-168,10},{-168,20},{-130,20}},
+    annotation (Line(points={{-108,-30},{-108,-20},{-70,-20}},
                                                           color={0,127,255}));
   connect(val.port_b, hex.port_a1)
-    annotation (Line(points={{-190,20},{-180,20},{-180,10}},
+    annotation (Line(points={{-130,-20},{-120,-20},{-120,-30}},
                                                           color={0,127,255}));
   connect(serSup.ports[1], val.port_a)
-    annotation (Line(points={{-250,20},{-210,20}}, color={0,127,255}));
-  connect(serRet.ports[1], hex.port_b1) annotation (Line(points={{-250,-20},{-180,
-          -20},{-180,-10}}, color={0,127,255}));
-  connect(senTSup.T, conPID.u_m) annotation (Line(points={{-120,31},{-120,40},{-220,
-          40},{-220,48}}, color={0,0,127}));
+    annotation (Line(points={{-190,-20},{-150,-20}},
+                                                   color={0,127,255}));
+  connect(serRet.ports[1], hex.port_b1) annotation (Line(points={{-190,-60},{
+          -120,-60},{-120,-50}},
+                            color={0,127,255}));
+  connect(senTSup.T, conPID.u_m) annotation (Line(points={{-60,-9},{-60,0},{
+          -160,0},{-160,8}},
+                          color={0,0,127}));
   connect(conPID.y, val.y)
-    annotation (Line(points={{-208,60},{-200,60},{-200,32}},
+    annotation (Line(points={{-148,20},{-140,20},{-140,-8}},
                                                           color={0,0,127}));
   connect(temSupSet.y, conPID.u_s)
-    annotation (Line(points={{-248,100},{-240,100},{-240,60},{-232,60}},
+    annotation (Line(points={{-188,60},{-180,60},{-180,20},{-172,20}},
                                                    color={0,0,127}));
-  connect(loa.y[2], masFlo.Q_flow) annotation (Line(points={{-249,160},{-70,160},
-          {-70,86},{-62,86}}, color={0,0,127}));
+  connect(loa.y[2], masFlo.Q_flow) annotation (Line(points={{-189,120},{-20,120},
+          {-20,46},{-2,46}},  color={0,0,127}));
   connect(masFlo.m_flow, pum.m_flow_in)
-    annotation (Line(points={{-38,86},{-20,86},{-20,32}}, color={0,0,127}));
-  connect(heaFlo.port, del.heatPort) annotation (Line(points={{20,40},{20,30},{
-          30,30}},            color={191,0,0}));
-  connect(hex.port_a2, senTRet.port_b) annotation (Line(points={{-168,-10},{-168,
-          -20},{-150,-20}},
+    annotation (Line(points={{22,46},{40,46},{40,-8}},    color={0,0,127}));
+  connect(heaFlo.port, del.heatPort) annotation (Line(points={{80,0},{80,-10},{
+          90,-10}},           color={191,0,0}));
+  connect(hex.port_a2, senTRet.port_b) annotation (Line(points={{-108,-50},{
+          -108,-60},{-90,-60}},
                       color={0,127,255}));
   connect(movMea.u, add2.y)
-    annotation (Line(points={{48,170},{40,170},{40,160},{22,160}},
+    annotation (Line(points={{108,140},{100,140},{100,120},{82,120}},
                                                  color={0,0,127}));
-  connect(loa.y[2], add2.u1) annotation (Line(points={{-249,160},{-20,160},{-20,
-          166},{-2,166}},
+  connect(loa.y[2], add2.u1) annotation (Line(points={{-189,120},{40,120},{40,
+          126},{58,126}},
                      color={0,0,127}));
-  connect(temSupSet.y, masFlo.TSupSet) annotation (Line(points={{-248,100},{-180,
-          100},{-180,80},{-62,80}}, color={0,0,127}));
+  connect(temSupSet.y, masFlo.TSupSet) annotation (Line(points={{-188,60},{-120,
+          60},{-120,40},{-2,40}},   color={0,0,127}));
   connect(senTSup.T, masFlo.TSup_actual)
-    annotation (Line(points={{-120,31},{-120,74},{-62,74}}, color={0,0,127}));
-  connect(masFlo.Q_flow_residual, heaFlo.Q_flow) annotation (Line(points={{-38,74},
-          {20,74},{20,60}},                 color={0,0,127}));
-  connect(masFlo.Q_flow_actual, hea.u) annotation (Line(points={{-38,80},{60,80},
-          {60,26},{68,26}}, color={0,0,127}));
+    annotation (Line(points={{-60,-9},{-60,34},{-2,34}},    color={0,0,127}));
+  connect(masFlo.Q_flow_residual, heaFlo.Q_flow) annotation (Line(points={{22,34},
+          {80,34},{80,20}},                 color={0,0,127}));
+  connect(masFlo.Q_flow_actual, hea.u) annotation (Line(points={{22,40},{120,40},
+          {120,-14},{128,-14}},
+                            color={0,0,127}));
   connect(pum.port_b, del.ports[1])
-    annotation (Line(points={{-10,20},{37.3333,20}}, color={0,127,255}));
+    annotation (Line(points={{50,-20},{97.3333,-20}},color={0,127,255}));
   connect(del.ports[2], hea.port_a)
-    annotation (Line(points={{40,20},{70,20}}, color={0,127,255}));
-  connect(bou2.ports[1], del.ports[3]) annotation (Line(points={{40,10},{40,20},
-          {42.6667,20}}, color={0,127,255}));
-  connect(add2.y, int.u) annotation (Line(points={{22,160},{36,160},{36,140},{48,
-          140}}, color={0,0,127}));
+    annotation (Line(points={{100,-20},{130,-20}},
+                                               color={0,127,255}));
+  connect(bou2.ports[1], del.ports[3]) annotation (Line(points={{100,-30},{100,
+          -20},{102.667,-20}},
+                         color={0,127,255}));
+  connect(add2.y, int.u) annotation (Line(points={{82,120},{100,120},{100,100},
+          {108,100}},
+                 color={0,0,127}));
   connect(booleanExpression.y, int.trigger)
-    annotation (Line(points={{41,100},{60,100},{60,128}}, color={255,0,255}));
+    annotation (Line(points={{101,60},{120,60},{120,88}}, color={255,0,255}));
   connect(senTSup.port_b, pum.port_a)
-    annotation (Line(points={{-110,20},{-30,20}}, color={0,127,255}));
-  connect(senTRet.port_a, hea.port_b) annotation (Line(points={{-130,-20},{100,-20},
-          {100,20},{90,20}}, color={0,127,255}));
-  connect(realExpression.y, add2.u2) annotation (Line(points={{-29,140},{-20,140},
-          {-20,154},{-2,154}}, color={0,0,127}));
-  connect(booleanExpression.y, int1.trigger) annotation (Line(points={{41,100},{
-          100,100},{100,108}}, color={255,0,255}));
-  connect(loa.y[2], int1.u) annotation (Line(points={{-249,160},{-70,160},{-70,120},
-          {88,120}}, color={0,0,127}));
-  connect(int1.y, NMBE.u2) annotation (Line(points={{111,120},{120,120},{120,134},
-          {128,134}}, color={0,0,127}));
-  connect(int.y, NMBE.u1) annotation (Line(points={{71,140},{120,140},{120,146},
-          {128,146}}, color={0,0,127}));
+    annotation (Line(points={{-50,-20},{30,-20}}, color={0,127,255}));
+  connect(senTRet.port_a, hea.port_b) annotation (Line(points={{-70,-60},{160,
+          -60},{160,-20},{150,-20}},
+                             color={0,127,255}));
+  connect(realExpression.y, add2.u2) annotation (Line(points={{31,100},{40,100},
+          {40,114},{58,114}},  color={0,0,127}));
+  connect(booleanExpression.y, int1.trigger) annotation (Line(points={{101,60},
+          {160,60},{160,68}},  color={255,0,255}));
+  connect(loa.y[2], int1.u) annotation (Line(points={{-189,120},{-20,120},{-20,
+          80},{148,80}},
+                     color={0,0,127}));
+  connect(int1.y, NMBE.u2) annotation (Line(points={{171,80},{180,80},{180,94},
+          {188,94}},  color={0,0,127}));
+  connect(int.y, NMBE.u1) annotation (Line(points={{131,100},{180,100},{180,106},
+          {188,106}}, color={0,0,127}));
   annotation (Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-300,-260},{300,260}})),
+        coordinateSystem(preserveAspectRatio=false, extent={{-260,-140},{260,
+            160}})),
       experiment(StopTime=360000),
       __Dymola_Commands(
       file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Loads/Validation/Prototype.mos"
@@ -225,7 +235,7 @@ The service supply temperature is voluntarily lowered
 to simulate a mismatch between the supply temperature
 set point and the actual supply temperature, in the building
 distribution system.
-This leads to an increase of the mass flow rate, to compensate
+This leads to an increase in the mass flow rate to compensate
 for the low supply temperature.
 When the mass flow rate reaches its nominal value, a part of the 
 load cannot be met.
