@@ -70,7 +70,7 @@ model VAVBranch "Supply branch of a VAV system"
     annotation (Placement(transformation(extent={{0,70},{20,90}})));
   Modelica.Blocks.Math.Gain ACH(k=1/VRoo/1.2*3600) "Air change per hour"
     annotation (Placement(transformation(extent={{0,30},{20,50}})));
-  Modelica.Fluid.Sources.MassFlowSource_T souTer(
+  Buildings.Fluid.Sources.MassFlowSource_T souTer(
     redeclare package Medium = MediumW,
     nPorts=1,
     use_m_flow_in=true,
@@ -130,7 +130,7 @@ equation
   connect(vav.y, yVAV) annotation (Line(points={{-62,40},{-120,40}},
                 color={0,0,127}));
   connect(souTer.m_flow_in, gaiM_flow.y)
-    annotation (Line(points={{50,12},{58,12}}, color={0,0,127}));
+    annotation (Line(points={{52,12},{58,12}}, color={0,0,127}));
   connect(sinTer.ports[1], terHea.port_b2) annotation (Line(points={{30,-20},{
           -38,-20},{-38,-10}}, color={0,127,255}));
   connect(gaiM_flow.u, yVal) annotation (Line(points={{82,12},{90,12},{90,-40},
