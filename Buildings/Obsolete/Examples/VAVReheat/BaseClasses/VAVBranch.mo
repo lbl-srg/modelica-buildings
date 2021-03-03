@@ -27,7 +27,7 @@ model VAVBranch "Supply branch of a VAV system"
     redeclare package Medium2 = MediumW,
     m1_flow_nominal=m_flow_nominal,
     m2_flow_nominal=m_flow_nominal*1000*(50 - 17)/4200/10,
-    Q_flow_nominal=m_flow_nominal*1006*(50 - 16.7),
+    Q_flow_nominal=m_flow_nominal*1006*(16.7 - 50),
     configuration=Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow,
     dp1_nominal=0,
     from_dp2=true,
@@ -223,6 +223,10 @@ as a control signal.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 25, 2021, by Baptiste Ravache:<br/>
+Inverse the sign of terHea.Q_flow_nominal to respect the heat flow convention.
+</li>
 <li>
 February 12, 2021, by Baptiste Ravache:<br/>
 Replaced by <code>Buildings.Examples.VAVReheat.BaseClasses.VAVReheatBox</code> and 
