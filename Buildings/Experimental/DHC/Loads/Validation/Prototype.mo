@@ -1,4 +1,4 @@
-within Buildings.Experimental.DHC.Loads.Examples;
+within Buildings.Experimental.DHC.Loads.Validation;
 model Prototype
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.Water
@@ -15,14 +15,14 @@ model Prototype
       filNam=Modelica.Utilities.Files.loadResource(filNam))
     "Design heating heat flow rate (>=0)"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.PressureDifference dp_nominal = 3E4
+  parameter Modelica.SIunits.PressureDifference dp_nominal=30000
     "Nominal pressure drop";
   parameter Real fra_m_flow_min = 0.1
     "Minimum flow rate (ratio to nominal)";
-  parameter Modelica.SIunits.Temperature TSupSet_nominal = 60+273.15
-    "Supply temperature set point at noinal conditions";
-  parameter Modelica.SIunits.Temperature TSupSer_nominal = TSupSet_nominal + 10
-    "Service supply temperature at noinal conditions";
+  parameter Modelica.SIunits.Temperature TSupSet_nominal=333.15
+    "Supply temperature set point at nominal conditions";
+  parameter Modelica.SIunits.Temperature TSupSer_nominal=TSupSet_nominal + 10
+    "Service supply temperature at nominal conditions";
   parameter Boolean have_reset = false
     "Set to true to reset the supply temperature (consider enumeration for open loop reset based on TOut or closed loop based on load signal (approximating T&R)";
   parameter Modelica.SIunits.Time tau = 60
@@ -215,6 +215,32 @@ equation
         coordinateSystem(preserveAspectRatio=false, extent={{-300,-260},{300,260}})),
       experiment(StopTime=360000),
       __Dymola_Commands(
-      file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Loads/Examples/Prototype.mos"
-      "Simulate and plot"));
+      file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Loads/Validation/Prototype.mos"
+      "Simulate and plot"),
+    Documentation(info="<html>
+<p>
+This is a validation model for the block
+Buildings.Experimental.DHC.Loads.EnergyMassFlow.
+The service supply temperature is voluntarily lowered 
+to simulate a mismatch between the supply temperature
+set point and the actual supply temperature, in the building
+distribution system.
+This leads to an increase of the mass flow rate, to compensate
+for the low supply temperature.
+When the mass flow rate reaches its nominal value, a part of the 
+load cannot be met.
+This part is applied as a heat flow rate to a control volume.
+It will contribute to the variation of the average temperature 
+of the fluid volume inside the distribution system.
+The part of the load that can be met is directly applied to the fluid
+stream as a steady-state heat flow rate.
+</p>
+<p>
+Changing the boundary condition for the service supply temperature allows
+to simulate conditions where the load is always met and conditions where
+the load cannot be met transiently.
+In both cases the NMBE between the time series and the actual heat flow 
+rate transferred by the ETS heat exchanger remains close to zero.
+</p>
+</html>"));
 end Prototype;
