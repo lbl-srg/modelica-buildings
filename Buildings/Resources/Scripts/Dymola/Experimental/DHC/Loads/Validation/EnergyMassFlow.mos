@@ -1,14 +1,13 @@
-simulateModel("Buildings.Experimental.DHC.Loads.Validation.Prototype",
+simulateModel("Buildings.Experimental.DHC.Loads.Validation.EnergyMassFlow",
     method="cvode",
     tolerance=1e-6,
     stopTime=360000.0,
-    resultFile="Prototype");
+    resultFile="EnergyMassFlow");
 createPlot(
     id=1,
     position={23, 29, 694, 886},
     y={"temSupSet.y", "senTSup.T", "senTRet.T"},
-    grid=true,
-    filename="Prototype.mat");
+    grid=true);
 createPlot(
     id=1,
     y={"masFlo.m_flow_nominal", "masFlo.m_flow"},
@@ -18,14 +17,12 @@ createPlot(
     id=2,
     position={729, 27, 760, 888},
     y={"loa.y[2]", "hex.Q2_flow", "movMea.y", "Q_flow_nominal"},
-    grid=true,
-    filename="Prototype.mat");
+    grid=true);
 createPlot(
     id=3,
     position={1499, 27, 714, 890},
     y={"NMBE.y"},
-    grid=true,
-    filename="Prototype.mat");
+    grid=true);
 createPlot(
     id=3,
     y={"masFlo.Q_flow"},

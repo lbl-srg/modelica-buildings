@@ -86,7 +86,7 @@ equation
     Documentation(info="<html>
 <p>
 This block approximates the relationship between a cumulated load
-on a distribution system and the mass flow rate.
+on a hydronic distribution system and the mass flow rate.
 </p>
 <ul>
 <li>

@@ -1,5 +1,5 @@
 within Buildings.Experimental.DHC.Loads.Validation;
-model Prototype
+model EnergyMassFlow
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.Water
     "Source side medium";
@@ -87,7 +87,7 @@ model Prototype
     use_inputFilter=false,
     dp_nominal=dp_nominal)
     annotation (Placement(transformation(extent={{30,-30},{50,-10}})));
-  EnergyMassFlow masFlo(
+  .Buildings.Experimental.DHC.Loads.EnergyMassFlow masFlo(
     tau=tau,
     Q_flow_nominal=Q_flow_nominal,
     m_flow_nominal=m_flow_nominal)
@@ -225,7 +225,7 @@ equation
             160}})),
       experiment(StopTime=360000),
       __Dymola_Commands(
-      file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Loads/Validation/Prototype.mos"
+      file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Loads/Validation/EnergyMassFlow.mos"
       "Simulate and plot"),
     Documentation(info="<html>
 <p>
@@ -253,4 +253,4 @@ In both cases the NMBE between the time series and the actual heat flow
 rate transferred by the ETS heat exchanger remains close to zero.
 </p>
 </html>"));
-end Prototype;
+end EnergyMassFlow;
