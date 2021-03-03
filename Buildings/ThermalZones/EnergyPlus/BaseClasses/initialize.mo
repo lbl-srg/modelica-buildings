@@ -1,23 +1,16 @@
 within Buildings.ThermalZones.EnergyPlus.BaseClasses;
-function zoneInitialize
+function initialize
   "Initialization for an EnergyPlus thermal zone"
   extends Modelica.Icons.Function;
-  input Buildings.ThermalZones.EnergyPlus.BaseClasses.FMUZoneClass adapter
+  input Buildings.ThermalZones.EnergyPlus.BaseClasses.SpawnExternalObject adapter
     "External object";
-  input Modelica.SIunits.Time startTime
-    "Start time of the simulation";
-  output Modelica.SIunits.Area AFlo
-    "Zone floor area";
-  output Modelica.SIunits.Volume V
-    "Zone air volume";
-  output Real mSenFac
-    "Factor for scaling the sensible thermal mass of the zone air volume";
-external "C" SpawnZoneInstantiate(
+  input Real isSynchronized "Set to variable that is used to synchronize the objects";
+  output Integer nObj
+    "Returns 1 from C, used to force synchronization";
+external "C" ModelicaSpawnInstantiate(
   adapter,
-  startTime,
-  AFlo,
-  V,
-  mSenFac)
+  isSynchronized,
+  nObj)
   annotation (
     Include="#include <EnergyPlusWrapper.c>",
     IncludeDirectory="modelica://Buildings/Resources/C-Sources",
@@ -30,10 +23,16 @@ External function to obtain parameters from the EnergyPlus FMU.
 </p>
 </html>",
       revisions="<html>
-<ul><li>
+<ul>
+<li>
+February 18, 2021, by Michael Wetter:<br/>
+Refactor synchronization of constructors.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2360\">#2360</a>.
+</li>
+<li>
 March 1, 2018, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
 </html>"));
-end zoneInitialize;
+end initialize;

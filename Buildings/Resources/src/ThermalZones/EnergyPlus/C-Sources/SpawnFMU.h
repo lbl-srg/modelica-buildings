@@ -2,11 +2,11 @@
  * A structure to store the data needed to communicate with EnergyPlus.
  */
 
-#ifndef Buildings_EnergyPlusFMU_h /* Not needed since it is only a typedef; added for safety */
-#define Buildings_EnergyPlusFMU_h
+#ifndef Buildings_SpawnFMU_h /* Not needed since it is only a typedef; added for safety */
+#define Buildings_SpawnFMU_h
 
-#include "EnergyPlusTypes.h"
-#include "EnergyPlusUtil.h"
+#include "SpawnTypes.h"
+#include "SpawnUtil.h"
 
 #include <stdlib.h>
 #include <stddef.h>  /* stddef defines size_t */
@@ -21,6 +21,7 @@ void decrementBuildings_nFMU();
 size_t getBuildings_nFMU();
 
 size_t AllocateBuildingDataStructure(
+  double startTime,
   const char* modelicaNameBuilding,
   const char* idfName,
   const char* weaName,
@@ -33,11 +34,7 @@ size_t AllocateBuildingDataStructure(
   void (*SpawnFormatMessage)(const char *string, ...),
   void (*SpawnFormatError)(const char *string, ...));
 
-void AddZoneToBuilding(FMUZone* zone, const int logLevel);
-
-void AddOutputVariableToBuilding(FMUOutputVariable* ptrOutVar, const int logLevel);
-
-void AddInputVariableToBuilding(FMUInputVariable* ptrOutVar, const int logLevel);
+void AddSpawnObjectToBuilding(SpawnObject* exchangeObject, const int logLevel);
 
 FMUBuilding* getBuildingsFMU(size_t iFMU);
 
