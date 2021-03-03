@@ -499,50 +499,6 @@ partial model PartialOpenLoop
     PCooLat=cooCoi.QLat2_flow) "Results of the simulation";
   /*fanRet*/
 
-protected
-  constant Modelica.SIunits.SpecificHeatCapacity cpAir=
-    Buildings.Utilities.Psychrometrics.Constants.cpAir
-    "Air specific heat capacity";
-  constant Modelica.SIunits.SpecificHeatCapacity cpWatLiq=
-    Buildings.Utilities.Psychrometrics.Constants.cpWatLiq
-    "Water specific heat capacity";
-  model Results "Model to store the results of the simulation"
-    parameter Modelica.SIunits.Area A "Floor area";
-    input Modelica.SIunits.Power PFan "Fan energy";
-    input Modelica.SIunits.Power PHea "Heating energy";
-    input Modelica.SIunits.Power PCooSen "Sensible cooling energy";
-    input Modelica.SIunits.Power PCooLat "Latent cooling energy";
-
-    Real EFan(
-      unit="J/m2",
-      start=0,
-      nominal=1E5,
-      fixed=true) "Fan energy";
-    Real EHea(
-      unit="J/m2",
-      start=0,
-      nominal=1E5,
-      fixed=true) "Heating energy";
-    Real ECooSen(
-      unit="J/m2",
-      start=0,
-      nominal=1E5,
-      fixed=true) "Sensible cooling energy";
-    Real ECooLat(
-      unit="J/m2",
-      start=0,
-      nominal=1E5,
-      fixed=true) "Latent cooling energy";
-    Real ECoo(unit="J/m2") "Total cooling energy";
-  equation
-
-    A*der(EFan) = PFan;
-    A*der(EHea) = PHea;
-    A*der(ECooSen) = PCooSen;
-    A*der(ECooLat) = PCooLat;
-    ECoo = ECooSen + ECooLat;
-
-  end Results;
 public
   Buildings.Controls.OBC.CDL.Continuous.Gain gaiHeaCoi(k=m_flow_nominal*1000*40
         /4200/10) "Gain for heating coil mass flow rate"
@@ -635,6 +591,51 @@ public
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={1218,44})));
+
+protected
+  constant Modelica.SIunits.SpecificHeatCapacity cpAir=
+    Buildings.Utilities.Psychrometrics.Constants.cpAir
+    "Air specific heat capacity";
+  constant Modelica.SIunits.SpecificHeatCapacity cpWatLiq=
+    Buildings.Utilities.Psychrometrics.Constants.cpWatLiq
+    "Water specific heat capacity";
+  model Results "Model to store the results of the simulation"
+    parameter Modelica.SIunits.Area A "Floor area";
+    input Modelica.SIunits.Power PFan "Fan energy";
+    input Modelica.SIunits.Power PHea "Heating energy";
+    input Modelica.SIunits.Power PCooSen "Sensible cooling energy";
+    input Modelica.SIunits.Power PCooLat "Latent cooling energy";
+
+    Real EFan(
+      unit="J/m2",
+      start=0,
+      nominal=1E5,
+      fixed=true) "Fan energy";
+    Real EHea(
+      unit="J/m2",
+      start=0,
+      nominal=1E5,
+      fixed=true) "Heating energy";
+    Real ECooSen(
+      unit="J/m2",
+      start=0,
+      nominal=1E5,
+      fixed=true) "Sensible cooling energy";
+    Real ECooLat(
+      unit="J/m2",
+      start=0,
+      nominal=1E5,
+      fixed=true) "Latent cooling energy";
+    Real ECoo(unit="J/m2") "Total cooling energy";
+  equation
+
+    A*der(EFan) = PFan;
+    A*der(EHea) = PHea;
+    A*der(ECooSen) = PCooSen;
+    A*der(ECooLat) = PCooLat;
+    ECoo = ECooSen + ECooLat;
+
+  end Results;
 equation
   connect(fanSup.port_b, dpDisSupFan.port_a) annotation (Line(
       points={{320,-40},{320,-10}},
@@ -958,7 +959,7 @@ shading devices, Technical Report, Oct. 17, 2006.
 <ul>
 <li>
 February 03, 2021, by Baptiste Ravache:<br/>
-Refactored the sizing of the heating coil in the VAVBranch (renamed VAVReheatBox) class.<br/>
+Refactored the sizing of the heating coil in the <code>VAVBranch</code> (renamed <code>VAVReheatBox</code>) class.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2059\">#2024</a>.
 </li>

@@ -267,7 +267,8 @@ as a control signal.
 <ul>
 <li>
 February 12, 2021, by Baptiste Ravache:<br/>
-First implementation, based on <code>Buildings.Obsolete.Examples.VAVReheat.BaseClasses.VAVBranch</code><br/>
+First implementation, based on <a href=\"modelica://Buildings.Obsolete.Examples.VAVReheat.BaseClasses.VAVBranch\">
+Buildings.Obsolete.Examples.VAVReheat.BaseClasses.VAVBranch</a><br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2059\">#2024</a>.
 </li>

@@ -215,21 +215,21 @@ equation
           fillPattern=FillPattern.Solid,
           lineColor={0,0,0})}), Documentation(info="<html>
 <p>
-Model for a VAV supply branch. 
-The terminal VAV box has a pressure independent damper and a water reheat coil. 
-The pressure independent damper model includes an idealized flow rate controller 
-and requires a discharge air flow rate set-point (normalized to the nominal value) 
+Model for a VAV supply branch.
+The terminal VAV box has a pressure independent damper and a water reheat coil.
+The pressure independent damper model includes an idealized flow rate controller
+and requires a discharge air flow rate set-point (normalized to the nominal value)
 as a control signal.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
 February 25, 2021, by Baptiste Ravache:<br/>
-Inverse the sign of terHea.Q_flow_nominal to respect the heat flow convention.
+Inverse the sign of <code>terHea.Q_flow_nominal</code> to respect the heat flow convention.
 </li>
 <li>
 February 12, 2021, by Baptiste Ravache:<br/>
-Replaced by <code>Buildings.Examples.VAVReheat.BaseClasses.VAVReheatBox</code> and 
+Replaced by <code>Buildings.Examples.VAVReheat.BaseClasses.VAVReheatBox</code> and
 moved to <code>Obsolete</code>.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2059\">#2024</a>.
