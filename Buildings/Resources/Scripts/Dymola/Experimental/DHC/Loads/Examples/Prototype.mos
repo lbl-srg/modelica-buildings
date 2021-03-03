@@ -1,0 +1,34 @@
+simulateModel("Buildings.Experimental.DHC.Loads.Examples.Prototype",
+    method="cvode",
+    tolerance=1e-6,
+    stopTime=360000.0,
+    resultFile="Prototype");
+createPlot(
+    id=1,
+    position={23, 29, 694, 886},
+    y={"temSupSet.y", "senTSup.T", "senTRet.T"},
+    grid=true,
+    filename="Prototype.mat");
+createPlot(
+    id=1,
+    y={"masFlo.m_flow_nominal", "masFlo.m_flow"},
+    grid=true,
+    subPlot=102);
+createPlot(
+    id=2,
+    position={729, 27, 760, 888},
+    y={"loa.y[2]", "hex.Q2_flow", "movMea.y", "Q_flow_nominal"},
+    grid=true,
+    filename="Prototype.mat");
+createPlot(
+    id=3,
+    position={1499, 27, 714, 890},
+    y={"NMBE.y"},
+    grid=true,
+    filename="Prototype.mat");
+createPlot(
+    id=3,
+    y={"masFlo.Q_flow"},
+    grid=true, subPlot=102);
+plotExpression(apply( -Prototype.masFlo.Q_flow_actual), false, "-masFlo.Q_flow_actual", 3);
+plotExpression(apply( -Prototype.masFlo.Q_flow_residual), false, "-masFlo.Q_flow_residual", 3);
