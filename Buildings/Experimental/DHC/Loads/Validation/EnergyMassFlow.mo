@@ -138,7 +138,7 @@ model EnergyMassFlow
     y_reset=1E-6)
     annotation (Placement(transformation(extent={{150,70},{170,90}})));
   Buildings.Controls.OBC.CDL.Continuous.Division NMBE
-    annotation (Placement(transformation(extent={{190,90},{210,110}})));
+    annotation (Placement(transformation(extent={{190,80},{210,100}})));
 protected
   parameter Modelica.SIunits.TemperatureDifference dT1_nominal = 20
     "Nominal Delta-T: change default btw cooling and heating applications";
@@ -216,10 +216,10 @@ equation
   connect(loa.y[2], int1.u) annotation (Line(points={{-189,120},{-20,120},{-20,
           80},{148,80}},
                      color={0,0,127}));
-  connect(int1.y, NMBE.u2) annotation (Line(points={{171,80},{180,80},{180,94},
-          {188,94}},  color={0,0,127}));
-  connect(int.y, NMBE.u1) annotation (Line(points={{131,100},{180,100},{180,106},
-          {188,106}}, color={0,0,127}));
+  connect(int1.y, NMBE.u2) annotation (Line(points={{171,80},{180,80},{180,84},
+          {188,84}},  color={0,0,127}));
+  connect(int.y, NMBE.u1) annotation (Line(points={{131,100},{180,100},{180,96},
+          {188,96}},  color={0,0,127}));
   annotation (Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-260,-140},{260,
             160}})),
