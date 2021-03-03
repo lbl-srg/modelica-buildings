@@ -1,7 +1,26 @@
 {
     "VAV_1": {
-        "Cooling Coil": {
-            "UA_nominal": 777
+        "Supply air mass flow rate": 1,
+        "Return air mass flow rate": 1,
+        "Filter": {
+            "Pressure drop": 100
+        },
+        "Economizer": {
+            "Minimum OA damper pressure drop": 20,
+            "OA damper pressure drop": 20,
+            "RA damper pressure drop": 20,
+            "EA damper pressure drop": 20
+        },
+        "Cooling coil": {
+            "Total cooling capacity": 10000,
+            "CHW mass flow rate": 1,
+            "Entering CHW temperature": 280.15,
+            "CHW pressure drop": 30000,
+            "Air mass flow rate": 1,
+            "Entering air DB temperature": 305.15,
+            "Entering air relative humidity": 0.5,
+            "Air pressure drop": 150,
+            "UA in dry coil conditions": 500
         }
     }
 }

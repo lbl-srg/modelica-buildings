@@ -5,110 +5,29 @@ model VAVSingleDuct "VAV single duct with relief"
     final typSup=Types.Supply.SingleDuct,
     final typRet=Types.Return.WithRelief);
 
-  constant Types.Economizer typEco = eco.typ
+  final parameter Types.Economizer typEco = eco.typ
     "Type of economizer"
     annotation (Evaluate=true,
       Dialog(group="Economizer"));
-  constant Types.Coil typCoiCoo = coiCoo.typ
+  final parameter Types.Coil typCoiCoo = coiCoo.typ
     "Type of cooling coil"
     annotation (Evaluate=true,
       Dialog(group="Cooling coil"));
-  constant Types.Actuator typActCoiCoo = coiCoo.typAct
+  final parameter Types.Actuator typActCoiCoo = coiCoo.typAct
     "Type of cooling coil actuator"
     annotation (Evaluate=true,
       Dialog(group="Cooling coil"));
-  constant Types.Fan typFanSup = if fanSupDra.typ<>Types.Fan.None then
+  final parameter Types.Fan typFanSup = if fanSupDra.typ<>Types.Fan.None then
     fanSupDra.typ else fanSupBlo.typ
     "Type of supply fan"
     annotation (Evaluate=true,
       Dialog(group="Supply fan"));
-  constant Boolean have_souCoiCoo = coiCoo.have_sou
+  final parameter Boolean have_souCoiCoo = coiCoo.have_sou
     "Set to true for fluid ports on the source side"
     annotation (Evaluate=true, Dialog(group="Cooling coil"));
   parameter Boolean have_draThr = true
     "Set to true for a draw-through fan, false for a blow-through fan"
     annotation (Evaluate=true, Dialog(group="Supply fan"));
-
-  /*
-  Local record definition is needed in order to support the
-  redeclaration when instantiating the equipment model.
-  However, the local record should be automatically redeclared based on the
-  vendor annotation `modification` and not exposed to the user.
-  */
-
-  replaceable record RecordEco = Economizers.Data.None
-    constrainedby Economizers.Data.None
-    "Economizer data record (type)"
-    annotation (
-      choicesAllMatching=true,
-      Dialog(
-        enable=typEco<>Types.Economizer.None,
-        group="Economizer"),
-      __Linkage(
-        modification(
-          condition=typEco==Types.Economizer.DedicatedDamperTandem,
-          redeclare record RecordEco=Economizers.Data.DedicatedDamperTandem)));
-
-  /*
-  The following declaration is not necessary for propagating DOWN parameters:
-  we could only propagate them through the record redeclaration.
-  However, it is needed for propagating UP parameters.
-  */
-  /*
-  replaceable parameter RecordEco datEco
-    "Economizer data"
-    annotation (
-    Placement(transformation(extent={{-180,-150},{-160,-130}})),
-    Dialog(
-      enable=typEco<>Types.Economizer.None,
-      group="Economizer"));
-      */
-
-  replaceable record RecordFanSup = Fans.Data.None
-    constrainedby Fans.Data.None
-    "Supply fan data record (type)"
-    annotation (
-      choicesAllMatching=true,
-      Dialog(
-        enable=typFanSup<>Types.Fan.None,
-        group="Supply fan"));
-
-  /*
-  replaceable parameter RecordFanSup datFanSup
-    "Supply fan data"
-    annotation (
-    Placement(transformation(extent={{60,-150},{80,-130}})),
-    Dialog(
-      enable=typFanSup<>Types.Fan.None,
-      group="Supply fan"));
-      */
-
-  replaceable record RecordCoiCoo = Coils.Data.None
-    constrainedby Coils.Data.None
-    "Cooling coil data record (type)"
-    annotation (
-      choicesAllMatching=true,
-      Dialog(
-        enable=typCoiCoo<>Types.Coil.None,
-        group="Cooling coil"),
-      __Linkage(
-        modification(
-         condition=coiCoo.typHex==Types.HeatExchanger.Discretized,
-         redeclare record RecordCoiCoo=Coils.Data.WaterBased (
-           redeclare Coils.HeatExchangers.Data.Discretized datHex(UA_nominal=testUA)))));
-
-  /*
-  replaceable parameter RecordCoiCoo datCoiCoo
-    "Cooling coil data"
-    annotation (
-    Placement(transformation(extent={{-40,-150},{-20,-130}})),
-    Dialog(
-      enable=typCoiCoo<>Types.Coil.None,
-      group="Cooling coil"));
-      */
-
-  parameter Modelica.SIunits.ThermalConductance testUA = 666
-    "Test value to check redeclaration with propagation of local parameter";
 
   Modelica.Fluid.Interfaces.FluidPort_a port_OutMin(
     redeclare package Medium = MediumAir) if
@@ -139,7 +58,6 @@ model VAVSingleDuct "VAV single duct with relief"
 
   replaceable Economizers.None eco
     constrainedby Interfaces.Economizer(
-      redeclare final RecordEco dat,
       redeclare final package Medium = MediumAir)
     "Economizer"
     annotation (
@@ -176,7 +94,6 @@ model VAVSingleDuct "VAV single duct with relief"
   replaceable Coils.None coiCoo
     constrainedby Interfaces.Coil(
       final fun=Types.CoilFunction.Cooling,
-      redeclare final RecordCoiCoo dat,
       redeclare final package MediumAir = MediumAir,
       redeclare final package MediumSou = MediumCoo)
     "Cooling coil" annotation (
@@ -187,7 +104,6 @@ model VAVSingleDuct "VAV single duct with relief"
   replaceable Fans.None fanSupBlo
     constrainedby Interfaces.Fan(
       final fun=Types.FanFunction.Supply,
-      redeclare final RecordFanSup dat,
       redeclare final package MediumAir = MediumAir)
     "Supply fan - Blow through"
     annotation (
@@ -200,7 +116,6 @@ model VAVSingleDuct "VAV single duct with relief"
   replaceable Fans.None fanSupDra
     constrainedby Interfaces.Fan(
       final fun=Types.FanFunction.Supply,
-      redeclare RecordFanSup dat,
       redeclare final package MediumAir = MediumAir)
     "Supply fan - Draw through"
     annotation (

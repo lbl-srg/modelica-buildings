@@ -2,9 +2,29 @@ within Buildings.Templates.AHUs.Coils;
 model WaterBased
   extends Interfaces.Coil(
     final typ=Types.Coil.WaterBased,
+    final have_weaBus=false,
     final have_sou=true,
     final typAct=act.typ,
-    final typHex=coi.typ);
+    final typHex=hex.typ);
+
+  parameter Modelica.SIunits.MassFlowRate mWat_flow_nominal(min=0)=
+    dat.getReal(varName=id + ".Cooling coil.CHW mass flow rate")
+    "Nominal mass flow rate"
+    annotation(Dialog(group = "Nominal condition"));
+  parameter Modelica.SIunits.MassFlowRate mAir_flow_nominal(min=0)=
+    dat.getReal(varName=id + ".Cooling coil.Air mass flow rate")
+    "Nominal mass flow rate"
+    annotation(Dialog(group = "Nominal condition"));
+  parameter Modelica.SIunits.PressureDifference dpWat_nominal(
+    displayUnit="Pa")=
+    dat.getReal(varName=id + ".Cooling coil.CHW pressure drop")
+    "Nominal pressure drop"
+    annotation(Dialog(group = "Nominal condition"));
+  parameter Modelica.SIunits.PressureDifference dpAir_nominal(
+    displayUnit="Pa")=
+    dat.getReal(varName=id + ".Cooling coil.Air pressure drop")
+    "Nominal pressure drop"
+    annotation(Dialog(group = "Nominal condition"));
 
   replaceable Actuators.None act
     constrainedby Interfaces.Actuator(
@@ -14,11 +34,15 @@ model WaterBased
       choicesAllMatching=true,
       Placement(transformation(extent={{-10,-70},{10,-50}})));
 
-  replaceable HeatExchangers.EffectivenessNTU coi
+  replaceable HeatExchangers.EffectivenessNTU hex
     constrainedby Interfaces.HeatExchanger(
       redeclare final package Medium1 = MediumSou,
-      redeclare final package Medium2 = MediumAir)
-    "Coil"
+      redeclare final package Medium2 = MediumAir,
+      final m1_flow_nominal=mWat_flow_nominal,
+      final m2_flow_nominal=mAir_flow_nominal,
+      final dp1_nominal=dpWat_nominal,
+      final dp2_nominal=dpAir_nominal)
+    "Heat exchanger"
     annotation (
       choicesAllMatching=true, Placement(transformation(extent={{10,4},{-10,-16}})));
 
@@ -35,13 +59,13 @@ equation
       index=-1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(act.port_bSup, coi.port_a1) annotation (Line(points={{-4,-50},{-4,-22},
+  connect(act.port_bSup,hex. port_a1) annotation (Line(points={{-4,-50},{-4,-22},
           {20,-22},{20,-12},{10,-12}}, color={0,127,255}));
-  connect(coi.port_b1, act.port_aRet) annotation (Line(points={{-10,-12},{-20,-12},
+  connect(hex.port_b1, act.port_aRet) annotation (Line(points={{-10,-12},{-20,-12},
           {-20,-24},{4,-24},{4,-50}}, color={0,127,255}));
-  connect(port_a, coi.port_a2)
+  connect(port_a,hex. port_a2)
     annotation (Line(points={{-100,0},{-10,0}}, color={0,127,255}));
-  connect(coi.port_b2, port_b) annotation (Line(points={{10,0},{56,0},{56,0},{100,
+  connect(hex.port_b2, port_b) annotation (Line(points={{10,0},{56,0},{56,0},{100,
           0}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));

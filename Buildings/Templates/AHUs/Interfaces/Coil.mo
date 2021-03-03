@@ -10,28 +10,27 @@ partial model Coil
     "Source side medium"
     annotation(dialog(enable=have_sou));
 
-  inner replaceable parameter Coils.Data.None dat
-    constrainedby Coils.Data.None
-    "Coil data"
-    annotation (Placement(transformation(extent={{-10,60},{10,80}})));
-
-  constant Types.Coil typ
+  parameter Types.Coil typ
     "Equipment type"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  constant Types.CoilFunction fun
+  parameter Types.CoilFunction fun
     "Equipment function"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  constant Types.Actuator typAct
+  parameter Types.Actuator typAct
     "Type of actuator"
     annotation (Dialog(group="Actuator"));
-  constant Types.HeatExchanger typHex
+  parameter Types.HeatExchanger typHex
     "Type of HX"
     annotation (Dialog(group="Heat exchanger"));
-  constant Boolean have_sou = false
+  parameter Boolean have_sou = false
     "Set to true for fluid ports on the source side"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  constant Boolean have_weaBus = false
+  parameter Boolean have_weaBus = false
     annotation (Evaluate=true, Dialog(group="Configuration"));
+  outer parameter String id=""
+    "System identifier";
+  outer parameter ExternData.JSONFile dat
+    annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
 
   // Conditional
   Modelica.Fluid.Interfaces.FluidPort_a port_aSou(

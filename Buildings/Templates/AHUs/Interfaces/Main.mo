@@ -10,18 +10,18 @@ partial model Main "Main interface class"
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Heating medium (such as HHW)";
 
-  constant Types.Main typ
+  parameter Types.Main typ
     "Type of system"
     annotation (Evaluate=true,
       Dialog(group="Configuration"));
-  constant Types.Supply typSup "Type of supply branch"
+  parameter Types.Supply typSup "Type of supply branch"
     annotation (Evaluate=true,
       Dialog(group="Configuration", enable=typ <> Types.Main.ExhaustOnly));
-  constant Types.Return typRet "Type of return branch"
+  parameter Types.Return typRet "Type of return branch"
     annotation (Evaluate=true,
       Dialog(group="Configuration", enable=typ <> Types.Main.SupplyOnly));
 
-  parameter String id=""
+  inner parameter String id=""
     "System identifier";
 
   parameter Integer nTer = 0

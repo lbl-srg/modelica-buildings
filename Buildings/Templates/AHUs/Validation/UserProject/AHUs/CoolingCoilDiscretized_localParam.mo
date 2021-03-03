@@ -5,7 +5,7 @@ model CoolingCoilDiscretized_localParam
     redeclare Coils.WaterBased coiCoo(
       redeclare
         Buildings.Templates.AHUs.Coils.HeatExchangers.Discretized
-        coi),
+        hex),
       redeclare replaceable record RecordCoiCoo = Coils.Data.WaterBased (
         redeclare
           Buildings.Templates.AHUs.Coils.HeatExchangers.Data.Discretized

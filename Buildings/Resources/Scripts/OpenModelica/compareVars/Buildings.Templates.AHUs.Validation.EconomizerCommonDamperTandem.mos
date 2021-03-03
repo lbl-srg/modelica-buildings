@@ -1,0 +1,4 @@
+compareVars :=
+  {
+    "ahu.port_Sup.m_flow"
+  };

@@ -7,7 +7,10 @@ model BaseNoEquipment
   replaceable package MediumCoo=Buildings.Media.Water
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Cooling medium (such as CHW)";
-
+  inner parameter ExternData.JSONFile dat(
+    fileName=Modelica.Utilities.Files.loadResource(
+      "modelica://Buildings/Templates/AHUs/Validation/systems.json"))
+    annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
   replaceable UserProject.AHUs.BaseNoEquipment ahu(redeclare final package
       MediumAir = MediumAir, redeclare final package MediumCoo = MediumCoo)
     annotation (Placement(transformation(extent={{-20,-20},{20,20}})));

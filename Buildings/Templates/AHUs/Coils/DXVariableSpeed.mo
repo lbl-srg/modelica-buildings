@@ -13,7 +13,8 @@ model DXVariableSpeed
     final minSpeRat=dat.minSpeRat,
     final speRatDeaBan=dat.speRatDeaBan,
     final dp_nominal=dat.dpAir_nominal,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Coil"
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "DX coil"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
   Modelica.Blocks.Routing.RealPassThrough TWet if not dat.have_dryCon

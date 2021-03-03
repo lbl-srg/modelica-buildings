@@ -12,7 +12,7 @@ model DXMultiStage
     final datCoi=dat.datCoi,
     final dp_nominal=dat.dpAir_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
-    "Coil"
+    "DX coil"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Blocks.Routing.RealPassThrough TWet if not dat.have_dryCon
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));

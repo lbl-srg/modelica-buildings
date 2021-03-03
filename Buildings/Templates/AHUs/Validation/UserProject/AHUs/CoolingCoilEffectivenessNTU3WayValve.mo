@@ -11,7 +11,7 @@ model CoolingCoilEffectivenessNTU3WayValve
       Buildings.Templates.AHUs.Coils.Actuators.ThreeWayValve
       act, redeclare
       Buildings.Templates.AHUs.Coils.HeatExchangers.EffectivenessNTU
-      coi));
+      hex));
   annotation (
     defaultComponentName="ahu");
 end CoolingCoilEffectivenessNTU3WayValve;

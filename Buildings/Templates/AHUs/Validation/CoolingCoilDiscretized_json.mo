@@ -7,11 +7,6 @@ model CoolingCoilDiscretized_json
     redeclare final package Medium = MediumCoo,
       nPorts=2)
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
-
-  inner parameter ExternData.JSONFile dataSource(
-    fileName=Modelica.Utilities.Files.loadResource(
-      "modelica://Buildings/Experimental/Templates/AHUs/Validation/systems.json"))
-    annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
 equation
   connect(bou2.ports[1], ahu.port_coiCooSup)
     annotation (Line(points={{-40,-48},{-2,-48},{-2,-20}}, color={0,127,255}));

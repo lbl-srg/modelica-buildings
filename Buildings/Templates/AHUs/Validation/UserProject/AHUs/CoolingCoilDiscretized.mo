@@ -1,14 +1,11 @@
 within Buildings.Templates.AHUs.Validation.UserProject.AHUs;
 model CoolingCoilDiscretized
   extends VAVSingleDuct(
+    final id="VAV_1",
     redeclare Coils.WaterBased coiCoo(
-      redeclare
+      redeclare replaceable
       Buildings.Templates.AHUs.Coils.HeatExchangers.Discretized
-      coi),
-    redeclare replaceable record RecordCoiCoo = Coils.Data.WaterBased (
-      redeclare
-      Buildings.Templates.AHUs.Coils.HeatExchangers.Data.Discretized
-      datHex));
+      hex));
 
   annotation (
     defaultComponentName="ahu");

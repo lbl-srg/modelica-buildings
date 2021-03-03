@@ -5,10 +5,10 @@ partial model Fan
   replaceable package MediumAir=Buildings.Media.Air
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Air medium";
-  constant Types.Fan typ
+  parameter Types.Fan typ
     "Equipment type"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  constant Types.FanFunction fun
+  parameter Types.FanFunction fun
     "Equipment function"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 

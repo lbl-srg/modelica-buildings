@@ -1,29 +1,26 @@
 within Buildings.Templates.AHUs.Coils.HeatExchangers;
 model Discretized
   extends Interfaces.HeatExchanger(
-    final m1_flow_nominal=dat.mWat_flow_nominal,
-    final m2_flow_nominal=dat.mAir_flow_nominal,
     final typ=Types.HeatExchanger.Discretized);
-
-  outer parameter Buildings.Templates.AHUs.Coils.Data.WaterBased
-    dat annotation (Placement(transformation(extent={{-10,-98},{10,-78}})));
-
+  parameter Modelica.SIunits.ThermalConductance UA_nominal=
+    dat.getReal(varName=id + ".Cooling coil.UA in dry coil conditions")
+    "Thermal conductance at nominal flow";
+  parameter Real r_nominal=2/3
+    "Ratio between air-side and water-side convective heat transfer coefficient";
+  parameter Integer nEle=4
+    "Number of pipe segments used for discretization";
   Fluid.HeatExchangers.WetCoilCounterFlow hex(
     redeclare final package Medium1 = Medium1,
     redeclare final package Medium2 = Medium2,
     final m1_flow_nominal=m1_flow_nominal,
     final m2_flow_nominal=m2_flow_nominal,
-    final dp1_nominal=dat.dpWat_nominal,
-    final dp2_nominal=dat.dpAir_nominal,
-    final UA_nominal=dat.datHex.UA_nominal,
-    final r_nominal=dat.datHex.r_nominal,
-    final nEle=dat.datHex.nEle,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    final dp1_nominal=dp1_nominal,
+    final dp2_nominal=dp2_nominal,
+    final UA_nominal=UA_nominal,
+    final r_nominal=r_nominal,
+    final nEle=nEle)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
-  // This is a dummy initial equation to test fixed=false.
-// initial equation
-//   hex.UA_nominal = 100;
 equation
   connect(port_b2, hex.port_b2) annotation (Line(points={{-100,-60},{-20,-60},{-20,
           -6},{-10,-6}}, color={0,127,255}));
