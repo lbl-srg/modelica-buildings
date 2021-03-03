@@ -136,6 +136,8 @@ temperature of the fluid inside the distribution system.
 <li>
 The delayed term is computed from the load <i>Q&#775;</i> and the 
 corrected mass flow rate <i>m&#775;Cor</i> (unbounded) as follows.
+TODO: Add a correction based on m_flow_actual, cf. case with an
+active ETS and a pressure-independent valve.
 <p style=\"font-style:italic;\">
 Q&#775;Del = Q&#775; * (1 - exp(-max(0, m&#775;Cor - m&#775;Nom) / m&#775;Nom)).
 </p>
