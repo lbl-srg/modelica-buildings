@@ -1,3 +1,3 @@
-within Buildings.Templates;
-package AHUs "Package with templates for air handling units"
+within Buildings.Experimental.Templates;
+package AHUs
 end AHUs;
