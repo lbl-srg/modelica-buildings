@@ -27,5 +27,5 @@ createPlot(
     id=3,
     y={"masFlo.Q_flow"},
     grid=true, subPlot=102);
-plotExpression(apply( -Prototype.masFlo.Q_flow_actual), false, "-masFlo.Q_flow_actual", 3);
-plotExpression(apply( -Prototype.masFlo.Q_flow_residual), false, "-masFlo.Q_flow_residual", 3);
+plotExpression(apply( -EnergyMassFlow.masFlo.Q_flow_actual), false, "-masFlo.Q_flow_actual", 3);
+plotExpression(apply( -EnergyMassFlow.masFlo.Q_flow_residual), false, "-masFlo.Q_flow_residual", 3);
