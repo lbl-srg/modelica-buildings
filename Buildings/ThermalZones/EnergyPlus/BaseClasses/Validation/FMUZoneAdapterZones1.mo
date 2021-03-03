@@ -21,7 +21,7 @@ model FMUZoneAdapterZones1
     showWeatherData=false)
     "Building model"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
-  Buildings.ThermalZones.EnergyPlus.BaseClasses.FMUZoneAdapter fmuZonCor(
+  Buildings.ThermalZones.EnergyPlus.BaseClasses.ThermalZoneAdapter fmuZonCor(
     buildingsLibraryRoot=Buildings.ThermalZones.EnergyPlus.BaseClasses.buildingsLibraryRoot,
     modelicaNameBuilding=modelicaNameBuilding,
     final idfName=idfName,
@@ -58,8 +58,7 @@ model FMUZoneAdapterZones1
     k=1/CZon,
     initType=Modelica.Blocks.Types.Init.InitialState,
     y_start=294.15,
-    y(
-      final unit="K",
+    y(final unit="K",
       displayUnit="degC"))
     "Zone air temperature"
     annotation (Placement(transformation(extent={{60,20},{80,40}})));

@@ -91,22 +91,14 @@ message("Added GNU_SOURCE")
 endif()
 
 add_library( ModelicaBuildingsEnergyPlus SHARED
-  Buildings/Resources/src/ThermalZones/EnergyPlus/C-Sources/InputVariableExchange.c
-  Buildings/Resources/src/ThermalZones/EnergyPlus/C-Sources/EnergyPlusUtil.c
-  Buildings/Resources/src/ThermalZones/EnergyPlus/C-Sources/OutputVariableFree.c
-  Buildings/Resources/src/ThermalZones/EnergyPlus/C-Sources/ZoneFree.c
-  Buildings/Resources/src/ThermalZones/EnergyPlus/C-Sources/ZoneExchange.c
-  Buildings/Resources/src/ThermalZones/EnergyPlus/C-Sources/OutputVariableExchange.c
-  Buildings/Resources/src/ThermalZones/EnergyPlus/C-Sources/InputVariableAllocate.c
-  Buildings/Resources/src/ThermalZones/EnergyPlus/C-Sources/InputVariableFree.c
-  Buildings/Resources/src/ThermalZones/EnergyPlus/C-Sources/ZoneInstantiate.c
+  Buildings/Resources/src/ThermalZones/EnergyPlus/C-Sources/SpawnUtil.c
+  Buildings/Resources/src/ThermalZones/EnergyPlus/C-Sources/SpawnObjectFree.c
+  Buildings/Resources/src/ThermalZones/EnergyPlus/C-Sources/SpawnObjectExchange.c
+  Buildings/Resources/src/ThermalZones/EnergyPlus/C-Sources/SpawnObjectInstantiate.c
   Buildings/Resources/src/ThermalZones/EnergyPlus/C-Sources/BuildingInstantiate.c
-  Buildings/Resources/src/ThermalZones/EnergyPlus/C-Sources/InputVariableInstantiate.c
-  Buildings/Resources/src/ThermalZones/EnergyPlus/C-Sources/OutputVariableAllocate.c
-  Buildings/Resources/src/ThermalZones/EnergyPlus/C-Sources/EnergyPlusFMU.c
+  Buildings/Resources/src/ThermalZones/EnergyPlus/C-Sources/SpawnFMU.c
   Buildings/Resources/src/ThermalZones/EnergyPlus/C-Sources/cryptographicsHash.c
-  Buildings/Resources/src/ThermalZones/EnergyPlus/C-Sources/ZoneAllocate.c
-  Buildings/Resources/src/ThermalZones/EnergyPlus/C-Sources/OutputVariableInstantiate.c
+  Buildings/Resources/src/ThermalZones/EnergyPlus/C-Sources/SpawnObjectAllocate.c
 )
 
 target_include_directories( ModelicaBuildingsEnergyPlus
