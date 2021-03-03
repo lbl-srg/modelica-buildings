@@ -1,4 +1,4 @@
-within Buildings.Experimental.Templates.AHUs.Interfaces;
+within Buildings.Templates.AHUs.Interfaces;
 partial model Actuator
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     constrainedby Modelica.Media.Interfaces.PartialMedium

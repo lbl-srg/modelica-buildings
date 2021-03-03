@@ -1,4 +1,4 @@
-within Buildings.Experimental.Templates.AHUs.Economizers;
+within Buildings.Templates.AHUs.Economizers;
 model CommonDamperFree
   extends Interfaces.Economizer(
     final typ=Types.Economizer.CommonDamperFree);

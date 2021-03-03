@@ -1,4 +1,4 @@
-within Buildings.Experimental.Templates.AHUs.Types;
+within Buildings.Templates.AHUs.Types;
 type Supply = enumeration(
     SingleDuct
     "Single duct system",

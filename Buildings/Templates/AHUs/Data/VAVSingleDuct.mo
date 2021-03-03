@@ -1,4 +1,4 @@
-within Buildings.Experimental.Templates.AHUs.Data;
+within Buildings.Templates.AHUs.Data;
 record VAVSingleDuct
   extends Modelica.Icons.Record;
 
@@ -21,7 +21,7 @@ record VAVSingleDuct
       Dialog(group="Supply fan"));
 
   replaceable record RecordEco=Templates.AHUs.Economizers.Data.None
-    constrainedby Buildings.Experimental.Templates.AHUs.Economizers.Data.None
+    constrainedby Buildings.Templates.AHUs.Economizers.Data.None
     "Economizer parameters"
     annotation (Placement(transformation(extent={{-40,-150},{-20,-130}})),
       choicesAllMatching=true,
@@ -30,7 +30,7 @@ record VAVSingleDuct
         group="Economizer"));
 
   replaceable record RecordCoiCoo=Templates.AHUs.Coils.Data.None
-    constrainedby Buildings.Experimental.Templates.AHUs.Coils.Data.None
+    constrainedby Buildings.Templates.AHUs.Coils.Data.None
     "Cooling coil parameters"
     annotation (Placement(transformation(extent={{-40,-150},{-20,-130}})),
       choicesAllMatching=true,
@@ -39,7 +39,7 @@ record VAVSingleDuct
         group="Cooling coil"));
 
   replaceable record RecordFanSup=Templates.AHUs.Fans.Data.None
-    constrainedby Buildings.Experimental.Templates.AHUs.Fans.Data.None
+    constrainedby Buildings.Templates.AHUs.Fans.Data.None
     "Supply fan parameters";
     annotation (Placement(transformation(extent={{-40,-150},{-20,-130}})),
       choicesAllMatching=true,

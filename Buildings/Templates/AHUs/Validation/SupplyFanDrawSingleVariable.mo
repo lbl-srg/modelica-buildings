@@ -1,4 +1,4 @@
-within Buildings.Experimental.Templates.AHUs.Validation;
+within Buildings.Templates.AHUs.Validation;
 model SupplyFanDrawSingleVariable
   extends BaseNoEquipment(
                       ahu(redeclare record RecordFanSup =

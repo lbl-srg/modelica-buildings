@@ -1,4 +1,4 @@
-within Buildings.Experimental.Templates.AHUs.Coils.Actuators;
+within Buildings.Templates.AHUs.Coils.Actuators;
 model None "No actuator"
   extends Interfaces.Actuator(
     final typ=Types.Actuator.None);

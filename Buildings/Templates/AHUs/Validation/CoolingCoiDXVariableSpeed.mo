@@ -1,4 +1,4 @@
-within Buildings.Experimental.Templates.AHUs.Validation;
+within Buildings.Templates.AHUs.Validation;
 model CoolingCoiDXVariableSpeed
   extends BaseNoEquipment(
                       ahu(redeclare record RecordCoiCoo =

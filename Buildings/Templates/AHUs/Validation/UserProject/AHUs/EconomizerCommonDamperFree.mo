@@ -1,4 +1,4 @@
-within Buildings.Experimental.Templates.AHUs.Validation.UserProject.AHUs;
+within Buildings.Templates.AHUs.Validation.UserProject.AHUs;
 model EconomizerCommonDamperFree
   extends VAVSingleDuct(
     redeclare replaceable record RecordEco =

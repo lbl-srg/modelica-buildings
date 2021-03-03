@@ -1,4 +1,4 @@
-within Buildings.Experimental.Templates.AHUs.Coils.HeatExchangers.Data;
+within Buildings.Templates.AHUs.Coils.HeatExchangers.Data;
 record None
   extends Modelica.Icons.Record;
 

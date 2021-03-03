@@ -1,4 +1,4 @@
-within Buildings.Experimental.Templates.AHUs.Interfaces;
+within Buildings.Templates.AHUs.Interfaces;
 partial model Main "Main interface class"
   replaceable package MediumAir=Buildings.Media.Air
     constrainedby Modelica.Media.Interfaces.PartialMedium

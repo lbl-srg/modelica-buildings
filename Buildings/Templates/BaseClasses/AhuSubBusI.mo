@@ -1,4 +1,4 @@
-within Buildings.Experimental.Templates.BaseClasses;
+within Buildings.Templates.BaseClasses;
 expandable connector AhuSubBusI
   "Control bus that is adapted to the signals connected to it"
   extends Modelica.Icons.SignalBus;

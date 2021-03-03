@@ -1,4 +1,4 @@
-within Buildings.Experimental.Templates.BaseClasses;
+within Buildings.Templates.BaseClasses;
 model MixingBoxFree "Outside air mixing box with non-interlocked air dampers"
 
   replaceable package Medium =

@@ -1,3 +1,3 @@
-within Buildings.Experimental.Templates;
+within Buildings.Templates;
 package AHUs
 end AHUs;

@@ -1,4 +1,4 @@
-within Buildings.Experimental.Templates.AHUs.Coils;
+within Buildings.Templates.AHUs.Coils;
 model DXVariableSpeed
   extends Interfaces.Coil(
     final typ=Types.Coil.DXVariableSpeed,

@@ -1,3 +1,3 @@
-within Buildings.Experimental.Templates.AHUs.Validation.UserProject;
+within Buildings.Templates.AHUs.Validation.UserProject;
 package AHUs
 end AHUs;

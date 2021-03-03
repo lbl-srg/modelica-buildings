@@ -1,4 +1,4 @@
-within Buildings.Experimental.Templates.AHUs.Interfaces;
+within Buildings.Templates.AHUs.Interfaces;
 partial model Fan
   extends Buildings.Fluid.Interfaces.PartialTwoPort(
     redeclare final package Medium=MediumAir);

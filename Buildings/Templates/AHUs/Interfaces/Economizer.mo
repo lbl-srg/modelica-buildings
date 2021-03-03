@@ -1,4 +1,4 @@
-within Buildings.Experimental.Templates.AHUs.Interfaces;
+within Buildings.Templates.AHUs.Interfaces;
 partial model Economizer
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     constrainedby Modelica.Media.Interfaces.PartialMedium
@@ -8,7 +8,7 @@ partial model Economizer
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
   /*
-  Does not work with OCT. 
+  Does not work with OCT.
   The specialized record must be declared in each specialized class.
   */
   replaceable parameter Economizers.Data.None dat

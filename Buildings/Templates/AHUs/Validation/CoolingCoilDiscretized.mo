@@ -1,10 +1,10 @@
-within Buildings.Experimental.Templates.AHUs.Validation;
+within Buildings.Templates.AHUs.Validation;
 model CoolingCoilDiscretized
   extends BaseNoEquipment(redeclare
       UserProject.AHUs.CoolingCoilDiscretized ahu(redeclare record RecordCoiCoo
-        = Buildings.Experimental.Templates.AHUs.Coils.Data.WaterBased (
+        = Buildings.Templates.AHUs.Coils.Data.WaterBased (
             redeclare
-            Buildings.Experimental.Templates.AHUs.Coils.HeatExchangers.Data.Discretized
+            Buildings.Templates.AHUs.Coils.HeatExchangers.Data.Discretized
             datHex(UA_nominal=500))));
 
   Fluid.Sources.Boundary_pT bou2(

@@ -1,4 +1,4 @@
-within Buildings.Experimental.Templates.AHUs.Coils;
+within Buildings.Templates.AHUs.Coils;
 package Actuators
 
 end Actuators;

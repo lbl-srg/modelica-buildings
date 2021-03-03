@@ -1,4 +1,4 @@
-within Buildings.Experimental.Templates.AHUs.Coils.Actuators.Data;
+within Buildings.Templates.AHUs.Coils.Actuators.Data;
 record None
   extends Modelica.Icons.Record;
 

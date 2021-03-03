@@ -1,4 +1,4 @@
-within Buildings.Experimental.Templates.AHUs.Controls;
+within Buildings.Templates.AHUs.Controls;
 block Dummy "Dummy controller with constant signals"
   extends Interfaces.Controller;
 

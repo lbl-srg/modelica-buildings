@@ -1,4 +1,4 @@
-within Buildings.Experimental.Templates.BaseClasses;
+within Buildings.Templates.BaseClasses;
 model PassThrough
   extends Buildings.Fluid.Interfaces.PartialTwoPort;
 equation

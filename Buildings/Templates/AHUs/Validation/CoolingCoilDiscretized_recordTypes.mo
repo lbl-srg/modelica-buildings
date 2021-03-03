@@ -1,4 +1,4 @@
-within Buildings.Experimental.Templates.AHUs.Validation;
+within Buildings.Templates.AHUs.Validation;
 model CoolingCoilDiscretized_recordTypes
   extends BaseNoEquipment( redeclare
     UserProject.AHUs.CoolingCoilDiscretized ahu(
@@ -11,8 +11,8 @@ model CoolingCoilDiscretized_recordTypes
 
   UserProject.AHUs.Data.CoolingCoilDiscretized datAhu(
     redeclare record RecordCoiCoo =
-      Buildings.Experimental.Templates.AHUs.Coils.Data.WaterBased (redeclare
-        Buildings.Experimental.Templates.AHUs.Coils.HeatExchangers.Data.Discretized
+      Buildings.Templates.AHUs.Coils.Data.WaterBased (redeclare
+        Buildings.Templates.AHUs.Coils.HeatExchangers.Data.Discretized
         datHex(UA_nominal=500)))
     annotation (Placement(transformation(extent={{-10,42},{10,62}})));
 equation
@@ -25,11 +25,11 @@ equation
 <p>
 This model fails to compile due to the following statement
 <code>ahu(redeclare record RecordCoiCoo=datAhu.RecordCoiCoo)</code>.
-This illustrates that record types alone cannot be used to 
-propagate parameters from the top-level simulation model to 
+This illustrates that record types alone cannot be used to
+propagate parameters from the top-level simulation model to
 the AHU model.
-We need record instances for that, but then we end up with the 
-hefty structure based on both a replaceable record type and 
+We need record instances for that, but then we end up with the
+hefty structure based on both a replaceable record type and
 a replaceable record component in the AHU template.
 </p>
 </html>"));

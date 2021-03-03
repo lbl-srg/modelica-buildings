@@ -1,4 +1,4 @@
-within Buildings.Experimental.Templates.AHUs.Validation;
+within Buildings.Templates.AHUs.Validation;
 model CoolingCoiDXMultiStage
   extends BaseNoEquipment(
                       ahu(redeclare record RecordCoiCoo =

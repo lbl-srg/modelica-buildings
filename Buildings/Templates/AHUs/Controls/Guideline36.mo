@@ -1,4 +1,4 @@
-within Buildings.Experimental.Templates.AHUs.Controls;
+within Buildings.Templates.AHUs.Controls;
 block Guideline36 "Guideline 36 VAV single duct controller"
   extends Interfaces.Controller;
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.Controller conAHU

@@ -1,4 +1,4 @@
-within Buildings.Experimental.Templates;
+within Buildings.Templates;
 package BaseClasses
   extends Modelica.Icons.BasesPackage;
 

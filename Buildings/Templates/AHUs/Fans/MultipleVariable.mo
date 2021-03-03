@@ -1,4 +1,4 @@
-within Buildings.Experimental.Templates.AHUs.Fans;
+within Buildings.Templates.AHUs.Fans;
 model MultipleVariable "Multiple fan - Variable speed"
   extends Interfaces.Fan(
     final typ=Types.Fan.MultipleVariable);

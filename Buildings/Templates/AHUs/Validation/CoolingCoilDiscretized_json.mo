@@ -1,4 +1,4 @@
-within Buildings.Experimental.Templates.AHUs.Validation;
+within Buildings.Templates.AHUs.Validation;
 model CoolingCoilDiscretized_json
   extends BaseNoEquipment(redeclare
       UserProject.AHUs.CoolingCoilDiscretized_json ahu);
@@ -20,10 +20,10 @@ equation
   annotation (
   experiment(Tolerance=1e-6, StopTime=1), Documentation(info="<html>
 <p>
-Example with a parameter binding using 
+Example with a parameter binding using
 <code>ExternData.JSONFile.getReal()</code>.
 Note that in order to access the system <code>id</code> parameter
-declared in the AHU template, the previous function call 
+declared in the AHU template, the previous function call
 (and binding) must be done either when extending the template class (see
 Templates.AHUs.Validation.UserProject.AHUs.CoolingCoilDiscretized_json)
 or directly in the template class.

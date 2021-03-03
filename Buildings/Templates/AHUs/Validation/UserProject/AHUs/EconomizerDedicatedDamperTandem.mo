@@ -1,4 +1,4 @@
-within Buildings.Experimental.Templates.AHUs.Validation.UserProject.AHUs;
+within Buildings.Templates.AHUs.Validation.UserProject.AHUs;
 model EconomizerDedicatedDamperTandem
   extends VAVSingleDuct(
     redeclare  Economizers.DedicatedDamperTandem eco

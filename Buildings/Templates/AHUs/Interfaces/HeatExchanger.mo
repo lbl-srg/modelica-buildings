@@ -1,4 +1,4 @@
-within Buildings.Experimental.Templates.AHUs.Interfaces;
+within Buildings.Templates.AHUs.Interfaces;
 model HeatExchanger
   extends Fluid.Interfaces.PartialFourPortInterface;
 

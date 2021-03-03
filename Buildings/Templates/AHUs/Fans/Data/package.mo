@@ -1,4 +1,4 @@
-within Buildings.Experimental.Templates.AHUs.Fans;
+within Buildings.Templates.AHUs.Fans;
 package Data
   extends Modelica.Icons.MaterialPropertiesPackage;
 

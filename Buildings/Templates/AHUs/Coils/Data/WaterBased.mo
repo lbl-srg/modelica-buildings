@@ -1,4 +1,4 @@
-within Buildings.Experimental.Templates.AHUs.Coils.Data;
+within Buildings.Templates.AHUs.Coils.Data;
 record WaterBased
   extends None;
 
@@ -19,9 +19,9 @@ record WaterBased
     annotation(Dialog(group = "Nominal condition"));
 
   /*
-  Dymola does not accept the declared type below to be 
+  Dymola does not accept the declared type below to be
   HeatExchangers.Data.EffectivenessNTU by default, see info section.
-  Cannot see why based on a minimum example. 
+  Cannot see why based on a minimum example.
   Seems like a false negative syntax check.
   */
   replaceable parameter HeatExchangers.Data.None datHex
@@ -54,14 +54,14 @@ If datHex is declared as
 <p>
 Dymola gives the following error
 </p>
-        Translation of Buildings.Experimental.Templates.AHUs.Validation.CoolingCoilDiscretized:
+        Translation of Buildings.Templates.AHUs.Validation.CoolingCoilDiscretized:
 
         Inner must be subtype of outer
 But missing component Q_flow_nominal.
 Error found inside component datHex.
-Component outer Buildings.Experimental.Templates.AHUs.Coils.Data.WaterBased datCoi:
+Component outer Buildings.Templates.AHUs.Coils.Data.WaterBased datCoi:
 File: /home/agautier/gitrepo/modelica-buildings/Buildings/Experimental/Templates/AHUs/Coils/HeatExchangers/Discretized.mo, line 9
-Compared to inner Buildings.Experimental.Templates.AHUs.Validation.CoolingCoilDiscretized.RecordCoiCoo datCoi:
+Compared to inner Buildings.Templates.AHUs.Validation.CoolingCoilDiscretized.RecordCoiCoo datCoi:
 File: /home/agautier/gitrepo/modelica-buildings/Buildings/Experimental/Templates/AHUs/Main/VAVSingleDuct.mo, line 151
 <p>
 No issue (and no warning) with OCT.

@@ -1,4 +1,4 @@
-within Buildings.Experimental.Templates.AHUs.Coils.Actuators.Data;
+within Buildings.Templates.AHUs.Coils.Actuators.Data;
 record ThreeWayValve
   extends None;
   parameter Modelica.SIunits.PressureDifference dpValve_nominal(

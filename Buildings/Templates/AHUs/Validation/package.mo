@@ -1,10 +1,10 @@
-within Buildings.Experimental.Templates.AHUs;
+within Buildings.Templates.AHUs;
 package Validation
   extends Modelica.Icons.ExamplesPackage;
 
 annotation (Documentation(info="<html>
 <p>
-This package contains models validating the AHU templates for different 
+This package contains models validating the AHU templates for different
 system configurations.
 Two types of configuring workflow are illustrated:
 </p>
@@ -21,7 +21,7 @@ directly in the validation model.
 </ul>
 <p>
 The preferred workflow also illustrates parameter propagation from a top
-level AHU record, relying on specialized record classes that could be 
+level AHU record, relying on specialized record classes that could be
 generated along the specialized system models.
 </p>
 </html>"));

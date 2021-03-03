@@ -1,4 +1,4 @@
-within Buildings.Experimental.Templates.AHUs.Fans;
+within Buildings.Templates.AHUs.Fans;
 model None "No fan"
   extends Interfaces.Fan(
     final typ=Types.Fan.None);

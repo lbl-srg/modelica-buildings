@@ -1,4 +1,4 @@
-within Buildings.Experimental.Templates.AHUs.Validation;
+within Buildings.Templates.AHUs.Validation;
 model EconomizerCommonDamperFree
   extends BaseNoEquipment(redeclare UserProject.AHUs.EconomizerCommonDamperFree
       ahu(datEco=datAhu.datEco));

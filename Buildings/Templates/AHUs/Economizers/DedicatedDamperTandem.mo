@@ -1,4 +1,4 @@
-within Buildings.Experimental.Templates.AHUs.Economizers;
+within Buildings.Templates.AHUs.Economizers;
 model DedicatedDamperTandem
   "Separate dedicated OA damper - Dampers actuated in tandem"
   extends Interfaces.Economizer(

@@ -1,16 +1,16 @@
-within Buildings.Experimental.Templates.AHUs.Validation;
+within Buildings.Templates.AHUs.Validation;
 model CoolingCoilEffectivenessNTU2WayValve
   extends BaseNoEquipment(
                       ahu(redeclare record RecordCoiCoo = Coils.Data.WaterBased
           (redeclare
-            Buildings.Experimental.Templates.AHUs.Coils.HeatExchangers.Data.EffectivenessNTU
+            Buildings.Templates.AHUs.Coils.HeatExchangers.Data.EffectivenessNTU
             datHex, redeclare
-            Buildings.Experimental.Templates.AHUs.Coils.Actuators.Data.TwoWayValve
+            Buildings.Templates.AHUs.Coils.Actuators.Data.TwoWayValve
             datAct(dpValve_nominal=5000)), redeclare Coils.WaterBased coiCoo(
           redeclare
-          Buildings.Experimental.Templates.AHUs.Coils.Actuators.TwoWayValve act,
+          Buildings.Templates.AHUs.Coils.Actuators.TwoWayValve act,
           redeclare
-          Buildings.Experimental.Templates.AHUs.Coils.HeatExchangers.EffectivenessNTU
+          Buildings.Templates.AHUs.Coils.HeatExchangers.EffectivenessNTU
           coi)));
 
   Fluid.Sources.Boundary_pT bou2(

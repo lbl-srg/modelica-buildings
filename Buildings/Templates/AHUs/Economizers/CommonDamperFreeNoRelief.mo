@@ -1,4 +1,4 @@
-within Buildings.Experimental.Templates.AHUs.Economizers;
+within Buildings.Templates.AHUs.Economizers;
 model CommonDamperFreeNoRelief
   "Single common OA damper - Dampers actuated individually, no relief"
   extends Interfaces.Economizer(

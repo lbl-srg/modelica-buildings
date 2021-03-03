@@ -1,4 +1,4 @@
-within Buildings.Experimental.Templates.AHUs;
+within Buildings.Templates.AHUs;
 package Interfaces "Base classes defining the component interfaces"
   extends Modelica.Icons.InterfacesPackage;
 

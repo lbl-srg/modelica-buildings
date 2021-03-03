@@ -1,9 +1,9 @@
-within Buildings.Experimental.Templates.AHUs.Coils.Actuators;
+within Buildings.Templates.AHUs.Coils.Actuators;
 model TwoWayValve "Two-way valve"
   extends Interfaces.Actuator(
     final typ=Types.Actuator.TwoWayValve);
 
-  outer parameter Buildings.Experimental.Templates.AHUs.Coils.Data.WaterBased
+  outer parameter Buildings.Templates.AHUs.Coils.Data.WaterBased
     dat annotation (Placement(transformation(extent={{-10,-98},{10,-78}})));
 
   replaceable Fluid.Actuators.Valves.TwoWayEqualPercentage val

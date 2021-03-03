@@ -1,4 +1,4 @@
-within Buildings.Experimental.Templates.AHUs.Economizers.Data;
+within Buildings.Templates.AHUs.Economizers.Data;
 record None
   extends Modelica.Icons.Record;
 

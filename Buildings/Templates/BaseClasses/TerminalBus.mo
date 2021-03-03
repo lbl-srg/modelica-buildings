@@ -1,4 +1,4 @@
-within Buildings.Experimental.Templates.BaseClasses;
+within Buildings.Templates.BaseClasses;
 expandable connector TerminalBus "Terminal control bus"
   extends Modelica.Icons.SignalBus;
 

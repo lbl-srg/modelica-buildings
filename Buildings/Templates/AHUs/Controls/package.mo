@@ -1,4 +1,4 @@
-within Buildings.Experimental.Templates.AHUs;
+within Buildings.Templates.AHUs;
 package Controls
 
 end Controls;

@@ -1,4 +1,4 @@
-within Buildings.Experimental.Templates.AHUs.Validation;
+within Buildings.Templates.AHUs.Validation;
 model CoolingCoilDiscretized_localParam
   extends BaseNoEquipment(redeclare
       UserProject.AHUs.CoolingCoilDiscretized_localParam ahu);

@@ -1,11 +1,11 @@
-within Buildings.Experimental.Templates.BaseClasses;
+within Buildings.Templates.BaseClasses;
 expandable connector AhuBus
   "Control bus that is adapted to the signals connected to it"
   extends Modelica.Icons.SignalBus;
 
-  Buildings.Experimental.Templates.BaseClasses.AhuSubBusI ahuI "AHU/I"
+  Buildings.Templates.BaseClasses.AhuSubBusI ahuI "AHU/I"
     annotation (HideResult=false);
-  Buildings.Experimental.Templates.BaseClasses.AhuSubBusO ahuO "AHU/O"
+  Buildings.Templates.BaseClasses.AhuSubBusO ahuO "AHU/O"
     annotation (HideResult=false);
 
   annotation (

@@ -1,4 +1,4 @@
-within Buildings.Experimental.Templates.AHUs;
+within Buildings.Templates.AHUs;
 model VAVSingleDuct "VAV single duct with relief"
   extends Interfaces.Main(
     final typ=Types.Main.SupplyReturn,
