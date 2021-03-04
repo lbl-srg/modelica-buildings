@@ -1,18 +1,18 @@
 within Buildings.Examples.BoilerPlant;
-model ClosedLoopTest "Closed loop testing model"
+model ClosedLoopTest_trial "Closed loop testing model"
   extends Modelica.Icons.Example;
   replaceable package MediumA =
       Buildings.Media.Air;
   replaceable package MediumW =
       Buildings.Media.Water "Medium model";
 
-  parameter Real boiCapRat = 0.8
+  parameter Real boiCapRat = 0.5
     "Ratio of boiler-1 capacity to total capacity";
 
   Buildings.Examples.BoilerPlant.PlantModel.BoilerPlant boilerPlant(boiCap1=(2 -
         boiCapRat)*15000, boiCap2=boiCapRat*15000)
     "Boiler plant model"
-    annotation (Placement(transformation(extent={{42,-10},{62,10}})));
+    annotation (Placement(transformation(extent={{42,-12},{62,12}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Controller controller(
     final have_priOnl=true,
@@ -73,11 +73,10 @@ model ClosedLoopTest "Closed loop testing model"
     annotation (Placement(transformation(extent={{120,60},{140,80}})));
   Controls.OBC.CDL.Logical.Not not1
     annotation (Placement(transformation(extent={{90,60},{110,80}})));
-
 protected
   Buildings.Controls.OBC.CDL.Continuous.PID conPID(
     final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
-    final k=1*10e-4,
+    final k=10e-4,
     Ti=30)
     "Radiator isolation valve controller"
     annotation (Placement(transformation(extent={{50,50},{70,70}})));
@@ -111,18 +110,18 @@ protected
 
 equation
   connect(controller.yBoi, boilerPlant.uBoiSta)
-    annotation (Line(points={{-18,14},{16,14},{16,9},{40,9}},
-                                                           color={255,0,255}));
+    annotation (Line(points={{-18,9},{16,9},{16,8},{40,8}},color={255,0,255}));
   connect(controller.yHotWatIsoVal, boilerPlant.uHotIsoVal)
-    annotation (Line(points={{-18,6},{16,6},{16,6},{40,6}},color={0,0,127}));
+    annotation (Line(points={{-18,6},{16,6},{16,5},{40,5}},color={0,0,127}));
   connect(controller.yBypValPos, boilerPlant.uBypValSig)
-    annotation (Line(points={{-18,2},{0,2},{0,-3},{40,-3}},  color={0,0,127}));
+    annotation (Line(points={{-18,3},{12,3},{12,-4},{40,-4}},color={0,0,127}));
   connect(con.y, conPID.u_s)
     annotation (Line(points={{32,60},{48,60}}, color={0,0,127}));
   connect(conPID.y, boilerPlant.uRadIsoVal) annotation (Line(points={{72,60},{76,
-          60},{76,34},{38,34},{38,-6},{40,-6}}, color={0,0,127}));
-  connect(boilerPlant.yZonTem, conPID.u_m) annotation (Line(points={{64,9},{80,9},
-          {80,28},{60,28},{60,48}}, color={0,0,127}));
+          60},{76,34},{38,34},{38,-7},{40,-7}}, color={0,0,127}));
+  connect(boilerPlant.yZonTem, conPID.u_m) annotation (Line(points={{64,9},{80,
+          9},{80,28},{60,28},{60,48}},
+                                    color={0,0,127}));
   connect(con3.y, controller.uBoiAva) annotation (Line(points={{-88,0},{-60,0},
           {-60,8},{-42,8}},                                   color={255,0,255}));
   connect(weaDat.weaBus,weaBus)  annotation (Line(
@@ -143,7 +142,7 @@ equation
       horizontalAlignment=TextAlignment.Right));
 
   connect(weaBus.TDryBul, boilerPlant.TOutAir) annotation (Line(
-      points={{-50,60},{-28,60},{-28,40},{8,40},{8,-9},{40,-9}},
+      points={{-50,60},{-28,60},{-28,40},{8,40},{8,-10},{40,-10}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
@@ -151,13 +150,13 @@ equation
       extent={{-3,-6},{-3,-6}},
       horizontalAlignment=TextAlignment.Right));
   connect(timTab.y[1], boilerPlant.QRooInt_flowrate)
-    annotation (Line(points={{-8,80},{0,80},{0,12},{40,12}},
+    annotation (Line(points={{-8,80},{0,80},{0,11},{40,11}},
                                                            color={0,0,127}));
   connect(controller.yPriPum, boilerPlant.uPumSta)
-    annotation (Line(points={{-18,-2},{2,-2},{2,3},{40,3}},
+    annotation (Line(points={{-18,0},{4,0},{4,2},{40,2}},
                                               color={255,0,255}));
-  connect(controller.yPriPumSpe, boilerPlant.uPumSpe) annotation (Line(points={{-18,-6},
-          {4,-6},{4,0},{40,0}},                       color={0,0,127}));
+  connect(controller.yPriPumSpe, boilerPlant.uPumSpe) annotation (Line(points={{-18,-3},
+          {4,-3},{4,-1},{40,-1}},                     color={0,0,127}));
   connect(boilerPlant.ySupTem, controller.TSupPri) annotation (Line(points={{64,6},{
           100,6},{100,-68},{-68,-68},{-68,23},{-42,23}},               color={0,
           0,127}));
@@ -176,8 +175,8 @@ equation
         color={0,0,127}));
   connect(boilerPlant.yBoiSta, controller.uBoi) annotation (Line(points={{64,-6},
           {120,-6},{120,-88},{-88,-88},{-88,-17},{-42,-17}}, color={255,0,255}));
-  connect(boilerPlant.yPumSta, controller.uPriPum) annotation (Line(points={{64,-9},
-          {124,-9},{124,-92},{-92,-92},{-92,-20},{-42,-20}},     color={255,0,
+  connect(boilerPlant.yPumSta, controller.uPriPum) annotation (Line(points={{64,
+          -9},{124,-9},{124,-92},{-92,-92},{-92,-20},{-42,-20}}, color={255,0,
           255}));
   connect(boilerPlant.yHotWatIsoVal, controller.uHotWatIsoVal) annotation (Line(
         points={{64,-12},{128,-12},{128,-96},{-96,-96},{-96,-26},{-42,-26}},
@@ -206,9 +205,6 @@ equation
           84,88},{84,70},{88,70}}, color={255,0,255}));
   connect(tim2.passed, lat.clr) annotation (Line(points={{142,62},{150,62},{150,
           88},{136,88},{136,104},{138,104}}, color={255,0,255}));
-  connect(controller.TBoiHotWatSupSet, boilerPlant.TBoiHotWatSupSet)
-    annotation (Line(points={{-18,10},{-2,10},{-2,-12},{40,-12}},     color={0,0,
-          127}));
   annotation (Documentation(info="<html>
 <p>
 This model couples the boiler plant model for a primary-only, condensing boiler
@@ -233,10 +229,10 @@ First implementation.
      "modelica://Buildings/Resources/Scripts/Dymola/Examples/BoilerPlant/ClosedLoopTest.mos"
         "Simulate and plot"),
     experiment(
-      StartTime=432000,
+      StartTime=518400,
       StopTime=777600,
       Interval=1,
       Tolerance=1e-06,
       __Dymola_Algorithm="Cvode"),
-    Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
-end ClosedLoopTest;
+    Icon(coordinateSystem(extent={{-140,-140},{200,140}})));
+end ClosedLoopTest_trial;
