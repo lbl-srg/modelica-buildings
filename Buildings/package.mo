@@ -490,10 +490,18 @@ have been <b style=\"color:blue\">improved</b> in a
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1502\">issue 1502</a>.
     </td>
 </tr>
-<tr><td colspan=\"2\"><b>Buildings.Fluid.HeatExchangers.RadiantSlabs</b>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.HeatExchangers</b>
     </td>
     </tr>
-<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Functions.AverageResistance
+    <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.DryCoilEffectivenessNTU<br/>
+                           Buildings.Fluid.HeatExchangers.PlateHeatExchangerEffectivenessNTU<br/>
+                           Buildings.Fluid.HeatExchangers.PartialEffectivenessNTU
+    </td>
+    <td valign=\"top\">Added a warning for when <code>Q_flow_nominal</code> is specified with the wrong sign.
+    </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.RadiantSlabs<br/>
+                           Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Functions.AverageResistance
     </td>
     <td valign=\"top\">Corrected inequality test on <code>alpha</code>,
                        and changed print statement to an assertion with assertion level set to warning.<br/>
