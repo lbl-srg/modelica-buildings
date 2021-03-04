@@ -68,7 +68,7 @@ model ClosedLoopTest_legacy "Closed loop testing model"
     TMinSupNonConBoi=333.2,
     k_bypVal=1,
     Ti_bypVal=50,
-    Td_bypVal=0,
+    Td_bypVal=10e-10,
     boiDesFlo={0.0003,0.0003},
     k_priPum=1,
     Ti_priPum=90,

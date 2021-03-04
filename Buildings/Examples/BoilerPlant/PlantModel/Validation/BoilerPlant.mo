@@ -1,5 +1,4 @@
 within Buildings.Examples.BoilerPlant.PlantModel.Validation;
-
 model BoilerPlant
     "Validation for boiler plant model"
   extends Modelica.Icons.Example;
@@ -200,5 +199,4 @@ First implementation.
       Tolerance=1e-06,
       __Dymola_Algorithm="Cvode"),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
-
 end BoilerPlant;

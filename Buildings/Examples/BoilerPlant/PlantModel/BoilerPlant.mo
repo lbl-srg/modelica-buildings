@@ -53,11 +53,11 @@ model BoilerPlant
     "Boiler minimum return water temperature"
     annotation(dialog(group="Boiler parameters"));
 
-  parameter Modelica.SIunits.MassFlowRate mBoi_flow_nominal1=boiCap1/4200/(TBoiSup_nominal-TBoiRet_min)
+  parameter Modelica.SIunits.MassFlowRate mBoi_flow_nominal1=mRad_flow_nominal
     "Boiler-1 nominal mass flow rate"
     annotation(dialog(group="Boiler parameters"));
 
-  parameter Modelica.SIunits.MassFlowRate mBoi_flow_nominal2=boiCap2/4200/(TBoiSup_nominal-TBoiRet_min)
+  parameter Modelica.SIunits.MassFlowRate mBoi_flow_nominal2=mRad_flow_nominal
     "Boiler-2 nominal mass flow rate"
     annotation(dialog(group="Boiler parameters"));
 
@@ -213,8 +213,7 @@ model BoilerPlant
     annotation (Placement(transformation(extent={{110,-160},{90,-140}})));
 
   Buildings.Fluid.Sources.Boundary_pT preSou(
-    redeclare package Medium = MediumW,
-    final nPorts=1)
+    redeclare package Medium = MediumW, nPorts=1)
     "Source for pressure and to account for thermal expansion of water"
     annotation (Placement(transformation(extent={{260,-210},{240,-190}})));
 
@@ -298,7 +297,7 @@ model BoilerPlant
       rotation=90,
       origin={-30,40})));
 
-  Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage val(
+  Buildings.Fluid.Actuators.Valves.TwoWayLinear val(
     redeclare package Medium = Media.Water,
     final m_flow_nominal=mRad_flow_nominal,
     final dpValve_nominal=0.1)
@@ -340,16 +339,6 @@ model BoilerPlant
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea1[2]
     "Boolean to Real conversion"
     annotation (Placement(transformation(extent={{-160,110},{-140,130}})));
-
-  Buildings.Fluid.FixedResistances.Junction spl6(
-    redeclare package Medium = MediumW,
-    final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    final m_flow_nominal={mRad_flow_nominal,-mBoi_flow_nominal1,-mBoi_flow_nominal2},
-    final dp_nominal={0,0,-200})
-    "Splitter"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-      rotation=0,
-      origin={140,-150})));
 
   Buildings.Fluid.Sensors.Temperature zonTem(
     redeclare package Medium = Media.Air)
@@ -413,11 +402,11 @@ model BoilerPlant
   Controls.OBC.CDL.Interfaces.BooleanOutput yBoiSta[2] "Boiler status signal"
     annotation (Placement(transformation(extent={{320,-90},{360,-50}}),
         iconTransformation(extent={{100,-80},{140,-40}})));
-  Controls.OBC.CDL.Continuous.Hysteresis hys1[2](uLow=fill(2.9, 2), uHigh=fill(
-        3, 2))
+  Controls.OBC.CDL.Continuous.Hysteresis hys1[2](uLow=fill(0.2, 2), uHigh=fill(
+        0.3, 2))
             "Check if boiler is supplying energy"
     annotation (Placement(transformation(extent={{230,-100},{250,-80}})));
-  Controls.OBC.CDL.Logical.Timer tim[2](t=fill(120, 2))
+  Controls.OBC.CDL.Logical.Timer tim[2](t=fill(60, 2))
     "Check time for which boiler status on"
     annotation (Placement(transformation(extent={{290,-80},{310,-60}})));
   Controls.OBC.CDL.Continuous.Hysteresis hys2[2](uLow=fill(0.09, 2), uHigh=fill(
@@ -490,13 +479,37 @@ model BoilerPlant
           extent={{-140,-140},{-100,-100}})));
   Controls.OBC.CDL.Continuous.PID conPID[2](
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
-    k=0.1,
-    Ti=60)
+    k={0.1,0.1},
+    Ti={60,60},
+    xi_start=fill(1, 2))
     "PI controller for regulating hot water supply temperature from boiler"
     annotation (Placement(transformation(extent={{-280,-120},{-260,-100}})));
   Controls.OBC.CDL.Continuous.Product pro1[2]
     "Product of boiler power and current status"
     annotation (Placement(transformation(extent={{-120,-120},{-100,-100}})));
+  Controls.OBC.CDL.Continuous.Add add1[2](k2=fill(-1, 2))
+    "Find difference between setpoint and measured temperature"
+    annotation (Placement(transformation(extent={{-260,-170},{-240,-150}})));
+  Controls.OBC.CDL.Logical.Switch swi[2] "Switch"
+    annotation (Placement(transformation(extent={{-90,-170},{-70,-150}})));
+  Fluid.FixedResistances.Junction           spl6(
+    redeclare package Medium = MediumW,
+    final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    final m_flow_nominal={-mBoi_flow_nominal1,mRad_flow_nominal,-
+        mBoi_flow_nominal2},
+    final dp_nominal={0,0,-200})
+    "Splitter"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+      rotation=0,
+      origin={150,-150})));
+  Controls.OBC.CDL.Continuous.GreaterThreshold greThr[2](h=0.3)
+    "Check if supply temperature setpoint is not met"
+    annotation (Placement(transformation(extent={{-230,-170},{-210,-150}})));
+  Controls.OBC.CDL.Logical.MultiOr mulOr(nu=2)
+    annotation (Placement(transformation(extent={{-200,-170},{-180,-150}})));
+  Controls.OBC.CDL.Routing.BooleanReplicator booRep(nout=2)
+    "Boolean replicator"
+    annotation (Placement(transformation(extent={{-170,-170},{-150,-150}})));
 equation
   connect(theCon.port_b, vol.heatPort) annotation (Line(
       points={{120,180},{130,180},{130,160},{140,160}},
@@ -533,10 +546,11 @@ equation
           -120,64},{90,64},{90,52}},  color={0,0,127}));
 
   connect(uHotIsoVal[1], val1.y) annotation (Line(points={{-340,70},{-340,80},{
-          -140,80},{-140,-192},{10,-192},{10,-198}},     color={0,0,127}));
+          -170,80},{-170,-130},{-10,-130},{-10,-180},{10,-180},{10,-198}},
+                                                         color={0,0,127}));
 
   connect(uHotIsoVal[2], val2.y) annotation (Line(points={{-340,90},{-340,80},{
-          -140,80},{-140,-130},{10,-130},{10,-138}},     color={0,0,127}));
+          -170,80},{-170,-130},{10,-130},{10,-138}},     color={0,0,127}));
 
   connect(QRooInt_flowrate, preHea.Q_flow)
     annotation (Line(points={{-340,210},{100,210}},
@@ -571,12 +585,6 @@ equation
 
   connect(senVolFlo.V_flow, VHotWat_flow) annotation (Line(points={{50,11},{50,16},
           {80,16},{80,-30},{340,-30}},             color={0,0,127}));
-
-  connect(spl6.port_2, spl5.port_2) annotation (Line(points={{150,-150},{210,-150},
-          {210,30}},   color={0,127,255}));
-
-  connect(spl6.port_2, preSou.ports[1]) annotation (Line(points={{150,-150},{210,
-          -150},{210,-200},{240,-200}}, color={0,127,255}));
 
   connect(TOutAir, TOut.T)
     annotation (Line(points={{-340,-80},{-282,-80}},   color={0,0,127}));
@@ -691,8 +699,6 @@ equation
           260,134},{260,40},{268,40}}, color={0,0,127}));
   connect(reaRep1.y, add2.u2) annotation (Line(points={{292,40},{308,40},{308,
           -26},{150,-26},{150,-96},{158,-96}}, color={0,0,127}));
-  connect(spl6.port_3, boi1.port_a) annotation (Line(points={{140,-160},{140,
-          -210},{110,-210}}, color={0,127,255}));
   connect(senVolFlo1.port_b, senTem2.port_a)
     annotation (Line(points={{54,-150},{60,-150}}, color={0,127,255}));
   connect(senTem2.port_b, boi.port_b)
@@ -703,8 +709,8 @@ equation
     annotation (Line(points={{80,-210},{90,-210}}, color={0,127,255}));
   connect(senVolFlo1.V_flow, abs[2].u)
     annotation (Line(points={{44,-139},{44,-60},{98,-60}}, color={0,0,127}));
-  connect(senVolFlo2.V_flow, abs[1].u) annotation (Line(points={{44,-199},{44,
-          -184},{-50,-184},{-50,-120},{44,-120},{44,-60},{98,-60}}, color={0,0,
+  connect(senVolFlo2.V_flow, abs[1].u) annotation (Line(points={{44,-199},{44,-184},
+          {-50,-184},{-50,-120},{44,-120},{44,-60},{98,-60}},       color={0,0,
           127}));
   connect(abs.y, hys3.u)
     annotation (Line(points={{122,-60},{228,-60}}, color={0,0,127}));
@@ -722,26 +728,51 @@ equation
           -270,114},{-262,114}}, color={255,0,255}));
   connect(tim.passed, pre1.u) annotation (Line(points={{312,-78},{314,-78},{314,
           234},{-310,234},{-310,152},{-302,152}}, color={255,0,255}));
-  connect(spl6.port_1, boi.port_a)
-    annotation (Line(points={{130,-150},{110,-150}}, color={0,127,255}));
-  connect(senTem3.T, add2[1].u1) annotation (Line(points={{70,-199},{72,-199},{
-          72,-188},{84,-188},{84,-84},{158,-84}}, color={0,0,127}));
+  connect(senTem3.T, add2[1].u1) annotation (Line(points={{70,-199},{70,-188},{
+          84,-188},{84,-84},{158,-84}},           color={0,0,127}));
   connect(senTem2.T, add2[2].u1)
     annotation (Line(points={{70,-139},{70,-84},{158,-84}}, color={0,0,127}));
-  connect(TBoiHotWatSupSet, conPID.u_s) annotation (Line(points={{-340,-130},{
-          -300,-130},{-300,-110},{-282,-110}}, color={0,0,127}));
-  connect(senTem3.T, conPID[1].u_m) annotation (Line(points={{70,-199},{72,-199},
-          {72,-188},{-270,-188},{-270,-122}}, color={0,0,127}));
+  connect(TBoiHotWatSupSet, conPID.u_s) annotation (Line(points={{-340,-130},{-300,
+          -130},{-300,-110},{-282,-110}}, color={0,0,127}));
+  connect(senTem3.T, conPID[1].u_m) annotation (Line(points={{70,-199},{70,-188},
+          {-270,-188},{-270,-122}},           color={0,0,127}));
   connect(senTem2.T, conPID[2].u_m) annotation (Line(points={{70,-139},{70,-126},
           {-270,-126},{-270,-122}}, color={0,0,127}));
-  connect(conPID.y, pro1.u2) annotation (Line(points={{-258,-110},{-130,-110},{
-          -130,-116},{-122,-116}}, color={0,0,127}));
-  connect(booToRea1.y, pro1.u1) annotation (Line(points={{-138,120},{-130,120},
-          {-130,-104},{-122,-104}}, color={0,0,127}));
-  connect(pro1[1].y, boi1.y) annotation (Line(points={{-98,-110},{-80,-110},{
-          -80,-116},{120,-116},{120,-202},{112,-202}}, color={0,0,127}));
-  connect(pro1[2].y, boi.y) annotation (Line(points={{-98,-110},{-80,-110},{-80,
+  connect(conPID.y, pro1.u2) annotation (Line(points={{-258,-110},{-160,-110},{
+          -160,-116},{-122,-116}},
+                              color={0,0,127}));
+  connect(booToRea1.y, pro1.u1) annotation (Line(points={{-138,120},{-130,120},{
+          -130,-104},{-122,-104}}, color={0,0,127}));
+  connect(TBoiHotWatSupSet, add1.u1) annotation (Line(points={{-340,-130},{-300,
+          -130},{-300,-154},{-262,-154}}, color={0,0,127}));
+  connect(senTem3.T, add1[1].u2) annotation (Line(points={{70,-199},{70,-188},{
+          -270,-188},{-270,-166},{-262,-166}},        color={0,0,127}));
+  connect(senTem2.T, add1[2].u2) annotation (Line(points={{70,-139},{70,-126},{-270,
+          -126},{-270,-166},{-262,-166}}, color={0,0,127}));
+  connect(boi.port_a, spl6.port_1)
+    annotation (Line(points={{110,-150},{140,-150}}, color={0,127,255}));
+  connect(boi1.port_a, spl6.port_3) annotation (Line(points={{110,-210},{150,
+          -210},{150,-160}}, color={0,127,255}));
+  connect(spl6.port_2, spl5.port_2) annotation (Line(points={{160,-150},{210,
+          -150},{210,30}}, color={0,127,255}));
+  connect(pro1.y, swi.u3) annotation (Line(points={{-98,-110},{-96,-110},{-96,
+          -168},{-92,-168}}, color={0,0,127}));
+  connect(booToRea1.y, swi.u1) annotation (Line(points={{-138,120},{-130,120},{
+          -130,-152},{-92,-152}}, color={0,0,127}));
+  connect(add1.y, greThr.u)
+    annotation (Line(points={{-238,-160},{-232,-160}}, color={0,0,127}));
+  connect(greThr.y, mulOr.u[1:2]) annotation (Line(points={{-208,-160},{-204,
+          -160},{-204,-163.5},{-202,-163.5}}, color={255,0,255}));
+  connect(mulOr.y, booRep.u)
+    annotation (Line(points={{-178,-160},{-172,-160}}, color={255,0,255}));
+  connect(booRep.y, swi.u2)
+    annotation (Line(points={{-148,-160},{-92,-160}}, color={255,0,255}));
+  connect(swi[1].y, boi1.y) annotation (Line(points={{-68,-160},{-60,-160},{-60,
+          -116},{120,-116},{120,-202},{112,-202}}, color={0,0,127}));
+  connect(swi[2].y, boi.y) annotation (Line(points={{-68,-160},{-60,-160},{-60,
           -116},{120,-116},{120,-142},{112,-142}}, color={0,0,127}));
+  connect(spl6.port_2, preSou.ports[1]) annotation (Line(points={{160,-150},{
+          210,-150},{210,-200},{240,-200}}, color={0,127,255}));
   annotation (defaultComponentName="boiPla",
     Documentation(info="<html>
       <p>
@@ -758,7 +789,7 @@ equation
       </html>"),
     Diagram(coordinateSystem(preserveAspectRatio=false,
       extent={{-320,-240},{320,240}})),
-    Icon(coordinateSystem(extent={{-100,-120},{100,120}}),
+    Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
       graphics={
         Text(
           extent={{-100,160},{100,120}},
