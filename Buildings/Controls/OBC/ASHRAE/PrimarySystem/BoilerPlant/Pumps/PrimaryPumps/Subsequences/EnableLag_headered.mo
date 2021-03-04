@@ -133,27 +133,22 @@ protected
     "Add real inputs"
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
 
-  Buildings.Controls.OBC.CDL.Logical.And and2
-    "Logical and"
-    annotation (Placement(transformation(extent={{40,-130},{60,-110}})));
-
-  Buildings.Controls.OBC.CDL.Logical.And and1
-    "Logical and"
-    annotation (Placement(transformation(extent={{40,70},{60,90}})));
-
   Buildings.Controls.OBC.CDL.Logical.Change cha[nPum]
     "Detect changes in primary pump status"
     annotation (Placement(transformation(extent={{-120,120},{-100,140}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Not not1
-    "Logical Not"
-    annotation (Placement(transformation(extent={{-40,120},{-20,140}})));
 
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(
     final nu=nPum)
     "Multi Or"
     annotation (Placement(transformation(extent={{-80,120},{-60,140}})));
 
+  Buildings.Controls.OBC.CDL.Logical.Latch lat
+    "Latch"
+    annotation (Placement(transformation(extent={{100,30},{120,50}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Latch lat1
+    "Latch"
+    annotation (Placement(transformation(extent={{60,-90},{80,-70}})));
 equation
   connect(VHotWat_flow,hotWatFloRat. u)
     annotation (Line(points={{-160,80},{-122,80}}, color={0,0,127}));
@@ -199,38 +194,29 @@ equation
     annotation (Line(points={{-98,80},{-90,80},{-90,60},{-100,60},{-100,-86},
       {-82,-86}}, color={0,0,127}));
 
-  connect(hys1.y, and2.u1)
-    annotation (Line(points={{-18,-80},{-14,-80},{-14,-120},{38,-120}},
-      color={255,0,255}));
-
-  connect(and2.y, tim1.u)
-    annotation (Line(points={{62,-120},{80,-120},{80,-104},{-6,-104},{-6,-80},
-      {-2,-80}}, color={255,0,255}));
-
-  connect(hys.y, and1.u2)
-    annotation (Line(points={{-18,40},{-12,40},{-12,72},{38,72}}, color={255,0,255}));
-
-  connect(and1.y, tim.u)
-    annotation (Line(points={{62,80},{70,80},{70,66},{-6,66},{-6,40},{-2,40}},
-      color={255,0,255}));
-
   connect(not3.y, yDown)
     annotation (Line(points={{122,-80},{160,-80}}, color={255,0,255}));
-  connect(tim.passed, yUp) annotation (Line(points={{22,32},{60,32},{60,40},{
-          160,40}}, color={255,0,255}));
-  connect(tim1.passed, not3.u) annotation (Line(points={{22,-88},{40,-88},{40,
-          -80},{98,-80}}, color={255,0,255}));
 
   connect(uHotWatPum, cha.u) annotation (Line(points={{-160,0},{-130,0},{-130,130},
           {-122,130}}, color={255,0,255}));
   connect(cha.y, mulOr.u[1:2]) annotation (Line(points={{-98,130},{-90,130},{-90,
           130},{-82,130}},     color={255,0,255}));
-  connect(mulOr.y, not1.u)
-    annotation (Line(points={{-58,130},{-42,130}}, color={255,0,255}));
-  connect(not1.y, and1.u1) annotation (Line(points={{-18,130},{30,130},{30,80},{
-          38,80}}, color={255,0,255}));
-  connect(not1.y, and2.u2) annotation (Line(points={{-18,130},{90,130},{90,-140},
-          {30,-140},{30,-128},{38,-128}}, color={255,0,255}));
+  connect(hys.y, tim.u)
+    annotation (Line(points={{-18,40},{-2,40}}, color={255,0,255}));
+  connect(hys1.y, tim1.u)
+    annotation (Line(points={{-18,-80},{-2,-80}}, color={255,0,255}));
+  connect(tim.passed, lat.u) annotation (Line(points={{22,32},{40,32},{40,40},{98,
+          40}}, color={255,0,255}));
+  connect(lat.y, yUp)
+    annotation (Line(points={{122,40},{160,40}}, color={255,0,255}));
+  connect(mulOr.y, lat.clr) annotation (Line(points={{-58,130},{80,130},{80,34},
+          {98,34}}, color={255,0,255}));
+  connect(tim1.passed, lat1.u) annotation (Line(points={{22,-88},{40,-88},{40,-80},
+          {58,-80}}, color={255,0,255}));
+  connect(lat1.y, not3.u)
+    annotation (Line(points={{82,-80},{98,-80}}, color={255,0,255}));
+  connect(mulOr.y, lat1.clr) annotation (Line(points={{-58,130},{80,130},{80,-40},
+          {50,-40},{50,-86},{58,-86}}, color={255,0,255}));
 annotation (
   defaultComponentName="enaLagPriPum",
   Icon(coordinateSystem(preserveAspectRatio=false,
