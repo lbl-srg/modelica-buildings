@@ -1029,17 +1029,17 @@ model Controller
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yBoi[nBoi]
     "Boiler status vector"
     annotation (Placement(transformation(extent={{400,180},{440,220}}),
-      iconTransformation(extent={{100,70},{140,110}})));
+      iconTransformation(extent={{100,120},{140,160}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yPriPum[nPumPri]
     "Primary pump enable status vector"
     annotation (Placement(transformation(extent={{400,-150},{440,-110}}),
-      iconTransformation(extent={{100,-20},{140,20}})));
+      iconTransformation(extent={{100,-40},{140,0}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput ySecPum[nPumSec] if not have_priOnl
     "Secondary pump enable status vector"
     annotation (Placement(transformation(extent={{400,-360},{440,-320}}),
-      iconTransformation(extent={{100,-80},{140,-40}})));
+      iconTransformation(extent={{100,-120},{140,-80}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yHotWatIsoVal[nBoi](
     final unit=fill("1",nBoi),
@@ -1053,21 +1053,29 @@ model Controller
     displayUnit="1") if have_varPriPum
     "Primary pump speed"
     annotation (Placement(transformation(extent={{400,-190},{440,-150}}),
-      iconTransformation(extent={{100,-50},{140,-10}})));
+      iconTransformation(extent={{100,-80},{140,-40}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yBypValPos(
     final unit="1",
     displayUnit="1") if have_priOnl
     "Bypass valve position"
     annotation (Placement(transformation(extent={{400,-50},{440,-10}}),
-      iconTransformation(extent={{100,10},{140,50}})));
+      iconTransformation(extent={{100,0},{140,40}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput ySecPumSpe[nPumSec](
-    final unit=fill("1",nPumSec),
-    displayUnit=fill("1",nPumSec)) if not have_priOnl and have_varSecPum
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput ySecPumSpe(
+    final unit="1",
+    displayUnit="1") if not have_priOnl and have_varSecPum
     "Secondary pump speed vector"
     annotation (Placement(transformation(extent={{400,-410},{440,-370}}),
-      iconTransformation(extent={{100,-110},{140,-70}})));
+      iconTransformation(extent={{100,-160},{140,-120}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput TBoiHotWatSupSet[nBoi](
+    final unit=fill("K", nBoi),
+    displayUnit=fill("K", nBoi),
+    final quantity=fill("ThermodynamicTemperature", nBoi))
+    "Boiler hot water supply temperature setpoint vector"
+    annotation (Placement(transformation(extent={{400,150},{440,190}}),
+      iconTransformation(extent={{100,80},{140,120}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Generic.PlantEnable plaEna(
     final nIgnReq=nIgnReq,
@@ -1398,7 +1406,7 @@ protected
     annotation (Placement(transformation(extent={{240,60},{260,80}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.SecondaryPumps.Controller secPumCon(
-    final have_varSecPum=have_varSecPum,
+    final have_varSecPum=true,
     final have_secFloSen=have_secFloSen,
     final nPum=nPumSec,
     final nPumPri=nPumPri,
@@ -1780,9 +1788,6 @@ equation
   connect(dpHotWatSet1.y, secPumCon.dpHotWatSet) annotation (Line(points={{82,-380},
           {86,-380},{86,-374},{118,-374}},       color={0,0,127}));
 
-  connect(secPumCon.yPumSpe, ySecPumSpe) annotation (Line(points={{142,-370},{220,
-          -370},{220,-390},{420,-390}},     color={0,0,127}));
-
   connect(dpHotWatSec_rem, secPumCon.dpHotWat_remote) annotation (Line(points={{-420,
           -230},{-190,-230},{-190,-300},{86,-300},{86,-370},{118,-370}},
         color={0,0,127}));
@@ -1861,6 +1866,10 @@ equation
           0,0,127}));
   connect(uBypValPos, staSetCon.uBypValPos) annotation (Line(points={{-420,-520},
           {-258,-520},{-258,2},{-212,2}}, color={0,0,127}));
+  connect(secPumCon.yPumSpe, ySecPumSpe) annotation (Line(points={{142,-370},{
+          260,-370},{260,-390},{420,-390}}, color={0,0,127}));
+  connect(hotWatSupTemRes.TBoiHotWatSupSet, TBoiHotWatSupSet) annotation (Line(
+        points={{-118,176},{360,176},{360,170},{420,170}}, color={0,0,127}));
   annotation (defaultComponentName="boiPlaCon",
     Icon(coordinateSystem(extent={{-100,-340},{100,340}}),
        graphics={
