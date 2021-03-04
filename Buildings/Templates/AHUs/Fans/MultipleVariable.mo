@@ -16,13 +16,13 @@ model MultipleVariable
       choicesAllMatching=true,
       Placement(transformation(extent={{-10,10},{10,30}})));
 
-  Modelica.Blocks.Routing.RealPassThrough  conSup if fun==Types.FanFunction.Supply
+  Modelica.Blocks.Routing.RealPassThrough  conSup if bra==Types.Branch.Supply
     "Pass through block used to used to connect the right control signal"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-20,80})));
-  Modelica.Blocks.Routing.RealPassThrough conRet if fun==Types.FanFunction.Return
+  Modelica.Blocks.Routing.RealPassThrough conRet if bra==Types.Branch.Return
     "Pass through block used to used to connect the right control signal"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},

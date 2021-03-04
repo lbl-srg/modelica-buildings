@@ -1,9 +1,9 @@
 within Buildings.Templates.AHUs.Types;
 type Sensor = enumeration(
-    AbsoluteHumidity
-    "Absolute humidity",
     DifferentialPressure
     "Differential pressure",
+    HumidityRatio
+    "Humidity ratio",
     None
     "None",
     PPM

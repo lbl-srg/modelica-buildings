@@ -2,14 +2,9 @@ within Buildings.Templates.AHUs.Sensors;
 model None
   extends Buildings.Templates.AHUs.Interfaces.Sensor(
     final typ=Types.Sensor.None);
-  BaseClasses.PassThrough pas(
-    redeclare final package Medium=Medium)
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 equation
-  connect(port_a, pas.port_a)
-    annotation (Line(points={{-100,0},{-10,0}}, color={0,127,255}));
-  connect(pas.port_b, port_b)
-    annotation (Line(points={{10,0},{100,0}}, color={0,127,255}));
+  connect(port_a, port_b)
+    annotation (Line(points={{-100,0},{100,0}}, color={0,127,255}));
   annotation (
     defaultComponentName="sen",
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={
