@@ -1,7 +1,7 @@
 BenchmarkFlowDistribution1
 BenchmarkFlowDistribution2
-FlowDistributionPumpControl
 EnergyMassFlow
+FlowDistributionPumpControl
 SimpleRoomODE
 TerminalUnitScaling
 BaseClasses
