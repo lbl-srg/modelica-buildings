@@ -69,7 +69,7 @@ equation
   connect(out.ports[1], res.port_a)
     annotation (Line(points={{-8,-54},{6,-54}},color={0,127,255}));
   connect(res.port_b, flo.portsCor[1])
-    annotation (Line(points={{26,-54},{60,-54},{60,14},{51.7217,14},{51.7217,
+    annotation (Line(points={{26,-54},{48,-54},{48,12},{51.7217,12},{51.7217,
           12.7692}},                                    color={0,127,255}));
   connect(weaBus, out.weaBus) annotation (Line(
       points={{-40,50},{-40,-53.8},{-28,-53.8}},
