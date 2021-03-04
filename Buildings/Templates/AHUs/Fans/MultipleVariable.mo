@@ -3,7 +3,8 @@ model MultipleVariable
   "Multiple fans (identical) - Variable speed"
   extends Interfaces.Fan(
     final typ=Types.Fan.MultipleVariable);
-  extends Data.MultipleVariable;
+  extends Data.MultipleVariable
+    annotation (IconMap(primitivesVisible=false));
 
   replaceable Fluid.Movers.SpeedControlled_y fan[nFan](
     each energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)

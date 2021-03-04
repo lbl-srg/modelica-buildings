@@ -5,7 +5,19 @@ partial model Sensor
   parameter Types.Sensor typ
     "Equipment type"
     annotation (Evaluate=true, Dialog(group="Configuration"));
+  parameter Types.Branch bra
+    "Branch where the equipment is installed"
+    annotation (Evaluate=true, Dialog(group="Configuration"));
 
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput y if typ<>Types.Sensor.None
+    "Measured quantity"
+    annotation (Placement(transformation(
+        origin={0,120},
+        extent={{-20,-20},{20,20}},
+        rotation=90), iconTransformation(
+        extent={{-20,-20},{20,20}},
+        rotation=90,
+        origin={0,120})));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={
           Rectangle(

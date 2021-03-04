@@ -9,8 +9,8 @@ partial model Fan
   parameter Types.Fan typ
     "Equipment type"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  parameter Types.FanFunction fun
-    "Equipment function"
+  parameter Types.Branch bra
+    "Branch where the equipment is installed"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   outer parameter String id=""
     "System identifier";

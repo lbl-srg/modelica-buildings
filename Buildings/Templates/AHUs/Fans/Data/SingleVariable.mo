@@ -1,16 +1,9 @@
 within Buildings.Templates.AHUs.Fans.Data;
 record SingleVariable
-  extends Modelica.Icons.Record;
-  parameter Types.FanFunction fun
-    "Equipment function"
-    annotation (Evaluate=true, Dialog(group="Configuration"));
-  outer parameter String id=""
-    "System identifier";
-  outer parameter ExternData.JSONFile dat
-    annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
+  extends Buildings.Templates.AHUs.Interfaces.Data.Fan;
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=
-    if fun==Types.FanFunction.Supply then
+    if bra==Types.Branch.Supply then
     dat.getReal(varName=id + ".Supply air mass flow rate")
     else
     dat.getReal(varName=id + ".Return air mass flow rate")
@@ -18,7 +11,7 @@ record SingleVariable
     annotation (
       Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.PressureDifference dp_nominal=
-    if fun==Types.FanFunction.Supply then
+    if bra==Types.Branch.Supply then
     dat.getReal(varName=id + ".Supply fan.Total pressure rise")
     else
     dat.getReal(varName=id + ".Return fan.Total pressure rise")

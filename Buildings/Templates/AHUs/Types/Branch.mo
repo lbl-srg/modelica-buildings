@@ -1,7 +1,7 @@
 within Buildings.Templates.AHUs.Types;
-type FanFunction = enumeration(
+type Branch = enumeration(
     Supply
-    "Supply fan",
+    "Supply air",
     Return
-    "Return fan")
+    "Return air")
   "Enumeration to configure the fan function";
