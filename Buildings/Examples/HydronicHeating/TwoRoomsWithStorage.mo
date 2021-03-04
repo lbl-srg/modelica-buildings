@@ -27,7 +27,7 @@ model TwoRoomsWithStorage
     "Nominal mass flow rate of boiler loop";
  parameter Modelica.SIunits.PressureDifference dpPip_nominal = 10000
     "Pressure difference of pipe (without valve)";
- parameter Modelica.SIunits.PressureDifference dpVal_nominal = 1000
+ parameter Modelica.SIunits.PressureDifference dpVal_nominal = 6000
     "Pressure difference of valve";
  parameter Modelica.SIunits.PressureDifference dpRoo_nominal = 6000
     "Pressure difference of flow leg that serves a room";
