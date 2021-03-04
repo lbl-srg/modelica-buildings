@@ -24,7 +24,7 @@
         },
         "Supply fan": {
             "Total pressure rise": 1000,
-            "Efficiency": 0.70,
+            "Fan efficiency": 0.70,
             "Pressure curve": [[0, 1.5],[1,1],[2,0]]
         }
     }
