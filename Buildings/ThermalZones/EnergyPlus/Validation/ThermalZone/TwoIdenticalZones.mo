@@ -89,7 +89,8 @@ model TwoIdenticalZones
       "Latent heat gain"
       annotation (Placement(transformation(extent={{-90,0},{-70,20}})));
     Fluid.Sensors.RelativeHumidity senRelHum(
-      redeclare package Medium=Medium)
+      redeclare package Medium=Medium,
+      warnAboutOnePortConnection=false)
       "Relative humidity in the room as computed by Modelica"
       annotation (Placement(transformation(extent={{50,-50},{70,-30}})));
     Modelica.Blocks.Interfaces.RealOutput TAir(

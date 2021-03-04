@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python3
 #####################################################################
 # This script validates the html code in the info section
 # of all .mo files in the current directory and in all its
@@ -17,9 +17,9 @@ def validate():
     errMsg = val.validateHTMLInPackage(".")
     for i in range(len(errMsg)):
         if i == 0:
-            print "The following malformed html syntax has been found:\n%s" % errMsg[i]
+            print(f"The following malformed html syntax has been found:\n{errMsg[i]}")
         else:
-            print errMsg[i]
+            print(errMsg[i])
 
 if __name__ == '__main__':
     import sys
@@ -28,4 +28,3 @@ if __name__ == '__main__':
     # If only added to os.environ, the Python interpreter won't find buildingspy
     sys.path.append(os.path.join(os.path.abspath('.'), "..", "..", "BuildingsPy"))
     validate()
-
