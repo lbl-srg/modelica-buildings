@@ -478,7 +478,6 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Examples.VAVReheat.BaseClasses.PartialOpenLoop
-    </td>
     <td valign=\"top\">Declared the rooms in a new model <code>Buildings.Examples.VAVReheat.BaseClasses.Floor</code>
                        to allow use of the model with the Modelica or the Spawn envelope model.<br/>
                        This is for
@@ -513,7 +512,15 @@ have been <b style=\"color:blue\">improved</b> in a
                      <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1427\">IBPSA, issue 1427</a>.
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Functions.AverageResistance
+<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.DryCoilEffectivenessNTU<br/>
+                           Buildings.Fluid.HeatExchangers.PlateHeatExchangerEffectivenessNTU<br/>
+                           Buildings.Fluid.HeatExchangers.PartialEffectivenessNTU
+    </td>
+    <td valign=\"top\">Added a warning for when <code>Q_flow_nominal</code> is specified with the wrong sign.
+    </td>
+    </tr>
+<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.RadiantSlabs<br/>
+                       Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Functions.AverageResistance
     </td>
     <td valign=\"top\">Corrected inequality test on <code>alpha</code>,
                        and changed print statement to an assertion with assertion level set to warning.<br/>
