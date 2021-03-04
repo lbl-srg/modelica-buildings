@@ -179,6 +179,26 @@ protected
     "Logical switch"
     annotation (Placement(transformation(extent={{120,-180},{140,-160}})));
 
+  Buildings.Controls.OBC.CDL.Logical.Xor xor[nBoi]
+    "Boolean Exclusive Or"
+    annotation (Placement(transformation(extent={{-68,-230},{-48,-210}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Not not3[nBoi]
+    "Logical Not"
+    annotation (Placement(transformation(extent={{-20,-230},{0,-210}})));
+
+  Buildings.Controls.OBC.CDL.Logical.MultiAnd mulAnd(
+    final nu=nBoi+1)
+    "Multi-input Logical And"
+    annotation (Placement(transformation(extent={{52,-230},{72,-210}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Pre pre1[nBoi] "Logical pre block"
+    annotation (Placement(transformation(extent={{-160,-240},{-140,-220}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Pre pre2
+    "Logical pre block"
+    annotation (Placement(transformation(extent={{20,-210},{40,-190}})));
+
 equation
   connect(nexEnaBoi, intRep.u)
     annotation (Line(points={{-220,120},{-162,120}}, color={255,127,0}));
@@ -312,10 +332,6 @@ equation
     annotation (Line(points={{-138,-50},{-130,-50},{-130,-170},{118,-170}},
       color={255,0,255}));
 
-  connect(and2.y, logSwi4.u1)
-    annotation (Line(points={{-138,60},{-120,60},{-120,-162},{118,-162}},
-      color={255,0,255}));
-
   connect(logSwi4.y, yBoiEnaPro)
     annotation (Line(points={{142,-170},{220,-170}}, color={255,0,255}));
 
@@ -325,9 +341,27 @@ equation
           {-32,-178},{118,-178}}, color={255,0,255}));
   connect(tim.passed, not1.u) annotation (Line(points={{-78,-118},{-32,-118},{-32,
           -70},{-22,-70}}, color={255,0,255}));
+  connect(xor.y, not3.u)
+    annotation (Line(points={{-46,-220},{-22,-220}},   color={255,0,255}));
+  connect(uBoi, xor.u1) annotation (Line(points={{-220,0},{-180,0},{-180,-200},{
+          -130,-200},{-130,-220},{-70,-220}},
+                       color={255,0,255}));
+  connect(not3.y, mulAnd.u[1:nBoi]) annotation (Line(points={{2,-220},{50,-220}},
+                                        color={255,0,255}));
+  connect(mulAnd.y, logSwi4.u1) annotation (Line(points={{74,-220},{100,-220},{100,
+          -162},{118,-162}},     color={255,0,255}));
+  connect(logSwi2.y, pre1.u) annotation (Line(points={{182,-50},{190,-50},{190,-250},
+          {-180,-250},{-180,-230},{-162,-230}}, color={255,0,255}));
+  connect(pre1.y, xor.u2) annotation (Line(points={{-138,-230},{-100,-230},{-100,
+          -228},{-70,-228}}, color={255,0,255}));
+  connect(and2.y, pre2.u) annotation (Line(points={{-138,60},{-120,60},{-120,-200},
+          {18,-200}}, color={255,0,255}));
+  connect(pre2.y, mulAnd.u[nBoi+1]) annotation (Line(points={{42,-200},{46,-200},{46,
+          -220},{50,-220}}, color={255,0,255}));
 annotation (
   defaultComponentName="enaBoi",
-  Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+  Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
+                                                    graphics={
         Rectangle(
           extent={{-100,-100},{100,100}},
           lineColor={0,0,127},
@@ -397,7 +431,7 @@ annotation (
           pattern=LinePattern.Dash,
           textString="yNewBoiEna")}),
         Diagram(
-          coordinateSystem(preserveAspectRatio=false, extent={{-200,-180},{200,180}}),
+          coordinateSystem(preserveAspectRatio=false, extent={{-200,-260},{200,180}}),
         graphics={
           Rectangle(
           extent={{-198,-62},{198,-178}},
