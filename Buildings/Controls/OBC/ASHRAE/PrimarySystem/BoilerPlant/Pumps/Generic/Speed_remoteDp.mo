@@ -150,7 +150,7 @@ equation
     annotation (Line(points={{-58,40},{-40,40},{-40,56},{58,56}}, color={0,0,127}));
 
   connect(pumSpe_max.y, pumSpe.f2)
-    annotation (Line(points={{2,40},{20,40},{20,52},{58,52}}, color={0,0,127}));
+    annotation (Line(points={{2,40},{10,40},{10,52},{58,52}}, color={0,0,127}));
 
   connect(maxLoo.y, pumSpe.u)
     annotation (Line(points={{82,0},{100,0},{100,40},{40,40},{40,60},{58,60}},
@@ -172,10 +172,6 @@ equation
     annotation (Line(points={{82,60},{100,60},{100,80},{60,80},{60,108},{78,108}},
       color={0,0,127}));
 
-  connect(zer.y, swi.u3)
-    annotation (Line(points={{2,80},{20,80},{20,92},{78,92}},
-      color={0,0,127}));
-
   connect(swi.y,yHotWatPumSpe)
     annotation (Line(points={{102,100},{140,100}}, color={0,0,127}));
 
@@ -195,6 +191,8 @@ equation
     annotation (Line(points={{2,-80},{30,-80},{30,-12}}, color={0,0,127}));
   connect(conPID.y, maxLoo.u[1:nSen])
     annotation (Line(points={{42,0},{50,0},{50,0},{58,0}},   color={0,0,127}));
+  connect(pumSpe_max.y, swi.u3) annotation (Line(points={{2,40},{10,40},{10,92},
+          {78,92}}, color={0,0,127}));
 annotation (
   defaultComponentName="hotPumSpe",
   Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
