@@ -1207,6 +1207,11 @@ Buildings.Examples.HydronicHeating.TwoRoomsWithStorage.CoolingControl</a>.
 </html>", revisions="<html>
 <ul>
 <li>
+March 4, 2021, by David Blum:<br/>
+Changed <code>dpVal_nominal</code> to 6 kPa.
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2378\">issue 2378</a>.
+</li>
+<li>
 April 6, 2016, by Michael Wetter:<br/>
 Replaced <code>Modelica_StateGraph2</code> with <code>Modelica.StateGraph</code>.
 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/504\">issue 504</a>.
