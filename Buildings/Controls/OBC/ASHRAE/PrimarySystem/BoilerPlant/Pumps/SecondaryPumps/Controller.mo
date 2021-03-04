@@ -277,14 +277,13 @@ block Controller
     annotation (Placement(transformation(extent={{280,-20},{320,20}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yPumSpe[nPum](
-    final min=fill(0, nPum),
-    final max=fill(1, nPum),
-    final unit=fill("1", nPum),
-    displayUnit=fill("1", nPum)) if have_varSecPum
-    "Hot water pump speed"
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yPumSpe(
+    final min=0,
+    final max=1,
+    final unit="1",
+    displayUnit="1") if have_varSecPum "Hot water pump speed"
     annotation (Placement(transformation(extent={{280,-420},{320,-380}}),
-      iconTransformation(extent={{100,-120},{140,-80}})));
+        iconTransformation(extent={{100,-120},{140,-80}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.SecondaryPumps.Subsequences.EnableLag_flowrate
     enaLagHotPum(
@@ -362,11 +361,6 @@ protected
     final k=1)
     "Constant one"
     annotation (Placement(transformation(extent={{-274,190},{-254,210}})));
-
-  Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep(
-    final nout=nPum) if have_varSecPum
-    "Replicate real input"
-    annotation (Placement(transformation(extent={{220,-410},{240,-390}})));
 
   Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea[nPum]
     "Convert integer to real number"
@@ -576,9 +570,6 @@ equation
   connect(mulSumInt.y, lasLagPum.index)
     annotation (Line(points={{-178,-120},{-70,-120},{-70,-112}}, color={255,127,0}));
 
-  connect(reaRep.y, yPumSpe)
-    annotation (Line(points={{242,-400},{300,-400}},color={0,0,127}));
-
   connect(reaToInt.y, chaPumSta1.uNexLagPum) annotation (Line(points={{-18,230},
           {46,230},{46,74},{56,74}}, color={255,127,0}));
 
@@ -601,9 +592,6 @@ equation
   connect(chaPumSta1.yHotWatPum, chaPumSta3.uHotWatPum) annotation (Line(points={{80,78},
           {100,78},{100,-154},{44,-154},{44,-172},{60,-172}},         color={
           255,0,255}));
-
-  connect(reaRep.u, min.y)
-    annotation (Line(points={{218,-400},{182,-400}}, color={0,0,127}));
 
   connect(uMaxSecPumSpeCon, min.u1)
     annotation (Line(points={{-300,-390},{-72,-390},{-72,-394},{158,-394}},
@@ -743,6 +731,8 @@ equation
           0},{274,-264},{-74,-264},{-74,-362},{-62,-362}}, color={255,0,255}));
   connect(booToInt1.y, mulSumInt1.u[1:2]) annotation (Line(points={{-228,-156},{
           -216,-156},{-216,-156},{-202,-156}},     color={255,127,0}));
+  connect(min.y, yPumSpe)
+    annotation (Line(points={{182,-400},{300,-400}}, color={0,0,127}));
 annotation (defaultComponentName="secPumCon",
   Diagram(coordinateSystem(preserveAspectRatio=false,
           extent={{-280,-440},{280,260}}),
