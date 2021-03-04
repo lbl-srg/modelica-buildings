@@ -12,11 +12,10 @@ partial model Fan
     "Equipment function"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
-  inner replaceable parameter Fans.Data.None dat
-    constrainedby Fans.Data.None
-    "Fan data"
-    annotation (
-      Placement(transformation(extent={{-10,-78},{10,-58}})));
+  outer parameter String id=""
+    "System identifier";
+  outer parameter ExternData.JSONFile dat
+    annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
 
   Templates.BaseClasses.AhuBus ahuBus if typ<>Types.Fan.None
     annotation (Placement(transformation(

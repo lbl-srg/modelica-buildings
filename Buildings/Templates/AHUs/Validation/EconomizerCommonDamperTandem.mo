@@ -3,8 +3,8 @@ model EconomizerCommonDamperTandem
   extends BaseNoEquipment(redeclare
       UserProject.AHUs.EconomizerCommonDamperTandem ahu(redeclare record
         RecordEco =
-          Buildings.Templates.AHUs.Economizers.Data.CommonDamperTandem
-          (mExh_flow_nominal=1)));
+          Buildings.Templates.AHUs.Economizers.Data.CommonDamperTandem (
+           mExh_flow_nominal=1)));
   annotation (
   experiment(Tolerance=1e-6, StopTime=1));
 end EconomizerCommonDamperTandem;

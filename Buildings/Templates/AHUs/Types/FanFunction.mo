@@ -3,4 +3,5 @@ type FanFunction = enumeration(
     Supply
     "Supply fan",
     Return
-    "Return fan") "Enumeration to configure the fan function";
+    "Return fan")
+  "Enumeration to configure the fan function";

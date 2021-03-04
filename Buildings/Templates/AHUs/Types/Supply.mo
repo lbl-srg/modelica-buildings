@@ -3,4 +3,5 @@ type Supply = enumeration(
     SingleDuct
     "Single duct system",
     DualDuct
-    "Dual duct system") "Enumeration to configure the supply branch";
+    "Dual duct system")
+  "Enumeration to configure the supply branch";

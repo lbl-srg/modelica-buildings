@@ -1,16 +1,24 @@
 within Buildings.Templates.AHUs.Fans;
-model MultipleVariable "Multiple fan - Variable speed"
+model MultipleVariable
+  "Multiple fans (identical) - Variable speed"
   extends Interfaces.Fan(
     final typ=Types.Fan.MultipleVariable);
+  extends Data.MultipleVariable(
+    m_flow_nominal=
+      if fun==Types.FanFunction.Supply then
+      dat.getReal(varName=id + ".Supply air mass flow rate")
+      else
+      dat.getReal(varName=id + ".Return air mass flow rate"));
 
-  replaceable Fluid.Movers.SpeedControlled_y fan[dat.nFan](
+  replaceable Fluid.Movers.SpeedControlled_y fan[nFan](
     each energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     constrainedby Fluid.Movers.BaseClasses.PartialFlowMachine(
       redeclare each final package Medium = MediumAir,
       each final inputType=Buildings.Fluid.Types.InputType.Continuous,
-      each final per=dat.per)
-    annotation (choicesAllMatching=true, Placement(
-        transformation(extent={{-10,10},{10,30}})));
+      each final per=per)
+    annotation (
+      choicesAllMatching=true,
+      Placement(transformation(extent={{-10,10},{10,30}})));
 
   Modelica.Blocks.Routing.RealPassThrough  conSup if fun==Types.FanFunction.Supply
     "Pass through block used to used to connect the right control signal"
@@ -24,28 +32,17 @@ model MultipleVariable "Multiple fan - Variable speed"
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={20,80})));
-  DHC.EnergyTransferStations.BaseClasses.CollectorDistributor colDis(
+  Experimental.DHC.EnergyTransferStations.BaseClasses.CollectorDistributor colDis(
     redeclare final package Medium = MediumAir,
-    final mCon_flow_nominal=fill(dat.m_flow_nominal, dat.nFan),
-    final nCon=dat.nFan)
+    final mCon_flow_nominal=fill(m_flow_nominal, nFan),
+    final nCon=nFan)
     annotation (Placement(transformation(extent={{-20,-30},{20,-10}})));
   Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep(
-    final nout=dat.nFan)
+    final nout=nFan)
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={0,50})));
-
-  Fluid.Sources.MassFlowSource_h bouInl(
-    redeclare final package Medium = MediumAir,
-    final m_flow=0,
-    final nPorts=1)
-    annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
-  Fluid.Sources.MassFlowSource_h bouDis(
-    redeclare final package Medium = MediumAir,
-    final m_flow=0,
-    final nPorts=1)
-    annotation (Placement(transformation(extent={{60,10},{40,30}})));
 equation
   connect(ahuBus.ahuO.yFanSup, conSup.u) annotation (Line(
       points={{0.1,100.1},{-20,100.1},{-20,92}},
@@ -77,10 +74,6 @@ equation
           {0,62}}, color={0,0,127}));
   connect(conRet.y, reaRep.u)
     annotation (Line(points={{20,69},{20,66},{0,66},{0,62}}, color={0,0,127}));
-  connect(bouInl.ports[1], colDis.port_bDisRet) annotation (Line(points={{-60,-40},
-          {-40,-40},{-40,-26},{-20,-26}}, color={0,127,255}));
-  connect(colDis.port_bDisSup, bouDis.ports[1]) annotation (Line(points={{20,-20},
-          {30,-20},{30,20},{40,20}}, color={0,127,255}));
   annotation (Placement(transformation(extent={{-10,-10},{10,10}})),
               Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false), graphics={Text(

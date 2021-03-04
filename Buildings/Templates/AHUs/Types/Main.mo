@@ -5,4 +5,5 @@ type Main = enumeration(
     ExhaustOnly
     "Exhaust only system",
     SupplyReturn
-    "Supply and return system") "Enumeration to configure the AHU";
+    "Supply and return system")
+  "Enumeration to configure the AHU";

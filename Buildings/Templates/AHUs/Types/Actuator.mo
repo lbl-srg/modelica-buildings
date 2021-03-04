@@ -9,4 +9,5 @@ type Actuator = enumeration(
     PumpedCoilTwoWayValve
     "Pumped coil with two-way valve",
     PumpedCoilThreeWayValve
-    "Pumped coil with three-way valve") "Enumeration to configure the actuator";
+    "Pumped coil with three-way valve")
+  "Enumeration to configure the actuator";

@@ -7,4 +7,5 @@ type Coil = enumeration(
     DXMultiStage
     "Direct expansion, multi-stage",
     DXVariableSpeed
-    "Direct expansion, variable speed") "Enumeration to configure the coil";
+    "Direct expansion, variable speed")
+  "Enumeration to configure the coil";

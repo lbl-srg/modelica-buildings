@@ -1,6 +1,7 @@
 within Buildings.Templates.AHUs.Validation.UserProject.AHUs;
 model CoolingCoilEffectivenessNTU3WayValve
   extends VAVSingleDuct(
+    final id="VAV_1",
     redeclare replaceable record RecordCoiCoo = Coils.Data.WaterBased (
       redeclare
         Buildings.Templates.AHUs.Coils.HeatExchangers.Data.EffectivenessNTU

@@ -5,4 +5,5 @@ type HeatExchanger = enumeration(
     Discretized
     "Discretized",
     None
-    "None") "Enumeration to configure the HX";
+    "None")
+  "Enumeration to configure the HX";

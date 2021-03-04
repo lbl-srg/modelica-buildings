@@ -9,4 +9,5 @@ type Economizer = enumeration(
     CommonDamperFree
     "Single common OA damper - Dampers actuated individually",
     CommonDamperFreeNoRelief
-    "Single common OA damper - Dampers actuated individually, no relief") "Enumeration to configure the economizer";
+    "Single common OA damper - Dampers actuated individually, no relief")
+  "Enumeration to configure the economizer";

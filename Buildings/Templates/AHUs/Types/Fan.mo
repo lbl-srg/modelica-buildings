@@ -8,13 +8,10 @@ type Fan = enumeration(
     "Single fan - Two speed",
     SingleVariable
     "Single fan - Variable speed",
-    SingleDischargeDamper
-    "Single fan - Discharge damper",
     MultipleConstant
-    "Multiple fan - Constant speed",
+    "Multiple fans (identical) - Constant speed",
     MultipleTwoSpeed
-    "Multiple fan - Two speed",
+    "Multiple fans (identical) - Two speed",
     MultipleVariable
-    "Multiple fan - Variable speed",
-    MultipleDischargeDamper
-    "Multiple fan - Discharge damper") "Enumeration to configure the fan";
+    "Multiple fans (identical) - Variable speed")
+  "Enumeration to configure the fan";
