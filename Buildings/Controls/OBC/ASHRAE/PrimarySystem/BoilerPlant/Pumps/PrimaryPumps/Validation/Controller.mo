@@ -442,6 +442,7 @@ model Controller
     "True-hold for signal visualization"
     annotation (Placement(transformation(extent={{280,-450},{300,-430}})));
 
+protected
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol10(
     final trueHoldDuration=3300,
     final falseHoldDuration=0)
@@ -454,48 +455,101 @@ model Controller
     "Hold boiler on signal"
     annotation (Placement(transformation(extent={{-260,-270},{-240,-250}})));
 
-  CDL.Logical.Change cha[2] "Detect changes in pump status"
+  Buildings.Controls.OBC.CDL.Logical.Change cha[2]
+    "Detect changes in pump status"
     annotation (Placement(transformation(extent={{-120,210},{-100,230}})));
-  CDL.Logical.MultiOr mulOr(
-    final nu=2) "Multi Or"
+
+  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(
+    final nu=2)
+    "Multi Or"
     annotation (Placement(transformation(extent={{-90,210},{-70,230}})));
-  CDL.Logical.Change cha6[2] "Detect changes in pump status"
+
+  Buildings.Controls.OBC.CDL.Logical.Change cha6[2]
+    "Detect changes in pump status"
     annotation (Placement(transformation(extent={{220,190},{240,210}})));
-  CDL.Logical.MultiOr mulOr1(nu=2) "Multi Or"
+
+  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr1(
+    final nu=2)
+    "Multi Or"
     annotation (Placement(transformation(extent={{250,190},{270,210}})));
-  CDL.Logical.Change cha7[2] "Detect changes in pump status"
+
+  Buildings.Controls.OBC.CDL.Logical.Change cha7[2]
+    "Detect changes in pump status"
     annotation (Placement(transformation(extent={{-140,80},{-120,100}})));
-  CDL.Logical.MultiOr mulOr2(final nu=2) "Multi Or"
+
+  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr2(
+    final nu=2)
+    "Multi Or"
     annotation (Placement(transformation(extent={{-110,80},{-90,100}})));
-  CDL.Logical.Change cha8[2] "Detect changes in pump status"
+
+  Buildings.Controls.OBC.CDL.Logical.Change cha8[2]
+    "Detect changes in pump status"
     annotation (Placement(transformation(extent={{220,60},{240,80}})));
-  CDL.Logical.MultiOr mulOr3(final nu=2) "Multi Or"
+
+  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr3(
+    final nu=2)
+    "Multi Or"
     annotation (Placement(transformation(extent={{250,60},{270,80}})));
-  CDL.Logical.Change cha9[2] "Detect changes in pump status"
+
+  Buildings.Controls.OBC.CDL.Logical.Change cha9[2]
+    "Detect changes in pump status"
     annotation (Placement(transformation(extent={{-150,-100},{-130,-80}})));
-  CDL.Logical.MultiOr mulOr4(final nu=2) "Multi Or"
+
+  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr4(
+    final nu=2)
+    "Multi Or"
     annotation (Placement(transformation(extent={{-120,-100},{-100,-80}})));
-  CDL.Logical.Change cha10[2] "Detect changes in pump status"
+
+  Buildings.Controls.OBC.CDL.Logical.Change cha10[2]
+    "Detect changes in pump status"
     annotation (Placement(transformation(extent={{240,-110},{260,-90}})));
-  CDL.Logical.MultiOr mulOr5(final nu=2) "Multi Or"
+
+  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr5(
+    final nu=2)
+    "Multi Or"
     annotation (Placement(transformation(extent={{270,-110},{290,-90}})));
-  CDL.Logical.Change cha11[2] "Detect changes in pump status"
+
+  Buildings.Controls.OBC.CDL.Logical.Change cha11[2]
+    "Detect changes in pump status"
     annotation (Placement(transformation(extent={{-150,-280},{-130,-260}})));
-  CDL.Logical.MultiOr mulOr6(final nu=2) "Multi Or"
+
+  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr6(
+    final nu=2)
+    "Multi Or"
     annotation (Placement(transformation(extent={{-120,-280},{-100,-260}})));
-  CDL.Logical.Change cha22[2] "Detect changes in pump status"
+
+  Buildings.Controls.OBC.CDL.Logical.Change cha22[2]
+    "Detect changes in pump status"
     annotation (Placement(transformation(extent={{240,-270},{260,-250}})));
-  CDL.Logical.MultiOr mulOr7(final nu=2) "Multi Or"
+
+  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr7(
+    final nu=2)
+    "Multi Or"
     annotation (Placement(transformation(extent={{270,-270},{290,-250}})));
-  CDL.Logical.Change cha23[2] "Detect changes in pump status"
+
+  Buildings.Controls.OBC.CDL.Logical.Change cha23[2]
+    "Detect changes in pump status"
     annotation (Placement(transformation(extent={{-140,-440},{-120,-420}})));
-  CDL.Logical.MultiOr mulOr8(final nu=2) "Multi Or"
+
+  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr8(
+    final nu=2)
+    "Multi Or"
     annotation (Placement(transformation(extent={{-110,-440},{-90,-420}})));
-  CDL.Logical.Change cha24[2] "Detect changes in pump status"
+
+  Buildings.Controls.OBC.CDL.Logical.Change cha24[2]
+    "Detect changes in pump status"
     annotation (Placement(transformation(extent={{220,-450},{240,-430}})));
-  CDL.Logical.MultiOr mulOr9(final nu=2) "Multi Or"
+
+  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr9(
+    final nu=2)
+    "Multi Or"
     annotation (Placement(transformation(extent={{250,-450},{270,-430}})));
-protected
+
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel5[2](
+    final delayTime=fill(1, 2))
+    "True delay to represent pump turning on"
+    annotation (Placement(transformation(extent={{-150,240},{-130,260}})));
+
   Buildings.Controls.OBC.CDL.Logical.IntegerSwitch intSwi
     "Integer switch"
     annotation (Placement(transformation(extent={{280,-186},{300,-166}})));
@@ -537,7 +591,7 @@ protected
     phase=fill(0, 2),
     final offset=fill(1, 2),
     startTime=fill(0, 2))
-                    "Sine signal"
+    "Sine signal"
     annotation (Placement(transformation(extent={{-220,360},{-200,380}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sin1(
@@ -563,7 +617,7 @@ protected
     phase=fill(0, 2),
     final offset=fill(1, 2),
     startTime=fill(0, 2))
-                    "Sine signal"
+    "Sine signal"
     annotation (Placement(transformation(extent={{146,348},{166,368}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sin3(
@@ -1296,10 +1350,6 @@ equation
           {-180,300},{-180,277.067},{-172,277.067}},
                                          color={255,127,0}));
 
-  connect(priPumCon2.yHotWatPum,pre3. u)
-    annotation (Line(points={{-148,251.867},{-146,251.867},{-146,250},{-122,250}},
-                                                   color={255,0,255}));
-
   connect(con8.y,priPumCon2. uMinPriPumSpeCon) annotation (Line(points={{-288,
           200},{-180,200},{-180,236.933},{-172,236.933}},
                                           color={0,0,127}));
@@ -1931,8 +1981,8 @@ equation
   connect(booPul11.y, truDel.u) annotation (Line(points={{122,-180},{126,-180},{
           126,-140},{128,-140}}, color={255,0,255}));
 
-  connect(truDel.y, priPumCon7.uBoiSta[2]) annotation (Line(points={{152,-140},
-          {156,-140},{156,-96},{208,-96}}, color={255,0,255}));
+  connect(truDel.y, priPumCon7.uBoiSta[2]) annotation (Line(points={{152,-140},{
+          156,-140},{156,-96},{208,-96}},  color={255,0,255}));
 
   connect(truFalHol10.y, priPumCon7.uPlaEna) annotation (Line(points={{152,-100},
           {180,-100},{180,-88.5333},{208,-88.5333}}, color={255,0,255}));
@@ -2009,8 +2059,8 @@ equation
   connect(cha4.y, or4.u2) annotation (Line(points={{-228,-394},{-220,-394},{
           -220,-398},{-212,-398}}, color={255,0,255}));
 
-  connect(truDel3.y, priPumCon10.uBoiSta[2]) annotation (Line(points={{-228,
-          -460},{-222,-460},{-222,-416},{-172,-416}}, color={255,0,255}));
+  connect(truDel3.y, priPumCon10.uBoiSta[2]) annotation (Line(points={{-228,-460},
+          {-222,-460},{-222,-416},{-172,-416}},       color={255,0,255}));
 
   connect(truDel3.y, cha4.u) annotation (Line(points={{-228,-460},{-222,-460},{
           -222,-406},{-260,-406},{-260,-394},{-252,-394}}, color={255,0,255}));
@@ -2051,9 +2101,6 @@ equation
   connect(truDel4.y, cha5.u) annotation (Line(points={{142,-530},{146,-530},{
           146,-432},{100,-432},{100,-420},{108,-420}}, color={255,0,255}));
 
-  connect(priPumCon2.yHotWatPum, cha.u) annotation (Line(points={{-148,251.867},
-          {-146,251.867},{-146,220},{-122,220}},
-                                               color={255,0,255}));
   connect(cha.y, mulOr.u[1:2]) annotation (Line(points={{-98,220},{-96,220},{
           -96,216.5},{-92,216.5}},
                                color={255,0,255}));
@@ -2096,8 +2143,6 @@ equation
           -88.1333},{-156,-88.1333},{-156,-90},{-152,-90}}, color={255,0,255}));
   connect(mulOr5.y, truFalHol5.u)
     annotation (Line(points={{292,-100},{298,-100}}, color={255,0,255}));
-  connect(priPumCon7.yHotWatPum, cha10.u) annotation (Line(points={{232,
-          -108.133},{236,-108.133},{236,-100},{238,-100}}, color={255,0,255}));
   connect(mulOr6.y, truFalHol6.u)
     annotation (Line(points={{-98,-270},{-92,-270}}, color={255,0,255}));
   connect(priPumCon8.yHotWatPum, cha11.u) annotation (Line(points={{-158,
@@ -2115,6 +2160,14 @@ equation
     annotation (Line(points={{272,-440},{278,-440}}, color={255,0,255}));
   connect(priPumCon11.yHotWatPum, cha24.u) annotation (Line(points={{212,
           -458.133},{216,-458.133},{216,-440},{218,-440}}, color={255,0,255}));
+  connect(priPumCon7.yHotWatPum, cha10.u) annotation (Line(points={{232,
+          -108.133},{236,-108.133},{236,-100},{238,-100}}, color={255,0,255}));
+  connect(priPumCon2.yHotWatPum, truDel5.u) annotation (Line(points={{-148,
+          251.867},{-152,251.867},{-152,250}}, color={255,0,255}));
+  connect(truDel5.y, pre3.u)
+    annotation (Line(points={{-128,250},{-122,250}}, color={255,0,255}));
+  connect(truDel5.y, cha.u) annotation (Line(points={{-128,250},{-124,250},{
+          -124,220},{-122,220}}, color={255,0,255}));
 annotation (
   experiment(
       StopTime=3600,
