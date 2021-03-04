@@ -2,6 +2,7 @@ within Buildings.Templates.AHUs.Interfaces;
 partial model Fan
   extends Buildings.Fluid.Interfaces.PartialTwoPort(
     redeclare final package Medium=MediumAir);
+
   replaceable package MediumAir=Buildings.Media.Air
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Air medium";
@@ -11,7 +12,6 @@ partial model Fan
   parameter Types.FanFunction fun
     "Equipment function"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-
   outer parameter String id=""
     "System identifier";
   outer parameter ExternData.JSONFile dat

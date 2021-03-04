@@ -9,7 +9,7 @@ model BaseNoEquipment
     "Cooling medium (such as CHW)";
   inner parameter ExternData.JSONFile dat(
     fileName=Modelica.Utilities.Files.loadResource(
-      "modelica://Buildings/Templates/AHUs/Validation/systems.json"))
+      "modelica://Buildings/Templates/AHUs/Validation/Data/systems.json"))
     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
   replaceable UserProject.AHUs.BaseNoEquipment ahu(redeclare final package
       MediumAir = MediumAir, redeclare final package MediumCoo = MediumCoo)
