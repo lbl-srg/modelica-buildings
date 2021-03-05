@@ -1,8 +1,8 @@
 within Buildings.Templates.AHUs.Coils.HeatExchangers;
-model Discretized
-  extends Interfaces.HeatExchanger(
-    final typ=Types.HeatExchanger.Discretized);
-  extends Data.Discretized
+model WaterDiscretized
+  extends Interfaces.HeatExchangerWater(
+    final typ=Types.HeatExchanger.WaterDiscretized);
+  extends Data.WaterDiscretized
     annotation (IconMap(primitivesVisible=false));
 
   Fluid.HeatExchangers.WetCoilCounterFlow hex(
@@ -28,4 +28,4 @@ equation
           {100,-60}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
-end Discretized;
+end WaterDiscretized;

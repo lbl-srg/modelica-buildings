@@ -17,8 +17,8 @@ model WaterBased
       choicesAllMatching=true,
       Placement(transformation(extent={{-10,-70},{10,-50}})));
 
-  replaceable HeatExchangers.EffectivenessNTUDry hex
-    constrainedby Interfaces.HeatExchanger(
+  replaceable HeatExchangers.WaterEpsNTUDry hex
+    constrainedby Interfaces.HeatExchangerWater(
       redeclare final package Medium1 = MediumSou,
       redeclare final package Medium2 = MediumAir,
       final m1_flow_nominal=mWat_flow_nominal,
@@ -34,7 +34,7 @@ equation
   connect(act.port_bRet, port_bSou) annotation (Line(points={{4,-70},{4,-80},{40,
           -80},{40,-100}}, color={0,127,255}));
   connect(ahuBus.ahuO.yCoiCoo, act.y) annotation (Line(
-      points={{0.1,100.1},{0.1,80},{-40,80},{-40,-60},{-11,-60}},
+      points={{0.1,100.1},{0.1,60},{0,60},{0,20},{-40,20},{-40,-60},{-11,-60}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",

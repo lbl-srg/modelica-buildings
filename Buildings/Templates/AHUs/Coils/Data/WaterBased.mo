@@ -2,23 +2,14 @@ within Buildings.Templates.AHUs.Coils.Data;
 record WaterBased
   extends Interfaces.Data.Coil;
 
-  parameter Modelica.SIunits.MassFlowRate mWat_flow_nominal(min=0)=
+  inner parameter Modelica.SIunits.MassFlowRate mWat_flow_nominal(min=0)=
     dat.getReal(varName=id + "." + funStr + " coil.Liquid mass flow rate")
-    "Nominal mass flow rate"
+    "Liquid mass flow rate"
     annotation(Dialog(group = "Nominal condition"));
-  parameter Modelica.SIunits.MassFlowRate mAir_flow_nominal(min=0)=
-    dat.getReal(varName=id + "." + funStr + " coil.Air mass flow rate")
-    "Nominal mass flow rate"
-    annotation(Dialog(group = "Nominal condition"));
-  parameter Modelica.SIunits.PressureDifference dpWat_nominal(
+  inner parameter Modelica.SIunits.PressureDifference dpWat_nominal(
     displayUnit="Pa")=
     dat.getReal(varName=id + "." + funStr + " coil.Liquid pressure drop")
-    "Nominal pressure drop"
-    annotation(Dialog(group = "Nominal condition"));
-  parameter Modelica.SIunits.PressureDifference dpAir_nominal(
-    displayUnit="Pa")=
-    dat.getReal(varName=id + "." + funStr + " coil.Air pressure drop")
-    "Nominal pressure drop"
+    "Liquid pressure drop"
     annotation(Dialog(group = "Nominal condition"));
 
   annotation (

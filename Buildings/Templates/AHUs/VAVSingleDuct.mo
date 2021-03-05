@@ -13,6 +13,10 @@ model VAVSingleDuct "VAV single duct with relief"
     "Type of cooling coil"
     annotation (Evaluate=true,
       Dialog(group="Cooling coil"));
+  final parameter Types.Coil typHexCoiCoo = coiCoo.typHex
+    "Type of cooling coil heat exchanger"
+    annotation (Evaluate=true,
+      Dialog(group="Cooling coil"));
   final parameter Types.Actuator typActCoiCoo = coiCoo.typAct
     "Type of cooling coil actuator"
     annotation (Evaluate=true,
@@ -50,8 +54,7 @@ model VAVSingleDuct "VAV single duct with relief"
           extent={{-30,-210},{-10,-190}})));
 
   BoundaryConditions.WeatherData.Bus weaBus if
-    coiCoo.typ == Types.Coil.DXVariableSpeed or
-    coiCoo.typ == Types.Coil.DXMultiStage
+    coiCoo.typ == Types.Coil.DirectExpansion
     annotation (Placement(transformation(extent={{-20,240},{20,280}}),
       iconTransformation(extent={{-20,182},{20,218}})));
 
@@ -223,6 +226,7 @@ model VAVSingleDuct "VAV single duct with relief"
     constrainedby Interfaces.Controller(
       final typEco=typEco,
       final typCoiCoo=typCoiCoo,
+      final typHexCoiCoo=typHexCoiCoo,
       final typActCoiCoo=typActCoiCoo,
       final typFanSup=typFanSup)
     annotation (
@@ -301,7 +305,7 @@ equation
       color={255,204,51},
       thickness=0.5));
   connect(weaBus, coiCoo.weaBus) annotation (Line(
-      points={{0,260},{0,80},{6,80},{6,-190},{5,-190}},
+      points={{0,260},{0,80},{6,80},{6,-190},{-6,-190}},
       color={255,204,51},
       thickness=0.5));
   connect(ahuBus, coiCoo.ahuBus) annotation (Line(

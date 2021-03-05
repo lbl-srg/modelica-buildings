@@ -1,3 +1,4 @@
-Discretized
-EffectivenessNTUDry
-None
+DXMultiStage
+DXVariableSpeed
+WaterDiscretized
+WaterEpsNTUDry

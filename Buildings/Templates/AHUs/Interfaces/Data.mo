@@ -5,9 +5,16 @@ package Data
   record Coil
     extends Modelica.Icons.Record;
 
-    parameter Types.CoilFunction fun
-      "Equipment function: MAY NOT BE NEEDED, can be inferred from instance name"
-      annotation (Evaluate=true, Dialog(group="Configuration"));
+    inner parameter Modelica.SIunits.MassFlowRate mAir_flow_nominal(min=0)=
+      dat.getReal(varName=id + "." + funStr + " coil.Air mass flow rate")
+      "Air mass flow rate"
+      annotation(Dialog(group = "Nominal condition"));
+    inner parameter Modelica.SIunits.PressureDifference dpAir_nominal(
+      displayUnit="Pa")=
+      dat.getReal(varName=id + "." + funStr + " coil.Air pressure drop")
+      "Air pressure drop"
+      annotation(Dialog(group = "Nominal condition"));
+
     final inner parameter String funStr=
       if lasCha=="iCoo" then "Cooling"
       elseif lasCha=="Hea3" then "Reheat"
@@ -25,7 +32,7 @@ package Data
       "System identifier";
     outer parameter ExternData.JSONFile dat
       "External parameter file"
-      annotation (Placement(transformation(extent={{70,70},{90,90}})));
+      annotation (Placement(transformation(extent={{76,76},{96,96}})));
 
     annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
           coordinateSystem(preserveAspectRatio=false)));
@@ -40,23 +47,28 @@ package Data
       "System identifier";
     outer parameter ExternData.JSONFile dat
       "External parameter file"
-      annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
+      annotation (Placement(transformation(extent={{76,76},{96,96}})));
     annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
           coordinateSystem(preserveAspectRatio=false)));
   end Fan;
 
-  record HeatExchanger
+  record HeatExchangerDX
+    extends HeatExchangerWater;
+  end HeatExchangerDX;
+
+  record HeatExchangerWater
     extends Modelica.Icons.Record;
+
     outer parameter String funStr
       "String used to fetch coil parameters";
     outer parameter String id=""
       "System identifier";
     outer parameter ExternData.JSONFile dat
       "External parameter file"
-      annotation (Placement(transformation(extent={{70,70},{90,90}})));
+      annotation (Placement(transformation(extent={{76,76},{96,96}})));
     annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
           coordinateSystem(preserveAspectRatio=false)));
-  end HeatExchanger;
+  end HeatExchangerWater;
 
   record Sensor
     extends Modelica.Icons.Record;
@@ -67,7 +79,7 @@ package Data
       "System identifier";
     outer parameter ExternData.JSONFile dat
       "External parameter file"
-      annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
+      annotation (Placement(transformation(extent={{76,76},{96,96}})));
     annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
           coordinateSystem(preserveAspectRatio=false)));
   end Sensor;

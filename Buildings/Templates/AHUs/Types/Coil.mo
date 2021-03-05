@@ -1,11 +1,9 @@
 within Buildings.Templates.AHUs.Types;
 type Coil = enumeration(
+    DirectExpansion
+    "Direct expansion",
     None
     "No economizer",
     WaterBased
-    "Water-based coil",
-    DXMultiStage
-    "Direct expansion, multi-stage",
-    DXVariableSpeed
-    "Direct expansion, variable speed")
+    "Water-based coil")
   "Enumeration to configure the coil";

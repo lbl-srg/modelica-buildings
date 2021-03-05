@@ -2,14 +2,17 @@ within Buildings.Templates.AHUs.Sensors;
 model HumidityRatio
   extends Interfaces.Sensor(
     y(final unit="kg/kg"),
-    final typ=Types.Sensor.AbsoluteHumidity);
-  extends Data.AbsoluteHumidity
+    final typ=Types.Sensor.HumidityRatio);
+  extends Data.HumidityRatio
     annotation (IconMap(primitivesVisible=false));
   Fluid.Sensors.MassFractionTwoPort senMasFra(
     redeclare final package Medium=Medium,
     final m_flow_nominal=m_flow_nominal)
+    "Mass fraction sensor"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Utilities.Psychrometrics.ToDryAir toDryAir annotation (Placement(
+  Utilities.Psychrometrics.ToDryAir toDryAir
+    "Conversion into kg/kg dry air"
+    annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,

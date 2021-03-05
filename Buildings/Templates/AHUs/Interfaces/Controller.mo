@@ -13,6 +13,10 @@ partial block Controller
     "Type of cooling coil actuator"
     annotation (Evaluate=true,
       Dialog(group="Cooling coil"));
+  parameter Types.Actuator typHexCoiCoo
+    "Type of cooling coil heat exchanger"
+    annotation (Evaluate=true,
+      Dialog(group="Cooling coil"));
   parameter Types.Fan typFanSup
     "Type of supply fan"
     annotation (Evaluate=true,

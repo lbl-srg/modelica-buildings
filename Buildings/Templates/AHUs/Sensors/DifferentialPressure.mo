@@ -2,9 +2,10 @@ within Buildings.Templates.AHUs.Sensors;
 model DifferentialPressure
   extends Interfaces.Sensor(
     y(final unit="Pa"),
-    final typ=Types.Sensor.Temperature);
+    final typ=Types.Sensor.DifferentialPressure);
   Fluid.Sensors.RelativePressure senRelPre(
     redeclare final package Medium=Medium)
+    "Relative pressure sensor"
     annotation (Placement(transformation(extent={{-30,-30},{-10,-50}})));
 equation
   connect(port_a, senRelPre.port_a) annotation (Line(points={{-100,0},{-80,0},{-80,

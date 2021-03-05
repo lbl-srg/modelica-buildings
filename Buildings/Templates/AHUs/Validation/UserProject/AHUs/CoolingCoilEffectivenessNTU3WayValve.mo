@@ -4,12 +4,12 @@ model CoolingCoilEffectivenessNTU3WayValve
     final id="VAV_1",
     redeclare replaceable record RecordCoiCoo = Coils.Data.WaterBased (
           redeclare
-          Buildings.Templates.AHUs.Coils.HeatExchangers.Data.EffectivenessNTUDry
+          Buildings.Templates.AHUs.Coils.HeatExchangers.Data.WaterEpsNTUDry
           datHex, redeclare
           Buildings.Templates.AHUs.Coils.Actuators.Data.ThreeWayValve datAct),
     redeclare Coils.WaterBased coiCoo(redeclare
         Buildings.Templates.AHUs.Coils.Actuators.ThreeWayValve act, redeclare
-        Buildings.Templates.AHUs.Coils.HeatExchangers.EffectivenessNTUDry hex));
+        Buildings.Templates.AHUs.Coils.HeatExchangers.WaterEpsNTUDry hex));
   annotation (
     defaultComponentName="ahu");
 end CoolingCoilEffectivenessNTU3WayValve;

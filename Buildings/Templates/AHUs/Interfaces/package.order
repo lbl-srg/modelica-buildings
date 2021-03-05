@@ -3,7 +3,8 @@ Coil
 Controller
 Economizer
 Fan
-HeatExchanger
+HeatExchangerDX
+HeatExchangerWater
 Main
 Sensor
 Data

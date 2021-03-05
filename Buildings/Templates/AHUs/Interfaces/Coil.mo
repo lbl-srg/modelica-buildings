@@ -37,8 +37,8 @@ partial model Coil
     annotation (Placement(transformation(extent={{50,-110},{30,-90}})));
   BoundaryConditions.WeatherData.Bus weaBus if have_weaBus
     annotation (Placement(
-        transformation(extent={{30,80},{70,120}}),   iconTransformation(extent={{40,90},
-            {60,110}})));
+        transformation(extent={{-80,80},{-40,120}}), iconTransformation(extent={{-70,90},
+            {-50,110}})));
   Templates.BaseClasses.AhuBus ahuBus if typ<>Types.Coil.None
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},

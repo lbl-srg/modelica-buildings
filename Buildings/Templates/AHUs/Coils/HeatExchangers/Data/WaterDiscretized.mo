@@ -1,6 +1,6 @@
 within Buildings.Templates.AHUs.Coils.HeatExchangers.Data;
-record Discretized
-  extends Interfaces.Data.HeatExchanger;
+record WaterDiscretized
+  extends Interfaces.Data.HeatExchangerWater;
 
   parameter Modelica.SIunits.ThermalConductance UA_nominal=
     dat.getReal(varName=id + "." + funStr + " coil.UA (dry coil conditions)")
@@ -15,4 +15,4 @@ record Discretized
     defaultComponentPrefixes="outer parameter",
     Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
-end Discretized;
+end WaterDiscretized;

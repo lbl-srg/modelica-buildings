@@ -7,7 +7,7 @@ partial model Economizer
     "Equipment type"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   outer parameter ExternData.JSONFile dat
-    annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
+    annotation (Placement(transformation(extent={{74,74},{94,94}})));
 
   Modelica.Fluid.Interfaces.FluidPort_a port_Out(
     redeclare package Medium = Medium)

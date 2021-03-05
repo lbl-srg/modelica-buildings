@@ -1,6 +1,6 @@
 within Buildings.Templates.AHUs.Coils.HeatExchangers.Data;
-record EffectivenessNTUDry
-  extends None;
+record WaterEpsNTUDry
+  extends Interfaces.Data.HeatExchangerWater;
 
   // FIXME: Dummy default values fo testing purposes only.
   parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal(min=0)=1e4
@@ -22,4 +22,4 @@ record EffectivenessNTUDry
     defaultComponentPrefixes="outer parameter",
     Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
-end EffectivenessNTUDry;
+end WaterEpsNTUDry;

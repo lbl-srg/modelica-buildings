@@ -1,10 +1,8 @@
 BaseNoEquipment
+BaseWithSensors
 CoolingCoiDXMultiStage
 CoolingCoiDXVariableSpeed
 CoolingCoilDiscretized
-CoolingCoilDiscretized_json
-CoolingCoilDiscretized_localParam
-CoolingCoilDiscretized_recordTypes
 CoolingCoilEffectivenessNTU
 CoolingCoilEffectivenessNTU2WayValve
 CoolingCoilEffectivenessNTU3WayValve

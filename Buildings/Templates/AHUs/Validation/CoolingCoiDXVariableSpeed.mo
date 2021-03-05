@@ -1,8 +1,8 @@
 within Buildings.Templates.AHUs.Validation;
 model CoolingCoiDXVariableSpeed
-  extends BaseNoEquipment(
-                      ahu(redeclare record RecordCoiCoo =
-          Coils.Data.DXVariableSpeed, redeclare Coils.DXVariableSpeed coiCoo));
+  extends BaseNoEquipment(ahu(redeclare record RecordCoiCoo =
+          Coils.HeatExchangers.Data.DXVariableSpeed, redeclare
+        Coils.HeatExchangers.DXVariableSpeed coiCoo));
 
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
         Modelica.Utilities.Files.loadResource(
