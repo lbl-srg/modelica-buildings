@@ -26,7 +26,7 @@ model Guideline36
     AFlo=AFloCor,
     final samplePeriod=samplePeriod,
     VDisSetMin_flow=max(1.5*VCorOA_flow_nominal, 0.15*mCor_flow_nominal/1.2),
-    VDisHeaSetMax_flow=ratVFloHea*VCorOA_flow_nominal)
+    VDisHeaSetMax_flow=ratVFloHea*mCor_flow_nominal/1.2)
     "Controller for terminal unit corridor"
     annotation (Placement(transformation(extent={{530,84},{550,104}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Controller conVAVSou(
@@ -34,7 +34,7 @@ model Guideline36
     AFlo=AFloSou,
     final samplePeriod=samplePeriod,
     VDisSetMin_flow=max(1.5*VSouOA_flow_nominal, 0.15*mSou_flow_nominal/1.2),
-    VDisHeaSetMax_flow=ratVFloHea*VSouOA_flow_nominal)
+    VDisHeaSetMax_flow=ratVFloHea*mSou_flow_nominal/1.2)
     "Controller for terminal unit south"
     annotation (Placement(transformation(extent={{702,84},{722,104}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Controller conVAVEas(
@@ -42,7 +42,7 @@ model Guideline36
     AFlo=AFloEas,
     final samplePeriod=samplePeriod,
     VDisSetMin_flow=max(1.5*VEasOA_flow_nominal, 0.15*mEas_flow_nominal/1.2),
-    VDisHeaSetMax_flow=ratVFloHea*VEasOA_flow_nominal)
+    VDisHeaSetMax_flow=ratVFloHea*mEas_flow_nominal/1.2)
     "Controller for terminal unit east"
     annotation (Placement(transformation(extent={{880,84},{900,104}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Controller conVAVNor(
@@ -50,7 +50,7 @@ model Guideline36
     AFlo=AFloNor,
     final samplePeriod=samplePeriod,
     VDisSetMin_flow=max(1.5*VNorOA_flow_nominal, 0.15*mNor_flow_nominal/1.2),
-    VDisHeaSetMax_flow=ratVFloHea*VNorOA_flow_nominal)
+    VDisHeaSetMax_flow=ratVFloHea*mNor_flow_nominal/1.2)
     "Controller for terminal unit north"
     annotation (Placement(transformation(extent={{1038,84},{1058,104}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Controller conVAVWes(
@@ -58,7 +58,7 @@ model Guideline36
     AFlo=AFloWes,
     final samplePeriod=samplePeriod,
     VDisSetMin_flow=max(1.5*VWesOA_flow_nominal, 0.15*mWes_flow_nominal/1.2),
-    VDisHeaSetMax_flow=ratVFloHea*VWesOA_flow_nominal)
+    VDisHeaSetMax_flow=ratVFloHea*mWes_flow_nominal/1.2)
     "Controller for terminal unit west"
     annotation (Placement(transformation(extent={{1240,84},{1260,104}})));
   Modelica.Blocks.Routing.Multiplex5 TDis "Discharge air temperatures"
