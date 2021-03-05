@@ -2,6 +2,8 @@ within Buildings.ThermalZones.EnergyPlus;
 model ZoneSurface
   "Model to exchange heat with a inside-facing surface of a thermal zone"
   extends Buildings.ThermalZones.EnergyPlus.BaseClasses.PartialEnergyPlusObject;
+  extends Buildings.ThermalZones.EnergyPlus.BaseClasses.Synchronize.ObjectSynchronizer;
+
   parameter String surfaceName
     "Surface unique name in the EnergyPlus idf file";
 
@@ -17,33 +19,56 @@ model ZoneSurface
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Modelica.Blocks.Interfaces.RealOutput Q_flow(
     final unit="W",
-    final quanity="Power")
+    final quantity="Power")
     "Net heat flow rate from the thermal zone to the surface (positive if surface is cold)"
     annotation (Placement(transformation(extent={{100,20},{140,60}}), iconTransformation(extent={{100,40},
             {140,80}})));
   Modelica.Blocks.Interfaces.RealOutput q_flow(
     final unit="W/m2",
-    final quanity="HeatFlux")
+    final quantity="HeatFlux")
     "Net heat flux from the thermal zone to the surface (positive if surface is cold)"
     annotation (Placement(transformation(extent={{100,-60},{140,-20}}),
-                                                                      iconTransformation(extent={{100,-80},
-            {140,-40}})));
+     iconTransformation(extent={{100,-80},{140,-40}})));
 protected
-  constant String modelicaNameInputVariable=getInstanceName()
-    "Name of this instance"
-    annotation (HideResult=true);
+  constant Integer nParOut = 1 "Number of parameter values retrieved from EnergyPlus";
+  constant Integer nInp = 1 "Number of inputs";
+  constant Integer nOut = 1 "Number of outputs";
+  constant Integer nDer = 1 "Number of derivatives";
+  constant Integer nY = nOut + nDer + 1 "Size of output vector of exchange function";
+  parameter Integer nObj(fixed=false, start=0) "Total number of Spawn objects in building";
 
-  Buildings.ThermalZones.EnergyPlus.BaseClasses.FMUZoneSurfaceClass adapter=Buildings.ThermalZones.EnergyPlus.BaseClasses.FMUZoneSurfaceClass(
+  Buildings.ThermalZones.EnergyPlus.BaseClasses.SpawnExternalObject adapter=Buildings.ThermalZones.EnergyPlus.BaseClasses.SpawnExternalObject(
+    objectType=5,
+    startTime=startTime,
     modelicaNameBuilding=modelicaNameBuilding,
-    modelicaNameInputVariable=modelicaNameInputVariable,
+    modelicaInstanceName=modelicaInstanceName,
     idfName=idfName,
     weaName=weaName,
-    name=surfaceName,
+    epName=surfaceName,
     usePrecompiledFMU=usePrecompiledFMU,
     fmuName=fmuName,
     buildingsLibraryRoot=Buildings.ThermalZones.EnergyPlus.BaseClasses.buildingsLibraryRoot,
-    logLevel=logLevel)
+    logLevel=logLevel,
+    printUnit=false,
+    jsonName = "zoneSurfaces",
+    jsonKeysValues = "        \"name\": \"" + surfaceName + "\"",
+    parOutNames = {"A"},
+    parOutUnits = {"m2"},
+    nParOut = nParOut,
+    inpNames = {"T"},
+    inpUnits = {"K"},
+    nInp = nInp,
+    outNames = {"Q_flow"},
+    outUnits = {"W"},
+    nOut = nOut,
+    derivatives_structure = {{1, 1}},
+    nDer = nDer,
+    derivatives_delta = {0.01})
     "Class to communicate with EnergyPlus";
+  parameter Modelica.SIunits.Time startTime(
+    fixed=false)
+    "Simulation start time";
+  Real yEP[nY] "Output of exchange function";
 
 
   Modelica.SIunits.Time tNext(
@@ -58,30 +83,27 @@ protected
     "Time step since the last synchronization";
   discrete Modelica.SIunits.Temperature TLast
     "Surface temperature at last sampling";
-  discrete Real dQ_flow(
-    final unit="W/K")
-    "Derivative dQ_flow / dT";
   discrete Modelica.SIunits.HeatFlowRate QLast_flow(
     fixed=false,
     start=0)
     "Surface heat flow rate if T = TLast";
+  discrete Real dQ_flow_dT(
+    final unit="W/K")
+    "Derivative dQCon_flow / dT";
 
 initial equation
   assert(
     not usePrecompiledFMU,
     "Use of pre-compiled FMU is not supported for ZoneSurface.");
-  A = Buildings.ThermalZones.EnergyPlus.BaseClasses.zoneSurfaceInitialize(
+  startTime=time;
+  nObj=Buildings.ThermalZones.EnergyPlus.BaseClasses.initialize(
     adapter=adapter,
-    startTime=startTime);
+    isSynchronized=building.isSynchronized);
 
-  Buildings.ThermalZones.EnergyPlus.BaseClasses.zoneSurfaceExchange(
-      adapter,
-      true,
-      T,
-      Q_flow,
-      round(
-        time,
-        1E-3));
+  {A} = Buildings.ThermalZones.EnergyPlus.BaseClasses.getParameters(
+    adapter=adapter,
+    nParOut = nParOut,
+    isSynchronized = nObj);
 
   assert(
     A > 0,
@@ -93,17 +115,22 @@ equation
     dtLast=time-pre(
       tLast);
 
-    (QLast_flow, dQ_flow, tNext)=Buildings.ThermalZones.EnergyPlus.BaseClasses.zoneExchange(
-      adapter,
-      false,
-      T,
-      round(
-        time,
-        1E-3));
+    yEP = Buildings.ThermalZones.EnergyPlus.BaseClasses.exchange(
+      adapter = adapter,
+      initialCall = false,
+      nY = nY,
+      u = {T, round(time, 1E-3)},
+      dummy = A);
+
+    QLast_flow = yEP[1];
+    dQ_flow_dT = yEP[2];
+    tNext = yEP[3];
     tLast=time;
   end when;
-  Q_flow=QLast_flow+(T-TLast)*dQ_flow;
+  Q_flow=QLast_flow+(T-TLast)*dQ_flow_dT;
   q_flow = Q_flow/A;
+
+  nObj = sync.synchronize.done;
 
   annotation (
     defaultComponentName="sur",

@@ -4,9 +4,6 @@ model ThermalZoneAdapter
   extends Modelica.Blocks.Icons.Block;
   extends Buildings.ThermalZones.EnergyPlus.BaseClasses.Synchronize.ObjectSynchronizer;
 
-  constant String buildingsLibraryRoot
-    "Root directory of the Buildings library (used to find the spawn executable)"
-    annotation (HideResult=true);
   constant String modelicaNameBuilding
     "Name of the building to which this thermal zone belongs to"
     annotation (HideResult=true);
@@ -99,7 +96,7 @@ protected
     epName=zoneName,
     usePrecompiledFMU=usePrecompiledFMU,
     fmuName=fmuName,
-    buildingsLibraryRoot=buildingsLibraryRoot,
+    buildingsLibraryRoot=Buildings.ThermalZones.EnergyPlus.BaseClasses.buildingsLibraryRoot,
     logLevel=logLevel,
     printUnit=false,
     jsonName = "zones",
