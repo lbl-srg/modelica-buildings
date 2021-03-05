@@ -72,7 +72,8 @@ First implementation.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2381\">#2381</a>.
 </li>
-</ul>"));
+</ul>
+</html>"));
   end IdealHeater;
 
 equation
@@ -115,7 +116,8 @@ First implementation.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2381\">#2381</a>.
 </li>
-</ul>"),
+</ul>
+</html>"),
     Diagram(coordinateSystem(extent={{-100,-100},{100,120}})),
     Icon(coordinateSystem(extent={{-100,-100},{100,120}})));
 end IdealHeating;
