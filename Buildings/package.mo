@@ -470,6 +470,12 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td colspan=\"2\"><b>Buildings.Examples</b>
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Examples.HydronicHeating.TwoRoomsWithStorage
+    </td>
+    <td valign=\"top\">Changed <code>dpVal_nominal</code> to 6 kPa.
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2378\">issue 2378</a>.
+    </td>
+</tr>
 <tr><td valign=\"top\">Buildings.Examples.VAVReheat.BaseClasses.Floor
     </td>
     <td valign=\"top\">Refactored model to extend from the newly added <code>Buildings.Examples.VAVReheat.BaseClasses.PartialFloor</code> model.<br/>
@@ -480,10 +486,6 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td valign=\"top\">Buildings.Examples.VAVReheat.BaseClasses.PartialOpenLoop
     <td valign=\"top\">Declared the rooms in a new model <code>Buildings.Examples.VAVReheat.BaseClasses.Floor</code>
                        to allow use of the model with the Modelica or the Spawn envelope model.<br/>
-                       This is for
-                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1502\">issue 1502</a>.
-    </td>
-</tr>
 <tr><td valign=\"top\">Buildings.Examples.DualFanDualDuct.ClosedLoop<br/>
                        Buildings.Examples.ScalableBenchmarks.BuildingVAV.Examples.OneFloor_OneZone<br/>
                        Buildings.Examples.ScalableBenchmarks.BuildingVAV.Examples.TwoFloor_TwoZone<br/>
@@ -510,6 +512,22 @@ have been <b style=\"color:blue\">improved</b> in a
     <td valign=\"top\">Improved calculation of time constant to avoid negative values in some special cases.<br/>
                      This is for
                      <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1427\">IBPSA, issue 1427</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.DryCoilEffectivenessNTU<br/>
+                           Buildings.Fluid.HeatExchangers.PlateHeatExchangerEffectivenessNTU<br/>
+                           Buildings.Fluid.HeatExchangers.PartialEffectivenessNTU
+    </td>
+    <td valign=\"top\">Added a warning for when <code>Q_flow_nominal</code> is specified with the wrong sign.
+    </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.RadiantSlabs<br/>
+                           Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Functions.AverageResistance
+    </td>
+    <td valign=\"top\">Corrected inequality test on <code>alpha</code>,
+                       and changed print statement to an assertion with assertion level set to warning.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2009\">issue 2009</a>.
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.DryCoilEffectivenessNTU<br/>
