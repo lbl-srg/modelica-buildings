@@ -13,7 +13,6 @@ model IdealHeating "Building with constant fresh air and ideal heating/cooling t
     annotation (Placement(transformation(extent={{30,90},{50,110}})));
   Modelica.Blocks.Continuous.Integrator EHea "Heating energy"
     annotation (Placement(transformation(extent={{60,90},{80,110}})));
-equation
 
 protected
   model IdealHeater "Model of ideal heater"
@@ -75,6 +74,7 @@ This is for
 </li>
 </ul>"));
   end IdealHeater;
+
 equation
   connect(flo.TRooAir, hea.TMea) annotation (Line(points={{87.1739,13},{92,13},
           {92,60},{0,60},{0,68}}, color={0,0,127}));
