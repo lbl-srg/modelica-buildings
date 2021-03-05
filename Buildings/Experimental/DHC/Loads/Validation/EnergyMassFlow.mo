@@ -123,7 +123,6 @@ model EnergyMassFlow
     m_flow_nominal=m_flow_nominal,
     dp_nominal=dp_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    u(unit="W"),
     Q_flow_nominal=1)
     annotation (Placement(transformation(extent={{130,-30},{150,-10}})));
   Utilities.Math.IntegratorWithReset int(reset=Buildings.Types.Reset.Parameter)
@@ -155,15 +154,14 @@ model EnergyMassFlow
   Fluid.Sources.Boundary_pT serRet1(redeclare package Medium = Medium, nPorts=1)
     "Service return"
     annotation (Placement(transformation(extent={{-210,-230},{-190,-210}})));
-  Fluid.Actuators.Valves.TwoWayPressureIndependent
-                                     pum1(
+  Fluid.Actuators.Valves.TwoWayPressureIndependent valPreInd(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dpValve_nominal=dp_nominal,
     use_inputFilter=false)
     annotation (Placement(transformation(extent={{30,-190},{50,-170}})));
   Buildings.Experimental.DHC.Loads.EnergyMassFlow  masFlo1(
-    have_pum=true,
+    have_pum=false,
     tau=tau,
     Q_flow_nominal=Q_flow_nominal,
     m_flow_nominal=m_flow_nominal)
@@ -184,8 +182,9 @@ model EnergyMassFlow
   Fluid.Sensors.TemperatureTwoPort senTRet1(redeclare package Medium = Medium,
       m_flow_nominal=m_flow_nominal)
     annotation (Placement(transformation(extent={{-70,-230},{-90,-210}})));
-  Fluid.Sources.Boundary_pT bou1(redeclare package Medium = Medium, nPorts=1)
-              annotation (Placement(transformation(
+  Fluid.Sources.Boundary_pT bou1(
+    redeclare package Medium = Medium, nPorts=1)
+    annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=-90,
         origin={100,-200})));
@@ -194,7 +193,6 @@ model EnergyMassFlow
     m_flow_nominal=m_flow_nominal,
     dp_nominal=dp_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    u(unit="W"),
     Q_flow_nominal=1)
     annotation (Placement(transformation(extent={{130,-190},{150,-170}})));
   Fluid.Sensors.MassFlowRate senMasFlo1(redeclare package Medium = Medium)
@@ -204,8 +202,9 @@ model EnergyMassFlow
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={40,-150})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant tmp(k=0)
-    annotation (Placement(transformation(extent={{0,-92},{20,-72}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant FIXME(
+    k=0)
+    annotation (Placement(transformation(extent={{80,-110},{100,-90}})));
 protected
   parameter Modelica.SIunits.TemperatureDifference dT1_nominal = 20
     "Nominal Delta-T: change default btw cooling and heating applications";
@@ -301,7 +300,7 @@ equation
     annotation (Line(points={{-190,-180},{-90,-180}}, color={0,127,255}));
   connect(senTRet1.port_b, serRet1.ports[1])
     annotation (Line(points={{-90,-220},{-190,-220}}, color={0,127,255}));
-  connect(pum1.y, gai.y)
+  connect(valPreInd.y, gai.y)
     annotation (Line(points={{40,-168},{40,-162}}, color={0,0,127}));
   connect(senTSup.port_b, senMasFlo.port_a)
     annotation (Line(points={{-70,-20},{-50,-20}}, color={0,127,255}));
@@ -313,16 +312,16 @@ equation
     annotation (Line(points={{97.3333,-180},{130,-180}}, color={0,127,255}));
   connect(bou1.ports[1], del1.ports[2]) annotation (Line(points={{100,-190},{
           100,-186},{100,-180},{100,-180}}, color={0,127,255}));
-  connect(senMasFlo1.port_b, pum1.port_a)
+  connect(senMasFlo1.port_b, valPreInd.port_a)
     annotation (Line(points={{-30,-180},{30,-180}}, color={0,127,255}));
-  connect(pum1.port_b, del1.ports[3])
+  connect(valPreInd.port_b, del1.ports[3])
     annotation (Line(points={{50,-180},{102.667,-180}}, color={0,127,255}));
   connect(hea1.port_b, senTRet1.port_a) annotation (Line(points={{150,-180},{
           160,-180},{160,-220},{-70,-220}}, color={0,127,255}));
   connect(masFlo1.m_flow, gai.u)
     annotation (Line(points={{22,-114},{40,-114},{40,-138}}, color={0,0,127}));
-  connect(tmp.y, hea1.u) annotation (Line(points={{22,-82},{120,-82},{120,-174},
-          {128,-174}}, color={0,0,127}));
+  connect(masFlo1.Q_flow_actual, hea1.u) annotation (Line(points={{22,-120},{
+          120,-120},{120,-174},{128,-174}}, color={0,0,127}));
   annotation (Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-260,-320},{260,160}})),
       experiment(StopTime=360000),

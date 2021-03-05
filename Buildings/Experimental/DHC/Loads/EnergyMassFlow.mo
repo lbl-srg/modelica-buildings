@@ -46,8 +46,7 @@ block EnergyMassFlow
       iconTransformation(extent={{100,40}, {140,80}})));
   // Unit set to "1" to allow GUI connection with HeaterCooler_u.
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput Q_flow_actual(
-    unit="1",
-    start=0)
+    unit="1")
     "Connector of actuator output signal"
     annotation (Placement(transformation(
           extent={{100,-20},{140,20}}), iconTransformation(extent={{100,-20},{140,
@@ -59,7 +58,7 @@ block EnergyMassFlow
           extent={{100,-80},{140,-40}}), iconTransformation(extent={{100,-80},{140,
             -40}})));
   Modelica.Blocks.Continuous.Filter filter(
-     final order=2,
+     final order=1,
      f_cut=5/(2*Modelica.Constants.pi*120),
      final init=Modelica.Blocks.Types.Init.InitialOutput,
      final y_start=0,
@@ -83,9 +82,12 @@ equation
     Utilities.Math.Functions.inverseXRegularized(TSup_actual - TLoa, 0.1));
   filter.u = rat_m_flow_cor;
   // TODO: smoothmin/max
-  m_flow = max(
-    fra_m_flow_min,
-    min(filter.y, 1)) * m_flow_nominal;
+  // TODO:
+  m_flow = homotopy(
+    actual=max(
+      fra_m_flow_min,
+      min(filter.y, 1)) * m_flow_nominal,
+    simplified=rat_m_flow_cha * m_flow_nominal);
   rat2_m_flow_cor = if have_pum then 1 else
     Buildings.Utilities.Math.Functions.smoothLimit(
       x=m_flow_actual * Utilities.Math.Functions.inverseXRegularized(
@@ -109,6 +111,8 @@ supply temperature mismatch (because a permanent temperature mismatch
 only leads to a transient mismatch in Q_flow, so the user
 can have bad insight on degraded operating conditions.)
 Include On/Off signal or Boolean for zero flow rate at zero load.
+Currently Q_flow_actual computed with unfiltered flow rate: validate
+that this will not create issues when mass flow transitions from 0.
 </p>
 <p>
 This block approximates the relationship between a cumulated load
