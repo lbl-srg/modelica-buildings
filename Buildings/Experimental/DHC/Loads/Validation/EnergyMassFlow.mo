@@ -233,8 +233,8 @@ This is a validation model for the block
 Buildings.Experimental.DHC.Loads.EnergyMassFlow.
 The service supply temperature is voluntarily lowered 
 to simulate a mismatch between the supply temperature
-set point and the actual supply temperature, in the building
-distribution system.
+set point of the building
+distribution system, and the actual supply temperature. 
 This leads to an increase in the mass flow rate to compensate
 for the low supply temperature.
 When the mass flow rate reaches its nominal value, a part of the 

@@ -85,6 +85,14 @@ equation
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>
+TODO: test first-order filter.
+Criteria for unmet load: 
+moving average of Q_flow difference AND 
+supply temperature mismatch (because a permanent temperature mismatch
+only leads to a transient mismatch in Q_flow, so the user
+can have bad insight on degraded operating conditions.)
+</p>
+<p>
 This block approximates the relationship between a cumulated load
 on a hydronic distribution system and the mass flow rate.
 </p>
@@ -121,8 +129,7 @@ for a description of the filter.
 </li>
 <li>
 Eventually the corrected mass flow rate is bounded by the recirculation
-flow rate corresponding to the minimum pump speed, and the nominal 
-mass flow rate.
+flow rate at minimum pump speed, and the nominal mass flow rate.
 <li>
 </ul>
 <p>
