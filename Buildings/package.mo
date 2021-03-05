@@ -490,6 +490,12 @@ have been <b style=\"color:blue\">improved</b> in a
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1502\">issue 1502</a>.
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Examples.HydronicHeating.TwoRoomsWithStorage
+    </td>
+    <td valign=\"top\">Changed <code>dpVal_nominal</code> to 6 kPa.
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2378\">issue 2378</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.HeatExchangers</b>
     </td>
     </tr>
