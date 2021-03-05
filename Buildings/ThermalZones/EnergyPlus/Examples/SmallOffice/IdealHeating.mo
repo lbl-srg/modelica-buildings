@@ -101,8 +101,7 @@ equation
 experiment(
       StartTime=432000,
       StopTime=864000,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Radau"),
+      Tolerance=1e-06),
 Documentation(info="<html>
 <p>
 Test case of the small office DOE reference building without an HVAC system
