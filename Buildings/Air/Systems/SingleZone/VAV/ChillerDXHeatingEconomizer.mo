@@ -1,6 +1,6 @@
 within Buildings.Air.Systems.SingleZone.VAV;
 model ChillerDXHeatingEconomizer
-  "HVAC system model with a dry cooling coil, air-cooled chiller, electric heating coil, 
+  "HVAC system model with a dry cooling coil, air-cooled chiller, electric heating coil,
    variable speed fan, and mixing box with economizer control."
   replaceable package MediumA = Buildings.Media.Air "Medium model for air"
       annotation (choicesAllMatching = true);
@@ -626,6 +626,10 @@ feedback control of damper positions. The cooling coil is a dry coil model.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 25, 2021, by Baptiste Ravache:<br/>
+Inverse the sign of <code>cooCoi.Q_flow_nominal</code> to respect the heat flow convention.
+</li>
 <li>
 September 08, 2017, by Thierry S. Nouidui:<br/>
 Removed experiment annotation.
