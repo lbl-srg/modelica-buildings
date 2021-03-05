@@ -13,7 +13,7 @@ model VAVSingleDuct "VAV single duct with relief"
     "Type of cooling coil"
     annotation (Evaluate=true,
       Dialog(group="Cooling coil"));
-  final parameter Types.Coil typHexCoiCoo = coiCoo.typHex
+  final parameter Types.HeatExchanger typHexCoiCoo = coiCoo.typHex
     "Type of cooling coil heat exchanger"
     annotation (Evaluate=true,
       Dialog(group="Cooling coil"));

@@ -19,12 +19,12 @@ block Dummy "Dummy controller with constant signals"
         origin={-90,170})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yCoiCooVar(k=1) if
        typCoiCoo==Types.Coil.WaterBased or
-       typCoiCoo==Types.Coil.DXVariableSpeed
+       typHexCoiCoo==Types.HeatExchanger.DXVariableSpeed
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-60,110})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant yCoiCooSta(k=1) if
-       typCoiCoo==Types.Coil.DXMultiStage
+       typHexCoiCoo==Types.HeatExchanger.DXMultiStage
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-20,110})));

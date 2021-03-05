@@ -10,7 +10,7 @@ model BaseNoEquipment
   inner parameter ExternData.JSONFile dat(
     fileName=Modelica.Utilities.Files.loadResource(
       "modelica://Buildings/Resources/Data/Templates/Validation/systems.json"))
-    annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
+    annotation (Placement(transformation(extent={{76,76},{96,96}})));
   replaceable UserProject.AHUs.BaseNoEquipment ahu(redeclare final package
       MediumAir = MediumAir, redeclare final package MediumCoo = MediumCoo)
     annotation (Placement(transformation(extent={{-20,-20},{20,20}})));
