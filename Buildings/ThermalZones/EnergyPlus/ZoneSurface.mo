@@ -58,7 +58,7 @@ protected
     inpNames = {"T"},
     inpUnits = {"K"},
     nInp = nInp,
-    outNames = {"Q_flow"},
+    outNames = {"Q_Flow"},
     outUnits = {"W"},
     nOut = nOut,
     derivatives_structure = {{1, 1}},
