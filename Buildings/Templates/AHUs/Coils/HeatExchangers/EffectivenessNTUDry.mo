@@ -1,9 +1,9 @@
 within Buildings.Templates.AHUs.Coils.HeatExchangers;
-model EffectivenessNTU
+model EffectivenessNTUDry
   extends Interfaces.HeatExchanger(
     final m1_flow_nominal=dat.mWat_flow_nominal,
     final m2_flow_nominal=dat.mAir_flow_nominal,
-    final typ=Types.HeatExchanger.EffectivenessNTU);
+    final typ=Types.HeatExchanger.EffectivenessNTUSensible);
 
   outer parameter Buildings.Templates.AHUs.Coils.Data.WaterBased
     dat annotation (Placement(transformation(extent={{-10,-98},{10,-78}})));
@@ -32,4 +32,4 @@ equation
           {100,-60}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
-end EffectivenessNTU;
+end EffectivenessNTUDry;

@@ -3,16 +3,13 @@ model CoolingCoilEffectivenessNTU3WayValve
   extends VAVSingleDuct(
     final id="VAV_1",
     redeclare replaceable record RecordCoiCoo = Coils.Data.WaterBased (
-      redeclare
-        Buildings.Templates.AHUs.Coils.HeatExchangers.Data.EffectivenessNTU
-        datHex, redeclare
-        Buildings.Templates.AHUs.Coils.Actuators.Data.ThreeWayValve
-        datAct),
+          redeclare
+          Buildings.Templates.AHUs.Coils.HeatExchangers.Data.EffectivenessNTUDry
+          datHex, redeclare
+          Buildings.Templates.AHUs.Coils.Actuators.Data.ThreeWayValve datAct),
     redeclare Coils.WaterBased coiCoo(redeclare
-      Buildings.Templates.AHUs.Coils.Actuators.ThreeWayValve
-      act, redeclare
-      Buildings.Templates.AHUs.Coils.HeatExchangers.EffectivenessNTU
-      hex));
+        Buildings.Templates.AHUs.Coils.Actuators.ThreeWayValve act, redeclare
+        Buildings.Templates.AHUs.Coils.HeatExchangers.EffectivenessNTUDry hex));
   annotation (
     defaultComponentName="ahu");
 end CoolingCoilEffectivenessNTU3WayValve;

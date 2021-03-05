@@ -1,16 +1,14 @@
 within Buildings.Templates.AHUs.Coils.HeatExchangers.Data;
 record Discretized
-  extends None;
+  extends Interfaces.Data.HeatExchanger;
 
-  parameter Modelica.SIunits.ThermalConductance UA_nominal(min=0)
-    "Thermal conductance at nominal flow, used to compute heat capacity"
-    annotation (Dialog(tab="General", group="Nominal condition"));
+  parameter Modelica.SIunits.ThermalConductance UA_nominal=
+    dat.getReal(varName=id + "." + funStr + " coil.UA (dry coil conditions)")
+    "Thermal conductance at nominal flow";
   parameter Real r_nominal=2/3
-    "Ratio between air-side and water-side convective heat transfer coefficient"
-    annotation (Dialog(group="Nominal condition"));
-  parameter Integer nEle(min=1) = 5
-    "Number of pipe segments used for discretization"
-    annotation (Dialog(group="Geometry"));
+    "Ratio between air-side and water-side convective heat transfer coefficient";
+  parameter Integer nEle=4
+    "Number of pipe segments used for discretization";
 
   annotation (
     defaultComponentName="datHex",

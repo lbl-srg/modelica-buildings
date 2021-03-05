@@ -1,48 +1,27 @@
 within Buildings.Templates.AHUs.Coils.Data;
 record WaterBased
-  extends None;
+  extends Interfaces.Data.Coil;
 
-  // FIXME: Dummy default values fo testing purposes only.
-  parameter Modelica.SIunits.MassFlowRate mWat_flow_nominal(min=0)=1
+  parameter Modelica.SIunits.MassFlowRate mWat_flow_nominal(min=0)=
+    dat.getReal(varName=id + "." + funStr + " coil.Liquid mass flow rate")
     "Nominal mass flow rate"
     annotation(Dialog(group = "Nominal condition"));
-  parameter Modelica.SIunits.MassFlowRate mAir_flow_nominal(min=0)=1
+  parameter Modelica.SIunits.MassFlowRate mAir_flow_nominal(min=0)=
+    dat.getReal(varName=id + "." + funStr + " coil.Air mass flow rate")
     "Nominal mass flow rate"
     annotation(Dialog(group = "Nominal condition"));
   parameter Modelica.SIunits.PressureDifference dpWat_nominal(
-    displayUnit="Pa")=3e4
+    displayUnit="Pa")=
+    dat.getReal(varName=id + "." + funStr + " coil.Liquid pressure drop")
     "Nominal pressure drop"
     annotation(Dialog(group = "Nominal condition"));
   parameter Modelica.SIunits.PressureDifference dpAir_nominal(
-    displayUnit="Pa")=200
+    displayUnit="Pa")=
+    dat.getReal(varName=id + "." + funStr + " coil.Air pressure drop")
     "Nominal pressure drop"
     annotation(Dialog(group = "Nominal condition"));
 
-  /*
-  Dymola does not accept the declared type below to be
-  HeatExchangers.Data.EffectivenessNTU by default, see info section.
-  Cannot see why based on a minimum example.
-  Seems like a false negative syntax check.
-  */
-  replaceable parameter HeatExchangers.Data.None datHex
-    constrainedby HeatExchangers.Data.None
-    "Heat exchanger data"
-    annotation (Placement(transformation(extent={{-40,-150},{-20,-130}})),
-      choicesAllMatching=true,
-      Dialog(
-        group="Heat Exchanger"));
-
-  replaceable parameter Actuators.Data.None datAct
-    constrainedby Actuators.Data.None
-    "Actuator data"
-    annotation (Placement(transformation(extent={{-40,-150},{-20,-130}})),
-      choicesAllMatching=true,
-      Dialog(
-        group="Actuator"));
-
   annotation (
-    defaultComponentName="datCoiCoo",
-    defaultComponentPrefixes="outer parameter",
     Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>

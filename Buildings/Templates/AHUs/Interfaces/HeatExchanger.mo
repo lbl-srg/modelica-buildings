@@ -17,6 +17,7 @@ model HeatExchanger
   outer parameter String id=""
     "System identifier";
   outer parameter ExternData.JSONFile dat
+    "External parameter file"
     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false),

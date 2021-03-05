@@ -11,16 +11,36 @@
             "RA damper pressure drop": 20,
             "EA damper pressure drop": 20
         },
-        "Cooling coil": {
-            "Total cooling capacity": 10000,
-            "CHW mass flow rate": 1,
-            "Entering CHW temperature": 280.15,
-            "CHW pressure drop": 30000,
+        "Preheat coil": {
+            "Capacity": 10000,
+            "Liquid mass flow rate": 1,
+            "Entering liquid temperature": 280.15,
+            "Liquid pressure drop": 30000,
             "Air mass flow rate": 1,
-            "Entering air DB temperature": 305.15,
+            "Entering air temperature": 305.15,
+            "Air pressure drop": 150,
+            "UA (dry coil conditions)": 500
+        },
+        "Cooling coil": {
+            "Capacity": 10000,
+            "Liquid mass flow rate": 1,
+            "Entering liquid temperature": 280.15,
+            "Liquid pressure drop": 30000,
+            "Air mass flow rate": 1,
+            "Entering air temperature": 305.15,
             "Entering air relative humidity": 0.5,
             "Air pressure drop": 150,
-            "UA in dry coil conditions": 500
+            "UA (dry coil conditions)": 500
+        },
+        "Reheat coil": {
+            "Capacity": 10000,
+            "Liquid mass flow rate": 1,
+            "Entering liquid temperature": 280.15,
+            "Liquid pressure drop": 30000,
+            "Air mass flow rate": 1,
+            "Entering air temperature": 305.15,
+            "Air pressure drop": 150,
+            "UA (dry coil conditions)": 500
         },
         "Supply fan": {
             "Total pressure rise": 1000,

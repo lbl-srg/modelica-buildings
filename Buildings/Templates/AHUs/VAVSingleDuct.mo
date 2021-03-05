@@ -57,7 +57,6 @@ model VAVSingleDuct "VAV single duct with relief"
 
   replaceable Coils.None coiHea1
     constrainedby Interfaces.Coil(
-      final fun=Types.CoilFunction.Cooling,
       redeclare final package MediumAir = MediumAir,
       redeclare final package MediumSou = MediumCoo)
     "Heating coil - Option 1: Preheat coil in OA branch"
@@ -113,8 +112,7 @@ model VAVSingleDuct "VAV single duct with relief"
             choice(redeclare Economizers.CommonDamperFreeNoRelief eco
               "Single common OA damper - Dampers actuated individually, no relief")))),
       Placement(transformation(extent={{-210,-150},{-190,-130}})));
-  replaceable Sensors.Temperature
-                           senTemMix
+  replaceable Sensors.Temperature senTemMix
     constrainedby Interfaces.Sensor(
       redeclare final package Medium = MediumAir,
       final bra=Types.Branch.Supply)
@@ -127,7 +125,6 @@ model VAVSingleDuct "VAV single duct with relief"
           "Temperature sensor")),
       Dialog(group="Economizer", enable=eco.typ<>Types.Economizer.None),
       Placement(transformation(extent={{-170,-210},{-150,-190}})));
-
 
   replaceable Fans.None fanSupBlo
     constrainedby Interfaces.Fan(
@@ -143,7 +140,6 @@ model VAVSingleDuct "VAV single duct with relief"
 
   replaceable Coils.None coiHea2
     constrainedby Interfaces.Coil(
-      final fun=Types.CoilFunction.Cooling,
       redeclare final package MediumAir = MediumAir,
       redeclare final package MediumSou = MediumCoo)
     "Heating coil - Option 2: preheat coil in SA branch"
@@ -167,7 +163,6 @@ model VAVSingleDuct "VAV single duct with relief"
 
   replaceable Coils.None coiCoo
     constrainedby Interfaces.Coil(
-      final fun=Types.CoilFunction.Cooling,
       redeclare final package MediumAir = MediumAir,
       redeclare final package MediumSou = MediumCoo)
     "Cooling coil"
@@ -191,7 +186,6 @@ model VAVSingleDuct "VAV single duct with relief"
 
   replaceable Coils.None coiHea3
     constrainedby Interfaces.Coil(
-      final fun=Types.CoilFunction.Cooling,
       redeclare final package MediumAir = MediumAir,
       redeclare final package MediumSou = MediumCoo)
     "Heating coil - Option 3: reheat coil"

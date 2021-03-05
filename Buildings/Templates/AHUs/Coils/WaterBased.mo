@@ -6,25 +6,8 @@ model WaterBased
     final have_sou=true,
     final typAct=act.typ,
     final typHex=hex.typ);
-
-  parameter Modelica.SIunits.MassFlowRate mWat_flow_nominal(min=0)=
-    dat.getReal(varName=id + ".Cooling coil.CHW mass flow rate")
-    "Nominal mass flow rate"
-    annotation(Dialog(group = "Nominal condition"));
-  parameter Modelica.SIunits.MassFlowRate mAir_flow_nominal(min=0)=
-    dat.getReal(varName=id + ".Cooling coil.Air mass flow rate")
-    "Nominal mass flow rate"
-    annotation(Dialog(group = "Nominal condition"));
-  parameter Modelica.SIunits.PressureDifference dpWat_nominal(
-    displayUnit="Pa")=
-    dat.getReal(varName=id + ".Cooling coil.CHW pressure drop")
-    "Nominal pressure drop"
-    annotation(Dialog(group = "Nominal condition"));
-  parameter Modelica.SIunits.PressureDifference dpAir_nominal(
-    displayUnit="Pa")=
-    dat.getReal(varName=id + ".Cooling coil.Air pressure drop")
-    "Nominal pressure drop"
-    annotation(Dialog(group = "Nominal condition"));
+  extends Data.WaterBased
+    annotation (IconMap(primitivesVisible=false));
 
   replaceable Actuators.None act
     constrainedby Interfaces.Actuator(
@@ -34,7 +17,7 @@ model WaterBased
       choicesAllMatching=true,
       Placement(transformation(extent={{-10,-70},{10,-50}})));
 
-  replaceable HeatExchangers.EffectivenessNTU hex
+  replaceable HeatExchangers.EffectivenessNTUDry hex
     constrainedby Interfaces.HeatExchanger(
       redeclare final package Medium1 = MediumSou,
       redeclare final package Medium2 = MediumAir,
@@ -45,7 +28,6 @@ model WaterBased
     "Heat exchanger"
     annotation (
       choicesAllMatching=true, Placement(transformation(extent={{10,4},{-10,-16}})));
-
 equation
   connect(port_aSou, act.port_aSup) annotation (Line(points={{-40,-100},{-40,-80},
           {-4,-80},{-4,-70}}, color={0,127,255}));

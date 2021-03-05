@@ -2,6 +2,7 @@ within Buildings.Templates.AHUs.Interfaces;
 partial model Coil
   extends Buildings.Fluid.Interfaces.PartialTwoPort(
     redeclare final package Medium=MediumAir);
+
   replaceable package MediumAir=Buildings.Media.Air
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Air medium";
@@ -12,9 +13,6 @@ partial model Coil
 
   parameter Types.Coil typ
     "Equipment type"
-    annotation (Evaluate=true, Dialog(group="Configuration"));
-  parameter Types.CoilFunction fun
-    "Equipment function"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Types.Actuator typAct
     "Type of actuator"
@@ -27,10 +25,6 @@ partial model Coil
     annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Boolean have_weaBus = false
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  outer parameter String id=""
-    "System identifier";
-  outer parameter ExternData.JSONFile dat
-    annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
 
   // Conditional
   Modelica.Fluid.Interfaces.FluidPort_a port_aSou(

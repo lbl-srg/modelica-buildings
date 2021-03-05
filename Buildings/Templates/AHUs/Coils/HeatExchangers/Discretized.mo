@@ -2,13 +2,9 @@ within Buildings.Templates.AHUs.Coils.HeatExchangers;
 model Discretized
   extends Interfaces.HeatExchanger(
     final typ=Types.HeatExchanger.Discretized);
-  parameter Modelica.SIunits.ThermalConductance UA_nominal=
-    dat.getReal(varName=id + ".Cooling coil.UA in dry coil conditions")
-    "Thermal conductance at nominal flow";
-  parameter Real r_nominal=2/3
-    "Ratio between air-side and water-side convective heat transfer coefficient";
-  parameter Integer nEle=4
-    "Number of pipe segments used for discretization";
+  extends Data.Discretized
+    annotation (IconMap(primitivesVisible=false));
+
   Fluid.HeatExchangers.WetCoilCounterFlow hex(
     redeclare final package Medium1 = Medium1,
     redeclare final package Medium2 = Medium2,

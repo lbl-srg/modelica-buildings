@@ -1,5 +1,5 @@
 within Buildings.Templates.AHUs.Coils.HeatExchangers.Data;
-record EffectivenessNTU
+record EffectivenessNTUDry
   extends None;
 
   // FIXME: Dummy default values fo testing purposes only.
@@ -22,4 +22,4 @@ record EffectivenessNTU
     defaultComponentPrefixes="outer parameter",
     Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
-end EffectivenessNTU;
+end EffectivenessNTUDry;
