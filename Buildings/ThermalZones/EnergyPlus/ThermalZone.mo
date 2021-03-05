@@ -78,10 +78,10 @@ model ThermalZone
     final unit="1")
     "Relative humidity"
     annotation (Placement(transformation(extent={{200,-130},{220,-110}}),iconTransformation(extent={{200,90},{220,110}})));
-  Buildings.ThermalZones.EnergyPlus.BaseClasses.FMUZoneAdapter fmuZon(
+  Buildings.ThermalZones.EnergyPlus.BaseClasses.ThermalZoneAdapter fmuZon(
     final buildingsLibraryRoot=Buildings.ThermalZones.EnergyPlus.BaseClasses.buildingsLibraryRoot,
     final modelicaNameBuilding=modelicaNameBuilding,
-    final modelicaNameThermalZone=modelicaNameThermalZone,
+    final modelicaInstanceName=modelicaInstanceName,
     final idfName=idfName,
     final weaName=weaName,
     final zoneName=zoneName,
@@ -92,9 +92,6 @@ model ThermalZone
     "FMU zone adapter"
     annotation (Placement(transformation(extent={{80,100},{100,120}})));
 protected
-  constant String modelicaNameThermalZone=getInstanceName()
-    "Name of this instance"
-    annotation (HideResult=true);
   constant Modelica.SIunits.SpecificEnergy h_fg=Medium.enthalpyOfCondensingGas(
     273.15+37)
     "Latent heat of water vapor";
@@ -374,14 +371,25 @@ Model for a thermal zone that is implemented in EnergyPlus.
 <p>
 This model instantiates the FMU with the name <code>idfName</code> and
 connects to the thermal zone with name <code>zoneName</code>.
+The <code>idfName</code> needs to be specified in an instance of
+<a href=\"Buildings.ThermalZones.EnergyPlus.Building\">
+Buildings.ThermalZones.EnergyPlus.Building</a>
+that is named <code>building</code>, and that is placed at this 
+or at a higher hierarchy-level of the model.
 If the FMU is already instantiated by another instance of this model,
 it will use the already instantiated FMU. Hence, for each thermal zone
 in an EnergyPlus FMU, one instance of this model needs to be used.
+See <a href=\"modelica://Buildings.ThermalZones.EnergyPlus.UsersGuide\">
+Buildings.ThermalZones.EnergyPlus.UsersGuide</a>
+for how zones are simulated that are declared in the EnergyPlus input data file
+but not in Modelica.
 </p>
 <p>
-If there are two instances that declare the same
-<code>idfName</code> and the same <code>zoneName</code>,
-the simulation will stop with an error.
+If there are two instances that declare the same <code>zoneName</code>
+and have in the model hierarchy the same instance of
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus.Building\">
+Buildings.ThermalZones.EnergyPlus.Building</a>,
+then the simulation will stop with an error.
 </p>
 <h4>Main Equations</h4>
 <p>
