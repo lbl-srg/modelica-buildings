@@ -65,9 +65,7 @@ protected
     nDer = nDer,
     derivatives_delta = {0.01})
     "Class to communicate with EnergyPlus";
-  parameter Modelica.SIunits.Time startTime(
-    fixed=false)
-    "Simulation start time";
+
   Real yEP[nY] "Output of exchange function";
 
 
