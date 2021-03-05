@@ -1,5 +1,5 @@
 within Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice;
-model IdealHeating "Building with constant fresh air and ideal heating/cooling that exactly meets set point"
+model IdealHeatingCoolingWinter "Building with constant fresh air and ideal heating/cooling that exactly meets set point"
   extends Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.NoHVAC;
 
   Controls.OBC.CDL.Continuous.Sources.Constant THeaSet[5](
@@ -71,7 +71,7 @@ equation
   connect(QCoo_flow.u[1:5], coo.Q_flow) annotation (Line(points={{-32,158.4},{-46,
           158.4},{-46,146},{-58,146}}, color={0,0,127}));
     annotation (
- __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus/Examples/SmallOffice/IdealHeating.mos"
+ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus/Examples/SmallOffice/IdealHeatingCoolingWinter.mos"
         "Simulate and plot"),
 experiment(
       StopTime=31536000,
@@ -93,4 +93,4 @@ This is for
 </html>"),
     Diagram(coordinateSystem(extent={{-140,-100},{100,180}})),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
-end IdealHeating;
+end IdealHeatingCoolingWinter;
