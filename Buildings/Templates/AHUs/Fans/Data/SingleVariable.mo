@@ -3,18 +3,12 @@ record SingleVariable
   extends Buildings.Templates.AHUs.Interfaces.Data.Fan;
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=
-    if bra==Types.Branch.Supply then
-    dat.getReal(varName=id + ".Supply air mass flow rate")
-    else
-    dat.getReal(varName=id + ".Return air mass flow rate")
+    dat.getReal(varName=id + "." + braStr + " air mass flow rate")
     "Mass flow rate"
     annotation (
       Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.PressureDifference dp_nominal=
-    if bra==Types.Branch.Supply then
-    dat.getReal(varName=id + ".Supply fan.Total pressure rise")
-    else
-    dat.getReal(varName=id + ".Return fan.Total pressure rise")
+    dat.getReal(varName=id + "." + braStr + " fan.Total pressure rise")
     "Total pressure rise"
     annotation (
       Dialog(group="Nominal condition"));

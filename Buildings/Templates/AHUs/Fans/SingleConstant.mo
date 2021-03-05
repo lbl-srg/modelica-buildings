@@ -2,29 +2,33 @@ within Buildings.Templates.AHUs.Fans;
 model SingleConstant "Single fan - Constant speed"
   extends Interfaces.Fan(
     final typ=Types.Fan.SingleConstant);
+  extends Data.SingleConstant
+    annotation (IconMap(primitivesVisible=false));
 
   replaceable Fluid.Movers.SpeedControlled_y fan(
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     constrainedby Fluid.Movers.BaseClasses.PartialFlowMachine(
       redeclare final package Medium =MediumAir,
       final inputType=Buildings.Fluid.Types.InputType.Continuous,
-      final per=dat.per)
+      final per=per)
+    "Fan"
     annotation (
       choicesAllMatching=true,
       Placement(transformation(extent={{-10,-10},{10,10}})));
 
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea annotation (
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea
+    annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={0,30})));
-  Modelica.Blocks.Routing.BooleanPassThrough conSup if fun==Types.FanFunction.Supply
+  Modelica.Blocks.Routing.BooleanPassThrough conSup if braStr=="Supply"
     "Pass through block used to used to connect the right control signal"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-20,70})));
-  Modelica.Blocks.Routing.BooleanPassThrough conRet if fun==Types.FanFunction.Return
+  Modelica.Blocks.Routing.BooleanPassThrough conRet if braStr=="Return"
     "Pass through block used to used to connect the right control signal"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},

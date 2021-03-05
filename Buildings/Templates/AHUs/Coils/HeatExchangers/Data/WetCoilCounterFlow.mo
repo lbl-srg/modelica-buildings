@@ -1,5 +1,5 @@
 within Buildings.Templates.AHUs.Coils.HeatExchangers.Data;
-record WaterDiscretized
+record WetCoilCounterFlow
   extends Interfaces.Data.HeatExchangerWater;
 
   parameter Modelica.SIunits.ThermalConductance UA_nominal=
@@ -15,4 +15,4 @@ record WaterDiscretized
     defaultComponentPrefixes="outer parameter",
     Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
-end WaterDiscretized;
+end WetCoilCounterFlow;

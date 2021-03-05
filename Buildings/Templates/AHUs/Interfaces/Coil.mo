@@ -47,7 +47,7 @@ partial model Coil
         rotation=0,
         origin={0,100})));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
-          Rectangle(
+                                                              Rectangle(
           extent={{-100,100},{100,-100}},
           lineColor={0,0,255},
           fillColor={255,255,255},

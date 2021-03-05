@@ -21,6 +21,22 @@
             "Air pressure drop": 150,
             "UA (dry coil conditions)": 500
         },
+        "Preheat coil valve": {
+            "Pressure drop": 30000
+        },
+        "Heating coil": {
+            "Capacity": 10000,
+            "Liquid mass flow rate": 1,
+            "Entering liquid temperature": 280.15,
+            "Liquid pressure drop": 30000,
+            "Air mass flow rate": 1,
+            "Entering air temperature": 305.15,
+            "Air pressure drop": 150,
+            "UA (dry coil conditions)": 500
+        },
+        "Heating coil valve": {
+            "Pressure drop": 30000
+        },
         "Cooling coil": {
             "Capacity": 10000,
             "Liquid mass flow rate": 1,
@@ -32,6 +48,9 @@
             "Air pressure drop": 150,
             "UA (dry coil conditions)": 500
         },
+        "Cooling coil valve": {
+            "Pressure drop": 30000
+        },
         "Reheat coil": {
             "Capacity": 10000,
             "Liquid mass flow rate": 1,
@@ -41,6 +60,9 @@
             "Entering air temperature": 305.15,
             "Air pressure drop": 150,
             "UA (dry coil conditions)": 500
+        },
+        "Reheat coil valve": {
+            "Pressure drop": 30000
         },
         "Supply fan": {
             "Total pressure rise": 1000,

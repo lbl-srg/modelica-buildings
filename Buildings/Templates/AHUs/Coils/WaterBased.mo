@@ -17,17 +17,19 @@ model WaterBased
       choicesAllMatching=true,
       Placement(transformation(extent={{-10,-70},{10,-50}})));
 
-  replaceable HeatExchangers.WaterEpsNTUDry hex
-    constrainedby Interfaces.HeatExchangerWater(
-      redeclare final package Medium1 = MediumSou,
-      redeclare final package Medium2 = MediumAir,
-      final m1_flow_nominal=mWat_flow_nominal,
-      final m2_flow_nominal=mAir_flow_nominal,
-      final dp1_nominal=dpWat_nominal,
-      final dp2_nominal=dpAir_nominal)
+  // TODO: conditional choices based on funStr to restrict HX models for cooling.
+  replaceable HeatExchangers.DryCoilEffectivenessNTU hex constrainedby
+    Interfaces.HeatExchangerWater(
+    redeclare final package Medium1 = MediumSou,
+    redeclare final package Medium2 = MediumAir,
+    final m1_flow_nominal=mWat_flow_nominal,
+    final m2_flow_nominal=mAir_flow_nominal,
+    final dp1_nominal=if typAct==Types.Actuator.None then dpWat_nominal else 0,
+    final dp2_nominal=dpAir_nominal)
     "Heat exchanger"
     annotation (
-      choicesAllMatching=true, Placement(transformation(extent={{10,4},{-10,-16}})));
+      choicesAllMatching=true,
+      Placement(transformation(extent={{10,4},{-10,-16}})));
 equation
   connect(port_aSou, act.port_aSup) annotation (Line(points={{-40,-100},{-40,-80},
           {-4,-80},{-4,-70}}, color={0,127,255}));

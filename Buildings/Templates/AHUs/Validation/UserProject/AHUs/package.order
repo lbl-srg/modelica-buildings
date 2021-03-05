@@ -1,10 +1,9 @@
 BaseNoEquipment
 BaseWithSensors
 CoolingCoilDiscretized
-CoolingCoilDiscretized_json
-CoolingCoilDiscretized_localParam
 CoolingCoilEffectivenessNTU3WayValve
 EconomizerCommonDamperFree
 EconomizerCommonDamperTandem
 EconomizerDedicatedDamperTandem
+SupplyFanBlowSingleConstant
 SupplyFanDrawMultipleVariable

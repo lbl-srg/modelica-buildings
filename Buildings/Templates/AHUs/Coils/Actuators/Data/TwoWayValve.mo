@@ -1,14 +1,17 @@
 within Buildings.Templates.AHUs.Coils.Actuators.Data;
 record TwoWayValve
-  extends None;
+  extends Interfaces.Data.Actuator;
+
   parameter Modelica.SIunits.PressureDifference dpValve_nominal(
      displayUnit="Pa",
-     min=0)
+     min=0)=
+    dat.getReal(varName=id + "." + funStr + " coil valve.Pressure drop")
     "Nominal pressure drop of fully open valve"
     annotation(Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.PressureDifference dpFixed_nominal(
     displayUnit="Pa",
-    min=0) = 0
+    min=0)=
+    dat.getReal(varName=id + "." + funStr + " coil.Liquid pressure drop")
     "Nominal pressure drop of pipes and other equipment in flow leg"
     annotation(Dialog(group="Nominal condition"));
 end TwoWayValve;

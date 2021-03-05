@@ -9,13 +9,6 @@ partial model Fan
   parameter Types.Fan typ
     "Equipment type"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  parameter Types.Branch bra
-    "Branch where the equipment is installed"
-    annotation (Evaluate=true, Dialog(group="Configuration"));
-  outer parameter String id=""
-    "System identifier";
-  outer parameter ExternData.JSONFile dat
-    annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
 
   Templates.BaseClasses.AhuBus ahuBus if typ<>Types.Fan.None
     annotation (Placement(transformation(

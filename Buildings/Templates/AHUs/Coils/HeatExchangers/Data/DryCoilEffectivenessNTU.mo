@@ -1,5 +1,5 @@
 within Buildings.Templates.AHUs.Coils.HeatExchangers.Data;
-record WaterEpsNTUDry
+record DryCoilEffectivenessNTU
   extends Interfaces.Data.HeatExchangerWater;
 
   // FIXME: Dummy default values fo testing purposes only.
@@ -22,4 +22,4 @@ record WaterEpsNTUDry
     defaultComponentPrefixes="outer parameter",
     Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
-end WaterEpsNTUDry;
+end DryCoilEffectivenessNTU;

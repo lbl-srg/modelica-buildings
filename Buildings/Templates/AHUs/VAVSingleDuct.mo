@@ -69,8 +69,7 @@ model VAVSingleDuct "VAV single duct with relief"
       Placement(transformation(extent={{-278,-210},{-258,-190}})));
   replaceable Sensors.None senTemHea1
     constrainedby Interfaces.Sensor(
-      redeclare final package Medium = MediumAir,
-      final bra=Types.Branch.Supply)
+      redeclare final package Medium = MediumAir)
     "Heating coil 1 leaving air temperature"
     annotation (
       choices(
@@ -117,8 +116,7 @@ model VAVSingleDuct "VAV single duct with relief"
       Placement(transformation(extent={{-210,-150},{-190,-130}})));
   replaceable Sensors.Temperature senTemMix
     constrainedby Interfaces.Sensor(
-      redeclare final package Medium = MediumAir,
-      final bra=Types.Branch.Supply)
+      redeclare final package Medium = MediumAir)
     "Mixed air sensor"
     annotation (
       choices(
@@ -131,7 +129,6 @@ model VAVSingleDuct "VAV single duct with relief"
 
   replaceable Fans.None fanSupBlo
     constrainedby Interfaces.Fan(
-      final bra=Types.Branch.Supply,
       redeclare final package MediumAir = MediumAir)
     "Supply fan - Blow through"
     annotation (

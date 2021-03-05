@@ -4,11 +4,11 @@ type HeatExchanger = enumeration(
     "Direct expansion - Multi-stage",
     DXVariableSpeed
     "Direct expansion - Variable speed",
-    WaterEpsNTUWet
+    WetCoilEffectivenessNTU
     "Water based - Effectiveness-NTU dry/wet coil",
-    WaterEpsNTUDry
+    DryCoilEffectivenessNTU
     "Water based - Effectiveness-NTU dry coil",
-    WaterDiscretized
+    WetCoilCounterFlow
     "Water based - Discretized",
     None
     "None")

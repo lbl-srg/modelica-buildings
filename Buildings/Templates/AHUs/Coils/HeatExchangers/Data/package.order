@@ -1,4 +1,4 @@
 DXMultiStage
 DXVariableSpeed
-WaterDiscretized
-WaterEpsNTUDry
+WetCoilCounterFlow
+DryCoilEffectivenessNTU

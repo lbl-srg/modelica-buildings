@@ -2,9 +2,8 @@ within Buildings.Templates.AHUs.Coils.Actuators;
 model ThreeWayValve "Three-way valve"
   extends Interfaces.Actuator(
     final typ=Types.Actuator.ThreeWayValve);
-
-  outer parameter Buildings.Templates.AHUs.Coils.Data.WaterBased
-    dat annotation (Placement(transformation(extent={{-10,-98},{10,-78}})));
+  extends Data.ThreeWayValve
+    annotation (IconMap(primitivesVisible=false));
 
   replaceable Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear val(
       energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)

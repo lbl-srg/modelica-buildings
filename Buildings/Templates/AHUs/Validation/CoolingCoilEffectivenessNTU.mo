@@ -2,9 +2,10 @@ within Buildings.Templates.AHUs.Validation;
 model CoolingCoilEffectivenessNTU
   extends BaseNoEquipment(ahu(redeclare record RecordCoiCoo =
           Coils.Data.WaterBased (redeclare
-            Buildings.Templates.AHUs.Coils.HeatExchangers.Data.WaterEpsNTUDry
+            Buildings.Templates.AHUs.Coils.HeatExchangers.Data.DryCoilEffectivenessNTU
             datHex), redeclare Coils.WaterBased coiCoo(redeclare
-          Buildings.Templates.AHUs.Coils.HeatExchangers.WaterEpsNTUDry coi)));
+          Buildings.Templates.AHUs.Coils.HeatExchangers.DryCoilEffectivenessNTU
+          coi)));
 
   Fluid.Sources.Boundary_pT bou2(
     redeclare final package Medium = MediumCoo,

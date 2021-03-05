@@ -12,17 +12,18 @@ model MultipleVariable
       redeclare each final package Medium = MediumAir,
       each final inputType=Buildings.Fluid.Types.InputType.Continuous,
       each final per=per)
+    "Fan"
     annotation (
       choicesAllMatching=true,
       Placement(transformation(extent={{-10,10},{10,30}})));
 
-  Modelica.Blocks.Routing.RealPassThrough  conSup if bra==Types.Branch.Supply
+  Modelica.Blocks.Routing.RealPassThrough  conSup if braStr=="Supply"
     "Pass through block used to used to connect the right control signal"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-20,80})));
-  Modelica.Blocks.Routing.RealPassThrough conRet if bra==Types.Branch.Return
+  Modelica.Blocks.Routing.RealPassThrough conRet if braStr=="Return"
     "Pass through block used to used to connect the right control signal"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},

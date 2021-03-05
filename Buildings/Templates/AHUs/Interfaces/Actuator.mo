@@ -35,14 +35,13 @@ partial model Actuator
   annotation (
   Icon(coordinateSystem(preserveAspectRatio=false),
   graphics={
-          Rectangle(
-          extent={{-100,100},{100,-100}},
-          lineColor={0,0,255},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
         Text(
           extent={{-145,-116},{155,-156}},
           lineColor={0,0,255},
-          textString="%name")}),            Diagram(
+          textString="%name"),                                Rectangle(
+          extent={{-100,100},{100,-100}},
+          lineColor={0,0,255},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid)}), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end Actuator;

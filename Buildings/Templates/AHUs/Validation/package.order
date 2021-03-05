@@ -2,7 +2,7 @@ BaseNoEquipment
 BaseWithSensors
 CoolingCoiDXMultiStage
 CoolingCoiDXVariableSpeed
-CoolingCoilDiscretized
+CoolingCoilCounterFlow
 CoolingCoilEffectivenessNTU
 CoolingCoilEffectivenessNTU2WayValve
 CoolingCoilEffectivenessNTU3WayValve

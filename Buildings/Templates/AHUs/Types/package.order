@@ -1,10 +1,8 @@
 Actuator
-Branch
 Coil
-CoilFunction
+HeatExchanger
 Economizer
 Fan
-HeatExchanger
 Main
 Return
 Sensor
