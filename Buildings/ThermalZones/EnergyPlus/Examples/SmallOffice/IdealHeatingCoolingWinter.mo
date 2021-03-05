@@ -74,7 +74,8 @@ equation
  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus/Examples/SmallOffice/IdealHeatingCoolingWinter.mos"
         "Simulate and plot"),
 experiment(
-      StopTime=31536000,
+      StartTime=432000,
+      StopTime=864000,
       Tolerance=1e-06),
 Documentation(info="<html>
 <p>

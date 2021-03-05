@@ -4,6 +4,8 @@ ASHRAE2006Winter
 Guideline36Spring
 Guideline36Summer
 Guideline36Winter
+IdealHeatingCoolingSpring
+IdealHeatingCoolingSummer
 IdealHeatingCoolingWinter
 NoHVAC
 BaseClasses
