@@ -66,7 +66,8 @@ void buildJSONModelStructureForEnergyPlus(
   /* Number of models written to json so far */
   size_t iMod = 0;
   int objectType;
-  size_t objectCount[5] = {0, 0, 0, 0, 0};
+  const int nObjectTypes = 5;
+  size_t objectCount[] = {0, 0, 0, 0, 0};
 
   void (*SpawnFormatError)(const char *string, ...) = bui->SpawnFormatError;
 
@@ -74,9 +75,9 @@ void buildJSONModelStructureForEnergyPlus(
   const size_t nMod = bui->nExcObj;
 
   /* Count number of objects */
-  for(objectType = THERMALZONE; objectType < SURFACE; objectType++){
+  for(objectType = 0; objectType < nObjectTypes; objectType++){
     for(i = 0; i < bui->nExcObj; i++){
-        if ( ptrSpaObj[i]->objectType == objectType ){
+        if ( ptrSpaObj[i]->objectType == (objectType+1) ){ /* Modelica uses 1-based objectType */
           objectCount[objectType]++;
         }
     }
@@ -96,9 +97,9 @@ void buildJSONModelStructureForEnergyPlus(
   saveAppend(buffer, "  \"model\": {\n", size, SpawnFormatError);
 
   /* Write all json objects (thermal zones, actuators, etc.) */
-  for(objectType = THERMALZONE; objectType < SURFACE; objectType++){
+  for(objectType = 0; objectType < nObjectTypes; objectType++){
     for(i = 0, iWri = 0; i < bui->nExcObj; i++){
-      if ( ptrSpaObj[i]->objectType == objectType ) {
+      if ( ptrSpaObj[i]->objectType == (objectType+1) ) { /* Modelica uses 1-based objectType */
         /* Check if json keyword needs to be written */
         if (iWri == 0){
           saveAppend(buffer, "    \"", size, SpawnFormatError);
