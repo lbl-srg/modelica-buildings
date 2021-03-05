@@ -15,5 +15,11 @@ compareVars :=
     "flo.nor.heaPorAir.Q_flow",
     "flo.wes.heaPorAir.Q_flow",
     "flo.cor.heaPorAir.Q_flow",
-    "EHea.y"
+    "EHea.y",
+    "ECoo.y",
+    "coo[1].conPID.y",
+    "coo[2].conPID.y",
+    "coo[3].conPID.y",
+    "coo[4].conPID.y",
+    "coo[5].conPID.y"
   };
