@@ -61,11 +61,11 @@ block EnergyMassFlow
      final order=1,
      f_cut=5/(2*Modelica.Constants.pi*120),
      final init=Modelica.Blocks.Types.Init.InitialOutput,
-     final y_start=0,
+     final y_start=1,
      final analogFilter=Modelica.Blocks.Types.AnalogFilter.CriticalDamping,
      final filterType=Modelica.Blocks.Types.FilterType.LowPass,
      x(each stateSelect=StateSelect.always,
-       each start=0))
+       each start=1))
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 protected
   Real rat_m_flow_cha
@@ -80,14 +80,12 @@ equation
   // TODO: regularize
   rat_m_flow_cor = rat_m_flow_cha * abs((TSupSet - TLoa) *
     Utilities.Math.Functions.inverseXRegularized(TSup_actual - TLoa, 0.1));
+  // rat_m_flow_cor = filter.y;
   filter.u = rat_m_flow_cor;
   // TODO: smoothmin/max
-  // TODO:
-  m_flow = homotopy(
-    actual=max(
+  m_flow = max(
       fra_m_flow_min,
-      min(filter.y, 1)) * m_flow_nominal,
-    simplified=rat_m_flow_cha * m_flow_nominal);
+      min(filter.y, 1)) * m_flow_nominal;
   rat2_m_flow_cor = if have_pum then 1 else
     Buildings.Utilities.Math.Functions.smoothLimit(
       x=m_flow_actual * Utilities.Math.Functions.inverseXRegularized(
@@ -104,15 +102,15 @@ equation
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>
-TODO: test first-order filter.
+TODO:
 Criteria for unmet load: 
 moving average of Q_flow difference AND 
 supply temperature mismatch (because a permanent temperature mismatch
 only leads to a transient mismatch in Q_flow, so the user
 can have bad insight on degraded operating conditions.)
 Include On/Off signal or Boolean for zero flow rate at zero load.
-Currently Q_flow_actual computed with unfiltered flow rate: validate
-that this will not create issues when mass flow transitions from 0.
+Decide if the filtered mass flow rate is better to compute Q_flow_actual
+cf. risk when transitioning from zero mass flow.
 </p>
 <p>
 This block approximates the relationship between a cumulated load

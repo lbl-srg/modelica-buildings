@@ -10,13 +10,13 @@ createPlot(
     grid=true);
 createPlot(
     id=1,
-    y={"masFlo.m_flow_nominal", "masFlo.m_flow"},
+    y={"masFlo.m_flow_nominal", "masFlo.m_flow", "masFlo.m_flow_actual"},
     grid=true,
     subPlot=102);
 createPlot(
     id=2,
     position={729, 27, 760, 888},
-    y={"loa.y[2]", "hex.Q2_flow", "movMea.y", "Q_flow_nominal"},
+    y={"loa.y[2]", "senDifEntFlo.dH_flow", "movMea.y", "Q_flow_nominal"},
     grid=true);
 createPlot(
     id=3,
@@ -26,6 +26,34 @@ createPlot(
 createPlot(
     id=3,
     y={"masFlo.Q_flow"},
-    grid=true, subPlot=102);
+    grid=true,
+    subPlot=102);
 plotExpression(apply( -EnergyMassFlow.masFlo.Q_flow_actual), false, "-masFlo.Q_flow_actual", 3);
 plotExpression(apply( -EnergyMassFlow.masFlo.Q_flow_residual), false, "-masFlo.Q_flow_residual", 3);
+createPlot(
+    id=4,
+    position={23, 947, 694, 886},
+    y={"temSupSet.y", "senTSup1.T", "senTRet1.T"},
+    grid=true);
+createPlot(
+    id=4,
+    y={"masFlo1.m_flow_nominal", "masFlo1.m_flow", "masFlo1.m_flow_actual"},
+    grid=true,
+    subPlot=2);
+createPlot(
+    id=5,
+    position={729, 947, 760, 888},
+    y={"loa.y[2]", "senDifEntFlo1.dH_flow", "movMea1.y", "Q_flow_nominal"},
+    grid=true);
+createPlot(
+    id=6,
+    position={1495, 947, 714, 890},
+    y={"NMBE1.y"},
+    grid=true);
+createPlot(
+    id=6,
+    y={"masFlo1.Q_flow"},
+    grid=true,
+    subPlot=2);
+plotExpression(apply( -EnergyMassFlow.masFlo1.Q_flow_actual), false, "-masFlo1.Q_flow_actual", 6);
+plotExpression(apply( -EnergyMassFlow.masFlo1.Q_flow_residual), false, "-masFlo1.Q_flow_residual", 6);
