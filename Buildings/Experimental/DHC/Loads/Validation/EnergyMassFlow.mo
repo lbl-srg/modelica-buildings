@@ -61,7 +61,7 @@ model EnergyMassFlow
   Fluid.Sources.Boundary_pT serSup(
     redeclare package Medium = Medium,
     p=Medium.p_default + 10E4,
-    T=TSupSer_nominal - 40,
+    T=TSupSer_nominal - 30,
     nPorts=1) "Service supply"
     annotation (Placement(transformation(extent={{-240,-30},{-220,-10}})));
   Fluid.Actuators.Valves.TwoWayEqualPercentage val(
