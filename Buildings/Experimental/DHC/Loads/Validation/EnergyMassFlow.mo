@@ -38,7 +38,7 @@ model EnergyMassFlow
     columns={2,3,4},
     smoothness=Modelica.Blocks.Types.Smoothness.MonotoneContinuousDerivative1)
     "Reader for thermal loads (y[1] is cooling load, y[2] is heating load)"
-    annotation (Placement(transformation(extent={{-240,110},{-220,130}})));
+    annotation (Placement(transformation(extent={{-242,-130},{-222,-110}})));
   Fluid.HeatExchangers.PlateHeatExchangerEffectivenessNTU hex(
     redeclare package Medium1=Medium,
     redeclare package Medium2=Medium,
@@ -78,7 +78,7 @@ model EnergyMassFlow
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant temSupSet(
     y(final unit="K", displayUnit="degC"),
     k=TSupSet_nominal)
-    annotation (Placement(transformation(extent={{-240,50},{-220,70}})));
+    annotation (Placement(transformation(extent={{-240,-170},{-220,-150}})));
   Fluid.Movers.FlowControlled_m_flow pum(
     redeclare package Medium=Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
@@ -237,9 +237,9 @@ equation
     annotation (Line(points={{-148,20},{-120,20},{-120,-8}},
                                                           color={0,0,127}));
   connect(temSupSet.y, conPID.u_s)
-    annotation (Line(points={{-218,60},{-200,60},{-200,20},{-172,20}},
+    annotation (Line(points={{-218,-160},{-200,-160},{-200,20},{-172,20}},
                                                    color={0,0,127}));
-  connect(loa.y[2], masFlo.Q_flow) annotation (Line(points={{-219,120},{0,120},
+  connect(loa.y[2], masFlo.Q_flow) annotation (Line(points={{-221,-120},{0,-120},
           {0,49},{18,49}},    color={0,0,127}));
   connect(heaFlo.port, del.heatPort) annotation (Line(points={{100,0},{100,-10},
           {110,-10}},         color={191,0,0}));
@@ -249,12 +249,11 @@ equation
   connect(movMea.u, add2.y)
     annotation (Line(points={{128,140},{120,140},{120,120},{102,120}},
                                                  color={0,0,127}));
-  connect(loa.y[2], add2.u1) annotation (Line(points={{-219,120},{60,120},{60,
+  connect(loa.y[2], add2.u1) annotation (Line(points={{-221,-120},{60,-120},{60,
           126},{78,126}},
                      color={0,0,127}));
-  connect(temSupSet.y, masFlo.TSupSet) annotation (Line(points={{-218,60},{-100,
-          60},{-100,40},{10,40},{10,43},{18,43}},
-                                    color={0,0,127}));
+  connect(temSupSet.y, masFlo.TSupSet) annotation (Line(points={{-218,-160},{-4,
+          -160},{-4,43},{18,43}},   color={0,0,127}));
   connect(senTSup.T, masFlo.TSup_actual)
     annotation (Line(points={{-60,-9},{-60,37},{18,37}},    color={0,0,127}));
   connect(pum.port_b, del.ports[1])
@@ -275,7 +274,7 @@ equation
                              color={0,127,255}));
   connect(booleanExpression.y, int1.trigger) annotation (Line(points={{121,60},
           {180,60},{180,68}},  color={255,0,255}));
-  connect(loa.y[2], int1.u) annotation (Line(points={{-219,120},{0,120},{0,80},
+  connect(loa.y[2], int1.u) annotation (Line(points={{-221,-120},{0,-120},{0,80},
           {168,80}}, color={0,0,127}));
   connect(int1.y, NMBE.u2) annotation (Line(points={{191,80},{200,80},{200,84},
           {208,84}},  color={0,0,127}));
@@ -307,10 +306,11 @@ equation
     annotation (Line(points={{60,-228},{60,-222}}, color={0,0,127}));
   connect(senTSup.port_b, senMasFlo.port_a)
     annotation (Line(points={{-50,-20},{-30,-20}}, color={0,127,255}));
-  connect(loa.y[2], masFlo1.Q_flow) annotation (Line(points={{-219,120},{0,120},
-          {0,-171},{18,-171}},   color={0,0,127}));
-  connect(temSupSet.y, masFlo1.TSupSet) annotation (Line(points={{-218,60},{
-          -200,60},{-200,-180},{0,-180},{0,-177},{18,-177}},color={0,0,127}));
+  connect(loa.y[2], masFlo1.Q_flow) annotation (Line(points={{-221,-120},{0,
+          -120},{0,-171},{18,-171}},
+                                 color={0,0,127}));
+  connect(temSupSet.y, masFlo1.TSupSet) annotation (Line(points={{-218,-160},{
+          -4,-160},{-4,-177},{18,-177}},                    color={0,0,127}));
   connect(masFlo1.m_flow, gai.u)
     annotation (Line(points={{42,-174},{60,-174},{60,-198}}, color={0,0,127}));
   connect(masFlo1.Q_flow_actual, hea1.u) annotation (Line(points={{42,-180},{
@@ -327,7 +327,7 @@ equation
   connect(movMea1.u, add1.y) annotation (Line(points={{128,-80},{120,-80},{120,
           -100},{102,-100}},
                       color={0,0,127}));
-  connect(loa.y[2],add1. u1) annotation (Line(points={{-219,120},{60,120},{60,
+  connect(loa.y[2],add1. u1) annotation (Line(points={{-221,-120},{0,-120},{0,
           -94},{78,-94}},
                      color={0,0,127}));
   connect(add1.y, int2.u) annotation (Line(points={{102,-100},{120,-100},{120,
@@ -339,8 +339,8 @@ equation
   connect(booleanExpression1.y, int3.trigger) annotation (Line(points={{121,
           -160},{180,-160},{180,-152}},
                                   color={255,0,255}));
-  connect(loa.y[2],int3. u) annotation (Line(points={{-219,120},{0,120},{0,-140},
-          {168,-140}},
+  connect(loa.y[2],int3. u) annotation (Line(points={{-221,-120},{0,-120},{0,
+          -140},{168,-140}},
                      color={0,0,127}));
   connect(int3.y, NMBE1.u2) annotation (Line(points={{191,-140},{200,-140},{200,
           -136},{208,-136}}, color={0,0,127}));
@@ -353,9 +353,10 @@ equation
   connect(senDifEntFlo1.port_a2, senTRet1.port_b) annotation (Line(points={{
           -150,-266},{-140,-266},{-140,-280},{-70,-280}}, color={0,127,255}));
   connect(senTSup1.port_a, senDifEntFlo1.port_b1) annotation (Line(points={{-70,
-          -240},{-140,-240},{-140,-254},{-150,-254}}, color={0,127,255}));
+          -240},{-144,-240},{-144,-254},{-150,-254}}, color={0,127,255}));
   connect(senDifEntFlo1.dH_flow, add1.u2) annotation (Line(points={{-148,-257},
-          {-80,-257},{-80,-120},{60,-120},{60,-106},{78,-106}}, color={0,0,127}));
+          {-140,-257},{-140,-100},{70,-100},{70,-106},{78,-106}},
+                                                                color={0,0,127}));
   connect(serSup.ports[1], senDifEntFlo.port_a1) annotation (Line(points={{-220,
           -20},{-180,-20},{-180,-34},{-170,-34}}, color={0,127,255}));
   connect(senDifEntFlo.port_b1, val.port_a) annotation (Line(points={{-150,-34},
@@ -365,7 +366,7 @@ equation
   connect(senDifEntFlo.port_b2, serRet.ports[1]) annotation (Line(points={{-170,
           -46},{-180,-46},{-180,-60},{-220,-60}}, color={0,127,255}));
   connect(senDifEntFlo.dH_flow, add2.u2) annotation (Line(points={{-148,-37},{
-          -110,-37},{-110,-28},{-80,-28},{-80,100},{70,100},{70,114},{78,114}},
+          -140,-37},{-140,100},{70,100},{70,114},{78,114}},
         color={0,0,127}));
   annotation (Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-260,-320},{260,160}})),
