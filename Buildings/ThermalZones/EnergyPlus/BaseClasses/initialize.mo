@@ -19,8 +19,7 @@ external "C" ModelicaSpawnInstantiate(
     Documentation(
       info="<html>
 <p>
-External function that generates the EnergyPlus FMU and
-returns the parameters for this Modelica object.
+External function that generates the EnergyPlus FMU.
 </p>
 </html>",
       revisions="<html>
