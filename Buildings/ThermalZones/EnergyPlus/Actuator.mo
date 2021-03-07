@@ -1,5 +1,5 @@
 within Buildings.ThermalZones.EnergyPlus;
-model Actuator
+block Actuator
   "Block to write to an EnergyPlus actuator"
   extends Buildings.ThermalZones.EnergyPlus.BaseClasses.PartialEnergyPlusObject;
   extends Buildings.ThermalZones.EnergyPlus.BaseClasses.Synchronize.ObjectSynchronizer;

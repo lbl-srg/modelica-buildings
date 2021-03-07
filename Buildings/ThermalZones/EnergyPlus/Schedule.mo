@@ -1,5 +1,5 @@
 within Buildings.ThermalZones.EnergyPlus;
-model Schedule
+block Schedule
   "Block to write to an EnergyPlus schedule"
   extends Buildings.ThermalZones.EnergyPlus.BaseClasses.PartialEnergyPlusObject;
   extends Buildings.ThermalZones.EnergyPlus.BaseClasses.Synchronize.ObjectSynchronizer;

@@ -1,6 +1,6 @@
 within Buildings.ThermalZones.EnergyPlus;
 model OutputVariable
-  "Block to read an EnergyPlus output variable for use in Modelica"
+  "Block to read an EnergyPlus output variable"
   extends Buildings.ThermalZones.EnergyPlus.BaseClasses.PartialEnergyPlusObject;
   extends Buildings.ThermalZones.EnergyPlus.BaseClasses.Synchronize.ObjectSynchronizer;
 

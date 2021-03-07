@@ -1,6 +1,6 @@
 within Buildings.ThermalZones.EnergyPlus;
 model Building
-  "Model that declares a building to which thermal zones belong to"
+  "Model that declares a building to which EnergyPlus objects belong to"
   extends Modelica.Blocks.Icons.Block;
   final constant String modelicaNameBuilding=getInstanceName()
     "Name of this instance"
