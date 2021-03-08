@@ -1,5 +1,6 @@
 within Buildings.ThermalZones.EnergyPlus.BaseClasses.Synchronize;
-model SynchronizeModel "Model to synchronize the Spawn objects"
+model SynchronizeBuilding
+  "Model to synchronize the Spawn objects that belong to a building"
   Buildings.ThermalZones.EnergyPlus.BaseClasses.Synchronize.SynchronizeConnector
     synchronize "Connector that is used to synchronize objects";
 
@@ -16,4 +17,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end SynchronizeModel;
+end SynchronizeBuilding;

@@ -241,7 +241,7 @@ equation
 
   QCon_flow=QConLast_flow+(T-TRooLast)*dQCon_flow_dT;
 
-  sync.synchronize.done = nObj;
+  synBui.synchronize.done = nObj;
 
   annotation (
     defaultComponentName="fmuZon",

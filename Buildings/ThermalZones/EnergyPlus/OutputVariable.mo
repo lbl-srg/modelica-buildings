@@ -105,7 +105,7 @@ equation
     tNext = yEP[2];
   end when;
 
-  nObj = sync.synchronize.done;
+  nObj =synBui.synchronize.done;
 
   annotation (
     defaultComponentName="out",

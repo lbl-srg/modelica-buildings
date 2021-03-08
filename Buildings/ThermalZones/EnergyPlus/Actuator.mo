@@ -83,7 +83,7 @@ equation
 
   y = yEP[1];
 
-  nObj = sync.synchronize.done;
+  nObj =synBui.synchronize.done;
 
   annotation (
     defaultComponentName="act",
