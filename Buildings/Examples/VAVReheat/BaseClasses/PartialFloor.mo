@@ -107,7 +107,7 @@ partial model PartialFloor "Interface for a model of a floor of a building"
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temAirWes
     "Air temperature sensor"
     annotation (Placement(transformation(extent={{292,248},{312,268}})));
-  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temAirPer5
+  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temAirCor
     "Air temperature sensor"
     annotation (Placement(transformation(extent={{294,218},{314,238}})));
   Modelica.Blocks.Routing.Multiplex5 multiplex5_1
@@ -192,7 +192,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
-  connect(temAirPer5.T, multiplex5_1.u5[1]) annotation (Line(
+  connect(temAirCor.T, multiplex5_1.u5[1]) annotation (Line(
       points={{314,228},{322,228},{322,228},{332,228},{332,280},{338,280}},
       color={0,0,127},
       smooth=Smooth.None,
