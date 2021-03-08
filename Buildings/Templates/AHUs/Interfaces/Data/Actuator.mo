@@ -2,6 +2,14 @@ within Buildings.Templates.AHUs.Interfaces.Data;
 record Actuator
   extends Modelica.Icons.Record;
 
+  outer parameter Modelica.SIunits.MassFlowRate mWat_flow_nominal(min=0)
+    "Liquid mass flow rate"
+    annotation(Dialog(group = "Nominal condition"));
+  outer parameter Modelica.SIunits.PressureDifference dpWat_nominal(
+    displayUnit="Pa")
+    "Liquid pressure drop"
+    annotation(Dialog(group = "Nominal condition"));
+
   outer parameter String funStr
     "String used to fetch coil parameters";
   outer parameter String id=""

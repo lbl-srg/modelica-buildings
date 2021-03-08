@@ -67,12 +67,12 @@
         "Supply fan": {
             "Total pressure rise": 1000,
             "Fan efficiency": 0.70,
-            "Pressure curve": [[0, 1.5],[1,1],[2,0]]
+            "Pressure curve": [[0,1.5],[1,1],[2,0]]
         },
         "Return fan": {
             "Total pressure rise": 600,
             "Fan efficiency": 0.70,
-            "Pressure curve": [[0, 1.5],[1,1],[2,0]]
+            "Pressure curve": [[0,1.5],[1,1],[2,0]]
         }
     }
 }

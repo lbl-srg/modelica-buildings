@@ -8,10 +8,9 @@ record TwoWayValve
     dat.getReal(varName=id + "." + funStr + " coil valve.Pressure drop")
     "Nominal pressure drop of fully open valve"
     annotation(Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.PressureDifference dpFixed_nominal(
+  final parameter Modelica.SIunits.PressureDifference dpFixed_nominal(
     displayUnit="Pa",
-    min=0)=
-    dat.getReal(varName=id + "." + funStr + " coil.Liquid pressure drop")
+    min=0)=dpWat_nominal
     "Nominal pressure drop of pipes and other equipment in flow leg"
     annotation(Dialog(group="Nominal condition"));
 end TwoWayValve;

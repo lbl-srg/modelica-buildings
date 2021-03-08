@@ -2,16 +2,15 @@ within Buildings.Templates.AHUs.Coils.Actuators;
 model TwoWayValve "Two-way valve"
   extends Interfaces.Actuator(
     final typ=Types.Actuator.TwoWayValve);
-
-  outer parameter Buildings.Templates.AHUs.Coils.Data.WaterBased
-    dat annotation (Placement(transformation(extent={{-10,-98},{10,-78}})));
+  extends Data.TwoWayValve
+    annotation (IconMap(primitivesVisible=false));
 
   replaceable Fluid.Actuators.Valves.TwoWayEqualPercentage val
     constrainedby Fluid.Actuators.BaseClasses.PartialTwoWayValve(
       redeclare final package Medium=Medium,
-      final m_flow_nominal=dat.mWat_flow_nominal,
-      final dpValve_nominal=dat.datAct.dpValve_nominal,
-      final dpFixed_nominal=dat.datAct.dpFixed_nominal)
+      final m_flow_nominal=mWat_flow_nominal,
+      final dpValve_nominal=dpValve_nominal,
+      final dpFixed_nominal=dpFixed_nominal)
     "Valve"
     annotation (
       choicesAllMatching=true,

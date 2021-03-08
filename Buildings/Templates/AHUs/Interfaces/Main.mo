@@ -24,7 +24,7 @@ partial model Main "Main interface class"
   inner parameter String id=""
     "System identifier";
 
-  parameter Integer nTer = 0
+  inner parameter Integer nTer = 0
     "Number of terminal units served by the AHU";
 
   Modelica.Fluid.Interfaces.FluidPort_a port_Out(

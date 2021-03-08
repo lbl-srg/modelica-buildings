@@ -1,27 +1,39 @@
 within Buildings.Templates.AHUs.Interfaces;
 partial block Controller
 
-  parameter Types.Economizer typEco
+  outer parameter Types.Economizer typEco
     "Type of economizer"
     annotation (Evaluate=true,
       Dialog(group="Economizer"));
-  parameter Types.Coil typCoiCoo
+  outer parameter Types.Coil typCoiCoo
     "Type of cooling coil"
     annotation (Evaluate=true,
       Dialog(group="Cooling coil"));
-  parameter Types.Actuator typActCoiCoo
+  outer parameter Types.Actuator typActCoiCoo
     "Type of cooling coil actuator"
     annotation (Evaluate=true,
       Dialog(group="Cooling coil"));
-  parameter Types.HeatExchanger typHexCoiCoo
+  outer parameter Types.HeatExchanger typHexCoiCoo
     "Type of cooling coil heat exchanger"
     annotation (Evaluate=true,
       Dialog(group="Cooling coil"));
-  parameter Types.Fan typFanSup
+  outer parameter Types.Coil typCoiHea
+    "Type of heating coil"
+    annotation (Evaluate=true,
+      Dialog(group="Cooling coil"));
+  outer parameter Types.Actuator typActCoiHea
+    "Type of heating coil actuator"
+    annotation (Evaluate=true,
+      Dialog(group="Cooling coil"));
+  outer parameter Types.HeatExchanger typHexCoiHea
+    "Type of heating coil heat exchanger"
+    annotation (Evaluate=true,
+      Dialog(group="Cooling coil"));
+  outer parameter Types.Fan typFanSup
     "Type of supply fan"
     annotation (Evaluate=true,
       Dialog(group="Supply fan"));
-  parameter Integer nTer = 0
+  outer parameter Integer nTer = 0
     "Number of terminal units served by the AHU";
 
   BaseClasses.AhuBus ahuBus
