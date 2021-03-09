@@ -151,8 +151,8 @@ if __name__ == "__main__":
     # Commit, see https://gitlab.com/kylebenne/spawn/-/pipelines?scope=all&page=1
     # Also available is latest/Spawn-latest-{Linux,win64,Darwin}
     # The setup below lead to a specific commit being pulled.
-    commit = "b47b0c49ca"
-    name_version = f"Spawn-0.0.1-{commit}"
+    commit = "790a074540d60b8a31f28f88cba288b7a13d12ba"
+    name_version = f"Spawn-0.0.1-{commit[0:10]}"
 
     dists = list()
     dists.append(
@@ -181,8 +181,8 @@ if __name__ == "__main__":
         }
     )
 
-    # p = Pool(2)
-    # p.map(get_distribution, dists)
+    p = Pool(2)
+    p.map(get_distribution, dists)
     vars = [
         {
             "spawnFlag": "--output-vars",

@@ -58,7 +58,7 @@ protected
     inpNames = {"T"},
     inpUnits = {"K"},
     nInp = nInp,
-    outNames = {"Q_Flow"},
+    outNames = {"Q_flow"},
     outUnits = {"W"},
     nOut = nOut,
     derivatives_structure = {{1, 1}},
@@ -128,7 +128,7 @@ equation
   Q_flow=QLast_flow+(T-TLast)*dQ_flow_dT;
   q_flow = Q_flow/A;
 
-  nObj = sync.synchronize.done;
+  nObj = synBui.synchronize.done;
 
   annotation (
     defaultComponentName="sur",
