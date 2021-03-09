@@ -1,5 +1,5 @@
 within Buildings.ThermalZones.EnergyPlus;
-model Schedule
+block Schedule
   "Block to write to an EnergyPlus schedule"
   extends Buildings.ThermalZones.EnergyPlus.BaseClasses.PartialEnergyPlusObject;
   extends Buildings.ThermalZones.EnergyPlus.BaseClasses.Synchronize.ObjectSynchronizer;
@@ -76,7 +76,7 @@ equation
 
   y = yEP[1];
 
-  nObj = sync.synchronize.done;
+  nObj =synBui.synchronize.done;
 
   annotation (
     defaultComponentName="sch",

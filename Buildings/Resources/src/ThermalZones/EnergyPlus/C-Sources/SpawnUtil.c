@@ -575,12 +575,12 @@ void buildVariableNames(
 
     *ptrVarNames = (char**)malloc(nVar * sizeof(char*));
     if (*ptrVarNames == NULL)
-      SpawnFormatError("Failed to allocate memory for ptrVarNames in EnergyPlusSpawnInstantiate.c. for %s", name);
+      SpawnFormatError("Failed to allocate memory for ptrVarNames in EnergyPlusSpawnInitialize.c. for %s", name);
 
     for (i=0; i<nVar; i++){
       mallocString(
         len+1,
-        "Failed to allocate memory for ptrVarNames[i] in EnergyPlusSpawnInstantiate.c.",
+        "Failed to allocate memory for ptrVarNames[i] in EnergyPlusSpawnInitialize.c.",
         &((*ptrVarNames)[i]),
         SpawnFormatError);
     }
@@ -600,12 +600,12 @@ void buildVariableNames(
 
     *ptrFMINames = (char**)malloc(nVar * sizeof(char*));
     if (*ptrFMINames == NULL)
-      SpawnFormatError("Failed to allocate memory for ptrFMINames in EnergyPlusSpawnInstantiate.c for %s.", name);
+      SpawnFormatError("Failed to allocate memory for ptrFMINames in EnergyPlusSpawnInitialize.c for %s.", name);
 
     for (i=0; i<nVar; i++){
       mallocString(
         len+1,
-        "Failed to allocate memory for ptrFMINames[i] in EnergyPlusSpawnInstantiate.c.",
+        "Failed to allocate memory for ptrFMINames[i] in EnergyPlusSpawnInitialize.c.",
         &((*ptrFMINames)[i]),
         SpawnFormatError);
     }

@@ -13,9 +13,9 @@
 #include <stdio.h>
 
 
-/* This function is called for each Spawn object in the 'initial equation section'
+/* This function is called for each Spawn object in the 'initial equation' section
 */
-void EnergyPlusSpawnInstantiate(
+void EnergyPlusSpawnInitialize(
     void* object,
     int *nObj){
   SpawnObject* ptrSpaObj = (SpawnObject*) object;
@@ -23,10 +23,10 @@ void EnergyPlusSpawnInstantiate(
   const char* modelicaName = ptrSpaObj->modelicaName;
 
   if (bui->logLevel >= MEDIUM){
-    bui->SpawnFormatMessage("%.3f %s: Entered EnergyPlusSpawnInstantiate.\n", bui->time, modelicaName);
+    bui->SpawnFormatMessage("%.3f %s: Entered EnergyPlusSpawnInitialize.\n", bui->time, modelicaName);
   }
   if (bui == NULL){
-    bui->SpawnFormatError("Pointer bui is NULL in EnergyPlusSpawnInstantiate for %s. For Dymola 2020x, make sure you set 'Hidden.AvoidDoubleComputation=true'. See Buildings.ThermalZones.EnergyPlus.UsersGuide.", modelicaName);
+    bui->SpawnFormatError("Pointer bui is NULL in EnergyPlusSpawnInitialize for %s. For Dymola 2020x, make sure you set 'Hidden.AvoidDoubleComputation=true'. See Buildings.ThermalZones.EnergyPlus.UsersGuide.", modelicaName);
   }
   if (bui->fmu == NULL){
     /* EnergyPlus is not yet loaded.
@@ -51,7 +51,7 @@ void EnergyPlusSpawnInstantiate(
   getVariables(bui, modelicaName, ptrSpaObj->parameters);
 
   /* Assign nObj to synchronize all Spawn objects of this building */
-  *nObj = 1;
+  *nObj = (int)bui->nExcObj;
 
   /* Set flag to indicate that this Spawn object has been properly initialized */
   ptrSpaObj->isInstantiated = fmi2True;
