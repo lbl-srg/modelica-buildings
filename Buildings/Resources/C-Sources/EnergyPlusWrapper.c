@@ -99,11 +99,11 @@ void* ModelicaSpawnAllocate(
       ModelicaFormatError);
   }
 
-void ModelicaSpawnInstantiate(
+void ModelicaSpawnInitialize(
     void* object,
     double isSynchronized,
     int *nObj){
-      EnergyPlusSpawnInstantiate(object, nObj);
+      EnergyPlusSpawnInitialize(object, nObj);
 }
 
 void ModelicaSpawnGetParameters(

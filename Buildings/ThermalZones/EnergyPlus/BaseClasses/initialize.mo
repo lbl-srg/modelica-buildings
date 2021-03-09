@@ -7,7 +7,7 @@ function initialize
   input Real isSynchronized "Set to variable that is used to synchronize the objects";
   output Integer nObj
     "Returns 1 from C, used to force synchronization";
-external "C" ModelicaSpawnInstantiate(
+external "C" ModelicaSpawnInitialize(
   adapter,
   isSynchronized,
   nObj)
@@ -19,7 +19,7 @@ external "C" ModelicaSpawnInstantiate(
     Documentation(
       info="<html>
 <p>
-External function to obtain parameters from the EnergyPlus FMU.
+External function that generates the EnergyPlus FMU.
 </p>
 </html>",
       revisions="<html>
