@@ -24,7 +24,7 @@ partial model Main "Main interface class"
   inner parameter String id=""
     "System identifier";
 
-  inner parameter Integer numZon = 0
+  inner parameter Integer nZon = 0
     "Number of served zones";
 
   Modelica.Fluid.Interfaces.FluidPort_a port_Out(
@@ -68,7 +68,7 @@ partial model Main "Main interface class"
           extent={{-310,-90},{-290,-70}}), iconTransformation(extent={{-210,90},
             {-190,110}})));
 
-  Templates.BaseClasses.TerminalBus terBus[numZon]
+  Templates.BaseClasses.TerminalBus terBus[nZon]
     "Terminal unit control bus"
     annotation (
       Placement(transformation(
