@@ -1,11 +1,7 @@
 within Buildings.Templates.AHUs.Interfaces.Data;
-record Sensor
+record Economizer
   extends Modelica.Icons.Record;
-  parameter Types.Branch bra
-    "Branch where the equipment is installed"
-    annotation (Evaluate=true, Dialog(group="Configuration"));
-  final parameter String insNam = getInstanceName()
-    "Instance name";
+
   outer parameter String id
     "System identifier";
   outer parameter ExternData.JSONFile dat
@@ -13,4 +9,4 @@ record Sensor
     annotation (Placement(transformation(extent={{76,76},{96,96}})));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
-end Sensor;
+end Economizer;

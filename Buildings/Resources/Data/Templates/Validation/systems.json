@@ -6,6 +6,7 @@
             "Pressure drop": 100
         },
         "Economizer": {
+            "Minimum OA mass flow rate": 1,
             "Minimum OA damper pressure drop": 20,
             "OA damper pressure drop": 20,
             "RA damper pressure drop": 20,

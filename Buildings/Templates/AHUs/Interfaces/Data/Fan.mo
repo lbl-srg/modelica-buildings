@@ -1,6 +1,7 @@
 within Buildings.Templates.AHUs.Interfaces.Data;
 record Fan
   extends Modelica.Icons.Record;
+
   final parameter String braStr=
     if Modelica.Utilities.Strings.find(insNam, "fanSup")<>0 then "Supply"
     elseif Modelica.Utilities.Strings.find(insNam, "fanRet")<>0 then "Return"
@@ -10,7 +11,7 @@ record Fan
     annotation (Evaluate=true, Dialog(group="Configuration"));
   final parameter String insNam = getInstanceName()
     "Instance name";
-  outer parameter String id=""
+  outer parameter String id
     "System identifier";
   outer parameter ExternData.JSONFile dat
     "External parameter file"

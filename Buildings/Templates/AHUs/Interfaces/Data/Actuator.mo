@@ -12,7 +12,7 @@ record Actuator
 
   outer parameter String funStr
     "String used to fetch coil parameters";
-  outer parameter String id=""
+  outer parameter String id
     "System identifier";
   outer parameter ExternData.JSONFile dat
     "External parameter file"

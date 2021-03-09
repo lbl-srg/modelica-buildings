@@ -12,6 +12,7 @@ record SingleVariable
     "Total pressure rise"
     annotation (
       Dialog(group="Nominal condition"));
+
   replaceable parameter Buildings.Fluid.Movers.Data.Generic per(
     pressure(
       V_flow={0,m_flow_nominal,2*m_flow_nominal}/1.2,
@@ -19,5 +20,5 @@ record SingleVariable
     constrainedby Buildings.Fluid.Movers.Data.Generic
     "Record with performance data"
     annotation (choicesAllMatching=true,
-      Placement(transformation(extent={{-82,-86},{-62,-66}})));
+      Placement(transformation(extent={{-90,-88},{-70,-68}})));
 end SingleVariable;

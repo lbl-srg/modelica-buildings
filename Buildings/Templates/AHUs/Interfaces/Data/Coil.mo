@@ -22,7 +22,7 @@ record Coil
     annotation(Evaluate=true, Dialog(group="Configuration"));
   final parameter String insNam = getInstanceName()
     "Instance name";
-  outer parameter String id=""
+  outer parameter String id
     "System identifier";
   outer parameter ExternData.JSONFile dat
     "External parameter file"

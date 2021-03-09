@@ -33,7 +33,7 @@ partial block Controller
     "Type of supply fan"
     annotation (Evaluate=true,
       Dialog(group="Supply fan"));
-  outer parameter Integer nTer = 0
+  outer parameter Integer nTer
     "Number of terminal units served by the AHU";
 
   BaseClasses.AhuBus ahuBus

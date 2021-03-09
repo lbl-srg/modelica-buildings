@@ -28,19 +28,16 @@ block Dummy "Dummy controller with constant signals"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-20,110})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yFanSupVar(k=1) if
-    typFanSup==Types.Fan.SingleVariable or
-    typFanSup==Types.Fan.MultipleVariable
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant ySpeFanSup(k=1)
     annotation (Placement(transformation(
-    extent={{-10,-10},{10,10}},
-    rotation=-90,
-    origin={120,70})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant yFanSupCst(k=true) if
-    typFanSup==Types.Fan.SingleConstant
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={120,70})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant yFanSup(k=true)
     annotation (Placement(transformation(
-    extent={{-10,-10},{10,10}},
-    rotation=-90,
-    origin={160,70})));
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={160,70})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yEcoOutMin(k=1)
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -58,7 +55,7 @@ equation
     // Non graphical connections - START
   connect(yCoiCooVar.y, ahuBus.ahuO.yCoiCoo);
   connect(yCoiHeaVar.y, ahuBus.ahuO.yCoiHea);
-  connect(yFanSupCst.y, ahuBus.ahuO.yFanSup);
+  connect(yFanSup.y, ahuBus.ahuO.yFanSup);
   // Non graphical connections - STOP
   connect(yEcoOut.y, ahuBus.ahuO.yEcoOut)
     annotation (Line(points={{-180,158},{-180,
@@ -87,9 +84,8 @@ equation
       index=1,
       extent={{-3,-6},{-3,-6}},
       horizontalAlignment=TextAlignment.Right));
-  connect(yFanSupVar.y, ahuBus.ahuO.yFanSup) annotation (Line(points={{120,58},{
-          120,50},{20,50},{20,0.1},{-200.1,0.1}},
-                                                color={0,0,127}), Text(
+  connect(ySpeFanSup.y, ahuBus.ahuO.ySpeFanSup) annotation (Line(points={{120,58},{
+          120,50},{20,50},{20,0.1},{-200.1,0.1}}, color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}},

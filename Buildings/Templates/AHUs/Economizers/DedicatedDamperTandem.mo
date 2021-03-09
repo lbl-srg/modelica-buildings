@@ -3,17 +3,20 @@ model DedicatedDamperTandem
   "Separate dedicated OA damper - Dampers actuated in tandem"
   extends Interfaces.Economizer(
     final typ=Types.Economizer.DedicatedDamperTandem);
+  extends Data.DedicatedDamperTandem
+    annotation (IconMap(primitivesVisible=false));
 
   Fluid.Actuators.Dampers.MixingBoxMinimumFlow mix(
     redeclare final package Medium = Medium,
-    final mOut_flow_nominal=dat.mOut_flow_nominal,
-    final mOutMin_flow_nominal=dat.mOutMin_flow_nominal,
-    final mRec_flow_nominal=dat.mRec_flow_nominal,
-    final mExh_flow_nominal=dat.mExh_flow_nominal,
-    final dpDamExh_nominal=dat.dpDamExh_nominal,
-    final dpDamOut_nominal=dat.dpDamOut_nominal,
-    final dpDamOutMin_nominal=dat.dpDamOutMin_nominal,
-    final dpDamRec_nominal=dat.dpDamRec_nominal)
+    final mOut_flow_nominal=mOut_flow_nominal,
+    final mOutMin_flow_nominal=mOutMin_flow_nominal,
+    final mRec_flow_nominal=mRec_flow_nominal,
+    final mExh_flow_nominal=mExh_flow_nominal,
+    final dpDamExh_nominal=dpDamExh_nominal,
+    final dpDamOut_nominal=dpDamOut_nominal,
+    final dpDamOutMin_nominal=dpDamOutMin_nominal,
+    final dpDamRec_nominal=dpDamRec_nominal)
+    "Mixing box"
     annotation (Placement(transformation(extent={{-10,-12},{10,8}})));
 
 equation

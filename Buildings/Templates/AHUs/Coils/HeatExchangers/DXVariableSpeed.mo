@@ -2,6 +2,8 @@ within Buildings.Templates.AHUs.Coils.HeatExchangers;
 model DXVariableSpeed
   extends Interfaces.HeatExchangerDX(
     final typ=Types.HeatExchanger.DXVariableSpeed);
+  extends Data.DXVariableSPeed
+    annotation (IconMap(primitivesVisible=false));
 
   Fluid.HeatExchangers.DXCoils.AirCooled.VariableSpeed coi(
     redeclare final package Medium = MediumAir,

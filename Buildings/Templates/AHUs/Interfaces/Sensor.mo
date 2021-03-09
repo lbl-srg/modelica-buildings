@@ -9,15 +9,6 @@ partial model Sensor
     "Branch where the equipment is installed"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput y if typ<>Types.Sensor.None
-    "Measured quantity"
-    annotation (Placement(transformation(
-        origin={0,120},
-        extent={{-20,-20},{20,20}},
-        rotation=90), iconTransformation(
-        extent={{-20,-20},{20,20}},
-        rotation=90,
-        origin={0,120})));
   Modelica.Fluid.Interfaces.FluidPort_b port_bRef(
     redeclare final package Medium = Medium,
     m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
@@ -25,6 +16,10 @@ partial model Sensor
     typ==Types.Sensor.DifferentialPressure
     "Port at the reference pressure for differential pressure sensor"
     annotation (Placement(transformation(extent={{10,-110},{-10,-90}})));
+  BaseClasses.AhuBus ahuBus
+    "AHU control bus"
+    annotation (Placement(transformation(extent={{-20,80},
+            {20,120}}), iconTransformation(extent={{-10,90},{10,110}})));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={
           Rectangle(

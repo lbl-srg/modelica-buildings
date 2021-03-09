@@ -3,9 +3,7 @@ model EconomizerDedicatedDamperTandem
   extends VAVSingleDuct(
     final id="VAV_1",
     redeclare  Economizers.DedicatedDamperTandem eco
-      "Separate dedicated OA damper - Dampers actuated in tandem",
-    redeclare replaceable record RecordEco =
-        Economizers.Data.DedicatedDamperTandem);
+      "Separate dedicated OA damper - Dampers actuated in tandem");
 
   annotation (
     defaultComponentName="ahu");

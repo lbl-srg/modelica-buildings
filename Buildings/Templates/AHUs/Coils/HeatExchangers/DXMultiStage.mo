@@ -2,6 +2,8 @@ within Buildings.Templates.AHUs.Coils.HeatExchangers;
 model DXMultiStage
   extends Interfaces.HeatExchangerDX(
     final typ=Types.HeatExchanger.DXMultiStage);
+  extends Data.DXMultiStage
+    annotation (IconMap(primitivesVisible=false));
 
   Fluid.HeatExchangers.DXCoils.AirCooled.MultiStage coi(
     redeclare final package Medium = MediumAir,
