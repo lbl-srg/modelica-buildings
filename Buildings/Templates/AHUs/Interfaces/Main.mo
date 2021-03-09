@@ -24,8 +24,8 @@ partial model Main "Main interface class"
   inner parameter String id=""
     "System identifier";
 
-  inner parameter Integer nTer = 0
-    "Number of terminal units served by the AHU";
+  inner parameter Integer numZon = 0
+    "Number of served zones";
 
   Modelica.Fluid.Interfaces.FluidPort_a port_Out(
     redeclare package Medium = MediumAir) if typ <> Types.Main.ExhaustOnly
@@ -68,7 +68,7 @@ partial model Main "Main interface class"
           extent={{-310,-90},{-290,-70}}), iconTransformation(extent={{-210,90},
             {-190,110}})));
 
-  Templates.BaseClasses.TerminalBus terBus[nTer]
+  Templates.BaseClasses.TerminalBus terBus[numZon]
     "Terminal unit control bus"
     annotation (
       Placement(transformation(
@@ -83,7 +83,7 @@ partial model Main "Main interface class"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=90,
-        origin={-300,0}),   iconTransformation(extent={{-20,-19},{20,19}},
+        origin={-300,0}), iconTransformation(extent={{-20,-19},{20,19}},
         rotation=90,
         origin={-199,160})));
 

@@ -452,6 +452,10 @@ equation
       points={{240,-190},{240,0},{-300,0}},
       color={255,204,51},
       thickness=0.5));
+  connect(TCoo.ahuBus, ahuBus) annotation (Line(
+      points={{30,-190},{32,-190},{32,0},{-300,0}},
+      color={255,204,51},
+      thickness=0.5));
   annotation (
     defaultComponentName="ahu",
     Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(

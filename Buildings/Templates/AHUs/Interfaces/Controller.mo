@@ -33,8 +33,8 @@ partial block Controller
     "Type of supply fan"
     annotation (Evaluate=true,
       Dialog(group="Supply fan"));
-  outer parameter Integer nTer
-    "Number of terminal units served by the AHU";
+  outer parameter Integer numZon
+    "Number of served zones";
 
   BaseClasses.AhuBus ahuBus
     "AHU control bus"
@@ -43,7 +43,7 @@ partial block Controller
         origin={-200,0}), iconTransformation(extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-100,0})));
-  BaseClasses.TerminalBus terBus[nTer]
+  BaseClasses.TerminalBus terBus[numZon]
     "Terminal unit control bus"
     annotation (Placement(transformation(
           extent={{-20,-20},{20,20}},
