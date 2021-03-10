@@ -15,12 +15,19 @@ def doStep(dblInp, state):
     # python script.
     tou_tmp = os.path.join(py_dir, 'toughTemp')
     
-    # Heat flux between borehole wall and ground
+    # Heat flux from borehole wall to ground: Modelica --> Tough
     Q = dblInp[:10]
     # Initial borehole wall temperature at the start of modelica simulation
     T_start = [dblInp[i] for i in range(10,20)]
     # Current time when needs to call TOUGH. This is also the end time of TOUGH simulation.
     tim = dblInp[-1]
+
+    # Find the depth of each layer
+    toughLayers = find_layer_depth('MESH')
+    add_grid_boundary(toughLayesr)
+
+    # Find Modelica layers
+    modelicaLayers = modelica_mesh()
 
     # This is the first call of this python module. There is no state yet.
     if state == None:
@@ -30,8 +37,9 @@ def doStep(dblInp, state):
         # simulation domain, template files for TOUGH simulation, and utility programs
         copy_files(os.path.join(py_dir, 'ToughFiles'), tou_tmp)
         # Initialize the state
-        state = {'tLast': tim, 'Q': Q, 'T': T_start}
-        T = T_start
+        T_tough_start = mesh_to_mesh(toughLayer, modelicaLayers, T_start, 'Mo2To')
+        state = {'tLast': tim, 'Q': Q, 'T_tough': T_tough_start}
+        T_toModelica = T_start
 
     else:
         # Use the python object
@@ -53,12 +61,15 @@ def doStep(dblInp, state):
             # Change current directory to working directory
             os.chdir(wor_dir)
 
+            # T_toTough = mesh_to_mesh(toughLayer, modelicaLayers, state['T'], 'Mo2To')
+            Q_toTough = mesh_to_mesh(toughLayer, modelicaLayers, state['Q'], 'Mo2To')
+
             # Check if there is 'GENER'. If the file does not exist, it means this is 
             # the first call of TOUGH simulation. There is no 'SAVE' yet so cannot call
             # `writeincon` to generate input files for TOUGH simulation.
             if not os.path.exists('GENER'):
                 # create initial 'GENER' file
-                initialize_gener(state['Q'], 'GENER')
+                initialize_gener(toughLayesr, Q_toTough, 'GENER')
                 # update existing 'INFILE'
                 update_infile(tLast, tim, 'INFILE', 'newINFILE')
 
@@ -76,9 +87,9 @@ def doStep(dblInp, state):
 
                 # Update `writeincon.inp` file. The `Q` is the measured heat flow from
                 # each borehole segment to ground, from Modeica in previous call.
-                # The `T` is the wall temperature of each borehole segment from
+                # The `T_tough` is the wall temperature of each borehole segment from
                 # last TOUGH simulation
-                update_writeincon('writeincon.inp', tLast, tim, state['T'], state['Q'])
+                update_writeincon('writeincon.inp', tLast, tim, state['T_tough'], Q_toTough)
 
                 # Generate TOUGH input files
                 os.system("./writeincon < writeincon.inp")
@@ -91,10 +102,12 @@ def doStep(dblInp, state):
 
             # Extract borehole wall temperature
             os.system("./readsave < readsave.inp > out.txt")
-            T = borehole_temperature('out.txt')
+            T_tough = borehole_temperature('out.txt')
+            # Output to Modelica simulation
+            T_toModelica = mesh_to_mesh(toughLayer, modelicaLayers, T_tough, 'Mo2To')
 
             # Update state
-            state = {'tLast': tim, 'Q': Q, 'T': T}
+            state = {'tLast': tim, 'Q': Q, 'T_tough': T_tough}
 
             # Empty the 'toughTemp' folder
             empty_folder(tou_tmp)
@@ -108,8 +121,7 @@ def doStep(dblInp, state):
             # Delete temporary working folder
             shutil.rmtree(wor_dir)
 
-    return [T, state]
-
+    return [T_toModelica, state]
 
 ''' Empty a folder
 '''
@@ -138,22 +150,17 @@ def copy_files(src, dest):
 
 ''' Create initial `GENER` file for the 1st call of TOUGH
 '''
-def initialize_gener(Q, fileName):
+def initialize_gener(toughLayesr, Q, fileName):
     with open(fileName, 'w') as f:
         f.write("GENER" + os.linesep)
-        f.write("  7 1sou 1                         HEAT  %10.3e" % Q[0] + os.linesep)
-        f.write("  8 1sou 2                         HEAT  %10.3e" % Q[1] + os.linesep)
-        f.write("  9 1sou 3                         HEAT  %10.3e" % Q[2] + os.linesep)
-        f.write(" 10 1sou 4                         HEAT  %10.3e" % Q[3] + os.linesep)
-        f.write(" 11 1sou 5                         HEAT  %10.3e" % Q[4] + os.linesep)
-        f.write(" 12 1sou 6                         HEAT  %10.3e" % Q[5] + os.linesep)
-        f.write(" 13 1sou 7                         HEAT  %10.3e" % Q[6] + os.linesep)
-        f.write(" 14 1sou 8                         HEAT  %10.3e" % Q[7] + os.linesep)
-        f.write(" 15 1sou 9                         HEAT  %10.3e" % Q[8] + os.linesep)
-        f.write(" 16 1sou 10                        HEAT  %10.3e" % Q[9] + os.linesep)
+        for i in range(0, len(Q)):
+            f.write("%s  1sou 1" % toughLayesr[i]['layer'] + "                         HEAT %10.3e" % Q[i] + os.linesep)
         f.write("+++" + os.linesep)
         f.write("         1         2         3         4         5         6         7         8" + os.linesep)
-        f.write("         9        10")
+        f.write("         9        10        11        12        13        14        15        16" + os.linesep)
+        f.write("        17        18        19        20        21        22        23        24" + os.linesep)
+        f.write("        25        26        27        28        29        30        31        32" + os.linesep)
+        f.write("        33" + os.linesep)
 
 ''' Update the `INFILE` file for the first TOUGH call
 '''
@@ -174,6 +181,106 @@ def update_infile(preTim, curTim, infile, outfile):
     os.remove(infile)
     os.rename(outfile, infile)
 
+''' Find Tough mesh layer depth
+'''
+def find_layer_depth(fileName):
+    fin = open(fileName)
+    count = 0
+    layers = list()
+    dz = []
+    z = []
+    dz.append(1)
+    z.append(-1.5)
+    layers.append(
+        {'layer': 'A4',
+         'z': z[0],
+         'dz': dz[0]
+        }
+    )
+    for line in fin:
+        count += 1
+        layInd = 0
+        if count >=3 and count <= 34:
+            layInd += 1
+            strSet = line.split()
+            z.append(float(strSet[-1]))
+            thickness = 2*((z[layInd-1] - dz[layInd-1]/2) - z[layInd])
+            layers.append(
+                {'layer': strSet[0],
+                 'z': z[layInd],
+                 'dz': thickness}
+            )
+    return layers
+
+''' Find Modelica mesh size
+''' 
+def modelica_mesh():
+    modelicaMeshSize = []
+    for i in range(0,110,10):
+        modelicaMeshSize.append(i)
+    return modelicaMeshSize
+
+''' Add upper and lower grid boundary
+'''
+def add_grid_boundary(layers):
+    upperBound = 0
+    lowerBound = (-1)*layers[0]['dz']
+    layers[0]['upperBound'] = upperBound
+    layers[0]['lowerBound'] = lowerBound
+    for i in range(1,len(layers)):
+        upperBound = lowerBound
+        lowerBound = upperBound - layers[i]['dz']
+        layers[i]['upperBound'] = upperBound
+        layers[i]['lowerBound'] = lowerBound
+
+''' From Modelica mesh to Tough mesh, distribute the values from Modelica elements to Tough elements
+'''
+def mesh_to_mesh(layers, modelicaLayers, variables, flag):
+    values = []
+    if (flag == 'Mo2To'):
+        for i in range(len(layers)):
+            ub = (-1) * layers[i]['upperBound']
+            lb = (-1) * layers[i]['lowerBound']
+            scenario = 0
+            for j in range(1, len(modelicaLayers)):
+                cuMe = modelicaLayers[j]
+                preMe = modelicaLayers[j-1]
+                if ((ub >= preMoMe and ub < cuMoMe) and (lb > preMoMe and lb <= cuMoMe)):
+                    scenario = 1
+                    break
+                elif (ub < cuMoMe and lb > cuMoMe and lb < modelicaLayers[-1]):
+                    scenario = 2
+                    break
+                elif (ub < modelicaLayers[-1] and lb > modelicaLayers[-1]):
+                    scenario = 3
+                    break
+                else:
+                    continue
+            if (scenario == 1 or scenario == 3):
+                values.append(variables[j-1])
+            else:
+                values.append(((cuMoMe - ub)*variables[j-1] + (lb-cuMoMe)*variables[j])/(lb-ub))
+    else: 
+        # (flag == 'To2Mo')
+        for i in range(0, len(modelicaLayers)-1):
+            cuMe = modelicaLayers[i]
+            nexMe = modelicaLayers[i+1]
+            accVar = 0
+            for j in range(len(layers)):
+                ub = (-1) * layers[j]['upperBound']
+                lb = (-1) * layers[j]['lowerBound']
+                # dz = layers[j]['dz']
+                if ((ub >= cuMe and ub < nexMe) and (lb > cuMe and lb <= nexMe)):
+                    ele = layers[j]['dz']
+                elif ((ub >= cuMe and ub <nexMe) and (lb > cuMe and lb > nexMe)):
+                    ele = nexMe - ub
+                else:
+                    # ((ub < cuMe and ub <= nexMe) and (lb > cuMe and lb <= nexMe))
+                    ele = lb - cuMe
+                accVar = accVar + ele * variables(j)
+            values.append(accVar / (nexMe - cuMe))
+    return values
+
 ''' Update the `writeincon.inp` file with the current time and state values that are
     seem as initial values of current TOUGH simulation
 '''
@@ -192,12 +299,12 @@ def update_writeincon(infile, preTim, curTim, boreholeTem, heatFlux):
             tempStr = '% 10.0f' % curTim
             fout.write(tempStr.strip() + os.linesep)
         # assign borehole wall temperature to each segment
-        elif (count >= 10 and count <= 19):
+        elif (count >= 10 and count <= 42):
             tempStr = '% 10.3f' % (boreholeTem[count-10] - 273.15)
             fout.write(tempStr.strip() + os.linesep)
         # assign heat flux to each segment
-        elif (count >= 21 and count <= 30):
-            tempStr = '% 10.3f' % heatFlux[count-21]
+        elif (count >= 44 and count <= 76):
+            tempStr = '% 10.3f' % heatFlux[count-44]
             fout.write(tempStr.strip() + os.linesep)
         else:
             fout.write(line)

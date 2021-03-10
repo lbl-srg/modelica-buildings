@@ -29,7 +29,7 @@ model ResponsePython
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),
       iconTransformation(extent={{100,-10},{120,10}})));
 
-  Buildings.Utilities.IO.Python27.Real_Real pyt(
+  Buildings.Utilities.IO.Python36.Real_Real pyt(
     moduleName="GroundResponse",
     functionName="doStep",
     nDblRea=nSeg,

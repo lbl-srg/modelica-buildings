@@ -61,13 +61,12 @@ block MainPump "Controller for main pump"
   Buildings.Controls.OBC.CDL.Continuous.Gain dTSou_nor(k=1/(sum(dTSou_nominal)))
     "Normalization of temperature difference over source"
     annotation (Placement(transformation(extent={{-10,-142},{10,-122}})));
-  Buildings.Controls.OBC.CDL.Continuous.LimPID conShi(
+  Buildings.Controls.OBC.CDL.Continuous.PID conShi(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     k=k,
     Ti(displayUnit="min") = Ti,
     final yMax=1,
-    final yMin=-1,
-    initType=Buildings.Controls.OBC.CDL.Types.Init.InitialOutput)
+    final yMin=-1)
     "Controller to shift the min/max slopes"
     annotation (Placement(transformation(extent={{20,-112},{40,-92}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(k=0)

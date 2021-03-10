@@ -30,18 +30,18 @@ model EnergyTransferStation
                  caption="Select load file")));
   final parameter Modelica.SIunits.HeatFlowRate QCoo_flow_nominal(max=-Modelica.Constants.eps)=
        scaFacLoa*gaiCoo*
-    Buildings.Experimental.DistrictHeatingCooling.SubStations.VaporCompression.BaseClasses.getPeakLoad(
+    Buildings.Experimental.DHC.Loads.BaseClasses.getPeakLoad(
     string="#Peak space cooling load", filNam=filNam) "Design heat flow rate"
     annotation (Dialog(group="Design parameter"));
   final parameter Modelica.SIunits.HeatFlowRate QHea_flow_nominal(min=Modelica.Constants.eps)=
        scaFacLoa*gaiHea*
-    Buildings.Experimental.DistrictHeatingCooling.SubStations.VaporCompression.BaseClasses.getPeakLoad(
+    Buildings.Experimental.DHC.Loads.BaseClasses.getPeakLoad(
     string="#Peak space heating load", filNam=filNam) "Design heat flow rate"
     annotation (Dialog(group="Design parameter"));
   final parameter Modelica.SIunits.HeatFlowRate QHotWat_flow_nominal(min=
         Modelica.Constants.eps) = scaFacLoa*
     gaiHotWat*
-    Buildings.Experimental.DistrictHeatingCooling.SubStations.VaporCompression.BaseClasses.getPeakLoad(
+    Buildings.Experimental.DHC.Loads.BaseClasses.getPeakLoad(
     string="#Peak water heating load", filNam=filNam)
     "Design heat flow rate for domestic hot water"
     annotation (Dialog(group="Design parameter"));
