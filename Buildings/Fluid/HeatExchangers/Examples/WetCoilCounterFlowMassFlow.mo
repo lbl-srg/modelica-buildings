@@ -24,7 +24,6 @@ model WetCoilCounterFlowMassFlow
         T_a2_nominal,
         T_b2_nominal),
     show_T=true,
-    nEle=30,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
                              annotation (Placement(transformation(extent={{80,20},
             {100,40}})));
