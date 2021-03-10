@@ -98,7 +98,6 @@ protected
 
   parameter Boolean IsFulDry(fixed=false);
   parameter Boolean IsFulWet(fixed=false);
-  parameter Boolean IsParWet(fixed=false);
 
 initial equation
 
@@ -116,10 +115,9 @@ initial equation
 
     IsFulDry=(X_wSatTWatIn>=X_wAirIn);
     IsFulWet=(X_wSatTWatOut<=X_wAirIn);
-    IsParWet= (not IsFulDry) and (not IsFulWet);
 
-    assert(not IsParWet,
-      "Cooling coil data under partially dry condition is not allowed at this moment. " +
+    assert(IsFulDry or IsFulWet,
+      "In " + getInstanceName() + ":Cooling coil data under partially dry condition is not allowed at this moment. " +
       "Specify either fully-dry or fully-wet nominal condition");
 
     if IsFulDry then
@@ -129,7 +127,7 @@ initial equation
         TWatIn,
         TWatOut)/Tunit*hunit;
       QTot_flow=LMED*UASta;
-      cpEff= Modelica.Constants.inf*cpunit;
+      cpEff= 0;
       UA= UASta*cpunit;
     else //fully wet
       // calculation of overall UAsta based on log mean enthalpy difference
@@ -153,10 +151,9 @@ initial equation
     hAirOut=MediumA.h_default;
     IsFulDry=false;
     IsFulWet=false;
-    IsParWet=false;
     LMED=hunit;
     QTot_flow=LMED*UASta;
-    cpEff= Modelica.Constants.inf*cpunit;
+    cpEff= 0;
   end if;
 
   UAWat=UAAir/r_nominal;
