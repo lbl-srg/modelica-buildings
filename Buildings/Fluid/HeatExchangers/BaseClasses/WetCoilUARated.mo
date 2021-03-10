@@ -104,7 +104,7 @@ initial equation
   if not use_UA_nominal then
     assert(TAirOut<TAirIn and TWatOut>TWatIn and TWatIn<TAirIn,
       "The rated condition is not for a cooling coil. " +
-      "For a heating coil, use other heat exchanger models.");
+      "For a heating coil, use Buildings.Fluid.HeatExchangers.DryCoilEffectivenessNTU.");
 
     hAirIn=MediumA.specificEnthalpy_pTX(
       p=MediumA.p_default, T=TAirIn, X={X_wAirIn, 1-X_wAirIn});
