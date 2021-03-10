@@ -27,7 +27,7 @@ createPlot(
 createPlot(
     id=1,
     subPlot=3,
-    y={"RelHumOut_eps.phi", "RelHumOut_dis.phi"},
+    y={"relHumOut_eps.phi", "relHumOut_dis.phi"},
     autoscale=true,
     autoerase=true,
     autoreplot=true,

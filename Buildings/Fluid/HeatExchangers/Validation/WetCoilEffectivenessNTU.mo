@@ -53,7 +53,7 @@ model WetCoilEffectivenessNTU
     annotation (Placement(transformation(extent={{50,10},{30,30}})));
   Buildings.Utilities.Psychrometrics.ToTotalAir conversion
     annotation (Placement(transformation(extent={{190,-90},{170,-70}})));
-  Sensors.RelativeHumidityTwoPort RelHumIn(redeclare package Medium = Medium_A,
+  Sensors.RelativeHumidityTwoPort relHumIn(redeclare package Medium = Medium_A,
       m_flow_nominal=m2_flow_nominal) "Inlet relative humidity"
     annotation (Placement(transformation(extent={{40,-70},{20,-50}})));
   Sensors.TemperatureTwoPort TDryBulIn(redeclare package Medium = Medium_A,
@@ -135,10 +135,10 @@ model WetCoilEffectivenessNTU
   Sensors.TemperatureTwoPort TDryBulOut1(redeclare package Medium = Medium_A,
       m_flow_nominal=m2_flow_nominal) "Dry bulb temperature of leaving air"
     annotation (Placement(transformation(extent={{-50,50},{-70,70}})));
-  Sensors.RelativeHumidityTwoPort RelHumOut_eps(redeclare package Medium =
+  Sensors.RelativeHumidityTwoPort relHumOut_eps(redeclare package Medium =
         Medium_A, m_flow_nominal=m2_flow_nominal) "Outlet relative humidity"
     annotation (Placement(transformation(extent={{-80,-10},{-100,10}})));
-  Sensors.RelativeHumidityTwoPort RelHumOut_dis(redeclare package Medium =
+  Sensors.RelativeHumidityTwoPort relHumOut_dis(redeclare package Medium =
         Medium_A, m_flow_nominal=m2_flow_nominal) "Outlet relative humidity"
     annotation (Placement(transformation(extent={{-80,50},{-100,70}})));
   Buildings.Fluid.HeatExchangers.WetCoilEffectivenessNTU hexWetNTU_TX(
@@ -197,7 +197,7 @@ equation
     annotation (Line(points={{100,-49},{100,0},{119,0}},   color={0,0,127}));
   connect(TDryBulIn.T, wetBulIn.TDryBul)
     annotation (Line(points={{60,-49},{60,8},{119,8}}, color={0,0,127}));
-  connect(TDryBulIn.port_b, RelHumIn.port_a)
+  connect(TDryBulIn.port_b, relHumIn.port_a)
     annotation (Line(points={{50,-60},{40,-60}}, color={0,127,255}));
   connect(souWat1.ports[1], hexWetNTU.port_a1) annotation (Line(points={{-160,20},
           {-30,20}},                         color={0,127,255}));
@@ -212,20 +212,20 @@ equation
           0,40},{0,60},{-10,60}},      color={0,127,255}));
   connect(hexWetNTU.port_b2, TDryBulOut.port_a) annotation (Line(points={{-30,8},
           {-40,8},{-40,0},{-50,0}},     color={0,127,255}));
-  connect(hexWetNTU.port_a2, RelHumIn.port_b) annotation (Line(points={{-10,8},
+  connect(hexWetNTU.port_a2, relHumIn.port_b) annotation (Line(points={{-10,8},
           {10,8},{10,-60},{20,-60}},
                                   color={0,127,255}));
   connect(hexDis.port_b2, TDryBulOut1.port_a)
     annotation (Line(points={{-30,60},{-50,60}}, color={0,127,255}));
   connect(senMasFraOut1.port_b, sinAir.ports[2]) annotation (Line(points={{-130,60},
           {-150,60},{-150,-62},{-160,-62}},             color={0,127,255}));
-  connect(TDryBulOut.port_b, RelHumOut_eps.port_a) annotation (Line(points={{
+  connect(TDryBulOut.port_b, relHumOut_eps.port_a) annotation (Line(points={{
           -70,0},{-76,0},{-76,0},{-80,0}}, color={0,127,255}));
-  connect(RelHumOut_eps.port_b, senMasFraOut.port_a)
+  connect(relHumOut_eps.port_b, senMasFraOut.port_a)
     annotation (Line(points={{-100,0},{-110,0}}, color={0,127,255}));
-  connect(TDryBulOut1.port_b, RelHumOut_dis.port_a)
+  connect(TDryBulOut1.port_b, relHumOut_dis.port_a)
     annotation (Line(points={{-70,60},{-80,60}}, color={0,127,255}));
-  connect(RelHumOut_dis.port_b, senMasFraOut1.port_a)
+  connect(relHumOut_dis.port_b, senMasFraOut1.port_a)
     annotation (Line(points={{-100,60},{-110,60}}, color={0,127,255}));
   connect(hexWetNTU_TX.port_b1, sinWat.ports[3]) annotation (Line(points={{-10,-28},
           {20,-28},{20,17.3333},{30,17.3333}}, color={0,127,255}));
@@ -270,7 +270,7 @@ A discretized wet coil model is also simulated for comparison.
 </p>
 <p>
 Note that the outlet air relative humidity may slightly exceed 100% when using
-the epsilon-NTU model. 
+the epsilon-NTU model.
 </p>
 <p>
 The slight deviations we find are believed due to differences in the tolerance
