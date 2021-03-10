@@ -1,5 +1,7 @@
 within Buildings.Templates.AHUs.Types;
 type Damper = enumeration(
+    NoConnection
+    "No damper, neither a fluid connection",
     Nonactuated
     "Nonactuated",
     Modulated

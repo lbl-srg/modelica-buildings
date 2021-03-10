@@ -46,6 +46,7 @@ partial model Coil
         origin={0,100}),    iconTransformation(extent={{-10,-10},{10,10}},
         rotation=0,
         origin={0,100})));
+
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
                                                               Rectangle(
           extent={{-100,100},{100,-100}},

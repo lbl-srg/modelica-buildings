@@ -5,9 +5,6 @@ partial model Sensor
   parameter Types.Sensor typ
     "Equipment type"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  parameter Types.Branch bra
-    "Branch where the equipment is installed"
-    annotation (Evaluate=true, Dialog(group="Configuration"));
 
   Modelica.Fluid.Interfaces.FluidPort_b port_bRef(
     redeclare final package Medium = Medium,
@@ -16,7 +13,7 @@ partial model Sensor
     typ==Types.Sensor.DifferentialPressure
     "Port at the reference pressure for differential pressure sensor"
     annotation (Placement(transformation(extent={{10,-110},{-10,-90}})));
-  .Buildings.Templates.BaseClasses.AhuBus ahuBus "AHU control bus" annotation (
+  Buildings.Templates.BaseClasses.AhuBus ahuBus "AHU control bus" annotation (
       Placement(transformation(extent={{-20,80},{20,120}}), iconTransformation(
           extent={{-10,90},{10,110}})));
   annotation (

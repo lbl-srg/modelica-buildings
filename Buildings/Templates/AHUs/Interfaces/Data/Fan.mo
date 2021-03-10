@@ -4,8 +4,7 @@ record Fan
 
   final parameter String braStr=
     if Modelica.Utilities.Strings.find(insNam, "fanSup")<>0 then "Supply"
-    elseif Modelica.Utilities.Strings.find(insNam, "fanRet")<>0 then "Return/relief"
-    elseif Modelica.Utilities.Strings.find(insNam, "fanRel")<>0 then "Return/relief"
+    elseif Modelica.Utilities.Strings.find(insNam, "fanRe")<>0 then "Return/relief"
     else "Undefined"
     "String used to identify the fan location"
     annotation (Evaluate=true, Dialog(group="Configuration"));

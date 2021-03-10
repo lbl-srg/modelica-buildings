@@ -16,12 +16,14 @@ model HumidityRatio
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={0,30})));
-  Modelica.Blocks.Routing.RealPassThrough xSup if insNam=="xSup"
+  Modelica.Blocks.Routing.RealPassThrough xSup if
+    Modelica.Utilities.Strings.find(insNam, "xSup")<>0
     "Pass through to connect with specific control signal" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={0,70})));
+
 equation
   connect(port_a, senMasFra.port_a)
     annotation (Line(points={{-100,0},{-10,0}}, color={0,127,255}));
@@ -33,8 +35,12 @@ equation
   connect(toDryAir.XiDry, xSup.u) annotation (Line(points={{6.66134e-16,41},{0,
           41},{0,44},{-8.88178e-16,44},{-8.88178e-16,58}},
                                   color={0,0,127}));
-  connect(xSup.y, ahuBus.ahuI.xSup) annotation (Line(points={{6.66134e-16,81},{
-          6.66134e-16,80},{0.1,80},{0.1,100.1}}, color={0,0,127}));
+  connect(xSup.y, ahuBus.ahuI.xSup) annotation (Line(points={{0,81},{0,90},{0,100.1},
+          {0.1,100.1}}, color={0,0,127}), Text(
+      string="%second",
+      index=1,
+      extent={{-3,6},{-3,6}},
+      horizontalAlignment=TextAlignment.Right));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)),
     Diagram(coordinateSystem(preserveAspectRatio=false)));
 end HumidityRatio;

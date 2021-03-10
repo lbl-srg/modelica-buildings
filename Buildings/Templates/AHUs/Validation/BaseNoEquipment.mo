@@ -7,6 +7,10 @@ model BaseNoEquipment
   replaceable package MediumCoo=Buildings.Media.Water
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Cooling medium (such as CHW)";
+  replaceable package MediumHea=Buildings.Media.Water
+    constrainedby Modelica.Media.Interfaces.PartialMedium
+    "Heating medium (such as HHW)";
+
   inner parameter ExternData.JSONFile dat(
     fileName=Modelica.Utilities.Files.loadResource(
       "modelica://Buildings/Resources/Data/Templates/Validation/systems.json"))
@@ -51,16 +55,16 @@ model BaseNoEquipment
 equation
   connect(ahu.port_Ret, bou1.ports[1]) annotation (Line(points={{20,10},{40,10},
           {40,2},{70,2}},   color={0,127,255}));
-  connect(ahu.port_Exh, bou.ports[1]) annotation (Line(points={{-20,10},{-40,10},
-          {-40,2},{-70,2}}, color={0,127,255}));
-  connect(bou.ports[2], res.port_a) annotation (Line(points={{-70,-2},{-60,-2},
-          {-60,-10},{-50,-10}},color={0,127,255}));
+  connect(bou.ports[1], res.port_a) annotation (Line(points={{-70,2},{-60,2},{-60,
+          -10},{-50,-10}},     color={0,127,255}));
   connect(res.port_b, ahu.port_Out)
     annotation (Line(points={{-30,-10},{-20,-10}}, color={0,127,255}));
   connect(ahu.port_Sup, res1.port_a)
     annotation (Line(points={{20,-10},{30,-10}}, color={0,127,255}));
   connect(res1.port_b, bou1.ports[2]) annotation (Line(points={{50,-10},{60,-10},
           {60,-2},{70,-2}}, color={0,127,255}));
+  connect(bou.ports[2], ahu.port_Exh) annotation (Line(points={{-70,-2},{-40,-2},
+          {-40,10},{-20,10}}, color={0,127,255}));
   annotation (
   experiment(Tolerance=1e-6, StopTime=1),
   Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(

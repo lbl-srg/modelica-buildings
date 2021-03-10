@@ -13,15 +13,15 @@ record Coil
     annotation(Dialog(group = "Nominal condition"));
 
   final inner parameter String funStr=
-    if Modelica.Utilities.Strings.find(insNam, "Coo")<>0 then "Cooling"
-    elseif Modelica.Utilities.Strings.find(insNam, "Hea1")<>0 then "Preheat"
-    elseif Modelica.Utilities.Strings.find(insNam, "Hea2")<>0 then "Heating"
-    elseif Modelica.Utilities.Strings.find(insNam, "Hea3")<>0 then "Reheat"
+    if Modelica.Utilities.Strings.find(insNam, "coiCoo")<>0 then "Cooling"
+    elseif Modelica.Utilities.Strings.find(insNam, "coiHea")<>0 then "Heating"
+    elseif Modelica.Utilities.Strings.find(insNam, "coiReh")<>0 then "Reheat"
     else "Undefined"
     "String used to identify the coil function"
     annotation(Evaluate=true, Dialog(group="Configuration"));
   final parameter String insNam = getInstanceName()
-    "Instance name";
+    "Instance name"
+    annotation(Evaluate=true);
   outer parameter String id
     "System identifier";
   outer parameter ExternData.JSONFile dat

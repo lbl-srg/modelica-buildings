@@ -9,7 +9,7 @@ model MultipleVariable
   replaceable Fluid.Movers.SpeedControlled_y fan[nFan](
     each energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     constrainedby Fluid.Movers.BaseClasses.PartialFlowMachine(
-      redeclare each final package Medium = MediumAir,
+      redeclare each final package Medium=Medium,
       each final inputType=Buildings.Fluid.Types.InputType.Continuous,
       each final per=per)
     "Fan"
@@ -30,7 +30,7 @@ model MultipleVariable
         rotation=-90,
         origin={20,80})));
   Experimental.DHC.EnergyTransferStations.BaseClasses.CollectorDistributor colDis(
-    redeclare final package Medium = MediumAir,
+    redeclare final package Medium=Medium,
     final mCon_flow_nominal=fill(m_flow_nominal, nFan),
     final nCon=nFan)
     annotation (Placement(transformation(extent={{-20,-30},{20,-10}})));
@@ -41,13 +41,13 @@ model MultipleVariable
         rotation=-90,
         origin={0,50})));
   Fluid.Sources.MassFlowSource_T floZer(
-    redeclare final package Medium = MediumAir,
+    redeclare final package Medium=Medium,
     final m_flow=0,
     nPorts=1)
     "Zero flow boundary condition"
     annotation (Placement(transformation(extent={{-52,-36},{-32,-16}})));
   Fluid.Sources.MassFlowSource_T floZer1(
-    redeclare final package Medium = MediumAir,
+    redeclare final package Medium=Medium,
     final m_flow=0,
     nPorts=1)
     "Zero flow boundary condition"
@@ -64,35 +64,38 @@ model MultipleVariable
         rotation=-90,
         origin={-40,50})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal comRet if braStr=="Return"
-    "Return fan start/stop" annotation (Placement(transformation(
+    "Return fan start/stop"
+    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={46,80})));
-  Buildings.Controls.OBC.CDL.Continuous.Product conRet1 if
-                                                          braStr=="Return"
-    "Resulting control signal" annotation (Placement(transformation(
+  Buildings.Controls.OBC.CDL.Continuous.Product conRet1 if braStr=="Return"
+    "Resulting control signal"
+    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={40,50})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiMin mulMin(nin=nFan) annotation (
+  Buildings.Controls.OBC.CDL.Continuous.MultiMin mulMin(
+    nin=nFan)
+    "Minimum of all return signals"
+    annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={0,-50})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold evaSta(t=1E-2, h=
-        0.5E-2) if                                               braStr=="Supply"
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold evaSta(
+    t=1E-2,
+    h=0.5E-2) if braStr=="Supply"
     "Evaluate fan status" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={0,-80})));
-  Modelica.Blocks.Routing.BooleanPassThrough staSup if
-                                                    braStr=="Supply"
+  Modelica.Blocks.Routing.BooleanPassThrough staSup if braStr=="Supply"
     "Supply fan status" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={-40,-80})));
-  Modelica.Blocks.Routing.BooleanPassThrough staRet if
-                                                    braStr=="Return"
+  Modelica.Blocks.Routing.BooleanPassThrough staRet if braStr=="Return"
     "Return fan status" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,

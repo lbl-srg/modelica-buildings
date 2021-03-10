@@ -15,19 +15,22 @@ model Temperature
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-60,50})));
-  Modelica.Blocks.Routing.RealPassThrough TCoo if insNam=="TCoo"
+  Modelica.Blocks.Routing.RealPassThrough TCoo if
+    Modelica.Utilities.Strings.find(insNam, "TCoo")<>0
     "Pass through to connect with specific control signal" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-30,50})));
-  Modelica.Blocks.Routing.RealPassThrough TMix if insNam=="TMix"
+  Modelica.Blocks.Routing.RealPassThrough TMix if
+    Modelica.Utilities.Strings.find(insNam, "TMix")<>0
     "Pass through to connect with specific control signal" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={20,50})));
-  Modelica.Blocks.Routing.RealPassThrough TSup if insNam=="TSup"
+  Modelica.Blocks.Routing.RealPassThrough TSup if
+    Modelica.Utilities.Strings.find(insNam, "TSup")<>0
     "Pass through to connect with specific control signal" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -49,14 +52,30 @@ equation
     annotation (Line(points={{0,11},{0,20},{20,20},{20,38}}, color={0,0,127}));
   connect(senTem.T, TSup.u)
     annotation (Line(points={{0,11},{0,20},{50,20},{50,38}}, color={0,0,127}));
-  connect(THea.y, ahuBus.ahuI.TAirLvgCoiHea) annotation (Line(points={{-60,61},
-          {-60,100.1},{0.1,100.1}}, color={0,0,127}));
-  connect(TCoo.y, ahuBus.ahuI.TAirLvgCoiCoo) annotation (Line(points={{-30,61},
-          {-30,100.1},{0.1,100.1}}, color={0,0,127}));
-  connect(TMix.y, ahuBus.ahuI.TAirMix) annotation (Line(points={{20,61},{20,
-          100.1},{0.1,100.1}}, color={0,0,127}));
-  connect(TSup.y, ahuBus.ahuI.TAirSup) annotation (Line(points={{50,61},{50,100},
-          {0.1,100},{0.1,100.1}}, color={0,0,127}));
+  connect(THea.y, ahuBus.ahuI.THea) annotation (Line(points={{-60,61},{-60,82},{
+          -2,82},{-2,100.1},{0.1,100.1}}, color={0,0,127}), Text(
+      string="%second",
+      index=1,
+      extent={{-3,6},{-3,6}},
+      horizontalAlignment=TextAlignment.Right));
+  connect(TCoo.y, ahuBus.ahuI.TCoo) annotation (Line(points={{-30,61},{-30,80},{
+          0,80},{0,100.1},{0.1,100.1}}, color={0,0,127}), Text(
+      string="%second",
+      index=1,
+      extent={{-3,6},{-3,6}},
+      horizontalAlignment=TextAlignment.Right));
+  connect(TMix.y, ahuBus.ahuI.TMix) annotation (Line(points={{20,61},{20,80},{2,
+          80},{2,100.1},{0.1,100.1}}, color={0,0,127}), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}},
+      horizontalAlignment=TextAlignment.Left));
+  connect(TSup.y, ahuBus.ahuI.TSup) annotation (Line(points={{50,61},{50,82},{4,
+          82},{4,100.1},{0.1,100.1}}, color={0,0,127}), Text(
+      string="%second",
+      index=1,
+      extent={{-3,6},{-3,6}},
+      horizontalAlignment=TextAlignment.Right));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)),
     Diagram(coordinateSystem(preserveAspectRatio=false)));
 end Temperature;

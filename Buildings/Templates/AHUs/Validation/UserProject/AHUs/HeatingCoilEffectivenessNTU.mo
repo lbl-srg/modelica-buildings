@@ -1,9 +1,9 @@
 within Buildings.Templates.AHUs.Validation.UserProject.AHUs;
 model HeatingCoilEffectivenessNTU
-  extends VAVSingleDuct(final id="VAV_1", redeclare
-      BaseClasses.Coils.WaterBased coiHea2(redeclare replaceable
+  extends VAVSingleDuct(redeclare BaseClasses.Coils.WaterBased coiHea(
+        redeclare replaceable
         Buildings.Templates.AHUs.BaseClasses.Coils.HeatExchangers.DryCoilEffectivenessNTU
-        hex));
+        hex), final id="VAV_1");
   annotation (
     defaultComponentName="ahu");
 end HeatingCoilEffectivenessNTU;

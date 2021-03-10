@@ -1,9 +1,17 @@
 within Buildings.Templates.AHUs.Interfaces.Data;
 record Sensor
   extends Modelica.Icons.Record;
-  parameter Types.Branch bra
-    "Branch where the equipment is installed"
-    annotation (Evaluate=true, Dialog(group="Configuration"));
+
+  final parameter String braStr=
+    if Modelica.Utilities.Strings.find(insNam, "Out")<>0 then "Supply"
+    elseif Modelica.Utilities.Strings.find(insNam, "Sup")<>0 then "Supply"
+    elseif Modelica.Utilities.Strings.find(insNam, "Mix")<>0 then "Supply"
+    elseif Modelica.Utilities.Strings.find(insNam, "Hea")<>0 then "Supply"
+    elseif Modelica.Utilities.Strings.find(insNam, "Coo")<>0 then "Supply"
+    elseif Modelica.Utilities.Strings.find(insNam, "Ret")<>0 then "Return"
+    else "Undefined"
+    "String used to identify the sensor location";
+
   final parameter String insNam = getInstanceName()
     "Instance name";
   outer parameter String id
