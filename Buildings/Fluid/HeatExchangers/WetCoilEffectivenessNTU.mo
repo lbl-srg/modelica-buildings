@@ -42,7 +42,9 @@ model WetCoilEffectivenessNTU
     annotation (Dialog(
       group="Nominal thermal performance",
       enable=not use_UA_nominal));
-  parameter Modelica.SIunits.MassFraction w_a2_nominal(fixed=not use_UA_nominal)
+  parameter Modelica.SIunits.MassFraction w_a2_nominal(
+    start=0.01,
+    fixed=not use_UA_nominal)
     "Humidity ratio of inlet air at a rated condition (in kg/kg dry air)"
     annotation (Dialog(
       group="Nominal thermal performance",
@@ -590,7 +592,7 @@ Buildings.Fluid.HeatExchangers.BaseClasses.WetCoilDryWetRegime</a>.
 <p>Medium 2 must be air due to the use of various psychrometric functions.</p>
 <p>
 When parameterizing this model with rated conditions (with the parameter
-<code>use_UA_nominal</code> set to <code>false</code>), those should 
+<code>use_UA_nominal</code> set to <code>false</code>), those should
 correspond to a fully-dry or a fully-wet coil regime.
 The modeling uncertainty yielded by partially-wet rated conditions
 has not been assessed yet.
@@ -634,7 +636,7 @@ Fuzzy identification of systems and its applications to modeling and control.
 &nbsp;IEEE transactions on systems, man, and cybernetics, (1), pp.116-132.</p>
 </html>",                    revisions="<html>
 <ul>
-<li>Jan 21, 2021, by Donghun Kim:<br/>First implementation of the fuzzy model. 
+<li>Jan 21, 2021, by Donghun Kim:<br/>First implementation of the fuzzy model.
 See <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/622\">issue 622</a> for more information. </li>
 </ul>
 </html>"),
