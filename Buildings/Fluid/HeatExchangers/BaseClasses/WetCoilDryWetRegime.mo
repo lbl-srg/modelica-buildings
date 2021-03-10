@@ -1,7 +1,6 @@
 within Buildings.Fluid.HeatExchangers.BaseClasses;
 model WetCoilDryWetRegime
   "Model implementing the switching algorithm of the TK-fuzzy model for cooling coil application"
-  input Real Qfac;
 
   parameter Modelica.SIunits.MassFlowRate mWat_flow_nominal(min=0)
     "Nominal mass flow rate for water"
@@ -9,6 +8,8 @@ model WetCoilDryWetRegime
   parameter Modelica.SIunits.MassFlowRate mAir_flow_nominal(min=0)
     "Nominal mass flow rate for air"
     annotation(Dialog(group = "Nominal condition"));
+
+  input Real Qfac(final unit="1");
 
   input Buildings.Fluid.Types.HeatExchangerFlowRegime cfg=
     Buildings.Fluid.Types.HeatExchangerFlowRegime.CounterFlow;
@@ -364,39 +365,48 @@ equation
           extent={{118,-52},{118,-64}},
           lineColor={28,108,200},
           textString="QSen")}),                                  Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-140,-120},{140,120}}),
-        graphics={Text(
-          extent={{-100,120},{-20,80}},
-          lineColor={28,108,200},
-          fillColor={170,227,255},
-          fillPattern=FillPattern.Forward,
-          horizontalAlignment=TextAlignment.Left,
-          textString="Note: please see text file for explicit
-connections; there are too many
-connections to show graphically here")}),
+        coordinateSystem(preserveAspectRatio=false, extent={{-140,-120},{140,120}})),
     Documentation(revisions="<html>
 <ul>
 <li>Jan 21, 2021, by Donghun Kim:<br/>First implementation of the fuzzy model. 
-See <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/622\">issue 622</a> for more information. </li>
+See <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/622\">issue 622</a> for more information.
+</li>
 </ul>
 </html>", info="<html>
-<p>The switching criteria for (counter-flow) cooling coil modes are as follows.</p>
-<p>R1: If the coil surface temperature at the air inlet is lower than the dew-point 
+<p>
+This model implements the switching algorithm for the dry and wet regime.
+</p>
+<p>
+The switching criteria for (counter-flow) cooling coil modes are as follows.</p>
+<p>
+R1: If the coil surface temperature at the air inlet is lower than the dew-point 
 temperature at the inlet to the coil, then the cooling coil surface is fully-wet.</p>
-<p>R2: If the surface temperature at the air outlet section is higher than 
+<p>
+R2: If the surface temperature at the air outlet section is higher than 
 the dew-point temperature of the air at the inlet, then the cooling coil surface is fully-dry.</p>
-<p>At each point of a simulation time step, the fuzzy-modeling approach determines 
+<p>
+At each point of a simulation time step, the fuzzy-modeling approach determines 
 the weights for R1 and R2 respectively (namely &mu;<sub>FW</sub> and &mu;<sub>FD</sub>) 
 from the dew-point and coil surface temperatures.</p>
-<p>It calculates total and sensible heat transfer rates according to the weights as follows.</p>
-<p>Q<sub>tot</sub>=&mu;<sub>FD</sub> Q<sub>tot,FD</sub>+&mu;<sub>FW</sub> Q<sub>tot,FW</sub></p>
-<p>Q<sub>sen</sub>=&mu;<sub>FD</sub> Q<sub>sen,FD</sub>+&mu;<sub>FW</sub> Q<sub>sen,FW</sub></p>
-<p>The fuzzy-modeling ensures &mu;<sub>FW</sub> + &mu;<sub>FD</sub> = 1, 
+<p>
+It calculates total and sensible heat transfer rates according to the weights as follows.
+</p>
+<p>
+Q<sub>tot</sub>=&mu;<sub>FD</sub> Q<sub>tot,FD</sub>+&mu;<sub>FW</sub> Q<sub>tot,FW</sub>
+</p>
+<p>
+Q<sub>sen</sub>=&mu;<sub>FD</sub> Q<sub>sen,FD</sub>+&mu;<sub>FW</sub> Q<sub>sen,FW</sub>
+</p>
+<p>
+The fuzzy-modeling ensures &mu;<sub>FW</sub> + &mu;<sub>FD</sub> = 1, 
 &mu;<sub>FW</sub> &gt;=0, &mu;<sub>FD</sub> &gt;=0, which means the fuzzy 
 model outcomes of Qsen and Qtot are always convex combinations of heat transfer 
-rates for fully-dry and fully-wet modes and therefore are always bounded by them. </p>
-<p>The modeling approach also results in n-th order differentiable model
+rates for fully-dry and fully-wet modes and therefore are always bounded by them.
+</p>
+<p>
+The modeling approach also results in n-th order differentiable model
 depending on the selection of the underlying membership functions. This cooling 
-coil model is once continuously differentiable even at the transition (or mode-switching) points.</p>
+coil model is once continuously differentiable even at the transition (or mode-switching) points.
+</p>
 </html>"));
 end WetCoilDryWetRegime;
