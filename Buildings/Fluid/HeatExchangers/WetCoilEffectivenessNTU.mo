@@ -154,7 +154,7 @@ protected
     r_nominal = r_nominal)
     "Model for convective heat transfer coefficient"
     annotation (Placement(transformation(extent={{-68,-13},{-50,9}})));
-  BaseClasses.WetCoilDryWetRegime dryWetCalcs(
+  Buildings.Fluid.HeatExchangers.BaseClasses.WetCoilDryWetRegime dryWetCalcs(
     final cfg=flowRegime,
     final mWat_flow_nominal=m1_flow_nominal,
     final mAir_flow_nominal=m2_flow_nominal,
@@ -537,23 +537,26 @@ equation
           textString="Air Side")}),
     Documentation(info="<html>
 <p>
-This model describes a cooling coil that is capable of simulating fully-dry,
+This model describes a cooling coil applicable for fully-dry,
 partially-wet, and fully-wet regimes.
 The model is developed for counter flow heat exchangers but is also applicable
 for the cross-flow configuration, although in the latter case it is recommended
-to have over four tube rows (Elmahdy and Mitalas, 1977 and Braun, 1988).
+to have more than four tube rows (Elmahdy and Mitalas, 1977 and Braun, 1988).
 The model can also be used for a heat exchanger which acts as both heating coil
 (for some period of time) and cooling coil (for the others).
 However, it is not recommended to use this model for heating coil only or for
-cooling coil with no water condensation for computational efficiency.
+cooling coil with no water condensation because for these situations,
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DryCoilEffectivenessNTU\">
+Buildings.Fluid.HeatExchangers.DryCoilEffectivenessNTU</a>
+computes faster.
 </p>
 <h4>Main equations</h4>
 <p>
 The coil model consists of two-equation sets, one for the fully-dry mode and
-the other for the fully-wet mode. For the fully-dry mode, the &epsilon;-NTU
+the other for the fully-wet mode. For the fully-dry mode, the <i>&epsilon;-NTU</i>
 approach (Elmahdy and Mitalas, 1977) is used.
 For the fully-wet mode, equations from Braun (1988) and Mitchell and Braun (2012a and b),
-which are essentially the extension of the &epsilon;-NTU approach to simultaneous sensible
+which are essentially the extension of the <i>&epsilon;-NTU</i> approach to simultaneous sensible
 and latent heat transfer, are utilized.
 The equation sets are switched depending on the switching criteria described below
 that determines the right mode based on a coil surface temperature and dew-point
@@ -564,7 +567,7 @@ so-called Takagi-Sugeno fuzzy modeling (Takagi and Sugeno, 1985), which provides
 continuously differentiable model that can cover all fully-dry, partially-wet,
 and fully-wet regimes.
 </p>
-<p>The switching rules are;</p>
+<p>The switching rules are:</p>
 <ul>
 <li>R1: If the coil surface temperature at the air inlet is lower than the
 dew-point temperature of air at inlet, then the cooling coil surface is fully-wet.
@@ -593,14 +596,14 @@ Buildings.Fluid.HeatExchangers.BaseClasses.WetCoilDryWetRegime</a>.
 <p>
 When parameterizing this model with rated conditions (with the parameter
 <code>use_UA_nominal</code> set to <code>false</code>), those should
-correspond to a fully-dry or a fully-wet coil regime.
-The modeling uncertainty yielded by partially-wet rated conditions
+correspond to a fully-dry or a fully-wet coil regime, because
+the model uncertainty yielded by partially-wet rated conditions
 has not been assessed yet.
 </p>
 <p>The model uses steady-state physics. That is, no dynamics associated
 with water and coil materials are considered.</p>
 <p>The Lewis number, which relates the mass transfer coefficient to the heat transfer
-coefficient, is assumed to be 1.</p>
+coefficient, is assumed to be <i>1</i>.</p>
 <p>The model is not suitable for a cross-flow heat exchanger of which the number
 of passes is less than four.</p>
 <h4>Validation</h4>
@@ -639,7 +642,5 @@ Fuzzy identification of systems and its applications to modeling and control.
 <li>Jan 21, 2021, by Donghun Kim:<br/>First implementation of the fuzzy model.
 See <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/622\">issue 622</a> for more information. </li>
 </ul>
-</html>"),
-    __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/WetCoilEffNtuMassFlowFuzzy.mos"));
+</html>"));
 end WetCoilEffectivenessNTU;
