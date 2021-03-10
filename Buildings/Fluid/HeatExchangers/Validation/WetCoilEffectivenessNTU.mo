@@ -69,10 +69,10 @@ model WetCoilEffectivenessNTU
     annotation (Placement(transformation(extent={{110,-70},{90,-50}})));
   Sensors.MassFractionTwoPort senMasFraOut(redeclare package Medium = Medium_A,
       m_flow_nominal=m2_flow_nominal) "Water mass fraction of leaving air"
-    annotation (Placement(transformation(extent={{-110,10},{-130,-10}})));
+    annotation (Placement(transformation(extent={{-110,-10},{-130,10}})));
   Sensors.TemperatureTwoPort TDryBulOut(redeclare package Medium = Medium_A,
       m_flow_nominal=m2_flow_nominal) "Dry bulb temperature of leaving air"
-    annotation (Placement(transformation(extent={{-50,10},{-70,-10}})));
+    annotation (Placement(transformation(extent={{-50,-10},{-70,10}})));
   Buildings.Utilities.Psychrometrics.TWetBul_TDryBulXi wetBulOut(redeclare
       package Medium = Medium_A) "Computation of wet bulb temperature"
     annotation (Placement(transformation(extent={{-40,-90},{-20,-70}})));
@@ -103,8 +103,8 @@ model WetCoilEffectivenessNTU
     m1_flow_nominal=m1_flow_nominal,
     m2_flow_nominal=m2_flow_nominal,
     dp2_nominal=0,
-    allowFlowReversal1=true,
-    allowFlowReversal2=true,
+    allowFlowReversal1=false,
+    allowFlowReversal2=false,
     dp1_nominal=0,
     UA_nominal=UA_nominal,
     show_T=true,
@@ -185,9 +185,10 @@ equation
     annotation (Line(points={{-130,0},{-140,0},{-140,-59.3333},{-160,-59.3333}},
                                                      color={0,127,255}));
   connect(TDryBulOut.T, wetBulOut.TDryBul)
-    annotation (Line(points={{-60,-11},{-60,-72},{-41,-72}}, color={0,0,127}));
-  connect(senMasFraOut.X, wetBulOut.Xi[1]) annotation (Line(points={{-120,-11},
-          {-120,-80},{-41,-80}},                      color={0,0,127}));
+    annotation (Line(points={{-60,11},{-60,14},{-44,14},{-44,-72},{-41,-72}},
+                                                             color={0,0,127}));
+  connect(senMasFraOut.X, wetBulOut.Xi[1]) annotation (Line(points={{-120,11},{
+          -120,14},{-134,14},{-134,-80},{-41,-80}},   color={0,0,127}));
   connect(souAir.ports[1], senMasFraIn.port_a)
     annotation (Line(points={{120,-60},{110,-60}}, color={0,127,255}));
   connect(senMasFraIn.port_b, TDryBulIn.port_a)
@@ -231,7 +232,8 @@ equation
   connect(souAir1.ports[1], hexWetNTU_TX.port_a2) annotation (Line(points={{120,
           -100},{0,-100},{0,-40},{-10,-40}}, color={0,127,255}));
   connect(sinAir.ports[3], hexWetNTU_TX.port_b2) annotation (Line(points={{-160,
-          -64.6667},{-130,-64.6667},{-130,-40},{-30,-40}}, color={0,127,255}));
+          -64.6667},{-150,-64.6667},{-150,-64},{-138,-64},{-138,-40},{-30,-40}},
+                                                           color={0,127,255}));
   connect(souWat2.ports[1], hexWetNTU_TX.port_a1) annotation (Line(points={{-160,
           -20},{-40,-20},{-40,-28},{-30,-28}}, color={0,127,255}));
   connect(w_a2.y[1], conversion.XiDry) annotation (Line(points={{175,-24},{172,
