@@ -27,7 +27,7 @@ model TwoRoomsWithStorage
     "Nominal mass flow rate of boiler loop";
  parameter Modelica.SIunits.PressureDifference dpPip_nominal = 10000
     "Pressure difference of pipe (without valve)";
- parameter Modelica.SIunits.PressureDifference dpVal_nominal = 1000
+ parameter Modelica.SIunits.PressureDifference dpVal_nominal = 6000
     "Pressure difference of valve";
  parameter Modelica.SIunits.PressureDifference dpRoo_nominal = 6000
     "Pressure difference of flow leg that serves a room";
@@ -1206,6 +1206,11 @@ Buildings.Examples.HydronicHeating.TwoRoomsWithStorage.CoolingControl</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 4, 2021, by David Blum:<br/>
+Changed <code>dpVal_nominal</code> to 6 kPa.
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2378\">issue 2378</a>.
+</li>
 <li>
 April 6, 2016, by Michael Wetter:<br/>
 Replaced <code>Modelica_StateGraph2</code> with <code>Modelica.StateGraph</code>.

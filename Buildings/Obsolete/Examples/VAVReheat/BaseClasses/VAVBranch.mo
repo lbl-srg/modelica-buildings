@@ -1,4 +1,4 @@
-within Buildings.Examples.VAVReheat.BaseClasses;
+within Buildings.Obsolete.Examples.VAVReheat.BaseClasses;
 model VAVBranch "Supply branch of a VAV system"
   extends Modelica.Blocks.Icons.Block;
   replaceable package MediumA = Modelica.Media.Interfaces.PartialMedium
@@ -27,7 +27,7 @@ model VAVBranch "Supply branch of a VAV system"
     redeclare package Medium2 = MediumW,
     m1_flow_nominal=m_flow_nominal,
     m2_flow_nominal=m_flow_nominal*1000*(50 - 17)/4200/10,
-    Q_flow_nominal=m_flow_nominal*1006*(50 - 16.7),
+    Q_flow_nominal=m_flow_nominal*1006*(16.7 - 50),
     configuration=Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow,
     dp1_nominal=0,
     from_dp2=true,
@@ -70,7 +70,7 @@ model VAVBranch "Supply branch of a VAV system"
     annotation (Placement(transformation(extent={{0,70},{20,90}})));
   Modelica.Blocks.Math.Gain ACH(k=1/VRoo/1.2*3600) "Air change per hour"
     annotation (Placement(transformation(extent={{0,30},{20,50}})));
-  Fluid.Sources.MassFlowSource_T souTer(
+  Buildings.Fluid.Sources.MassFlowSource_T souTer(
     redeclare package Medium = MediumW,
     nPorts=1,
     use_m_flow_in=true,
@@ -215,11 +215,25 @@ equation
           fillPattern=FillPattern.Solid,
           lineColor={0,0,0})}), Documentation(info="<html>
 <p>
-Model for a VAV supply branch. 
-The terminal VAV box has a pressure independent damper and a water reheat coil. 
-The pressure independent damper model includes an idealized flow rate controller 
-and requires a discharge air flow rate set-point (normalized to the nominal value) 
+Model for a VAV supply branch.
+The terminal VAV box has a pressure independent damper and a water reheat coil.
+The pressure independent damper model includes an idealized flow rate controller
+and requires a discharge air flow rate set-point (normalized to the nominal value)
 as a control signal.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+February 25, 2021, by Baptiste Ravache:<br/>
+Inverse the sign of <code>terHea.Q_flow_nominal</code> to respect the heat flow convention.
+</li>
+<li>
+February 12, 2021, by Baptiste Ravache:<br/>
+Replaced by <code>Buildings.Examples.VAVReheat.BaseClasses.VAVReheatBox</code> and
+moved to <code>Obsolete</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2059\">#2024</a>.
+</li>
+</ul>
 </html>"));
 end VAVBranch;
