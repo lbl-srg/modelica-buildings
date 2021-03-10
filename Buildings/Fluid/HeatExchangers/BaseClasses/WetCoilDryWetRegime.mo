@@ -18,7 +18,7 @@ model WetCoilDryWetRegime
   Modelica.Blocks.Interfaces.RealInput UAWat(
     final quantity="ThermalConductance",
     final unit="W/K")
-    "Product of heat transfer coefficient times area for \"water\" side"
+    "Product of heat transfer coefficient times area for water side"
     annotation (Placement(transformation(extent={{-160,100},{-140,120}}),
         iconTransformation(extent={{-160,100},{-140,120}})));
   Modelica.Blocks.Interfaces.RealInput mWat_flow(
