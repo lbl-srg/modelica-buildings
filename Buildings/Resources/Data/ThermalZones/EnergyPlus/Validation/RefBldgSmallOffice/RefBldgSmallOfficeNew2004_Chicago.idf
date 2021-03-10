@@ -66,14 +66,14 @@
 ! ***GENERAL SIMULATION PARAMETERS***
 ! Number of Zones: 6
 
-  Version,9.4;
+  Version,9.5;
 
   SimulationControl,
     YES,                     !- Do Zone Sizing Calculation
     YES,                     !- Do System Sizing Calculation
     YES,                     !- Do Plant Sizing Calculation
-    NO,                      !- Run Simulation for Sizing Periods
-    YES,                     !- Run Simulation for Weather File Run Periods
+    YES,                     !- Run Simulation for Sizing Periods
+    NO,                      !- Run Simulation for Weather File Run Periods
     No,                      !- Do HVAC Sizing Simulation for Sizing Periods
     1;                       !- Maximum Number of HVAC Sizing Simulation Passes
 
@@ -92,8 +92,8 @@
     1,                       !- Begin Month
     1,                       !- Begin Day of Month
     ,                        !- Begin Year
-    1,                       !- End Month
-    7,                       !- End Day of Month
+    12,                      !- End Month
+    31,                      !- End Day of Month
     ,                        !- End Year
     Sunday,                  !- Day of Week for Start Day
     No,                      !- Use Weather File Holidays and Special Days
@@ -261,7 +261,7 @@
     WinterDesignDay,         !- Day Type
     -20.6,                   !- Maximum Dry-Bulb Temperature {C}
     0.0,                     !- Daily Dry-Bulb Temperature Range {deltaC}
-    DefaultMultipliers,      !- Dry-Bulb Temperature Range Modifier Type
+    ,                        !- Dry-Bulb Temperature Range Modifier Type
     ,                        !- Dry-Bulb Temperature Range Modifier Day Schedule Name
     Wetbulb,                 !- Humidity Condition Type
     -20.6,                   !- Wetbulb or DewPoint at Maximum Dry-Bulb {C}
@@ -278,8 +278,8 @@
     ASHRAEClearSky,          !- Solar Model Indicator
     ,                        !- Beam Solar Day Schedule Name
     ,                        !- Diffuse Solar Day Schedule Name
-    0,                       !- ASHRAE Clear Sky Optical Depth for Beam Irradiance (taub) {dimensionless}
-    0,                       !- ASHRAE Clear Sky Optical Depth for Diffuse Irradiance (taud) {dimensionless}
+    ,                        !- ASHRAE Clear Sky Optical Depth for Beam Irradiance (taub) {dimensionless}
+    ,                        !- ASHRAE Clear Sky Optical Depth for Diffuse Irradiance (taud) {dimensionless}
     0.00;                    !- Sky Clearness
 
  ! CHICAGO_IL_USA Annual Cooling (WB=>MDB) .4%, MDB=31.2°C WB=25.5°C
@@ -291,7 +291,7 @@
     SummerDesignDay,         !- Day Type
     31.2,                    !- Maximum Dry-Bulb Temperature {C}
     10.7,                    !- Daily Dry-Bulb Temperature Range {deltaC}
-    DefaultMultipliers,      !- Dry-Bulb Temperature Range Modifier Type
+    ,                        !- Dry-Bulb Temperature Range Modifier Type
     ,                        !- Dry-Bulb Temperature Range Modifier Day Schedule Name
     Wetbulb,                 !- Humidity Condition Type
     25.5,                    !- Wetbulb or DewPoint at Maximum Dry-Bulb {C}
@@ -308,8 +308,8 @@
     ASHRAEClearSky,          !- Solar Model Indicator
     ,                        !- Beam Solar Day Schedule Name
     ,                        !- Diffuse Solar Day Schedule Name
-    0,                       !- ASHRAE Clear Sky Optical Depth for Beam Irradiance (taub) {dimensionless}
-    0,                       !- ASHRAE Clear Sky Optical Depth for Diffuse Irradiance (taud) {dimensionless}
+    ,                        !- ASHRAE Clear Sky Optical Depth for Beam Irradiance (taub) {dimensionless}
+    ,                        !- ASHRAE Clear Sky Optical Depth for Diffuse Irradiance (taud) {dimensionless}
     1.00;                    !- Sky Clearness
 
   Site:WaterMainsTemperature,
@@ -563,8 +563,8 @@
     0.0000,                  !- Z Origin {m}
     1,                       !- Type
     1,                       !- Multiplier
-    Autocalculate,           !- Ceiling Height {m}
-    Autocalculate,           !- Volume {m3}
+    ,                        !- Ceiling Height {m}
+    ,                        !- Volume {m3}
     autocalculate,           !- Floor Area {m2}
     ,                        !- Zone Inside Convection Algorithm
     ,                        !- Zone Outside Convection Algorithm
@@ -578,8 +578,8 @@
     0.0000,                  !- Z Origin {m}
     1,                       !- Type
     1,                       !- Multiplier
-    Autocalculate,           !- Ceiling Height {m}
-    Autocalculate,           !- Volume {m3}
+    ,                        !- Ceiling Height {m}
+    ,                        !- Volume {m3}
     autocalculate,           !- Floor Area {m2}
     ,                        !- Zone Inside Convection Algorithm
     ,                        !- Zone Outside Convection Algorithm
@@ -593,8 +593,8 @@
     0.0000,                  !- Z Origin {m}
     1,                       !- Type
     1,                       !- Multiplier
-    Autocalculate,           !- Ceiling Height {m}
-    Autocalculate,           !- Volume {m3}
+    ,                        !- Ceiling Height {m}
+    ,                        !- Volume {m3}
     autocalculate,           !- Floor Area {m2}
     ,                        !- Zone Inside Convection Algorithm
     ,                        !- Zone Outside Convection Algorithm
@@ -608,8 +608,8 @@
     0.0000,                  !- Z Origin {m}
     1,                       !- Type
     1,                       !- Multiplier
-    Autocalculate,           !- Ceiling Height {m}
-    Autocalculate,           !- Volume {m3}
+    ,                        !- Ceiling Height {m}
+    ,                        !- Volume {m3}
     autocalculate,           !- Floor Area {m2}
     ,                        !- Zone Inside Convection Algorithm
     ,                        !- Zone Outside Convection Algorithm
@@ -623,8 +623,8 @@
     0.0000,                  !- Z Origin {m}
     1,                       !- Type
     1,                       !- Multiplier
-    Autocalculate,           !- Ceiling Height {m}
-    Autocalculate,           !- Volume {m3}
+    ,                        !- Ceiling Height {m}
+    ,                        !- Volume {m3}
     autocalculate,           !- Floor Area {m2}
     ,                        !- Zone Inside Convection Algorithm
     ,                        !- Zone Outside Convection Algorithm
@@ -638,8 +638,8 @@
     0.0000,                  !- Z Origin {m}
     1,                       !- Type
     1,                       !- Multiplier
-    Autocalculate,           !- Ceiling Height {m}
-    Autocalculate,           !- Volume {m3}
+    ,                        !- Ceiling Height {m}
+    ,                        !- Volume {m3}
     autocalculate,           !- Floor Area {m2}
     ,                        !- Zone Inside Convection Algorithm
     ,                        !- Zone Outside Convection Algorithm
@@ -1671,7 +1671,7 @@
     0.3000,                  !- Fraction Radiant
     AUTOCALCULATE,           !- Sensible Heat Fraction
     ACTIVITY_SCH,            !- Activity Level Schedule Name
-    3.82E-8,                 !- Carbon Dioxide Generation Rate {m3/s-W}
+    ,                        !- Carbon Dioxide Generation Rate {m3/s-W}
     No,                      !- Enable ASHRAE 55 Comfort Warnings
     ZoneAveraged,            !- Mean Radiant Temperature Calculation Type
     ,                        !- Surface Name/Angle Factor List Name
@@ -1693,7 +1693,7 @@
     0.3000,                  !- Fraction Radiant
     AUTOCALCULATE,           !- Sensible Heat Fraction
     ACTIVITY_SCH,            !- Activity Level Schedule Name
-    3.82E-8,                 !- Carbon Dioxide Generation Rate {m3/s-W}
+    ,                        !- Carbon Dioxide Generation Rate {m3/s-W}
     No,                      !- Enable ASHRAE 55 Comfort Warnings
     ZoneAveraged,            !- Mean Radiant Temperature Calculation Type
     ,                        !- Surface Name/Angle Factor List Name
@@ -1715,7 +1715,7 @@
     0.3000,                  !- Fraction Radiant
     AUTOCALCULATE,           !- Sensible Heat Fraction
     ACTIVITY_SCH,            !- Activity Level Schedule Name
-    3.82E-8,                 !- Carbon Dioxide Generation Rate {m3/s-W}
+    ,                        !- Carbon Dioxide Generation Rate {m3/s-W}
     No,                      !- Enable ASHRAE 55 Comfort Warnings
     ZoneAveraged,            !- Mean Radiant Temperature Calculation Type
     ,                        !- Surface Name/Angle Factor List Name
@@ -1737,7 +1737,7 @@
     0.3000,                  !- Fraction Radiant
     AUTOCALCULATE,           !- Sensible Heat Fraction
     ACTIVITY_SCH,            !- Activity Level Schedule Name
-    3.82E-8,                 !- Carbon Dioxide Generation Rate {m3/s-W}
+    ,                        !- Carbon Dioxide Generation Rate {m3/s-W}
     No,                      !- Enable ASHRAE 55 Comfort Warnings
     ZoneAveraged,            !- Mean Radiant Temperature Calculation Type
     ,                        !- Surface Name/Angle Factor List Name
@@ -1759,7 +1759,7 @@
     0.3000,                  !- Fraction Radiant
     AUTOCALCULATE,           !- Sensible Heat Fraction
     ACTIVITY_SCH,            !- Activity Level Schedule Name
-    3.82E-8,                 !- Carbon Dioxide Generation Rate {m3/s-W}
+    ,                        !- Carbon Dioxide Generation Rate {m3/s-W}
     No,                      !- Enable ASHRAE 55 Comfort Warnings
     ZoneAveraged,            !- Mean Radiant Temperature Calculation Type
     ,                        !- Surface Name/Angle Factor List Name
@@ -1922,6 +1922,79 @@
     2303,                    !- Design Level {W}
     AstronomicalClock,       !- Control Option
     Exterior Facade Lighting;!- End-Use Subcategory
+
+! ***INFILTRATION***
+! Infiltration through ceiling/roof
+
+  ZoneInfiltration:DesignFlowRate,
+    Core_ZN_Infiltration,    !- Name
+    Core_ZN,                 !- Zone or ZoneList Name
+    INFIL_QUARTER_ON_SCH,    !- Schedule Name
+    AirChanges/Hour,         !- Design Flow Rate Calculation Method
+    ,                        !- Design Flow Rate {m3/s}
+    ,                        !- Flow per Zone Floor Area {m3/s-m2}
+    ,                        !- Flow per Exterior Surface Area {m3/s-m2}
+    0.36,                    !- Air Changes per Hour {1/hr}
+    1.0000,                  !- Constant Term Coefficient
+    0.0000,                  !- Temperature Term Coefficient
+    0.0000,                  !- Velocity Term Coefficient
+    0.0000;                  !- Velocity Squared Term Coefficient
+
+  ZoneInfiltration:DesignFlowRate,
+    Perimeter_ZN_1_Infiltration,  !- Name
+    Perimeter_ZN_1,          !- Zone or ZoneList Name
+    INFIL_QUARTER_ON_SCH,    !- Schedule Name
+    Flow/ExteriorArea,       !- Design Flow Rate Calculation Method
+    ,                        !- Design Flow Rate {m3/s}
+    ,                        !- Flow per Zone Floor Area {m3/s-m2}
+    0.000302,                !- Flow per Exterior Surface Area {m3/s-m2}
+    ,                        !- Air Changes per Hour {1/hr}
+    1.0000,                  !- Constant Term Coefficient
+    0.0000,                  !- Temperature Term Coefficient
+    0.0000,                  !- Velocity Term Coefficient
+    0.0000;                  !- Velocity Squared Term Coefficient
+
+  ZoneInfiltration:DesignFlowRate,
+    Perimeter_ZN_2_Infiltration,  !- Name
+    Perimeter_ZN_2,          !- Zone or ZoneList Name
+    INFIL_QUARTER_ON_SCH,    !- Schedule Name
+    Flow/ExteriorArea,       !- Design Flow Rate Calculation Method
+    ,                        !- Design Flow Rate {m3/s}
+    ,                        !- Flow per Zone Floor Area {m3/s-m2}
+    0.000302,                !- Flow per Exterior Surface Area {m3/s-m2}
+    ,                        !- Air Changes per Hour {1/hr}
+    1.0000,                  !- Constant Term Coefficient
+    0.0000,                  !- Temperature Term Coefficient
+    0.0000,                  !- Velocity Term Coefficient
+    0.0000;                  !- Velocity Squared Term Coefficient
+
+  ZoneInfiltration:DesignFlowRate,
+    Perimeter_ZN_3_Infiltration,  !- Name
+    Perimeter_ZN_3,          !- Zone or ZoneList Name
+    INFIL_QUARTER_ON_SCH,    !- Schedule Name
+    Flow/ExteriorArea,       !- Design Flow Rate Calculation Method
+    ,                        !- Design Flow Rate {m3/s}
+    ,                        !- Flow per Zone Floor Area {m3/s-m2}
+    0.000302,                !- Flow per Exterior Surface Area {m3/s-m2}
+    ,                        !- Air Changes per Hour {1/hr}
+    1.0000,                  !- Constant Term Coefficient
+    0.0000,                  !- Temperature Term Coefficient
+    0.0000,                  !- Velocity Term Coefficient
+    0.0000;                  !- Velocity Squared Term Coefficient
+
+  ZoneInfiltration:DesignFlowRate,
+    Perimeter_ZN_4_Infiltration,  !- Name
+    Perimeter_ZN_4,          !- Zone or ZoneList Name
+    INFIL_QUARTER_ON_SCH,    !- Schedule Name
+    Flow/ExteriorArea,       !- Design Flow Rate Calculation Method
+    ,                        !- Design Flow Rate {m3/s}
+    ,                        !- Flow per Zone Floor Area {m3/s-m2}
+    0.000302,                !- Flow per Exterior Surface Area {m3/s-m2}
+    ,                        !- Air Changes per Hour {1/hr}
+    1.0000,                  !- Constant Term Coefficient
+    0.0000,                  !- Temperature Term Coefficient
+    0.0000,                  !- Velocity Term Coefficient
+    0.0000;                  !- Velocity Squared Term Coefficient
 
 ! ***INTERNAL MASS***
 
@@ -2098,6 +2171,1745 @@
     0.0000,                  !- Velocity Term Coefficient
     0.0000;                  !- Velocity Squared Term Coefficient
 
+! ***HVAC EQUIPMENT***
+
+  Fan:SystemModel,
+    PSZ-AC:1_Fan,            !- Name
+    HVACOperationSchd,       !- Availability Schedule Name
+    PSZ-AC:1_HeatC-PSZ-AC:1_FanNode,  !- Air Inlet Node Name
+    PSZ-AC:1 Supply Equipment Outlet Node,  !- Air Outlet Node Name
+    AUTOSIZE,                !- Design Maximum Air Flow Rate {m3/s}
+    Discrete,                !- Speed Control Method
+    0.0,                     !- Electric Power Minimum Flow Rate Fraction
+    622.0,                   !- Design Pressure Rise {Pa}
+    0.825,                   !- Motor Efficiency
+    1.0,                     !- Motor In Air Stream Fraction
+    AUTOSIZE,                !- Design Electric Power Consumption {W}
+    TotalEfficiencyAndPressure,  !- Design Power Sizing Method
+    ,                        !- Electric Power Per Unit Flow Rate {W/(m3/s)}
+    ,                        !- Electric Power Per Unit Flow Rate Per Unit Pressure {W/((m3/s)-Pa)}
+    0.53625,                 !- Fan Total Efficiency
+    ,                        !- Electric Power Function of Flow Fraction Curve Name
+    ,                        !- Night Ventilation Mode Pressure Rise {Pa}
+    ,                        !- Night Ventilation Mode Flow Fraction
+    ,                        !- Motor Loss Zone Name
+    ,                        !- Motor Loss Radiative Fraction
+    Fan Energy;              !- End-Use Subcategory
+
+  Fan:ConstantVolume,
+    PSZ-AC:2_Fan,            !- Name
+    HVACOperationSchd,       !- Availability Schedule Name
+    0.53625,                 !- Fan Total Efficiency
+    622.0,                   !- Pressure Rise {Pa}
+    AUTOSIZE,                !- Maximum Flow Rate {m3/s}
+    0.825,                   !- Motor Efficiency
+    1.0,                     !- Motor In Airstream Fraction
+    PSZ-AC:2_HeatC-PSZ-AC:2_FanNode,  !- Air Inlet Node Name
+    PSZ-AC:2 Supply Equipment Outlet Node,  !- Air Outlet Node Name
+    Fan Energy;              !- End-Use Subcategory
+
+  Fan:ConstantVolume,
+    PSZ-AC:3_Fan,            !- Name
+    HVACOperationSchd,       !- Availability Schedule Name
+    0.53625,                 !- Fan Total Efficiency
+    622.0,                   !- Pressure Rise {Pa}
+    AUTOSIZE,                !- Maximum Flow Rate {m3/s}
+    0.825,                   !- Motor Efficiency
+    1.0,                     !- Motor In Airstream Fraction
+    PSZ-AC:3_HeatC-PSZ-AC:3_FanNode,  !- Air Inlet Node Name
+    PSZ-AC:3 Supply Equipment Outlet Node,  !- Air Outlet Node Name
+    Fan Energy;              !- End-Use Subcategory
+
+  Fan:ConstantVolume,
+    PSZ-AC:4_Fan,            !- Name
+    HVACOperationSchd,       !- Availability Schedule Name
+    0.53625,                 !- Fan Total Efficiency
+    622.0,                   !- Pressure Rise {Pa}
+    AUTOSIZE,                !- Maximum Flow Rate {m3/s}
+    0.825,                   !- Motor Efficiency
+    1.0,                     !- Motor In Airstream Fraction
+    PSZ-AC:4_HeatC-PSZ-AC:4_FanNode,  !- Air Inlet Node Name
+    PSZ-AC:4 Supply Equipment Outlet Node,  !- Air Outlet Node Name
+    Fan Energy;              !- End-Use Subcategory
+
+  Fan:ConstantVolume,
+    PSZ-AC:5_Fan,            !- Name
+    HVACOperationSchd,       !- Availability Schedule Name
+    0.53625,                 !- Fan Total Efficiency
+    622.0,                   !- Pressure Rise {Pa}
+    AUTOSIZE,                !- Maximum Flow Rate {m3/s}
+    0.825,                   !- Motor Efficiency
+    1.0,                     !- Motor In Airstream Fraction
+    PSZ-AC:5_HeatC-PSZ-AC:5_FanNode,  !- Air Inlet Node Name
+    PSZ-AC:5 Supply Equipment Outlet Node,  !- Air Outlet Node Name
+    Fan Energy;              !- End-Use Subcategory
+
+  Coil:Heating:Fuel,
+    PSZ-AC:1_HeatC,          !- Name
+    ALWAYS_ON,               !- Availability Schedule Name
+    NaturalGas,              !- Fuel Type
+    0.8,                     !- Burner Efficiency
+    AUTOSIZE,                !- Nominal Capacity {W}
+    PSZ-AC:1_CoolC-PSZ-AC:1_HeatCNode,  !- Air Inlet Node Name
+    PSZ-AC:1_HeatC-PSZ-AC:1_FanNode,  !- Air Outlet Node Name
+    PSZ-AC:1_HeatC-PSZ-AC:1_FanNode;  !- Temperature Setpoint Node Name
+
+  Coil:Heating:Fuel,
+    PSZ-AC:2_HeatC,          !- Name
+    ALWAYS_ON,               !- Availability Schedule Name
+    NaturalGas,              !- Fuel Type
+    0.8,                     !- Burner Efficiency
+    AUTOSIZE,                !- Nominal Capacity {W}
+    PSZ-AC:2_CoolC-PSZ-AC:2_HeatCNode,  !- Air Inlet Node Name
+    PSZ-AC:2_HeatC-PSZ-AC:2_FanNode,  !- Air Outlet Node Name
+    PSZ-AC:2_HeatC-PSZ-AC:2_FanNode;  !- Temperature Setpoint Node Name
+
+  Coil:Heating:Fuel,
+    PSZ-AC:3_HeatC,          !- Name
+    ALWAYS_ON,               !- Availability Schedule Name
+    NaturalGas,              !- Fuel Type
+    0.8,                     !- Burner Efficiency
+    AUTOSIZE,                !- Nominal Capacity {W}
+    PSZ-AC:3_CoolC-PSZ-AC:3_HeatCNode,  !- Air Inlet Node Name
+    PSZ-AC:3_HeatC-PSZ-AC:3_FanNode,  !- Air Outlet Node Name
+    PSZ-AC:3_HeatC-PSZ-AC:3_FanNode;  !- Temperature Setpoint Node Name
+
+  Coil:Heating:Fuel,
+    PSZ-AC:4_HeatC,          !- Name
+    ALWAYS_ON,               !- Availability Schedule Name
+    NaturalGas,              !- Fuel Type
+    0.8,                     !- Burner Efficiency
+    AUTOSIZE,                !- Nominal Capacity {W}
+    PSZ-AC:4_CoolC-PSZ-AC:4_HeatCNode,  !- Air Inlet Node Name
+    PSZ-AC:4_HeatC-PSZ-AC:4_FanNode,  !- Air Outlet Node Name
+    PSZ-AC:4_HeatC-PSZ-AC:4_FanNode;  !- Temperature Setpoint Node Name
+
+  Coil:Heating:Fuel,
+    PSZ-AC:5_HeatC,          !- Name
+    ALWAYS_ON,               !- Availability Schedule Name
+    NaturalGas,              !- Fuel Type
+    0.8,                     !- Burner Efficiency
+    AUTOSIZE,                !- Nominal Capacity {W}
+    PSZ-AC:5_CoolC-PSZ-AC:5_HeatCNode,  !- Air Inlet Node Name
+    PSZ-AC:5_HeatC-PSZ-AC:5_FanNode,  !- Air Outlet Node Name
+    PSZ-AC:5_HeatC-PSZ-AC:5_FanNode;  !- Temperature Setpoint Node Name
+
+  Coil:Cooling:DX:SingleSpeed,
+    PSZ-AC:1_CoolC DXCoil,   !- Name
+    ALWAYS_ON,               !- Availability Schedule Name
+    AUTOSIZE,                !- Gross Rated Total Cooling Capacity {W}
+    AUTOSIZE,                !- Gross Rated Sensible Heat Ratio
+    3.66668442928701,        !- Gross Rated Cooling COP {W/W}
+    AUTOSIZE,                !- Rated Air Flow Rate {m3/s}
+    ,                        !- Rated Evaporator Fan Power Per Volume Flow Rate {W/(m3/s)}
+    PSZ-AC:1_OA-PSZ-AC:1_CoolCNode,  !- Air Inlet Node Name
+    PSZ-AC:1_CoolC-PSZ-AC:1_HeatCNode,  !- Air Outlet Node Name
+    Cool-Cap-fT,             !- Total Cooling Capacity Function of Temperature Curve Name
+    ConstantCubic,           !- Total Cooling Capacity Function of Flow Fraction Curve Name
+    Cool-EIR-fT,             !- Energy Input Ratio Function of Temperature Curve Name
+    ConstantCubic,           !- Energy Input Ratio Function of Flow Fraction Curve Name
+    Cool-PLF-fPLR;           !- Part Load Fraction Correlation Curve Name
+
+  Coil:Cooling:DX:SingleSpeed,
+    PSZ-AC:2_CoolC DXCoil,   !- Name
+    ALWAYS_ON,               !- Availability Schedule Name
+    AUTOSIZE,                !- Gross Rated Total Cooling Capacity {W}
+    AUTOSIZE,                !- Gross Rated Sensible Heat Ratio
+    3.66668442928701,        !- Gross Rated Cooling COP {W/W}
+    AUTOSIZE,                !- Rated Air Flow Rate {m3/s}
+    ,                        !- Rated Evaporator Fan Power Per Volume Flow Rate {W/(m3/s)}
+    PSZ-AC:2_OA-PSZ-AC:2_CoolCNode,  !- Air Inlet Node Name
+    PSZ-AC:2_CoolC-PSZ-AC:2_HeatCNode,  !- Air Outlet Node Name
+    Cool-Cap-fT,             !- Total Cooling Capacity Function of Temperature Curve Name
+    ConstantCubic,           !- Total Cooling Capacity Function of Flow Fraction Curve Name
+    Cool-EIR-fT,             !- Energy Input Ratio Function of Temperature Curve Name
+    ConstantCubic,           !- Energy Input Ratio Function of Flow Fraction Curve Name
+    Cool-PLF-fPLR;           !- Part Load Fraction Correlation Curve Name
+
+  Coil:Cooling:DX:SingleSpeed,
+    PSZ-AC:3_CoolC DXCoil,   !- Name
+    ALWAYS_ON,               !- Availability Schedule Name
+    AUTOSIZE,                !- Gross Rated Total Cooling Capacity {W}
+    AUTOSIZE,                !- Gross Rated Sensible Heat Ratio
+    3.66668442928701,        !- Gross Rated Cooling COP {W/W}
+    AUTOSIZE,                !- Rated Air Flow Rate {m3/s}
+    ,                        !- Rated Evaporator Fan Power Per Volume Flow Rate {W/(m3/s)}
+    PSZ-AC:3_OA-PSZ-AC:3_CoolCNode,  !- Air Inlet Node Name
+    PSZ-AC:3_CoolC-PSZ-AC:3_HeatCNode,  !- Air Outlet Node Name
+    Cool-Cap-fT,             !- Total Cooling Capacity Function of Temperature Curve Name
+    ConstantCubic,           !- Total Cooling Capacity Function of Flow Fraction Curve Name
+    Cool-EIR-fT,             !- Energy Input Ratio Function of Temperature Curve Name
+    ConstantCubic,           !- Energy Input Ratio Function of Flow Fraction Curve Name
+    Cool-PLF-fPLR;           !- Part Load Fraction Correlation Curve Name
+
+  Coil:Cooling:DX:SingleSpeed,
+    PSZ-AC:4_CoolC DXCoil,   !- Name
+    ALWAYS_ON,               !- Availability Schedule Name
+    AUTOSIZE,                !- Gross Rated Total Cooling Capacity {W}
+    AUTOSIZE,                !- Gross Rated Sensible Heat Ratio
+    3.66668442928701,        !- Gross Rated Cooling COP {W/W}
+    AUTOSIZE,                !- Rated Air Flow Rate {m3/s}
+    ,                        !- Rated Evaporator Fan Power Per Volume Flow Rate {W/(m3/s)}
+    PSZ-AC:4_OA-PSZ-AC:4_CoolCNode,  !- Air Inlet Node Name
+    PSZ-AC:4_CoolC-PSZ-AC:4_HeatCNode,  !- Air Outlet Node Name
+    Cool-Cap-fT,             !- Total Cooling Capacity Function of Temperature Curve Name
+    ConstantCubic,           !- Total Cooling Capacity Function of Flow Fraction Curve Name
+    Cool-EIR-fT,             !- Energy Input Ratio Function of Temperature Curve Name
+    ConstantCubic,           !- Energy Input Ratio Function of Flow Fraction Curve Name
+    Cool-PLF-fPLR;           !- Part Load Fraction Correlation Curve Name
+
+  Coil:Cooling:DX:SingleSpeed,
+    PSZ-AC:5_CoolC DXCoil,   !- Name
+    ALWAYS_ON,               !- Availability Schedule Name
+    AUTOSIZE,                !- Gross Rated Total Cooling Capacity {W}
+    AUTOSIZE,                !- Gross Rated Sensible Heat Ratio
+    3.66668442928701,        !- Gross Rated Cooling COP {W/W}
+    AUTOSIZE,                !- Rated Air Flow Rate {m3/s}
+    ,                        !- Rated Evaporator Fan Power Per Volume Flow Rate {W/(m3/s)}
+    PSZ-AC:5_OA-PSZ-AC:5_CoolCNode,  !- Air Inlet Node Name
+    PSZ-AC:5_CoolC-PSZ-AC:5_HeatCNode,  !- Air Outlet Node Name
+    Cool-Cap-fT,             !- Total Cooling Capacity Function of Temperature Curve Name
+    ConstantCubic,           !- Total Cooling Capacity Function of Flow Fraction Curve Name
+    Cool-EIR-fT,             !- Energy Input Ratio Function of Temperature Curve Name
+    ConstantCubic,           !- Energy Input Ratio Function of Flow Fraction Curve Name
+    Cool-PLF-fPLR;           !- Part Load Fraction Correlation Curve Name
+
+  ZoneHVAC:EquipmentList,
+    Core_ZN Equipment,       !- Name
+    SequentialLoad,          !- Load Distribution Scheme
+    ZoneHVAC:AirDistributionUnit,  !- Zone Equipment 1 Object Type
+    Core_ZN Direct Air ADU,  !- Zone Equipment 1 Name
+    1,                       !- Zone Equipment 1 Cooling Sequence
+    1,                       !- Zone Equipment 1 Heating or No-Load Sequence
+    ,                        !- Zone Equipment 1 Sequential Cooling Fraction Schedule Name
+    ;                        !- Zone Equipment 1 Sequential Heating Fraction Schedule Name
+
+  ZoneHVAC:EquipmentList,
+    Perimeter_ZN_1 Equipment,!- Name
+    SequentialLoad,          !- Load Distribution Scheme
+    ZoneHVAC:AirDistributionUnit,  !- Zone Equipment 1 Object Type
+    Perimeter_ZN_1 Direct Air ADU,  !- Zone Equipment 1 Name
+    1,                       !- Zone Equipment 1 Cooling Sequence
+    1,                       !- Zone Equipment 1 Heating or No-Load Sequence
+    ,                        !- Zone Equipment 1 Sequential Cooling Fraction Schedule Name
+    ;                        !- Zone Equipment 1 Sequential Heating Fraction Schedule Name
+
+  ZoneHVAC:EquipmentList,
+    Perimeter_ZN_2 Equipment,!- Name
+    SequentialLoad,          !- Load Distribution Scheme
+    ZoneHVAC:AirDistributionUnit,  !- Zone Equipment 1 Object Type
+    Perimeter_ZN_2 Direct Air ADU,  !- Zone Equipment 1 Name
+    1,                       !- Zone Equipment 1 Cooling Sequence
+    1,                       !- Zone Equipment 1 Heating or No-Load Sequence
+    ,                        !- Zone Equipment 1 Sequential Cooling Fraction Schedule Name
+    ;                        !- Zone Equipment 1 Sequential Heating Fraction Schedule Name
+
+  ZoneHVAC:EquipmentList,
+    Perimeter_ZN_3 Equipment,!- Name
+    SequentialLoad,          !- Load Distribution Scheme
+    ZoneHVAC:AirDistributionUnit,  !- Zone Equipment 1 Object Type
+    Perimeter_ZN_3 Direct Air ADU,  !- Zone Equipment 1 Name
+    1,                       !- Zone Equipment 1 Cooling Sequence
+    1,                       !- Zone Equipment 1 Heating or No-Load Sequence
+    ,                        !- Zone Equipment 1 Sequential Cooling Fraction Schedule Name
+    ;                        !- Zone Equipment 1 Sequential Heating Fraction Schedule Name
+
+  ZoneHVAC:EquipmentList,
+    Perimeter_ZN_4 Equipment,!- Name
+    SequentialLoad,          !- Load Distribution Scheme
+    ZoneHVAC:AirDistributionUnit,  !- Zone Equipment 1 Object Type
+    Perimeter_ZN_4 Direct Air ADU,  !- Zone Equipment 1 Name
+    1,                       !- Zone Equipment 1 Cooling Sequence
+    1,                       !- Zone Equipment 1 Heating or No-Load Sequence
+    ,                        !- Zone Equipment 1 Sequential Cooling Fraction Schedule Name
+    ;                        !- Zone Equipment 1 Sequential Heating Fraction Schedule Name
+
+! ***SIZING & CONTROLS***
+
+  Sizing:Zone,
+    Core_ZN,                 !- Zone or ZoneList Name
+    SupplyAirTemperature,    !- Zone Cooling Design Supply Air Temperature Input Method
+    14.0000,                 !- Zone Cooling Design Supply Air Temperature {C}
+    ,                        !- Zone Cooling Design Supply Air Temperature Difference {deltaC}
+    SupplyAirTemperature,    !- Zone Heating Design Supply Air Temperature Input Method
+    40.0000,                 !- Zone Heating Design Supply Air Temperature {C}
+    ,                        !- Zone Heating Design Supply Air Temperature Difference {deltaC}
+    0.0085,                  !- Zone Cooling Design Supply Air Humidity Ratio {kgWater/kgDryAir}
+    0.0080,                  !- Zone Heating Design Supply Air Humidity Ratio {kgWater/kgDryAir}
+    SZ DSOA Core_ZN,         !- Design Specification Outdoor Air Object Name
+    ,                        !- Zone Heating Sizing Factor
+    ,                        !- Zone Cooling Sizing Factor
+    DesignDay,               !- Cooling Design Air Flow Method
+    ,                        !- Cooling Design Air Flow Rate {m3/s}
+    ,                        !- Cooling Minimum Air Flow per Zone Floor Area {m3/s-m2}
+    ,                        !- Cooling Minimum Air Flow {m3/s}
+    ,                        !- Cooling Minimum Air Flow Fraction
+    DesignDay,               !- Heating Design Air Flow Method
+    ,                        !- Heating Design Air Flow Rate {m3/s}
+    ,                        !- Heating Maximum Air Flow per Zone Floor Area {m3/s-m2}
+    ,                        !- Heating Maximum Air Flow {m3/s}
+    ,                        !- Heating Maximum Air Flow Fraction
+    ,                        !- Design Specification Zone Air Distribution Object Name
+    No,                      !- Account for Dedicated Outdoor Air System
+    NeutralSupplyAir,        !- Dedicated Outdoor Air System Control Strategy
+    autosize,                !- Dedicated Outdoor Air Low Setpoint Temperature for Design {C}
+    autosize;                !- Dedicated Outdoor Air High Setpoint Temperature for Design {C}
+
+  DesignSpecification:OutdoorAir,
+    SZ DSOA Core_ZN,         !- Name
+    Flow/Person,             !- Outdoor Air Method
+    0.01,                    !- Outdoor Air Flow per Person {m3/s-person}
+    ,                        !- Outdoor Air Flow per Zone Floor Area {m3/s-m2}
+    ;                        !- Outdoor Air Flow per Zone {m3/s}
+
+  Sizing:Zone,
+    Perimeter_ZN_1,          !- Zone or ZoneList Name
+    SupplyAirTemperature,    !- Zone Cooling Design Supply Air Temperature Input Method
+    13.9000,                 !- Zone Cooling Design Supply Air Temperature {C}
+    ,                        !- Zone Cooling Design Supply Air Temperature Difference {deltaC}
+    SupplyAirTemperature,    !- Zone Heating Design Supply Air Temperature Input Method
+    40.0000,                 !- Zone Heating Design Supply Air Temperature {C}
+    ,                        !- Zone Heating Design Supply Air Temperature Difference {deltaC}
+    0.0085,                  !- Zone Cooling Design Supply Air Humidity Ratio {kgWater/kgDryAir}
+    0.0080,                  !- Zone Heating Design Supply Air Humidity Ratio {kgWater/kgDryAir}
+    SZ DSOA Perimeter_ZN_1,  !- Design Specification Outdoor Air Object Name
+    ,                        !- Zone Heating Sizing Factor
+    ,                        !- Zone Cooling Sizing Factor
+    DesignDay,               !- Cooling Design Air Flow Method
+    ,                        !- Cooling Design Air Flow Rate {m3/s}
+    ,                        !- Cooling Minimum Air Flow per Zone Floor Area {m3/s-m2}
+    ,                        !- Cooling Minimum Air Flow {m3/s}
+    ,                        !- Cooling Minimum Air Flow Fraction
+    DesignDay,               !- Heating Design Air Flow Method
+    ,                        !- Heating Design Air Flow Rate {m3/s}
+    ,                        !- Heating Maximum Air Flow per Zone Floor Area {m3/s-m2}
+    ,                        !- Heating Maximum Air Flow {m3/s}
+    ,                        !- Heating Maximum Air Flow Fraction
+    ,                        !- Design Specification Zone Air Distribution Object Name
+    No,                      !- Account for Dedicated Outdoor Air System
+    NeutralSupplyAir,        !- Dedicated Outdoor Air System Control Strategy
+    autosize,                !- Dedicated Outdoor Air Low Setpoint Temperature for Design {C}
+    autosize;                !- Dedicated Outdoor Air High Setpoint Temperature for Design {C}
+
+  DesignSpecification:OutdoorAir,
+    SZ DSOA Perimeter_ZN_1,  !- Name
+    Flow/Person,             !- Outdoor Air Method
+    0.01,                    !- Outdoor Air Flow per Person {m3/s-person}
+    ,                        !- Outdoor Air Flow per Zone Floor Area {m3/s-m2}
+    ;                        !- Outdoor Air Flow per Zone {m3/s}
+
+  Sizing:Zone,
+    Perimeter_ZN_2,          !- Zone or ZoneList Name
+    SupplyAirTemperature,    !- Zone Cooling Design Supply Air Temperature Input Method
+    14.0000,                 !- Zone Cooling Design Supply Air Temperature {C}
+    ,                        !- Zone Cooling Design Supply Air Temperature Difference {deltaC}
+    SupplyAirTemperature,    !- Zone Heating Design Supply Air Temperature Input Method
+    40.0000,                 !- Zone Heating Design Supply Air Temperature {C}
+    ,                        !- Zone Heating Design Supply Air Temperature Difference {deltaC}
+    0.0085,                  !- Zone Cooling Design Supply Air Humidity Ratio {kgWater/kgDryAir}
+    0.0080,                  !- Zone Heating Design Supply Air Humidity Ratio {kgWater/kgDryAir}
+    SZ DSOA Perimeter_ZN_2,  !- Design Specification Outdoor Air Object Name
+    ,                        !- Zone Heating Sizing Factor
+    ,                        !- Zone Cooling Sizing Factor
+    DesignDay,               !- Cooling Design Air Flow Method
+    ,                        !- Cooling Design Air Flow Rate {m3/s}
+    ,                        !- Cooling Minimum Air Flow per Zone Floor Area {m3/s-m2}
+    ,                        !- Cooling Minimum Air Flow {m3/s}
+    ,                        !- Cooling Minimum Air Flow Fraction
+    DesignDay,               !- Heating Design Air Flow Method
+    ,                        !- Heating Design Air Flow Rate {m3/s}
+    ,                        !- Heating Maximum Air Flow per Zone Floor Area {m3/s-m2}
+    ,                        !- Heating Maximum Air Flow {m3/s}
+    ,                        !- Heating Maximum Air Flow Fraction
+    ,                        !- Design Specification Zone Air Distribution Object Name
+    No,                      !- Account for Dedicated Outdoor Air System
+    NeutralSupplyAir,        !- Dedicated Outdoor Air System Control Strategy
+    autosize,                !- Dedicated Outdoor Air Low Setpoint Temperature for Design {C}
+    autosize;                !- Dedicated Outdoor Air High Setpoint Temperature for Design {C}
+
+  DesignSpecification:OutdoorAir,
+    SZ DSOA Perimeter_ZN_2,  !- Name
+    Flow/Person,             !- Outdoor Air Method
+    0.01,                    !- Outdoor Air Flow per Person {m3/s-person}
+    ,                        !- Outdoor Air Flow per Zone Floor Area {m3/s-m2}
+    ;                        !- Outdoor Air Flow per Zone {m3/s}
+
+  Sizing:Zone,
+    Perimeter_ZN_3,          !- Zone or ZoneList Name
+    SupplyAirTemperature,    !- Zone Cooling Design Supply Air Temperature Input Method
+    13.9000,                 !- Zone Cooling Design Supply Air Temperature {C}
+    ,                        !- Zone Cooling Design Supply Air Temperature Difference {deltaC}
+    SupplyAirTemperature,    !- Zone Heating Design Supply Air Temperature Input Method
+    40.0000,                 !- Zone Heating Design Supply Air Temperature {C}
+    ,                        !- Zone Heating Design Supply Air Temperature Difference {deltaC}
+    0.0085,                  !- Zone Cooling Design Supply Air Humidity Ratio {kgWater/kgDryAir}
+    0.0080,                  !- Zone Heating Design Supply Air Humidity Ratio {kgWater/kgDryAir}
+    SZ DSOA Perimeter_ZN_3,  !- Design Specification Outdoor Air Object Name
+    ,                        !- Zone Heating Sizing Factor
+    ,                        !- Zone Cooling Sizing Factor
+    DesignDay,               !- Cooling Design Air Flow Method
+    ,                        !- Cooling Design Air Flow Rate {m3/s}
+    ,                        !- Cooling Minimum Air Flow per Zone Floor Area {m3/s-m2}
+    ,                        !- Cooling Minimum Air Flow {m3/s}
+    ,                        !- Cooling Minimum Air Flow Fraction
+    DesignDay,               !- Heating Design Air Flow Method
+    ,                        !- Heating Design Air Flow Rate {m3/s}
+    ,                        !- Heating Maximum Air Flow per Zone Floor Area {m3/s-m2}
+    ,                        !- Heating Maximum Air Flow {m3/s}
+    ,                        !- Heating Maximum Air Flow Fraction
+    ,                        !- Design Specification Zone Air Distribution Object Name
+    No,                      !- Account for Dedicated Outdoor Air System
+    NeutralSupplyAir,        !- Dedicated Outdoor Air System Control Strategy
+    autosize,                !- Dedicated Outdoor Air Low Setpoint Temperature for Design {C}
+    autosize;                !- Dedicated Outdoor Air High Setpoint Temperature for Design {C}
+
+  DesignSpecification:OutdoorAir,
+    SZ DSOA Perimeter_ZN_3,  !- Name
+    Flow/Person,             !- Outdoor Air Method
+    0.01,                    !- Outdoor Air Flow per Person {m3/s-person}
+    ,                        !- Outdoor Air Flow per Zone Floor Area {m3/s-m2}
+    ;                        !- Outdoor Air Flow per Zone {m3/s}
+
+  Sizing:Zone,
+    Perimeter_ZN_4,          !- Zone or ZoneList Name
+    SupplyAirTemperature,    !- Zone Cooling Design Supply Air Temperature Input Method
+    14.0000,                 !- Zone Cooling Design Supply Air Temperature {C}
+    ,                        !- Zone Cooling Design Supply Air Temperature Difference {deltaC}
+    SupplyAirTemperature,    !- Zone Heating Design Supply Air Temperature Input Method
+    40.0000,                 !- Zone Heating Design Supply Air Temperature {C}
+    ,                        !- Zone Heating Design Supply Air Temperature Difference {deltaC}
+    0.0085,                  !- Zone Cooling Design Supply Air Humidity Ratio {kgWater/kgDryAir}
+    0.0080,                  !- Zone Heating Design Supply Air Humidity Ratio {kgWater/kgDryAir}
+    SZ DSOA Perimeter_ZN_4,  !- Design Specification Outdoor Air Object Name
+    ,                        !- Zone Heating Sizing Factor
+    ,                        !- Zone Cooling Sizing Factor
+    DesignDay,               !- Cooling Design Air Flow Method
+    ,                        !- Cooling Design Air Flow Rate {m3/s}
+    ,                        !- Cooling Minimum Air Flow per Zone Floor Area {m3/s-m2}
+    ,                        !- Cooling Minimum Air Flow {m3/s}
+    ,                        !- Cooling Minimum Air Flow Fraction
+    DesignDay,               !- Heating Design Air Flow Method
+    ,                        !- Heating Design Air Flow Rate {m3/s}
+    ,                        !- Heating Maximum Air Flow per Zone Floor Area {m3/s-m2}
+    ,                        !- Heating Maximum Air Flow {m3/s}
+    ,                        !- Heating Maximum Air Flow Fraction
+    ,                        !- Design Specification Zone Air Distribution Object Name
+    No,                      !- Account for Dedicated Outdoor Air System
+    NeutralSupplyAir,        !- Dedicated Outdoor Air System Control Strategy
+    autosize,                !- Dedicated Outdoor Air Low Setpoint Temperature for Design {C}
+    autosize;                !- Dedicated Outdoor Air High Setpoint Temperature for Design {C}
+
+  DesignSpecification:OutdoorAir,
+    SZ DSOA Perimeter_ZN_4,  !- Name
+    Flow/Person,             !- Outdoor Air Method
+    0.01,                    !- Outdoor Air Flow per Person {m3/s-person}
+    ,                        !- Outdoor Air Flow per Zone Floor Area {m3/s-m2}
+    ;                        !- Outdoor Air Flow per Zone {m3/s}
+
+  ZoneControl:Thermostat,
+    Core_ZN Thermostat,      !- Name
+    Core_ZN,                 !- Zone or ZoneList Name
+    Dual Zone Control Type Sched,  !- Control Type Schedule Name
+    ThermostatSetpoint:DualSetpoint,  !- Control 1 Object Type
+    Core_ZN DualSPSched;     !- Control 1 Name
+
+  ZoneControl:Thermostat,
+    Perimeter_ZN_1 Thermostat,  !- Name
+    Perimeter_ZN_1,          !- Zone or ZoneList Name
+    Dual Zone Control Type Sched,  !- Control Type Schedule Name
+    ThermostatSetpoint:DualSetpoint,  !- Control 1 Object Type
+    Perimeter_ZN_1 DualSPSched;  !- Control 1 Name
+
+  ZoneControl:Thermostat,
+    Perimeter_ZN_2 Thermostat,  !- Name
+    Perimeter_ZN_2,          !- Zone or ZoneList Name
+    Dual Zone Control Type Sched,  !- Control Type Schedule Name
+    ThermostatSetpoint:DualSetpoint,  !- Control 1 Object Type
+    Perimeter_ZN_2 DualSPSched;  !- Control 1 Name
+
+  ZoneControl:Thermostat,
+    Perimeter_ZN_3 Thermostat,  !- Name
+    Perimeter_ZN_3,          !- Zone or ZoneList Name
+    Dual Zone Control Type Sched,  !- Control Type Schedule Name
+    ThermostatSetpoint:DualSetpoint,  !- Control 1 Object Type
+    Perimeter_ZN_3 DualSPSched;  !- Control 1 Name
+
+  ZoneControl:Thermostat,
+    Perimeter_ZN_4 Thermostat,  !- Name
+    Perimeter_ZN_4,          !- Zone or ZoneList Name
+    Dual Zone Control Type Sched,  !- Control Type Schedule Name
+    ThermostatSetpoint:DualSetpoint,  !- Control 1 Object Type
+    Perimeter_ZN_4 DualSPSched;  !- Control 1 Name
+
+  ThermostatSetpoint:DualSetpoint,
+    Core_ZN DualSPSched,     !- Name
+    HTGSETP_SCH,             !- Heating Setpoint Temperature Schedule Name
+    CLGSETP_SCH;             !- Cooling Setpoint Temperature Schedule Name
+
+  ThermostatSetpoint:DualSetpoint,
+    Perimeter_ZN_1 DualSPSched,  !- Name
+    HTGSETP_SCH,             !- Heating Setpoint Temperature Schedule Name
+    CLGSETP_SCH;             !- Cooling Setpoint Temperature Schedule Name
+
+  ThermostatSetpoint:DualSetpoint,
+    Perimeter_ZN_2 DualSPSched,  !- Name
+    HTGSETP_SCH,             !- Heating Setpoint Temperature Schedule Name
+    CLGSETP_SCH;             !- Cooling Setpoint Temperature Schedule Name
+
+  ThermostatSetpoint:DualSetpoint,
+    Perimeter_ZN_3 DualSPSched,  !- Name
+    HTGSETP_SCH,             !- Heating Setpoint Temperature Schedule Name
+    CLGSETP_SCH;             !- Cooling Setpoint Temperature Schedule Name
+
+  ThermostatSetpoint:DualSetpoint,
+    Perimeter_ZN_4 DualSPSched,  !- Name
+    HTGSETP_SCH,             !- Heating Setpoint Temperature Schedule Name
+    CLGSETP_SCH;             !- Cooling Setpoint Temperature Schedule Name
+
+  SetpointManager:SingleZone:Reheat,
+    SupAirTemp MngrCore_ZN,  !- Name
+    Temperature,             !- Control Variable
+    10.0,                    !- Minimum Supply Air Temperature {C}
+    50.0,                    !- Maximum Supply Air Temperature {C}
+    Core_ZN,                 !- Control Zone Name
+    Core_ZN Air Node,        !- Zone Node Name
+    Core_ZN Direct Air Inlet Node Name,  !- Zone Inlet Node Name
+    PSZ-AC:1 Supply Equipment Outlet Node;  !- Setpoint Node or NodeList Name
+
+  SetpointManager:SingleZone:Reheat,
+    SupAirTemp MngrPerimeter_ZN_1,  !- Name
+    Temperature,             !- Control Variable
+    10.0,                    !- Minimum Supply Air Temperature {C}
+    50.0,                    !- Maximum Supply Air Temperature {C}
+    Perimeter_ZN_1,          !- Control Zone Name
+    Perimeter_ZN_1 Air Node, !- Zone Node Name
+    Perimeter_ZN_1 Direct Air Inlet Node Name,  !- Zone Inlet Node Name
+    PSZ-AC:2 Supply Equipment Outlet Node;  !- Setpoint Node or NodeList Name
+
+  SetpointManager:SingleZone:Reheat,
+    SupAirTemp MngrPerimeter_ZN_2,  !- Name
+    Temperature,             !- Control Variable
+    10.0,                    !- Minimum Supply Air Temperature {C}
+    50.0,                    !- Maximum Supply Air Temperature {C}
+    Perimeter_ZN_2,          !- Control Zone Name
+    Perimeter_ZN_2 Air Node, !- Zone Node Name
+    Perimeter_ZN_2 Direct Air Inlet Node Name,  !- Zone Inlet Node Name
+    PSZ-AC:3 Supply Equipment Outlet Node;  !- Setpoint Node or NodeList Name
+
+  SetpointManager:SingleZone:Reheat,
+    SupAirTemp MngrPerimeter_ZN_3,  !- Name
+    Temperature,             !- Control Variable
+    10.0,                    !- Minimum Supply Air Temperature {C}
+    50.0,                    !- Maximum Supply Air Temperature {C}
+    Perimeter_ZN_3,          !- Control Zone Name
+    Perimeter_ZN_3 Air Node, !- Zone Node Name
+    Perimeter_ZN_3 Direct Air Inlet Node Name,  !- Zone Inlet Node Name
+    PSZ-AC:4 Supply Equipment Outlet Node;  !- Setpoint Node or NodeList Name
+
+  SetpointManager:SingleZone:Reheat,
+    SupAirTemp MngrPerimeter_ZN_4,  !- Name
+    Temperature,             !- Control Variable
+    10.0,                    !- Minimum Supply Air Temperature {C}
+    50.0,                    !- Maximum Supply Air Temperature {C}
+    Perimeter_ZN_4,          !- Control Zone Name
+    Perimeter_ZN_4 Air Node, !- Zone Node Name
+    Perimeter_ZN_4 Direct Air Inlet Node Name,  !- Zone Inlet Node Name
+    PSZ-AC:5 Supply Equipment Outlet Node;  !- Setpoint Node or NodeList Name
+
+  Sizing:System,
+    PSZ-AC:1,                !- AirLoop Name
+    Sensible,                !- Type of Load to Size On
+    AUTOSIZE,                !- Design Outdoor Air Flow Rate {m3/s}
+    1.0,                     !- Central Heating Maximum System Air Flow Ratio
+    7.0,                     !- Preheat Design Temperature {C}
+    0.008,                   !- Preheat Design Humidity Ratio {kgWater/kgDryAir}
+    12.8000,                 !- Precool Design Temperature {C}
+    0.008,                   !- Precool Design Humidity Ratio {kgWater/kgDryAir}
+    12.8000,                 !- Central Cooling Design Supply Air Temperature {C}
+    40.0,                    !- Central Heating Design Supply Air Temperature {C}
+    NonCoincident,           !- Type of Zone Sum to Use
+    No,                      !- 100% Outdoor Air in Cooling
+    No,                      !- 100% Outdoor Air in Heating
+    0.0085,                  !- Central Cooling Design Supply Air Humidity Ratio {kgWater/kgDryAir}
+    0.0080,                  !- Central Heating Design Supply Air Humidity Ratio {kgWater/kgDryAir}
+    DesignDay,               !- Cooling Supply Air Flow Rate Method
+    ,                        !- Cooling Supply Air Flow Rate {m3/s}
+    ,                        !- Cooling Supply Air Flow Rate Per Floor Area {m3/s-m2}
+    ,                        !- Cooling Fraction of Autosized Cooling Supply Air Flow Rate
+    ,                        !- Cooling Supply Air Flow Rate Per Unit Cooling Capacity {m3/s-W}
+    DesignDay,               !- Heating Supply Air Flow Rate Method
+    ,                        !- Heating Supply Air Flow Rate {m3/s}
+    ,                        !- Heating Supply Air Flow Rate Per Floor Area {m3/s-m2}
+    ,                        !- Heating Fraction of Autosized Heating Supply Air Flow Rate
+    ,                        !- Heating Fraction of Autosized Cooling Supply Air Flow Rate
+    ,                        !- Heating Supply Air Flow Rate Per Unit Heating Capacity {m3/s-W}
+    ,                        !- System Outdoor Air Method
+    1.0,                     !- Zone Maximum Outdoor Air Fraction {dimensionless}
+    CoolingDesignCapacity,   !- Cooling Design Capacity Method
+    autosize,                !- Cooling Design Capacity {W}
+    ,                        !- Cooling Design Capacity Per Floor Area {W/m2}
+    ,                        !- Fraction of Autosized Cooling Design Capacity
+    HeatingDesignCapacity,   !- Heating Design Capacity Method
+    autosize,                !- Heating Design Capacity {W}
+    ,                        !- Heating Design Capacity Per Floor Area {W/m2}
+    ,                        !- Fraction of Autosized Heating Design Capacity
+    VAV;                     !- Central Cooling Capacity Control Method
+
+  Sizing:System,
+    PSZ-AC:2,                !- AirLoop Name
+    Sensible,                !- Type of Load to Size On
+    AUTOSIZE,                !- Design Outdoor Air Flow Rate {m3/s}
+    1.0,                     !- Central Heating Maximum System Air Flow Ratio
+    7.0,                     !- Preheat Design Temperature {C}
+    0.008,                   !- Preheat Design Humidity Ratio {kgWater/kgDryAir}
+    12.8000,                 !- Precool Design Temperature {C}
+    0.008,                   !- Precool Design Humidity Ratio {kgWater/kgDryAir}
+    12.8000,                 !- Central Cooling Design Supply Air Temperature {C}
+    40.0,                    !- Central Heating Design Supply Air Temperature {C}
+    NonCoincident,           !- Type of Zone Sum to Use
+    No,                      !- 100% Outdoor Air in Cooling
+    No,                      !- 100% Outdoor Air in Heating
+    0.0085,                  !- Central Cooling Design Supply Air Humidity Ratio {kgWater/kgDryAir}
+    0.0080,                  !- Central Heating Design Supply Air Humidity Ratio {kgWater/kgDryAir}
+    DesignDay,               !- Cooling Supply Air Flow Rate Method
+    ,                        !- Cooling Supply Air Flow Rate {m3/s}
+    ,                        !- Cooling Supply Air Flow Rate Per Floor Area {m3/s-m2}
+    ,                        !- Cooling Fraction of Autosized Cooling Supply Air Flow Rate
+    ,                        !- Cooling Supply Air Flow Rate Per Unit Cooling Capacity {m3/s-W}
+    DesignDay,               !- Heating Supply Air Flow Rate Method
+    ,                        !- Heating Supply Air Flow Rate {m3/s}
+    ,                        !- Heating Supply Air Flow Rate Per Floor Area {m3/s-m2}
+    ,                        !- Heating Fraction of Autosized Heating Supply Air Flow Rate
+    ,                        !- Heating Fraction of Autosized Cooling Supply Air Flow Rate
+    ,                        !- Heating Supply Air Flow Rate Per Unit Heating Capacity {m3/s-W}
+    ,                        !- System Outdoor Air Method
+    1.0,                     !- Zone Maximum Outdoor Air Fraction {dimensionless}
+    CoolingDesignCapacity,   !- Cooling Design Capacity Method
+    autosize,                !- Cooling Design Capacity {W}
+    ,                        !- Cooling Design Capacity Per Floor Area {W/m2}
+    ,                        !- Fraction of Autosized Cooling Design Capacity
+    HeatingDesignCapacity,   !- Heating Design Capacity Method
+    autosize,                !- Heating Design Capacity {W}
+    ,                        !- Heating Design Capacity Per Floor Area {W/m2}
+    ,                        !- Fraction of Autosized Heating Design Capacity
+    VAV;                     !- Central Cooling Capacity Control Method
+
+  Sizing:System,
+    PSZ-AC:3,                !- AirLoop Name
+    Sensible,                !- Type of Load to Size On
+    AUTOSIZE,                !- Design Outdoor Air Flow Rate {m3/s}
+    1.0,                     !- Central Heating Maximum System Air Flow Ratio
+    7.0,                     !- Preheat Design Temperature {C}
+    0.008,                   !- Preheat Design Humidity Ratio {kgWater/kgDryAir}
+    12.8000,                 !- Precool Design Temperature {C}
+    0.008,                   !- Precool Design Humidity Ratio {kgWater/kgDryAir}
+    12.8000,                 !- Central Cooling Design Supply Air Temperature {C}
+    40.0,                    !- Central Heating Design Supply Air Temperature {C}
+    NonCoincident,           !- Type of Zone Sum to Use
+    No,                      !- 100% Outdoor Air in Cooling
+    No,                      !- 100% Outdoor Air in Heating
+    0.0085,                  !- Central Cooling Design Supply Air Humidity Ratio {kgWater/kgDryAir}
+    0.0080,                  !- Central Heating Design Supply Air Humidity Ratio {kgWater/kgDryAir}
+    DesignDay,               !- Cooling Supply Air Flow Rate Method
+    ,                        !- Cooling Supply Air Flow Rate {m3/s}
+    ,                        !- Cooling Supply Air Flow Rate Per Floor Area {m3/s-m2}
+    ,                        !- Cooling Fraction of Autosized Cooling Supply Air Flow Rate
+    ,                        !- Cooling Supply Air Flow Rate Per Unit Cooling Capacity {m3/s-W}
+    DesignDay,               !- Heating Supply Air Flow Rate Method
+    ,                        !- Heating Supply Air Flow Rate {m3/s}
+    ,                        !- Heating Supply Air Flow Rate Per Floor Area {m3/s-m2}
+    ,                        !- Heating Fraction of Autosized Heating Supply Air Flow Rate
+    ,                        !- Heating Fraction of Autosized Cooling Supply Air Flow Rate
+    ,                        !- Heating Supply Air Flow Rate Per Unit Heating Capacity {m3/s-W}
+    ,                        !- System Outdoor Air Method
+    1.0,                     !- Zone Maximum Outdoor Air Fraction {dimensionless}
+    CoolingDesignCapacity,   !- Cooling Design Capacity Method
+    autosize,                !- Cooling Design Capacity {W}
+    ,                        !- Cooling Design Capacity Per Floor Area {W/m2}
+    ,                        !- Fraction of Autosized Cooling Design Capacity
+    HeatingDesignCapacity,   !- Heating Design Capacity Method
+    autosize,                !- Heating Design Capacity {W}
+    ,                        !- Heating Design Capacity Per Floor Area {W/m2}
+    ,                        !- Fraction of Autosized Heating Design Capacity
+    VAV;                     !- Central Cooling Capacity Control Method
+
+  Sizing:System,
+    PSZ-AC:4,                !- AirLoop Name
+    Sensible,                !- Type of Load to Size On
+    AUTOSIZE,                !- Design Outdoor Air Flow Rate {m3/s}
+    1.0,                     !- Central Heating Maximum System Air Flow Ratio
+    7.0,                     !- Preheat Design Temperature {C}
+    0.008,                   !- Preheat Design Humidity Ratio {kgWater/kgDryAir}
+    12.8000,                 !- Precool Design Temperature {C}
+    0.008,                   !- Precool Design Humidity Ratio {kgWater/kgDryAir}
+    12.8000,                 !- Central Cooling Design Supply Air Temperature {C}
+    40.0,                    !- Central Heating Design Supply Air Temperature {C}
+    NonCoincident,           !- Type of Zone Sum to Use
+    No,                      !- 100% Outdoor Air in Cooling
+    No,                      !- 100% Outdoor Air in Heating
+    0.0085,                  !- Central Cooling Design Supply Air Humidity Ratio {kgWater/kgDryAir}
+    0.0080,                  !- Central Heating Design Supply Air Humidity Ratio {kgWater/kgDryAir}
+    DesignDay,               !- Cooling Supply Air Flow Rate Method
+    ,                        !- Cooling Supply Air Flow Rate {m3/s}
+    ,                        !- Cooling Supply Air Flow Rate Per Floor Area {m3/s-m2}
+    ,                        !- Cooling Fraction of Autosized Cooling Supply Air Flow Rate
+    ,                        !- Cooling Supply Air Flow Rate Per Unit Cooling Capacity {m3/s-W}
+    DesignDay,               !- Heating Supply Air Flow Rate Method
+    ,                        !- Heating Supply Air Flow Rate {m3/s}
+    ,                        !- Heating Supply Air Flow Rate Per Floor Area {m3/s-m2}
+    ,                        !- Heating Fraction of Autosized Heating Supply Air Flow Rate
+    ,                        !- Heating Fraction of Autosized Cooling Supply Air Flow Rate
+    ,                        !- Heating Supply Air Flow Rate Per Unit Heating Capacity {m3/s-W}
+    ,                        !- System Outdoor Air Method
+    1.0,                     !- Zone Maximum Outdoor Air Fraction {dimensionless}
+    CoolingDesignCapacity,   !- Cooling Design Capacity Method
+    autosize,                !- Cooling Design Capacity {W}
+    ,                        !- Cooling Design Capacity Per Floor Area {W/m2}
+    ,                        !- Fraction of Autosized Cooling Design Capacity
+    HeatingDesignCapacity,   !- Heating Design Capacity Method
+    autosize,                !- Heating Design Capacity {W}
+    ,                        !- Heating Design Capacity Per Floor Area {W/m2}
+    ,                        !- Fraction of Autosized Heating Design Capacity
+    VAV;                     !- Central Cooling Capacity Control Method
+
+  Sizing:System,
+    PSZ-AC:5,                !- AirLoop Name
+    Sensible,                !- Type of Load to Size On
+    AUTOSIZE,                !- Design Outdoor Air Flow Rate {m3/s}
+    1.0,                     !- Central Heating Maximum System Air Flow Ratio
+    7.0,                     !- Preheat Design Temperature {C}
+    0.008,                   !- Preheat Design Humidity Ratio {kgWater/kgDryAir}
+    12.8000,                 !- Precool Design Temperature {C}
+    0.008,                   !- Precool Design Humidity Ratio {kgWater/kgDryAir}
+    12.8000,                 !- Central Cooling Design Supply Air Temperature {C}
+    40.0,                    !- Central Heating Design Supply Air Temperature {C}
+    NonCoincident,           !- Type of Zone Sum to Use
+    No,                      !- 100% Outdoor Air in Cooling
+    No,                      !- 100% Outdoor Air in Heating
+    0.0085,                  !- Central Cooling Design Supply Air Humidity Ratio {kgWater/kgDryAir}
+    0.0080,                  !- Central Heating Design Supply Air Humidity Ratio {kgWater/kgDryAir}
+    DesignDay,               !- Cooling Supply Air Flow Rate Method
+    ,                        !- Cooling Supply Air Flow Rate {m3/s}
+    ,                        !- Cooling Supply Air Flow Rate Per Floor Area {m3/s-m2}
+    ,                        !- Cooling Fraction of Autosized Cooling Supply Air Flow Rate
+    ,                        !- Cooling Supply Air Flow Rate Per Unit Cooling Capacity {m3/s-W}
+    DesignDay,               !- Heating Supply Air Flow Rate Method
+    ,                        !- Heating Supply Air Flow Rate {m3/s}
+    ,                        !- Heating Supply Air Flow Rate Per Floor Area {m3/s-m2}
+    ,                        !- Heating Fraction of Autosized Heating Supply Air Flow Rate
+    ,                        !- Heating Fraction of Autosized Cooling Supply Air Flow Rate
+    ,                        !- Heating Supply Air Flow Rate Per Unit Heating Capacity {m3/s-W}
+    ,                        !- System Outdoor Air Method
+    1.0,                     !- Zone Maximum Outdoor Air Fraction {dimensionless}
+    CoolingDesignCapacity,   !- Cooling Design Capacity Method
+    autosize,                !- Cooling Design Capacity {W}
+    ,                        !- Cooling Design Capacity Per Floor Area {W/m2}
+    ,                        !- Fraction of Autosized Cooling Design Capacity
+    HeatingDesignCapacity,   !- Heating Design Capacity Method
+    autosize,                !- Heating Design Capacity {W}
+    ,                        !- Heating Design Capacity Per Floor Area {W/m2}
+    ,                        !- Fraction of Autosized Heating Design Capacity
+    VAV;                     !- Central Cooling Capacity Control Method
+
+  Controller:OutdoorAir,
+    PSZ-AC:1_OA_Controller,  !- Name
+    PSZ-AC:1_OARelief Node,  !- Relief Air Outlet Node Name
+    PSZ-AC:1 Supply Equipment Inlet Node,  !- Return Air Node Name
+    PSZ-AC:1_OA-PSZ-AC:1_CoolCNode,  !- Mixed Air Node Name
+    PSZ-AC:1_OAInlet Node,   !- Actuator Node Name
+    AUTOSIZE,                !- Minimum Outdoor Air Flow Rate {m3/s}
+    AUTOSIZE,                !- Maximum Outdoor Air Flow Rate {m3/s}
+    NoEconomizer,            !- Economizer Control Type
+    ModulateFlow,            !- Economizer Control Action Type
+    28.0,                    !- Economizer Maximum Limit Dry-Bulb Temperature {C}
+    64000.0,                 !- Economizer Maximum Limit Enthalpy {J/kg}
+    ,                        !- Economizer Maximum Limit Dewpoint Temperature {C}
+    ,                        !- Electronic Enthalpy Limit Curve Name
+    -100.0,                  !- Economizer Minimum Limit Dry-Bulb Temperature {C}
+    NoLockout,               !- Lockout Type
+    FixedMinimum,            !- Minimum Limit Type
+    MinOA_Sched,             !- Minimum Outdoor Air Schedule Name
+    ,                        !- Minimum Fraction of Outdoor Air Schedule Name
+    ,                        !- Maximum Fraction of Outdoor Air Schedule Name
+    ;                        !- Mechanical Ventilation Controller Name
+
+  Controller:OutdoorAir,
+    PSZ-AC:2_OA_Controller,  !- Name
+    PSZ-AC:2_OARelief Node,  !- Relief Air Outlet Node Name
+    PSZ-AC:2 Supply Equipment Inlet Node,  !- Return Air Node Name
+    PSZ-AC:2_OA-PSZ-AC:2_CoolCNode,  !- Mixed Air Node Name
+    PSZ-AC:2_OAInlet Node,   !- Actuator Node Name
+    AUTOSIZE,                !- Minimum Outdoor Air Flow Rate {m3/s}
+    AUTOSIZE,                !- Maximum Outdoor Air Flow Rate {m3/s}
+    NoEconomizer,            !- Economizer Control Type
+    ModulateFlow,            !- Economizer Control Action Type
+    28.0,                    !- Economizer Maximum Limit Dry-Bulb Temperature {C}
+    64000.0,                 !- Economizer Maximum Limit Enthalpy {J/kg}
+    ,                        !- Economizer Maximum Limit Dewpoint Temperature {C}
+    ,                        !- Electronic Enthalpy Limit Curve Name
+    -100.0,                  !- Economizer Minimum Limit Dry-Bulb Temperature {C}
+    NoLockout,               !- Lockout Type
+    FixedMinimum,            !- Minimum Limit Type
+    MinOA_Sched,             !- Minimum Outdoor Air Schedule Name
+    ,                        !- Minimum Fraction of Outdoor Air Schedule Name
+    ,                        !- Maximum Fraction of Outdoor Air Schedule Name
+    ;                        !- Mechanical Ventilation Controller Name
+
+  Controller:OutdoorAir,
+    PSZ-AC:3_OA_Controller,  !- Name
+    PSZ-AC:3_OARelief Node,  !- Relief Air Outlet Node Name
+    PSZ-AC:3 Supply Equipment Inlet Node,  !- Return Air Node Name
+    PSZ-AC:3_OA-PSZ-AC:3_CoolCNode,  !- Mixed Air Node Name
+    PSZ-AC:3_OAInlet Node,   !- Actuator Node Name
+    AUTOSIZE,                !- Minimum Outdoor Air Flow Rate {m3/s}
+    AUTOSIZE,                !- Maximum Outdoor Air Flow Rate {m3/s}
+    NoEconomizer,            !- Economizer Control Type
+    ModulateFlow,            !- Economizer Control Action Type
+    28.0,                    !- Economizer Maximum Limit Dry-Bulb Temperature {C}
+    64000.0,                 !- Economizer Maximum Limit Enthalpy {J/kg}
+    ,                        !- Economizer Maximum Limit Dewpoint Temperature {C}
+    ,                        !- Electronic Enthalpy Limit Curve Name
+    -100.0,                  !- Economizer Minimum Limit Dry-Bulb Temperature {C}
+    NoLockout,               !- Lockout Type
+    FixedMinimum,            !- Minimum Limit Type
+    MinOA_Sched,             !- Minimum Outdoor Air Schedule Name
+    ,                        !- Minimum Fraction of Outdoor Air Schedule Name
+    ,                        !- Maximum Fraction of Outdoor Air Schedule Name
+    ;                        !- Mechanical Ventilation Controller Name
+
+  Controller:OutdoorAir,
+    PSZ-AC:4_OA_Controller,  !- Name
+    PSZ-AC:4_OARelief Node,  !- Relief Air Outlet Node Name
+    PSZ-AC:4 Supply Equipment Inlet Node,  !- Return Air Node Name
+    PSZ-AC:4_OA-PSZ-AC:4_CoolCNode,  !- Mixed Air Node Name
+    PSZ-AC:4_OAInlet Node,   !- Actuator Node Name
+    AUTOSIZE,                !- Minimum Outdoor Air Flow Rate {m3/s}
+    AUTOSIZE,                !- Maximum Outdoor Air Flow Rate {m3/s}
+    NoEconomizer,            !- Economizer Control Type
+    ModulateFlow,            !- Economizer Control Action Type
+    28.0,                    !- Economizer Maximum Limit Dry-Bulb Temperature {C}
+    64000.0,                 !- Economizer Maximum Limit Enthalpy {J/kg}
+    ,                        !- Economizer Maximum Limit Dewpoint Temperature {C}
+    ,                        !- Electronic Enthalpy Limit Curve Name
+    -100.0,                  !- Economizer Minimum Limit Dry-Bulb Temperature {C}
+    NoLockout,               !- Lockout Type
+    FixedMinimum,            !- Minimum Limit Type
+    MinOA_Sched,             !- Minimum Outdoor Air Schedule Name
+    ,                        !- Minimum Fraction of Outdoor Air Schedule Name
+    ,                        !- Maximum Fraction of Outdoor Air Schedule Name
+    ;                        !- Mechanical Ventilation Controller Name
+
+  Controller:OutdoorAir,
+    PSZ-AC:5_OA_Controller,  !- Name
+    PSZ-AC:5_OARelief Node,  !- Relief Air Outlet Node Name
+    PSZ-AC:5 Supply Equipment Inlet Node,  !- Return Air Node Name
+    PSZ-AC:5_OA-PSZ-AC:5_CoolCNode,  !- Mixed Air Node Name
+    PSZ-AC:5_OAInlet Node,   !- Actuator Node Name
+    AUTOSIZE,                !- Minimum Outdoor Air Flow Rate {m3/s}
+    AUTOSIZE,                !- Maximum Outdoor Air Flow Rate {m3/s}
+    NoEconomizer,            !- Economizer Control Type
+    ModulateFlow,            !- Economizer Control Action Type
+    28.0,                    !- Economizer Maximum Limit Dry-Bulb Temperature {C}
+    64000.0,                 !- Economizer Maximum Limit Enthalpy {J/kg}
+    ,                        !- Economizer Maximum Limit Dewpoint Temperature {C}
+    ,                        !- Electronic Enthalpy Limit Curve Name
+    -100.0,                  !- Economizer Minimum Limit Dry-Bulb Temperature {C}
+    NoLockout,               !- Lockout Type
+    FixedMinimum,            !- Minimum Limit Type
+    MinOA_Sched,             !- Minimum Outdoor Air Schedule Name
+    ,                        !- Minimum Fraction of Outdoor Air Schedule Name
+    ,                        !- Maximum Fraction of Outdoor Air Schedule Name
+    ;                        !- Mechanical Ventilation Controller Name
+
+  Curve:Quadratic,
+    Cool-PLF-fPLR,           !- Name
+    0.90949556,              !- Coefficient1 Constant
+    0.09864773,              !- Coefficient2 x
+    -0.00819488,             !- Coefficient3 x**2
+    0,                       !- Minimum Value of x
+    1,                       !- Maximum Value of x
+    0.7,                     !- Minimum Curve Output
+    1;                       !- Maximum Curve Output
+
+  Curve:Cubic,
+    ConstantCubic,           !- Name
+    1,                       !- Coefficient1 Constant
+    0,                       !- Coefficient2 x
+    0,                       !- Coefficient3 x**2
+    0,                       !- Coefficient4 x**3
+    -100,                    !- Minimum Value of x
+    100;                     !- Maximum Value of x
+
+  Curve:Biquadratic,
+    Cool-Cap-fT,             !- Name
+    0.9712123,               !- Coefficient1 Constant
+    -0.015275502,            !- Coefficient2 x
+    0.0014434524,            !- Coefficient3 x**2
+    -0.00039321,             !- Coefficient4 y
+    -0.0000068364,           !- Coefficient5 y**2
+    -0.0002905956,           !- Coefficient6 x*y
+    -100,                    !- Minimum Value of x
+    100,                     !- Maximum Value of x
+    -100,                    !- Minimum Value of y
+    100;                     !- Maximum Value of y
+
+  Curve:Biquadratic,
+    Cool-EIR-fT,             !- Name
+    0.28687133,              !- Coefficient1 Constant
+    0.023902164,             !- Coefficient2 x
+    -0.000810648,            !- Coefficient3 x**2
+    0.013458546,             !- Coefficient4 y
+    0.0003389364,            !- Coefficient5 y**2
+    -0.0004870044,           !- Coefficient6 x*y
+    -100,                    !- Minimum Value of x
+    100,                     !- Maximum Value of x
+    -100,                    !- Minimum Value of y
+    100;                     !- Maximum Value of y
+
+! ***AIR LOOPS***
+
+  AirLoopHVAC,
+    PSZ-AC:1,                !- Name
+    ,                        !- Controller List Name
+    PSZ-AC:1 Availability Manager List,  !- Availability Manager List Name
+    AUTOSIZE,                !- Design Supply Air Flow Rate {m3/s}
+    PSZ-AC:1 Air Loop Branches,  !- Branch List Name
+    ,                        !- Connector List Name
+    PSZ-AC:1 Supply Equipment Inlet Node,  !- Supply Side Inlet Node Name
+    PSZ-AC:1 Zone Equipment Outlet Node,  !- Demand Side Outlet Node Name
+    PSZ-AC:1 Zone Equipment Inlet Node,  !- Demand Side Inlet Node Names
+    PSZ-AC:1 Supply Equipment Outlet Node;  !- Supply Side Outlet Node Names
+
+  AirLoopHVAC,
+    PSZ-AC:2,                !- Name
+    ,                        !- Controller List Name
+    PSZ-AC:2 Availability Manager List,  !- Availability Manager List Name
+    AUTOSIZE,                !- Design Supply Air Flow Rate {m3/s}
+    PSZ-AC:2 Air Loop Branches,  !- Branch List Name
+    ,                        !- Connector List Name
+    PSZ-AC:2 Supply Equipment Inlet Node,  !- Supply Side Inlet Node Name
+    PSZ-AC:2 Zone Equipment Outlet Node,  !- Demand Side Outlet Node Name
+    PSZ-AC:2 Zone Equipment Inlet Node,  !- Demand Side Inlet Node Names
+    PSZ-AC:2 Supply Equipment Outlet Node;  !- Supply Side Outlet Node Names
+
+  AirLoopHVAC,
+    PSZ-AC:3,                !- Name
+    ,                        !- Controller List Name
+    PSZ-AC:3 Availability Manager List,  !- Availability Manager List Name
+    AUTOSIZE,                !- Design Supply Air Flow Rate {m3/s}
+    PSZ-AC:3 Air Loop Branches,  !- Branch List Name
+    ,                        !- Connector List Name
+    PSZ-AC:3 Supply Equipment Inlet Node,  !- Supply Side Inlet Node Name
+    PSZ-AC:3 Zone Equipment Outlet Node,  !- Demand Side Outlet Node Name
+    PSZ-AC:3 Zone Equipment Inlet Node,  !- Demand Side Inlet Node Names
+    PSZ-AC:3 Supply Equipment Outlet Node;  !- Supply Side Outlet Node Names
+
+  AirLoopHVAC,
+    PSZ-AC:4,                !- Name
+    ,                        !- Controller List Name
+    PSZ-AC:4 Availability Manager List,  !- Availability Manager List Name
+    AUTOSIZE,                !- Design Supply Air Flow Rate {m3/s}
+    PSZ-AC:4 Air Loop Branches,  !- Branch List Name
+    ,                        !- Connector List Name
+    PSZ-AC:4 Supply Equipment Inlet Node,  !- Supply Side Inlet Node Name
+    PSZ-AC:4 Zone Equipment Outlet Node,  !- Demand Side Outlet Node Name
+    PSZ-AC:4 Zone Equipment Inlet Node,  !- Demand Side Inlet Node Names
+    PSZ-AC:4 Supply Equipment Outlet Node;  !- Supply Side Outlet Node Names
+
+  AirLoopHVAC,
+    PSZ-AC:5,                !- Name
+    ,                        !- Controller List Name
+    PSZ-AC:5 Availability Manager List,  !- Availability Manager List Name
+    AUTOSIZE,                !- Design Supply Air Flow Rate {m3/s}
+    PSZ-AC:5 Air Loop Branches,  !- Branch List Name
+    ,                        !- Connector List Name
+    PSZ-AC:5 Supply Equipment Inlet Node,  !- Supply Side Inlet Node Name
+    PSZ-AC:5 Zone Equipment Outlet Node,  !- Demand Side Outlet Node Name
+    PSZ-AC:5 Zone Equipment Inlet Node,  !- Demand Side Inlet Node Names
+    PSZ-AC:5 Supply Equipment Outlet Node;  !- Supply Side Outlet Node Names
+
+  CoilSystem:Cooling:DX,
+    PSZ-AC:1_CoolC,          !- Name
+    ALWAYS_ON,               !- Availability Schedule Name
+    PSZ-AC:1_OA-PSZ-AC:1_CoolCNode,  !- DX Cooling Coil System Inlet Node Name
+    PSZ-AC:1_CoolC-PSZ-AC:1_HeatCNode,  !- DX Cooling Coil System Outlet Node Name
+    PSZ-AC:1_CoolC-PSZ-AC:1_HeatCNode,  !- DX Cooling Coil System Sensor Node Name
+    Coil:Cooling:DX:SingleSpeed,  !- Cooling Coil Object Type
+    PSZ-AC:1_CoolC DXCoil;   !- Cooling Coil Name
+
+  CoilSystem:Cooling:DX,
+    PSZ-AC:2_CoolC,          !- Name
+    ALWAYS_ON,               !- Availability Schedule Name
+    PSZ-AC:2_OA-PSZ-AC:2_CoolCNode,  !- DX Cooling Coil System Inlet Node Name
+    PSZ-AC:2_CoolC-PSZ-AC:2_HeatCNode,  !- DX Cooling Coil System Outlet Node Name
+    PSZ-AC:2_CoolC-PSZ-AC:2_HeatCNode,  !- DX Cooling Coil System Sensor Node Name
+    Coil:Cooling:DX:SingleSpeed,  !- Cooling Coil Object Type
+    PSZ-AC:2_CoolC DXCoil;   !- Cooling Coil Name
+
+  CoilSystem:Cooling:DX,
+    PSZ-AC:3_CoolC,          !- Name
+    ALWAYS_ON,               !- Availability Schedule Name
+    PSZ-AC:3_OA-PSZ-AC:3_CoolCNode,  !- DX Cooling Coil System Inlet Node Name
+    PSZ-AC:3_CoolC-PSZ-AC:3_HeatCNode,  !- DX Cooling Coil System Outlet Node Name
+    PSZ-AC:3_CoolC-PSZ-AC:3_HeatCNode,  !- DX Cooling Coil System Sensor Node Name
+    Coil:Cooling:DX:SingleSpeed,  !- Cooling Coil Object Type
+    PSZ-AC:3_CoolC DXCoil;   !- Cooling Coil Name
+
+  CoilSystem:Cooling:DX,
+    PSZ-AC:4_CoolC,          !- Name
+    ALWAYS_ON,               !- Availability Schedule Name
+    PSZ-AC:4_OA-PSZ-AC:4_CoolCNode,  !- DX Cooling Coil System Inlet Node Name
+    PSZ-AC:4_CoolC-PSZ-AC:4_HeatCNode,  !- DX Cooling Coil System Outlet Node Name
+    PSZ-AC:4_CoolC-PSZ-AC:4_HeatCNode,  !- DX Cooling Coil System Sensor Node Name
+    Coil:Cooling:DX:SingleSpeed,  !- Cooling Coil Object Type
+    PSZ-AC:4_CoolC DXCoil;   !- Cooling Coil Name
+
+  CoilSystem:Cooling:DX,
+    PSZ-AC:5_CoolC,          !- Name
+    ALWAYS_ON,               !- Availability Schedule Name
+    PSZ-AC:5_OA-PSZ-AC:5_CoolCNode,  !- DX Cooling Coil System Inlet Node Name
+    PSZ-AC:5_CoolC-PSZ-AC:5_HeatCNode,  !- DX Cooling Coil System Outlet Node Name
+    PSZ-AC:5_CoolC-PSZ-AC:5_HeatCNode,  !- DX Cooling Coil System Sensor Node Name
+    Coil:Cooling:DX:SingleSpeed,  !- Cooling Coil Object Type
+    PSZ-AC:5_CoolC DXCoil;   !- Cooling Coil Name
+
+! ***CONNECTIONS***
+
+  ZoneHVAC:EquipmentConnections,
+    Core_ZN,                 !- Zone Name
+    Core_ZN Equipment,       !- Zone Conditioning Equipment List Name
+    Core_ZN Inlet Nodes,     !- Zone Air Inlet Node or NodeList Name
+    ,                        !- Zone Air Exhaust Node or NodeList Name
+    Core_ZN Air Node,        !- Zone Air Node Name
+    Core_ZN Return Air Node Name;  !- Zone Return Air Node or NodeList Name
+
+  ZoneHVAC:EquipmentConnections,
+    Perimeter_ZN_1,          !- Zone Name
+    Perimeter_ZN_1 Equipment,!- Zone Conditioning Equipment List Name
+    Perimeter_ZN_1 Inlet Nodes,  !- Zone Air Inlet Node or NodeList Name
+    ,                        !- Zone Air Exhaust Node or NodeList Name
+    Perimeter_ZN_1 Air Node, !- Zone Air Node Name
+    Perimeter_ZN_1 Return Air Node Name;  !- Zone Return Air Node or NodeList Name
+
+  ZoneHVAC:EquipmentConnections,
+    Perimeter_ZN_2,          !- Zone Name
+    Perimeter_ZN_2 Equipment,!- Zone Conditioning Equipment List Name
+    Perimeter_ZN_2 Inlet Nodes,  !- Zone Air Inlet Node or NodeList Name
+    ,                        !- Zone Air Exhaust Node or NodeList Name
+    Perimeter_ZN_2 Air Node, !- Zone Air Node Name
+    Perimeter_ZN_2 Return Air Node Name;  !- Zone Return Air Node or NodeList Name
+
+  ZoneHVAC:EquipmentConnections,
+    Perimeter_ZN_3,          !- Zone Name
+    Perimeter_ZN_3 Equipment,!- Zone Conditioning Equipment List Name
+    Perimeter_ZN_3 Inlet Nodes,  !- Zone Air Inlet Node or NodeList Name
+    ,                        !- Zone Air Exhaust Node or NodeList Name
+    Perimeter_ZN_3 Air Node, !- Zone Air Node Name
+    Perimeter_ZN_3 Return Air Node Name;  !- Zone Return Air Node or NodeList Name
+
+  ZoneHVAC:EquipmentConnections,
+    Perimeter_ZN_4,          !- Zone Name
+    Perimeter_ZN_4 Equipment,!- Zone Conditioning Equipment List Name
+    Perimeter_ZN_4 Inlet Nodes,  !- Zone Air Inlet Node or NodeList Name
+    ,                        !- Zone Air Exhaust Node or NodeList Name
+    Perimeter_ZN_4 Air Node, !- Zone Air Node Name
+    Perimeter_ZN_4 Return Air Node Name;  !- Zone Return Air Node or NodeList Name
+
+  NodeList,
+    Core_ZN Inlet Nodes,     !- Name
+    Core_ZN Direct Air Inlet Node Name;  !- Node 1 Name
+
+  NodeList,
+    PSZ-AC:1_OANode List,    !- Name
+    PSZ-AC:1_OAInlet Node;   !- Node 1 Name
+
+  NodeList,
+    PSZ-AC:2_OANode List,    !- Name
+    PSZ-AC:2_OAInlet Node;   !- Node 1 Name
+
+  NodeList,
+    PSZ-AC:3_OANode List,    !- Name
+    PSZ-AC:3_OAInlet Node;   !- Node 1 Name
+
+  NodeList,
+    PSZ-AC:4_OANode List,    !- Name
+    PSZ-AC:4_OAInlet Node;   !- Node 1 Name
+
+  NodeList,
+    PSZ-AC:5_OANode List,    !- Name
+    PSZ-AC:5_OAInlet Node;   !- Node 1 Name
+
+  NodeList,
+    Perimeter_ZN_1 Inlet Nodes,  !- Name
+    Perimeter_ZN_1 Direct Air Inlet Node Name;  !- Node 1 Name
+
+  NodeList,
+    Perimeter_ZN_2 Inlet Nodes,  !- Name
+    Perimeter_ZN_2 Direct Air Inlet Node Name;  !- Node 1 Name
+
+  NodeList,
+    Perimeter_ZN_3 Inlet Nodes,  !- Name
+    Perimeter_ZN_3 Direct Air Inlet Node Name;  !- Node 1 Name
+
+  NodeList,
+    Perimeter_ZN_4 Inlet Nodes,  !- Name
+    Perimeter_ZN_4 Direct Air Inlet Node Name;  !- Node 1 Name
+
+  AirTerminal:SingleDuct:ConstantVolume:NoReheat,
+    Core_ZN Direct Air,      !- Name
+    ALWAYS_ON,               !- Availability Schedule Name
+    Core_ZN Direct Air Inlet Node Name ATInlet,  !- Air Inlet Node Name
+    Core_ZN Direct Air Inlet Node Name,  !- Air Outlet Node Name
+    AUTOSIZE,                !- Maximum Air Flow Rate {m3/s}
+    ,                        !- Design Specification Outdoor Air Object Name
+    ;                        !- Per Person Ventilation Rate Mode
+
+  ZoneHVAC:AirDistributionUnit,
+    Core_ZN Direct Air ADU,  !- Name
+    Core_ZN Direct Air Inlet Node Name,  !- Air Distribution Unit Outlet Node Name
+    AirTerminal:SingleDuct:ConstantVolume:NoReheat,  !- Air Terminal Object Type
+    Core_ZN Direct Air,      !- Air Terminal Name
+    ,                        !- Nominal Upstream Leakage Fraction
+    ,                        !- Constant Downstream Leakage Fraction
+    ;                        !- Design Specification Air Terminal Sizing Object Name
+
+  AirTerminal:SingleDuct:ConstantVolume:NoReheat,
+    Perimeter_ZN_1 Direct Air,  !- Name
+    ALWAYS_ON,               !- Availability Schedule Name
+    Perimeter_ZN_1 Direct Air Inlet Node Name ATInlet,  !- Air Inlet Node Name
+    Perimeter_ZN_1 Direct Air Inlet Node Name,  !- Air Outlet Node Name
+    AUTOSIZE,                !- Maximum Air Flow Rate {m3/s}
+    ,                        !- Design Specification Outdoor Air Object Name
+    ;                        !- Per Person Ventilation Rate Mode
+
+  ZoneHVAC:AirDistributionUnit,
+    Perimeter_ZN_1 Direct Air ADU,  !- Name
+    Perimeter_ZN_1 Direct Air Inlet Node Name,  !- Air Distribution Unit Outlet Node Name
+    AirTerminal:SingleDuct:ConstantVolume:NoReheat,  !- Air Terminal Object Type
+    Perimeter_ZN_1 Direct Air,  !- Air Terminal Name
+    ,                        !- Nominal Upstream Leakage Fraction
+    ,                        !- Constant Downstream Leakage Fraction
+    ;                        !- Design Specification Air Terminal Sizing Object Name
+
+  AirTerminal:SingleDuct:ConstantVolume:NoReheat,
+    Perimeter_ZN_2 Direct Air,  !- Name
+    ALWAYS_ON,               !- Availability Schedule Name
+    Perimeter_ZN_2 Direct Air Inlet Node Name ATInlet,  !- Air Inlet Node Name
+    Perimeter_ZN_2 Direct Air Inlet Node Name,  !- Air Outlet Node Name
+    AUTOSIZE,                !- Maximum Air Flow Rate {m3/s}
+    ,                        !- Design Specification Outdoor Air Object Name
+    ;                        !- Per Person Ventilation Rate Mode
+
+  ZoneHVAC:AirDistributionUnit,
+    Perimeter_ZN_2 Direct Air ADU,  !- Name
+    Perimeter_ZN_2 Direct Air Inlet Node Name,  !- Air Distribution Unit Outlet Node Name
+    AirTerminal:SingleDuct:ConstantVolume:NoReheat,  !- Air Terminal Object Type
+    Perimeter_ZN_2 Direct Air,  !- Air Terminal Name
+    ,                        !- Nominal Upstream Leakage Fraction
+    ,                        !- Constant Downstream Leakage Fraction
+    ;                        !- Design Specification Air Terminal Sizing Object Name
+
+  AirTerminal:SingleDuct:ConstantVolume:NoReheat,
+    Perimeter_ZN_3 Direct Air,  !- Name
+    ALWAYS_ON,               !- Availability Schedule Name
+    Perimeter_ZN_3 Direct Air Inlet Node Name ATInlet,  !- Air Inlet Node Name
+    Perimeter_ZN_3 Direct Air Inlet Node Name,  !- Air Outlet Node Name
+    AUTOSIZE,                !- Maximum Air Flow Rate {m3/s}
+    ,                        !- Design Specification Outdoor Air Object Name
+    ;                        !- Per Person Ventilation Rate Mode
+
+  ZoneHVAC:AirDistributionUnit,
+    Perimeter_ZN_3 Direct Air ADU,  !- Name
+    Perimeter_ZN_3 Direct Air Inlet Node Name,  !- Air Distribution Unit Outlet Node Name
+    AirTerminal:SingleDuct:ConstantVolume:NoReheat,  !- Air Terminal Object Type
+    Perimeter_ZN_3 Direct Air,  !- Air Terminal Name
+    ,                        !- Nominal Upstream Leakage Fraction
+    ,                        !- Constant Downstream Leakage Fraction
+    ;                        !- Design Specification Air Terminal Sizing Object Name
+
+  AirTerminal:SingleDuct:ConstantVolume:NoReheat,
+    Perimeter_ZN_4 Direct Air,  !- Name
+    ALWAYS_ON,               !- Availability Schedule Name
+    Perimeter_ZN_4 Direct Air Inlet Node Name ATInlet,  !- Air Inlet Node Name
+    Perimeter_ZN_4 Direct Air Inlet Node Name,  !- Air Outlet Node Name
+    AUTOSIZE,                !- Maximum Air Flow Rate {m3/s}
+    ,                        !- Design Specification Outdoor Air Object Name
+    ;                        !- Per Person Ventilation Rate Mode
+
+  ZoneHVAC:AirDistributionUnit,
+    Perimeter_ZN_4 Direct Air ADU,  !- Name
+    Perimeter_ZN_4 Direct Air Inlet Node Name,  !- Air Distribution Unit Outlet Node Name
+    AirTerminal:SingleDuct:ConstantVolume:NoReheat,  !- Air Terminal Object Type
+    Perimeter_ZN_4 Direct Air,  !- Air Terminal Name
+    ,                        !- Nominal Upstream Leakage Fraction
+    ,                        !- Constant Downstream Leakage Fraction
+    ;                        !- Design Specification Air Terminal Sizing Object Name
+
+  AvailabilityManagerAssignmentList,
+    PSZ-AC:1 Availability Manager List,  !- Name
+    AvailabilityManager:NightCycle,  !- Availability Manager 1 Object Type
+    PSZ-AC:1 Availability Manager;  !- Availability Manager 1 Name
+
+  AvailabilityManagerAssignmentList,
+    PSZ-AC:2 Availability Manager List,  !- Name
+    AvailabilityManager:NightCycle,  !- Availability Manager 1 Object Type
+    PSZ-AC:2 Availability Manager;  !- Availability Manager 1 Name
+
+  AvailabilityManagerAssignmentList,
+    PSZ-AC:3 Availability Manager List,  !- Name
+    AvailabilityManager:NightCycle,  !- Availability Manager 1 Object Type
+    PSZ-AC:3 Availability Manager;  !- Availability Manager 1 Name
+
+  AvailabilityManagerAssignmentList,
+    PSZ-AC:4 Availability Manager List,  !- Name
+    AvailabilityManager:NightCycle,  !- Availability Manager 1 Object Type
+    PSZ-AC:4 Availability Manager;  !- Availability Manager 1 Name
+
+  AvailabilityManagerAssignmentList,
+    PSZ-AC:5 Availability Manager List,  !- Name
+    AvailabilityManager:NightCycle,  !- Availability Manager 1 Object Type
+    PSZ-AC:5 Availability Manager;  !- Availability Manager 1 Name
+
+  AvailabilityManager:NightCycle,
+    PSZ-AC:1 Availability Manager,  !- Name
+    ALWAYS_ON,               !- Applicability Schedule Name
+    HVACOperationSchd,       !- Fan Schedule Name
+    CycleOnAny,              !- Control Type
+    1.0,                     !- Thermostat Tolerance {deltaC}
+    FixedRunTime,            !- Cycling Run Time Control Type
+    1800;                    !- Cycling Run Time {s}
+
+  AvailabilityManager:NightCycle,
+    PSZ-AC:2 Availability Manager,  !- Name
+    ALWAYS_ON,               !- Applicability Schedule Name
+    HVACOperationSchd,       !- Fan Schedule Name
+    CycleOnAny,              !- Control Type
+    1.0,                     !- Thermostat Tolerance {deltaC}
+    FixedRunTime,            !- Cycling Run Time Control Type
+    1800;                    !- Cycling Run Time {s}
+
+  AvailabilityManager:NightCycle,
+    PSZ-AC:3 Availability Manager,  !- Name
+    ALWAYS_ON,               !- Applicability Schedule Name
+    HVACOperationSchd,       !- Fan Schedule Name
+    CycleOnAny,              !- Control Type
+    1.0,                     !- Thermostat Tolerance {deltaC}
+    FixedRunTime,            !- Cycling Run Time Control Type
+    1800;                    !- Cycling Run Time {s}
+
+  AvailabilityManager:NightCycle,
+    PSZ-AC:4 Availability Manager,  !- Name
+    ALWAYS_ON,               !- Applicability Schedule Name
+    HVACOperationSchd,       !- Fan Schedule Name
+    CycleOnAny,              !- Control Type
+    1.0,                     !- Thermostat Tolerance {deltaC}
+    FixedRunTime,            !- Cycling Run Time Control Type
+    1800;                    !- Cycling Run Time {s}
+
+  AvailabilityManager:NightCycle,
+    PSZ-AC:5 Availability Manager,  !- Name
+    ALWAYS_ON,               !- Applicability Schedule Name
+    HVACOperationSchd,       !- Fan Schedule Name
+    CycleOnAny,              !- Control Type
+    1.0,                     !- Thermostat Tolerance {deltaC}
+    FixedRunTime,            !- Cycling Run Time Control Type
+    1800;                    !- Cycling Run Time {s}
+
+  BranchList,
+    PSZ-AC:1 Air Loop Branches,  !- Name
+    PSZ-AC:1 Air Loop Main Branch;  !- Branch 1 Name
+
+  BranchList,
+    PSZ-AC:2 Air Loop Branches,  !- Name
+    PSZ-AC:2 Air Loop Main Branch;  !- Branch 1 Name
+
+  BranchList,
+    PSZ-AC:3 Air Loop Branches,  !- Name
+    PSZ-AC:3 Air Loop Main Branch;  !- Branch 1 Name
+
+  BranchList,
+    PSZ-AC:4 Air Loop Branches,  !- Name
+    PSZ-AC:4 Air Loop Main Branch;  !- Branch 1 Name
+
+  BranchList,
+    PSZ-AC:5 Air Loop Branches,  !- Name
+    PSZ-AC:5 Air Loop Main Branch;  !- Branch 1 Name
+
+  Branch,
+    PSZ-AC:1 Air Loop Main Branch,  !- Name
+    ,                        !- Pressure Drop Curve Name
+    AirLoopHVAC:OutdoorAirSystem,  !- Component 1 Object Type
+    PSZ-AC:1_OA,             !- Component 1 Name
+    PSZ-AC:1 Supply Equipment Inlet Node,  !- Component 1 Inlet Node Name
+    PSZ-AC:1_OA-PSZ-AC:1_CoolCNode,  !- Component 1 Outlet Node Name
+    CoilSystem:Cooling:DX,   !- Component 2 Object Type
+    PSZ-AC:1_CoolC,          !- Component 2 Name
+    PSZ-AC:1_OA-PSZ-AC:1_CoolCNode,  !- Component 2 Inlet Node Name
+    PSZ-AC:1_CoolC-PSZ-AC:1_HeatCNode,  !- Component 2 Outlet Node Name
+    Coil:Heating:Fuel,       !- Component 3 Object Type
+    PSZ-AC:1_HeatC,          !- Component 3 Name
+    PSZ-AC:1_CoolC-PSZ-AC:1_HeatCNode,  !- Component 3 Inlet Node Name
+    PSZ-AC:1_HeatC-PSZ-AC:1_FanNode,  !- Component 3 Outlet Node Name
+    Fan:SystemModel,         !- Component 4 Object Type
+    PSZ-AC:1_Fan,            !- Component 4 Name
+    PSZ-AC:1_HeatC-PSZ-AC:1_FanNode,  !- Component 4 Inlet Node Name
+    PSZ-AC:1 Supply Equipment Outlet Node;  !- Component 4 Outlet Node Name
+
+  Branch,
+    PSZ-AC:2 Air Loop Main Branch,  !- Name
+    ,                        !- Pressure Drop Curve Name
+    AirLoopHVAC:OutdoorAirSystem,  !- Component 1 Object Type
+    PSZ-AC:2_OA,             !- Component 1 Name
+    PSZ-AC:2 Supply Equipment Inlet Node,  !- Component 1 Inlet Node Name
+    PSZ-AC:2_OA-PSZ-AC:2_CoolCNode,  !- Component 1 Outlet Node Name
+    CoilSystem:Cooling:DX,   !- Component 2 Object Type
+    PSZ-AC:2_CoolC,          !- Component 2 Name
+    PSZ-AC:2_OA-PSZ-AC:2_CoolCNode,  !- Component 2 Inlet Node Name
+    PSZ-AC:2_CoolC-PSZ-AC:2_HeatCNode,  !- Component 2 Outlet Node Name
+    Coil:Heating:Fuel,       !- Component 3 Object Type
+    PSZ-AC:2_HeatC,          !- Component 3 Name
+    PSZ-AC:2_CoolC-PSZ-AC:2_HeatCNode,  !- Component 3 Inlet Node Name
+    PSZ-AC:2_HeatC-PSZ-AC:2_FanNode,  !- Component 3 Outlet Node Name
+    Fan:ConstantVolume,      !- Component 4 Object Type
+    PSZ-AC:2_Fan,            !- Component 4 Name
+    PSZ-AC:2_HeatC-PSZ-AC:2_FanNode,  !- Component 4 Inlet Node Name
+    PSZ-AC:2 Supply Equipment Outlet Node;  !- Component 4 Outlet Node Name
+
+  Branch,
+    PSZ-AC:3 Air Loop Main Branch,  !- Name
+    ,                        !- Pressure Drop Curve Name
+    AirLoopHVAC:OutdoorAirSystem,  !- Component 1 Object Type
+    PSZ-AC:3_OA,             !- Component 1 Name
+    PSZ-AC:3 Supply Equipment Inlet Node,  !- Component 1 Inlet Node Name
+    PSZ-AC:3_OA-PSZ-AC:3_CoolCNode,  !- Component 1 Outlet Node Name
+    CoilSystem:Cooling:DX,   !- Component 2 Object Type
+    PSZ-AC:3_CoolC,          !- Component 2 Name
+    PSZ-AC:3_OA-PSZ-AC:3_CoolCNode,  !- Component 2 Inlet Node Name
+    PSZ-AC:3_CoolC-PSZ-AC:3_HeatCNode,  !- Component 2 Outlet Node Name
+    Coil:Heating:Fuel,       !- Component 3 Object Type
+    PSZ-AC:3_HeatC,          !- Component 3 Name
+    PSZ-AC:3_CoolC-PSZ-AC:3_HeatCNode,  !- Component 3 Inlet Node Name
+    PSZ-AC:3_HeatC-PSZ-AC:3_FanNode,  !- Component 3 Outlet Node Name
+    Fan:ConstantVolume,      !- Component 4 Object Type
+    PSZ-AC:3_Fan,            !- Component 4 Name
+    PSZ-AC:3_HeatC-PSZ-AC:3_FanNode,  !- Component 4 Inlet Node Name
+    PSZ-AC:3 Supply Equipment Outlet Node;  !- Component 4 Outlet Node Name
+
+  Branch,
+    PSZ-AC:4 Air Loop Main Branch,  !- Name
+    ,                        !- Pressure Drop Curve Name
+    AirLoopHVAC:OutdoorAirSystem,  !- Component 1 Object Type
+    PSZ-AC:4_OA,             !- Component 1 Name
+    PSZ-AC:4 Supply Equipment Inlet Node,  !- Component 1 Inlet Node Name
+    PSZ-AC:4_OA-PSZ-AC:4_CoolCNode,  !- Component 1 Outlet Node Name
+    CoilSystem:Cooling:DX,   !- Component 2 Object Type
+    PSZ-AC:4_CoolC,          !- Component 2 Name
+    PSZ-AC:4_OA-PSZ-AC:4_CoolCNode,  !- Component 2 Inlet Node Name
+    PSZ-AC:4_CoolC-PSZ-AC:4_HeatCNode,  !- Component 2 Outlet Node Name
+    Coil:Heating:Fuel,       !- Component 3 Object Type
+    PSZ-AC:4_HeatC,          !- Component 3 Name
+    PSZ-AC:4_CoolC-PSZ-AC:4_HeatCNode,  !- Component 3 Inlet Node Name
+    PSZ-AC:4_HeatC-PSZ-AC:4_FanNode,  !- Component 3 Outlet Node Name
+    Fan:ConstantVolume,      !- Component 4 Object Type
+    PSZ-AC:4_Fan,            !- Component 4 Name
+    PSZ-AC:4_HeatC-PSZ-AC:4_FanNode,  !- Component 4 Inlet Node Name
+    PSZ-AC:4 Supply Equipment Outlet Node;  !- Component 4 Outlet Node Name
+
+  Branch,
+    PSZ-AC:5 Air Loop Main Branch,  !- Name
+    ,                        !- Pressure Drop Curve Name
+    AirLoopHVAC:OutdoorAirSystem,  !- Component 1 Object Type
+    PSZ-AC:5_OA,             !- Component 1 Name
+    PSZ-AC:5 Supply Equipment Inlet Node,  !- Component 1 Inlet Node Name
+    PSZ-AC:5_OA-PSZ-AC:5_CoolCNode,  !- Component 1 Outlet Node Name
+    CoilSystem:Cooling:DX,   !- Component 2 Object Type
+    PSZ-AC:5_CoolC,          !- Component 2 Name
+    PSZ-AC:5_OA-PSZ-AC:5_CoolCNode,  !- Component 2 Inlet Node Name
+    PSZ-AC:5_CoolC-PSZ-AC:5_HeatCNode,  !- Component 2 Outlet Node Name
+    Coil:Heating:Fuel,       !- Component 3 Object Type
+    PSZ-AC:5_HeatC,          !- Component 3 Name
+    PSZ-AC:5_CoolC-PSZ-AC:5_HeatCNode,  !- Component 3 Inlet Node Name
+    PSZ-AC:5_HeatC-PSZ-AC:5_FanNode,  !- Component 3 Outlet Node Name
+    Fan:ConstantVolume,      !- Component 4 Object Type
+    PSZ-AC:5_Fan,            !- Component 4 Name
+    PSZ-AC:5_HeatC-PSZ-AC:5_FanNode,  !- Component 4 Inlet Node Name
+    PSZ-AC:5 Supply Equipment Outlet Node;  !- Component 4 Outlet Node Name
+
+  AirLoopHVAC:ControllerList,
+    PSZ-AC:1_OA_Controllers, !- Name
+    Controller:OutdoorAir,   !- Controller 1 Object Type
+    PSZ-AC:1_OA_Controller;  !- Controller 1 Name
+
+  AirLoopHVAC:ControllerList,
+    PSZ-AC:2_OA_Controllers, !- Name
+    Controller:OutdoorAir,   !- Controller 1 Object Type
+    PSZ-AC:2_OA_Controller;  !- Controller 1 Name
+
+  AirLoopHVAC:ControllerList,
+    PSZ-AC:3_OA_Controllers, !- Name
+    Controller:OutdoorAir,   !- Controller 1 Object Type
+    PSZ-AC:3_OA_Controller;  !- Controller 1 Name
+
+  AirLoopHVAC:ControllerList,
+    PSZ-AC:4_OA_Controllers, !- Name
+    Controller:OutdoorAir,   !- Controller 1 Object Type
+    PSZ-AC:4_OA_Controller;  !- Controller 1 Name
+
+  AirLoopHVAC:ControllerList,
+    PSZ-AC:5_OA_Controllers, !- Name
+    Controller:OutdoorAir,   !- Controller 1 Object Type
+    PSZ-AC:5_OA_Controller;  !- Controller 1 Name
+
+  AirLoopHVAC:OutdoorAirSystem:EquipmentList,
+    PSZ-AC:1_OA_Equipment,   !- Name
+    OutdoorAir:Mixer,        !- Component 1 Object Type
+    PSZ-AC:1_OAMixing Box;   !- Component 1 Name
+
+  AirLoopHVAC:OutdoorAirSystem:EquipmentList,
+    PSZ-AC:2_OA_Equipment,   !- Name
+    OutdoorAir:Mixer,        !- Component 1 Object Type
+    PSZ-AC:2_OAMixing Box;   !- Component 1 Name
+
+  AirLoopHVAC:OutdoorAirSystem:EquipmentList,
+    PSZ-AC:3_OA_Equipment,   !- Name
+    OutdoorAir:Mixer,        !- Component 1 Object Type
+    PSZ-AC:3_OAMixing Box;   !- Component 1 Name
+
+  AirLoopHVAC:OutdoorAirSystem:EquipmentList,
+    PSZ-AC:4_OA_Equipment,   !- Name
+    OutdoorAir:Mixer,        !- Component 1 Object Type
+    PSZ-AC:4_OAMixing Box;   !- Component 1 Name
+
+  AirLoopHVAC:OutdoorAirSystem:EquipmentList,
+    PSZ-AC:5_OA_Equipment,   !- Name
+    OutdoorAir:Mixer,        !- Component 1 Object Type
+    PSZ-AC:5_OAMixing Box;   !- Component 1 Name
+
+  AirLoopHVAC:OutdoorAirSystem,
+    PSZ-AC:1_OA,             !- Name
+    PSZ-AC:1_OA_Controllers, !- Controller List Name
+    PSZ-AC:1_OA_Equipment,   !- Outdoor Air Equipment List Name
+    PSZ-AC:1 Availability Manager List;  !- Availability Manager List Name
+
+  AirLoopHVAC:OutdoorAirSystem,
+    PSZ-AC:2_OA,             !- Name
+    PSZ-AC:2_OA_Controllers, !- Controller List Name
+    PSZ-AC:2_OA_Equipment,   !- Outdoor Air Equipment List Name
+    PSZ-AC:2 Availability Manager List;  !- Availability Manager List Name
+
+  AirLoopHVAC:OutdoorAirSystem,
+    PSZ-AC:3_OA,             !- Name
+    PSZ-AC:3_OA_Controllers, !- Controller List Name
+    PSZ-AC:3_OA_Equipment,   !- Outdoor Air Equipment List Name
+    PSZ-AC:3 Availability Manager List;  !- Availability Manager List Name
+
+  AirLoopHVAC:OutdoorAirSystem,
+    PSZ-AC:4_OA,             !- Name
+    PSZ-AC:4_OA_Controllers, !- Controller List Name
+    PSZ-AC:4_OA_Equipment,   !- Outdoor Air Equipment List Name
+    PSZ-AC:4 Availability Manager List;  !- Availability Manager List Name
+
+  AirLoopHVAC:OutdoorAirSystem,
+    PSZ-AC:5_OA,             !- Name
+    PSZ-AC:5_OA_Controllers, !- Controller List Name
+    PSZ-AC:5_OA_Equipment,   !- Outdoor Air Equipment List Name
+    PSZ-AC:5 Availability Manager List;  !- Availability Manager List Name
+
+  OutdoorAir:NodeList,
+    PSZ-AC:1_OANode List;    !- Node or NodeList Name 1
+
+  OutdoorAir:NodeList,
+    PSZ-AC:2_OANode List;    !- Node or NodeList Name 1
+
+  OutdoorAir:NodeList,
+    PSZ-AC:3_OANode List;    !- Node or NodeList Name 1
+
+  OutdoorAir:NodeList,
+    PSZ-AC:4_OANode List;    !- Node or NodeList Name 1
+
+  OutdoorAir:NodeList,
+    PSZ-AC:5_OANode List;    !- Node or NodeList Name 1
+
+  OutdoorAir:Node,
+    PSZ-AC:1_CoolCOA Ref node;  !- Name
+
+  OutdoorAir:Node,
+    PSZ-AC:2_CoolCOA Ref node;  !- Name
+
+  OutdoorAir:Node,
+    PSZ-AC:3_CoolCOA Ref node;  !- Name
+
+  OutdoorAir:Node,
+    PSZ-AC:4_CoolCOA Ref node;  !- Name
+
+  OutdoorAir:Node,
+    PSZ-AC:5_CoolCOA Ref node;  !- Name
+
+  OutdoorAir:Mixer,
+    PSZ-AC:1_OAMixing Box,   !- Name
+    PSZ-AC:1_OA-PSZ-AC:1_CoolCNode,  !- Mixed Air Node Name
+    PSZ-AC:1_OAInlet Node,   !- Outdoor Air Stream Node Name
+    PSZ-AC:1_OARelief Node,  !- Relief Air Stream Node Name
+    PSZ-AC:1 Supply Equipment Inlet Node;  !- Return Air Stream Node Name
+
+  OutdoorAir:Mixer,
+    PSZ-AC:2_OAMixing Box,   !- Name
+    PSZ-AC:2_OA-PSZ-AC:2_CoolCNode,  !- Mixed Air Node Name
+    PSZ-AC:2_OAInlet Node,   !- Outdoor Air Stream Node Name
+    PSZ-AC:2_OARelief Node,  !- Relief Air Stream Node Name
+    PSZ-AC:2 Supply Equipment Inlet Node;  !- Return Air Stream Node Name
+
+  OutdoorAir:Mixer,
+    PSZ-AC:3_OAMixing Box,   !- Name
+    PSZ-AC:3_OA-PSZ-AC:3_CoolCNode,  !- Mixed Air Node Name
+    PSZ-AC:3_OAInlet Node,   !- Outdoor Air Stream Node Name
+    PSZ-AC:3_OARelief Node,  !- Relief Air Stream Node Name
+    PSZ-AC:3 Supply Equipment Inlet Node;  !- Return Air Stream Node Name
+
+  OutdoorAir:Mixer,
+    PSZ-AC:4_OAMixing Box,   !- Name
+    PSZ-AC:4_OA-PSZ-AC:4_CoolCNode,  !- Mixed Air Node Name
+    PSZ-AC:4_OAInlet Node,   !- Outdoor Air Stream Node Name
+    PSZ-AC:4_OARelief Node,  !- Relief Air Stream Node Name
+    PSZ-AC:4 Supply Equipment Inlet Node;  !- Return Air Stream Node Name
+
+  OutdoorAir:Mixer,
+    PSZ-AC:5_OAMixing Box,   !- Name
+    PSZ-AC:5_OA-PSZ-AC:5_CoolCNode,  !- Mixed Air Node Name
+    PSZ-AC:5_OAInlet Node,   !- Outdoor Air Stream Node Name
+    PSZ-AC:5_OARelief Node,  !- Relief Air Stream Node Name
+    PSZ-AC:5 Supply Equipment Inlet Node;  !- Return Air Stream Node Name
+
+  SetpointManager:MixedAir,
+    PSZ-AC:1_CoolC SAT Manager,  !- Name
+    Temperature,             !- Control Variable
+    PSZ-AC:1 Supply Equipment Outlet Node,  !- Reference Setpoint Node Name
+    PSZ-AC:1_HeatC-PSZ-AC:1_FanNode,  !- Fan Inlet Node Name
+    PSZ-AC:1 Supply Equipment Outlet Node,  !- Fan Outlet Node Name
+    PSZ-AC:1_CoolC-PSZ-AC:1_HeatCNode;  !- Setpoint Node or NodeList Name
+
+  SetpointManager:MixedAir,
+    PSZ-AC:1_HeatC MixedAir Manager,  !- Name
+    Temperature,             !- Control Variable
+    PSZ-AC:1 Supply Equipment Outlet Node,  !- Reference Setpoint Node Name
+    PSZ-AC:1_HeatC-PSZ-AC:1_FanNode,  !- Fan Inlet Node Name
+    PSZ-AC:1 Supply Equipment Outlet Node,  !- Fan Outlet Node Name
+    PSZ-AC:1_HeatC-PSZ-AC:1_FanNode;  !- Setpoint Node or NodeList Name
+
+  SetpointManager:MixedAir,
+    PSZ-AC:1_OAMixed Air Temp Manager,  !- Name
+    Temperature,             !- Control Variable
+    PSZ-AC:1 Supply Equipment Outlet Node,  !- Reference Setpoint Node Name
+    PSZ-AC:1_HeatC-PSZ-AC:1_FanNode,  !- Fan Inlet Node Name
+    PSZ-AC:1 Supply Equipment Outlet Node,  !- Fan Outlet Node Name
+    PSZ-AC:1_OA-PSZ-AC:1_CoolCNode;  !- Setpoint Node or NodeList Name
+
+  SetpointManager:MixedAir,
+    PSZ-AC:2_CoolC SAT Manager,  !- Name
+    Temperature,             !- Control Variable
+    PSZ-AC:2 Supply Equipment Outlet Node,  !- Reference Setpoint Node Name
+    PSZ-AC:2_HeatC-PSZ-AC:2_FanNode,  !- Fan Inlet Node Name
+    PSZ-AC:2 Supply Equipment Outlet Node,  !- Fan Outlet Node Name
+    PSZ-AC:2_CoolC-PSZ-AC:2_HeatCNode;  !- Setpoint Node or NodeList Name
+
+  SetpointManager:MixedAir,
+    PSZ-AC:2_HeatC MixedAir Manager,  !- Name
+    Temperature,             !- Control Variable
+    PSZ-AC:2 Supply Equipment Outlet Node,  !- Reference Setpoint Node Name
+    PSZ-AC:2_HeatC-PSZ-AC:2_FanNode,  !- Fan Inlet Node Name
+    PSZ-AC:2 Supply Equipment Outlet Node,  !- Fan Outlet Node Name
+    PSZ-AC:2_HeatC-PSZ-AC:2_FanNode;  !- Setpoint Node or NodeList Name
+
+  SetpointManager:MixedAir,
+    PSZ-AC:2_OAMixed Air Temp Manager,  !- Name
+    Temperature,             !- Control Variable
+    PSZ-AC:2 Supply Equipment Outlet Node,  !- Reference Setpoint Node Name
+    PSZ-AC:2_HeatC-PSZ-AC:2_FanNode,  !- Fan Inlet Node Name
+    PSZ-AC:2 Supply Equipment Outlet Node,  !- Fan Outlet Node Name
+    PSZ-AC:2_OA-PSZ-AC:2_CoolCNode;  !- Setpoint Node or NodeList Name
+
+  SetpointManager:MixedAir,
+    PSZ-AC:3_CoolC SAT Manager,  !- Name
+    Temperature,             !- Control Variable
+    PSZ-AC:3 Supply Equipment Outlet Node,  !- Reference Setpoint Node Name
+    PSZ-AC:3_HeatC-PSZ-AC:3_FanNode,  !- Fan Inlet Node Name
+    PSZ-AC:3 Supply Equipment Outlet Node,  !- Fan Outlet Node Name
+    PSZ-AC:3_CoolC-PSZ-AC:3_HeatCNode;  !- Setpoint Node or NodeList Name
+
+  SetpointManager:MixedAir,
+    PSZ-AC:3_HeatC MixedAir Manager,  !- Name
+    Temperature,             !- Control Variable
+    PSZ-AC:3 Supply Equipment Outlet Node,  !- Reference Setpoint Node Name
+    PSZ-AC:3_HeatC-PSZ-AC:3_FanNode,  !- Fan Inlet Node Name
+    PSZ-AC:3 Supply Equipment Outlet Node,  !- Fan Outlet Node Name
+    PSZ-AC:3_HeatC-PSZ-AC:3_FanNode;  !- Setpoint Node or NodeList Name
+
+  SetpointManager:MixedAir,
+    PSZ-AC:3_OAMixed Air Temp Manager,  !- Name
+    Temperature,             !- Control Variable
+    PSZ-AC:3 Supply Equipment Outlet Node,  !- Reference Setpoint Node Name
+    PSZ-AC:3_HeatC-PSZ-AC:3_FanNode,  !- Fan Inlet Node Name
+    PSZ-AC:3 Supply Equipment Outlet Node,  !- Fan Outlet Node Name
+    PSZ-AC:3_OA-PSZ-AC:3_CoolCNode;  !- Setpoint Node or NodeList Name
+
+  SetpointManager:MixedAir,
+    PSZ-AC:4_CoolC SAT Manager,  !- Name
+    Temperature,             !- Control Variable
+    PSZ-AC:4 Supply Equipment Outlet Node,  !- Reference Setpoint Node Name
+    PSZ-AC:4_HeatC-PSZ-AC:4_FanNode,  !- Fan Inlet Node Name
+    PSZ-AC:4 Supply Equipment Outlet Node,  !- Fan Outlet Node Name
+    PSZ-AC:4_CoolC-PSZ-AC:4_HeatCNode;  !- Setpoint Node or NodeList Name
+
+  SetpointManager:MixedAir,
+    PSZ-AC:4_HeatC MixedAir Manager,  !- Name
+    Temperature,             !- Control Variable
+    PSZ-AC:4 Supply Equipment Outlet Node,  !- Reference Setpoint Node Name
+    PSZ-AC:4_HeatC-PSZ-AC:4_FanNode,  !- Fan Inlet Node Name
+    PSZ-AC:4 Supply Equipment Outlet Node,  !- Fan Outlet Node Name
+    PSZ-AC:4_HeatC-PSZ-AC:4_FanNode;  !- Setpoint Node or NodeList Name
+
+  SetpointManager:MixedAir,
+    PSZ-AC:4_OAMixed Air Temp Manager,  !- Name
+    Temperature,             !- Control Variable
+    PSZ-AC:4 Supply Equipment Outlet Node,  !- Reference Setpoint Node Name
+    PSZ-AC:4_HeatC-PSZ-AC:4_FanNode,  !- Fan Inlet Node Name
+    PSZ-AC:4 Supply Equipment Outlet Node,  !- Fan Outlet Node Name
+    PSZ-AC:4_OA-PSZ-AC:4_CoolCNode;  !- Setpoint Node or NodeList Name
+
+  SetpointManager:MixedAir,
+    PSZ-AC:5_CoolC SAT Manager,  !- Name
+    Temperature,             !- Control Variable
+    PSZ-AC:5 Supply Equipment Outlet Node,  !- Reference Setpoint Node Name
+    PSZ-AC:5_HeatC-PSZ-AC:5_FanNode,  !- Fan Inlet Node Name
+    PSZ-AC:5 Supply Equipment Outlet Node,  !- Fan Outlet Node Name
+    PSZ-AC:5_CoolC-PSZ-AC:5_HeatCNode;  !- Setpoint Node or NodeList Name
+
+  SetpointManager:MixedAir,
+    PSZ-AC:5_HeatC MixedAir Manager,  !- Name
+    Temperature,             !- Control Variable
+    PSZ-AC:5 Supply Equipment Outlet Node,  !- Reference Setpoint Node Name
+    PSZ-AC:5_HeatC-PSZ-AC:5_FanNode,  !- Fan Inlet Node Name
+    PSZ-AC:5 Supply Equipment Outlet Node,  !- Fan Outlet Node Name
+    PSZ-AC:5_HeatC-PSZ-AC:5_FanNode;  !- Setpoint Node or NodeList Name
+
+  SetpointManager:MixedAir,
+    PSZ-AC:5_OAMixed Air Temp Manager,  !- Name
+    Temperature,             !- Control Variable
+    PSZ-AC:5 Supply Equipment Outlet Node,  !- Reference Setpoint Node Name
+    PSZ-AC:5_HeatC-PSZ-AC:5_FanNode,  !- Fan Inlet Node Name
+    PSZ-AC:5 Supply Equipment Outlet Node,  !- Fan Outlet Node Name
+    PSZ-AC:5_OA-PSZ-AC:5_CoolCNode;  !- Setpoint Node or NodeList Name
+
+  AirLoopHVAC:SupplyPath,
+    PSZ-AC:1,                !- Name
+    PSZ-AC:1 Zone Equipment Inlet Node,  !- Supply Air Path Inlet Node Name
+    AirLoopHVAC:ZoneSplitter,!- Component 1 Object Type
+    PSZ-AC:1 Supply Air Splitter;  !- Component 1 Name
+
+  AirLoopHVAC:SupplyPath,
+    PSZ-AC:2,                !- Name
+    PSZ-AC:2 Zone Equipment Inlet Node,  !- Supply Air Path Inlet Node Name
+    AirLoopHVAC:ZoneSplitter,!- Component 1 Object Type
+    PSZ-AC:2 Supply Air Splitter;  !- Component 1 Name
+
+  AirLoopHVAC:SupplyPath,
+    PSZ-AC:3,                !- Name
+    PSZ-AC:3 Zone Equipment Inlet Node,  !- Supply Air Path Inlet Node Name
+    AirLoopHVAC:ZoneSplitter,!- Component 1 Object Type
+    PSZ-AC:3 Supply Air Splitter;  !- Component 1 Name
+
+  AirLoopHVAC:SupplyPath,
+    PSZ-AC:4,                !- Name
+    PSZ-AC:4 Zone Equipment Inlet Node,  !- Supply Air Path Inlet Node Name
+    AirLoopHVAC:ZoneSplitter,!- Component 1 Object Type
+    PSZ-AC:4 Supply Air Splitter;  !- Component 1 Name
+
+  AirLoopHVAC:SupplyPath,
+    PSZ-AC:5,                !- Name
+    PSZ-AC:5 Zone Equipment Inlet Node,  !- Supply Air Path Inlet Node Name
+    AirLoopHVAC:ZoneSplitter,!- Component 1 Object Type
+    PSZ-AC:5 Supply Air Splitter;  !- Component 1 Name
+
+  AirLoopHVAC:ZoneSplitter,
+    PSZ-AC:1 Supply Air Splitter,  !- Name
+    PSZ-AC:1 Zone Equipment Inlet Node,  !- Inlet Node Name
+    Core_ZN Direct Air Inlet Node Name ATInlet;  !- Outlet 1 Node Name
+
+  AirLoopHVAC:ZoneSplitter,
+    PSZ-AC:2 Supply Air Splitter,  !- Name
+    PSZ-AC:2 Zone Equipment Inlet Node,  !- Inlet Node Name
+    Perimeter_ZN_1 Direct Air Inlet Node Name ATInlet;  !- Outlet 1 Node Name
+
+  AirLoopHVAC:ZoneSplitter,
+    PSZ-AC:3 Supply Air Splitter,  !- Name
+    PSZ-AC:3 Zone Equipment Inlet Node,  !- Inlet Node Name
+    Perimeter_ZN_2 Direct Air Inlet Node Name ATInlet;  !- Outlet 1 Node Name
+
+  AirLoopHVAC:ZoneSplitter,
+    PSZ-AC:4 Supply Air Splitter,  !- Name
+    PSZ-AC:4 Zone Equipment Inlet Node,  !- Inlet Node Name
+    Perimeter_ZN_3 Direct Air Inlet Node Name ATInlet;  !- Outlet 1 Node Name
+
+  AirLoopHVAC:ZoneSplitter,
+    PSZ-AC:5 Supply Air Splitter,  !- Name
+    PSZ-AC:5 Zone Equipment Inlet Node,  !- Inlet Node Name
+    Perimeter_ZN_4 Direct Air Inlet Node Name ATInlet;  !- Outlet 1 Node Name
+
+  AirLoopHVAC:ReturnPath,
+    PSZ-AC:1 Return Air Path,!- Name
+    PSZ-AC:1 Zone Equipment Outlet Node,  !- Return Air Path Outlet Node Name
+    AirLoopHVAC:ZoneMixer,   !- Component 1 Object Type
+    PSZ-AC:1 Return Air Mixer;  !- Component 1 Name
+
+  AirLoopHVAC:ReturnPath,
+    PSZ-AC:2 Return Air Path,!- Name
+    PSZ-AC:2 Zone Equipment Outlet Node,  !- Return Air Path Outlet Node Name
+    AirLoopHVAC:ZoneMixer,   !- Component 1 Object Type
+    PSZ-AC:2 Return Air Mixer;  !- Component 1 Name
+
+  AirLoopHVAC:ReturnPath,
+    PSZ-AC:3 Return Air Path,!- Name
+    PSZ-AC:3 Zone Equipment Outlet Node,  !- Return Air Path Outlet Node Name
+    AirLoopHVAC:ZoneMixer,   !- Component 1 Object Type
+    PSZ-AC:3 Return Air Mixer;  !- Component 1 Name
+
+  AirLoopHVAC:ReturnPath,
+    PSZ-AC:4 Return Air Path,!- Name
+    PSZ-AC:4 Zone Equipment Outlet Node,  !- Return Air Path Outlet Node Name
+    AirLoopHVAC:ZoneMixer,   !- Component 1 Object Type
+    PSZ-AC:4 Return Air Mixer;  !- Component 1 Name
+
+  AirLoopHVAC:ReturnPath,
+    PSZ-AC:5 Return Air Path,!- Name
+    PSZ-AC:5 Zone Equipment Outlet Node,  !- Return Air Path Outlet Node Name
+    AirLoopHVAC:ZoneMixer,   !- Component 1 Object Type
+    PSZ-AC:5 Return Air Mixer;  !- Component 1 Name
+
+  AirLoopHVAC:ZoneMixer,
+    PSZ-AC:1 Return Air Mixer,  !- Name
+    PSZ-AC:1 Zone Equipment Outlet Node,  !- Outlet Node Name
+    Core_ZN Return Air Node Name;  !- Inlet 1 Node Name
+
+  AirLoopHVAC:ZoneMixer,
+    PSZ-AC:2 Return Air Mixer,  !- Name
+    PSZ-AC:2 Zone Equipment Outlet Node,  !- Outlet Node Name
+    Perimeter_ZN_1 Return Air Node Name;  !- Inlet 1 Node Name
+
+  AirLoopHVAC:ZoneMixer,
+    PSZ-AC:3 Return Air Mixer,  !- Name
+    PSZ-AC:3 Zone Equipment Outlet Node,  !- Outlet Node Name
+    Perimeter_ZN_2 Return Air Node Name;  !- Inlet 1 Node Name
+
+  AirLoopHVAC:ZoneMixer,
+    PSZ-AC:4 Return Air Mixer,  !- Name
+    PSZ-AC:4 Zone Equipment Outlet Node,  !- Outlet Node Name
+    Perimeter_ZN_3 Return Air Node Name;  !- Inlet 1 Node Name
+
+  AirLoopHVAC:ZoneMixer,
+    PSZ-AC:5 Return Air Mixer,  !- Name
+    PSZ-AC:5 Zone Equipment Outlet Node,  !- Outlet Node Name
+    Perimeter_ZN_4 Return Air Node Name;  !- Inlet 1 Node Name
+
 ! ***SCHEDULES***
 
   Schedule:Compact,
@@ -2168,6 +3980,283 @@
     Until: 24:00,0.0,        !- Field 14
     For: AllOtherDays,       !- Field 16
     Until: 24:00,0.0;        !- Field 17
+
+! ***SWH EQUIPMENT***
+
+  WaterHeater:Mixed,
+    SWHSys1 Water Heater,    !- Name
+    0.1514,                  !- Tank Volume {m3}
+    SWHSys1 Water Heater Setpoint Temperature Schedule Name,  !- Setpoint Temperature Schedule Name
+    2.0,                     !- Deadband Temperature Difference {deltaC}
+    82.2222,                 !- Maximum Temperature Limit {C}
+    Cycle,                   !- Heater Control Type
+    845000,                  !- Heater Maximum Capacity {W}
+    ,                        !- Heater Minimum Capacity {W}
+    ,                        !- Heater Ignition Minimum Flow Rate {m3/s}
+    ,                        !- Heater Ignition Delay {s}
+    NATURALGAS,              !- Heater Fuel Type
+    0.8,                     !- Heater Thermal Efficiency
+    ,                        !- Part Load Factor Curve Name
+    20,                      !- Off Cycle Parasitic Fuel Consumption Rate {W}
+    NATURALGAS,              !- Off Cycle Parasitic Fuel Type
+    0.8,                     !- Off Cycle Parasitic Heat Fraction to Tank
+    ,                        !- On Cycle Parasitic Fuel Consumption Rate {W}
+    NATURALGAS,              !- On Cycle Parasitic Fuel Type
+    ,                        !- On Cycle Parasitic Heat Fraction to Tank
+    SCHEDULE,                !- Ambient Temperature Indicator
+    SWHSys1 Water Heater Ambient Temperature Schedule Name,  !- Ambient Temperature Schedule Name
+    ,                        !- Ambient Temperature Zone Name
+    ,                        !- Ambient Temperature Outdoor Air Node Name
+    6.0,                     !- Off Cycle Loss Coefficient to Ambient Temperature {W/K}
+    ,                        !- Off Cycle Loss Fraction to Zone
+    6.0,                     !- On Cycle Loss Coefficient to Ambient Temperature {W/K}
+    ,                        !- On Cycle Loss Fraction to Zone
+    ,                        !- Peak Use Flow Rate {m3/s}
+    ,                        !- Use Flow Rate Fraction Schedule Name
+    ,                        !- Cold Water Supply Temperature Schedule Name
+    SWHSys1 Pump-SWHSys1 Water HeaterNode,  !- Use Side Inlet Node Name
+    SWHSys1 Supply Equipment Outlet Node,  !- Use Side Outlet Node Name
+    1.0,                     !- Use Side Effectiveness
+    ,                        !- Source Side Inlet Node Name
+    ,                        !- Source Side Outlet Node Name
+    1.0,                     !- Source Side Effectiveness
+    AUTOSIZE,                !- Use Side Design Flow Rate {m3/s}
+    AUTOSIZE,                !- Source Side Design Flow Rate {m3/s}
+    1.5;                     !- Indirect Water Heating Recovery Time {hr}
+
+  Pump:ConstantSpeed,
+    SWHSys1 Pump,            !- Name
+    SWHSys1 Supply Inlet Node,  !- Inlet Node Name
+    SWHSys1 Pump-SWHSys1 Water HeaterNodeviaConnector,  !- Outlet Node Name
+    AUTOSIZE,                !- Design Flow Rate {m3/s}
+    0.001,                   !- Design Pump Head {Pa}
+    AUTOSIZE,                !- Design Power Consumption {W}
+    1,                       !- Motor Efficiency
+    0.0,                     !- Fraction of Motor Inefficiencies to Fluid Stream
+    Intermittent,            !- Pump Control Type
+    ;                        !- Pump Flow Rate Schedule Name
+
+  WaterUse:Equipment,
+    Core_ZN Water Equipment, !- Name
+    ,                        !- End-Use Subcategory
+    3.15e-006,               !- Peak Flow Rate {m3/s}
+    BLDG_SWH_SCH,            !- Flow Rate Fraction Schedule Name
+    Water Equipment Temp Sched,  !- Target Temperature Schedule Name
+    Water Equipment Hot Supply Temp Sched,  !- Hot Water Supply Temperature Schedule Name
+    ,                        !- Cold Water Supply Temperature Schedule Name
+    Core_ZN,                 !- Zone Name
+    Water Equipment Sensible fract sched,  !- Sensible Fraction Schedule Name
+    Water Equipment Latent fract sched;  !- Latent Fraction Schedule Name
+
+  PlantEquipmentList,
+    SWHSys1 Equipment List,  !- Name
+    WaterHeater:Mixed,       !- Equipment 1 Object Type
+    SWHSys1 Water Heater;    !- Equipment 1 Name
+
+! ***SWH SIZING & CONTROLS***
+
+  Sizing:Plant,
+    SWHSys1,                 !- Plant or Condenser Loop Name
+    Heating,                 !- Loop Type
+    60,                      !- Design Loop Exit Temperature {C}
+    5.0;                     !- Loop Design Temperature Difference {deltaC}
+
+  SetpointManager:Scheduled,
+    SWHSys1 Loop Setpoint Manager,  !- Name
+    Temperature,             !- Control Variable
+    SWHSys1-Loop-Temp-Schedule,  !- Schedule Name
+    SWHSys1 Supply Outlet Node;  !- Setpoint Node or NodeList Name
+
+  PlantEquipmentOperationSchemes,
+    SWHSys1 Loop Operation Scheme List,  !- Name
+    PlantEquipmentOperation:HeatingLoad,  !- Control Scheme 1 Object Type
+    SWHSys1 Operation Scheme,!- Control Scheme 1 Name
+    ALWAYS_ON;               !- Control Scheme 1 Schedule Name
+
+  PlantEquipmentOperation:HeatingLoad,
+    SWHSys1 Operation Scheme,!- Name
+    0.0,                     !- Load Range 1 Lower Limit {W}
+    1000000000000000,        !- Load Range 1 Upper Limit {W}
+    SWHSys1 Equipment List;  !- Range 1 Equipment List Name
+
+! ***SWH LOOP***
+
+  PlantLoop,
+    SWHSys1,                 !- Name
+    Water,                   !- Fluid Type
+    ,                        !- User Defined Fluid Type
+    SWHSys1 Loop Operation Scheme List,  !- Plant Equipment Operation Scheme Name
+    SWHSys1 Supply Outlet Node,  !- Loop Temperature Setpoint Node Name
+    60.0,                    !- Maximum Loop Temperature {C}
+    10.0,                    !- Minimum Loop Temperature {C}
+    AUTOSIZE,                !- Maximum Loop Flow Rate {m3/s}
+    0.0,                     !- Minimum Loop Flow Rate {m3/s}
+    AUTOSIZE,                !- Plant Loop Volume {m3}
+    SWHSys1 Supply Inlet Node,  !- Plant Side Inlet Node Name
+    SWHSys1 Supply Outlet Node,  !- Plant Side Outlet Node Name
+    SWHSys1 Supply Branches, !- Plant Side Branch List Name
+    SWHSys1 Supply Connectors,  !- Plant Side Connector List Name
+    SWHSys1 Demand Inlet Node,  !- Demand Side Inlet Node Name
+    SWHSys1 Demand Outlet Node,  !- Demand Side Outlet Node Name
+    SWHSys1 Demand Branches, !- Demand Side Branch List Name
+    SWHSys1 Demand Connectors,  !- Demand Side Connector List Name
+    Optimal;                 !- Load Distribution Scheme
+
+! ***SWH CONNECTIONS***
+
+  BranchList,
+    SWHSys1 Demand Branches, !- Name
+    SWHSys1 Demand Inlet Branch,  !- Branch 1 Name
+    SWHSys1 Demand Load Branch 1,  !- Branch 2 Name
+    SWHSys1 Demand Bypass Branch,  !- Branch 3 Name
+    SWHSys1 Demand Outlet Branch;  !- Branch 4 Name
+
+  BranchList,
+    SWHSys1 Supply Branches, !- Name
+    SWHSys1 Supply Inlet Branch,  !- Branch 1 Name
+    SWHSys1 Supply Equipment Branch,  !- Branch 2 Name
+    SWHSys1 Supply Equipment Bypass Branch,  !- Branch 3 Name
+    SWHSys1 Supply Outlet Branch;  !- Branch 4 Name
+
+  Branch,
+    SWHSys1 Demand Bypass Branch,  !- Name
+    ,                        !- Pressure Drop Curve Name
+    Pipe:Adiabatic,          !- Component 1 Object Type
+    SWHSys1 Demand Bypass Pipe,  !- Component 1 Name
+    SWHSys1 Demand Bypass Pipe Inlet Node,  !- Component 1 Inlet Node Name
+    SWHSys1 Demand Bypass Pipe Outlet Node;  !- Component 1 Outlet Node Name
+
+  Branch,
+    SWHSys1 Demand Inlet Branch,  !- Name
+    ,                        !- Pressure Drop Curve Name
+    Pipe:Adiabatic,          !- Component 1 Object Type
+    SWHSys1 Demand Inlet Pipe,  !- Component 1 Name
+    SWHSys1 Demand Inlet Node,  !- Component 1 Inlet Node Name
+    SWHSys1 Demand Inlet Pipe-SWHSys1 Demand Mixer;  !- Component 1 Outlet Node Name
+
+  Branch,
+    SWHSys1 Demand Load Branch 1,  !- Name
+    ,                        !- Pressure Drop Curve Name
+    WaterUse:Connections,    !- Component 1 Object Type
+    Core_ZN Water Equipment, !- Component 1 Name
+    Core_ZN Water Equipment Water Inlet Node,  !- Component 1 Inlet Node Name
+    Core_ZN Water Equipment Water Outlet Node;  !- Component 1 Outlet Node Name
+
+  Branch,
+    SWHSys1 Demand Outlet Branch,  !- Name
+    ,                        !- Pressure Drop Curve Name
+    Pipe:Adiabatic,          !- Component 1 Object Type
+    SWHSys1 Demand Outlet Pipe,  !- Component 1 Name
+    SWHSys1 Demand Mixer-SWHSys1 Demand Outlet Pipe,  !- Component 1 Inlet Node Name
+    SWHSys1 Demand Outlet Node;  !- Component 1 Outlet Node Name
+
+  Branch,
+    SWHSys1 Supply Equipment Branch,  !- Name
+    ,                        !- Pressure Drop Curve Name
+    WaterHeater:Mixed,       !- Component 1 Object Type
+    SWHSys1 Water Heater,    !- Component 1 Name
+    SWHSys1 Pump-SWHSys1 Water HeaterNode,  !- Component 1 Inlet Node Name
+    SWHSys1 Supply Equipment Outlet Node;  !- Component 1 Outlet Node Name
+
+  Branch,
+    SWHSys1 Supply Equipment Bypass Branch,  !- Name
+    ,                        !- Pressure Drop Curve Name
+    Pipe:Adiabatic,          !- Component 1 Object Type
+    SWHSys1 Supply Equipment Bypass Pipe,  !- Component 1 Name
+    SWHSys1 Supply Equip Bypass Inlet Node,  !- Component 1 Inlet Node Name
+    SWHSys1 Supply Equip Bypass Outlet Node;  !- Component 1 Outlet Node Name
+
+  Branch,
+    SWHSys1 Supply Inlet Branch,  !- Name
+    ,                        !- Pressure Drop Curve Name
+    Pump:ConstantSpeed,      !- Component 1 Object Type
+    SWHSys1 Pump,            !- Component 1 Name
+    SWHSys1 Supply Inlet Node,  !- Component 1 Inlet Node Name
+    SWHSys1 Pump-SWHSys1 Water HeaterNodeviaConnector;  !- Component 1 Outlet Node Name
+
+  Branch,
+    SWHSys1 Supply Outlet Branch,  !- Name
+    ,                        !- Pressure Drop Curve Name
+    Pipe:Adiabatic,          !- Component 1 Object Type
+    SWHSys1 Supply Outlet Pipe,  !- Component 1 Name
+    SWHSys1 Supply Mixer-SWHSys1 Supply Outlet Pipe,  !- Component 1 Inlet Node Name
+    SWHSys1 Supply Outlet Node;  !- Component 1 Outlet Node Name
+
+  ConnectorList,
+    SWHSys1 Demand Connectors,  !- Name
+    Connector:Splitter,      !- Connector 1 Object Type
+    SWHSys1 Demand Splitter, !- Connector 1 Name
+    Connector:Mixer,         !- Connector 2 Object Type
+    SWHSys1 Demand Mixer;    !- Connector 2 Name
+
+  ConnectorList,
+    SWHSys1 Supply Connectors,  !- Name
+    Connector:Splitter,      !- Connector 1 Object Type
+    SWHSys1 Supply Splitter, !- Connector 1 Name
+    Connector:Mixer,         !- Connector 2 Object Type
+    SWHSys1 Supply Mixer;    !- Connector 2 Name
+
+  WaterUse:Connections,
+    Core_ZN Water Equipment, !- Name
+    Core_ZN Water Equipment Water Inlet Node,  !- Inlet Node Name
+    Core_ZN Water Equipment Water Outlet Node,  !- Outlet Node Name
+    ,                        !- Supply Water Storage Tank Name
+    ,                        !- Reclamation Water Storage Tank Name
+    ,                        !- Hot Water Supply Temperature Schedule Name
+    ,                        !- Cold Water Supply Temperature Schedule Name
+    ,                        !- Drain Water Heat Exchanger Type
+    ,                        !- Drain Water Heat Exchanger Destination
+    ,                        !- Drain Water Heat Exchanger U-Factor Times Area {W/K}
+    Core_ZN Water Equipment; !- Water Use Equipment 1 Name
+
+  Connector:Splitter,
+    SWHSys1 Demand Splitter, !- Name
+    SWHSys1 Demand Inlet Branch,  !- Inlet Branch Name
+    SWHSys1 Demand Load Branch 1,  !- Outlet Branch 1 Name
+    SWHSys1 Demand Bypass Branch;  !- Outlet Branch 2 Name
+
+  Connector:Splitter,
+    SWHSys1 Supply Splitter, !- Name
+    SWHSys1 Supply Inlet Branch,  !- Inlet Branch Name
+    SWHSys1 Supply Equipment Branch,  !- Outlet Branch 1 Name
+    SWHSys1 Supply Equipment Bypass Branch;  !- Outlet Branch 2 Name
+
+  Connector:Mixer,
+    SWHSys1 Demand Mixer,    !- Name
+    SWHSys1 Demand Outlet Branch,  !- Outlet Branch Name
+    SWHSys1 Demand Load Branch 1,  !- Inlet Branch 1 Name
+    SWHSys1 Demand Bypass Branch;  !- Inlet Branch 2 Name
+
+  Connector:Mixer,
+    SWHSys1 Supply Mixer,    !- Name
+    SWHSys1 Supply Outlet Branch,  !- Outlet Branch Name
+    SWHSys1 Supply Equipment Branch,  !- Inlet Branch 1 Name
+    SWHSys1 Supply Equipment Bypass Branch;  !- Inlet Branch 2 Name
+
+  Pipe:Adiabatic,
+    SWHSys1 Demand Bypass Pipe,  !- Name
+    SWHSys1 Demand Bypass Pipe Inlet Node,  !- Inlet Node Name
+    SWHSys1 Demand Bypass Pipe Outlet Node;  !- Outlet Node Name
+
+  Pipe:Adiabatic,
+    SWHSys1 Demand Inlet Pipe,  !- Name
+    SWHSys1 Demand Inlet Node,  !- Inlet Node Name
+    SWHSys1 Demand Inlet Pipe-SWHSys1 Demand Mixer;  !- Outlet Node Name
+
+  Pipe:Adiabatic,
+    SWHSys1 Demand Outlet Pipe,  !- Name
+    SWHSys1 Demand Mixer-SWHSys1 Demand Outlet Pipe,  !- Inlet Node Name
+    SWHSys1 Demand Outlet Node;  !- Outlet Node Name
+
+  Pipe:Adiabatic,
+    SWHSys1 Supply Equipment Bypass Pipe,  !- Name
+    SWHSys1 Supply Equip Bypass Inlet Node,  !- Inlet Node Name
+    SWHSys1 Supply Equip Bypass Outlet Node;  !- Outlet Node Name
+
+  Pipe:Adiabatic,
+    SWHSys1 Supply Outlet Pipe,  !- Name
+    SWHSys1 Supply Mixer-SWHSys1 Supply Outlet Pipe,  !- Inlet Node Name
+    SWHSys1 Supply Outlet Node;  !- Outlet Node Name
 
 ! ***SWH SCHEDULES***
 
@@ -2272,6 +4361,292 @@
     For: AllDays,            !- Field 2
     Until: 24:00,60.0;       !- Field 3
 
+! ***ECONOMICS***
+!   IN_EIAMonthlyRateGas, Source EIA historical Nov2003 thru Oct2004
+! Indiana 1999 state average electricity emissions factors based on eGRID, 1065, AirData
+! PSI_CS_CommercialElectricService, source http://www.cinergypsi.com/pdfs/RateCS.pdf, effective 2004-05-24
+! PSI_LLF_LowLoadFactorService,source http://www.cinergypsi.com/pdfs/RATELLF.pdf, effective 2004-05-24
+
+  UtilityCost:Tariff,
+    PSI_LLF_LowLoadFactorService,  !- Name
+    Electricity:Facility,    !- Output Meter Name
+    kWh,                     !- Conversion Factor Choice
+    ,                        !- Energy Conversion Factor
+    ,                        !- Demand Conversion Factor
+    ,                        !- Time of Use Period Schedule Name
+    ,                        !- Season Schedule Name
+    ,                        !- Month Schedule Name
+    HalfHour,                !- Demand Window Length
+    15.00,                   !- Monthly Charge or Variable Name
+    ,                        !- Minimum Monthly Charge or Variable Name
+    ,                        !- Real Time Pricing Charge Schedule Name
+    ,                        !- Customer Baseline Load Schedule Name
+    Comm Elect;              !- Group Name
+
+  UtilityCost:Charge:Block,
+    AnnualEnergyCharge,      !- Utility Cost Charge Block Name
+    PSI_LLF_LowLoadFactorService,  !- Tariff Name
+    totalEnergy,             !- Source Variable
+    Annual,                  !- Season
+    EnergyCharges,           !- Category Variable Name
+    ,                        !- Remaining Into Variable
+    ,                        !- Block Size Multiplier Value or Variable Name
+    300,                     !- Block Size 1 Value or Variable Name
+    0.108222,                !- Block 1 Cost per Unit Value or Variable Name
+    700,                     !- Block Size 2 Value or Variable Name
+    0.087021,                !- Block 2 Cost per Unit Value or Variable Name
+    1500,                    !- Block Size 3 Value or Variable Name
+    0.078420,                !- Block 3 Cost per Unit Value or Variable Name
+    remaining,               !- Block Size 4 Value or Variable Name
+    0.058320;                !- Block 4 Cost per Unit Value or Variable Name
+
+  UtilityCost:Charge:Block,
+    AnnualDemandBaseCharge,  !- Utility Cost Charge Block Name
+    PSI_LLF_LowLoadFactorService,  !- Tariff Name
+    totalEnergy,             !- Source Variable
+    Annual,                  !- Season
+    EnergyCharges,           !- Category Variable Name
+    ,                        !- Remaining Into Variable
+    TotalDemand,             !- Block Size Multiplier Value or Variable Name
+    190,                     !- Block Size 1 Value or Variable Name
+    0.0,                     !- Block 1 Cost per Unit Value or Variable Name
+    110,                     !- Block Size 2 Value or Variable Name
+    0.051773,                !- Block 2 Cost per Unit Value or Variable Name
+    remaining,               !- Block Size 3 Value or Variable Name
+    0.046965;                !- Block 3 Cost per Unit Value or Variable Name
+
+  UtilityCost:Charge:Simple,
+    FuelCostAdjustEnergyCharge,  !- Utility Cost Charge Simple Name
+    PSI_LLF_LowLoadFactorService,  !- Tariff Name
+    totalEnergy,             !- Source Variable
+    Annual,                  !- Season
+    EnergyCharges,           !- Category Variable Name
+    0.002028;                !- Cost per Unit Value or Variable Name
+
+  UtilityCost:Charge:Simple,
+    QualPollutionControlAdjustEnergyCharge,  !- Utility Cost Charge Simple Name
+    PSI_LLF_LowLoadFactorService,  !- Tariff Name
+    totalEnergy,             !- Source Variable
+    Annual,                  !- Season
+    EnergyCharges,           !- Category Variable Name
+    0.000536;                !- Cost per Unit Value or Variable Name
+
+  UtilityCost:Charge:Simple,
+    SoxNoxRiderAdjustEnergyCharge,  !- Utility Cost Charge Simple Name
+    PSI_LLF_LowLoadFactorService,  !- Tariff Name
+    totalEnergy,             !- Source Variable
+    Annual,                  !- Season
+    EnergyCharges,           !- Category Variable Name
+    0.001127;                !- Cost per Unit Value or Variable Name
+
+  UtilityCost:Charge:Simple,
+    DSMRiderAdjustEnergyCharge,  !- Utility Cost Charge Simple Name
+    PSI_LLF_LowLoadFactorService,  !- Tariff Name
+    totalEnergy,             !- Source Variable
+    Annual,                  !- Season
+    EnergyCharges,           !- Category Variable Name
+    -0.000370;               !- Cost per Unit Value or Variable Name
+
+  UtilityCost:Charge:Simple,
+    PurchPowerTrackerAdjustEnergyCharge,  !- Utility Cost Charge Simple Name
+    PSI_LLF_LowLoadFactorService,  !- Tariff Name
+    totalEnergy,             !- Source Variable
+    Annual,                  !- Season
+    EnergyCharges,           !- Category Variable Name
+    -0.000031;               !- Cost per Unit Value or Variable Name
+
+  UtilityCost:Charge:Simple,
+    MidwestISOAdjustEnergyCharge,  !- Utility Cost Charge Simple Name
+    PSI_LLF_LowLoadFactorService,  !- Tariff Name
+    totalEnergy,             !- Source Variable
+    Annual,                  !- Season
+    EnergyCharges,           !- Category Variable Name
+    -0.000216;               !- Cost per Unit Value or Variable Name
+
+  UtilityCost:Charge:Simple,
+    CleanCoalRiderEnergyCharge,  !- Utility Cost Charge Simple Name
+    PSI_LLF_LowLoadFactorService,  !- Tariff Name
+    totalEnergy,             !- Source Variable
+    Annual,                  !- Season
+    EnergyCharges,           !- Category Variable Name
+    0.000833;                !- Cost per Unit Value or Variable Name
+
+  UtilityCost:Qualify,
+    MinDemand75kw,           !- Utility Cost Qualify Name
+    PSI_LLF_LowLoadFactorService,  !- Tariff Name
+    TotalDemand,             !- Variable Name
+    Minimum,                 !- Qualify Type
+    75,                      !- Threshold Value or Variable Name
+    Annual,                  !- Season
+    Count,                   !- Threshold Test
+    12;                      !- Number of Months
+
+  UtilityCost:Charge:Simple,
+    TaxofeightPercent,       !- Utility Cost Charge Simple Name
+    PSI_LLF_LowLoadFactorService,  !- Tariff Name
+    SubTotal,                !- Source Variable
+    Annual,                  !- Season
+    Taxes,                   !- Category Variable Name
+    0.08;                    !- Cost per Unit Value or Variable Name
+
+!end  PSI_LLF_LowLoadFactorService
+
+  UtilityCost:Tariff,
+    PSI_CS_CommercialElectricService,  !- Name
+    Electricity:Facility,    !- Output Meter Name
+    kWh,                     !- Conversion Factor Choice
+    ,                        !- Energy Conversion Factor
+    ,                        !- Demand Conversion Factor
+    ,                        !- Time of Use Period Schedule Name
+    ,                        !- Season Schedule Name
+    ,                        !- Month Schedule Name
+    ,                        !- Demand Window Length
+    9.40,                    !- Monthly Charge or Variable Name
+    ,                        !- Minimum Monthly Charge or Variable Name
+    ,                        !- Real Time Pricing Charge Schedule Name
+    ,                        !- Customer Baseline Load Schedule Name
+    Comm Elect;              !- Group Name
+
+  UtilityCost:Charge:Block,
+    AnnualEnergyCharge,      !- Utility Cost Charge Block Name
+    PSI_CS_CommercialElectricService,  !- Tariff Name
+    totalEnergy,             !- Source Variable
+    Annual,                  !- Season
+    EnergyCharges,           !- Category Variable Name
+    ,                        !- Remaining Into Variable
+    ,                        !- Block Size Multiplier Value or Variable Name
+    300,                     !- Block Size 1 Value or Variable Name
+    0.082409,                !- Block 1 Cost per Unit Value or Variable Name
+    700,                     !- Block Size 2 Value or Variable Name
+    0.072873,                !- Block 2 Cost per Unit Value or Variable Name
+    1500,                    !- Block Size 3 Value or Variable Name
+    0.061696,                !- Block 3 Cost per Unit Value or Variable Name
+    remaining,               !- Block Size 4 Value or Variable Name
+    0.041179;                !- Block 4 Cost per Unit Value or Variable Name
+
+  UtilityCost:Charge:Simple,
+    FuelCostAdjustEnergyCharge,  !- Utility Cost Charge Simple Name
+    PSI_CS_CommercialElectricService,  !- Tariff Name
+    totalEnergy,             !- Source Variable
+    Annual,                  !- Season
+    EnergyCharges,           !- Category Variable Name
+    0.002028;                !- Cost per Unit Value or Variable Name
+
+  UtilityCost:Charge:Simple,
+    QualPollutionControlAdjustEnergyCharge,  !- Utility Cost Charge Simple Name
+    PSI_CS_CommercialElectricService,  !- Tariff Name
+    totalEnergy,             !- Source Variable
+    Annual,                  !- Season
+    EnergyCharges,           !- Category Variable Name
+    0.000536;                !- Cost per Unit Value or Variable Name
+
+  UtilityCost:Charge:Simple,
+    SoxNoxRiderAdjustEnergyCharge,  !- Utility Cost Charge Simple Name
+    PSI_CS_CommercialElectricService,  !- Tariff Name
+    totalEnergy,             !- Source Variable
+    Annual,                  !- Season
+    EnergyCharges,           !- Category Variable Name
+    0.001127;                !- Cost per Unit Value or Variable Name
+
+  UtilityCost:Charge:Simple,
+    DSMRiderAdjustEnergyCharge,  !- Utility Cost Charge Simple Name
+    PSI_CS_CommercialElectricService,  !- Tariff Name
+    totalEnergy,             !- Source Variable
+    Annual,                  !- Season
+    EnergyCharges,           !- Category Variable Name
+    0.000021;                !- Cost per Unit Value or Variable Name
+
+  UtilityCost:Charge:Simple,
+    PurchPowerTrackerAdjustEnergyCharge,  !- Utility Cost Charge Simple Name
+    PSI_CS_CommercialElectricService,  !- Tariff Name
+    totalEnergy,             !- Source Variable
+    Annual,                  !- Season
+    EnergyCharges,           !- Category Variable Name
+    0.000034;                !- Cost per Unit Value or Variable Name
+
+  UtilityCost:Charge:Simple,
+    MidwestISOAdjustEnergyCharge,  !- Utility Cost Charge Simple Name
+    PSI_CS_CommercialElectricService,  !- Tariff Name
+    totalEnergy,             !- Source Variable
+    Annual,                  !- Season
+    EnergyCharges,           !- Category Variable Name
+    -0.000203;               !- Cost per Unit Value or Variable Name
+
+  UtilityCost:Charge:Simple,
+    CleanCoalRiderEnergyCharge,  !- Utility Cost Charge Simple Name
+    PSI_CS_CommercialElectricService,  !- Tariff Name
+    totalEnergy,             !- Source Variable
+    Annual,                  !- Season
+    EnergyCharges,           !- Category Variable Name
+    0.000807;                !- Cost per Unit Value or Variable Name
+
+  UtilityCost:Qualify,
+    MaxDemand75kw,           !- Utility Cost Qualify Name
+    PSI_CS_CommercialElectricService,  !- Tariff Name
+    TotalDemand,             !- Variable Name
+    Maximum,                 !- Qualify Type
+    75,                      !- Threshold Value or Variable Name
+    Annual,                  !- Season
+    Count,                   !- Threshold Test
+    1;                       !- Number of Months
+
+  UtilityCost:Charge:Simple,
+    TaxofeightPercent,       !- Utility Cost Charge Simple Name
+    PSI_CS_CommercialElectricService,  !- Tariff Name
+    SubTotal,                !- Source Variable
+    Annual,                  !- Season
+    Taxes,                   !- Category Variable Name
+    0.08;                    !- Cost per Unit Value or Variable Name
+
+  UtilityCost:Tariff,
+    IN_EIAMonthlyRateGas,    !- Name
+    NaturalGas:Facility,     !- Output Meter Name
+    MCF,                     !- Conversion Factor Choice
+    ,                        !- Energy Conversion Factor
+    ,                        !- Demand Conversion Factor
+    ,                        !- Time of Use Period Schedule Name
+    ,                        !- Season Schedule Name
+    ,                        !- Month Schedule Name
+    ,                        !- Demand Window Length
+    0.0,                     !- Monthly Charge or Variable Name
+    ,                        !- Minimum Monthly Charge or Variable Name
+    ,                        !- Real Time Pricing Charge Schedule Name
+    ,                        !- Customer Baseline Load Schedule Name
+    Comm Gas;                !- Group Name
+
+  UtilityCost:Charge:Simple,
+    MonthlyRateGasCharge,    !- Utility Cost Charge Simple Name
+    IN_EIAMonthlyRateGas,    !- Tariff Name
+    totalEnergy,             !- Source Variable
+    Annual,                  !- Season
+    EnergyCharges,           !- Category Variable Name
+    IN_MonthlyGasRates;      !- Cost per Unit Value or Variable Name
+
+  UtilityCost:Variable,
+    IN_MonthlyGasRates,      !- Name
+    IN_EIAMonthlyRateGas,    !- Tariff Name
+    Currency,                !- Variable Type
+    8.22,                    !- January Value
+    7.51,                    !- February Value
+    8.97,                    !- March Value
+    9.01,                    !- April Value
+    9.16,                    !- May Value
+    10.44,                   !- June Value
+    10.32,                   !- July Value
+    10.13,                   !- August Value
+    9.20,                    !- September Value
+    8.18,                    !- October Value
+    7.83,                    !- November Value
+    7.63;                    !- December Value
+
+  UtilityCost:Charge:Simple,
+    TaxofEightPercent,       !- Utility Cost Charge Simple Name
+    IN_EIAMonthlyRateGas,    !- Tariff Name
+    SubTotal,                !- Source Variable
+    Annual,                  !- Season
+    Taxes,                   !- Category Variable Name
+    0.08;                    !- Cost per Unit Value or Variable Name
+
 ! ***GENERAL REPORTING***
 
   OutputControl:ReportingTolerances,
@@ -2291,129 +4666,28 @@
 
 ! ***REPORT METERS/VARIABLES***
 
-  Output:Meter,Electricity:Facility,timestep;
+  Output:Variable,*,Site Outdoor Air Drybulb Temperature,HOURLY;
 
-  Output:Meter,InteriorLights:Electricity,timestep;
+  Output:Variable,*,Site Outdoor Air Humidity Ratio,HOURLY;
 
-  Output:Meter,InteriorEquipment:Electricity,timestep;
+  Output:Variable,*,Site Outdoor Air Relative Humidity,HOURLY;
 
-  Output:Variable,*,Site Outdoor Air Drybulb Temperature,timestep;
+  Output:Variable,*,Air System Outdoor Air Flow Fraction,HOURLY;
 
-  Output:Variable,*,Site Outdoor Air Humidity Ratio,timestep;
+  Output:Variable,*,Air System Simulation Cycle On Off Status,HOURLY;
 
-  Output:Variable,*,Site Outdoor Air Relative Humidity,timestep;
+  Output:Variable,*,Air System Outdoor Air Economizer Status,HOURLY;
 
-  Output:Variable,*,Air System Simulation Cycle On Off Status,timestep;
+  Output:Variable,*,Air System Total Heating Energy,HOURLY;
 
-  Output:Variable,*,Air System Outdoor Air Economizer Status,timestep;
+  Output:Variable,*,Air System Total Cooling Energy,HOURLY;
 
-  Output:Variable,*,Air System Total Heating Energy,timestep;
+  Output:Variable,*,Air System Fan Electricity Energy,HOURLY;
 
-  Output:Variable,*,Air System Total Cooling Energy,timestep;
-
-  Output:Variable,*,Air System Fan Electric Energy,timestep;
-
-  Output:Variable,*,Zone Mean Air Temperature,timestep;
+  Output:Variable,*,Zone Mean Air Temperature,hourly;
 
 ! ***REPORT TABLES***
 
   OutputControl:Table:Style,
     HTML;                    !- Column Separator
-
-! ***ENVIRONMENTAL FACTORS REPORTING***
-
-  Output:EnvironmentalImpactFactors,
-    Monthly;                 !- Reporting Frequency
-
-  EnvironmentalImpactFactors,
-    0.663,                   !- District Heating Efficiency
-    4.18,                    !- District Cooling COP {W/W}
-    0.585,                   !- Steam Conversion Efficiency
-    80.7272,                 !- Total Carbon Equivalent Emission Factor From N2O {kg/kg}
-    6.2727,                  !- Total Carbon Equivalent Emission Factor From CH4 {kg/kg}
-    0.2727;                  !- Total Carbon Equivalent Emission Factor From CO2 {kg/kg}
-
-! Indiana electricity source and emission factors based on Deru and Torcellini 2007
-
-  FuelFactors,
-    Electricity,             !- Existing Fuel Resource Name
-    kg,                      !- Units of Measure
-    ,                        !- Energy per Unit Factor
-    3.546,                   !- Source Energy Factor {J/J}
-    ,                        !- Source Energy Schedule Name
-    3.417E+02,               !- CO2 Emission Factor {g/MJ}
-    ,                        !- CO2 Emission Factor Schedule Name
-    1.186E-01,               !- CO Emission Factor {g/MJ}
-    ,                        !- CO Emission Factor Schedule Name
-    7.472E-01,               !- CH4 Emission Factor {g/MJ}
-    ,                        !- CH4 Emission Factor Schedule Name
-    6.222E-01,               !- NOx Emission Factor {g/MJ}
-    ,                        !- NOx Emission Factor Schedule Name
-    8.028E-03,               !- N2O Emission Factor {g/MJ}
-    ,                        !- N2O Emission Factor Schedule Name
-    1.872E+00,               !- SO2 Emission Factor {g/MJ}
-    ,                        !- SO2 Emission Factor Schedule Name
-    0.0,                     !- PM Emission Factor {g/MJ}
-    ,                        !- PM Emission Factor Schedule Name
-    1.739E-02,               !- PM10 Emission Factor {g/MJ}
-    ,                        !- PM10 Emission Factor Schedule Name
-    0.0,                     !- PM2.5 Emission Factor {g/MJ}
-    ,                        !- PM2.5 Emission Factor Schedule Name
-    0.0,                     !- NH3 Emission Factor {g/MJ}
-    ,                        !- NH3 Emission Factor Schedule Name
-    1.019E-02,               !- NMVOC Emission Factor {g/MJ}
-    ,                        !- NMVOC Emission Factor Schedule Name
-    5.639E-06,               !- Hg Emission Factor {g/MJ}
-    ,                        !- Hg Emission Factor Schedule Name
-    2.778E-05,               !- Pb Emission Factor {g/MJ}
-    ,                        !- Pb Emission Factor Schedule Name
-    0.4309556,               !- Water Emission Factor {L/MJ}
-    ,                        !- Water Emission Factor Schedule Name
-    0,                       !- Nuclear High Level Emission Factor {g/MJ}
-    ,                        !- Nuclear High Level Emission Factor Schedule Name
-    0;                       !- Nuclear Low Level Emission Factor {m3/MJ}
-
-! Deru and Torcellini 2007
-! Source Energy and Emission Factors for Energy Use in Buildings
-! NREL/TP-550-38617
-! source factor and Higher Heating Values from Table 5
-! post-combustion emission factors for boiler from Table 9 (with factor of 1000 correction for natural gas)
-
-  FuelFactors,
-    NaturalGas,              !- Existing Fuel Resource Name
-    m3,                      !- Units of Measure
-    37631000,                !- Energy per Unit Factor
-    1.092,                   !- Source Energy Factor {J/J}
-    ,                        !- Source Energy Schedule Name
-    5.21E+01,                !- CO2 Emission Factor {g/MJ}
-    ,                        !- CO2 Emission Factor Schedule Name
-    3.99E-02,                !- CO Emission Factor {g/MJ}
-    ,                        !- CO Emission Factor Schedule Name
-    1.06E-03,                !- CH4 Emission Factor {g/MJ}
-    ,                        !- CH4 Emission Factor Schedule Name
-    4.73E-02,                !- NOx Emission Factor {g/MJ}
-    ,                        !- NOx Emission Factor Schedule Name
-    1.06E-03,                !- N2O Emission Factor {g/MJ}
-    ,                        !- N2O Emission Factor Schedule Name
-    2.68E-04,                !- SO2 Emission Factor {g/MJ}
-    ,                        !- SO2 Emission Factor Schedule Name
-    0.0,                     !- PM Emission Factor {g/MJ}
-    ,                        !- PM Emission Factor Schedule Name
-    3.59E-03,                !- PM10 Emission Factor {g/MJ}
-    ,                        !- PM10 Emission Factor Schedule Name
-    0.0,                     !- PM2.5 Emission Factor {g/MJ}
-    ,                        !- PM2.5 Emission Factor Schedule Name
-    0,                       !- NH3 Emission Factor {g/MJ}
-    ,                        !- NH3 Emission Factor Schedule Name
-    2.61E-03,                !- NMVOC Emission Factor {g/MJ}
-    ,                        !- NMVOC Emission Factor Schedule Name
-    1.11E-07,                !- Hg Emission Factor {g/MJ}
-    ,                        !- Hg Emission Factor Schedule Name
-    2.13E-07,                !- Pb Emission Factor {g/MJ}
-    ,                        !- Pb Emission Factor Schedule Name
-    0,                       !- Water Emission Factor {L/MJ}
-    ,                        !- Water Emission Factor Schedule Name
-    0,                       !- Nuclear High Level Emission Factor {g/MJ}
-    ,                        !- Nuclear High Level Emission Factor Schedule Name
-    0;                       !- Nuclear Low Level Emission Factor {m3/MJ}
 

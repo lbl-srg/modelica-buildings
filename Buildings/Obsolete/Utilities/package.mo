@@ -6,7 +6,8 @@ package Utilities "Package with utility functions such as for I/O"
 annotation (
 preferredView="info", Documentation(info="<html>
 <p>
-This package contains utility models such as for thermal comfort calculation, input/output, co-simulation, psychrometric calculations and various functions that are used throughout the library.
+This package contains obsolete utility models such as for thermal comfort calculation, 
+input/output, co-simulation, psychrometric calculations and various functions that are used throughout the library.
 </p>
 </html>"),
 Icon(coordinateSystem(extent={{-100.0,-100.0},{100.0,100.0}}), graphics={

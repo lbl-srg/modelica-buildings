@@ -78,10 +78,10 @@ model ThermalZone
     final unit="1")
     "Relative humidity"
     annotation (Placement(transformation(extent={{200,-130},{220,-110}}),iconTransformation(extent={{200,90},{220,110}})));
-  Buildings.ThermalZones.EnergyPlus.BaseClasses.FMUZoneAdapter fmuZon(
+  Buildings.ThermalZones.EnergyPlus.BaseClasses.ThermalZoneAdapter fmuZon(
     final buildingsLibraryRoot=Buildings.ThermalZones.EnergyPlus.BaseClasses.buildingsLibraryRoot,
     final modelicaNameBuilding=modelicaNameBuilding,
-    final modelicaNameThermalZone=modelicaNameThermalZone,
+    final modelicaInstanceName=modelicaInstanceName,
     final idfName=idfName,
     final weaName=weaName,
     final zoneName=zoneName,
@@ -92,9 +92,6 @@ model ThermalZone
     "FMU zone adapter"
     annotation (Placement(transformation(extent={{80,100},{100,120}})));
 protected
-  constant String modelicaNameThermalZone=getInstanceName()
-    "Name of this instance"
-    annotation (HideResult=true);
   constant Modelica.SIunits.SpecificEnergy h_fg=Medium.enthalpyOfCondensingGas(
     273.15+37)
     "Latent heat of water vapor";

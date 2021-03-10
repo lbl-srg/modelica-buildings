@@ -6,7 +6,7 @@ model LightsControl
     unit=Buildings.ThermalZones.EnergyPlus.Types.Units.Power,
     variableName="LIVING ZONE Lights",
     componentType="Lights",
-    controlType="Electric Power Level")
+    controlType="Electricity Rate")
     "Actuator for lights"
     annotation (Placement(transformation(extent={{100,100},{120,120}})));
   Buildings.ThermalZones.EnergyPlus.OutputVariable ligPow(
