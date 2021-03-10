@@ -386,27 +386,27 @@ R2: If the surface temperature at the air outlet section is higher than
 the dew-point temperature of the air at the inlet, then the cooling coil surface is fully-dry.</p>
 <p>
 At each point of a simulation time step, the fuzzy-modeling approach determines 
-the weights for R1 and R2 respectively (namely &mu;<sub>FW</sub> and &mu;<sub>FD</sub>) 
+the weights for R1 and R2 respectively (namely <i>&mu;<sub>FW</sub></i> and <i>&mu;<sub>FD</sub></i>)
 from the dew-point and coil surface temperatures.</p>
 <p>
 It calculates total and sensible heat transfer rates according to the weights as follows.
 </p>
-<p>
-Q<sub>tot</sub>=&mu;<sub>FD</sub> Q<sub>tot,FD</sub>+&mu;<sub>FW</sub> Q<sub>tot,FW</sub>
+<p align=\"center\" style=\"font-style:italic;\">
+Q&#775;<sub>tot</sub>=&mu;<sub>FD</sub> Q&#775;<sub>tot,FD</sub>+&mu;<sub>FW</sub> Q<sub>tot,FW</sub>
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+Q&#775;<sub>sen</sub>=&mu;<sub>FD</sub> Q&#775;<sub>sen,FD</sub>+&mu;<sub>FW</sub> Q<sub>sen,FW</sub>
 </p>
 <p>
-Q<sub>sen</sub>=&mu;<sub>FD</sub> Q<sub>sen,FD</sub>+&mu;<sub>FW</sub> Q<sub>sen,FW</sub>
-</p>
-<p>
-The fuzzy-modeling ensures &mu;<sub>FW</sub> + &mu;<sub>FD</sub> = 1, 
-&mu;<sub>FW</sub> &gt;=0, &mu;<sub>FD</sub> &gt;=0, which means the fuzzy 
-model outcomes of Qsen and Qtot are always convex combinations of heat transfer 
+The fuzzy-modeling ensures <i>&mu;<sub>FW</sub> + &mu;<sub>FD</sub> = 1</i>,
+<i>&mu;<sub>FW</sub> &gt;=0</i> and <i>&mu;<sub>FD</sub> &gt;=0</i>, which means the fuzzy
+model outcomes of <i>Q&#775;<sub>sen</sub></i> and <i>Q&#775;<sub>tot</sub></i> are always convex combinations of heat transfer
 rates for fully-dry and fully-wet modes and therefore are always bounded by them.
 </p>
 <p>
-The modeling approach also results in n-th order differentiable model
-depending on the selection of the underlying membership functions. This cooling 
-coil model is once continuously differentiable even at the transition (or mode-switching) points.
+The modeling approach also results in <i>n</i>-th order differentiable model
+depending on the selection of the underlying membership functions. This cooling
+coil model is once continuously differentiable at the mode switches.
 </p>
 </html>"));
 end WetCoilDryWetRegime;
