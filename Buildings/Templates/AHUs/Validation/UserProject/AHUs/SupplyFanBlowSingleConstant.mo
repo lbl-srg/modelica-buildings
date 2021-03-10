@@ -3,7 +3,7 @@ model SupplyFanBlowSingleConstant
   extends VAVSingleDuct(
     final id="VAV_1",
     final have_draThr=false,
-    redeclare replaceable Fans.SingleConstant fanSupBlo);
+    redeclare replaceable BaseClasses.Fans.SingleConstant fanSupBlo);
 
   annotation (
     defaultComponentName="ahu");

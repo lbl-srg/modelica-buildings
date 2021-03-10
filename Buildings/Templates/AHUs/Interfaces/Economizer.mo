@@ -6,23 +6,18 @@ partial model Economizer
   parameter Types.Economizer typ
     "Equipment type"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  outer parameter ExternData.JSONFile dat
-    annotation (Placement(transformation(extent={{74,74},{94,94}})));
 
   Modelica.Fluid.Interfaces.FluidPort_a port_Out(
-    redeclare package Medium = Medium)
-    "Outdoor air intake"
+    redeclare package Medium = Medium) "Outdoor air intake"
     annotation (Placement(transformation(
       extent={{-110,-70},{-90,-50}}),
       iconTransformation(extent={{-110,-80},{-90,-60}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_Ret(
-    redeclare package Medium = Medium)
-    "Return air"
+    redeclare package Medium = Medium) "Return air"
     annotation (Placement(transformation(extent={{90,50},
             {110,70}}), iconTransformation(extent={{90,62},{110,82}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_Sup(
-    redeclare package Medium = Medium)
-    "Supply air"
+    redeclare package Medium = Medium) "Supply air"
     annotation (Placement(transformation(extent={{90,-70},
             {110,-50}}), iconTransformation(extent={{90,-80},{110,-60}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_Exh(

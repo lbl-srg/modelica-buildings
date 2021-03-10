@@ -1,16 +1,13 @@
 within Buildings.Templates.AHUs.Interfaces;
 partial model Fan
-  extends Buildings.Fluid.Interfaces.PartialTwoPort(
-    redeclare final package Medium=MediumAir);
+  extends Buildings.Fluid.Interfaces.PartialTwoPort;
 
-  replaceable package MediumAir=Buildings.Media.Air
-    constrainedby Modelica.Media.Interfaces.PartialMedium
-    "Air medium";
   parameter Types.Fan typ
     "Equipment type"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
   Templates.BaseClasses.AhuBus ahuBus if typ<>Types.Fan.None
+    "AHU control bus"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,

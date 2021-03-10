@@ -14,12 +14,12 @@ model HeatExchangerDX
         transformation(extent={{-80,80},{-40,120}}),
         iconTransformation(extent={{-70,90},
             {-50,110}})));
-  BaseClasses.AhuBus ahuBus
-    "Control bus"
-    annotation (Placement(transformation(
+  .Buildings.Templates.BaseClasses.AhuBus ahuBus "Control bus" annotation (
+      Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
-        origin={0,100}),    iconTransformation(extent={{-10,-10},{10,10}},
+        origin={0,100}), iconTransformation(
+        extent={{-10,-10},{10,10}},
         rotation=0,
         origin={0,100})));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false),

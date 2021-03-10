@@ -1,9 +1,5 @@
 VAVSingleDuct
-Coils
-Controls
-Economizers
-Fans
-Sensors
 Types
 Validation
 Interfaces
+BaseClasses

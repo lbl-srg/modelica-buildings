@@ -3,7 +3,7 @@ record HeatExchangerWater
   extends Modelica.Icons.Record;
 
   outer parameter String funStr
-    "String used to fetch coil parameters";
+    "String used to identify the coil function";
   outer parameter String id
     "System identifier";
   outer parameter ExternData.JSONFile dat

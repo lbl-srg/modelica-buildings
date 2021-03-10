@@ -11,7 +11,7 @@ record Actuator
     annotation(Dialog(group = "Nominal condition"));
 
   outer parameter String funStr
-    "String used to fetch coil parameters";
+    "String used to identify the coil function";
   outer parameter String id
     "System identifier";
   outer parameter ExternData.JSONFile dat

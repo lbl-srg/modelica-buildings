@@ -3,12 +3,6 @@ partial model Main "Main interface class"
   replaceable package MediumAir=Buildings.Media.Air
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Air medium";
-  replaceable package MediumCoo=Buildings.Media.Water
-    constrainedby Modelica.Media.Interfaces.PartialMedium
-    "Cooling medium (such as CHW)";
-  replaceable package MediumHea=Buildings.Media.Water
-    constrainedby Modelica.Media.Interfaces.PartialMedium
-    "Heating medium (such as HHW)";
 
   parameter Types.Main typ
     "Type of system"

@@ -3,7 +3,7 @@ model SupplyFanDrawSingleVariable
   extends VAVSingleDuct(
     final id="VAV_1",
     final have_draThr=true,
-    redeclare replaceable Fans.SingleVariable fanSupDra);
+    redeclare replaceable BaseClasses.Fans.SingleVariable fanSupDra);
 
   annotation (
     defaultComponentName="ahu");

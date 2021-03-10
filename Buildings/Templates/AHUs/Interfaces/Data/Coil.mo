@@ -18,7 +18,7 @@ record Coil
     elseif Modelica.Utilities.Strings.find(insNam, "Hea2")<>0 then "Heating"
     elseif Modelica.Utilities.Strings.find(insNam, "Hea3")<>0 then "Reheat"
     else "Undefined"
-    "String used to fetch coil parameters"
+    "String used to identify the coil function"
     annotation(Evaluate=true, Dialog(group="Configuration"));
   final parameter String insNam = getInstanceName()
     "Instance name";

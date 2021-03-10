@@ -9,7 +9,7 @@ partial model Coil
   replaceable package MediumSou=Buildings.Media.Water
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Source side medium"
-    annotation(dialog(enable=have_sou));
+    annotation(Dialog(enable=have_sou));
 
   parameter Types.Coil typ
     "Equipment type"

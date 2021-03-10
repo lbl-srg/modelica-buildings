@@ -1,10 +1,6 @@
 within Buildings.Templates.AHUs.Interfaces;
 partial block Controller
 
-  outer parameter Types.Economizer typEco
-    "Type of economizer"
-    annotation (Evaluate=true,
-      Dialog(group="Economizer"));
   outer parameter Types.Coil typCoiCoo
     "Type of cooling coil"
     annotation (Evaluate=true,
@@ -36,20 +32,20 @@ partial block Controller
   outer parameter Integer nZon
     "Number of served zones";
 
-  BaseClasses.AhuBus ahuBus
-    "AHU control bus"
-    annotation (Placement(transformation(extent={{-20,-20},{20,20}},
+  .Buildings.Templates.BaseClasses.AhuBus ahuBus "AHU control bus" annotation (
+      Placement(transformation(
+        extent={{-20,-20},{20,20}},
         rotation=90,
-        origin={-200,0}), iconTransformation(extent={{-10,-10},{10,10}},
+        origin={-200,0}), iconTransformation(
+        extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-100,0})));
-  BaseClasses.TerminalBus terBus[nZon]
-    "Terminal unit control bus"
-    annotation (Placement(transformation(
-          extent={{-20,-20},{20,20}},
+  .Buildings.Templates.BaseClasses.TerminalBus terBus[nZon]
+    "Terminal unit control bus" annotation (Placement(transformation(
+        extent={{-20,-20},{20,20}},
         rotation=-90,
-        origin={220,0}), iconTransformation(extent={{-10,-10},
-            {10,10}},
+        origin={220,0}), iconTransformation(
+        extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={100,0})));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={

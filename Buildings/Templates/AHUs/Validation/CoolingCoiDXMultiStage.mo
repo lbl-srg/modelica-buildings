@@ -1,9 +1,10 @@
 within Buildings.Templates.AHUs.Validation;
 model CoolingCoiDXMultiStage
   extends BaseNoEquipment(ahu(redeclare record RecordCoiCoo =
-          Coils.HeatExchangers.Data.DXMultiStage (redeclare
+          BaseClasses.Coils.HeatExchangers.Data.DXMultiStage (redeclare
             Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.DoubleSpeed.Lennox_KCA120S4
-            datCoi), redeclare Coils.HeatExchangers.DXMultiStage coiCoo));
+            datCoi), redeclare BaseClasses.Coils.HeatExchangers.DXMultiStage
+        coiCoo));
 
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
         Modelica.Utilities.Files.loadResource(
