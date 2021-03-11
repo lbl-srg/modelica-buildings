@@ -60,12 +60,6 @@ model VAVSingleDuct "VAV single duct with relief"
     annotation (
       Evaluate=true,
       Dialog(group="Supply fan"));
-  parameter Boolean have_draThr = true
-    "Set to true for a draw-through fan, false for a blow-through fan"
-    annotation (Evaluate=true, Dialog(group="Supply fan"));
-  parameter Boolean have_ret = true
-    "Set to true for a return fan, false for a relief fan"
-    annotation (Evaluate=true, Dialog(group="Return/relief fan"));
 
   Modelica.Fluid.Interfaces.FluidPort_b port_coiCooRet(
     redeclare package Medium = MediumCoo) if have_souCoiCoo
@@ -96,26 +90,36 @@ model VAVSingleDuct "VAV single duct with relief"
     "Reheat coil supply port" annotation (Placement(transformation(extent={{70,-290},
             {90,-270}}), iconTransformation(extent={{100,-208},{120,-188}})));
 
-  BoundaryConditions.WeatherData.Bus weaBus if
-    coiCoo.typ == Types.Coil.DirectExpansion
-    annotation (Placement(transformation(extent={{-20,240},{20,280}}),
+  BoundaryConditions.WeatherData.Bus weaBus
+    "Weather bus"
+    annotation (Placement(transformation(extent={{-20,260},{20,300}}),
       iconTransformation(extent={{-20,182},{20,218}})));
 
 
-  inner replaceable BaseClasses.Dampers.NoConnection damRet
+  inner replaceable BaseClasses.Dampers.NoPath damRet
     constrainedby Interfaces.Damper(
       redeclare final package Medium=MediumAir)
-    "Return air damper TODO choices excluding None"
-    annotation (Placement(
+    "Return air damper"
+    annotation (
+      choices(
+        choice(redeclare BaseClasses.Dampers.NoPath damRet "No fluid path"),
+        choice(redeclare BaseClasses.Dampers.Modulated damRet "Modulated damper")),
+      Dialog(group="Economizer"),
+      Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-120,-140})));
-  inner replaceable BaseClasses.Dampers.NoConnection damOutMin
+  inner replaceable BaseClasses.Dampers.NoPath damOutMin
     constrainedby Interfaces.Damper(
       redeclare final package Medium=MediumAir)
-    "Minimum outdoor air damper TODO choices excluding None"
+    "Minimum outdoor air damper"
     annotation (
+      choices(
+        choice(redeclare BaseClasses.Dampers.NoPath damOutMin "No damper"),
+        choice(redeclare BaseClasses.Dampers.Modulated damOutMin "Modulated damper"),
+        choice(redeclare BaseClasses.Dampers.TwoPosition damOutMin "Two-position damper")),
+      Dialog(group="Economizer"),
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
@@ -123,8 +127,14 @@ model VAVSingleDuct "VAV single duct with relief"
   inner replaceable BaseClasses.Dampers.None damOut
     constrainedby Interfaces.Damper(
       redeclare final package Medium=MediumAir)
-    "Outdoor air damper TODO choices excluding NoConnection"
-    annotation (Placement(
+    "Outdoor air damper"
+    annotation (
+      choices(
+        choice(redeclare BaseClasses.Dampers.None damOut "No damper"),
+        choice(redeclare BaseClasses.Dampers.Modulated damOut "Modulated damper"),
+        choice(redeclare BaseClasses.Dampers.TwoPosition damOut "Two-position damper")),
+      Dialog(group="Economizer"),
+      Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
@@ -132,62 +142,131 @@ model VAVSingleDuct "VAV single duct with relief"
   inner replaceable BaseClasses.Dampers.None damRel
     constrainedby Interfaces.Damper(
       redeclare final package Medium=MediumAir)
-    "Relief air damper TODO choices excluding NoConnection"
-    annotation (Placement(
+    "Relief air damper"
+    annotation (
+      choices(
+        choice(redeclare BaseClasses.Dampers.None damRel "No damper"),
+        choice(redeclare BaseClasses.Dampers.Modulated damRel "Modulated damper"),
+        choice(redeclare BaseClasses.Dampers.TwoPosition damRel "Two-position damper")),
+      Dialog(group="Economizer"),
+      Placement(
         transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={-230,-80})));
-
+  replaceable BaseClasses.Sensors.None TOut
+    constrainedby Interfaces.Sensor(
+      redeclare final package Medium = MediumAir)
+    "Outdoor air temperature sensor"
+    annotation (
+      choices(
+        choice(redeclare BaseClasses.Sensors.None TOut "No sensor"),
+        choice(redeclare BaseClasses.Sensors.Temperature TOut "Temperature sensor")),
+    Dialog(group="Sensors"),
+    Placement(transformation(extent={{-210,-210},{-190,-190}})));
+  replaceable BaseClasses.Sensors.None TOut1
+    constrainedby Interfaces.Sensor(
+      redeclare final package Medium = MediumAir)
+    "Outdoor air temperature sensor"
+    annotation (
+    choices(
+      choice(redeclare BaseClasses.Sensors.None TOut1 "No sensor"),
+      choice(redeclare BaseClasses.Sensors.Temperature TOut1 "Temperature sensor")),
+    Dialog(group="Sensors", enable=damOutMin.typ<>Types.Damper.NoPath),
+    Placement(transformation(extent={{-210,-150},{-190,-130}})));
+  replaceable BaseClasses.Sensors.None VOut
+    constrainedby Interfaces.Sensor(
+      redeclare final package Medium = MediumAir)
+    "Outdoor air volume flow rate sensor"
+    annotation (
+      choices(
+        choice(redeclare BaseClasses.Sensors.None VOut "No sensor"),
+        choice(redeclare BaseClasses.Sensors.VolumeFlowRate VOut "Volume flow rate sensor")),
+    Dialog(group="Economizer"),
+    Placement(transformation(extent={{-180,-210},{-160,-190}})));
+  replaceable BaseClasses.Sensors.None VOut1
+    constrainedby Interfaces.Sensor(
+      redeclare final package Medium = MediumAir)
+    "Outdoor air volume flow rate sensor"
+    annotation (
+    choices(
+      choice(redeclare BaseClasses.Sensors.None VOut1 "No sensor"),
+      choice(redeclare BaseClasses.Sensors.VolumeFlowRate VOut1 "Volume flow rate sensor")),
+    Dialog(group="Economizer", enable=damOutMin.typ<>Types.Damper.NoPath),
+    Placement(transformation(extent={{-180,-150},{-160,-130}})));
+  replaceable BaseClasses.Sensors.None dpOut
+    constrainedby Interfaces.Sensor(
+      redeclare final package Medium = MediumAir)
+    "Outdoor air damper differential pressure"
+    annotation (
+      choices(
+        choice(redeclare BaseClasses.Sensors.None dpOut "No sensor"),
+        choice(redeclare BaseClasses.Sensors.DifferentialPressure dpOut "Differential pressure sensor")),
+      Dialog(group="Economizer", enable=damOutMin.typ<>Types.Damper.NoPath),
+      Placement(transformation(extent={{-270,-150},{-250,-130}})));
   replaceable BaseClasses.Sensors.None TMix constrainedby Interfaces.Sensor(
       redeclare final package Medium=MediumAir)
     "Mixed air temperature sensor" annotation (
-    choices(choice(redeclare Sensors.None TMix "No sensor"), choice(redeclare
-          Sensors.Temperature TMix "Temperature sensor")),
-    Dialog(group="Economizer", enable=eco.typ <> Types.Economizer.None),
-    Placement(transformation(extent={{-100,-210},{-80,-190}})));
+    choices(
+      choice(redeclare BaseClasses.Sensors.None TMix "No sensor"),
+      choice(redeclare BaseClasses.Sensors.Temperature TMix "Temperature sensor")),
+      Dialog(group="Economizer"),
+      Placement(transformation(extent={{-100,-210},{-80,-190}})));
 
-  inner replaceable BaseClasses.Fans.None fanSupBlo constrainedby
-    Interfaces.Fan(redeclare final package Medium=MediumAir)
-    "Supply fan - Blow through" annotation (
+  inner replaceable BaseClasses.Fans.None fanSupBlo
+    constrainedby Interfaces.Fan(
+      redeclare final package Medium=MediumAir)
+    "Supply fan - Blow through"
+    annotation (
     choicesAllMatching=true,
-    Dialog(group="Supply fan", enable=not have_draThr),
+    Dialog(group="Supply fan", enable=fanSupDra==Types.Fan.None),
     Placement(transformation(extent={{-70,-210},{-50,-190}})));
 
   inner replaceable BaseClasses.Coils.None coiHea constrainedby Interfaces.Coil(
       redeclare final package MediumAir = MediumAir, redeclare final package
       MediumSou = MediumHea) "Heating coil" annotation (
     choicesAllMatching=true,
-    Dialog(group="Heating coil 2"),
+    Dialog(group="Heating coil"),
     Placement(transformation(extent={{-40,-210},{-20,-190}})));
   replaceable BaseClasses.Sensors.None THea constrainedby Interfaces.Sensor(
       redeclare final package Medium = MediumAir)
-    "Heating coil" annotation (
-    choices(choice(redeclare Sensors.None THea "No sensor"), choice(redeclare
-          Sensors.Temperature THea "Temperature sensor")),
-    Dialog(group="Heating coil", enable=coiHea <> Types.Coil.None),
+    "Heating coil"
+    annotation (
+      choices(
+        choice(redeclare BaseClasses.Sensors.None THea "No sensor"),
+        choice(redeclare BaseClasses.Sensors.Temperature THea "Temperature sensor")),
+    Dialog(group="Heating coil", enable=coiHea<>Types.Coil.None),
     Placement(transformation(extent={{-10,-210},{10,-190}})));
 
-  inner replaceable BaseClasses.Coils.None coiCoo constrainedby Interfaces.Coil(
-      redeclare final package MediumAir = MediumAir, redeclare final package
-      MediumSou = MediumCoo) "Cooling coil" annotation (
-    choicesAllMatching=true,
-    Dialog(group="Cooling coil"),
-    Placement(transformation(extent={{20,-210},{40,-190}})));
-  replaceable BaseClasses.Sensors.None TCoo constrainedby Interfaces.Sensor(
+  inner replaceable BaseClasses.Coils.None coiCoo
+    constrainedby Interfaces.Coil(
+      redeclare final package MediumAir = MediumAir,
+      redeclare final package MediumSou = MediumCoo)
+    "Cooling coil"
+    annotation (
+      choicesAllMatching=true,
+      Dialog(group="Cooling coil"),
+      Placement(transformation(extent={{20,-210},{40,-190}})));
+  replaceable BaseClasses.Sensors.None TCoo
+    constrainedby Interfaces.Sensor(
       redeclare final package Medium = MediumAir)
-    "Cooling coil leaving air temperature sensor" annotation (
-    choices(choice(redeclare Sensors.None TCoo "No sensor"), choice(redeclare
-          Sensors.Temperature TCoo "Temperature sensor")),
-    Dialog(group="Cooling coil", enable=coiCoo <> Types.Coil.None),
-    Placement(transformation(extent={{50,-210},{70,-190}})));
+    "Cooling coil leaving air temperature sensor"
+    annotation (
+      choices(
+        choice(redeclare BaseClasses.Sensors.None TCoo "No sensor"),
+        choice(redeclare BaseClasses.Sensors.Temperature TCoo "Temperature sensor")),
+      Dialog(group="Cooling coil", enable=coiCoo<>Types.Coil.None),
+      Placement(transformation(extent={{50,-210},{70,-190}})));
 
-  inner replaceable BaseClasses.Coils.None coiReh constrainedby Interfaces.Coil(
-      redeclare final package MediumAir = MediumAir, redeclare final package
-      MediumSou = MediumHea) "Reheat coil" annotation (
-    choicesAllMatching=true,
-    Dialog(group="Heating coil 3"),
-    Placement(transformation(extent={{80,-210},{100,-190}})));
+  inner replaceable BaseClasses.Coils.None coiReh
+    constrainedby Interfaces.Coil(
+      redeclare final package MediumAir = MediumAir,
+      redeclare final package MediumSou = MediumHea)
+    "Reheat coil"
+    annotation (
+      choicesAllMatching=true,
+      Dialog(group="Reheat coil"),
+      Placement(transformation(extent={{80,-210},{100,-190}})));
 
   inner replaceable BaseClasses.Fans.None fanSupDra
     constrainedby Interfaces.Fan(
@@ -195,8 +274,18 @@ model VAVSingleDuct "VAV single duct with relief"
     "Supply fan - Draw through"
     annotation (
       choicesAllMatching=true,
-      Dialog(group="Supply fan", enable=have_draThr),
+      Dialog(group="Supply fan", enable=fanSupBlo==Types.Fan.None),
       Placement(transformation(extent={{110,-210},{130,-190}})));
+  replaceable BaseClasses.Sensors.None VSup
+    constrainedby Interfaces.Sensor(
+      redeclare final package Medium = MediumAir)
+    "Supply air volume flow rate sensor"
+    annotation (
+      choices(
+        choice(redeclare BaseClasses.Sensors.None VSup "No sensor"),
+        choice(redeclare BaseClasses.Sensors.VolumeFlowRate VSup "Volume flow rate sensor")),
+      Dialog(group="Supply fan"),
+      Placement(transformation(extent={{142,-210},{162,-190}})));
 
   inner replaceable BaseClasses.Controls.Dummy conAhu
     constrainedby Interfaces.Controller
@@ -222,28 +311,28 @@ model VAVSingleDuct "VAV single duct with relief"
       redeclare final package Medium = MediumAir)
     "Supply air temperature sensor"
     annotation (
-    choices(choice(redeclare Sensors.None TSup "No sensor"),
+    choices(choice(redeclare BaseClasses.Sensors.None TSup "No sensor"),
       choice(redeclare
-          Sensors.Temperature TSup "Temperature sensor")),
+          BaseClasses.Sensors.Temperature TSup "Temperature sensor")),
       Dialog(group="Sensors"),
       Placement(transformation(extent={{200,-210},{220,-190}})));
   replaceable BaseClasses.Sensors.None xSup constrainedby Interfaces.Sensor(
       redeclare final package Medium = MediumAir)
     "Supply air humidity ratio sensor"
     annotation (
-      choices(choice(redeclare Sensors.None xSup "No sensor"),
+      choices(choice(redeclare BaseClasses.Sensors.None xSup "No sensor"),
         choice(redeclare
-          Sensors.HumidityRatio xSup "Humidity ratio sensor")),
+          BaseClasses.Sensors.HumidityRatio xSup "Humidity ratio sensor")),
       Dialog(group="Sensors"),
       Placement(transformation(extent={{230,-210},{250,-190}})));
-  replaceable BaseClasses.Sensors.None pSup
+  replaceable BaseClasses.Sensors.None pSup_rel
     constrainedby Interfaces.Sensor(
       redeclare final package Medium = MediumAir)
     "Duct static pressure sensor"
     annotation (
-      choices(choice(redeclare Sensors.None pSup "No sensor"),
-        choice(redeclare
-          Sensors.DifferentialPressure pSup "Differential pressure sensor")),
+      choices(
+        choice(redeclare BaseClasses.Sensors.None pSup_rel "No sensor"),
+        choice(redeclare BaseClasses.Sensors.DifferentialPressure pSup_rel "Differential pressure sensor")),
       Dialog(group="Sensors"),
       Placement(transformation(extent={{260,-210},{280,-190}})));
 
@@ -253,7 +342,7 @@ model VAVSingleDuct "VAV single duct with relief"
     "Return fan"
     annotation (
       choicesAllMatching=true,
-      Dialog(group="Return/relief fan", enable=have_ret),
+      Dialog(group="Return/relief fan", enable=fanRel.typ==BaseClasses.Fans.None),
       Placement(transformation(extent={{20,-90},{0,-70}})));
 
   inner replaceable BaseClasses.Fans.None fanRel
@@ -262,78 +351,55 @@ model VAVSingleDuct "VAV single duct with relief"
     "Relief fan"
     annotation (
       choicesAllMatching=true,
-      Dialog(group="Relief/relief fan", enable=not have_ret),
-      Placement(transformation(extent={{-170,-90},{-190,-70}})));
-
-  replaceable BaseClasses.Sensors.None TOut
+      Dialog(group="Return/relief fan", enable=fanRet.typ==BaseClasses.Fans.None),
+      Placement(transformation(extent={{-140,-90},{-160,-70}})));
+  replaceable BaseClasses.Sensors.None VRet
     constrainedby Interfaces.Sensor(
-      redeclare final package Medium = MediumAir)
-    "Outdoor air temperature sensor"
+      redeclare final package Medium=MediumAir)
+    "Return air volume flow rate sensor"
     annotation (
-      choices(choice(redeclare Sensors.None TOut "No sensor"),
-        choice(redeclare
-          Sensors.Temperature TOut "Temperature sensor")),
-    Dialog(group="Sensors", enable=coiHea <> Types.Coil.None),
-    Placement(transformation(extent={{-210,-210},{-190,-190}})));
-  replaceable BaseClasses.Sensors.None TOut1
-    constrainedby Interfaces.Sensor(
-      redeclare final package Medium = MediumAir)
-    "Outdoor air temperature sensor"
-    annotation (
-    choices(
-      choice(redeclare Sensors.None TOut1 "No sensor"),
-      choice(redeclare
-        Sensors.Temperature TOut1 "Temperature sensor")),
-    Dialog(group="Sensors", enable=coiHea <> Types.Coil.None),
-    Placement(transformation(extent={{-210,-150},{-190,-130}})));
-  replaceable BaseClasses.Sensors.None VOut
-    constrainedby Interfaces.Sensor(
-      redeclare final package Medium = MediumAir)
-    "Outdoor air volume flow rate sensor"
-    annotation (
-    choices(choice(redeclare Sensors.None VOut "No sensor"),
-      choice(redeclare
-       Sensors.VolumeFlowRate VOut "Volume flow rate sensor")),
-    Dialog(group="Economizer", enable=coiHea <> Types.Coil.None),
-    Placement(transformation(extent={{-180,-210},{-160,-190}})));
-  replaceable BaseClasses.Sensors.None VOut1
-    constrainedby Interfaces.Sensor(
-      redeclare final package Medium = MediumAir)
-    "Outdoor air volume flow rate sensor"
-    annotation (
-    choices(choice(redeclare Sensors.None VOut1 "No sensor"),
-      choice(redeclare
-          Sensors.VolumeFlowRate VOut1 "Volume flow rate sensor")),
-    Dialog(group="Economizer"),
-    Placement(transformation(extent={{-180,-150},{-160,-130}})));
-  replaceable BaseClasses.Sensors.None dpOut
-    constrainedby Interfaces.Sensor(
-      redeclare final package Medium = MediumAir)
-    "Outdoor air damper differential pressure"
-    annotation (
-      choices(choice(redeclare Sensors.None pSup "No sensor"),
-        choice(redeclare
-          Sensors.DifferentialPressure pSup "Differential pressure sensor")),
-      Dialog(group="Economizer"),
-      Placement(transformation(extent={{-270,-150},{-250,-130}})));
-  replaceable BaseClasses.Sensors.None VSup
-    constrainedby Interfaces.Sensor(
-      redeclare final package Medium = MediumAir)
-    "Supply air volume flow rate sensor"
-    annotation (
-      choices(choice(redeclare Sensors.None VSup "No sensor"),
-        choice(redeclare
-          Sensors.VolumeFlowRate VSup "Volume flow rate sensor")),
-    Dialog(group="Supply fan"),
-    Placement(transformation(extent={{142,-210},{162,-190}})));
-  replaceable BaseClasses.Sensors.None VRet constrainedby Interfaces.Sensor(
-                      redeclare final package Medium = MediumAir)
-    "Return air volume flow rate sensor" annotation (
-    choices(choice(redeclare Sensors.None VRet "No sensor"),
-      choice(redeclare
-          Sensors.VolumeFlowRate VRet "Volume flow rate sensor")),
+      choices(
+        choice(redeclare BaseClasses.Sensors.None VRet "No sensor"),
+        choice(redeclare BaseClasses.Sensors.VolumeFlowRate VRet "Volume flow rate sensor")),
       Dialog(group="Return/relief fan"),
       Placement(transformation(extent={{-10,-90},{-30,-70}})));
+  Fluid.Sensors.RelativePressure pInd_rel(
+    redeclare final package Medium=MediumAir)
+    "Building static pressure"
+    annotation (Placement(transformation(extent={{30,230},{10,250}})));
+  replaceable BaseClasses.Sensors.None pRet_rel
+    constrainedby Interfaces.Sensor(
+      redeclare final package Medium = MediumAir)
+    "Return static pressure sensor"
+    annotation (
+      choices(
+        choice(redeclare BaseClasses.Sensors.None pRet_rel "No sensor"),
+        choice(redeclare BaseClasses.Sensors.DifferentialPressure pRet_rel "Differential pressure sensor")),
+      Dialog(group="Return/relief fan"),
+      Placement(transformation(extent={{-60,-90},{-80,-70}})));
+
+  Fluid.Sources.Outside out(
+    redeclare final package Medium=MediumAir,
+    final nPorts=1)
+    "Outdoor conditions"
+    annotation (
+      Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={-40,250})));
+  Fluid.Sources.Boundary_pT ind(
+    redeclare final package Medium=MediumAir,
+    final use_p_in=true,
+    final nPorts=
+      1 +
+      (if pSup_rel.typ==Types.Sensor.DifferentialPressure then 1 else 0) +
+      (if pRet_rel.typ==Types.Sensor.DifferentialPressure then 1 else 0))
+    "Indoor pressure"
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={40,250})));
+
 equation
   connect(port_coiCooSup, coiCoo.port_aSou) annotation (Line(points={{20,-280},{
           20,-220},{26,-220},{26,-210}},   color={0,127,255}));
@@ -344,7 +410,7 @@ equation
   connect(resRet.port_a, port_Ret)
     annotation (Line(points={{190,-80},{300,-80}}, color={0,127,255}));
   connect(weaBus, coiCoo.weaBus) annotation (Line(
-      points={{0,260},{0,80},{26,80},{26,-190},{24,-190}},
+      points={{0,280},{0,80},{24,80},{24,-190}},
       color={255,204,51},
       thickness=0.5));
   connect(ahuBus, coiCoo.ahuBus) annotation (Line(
@@ -379,12 +445,10 @@ equation
     annotation (Line(points={{192,-200},{200,-200}}, color={0,127,255}));
   connect(TSup.port_b, xSup.port_a)
     annotation (Line(points={{220,-200},{230,-200}}, color={0,127,255}));
-  connect(xSup.port_b, pSup.port_a)
+  connect(xSup.port_b, pSup_rel.port_a)
     annotation (Line(points={{250,-200},{260,-200}}, color={0,127,255}));
-  connect(pSup.port_b, port_Sup)
+  connect(pSup_rel.port_b, port_Sup)
     annotation (Line(points={{280,-200},{300,-200}}, color={0,127,255}));
-  connect(pSup.port_bRef, port_Out) annotation (Line(points={{270,-210},{270,-240},
-          {-300,-240},{-300,-200}},             color={0,127,255}));
   connect(port_coiHeaSup, coiHea.port_aSou) annotation (Line(points={{-40,-280},
           {-40,-220},{-34,-220},{-34,-210}}, color={0,127,255}));
   connect(coiHea.port_bSou, port_coiHeaRet) annotation (Line(points={{-26,-210},
@@ -417,7 +481,7 @@ equation
       points={{240,-190},{240,0},{-300,0}},
       color={255,204,51},
       thickness=0.5));
-  connect(pSup.ahuBus, ahuBus) annotation (Line(
+  connect(pSup_rel.ahuBus, ahuBus) annotation (Line(
       points={{270,-190},{270,0},{-300,0}},
       color={255,204,51},
       thickness=0.5));
@@ -426,7 +490,7 @@ equation
       color={255,204,51},
       thickness=0.5));
   connect(fanRel.ahuBus, ahuBus) annotation (Line(
-      points={{-180,-70},{-180,0},{-300,0}},
+      points={{-150,-70},{-150,0},{-300,0}},
       color={255,204,51},
       thickness=0.5));
   connect(fanRet.ahuBus, ahuBus) annotation (Line(
@@ -436,23 +500,15 @@ equation
   connect(damRel.port_b, port_Exh)
     annotation (Line(points={{-240,-80},{-300,-80}}, color={0,127,255}));
   connect(fanRel.port_b, damRel.port_a)
-    annotation (Line(points={{-190,-80},{-220,-80}}, color={0,127,255}));
+    annotation (Line(points={{-160,-80},{-220,-80}}, color={0,127,255}));
   connect(resRet.port_b, fanRet.port_a) annotation (Line(points={{170,-80},{20,-80}},
                                color={0,127,255}));
   connect(damRet.port_b, TMix.port_a) annotation (Line(points={{-120,-150},{-120,
           -200},{-100,-200}},      color={0,127,255}));
-  connect(port_Out, damOut.port_a)
-    annotation (Line(points={{-300,-200},{-240,-200}}, color={0,127,255}));
   connect(coiReh.port_b, fanSupDra.port_a)
     annotation (Line(points={{100,-200},{110,-200}}, color={0,127,255}));
-  connect(damOut.port_b, TOut.port_a)
-    annotation (Line(points={{-220,-200},{-210,-200}}, color={0,127,255}));
   connect(damOutMin.port_b, TOut1.port_a)
     annotation (Line(points={{-220,-140},{-210,-140}}, color={0,127,255}));
-  connect(TOut.port_b, VOut.port_a)
-    annotation (Line(points={{-190,-200},{-180,-200}}, color={0,127,255}));
-  connect(VOut.port_b, TMix.port_a)
-    annotation (Line(points={{-160,-200},{-100,-200}}, color={0,127,255}));
   connect(TOut1.port_b, VOut1.port_a)
     annotation (Line(points={{-190,-140},{-180,-140}}, color={0,127,255}));
   connect(port_Out, dpOut.port_a) annotation (Line(points={{-300,-200},{-280,-200},
@@ -513,16 +569,52 @@ equation
       thickness=0.5));
   connect(fanRet.port_b, VRet.port_a)
     annotation (Line(points={{0,-80},{-10,-80}}, color={0,127,255}));
-  connect(VRet.port_b, fanRel.port_a)
-    annotation (Line(points={{-30,-80},{-170,-80}}, color={0,127,255}));
-  connect(VRet.port_b, damRet.port_a) annotation (Line(points={{-30,-80},{-120,-80},
-          {-120,-130}}, color={0,127,255}));
   connect(fanSupBlo.port_b, coiHea.port_a)
     annotation (Line(points={{-50,-200},{-40,-200}}, color={0,127,255}));
   connect(coiHea.port_b, THea.port_a)
     annotation (Line(points={{-20,-200},{-10,-200}}, color={0,127,255}));
+  connect(weaBus, out.weaBus) annotation (Line(
+      points={{0,280},{0,276},{-40,276},{-40,260},{-39.8,260}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(ahuBus.ahuI.pInd, ind.p_in) annotation (Line(
+      points={{-300.1,0.1},{-300,0.1},{-300,0},{60,0},{60,268},{48,268},{48,262}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(damOut.port_b, TOut.port_a)
+    annotation (Line(points={{-220,-200},{-210,-200}}, color={0,127,255}));
+  connect(TOut.port_b, VOut.port_a)
+    annotation (Line(points={{-190,-200},{-180,-200}}, color={0,127,255}));
+  connect(port_Out, damOut.port_a)
+    annotation (Line(points={{-300,-200},{-240,-200}}, color={0,127,255}));
+  connect(VOut.port_b, TMix.port_a)
+    annotation (Line(points={{-160,-200},{-100,-200}}, color={0,127,255}));
+  connect(pInd_rel.port_b, out.ports[1])
+    annotation (Line(points={{10,240},{-40,240}}, color={0,127,255}));
+  connect(ind.ports[1], pInd_rel.port_a)
+    annotation (Line(points={{40,240},{30,240}},      color={0,127,255}));
+  connect(ind.ports[2], pSup_rel.port_bRef) annotation (Line(points={{40,240},{288,
+          240},{288,-220},{270,-220},{270,-210}}, color={0,127,255}));
+  connect(pRet_rel.port_b, fanRel.port_a)
+    annotation (Line(points={{-80,-80},{-140,-80}}, color={0,127,255}));
+  connect(pRet_rel.port_b, damRet.port_a) annotation (Line(points={{-80,-80},{-120,
+          -80},{-120,-130}}, color={0,127,255}));
+  connect(VRet.port_b, pRet_rel.port_a)
+    annotation (Line(points={{-30,-80},{-60,-80}}, color={0,127,255}));
+  connect(pRet_rel.ahuBus, ahuBus.ahuI.pRet_rel) annotation (Line(
+      points={{-70,-70},{-70,0.1},{-300.1,0.1}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(pRet_rel.port_bRef, ind.ports[3]) annotation (Line(points={{-70,-90},{
+          -70,-100},{40,-100},{40,240}},           color={0,127,255}));
+  connect(pInd_rel.p_rel, ahuBus.ahuI.pRet_rel.ahuI.pInd_rel) annotation (Line(
+        points={{20,231},{20,0.1},{-300.1,0.1}}, color={0,0,127}));
   annotation (
     defaultComponentName="ahu",
     Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-    coordinateSystem(preserveAspectRatio=false)));
+    coordinateSystem(preserveAspectRatio=false), graphics={Text(
+          extent={{-86,230},{124,210}},
+          lineColor={0,127,255},
+          pattern=LinePattern.Dash,
+          textString="No further connection allowed to those two boundary conditions")}));
 end VAVSingleDuct;

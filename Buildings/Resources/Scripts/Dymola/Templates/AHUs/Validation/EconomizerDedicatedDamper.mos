@@ -1,8 +1,8 @@
-simulateModel("Buildings.Templates.AHUs.Validation.EconomizerDedicatedDamperTandem",
+simulateModel("Buildings.Templates.AHUs.Validation.EconomizerDedicatedDamper",
     method="cvode",
     tolerance=1e-6,
     stopTime=1.0,
-    resultFile="EconomizerDedicatedDamperTandem");
+    resultFile="EconomizerDedicatedDamper");
 createPlot(
     id=1,
     position={15, 15, 1192, 772},

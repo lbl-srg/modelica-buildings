@@ -27,7 +27,7 @@ model BaseNoEquipment
     annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
   Fluid.Sources.Boundary_pT bou1(
     redeclare final package Medium=MediumAir,
-    nPorts=2)
+    nPorts=3)
     annotation (Placement(transformation(extent={{90,-10},{70,10}})));
 
   /*
@@ -52,9 +52,21 @@ model BaseNoEquipment
     m_flow_nominal=1,
     dp_nominal=100)
     annotation (Placement(transformation(extent={{30,-20},{50,0}})));
+  Fluid.Sensors.Pressure pInd(
+    redeclare final package Medium=MediumAir)
+    "Indoor pressure"
+    annotation (Placement(transformation(extent={{70,30},{50,50}})));
+  Buildings.Templates.BaseClasses.AhuBus ahuBus annotation (Placement(
+        transformation(extent={{-20,20},{20,60}}), iconTransformation(extent={{-258,
+            -26},{-238,-6}})));
+  BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
+        Modelica.Utilities.Files.loadResource(
+        "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
+    annotation (Placement(transformation(extent={{-90,20},{-70,40}})));
 equation
   connect(ahu.port_Ret, bou1.ports[1]) annotation (Line(points={{20,10},{40,10},
-          {40,2},{70,2}},   color={0,127,255}));
+          {40,2.66667},{70,2.66667}},
+                            color={0,127,255}));
   connect(bou.ports[1], res.port_a) annotation (Line(points={{-70,2},{-60,2},{-60,
           -10},{-50,-10}},     color={0,127,255}));
   connect(res.port_b, ahu.port_Out)
@@ -62,9 +74,22 @@ equation
   connect(ahu.port_Sup, res1.port_a)
     annotation (Line(points={{20,-10},{30,-10}}, color={0,127,255}));
   connect(res1.port_b, bou1.ports[2]) annotation (Line(points={{50,-10},{60,-10},
-          {60,-2},{70,-2}}, color={0,127,255}));
+          {60,-2.22045e-16},{70,-2.22045e-16}},
+                            color={0,127,255}));
   connect(bou.ports[2], ahu.port_Exh) annotation (Line(points={{-70,-2},{-40,-2},
           {-40,10},{-20,10}}, color={0,127,255}));
+  connect(bou1.ports[3], pInd.port) annotation (Line(points={{70,-2.66667},{60,-2.66667},
+          {60,30}}, color={0,127,255}));
+  connect(pInd.p, ahuBus.ahuI.pInd) annotation (Line(points={{49,40},{24,40},{24,
+          40.1},{0.1,40.1}}, color={0,0,127}));
+  connect(ahuBus, ahu.ahuBus) annotation (Line(
+      points={{0,40},{-19.9,40},{-19.9,16}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(weaDat.weaBus, ahu.weaBus) annotation (Line(
+      points={{-70,30},{0,30},{0,20}},
+      color={255,204,51},
+      thickness=0.5));
   annotation (
   experiment(Tolerance=1e-6, StopTime=1),
   Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(

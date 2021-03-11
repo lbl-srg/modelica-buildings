@@ -1,9 +1,8 @@
 BaseNoEquipment
 BaseWithSensors
 CoolingCoilDiscretized
-EconomizerCommonDamperFree
-EconomizerCommonDamperTandem
-EconomizerDedicatedDamperTandem
+EconomizerCommonDamper
+EconomizerDedicatedDamper
 HeatingCoilEffectivenessNTU
 HeatingCoilEffectivenessNTU2WayValve
 HeatingCoilEffectivenessNTU3WayValve
