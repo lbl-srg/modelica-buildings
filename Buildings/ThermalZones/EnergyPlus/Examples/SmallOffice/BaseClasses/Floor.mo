@@ -98,7 +98,8 @@ protected
 
   inner Buildings.ThermalZones.EnergyPlus.Building building(
     idfName=idfName,
-    weaName=weaName)
+    weaName=weaName,
+    computeWetBulbTemperature=false)
     "Building-level declarations"
     annotation (Placement(transformation(extent={{140,458},{160,478}})));
 
