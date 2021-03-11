@@ -16,5 +16,4 @@ compareVars :=
     "heaAndConSou.fan.P",
     "heaAndConEas.fan.P",
     "sinZonFlo.p_rel",
-    "flo.p_rel"
   };
