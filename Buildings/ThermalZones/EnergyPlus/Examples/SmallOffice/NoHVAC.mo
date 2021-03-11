@@ -11,7 +11,8 @@ model NoHVAC "Open loop model of one floor"
   final parameter Modelica.SIunits.MassFlowRate mOut_flow[4] = 0.3/3600*{flo.VRooSou, flo.VRooEas, flo.VRooNor, flo.VRooWes}*1.2
     "Outside air infiltration for each exterior room";
 
-  BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=weaName)
+  BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=weaName,
+      computeWetBulbTemperature=false)
     "Weather data reader"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
 
