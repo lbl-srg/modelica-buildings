@@ -1,10 +1,10 @@
-within Buildings.Templates.AHUs.Interfaces;
+within Buildings.Templates.Interfaces;
 partial model Economizer
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Medium";
 
-  parameter Types.Economizer typ "Equipment type"
+  parameter AHUs.Types.Economizer typ "Equipment type"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
   Modelica.Fluid.Interfaces.FluidPort_a port_Out(

@@ -1,24 +1,26 @@
-within Buildings.Templates.AHUs.Interfaces;
+within Buildings.Templates.Interfaces;
 partial model Fan
   extends Buildings.Fluid.Interfaces.PartialTwoPort;
 
-  parameter Types.Fan typ "Equipment type"
+  parameter AHUs.Types.Fan typ "Equipment type"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=
-    if typ<>Types.Fan.None then
+    if typ<>AHUs.Types.Fan.None
+                           then
       dat.getReal(varName=id + "." + braStr + " air mass flow rate")
     else 0
     "Mass flow rate"
     annotation (
-      Dialog(group="Nominal condition", enable=typ<>Types.Fan.None));
+      Dialog(group="Nominal condition", enable=typ <> AHUs.Types.Fan.None));
   parameter Modelica.SIunits.PressureDifference dp_nominal=
-    if typ<>Types.Fan.None then
+    if typ<>AHUs.Types.Fan.None
+                           then
       dat.getReal(varName=id + "." + braStr + " fan.Total pressure rise")
     else 0
     "Total pressure rise"
     annotation (
-      Dialog(group="Nominal condition", enable=typ<>Types.Fan.None));
+      Dialog(group="Nominal condition", enable=typ <> AHUs.Types.Fan.None));
 
   replaceable parameter Buildings.Fluid.Movers.Data.Generic per(
     pressure(
@@ -28,7 +30,7 @@ partial model Fan
     "Performance data"
     annotation (
       choicesAllMatching=true,
-      Dialog(enable=typ<>Types.Fan.None),
+      Dialog(enable=typ <> AHUs.Types.Fan.None),
       Placement(transformation(extent={{-90,-88},{-70,-68}})));
 
   final parameter String braStr=

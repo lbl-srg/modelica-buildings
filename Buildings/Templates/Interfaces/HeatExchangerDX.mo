@@ -1,10 +1,10 @@
-within Buildings.Templates.AHUs.Interfaces;
+within Buildings.Templates.Interfaces;
 partial model HeatExchangerDX
   // Air medium needed for type compatibility with DX coil models
   extends Fluid.Interfaces.PartialTwoPortInterface(
     redeclare package Medium=Buildings.Media.Air);
 
-  parameter Types.HeatExchanger typ "Type of heat exchanger"
+  parameter AHUs.Types.HeatExchanger typ "Type of heat exchanger"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Modelica.SIunits.PressureDifference dp_nominal
     "Air pressure drop"

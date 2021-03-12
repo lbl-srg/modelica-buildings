@@ -174,25 +174,21 @@ model VAVSingleDuct "VAV single duct with relief"
       choice(redeclare BaseClasses.Sensors.Temperature TOut1 "Temperature sensor")),
     Dialog(group="Sensors", enable=damOutMin.typ<>Types.Damper.NoPath),
     Placement(transformation(extent={{-210,-150},{-190,-130}})));
-  replaceable BaseClasses.Sensors.None VOut
-    constrainedby Interfaces.Sensor(
-      redeclare final package Medium = MediumAir)
-    "Outdoor air volume flow rate sensor"
-    annotation (
-      choices(
-        choice(redeclare BaseClasses.Sensors.None VOut "No sensor"),
-        choice(redeclare BaseClasses.Sensors.VolumeFlowRate VOut "Volume flow rate sensor")),
+  replaceable BaseClasses.Sensors.None VOut_flow constrainedby
+    Interfaces.Sensor(redeclare final package Medium = MediumAir)
+    "Outdoor air volume flow rate sensor" annotation (
+    choices(choice(redeclare BaseClasses.Sensors.None VOut "No sensor"), choice(
+          redeclare BaseClasses.Sensors.VolumeFlowRate VOut
+          "Volume flow rate sensor")),
     Dialog(group="Economizer"),
     Placement(transformation(extent={{-180,-210},{-160,-190}})));
-  replaceable BaseClasses.Sensors.None VOut1
-    constrainedby Interfaces.Sensor(
-      redeclare final package Medium = MediumAir)
-    "Outdoor air volume flow rate sensor"
-    annotation (
-    choices(
-      choice(redeclare BaseClasses.Sensors.None VOut1 "No sensor"),
-      choice(redeclare BaseClasses.Sensors.VolumeFlowRate VOut1 "Volume flow rate sensor")),
-    Dialog(group="Economizer", enable=damOutMin.typ<>Types.Damper.NoPath),
+  replaceable BaseClasses.Sensors.None VOut1_flow constrainedby
+    Interfaces.Sensor(redeclare final package Medium = MediumAir)
+    "Outdoor air volume flow rate sensor" annotation (
+    choices(choice(redeclare BaseClasses.Sensors.None VOut1 "No sensor"),
+        choice(redeclare BaseClasses.Sensors.VolumeFlowRate VOut1
+          "Volume flow rate sensor")),
+    Dialog(group="Economizer", enable=damOutMin.typ <> Types.Damper.NoPath),
     Placement(transformation(extent={{-180,-150},{-160,-130}})));
   replaceable BaseClasses.Sensors.None dpOut
     constrainedby Interfaces.Sensor(
@@ -276,16 +272,14 @@ model VAVSingleDuct "VAV single duct with relief"
       choicesAllMatching=true,
       Dialog(group="Supply fan", enable=fanSupBlo==Types.Fan.None),
       Placement(transformation(extent={{110,-210},{130,-190}})));
-  replaceable BaseClasses.Sensors.None VSup
-    constrainedby Interfaces.Sensor(
-      redeclare final package Medium = MediumAir)
-    "Supply air volume flow rate sensor"
-    annotation (
-      choices(
-        choice(redeclare BaseClasses.Sensors.None VSup "No sensor"),
-        choice(redeclare BaseClasses.Sensors.VolumeFlowRate VSup "Volume flow rate sensor")),
-      Dialog(group="Supply fan"),
-      Placement(transformation(extent={{142,-210},{162,-190}})));
+  replaceable BaseClasses.Sensors.None VSup_flow constrainedby
+    Interfaces.Sensor(redeclare final package Medium = MediumAir)
+    "Supply air volume flow rate sensor" annotation (
+    choices(choice(redeclare BaseClasses.Sensors.None VSup "No sensor"), choice(
+          redeclare BaseClasses.Sensors.VolumeFlowRate VSup
+          "Volume flow rate sensor")),
+    Dialog(group="Supply fan"),
+    Placement(transformation(extent={{142,-210},{162,-190}})));
 
   inner replaceable BaseClasses.Controls.Dummy conAhu
     constrainedby Interfaces.Controller
@@ -353,16 +347,14 @@ model VAVSingleDuct "VAV single duct with relief"
       choicesAllMatching=true,
       Dialog(group="Return/relief fan", enable=fanRet.typ==BaseClasses.Fans.None),
       Placement(transformation(extent={{-140,-90},{-160,-70}})));
-  replaceable BaseClasses.Sensors.None VRet
-    constrainedby Interfaces.Sensor(
-      redeclare final package Medium=MediumAir)
-    "Return air volume flow rate sensor"
-    annotation (
-      choices(
-        choice(redeclare BaseClasses.Sensors.None VRet "No sensor"),
-        choice(redeclare BaseClasses.Sensors.VolumeFlowRate VRet "Volume flow rate sensor")),
-      Dialog(group="Return/relief fan"),
-      Placement(transformation(extent={{-10,-90},{-30,-70}})));
+  replaceable BaseClasses.Sensors.None VRet_flow constrainedby
+    Interfaces.Sensor(redeclare final package Medium = MediumAir)
+    "Return air volume flow rate sensor" annotation (
+    choices(choice(redeclare BaseClasses.Sensors.None VRet "No sensor"), choice(
+          redeclare BaseClasses.Sensors.VolumeFlowRate VRet
+          "Volume flow rate sensor")),
+    Dialog(group="Return/relief fan"),
+    Placement(transformation(extent={{-10,-90},{-30,-70}})));
   Fluid.Sensors.RelativePressure pInd_rel(
     redeclare final package Medium=MediumAir)
     "Building static pressure"
@@ -509,25 +501,25 @@ equation
     annotation (Line(points={{100,-200},{110,-200}}, color={0,127,255}));
   connect(damOutMin.port_b, TOut1.port_a)
     annotation (Line(points={{-220,-140},{-210,-140}}, color={0,127,255}));
-  connect(TOut1.port_b, VOut1.port_a)
+  connect(TOut1.port_b, VOut1_flow.port_a)
     annotation (Line(points={{-190,-140},{-180,-140}}, color={0,127,255}));
   connect(port_Out, dpOut.port_a) annotation (Line(points={{-300,-200},{-280,-200},
           {-280,-140},{-270,-140}}, color={0,127,255}));
   connect(dpOut.port_b, damOutMin.port_a)
     annotation (Line(points={{-250,-140},{-240,-140}}, color={0,127,255}));
-  connect(VOut1.port_b, TMix.port_a) annotation (Line(points={{-160,-140},{-140,
-          -140},{-140,-200},{-100,-200}}, color={0,127,255}));
+  connect(VOut1_flow.port_b, TMix.port_a) annotation (Line(points={{-160,-140},
+          {-140,-140},{-140,-200},{-100,-200}}, color={0,127,255}));
   connect(dpOut.port_bRef, TMix.port_a) annotation (Line(points={{-260,-150},{-260,
           -160},{-140,-160},{-140,-200},{-100,-200}}, color={0,127,255}));
-  connect(fanSupDra.port_b, VSup.port_a)
+  connect(fanSupDra.port_b, VSup_flow.port_a)
     annotation (Line(points={{130,-200},{142,-200}}, color={0,127,255}));
-  connect(VSup.port_b, resSup.port_a)
+  connect(VSup_flow.port_b, resSup.port_a)
     annotation (Line(points={{162,-200},{172,-200}}, color={0,127,255}));
   connect(damRel.ahuBus, ahuBus) annotation (Line(
       points={{-230,-70},{-230,0},{-300,0}},
       color={255,204,51},
       thickness=0.5));
-  connect(VOut1.ahuBus, ahuBus) annotation (Line(
+  connect(VOut1_flow.ahuBus, ahuBus) annotation (Line(
       points={{-170,-130},{-170,0},{-300,0}},
       color={255,204,51},
       thickness=0.5));
@@ -551,15 +543,15 @@ equation
       points={{-200,-190},{-200,0},{-300,0}},
       color={255,204,51},
       thickness=0.5));
-  connect(VOut.ahuBus, ahuBus) annotation (Line(
+  connect(VOut_flow.ahuBus, ahuBus) annotation (Line(
       points={{-170,-190},{-170,0},{-300,0}},
       color={255,204,51},
       thickness=0.5));
-  connect(VSup.ahuBus, ahuBus) annotation (Line(
+  connect(VSup_flow.ahuBus, ahuBus) annotation (Line(
       points={{152,-190},{152,0},{-300,0}},
       color={255,204,51},
       thickness=0.5));
-  connect(VRet.ahuBus, ahuBus) annotation (Line(
+  connect(VRet_flow.ahuBus, ahuBus) annotation (Line(
       points={{-20,-70},{-20,0},{-300,0}},
       color={255,204,51},
       thickness=0.5));
@@ -567,7 +559,7 @@ equation
       points={{-110,-140},{-100,-140},{-100,0},{-300,0}},
       color={255,204,51},
       thickness=0.5));
-  connect(fanRet.port_b, VRet.port_a)
+  connect(fanRet.port_b, VRet_flow.port_a)
     annotation (Line(points={{0,-80},{-10,-80}}, color={0,127,255}));
   connect(fanSupBlo.port_b, coiHea.port_a)
     annotation (Line(points={{-50,-200},{-40,-200}}, color={0,127,255}));
@@ -583,11 +575,11 @@ equation
       thickness=0.5));
   connect(damOut.port_b, TOut.port_a)
     annotation (Line(points={{-220,-200},{-210,-200}}, color={0,127,255}));
-  connect(TOut.port_b, VOut.port_a)
+  connect(TOut.port_b, VOut_flow.port_a)
     annotation (Line(points={{-190,-200},{-180,-200}}, color={0,127,255}));
   connect(port_Out, damOut.port_a)
     annotation (Line(points={{-300,-200},{-240,-200}}, color={0,127,255}));
-  connect(VOut.port_b, TMix.port_a)
+  connect(VOut_flow.port_b, TMix.port_a)
     annotation (Line(points={{-160,-200},{-100,-200}}, color={0,127,255}));
   connect(pInd_rel.port_b, out.ports[1])
     annotation (Line(points={{10,240},{-40,240}}, color={0,127,255}));
@@ -599,7 +591,7 @@ equation
     annotation (Line(points={{-80,-80},{-140,-80}}, color={0,127,255}));
   connect(pRet_rel.port_b, damRet.port_a) annotation (Line(points={{-80,-80},{-120,
           -80},{-120,-130}}, color={0,127,255}));
-  connect(VRet.port_b, pRet_rel.port_a)
+  connect(VRet_flow.port_b, pRet_rel.port_a)
     annotation (Line(points={{-30,-80},{-60,-80}}, color={0,127,255}));
   connect(pRet_rel.ahuBus, ahuBus.ahuI.pRet_rel) annotation (Line(
       points={{-70,-70},{-70,0.1},{-300.1,0.1}},

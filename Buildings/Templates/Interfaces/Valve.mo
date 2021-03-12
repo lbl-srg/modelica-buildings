@@ -1,10 +1,10 @@
-within Buildings.Templates.AHUs.Interfaces;
+within Buildings.Templates.Interfaces;
 partial model Valve
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Medium";
 
-  parameter Types.Actuator typ "Equipment type"
+  parameter AHUs.Types.Actuator typ "Equipment type"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
   outer parameter String funStr

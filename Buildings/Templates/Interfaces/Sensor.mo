@@ -1,12 +1,14 @@
-within Buildings.Templates.AHUs.Interfaces;
+within Buildings.Templates.Interfaces;
 partial model Sensor
   extends Buildings.Fluid.Interfaces.PartialTwoPort;
 
-  parameter Types.Sensor typ "Equipment type"
+  parameter AHUs.Types.Sensor typ "Equipment type"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=
-    if typ<>Types.Sensor.None and typ<>Types.Sensor.DifferentialPressure then
+    if typ<>AHUs.Types.Sensor.None
+                              and typ<>AHUs.Types.Sensor.DifferentialPressure
+                                                                         then
       (if braStr=="Supply" then
         dat.getReal(varName=id + ".Supply air mass flow rate")
       elseif braStr=="Return" then
@@ -16,7 +18,7 @@ partial model Sensor
     "Mass flow rate"
     annotation (
       Dialog(group="Nominal condition",
-        enable=typ<>Types.Sensor.None and typ<>Types.Sensor.DifferentialPressure));
+        enable=typ <> AHUs.Types.Sensor.None and typ <> AHUs.Types.Sensor.DifferentialPressure));
 
   final parameter String braStr=
     if Modelica.Utilities.Strings.find(insNam, "Out")<>0 then "Supply"

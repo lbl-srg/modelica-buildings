@@ -1,18 +1,15 @@
-within Buildings.Templates.AHUs.Interfaces;
+within Buildings.Templates.Interfaces;
 partial model Main "Main interface class"
   replaceable package MediumAir=Buildings.Media.Air
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Air medium";
 
-  parameter Types.Main typ "Type of system"
-    annotation (Evaluate=true,
-      Dialog(group="Configuration"));
-  parameter Types.Supply typSup "Type of supply branch"
-    annotation (Evaluate=true,
-      Dialog(group="Configuration", enable=typ <> Types.Main.ExhaustOnly));
-  parameter Types.Return typRet "Type of return branch"
-    annotation (Evaluate=true,
-      Dialog(group="Configuration", enable=typ <> Types.Main.SupplyOnly));
+  parameter AHUs.Types.Main typ "Type of system"
+    annotation (Evaluate=true, Dialog(group="Configuration"));
+  parameter AHUs.Types.Supply typSup "Type of supply branch" annotation (
+      Evaluate=true, Dialog(group="Configuration", enable=typ <> AHUs.Types.Main.ExhaustOnly));
+  parameter AHUs.Types.Return typRet "Type of return branch" annotation (
+      Evaluate=true, Dialog(group="Configuration", enable=typ <> AHUs.Types.Main.SupplyOnly));
 
   inner parameter String id
     annotation (

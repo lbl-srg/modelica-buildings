@@ -1,4 +1,4 @@
-within Buildings.Templates.AHUs.Interfaces;
+within Buildings.Templates.Interfaces;
 partial model Coil
   extends Buildings.Fluid.Interfaces.PartialTwoPort(
     redeclare final package Medium=MediumAir);
@@ -11,11 +11,11 @@ partial model Coil
     "Source side medium"
     annotation(Dialog(enable=have_sou));
 
-  parameter Types.Coil typ "Equipment type"
+  parameter AHUs.Types.Coil typ "Equipment type"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  parameter Types.Actuator typAct "Type of actuator"
+  parameter AHUs.Types.Actuator typAct "Type of actuator"
     annotation (Dialog(group="Actuator"));
-  parameter Types.HeatExchanger typHex "Type of HX"
+  parameter AHUs.Types.HeatExchanger typHex "Type of HX"
     annotation (Dialog(group="Heat exchanger"));
   parameter Boolean have_sou = false
     "Set to true for fluid ports on the source side"
@@ -24,24 +24,26 @@ partial model Coil
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
   inner parameter Modelica.SIunits.MassFlowRate mAir_flow_nominal(min=0)=
-    if typ<>Types.Coil.None then
+    if typ<>AHUs.Types.Coil.None
+                            then
       dat.getReal(varName=id + "." + funStr + " coil.Air mass flow rate")
     else 0
     "Air mass flow rate"
     annotation (
-      Dialog(group = "Nominal condition", enable=typ<>Types.Coil.None),
+      Dialog(group = "Nominal condition", enable=typ <> AHUs.Types.Coil.None),
       Evaluate=true);
     // Templates.BaseClasses.getReal(
     //   id + "." + funStr + " coil.Air mass flow rate",
     //   dat.fileName)
   inner parameter Modelica.SIunits.PressureDifference dpAir_nominal(
     displayUnit="Pa")=
-    if typ<>Types.Coil.None then
+    if typ<>AHUs.Types.Coil.None
+                            then
       dat.getReal(varName=id + "." + funStr + " coil.Air pressure drop")
     else 0
     "Air pressure drop"
     annotation (
-      Dialog(group = "Nominal condition", enable=typ<>Types.Coil.None),
+      Dialog(group = "Nominal condition", enable=typ <> AHUs.Types.Coil.None),
       Evaluate=true);
     // Templates.BaseClasses.getReal(
     //   id + "." + funStr + " coil.Air pressure drop",

@@ -8,10 +8,10 @@ model BaseWithSensors
     redeclare BaseClasses.Sensors.Temperature TSup,
     redeclare BaseClasses.Sensors.HumidityRatio xSup,
     redeclare BaseClasses.Sensors.DifferentialPressure pSup_rel,
-    redeclare BaseClasses.Sensors.VolumeFlowRate VRet,
+    redeclare BaseClasses.Sensors.VolumeFlowRate VRet_flow,
     redeclare BaseClasses.Sensors.DifferentialPressure pRet_rel,
-    redeclare BaseClasses.Sensors.VolumeFlowRate VSup,
-    redeclare BaseClasses.Sensors.VolumeFlowRate VOut,
+    redeclare BaseClasses.Sensors.VolumeFlowRate VSup_flow,
+    redeclare BaseClasses.Sensors.VolumeFlowRate VOut_flow,
     redeclare BaseClasses.Sensors.DifferentialPressure dpOut);
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));

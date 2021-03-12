@@ -1,10 +1,10 @@
-within Buildings.Templates.AHUs.Interfaces;
+within Buildings.Templates.Interfaces;
 partial model Damper
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Medium";
 
-  parameter Types.Damper typ "Equipment type"
+  parameter AHUs.Types.Damper typ "Equipment type"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   final parameter String braStr=
     if Modelica.Utilities.Strings.find(insNam, "damOut")<>0 then "Outdoor air"
