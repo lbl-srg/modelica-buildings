@@ -2,8 +2,7 @@ within Buildings.Templates.AHUs.BaseClasses.Sensors;
 model Temperature
   extends Interfaces.Sensor(
     final typ=Types.Sensor.Temperature);
-  extends Data.Temperature
-    annotation (IconMap(primitivesVisible=false));
+
   Fluid.Sensors.TemperatureTwoPort senTem(
     redeclare final package Medium=Medium,
     final m_flow_nominal=m_flow_nominal)

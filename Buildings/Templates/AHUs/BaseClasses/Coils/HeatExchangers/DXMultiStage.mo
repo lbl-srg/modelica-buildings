@@ -2,8 +2,12 @@ within Buildings.Templates.AHUs.BaseClasses.Coils.HeatExchangers;
 model DXMultiStage
   extends Interfaces.HeatExchangerDX(
     final typ=Types.HeatExchanger.DXMultiStage);
-  extends Data.DXMultiStage
-    annotation (IconMap(primitivesVisible=false));
+
+  replaceable parameter
+    Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.DXCoil datCoi
+    constrainedby Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.DXCoil
+    "Performance record"
+    annotation(choicesAllMatching=true);
 
   Fluid.HeatExchangers.DXCoils.AirCooled.MultiStage coi(
     redeclare final package Medium = MediumAir,

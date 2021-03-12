@@ -2,13 +2,11 @@ within Buildings.Templates.AHUs.BaseClasses.Fans;
 model SingleConstant "Single fan - Constant speed"
   extends Interfaces.Fan(
     final typ=Types.Fan.SingleConstant);
-  extends Data.SingleConstant
-    annotation (IconMap(primitivesVisible=false));
 
   replaceable Fluid.Movers.SpeedControlled_y fan(
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     constrainedby Fluid.Movers.BaseClasses.PartialFlowMachine(
-      redeclare final package Medium =MediumAir,
+      redeclare final package Medium =Medium,
       final inputType=Buildings.Fluid.Types.InputType.Continuous,
       final per=per)
     "Fan"

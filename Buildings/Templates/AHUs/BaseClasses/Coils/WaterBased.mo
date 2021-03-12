@@ -6,12 +6,30 @@ model WaterBased
     final have_sou=true,
     final typAct=act.typ,
     final typHex=hex.typ);
-  extends Data.WaterBased
-    annotation (IconMap(primitivesVisible=false));
 
-  replaceable Valves.None act constrainedby Interfaces.Valve(redeclare final
-      package Medium = MediumSou) "Actuator" annotation (choicesAllMatching=
-        true, Placement(transformation(extent={{-10,-70},{10,-50}})));
+  inner parameter Modelica.SIunits.MassFlowRate mWat_flow_nominal(min=0)=
+    dat.getReal(varName=id + "." + funStr + " coil.Liquid mass flow rate")
+    "Liquid mass flow rate"
+    annotation(Dialog(group = "Nominal condition"), Evaluate=true);
+//     Templates.BaseClasses.getReal(
+//       id + "." + funStr + " coil.Liquid mass flow rate",
+//       dat.fileName)
+  inner parameter Modelica.SIunits.PressureDifference dpWat_nominal(
+    displayUnit="Pa")=
+    dat.getReal(varName=id + "." + funStr + " coil.Liquid pressure drop")
+    "Liquid pressure drop"
+    annotation(Dialog(group = "Nominal condition"), Evaluate=true);
+    // Templates.BaseClasses.getReal(
+    //   id + "." + funStr + " coil.Liquid pressure drop",
+    //   dat.fileName)
+
+  replaceable Valves.None act
+    constrainedby Interfaces.Valve(
+      redeclare final package Medium = MediumSou)
+    "Actuator"
+    annotation (
+      choicesAllMatching=true,
+      Placement(transformation(extent={{-10,-70},{10,-50}})));
 
   // TODO: conditional choices based on funStr to restrict HX models for cooling.
   replaceable HeatExchangers.DryCoilEffectivenessNTU hex constrainedby
@@ -90,5 +108,15 @@ equation
   connect(yCoiReh.y, act.y) annotation (Line(points={{40,39},{40,20},{-40,20},{
           -40,-60},{-11,-60}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+        coordinateSystem(preserveAspectRatio=false)),
+    Documentation(revisions="<html>
+<p>
+Using modified getReal function with annotation(__Dymola_translate=true)
+avoids warning for non literal nominal attributes.
+Not supported by OCT though:
+Compliance error at line 8, column 4, 
+  Constructors for external objects is not supported in functions
+
+</p>
+</html>"));
 end WaterBased;

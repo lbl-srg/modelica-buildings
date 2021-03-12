@@ -2,8 +2,6 @@ within Buildings.Templates.AHUs.BaseClasses.Sensors;
 model DifferentialPressure
   extends Interfaces.Sensor(
     final typ=Types.Sensor.DifferentialPressure);
-  extends Data.DifferentialPressure
-    annotation (IconMap(primitivesVisible=false));
 
   Fluid.Sensors.RelativePressure senRelPre(
     redeclare final package Medium=Medium)

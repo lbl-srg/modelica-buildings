@@ -2,8 +2,18 @@ within Buildings.Templates.AHUs.BaseClasses.Coils.Valves;
 model TwoWayValve "Two-way valve"
   extends Interfaces.Valve(
     final typ=Types.Actuator.TwoWayValve);
-  extends Data.TwoWayValve
-    annotation (IconMap(primitivesVisible=false));
+
+  parameter Modelica.SIunits.PressureDifference dpValve_nominal(
+     displayUnit="Pa",
+     min=0)=
+    dat.getReal(varName=id + "." + funStr + " coil valve.Pressure drop")
+    "Nominal pressure drop of fully open valve"
+    annotation(Dialog(group="Nominal condition"));
+  final parameter Modelica.SIunits.PressureDifference dpFixed_nominal(
+    displayUnit="Pa",
+    min=0)=dpWat_nominal
+    "Nominal pressure drop of pipes and other equipment in flow leg"
+    annotation(Dialog(group="Nominal condition"));
 
   replaceable Fluid.Actuators.Valves.TwoWayEqualPercentage val
     constrainedby Fluid.Actuators.BaseClasses.PartialTwoWayValve(

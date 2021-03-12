@@ -2,9 +2,8 @@ within Buildings.Templates.AHUs.BaseClasses.Sensors;
 model VolumeFlowRate
   extends Interfaces.Sensor(
     final typ=Types.Sensor.Temperature);
-  extends Data.Temperature
-    annotation (IconMap(primitivesVisible=false));
-  Fluid.Sensors.VolumeFlowRate     senVolFlo(
+
+  Fluid.Sensors.VolumeFlowRate senVolFlo(
     redeclare final package Medium=Medium,
     final m_flow_nominal=m_flow_nominal)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));

@@ -2,8 +2,15 @@ within Buildings.Templates.AHUs.BaseClasses.Coils.HeatExchangers;
 model WetCoilCounterFlow
   extends Interfaces.HeatExchangerWater(
     final typ=Types.HeatExchanger.WetCoilCounterFlow);
-  extends Data.WetCoilCounterFlow
-    annotation (IconMap(primitivesVisible=false));
+
+  parameter Modelica.SIunits.ThermalConductance UA_nominal=
+    dat.getReal(varName=id + "." + funStr + " coil.UA (dry coil conditions)")
+    "Thermal conductance at nominal flow"
+    annotation(Evaluate=true);
+  parameter Real r_nominal=2/3
+    "Ratio between air-side and water-side convective heat transfer coefficient";
+  parameter Integer nEle=4
+    "Number of pipe segments used for discretization";
 
   Fluid.HeatExchangers.WetCoilCounterFlow hex(
     redeclare final package Medium1 = Medium1,
@@ -14,7 +21,8 @@ model WetCoilCounterFlow
     final dp2_nominal=dp2_nominal,
     final UA_nominal=UA_nominal,
     final r_nominal=r_nominal,
-    final nEle=nEle)
+    final nEle=nEle,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
 equation

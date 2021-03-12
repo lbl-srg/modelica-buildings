@@ -2,8 +2,7 @@ within Buildings.Templates.AHUs.BaseClasses.Sensors;
 model HumidityRatio
   extends Interfaces.Sensor(
     final typ=Types.Sensor.HumidityRatio);
-  extends Data.HumidityRatio
-    annotation (IconMap(primitivesVisible=false));
+
   Fluid.Sensors.MassFractionTwoPort senMasFra(
     redeclare final package Medium=Medium,
     final m_flow_nominal=m_flow_nominal)

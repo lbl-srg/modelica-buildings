@@ -6,6 +6,46 @@ partial model Fan
     "Equipment type"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=
+    if typ<>Types.Fan.None then
+      dat.getReal(varName=id + "." + braStr + " air mass flow rate")
+    else 0
+    "Mass flow rate"
+    annotation (
+      Dialog(group="Nominal condition", enable=typ<>Types.Fan.None));
+  parameter Modelica.SIunits.PressureDifference dp_nominal=
+    if typ<>Types.Fan.None then
+      dat.getReal(varName=id + "." + braStr + " fan.Total pressure rise")
+    else 0
+    "Total pressure rise"
+    annotation (
+      Dialog(group="Nominal condition", enable=typ<>Types.Fan.None));
+
+  replaceable parameter Buildings.Fluid.Movers.Data.Generic per(
+    pressure(
+      V_flow={0,m_flow_nominal,2*m_flow_nominal}/1.2,
+      dp={2*dp_nominal,dp_nominal,0}))
+    constrainedby Buildings.Fluid.Movers.Data.Generic
+    "Performance data"
+    annotation (
+      choicesAllMatching=true,
+      Dialog(enable=typ<>Types.Fan.None),
+      Placement(transformation(extent={{-90,-88},{-70,-68}})));
+
+  final parameter String braStr=
+    if Modelica.Utilities.Strings.find(insNam, "fanSup")<>0 then "Supply"
+    elseif Modelica.Utilities.Strings.find(insNam, "fanRe")<>0 then "Return/relief"
+    else "Undefined"
+    "String used to identify the fan location"
+    annotation (Evaluate=true, Dialog(group="Configuration"));
+  final parameter String insNam = getInstanceName()
+    "Instance name"
+    annotation (Evaluate=true);
+  outer parameter String id
+    "System identifier";
+  outer parameter ExternData.JSONFile dat
+    "External parameter file";
+
   Templates.BaseClasses.AhuBus ahuBus if typ<>Types.Fan.None
     "AHU control bus"
     annotation (Placement(transformation(

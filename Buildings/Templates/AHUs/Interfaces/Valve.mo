@@ -4,9 +4,24 @@ partial model Valve
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Medium";
 
-  constant Types.Actuator typ
+  parameter Types.Actuator typ
     "Equipment type"
     annotation (Evaluate=true, Dialog(group="Configuration"));
+
+  outer parameter String funStr
+    "String used to identify the coil function";
+  outer parameter String id
+    "System identifier";
+  outer parameter ExternData.JSONFile dat
+    "External parameter file";
+
+  outer parameter Modelica.SIunits.MassFlowRate mWat_flow_nominal(min=0)
+    "Liquid mass flow rate"
+    annotation(Dialog(group = "Nominal condition"));
+  outer parameter Modelica.SIunits.PressureDifference dpWat_nominal(
+    displayUnit="Pa")
+    "Liquid pressure drop"
+    annotation(Dialog(group = "Nominal condition"));
 
   Modelica.Fluid.Interfaces.FluidPort_a port_aSup(
     redeclare final package Medium = Medium)
