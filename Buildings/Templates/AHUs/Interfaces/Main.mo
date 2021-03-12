@@ -15,11 +15,15 @@ partial model Main "Main interface class"
     annotation (Evaluate=true,
       Dialog(group="Configuration", enable=typ <> Types.Main.SupplyOnly));
 
-  inner parameter String id=""
-    "System identifier";
-
+  inner parameter String id
+    annotation (
+      Evaluate=true,
+      Dialog(group="Configuration"));
   inner parameter Integer nZon = 0
-    "Number of served zones";
+    "Number of served zones"
+    annotation (
+      Evaluate=true,
+      Dialog(group="Configuration"));
 
   Modelica.Fluid.Interfaces.FluidPort_a port_Out(
     redeclare package Medium = MediumAir) if typ <> Types.Main.ExhaustOnly
