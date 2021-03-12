@@ -1,7 +1,13 @@
 within Buildings.Templates.AHUs.Validation;
 model CoilCoolingDXVariableSpeed
   extends BaseNoEquipment(redeclare
-    UserProject.AHUs.CoilCoolingDXVariableSpeed ahu);
+    UserProject.AHUs.CoilCoolingDXVariableSpeed ahu(redeclare
+        BaseClasses.Sensors.None THea "No sensor", coiCoo(redeclare
+          replaceable
+          Buildings.Templates.AHUs.BaseClasses.Coils.HeatExchangers.DXVariableSpeed
+          hex(redeclare
+            Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.SingleSpeed.Carrier_Centurion_50PG06
+            datCoi))));
 
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
     filNam=Modelica.Utilities.Files.loadResource(

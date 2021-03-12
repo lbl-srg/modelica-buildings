@@ -1,6 +1,8 @@
 within Buildings.Templates.AHUs.Interfaces;
 partial model HeatExchangerDX
-  extends Fluid.Interfaces.PartialTwoPortInterface;
+  // Air medium needed for type compatibility with DX coil models
+  extends Fluid.Interfaces.PartialTwoPortInterface(
+    redeclare package Medium=Buildings.Media.Air);
 
   parameter Types.HeatExchanger typ
     "Type of heat exchanger"
@@ -22,7 +24,9 @@ partial model HeatExchangerDX
         transformation(extent={{-80,80},{-40,120}}),
         iconTransformation(extent={{-70,90},
             {-50,110}})));
-  .Buildings.Templates.BaseClasses.AhuBus ahuBus "Control bus" annotation (
+  .Buildings.Templates.BaseClasses.AhuBus ahuBus
+    "Control bus"
+    annotation (
       Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,

@@ -3,40 +3,8 @@ model DXMultiStage
   extends Interfaces.HeatExchangerDX(
     final typ=Types.HeatExchanger.DXMultiStage);
 
-  replaceable parameter Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.DXCoil datCoi(
-    nSta=4,
-    sta={Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.Stage(
-      spe=900/60,
-      nomVal=Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.NominalValues(
-        Q_flow_nominal=-12000,
-        COP_nominal=3,
-        SHR_nominal=0.8,
-        m_flow_nominal=0.9),
-      perCur=Fluid.HeatExchangers.DXCoils.AirCooled.Examples.PerformanceCurves.Curve_I()),
-      Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.Stage(
-      spe=1200/60,
-      nomVal=Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.NominalValues(
-        Q_flow_nominal=-18000,
-        COP_nominal=3,
-        SHR_nominal=0.8,
-        m_flow_nominal=1.2),
-      perCur=Fluid.HeatExchangers.DXCoils.AirCooled.Examples.PerformanceCurves.Curve_I()),
-      Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.Stage(
-      spe=1800/60,
-      nomVal=Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.NominalValues(
-        Q_flow_nominal=-21000,
-        COP_nominal=3,
-        SHR_nominal=0.8,
-        m_flow_nominal=1.5),
-      perCur=Fluid.HeatExchangers.DXCoils.AirCooled.Examples.PerformanceCurves.Curve_II()),
-      Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.Stage(
-      spe=2400/60,
-      nomVal=Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.NominalValues(
-        Q_flow_nominal=-30000,
-        COP_nominal=3,
-        SHR_nominal=0.8,
-        m_flow_nominal=1.8),
-      perCur=Fluid.HeatExchangers.DXCoils.AirCooled.Examples.PerformanceCurves.Curve_III())})
+  replaceable parameter
+    Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.DXCoil datCoi
     constrainedby Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.DXCoil
     "Performance record"
     annotation(choicesAllMatching=true);
