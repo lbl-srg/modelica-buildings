@@ -93,7 +93,6 @@ initial equation
   assert(
     not usePrecompiledFMU,
     "Use of pre-compiled FMU is not supported for ZoneSurface.");
-  startTime=time;
   nObj=Buildings.ThermalZones.EnergyPlus.BaseClasses.initialize(
     adapter=adapter,
     isSynchronized=building.isSynchronized);
