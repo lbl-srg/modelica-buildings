@@ -120,8 +120,8 @@ equation
       u = {T, round(time, 1E-3)},
       dummy = A);
 
-    QLast_flow = yEP[1];
-    dQ_flow_dT = yEP[2];
+    QLast_flow = -yEP[1]; // Negative sign so that positive Q is heating
+    dQ_flow_dT = -yEP[2];
     tNext = yEP[3];
     tLast=time;
   end when;
