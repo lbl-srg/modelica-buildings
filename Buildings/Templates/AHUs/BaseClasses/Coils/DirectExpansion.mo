@@ -7,7 +7,7 @@ model DirectExpansion
     final typAct=Types.Actuator.None,
     final typHex=hex.typ);
 
-  parameter Boolean have_dryCon = true
+  inner parameter Boolean have_dryCon = true
     "Set to true for purely sensible cooling of the condenser";
 
   replaceable HeatExchangers.DXVariableSpeed hex

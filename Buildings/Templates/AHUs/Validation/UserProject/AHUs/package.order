@@ -1,6 +1,8 @@
 BaseNoEquipment
 BaseWithSensors
 CoilCoolingCounterFlow
+CoilCoolingDXMultiStage
+CoilCoolingDXVariableSpeed
 CoilHeatingEffectivenessNTU
 CoilHeatingEffectivenessNTU2WV
 CoilHeatingEffectivenessNTU3WV

@@ -1,8 +1,8 @@
-simulateModel("Buildings.Templates.AHUs.Validation.SupplyFanDrawSingleVariable",
+simulateModel("Buildings.Templates.AHUs.Validation.CoilHeatingEffectivenessNTU",
     method="cvode",
     tolerance=1e-6,
     stopTime=1.0,
-    resultFile="SupplyFanDrawSingleVariable");
+    resultFile="CoilHeatingEffectivenessNTU");
 createPlot(
     id=1,
     position={15, 15, 1192, 772},

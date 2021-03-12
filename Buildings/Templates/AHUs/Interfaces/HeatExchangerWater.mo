@@ -3,13 +3,13 @@ partial model HeatExchangerWater
   extends Fluid.Interfaces.PartialFourPortInterface;
 
   parameter Types.HeatExchanger typ
-    "Type of HX"
-    annotation (Evaluate=true, Dialog(group="Heat exchanger"));
+    "Type of heat exchanger"
+    annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Modelica.SIunits.PressureDifference dp1_nominal
-    "Pressure difference"
+    "Liquid pressure drop"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.PressureDifference dp2_nominal
-    "Pressure difference"
+    "Air pressure drop"
     annotation (Dialog(group="Nominal condition"));
 
   outer parameter String funStr

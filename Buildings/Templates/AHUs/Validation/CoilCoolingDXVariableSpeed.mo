@@ -1,12 +1,11 @@
 within Buildings.Templates.AHUs.Validation;
 model CoilCoolingDXVariableSpeed
-  extends BaseNoEquipment(ahu(redeclare record RecordCoiCoo =
-          BaseClasses.Coils.HeatExchangers.Data.DXVariableSpeed, redeclare
-        BaseClasses.Coils.HeatExchangers.DXVariableSpeed coiCoo));
+  extends BaseNoEquipment(redeclare
+    UserProject.AHUs.CoilCoolingDXVariableSpeed ahu);
 
-  BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
-        Modelica.Utilities.Files.loadResource(
-        "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
+  BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
+    filNam=Modelica.Utilities.Files.loadResource(
+      "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
 equation
   connect(weaDat.weaBus, ahu.weaBus) annotation (Line(

@@ -1,8 +1,8 @@
-simulateModel("Buildings.Templates.AHUs.Validation.HeatingCoilEffectivenessNTU3WayValve",
+simulateModel("Buildings.Templates.AHUs.Validation.FanSupplyDrawSingleVariable",
     method="cvode",
     tolerance=1e-6,
     stopTime=1.0,
-    resultFile="HeatingCoilEffectivenessNTU3WayValve");
+    resultFile="FanSupplyDrawSingleVariable");
 createPlot(
     id=1,
     position={15, 15, 1192, 772},
