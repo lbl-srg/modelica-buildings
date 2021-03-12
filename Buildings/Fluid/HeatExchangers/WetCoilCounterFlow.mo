@@ -5,7 +5,7 @@ model WetCoilCounterFlow
     redeclare replaceable package Medium2 =
       Modelica.Media.Interfaces.PartialCondensingGases,
     redeclare model HexElement =
-      Buildings.Fluid.HeatExchangers.BaseClasses.HexElementLatent(simplify_mWat_flow=true));
+      Buildings.Fluid.HeatExchangers.BaseClasses.HexElementLatent(simplify_mWat_flow=simplify_mWat_flow));
 
   constant Boolean simplify_mWat_flow = true
     "Set to true to cause port_a.m_flow + port_b.m_flow = 0 even if mWat_flow is non-zero. Used only if Medium.nX > 1"
@@ -78,9 +78,15 @@ Buildings.Fluid.HeatExchangers.DryCoilCounterFlow</a> instead of this model.
 </html>", revisions="<html>
 <ul>
 <li>
+<<<<<<< HEAD
 March 11, 2021, by Michael Wetter:<br/>
 Removed <code>final</code> keyword for <code>redeclare model HexElement = ...</code>
 because Dymola 2022 beta2 otherwise stops translation with an error.
+=======
+March 12, 2021, by Michael Wetter:<br/>
+Removed <code>final</code> declaration in redeclaration.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2392\">#2392</a>.
+>>>>>>> issue2392_maint_7.0.x_final_modifier
 </li>
 <li>
 May 1, 2020, by Michael Wetter:<br/>
