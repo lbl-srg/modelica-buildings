@@ -2,25 +2,17 @@ within Buildings.Templates.Interfaces;
 partial model Fan
   extends Buildings.Fluid.Interfaces.PartialTwoPort;
 
-  parameter AHUs.Types.Fan typ "Equipment type"
+  parameter Types.Fan typ "Equipment type"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=
-    if typ<>AHUs.Types.Fan.None
-                           then
-      dat.getReal(varName=id + "." + braStr + " air mass flow rate")
-    else 0
-    "Mass flow rate"
-    annotation (
-      Dialog(group="Nominal condition", enable=typ <> AHUs.Types.Fan.None));
-  parameter Modelica.SIunits.PressureDifference dp_nominal=
-    if typ<>AHUs.Types.Fan.None
-                           then
-      dat.getReal(varName=id + "." + braStr + " fan.Total pressure rise")
-    else 0
-    "Total pressure rise"
-    annotation (
-      Dialog(group="Nominal condition", enable=typ <> AHUs.Types.Fan.None));
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=if typ <> Types.Fan.None
+       then dat.getReal(varName=id + "." + braStr + " air mass flow rate")
+       else 0 "Mass flow rate" annotation (Dialog(group="Nominal condition",
+        enable=typ <> Types.Fan.None));
+  parameter Modelica.SIunits.PressureDifference dp_nominal=if typ <> Types.Fan.None
+       then dat.getReal(varName=id + "." + braStr + " fan.Total pressure rise")
+       else 0 "Total pressure rise" annotation (Dialog(group=
+          "Nominal condition", enable=typ <> Types.Fan.None));
 
   replaceable parameter Buildings.Fluid.Movers.Data.Generic per(
     pressure(
@@ -30,7 +22,7 @@ partial model Fan
     "Performance data"
     annotation (
       choicesAllMatching=true,
-      Dialog(enable=typ <> AHUs.Types.Fan.None),
+      Dialog(enable=typ <> Types.Fan.None),
       Placement(transformation(extent={{-90,-88},{-70,-68}})));
 
   final parameter String braStr=
@@ -47,8 +39,7 @@ partial model Fan
   outer parameter ExternData.JSONFile dat
     "External parameter file";
 
-  BaseClasses.Connectors.BusInterface busCon if
-                                               typ <> AHUs.Types.Fan.None
+  BaseClasses.Connectors.BusInterface busCon if typ <> Types.Fan.None
     "AHU control bus" annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,

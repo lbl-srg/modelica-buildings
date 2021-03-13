@@ -3,8 +3,7 @@ package Dampers
   extends Modelica.Icons.Package;
 
   model NoPath
-    extends Buildings.Templates.Interfaces.Damper(
-      final typ=Templates.AHUs.Types.Damper.NoPath);
+    extends Buildings.Templates.Interfaces.Damper(final typ=Types.Damper.NoPath);
 
     Fluid.Sources.MassFlowSource_T floZer(
       redeclare final package Medium=Medium,
@@ -26,16 +25,14 @@ package Dampers
   end NoPath;
 
   model Nonactuated_todo
-    extends Buildings.Templates.Interfaces.Damper(
-      final typ=Templates.AHUs.Types.Damper.Nonactuated)
-    annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+    extends Buildings.Templates.Interfaces.Damper(final typ=Types.Damper.Nonactuated)
+      annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
           coordinateSystem(preserveAspectRatio=false)));
   end Nonactuated_todo;
 
   model None
-    extends Buildings.Templates.Interfaces.Damper(
-      final typ=Templates.AHUs.Types.Damper.None)
-    annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+    extends Buildings.Templates.Interfaces.Damper(final typ=Types.Damper.None)
+      annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
           coordinateSystem(preserveAspectRatio=false)));
   equation
     connect(port_a, port_b)
@@ -47,8 +44,7 @@ package Dampers
   end None;
 
   model Modulated
-    extends Buildings.Templates.Interfaces.Damper(
-      final typ=Templates.AHUs.Types.Damper.Modulated);
+    extends Buildings.Templates.Interfaces.Damper(final typ=Types.Damper.Modulated);
 
     parameter Modelica.SIunits.MassFlowRate m_flow_nominal=
       if braStr=="Outdoor air" then
@@ -132,8 +128,7 @@ package Dampers
   end Modulated;
 
   model TwoPosition
-    extends Buildings.Templates.Interfaces.Damper(
-      final typ=Templates.AHUs.Types.Damper.Modulated);
+    extends Buildings.Templates.Interfaces.Damper(final typ=Types.Damper.Modulated);
 
     parameter Modelica.SIunits.MassFlowRate m_flow_nominal=
       if braStr=="Outdoor air" then

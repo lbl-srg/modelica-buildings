@@ -4,7 +4,7 @@ partial model Valve
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Medium";
 
-  parameter AHUs.Types.Actuator typ "Equipment type"
+  parameter Types.Valve typ "Equipment type"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
   outer parameter String funStr
@@ -38,7 +38,7 @@ partial model Valve
     redeclare final package Medium = Medium)
     "Fluid connector b (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{-30,90},{-50,110}})));
-  Modelica.Blocks.Interfaces.RealInput y(min=0, max=1) if typ <> AHUs.Types.Actuator.None
+  Modelica.Blocks.Interfaces.RealInput y(min=0, max=1) if typ <> Types.Valve.None
     "Actuator control signal"
     annotation (Placement(
       transformation(extent={{-20,-20},{20,20}}, rotation=0,   origin={-120,0}),

@@ -4,7 +4,7 @@ partial model Damper
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Medium";
 
-  parameter AHUs.Types.Damper typ "Equipment type"
+  parameter Types.Damper typ "Equipment type"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   final parameter String braStr=
     if Modelica.Utilities.Strings.find(insNam, "damOut")<>0 then "Outdoor air"
@@ -28,9 +28,8 @@ partial model Damper
   Modelica.Fluid.Interfaces.FluidPort_b port_b(redeclare package Medium =
         Medium) "Leaving air" annotation (Placement(transformation(extent={{90,-10},
             {110,10}}), iconTransformation(extent={{90,-10},{110,10}})));
-  BaseClasses.Connectors.BusInterface busCon if
-                                               typ <> AHUs.Types.Damper.None and typ
-     <> AHUs.Types.Damper.Nonactuated annotation (Placement(transformation(
+  BaseClasses.Connectors.BusInterface busCon if typ <> Types.Damper.None and
+    typ <> Types.Damper.Nonactuated   annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
         origin={0,100}), iconTransformation(

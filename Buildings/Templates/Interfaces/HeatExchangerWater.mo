@@ -2,7 +2,7 @@ within Buildings.Templates.Interfaces;
 partial model HeatExchangerWater
   extends Fluid.Interfaces.PartialFourPortInterface;
 
-  parameter AHUs.Types.HeatExchanger typ "Type of heat exchanger"
+  parameter Types.HeatExchanger typ "Type of heat exchanger"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Modelica.SIunits.PressureDifference dp1_nominal
     "Liquid pressure drop"

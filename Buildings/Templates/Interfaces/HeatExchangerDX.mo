@@ -4,7 +4,7 @@ partial model HeatExchangerDX
   extends Fluid.Interfaces.PartialTwoPortInterface(
     redeclare package Medium=Buildings.Media.Air);
 
-  parameter AHUs.Types.HeatExchanger typ "Type of heat exchanger"
+  parameter Types.HeatExchanger typ "Type of heat exchanger"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Modelica.SIunits.PressureDifference dp_nominal
     "Air pressure drop"

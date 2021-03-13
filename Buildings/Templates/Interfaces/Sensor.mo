@@ -2,23 +2,16 @@ within Buildings.Templates.Interfaces;
 partial model Sensor
   extends Buildings.Fluid.Interfaces.PartialTwoPort;
 
-  parameter AHUs.Types.Sensor typ "Equipment type"
+  parameter Types.Sensor typ "Equipment type"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=
-    if typ<>AHUs.Types.Sensor.None
-                              and typ<>AHUs.Types.Sensor.DifferentialPressure
-                                                                         then
-      (if braStr=="Supply" then
-        dat.getReal(varName=id + ".Supply air mass flow rate")
-      elseif braStr=="Return" then
-        dat.getReal(varName=id + ".Return air mass flow rate")
-      else 0)
-    else 0
-    "Mass flow rate"
-    annotation (
-      Dialog(group="Nominal condition",
-        enable=typ <> AHUs.Types.Sensor.None and typ <> AHUs.Types.Sensor.DifferentialPressure));
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=if typ <> Types.Sensor.None
+       and typ <> Types.Sensor.DifferentialPressure then (if braStr == "Supply"
+       then dat.getReal(varName=id + ".Supply air mass flow rate") elseif
+      braStr == "Return" then dat.getReal(varName=id +
+      ".Return air mass flow rate") else 0) else 0 "Mass flow rate" annotation (
+     Dialog(group="Nominal condition", enable=typ <> Types.Sensor.None and typ
+           <> Types.Sensor.DifferentialPressure));
 
   final parameter String braStr=
     if Modelica.Utilities.Strings.find(insNam, "Out")<>0 then "Supply"
@@ -41,7 +34,8 @@ partial model Sensor
   Modelica.Fluid.Interfaces.FluidPort_b port_bRef(
     redeclare final package Medium = Medium,
     m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
-    h_outflow(start=Medium.h_default, nominal=Medium.h_default)) if typ == AHUs.Types.Sensor.DifferentialPressure
+    h_outflow(start=Medium.h_default, nominal=Medium.h_default)) if typ ==
+    Types.Sensor.DifferentialPressure
     "Port at the reference pressure for differential pressure sensor"
     annotation (Placement(transformation(extent={{10,-110},{-10,-90}})));
   Buildings.Templates.BaseClasses.Connectors.BusInterface busCon

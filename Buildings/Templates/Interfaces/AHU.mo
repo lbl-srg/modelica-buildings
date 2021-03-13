@@ -4,12 +4,12 @@ partial model AHU "Main interface class"
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Air medium";
 
-  parameter AHUs.Types.Main typ "Type of system"
+  parameter Types.AHU typ "Type of system"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  parameter AHUs.Types.Supply typSup "Type of supply branch" annotation (
-      Evaluate=true, Dialog(group="Configuration", enable=typ <> AHUs.Types.Main.ExhaustOnly));
-  parameter AHUs.Types.Return typRet "Type of return branch" annotation (
-      Evaluate=true, Dialog(group="Configuration", enable=typ <> AHUs.Types.Main.SupplyOnly));
+  parameter Types.Supply typSup "Type of supply branch" annotation (Evaluate=
+        true, Dialog(group="Configuration", enable=typ <> Types.AHU.ExhaustOnly));
+  parameter Types.Return typRet "Type of return branch" annotation (Evaluate=
+        true, Dialog(group="Configuration", enable=typ <> Types.AHU.SupplyOnly));
 
   inner parameter String id
     annotation (
@@ -22,39 +22,39 @@ partial model AHU "Main interface class"
       Dialog(group="Configuration"));
 
   Modelica.Fluid.Interfaces.FluidPort_a port_Out(
-    redeclare package Medium = MediumAir) if typ <> AHUs.Types.Main.ExhaustOnly
+    redeclare package Medium = MediumAir) if typ <> Types.AHU.ExhaustOnly
     "Outdoor air intake"
     annotation (Placement(transformation(
           extent={{-310,-210},{-290,-190}}), iconTransformation(extent={{-210,
             -110},{-190,-90}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_Sup(
-    redeclare package Medium =MediumAir) if typ <> AHUs.Types.Main.ExhaustOnly
-     and typSup == AHUs.Types.Supply.SingleDuct
+    redeclare package Medium =MediumAir) if typ <> Types.AHU.ExhaustOnly and
+    typSup == Types.Supply.SingleDuct
     "Supply air" annotation (
       Placement(transformation(extent={{290,-210},{310,-190}}),
         iconTransformation(extent={{190,-110},{210,-90}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_SupCol(
-    redeclare package Medium =MediumAir) if typ <> AHUs.Types.Main.ExhaustOnly
-     and typSup == AHUs.Types.Supply.DualDuct
+    redeclare package Medium =MediumAir) if typ <> Types.AHU.ExhaustOnly and
+    typSup == Types.Supply.DualDuct
     "Dual duct cold deck air supply"
     annotation (Placement(transformation(
           extent={{290,-250},{310,-230}}), iconTransformation(extent={{190,
             -180},{210,-160}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_SupHot(
-    redeclare package Medium =MediumAir) if typ <> AHUs.Types.Main.ExhaustOnly
-     and typSup == AHUs.Types.Supply.DualDuct
+    redeclare package Medium =MediumAir) if typ <> Types.AHU.ExhaustOnly and
+    typSup == Types.Supply.DualDuct
     "Dual duct hot deck air supply"
     annotation (Placement(
         transformation(extent={{290,-170},{310,-150}}), iconTransformation(
           extent={{190,-40},{210,-20}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_Ret(
-    redeclare package Medium =MediumAir) if typ <> AHUs.Types.Main.SupplyOnly
+    redeclare package Medium =MediumAir) if typ <> Types.AHU.SupplyOnly
     "Return air"
     annotation (Placement(transformation(extent={{290,-90},{310,-70}}),
         iconTransformation(extent={{190,90},{210,110}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_Exh(
-    redeclare package Medium = MediumAir) if typ == AHUs.Types.Main.ExhaustOnly
-     or (typ == AHUs.Types.Main.SupplyReturn and typRet == AHUs.Types.Return.WithRelief)
+    redeclare package Medium = MediumAir) if typ == Types.AHU.ExhaustOnly or (
+    typ == Types.AHU.SupplyReturn and typRet == Types.Return.WithRelief)
     "Exhaust/relief air"
     annotation (Placement(transformation(
           extent={{-310,-90},{-290,-70}}), iconTransformation(extent={{-210,90},

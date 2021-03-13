@@ -12,15 +12,13 @@ model BaseWithSensors
     redeclare Buildings.Templates.BaseClasses.Sensors.DifferentialPressure
       pSup_rel,
     redeclare Buildings.Templates.BaseClasses.Sensors.VolumeFlowRate VRet_flow,
-
     redeclare Buildings.Templates.BaseClasses.Sensors.DifferentialPressure
       pRet_rel,
     redeclare Buildings.Templates.BaseClasses.Sensors.VolumeFlowRate VSup_flow,
-
     redeclare Buildings.Templates.BaseClasses.Sensors.VolumeFlowRate VOut_flow,
-
     redeclare Buildings.Templates.BaseClasses.Sensors.DifferentialPressure
       dpOut);
+
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end BaseWithSensors;

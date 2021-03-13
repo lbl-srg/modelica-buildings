@@ -11,11 +11,11 @@ partial model Coil
     "Source side medium"
     annotation(Dialog(enable=have_sou));
 
-  parameter AHUs.Types.Coil typ "Equipment type"
+  parameter Types.Coil typ "Equipment type"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  parameter AHUs.Types.Actuator typAct "Type of actuator"
+  parameter Types.Valve typAct "Type of actuator"
     annotation (Dialog(group="Actuator"));
-  parameter AHUs.Types.HeatExchanger typHex "Type of HX"
+  parameter Types.HeatExchanger typHex "Type of HX"
     annotation (Dialog(group="Heat exchanger"));
   parameter Boolean have_sou = false
     "Set to true for fluid ports on the source side"
@@ -23,27 +23,18 @@ partial model Coil
   parameter Boolean have_weaBus = false
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
-  inner parameter Modelica.SIunits.MassFlowRate mAir_flow_nominal(min=0)=
-    if typ<>AHUs.Types.Coil.None
-                            then
-      dat.getReal(varName=id + "." + funStr + " coil.Air mass flow rate")
-    else 0
-    "Air mass flow rate"
-    annotation (
-      Dialog(group = "Nominal condition", enable=typ <> AHUs.Types.Coil.None),
-      Evaluate=true);
+  inner parameter Modelica.SIunits.MassFlowRate mAir_flow_nominal(min=0) = if
+    typ <> Types.Coil.None then dat.getReal(varName=id + "." + funStr +
+    " coil.Air mass flow rate") else 0 "Air mass flow rate" annotation (Dialog(
+        group="Nominal condition", enable=typ <> Types.Coil.None), Evaluate=
+        true);
     // Templates.BaseClasses.getReal(
     //   id + "." + funStr + " coil.Air mass flow rate",
     //   dat.fileName)
-  inner parameter Modelica.SIunits.PressureDifference dpAir_nominal(
-    displayUnit="Pa")=
-    if typ<>AHUs.Types.Coil.None
-                            then
-      dat.getReal(varName=id + "." + funStr + " coil.Air pressure drop")
-    else 0
-    "Air pressure drop"
-    annotation (
-      Dialog(group = "Nominal condition", enable=typ <> AHUs.Types.Coil.None),
+  inner parameter Modelica.SIunits.PressureDifference dpAir_nominal(displayUnit=
+       "Pa") = if typ <> Types.Coil.None then dat.getReal(varName=id + "." +
+    funStr + " coil.Air pressure drop") else 0 "Air pressure drop" annotation (
+      Dialog(group="Nominal condition", enable=typ <> Types.Coil.None),
       Evaluate=true);
     // Templates.BaseClasses.getReal(
     //   id + "." + funStr + " coil.Air pressure drop",
@@ -76,8 +67,7 @@ partial model Coil
     annotation (Placement(
         transformation(extent={{-80,80},{-40,120}}), iconTransformation(extent={{-70,90},
             {-50,110}})));
-  BaseClasses.Connectors.BusInterface busCon if
-                                         typ <> AHUs.Types.Coil.None
+  BaseClasses.Connectors.BusInterface busCon if typ <> Types.Coil.None
     "Control bus" annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
