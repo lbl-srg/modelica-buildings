@@ -1,6 +1,6 @@
 within Buildings.Templates.AHUs.BaseClasses.Sensors;
 model Temperature
-  extends Interfaces.Sensor(
+  extends Buildings.Templates.Interfaces.Sensor(
     final typ=Types.Sensor.Temperature);
 
   Fluid.Sensors.TemperatureTwoPort senTem(
@@ -56,31 +56,31 @@ equation
     annotation (Line(points={{0,11},{0,20},{20,20},{20,38}}, color={0,0,127}));
   connect(senTem.T, TSup.u)
     annotation (Line(points={{0,11},{0,20},{50,20},{50,38}}, color={0,0,127}));
-  connect(THea.y, ahuBus.ahuI.THea) annotation (Line(points={{-50,61},{-50,82},{
+  connect(THea.y,busCon.inp.THea)  annotation (Line(points={{-50,61},{-50,82},{
           -2,82},{-2,100.1},{0.1,100.1}}, color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{-3,6},{-3,6}},
       horizontalAlignment=TextAlignment.Right));
-  connect(TCoo.y, ahuBus.ahuI.TCoo) annotation (Line(points={{-20,61},{-20,80},{
+  connect(TCoo.y,busCon.inp.TCoo)  annotation (Line(points={{-20,61},{-20,80},{
           0,80},{0,100.1},{0.1,100.1}}, color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{-3,6},{-3,6}},
       horizontalAlignment=TextAlignment.Right));
-  connect(TMix.y, ahuBus.ahuI.TMix) annotation (Line(points={{20,61},{20,80},{2,
+  connect(TMix.y,busCon.inp.TMix)  annotation (Line(points={{20,61},{20,80},{2,
           80},{2,100.1},{0.1,100.1}}, color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
-  connect(TSup.y, ahuBus.ahuI.TSup) annotation (Line(points={{50,61},{50,82},{4,
+  connect(TSup.y,busCon.inp.TSup)  annotation (Line(points={{50,61},{50,82},{4,
           82},{4,100.1},{0.1,100.1}}, color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{-3,6},{-3,6}},
       horizontalAlignment=TextAlignment.Right));
-  connect(TOut.y, ahuBus.ahuI.TOut) annotation (Line(points={{-80,61},{-80,84},{
+  connect(TOut.y,busCon.inp.TOut)  annotation (Line(points={{-80,61},{-80,84},{
           0.1,84},{0.1,100.1}}, color={0,0,127}));
   connect(senTem.T, TOut.u) annotation (Line(points={{0,11},{0,20},{-80,20},{-80,
           38}}, color={0,0,127}));

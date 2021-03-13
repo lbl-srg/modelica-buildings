@@ -1,6 +1,6 @@
 within Buildings.Templates.AHUs.BaseClasses.Coils.Valves;
 model ThreeWayValve "Three-way valve"
-  extends Interfaces.Valve(
+  extends Buildings.Templates.Interfaces.Valve(
     final typ=Types.Actuator.ThreeWayValve);
 
   parameter Modelica.SIunits.PressureDifference dpValve_nominal(

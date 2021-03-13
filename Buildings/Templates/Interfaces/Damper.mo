@@ -28,12 +28,13 @@ partial model Damper
   Modelica.Fluid.Interfaces.FluidPort_b port_b(redeclare package Medium =
         Medium) "Leaving air" annotation (Placement(transformation(extent={{90,-10},
             {110,10}}), iconTransformation(extent={{90,-10},{110,10}})));
-  Templates.BaseClasses.AhuBus ahuBus if typ <> AHUs.Types.Damper.None and typ
-     <> AHUs.Types.Damper.Nonactuated
-    annotation (Placement(transformation(
+  BaseClasses.Connectors.BusInterface busCon if
+                                               typ <> AHUs.Types.Damper.None and typ
+     <> AHUs.Types.Damper.Nonactuated annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
-        origin={0,100}), iconTransformation(extent={{-10,-10},{10,10}},
+        origin={0,100}), iconTransformation(
+        extent={{-10,-10},{10,10}},
         rotation=0,
         origin={0,100})));
   annotation (

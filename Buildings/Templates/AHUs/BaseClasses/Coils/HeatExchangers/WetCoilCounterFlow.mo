@@ -1,6 +1,6 @@
 within Buildings.Templates.AHUs.BaseClasses.Coils.HeatExchangers;
 model WetCoilCounterFlow
-  extends Interfaces.HeatExchangerWater(
+  extends Buildings.Templates.Interfaces.HeatExchangerWater(
     final typ=Types.HeatExchanger.WetCoilCounterFlow);
 
   parameter Modelica.SIunits.ThermalConductance UA_nominal=

@@ -1,6 +1,6 @@
 within Buildings.Templates.AHUs.BaseClasses.Sensors;
 model HumidityRatio
-  extends Interfaces.Sensor(
+  extends Buildings.Templates.Interfaces.Sensor(
     final typ=Types.Sensor.HumidityRatio);
 
   Fluid.Sensors.MassFractionTwoPort senMasFra(
@@ -34,8 +34,9 @@ equation
   connect(toDryAir.XiDry, xSup.u) annotation (Line(points={{6.66134e-16,41},{0,
           41},{0,44},{-8.88178e-16,44},{-8.88178e-16,58}},
                                   color={0,0,127}));
-  connect(xSup.y, ahuBus.ahuI.xSup) annotation (Line(points={{0,81},{0,90},{0,100.1},
-          {0.1,100.1}}, color={0,0,127}), Text(
+  connect(xSup.y,busCon.inp.xSup)  annotation (Line(points={{0,81},{0,90},{0,
+          100.1},{0.1,100.1}},
+                        color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{-3,6},{-3,6}},

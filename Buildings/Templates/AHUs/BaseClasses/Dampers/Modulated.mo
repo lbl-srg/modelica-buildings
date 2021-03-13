@@ -1,6 +1,6 @@
 within Buildings.Templates.AHUs.BaseClasses.Dampers;
 model Modulated
-  extends Templates.AHUs.Interfaces.Damper(
+  extends Buildings.Templates.Interfaces.Damper(
     final typ=Templates.AHUs.Types.Damper.Modulated);
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=
@@ -66,19 +66,19 @@ equation
     annotation (Line(points={{20,39},{20,26},{0,26},{0,12}}, color={0,0,127}));
   connect(damRel.y, damExp.y)
     annotation (Line(points={{60,39},{60,20},{0,20},{0,12}}, color={0,0,127}));
-  connect(ahuBus.ahuO.yDamOut, damOut.u) annotation (Line(
+  connect(busCon.out.yDamOut, damOut.u) annotation (Line(
       points={{0.1,100.1},{-60,100.1},{-60,62}},
       color={255,204,51},
       thickness=0.5));
-  connect(ahuBus.ahuO.yDamOutMin, damOutMin.u) annotation (Line(
+  connect(busCon.out.yDamOutMin, damOutMin.u) annotation (Line(
       points={{0.1,100.1},{-10,100.1},{-10,100},{-20,100},{-20,62}},
       color={255,204,51},
       thickness=0.5));
-  connect(ahuBus.ahuO.yDamRet, damRet.u) annotation (Line(
+  connect(busCon.out.yDamRet, damRet.u) annotation (Line(
       points={{0.1,100.1},{18,100.1},{18,100},{20,100},{20,62}},
       color={255,204,51},
       thickness=0.5));
-  connect(ahuBus.ahuO.yDamRel, damRel.u) annotation (Line(
+  connect(busCon.out.yDamRel, damRel.u) annotation (Line(
       points={{0.1,100.1},{20,100.1},{20,100},{60,100},{60,62}},
       color={255,204,51},
       thickness=0.5));

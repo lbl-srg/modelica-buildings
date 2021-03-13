@@ -1,6 +1,6 @@
 within Buildings.Templates.AHUs.BaseClasses.Controls;
 block Guideline36 "Guideline 36 VAV single duct controller"
-  extends Interfaces.Controller;
+  extends Buildings.Templates.Interfaces.ControllerAHU;
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.Controller conAHU
     annotation (Placement(transformation(extent={{-42,-8},{38,136}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow.Zone
@@ -64,8 +64,8 @@ equation
   connect(zonOutAirSet.VDesAreBreZon_flow, zonToSys.VDesAreBreZon_flow)
     annotation (Line(points={{138,-67},{140,-67},{140,-66},{122,-66}}, color={0,
           0,127}));
-  connect(zonOutAirSet.yDesPriOutAirFra, zonToSys.uDesPriOutAirFra) annotation
-    (Line(points={{138,-70},{130,-70},{130,-72},{122,-72}}, color={0,0,127}));
+  connect(zonOutAirSet.yDesPriOutAirFra, zonToSys.uDesPriOutAirFra) annotation (
+     Line(points={{138,-70},{130,-70},{130,-72},{122,-72}}, color={0,0,127}));
   connect(zonOutAirSet.VUncOutAir_flow, zonToSys.VUncOutAir_flow) annotation (
       Line(points={{138,-73},{140,-73},{140,-74},{122,-74}}, color={0,0,127}));
   connect(zonOutAirSet.yPriOutAirFra, zonToSys.uPriOutAirFra)
@@ -83,8 +83,8 @@ equation
   connect(zonToSys.VSumDesAreBreZon_flow, conAHU.VSumDesAreBreZon_flow)
     annotation (Line(points={{98,-67},{20,-67},{20,-68},{-60,-68},{-60,90},{-46,
           90}}, color={0,0,127}));
-  connect(zonToSys.yDesSysVenEff, conAHU.uDesSysVenEff) annotation (Line(points
-        ={{98,-70},{16,-70},{16,-72},{-64,-72},{-64,84},{-46,84}}, color={0,0,
+  connect(zonToSys.yDesSysVenEff, conAHU.uDesSysVenEff) annotation (Line(points=
+         {{98,-70},{16,-70},{16,-72},{-64,-72},{-64,84},{-46,84}}, color={0,0,
           127}));
   connect(zonToSys.VSumUncOutAir_flow, conAHU.VSumUncOutAir_flow) annotation (
       Line(points={{98,-73},{14,-73},{14,-76},{-68,-76},{-68,78},{-46,78}},
@@ -95,24 +95,24 @@ equation
   connect(zonToSys.uOutAirFra_max, conAHU.uOutAirFra_max) annotation (Line(
         points={{98,-76},{16,-76},{16,-78},{-76,-78},{-76,66},{-46,66}}, color=
           {0,0,127}));
-  connect(ahuBus.ahuI.TSup, conAHU.TSup) annotation (Line(
-      points={{-200.1,0.1},{-100,0.1},{-100,54},{-46,54}},
+  connect(busAHU.ahuI.TSup, conAHU.TSup) annotation (Line(
+      points={{-200,0},{-100,0},{-100,54},{-46,54}},
       color={255,204,51},
       thickness=0.5));
-  connect(ahuBus.ahuI.TOut, conAHU.TOut) annotation (Line(
-      points={{-200.1,0.1},{-100,0.1},{-100,120},{-46,120}},
+  connect(busAHU.ahuI.TOut, conAHU.TOut) annotation (Line(
+      points={{-200,0},{-100,0},{-100,120},{-46,120}},
       color={255,204,51},
       thickness=0.5));
-  connect(ahuBus.ahuI.pSup_rel, conAHU.ducStaPre) annotation (Line(
-      points={{-200.1,0.1},{-100,0.1},{-100,114},{-46,114}},
+  connect(busAHU.ahuI.pSup_rel, conAHU.ducStaPre) annotation (Line(
+      points={{-200,0},{-100,0},{-100,114},{-46,114}},
       color={255,204,51},
       thickness=0.5));
-  connect(ahuBus.ahuI.VOut, conAHU.VOut_flow) annotation (Line(
-      points={{-200.1,0.1},{-100,0.1},{-100,30},{-46,30}},
+  connect(busAHU.ahuI.VOut, conAHU.VOut_flow) annotation (Line(
+      points={{-200,0},{-100,0},{-100,30},{-46,30}},
       color={255,204,51},
       thickness=0.5));
-  connect(ahuBus.ahuI.TMix, conAHU.TMix) annotation (Line(
-      points={{-200.1,0.1},{-100,0.1},{-100,22},{-46,22}},
+  connect(busAHU.ahuI.TMix, conAHU.TMix) annotation (Line(
+      points={{-200,0},{-100,0},{-100,22},{-46,22}},
       color={255,204,51},
       thickness=0.5));
   connect(zonSta.yCooTim,zonGroSta. uCooTim) annotation (Line(points={{-158,

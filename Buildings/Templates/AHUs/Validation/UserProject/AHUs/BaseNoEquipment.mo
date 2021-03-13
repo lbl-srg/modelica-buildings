@@ -1,7 +1,8 @@
 within Buildings.Templates.AHUs.Validation.UserProject.AHUs;
 model BaseNoEquipment
   extends VAVSingleDuct(
-    final id="VAV_1");
+    final id="VAV_1",
+    nZon=1);
 
   annotation (
     defaultComponentName="ahu");

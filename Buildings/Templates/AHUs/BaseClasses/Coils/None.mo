@@ -1,6 +1,6 @@
 within Buildings.Templates.AHUs.BaseClasses.Coils;
 model None
-  extends Interfaces.Coil(
+  extends Buildings.Templates.Interfaces.Coil(
     final typ=Types.Coil.None,
     final have_weaBus=false,
     final have_sou=false,

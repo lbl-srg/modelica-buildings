@@ -1,6 +1,6 @@
 within Buildings.Templates.AHUs.BaseClasses.Fans;
 model SingleVariable "Single fan - Variable speed"
-  extends Interfaces.Fan(
+  extends Buildings.Templates.Interfaces.Fan(
     final typ=Types.Fan.SingleVariable);
 
   replaceable Fluid.Movers.SpeedControlled_y fan(
@@ -74,19 +74,19 @@ equation
   connect(speSup.y, conSup.u1) annotation (Line(points={{-20,59},{-20,54},{-34,
           54},{-34,52}},
                      color={0,0,127}));
-  connect(ahuBus.ahuO.ySpeFanSup, speSup.u) annotation (Line(
+  connect(busCon.out.ySpeFanSup, speSup.u) annotation (Line(
       points={{0.1,100.1},{-20,100.1},{-20,82}},
       color={255,204,51},
       thickness=0.5));
-  connect(ahuBus.ahuO.yFanSup, comSup.u) annotation (Line(
+  connect(busCon.out.yFanSup, comSup.u) annotation (Line(
       points={{0.1,100.1},{-46,100.1},{-46,82}},
       color={255,204,51},
       thickness=0.5));
-  connect(ahuBus.ahuO.ySpeFanRet, speRet.u) annotation (Line(
+  connect(busCon.out.ySpeFanRet, speRet.u) annotation (Line(
       points={{0.1,100.1},{20,100.1},{20,82}},
       color={255,204,51},
       thickness=0.5));
-  connect(ahuBus.ahuO.yFanRet, comRet.u) annotation (Line(
+  connect(busCon.out.yFanRet, comRet.u) annotation (Line(
       points={{0.1,100.1},{46,100.1},{46,82}},
       color={255,204,51},
       thickness=0.5));
@@ -104,10 +104,10 @@ equation
     annotation (Line(points={{0,-42},{0,-80},{18,-80}}, color={255,0,255}));
   connect(evaSta.y, staSup.u)
     annotation (Line(points={{0,-42},{0,-80},{-18,-80}}, color={255,0,255}));
-  connect(staSup.y, ahuBus.ahuI.staFanSup) annotation (Line(points={{-41,-80},{
+  connect(staSup.y,busCon.inp.staFanSup)  annotation (Line(points={{-41,-80},{
           -60,-80},{-60,96},{0,96},{0,98},{0.1,98},{0.1,100.1}}, color={255,0,
           255}));
-  connect(staRet.y, ahuBus.ahuI.staFanRet) annotation (Line(points={{41,-80},{
+  connect(staRet.y,busCon.inp.staFanRet)  annotation (Line(points={{41,-80},{
           60,-80},{60,96},{0.1,96},{0.1,100.1}}, color={255,0,255}));
   annotation (Placement(transformation(extent={{-10,-10},{10,10}})),
               Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(

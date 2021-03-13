@@ -1,6 +1,6 @@
 within Buildings.Templates.AHUs.BaseClasses.Coils.HeatExchangers;
 model DryCoilEffectivenessNTU
-  extends Interfaces.HeatExchangerWater(
+  extends Buildings.Templates.Interfaces.HeatExchangerWater(
     final typ=Types.HeatExchanger.DryCoilEffectivenessNTU);
 
   parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal(min=0)=

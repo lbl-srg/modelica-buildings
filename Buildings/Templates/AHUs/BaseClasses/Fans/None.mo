@@ -1,6 +1,6 @@
 within Buildings.Templates.AHUs.BaseClasses.Fans;
 model None "No fan"
-  extends Interfaces.Fan(
+  extends Buildings.Templates.Interfaces.Fan(
     final typ=Types.Fan.None);
 equation
   connect(port_a, port_b)

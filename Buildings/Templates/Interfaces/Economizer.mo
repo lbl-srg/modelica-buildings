@@ -32,11 +32,13 @@ partial model Economizer
     "Minimum outdoor air intake"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}}),
       iconTransformation(extent={{-110,-10},{-90,10}})));
-  Templates.BaseClasses.AhuBus ahuBus if typ <> AHUs.Types.Economizer.None
+  BaseClasses.Connectors.BusInterface busCon if
+                                               typ <> AHUs.Types.Economizer.None
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
-        origin={0,100}),    iconTransformation(extent={{-10,-10},{10,10}},
+        origin={0,100}), iconTransformation(
+        extent={{-10,-10},{10,10}},
         rotation=0,
         origin={0,100})));
   annotation (

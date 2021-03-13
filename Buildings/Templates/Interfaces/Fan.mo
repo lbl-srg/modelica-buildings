@@ -47,12 +47,13 @@ partial model Fan
   outer parameter ExternData.JSONFile dat
     "External parameter file";
 
-  Templates.BaseClasses.AhuBus ahuBus if typ <> AHUs.Types.Fan.None
-    "AHU control bus"
-    annotation (Placement(transformation(
+  BaseClasses.Connectors.BusInterface busCon if
+                                               typ <> AHUs.Types.Fan.None
+    "AHU control bus" annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
-        origin={0,100}),    iconTransformation(extent={{-10,-10},{10,10}},
+        origin={0,100}), iconTransformation(
+        extent={{-10,-10},{10,10}},
         rotation=0,
         origin={0,100})));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={

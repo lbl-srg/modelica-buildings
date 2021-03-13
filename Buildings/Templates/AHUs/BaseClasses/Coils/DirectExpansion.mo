@@ -1,6 +1,6 @@
 within Buildings.Templates.AHUs.BaseClasses.Coils;
 model DirectExpansion
-  extends Interfaces.Coil(
+  extends Buildings.Templates.Interfaces.Coil(
     final typ=Types.Coil.DirectExpansion,
     final have_weaBus=true,
     final have_sou=false,
@@ -11,7 +11,7 @@ model DirectExpansion
     "Set to true for purely sensible cooling of the condenser";
 
   replaceable HeatExchangers.DXVariableSpeed hex
-    constrainedby Interfaces.HeatExchangerDX(
+    constrainedby Buildings.Templates.Interfaces.HeatExchangerDX(
       redeclare final package Medium = MediumAir,
       final m_flow_nominal=mAir_flow_nominal,
       final dp_nominal=dpAir_nominal)

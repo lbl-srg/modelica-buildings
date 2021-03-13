@@ -1,5 +1,5 @@
 within Buildings.Templates.Interfaces;
-partial model Main "Main interface class"
+partial model AHU "Main interface class"
   replaceable package MediumAir=Buildings.Media.Air
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Air medium";
@@ -15,7 +15,7 @@ partial model Main "Main interface class"
     annotation (
       Evaluate=true,
       Dialog(group="Configuration"));
-  inner parameter Integer nZon = 0
+  inner parameter Integer nZon
     "Number of served zones"
     annotation (
       Evaluate=true,
@@ -60,24 +60,24 @@ partial model Main "Main interface class"
           extent={{-310,-90},{-290,-70}}), iconTransformation(extent={{-210,90},
             {-190,110}})));
 
-  Templates.BaseClasses.TerminalBus terBus[nZon]
-    "Terminal unit control bus"
-    annotation (
-      Placement(transformation(
+  BaseClasses.Connectors.BusAHU busAHU "AHU control bus" annotation (Placement(
+        transformation(
+        extent={{-20,-20},{20,20}},
+        rotation=90,
+        origin={-300,0}), iconTransformation(
+        extent={{-20,-19},{20,19}},
+        rotation=90,
+        origin={-199,160})));
+
+  BaseClasses.Connectors.BusTerminalUnit busTer[nZon]
+    "Terminal unit control bus" annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=-90,
         origin={300,0}), iconTransformation(
         extent={{-20,-20},{20,20}},
         rotation=-90,
         origin={198,160})));
-  Templates.BaseClasses.AhuBus ahuBus
-    "AHU control bus"
-    annotation (Placement(transformation(
-        extent={{-20,-20},{20,20}},
-        rotation=90,
-        origin={-300,0}), iconTransformation(extent={{-20,-19},{20,19}},
-        rotation=90,
-        origin={-199,160})));
+
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false,
     extent={{-200,-200},{200,200}}), graphics={
@@ -98,4 +98,4 @@ partial model Main "Main interface class"
           fillPattern=FillPattern.Solid,
           fillColor={245,239,184},
           pattern=LinePattern.None)}));
-end Main;
+end AHU;

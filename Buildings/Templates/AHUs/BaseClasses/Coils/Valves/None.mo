@@ -1,6 +1,6 @@
 within Buildings.Templates.AHUs.BaseClasses.Coils.Valves;
 model None "No actuator"
-  extends Interfaces.Valve(
+  extends Buildings.Templates.Interfaces.Valve(
     final typ=Types.Actuator.None);
 
 equation

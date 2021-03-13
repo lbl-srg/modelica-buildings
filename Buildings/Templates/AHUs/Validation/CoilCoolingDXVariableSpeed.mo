@@ -2,8 +2,9 @@ within Buildings.Templates.AHUs.Validation;
 model CoilCoolingDXVariableSpeed
   extends BaseNoEquipment(redeclare
     UserProject.AHUs.CoilCoolingDXVariableSpeed ahu(redeclare
-        BaseClasses.Sensors.None THea "No sensor", coiCoo(redeclare replaceable
-          Buildings.Templates.AHUs.BaseClasses.Coils.HeatExchangers.DXVariableSpeed
+        Buildings.Templates.BaseClasses.Sensors.None THea "No sensor",
+                                                   coiCoo(redeclare replaceable
+          Buildings.Templates.BaseClasses.Coils.HeatExchangers.DXVariableSpeed
           hex(redeclare
             Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.SingleSpeed.Carrier_Centurion_50PG06
             datCoi))));

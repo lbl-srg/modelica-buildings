@@ -1,6 +1,6 @@
 within Buildings.Templates.AHUs.BaseClasses.Sensors;
 model VolumeFlowRate
-  extends Interfaces.Sensor(
+  extends Buildings.Templates.Interfaces.Sensor(
     final typ=Types.Sensor.Temperature);
 
   Fluid.Sensors.VolumeFlowRate senVolFlo(
@@ -40,20 +40,23 @@ equation
     annotation (Line(points={{0,11},{0,38}}, color={0,0,127}));
   connect(senVolFlo.V_flow, VRet_flow.u)
     annotation (Line(points={{0,11},{0,20},{40,20},{40,38}}, color={0,0,127}));
-  connect(VRet_flow.y, ahuBus.ahuI.VRet_flow) annotation (Line(points={{40,61},{40,80},
-          {2,80},{2,100.1},{0.1,100.1}}, color={0,0,127}), Text(
+  connect(VRet_flow.y,busCon.inp.VRet_flow)  annotation (Line(points={{40,61},{
+          40,80},{2,80},{2,100.1},{0.1,100.1}},
+                                         color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{-3,6},{-3,6}},
       horizontalAlignment=TextAlignment.Right));
-  connect(VSup_flow.y, ahuBus.ahuI.VSup_flow) annotation (Line(points={{0,61},{0,80},
-          {0,100.1},{0.1,100.1}}, color={0,0,127}), Text(
+  connect(VSup_flow.y,busCon.inp.VSup_flow)  annotation (Line(points={{0,61},{0,
+          80},{0,100.1},{0.1,100.1}},
+                                  color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{-3,6},{-3,6}},
       horizontalAlignment=TextAlignment.Right));
-  connect(VOut_flow.y, ahuBus.ahuI.VOut_flow) annotation (Line(points={{-40,61},{-40,
-          80},{-2,80},{-2,100.1},{0.1,100.1}}, color={0,0,127}), Text(
+  connect(VOut_flow.y,busCon.inp.VOut_flow)  annotation (Line(points={{-40,61},
+          {-40,80},{-2,80},{-2,100.1},{0.1,100.1}},
+                                               color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{-3,6},{-3,6}},

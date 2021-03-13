@@ -1,5 +1,5 @@
 within Buildings.Templates.Interfaces;
-partial block Controller
+partial block ControllerAHU
 
   outer parameter AHUs.Types.Coil typCoiCoo "Type of cooling coil"
     annotation (Evaluate=true, Dialog(group="Cooling coil"));
@@ -22,21 +22,21 @@ partial block Controller
   outer parameter Integer nZon
     "Number of served zones";
 
-  .Buildings.Templates.BaseClasses.AhuBus ahuBus "AHU control bus" annotation (
-      Placement(transformation(
+  BaseClasses.Connectors.BusAHU busAHU "AHU control bus" annotation (Placement(
+        transformation(
         extent={{-20,-20},{20,20}},
         rotation=90,
         origin={-200,0}), iconTransformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-100,0})));
-  .Buildings.Templates.BaseClasses.TerminalBus terBus[nZon]
-    "Terminal unit control bus" annotation (Placement(transformation(
-        extent={{-20,-20},{20,20}},
-        rotation=-90,
+  BaseClasses.Connectors.BusAHU busTer[nZon] "Terminal unit control bus"
+    annotation (Placement(transformation(
+        extent={{-20,20},{20,-20}},
+        rotation=90,
         origin={220,0}), iconTransformation(
-        extent={{-10,-10},{10,10}},
-        rotation=-90,
+        extent={{-10,10},{10,-10}},
+        rotation=90,
         origin={100,0})));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
@@ -50,4 +50,4 @@ partial block Controller
           textString="%name")}),                                 Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-200,-200},{220,
             200}})));
-end Controller;
+end ControllerAHU;

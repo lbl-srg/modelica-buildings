@@ -1,7 +1,7 @@
 within Buildings.Templates.AHUs.BaseClasses.Fans;
 model MultipleVariable
   "Multiple fans (identical) - Variable speed"
-  extends Interfaces.Fan(
+  extends Buildings.Templates.Interfaces.Fan(
     final typ=Types.Fan.MultipleVariable);
 
   parameter Integer nFan = 1
@@ -127,19 +127,19 @@ equation
     annotation (Line(points={{46,68},{46,62}}, color={0,0,127}));
   connect(speRet.y, conRet1.u2) annotation (Line(points={{20,69},{20,64},{34,64},
           {34,62}}, color={0,0,127}));
-  connect(ahuBus.ahuO.yFanSup, comSup.u) annotation (Line(
+  connect(busCon.out.yFanSup, comSup.u) annotation (Line(
       points={{0.1,100.1},{-46,100.1},{-46,92}},
       color={255,204,51},
       thickness=0.5));
-  connect(ahuBus.ahuO.ySpeFanSup, speSup.u) annotation (Line(
+  connect(busCon.out.ySpeFanSup, speSup.u) annotation (Line(
       points={{0.1,100.1},{-20,100.1},{-20,92}},
       color={255,204,51},
       thickness=0.5));
-  connect(ahuBus.ahuO.ySpeFanRet, speRet.u) annotation (Line(
+  connect(busCon.out.ySpeFanRet, speRet.u) annotation (Line(
       points={{0.1,100.1},{20,100.1},{20,92}},
       color={255,204,51},
       thickness=0.5));
-  connect(ahuBus.ahuO.yFanRet, comRet.u) annotation (Line(
+  connect(busCon.out.yFanRet, comRet.u) annotation (Line(
       points={{0.1,100.1},{46,100.1},{46,92}},
       color={255,204,51},
       thickness=0.5));
@@ -155,9 +155,9 @@ equation
           {-14,-80},{-28,-80}}, color={255,0,255}));
   connect(mulMin.y, evaSta.u)
     annotation (Line(points={{0,-62},{0,-68}}, color={0,0,127}));
-  connect(staRet.y, ahuBus.ahuI.staFanRet) annotation (Line(points={{51,-80},{
+  connect(staRet.y,busCon.inp.staFanRet)  annotation (Line(points={{51,-80},{
           60,-80},{60,96},{0.1,96},{0.1,100.1}}, color={255,0,255}));
-  connect(staSup.y, ahuBus.ahuI.staFanSup) annotation (Line(points={{-51,-80},{
+  connect(staSup.y,busCon.inp.staFanSup)  annotation (Line(points={{-51,-80},{
           -60,-80},{-60,96},{0.1,96},{0.1,100.1}}, color={255,0,255}));
   annotation (Placement(transformation(extent={{-10,-10},{10,10}})),
               Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(

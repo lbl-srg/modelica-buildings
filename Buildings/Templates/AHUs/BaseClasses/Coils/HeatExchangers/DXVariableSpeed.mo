@@ -1,6 +1,6 @@
 within Buildings.Templates.AHUs.BaseClasses.Coils.HeatExchangers;
 model DXVariableSpeed
-  extends Interfaces.HeatExchangerDX(
+  extends Buildings.Templates.Interfaces.HeatExchangerDX(
     final typ=Types.HeatExchanger.DXVariableSpeed);
 
   parameter Real minSpeRat(min=0,max=1)=0.1 "Minimum speed ratio";

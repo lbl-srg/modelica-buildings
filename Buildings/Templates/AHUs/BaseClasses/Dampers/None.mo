@@ -1,6 +1,6 @@
 within Buildings.Templates.AHUs.BaseClasses.Dampers;
 model None
-  extends Templates.AHUs.Interfaces.Damper(
+  extends Buildings.Templates.Interfaces.Damper(
     final typ=Templates.AHUs.Types.Damper.None)
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));

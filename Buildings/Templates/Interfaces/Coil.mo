@@ -76,11 +76,13 @@ partial model Coil
     annotation (Placement(
         transformation(extent={{-80,80},{-40,120}}), iconTransformation(extent={{-70,90},
             {-50,110}})));
-  Templates.BaseClasses.AhuBus ahuBus if typ <> AHUs.Types.Coil.None
-    annotation (Placement(transformation(
+  BaseClasses.Connectors.BusInterface busCon if
+                                         typ <> AHUs.Types.Coil.None
+    "Control bus" annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
-        origin={0,100}),    iconTransformation(extent={{-10,-10},{10,10}},
+        origin={0,100}), iconTransformation(
+        extent={{-10,-10},{10,10}},
         rotation=0,
         origin={0,100})));
 

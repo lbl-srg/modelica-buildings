@@ -23,10 +23,8 @@ partial model HeatExchangerDX
         transformation(extent={{-80,80},{-40,120}}),
         iconTransformation(extent={{-70,90},
             {-50,110}})));
-  .Buildings.Templates.BaseClasses.AhuBus ahuBus
-    "Control bus"
-    annotation (
-      Placement(transformation(
+  .Buildings.Templates.BaseClasses.Connectors.BusInterface busCon "Control bus"
+    annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
         origin={0,100}), iconTransformation(

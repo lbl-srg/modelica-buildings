@@ -1,6 +1,6 @@
 within Buildings.Templates.AHUs.BaseClasses.Coils;
 model WaterBased
-  extends Interfaces.Coil(
+  extends Buildings.Templates.Interfaces.Coil(
     final typ=Types.Coil.WaterBased,
     final have_weaBus=false,
     final have_sou=true,
@@ -24,7 +24,7 @@ model WaterBased
     //   dat.fileName)
 
   replaceable Valves.None act
-    constrainedby Interfaces.Valve(
+    constrainedby Buildings.Templates.Interfaces.Valve(
       redeclare final package Medium = MediumSou)
     "Actuator"
     annotation (
@@ -33,7 +33,7 @@ model WaterBased
 
   // TODO: conditional choices based on funStr to restrict HX models for cooling.
   replaceable HeatExchangers.DryCoilEffectivenessNTU hex constrainedby
-    Interfaces.HeatExchangerWater(
+    Buildings.Templates.Interfaces.HeatExchangerWater(
     redeclare final package Medium1 = MediumSou,
     redeclare final package Medium2 = MediumAir,
     final m1_flow_nominal=mWat_flow_nominal,

@@ -1,6 +1,6 @@
 within Buildings.Templates.AHUs.BaseClasses.Sensors;
 model DifferentialPressure
-  extends Interfaces.Sensor(
+  extends Buildings.Templates.Interfaces.Sensor(
     final typ=Types.Sensor.DifferentialPressure);
 
   Fluid.Sensors.RelativePressure senRelPre(
@@ -41,20 +41,28 @@ equation
           -8.88178e-16,38}},                      color={0,0,127}));
   connect(senRelPre.p_rel, dpOut.u) annotation (Line(points={{-40,-31},{-40,-20},
           {40,-20},{40,38}}, color={0,0,127}));
-  connect(dpOut.y, ahuBus.ahuI.dpOut) annotation (Line(points={{40,61},{40,80},
-          {2,80},{2,100.1},{0.1,100.1}},color={0,0,127}), Text(
+  connect(dpOut.y,busCon.inp.dpOut)
+    annotation (Line(points={{40,61},{40,80},{2,80},{2,100.1},{0.1,100.1}},
+                                        color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{-3,6},{-3,6}},
       horizontalAlignment=TextAlignment.Right));
-  connect(pSup_rel.y, ahuBus.ahuI.pSup_rel) annotation (Line(points={{
-          6.66134e-16,61},{6.66134e-16,80},{0,80},{0,100},{0.1,100},{0.1,100.1}},
-                                                       color={0,0,127}));
+  connect(pSup_rel.y,busCon.inp.pSup_rel)  annotation (Line(points={{6.66134e-16,
+          61},{6.66134e-16,80},{0,80},{0,100},{0,100.1},{0.1,100.1}},
+                                                       color={0,0,127}), Text(
+      string="%second",
+      index=1,
+      extent={{-3,6},{-3,6}},
+      horizontalAlignment=TextAlignment.Right));
   connect(senRelPre.p_rel, pRet_rel.u) annotation (Line(points={{-40,-31},{-40,
-          38}},                color={0,0,127}));
-  connect(pRet_rel.y, ahuBus.ahuI.pRet_rel) annotation (Line(points={{-40,61},{
-          -40,80},{-2,80},{-2,100},{0.1,100},{0.1,100.1}},
-                                                       color={0,0,127}));
+          38}}, color={0,0,127}));
+  connect(pRet_rel.y,busCon.inp.pRet_rel)  annotation (Line(points={{-40,61},{-40,
+          80},{-2,80},{-2,100},{0.1,100},{0.1,100.1}}, color={0,0,127}), Text(
+      string="%second",
+      index=1,
+      extent={{-3,6},{-3,6}},
+      horizontalAlignment=TextAlignment.Right));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)),
     Diagram(coordinateSystem(preserveAspectRatio=false)));
 end DifferentialPressure;

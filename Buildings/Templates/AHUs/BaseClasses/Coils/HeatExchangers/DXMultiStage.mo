@@ -1,6 +1,6 @@
 within Buildings.Templates.AHUs.BaseClasses.Coils.HeatExchangers;
 model DXMultiStage
-  extends Interfaces.HeatExchangerDX(
+  extends Buildings.Templates.Interfaces.HeatExchangerDX(
     final typ=Types.HeatExchanger.DXMultiStage);
 
   replaceable parameter

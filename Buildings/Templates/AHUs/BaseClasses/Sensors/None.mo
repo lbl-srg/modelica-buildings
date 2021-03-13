@@ -1,6 +1,6 @@
 within Buildings.Templates.AHUs.BaseClasses.Sensors;
 model None
-  extends Buildings.Templates.AHUs.Interfaces.Sensor(
+  extends Buildings.Templates.Interfaces.Sensor(
     final typ=Types.Sensor.None);
 equation
   connect(port_a, port_b)

@@ -1,6 +1,6 @@
 within Buildings.Templates.AHUs.BaseClasses.Coils.Valves;
 model TwoWayValve "Two-way valve"
-  extends Interfaces.Valve(
+  extends Buildings.Templates.Interfaces.Valve(
     final typ=Types.Actuator.TwoWayValve);
 
   parameter Modelica.SIunits.PressureDifference dpValve_nominal(

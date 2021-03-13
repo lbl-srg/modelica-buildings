@@ -1,6 +1,6 @@
 within Buildings.Templates.AHUs.BaseClasses.Dampers;
 model TwoPosition
-  extends Templates.AHUs.Interfaces.Damper(
+  extends Buildings.Templates.Interfaces.Damper(
     final typ=Templates.AHUs.Types.Damper.Modulated);
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=
@@ -52,11 +52,11 @@ equation
           0},{-10,0}}, color={0,127,255}));
   connect(damExp.port_b, port_b)
     annotation (Line(points={{10,0},{100,0}}, color={0,127,255}));
-  connect(ahuBus.ahuO.yDamOutMin, damOutMin.u) annotation (Line(
+  connect(busCon.out.yDamOutMin, damOutMin.u) annotation (Line(
       points={{0.1,100.1},{-10,100.1},{-10,100},{-40,100},{-40,82}},
       color={255,204,51},
       thickness=0.5));
-  connect(ahuBus.ahuO.yDamRel, damRel.u) annotation (Line(
+  connect(busCon.out.yDamRel, damRel.u) annotation (Line(
       points={{0.1,100.1},{20,100.1},{20,100},{40,100},{40,82}},
       color={255,204,51},
       thickness=0.5));

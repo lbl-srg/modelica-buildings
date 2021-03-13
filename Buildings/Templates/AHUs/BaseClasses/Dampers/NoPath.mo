@@ -1,6 +1,6 @@
 within Buildings.Templates.AHUs.BaseClasses.Dampers;
 model NoPath
-  extends Templates.AHUs.Interfaces.Damper(
+  extends Buildings.Templates.Interfaces.Damper(
     final typ=Templates.AHUs.Types.Damper.NoPath);
 
   Fluid.Sources.MassFlowSource_T floZer(
@@ -12,7 +12,8 @@ model NoPath
   Fluid.Sources.MassFlowSource_T floZer1(
     redeclare final package Medium=Medium,
     final m_flow=0,
-    final nPorts=1) "Zero flow boundary"
+    final nPorts=1)
+    "Zero flow boundary"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 equation
   connect(floZer.ports[1], port_a)
