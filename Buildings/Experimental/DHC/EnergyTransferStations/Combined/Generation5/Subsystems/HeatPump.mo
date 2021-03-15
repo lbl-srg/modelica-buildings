@@ -150,7 +150,7 @@ model HeatPump "Base subsystem with water-to-water heat pump"
     final m_flow_nominal=m1_flow_nominal,
     final allowFlowReversal=allowFlowReversal1) if have_pumCon
     "Heat pump condenser water pump"
-    annotation (Placement(transformation(extent={{-70,-70},{-50,-50}})));
+    annotation (Placement(transformation(extent={{-70,-60},{-50,-40}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant floConNom(
     final k=m1_flow_nominal) if not have_varFloCon
     "Nominal flow rate"
@@ -207,6 +207,12 @@ model HeatPump "Base subsystem with water-to-water heat pump"
   Buildings.Controls.OBC.CDL.Continuous.Product floEva
     "Zero flow rate if not enabled"
     annotation (Placement(transformation(extent={{-20,110},{0,130}})));
+protected
+  Fluid.FixedResistances.LosslessPipe pip(
+    redeclare package Medium = Medium1,
+      m_flow_nominal=m1_flow_nominal) if not have_pumCon
+    "Dummy connection used if model is configured to have no pump"
+    annotation (Placement(transformation(extent={{-70,-90},{-50,-70}})));
 equation
   connect(pumEva.port_b,heaPum. port_a2)
     annotation (Line(points={{50,-60},{40,-60},{40,-20},{20,-20}},
@@ -232,26 +238,22 @@ equation
   connect(port_a2, pumEva.port_a)
     annotation (Line(points={{200,-60},{70,-60}}, color={0,127,255}));
   connect(port_a1, pumCon.port_a)
-    annotation (Line(points={{-200,-60},{-70,-60}}, color={0,127,255}));
+    annotation (Line(points={{-200,-60},{-140,-60},{-140,-50},{-70,-50}},
+                                                    color={0,127,255}));
   connect(add2.y, PPum)
     annotation (Line(points={{162,0},{220,0}}, color={0,0,127}));
   connect(heaPum.P, PHea) annotation (Line(points={{21,-14},{190,-14},{190,40},{
           220,40}}, color={0,0,127}));
-  connect(pumCon.P, add2.u2) annotation (Line(points={{-49,-51},{0,-51},{0,-80},
+  connect(pumCon.P, add2.u2) annotation (Line(points={{-49,-41},{0,-41},{0,-80},
           {120,-80},{120,-6},{138,-6}}, color={0,0,127}));
   connect(pumEva.P, add2.u1) annotation (Line(points={{49,-51},{46,-51},{46,6},{
           138,6}}, color={0,0,127}));
-  connect(pumCon.port_b, senTConEnt.port_a) annotation (Line(points={{-50,-60},{
-          -40,-60},{-40,-30}}, color={0,127,255}));
+  connect(pumCon.port_b, senTConEnt.port_a) annotation (Line(points={{-50,-50},
+          {-40,-50},{-40,-30}},color={0,127,255}));
   connect(zer.y, add2.u2) annotation (Line(points={{101,-100},{120,-100},{120,-6},
           {138,-6}}, color={0,0,127}));
-  if not have_pumCon then
-    connect(port_a1, senTConEnt.port_a)
-      annotation (Line(points={{-200,-60},{-80,-60},
-        {-80,-80},{-40,-80},{-40,-30}}, color={0,127,255}));
-  end if;
-  connect(pumCon.m_flow_actual, staPum[1].u) annotation (Line(points={{-49,-55},
-          {-38,-55},{-38,-100},{-78,-100}}, color={0,0,127}));
+  connect(pumCon.m_flow_actual, staPum[1].u) annotation (Line(points={{-49,-45},
+          {-38,-45},{-38,-100},{-78,-100}}, color={0,0,127}));
   connect(pumEva.m_flow_actual, staPum[2].u) annotation (Line(points={{49,-55},{
           20,-55},{20,-100},{-78,-100}}, color={0,0,127}));
   connect(staPum[1].y, ena.u1)
@@ -277,7 +279,11 @@ equation
   connect(floEva.y, pumEva.m_flow_in)
     annotation (Line(points={{2,120},{60,120},{60,-48}}, color={0,0,127}));
   connect(floCon.y, pumCon.m_flow_in)
-    annotation (Line(points={{-98,120},{-60,120},{-60,-48}}, color={0,0,127}));
+    annotation (Line(points={{-98,120},{-60,120},{-60,-38}}, color={0,0,127}));
+  connect(port_a1, pip.port_a) annotation (Line(points={{-200,-60},{-140,-60},{
+          -140,-80},{-70,-80}}, color={0,127,255}));
+  connect(pip.port_b, senTConEnt.port_a) annotation (Line(points={{-50,-80},{
+          -40,-80},{-40,-30}}, color={0,127,255}));
   annotation (
   defaultComponentName="heaPum",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={
