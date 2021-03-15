@@ -60,7 +60,7 @@ block Controller "Waterside economizer (WSE) enable/disable status"
     final unit="m3/s",
     final quantity="VolumeFlowRate",
     displayUnit="m3/s")=0.015
-      "Desing heat exchanger chilled water volume flow rate"
+      "Design heat exchanger chilled water volume flow rate"
     annotation(Dialog(group="Design parameters"));
 
   parameter Real step(
