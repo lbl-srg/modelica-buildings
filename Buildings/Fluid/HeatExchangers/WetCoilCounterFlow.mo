@@ -78,15 +78,9 @@ Buildings.Fluid.HeatExchangers.DryCoilCounterFlow</a> instead of this model.
 </html>", revisions="<html>
 <ul>
 <li>
-<<<<<<< HEAD
-March 11, 2021, by Michael Wetter:<br/>
-Removed <code>final</code> keyword for <code>redeclare model HexElement = ...</code>
-because Dymola 2022 beta2 otherwise stops translation with an error.
-=======
 March 12, 2021, by Michael Wetter:<br/>
 Removed <code>final</code> declaration in redeclaration.<br/>
 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2392\">#2392</a>.
->>>>>>> issue2392_maint_7.0.x_final_modifier
 </li>
 <li>
 May 1, 2020, by Michael Wetter:<br/>
