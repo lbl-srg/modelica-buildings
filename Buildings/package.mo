@@ -502,8 +502,15 @@ have been <b style=\"color:blue\">improved</b> in a
     <td valign=\"top\">Upgraded sequence of specifying operating mode according to G36 official release.<br/>
                        This is for
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1893\">issue 1893</a>.
-    </td>
+    </td>               
 </tr>
+<tr><td valign=\"top\">Buildings.Examples.VAVReheat.Guideline36
+    </td>
+    <td valign=\"top\">Change component name <code>yOutDam</code> to <code>yExhDam</code>.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2399\">#2399</a>.
+    </td>
+</tr>                       
 <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
     </td>
 </tr>
