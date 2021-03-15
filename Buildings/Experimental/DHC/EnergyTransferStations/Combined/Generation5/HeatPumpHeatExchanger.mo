@@ -265,8 +265,9 @@ model HeatPumpHeatExchanger
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
       rotation=-90,
       origin={60,150})));
-  Buildings.Fluid.Sources.Boundary_pT bouChiWat(redeclare final package Medium =
-        MediumBui, nPorts=1)
+  Buildings.Fluid.Sources.Boundary_pT bouChiWat(
+    redeclare final package Medium = MediumBui,
+    nPorts=1)
     "Pressure boundary condition representing the expansion vessel"
     annotation (Placement(transformation(extent={{-162,-290},{-142,-270}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiSum PPumCooTot(nin=1)
