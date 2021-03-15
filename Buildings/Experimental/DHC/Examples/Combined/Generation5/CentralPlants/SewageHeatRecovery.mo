@@ -45,7 +45,7 @@ model SewageHeatRecovery
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput dH_flow(final unit="W")
     "Variation of enthalpy flow rate across HX (leaving - entering)"
     annotation (
-      Placement(transformation(extent={{300,100},{340,140}}),
+      Placement(transformation(extent={{300,60},{340,100}}),
         iconTransformation(extent={{300,80},{380,160}})));
   // COMPONENTS
   Fluid.HeatExchangers.ConstantEffectiveness hex(
@@ -133,8 +133,8 @@ equation
   connect(mPum_flow, pumDis.m_flow_in)
     annotation (Line(points={{-340,140},{80,140},{80,-28}},
                                                          color={0,0,127}));
-  connect(senDifEntFlo.dH_flow, dH_flow) annotation (Line(points={{3,-28},{3,-60},
-          {290,-60},{290,120},{320,120}},
+  connect(senDifEntFlo.dH_flow, dH_flow) annotation (Line(points={{3,-28},{3,
+          -78},{258,-78},{258,80},{320,80}},
                                         color={0,0,127}));
   connect(senDifEntFlo.port_b2, hex.port_a2) annotation (Line(points={{-6,-6},{-6,
           0},{-20,0},{-20,8},{-10,8}},         color={0,127,255}));
@@ -162,5 +162,17 @@ equation
           lineColor={0,0,127},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid)}), Diagram(coordinateSystem(
-          preserveAspectRatio=false)));
+          preserveAspectRatio=false)),
+    Documentation(info="<html>
+<p>
+Model of sewage heat recovery plant with sewage mass flow rate and temperature as an input.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+January 16, 2020, by Michael Wetter:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end SewageHeatRecovery;
