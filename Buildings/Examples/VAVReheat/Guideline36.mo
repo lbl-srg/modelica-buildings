@@ -576,9 +576,10 @@ its input.
 <ul>
 <li>
 March 15, 2021, by David Blum:<br/>
-Change component name <code>yOutDam</code> to <code>yExhDam</code>.<br/>
+Change component name <code>yOutDam</code> to <code>yExhDam</code>
+and update documentation graphic to include relief damper.<br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2399\">#2399</a>
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2399\">#2399</a>.
 </li>
 <li>
 July 10, 2020, by Antoine Gautier:<br/>
