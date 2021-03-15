@@ -506,11 +506,19 @@ have been <b style=\"color:blue\">improved</b> in a
 </tr>
 <tr><td valign=\"top\">Buildings.Examples.VAVReheat.Guideline36
     </td>
-    <td valign=\"top\">Change component name <code>yOutDam</code> to <code>yExhDam</code>.<br/>
+    <td valign=\"top\">Change component name <code>yOutDam</code> to <code>yExhDam</code>
+                       and update documentation graphic to include relief damper.<br/>
                        This is for
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2399\">#2399</a>.
     </td>
-</tr>                       
+</tr>
+<tr><td valign=\"top\">Buildings.Examples.VAVReheat.ASHRAE2006
+    </td>
+    <td valign=\"top\">Update documentation graphic to include relief damper.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2399\">#2399</a>.
+    </td>
+</tr>            
 <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
     </td>
 </tr>
