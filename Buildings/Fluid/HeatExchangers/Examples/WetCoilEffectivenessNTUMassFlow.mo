@@ -84,13 +84,5 @@ is replaced here by
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.WetCoilEffectivenessNTU\">
 Buildings.Fluid.HeatExchangers.WetCoilEffectivenessNTU</a>.
 </p>
-<p>
-The two models match approximately (considering that
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.WetCoilEffectivenessNTU\">
-Buildings.Fluid.HeatExchangers.WetCoilEffectivenessNTU</a>
-does not have dynamics) over the first half of the simulation but
-do not agree well over the second half which subjects the model to
-flow reversal.
-</p>
 </html>"));
 end WetCoilEffectivenessNTUMassFlow;

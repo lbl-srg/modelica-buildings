@@ -9,10 +9,12 @@ model WetCoilDryWetRegime
     "Nominal mass flow rate for air"
     annotation(Dialog(group = "Nominal condition"));
 
-  input Real Qfac(final unit="1");
+  input Real Qfac(final unit="1")
+    "a smoothing factor to prevent division-by-zero";
 
   input Buildings.Fluid.Types.HeatExchangerFlowRegime cfg=
-    Buildings.Fluid.Types.HeatExchangerFlowRegime.CounterFlow;
+    Buildings.Fluid.Types.HeatExchangerFlowRegime.CounterFlow
+      "heat exchanger configuration";
 
   // -- Water
   Modelica.Blocks.Interfaces.RealInput UAWat(
@@ -191,9 +193,14 @@ equation
   TAirInDewPoi=TDewIn.T;
 
   mu_FW= Buildings.Utilities.Math.Functions.spliceFunction(
-  pos=0,neg=1,x=fullywet.TSurAirIn-TAirInDewPoi,deltax=max(abs(fullydry.TSurAirOut- fullywet.TSurAirIn),1e-3));
+  pos=0,neg=1,x=fullywet.TSurAirIn-TAirInDewPoi,
+  deltax=Buildings.Utilities.Math.Functions.smoothMax(abs(fullydry.TSurAirOut- fullywet.TSurAirIn),1e-2,1e-3));
+  //max(abs(fullydry.TSurAirOut- fullywet.TSurAirIn),1e-3));
+
   mu_FD= Buildings.Utilities.Math.Functions.spliceFunction(
-  pos=1,neg=0,x=fullydry.TSurAirOut-TAirInDewPoi,deltax=max(abs(fullydry.TSurAirOut- fullywet.TSurAirIn),1e-3));
+  pos=1,neg=0,x=fullydry.TSurAirOut-TAirInDewPoi,
+  deltax=Buildings.Utilities.Math.Functions.smoothMax(abs(fullydry.TSurAirOut- fullywet.TSurAirIn),1e-2,1e-3));
+  //max(abs(fullydry.TSurAirOut- fullywet.TSurAirIn),1e-3));
 
   w_FW=mu_FW/(mu_FW+mu_FD);
   w_FD=mu_FD/(mu_FW+mu_FD);

@@ -28,12 +28,20 @@ model WetCoilUARated
   parameter Modelica.SIunits.MassFlowRate mWat_flow
     "Water mass flow rate at a rated condition";
   parameter Modelica.SIunits.ThermalConductance UA
-    "UA is for the overall coil (i.e., both sides)";
+    "the overall heat transfer coefficient for a fully dry condition";
   parameter Real r_nominal(min=0, max=1)
     "Ratio between air-side and water-side convective heat transfer at nominal condition";
 protected
   constant Modelica.SIunits.SpecificEnthalpy hfg=
-    Buildings.Utilities.Psychrometrics.Constants.h_fg;
+    Buildings.Utilities.Psychrometrics.Constants.h_fg
+    "Enthapy of vaporization of water";
+  constant Modelica.SIunits.SpecificEnthalpy hunit=1
+  "Physical dimension of specific enthalpy used for a unit conversion";
+  constant Modelica.SIunits.Temperature Tunit=1
+  "Physical dimension of temperature used for a unit conversion";
+  constant Modelica.SIunits.SpecificHeatCapacity cpunit=1
+  "Physical dimension of specific heat capacity used for a unit conversion";
+
   parameter Modelica.SIunits.MassFraction X_wAirOut(fixed=false)
     "Mass fraction of water in outgoing air at a rated condition";
   parameter Modelica.SIunits.SpecificEnthalpy hAirIn(fixed=false)
@@ -43,21 +51,39 @@ protected
 
   // calculates all thermodynamic properties based on inputs
   parameter MediumA.ThermodynamicState staAir=MediumA.setState_phX(
-    p=MediumA.p_default,h=MediumA.h_default,X=MediumA.X_default[1:MediumA.nXi]);
+    p=MediumA.p_default,h=MediumA.h_default,X=MediumA.X_default[1:MediumA.nXi])
+    "Air media object";
   parameter MediumW.ThermodynamicState staWat=MediumW.setState_phX(
-    p=MediumW.p_default,h=MediumW.h_default,X=MediumW.X_default[1:MediumW.nXi]);
+    p=MediumW.p_default,h=MediumW.h_default,X=MediumW.X_default[1:MediumW.nXi])
+    "Water media object";
 
   parameter Modelica.SIunits.SpecificHeatCapacity cpAir=
-    MediumA.specificHeatCapacityCp(staAir);
+    MediumA.specificHeatCapacityCp(staAir)
+    "Isobaric specific heat capacity of air";
   parameter Modelica.SIunits.SpecificHeatCapacity cpw=
-    MediumW.specificHeatCapacityCp(staWat);
+    MediumW.specificHeatCapacityCp(staWat)
+    "Isobaric specific heat capacity of water";
   parameter Modelica.SIunits.SpecificHeatCapacity cpEff(fixed=false, min= 0)
     "Effective specific heat: change in saturated moist air enthalpy with respect to
     temperature along the saturation line between inlet and outlet water temperatures";
 
-  constant Modelica.SIunits.SpecificEnthalpy hunit=1;
-  constant Modelica.SIunits.Temperature Tunit=1;
-  constant Modelica.SIunits.SpecificHeatCapacity cpunit=1;
+  parameter Modelica.SIunits.SpecificEnthalpy LMED(fixed=false)
+    "Log mean enthalpy difference";
+
+  parameter Modelica.SIunits.MassFlowRate UASta(fixed=false, min=0)
+    "Overall heat transfer coefficient for enthalpy difference";
+  parameter Modelica.SIunits.HeatFlowRate QTot_flow=mWat_flow*cpw*(TWatOut-TWatIn)
+    "Total heat flow from air to water stream";
+
+  parameter Modelica.SIunits.ThermalConductance UAAir(min=0,start=10,fixed=false)
+  "Air side convective heat transfer coefficient, including fin resistance";
+  parameter Modelica.SIunits.ThermalConductance UAWat(min=0,start=20,fixed=false)
+  "Water side convective heat transfer coefficient";
+
+  parameter Boolean IsFulDry(fixed=false)
+  "Indicator of the fully-dry coil regime";
+  parameter Boolean IsFulWet(fixed=false)
+  "Indicator of the fully-wet coil regime";
 
   Modelica.SIunits.AbsolutePressure pSatTWatIn=
     Buildings.Utilities.Psychrometrics.Functions.saturationPressure(TWatIn)
@@ -83,35 +109,19 @@ protected
       p=MediumA.p_default, T=TWatOut, X={X_wSatTWatOut,1-X_wSatTWatOut})
     "Enthalpy of saturated moist air at the water oulet temperature";
 
-  parameter Modelica.SIunits.SpecificEnthalpy LMED(fixed=false)
-    "Log mean enthalpy difference";
-
-  parameter Modelica.SIunits.MassFlowRate UASta(fixed=false, min=0)
-    "Overall heat transfer coefficient for enthalpy difference";
-  parameter Modelica.SIunits.HeatFlowRate QTot_flow=mWat_flow*cpw*(TWatOut-TWatIn)
-    "Total heat flow from air to water stream";
-
-  parameter Modelica.SIunits.ThermalConductance UAAir(min=0,start=10,fixed=false)
-  "Air side convective heat transfer coefficient, including fin resistance";
-  parameter Modelica.SIunits.ThermalConductance UAWat(min=0,start=20,fixed=false)
-  "Water side convective heat transfer coefficient";
-
-  parameter Boolean IsFulDry(fixed=false);
-  parameter Boolean IsFulWet(fixed=false);
-
 initial equation
+
+  hAirIn=MediumA.specificEnthalpy_pTX(
+      p=MediumA.p_default, T=TAirIn, X={X_wAirIn, 1-X_wAirIn});
+  hAirOut=MediumA.specificEnthalpy_pTX(
+      p=MediumA.p_default, T=TAirOut, X={X_wAirOut, 1-X_wAirOut});
+
+  QTot_flow = mAir_flow*(hAirIn-hAirOut);
 
   if not use_UA_nominal then
     assert(TAirOut<TAirIn and TWatOut>TWatIn and TWatIn<TAirIn,
       "The rated condition is not for a cooling coil. " +
       "For a heating coil, use Buildings.Fluid.HeatExchangers.DryCoilEffectivenessNTU.");
-
-    hAirIn=MediumA.specificEnthalpy_pTX(
-      p=MediumA.p_default, T=TAirIn, X={X_wAirIn, 1-X_wAirIn});
-    hAirOut=MediumA.specificEnthalpy_pTX(
-      p=MediumA.p_default, T=TAirOut, X={X_wAirOut, 1-X_wAirOut});
-
-    QTot_flow = mAir_flow*(hAirIn-hAirOut);
 
     IsFulDry=(X_wSatTWatIn>=X_wAirIn);
     IsFulWet=(X_wSatTWatOut<=X_wAirIn);
@@ -177,7 +187,7 @@ First implementation
 </html>", info="<html>
 <p>
 This model calculates the overall heat transfer coefficient, i.e., 
-UA-value, from cooling coil data at rated conditions.
+<i>UA</i>-value, from cooling coil data at rated conditions.
 </p>
 <p>
 The main limitation of the current implementation is that the rated 

@@ -28,9 +28,13 @@ model WetCoilDryRegime
   // -- misc.
   input Buildings.Fluid.Types.HeatExchangerFlowRegime cfg
     "The flow regime of the heat exchanger";
-  input Modelica.SIunits.MassFlowRate mAir_flow_nominal;
-  input Modelica.SIunits.MassFlowRate mWat_flow_nominal;
+  input Modelica.SIunits.MassFlowRate mAir_flow_nominal
+    "Nominal mass flow rate for air";
+  input Modelica.SIunits.MassFlowRate mWat_flow_nominal
+    "Nominal mass flow rate for water";
+  
   parameter Real delta = 1E-3 "Small value used for smoothing";
+  
   output Modelica.SIunits.HeatFlowRate QTot_flow
     "Heat transferred from water to air";
   output Modelica.SIunits.Temperature TWatOut
@@ -58,8 +62,7 @@ model WetCoilDryRegime
   output Modelica.SIunits.Temperature TSurAirOut
     "Surface Temperature at air outlet";
 equation
-  UA = 1/ (1 / UAAir + 1 / UAWat)
-  "UA is for the overall coil (i.e., both sides)";
+  UA = 1/ (1 / UAAir + 1 / UAWat);
 
   eps=epsilon_C(
     UA=UA,

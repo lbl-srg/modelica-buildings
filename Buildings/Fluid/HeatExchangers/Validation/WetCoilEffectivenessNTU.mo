@@ -30,7 +30,7 @@ model WetCoilEffectivenessNTU
   parameter Modelica.SIunits.MassFlowRate m2_flow_nominal = 2.646
     "Nominal mass flow rate of air";
   parameter Types.HeatExchangerConfiguration hexCon=
-    Types.HeatExchangerConfiguration.CrossFlowStream1MixedStream2Unmixed
+    Types.HeatExchangerConfiguration.CounterFlow
     "Heat exchanger configuration";
   Buildings.Fluid.Sources.Boundary_pT sinAir(
     redeclare package Medium = Medium_A,
@@ -271,11 +271,6 @@ A discretized wet coil model is also simulated for comparison.
 <p>
 Note that the outlet air relative humidity may slightly exceed 100% when using
 the epsilon-NTU model.
-</p>
-<p>
-The slight deviations we find are believed due to differences in the tolerance
-of the solver algorithms employed as well as differences in media property
-calculations for air and water.
 </p>
 <h4>References</h4>
 <p>

@@ -1,6 +1,14 @@
 within Buildings.Fluid.HeatExchangers.BaseClasses;
 model WetCoilWetRegime
   "Fully wet coil model using esilon_C.mo function"
+  constant Real cpEff0=2050 "Used for scaling";
+  constant Real cpWat0=4200 "Used for scaling";
+  parameter Real delta = 1E-3 "Small value used for smoothing";
+  constant Modelica.SIunits.SpecificHeatCapacity cpDum=1
+    "Dummy cp to eliminate the warning message of the unit mismatch when using the eps-NTU model for the wet coil";
+  constant Modelica.SIunits.TemperatureDifference dTWat=0.1;
+  parameter Real tau=6*60
+    "Time constant for the state estimation: introduced to avoid the algebraic loop of the wet coil equations";
 
   // - water
   input Modelica.SIunits.ThermalConductance UAWat
@@ -47,16 +55,7 @@ model WetCoilWetRegime
   Real NonZerDelWatTem
   "Regularization water temperature difference betwee inlet and outlet";
 
-  output Modelica.SIunits.HeatFlowRate QTot_flow
-    "Total heat flow from water to air stream";
-   output Modelica.SIunits.HeatFlowRate QSen_flow
-    "Sensible heat flow from water to air stream";
-  output Modelica.SIunits.Temperature TWatOut
-    "Temperature at the water outlet";
-  output Modelica.SIunits.Temperature TSurAirIn
-    "Coil surface temperature at the air inlet";
-  output Modelica.SIunits.Temperature TAirOut
-    "Temperature at the air outlet";
+
    Modelica.SIunits.SpecificEnthalpy hAirOut
     "Specific enthalpy of moist air at the air outlet";
   Buildings.Utilities.Psychrometrics.hSat_pTSat hSatWatOutM(p=pAir,TSat=TWatOutEst)
@@ -70,19 +69,16 @@ model WetCoilWetRegime
   Modelica.SIunits.SpecificEnthalpy hSatSurEff
   "Enthalpy of saturated moist air at the effective surface temperature";
 
-  Buildings.Utilities.Psychrometrics.hSat_pTSat hSatSurEffM(p=pAir,TSat=TSurEff);
-  Buildings.Utilities.Psychrometrics.hSat_pTSat hSatSurEffMinM(p=pAir,TSat=273.15+1);
+  Buildings.Utilities.Psychrometrics.hSat_pTSat hSatSurEffM(p=pAir,TSat=TSurEff)
+   "An object to calculate the saturated enthalpy of moist air at the coil surface temperature";
+  Buildings.Utilities.Psychrometrics.hSat_pTSat hSatSurEffMinM(p=pAir,TSat=273.15+1)
+  "An object to calculate a lower bound of the saturated enthalpy of moist 
+  air at the coil surface temperature";
 
   Modelica.SIunits.SpecificHeatCapacity cpEff
-    "Effective specific heat: change in enthalpy with respect to temperature along the saturation line at the local water temperature";
-  constant Real cpEff0=2050 "Used for scaling";
-  constant Real cpWat0=4200 "Used for scaling";
-  parameter Real delta = 1E-3 "Small value used for smoothing";
-  constant Modelica.SIunits.SpecificHeatCapacity cpDum=1
-    "Dummy cp to eliminate the warning message of the unit mismatch when using the eps-NTU model for the wet coil";
-  constant Modelica.SIunits.TemperatureDifference dTWat=0.1;
-  parameter Real tau=6*60
-    "Time constant for the state estimation: introduced to avoid the algebraic loop of the wet coil equations";
+    "Effective specific heat: change in enthalpy with respect to temperature
+     along the saturation line at the local water temperature";
+
 
   Modelica.SIunits.MassFlowRate UASta
     "Overall mass transfer coefficient for dry coil";
@@ -108,8 +104,18 @@ model WetCoilWetRegime
   Modelica.SIunits.Temperature TWatOutEst
     "State_estimation of Temperature of water at outlet";
 
+  output Modelica.SIunits.HeatFlowRate QTot_flow
+    "Total heat flow from water to air stream";
+   output Modelica.SIunits.HeatFlowRate QSen_flow
+    "Sensible heat flow from water to air stream";
+  output Modelica.SIunits.Temperature TWatOut
+    "Temperature at the water outlet";
+  output Modelica.SIunits.Temperature TSurAirIn
+    "Coil surface temperature at the air inlet";
+  output Modelica.SIunits.Temperature TAirOut
+    "Temperature at the air outlet";
 initial equation
-  TWatOutEst=0.5*(TWatIn+ TAirIn); //273.15+10;
+  TWatOutEst=0.5*(TWatIn+ TAirIn);
 
 equation
 
@@ -174,47 +180,78 @@ for more information.
 </li>
 </ul>
 </html>", info="<html>
-<p>This model implements the calculation for a 100% wet coil. </p>
-<p>The equations from Braun (1988) and Mitchell and Braun (2012a and b),
-which are essentially the extension of the &epsilon;-NTU approach to
-simultaneous sensible and latent heat transfer, are utilized. </p>
-<p>The mathematical equations are analogous to that of the sensible heat exchanger.
-The key change is that the heat transfer is driven by an enthalpy difference
-not by an temperature difference.
-This change in the driving potential results in redefining capacitances and
-heat transfer coefficients accordinlgy.</p>
-<p>The total heat transfer rate is expressed as</p>
-<p align=\"center\">Q<sub>tot</sub>=&epsilon;* C*<sub>min </sub>
-(h<sub>air,in</sub>-h<sub>sat</sub>(T<sub>wat,in</sub>)),</p>
-<p>where &epsilon;*=f(Cr*,NTU*) and f is the same epsilon-NTU relationships
-(depending on the heat exchanger configuration) for the sensible heat exchanger.</p>
-<p>h<sub>air,in</sub> and h<sub>sat</sub>(T<sub>wat,in</sub>) are the specific enthalpies
-of the incoming moist air and saturated moist air at the water inlet temperature.</p>
-<p>The capacitances of water and air streams are defined as</p>
-<p align=\"center\">C*<sub>air</sub>=m<sub>air</sub> and
-C*<sub>wat</sub>=m<sub>wat</sub>c<sub>p,wat</sub>/csat,</p>
-<p>where csat is an specific heat capacity, which indicates the sensitivity
-of the enthalpy of the staturated moist air w.r.t. the temperature, and is defined
-here as csat=(h<sub>sat</sub>(T<sub>wat,out</sub>)-h<sub>sat</sub>(T<sub>wat,in</sub>))
-/(T<sub>wat,out</sub>-T<sub>wat,in</sub>). </p>
-<p>The capacitance ratio and minimum capacitance are naturally defined as</p>
-<p align=\"center\">Cr*=min(C*<sub>air</sub>,C*<sub>wat</sub>)/max(C*<sub>air</sub>,C*<sub>wat</sub>)
-and C*<sub>min</sub>=min(C*<sub>air</sub>,C*<sub>wat</sub>).</p>
-<p><br/>The number of transfer unit for the wet-coil is defined as NTU*=UA*/C*<sub>min</sub>, where </p>
-<p align=\"center\">UA*=1/(1/(UA<sub>air</sub>/c<sub>p,air</sub>)+1/(UA<sub>wat</sub>/csat). 
+<p>
+This model implements the calculation for a 100% wet coil. 
 </p>
+<p>
+The equations from Braun (1988) and Mitchell and Braun (2012a and b),
+which are essentially the extension of the <i>&epsilon;-NTU</i> approach to
+simultaneous sensible and latent heat transfer, are utilized. 
+</p>
+<p>
+The mathematical equations are analogous to that of the sensible heat exchanger.
+However, the key distinction is from that the heat transfer is driven by an enthalpy difference
+not by an temperature difference. This change in the driving potential results in re-defining 
+capacitances and heat transfer coefficients accordinlgy.
+</p>
+
+<p>
+The total heat transfer rate is expressed as
+</p>
+<p align=\"center\"> 
+<i> Q<sub>tot</sub>=&epsilon;* C*<sub>min </sub>
+(h<sub>air,in</sub>-h<sub>sat</sub>(T<sub>wat,in</sub>))</i>,
+</p>
+<p>
+where <i>&epsilon;*=f(Cr*,NTU*)</i> and <i>f</i> is the same <i>&epsilon;-NTU</i> relationships
+(depending on the heat exchanger configuration) for the sensible heat exchanger.
+</p>
+<p>
+<i>h<sub>air,in</sub> </i> and <i>h<sub>sat</sub></i>(<i>T<sub>wat,in</sub></i>) are
+the specific enthalpies of the incoming moist air and saturated moist air 
+at the water inlet temperature.
+</p>
+<p>
+The capacitances of water and air streams are defined as
+</p>
+<p align=\"center\"><i>C*<sub>air</sub>=m<sub>air</sub></i> and
+<i>C*<sub>wat</sub>=m<sub>wat</sub>c<sub>p,wat</sub>/csat</i>,
+</p>
+<p>
+where <i>csat</i> is an specific heat capacity, which indicates the sensitivity
+of the enthalpy of the staturated moist air w.r.t. the temperature, and is defined
+here as <i>csat=(h<sub>sat</sub>(T<sub>wat,out</sub>)-h<sub>sat</sub>(T<sub>wat,in</sub>))
+/(T<sub>wat,out</sub>-T<sub>wat,in</sub>)</i>. 
+</p>
+<p>
+The capacitance ratio and minimum capacitance are naturally defined as
+</p>
+<p align=\"center\"> <i>Cr*=min(C*<sub>air</sub>,C*<sub>wat</sub>)/max(C*<sub>air</sub>,C*<sub>wat</sub>)</i>
+and <i>C*<sub>min</sub>=min(C*<sub>air</sub>,C*<sub>wat</sub>)</i>.
+</p>
+<p><br/>
+The number of transfer unit for the wet-coil is defined as <i>NTU*=UA*/C*<sub>min</sub></i>, where 
+</p>
+<p align=\"center\">
+<i>UA*=1/(1/(UA<sub>air</sub>/c<sub>p,air</sub>)+1/(UA<sub>wat</sub>/csat)</i>. 
+</p>
+
 <h4>References </h4>
-<p>Braun, James E. 1988.
+<p>
+Braun, James E. 1988.
 &quot;Methodologies for the Design and Control of Central Cooling Plants&quot;.
 PhD Thesis. University of Wisconsin - Madison.
 Available
 <a href=\"https://minds.wisconsin.edu/handle/1793/46694\">
 online</a>.
 </p>
-<p>Mitchell, John W., and James E. Braun. 2012a.
+<p>
+Mitchell, John W., and James E. Braun. 2012a.
 Principles of heating, ventilation, and air conditioning in buildings.
-Hoboken, N.J.: Wiley. </p>
-<p>Mitchell, John W., and James E. Braun. 2012b.
+Hoboken, N.J.: Wiley. 
+</p>
+<p>
+Mitchell, John W., and James E. Braun. 2012b.
 &quot;Supplementary Material Chapter 2: Heat Exchangers for Cooling Applications&quot;.
 Excerpt from Principles of heating, ventilation, and air conditioning in buildings.
 Hoboken, N.J.: Wiley.
