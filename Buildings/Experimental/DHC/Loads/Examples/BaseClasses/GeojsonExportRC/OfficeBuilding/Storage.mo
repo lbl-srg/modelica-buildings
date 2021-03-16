@@ -21,7 +21,7 @@ model Storage
     "Correction factor for solar transmission"
     annotation (Placement(transformation(extent={{6,54},{26,74}})));
   Buildings.ThermalZones.ReducedOrder.RC.TwoElements thermalZoneTwoElements(
-    redeclare package Medium=Modelica.Media.Air.DryAirNasa,
+    redeclare package Medium=Buildings.Media.Air,
     VAir=1957.0752803145606,
     hConExt=2.049017882895913,
     hConWin=2.7,

@@ -21,7 +21,7 @@ model ICT
     "Correction factor for solar transmission"
     annotation (Placement(transformation(extent={{6,54},{26,74}})));
   Buildings.ThermalZones.ReducedOrder.RC.TwoElements thermalZoneTwoElements(
-    redeclare package Medium=Modelica.Media.Air.DryAirNasa,
+    redeclare package Medium=Buildings.Media.Air,
     VAir=260.9433707086081,
     hConExt=2.0490178828959125,
     hConWin=2.7000000000000006,
