@@ -446,9 +446,9 @@ equation
           -70,-100},{40,-100},{40,240}},           color={0,127,255}));
 
   connect(pInd_rel.p_rel, busAHU.inp.pInd_rel) annotation (Line(points={{20,231},
-          {20,200},{-300.1,200},{-300.1,0.1}}, color={0,0,127}));
+          {20,0},{-300.1,0},{-300.1,0.1}},     color={0,0,127}));
   connect(conAHU.busTer, busTer) annotation (Line(
-      points={{-40,100},{300,100},{300,0}},
+      points={{-40,100},{-20,100},{-20,0},{300,0}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%second",
@@ -456,7 +456,7 @@ equation
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
   connect(conAHU.busAHU, busAHU) annotation (Line(
-      points={{-60,100},{-300,100},{-300,0}},
+      points={{-60,100},{-80,100},{-80,0},{-300,0}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%second",
@@ -464,7 +464,7 @@ equation
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
   connect(busAHU.inp.pInd, ind.p_in) annotation (Line(
-      points={{-300.1,0.1},{-300.1,270},{48,270},{48,262}},
+      points={{-300.1,0.1},{60,0.1},{60,268},{48,268},{48,262}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",

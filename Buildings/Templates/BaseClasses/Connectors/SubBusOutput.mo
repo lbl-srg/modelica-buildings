@@ -1,5 +1,5 @@
 within Buildings.Templates.BaseClasses.Connectors;
-expandable connector SubBusOutput "Control bus with output signals"
+expandable connector SubBusOutput "Control bus with output points"
   extends Modelica.Icons.SignalBus;
 
   annotation (
@@ -8,7 +8,8 @@ expandable connector SubBusOutput "Control bus with output signals"
             -100},{100,100}}), graphics={Rectangle(
                   extent={{-20,2},{22,-2}},
                   lineColor={255,204,51},
-                  lineThickness=0.5)}), Documentation(info="<html>
+                  lineThickness=0.5)}),
+                  Documentation(info="<html>
 
 </html>"));
 end SubBusOutput;

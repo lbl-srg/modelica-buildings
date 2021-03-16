@@ -2,9 +2,9 @@ within Buildings.Templates.BaseClasses.Connectors;
 expandable connector BusInterface "Generic control bus for interface classes"
   extends Modelica.Icons.SignalBus;
 
-  Buildings.Templates.BaseClasses.Connectors.SubBusInput inp "Input signals"
+  Buildings.Templates.BaseClasses.Connectors.SubBusInput inp "Input points"
     annotation (HideResult=false);
-  Buildings.Templates.BaseClasses.Connectors.SubBusOutput out "Output signals"
+  Buildings.Templates.BaseClasses.Connectors.SubBusOutput out "Output points"
     annotation (HideResult=false);
 
   annotation (

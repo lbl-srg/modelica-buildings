@@ -2,13 +2,15 @@ within Buildings.Templates.BaseClasses.Connectors;
 expandable connector BusTerminalUnit "Terminal unit control bus"
   extends Modelica.Icons.SignalBus;
 
-  Buildings.Templates.BaseClasses.Connectors.SubBusInput inp "Input signals"
+  Buildings.Templates.BaseClasses.Connectors.SubBusInput inp "Input points"
     annotation (HideResult=false);
-  Buildings.Templates.BaseClasses.Connectors.SubBusOutput out "Output signals"
+  Buildings.Templates.BaseClasses.Connectors.SubBusOutput out "Output points"
+    annotation (HideResult=false);
+  Buildings.Templates.BaseClasses.Connectors.SubBusSoftware sof "Software points"
     annotation (HideResult=false);
 
   annotation (
-  defaultComponentName="busAHU",
+  defaultComponentName="busTer",
   Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{100,100}}), graphics={Rectangle(
                   extent={{-20,2},{22,-2}},
