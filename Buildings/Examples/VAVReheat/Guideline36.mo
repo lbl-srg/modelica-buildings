@@ -72,8 +72,8 @@ model Guideline36
   Buildings.Controls.OBC.CDL.Integers.MultiSum PZonResReq(nin=5)
     "Number of zone pressure requests"
     annotation (Placement(transformation(extent={{300,320},{320,340}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yOutDam(k=1)
-    "Outdoor air damper control signal"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yExhDam(k=1)
+    "Exhaust air damper control signal"
     annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swiFreSta "Switch for freeze stat"
     annotation (Placement(transformation(extent={{60,-202},{80,-182}})));
@@ -279,7 +279,7 @@ equation
           {986,-20},{986,86},{1036,86}},   color={0,0,127}));
   connect(TSup.T, conVAVWes.TSupAHU) annotation (Line(points={{340,-29},{340,-20},
           {1168,-20},{1168,86},{1238,86}}, color={0,0,127}));
-  connect(yOutDam.y, eco.yExh)
+  connect(yExhDam.y, eco.yExh)
     annotation (Line(points={{-18,-10},{-3,-10},{-3,-34}}, color={0,0,127}));
   connect(swiFreSta.y, gaiHeaCoi.u) annotation (Line(points={{82,-192},{88,-192},
           {88,-184},{124,-184}},color={0,0,127}));
@@ -574,6 +574,13 @@ its input.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 15, 2021, by David Blum:<br/>
+Change component name <code>yOutDam</code> to <code>yExhDam</code>
+and update documentation graphic to include relief damper.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2399\">#2399</a>.
+</li>
 <li>
 July 10, 2020, by Antoine Gautier:<br/>
 Changed design and control parameters for outdoor air flow.<br/>
