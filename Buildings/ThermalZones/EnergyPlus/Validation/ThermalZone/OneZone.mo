@@ -16,7 +16,7 @@ model OneZone
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
   parameter Modelica.SIunits.Volume VRoo=453.1
     "Room volume";
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=VRoo*1.2*10/3600
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=VRoo*1.2*0.3/3600
     "Nominal mass flow rate";
   Buildings.ThermalZones.EnergyPlus.ThermalZone zon(
     redeclare package Medium=Medium,
