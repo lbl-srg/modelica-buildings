@@ -11,6 +11,7 @@ partial model Damper
     elseif Modelica.Utilities.Strings.find(insNam, "damOutMin")<>0 then "Minimum outdoor air"
     elseif Modelica.Utilities.Strings.find(insNam, "damRel")<>0 then "Relief air"
     elseif Modelica.Utilities.Strings.find(insNam, "damRet")<>0 then "Return air"
+    elseif Modelica.Utilities.Strings.find(insNam, "damVAV")<>0 then "Terminal"
     else "Undefined"
     "String used to identify the damper location"
     annotation (Evaluate=true, Dialog(group="Configuration"));
@@ -29,7 +30,8 @@ partial model Damper
         Medium) "Leaving air" annotation (Placement(transformation(extent={{90,-10},
             {110,10}}), iconTransformation(extent={{90,-10},{110,10}})));
   BaseClasses.Connectors.BusInterface busCon if typ <> Types.Damper.None and
-    typ <> Types.Damper.Nonactuated   annotation (Placement(transformation(
+    typ <> Types.Damper.Nonactuated "Control bus"
+                                      annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
         origin={0,100}), iconTransformation(

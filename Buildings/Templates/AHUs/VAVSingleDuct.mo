@@ -58,31 +58,34 @@ model VAVSingleDuct "VAV single duct with relief"
     annotation (Evaluate=true, Dialog(group="Supply fan"));
 
   Modelica.Fluid.Interfaces.FluidPort_b port_coiCooRet(
-    redeclare package Medium = MediumCoo) if have_souCoiCoo
+    redeclare final package Medium = MediumCoo) if have_souCoiCoo
     "Cooling coil return port"
     annotation (Placement(
       transformation(extent={{30,-290},{50,-270}}),
       iconTransformation(extent={{50,-208},{70,-188}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_coiCooSup(
-    redeclare package Medium = MediumCoo) if have_souCoiCoo
+    redeclare final package Medium = MediumCoo) if have_souCoiCoo
     "Cooling coil supply port"
     annotation (Placement(
         transformation(extent={{10,-290},{30,-270}}),   iconTransformation(
           extent={{10,-208},{30,-188}})));
-  Modelica.Fluid.Interfaces.FluidPort_b port_coiHeaRet(redeclare package Medium =
-        MediumHea) if                        have_souCoiHea
-    "Heating coil return port" annotation (Placement(transformation(extent={{-30,
+  Modelica.Fluid.Interfaces.FluidPort_b port_coiHeaRet(
+    redeclare final package Medium =MediumHea) if have_souCoiHea
+    "Heating coil return port"
+    annotation (Placement(transformation(extent={{-30,
             -290},{-10,-270}}), iconTransformation(extent={{-40,-208},{-20,-188}})));
-  Modelica.Fluid.Interfaces.FluidPort_a port_coiHeaSup(redeclare package Medium =
-        MediumHea) if                        have_souCoiHea
-    "Heating coil supply port" annotation (Placement(transformation(extent={{-50,
+  Modelica.Fluid.Interfaces.FluidPort_a port_coiHeaSup(
+    redeclare final package Medium =MediumHea) if have_souCoiHea
+    "Heating coil supply port"
+    annotation (Placement(transformation(extent={{-50,
             -290},{-30,-270}}), iconTransformation(extent={{-80,-208},{-60,-188}})));
-  Modelica.Fluid.Interfaces.FluidPort_b port_coiRehRet(redeclare package Medium =
-        MediumHea) if                        have_souCoiReh
-    "Reheat coil return port" annotation (Placement(transformation(extent={{90,-290},
+  Modelica.Fluid.Interfaces.FluidPort_b port_coiRehRet(
+    redeclare final package Medium =MediumHea) if have_souCoiReh
+    "Reheat coil return port"
+    annotation (Placement(transformation(extent={{90,-290},
             {110,-270}}), iconTransformation(extent={{140,-208},{160,-188}})));
-  Modelica.Fluid.Interfaces.FluidPort_a port_coiRehSup(redeclare package Medium =
-        MediumHea) if                        have_souCoiReh
+  Modelica.Fluid.Interfaces.FluidPort_a port_coiRehSup(
+    redeclare final package Medium = MediumHea) if have_souCoiReh
     "Reheat coil supply port" annotation (Placement(transformation(extent={{70,-290},
             {90,-270}}), iconTransformation(extent={{100,-208},{120,-188}})));
 
@@ -104,14 +107,17 @@ model VAVSingleDuct "VAV single duct with relief"
         rotation=-90,
         origin={-120,-140})));
   inner replaceable Buildings.Templates.BaseClasses.Dampers.NoPath damOutMin
-    constrainedby Buildings.Templates.Interfaces.Damper(redeclare final package
-      Medium = MediumAir) "Minimum outdoor air damper" annotation (
+    constrainedby Buildings.Templates.Interfaces.Damper(
+      redeclare final package Medium = MediumAir)
+    "Minimum outdoor air damper"
+    annotation (
     choices(
-      choice(redeclare BaseClasses.Dampers.NoPath damOutMin "No damper"),
+      choice(redeclare BaseClasses.Dampers.NoPath damOutMin
+        "No fluid path"),
       choice(redeclare BaseClasses.Dampers.Modulated damOutMin
-          "Modulated damper"),
+        "Modulated damper"),
       choice(redeclare BaseClasses.Dampers.TwoPosition damOutMin
-          "Two-position damper")),
+        "Two-position damper")),
     Dialog(group="Economizer"),
     Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -164,16 +170,16 @@ model VAVSingleDuct "VAV single duct with relief"
   replaceable Buildings.Templates.BaseClasses.Sensors.None VOut_flow
     constrainedby Buildings.Templates.Interfaces.Sensor(redeclare final package
       Medium = MediumAir) "Outdoor air volume flow rate sensor" annotation (
-    choices(choice(redeclare BaseClasses.Sensors.None VOut "No sensor"), choice(
-          redeclare BaseClasses.Sensors.VolumeFlowRate VOut
+    choices(choice(redeclare BaseClasses.Sensors.None VOut_flow "No sensor"), choice(
+          redeclare BaseClasses.Sensors.VolumeFlowRate VOut_flow
           "Volume flow rate sensor")),
     Dialog(group="Economizer"),
     Placement(transformation(extent={{-180,-210},{-160,-190}})));
   replaceable Buildings.Templates.BaseClasses.Sensors.None VOut1_flow
     constrainedby Buildings.Templates.Interfaces.Sensor(redeclare final package
       Medium = MediumAir) "Outdoor air volume flow rate sensor" annotation (
-    choices(choice(redeclare BaseClasses.Sensors.None VOut1 "No sensor"),
-        choice(redeclare BaseClasses.Sensors.VolumeFlowRate VOut1
+    choices(choice(redeclare BaseClasses.Sensors.None VOut1_flow "No sensor"),
+        choice(redeclare BaseClasses.Sensors.VolumeFlowRate VOut1_flow
           "Volume flow rate sensor")),
     Dialog(group="Economizer", enable=damOutMin.typ <> Buildings.Templates.Types.Damper.NoPath),
     Placement(transformation(extent={{-182,-150},{-162,-130}})));
@@ -350,14 +356,28 @@ model VAVSingleDuct "VAV single duct with relief"
         rotation=-90,
         origin={40,250})));
 
+  replaceable BaseClasses.Sensors.None TRet constrainedby
+    BaseClasses.Sensors.None(redeclare final package Medium = MediumAir)
+    "Return air temperature sensor" annotation (
+    choices(choice(redeclare BaseClasses.Sensors.None tret "No sensor"), choice(
+          redeclare BaseClasses.Sensors.Temperature tret "Temperature sensor")),
+    Dialog(group="Sensors"),
+    Placement(transformation(extent={{222,-90},{202,-70}})));
+
+  replaceable BaseClasses.Sensors.None hRet constrainedby
+    BaseClasses.Sensors.None(redeclare final package Medium = MediumAir)
+    "Return air enthalpy sensor" annotation (
+    choices(choice(redeclare BaseClasses.Sensors.None hRet "No sensor"), choice(
+          redeclare BaseClasses.Sensors.Temperature hRet "Enthalpy sensor")),
+    Dialog(group="Sensors"),
+    Placement(transformation(extent={{252,-90},{232,-70}})));
+
 equation
 
   connect(port_coiCooSup, coiCoo.port_aSou) annotation (Line(points={{20,-280},{
           20,-220},{26,-220},{26,-210}},   color={0,127,255}));
   connect(coiCoo.port_bSou, port_coiCooRet) annotation (Line(points={{34,-210},{
           34,-220},{40,-220},{40,-280}}, color={0,127,255}));
-  connect(resRet.port_a, port_Ret)
-    annotation (Line(points={{190,-80},{300,-80}}, color={0,127,255}));
   connect(weaBus, coiCoo.weaBus) annotation (Line(
       points={{0,280},{0,80},{24,80},{24,-190}},
       color={255,204,51},
@@ -554,6 +574,36 @@ equation
       thickness=0.5));
   connect(coiCoo.busCon, busAHU) annotation (Line(
       points={{30,-190},{30,0},{-300,0}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(resRet.port_a, TRet.port_b)
+    annotation (Line(points={{190,-80},{202,-80}}, color={0,127,255}));
+  connect(port_Ret, hRet.port_a)
+    annotation (Line(points={{300,-80},{252,-80}}, color={0,127,255}));
+  connect(hRet.port_b, TRet.port_a)
+    annotation (Line(points={{232,-80},{222,-80}}, color={0,127,255}));
+  connect(pRet_rel.busCon, busAHU) annotation (Line(
+      points={{-70,-70},{-70,0},{-300,0}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(VRet_flow.busCon, busAHU) annotation (Line(
+      points={{-20,-70},{-20,0},{-300,0}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(fanRet.busCon, busAHU) annotation (Line(
+      points={{10,-70},{10,0},{-300,0}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(TRet.busCon, busAHU) annotation (Line(
+      points={{212,-70},{212,0},{-300,0}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(hRet.busCon, busAHU) annotation (Line(
+      points={{242,-70},{242,0},{-300,0}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(THea.busCon, busAHU) annotation (Line(
+      points={{0,-190},{0,0},{-300,0}},
       color={255,204,51},
       thickness=0.5));
   annotation (

@@ -63,23 +63,29 @@ model BaseNoEquipment
         Modelica.Utilities.Files.loadResource(
         "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
     annotation (Placement(transformation(extent={{-90,20},{-70,40}})));
+  Fluid.FixedResistances.PressureDrop res2(
+    redeclare final package Medium = MediumAir,
+    m_flow_nominal=1,
+    dp_nominal=100)
+    annotation (Placement(transformation(extent={{-30,0},{-50,20}})));
+  Fluid.FixedResistances.PressureDrop res3(
+    redeclare final package Medium = MediumAir,
+    m_flow_nominal=1,
+    dp_nominal=100)
+    annotation (Placement(transformation(extent={{50,0},{30,20}})));
 equation
-  connect(ahu.port_Ret, bou1.ports[1]) annotation (Line(points={{20,10},{40,10},
-          {40,2.66667},{70,2.66667}},
-                            color={0,127,255}));
-  connect(bou.ports[1], res.port_a) annotation (Line(points={{-70,2},{-60,2},{-60,
-          -10},{-50,-10}},     color={0,127,255}));
+  connect(bou.ports[1], res.port_a) annotation (Line(points={{-70,2},{-60,2},{
+          -60,-10},{-50,-10}}, color={0,127,255}));
   connect(res.port_b, ahu.port_Out)
     annotation (Line(points={{-30,-10},{-20,-10}}, color={0,127,255}));
   connect(ahu.port_Sup, res1.port_a)
     annotation (Line(points={{20,-10},{30,-10}}, color={0,127,255}));
-  connect(res1.port_b, bou1.ports[2]) annotation (Line(points={{50,-10},{60,-10},
-          {60,-2.22045e-16},{70,-2.22045e-16}},
+  connect(res1.port_b, bou1.ports[1]) annotation (Line(points={{50,-10},{60,-10},
+          {60,2.66667},{70,2.66667}},
                             color={0,127,255}));
-  connect(bou.ports[2], ahu.port_Exh) annotation (Line(points={{-70,-2},{-40,-2},
-          {-40,10},{-20,10}}, color={0,127,255}));
-  connect(bou1.ports[3], pInd.port) annotation (Line(points={{70,-2.66667},{60,-2.66667},
-          {60,30}}, color={0,127,255}));
+  connect(bou1.ports[2], pInd.port) annotation (Line(points={{70,-2.22045e-16},
+          {60,-2.22045e-16},{60,30}},
+                    color={0,127,255}));
   connect(weaDat.weaBus, ahu.weaBus) annotation (Line(
       points={{-70,30},{0,30},{0,20}},
       color={255,204,51},
@@ -94,6 +100,14 @@ equation
       points={{-20,40},{-20,28},{-20,16},{-19.9,16}},
       color={255,204,51},
       thickness=0.5));
+  connect(ahu.port_Exh, res2.port_a)
+    annotation (Line(points={{-20,10},{-30,10}}, color={0,127,255}));
+  connect(res2.port_b, bou.ports[2]) annotation (Line(points={{-50,10},{-60,10},
+          {-60,-2},{-70,-2}}, color={0,127,255}));
+  connect(ahu.port_Ret, res3.port_b)
+    annotation (Line(points={{20,10},{30,10}}, color={0,127,255}));
+  connect(res3.port_a, bou1.ports[3]) annotation (Line(points={{50,10},{58,10},
+          {58,-2.66667},{70,-2.66667}}, color={0,127,255}));
   annotation (
   experiment(Tolerance=1e-6, StopTime=1),
   Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(

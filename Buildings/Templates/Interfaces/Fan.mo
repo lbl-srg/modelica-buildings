@@ -27,7 +27,7 @@ partial model Fan
 
   final parameter String braStr=
     if Modelica.Utilities.Strings.find(insNam, "fanSup")<>0 then "Supply"
-    elseif Modelica.Utilities.Strings.find(insNam, "fanRe")<>0 then "Return/relief"
+    elseif Modelica.Utilities.Strings.find(insNam, "fanRe")<>0 then "Return"
     else "Undefined"
     "String used to identify the fan location"
     annotation (Evaluate=true, Dialog(group="Configuration"));
@@ -40,7 +40,7 @@ partial model Fan
     "External parameter file";
 
   BaseClasses.Connectors.BusInterface busCon if typ <> Types.Fan.None
-    "AHU control bus" annotation (Placement(transformation(
+    "Control bus"     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
         origin={0,100}), iconTransformation(

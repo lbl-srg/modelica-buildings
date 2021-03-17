@@ -72,27 +72,30 @@ package Dampers
       annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
     Modelica.Blocks.Routing.RealPassThrough damOut if
       braStr=="Outdoor air"
-      "Outdoor air damper control signal"
+      "Pass through to connect with specific control signal"
       annotation (Placement(transformation(
           extent={{-10,-10},{10,10}},
           rotation=-90,
           origin={-60,50})));
     Modelica.Blocks.Routing.RealPassThrough damOutMin if
       braStr=="Minimum outdoor air"
-      "Minimum outdoor air damper control signal" annotation (Placement(
+      "Pass through to connect with specific control signal"
+      annotation (Placement(
           transformation(
           extent={{-10,-10},{10,10}},
           rotation=-90,
           origin={-20,50})));
     Modelica.Blocks.Routing.RealPassThrough damRet if
       braStr=="Return air"
-      "Return air damper control signal" annotation (Placement(transformation(
+      "Pass through to connect with specific control signal"
+      annotation (Placement(transformation(
           extent={{-10,-10},{10,10}},
           rotation=-90,
           origin={20,50})));
     Modelica.Blocks.Routing.RealPassThrough damRel if
       braStr=="Relief air"
-      "Relief air damper control signal" annotation (Placement(transformation(
+      "Pass through to connect with specific control signal"
+      annotation (Placement(transformation(
           extent={{-10,-10},{10,10}},
           rotation=-90,
           origin={60,50})));
@@ -109,23 +112,96 @@ package Dampers
       annotation (Line(points={{20,39},{20,26},{0,26},{0,12}}, color={0,0,127}));
     connect(damRel.y, damExp.y)
       annotation (Line(points={{60,39},{60,20},{0,20},{0,12}}, color={0,0,127}));
-    connect(busCon.out.yDamOut, damOut.u) annotation (Line(
-        points={{0.1,100.1},{-60,100.1},{-60,62}},
-        color={255,204,51},
-        thickness=0.5));
     connect(busCon.out.yDamOutMin, damOutMin.u) annotation (Line(
-        points={{0.1,100.1},{-10,100.1},{-10,100},{-20,100},{-20,62}},
+        points={{0.1,100.1},{0.1,100},{-2,100},{-2,80},{-20,80},{-20,62}},
         color={255,204,51},
-        thickness=0.5));
+        thickness=0.5), Text(
+        string="%first",
+        index=-1,
+        extent={{-3,6},{-3,6}},
+        horizontalAlignment=TextAlignment.Right));
+    connect(busCon.out.yDamOut, damOut.u) annotation (Line(
+        points={{0.1,100.1},{0.1,100},{-6,100},{-6,84},{-60,84},{-60,62}},
+        color={255,204,51},
+        thickness=0.5), Text(
+        string="%first",
+        index=-1,
+        extent={{-3,6},{-3,6}},
+        horizontalAlignment=TextAlignment.Right));
     connect(busCon.out.yDamRet, damRet.u) annotation (Line(
-        points={{0.1,100.1},{18,100.1},{18,100},{20,100},{20,62}},
+        points={{0.1,100.1},{2,100.1},{2,80},{20,80},{20,62}},
         color={255,204,51},
-        thickness=0.5));
+        thickness=0.5), Text(
+        string="%first",
+        index=-1,
+        extent={{-3,6},{-3,6}},
+        horizontalAlignment=TextAlignment.Right));
     connect(busCon.out.yDamRel, damRel.u) annotation (Line(
-        points={{0.1,100.1},{20,100.1},{20,100},{60,100},{60,62}},
+        points={{0.1,100.1},{6,100.1},{6,84},{60,84},{60,62}},
         color={255,204,51},
-        thickness=0.5));
+        thickness=0.5), Text(
+        string="%first",
+        index=-1,
+        extent={{-3,6},{-3,6}},
+        horizontalAlignment=TextAlignment.Right));
   end Modulated;
+
+  model PressureIndependent
+    extends Buildings.Templates.Interfaces.Damper(
+      final typ=Types.Damper.PressureIndependent);
+
+    parameter Modelica.SIunits.MassFlowRate m_flow_nominal=
+      if braStr=="Terminal" then
+      dat.getReal(varName=id + ".Supply air mass flow rate")
+      else 0
+      "Mass flow rate"
+      annotation (Dialog(group="Nominal condition"), Evaluate=true);
+    parameter Modelica.SIunits.PressureDifference dpDamper_nominal(
+      min=0, displayUnit="Pa")=
+      dat.getReal(varName=id + ".VAV damper pressure drop")
+      "Pressure drop of open damper"
+      annotation (Dialog(group="Nominal condition"));
+
+    Fluid.Actuators.Dampers.PressureIndependent damPreInd(
+      redeclare final package Medium=Medium,
+      final m_flow_nominal=m_flow_nominal,
+      final dpDamper_nominal=dpDamper_nominal)
+      "Pressure independent damper"
+      annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+    Sensors.VolumeFlowRate senFloVol(
+      redeclare final package Medium=Medium)
+      annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
+  equation
+    connect(damPreInd.port_b, port_b)
+      annotation (Line(points={{10,0},{100,0}}, color={0,127,255}));
+    connect(damPreInd.y_actual, busCon.inp.yDamVAV_actual) annotation (Line(
+          points={{5,7},{40,7},{40,80},{4,80},{4,100},{0.1,100},{0.1,100.1}},
+          color={0,0,127}), Text(
+        string="%second",
+        index=1,
+        extent={{6,3},{6,3}},
+        horizontalAlignment=TextAlignment.Left));
+    connect(port_a, senFloVol.port_a)
+      annotation (Line(points={{-100,0},{-50,0}}, color={0,127,255}));
+    connect(senFloVol.port_b, damPreInd.port_a)
+      annotation (Line(points={{-30,0},{-10,0}}, color={0,127,255}));
+    connect(busCon.out.yDamVAV, damPreInd.y) annotation (Line(
+        points={{0.1,100.1},{0.1,56},{0,56},{0,12}},
+        color={255,204,51},
+        thickness=0.5), Text(
+        string="%first",
+        index=-1,
+        extent={{-3,6},{-3,6}},
+        horizontalAlignment=TextAlignment.Right));
+    connect(senFloVol.busCon, busCon.inp.VDis_flow) annotation (Line(
+        points={{-40,10},{-40,80},{-4,80},{-4,100},{0.1,100},{0.1,100.1}},
+        color={255,204,51},
+        thickness=0.5), Text(
+        string="%second",
+        index=1,
+        extent={{-3,6},{-3,6}},
+        horizontalAlignment=TextAlignment.Right));
+  end PressureIndependent;
 
   model TwoPosition
     extends Buildings.Templates.Interfaces.Damper(final typ=Types.Damper.Modulated);

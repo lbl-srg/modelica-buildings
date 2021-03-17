@@ -25,6 +25,8 @@ package Types "AHU types"
       "Modulated damper",
       None
       "No damper",
+      PressureIndependent
+      "Pressure independent damper",
       TwoPosition
       "Two-position damper")
     "Enumeration to configure the damper";
@@ -98,6 +100,16 @@ package Types "AHU types"
       DualDuct
       "Dual duct system")
     "Enumeration to configure the supply branch";
+  type TerminalUnit = enumeration(
+      SingleDuct
+      "Single duct system",
+      DualDuct
+      "Dual duct system",
+      FanPowered
+      "Fan-powered system",
+      Induction
+      "Induction system")
+    "Enumeration to configure the terminal unit";
   type Valve = enumeration(
       None
       "No actuator",

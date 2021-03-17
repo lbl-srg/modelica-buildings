@@ -33,6 +33,7 @@ partial model Economizer
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}}),
       iconTransformation(extent={{-110,-10},{-90,10}})));
   BaseClasses.Connectors.BusInterface busCon if typ <> Types.Economizer.None
+    "Control bus"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,

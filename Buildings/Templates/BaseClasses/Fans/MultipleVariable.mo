@@ -20,13 +20,13 @@ model MultipleVariable
       Placement(transformation(extent={{-10,10},{10,30}})));
 
   Modelica.Blocks.Routing.RealPassThrough  speSup if braStr=="Supply"
-    "Supply fan speed"
+    "Pass through to connect with specific control signal"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-20,80})));
   Modelica.Blocks.Routing.RealPassThrough speRet if braStr=="Return"
-    "Return fan speed"
+    "Pass through to connect with specific control signal"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,

@@ -1,4 +1,21 @@
 {
+    "Box_1": {
+        "Supply air mass flow rate": 1,
+        "VAV damper pressure drop": 10,
+        "Reheat coil": {
+            "Capacity": 10000,
+            "Liquid mass flow rate": 1,
+            "Entering liquid temperature": 323.15,
+            "Liquid pressure drop": 5000,
+            "Air mass flow rate": 1,
+            "Entering air temperature": 273.15,
+            "Air pressure drop": 150,
+            "UA (dry coil conditions)": 500
+        },
+        "Reheat coil valve": {
+            "Pressure drop": 5000
+        }
+    },
     "VAV_1": {
         "Supply air mass flow rate": 1,
         "Return air mass flow rate": 1,
@@ -16,14 +33,14 @@
             "Capacity": 10000,
             "Liquid mass flow rate": 1,
             "Entering liquid temperature": 323.15,
-            "Liquid pressure drop": 30000,
+            "Liquid pressure drop": 5000,
             "Air mass flow rate": 1,
             "Entering air temperature": 273.15,
             "Air pressure drop": 150,
             "UA (dry coil conditions)": 500
         },
         "Heating coil valve": {
-            "Pressure drop": 30000
+            "Pressure drop": 10000
         },
         "Cooling coil": {
             "Capacity": 10000,
@@ -43,21 +60,21 @@
             "Capacity": 10000,
             "Liquid mass flow rate": 1,
             "Entering liquid temperature": 323.15,
-            "Liquid pressure drop": 30000,
+            "Liquid pressure drop": 5000,
             "Air mass flow rate": 1,
             "Entering air temperature": 273.15,
             "Air pressure drop": 150,
             "UA (dry coil conditions)": 500
         },
         "Reheat coil valve": {
-            "Pressure drop": 30000
+            "Pressure drop": 10000
         },
         "Supply fan": {
             "Total pressure rise": 1000,
             "Fan efficiency": 0.70,
             "Pressure curve": [[0,1.5],[1,1],[2,0]]
         },
-        "Return/relief fan": {
+        "Return fan": {
             "Total pressure rise": 600,
             "Fan efficiency": 0.70,
             "Pressure curve": [[0,1.5],[1,1],[2,0]]

@@ -4,7 +4,7 @@ model VolumeFlowRate
 
   Fluid.Sensors.VolumeFlowRate senVolFlo(
     redeclare final package Medium=Medium,
-    final m_flow_nominal=m_flow_nominal)
+    final m_flow_nominal=m_flow_nominal) "Volume flow rate sensor"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Blocks.Routing.RealPassThrough VOut_flow if
     Modelica.Utilities.Strings.find(insNam, "VOut")<>0

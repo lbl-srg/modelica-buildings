@@ -7,7 +7,7 @@ block Guideline36
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant FIXME(k=1)
     "nOcc should be Boolean"
-    annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
+    annotation (Placement(transformation(extent={{-240,30},{-220,50}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.SetPoints.ZoneTemperatures
     TZonSet
     "Compute zone temperature set points"
@@ -31,13 +31,14 @@ equation
       points={{-200.1,0.1},{-56,0.1},{-56,0},{-12,0}},
       color={255,204,51},
       thickness=0.5));
-  connect(FIXME.y, terUniCon.nOcc) annotation (Line(points={{-38,30},{-30,30},{-30,
-          4},{-12,4}}, color={0,0,127}));
+  connect(FIXME.y, terUniCon.nOcc) annotation (Line(points={{-218,40},{-30,40},{
+          -30,4},{-12,4}},
+                       color={0,0,127}));
   connect(busTer.inp.VDis_flow, terUniCon.VDis_flow) annotation (Line(
       points={{-200.1,0.1},{-20,0.1},{-20,-2},{-12,-2}},
       color={255,204,51},
       thickness=0.5));
-  connect(busTer.inp.yDam_actual, terUniCon.yDam_actual) annotation (Line(
+  connect(busTer.inp.yDamVAV_actual, terUniCon.yDam_actual) annotation (Line(
       points={{-200.1,0.1},{-20,0.1},{-20,-4},{-12,-4}},
       color={255,204,51},
       thickness=0.5));
@@ -101,9 +102,9 @@ equation
       points={{-200.1,0.1},{-80,0.1},{-80,-53},{-62,-53}},
       color={255,204,51},
       thickness=0.5));
-  connect(terUniCon.yDam, busOut.yDam)
+  connect(terUniCon.yDam, busOut.yDamVAV)
     annotation (Line(points={{12,6},{16,6},{16,20},{50,20}}, color={0,0,127}));
-  connect(terUniCon.yVal, busOut.yVal) annotation (Line(points={{12,1},{20,1},{
+  connect(terUniCon.yVal, busOut.yCoiReh) annotation (Line(points={{12,1},{20,1},{
           20,16},{50,16},{50,20}}, color={0,0,127}));
   connect(terUniCon.yZonTemResReq, busSof.yZonTemResReq) annotation (Line(
         points={{12,-4},{20,-4},{20,-20},{50,-20}}, color={255,127,0}));
@@ -117,6 +118,8 @@ equation
       points={{50,-20},{80,-20},{80,-60},{-180,-60},{-180,0.1},{-200.1,0.1}},
       color={255,204,51},
       thickness=0.5));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+  annotation (
+    defaultComponentName="conTer",
+    Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end Guideline36;
