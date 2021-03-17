@@ -14,7 +14,11 @@
         },
         "Reheat coil valve": {
             "Pressure drop": 5000
-        }
+        },
+        "Controller": {
+            "Sample period": 120
+        },
+        "Zone floor area": 100
     },
     "VAV_1": {
         "Supply air mass flow rate": 1,

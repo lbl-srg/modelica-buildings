@@ -1,6 +1,11 @@
 within Buildings.Templates.Interfaces;
 partial block ControllerTerminalUnit
 
+  outer parameter String id
+    "System identifier";
+  outer parameter ExternData.JSONFile dat
+    "External parameter file";
+
   BaseClasses.Connectors.BusTerminalUnit busTer
     "Terminal unit control bus"
     annotation (Placement(transformation(

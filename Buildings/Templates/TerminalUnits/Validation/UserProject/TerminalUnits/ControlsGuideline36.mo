@@ -1,6 +1,8 @@
 within Buildings.Templates.TerminalUnits.Validation.UserProject.TerminalUnits;
-model VAVReheatCoilWater
+model ControlsGuideline36
   extends Buildings.Templates.TerminalUnits.VAVReheat(
+    redeclare BaseClasses.Sensors.Temperature TDis "Temperature sensor",
+    redeclare Controls.Guideline36 conTer,
     redeclare BaseClasses.Dampers.PressureIndependent damVAV
       "Pressure independent damper",
     redeclare BaseClasses.Coils.WaterBased coiReh(redeclare
@@ -13,4 +15,4 @@ model VAVReheatCoilWater
     defaultComponentName="ter",
     Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
-end VAVReheatCoilWater;
+end ControlsGuideline36;

@@ -6,7 +6,7 @@ CoilCoolingDXVariableSpeed
 CoilHeatingEffectivenessNTU
 CoilHeatingEffectivenessNTU2WV
 CoilHeatingEffectivenessNTU3WV
-ControlGuideline36
+ControlsGuideline36
 EconomizerCommonDamper
 EconomizerDedicatedDamper
 FanReturnSingleVariable

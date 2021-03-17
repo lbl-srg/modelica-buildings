@@ -14,11 +14,10 @@ partial model Valve
   outer parameter ExternData.JSONFile dat
     "External parameter file";
 
-  outer parameter Modelica.SIunits.MassFlowRate mWat_flow_nominal(min=0)
+  outer parameter Modelica.SIunits.MassFlowRate mWat_flow_nominal
     "Liquid mass flow rate"
     annotation(Dialog(group = "Nominal condition"));
-  outer parameter Modelica.SIunits.PressureDifference dpWat_nominal(
-    displayUnit="Pa")
+  outer parameter Modelica.SIunits.PressureDifference dpWat_nominal
     "Liquid pressure drop"
     annotation(Dialog(group = "Nominal condition"));
 

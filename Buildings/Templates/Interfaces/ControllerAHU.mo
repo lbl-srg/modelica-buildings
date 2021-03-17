@@ -19,6 +19,10 @@ partial block ControllerAHU
     annotation (Evaluate=true, Dialog(group="Supply fan"));
   outer parameter Integer nZon
     "Number of served zones";
+  outer parameter String id
+    "System identifier";
+  outer parameter ExternData.JSONFile dat
+    "External parameter file";
 
   BaseClasses.Connectors.BusAHU busAHU "AHU control bus" annotation (Placement(
         transformation(

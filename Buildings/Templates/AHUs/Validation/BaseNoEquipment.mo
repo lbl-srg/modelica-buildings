@@ -55,7 +55,7 @@ model BaseNoEquipment
   Fluid.Sensors.Pressure pInd(
     redeclare final package Medium=MediumAir)
     "Indoor pressure"
-    annotation (Placement(transformation(extent={{70,30},{50,50}})));
+    annotation (Placement(transformation(extent={{80,30},{60,50}})));
   Buildings.Templates.BaseClasses.Connectors.BusAHU busAHU annotation (
       Placement(transformation(extent={{-40,20},{0,60}}), iconTransformation(
           extent={{-258,-26},{-238,-6}})));
@@ -84,13 +84,12 @@ equation
           {60,2.66667},{70,2.66667}},
                             color={0,127,255}));
   connect(bou1.ports[2], pInd.port) annotation (Line(points={{70,-2.22045e-16},
-          {60,-2.22045e-16},{60,30}},
-                    color={0,127,255}));
+          {70,30}}, color={0,127,255}));
   connect(weaDat.weaBus, ahu.weaBus) annotation (Line(
       points={{-70,30},{0,30},{0,20}},
       color={255,204,51},
       thickness=0.5));
-  connect(pInd.p, busAHU.inp.pInd) annotation (Line(points={{49,40},{14,40},{14,
+  connect(pInd.p, busAHU.inp.pInd) annotation (Line(points={{59,40},{14,40},{14,
           40.1},{-19.9,40.1}}, color={0,0,127}), Text(
       string="%second",
       index=1,
@@ -106,8 +105,8 @@ equation
           {-60,-2},{-70,-2}}, color={0,127,255}));
   connect(ahu.port_Ret, res3.port_b)
     annotation (Line(points={{20,10},{30,10}}, color={0,127,255}));
-  connect(res3.port_a, bou1.ports[3]) annotation (Line(points={{50,10},{58,10},
-          {58,-2.66667},{70,-2.66667}}, color={0,127,255}));
+  connect(res3.port_a, bou1.ports[3]) annotation (Line(points={{50,10},{60,10},
+          {60,-2.66667},{70,-2.66667}}, color={0,127,255}));
   annotation (
   experiment(Tolerance=1e-6, StopTime=1),
   Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(

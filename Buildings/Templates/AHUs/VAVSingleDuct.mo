@@ -215,7 +215,8 @@ model VAVSingleDuct "VAV single duct with relief"
     Placement(transformation(extent={{-40,-210},{-20,-190}})));
   replaceable Buildings.Templates.BaseClasses.Sensors.None THea constrainedby
     Buildings.Templates.Interfaces.Sensor(redeclare final package Medium =
-        MediumAir) "Heating coil" annotation (
+        MediumAir) "Heating coil leaving air temperature sensor"
+                                  annotation (
     choices(choice(redeclare BaseClasses.Sensors.None THea "No sensor"), choice(
           redeclare BaseClasses.Sensors.Temperature THea "Temperature sensor")),
     Dialog(group="Heating coil", enable=coiHea <> Buildings.Templates.Types.Coil.None),
@@ -260,10 +261,12 @@ model VAVSingleDuct "VAV single duct with relief"
     Placement(transformation(extent={{142,-210},{162,-190}})));
 
   inner replaceable Controls.Dummy conAHU constrainedby
-    Buildings.Templates.Interfaces.ControllerAHU "AHU controller" annotation (
-    choicesAllMatching=true,
-    Dialog(group="Controller"),
-    Placement(transformation(extent={{-60,90},{-40,110}})));
+    Buildings.Templates.Interfaces.ControllerAHU
+    "AHU controller"
+    annotation (
+      choicesAllMatching=true,
+      Dialog(group="Controller"),
+      Placement(transformation(extent={{-60,90},{-40,110}})));
 
   // FIXME: Dummy default values fo testing purposes only.
   Fluid.FixedResistances.PressureDrop resRet(

@@ -168,8 +168,9 @@ package Dampers
       final dpDamper_nominal=dpDamper_nominal)
       "Pressure independent damper"
       annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-    Sensors.VolumeFlowRate senFloVol(
-      redeclare final package Medium=Medium)
+    Fluid.Sensors.VolumeFlowRate VDis_flow(redeclare final package Medium =
+          Medium, final m_flow_nominal=m_flow_nominal)
+                                           "Volume flow rate sensor"
       annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
   equation
     connect(damPreInd.port_b, port_b)
@@ -181,10 +182,6 @@ package Dampers
         index=1,
         extent={{6,3},{6,3}},
         horizontalAlignment=TextAlignment.Left));
-    connect(port_a, senFloVol.port_a)
-      annotation (Line(points={{-100,0},{-50,0}}, color={0,127,255}));
-    connect(senFloVol.port_b, damPreInd.port_a)
-      annotation (Line(points={{-30,0},{-10,0}}, color={0,127,255}));
     connect(busCon.out.yDamVAV, damPreInd.y) annotation (Line(
         points={{0.1,100.1},{0.1,56},{0,56},{0,12}},
         color={255,204,51},
@@ -193,10 +190,12 @@ package Dampers
         index=-1,
         extent={{-3,6},{-3,6}},
         horizontalAlignment=TextAlignment.Right));
-    connect(senFloVol.busCon, busCon.inp.VDis_flow) annotation (Line(
-        points={{-40,10},{-40,80},{-4,80},{-4,100},{0.1,100},{0.1,100.1}},
-        color={255,204,51},
-        thickness=0.5), Text(
+    connect(port_a, VDis_flow.port_a)
+      annotation (Line(points={{-100,0},{-50,0}}, color={0,127,255}));
+    connect(VDis_flow.port_b, damPreInd.port_a)
+      annotation (Line(points={{-30,0},{-10,0}}, color={0,127,255}));
+    connect(VDis_flow.V_flow, busCon.inp.VDis_flow) annotation (Line(points={{
+            -40,11},{-40,80},{0.1,80},{0.1,100.1}}, color={0,0,127}), Text(
         string="%second",
         index=1,
         extent={{-3,6},{-3,6}},

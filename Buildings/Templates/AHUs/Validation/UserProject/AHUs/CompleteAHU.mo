@@ -1,6 +1,8 @@
 within Buildings.Templates.AHUs.Validation.UserProject.AHUs;
 model CompleteAHU
   extends Buildings.Templates.AHUs.VAVSingleDuct(
+    redeclare BaseClasses.Sensors.VolumeFlowRate VOut_flow
+      "Volume flow rate sensor",
     redeclare BaseClasses.Fans.SingleVariable fanRet,
     redeclare BaseClasses.Sensors.DifferentialPressure pSup_rel
       "Differential pressure sensor",
