@@ -2,11 +2,22 @@ within Buildings.Fluid.BuriedPipes.Examples;
 model TwoBuriedPipes
   extends Modelica.Icons.Example;
 
-  replaceable parameter Buildings.BoundaryConditions.GroundTemperature.ClimaticConstants.Boston climate;
-  replaceable parameter Buildings.HeatTransfer.Data.Soil.Generic soil(
-    k=1.58,c=1150,d=1600);
+  replaceable parameter Buildings.BoundaryConditions.GroundTemperature.ClimaticConstants.Boston cliCon "Surface temperature climatic conditions";
+  replaceable parameter Buildings.HeatTransfer.Data.Soil.Generic soiDat(k=1.58,c=1150,d=1600) "Soil thermal properties";
   replaceable package Medium = Buildings.Media.Water "Medium in the pipe" annotation (
       choicesAllMatching=true);
+
+  Buildings.Fluid.BuriedPipes.GroundCoupling gro(
+    nPip=2,
+    cliCon=cliCon,
+    soiDat=soiDat,
+    len=1000,
+    dep={1.5,2.5},
+    pos={0,1},
+    rad={0.09,0.09}) "Ground coupling" annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={30,70})));
 
   FixedResistances.PlugFlowPipe pipChW(
     redeclare package Medium = Medium,
@@ -18,46 +29,35 @@ model TwoBuriedPipes
     cPip=500,
     rhoPip=8000,
     thickness=0.0032,
-    nPorts=1) annotation (Placement(transformation(extent={{0,-10},{20,10}})));
-
-  Buildings.Fluid.BuriedPipes.GroundCoupling ground(
-    nPipes=2,
-    climate=climate,
-    soil=soil,
-    len=1000,
-    dep={1.5,2},
-    pos={0,1},
-    rad={0.09,0.09})       annotation (Placement(transformation(extent={{-10,-10},
-            {10,10}},
-        rotation=270,
-        origin={30,70})));
-
+    T_start_in=TChW,
+    T_start_out=TChW,
+    nPorts=1) "Buried chilled water pipe" annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Modelica.Blocks.Sources.Sine TinChW(
     amplitude=2,
     freqHz=1/180/24/60/60,
-    offset=273.15 + 5) "Ramp pressure signal"
+    offset=TChW) "Chilled water pipe inlet temperature signal"
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
   Sources.MassFlowSource_T souChW(
     nPorts=1,
     redeclare package Medium = Medium,
     use_T_in=true,
-    m_flow=3) "Flow source"
+    m_flow=3) "Chilled water flow source"
     annotation (Placement(transformation(extent={{-66,-10},{-46,10}})));
   Sensors.TemperatureTwoPort senTemChWIn(
     redeclare package Medium = Medium,
     m_flow_nominal=1,
-    T_start=293.15) "Temperature sensor"
+    T_start=TChW) "Chilled water pipe inlet temperature sensor"
     annotation (Placement(transformation(extent={{-36,-10},{-16,10}})));
   Sources.Boundary_pT sinChW(
     redeclare package Medium = Medium,
-    T=283.15,
+    T=TChW,
     nPorts=1,
-    p(displayUnit="Pa") = 101325) "Pressure boundary condition"
-    annotation (Placement(transformation(extent={{98,-10},{78,10}})));
+    p(displayUnit="Pa") = 101325) "Chilled water pressure boundary condition"
+    annotation (Placement(transformation(extent={{100,-10},{80,10}})));
   Sensors.TemperatureTwoPort senTemChWOut(
     redeclare package Medium = Medium,
     m_flow_nominal=1,
-    T_start=293.15) "Temperature sensor"
+    T_start=TChW) "Chilled water pipe outlet temperature sensor"
     annotation (Placement(transformation(extent={{46,-10},{66,10}})));
 
   FixedResistances.PlugFlowPipe pipHotW(
@@ -70,62 +70,67 @@ model TwoBuriedPipes
     cPip=500,
     rhoPip=8000,
     thickness=0.0032,
-    T_start_in=313.15,
-    T_start_out=313.15,
-    nPorts=1) annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
+    T_start_in=THotW,
+    T_start_out=THotW,
+    nPorts=1) annotation (Placement(transformation(extent={{0,-70},{20,-50}})));
   Modelica.Blocks.Sources.Sine TinHotW(
     amplitude=10,
     freqHz=1/90/24/60/60,
     phase=3.1415926535898,
-    offset=273.15 + 40) "Ramp pressure signal"
-    annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
+    offset=THotW) "Hot water pipe inlet temperature signal"
+    annotation (Placement(transformation(extent={{-100,-70},{-80,-50}})));
   Sources.MassFlowSource_T souHotW(
-    nPorts=1,
     redeclare package Medium = Medium,
     use_T_in=true,
-    m_flow=3) "Flow source"
-    annotation (Placement(transformation(extent={{-66,-60},{-46,-40}})));
+    m_flow=3,
+    nPorts=1) "Hot water flow source"
+    annotation (Placement(transformation(extent={{-66,-70},{-46,-50}})));
   Sensors.TemperatureTwoPort senTemHotWIn(
     redeclare package Medium = Medium,
     m_flow_nominal=1,
-    T_start=313.15) "Temperature sensor"
-    annotation (Placement(transformation(extent={{-36,-60},{-16,-40}})));
+    T_start=THotW) "Hot water pipe inlet temperature sensor"
+    annotation (Placement(transformation(extent={{-36,-70},{-16,-50}})));
   Sources.Boundary_pT sinHotW(
     redeclare package Medium = Medium,
-    T=283.15,
-    nPorts=1,
-    p(displayUnit="Pa") = 101325) "Pressure boundary condition"
-    annotation (Placement(transformation(extent={{98,-60},{78,-40}})));
+    T=THotW,
+    p(displayUnit="Pa") = 101325,
+    nPorts=1)                     "Pressure boundary condition"
+    annotation (Placement(transformation(extent={{102,-70},{82,-50}})));
   Sensors.TemperatureTwoPort senTemHotWOut(
     redeclare package Medium = Medium,
     m_flow_nominal=1,
-    T_start=313.15) "Temperature sensor"
-    annotation (Placement(transformation(extent={{46,-60},{66,-40}})));
+    T_start=THotW) "Hot water pipe outlet temperature sensor"
+    annotation (Placement(transformation(extent={{46,-70},{66,-50}})));
+
+protected
+  parameter Modelica.SIunits.Temperature TChW = 273.15 + 5;
+  parameter Modelica.SIunits.Temperature THotW = 273.15 + 80;
+
 equation
-  connect(TinChW.y, souChW.T_in) annotation (Line(points={{-79,0},{-72,0},{-72,
-          4},{-68,4}}, color={0,0,127}));
+  connect(TinChW.y, souChW.T_in) annotation (Line(points={{-79,0},{-72,0},{-72,4},
+          {-68,4}}, color={0,0,127}));
   connect(souChW.ports[1], senTemChWIn.port_a)
     annotation (Line(points={{-46,0},{-36,0}}, color={0,127,255}));
   connect(senTemChWOut.port_b, sinChW.ports[1])
-    annotation (Line(points={{66,0},{78,0}}, color={0,127,255}));
+    annotation (Line(points={{66,0},{80,0}}, color={0,127,255}));
   connect(senTemChWIn.port_b, pipChW.port_a)
     annotation (Line(points={{-16,0},{0,0}}, color={0,127,255}));
   connect(pipChW.ports_b[1], senTemChWOut.port_a)
     annotation (Line(points={{20,0},{46,0}}, color={0,127,255}));
-  connect(pipChW.heatPort, ground.ports[1])
-    annotation (Line(points={{10,10},{10,68},{20,68}}, color={191,0,0}));
-  connect(TinHotW.y, souHotW.T_in) annotation (Line(points={{-79,-50},{-72,-50},
-          {-72,-46},{-68,-46}}, color={0,0,127}));
+  connect(pipChW.heatPort, gro.ports[1])
+    annotation (Line(points={{10,10},{10,60},{28,60}}, color={191,0,0}));
+  connect(TinHotW.y, souHotW.T_in) annotation (Line(points={{-79,-60},{-72,-60},
+          {-72,-56},{-68,-56}}, color={0,0,127}));
+  connect(pipHotW.heatPort, gro.ports[2])
+    annotation (Line(points={{10,-50},{32,-50},{32,60}}, color={191,0,0}));
   connect(souHotW.ports[1], senTemHotWIn.port_a)
-    annotation (Line(points={{-46,-50},{-36,-50}}, color={0,127,255}));
-  connect(senTemHotWOut.port_b, sinHotW.ports[1])
-    annotation (Line(points={{66,-50},{78,-50}}, color={0,127,255}));
+    annotation (Line(points={{-46,-60},{-36,-60}}, color={0,127,255}));
   connect(senTemHotWIn.port_b, pipHotW.port_a)
-    annotation (Line(points={{-16,-50},{0,-50}}, color={0,127,255}));
+    annotation (Line(points={{-16,-60},{0,-60}}, color={0,127,255}));
   connect(pipHotW.ports_b[1], senTemHotWOut.port_a)
-    annotation (Line(points={{20,-50},{46,-50}}, color={0,127,255}));
-  connect(pipHotW.heatPort, ground.ports[2]) annotation (Line(points={{10,-40},
-          {30,-40},{30,72},{20,72}}, color={191,0,0}));
+    annotation (Line(points={{20,-60},{46,-60}}, color={0,127,255}));
+  connect(senTemHotWOut.port_b, sinHotW.ports[1])
+    annotation (Line(points={{66,-60},{82,-60}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     experiment(StopTime=63072000, __Dymola_Algorithm="Cvode"));

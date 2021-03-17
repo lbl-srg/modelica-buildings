@@ -2,9 +2,8 @@ within Buildings.Fluid.BuriedPipes.Examples;
 model SingleBuriedPipe
   extends Modelica.Icons.Example;
 
-  replaceable parameter Buildings.BoundaryConditions.GroundTemperature.ClimaticConstants.Boston climate;
-  replaceable parameter Buildings.HeatTransfer.Data.Soil.Generic soil(
-    k=1.58,c=1150,d=1600);
+  replaceable parameter Buildings.BoundaryConditions.GroundTemperature.ClimaticConstants.Boston cliCon "Surface temperature climatic conditions";
+  replaceable parameter Buildings.HeatTransfer.Data.Soil.Generic soiDat(k=1.58,c=1150,d=1600) "Soil thermal properties";
   replaceable package Medium = Buildings.Media.Water "Medium in the pipe" annotation (
       choicesAllMatching=true);
 
@@ -18,24 +17,26 @@ model SingleBuriedPipe
     cPip=500,
     rhoPip=8000,
     thickness=0.0032,
-    nPorts=1) annotation (Placement(transformation(extent={{0,-10},{20,10}})));
+    nPorts=1) "Buried pipe"
+    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 
-  Buildings.Fluid.BuriedPipes.GroundCoupling ground(
-    nPipes=1,
-    climate=climate,
-    soil=soil,
+  Buildings.Fluid.BuriedPipes.GroundCoupling gro(
+    nPip=1,
+    cliCon=cliCon,
+    soiDat=soiDat,
     len=1000,
     dep={1.5},
     pos={0},
-    rad={0.05+0.032+0.01}) annotation (Placement(transformation(extent={{-10,-10},
-            {10,10}},
-        rotation=270,
+    rad={0.05 + 0.032 + 0.01}) "Ground coupling" annotation (Placement(
+        transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
         origin={10,50})));
 
   Modelica.Blocks.Sources.Sine Tin(
     amplitude=5,
     freqHz=1/180/24/60/60,
-    offset=273.15 + 20) "Ramp pressure signal"
+    offset=273.15 + 20) "Pipe inlet temperature signal"
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
   Sources.MassFlowSource_T sou(
     nPorts=1,
@@ -46,7 +47,7 @@ model SingleBuriedPipe
   Sensors.TemperatureTwoPort senTemIn(
     redeclare package Medium = Medium,
     m_flow_nominal=1,
-    T_start=293.15) "Temperature sensor"
+    T_start=293.15) "Pipe inlet temperature sensor"
     annotation (Placement(transformation(extent={{-36,-10},{-16,10}})));
   Sources.Boundary_pT sin(
     redeclare package Medium = Medium,
@@ -57,7 +58,7 @@ model SingleBuriedPipe
   Sensors.TemperatureTwoPort senTemOut(
     redeclare package Medium = Medium,
     m_flow_nominal=1,
-    T_start=293.15) "Temperature sensor"
+    T_start=293.15) "Pipe outlet temperature sensor"
     annotation (Placement(transformation(extent={{46,-10},{66,10}})));
 
 equation
@@ -72,8 +73,8 @@ equation
     annotation (Line(points={{-16,0},{0,0}}, color={0,127,255}));
   connect(pip.ports_b[1], senTemOut.port_a)
     annotation (Line(points={{20,0},{46,0}}, color={0,127,255}));
-  connect(pip.heatPort, ground.ports[1])
-    annotation (Line(points={{10,10},{10,40}}, color={191,0,0}));
+  connect(pip.heatPort, gro.ports[1]) annotation (Line(points={{10,10},{10,30},{
+          10,40},{10,40}}, color={191,0,0}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     experiment(StopTime=63072000, __Dymola_Algorithm="Cvode"));

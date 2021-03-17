@@ -3,22 +3,22 @@ model UndisturbedSoilTemperature
   extends Modelica.Icons.Example;
 
   Buildings.BoundaryConditions.GroundTemperature.UndisturbedSoilTemperature
-    Tsoi0(depth=0, climate = climate, soil=soil)
+    Tsoi0(cliCon=cliCon, soiDat=soiDat, dep=0) "Surface temperature"
     annotation (Placement(transformation(extent={{-10,80},{10,100}})));
   Buildings.BoundaryConditions.GroundTemperature.UndisturbedSoilTemperature
-    Tsoi2(depth=2, climate = climate, soil=soil)
+    Tsoi2(cliCon=cliCon, soiDat=soiDat, dep=2) "Soil temperature at 2m depth"
     annotation (Placement(transformation(extent={{-10,40},{10,60}})));
   Buildings.BoundaryConditions.GroundTemperature.UndisturbedSoilTemperature
-    Tsoi5(depth=5, climate = climate, soil=soil)
+    Tsoi5(cliCon=cliCon, soiDat=soiDat, dep=5) "Soil temperature at 5m depth"
     annotation (Placement(transformation(extent={{-10,-20},{10,0}})));
   Buildings.BoundaryConditions.GroundTemperature.UndisturbedSoilTemperature
-    Tsoi9(depth=9, climate = climate, soil=soil)
+    Tsoi9(cliCon=cliCon, soiDat=soiDat, dep=9) "Soil temperature at 9m depth"
     annotation (Placement(transformation(extent={{-10,-100},{10,-80}})));
 
 protected
-  replaceable parameter ClimaticConstants.Boston climate;
-  replaceable parameter Buildings.HeatTransfer.Data.Soil.Generic soil(
-    k=1.58,c=1150,d=1600);
+  replaceable parameter ClimaticConstants.Boston cliCon "Surface temperature climatic conditions";
+  replaceable parameter Buildings.HeatTransfer.Data.Soil.Generic soiDat(
+    k=1.58,c=1150,d=1600) "Soil thermal properties";
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     experiment(StopTime=31536000, __Dymola_Algorithm="Cvode"));

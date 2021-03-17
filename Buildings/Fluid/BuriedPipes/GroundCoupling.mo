@@ -1,42 +1,50 @@
 within Buildings.Fluid.BuriedPipes;
 model GroundCoupling
-  parameter Integer nPipes(min=1, fixed=true) "Number of buried pipes";
+  parameter Integer nPip(min=1, fixed=true) "Number of buried pipes";
 
-  replaceable parameter Buildings.HeatTransfer.Data.Soil.Generic soil "Soil thermal properties";
-  replaceable parameter Buildings.BoundaryConditions.GroundTemperature.ClimaticConstants.Generic climate "Climatic Conditions";
+  replaceable parameter Buildings.HeatTransfer.Data.Soil.Generic soiDat "Soil thermal properties";
+  replaceable parameter Buildings.BoundaryConditions.GroundTemperature.ClimaticConstants.Generic cliCon "Surface temperature climatic conditions";
 
   parameter Modelica.SIunits.Length len "Pipes length";
 
-  parameter Modelica.SIunits.Length dep[nPipes] "Pipes Buried Depth";
-  parameter Modelica.SIunits.Length pos[nPipes] "Pipes Horizontal Coordinate (to an arbitrary reference point)";
-  parameter Modelica.SIunits.Length rad[nPipes] "Pipes external radius";
+  parameter Modelica.SIunits.Length dep[nPip] "Pipes Buried Depth";
+  parameter Modelica.SIunits.Length pos[nPip] "Pipes Horizontal Coordinate (to an arbitrary reference point)";
+  parameter Modelica.SIunits.Length rad[nPip] "Pipes external radius";
 
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a ports[nPipes] "Buried pipes heatports" annotation (Placement(transformation(extent={{82,-34},
-            {102,46}}), iconTransformation(
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a ports[nPip] "Buried pipes heatports" annotation (Placement(transformation(extent={{-110,
+            -80},{-90,0}}),
+                        iconTransformation(
         extent={{-10,-40},{10,40}},
-        rotation=90,
+        rotation=270,
         origin={0,-100})));
 
-  Buildings.BoundaryConditions.GroundTemperature.UndisturbedSoilTemperature soi(climate=climate, soil=soil, depth=depMea) "Soil temperature";
-
 protected
-  parameter Modelica.SIunits.Length depMea = sum(dep) / nPipes "Average depth";
-  parameter Real P[nPipes,nPipes] = BaseClasses.make_ground_coupling_factors(
-          nPipes, dep, pos, rad) "Thermal coupling geometric factors";
+  Buildings.BoundaryConditions.GroundTemperature.UndisturbedSoilTemperature soi(cliCon=cliCon, soiDat=soiDat, dep=depMea) "Soil temperature";
+
+  parameter Modelica.SIunits.Length depMea = sum(dep) / nPip "Average depth";
+  parameter Real P[nPip,nPip]=Functions.make_ground_coupling_factors(
+      nPip,
+      dep,
+      pos,
+      rad) "Thermal coupling geometric factors";
 
 equation
-  ports.T .- soi.port.T = P * ports.Q_flow / (2 * Modelica.Constants.pi * soil.k * len);
+  ports.T .- soi.port.T = P * ports.Q_flow / (2 * Modelica.Constants.pi * soiDat.k * len);
 
   annotation (Icon(graphics={
+        Text(
+          lineColor={0,0,255},
+          extent={{-150,110},{150,150}},
+          textString="%name"),
         Rectangle(
           extent={{-100,26},{100,100}},
           lineColor={0,0,0},
-          fillColor={28,108,200},
+          fillColor={85,170,255},
           fillPattern=FillPattern.Solid),
         Rectangle(
           extent={{-100,20},{100,26}},
           lineColor={0,0,0},
-          fillColor={0,140,72},
+          fillColor={0,255,128},
           fillPattern=FillPattern.Solid),
         Rectangle(
           extent={{-100,20},{100,-100}},
@@ -113,17 +121,17 @@ equation
           color={0,0,0},
           thickness=0.5),
         Line(
-          points={{-94,-64},{-58,-64}},
+          points={{-82,-64},{-58,-64}},
           color={0,0,0},
           thickness=0.5,
           arrow={Arrow.Open,Arrow.Open}),
         Line(
-          points={{-94,-74},{2,-74}},
+          points={{-82,-74},{0,-74}},
           color={0,0,0},
           thickness=0.5,
           arrow={Arrow.Open,Arrow.Open}),
         Line(
-          points={{-94,-84},{62,-84}},
+          points={{-82,-84},{60,-84}},
           color={0,0,0},
           thickness=0.5,
           arrow={Arrow.Open,Arrow.Open}),
@@ -143,14 +151,14 @@ equation
           thickness=0.5,
           arrow={Arrow.None,Arrow.Filled}),
         Text(
-          extent={{-84,-54},{-70,-64}},
+          extent={{-76,-54},{-62,-64}},
           lineColor={0,0,0},
           lineThickness=0.5,
           fillColor={122,20,25},
           fillPattern=FillPattern.Solid,
           textString="pos[1]"),
         Text(
-          extent={{-32,-64},{-18,-74}},
+          extent={{-26,-64},{-12,-74}},
           lineColor={0,0,0},
           lineThickness=0.5,
           fillColor={122,20,25},
@@ -212,7 +220,7 @@ equation
           fillPattern=FillPattern.Solid,
           textString="rad[3]"),
         Line(
-          points={{-96,-52},{-96,-92}},
+          points={{-84,-52},{-84,-92}},
           color={0,0,0},
           thickness=0.5)}));
 end GroundCoupling;
