@@ -1,0 +1,293 @@
+ 
+       @@@@@   @@   @  @   @@@  @  @   @@       @@@  @  @   @  @  @  @      @@   @@@@@  @   @@   @   @     @@@   @  @  @   @
+         @    @  @  @  @  @     @  @  @  @     @     @  @@ @@  @  @  @     @  @    @    @  @  @  @@  @     @  @  @  @  @@  @
+         @    @  @  @  @  @ @@  @@@@    @       @@   @  @ @ @  @  @  @     @@@@    @    @  @  @  @ @ @     @@@   @  @  @ @ @
+         @    @  @  @  @  @  @  @  @  @  @        @  @  @   @  @  @  @     @  @    @    @  @  @  @  @@     @ @   @  @  @  @@
+         @     @@    @@    @@@  @  @   @@      @@@   @  @   @   @@   @@@@  @  @    @    @   @@   @   @     @  @   @@   @   @
+
+
+                    TOUGH3 IS A PROGRAM FOR MULTIPHASE MULTICOMPONENT FLOW IN PERMEABLE MEDIA, INCLUDING HEAT FLOW.
+              IT IS A MEMBER OF THE MULKOM FAMILY OF CODES, DEVELOPED  AT LAWRENCE BERKELEY LABORATORY BY KARSTEN PRUESS ET AL.
+
+                          ********************************************************************************
+                          **********************   TOUGH3 VER. 1.0.0 (January 2018)  *********************
+                          ********************************************************************************
+
+
+ SUMMARY OF DISK FILES
+
+ FILE *MESH*  EXISTS --- OPEN AS AN OLD FILE
+ WARNING: FILES *MESHA* AND *MESHB* EXIST --- information in file MESH or ELEME and CONNE blocks in input file will be ignored
+ FILE *INCON* EXISTS --- OPEN AS AN OLD FILE
+ FILE *GENER* EXISTS --- OPEN AS AN OLD FILE
+ FILE *SAVE*  EXISTS --- OPEN AS AN OLD FILE
+ FILE *TABLE* EXISTS --- OPEN AS AN OLD FILE
+
+ ===================================================================================================================================
+
+     PROBLEM TITLE:  Community Geothermal Task 4, 1 borehole                                         
+
+
+(Reading ROCKS block)
+
+ DOMAIN NO.  1     MATERIAL NAME -- soil1
+
+ DOMAIN NO.  2     MATERIAL NAME -- bore1
+
+ DOMAIN NO.  3     MATERIAL NAME -- bott1
+
+ DOMAIN NO.  4     MATERIAL NAME -- insu1
+
+ DOMAIN NO.  5     MATERIAL NAME -- surf1
+(Reading RPCAP block)
+(Reading START block)
+(Reading MULTI block)
+ HAVE READ UNKNOWN BLOCK LABEL "----*" --- IGNORE THIS, AND CONTINUE READING INPUT DATA
+(Reading PARAM block)
+(Reading DIFFU block)
+ HAVE READ UNKNOWN BLOCK LABEL "     " --- IGNORE THIS, AND CONTINUE READING INPUT DATA
+(Reading TIMES block)
+(Reading TIMBC block)
+(Reading OUTPU block)
+(Reading FOFT  block)
+(Reading COFT  block)
+(Reading ENDCY block)
+
+                        ************************************************************************************
+                        *                       EVALUATE FLOATING POINT ARITHMETIC                         *
+                        ************************************************************************************
+                        *                                                                                  *
+                        * FLOATING POINT PROCESSOR HAS APPROXIMATELY 15 SIGNIFICANT DIGITS                 *
+                        *                                                                                  *
+                        * DEFAULT VALUE OF INCREMENT FACTOR FOR NUMERICAL DERIVATIVES IS DFAC = 0.1490E-07 *
+                        * USER-SPECIFIED VALUE DFAC = 0.1000E-07 WILL BE USED                              *
+                        *                                                                                  *
+                        ************************************************************************************
+
+ 
+
+
+ PARAMETERS FOR FLEXIBLE DIMENSIONING OF MAJOR ARRAYS (MAIN PROGRAM) ARE AS FOLLOWS
+
+ MNEL =   1231  MNCON =    2419  MNEQ =  3  MNK =  2   MNPH =  2   MNB =  8   MNOGN =   33   MGTAB =    0
+ ===================================================================================================================================
+
+ MAXIMUM NUMBER OF VOLUME ELEMENTS (GRID BLOCKS):            MNEL  =    1231
+ MAXIMUM NUMBER OF CONNECTIONS (INTERFACES):                 MNCON =    2419
+ MAXIMUM LENGTH OF PRIMARY VARIABLE ARRAYS:                  MPRIM =    3693
+ MAXIMUM NUMBER OF GENERATION ITEMS (SINKS/SOURCES):         MNOGN =     33
+ MAXIMUM NUMBER OF TABULAR (TIME-DEPENDENT) GENERATION DATA: MGTAB =      0
+ LENGTH OF SECONDARY PARAMETER ARRAY:                        MNSEC  =      108328
+
+ MESH HAS     1231 ELEMENTS AND     2419 CONNECTIONS (INTERFACES) BETWEEN THEM
+ GENER HAS    33 SINKS/SOURCES
+ 
+     TOUGH3 INPUT DATA
+
+     PROBLEM TITLE: Community Geothermal Task 4, 1 borehole                                         
+
+     *********************************************************************************************************************
+
+     PROBLEM SPECIFICATIONS
+
+     NOITE     KDATA      MCYC      MSEC     MCYPR      MOP                   DIFF0          TEXP            BE
+        8         0      9999         0      9999       100030100002000400000001     0.1800E+01     0.1800E+01     0.0000E+00
+
+       TSTART         TIMAX          DELTEN         DELTMX                        GF             REDLT         SCALE 
+     0.8700E+03     0.9300E+03     0.6000E+01     0.8640E+06                    0.9800E+01     0.4000E+01     0.1000E+01
+
+      A CONSTANT TIME STEP OF DELTEN IS PRESCRIBED
+
+            RE1            RE2            U              WUP            WNR            DFAC           FOR          AMRES
+          0.1000E-05     0.1000E+01     0.1000E+00     0.1000E+01     0.1000E+01     0.1000E-07     0.1000E+01     0.1000E+06
+
+             DEP(1)              DEP(2)              DEP(3)              DEP(4)
+           0.11000000E+07      0.10500000E+02      0.10000000E+02      0.00000000E+00
+     *********************************************************************************************************************
+
+     ROCK PROPERTIES
+
+     DOMAIN     MAT        DENSITY        POROSITY     CONDUCTIVITY     HEAT CAP       COMPR          EXPAN
+        1      soil1     0.2600E+04     0.3000E+00     0.2500E+01     0.1000E+04     0.1000E-07     0.0000E+00
+
+            PERM1          PERM2          PERM3
+          0.1000E-12     0.1000E-12     0.1000E-12
+
+     DOMAIN     MAT        DENSITY        POROSITY     CONDUCTIVITY     HEAT CAP       COMPR          EXPAN
+        2      bore1     0.2600E+04     0.1000E-02     0.2500E+01     0.1000E+04     0.1000E-07     0.0000E+00
+
+            PERM1          PERM2          PERM3
+          0.0000E+00     0.0000E+00     0.0000E+00
+
+     DOMAIN     MAT        DENSITY        POROSITY     CONDUCTIVITY     HEAT CAP       COMPR          EXPAN
+        3      bott1     0.2600E+24     0.3000E+00     0.2500E+01     0.1000E+04     0.1000E-07     0.0000E+00
+
+            PERM1          PERM2          PERM3
+          0.1000E-09     0.1000E-09     0.1000E-12
+
+     DOMAIN     MAT        DENSITY        POROSITY     CONDUCTIVITY     HEAT CAP       COMPR          EXPAN
+        4      insu1     0.2600E+04     0.3000E+00     0.1000E+00     0.1000E+04     0.1000E-07     0.0000E+00
+
+            PERM1          PERM2          PERM3
+          0.1000E-16     0.1000E-16     0.1000E-16
+
+     DOMAIN     MAT        DENSITY        POROSITY     CONDUCTIVITY     HEAT CAP       COMPR          EXPAN
+        5      surf1     0.2600E+04     0.9900E+00     0.2500E+01     0.1000E+04     0.1000E-07     0.0000E+00
+
+            PERM1          PERM2          PERM3
+          0.1000E-12     0.1000E-12     0.1000E-12
+
+     *********************************************************************************************************************
+
+     ELEMENTS
+
+              ELEMENT         MATERIAL         VOLUME
+     *********************************************************************************************************************
+
+     CONNECTIONS
+
+                ELEM1            ELEM2             ISO             DEL1           DEL2            AREA           BETA
+
+     *********************************************************************************************************************
+     *********************************************************************************************************************
+
+     INITIAL CONDITIONS
+
+               ELEMENT       POROSITY         X1             X2             X3             X4
+
+               A4  1     0.1000E-02     0.9919E+05     0.1050E+02     0.6271E+01
+               A5  1     0.1000E-02     0.1003E+06     0.1050E+02     0.9171E+01
+               A6  1     0.1000E-02     0.1014E+06     0.1050E+02     0.1163E+02
+               A7  1     0.1000E-02     0.1028E+06     0.1050E+02     0.1359E+02
+               A8  1     0.1000E-02     0.1039E+06     0.1050E+02     0.1243E+02
+     *********************************************************************************************************************
+
+     END OF INPUT DATA
+
+     *********************************************************************************************************************
+     *********************************************************************************************************************
+
+
+END OF PART 1 INPUT JOB --- ELAPSED TIME =   0.0000 SECONDS
+
+ 
+ ***********************************************************************************************************************************
+ *          ARRAY *MOP* ALLOWS TO GENERATE MORE PRINTOUT IN VARIOUS SUBROUTINES, AND TO MAKE SOME CALCULATIONAL CHOICES.           *
+ ***********************************************************************************************************************************
+
+   MOP(1)  = 1 *** ALLOWS TO GENERATE A SHORT PRINTOUT FOR EACH NEWTON-RAPHSON ITERATION
+           = 0, 1, OR 2: GENERATE 0, 1, OR 2 LINES OF PRINTOUT
+
+            MORE PRINTOUT IS GENERATED FOR MOP(I) > 0 IN THE FOLLOWING SUBROUTINES (THE LARGER MOP IS, THE MORE WILL BE PRINTED).
+
+   MOP(2)  = 0 *** CYCIT       MOP(3) = 0 *** MULTI       MOP(4) = 0 *** QU       MOP(5) = 3 *** EOS       MOP(6) = 0 *** LINEQ    
+
+   MOP(7)  = 1 *** IF UNEQUAL ZERO, WILL GENERATE A PRINTOUT OF INPUT DATA
+
+            CALCULATIONAL CHOICES OFFERED BY MOP ARE AS FOLLOWS:
+
+   MOP(8)  = 0 *** IF ISOT IS NEGATIVE, CHOOSES OPTION FOR REDUCING FRACTURE-MATRIX INTERFACE AREA.
+
+   MOP(9)  = 0 *** CHOOSES FLUID COMPOSITION ON WITHDRAWAL (PRODUCTION).
+           = 0: ACCORDING TO RELATIVE MOBILITIES.
+           = 1: ACCORDING TO COMPOSITION IN PRODUCING ELEMENT.
+
+   MOP(10) = 0 *** CHOOSES INTERPOLATION FORMULA FOR DEPENDENCE OF THERMAL CONDUCTIVITY ON LIQUID SATURATION (SL).
+           = 0: K = KDRY + SQRT(SL)*(KWET-KDRY)
+           = 1: K = KDRY + SL*(KWET-KDRY)
+           = 2: K = C0+C1*T+C2*Sw+C3*POR
+
+   MOP(11) = 0 *** CHOOSES EVALUATION OF MOBILITY AND ABSOLUTE PERMEABILITY AT INTERFACES.
+           = 0: MOBILITIES ARE UPSTREAM WEIGHTED WITH WUP. (DEFAULT IS WUP = 1.0). PERMEABILITY IS UPSTREAM WEIGHTED.
+           = 1: MOBILITIES ARE AVERAGED BETWEEN ADJACENT ELEMENTS. PERMEABILITY IS UPSTREAM WEIGHTED.
+           = 2: MOBILITIES ARE UPSTREAM WEIGHTED WITH WUP. (DEFAULT IS WUP = 1.0). PERMEABILITY IS HARMONIC WEIGHTED.
+           = 3: MOBILITIES ARE AVERAGED BETWEEN ADJACENT ELEMENTS. PERMEABILITY IS HARMONIC WEIGHTED.
+           = 4: MOBILITY * PERMEABILITY PRODUCT IS HARMONIC WEIGHTED.
+
+   MOP(12) = 2 *** CHOOSES PROCEDURE FOR INTERPOLATING GENERATION RATES FROM A TIME TABLE.
+           = 0: TRIPLE LINEAR INTERPOLATION.
+           = 1: "STEP FUNCTION" OPTION.
+           = 2: RIGOROUS STEP RATE OPTION.
+
+   MOP(13) = 0 *** DEFINES CONTENT OF INCON AND SAVE FILE.
+           = 0: STANDARD CONTENT.
+           = 2: READS PARAMETERS OF HYSTERESIS MODEL FROM FILE INCON.
+
+   MOP(15) = 0 *** ALLOWS TO SELECT A SEMI-ANALYTICAL HEAT EXCHANGE CALCULATION WITH CONFINING BEDS.
+           = 0: NO SEMI-ANALYTICAL HEAT EXCHANGE.
+           = 1: SEMI-ANALYTICAL LINEAR HEAT EXCHANGE ENGAGED. INITIAL TEMPERATURE OF CONFINING BEDS IS UNIFORM.
+           = 2: SEMI-ANALYTICAL LINEAR HEAT EXCHANGE ENGAGED. INITIAL TEMPERATURE OF CONFINING LAYERS IS NOT UNIFORM.
+           = 5: SEMI-ANALYTICAL RADIAL HEAT EXCHANGE WITH PROPERTIES GIVEN IN MATERIAL QLOSS
+           = 6: SEMI-ANALYTICAL RADIAL HEAT EXCHANGE WITH DEPTH-DEPENDENT PROPERTIES (DEPTH, RADIUS, TEMPERATURE,
+                CONDUCTIVITY, DENSITY, CAPACITY) PROVIDED ON FILE radqloss.dat
+
+   MOP(16) = 4 *** PERMITS TO CHOOSE TIME STEP SELECTION OPTION
+           = 0: AUTOMATIC TIME STEPPING BASED ON MAXIMUM CHANGE IN SATURATION.
+           = 1: AUTOMATIC TIME STEPPING BASED ON NUMBER OF ITERATIONS NEEDED FOR CONVERGENCE.
+           > 1: INCREASE TIME STEP BY AT LEAST A FACTOR 2, IF CONVERGENCE OCCURS IN .LE. MOP(16) ITERATIONS.
+
+   MOP(17) = 0 *** HANDLES TIME STEPPING AFTER LINEAR EQUATION SOLVER FAILURE.
+           = 0: NO TIME STEP REDUCTION DESPITE LINEAR EQUATION SOLUTION FAILURE.
+           = 9: REDUCE TIME STEP AFTER LINEAR EQUATION SOLUTION FAILURE.
+
+   MOP(18) = 0 *** ALLOWS TO SELECT HANDLING OF INTERFACE DENSITY.
+           = 0: PERFORM UPSTREAM WEIGHTING FOR INTERFACE DENSITY.
+           > 0: COMPUTE INTERFACE DENSITY AS AVERAGE OF THE TWO GRID BLOCK DENSITIES.
+                HOWEVER, WHEN ONE OF THE TWO PHASE SATURATIONS IS ZERO, DO UPSTREAM WEIGHTING.
+
+   MOP(21) = 0 *** PERMITS TO SELECT LINEAR EQUATION SOLVER FROM PACKAGE 
+           < 2: DEFAULTS TO MOP(21) = 3
+           = 2: DSLUBC: BI-CONJUGATE GRADIENT SOLVER; PRECONDITIONER: INCOMPLETE LU FACTORIZATION
+           = 3: DSLUCS: BI-CONJUGATE GRADIENT SOLVER - LANCZOS TYPE; PRECONDITIONER: INCOMPLETE LU FACTORIZATION
+           = 4: DSLUGM: GENERALIZED MINIMUM RESIDUAL CONJUGATE GRADIENTS; PRECONDITIONER: INCOMPLETE LU FACTORIZATION
+           = 5: DLUSTB: STABILIZED BI-CONJUGATE GRADIENT SOLVER; PRECONDITIONER: INCOMPLETE LU FACTORIZATION
+           = 6: LUBAND: DIRECT SOLVER USING LU DECOMPOSITION
+           = 7: AZTEC: PARALLEL ITERATIVE SOLVER
+           = 8: PETSc: PARALLEL ITERATIVE SOLVER
+
+   MOP(24) = 1 *** PERMITS TO SELECT HANDLING OF MULTIPHASE DIFFUSIVE FLUXES AT INTERFACES
+           = 0: HARMONIC WEIGHTING OF FULLY-COUPLED EFFECTIVE MULTIPHASE DIFFUSIVITY
+           = 1: SEPARATE HARMONIC WEIGHTING  FOR EACH PHASE FLUX 
+
+ ***********************************************************************************************************************************
+
+ ***********************************************************************************************************************************
+
+
+ 
+ &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+ &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&   Summary of capabilities for random permeability modification   &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+ &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+
+ Modification of absolute permeability on a grid block-by-grid block basis will be made when a domain "SEED " is present in data
+ block "ROCKS", as follows.
+                                    k    --->    k' = k*m
+
+ Here, k is the absolute permeability specified for the reservoir domain to which the grid block belongs. Parameter m is a
+ "permeability modifier" which can be internally generated or externally prescribed by the user on a block-by-block basis.
+
+ When permeability modification is in effect, the strength of capillary pressure will, following Leverett (1941), automatically be
+ scaled as   Pcap ---> Pcap' = Pcap/SQRT(m).
+
+ User-supplied permeability modifiers have to be entered as parameter "PMX" in columns 41-50 of an ELEMEnt record.
+ Permeability modification options are selected through parameters in data block "ROCKS".
+
+ &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+ Summary of available permeability modification options
+          (with s - random number between 0 and 1; PMX - user-supplied modifiers in data block "ELEME"):
+      (1) externally supplied:        m = PMX - PER(2)
+      (2) "linear"      (DROK.ne.0):  m = PER(1) * s - PER(2)
+      (3) "logarithmic" (DROK.eq.0):  m = exp(- PER(1) * s) - PER(2)
+ &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+
+            &&&& if a domain "SEED " is present, permeability modification will be made
+            &&&& if no domain "SEED " is present, no permeability modification will be made
+ >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+ >>>>>>>>>>>>>>>>>>>>>>>>>>>  domain = "SEED " is not present, no permeability modification will be made  <<<<<<<<<<<<<<<<<<<<<<<<<<
+ >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+ Data provided in domain "SEED " are used to select the following options.
+
+ DROK   = *** random number seed for internal generation of "linear" permeability modifiers.
+        = 0: (default) no internal generation of "linear" permeability modifiers.
+        > 0: perform "linear" permeability modification; random modifiers are generated internally with DROK as seed.

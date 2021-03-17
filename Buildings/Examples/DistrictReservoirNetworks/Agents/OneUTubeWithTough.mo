@@ -18,7 +18,7 @@ model OneUTubeWithTough
           borCon=Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.SingleUTube,
           cooBor={{6*mod((i - 1), 20),6*floor((i - 1)/
           20)} for i in 1:400})),
-    toughRes(samplePeriod=3600, flag=1));
+    toughRes(samplePeriod=60,  flag=1));
 
 //   parameter Modelica.SIunits.Length xBorFie = 120 "Borefield length"
 //     annotation(Dialog(tab="Borefield"));
@@ -85,5 +85,10 @@ July 2014, by Damien Picard:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"),
+    experiment(
+      StopTime=7200,
+      __Dymola_NumberOfIntervals=8760,
+      Tolerance=1e-06,
+      __Dymola_Algorithm="Radau"));
 end OneUTubeWithTough;
