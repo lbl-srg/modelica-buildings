@@ -1,0 +1,5 @@
+simulateModel("Buildings.ThermalZones.EnergyPlus.Examples.OneZoneRadiantFloor", stopTime=432000, method="Cvode", tolerance=1e-06, resultFile="OneZoneRadiantFloor");
+createPlot(id=1, position={15, 15, 931, 914}, y={"flo.T", "zon.TAir", "TSetRooHea.y", "sla.sta_a.T", "sla.sta_b.T"}, range={0.0, 450000.0, 10.0, 40.0}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}, {0,0,0}}, timeUnit="s", displayUnits={"degC", "degC", "degC", "degC", "degC"});
+createPlot(id=1, position={15, 15, 931, 914}, y={"conHea.y"}, range={0.0, 450000.0, -1.0, 2.0}, grid=true, subPlot=102, colors={{28,108,200}}, timeUnit="s");
+createPlot(id=1, position={15, 15, 931, 914}, y={"flo.q_flow"}, range={0.0, 450000.0, -20.0, 20.0}, grid=true, subPlot=103, colors={{28,108,200}}, timeUnit="s", displayUnits={"W/m2"});
+createPlot(id=1, position={15, 15, 931, 914}, y={"sla.surf_a.Q_flow", "sla.surf_b.Q_flow", "hea.Q_flow"}, range={0.0, 450000.0, -5000.0, 5000.0}, grid=true, subPlot=104, colors={{28,108,200}, {238,46,47}, {0,140,72}}, timeUnit="s", displayUnits={"W", "W", "W"});
