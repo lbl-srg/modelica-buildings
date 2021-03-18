@@ -17,10 +17,9 @@ model GroundCoupling "Thermal coupling between buried pipes and ground"
         extent={{-10,-40},{10,40}},
         rotation=270,
         origin={0,-100})));
-
-protected
   Buildings.BoundaryConditions.GroundTemperature.UndisturbedSoilTemperature soi(cliCon=cliCon, soiDat=soiDat, dep=depMea) "Soil temperature";
 
+protected
   parameter Modelica.SIunits.Length depMea = sum(dep) / nPip "Average depth";
   parameter Real P[nPip,nPip]=BaseClasses.Functions.groundCouplingFactors(
       nPip,
