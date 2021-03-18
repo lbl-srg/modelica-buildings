@@ -19,15 +19,17 @@ model MultipleVariable
       choicesAllMatching=true,
       Placement(transformation(extent={{-10,10},{10,30}})));
 
-  Modelica.Blocks.Routing.RealPassThrough  speSup if braStr=="Supply"
-    "Pass through to connect with specific control signal"
-    annotation (Placement(transformation(
+  Modelica.Blocks.Routing.RealPassThrough ySpeFanSup if
+                                                     braStr=="Supply"
+    "Pass through to connect with specific control signal" annotation (
+      Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-20,80})));
-  Modelica.Blocks.Routing.RealPassThrough speRet if braStr=="Return"
-    "Pass through to connect with specific control signal"
-    annotation (Placement(transformation(
+  Modelica.Blocks.Routing.RealPassThrough ySpeFanRet if
+                                                    braStr=="Return"
+    "Pass through to connect with specific control signal" annotation (
+      Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={20,80})));
@@ -54,7 +56,8 @@ model MultipleVariable
     nPorts=1)
     "Zero flow boundary condition"
     annotation (Placement(transformation(extent={{54,-30},{34,-10}})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal comSup if braStr=="Supply"
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal yFanSup if
+                                                                 braStr=="Supply"
     "Supply fan start/stop" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
@@ -65,9 +68,9 @@ model MultipleVariable
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-40,50})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal comRet if braStr=="Return"
-    "Return fan start/stop"
-    annotation (Placement(transformation(
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal yFanRet if
+                                                                 braStr=="Return"
+    "Return fan start/stop" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={46,80})));
@@ -92,12 +95,14 @@ model MultipleVariable
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={0,-80})));
-  Modelica.Blocks.Routing.BooleanPassThrough staSup if braStr=="Supply"
+  Modelica.Blocks.Routing.BooleanPassThrough yFanSup_actual if
+                                                       braStr=="Supply"
     "Supply fan status" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={-40,-80})));
-  Modelica.Blocks.Routing.BooleanPassThrough staRet if braStr=="Return"
+  Modelica.Blocks.Routing.BooleanPassThrough yFanRet_actual if
+                                                       braStr=="Return"
     "Return fan status" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
@@ -118,27 +123,27 @@ equation
           {-20,-26}},                     color={0,127,255}));
   connect(colDis.port_bDisSup, floZer1.ports[1])
     annotation (Line(points={{20,-20},{34,-20}}, color={0,127,255}));
-  connect(comSup.y, conSup1.u2)
+  connect(yFanSup.y, conSup1.u2)
     annotation (Line(points={{-46,68},{-46,62}}, color={0,0,127}));
-  connect(speSup.y, conSup1.u1) annotation (Line(points={{-20,69},{-20,64},{-34,
-          64},{-34,62}}, color={0,0,127}));
-  connect(comRet.y, conRet1.u1)
+  connect(ySpeFanSup.y, conSup1.u1) annotation (Line(points={{-20,69},{-20,64},
+          {-34,64},{-34,62}}, color={0,0,127}));
+  connect(yFanRet.y, conRet1.u1)
     annotation (Line(points={{46,68},{46,62}}, color={0,0,127}));
-  connect(speRet.y, conRet1.u2) annotation (Line(points={{20,69},{20,64},{34,64},
-          {34,62}}, color={0,0,127}));
-  connect(busCon.out.yFanSup, comSup.u) annotation (Line(
+  connect(ySpeFanRet.y, conRet1.u2) annotation (Line(points={{20,69},{20,64},{
+          34,64},{34,62}}, color={0,0,127}));
+  connect(busCon.out.yFanSup, yFanSup.u) annotation (Line(
       points={{0.1,100.1},{-46,100.1},{-46,92}},
       color={255,204,51},
       thickness=0.5));
-  connect(busCon.out.ySpeFanSup, speSup.u) annotation (Line(
+  connect(busCon.out.ySpeFanSup, ySpeFanSup.u) annotation (Line(
       points={{0.1,100.1},{-20,100.1},{-20,92}},
       color={255,204,51},
       thickness=0.5));
-  connect(busCon.out.ySpeFanRet, speRet.u) annotation (Line(
+  connect(busCon.out.ySpeFanRet, ySpeFanRet.u) annotation (Line(
       points={{0.1,100.1},{20,100.1},{20,92}},
       color={255,204,51},
       thickness=0.5));
-  connect(busCon.out.yFanRet, comRet.u) annotation (Line(
+  connect(busCon.out.yFanRet, yFanRet.u) annotation (Line(
       points={{0.1,100.1},{46,100.1},{46,92}},
       color={255,204,51},
       thickness=0.5));
@@ -148,16 +153,25 @@ equation
           {16,64},{0,64},{0,62}}, color={0,0,127}));
   connect(fan.y_actual, mulMin.u) annotation (Line(points={{11,27},{24,27},{24,
           -36},{0,-36},{0,-38}}, color={0,0,127}));
-  connect(evaSta.y, staRet.u) annotation (Line(points={{0,-92},{0,-94},{16,-94},
-          {16,-80},{28,-80}}, color={255,0,255}));
-  connect(evaSta.y, staSup.u) annotation (Line(points={{0,-92},{0,-94},{-14,-94},
-          {-14,-80},{-28,-80}}, color={255,0,255}));
+  connect(evaSta.y, yFanRet_actual.u) annotation (Line(points={{0,-92},{0,-94},
+          {16,-94},{16,-80},{28,-80}}, color={255,0,255}));
+  connect(evaSta.y, yFanSup_actual.u) annotation (Line(points={{0,-92},{0,-94},
+          {-14,-94},{-14,-80},{-28,-80}}, color={255,0,255}));
   connect(mulMin.y, evaSta.u)
     annotation (Line(points={{0,-62},{0,-68}}, color={0,0,127}));
-  connect(staRet.y,busCon.inp.staFanRet)  annotation (Line(points={{51,-80},{
-          60,-80},{60,96},{0.1,96},{0.1,100.1}}, color={255,0,255}));
-  connect(staSup.y,busCon.inp.staFanSup)  annotation (Line(points={{-51,-80},
-          {-60,-80},{-60,96},{0.1,96},{0.1,100.1}},color={255,0,255}));
+  connect(yFanSup_actual.y, busCon.inp.yFanSup_actual) annotation (Line(points=
+          {{-51,-80},{-60,-80},{-60,100.1},{0.1,100.1}}, color={255,0,255}),
+      Text(
+      string="%second",
+      index=1,
+      extent={{-6,3},{-6,3}},
+      horizontalAlignment=TextAlignment.Right));
+  connect(yFanRet_actual.y, busCon.inp.yFanRet_actual) annotation (Line(points=
+          {{51,-80},{80,-80},{80,100.1},{0.1,100.1}}, color={255,0,255}), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}},
+      horizontalAlignment=TextAlignment.Left));
   annotation (Placement(transformation(extent={{-10,-10},{10,10}})),
               Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false), graphics={Text(
