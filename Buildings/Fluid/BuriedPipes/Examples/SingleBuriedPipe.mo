@@ -77,11 +77,23 @@ equation
           10,40},{10,40}}, color={191,0,0}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
-    experiment(StopTime=63072000, __Dymola_Algorithm="Cvode"),
+    experiment(
+      StopTime=63072000,
+      Tolerance=1e-06,
+      __Dymola_Algorithm="Cvode"),
     Documentation(info="<html>
 <p>
 This example showcases the ground thermal coupling for a single uninsulated buried pipe operating
 around ambient temperature (20degC).
 </p>
-</html>"));
+</html>", revisions="<html>
+<ul>
+<li>
+March 17, 2021, by Baptiste Ravache:<br/>
+First implementation.
+</li>
+</ul>
+</html>"),
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/BuriedPipes/Examples/SingleBuriedPipe.mos"
+        "Simulate and plot"));
 end SingleBuriedPipe;

@@ -133,12 +133,24 @@ equation
     annotation (Line(points={{66,-60},{82,-60}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
-    experiment(StopTime=63072000, __Dymola_Algorithm="Cvode"),
+    experiment(
+      StopTime=63072000,
+      Tolerance=1e-06,
+      __Dymola_Algorithm="Cvode"),
     Documentation(info="<html>
 <p>
 This example showcases the ground thermal coupling for a network of two uninsulated
 buried pipes that are in close proximity. One pipe carries chilled water oscillating around
 10degC whereas the other carries hot water oscillating around 80degC.
 </p>
-</html>"));
+</html>", revisions="<html>
+<ul>
+<li>
+March 17, 2021, by Baptiste Ravache:<br/>
+First implementation.
+</li>
+</ul>
+</html>"),
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/BuriedPipes/Examples/TwoBuriedPipes.mos"
+        "Simulate and plot"));
 end TwoBuriedPipes;

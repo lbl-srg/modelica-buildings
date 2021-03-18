@@ -21,7 +21,7 @@ protected
     k=1.58,c=1150,d=1600) "Soil thermal properties";
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
-    experiment(StopTime=31536000, __Dymola_Algorithm="Cvode"),
+    experiment(StopTime=31536000, __Dymola_Algorithm="Cvode", Tolerance=1e-6),
     Documentation(info="<html>
 <p>
 This example model illustrates how the undisturbed soil temperature model decreases
@@ -30,9 +30,11 @@ seasonal temperature oscillations and increases delay as depth is increasing.
 </html>", revisions="<html>
 <ul>
 <li>
-March 17, 2020, by Baptiste Ravache:<br/>
+March 17, 2021, by Baptiste Ravache:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"),
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/BoundaryConditions/GroundTemperature/Examples/UndisturbedSoilTemperature.mos"
+        "Simulate and plot"));
 end UndisturbedSoilTemperature;

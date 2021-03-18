@@ -1,0 +1,7 @@
+compareVars :=
+  {
+    "Tsoi0.port.T",
+    "Tsoi2.port.T",
+    "Tsoi5.port.T",
+    "Tsoi9.port.T"
+  };

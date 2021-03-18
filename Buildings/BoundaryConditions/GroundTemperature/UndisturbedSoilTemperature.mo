@@ -77,7 +77,7 @@ ASCE (1996). <i>Cold Regions Utilities Monograph</i>. D.W. Smith, Technical Edit
 </html>", revisions="<html>
 <ul>
 <li>
-March 17, 2020, by Baptiste Ravache:<br/>
+March 17, 2021, by Baptiste Ravache:<br/>
 First implementation.
 </li>
 </ul>

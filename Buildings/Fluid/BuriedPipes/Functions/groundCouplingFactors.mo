@@ -43,5 +43,12 @@ horizontal position, depth and external radius, respectively, of pipe i.
 Kusuda, T. (1981). <i>Heat transfer analysis of underground heat 
 and chilled-water distribution systems</i>. National Bureau of Standards.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+March 17, 2020, by Baptiste Ravache:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end groundCouplingFactors;

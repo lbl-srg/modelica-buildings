@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "senTemIn.T",
+    "senTemOut.T",
+    "gro.soi.port.T"
+  };
