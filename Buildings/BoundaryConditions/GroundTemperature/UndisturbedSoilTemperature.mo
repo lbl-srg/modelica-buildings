@@ -60,20 +60,19 @@ where the temperature is computed per the ASCE (1996) equation:
 <p align=\"center\">
 <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/BoundaryConditions/GroundTemperature/UndisturbedGroundTemperature.png\" />
 </p>
-
+<p>
 where T<sub>s,z</sub> is the ground temperature at depth z, 
 &tau; is the annual period length (constant 365.25 days),
 &alpha; is the soil thermal diffusivity, and t is the time.
 T<sub>ms</sub>, A<sub>s</sub> and t<sub>lag</sub> are function of the
 climate and represent the offset, amplitude and phase, respectively,
 of the representative surface temperature sinusoid.
-
+</p>
 <h4>References</h4>
 <p>
 ASCE (1996). <i>Cold Regions Utilities Monograph</i>. D.W. Smith, Technical Editor.
 </p>
 
-</p>
 </html>", revisions="<html>
 <ul>
 <li>

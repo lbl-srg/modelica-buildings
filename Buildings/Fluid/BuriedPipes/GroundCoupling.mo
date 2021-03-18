@@ -244,13 +244,13 @@ temperature at the depth of the network.
 </p>
 <p>
 This model relies on the following assumptions:
+</p>
 <ul>
 <li>Heat transfer is in steady state (although seasonal heat storage is coded in the ground temperature model)</li>
 <li>The heat transfer is radial (no axial diffusion)</li>
 <li>The exterior surfaces of the pipes and the ground surface are isothermic planes</li>
 <li>The soil conductivity is homogeneous and isotropic</li>
 </ul>
-</p>
 <h4>References</h4>
 <p>
 Eckert, E. R. G. (1959). <i>Heat and Mass Transfer</i>. McGraw-Hill Book Company.<br/>
