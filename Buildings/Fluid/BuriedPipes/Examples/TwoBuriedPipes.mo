@@ -1,5 +1,5 @@
 within Buildings.Fluid.BuriedPipes.Examples;
-model TwoBuriedPipes
+model TwoBuriedPipes "Example model of two buried pipes in close proximity"
   extends Modelica.Icons.Example;
 
   replaceable parameter Buildings.BoundaryConditions.GroundTemperature.ClimaticConstants.Boston cliCon "Surface temperature climatic conditions";
@@ -74,7 +74,7 @@ model TwoBuriedPipes
     T_start_out=THotW,
     nPorts=1) annotation (Placement(transformation(extent={{0,-70},{20,-50}})));
   Modelica.Blocks.Sources.Sine TinHotW(
-    amplitude=10,
+    amplitude=5,
     freqHz=1/90/24/60/60,
     phase=3.1415926535898,
     offset=THotW) "Hot water pipe inlet temperature signal"
@@ -103,7 +103,7 @@ model TwoBuriedPipes
     annotation (Placement(transformation(extent={{46,-70},{66,-50}})));
 
 protected
-  parameter Modelica.SIunits.Temperature TChW = 273.15 + 5;
+  parameter Modelica.SIunits.Temperature TChW = 273.15 + 10;
   parameter Modelica.SIunits.Temperature THotW = 273.15 + 80;
 
 equation
@@ -133,5 +133,12 @@ equation
     annotation (Line(points={{66,-60},{82,-60}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
-    experiment(StopTime=63072000, __Dymola_Algorithm="Cvode"));
+    experiment(StopTime=63072000, __Dymola_Algorithm="Cvode"),
+    Documentation(info="<html>
+<p>
+This example showcases the ground thermal coupling for a network of two uninsulated
+buried pipes that are in close proximity. One pipe carries chilled water oscillating around
+10degC whereas the other carries hot water oscillating around 80degC.
+</p>
+</html>"));
 end TwoBuriedPipes;

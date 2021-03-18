@@ -1,5 +1,5 @@
 within Buildings.Fluid.BuriedPipes;
-model GroundCoupling
+model GroundCoupling "Thermal coupling between buried pipes and ground"
   parameter Integer nPip(min=1, fixed=true) "Number of buried pipes";
 
   replaceable parameter Buildings.HeatTransfer.Data.Soil.Generic soiDat "Soil thermal properties";
@@ -22,7 +22,7 @@ protected
   Buildings.BoundaryConditions.GroundTemperature.UndisturbedSoilTemperature soi(cliCon=cliCon, soiDat=soiDat, dep=depMea) "Soil temperature";
 
   parameter Modelica.SIunits.Length depMea = sum(dep) / nPip "Average depth";
-  parameter Real P[nPip,nPip]=Functions.make_ground_coupling_factors(
+  parameter Real P[nPip,nPip]=Functions.groundCouplingFactors(
       nPip,
       dep,
       pos,
@@ -222,5 +222,47 @@ equation
         Line(
           points={{-84,-52},{-84,-92}},
           color={0,0,0},
-          thickness=0.5)}));
+          thickness=0.5)}), Documentation(info="<html>
+<p>
+This model simulates the heat transfer between multiple buried pipes and the ground,
+using climate and soil information and the geometry of the pipes network.
+
+The heat transfer solution is based upon the potential flow theory and obtained by the use
+of \"mirror-image\" technique suggested by Eckert (1959). This technique is extended to
+a network with multiple pipes by Kusuda (1981) in the equation:
+</p>
+<p align=\"center\">
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/BuriedPipes/BuriedPipesHeatTransfer.png\" />
+</p>
+<p>
+where k<sub>s</sub> is the soil thermal conductivity, P<sub>ij</sub> is a 
+geometric factor that is function of the pipes and mirror images positions (see 
+<code>Buildings.Fluid.BuriedPipes.Functions.groundCouplingFactors</code> for more information),
+Q<sub>i</sub> is the heat transfer from the ith pipe, T<sub>i</sub> is the temperature at
+the exterior surface of the ith pipe, and T<sub>g</sub> is the undisturbed ground 
+temperature at the depth of the network.
+</p>
+<p>
+This model relies on the following assumptions:
+<ul>
+<li>Heat transfer is in steady state (although seasonal heat storage is coded in the ground temperature model)</li>
+<li>The heat transfer is radial (no axial diffusion)</li>
+<li>The exterior surfaces of the pipes and the ground surface are isothermic planes</li>
+<li>The soil conductivity is homogeneous and isotropic</li>
+</ul>
+</p>
+<h4>References</h4>
+<p>
+Eckert, E. R. G. (1959). <i>Heat and Mass Transfer</i>. McGraw-Hill Book Company.<br/>
+Kusuda, T. (1981). <i>Heat transfer analysis of underground heat 
+and chilled-water distribution systems</i>. National Bureau of Standards.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+March 17, 2020, by Baptiste Ravache:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end GroundCoupling;
