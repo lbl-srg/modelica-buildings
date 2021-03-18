@@ -4,7 +4,7 @@ model OneZoneRadiantHeatingCooling
   extends Validation.ThermalZone.OneZone(m_flow_nominal=VRoo*1.2*0.3/3600);
   package MediumW = Buildings.Media.Water "Water medium";
 
-  final parameter Modelica.SIunits.Area AFlo = zon.AFlo "Floor area";
+  constant Modelica.SIunits.Area AFlo = 185.8 "Floor area";
   parameter Modelica.SIunits.HeatFlowRate QHea_flow_nominal=5000
     "Nominal heat flow rate for heating";
   parameter Modelica.SIunits.MassFlowRate mHea_flow_nominal=QHea_flow_nominal/4200
@@ -193,6 +193,10 @@ model OneZoneRadiantHeatingCooling
         Buildings.HeatTransfer.Data.Solids.Concrete(x=0.02)})
     "Material layers from surface a to b (8cm concrete, 5 cm insulation, 18+2 cm concrete)"
     annotation (Placement(transformation(extent={{-60,146},{-40,166}})));
+initial equation
+  // The floor area can be obtained from EnergyPlus, but it is a structural parameter used to
+  // size the system and therefore we hard-code it here.
+  assert(abs(AFlo - zon.AFlo) < 0.1, "Floor area AFlo differs from EnergyPlus floor area.");
 equation
   connect(slaFlo.port_b, pre.ports[1])
     annotation (Line(points={{20,-260},{52,-260}}, color={0,127,255}));
@@ -211,30 +215,27 @@ equation
     annotation (Line(points={{-20,-260},{0,-260}}, color={0,127,255}));
   connect(pum.port_b, hea.port_a)
     annotation (Line(points={{-60,-260},{-40,-260}}, color={0,127,255}));
-  connect(pum.port_a, slaFlo.port_b) annotation (Line(points={{-80,-260},{-90,
-          -260},{-90,-280},{40,-280},{40,-260},{20,-260}},
-                                                     color={0,127,255}));
+  connect(pum.port_a, slaFlo.port_b) annotation (Line(points={{-80,-260},{-90,-260},
+          {-90,-280},{40,-280},{40,-260},{20,-260}}, color={0,127,255}));
   connect(TSurLivFlo.T, livFlo.T)
     annotation (Line(points={{40,-180},{58,-180}}, color={0,0,127}));
-  connect(TSoi.port, soi.port_a) annotation (Line(points={{-12,-320},{14,-320},
-          {14,-312}},color={191,0,0}));
+  connect(TSoi.port, soi.port_a) annotation (Line(points={{-12,-320},{14,-320},{
+          14,-312}}, color={191,0,0}));
   connect(soi.port_b, slaFlo.surf_b)
     annotation (Line(points={{14,-292},{14,-270}}, color={191,0,0}));
   connect(conHea.y, hysHea.u)
     annotation (Line(points={{-178,-130},{-162,-130}}, color={0,0,127}));
   connect(swiBoi.u1, conHea.y) annotation (Line(points={{-122,-162},{-168,-162},
           {-168,-130},{-178,-130}},color={0,0,127}));
-  connect(swiBoi.y, hea.u) annotation (Line(points={{-98,-170},{-52,-170},{-52,
-          -254},{-42,-254}},
-                       color={0,0,127}));
+  connect(swiBoi.y, hea.u) annotation (Line(points={{-98,-170},{-52,-170},{-52,-254},
+          {-42,-254}}, color={0,0,127}));
   connect(off.y, swiPum.u3) annotation (Line(points={{-178,-178},{-140,-178},{-140,
           -208},{-122,-208}}, color={0,0,127}));
   connect(off.y, swiBoi.u3) annotation (Line(points={{-178,-178},{-122,-178}},
                               color={0,0,127}));
   connect(on.y, swiPum.u1) annotation (Line(points={{-178,-210},{-134,-210},{-134,
           -192},{-122,-192}}, color={0,0,127}));
-  connect(pum.y, swiPum.y) annotation (Line(points={{-70,-248},{-70,-200},{-98,
-          -200}},
+  connect(pum.y, swiPum.y) annotation (Line(points={{-70,-248},{-70,-200},{-98,-200}},
         color={0,0,127}));
   connect(hysHea.y, swiPum.u2) annotation (Line(points={{-138,-130},{-130,-130},
           {-130,-200},{-122,-200}}, color={255,0,255}));
@@ -263,22 +264,18 @@ equation
                                                color={0,0,127}));
   connect(preHeaLivCei.port, slaCei.surf_b) annotation (Line(points={{138,96},{150,
           96},{150,110},{-26,110},{-26,120}},color={191,0,0}));
-  connect(conCoo.y, dTCoo.u) annotation (Line(points={{-248,140},{-240,140},{
-          -240,110},{-232,110}},
-                            color={0,0,127}));
-  connect(dTCoo.y, TSupNoDP.u1) annotation (Line(points={{-208,110},{-200,110},
-          {-200,96},{-192,96}},color={0,0,127}));
-  connect(TSupNoDP.u2, zon.TAir) annotation (Line(points={{-192,84},{-260,84},{
-          -260,40},{48,40},{48,18},{41,18}},
-                                        color={0,0,127}));
+  connect(conCoo.y, dTCoo.u) annotation (Line(points={{-248,140},{-240,140},{-240,
+          110},{-232,110}}, color={0,0,127}));
+  connect(dTCoo.y, TSupNoDP.u1) annotation (Line(points={{-208,110},{-200,110},{
+          -200,96},{-192,96}}, color={0,0,127}));
+  connect(TSupNoDP.u2, zon.TAir) annotation (Line(points={{-192,84},{-260,84},{-260,
+          40},{48,40},{48,18},{41,18}}, color={0,0,127}));
   connect(TSupNoDP.y, TSupCoo.u1) annotation (Line(points={{-168,90},{-152,90}},
                                  color={0,0,127}));
-  connect(wetBul.TWetBul, TSupCoo.u2) annotation (Line(points={{-168,60},{-160,
-          60},{-160,78},{-152,78}},
-                                color={0,0,127}));
-  connect(TSupCoo.y, masFloSouCoo.T_in) annotation (Line(points={{-128,84},{
-          -120,84},{-120,134},{-90,134}},
-                                      color={0,0,127}));
+  connect(wetBul.TWetBul, TSupCoo.u2) annotation (Line(points={{-168,60},{-160,60},
+          {-160,78},{-152,78}}, color={0,0,127}));
+  connect(TSupCoo.y, masFloSouCoo.T_in) annotation (Line(points={{-128,84},{-120,
+          84},{-120,134},{-90,134}},  color={0,0,127}));
   connect(hysCoo.y, booToRea.u) annotation (Line(points={{-168,140},{-152,140}},
                                  color={255,0,255}));
   connect(booToRea.y, masFloSouCoo.m_flow_in)
