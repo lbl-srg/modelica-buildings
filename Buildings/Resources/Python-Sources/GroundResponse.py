@@ -243,6 +243,7 @@ def mesh_to_mesh(layers, modelicaLayers, variables, flag):
         for i in range(len(layers)):
             ub = (-1) * layers[i]['upperBound']
             lb = (-1) * layers[i]['lowerBound']
+            dz = layers[i]['dz']
             scenario = 0
             for j in range(1, len(modelicaLayers)):
                 cuMe = modelicaLayers[j]
@@ -258,10 +259,12 @@ def mesh_to_mesh(layers, modelicaLayers, variables, flag):
                     break
                 else:
                     continue
-            if (scenario == 1 or scenario == 3):
-                values.append(variables[j-1])
+            if (scenario == 1):
+                values.append(variables[j-1] * dz / (cuMe - preMe))
+            elif (scenario == 3):
+                values.append(variables[j-1] * (modelicaLayers[-1]-ub) / (cuMe - preMe))
             else:
-                values.append(((cuMoMe - ub)*variables[j-1] + (lb-cuMoMe)*variables[j])/(lb-ub))
+                values.append(((cuMe - ub)*variables[j-1] + (lb-cuMe)*variables[j])/(cuMe - preMe))
     else: 
         # (flag == 'To2Mo')
         for i in range(0, len(modelicaLayers)-1):

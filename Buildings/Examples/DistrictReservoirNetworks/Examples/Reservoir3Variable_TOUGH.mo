@@ -61,7 +61,7 @@ equation
           __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Examples/DistrictReservoirNetworks/Examples/Reservoir3Variable_TOUGH.mos"
         "Simulate and plot"),
     experiment(
-      StopTime=155940,
+      StopTime=604800,
       __Dymola_NumberOfIntervals=8760,
       Tolerance=1e-06,
       __Dymola_Algorithm="Radau"));
