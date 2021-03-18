@@ -5,27 +5,23 @@ model OneZoneRadiantFloor
   package MediumW = Buildings.Media.Water "Water medium";
 
   final parameter Modelica.SIunits.Area AFlo = zon.AFlo "Floor area";
-  parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal = 5000 "Nominal heat flow rate";
-  parameter Modelica.SIunits.MassFlowRate mW_flow_nominal = Q_flow_nominal /4200/10
-    "Design water mass flow rate";
+  parameter Modelica.SIunits.HeatFlowRate QHea_flow_nominal=5000
+    "Nominal heat flow rate for heating";
+  parameter Modelica.SIunits.MassFlowRate mHea_flow_nominal=QHea_flow_nominal/4200
+      /10 "Design water mass flow rate for heating";
 
-  parameter HeatTransfer.Data.OpaqueConstructions.Generic layers(nLay=3,
-      material={Buildings.HeatTransfer.Data.Solids.Generic(
-        x=0.08,
-        k=1.13,
-        c=1000,
-        d=1400,
-        nSta=5),Buildings.HeatTransfer.Data.Solids.Generic(
-        x=0.05,
-        k=0.04,
-        c=1400,
-        d=10),Buildings.HeatTransfer.Data.Solids.Generic(
-        x=0.2,
-        k=1.8,
-        c=1100,
-        d=2400)})
-    "Material layers from surface a to b (8cm concrete, 5 cm insulation, 20 cm reinforced concrete)"
-    annotation (Placement(transformation(extent={{30,-236},{50,-216}})));
+  parameter Modelica.SIunits.HeatFlowRate QCoo_flow_nominal=5000
+    "Nominal heat flow rate for cooling";
+  parameter Modelica.SIunits.MassFlowRate mCoo_flow_nominal=QCoo_flow_nominal/4200/5
+    "Design water mass flow rate for heating";
+
+  parameter HeatTransfer.Data.OpaqueConstructions.Generic layFlo(nLay=3,
+      material={
+        Buildings.HeatTransfer.Data.Solids.Concrete(x=0.08),
+        Buildings.HeatTransfer.Data.Solids.InsulationBoard(x=0.05),
+        Buildings.HeatTransfer.Data.Solids.Concrete(x=0.2)})
+    "Material layers from surface a to b (8cm concrete, 5 cm insulation, 20 cm concrete)"
+    annotation (Placement(transformation(extent={{-20,-220},{0,-200}})));
 
    parameter HeatTransfer.Data.Solids.Generic soil(
     x=2,
@@ -34,39 +30,38 @@ model OneZoneRadiantFloor
     d=1500) "Soil properties"
     annotation (Placement(transformation(extent={{40,-298},{60,-278}})));
 
-  Buildings.ThermalZones.EnergyPlus.ZoneSurface flo(surfaceName="Living:Floor")
-    "Floor surface of living room"
+  Buildings.ThermalZones.EnergyPlus.ZoneSurface livFlo(surfaceName="Living:Floor")
+    "Surface of living room floor"
     annotation (Placement(transformation(extent={{60,-190},{80,-170}})));
-  Fluid.HeatExchangers.RadiantSlabs.ParallelCircuitsSlab sla(
+  Fluid.HeatExchangers.RadiantSlabs.ParallelCircuitsSlab slaFlo(
     redeclare package Medium = MediumW,
     allowFlowReversal=false,
-    layers=layers,
+    layers=layFlo,
     iLayPip=1,
     pipe=Fluid.Data.Pipes.PEX_DN_15(),
     sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.SystemType.Floor,
     disPip=0.2,
     nCir=3,
     A=AFlo,
-    m_flow_nominal=mW_flow_nominal,
+    m_flow_nominal=mHea_flow_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     from_dp=true,
-    show_T=true) "Slab with embedded pipes"
+    show_T=true) "Slab for floor with embedded pipes, connected to soil"
     annotation (Placement(transformation(extent={{0,-250},{20,-230}})));
   Fluid.Sources.Boundary_ph pre(
     redeclare package Medium = MediumW,
     nPorts=1,
     p(displayUnit="Pa") = 300000) "Pressure boundary condition"
-    annotation (Placement(transformation(extent={{100,-250},{80,-230}})));
-  HeatTransfer.Sources.PrescribedHeatFlow preHeaFlo "Surface heat flow rate"
+    annotation (Placement(transformation(extent={{72,-250},{52,-230}})));
+  HeatTransfer.Sources.PrescribedHeatFlow preHeaLivFlo "Surface heat flow rate"
     annotation (Placement(transformation(extent={{98,-184},{118,-164}})));
-  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TSur
-    "Surface temperature"
+  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TSurLivFlo
+    "Surface temperature for floor of living room"
     annotation (Placement(transformation(extent={{20,-190},{40,-170}})));
   Controls.OBC.CDL.Continuous.PID conHea(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
     k=2,
-    Ti(displayUnit="min") = 3600)
-            "Controller for heating"
+    Ti(displayUnit="min") = 3600) "Controller for heating"
     annotation (Placement(transformation(extent={{-200,-140},{-180,-120}})));
   Controls.OBC.CDL.Continuous.Sources.Constant TSetRooHea(k(
       final unit="K",
@@ -77,9 +72,7 @@ model OneZoneRadiantFloor
     redeclare package Medium = MediumW,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     per(
-      pressure(
-        V_flow=2*{0,mW_flow_nominal}/1000,
-        dp = 2*{14000,0}),
+      pressure(V_flow=2*{0,mHea_flow_nominal}/1000, dp=2*{14000,0}),
       speed_nominal,
       constantSpeed,
       speeds),
@@ -88,12 +81,11 @@ model OneZoneRadiantFloor
   Fluid.HeatExchangers.HeaterCooler_u hea(
     redeclare final package Medium = MediumW,
     allowFlowReversal=false,
-    m_flow_nominal=mW_flow_nominal,
+    m_flow_nominal=mHea_flow_nominal,
     dp_nominal=10000,
     show_T=true,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    Q_flow_nominal=Q_flow_nominal)
-    "Ideal heater"
+    Q_flow_nominal=QHea_flow_nominal) "Ideal heater"
     annotation (Placement(transformation(extent={{-40,-250},{-20,-230}})));
   HeatTransfer.Conduction.SingleLayer soi(
     A=AFlo,
@@ -110,9 +102,7 @@ model OneZoneRadiantFloor
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature TSoi(T=293.15)
     "Boundary condition for construction" annotation (Placement(transformation(
           extent={{0,0},{20,20}}, origin={-32,-320})));
-  Controls.OBC.CDL.Continuous.Hysteresis hys(
-    uLow=0.1,
-    uHigh=0.2)
+  Controls.OBC.CDL.Continuous.Hysteresis hysHea(uLow=0.1, uHigh=0.2)
     "Hysteresis to switch system on and off"
     annotation (Placement(transformation(extent={{-160,-140},{-140,-120}})));
   Controls.OBC.CDL.Logical.Switch swiBoi "Switch for boiler"
@@ -124,33 +114,112 @@ model OneZoneRadiantFloor
     annotation (Placement(transformation(extent={{-200,-220},{-180,-200}})));
   Controls.OBC.CDL.Continuous.Sources.Constant off(k=0) "Off signal"
     annotation (Placement(transformation(extent={{-200,-188},{-180,-168}})));
+  Fluid.HeatExchangers.RadiantSlabs.ParallelCircuitsSlab slaCei(
+    redeclare package Medium = MediumW,
+    allowFlowReversal=false,
+    layers=layCei,
+    iLayPip=3,
+    pipe=Fluid.Data.Pipes.PEX_DN_15(),
+    sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.SystemType.Ceiling_Wall_or_Capillary,
+    disPip=0.2,
+    nCir=4,
+    A=AFlo,
+    m_flow_nominal=mCoo_flow_nominal,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    show_T=true) "Slab for ceiling with embedded pipes"
+    annotation (Placement(transformation(extent={{-40,120},{-20,140}})));
+
+  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TSurAttFlo
+    "Surface temperature of floor of attic"
+    annotation (Placement(transformation(extent={{40,160},{60,180}})));
+  ZoneSurface attFlo(surfaceName="Attic:LivingFloor") "Surface of attic"
+    annotation (Placement(transformation(extent={{80,160},{100,180}})));
+  HeatTransfer.Sources.PrescribedHeatFlow preHeaAttFlo
+    "Surface heat flow rate for floor of attic"
+    annotation (Placement(transformation(extent={{118,166},{138,186}})));
+  Fluid.Sources.Boundary_ph pre1(
+    redeclare package Medium = MediumW,
+    nPorts=1,
+    p(displayUnit="Pa") = 300000) "Pressure boundary condition"
+    annotation (Placement(transformation(extent={{22,120},{2,140}})));
+  Fluid.Sources.MassFlowSource_T masFloSouCoo(
+    redeclare package Medium = MediumW,
+    use_m_flow_in=true,
+    use_T_in=true,
+    nPorts=1) "Mass flow source for cooling water at prescribed temperature"
+    annotation (Placement(transformation(extent={{-90,120},{-70,140}})));
+  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TSurLivCei
+    "Surface temperature of ceiling in living room"
+    annotation (Placement(transformation(extent={{40,80},{60,100}})));
+  ZoneSurface livCei(surfaceName="Living:Ceiling")
+    "Surface of living room ceiling"
+    annotation (Placement(transformation(extent={{80,80},{100,100}})));
+  HeatTransfer.Sources.PrescribedHeatFlow preHeaLivCei
+    "Surface heat flow rate for ceiling of living room"
+    annotation (Placement(transformation(extent={{118,86},{138,106}})));
+  Controls.OBC.CDL.Continuous.Max TSupCoo "Cooling water supply temperature"
+    annotation (Placement(transformation(extent={{-140,74},{-120,94}})));
+  Controls.OBC.CDL.Psychrometrics.WetBulb_TDryBulPhi wetBul
+    "Wet bulb temperature, used to avoid condensation"
+    annotation (Placement(transformation(extent={{-190,50},{-170,70}})));
+  Controls.OBC.CDL.Continuous.Hysteresis hysCoo(uLow=0.1, uHigh=0.2)
+    "Hysteresis to switch system on and off"
+    annotation (Placement(transformation(extent={{-220,140},{-200,160}})));
+  Controls.OBC.CDL.Continuous.PID conCoo(
+    controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
+    k=2,
+    Ti(displayUnit="min") = 3600,
+    reverseActing=false)
+                        "Controller for cooling"
+    annotation (Placement(transformation(extent={{-260,140},{-240,160}})));
+  Controls.OBC.CDL.Continuous.Sources.Constant TSetRooCoo(k(
+      final unit="K",
+      displayUnit="degC") = 299.15, y(final unit="K", displayUnit="degC"))
+    "Room temperture set point for heating"
+    annotation (Placement(transformation(extent={{-300,140},{-280,160}})));
+  Controls.OBC.CDL.Continuous.Gain dTCoo(k=-8)
+    "Cooling supply water temperature difference relative to air temperature"
+    annotation (Placement(transformation(extent={{-220,110},{-200,130}})));
+  Controls.OBC.CDL.Continuous.Add TSupNoDP
+    "Set point for supply water without any dew point control"
+    annotation (Placement(transformation(extent={{-190,80},{-170,100}})));
+  Controls.OBC.CDL.Conversions.BooleanToReal booToRea(realTrue=
+        mCoo_flow_nominal) "Cooling water mass flow rate"
+    annotation (Placement(transformation(extent={{-140,128},{-120,148}})));
+  parameter HeatTransfer.Data.OpaqueConstructions.Generic layCei(nLay=4,
+      material={Buildings.HeatTransfer.Data.Solids.Concrete(x=0.08),
+        Buildings.HeatTransfer.Data.Solids.InsulationBoard(x=0.05),
+        Buildings.HeatTransfer.Data.Solids.Concrete(x=0.18),
+        Buildings.HeatTransfer.Data.Solids.Concrete(x=0.02)})
+    "Material layers from surface a to b (8cm concrete, 5 cm insulation, 18+2 cm concrete)"
+    annotation (Placement(transformation(extent={{-60,146},{-40,166}})));
 equation
-  connect(sla.port_b, pre.ports[1])
-    annotation (Line(points={{20,-240},{80,-240}}, color={0,127,255}));
-  connect(flo.Q_flow, preHeaFlo.Q_flow)
-    annotation (Line(points={{82,-174},{98,-174}},color={0,0,127}));
-  connect(preHeaFlo.port, sla.surf_a) annotation (Line(points={{118,-174},{124,-174},
-          {124,-200},{14,-200},{14,-230}}, color={191,0,0}));
-  connect(TSur.port, sla.surf_a)
+  connect(slaFlo.port_b, pre.ports[1])
+    annotation (Line(points={{20,-240},{52,-240}}, color={0,127,255}));
+  connect(livFlo.Q_flow, preHeaLivFlo.Q_flow)
+    annotation (Line(points={{82,-174},{98,-174}}, color={0,0,127}));
+  connect(preHeaLivFlo.port, slaFlo.surf_a) annotation (Line(points={{118,-174},
+          {124,-174},{124,-200},{14,-200},{14,-230}}, color={191,0,0}));
+  connect(TSurLivFlo.port, slaFlo.surf_a)
     annotation (Line(points={{20,-180},{14,-180},{14,-230}}, color={191,0,0}));
-  connect(zon.TAir, conHea.u_m) annotation (Line(points={{41,18},{48,18},{48,-104},
-          {-88,-104},{-88,-152},{-190,-152},{-190,-142}},       color={0,0,127}));
+  connect(zon.TAir, conHea.u_m) annotation (Line(points={{41,18},{48,18},{48,
+          -152},{-190,-152},{-190,-142}},                       color={0,0,127}));
   connect(TSetRooHea.y, conHea.u_s)
     annotation (Line(points={{-218,-130},{-202,-130}},
                                                      color={0,0,127}));
-  connect(hea.port_b, sla.port_a)
+  connect(hea.port_b, slaFlo.port_a)
     annotation (Line(points={{-20,-240},{0,-240}}, color={0,127,255}));
   connect(pum.port_b, hea.port_a)
     annotation (Line(points={{-60,-240},{-40,-240}}, color={0,127,255}));
-  connect(pum.port_a, sla.port_b) annotation (Line(points={{-80,-240},{-90,-240},
-          {-90,-260},{60,-260},{60,-240},{20,-240}}, color={0,127,255}));
-  connect(TSur.T, flo.T)
+  connect(pum.port_a, slaFlo.port_b) annotation (Line(points={{-80,-240},{-90,-240},
+          {-90,-260},{40,-260},{40,-240},{20,-240}}, color={0,127,255}));
+  connect(TSurLivFlo.T, livFlo.T)
     annotation (Line(points={{40,-180},{58,-180}}, color={0,0,127}));
   connect(TSoi.port, soi.port_a) annotation (Line(points={{-12,-310},{14,-310},{
           14,-302}}, color={191,0,0}));
-  connect(soi.port_b, sla.surf_b)
+  connect(soi.port_b, slaFlo.surf_b)
     annotation (Line(points={{14,-282},{14,-250}}, color={191,0,0}));
-  connect(conHea.y, hys.u)
+  connect(conHea.y, hysHea.u)
     annotation (Line(points={{-178,-130},{-162,-130}}, color={0,0,127}));
   connect(swiBoi.u1, conHea.y) annotation (Line(points={{-122,-162},{-168,-162},
           {-168,-130},{-178,-130}},color={0,0,127}));
@@ -164,17 +233,67 @@ equation
           -192},{-122,-192}}, color={0,0,127}));
   connect(pum.y, swiPum.y) annotation (Line(points={{-70,-228},{-70,-200},{-98,-200}},
         color={0,0,127}));
-  connect(hys.y, swiPum.u2) annotation (Line(points={{-138,-130},{-130,-130},{-130,
-          -200},{-122,-200}}, color={255,0,255}));
-  connect(hys.y, swiBoi.u2) annotation (Line(points={{-138,-130},{-130,-130},{-130,
-          -170},{-122,-170}}, color={255,0,255}));
+  connect(hysHea.y, swiPum.u2) annotation (Line(points={{-138,-130},{-130,-130},
+          {-130,-200},{-122,-200}}, color={255,0,255}));
+  connect(hysHea.y, swiBoi.u2) annotation (Line(points={{-138,-130},{-130,-130},
+          {-130,-170},{-122,-170}}, color={255,0,255}));
+  connect(masFloSouCoo.ports[1], slaCei.port_a)
+    annotation (Line(points={{-70,130},{-40,130}}, color={0,127,255}));
+  connect(pre1.ports[1], slaCei.port_b)
+    annotation (Line(points={{2,130},{-20,130}},  color={0,127,255}));
+  connect(slaCei.surf_a, TSurAttFlo.port)
+    annotation (Line(points={{-26,140},{-26,170},{40,170}},  color={191,0,0}));
+  connect(TSurAttFlo.T, attFlo.T)
+    annotation (Line(points={{60,170},{78,170}},color={0,0,127}));
+  connect(attFlo.Q_flow, preHeaAttFlo.Q_flow)
+    annotation (Line(points={{102,176},{118,176}},
+                                                 color={0,0,127}));
+  connect(preHeaAttFlo.port, slaCei.surf_a) annotation (Line(points={{138,176},{
+          148,176},{148,152},{-26,152},{-26,140}},
+                                              color={191,0,0}));
+  connect(slaCei.surf_b, TSurLivCei.port)
+    annotation (Line(points={{-26,120},{-26,90},{40,90}},  color={191,0,0}));
+  connect(TSurLivCei.T, livCei.T)
+    annotation (Line(points={{60,90},{78,90}},color={0,0,127}));
+  connect(livCei.Q_flow, preHeaLivCei.Q_flow)
+    annotation (Line(points={{102,96},{118,96}},
+                                               color={0,0,127}));
+  connect(preHeaLivCei.port, slaCei.surf_b) annotation (Line(points={{138,96},{150,
+          96},{150,110},{-26,110},{-26,120}},color={191,0,0}));
+  connect(conCoo.y, dTCoo.u) annotation (Line(points={{-238,150},{-230,150},{-230,
+          120},{-222,120}}, color={0,0,127}));
+  connect(dTCoo.y, TSupNoDP.u1) annotation (Line(points={{-198,120},{-198,96},{-192,
+          96}},                color={0,0,127}));
+  connect(TSupNoDP.u2, zon.TAir) annotation (Line(points={{-192,84},{-250,84},{-250,
+          40},{48,40},{48,18},{41,18}}, color={0,0,127}));
+  connect(TSupNoDP.y, TSupCoo.u1) annotation (Line(points={{-168,90},{-142,90}},
+                                 color={0,0,127}));
+  connect(wetBul.TWetBul, TSupCoo.u2) annotation (Line(points={{-168,60},{-150,60},
+          {-150,78},{-142,78}}, color={0,0,127}));
+  connect(TSupCoo.y, masFloSouCoo.T_in) annotation (Line(points={{-118,84},{-100,
+          84},{-100,134},{-92,134}},  color={0,0,127}));
+  connect(hysCoo.y, booToRea.u) annotation (Line(points={{-198,150},{-170,150},{
+          -170,138},{-142,138}}, color={255,0,255}));
+  connect(booToRea.y, masFloSouCoo.m_flow_in)
+    annotation (Line(points={{-118,138},{-92,138}}, color={0,0,127}));
+  connect(wetBul.TDryBul, zon.TAir) annotation (Line(points={{-192,66},{-250,66},
+          {-250,40},{48,40},{48,18},{41,18}}, color={0,0,127}));
+  connect(zon.TAir, conCoo.u_m) annotation (Line(points={{41,18},{48,18},{48,40},
+          {-250,40},{-250,138}}, color={0,0,127}));
+  connect(zon.phi, wetBul.phi) annotation (Line(points={{41,10},{52,10},{52,46},
+          {-210,46},{-210,54},{-192,54}}, color={0,0,127}));
+  connect(TSetRooCoo.y, conCoo.u_s)
+    annotation (Line(points={{-278,150},{-262,150}}, color={0,0,127}));
+  connect(conCoo.y, hysCoo.u)
+    annotation (Line(points={{-238,150},{-222,150}}, color={0,0,127}));
   annotation (
       __Dymola_Commands(
       file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus/Examples/OneZoneRadiantFloor.mos" "Simulate and plot"),
   experiment(
-      StopTime=31536000,
+      StartTime=7776000,
+      StopTime=9504000,
       Tolerance=1e-06,
-      __Dymola_Algorithm="Radau"),
+      __Dymola_Algorithm="Cvode"),
 Documentation(info="<html>
 <p>
 Model that uses EnergyPlus for the simulation of the building which has one thermal zone,
@@ -187,6 +306,52 @@ setpoint temperature.
 A P controller sets the heating input into the water loop, and switches are used to switch
 the heater and the pump on and off.
 </p>
+<h4>Coupling of radiant ceiling to EnergyPlus model</h4>
+<p>
+The radiant ceiling is modelled in the instance <code>slaCei</code> at the top of the schematic model view,
+using the model
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.RadiantSlabs.ParallelCircuitsSlab\">
+Buildings.Fluid.HeatExchangers.RadiantSlabs.ParallelCircuitsSlab</a>.
+This instance models the heat transfer from surface of the attic floor to the ceiling of the living room.
+In this example, the construction is defined by the instance <code>layCei</code>.
+(See the <a href=\"modelica://Buildings.Fluid.HeatExchangers.RadiantSlabs.UsersGuide\">
+Buildings.Fluid.HeatExchangers.RadiantSlabs.UsersGuide</a>
+for how to configure a radiant slab.)
+In this example, the surface <code>slaCei.surf_a</code> is connected to the instance
+<code>attFlo</code>, which is the floor of the attic zone in EnergyPlus.
+This connection is made by measuring the surface temperture, sending this as an input to
+<code>attFlo</code>, and setting the heat flow rate at the surface from the instance <code>attFlo</code>
+to the surface <code>slaCei.surf_a</code>.
+Similarly, the surface <code>slaCei.surf_a</code> is connected to <code>livCei</code>, which
+is the living room's ceiling.
+</p>
+<p>
+The mass flow rate of the slab is constant if the cooling is operating.
+A P controller computes the control signal, and using a hysteresis, the mass flow rate is switched on or off.
+The control signal is also used to set the set point for the water supply temperature to the slab.
+This temperature is limited by the dew point of the zone air to avoid any condensation.
+</p>
+<h4>Coupling of radiant floor to EnergyPlus model</h4>
+<p>
+The radiant floor is modelled in the instance <code>slaFlo</code> at the bottom of the schematic model view,
+using the model
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.RadiantSlabs.ParallelCircuitsSlab\">
+Buildings.Fluid.HeatExchangers.RadiantSlabs.ParallelCircuitsSlab</a>.
+This instance models the heat transfer from surface of the floor to the lower surface of the slab.
+In this example, the construction is defined by the instance <code>layFlo</code>.
+(See the <a href=\"modelica://Buildings.Fluid.HeatExchangers.RadiantSlabs.UsersGuide\">
+Buildings.Fluid.HeatExchangers.RadiantSlabs.UsersGuide</a>
+for how to configure a radiant slab.)
+In this example, the surface <code>slaFlo.surf_a</code> is connected to the instance
+<code>flo</code>.
+This connection is made by measuring the surface temperture, sending this as an input to
+<code>livFlo</code>, and setting the heat flow rate at the surface from the instance <code>livFlo</code>
+to the surface <code>slaFlo.surf_a</code>.
+</p>
+<p>
+The underside of the slab is connected to the heat conduction model <code>soi</code>
+which computes the heat transfer to the soil because this building has no basement.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>
@@ -195,6 +360,6 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(extent={{-260,-340},{160,40}})),
+    Diagram(coordinateSystem(extent={{-320,-340},{160,200}})),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
 end OneZoneRadiantFloor;

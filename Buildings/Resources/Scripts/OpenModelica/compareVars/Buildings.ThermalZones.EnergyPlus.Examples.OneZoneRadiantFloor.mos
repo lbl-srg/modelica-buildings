@@ -1,13 +1,17 @@
 compareVars :=
   {
-    "flo.T",
+    "livFlo.T",
     "zon.TAir",
     "TSetRooHea.y",
-    "sla.sta_a.T",
-    "sla.sta_b.T",
+    "TSetRooCoo.y",
+    "livCei.T",
     "conHea.y",
-    "flo.q_flow",
-    "sla.surf_a.Q_flow",
-    "sla.surf_b.Q_flow",
-    "hea.Q_flow"
+    "conCoo.y",
+    "livFlo.q_flow",
+    "livCei.q_flow",
+    "slaFlo.surf_a.Q_flow",
+    "hea.Q_flow",
+    "slaCei.surf_a.T",
+    "slaCei.surf_b.T",
+    "zon.TAir"
   };
