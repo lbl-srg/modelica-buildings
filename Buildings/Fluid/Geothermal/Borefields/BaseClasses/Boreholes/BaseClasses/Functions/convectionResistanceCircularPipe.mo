@@ -62,9 +62,6 @@ algorithm
   annotation (Diagram(graphics), Documentation(info="<html>
 <p>
 This model computes the convection resistance in the pipes of a borehole segment 
-with heigth <i>h<sub>Seg</sub<html>
-<p>
-This model computes the convection resistance in the pipes of a borehole segment 
 with heigth <i>h<sub>Seg</sub></i> using correlations suggested by Bergman et al. (2011).
 </p>
 <p>
