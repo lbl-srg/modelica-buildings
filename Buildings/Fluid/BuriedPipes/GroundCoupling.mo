@@ -22,7 +22,7 @@ protected
   Buildings.BoundaryConditions.GroundTemperature.UndisturbedSoilTemperature soi(cliCon=cliCon, soiDat=soiDat, dep=depMea) "Soil temperature";
 
   parameter Modelica.SIunits.Length depMea = sum(dep) / nPip "Average depth";
-  parameter Real P[nPip,nPip]=Functions.groundCouplingFactors(
+  parameter Real P[nPip,nPip]=BaseClasses.Functions.groundCouplingFactors(
       nPip,
       dep,
       pos,
