@@ -12,7 +12,7 @@ model OneZoneWithControl
     showWeatherData=false)
     "Building model"
     annotation (Placement(transformation(extent={{20,70},{40,90}})));
-  parameter Modelica.SIunits.Volume AFlo=185
+  parameter Modelica.SIunits.Area AFlo=185
     "Floor area of the whole floor of the building";
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=6*AFlo*2.7*1.2/3600
     "Nominal mass flow rate";

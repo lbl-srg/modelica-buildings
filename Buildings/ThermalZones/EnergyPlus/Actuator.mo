@@ -1,5 +1,5 @@
 within Buildings.ThermalZones.EnergyPlus;
-model Actuator
+block Actuator
   "Block to write to an EnergyPlus actuator"
   extends Buildings.ThermalZones.EnergyPlus.BaseClasses.PartialEnergyPlusObject;
   extends Buildings.ThermalZones.EnergyPlus.BaseClasses.Synchronize.ObjectSynchronizer;
@@ -83,7 +83,7 @@ equation
 
   y = yEP[1];
 
-  nObj = sync.synchronize.done;
+  nObj =synBui.synchronize.done;
 
   annotation (
     defaultComponentName="act",

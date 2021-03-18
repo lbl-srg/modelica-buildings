@@ -1,5 +1,5 @@
 within Buildings.ThermalZones.EnergyPlus.BaseClasses;
-partial model PartialEnergyPlusObject
+partial block PartialEnergyPlusObject
   "Partial definitions of an EnergyPlus object"
   extends Modelica.Blocks.Icons.Block;
 

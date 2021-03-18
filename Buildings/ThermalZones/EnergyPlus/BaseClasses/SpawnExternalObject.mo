@@ -1,7 +1,6 @@
 within Buildings.ThermalZones.EnergyPlus.BaseClasses;
 class SpawnExternalObject
   "Class used to couple the FMU to interact with a thermal zone"
-  //extends Modelica.Icons.BasesPackage;
   extends ExternalObject;
   function constructor
     "Construct to connect to a thermal zone in EnergyPlus"

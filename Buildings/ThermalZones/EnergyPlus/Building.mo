@@ -1,6 +1,6 @@
 within Buildings.ThermalZones.EnergyPlus;
 model Building
-  "Model that declares a building to which thermal zones belong to"
+  "Model that declares a building to which EnergyPlus objects belong to"
   extends Modelica.Blocks.Icons.Block;
   final constant String modelicaNameBuilding=getInstanceName()
     "Name of this instance"
@@ -36,15 +36,16 @@ model Building
     "Weather data bus"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
 
-  Buildings.ThermalZones.EnergyPlus.BaseClasses.Synchronize.SynchronizeConnector
-    synchronize
-    "Connector that synchronizes all Spawn objects of this buildings";
 
-  Real synchronization_done = synchronize.done
-    "Intermediate variable as acausal connectors cannot be used in the algorithm section";
-  Real isSynchronized "Flag used to synchronize Spawn objects";
+  BaseClasses.Synchronize.SynchronizeConnector synchronize
+    "Connector that synchronizes all Spawn objects of this buildings"
+    annotation (HideResult=true);
+  Real isSynchronized "Flag used to synchronize Spawn objects"
+    annotation (HideResult=true);
 
 protected
+  Real synchronization_done = synchronize.done
+    "Intermediate variable as acausal connectors cannot be used in the algorithm section";
   Linux64Binaries linux64Binaries if generatePortableFMU
     "Record with binaries";
   record Linux64Binaries

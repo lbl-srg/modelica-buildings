@@ -48,7 +48,7 @@ Developers may build the binaries as follows.
 
 ### Spawn of EnergyPlus
 
-The build the Spawn of EnergyPlus binaries, cmake is required. The binaries
+To build the Spawn of EnergyPlus binaries, CMake is required. The binaries
 consist of the fmi-library, and a library that connects Modelica to EnergyPlus.
 
 To build the fmi-library, which is only needed if https://github.com/modelon-community/fmi-library is updated, run
