@@ -1,6 +1,6 @@
 within Buildings.ThermalZones.EnergyPlus.Validation.ThermalZone;
 model OneZone
-  "Validation model for one zone"
+  "Example model with one unconditoned zone simulated in Modelica, and the other two unconditioned zones simulated in EnergyPlus"
   extends Modelica.Icons.Example;
   package Medium=Buildings.Media.Air
     "Medium model";
@@ -63,8 +63,10 @@ equation
     Documentation(
       info="<html>
 <p>
-Simple test case for one building with one thermal zone in which the room air temperature
-is free floating.
+This example models the living room as an unconditioned zone in Modelica.
+The living room is connected to a fresh air supply and exhaust.
+The heat balance of the air of the other two thermal zones, i.e.,
+the attic and the garage, are modeled in EnergyPlus.
 </p>
 </html>",
       revisions="<html>

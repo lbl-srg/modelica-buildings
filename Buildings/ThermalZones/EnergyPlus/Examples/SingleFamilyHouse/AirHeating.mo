@@ -1,7 +1,8 @@
 within Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse;
 model AirHeating
-  "Model of one thermal zone that has an air-based heating system"
+  "Example model that has an air-based heating system that conditions a thermal zone in EnergyPlus"
   extends Modelica.Icons.Example;
+
   package Medium=Buildings.Media.Air
     "Medium model";
   inner Building building(

@@ -89,7 +89,7 @@ model Floor "Model of a floor of the building"
 
 protected
   parameter String idfName=Modelica.Utilities.Files.loadResource(
-    "modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus/Validation/RefBldgSmallOffice/RefBldgSmallOfficeNew2004_Chicago.idf")
+    "modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus/Examples/RefBldgSmallOffice/RefBldgSmallOfficeNew2004_Chicago.idf")
     "Name of the IDF file";
 
   parameter String weaName = Modelica.Utilities.Files.loadResource(

@@ -1,12 +1,13 @@
 within Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse;
 model ShadeControl
-  "Example model with one actuator that controls a shade"
+  "Example model with one actuator that controls a shade in EnergyPlus"
   extends Modelica.Icons.Example;
+
   package Medium=Buildings.Media.Air
     "Medium model";
   inner Building building(
     idfName=Modelica.Utilities.Files.loadResource(
-      "modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus/Validation/EMSWindowShadeControl/EMSWindowShadeControl.idf"),
+      "modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus/Examples/EMSWindowShadeControl/EMSWindowShadeControl.idf"),
     weaName=Modelica.Utilities.Files.loadResource(
       "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"),
     showWeatherData=true)
