@@ -43,7 +43,7 @@ model OneZoneWithControl
     y(unit="K",
       displayUnit="degC"))
     "Setpoint for room air"
-    annotation (Placement(transformation(extent={{-130,-110},{-110,-90}})));
+    annotation (Placement(transformation(extent={{-150,-110},{-130,-90}})));
   Controls.OBC.CDL.Continuous.PID conPID(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     k=1,
@@ -57,7 +57,7 @@ model OneZoneWithControl
       unit="K",
       displayUnit="degC"))
     "Controller for heater"
-    annotation (Placement(transformation(extent={{-100,-110},{-80,-90}})));
+    annotation (Placement(transformation(extent={{-120,-110},{-100,-90}})));
   Fluid.HeatExchangers.Heater_T hea(
     redeclare final package Medium = Medium,
     m_flow_nominal=mRec_flow_nominal,
@@ -65,10 +65,6 @@ model OneZoneWithControl
     tau=0,
     show_T=true) "Ideal heater"
     annotation (Placement(transformation(extent={{80,-30},{100,-10}})));
-  Controls.OBC.CDL.Continuous.AddParameter addPar(
-    p=273.15+18, k=17)
-    "Compute the leaving water setpoint temperature"
-    annotation (Placement(transformation(extent={{20,-110},{40,-90}})));
   Modelica.Blocks.Math.MatrixGain gai(
     K=120/AFlo*[
       0.4;
@@ -103,35 +99,35 @@ model OneZoneWithControl
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
   Controls.OBC.CDL.Continuous.Hysteresis sta1(uLow=0.05, uHigh=0.5)
     "Hysteresis to switch on stage 1"
-    annotation (Placement(transformation(extent={{-60,-90},{-40,-70}})));
+    annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
   Controls.OBC.CDL.Conversions.BooleanToReal mSetFan1_flow(realTrue=
         mRec_flow_nominal/2) "Mass flow rate for 1st stage"
-    annotation (Placement(transformation(extent={{-30,-90},{-10,-70}})));
+    annotation (Placement(transformation(extent={{-50,-90},{-30,-70}})));
   Controls.OBC.CDL.Continuous.Hysteresis sta2(uLow=0.5, uHigh=0.75)
     "Hysteresis to switch on stage 2"
-    annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
+    annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
   Controls.OBC.CDL.Conversions.BooleanToReal mSetFan2_flow(realTrue=
         mRec_flow_nominal/2) "Mass flow rate added for 2nd stage"
-    annotation (Placement(transformation(extent={{-30,-60},{-10,-40}})));
+    annotation (Placement(transformation(extent={{-50,-60},{-30,-40}})));
   Controls.OBC.CDL.Continuous.Add m_fan_set "Mass flow rate for fan"
     annotation (Placement(transformation(extent={{8,-66},{28,-46}})));
+  Controls.OBC.CDL.Continuous.Add TAirLvgSet(k1=8)
+    "Set point temperature for air leaving the heater"
+    annotation (Placement(transformation(extent={{40,-90},{60,-70}})));
+  Controls.OBC.CDL.Continuous.AddParameter TSupMin(p=2, k=1)
+    "Minimum supply air temperature"
+    annotation (Placement(transformation(extent={{8,-110},{28,-90}})));
 initial equation
   assert(abs(VRoo - zon.V) < 0.01, "Zone volume VRoo differs from volume returned by EnergyPlus.");
   assert(abs(AFlo - zon.AFlo) < 0.01, "Zone floor area AFlo differs from area returned by EnergyPlus.");
 
 equation
   connect(TSet.y,conPID.u_s)
-    annotation (Line(points={{-108,-100},{-102,-100}},
+    annotation (Line(points={{-128,-100},{-122,-100}},
                                                   color={0,0,127}));
   connect(conPID.u_m,zon.TAir)
-    annotation (Line(points={{-90,-112},{-90,-120},{122,-120},{122,118},{61,118}},
-                                                                           color={0,0,127}));
-  connect(conPID.y,addPar.u)
-    annotation (Line(points={{-78,-100},{18,-100}},
-                                                  color={0,0,127}));
-  connect(addPar.y,hea.TSet)
-    annotation (Line(points={{42,-100},{70,-100},{70,-12},{78,-12}},
-                                                                 color={0,0,127}));
+    annotation (Line(points={{-110,-112},{-110,-120},{122,-120},{122,118},{61,
+          118}},                                                           color={0,0,127}));
   connect(gai.u[1],nPer.y)
     annotation (Line(points={{-42,110},{-58,110}},
                                                 color={0,0,127}));
@@ -155,20 +151,29 @@ equation
                                                            color={0,127,255}));
   connect(duc.port_b, pAtm.ports[1])
     annotation (Line(points={{-10,60},{-20,60}}, color={0,127,255}));
-  connect(conPID.y, sta1.u) annotation (Line(points={{-78,-100},{-70,-100},{-70,
-          -80},{-62,-80}}, color={0,0,127}));
+  connect(conPID.y, sta1.u) annotation (Line(points={{-98,-100},{-90,-100},{-90,
+          -80},{-82,-80}}, color={0,0,127}));
   connect(sta1.y, mSetFan1_flow.u)
-    annotation (Line(points={{-38,-80},{-32,-80}}, color={255,0,255}));
-  connect(conPID.y, sta2.u) annotation (Line(points={{-78,-100},{-70,-100},{-70,
-          -50},{-62,-50}}, color={0,0,127}));
+    annotation (Line(points={{-58,-80},{-52,-80}}, color={255,0,255}));
+  connect(conPID.y, sta2.u) annotation (Line(points={{-98,-100},{-90,-100},{-90,
+          -50},{-82,-50}}, color={0,0,127}));
   connect(sta2.y, mSetFan2_flow.u)
-    annotation (Line(points={{-38,-50},{-32,-50}}, color={255,0,255}));
+    annotation (Line(points={{-58,-50},{-52,-50}}, color={255,0,255}));
   connect(mSetFan2_flow.y, m_fan_set.u1)
-    annotation (Line(points={{-8,-50},{6,-50}}, color={0,0,127}));
-  connect(mSetFan1_flow.y, m_fan_set.u2) annotation (Line(points={{-8,-80},{0,-80},
-          {0,-62},{6,-62}}, color={0,0,127}));
+    annotation (Line(points={{-28,-50},{6,-50}},color={0,0,127}));
+  connect(mSetFan1_flow.y, m_fan_set.u2) annotation (Line(points={{-28,-80},{
+          -20,-80},{-20,-62},{6,-62}},
+                            color={0,0,127}));
   connect(m_fan_set.y, fan.m_flow_in) annotation (Line(points={{30,-56},{34,-56},
           {34,0},{50,0},{50,-8}}, color={0,0,127}));
+  connect(TAirLvgSet.u1, conPID.y) annotation (Line(points={{38,-74},{-12,-74},
+          {-12,-100},{-98,-100}}, color={0,0,127}));
+  connect(TAirLvgSet.y, hea.TSet) annotation (Line(points={{62,-80},{70,-80},{
+          70,-12},{78,-12}}, color={0,0,127}));
+  connect(zon.TAir, TSupMin.u) annotation (Line(points={{61,118},{122,118},{122,
+          -120},{0,-120},{0,-100},{6,-100}}, color={0,0,127}));
+  connect(TSupMin.y, TAirLvgSet.u2) annotation (Line(points={{30,-100},{34,-100},
+          {34,-86},{38,-86}}, color={0,0,127}));
   annotation (
     Documentation(
       info="<html>
@@ -196,6 +201,6 @@ First implementation.
     experiment(
       StopTime=86400,
       Tolerance=1e-06),
-    Diagram(coordinateSystem(extent={{-140,-140},{140,140}})),
-    Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
+    Diagram(coordinateSystem(extent={{-160,-140},{140,140}})),
+    Icon(coordinateSystem(extent={{-160,-140},{140,140}})));
 end OneZoneWithControl;
