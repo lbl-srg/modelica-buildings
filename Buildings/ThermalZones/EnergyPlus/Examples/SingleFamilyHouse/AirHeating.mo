@@ -1,4 +1,4 @@
-within Buildings.ThermalZones.EnergyPlus.Examples.SingleFamiliyHouse;
+within Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse;
 model AirHeating
   "Model of one thermal zone that has an air-based heating system"
   extends Modelica.Icons.Example;
@@ -197,10 +197,10 @@ First implementation.
 </ul>
 </html>"),
     __Dymola_Commands(
-      file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus/Examples/SingleFamiliyHouse/AirHeating.mos" "Simulate and plot"),
+      file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus/Examples/SingleFamilyHouse/AirHeating.mos" "Simulate and plot"),
     experiment(
       StopTime=86400,
       Tolerance=1e-06),
     Diagram(coordinateSystem(extent={{-160,-140},{140,140}})),
-    Icon(coordinateSystem(extent={{-160,-140},{140,140}})));
+    Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
 end AirHeating;

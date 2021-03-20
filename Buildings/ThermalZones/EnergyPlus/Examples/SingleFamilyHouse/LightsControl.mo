@@ -1,4 +1,4 @@
-within Buildings.ThermalZones.EnergyPlus.Examples.SingleFamiliyHouse;
+within Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse;
 model LightsControl
   "Example model with one actuator that controls the lights"
   extends Buildings.ThermalZones.EnergyPlus.Validation.ThermalZone.OneZone;
@@ -101,7 +101,7 @@ equation
           {130,110},{130,90},{88,90},{88,70},{98,70}}, color={0,0,127}));
   annotation (
     __Dymola_Commands(
-      file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus/Examples/SingleFamiliyHouse/LightsControl.mos" "Simulate and plot"),
+      file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus/Examples/SingleFamilyHouse/LightsControl.mos" "Simulate and plot"),
     experiment(
       StopTime=172800,
       Tolerance=1e-06),

@@ -1,4 +1,4 @@
-within Buildings.ThermalZones.EnergyPlus.Examples.SingleFamiliyHouse;
+within Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse;
 model ShadeControl
   "Example model with one actuator that controls a shade"
   extends Modelica.Icons.Example;
@@ -219,7 +219,7 @@ equation
     annotation (Line(points={{100,-2},{60,-2}},color={191,0,0}));
   annotation (
     __Dymola_Commands(
-      file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus/Examples/SingleFamiliyHouse/ShadeControl.mos" "Simulate and plot"),
+      file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus/Examples/SingleFamilyHouse/ShadeControl.mos" "Simulate and plot"),
     experiment(
       StartTime=8640000,
       StopTime=8899200,
