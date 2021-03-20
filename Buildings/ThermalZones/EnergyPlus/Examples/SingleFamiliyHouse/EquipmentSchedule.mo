@@ -1,4 +1,4 @@
-within Buildings.ThermalZones.EnergyPlus.Validation.Schedule;
+within Buildings.ThermalZones.EnergyPlus.Examples.SingleFamiliyHouse;
 model EquipmentSchedule
   "Example model that overrides a schedule in EnergyPlus"
   extends Buildings.ThermalZones.EnergyPlus.Validation.ThermalZone.OneZone;
@@ -34,7 +34,7 @@ First implementation.
 </ul>
 </html>"),
     __Dymola_Commands(
-      file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus/Validation/Schedule/EquipmentSchedule.mos" "Simulate and plot"),
+      file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus/Examples/SingleFamiliyHouse/EquipmentSchedule.mos" "Simulate and plot"),
     experiment(
       StopTime=172800,
       Tolerance=1e-06));

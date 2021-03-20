@@ -1,6 +1,6 @@
-within Buildings.ThermalZones.EnergyPlus.Validation.ThermalZone;
-model OneZoneWithControl
-  "Validation model for one zone"
+within Buildings.ThermalZones.EnergyPlus.Examples.SingleFamiliyHouse;
+model AirHeating
+  "Model of one thermal zone that has an air-based heating system"
   extends Modelica.Icons.Example;
   package Medium=Buildings.Media.Air
     "Medium model";
@@ -197,10 +197,10 @@ First implementation.
 </ul>
 </html>"),
     __Dymola_Commands(
-      file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus/Validation/ThermalZone/OneZoneWithControl.mos" "Simulate and plot"),
+      file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus/Examples/SingleFamiliyHouse/AirHeating.mos" "Simulate and plot"),
     experiment(
       StopTime=86400,
       Tolerance=1e-06),
     Diagram(coordinateSystem(extent={{-160,-140},{140,140}})),
     Icon(coordinateSystem(extent={{-160,-140},{140,140}})));
-end OneZoneWithControl;
+end AirHeating;
