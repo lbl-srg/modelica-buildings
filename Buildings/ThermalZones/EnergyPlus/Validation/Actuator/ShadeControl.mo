@@ -46,15 +46,13 @@ model ShadeControl
   Buildings.ThermalZones.EnergyPlus.OutputVariable incBeaSou(
     name="Surface Outside Face Incident Beam Solar Radiation Rate per Area",
     key="Zn001:Wall001:Win001",
-    y(
-      final unit="W/m2"))
+    y(final unit="W/m2"))
     "Block that reads incident beam solar radiation on south window from EnergyPlus"
     annotation (Placement(transformation(extent={{20,-110},{40,-90}})));
   Buildings.ThermalZones.EnergyPlus.OutputVariable shaAbsSol(
     name="Surface Window Shading Device Absorbed Solar Radiation Rate",
     key="Zn001:Wall001:Win001",
-    y(
-      unit="W"))
+    y(unit="W"))
     "Window shade absorbed solar radiation"
     annotation (Placement(transformation(extent={{20,-140},{40,-120}})));
   Buildings.Controls.OBC.Shade.Shade_T shaT(
@@ -138,7 +136,7 @@ equation
   connect(actSha.u,booToRea.y)
     annotation (Line(points={{168,-90},{162,-90}},color={0,0,127}));
   connect(shaT.T,zonWes.TAir)
-    annotation (Line(points={{48,-70},{20,-70},{20,11.8},{13,11.8}},color={0,0,127}));
+    annotation (Line(points={{48,-70},{20,-70},{20,16},{13,16}},    color={0,0,127}));
   connect(shaH.H,incBeaSou.y)
     annotation (Line(points={{48,-100},{41,-100}},color={0,0,127}));
   connect(weaBus,out.weaBus)
@@ -235,7 +233,7 @@ equation
     Documentation(
       info="<html>
 <p>
-Validation case for a building that uses an EMS actuator.
+Example of a building that uses an EMS actuator.
 The building has three thermal zones and is simulated in EnergyPlus.
 The west-facing thermal zone has
 a window blind that is open if its control signal is <i>0</i> or closed if it is <i>6</i>.

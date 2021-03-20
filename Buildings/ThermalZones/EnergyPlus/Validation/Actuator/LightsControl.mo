@@ -13,9 +13,8 @@ model LightsControl
     name="Lights Electricity Rate",
     key="LIVING ZONE Lights",
     isDirectDependent=true,
-    y(
-      final unit="W"))
-    "Block that reads output from EnergyPlus"
+    y(final unit="W"))
+    "Block that reads the lighting power consumption from EnergyPlus"
     annotation (Placement(transformation(extent={{100,60},{120,80}})));
   Controls.OBC.CDL.Utilities.SunRiseSet sunRiseSet(
     lat=0.73268921998722,
@@ -109,7 +108,7 @@ equation
     Documentation(
       info="<html>
 <p>
-Validation case for a building that uses an EMS actuator to assign the lighting power in EnergyPlus.
+Example of a building that uses an EMS actuator to assign the lighting power in EnergyPlus.
 The lights are on <i>30</i> minutes before sunset, and remain on until <i>22:00</i>.
 </p>
 </html>",
