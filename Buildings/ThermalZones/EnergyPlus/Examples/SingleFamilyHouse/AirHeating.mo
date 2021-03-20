@@ -188,6 +188,9 @@ The fan is either off, or operating on stage 1 or 2, depending on the output
 of the room temperature controller.
 The zone also has a constant air infiltration flow rate.
 </p>
+<p>
+Note that for simplicity, the model has no cooling system. Therefore, in summer, the house overheats.
+</p>
 </html>",
       revisions="<html>
 <ul><li>
