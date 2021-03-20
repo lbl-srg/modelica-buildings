@@ -1,7 +1,7 @@
 within Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse;
 model EquipmentSchedule
   "Example model that overrides a schedule in EnergyPlus"
-  extends Buildings.ThermalZones.EnergyPlus.Validation.ThermalZone.OneZone;
+  extends Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse.Unconditioned;
 
   Buildings.ThermalZones.EnergyPlus.Schedule schInt(
     name="INTERMITTENT",

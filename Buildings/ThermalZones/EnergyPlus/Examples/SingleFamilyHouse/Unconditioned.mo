@@ -1,5 +1,5 @@
-within Buildings.ThermalZones.EnergyPlus.Validation.ThermalZone;
-model OneZone
+within Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse;
+model Unconditioned
   "Example model with one unconditoned zone simulated in Modelica, and the other two unconditioned zones simulated in EnergyPlus"
   extends Modelica.Icons.Example;
   package Medium=Buildings.Media.Air
@@ -78,8 +78,8 @@ First implementation.
 </ul>
 </html>"),
     __Dymola_Commands(
-      file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus/Validation/ThermalZone/OneZone.mos" "Simulate and plot"),
+      file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus/Examples/SingleFamilyHouse/Unconditioned.mos" "Simulate and plot"),
     experiment(
       StopTime=432000,
       Tolerance=1e-06));
-end OneZone;
+end Unconditioned;

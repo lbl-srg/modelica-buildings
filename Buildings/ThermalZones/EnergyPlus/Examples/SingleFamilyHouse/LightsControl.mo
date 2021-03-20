@@ -1,7 +1,7 @@
 within Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse;
 model LightsControl
   "Example model with one actuator that controls the lights in EnergyPlus"
-  extends Buildings.ThermalZones.EnergyPlus.Validation.ThermalZone.OneZone;
+  extends Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse.Unconditioned;
 
   Buildings.ThermalZones.EnergyPlus.Actuator actLig(
     unit=Buildings.ThermalZones.EnergyPlus.Types.Units.Power,

@@ -1,7 +1,7 @@
 within Buildings.ThermalZones.EnergyPlus.Validation.ThermalZone;
 model OneZoneCompareZoneTemperatureOutput
   "This example tests whether the zone mean air temperature is reported correctly as an EnergyPlus output"
-  extends Buildings.ThermalZones.EnergyPlus.Validation.ThermalZone.OneZone;
+  extends Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse.Unconditioned;
   Buildings.ThermalZones.EnergyPlus.OutputVariable zonMeaAirTem(
     name="Zone Mean Air Temperature",
     key="LIVING ZONE",
@@ -27,7 +27,7 @@ First implementation.
 </ul>
 </html>"),
     __Dymola_Commands(
-      file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus/Validation/ThermalZone/OneZoneCompareZoneTemperatureOutput.mos" "Simulate and plot"),
+      file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus/Examples/SingleFamilyHouse/UnconditionedCompareZoneTemperatureOutput.mos" "Simulate and plot"),
     experiment(
       StopTime=172800,
       Tolerance=1e-06));
