@@ -6,8 +6,7 @@ model EquipmentScheduleOutputVariable
     name="Zone Electric Equipment Electricity Rate",
     key="LIVING ZONE",
     isDirectDependent=true,
-    y(
-      final unit="W"))
+    y(final unit="W"))
     "Block that reads output from EnergyPlus"
     annotation (Placement(transformation(extent={{0,70},{20,90}})));
   Utilities.Diagnostics.AssertEquality assEqu(
@@ -50,7 +49,7 @@ First implementation.
 </ul>
 </html>"),
     __Dymola_Commands(
-      file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus/Examples/SingleFamilyHouse/EquipmentScheduleOutputVariable.mos" "Simulate and plot"),
+      file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus/Validation/Schedule/EquipmentScheduleOutputVariable.mos" "Simulate and plot"),
     experiment(
       StopTime=172800,
       Tolerance=1e-06));
