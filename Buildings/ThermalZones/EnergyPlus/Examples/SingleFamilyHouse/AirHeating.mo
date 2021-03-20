@@ -1,6 +1,6 @@
 within Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse;
 model AirHeating
-  "Example model that has an air-based heating system that conditions a thermal zone in EnergyPlus"
+  "Example model with an air-based heating system that conditions a thermal zone in EnergyPlus"
   extends Modelica.Icons.Example;
 
   package Medium=Buildings.Media.Air
@@ -119,6 +119,7 @@ model AirHeating
     "Minimum supply air temperature"
     annotation (Placement(transformation(extent={{8,-110},{28,-90}})));
 initial equation
+  // Stop simulation if the hard-coded values differ from the ones computed by EnergyPlus.
   assert(abs(VRoo - zon.V) < 0.01, "Zone volume VRoo differs from volume returned by EnergyPlus.");
   assert(abs(AFlo - zon.AFlo) < 0.01, "Zone floor area AFlo differs from area returned by EnergyPlus.");
 
