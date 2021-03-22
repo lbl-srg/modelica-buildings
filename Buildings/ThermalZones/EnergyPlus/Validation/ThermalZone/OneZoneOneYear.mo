@@ -29,7 +29,7 @@ First implementation.
 </ul>
 </html>"),
     __Dymola_Commands(
-      file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus/Examples/SingleFamilyHouse/UnconditionedOneYear.mos" "Simulate and plot"),
+      file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus/Validation/ThermalZone/OneZoneOneYear.mos" "Simulate and plot"),
     experiment(
       StopTime=31536000,
       Tolerance=1e-06));
