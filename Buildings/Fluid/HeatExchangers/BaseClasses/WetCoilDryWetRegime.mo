@@ -129,36 +129,36 @@ model WetCoilDryWetRegime
         rotation=0,
         origin={150,-100})));
   Buildings.Fluid.HeatExchangers.BaseClasses.WetCoilDryRegime fullyDry(
-    UAWat=UAWat,
-    mWat_flow=mWat_flow,
-    cpWat=cpWat,
-    TWatIn=TWatIn,
-    UAAir=UAAir,
-    mAir_flow=mAir_flow,
-    mWatNonZer_flow=mWatNonZer_flow,
-    mAirNonZer_flow=mAirNonZer_flow,
-    cpAir=cpAir,
-    TAirIn=TAirIn,
+    final UAWat=UAWat,
+    final mWat_flow=mWat_flow,
+    final cpWat=cpWat,
+    final TWatIn=TWatIn,
+    final UAAir=UAAir,
+    final mAir_flow=mAir_flow,
+    final mWatNonZer_flow=mWatNonZer_flow,
+    final mAirNonZer_flow=mAirNonZer_flow,
+    final cpAir=cpAir,
+    final TAirIn=TAirIn,
     final cfg=cfg,
-    mAir_flow_nominal=mAir_flow_nominal,
-    mWat_flow_nominal=mWat_flow_nominal) "Fully-dry coil model";
+    final mAir_flow_nominal=mAir_flow_nominal,
+    final mWat_flow_nominal=mWat_flow_nominal) "Fully-dry coil model";
 
   Buildings.Fluid.HeatExchangers.BaseClasses.WetCoilWetRegime fullyWet(
-    UAWat=UAWat,
-    mWat_flow=mWat_flow,
-    cpWat=cpWat,
-    TWatIn=TWatIn,
-    UAAir=UAAir,
-    mAir_flow=mAir_flow,
-    mWatNonZer_flow=mWatNonZer_flow,
-    mAirNonZer_flow=mAirNonZer_flow,
-    cpAir=cpAir,
-    TAirIn=TAirIn,
+    final UAWat=UAWat,
+    final mWat_flow=mWat_flow,
+    final cpWat=cpWat,
+    final TWatIn=TWatIn,
+    final UAAir=UAAir,
+    final mAir_flow=mAir_flow,
+    final mWatNonZer_flow=mWatNonZer_flow,
+    final mAirNonZer_flow=mAirNonZer_flow,
+    final cpAir=cpAir,
+    final TAirIn=TAirIn,
     final cfg=cfg,
-    mAir_flow_nominal=mAir_flow_nominal,
-    mWat_flow_nominal=mWat_flow_nominal,
-    pAir=pAir,
-    X_wAirIn=X_wAirIn) "Fully-wet coil model";
+    final mAir_flow_nominal=mAir_flow_nominal,
+    final mWat_flow_nominal=mWat_flow_nominal,
+    final pAir=pAir,
+    final X_wAirIn=X_wAirIn) "Fully-wet coil model";
 
 protected
   Modelica.SIunits.MassFlowRate mAirNonZer_flow(min=Modelica.Constants.eps)=
@@ -177,8 +177,11 @@ protected
   Modelica.SIunits.Temperature TAirInDewPoi
     "Dew point temperature of incoming air";
 
-  Buildings.Utilities.Psychrometrics.pW_X pWIn(X_w=X_wAirIn,p_in=pAir);
-  Buildings.Utilities.Psychrometrics.TDewPoi_pW TDewIn(p_w=pWIn.p_w);
+  Buildings.Utilities.Psychrometrics.pW_X pWIn(
+    final X_w=X_wAirIn,
+    final p_in=pAir);
+  Buildings.Utilities.Psychrometrics.TDewPoi_pW TDewIn(
+    final p_w=pWIn.p_w);
 
   //-- Values for fuzzy logics
   Real mu_FW(final unit="1", min=0, max=1), mu_FD(unit="1",min=0, max=1)
