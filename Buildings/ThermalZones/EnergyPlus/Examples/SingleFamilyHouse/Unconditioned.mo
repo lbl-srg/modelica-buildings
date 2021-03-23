@@ -1,12 +1,12 @@
-within Buildings.ThermalZones.EnergyPlus.Validation.ThermalZone;
-model OneZone
-  "Validation model for one zone"
+within Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse;
+model Unconditioned
+  "Example model with one unconditoned zone simulated in Modelica, and the other two unconditioned zones simulated in EnergyPlus"
   extends Modelica.Icons.Example;
   package Medium=Buildings.Media.Air
     "Medium model";
   inner Buildings.ThermalZones.EnergyPlus.Building building(
     idfName=Modelica.Utilities.Files.loadResource(
-      "modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus/Validation/SingleFamilyHouse_TwoSpeed_ZoneAirBalance/SingleFamilyHouse_TwoSpeed_ZoneAirBalance.idf"),
+      "modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus/Examples/SingleFamilyHouse_TwoSpeed_ZoneAirBalance/SingleFamilyHouse_TwoSpeed_ZoneAirBalance.idf"),
     weaName=Modelica.Utilities.Files.loadResource(
       "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"),
     usePrecompiledFMU=false,
@@ -63,8 +63,10 @@ equation
     Documentation(
       info="<html>
 <p>
-Simple test case for one building with one thermal zone in which the room air temperature
-is free floating.
+This example models the living room as an unconditioned zone in Modelica.
+The living room is connected to a fresh air supply and exhaust.
+The heat balance of the air of the other two thermal zones, i.e.,
+the attic and the garage, are modeled in EnergyPlus.
 </p>
 </html>",
       revisions="<html>
@@ -76,8 +78,8 @@ First implementation.
 </ul>
 </html>"),
     __Dymola_Commands(
-      file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus/Validation/ThermalZone/OneZone.mos" "Simulate and plot"),
+      file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus/Examples/SingleFamilyHouse/Unconditioned.mos" "Simulate and plot"),
     experiment(
       StopTime=432000,
       Tolerance=1e-06));
-end OneZone;
+end Unconditioned;

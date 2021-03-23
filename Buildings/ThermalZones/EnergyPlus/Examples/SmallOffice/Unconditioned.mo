@@ -1,5 +1,5 @@
 within Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice;
-model NoHVAC "Open loop model of one floor"
+model Unconditioned "Open loop model of one floor"
   extends Modelica.Icons.Example;
 
   replaceable package Medium = Buildings.Media.Air "Medium for air";
@@ -107,7 +107,7 @@ equation
           38,-20},{38,12.7692},{37.1652,12.7692}},
                                                 color={0,127,255}));
     annotation (
- __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus/Examples/SmallOffice/NoHVAC.mos"
+ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus/Examples/SmallOffice/Unconditioned.mos"
         "Simulate and plot"),
 experiment(
       StopTime=172800,
@@ -135,4 +135,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end NoHVAC;
+end Unconditioned;

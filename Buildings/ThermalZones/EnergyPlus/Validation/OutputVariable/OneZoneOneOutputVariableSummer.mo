@@ -7,8 +7,8 @@ model OneZoneOneOutputVariableSummer
       info="<html>
 <p>
 Test case identical to
-<a href=\"modelica://Buildings.ThermalZones.EnergyPlus.Validation.ThermalZone.OneZoneOneOutputVariable\">
-Buildings.ThermalZones.EnergyPlus.Validation.ThermalZone.OneZoneOneOutputVariable</a>
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse.UnconditionedOneOutputVariable\">
+Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse.UnconditionedOneOutputVariable</a>
 but simulating only a period in summer.
 </p>
 <p>
