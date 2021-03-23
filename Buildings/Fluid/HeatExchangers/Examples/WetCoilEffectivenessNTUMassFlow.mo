@@ -15,8 +15,6 @@ model WetCoilEffectivenessNTUMassFlow
     m1_flow_nominal=m1_flow_nominal,
     m2_flow_nominal=m2_flow_nominal,
     dp2_nominal(displayUnit="Pa") = 200,
-    allowFlowReversal1=true,
-    allowFlowReversal2=true,
     dp1_nominal(displayUnit="Pa") = 3000,
     use_UA_nominal=true,
     UA_nominal=Q_flow_nominal/Buildings.Fluid.HeatExchangers.BaseClasses.lmtd(
