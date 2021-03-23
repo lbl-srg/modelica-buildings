@@ -35,12 +35,12 @@ protected
   constant Modelica.SIunits.SpecificEnthalpy hfg=
     Buildings.Utilities.Psychrometrics.Constants.h_fg
     "Enthapy of vaporization of water";
-  constant Modelica.SIunits.SpecificEnthalpy hunit=1
-  "Physical dimension of specific enthalpy used for a unit conversion";
-  constant Modelica.SIunits.Temperature Tunit=1
-  "Physical dimension of temperature used for a unit conversion";
-  constant Modelica.SIunits.SpecificHeatCapacity cpunit=1
-  "Physical dimension of specific heat capacity used for a unit conversion";
+  constant Modelica.SIunits.SpecificEnthalpy hUnit=1
+    "Physical dimension of specific enthalpy used for a unit conversion";
+  constant Modelica.SIunits.Temperature TUnit=1
+    "Physical dimension of temperature used for a unit conversion";
+  constant Modelica.SIunits.SpecificHeatCapacity cpUnit=1
+    "Physical dimension of specific heat capacity used for a unit conversion";
 
   parameter Modelica.SIunits.MassFraction X_wAirOut(fixed=false)
     "Mass fraction of water in outgoing air at a rated condition";
@@ -60,8 +60,8 @@ protected
   parameter Modelica.SIunits.SpecificHeatCapacity cpAir=
     MediumA.specificHeatCapacityCp(staAir)
     "Isobaric specific heat capacity of air";
-  parameter Modelica.SIunits.SpecificHeatCapacity cpw=
-    MediumW.specificHeatCapacityCp(staWat)
+  parameter Modelica.SIunits.SpecificHeatCapacity cpWat=
+      MediumW.specificHeatCapacityCp(staWat)
     "Isobaric specific heat capacity of water";
   parameter Modelica.SIunits.SpecificHeatCapacity cpEff(fixed=false, min= 0)
     "Effective specific heat: change in saturated moist air enthalpy with respect to
@@ -72,8 +72,8 @@ protected
 
   parameter Modelica.SIunits.MassFlowRate UASta(fixed=false, min=0)
     "Overall heat transfer coefficient for enthalpy difference";
-  parameter Modelica.SIunits.HeatFlowRate QTot_flow=mWat_flow*cpw*(TWatOut-TWatIn)
-    "Total heat flow from air to water stream";
+  parameter Modelica.SIunits.HeatFlowRate QTot_flow=mWat_flow*cpWat*(TWatOut -
+      TWatIn) "Total heat flow from air to water stream";
 
   parameter Modelica.SIunits.ThermalConductance UAAir(min=0,start=10,fixed=false)
   "Air side convective heat transfer coefficient, including fin resistance";
@@ -135,17 +135,17 @@ initial equation
         TAirIn,
         TAirOut,
         TWatIn,
-        TWatOut)/Tunit*hunit;
+        TWatOut)/TUnit*hUnit;
       QTot_flow=LMED*UASta;
       cpEff= 0;
-      UA= UASta*cpunit;
+      UA= UASta*cpUnit;
     else //fully wet
       // calculation of overall UAsta based on log mean enthalpy difference
       LMED=Buildings.Fluid.HeatExchangers.BaseClasses.lmtd(
-        hAirIn/hunit*Tunit,
-        hAirOut/hunit*Tunit,
-        hSatTWatIn/hunit*Tunit,
-        hSatTWatOut/hunit*Tunit)/Tunit*hunit;
+        hAirIn/hUnit*TUnit,
+        hAirOut/hUnit*TUnit,
+        hSatTWatIn/hUnit*TUnit,
+        hSatTWatOut/hUnit*TUnit)/TUnit*hUnit;
       QTot_flow=LMED*UASta;
       cpEff= (hSatTWatOut-hSatTWatIn)/(TWatOut-TWatIn);
       UASta = (UAAir/cpAir)/(1 + (cpEff*UAAir)/(cpAir*UAWat));
@@ -161,7 +161,7 @@ initial equation
     hAirOut=MediumA.h_default;
     IsFulDry=false;
     IsFulWet=false;
-    LMED=hunit;
+    LMED=hUnit;
     QTot_flow=LMED*UASta;
     cpEff= 0;
   end if;

@@ -128,7 +128,7 @@ model WetCoilDryWetRegime
       Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=0,
         origin={150,-100})));
-  Buildings.Fluid.HeatExchangers.BaseClasses.WetCoilDryRegime fullydry(
+  Buildings.Fluid.HeatExchangers.BaseClasses.WetCoilDryRegime fullyDry(
     UAWat=UAWat,
     mWat_flow=mWat_flow,
     cpWat=cpWat,
@@ -143,7 +143,7 @@ model WetCoilDryWetRegime
     mAir_flow_nominal=mAir_flow_nominal,
     mWat_flow_nominal=mWat_flow_nominal) "Fully-dry coil model";
 
-  Buildings.Fluid.HeatExchangers.BaseClasses.WetCoilWetRegime fullywet(
+  Buildings.Fluid.HeatExchangers.BaseClasses.WetCoilWetRegime fullyWet(
     UAWat=UAWat,
     mWat_flow=mWat_flow,
     cpWat=cpWat,
@@ -180,7 +180,7 @@ protected
   Buildings.Utilities.Psychrometrics.pW_X pWIn(X_w=X_wAirIn,p_in=pAir);
   Buildings.Utilities.Psychrometrics.TDewPoi_pW TDewIn(p_w=pWIn.p_w);
 
-  //-- parameters for fuzzy logics
+  //-- Values for fuzzy logics
   Real mu_FW(final unit="1", min=0, max=1), mu_FD(unit="1",min=0, max=1)
     "Membership functions for Fully-Wet and Fully-Dry conditions";
   Real w_FW(final unit="1", min=0, max=1),  w_FD(unit="1",min=0, max=1)
@@ -193,20 +193,20 @@ equation
   TAirInDewPoi=TDewIn.T;
 
   mu_FW= Buildings.Utilities.Math.Functions.spliceFunction(
-  pos=0,neg=1,x=fullywet.TSurAirIn-TAirInDewPoi,
-  deltax=Buildings.Utilities.Math.Functions.smoothMax(abs(fullydry.TSurAirOut- fullywet.TSurAirIn),1e-2,1e-3));
-  //max(abs(fullydry.TSurAirOut- fullywet.TSurAirIn),1e-3));
+  pos=0,neg=1,x=fullyWet.TSurAirIn-TAirInDewPoi,
+  deltax=Buildings.Utilities.Math.Functions.smoothMax(abs(fullyDry.TSurAirOut-fullyWet.TSurAirIn), 1e-2,1e-3));
+  //max(abs(fullyDry.TSurAirOut- fullyWet.TSurAirIn),1e-3));
 
   mu_FD= Buildings.Utilities.Math.Functions.spliceFunction(
-  pos=1,neg=0,x=fullydry.TSurAirOut-TAirInDewPoi,
-  deltax=Buildings.Utilities.Math.Functions.smoothMax(abs(fullydry.TSurAirOut- fullywet.TSurAirIn),1e-2,1e-3));
-  //max(abs(fullydry.TSurAirOut- fullywet.TSurAirIn),1e-3));
+  pos=1,neg=0,x=fullyDry.TSurAirOut-TAirInDewPoi,
+  deltax=Buildings.Utilities.Math.Functions.smoothMax(abs(fullyDry.TSurAirOut-fullyWet.TSurAirIn), 1e-2,1e-3));
+  //max(abs(fullyDry.TSurAirOut- fullyWet.TSurAirIn),1e-3));
 
   w_FW=mu_FW/(mu_FW+mu_FD);
   w_FD=mu_FD/(mu_FW+mu_FD);
 
-  QTot_flow= -(w_FW*fullywet.QTot_flow+w_FD*fullydry.QTot_flow)*Qfac;
-  QSen_flow= -(w_FW*fullywet.QSen_flow+w_FD*fullydry.QTot_flow)*Qfac;
+  QTot_flow= -(w_FW*fullyWet.QTot_flow+w_FD*fullyDry.QTot_flow)*Qfac;
+  QSen_flow= -(w_FW*fullyWet.QSen_flow+w_FD*fullyDry.QTot_flow)*Qfac;
   dryFra= w_FD;
 
   QLat_flow=QTot_flow-QSen_flow;
