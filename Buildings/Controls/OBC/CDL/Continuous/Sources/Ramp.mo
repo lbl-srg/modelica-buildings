@@ -1,10 +1,15 @@
 within Buildings.Controls.OBC.CDL.Continuous.Sources;
 block Ramp "Generate ramp signal"
   parameter Real height=1 "Height of ramps";
-  parameter Modelica.SIunits.Time duration(min=Constants.small)
+  parameter Real duration(
+    final quantity="Time",
+    final unit="s",
+    min=Constants.small)
     "Duration of ramp (= 0.0 gives a Step)";
   parameter Real offset=0 "Offset of output signal";
-  parameter Modelica.SIunits.Time startTime=0
+  parameter Real startTime(
+    final quantity="Time",
+    final unit="s")=0
     "Output = offset for time < startTime";
 
   Interfaces.RealOutput y "Connector of Real output signal"
@@ -57,9 +62,14 @@ The Real output y is a ramp signal:
 <img src=\"modelica://Buildings/Resources/Images/Controls/OBC/CDL/Continuous/Sources/Ramp.png\"
      alt=\"Ramp.png\" />
 </p>
-
 </html>", revisions="<html>
 <ul>
+<li>
+November 12, 2020, by Michael Wetter:<br/>
+Reformulated to remove dependency to <code>Modelica.SIunits</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2243\">issue 2243</a>.
+</li>
 <li>
 March 2, 2020, by Michael Wetter:<br/>
 Changed icon to display dynamically the output value.

@@ -52,6 +52,96 @@
   },
   {
     "jmodelica": {
+      "simulate": false
+    },
+    "optimica": {
+      "rtol": 1E-7
+    },
+    "model_name": "Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.Guideline36Spring"
+  },
+  {
+    "jmodelica": {
+      "simulate": false
+    },
+    "optimica": {
+      "rtol": 1E-7
+    },
+    "model_name": "Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.Guideline36Summer"
+  },
+  {
+    "jmodelica": {
+      "simulate": false
+    },
+    "optimica": {
+      "rtol": 1E-7
+    },
+    "model_name": "Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.Guideline36Winter"
+  },
+  {
+    "jmodelica": {
+      "simulate": false
+    },
+    "optimica": {
+      "rtol": 1E-7
+    },
+    "model_name": "Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.ASHRAE2006Spring"
+  },
+  {
+    "jmodelica": {
+      "simulate": false
+    },
+    "optimica": {
+      "rtol": 1E-7
+    },
+    "model_name": "Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.ASHRAE2006Summer"
+  },
+  {
+    "jmodelica": {
+      "simulate": false
+    },
+    "optimica": {
+      "rtol": 1E-7
+    },
+    "model_name": "Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.ASHRAE2006Winter"
+  },
+  {
+    "jmodelica": {
+      "simulate": false
+    },
+    "optimica": {
+      "rtol": 1E-7
+    },
+    "model_name": "Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.NoHVAC"
+  },
+  {
+    "jmodelica": {
+      "simulate": false
+    },
+    "optimica": {
+      "rtol": 1E-8
+    },
+    "model_name": "Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.IdealHeatingCoolingSpring"
+  },
+  {
+    "jmodelica": {
+      "simulate": false
+    },
+    "optimica": {
+      "rtol": 1E-8
+    },
+    "model_name": "Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.IdealHeatingCoolingSummer"
+  },
+  {
+    "jmodelica": {
+      "simulate": false
+    },
+    "optimica": {
+      "rtol": 1E-8
+    },
+    "model_name": "Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.IdealHeatingCoolingWinter"
+  },
+  {
+    "jmodelica": {
         "translate": false
     },
     "optimica": {
@@ -73,7 +163,7 @@
     "optimica": {
         "simulate": false
     },
- "model_name": "Buildings.Utilities.IO.Python36.Functions.Examples.Exchange"
+    "model_name": "Buildings.Utilities.IO.Python36.Functions.Examples.Exchange"
   },
   {
     "jmodelica": {

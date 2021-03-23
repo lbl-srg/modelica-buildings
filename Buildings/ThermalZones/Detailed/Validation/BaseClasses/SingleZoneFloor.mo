@@ -136,7 +136,7 @@ model SingleZoneFloor "Model of a building floor as a single zone"
     annotation (Placement(transformation(extent={{-174,78},{-158,94}}),
         iconTransformation(extent={{-140,162},{-124,178}})));
 
-  Buildings.Examples.VAVReheat.ThermalZones.RoomLeakage leaSou(
+  Buildings.Examples.VAVReheat.BaseClasses.RoomLeakage leaSou(
     redeclare package Medium = Medium,
     VRoo=568.77,
     s=49.91/33.27,
@@ -144,7 +144,7 @@ model SingleZoneFloor "Model of a building floor as a single zone"
     final use_windPressure=use_windPressure)
     "Model for air infiltration through the envelope"
     annotation (Placement(transformation(extent={{-122,132},{-86,172}})));
-  Buildings.Examples.VAVReheat.ThermalZones.RoomLeakage leaEas(
+  Buildings.Examples.VAVReheat.BaseClasses.RoomLeakage leaEas(
     redeclare package Medium = Medium,
     VRoo=360.0785,
     s=33.27/49.91,
@@ -152,7 +152,7 @@ model SingleZoneFloor "Model of a building floor as a single zone"
     final use_windPressure=use_windPressure)
     "Model for air infiltration through the envelope"
     annotation (Placement(transformation(extent={{-122,92},{-86,132}})));
-  Buildings.Examples.VAVReheat.ThermalZones.RoomLeakage leaNor(
+  Buildings.Examples.VAVReheat.BaseClasses.RoomLeakage leaNor(
     redeclare package Medium = Medium,
     VRoo=568.77,
     s=49.91/33.27,
@@ -160,7 +160,7 @@ model SingleZoneFloor "Model of a building floor as a single zone"
     final use_windPressure=use_windPressure)
     "Model for air infiltration through the envelope"
     annotation (Placement(transformation(extent={{-122,50},{-86,90}})));
-  Buildings.Examples.VAVReheat.ThermalZones.RoomLeakage leaWes(
+  Buildings.Examples.VAVReheat.BaseClasses.RoomLeakage leaWes(
     redeclare package Medium = Medium,
     VRoo=360.0785,
     s=33.27/49.91,
@@ -295,8 +295,8 @@ equation
   </p>
   <p>
   The geometry, materials and constructions of the model are consistent with those of
-  <a href=\"modelica://Buildings.Examples.VAVReheat.ThermalZones.Floor\">
-  Buildings.Examples.VAVReheat.ThermalZones.Floor</a>, 
+  <a href=\"modelica://Buildings.Examples.VAVReheat.BaseClasses.Floor\">
+  Buildings.Examples.VAVReheat.BaseClasses.Floor</a>, 
   which models the same mid-floor as five zones: a core zone and 
   four perimeter zones.
   </p>

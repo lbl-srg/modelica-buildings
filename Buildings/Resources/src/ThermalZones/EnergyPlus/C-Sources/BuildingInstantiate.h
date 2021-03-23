@@ -6,9 +6,9 @@
 #ifndef Buildings_BuildingInstantiate_h
 #define Buildings_BuildingInstantiate_h
 
-#include "EnergyPlusTypes.h"
-#include "EnergyPlusFMU.h"
-#include "EnergyPlusUtil.h"
+#include "SpawnTypes.h"
+#include "SpawnFMU.h"
+#include "SpawnUtil.h"
 #include "cryptographicsHash.h"
 
 #include <stdio.h>

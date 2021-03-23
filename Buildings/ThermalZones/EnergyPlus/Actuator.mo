@@ -1,7 +1,9 @@
 within Buildings.ThermalZones.EnergyPlus;
-model Actuator
+block Actuator
   "Block to write to an EnergyPlus actuator"
   extends Buildings.ThermalZones.EnergyPlus.BaseClasses.PartialEnergyPlusObject;
+  extends Buildings.ThermalZones.EnergyPlus.BaseClasses.Synchronize.ObjectSynchronizer;
+
   parameter String variableName
     "Actuated component unique name in the EnergyPlus idf file";
   parameter String componentType
@@ -17,40 +19,72 @@ model Actuator
   Modelica.Blocks.Interfaces.RealOutput y
     "Value written to EnergyPlus (use for direct dependency of Actuators and Schedules)"
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),iconTransformation(extent={{100,-20},{140,20}})));
+
 protected
-  constant String modelicaNameInputVariable=getInstanceName()
-    "Name of this instance"
-    annotation (HideResult=true);
-  Buildings.ThermalZones.EnergyPlus.BaseClasses.FMUInputVariableClass adapter=Buildings.ThermalZones.EnergyPlus.BaseClasses.FMUInputVariableClass(
-    objectType=1,
+  constant Integer nParOut = 0 "Number of parameter values retrieved from EnergyPlus";
+  constant Integer nInp = 1 "Number of inputs";
+  constant Integer nOut = 0 "Number of outputs";
+  constant Integer nDer = 0 "Number of derivatives";
+  constant Integer nY = nOut + nDer + 1 "Size of output vector of exchange function";
+  parameter Integer nObj(fixed=false, start=0) "Total number of Spawn objects in building";
+
+  final parameter String unitString = Buildings.ThermalZones.EnergyPlus.BaseClasses.getUnitAsString(unit) "Unit as a string";
+
+  Buildings.ThermalZones.EnergyPlus.BaseClasses.SpawnExternalObject adapter=Buildings.ThermalZones.EnergyPlus.BaseClasses.SpawnExternalObject(
+    objectType=3,
+    startTime=startTime,
     modelicaNameBuilding=modelicaNameBuilding,
-    modelicaNameInputVariable=modelicaNameInputVariable,
+    modelicaInstanceName=modelicaInstanceName,
     idfName=idfName,
     weaName=weaName,
-    name=variableName,
-    componentType=componentType,
-    controlType=controlType,
-    unit=Buildings.ThermalZones.EnergyPlus.BaseClasses.getUnitAsString(unit),
+    epName=variableName,
     usePrecompiledFMU=usePrecompiledFMU,
     fmuName=fmuName,
     buildingsLibraryRoot=Buildings.ThermalZones.EnergyPlus.BaseClasses.buildingsLibraryRoot,
-    logLevel=logLevel)
+    logLevel=logLevel,
+    printUnit=false,
+    jsonName = "emsActuators",
+    jsonKeysValues=
+        "        \"variableName\": \"" + variableName + "\",
+        \"componentType\": \"" + componentType + "\",
+        \"controlType\": \"" + controlType + "\",
+        \"unit\": \"" + unitString + "\",
+        \"fmiName\": \"" + variableName +"_" + componentType + "\"",
+    parOutNames = fill("", nParOut),
+    parOutUnits = fill("", nParOut),
+    nParOut = nParOut,
+    inpNames = {componentType},
+    inpUnits = {unitString},
+    nInp = nInp,
+    outNames = fill("", nOut),
+    outUnits = fill("", nOut),
+    nOut = nOut,
+    derivatives_structure = fill( fill(nDer, 2), nDer),
+    nDer = nDer,
+    derivatives_delta = fill(0, nDer))
     "Class to communicate with EnergyPlus";
+
+  Real yEP[nY] "Output of exchange function";
+
 initial equation
   assert(
     not usePrecompiledFMU,
     "Use of pre-compiled FMU is not supported for block Actuator.");
-  Buildings.ThermalZones.EnergyPlus.BaseClasses.inputVariableInitialize(
+  nObj = Buildings.ThermalZones.EnergyPlus.BaseClasses.initialize(
     adapter=adapter,
-    startTime=time);
+    isSynchronized=building.isSynchronized);
 equation
-  y=Buildings.ThermalZones.EnergyPlus.BaseClasses.inputVariableExchange(
-    adapter,
-    initial(),
-    u,
-    round(
-      time,
-      1E-3));
+  yEP = Buildings.ThermalZones.EnergyPlus.BaseClasses.exchange(
+    adapter = adapter,
+    initialCall = false,
+    nY = nY,
+    u = {u, round(time, 1E-3)},
+    dummy = nObj);
+
+  y = yEP[1];
+
+  nObj =synBui.synchronize.done;
+
   annotation (
     defaultComponentName="act",
     Documentation(
@@ -193,6 +227,11 @@ If specified, it will be ignored and the Modelica object be used instead.
 </html>",
       revisions="<html>
 <ul>
+<li>
+February 18, 2021, by Michael Wetter:<br/>
+Refactor synchronization of constructors.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2360\">#2360</a>.
+</li>
 <li>
 November 13, 2019, by Michael Wetter:<br/>
 First implementation.

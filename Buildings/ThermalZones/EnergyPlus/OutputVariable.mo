@@ -1,7 +1,9 @@
 within Buildings.ThermalZones.EnergyPlus;
 model OutputVariable
-  "Block to read an EnergyPlus output variable for use in Modelica"
+  "Block to read an EnergyPlus output variable"
   extends Buildings.ThermalZones.EnergyPlus.BaseClasses.PartialEnergyPlusObject;
+  extends Buildings.ThermalZones.EnergyPlus.BaseClasses.Synchronize.ObjectSynchronizer;
+
   parameter String name
     "EnergyPlus name of the output variable as in the EnergyPlus .rdd or .mdd file";
   parameter String key
@@ -20,53 +22,91 @@ protected
     annotation (Dialog(group="Diagnostics"));
   Modelica.Blocks.Interfaces.RealInput directDependency_in_internal
     "Needed to connect to conditional connector";
-  Buildings.ThermalZones.EnergyPlus.BaseClasses.FMUOutputVariableClass adapter=Buildings.ThermalZones.EnergyPlus.BaseClasses.FMUOutputVariableClass(
+
+  constant Integer nParOut = 0 "Number of parameter values retrieved from EnergyPlus";
+  constant Integer nInp = 0 "Number of inputs";
+  constant Integer nOut = 1 "Number of outputs";
+  constant Integer nDer = 0 "Number of derivatives";
+  constant Integer nY = nOut + nDer + 1 "Size of output vector of exchange function";
+  parameter Integer nObj(fixed=false, start=0) "Total number of Spawn objects in building";
+
+  Buildings.ThermalZones.EnergyPlus.BaseClasses.SpawnExternalObject adapter=Buildings.ThermalZones.EnergyPlus.BaseClasses.SpawnExternalObject(
+    objectType=4,
+    startTime=startTime,
     modelicaNameBuilding=modelicaNameBuilding,
-    modelicaNameOutputVariable=modelicaNameOutputVariable,
+    modelicaInstanceName=modelicaInstanceName,
     idfName=idfName,
     weaName=weaName,
-    name=name,
-    componentKey=key,
+    epName=name,
     usePrecompiledFMU=usePrecompiledFMU,
     fmuName=fmuName,
     buildingsLibraryRoot=Buildings.ThermalZones.EnergyPlus.BaseClasses.buildingsLibraryRoot,
     logLevel=logLevel,
-    printUnit=printUnit)
+    printUnit=printUnit,
+    jsonName = "outputVariables",
+    jsonKeysValues=
+        "        \"name\": \"" + name + "\",
+        \"key\": \"" + key + "\",
+        \"fmiName\": \"" + name + "_" + key + "\"",
+    parOutNames = fill("", nParOut),
+    parOutUnits = fill("", nParOut),
+    nParOut = nParOut,
+    inpNames = fill("", nInp),
+    inpUnits = fill("", nInp),
+    nInp = 0,
+    outNames = {key},
+    outUnits = fill("", nOut),
+    nOut = nOut,
+    derivatives_structure = fill( fill(nDer, 2), nDer),
+    nDer = nDer,
+    derivatives_delta = fill(0, nDer))
     "Class to communicate with EnergyPlus";
+
+  Real yEP[nY] "Output of exchange function";
+
   Modelica.SIunits.Time tNext(
     start=startTime,
     fixed=true)
     "Next sampling time";
-  Integer counter
-    "Counter for number of calls to EnergyPlus during time steps";
 initial equation
   assert(
     not usePrecompiledFMU,
     "Use of pre-compiled FMU is not supported for block OutputVariable.");
-  Buildings.ThermalZones.EnergyPlus.BaseClasses.outputVariableInitialize(
+
+  nObj=Buildings.ThermalZones.EnergyPlus.BaseClasses.initialize(
     adapter=adapter,
-    startTime=time);
-  counter=0;
+    isSynchronized=building.isSynchronized);
+
+  /* The last argument of u will be ignored as the C code only processes 1 element of u,
+     but Modelica is tricked into thinking that there is a dependency on directDependency_in_internal */
+//   Buildings.ThermalZones.EnergyPlus.BaseClasses.exchange(
+//     adapter = adapter,
+//     initialCall = true,
+//     nY = nY,
+//     u = {round(time, 1E-3), directDependency_in_internal},
+//     dummy = dummy);
+
 equation
   if isDirectDependent then
     connect(directDependency,directDependency_in_internal);
   else
     directDependency_in_internal=0;
   end if;
-  // The 'not initial()' triggers one sample when the continuous time simulation starts.
-  // This is required for the correct event handling. Otherwise the regression tests will fail.
-  // when {initial(), not initial(), time >= pre(tNext)} then
-  when {initial(),time >= pre(tNext),not initial()} then
-    (y,tNext)=Buildings.ThermalZones.EnergyPlus.BaseClasses.outputVariableExchange(
-      adapter,
-      initial(),
-      directDependency_in_internal,
-      round(
-        time,
-        1E-3));
-    counter=pre(
-      counter)+1;
+
+  when {initial(), time >= pre(tNext)} then
+    yEP = Buildings.ThermalZones.EnergyPlus.BaseClasses.exchange(
+      adapter = adapter,
+      initialCall = false,
+      nY = nY,
+      u = {round(time, 1E-3), directDependency_in_internal},
+      dummy = nObj);
+
+    y = yEP[1];
+    tNext = yEP[2];
   end when;
+
+  nObj =synBui.synchronize.done;
+
   annotation (
     defaultComponentName="out",
     Icon(
@@ -146,29 +186,25 @@ based on the information that EnergyPlus provides.)
 </p>
 <h4>Direct dependency of output</h4>
 <p>
-Some output variables <i>directly</i> depend on input variable, i.e.,
+Some output variables <i>directly</i> depend on input variables, i.e.,
 if an input variable changes, the output changes immediately.
 Examples are
 the illuminance in a room that changes instantaneously when the window blind is changed, or
-the <code>Zone Electric Equipment Electricity Rate</code> which changes instantaneously
+the output variable <code>Zone Electric Equipment Electricity Rate</code> which changes instantaneously
 when a schedule value switches it on
 (see
 <a href=\"modelica://Buildings.ThermalZones.EnergyPlus.Validation.Schedule.EquipmentScheduleOutputVariable\">
 Buildings.ThermalZones.EnergyPlus.Validation.Schedule.EquipmentScheduleOutputVariable</a>).
-For such variables, set <code>isDirectDependent=true</code>.
-In contrast, an output variables does not depend directly on an input variable if
-it is a continuous time state, or if it only depends on time such as weather data.
-Examples are
-the zone air temperature <code>Zone Mean Air Temperature</code> which only changes <i>after</i>
-time lapsed, i.e., EnergyPlus made a time step, or
-<code>Surface Outside Face Incident Beam Solar Radiation Rate per Area</code> which does of course
-not change if an occupancy schedule changes.
-For these variables, leave <code>isDirectDependent=false</code>.
+For such variables, users should set <code>isDirectDependent=true</code>.
+Output variables that do not depend directly on an input variable include
+continuous time states such as the inside temperature of a wall
+and variables that only depend on time such as weather data.
+For these variables, users should leave <code>isDirectDependent=false</code>.
 </p>
 <p>
-If <code>isDirectDependent=true</code>, the input connector <code>directDependency</code>
-is enabled.
-You need to connect this input to the output(s) of these instance of
+If a user sets <code>isDirectDependent=true</code>, then the model enables
+the input connector <code>directDependency</code>.
+Users then need to connect this input to the output(s) of these instance of
 <a href=\"modelica://Buildings.ThermalZones.EnergyPlus.Actuator\">
 Buildings.ThermalZones.EnergyPlus.Actuator</a>
 or
@@ -178,14 +214,32 @@ on which this output directly depends on.
 See for example
 <a href=\"modelica://Buildings.ThermalZones.EnergyPlus.Validation.Schedule.EquipmentScheduleOutputVariable\">
 Buildings.ThermalZones.EnergyPlus.Validation.Schedule.EquipmentScheduleOutputVariable</a>.
-If the output depends on multiple inputs, just multiply these inputs before connecting their product
+If the output depends on multiple inputs, just multiply these inputs and connect their product
 to the connector <code>directDependency</code>. What the value is is irrelevant,
 but a Modelica code generator will then understand that first the input needs to be sent
 to EnergyPlus before the output is requested.
 </p>
+<h4>Supported output variables</h4>
+<p>
+For a list of supported output variables, see
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus.UsersGuide.SupportedOutputVariables\">
+Buildings.ThermalZones.EnergyPlus.UsersGuide.SupportedOutputVariables</a>.
+</p>
 </html>",
       revisions="<html>
 <ul>
+<li>
+February 18, 2021, by Michael Wetter:<br/>
+Refactor synchronization of constructors.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2360\">#2360</a>.
+</li>
+<li>
+December 6, 2020, by Michael Wetter:<br/>
+Reformulated <code>when</code> condition to avoid using <code>not initial()</code>.
+Per the Modelica language definition, <code>when</code> clauses are not meant to contain
+<code>not initial()</code>.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2068\">#2068</a>.
+</li>
 <li>
 June 5, 2020, by Michael Wetter:<br/>
 Added option for declaring direct dependencies.

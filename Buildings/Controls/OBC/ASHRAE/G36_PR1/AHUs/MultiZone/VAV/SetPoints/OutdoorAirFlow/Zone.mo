@@ -35,8 +35,8 @@ block Zone
     annotation(Dialog(group="Nominal condition"));
 
   parameter Real desZonPop(
-    final min=occDen*AFlo,
-    final unit = "1")
+    min=0,
+    final unit = "1") = occDen*AFlo
     "Design zone population during peak occupancy"
     annotation(Dialog(group="Nominal condition"));
 
@@ -621,6 +621,12 @@ Stanke, D., 2010. <i>Dynamic Reset for Multiple-Zone Systems.</i> ASHRAE Journal
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 23, 2020, by Michael Wetter:<br/>
+Changed the <code>min</code> attribute of <code>desZonPop</code> to zero, and used
+the expression as a default value. This was done because the expression involves the
+zone floor area, which is, if obtained from Spawn, a non-literal value.
+</li>
 <li>
 March 13, 2020, by Jianjun Hu:<br/>
 Separated from original sequence of finding the system minimum outdoor air setpoint.<br/>

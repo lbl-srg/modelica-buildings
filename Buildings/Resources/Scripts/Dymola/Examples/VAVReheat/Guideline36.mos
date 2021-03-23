@@ -14,7 +14,7 @@ createPlot(id = 1,
  bottomTitleType = 1);
 createPlot(id = 1,
  position = {26, 33, 808, 213},
- y = {"TSupSou.T", "TSupEas.T", "TSupNor.T", "TSupWes.T", "TSupCor.T"},
+ y = {"sou.TSup", "eas.TSup", "nor.TSup", "wes.TSup", "cor.TSup"},
  range = {0.0, 180000.0, 35.0, 10.0},
  autoscale = true,
  autoerase = true,
@@ -54,4 +54,3 @@ createPlot(
     grid=true,
     color=true,
     subPlot=2);
-

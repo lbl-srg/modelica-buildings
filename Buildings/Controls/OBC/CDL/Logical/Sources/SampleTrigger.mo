@@ -1,19 +1,26 @@
 within Buildings.Controls.OBC.CDL.Logical.Sources;
 block SampleTrigger "Generate sample trigger signal"
-  parameter Modelica.SIunits.Time period(
+  parameter Real period(
+    final quantity="Time",
+    final unit="s",
     final min=Constants.small) "Sample period";
-  parameter Modelica.SIunits.Time delay=0
-    "Delay time for output";
+  parameter Real shift(
+    final quantity="Time",
+    final unit="s")=0
+    "Shift time for output";
   Interfaces.BooleanOutput y  "Connector of Boolean output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected
-  parameter Modelica.SIunits.Time t0(fixed=false)
+  parameter Real t0(
+    final quantity="Time",
+    final unit="s",
+    fixed=false)
     "First sample time instant";
 
 initial equation
   t0 = Buildings.Utilities.Math.Functions.round(
-         x = integer((time)/period)*period+mod(delay, period),
+         x = integer((time)/period)*period+mod(shift, period),
          n = 6);
 
 equation
@@ -71,10 +78,22 @@ at sample times (defined by parameter <code>period</code>) and is otherwise
      alt=\"SampleTrigger.png\" />
 </p>
 <p>
-The trigger signal is generated an infinite number of times, and aligned with time <code>time=delay</code>.
+The trigger signal is generated an infinite number of times, and aligned with <code>time=delay</code>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 03, 2020, by Milica Grahovac:<br/>
+Renamed <code>delay</code> parameter to <code>shift</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2282\">issue 2282</a>.
+</li>
+<li>
+November 12, 2020, by Michael Wetter:<br/>
+Reformulated to remove dependency to <code>Modelica.SIunits</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2243\">issue 2243</a>.
+</li>
 <li>
 October 19, 2020, by Michael Wetter:<br/>
 Refactored implementation.<br/>

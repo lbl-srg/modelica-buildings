@@ -6,16 +6,17 @@ model LightsControl
     unit=Buildings.ThermalZones.EnergyPlus.Types.Units.Power,
     variableName="LIVING ZONE Lights",
     componentType="Lights",
-    controlType="Electric Power Level")
+    controlType="Electricity Rate")
     "Actuator for lights"
     annotation (Placement(transformation(extent={{100,100},{120,120}})));
   Buildings.ThermalZones.EnergyPlus.OutputVariable ligPow(
     name="Lights Electricity Rate",
     key="LIVING ZONE Lights",
+    isDirectDependent=true,
     y(
       final unit="W"))
     "Block that reads output from EnergyPlus"
-    annotation (Placement(transformation(extent={{20,60},{40,80}})));
+    annotation (Placement(transformation(extent={{100,60},{120,80}})));
   Controls.OBC.CDL.Utilities.SunRiseSet sunRiseSet(
     lat=0.73268921998722,
     lon=-1.5344934783534,
@@ -97,6 +98,8 @@ equation
     annotation (Line(points={{-22,70},{-38,70}},color={255,0,255}));
   connect(and1.y,and2.u2)
     annotation (Line(points={{2,70},{10,70},{10,102},{18,102}},color={255,0,255}));
+  connect(actLig.y, ligPow.directDependency) annotation (Line(points={{122,110},
+          {130,110},{130,90},{88,90},{88,70},{98,70}}, color={0,0,127}));
   annotation (
     __Dymola_Commands(
       file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus/Validation/Actuator/LightsControl.mos" "Simulate and plot"),
