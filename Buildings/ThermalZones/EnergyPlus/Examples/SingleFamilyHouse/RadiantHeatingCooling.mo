@@ -1,5 +1,5 @@
-within Buildings.ThermalZones.EnergyPlus.Examples;
-model OneZoneRadiantHeatingCooling
+within Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse;
+model RadiantHeatingCooling
   "Example model with one thermal zone with a radiant floor"
   extends Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse.Unconditioned;
 
@@ -314,7 +314,7 @@ equation
           {-162,60},{-168,60}}, color={0,0,127}));
   annotation (
       __Dymola_Commands(
-      file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus/Examples/OneZoneRadiantHeatingCooling.mos" "Simulate and plot"),
+      file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus/Examples/SingleFamilyHouse/RadiantHeatingCooling.mos" "Simulate and plot"),
   experiment(
       StartTime=7776000,
       StopTime=9504000,
@@ -386,4 +386,4 @@ First implementation.
 </html>"),
     Diagram(coordinateSystem(extent={{-320,-340},{160,200}})),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
-end OneZoneRadiantHeatingCooling;
+end RadiantHeatingCooling;
