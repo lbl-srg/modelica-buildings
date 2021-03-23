@@ -133,8 +133,8 @@ For other actuators, please see the EnergyPlus EMS Application Guide.
 <h5>Configuring an actuator for lights</h5>
 <p>
 Consider the example
-<a href=\"modelica://Buildings.ThermalZones.EnergyPlus.Validation.Actuator.LightsControl\">
-Buildings.ThermalZones.EnergyPlus.Validation.Actuator.LightsControl</a>.
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse.LightsControl\">
+Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse.LightsControl</a>.
 In this example, Modelica overwrites the EnergyPlus <code>Lights</code> object.
 The idf-file
 has the following entry:
@@ -180,8 +180,8 @@ and setting its input to the required power in Watts.
 <h5>Configuring an actuator for a shade</h5>
 <p>
 Consider the example
-<a href=\"modelica://Buildings.ThermalZones.EnergyPlus.Validation.Actuator.ShadeControl\">
-Buildings.ThermalZones.EnergyPlus.Validation.Actuator.ShadeControl</a>.
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse.ShadeControl\">
+Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse.ShadeControl</a>.
 In this example, the idf-file
 has the following entry:
 </p>

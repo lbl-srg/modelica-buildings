@@ -70,5 +70,5 @@ rm -rf build && mkdir build && cd build && \
 To install the latest build of EnergyPlus that contains the Spawn interface, run
 ```
 cd Buildings/Resources/src/ThermalZones/EnergyPlus/
-./install.sh
+./install.py
 ```

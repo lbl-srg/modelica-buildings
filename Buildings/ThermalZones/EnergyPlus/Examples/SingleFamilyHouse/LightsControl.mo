@@ -1,7 +1,8 @@
-within Buildings.ThermalZones.EnergyPlus.Validation.Actuator;
+within Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse;
 model LightsControl
-  "Validation model for one actuator that controls the lights"
-  extends Buildings.ThermalZones.EnergyPlus.Validation.ThermalZone.OneZone;
+  "Example model with one actuator that controls the lights in EnergyPlus"
+  extends Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse.Unconditioned;
+
   Buildings.ThermalZones.EnergyPlus.Actuator actLig(
     unit=Buildings.ThermalZones.EnergyPlus.Types.Units.Power,
     variableName="LIVING ZONE Lights",
@@ -13,9 +14,8 @@ model LightsControl
     name="Lights Electricity Rate",
     key="LIVING ZONE Lights",
     isDirectDependent=true,
-    y(
-      final unit="W"))
-    "Block that reads output from EnergyPlus"
+    y(final unit="W"))
+    "Block that reads the lighting power consumption from EnergyPlus"
     annotation (Placement(transformation(extent={{100,60},{120,80}})));
   Controls.OBC.CDL.Utilities.SunRiseSet sunRiseSet(
     lat=0.73268921998722,
@@ -102,14 +102,14 @@ equation
           {130,110},{130,90},{88,90},{88,70},{98,70}}, color={0,0,127}));
   annotation (
     __Dymola_Commands(
-      file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus/Validation/Actuator/LightsControl.mos" "Simulate and plot"),
+      file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus/Examples/SingleFamilyHouse/LightsControl.mos" "Simulate and plot"),
     experiment(
       StopTime=172800,
       Tolerance=1e-06),
     Documentation(
       info="<html>
 <p>
-Validation case for a building that uses an EMS actuator to assign the lighting power in EnergyPlus.
+Example of a building that uses an EMS actuator to assign the lighting power in EnergyPlus.
 The lights are on <i>30</i> minutes before sunset, and remain on until <i>22:00</i>.
 </p>
 </html>",

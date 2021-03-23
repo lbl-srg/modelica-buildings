@@ -1,7 +1,7 @@
 within Buildings.ThermalZones.EnergyPlus.Validation.OutputVariable;
 model OneZoneOneOutputVariable
   "Validation model for one zone with one output variable"
-  extends Buildings.ThermalZones.EnergyPlus.Validation.ThermalZone.OneZone;
+  extends Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse.Unconditioned;
   Buildings.ThermalZones.EnergyPlus.OutputVariable equEle(
     name="Zone Electric Equipment Electricity Rate",
     key="LIVING ZONE",
