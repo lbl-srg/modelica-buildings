@@ -1,8 +1,7 @@
 within Buildings.ThermalZones.EnergyPlus.Validation.ZoneSurface;
 model OneZoneConstantFloorTemperature
   "Validation model with one thermal zone with constant floor temperature"
-  extends ThermalZone.OneZone(
-    m_flow_nominal=VRoo*1.2*0.3/3600);
+  extends Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse.Unconditioned;
   Buildings.ThermalZones.EnergyPlus.ZoneSurface flo(surfaceName="Living:Floor")
     "Floor surface of living room"
     annotation (Placement(transformation(extent={{0,60},{20,80}})));
