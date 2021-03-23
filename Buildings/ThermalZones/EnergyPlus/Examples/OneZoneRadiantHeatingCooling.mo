@@ -1,7 +1,8 @@
 within Buildings.ThermalZones.EnergyPlus.Examples;
 model OneZoneRadiantHeatingCooling
   "Example model with one thermal zone with a radiant floor"
-  extends Validation.ThermalZone.OneZone(m_flow_nominal=VRoo*1.2*0.3/3600);
+  extends Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse.Unconditioned;
+
   package MediumW = Buildings.Media.Water "Water medium";
 
   constant Modelica.SIunits.Area AFlo = 185.8 "Floor area";
