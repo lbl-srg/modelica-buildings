@@ -12,7 +12,10 @@ model OneZoneConstantFloorTemperature
 equation
   connect(TFlo.y, flo.T)
     annotation (Line(points={{-18,70},{-2,70}}, color={0,0,127}));
-  annotation (experiment(
+  annotation (
+   __Dymola_Commands(
+      file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus/Validation/ZoneSurface/OneZoneConstantFloorTemperature.mos" "Simulate and plot"),
+  experiment(
       StopTime=432000,
       Tolerance=1e-06),
 Documentation(info="<html>

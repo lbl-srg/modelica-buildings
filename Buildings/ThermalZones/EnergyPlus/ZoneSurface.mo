@@ -140,13 +140,26 @@ room-side heat flow rate from EnergyPlus.
 <p>
 This model writes at every EnergyPlus zone time step the value of the input <code>T</code>
 to an EnergyPlus surface object with name <code>surfaceName</code>,
-and receives from EnergyPlus the
-net heat flow rate <code>Q_flow</code> from the thermal zone to the surface, consisting of convective heat flow,
-absorbed solar radiation, absorbed infrared radiation minus emitted infrared radiation.
+and produces at the output <code>Q_flow</code>
+the net heat flow rate added to the surface from the air-side.
+This heat flow rate consists of
+</p>
+<p>
+<ul>
+<li>
+convective heat flow rate,
+</li>
+<li>
+absorbed solar radiation,
+</li>
+<li>
+absorbed infrared radiation minus emitted infrared radiation.
+</li>
+</ul>
 </p>
 <p>
 By convention, <code>Q_flow &gt; 0</code> if there is net heat flow rate from the thermal zone to the surface,
-e.g., if the surface is cold.
+e.g., if the surface cools the thermal zone.
 The output <code>q_flow</code> is equal to <code>q_flow = Q_flow/A</code>, where
 <code>A</code> is the area of the heat transfer surface as obtained from EnergyPlus.
 </p>
@@ -179,14 +192,23 @@ Buildings.ThermalZones.EnergyPlus.ZoneSurface flo(surfaceName=\"Living:Floor\");
 </pre>
 <p>
 The temperature of this surface will then be set to the value received
-at the connector <code>T</code>, and the heat flow rate
-that is required to maintain this temperature can be received
-through the output <code>Q_flow</code>.
+at the connector <code>T</code>, and the net heat flow rate
+received from the thermal zone is produced at the output <code>Q_flow</code>.
 The output <code>q_flow = Q_flow / A</code> is the heat flux
 per unit area of the surface.
 </p>
+<p>
+If used to connect a radiant slab from Modelica to EnergyPlus, this Modelica
+model is used twice, once to model the upwards facing surface of the slab, e.g., the floor,
+and once to model the downward facing surface, e.g., the ceiling.
+If the slab is above soil, then only one of this model may be used, but the downward facing surface
+of the slab needs to be connected to a soil model.
+Both of these configurations are illustrated in the model
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse.RadiantHeatingCooling\">
+Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse.RadiantHeatingCooling</a>.
+</p>
 </html>",
-      revisions="<html>
+revisions="<html>
 <ul>
 <li>
 February 9, 2021, by Michael Wetter:<br/>
