@@ -1,6 +1,6 @@
 within Buildings.Templates.AHUs.Controls;
 block Dummy "Dummy controller with constant signals"
-  extends Buildings.Templates.Interfaces.ControllerAHU;
+  extends Buildings.Templates.BaseClasses.Controls.AHUs.SupplyReturn;
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yDamOut(k=1)
     annotation (Placement(transformation(
@@ -18,14 +18,15 @@ block Dummy "Dummy controller with constant signals"
         rotation=-90,
         origin={-90,170})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yCoiCoo(k=1) if
-    typCoiCoo == Buildings.Templates.Types.Coil.WaterBased or typHexCoiCoo
-     == Buildings.Templates.Types.HeatExchanger.DXVariableSpeed annotation (
+     coiCoo.typ == Buildings.Templates.Types.Coil.WaterBased or
+     coiCoo.typHex == Buildings.Templates.Types.HeatExchanger.DXVariableSpeed
+     annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-60,110})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant yCoiCooSta(k=1) if
-    typHexCoiCoo == Buildings.Templates.Types.HeatExchanger.DXMultiStage
+    coiCoo.typHex == Buildings.Templates.Types.HeatExchanger.DXMultiStage
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-20,110})));
@@ -45,8 +46,9 @@ block Dummy "Dummy controller with constant signals"
         rotation=-90,
         origin={-150,170})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yCoiHea(k=1) if
-    typCoiHea == Buildings.Templates.Types.Coil.WaterBased or typHexCoiHea
-     == Buildings.Templates.Types.HeatExchanger.DXVariableSpeed annotation (
+    coiHea.typ == Buildings.Templates.Types.Coil.WaterBased or
+    coiHea.typHex == Buildings.Templates.Types.HeatExchanger.DXVariableSpeed
+    annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,

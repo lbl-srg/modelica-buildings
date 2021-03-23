@@ -4,11 +4,16 @@ partial model AHU "Interface class for air handling unit"
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Air medium";
 
-  parameter Types.AHU typ "Type of system"
+  parameter Types.AHU typ
+    "Type of system"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  parameter Types.Supply typSup "Type of supply branch" annotation (Evaluate=
+  parameter Types.Supply typSup
+    "Type of supply branch"
+    annotation (Evaluate=
         true, Dialog(group="Configuration", enable=typ <> Types.AHU.ExhaustOnly));
-  parameter Types.Return typRet "Type of return branch" annotation (Evaluate=
+  parameter Types.Return typRet
+    "Type of return branch"
+    annotation (Evaluate=
         true, Dialog(group="Configuration", enable=typ <> Types.AHU.SupplyOnly));
 
   inner parameter String id

@@ -1,22 +1,6 @@
 within Buildings.Templates.Interfaces;
 partial block ControllerAHU
 
-  outer parameter Types.Coil typCoiCoo "Type of cooling coil"
-    annotation (Evaluate=true, Dialog(group="Cooling coil"));
-  outer parameter Types.Valve typActCoiCoo "Type of cooling coil actuator"
-    annotation (Evaluate=true, Dialog(group="Cooling coil"));
-  outer parameter Types.HeatExchanger typHexCoiCoo
-    "Type of cooling coil heat exchanger"
-    annotation (Evaluate=true, Dialog(group="Cooling coil"));
-  outer parameter Types.Coil typCoiHea "Type of heating coil"
-    annotation (Evaluate=true, Dialog(group="Cooling coil"));
-  outer parameter Types.Valve typActCoiHea "Type of heating coil actuator"
-    annotation (Evaluate=true, Dialog(group="Cooling coil"));
-  outer parameter Types.HeatExchanger typHexCoiHea
-    "Type of heating coil heat exchanger"
-    annotation (Evaluate=true, Dialog(group="Cooling coil"));
-  outer parameter Types.Fan typFanSup "Type of supply fan"
-    annotation (Evaluate=true, Dialog(group="Supply fan"));
   outer parameter Integer nZon
     "Number of served zones";
   outer parameter String id
@@ -24,7 +8,14 @@ partial block ControllerAHU
   outer parameter ExternData.JSONFile dat
     "External parameter file";
 
-  BaseClasses.Connectors.BusAHU busAHU "AHU control bus" annotation (Placement(
+  final parameter String idTerArr[nZon]=
+    dat.getStringArray1D(id + ".Terminal unit identifiers", nZon)
+    "Served terminal units - Array of system identifiers"
+    annotation(Evaluate=true);
+
+  BaseClasses.Connectors.BusAHU busAHU
+    "AHU control bus"
+    annotation (Placement(
         transformation(
         extent={{-20,-20},{20,20}},
         rotation=90,
@@ -32,7 +23,8 @@ partial block ControllerAHU
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-100,0})));
-  BaseClasses.Connectors.BusAHU busTer[nZon] "Terminal unit control bus"
+  BaseClasses.Connectors.BusAHU busTer[nZon]
+    "Terminal unit control bus"
     annotation (Placement(transformation(
         extent={{-20,20},{20,-20}},
         rotation=90,
@@ -40,6 +32,9 @@ partial block ControllerAHU
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={100,0})));
+
+initial equation
+
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
         extent={{-100,-100},{100,100}},

@@ -1,12 +1,506 @@
 within Buildings.Templates.AHUs.Controls;
 block Guideline36 "Guideline 36 VAV single duct controller"
-  extends Buildings.Templates.Interfaces.ControllerAHU;
+  extends Buildings.Templates.BaseClasses.Controls.AHUs.SupplyReturn;
 
-  parameter Boolean have_difEco
-    "Set to true"
-    annotation(Evaluate=true, Dialog(tab="economizer"));
+  /* 
+  *  Parameters assigned from external file
+  */
 
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.Controller conAHU
+
+
+  /* 
+  *  Parameters for Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.Controller
+  */
+
+  parameter Real samplePeriod(
+    final unit="s",
+    final quantity="Time")=120
+    "Sample period of component, set to the same value as the trim and respond sequence";
+
+  parameter Boolean have_perZonRehBox=true
+    "Check if there is any VAV-reheat boxes on perimeter zones"
+    annotation (Dialog(group="System and building parameters"));
+
+  parameter Boolean have_duaDucBox=false
+    "Check if the AHU serves dual duct boxes"
+    annotation (Dialog(group="System and building parameters"));
+
+  parameter Boolean have_airFloMeaSta=false
+    "Check if the AHU has AFMS (Airflow measurement station)"
+    annotation (Dialog(group="System and building parameters"));
+
+  // ----------- Parameters for economizer control -----------
+  parameter Boolean use_enthalpy=false
+    "Set to true if enthalpy measurement is used in addition to temperature measurement"
+    annotation (Dialog(tab="Economizer"));
+
+  parameter Real delta(
+    final unit="s",
+    final quantity="Time")=5
+    "Time horizon over which the outdoor air flow measurment is averaged"
+    annotation (Dialog(tab="Economizer"));
+
+  parameter Real delTOutHis(
+    final unit="K",
+    final displayUnit="K",
+    final quantity="TemperatureDifference")=1
+    "Delta between the temperature hysteresis high and low limit"
+    annotation (Dialog(tab="Economizer"));
+
+  parameter Real delEntHis(
+    final unit="J/kg",
+    final quantity="SpecificEnergy")=1000
+    "Delta between the enthalpy hysteresis high and low limits"
+    annotation (Dialog(tab="Economizer", enable=use_enthalpy));
+
+  parameter Real retDamPhyPosMax(
+    final min=0,
+    final max=1,
+    final unit="1") = 1
+    "Physically fixed maximum position of the return air damper"
+    annotation (Dialog(tab="Economizer", group="Damper limits"));
+
+  parameter Real retDamPhyPosMin(
+    final min=0,
+    final max=1,
+    final unit="1") = 0
+    "Physically fixed minimum position of the return air damper"
+    annotation (Dialog(tab="Economizer", group="Damper limits"));
+
+  parameter Real outDamPhyPosMax(
+    final min=0,
+    final max=1,
+    final unit="1") = 1
+    "Physically fixed maximum position of the outdoor air damper"
+    annotation (Dialog(tab="Economizer", group="Damper limits"));
+
+  parameter Real outDamPhyPosMin(
+    final min=0,
+    final max=1,
+    final unit="1") = 0
+    "Physically fixed minimum position of the outdoor air damper"
+    annotation (Dialog(tab="Economizer", group="Damper limits"));
+
+  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeMinOut=
+    Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+    "Type of controller"
+    annotation (Dialog(group="Economizer PID controller"));
+
+  parameter Real kMinOut(final unit="1")=0.05
+    "Gain of controller for minimum outdoor air intake"
+    annotation (Dialog(group="Economizer PID controller"));
+
+  parameter Real TiMinOut(
+    final unit="s",
+    final quantity="Time")=120
+    "Time constant of controller for minimum outdoor air intake"
+    annotation (Dialog(group="Economizer PID controller",
+      enable=controllerTypeMinOut == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+          or controllerTypeMinOut == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+
+  parameter Real TdMinOut(
+    final unit="s",
+    final quantity="Time")=0.1
+    "Time constant of derivative block for minimum outdoor air intake"
+    annotation (Dialog(group="Economizer PID controller",
+      enable=controllerTypeMinOut == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
+          or controllerTypeMinOut == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+
+  parameter Boolean use_TMix=true
+    "Set to true if mixed air temperature measurement is enabled"
+     annotation(Dialog(group="Economizer freeze protection"));
+
+  parameter Boolean use_G36FrePro=false
+    "Set to true to use G36 freeze protection"
+    annotation(Dialog(group="Economizer freeze protection"));
+
+  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeFre=
+    Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+    "Type of controller"
+    annotation(Dialog(group="Economizer freeze protection", enable=use_TMix));
+
+  parameter Real kFre(final unit="1/K") = 0.1
+    "Gain for mixed air temperature tracking for freeze protection, used if use_TMix=true"
+     annotation(Dialog(group="Economizer freeze protection", enable=use_TMix));
+
+  parameter Real TiFre(
+    final unit="s",
+    final quantity="Time",
+    final max=TiMinOut)=120
+    "Time constant of controller for mixed air temperature tracking for freeze protection. Require TiFre <= TiMinOut"
+     annotation(Dialog(group="Economizer freeze protection",
+       enable=use_TMix
+         and (controllerTypeFre == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+           or controllerTypeFre == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
+
+  parameter Real TdFre(
+    final unit="s",
+    final quantity="Time")=0.1
+    "Time constant of derivative block for freeze protection"
+    annotation (Dialog(group="Economizer freeze protection",
+      enable=use_TMix and
+          (controllerTypeFre == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
+          or controllerTypeFre == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
+
+  parameter Real TFreSet(
+     final unit="K",
+     final displayUnit="degC",
+     final quantity="ThermodynamicTemperature")= 279.15
+    "Lower limit for mixed air temperature for freeze protection, used if use_TMix=true"
+     annotation(Dialog(group="Economizer freeze protection", enable=use_TMix));
+
+  parameter Real retDamFulOpeTim(
+    final unit="s",
+    final quantity="Time")=180
+    "Time period to keep RA damper fully open before releasing it for minimum outdoor airflow control
+    at disable to avoid pressure fluctuations"
+    annotation (Dialog(tab="Economizer", group="Economizer delays at disable"));
+
+  parameter Real disDel(
+    final unit="s",
+    final quantity="Time")=15
+    "Short time delay before closing the OA damper at disable to avoid pressure fluctuations"
+    annotation (Dialog(tab="Economizer", group="Economizer delays at disable"));
+
+  // ----------- parameters for fan speed control  -----------
+  parameter Real pIniSet(
+    final unit="Pa",
+    final displayUnit="Pa",
+    final quantity="PressureDifference")=60
+    "Initial pressure setpoint for fan speed control"
+    annotation (Dialog(tab="Fan speed", group="Trim and respond for reseting duct static pressure setpoint"));
+
+  parameter Real pMinSet(
+    final unit="Pa",
+    final displayUnit="Pa",
+    final quantity="PressureDifference")=25
+    "Minimum pressure setpoint for fan speed control"
+    annotation (Dialog(tab="Fan speed", group="Trim and respond for reseting duct static pressure setpoint"));
+
+  parameter Real pMaxSet(
+    final unit="Pa",
+    final displayUnit="Pa",
+    final quantity="PressureDifference")=400
+    "Maximum pressure setpoint for fan speed control"
+    annotation (Dialog(tab="Fan speed", group="Trim and respond for reseting duct static pressure setpoint"));
+
+  parameter Real pDelTim(
+    final unit="s",
+    final quantity="Time")=600
+    "Delay time after which trim and respond is activated"
+    annotation (Dialog(tab="Fan speed", group="Trim and respond for reseting duct static pressure setpoint"));
+
+  parameter Integer pNumIgnReq=2
+    "Number of ignored requests for fan speed control"
+    annotation (Dialog(tab="Fan speed", group="Trim and respond for reseting duct static pressure setpoint"));
+
+  parameter Real pTriAmo(
+    final unit="Pa",
+    final displayUnit="Pa",
+    final quantity="PressureDifference")=-12.0
+    "Trim amount for fan speed control"
+    annotation (Dialog(tab="Fan speed", group="Trim and respond for reseting duct static pressure setpoint"));
+
+  parameter Real pResAmo(
+    final unit="Pa",
+    final displayUnit="Pa",
+    final quantity="PressureDifference")=15
+    "Respond amount (must be opposite in to triAmo) for fan speed control"
+    annotation (Dialog(tab="Fan speed", group="Trim and respond for reseting duct static pressure setpoint"));
+
+  parameter Real pMaxRes(
+    final unit="Pa",
+    final displayUnit="Pa",
+    final quantity="PressureDifference")=32
+    "Maximum response per time interval (same sign as resAmo) for fan speed control"
+    annotation (Dialog(tab="Fan speed", group="Trim and respond for reseting duct static pressure setpoint"));
+
+  parameter Buildings.Controls.OBC.CDL.Types.SimpleController
+    controllerTypeFanSpe=Buildings.Controls.OBC.CDL.Types.SimpleController.PI "Type of controller"
+    annotation (Dialog(group="Fan speed PID controller"));
+
+  parameter Real kFanSpe(final unit="1")=0.1
+    "Gain of fan fan speed controller, normalized using pMaxSet"
+    annotation (Dialog(group="Fan speed PID controller"));
+
+  parameter Real TiFanSpe(
+    final unit="s",
+    final quantity="Time")=60
+    "Time constant of integrator block for fan speed"
+    annotation (Dialog(group="Fan speed PID controller",
+      enable=controllerTypeFanSpe == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+          or controllerTypeFanSpe == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+
+  parameter Real TdFanSpe(
+    final unit="s",
+    final quantity="Time")=0.1
+    "Time constant of derivative block for fan speed"
+    annotation (Dialog(group="Fan speed PID controller",
+      enable=controllerTypeFanSpe == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
+          or controllerTypeFanSpe == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+
+  parameter Real yFanMax=1 "Maximum allowed fan speed"
+    annotation (Dialog(group="Fan speed PID controller"));
+
+  parameter Real yFanMin=0.1 "Lowest allowed fan speed if fan is on"
+    annotation (Dialog(group="Fan speed PID controller"));
+
+  // ----------- parameters for minimum outdoor airflow setting  -----------
+  parameter Real VPriSysMax_flow(
+    final unit="m3/s",
+    final quantity="VolumeFlowRate")
+    "Maximum expected system primary airflow at design stage"
+    annotation (Dialog(tab="Minimum outdoor airflow rate", group="Nominal conditions"));
+
+  parameter Real peaSysPop "Peak system population"
+    annotation (Dialog(tab="Minimum outdoor airflow rate", group="Nominal conditions"));
+
+  // ----------- parameters for supply air temperature control  -----------
+  parameter Real TSupSetMin(
+    final unit="K",
+    final displayUnit="degC",
+    final quantity="ThermodynamicTemperature")=285.15
+    "Lowest cooling supply air temperature setpoint"
+    annotation (Dialog(tab="Supply air temperature", group="Temperature limits"));
+
+  parameter Real TSupSetMax(
+    final unit="K",
+    final displayUnit="degC",
+    final quantity="ThermodynamicTemperature")=291.15
+    "Highest cooling supply air temperature setpoint. It is typically 18 degC (65 degF) in mild and dry climates, 16 degC (60 degF) or lower in humid climates"
+    annotation (Dialog(tab="Supply air temperature", group="Temperature limits"));
+
+  parameter Real TSupSetDes(
+    final unit="K",
+    final displayUnit="degC",
+    final quantity="ThermodynamicTemperature")=286.15
+    "Nominal supply air temperature setpoint"
+    annotation (Dialog(tab="Supply air temperature", group="Temperature limits"));
+
+  parameter Real TOutMin(
+    final unit="K",
+    final displayUnit="degC",
+    final quantity="ThermodynamicTemperature")=289.15
+    "Lower value of the outdoor air temperature reset range. Typically value is 16 degC (60 degF)"
+    annotation (Dialog(tab="Supply air temperature", group="Temperature limits"));
+
+  parameter Real TOutMax(
+    final unit="K",
+    final displayUnit="degC",
+    final quantity="ThermodynamicTemperature")=294.15
+    "Higher value of the outdoor air temperature reset range. Typically value is 21 degC (70 degF)"
+    annotation (Dialog(tab="Supply air temperature", group="Temperature limits"));
+
+  parameter Real iniSetSupTem(
+    final unit="K",
+    final displayUnit="degC",
+    final quantity="ThermodynamicTemperature")=TSupSetMax
+    "Initial setpoint for supply temperature control"
+    annotation (Dialog(tab="Supply air temperature", group="Trim and respond for reseting TSup setpoint"));
+
+  parameter Real maxSetSupTem(
+    final unit="K",
+    final displayUnit="degC",
+    final quantity="ThermodynamicTemperature")=TSupSetMax
+    "Maximum setpoint for supply temperature control"
+    annotation (Dialog(tab="Supply air temperature", group="Trim and respond for reseting TSup setpoint"));
+
+  parameter Real minSetSupTem(
+    final unit="K",
+    final displayUnit="degC",
+    final quantity="ThermodynamicTemperature")=TSupSetDes
+    "Minimum setpoint for supply temperature control"
+    annotation (Dialog(tab="Supply air temperature", group="Trim and respond for reseting TSup setpoint"));
+
+  parameter Real delTimSupTem(
+    final unit="s",
+    final quantity="Time")=600
+    "Delay timer for supply temperature control"
+    annotation (Dialog(tab="Supply air temperature", group="Trim and respond for reseting TSup setpoint"));
+
+  parameter Integer numIgnReqSupTem=2
+    "Number of ignorable requests for supply temperature control"
+    annotation (Dialog(tab="Supply air temperature", group="Trim and respond for reseting TSup setpoint"));
+
+  parameter Real triAmoSupTem(
+    final unit="K",
+    final displayUnit="K",
+    final quantity="TemperatureDifference")=0.1
+    "Trim amount for supply temperature control"
+    annotation (Dialog(tab="Supply air temperature", group="Trim and respond for reseting TSup setpoint"));
+
+  parameter Real resAmoSupTem(
+    final unit="K",
+    final displayUnit="K",
+    final quantity="TemperatureDifference")=-0.2
+    "Response amount for supply temperature control"
+    annotation (Dialog(tab="Supply air temperature", group="Trim and respond for reseting TSup setpoint"));
+
+  parameter Real maxResSupTem(
+    final unit="K",
+    final displayUnit="K",
+    final quantity="TemperatureDifference")=-0.6
+    "Maximum response per time interval for supply temperature control"
+    annotation (Dialog(tab="Supply air temperature", group="Trim and respond for reseting TSup setpoint"));
+
+  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeTSup=
+      Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+    "Type of controller for supply air temperature signal"
+    annotation (Dialog(group="Supply air temperature"));
+
+  parameter Real kTSup(final unit="1/K")=0.05
+    "Gain of controller for supply air temperature signal"
+    annotation (Dialog(group="Supply air temperature"));
+
+  parameter Real TiTSup(
+    final unit="s",
+    final quantity="Time")=600
+    "Time constant of integrator block for supply air temperature control signal"
+    annotation (Dialog(group="Supply air temperature",
+      enable=controllerTypeTSup == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+          or controllerTypeTSup == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+
+  parameter Real TdTSup(
+    final unit="s",
+    final quantity="Time")=0.1
+    "Time constant of integrator block for supply air temperature control signal"
+    annotation (Dialog(group="Supply air temperature",
+      enable=controllerTypeTSup == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
+          or controllerTypeTSup == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+
+  parameter Real uHeaMax(min=-0.9)=-0.25
+    "Upper limit of controller signal when heating coil is off. Require -1 < uHeaMax < uCooMin < 1."
+    annotation (Dialog(group="Supply air temperature"));
+
+  parameter Real uCooMin(max=0.9)=0.25
+    "Lower limit of controller signal when cooling coil is off. Require -1 < uHeaMax < uCooMin < 1."
+    annotation (Dialog(group="Supply air temperature"));
+
+
+  /*
+  * Parameters for Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow.Zone
+  */
+
+   parameter Real VOutPerAre_flow[nZon](
+     final unit = "m3/(s.m2)",
+     fixed=false)={
+       dat.getReal(varName=idTerArr[i] + "Zone.Outdoor air volume flow rate per unit area")
+       for i in 1:nZon}
+     "Outdoor air rate per unit area"
+     annotation(Dialog(group="Nominal condition"));
+
+//   parameter Real VOutPerPer_flow[nZon](unit="m3/s")=2.5e-3
+//     "Outdoor air rate per person"
+//     annotation(Dialog(group="Nominal condition"));
+//
+//   parameter Real AFlo[nZon](unit="m2")
+//     "Floor area of each zone"
+//     annotation(Dialog(group="Nominal condition"));
+//
+//   parameter Boolean have_occSen[nZon]=true
+//     "Set to true if zones have occupancy sensor";
+//
+//   parameter Boolean have_winSen[nZon]=true
+//     "Set to true if zones have window status sensor";
+//
+//   parameter Real occDen[nZon](final unit = "1/m2") = 0.05
+//     "Default number of person in unit area";
+//
+//   parameter Real zonDisEffHea[nZon](final unit = "1") = 0.8
+//     "Zone air distribution effectiveness during heating";
+//
+//   parameter Real zonDisEffCoo[nZon](final unit = "1") = 1.0
+//     "Zone air distribution effectiveness during cooling";
+//
+//   parameter Real desZonDisEff[nZon](final unit = "1") = 1.0
+//     "Design zone air distribution effectiveness"
+//     annotation(Dialog(group="Nominal condition"));
+//
+//   parameter Real desZonPop[nZon](
+//     min=0,
+//     final unit = "1") = occDen*AFlo
+//     "Design zone population during peak occupancy"
+//     annotation(Dialog(group="Nominal condition"));
+//
+//   parameter Real uLow[nZon](
+//     final unit="K",
+//     final displayUnit="K",
+//     final quantity="ThermodynamicTemperature") = -0.5
+//     "If zone space temperature minus supply air temperature is less than uLow,
+//      then it should use heating supply air distribution effectiveness"
+//     annotation (Dialog(tab="Advanced"));
+//
+//   parameter Real uHig[nZon](
+//     final unit="K",
+//     final displayUnit="K",
+//     final quantity="ThermodynamicTemperature") = 0.5
+//     "If zone space temperature minus supply air temperature is more than uHig,
+//      then it should use cooling supply air distribution effectiveness"
+//     annotation (Dialog(tab="Advanced"));
+//
+//   parameter Real minZonPriFlo[nZon](unit="m3/s")
+//     "Minimum expected zone primary flow rate"
+//     annotation(Dialog(group="Nominal condition"));
+
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.Controller conAHU(
+    final samplePeriod=samplePeriod,
+    final have_perZonRehBox=have_perZonRehBox,
+    final have_duaDucBox=have_duaDucBox,
+    final have_airFloMeaSta=have_airFloMeaSta,
+    final use_enthalpy=use_enthalpy,
+    final delta=delta,
+    final delTOutHis=delTOutHis,
+    final delEntHis=delEntHis,
+    final retDamPhyPosMax=retDamPhyPosMax,
+    final retDamPhyPosMin=retDamPhyPosMin,
+    final outDamPhyPosMax=outDamPhyPosMax,
+    final outDamPhyPosMin=outDamPhyPosMin,
+    final controllerTypeMinOut=controllerTypeMinOut,
+    final kMinOut=kMinOut,
+    final TiMinOut=TiMinOut,
+    final TdMinOut=TdMinOut,
+    final use_TMix=use_TMix,
+    final use_G36FrePro=use_G36FrePro,
+    final controllerTypeFre=controllerTypeFre,
+    final kFre=kFre,
+    final TiFre=TiFre,
+    final TdFre=TdFre,
+    final TFreSet=TFreSet,
+    final retDamFulOpeTim=retDamFulOpeTim,
+    final disDel=disDel,
+    final pIniSet=pIniSet,
+    final pMinSet=pMinSet,
+    final pMaxSet=pMaxSet,
+    final pDelTim=pDelTim,
+    final pNumIgnReq=pNumIgnReq,
+    final pTriAmo=pTriAmo,
+    final pResAmo=pResAmo,
+    final pMaxRes=pMaxRes,
+    final kFanSpe=kFanSpe,
+    final TiFanSpe=TiFanSpe,
+    final TdFanSpe=TdFanSpe,
+    final yFanMax=yFanMax,
+    final yFanMin=yFanMin,
+    final VPriSysMax_flow=VPriSysMax_flow,
+    final TSupSetMin=TSupSetMin,
+    final TSupSetMax=TSupSetMax,
+    final TSupSetDes=TSupSetDes,
+    final TOutMin=TOutMin,
+    final TOutMax=TOutMax,
+    final iniSetSupTem=iniSetSupTem,
+    final maxSetSupTem=maxSetSupTem,
+    final minSetSupTem=minSetSupTem,
+    final delTimSupTem=delTimSupTem,
+    final numIgnReqSupTem=numIgnReqSupTem,
+    final triAmoSupTem=triAmoSupTem,
+    final resAmoSupTem=resAmoSupTem,
+    final maxResSupTem=maxResSupTem,
+    final controllerTypeTSup=controllerTypeTSup,
+    final kTSup=kTSup,
+    final TiTSup=TiTSup,
+    final TdTSup=TdTSup,
+    final uHeaMax=uHeaMax,
+    final uCooMin=uCooMin)
     "AHU controller"
     annotation (Placement(transformation(extent={{-40,8},{40,152}})));
 
@@ -104,6 +598,7 @@ protected
       Placement(
         transformation(extent={{70,-140},{110,-100}}), iconTransformation(
           extent={{-10,64},{10,84}})));
+
 equation
 
   connect(zonOutAirSet.yDesZonPeaOcc, zonToSys.uDesZonPeaOcc) annotation (Line(

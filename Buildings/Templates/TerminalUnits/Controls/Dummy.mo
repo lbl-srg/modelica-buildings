@@ -1,6 +1,6 @@
 within Buildings.Templates.TerminalUnits.Controls;
 block Dummy "Dummy controller with constant signals"
-  extends Buildings.Templates.Interfaces.ControllerTerminalUnit;
+  extends Buildings.Templates.BaseClasses.Controls.TerminalUnits.SingleDuct;
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yDamVAV(k=1)
     annotation (Placement(transformation(

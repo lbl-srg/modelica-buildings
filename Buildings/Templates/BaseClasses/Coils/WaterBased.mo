@@ -2,8 +2,8 @@ within Buildings.Templates.BaseClasses.Coils;
 model WaterBased
   extends Buildings.Templates.Interfaces.Coil(
     final typ=Types.Coil.WaterBased,
-    final have_weaBus=false,
     final have_sou=true,
+    final have_weaBus=false,
     final typAct=act.typ,
     final typHex=hex.typ);
 

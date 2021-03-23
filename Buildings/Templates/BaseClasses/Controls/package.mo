@@ -1,5 +1,4 @@
 within Buildings.Templates.BaseClasses;
-package Dampers
+package Controls
   extends Modelica.Icons.Package;
-
-end Dampers;
+end Controls;

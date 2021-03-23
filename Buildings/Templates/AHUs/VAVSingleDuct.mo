@@ -14,35 +14,8 @@ model VAVSingleDuct "VAV single duct with relief"
     "Heating medium (such as HHW)"
     annotation(Dialog(enable=have_souCoiHea or have_souCoiReh));
 
-  final inner parameter Buildings.Templates.Types.Coil typCoiCoo=coiCoo.typ
-    "Type of cooling coil"
-    annotation (Evaluate=true, Dialog(group="Cooling coil"));
-  final inner parameter Buildings.Templates.Types.HeatExchanger typHexCoiCoo=
-      coiCoo.typHex "Type of cooling coil heat exchanger"
-    annotation (Evaluate=true, Dialog(group="Cooling coil"));
-  final inner parameter Buildings.Templates.Types.Valve typActCoiCoo=coiCoo.typAct
-    "Type of cooling coil actuator"
-    annotation (Evaluate=true, Dialog(group="Cooling coil"));
   final inner parameter Boolean have_souCoiCoo = coiCoo.have_sou
     "Set to true for fluid ports on the source side"
-    annotation (Evaluate=true, Dialog(group="Cooling coil"));
-
-  final inner parameter Buildings.Templates.Types.Coil typCoiHea=if coiHea.typ
-       <> Buildings.Templates.Types.Coil.None then coiHea.typ elseif coiReh.typ
-       <> Buildings.Templates.Types.Coil.None then coiReh.typ else Buildings.Templates.Types.Coil.None
-    "Type of heating coil"
-    annotation (Evaluate=true, Dialog(group="Cooling coil"));
-  final inner parameter Buildings.Templates.Types.HeatExchanger typHexCoiHea=
-      if coiHea.typ <> Buildings.Templates.Types.Coil.None then coiHea.typHex
-       elseif coiHea.typ <> Buildings.Templates.Types.Coil.None then coiHea.typHex
-       elseif coiReh.typ <> Buildings.Templates.Types.Coil.None then coiReh.typHex
-       else Buildings.Templates.Types.HeatExchanger.None
-    "Type of heating coil heat exchanger"
-    annotation (Evaluate=true, Dialog(group="Cooling coil"));
-  final inner parameter Buildings.Templates.Types.Valve typActCoiHea=if coiHea.typ
-       <> Buildings.Templates.Types.Coil.None then coiHea.typAct elseif coiReh.typ
-       <> Buildings.Templates.Types.Coil.None then coiReh.typAct else Buildings.Templates.Types.Valve.None
-    "Type of heating coil actuator"
     annotation (Evaluate=true, Dialog(group="Cooling coil"));
   final parameter Boolean have_souCoiHea = coiHea.have_sou
     "Set to true for fluid ports on the source side"
@@ -50,12 +23,6 @@ model VAVSingleDuct "VAV single duct with relief"
   final parameter Boolean have_souCoiReh=coiReh.have_sou
     "Set to true for fluid ports on the source side"
     annotation (Evaluate=true, Dialog(group="Reheat coil"));
-
-  final inner parameter Buildings.Templates.Types.Fan typFanSup=if fanSupDra.typ
-       <> Buildings.Templates.Types.Fan.None then fanSupDra.typ elseif
-      fanSupBlo.typ <> Buildings.Templates.Types.Fan.None then fanSupBlo.typ
-       else Buildings.Templates.Types.Fan.None "Type of supply fan"
-    annotation (Evaluate=true, Dialog(group="Supply fan"));
 
   Modelica.Fluid.Interfaces.FluidPort_b port_coiCooRet(
     redeclare final package Medium = MediumCoo) if have_souCoiCoo

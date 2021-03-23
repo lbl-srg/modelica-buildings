@@ -2,8 +2,8 @@ within Buildings.Templates.BaseClasses.Coils;
 model DirectExpansion
   extends Buildings.Templates.Interfaces.Coil(
     final typ=Types.Coil.DirectExpansion,
-    final have_weaBus=true,
     final have_sou=false,
+    final have_weaBus=true,
     final typAct=Types.Valve.None,
     final typHex=hex.typ);
 

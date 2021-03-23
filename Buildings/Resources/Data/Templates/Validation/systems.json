@@ -15,12 +15,23 @@
         "Reheat coil valve": {
             "Pressure drop": 5000
         },
-        "Controller": {
-            "Sample period": 120
-        },
-        "Zone floor area": 100
+        "Zone": {
+            "Floor area": 20,
+            "Occupancy sensor": false,
+            "Window sensor": false,
+            "Outdoor air volume flow rate per unit area": 3e-4,
+            "Outdoor air volume flow rate per person": 2.5e-3,
+            "Default number of person per unit area": 0.05,
+            "Zone air distribution effectiveness during heating": 0.8,
+            "Zone air distribution effectiveness during cooling": 1.0,
+            "Design zone air distribution effectiveness": 1.0,
+            "Minimum expected zone primary flow rate": 1.0
+        }
     },
     "VAV_1": {
+        "Terminal unit identifiers": [
+            "Box_1"
+        ],
         "Supply air mass flow rate": 1,
         "Return air mass flow rate": 1,
         "Filter": {
@@ -82,19 +93,6 @@
             "Total pressure rise": 600,
             "Fan efficiency": 0.70,
             "Pressure curve": [[0,1.5],[1,1],[2,0]]
-        },
-        "Zone 1": {
-            "Name": "Office 1",
-            "Floor area": 20,
-            "Occupancy sensor": false,
-            "Window sensor": false,
-            "Outdoor air volume flow rate per unit area": 3e-4,
-            "Outdoor air volume flow rate per person": 2.5e-3,
-            "Default number of person per unit area": 0.05,
-            "Zone air distribution effectiveness during heating": 0.8,
-            "Zone air distribution effectiveness during cooling": 1.0,
-            "Design zone air distribution effectiveness": 1.0,
-            "Minimum expected zone primary flow rate": 1.0
         }
     }
 }

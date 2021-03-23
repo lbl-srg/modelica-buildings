@@ -45,10 +45,9 @@ model TwoPosition
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={0,30})));
-  Controls.OBC.CDL.Continuous.GreaterThreshold           evaSta(t=0.99, h=
-        0.5E-2) if                                               braStr=="Supply"
-    "Evaluate damper status"
-                          annotation (Placement(transformation(
+  .Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold evaSta(t=0.99, h=0.5E-2) if
+       braStr == "Supply" "Evaluate damper status" annotation (Placement(
+        transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={0,-30})));
