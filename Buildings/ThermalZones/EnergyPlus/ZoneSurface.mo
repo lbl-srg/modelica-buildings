@@ -179,9 +179,11 @@ Buildings.ThermalZones.EnergyPlus.ZoneSurface flo(surfaceName=\"Living:Floor\");
 </pre>
 <p>
 The temperature of this surface will then be set to the value received
-at the connector <code>flo.T</code>, and the heat flow rate
+at the connector <code>T</code>, and the heat flow rate
 that is required to maintain this temperature can be received
-through the output <code>flo.Q_flow</code>.
+through the output <code>Q_flow</code>.
+The output <code>q_flow = Q_flow / A</code> is the heat flux
+per unit area of the surface.
 </p>
 </html>",
       revisions="<html>
