@@ -153,14 +153,16 @@ equation
   NTUAirSta = UAAir/(mAir_flow*cpAir);
 
   hSatSurEff = Buildings.Utilities.Math.Functions.smoothMax(
-    hSatSurEffMinM.hSat, hAirIn  +(hAirOut - hAirIn) /
-    (1 - exp(-NTUAirSta)),delta*1E4); // NTUAirSta is bounded as long as UAAir>0 due to the regularization of mAir_flow
+    x1 = hSatSurEffMinM.hSat,
+    x2 = hAirIn  +(hAirOut - hAirIn) / (1 - exp(-NTUAirSta)),
+    deltaX = delta*1E4); // NTUAirSta is bounded as long as UAAir>0 due to the regularization of mAir_flow
 
   hSatSurEffM.hSat=hSatSurEff;
   TAirOut = TSurEff +(TAirIn  - TSurEff)*exp(-NTUAirSta);
   QSen_flow= Buildings.Utilities.Math.Functions.smoothMin(
-    mAir_flow*cpAir*(TAirIn-TAirOut),QTot_flow,
-    delta*mWatNonZer_flow*cpWat0*5); // the last term is only for regularization with DTWater=5oC
+    x1 = mAir_flow*cpAir*(TAirIn-TAirOut),
+    x2 = QTot_flow,
+    deltaX = delta*mWatNonZer_flow*cpWat0*5); // the last term is only for regularization with DTWater=5oC
 
   (TAirIn-TSurAirIn)*UAAir=(TSurAirIn-TWatOut)*UAWat;
   der(TWatOutEst)=-1/tau*TWatOutEst+1/tau*TWatOut;
