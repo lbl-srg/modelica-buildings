@@ -80,9 +80,9 @@ protected
   parameter Modelica.SIunits.ThermalConductance UAWat(min=0,start=20,fixed=false)
   "Water side convective heat transfer coefficient";
 
-  parameter Boolean IsFulDry(fixed=false)
+  parameter Boolean isFulDry(fixed=false)
   "Indicator of the fully-dry coil regime";
-  parameter Boolean IsFulWet(fixed=false)
+  parameter Boolean isFulWet(fixed=false)
   "Indicator of the fully-wet coil regime";
 
   Modelica.SIunits.AbsolutePressure pSatTWatIn=
@@ -123,14 +123,14 @@ initial equation
       "The rated condition is not for a cooling coil. " +
       "For a heating coil, use Buildings.Fluid.HeatExchangers.DryCoilEffectivenessNTU.");
 
-    IsFulDry=(X_wSatTWatIn>=X_wAirIn);
-    IsFulWet=(X_wSatTWatOut<=X_wAirIn);
+    isFulDry=(X_wSatTWatIn>=X_wAirIn);
+    isFulWet=(X_wSatTWatOut<=X_wAirIn);
 
-    assert(IsFulDry or IsFulWet,
+    assert(isFulDry or isFulWet,
       "In " + getInstanceName() + ":Cooling coil data under partially dry condition is not allowed at this moment. " +
       "Specify either fully-dry or fully-wet nominal condition");
 
-    if IsFulDry then
+    if isFulDry then
       LMED=Buildings.Fluid.HeatExchangers.BaseClasses.lmtd(
         TAirIn,
         TAirOut,
@@ -159,8 +159,8 @@ initial equation
     TWatOut=MediumA.T_default;
     hAirIn=MediumA.h_default;
     hAirOut=MediumA.h_default;
-    IsFulDry=false;
-    IsFulWet=false;
+    isFulDry=false;
+    isFulWet=false;
     LMED=hUnit;
     QTot_flow=LMED*UASta;
     cpEff= 0;
