@@ -1,6 +1,6 @@
 within Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice;
 model IdealHeatingCoolingWinter "Building with constant fresh air and ideal heating/cooling that exactly meets set point"
-  extends Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.NoHVAC;
+  extends Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.Unconditioned;
 
   Controls.OBC.CDL.Continuous.Sources.Constant THeaSet[5](
     each k(final unit="K", displayUnit="degC")=293.15)

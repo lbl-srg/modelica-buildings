@@ -1,12 +1,11 @@
 within Buildings.ThermalZones.EnergyPlus.Validation.ThermalZone;
 model OneZoneCompareZoneTemperatureOutput
   "This example tests whether the zone mean air temperature is reported correctly as an EnergyPlus output"
-  extends Buildings.ThermalZones.EnergyPlus.Validation.ThermalZone.OneZone;
+  extends Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse.Unconditioned;
   Buildings.ThermalZones.EnergyPlus.OutputVariable zonMeaAirTem(
     name="Zone Mean Air Temperature",
     key="LIVING ZONE",
-    y(
-      final unit="K",
+    y(final unit="K",
       displayUnit="degC"))
     "Block that reads output from EnergyPlus"
     annotation (Placement(transformation(extent={{60,30},{80,50}})));

@@ -1,12 +1,13 @@
-within Buildings.ThermalZones.EnergyPlus.Validation.Actuator;
+within Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse;
 model ShadeControl
-  "Validation model for one actuator that controls a shade"
+  "Example model with one actuator that controls a shade in EnergyPlus"
   extends Modelica.Icons.Example;
+
   package Medium=Buildings.Media.Air
     "Medium model";
   inner Building building(
     idfName=Modelica.Utilities.Files.loadResource(
-      "modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus/Validation/EMSWindowShadeControl/EMSWindowShadeControl.idf"),
+      "modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus/Examples/EMSWindowShadeControl/EMSWindowShadeControl.idf"),
     weaName=Modelica.Utilities.Files.loadResource(
       "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"),
     showWeatherData=true)
@@ -46,15 +47,13 @@ model ShadeControl
   Buildings.ThermalZones.EnergyPlus.OutputVariable incBeaSou(
     name="Surface Outside Face Incident Beam Solar Radiation Rate per Area",
     key="Zn001:Wall001:Win001",
-    y(
-      final unit="W/m2"))
+    y(final unit="W/m2"))
     "Block that reads incident beam solar radiation on south window from EnergyPlus"
     annotation (Placement(transformation(extent={{20,-110},{40,-90}})));
   Buildings.ThermalZones.EnergyPlus.OutputVariable shaAbsSol(
     name="Surface Window Shading Device Absorbed Solar Radiation Rate",
     key="Zn001:Wall001:Win001",
-    y(
-      unit="W"))
+    y(unit="W"))
     "Window shade absorbed solar radiation"
     annotation (Placement(transformation(extent={{20,-140},{40,-120}})));
   Buildings.Controls.OBC.Shade.Shade_T shaT(
@@ -138,7 +137,7 @@ equation
   connect(actSha.u,booToRea.y)
     annotation (Line(points={{168,-90},{162,-90}},color={0,0,127}));
   connect(shaT.T,zonWes.TAir)
-    annotation (Line(points={{48,-70},{20,-70},{20,11.8},{13,11.8}},color={0,0,127}));
+    annotation (Line(points={{48,-70},{20,-70},{20,16},{13,16}},    color={0,0,127}));
   connect(shaH.H,incBeaSou.y)
     annotation (Line(points={{48,-100},{41,-100}},color={0,0,127}));
   connect(weaBus,out.weaBus)
@@ -221,7 +220,7 @@ equation
     annotation (Line(points={{100,-2},{60,-2}},color={191,0,0}));
   annotation (
     __Dymola_Commands(
-      file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus/Validation/Actuator/ShadeControl.mos" "Simulate and plot"),
+      file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus/Examples/SingleFamilyHouse/ShadeControl.mos" "Simulate and plot"),
     experiment(
       StartTime=8640000,
       StopTime=8899200,
@@ -235,7 +234,7 @@ equation
     Documentation(
       info="<html>
 <p>
-Validation case for a building that uses an EMS actuator.
+Example of a building that uses an EMS actuator.
 The building has three thermal zones and is simulated in EnergyPlus.
 The west-facing thermal zone has
 a window blind that is open if its control signal is <i>0</i> or closed if it is <i>6</i>.

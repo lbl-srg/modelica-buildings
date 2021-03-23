@@ -1,7 +1,8 @@
-within Buildings.ThermalZones.EnergyPlus.Validation.Schedule;
+within Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse;
 model EquipmentSchedule
-  "Validation case with a schedule that is not sampled, e.g., updates only at the EnergyPlus zone time step"
-  extends Buildings.ThermalZones.EnergyPlus.Validation.ThermalZone.OneZone;
+  "Example model with a schedule that overrides a schedule in EnergyPlus"
+  extends Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse.Unconditioned;
+
   Buildings.ThermalZones.EnergyPlus.Schedule schInt(
     name="INTERMITTENT",
     unit=Buildings.ThermalZones.EnergyPlus.Types.Units.Normalized)
@@ -21,8 +22,9 @@ equation
     Documentation(
       info="<html>
 <p>
-Simple test case that verifies whether the schedule for the internal loads 
-used by EnergyPlus is modified from Modelica.
+Example model that demonstrates how to override a schedule in EnergyPlus.
+The model overrides the EnergyPlus schedule <code>INTERMITTENT</code>,
+which is used by EnergyPlus to control the equipment in the thermal zone.
 </p>
 </html>",
       revisions="<html>
@@ -33,7 +35,7 @@ First implementation.
 </ul>
 </html>"),
     __Dymola_Commands(
-      file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus/Validation/Schedule/EquipmentSchedule.mos" "Simulate and plot"),
+      file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus/Examples/SingleFamilyHouse/EquipmentSchedule.mos" "Simulate and plot"),
     experiment(
       StopTime=172800,
       Tolerance=1e-06));

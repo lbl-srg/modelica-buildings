@@ -181,8 +181,8 @@ if __name__ == "__main__":
         }
     )
 
-    # p = Pool(2)
-    # p.map(get_distribution, dists)
+    p = Pool(2)
+    p.map(get_distribution, dists)
     vars = [
         {
             "spawnFlag": "--output-vars",
