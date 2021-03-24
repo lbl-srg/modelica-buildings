@@ -139,6 +139,10 @@ block Controller "Waterside economizer (WSE) enable/disable status"
     "Enable condition based on the outdoor wet bulb temperature"
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
 
+  CDL.Interfaces.RealOutput TChiWatRetDowPre
+    "Predicted downstream WSE chilled water temperature" annotation (Placement(
+        transformation(extent={{180,-118},{200,-98}}), iconTransformation(
+          extent={{100,-100},{120,-80}})));
 protected
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizers.Subsequences.Tuning wseTun(
     final step=step,
@@ -237,6 +241,8 @@ equation
     annotation (Line(points={{2,50},{18,50}}, color={0,0,127}));
   connect(wseTun.y, yTunPar)
     annotation (Line(points={{-119,-90},{190,-90}}, color={0,0,127}));
+  connect(wseTOut.y, TChiWatRetDowPre) annotation (Line(points={{-78,50},{-70,
+          50},{-70,-108},{190,-108}}, color={0,0,127}));
   annotation (defaultComponentName = "wseSta",
         Icon(graphics={
         Rectangle(
