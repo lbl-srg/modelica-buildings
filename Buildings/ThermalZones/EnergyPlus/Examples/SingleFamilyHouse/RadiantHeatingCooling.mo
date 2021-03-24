@@ -196,7 +196,7 @@ model RadiantHeatingCooling
     "Floor of the attic above the living room" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
-        rotation=0,
+        rotation=270,
         origin={50,130})));
 initial equation
   // The floor area can be obtained from EnergyPlus, but it is a structural parameter used to
@@ -283,10 +283,10 @@ equation
           -240,140},{-248,140}}, color={0,0,127}));
   connect(TSupCoo.u2, dewPoi.TDewPoi) annotation (Line(points={{-152,78},{-162,78},
           {-162,60},{-168,60}}, color={0,0,127}));
-  connect(buiSur.heaPorFro, slaCei.surf_a) annotation (Line(points={{56,140},{
-          56,148},{-26,148},{-26,140}}, color={191,0,0}));
+  connect(buiSur.heaPorFro, slaCei.surf_a) annotation (Line(points={{50,140},{
+          50,148},{-26,148},{-26,140}}, color={191,0,0}));
   connect(slaCei.surf_b, buiSur.heaPorBac) annotation (Line(points={{-26,120},{
-          -26,112},{56,112},{56,120.2}}, color={191,0,0}));
+          -26,110},{50,110},{50,120.2}}, color={191,0,0}));
   annotation (
       __Dymola_Commands(
       file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus/Examples/SingleFamilyHouse/RadiantHeatingCooling.mos" "Simulate and plot"),
