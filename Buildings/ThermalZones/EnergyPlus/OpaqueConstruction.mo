@@ -138,18 +138,15 @@ equation
     defaultComponentName="opaCon",
     Documentation(
       info="<html>
-      <p>
-      fixme: Update for this new model that is no longer a surface.
-
-Block that sends for a room-side facing surface its temperature to EnergyPlus and receives the
-room-side heat flow rate from EnergyPlus.
+<p>
+Model that interfaces with the EnergyPlus object <code>BuildingSurface:Detailed</code>.
+It sets in EnergyPlus the surface temperature obtained from Modelica through the heat ports
+of this model,
+and imposes the heat flow rate obtained from EnergyPlus at the heat ports
+of this model.
 </p>
 <p>
-This model writes at every EnergyPlus zone time step the value of the input <code>T</code>
-to an EnergyPlus surface object with name <code>surfaceName</code>,
-and produces at the output <code>Q_flow</code>
-the net heat flow rate added to the surface from the air-side.
-This heat flow rate consists of
+For the front surface, this heat flow rate consists of
 </p>
 <p>
 <ul>
@@ -165,52 +162,78 @@ absorbed infrared radiation minus emitted infrared radiation.
 </ul>
 </p>
 <p>
-By convention, <code>Q_flow &gt; 0</code> if there is net heat flow rate from the thermal zone to the surface,
-e.g., if the surface cools the thermal zone.
-The output <code>q_flow</code> is equal to <code>q_flow = Q_flow/A</code>, where
-<code>A</code> is the area of the heat transfer surface as obtained from EnergyPlus.
+For the back-side surface, the above quanties, but now for the back-side of the construction,
+are also returned if the back-side faces another thermal zone or the outside.
+If the back-side surface is above ground, then then heat flow rate from the ground is returned.
 </p>
 <h4>Usage</h4>
 <p>
-Consider an EnergyPlus input data file that has the following entry:
+This model allows for example coupling of a radiant slab that is modeled in Modelica to the EnergyPlus thermal zone model.
+Examples of such radiant systems include a floor slab with embedded pipes and a radiant cooling panel that is suspended from a ceiling.
+The model
+<a href=\"modelica://xxx\">xxx</a> illustrates the use of this model for a floor and ceiling slab.
+</p>
+<p>
+Note that if the ground heat transfer of the floor slab is modeled in Modelica,
+then the model
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus.ZoneSurface\">
+Buildings.ThermalZones.EnergyPlus.ZoneSurface</a>
+can be used, as shown for the floor slab
+in
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse.RadiantHeatingCooling\">
+Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse.RadiantHeatingCooling</a>.
+</p>
+<p>
+<b>fixme: Verify this sign convention once the binaries are available for testing.</b>
+By convention, <code>heaPorFro.Q_flow &gt; 0</code> if there is net heat flow rate from the thermal zone to the front-side surface,
+e.g., if the surface cools the thermal zone.
+Similarly,
+<code>heaPorBac.Q_flow &gt; 0</code> if there is net heat flow rate from exterior boundary condition to the back-side surface.
+For example, if a floor and ceiling slab is very cold, such as after night ventilation,
+then
+<code>heaPorFro.Q_flow &gt; 0</code>
+and
+<code>heaPorBac.Q_flow &gt; 0</code>.
+
+The variable <code>qFro_flow</code> is equal to <code>qFro_flow = heaPorFor.Q_flow/A</code>, where
+<code>A</code> is the area of the heat transfer surface as obtained from EnergyPlus.
+Similarly, use <code>qBac_flow</code> to check the back side heat flux.
+</p>
+<h4>Configuration for EnergyPlus</h4>
+<p>
+Consider an EnergyPlus input data file that has the following entry for the surface of an attic above a living room:
 </p>
 <pre>
   BuildingSurface:Detailed,
-    Living:Floor,            !- Name
+    Attic:LivingFloor,       !- Name
     FLOOR,                   !- Surface Type
-    FLOOR:LIVING,            !- Construction Name
-    LIVING ZONE,             !- Zone Name
+    reverseCEILING:LIVING,   !- Construction Name
+    ATTIC ZONE,              !- Zone Name
     Surface,                 !- Outside Boundary Condition
-    Living:Floor,            !- Outside Boundary Condition Object
+    Living:Ceiling,          !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
     NoWind,                  !- Wind Exposure
-    0,                       !- View Factor to Ground
+    0.5000000,               !- View Factor to Ground
     4,                       !- Number of Vertices
-    0,       0,     0,       !- X,Y,Z ==> Vertex 1 {m}
-    0,      10.778, 0,       !- X,Y,Z ==> Vertex 2 {m}
-    17.242, 10.778, 0,       !- X,Y,Z ==> Vertex 3 {m}
-    17.242,  0,     0;       !- X,Y,Z ==> Vertex 4 {m}
+    0,0,2.4384,  !- X,Y,Z ==> Vertex 1 {m}
+    0,10.778,2.4384,  !- X,Y,Z ==> Vertex 2 {m}
+    17.242,10.778,2.4384,  !- X,Y,Z ==> Vertex 3 {m}
+    17.242,0,2.4384;  !- X,Y,Z ==> Vertex 4 {m}
 </pre>
 <p>
-To set the temperature of this surface, this model can be used as
+If this construction is modeled with a radiant slab, that may have pipes embedded near the ceiling
+to cool the living room, then this model can be used as
 </p>
 <pre>
-Buildings.ThermalZones.EnergyPlus.ZoneSurface flo(surfaceName=\"Living:Floor\");
+Buildings.ThermalZones.EnergyPlus.OpaqueConstruction attFlo(surfaceName=\"Attic:LivingFloor\")
+    \"Floor of the attic above the living room\";
 </pre>
 <p>
-The temperature of this surface will then be set to the value received
-at the connector <code>T</code>, and the net heat flow rate
-received from the thermal zone is produced at the output <code>Q_flow</code>.
-The output <code>q_flow = Q_flow / A</code> is the heat flux
-per unit area of the surface.
-</p>
-<p>
-If used to connect a radiant slab from Modelica to EnergyPlus, this Modelica
-model is used twice, once to model the upwards facing surface of the slab, e.g., the floor,
-and once to model the downward facing surface, e.g., the ceiling.
-If the slab is above soil, then only one of this model may be used, but the downward facing surface
-of the slab needs to be connected to a soil model.
-Both of these configurations are illustrated in the model
+The heat port <code>attFlo.heaPorFor</code> can then be connected to the heat port of the upward facing
+surface of a radiant slab, and the
+heat port <code>attFlo.heaPorBac</code> can be connected to the downward facing surface of the radiant slab
+that cool the living room via the surface <code>Living:Ceiling</code>.
+This configuration is illustrated in the example
 <a href=\"modelica://Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse.RadiantHeatingCooling\">
 Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse.RadiantHeatingCooling</a>.
 </p>
@@ -218,7 +241,7 @@ Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse.RadiantHeatingCooli
 revisions="<html>
 <ul>
 <li>
-February 9, 2021, by Michael Wetter:<br/>
+March 24, 2021, by Michael Wetter:<br/>
 First implementation.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2358\">issue 2358</a>.
