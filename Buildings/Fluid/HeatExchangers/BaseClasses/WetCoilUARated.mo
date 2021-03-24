@@ -118,18 +118,22 @@ initial equation
 
   QTot_flow = mAir_flow*(hAirIn-hAirOut);
 
+  isFulDry = if not use_UA_nominal then (X_wSatTWatIn >= X_wAirIn) else true;
+  isFulWet = if not use_UA_nominal then (X_wSatTWatOut <= X_wAirIn) else true;
+
+  assert(
+    isFulDry or isFulWet,
+    "In " + getInstanceName() +
+    ": The nominal conditions correspond to a partially-wet coil regime. " +
+    "The modeling uncertainty under such conditions has not been assessed. " +
+    "Rather specify nominal conditions in fully-dry or fully-wet regime.",
+    level=AssertionLevel.warning);
+
+  assert(use_UA_nominal or TAirOut<TAirIn and TWatOut>TWatIn and TWatIn<TAirIn,
+    "The rated condition is not for a cooling coil. " +
+    "For a heating coil, use Buildings.Fluid.HeatExchangers.DryCoilEffectivenessNTU.");
+
   if not use_UA_nominal then
-    assert(TAirOut<TAirIn and TWatOut>TWatIn and TWatIn<TAirIn,
-      "The rated condition is not for a cooling coil. " +
-      "For a heating coil, use Buildings.Fluid.HeatExchangers.DryCoilEffectivenessNTU.");
-
-    isFulDry=(X_wSatTWatIn>=X_wAirIn);
-    isFulWet=(X_wSatTWatOut<=X_wAirIn);
-
-    assert(isFulDry or isFulWet,
-      "In " + getInstanceName() + ":Cooling coil data under partially dry condition is not allowed at this moment. " +
-      "Specify either fully-dry or fully-wet nominal condition");
-
     if isFulDry then
       LMED=Buildings.Fluid.HeatExchangers.BaseClasses.lmtd(
         TAirIn,
@@ -159,15 +163,13 @@ initial equation
     TWatOut=MediumA.T_default;
     hAirIn=MediumA.h_default;
     hAirOut=MediumA.h_default;
-    isFulDry=false;
-    isFulWet=false;
     LMED=hUnit;
     QTot_flow=LMED*UASta;
     cpEff= 0;
   end if;
 
-  UAWat=UAAir/r_nominal;
-  UA = 1/ (1/UAAir  + 1/ UAWat);
+  UAWat = UAAir / r_nominal;
+  UA = 1/ (1/UAAir  + 1/UAWat);
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false),
     graphics={
