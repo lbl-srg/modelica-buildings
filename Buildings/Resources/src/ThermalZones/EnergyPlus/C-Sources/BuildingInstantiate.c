@@ -66,7 +66,7 @@ void buildJSONModelStructureForEnergyPlus(
   /* Number of models written to json so far */
   size_t iMod = 0;
   int objectType;
-  const int nObjectTypes = 5;
+  const int nObjectTypes = 6;
   size_t objectCount[] = {0, 0, 0, 0, 0};
 
   void (*SpawnFormatError)(const char *string, ...) = bui->SpawnFormatError;

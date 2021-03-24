@@ -1,7 +1,8 @@
 within Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse;
 model RadiantHeatingCooling
   "Example model with one thermal zone with a radiant floor"
-  extends Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse.Unconditioned;
+  extends
+    Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse.Unconditioned;
 
   package MediumW = Buildings.Media.Water "Water medium";
 
@@ -138,15 +139,7 @@ model RadiantHeatingCooling
     show_T=true) "Slab for ceiling with embedded pipes"
     annotation (Placement(transformation(extent={{-40,120},{-20,140}})));
 
-  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TSurAttFlo
-    "Surface temperature of floor of attic"
-    annotation (Placement(transformation(extent={{40,160},{60,180}})));
-  ZoneSurface attFlo(surfaceName="Attic:LivingFloor") "Surface of attic"
-    annotation (Placement(transformation(extent={{80,160},{100,180}})));
-  HeatTransfer.Sources.PrescribedHeatFlow preHeaAttFlo
-    "Surface heat flow rate for floor of attic"
-    annotation (Placement(transformation(extent={{118,166},{138,186}})));
-  Fluid.Sources.Boundary_ph pre1(
+  Fluid.Sources.Boundary_ph prePre(
     redeclare package Medium = MediumW,
     nPorts=1,
     p(displayUnit="Pa") = 300000) "Pressure boundary condition"
@@ -157,15 +150,6 @@ model RadiantHeatingCooling
     use_T_in=true,
     nPorts=1) "Mass flow source for cooling water at prescribed temperature"
     annotation (Placement(transformation(extent={{-88,120},{-68,140}})));
-  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TSurLivCei
-    "Surface temperature of ceiling in living room"
-    annotation (Placement(transformation(extent={{40,80},{60,100}})));
-  ZoneSurface livCei(surfaceName="Living:Ceiling")
-    "Surface of living room ceiling"
-    annotation (Placement(transformation(extent={{80,80},{100,100}})));
-  HeatTransfer.Sources.PrescribedHeatFlow preHeaLivCei
-    "Surface heat flow rate for ceiling of living room"
-    annotation (Placement(transformation(extent={{118,86},{138,106}})));
   Controls.OBC.CDL.Continuous.Max TSupCoo "Cooling water supply temperature"
     annotation (Placement(transformation(extent={{-150,74},{-130,94}})));
   Controls.OBC.CDL.Psychrometrics.DewPoint_TDryBulPhi dewPoi
@@ -208,6 +192,12 @@ model RadiantHeatingCooling
   Controls.OBC.CDL.Continuous.Add TSupMax(k1=-1)
     "Maximum supply water temperature"
     annotation (Placement(transformation(extent={{-230,70},{-210,90}})));
+  BuildingSurfaceDetailed buiSur(surfaceName="Attic:LivingFloor")
+    "Floor of the attic above the living room" annotation (Placement(
+        transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={50,130})));
 initial equation
   // The floor area can be obtained from EnergyPlus, but it is a structural parameter used to
   // size the system and therefore we hard-code it here.
@@ -258,27 +248,8 @@ equation
           {-130,-170},{-122,-170}}, color={255,0,255}));
   connect(masFloSouCoo.ports[1], slaCei.port_a)
     annotation (Line(points={{-68,130},{-40,130}}, color={0,127,255}));
-  connect(pre1.ports[1], slaCei.port_b)
-    annotation (Line(points={{2,130},{-20,130}},  color={0,127,255}));
-  connect(slaCei.surf_a, TSurAttFlo.port)
-    annotation (Line(points={{-26,140},{-26,170},{40,170}},  color={191,0,0}));
-  connect(TSurAttFlo.T, attFlo.T)
-    annotation (Line(points={{60,170},{78,170}},color={0,0,127}));
-  connect(attFlo.Q_flow, preHeaAttFlo.Q_flow)
-    annotation (Line(points={{102,176},{118,176}},
-                                                 color={0,0,127}));
-  connect(preHeaAttFlo.port, slaCei.surf_a) annotation (Line(points={{138,176},{
-          148,176},{148,152},{-26,152},{-26,140}},
-                                              color={191,0,0}));
-  connect(slaCei.surf_b, TSurLivCei.port)
-    annotation (Line(points={{-26,120},{-26,90},{40,90}},  color={191,0,0}));
-  connect(TSurLivCei.T, livCei.T)
-    annotation (Line(points={{60,90},{78,90}},color={0,0,127}));
-  connect(livCei.Q_flow, preHeaLivCei.Q_flow)
-    annotation (Line(points={{102,96},{118,96}},
-                                               color={0,0,127}));
-  connect(preHeaLivCei.port, slaCei.surf_b) annotation (Line(points={{138,96},{150,
-          96},{150,110},{-26,110},{-26,120}},color={191,0,0}));
+  connect(prePre.ports[1], slaCei.port_b)
+    annotation (Line(points={{2,130},{-20,130}}, color={0,127,255}));
   connect(TSupNoDP.y, TSupCoo.u1) annotation (Line(points={{-168,90},{-152,90}},
                                  color={0,0,127}));
   connect(TSupCoo.y, masFloSouCoo.T_in) annotation (Line(points={{-128,84},{-120,
@@ -312,6 +283,10 @@ equation
           -240,140},{-248,140}}, color={0,0,127}));
   connect(TSupCoo.u2, dewPoi.TDewPoi) annotation (Line(points={{-152,78},{-162,78},
           {-162,60},{-168,60}}, color={0,0,127}));
+  connect(buiSur.heaPorFro, slaCei.surf_a) annotation (Line(points={{56,140},{
+          56,148},{-26,148},{-26,140}}, color={191,0,0}));
+  connect(slaCei.surf_b, buiSur.heaPorBac) annotation (Line(points={{-26,120},{
+          -26,112},{56,112},{56,120.2}}, color={191,0,0}));
   annotation (
       __Dymola_Commands(
       file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus/Examples/SingleFamilyHouse/RadiantHeatingCooling.mos" "Simulate and plot"),
