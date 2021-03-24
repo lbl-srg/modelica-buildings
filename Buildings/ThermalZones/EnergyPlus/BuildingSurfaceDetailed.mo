@@ -42,7 +42,7 @@ protected
     buildingsLibraryRoot=Buildings.ThermalZones.EnergyPlus.BaseClasses.buildingsLibraryRoot,
     logLevel=logLevel,
     printUnit=false,
-    jsonName = "zoneSurfaces",
+    jsonName = "buildingSurfaceDetailed",
     jsonKeysValues = "        \"name\": \"" + surfaceName + "\"",
     parOutNames = {"A"},
     parOutUnits = {"m2"},
@@ -140,7 +140,7 @@ equation
       info="<html>
       <p>
       fixme: Update for this new model that is no longer a surface.
-      
+
 Block that sends for a room-side facing surface its temperature to EnergyPlus and receives the
 room-side heat flow rate from EnergyPlus.
 </p>
