@@ -3,6 +3,7 @@ model CoilHeatingEffectivenessNTU2WV
   extends VAVSingleDuct(
     final id="VAV_1",
     nZon=1,
+    nGro=1,
     redeclare
       Buildings.Templates.BaseClasses.Coils.WaterBased coiHea(redeclare
         Buildings.Templates.BaseClasses.Coils.Valves.TwoWayValve act,

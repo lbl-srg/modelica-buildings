@@ -25,6 +25,11 @@ partial model AHU "Interface class for air handling unit"
     annotation (
       Evaluate=true,
       Dialog(group="Configuration"));
+  inner parameter Integer nGro
+    "Number of zone groups"
+    annotation (
+      Evaluate=true,
+      Dialog(group="Configuration"));
 
   Modelica.Fluid.Interfaces.FluidPort_a port_Out(
     redeclare final package Medium = MediumAir) if typ <> Types.AHU.ExhaustOnly
@@ -83,8 +88,10 @@ partial model AHU "Interface class for air handling unit"
         rotation=-90,
         origin={198,160})));
 
-
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false,
+    annotation (
+      Evaluate=true,
+      Dialog(group="Configuration"),
+              Icon(coordinateSystem(preserveAspectRatio=false,
     extent={{-200,-200},{200,200}}), graphics={
         Text(
           extent={{-155,-218},{145,-258}},

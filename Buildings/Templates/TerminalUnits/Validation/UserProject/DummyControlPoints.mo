@@ -30,8 +30,8 @@ block DummyControlPoints
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSupSet(final k=15 + 273.15)
     "AHU supply temperature set point"
     annotation (Placement(transformation(extent={{-140,-70},{-120,-50}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant uOpeMod(final k=1)
-    "Operating mode"
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant yOpeMod(final k=1)
+    "Group operating mode"
     annotation (Placement(transformation(extent={{-140,-110},{-120,-90}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant uHeaDemLimLev(final k=1)
     "Demand limiter level"
@@ -47,7 +47,7 @@ equation
   connect(TZonHeaUnoSet.y, busTer.sof.TZonHeaUnoSet);
   connect(TZonCooUnoSet.y, busTer.sof.TZonCooUnoSet);
   connect(TSupSet.y, busTer.sof.TSupSet);
-  connect(uOpeMod.y, busTer.sof.uOpeMod);
+  connect(yOpeMod.y, busTer.sof.yOpeMod);
   connect(uHeaDemLimLev.y, busTer.sof.uHeaDemLimLev);
   connect(uCooDemLimLev.y, busTer.sof.uCooDemLimLev);
 

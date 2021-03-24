@@ -2,6 +2,7 @@ within Buildings.Templates.AHUs.Validation.UserProject.AHUs;
 model EconomizerCommonDamper
   extends VAVSingleDuct(
     nZon=1,
+    nGro=1,
     final id="VAV_1",
     redeclare Buildings.Templates.BaseClasses.Sensors.Temperature TMix
       "Temperature sensor",

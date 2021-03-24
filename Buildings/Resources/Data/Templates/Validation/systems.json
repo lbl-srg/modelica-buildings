@@ -26,11 +26,15 @@
             "Zone air distribution effectiveness during cooling": 1.0,
             "Design zone air distribution effectiveness": 1.0,
             "Minimum expected zone primary flow rate": 1.0
-        }
+        },
+        "Zone group name": "First floor"
     },
     "VAV_1": {
         "Terminal unit identifiers": [
             "Box_1"
+        ],
+        "Zone group names": [
+            "First floor"
         ],
         "Supply air mass flow rate": 1,
         "Return air mass flow rate": 1,

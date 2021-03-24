@@ -25,6 +25,7 @@ model CompleteAHU
     redeclare BaseClasses.Dampers.Modulated damOut "Modulated damper",
     redeclare BaseClasses.Dampers.Modulated damRet "Modulated damper",
     nZon=1,
+    nGro=1,
     id="VAV_1");
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));

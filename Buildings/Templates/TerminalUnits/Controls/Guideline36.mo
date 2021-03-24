@@ -415,7 +415,7 @@ equation
       points={{-200.1,0.1},{-20,0.1},{-20,-8},{-12,-8}},
       color={255,204,51},
       thickness=0.5));
-  connect(busTer.sof.uOpeMod,conTerUni. uOpeMod) annotation (Line(
+  connect(busTer.sof.yOpeMod, conTerUni.uOpeMod) annotation (Line(
       points={{-200.1,0.1},{-20,0.1},{-20,-10},{-12,-10}},
       color={255,204,51},
       thickness=0.5));
@@ -423,7 +423,7 @@ equation
           -32},{-22,-32},{-22,8},{-12,8}}, color={0,0,127}));
   connect(TZonSet.TZonHeaSet,conTerUni. TZonHeaSet) annotation (Line(points={{-38,
           -40},{-24,-40},{-24,10},{-12,10}}, color={0,0,127}));
-  connect(busTer.sof.uOpeMod, TZonSet.uOpeMod) annotation (Line(
+  connect(busTer.sof.yOpeMod, TZonSet.uOpeMod) annotation (Line(
       points={{-200.1,0.1},{-80,0.1},{-80,-27},{-62,-27}},
       color={255,204,51},
       thickness=0.5));

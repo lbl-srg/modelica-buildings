@@ -2,6 +2,7 @@ within Buildings.Templates.AHUs.Validation.UserProject.AHUs;
 model EconomizerDedicatedDamper
   extends VAVSingleDuct(
     nZon=1,
+    nGro=1,
     redeclare Buildings.Templates.BaseClasses.Sensors.DifferentialPressure
       dpOut "Differential pressure sensor",
     redeclare Buildings.Templates.BaseClasses.Sensors.VolumeFlowRate VOut1_flow

@@ -3,6 +3,7 @@ model BaseWithSensors
   extends VAVSingleDuct(
     final id="VAV_1",
     nZon=1,
+    nGro=1,
     redeclare Buildings.Templates.BaseClasses.Sensors.Temperature TOut,
     redeclare Buildings.Templates.BaseClasses.Sensors.Temperature TMix,
     redeclare Buildings.Templates.BaseClasses.Sensors.Temperature THea,

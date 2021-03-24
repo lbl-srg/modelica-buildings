@@ -3,6 +3,8 @@ partial block ControllerAHU
 
   outer parameter Integer nZon
     "Number of served zones";
+  outer parameter Integer nGro
+    "Number of zone groups";
   outer parameter String id
     "System identifier";
   outer parameter ExternData.JSONFile dat
@@ -11,6 +13,10 @@ partial block ControllerAHU
   final parameter String idTerArr[nZon]=
     dat.getStringArray1D(id + ".Terminal unit identifiers", nZon)
     "Served terminal units - Array of system identifiers"
+    annotation(Evaluate=true);
+  final parameter String namGro[nGro]=
+    dat.getStringArray1D(id + ".Zone group names", nGro)
+    "Array of group names"
     annotation(Evaluate=true);
 
   BaseClasses.Connectors.BusAHU busAHU
@@ -33,9 +39,10 @@ partial block ControllerAHU
         rotation=90,
         origin={100,0})));
 
-initial equation
 
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+  annotation (
+    __Dymola_translate=true,
+    Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
         extent={{-100,-100},{100,100}},
         lineColor={0,0,127},
