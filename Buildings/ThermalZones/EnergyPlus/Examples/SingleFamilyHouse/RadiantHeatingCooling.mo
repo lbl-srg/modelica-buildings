@@ -192,7 +192,7 @@ model RadiantHeatingCooling
   Controls.OBC.CDL.Continuous.Add TSupMax(k1=-1)
     "Maximum supply water temperature"
     annotation (Placement(transformation(extent={{-230,70},{-210,90}})));
-  BuildingSurfaceDetailed buiSur(surfaceName="Attic:LivingFloor")
+  OpaqueConstruction buiSur(surfaceName="Attic:LivingFloor")
     "Floor of the attic above the living room" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},

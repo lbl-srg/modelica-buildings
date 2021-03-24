@@ -1,5 +1,5 @@
 within Buildings.ThermalZones.EnergyPlus;
-model BuildingSurfaceDetailed
+model OpaqueConstruction
   "Model to exchange heat of an opaque construction with EnergyPlus"
   extends Buildings.ThermalZones.EnergyPlus.BaseClasses.PartialEnergyPlusObject;
   extends
@@ -135,7 +135,7 @@ equation
   nObj = synBui.synchronize.done;
 
   annotation (
-    defaultComponentName="buiSur",
+    defaultComponentName="opaCon",
     Documentation(
       info="<html>
       <p>
@@ -259,4 +259,4 @@ This is for
           extent={{50,70},{76,42}},
           lineColor={0,0,127},
           textString="Back")}));
-end BuildingSurfaceDetailed;
+end OpaqueConstruction;
