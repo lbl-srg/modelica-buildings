@@ -1,6 +1,7 @@
 within Buildings.Templates.BaseClasses.Sensors;
 model DifferentialPressure
-  extends Buildings.Templates.Interfaces.Sensor(final typ=Types.Sensor.DifferentialPressure);
+  extends Buildings.Templates.Interfaces.Sensor(
+    final typ=Types.Sensor.DifferentialPressure);
 
   Fluid.Sensors.RelativePressure senRelPre(
     redeclare final package Medium=Medium)

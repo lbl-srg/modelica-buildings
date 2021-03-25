@@ -1,6 +1,7 @@
 within Buildings.Templates.BaseClasses.Sensors;
 model HumidityRatio
-  extends Buildings.Templates.Interfaces.Sensor(final typ=Types.Sensor.HumidityRatio);
+  extends Buildings.Templates.Interfaces.Sensor(
+    final typ=Types.Sensor.HumidityRatio);
 
   Fluid.Sensors.MassFractionTwoPort senMasFra(
     redeclare final package Medium=Medium,

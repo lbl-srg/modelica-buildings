@@ -20,7 +20,7 @@ model VAVSingleDuct "VAV single duct with relief"
       Dialog(group="Outdoor air section"),
       Evaluate=true);
 
-  parameter Buildings.Templates.Types.ExhaustReliefReturn typExh
+  parameter Buildings.Templates.Types.ReliefReturn typRel
     "Type of exhaust/relief/return section"
     annotation (
       Dialog(group="Exhaust/relief/return section"),
@@ -346,8 +346,8 @@ model VAVSingleDuct "VAV single duct with relief"
       choicesAllMatching=true,
       Dialog(
         group="Exhaust/relief/return section",
-        enable=typExh==Buildings.Templates.Types.ExhaustReliefReturn.ReturnFanPressure or
-          typExh==Buildings.Templates.Types.ExhaustReliefReturn.ReturnFanAirflow),
+        enable=typRel==Buildings.Templates.Types.ReliefReturn.ReturnFanPressure or
+          typRel==Buildings.Templates.Types.ReliefReturn.ReturnFanAirflow),
       Placement(transformation(extent={{20,-90},{0,-70}})));
 
   inner replaceable Buildings.Templates.BaseClasses.Fans.None fanRel
@@ -358,7 +358,7 @@ model VAVSingleDuct "VAV single duct with relief"
     choicesAllMatching=true,
     Dialog(
       group="Exhaust/relief/return section",
-      enable=typExh==Buildings.Templates.Types.ExhaustReliefReturn.ReliefFan),
+      enable=typRel==Buildings.Templates.Types.ReliefReturn.ReliefFan),
     Placement(transformation(extent={{-140,-90},{-160,-70}})));
 
   replaceable Buildings.Templates.BaseClasses.Sensors.None VRet_flow
@@ -371,7 +371,7 @@ model VAVSingleDuct "VAV single duct with relief"
       choice(redeclare BaseClasses.Sensors.VolumeFlowRate VRet "Volume flow rate sensor")),
     Dialog(
       group="Exhaust/relief/return section",
-      enable=typExh==Buildings.Templates.Types.ExhaustReliefReturn.ReturnFanAirflow),
+      enable=typRel==Buildings.Templates.Types.ReliefReturn.ReturnFanAirflow),
     Placement(transformation(extent={{-10,-90},{-30,-70}})));
 
   Fluid.Sensors.RelativePressure pInd_rel(

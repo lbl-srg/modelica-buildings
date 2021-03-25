@@ -15,5 +15,6 @@ FanSupplyDrawSingleVariable
 CompleteAHU
 ControlsGuideline36
 WrapperEconomizerDampers
+WrapperFans
 BugGroupStatus
 UserProject

@@ -1,6 +1,7 @@
 within Buildings.Templates.BaseClasses.Sensors;
 model SpecificEnthalpy
-  extends Buildings.Templates.Interfaces.Sensor(final typ=Types.Sensor.HumidityRatio);
+  extends Buildings.Templates.Interfaces.Sensor(
+    final typ=Types.Sensor.SpecificEnthalpy);
 
   Fluid.Sensors.SpecificEnthalpyTwoPort senSpeEnt(
     redeclare final package Medium=Medium,

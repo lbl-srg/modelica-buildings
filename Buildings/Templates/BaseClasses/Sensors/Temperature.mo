@@ -1,6 +1,7 @@
 within Buildings.Templates.BaseClasses.Sensors;
 model Temperature
-  extends Buildings.Templates.Interfaces.Sensor(final typ=Types.Sensor.Temperature);
+  extends Buildings.Templates.Interfaces.Sensor(
+    final typ=Types.Sensor.Temperature);
 
   Fluid.Sensors.TemperatureTwoPort senTem(
     redeclare final package Medium=Medium,

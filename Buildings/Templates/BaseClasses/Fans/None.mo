@@ -5,7 +5,6 @@ equation
   connect(port_a, port_b)
   annotation (Line(points={{-100,0},{6,0},{6,0},{100,0}}, color={0,127,255}));
   annotation (
-    defaultComponentName="fan",
     Icon(coordinateSystem(preserveAspectRatio=false),
     graphics={Line(
           points={{-100,0},{100,0}},

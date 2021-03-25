@@ -14,18 +14,72 @@ model VAVSingleDuctWrapper "VAV single duct with relief"
     "Heating medium (such as HHW)"
     annotation(Dialog(enable=have_souCoiHea or have_souCoiReh));
 
-  parameter Buildings.Templates.Types.OutdoorAir typOut
+  /*** Outdoor air section 
+  ***/
+
+  parameter Buildings.Templates.Types.OutdoorAir typOut=
+    Buildings.Templates.Types.OutdoorAir.NoEconomizer
     "Type of outdoor air section"
     annotation (
       Dialog(group="Outdoor air section"),
       Evaluate=true);
 
+  parameter Boolean have_senTOut = true
+    "Set to true if the AHU has an outdoor air temperature sensor"
+    annotation (
+      Dialog(
+        group="Outdoor air section"),
+      Evaluate=true);
+
+  /*** Supply air section 
+  ***/
+
+  parameter Buildings.Templates.Types.Fan typFanSup=
+    Buildings.Templates.Types.Fan.None
+    "Type of the supply fan"
+    annotation (
+      Dialog(group="Supply air section"),
+      Evaluate=true);
+
+  parameter Buildings.Templates.Types.FanSupplyPosition typFanSupPos=
+    Buildings.Templates.Types.FanSupplyPosition.DrawThrough
+    "Position of the supply fan"
+    annotation (
+      Dialog(
+        group="Supply air section",
+        enable=typFanSup<>Buildings.Templates.Types.Fan.None),
+      Evaluate=true);
+
+  // May be final based on controller freeze protection option
+  parameter Boolean have_senTMix = true
+    "Set to true if the AHU has a mixed air temperature sensor"
+    annotation (
+      Dialog(
+        group="Supply air section"),
+      Evaluate=true);
+
+
+  /*** Exhaust/relief/return section 
+  ***/
+
   // Need for a vendor annotation to restrict the enumeration to a subset
   // based on Boolean expression?
-  parameter Buildings.Templates.Types.ExhaustReliefReturn typExh
+  parameter Buildings.Templates.Types.ReliefReturn typRel=
+    Buildings.Templates.Types.ReliefReturn.NoEconomizer
     "Type of exhaust/relief/return section"
     annotation (
       Dialog(group="Exhaust/relief/return section"),
+      Evaluate=true);
+
+  parameter Buildings.Templates.Types.Fan typFanRet=
+    Buildings.Templates.Types.Fan.None
+    "Type of exhaust/relief/return fan"
+    annotation (
+      Dialog(
+        group="Exhaust/relief/return section",
+        enable=typRel<>Buildings.Templates.Types.ReliefReturn.NoEconomizer and
+          typRel<>Buildings.Templates.Types.ReliefReturn.Barometric and
+          typRel<>Buildings.Templates.Types.ReliefReturn.ReliefDamper),
       Evaluate=true);
 
   final inner parameter Boolean have_souCoiCoo = coiCoo.have_sou
@@ -94,7 +148,9 @@ model VAVSingleDuctWrapper "VAV single duct with relief"
           origin={-232,-140})));
 
   inner Buildings.Templates.BaseClasses.Dampers.Wrapper damOut(
-    final typ=Buildings.Templates.Types.Damper.Modulated,
+    final typ=if typOut==Buildings.Templates.Types.OutdoorAir.NoEconomizer
+      then Buildings.Templates.Types.Damper.None else
+      Buildings.Templates.Types.Damper.Modulated,
     redeclare final package Medium = MediumAir)
     "Outdoor air damper"
     annotation (
@@ -105,7 +161,9 @@ model VAVSingleDuctWrapper "VAV single duct with relief"
         origin={-230,-200})));
 
   inner Buildings.Templates.BaseClasses.Dampers.Wrapper damRet(
-    final typ=Buildings.Templates.Types.Damper.Modulated,
+    final typ=if typRel==Buildings.Templates.Types.ReliefReturn.NoEconomizer
+      then Buildings.Templates.Types.Damper.NoPath else
+      Buildings.Templates.Types.Damper.Modulated,
     redeclare final package Medium = MediumAir)
     "Return air damper"
     annotation (
@@ -116,17 +174,19 @@ model VAVSingleDuctWrapper "VAV single duct with relief"
           origin={-120,-140})));
 
   inner Buildings.Templates.BaseClasses.Dampers.Wrapper damRel(
-    final typ=if typExh==Buildings.Templates.Types.ExhaustReliefReturn.Barometric
+    final typ=if typRel==Buildings.Templates.Types.ReliefReturn.NoEconomizer
+      then Buildings.Templates.Types.Damper.None else
+      (if typRel==Buildings.Templates.Types.ReliefReturn.Barometric
       then Buildings.Templates.Types.Damper.Barometric elseif
-      typExh==Buildings.Templates.Types.ExhaustReliefReturn.ReliefDamper
+      typRel==Buildings.Templates.Types.ReliefReturn.ReliefDamper
       then Buildings.Templates.Types.Damper.Modulated elseif
-      typExh==Buildings.Templates.Types.ExhaustReliefReturn.ReliefFan
+      typRel==Buildings.Templates.Types.ReliefReturn.ReliefFan
       then Buildings.Templates.Types.Damper.TwoPosition elseif
-      typExh==Buildings.Templates.Types.ExhaustReliefReturn.ReturnFanPressure
+      typRel==Buildings.Templates.Types.ReliefReturn.ReturnFanPressure
       then Buildings.Templates.Types.Damper.Modulated elseif
-      typExh==Buildings.Templates.Types.ExhaustReliefReturn.ReturnFanAirflow
+      typRel==Buildings.Templates.Types.ReliefReturn.ReturnFanAirflow
       then Buildings.Templates.Types.Damper.Modulated else
-      Buildings.Templates.Types.Damper.None,
+      Buildings.Templates.Types.Damper.None),
     redeclare final package Medium = MediumAir)
     "Relief damper"
     annotation (
@@ -136,101 +196,79 @@ model VAVSingleDuctWrapper "VAV single duct with relief"
           rotation=0,
           origin={-234,-80})));
 
-  replaceable Buildings.Templates.BaseClasses.Sensors.None TOut
-    constrainedby Buildings.Templates.Interfaces.Sensor(
-      redeclare final package Medium =MediumAir)
+  Buildings.Templates.BaseClasses.Sensors.Wrapper TOut(
+    final typ=if have_senTOut and (
+      typOut==Buildings.Templates.Types.OutdoorAir.NoEconomizer or
+      typOut==Buildings.Templates.Types.OutdoorAir.SingleCommon) then
+      Buildings.Templates.Types.Sensor.Temperature else
+      Buildings.Templates.Types.Sensor.None,
+    redeclare final package Medium =MediumAir)
     "Outdoor air temperature sensor"
     annotation (
-    choices(
-      choice(redeclare BaseClasses.Sensors.None TOut "No sensor"),
-      choice(redeclare BaseClasses.Sensors.Temperature TOut "Temperature sensor")),
-      Dialog(
-        group="Outdoor air section",
-        enable=damOutMin.typ == Buildings.Templates.Types.Damper.NoPath),
+      Dialog(group="Outdoor air section"),
       Placement(transformation(extent={{-210,-210},{-190,-190}})));
 
-  replaceable Buildings.Templates.BaseClasses.Sensors.None TOutMin
-    constrainedby Buildings.Templates.Interfaces.Sensor(redeclare final package
-      Medium = MediumAir)
+  Buildings.Templates.BaseClasses.Sensors.Wrapper TOutMin(
+    final typ=if have_senTOut and (
+      typOut==Buildings.Templates.Types.OutdoorAir.DedicatedPressure or
+      typOut==Buildings.Templates.Types.OutdoorAir.DedicatedAirflow) then
+      Buildings.Templates.Types.Sensor.Temperature else
+      Buildings.Templates.Types.Sensor.None,
+    redeclare final package Medium =MediumAir)
     "Minimum outdoor air temperature sensor"
     annotation (
-    choices(choice(redeclare BaseClasses.Sensors.None TOut1 "No sensor"),
-        choice(redeclare BaseClasses.Sensors.Temperature TOut1
-          "Temperature sensor")),
-    Dialog(group="Outdoor air section", enable=damOutMin.typ <> Buildings.Templates.Types.Damper.NoPath),
+      Dialog(group="Outdoor air section"),
     Placement(transformation(extent={{-212,-150},{-192,-130}})));
 
-  replaceable Buildings.Templates.BaseClasses.Sensors.None VOut_flow
-    constrainedby Buildings.Templates.Interfaces.Sensor(
-      redeclare final package Medium = MediumAir)
+  Buildings.Templates.BaseClasses.Sensors.Wrapper VOut_flow(
+    final typ=if typOut==Buildings.Templates.Types.OutdoorAir.SingleCommon then
+      Buildings.Templates.Types.Sensor.VolumeFlowRate else
+      Buildings.Templates.Types.Sensor.None,
+    redeclare final package Medium = MediumAir)
     "Outdoor air volume flow rate sensor"
     annotation (
-      choices(
-        choice(redeclare BaseClasses.Sensors.None VOut_flow "No sensor"),
-        choice(redeclare BaseClasses.Sensors.VolumeFlowRate VOut_flow "Volume flow rate sensor")),
-      Dialog(
-        group="Outdoor air section"),
-      __Linkage(
-        modification(
-          condition=typOut<>Buildings.Templates.Types.OutdoorAir.SingleCommon,
-          redeclare BaseClasses.Sensors.None VOut_flow "No sensor"),
-          condition=typOut==Buildings.Templates.Types.OutdoorAir.SingleCommon,
-          redeclare BaseClasses.Sensors.VolumeFlowRate VOut_flow "Volume flow rate sensor"),
+      Dialog(group="Outdoor air section"),
       Placement(transformation(extent={{-180,-210},{-160,-190}})));
 
-  replaceable Buildings.Templates.BaseClasses.Sensors.None VOutMin_flow
-    constrainedby Buildings.Templates.Interfaces.Sensor(
-      redeclare final package Medium = MediumAir)
+  Buildings.Templates.BaseClasses.Sensors.Wrapper VOutMin_flow(
+    final typ=if typOut==Buildings.Templates.Types.OutdoorAir.DedicatedAirflow then
+      Buildings.Templates.Types.Sensor.VolumeFlowRate else
+      Buildings.Templates.Types.Sensor.None,
+    redeclare final package Medium = MediumAir)
     "Minimum outdoor air volume flow rate sensor"
     annotation (
-      choices(
-        choice(redeclare BaseClasses.Sensors.None VOutMin_flow "No sensor"),
-        choice(redeclare BaseClasses.Sensors.VolumeFlowRate VOutMin_flow "Volume flow rate sensor")),
-      Dialog(group="Outdoor air section", enable=damOutMin.typ <> Buildings.Templates.Types.Damper.NoPath),
-      __Linkage(
-        modification(
-          condition=typOut <> Buildings.Templates.Types.OutdoorAir.DedicatedAirflow,
-            redeclare BaseClasses.Sensors.None VOutMin_flow "No sensor"),
-        condition=typOut == Buildings.Templates.Types.OutdoorAir.DedicatedAirflow,
-        redeclare BaseClasses.Sensors.VolumeFlowRate VOutMin_flow "Volume flow rate sensor"),
-    Placement(transformation(extent={{-182,-150},{-162,-130}})));
+      Dialog(group="Outdoor air section"),
+      Placement(transformation(extent={{-182,-150},{-162,-130}})));
 
-  replaceable Buildings.Templates.BaseClasses.Sensors.None dpOutMin
-    constrainedby Buildings.Templates.Interfaces.Sensor(
-      redeclare final package Medium = MediumAir)
+  Buildings.Templates.BaseClasses.Sensors.Wrapper dpOutMin(
+    final typ=if typOut==Buildings.Templates.Types.OutdoorAir.DedicatedPressure then
+      Buildings.Templates.Types.Sensor.DifferentialPressure else
+      Buildings.Templates.Types.Sensor.None,
+    redeclare final package Medium = MediumAir)
     "Minimum outdoor air damper differential pressure sensor"
     annotation (
-    choices(choice(redeclare BaseClasses.Sensors.None dpOutMin "No sensor"),
-        choice(redeclare BaseClasses.Sensors.DifferentialPressure dpOutMin
-          "Differential pressure sensor")),
-    Dialog(
-      group="Outdoor air section",
-      enable=damOutMin.typ <> Buildings.Templates.Types.Damper.NoPath),
-    __Linkage(
-      modification(
-        condition=typOut <> Buildings.Templates.Types.OutdoorAir.DedicatedPressure,
-          redeclare BaseClasses.Sensors.None dpOutMin "No sensor"),
-      condition=typOut == Buildings.Templates.Types.OutdoorAir.DedicatedPressure,
-      redeclare BaseClasses.Sensors.DifferentialPressure dpOutMin "Differential pressure sensor"),
-    Placement(transformation(extent={{-270,-150},{-250,-130}})));
+      Dialog(group="Outdoor air section"),
+      Placement(transformation(extent={{-270,-150},{-250,-130}})));
 
-  replaceable Buildings.Templates.BaseClasses.Sensors.None TMix
-    constrainedby Buildings.Templates.Interfaces.Sensor(
-      redeclare final package Medium = MediumAir)
-      "Mixed air temperature sensor"
+  Buildings.Templates.BaseClasses.Sensors.Wrapper TMix(
+    final typ=if have_senTMix then
+      Buildings.Templates.Types.Sensor.Temperature else
+      Buildings.Templates.Types.Sensor.None,
+    redeclare final package Medium =MediumAir)
+    "Mixed air temperature sensor"
     annotation (
-      choices(choice(redeclare BaseClasses.Sensors.None TMix "No sensor"),
-        choice(
-          redeclare BaseClasses.Sensors.Temperature TMix "Temperature sensor")),
-    Dialog(group="Supply air section"),
-    Placement(transformation(extent={{-100,-210},{-80,-190}})));
+      Dialog(group="Supply air section"),
+      Placement(transformation(extent={{-100,-210},{-80,-190}})));
 
-  inner replaceable Buildings.Templates.BaseClasses.Fans.None fanSupBlo
-    constrainedby Buildings.Templates.Interfaces.Fan(redeclare final package
-      Medium = MediumAir) "Supply fan - Blow through" annotation (
-    choicesAllMatching=true,
-    Dialog(group="Supply air section", enable=fanSupDra == Buildings.Templates.Types.Fan.None),
-    Placement(transformation(extent={{-70,-210},{-50,-190}})));
+  inner Buildings.Templates.BaseClasses.Fans.Wrapper fanSupBlo(
+    final typ=if typFanSupPos==Buildings.Templates.Types.FanSupplyPosition.BlowThrough
+      then typFanSup else
+      Buildings.Templates.Types.Fan.None,
+    redeclare final package Medium = MediumAir)
+    "Supply fan - Blow through"
+    annotation (
+      Dialog(group="Supply air section"),
+      Placement(transformation(extent={{-70,-210},{-50,-190}})));
 
   inner replaceable Buildings.Templates.BaseClasses.Coils.None coiHea
     constrainedby Buildings.Templates.Interfaces.Coil(redeclare final package
@@ -271,12 +309,14 @@ model VAVSingleDuctWrapper "VAV single duct with relief"
     Dialog(group="Reheat coil"),
     Placement(transformation(extent={{80,-210},{100,-190}})));
 
-  inner replaceable Buildings.Templates.BaseClasses.Fans.None fanSupDra
-    constrainedby Buildings.Templates.Interfaces.Fan(redeclare final package
-      Medium = MediumAir) "Supply fan - Draw through" annotation (
-    choicesAllMatching=true,
-    Dialog(group="Supply air section", enable=fanSupBlo == Buildings.Templates.Types.Fan.None),
-    Placement(transformation(extent={{110,-210},{130,-190}})));
+  inner Buildings.Templates.BaseClasses.Fans.Wrapper fanSupDra(
+    final typ=if typFanSupPos==Buildings.Templates.Types.FanSupplyPosition.DrawThrough
+      then typFanSup else Buildings.Templates.Types.Fan.None,
+    redeclare final package Medium = MediumAir)
+    "Supply fan - Draw through"
+    annotation (
+      Dialog(group="Supply air section"),
+      Placement(transformation(extent={{110,-210},{130,-190}})));
 
   replaceable Buildings.Templates.BaseClasses.Sensors.None VSup_flow
     constrainedby Buildings.Templates.Interfaces.Sensor(redeclare final package
@@ -329,6 +369,7 @@ model VAVSingleDuctWrapper "VAV single duct with relief"
     "Humidity ratio sensor")),
     Dialog(group="Supply air section"),
     Placement(transformation(extent={{230,-210},{250,-190}})));
+
   replaceable Buildings.Templates.BaseClasses.Sensors.None pSup_rel
     constrainedby Buildings.Templates.Interfaces.Sensor(redeclare final package
       Medium = MediumAir) "Duct static pressure sensor" annotation (
@@ -338,55 +379,47 @@ model VAVSingleDuctWrapper "VAV single duct with relief"
     Dialog(group="Supply air section"),
     Placement(transformation(extent={{260,-210},{280,-190}})));
 
-  inner replaceable Buildings.Templates.BaseClasses.Fans.None fanRet
-    constrainedby Buildings.Templates.Interfaces.Fan(
-      redeclare final package Medium = MediumAir)
+  inner Buildings.Templates.BaseClasses.Fans.Wrapper fanRet(
+    final typ=typFanRet,
+    redeclare final package Medium = MediumAir)
     "Return fan"
     annotation (
-      choicesAllMatching=true,
-      Dialog(
-        group="Exhaust/relief/return section",
-        enable=typExh==Buildings.Templates.Types.ExhaustReliefReturn.ReturnFanPressure or
-          typExh==Buildings.Templates.Types.ExhaustReliefReturn.ReturnFanAirflow),
+      Dialog(group="Exhaust/relief/return section"),
       Placement(transformation(extent={{20,-90},{0,-70}})));
 
-  inner replaceable Buildings.Templates.BaseClasses.Fans.None fanRel
-    constrainedby Buildings.Templates.Interfaces.Fan(
-      redeclare final package Medium = MediumAir)
+  inner Buildings.Templates.BaseClasses.Fans.Wrapper fanRel(
+    final typ=typFanRet,
+    redeclare final package Medium = MediumAir)
     "Relief fan"
     annotation (
-    choicesAllMatching=true,
-    Dialog(
-      group="Exhaust/relief/return section",
-      enable=typExh==Buildings.Templates.Types.ExhaustReliefReturn.ReliefFan),
+      Dialog(
+      group="Exhaust/relief/return section"),
     Placement(transformation(extent={{-140,-90},{-160,-70}})));
 
-  replaceable Buildings.Templates.BaseClasses.Sensors.None VRet_flow
-    constrainedby Buildings.Templates.Interfaces.Sensor(
-      redeclare final package Medium = MediumAir)
+  Buildings.Templates.BaseClasses.Sensors.Wrapper VRet_flow(
+    final typ=if typRel==Buildings.Templates.Types.ReliefReturn.ReturnFanAirflow then
+      Buildings.Templates.Types.Sensor.VolumeFlowRate else
+      Buildings.Templates.Types.Sensor.None,
+    redeclare final package Medium = MediumAir)
     "Return air volume flow rate sensor"
     annotation (
-    choices(
-      choice(redeclare BaseClasses.Sensors.None VRet "No sensor"),
-      choice(redeclare BaseClasses.Sensors.VolumeFlowRate VRet "Volume flow rate sensor")),
-    Dialog(
-      group="Exhaust/relief/return section",
-      enable=typExh==Buildings.Templates.Types.ExhaustReliefReturn.ReturnFanAirflow),
-    Placement(transformation(extent={{-10,-90},{-30,-70}})));
+      Dialog(group="Exhaust/relief/return section"),
+      Placement(transformation(extent={{-10,-90},{-30,-70}})));
 
   Fluid.Sensors.RelativePressure pInd_rel(
     redeclare final package Medium=MediumAir)
     "Building static pressure"
     annotation (Placement(transformation(extent={{30,230},{10,250}})));
 
-  replaceable Buildings.Templates.BaseClasses.Sensors.None pRet_rel
-    constrainedby Buildings.Templates.Interfaces.Sensor(redeclare final package
-      Medium = MediumAir) "Return static pressure sensor" annotation (
-    choices(choice(redeclare BaseClasses.Sensors.None pRet_rel "No sensor"),
-        choice(redeclare BaseClasses.Sensors.DifferentialPressure pRet_rel
-          "Differential pressure sensor")),
-    Dialog(group="Exhaust/relief/return section"),
-    Placement(transformation(extent={{-60,-90},{-80,-70}})));
+  Buildings.Templates.BaseClasses.Sensors.Wrapper pRet_rel(
+    final typ=if typRel==Buildings.Templates.Types.ReliefReturn.ReturnFanPressure then
+      Buildings.Templates.Types.Sensor.DifferentialPressure else
+      Buildings.Templates.Types.Sensor.None,
+    redeclare final package Medium = MediumAir)
+    "Return static pressure sensor"
+    annotation (
+      Dialog(group="Exhaust/relief/return section"),
+      Placement(transformation(extent={{-60,-90},{-80,-70}})));
 
   Fluid.Sources.Outside out(
     redeclare final package Medium=MediumAir,
@@ -402,7 +435,9 @@ model VAVSingleDuctWrapper "VAV single duct with relief"
     final use_p_in=true,
     final nPorts=1 + (if pSup_rel.typ == Buildings.Templates.Types.Sensor.DifferentialPressure
          then 1 else 0) + (if pRet_rel.typ == Buildings.Templates.Types.Sensor.DifferentialPressure
-         then 1 else 0)) "Indoor pressure" annotation (Placement(transformation(
+         then 1 else 0))
+    "Indoor pressure"
+    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={40,250})));

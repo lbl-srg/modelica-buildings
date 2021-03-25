@@ -30,7 +30,9 @@ package Types "AHU types"
       TwoPosition
       "Two-position damper")
     "Enumeration to configure the damper";
-  type ExhaustReliefReturn = enumeration(
+  type ReliefReturn = enumeration(
+      NoEconomizer
+      "No economizer",
       Barometric
       "No relief fan - Barometric relief damper",
       ReliefDamper
@@ -84,7 +86,15 @@ package Types "AHU types"
       MultipleVariable
       "Multiple fans (identical) - Variable speed")
     "Enumeration to configure the fan";
+  type FanSupplyPosition = enumeration(
+      BlowThrough
+      "Blow-through (upstream position)",
+      DrawThrough
+      "Draw-through (downstream position)")
+    "Enumeration to configure the supply fan position";
   type OutdoorAir = enumeration(
+      NoEconomizer
+      "No economizer",
       SingleCommon
       "Single common OA damper (modulated) with AFMS",
       DedicatedPressure
@@ -109,6 +119,8 @@ package Types "AHU types"
       "PPM",
       RelativeHumidity
       "Relative humidity",
+      SpecificEnthalpy
+      "Specific enthalpy",
       Temperature
       "Temperature",
       VolumeFlowRate
