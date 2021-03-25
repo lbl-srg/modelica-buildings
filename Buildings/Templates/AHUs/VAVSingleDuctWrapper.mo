@@ -20,6 +20,8 @@ model VAVSingleDuctWrapper "VAV single duct with relief"
       Dialog(group="Outdoor air section"),
       Evaluate=true);
 
+  // Need for a vendor annotation to restrict the enumeration to a subset
+  // based on Boolean expression?
   parameter Buildings.Templates.Types.ExhaustReliefReturn typExh
     "Type of exhaust/relief/return section"
     annotation (
