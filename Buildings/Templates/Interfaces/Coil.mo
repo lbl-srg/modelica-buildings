@@ -13,10 +13,10 @@ partial model Coil
 
   parameter Types.Coil typ "Equipment type"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  parameter Types.Valve typAct "Type of actuator"
-    annotation (Dialog(group="Actuator"));
-  parameter Types.HeatExchanger typHex "Type of HX"
-    annotation (Dialog(group="Heat exchanger"));
+  parameter Types.Actuator typAct "Type of actuator"
+    annotation (Dialog(group="Configuration"));
+  replaceable parameter Types.HeatExchanger typHex "Type of HX"
+    annotation (Dialog(group="Configuration"));
   parameter Boolean have_sou = false
     "Set to true for fluid ports on the source side"
     annotation (Evaluate=true, Dialog(group="Configuration"));

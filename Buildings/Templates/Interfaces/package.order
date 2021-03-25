@@ -1,3 +1,4 @@
+Actuator
 AHU
 Coil
 ControllerAHU
@@ -9,4 +10,3 @@ HeatExchangerDX
 HeatExchangerWater
 Sensor
 TerminalUnitAir
-Valve

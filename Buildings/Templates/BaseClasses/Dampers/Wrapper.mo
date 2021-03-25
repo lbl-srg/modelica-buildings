@@ -46,4 +46,17 @@ equation
           {-50,50}}, color={0,127,255}));
   connect(bar.port_b, port_b) annotation (Line(points={{-30,50},{60,50},{60,0},
           {100,0}}, color={0,127,255}));
+
+  annotation (
+    Icon(
+      graphics={
+        Line(
+          points={{-100,0},{100,0}},
+          color={28,108,200},
+          thickness=1),
+         Bitmap(
+           visible=DynamicSelect(true, typ<>Buildings.Templates.Types.Damper.None and
+             typ<>Buildings.Templates.Types.Damper.NoPath),
+           extent={{-80,-58},{80,102}},
+           fileName="modelica://Buildings/../../../Desktop/Exponential.svg")}));
 end Wrapper;

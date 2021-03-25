@@ -9,13 +9,13 @@ model CompleteAHU
     redeclare BaseClasses.Sensors.Temperature TSup "Temperature sensor",
     redeclare BaseClasses.Fans.SingleVariable fanSupDra,
     redeclare BaseClasses.Coils.WaterBased coiCoo(redeclare
-        Buildings.Templates.BaseClasses.Coils.Valves.TwoWayValve act,
+        Buildings.Templates.BaseClasses.Coils.Actuators.TwoWayValve act,
         redeclare
         Buildings.Templates.BaseClasses.Coils.HeatExchangers.WetCoilCounterFlow
         hex),
     redeclare BaseClasses.Sensors.Temperature THea "Temperature sensor",
     redeclare BaseClasses.Coils.WaterBased coiHea(redeclare
-        Buildings.Templates.BaseClasses.Coils.Valves.TwoWayValve act,
+        Buildings.Templates.BaseClasses.Coils.Actuators.TwoWayValve act,
         redeclare
         Buildings.Templates.BaseClasses.Coils.HeatExchangers.DryCoilEffectivenessNTU
         hex),

@@ -1,6 +1,6 @@
 within Buildings.Templates.BaseClasses.Coils.Valves;
 model None "No actuator"
-  extends Buildings.Templates.Interfaces.Valve(final typ=Types.Valve.None);
+  extends Buildings.Templates.Interfaces.Valve(final typ=Types.Actuator.None);
 
 equation
   connect(port_bSup, port_aSup)

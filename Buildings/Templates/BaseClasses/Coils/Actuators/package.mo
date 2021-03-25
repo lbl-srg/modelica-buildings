@@ -1,6 +1,6 @@
 within Buildings.Templates.BaseClasses.Coils;
-package Valves
+package Actuators
   extends Modelica.Icons.Package;
 
 
-end Valves;
+end Actuators;

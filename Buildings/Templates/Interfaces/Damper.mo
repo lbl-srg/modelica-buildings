@@ -36,22 +36,28 @@ partial model Damper
     typ <> Types.Damper.Barometric and
     typ <> Types.Damper.NoPath
     "Control bus"
-    annotation (Placement(transformation(
+    annotation (
+      Placement(
+        visible=DynamicSelect(true, typ <> Types.Damper.None and
+          typ <> Types.Damper.NoPath),
+        transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
         origin={0,100}), iconTransformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={0,100})));
+
   annotation (
-  Icon(coordinateSystem(preserveAspectRatio=false), graphics={Rectangle(
-          extent={{-100,100},{100,-100}},
-          lineColor={0,0,255},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
+    Icon(coordinateSystem(preserveAspectRatio=false,
+      extent={{-100,-100},{100,100}}),
+      graphics={
         Text(
+          visible=DynamicSelect(true, typ <> Types.Damper.None and
+            typ <> Types.Damper.NoPath),
           extent={{-151,-116},{149,-156}},
           lineColor={0,0,255},
-          textString="%name")}),                     Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+          textString="%name")}),
+     Diagram(
+        coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})));
 end Damper;

@@ -1,6 +1,18 @@
 within Buildings.Templates;
 package Types "AHU types"
   extends Modelica.Icons.TypesPackage;
+  type Actuator = enumeration(
+      None
+      "No valve",
+      TwoWayValve
+      "Two-way valve",
+      ThreeWayValve
+      "Three-way valve",
+      PumpedCoilTwoWayValve
+      "Pumped coil with two-way valve",
+      PumpedCoilThreeWayValve
+      "Pumped coil with three-way valve")
+    "Enumeration to configure the actuator";
   type AHU = enumeration(
       SupplyOnly
       "Supply only system",
@@ -57,6 +69,20 @@ package Types "AHU types"
       "Water based - Discretized",
       None
       "None")
+    "Enumeration to configure the HX";
+  type HeatExchangerDX = enumeration(
+      DXMultiStage
+      "Direct expansion - Multi-stage",
+      DXVariableSpeed
+      "Direct expansion - Variable speed")
+    "Enumeration to configure the HX";
+  type HeatExchangerWater = enumeration(
+      WetCoilEffectivenessNTU
+      "Water based - Effectiveness-NTU dry/wet coil",
+      DryCoilEffectivenessNTU
+      "Water based - Effectiveness-NTU dry coil",
+      WetCoilCounterFlow
+      "Water based - Discretized")
     "Enumeration to configure the HX";
   type Economizer = enumeration(
       None
@@ -142,16 +168,4 @@ package Types "AHU types"
       Induction
       "Induction system")
     "Enumeration to configure the terminal unit";
-  type Valve = enumeration(
-      None
-      "No actuator",
-      TwoWayValve
-      "Two-way valve",
-      ThreeWayValve
-      "Three-way valve",
-      PumpedCoilTwoWayValve
-      "Pumped coil with two-way valve",
-      PumpedCoilThreeWayValve
-      "Pumped coil with three-way valve")
-    "Enumeration to configure the actuator";
 end Types;

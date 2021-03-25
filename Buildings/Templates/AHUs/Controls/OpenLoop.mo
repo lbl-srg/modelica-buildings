@@ -1,5 +1,5 @@
 within Buildings.Templates.AHUs.Controls;
-block Dummy "Dummy controller with constant signals"
+block OpenLoop "Open loop controller (output signals only)"
   extends Buildings.Templates.BaseClasses.Controls.AHUs.SupplyReturn;
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yDamOut(k=1)
@@ -80,7 +80,6 @@ block Dummy "Dummy controller with constant signals"
         rotation=-90,
         origin={180,70})));
 
-
 equation
     // Non graphical connections - START
   connect(yDamOutMin.y,busAHU.out.yDamOutMin);
@@ -100,9 +99,8 @@ equation
 
   connect(yDamRet.y,busAHU.out.yDamRet);
 
-
   annotation (
   defaultComponentName="conAHU",
   Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
-end Dummy;
+end OpenLoop;

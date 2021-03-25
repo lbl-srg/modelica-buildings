@@ -1,11 +1,12 @@
 within Buildings.Templates.AHUs.Validation.UserProject.AHUs;
-model WrapperEconomizerDampers
+model WrapperCoils
   extends Buildings.Templates.AHUs.VAVSingleDuctWrapper(
-    typRel=Buildings.Templates.Types.ReliefReturn.ReliefDamper,
-    typOut=Buildings.Templates.Types.OutdoorAir.DedicatedPressure,
+    typActCoiHea=Buildings.Templates.Types.Actuator.TwoWayValve,
+    typCoiHea=Buildings.Templates.Types.Coil.WaterBased,
+    typFanSupPos=Buildings.Templates.Types.FanSupplyPosition.DrawThrough,
     nZon=1,
     nGro=1,
     id="VAV_1");
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
-end WrapperEconomizerDampers;
+end WrapperCoils;

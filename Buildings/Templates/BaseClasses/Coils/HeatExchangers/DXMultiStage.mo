@@ -1,6 +1,7 @@
 within Buildings.Templates.BaseClasses.Coils.HeatExchangers;
 model DXMultiStage
-  extends Buildings.Templates.Interfaces.HeatExchangerDX(final typ=Types.HeatExchanger.DXMultiStage);
+  extends Buildings.Templates.Interfaces.HeatExchangerDX(
+    final typ=Types.HeatExchanger.DXMultiStage);
 
   replaceable parameter
     Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.DXCoil datCoi

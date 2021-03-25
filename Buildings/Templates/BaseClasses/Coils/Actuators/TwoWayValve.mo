@@ -1,6 +1,7 @@
-within Buildings.Templates.BaseClasses.Coils.Valves;
+within Buildings.Templates.BaseClasses.Coils.Actuators;
 model TwoWayValve "Two-way valve"
-  extends Buildings.Templates.Interfaces.Valve(final typ=Types.Actuator.TwoWayValve);
+  extends Buildings.Templates.Interfaces.Actuator(
+    final typ=Types.Actuator.TwoWayValve);
 
   parameter Modelica.SIunits.PressureDifference dpValve_nominal(
      displayUnit="Pa",
@@ -38,7 +39,5 @@ equation
                                                color={0,0,127}));
   connect(val.port_b, port_bRet)
     annotation (Line(points={{40,-10},{40,-100}}, color={0,127,255}));
-  annotation (
-    Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+
 end TwoWayValve;

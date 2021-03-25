@@ -50,6 +50,52 @@ model VAVSingleDuctWrapper "VAV single duct with relief"
         enable=typFanSup<>Buildings.Templates.Types.Fan.None),
       Evaluate=true);
 
+  parameter Buildings.Templates.Types.Coil typCoiHea=
+    Buildings.Templates.Types.Coil.None
+    "Type of heating coil"
+    annotation (
+      Dialog(group="Supply air section"),
+      Evaluate=true);
+
+  parameter Buildings.Templates.Types.HeatExchangerDX typCoiHeaDX=
+    Buildings.Templates.Types.HeatExchangerDX.DXVariableSpeed
+    "Type of DX heating coil"
+    annotation (
+      Dialog(
+        group="Supply air section",
+        enable=typCoiHea==Buildings.Templates.Types.Coil.DirectExpansion),
+      Evaluate=true);
+
+  parameter Buildings.Templates.Types.HeatExchangerWater typCoiHeaWat=
+    Buildings.Templates.Types.HeatExchangerWater.DryCoilEffectivenessNTU
+    "Type of water-based heating coil"
+    annotation (
+      Dialog(
+        group="Supply air section",
+        enable=not isModCtrSpe and
+          typCoiHea==Buildings.Templates.Types.Coil.WaterBased),
+      Evaluate=true);
+
+  final parameter Buildings.Templates.Types.HeatExchanger typHexCoiHea=
+    if typCoiHea==Buildings.Templates.Types.Coil.DirectExpansion then
+      typCoiHeaDX else typCoiHeaWat;
+
+  parameter Buildings.Templates.Types.Actuator typActCoiHea=
+    Buildings.Templates.Types.Actuator.None
+    "Type of heating coil actuator"
+    annotation (
+      Dialog(
+        group="Supply air section",
+        enable=typCoiHea==Buildings.Templates.Types.Coil.WaterBased),
+      Evaluate=true);
+
+  parameter Buildings.Templates.Types.Coil typCoiCoo=
+    Buildings.Templates.Types.Coil.None
+    "Type of cooling coil"
+    annotation (
+      Dialog(group="Supply air section"),
+      Evaluate=true);
+
   // May be final based on controller freeze protection option
   parameter Boolean have_senTMix = true
     "Set to true if the AHU has a mixed air temperature sensor"
@@ -102,28 +148,28 @@ model VAVSingleDuctWrapper "VAV single duct with relief"
     redeclare final package Medium = MediumCoo) if have_souCoiCoo
     "Cooling coil supply port"
     annotation (Placement(
-        transformation(extent={{10,-290},{30,-270}}),   iconTransformation(
-          extent={{10,-208},{30,-188}})));
+      transformation(extent={{10,-290},{30,-270}}), iconTransformation(
+        extent={{10,-208},{30,-188}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_coiHeaRet(
     redeclare final package Medium =MediumHea) if have_souCoiHea
     "Heating coil return port"
     annotation (Placement(transformation(extent={{-30,
-            -290},{-10,-270}}), iconTransformation(extent={{-40,-208},{-20,-188}})));
+      -290},{-10,-270}}), iconTransformation(extent={{-40,-208},{-20,-188}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_coiHeaSup(
     redeclare final package Medium =MediumHea) if have_souCoiHea
     "Heating coil supply port"
     annotation (Placement(transformation(extent={{-50,
-            -290},{-30,-270}}), iconTransformation(extent={{-80,-208},{-60,-188}})));
+      -290},{-30,-270}}), iconTransformation(extent={{-80,-208},{-60,-188}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_coiRehRet(
     redeclare final package Medium =MediumHea) if have_souCoiReh
     "Reheat coil return port"
     annotation (Placement(transformation(extent={{90,-290},
-            {110,-270}}), iconTransformation(extent={{140,-208},{160,-188}})));
+      {110,-270}}), iconTransformation(extent={{140,-208},{160,-188}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_coiRehSup(
     redeclare final package Medium = MediumHea) if have_souCoiReh
     "Reheat coil supply port"
     annotation (Placement(transformation(extent={{70,-290},
-            {90,-270}}), iconTransformation(extent={{100,-208},{120,-188}})));
+      {90,-270}}), iconTransformation(extent={{100,-208},{120,-188}})));
 
   BoundaryConditions.WeatherData.Bus weaBus
     "Weather bus"
@@ -270,17 +316,21 @@ model VAVSingleDuctWrapper "VAV single duct with relief"
       Dialog(group="Supply air section"),
       Placement(transformation(extent={{-70,-210},{-50,-190}})));
 
-  inner replaceable Buildings.Templates.BaseClasses.Coils.None coiHea
-    constrainedby Buildings.Templates.Interfaces.Coil(redeclare final package
-      MediumAir = MediumAir, redeclare final package MediumSou = MediumHea)
-    "Heating coil" annotation (
-    choicesAllMatching=true,
-    Dialog(group="Heating coil"),
-    Placement(transformation(extent={{-40,-210},{-20,-190}})));
+  inner Buildings.Templates.BaseClasses.Coils.Wrapper coiHea(
+    final typ=typCoiHea,
+    final typHex=typHexCoiHea,
+    final typAct=typActCoiHea,
+    redeclare final package MediumAir = MediumAir,
+    redeclare final package MediumSou = MediumHea)
+    "Heating coil"
+    annotation (
+      Dialog(group="Supply air section"),
+      Placement(transformation(extent={{-40,-210},{-20,-190}})));
+
   replaceable Buildings.Templates.BaseClasses.Sensors.None THea constrainedby
     Buildings.Templates.Interfaces.Sensor(redeclare final package Medium =
         MediumAir) "Heating coil leaving air temperature sensor"
-                                  annotation (
+    annotation (
     choices(choice(redeclare BaseClasses.Sensors.None THea "No sensor"), choice(
           redeclare BaseClasses.Sensors.Temperature THea "Temperature sensor")),
     Dialog(group="Supply air section", enable=coiHea <> Buildings.Templates.Types.Coil.None),
@@ -327,13 +377,11 @@ model VAVSingleDuctWrapper "VAV single duct with relief"
     Dialog(group="Supply air section"),
     Placement(transformation(extent={{142,-210},{162,-190}})));
 
-  inner replaceable Controls.Dummy conAHU constrainedby
-    Buildings.Templates.Interfaces.ControllerAHU
-    "AHU controller"
-    annotation (
-      choicesAllMatching=true,
-      Dialog(group="Controller"),
-      Placement(transformation(extent={{-60,90},{-40,110}})));
+  inner replaceable Controls.OpenLoop conAHU constrainedby
+    Buildings.Templates.Interfaces.ControllerAHU "AHU controller" annotation (
+    choicesAllMatching=true,
+    Dialog(group="Controller"),
+    Placement(transformation(extent={{-60,90},{-40,110}})));
 
   // FIXME: Dummy default values fo testing purposes only.
   Fluid.FixedResistances.PressureDrop resRet(

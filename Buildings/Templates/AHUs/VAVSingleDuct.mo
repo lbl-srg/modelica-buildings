@@ -287,13 +287,11 @@ model VAVSingleDuct "VAV single duct with relief"
     Dialog(group="Supply air section"),
     Placement(transformation(extent={{142,-210},{162,-190}})));
 
-  inner replaceable Controls.Dummy conAHU constrainedby
-    Buildings.Templates.Interfaces.ControllerAHU
-    "AHU controller"
-    annotation (
-      choicesAllMatching=true,
-      Dialog(group="Controller"),
-      Placement(transformation(extent={{-60,90},{-40,110}})));
+  inner replaceable Controls.OpenLoop conAHU constrainedby
+    Buildings.Templates.Interfaces.ControllerAHU "AHU controller" annotation (
+    choicesAllMatching=true,
+    Dialog(group="Controller"),
+    Placement(transformation(extent={{-60,90},{-40,110}})));
 
   // FIXME: Dummy default values fo testing purposes only.
   Fluid.FixedResistances.PressureDrop resRet(

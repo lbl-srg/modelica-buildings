@@ -1,5 +1,5 @@
 within Buildings.Templates.TerminalUnits.Controls;
-block Dummy "Dummy controller with constant signals"
+block OpenLoop "Open loop controller (output signals only)"
   extends Buildings.Templates.BaseClasses.Controls.TerminalUnits.SingleDuct;
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yDamVAV(k=1)
@@ -30,4 +30,4 @@ equation
   defaultComponentName="conTer",
   Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
-end Dummy;
+end OpenLoop;

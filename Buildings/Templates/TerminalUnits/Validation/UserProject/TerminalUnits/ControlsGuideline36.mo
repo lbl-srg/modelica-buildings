@@ -6,7 +6,7 @@ model ControlsGuideline36
     redeclare BaseClasses.Dampers.PressureIndependent damVAV
       "Pressure independent damper",
     redeclare BaseClasses.Coils.WaterBased coiReh(redeclare
-        Buildings.Templates.BaseClasses.Coils.Valves.TwoWayValve act,
+        Buildings.Templates.BaseClasses.Coils.Actuators.TwoWayValve act,
         redeclare
         Buildings.Templates.BaseClasses.Coils.HeatExchangers.DryCoilEffectivenessNTU
         hex),

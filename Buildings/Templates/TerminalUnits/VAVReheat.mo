@@ -46,13 +46,12 @@ model VAVReheat "VAV terminal unit with reheat"
         rotation=0,
         origin={-120,-140})));
 
-  inner replaceable Controls.Dummy conTer constrainedby
+  inner replaceable Controls.OpenLoop conTer constrainedby
     Buildings.Templates.Interfaces.ControllerTerminalUnit
-    "Terminal unit controller"
-    annotation (
-      choicesAllMatching=true,
-      Dialog(group="Controller"),
-      Placement(transformation(extent={{-10,90},{10,110}})));
+    "Terminal unit controller" annotation (
+    choicesAllMatching=true,
+    Dialog(group="Controller"),
+    Placement(transformation(extent={{-10,90},{10,110}})));
 
   replaceable BaseClasses.Sensors.None TDis constrainedby
     Buildings.Templates.Interfaces.Sensor(

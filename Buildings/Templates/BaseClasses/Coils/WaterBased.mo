@@ -4,8 +4,7 @@ model WaterBased
     final typ=Types.Coil.WaterBased,
     final have_sou=true,
     final have_weaBus=false,
-    final typAct=act.typ,
-    final typHex=hex.typ);
+    redeclare final Buildings.Templates.Interfaces.HeatExchangerWater typHex);
 
   inner parameter Modelica.SIunits.MassFlowRate mWat_flow_nominal(min=0)=
     dat.getReal(varName=id + "." + funStr + " coil.Liquid mass flow rate")
@@ -23,24 +22,26 @@ model WaterBased
     //   id + "." + funStr + " coil.Liquid pressure drop",
     //   dat.fileName)
 
-  replaceable Valves.None act
-    constrainedby Buildings.Templates.Interfaces.Valve(
-      redeclare final package Medium = MediumSou)
+  Actuators.Wrapper act(
+    final typ=typAct,
+    redeclare final package Medium = MediumSou)
     "Actuator"
     annotation (
-      choicesAllMatching=true,
       Placement(transformation(extent={{-10,-70},{10,-50}})));
 
   // TODO: conditional choices based on funStr to restrict HX models for cooling.
-  replaceable HeatExchangers.DryCoilEffectivenessNTU hex constrainedby
-    Buildings.Templates.Interfaces.HeatExchangerWater(
+  HeatExchangers.WrapperWater hex(
+    final typ=typHex,
     redeclare final package Medium1 = MediumSou,
     redeclare final package Medium2 = MediumAir,
     final m1_flow_nominal=mWat_flow_nominal,
     final m2_flow_nominal=mAir_flow_nominal,
-    final dp1_nominal=if typAct == Types.Valve.None then dpWat_nominal else 0,
-    final dp2_nominal=dpAir_nominal) "Heat exchanger" annotation (
-      choicesAllMatching=true, Placement(transformation(extent={{10,4},{-10,-16}})));
+    final dp1_nominal=if typAct==Types.Actuator.None then
+      dpWat_nominal else 0,
+    final dp2_nominal=dpAir_nominal)
+    "Heat exchanger"
+    annotation (
+      Placement(transformation(extent={{10,4},{-10,-16}})));
 
   Modelica.Blocks.Routing.RealPassThrough yCoiCoo if funStr=="Cooling"
     "Pass through to connect with specific control signal"

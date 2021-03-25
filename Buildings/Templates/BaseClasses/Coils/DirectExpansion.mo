@@ -4,20 +4,19 @@ model DirectExpansion
     final typ=Types.Coil.DirectExpansion,
     final have_sou=false,
     final have_weaBus=true,
-    final typAct=Types.Valve.None,
-    final typHex=hex.typ);
+    final typAct=Types.Actuator.None,
+    redeclare final Buildings.Templates.Interfaces.HeatExchangerDX typHex);
 
   inner parameter Boolean have_dryCon = true
     "Set to true for purely sensible cooling of the condenser";
 
-  replaceable HeatExchangers.DXVariableSpeed hex
-    constrainedby Buildings.Templates.Interfaces.HeatExchangerDX(
-      redeclare final package Medium = MediumAir,
-      final m_flow_nominal=mAir_flow_nominal,
-      final dp_nominal=dpAir_nominal)
+  HeatExchangers.WrapperDX hex(
+    final typ=typHex,
+    redeclare final package Medium = MediumAir,
+    final m_flow_nominal=mAir_flow_nominal,
+    final dp_nominal=dpAir_nominal)
     "Heat exchanger"
     annotation (
-      choicesAllMatching=true,
       Placement(transformation(extent={{-10,-10},{10,10}})));
 equation
   connect(port_a, hex.port_a)

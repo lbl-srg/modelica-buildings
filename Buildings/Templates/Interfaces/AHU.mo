@@ -4,6 +4,10 @@ partial model AHU "Interface class for air handling unit"
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Air medium";
 
+  parameter Boolean isModCtrSpe = true
+    "Set to true to activate the control specification mode"
+    annotation(Evaluate=true);
+
   parameter Types.AHU typ
     "Type of system"
     annotation (Evaluate=true, Dialog(group="Configuration"));

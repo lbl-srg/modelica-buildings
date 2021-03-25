@@ -1,10 +1,10 @@
 within Buildings.Templates.Interfaces;
-partial model Valve
+partial model Actuator
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Medium";
 
-  parameter Types.Valve typ "Equipment type"
+  parameter Types.Actuator typ "Equipment type"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
   outer parameter String funStr
@@ -37,7 +37,7 @@ partial model Valve
     redeclare final package Medium = Medium)
     "Fluid connector b (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{-30,90},{-50,110}})));
-  Modelica.Blocks.Interfaces.RealInput y(min=0, max=1) if typ <> Types.Valve.None
+  Modelica.Blocks.Interfaces.RealInput y(min=0, max=1) if typ <> Types.Actuator.None
     "Actuator control signal"
     annotation (Placement(
       transformation(extent={{-20,-20},{20,20}}, rotation=0,   origin={-120,0}),
@@ -57,4 +57,4 @@ partial model Valve
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid)}), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
-end Valve;
+end Actuator;

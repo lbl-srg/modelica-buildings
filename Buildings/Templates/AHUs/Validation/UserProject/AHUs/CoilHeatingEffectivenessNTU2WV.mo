@@ -6,7 +6,7 @@ model CoilHeatingEffectivenessNTU2WV
     nGro=1,
     redeclare
       Buildings.Templates.BaseClasses.Coils.WaterBased coiHea(redeclare
-        Buildings.Templates.BaseClasses.Coils.Valves.TwoWayValve act,
+        Buildings.Templates.BaseClasses.Coils.Actuators.TwoWayValve act,
         redeclare
         Buildings.Templates.BaseClasses.Coils.HeatExchangers.DryCoilEffectivenessNTU
         hex));
