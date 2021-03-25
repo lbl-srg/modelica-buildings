@@ -375,7 +375,7 @@ block SetpointController
         transformation(extent={{120,22},{156,58}}), iconTransformation(extent={
             {100,130},{140,170}})));
 
-protected
+//protected
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.SetPoints.Subsequences.Initial iniSta(
     final have_WSE=have_WSE)
     annotation (Placement(transformation(extent={{-80,100},{-60,120}})));
