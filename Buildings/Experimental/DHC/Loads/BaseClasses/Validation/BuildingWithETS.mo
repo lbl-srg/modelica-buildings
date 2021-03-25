@@ -6,7 +6,7 @@ model BuildingWithETS
     "District system type enumeration";
   package MediumW=Buildings.Media.Water
     "Water";
-  package MediumS=Modelica.Media.Water.IdealSteam (
+  package MediumS=Modelica.Media.Water.WaterIF97_ph (
     h_default=2770E3)
     "Steam";
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=1
@@ -469,6 +469,11 @@ for various types of district system.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 12, 2021, by Michael Wetter:<br/>
+Changed steam medium.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2395\">#2395</a>.
+</li>
 <li>
 December 14, 2020, by Antoine Gautier:<br/>
 First implementation.
