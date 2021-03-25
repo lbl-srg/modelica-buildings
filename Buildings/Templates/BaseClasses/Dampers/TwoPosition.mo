@@ -1,6 +1,7 @@
 within Buildings.Templates.BaseClasses.Dampers;
 model TwoPosition
-  extends Buildings.Templates.Interfaces.Damper(final typ=Types.Damper.Modulated);
+  extends Buildings.Templates.Interfaces.Damper(
+    final typ=Types.Damper.TwoPosition);
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=
     if braStr=="Outdoor air" then
@@ -45,8 +46,8 @@ model TwoPosition
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={0,30})));
-  .Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold evaSta(t=0.99, h=0.5E-2) if
-       braStr == "Supply" "Evaluate damper status" annotation (Placement(
+  .Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold evaSta(t=0.99, h=0.5E-2)
+    "Evaluate damper status" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
@@ -70,14 +71,6 @@ equation
           0},{-10,0}}, color={0,127,255}));
   connect(damExp.port_b, port_b)
     annotation (Line(points={{10,0},{100,0}}, color={0,127,255}));
-  connect(busCon.out.yDamOutMin, yDamOutMin.u) annotation (Line(
-      points={{0.1,100.1},{-10,100.1},{-10,100},{-40,100},{-40,82}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(busCon.out.yDamRel, yDamRel.u) annotation (Line(
-      points={{0.1,100.1},{20,100.1},{20,100},{40,100},{40,82}},
-      color={255,204,51},
-      thickness=0.5));
   connect(booToRea.y, damExp.y)
     annotation (Line(points={{0,18},{0,12}}, color={0,0,127}));
   connect(yDamOutMin.y, booToRea.u) annotation (Line(points={{-40,59},{-40,50},
@@ -103,5 +96,21 @@ equation
       string="%second",
       index=1,
       extent={{-3,-6},{-3,-6}},
+      horizontalAlignment=TextAlignment.Right));
+  connect(busCon.out.yDamOutMin, yDamOutMin.u) annotation (Line(
+      points={{0.1,100.1},{0.1,96},{-40,96},{-40,82}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%first",
+      index=-1,
+      extent={{-3,6},{-3,6}},
+      horizontalAlignment=TextAlignment.Right));
+  connect(busCon.out.yDamRel, yDamRel.u) annotation (Line(
+      points={{0.1,100.1},{2,100.1},{2,100},{4,100},{4,96},{40,96},{40,82}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%first",
+      index=-1,
+      extent={{-3,6},{-3,6}},
       horizontalAlignment=TextAlignment.Right));
 end TwoPosition;

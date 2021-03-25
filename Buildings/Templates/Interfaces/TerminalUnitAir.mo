@@ -14,7 +14,6 @@ partial model TerminalUnitAir
       Evaluate=true,
       Dialog(group="Configuration"));
 
-
   Modelica.Fluid.Interfaces.FluidPort_a port_Sup(
     redeclare final package Medium =MediumAir) if typ <> Types.TerminalUnit.DualDuct
     "Supply air"

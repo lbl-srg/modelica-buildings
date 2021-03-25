@@ -7,7 +7,9 @@ partial model Damper
   parameter Types.Damper typ "Equipment type"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   final parameter String braStr=
-    if Modelica.Utilities.Strings.find(insNam, "damOut")<>0 then "Outdoor air"
+    if Modelica.Utilities.Strings.length(insNam) -
+      Modelica.Utilities.Strings.find(insNam, "damOut")==5 or
+      Modelica.Utilities.Strings.find(insNam, ".damOut.")<>0 then "Outdoor air"
     elseif Modelica.Utilities.Strings.find(insNam, "damOutMin")<>0 then "Minimum outdoor air"
     elseif Modelica.Utilities.Strings.find(insNam, "damRel")<>0 then "Relief air"
     elseif Modelica.Utilities.Strings.find(insNam, "damRet")<>0 then "Return air"
@@ -29,9 +31,12 @@ partial model Damper
   Modelica.Fluid.Interfaces.FluidPort_b port_b(redeclare package Medium =
         Medium) "Leaving air" annotation (Placement(transformation(extent={{90,-10},
             {110,10}}), iconTransformation(extent={{90,-10},{110,10}})));
-  BaseClasses.Connectors.BusInterface busCon if typ <> Types.Damper.None and
-    typ <> Types.Damper.Nonactuated "Control bus"
-                                      annotation (Placement(transformation(
+  BaseClasses.Connectors.BusInterface busCon if
+    typ <> Types.Damper.None and
+    typ <> Types.Damper.Barometric and
+    typ <> Types.Damper.NoPath
+    "Control bus"
+    annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
         origin={0,100}), iconTransformation(

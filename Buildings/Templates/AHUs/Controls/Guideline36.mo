@@ -26,6 +26,7 @@ block Guideline36 "Guideline 36 VAV single duct controller"
     "Number of zones that each group contains"
     annotation(Evaluate=true);
 
+
   parameter Real VOutPerAre_flow[nZon](
     each final unit = "m3/(s.m2)")={
       dat.getReal(varName=idTerArr[i] + "Zone.Outdoor air volume flow rate per unit area")

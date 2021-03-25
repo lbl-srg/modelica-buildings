@@ -1,9 +1,7 @@
 within Buildings.Templates.TerminalUnits;
 model VAVReheat "VAV terminal unit with reheat"
   extends Buildings.Templates.Interfaces.TerminalUnitAir(
-    final typ=Types.TerminalUnit.SingleDuct)
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+    final typ=Types.TerminalUnit.SingleDuct);
 
   replaceable package MediumHea=Buildings.Media.Water
     constrainedby Modelica.Media.Interfaces.PartialMedium

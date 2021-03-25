@@ -1,6 +1,7 @@
 within Buildings.Templates.BaseClasses.Dampers;
 model Modulated
-  extends Buildings.Templates.Interfaces.Damper(final typ=Types.Damper.Modulated);
+  extends Buildings.Templates.Interfaces.Damper(
+    final typ=Types.Damper.Modulated);
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=
     if braStr=="Outdoor air" then

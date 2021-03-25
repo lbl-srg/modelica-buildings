@@ -2,6 +2,16 @@ within Buildings.Templates.BaseClasses.Controls.AHUs;
 block SupplyReturn
   extends Buildings.Templates.Interfaces.ControllerAHU;
 
+  outer replaceable Buildings.Templates.BaseClasses.Dampers.None damOut
+    "OA damper";
+  outer replaceable Buildings.Templates.BaseClasses.Dampers.None damOutMin
+    "Minimum OA damper";
+  outer replaceable Buildings.Templates.BaseClasses.Dampers.None damRel
+    "Relief damper";
+  outer replaceable Buildings.Templates.BaseClasses.Dampers.None damRet
+    "Return damper";
+
+
   outer replaceable Buildings.Templates.BaseClasses.Coils.None coiCoo
     "Cooling coil";
   outer replaceable Buildings.Templates.BaseClasses.Coils.None coiHea

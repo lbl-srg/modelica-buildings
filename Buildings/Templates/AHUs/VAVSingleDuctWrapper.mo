@@ -1,5 +1,5 @@
 within Buildings.Templates.AHUs;
-model VAVSingleDuct "VAV single duct with relief"
+model VAVSingleDuctWrapper "VAV single duct with relief"
   extends Buildings.Templates.Interfaces.AHU(
     final typ=Buildings.Templates.Types.AHU.SupplyReturn,
     final typSup=Buildings.Templates.Types.Supply.SingleDuct,
@@ -74,67 +74,65 @@ model VAVSingleDuct "VAV single duct with relief"
     annotation (Placement(transformation(extent={{-20,260},{20,300}}),
       iconTransformation(extent={{-20,182},{20,218}})));
 
-
-
-  inner replaceable Buildings.Templates.BaseClasses.Dampers.NoPath damOutMin
-    constrainedby Buildings.Templates.Interfaces.Damper(
-      redeclare final package Medium = MediumAir)
+  inner Buildings.Templates.BaseClasses.Dampers.Wrapper damOutMin(
+    final typ=if typOut==Buildings.Templates.Types.OutdoorAir.SingleCommon
+      then Buildings.Templates.Types.Damper.NoPath elseif
+      typOut==Buildings.Templates.Types.OutdoorAir.DedicatedPressure
+      then Buildings.Templates.Types.Damper.TwoPosition elseif
+      typOut==Buildings.Templates.Types.OutdoorAir.DedicatedAirflow then
+      Buildings.Templates.Types.Damper.Modulated else
+      Buildings.Templates.Types.Damper.NoPath,
+    redeclare final package Medium = MediumAir)
     "Minimum outdoor air damper"
     annotation (
-    choices(
-      choice(redeclare BaseClasses.Dampers.NoPath damOutMin
-        "No fluid path"),
-      choice(redeclare BaseClasses.Dampers.Modulated damOutMin
-        "Modulated damper"),
-      choice(redeclare BaseClasses.Dampers.TwoPosition damOutMin
-        "Two-position damper")),
-    Dialog(group="Outdoor air section"),
-    Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={-232,-140})));
+      Dialog(group="Outdoor air section"),
+      Placement(transformation(
+          extent={{-10,-10},{10,10}},
+          rotation=0,
+          origin={-232,-140})));
 
-  inner replaceable Buildings.Templates.BaseClasses.Dampers.None damOut
-    constrainedby Buildings.Templates.Interfaces.Damper(redeclare final package
-      Medium = MediumAir) "Outdoor air damper" annotation (
-    choices(
-      choice(redeclare BaseClasses.Dampers.None damOut "No damper"),
-      choice(redeclare BaseClasses.Dampers.Modulated damOut "Modulated damper"),
-      choice(redeclare BaseClasses.Dampers.TwoPosition damOut
-          "Two-position damper")),
+  inner Buildings.Templates.BaseClasses.Dampers.Wrapper damOut(
+    final typ=Buildings.Templates.Types.Damper.Modulated,
+    redeclare final package Medium = MediumAir)
+    "Outdoor air damper"
+    annotation (
     Dialog(group="Outdoor air section"),
     Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-230,-200})));
 
-  inner replaceable Buildings.Templates.BaseClasses.Dampers.NoPath damRet
-    constrainedby Buildings.Templates.Interfaces.Damper(
-      redeclare final package Medium = MediumAir)
+  inner Buildings.Templates.BaseClasses.Dampers.Wrapper damRet(
+    final typ=Buildings.Templates.Types.Damper.Modulated,
+    redeclare final package Medium = MediumAir)
     "Return air damper"
     annotation (
-      choices(
-        choice(redeclare BaseClasses.Dampers.NoPath damRet "No fluid path"),
-        choice(redeclare BaseClasses.Dampers.Modulated damRet "Modulated damper")),
-    Dialog(group="Exhaust/relief/return section"),
-    Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={-120,-140})));
+      Dialog(group="Exhaust/relief/return section"),
+      Placement(transformation(
+          extent={{-10,-10},{10,10}},
+          rotation=-90,
+          origin={-120,-140})));
 
-  inner replaceable Buildings.Templates.BaseClasses.Dampers.None damRel
-    constrainedby Buildings.Templates.Interfaces.Damper(
-      redeclare final package Medium = MediumAir)
-    "Relief damper" annotation (
-    choices(
-      choice(redeclare BaseClasses.Dampers.None damRel "No damper"),
-      choice(redeclare BaseClasses.Dampers.Modulated damRel "Modulated damper"),
-      choice(redeclare BaseClasses.Dampers.TwoPosition damRel "Two-position damper")),
-    Dialog(group="Exhaust/relief/return section"),
-    Placement(transformation(
-        extent={{10,-10},{-10,10}},
-        rotation=0,
-        origin={-234,-80})));
+  inner Buildings.Templates.BaseClasses.Dampers.Wrapper damRel(
+    final typ=if typExh==Buildings.Templates.Types.ExhaustReliefReturn.Barometric
+      then Buildings.Templates.Types.Damper.Barometric elseif
+      typExh==Buildings.Templates.Types.ExhaustReliefReturn.ReliefDamper
+      then Buildings.Templates.Types.Damper.Modulated elseif
+      typExh==Buildings.Templates.Types.ExhaustReliefReturn.ReliefFan
+      then Buildings.Templates.Types.Damper.TwoPosition elseif
+      typExh==Buildings.Templates.Types.ExhaustReliefReturn.ReturnFanPressure
+      then Buildings.Templates.Types.Damper.Modulated elseif
+      typExh==Buildings.Templates.Types.ExhaustReliefReturn.ReturnFanAirflow
+      then Buildings.Templates.Types.Damper.Modulated else
+      Buildings.Templates.Types.Damper.None,
+    redeclare final package Medium = MediumAir)
+    "Relief damper"
+    annotation (
+      Dialog(group="Exhaust/relief/return section"),
+      Placement(transformation(
+          extent={{10,-10},{-10,10}},
+          rotation=0,
+          origin={-234,-80})));
 
   replaceable Buildings.Templates.BaseClasses.Sensors.None TOut
     constrainedby Buildings.Templates.Interfaces.Sensor(
@@ -701,4 +699,4 @@ Modulateded relief damper
 
  
 </html>"));
-end VAVSingleDuct;
+end VAVSingleDuctWrapper;

@@ -19,8 +19,8 @@ package Types "AHU types"
   type Damper = enumeration(
       NoPath
       "No fluid path",
-      Nonactuated
-      "Nonactuated",
+      Barometric
+      "Barometric damper",
       Modulated
       "Modulated damper",
       None
@@ -30,6 +30,18 @@ package Types "AHU types"
       TwoPosition
       "Two-position damper")
     "Enumeration to configure the damper";
+  type ExhaustReliefReturn = enumeration(
+      Barometric
+      "No relief fan - Barometric relief damper",
+      ReliefDamper
+      "No relief fan - Modulated relief damper",
+      ReliefFan
+      "Relief fan - Two-position relief damper",
+      ReturnFanPressure
+      "Return fan with pressure control - Modulated relief damper",
+      ReturnFanAirflow
+      "Return fan with airflow tracking - Modulated relief damper")
+    "Enumeration to configure the exhaust/relief/return section";
   type HeatExchanger = enumeration(
       DXMultiStage
       "Direct expansion - Multi-stage",
@@ -72,6 +84,14 @@ package Types "AHU types"
       MultipleVariable
       "Multiple fans (identical) - Variable speed")
     "Enumeration to configure the fan";
+  type OutdoorAir = enumeration(
+      SingleCommon
+      "Single common OA damper (modulated) with AFMS",
+      DedicatedPressure
+      "Dedicated minimum OA damper (two-position) with differential pressure sensor",
+      DedicatedAirflow
+      "Dedicated minimum OA damper (modulated) with AFMS")
+    "Enumeration to configure the outdoor air section";
   type Return = enumeration(
       NoRelief
       "No air relief",

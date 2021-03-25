@@ -486,5 +486,9 @@ equation
   annotation (
     defaultComponentName="conTer",
     Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+        coordinateSystem(preserveAspectRatio=false), graphics={Text(
+          extent={{-182,-52},{24,-106}},
+          lineColor={238,46,47},
+          textString=
+              "Todo: subset indices for different Boolean values (such as have_occSen)")}));
 end Guideline36;

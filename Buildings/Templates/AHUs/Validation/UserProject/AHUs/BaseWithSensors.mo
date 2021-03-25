@@ -8,7 +8,6 @@ model BaseWithSensors
     redeclare Buildings.Templates.BaseClasses.Sensors.Temperature TMix,
     redeclare Buildings.Templates.BaseClasses.Sensors.Temperature THea,
     redeclare Buildings.Templates.BaseClasses.Sensors.Temperature TCoo,
-    redeclare Buildings.Templates.BaseClasses.Sensors.Temperature TSup,
     redeclare Buildings.Templates.BaseClasses.Sensors.HumidityRatio xSup,
     redeclare Buildings.Templates.BaseClasses.Sensors.DifferentialPressure
       pSup_rel,
@@ -18,7 +17,7 @@ model BaseWithSensors
     redeclare Buildings.Templates.BaseClasses.Sensors.VolumeFlowRate VSup_flow,
     redeclare Buildings.Templates.BaseClasses.Sensors.VolumeFlowRate VOut_flow,
     redeclare Buildings.Templates.BaseClasses.Sensors.DifferentialPressure
-      dpOut);
+      dpOutMin);
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
