@@ -237,13 +237,6 @@ block SetpointController
     annotation (Placement(transformation(extent={{-442,-30},{-402,10}}),
         iconTransformation(extent={{-140,-40},{-100,0}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uLif(
-    final unit="K",
-    final quantity="TemperatureDifference") if anyVsdCen
-    "Chiller lift"
-    annotation (Placement(transformation(extent={{-442,30},{-402,70}}),
-        iconTransformation(extent={{-140,0},{-100,40}})));
-
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uLifMax(
     final unit="K",
     final quantity="TemperatureDifference") if anyVsdCen
@@ -262,7 +255,7 @@ block SetpointController
     final unit="K",
     final quantity="ThermodynamicTemperature")
     "Chilled water return temperature"
-    annotation (Placement(transformation(extent={{-442,280},{-402,320}}),
+    annotation (Placement(transformation(extent={{-440,280},{-400,320}}),
         iconTransformation(extent={{-140,-190},{-100,-150}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VChiWat_flow(
@@ -381,6 +374,7 @@ block SetpointController
   CDL.Interfaces.BooleanOutput yDow "Stage down signal" annotation (Placement(
         transformation(extent={{120,22},{156,58}}), iconTransformation(extent={
             {100,130},{140,170}})));
+
 protected
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.SetPoints.Subsequences.Initial iniSta(
     final have_WSE=have_WSE)
@@ -423,6 +417,12 @@ protected
     staMat=staMat) "Calculates chiller status setpoint vector"
     annotation (Placement(transformation(extent={{40,-210},{60,-190}})));
 
+  Buildings.Controls.OBC.CDL.Continuous.Add lift(
+    final k1=1,
+    final k2=-1) if anyVsdCen
+    "Calculates chiller lift for variable speed centrifugal chiller containing configurations"
+    annotation (Placement(transformation(extent={{-260,40},{-240,60}})));
+
 equation
   connect(uChiAva, conf.uChiAva)
     annotation (Line(points={{-422,-200},{-382,-200},{-382,-170},{-362,-170}},
@@ -432,9 +432,8 @@ equation
   connect(TChiWatSupSet, capReq.TChiWatSupSet) annotation (Line(points={{-422,
           370},{-370,370},{-370,319},{-322,319}},
                                              color={0,0,127}));
-  connect(TChiWatRet, capReq.TChiWatRet) annotation (Line(points={{-422,300},{
-          -374,300},{-374,314},{-322,314}},
-                                       color={0,0,127}));
+  connect(TChiWatRet, capReq.TChiWatRet) annotation (Line(points={{-420,300},{-374,
+          300},{-374,314},{-322,314}}, color={0,0,127}));
   connect(VChiWat_flow, capReq.VChiWat_flow) annotation (Line(points={{-422,270},
           {-370,270},{-370,309},{-322,309}}, color={0,0,127}));
   connect(conf.yDesCap, cap.uDesCap) annotation (Line(points={{-338,-162},{-322,
@@ -465,8 +464,6 @@ equation
   connect(cap.yUpMin, PLRs.uUpCapMin) annotation (Line(points={{-248,-178},{
           -242,-178},{-242,-187},{-184,-187}},
                                        color={0,0,127}));
-  connect(uLif, PLRs.uLif) annotation (Line(points={{-422,50},{-202,50},{-202,-190},
-          {-184,-190}},     color={0,0,127}));
   connect(uLifMax, PLRs.uLifMax) annotation (Line(points={{-422,20},{-212,20},{-212,
           -192},{-184,-192}},    color={0,0,127}));
   connect(uLifMin, PLRs.uLifMin) annotation (Line(points={{-422,-10},{-222,-10},
@@ -581,6 +578,12 @@ equation
           {140,80}}, color={255,0,255}));
   connect(staDow.y, yDow) annotation (Line(points={{-78,-230},{-60,-230},{-60,
           40},{138,40}}, color={255,0,255}));
+  connect(TChiWatRet, lift.u1) annotation (Line(points={{-420,300},{-388,300},{-388,
+          56},{-262,56}}, color={0,0,127}));
+  connect(TChiWatSupSet, lift.u2) annotation (Line(points={{-422,370},{-360,370},
+          {-360,44},{-262,44}}, color={0,0,127}));
+  connect(PLRs.uLif, lift.y) annotation (Line(points={{-184,-190},{-202,-190},{-202,
+          50},{-238,50}}, color={0,0,127}));
   annotation (defaultComponentName = "staSetCon",
         Icon(coordinateSystem(extent={{-100,-220},{100,200}}, initialScale=0.2),
         graphics={
@@ -643,11 +646,6 @@ equation
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="uLifMax"),
-        Text(
-          extent={{-100,32},{-68,14}},
-          lineColor={0,0,127},
-          pattern=LinePattern.Dash,
-          textString="uLif"),
         Text(
           extent={{-96,100},{-64,84}},
           lineColor={244,125,35},
