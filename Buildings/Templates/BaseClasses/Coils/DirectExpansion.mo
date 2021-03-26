@@ -3,15 +3,13 @@ model DirectExpansion
   extends Buildings.Templates.Interfaces.Coil(
     final typ=Types.Coil.DirectExpansion,
     final have_sou=false,
-    final have_weaBus=true,
-    final typAct=Types.Actuator.None,
-    redeclare final Buildings.Templates.Interfaces.HeatExchangerDX typHex);
+    final have_weaBus=true);
 
   inner parameter Boolean have_dryCon = true
     "Set to true for purely sensible cooling of the condenser";
 
   HeatExchangers.WrapperDX hex(
-    final typ=typHex,
+    final typ=typHexDX,
     redeclare final package Medium = MediumAir,
     final m_flow_nominal=mAir_flow_nominal,
     final dp_nominal=dpAir_nominal)

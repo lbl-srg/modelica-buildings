@@ -3,8 +3,7 @@ model WaterBased
   extends Buildings.Templates.Interfaces.Coil(
     final typ=Types.Coil.WaterBased,
     final have_sou=true,
-    final have_weaBus=false,
-    redeclare final Buildings.Templates.Interfaces.HeatExchangerWater typHex);
+    final have_weaBus=false);
 
   inner parameter Modelica.SIunits.MassFlowRate mWat_flow_nominal(min=0)=
     dat.getReal(varName=id + "." + funStr + " coil.Liquid mass flow rate")
@@ -31,7 +30,7 @@ model WaterBased
 
   // TODO: conditional choices based on funStr to restrict HX models for cooling.
   HeatExchangers.WrapperWater hex(
-    final typ=typHex,
+    final typ=typHexWat,
     redeclare final package Medium1 = MediumSou,
     redeclare final package Medium2 = MediumAir,
     final m1_flow_nominal=mWat_flow_nominal,

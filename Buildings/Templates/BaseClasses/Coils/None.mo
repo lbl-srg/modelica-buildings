@@ -3,9 +3,7 @@ model None
   extends Buildings.Templates.Interfaces.Coil(
     final typ=Types.Coil.None,
     final have_weaBus=false,
-    final have_sou=false,
-    final typAct=Types.Actuator.None,
-    final typHex=Types.HeatExchanger.None);
+    final have_sou=false);
 
 equation
   connect(port_a, port_b)

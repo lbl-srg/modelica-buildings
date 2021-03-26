@@ -1,6 +1,7 @@
 within Buildings.Templates.BaseClasses.Coils.HeatExchangers;
 model DryCoilEffectivenessNTU
-  extends Buildings.Templates.Interfaces.HeatExchangerWater(final typ=Types.HeatExchanger.DryCoilEffectivenessNTU);
+  extends Buildings.Templates.Interfaces.HeatExchangerWater(
+    final typ=Types.HeatExchangerWater.DryCoilEffectivenessNTU);
 
   parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal(min=0)=
     dat.getReal(varName=id + "." + funStr + " coil.Capacity")

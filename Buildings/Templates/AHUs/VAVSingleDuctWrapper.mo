@@ -76,10 +76,6 @@ model VAVSingleDuctWrapper "VAV single duct with relief"
           typCoiHea==Buildings.Templates.Types.Coil.WaterBased),
       Evaluate=true);
 
-  final parameter Buildings.Templates.Types.HeatExchanger typHexCoiHea=
-    if typCoiHea==Buildings.Templates.Types.Coil.DirectExpansion then
-      typCoiHeaDX else typCoiHeaWat;
-
   parameter Buildings.Templates.Types.Actuator typActCoiHea=
     Buildings.Templates.Types.Actuator.None
     "Type of heating coil actuator"
@@ -94,6 +90,69 @@ model VAVSingleDuctWrapper "VAV single duct with relief"
     "Type of cooling coil"
     annotation (
       Dialog(group="Supply air section"),
+      Evaluate=true);
+
+  parameter Buildings.Templates.Types.HeatExchangerDX typCoiCooDX=
+    Buildings.Templates.Types.HeatExchangerDX.DXVariableSpeed
+    "Type of DX cooling coil"
+    annotation (
+      Dialog(
+        group="Supply air section",
+        enable=typCoiCoo==Buildings.Templates.Types.Coil.DirectExpansion),
+      Evaluate=true);
+
+  parameter Buildings.Templates.Types.HeatExchangerWater typCoiCooWat=
+    Buildings.Templates.Types.HeatExchangerWater.DryCoilEffectivenessNTU
+    "Type of water-based cooling coil"
+    annotation (
+      Dialog(
+        group="Supply air section",
+        enable=not isModCtrSpe and
+          typCoiCoo==Buildings.Templates.Types.Coil.WaterBased),
+      Evaluate=true);
+
+  parameter Buildings.Templates.Types.Actuator typActCoiCoo=
+    Buildings.Templates.Types.Actuator.None
+    "Type of cooling coil actuator"
+    annotation (
+      Dialog(
+        group="Supply air section",
+        enable=typCoiCoo==Buildings.Templates.Types.Coil.WaterBased),
+      Evaluate=true);
+
+  parameter Buildings.Templates.Types.Coil typCoiReh=
+    Buildings.Templates.Types.Coil.None
+    "Type of reheat coil"
+    annotation (
+      Dialog(group="Supply air section"),
+      Evaluate=true);
+
+  parameter Buildings.Templates.Types.HeatExchangerDX typCoiRehDX=
+    Buildings.Templates.Types.HeatExchangerDX.DXVariableSpeed
+    "Type of DX reheat coil"
+    annotation (
+      Dialog(
+        group="Supply air section",
+        enable=typCoiReh==Buildings.Templates.Types.Coil.DirectExpansion),
+      Evaluate=true);
+
+  parameter Buildings.Templates.Types.HeatExchangerWater typCoiRehWat=
+    Buildings.Templates.Types.HeatExchangerWater.DryCoilEffectivenessNTU
+    "Type of water-based reheat coil"
+    annotation (
+      Dialog(
+        group="Supply air section",
+        enable=not isModCtrSpe and
+          typCoiReh==Buildings.Templates.Types.Coil.WaterBased),
+      Evaluate=true);
+
+  parameter Buildings.Templates.Types.Actuator typActCoiReh=
+    Buildings.Templates.Types.Actuator.None
+    "Type of reheat coil actuator"
+    annotation (
+      Dialog(
+        group="Supply air section",
+        enable=typCoiReh==Buildings.Templates.Types.Coil.WaterBased),
       Evaluate=true);
 
   // May be final based on controller freeze protection option
@@ -318,7 +377,8 @@ model VAVSingleDuctWrapper "VAV single duct with relief"
 
   inner Buildings.Templates.BaseClasses.Coils.Wrapper coiHea(
     final typ=typCoiHea,
-    final typHex=typHexCoiHea,
+    final typHexDX=typCoiHeaDX,
+    final typHexWat=typCoiHeaWat,
     final typAct=typActCoiHea,
     redeclare final package MediumAir = MediumAir,
     redeclare final package MediumSou = MediumHea)
@@ -336,13 +396,18 @@ model VAVSingleDuctWrapper "VAV single duct with relief"
     Dialog(group="Supply air section", enable=coiHea <> Buildings.Templates.Types.Coil.None),
     Placement(transformation(extent={{-10,-210},{10,-190}})));
 
-  inner replaceable Buildings.Templates.BaseClasses.Coils.None coiCoo
-    constrainedby Buildings.Templates.Interfaces.Coil(redeclare final package
-      MediumAir = MediumAir, redeclare final package MediumSou = MediumCoo)
-    "Cooling coil" annotation (
-    choicesAllMatching=true,
-    Dialog(group="Cooling coil"),
-    Placement(transformation(extent={{20,-210},{40,-190}})));
+  inner Buildings.Templates.BaseClasses.Coils.Wrapper coiCoo(
+    final typ=typCoiCoo,
+    final typHexDX=typCoiCooDX,
+    final typHexWat=typCoiCooWat,
+    final typAct=typActCoiCoo,
+    redeclare final package MediumAir = MediumAir,
+    redeclare final package MediumSou = MediumCoo)
+    "Cooling coil"
+    annotation (
+      Dialog(group="Supply air section"),
+      Placement(transformation(extent={{20,-210},{40,-190}})));
+
   replaceable Buildings.Templates.BaseClasses.Sensors.None TCoo constrainedby
     Buildings.Templates.Interfaces.Sensor(redeclare final package Medium =
         MediumAir) "Cooling coil leaving air temperature sensor" annotation (
@@ -351,10 +416,15 @@ model VAVSingleDuctWrapper "VAV single duct with relief"
     Dialog(group="Supply air section", enable=coiCoo <> Buildings.Templates.Types.Coil.None),
     Placement(transformation(extent={{50,-210},{70,-190}})));
 
-  inner replaceable Buildings.Templates.BaseClasses.Coils.None coiReh
-    constrainedby Buildings.Templates.Interfaces.Coil(redeclare final package
-      MediumAir = MediumAir, redeclare final package MediumSou = MediumHea)
-    "Reheat coil" annotation (
+  inner Buildings.Templates.BaseClasses.Coils.Wrapper coiReh(
+    final typ=typCoiReh,
+    final typHexDX=typCoiRehDX,
+    final typHexWat=typCoiRehWat,
+    final typAct=typActCoiReh,
+    redeclare final package MediumAir = MediumAir,
+    redeclare final package MediumSou = MediumCoo)
+    "Reheat coil"
+    annotation (
     choicesAllMatching=true,
     Dialog(group="Reheat coil"),
     Placement(transformation(extent={{80,-210},{100,-190}})));

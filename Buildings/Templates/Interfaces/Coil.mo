@@ -11,11 +11,19 @@ partial model Coil
     "Source side medium"
     annotation(Dialog(enable=have_sou));
 
-  parameter Types.Coil typ "Equipment type"
+  parameter Types.Coil typ
+    "Equipment type"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  parameter Types.Actuator typAct "Type of actuator"
+  parameter Types.Actuator typAct
+    "Type of actuator"
     annotation (Dialog(group="Configuration"));
-  replaceable parameter Types.HeatExchanger typHex "Type of HX"
+  parameter Types.HeatExchangerDX typHexDX=
+    Types.HeatExchangerDX.None
+    "Type of DX coil"
+    annotation (Dialog(group="Configuration"));
+  parameter Types.HeatExchangerWater typHexWat=
+    Types.HeatExchangerWater.None
+    "Type of water-based coil"
     annotation (Dialog(group="Configuration"));
   parameter Boolean have_sou = false
     "Set to true for fluid ports on the source side"
@@ -24,8 +32,10 @@ partial model Coil
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
   inner parameter Modelica.SIunits.MassFlowRate mAir_flow_nominal(min=0) = if
-    typ <> Types.Coil.None then dat.getReal(varName=id + "." + funStr +
-    " coil.Air mass flow rate") else 0 "Air mass flow rate" annotation (Dialog(
+    typ <> Types.Coil.None then
+    dat.getReal(varName=id + "." + funStr + " coil.Air mass flow rate") else 0
+    "Air mass flow rate"
+    annotation (Dialog(
         group="Nominal condition", enable=typ <> Types.Coil.None), Evaluate=
         true);
     // Templates.BaseClasses.getReal(

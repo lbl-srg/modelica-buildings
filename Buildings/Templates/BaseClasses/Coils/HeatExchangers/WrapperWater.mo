@@ -4,12 +4,22 @@ model WrapperWater "Wrapper class for water-based coils"
 
   WetCoilCounterFlow wet(
     redeclare final package Medium1 = Medium1,
-    redeclare final package Medium2 = Medium2) if typ==Buildings.Templates.Types.HeatExchangerWater.WetCoilCounterFlow
+    redeclare final package Medium2 = Medium2,
+    final m1_flow_nominal=m1_flow_nominal,
+    final m2_flow_nominal=m2_flow_nominal,
+    final dp1_nominal=dp1_nominal,
+    final dp2_nominal=dp2_nominal) if
+      typ==Buildings.Templates.Types.HeatExchangerWater.WetCoilCounterFlow
     "Wet coil"
     annotation (Placement(transformation(extent={{-10,44},{10,64}})));
   DryCoilEffectivenessNTU dry(
     redeclare final package Medium1 = Medium1,
-    redeclare final package Medium2 = Medium2) if typ==Buildings.Templates.Types.HeatExchangerWater.DryCoilEffectivenessNTU
+    redeclare final package Medium2 = Medium2,
+    final m1_flow_nominal=m1_flow_nominal,
+    final m2_flow_nominal=m2_flow_nominal,
+    final dp1_nominal=dp1_nominal,
+    final dp2_nominal=dp2_nominal) if
+      typ==Buildings.Templates.Types.HeatExchangerWater.DryCoilEffectivenessNTU
     "Dry coil"
     annotation (Placement(transformation(extent={{-10,-64},{10,-44}})));
 equation

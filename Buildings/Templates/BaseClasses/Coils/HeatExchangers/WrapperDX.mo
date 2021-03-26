@@ -2,12 +2,16 @@ within Buildings.Templates.BaseClasses.Coils.HeatExchangers;
 model WrapperDX "Wrapper class for DX coils"
   extends Buildings.Templates.Interfaces.HeatExchangerDX;
 
-  DXMultiStage mul(
-    redeclare final package Medium = Medium) if typ==Buildings.Templates.Types.HeatExchangerDX.DXMultiStage
+  replaceable DXMultiStage mul(
+    redeclare final package Medium = Medium,
+    final dp_nominal=dp_nominal) if
+      typ==Buildings.Templates.Types.HeatExchangerDX.DXMultiStage
     "Multistage"
     annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
-  DXVariableSpeed var(
-    redeclare final package Medium = Medium) if typ==Buildings.Templates.Types.HeatExchangerDX.DXVariableSpeed
+  replaceable DXVariableSpeed var(
+    redeclare final package Medium = Medium,
+    final dp_nominal=dp_nominal) if
+      typ==Buildings.Templates.Types.HeatExchangerDX.DXVariableSpeed
     "Variable speed"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 equation
