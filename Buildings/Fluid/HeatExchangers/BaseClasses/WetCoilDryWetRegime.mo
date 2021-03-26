@@ -187,7 +187,7 @@ protected
   Real mu_FW(final unit="1", min=0, max=1), mu_FD(unit="1",min=0, max=1)
     "Membership functions for Fully-Wet and Fully-Dry conditions";
   Real w_FW(final unit="1", min=0, max=1),  w_FD(unit="1",min=0, max=1)
-    "Normailized weight functions for Fully-Wet and Fully-Dry conditions";
+    "Normalized weight functions for Fully-Wet and Fully-Dry conditions";
   Real dryFra(final unit="1", min=0, max=1)
     "Dry fraction, e.g., 0.3 means condensation occurs at 30% HX length from air inlet";
 
@@ -378,7 +378,7 @@ equation
         coordinateSystem(preserveAspectRatio=false, extent={{-140,-120},{140,120}})),
     Documentation(revisions="<html>
 <ul>
-<li>Jan 21, 2021, by Donghun Kim:<br/>First implementation of the fuzzy model. 
+<li>Jan 21, 2021, by Donghun Kim:<br/>First implementation of the fuzzy model.
 See <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/622\">issue 622</a> for more information.
 </li>
 </ul>
@@ -389,13 +389,13 @@ This model implements the switching algorithm for the dry and wet regime.
 <p>
 The switching criteria for (counter-flow) cooling coil modes are as follows.</p>
 <p>
-R1: If the coil surface temperature at the air inlet is lower than the dew-point 
+R1: If the coil surface temperature at the air inlet is lower than the dew-point
 temperature at the inlet to the coil, then the cooling coil surface is fully-wet.</p>
 <p>
-R2: If the surface temperature at the air outlet section is higher than 
+R2: If the surface temperature at the air outlet section is higher than
 the dew-point temperature of the air at the inlet, then the cooling coil surface is fully-dry.</p>
 <p>
-At each point of a simulation time step, the fuzzy-modeling approach determines 
+At each point of a simulation time step, the fuzzy-modeling approach determines
 the weights for R1 and R2 respectively (namely <i>&mu;<sub>FW</sub></i> and <i>&mu;<sub>FD</sub></i>)
 from the dew-point and coil surface temperatures.</p>
 <p>

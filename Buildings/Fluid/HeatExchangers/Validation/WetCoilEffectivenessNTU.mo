@@ -109,7 +109,7 @@ model WetCoilEffectivenessNTU
     UA_nominal=UA_nominal,
     show_T=true,
     nEle=30,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     tau1=0.1,
     tau2=0.1,
     tau_m=0.1)
@@ -173,7 +173,8 @@ model WetCoilEffectivenessNTU
     "Source for water"
     annotation (Placement(transformation(extent={{-180,-30},{-160,-10}})));
   Modelica.Blocks.Sources.CombiTimeTable w_a2(table=[0,0.0035383; 1,0.01765],
-      timeScale=100) "Absolute humidity of entering air"
+      timeScale=1000)
+                     "Absolute humidity of entering air"
     annotation (Placement(transformation(extent={{196,-34},{176,-14}})));
 equation
   connect(pAir.y, wetBulIn.p) annotation (Line(points={{119,-30},{112,-30},{112,
@@ -262,11 +263,16 @@ model.
 </p>
 <h4>Validation</h4>
 <p>
-The example is a steady-state analysis of a wet coil with constant air
+The example simulates a wet coil with constant air
 and water inlet temperature and mass flow rate, and an increasing air inlet
 humidity which triggers the transition from a fully-dry to a fully-wet regime.
 The reference used for validation is the published experimental data.
-A discretized wet coil model is also simulated for comparison.
+A discretized wet coil model is also simulated for comparison. 
+To provide an accurate reference, the latter model is configured with 30 elements.
+Under steady-state modeling assumptions, this creates a large system of 
+non-linear equations. To alleviate this effect, dynamics are considered but
+the simulation time is increased to 1000 s to reproduce quasi steady-state 
+conditions.
 </p>
 <p>
 Note that the outlet air relative humidity may slightly exceed 100% when using

@@ -1,5 +1,5 @@
 ﻿simulateModel("Buildings.Fluid.HeatExchangers.Validation.WetCoilEffectivenessNTU",
-    stopTime=100,
+    stopTime=1000,
     method="cvode",
     tolerance=1e-6,
     resultFile="WetCoilEffectivenessNTU");
@@ -7,25 +7,28 @@ createPlot(
     id=1,
     position={59, 59, 1186, 1286},
     y={"hexWetNTU.Q1_flow", "hexDis.Q1_flow", "hexWetNTU_TX.Q1_flow"},
-    autoscale=true,
+    range = {0, 1000, 1E4, 1E5},
+    autoscale=false,
     autoerase=true,
     autoreplot=true,
     grid=true,
     color=true);
 createPlot(
     id=1,
-    subPlot=2,
     y={"hexWetNTU.sta_b2.T", "hexDis.sta_b2.T", "hexWetNTU_TX.sta_b2.T"},
-    autoscale=true,
+    range={0.0, 1000.0, 8.0, 16.0},
+    autoscale=false,
     autoerase=true,
     autoreplot=true,
     grid=true,
-    color=true);
+    color=true,
+    subPlot=102);
 createPlot(
     id=1,
     subPlot=3,
     y={"relHumOut_eps.phi", "relHumOut_dis.phi"},
-    autoscale=true,
+    range={0.0, 1000.0, 0.4, 1.1},
+    autoscale=false,
     autoerase=true,
     autoreplot=true,
     grid=true,
@@ -33,7 +36,7 @@ createPlot(
 createPlot(
     id=2,
     position={1255, 58, 1140, 1286},
-    y={"hexWetNTU.dryWetCalcs.dryFra", "hexDis.dryFra", "hexWetNTU.SHR"},
+    y={"hexWetNTU.SHR", "hexDis.SHR"},
     autoscale=true,
     autoerase=true,
     autoreplot=true,
@@ -42,15 +45,6 @@ createPlot(
 createPlot(
     id=2,
     subPlot=2,
-    y={"hexWetNTU.dryWetCalcs.w_FW","hexWetNTU.dryWetCalcs.w_FD"},
-    autoscale=true,
-    autoerase=true,
-    autoreplot=true,
-    grid=true,
-    color=true);
-createPlot(
-    id=3,
-    position={771, 947, 952, 562},
     y={"hexDis.UA_nominal", "hexWetNTU.UA_nominal", "hexWetNTU_TX.UA_nominal"},
     autoscale=true,
     autoerase=true,

@@ -8,11 +8,8 @@ compareVars :=
     "hexWetNTU_TX.sta_b2.T",
     "relHumOut_eps.phi",
     "relHumOut_dis.phi",
-    "hexWetNTU.dryWetCalcs.dryFra",
-    "hexDis.dryFra",
     "hexWetNTU.SHR",
-    "hexWetNTU.dryWetCalcs.w_FW",
-    "hexWetNTU.dryWetCalcs.w_FD",
+    "hexDis.SHR",
     "hexDis.UA_nominal",
     "hexWetNTU.UA_nominal",
     "hexWetNTU_TX.UA_nominal"
