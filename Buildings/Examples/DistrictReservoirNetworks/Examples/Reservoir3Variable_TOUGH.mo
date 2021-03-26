@@ -23,6 +23,26 @@ model Reservoir3Variable_TOUGH
   Modelica.Blocks.Sources.Constant massFlowMainPump(k(final unit="kg/s") = 0.5*
       datDes.mDisPip_flow_nominal)                    "Pump mass flow rate"
     annotation (Placement(transformation(extent={{0,-400},{20,-380}})));
+  BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
+        Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/Data/Examples/DistrictReservoirNetworks/Examples/CHE_Geneva.067000_IWEC.mos"))
+    annotation (Placement(transformation(extent={{-250,-480},{-230,-460}})));
+  BoundaryConditions.WeatherData.Bus weaBus "Weather Data Bus"
+    annotation (Placement(transformation(extent={{-210,-480},{-190,-460}}),
+        iconTransformation(extent={{-360,170},{-340,190}})));
+  Modelica.Blocks.Routing.RealPassThrough TOut(y(
+      final quantity="ThermodynamicTemperature",
+      final unit="K",
+      displayUnit="degC",
+      min=0))
+    annotation (Placement(transformation(extent={{-160,-480},{-140,-460}})));
+  Controls.OBC.CDL.Continuous.Sources.Sine           sin1(
+    amplitude=5,
+    freqHz=1/(8760*3600),
+    phase=0,
+    offset=273.15 + 10,
+    startTime=-270*24*3600)
+                  "Sine source block"
+    annotation (Placement(transformation(extent={{-160,-440},{-140,-420}})));
 equation
   connect(Tml5.T, conMaiPum.TMix[1]) annotation (Line(points={{86.6,-100},{28,
           -100},{28,-182},{-36,-182},{-36,-225.333},{-22,-225.333}}, color={0,0,127},
@@ -56,6 +76,24 @@ equation
   connect(pumpBHS.m_flow_in, gaiConMaiPum.y)
     annotation (Line(points={{50,-428},{50,-230},{40,-230}}, color={0,0,127},
       pattern=LinePattern.Dash));
+  connect(weaDat.weaBus, weaBus) annotation (Line(
+      points={{-230,-470},{-200,-470}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}},
+      horizontalAlignment=TextAlignment.Left));
+  connect(weaBus.TDryBul, TOut.u) annotation (Line(
+      points={{-200,-470},{-162,-470}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%first",
+      index=-1,
+      extent={{-6,3},{-6,3}},
+      horizontalAlignment=TextAlignment.Right));
+  connect(sin1.y, borFie.TOut) annotation (Line(points={{-138,-430},{-120,-430},
+          {-120,-470},{20,-470},{20,-448},{10,-448}}, color={0,0,127}));
   annotation (
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-320,-480},{380,360}})),
           __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Examples/DistrictReservoirNetworks/Examples/Reservoir3Variable_TOUGH.mos"

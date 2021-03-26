@@ -42,6 +42,18 @@ model OneUTubeWithTough
                                       annotation (Placement(transformation(
           extent={{100,90},{120,110}}), iconTransformation(extent={{100,90},{
             120,110}})));
+  Modelica.Blocks.Interfaces.RealOutput pInt[10]
+    "Pressure of the interested points" annotation (Placement(transformation(
+          extent={{100,-70},{120,-50}}), iconTransformation(extent={{100,-50},{
+            120,-30}})));
+  Modelica.Blocks.Interfaces.RealOutput xInt[10]
+    "Satuation of the interested points" annotation (Placement(transformation(
+          extent={{100,-82},{120,-62}}), iconTransformation(extent={{100,-70},{
+            120,-50}})));
+  Modelica.Blocks.Interfaces.RealOutput TInt[10]
+    "Temperature at the interested points" annotation (Placement(transformation(
+          extent={{100,-100},{120,-80}}), iconTransformation(extent={{100,-90},
+            {120,-70}})));
 protected
   Modelica.Blocks.Math.Sum QTotSeg_flow(final nin=nSeg, final k=ones(nSeg))
     "Total heat flow rate for all segments of this borehole"
@@ -58,6 +70,12 @@ equation
     annotation (Line(points={{41,80},{110,80}}, color={0,0,127}));
   connect(QTotSeg_flow.y, Q_flow_single) annotation (Line(points={{-19,80},{0,
           80},{0,100},{110,100}}, color={0,0,127}));
+  connect(toughRes.pInt, pInt) annotation (Line(points={{29,52},{36,52},{36,-60},
+          {110,-60}}, color={0,0,127}));
+  connect(toughRes.xInt, xInt) annotation (Line(points={{29,48},{36,48},{36,-72},
+          {110,-72}}, color={0,0,127}));
+  connect(toughRes.TInt, TInt) annotation (Line(points={{29,44},{36,44},{36,-90},
+          {110,-90}}, color={0,0,127}));
   annotation (
   defaultComponentName="borFie",
   Documentation(info="<html>

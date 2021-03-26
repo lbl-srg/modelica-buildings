@@ -19,12 +19,15 @@ def doStep(dblInp, state):
     Q = dblInp[:10]
     # Initial borehole wall temperature at the start of modelica simulation
     T_start = [dblInp[i] for i in range(10,20)]
+    # Current outdoor temperature
+    T_out = dblInp[-2]
     # Current time when needs to call TOUGH. This is also the end time of TOUGH simulation.
     tim = dblInp[-1]
 
     # Find the depth of each layer
     meshFile = os.path.join(py_dir, 'ToughFiles', 'MESH')
     toughLayers = find_layer_depth(meshFile)
+
     add_grid_boundary(toughLayers)
 
     # Find Modelica layers
@@ -38,10 +41,13 @@ def doStep(dblInp, state):
         # simulation domain, template files for TOUGH simulation, and utility programs
         copy_files(os.path.join(py_dir, 'ToughFiles'), tou_tmp)
         # Initialize the state
-        T_tough_start = mesh_to_mesh(toughLayers, modelicaLayers, T_start, 'Mo2To')
+        T_tough_start = mesh_to_mesh(toughLayers, modelicaLayers, T_start, 'T_Mo2To')
         state = {'tLast': tim, 'Q': Q, 'T_tough': T_tough_start}
         T_toModelica = T_start
-
+        p_Int = ident_set(101343.01, 10)
+        x_Int = ident_set(10.5, 10)
+        T_Int = ident_set(15.06+273.15, 10)
+        ToModelica = T_toModelica + p_Int + x_Int + T_Int
     else:
         # Use the python object
         tLast = state['tLast']
@@ -63,7 +69,7 @@ def doStep(dblInp, state):
             os.chdir(wor_dir)
 
             # T_toTough = mesh_to_mesh(toughLayer, modelicaLayers, state['T'], 'Mo2To')
-            Q_toTough = mesh_to_mesh(toughLayers, modelicaLayers, state['Q'], 'Mo2To')
+            Q_toTough = mesh_to_mesh(toughLayers, modelicaLayers, state['Q'], 'Q_Mo2To')
 
             # Check if there is 'GENER'. If the file does not exist, it means this is 
             # the first call of TOUGH simulation. There is no 'SAVE' yet so cannot call
@@ -90,7 +96,7 @@ def doStep(dblInp, state):
                 # each borehole segment to ground, from Modeica in previous call.
                 # The `T_tough` is the wall temperature of each borehole segment from
                 # last TOUGH simulation
-                update_writeincon('writeincon.inp', tLast, tim, state['T_tough'], Q_toTough)
+                update_writeincon('writeincon.inp', tLast, tim, state['T_tough'], Q_toTough, T_out)
 
                 # Generate TOUGH input files
                 os.system("./writeincon < writeincon.inp")
@@ -103,9 +109,13 @@ def doStep(dblInp, state):
 
             # Extract borehole wall temperature
             os.system("./readsave < readsave.inp > out.txt")
-            T_tough = borehole_temperature('out.txt')
+            data = extract_data('out.txt')
+            T_tough = data['T_Bor']
             # Output to Modelica simulation
             T_toModelica = mesh_to_mesh(toughLayers, modelicaLayers, T_tough, 'To2Mo')
+
+            # Outputs to Modelica
+            ToModelica = T_toModelica + data['p_Int'] + data['x_Int'] + data['T_Int']
 
             # Update state
             state = {'tLast': tim, 'Q': Q, 'T_tough': T_tough}
@@ -122,7 +132,15 @@ def doStep(dblInp, state):
             # Delete temporary working folder
             shutil.rmtree(wor_dir)
 
-    return [T_toModelica, state]
+    return [ToModelica, state]
+
+''' Create set of size num with identical value
+'''
+def ident_set(value, num):
+    results = []
+    for i in range(0, num):
+        results.append(value)
+    return results
 
 ''' Empty a folder
 '''
@@ -239,7 +257,7 @@ def add_grid_boundary(layers):
 '''
 def mesh_to_mesh(layers, modelicaLayers, variables, flag):
     values = []
-    if (flag == 'Mo2To'):
+    if (flag == 'T_Mo2To' or flag == 'Q_Mo2To'):
         for i in range(len(layers)):
             ub = (-1) * layers[i]['upperBound']
             lb = (-1) * layers[i]['lowerBound']
@@ -260,11 +278,20 @@ def mesh_to_mesh(layers, modelicaLayers, variables, flag):
                 else:
                     continue
             if (scenario == 1):
-                values.append(variables[j-1] * dz / (cuMe - preMe))
+                if (flag == 'Q_Mo2To'):
+                    values.append(variables[j-1] * dz / (cuMe - preMe))
+                else:
+                    values.append(variables[j-1])
             elif (scenario == 3):
-                values.append(variables[j-1] * (modelicaLayers[-1]-ub) / (cuMe - preMe))
+                if (flag == 'Q_Mo2To'):
+                    values.append(variables[j-1] * (modelicaLayers[-1]-ub) / (cuMe - preMe))
+                else:
+                    values.append(variables[j-1])
             else:
-                values.append(((cuMe - ub)*variables[j-1] + (lb-cuMe)*variables[j])/(cuMe - preMe))
+                if (flag == 'Q_Mo2To'):
+                    values.append(((cuMe - ub)*variables[j-1] + (lb-cuMe)*variables[j])/(cuMe - preMe))
+                else:
+                    values.append(((cuMe - ub)*variables[j-1] + (lb-cuMe)*variables[j])/(lb - up))
     else: 
         # (flag == 'To2Mo')
         for i in range(0, len(modelicaLayers)-1):
@@ -290,7 +317,7 @@ def mesh_to_mesh(layers, modelicaLayers, variables, flag):
 ''' Update the `writeincon.inp` file with the current time and state values that are
     seem as initial values of current TOUGH simulation
 '''
-def update_writeincon(infile, preTim, curTim, boreholeTem, heatFlux):
+def update_writeincon(infile, preTim, curTim, boreholeTem, heatFlux, T_out):
     fin = open(infile)
     fout = open('temp', 'wt')
     count = 0
@@ -312,6 +339,9 @@ def update_writeincon(infile, preTim, curTim, boreholeTem, heatFlux):
         elif (count >= 44 and count <= 76):
             tempStr = '% 10.3f' % heatFlux[count-44]
             fout.write(tempStr.strip() + os.linesep)
+        elif (count == 78):
+            tempStr = '% 10.3f' % (T_out - 273.15)
+            fout.write(tempStr.strip() + os.linesep)
         else:
             fout.write(line)
     fin.close()
@@ -319,15 +349,29 @@ def update_writeincon(infile, preTim, curTim, boreholeTem, heatFlux):
     os.remove(infile)
     os.rename('temp', infile)
 
-''' Extract the borehole temperature from TOUGH simulation results
+''' Extract the borehole temperature, and p, x and temperatures of interested points from TOUGH simulation results
 '''
-def borehole_temperature(outFile):
-    data = []
+def extract_data(outFile):
+    T_Bor = []
+    T_Int = []
+    p_Int = []
+    x_Int = []
     fin = open(outFile)
     count = 0
     for line in fin:
+        print (line)
         count += 1
         if count <= 33:
-            data.append(float(line.strip())+273.15)
+            T_Bor.append(float(line.strip())+273.15)
+        if (count > 34 and count <= 44):
+            temp = line.split()
+            p_Int.append(float(temp[2].strip()))
+            x_Int.append(float(temp[3].strip()))
+            T_Int.append(float(temp[4].strip())+273.15)
+    data = {
+        'T_Bor': T_Bor,
+        'p_Int': p_Int,
+        'x_Int': x_Int,
+        'T_Int': T_Int
+    }
     return data
-
