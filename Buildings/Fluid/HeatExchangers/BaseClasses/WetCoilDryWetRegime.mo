@@ -160,7 +160,7 @@ model WetCoilDryWetRegime
     final pAir=pAir,
     final X_wAirIn=X_wAirIn) "Fully-wet coil model";
 
-  Real dryFra(final unit="1", min=0, max=1) = dryWetCalcs.dryFra
+  Real dryFra(final unit="1", min=0, max=1)
     "Dry fraction, 0.3 means condensation occurs at 30% heat exchange length from air inlet";
 protected
   Modelica.SIunits.MassFlowRate mAirNonZer_flow(min=Modelica.Constants.eps)=
