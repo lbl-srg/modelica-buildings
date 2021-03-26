@@ -1,14 +1,15 @@
 within Buildings.ThermalZones.EnergyPlus.BaseClasses;
-partial model PartialEnergyPlusObject
+partial block PartialEnergyPlusObject
   "Partial definitions of an EnergyPlus object"
   extends Modelica.Blocks.Icons.Block;
+
   outer Buildings.ThermalZones.EnergyPlus.Building building
     "Building-level declarations";
 protected
   constant String modelicaNameBuilding=building.modelicaNameBuilding
     "Name of the building to which this output variable belongs to"
     annotation (HideResult=true);
-  constant String modelicaNameOutputVariable=getInstanceName()
+  constant String modelicaInstanceName=getInstanceName()
     "Name of this instance"
     annotation (HideResult=true);
   final parameter String idfName=building.idfName
@@ -27,13 +28,15 @@ protected
   parameter Modelica.SIunits.Time startTime(
     fixed=false)
     "Simulation start time";
+
   function round
     input Real u;
     input Real accuracy;
     output Real y;
   algorithm
     y :=
-      if(u > 0) then
+      if
+        (u > 0) then
         floor(
           u/accuracy+0.5)*accuracy
       else
@@ -57,6 +60,11 @@ Partial model for an EnergyPlus object.
 </html>",
       revisions="<html>
 <ul>
+<li>
+February 18, 2021, by Michael Wetter:<br/>
+Refactor synchronization of constructors.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2360\">#2360</a>.
+</li>
 <li>
 April 04, 2018, by Thierry S. Nouidui:<br/>
 Added additional parameters for parametrizing

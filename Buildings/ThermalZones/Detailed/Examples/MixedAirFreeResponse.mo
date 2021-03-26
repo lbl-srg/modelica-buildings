@@ -176,8 +176,8 @@ Buildings.ThermalZones.Detailed.MixedAir</a>.
 </p>
 <p>
 The geometry, materials and constructions of the model are consistent with those of
-<a href=\"modelica://Buildings.Examples.VAVReheat.ThermalZones.Floor\">
-Buildings.Examples.VAVReheat.ThermalZones.Floor</a>
+<a href=\"modelica://Buildings.Examples.VAVReheat.BaseClasses.Floor\">
+Buildings.Examples.VAVReheat.BaseClasses.Floor</a>
 but here they are modelled as a single thermal zone.
 The model is representative for one floor of the
 new construction medium office building for Chicago, IL,

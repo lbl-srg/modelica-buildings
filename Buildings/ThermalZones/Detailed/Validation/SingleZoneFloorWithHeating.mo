@@ -25,7 +25,7 @@ model SingleZoneFloorWithHeating
   parameter Modelica.SIunits.Volume VRoo=VRooSou+VRooEas+VRooNor+VRooWes+VRooCor
     "Total floor volume";
 
-  Buildings.Examples.VAVReheat.ThermalZones.Floor flo(
+  Buildings.Examples.VAVReheat.BaseClasses.Floor flo(
     redeclare package Medium = Medium,
     use_windPressure=false,
     lat=lat,
@@ -33,7 +33,8 @@ model SingleZoneFloorWithHeating
     annotation (Placement(transformation(extent={{-8,48},{48,108}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
     filNam=Modelica.Utilities.Files.loadResource(
-      "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
+      "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"),
+      computeWetBulbTemperature=false)
     "Weather data"
     annotation (Placement(transformation(extent={{-40,134},{-20,154}})));
   Buildings.ThermalZones.Detailed.Validation.BaseClasses.SingleZoneFloor sinZonFlo(
@@ -42,7 +43,7 @@ model SingleZoneFloorWithHeating
     lat=lat,
     gai(K=0*[0.4; 0.4; 0.2]))
     "Single-zone floor model"
-    annotation (Placement(transformation(extent={{-4,98},{36,138}})));
+    annotation (Placement(transformation(extent={{66,106},{106,146}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetRoo(k=273.15 + 22,
       y(unit="K", displayUnit="degC")) "Setpoint for room air"
     annotation (Placement(transformation(extent={{-120,84},{-100,104}})));
@@ -81,43 +82,47 @@ model SingleZoneFloorWithHeating
     annotation (Placement(transformation(extent={{-60,-140},{-40,-120}})));
 equation
   connect(weaDat.weaBus, flo.weaBus) annotation (Line(
-      points={{-20,144},{46,144},{46,78},{29,78}},
+      points={{-20,144},{28,144},{28,112.615},{27.3043,112.615}},
       color={255,204,51},
       thickness=0.5));
   connect(weaDat.weaBus, sinZonFlo.weaBus) annotation (Line(
-      points={{-20,144},{2.8,144},{2.8,135}},
+      points={{-20,144},{72.8,144},{72.8,143}},
       color={255,204,51},
       thickness=0.5));
   connect(TSetRoo.y, heaAndCon.TSetRoo)   annotation (Line(points={{-98,94},{
           -62,94}}, color={0,0,127},
       pattern=LinePattern.Dash));
   connect(heaAndCon.port_a, sinZonFlo.ports[1]) annotation (Line(points={{-60,100},
-          {-66,100},{-66,118},{6,118},{6,106},{3.8,106}},
+          {-66,100},{-66,118},{74,118},{74,114},{73.8,114}},
                                           color={0,127,255}));
   connect(heaAndCon.port_b, sinZonFlo.ports[2]) annotation (Line(points={{-40,100},
-          {6,100},{6,106},{5.8,106}},                      color={0,127,255}));
+          {-30,100},{-30,118},{74,118},{74,114},{75.8,114}},
+                                                           color={0,127,255}));
   connect(heaAndConNor.port_b, flo.portsNor[2]) annotation (Line(points={{-40,32},
-          {-20,32},{-20,70.6},{18,70.6}},        color={0,127,255}));
+          {-20,32},{-20,93.2308},{14.887,93.2308}},
+                                                 color={0,127,255}));
   connect(heaAndConWes.port_a, flo.portsWes[1]) annotation (Line(points={{-60,-10},
-          {-68,-10},{-68,6},{-8,6},{-8,62.6},{4,62.6}},
+          {-68,-10},{-68,6},{-8,6},{-8,77.5385},{-2.64348,77.5385}},
                                               color={0,127,255}));
   connect(heaAndConWes.port_b, flo.portsWes[2]) annotation (Line(points={{-40,-10},
-          {-4,-10},{-4,62.6},{6,62.6}},           color={0,127,255}));
+          {-4,-10},{-4,77.5385},{-0.208696,77.5385}},
+                                                  color={0,127,255}));
   connect(heaAndConCor.port_a, flo.portsCor[1]) annotation (Line(points={{-60,-50},
-          {-68,-50},{-68,-34},{8,-34},{8,62.6},{16,62.6}},
+          {-68,-50},{-68,-34},{8,-34},{8,77.5385},{12.4522,77.5385}},
                                                  color={0,127,255}));
   connect(heaAndConCor.port_b, flo.portsCor[2]) annotation (Line(points={{-40,-50},
-          {10,-50},{10,62.6},{18,62.6}},           color={0,127,255}));
+          {10,-50},{10,77.5385},{14.887,77.5385}}, color={0,127,255}));
   connect(heaAndConSou.port_a, flo.portsSou[1]) annotation (Line(points={{-60,-90},
-          {-68,-90},{-68,-74},{16,-74},{16,54.6}},
+          {-68,-90},{-68,-74},{12.4522,-74},{12.4522,60.9231}},
                                          color={0,127,255}));
   connect(heaAndConSou.port_b, flo.portsSou[2]) annotation (Line(points={{-40,-90},
-          {18,-90},{18,54.6}},             color={0,127,255}));
-  connect(heaAndConEas.port_a, flo.portsEas[1]) annotation (Line(points={{-60,-130},
-          {-68,-130},{-68,-114},{40.4,-114},{40.4,61.6}},
+          {14.887,-90},{14.887,60.9231}},  color={0,127,255}));
+  connect(heaAndConEas.port_a, flo.portsEas[1]) annotation (Line(points={{-60,
+          -130},{-68,-130},{-68,-114},{40.2087,-114},{40.2087,77.5385}},
                                                color={0,127,255}));
-  connect(heaAndConEas.port_b, flo.portsEas[2]) annotation (Line(points={{-40,-130},
-          {44,-130},{44,61.6},{42.4,61.6}},            color={0,127,255}));
+  connect(heaAndConEas.port_b, flo.portsEas[2]) annotation (Line(points={{-40,
+          -130},{44,-130},{44,77.5385},{42.6435,77.5385}},
+                                                       color={0,127,255}));
   connect(TSetRoo.y, heaAndConNor.TSetRoo) annotation (Line(points={{-98,94},{
           -80,94},{-80,26},{-62,26}},
                                   color={0,0,127},
@@ -138,21 +143,25 @@ equation
           -80,94},{-80,-136},{-62,-136}},
                                       color={0,0,127},
       pattern=LinePattern.Dash));
-  connect(flo.TRooAir[3], heaAndConNor.TRooMea) annotation (Line(points={{47,74},
-          {56,74},{56,14},{-68,14},{-68,23},{-62,23}},
+  connect(flo.TRooAir[3], heaAndConNor.TRooMea) annotation (Line(points={{49.2174,
+          78},{56,78},{56,14},{-68,14},{-68,23},{-62,23}},
                                                      color={0,0,127},
       pattern=LinePattern.Dash));
-  connect(flo.TRooAir[4], heaAndConWes.TRooMea) annotation (Line(points={{47,74.4},
-          {56,74.4},{56,-28},{-66,-28},{-66,-19},{-62,-19}}, color={0,0,127},
+  connect(flo.TRooAir[4], heaAndConWes.TRooMea) annotation (Line(points={{49.2174,
+          78.9231},{56,78.9231},{56,-28},{-66,-28},{-66,-19},{-62,-19}},
+                                                             color={0,0,127},
       pattern=LinePattern.Dash));
-  connect(flo.TRooAir[5], heaAndConCor.TRooMea) annotation (Line(points={{47,74.8},
-          {56,74.8},{56,-68},{-66,-68},{-66,-59},{-62,-59}}, color={0,0,127},
+  connect(flo.TRooAir[5], heaAndConCor.TRooMea) annotation (Line(points={{49.2174,
+          79.8462},{56,79.8462},{56,-68},{-66,-68},{-66,-59},{-62,-59}},
+                                                             color={0,0,127},
       pattern=LinePattern.Dash));
-  connect(flo.TRooAir[1], heaAndConSou.TRooMea) annotation (Line(points={{47,73.2},
-          {56,73.2},{56,-108},{-66,-108},{-66,-99},{-62,-99}},   color={0,0,127},
+  connect(flo.TRooAir[1], heaAndConSou.TRooMea) annotation (Line(points={{49.2174,
+          76.1538},{56,76.1538},{56,-108},{-66,-108},{-66,-99},{-62,-99}},
+                                                                 color={0,0,127},
       pattern=LinePattern.Dash));
-  connect(flo.TRooAir[2], heaAndConEas.TRooMea) annotation (Line(points={{47,73.6},
-          {56,73.6},{56,-148},{-66,-148},{-66,-139},{-62,-139}}, color={0,0,127},
+  connect(flo.TRooAir[2], heaAndConEas.TRooMea) annotation (Line(points={{49.2174,
+          77.0769},{56,77.0769},{56,-148},{-66,-148},{-66,-139},{-62,-139}},
+                                                                 color={0,0,127},
       pattern=LinePattern.Dash));
   connect(heaAndConNor.yEHea, EHeaFlo.u[1]) annotation (Line(points={{-38,24},{70,
           24},{70,-38.4},{78,-38.4}}, color={0,0,127},
@@ -170,9 +179,11 @@ equation
           {70,-138},{70,-40.5},{78,-40.5},{78,-41.6}}, color={0,0,127},
       pattern=LinePattern.Dash));
   connect(heaAndConNor.port_a, flo.portsNor[1]) annotation (Line(points={{-60,32},
-          {-68,32},{-68,70.6},{16,70.6}}, color={0,127,255}));
+          {-68,32},{-68,60},{-26,60},{-26,93.2308},{12.4522,93.2308}},
+                                          color={0,127,255}));
   connect(sinZonFlo.TRooAir, heaAndCon.TRooMea) annotation (Line(
-      points={{33,128.2},{42,128.2},{42,82},{-66,82},{-66,91},{-62,91}},
+      points={{103,136.2},{106,136.2},{106,136},{108,136},{108,158},{-68,158},{
+          -68,91},{-62,91}},
       color={0,0,127},
       pattern=LinePattern.Dash));
   annotation (
@@ -188,8 +199,8 @@ This model compares the heating energy demand of a single-zone floor model
 <a href=\"modelica://Buildings.ThermalZones.Detailed.Validation.BaseClasses.SingleZoneFloor\">
 Buildings.ThermalZones.Detailed.Validation.BaseClasses.SingleZoneFloor</a>
 with the total heating energy demand of a five-zone floor model
-<a href=\"modelica://Buildings.Examples.VAVReheat.ThermalZones.Floor\">
-Buildings.Examples.VAVReheat.ThermalZones.Floor</a>.
+<a href=\"modelica://Buildings.Examples.VAVReheat.BaseClasses.Floor\">
+Buildings.Examples.VAVReheat.BaseClasses.Floor</a>.
 </p>
 <p>
 The nominal mass flowrate of the single zone floor model is consistent with the

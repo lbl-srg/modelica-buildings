@@ -143,7 +143,7 @@ Model with basic thermodynamic properties.
 <p>
 This model provides equation for the following thermodynamic properties:
 </p>
-<table border=1 cellspacing=0 cellpadding=2 summary=\"Thermodynamic properties\">
+<table border=\"1\" cellspacing=\"0\" cellpadding=\"2\" summary=\"Thermodynamic properties\">
   <tr><td><strong>Variable</strong></td>
       <td><strong>Unit</strong></td>
       <td><strong>Description</strong></td></tr>

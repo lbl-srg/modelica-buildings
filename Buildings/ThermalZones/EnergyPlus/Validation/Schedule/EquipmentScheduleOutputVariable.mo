@@ -1,13 +1,12 @@
 within Buildings.ThermalZones.EnergyPlus.Validation.Schedule;
 model EquipmentScheduleOutputVariable
   "Validation case with a schedule that is not sampled, and output reader of the energy affected by the scheduled value"
-  extends Buildings.ThermalZones.EnergyPlus.Validation.Schedule.EquipmentSchedule;
+  extends Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse.EquipmentSchedule;
   Buildings.ThermalZones.EnergyPlus.OutputVariable equEle(
     name="Zone Electric Equipment Electricity Rate",
     key="LIVING ZONE",
     isDirectDependent=true,
-    y(
-      final unit="W"))
+    y(final unit="W"))
     "Block that reads output from EnergyPlus"
     annotation (Placement(transformation(extent={{0,70},{20,90}})));
   Utilities.Diagnostics.AssertEquality assEqu(
