@@ -129,9 +129,9 @@ initial equation
     "Rather specify nominal conditions in fully-dry or fully-wet regime.",
     level=AssertionLevel.warning);
 
-  assert(use_UA_nominal or TAirOut<TAirIn and TWatOut>TWatIn and TWatIn<TAirIn,
-    "The rated condition is not for a cooling coil. " +
-    "For a heating coil, use Buildings.Fluid.HeatExchangers.DryCoilEffectivenessNTU.");
+//   assert(use_UA_nominal or TAirOut<TAirIn and TWatOut>TWatIn and TWatIn<TAirIn,
+//     "The rated condition is not for a cooling coil. " +
+//     "For a heating coil, use Buildings.Fluid.HeatExchangers.DryCoilEffectivenessNTU.");
 
   if not use_UA_nominal then
     if isFulDry then
