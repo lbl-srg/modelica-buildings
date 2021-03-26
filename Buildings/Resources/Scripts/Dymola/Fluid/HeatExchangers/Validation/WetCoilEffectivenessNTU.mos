@@ -45,6 +45,15 @@ createPlot(
 createPlot(
     id=2,
     subPlot=2,
+    y={"hexWetNTU.dryFra"},
+    autoscale=true,
+    autoerase=true,
+    autoreplot=true,
+    grid=true,
+    color=true);
+createPlot(
+    id=2,
+    subPlot=3,
     y={"hexDis.UA_nominal", "hexWetNTU.UA_nominal", "hexWetNTU_TX.UA_nominal"},
     autoscale=true,
     autoerase=true,

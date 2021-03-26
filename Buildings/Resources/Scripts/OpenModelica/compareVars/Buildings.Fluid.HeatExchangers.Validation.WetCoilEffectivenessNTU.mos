@@ -10,6 +10,7 @@ compareVars :=
     "relHumOut_dis.phi",
     "hexWetNTU.SHR",
     "hexDis.SHR",
+    "hexWetNTU.dryFra",
     "hexDis.UA_nominal",
     "hexWetNTU.UA_nominal",
     "hexWetNTU_TX.UA_nominal"
