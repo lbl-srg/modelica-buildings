@@ -84,6 +84,8 @@ model WetCoilEffectivenessNTU
   Modelica.SIunits.MassFlowRate mWat_flow = dryWetCalcs.mCon_flow
     "Water flow rate of condensate removed from the air stream";
 
+  Real dryFra(final unit="1", min=0, max=1) = dryWetCalcs.dryFra
+    "Dry fraction, 0.3 means condensation occurs at 30% heat exchange length from air inlet";
 protected
   final parameter Modelica.SIunits.MassFraction X_w_a2_nominal=w_a2_nominal/(1+w_a2_nominal)
     "Water mass fraction of inlet air at a rated condition (in kg/kg total air)";
