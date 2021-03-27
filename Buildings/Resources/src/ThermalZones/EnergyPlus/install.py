@@ -95,9 +95,6 @@ def get_vars_as_json(spawnFlag):
         vars = sorted(vars, key = lambda i: i['name'])
     else:
         vars = sorted(vars, key = lambda i: (i['componentType'], i['controlType']))
-
-    print("\n")
-    print(vars)
     return vars
 
 
@@ -188,8 +185,8 @@ if __name__ == "__main__":
         }
     )
 
-    #p = Pool(2)
-    #p.map(get_distribution, dists)
+    p = Pool(2)
+    p.map(get_distribution, dists)
     vars = [
         {
             "spawnFlag": "--output-vars",
