@@ -300,7 +300,7 @@ DOE(2015) EnergyPlus documentation v8.4.0 - Engineering Reference.
 April 14, 2020, by Michael Wetter:<br/>
 Changed <code>homotopyInitialization</code> to a constant.<br/>
 This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1341\">Buildings, #1341</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1341\">IBPSA, #1341</a>.
 </li>
 <li>
 January 18, 2019, by Jianjun Hu:<br/>

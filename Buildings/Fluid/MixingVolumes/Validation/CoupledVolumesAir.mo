@@ -18,7 +18,7 @@ This tests whether a Modelica translator can perform the index reduction.
 <li>
 April 17, 2018, by Michael Wetter:<br/>
 First implementation for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/910\">Buildings, issue 910</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/910\">IBPSA, issue 910</a>.
 </li>
 </ul>
 </html>"),
