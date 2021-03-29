@@ -1,12 +1,15 @@
 within Buildings.Templates.Interfaces;
 partial model HeatExchangerDX
-  // Air medium needed for type compatibility with DX coil models
-  extends Fluid.Interfaces.PartialTwoPortInterface(
+  // Air medium needed for type compatibility with DX coil models.
+  // And binding of m_flow_nominal with performance data record parameter.
+  extends Fluid.Interfaces.PartialTwoPort(
     redeclare package Medium=Buildings.Media.Air);
 
   parameter Types.HeatExchangerDX typ
     "Type of heat exchanger"
     annotation (Evaluate=true, Dialog(group="Configuration"));
+  // DX coils get nominal air flow rate from data record.
+  // Only the air pressure drop needs to be declared.
   parameter Modelica.SIunits.PressureDifference dp_nominal
     "Air pressure drop"
     annotation (Dialog(group="Nominal condition"));

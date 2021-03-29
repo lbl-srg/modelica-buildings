@@ -102,7 +102,7 @@ model VAVSingleDuctWrapper "VAV single duct with relief"
       Evaluate=true);
 
   parameter Buildings.Templates.Types.HeatExchangerWater typCoiCooWat=
-    Buildings.Templates.Types.HeatExchangerWater.DryCoilEffectivenessNTU
+    Buildings.Templates.Types.HeatExchangerWater.WetCoilCounterFlow
     "Type of water-based cooling coil"
     annotation (
       Dialog(

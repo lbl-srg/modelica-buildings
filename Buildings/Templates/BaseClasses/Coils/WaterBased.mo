@@ -5,6 +5,25 @@ model WaterBased
     final have_sou=true,
     final have_weaBus=false);
 
+  inner parameter Modelica.SIunits.MassFlowRate mAir_flow_nominal(min=0)=
+    dat.getReal(varName=id + "." + funStr + " coil.Air mass flow rate")
+    "Air mass flow rate"
+    annotation (Dialog(
+      group="Nominal condition"),
+      Evaluate=true);
+    // Templates.BaseClasses.getReal(
+    //   id + "." + funStr + " coil.Air mass flow rate",
+    //   dat.fileName)
+  inner parameter Modelica.SIunits.PressureDifference dpAir_nominal(
+    displayUnit="Pa")=
+    dat.getReal(varName=id + "." + funStr + " coil.Air pressure drop")
+    "Air pressure drop"
+    annotation (
+      Dialog(group="Nominal condition"),
+      Evaluate=true);
+    // Templates.BaseClasses.getReal(
+    //   id + "." + funStr + " coil.Air pressure drop",
+    //   dat.fileName)
   inner parameter Modelica.SIunits.MassFlowRate mWat_flow_nominal(min=0)=
     dat.getReal(varName=id + "." + funStr + " coil.Liquid mass flow rate")
     "Liquid mass flow rate"
@@ -21,15 +40,14 @@ model WaterBased
     //   id + "." + funStr + " coil.Liquid pressure drop",
     //   dat.fileName)
 
-  Actuators.Wrapper act(
+  replaceable Actuators.Wrapper act(
     final typ=typAct,
     redeclare final package Medium = MediumSou)
     "Actuator"
     annotation (
       Placement(transformation(extent={{-10,-70},{10,-50}})));
 
-  // TODO: conditional choices based on funStr to restrict HX models for cooling.
-  HeatExchangers.WrapperWater hex(
+  replaceable HeatExchangers.WrapperWater hex(
     final typ=typHexWat,
     redeclare final package Medium1 = MediumSou,
     redeclare final package Medium2 = MediumAir,

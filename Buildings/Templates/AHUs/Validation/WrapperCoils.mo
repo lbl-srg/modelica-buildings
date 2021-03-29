@@ -1,7 +1,11 @@
 within Buildings.Templates.AHUs.Validation;
 model WrapperCoils
   extends BaseNoEquipment(
-    redeclare UserProject.AHUs.WrapperCoils ahu);
+    redeclare UserProject.AHUs.WrapperCoils ahu(coiCoo(dx(hex(mul(redeclare
+                Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.DoubleSpeed.Lennox_KCA120S4
+                datCoi), var(redeclare
+                Fluid.HeatExchangers.DXCoils.AirCooled.Data.DoubleSpeed.Lennox_KCA120S4
+                datCoi))))));
 
   Fluid.Sources.Boundary_pT bou2(redeclare final package Medium = MediumHea,
       nPorts=1)

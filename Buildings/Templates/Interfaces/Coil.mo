@@ -31,25 +31,6 @@ partial model Coil
   parameter Boolean have_weaBus = false
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
-  inner parameter Modelica.SIunits.MassFlowRate mAir_flow_nominal(min=0) = if
-    typ <> Types.Coil.None then
-    dat.getReal(varName=id + "." + funStr + " coil.Air mass flow rate") else 0
-    "Air mass flow rate"
-    annotation (Dialog(
-        group="Nominal condition", enable=typ <> Types.Coil.None), Evaluate=
-        true);
-    // Templates.BaseClasses.getReal(
-    //   id + "." + funStr + " coil.Air mass flow rate",
-    //   dat.fileName)
-  inner parameter Modelica.SIunits.PressureDifference dpAir_nominal(displayUnit=
-       "Pa") = if typ <> Types.Coil.None then dat.getReal(varName=id + "." +
-    funStr + " coil.Air pressure drop") else 0 "Air pressure drop" annotation (
-      Dialog(group="Nominal condition", enable=typ <> Types.Coil.None),
-      Evaluate=true);
-    // Templates.BaseClasses.getReal(
-    //   id + "." + funStr + " coil.Air pressure drop",
-    //   dat.fileName)
-
   outer parameter String id
     "System identifier";
   outer parameter ExternData.JSONFile dat

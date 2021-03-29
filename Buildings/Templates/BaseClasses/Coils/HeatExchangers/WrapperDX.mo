@@ -7,13 +7,17 @@ model WrapperDX "Wrapper class for DX coils"
     final dp_nominal=dp_nominal) if
       typ==Buildings.Templates.Types.HeatExchangerDX.DXMultiStage
     "Multistage"
-    annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
+    annotation (
+      Dialog(enable=typ==Buildings.Templates.Types.HeatExchangerDX.DXMultiStage),
+      Placement(transformation(extent={{-40,30},{-20,50}})));
   replaceable DXVariableSpeed var(
     redeclare final package Medium = Medium,
     final dp_nominal=dp_nominal) if
       typ==Buildings.Templates.Types.HeatExchangerDX.DXVariableSpeed
     "Variable speed"
-    annotation (Placement(transformation(extent={{20,-10},{40,10}})));
+    annotation (
+      Dialog(enable=typ==Buildings.Templates.Types.HeatExchangerDX.DXVariableSpeed),
+      Placement(transformation(extent={{20,-10},{40,10}})));
 equation
   connect(port_a, var.port_a)
     annotation (Line(points={{-100,0},{20,0}}, color={0,127,255}));

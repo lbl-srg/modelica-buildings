@@ -4,20 +4,21 @@ model Wrapper "Wrapper class for coil models"
     final have_weaBus=typ==Buildings.Templates.Types.Coil.DirectExpansion,
     final have_sou=typ==Buildings.Templates.Types.Coil.WaterBased);
 
+  // DX coil assign its nominal mass flow rate based on data record.
   replaceable DirectExpansion dx(
     final typHexDX=typHexDX,
     final typHexWat=typHexWat,
     final typAct=typAct,
-    redeclare final package MediumAir = MediumAir,
-    final mAir_flow_nominal=mAir_flow_nominal,
-    final dpAir_nominal=dpAir_nominal) if typ==Buildings.Templates.Types.Coil.DirectExpansion
+    redeclare final package MediumAir = MediumAir) if
+      typ==Buildings.Templates.Types.Coil.DirectExpansion
     "Direct expansion"
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
   None non(
     final typHexDX=typHexDX,
     final typHexWat=typHexWat,
     final typAct=typAct,
-    redeclare final package MediumAir = MediumAir) if typ==Buildings.Templates.Types.Coil.None
+    redeclare final package MediumAir = MediumAir) if
+      typ==Buildings.Templates.Types.Coil.None
     "No coil"
     annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
   replaceable WaterBased wat(
@@ -25,9 +26,8 @@ model Wrapper "Wrapper class for coil models"
     final typHexWat=typHexWat,
     final typAct=typAct,
     redeclare final package MediumSou = MediumSou,
-    redeclare final package MediumAir = MediumAir,
-    final mAir_flow_nominal=mAir_flow_nominal,
-    final dpAir_nominal=dpAir_nominal) if typ==Buildings.Templates.Types.Coil.WaterBased
+    redeclare final package MediumAir = MediumAir) if
+      typ==Buildings.Templates.Types.Coil.WaterBased
     "Water-based"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 equation

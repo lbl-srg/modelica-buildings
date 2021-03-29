@@ -8,10 +8,19 @@ model DirectExpansion
   inner parameter Boolean have_dryCon = true
     "Set to true for purely sensible cooling of the condenser";
 
-  HeatExchangers.WrapperDX hex(
+  // DX coils get their nomianl flow rate assigned from the data record.
+  // Only the air pressure drop needs to be declared.
+  inner parameter Modelica.SIunits.PressureDifference dpAir_nominal(
+    displayUnit="Pa")=
+    dat.getReal(varName=id + "." + funStr + " coil.Air pressure drop")
+    "Air pressure drop"
+    annotation (
+      Dialog(group="Nominal condition"),
+      Evaluate=true);
+
+  replaceable HeatExchangers.WrapperDX hex(
     final typ=typHexDX,
     redeclare final package Medium = MediumAir,
-    final m_flow_nominal=mAir_flow_nominal,
     final dp_nominal=dpAir_nominal)
     "Heat exchanger"
     annotation (
