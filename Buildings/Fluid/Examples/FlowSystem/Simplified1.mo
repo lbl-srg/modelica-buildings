@@ -27,7 +27,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-experiment(StopTime=50, Tolerance=1e-09),
+experiment(StopTime=1000, Tolerance=1e-06),
 __Dymola_Commands(file=
           "Resources/Scripts/Dymola/Fluid/Examples/FlowSystem/Simplified1.mos"
         "Simulate and plot"));

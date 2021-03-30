@@ -502,7 +502,7 @@ have been <b style=\"color:blue\">improved</b> in a
     <td valign=\"top\">Upgraded sequence of specifying operating mode according to G36 official release.<br/>
                        This is for
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1893\">issue 1893</a>.
-    </td>               
+    </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Examples.VAVReheat.Guideline36
     </td>
@@ -518,7 +518,7 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2399\">#2399</a>.
     </td>
-</tr>            
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
     </td>
 </tr>
@@ -580,6 +580,15 @@ have been <b style=\"color:blue\">improved</b> in a
     <td valign=\"top\">Improved implementation, which now works with OpenModelica.<br/>
                        This is for
                        <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1414\">IBPSA, issue 1414</a>.
+    </td>
+</tr>
+
+<tr><td colspan=\"2\"><b>Buildings.Utilities</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Utilities.Cryptographics.sha
+    </td>
+    <td valign=\"top\">Corrected memory leak.
     </td>
 </tr>
 </table>
