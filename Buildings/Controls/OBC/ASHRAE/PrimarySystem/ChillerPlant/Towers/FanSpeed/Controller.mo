@@ -1,4 +1,4 @@
-within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Towers.FanSpeed;
+﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Towers.FanSpeed;
 block Controller "Tower fan speed control"
 
   parameter Integer nChi=2 "Total number of chillers";
@@ -232,6 +232,7 @@ block Controller "Tower fan speed control"
     final fanSpeMin=fanSpeMin,
     final LIFT_min=LIFT_min,
     final TConWatRet_nominal=TConWatRet_nominal,
+    final TConWatSup_nominal=TConWatSup_nominal,
     final TChiWatSupMin=TChiWatSupMin,
     final cheMinFanSpe=cheMinFanSpe,
     final cheMaxTowSpe=cheMaxTowSpe,
