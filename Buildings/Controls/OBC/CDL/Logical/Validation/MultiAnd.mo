@@ -86,7 +86,6 @@ The input signals are configured as follows:</p>
 <li>input <i>u<sub>5</sub></i> has a period of <i>5</i> s and a width of
 <i>0.5</i> s.</li>
 </ul>
-
 </html>",
       revisions="<html>
 <ul>

@@ -43,7 +43,6 @@ February 22, 2017, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-
 </html>"),
     Icon(
       graphics={

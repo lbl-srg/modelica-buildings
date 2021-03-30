@@ -142,7 +142,6 @@ March 29, 2017, by Jianjun Hu:<br/>
 First implementation.
 </li>
 </ul>
-
 </html>"),
     Diagram(
       coordinateSystem(

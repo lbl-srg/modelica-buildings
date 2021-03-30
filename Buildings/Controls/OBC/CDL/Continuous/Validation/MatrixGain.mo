@@ -67,7 +67,6 @@ February 11, 2019, by Milica Grahovac:<br/>
 First implementation.
 </li>
 </ul>
-
 </html>"),
     Icon(
       graphics={
