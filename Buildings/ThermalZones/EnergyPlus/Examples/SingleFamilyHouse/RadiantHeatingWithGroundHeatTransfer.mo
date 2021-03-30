@@ -157,8 +157,9 @@ equation
           -208},{-122,-208}}, color={0,0,127}));
   connect(off.y, swiBoi.u3) annotation (Line(points={{-178,-178},{-122,-178}},
                               color={0,0,127}));
-  connect(on.y, swiPum.u1) annotation (Line(points={{-178,-210},{-134,-210},{-134,
-          -192},{-122,-192}}, color={0,0,127}));
+  connect(on.y, swiPum.u1) annotation (Line(points={{-178,-210},{-160,-210},{
+          -160,-192},{-122,-192}},
+                              color={0,0,127}));
   connect(pum.y, swiPum.y) annotation (Line(points={{-70,-248},{-70,-200},{-98,-200}},
         color={0,0,127}));
   connect(hysHea.y, swiPum.u2) annotation (Line(points={{-138,-130},{-130,-130},

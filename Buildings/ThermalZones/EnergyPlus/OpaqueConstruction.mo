@@ -171,7 +171,8 @@ If the back-side surface is above ground, then then heat flow rate from the grou
 This model allows for example coupling of a radiant slab that is modeled in Modelica to the EnergyPlus thermal zone model.
 Examples of such radiant systems include a floor slab with embedded pipes and a radiant cooling panel that is suspended from a ceiling.
 The model
-<a href=\"modelica://xxx\">xxx</a> illustrates the use of this model for a floor and ceiling slab.
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse.RadiantHeatingCooling\">
+Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse.RadiantHeatingCooling</a> illustrates the use of this model for a floor and ceiling slab.
 </p>
 <p>
 Note that if the ground heat transfer of the floor slab is modeled in Modelica,
