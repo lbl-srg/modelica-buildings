@@ -153,7 +153,6 @@ that connects the slab to the zone below.
 </html>"));
 end GettingStarted;
 
-
 class Conventions "Conventions"
   extends Modelica.Icons.Information;
   annotation (
@@ -341,7 +340,6 @@ the internal wall temperatures.
 </html>"));
 end EnergyPlusWarmUp;
 
-
 class NotesForDymola "Notes for Dymola"
   extends Modelica.Icons.Information;
   annotation (
@@ -382,8 +380,9 @@ multiple buildings are simulated in EnergyPlus.
 </html>"));
 end NotesForDymola;
 
-
-  annotation (Documentation(info="<html>
+  annotation (
+  preferredView="info",
+  Documentation(info="<html>
 <p>
 <img alt=\"Spawn logo\" src=\"modelica://Buildings/Resources/Images/ThermalZones/EnergyPlus/spawn_icon_darkbluetxlowres.png\"  style=\"float:right;height=203px;width:587px;\"/>
 <p>
