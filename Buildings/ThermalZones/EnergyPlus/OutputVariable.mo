@@ -77,15 +77,6 @@ initial equation
     adapter=adapter,
     isSynchronized=building.isSynchronized);
 
-  /* The last argument of u will be ignored as the C code only processes 1 element of u,
-     but Modelica is tricked into thinking that there is a dependency on directDependency_in_internal */
-//   Buildings.ThermalZones.EnergyPlus.BaseClasses.exchange(
-//     adapter = adapter,
-//     initialCall = true,
-//     nY = nY,
-//     u = {round(time, 1E-3), directDependency_in_internal},
-//     dummy = dummy);
-
 equation
   if isDirectDependent then
     connect(directDependency,directDependency_in_internal);
