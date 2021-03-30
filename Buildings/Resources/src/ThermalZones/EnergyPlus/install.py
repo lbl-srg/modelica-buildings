@@ -112,7 +112,7 @@ def get_html_table(allVars, template_name):
     return html
 
 
-def replace_table_in_mo(html, varType):
+def replace_table_in_mo(html, varType, moFile):
     """Replaces in the .mo file the table with the output variables"""
     import os
     import re
@@ -125,7 +125,7 @@ def replace_table_in_mo(html, varType):
         "..",
         "ThermalZones",
         "EnergyPlus",
-        "UsersGuide.mo",
+        moFile,
     )
     mo_new = ""
     with open(mo_name, "r") as mo_fil:
@@ -192,14 +192,16 @@ if __name__ == "__main__":
             "spawnFlag": "--output-vars",
             "htmlTemplate": "output_vars_template.html",
             "varType": "output variables",
+            "moFile": "OutputVariable.mo"
         },
         {
             "spawnFlag": "--actuators",
             "htmlTemplate": "actuators_template.html",
             "varType": "actuators",
+            "moFile": "Actuator.mo"
         },
     ]
     for v in vars:
         js = get_vars_as_json(v["spawnFlag"])
         html = get_html_table(js, v["htmlTemplate"])
-        replace_table_in_mo(html, v["varType"])
+        replace_table_in_mo(html, v["varType"], v["moFile"])
