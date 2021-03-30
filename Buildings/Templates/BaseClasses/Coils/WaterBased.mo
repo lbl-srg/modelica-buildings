@@ -2,6 +2,8 @@ within Buildings.Templates.BaseClasses.Coils;
 model WaterBased
   extends Buildings.Templates.Interfaces.Coil(
     final typ=Types.Coil.WaterBased,
+    final typHex=hex.typ,
+    final typAct=act.typ,
     final have_sou=true,
     final have_weaBus=false);
 
@@ -40,15 +42,14 @@ model WaterBased
     //   id + "." + funStr + " coil.Liquid pressure drop",
     //   dat.fileName)
 
-  replaceable Actuators.Wrapper act(
-    final typ=typAct,
+  replaceable Actuators.None act(
     redeclare final package Medium = MediumSou)
     "Actuator"
     annotation (
+      choicesAllMatching=true,
       Placement(transformation(extent={{-10,-70},{10,-50}})));
 
-  replaceable HeatExchangers.WrapperWater hex(
-    final typ=typHexWat,
+  replaceable Templates.Interfaces.HeatExchangerWater hex(
     redeclare final package Medium1 = MediumSou,
     redeclare final package Medium2 = MediumAir,
     final m1_flow_nominal=mWat_flow_nominal,
@@ -58,6 +59,7 @@ model WaterBased
     final dp2_nominal=dpAir_nominal)
     "Heat exchanger"
     annotation (
+      choicesAllMatching=true,
       Placement(transformation(extent={{10,4},{-10,-16}})));
 
   Modelica.Blocks.Routing.RealPassThrough yCoiCoo if funStr=="Cooling"

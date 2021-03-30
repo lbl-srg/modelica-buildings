@@ -28,14 +28,14 @@ block OpenLoop "Open loop controller (output signals only)"
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yCoiCoo(k=1) if
      coiCoo.typ == Buildings.Templates.Types.Coil.WaterBased or
-     coiCoo.typHexDX == Buildings.Templates.Types.HeatExchangerDX.DXVariableSpeed
+     coiCoo.typHex == Buildings.Templates.Types.HeatExchanger.DXVariableSpeed
      annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-60,110})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant yCoiCooSta(k=1) if
-    coiCoo.typHexDX == Buildings.Templates.Types.HeatExchangerDX.DXMultiStage
+    coiCoo.typHex == Buildings.Templates.Types.HeatExchanger.DXMultiStage
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-20,110})));
@@ -63,7 +63,7 @@ block OpenLoop "Open loop controller (output signals only)"
         origin={-140,144})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yCoiHea(k=1) if
     coiHea.typ == Buildings.Templates.Types.Coil.WaterBased or
-    coiHea.typHexDX == Buildings.Templates.Types.HeatExchangerDX.DXVariableSpeed
+    coiHea.typHex == Buildings.Templates.Types.HeatExchanger.DXVariableSpeed
     annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},

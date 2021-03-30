@@ -5,7 +5,7 @@ partial model HeatExchangerDX
   extends Fluid.Interfaces.PartialTwoPort(
     redeclare package Medium=Buildings.Media.Air);
 
-  parameter Types.HeatExchangerDX typ
+  parameter Types.HeatExchanger typ
     "Type of heat exchanger"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   // DX coils get nominal air flow rate from data record.

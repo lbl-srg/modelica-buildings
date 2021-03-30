@@ -1,7 +1,7 @@
 within Buildings.Templates.BaseClasses.Coils.HeatExchangers;
 model DXVariableSpeed
   extends Buildings.Templates.Interfaces.HeatExchangerDX(
-    final typ=Types.HeatExchangerDX.DXVariableSpeed);
+    final typ=Types.HeatExchanger.DXVariableSpeed);
 
   parameter Real minSpeRat(min=0,max=1)=0.1 "Minimum speed ratio";
   parameter Real speRatDeaBan=0.05 "Deadband for minimum speed ratio";

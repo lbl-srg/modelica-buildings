@@ -17,13 +17,8 @@ partial model Coil
   parameter Types.Actuator typAct
     "Type of actuator"
     annotation (Dialog(group="Configuration"));
-  parameter Types.HeatExchangerDX typHexDX=
-    Types.HeatExchangerDX.None
-    "Type of DX coil"
-    annotation (Dialog(group="Configuration"));
-  parameter Types.HeatExchangerWater typHexWat=
-    Types.HeatExchangerWater.None
-    "Type of water-based coil"
+  parameter Types.HeatExchanger typHex
+    "Type of heat exchanger"
     annotation (Dialog(group="Configuration"));
   parameter Boolean have_sou = false
     "Set to true for fluid ports on the source side"

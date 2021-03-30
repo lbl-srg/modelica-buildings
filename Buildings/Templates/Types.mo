@@ -56,17 +56,13 @@ package Types "AHU types"
       ReturnFanAirflow
       "Return fan with airflow tracking - Modulated relief damper")
     "Enumeration to configure the exhaust/relief/return section";
-  type HeatExchangerDX = enumeration(
+  type HeatExchanger = enumeration(
       None
       "No heat exchanger",
       DXMultiStage
       "Direct expansion - Multi-stage",
       DXVariableSpeed
-      "Direct expansion - Variable speed")
-    "Enumeration to configure the HX";
-  type HeatExchangerWater = enumeration(
-      None
-      "No heat exchanger",
+      "Direct expansion - Variable speed",
       WetCoilEffectivenessNTU
       "Water based - Effectiveness-NTU dry/wet coil",
       DryCoilEffectivenessNTU

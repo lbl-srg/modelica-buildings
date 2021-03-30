@@ -6,8 +6,6 @@ model BaseWithSensors
     nGro=1,
     redeclare Buildings.Templates.BaseClasses.Sensors.Temperature TOut,
     redeclare Buildings.Templates.BaseClasses.Sensors.Temperature TMix,
-    redeclare Buildings.Templates.BaseClasses.Sensors.Temperature THea,
-    redeclare Buildings.Templates.BaseClasses.Sensors.Temperature TCoo,
     redeclare Buildings.Templates.BaseClasses.Sensors.HumidityRatio xSup,
     redeclare Buildings.Templates.BaseClasses.Sensors.DifferentialPressure
       pSup_rel,

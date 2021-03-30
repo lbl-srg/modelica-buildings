@@ -2,6 +2,8 @@ within Buildings.Templates.BaseClasses.Coils;
 model DirectExpansion
   extends Buildings.Templates.Interfaces.Coil(
     final typ=Types.Coil.DirectExpansion,
+    final typHex=hex.typ,
+    final typAct=Types.Actuator.None,
     final have_sou=false,
     final have_weaBus=true);
 
@@ -18,8 +20,7 @@ model DirectExpansion
       Dialog(group="Nominal condition"),
       Evaluate=true);
 
-  replaceable HeatExchangers.WrapperDX hex(
-    final typ=typHexDX,
+  replaceable Interfaces.HeatExchangerDX hex(
     redeclare final package Medium = MediumAir,
     final dp_nominal=dpAir_nominal)
     "Heat exchanger"
