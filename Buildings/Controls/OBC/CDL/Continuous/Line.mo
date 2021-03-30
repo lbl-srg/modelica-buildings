@@ -1,63 +1,78 @@
 within Buildings.Controls.OBC.CDL.Continuous;
 block Line
   "Output the value of the input x along a line specified by two points"
-
-  parameter Boolean limitBelow = true "If true, limit input u to be no smaller than x1"
-    annotation(Evaluate=true);
-
-  parameter Boolean limitAbove = true "If true, limit input u to be no larger than x2"
-    annotation(Evaluate=true);
-
-  Interfaces.RealInput x1 "Support point x1, with x1 < x2"
+  parameter Boolean limitBelow=true
+    "If true, limit input u to be no smaller than x1"
+    annotation (Evaluate=true);
+  parameter Boolean limitAbove=true
+    "If true, limit input u to be no larger than x2"
+    annotation (Evaluate=true);
+  Interfaces.RealInput x1
+    "Support point x1, with x1 < x2"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
-
-  Interfaces.RealInput f1 "Support point f(x1)"
+  Interfaces.RealInput f1
+    "Support point f(x1)"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
-
-  Interfaces.RealInput x2 "Support point x2, with x2 > x1"
+  Interfaces.RealInput x2
+    "Support point x2, with x2 > x1"
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
-
-  Interfaces.RealInput f2 "Support point f(x2)"
+  Interfaces.RealInput f2
+    "Support point f(x2)"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
-
-  Interfaces.RealInput u "Independent variable"
+  Interfaces.RealInput u
+    "Independent variable"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-
-  Interfaces.RealOutput y "f(x) along the line specified by (x1, f1) and (x2, f2)"
+  Interfaces.RealOutput y
+    "f(x) along the line specified by (x1, f1) and (x2, f2)"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
+
 protected
-  Real a "Intercept";
-  Real b "Slope";
-  Real xLim "Input value after applying the limits";
+  Real a
+    "Intercept";
+  Real b
+    "Slope";
+  Real xLim
+    "Input value after applying the limits";
 
 equation
   if limitBelow or limitAbove then
-    assert(x2 > x1, "x2 must be bigger than x1 in " + getInstanceName(),
+    assert(
+      x2 > x1,
+      "x2 must be bigger than x1 in "+getInstanceName(),
       AssertionLevel.warning);
   end if;
-
-  b = (f2-f1)/(x2-x1);
-  a = f2 - b*x2;
-
+  b=(f2-f1)/(x2-x1);
+  a=f2-b*x2;
   if limitBelow and limitAbove then
-    xLim = min(x2, max(x1, u));
+    xLim=min(
+      x2,
+      max(
+        x1,
+        u));
   elseif limitBelow then
-    xLim = max(x1, u);
+    xLim=max(
+      x1,
+      u);
   elseif limitAbove then
-    xLim = min(x2, u);
+    xLim=min(
+      x2,
+      u);
   else
-    xLim = u;
+    xLim=u;
   end if;
-   y = a + b * xLim;
+  y=a+b*xLim;
   annotation (
     defaultComponentName="lin",
-    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
-            100}}), graphics={
+    Icon(
+      coordinateSystem(
+        preserveAspectRatio=true,
+        extent={{-100,-100},{100,100}}),
+      graphics={
         Rectangle(
-        extent={{-100,-100},{100,100}},
-        lineColor={0,0,127},
-        fillColor={255,255,255},
-        fillPattern=FillPattern.Solid),
+          extent={{-100,-100},{100,100}},
+          lineColor={0,0,127},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
         Text(
           lineColor={0,0,255},
           extent={{-150,110},{150,150}},
@@ -67,18 +82,21 @@ equation
           lineColor={192,192,192},
           fillColor={192,192,192},
           fillPattern=FillPattern.Solid),
-        Line(points={{-46,40},{50,-44}},
+        Line(
+          points={{-46,40},{50,-44}},
           color={0,0,0},
           thickness=0.5),
-        Line(points={{-80,-80},{-80,72}},
-             color={192,192,192}),
+        Line(
+          points={{-80,-80},{-80,72}},
+          color={192,192,192}),
         Polygon(
           points={{-80,92},{-88,70},{-72,70},{-80,92}},
           lineColor={192,192,192},
           fillColor={192,192,192},
           fillPattern=FillPattern.Solid),
-        Line(points={{-88,-78},{76,-78}},
-             color={192,192,192}),
+        Line(
+          points={{-88,-78},{76,-78}},
+          color={192,192,192}),
         Line(
           points={{-100,80},{-64,80}},
           color={28,108,200},
@@ -151,19 +169,23 @@ equation
           lineColor={0,0,0},
           fillColor={0,0,127},
           fillPattern=FillPattern.Solid),
-        Line(points={{50,-44},{80,-70}},
+        Line(
+          points={{50,-44},{80,-70}},
           color={0,0,0},
           thickness=0.5,
           visible=not limitAbove),
-        Line(points={{52,-44},{86,-44}},
+        Line(
+          points={{52,-44},{86,-44}},
           color={238,46,47},
           thickness=0.5,
           visible=limitAbove),
-        Line(points={{-80,68},{-46,40}},
+        Line(
+          points={{-80,68},{-46,40}},
           color={0,0,0},
           thickness=0.5,
           visible=not limitBelow),
-        Line(points={{-80,40},{-46,40}},
+        Line(
+          points={{-80,40},{-46,40}},
           color={238,46,47},
           thickness=0.5,
           visible=limitBelow),
@@ -173,11 +195,14 @@ equation
           lineColor={0,0,0},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid),
-    Text(
-      extent={{226,60},{106,10}},
-      lineColor={0,0,0},
-      textString=DynamicSelect("", String(y, leftjustified=false, significantDigits=3)))}),
-    Documentation(info="<html>
+        Text(
+          extent={{226,60},{106,10}},
+          lineColor={0,0,0},
+          textString=DynamicSelect("",String(y,
+            leftjustified=false,
+            significantDigits=3)))}),
+    Documentation(
+      info="<html>
 <p>
 Block that outputs <code>y = a + b u</code>,
 where
@@ -195,7 +220,8 @@ to limit the input <code>u</code>.
 <p>
 If the limits are used, then this block requires <code>x1 &lt; x2</code>.
 </p>
-</html>", revisions="<html>
+</html>",
+      revisions="<html>
 <ul>
 <li>
 March 2, 2020, by Michael Wetter:<br/>
