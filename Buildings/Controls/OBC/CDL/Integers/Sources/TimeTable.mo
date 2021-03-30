@@ -57,14 +57,14 @@ protected
       "Time stamps";
     output Integer k
       "Index in table";
-  
-protected
+
+  protected
     Real tS(
       final quantity="Time",
       final unit="s")
       "Time shifted so it is within the period";
-  
-algorithm
+
+  algorithm
     tS := mod(
       t,
       period);

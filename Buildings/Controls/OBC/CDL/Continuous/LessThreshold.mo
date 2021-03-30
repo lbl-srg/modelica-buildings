@@ -41,8 +41,8 @@ protected
     Interfaces.BooleanOutput y
       "Output y"
       annotation (Placement(transformation(extent={{100,-20},{140,20}})));
-  
-equation
+
+  equation
     y=u < t;
     annotation (
       Icon(
@@ -76,14 +76,14 @@ equation
     Interfaces.BooleanOutput y
       "Output y"
       annotation (Placement(transformation(extent={{100,-20},{140,20}})));
-  
-initial equation
+
+  initial equation
     assert(
       h >= 0,
       "Hysteresis must not be negative");
     pre(y)=pre_y_start;
-  
-equation
+
+  equation
     y=(not pre(y) and u < t or pre(y) and u <= t+h);
     annotation (
       Icon(

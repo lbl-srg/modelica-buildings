@@ -172,19 +172,19 @@ protected
       annotation (Placement(transformation(extent={{100,-20},{140,20}})));
     output Real x
       "State of block";
-  
-protected
+
+  protected
     parameter Boolean zeroGain=abs(k) < 1E-17
       "= true, if gain equals to zero";
-  
-initial equation
+
+  initial equation
     if zeroGain then
       x=u;
     else
       x=u-T*y_start/k;
     end if;
-  
-equation
+
+  equation
     der(x)=
       if zeroGain then
         0

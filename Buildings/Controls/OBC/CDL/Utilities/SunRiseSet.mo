@@ -88,8 +88,8 @@ protected
       final quantity="Time",
       final unit="s")
       "Time correction";
-  
-protected
+
+  protected
     Integer iDay;
     Boolean compute
       "Flag, set to false when the sun rise or sets ";
@@ -110,8 +110,8 @@ protected
       "Declination angle";
     Real cosHou
       "Cosine of hour angle";
-  
-algorithm
+
+  algorithm
     iDay := 1;
     compute := true;
     while compute loop
@@ -147,8 +147,8 @@ algorithm
     output Real nextSunRise(
       final quantity="Time",
       final unit="s");
-  
-protected
+
+  protected
     Real houAng(
       final quantity="Angle",
       final unit="rad",
@@ -170,8 +170,8 @@ protected
       final quantity="Time",
       final unit="s")
       "Cosine of hour angle";
-  
-algorithm
+
+  algorithm
     (houAng,tNext,timCor) := nextHourAngle(
       t,
       lat);
@@ -203,8 +203,8 @@ algorithm
     output Real nextSunSet(
       final quantity="Time",
       final unit="s");
-  
-protected
+
+  protected
     Real houAng(
       final quantity="Angle",
       final unit="rad",
@@ -226,8 +226,8 @@ protected
       final quantity="Time",
       final unit="s")
       "Cosine of hour angle";
-  
-algorithm
+
+  algorithm
     (houAng,tNext,timCor) := nextHourAngle(
       t,
       lat);
