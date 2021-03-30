@@ -5,7 +5,7 @@ model Wrapper "Wrapper class for coil models"
     final have_sou=typ==Buildings.Templates.Types.Coil.WaterBased);
 
   // DX coil assign its nominal mass flow rate based on data record.
-  replaceable DirectExpansion dx(
+  DirectExpansion dx(
     final typHexDX=typHexDX,
     final typHexWat=typHexWat,
     final typAct=typAct,
@@ -23,7 +23,7 @@ model Wrapper "Wrapper class for coil models"
       typ==Buildings.Templates.Types.Coil.None
     "No coil"
     annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
-  replaceable WaterBased wat(
+  WaterBased wat(
     final typHexDX=typHexDX,
     final typHexWat=typHexWat,
     final typAct=typAct,

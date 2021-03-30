@@ -2,7 +2,7 @@ within Buildings.Templates.BaseClasses.Coils.HeatExchangers;
 model WrapperDX "Wrapper class for DX coils"
   extends Buildings.Templates.Interfaces.HeatExchangerDX;
 
-  replaceable DXMultiStage mul(
+  DXMultiStage mul(
     redeclare final package Medium = Medium,
     final dp_nominal=dp_nominal) if
       typ==Buildings.Templates.Types.HeatExchangerDX.DXMultiStage
@@ -10,7 +10,7 @@ model WrapperDX "Wrapper class for DX coils"
     annotation (
       Dialog(enable=typ==Buildings.Templates.Types.HeatExchangerDX.DXMultiStage),
       Placement(transformation(extent={{-40,30},{-20,50}})));
-  replaceable DXVariableSpeed var(
+  DXVariableSpeed var(
     redeclare final package Medium = Medium,
     final dp_nominal=dp_nominal) if
       typ==Buildings.Templates.Types.HeatExchangerDX.DXVariableSpeed
