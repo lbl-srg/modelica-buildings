@@ -56,9 +56,6 @@ model BaseNoEquipment
     redeclare final package Medium=MediumAir)
     "Indoor pressure"
     annotation (Placement(transformation(extent={{80,30},{60,50}})));
-  Buildings.Templates.BaseClasses.Connectors.BusAHU busAHU annotation (
-      Placement(transformation(extent={{-40,20},{0,60}}), iconTransformation(
-          extent={{-258,-26},{-238,-6}})));
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
         Modelica.Utilities.Files.loadResource(
         "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
@@ -73,6 +70,12 @@ model BaseNoEquipment
     m_flow_nominal=1,
     dp_nominal=100)
     annotation (Placement(transformation(extent={{50,0},{30,20}})));
+protected
+  Buildings.Templates.BaseClasses.Connectors.BusAHU busAHU
+  annotation (
+    Placement(
+      transformation(extent={{-40,20},{0,60}}), iconTransformation(
+        extent={{-258,-26},{-238,-6}})));
 equation
   connect(bou.ports[1], res.port_a) annotation (Line(points={{-70,2},{-60,2},{
           -60,-10},{-50,-10}}, color={0,127,255}));

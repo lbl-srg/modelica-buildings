@@ -15,7 +15,8 @@ model WrapperCoils
     annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
 equation
   connect(bou2.ports[1], ahu.port_coiHeaSup) annotation (Line(points={{-40,-40},
-          {-7,-40},{-7,-19.8}}, color={0,127,255}));
-  connect(ahu.port_coiHeaRet, bou3.ports[1]) annotation (Line(points={{-3,-19.8},
-          {-3,-70},{-40,-70}}, color={0,127,255}));
+          {-11,-40},{-11,-19.8}},
+                                color={0,127,255}));
+  connect(ahu.port_coiHeaRet, bou3.ports[1]) annotation (Line(points={{-7,-19.8},
+          {-7,-70},{-40,-70}}, color={0,127,255}));
 end WrapperCoils;

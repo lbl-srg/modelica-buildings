@@ -201,34 +201,34 @@ model VAVSingleDuctWrapper "VAV single duct with relief"
     redeclare final package Medium = MediumCoo) if have_souCoiCoo
     "Cooling coil return port"
     annotation (Placement(
-      transformation(extent={{30,-290},{50,-270}}),
-      iconTransformation(extent={{50,-208},{70,-188}})));
+      transformation(extent={{40,-290},{60,-270}}),
+      iconTransformation(extent={{10,-208},{30,-188}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_coiCooSup(
     redeclare final package Medium = MediumCoo) if have_souCoiCoo
     "Cooling coil supply port"
     annotation (Placement(
-      transformation(extent={{10,-290},{30,-270}}), iconTransformation(
-        extent={{10,-208},{30,-188}})));
+      transformation(extent={{20,-290},{40,-270}}), iconTransformation(
+        extent={{-30,-208},{-10,-188}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_coiHeaRet(
     redeclare final package Medium =MediumHea) if have_souCoiHea
     "Heating coil return port"
-    annotation (Placement(transformation(extent={{-30,
-      -290},{-10,-270}}), iconTransformation(extent={{-40,-208},{-20,-188}})));
+    annotation (Placement(transformation(extent={{-20,-290},{0,-270}}),
+                          iconTransformation(extent={{-80,-208},{-60,-188}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_coiHeaSup(
     redeclare final package Medium =MediumHea) if have_souCoiHea
     "Heating coil supply port"
-    annotation (Placement(transformation(extent={{-50,
-      -290},{-30,-270}}), iconTransformation(extent={{-80,-208},{-60,-188}})));
+    annotation (Placement(transformation(extent={{-40,-290},{-20,-270}}),
+                          iconTransformation(extent={{-120,-208},{-100,-188}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_coiRehRet(
     redeclare final package Medium =MediumHea) if have_souCoiReh
     "Reheat coil return port"
     annotation (Placement(transformation(extent={{90,-290},
-      {110,-270}}), iconTransformation(extent={{140,-208},{160,-188}})));
+      {110,-270}}), iconTransformation(extent={{100,-208},{120,-188}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_coiRehSup(
     redeclare final package Medium = MediumHea) if have_souCoiReh
     "Reheat coil supply port"
     annotation (Placement(transformation(extent={{70,-290},
-      {90,-270}}), iconTransformation(extent={{100,-208},{120,-188}})));
+      {90,-270}}), iconTransformation(extent={{60,-208},{80,-188}})));
 
   BoundaryConditions.WeatherData.Bus weaBus
     "Weather bus"
@@ -380,47 +380,35 @@ model VAVSingleDuctWrapper "VAV single duct with relief"
     final typHexDX=typCoiHeaDX,
     final typHexWat=typCoiHeaWat,
     final typAct=typActCoiHea,
+    final have_senTem=typCoiHea<>Buildings.Templates.Types.Coil.None and
+      typCoiCoo<>Buildings.Templates.Types.Coil.None,
     redeclare final package MediumAir = MediumAir,
     redeclare final package MediumSou = MediumHea)
     "Heating coil"
     annotation (
       Dialog(group="Supply air section"),
-      Placement(transformation(extent={{-40,-210},{-20,-190}})));
-
-  replaceable Buildings.Templates.BaseClasses.Sensors.None THea constrainedby
-    Buildings.Templates.Interfaces.Sensor(redeclare final package Medium =
-        MediumAir) "Heating coil leaving air temperature sensor"
-    annotation (
-    choices(choice(redeclare BaseClasses.Sensors.None THea "No sensor"), choice(
-          redeclare BaseClasses.Sensors.Temperature THea "Temperature sensor")),
-    Dialog(group="Supply air section", enable=coiHea <> Buildings.Templates.Types.Coil.None),
-    Placement(transformation(extent={{-10,-210},{10,-190}})));
+      Placement(transformation(extent={{-30,-210},{-10,-190}})));
 
   inner Buildings.Templates.BaseClasses.Coils.Wrapper coiCoo(
     final typ=typCoiCoo,
     final typHexDX=typCoiCooDX,
     final typHexWat=typCoiCooWat,
     final typAct=typActCoiCoo,
+    final have_senTem=typCoiCoo<>Buildings.Templates.Types.Coil.None and
+      typCoiReh<>Buildings.Templates.Types.Coil.None,
     redeclare final package MediumAir = MediumAir,
     redeclare final package MediumSou = MediumCoo)
     "Cooling coil"
     annotation (
       Dialog(group="Supply air section"),
-      Placement(transformation(extent={{20,-210},{40,-190}})));
-
-  replaceable Buildings.Templates.BaseClasses.Sensors.None TCoo constrainedby
-    Buildings.Templates.Interfaces.Sensor(redeclare final package Medium =
-        MediumAir) "Cooling coil leaving air temperature sensor" annotation (
-    choices(choice(redeclare BaseClasses.Sensors.None TCoo "No sensor"), choice(
-          redeclare BaseClasses.Sensors.Temperature TCoo "Temperature sensor")),
-    Dialog(group="Supply air section", enable=coiCoo <> Buildings.Templates.Types.Coil.None),
-    Placement(transformation(extent={{50,-210},{70,-190}})));
+      Placement(transformation(extent={{30,-210},{50,-190}})));
 
   inner Buildings.Templates.BaseClasses.Coils.Wrapper coiReh(
     final typ=typCoiReh,
     final typHexDX=typCoiRehDX,
     final typHexWat=typCoiRehWat,
     final typAct=typActCoiReh,
+    final have_senTem=false,
     redeclare final package MediumAir = MediumAir,
     redeclare final package MediumSou = MediumCoo)
     "Reheat coil"
@@ -522,7 +510,7 @@ model VAVSingleDuctWrapper "VAV single duct with relief"
     "Return air volume flow rate sensor"
     annotation (
       Dialog(group="Exhaust/relief/return section"),
-      Placement(transformation(extent={{-10,-90},{-30,-70}})));
+      Placement(transformation(extent={{-30,-90},{-50,-70}})));
 
   Fluid.Sensors.RelativePressure pInd_rel(
     redeclare final package Medium=MediumAir)
@@ -578,22 +566,16 @@ model VAVSingleDuctWrapper "VAV single duct with relief"
 
 equation
 
-  connect(port_coiCooSup, coiCoo.port_aSou) annotation (Line(points={{20,-280},{
-          20,-220},{26,-220},{26,-210}},   color={0,127,255}));
-  connect(coiCoo.port_bSou, port_coiCooRet) annotation (Line(points={{34,-210},{
-          34,-220},{40,-220},{40,-280}}, color={0,127,255}));
+  connect(port_coiCooSup, coiCoo.port_aSou) annotation (Line(points={{30,-280},{
+          30,-220},{36,-220},{36,-210}},   color={0,127,255}));
+  connect(coiCoo.port_bSou, port_coiCooRet) annotation (Line(points={{44,-210},{
+          44,-220},{50,-220},{50,-280}}, color={0,127,255}));
   connect(weaBus, coiCoo.weaBus) annotation (Line(
-      points={{0,280},{0,80},{24,80},{24,-190}},
+      points={{0,280},{0,-180},{34,-180},{34,-190}},
       color={255,204,51},
       thickness=0.5));
   connect(TMix.port_b, fanSupBlo.port_a)
     annotation (Line(points={{-80,-200},{-70,-200}},   color={0,127,255}));
-  connect(THea.port_b, coiCoo.port_a)
-    annotation (Line(points={{10,-200},{20,-200}}, color={0,127,255}));
-  connect(coiCoo.port_b, TCoo.port_a)
-    annotation (Line(points={{40,-200},{50,-200}}, color={0,127,255}));
-  connect(TCoo.port_b, coiReh.port_a)
-    annotation (Line(points={{70,-200},{80,-200}}, color={0,127,255}));
   connect(resSup.port_b, TSup.port_a)
     annotation (Line(points={{192,-200},{200,-200}}, color={0,127,255}));
   connect(TSup.port_b, xSup.port_a)
@@ -602,10 +584,10 @@ equation
     annotation (Line(points={{250,-200},{260,-200}}, color={0,127,255}));
   connect(pSup_rel.port_b, port_Sup)
     annotation (Line(points={{280,-200},{300,-200}}, color={0,127,255}));
-  connect(port_coiHeaSup, coiHea.port_aSou) annotation (Line(points={{-40,-280},
-          {-40,-220},{-34,-220},{-34,-210}}, color={0,127,255}));
-  connect(coiHea.port_bSou, port_coiHeaRet) annotation (Line(points={{-26,-210},
-          {-26,-220},{-20,-220},{-20,-280}}, color={0,127,255}));
+  connect(port_coiHeaSup, coiHea.port_aSou) annotation (Line(points={{-30,-280},
+          {-30,-220},{-24,-220},{-24,-210}}, color={0,127,255}));
+  connect(coiHea.port_bSou, port_coiHeaRet) annotation (Line(points={{-16,-210},
+          {-16,-220},{-10,-220},{-10,-280}}, color={0,127,255}));
   connect(port_coiRehSup, coiReh.port_aSou) annotation (Line(points={{80,-280},{
           80,-220},{86,-220},{86,-210}}, color={0,127,255}));
   connect(coiReh.port_bSou, port_coiRehRet) annotation (Line(points={{94,-210},{
@@ -637,11 +619,9 @@ equation
   connect(VSup_flow.port_b, resSup.port_a)
     annotation (Line(points={{162,-200},{172,-200}}, color={0,127,255}));
   connect(fanRet.port_b, VRet_flow.port_a)
-    annotation (Line(points={{0,-80},{-10,-80}}, color={0,127,255}));
+    annotation (Line(points={{0,-80},{-30,-80}}, color={0,127,255}));
   connect(fanSupBlo.port_b, coiHea.port_a)
-    annotation (Line(points={{-50,-200},{-40,-200}}, color={0,127,255}));
-  connect(coiHea.port_b, THea.port_a)
-    annotation (Line(points={{-20,-200},{-10,-200}}, color={0,127,255}));
+    annotation (Line(points={{-50,-200},{-30,-200}}, color={0,127,255}));
   connect(weaBus, out.weaBus) annotation (Line(
       points={{0,280},{0,276},{-40,276},{-40,260},{-39.8,260}},
       color={255,204,51},
@@ -665,7 +645,7 @@ equation
   connect(pRet_rel.port_b, damRet.port_a) annotation (Line(points={{-80,-80},{-120,
           -80},{-120,-130}}, color={0,127,255}));
   connect(VRet_flow.port_b, pRet_rel.port_a)
-    annotation (Line(points={{-30,-80},{-60,-80}}, color={0,127,255}));
+    annotation (Line(points={{-50,-80},{-60,-80}}, color={0,127,255}));
   connect(pRet_rel.port_bRef, ind.ports[3]) annotation (Line(points={{-70,-90},{
           -70,-100},{40,-100},{40,240}},           color={0,127,255}));
 
@@ -745,15 +725,11 @@ equation
       color={255,204,51},
       thickness=0.5));
   connect(coiHea.busCon, busAHU) annotation (Line(
-      points={{-30,-190},{-30,0},{-300,0}},
+      points={{-20,-190},{-20,0},{-300,0}},
       color={255,204,51},
       thickness=0.5));
   connect(TMix.busCon, busAHU) annotation (Line(
       points={{-90,-190},{-90,0},{-300,0}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(TCoo.busCon, busAHU) annotation (Line(
-      points={{60,-190},{60,0},{-300,0}},
       color={255,204,51},
       thickness=0.5));
   connect(coiReh.busCon, busAHU) annotation (Line(
@@ -777,7 +753,7 @@ equation
       color={255,204,51},
       thickness=0.5));
   connect(coiCoo.busCon, busAHU) annotation (Line(
-      points={{30,-190},{30,0},{-300,0}},
+      points={{40,-190},{40,0},{-300,0}},
       color={255,204,51},
       thickness=0.5));
   connect(resRet.port_a, TRet.port_b)
@@ -791,7 +767,7 @@ equation
       color={255,204,51},
       thickness=0.5));
   connect(VRet_flow.busCon, busAHU) annotation (Line(
-      points={{-20,-70},{-20,0},{-300,0}},
+      points={{-40,-70},{-40,0},{-300,0}},
       color={255,204,51},
       thickness=0.5));
   connect(fanRet.busCon, busAHU) annotation (Line(
@@ -806,8 +782,16 @@ equation
       points={{242,-70},{242,0},{-300,0}},
       color={255,204,51},
       thickness=0.5));
-  connect(THea.busCon, busAHU) annotation (Line(
-      points={{0,-190},{0,0},{-300,0}},
+  connect(coiCoo.port_b, coiReh.port_a)
+    annotation (Line(points={{50,-200},{80,-200}}, color={0,127,255}));
+  connect(coiHea.port_b, coiCoo.port_a)
+    annotation (Line(points={{-10,-200},{30,-200}}, color={0,127,255}));
+  connect(weaBus, coiHea.weaBus) annotation (Line(
+      points={{0,280},{0,-180},{-26,-180},{-26,-190}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(coiReh.weaBus, weaBus) annotation (Line(
+      points={{84,-190},{84,-180},{0,-180},{0,280}},
       color={255,204,51},
       thickness=0.5));
   annotation (

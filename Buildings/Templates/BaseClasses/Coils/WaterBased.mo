@@ -89,8 +89,6 @@ equation
           {-20,-24},{4,-24},{4,-50}}, color={0,127,255}));
   connect(port_a,hex. port_a2)
     annotation (Line(points={{-100,0},{-10,0}}, color={0,127,255}));
-  connect(hex.port_b2, port_b) annotation (Line(points={{10,0},{56,0},{56,0},{100,
-          0}}, color={0,127,255}));
 
   connect(yCoiCoo.y, act.y)
     annotation (Line(points={{-40,39},{-40,-60},{-11,-60}}, color={0,0,127}));
@@ -123,6 +121,8 @@ equation
       horizontalAlignment=TextAlignment.Right));
   connect(yCoiReh.y, act.y) annotation (Line(points={{40,39},{40,20},{-40,20},{
           -40,-60},{-11,-60}}, color={0,0,127}));
+  connect(hex.port_b2, port_bIns)
+    annotation (Line(points={{10,0},{60,0}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(revisions="<html>

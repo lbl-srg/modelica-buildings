@@ -29,6 +29,10 @@ partial model Coil
     "Set to true for fluid ports on the source side"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Boolean have_weaBus = false
+    "Set to true to use a waether bus"
+    annotation (Evaluate=true, Dialog(group="Configuration"));
+  parameter Boolean have_senTem = false
+    "Set to true to use a leaving air temperature sensor"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
   outer parameter String id
@@ -41,7 +45,9 @@ partial model Coil
     elseif Modelica.Utilities.Strings.find(insNam, "coiReh")<>0 then "Reheat"
     else "Undefined"
     "String used to identify the coil function"
-    annotation(Evaluate=true, Dialog(group="Configuration"));
+    annotation (
+      Dialog(group="Configuration"),
+      Evaluate=true);
   final parameter String insNam = getInstanceName()
     "Instance name"
     annotation(Evaluate=true);
@@ -67,6 +73,35 @@ partial model Coil
         rotation=0,
         origin={0,100})));
 
+  BaseClasses.PassThroughFluid pas(
+    redeclare final package Medium = Medium) if not have_senTem
+    "Direct pass through"
+    annotation (Placement(transformation(extent={{70,-10},{90,10}})));
+  BaseClasses.Sensors.Temperature TLvg(
+    redeclare final package Medium=MediumAir) if have_senTem
+    "Leaving air temperature sensor"
+    annotation (Placement(transformation(extent={{70,10},{90,30}})));
+protected
+  Modelica.Fluid.Interfaces.FluidPort_b port_bIns(
+    redeclare final package Medium = Medium,
+    m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
+    h_outflow(start=Medium.h_default, nominal=Medium.h_default))
+    "Inside fluid connector b (positive design flow direction is from port_a to port_b)"
+    annotation (Placement(transformation(extent={{70,-10},{50,10}})));
+
+equation
+  connect(port_b, pas.port_b)
+    annotation (Line(points={{100,0},{90,0}}, color={0,127,255}));
+  connect(port_bIns, pas.port_a)
+    annotation (Line(points={{60,0},{70,0}}, color={0,127,255}));
+  connect(port_bIns, TLvg.port_a)
+    annotation (Line(points={{60,0},{60,20},{70,20}}, color={0,127,255}));
+  connect(TLvg.port_b, port_b)
+    annotation (Line(points={{90,20},{100,20},{100,0}}, color={0,127,255}));
+  connect(busCon, TLvg.busCon) annotation (Line(
+      points={{0,100},{0,96},{80,96},{80,30}},
+      color={255,204,51},
+      thickness=0.5));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
                                                               Rectangle(
           extent={{-100,100},{100,-100}},

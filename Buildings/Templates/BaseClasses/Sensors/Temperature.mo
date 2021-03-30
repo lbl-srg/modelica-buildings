@@ -9,14 +9,16 @@ model Temperature
     "Temperature sensor"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Blocks.Routing.RealPassThrough THea if
-    Modelica.Utilities.Strings.find(insNam, "THea")<>0
+    Modelica.Utilities.Strings.find(insNam, "THea")<>0 or
+    Modelica.Utilities.Strings.find(insNam, "coiHea")<>0
     "Pass through to connect with specific control signal" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-54,50})));
   Modelica.Blocks.Routing.RealPassThrough TCoo if
-    Modelica.Utilities.Strings.find(insNam, "TCoo")<>0
+    Modelica.Utilities.Strings.find(insNam, "TCoo")<>0 or
+    Modelica.Utilities.Strings.find(insNam, "coiCoo")<>0
     "Pass through to connect with specific control signal" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},

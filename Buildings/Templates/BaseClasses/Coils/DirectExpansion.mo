@@ -28,8 +28,6 @@ model DirectExpansion
 equation
   connect(port_a, hex.port_a)
     annotation (Line(points={{-100,0},{-10,0}}, color={0,127,255}));
-  connect(hex.port_b, port_b)
-    annotation (Line(points={{10,0},{100,0}}, color={0,127,255}));
   connect(weaBus, hex.weaBus) annotation (Line(
       points={{-60,100},{-60,20},{-6,20},{-6,10}},
       color={255,204,51},
@@ -38,6 +36,8 @@ equation
       points={{0,100},{0,10}},
       color={255,204,51},
       thickness=0.5));
+  connect(hex.port_b, port_bIns)
+    annotation (Line(points={{10,0},{60,0}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end DirectExpansion;

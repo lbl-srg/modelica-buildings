@@ -9,6 +9,7 @@ model Wrapper "Wrapper class for coil models"
     final typHexDX=typHexDX,
     final typHexWat=typHexWat,
     final typAct=typAct,
+    final have_senTem=false,
     redeclare final package MediumAir = MediumAir) if
       typ==Buildings.Templates.Types.Coil.DirectExpansion
     "Direct expansion"
@@ -17,6 +18,7 @@ model Wrapper "Wrapper class for coil models"
     final typHexDX=typHexDX,
     final typHexWat=typHexWat,
     final typAct=typAct,
+    final have_senTem=false,
     redeclare final package MediumAir = MediumAir) if
       typ==Buildings.Templates.Types.Coil.None
     "No coil"
@@ -25,6 +27,7 @@ model Wrapper "Wrapper class for coil models"
     final typHexDX=typHexDX,
     final typHexWat=typHexWat,
     final typAct=typAct,
+    final have_senTem=false,
     redeclare final package MediumSou = MediumSou,
     redeclare final package MediumAir = MediumAir) if
       typ==Buildings.Templates.Types.Coil.WaterBased
@@ -33,8 +36,6 @@ model Wrapper "Wrapper class for coil models"
 equation
   connect(port_a, wat.port_a)
     annotation (Line(points={{-100,0},{-10,0}}, color={0,127,255}));
-  connect(wat.port_b, port_b)
-    annotation (Line(points={{10,0},{100,0}}, color={0,127,255}));
   connect(busCon, wat.busCon) annotation (Line(
       points={{0,100},{0,10}},
       color={255,204,51},
@@ -51,12 +52,14 @@ equation
           {-80,60}}, color={0,127,255}));
   connect(port_a, non.port_a) annotation (Line(points={{-100,0},{-60,0},{-60,40},
           {-40,40}}, color={0,127,255}));
-  connect(non.port_b, port_b) annotation (Line(points={{-20,40},{80,40},{80,0},{
-          100,0}}, color={0,127,255}));
-  connect(dx.port_b, port_b) annotation (Line(points={{-60,60},{80,60},{80,0},{100,
-          0}}, color={0,127,255}));
   connect(port_aSou, wat.port_aSou) annotation (Line(points={{-40,-100},{-40,-20},
           {-4,-20},{-4,-10}}, color={0,127,255}));
   connect(wat.port_bSou, port_bSou) annotation (Line(points={{4,-10},{4,-20},{40,
           -20},{40,-100}}, color={0,127,255}));
+  connect(wat.port_b, port_bIns)
+    annotation (Line(points={{10,0},{60,0}}, color={0,127,255}));
+  connect(non.port_b, port_bIns) annotation (Line(points={{-20,40},{40,40},{40,
+          0},{60,0}}, color={0,127,255}));
+  connect(dx.port_b, port_bIns) annotation (Line(points={{-60,60},{40,60},{40,0},
+          {60,0}}, color={0,127,255}));
 end Wrapper;

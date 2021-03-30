@@ -6,8 +6,8 @@ model None
     final have_sou=false);
 
 equation
-  connect(port_a, port_b)
-    annotation (Line(points={{-100,0},{100,0}}, color={0,127,255}));
+  connect(port_a, port_bIns)
+    annotation (Line(points={{-100,0},{60,0}}, color={0,127,255}));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={
                                                               Line(
