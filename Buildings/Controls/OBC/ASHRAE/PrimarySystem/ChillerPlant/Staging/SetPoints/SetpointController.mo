@@ -330,7 +330,14 @@ block SetpointController
     final min=0)
     "Minimum operating part load ratio at current stage"
     annotation (Placement(transformation(extent={{120,320},{160,360}}),
-        iconTransformation(extent={{100,-200},{140,-160}})));
+        iconTransformation(extent={{100,-202},{140,-162}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yCapReq(
+    final quantity="Power",
+    final unit="W")
+    "Chilled water cooling capacity requirement" annotation (Placement(
+        transformation(extent={{120,370},{160,410}}), iconTransformation(extent=
+           {{100,-230},{140,-190}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.SetPoints.Subsequences.Up staUp(
     final have_WSE=have_WSE,
@@ -539,7 +546,7 @@ equation
   connect(sta.yAvaUp, cha.uAvaUp) annotation (Line(points={{-298,-203},{-292,-203},
           {-292,-148},{-40,-148},{-40,-164},{-22,-164}}, color={255,127,0}));
   connect(sta.yAvaDow, cha.uAvaDow) annotation (Line(points={{-298,-206},{-290,-206},
-          {-290,-150},{-42,-150},{-42,-168},{-22,-168}}, color={255,127,0}));
+          {-290,-150},{-44,-150},{-44,-168},{-22,-168}}, color={255,127,0}));
   connect(staUp.y, cha.uUp) annotation (Line(points={{-78,-110},{-50,-110},{-50,
           -172},{-22,-172}}, color={255,0,255}));
   connect(staDow.y, cha.uDow) annotation (Line(points={{-78,-230},{-50,-230},{-50,
@@ -559,7 +566,7 @@ equation
           {-100,370},{-100,113},{-82,113}}, color={0,0,127}));
   connect(uTunPar, iniSta.uTunPar) annotation (Line(points={{-420,150},{-104,150},
           {-104,116},{-82,116}}, color={0,0,127}));
-  connect(iniSta.yIni, cha.uIni) annotation (Line(points={{-59,110},{-28,110},{-28,
+  connect(iniSta.yIni, cha.uIni) annotation (Line(points={{-59,110},{-30,110},{-30,
           -160},{-22,-160}}, color={255,127,0}));
   connect(TOutWet, iniSta.TOutWet) annotation (Line(points={{-420,400},{-96,400},
           {-96,119},{-82,119}}, color={0,0,127}));
@@ -584,6 +591,8 @@ equation
           {-360,44},{-262,44}}, color={0,0,127}));
   connect(PLRs.uLif, lift.y) annotation (Line(points={{-184,-190},{-202,-190},{-202,
           50},{-238,50}}, color={0,0,127}));
+  connect(capReq.y, yCapReq) annotation (Line(points={{-298,310},{-80,310},{-80,
+          390},{140,390}}, color={0,0,127}));
   annotation (defaultComponentName = "staSetCon",
         Icon(coordinateSystem(extent={{-100,-220},{100,200}}, initialScale=0.2),
         graphics={
@@ -720,7 +729,12 @@ equation
           extent={{48,168},{96,132}},
           lineColor={217,67,180},
           pattern=LinePattern.Dash,
-          textString="yChaDow")}),
+          textString="yChaDow"),
+        Text(
+          extent={{42,-198},{94,-220}},
+          lineColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="yCapReq")}),
                                  Diagram(
         coordinateSystem(preserveAspectRatio=false,
         extent={{-400,-300},{120,420}})),
