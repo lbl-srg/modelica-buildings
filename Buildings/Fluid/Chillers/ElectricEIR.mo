@@ -19,6 +19,8 @@ model ElectricEIR "Electric chiller based on the DOE-2.1 model"
   Modelica.Blocks.Interfaces.RealOutput QEva(final quantity="Power", unit="W")
     "Chiller load" annotation (Placement(transformation(extent={{100,-104},{120,
             -84}}), iconTransformation(extent={{100,-100},{120,-80}})));
+  Controls.OBC.CDL.Continuous.Gain gai(k=-1)
+    annotation (Placement(transformation(extent={{40,-50},{60,-30}})));
 protected
   final parameter Modelica.SIunits.Conversions.NonSIunits.Temperature_degC
     TConEnt_nominal_degC=
@@ -61,8 +63,10 @@ equation
     EIRFunPLR = 0;
   end if;
 
-  connect(QEva_flow_in.y, QEva) annotation (Line(points={{-59,-40},{86,-40},{86,
-          -94},{110,-94}}, color={0,0,127}));
+  connect(gai.y, QEva) annotation (Line(points={{62,-40},{82,-40},{82,-94},{110,
+          -94}}, color={0,0,127}));
+  connect(QEva_flow_in.y, gai.u)
+    annotation (Line(points={{-59,-40},{38,-40}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}),
                    graphics={

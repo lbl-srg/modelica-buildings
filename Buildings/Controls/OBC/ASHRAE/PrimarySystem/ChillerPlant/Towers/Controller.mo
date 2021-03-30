@@ -314,7 +314,7 @@ block Controller "Cooling tower controller"
     annotation (Placement(transformation(extent={{100,-260},{140,-220}}),
       iconTransformation(extent={{100,-190},{140,-150}})));
 
-protected
+//protected
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Towers.FanSpeed.Controller towFanSpe(
     final nChi=nChi,
     final nTowCel=nTowCel,

@@ -60,7 +60,7 @@ block WSEOperation
     annotation (Placement(transformation(extent={{140,40},{180,80}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
-protected
+//protected
   Buildings.Controls.OBC.CDL.Logical.And and2 "Logical and"
     annotation (Placement(transformation(extent={{40,130},{60,150}})));
   Buildings.Controls.OBC.CDL.Logical.Timer tim(
@@ -109,6 +109,7 @@ protected
     final Td=Td,
     final yMax=yMax,
     final yMin=yMin,
+    reverseActing=false,
     final y_reset=0)
     "Controller to maintain chilled water supply temperature at setpoint"
     annotation (Placement(transformation(extent={{-60,-130},{-40,-110}})));
@@ -172,11 +173,6 @@ equation
     annotation (Line(points={{62,60},{98,60}}, color={255,0,255}));
   connect(dTChiSup.y, hys3.u)
     annotation (Line(points={{-88,-40},{-42,-40}}, color={0,0,127}));
-  connect(TChiWatSupSet, chiWatTemCon.u_s)
-    annotation (Line(points={{-160,-120},{-62,-120}}, color={0,0,127}));
-  connect(TChiWatSup, chiWatTemCon.u_m)
-    annotation (Line(points={{-160,-40},{-120,-40},{-120,-150},{-50,-150},{-50,-132}},
-      color={0,0,127}));
   connect(lat.y, chiWatTemCon.trigger)
     annotation (Line(points={{62,60},{74,60},{74,-80},{-70,-80},{-70,-140},
       {-56,-140},{-56,-132}},  color={255,0,255}));
@@ -225,6 +221,10 @@ equation
     annotation (Line(points={{102,132},{120,132},{120,80},{-50,80},{-50,60},
       {-42,60}}, color={255,0,255}));
 
+  connect(TChiWatSupSet, chiWatTemCon.u_s)
+    annotation (Line(points={{-160,-120},{-62,-120}}, color={0,0,127}));
+  connect(TChiWatSup, chiWatTemCon.u_m) annotation (Line(points={{-160,-40},{
+          -110,-40},{-110,-152},{-50,-152},{-50,-132}}, color={0,0,127}));
 annotation (
   defaultComponentName="wseTowSpeWSEOpe",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
