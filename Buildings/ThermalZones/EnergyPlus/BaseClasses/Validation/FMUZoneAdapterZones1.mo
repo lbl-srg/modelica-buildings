@@ -22,7 +22,6 @@ model FMUZoneAdapterZones1
     "Building model"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
   Buildings.ThermalZones.EnergyPlus.BaseClasses.ThermalZoneAdapter fmuZonCor(
-    buildingsLibraryRoot=Buildings.ThermalZones.EnergyPlus.BaseClasses.buildingsLibraryRoot,
     modelicaNameBuilding=modelicaNameBuilding,
     final idfName=idfName,
     final weaName=weaName,
