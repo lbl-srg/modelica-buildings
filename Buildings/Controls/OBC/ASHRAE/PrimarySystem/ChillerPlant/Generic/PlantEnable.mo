@@ -54,7 +54,7 @@ block PlantEnable "Sequence to enable and disable plant"
     "Plant enabling schedule allowing operators to lock out the plant during off-hour"
     annotation (Placement(transformation(extent={{-140,40},{-120,60}})));
 
-protected
+//protected
   final parameter Buildings.Controls.OBC.CDL.Types.Smoothness tabSmo=
     Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments
     "Smoothness of table interpolation";
