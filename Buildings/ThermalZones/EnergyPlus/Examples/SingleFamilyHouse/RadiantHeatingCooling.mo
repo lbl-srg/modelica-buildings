@@ -50,11 +50,11 @@ model RadiantHeatingCooling
     annotation (Placement(transformation(extent={{0,-270},{20,-250}})));
   Fluid.Sources.Boundary_ph pre(
     redeclare package Medium=MediumW,
-    nPorts=2,
     p(
-      displayUnit="Pa")=300000)
+      displayUnit="Pa")=300000,
+    nPorts=1)
     "Pressure boundary condition"
-    annotation (Placement(transformation(extent={{72,-270},{52,-250}})));
+    annotation (Placement(transformation(extent={{70,-270},{50,-250}})));
   Controls.OBC.CDL.Continuous.PID conHea(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
     k=2,
@@ -263,11 +263,11 @@ equation
   connect(TSetRooHea.y,conHea.u_s)
     annotation (Line(points={{-218,-130},{-202,-130}},color={0,0,127}));
   connect(conHea.y,hysHea.u)
-    annotation (Line(points={{-178,-130},{-160,-130}},color={0,0,127}));
+    annotation (Line(points={{-178,-130},{-162,-130}},color={0,0,127}));
   connect(conHea.y,swiBoi.u1)
     annotation (Line(points={{-178,-130},{-170,-130},{-170,-162},{-122,-162}},color={0,0,127}));
   connect(off.y,swiBoi.u3)
-    annotation (Line(points={{-178,-178},{-120,-178}},color={0,0,127}));
+    annotation (Line(points={{-178,-178},{-122,-178}},color={0,0,127}));
   connect(off.y,swiPum.u3)
     annotation (Line(points={{-178,-178},{-150,-178},{-150,-208},{-122,-208}},color={0,0,127}));
   connect(on.y,swiPum.u1)
@@ -275,23 +275,21 @@ equation
   connect(swiBoi.y,hea.u)
     annotation (Line(points={{-98,-170},{-50,-170},{-50,-254},{-42,-254}},color={0,0,127}));
   connect(pum.y,swiPum.y)
-    annotation (Line(points={{-70,-248},{-70,-200},{-100,-200}},color={0,0,127}));
+    annotation (Line(points={{-70,-248},{-70,-200},{-98,-200}},color={0,0,127}));
   connect(pum.port_b,hea.port_a)
     annotation (Line(points={{-60,-260},{-40,-260}},color={0,127,255}));
   connect(hea.port_b,slaFlo.port_a)
-    annotation (Line(points={{-20,-260},{2,-260}},color={0,127,255}));
-  connect(slaFlo.port_b,pre.ports[1])
-    annotation (Line(points={{20,-260},{52,-260}},color={0,127,255}));
+    annotation (Line(points={{-20,-260},{0,-260}},color={0,127,255}));
   connect(attFlo1.heaPorFro,slaFlo.surf_a)
     annotation (Line(points={{100,-250},{100,-240},{14,-240},{14,-250}},color={191,0,0}));
   connect(slaFlo.surf_b,attFlo1.heaPorBac)
     annotation (Line(points={{14,-270},{14,-280},{100,-280},{100,-269.8}},color={191,0,0}));
-  connect(slaFlo.port_b,pre.ports[2])
-    annotation (Line(points={{20,-260},{52,-260}},color={0,127,255}));
   connect(slaFlo.port_b,pum.port_a)
     annotation (Line(points={{20,-260},{40,-260},{40,-300},{-100,-300},{-100,-260},{-80,-260}},color={0,127,255}));
   connect(zon.TAir,conHea.u_m)
     annotation (Line(points={{41,18},{48,18},{48,40},{-210,40},{-210,-150},{-190,-150},{-190,-142}},color={0,0,127}));
+  connect(slaFlo.port_b,pre.ports[1])
+    annotation (Line(points={{20,-260},{50,-260}},color={0,127,255}));
   annotation (
     __Dymola_Commands(
       file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus/Examples/SingleFamilyHouse/RadiantHeatingCooling.mos" "Simulate and plot"),
