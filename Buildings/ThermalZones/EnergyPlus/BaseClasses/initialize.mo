@@ -10,7 +10,10 @@ function initialize
     "Returns 1 from C, used to force synchronization";
 external "C" ModelicaSpawnInitialize(
   adapter,isSynchronized,nObj)
-  annotation (Include="#include <EnergyPlusWrapper.c>",IncludeDirectory="modelica://Buildings/Resources/C-Sources",Library={"ModelicaBuildingsEnergyPlus","fmilib_shared"});
+  annotation (
+      Include="#include <EnergyPlusWrapper.c>",
+      IncludeDirectory="modelica://Buildings/Resources/C-Sources",
+      Library={"ModelicaBuildingsEnergyPlus","fmilib_shared"});
   annotation (
     Documentation(
       info="<html>

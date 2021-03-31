@@ -59,8 +59,41 @@ class SpawnExternalObject
       "Increments for derivative calculation";
     output SpawnExternalObject adapter;
   external "C" adapter=ModelicaSpawnAllocate(
-    objectType,startTime,modelicaNameBuilding,modelicaInstanceName,idfName,weaName,epName,usePrecompiledFMU,fmuName,buildingsLibraryRoot,logLevel,printUnit,jsonName,jsonKeysValues,parOutNames,nParOut,parOutUnits,nParOut,inpNames,nInp,inpUnits,nInp,outNames,nOut,outUnits,nOut,derivatives_structure,2,nDer,derivatives_delta,nDer)
-    annotation (Include="#include <EnergyPlusWrapper.c>",IncludeDirectory="modelica://Buildings/Resources/C-Sources",Library={"ModelicaBuildingsEnergyPlus","fmilib_shared"});
+    objectType,
+    startTime,
+    modelicaNameBuilding,
+    modelicaInstanceName,
+    idfName,
+    weaName,
+    epName,
+    usePrecompiledFMU,
+    fmuName,
+    buildingsLibraryRoot,
+    logLevel,
+    printUnit,
+    jsonName,
+    jsonKeysValues,
+    parOutNames,
+    nParOut,
+    parOutUnits,
+    nParOut,
+    inpNames,
+    nInp,
+    inpUnits,
+    nInp,
+    outNames,
+    nOut,
+    outUnits,
+    nOut,
+    derivatives_structure,
+    2,
+    nDer,
+    derivatives_delta,
+    nDer)
+    annotation (
+      Include="#include <EnergyPlusWrapper.c>",
+      IncludeDirectory="modelica://Buildings/Resources/C-Sources",
+      Library={"ModelicaBuildingsEnergyPlus","fmilib_shared"});
     annotation (
       Documentation(
         info="<html>
@@ -90,7 +123,10 @@ First implementation.
     extends Modelica.Icons.Function;
     input SpawnExternalObject adapter;
   external "C" ModelicaSpawnFree(adapter)
-    annotation (Include="#include <EnergyPlusWrapper.c>",IncludeDirectory="modelica://Buildings/Resources/C-Sources",Library={"ModelicaBuildingsEnergyPlus","fmilib_shared"});
+    annotation (
+      Include="#include <EnergyPlusWrapper.c>",
+      IncludeDirectory="modelica://Buildings/Resources/C-Sources",
+      Library={"ModelicaBuildingsEnergyPlus","fmilib_shared"});
     annotation (
       Documentation(
         info="<html>
