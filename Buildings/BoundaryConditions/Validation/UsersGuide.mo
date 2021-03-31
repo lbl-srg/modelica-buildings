@@ -1,9 +1,11 @@
 within Buildings.BoundaryConditions.Validation;
-package UsersGuide "User's Guide"
+package UsersGuide
+  "User's Guide"
   extends Modelica.Icons.Information;
-
-  annotation(preferredView="info",
-  Documentation(info="<html>
+  annotation (
+    preferredView="info",
+    Documentation(
+      info="<html>
 <p>
 The package <a href=\"modelica://Buildings.BoundaryConditions.Validation.BESTEST\">Buildings.BoundaryConditions.Validation.BESTEST</a>
 contains the models that are used for the BESTEST validation ASHRAE 2020 for weather data acquisition and postprocessing.
@@ -158,7 +160,8 @@ python3 generateResults.py -p
 </ul>
 <h4>References</h4>
 <p>(Not available yet)</p>
-</html>", revisions="<html>
+</html>",
+      revisions="<html>
 <ul>
 <li>
 March 11, 2020, by Ettore Zanetti:<br/>
