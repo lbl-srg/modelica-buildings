@@ -2,33 +2,39 @@ within Buildings.ThermalZones.EnergyPlus;
 model OpaqueConstruction
   "Model to exchange heat of an opaque construction with EnergyPlus"
   extends Buildings.ThermalZones.EnergyPlus.BaseClasses.PartialEnergyPlusObject;
-  extends
-    Buildings.ThermalZones.EnergyPlus.BaseClasses.Synchronize.ObjectSynchronizer;
-
+  extends Buildings.ThermalZones.EnergyPlus.BaseClasses.Synchronize.ObjectSynchronizer;
   parameter String surfaceName
     "Surface unique name in the EnergyPlus idf file";
-
   final parameter Modelica.SIunits.Area A(
     final fixed=false,
     min=1E-10)
     "Surface area";
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heaPorFro
-    "Heat port for front surface" annotation (Placement(transformation(extent={{-110,
-            -10},{-90,10}}),
-                        iconTransformation(extent={{-110,-10},{-90,10}})));
+    "Heat port for front surface"
+    annotation (Placement(transformation(extent={{-110,-10},{-90,10}}),iconTransformation(extent={{-110,-10},{-90,10}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b heaPorBac
-    "Heat port for back surface" annotation (Placement(transformation(extent={{90,-10},
-            {110,10}}),iconTransformation(extent={{88,-10},{108,10}})));
-  Modelica.SIunits.HeatFlux qFro_flow "Heat flow rate at front surface per unit area";
-  Modelica.SIunits.HeatFlux qBac_flow "Heat flow rate at front surface per unit area";
-protected
-  constant Integer nParOut = 1 "Number of parameter values retrieved from EnergyPlus";
-  constant Integer nInp = 2 "Number of inputs";
-  constant Integer nOut = 2 "Number of outputs";
-  constant Integer nDer = 2 "Number of derivatives";
-  constant Integer nY = nOut + nDer + 1 "Size of output vector of exchange function";
-  parameter Integer nObj(fixed=false, start=0) "Total number of Spawn objects in building";
+    "Heat port for back surface"
+    annotation (Placement(transformation(extent={{90,-10},{110,10}}),iconTransformation(extent={{88,-10},{108,10}})));
+  Modelica.SIunits.HeatFlux qFro_flow
+    "Heat flow rate at front surface per unit area";
+  Modelica.SIunits.HeatFlux qBac_flow
+    "Heat flow rate at front surface per unit area";
 
+protected
+  constant Integer nParOut=1
+    "Number of parameter values retrieved from EnergyPlus";
+  constant Integer nInp=2
+    "Number of inputs";
+  constant Integer nOut=2
+    "Number of outputs";
+  constant Integer nDer=2
+    "Number of derivatives";
+  constant Integer nY=nOut+nDer+1
+    "Size of output vector of exchange function";
+  parameter Integer nObj(
+    fixed=false,
+    start=0)
+    "Total number of Spawn objects in building";
   Buildings.ThermalZones.EnergyPlus.BaseClasses.SpawnExternalObject adapter=Buildings.ThermalZones.EnergyPlus.BaseClasses.SpawnExternalObject(
     objectType=6,
     startTime=startTime,
@@ -42,24 +48,23 @@ protected
     buildingsLibraryRoot=Buildings.ThermalZones.EnergyPlus.BaseClasses.buildingsLibraryRoot,
     logLevel=logLevel,
     printUnit=false,
-    jsonName = "buildingSurfaceDetailed",
-    jsonKeysValues = "        \"name\": \"" + surfaceName + "\"",
-    parOutNames = {"A"},
-    parOutUnits = {"m2"},
-    nParOut = nParOut,
-    inpNames = {"TFront", "TBack"},
-    inpUnits = {"K", "K"},
-    nInp = nInp,
-    outNames = {"QFront_flow", "QBack_flow"},
-    outUnits = {"W", "W"},
-    nOut = nOut,
-    derivatives_structure = {{1, 1}, {2, 2}},
-    nDer = nDer,
-    derivatives_delta = {0.01, 0.01})
+    jsonName="buildingSurfaceDetailed",
+    jsonKeysValues="        \"name\": \""+surfaceName+"\"",
+    parOutNames={"A"},
+    parOutUnits={"m2"},
+    nParOut=nParOut,
+    inpNames={"TFront","TBack"},
+    inpUnits={"K","K"},
+    nInp=nInp,
+    outNames={"QFront_flow","QBack_flow"},
+    outUnits={"W","W"},
+    nOut=nOut,
+    derivatives_structure={{1,1},{2,2}},
+    nDer=nDer,
+    derivatives_delta={0.01,0.01})
     "Class to communicate with EnergyPlus";
-
-  Real yEP[nY] "Output of exchange function";
-
+  Real yEP[nY]
+    "Output of exchange function";
   Modelica.SIunits.Time tNext(
     start=startTime,
     fixed=true)
@@ -96,44 +101,38 @@ initial equation
   nObj=Buildings.ThermalZones.EnergyPlus.BaseClasses.initialize(
     adapter=adapter,
     isSynchronized=building.isSynchronized);
-
-  {A} = Buildings.ThermalZones.EnergyPlus.BaseClasses.getParameters(
+  {A}=Buildings.ThermalZones.EnergyPlus.BaseClasses.getParameters(
     adapter=adapter,
-    nParOut = nParOut,
-    isSynchronized = nObj);
-
+    nParOut=nParOut,
+    isSynchronized=nObj);
   assert(
     A > 0,
     "Surface area must not be zero.");
+
 equation
-  when {initial(), time >= pre(tNext)} then
+  when {initial(),time >= pre(tNext)} then
     // Initialization of output variables.
     TFroLast=heaPorFro.T;
     TBacLast=heaPorBac.T;
-    dtLast=time-pre(
-      tLast);
-
-    yEP = Buildings.ThermalZones.EnergyPlus.BaseClasses.exchange(
-      adapter = adapter,
-      initialCall = false,
-      nY = nY,
-      u = {heaPorFro.T, heaPorBac.T, round(time, 1E-3)},
-      dummy = A);
-
-    QFroLast_flow = yEP[1];
-    QBacLast_flow = yEP[2];
-    dQFro_flow_dT = yEP[3];
-    dQBac_flow_dT = yEP[4];
-    tNext = yEP[3];
+    dtLast=time-pre(tLast);
+    yEP=Buildings.ThermalZones.EnergyPlus.BaseClasses.exchange(
+      adapter=adapter,
+      initialCall=false,
+      nY=nY,
+      u={heaPorFro.T,heaPorBac.T,round(time,1E-3)},
+      dummy=A);
+    QFroLast_flow=yEP[1];
+    QBacLast_flow=yEP[2];
+    dQFro_flow_dT=yEP[3];
+    dQBac_flow_dT=yEP[4];
+    tNext=yEP[3];
     tLast=time;
   end when;
   heaPorFro.Q_flow=QFroLast_flow+(heaPorFro.T-TFroLast)*dQFro_flow_dT;
   heaPorBac.Q_flow=QBacLast_flow+(heaPorBac.T-TBacLast)*dQBac_flow_dT;
-  qFro_flow = heaPorFro.Q_flow/A;
-  qBac_flow = heaPorBac.Q_flow/A;
-
-  nObj = synBui.synchronize.done;
-
+  qFro_flow=heaPorFro.Q_flow/A;
+  qBac_flow=heaPorBac.Q_flow/A;
+  nObj=synBui.synchronize.done;
   annotation (
     defaultComponentName="opaCon",
     Documentation(
@@ -239,7 +238,7 @@ This configuration is illustrated in the example
 Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse.RadiantHeatingCooling</a>.
 </p>
 </html>",
-revisions="<html>
+      revisions="<html>
 <ul>
 <li>
 March 24, 2021, by Michael Wetter:<br/>
@@ -249,32 +248,71 @@ This is for
 </li>
 </ul>
 </html>"),
-    Icon(graphics={
-   Rectangle(
-    extent={{0,66},{80,-66}},       fillColor={175,175,175},
-   fillPattern=FillPattern.Solid,    lineColor={175,175,175}),
-   Rectangle(
-    extent={{-80,66},{0,-66}},      fillColor={215,215,215},
-   fillPattern=FillPattern.Solid,    lineColor={175,175,175}),
-   Line(points={{-92,0},{90,0}},      color = {0, 0, 0}, thickness = 0.5,
-   smooth = Smooth.None),
-   Line(points={{-18,-40},{-32,-40}},     color = {0, 0, 0}, thickness = 0.5,
-   smooth = Smooth.None),
-   Line(points={{-12,-32},{-38,-32}},     color = {0, 0, 0}, thickness = 0.5,
-   smooth = Smooth.None),            Line(points={{-25,0},{-25,-32}},
-   color = {0, 0, 0}, thickness = 0.5, smooth = Smooth.None),
-   Line(points={{32,-40},{18,-40}},       color = {0, 0, 0}, thickness = 0.5,
-   smooth = Smooth.None),
-   Line(points={{38,-32},{12,-32}},       color = {0, 0, 0}, thickness = 0.5,
-   smooth = Smooth.None),            Line(points={{25,0},{25,-32}},
-   color = {0, 0, 0}, thickness = 0.5, smooth = Smooth.None),
-                                     Rectangle(extent={{-60,6},{-40,-6}},
-   lineColor = {0, 0, 0}, lineThickness =  0.5, fillColor = {255, 255, 255},
-   fillPattern = FillPattern.Solid), Rectangle(extent={{-10,6},{10,-6}},
-   lineColor = {0, 0, 0}, lineThickness =  0.5, fillColor = {255, 255, 255},
-   fillPattern = FillPattern.Solid), Rectangle(extent={{40,6},{60,-6}},
-   lineColor = {0, 0, 0}, lineThickness =  0.5, fillColor = {255, 255, 255},
-   fillPattern = FillPattern.Solid),
+    Icon(
+      graphics={
+        Rectangle(
+          extent={{0,66},{80,-66}},
+          fillColor={175,175,175},
+          fillPattern=FillPattern.Solid,
+          lineColor={175,175,175}),
+        Rectangle(
+          extent={{-80,66},{0,-66}},
+          fillColor={215,215,215},
+          fillPattern=FillPattern.Solid,
+          lineColor={175,175,175}),
+        Line(
+          points={{-92,0},{90,0}},
+          color={0,0,0},
+          thickness=0.5,
+          smooth=Smooth.None),
+        Line(
+          points={{-18,-40},{-32,-40}},
+          color={0,0,0},
+          thickness=0.5,
+          smooth=Smooth.None),
+        Line(
+          points={{-12,-32},{-38,-32}},
+          color={0,0,0},
+          thickness=0.5,
+          smooth=Smooth.None),
+        Line(
+          points={{-25,0},{-25,-32}},
+          color={0,0,0},
+          thickness=0.5,
+          smooth=Smooth.None),
+        Line(
+          points={{32,-40},{18,-40}},
+          color={0,0,0},
+          thickness=0.5,
+          smooth=Smooth.None),
+        Line(
+          points={{38,-32},{12,-32}},
+          color={0,0,0},
+          thickness=0.5,
+          smooth=Smooth.None),
+        Line(
+          points={{25,0},{25,-32}},
+          color={0,0,0},
+          thickness=0.5,
+          smooth=Smooth.None),
+        Rectangle(
+          extent={{-60,6},{-40,-6}},
+          lineColor={0,0,0},
+          lineThickness=0.5,
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-10,6},{10,-6}},
+          lineColor={0,0,0},
+          lineThickness=0.5,
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{40,6},{60,-6}},
+          lineColor={0,0,0},
+          lineThickness=0.5,
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
         Text(
           extent={{-76,68},{-50,40}},
           lineColor={0,0,127},

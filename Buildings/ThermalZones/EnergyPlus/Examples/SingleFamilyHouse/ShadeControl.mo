@@ -2,7 +2,6 @@ within Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse;
 model ShadeControl
   "Example model with one actuator that controls a shade in EnergyPlus"
   extends Modelica.Icons.Example;
-
   package Medium=Buildings.Media.Air
     "Medium model";
   inner Building building(
@@ -47,7 +46,8 @@ model ShadeControl
   Buildings.ThermalZones.EnergyPlus.OutputVariable incBeaSou(
     name="Surface Outside Face Incident Beam Solar Radiation Rate per Area",
     key="Zn001:Wall001:Win001",
-    y(final unit="W/m2"))
+    y(
+      final unit="W/m2"))
     "Block that reads incident beam solar radiation on south window from EnergyPlus"
     annotation (Placement(transformation(extent={{-50,-120},{-30,-100}})));
   Buildings.Controls.OBC.Shade.Shade_T shaT(
@@ -87,8 +87,7 @@ model ShadeControl
     annotation (Placement(transformation(extent={{-114,-44},{-94,-24}})));
   Buildings.Fluid.FixedResistances.PressureDrop res(
     redeclare package Medium=Medium,
-    m_flow_nominal=sum(
-      m_flow_nominal),
+    m_flow_nominal=sum(m_flow_nominal),
     dp_nominal=10,
     linearized=true)
     annotation (Placement(transformation(extent={{-60,-44},{-80,-24}})));
@@ -111,37 +110,34 @@ model ShadeControl
   Cooling cooEas
     "Idealized cooling system"
     annotation (Placement(transformation(rotation=0,extent={{120,-10},{100,10}})));
+
 equation
   connect(qIntGai.y,zonNor.qGai_flow)
     annotation (Line(points={{-59,70},{-2,70}},color={0,0,127}));
   connect(qIntGai.y,zonEas.qGai_flow)
-    annotation (Line(points={{-59,70},{-50,70},{-50,26},{30,26},{30,10},{38,10}},
-                                                                               color={0,0,127}));
+    annotation (Line(points={{-59,70},{-50,70},{-50,26},{30,26},{30,10},{38,10}},color={0,0,127}));
   connect(qIntGai.y,zonWes.qGai_flow)
-    annotation (Line(points={{-59,70},{-50,70},{-50,10},{-30,10}},
-                                                                color={0,0,127}));
+    annotation (Line(points={{-59,70},{-50,70},{-50,10},{-30,10}},color={0,0,127}));
   connect(shaT.y,greEquT.u)
-    annotation (Line(points={{2,-80},{8,-80}},  color={0,0,127}));
+    annotation (Line(points={{2,-80},{8,-80}},color={0,0,127}));
   connect(shaH.y,greEquH.u)
-    annotation (Line(points={{2,-110},{8,-110}},  color={0,0,127}));
+    annotation (Line(points={{2,-110},{8,-110}},color={0,0,127}));
   connect(greEquT.y,and2.u1)
-    annotation (Line(points={{32,-80},{36,-80},{36,-100},{38,-100}},  color={255,0,255}));
+    annotation (Line(points={{32,-80},{36,-80},{36,-100},{38,-100}},color={255,0,255}));
   connect(greEquH.y,and2.u2)
-    annotation (Line(points={{32,-110},{36,-110},{36,-108},{38,-108}},  color={255,0,255}));
+    annotation (Line(points={{32,-110},{36,-110},{36,-108},{38,-108}},color={255,0,255}));
   connect(and2.y,booToRea.u)
     annotation (Line(points={{62,-100},{68,-100}},color={255,0,255}));
   connect(actSha.u,booToRea.y)
     annotation (Line(points={{98,-100},{92,-100}},color={0,0,127}));
   connect(shaT.T,zonWes.TAir)
-    annotation (Line(points={{-22,-80},{-28,-80},{-28,-60},{16,-60},{16,18},{13,
-          18}},                                                     color={0,0,127}));
+    annotation (Line(points={{-22,-80},{-28,-80},{-28,-60},{16,-60},{16,18},{13,18}},color={0,0,127}));
   connect(shaH.H,incBeaSou.y)
-    annotation (Line(points={{-22,-110},{-29,-110}},
-                                                  color={0,0,127}));
+    annotation (Line(points={{-22,-110},{-29,-110}},color={0,0,127}));
   connect(weaBus,out.weaBus)
     annotation (Line(points={{-130,20},{-130,-33.8},{-114,-33.8}},color={255,204,51},thickness=0.5));
   connect(bou[:].ports[1],res1[:].port_a)
-    annotation (Line(points={{-94,0},{-80,0}},  color={0,127,255}));
+    annotation (Line(points={{-94,0},{-80,0}},color={0,127,255}));
   connect(weaBus,bou[1].weaBus)
     annotation (Line(points={{-130,20},{-130,0.2},{-114,0.2}},color={255,204,51},thickness=0.5));
   connect(weaBus,bou[2].weaBus)
@@ -149,21 +145,22 @@ equation
   connect(weaBus,bou[3].weaBus)
     annotation (Line(points={{-130,20},{-130,0.2},{-114,0.2}},color={255,204,51},thickness=0.5));
   connect(building.weaBus,weaBus)
-    annotation (Line(points={{-148,20},{-130,20}},                    color={255,204,51},thickness=0.5));
+    annotation (Line(points={{-148,20},{-130,20}},color={255,204,51},thickness=0.5));
   connect(res1[1].port_b,zonNor.ports[1])
-    annotation (Line(points={{-60,0},{-38,0},{-38,36},{18,36},{18,40.9}}, color={0,127,255}));
+    annotation (Line(points={{-60,0},{-38,0},{-38,36},{18,36},{18,40.9}},color={0,127,255}));
   connect(res1[2].port_b,zonWes.ports[1])
-    annotation (Line(points={{-60,0},{-38,0},{-38,-26},{-10,-26},{-10,-19.1}}, color={0,127,255}));
+    annotation (Line(points={{-60,0},{-38,0},{-38,-26},{-10,-26},{-10,-19.1}},color={0,127,255}));
   connect(res1[3].port_b,zonEas.ports[1])
-    annotation (Line(points={{-60,0},{-38,0},{-38,-26},{58,-26},{58,-19.1}}, color={0,127,255}));
+    annotation (Line(points={{-60,0},{-38,0},{-38,-26},{58,-26},{58,-19.1}},color={0,127,255}));
   connect(out.ports[1],res.port_b)
-    annotation (Line(points={{-94,-34},{-80,-34}},  color={0,127,255}));
+    annotation (Line(points={{-94,-34},{-80,-34}},color={0,127,255}));
   connect(res.port_a,zonNor.ports[2])
-    annotation (Line(points={{-60,-34},{-34,-34},{-34,34},{22,34},{22,40.9}}, color={0,127,255}));
+    annotation (Line(points={{-60,-34},{-34,-34},{-34,34},{22,34},{22,40.9}},color={0,127,255}));
   connect(res.port_a,zonWes.ports[2])
-    annotation (Line(points={{-60,-34},{-6,-34},{-6,-19.1}}, color={0,127,255}));
+    annotation (Line(points={{-60,-34},{-6,-34},{-6,-19.1}},color={0,127,255}));
   connect(res.port_a,zonEas.ports[2])
-    annotation (Line(points={{-60,-34},{62,-34},{62,-19.1}}, color={0,127,255}));
+    annotation (Line(points={{-60,-34},{62,-34},{62,-19.1}},color={0,127,255}));
+
 protected
   model Cooling
     extends Modelica.Blocks.Icons.Block;
@@ -188,6 +185,7 @@ protected
     Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temSen
       "Temperature sensor"
       annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
+
   equation
     connect(TSet.y,conPID.u_s)
       annotation (Line(points={{-48,0},{-32,0}},color={0,0,127}));
@@ -209,13 +207,14 @@ protected
         coordinateSystem(
           extent={{-100,-100},{100,100}})));
   end Cooling;
+
 equation
   connect(cooNor.heaPor,zonNor.heaPorAir)
     annotation (Line(points={{100,60},{20,60}},color={191,0,0}));
   connect(cooWes.heaPor,zonWes.heaPorAir)
-    annotation (Line(points={{100,30},{24,30},{24,0},{-8,0}},  color={191,0,0}));
+    annotation (Line(points={{100,30},{24,30},{24,0},{-8,0}},color={191,0,0}));
   connect(cooEas.heaPor,zonEas.heaPorAir)
-    annotation (Line(points={{100,0},{60,0}},  color={191,0,0}));
+    annotation (Line(points={{100,0},{60,0}},color={191,0,0}));
   annotation (
     __Dymola_Commands(
       file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus/Examples/SingleFamilyHouse/ShadeControl.mos" "Simulate and plot"),

@@ -48,6 +48,7 @@ model Unconditioned
     each k=0)
     "Internal heat gains, set to zero because these are modelled in EnergyPlus"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
+
 equation
   connect(freshAir.ports[1],duc.port_b)
     annotation (Line(points={{-20,-40},{-10,-40}},color={0,127,255}));

@@ -2,23 +2,28 @@ within Buildings.ThermalZones.EnergyPlus.Validation.ZoneSurface;
 model OneZoneConstantFloorTemperature
   "Validation model with one thermal zone with constant floor temperature"
   extends Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse.Unconditioned;
-  Buildings.ThermalZones.EnergyPlus.ZoneSurface flo(surfaceName="Living:Floor")
+  Buildings.ThermalZones.EnergyPlus.ZoneSurface flo(
+    surfaceName="Living:Floor")
     "Floor surface of living room"
     annotation (Placement(transformation(extent={{0,60},{20,80}})));
-  Controls.OBC.CDL.Continuous.Sources.Constant TFlo(k(
+  Controls.OBC.CDL.Continuous.Sources.Constant TFlo(
+    k(
       final unit="K",
-      displayUnit="degC") = 298.15) "Floor temperature"
+      displayUnit="degC")=298.15)
+    "Floor temperature"
     annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
+
 equation
-  connect(TFlo.y, flo.T)
-    annotation (Line(points={{-18,70},{-2,70}}, color={0,0,127}));
+  connect(TFlo.y,flo.T)
+    annotation (Line(points={{-18,70},{-2,70}},color={0,0,127}));
   annotation (
-   __Dymola_Commands(
+    __Dymola_Commands(
       file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus/Validation/ZoneSurface/OneZoneConstantFloorTemperature.mos" "Simulate and plot"),
-  experiment(
+    experiment(
       StopTime=432000,
       Tolerance=1e-06),
-Documentation(info="<html>
+    Documentation(
+      info="<html>
 <p>
 Model that uses EnergyPlus and sets the floor temperature to a constant value.
 </p>
@@ -28,7 +33,8 @@ However, it becomes negative when the direct solar irradiation is high, indicati
 net heat flow rate is from the room into the construction due to the solar gains that hit the floor
 even though the surface temperature is above the room air and room radiative temperature.
 </p>
-</html>", revisions="<html>
+</html>",
+      revisions="<html>
 <ul>
 <li>
 March 12, 2021, by Michael Wetter:<br/>

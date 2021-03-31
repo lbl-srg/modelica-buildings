@@ -2,12 +2,13 @@ within Buildings.ThermalZones.EnergyPlus;
 package UsersGuide
   "EnergyPlus package user's guide"
   extends Modelica.Icons.Information;
-
-class GettingStarted "Getting started"
-  extends Modelica.Icons.Information;
-  annotation (
-preferredView="info",
-Documentation(info="<html>
+  class GettingStarted
+    "Getting started"
+    extends Modelica.Icons.Information;
+    annotation (
+      preferredView="info",
+      Documentation(
+        info="<html>
 <h4>How to instantiate models for one or several buidings</h4>
 <p>
 To instantiate one or several building models, proceed as follows:
@@ -151,13 +152,14 @@ that connects the slab to the zone below.
 </ol>
 </p>
 </html>"));
-end GettingStarted;
-
-class Conventions "Conventions"
-  extends Modelica.Icons.Information;
-  annotation (
-preferredView="info",
-Documentation(info="<html>
+  end GettingStarted;
+  class Conventions
+    "Conventions"
+    extends Modelica.Icons.Information;
+    annotation (
+      preferredView="info",
+      Documentation(
+        info="<html>
 <h4>Conventions</h4>
 <p>
 The following conventions are made:
@@ -182,13 +184,14 @@ as declared in the idf file.
 </li>
 </ul>
 </html>"));
-end Conventions;
-
-class UnitConversion "Unit Conversion"
-  extends Modelica.Icons.Information;
-  annotation (
-preferredView="info",
-Documentation(info="<html>
+  end Conventions;
+  class UnitConversion
+    "Unit Conversion"
+    extends Modelica.Icons.Information;
+    annotation (
+      preferredView="info",
+      Documentation(
+        info="<html>
 <h4>Unit conversion</h4>
 <p>
 Units between Modelica and EnergyPlus are automatically converted, if they are specified.
@@ -228,13 +231,14 @@ The units that are used in the output <code>y</code> of this block
 are reported to the Modelica log file.
 </p>
 </html>"));
-end UnitConversion;
-
-class EnergyPlusWarmUp "EnergyPlus warm-up"
-  extends Modelica.Icons.Information;
-  annotation (
-preferredView="info",
-Documentation(info="<html>
+  end UnitConversion;
+  class EnergyPlusWarmUp
+    "EnergyPlus warm-up"
+    extends Modelica.Icons.Information;
+    annotation (
+      preferredView="info",
+      Documentation(
+        info="<html>
 <h4>EnergyPlus warm-up</h4>
 <p>
 In Spawn there can be both connected and unconnected zones defined in the EnergyPlus input file.
@@ -338,13 +342,14 @@ A future enhancement may define a new warmup convergence criteria that takes int
 the internal wall temperatures.
 </p>
 </html>"));
-end EnergyPlusWarmUp;
-
-class NotesForDymola "Notes for Dymola"
-  extends Modelica.Icons.Information;
-  annotation (
-preferredView="info",
-Documentation(info="<html>
+  end EnergyPlusWarmUp;
+  class NotesForDymola
+    "Notes for Dymola"
+    extends Modelica.Icons.Information;
+    annotation (
+      preferredView="info",
+      Documentation(
+        info="<html>
 <h4>Notes for Dymola</h4>
 <h5>64 bit configuration</h5>
 <p>
@@ -378,11 +383,11 @@ for which the EnergyPlus model has multiple thermal zones, or for which
 multiple buildings are simulated in EnergyPlus.
 </p>
 </html>"));
-end NotesForDymola;
-
+  end NotesForDymola;
   annotation (
-  preferredView="info",
-  Documentation(info="<html>
+    preferredView="info",
+    Documentation(
+      info="<html>
 <p>
 <img alt=\"Spawn logo\" src=\"modelica://Buildings/Resources/Images/ThermalZones/EnergyPlus/spawn_icon_darkbluetxlowres.png\"  style=\"float:right;height=203px;width:587px;\"/>
 <p>

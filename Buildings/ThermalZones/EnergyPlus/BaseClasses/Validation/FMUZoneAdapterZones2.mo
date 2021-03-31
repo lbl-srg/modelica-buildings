@@ -58,7 +58,8 @@ model FMUZoneAdapterZones2
     k=1/CZon,
     initType=Modelica.Blocks.Types.Init.InitialState,
     y_start=294.15,
-    y(final unit="K",
+    y(
+      final unit="K",
       displayUnit="degC"))
     "Zone air temperature"
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
@@ -78,10 +79,12 @@ model FMUZoneAdapterZones2
     k=1/CZon,
     initType=Modelica.Blocks.Types.Init.InitialState,
     y_start=294.15,
-    y(final unit="K",
+    y(
+      final unit="K",
       displayUnit="degC"))
     "Zone air temperature"
     annotation (Placement(transformation(extent={{60,-20},{80,0}})));
+
 equation
   connect(X_w.y,fmuZonCor.X_w)
     annotation (Line(points={{-67,54},{-16,54},{-16,34},{18,34}},color={0,0,127}));

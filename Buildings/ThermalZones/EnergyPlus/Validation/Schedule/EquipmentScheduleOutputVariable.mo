@@ -6,7 +6,8 @@ model EquipmentScheduleOutputVariable
     name="Zone Electric Equipment Electricity Rate",
     key="LIVING ZONE",
     isDirectDependent=true,
-    y(final unit="W"))
+    y(
+      final unit="W"))
     "Block that reads output from EnergyPlus"
     annotation (Placement(transformation(extent={{0,70},{20,90}})));
   Utilities.Diagnostics.AssertEquality assEqu(
@@ -18,6 +19,7 @@ model EquipmentScheduleOutputVariable
     k=500)
     "Gain for internal heat gain"
     annotation (Placement(transformation(extent={{-40,34},{-20,54}})));
+
 equation
   connect(schInt.y,equEle.directDependency)
     annotation (Line(points={{-18,80},{-2,80}},color={0,0,127}));
