@@ -2,9 +2,9 @@ within Buildings.ThermalZones.EnergyPlus.BaseClasses;
 partial block PartialEnergyPlusObject
   "Partial definitions of an EnergyPlus object"
   extends Modelica.Blocks.Icons.Block;
-
   outer Buildings.ThermalZones.EnergyPlus.Building building
     "Building-level declarations";
+
 protected
   constant String modelicaNameBuilding=building.modelicaNameBuilding
     "Name of the building to which this output variable belongs to"
@@ -28,21 +28,21 @@ protected
   parameter Modelica.SIunits.Time startTime(
     fixed=false)
     "Simulation start time";
-
   function round
     input Real u;
     input Real accuracy;
     output Real y;
+
   algorithm
     y :=
-      if
-        (u > 0) then
+      if(u > 0) then
         floor(
           u/accuracy+0.5)*accuracy
       else
         ceil(
           u/accuracy-0.5)*accuracy;
   end round;
+
 initial equation
   startTime=time;
   annotation (

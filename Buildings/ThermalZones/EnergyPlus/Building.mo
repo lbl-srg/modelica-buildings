@@ -35,16 +35,15 @@ model Building
   BoundaryConditions.WeatherData.Bus weaBus if showWeatherData
     "Weather data bus"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
-
-
   BaseClasses.Synchronize.SynchronizeConnector synchronize
     "Connector that synchronizes all Spawn objects of this buildings"
     annotation (HideResult=true);
-  Real isSynchronized "Flag used to synchronize Spawn objects"
+  Real isSynchronized
+    "Flag used to synchronize Spawn objects"
     annotation (HideResult=true);
 
 protected
-  Real synchronization_done = synchronize.done
+  Real synchronization_done=synchronize.done
     "Intermediate variable as acausal connectors cannot be used in the algorithm section";
   Linux64Binaries linux64Binaries if generatePortableFMU
     "Record with binaries";
@@ -66,9 +65,10 @@ protected
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
 equation
-  synchronize.do = 0;
+  synchronize.do=0;
   connect(weaDat.weaBus,weaBus)
     annotation (Line(points={{10,0},{100,0}},color={255,204,51},thickness=0.5),Text(string="%second",index=1,extent={{6,3},{6,3}},horizontalAlignment=TextAlignment.Left));
+
 algorithm
   isSynchronized := synchronization_done;
   annotation (

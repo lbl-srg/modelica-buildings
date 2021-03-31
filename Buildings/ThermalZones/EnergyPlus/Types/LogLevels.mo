@@ -34,19 +34,4 @@ August 21, 2019, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"),
-  Icon(
-    graphics={Rectangle(
-      lineColor={200,200,200},
-      fillColor={248,248,248},
-      fillPattern=FillPattern.HorizontalCylinder,
-      extent={{-100,-100},{100,100}},radius=25.0),
-      Polygon(points={{0,76},{-80,-64},{80,-64},{0,76}},
-      fillColor={0,0,0},
-      fillPattern=FillPattern.Solid,pattern=LinePattern.None,lineColor={0,0,0}),
-      Polygon(points={{0,68},{-72,-60},{72,-60},{0,68}},lineColor={0,0,0},
-      fillColor={255,255,170},fillPattern=FillPattern.Solid),
-      Ellipse(extent={{-6,-36},{4,-46}},pattern=LinePattern.None,
-      fillColor={0,0,0},fillPattern=FillPattern.Solid),
-      Rectangle(extent={{-4,34},{2,-28}},fillColor={0,0,0},fillPattern=FillPattern.Solid,
-      pattern=LinePattern.None)}));
+</html>"),Icon(graphics={Rectangle(lineColor={200,200,200},fillColor={248,248,248},fillPattern=FillPattern.HorizontalCylinder,extent={{-100,-100},{100,100}},radius=25.0),Polygon(points={{0,76},{-80,-64},{80,-64},{0,76}},fillColor={0,0,0},fillPattern=FillPattern.Solid,pattern=LinePattern.None,lineColor={0,0,0}),Polygon(points={{0,68},{-72,-60},{72,-60},{0,68}},lineColor={0,0,0},fillColor={255,255,170},fillPattern=FillPattern.Solid),Ellipse(extent={{-6,-36},{4,-46}},pattern=LinePattern.None,fillColor={0,0,0},fillPattern=FillPattern.Solid),Rectangle(extent={{-4,34},{2,-28}},fillColor={0,0,0},fillPattern=FillPattern.Solid,pattern=LinePattern.None)}));
