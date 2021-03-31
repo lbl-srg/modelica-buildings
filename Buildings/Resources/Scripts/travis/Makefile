@@ -25,6 +25,14 @@ test-cdl-conformance:
 	 node $(MODELICA_JSON_HOME)/app.js -f Buildings/Controls/OBC -o json -m modelica -d out --strict true && \
 	 rm -rf out)
 
+test-bestest:
+	@echo "*** Check if BESTEST results are up to date"
+	(cd  $(ROOT)/Buildings && \
+	  rm -rf Resources/Data/BoundaryConditions/Validation/BESTEST/results && \
+	  python3 Resources/Data/BoundaryConditions/Validation/BESTEST/generateResults.py -c )
+	git status --porcelain $(ROOT)/Buildings/Resources/Data/BoundaryConditions/Validation/BESTEST
+	git diff --exit-code $(ROOT)/Buildings/Resources/Data/BoundaryConditions/Validation/BESTEST
+
 test-omc:
 	(cd $(ROOT) && $(TRAVIS_BUILD_DIR)/Buildings/Resources/Scripts/travis/omc/testOpenModelica.sh)
 
