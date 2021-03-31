@@ -16,7 +16,10 @@ function exchange
     "Output values. First all outputs, then all derivatives, then next event time";
 external "C" ModelicaSpawnExchange(
   adapter,initialCall,u,dummy,y)
-  annotation (Include="#include <EnergyPlusWrapper.c>",IncludeDirectory="modelica://Buildings/Resources/C-Sources",Library={"ModelicaBuildingsEnergyPlus","fmilib_shared"});
+  annotation (
+      Include="#include <EnergyPlusWrapper.c>",
+      IncludeDirectory="modelica://Buildings/Resources/C-Sources",
+      Library={"ModelicaBuildingsEnergyPlus","fmilib_shared"});
   annotation (
     Documentation(
       info="<html>

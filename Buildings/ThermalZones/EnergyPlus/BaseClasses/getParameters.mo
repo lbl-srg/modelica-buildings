@@ -12,7 +12,10 @@ function getParameters
     "Parameter values returned from EnergyPlus";
 external "C" ModelicaSpawnGetParameters(
   adapter,isSynchronized,parOut)
-  annotation (Include="#include <EnergyPlusWrapper.c>",IncludeDirectory="modelica://Buildings/Resources/C-Sources",Library={"ModelicaBuildingsEnergyPlus","fmilib_shared"});
+  annotation (
+      Include="#include <EnergyPlusWrapper.c>",
+      IncludeDirectory="modelica://Buildings/Resources/C-Sources",
+      Library={"ModelicaBuildingsEnergyPlus","fmilib_shared"});
   annotation (
     Documentation(
       info="<html>
