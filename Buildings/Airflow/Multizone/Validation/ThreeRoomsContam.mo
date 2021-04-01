@@ -41,7 +41,8 @@ model ThreeRoomsContam
     redeclare package Medium = Medium,
     nPorts=2,
     p(displayUnit="Pa") = 101325,
-    T=283.15) annotation (Placement(transformation(extent={{10,-10},{-10,10}},
+    T=283.15) "Outside air boundary condition"
+              annotation (Placement(transformation(extent={{10,-10},{-10,10}},
           origin={231,-30})));
 
   Buildings.Airflow.Multizone.MediumColumn colEasInBot(
