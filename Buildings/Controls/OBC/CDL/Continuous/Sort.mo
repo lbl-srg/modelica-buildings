@@ -1,33 +1,45 @@
 within Buildings.Controls.OBC.CDL.Continuous;
-block Sort "Sort elements of input vector in ascending or descending order"
-
-  parameter Integer nin(min=0) = 0 "Number of input connections"
-    annotation (Dialog(connectorSizing=true), HideResult=true);
-
+block Sort
+  "Sort elements of input vector in ascending or descending order"
+  parameter Integer nin(
+    min=0)=0
+    "Number of input connections"
+    annotation (Dialog(connectorSizing=true),HideResult=true);
   parameter Boolean ascending=true
     "= true if ascending order, otherwise descending order";
-  Interfaces.RealInput u[nin] "Connector of Real input signals"
+  Interfaces.RealInput u[nin]
+    "Connector of Real input signals"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Interfaces.RealOutput y[nin] "Connector of Real output signals"
+  Interfaces.RealOutput y[nin]
+    "Connector of Real output signals"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
+
 equation
-  y = Modelica.Math.Vectors.sort(u, ascending=ascending);
+  y=Modelica.Math.Vectors.sort(
+    u,
+    ascending=ascending);
   annotation (
-defaultComponentName="sort",
-Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
-          100,100}}), graphics={Rectangle(
-        extent={{-100,-100},{100,100}},
-        lineColor={0,0,127},
-        fillColor={255,255,255},
-        fillPattern=FillPattern.Solid), Text(
-        extent={{-150,150},{150,110}},
-        textString="%name",
-        lineColor={0,0,255}),
-               Text(
+    defaultComponentName="sort",
+    Icon(
+      coordinateSystem(
+        preserveAspectRatio=true,
+        extent={{-100,-100},{100,100}}),
+      graphics={
+        Rectangle(
+          extent={{-100,-100},{100,100}},
+          lineColor={0,0,127},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Text(
+          extent={{-150,150},{150,110}},
+          textString="%name",
+          lineColor={0,0,255}),
+        Text(
           extent={{-58,70},{54,-60}},
           lineColor={0,0,89},
           textString="sort")}),
-Documentation(info="<html>
+    Documentation(
+      info="<html>
 <p>
 Block that sorts the elements of the input signal <i>u</i>.
 If the parameter <code>ascending = true</code>, then the output signal satisfies
@@ -40,7 +52,7 @@ This block may for example be used in a variable air volume flow
 controller to access the position of the dampers that are most open.
 </p>
 </html>",
-revisions="<html>
+      revisions="<html>
 <ul>
 <li>
 March 2, 2020, by Michael Wetter:<br/>
