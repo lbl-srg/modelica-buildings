@@ -42,11 +42,12 @@ protected
   constant Modelica.SIunits.SpecificHeatCapacity cpUnit=1
     "Physical dimension of specific heat capacity used for a unit conversion";
 
-  parameter Modelica.SIunits.MassFraction X_wAirOut(fixed=false)
-    "Mass fraction of water in outgoing air at a rated condition";
-  parameter Modelica.SIunits.SpecificEnthalpy hAirIn(fixed=false)
+  /*parameter Modelica.SIunits.MassFraction X_wAirOut(fixed=false)
+    "Mass fraction of water in outgoing air at a rated condition";*/
+  parameter Modelica.SIunits.SpecificEnthalpy hAirIn = MediumA.specificEnthalpy_pTX(
+      p=MediumA.p_default, T=TAirIn, X={X_wAirIn, 1-X_wAirIn})
     "Enthalpy of incoming moist air at a rated condition";
-  parameter Modelica.SIunits.SpecificEnthalpy hAirOut(fixed=false)
+  parameter Modelica.SIunits.SpecificEnthalpy hAirOut = hAirIn- QTot_flow/mAir_flow
     "Enthalpy of outgoing moist air at a rated condition";
 
   // calculates all thermodynamic properties based on inputs
@@ -111,15 +112,20 @@ protected
 
 initial equation
 
-  hAirIn=MediumA.specificEnthalpy_pTX(
+/*  hAirIn=MediumA.specificEnthalpy_pTX(
       p=MediumA.p_default, T=TAirIn, X={X_wAirIn, 1-X_wAirIn});
   hAirOut=MediumA.specificEnthalpy_pTX(
-      p=MediumA.p_default, T=TAirOut, X={X_wAirOut, 1-X_wAirOut});
+      p=MediumA.p_default, T=TAirOut, X={X_wAirOut, 1-X_wAirOut});*/
 
-  QTot_flow = mAir_flow*(hAirIn-hAirOut);
+  //QTot_flow = mAir_flow*(hAirIn-hAirOut);
+
+
 
   isFulDry = if not use_UA_nominal then (X_wSatTWatIn >= X_wAirIn) else true;
   isFulWet = if not use_UA_nominal then (X_wSatTWatOut <= X_wAirIn) else true;
+  assert( hAirOut >= hSatTWatIn and hAirIn >= hSatTWatOut or use_UA_nominal,
+       "The provided data indicates thtat the air enthlapy either at the air inlet or
+        at the outlet is unrealistically low. Check the rated condition.");
 
   assert(
     isFulDry or isFulWet,
@@ -158,7 +164,7 @@ initial equation
     TAirIn=MediumA.T_default;
     TAirOut=MediumA.T_default;
     X_wAirIn=MediumA.X_default[1];
-    X_wAirOut=MediumA.X_default[1];
+    //X_wAirOut=MediumA.X_default[1];
     TWatIn=MediumA.T_default;
     TWatOut=MediumA.T_default;
     hAirIn=MediumA.h_default;
