@@ -41,13 +41,39 @@ equation
           96,54},{96,-40},{110,-40}},
                                     color={0,0,127}));
   annotation (Documentation(info="<html>
+
+TODO: correct values, see
+https://github.com/lbl-srg/modelica-buildings/pull/2373#pullrequestreview-612735873
+
 <p>
-This model represents a borefield containing one or many double U-tube boreholes
+This model represents a borefield composed of 350 boreholes,
 with the following main assumptions.
 </p>
 <ul>
 <li>
-
+The soil is made of sandstone.
+</li>
+<li>
+The borehole filling material is a bentonite grout.
+</li>
+<li>
+The boreholes have a height of 250 m and a radius of 190 mm. 
+They are discretized vertically in five segments.
+</li>
+<li>
+A distance of 10 m between each borehole is considered.
+</li>
+<li>
+PE pipes with a radius of 40 mm are considered, in a
+double U-tube parallel configuration.  
+</li>
+</ul>
+</html>", revisions="<html>
+<ul>
+<li>
+February 23, 2021, by Antoine Gautier:<br/>
+First implementation.
+</li>
 </ul>
 </html>"));
 end BoreField;
