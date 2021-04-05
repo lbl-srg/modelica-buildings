@@ -19,7 +19,7 @@ model Guideline36Spring
 This is the same model as
 <a href=\"modelica://Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.Guideline36Winter\">
 Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.Guideline36Winter</a>
-but configure for simulation of a few days in spring.
+but configured for simulation of a few days in spring.
 </p>
 </html>", revisions="<html>
 <ul>

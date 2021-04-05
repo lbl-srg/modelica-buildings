@@ -1,14 +1,18 @@
 within Buildings.Controls.OBC.CDL.Discrete;
-package Examples "Collection of models that illustrate model use and test models"
-
-annotation (preferredView="info", Documentation(info="<html>
+package Examples
+  "Collection of models that illustrate model use and test models"
+  annotation (
+    preferredView="info",
+    Documentation(
+      info="<html>
 <p>
 This package contains examples for the use of models that can be found in
 <a href=\"modelica://Buildings.Controls.OBC.CDL.Discrete\">
 Buildings.Controls.OBC.CDL.Discrete</a>.
 </p>
 </html>"),
-    Icon(graphics={
+    Icon(
+      graphics={
         Rectangle(
           lineColor={200,200,200},
           fillColor={248,248,248},

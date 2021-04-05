@@ -12,7 +12,8 @@ model OneRoom
     V=2.5*5*5,
     nPorts=2,
     m_flow_nominal=0.001,
-    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial) annotation (
+    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
+    "Control volume for room"                                      annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -21,20 +22,24 @@ model OneRoom
   Buildings.Airflow.Multizone.Orifice oriOutBot(
     redeclare package Medium = Medium,
     A=0.01,
-    m=0.5) annotation (Placement(transformation(extent={{0,-72},{20,-52}})));
+    m=0.5) "Orifice at bottom"
+           annotation (Placement(transformation(extent={{0,-72},{20,-52}})));
   Buildings.Airflow.Multizone.MediumColumn colOutTop(
     redeclare package Medium = Medium,
     h=1.5,
     densitySelection=Buildings.Airflow.Multizone.Types.densitySelection.fromBottom)
+    "Medium column to compute static pressure of air"
     annotation (Placement(transformation(extent={{31,10},{51,30}})));
   Buildings.Airflow.Multizone.Orifice oriOutTop(
     redeclare package Medium = Medium,
     A=0.01,
-    m=0.5) annotation (Placement(transformation(extent={{1,30},{21,50}})));
+    m=0.5) "Orifice at top"
+           annotation (Placement(transformation(extent={{1,30},{21,50}})));
   Buildings.Airflow.Multizone.MediumColumn colEasInTop(
     redeclare package Medium = Medium,
     h=1.5,
     densitySelection=Buildings.Airflow.Multizone.Types.densitySelection.fromBottom)
+    "Medium column to compute static pressure of air"
     annotation (Placement(transformation(extent={{-27,10},{-7,30}})));
   Buildings.Fluid.MixingVolumes.MixingVolume volOut(
     redeclare package Medium = Medium,
@@ -44,7 +49,8 @@ model OneRoom
     p_start=Medium.p_default,
     nPorts=2,
     m_flow_nominal=0.001,
-    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) annotation (
+    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Control volume for outside"                             annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
@@ -54,11 +60,13 @@ model OneRoom
     redeclare package Medium = Medium,
     h=1.5,
     densitySelection=Buildings.Airflow.Multizone.Types.densitySelection.fromTop)
+    "Medium column to compute static pressure of air"
     annotation (Placement(transformation(extent={{-28,-50},{-8,-30}})));
   Buildings.Airflow.Multizone.MediumColumn colOutBot(
     redeclare package Medium = Medium,
     h=1.5,
     densitySelection=Buildings.Airflow.Multizone.Types.densitySelection.fromTop)
+    "Medium column to compute static pressure of air"
     annotation (Placement(transformation(extent={{32,-52},{52,-32}})));
 equation
   connect(colEasInTop.port_a, oriOutTop.port_a) annotation (Line(
@@ -102,6 +110,11 @@ This initial condition induces a clock-wise airflow between the two volumes.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 26, 2021 by Michael Wetter:<br/>
+Updated comments for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/515\">IBPSA, #515</a>.
+</li>
 <li>
 December 22, 2014 by Michael Wetter:<br/>
 Removed <code>Modelica.Fluid.System</code>

@@ -61,16 +61,26 @@ void buildJSONModelStructureForEnergyPlus(
   const FMUBuilding* bui, char* *buffer, size_t* size, char** modelHash){
   size_t i;
   size_t iWri;
-  size_t nSch;
-  FMUZone** zones = (FMUZone**)bui->zones;
-  FMUInputVariable** inpVars= NULL;
-  FMUOutputVariable** outVars = NULL;
-  /* Total number of models */
-  const size_t nMod = bui->nZon + bui->nInputVariables + bui->nOutputVariables;
+  SpawnObject** ptrSpaObj = (SpawnObject**)bui->exchange;
+
   /* Number of models written to json so far */
   size_t iMod = 0;
+  int objectType;
+  size_t objectCount[5] = {0, 0, 0, 0, 0};
 
   void (*SpawnFormatError)(const char *string, ...) = bui->SpawnFormatError;
+
+  /* Total number of models */
+  const size_t nMod = bui->nExcObj;
+
+  /* Count number of objects */
+  for(objectType = THERMALZONE; objectType < SURFACE; objectType++){
+    for(i = 0; i < bui->nExcObj; i++){
+        if ( ptrSpaObj[i]->objectType == objectType ){
+          objectCount[objectType]++;
+        }
+    }
+  }
 
   saveAppend(buffer, "{\n", size, SpawnFormatError);
   buildJSONKeyValue(buffer, 1, "version", "0.1", true, size, SpawnFormatError);
@@ -84,92 +94,29 @@ void buildJSONModelStructureForEnergyPlus(
 
   /* model information */
   saveAppend(buffer, "  \"model\": {\n", size, SpawnFormatError);
-  /* Write zone names */
-  for(i = 0; i < bui->nZon; i++){
-    if (i == 0){
-      saveAppend(buffer, "    \"zones\": [\n", size, SpawnFormatError);
-    }
-    openJSONModelBracket(buffer, size, SpawnFormatError);
-    buildJSONKeyValue(buffer, 4, "name", zones[i]->name, false, size, SpawnFormatError);
-    closeJSONModelBracket(buffer, i, bui->nZon, size, SpawnFormatError);
-  }
-  iMod = bui->nZon;
-  if (iMod > 0)
-    closeJSONModelArrayBracket(buffer, iMod, nMod, size, SpawnFormatError);
 
-
-  /* Write schedule names */
-  if (bui->nInputVariables > 0)
-    inpVars = (FMUInputVariable**)bui->inputVariables;
-
-  /* Count the number of schedules */
-  nSch = 0;
-  for(i = 0; i < bui->nInputVariables; i++){
-    if (inpVars[i]->componentType == NULL){
-      /* This is a schedule, not an EMS actuator */
-      nSch++;
-    }
-  }
-  /* Write the schedule objects, if any. */
-  iWri = 0;
-  for(i = 0; i < bui->nInputVariables; i++){
-    if (inpVars[i]->componentType == NULL){ /* Found a schedule */
-      if (iWri == 0){
-        saveAppend(buffer, "    \"schedules\": [\n", size, SpawnFormatError);
+  /* Write all json objects (thermal zones, actuators, etc.) */
+  for(objectType = THERMALZONE; objectType < SURFACE; objectType++){
+    for(i = 0, iWri = 0; i < bui->nExcObj; i++){
+      if ( ptrSpaObj[i]->objectType == objectType ) {
+        /* Check if json keyword needs to be written */
+        if (iWri == 0){
+          saveAppend(buffer, "    \"", size, SpawnFormatError);
+          saveAppend(buffer, ptrSpaObj[i]->jsonName, size, SpawnFormatError);
+          saveAppend(buffer, "\": [\n", size, SpawnFormatError);
+        }
+        /* Write content */
+        openJSONModelBracket(buffer, size, SpawnFormatError);
+        saveAppend(buffer, ptrSpaObj[i]->jsonKeysValues, size, SpawnFormatError);
+        saveAppend(buffer, "\n", size, SpawnFormatError);
+        closeJSONModelBracket(buffer, iWri, objectCount[objectType], size, SpawnFormatError);
+        iWri++;
       }
-      openJSONModelBracket(buffer, size, SpawnFormatError);
-      buildJSONKeyValue(buffer, 4, "name", inpVars[i]->name, true, size, SpawnFormatError);
-      buildJSONKeyValue(buffer, 4, "unit", inpVars[i]->unit, true, size, SpawnFormatError);
-      buildJSONKeyValue(buffer, 4, "fmiName", inpVars[i]->inputs->fmiNames[0], false, size, SpawnFormatError);
-      closeJSONModelBracket(buffer, iWri, nSch, size, SpawnFormatError);
-      iWri++;
     }
-  }
-  if (nSch > 0){
-    iMod += nSch;
-    closeJSONModelArrayBracket(buffer, iMod, nMod, size, SpawnFormatError);
-  }
 
-
-  /* Write the EMS actuator objects, if any */
-  iWri = 0;
-  for(i = 0; i < bui->nInputVariables; i++){
-    if (inpVars[i]->componentType != NULL){ /* Found an EMS actuator */
-      if (iWri == 0){
-        saveAppend(buffer, "    \"emsActuators\": [\n", size, SpawnFormatError);
-      }
-      openJSONModelBracket(buffer, size, SpawnFormatError);
-      buildJSONKeyValue(buffer, 4, "variableName", inpVars[i]->name, true, size, SpawnFormatError);
-      buildJSONKeyValue(buffer, 4, "componentType", inpVars[i]->componentType, true, size, SpawnFormatError);
-      buildJSONKeyValue(buffer, 4, "controlType", inpVars[i]->controlType, true, size, SpawnFormatError);
-      buildJSONKeyValue(buffer, 4, "unit", inpVars[i]->unit, true, size, SpawnFormatError);
-      buildJSONKeyValue(buffer, 4, "fmiName", inpVars[i]->inputs->fmiNames[0], false, size, SpawnFormatError);
-      closeJSONModelBracket(buffer, iWri, bui->nInputVariables-nSch, size, SpawnFormatError);
-      iWri++;
-    }
-  }
-  if (bui->nInputVariables-nSch > 0){
-    iMod += bui->nInputVariables-nSch;
-    closeJSONModelArrayBracket(buffer, iMod, nMod, size, SpawnFormatError);
-  }
-
-  /* Write output names */
-  if (bui->nOutputVariables > 0){
-    outVars = (FMUOutputVariable**)bui->outputVariables;
-  }
-  for(i = 0; i < bui->nOutputVariables; i++){
-    if (i == 0){
-      saveAppend(buffer, "    \"outputVariables\": [\n", size, SpawnFormatError);
-    }
-    openJSONModelBracket(buffer, size, SpawnFormatError);
-    buildJSONKeyValue(buffer, 4, "name", outVars[i]->name, true, size, SpawnFormatError);
-    buildJSONKeyValue(buffer, 4, "key",  outVars[i]->key,  true, size, SpawnFormatError);
-    buildJSONKeyValue(buffer, 4, "fmiName",  outVars[i]->outputs->fmiNames[0], false, size, SpawnFormatError);
-    closeJSONModelBracket(buffer, i, bui->nOutputVariables, size, SpawnFormatError);
-  }
-  if (bui->nOutputVariables > 0){
-    iMod += bui->nOutputVariables;
-    closeJSONModelArrayBracket(buffer, iMod, nMod, size, SpawnFormatError);
+    iMod += iWri;
+    if (iWri > 0)
+      closeJSONModelArrayBracket(buffer, iMod, nMod, size, SpawnFormatError);
   }
 
   /* Close json object for model */
@@ -247,7 +194,8 @@ void setAttributesReal(
   for(i = 0; i < ptrSpawnReals->n; i++){
     found = false;
     if (bui->logLevel >= TIMESTEP)
-        SpawnFormatMessage("---- %s: Setting variable reference for %s.\n", bui->modelicaNameBuilding, bui->time, ptrSpawnReals->fmiNames[i]);
+        SpawnFormatMessage("%.3f %s: Setting variable reference for %s.\n",
+          bui->time, bui->modelicaNameBuilding, ptrSpawnReals->fmiNames[i]);
 
     for (iFMI = 0; iFMI < nVar; iFMI++){
       var = fmi2_import_get_variable(varLis, iFMI);
@@ -258,16 +206,18 @@ void setAttributesReal(
         /* If a unit is not specified in modelDescription.xml, then unit is NULL */
 
         if (ptrSpawnReals->units[i] == NULL){
-          SpawnFormatMessage("---- %s: Warning: Variable %s does not specify units in %s. It will not be converted to SI units.\n",
-            bui->modelicaNameBuilding, ptrSpawnReals->fmiNames[i], fmuNam);
+          SpawnFormatMessage("%.3f %s: Warning: Variable %s does not specify units in %s. It will not be converted to SI units.\n",
+            bui->time, bui->modelicaNameBuilding, ptrSpawnReals->fmiNames[i], fmuNam);
         }
 
         if (bui->logLevel >= MEDIUM){
           if (ptrSpawnReals->units[i] == NULL)
-            SpawnFormatMessage("----f %s: Variable with name %s has no units and valRef= %d.\n", bui->modelicaNameBuilding, ptrSpawnReals->fmiNames[i], varValRef[iFMI]);
+            SpawnFormatMessage("%.3f %s: Variable with name %s has no units and valRef= %d.\n",
+              bui->time, bui->modelicaNameBuilding, ptrSpawnReals->fmiNames[i], varValRef[iFMI]);
           else{
             const char* unitName = fmi2_import_get_unit_name(ptrSpawnReals->units[i]); /* This is 'W', 'm2', etc. */
-            SpawnFormatMessage("---- %s: Variable with name %s has unit = %s and valRef= %d.\n", bui->modelicaNameBuilding, ptrSpawnReals->fmiNames[i], unitName, varValRef[iFMI]);
+            SpawnFormatMessage("%.3f %s: Variable with name %s has unit = %s and valRef= %d.\n",
+              bui->time, bui->modelicaNameBuilding, ptrSpawnReals->fmiNames[i], unitName, varValRef[iFMI]);
           }
         }
         ptrSpawnReals->valRefs[i] = varValRef[iFMI];
@@ -283,9 +233,7 @@ void setAttributesReal(
 
 void setValueReferences(FMUBuilding* bui){
   size_t i;
-  FMUZone* zone;
-  FMUInputVariable* inpVar;
-  FMUOutputVariable* outVar;
+  SpawnObject* ptrSpaObj;
 
   fmi2_import_variable_list_t* vl = fmi2_import_get_variable_list(bui->fmu, 0);
   const fmi2_value_reference_t* vrl = fmi2_import_get_value_referece_list(vl);
@@ -293,35 +241,17 @@ void setValueReferences(FMUBuilding* bui){
 
   void (*SpawnFormatMessage)(const char *string, ...) = bui->SpawnFormatMessage;
 
-  /* Set value references for the zones by assigning the values obtained from the FMU */
+  /* Set value references for the ptrSpaObj by assigning the values obtained from the FMU */
   if (bui->logLevel >= MEDIUM)
-    SpawnFormatMessage("---- %s: Setting variable references for zones.\n", bui->modelicaNameBuilding);
+    SpawnFormatMessage("%.3f %s: Setting variable references for ptrSpaObj.\n",
+      bui->time, bui->modelicaNameBuilding);
 
-  for(i = 0; i < bui->nZon; i++){
-    zone = (FMUZone*) bui->zones[i];
-    setAttributesReal(bui, vl, vrl, nv, zone->parameters);
-    setAttributesReal(bui, vl, vrl, nv, zone->inputs);
-    setAttributesReal(bui, vl, vrl, nv, zone->outputs);
-  }
-
-  /* Set value references for the input variables by assigning the values obtained from the FMU */
-  if (bui->logLevel >= MEDIUM)
-    SpawnFormatMessage("---- %s: Setting variable references for input variables.\n", bui->modelicaNameBuilding);
-
-  for(i = 0; i < bui->nInputVariables; i++){
-    inpVar = (FMUInputVariable*) bui->inputVariables[i];
-    setAttributesReal(bui, vl, vrl, nv, inpVar->inputs);
-    inpVar->valueReferenceIsSet = true;
-  }
-
-  /* Set value references for the output variables by assigning the values obtained from the FMU */
-  if (bui->logLevel >= MEDIUM)
-    SpawnFormatMessage("---- %s: Setting variable references for output variables.\n", bui->modelicaNameBuilding);
-
-  for(i = 0; i < bui->nOutputVariables; i++){
-    outVar = (FMUOutputVariable*) bui->outputVariables[i];
-    setAttributesReal(bui, vl, vrl, nv, outVar->outputs);
-    outVar->valueReferenceIsSet = true;
+  for(i = 0; i < bui->nExcObj; i++){
+    ptrSpaObj = (SpawnObject*) bui->exchange[i];
+    setAttributesReal(bui, vl, vrl, nv, ptrSpaObj->parameters);
+    setAttributesReal(bui, vl, vrl, nv, ptrSpaObj->inputs);
+    setAttributesReal(bui, vl, vrl, nv, ptrSpaObj->outputs);
+    ptrSpaObj->valueReferenceIsSet = true;
   }
 
   /* Free the variable list */
@@ -344,7 +274,8 @@ void generateFMU(FMUBuilding* bui, const char* modelicaBuildingsJsonFile){
   void (*SpawnFormatError)(const char *string, ...) = bui->SpawnFormatError;
 
   if (bui->logLevel >= MEDIUM)
-    SpawnFormatMessage("---- %s: Entered generateFMU with FMUPath = %s.\n", bui->modelicaNameBuilding, bui->fmuAbsPat);
+    SpawnFormatMessage("%.3f %s: Entered generateFMU with FMUPath = %s.\n",
+      bui->time, bui->modelicaNameBuilding, bui->fmuAbsPat);
 
   if( access(modelicaBuildingsJsonFile, F_OK ) == -1 ) {
     SpawnFormatError("Requested to use json file '%s' which does not exist.", modelicaBuildingsJsonFile);
@@ -393,16 +324,15 @@ void generateFMU(FMUBuilding* bui, const char* modelicaBuildingsJsonFile){
 
   /* Generate the FMU */
   if (bui->logLevel >= MEDIUM)
-    SpawnFormatMessage("---- %s: Executing %s\n", bui->modelicaNameBuilding, fulCmd);
+    SpawnFormatMessage("%.3f %s: Executing %s\n", bui->time, bui->modelicaNameBuilding, fulCmd);
 
   retVal = system(fulCmd);
   /* Check if generated FMU indeed exists */
   if( access( bui->fmuAbsPat, F_OK ) != 0 ) {
-    SpawnFormatError("Executing '%s' failed to generate fmu '%s'.", fulCmd, bui->fmuAbsPat);
+    SpawnFormatError("%.3f %s: Executing '%s' failed to generate fmu '%s'.", bui->time, bui->modelicaNameBuilding, fulCmd, bui->fmuAbsPat);
   }
   if (retVal != 0){
-    fprintf(stdout, "*** Warning: Generating FMU returned value %d, but FMU exists.\n", retVal);
-/*    SpawnFormatError("Generating FMU failed using command '%s', return value %d.", fulCmd, retVal);*/
+    SpawnFormatError("%.3f %s: Generating FMU returned value %d, but FMU exists.\n", bui->time, bui->modelicaNameBuilding, retVal);
   }
   free(fulCmd);
 }
@@ -453,7 +383,7 @@ void setFMUDebugLevel(FMUBuilding* bui){
   }
 
   if (bui->logLevel >= MEDIUM)
-    bui->SpawnFormatMessage("---- %s: Setting debug logging.\n", bui->modelicaNameBuilding);
+    bui->SpawnFormatMessage("%.3f %s: Setting debug logging.\n", bui->time, bui->modelicaNameBuilding);
   status = fmi2_import_set_debug_logging(
     bui->fmu,
     fmi2_true,        /* Logging on */
@@ -512,7 +442,7 @@ void spawnLogger(
 
 /* Import the EnergyPlus FMU
 */
-void importEnergyPlusFMU(FMUBuilding* bui){
+void importSpawnFMU(FMUBuilding* bui){
   const fmi2Boolean visible = fmi2False;
 
   /* fmi2_import_model_counts_t  mc; */
@@ -530,13 +460,16 @@ void importEnergyPlusFMU(FMUBuilding* bui){
 
   /* Set callback functions */
   callbacks = jm_get_default_callbacks();
+  /* Set the log level for the fmi-library */
+  callbacks->log_level = (bui->logLevel >= TIMESTEP) ? jm_log_level_debug : jm_log_level_warning;
 
   if (bui->logLevel >= MEDIUM)
-    SpawnFormatMessage("---- %s: Calling fmi_import_allocate_context(callbacks = %p)\n", bui->modelicaNameBuilding, callbacks);
+    SpawnFormatMessage("%.3f %s: Calling fmi_import_allocate_context(callbacks = %p)\n", bui->time, bui->modelicaNameBuilding, callbacks);
   bui->context = fmi_import_allocate_context(callbacks);
 
   if (bui->logLevel >= MEDIUM)
-    SpawnFormatMessage("---- %s: Getting fmi version, FMUPath = %s, tmpPath = %s.\n", bui->modelicaNameBuilding, FMUPath, tmpPath);
+    SpawnFormatMessage("%.3f %s: Getting fmi version, FMUPath = %s, tmpPath = %s.\n",
+      bui->time, bui->modelicaNameBuilding, FMUPath, tmpPath);
   version = fmi_import_get_fmi_version(bui->context, FMUPath, tmpPath);
 
   if (version != fmi_version_2_0_enu){
@@ -545,7 +478,7 @@ void importEnergyPlusFMU(FMUBuilding* bui){
   }
 
   if (bui->logLevel >= MEDIUM)
-    SpawnFormatMessage("---- %s: Parsing xml file %s\n", bui->modelicaNameBuilding, tmpPath);
+    SpawnFormatMessage("%.3f %s: Parsing xml file %s\n", bui->time, bui->modelicaNameBuilding, tmpPath);
   bui->fmu = fmi2_import_parse_xml(bui->context, tmpPath, 0);
 	if(!bui->fmu) {
 		SpawnFormatError("Error parsing XML for %s.", FMUPath);
@@ -570,7 +503,7 @@ void importEnergyPlusFMU(FMUBuilding* bui){
   callBackFunctions.componentEnvironment = bui;
 
   if (bui->logLevel >= MEDIUM)
-    SpawnFormatMessage("---- %s: Loading dllfmu.\n", bui->modelicaNameBuilding);
+    SpawnFormatMessage("%.3f %s: Loading dllfmu.\n", bui->time, bui->modelicaNameBuilding);
 
   jm_status = fmi2_import_create_dllfmu(bui->fmu, fmukind, &callBackFunctions);
   if (jm_status == jm_status_error) {
@@ -581,7 +514,7 @@ void importEnergyPlusFMU(FMUBuilding* bui){
   }
 
   if (bui->logLevel >= MEDIUM)
-    SpawnFormatMessage("---- %s: Instantiating fmu.\n", bui->modelicaNameBuilding);
+    SpawnFormatMessage("%.3f %s: Instantiating fmu.\n", bui->time, bui->modelicaNameBuilding);
 
   /* Instantiate EnergyPlus */
   jm_status = fmi2_import_instantiate(
@@ -594,7 +527,7 @@ void importEnergyPlusFMU(FMUBuilding* bui){
   /* SpawnFormatError("%s", "***** This line is never reached on Windows.\n"); */
 
   if (bui->logLevel >= MEDIUM)
-    SpawnFormatMessage("---- %s: Returned from instantiating fmu.\n", bui->modelicaNameBuilding);
+    SpawnFormatMessage("%.3f %s: Returned from instantiating fmu.\n", bui->time, bui->modelicaNameBuilding);
   if(jm_status == jm_status_error){
     SpawnFormatError("Failed to instantiate building FMU with name %s.",  bui->modelicaNameBuilding);
   }
@@ -684,10 +617,12 @@ void generateAndInstantiateBuilding(FMUBuilding* bui){
   void (*SpawnFormatError)(const char *string, ...) = bui->SpawnFormatError;
 
   if (bui->logLevel >= MEDIUM)
-    SpawnFormatMessage("---- %s: Entered EnergyPlusZoneAllocateAndInstantiateBuilding.\n", bui->modelicaNameBuilding);
+    SpawnFormatMessage("%.3f %s: Entered EnergyPlusSpawnAllocateAndInstantiateBuilding.\n",
+      bui->time, bui->modelicaNameBuilding);
 
   if (bui->usePrecompiledFMU)
-    SpawnFormatMessage("---- %s: Using pre-compiled FMU %s\n", bui->modelicaNameBuilding, bui->precompiledFMUAbsPat);
+    SpawnFormatMessage("%.3f %s: Using pre-compiled FMU %s\n",
+      bui->time, bui->modelicaNameBuilding, bui->precompiledFMUAbsPat);
 
   /* Write the model structure to the FMU Resources folder so that EnergyPlus can
      read it and set up the data structure.
@@ -701,7 +636,8 @@ void generateAndInstantiateBuilding(FMUBuilding* bui){
 
   if (bui->usePrecompiledFMU){
     if (bui->logLevel >= MEDIUM)
-      SpawnFormatMessage("---- %s: Copying FMU %s to %s as buildings are identical.\n", bui->modelicaNameBuilding, bui->precompiledFMUAbsPat, bui->fmuAbsPat);
+      SpawnFormatMessage("%.3f %s: Copying FMU %s to %s as buildings are identical.\n",
+        bui->time, bui->modelicaNameBuilding, bui->precompiledFMUAbsPat, bui->fmuAbsPat);
     copyBinaryFile(bui->precompiledFMUAbsPat, bui->fmuAbsPat, SpawnFormatError);
   }
   else
@@ -713,16 +649,18 @@ void generateAndInstantiateBuilding(FMUBuilding* bui){
     SpawnFormatError("Requested to load fmu '%s' which does not exist.", bui->fmuAbsPat);
   }
 
-  importEnergyPlusFMU(bui);
+  importSpawnFMU(bui);
 
   if (bui->logLevel >= MEDIUM)
-    SpawnFormatMessage("---- %s: FMU is at %p.\n", bui->modelicaNameBuilding, bui->fmu);
+    SpawnFormatMessage("%.3f %s: FMU is at %p.\n",
+      bui->time, bui->modelicaNameBuilding, bui->fmu);
 
   /* Set the value references for all parameters, inputs and outputs */
   setValueReferences(bui);
 
   if (bui->logLevel >= MEDIUM)
-    SpawnFormatMessage("---- %s: FMU returns from generateAndInstantiateBuilding.\n", bui->modelicaNameBuilding);
+    SpawnFormatMessage("%.3f %s: FMU returns from generateAndInstantiateBuilding.\n",
+      bui->time, bui->modelicaNameBuilding);
 
   return;
 }
