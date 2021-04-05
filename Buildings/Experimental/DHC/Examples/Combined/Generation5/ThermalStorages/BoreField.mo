@@ -40,4 +40,14 @@ equation
   connect(gaiQ_flow.y, Q_flow) annotation (Line(points={{1,80},{14,80},{14,54},{
           96,54},{96,-40},{110,-40}},
                                     color={0,0,127}));
+  annotation (Documentation(info="<html>
+<p>
+This model represents a borefield containing one or many double U-tube boreholes
+with the following main assumptions.
+</p>
+<ul>
+<li>
+
+</ul>
+</html>"));
 end BoreField;

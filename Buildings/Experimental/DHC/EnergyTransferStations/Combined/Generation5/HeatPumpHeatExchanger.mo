@@ -8,6 +8,7 @@ model HeatPumpHeatExchanger
     final have_heaWat=true,
     have_hotWat=false,
     final have_eleHea=true,
+    final nFue=0,
     final have_eleCoo=false,
     final have_pum=true,
     final have_fan=false,

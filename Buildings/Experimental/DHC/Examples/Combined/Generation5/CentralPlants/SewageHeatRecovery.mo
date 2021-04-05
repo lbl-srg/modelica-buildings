@@ -2,9 +2,13 @@ within Buildings.Experimental.DHC.Examples.Combined.Generation5.CentralPlants;
 model SewageHeatRecovery
   "Model for sewage heat recovery plant"
   extends DHC.CentralPlants.BaseClasses.PartialPlant(
-    final typ=DHC.Types.DistrictSystemType.CombinedGeneration5,
+    final have_fan=false,
     final have_pum=true,
-    have_weaBus=false);
+    final have_eleHea=false,
+    final nFue=0,
+    final have_eleCoo=false,
+    final have_weaBus=false,
+    final typ=DHC.Types.DistrictSystemType.CombinedGeneration5);
 
   parameter Modelica.SIunits.MassFlowRate mSew_flow_nominal
     "Sewage water nominal mass flow rate"
