@@ -75,8 +75,9 @@ protected
   Real rat2_m_flow_cor
     "Correction factor in case of low mass flow rate";
 equation
-  // TODO: implement exponential characteristics
+  // TODO: implement exponential Q_flow / m_flow characteristics
   rat_m_flow_cha = Q_flow / Q_flow_nominal;
+  // Correction for supply temperature mismatch.
   // TODO: regularize
   rat_m_flow_cor = rat_m_flow_cha * abs((TSupSet - TLoa) *
     Utilities.Math.Functions.inverseXRegularized(TSup_actual - TLoa, 0.1));
@@ -84,8 +85,8 @@ equation
   filter.u = rat_m_flow_cor;
   // TODO: smoothmin/max
   m_flow = max(
-      fra_m_flow_min,
-      min(filter.y, 1)) * m_flow_nominal;
+    fra_m_flow_min,
+    min(filter.y, 1)) * m_flow_nominal;
   rat2_m_flow_cor = if have_pum then 1 else
     Buildings.Utilities.Math.Functions.smoothLimit(
       x=m_flow_actual * Utilities.Math.Functions.inverseXRegularized(
@@ -94,6 +95,8 @@ equation
       l=0,
       u=1,
       deltaX=1E-4);
+  // Use actual Q_flow / m_flow characteristics to compute Q_flow_actual?
+  // Why
   Q_flow_actual = -Q_flow * exp(-max(0, rat_m_flow_cor - 1)) * rat2_m_flow_cor;
   Q_flow_residual = -Q_flow - Q_flow_actual;
   annotation (
@@ -108,9 +111,15 @@ moving average of Q_flow difference AND
 supply temperature mismatch (because a permanent temperature mismatch
 only leads to a transient mismatch in Q_flow, so the user
 can have bad insight on degraded operating conditions.)
+
 Include On/Off signal or Boolean for zero flow rate at zero load.
+
 Decide if the filtered mass flow rate is better to compute Q_flow_actual
 cf. risk when transitioning from zero mass flow.
+
+Include input of mass flow rate (and supply temperature?) from time series 
+(such as for loose coupling with EnergyPlus).
+
 </p>
 <p>
 This block approximates the relationship between a cumulated load
@@ -163,7 +172,7 @@ temperature of the fluid inside the distribution system.
 <li>
 The delayed term is computed from the load <i>Q&#775;</i> and the 
 corrected mass flow rate <i>m&#775;Cor</i> (unbounded) as follows.
-TODO: Add a correction based on m_flow_actual, cf. case with an
+TODO: Document the correction based on m_flow_actual, cf. case with an
 active ETS and a pressure-independent valve.
 <p style=\"font-style:italic;\">
 Q&#775;Del = Q&#775; * (1 - exp(-max(0, m&#775;Cor - m&#775;Nom) / m&#775;Nom)).

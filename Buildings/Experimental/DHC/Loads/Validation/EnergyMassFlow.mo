@@ -38,7 +38,7 @@ model EnergyMassFlow
     columns={2,3,4},
     smoothness=Modelica.Blocks.Types.Smoothness.MonotoneContinuousDerivative1)
     "Reader for thermal loads (y[1] is cooling load, y[2] is heating load)"
-    annotation (Placement(transformation(extent={{-242,-130},{-222,-110}})));
+    annotation (Placement(transformation(extent={{-240,-130},{-220,-110}})));
   Fluid.HeatExchangers.PlateHeatExchangerEffectivenessNTU hex(
     redeclare package Medium1=Medium,
     redeclare package Medium2=Medium,
@@ -92,7 +92,7 @@ model EnergyMassFlow
     tau=tau,
     Q_flow_nominal=Q_flow_nominal,
     m_flow_nominal=m_flow_nominal)
-    annotation (Placement(transformation(extent={{20,30},{40,50}})));
+    annotation (Placement(transformation(extent={{10,30},{30,50}})));
   Fluid.Delays.DelayFirstOrder del(
     redeclare package Medium=Medium,
     tau=10*tau,
@@ -164,7 +164,7 @@ model EnergyMassFlow
     tau=tau,
     Q_flow_nominal=Q_flow_nominal,
     m_flow_nominal=m_flow_nominal)
-    annotation (Placement(transformation(extent={{20,-190},{40,-170}})));
+    annotation (Placement(transformation(extent={{10,-190},{30,-170}})));
   Fluid.Delays.DelayFirstOrder del1(
     redeclare package Medium = Medium,
     tau=10*tau,
@@ -239,8 +239,8 @@ equation
   connect(temSupSet.y, conPID.u_s)
     annotation (Line(points={{-218,-160},{-200,-160},{-200,20},{-172,20}},
                                                    color={0,0,127}));
-  connect(loa.y[2], masFlo.Q_flow) annotation (Line(points={{-221,-120},{0,-120},
-          {0,49},{18,49}},    color={0,0,127}));
+  connect(loa.y[2], masFlo.Q_flow) annotation (Line(points={{-219,-120},{0,-120},
+          {0,49},{8,49}},     color={0,0,127}));
   connect(heaFlo.port, del.heatPort) annotation (Line(points={{100,0},{100,-10},
           {110,-10}},         color={191,0,0}));
   connect(hex.port_a2, senTRet.port_b) annotation (Line(points={{-88,-50},{-88,
@@ -249,13 +249,13 @@ equation
   connect(movMea.u, add2.y)
     annotation (Line(points={{128,140},{120,140},{120,120},{102,120}},
                                                  color={0,0,127}));
-  connect(loa.y[2], add2.u1) annotation (Line(points={{-221,-120},{60,-120},{60,
+  connect(loa.y[2], add2.u1) annotation (Line(points={{-219,-120},{40,-120},{40,
           126},{78,126}},
                      color={0,0,127}));
   connect(temSupSet.y, masFlo.TSupSet) annotation (Line(points={{-218,-160},{-4,
-          -160},{-4,43},{18,43}},   color={0,0,127}));
+          -160},{-4,43},{8,43}},    color={0,0,127}));
   connect(senTSup.T, masFlo.TSup_actual)
-    annotation (Line(points={{-60,-9},{-60,37},{18,37}},    color={0,0,127}));
+    annotation (Line(points={{-60,-9},{-60,37},{8,37}},     color={0,0,127}));
   connect(pum.port_b, del.ports[1])
     annotation (Line(points={{70,-20},{117.333,-20}},color={0,127,255}));
   connect(del.ports[2], hea.port_a)
@@ -274,46 +274,46 @@ equation
                              color={0,127,255}));
   connect(booleanExpression.y, int1.trigger) annotation (Line(points={{121,60},
           {180,60},{180,68}},  color={255,0,255}));
-  connect(loa.y[2], int1.u) annotation (Line(points={{-221,-120},{0,-120},{0,80},
+  connect(loa.y[2], int1.u) annotation (Line(points={{-219,-120},{0,-120},{0,80},
           {168,80}}, color={0,0,127}));
   connect(int1.y, NMBE.u2) annotation (Line(points={{191,80},{200,80},{200,84},
           {208,84}},  color={0,0,127}));
   connect(int.y, NMBE.u1) annotation (Line(points={{151,100},{200,100},{200,96},
           {208,96}},  color={0,0,127}));
   connect(masFlo.Q_flow_residual, heaFlo.Q_flow)
-    annotation (Line(points={{42,34},{100,34},{100,20}},color={0,0,127}));
-  connect(masFlo.Q_flow_actual, hea.u) annotation (Line(points={{42,40},{140,40},
+    annotation (Line(points={{32,34},{100,34},{100,20}},color={0,0,127}));
+  connect(masFlo.Q_flow_actual, hea.u) annotation (Line(points={{32,40},{140,40},
           {140,-14},{148,-14}}, color={0,0,127}));
   connect(masFlo.m_flow, pum.m_flow_in)
-    annotation (Line(points={{42,46},{60,46},{60,-8}},  color={0,0,127}));
+    annotation (Line(points={{32,46},{60,46},{60,-8}},  color={0,0,127}));
   connect(senMasFlo.port_b, pum.port_a)
     annotation (Line(points={{-10,-20},{50,-20}}, color={0,127,255}));
   connect(senMasFlo.m_flow, masFlo.m_flow_actual) annotation (Line(points={{-20,-9},
-          {-20,31.2},{18,31.2}},      color={0,0,127}));
+          {-20,31.2},{8,31.2}},       color={0,0,127}));
   connect(heaFlo1.port, del1.heatPort)
     annotation (Line(points={{100,-220},{100,-230},{110,-230}},
                                                              color={191,0,0}));
   connect(senTSup1.T, masFlo1.TSup_actual) annotation (Line(points={{-60,-229},
-          {-60,-183},{18,-183}},color={0,0,127}));
+          {-60,-183},{8,-183}}, color={0,0,127}));
   connect(masFlo1.Q_flow_residual, heaFlo1.Q_flow)
-    annotation (Line(points={{42,-186},{100,-186},{100,-200}},
+    annotation (Line(points={{32,-186},{100,-186},{100,-200}},
                                                              color={0,0,127}));
   connect(senTSup1.port_b, senMasFlo1.port_a)
     annotation (Line(points={{-50,-240},{-30,-240}}, color={0,127,255}));
   connect(senMasFlo1.m_flow, masFlo1.m_flow_actual) annotation (Line(points={{-20,
-          -229},{-20,-188.8},{18,-188.8}}, color={0,0,127}));
+          -229},{-20,-188.8},{8,-188.8}},  color={0,0,127}));
   connect(valPreInd.y, gai.y)
     annotation (Line(points={{60,-228},{60,-222}}, color={0,0,127}));
   connect(senTSup.port_b, senMasFlo.port_a)
     annotation (Line(points={{-50,-20},{-30,-20}}, color={0,127,255}));
-  connect(loa.y[2], masFlo1.Q_flow) annotation (Line(points={{-221,-120},{0,
-          -120},{0,-171},{18,-171}},
+  connect(loa.y[2], masFlo1.Q_flow) annotation (Line(points={{-219,-120},{0,
+          -120},{0,-171},{8,-171}},
                                  color={0,0,127}));
   connect(temSupSet.y, masFlo1.TSupSet) annotation (Line(points={{-218,-160},{
-          -4,-160},{-4,-177},{18,-177}},                    color={0,0,127}));
+          -4,-160},{-4,-177},{8,-177}},                     color={0,0,127}));
   connect(masFlo1.m_flow, gai.u)
-    annotation (Line(points={{42,-174},{60,-174},{60,-198}}, color={0,0,127}));
-  connect(masFlo1.Q_flow_actual, hea1.u) annotation (Line(points={{42,-180},{
+    annotation (Line(points={{32,-174},{60,-174},{60,-198}}, color={0,0,127}));
+  connect(masFlo1.Q_flow_actual, hea1.u) annotation (Line(points={{32,-180},{
           140,-180},{140,-234},{148,-234}},
                                         color={0,0,127}));
   connect(senMasFlo1.port_b, valPreInd.port_a)
@@ -327,7 +327,7 @@ equation
   connect(movMea1.u, add1.y) annotation (Line(points={{128,-80},{120,-80},{120,
           -100},{102,-100}},
                       color={0,0,127}));
-  connect(loa.y[2],add1. u1) annotation (Line(points={{-221,-120},{0,-120},{0,
+  connect(loa.y[2],add1. u1) annotation (Line(points={{-219,-120},{0,-120},{0,
           -94},{78,-94}},
                      color={0,0,127}));
   connect(add1.y, int2.u) annotation (Line(points={{102,-100},{120,-100},{120,
@@ -339,7 +339,7 @@ equation
   connect(booleanExpression1.y, int3.trigger) annotation (Line(points={{121,
           -160},{180,-160},{180,-152}},
                                   color={255,0,255}));
-  connect(loa.y[2],int3. u) annotation (Line(points={{-221,-120},{0,-120},{0,
+  connect(loa.y[2],int3. u) annotation (Line(points={{-219,-120},{0,-120},{0,
           -140},{168,-140}},
                      color={0,0,127}));
   connect(int3.y, NMBE1.u2) annotation (Line(points={{191,-140},{200,-140},{200,
@@ -408,7 +408,7 @@ Changing the boundary condition for the service supply line allows
 to simulate conditions where the load is always met and conditions where
 the load cannot be met transiently.
 In all cases the NMBE between the time series and the actual change in
-enthalpy flow rate acroos the ETS remains close to zero.
+enthalpy flow rate across the ETS remains close to zero.
 </p>
 </html>"));
 end EnergyMassFlow;

@@ -25,7 +25,7 @@ createPlot(
     grid=true);
 createPlot(
     id=3,
-    y={"masFlo.Q_flow"},
+    y={"Q_flow_nominal", "masFlo.Q_flow"},
     grid=true,
     subPlot=102);
 plotExpression(apply( -EnergyMassFlow.masFlo.Q_flow_actual), false, "-masFlo.Q_flow_actual", 3);
@@ -52,7 +52,7 @@ createPlot(
     grid=true);
 createPlot(
     id=6,
-    y={"masFlo1.Q_flow"},
+    y={"Q_flow_nominal", "masFlo1.Q_flow"},
     grid=true,
     subPlot=2);
 plotExpression(apply( -EnergyMassFlow.masFlo1.Q_flow_actual), false, "-masFlo1.Q_flow_actual", 6);
