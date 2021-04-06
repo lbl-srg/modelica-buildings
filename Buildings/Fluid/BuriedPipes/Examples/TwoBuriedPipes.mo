@@ -95,7 +95,7 @@ model TwoBuriedPipes "Example model of two buried pipes in close proximity"
     T=THotW,
     p(displayUnit="Pa") = 101325,
     nPorts=1)                     "Pressure boundary condition"
-    annotation (Placement(transformation(extent={{102,-70},{82,-50}})));
+    annotation (Placement(transformation(extent={{100,-70},{80,-50}})));
   Sensors.TemperatureTwoPort senTemHotWOut(
     redeclare package Medium = Medium,
     m_flow_nominal=1,
@@ -130,9 +130,11 @@ equation
   connect(pipHotW.ports_b[1], senTemHotWOut.port_a)
     annotation (Line(points={{20,-60},{46,-60}}, color={0,127,255}));
   connect(senTemHotWOut.port_b, sinHotW.ports[1])
-    annotation (Line(points={{66,-60},{82,-60}}, color={0,127,255}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)),
+    annotation (Line(points={{66,-60},{80,-60}}, color={0,127,255}));
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-120,
+            -120},{120,120}})),                                  Diagram(
+        coordinateSystem(preserveAspectRatio=false, extent={{-120,-120},{120,
+            120}})),
     experiment(
       StopTime=63072000,
       Tolerance=1e-06,

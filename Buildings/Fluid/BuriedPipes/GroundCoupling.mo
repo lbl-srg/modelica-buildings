@@ -7,12 +7,14 @@ model GroundCoupling "Thermal coupling between buried pipes and ground"
 
   parameter Modelica.SIunits.Length len "Pipes length";
 
-  parameter Modelica.SIunits.Length dep[nPip] "Pipes Buried Depth";
-  parameter Modelica.SIunits.Length pos[nPip] "Pipes Horizontal Coordinate (to an arbitrary reference point)";
+  parameter Modelica.SIunits.Length dep[nPip] "Pipes buried depth";
+  parameter Modelica.SIunits.Length pos[nPip] "Pipes horizontal coordinate (to an arbitrary reference point)";
   parameter Modelica.SIunits.Length rad[nPip] "Pipes external radius";
 
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a ports[nPip] "Buried pipes heatports" annotation (Placement(transformation(extent={{-110,
-            -80},{-90,0}}),
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a ports[nPip] "Buried pipes heatports" annotation (Placement(transformation(extent={{-10,-40},
+            {10,40}},
+        rotation=90,
+        origin={0,-100}),
                         iconTransformation(
         extent={{-10,-40},{10,40}},
         rotation=270,
@@ -242,13 +244,14 @@ the exterior surface of the ith pipe, and T<sub>g</sub> is the undisturbed groun
 temperature at the depth of the network.
 </p>
 <p>
-This model relies on the following assumptions:
+This model relies on the following assumptions.
 </p>
 <ul>
-<li>Heat transfer is in steady state (although seasonal heat storage is coded in the ground temperature model)</li>
-<li>The heat transfer is radial (no axial diffusion)</li>
-<li>The exterior surfaces of the pipes and the ground surface are isothermic planes</li>
-<li>The soil conductivity is homogeneous and isotropic</li>
+<li>Heat transfer is in steady state (although seasonal heat storage
+is modeled in the ground temperature model).</li>
+<li>The heat transfer is radial (no axial diffusion).</li>
+<li>The exterior surfaces of the pipes and the ground surface are isothermic planes.</li>
+<li>The soil conductivity is homogeneous and isotropic.</li>
 </ul>
 <h4>References</h4>
 <p>
