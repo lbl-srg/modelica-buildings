@@ -78,6 +78,12 @@ model ThermalZone
     final unit="1")
     "Relative humidity"
     annotation (Placement(transformation(extent={{200,-130},{220,-110}}),iconTransformation(extent={{200,90},{220,110}})));
+protected
+  constant Modelica.SIunits.SpecificEnergy h_fg=Medium.enthalpyOfCondensingGas(
+    273.15+37)
+    "Latent heat of water vapor";
+  final parameter Modelica.SIunits.MassFlowRate m_flow_nominal=V*3/3600
+    "Nominal mass flow rate (used for regularization)";
   Buildings.ThermalZones.EnergyPlus.BaseClasses.ThermalZoneAdapter fmuZon(
     final buildingsLibraryRoot=Buildings.ThermalZones.EnergyPlus.BaseClasses.buildingsLibraryRoot,
     final modelicaNameBuilding=modelicaNameBuilding,
@@ -90,13 +96,7 @@ model ThermalZone
     final fmuName=fmuName,
     final logLevel=logLevel)
     "FMU zone adapter"
-    annotation (Placement(transformation(extent={{80,100},{100,120}})));
-protected
-  constant Modelica.SIunits.SpecificEnergy h_fg=Medium.enthalpyOfCondensingGas(
-    273.15+37)
-    "Latent heat of water vapor";
-  final parameter Modelica.SIunits.MassFlowRate m_flow_nominal=V*3/3600
-    "Nominal mass flow rate (used for regularization)";
+    annotation (Placement(transformation(extent={{82,-60},{102,-40}})));
   Buildings.Fluid.Interfaces.ConservationEquation vol(
     redeclare final package Medium=Medium,
     final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -112,7 +112,7 @@ protected
     final fluidVolume=V,
     final nPorts=nPorts)
     "Air volume of the thermal zone"
-    annotation (Placement(transformation(extent={{-10,-66},{10,-46}})));
+    annotation (Placement(transformation(extent={{-10,-52},{10,-32}})));
   Buildings.ThermalZones.Detailed.BaseClasses.HeatGain heaGai(
     final AFlo=AFlo)
     "Model to convert internal heat gains"
@@ -123,7 +123,7 @@ protected
     u(final unit="W"),
     y(final unit="kg/s"))
     "Water flow rate due to latent heat gain"
-    annotation (Placement(transformation(extent={{-82,-32},{-62,-12}})));
+    annotation (Placement(transformation(extent={{-82,-64},{-62,-44}})));
   Modelica.Blocks.Math.Add QConLat_flow(
     final k1=1,
     final k2=1)
@@ -149,7 +149,7 @@ protected
   Modelica.Blocks.Routing.Replicator QPeaRep(
     nout=Medium.nC) if use_C_flow
     "Replicator to convert QPea_flow into a vector"
-    annotation (Placement(transformation(extent={{-100,-120},{-80,-100}})));
+    annotation (Placement(transformation(extent={{-120,-120},{-100,-100}})));
   Modelica.Blocks.Math.Add CTot_flow[Medium.nC](
     each final k1=1,
     final k2={
@@ -164,7 +164,7 @@ protected
     u1(
       each final unit="W")) if use_C_flow
     "Total trace substance flow rate"
-    annotation (Placement(transformation(extent={{-60,-100},{-40,-80}})));
+    annotation (Placement(transformation(extent={{-80,-100},{-60,-80}})));
   Buildings.Fluid.Sensors.MassFlowRate senMasFlo[nPorts](
     redeclare each final package Medium=Medium,
     each final allowFlowReversal=true)
@@ -177,30 +177,30 @@ protected
         h=inStream(ports.h_outflow),
         X=inStream(ports.Xi_outflow)))) if nPorts > 0
     "Temperature that the air has if it were flowing into the room"
-    annotation (Placement(transformation(extent={{20,102},{40,122}})));
+    annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
   Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor heaFloSen
     "Heat flow sensor"
-    annotation (Placement(transformation(extent={{-32,-10},{-52,10}})));
+    annotation (Placement(transformation(extent={{-20,-20},{-40,0}})));
   Buildings.HeatTransfer.Sources.PrescribedTemperature preTem
     "Port temperature"
-    annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
+    annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
   Modelica.Blocks.Sources.RealExpression TFlu(
     y=Medium.temperature_phX(
       p=vol.medium.p,
       h=vol.hOut,
       X=cat(1,vol.XiOut,{1-sum(vol.XiOut)})))
     "Air temperature of control volume"
-    annotation (Placement(transformation(extent={{-160,-10},{-140,10}})));
+    annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   Modelica.Blocks.Sources.RealExpression pFlu(
     y=vol.medium.p)
     "Air pressure"
-    annotation (Placement(transformation(extent={{120,-110},{140,-90}})));
+    annotation (Placement(transformation(extent={{122,2},{142,22}})));
   Utilities.Psychrometrics.Phi_pTX relHum
     "Relative humidity"
-    annotation (Placement(transformation(extent={{160,-80},{180,-60}})));
+    annotation (Placement(transformation(extent={{156,12},{176,32}})));
   Controls.OBC.CDL.Continuous.Division X_w
     "Water vapor mass fraction per kg total air"
-    annotation (Placement(transformation(extent={{120,-80},{140,-60}})));
+    annotation (Placement(transformation(extent={{40,-32},{60,-12}})));
 initial equation
   assert(
     idfName <> "",
@@ -213,17 +213,9 @@ equation
   connect(heaGai.qGai_flow,qGai_flow)
     annotation (Line(points={{-182,100},{-220,100}},color={0,0,127}));
   connect(fmuZon.TRad,TRad)
-    annotation (Line(points={{101,116},{126,116},{126,-40},{210,-40}},color={0,0,127}));
+    annotation (Line(points={{103,-44},{180,-44},{180,-40},{210,-40}},color={0,0,127}));
   connect(heaGai.QRad_flow,fmuZon.QGaiRad_flow)
-    annotation (Line(points={{-158,106},{-40,106},{-40,102},{78,102}},color={0,0,127}));
-  connect(heaGai.QCon_flow,QConTot_flow.u1)
-    annotation (Line(points={{-158,100},{-132,100},{-132,68},{-122,68}},color={0,0,127}));
-  connect(fmuZon.QCon_flow,QConTot_flow.u2)
-    annotation (Line(points={{101,112},{120,112},{120,88},{-128,88},{-128,56},{-122,56}},color={0,0,127}));
-  connect(heaGai.QLat_flow,QConLat_flow.u1)
-    annotation (Line(points={{-158,94},{-142,94},{-142,36},{-122,36}},color={0,0,127}));
-  connect(fmuZon.QLat_flow,QConLat_flow.u2)
-    annotation (Line(points={{101,108},{114,108},{114,84},{-146,84},{-146,24},{-122,24}},color={0,0,127}));
+    annotation (Line(points={{-158,106},{74,106},{74,-58},{80,-58}},  color={0,0,127}));
   connect(QGaiSenLat_flow.u1,QConTot_flow.y)
     annotation (Line(points={{-82,46},{-90,46},{-90,62},{-99,62}},color={0,0,127}));
   connect(QGaiSenLat_flow.u2,QConLat_flow.y)
@@ -233,53 +225,66 @@ equation
   connect(conQCon_flow.port,heaPorAir)
     annotation (Line(points={{-20,40},{0,40},{0,0}},color={191,0,0}));
   connect(QConLat_flow.y,mWat_flow.u)
-    annotation (Line(points={{-99,30},{-90,30},{-90,-22},{-84,-22}},color={0,0,127}));
+    annotation (Line(points={{-99,30},{-96,30},{-96,-54},{-84,-54}},color={0,0,127}));
   connect(mWat_flow.y,vol.mWat_flow)
-    annotation (Line(points={{-61,-22},{-50,-22},{-50,-54},{-12,-54}},color={0,0,127}));
+    annotation (Line(points={{-61,-54},{-36,-54},{-36,-40},{-12,-40}},color={0,0,127}));
   connect(CTot_flow.y,vol.C_flow)
-    annotation (Line(points={{-39,-90},{-26,-90},{-26,-60},{-12,-60}},color={0,0,127}));
+    annotation (Line(points={{-59,-90},{-26,-90},{-26,-46},{-12,-46}},color={0,0,127}));
   connect(C_flow,CTot_flow.u1)
-    annotation (Line(points={{-220,-120},{-142,-120},{-142,-84},{-62,-84}},color={0,0,127}));
+    annotation (Line(points={{-220,-120},{-142,-120},{-142,-84},{-82,-84}},color={0,0,127}));
   for i in 1:nPorts loop
     connect(ports[i],senMasFlo[i].port_a)
       annotation (Line(points={{0,-150},{0,-110}},color={0,127,255}));
     connect(fmuZon.m_flow[i],senMasFlo[i].m_flow)
-      annotation (Line(points={{78,110},{66,110},{66,-100},{11,-100}},color={0,0,127}));
+      annotation (Line(points={{80,-50},{30,-50},{30,-100},{11,-100}},color={0,0,127}));
     connect(senMasFlo[i].port_b,vol.ports[i])
-      annotation (Line(points={{5.55112e-16,-90},{0,-90},{0,-66}},color={0,127,255}));
+      annotation (Line(points={{5.55112e-16,-90},{0,-90},{0,-52}},color={0,127,255}));
   end for;
   connect(fmuZon.TInlet,TAirIn.y)
-    annotation (Line(points={{78,106},{48,106},{48,112},{41,112}},color={0,0,127}));
+    annotation (Line(points={{80,-54},{64,-54},{64,-70},{61,-70}},color={0,0,127}));
   connect(TFlu.y,preTem.T)
-    annotation (Line(points={{-139,0},{-122,0}},color={0,0,127}));
+    annotation (Line(points={{41,0},{50,0},{50,18},{-90,18},{-90,-10},{-82,-10}},
+                                                color={0,0,127}));
   connect(heaFloSen.port_b,preTem.port)
-    annotation (Line(points={{-52,0},{-100,0}},color={191,0,0}));
+    annotation (Line(points={{-40,-10},{-60,-10}},
+                                               color={191,0,0}));
   connect(heaFloSen.port_a,heaPorAir)
-    annotation (Line(points={{-32,0},{0,0}},color={191,0,0}));
+    annotation (Line(points={{-20,-10},{-10,-10},{-10,0},{0,0}},
+                                            color={191,0,0}));
   connect(TFlu.y,fmuZon.T)
-    annotation (Line(points={{-139,0},{-132,0},{-132,16},{60,16},{60,118},{78,118}},color={0,0,127}));
+    annotation (Line(points={{41,0},{70,0},{70,-42},{80,-42}},                      color={0,0,127}));
   connect(TFlu.y,TAir)
-    annotation (Line(points={{-139,0},{-132,0},{-132,16},{180,16},{180,0},{210,0}},color={0,0,127}));
+    annotation (Line(points={{41,0},{210,0}},                                      color={0,0,127}));
   connect(heaFloSen.Q_flow,vol.Q_flow)
-    annotation (Line(points={{-42,-10},{-42,-50},{-12,-50}},color={0,0,127}));
+    annotation (Line(points={{-30,-20},{-30,-36},{-12,-36}},color={0,0,127}));
   connect(vol.XiOut[1],fmuZon.X_w)
-    annotation (Line(points={{0,-45},{0,-20},{56,-20},{56,114},{78,114}},color={0,0,127}));
+    annotation (Line(points={{0,-31},{0,-24},{30,-24},{30,-46},{80,-46}},color={0,0,127}));
   connect(X_w.y,relHum.X_w)
-    annotation (Line(points={{142,-70},{159,-70}},color={0,0,127}));
+    annotation (Line(points={{62,-22},{64,-22},{64,22},{155,22}},
+                                                  color={0,0,127}));
   connect(vol.mXiOut[1],X_w.u1)
-    annotation (Line(points={{11,-58},{64,-58},{64,-64},{118,-64}},color={0,0,127}));
+    annotation (Line(points={{11,-44},{20,-44},{20,-16},{38,-16}}, color={0,0,127}));
   connect(vol.mOut,X_w.u2)
-    annotation (Line(points={{11,-50},{62,-50},{62,-76},{118,-76}},color={0,0,127}));
+    annotation (Line(points={{11,-36},{24,-36},{24,-28},{38,-28}}, color={0,0,127}));
   connect(TFlu.y,relHum.T)
-    annotation (Line(points={{-139,0},{-134,0},{-134,16},{148,16},{148,-62},{159,-62}},color={0,0,127}));
+    annotation (Line(points={{41,0},{120,0},{120,30},{155,30}},                        color={0,0,127}));
   connect(pFlu.y,relHum.p)
-    annotation (Line(points={{141,-100},{148,-100},{148,-78},{159,-78}},color={0,0,127}));
+    annotation (Line(points={{143,12},{150,12},{150,14},{155,14}},      color={0,0,127}));
   connect(relHum.phi,phi)
-    annotation (Line(points={{181,-70},{192,-70},{192,-120},{210,-120}},color={0,0,127}));
+    annotation (Line(points={{177,22},{192,22},{192,-120},{210,-120}},  color={0,0,127}));
   connect(QPeaRep.y,CTot_flow.u2)
-    annotation (Line(points={{-79,-110},{-72,-110},{-72,-96},{-62,-96}},color={0,0,127}));
+    annotation (Line(points={{-99,-110},{-90,-110},{-90,-96},{-82,-96}},color={0,0,127}));
   connect(QPeaRep.u,fmuZon.QPeo_flow)
-    annotation (Line(points={{-102,-110},{-114,-110},{-114,-140},{108,-140},{108,104},{101,104}},color={0,0,127}));
+    annotation (Line(points={{-122,-110},{-132,-110},{-132,-130},{110,-130},{110,
+          -56},{103,-56}},                                                                       color={0,0,127}));
+  connect(QConTot_flow.u2, heaGai.QCon_flow) annotation (Line(points={{-122,56},
+          {-134,56},{-134,100},{-158,100}}, color={0,0,127}));
+  connect(fmuZon.QCon_flow, QConTot_flow.u1) annotation (Line(points={{103,-48},
+          {110,-48},{110,80},{-130,80},{-130,68},{-122,68}}, color={0,0,127}));
+  connect(fmuZon.QLat_flow, QConLat_flow.u1) annotation (Line(points={{103,-52},
+          {114,-52},{114,84},{-140,84},{-140,36},{-122,36}}, color={0,0,127}));
+  connect(heaGai.QLat_flow, QConLat_flow.u2) annotation (Line(points={{-158,94},
+          {-144,94},{-144,24},{-122,24}}, color={0,0,127}));
   annotation (
     defaultComponentName="zon",
     Icon(
@@ -362,7 +367,7 @@ equation
     Diagram(
       coordinateSystem(
         preserveAspectRatio=false,
-        extent={{-200,-200},{200,200}})),
+        extent={{-200,-140},{200,140}})),
     Documentation(
       info="<html>
 <p>

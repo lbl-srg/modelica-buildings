@@ -34,7 +34,7 @@ Emailed by R. Perez to F.C. Winkelmann on May 21, 1999.<br/>
 April 27, 2018, by Michael Wetter:<br/>
 Corrected <code>displayUnit</code>.<br/>
 This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/912\">Buildings, issue 912</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/912\">IBPSA, issue 912</a>.
 </li>
 <li>
 July 07, 2010, by Wangda Zuo:<br/>

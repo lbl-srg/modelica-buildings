@@ -465,7 +465,8 @@ partial model PartialOpenLoop
     "Splitter for room supply"
     annotation (Placement(transformation(extent={{1100,-30},{1120,-50}})));
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
-        Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
+        Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"),
+      computeWetBulbTemperature=false)
     annotation (Placement(transformation(extent={{-360,170},{-340,190}})));
   BoundaryConditions.WeatherData.Bus weaBus "Weather Data Bus"
     annotation (Placement(transformation(extent={{-330,170},{-310,190}}),
@@ -957,6 +958,10 @@ shading devices, Technical Report, Oct. 17, 2006.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 11, 2021, by Michael Wetter:<br/>
+Set parameter in weather data reader to avoid computation of wet bulb temperature which is need needed for this model.
+</li>
 <li>
 February 03, 2021, by Baptiste Ravache:<br/>
 Refactored the sizing of the heating coil in the <code>VAVBranch</code> (renamed <code>VAVReheatBox</code>) class.<br/>
