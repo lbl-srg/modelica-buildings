@@ -44,7 +44,7 @@ is used to access the mass fraction.
 September 13, 2019 by Michael Wetter:<br/>
 First implementation.<br/>
 This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1205\">Buildings, #1205</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1205\">IBPSA, #1205</a>.
 </li>
 </ul>
 </html>"));

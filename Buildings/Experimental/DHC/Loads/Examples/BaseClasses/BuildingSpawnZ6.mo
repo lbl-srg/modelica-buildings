@@ -30,7 +30,7 @@ model BuildingSpawnZ6
     nZon) ./ facMulTerUni
     "Design cooling heat flow rate (single terminal unit)"
     annotation (Dialog(group="Nominal condition"));
-  parameter String idfName="modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus/Validation/RefBldgSmallOffice/RefBldgSmallOfficeNew2004_Chicago.idf"
+  parameter String idfName="modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus/Examples/RefBldgSmallOffice/RefBldgSmallOfficeNew2004_Chicago.idf"
     "Name of the IDF file";
   parameter String weaName="modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"
     "Name of the weather file";

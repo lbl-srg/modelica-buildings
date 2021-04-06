@@ -38,7 +38,7 @@ protected
       "Convective sensible internal heat gain";
     parameter Modelica.SIunits.HeatFlux qLat_flow
       "Latent internal heat gain";
-    OneZone bui(
+    Examples.SingleFamilyHouse.Unconditioned bui(
       m_flow_nominal=bui.VRoo*10*0.3/3600,
       qIntGai(
         final k={qRad_flow,qSen_flow,qLat_flow}),

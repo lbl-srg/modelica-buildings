@@ -255,6 +255,15 @@ For more details, please see the release notes below.
 The following <b style=\"color:blue\">new libraries</b> have been added:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\">
+<tr><td colspan=\"2\"><b>Buildings.BoundaryConditions</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.BoundaryConditions.Validation.BESTEST
+    </td>
+    <td valign=\"top\">Packages with validation models for the weather data BESTEST.<br/>
+                     This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1314\">IBPSA, issue 1314</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Experimental</b>
     </td>
 </tr>
@@ -502,7 +511,7 @@ have been <b style=\"color:blue\">improved</b> in a
     <td valign=\"top\">Upgraded sequence of specifying operating mode according to G36 official release.<br/>
                        This is for
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1893\">issue 1893</a>.
-    </td>               
+    </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Examples.VAVReheat.Guideline36
     </td>
@@ -518,7 +527,7 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2399\">#2399</a>.
     </td>
-</tr>            
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
     </td>
 </tr>
@@ -580,6 +589,15 @@ have been <b style=\"color:blue\">improved</b> in a
     <td valign=\"top\">Improved implementation, which now works with OpenModelica.<br/>
                        This is for
                        <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1414\">IBPSA, issue 1414</a>.
+    </td>
+</tr>
+
+<tr><td colspan=\"2\"><b>Buildings.Utilities</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Utilities.Cryptographics.sha
+    </td>
+    <td valign=\"top\">Corrected memory leak.
     </td>
 </tr>
 </table>
@@ -739,7 +757,8 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Logical.Sources.SampleTrigger<br/>
                        Buildings.Controls.OBC.CDL.Logical.Sources.Pulse
     </td>
-    <td valign=\"top\">Removed <code>startTime</code> parameter. Introduced <code>shift</code> parameter.<br/>
+    <td valign=\"top\">Removed <code>startTime</code> parameter. Introduced <code>shif"
+               + "t</code> parameter.<br/>
                        This is for
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2170\">issue 2170</a>
                        and <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2282\">issue 2282</a>.<br/>

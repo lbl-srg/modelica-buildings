@@ -91,6 +91,10 @@ def get_vars_as_json(spawnFlag):
 
     ret = subprocess.run([spawn, spawnFlag], stdout=subprocess.PIPE, check=True)
     vars = json.loads(ret.stdout)
+    if spawnFlag == "--output-vars":
+        vars = sorted(vars, key = lambda i: i['name'])
+    else:
+        vars = sorted(vars, key = lambda i: (i['componentType'], i['controlType']))
     return vars
 
 
@@ -181,8 +185,8 @@ if __name__ == "__main__":
         }
     )
 
-    # p = Pool(2)
-    # p.map(get_distribution, dists)
+    p = Pool(2)
+    p.map(get_distribution, dists)
     vars = [
         {
             "spawnFlag": "--output-vars",
