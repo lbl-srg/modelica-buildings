@@ -135,8 +135,7 @@ equation
     annotation (Line(points={{10,-50},{10,-20}}, color={191,0,0}));
   connect(Tin.y, sinRev.T_in) annotation (Line(points={{-89,-40},{110,-40},{110,
           -56},{102,-56}}, color={0,0,127}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-120,
-            -120},{120,120}})),                                  Diagram(
+  annotation (Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-120,-120},{120,
             120}})),
     experiment(

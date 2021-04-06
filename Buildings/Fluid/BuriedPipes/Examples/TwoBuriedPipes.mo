@@ -131,8 +131,7 @@ equation
     annotation (Line(points={{20,-60},{46,-60}}, color={0,127,255}));
   connect(senTemHotWOut.port_b, sinHotW.ports[1])
     annotation (Line(points={{66,-60},{80,-60}}, color={0,127,255}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-120,
-            -120},{120,120}})),                                  Diagram(
+  annotation (Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-120,-120},{120,
             120}})),
     experiment(
