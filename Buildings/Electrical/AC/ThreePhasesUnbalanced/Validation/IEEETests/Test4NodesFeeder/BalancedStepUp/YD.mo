@@ -23,8 +23,7 @@ model YD
     final Theta3_ref=Modelica.Constants.pi/180.0*{56.7,-63.4,176.7},
     final Theta4_ref=Modelica.Constants.pi/180.0*{56.6,-63.6,176.5},
     loadRL(use_pf_in=false,
-           loadConn=Buildings.Electrical.Types.LoadConnection.wye_to_delta,
-           load1(v(each start = 15000))));
+           loadConn=Buildings.Electrical.Types.LoadConnection.wye_to_delta));
   Modelica.Blocks.Sources.Constant load(k=-1800e3)
     annotation (Placement(transformation(extent={{54,62},{74,82}})));
   Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.ACACTransformerStepUpYD
@@ -76,7 +75,18 @@ equation
   __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesUnbalanced/Validation/IEEETests/Test4NodesFeeder/BalancedStepUp/YD.mos"
         "Simulate and plot"),
- Documentation(revisions="<html><ul>
+ Documentation(revisions="<html>
+<ul>
+<li>
+April 7, 2021, by Michael Wetter:<br/>
+Removed start value on
+<code>loadRL(load1(v(each start = 15000)))</code>
+because for one component, the start value is far from a solution
+and if specified, Dymola 2022 beta3 fails to initialize the model.
+The start value can be removed, and the model then initializes.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2432\">#2432</a>.
+</li>
 <li>
 November 28, 2016, by Michael Wetter:<br/>
 Set start value for <code>loadRL(load1(v(each start = 15000)))</code> which
