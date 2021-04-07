@@ -460,6 +460,8 @@ void importSpawnFMU(FMUBuilding* bui){
 
   /* Set callback functions */
   callbacks = jm_get_default_callbacks();
+  /* Set the log level for the fmi-library */
+  callbacks->log_level = (bui->logLevel >= TIMESTEP) ? jm_log_level_debug : jm_log_level_warning;
 
   if (bui->logLevel >= MEDIUM)
     SpawnFormatMessage("%.3f %s: Calling fmi_import_allocate_context(callbacks = %p)\n", bui->time, bui->modelicaNameBuilding, callbacks);

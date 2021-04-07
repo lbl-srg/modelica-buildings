@@ -363,6 +363,12 @@ ASHRAE, Atlanta, GA, 2006.
 </html>", revisions="<html>
 <ul>
 <li>
+March 15, 2021, by David Blum:<br/>
+Update documentation graphic to include relief damper.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2399\">#2399</a>.
+</li>
+<li>
 October 27, 2020, by Antoine Gautier:<br/>
 Refactored the supply air temperature control sequence.<br/>
 This is for

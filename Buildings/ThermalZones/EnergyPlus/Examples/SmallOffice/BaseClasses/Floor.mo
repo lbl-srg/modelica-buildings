@@ -1,7 +1,6 @@
 within Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.BaseClasses;
 model Floor "Model of a floor of the building"
-  extends
-    Buildings.Examples.VAVReheat.BaseClasses.PartialFloor(
+  extends Buildings.Examples.VAVReheat.BaseClasses.PartialFloor(
       final VRooCor=456.455,
       final VRooSou=346.022,
       final VRooNor=346.022,
@@ -89,7 +88,7 @@ model Floor "Model of a floor of the building"
 
 protected
   parameter String idfName=Modelica.Utilities.Files.loadResource(
-    "modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus/Validation/RefBldgSmallOffice/RefBldgSmallOfficeNew2004_Chicago.idf")
+    "modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus/Examples/RefBldgSmallOffice/RefBldgSmallOfficeNew2004_Chicago.idf")
     "Name of the IDF file";
 
   parameter String weaName = Modelica.Utilities.Files.loadResource(
@@ -98,7 +97,8 @@ protected
 
   inner Buildings.ThermalZones.EnergyPlus.Building building(
     idfName=idfName,
-    weaName=weaName)
+    weaName=weaName,
+    computeWetBulbTemperature=false)
     "Building-level declarations"
     annotation (Placement(transformation(extent={{140,458},{160,478}})));
 
