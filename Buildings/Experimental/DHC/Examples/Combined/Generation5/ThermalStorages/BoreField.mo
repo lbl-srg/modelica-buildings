@@ -69,7 +69,11 @@ double U-tube parallel configuration.
 <ul>
 <li>
 February 23, 2021, by Antoine Gautier:<br/>
-First implementation.
+Updated documentation.
+</li>
+<li>
+January 12, 2020, by Michael Wetter:<br/>
+Added documentation.
 </li>
 </ul>
 </html>"));
