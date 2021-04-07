@@ -32,9 +32,9 @@ model WetCoilDryRegime
     "Nominal mass flow rate for air";
   input Modelica.SIunits.MassFlowRate mWat_flow_nominal
     "Nominal mass flow rate for water";
-  
+
   parameter Real delta = 1E-3 "Small value used for smoothing";
-  
+
   output Modelica.SIunits.HeatFlowRate QTot_flow
     "Heat transferred from water to air";
   output Modelica.SIunits.Temperature TWatOut

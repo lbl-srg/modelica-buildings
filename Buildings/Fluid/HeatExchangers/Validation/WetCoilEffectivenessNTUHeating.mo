@@ -136,7 +136,7 @@ model WetCoilEffectivenessNTUHeating
   Sensors.RelativeHumidityTwoPort relHumOut_dis(redeclare package Medium =
         Medium_A, m_flow_nominal=m2_flow_nominal) "Outlet relative humidity"
     annotation (Placement(transformation(extent={{-80,50},{-100,70}})));
-  Buildings.Fluid.HeatExchangers.DryCoilEffectivenessNTU hexDryNTU_TX(
+  Buildings.Fluid.HeatExchangers.DryCoilEffectivenessNTU hexDryNTU_T(
     redeclare package Medium1 = Medium_W,
     redeclare package Medium2 = Medium_A,
     Q_flow_nominal=Q_flow_nominal,
@@ -173,12 +173,11 @@ model WetCoilEffectivenessNTUHeating
   Buildings.Fluid.HeatExchangers.WetCoilEffectivenessNTU hexWetNTU_TX(
     redeclare package Medium1 = Medium_W,
     redeclare package Medium2 = Medium_A,
-    use_UA_nominal=false,
+    use_Q_flow_nominal=true,
+    Q_flow_nominal=Q_flow_nominal,
     T_a2_nominal=T_a2_nominal,
-    T_b2_nominal=T_b2_nominal,
     w_a2_nominal=0.001,
     T_a1_nominal=T_a1_nominal,
-    T_b1_nominal=T_b1_nominal,
     m1_flow_nominal=m1_flow_nominal,
     m2_flow_nominal=m2_flow_nominal,
     dp2_nominal=0,
@@ -215,13 +214,14 @@ equation
     annotation (Line(points={{-70,60},{-80,60}}, color={0,127,255}));
   connect(relHumOut_dis.port_b, senMasFraOut1.port_a)
     annotation (Line(points={{-100,60},{-110,60}}, color={0,127,255}));
-  connect(hexDryNTU_TX.port_b1, sinWat.ports[2]) annotation (Line(points={{-10,-48},
-          {10,-48},{10,40},{62,40}},           color={0,127,255}));
-  connect(souAir1.ports[1],hexDryNTU_TX. port_a2) annotation (Line(points={{120,-60},
-          {-10,-60}},                        color={0,127,255}));
-  connect(sinAir.ports[3],hexDryNTU_TX. port_b2) annotation (Line(points={{-160,
-          -60.6667},{-138,-60.6667},{-138,-60},{-30,-60}}, color={0,127,255}));
-  connect(souWat2.ports[1],hexDryNTU_TX. port_a1) annotation (Line(points={{-160,
+  connect(hexDryNTU_T.port_b1, sinWat.ports[2]) annotation (Line(points={{-10,-48},
+          {10,-48},{10,40},{62,40}}, color={0,127,255}));
+  connect(souAir1.ports[1], hexDryNTU_T.port_a2)
+    annotation (Line(points={{120,-60},{-10,-60}}, color={0,127,255}));
+  connect(sinAir.ports[3], hexDryNTU_T.port_b2) annotation (Line(points={{-160,
+          -60.6667},{-138,-60.6667},{-138,-60},{-30,-60}},
+                                                 color={0,127,255}));
+  connect(souWat2.ports[1], hexDryNTU_T.port_a1) annotation (Line(points={{-160,
           -20},{-40,-20},{-40,-48},{-30,-48}}, color={0,127,255}));
   connect(T_a2.y, souAir2.T_in) annotation (Line(points={{168,0},{160,0},{160,
           64},{142,64}}, color={0,0,127}));
@@ -242,6 +242,9 @@ equation
     experiment(
       StopTime=1000,
       Tolerance=1e-06),
+    __Dymola_Commands(
+    file="Resources/Scripts/Dymola/Fluid/HeatExchangers/Validation/WetCoilEffectivenessNTUHeating.mos"
+  "Simulate and plot"),
   Documentation(info="<html>
 <p>
 This model duplicates an example from Mitchell and Braun 2012, example SM-2-1

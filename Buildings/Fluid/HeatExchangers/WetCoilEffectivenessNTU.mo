@@ -10,53 +10,53 @@ model WetCoilEffectivenessNTU
   import con = Buildings.Fluid.Types.HeatExchangerConfiguration;
   import flo = Buildings.Fluid.Types.HeatExchangerFlowRegime;
 
-  parameter Boolean use_UA_nominal = false
-    "Set to true to specify UA_nominal, or to false to use nominal conditions"
-    annotation (Evaluate=true,
-                Dialog(group="Nominal thermal performance"));
-
-  parameter Modelica.SIunits.ThermalConductance UA_nominal(
-    fixed=use_UA_nominal, min=0, start=1/(1/10+1/20))
-    "Thermal conductance at nominal flow, used to compute heat capacity"
-    annotation(Dialog(
-      group="Nominal thermal performance",
-      enable=use_UA_nominal));
-
-  parameter Modelica.SIunits.Temperature T_a1_nominal(fixed=not use_UA_nominal)
-    "Water inlet temperature at a rated condition"
-    annotation (Dialog(
-      group="Nominal thermal performance",
-      enable=not use_UA_nominal));
-  parameter Modelica.SIunits.Temperature T_b1_nominal(fixed=not use_UA_nominal)
-    "Water outlet temperature at a rated condition"
-    annotation (Dialog(
-      group="Nominal thermal performance",
-      enable=not use_UA_nominal));
-  parameter Modelica.SIunits.Temperature T_a2_nominal(fixed=not use_UA_nominal)
-    "Air inlet temperature at a rated condition"
-    annotation (Dialog(
-      group="Nominal thermal performance",
-      enable=not use_UA_nominal));
-  parameter Modelica.SIunits.Temperature T_b2_nominal(fixed=not use_UA_nominal)
-    "Air outlet temperature  at a rated condition"
-    annotation (Dialog(
-      group="Nominal thermal performance",
-      enable=not use_UA_nominal));
-  parameter Modelica.SIunits.MassFraction w_a2_nominal(
-    start=0.01,
-    fixed=not use_UA_nominal)
-    "Humidity ratio of inlet air at a rated condition (in kg/kg dry air)"
-    annotation (Dialog(
-      group="Nominal thermal performance",
-      enable=not use_UA_nominal));
-
-  parameter Real r_nominal=2/3
-    "Ratio between air-side and water-side convective heat transfer coefficient"
-    annotation (Dialog(group="Nominal thermal performance"));
-
   parameter Buildings.Fluid.Types.HeatExchangerConfiguration configuration=
     con.CounterFlow
     "Heat exchanger configuration";
+  parameter Real r_nominal=2/3
+    "Ratio between air-side and water-side convective heat transfer coefficient";
+
+  parameter Boolean use_Q_flow_nominal = false
+    "Set to true to specify Q_flow_nominal and inlet conditions, or to false to specify UA_nominal"
+    annotation (
+      Evaluate=true,
+      Dialog(group="Nominal thermal performance"));
+
+  parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal(
+    fixed=use_Q_flow_nominal)
+    "Nominal heat flow rate (positive for heat transfer from 1 to 2)"
+    annotation (Dialog(
+      group="Nominal thermal performance",
+      enable=use_Q_flow_nominal));
+  parameter Modelica.SIunits.Temperature T_a1_nominal(
+    fixed=use_Q_flow_nominal)
+    "Water inlet temperature at a rated condition"
+    annotation (Dialog(
+      group="Nominal thermal performance",
+      enable=use_Q_flow_nominal));
+  parameter Modelica.SIunits.Temperature T_a2_nominal(
+    fixed=use_Q_flow_nominal)
+    "Air inlet temperature at a rated condition"
+    annotation (Dialog(
+      group="Nominal thermal performance",
+      enable=use_Q_flow_nominal));
+  parameter Modelica.SIunits.MassFraction w_a2_nominal(
+    start=0.01,
+    fixed=use_Q_flow_nominal)
+    "Humidity ratio of inlet air at a rated condition (in kg/kg dry air)"
+    annotation (Dialog(
+      group="Nominal thermal performance",
+      enable=use_Q_flow_nominal));
+
+  parameter Modelica.SIunits.ThermalConductance UA_nominal(
+    fixed=not use_Q_flow_nominal,
+    min=0,
+    start=1/(1/10+1/20))
+    "Thermal conductance at nominal flow, used to compute heat capacity"
+    annotation(Dialog(
+      group="Nominal thermal performance",
+      enable=not use_Q_flow_nominal));
+
   // Dynamics
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=
     Modelica.Fluid.Types.Dynamics.SteadyState
@@ -87,7 +87,8 @@ model WetCoilEffectivenessNTU
   Real dryFra(final unit="1", min=0, max=1) = dryWetCalcs.dryFra
     "Dry fraction, 0.3 means condensation occurs at 30% heat exchange length from air inlet";
 protected
-  final parameter Modelica.SIunits.MassFraction X_w_a2_nominal=w_a2_nominal/(1+w_a2_nominal)
+  final parameter Modelica.SIunits.MassFraction X_w_a2_nominal=
+    w_a2_nominal / (1+w_a2_nominal)
     "Water mass fraction of inlet air at a rated condition (in kg/kg total air)";
 
   parameter Boolean waterSideFlowDependent=true
@@ -114,14 +115,13 @@ protected
   Real Qfac = fac1*fac2;
 
   Buildings.Fluid.HeatExchangers.BaseClasses.WetCoilUARated UAFroRated(
-    final use_UA_nominal=use_UA_nominal,
+    final use_Q_flow_nominal=use_Q_flow_nominal,
+    final QTot_flow=Q_flow_nominal,
     final UA=UA_nominal,
     final r_nominal=r_nominal,
     final TAirIn=T_a2_nominal,
-    final TAirOut=T_b2_nominal,
     final X_wAirIn=X_w_a2_nominal,
     final TWatIn=T_a1_nominal,
-    final TWatOut=T_b1_nominal,
     final mAir_flow=m2_flow_nominal,
     final mWat_flow=m1_flow_nominal)
     "Model that computes UA_nominal";
@@ -242,16 +242,32 @@ protected
   Buildings.HeatTransfer.Sources.PrescribedHeatFlow preHea
     "Prescribed heat flow"
     annotation (Placement(transformation(extent={{20,-90},{0,-70}})));
-  Real fra_a1(min=0, max=1)
+  Real fra_a1(min=0, max=1) = if allowFlowReversal1
+    then Modelica.Fluid.Utilities.regStep(
+      m1_flow,
+      1,
+      0,
+      m1_flow_small)
+    else 1
     "Fraction of incoming state taken from port a2
     (used to avoid excessive calls to regStep)";
-  Real fra_b1(min=0, max=1)
+  Real fra_b1(min=0, max=1) = if allowFlowReversal1
+    then 1-fra_a1
+    else 0
     "Fraction of incoming state taken from port b2
     (used to avoid excessive calls to regStep)";
-  Real fra_a2(min=0, max=1)
+  Real fra_a2(min=0, max=1) = if allowFlowReversal2
+    then Modelica.Fluid.Utilities.regStep(
+      m2_flow,
+      1,
+      0,
+      m2_flow_small)
+    else 1
     "Fraction of incoming state taken from port a2
     (used to avoid excessive calls to regStep)";
-  Real fra_b2(min=0, max=1)
+  Real fra_b2(min=0, max=1) = if allowFlowReversal2
+    then 1-fra_a2
+    else 0
     "Fraction of incoming state taken from port b2
     (used to avoid excessive calls to regStep)";
 
@@ -314,30 +330,7 @@ initial equation
       configuration <= con.CrossFlowStream1UnmixedStream2Mixed,
       "Invalid heat exchanger configuration.");
   end if;
-
 equation
-  if allowFlowReversal1 then
-    fra_a1 = Modelica.Fluid.Utilities.regStep(
-      m1_flow,
-      1,
-      0,
-      m1_flow_small);
-    fra_b1 = 1-fra_a1;
-  else
-    fra_a1 = 1;
-    fra_b1 = 0;
-  end if;
-  if allowFlowReversal2 then
-    fra_a2 = Modelica.Fluid.Utilities.regStep(
-      m2_flow,
-      1,
-      0,
-      m2_flow_small);
-    fra_b2 = 1-fra_a2;
-  else
-    fra_a2 = 1;
-    fra_b2 = 0;
-  end if;
   // Assign the flow regime for the given heat exchanger configuration and
   // mass flow rates
   if (configuration == con.ParallelFlow) then

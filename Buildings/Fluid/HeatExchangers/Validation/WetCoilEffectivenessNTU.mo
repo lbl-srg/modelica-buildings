@@ -15,13 +15,15 @@ model WetCoilEffectivenessNTU
   parameter Modelica.SIunits.Temperature T_a2_nominal=
     Modelica.SIunits.Conversions.from_degF(80)
     "Inlet air temperature";
-  parameter Modelica.SIunits.Temperature T_b1_nominal_wet=
+  parameter Modelica.SIunits.Temperature T_b1_nominal=
     273.15+11.0678
     "Outlet water temperature in fully wet conditions";
-  parameter Modelica.SIunits.Temperature T_b2_nominal_wet=
+  parameter Modelica.SIunits.Temperature T_b2_nominal=
     273.15+13.5805
     "Outlet air temperature in fully wet conditions";
-  parameter Real X_w_a2_nominal_wet = 0.0173
+  final parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal=
+    m1_flow_nominal * 4186 * (T_a1_nominal - T_b1_nominal);
+  parameter Real X_w_a2_nominal = 0.0173
     "Inlet water mass fraction in fully wet conditions";
   parameter Modelica.SIunits.ThermalConductance UA_nominal = 4748
     "Total thermal conductance at nominal flow, from textbook";
@@ -81,7 +83,6 @@ model WetCoilEffectivenessNTU
   Buildings.Fluid.HeatExchangers.WetCoilEffectivenessNTU hexWetNTU(
     redeclare package Medium1 = Medium_W,
     redeclare package Medium2 = Medium_A,
-    use_UA_nominal=true,
     UA_nominal=UA_nominal,
     m1_flow_nominal=m1_flow_nominal,
     m2_flow_nominal=m2_flow_nominal,
@@ -144,11 +145,11 @@ model WetCoilEffectivenessNTU
   Buildings.Fluid.HeatExchangers.WetCoilEffectivenessNTU hexWetNTU_TX(
     redeclare package Medium1 = Medium_W,
     redeclare package Medium2 = Medium_A,
+    use_Q_flow_nominal=true,
+    Q_flow_nominal=Q_flow_nominal,
     T_a2_nominal=T_a2_nominal,
-    T_b2_nominal=T_b2_nominal_wet,
-    w_a2_nominal=X_w_a2_nominal_wet/(1 - X_w_a2_nominal_wet),
+    w_a2_nominal=X_w_a2_nominal/(1 - X_w_a2_nominal),
     T_a1_nominal=T_a1_nominal,
-    T_b1_nominal=T_b1_nominal_wet,
     m1_flow_nominal=m1_flow_nominal,
     m2_flow_nominal=m2_flow_nominal,
     dp2_nominal=0,
