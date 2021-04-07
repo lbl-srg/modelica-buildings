@@ -62,19 +62,7 @@ protected
     "Dynamic viscosity at nominal condition";
 initial equation
   dp_nominal = fac*dpStraightPipe_nominal;
-equation
-  when terminal() then
-    if length > Modelica.Constants.eps then
-      Modelica.Utilities.Streams.print(
-       "Pipe nominal pressure drop for '" + getInstanceName() + "': " +
-        String(integer(floor(dp_nominal / length + 0.5))) +
-        " Pa/m, pipe diameter: " + String(integer(floor(dh * 100))/100) + " m.");
-    else
-      Modelica.Utilities.Streams.print(
-        "Pipe nominal pressure drop for '" + getInstanceName() +
-         "' as the pipe length is set to zero.");
-    end if;
-  end when;
+
 annotation (
     DefaultComponentName="pipCon",
     Icon(graphics={
@@ -88,8 +76,8 @@ annotation (
 This model is similar to
 <a href=\"Buildings.Fluid.FixedResistances.HydraulicDiameter\">
 Buildings.Fluid.FixedResistances.HydraulicDiameter</a>
-except for the modifications below which allow to use this model for computing the 
-hydraulic diameter at initialization, based on the pressure drop per pipe length 
+except for the modifications below which allow to use this model for computing the
+hydraulic diameter at initialization, based on the pressure drop per pipe length
 at nominal flow rate.
 </p>
 <ul>
@@ -97,13 +85,13 @@ at nominal flow rate.
 The parameter <code>v_nominal</code> is computed based on the nominal flow rate.
 </li>
 <li>
-The equation <code>dp_nominal = fac*dpStraightPipe_nominal</code> is 
+The equation <code>dp_nominal = fac*dpStraightPipe_nominal</code> is
 solved at initialization for the hydraulic diameter <code>dh</code>.
 </li>
 <li>
 The parameter <code>dp_nominal</code> is assigned a value that does not need
 to be computed at initialization.
-This is required per Modelica specification because 
+This is required per Modelica specification because
 the structural parameter <code>computeFlowResistance</code>
 depends on <code>dp_nominal</code> and must be evaluated at compile time.
 </li>

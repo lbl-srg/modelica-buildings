@@ -152,7 +152,6 @@ partial model PartialParallel "Partial model for parallel network"
   Buildings.Experimental.DHC.Loads.BaseClasses.ConstraintViolation conVio(
     uMin=datDes.TLooMin,
     uMax=datDes.TLooMax,
-    priTer=true,
     nu=3) "Check if loop temperatures are within given range"
     annotation (Placement(transformation(extent={{300,30},{320,50}})));
   Controls.OBC.CDL.Continuous.MultiSum PPumETS(final nin=nBui)

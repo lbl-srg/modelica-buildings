@@ -7,9 +7,6 @@ block ConstraintViolation
   parameter Integer nu(min=0) = 0
     "Number of input connections"
     annotation (Dialog(connectorSizing=true));
-  parameter Boolean priTer = false
-    "Print output in terminal"
-    annotation(Evaluate=true);
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u[nu]
     "Variables of interest"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
@@ -39,12 +36,7 @@ equation
     der(t) = 0;
   end if;
   y = t / (time - t0);
-  if priTer then
-    when terminal() then
-      Modelica.Utilities.Streams.print(
-        "Constraint violation [-] = " + String(y));
-    end when;
-  end if;
+
   annotation (
   defaultComponentName="conVio",
   Icon(graphics={Rectangle(
