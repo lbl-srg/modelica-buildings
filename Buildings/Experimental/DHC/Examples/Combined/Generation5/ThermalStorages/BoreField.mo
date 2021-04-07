@@ -21,15 +21,15 @@ model BoreField "Geothermal borefield model"
           Buildings.Fluid.Geothermal.Borefields.Data.Configuration.Example(
           borCon=Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.DoubleUTubeParallel,
           dp_nominal=35000,
-          hBor=180,
-          rBor=0.075,
+          hBor=250,
+          rBor=0.19,
           nBor=350,
-          cooBor={dBor*{mod(i - 1, 10), floor((i - 1)/10)} for i in 1:350},
+          cooBor={dBor*{mod(i - 1, 10),floor((i - 1)/10)} for i in 1:350},
           dBor=dBor,
-          rTub=0.02,
-          kTub=0.48,
+          rTub=0.04,
+          kTub=0.4,
           eTub=0.0037,
-          xC=0.05)),
+          xC=0.08)),
     final show_T=true);
   parameter Integer dBor = 10
     "Distance between boreholes";
@@ -54,14 +54,14 @@ The soil is made of sandstone.
 The boreholes are filled with a bentonite grout.
 </li>
 <li>
-The boreholes have a height of 180 m and a diameter of 150 mm. 
+The boreholes have a height of 250 m and a diameter of 380 mm. 
 They are discretized vertically in five segments.
 </li>
 <li>
 A distance of 10 m between each borehole is considered.
 </li>
 <li>
-HDPE pipes with a diameter of 40 mm are considered, in a
+HDPE pipes with a diameter of 80 mm are considered, in a
 double U-tube parallel configuration.  
 </li>
 </ul>
