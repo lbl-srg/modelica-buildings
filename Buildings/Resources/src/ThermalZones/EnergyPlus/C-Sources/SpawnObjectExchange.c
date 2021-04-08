@@ -119,6 +119,9 @@ void EnergyPlusSpawnExchange(
     getVariables(bui, ptrSpaObj->modelicaName, ptrSpaObj->outputs);
     /* Store value of y_i(u + du_j). This is not yet the derivative! */
     ptrSpaObj->derivatives->vals[iDer] = ptrSpaObj->outputs->valsSI[iY];
+//    SpawnFormatMessage("%.3f %s: First get (perturbed value)   : %s = %.3f\n",
+//      bui->time, ptrSpaObj->modelicaName,
+//      ptrSpaObj->outputs->fmiNames[iY], ptrSpaObj->outputs->valsSI[iY]);
     /* Reset the input to the non-perturbed value */
     ptrSpaObj->inputs->valsSI[iU] = u[iU];
   }
@@ -126,6 +129,17 @@ void EnergyPlusSpawnExchange(
   // Evaluate the FMU for the non-perturbed output */
   setVariables(bui, ptrSpaObj->modelicaName, ptrSpaObj->inputs);
   getVariables(bui, ptrSpaObj->modelicaName, ptrSpaObj->outputs);
+  SpawnFormatMessage("%.3f %s: First set/get :  %s = %.3f\n",
+      bui->time, ptrSpaObj->modelicaName,
+      ptrSpaObj->outputs->fmiNames[1], ptrSpaObj->outputs->valsSI[1]);
+  // Do another set and get for debugging only. Fixme!!!!!
+  setVariables(bui, ptrSpaObj->modelicaName, ptrSpaObj->inputs);
+  getVariables(bui, ptrSpaObj->modelicaName, ptrSpaObj->outputs);
+  SpawnFormatMessage("%.3f %s: Second set/get : %s = %.3f\n",
+      bui->time, ptrSpaObj->modelicaName,
+      ptrSpaObj->outputs->fmiNames[1], ptrSpaObj->outputs->valsSI[1]);
+
+
 
   /* Get next event time, unless FMU is in initialization mode */
   if (bui->mode == initializationMode){
@@ -154,10 +168,15 @@ void EnergyPlusSpawnExchange(
   for(iDer = 0; iDer < nDer; iDer++){
     iY = ptrSpaObj->derivatives->structure[iDer][0];
     ptrSpaObj->derivatives->vals[iDer] -= ptrSpaObj->outputs->valsSI[iY];
+//    SpawnFormatMessage("%.3f %s: Second get (unperturbed value): %s = %.3f, delta = %.3f\n",
+//      bui->time, ptrSpaObj->modelicaName,
+//      ptrSpaObj->outputs->fmiNames[iY], ptrSpaObj->outputs->valsSI[iY],
+//      ptrSpaObj->derivatives->delta[iDer]);
     ptrSpaObj->derivatives->vals[iDer] /= ptrSpaObj->derivatives->delta[iDer];
     /* Assign value to output array */
     y[nOut + iDer] = ptrSpaObj->derivatives->vals[iDer];
   }
+  SpawnFormatError("%s\n", "Stopping here for debugging purpose");
 
   return;
 }
