@@ -1,5 +1,5 @@
 within Buildings.Templates.BaseClasses.Coils.HeatExchangers;
-model WetCoilCounterFlow
+model WetCoilCounterFlow "Discretized heat exchanger model"
   extends Buildings.Templates.Interfaces.HeatExchangerWater(
     final typ=Types.HeatExchanger.WetCoilCounterFlow);
 

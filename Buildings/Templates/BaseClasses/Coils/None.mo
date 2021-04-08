@@ -1,5 +1,5 @@
 within Buildings.Templates.BaseClasses.Coils;
-model None
+model None "No coil"
   extends Buildings.Templates.Interfaces.Coil(
     final typ=Types.Coil.None,
     final typHex=Types.HeatExchanger.None,

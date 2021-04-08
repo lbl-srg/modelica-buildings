@@ -30,17 +30,19 @@ model VAVSingleDuctSection "VAV single duct with relief"
     "Outdoor air section"
     annotation (
       choicesAllMatching=true,
-      Dialog(group="Outdoor air section"),
+      Dialog(
+        group="Outdoor air section"),
       Placement(transformation(extent={{-178,-214},{-142,-186}})));
 
-  inner replaceable Templates.BaseClasses.ReliefReturnSection.NoEconomizer secRel
+  inner replaceable BaseClasses.ReliefReturnSection.NoEconomizer secRel
     constrainedby Templates.Interfaces.ReliefReturnSection(
       redeclare final package MediumAir = MediumAir,
       final have_recHea=recHea.typ<>Templates.Types.HeatRecovery.None)
     "Exhaust/relief/return section"
     annotation (
       choicesAllMatching=true,
-      Dialog(group="Exhaust/relief/return section"),
+      Dialog(
+        group="Exhaust/relief/return section"),
       Placement(transformation(extent={{-138,-94},{-102,-66}})));
 
   /*** Supply air section 
@@ -117,7 +119,9 @@ model VAVSingleDuctSection "VAV single duct with relief"
     typ=Types.Sensor.Temperature)
     "Mixed air temperature sensor"
     annotation (
-      Dialog(group="Supply air section"),
+      Dialog(
+        group="Supply air section",
+        enable=false),
       Placement(transformation(extent={{-100,-210},{-80,-190}})));
 
   inner replaceable Buildings.Templates.BaseClasses.Fans.None fanSupBlo
@@ -125,21 +129,25 @@ model VAVSingleDuctSection "VAV single duct with relief"
       redeclare final package Medium = MediumAir)
     "Supply fan - Blow through"
     annotation (
-    choicesAllMatching=true,
-    Dialog(group="Supply air section", enable=fanSupDra == Buildings.Templates.Types.Fan.None),
-    Placement(transformation(extent={{-70,-210},{-50,-190}})));
+      choicesAllMatching=true,
+      Dialog(
+        group="Supply air section",
+        enable=fanSupDra==Buildings.Templates.Types.Fan.None),
+      Placement(transformation(extent={{-70,-210},{-50,-190}})));
 
-  inner replaceable Buildings.Templates.BaseClasses.Coils.None coiHea
-    constrainedby Buildings.Templates.Interfaces.Coil(
+  inner replaceable Templates.BaseClasses.Coils.None coiHea
+    constrainedby Templates.Interfaces.Coil(
       redeclare final package MediumAir = MediumAir,
       redeclare final package MediumSou = MediumHea,
-      final have_senTem=coiHea.typ<>Buildings.Templates.Types.Coil.None and
-        coiCoo.typ<>Buildings.Templates.Types.Coil.None)
+      final have_senTem=coiHea.typ<>Templates.Types.Coil.None and
+        coiCoo.typ<>Templates.Types.Coil.None)
     "Heating coil"
     annotation (
-    choicesAllMatching=true,
-    Dialog(group="Heating coil"),
-    Placement(transformation(extent={{-40,-210},{-20,-190}})));
+      choices(
+        choice(redeclare Templates.BaseClasses.Coils.None coiHea "No coil"),
+        choice(redeclare Templates.BaseClasses.Coils.WaterBasedHeating coiHea "Water-based")),
+      Dialog(group="Heating coil"),
+      Placement(transformation(extent={{-40,-210},{-20,-190}})));
 
   inner replaceable Buildings.Templates.BaseClasses.Coils.None coiCoo
     constrainedby Buildings.Templates.Interfaces.Coil(
@@ -149,9 +157,11 @@ model VAVSingleDuctSection "VAV single duct with relief"
       coiReh.typ<>Buildings.Templates.Types.Coil.None)
     "Cooling coil"
     annotation (
-    choicesAllMatching=true,
-    Dialog(group="Cooling coil"),
-    Placement(transformation(extent={{20,-210},{40,-190}})));
+      choices(
+        choice(redeclare Templates.BaseClasses.Coils.None coiCoo "No coil"),
+        choice(redeclare Templates.BaseClasses.Coils.WaterBasedCooling coiCoo "Water-based")),
+      Dialog(group="Cooling coil"),
+      Placement(transformation(extent={{20,-210},{40,-190}})));
 
   inner replaceable Buildings.Templates.BaseClasses.Coils.None coiReh
     constrainedby Buildings.Templates.Interfaces.Coil(
@@ -159,9 +169,11 @@ model VAVSingleDuctSection "VAV single duct with relief"
       redeclare final package MediumSou = MediumHea)
     "Reheat coil"
     annotation (
-    choicesAllMatching=true,
-    Dialog(group="Reheat coil"),
-    Placement(transformation(extent={{80,-210},{100,-190}})));
+      choices(
+        choice(redeclare Templates.BaseClasses.Coils.None coiReh "No coil"),
+        choice(redeclare Templates.BaseClasses.Coils.WaterBasedHeating coiReh "Water-based")),
+      Dialog(group="Reheat coil"),
+      Placement(transformation(extent={{80,-210},{100,-190}})));
 
   inner replaceable Buildings.Templates.BaseClasses.Fans.None fanSupDra
     constrainedby Buildings.Templates.Interfaces.Fan(
@@ -169,7 +181,9 @@ model VAVSingleDuctSection "VAV single duct with relief"
     "Supply fan - Draw through"
     annotation (
     choicesAllMatching=true,
-    Dialog(group="Supply air section", enable=fanSupBlo == Buildings.Templates.Types.Fan.None),
+    Dialog(
+      group="Supply air section",
+      enable=fanSupBlo==Buildings.Templates.Types.Fan.None),
     Placement(transformation(extent={{110,-210},{130,-190}})));
 
   // FIXME: bind typ to control option.
@@ -178,14 +192,18 @@ model VAVSingleDuctSection "VAV single duct with relief"
     typ=Types.Sensor.VolumeFlowRate)
     "Supply air volume flow rate sensor"
     annotation (
-      Dialog(group="Supply air section"),
+      Dialog(
+        group="Supply air section",
+        enable=false),
       Placement(transformation(extent={{142,-210},{162,-190}})));
 
   inner replaceable Controls.OpenLoop conAHU constrainedby
-    Buildings.Templates.Interfaces.ControllerAHU "AHU controller" annotation (
-    choicesAllMatching=true,
-    Dialog(group="Controller"),
-    Placement(transformation(extent={{-60,90},{-40,110}})));
+    Buildings.Templates.Interfaces.ControllerAHU
+    "AHU controller"
+    annotation (
+      choicesAllMatching=true,
+      Dialog(group="Controller"),
+      Placement(transformation(extent={{-260,108},{-240,128}})));
 
   /* FIXME: Dummy default values fo testing purposes only.
   Compute based on design pressure drop of each piece of equipment
@@ -207,7 +225,9 @@ model VAVSingleDuctSection "VAV single duct with relief"
     typ=Types.Sensor.Temperature)
     "Supply air temperature sensor"
     annotation (
-      Dialog(group="Supply air section"),
+      Dialog(
+        group="Supply air section",
+        enable=false),
       Placement(transformation(extent={{200,-210},{220,-190}})));
 
   // FIXME: bind typ to control option.
@@ -216,7 +236,9 @@ model VAVSingleDuctSection "VAV single duct with relief"
     typ=Types.Sensor.None)
     "Supply air humidity ratio sensor"
     annotation (
-      Dialog(group="Supply air section"),
+      Dialog(
+        group="Supply air section",
+        enable=false),
       Placement(transformation(extent={{230,-210},{250,-190}})));
 
   // FIXME: bind typ to control option.
@@ -225,7 +247,9 @@ model VAVSingleDuctSection "VAV single duct with relief"
     typ=Types.Sensor.None)
     "Duct static pressure sensor"
     annotation (
-      Dialog(group="Supply air section"),
+      Dialog(
+        group="Supply air section",
+        enable=false),
       Placement(transformation(extent={{260,-210},{280,-190}})));
 
   Fluid.Sensors.RelativePressure pInd_rel(
@@ -235,7 +259,8 @@ model VAVSingleDuctSection "VAV single duct with relief"
 
   Fluid.Sources.Outside out(
     redeclare final package Medium=MediumAir,
-    final nPorts=1)
+    final nPorts=1 +
+      (if secRel.typCtrFan==Templates.Types.ReturnFanControl.Pressure then 1 else 0))
     "Outdoor conditions"
     annotation (
       Placement(transformation(
@@ -247,10 +272,7 @@ model VAVSingleDuctSection "VAV single duct with relief"
     redeclare final package Medium = MediumAir,
     final use_p_in=true,
     final nPorts=1 +
-      (if pSup_rel.typ == Buildings.Templates.Types.Sensor.DifferentialPressure
-         then 1 else 0) +
-      (if secRel.typCtrFan == Buildings.Templates.Types.ReturnFanControl.Pressure
-         then 1 else 0))
+      (if pSup_rel.typ==Templates.Types.Sensor.DifferentialPressure then 1 else 0))
     "Indoor pressure"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -263,7 +285,9 @@ model VAVSingleDuctSection "VAV single duct with relief"
     typ=Types.Sensor.None)
     "Return air temperature sensor"
     annotation (
-      Dialog(group="Exhaust/relief/return section"),
+      Dialog(
+        group="Exhaust/relief/return section",
+        enable=false),
       Placement(transformation(extent={{222,-90},{202,-70}})));
 
   // FIXME: bind typ to control option.
@@ -272,10 +296,10 @@ model VAVSingleDuctSection "VAV single duct with relief"
     typ=Types.Sensor.None)
     "Return air enthalpy sensor"
     annotation (
-      Dialog(group="Exhaust/relief/return section"),
+      Dialog(
+      group="Exhaust/relief/return section",
+        enable=false),
       Placement(transformation(extent={{252,-90},{232,-70}})));
-
-
 
 equation
 
@@ -327,7 +351,7 @@ equation
   connect(pInd_rel.p_rel, busAHU.inp.pInd_rel) annotation (Line(points={{20,231},
           {20,0},{-300.1,0},{-300.1,0.1}},     color={0,0,127}));
   connect(conAHU.busTer, busTer) annotation (Line(
-      points={{-40,100},{-20,100},{-20,0},{300,0}},
+      points={{-240,118},{-220,118},{-220,0},{300,0}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%second",
@@ -335,7 +359,7 @@ equation
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
   connect(conAHU.busAHU, busAHU) annotation (Line(
-      points={{-60,100},{-80,100},{-80,0},{-300,0}},
+      points={{-260,118},{-280,118},{-280,0},{-300,0}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%second",
@@ -417,8 +441,6 @@ equation
       points={{-160,-186},{-160,0},{-300,0}},
       color={255,204,51},
       thickness=0.5));
-  connect(secRel.port_bPre, ind.ports[3]) annotation (Line(points={{-112,-94},{-112,
-          -100},{40,-100},{40,240},{40,240}},      color={0,127,255}));
   connect(secRel.port_b, port_Exh)
     annotation (Line(points={{-138,-80},{-300,-80}}, color={0,127,255}));
   connect(secRel.port_a, resRet.port_b)
@@ -441,6 +463,10 @@ equation
   connect(secOut.port_aHeaRec, recHea.port_bOut) annotation (Line(points={{-168,
           -186},{-168,-160},{-128,-160},{-128,-146},{-134,-146}}, color={0,127,
           255}));
+  connect(secRel.port_bRet, TMix.port_a) annotation (Line(points={{-120,-94},{-120,
+          -200},{-100,-200}}, color={0,127,255}));
+  connect(out.ports[2], secRel.port_bPre) annotation (Line(points={{-40,240},{-40,
+          240},{-40,-100},{-112,-100},{-112,-94}}, color={0,127,255}));
   annotation (
     defaultComponentName="ahu",
     Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(

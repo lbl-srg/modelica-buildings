@@ -1,5 +1,5 @@
 within Buildings.Templates.BaseClasses.Coils;
-model DirectExpansion
+model DirectExpansion "Direct expansion"
   extends Buildings.Templates.Interfaces.Coil(
     final typ=Types.Coil.DirectExpansion,
     final typHex=hex.typ,

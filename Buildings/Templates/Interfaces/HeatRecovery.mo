@@ -58,5 +58,9 @@ model HeatRecovery
           extent={{-100,100},{100,-100}},
           lineColor={0,0,255},
           fillColor={255,255,255},
-          fillPattern=FillPattern.Solid)}));
+          fillPattern=FillPattern.Solid),
+        Text(
+          extent={{-149,-110},{151,-150}},
+          lineColor={0,0,255},
+          textString="%name")}));
 end HeatRecovery;

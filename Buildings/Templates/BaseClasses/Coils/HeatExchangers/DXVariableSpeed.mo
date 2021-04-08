@@ -1,5 +1,5 @@
 within Buildings.Templates.BaseClasses.Coils.HeatExchangers;
-model DXVariableSpeed
+model DXVariableSpeed "Modulating"
   extends Buildings.Templates.Interfaces.HeatExchangerDX(
     final typ=Types.HeatExchanger.DXVariableSpeed);
 

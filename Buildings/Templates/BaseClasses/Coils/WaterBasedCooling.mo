@@ -1,5 +1,5 @@
 within Buildings.Templates.BaseClasses.Coils;
-model WaterBased
+model WaterBasedCooling "Water-based"
   extends Buildings.Templates.Interfaces.Coil(
     final typ=Types.Coil.WaterBased,
     final typHex=hex.typ,
@@ -49,17 +49,20 @@ model WaterBased
       choicesAllMatching=true,
       Placement(transformation(extent={{-10,-70},{10,-50}})));
 
-  replaceable Templates.Interfaces.HeatExchangerWater hex(
-    redeclare final package Medium1 = MediumSou,
-    redeclare final package Medium2 = MediumAir,
-    final m1_flow_nominal=mWat_flow_nominal,
-    final m2_flow_nominal=mAir_flow_nominal,
-    final dp1_nominal=if typAct==Types.Actuator.None then
-      dpWat_nominal else 0,
-    final dp2_nominal=dpAir_nominal)
+  replaceable Templates.BaseClasses.Coils.HeatExchangers.WetCoilCounterFlow hex
+    constrainedby Templates.Interfaces.HeatExchangerWater(
+      redeclare final package Medium1 = MediumSou,
+      redeclare final package Medium2 = MediumAir,
+      final m1_flow_nominal=mWat_flow_nominal,
+      final m2_flow_nominal=mAir_flow_nominal,
+      final dp1_nominal=if typAct==Types.Actuator.None then
+        dpWat_nominal else 0,
+      final dp2_nominal=dpAir_nominal)
     "Heat exchanger"
     annotation (
-      choicesAllMatching=true,
+      choices(
+        choice(redeclare Templates.BaseClasses.Coils.HeatExchangers.WetCoilCounterFlow hex
+          "Discretized heat exchanger model")),
       Placement(transformation(extent={{10,4},{-10,-16}})));
 
   Modelica.Blocks.Routing.RealPassThrough yCoiCoo if funStr=="Cooling"
@@ -137,4 +140,4 @@ Compliance error at line 8, column 4,
 
 </p>
 </html>"));
-end WaterBased;
+end WaterBasedCooling;

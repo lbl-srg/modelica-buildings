@@ -4,7 +4,7 @@ model DedicatedPressure
   extends Buildings.Templates.Interfaces.OutdoorAirSection(
     final typ=Types.OutdoorAir.DedicatedPressure,
     final typDamOut=damOut.typ,
-    final damOutMin=damOutMin.typ);
+    final typDamOutMin=damOutMin.typ);
 
    BaseClasses.Dampers.Modulated damOut(
      redeclare final package Medium = MediumAir)

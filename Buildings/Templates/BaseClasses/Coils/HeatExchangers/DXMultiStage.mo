@@ -1,5 +1,5 @@
 within Buildings.Templates.BaseClasses.Coils.HeatExchangers;
-model DXMultiStage
+model DXMultiStage "Multi-stage"
   extends Buildings.Templates.Interfaces.HeatExchangerDX(
     final typ=Types.HeatExchanger.DXMultiStage);
 

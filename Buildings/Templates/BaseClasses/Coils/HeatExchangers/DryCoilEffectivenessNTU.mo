@@ -1,5 +1,5 @@
 within Buildings.Templates.BaseClasses.Coils.HeatExchangers;
-model DryCoilEffectivenessNTU
+model DryCoilEffectivenessNTU "Epsilon-NTU heat exchanger model"
   extends Buildings.Templates.Interfaces.HeatExchangerWater(
     final typ=Types.HeatExchanger.DryCoilEffectivenessNTU);
 

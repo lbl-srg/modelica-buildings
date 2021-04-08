@@ -3,15 +3,20 @@ model NoEconomizer "No economizer"
   extends Buildings.Templates.Interfaces.ReliefReturnSection(
     final typ=Templates.Types.ReliefReturn.NoEconomizer,
     final typDamRel=damRel.typ,
-    final typFan=fanRet.typ,
-    final have_ret=false);
+    final typFan=fanRet.typ);
 
-  inner replaceable Fans.None fanRet
-    constrainedby Fans.None(
+  replaceable Templates.BaseClasses.Fans.None fanRet
+    constrainedby Templates.Interfaces.Fan(
       redeclare final package Medium = MediumAir)
     "Return fan"
     annotation (
-      choicesAllMatching=true,
+      choices(
+        choice(redeclare Templates.BaseClasses.Fans.None fanRet
+          "No fan"),
+        choice(redeclare Templates.BaseClasses.Fans.SingleVariable fanRet
+          "Single fan - Variable speed"),
+        choice(redeclare Templates.BaseClasses.Fans.MultipleVariable fanRet
+          "Multiple fans (identical) - Variable speed")),
       Dialog(
         group="Exhaust/relief/return section"),
       Placement(transformation(extent={{110,-10},{90,10}})));
@@ -23,7 +28,6 @@ model NoEconomizer "No economizer"
     "Return static pressure sensor"
     annotation (
       Placement(transformation(extent={{30,-10},{10,10}})));
-
   Sensors.Wrapper VRet_flow(
     redeclare final package Medium = MediumAir,
     typ=if typCtrFan==Templates.Types.ReturnFanControl.Airflow
@@ -33,7 +37,7 @@ model NoEconomizer "No economizer"
     annotation (
       Placement(transformation(extent={{70,-10},{50,10}})));
    Dampers.TwoPosition damRel(
-     redeclare final package Medium = MediumAir)
+    redeclare final package Medium = MediumAir)
     "Relief damper"
     annotation (
       Placement(transformation(

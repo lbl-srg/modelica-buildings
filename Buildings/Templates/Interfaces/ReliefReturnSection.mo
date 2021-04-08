@@ -14,12 +14,8 @@ partial model ReliefReturnSection "Exhaust/relief/return section"
   parameter Templates.Types.Fan typFan
     "Relief/return fan type"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  parameter Types.ReturnFanControl typCtrFan=
-    Templates.Types.ReturnFanControl.Airflow
+  parameter Templates.Types.ReturnFanControl typCtrFan
     "Return fan control type"
-    annotation (Evaluate=true, Dialog(group="Configuration"));
-  parameter Boolean have_ret
-    "Set to true in case of return branch"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Boolean have_recHea
     "Set to true in case of heat recovery"
@@ -78,9 +74,11 @@ partial model ReliefReturnSection "Exhaust/relief/return section"
   Modelica.Fluid.Interfaces.FluidPort_b port_bRet(
     redeclare final package Medium = MediumAir,
     m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
-    h_outflow(start=MediumAir.h_default, nominal=MediumAir.h_default)) if have_ret
+    h_outflow(start=MediumAir.h_default, nominal=MediumAir.h_default)) if
+    typ<>Templates.Types.ReliefReturn.NoEconomizer
     "Optional fluid connector for return branch"
     annotation (Placement(transformation(extent={{10,-150},{-10,-130}})));
+
   Modelica.Fluid.Interfaces.FluidPort_b port_bPre(
     redeclare final package Medium = MediumAir,
     m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),

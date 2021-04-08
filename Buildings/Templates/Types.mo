@@ -117,10 +117,12 @@ package Types "AHU types"
       "With air relief")
     "Enumeration to configure the return/exhaust branch";
   type ReturnFanControl = enumeration(
+      None
+      "Not applicable",
       Airflow
       "Airflow tracking",
       Pressure
-      "Building pressure control",
+      "Direct building pressure (via discharge static pressure)",
       Supply
       "Supply fan signal")
     "Enumeration to configure the return fan control";

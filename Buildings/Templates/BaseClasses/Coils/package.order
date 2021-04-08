@@ -1,5 +1,6 @@
 DirectExpansion
 None
-WaterBased
+WaterBasedCooling
+WaterBasedHeating
 HeatExchangers
 Actuators
