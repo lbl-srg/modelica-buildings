@@ -136,8 +136,8 @@ protected
 
   Modelica.Blocks.Sources.Constant TSoiUnd[nSeg](
     k = TExt_start,
-    y(each unit="K",
-      each displayUnit="degC"))
+    each y(unit="K",
+           displayUnit="degC"))
     "Undisturbed soil temperature"
     annotation (Placement(transformation(extent={{-40,14},{-20,34}})));
 
