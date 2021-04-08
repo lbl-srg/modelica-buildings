@@ -90,7 +90,7 @@ model DXCooledAirsideEconomizer
   Modelica.Blocks.Sources.Constant SATSetPoi(k=TAirSupSet)
     "Supply air temperature set point"
     annotation (Placement(transformation(extent={{-240,90},{-220,110}})));
-  Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.DXCoil datCoi(
+  parameter Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.DXCoil datCoi(
     nSta=4,
     sta={
     Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.Stage(
@@ -201,8 +201,7 @@ model DXCooledAirsideEconomizer
     yMin=minSpeFan,
     Ti=240,
     k=0.5,
-    controllerType=Modelica.Blocks.Types.SimpleController.PI,
-    reverseAction=true)
+    reverseActing=false)
     "Fan speed controller"
     annotation (Placement(transformation(extent={{80,-42},{100,-22}})));
   Buildings.Applications.DataCenters.DXCooled.Controls.Compressor speCon(
