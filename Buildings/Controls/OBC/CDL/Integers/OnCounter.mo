@@ -1,34 +1,37 @@
 within Buildings.Controls.OBC.CDL.Integers;
-block OnCounter "Increment the output if the input switches to true"
-
-  parameter Integer y_start = 0
+block OnCounter
+  "Increment the output if the input switches to true"
+  parameter Integer y_start=0
     "Initial and reset value of y if input reset switches to true";
-
-  Interfaces.BooleanInput trigger "Boolean input signal"
+  Interfaces.BooleanInput trigger
+    "Boolean input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-
-  Interfaces.BooleanInput reset "Reset the counter" annotation (Placement(
-        transformation(
-        extent={{-20,-20},{20,20}},
-        rotation=90,
-        origin={0,-120})));
-
-  Interfaces.IntegerOutput y "Integer output signal"
+  Interfaces.BooleanInput reset
+    "Reset the counter"
+    annotation (Placement(transformation(extent={{-20,-20},{20,20}},rotation=90,origin={0,-120})));
+  Interfaces.IntegerOutput y
+    "Integer output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 initial equation
-  pre(y) = y_start;
+  pre(y)=y_start;
 
 equation
-  when {trigger, reset} then
-     y = if reset then y_start else pre(y) + 1;
+  when {trigger,reset} then
+    y=
+      if reset then
+        y_start
+      else
+        pre(y)+1;
   end when;
-
   annotation (
     defaultComponentName="onCouInt",
-    Icon(coordinateSystem(
-          preserveAspectRatio=false, extent={{-100,-100},{100,100}},
-        initialScale=0.06), graphics={
+    Icon(
+      coordinateSystem(
+        preserveAspectRatio=false,
+        extent={{-100,-100},{100,100}},
+        initialScale=0.06),
+      graphics={
         Rectangle(
           extent={{-100,100},{100,-100}},
           lineColor={0,0,0},
@@ -36,15 +39,17 @@ equation
           fillColor={255,213,170},
           fillPattern=FillPattern.Solid,
           borderPattern=BorderPattern.Raised),
-          Text(
-            visible=use_reset,
-            extent={{-64,-62},{58,-86}},
-            lineColor={0,0,0},
-            textString="reset"),        Text(
-        extent={{-150,150},{150,110}},
-        textString="%name",
-        lineColor={0,0,255})}),
-    Documentation(info="<html>
+        Text(
+          visible=use_reset,
+          extent={{-64,-62},{58,-86}},
+          lineColor={0,0,0},
+          textString="reset"),
+        Text(
+          extent={{-150,150},{150,110}},
+          textString="%name",
+          lineColor={0,0,255})}),
+    Documentation(
+      info="<html>
 <p>
 Block that outputs how often the <code>trigger</code> input changed to <code>true</code>
 since the last invocation of <code>reset</code>.
@@ -59,7 +64,8 @@ then the output is reset to <code>y = y_start</code>.
 If both inputs <code>trigger</code> and <code>reset</code> change
 simultaneously, then the ouput is <code>y = y_start</code>.
 </p>
-</html>", revisions="<html>
+</html>",
+      revisions="<html>
 <ul>
 <li>
 January 3, 2017, by Michael Wetter:<br/>
