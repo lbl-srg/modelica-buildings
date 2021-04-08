@@ -2,11 +2,19 @@ within Buildings.Templates.AHUs.Controls;
 block OpenLoop "Open loop controller (output signals only)"
   extends Buildings.Templates.BaseClasses.Controls.AHUs.SupplyReturn;
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yDamOut(k=1)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yDamOut(k=1) if
+    outAir.typ<>Buildings.Templates.Types.OutdoorAir.NoEconomizer
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-180,170})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant yDamOut1(k=true) if
+    outAir.typ==Buildings.Templates.Types.OutdoorAir.NoEconomizer
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={-170,144})));
+
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yDamRet(k=1)
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -50,13 +58,13 @@ block OpenLoop "Open loop controller (output signals only)"
         rotation=-90,
         origin={100,70})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yDamOutMin(k=1) if
-    damOutMin.typ==Buildings.Templates.Types.Damper.Modulated
+    outAir.typ==Buildings.Templates.Types.OutdoorAir.DedicatedAirflow
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-150,170})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant yDamOutMin1(k=true) if
-    damOutMin.typ==Buildings.Templates.Types.Damper.TwoPosition
+    outAir.typ==Buildings.Templates.Types.OutdoorAir.DedicatedPressure
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
@@ -96,6 +104,7 @@ equation
   connect(yCoiCooSta.y,busAHU.out.yCoiCoo);
 
   connect(yDamOut.y,busAHU.out.yDamOut);
+  connect(yDamOut1.y,busAHU.out.yDamOut);
 
   connect(yDamRet.y,busAHU.out.yDamRet);
 

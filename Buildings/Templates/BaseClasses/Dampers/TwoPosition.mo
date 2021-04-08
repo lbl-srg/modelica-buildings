@@ -66,6 +66,20 @@ model TwoPosition
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={40,-70})));
+  Modelica.Blocks.Routing.BooleanPassThrough yDamOut if
+    braStr=="Outdoor air"
+    "Pass through to connect with specific control signal" annotation (
+      Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={0,70})));
+  Modelica.Blocks.Routing.BooleanPassThrough yDamOut_actual if
+    braStr=="Outdoor air"
+    "Pass through to connect with specific control signal" annotation (
+      Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={0,-70})));
 equation
   connect(port_a, damExp.port_a) annotation (Line(points={{-100,0},{-56,0},{-56,
           0},{-10,0}}, color={0,127,255}));
@@ -112,5 +126,24 @@ equation
       string="%first",
       index=-1,
       extent={{-3,6},{-3,6}},
+      horizontalAlignment=TextAlignment.Right));
+  connect(yDamOut.y, booToRea.u)
+    annotation (Line(points={{0,59},{0,42}}, color={255,0,255}));
+  connect(busCon.out.yDamOut, yDamOut.u) annotation (Line(
+      points={{0.1,100.1},{0.1,92},{0,92},{0,82}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%first",
+      index=-1,
+      extent={{-3,6},{-3,6}},
+      horizontalAlignment=TextAlignment.Right));
+  connect(evaSta.y, yDamOut_actual.u)
+    annotation (Line(points={{0,-42},{0,-58}}, color={255,0,255}));
+  connect(yDamOut_actual.y, busCon.inp.yDamOut_actual) annotation (Line(points={
+          {0,-81},{0,-92},{82,-92},{82,90},{0.1,90},{0.1,100.1}}, color={255,0,255}),
+      Text(
+      string="%second",
+      index=1,
+      extent={{-3,-6},{-3,-6}},
       horizontalAlignment=TextAlignment.Right));
 end TwoPosition;

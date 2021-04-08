@@ -14,6 +14,7 @@ FanSupplyBlowSingleConstant
 FanSupplyDrawMultipleVariable
 FanSupplyDrawSingleVariable
 CompleteAHU
+SectionNoEconomizer
 WrapperCoils
 WrapperEconomizerDampers
 WrapperFans

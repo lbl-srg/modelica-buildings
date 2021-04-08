@@ -1,5 +1,5 @@
 within Buildings.Templates.AHUs;
-model VAVSingleDuctSections "VAV single duct with relief"
+model VAVSingleDuctSection "VAV single duct with relief"
   extends Buildings.Templates.Interfaces.AHU(
     final typ=Buildings.Templates.Types.AHU.SupplyReturn,
     final typSup=Buildings.Templates.Types.Supply.SingleDuct,
@@ -14,14 +14,27 @@ model VAVSingleDuctSections "VAV single duct with relief"
     "Heating medium (such as HHW)"
     annotation(Dialog(enable=have_souCoiHea or have_souCoiReh));
 
+  // TODO
+  final parameter Boolean have_heaRec = false;
+
   /*** Outdoor air section 
   ***/
 
-  parameter Buildings.Templates.Types.OutdoorAir typOut
+  final parameter Buildings.Templates.Types.OutdoorAir typOut = outAir.typ
     "Type of outdoor air section"
     annotation (
       Dialog(group="Outdoor air section"),
       Evaluate=true);
+
+  inner replaceable BaseClasses.OutdoorAirSection.NoEconomizer outAir
+    constrainedby Buildings.Templates.Interfaces.OutdoorAirSection(
+      redeclare final package MediumAir = MediumAir,
+      final have_heaRec=have_heaRec)
+    "Outdoor air section"
+    annotation (
+      choicesAllMatching=true,
+      Dialog(group="Outdoor air section"),
+      Placement(transformation(extent={{-238,-214},{-202,-186}})));
 
   /*** Supply air section 
   ***/
@@ -323,8 +336,6 @@ model VAVSingleDuctSections "VAV single duct with relief"
     Dialog(group="Sensors"),
     Placement(transformation(extent={{252,-90},{232,-70}})));
 
-  BaseClasses.OutdoorAirSection.NoEconomizer noEconomizer
-    annotation (Placement(transformation(extent={{-230,-210},{-210,-190}})));
 equation
 
   connect(port_coiCooSup, coiCoo.port_aSou) annotation (Line(points={{20,-280},{
@@ -499,6 +510,14 @@ equation
     annotation (Line(points={{40,-200},{80,-200}}, color={0,127,255}));
   connect(coiHea.port_b, coiCoo.port_a)
     annotation (Line(points={{-20,-200},{20,-200}}, color={0,127,255}));
+  connect(port_Out, outAir.port_a)
+    annotation (Line(points={{-300,-200},{-238,-200}}, color={0,127,255}));
+  connect(outAir.port_b, TMix.port_a)
+    annotation (Line(points={{-202,-200},{-100,-200}}, color={0,127,255}));
+  connect(outAir.busCon, busAHU) annotation (Line(
+      points={{-220,-186},{-220,0},{-300,0}},
+      color={255,204,51},
+      thickness=0.5));
   annotation (
     defaultComponentName="ahu",
     Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
@@ -543,4 +562,4 @@ Modulateded relief damper
 
  
 </html>"));
-end VAVSingleDuctSections;
+end VAVSingleDuctSection;
