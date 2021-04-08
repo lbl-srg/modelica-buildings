@@ -1,12 +1,19 @@
 within Buildings.Templates.Interfaces;
-partial model OutdoorAirSection "Outdoor air section"
+partial model ReliefReturnSection "Exhaust/relief/return section"
 
   replaceable package MediumAir=Buildings.Media.Air
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Air medium";
 
   parameter Types.OutdoorAir typ
-    "Outdoor air section type"
+    "Exhaust/relief/return section type"
+    annotation (Evaluate=true, Dialog(group="Configuration"));
+  parameter Types.ReturnFanControl typCtrFan=
+    Templates.Types.ReturnFanControl.Airflow
+    "Return fan control type"
+    annotation (Evaluate=true, Dialog(group="Configuration"));
+  parameter Boolean have_ret
+    "Set to true in case of return branch"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Boolean have_recHea
     "Set to true in case of heat recovery"
@@ -26,25 +33,25 @@ partial model OutdoorAirSection "Outdoor air section"
     m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
     h_outflow(start=MediumAir.h_default, nominal=MediumAir.h_default))
     "Fluid connector a (positive design flow direction is from port_a to port_b)"
-    annotation (Placement(transformation(extent={{-190,-10},{-170,10}})));
+    annotation (Placement(transformation(extent={{170,-10},{190,10}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b(
     redeclare final package Medium = MediumAir,
     m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
     h_outflow(start=MediumAir.h_default, nominal=MediumAir.h_default))
     "Fluid connector b (positive design flow direction is from port_a to port_b)"
-    annotation (Placement(transformation(extent={{190,-10},{170,10}})));
+    annotation (Placement(transformation(extent={{-170,-10},{-190,10}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_aHeaRec(
     redeclare final package Medium = MediumAir,
     m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
     h_outflow(start=MediumAir.h_default, nominal=MediumAir.h_default)) if have_recHea
     "Optional fluid connector for heat recovery"
-    annotation (Placement(transformation(extent={{-90,130},{-70,150}})));
+    annotation (Placement(transformation(extent={{-130,-150},{-110,-130}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_bHeaRec(
     redeclare final package Medium = MediumAir,
     m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
     h_outflow(start=MediumAir.h_default, nominal=MediumAir.h_default)) if have_recHea
     "Optional fluid connector for heat recovery"
-    annotation (Placement(transformation(extent={{-110,130},{-130,150}})));
+    annotation (Placement(transformation(extent={{-70,-150},{-90,-130}})));
   BaseClasses.Connectors.BusInterface busCon
     "Control bus"
     annotation (
@@ -65,8 +72,21 @@ partial model OutdoorAirSection "Outdoor air section"
     constrainedby Interfaces.Damper(
       redeclare final package Medium = MediumAir)
     "Isolation damper"
-    annotation (Placement(transformation(extent={{-160,-10},{-140,10}})));
+    annotation (Placement(transformation(extent={{-140,-10},{-160,10}})));
 
+  Modelica.Fluid.Interfaces.FluidPort_b port_bRet(
+    redeclare final package Medium = MediumAir,
+    m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
+    h_outflow(start=MediumAir.h_default, nominal=MediumAir.h_default)) if have_ret
+    "Optional fluid connector for return branch"
+    annotation (Placement(transformation(extent={{10,-150},{-10,-130}})));
+  Modelica.Fluid.Interfaces.FluidPort_b port_bPre(
+    redeclare final package Medium = MediumAir,
+    m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
+    h_outflow(start=MediumAir.h_default, nominal=MediumAir.h_default)) if
+    typCtrFan==Templates.Types.ReturnFanControl.Pressure
+    "Optional fluid connector for differential pressure sensor"
+    annotation (Placement(transformation(extent={{90,-150},{70,-130}})));
 protected
   Modelica.Fluid.Interfaces.FluidPort_a port_aIns(
     redeclare final package Medium = MediumAir,
@@ -75,20 +95,20 @@ protected
     "Inside fluid connector a (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
 equation
-  connect(pas.port_b, port_aIns)
-    annotation (Line(points={{-90,0},{-80,0}}, color={0,127,255}));
-  connect(damOutIso.port_b, pas.port_a)
-    annotation (Line(points={{-140,0},{-110,0}},color={0,127,255}));
   connect(damOutIso.busCon, busCon) annotation (Line(
       points={{-150,10},{-150,120},{0,120},{0,140}},
       color={255,204,51},
       thickness=0.5));
-  connect(port_a, damOutIso.port_a)
-    annotation (Line(points={{-180,0},{-160,0}}, color={0,127,255}));
-  connect(port_aHeaRec, port_aIns)
-    annotation (Line(points={{-80,140},{-80,0},{-80,0}}, color={0,127,255}));
-  connect(damOutIso.port_b, port_bHeaRec) annotation (Line(points={{-140,0},{
-          -120,0},{-120,140}}, color={0,127,255}));
+  connect(damOutIso.port_a, pas.port_a)
+    annotation (Line(points={{-140,0},{-110,0}}, color={0,127,255}));
+  connect(damOutIso.port_b, port_b)
+    annotation (Line(points={{-160,0},{-180,0}}, color={0,127,255}));
+  connect(port_aHeaRec, pas.port_a) annotation (Line(points={{-120,-140},{-120,0},
+          {-110,0}}, color={0,127,255}));
+  connect(port_aIns, pas.port_b)
+    annotation (Line(points={{-80,0},{-90,0}}, color={0,127,255}));
+  connect(port_aIns, port_bHeaRec) annotation (Line(points={{-80,0},{-80,-140},{
+          -80,-140}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-180,-140},
             {180,140}}), graphics={
         Text(
@@ -96,4 +116,4 @@ equation
           lineColor={0,0,255},
           textString="%name")}),                                 Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-180,-140},{180,140}})));
-end OutdoorAirSection;
+end ReliefReturnSection;

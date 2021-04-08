@@ -97,10 +97,8 @@ package Types "AHU types"
       "No relief fan - Modulated relief damper",
       ReliefFan
       "Relief fan - Two-position relief damper",
-      ReturnFanPressure
-      "Return fan with pressure control - Modulated relief damper",
-      ReturnFanAirflow
-      "Return fan with airflow tracking - Modulated relief damper")
+      ReturnFan
+      "Return fan - Modulated relief damper")
     "Enumeration to configure the exhaust/relief/return section";
   type Return = enumeration(
       NoRelief
@@ -108,6 +106,14 @@ package Types "AHU types"
       WithRelief
       "With air relief")
     "Enumeration to configure the return/exhaust branch";
+  type ReturnFanControl = enumeration(
+      AirFlow
+      "Airflow tracking",
+      Pressure
+      "Building pressure control",
+      Supply
+      "Supply fan signal")
+    "Enumeration to configure the return fan control";
   type Sensor = enumeration(
       DifferentialPressure
       "Differential pressure",

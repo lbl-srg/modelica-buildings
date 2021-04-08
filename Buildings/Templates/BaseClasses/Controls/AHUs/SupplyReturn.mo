@@ -2,7 +2,7 @@ within Buildings.Templates.BaseClasses.Controls.AHUs;
 partial block SupplyReturn "Base class for controllers for AHU with supply and return"
   extends Buildings.Templates.Interfaces.ControllerAHU;
 
-  outer replaceable Buildings.Templates.Interfaces.OutdoorAirSection outAir
+  outer replaceable Buildings.Templates.Interfaces.OutdoorAirSection secOut
     "OA section";
 
   outer replaceable Buildings.Templates.BaseClasses.Dampers.None damRel

@@ -5,6 +5,7 @@ Controls
 Dampers
 Fans
 OutdoorAirSection
+ReliefReturnSection
 Sensors
 getArraySize1D
 getReal

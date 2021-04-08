@@ -3,13 +3,13 @@ block OpenLoop "Open loop controller (output signals only)"
   extends Buildings.Templates.BaseClasses.Controls.AHUs.SupplyReturn;
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yDamOut(k=1) if
-    outAir.typ<>Buildings.Templates.Types.OutdoorAir.NoEconomizer
+    secOut.typ<>Buildings.Templates.Types.OutdoorAir.NoEconomizer
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-180,170})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant yDamOut1(k=true) if
-    outAir.typ==Buildings.Templates.Types.OutdoorAir.NoEconomizer
+    secOut.typ==Buildings.Templates.Types.OutdoorAir.NoEconomizer
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
@@ -58,13 +58,13 @@ block OpenLoop "Open loop controller (output signals only)"
         rotation=-90,
         origin={100,70})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yDamOutMin(k=1) if
-    outAir.typ==Buildings.Templates.Types.OutdoorAir.DedicatedAirflow
+    secOut.typ==Buildings.Templates.Types.OutdoorAir.DedicatedAirflow
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-150,170})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant yDamOutMin1(k=true) if
-    outAir.typ==Buildings.Templates.Types.OutdoorAir.DedicatedPressure
+    secOut.typ==Buildings.Templates.Types.OutdoorAir.DedicatedPressure
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
