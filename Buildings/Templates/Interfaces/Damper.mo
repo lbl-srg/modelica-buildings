@@ -9,6 +9,7 @@ partial model Damper
   final parameter String braStr=
     if Modelica.Utilities.Strings.length(insNam) -
       Modelica.Utilities.Strings.find(insNam, "damOut")==5 or
+      Modelica.Utilities.Strings.find(insNam, ".damOutIso")<>0 or
       Modelica.Utilities.Strings.find(insNam, ".damOut.")<>0 then "Outdoor air"
     elseif Modelica.Utilities.Strings.find(insNam, "damOutMin")<>0 then "Minimum outdoor air"
     elseif Modelica.Utilities.Strings.find(insNam, "damRel")<>0 then "Relief air"

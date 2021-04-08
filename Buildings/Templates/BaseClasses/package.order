@@ -4,6 +4,7 @@ Connectors
 Controls
 Dampers
 Fans
+OutdoorAirSection
 Sensors
 getArraySize1D
 getReal

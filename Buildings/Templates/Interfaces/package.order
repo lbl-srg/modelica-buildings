@@ -4,9 +4,9 @@ Coil
 ControllerAHU
 ControllerTerminalUnit
 Damper
-Economizer
 Fan
 HeatExchangerDX
 HeatExchangerWater
+OutdoorAirSection
 Sensor
 TerminalUnitAir

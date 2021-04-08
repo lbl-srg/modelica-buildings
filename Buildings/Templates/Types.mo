@@ -24,7 +24,7 @@ package Types "AHU types"
       DirectExpansion
       "Direct expansion",
       None
-      "No economizer",
+      "No coil",
       WaterBased
       "Water-based coil")
     "Enumeration to configure the coil";
@@ -42,20 +42,6 @@ package Types "AHU types"
       TwoPosition
       "Two-position damper")
     "Enumeration to configure the damper";
-  type ReliefReturn = enumeration(
-      NoEconomizer
-      "No economizer",
-      Barometric
-      "No relief fan - Barometric relief damper",
-      ReliefDamper
-      "No relief fan - Modulated relief damper",
-      ReliefFan
-      "Relief fan - Two-position relief damper",
-      ReturnFanPressure
-      "Return fan with pressure control - Modulated relief damper",
-      ReturnFanAirflow
-      "Return fan with airflow tracking - Modulated relief damper")
-    "Enumeration to configure the exhaust/relief/return section";
   type HeatExchanger = enumeration(
       None
       "No heat exchanger",
@@ -70,18 +56,6 @@ package Types "AHU types"
       WetCoilCounterFlow
       "Water based - Discretized")
     "Enumeration to configure the HX";
-  type Economizer = enumeration(
-      None
-      "No economizer",
-      CommonDamperTandem
-      "Single common OA damper - Dampers actuated in tandem",
-      DedicatedDamperTandem
-      "Separate dedicated OA damper - Dampers actuated in tandem",
-      CommonDamperFree
-      "Single common OA damper - Dampers actuated individually",
-      CommonDamperFreeNoRelief
-      "Single common OA damper - Dampers actuated individually, no relief")
-    "Enumeration to configure the economizer";
   type Fan = enumeration(
       None
       "No fan",
@@ -114,6 +88,20 @@ package Types "AHU types"
       DedicatedAirflow
       "Dedicated minimum OA damper (modulated) with AFMS")
     "Enumeration to configure the outdoor air section";
+  type ReliefReturn = enumeration(
+      NoEconomizer
+      "No economizer",
+      Barometric
+      "No relief fan - Barometric relief damper",
+      ReliefDamper
+      "No relief fan - Modulated relief damper",
+      ReliefFan
+      "Relief fan - Two-position relief damper",
+      ReturnFanPressure
+      "Return fan with pressure control - Modulated relief damper",
+      ReturnFanAirflow
+      "Return fan with airflow tracking - Modulated relief damper")
+    "Enumeration to configure the exhaust/relief/return section";
   type Return = enumeration(
       NoRelief
       "No air relief",
