@@ -26,11 +26,15 @@ partial model Damper
   outer parameter ExternData.JSONFile dat
     "External parameter file";
 
-  Modelica.Fluid.Interfaces.FluidPort_a port_a(redeclare package Medium =
-        Medium) "Entering air" annotation (Placement(transformation(extent={{-110,
+  Modelica.Fluid.Interfaces.FluidPort_a port_a(
+    redeclare package Medium = Medium)
+    "Entering air"
+    annotation (Placement(transformation(extent={{-110,
             -10},{-90,10}}), iconTransformation(extent={{-110,-10},{-90,10}})));
-  Modelica.Fluid.Interfaces.FluidPort_b port_b(redeclare package Medium =
-        Medium) "Leaving air" annotation (Placement(transformation(extent={{90,-10},
+  Modelica.Fluid.Interfaces.FluidPort_b port_b(
+    redeclare package Medium = Medium)
+    "Leaving air"
+    annotation (Placement(transformation(extent={{90,-10},
             {110,10}}), iconTransformation(extent={{90,-10},{110,10}})));
   BaseClasses.Connectors.BusInterface busCon if
     typ <> Types.Damper.None and

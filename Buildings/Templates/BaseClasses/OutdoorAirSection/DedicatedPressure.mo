@@ -2,7 +2,9 @@ within Buildings.Templates.BaseClasses.OutdoorAirSection;
 model DedicatedPressure
   "Dedicated minimum OA damper (two-position) with differential pressure sensor"
   extends Buildings.Templates.Interfaces.OutdoorAirSection(
-    final typ=Types.OutdoorAir.DedicatedPressure);
+    final typ=Types.OutdoorAir.DedicatedPressure,
+    final typDamOut=damOut.typ,
+    final damOutMin=damOutMin.typ);
 
    BaseClasses.Dampers.Modulated damOut(
      redeclare final package Medium = MediumAir)
@@ -66,4 +68,6 @@ equation
       thickness=0.5));
   connect(damOut.port_b, port_b)
     annotation (Line(points={{10,0},{180,0}}, color={0,127,255}));
+  connect(port_a, pas.port_a)
+    annotation (Line(points={{-180,0},{-110,0}}, color={0,127,255}));
 end DedicatedPressure;

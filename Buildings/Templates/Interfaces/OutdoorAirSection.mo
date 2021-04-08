@@ -8,6 +8,12 @@ partial model OutdoorAirSection "Outdoor air section"
   parameter Types.OutdoorAir typ
     "Outdoor air section type"
     annotation (Evaluate=true, Dialog(group="Configuration"));
+  parameter Templates.Types.Damper typDamOut
+    "Outdoor air damper type"
+    annotation (Evaluate=true, Dialog(group="Configuration"));
+  parameter Templates.Types.Damper typDamOutMin
+    "Minimum outdoor air damper type"
+    annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Boolean have_recHea
     "Set to true in case of heat recovery"
     annotation (Evaluate=true, Dialog(group="Configuration"));
@@ -61,11 +67,6 @@ partial model OutdoorAirSection "Outdoor air section"
     redeclare final package Medium = MediumAir) if not have_recHea
      "Direct pass through (conditional)"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
-  replaceable BaseClasses.Dampers.None damOutIso
-    constrainedby Interfaces.Damper(
-      redeclare final package Medium = MediumAir)
-    "Isolation damper"
-    annotation (Placement(transformation(extent={{-160,-10},{-140,10}})));
 
 protected
   Modelica.Fluid.Interfaces.FluidPort_a port_aIns(
@@ -77,18 +78,10 @@ protected
 equation
   connect(pas.port_b, port_aIns)
     annotation (Line(points={{-90,0},{-80,0}}, color={0,127,255}));
-  connect(damOutIso.port_b, pas.port_a)
-    annotation (Line(points={{-140,0},{-110,0}},color={0,127,255}));
-  connect(damOutIso.busCon, busCon) annotation (Line(
-      points={{-150,10},{-150,120},{0,120},{0,140}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(port_a, damOutIso.port_a)
-    annotation (Line(points={{-180,0},{-160,0}}, color={0,127,255}));
   connect(port_aHeaRec, port_aIns)
     annotation (Line(points={{-80,140},{-80,0},{-80,0}}, color={0,127,255}));
-  connect(damOutIso.port_b, port_bHeaRec) annotation (Line(points={{-140,0},{
-          -120,0},{-120,140}}, color={0,127,255}));
+  connect(port_bHeaRec, pas.port_a) annotation (Line(points={{-120,140},{-120,0},
+          {-110,0}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-180,-140},
             {180,140}}), graphics={
         Text(

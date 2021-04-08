@@ -68,14 +68,12 @@ partial model Coil
         rotation=0,
         origin={0,100})));
 
-  BaseClasses.PassThroughFluid pas(
-    redeclare final package Medium = Medium) if not have_senTem
-    "Direct pass through"
-    annotation (Placement(transformation(extent={{70,-10},{90,10}})));
-  BaseClasses.Sensors.Temperature TLvg(
-    redeclare final package Medium=MediumAir) if have_senTem
+  BaseClasses.Sensors.Wrapper TLvg(
+    redeclare final package Medium=MediumAir,
+    final typ=if have_senTem then Templates.Types.Sensor.Temperature else
+      Templates.Types.Sensor.None)
     "Leaving air temperature sensor"
-    annotation (Placement(transformation(extent={{70,10},{90,30}})));
+    annotation (Placement(transformation(extent={{70,-10},{90,10}})));
 protected
   Modelica.Fluid.Interfaces.FluidPort_b port_bIns(
     redeclare final package Medium = Medium,
@@ -85,16 +83,12 @@ protected
     annotation (Placement(transformation(extent={{70,-10},{50,10}})));
 
 equation
-  connect(port_b, pas.port_b)
-    annotation (Line(points={{100,0},{90,0}}, color={0,127,255}));
-  connect(port_bIns, pas.port_a)
-    annotation (Line(points={{60,0},{70,0}}, color={0,127,255}));
   connect(port_bIns, TLvg.port_a)
-    annotation (Line(points={{60,0},{60,20},{70,20}}, color={0,127,255}));
+    annotation (Line(points={{60,0},{70,0}},          color={0,127,255}));
   connect(TLvg.port_b, port_b)
-    annotation (Line(points={{90,20},{100,20},{100,0}}, color={0,127,255}));
+    annotation (Line(points={{90,0},{100,0}},           color={0,127,255}));
   connect(busCon, TLvg.busCon) annotation (Line(
-      points={{0,100},{0,96},{80,96},{80,30}},
+      points={{0,100},{0,96},{80,96},{80,10}},
       color={255,204,51},
       thickness=0.5));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={

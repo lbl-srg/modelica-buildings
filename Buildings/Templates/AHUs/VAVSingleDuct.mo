@@ -416,10 +416,12 @@ model VAVSingleDuct "VAV single duct with relief"
     final use_p_in=true,
     final nPorts=1 + (if pSup_rel.typ == Buildings.Templates.Types.Sensor.DifferentialPressure
          then 1 else 0) + (if pRet_rel.typ == Buildings.Templates.Types.Sensor.DifferentialPressure
-         then 1 else 0)) "Indoor pressure" annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={40,250})));
+         then 1 else 0))
+    "Indoor pressure"
+    annotation (Placement(transformation(
+    extent={{-10,-10},{10,10}},
+    rotation=-90,
+    origin={40,250})));
 
   replaceable BaseClasses.Sensors.None TRet constrainedby
     BaseClasses.Sensors.None(redeclare final package Medium = MediumAir)

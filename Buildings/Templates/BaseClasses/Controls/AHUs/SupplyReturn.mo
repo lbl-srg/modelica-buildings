@@ -3,12 +3,9 @@ partial block SupplyReturn "Base class for controllers for AHU with supply and r
   extends Buildings.Templates.Interfaces.ControllerAHU;
 
   outer replaceable Buildings.Templates.Interfaces.OutdoorAirSection secOut
-    "OA section";
-
-  outer replaceable Buildings.Templates.BaseClasses.Dampers.None damRel
-    "Relief damper";
-  outer replaceable Buildings.Templates.BaseClasses.Dampers.None damRet
-    "Return damper";
+    "Outdoor air section";
+  outer replaceable Buildings.Templates.Interfaces.ReliefReturnSection secRel
+    "Exhaust/relief/return section";
 
   outer replaceable Buildings.Templates.BaseClasses.Coils.None coiCoo
     "Cooling coil";
@@ -21,10 +18,6 @@ partial block SupplyReturn "Base class for controllers for AHU with supply and r
     "Supply fan - Draw through";
   outer replaceable Buildings.Templates.BaseClasses.Fans.None fanSupBlo
     "Supply fan - Blow through";
-  outer replaceable Buildings.Templates.BaseClasses.Fans.None fanRel
-    "Relief fan";
-  outer replaceable Buildings.Templates.BaseClasses.Fans.None fanRet
-    "Return fan";
 
   final inner parameter Buildings.Templates.Types.Fan typFanSup=
     if fanSupDra.typ <> Buildings.Templates.Types.Fan.None then fanSupDra.typ
@@ -32,10 +25,7 @@ partial block SupplyReturn "Base class for controllers for AHU with supply and r
     else Buildings.Templates.Types.Fan.None
     "Type of supply fan"
     annotation (Evaluate=true);
-  final inner parameter Buildings.Templates.Types.Fan typFanRet=
-    if fanRel.typ <> Buildings.Templates.Types.Fan.None then fanRel.typ
-    elseif fanRet.typ <> Buildings.Templates.Types.Fan.None then fanRet.typ
-    else Buildings.Templates.Types.Fan.None
+  final inner parameter Templates.Types.Fan typFanRet=secRel.typFan
     "Type of return fan"
     annotation (Evaluate=true);
 

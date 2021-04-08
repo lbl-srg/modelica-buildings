@@ -2,8 +2,9 @@ within Buildings.Templates.BaseClasses.ReliefReturnSection;
 model NoEconomizer "No economizer"
   extends Buildings.Templates.Interfaces.ReliefReturnSection(
     final typ=Templates.Types.ReliefReturn.NoEconomizer,
-    final have_ret=false,
-    redeclare Dampers.TwoPosition damOutIso);
+    final typDamRel=damRel.typ,
+    final typFan=fanRet.typ,
+    final have_ret=false);
 
   inner replaceable Fans.None fanRet
     constrainedby Fans.None(
@@ -12,9 +13,7 @@ model NoEconomizer "No economizer"
     annotation (
       choicesAllMatching=true,
       Dialog(
-        group="Exhaust/relief/return section",
-        enable=typRel==Buildings.Templates.Types.ReliefReturn.ReturnFanPressure or
-          typRel==Buildings.Templates.Types.ReliefReturn.ReturnFanAirflow),
+        group="Exhaust/relief/return section"),
       Placement(transformation(extent={{110,-10},{90,10}})));
   Sensors.Wrapper pRet_rel(
     redeclare final package Medium = MediumAir,
@@ -27,12 +26,20 @@ model NoEconomizer "No economizer"
 
   Sensors.Wrapper VRet_flow(
     redeclare final package Medium = MediumAir,
-    typ=if typCtrFan==Templates.Types.ReturnFanControl.AirFlow
+    typ=if typCtrFan==Templates.Types.ReturnFanControl.Airflow
       then Templates.Types.Sensor.VolumeFlowRate else
       Templates.Types.Sensor.None)
     "Return air volume flow rate sensor"
     annotation (
       Placement(transformation(extent={{70,-10},{50,10}})));
+   Dampers.TwoPosition damRel(
+     redeclare final package Medium = MediumAir)
+    "Relief damper"
+    annotation (
+      Placement(transformation(
+          extent={{10,-10},{-10,10}},
+          rotation=0,
+          origin={-150,0})));
 equation
   connect(port_a, fanRet.port_a)
     annotation (Line(points={{180,0},{110,0}}, color={0,127,255}));
@@ -56,4 +63,12 @@ equation
       thickness=0.5));
   connect(pRet_rel.port_bRef, port_bPre) annotation (Line(points={{20,-10},{20,
           -120},{80,-120},{80,-140}}, color={0,127,255}));
+  connect(port_b, damRel.port_b)
+    annotation (Line(points={{-180,0},{-160,0}}, color={0,127,255}));
+  connect(damRel.port_a, pas.port_a)
+    annotation (Line(points={{-140,0},{-110,0}}, color={0,127,255}));
+  connect(damRel.busCon, busCon) annotation (Line(
+      points={{-150,10},{-150,20},{0,20},{0,140}},
+      color={255,204,51},
+      thickness=0.5));
 end NoEconomizer;

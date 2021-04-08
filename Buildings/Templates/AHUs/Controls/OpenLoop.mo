@@ -3,37 +3,46 @@ block OpenLoop "Open loop controller (output signals only)"
   extends Buildings.Templates.BaseClasses.Controls.AHUs.SupplyReturn;
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yDamOut(k=1) if
-    secOut.typ<>Buildings.Templates.Types.OutdoorAir.NoEconomizer
+    secOut.typDamOut==Buildings.Templates.Types.Damper.Modulated
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-180,170})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant yDamOut1(k=true) if
-    secOut.typ==Buildings.Templates.Types.OutdoorAir.NoEconomizer
+    secOut.typDamOut==Buildings.Templates.Types.Damper.TwoPosition
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-170,144})));
-
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yDamOutMin(k=1) if
+    secOut.typDamOutMin==Buildings.Templates.Types.Damper.Modulated
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={-150,170})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant yDamOutMin1(k=true) if
+    secOut.typDamOutMin==Buildings.Templates.Types.Damper.TwoPosition
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={-140,144})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yDamRet(k=1)
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-120,170})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yDamRel(k=1) if
-    damRel.typ==Buildings.Templates.Types.Damper.Modulated
+    secRel.typDamRel==Buildings.Templates.Types.Damper.Modulated
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-90,170})));
-
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant yDamRel1(k=true) if
-    damRel.typ==Buildings.Templates.Types.Damper.TwoPosition
+    secRel.typDamRel==Buildings.Templates.Types.Damper.TwoPosition
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-60,170})));
-
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yCoiCoo(k=1) if
      coiCoo.typ == Buildings.Templates.Types.Coil.WaterBased or
      coiCoo.typHex == Buildings.Templates.Types.HeatExchanger.DXVariableSpeed
@@ -57,18 +66,6 @@ block OpenLoop "Open loop controller (output signals only)"
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={100,70})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yDamOutMin(k=1) if
-    secOut.typ==Buildings.Templates.Types.OutdoorAir.DedicatedAirflow
-    annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={-150,170})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant yDamOutMin1(k=true) if
-    secOut.typ==Buildings.Templates.Types.OutdoorAir.DedicatedPressure
-    annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={-140,144})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yCoiHea(k=1) if
     coiHea.typ == Buildings.Templates.Types.Coil.WaterBased or
     coiHea.typHex == Buildings.Templates.Types.HeatExchanger.DXVariableSpeed

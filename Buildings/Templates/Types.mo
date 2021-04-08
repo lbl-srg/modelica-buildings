@@ -55,7 +55,17 @@ package Types "AHU types"
       "Water based - Effectiveness-NTU dry coil",
       WetCoilCounterFlow
       "Water based - Discretized")
-    "Enumeration to configure the HX";
+    "Enumeration to configure the heat exchanger";
+  type HeatRecovery = enumeration(
+      None
+      "No heat recovery",
+      FlatPlate
+      "Flat plate heat exchanger",
+      EnthalpyWheel
+      "Enthalpy wheel",
+      RunAroundCoil
+      "Run-around coil")
+    "Enumeration to configure the heat recovery";
   type Fan = enumeration(
       None
       "No fan",
@@ -107,7 +117,7 @@ package Types "AHU types"
       "With air relief")
     "Enumeration to configure the return/exhaust branch";
   type ReturnFanControl = enumeration(
-      AirFlow
+      Airflow
       "Airflow tracking",
       Pressure
       "Building pressure control",

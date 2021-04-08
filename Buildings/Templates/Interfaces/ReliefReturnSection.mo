@@ -5,8 +5,14 @@ partial model ReliefReturnSection "Exhaust/relief/return section"
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Air medium";
 
-  parameter Types.OutdoorAir typ
+  parameter Types.ReliefReturn typ
     "Exhaust/relief/return section type"
+    annotation (Evaluate=true, Dialog(group="Configuration"));
+  parameter Templates.Types.Damper typDamRel
+    "Relief damper type"
+    annotation (Evaluate=true, Dialog(group="Configuration"));
+  parameter Templates.Types.Fan typFan
+    "Relief/return fan type"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Types.ReturnFanControl typCtrFan=
     Templates.Types.ReturnFanControl.Airflow
@@ -68,11 +74,6 @@ partial model ReliefReturnSection "Exhaust/relief/return section"
     redeclare final package Medium = MediumAir) if not have_recHea
      "Direct pass through (conditional)"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
-  replaceable BaseClasses.Dampers.None damOutIso
-    constrainedby Interfaces.Damper(
-      redeclare final package Medium = MediumAir)
-    "Isolation damper"
-    annotation (Placement(transformation(extent={{-140,-10},{-160,10}})));
 
   Modelica.Fluid.Interfaces.FluidPort_b port_bRet(
     redeclare final package Medium = MediumAir,
@@ -95,14 +96,6 @@ protected
     "Inside fluid connector a (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
 equation
-  connect(damOutIso.busCon, busCon) annotation (Line(
-      points={{-150,10},{-150,120},{0,120},{0,140}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(damOutIso.port_a, pas.port_a)
-    annotation (Line(points={{-140,0},{-110,0}}, color={0,127,255}));
-  connect(damOutIso.port_b, port_b)
-    annotation (Line(points={{-160,0},{-180,0}}, color={0,127,255}));
   connect(port_aHeaRec, pas.port_a) annotation (Line(points={{-120,-140},{-120,0},
           {-110,0}}, color={0,127,255}));
   connect(port_aIns, pas.port_b)
