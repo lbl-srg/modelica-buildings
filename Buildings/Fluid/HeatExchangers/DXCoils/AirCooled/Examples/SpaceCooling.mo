@@ -219,7 +219,8 @@ model SpaceCooling "Space cooling with DX coils"
   Buildings.Controls.Continuous.LimPID conVarSpe(
     controllerType=Modelica.Blocks.Types.SimpleController.P,
     Ti=1,
-    Td=1) "Controller for variable speed DX coil"
+    Td=1,
+    reverseAction=true) "Controller for variable speed DX coil"
     annotation (Placement(transformation(extent={{-60,-220},{-40,-200}})));
 equation
   connect(out.ports[1], hex.port_a1) annotation (Line(
