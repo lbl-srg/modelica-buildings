@@ -46,8 +46,7 @@ model ShadeControl
   Buildings.ThermalZones.EnergyPlus.OutputVariable incBeaSou(
     name="Surface Outside Face Incident Beam Solar Radiation Rate per Area",
     key="Zn001:Wall001:Win001",
-    y(
-      final unit="W/m2"))
+    y(final unit="W/m2"))
     "Block that reads incident beam solar radiation on south window from EnergyPlus"
     annotation (Placement(transformation(extent={{-50,-120},{-30,-100}})));
   Buildings.Controls.OBC.Shade.Shade_T shaT(
@@ -254,7 +253,7 @@ setting the input of <code>actSha</code> to <code>6</code>.
 Otherwise, the input is set to <code>0</code>.
 </p>
 <p>
-The the right of the model, there are three idealized cooling systems
+To the right of the model, there are three idealized cooling systems
 that keep the room air temperature below <i>25</i>&deg;C in each of the three
 zones.
 Also, each zone is connected to a constant, unconditioned outside air supply.
