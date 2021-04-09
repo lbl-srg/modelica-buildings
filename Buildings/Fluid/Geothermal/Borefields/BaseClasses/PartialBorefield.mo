@@ -296,6 +296,11 @@ temperature after calculating and/or read (from a previous calculation) the bore
 </html>", revisions="<html>
 <ul>
 <li>
+April 9, 2021, by Michael Wetter:<br/>
+Corrected placement of <code>each</code> keyword.<br/>
+See <a href=\"https://github.com/lbl-srg/modelica-buildings/pull/2440\">Buidings, PR #2440</a>.
+</li>
+<li>
 August 25, 2020, by Filip Jorissen:<br/>
 Switched port connections for <code>masFloDiv</code>.
 See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/41\">#41</a>.

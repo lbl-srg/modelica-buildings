@@ -24,6 +24,11 @@ It has been obtained from the EnergyPlus 7.1 example file
 revisions="<html>
 <ul>
 <li>
+April 9, 2021, by Michael Wetter:<br/>
+Corrected placement of <code>each</code> keyword.<br/>
+See <a href=\"https://github.com/lbl-srg/modelica-buildings/pull/2440\">Buidings, PR #2440</a>.
+</li>
+<li>
 September 25, 2012 by Michael Wetter:<br/>
 Revised documentation.
 </li>
