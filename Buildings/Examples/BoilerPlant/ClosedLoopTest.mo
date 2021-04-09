@@ -53,28 +53,6 @@ model ClosedLoopTest "Closed loop testing model"
     "Boiler plant controller"
     annotation (Placement(transformation(extent={{-40,-34},{-20,34}})));
 
-  Controls.OBC.CDL.Continuous.Hysteresis hys(uLow=0.01, uHigh=0.05)
-    "Check if radiator control valve opening is above threshold for enabling boiler plant"
-    annotation (Placement(transformation(extent={{80,100},{100,120}})));
-  Controls.OBC.CDL.Logical.Timer tim(t=30) "Timer"
-    annotation (Placement(transformation(extent={{110,100},{130,120}})));
-  Controls.OBC.CDL.Conversions.BooleanToInteger booToInt
-    annotation (Placement(transformation(extent={{170,50},{190,70}})));
-  Controls.OBC.CDL.Continuous.Hysteresis hys1(uLow=0.85, uHigh=0.9)
-    "Check if radiator control valve opening is above threshold for rasing HHW supply temperature"
-    annotation (Placement(transformation(extent={{90,20},{110,40}})));
-  Controls.OBC.CDL.Logical.Timer tim1(t=30) "Timer"
-    annotation (Placement(transformation(extent={{120,20},{140,40}})));
-  Controls.OBC.CDL.Conversions.BooleanToInteger booToInt1(integerTrue=3)
-    annotation (Placement(transformation(extent={{150,20},{170,40}})));
-  Controls.OBC.CDL.Logical.Latch lat
-    annotation (Placement(transformation(extent={{140,100},{160,120}})));
-  Controls.OBC.CDL.Logical.Timer tim2(t=30) "Timer"
-    annotation (Placement(transformation(extent={{120,60},{140,80}})));
-  Controls.OBC.CDL.Logical.Not not1
-    annotation (Placement(transformation(extent={{90,60},{110,80}})));
-
-protected
   Buildings.Controls.OBC.CDL.Continuous.PID conPID(
     final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     final k=1*10e-4,
@@ -82,6 +60,7 @@ protected
     "Radiator isolation valve controller"
     annotation (Placement(transformation(extent={{50,50},{70,70}})));
 
+protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(
     final k=273.15 + 21.11)
     "Zone temperature setpoint"
@@ -108,6 +87,49 @@ protected
     final timeScale=3600)
     "Time table for internal heat gain"
     annotation (Placement(transformation(extent={{-30,70},{-10,90}})));
+
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
+    final uLow=0.01,
+    final uHigh=0.05)
+    "Check if radiator control valve opening is above threshold for enabling boiler plant"
+    annotation (Placement(transformation(extent={{80,100},{100,120}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Timer tim(
+    final t=60)
+    "Timer"
+    annotation (Placement(transformation(extent={{110,100},{130,120}})));
+
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt
+    "Boolean to Integer conversion"
+    annotation (Placement(transformation(extent={{170,50},{190,70}})));
+
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys1(
+    final uLow=0.85,
+    final uHigh=0.9)
+    "Check if radiator control valve opening is above threshold for rasing HHW supply temperature"
+    annotation (Placement(transformation(extent={{90,20},{110,40}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Timer tim1(
+    final t=30)
+    "Timer"
+    annotation (Placement(transformation(extent={{120,20},{140,40}})));
+
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt1(
+    final integerTrue=3) "Boolean to Integer conversion"
+    annotation (Placement(transformation(extent={{150,20},{170,40}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Latch lat
+    "Latch to send requests for hot water supply to boiler plant"
+    annotation (Placement(transformation(extent={{140,100},{160,120}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Timer tim2(
+    final t=30)
+    "Timer"
+    annotation (Placement(transformation(extent={{120,60},{140,80}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Not not1
+    "Logical Not"
+    annotation (Placement(transformation(extent={{90,60},{110,80}})));
 
 equation
   connect(controller.yBoi, boilerPlant.uBoiSta)

@@ -90,10 +90,12 @@ model BoilerPlant
     annotation (Placement(transformation(extent={{-360,60},{-320,100}}),
       iconTransformation(extent={{-140,40},{-100,80}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uPumSpe(final unit="1",
-      displayUnit="1") "Pump speed signal" annotation (Placement(transformation(
-          extent={{-360,-20},{-320,20}}), iconTransformation(extent={{-140,-20},
-            {-100,20}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uPumSpe(
+    final unit="1",
+    displayUnit="1")
+    "Pump speed signal"
+    annotation (Placement(transformation(extent={{-360,-20},{-320,20}}),
+      iconTransformation(extent={{-140,-20},{-100,20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uBypValSig(
     final unit="1",
@@ -124,6 +126,24 @@ model BoilerPlant
     "Measured outdoor air temperature"
     annotation (Placement(transformation(extent={{-360,-100},{-320,-60}}),
       iconTransformation(extent={{-140,-110},{-100,-70}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TBoiHotWatSupSet[2](
+    final unit=fill("K", 2),
+    displayUnit=fill("degC", 2),
+    final quantity=fill("ThermodynamicTemperature", 2))
+    "Boiler hot water supply temperature setpoint vector"
+    annotation (Placement(transformation(extent={{-360,-150},{-320,-110}}),
+      iconTransformation(extent={{-140,-140},{-100,-100}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yBoiSta[2]
+    "Boiler status signal"
+    annotation (Placement(transformation(extent={{320,-90},{360,-50}}),
+      iconTransformation(extent={{100,-80},{140,-40}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yPumSta[2]
+    "Pump status signal"
+    annotation (Placement(transformation(extent={{320,-130},{360,-90}}),
+      iconTransformation(extent={{100,-110},{140,-70}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yZonTem(
     final unit="K",
@@ -170,6 +190,7 @@ model BoilerPlant
     final m_flow_nominal=mA_flow_nominal,
     final V=1.2*V,
     final nPorts=1)
+    "Mixing volume to represent zone air"
     annotation (Placement(transformation(extent={{140,150},{160,170}})));
 
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor theCon(
@@ -209,7 +230,7 @@ model BoilerPlant
     final a=boiEff1,
     final fue=Fluid.Data.Fuels.NaturalGasHigherHeatingValue(),
     final UA=boiCap1/39.81)
-    "Boiler"
+    "Boiler-2"
     annotation (Placement(transformation(extent={{110,-160},{90,-140}})));
 
   Buildings.Fluid.Sources.Boundary_pT preSou(
@@ -217,7 +238,7 @@ model BoilerPlant
     "Source for pressure and to account for thermal expansion of water"
     annotation (Placement(transformation(extent={{260,-210},{240,-190}})));
 
-  Buildings.Fluid.Boilers.BoilerPolynomial           boi1(
+  Buildings.Fluid.Boilers.BoilerPolynomial boi1(
     redeclare package Medium = MediumW,
     final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     final m_flow_nominal=mBoi_flow_nominal2,
@@ -228,7 +249,7 @@ model BoilerPlant
     final a=boiEff2,
     final fue=Buildings.Fluid.Data.Fuels.HeatingOilLowerHeatingValue(),
     final UA=boiCap2/39.81)
-    "Boiler"
+    "Boiler-1"
     annotation (Placement(transformation(extent={{110,-220},{90,-200}})));
 
   Buildings.Fluid.Movers.SpeedControlled_y pum(
@@ -279,8 +300,7 @@ model BoilerPlant
   Buildings.Fluid.FixedResistances.Junction spl3(
     redeclare package Medium = MediumW,
     final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    final m_flow_nominal={mRad_flow_nominal/2,-mRad_flow_nominal,
-        mRad_flow_nominal/2},
+    final m_flow_nominal={mRad_flow_nominal/2,-mRad_flow_nominal,mRad_flow_nominal/2},
     final dp_nominal={0,0,-200})
     "Splitter"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
@@ -342,6 +362,7 @@ model BoilerPlant
 
   Buildings.Fluid.Sensors.Temperature zonTem(
     redeclare package Medium = Media.Air)
+    "Measured zone air temperature"
     annotation (Placement(transformation(extent={{180,150},{200,170}})));
 
   Buildings.Fluid.Actuators.Valves.TwoWayLinear val3(
@@ -366,150 +387,200 @@ model BoilerPlant
     "Outside temperature"
     annotation (Placement(transformation(extent={{-280,-90},{-260,-70}})));
 
-  Buildings.Fluid.Sensors.TemperatureTwoPort senTem(redeclare package Medium =
-        Media.Water, m_flow_nominal=1000*0.0006)
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTem(
+    redeclare package Medium =Media.Water,
+    m_flow_nominal=1000*0.0006)
+    "Measured radiator supply temperature"
     annotation (Placement(transformation(extent={{-20,110},{0,130}})));
 
-  Buildings.Fluid.Sensors.TemperatureTwoPort senTem1(redeclare package Medium =
-        Media.Water, m_flow_nominal=1000*0.0006)
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTem1(
+    redeclare package Medium = Media.Water,
+    m_flow_nominal=1000*0.0006)
+    "Measured radiator return temperature"
     annotation (Placement(transformation(extent={{180,110},{200,130}})));
 
-  Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep(nout=1)
+  Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep(
+    final nout=1)
     "Real replicator"
     annotation (Placement(transformation(extent={{280,0},{300,20}})));
 
   Buildings.Fluid.Actuators.Valves.TwoWayLinear val4(
     redeclare package Medium = Media.Water,
     final m_flow_nominal=mRad_flow_nominal/2,
-    final dpValve_nominal=0.1) "Valve to prevent reverse flow through pump"
+    final dpValve_nominal=0.1)
+    "Valve to prevent reverse flow through pump"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
       rotation=90,
-        origin={-70,-70})));
-  Buildings.Fluid.Actuators.Valves.TwoWayLinear           val5(
+      origin={-70,-70})));
+
+  Buildings.Fluid.Actuators.Valves.TwoWayLinear val5(
     redeclare package Medium = Media.Water,
     final m_flow_nominal=mRad_flow_nominal/2,
     final dpValve_nominal=0.1) "Valve to prevent reverse flow through pump"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
       rotation=90,
-        origin={10,-70})));
-  Controls.OBC.CDL.Continuous.Hysteresis hys[2](uLow=fill(0.5, 2), uHigh=fill(
-        0.8, 2)) "Check if pump isolation valve has opened"
+      origin={10,-70})));
+
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys[2](
+    final uLow=fill(0.5, 2),
+    final uHigh=fill(0.8, 2))
+    "Check if pump isolation valve has opened"
     annotation (Placement(transformation(extent={{-280,0},{-260,20}})));
-  Controls.OBC.CDL.Conversions.BooleanToReal           booToRea2
-                                                               [2]
+
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea2[2]
     "Boolean to Real conversion"
     annotation (Placement(transformation(extent={{-250,0},{-230,20}})));
-  Controls.OBC.CDL.Interfaces.BooleanOutput yBoiSta[2] "Boiler status signal"
-    annotation (Placement(transformation(extent={{320,-90},{360,-50}}),
-        iconTransformation(extent={{100,-80},{140,-40}})));
-  Controls.OBC.CDL.Continuous.Hysteresis hys1[2](uLow=fill(0.2, 2), uHigh=fill(
-        0.3, 2))
-            "Check if boiler is supplying energy"
+
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys1[2](
+    final uLow=fill(0.2, 2),
+    final uHigh=fill(0.3, 2))
+    "Check if boiler is supplying energy"
     annotation (Placement(transformation(extent={{230,-100},{250,-80}})));
-  Controls.OBC.CDL.Logical.Timer tim[2](t=fill(60, 2))
+
+  Buildings.Controls.OBC.CDL.Logical.Timer tim[2](
+    final t=fill(60, 2))
     "Check time for which boiler status on"
     annotation (Placement(transformation(extent={{290,-80},{310,-60}})));
-  Controls.OBC.CDL.Continuous.Hysteresis hys2[2](uLow=fill(0.09, 2), uHigh=fill(
-        0.1, 2))
-            "Check if pumps are on"
+
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys2[2](
+    final uLow=fill(0.09, 2),
+    final uHigh=fill(0.1, 2))
+    "Check if pumps are on"
     annotation (Placement(transformation(extent={{100,-20},{120,0}})));
-  Controls.OBC.CDL.Logical.Timer tim1[2](t=fill(60, 2))
+
+  Buildings.Controls.OBC.CDL.Logical.Timer tim1[2](
+    final t=fill(60, 2))
     "Check time for which pump status is on"
     annotation (Placement(transformation(extent={{140,-20},{160,0}})));
-  Controls.OBC.CDL.Interfaces.BooleanOutput yPumSta[2] "Pump status signal"
-    annotation (Placement(transformation(extent={{320,-130},{360,-90}}),
-        iconTransformation(extent={{100,-110},{140,-70}})));
-  Controls.OBC.CDL.Interfaces.RealOutput yHotWatIsoVal[2]
-    "Measured boiler hot water isolation valve position" annotation (Placement(
-        transformation(extent={{320,-170},{360,-130}}), iconTransformation(
-          extent={{100,-140},{140,-100}})));
-  Controls.OBC.CDL.Interfaces.RealOutput yBypValSig
-    "Measured bypass valve position signal" annotation (Placement(
-        transformation(extent={{320,160},{360,200}}), iconTransformation(extent=
-           {{100,100},{140,140}})));
-  Controls.OBC.CDL.Logical.Latch lat[2]
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yHotWatIsoVal[2]
+    "Measured boiler hot water isolation valve position"
+    annotation (Placement(transformation(extent={{320,-170},{360,-130}}),
+      iconTransformation(extent={{100,-140},{140,-100}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yBypValSig
+    "Measured bypass valve position signal"
+    annotation (Placement(transformation(extent={{320,160},{360,200}}),
+      iconTransformation(extent={{100,100},{140,140}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Latch lat[2]
     "Hold pump enable status until change process is completed"
     annotation (Placement(transformation(extent={{-300,30},{-280,50}})));
-  Controls.OBC.CDL.Logical.LogicalSwitch logSwi[2]
+
+  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi[2]
     "Switch to signal from controller once enabling process has been completed"
     annotation (Placement(transformation(extent={{-260,30},{-240,50}})));
-  Controls.OBC.CDL.Logical.Pre pre[2] "Logical pre block"
+
+  Buildings.Controls.OBC.CDL.Logical.Pre pre[2]
+    "Logical pre block"
     annotation (Placement(transformation(extent={{240,-140},{260,-120}})));
-  Fluid.Sensors.VolumeFlowRate           senVolFlo1(redeclare package Medium =
-        Media.Water, final m_flow_nominal=0.3)
+
+  Buildings.Fluid.Sensors.VolumeFlowRate senVolFlo1(
+    redeclare package Medium = Media.Water,
+    final m_flow_nominal=0.3)
     "Volume flow-rate through boiler"
     annotation (Placement(transformation(extent={{34,-160},{54,-140}})));
-  Fluid.Sensors.VolumeFlowRate           senVolFlo2(redeclare package Medium =
-        Media.Water, final m_flow_nominal=0.3)
+
+  Buildings.Fluid.Sensors.VolumeFlowRate senVolFlo2(
+    redeclare package Medium = Media.Water,
+    final m_flow_nominal=0.3)
     "Volume flow-rate through boiler"
     annotation (Placement(transformation(extent={{34,-220},{54,-200}})));
-  Controls.OBC.CDL.Continuous.Hysteresis hys3[2](uLow=0.3*{0.0003,0.0003},
-      uHigh=0.4*{0.0003,0.0003}) "Check for flow through boiler"
+
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys3[2](
+    final uLow=0.3*{0.0003,0.0003},
+    final uHigh=0.4*{0.0003,0.0003})
+    "Check for flow through boiler"
     annotation (Placement(transformation(extent={{230,-70},{250,-50}})));
-  Controls.OBC.CDL.Logical.And and2[2] "Logical And"
+
+  Buildings.Controls.OBC.CDL.Logical.And and2[2]
+    "Logical And"
     annotation (Placement(transformation(extent={{260,-80},{280,-60}})));
-  Controls.OBC.CDL.Continuous.Add add2[2](k2=fill(-1, 2))
+
+  Buildings.Controls.OBC.CDL.Continuous.Add add2[2](
+    final k2=fill(-1, 2))
     "Check difference between return temperature and boiler temperature"
     annotation (Placement(transformation(extent={{160,-100},{180,-80}})));
-  Controls.OBC.CDL.Routing.RealReplicator           reaRep1(nout=2)
+
+  Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep1(
+    final nout=2)
     "Real replicator"
     annotation (Placement(transformation(extent={{270,30},{290,50}})));
-  Fluid.Sensors.TemperatureTwoPort           senTem2(redeclare package Medium =
-        Media.Water, m_flow_nominal=mBoi_flow_nominal1)
+
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTem2(
+    redeclare package Medium = Media.Water,
+    m_flow_nominal=mBoi_flow_nominal1)
+    "Measured boiler supply hot water temperature"
     annotation (Placement(transformation(extent={{60,-160},{80,-140}})));
-  Fluid.Sensors.TemperatureTwoPort           senTem3(redeclare package Medium =
-        Media.Water, m_flow_nominal=mBoi_flow_nominal2)
+
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTem3(
+    redeclare package Medium = Media.Water,
+    m_flow_nominal=mBoi_flow_nominal2)
+    "Measured boiler supply hot water temperature"
     annotation (Placement(transformation(extent={{60,-220},{80,-200}})));
-  Controls.OBC.CDL.Continuous.Abs abs[2] "Convert measured flow to positive"
+
+  Buildings.Controls.OBC.CDL.Continuous.Abs abs[2]
+    "Convert measured flow to positive"
     annotation (Placement(transformation(extent={{100,-70},{120,-50}})));
-  Controls.OBC.CDL.Logical.LogicalSwitch logSwi1[2]
+
+  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi1[2]
     "Switch to signal from controller once enabling process has been completed"
     annotation (Placement(transformation(extent={{-210,110},{-190,130}})));
-  Controls.OBC.CDL.Logical.Latch lat1[2]
+
+  Buildings.Controls.OBC.CDL.Logical.Latch lat1[2]
     "Hold pump enable status until change process is completed"
     annotation (Placement(transformation(extent={{-260,110},{-240,130}})));
-  Controls.OBC.CDL.Logical.Pre pre1[2] "Logical pre block"
+
+  Buildings.Controls.OBC.CDL.Logical.Pre pre1[2]
+    "Logical pre block"
     annotation (Placement(transformation(extent={{-300,142},{-280,162}})));
-  Controls.OBC.CDL.Interfaces.RealInput TBoiHotWatSupSet[2](
-    final unit=fill("K", 2),
-    displayUnit=fill("degC", 2),
-    final quantity=fill("ThermodynamicTemperature", 2))
-    "Boiler hot water supply temperature setpoint vector" annotation (Placement(
-        transformation(extent={{-360,-150},{-320,-110}}), iconTransformation(
-          extent={{-140,-140},{-100,-100}})));
-  Controls.OBC.CDL.Continuous.PID conPID[2](
-    controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
-    k={0.1,0.1},
-    Ti={60,60},
-    xi_start=fill(1, 2))
+
+  Buildings.Controls.OBC.CDL.Continuous.PID conPID[2](
+    final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
+    final k={0.1,0.1},
+    final Ti={60,60},
+    final xi_start=fill(1, 2))
     "PI controller for regulating hot water supply temperature from boiler"
     annotation (Placement(transformation(extent={{-280,-120},{-260,-100}})));
-  Controls.OBC.CDL.Continuous.Product pro1[2]
-    "Product of boiler power and current status"
+
+  Buildings.Controls.OBC.CDL.Continuous.Product pro1[2]
+    "Product of required boiler part load ratio and current status"
     annotation (Placement(transformation(extent={{-120,-120},{-100,-100}})));
-  Controls.OBC.CDL.Continuous.Add add1[2](k2=fill(-1, 2))
+
+  Buildings.Controls.OBC.CDL.Continuous.Add add1[2](
+    final k2=fill(-1, 2))
     "Find difference between setpoint and measured temperature"
     annotation (Placement(transformation(extent={{-260,-170},{-240,-150}})));
-  Controls.OBC.CDL.Logical.Switch swi[2] "Switch"
+
+  Buildings.Controls.OBC.CDL.Logical.Switch swi[2]
+    "Switch"
     annotation (Placement(transformation(extent={{-90,-170},{-70,-150}})));
-  Fluid.FixedResistances.Junction           spl6(
+
+  Buildings.Fluid.FixedResistances.Junction spl6(
     redeclare package Medium = MediumW,
     final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    final m_flow_nominal={-mBoi_flow_nominal1,mRad_flow_nominal,-
-        mBoi_flow_nominal2},
+    final m_flow_nominal={-mBoi_flow_nominal1,mRad_flow_nominal,-mBoi_flow_nominal2},
     final dp_nominal={0,0,-200})
     "Splitter"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
       rotation=0,
       origin={150,-150})));
-  Controls.OBC.CDL.Continuous.GreaterThreshold greThr[2](h=0.3)
+
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr[2](
+    final h=0.3)
     "Check if supply temperature setpoint is not met"
     annotation (Placement(transformation(extent={{-230,-170},{-210,-150}})));
-  Controls.OBC.CDL.Logical.MultiOr mulOr(nu=2)
+
+  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(
+    final nu=2)
+    "Check if any of the boiler supply temperature setpoints are not being met"
     annotation (Placement(transformation(extent={{-200,-170},{-180,-150}})));
-  Controls.OBC.CDL.Routing.BooleanReplicator booRep(nout=2)
+
+  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep(
+    final nout=2)
     "Boolean replicator"
     annotation (Placement(transformation(extent={{-170,-170},{-150,-150}})));
+
 equation
   connect(theCon.port_b, vol.heatPort) annotation (Line(
       points={{120,180},{130,180},{130,160},{140,160}},

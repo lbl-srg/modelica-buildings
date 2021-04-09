@@ -15,7 +15,7 @@ model BoilerPlant
   Buildings.Examples.BoilerPlant.PlantModel.BoilerPlant boilerPlant(
     final TRadRet_nominal=273.15 + 50)
     "Boiler plant model"
-    annotation (Placement(transformation(extent={{-50,-12},{-30,12}})));
+    annotation (Placement(transformation(extent={{-50,-12},{-30,8}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con[2](
     final k=fill(true, 2))
@@ -76,36 +76,37 @@ model BoilerPlant
     annotation (Placement(transformation(extent={{-110,-90},{-90,-70}})));
 
 equation
-  connect(con.y, boilerPlant.uPumSta) annotation (Line(points={{-88,0},{-80,0},{
-          -80,2},{-52,2}},      color={255,0,255}));
+  connect(con.y, boilerPlant.uPumSta) annotation (Line(points={{-88,0},{-80,0},
+          {-80,1},{-52,1}},     color={255,0,255}));
 
-  connect(con2.y, boilerPlant.uBypValSig) annotation (Line(points={{-88,-40},{-80,
-          -40},{-80,-4},{-52,-4}},  color={0,0,127}));
+  connect(con2.y, boilerPlant.uBypValSig) annotation (Line(points={{-88,-40},{
+          -80,-40},{-80,-5},{-52,-5}},
+                                    color={0,0,127}));
 
   connect(hys.y, not1.u)
     annotation (Line(points={{12,20},{18,20}},     color={255,0,255}));
 
   connect(booRep.y, boilerPlant.uBoiSta) annotation (Line(points={{102,20},{110,
-          20},{110,40},{-60,40},{-60,8},{-52,8}},            color={255,0,255}));
+          20},{110,40},{-60,40},{-60,7},{-52,7}},            color={255,0,255}));
 
   connect(booToRea.y, reaRep.u)
     annotation (Line(points={{72,-20},{78,-20}},   color={0,0,127}));
 
-  connect(reaRep.y, boilerPlant.uHotIsoVal) annotation (Line(points={{102,-20},{
-          110,-20},{110,-40},{-70,-40},{-70,5},{-52,5}},
+  connect(reaRep.y, boilerPlant.uHotIsoVal) annotation (Line(points={{102,-20},
+          {110,-20},{110,-40},{-70,-40},{-70,4},{-52,4}},
                                                     color={0,0,127}));
 
-  connect(reaRep.y, boilerPlant.uPumSpe) annotation (Line(points={{102,-20},{110,
-          -20},{110,-40},{-70,-40},{-70,-1},{-52,-1}},
+  connect(reaRep.y, boilerPlant.uPumSpe) annotation (Line(points={{102,-20},{
+          110,-20},{110,-40},{-70,-40},{-70,-2},{-52,-2}},
                                                    color={0,0,127}));
 
   connect(con1.y, boilerPlant.QRooInt_flowrate) annotation (Line(points={{-88,40},
-          {-70,40},{-70,11},{-52,11}},        color={0,0,127}));
+          {-70,40},{-70,10},{-52,10}},        color={0,0,127}));
 
-  connect(boilerPlant.ySupTem, hys.u) annotation (Line(points={{-28,4},{-20,4},{
-          -20,20},{-12,20}},    color={0,0,127}));
+  connect(boilerPlant.ySupTem, hys.u) annotation (Line(points={{-28,4},{-20,4},
+          {-20,20},{-12,20}},   color={0,0,127}));
 
-  connect(boilerPlant.yZonTem, hys1.u) annotation (Line(points={{-28,8},{-24,8},
+  connect(boilerPlant.yZonTem, hys1.u) annotation (Line(points={{-28,7},{-24,7},
           {-24,-20},{-12,-20}},     color={0,0,127}));
 
   connect(hys1.y, not2.u)
@@ -124,10 +125,11 @@ equation
           48,12}},    color={255,0,255}));
 
   connect(booToRea.y, boilerPlant.uRadIsoVal) annotation (Line(points={{72,-20},
-          {76,-20},{76,-50},{-60,-50},{-60,-7},{-52,-7}},   color={0,0,127}));
+          {76,-20},{76,-50},{-60,-50},{-60,-8},{-52,-8}},   color={0,0,127}));
 
-  connect(con3.y, boilerPlant.TOutAir) annotation (Line(points={{-88,-80},{-76,-80},
-          {-76,-10},{-52,-10}}, color={0,0,127}));
+  connect(con3.y, boilerPlant.TOutAir) annotation (Line(points={{-88,-80},{-76,
+          -80},{-76,-11},{-52,-11}},
+                                color={0,0,127}));
 
   annotation (Documentation(info="<html>
 <p>
