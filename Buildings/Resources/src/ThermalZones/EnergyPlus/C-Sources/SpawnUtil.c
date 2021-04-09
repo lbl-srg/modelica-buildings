@@ -130,6 +130,10 @@ void setVariables(
     else
       ptrReals->valsEP[i] = ptrReals->valsSI[i];
   }
+  for(i = 0; i < ptrReals->n; i++)
+    bui->SpawnFormatMessage("%.3f %s: calling fmi2_import_set_real i = %d:  %s = %.3f\n",
+      bui->time, modelicaInstanceName, i, ptrReals->fmiNames[i], ptrReals->valsEP[i]);
+
   status = fmi2_import_set_real(bui->fmu, ptrReals->valRefs, ptrReals->n, ptrReals->valsEP);
   if (status != (fmi2_status_t)fmi2OK) {
     bui->SpawnFormatError("Failed to set variables for %s in FMU.\n",  modelicaInstanceName);
