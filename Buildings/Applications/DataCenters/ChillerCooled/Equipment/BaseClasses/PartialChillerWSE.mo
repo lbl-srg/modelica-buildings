@@ -48,7 +48,7 @@ partial model PartialChillerWSE
     "Valve leakage, l=Kv(y=0)/Kv(y=1)"
     annotation(Dialog(group="Two-way valve"));
   parameter Real[2] kFixedValWSE(each unit="", each min=0)=
-    {m1_flow_wse_nominal/ sqrt(dp1_wse_nominal),0}
+    {m1_flow_wse_nominal,m2_flow_wse_nominal} ./ sqrt({dp1_wse_nominal,dp2_wse_nominal})
     "Flow coefficient of fixed resistance that may be in series with valves
     in WSE, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)."
     annotation(Dialog(group="Two-way valve"));
@@ -475,6 +475,10 @@ inclduing chillers and integrated/non-integrated water-side economizers.
 </html>",
 revisions="<html>
 <ul>
+<li>
+April 9, 2021, by Kathryn Hinkelman:<br/>
+Changed <code>kFixedValWSE[2]</code> to nonzero value with reorganized pressure drops.
+</li>
 <li>
 April 14, 2020, by Michael Wetter:<br/>
 Changed <code>homotopyInitialization</code> to a constant.<br/>
