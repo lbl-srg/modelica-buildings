@@ -44,8 +44,8 @@ def simulate():
 #    print(f"stderr: {stderr}")
 
 from buildingspy.simulate.Optimica import Simulator
-model = "Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse.Unconditioned"
-#model = "Buildings.Controls.Continuous.Examples.LimPID"
+#model = "Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse.Unconditioned"
+model = "Buildings.Controls.Continuous.Examples.LimPID"
 fmu = model.replace('.', '_') + ".fmu"
 s=Simulator(model)
 s.translate()
