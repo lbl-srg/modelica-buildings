@@ -1,0 +1,15 @@
+simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Generic.EquipmentRotation.Subsequences.Validation.MinimumLeadRuntime_uDevRol", method="Cvode", stopTime=100000, tolerance=1e-06, resultFile="MinimumLeadRuntime_uDevRol");
+createPlot(id=1, subPlot=1, position={10, 10, 1200, 800}, y={"rotTwo.yDevRol[1]","rotTwo.yDevRol[2]"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});
+createPlot(id=1, subPlot=2, position={10, 10, 1200, 800}, y={"minLeaTim.uDevSta[1]","minLeaTim.uDevSta[2]"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});
+createPlot(id=1, subPlot=3, position={10, 10, 1200, 800}, y={"minLeaTim.accTim[1].y","minLeaTim.accTim[2].y"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});
+createPlot(id=1, subPlot=4, position={10, 10, 1200, 800}, y={"minLeaTim.accTim[1].passed","minLeaTim.accTim[2].passed"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});
+
+createPlot(id=2, subPlot=1, position={20, 10, 1200, 800}, y={"rotTwo1.yDevRol[1]","rotTwo1.yDevRol[2]"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});
+createPlot(id=2, subPlot=2, position={10, 10, 1200, 800}, y={"minLeaTim1.uDevSta[1]","minLeaTim1.uDevSta[2]"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});
+createPlot(id=2, subPlot=3, position={20, 10, 1200, 800}, y={"minLeaTim1.accTim[1].y","minLeaTim1.accTim[2].y"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});
+createPlot(id=2, subPlot=4, position={20, 10, 1200, 800}, y={"minLeaTim1.accTim[1].passed","minLeaTim1.accTim[2].passed"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});
+
+createPlot(id=3, subPlot=1, position={20, 10, 1200, 800}, y={"rotTwo2.yDevRol[1]","rotTwo2.yDevRol[2]"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});
+createPlot(id=3, subPlot=2, position={10, 10, 1200, 800}, y={"minLeaTim2.uDevSta[1]","minLeaTim2.uDevSta[2]"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});
+createPlot(id=3, subPlot=3, position={20, 10, 1200, 800}, y={"minLeaTim2.accTim[1].y","minLeaTim2.accTim[2].y"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});
+createPlot(id=3, subPlot=4, position={20, 10, 1200, 800}, y={"minLeaTim2.accTim[1].passed","minLeaTim2.accTim[2].passed"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});

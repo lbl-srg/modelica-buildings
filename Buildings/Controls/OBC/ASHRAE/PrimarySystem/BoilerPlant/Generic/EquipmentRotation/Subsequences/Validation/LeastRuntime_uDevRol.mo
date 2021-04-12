@@ -118,13 +118,13 @@ equation
           110,-6},{110,-20},{-20,-20},{-20,0},{-2,0}},  color={255,0,255}));
           annotation (
    experiment(StopTime=100000.0, Tolerance=1e-06),
-    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Generic/EquipmentRotation/Subsequences/Validation/LeastRuntime_uDevRol.mos"
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/BoilerPlant/Generic/EquipmentRotation/Subsequences/Validation/LeastRuntime_uDevRol.mos"
     "Simulate and plot"),
   Documentation(info="<html>
 <p>
 This example validates
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.LeastRuntime\">
-Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.LeastRuntime</a>.
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Generic.EquipmentRotation.Subsequences.LeastRuntime\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Generic.EquipmentRotation.Subsequences.LeastRuntime</a>.
 </p>
 </html>", revisions="<html>
 <ul>
