@@ -18,6 +18,16 @@ def _create_worDir():
     print(f"Created temporary directory {worDir}")
     return worDir
 
+def printZipContent(zipFile):
+    from zipfile import ZipFile
+    with ZipFile(zipFile, 'r') as zipObj:
+        # Get list of files names in zip
+        listOfiles = zipObj.namelist()
+        # Iterate over the list of file names in given list & print them
+        print(f"Content of {zipFile}")
+        for elem in listOfiles:
+            print(f"  {elem}")
+
 def simulate():
     import subprocess
 
@@ -30,7 +40,7 @@ def simulate():
         stderr = subprocess.PIPE)
     try:
         stdout, stderr = process.communicate(timeout=10)
-    except TimeoutExpired:
+    except subprocess.TimeoutExpired:
         process.kill()
         stdout, stderr = process.communicate()
         print(f"stdout: {stdout}")
@@ -49,6 +59,8 @@ model = "Buildings.Controls.Continuous.Examples.LimPID"
 fmu = model.replace('.', '_') + ".fmu"
 s=Simulator(model)
 s.translate()
+
+printZipContent(fmu)
 
 worDir = _create_worDir()
 shutil.move(fmu, worDir)
