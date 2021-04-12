@@ -17,8 +17,8 @@ model RotationController
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel[2](
-    final delayTime=15)
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel[2](final delayTime=fill(
+        15, 2))
     "Delay representing component being enabled"
     annotation (Placement(transformation(extent={{0,40},{20,60}})));
 
@@ -37,8 +37,8 @@ protected
     "Boolean pulse generator"
     annotation (Placement(transformation(extent={{-90,20},{-70,40}})));
 
-  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel1[2](
-    final delayTime=15)
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel1[2](final delayTime=fill(
+        15, 2))
     "Delay representing component being enabled"
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
 
