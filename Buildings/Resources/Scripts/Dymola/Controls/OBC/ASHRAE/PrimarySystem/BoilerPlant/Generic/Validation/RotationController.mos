@@ -1,0 +1,14 @@
+﻿simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Generic.Validation.RotationController", startTime=0,tolerance=1e-6, stopTime=600, outputInterval=1, method="dassl", resultFile="RotationController");
+removePlots(false);
+
+createPlot(id=1, position={849, 0, 831, 939}, y={"rotCon.uDevStaSet[1]", "rotCon.uDevStaSet[2]"}, range={0.0, 300.0, -0.5, 1.5}, grid=true, colors={{28,108,200}, {28,108,200}});
+createPlot(id=1, position={849, 0, 831, 184}, y={"rotCon.yDevStaSet[1]", "rotCon.yDevStaSet[2]"}, range={0.0, 300.0, -0.5, 1.5}, grid=true, subPlot=2, colors={{28,108,200}, {28,108,200}});
+createPlot(id=1, position={849, 0, 831, 183}, y={"rotCon.uDevSta[1]", "rotCon.uDevSta[2]"}, range={0.0, 300.0, -0.5, 1.5}, grid=true, subPlot=3, colors={{28,108,200}, {28,108,200}});
+createPlot(id=1, position={849, 0, 831, 184}, y={"rotCon.yStaFee[1]", "rotCon.yStaFee[2]"}, range={0.0, 300.0, -0.5, 1.5}, grid=true, subPlot=4, colors={{28,108,200}, {28,108,200}});
+createPlot(id=1, position={849, 0, 831, 184}, y={"rotCon.equRot.yDevRol[1]", "rotCon.equRot.yDevRol[2]"}, range={0.0, 300.0, -0.5, 1.5}, grid=true, subPlot=5, colors={{28,108,200}, {28,108,200}});
+
+createPlot(id=2, position={0, 0, 833, 939}, y={"rotCon1.uDevStaSet[1]", "rotCon1.uDevStaSet[2]"}, range={0.0, 300.0, -0.5, 1.5}, grid=true, colors={{28,108,200}, {28,108,200}});
+createPlot(id=2, position={0, 0, 833, 184}, y={"rotCon1.yDevStaSet[1]", "rotCon1.yDevStaSet[2]"}, range={0.0, 300.0, -0.5, 1.5}, grid=true, subPlot=2, colors={{28,108,200}, {28,108,200}});
+createPlot(id=2, position={0, 0, 833, 183}, y={"rotCon1.uDevSta[1]", "rotCon1.uDevSta[2]"}, range={0.0, 300.0, -0.5, 1.5}, grid=true, subPlot=3, colors={{28,108,200}, {28,108,200}});
+createPlot(id=2, position={0, 0, 833, 184}, y={"rotCon1.yStaFee[1]", "rotCon1.yStaFee[2]"}, range={0.0, 300.0, -0.5, 1.5}, grid=true, subPlot=4, colors={{28,108,200}, {28,108,200}});
+createPlot(id=2, position={0, 0, 833, 184}, y={"rotCon1.equRot.yDevRol[1]", "rotCon1.equRot.yDevRol[2]"}, range={0.0, 300.0, -0.5, 1.5}, grid=true, subPlot=5, colors={{28,108,200}, {28,108,200}});
