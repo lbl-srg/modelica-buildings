@@ -2,15 +2,31 @@ within Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Generic.Equipment
 block Scheduler
   "Equipment rotation signal based on a scheduler for equipment that runs continuously"
 
-  parameter Buildings.Controls.OBC.CDL.Types.ZeroTime zerTim = Buildings.Controls.OBC.CDL.Types.ZeroTime.NY2019
-    "Enumeration for choosing how reference time (time = 0) should be defined"
-    annotation(Dialog(group="Calendar", enable=not simTimSta));
+  parameter Boolean simTimSta = true
+    "Measure rotation time from the simulation start";
+
+  parameter Boolean weeInt = false
+    "Rotation is scheduled in: true = weekly intervals; false = daily intervals"
+    annotation (Evaluate=true, Dialog(enable=not simTimSta));
 
   parameter Integer yearRef(
     final min=firstYear,
     final max=lastYear) = 2019
     "Year when time = 0, used if zerTim=Custom"
     annotation(Dialog(group="Calendar", enable=zerTim==Buildings.Controls.OBC.CDL.Types.ZeroTime.Custom));
+
+  parameter Integer houOfDay = 2 "Rotation hour of the day: 0 = midnight; 23 = 11pm"
+    annotation (Evaluate=true, Dialog(enable=not simTimSta));
+
+  parameter Integer weeCou = 1 "Number of weeks"
+    annotation (Evaluate=true, Dialog(enable=weeInt and not simTimSta));
+
+  parameter Integer weekday = 1
+    "Rotation weekday, 1 = Monday, 7 = Sunday"
+    annotation (Evaluate=true, Dialog(enable=weeInt and not simTimSta));
+
+  parameter Integer dayCou = 1 "Number of days"
+    annotation (Evaluate=true, Dialog(enable=not weeInt and not simTimSta));
 
   parameter Real offset(
     final unit="s",
@@ -32,25 +48,9 @@ block Scheduler
     "Delay before the first rotation measured from simulation start"
     annotation(Dialog(group="Calendar", enable=simTimSta));
 
-  parameter Boolean simTimSta = true
-    "Measure rotation time from the simulation start";
-
-  parameter Boolean weeInt = false
-    "Rotation is scheduled in: true = weekly intervals; false = daily intervals"
-    annotation (Evaluate=true, Dialog(enable=not simTimSta));
-
-  parameter Integer houOfDay = 2 "Rotation hour of the day: 0 = midnight; 23 = 11pm"
-    annotation (Evaluate=true, Dialog(enable=not simTimSta));
-
-  parameter Integer weeCou = 1 "Number of weeks"
-    annotation (Evaluate=true, Dialog(enable=weeInt and not simTimSta));
-
-  parameter Integer weekday = 1
-    "Rotation weekday, 1 = Monday, 7 = Sunday"
-    annotation (Evaluate=true, Dialog(enable=weeInt and not simTimSta));
-
-  parameter Integer dayCou = 1 "Number of days"
-    annotation (Evaluate=true, Dialog(enable=not weeInt and not simTimSta));
+  parameter Buildings.Controls.OBC.CDL.Types.ZeroTime zerTim = Buildings.Controls.OBC.CDL.Types.ZeroTime.NY2019
+    "Enumeration for choosing how reference time (time = 0) should be defined"
+    annotation(Dialog(group="Calendar", enable=not simTimSta));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yRot
     "Rotation trigger signal"
