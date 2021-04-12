@@ -3,15 +3,24 @@ model ControllerTwo
   "Validates lead/lag and lead/standby equipment rotation controller for two devices or groups of devices"
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Generic.EquipmentRotation.ControllerTwo
-    leaLag(final lag=true, final minLim=false) "Lead/lag rotation"
+    leaLag(
+    final lag=true,
+    final minLim=false)
+    "Lead/lag rotation"
     annotation (Placement(transformation(extent={{-20,80},{0,100}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Generic.EquipmentRotation.ControllerTwo
-    leaLag1(final lag=true, final minLim=false) "Lead/lag rotation"
+    leaLag1(
+    final lag=true,
+    final minLim=false)
+    "Lead/lag rotation"
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Generic.EquipmentRotation.ControllerTwo
-    leaSta(final lag=false, final minLim=false) "Lead/lag rotation"
+    leaSta(
+    final lag=false,
+    final minLim=false)
+    "Lead/lag rotation"
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Generic.EquipmentRotation.ControllerTwo
@@ -33,45 +42,52 @@ model ControllerTwo
     final continuous=true,
     final minLim=false,
     final simTimSta=false,
-    weeInt=false,
-    zerTim=Buildings.Controls.OBC.CDL.Types.ZeroTime.Custom,
-    yearRef=2020,
-    houOfDay=2,
-    weekday=3,
-    dayCou=1) "Lead/standby rotation for continuous operation"
+    final weeInt=false,
+    final zerTim=Buildings.Controls.OBC.CDL.Types.ZeroTime.Custom,
+    final yearRef=2020,
+    final houOfDay=2,
+    final weekday=3,
+    final dayCou=1)
+    "Lead/standby rotation for continuous operation"
     annotation (Placement(transformation(extent={{-20,-80},{0,-60}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel1[2](final delayTime={300,
-        400},
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel1[2](
+    final delayTime={300,400},
     final delayOnInit={true,true})
     "Emulates device start-up time"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel[2](
     final delayTime={600,600},
-    final delayOnInit={true,true}) "Emulates device start-up time"
+    final delayOnInit={true,true})
+    "Emulates device start-up time"
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Pre pre[2] "Boolean pre"
+  Buildings.Controls.OBC.CDL.Logical.Pre pre[2]
+    "Boolean pre"
     annotation (Placement(transformation(extent={{60,-40},{80,-20}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Pre pre1[2] "Boolean pre"
+  Buildings.Controls.OBC.CDL.Logical.Pre pre1[2]
+    "Boolean pre"
     annotation (Placement(transformation(extent={{60,0},{80,20}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse leadLoad(
-    final width=0.8, final period(displayUnit="s") = 7200)
-                       "Lead device ON/OFF status"
+    final width=0.8,
+    final period(displayUnit="s") = 7200)
+    "Lead device ON/OFF status"
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse lagLoad(
     final width=0.2,
-    final period=3600) "Lag device ON/OFF status"
+    final period=3600)
+    "Lag device ON/OFF status"
     annotation (Placement(transformation(extent={{-100,40},{-80,60}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse lagLoad1(
     final width=0.2,
-    final period=5400) "Lag device ON/OFF status"
+    final period=5400)
+    "Lag device ON/OFF status"
     annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel2[2](
@@ -80,7 +96,8 @@ protected
     "Emulates device start-up time"
     annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Pre pre2[2] "Boolean pre"
+  Buildings.Controls.OBC.CDL.Logical.Pre pre2[2]
+    "Boolean pre"
     annotation (Placement(transformation(extent={{60,-80},{80,-60}})));
 
 equation

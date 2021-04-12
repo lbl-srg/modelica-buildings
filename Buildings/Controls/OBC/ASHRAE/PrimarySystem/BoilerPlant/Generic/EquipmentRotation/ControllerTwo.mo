@@ -25,6 +25,26 @@ block ControllerTwo
     "Rotation is scheduled in: true = weekly intervals; false = daily intervals"
     annotation(Evaluate=true, Dialog(group="Scheduler", enable=not simTimSta));
 
+  parameter Integer houOfDay = 2
+    "Rotation hour of the day: 0 = midnight; 23 = 11pm"
+    annotation(Evaluate=true, Dialog(group="Scheduler", enable=not simTimSta));
+
+  parameter Integer weeCou = 1
+    "Number of weeks"
+    annotation (Evaluate=true, Dialog(enable=weeInt and not simTimSta, group="Scheduler"));
+
+  parameter Integer weekday = 1
+    "Rotation weekday, 1 = Monday, 7 = Sunday"
+    annotation (Evaluate=true, Dialog(enable=weeInt and not simTimSta, group="Scheduler"));
+
+  parameter Integer dayCou = 1
+    "Number of days"
+    annotation (Evaluate=true, Dialog(enable=not weeInt and not simTimSta, group="Scheduler"));
+
+  parameter Integer yearRef(min=firstYear, max=lastYear) = 2019
+    "Year when time = 0, used if zerTim=Custom"
+    annotation(Evaluate=true, Dialog(group="Calendar", enable=zerTim==Buildings.Controls.OBC.CDL.Types.ZeroTime.Custom and continuous));
+
   parameter Real rotationPeriod(
     final unit="s",
     final quantity="Time",
@@ -49,24 +69,6 @@ block ControllerTwo
     "Enumeration for choosing how reference time (time = 0) should be defined"
     annotation(Evaluate=true, Dialog(group="Calendar", enable=(continuous and not simTimSta)));
 
-  parameter Integer yearRef(min=firstYear, max=lastYear) = 2019
-    "Year when time = 0, used if zerTim=Custom"
-    annotation(Evaluate=true, Dialog(group="Calendar", enable=zerTim==Buildings.Controls.OBC.CDL.Types.ZeroTime.Custom and continuous));
-
-  parameter Integer houOfDay = 2
-    "Rotation hour of the day: 0 = midnight; 23 = 11pm"
-    annotation(Evaluate=true, Dialog(group="Scheduler", enable=not simTimSta));
-
-  parameter Integer weeCou = 1 "Number of weeks"
-    annotation (Evaluate=true, Dialog(enable=weeInt and not simTimSta, group="Scheduler"));
-
-  parameter Integer weekday = 1
-    "Rotation weekday, 1 = Monday, 7 = Sunday"
-    annotation (Evaluate=true, Dialog(enable=weeInt and not simTimSta, group="Scheduler"));
-
-  parameter Integer dayCou = 1 "Number of days"
-    annotation (Evaluate=true, Dialog(enable=not weeInt and not simTimSta, group="Scheduler"));
-
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uLeaStaSet if not continuous
     "Lead device status setpoint"
     annotation (Placement(transformation(extent={{-200,-20},{-160,20}}),
@@ -85,12 +87,12 @@ block ControllerTwo
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yDevStaSet[nDev]
     "Device status setpoint, where each index represents a physical device/group of devices"
     annotation (Placement(transformation(extent={{160,10},{180,30}}), iconTransformation(
-          extent={{100,40},{140,80}})));
+      extent={{100,40},{140,80}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yDevRol[nDev]
-    "Device role: true = lead, false = lag or standby" annotation (Placement(
-        transformation(extent={{160,-30},{180,-10}}), iconTransformation(extent={{100,-80},
-            {140,-40}})));
+    "Device role: true = lead, false = lag or standby"
+    annotation (Placement(transformation(extent={{160,-30},{180,-10}}),
+      iconTransformation(extent={{100,-80},{140,-40}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Generic.EquipmentRotation.Subsequences.Scheduler
     rotSch(
