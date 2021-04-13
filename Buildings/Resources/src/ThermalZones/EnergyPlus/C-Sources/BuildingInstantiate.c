@@ -14,7 +14,8 @@
 #include <stdio.h>
 #include <stdbool.h>
 
-void buildJSONKeyValue(
+
+void buildJSONKeyLiteralValue(
   char* *buffer, size_t level, const char* key, const char* value, bool addComma, size_t* size,
   void (*SpawnFormatError)(const char *string, ...)){
   size_t i;
@@ -22,12 +23,43 @@ void buildJSONKeyValue(
     saveAppend(buffer, "  ", size, SpawnFormatError);
   saveAppend(buffer, "\"", size, SpawnFormatError);
   saveAppend(buffer, key, size, SpawnFormatError);
-  saveAppend(buffer, "\": \"", size, SpawnFormatError);
+  saveAppend(buffer, "\": ", size, SpawnFormatError);
   saveAppend(buffer, value, size, SpawnFormatError);
   if (addComma)
-    saveAppend(buffer, "\",\n", size, SpawnFormatError);
+    saveAppend(buffer, ",\n", size, SpawnFormatError);
   else
-    saveAppend(buffer, "\"\n", size, SpawnFormatError);
+    saveAppend(buffer, "\n", size, SpawnFormatError);
+}
+
+void buildJSONKeyStringValue(
+  char* *buffer, size_t level, const char* key, const char* value, bool addComma, size_t* size,
+  void (*SpawnFormatError)(const char *string, ...)){
+
+  char* litVal;
+  const char quote[] = "\""  ;
+
+  /* Allocate memory for string with quotes */
+  const size_t len = strlen(value) + 2;
+  mallocString(len+1, "Failed to allocate memory json key.", &litVal, SpawnFormatError);
+  memset(litVal, '\0', len+1);
+  /* Add quotes before and after string */
+  strcpy(litVal, quote);
+  strcat(litVal, value);
+  strcat(litVal, quote);
+
+  /* Build json snippet */
+  buildJSONKeyLiteralValue(buffer, level, key, litVal, addComma, size, SpawnFormatError);
+}
+
+void buildJSONKeyDoubleValue(
+  char* *buffer, size_t level, const char* key, double value, bool addComma, size_t* size,
+  void (*SpawnFormatError)(const char *string, ...)){
+
+  char litVal[20];
+  sprintf(litVal, "%4.2e", value);
+
+  /* Build json snippet */
+  buildJSONKeyLiteralValue(buffer, level, key, litVal, addComma, size, SpawnFormatError);
 }
 
 void openJSONModelBracket(char* *buffer, size_t* size, void (*SpawnFormatError)(const char *string, ...)){
@@ -84,13 +116,18 @@ void buildJSONModelStructureForEnergyPlus(
   }
 
   saveAppend(buffer, "{\n", size, SpawnFormatError);
-  buildJSONKeyValue(buffer, 1, "version", "0.1", true, size, SpawnFormatError);
+  buildJSONKeyStringValue(buffer, 1, "version", "0.1", true, size, SpawnFormatError);
   saveAppend(buffer, "  \"EnergyPlus\": {\n", size, SpawnFormatError);
   /* idf name */
-  buildJSONKeyValue(buffer, 2, "idf", bui->idfName, true, size, SpawnFormatError);
+  buildJSONKeyStringValue(buffer, 2, "idf", bui->idfName, true, size, SpawnFormatError);
 
   /* weather file */
-  buildJSONKeyValue(buffer, 2, "weather", bui->weather, false, size, SpawnFormatError);
+  buildJSONKeyStringValue(buffer, 2, "weather", bui->weather, true, size, SpawnFormatError);
+
+  /* Tolerance of solver for surface heat balance */
+  buildJSONKeyDoubleValue(buffer, 2, "relativeSurfaceTolerance", bui->relativeSurfaceTolerance,
+    false, size, SpawnFormatError);
+
   saveAppend(buffer, "  },\n", size, SpawnFormatError);
 
   /* model information */
@@ -127,9 +164,9 @@ void buildJSONModelStructureForEnergyPlus(
 
     /* fmu */
   saveAppend(buffer, "  \"fmu\": {\n", size, SpawnFormatError);
-  buildJSONKeyValue(buffer, 3, "name", bui->fmuAbsPat, true, size, SpawnFormatError);
-  buildJSONKeyValue(buffer, 3, "version", "2.0", true, size, SpawnFormatError);
-  buildJSONKeyValue(buffer, 3, "kind", "ME", false, size, SpawnFormatError);
+  buildJSONKeyStringValue(buffer, 3, "name", bui->fmuAbsPat, true, size, SpawnFormatError);
+  buildJSONKeyStringValue(buffer, 3, "version", "2.0", true, size, SpawnFormatError);
+  buildJSONKeyStringValue(buffer, 3, "kind", "ME", false, size, SpawnFormatError);
   saveAppend(buffer, "  }\n", size, SpawnFormatError);
 
   /* Close json structure */

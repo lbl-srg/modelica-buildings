@@ -13,6 +13,8 @@ model ThermalZoneAdapter
     "Name of the IDF file that contains this zone";
   parameter String weaName
     "Name of the Energyplus weather file";
+  parameter Real relativeSurfaceTolerance
+    "Relative tolerance of surface temperature calculations";
   parameter String zoneName
     "Name of the thermal zone as specified in the EnergyPlus input";
   parameter Boolean usePrecompiledFMU=false
@@ -100,6 +102,7 @@ protected
     modelicaInstanceName=modelicaInstanceName,
     idfName=idfName,
     weaName=weaName,
+    relativeSurfaceTolerance=relativeSurfaceTolerance,
     epName=zoneName,
     usePrecompiledFMU=usePrecompiledFMU,
     fmuName=fmuName,
@@ -119,7 +122,7 @@ protected
     nOut=nOut,
     derivatives_structure={{2,1}},
     nDer=nDer,
-    derivatives_delta={0.01})
+    derivatives_delta={0.1})
     "Class to communicate with EnergyPlus";
   parameter Modelica.SIunits.Time startTime(
     fixed=false)
@@ -159,7 +162,8 @@ protected
 
   algorithm
     y :=
-      if(u > 0) then
+      if
+        (u > 0) then
         floor(
           u/accuracy+0.5)*accuracy
       else

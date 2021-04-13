@@ -17,6 +17,8 @@ class SpawnExternalObject
       "Name of the IDF";
     input String weaName
       "Name of the weather file";
+    input Real relativeSurfaceTolerance
+      "Relative tolerance of surface temperature calculations";
     input String epName
       "Name of the object in EnergyPlus";
     input Boolean usePrecompiledFMU
@@ -65,6 +67,7 @@ class SpawnExternalObject
     modelicaInstanceName,
     idfName,
     weaName,
+    relativeSurfaceTolerance,
     epName,
     usePrecompiledFMU,
     fmuName,
@@ -118,6 +121,7 @@ First implementation.
 </ul>
 </html>"));
   end constructor;
+
   function destructor
     "Release storage"
     extends Modelica.Icons.Function;

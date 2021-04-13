@@ -48,6 +48,7 @@ protected
     modelicaInstanceName=modelicaInstanceName,
     idfName=idfName,
     weaName=weaName,
+    relativeSurfaceTolerance=relativeSurfaceTolerance,
     epName=surfaceName,
     usePrecompiledFMU=usePrecompiledFMU,
     fmuName=fmuName,
@@ -67,7 +68,7 @@ protected
     nOut=nOut,
     derivatives_structure={{1,1}},
     nDer=nDer,
-    derivatives_delta={0.01})
+    derivatives_delta={0.1})
     "Class to communicate with EnergyPlus";
   Real yEP[nY]
     "Output of exchange function";

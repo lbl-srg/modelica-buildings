@@ -16,6 +16,8 @@ protected
     "Name of the IDF file that contains this zone";
   final parameter String weaName=building.weaName
     "Name of the EnergyPlus weather file (but with mos extension)";
+  final parameter Real relativeSurfaceTolerance=building.relativeSurfaceTolerance
+    "Relative tolerance of surface temperature calculations";
   final parameter Boolean usePrecompiledFMU=building.usePrecompiledFMU
     "Set to true to use pre-compiled FMU with name specified by fmuName"
     annotation (Dialog(tab="Debug"));
@@ -35,7 +37,8 @@ protected
 
   algorithm
     y :=
-      if(u > 0) then
+      if
+        (u > 0) then
         floor(
           u/accuracy+0.5)*accuracy
       else

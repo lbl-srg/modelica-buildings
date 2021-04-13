@@ -43,6 +43,7 @@ protected
     modelicaInstanceName=modelicaInstanceName,
     idfName=idfName,
     weaName=weaName,
+    relativeSurfaceTolerance=relativeSurfaceTolerance,
     epName=variableName,
     usePrecompiledFMU=usePrecompiledFMU,
     fmuName=fmuName,
