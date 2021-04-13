@@ -1,7 +1,8 @@
 within Buildings.Applications.DataCenters.ChillerCooled.Equipment;
 model IntegratedPrimaryLoadSide
   "Integrated water-side economizer on the load side in a primary-only chilled water system"
-  extends Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.PartialIntegratedPrimary(
+  extends
+    Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.PartialIntegratedPrimary(
     final m_flow_nominal={m1_flow_chi_nominal,m2_flow_chi_nominal,m1_flow_wse_nominal,
       m2_flow_chi_nominal,numChi*m2_flow_chi_nominal,m2_flow_wse_nominal},
     rhoStd = {Medium1.density_pTX(101325, 273.15+4, Medium1.X_default),
@@ -90,23 +91,44 @@ model IntegratedPrimaryLoadSide
     final homotopyInitialization=homotopyInitialization,
     final linearizeFlowResistance=linearizeFlowResistance2)
     "Pumps"
-    annotation (Placement(transformation(extent={{10,-50},{-10,-30}})));
+    annotation (Placement(transformation(extent={{20,-70},{0,-50}})));
 
+  Fluid.FixedResistances.Junction jun3(
+    redeclare package Medium = Medium2,
+    m_flow_nominal={numChi*m2_flow_chi_nominal,-numChi*m2_flow_chi_nominal,-
+        m2_flow_wse_nominal},
+    dp_nominal={0,0,0}) "Junction"
+    annotation (Placement(transformation(extent={{28,-10},{8,-30}})));
+  Fluid.FixedResistances.Junction spl3(
+    redeclare package Medium = Medium2,
+    m_flow_nominal={numChi*m2_flow_chi_nominal,-m2_flow_wse_nominal,-numChi*
+        m2_flow_chi_nominal},
+    dp_nominal={0,0,0}) "Splitter"
+    annotation (Placement(transformation(extent={{-10,-50},{-30,-70}})));
 equation
-  connect(val5.port_b, pum.port_a)
-    annotation (Line(points={{40,-20},{20,-20},{20,-40},{10,-40}},
-                          color={0,127,255}));
-  connect(pum.port_b,val6.port_a)
-    annotation (Line(points={{-10,-40},{-20,-40},{-20,-20},{-40,-20}},
-                                color={0,127,255}));
   connect(yPum, pum.u)
-    annotation (Line(points={{-120,-40},{-30,-40},{-30,-28},{
-          18,-28},{18,-36},{12,-36}}, color={0,0,127}));
-  connect(pum.P, powPum) annotation (Line(points={{-11,-36},{-14,-36},{-14,-66},
-          {86,-66},{86,-40},{110,-40}},
+    annotation (Line(points={{-120,-40},{30,-40},{30,-56},{22,-56}},
                                       color={0,0,127}));
+  connect(pum.P, powPum) annotation (Line(points={{-1,-56},{-6,-56},{-6,-80},{
+          50,-80},{50,-40},{110,-40}},color={0,0,127}));
+  connect(val5.port_b, jun3.port_1)
+    annotation (Line(points={{40,-20},{28,-20}}, color={0,127,255}));
+  connect(senTem.port_b, jun3.port_3) annotation (Line(points={{8,24},{0,24},{0,
+          -4},{18,-4},{18,-10}}, color={0,127,255}));
+  connect(jun3.port_2, pum.port_a) annotation (Line(points={{8,-20},{0,-20},{0,
+          -36},{40,-36},{40,-60},{20,-60}}, color={0,127,255}));
+  connect(pum.port_b, spl3.port_1) annotation (Line(points={{0,-60},{-6,-60},{
+          -6,-60},{-10,-60}}, color={0,127,255}));
+  connect(chiPar.port_a2, spl3.port_3)
+    annotation (Line(points={{-40,24},{-20,24},{-20,-50}}, color={0,127,255}));
+  connect(val6.port_a, spl3.port_2) annotation (Line(points={{-30,-20},{-26,-20},
+          {-26,-36},{-40,-36},{-40,-60},{-30,-60}}, color={0,127,255}));
   annotation (Documentation(revisions="<html>
 <ul>
+<li>
+April 13, 2021, by Kathryn Hinkelman:<br/>
+Added junctions.
+</li>
 <li>
 January 12, 2019, by Michael Wetter:<br/>
 Removed wrong use of <code>each</code>.

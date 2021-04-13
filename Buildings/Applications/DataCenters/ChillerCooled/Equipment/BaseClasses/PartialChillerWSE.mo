@@ -1,20 +1,26 @@
 within Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses;
 partial model PartialChillerWSE
   "Partial model for chiller and WSE package"
-  extends Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.PartialChillerWSEInterface(
+  extends
+    Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.PartialChillerWSEInterface(
      final num=numChi+1);
-  extends Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.FourPortResistanceChillerWSE(
+  extends
+    Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.FourPortResistanceChillerWSE(
      final computeFlowResistance1=true,
      final computeFlowResistance2=true);
-  extends Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.PartialControllerInterface(
+  extends
+    Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.PartialControllerInterface(
      final reverseActing=false);
-  extends Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.ValvesParameters(
+  extends
+    Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.ValvesParameters(
      numVal=4,
      final deltaM=deltaM1);
-  extends Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.SignalFilterParameters(
+  extends
+    Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.SignalFilterParameters(
      final numFil=1,
      final yValve_start={yValWSE_start});
-  extends Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.ThreeWayValveParameters(
+  extends
+    Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.ThreeWayValveParameters(
      final activate_ThrWayVal=use_controller);
 
   constant Boolean homotopyInitialization = true "= true, use homotopy method"
@@ -269,6 +275,18 @@ partial model PartialChillerWSE
     "Temperature sensor"
     annotation (Placement(transformation(extent={{28,14},{8,34}})));
 
+  Fluid.FixedResistances.Junction spl1(
+    redeclare package Medium = Medium1,
+    m_flow_nominal={numChi*m1_flow_chi_nominal,-numChi*m1_flow_chi_nominal,-
+        m1_flow_wse_nominal},
+    dp_nominal={0,0,0}) "Splitter"
+    annotation (Placement(transformation(extent={{-80,46},{-60,66}})));
+  Fluid.FixedResistances.Junction jun1(
+    redeclare package Medium = Medium1,
+    m_flow_nominal={numChi*m1_flow_chi_nominal,m1_flow_wse_nominal,-numChi*
+        m1_flow_chi_nominal},
+    dp_nominal={0,0,0}) "Junction"
+    annotation (Placement(transformation(extent={{70,50},{90,70}})));
 initial equation
   assert(homotopyInitialization, "In " + getInstanceName() +
     ": The constant homotopyInitialization has been modified from its default value. This constant will be removed in future releases.",
@@ -286,18 +304,6 @@ equation
   connect(chiPar.TSet, TSet)
     annotation (Line(points={{-62,30},{-84,30},{-84,104},{-120,104}},
                 color={0,0,127}));
-  connect(port_a1, chiPar.port_a1)
-    annotation (Line(points={{-100,60},{-80,60},{-72,60},{-72,36},{-60,36}},
-                color={0,127,255}));
-  connect(chiPar.port_b1, port_b1)
-    annotation (Line(points={{-40,36},{-20,36},{-20,60},{100,60}},
-                color={0,127,255}));
-  connect(wse.port_b1, port_b1)
-    annotation (Line(points={{60,36},{80,36},{80,60},{100,60}},color={0,127,255}));
-  connect(port_a1, wse.port_a1)
-    annotation (Line(points={{-100,60},{-100,60},{-72,60},{-72,56},{34,56},{34,
-          36},{40,36}},
-                color={0,127,255}));
   connect(TSet, wse.TSet)
     annotation (Line(points={{-120,104},{-84,104},{-84,80},
           {26,80},{26,30},{38,30}}, color={0,0,127}));
@@ -308,12 +314,24 @@ equation
     annotation (Line(points={{-60,-100},{-60,-100},{-60,-80},{-88,-80},{-88,8},
           {44,8},{44,20}},              color={255,0,255}));
   connect(senTem.T,TCHWSupWSE)
-    annotation (Line(points={{18,35},{18,35},{18,48},{86,48},{86,40},{110,40}},
+    annotation (Line(points={{18,35},{18,46},{86,46},{86,40},{110,40}},
                            color={0,0,127}));
   connect(wse.port_b2, senTem.port_a)
     annotation (Line(points={{40,24},{34,24},{28,24}}, color={0,127,255}));
-  connect(chiPar.P, powChi) annotation (Line(points={{-39,32},{-6,32},{-6,52},{
-          90,52},{90,0},{110,0}}, color={0,0,127}));
+  connect(chiPar.P, powChi) annotation (Line(points={{-39,32},{-6,32},{-6,48},{
+          90,48},{90,0},{110,0}}, color={0,0,127}));
+  connect(port_a1, spl1.port_1) annotation (Line(points={{-100,60},{-88,60},{
+          -88,56},{-80,56}}, color={0,127,255}));
+  connect(spl1.port_3, chiPar.port_a1)
+    annotation (Line(points={{-70,46},{-70,36},{-60,36}}, color={0,127,255}));
+  connect(spl1.port_2, wse.port_a1) annotation (Line(points={{-60,56},{36,56},{
+          36,36},{40,36}}, color={0,127,255}));
+  connect(port_b1, jun1.port_2)
+    annotation (Line(points={{100,60},{90,60}}, color={0,127,255}));
+  connect(jun1.port_3, wse.port_b1)
+    annotation (Line(points={{80,50},{80,36},{60,36}}, color={0,127,255}));
+  connect(chiPar.port_b1, jun1.port_1) annotation (Line(points={{-40,36},{-30,
+          36},{-30,60},{70,60}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{24,2},{64,0}},
@@ -477,7 +495,7 @@ revisions="<html>
 <ul>
 <li>
 April 9, 2021, by Kathryn Hinkelman:<br/>
-Changed <code>kFixedValWSE[2]</code> to nonzero value with reorganized pressure drops.
+Changed <code>kFixedValWSE[2]</code> to nonzero value with reorganized pressure drops and added junctions.
 </li>
 <li>
 April 14, 2020, by Michael Wetter:<br/>
