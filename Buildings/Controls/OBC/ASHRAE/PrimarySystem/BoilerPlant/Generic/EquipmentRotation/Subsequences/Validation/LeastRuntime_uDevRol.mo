@@ -3,58 +3,71 @@ model LeastRuntime_uDevRol
   "Validate lead/lag and lead/standby switching signal based on least device runtime"
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Generic.EquipmentRotation.Subsequences.LeastRuntime
-    leaRunTim(final lag=true)
+    leaRunTim(
+    final lag=true)
     "Equipment rotation signal based on device runtime and current device status"
     annotation (Placement(transformation(extent={{40,40},{60,60}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Generic.EquipmentRotation.Subsequences.LeastRuntime
-    leaRunTim1(final lag=false)
+    leaRunTim1(
+    final lag=false)
     "Equipment rotation signal based on device runtime and current device status"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Generic.EquipmentRotation.Subsequences.LeastRuntime
-    leaRunTim2(final lag=true)
+    leaRunTim2(
+    final lag=true)
     "Equipment rotation signal based on device runtime and current device status"
     annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Generic.EquipmentRotation.Subsequences.Two
-    rotTwo "Updates device roles based on the equipment rotation signal"
+    rotTwo
+    "Updates device roles based on the equipment rotation signal"
     annotation (Placement(transformation(extent={{80,40},{100,60}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Generic.EquipmentRotation.Subsequences.Two
-    rotTwo1 "Updates device roles based on the equipment rotation signal"
+    rotTwo1
+    "Updates device roles based on the equipment rotation signal"
     annotation (Placement(transformation(extent={{80,-10},{100,10}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Generic.EquipmentRotation.Subsequences.Two
-    rotTwo2 "Updates device roles based on the equipment rotation signal"
+    rotTwo2
+    "Updates device roles based on the equipment rotation signal"
     annotation (Placement(transformation(extent={{80,-60},{100,-40}})));
 
 protected
   parameter Boolean initRoles[2] = {true, false}
     "Sets initial roles: true = lead, false = lag or standby";
 
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi[2] "Switch"
+  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi[2]
+    "Switch"
     annotation (Placement(transformation(extent={{0,40},{20,60}})));
 
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi1[2] "Switch"
+  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi1[2]
+    "Switch"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi2[2] "Switch"
+  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi2[2]
+    "Switch"
     annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant staSta[2](
-    final k=fill(false, 2)) "Standby status"
+    final k=fill(false, 2))
+    "Standby status"
     annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
 
-  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator repLag1(final nout=2)
+  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator repLag1(
+    final nout=2)
     "Replicates lag signal"
     annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
 
-  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator repLag(final nout=2)
+  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator repLag(
+    final nout=2)
     "Replicates lag signal"
     annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
 
-  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator repLead(final nout=2)
+  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator repLead(
+    final nout=2)
     "Replicates lead signal"
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
 
@@ -64,11 +77,15 @@ protected
     annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse lagLoad(
-    final width=0.2, final period=3600) "Lag device enable status"
+    final width=0.2,
+    final period=3600)
+    "Lag device enable status"
     annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse lagLoad1(
-    final width=0.2, final period=5400) "Lag device enable status"
+    final width=0.2,
+    final period=5400)
+    "Lag device enable status"
     annotation (Placement(transformation(extent={{-100,-80},{-80,-60}})));
 
 equation
@@ -116,6 +133,12 @@ equation
           255}));
   connect(rotTwo1.yPreDevRolSig, logSwi1.u2) annotation (Line(points={{102,-6},{
           110,-6},{110,-20},{-20,-20},{-20,0},{-2,0}},  color={255,0,255}));
+  connect(logSwi.y, leaRunTim.uDevStaSet) annotation (Line(points={{22,50},{30,
+          50},{30,58},{38,58}}, color={255,0,255}));
+  connect(logSwi1.y, leaRunTim1.uDevStaSet)
+    annotation (Line(points={{22,0},{30,0},{30,8},{38,8}}, color={255,0,255}));
+  connect(logSwi2.y, leaRunTim2.uDevStaSet) annotation (Line(points={{22,-50},{
+          30,-50},{30,-42},{38,-42}}, color={255,0,255}));
           annotation (
    experiment(StopTime=100000.0, Tolerance=1e-06),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/BoilerPlant/Generic/EquipmentRotation/Subsequences/Validation/LeastRuntime_uDevRol.mos"
