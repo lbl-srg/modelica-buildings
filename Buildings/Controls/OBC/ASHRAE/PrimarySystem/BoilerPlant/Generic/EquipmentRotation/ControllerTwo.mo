@@ -72,12 +72,12 @@ block ControllerTwo
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uLeaStaSet if not continuous
     "Lead device status setpoint"
     annotation (Placement(transformation(extent={{-200,-20},{-160,20}}),
-        iconTransformation(extent={{-140,40},{-100,80}})));
+      iconTransformation(extent={{-140,40},{-100,80}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uLagStaSet if lag
     "Lag device status setpoint"
      annotation (Placement(transformation(extent={{-200,-100},{-160,-60}}),
-                          iconTransformation(extent={{-140,-20},{-100,20}})));
+       iconTransformation(extent={{-140,-20},{-100,20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uDevSta[nDev]
     "Device proven ON status, where each index represents a physical device/group of devices"
@@ -147,11 +147,13 @@ protected
     annotation (Placement(transformation(extent={{100,-40},{120,-20}})));
 
   Buildings.Controls.OBC.CDL.Routing.BooleanReplicator repLea(
-    final nout=nDev) if not continuous "Replicates lead signal"
+    final nout=nDev) if not continuous
+    "Replicates lead signal"
     annotation (Placement(transformation(extent={{-120,-20},{-100,0}})));
 
   Buildings.Controls.OBC.CDL.Routing.BooleanReplicator repLag(
-    final nout=nDev) if lag "Replicates lag signal"
+    final nout=nDev) if lag
+    "Replicates lag signal"
     annotation (Placement(transformation(extent={{-120,-50},{-100,-30}})));
 
   Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi1[nDev] if not continuous
@@ -159,7 +161,8 @@ protected
     annotation (Placement(transformation(extent={{-60,-42},{-40,-22}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant staBySta[nDev](
-    final k=fill(false, nDev)) if not lag and not continuous "Standby status"
+    final k=fill(false, nDev)) if not lag and not continuous
+    "Standby status"
     annotation (Placement(transformation(extent={{-120,-90},{-100,-70}})));
 
 equation
@@ -208,6 +211,11 @@ equation
   connect(leaRunTim.yRot, rotTwo.uRot) annotation (Line(points={{62,-80},{80,-80},
           {80,-30},{98,-30}}, color={255,0,255}));
 
+  connect(uLeaStaSet, leaRunTim.uDevStaSet[1]) annotation (Line(points={{-180,0},
+          {-140,0},{-140,12},{0,12},{0,-73},{38,-73}}, color={255,0,255}));
+  connect(uLagStaSet, leaRunTim.uDevStaSet[2]) annotation (Line(points={{-180,
+          -80},{-140,-80},{-140,-54},{0,-54},{0,-71},{38,-71}}, color={255,0,
+          255}));
 annotation(Diagram(coordinateSystem(extent={{-160,-100},{160,100}})),
       defaultComponentName="equRot",
     Icon(graphics={
@@ -331,7 +339,7 @@ This implementation assumes that a more frequent load is being sent to a lead de
 </html>", revisions="<html>
 <ul>
 <li>
-May 18, 2020, by Milica Grahovac:<br/>
+April 13, 2020, by Karthik Devaprasad:<br/>
 First implementation.
 </li>
 </ul>
