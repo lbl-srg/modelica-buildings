@@ -50,24 +50,24 @@ protected
     "Multiple or"
     annotation (Placement(transformation(extent={{130,-10},{150,10}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Not not1 if lag
+  Buildings.Controls.OBC.CDL.Logical.Not not1
     "Logical not"
     annotation (Placement(transformation(extent={{20,50},{40,70}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Not not2 if lag
+  Buildings.Controls.OBC.CDL.Logical.Not not2
     "Logical not"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Not not3[nDev] if lag
+  Buildings.Controls.OBC.CDL.Logical.Not not3[nDev]
     "Logical not"
     annotation (Placement(transformation(extent={{-30,-50},{-10,-30}})));
 
-  Buildings.Controls.OBC.CDL.Logical.And3 and3[nDev] if lag
+  Buildings.Controls.OBC.CDL.Logical.And3 and3[nDev]
     "Logical not"
     annotation (Placement(transformation(extent={{100,10},{120,30}})));
 
   Buildings.Controls.OBC.CDL.Logical.Edge edg [nDev](
-    final pre_u_start=fill(false, nDev)) if lag
+    final pre_u_start=fill(false, nDev))
     "Rising edge"
     annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
 
