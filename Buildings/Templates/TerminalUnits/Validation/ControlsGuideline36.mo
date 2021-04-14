@@ -19,6 +19,8 @@ equation
       points={{-60,40},{-40,40},{-40,16},{-19.9,16}},
       color={255,204,51},
       thickness=0.5));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+  annotation (
+  experiment(Tolerance=1e-6, StopTime=1),
+  Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end ControlsGuideline36;

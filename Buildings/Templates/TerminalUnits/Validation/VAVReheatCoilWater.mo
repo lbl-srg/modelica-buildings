@@ -13,6 +13,8 @@ equation
           {-2,-40},{-2,-19.8}}, color={0,127,255}));
   connect(ter.port_coiRehRet, bou3.ports[1]) annotation (Line(points={{2,-19.8},
           {2,-80},{-60,-80},{-60,-80}}, color={0,127,255}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+  annotation (
+  experiment(Tolerance=1e-6, StopTime=1),
+  Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end VAVReheatCoilWater;

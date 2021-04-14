@@ -25,6 +25,8 @@ equation
     annotation (Line(points={{40,-50},{6,-50},{6,-19.8}}, color={0,127,255}));
   connect(ahu.port_coiCooSup, bou5.ports[1])
     annotation (Line(points={{2,-19.8},{2,-80},{40,-80}}, color={0,127,255}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+  annotation (
+    experiment(Tolerance=1e-6, StopTime=1),
+    Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end CompleteAHU;

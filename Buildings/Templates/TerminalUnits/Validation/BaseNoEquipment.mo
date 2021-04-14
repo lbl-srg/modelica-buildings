@@ -45,6 +45,8 @@ equation
     annotation (Line(points={{-30,0},{-20,0}}, color={0,127,255}));
   connect(ter.port_Dis, res1.port_a)
     annotation (Line(points={{20,0},{30,0}}, color={0,127,255}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+    annotation (
+  experiment(Tolerance=1e-6, StopTime=1),
+  Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end BaseNoEquipment;
