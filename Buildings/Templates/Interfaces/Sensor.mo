@@ -4,30 +4,34 @@ partial model Sensor
 
   parameter Types.Sensor typ "Equipment type"
     annotation (Evaluate=true, Dialog(group="Configuration"));
+  parameter Templates.Types.Location loc
+    "Equipment location"
+    annotation (Evaluate=true, Dialog(group="Configuration"));
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=
-    if typ <> Types.Sensor.None and typ <> Types.Sensor.DifferentialPressure
-      then dat.getReal(varName=id + "." + locStr + " air mass flow rate")
+    if typ <> Types.Sensor.None and typ <> Types.Sensor.DifferentialPressure then (
+      if loc == Templates.Types.Location.Supply then
+        dat.getReal(varName=id + "." + "Supply air mass flow rate")
+      elseif loc == Templates.Types.Location.OutdoorAir then
+        dat.getReal(varName=id + "." + "Supply air mass flow rate")
+      elseif loc == Templates.Types.Location.MinimumOutdoorAir then
+        dat.getReal(varName=id + "." + "Supply air mass flow rate")
+      elseif loc == Templates.Types.Location.Return then
+        dat.getReal(varName=id + "." + "Return air mass flow rate")
+      elseif loc == Templates.Types.Location.Relief then
+        dat.getReal(varName=id + "." + "Return air mass flow rate")
+      elseif loc == Templates.Types.Location.Terminal then
+        dat.getReal(varName=id + "." + "Discharge air mass flow rate")
+      else 0)
       else 0
     "Mass flow rate"
     annotation (
-     Dialog(group="Nominal condition", enable=typ <> Types.Sensor.None and typ
-           <> Types.Sensor.DifferentialPressure));
+     Dialog(group="Nominal condition",
+       enable=typ <> Types.Sensor.None and typ <> Types.Sensor.DifferentialPressure));
 
-  final parameter String locStr=
-    if Modelica.Utilities.Strings.find(insNam, "Out")<>0 then "Supply"
-    elseif Modelica.Utilities.Strings.find(insNam, "Sup")<>0 then "Supply"
-    elseif Modelica.Utilities.Strings.find(insNam, "Mix")<>0 then "Supply"
-    elseif Modelica.Utilities.Strings.find(insNam, "Hea")<>0 then "Supply"
-    elseif Modelica.Utilities.Strings.find(insNam, "Coo")<>0 then "Supply"
-    elseif Modelica.Utilities.Strings.find(insNam, "Ret")<>0 then "Return"
-    elseif Modelica.Utilities.Strings.find(insNam, "Dis")<>0 then "Discharge"
-    else "Undefined"
-    "String used to identify the sensor location"
-    annotation(Evaluate=true);
   final parameter String insNam = getInstanceName()
     "Instance name"
-    annotation(Evaluate=true);
+    annotation (Evaluate=true);
   outer parameter String id
     "System identifier";
   outer parameter ExternData.JSONFile dat
@@ -52,5 +56,12 @@ partial model Sensor
           lineColor={0,0,255},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid)}),
-    Diagram(coordinateSystem(preserveAspectRatio=false)));
+    Diagram(coordinateSystem(preserveAspectRatio=false)),
+    Documentation(info="<html>
+<p>
+The location parameter <code>loc</code> is used to assign nominal parameter values
+based on the external system parameter file.
+The instance name is used to connect to the propoer I/O control signal.
+</p>
+</html>"));
 end Sensor;

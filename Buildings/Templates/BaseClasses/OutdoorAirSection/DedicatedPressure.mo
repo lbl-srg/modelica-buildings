@@ -7,7 +7,8 @@ model DedicatedPressure
     final typDamOutMin=damOutMin.typ);
 
    BaseClasses.Dampers.Modulated damOut(
-     redeclare final package Medium = MediumAir)
+     redeclare final package Medium = MediumAir,
+     final loc=Buildings.Templates.Types.Location.OutdoorAir)
     "Outdoor air damper"
     annotation (
       Placement(transformation(
@@ -16,7 +17,8 @@ model DedicatedPressure
           origin={0,0})));
 
   Dampers.TwoPosition damOutMin(
-    redeclare final package Medium = MediumAir)
+    redeclare final package Medium = MediumAir,
+    final loc=Buildings.Templates.Types.Location.MinimumOutdoorAir)
     "Minimum outdoor air damper"
     annotation (
     Placement(transformation(
@@ -25,13 +27,15 @@ model DedicatedPressure
         origin={50,60})));
 
   Sensors.Temperature TOutMin(
-    redeclare final package Medium = MediumAir)
+    redeclare final package Medium = MediumAir,
+    final loc=Buildings.Templates.Types.Location.MinimumOutdoorAir)
     "Minimum outdoor air temperature sensor"
     annotation (
       Placement(transformation(extent={{70,50},{90,70}})));
 
   Sensors.DifferentialPressure dpOutMin(
-    redeclare final package Medium = MediumAir)
+    redeclare final package Medium = MediumAir,
+    final loc=Buildings.Templates.Types.Location.MinimumOutdoorAir)
     "Minimum outdoor air damper differential pressure sensor"
     annotation (
       Placement(transformation(extent={{10,50},{30,70}})));

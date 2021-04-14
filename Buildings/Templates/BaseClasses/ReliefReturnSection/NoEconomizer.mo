@@ -8,7 +8,9 @@ model NoEconomizer "No economizer"
 
   replaceable Templates.BaseClasses.Fans.None fanRet
     constrainedby Templates.Interfaces.Fan(
-      redeclare final package Medium = MediumAir) "Return/relief fan"
+      redeclare final package Medium = MediumAir,
+      final loc=Templates.Types.Location.Return)
+    "Return/relief fan"
     annotation (
       choices(
         choice(redeclare Templates.BaseClasses.Fans.None fanRet
@@ -22,22 +24,25 @@ model NoEconomizer "No economizer"
       Placement(transformation(extent={{110,-10},{90,10}})));
   Sensors.Wrapper pRet_rel(
     redeclare final package Medium = MediumAir,
-    typ=if fanRet.typCtr==Templates.Types.ReturnFanControlSensor.Pressure
+    final typ=if fanRet.typCtr==Templates.Types.ReturnFanControlSensor.Pressure
       then Templates.Types.Sensor.DifferentialPressure else
-      Templates.Types.Sensor.None)
+      Templates.Types.Sensor.None,
+    final loc=Templates.Types.Location.Return)
     "Return static pressure sensor"
     annotation (
       Placement(transformation(extent={{30,-10},{10,10}})));
   Sensors.Wrapper VRet_flow(
     redeclare final package Medium = MediumAir,
-    typ=if fanRet.typCtr==Templates.Types.ReturnFanControlSensor.Airflow
+    final typ=if fanRet.typCtr==Templates.Types.ReturnFanControlSensor.Airflow
       then Templates.Types.Sensor.VolumeFlowRate else
-      Templates.Types.Sensor.None)
+      Templates.Types.Sensor.None,
+    final loc=Templates.Types.Location.Return)
     "Return air volume flow rate sensor"
     annotation (
       Placement(transformation(extent={{70,-10},{50,10}})));
    Dampers.TwoPosition damRel(
-    redeclare final package Medium = MediumAir)
+    redeclare final package Medium = MediumAir,
+    final loc=Buildings.Templates.Types.Location.Relief)
     "Relief damper"
     annotation (
       Placement(transformation(

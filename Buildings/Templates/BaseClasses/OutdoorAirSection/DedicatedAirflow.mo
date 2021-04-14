@@ -7,16 +7,18 @@ model DedicatedAirflow
     final typDamOutMin=damOutMin.typ);
 
    BaseClasses.Dampers.Modulated damOut(
-     redeclare final package Medium = MediumAir)
-    "Outdoor air damper"
-    annotation (
+     redeclare final package Medium = MediumAir,
+     final loc=Buildings.Templates.Types.Location.OutdoorAir)
+     "Outdoor air damper"
+     annotation (
       Placement(transformation(
           extent={{-10,-10},{10,10}},
           rotation=0,
           origin={0,0})));
 
   Dampers.Modulated damOutMin(
-    redeclare final package Medium = MediumAir)
+    redeclare final package Medium = MediumAir,
+    final loc=Buildings.Templates.Types.Location.MinimumOutdoorAir)
     "Minimum outdoor air damper"
     annotation (
     Placement(transformation(
@@ -25,13 +27,15 @@ model DedicatedAirflow
         origin={30,60})));
 
   Sensors.Temperature TOutMin(
-    redeclare final package Medium = MediumAir)
+    redeclare final package Medium = MediumAir,
+    final loc=Buildings.Templates.Types.Location.MinimumOutdoorAir)
     "Minimum outdoor air temperature sensor"
     annotation (
       Placement(transformation(extent={{50,50},{70,70}})));
 
   Sensors.VolumeFlowRate VOutMin_flow(
-    redeclare final package Medium = MediumAir)
+    redeclare final package Medium = MediumAir,
+    final loc=Buildings.Templates.Types.Location.MinimumOutdoorAir)
     "Minimum outdoor air volume flow rate sensor"
     annotation (
       choices(

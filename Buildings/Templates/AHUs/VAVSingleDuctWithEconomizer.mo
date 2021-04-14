@@ -118,7 +118,8 @@ model VAVSingleDuctWithEconomizer "VAV single duct with air economizer"
       iconTransformation(extent={{-20,182},{20,218}})));
 
   replaceable BaseClasses.Dampers.Modulated damRet(
-    redeclare final package Medium = MediumAir)
+    redeclare final package Medium = MediumAir,
+    final loc=Buildings.Templates.Types.Location.Return)
     "Return air damper"
     annotation (
       Placement(transformation(
@@ -129,7 +130,8 @@ model VAVSingleDuctWithEconomizer "VAV single duct with air economizer"
   // FIXME: bind typ to control option.
   Buildings.Templates.BaseClasses.Sensors.Wrapper TMix(
     redeclare final package Medium = MediumAir,
-    typ=Types.Sensor.Temperature)
+    typ=Types.Sensor.Temperature,
+    final loc=Types.Location.Supply)
     "Mixed air temperature sensor"
     annotation (
       Dialog(
@@ -139,7 +141,8 @@ model VAVSingleDuctWithEconomizer "VAV single duct with air economizer"
 
   inner replaceable Buildings.Templates.BaseClasses.Fans.None fanSupBlo
     constrainedby Buildings.Templates.Interfaces.Fan(
-      redeclare final package Medium = MediumAir)
+      redeclare final package Medium = MediumAir,
+      final loc=Templates.Types.Location.Supply)
     "Supply fan - Blow through"
     annotation (
       choicesAllMatching=true,
@@ -190,7 +193,8 @@ model VAVSingleDuctWithEconomizer "VAV single duct with air economizer"
 
   inner replaceable Buildings.Templates.BaseClasses.Fans.None fanSupDra
     constrainedby Buildings.Templates.Interfaces.Fan(
-      redeclare final package Medium = MediumAir)
+      redeclare final package Medium = MediumAir,
+      final loc=Templates.Types.Location.Supply)
     "Supply fan - Draw through"
     annotation (
     choicesAllMatching=true,
@@ -235,7 +239,8 @@ model VAVSingleDuctWithEconomizer "VAV single duct with air economizer"
 
   Buildings.Templates.BaseClasses.Sensors.Wrapper TSup(
     redeclare final package Medium = MediumAir,
-    typ=Types.Sensor.Temperature)
+    typ=Types.Sensor.Temperature,
+    final loc=Types.Location.Supply)
     "Supply air temperature sensor"
     annotation (
       Dialog(
@@ -246,7 +251,8 @@ model VAVSingleDuctWithEconomizer "VAV single duct with air economizer"
   // FIXME: bind typ to control option.
   Buildings.Templates.BaseClasses.Sensors.Wrapper xSup(
     redeclare final package Medium = MediumAir,
-    typ=Types.Sensor.None)
+    typ=Types.Sensor.None,
+    final loc=Types.Location.Supply)
     "Supply air humidity ratio sensor"
     annotation (
       Dialog(
@@ -257,7 +263,8 @@ model VAVSingleDuctWithEconomizer "VAV single duct with air economizer"
   // FIXME: bind typ to control option.
   Buildings.Templates.BaseClasses.Sensors.Wrapper pSup_rel(
     redeclare final package Medium = MediumAir,
-    typ=Types.Sensor.None)
+    typ=Types.Sensor.None,
+    final loc=Types.Location.Supply)
     "Duct static pressure sensor"
     annotation (
       Dialog(
@@ -295,7 +302,8 @@ model VAVSingleDuctWithEconomizer "VAV single duct with air economizer"
   // FIXME: bind typ to control option.
   BaseClasses.Sensors.Wrapper TRet(
     redeclare final package Medium = MediumAir,
-    typ=Types.Sensor.None)
+    typ=Types.Sensor.None,
+    final loc=Types.Location.Return)
     "Return air temperature sensor"
     annotation (
       Dialog(
@@ -306,7 +314,8 @@ model VAVSingleDuctWithEconomizer "VAV single duct with air economizer"
   // FIXME: bind typ to control option.
   BaseClasses.Sensors.Wrapper hRet(
     redeclare final package Medium = MediumAir,
-    typ=Types.Sensor.None)
+    typ=Types.Sensor.None,
+    final loc=Types.Location.Return)
     "Return air enthalpy sensor"
     annotation (
       Dialog(

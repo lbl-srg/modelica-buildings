@@ -4,6 +4,9 @@ partial model Fan
 
   parameter Types.Fan typ "Equipment type"
     annotation (Evaluate=true, Dialog(group="Configuration"));
+  parameter Templates.Types.Location loc
+    "Equipment location"
+    annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Templates.Types.ReturnFanControlSensor typCtr=
     Templates.Types.ReturnFanControlSensor.None
     "Sensor type used for return fan control"
@@ -11,16 +14,34 @@ partial model Fan
       Evaluate=true,
       Dialog(
         group="Configuration",
-        enable=locStr=="Return" and typ<>Types.Fan.None));
+        enable=loc==Templates.Types.Location.Return and typ<>Types.Fan.None));
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=if typ <> Types.Fan.None
-       then dat.getReal(varName=id + "." + locStr + " air mass flow rate")
-       else 0 "Mass flow rate" annotation (Dialog(group="Nominal condition",
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=
+    if typ <> Types.Fan.None then (
+      if loc == Templates.Types.Location.Supply then
+        dat.getReal(varName=id + "." + "Supply air mass flow rate")
+      elseif loc == Templates.Types.Location.Return then
+        dat.getReal(varName=id + "." + "Return air mass flow rate")
+      elseif loc == Templates.Types.Location.Relief then
+        dat.getReal(varName=id + "." + "Return air mass flow rate")
+      else 0)
+      else 0
+    "Mass flow rate"
+    annotation (Dialog(group="Nominal condition",
         enable=typ <> Types.Fan.None));
-  parameter Modelica.SIunits.PressureDifference dp_nominal=if typ <> Types.Fan.None
-       then dat.getReal(varName=id + "." + locStr + " fan.Total pressure rise")
-       else 0 "Total pressure rise" annotation (Dialog(group=
-          "Nominal condition", enable=typ <> Types.Fan.None));
+  parameter Modelica.SIunits.PressureDifference dp_nominal=
+    if typ <> Types.Fan.None then (
+      if loc == Templates.Types.Location.Supply then
+        dat.getReal(varName=id + "." + "Supply fan.Total pressure rise")
+      elseif loc == Templates.Types.Location.Return then
+        dat.getReal(varName=id + "." + "Return fan.Total pressure rise")
+      elseif loc == Templates.Types.Location.Relief then
+        dat.getReal(varName=id + "." + "Return fan.Total pressure rise")
+      else 0)
+      else 0
+    "Total pressure rise"
+    annotation (
+      Dialog(group="Nominal condition", enable=typ <> Types.Fan.None));
 
   replaceable parameter Buildings.Fluid.Movers.Data.Generic per(
     pressure(
@@ -33,15 +54,6 @@ partial model Fan
       Dialog(enable=typ <> Types.Fan.None),
       Placement(transformation(extent={{-90,-88},{-70,-68}})));
 
-  final parameter String locStr=
-    if Modelica.Utilities.Strings.find(insNam, "fanSup")<>0 then "Supply"
-    elseif Modelica.Utilities.Strings.find(insNam, "fanRe")<>0 then "Return"
-    else "Undefined"
-    "String used to identify the fan location"
-    annotation (Evaluate=true, Dialog(group="Configuration"));
-  final parameter String insNam = getInstanceName()
-    "Instance name"
-    annotation (Evaluate=true);
   outer parameter String id
     "System identifier";
   outer parameter ExternData.JSONFile dat

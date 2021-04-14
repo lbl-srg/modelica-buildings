@@ -1,6 +1,7 @@
 within Buildings.Templates.BaseClasses.Dampers;
-model None
-  extends Buildings.Templates.Interfaces.Damper(final typ=Types.Damper.None)
+model None "No damper"
+  extends Buildings.Templates.Interfaces.Damper(
+    final typ=Types.Damper.None)
     annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 equation

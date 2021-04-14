@@ -15,53 +15,57 @@ model SingleVariable "Single fan - Variable speed"
       Placement(transformation(extent={{-10,-10},{10,10}})));
 
   Modelica.Blocks.Routing.RealPassThrough ySpeFanSup if
-                                                    locStr=="Supply"
+    loc==Templates.Types.Location.Supply
     "Supply fan speed" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-20,70})));
   Modelica.Blocks.Routing.RealPassThrough ySpeFanRet if
-                                                    locStr=="Return"
+    loc==Templates.Types.Location.Return or loc==Templates.Types.Location.Relief
     "Return fan speed" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={20,70})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal yFanSup if
-                                                                 locStr=="Supply"
+    loc==Templates.Types.Location.Supply
     "Supply fan start/stop" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-46,70})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal yFanRet if
-                                                                 locStr=="Return"
+    loc==Templates.Types.Location.Return or loc==Templates.Types.Location.Relief
     "Return fan start/stop" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={46,70})));
-  Buildings.Controls.OBC.CDL.Continuous.Product conSup if locStr=="Supply"
+  Buildings.Controls.OBC.CDL.Continuous.Product conSup if
+    loc==Templates.Types.Location.Supply
     "Resulting control signal" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-40,40})));
-  Buildings.Controls.OBC.CDL.Continuous.Product conRet if locStr=="Return"
+  Buildings.Controls.OBC.CDL.Continuous.Product conRet if
+    loc==Templates.Types.Location.Return or loc==Templates.Types.Location.Relief
     "Resulting control signal" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={40,40})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold evaSta(t=1E-2, h=
-        0.5E-2)
-    "Evaluate fan status" annotation (Placement(transformation(
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold evaSta(
+    t=1E-2,
+    h=0.5E-2)
+    "Evaluate fan status"
+    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={0,-30})));
+        origin={0,-50})));
   Modelica.Blocks.Routing.BooleanPassThrough yFanSup_actual if
-                                                    locStr=="Supply"
+    loc==Templates.Types.Location.Supply
     "Supply fan status" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={-30,-80})));
   Modelica.Blocks.Routing.BooleanPassThrough yFanRet_actual if
-                                                    locStr=="Return"
+    loc==Templates.Types.Location.Return or loc==Templates.Types.Location.Relief
     "Return fan status" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=180,
@@ -83,12 +87,15 @@ equation
     annotation (Line(points={{46,58},{46,52}}, color={0,0,127}));
   connect(conRet.y, fan.y)
     annotation (Line(points={{40,28},{40,20},{0,20},{0,12}}, color={0,0,127}));
-  connect(fan.y_actual, evaSta.u) annotation (Line(points={{11,7},{20,7},{20,
-          -16},{0,-16},{0,-18}}, color={0,0,127}));
+  connect(fan.y_actual, evaSta.u) annotation (Line(points={{11,7},{20,7},{20,-16},
+          {2.22045e-15,-16},{2.22045e-15,-38}},
+                                 color={0,0,127}));
   connect(evaSta.y, yFanRet_actual.u)
-    annotation (Line(points={{0,-42},{0,-80},{18,-80}}, color={255,0,255}));
+    annotation (Line(points={{-2.22045e-15,-62},{-2.22045e-15,-80},{18,-80}},
+                                                        color={255,0,255}));
   connect(evaSta.y, yFanSup_actual.u)
-    annotation (Line(points={{0,-42},{0,-80},{-18,-80}}, color={255,0,255}));
+    annotation (Line(points={{-2.22045e-15,-62},{-2.22045e-15,-80},{-18,-80}},
+                                                         color={255,0,255}));
   connect(busCon.out.ySpeFanRet, ySpeFanRet.u) annotation (Line(
       points={{0.1,100.1},{2,100.1},{2,86},{20,86},{20,82}},
       color={255,204,51},

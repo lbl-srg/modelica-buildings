@@ -1,7 +1,8 @@
 within Buildings.Templates.BaseClasses.Fans;
 model MultipleVariable
   "Multiple fans (identical) - Variable speed"
-  extends Buildings.Templates.Interfaces.Fan(final typ=Types.Fan.MultipleVariable);
+  extends Buildings.Templates.Interfaces.Fan(
+    final typ=Types.Fan.MultipleVariable);
 
   parameter Integer nFan = 1
     "Number of fans"
@@ -20,15 +21,17 @@ model MultipleVariable
       Placement(transformation(extent={{-10,10},{10,30}})));
 
   Modelica.Blocks.Routing.RealPassThrough ySpeFanSup if
-                                                     locStr=="Supply"
-    "Pass through to connect with specific control signal" annotation (
+    loc==Templates.Types.Location.Supply
+    "Pass through to connect with specific control signal"
+    annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-20,80})));
   Modelica.Blocks.Routing.RealPassThrough ySpeFanRet if
-                                                    locStr=="Return"
-    "Pass through to connect with specific control signal" annotation (
+    loc==Templates.Types.Location.Return or loc==Templates.Types.Location.Relief
+    "Pass through to connect with specific control signal"
+    annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
@@ -57,24 +60,26 @@ model MultipleVariable
     "Zero flow boundary condition"
     annotation (Placement(transformation(extent={{54,-30},{34,-10}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal yFanSup if
-                                                                 locStr=="Supply"
-    "Supply fan start/stop" annotation (Placement(transformation(
+    loc==Templates.Types.Location.Supply
+    "Supply fan start/stop"
+    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-46,80})));
   Buildings.Controls.OBC.CDL.Continuous.Product conSup1 if
-                                                          locStr=="Supply"
+    loc==Templates.Types.Location.Supply
     "Resulting control signal" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-40,50})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal yFanRet if
-                                                                 locStr=="Return"
+    loc==Templates.Types.Location.Return or loc==Templates.Types.Location.Relief
     "Return fan start/stop" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={46,80})));
-  Buildings.Controls.OBC.CDL.Continuous.Product conRet1 if locStr=="Return"
+  Buildings.Controls.OBC.CDL.Continuous.Product conRet1 if
+    loc==Templates.Types.Location.Return or loc==Templates.Types.Location.Relief
     "Resulting control signal"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -90,20 +95,23 @@ model MultipleVariable
         origin={0,-50})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold evaSta(
     t=1E-2,
-    h=0.5E-2) if locStr=="Supply"
-    "Evaluate fan status" annotation (Placement(transformation(
+    h=0.5E-2)
+    "Evaluate fan status"
+    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={0,-80})));
   Modelica.Blocks.Routing.BooleanPassThrough yFanSup_actual if
-                                                       locStr=="Supply"
-    "Supply fan status" annotation (Placement(transformation(
+    loc==Templates.Types.Location.Supply
+    "Supply fan status"
+    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={-40,-80})));
   Modelica.Blocks.Routing.BooleanPassThrough yFanRet_actual if
-                                                       locStr=="Return"
-    "Return fan status" annotation (Placement(transformation(
+    loc==Templates.Types.Location.Return or loc==Templates.Types.Location.Relief
+    "Return fan status"
+    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={40,-80})));

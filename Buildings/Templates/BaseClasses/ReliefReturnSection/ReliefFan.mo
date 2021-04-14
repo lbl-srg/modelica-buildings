@@ -7,7 +7,8 @@ model ReliefFan "Relief fan - Two-position relief damper"
     final have_porPre=fanRet.typCtr==Templates.Types.ReturnFanControlSensor.Pressure);
 
    Dampers.TwoPosition damRel(
-    redeclare final package Medium = MediumAir)
+    redeclare final package Medium = MediumAir,
+    final loc=Buildings.Templates.Types.Location.Relief)
     "Relief damper"
     annotation (
       Placement(transformation(
@@ -17,7 +18,8 @@ model ReliefFan "Relief fan - Two-position relief damper"
    replaceable Templates.BaseClasses.Fans.SingleVariable fanRet
      constrainedby Templates.Interfaces.Fan(
       redeclare final package Medium = MediumAir,
-      final typCtr=Templates.Types.ReturnFanControlSensor.None)
+      final typCtr=Templates.Types.ReturnFanControlSensor.None,
+      final loc=Templates.Types.Location.Relief)
     "Return/relief fan"
     annotation (
       choices(

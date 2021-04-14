@@ -20,31 +20,32 @@ model SingleConstant "Single fan - Constant speed"
         rotation=-90,
         origin={0,30})));
   Modelica.Blocks.Routing.BooleanPassThrough yFanSup if
-                                                       locStr=="Supply"
+    loc==Templates.Types.Location.Supply
     "Supply fan start/stop" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-60,70})));
   Modelica.Blocks.Routing.BooleanPassThrough yFanRet if
-                                                       locStr=="Return"
+    loc==Templates.Types.Location.Return or loc==Templates.Types.Location.Relief
     "Return fan start/stop" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={60,70})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold evaSta(t=1E-2, h=
-        0.5E-2) if                                               locStr=="Supply"
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold evaSta(
+    t=1E-2,
+    h=0.5E-2)
     "Evaluate fan status" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={0,-30})));
   Modelica.Blocks.Routing.BooleanPassThrough yFanSup_actual if
-                                                    locStr=="Supply"
+    loc==Templates.Types.Location.Supply
     "Supply fan status" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-20,-70})));
   Modelica.Blocks.Routing.BooleanPassThrough yFanRet_actual if
-                                                    locStr=="Return"
+    loc==Templates.Types.Location.Return or loc==Templates.Types.Location.Relief
     "Return fan status" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,

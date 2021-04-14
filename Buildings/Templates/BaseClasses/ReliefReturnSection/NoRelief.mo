@@ -9,7 +9,9 @@ model NoRelief "No relief branch"
 
   replaceable Templates.BaseClasses.Fans.None fanRet
     constrainedby Templates.Interfaces.Fan(
-      redeclare final package Medium = MediumAir) "Return/relief fan"
+      redeclare final package Medium = MediumAir,
+      final loc=Templates.Types.Location.Return)
+    "Return/relief fan"
     annotation (
       choices(
         choice(redeclare Templates.BaseClasses.Fans.None fanRet

@@ -7,7 +7,8 @@ model ReliefDamper "No relief fan - Modulated relief damper"
     final have_porPre=false);
 
    Dampers.Modulated damRel(
-    redeclare final package Medium = MediumAir)
+    redeclare final package Medium = MediumAir,
+    final loc=Buildings.Templates.Types.Location.Relief)
     "Relief damper"
     annotation (
       Placement(transformation(

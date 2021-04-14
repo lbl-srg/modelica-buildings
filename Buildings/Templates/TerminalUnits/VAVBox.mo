@@ -38,7 +38,8 @@ model VAVBox "VAV terminal unit"
 
   inner replaceable BaseClasses.Dampers.PressureIndependent damVAV
     constrainedby Buildings.Templates.Interfaces.Damper(
-      redeclare final package Medium = MediumAir)
+      redeclare final package Medium = MediumAir,
+      final loc=Templates.Types.Location.Terminal)
     "VAV damper"
     annotation (
       Dialog(group="VAV damper"),
@@ -59,7 +60,8 @@ model VAVBox "VAV terminal unit"
     redeclare final package Medium = MediumAir,
     final typ=if conTer.typ==Templates.Types.ControllerTU.Guideline36 then
       Templates.Types.Sensor.Temperature else
-      Templates.Types.Sensor.None)
+      Templates.Types.Sensor.None,
+    final loc=Templates.Types.Location.Terminal)
     "Discharge air temperature sensor"
     annotation (Placement(transformation(extent={{90,-210},{110,-190}})));
 equation

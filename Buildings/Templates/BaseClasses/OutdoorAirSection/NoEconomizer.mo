@@ -6,7 +6,8 @@ model NoEconomizer "No economizer"
     final typDamOutMin=Templates.Types.Damper.None);
 
   Dampers.TwoPosition damOut(
-   redeclare final package Medium = MediumAir)
+   redeclare final package Medium = MediumAir,
+   final loc=Buildings.Templates.Types.Location.OutdoorAir)
    "Outdoor air damper"
    annotation (
      Placement(transformation(

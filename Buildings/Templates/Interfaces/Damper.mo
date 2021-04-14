@@ -4,23 +4,13 @@ partial model Damper
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Medium";
 
-  parameter Types.Damper typ "Equipment type"
+  parameter Types.Damper typ
+    "Equipment type"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  final parameter String locStr=
-    if Modelica.Utilities.Strings.length(insNam) -
-      Modelica.Utilities.Strings.find(insNam, "damOut")==5 or
-      Modelica.Utilities.Strings.find(insNam, ".damOutIso")<>0 or
-      Modelica.Utilities.Strings.find(insNam, ".damOut.")<>0 then "Outdoor air"
-    elseif Modelica.Utilities.Strings.find(insNam, "damOutMin")<>0 then "Minimum outdoor air"
-    elseif Modelica.Utilities.Strings.find(insNam, "damRel")<>0 then "Relief air"
-    elseif Modelica.Utilities.Strings.find(insNam, "damRet")<>0 then "Return air"
-    elseif Modelica.Utilities.Strings.find(insNam, "damVAV")<>0 then "Terminal"
-    else "Undefined"
-    "String used to identify the damper location"
+  parameter Templates.Types.Location loc
+    "Equipment location"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  final parameter String insNam = getInstanceName()
-    "Instance name"
-    annotation(Evaluate=true);
+
   outer parameter String id
     "System identifier";
   outer parameter ExternData.JSONFile dat

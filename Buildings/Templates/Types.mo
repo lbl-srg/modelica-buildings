@@ -97,6 +97,14 @@ package Types "AHU types"
       MultipleVariable
       "Multiple fans (identical) - Variable speed")
     "Enumeration to configure the fan";
+  type Location = enumeration(
+      OutdoorAir,
+      MinimumOutdoorAir,
+      Relief,
+      Return,
+      Supply,
+      Terminal)
+    "Enumeration to specify the equipment location";
   type OutdoorAir = enumeration(
       NoEconomizer
       "No economizer",

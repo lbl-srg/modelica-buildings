@@ -6,17 +6,20 @@ model SingleCommon "Single common OA damper (modulated) with AFMS"
     final typDamOutMin=Templates.Types.Damper.None);
 
   Sensors.VolumeFlowRate VOut_flow(
-    redeclare final package Medium = MediumAir)
+    redeclare final package Medium = MediumAir,
+    final loc=Buildings.Templates.Types.Location.OutdoorAir)
     "Outdoor air volume flow rate sensor"
     annotation (
       Placement(transformation(extent={{70,-10},{90,10}})));
   BaseClasses.Sensors.Temperature TOut(
-      redeclare final package Medium =MediumAir)
+      redeclare final package Medium =MediumAir,
+      final loc=Buildings.Templates.Types.Location.OutdoorAir)
     "Outdoor air temperature sensor"
     annotation (
       Placement(transformation(extent={{30,-10},{50,10}})));
    BaseClasses.Dampers.Modulated damOut(
-     redeclare final package Medium = MediumAir)
+     redeclare final package Medium = MediumAir,
+     final loc=Buildings.Templates.Types.Location.OutdoorAir)
     "Outdoor air damper"
     annotation (
       Placement(transformation(
