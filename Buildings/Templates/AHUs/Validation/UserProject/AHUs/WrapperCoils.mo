@@ -1,6 +1,6 @@
 within Buildings.Templates.AHUs.Validation.UserProject.AHUs;
 model WrapperCoils
-  extends Buildings.Templates.AHUs.VAVSingleDuctWrapper(
+  extends Buildings.Templates.AHUs.VAVSingleDuct_wrapper(
     typCoiCooDX=Buildings.Templates.Types.HeatExchangerDX.DXMultiStage,
     typCoiCoo=Buildings.Templates.Types.Coil.DirectExpansion,
     typActCoiHea=Buildings.Templates.Types.Actuator.TwoWayValve,

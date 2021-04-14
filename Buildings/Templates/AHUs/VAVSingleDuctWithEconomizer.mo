@@ -1,5 +1,5 @@
 within Buildings.Templates.AHUs;
-model VAVSingleDuctSection "VAV single duct with relief"
+model VAVSingleDuctWithEconomizer "VAV single duct with relief"
   extends Buildings.Templates.Interfaces.AHU(
     final typ=Buildings.Templates.Types.AHU.SupplyReturn,
     final typSup=Buildings.Templates.Types.Supply.SingleDuct,
@@ -511,4 +511,4 @@ Modulateded relief damper
 
  
 </html>"));
-end VAVSingleDuctSection;
+end VAVSingleDuctWithEconomizer;
