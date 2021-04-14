@@ -1,6 +1,6 @@
 within Buildings.Templates.AHUs.Validation.UserProject.AHUs;
 model FanSupplyDrawMultipleVariable
-  extends VAVSingleDuct_old(
+  extends VAVSingleDuctWithEconomizer(
     nZon=1,
     nGro=1,
     final id="VAV_1",

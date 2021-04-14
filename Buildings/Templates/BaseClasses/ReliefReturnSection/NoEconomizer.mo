@@ -3,12 +3,12 @@ model NoEconomizer "No economizer"
   extends Buildings.Templates.Interfaces.ReliefReturnSection(
     final typ=Templates.Types.ReliefReturn.NoEconomizer,
     final typDamRel=damRel.typ,
-    final typFan=fanRet.typ);
+    final typFan=fanRet.typ,
+    final have_porPre=fanRet.typCtr==Templates.Types.ReturnFanControlSensor.Pressure);
 
   replaceable Templates.BaseClasses.Fans.None fanRet
     constrainedby Templates.Interfaces.Fan(
-      redeclare final package Medium = MediumAir)
-    "Return fan"
+      redeclare final package Medium = MediumAir) "Return/relief fan"
     annotation (
       choices(
         choice(redeclare Templates.BaseClasses.Fans.None fanRet
@@ -22,7 +22,7 @@ model NoEconomizer "No economizer"
       Placement(transformation(extent={{110,-10},{90,10}})));
   Sensors.Wrapper pRet_rel(
     redeclare final package Medium = MediumAir,
-    typ=if typCtrFan==Templates.Types.ReturnFanControl.Pressure
+    typ=if fanRet.typCtr==Templates.Types.ReturnFanControlSensor.Pressure
       then Templates.Types.Sensor.DifferentialPressure else
       Templates.Types.Sensor.None)
     "Return static pressure sensor"
@@ -30,7 +30,7 @@ model NoEconomizer "No economizer"
       Placement(transformation(extent={{30,-10},{10,10}})));
   Sensors.Wrapper VRet_flow(
     redeclare final package Medium = MediumAir,
-    typ=if typCtrFan==Templates.Types.ReturnFanControl.Airflow
+    typ=if fanRet.typCtr==Templates.Types.ReturnFanControlSensor.Airflow
       then Templates.Types.Sensor.VolumeFlowRate else
       Templates.Types.Sensor.None)
     "Return air volume flow rate sensor"

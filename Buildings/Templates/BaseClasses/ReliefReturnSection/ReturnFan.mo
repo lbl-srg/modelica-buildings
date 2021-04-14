@@ -3,7 +3,8 @@ model ReturnFan "Return fan - Modulated relief damper"
   extends Buildings.Templates.Interfaces.ReliefReturnSection(
     final typ=Templates.Types.ReliefReturn.ReturnFan,
     final typDamRel=damRel.typ,
-    final typFan=fanRet.typ);
+    final typFan=fanRet.typ,
+    final have_porPre=fanRet.typCtr==Templates.Types.ReturnFanControlSensor.Pressure);
 
    Dampers.TwoPosition damRel(
     redeclare final package Medium = MediumAir)
@@ -13,14 +14,12 @@ model ReturnFan "Return fan - Modulated relief damper"
           extent={{10,-10},{-10,10}},
           rotation=0,
           origin={-60,0})));
-   replaceable Templates.BaseClasses.Fans.None fanRet
+   replaceable Templates.BaseClasses.Fans.SingleVariable fanRet
      constrainedby Templates.Interfaces.Fan(
        redeclare final package Medium = MediumAir)
-    "Return fan"
+     "Return/relief fan"
     annotation (
       choices(
-        choice(redeclare Templates.BaseClasses.Fans.None fanRet
-          "No fan"),
         choice(redeclare Templates.BaseClasses.Fans.SingleVariable fanRet
           "Single fan - Variable speed"),
         choice(redeclare Templates.BaseClasses.Fans.MultipleVariable fanRet
@@ -28,7 +27,7 @@ model ReturnFan "Return fan - Modulated relief damper"
       Placement(transformation(extent={{130,-10},{110,10}})));
   Templates.BaseClasses.Sensors.Wrapper pRet_rel(
     redeclare final package Medium = MediumAir,
-    typ=if typCtrFan==Templates.Types.ReturnFanControl.Pressure then
+    typ=if fanRet.typCtr==Templates.Types.ReturnFanControlSensor.Pressure then
       Templates.Types.Sensor.DifferentialPressure else
       Templates.Types.Sensor.None)
     "Return static pressure sensor"
@@ -36,7 +35,7 @@ model ReturnFan "Return fan - Modulated relief damper"
       Placement(transformation(extent={{50,-10},{30,10}})));
   Templates.BaseClasses.Sensors.Wrapper VRet_flow(
     redeclare final package Medium = MediumAir,
-    typ=if typCtrFan==Templates.Types.ReturnFanControl.Airflow then
+    typ=if fanRet.typCtr==Templates.Types.ReturnFanControlSensor.Airflow then
       Templates.Types.Sensor.VolumeFlowRate else
       Templates.Types.Sensor.None)
     "Return air volume flow rate sensor"

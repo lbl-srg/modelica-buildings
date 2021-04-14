@@ -116,16 +116,14 @@ package Types "AHU types"
       WithRelief
       "With air relief")
     "Enumeration to configure the return/exhaust branch";
-  type ReturnFanControl = enumeration(
+  type ReturnFanControlSensor = enumeration(
       None
       "Not applicable",
       Airflow
       "Airflow tracking",
       Pressure
-      "Direct building pressure (via discharge static pressure)",
-      Supply
-      "Supply fan signal")
-    "Enumeration to configure the return fan control";
+      "Direct building pressure (via discharge static pressure)")
+    "Enumeration to configure the sensor used for return fan control";
   type Sensor = enumeration(
       DifferentialPressure
       "Differential pressure",

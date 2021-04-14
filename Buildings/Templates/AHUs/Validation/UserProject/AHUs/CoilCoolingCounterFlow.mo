@@ -1,13 +1,12 @@
 within Buildings.Templates.AHUs.Validation.UserProject.AHUs;
 model CoilCoolingCounterFlow
-  extends VAVSingleDuct_old(
+  extends VAVSingleDuctWithEconomizer(
+    redeclare Templates.BaseClasses.Coils.WaterBasedCooling coiCoo(redeclare
+        Templates.BaseClasses.Coils.HeatExchangers.WetCoilCounterFlow hex
+        "Discretized heat exchanger model") "Water-based",
     final id="VAV_1",
     nZon=1,
-    nGro=1,
-    redeclare
-      Buildings.Templates.BaseClasses.Coils.WaterBased coiCoo(redeclare replaceable
-        Buildings.Templates.BaseClasses.Coils.HeatExchangers.WetCoilCounterFlow
-        hex));
+    nGro=1);
 
   annotation (
     defaultComponentName="ahu");

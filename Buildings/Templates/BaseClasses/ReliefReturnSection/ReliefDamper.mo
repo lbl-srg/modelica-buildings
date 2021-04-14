@@ -4,7 +4,7 @@ model ReliefDamper "No relief fan - Modulated relief damper"
     final typ=Templates.Types.ReliefReturn.ReliefDamper,
     final typDamRel=damRel.typ,
     final typFan=Templates.Types.Fan.None,
-    final typCtrFan=Templates.Types.ReturnFanControl.None);
+    final have_porPre=false);
 
    Dampers.Modulated damRel(
     redeclare final package Medium = MediumAir)

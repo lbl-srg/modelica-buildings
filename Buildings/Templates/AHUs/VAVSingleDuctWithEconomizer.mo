@@ -23,21 +23,27 @@ model VAVSingleDuctWithEconomizer "VAV single duct with relief"
       Dialog(group="Outdoor air section"),
       Evaluate=true);
 
-  inner replaceable BaseClasses.OutdoorAirSection.NoEconomizer secOut
+  inner replaceable BaseClasses.OutdoorAirSection.SingleCommon secOut
     constrainedby Buildings.Templates.Interfaces.OutdoorAirSection(
       redeclare final package MediumAir = MediumAir,
-      final have_recHea=recHea.typ<>Templates.Types.HeatRecovery.None)
-    "Outdoor air section"
+      final have_recHea=false)
+    "Outdoor air section - Single common OA damper (modulated) with AFMS"
     annotation (
-      choicesAllMatching=true,
+      choices(
+        choice(redeclare BaseClasses.OutdoorAirSection.SingleCommon secOut
+          "Outdoor air section - Single common OA damper (modulated) with AFMS"),
+        choice(redeclare BaseClasses.OutdoorAirSection.DedicatedAirflow secOut
+          "Outdoor air section - Dedicated minimum OA damper (modulated) with AFMS"),
+        choice(redeclare BaseClasses.OutdoorAirSection.DedicatedPressure secOut
+          "Outdoor air section - Dedicated minimum OA damper (two-position) with differential pressure sensor")),
       Dialog(
         group="Outdoor air section"),
-      Placement(transformation(extent={{-178,-214},{-142,-186}})));
+      Placement(transformation(extent={{-206,-214},{-170,-186}})));
 
   inner replaceable BaseClasses.ReliefReturnSection.NoEconomizer secRel
     constrainedby Templates.Interfaces.ReliefReturnSection(
       redeclare final package MediumAir = MediumAir,
-      final have_recHea=recHea.typ<>Templates.Types.HeatRecovery.None)
+      final have_recHea=false)
     "Exhaust/relief/return section"
     annotation (
       choicesAllMatching=true,
@@ -104,14 +110,14 @@ model VAVSingleDuctWithEconomizer "VAV single duct with relief"
     annotation (Placement(transformation(extent={{-20,260},{20,300}}),
       iconTransformation(extent={{-20,182},{20,218}})));
 
-  inner replaceable Templates.BaseClasses.HeatRecovery.None recHea
-    constrainedby Templates.Interfaces.HeatRecovery(
-      redeclare final package MediumAir = MediumAir)
-    "Heat recovery"
+  replaceable BaseClasses.Dampers.Modulated damRet(
+    redeclare final package Medium = MediumAir)
+    "Return air damper"
     annotation (
-      choicesAllMatching=true,
-      Dialog(group="Heat recovery"),
-      Placement(transformation(extent={{-154,-150},{-134,-130}})));
+      Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={-120,-140})));
 
   // FIXME: bind typ to control option.
   Buildings.Templates.BaseClasses.Sensors.Wrapper TMix(
@@ -203,7 +209,7 @@ model VAVSingleDuctWithEconomizer "VAV single duct with relief"
     annotation (
       choicesAllMatching=true,
       Dialog(group="Controller"),
-      Placement(transformation(extent={{-260,108},{-240,128}})));
+      Placement(transformation(extent={{-260,110},{-240,130}})));
 
   /* FIXME: Dummy default values fo testing purposes only.
   Compute based on design pressure drop of each piece of equipment
@@ -260,7 +266,7 @@ model VAVSingleDuctWithEconomizer "VAV single duct with relief"
   Fluid.Sources.Outside out(
     redeclare final package Medium=MediumAir,
     final nPorts=1 +
-      (if secRel.typCtrFan==Templates.Types.ReturnFanControl.Pressure then 1 else 0))
+      (if secRel.have_porPre then 1 else 0))
     "Outdoor conditions"
     annotation (
       Placement(transformation(
@@ -300,6 +306,7 @@ model VAVSingleDuctWithEconomizer "VAV single duct with relief"
       group="Exhaust/relief/return section",
         enable=false),
       Placement(transformation(extent={{252,-90},{232,-70}})));
+
 
 equation
 
@@ -351,7 +358,7 @@ equation
   connect(pInd_rel.p_rel, busAHU.inp.pInd_rel) annotation (Line(points={{20,231},
           {20,0},{-300.1,0},{-300.1,0.1}},     color={0,0,127}));
   connect(conAHU.busTer, busTer) annotation (Line(
-      points={{-240,118},{-220,118},{-220,0},{300,0}},
+      points={{-240,120},{-220,120},{-220,0},{300,0}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%second",
@@ -359,7 +366,7 @@ equation
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
   connect(conAHU.busAHU, busAHU) annotation (Line(
-      points={{-260,118},{-280,118},{-280,0},{-300,0}},
+      points={{-260,120},{-280,120},{-280,0},{-300,0}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%second",
@@ -434,11 +441,11 @@ equation
   connect(coiHea.port_b, coiCoo.port_a)
     annotation (Line(points={{-20,-200},{20,-200}}, color={0,127,255}));
   connect(port_Out,secOut. port_a)
-    annotation (Line(points={{-300,-200},{-178,-200}}, color={0,127,255}));
+    annotation (Line(points={{-300,-200},{-206,-200}}, color={0,127,255}));
   connect(secOut.port_b, TMix.port_a)
-    annotation (Line(points={{-142,-200},{-100,-200}}, color={0,127,255}));
+    annotation (Line(points={{-170,-200},{-100,-200}}, color={0,127,255}));
   connect(secOut.busCon, busAHU) annotation (Line(
-      points={{-160,-186},{-160,0},{-300,0}},
+      points={{-188,-186},{-188,0},{-300,0}},
       color={255,204,51},
       thickness=0.5));
   connect(secRel.port_b, port_Exh)
@@ -449,24 +456,16 @@ equation
       points={{-120,-66},{-120,0},{-300,0}},
       color={255,204,51},
       thickness=0.5));
-  connect(recHea.busCon, busAHU) annotation (Line(
-      points={{-144,-130},{-144,0},{-300,0}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(secRel.port_bHeaRec, recHea.port_aRel) annotation (Line(points={{-128,
-          -94},{-128,-134},{-134,-134}}, color={0,127,255}));
-  connect(secRel.port_aHeaRec, recHea.port_bRel) annotation (Line(points={{-132,
-          -94},{-132,-120},{-172,-120},{-172,-134},{-154,-134}}, color={0,127,
-          255}));
-  connect(secOut.port_bHeaRec, recHea.port_aOut) annotation (Line(points={{-172,
-          -186},{-172,-146},{-154,-146}}, color={0,127,255}));
-  connect(secOut.port_aHeaRec, recHea.port_bOut) annotation (Line(points={{-168,
-          -186},{-168,-160},{-128,-160},{-128,-146},{-134,-146}}, color={0,127,
-          255}));
-  connect(secRel.port_bRet, TMix.port_a) annotation (Line(points={{-120,-94},{-120,
-          -200},{-100,-200}}, color={0,127,255}));
   connect(out.ports[2], secRel.port_bPre) annotation (Line(points={{-40,240},{-40,
           240},{-40,-100},{-112,-100},{-112,-94}}, color={0,127,255}));
+  connect(secRel.port_bRet, damRet.port_a)
+    annotation (Line(points={{-120,-94},{-120,-130}}, color={0,127,255}));
+  connect(damRet.port_b, TMix.port_a) annotation (Line(points={{-120,-150},{-120,
+          -200},{-100,-200}}, color={0,127,255}));
+  connect(damRet.busCon, busAHU) annotation (Line(
+      points={{-110,-140},{-94,-140},{-94,0},{-300,0}},
+      color={255,204,51},
+      thickness=0.5));
   annotation (
     defaultComponentName="ahu",
     Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(

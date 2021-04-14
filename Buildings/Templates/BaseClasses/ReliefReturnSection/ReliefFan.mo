@@ -3,8 +3,8 @@ model ReliefFan "Relief fan - Two-position relief damper"
   extends Buildings.Templates.Interfaces.ReliefReturnSection(
     final typ=Templates.Types.ReliefReturn.ReliefFan,
     final typDamRel=damRel.typ,
-    final typFan=fanRel.typ,
-    final typCtrFan=Templates.Types.ReturnFanControl.None);
+    final typFan=fanRet.typ,
+    final have_porPre=fanRet.typCtr==Templates.Types.ReturnFanControlSensor.Pressure);
 
    Dampers.TwoPosition damRel(
     redeclare final package Medium = MediumAir)
@@ -14,14 +14,13 @@ model ReliefFan "Relief fan - Two-position relief damper"
           extent={{10,-10},{-10,10}},
           rotation=0,
           origin={-60,0})));
-   replaceable Templates.BaseClasses.Fans.None fanRel
+   replaceable Templates.BaseClasses.Fans.SingleVariable fanRet
      constrainedby Templates.Interfaces.Fan(
-      redeclare final package Medium = MediumAir)
-    "Relief fan"
+      redeclare final package Medium = MediumAir,
+      final typCtr=Templates.Types.ReturnFanControlSensor.None)
+    "Return/relief fan"
     annotation (
       choices(
-        choice(redeclare Templates.BaseClasses.Fans.None fanRet
-          "No fan"),
         choice(redeclare Templates.BaseClasses.Fans.SingleVariable fanRet
           "Single fan - Variable speed"),
         choice(redeclare Templates.BaseClasses.Fans.MultipleVariable fanRet
@@ -36,15 +35,15 @@ equation
     annotation (Line(points={{-70,0},{-80,0}}, color={0,127,255}));
   connect(pas.port_a, port_b)
     annotation (Line(points={{-110,0},{-180,0}}, color={0,127,255}));
-  connect(damRel.port_a, fanRel.port_b)
+  connect(damRel.port_a,fanRet. port_b)
     annotation (Line(points={{-50,0},{-30,0}}, color={0,127,255}));
-  connect(fanRel.port_a, port_a)
+  connect(fanRet.port_a, port_a)
     annotation (Line(points={{-10,0},{180,0}}, color={0,127,255}));
-  connect(fanRel.busCon, busCon) annotation (Line(
+  connect(fanRet.busCon, busCon) annotation (Line(
       points={{-20,10},{-20,20},{0,20},{0,140}},
       color={255,204,51},
       thickness=0.5));
-  connect(fanRel.port_a, port_bRet)
+  connect(fanRet.port_a, port_bRet)
     annotation (Line(points={{-10,0},{0,0},{0,-140}}, color={0,127,255}));
   annotation (Documentation(info="<html>
 <p>

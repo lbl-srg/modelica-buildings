@@ -4,6 +4,14 @@ partial model Fan
 
   parameter Types.Fan typ "Equipment type"
     annotation (Evaluate=true, Dialog(group="Configuration"));
+  parameter Templates.Types.ReturnFanControlSensor typCtr=
+    Templates.Types.ReturnFanControlSensor.None
+    "Sensor type used for return fan control"
+    annotation (
+      Evaluate=true,
+      Dialog(
+        group="Configuration",
+        enable=braStr=="Return" and typ<>Types.Fan.None));
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=if typ <> Types.Fan.None
        then dat.getReal(varName=id + "." + braStr + " air mass flow rate")
@@ -40,7 +48,8 @@ partial model Fan
     "External parameter file";
 
   BaseClasses.Connectors.BusInterface busCon if typ <> Types.Fan.None
-    "Control bus"     annotation (Placement(transformation(
+    "Control bus"
+    annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
         origin={0,100}), iconTransformation(

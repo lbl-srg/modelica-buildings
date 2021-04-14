@@ -42,8 +42,9 @@ model WaterBasedCooling "Water-based"
     //   id + "." + funStr + " coil.Liquid pressure drop",
     //   dat.fileName)
 
-  replaceable Actuators.None act(
-    redeclare final package Medium = MediumSou)
+  replaceable Actuators.None act
+    constrainedby Templates.Interfaces.Actuator(
+       redeclare final package Medium = MediumSou)
     "Actuator"
     annotation (
       choicesAllMatching=true,

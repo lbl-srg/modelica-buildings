@@ -14,8 +14,8 @@ partial model ReliefReturnSection "Exhaust/relief/return section"
   parameter Templates.Types.Fan typFan
     "Relief/return fan type"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  parameter Templates.Types.ReturnFanControl typCtrFan
-    "Return fan control type"
+  parameter Boolean have_porPre
+    "Set to true in case of fluid port for differential pressure sensor"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Boolean have_recHea
     "Set to true in case of heat recovery"
@@ -83,7 +83,7 @@ partial model ReliefReturnSection "Exhaust/relief/return section"
     redeclare final package Medium = MediumAir,
     m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
     h_outflow(start=MediumAir.h_default, nominal=MediumAir.h_default)) if
-    typCtrFan==Templates.Types.ReturnFanControl.Pressure
+    have_porPre
     "Optional fluid connector for differential pressure sensor"
     annotation (Placement(transformation(extent={{90,-150},{70,-130}})));
 protected
