@@ -163,13 +163,8 @@ protected
     Qfac=Qfac)
     "Dry/wet calculations block"
     annotation (Placement(transformation(extent={{-20,-40},{60,40}})));
-  Modelica.Blocks.Sources.RealExpression cp_a1Exp(
-    final y = if allowFlowReversal1
-    then
-      fra_a1 * Medium1.specificHeatCapacityCp(state_a1_inflow)
-      + fra_b1 * Medium1.specificHeatCapacityCp(state_b1_inflow)
-    else
-      Medium1.specificHeatCapacityCp(state_a1_inflow))
+  Modelica.Blocks.Sources.RealExpression cp_a1Exp(final y=
+        Medium1.specificHeatCapacityCp(state_a1_inflow))
     "Expression for cp of air"
     annotation (Placement(transformation(extent={{-44,18},{-30,30}})));
   Modelica.Blocks.Sources.RealExpression XWat_a2Exp(
@@ -193,13 +188,8 @@ protected
       Medium2.specificEnthalpy(state_a2_inflow))
     "Specific enthalpy at port a2"
     annotation (Placement(transformation(extent={{-44,-18},{-30,-6}})));
-  Modelica.Blocks.Sources.RealExpression cp_a2Exp(
-    final y = if allowFlowReversal2
-    then
-      fra_a2 * Medium2.specificHeatCapacityCp(state_a2_inflow)
-      + fra_b2 * Medium2.specificHeatCapacityCp(state_b2_inflow)
-    else
-      Medium2.specificHeatCapacityCp(state_a2_inflow))
+  Modelica.Blocks.Sources.RealExpression cp_a2Exp(final y=
+        Medium2.specificHeatCapacityCp(state_a2_inflow))
     "Specific heat capacity at port a2"
     annotation (Placement(transformation(extent={{-44,-30},{-30,-18}})));
   Modelica.Blocks.Sources.RealExpression TIn_a1Exp(
