@@ -6,13 +6,9 @@ model RadiantHeatingWithGroundHeatTransfer
     "Water medium";
   constant Modelica.SIunits.Area AFlo=185.8
     "Floor area";
-  parameter Modelica.SIunits.HeatFlowRate QHea_flow_nominal=5000
+  parameter Modelica.SIunits.HeatFlowRate QHea_flow_nominal=12000
     "Nominal heat flow rate for heating";
   parameter Modelica.SIunits.MassFlowRate mHea_flow_nominal=QHea_flow_nominal/4200/10
-    "Design water mass flow rate for heating";
-  parameter Modelica.SIunits.HeatFlowRate QCoo_flow_nominal=-5000
-    "Nominal heat flow rate for cooling";
-  parameter Modelica.SIunits.MassFlowRate mCoo_flow_nominal=-QCoo_flow_nominal/4200/5
     "Design water mass flow rate for heating";
   parameter HeatTransfer.Data.OpaqueConstructions.Generic layFlo(
     nLay=3,
@@ -52,8 +48,7 @@ model RadiantHeatingWithGroundHeatTransfer
   Fluid.Sources.Boundary_ph pre(
     redeclare package Medium=MediumW,
     nPorts=1,
-    p(
-      displayUnit="Pa")=300000)
+    p(displayUnit="Pa")=300000)
     "Pressure boundary condition"
     annotation (Placement(transformation(extent={{72,-270},{52,-250}})));
   HeatTransfer.Sources.PrescribedHeatFlow preHeaLivFlo
@@ -70,11 +65,9 @@ model RadiantHeatingWithGroundHeatTransfer
     "Controller for heating"
     annotation (Placement(transformation(extent={{-200,-140},{-180,-120}})));
   Controls.OBC.CDL.Continuous.Sources.Constant TSetRooHea(
-    k(
-      final unit="K",
+    k(final unit="K",
       displayUnit="degC")=293.15,
-    y(
-      final unit="K",
+    y(final unit="K",
       displayUnit="degC"))
     "Room temperture set point for heating"
     annotation (Placement(transformation(extent={{-240,-140},{-220,-120}})));
@@ -190,10 +183,8 @@ equation
     __Dymola_Commands(
       file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus/Examples/SingleFamilyHouse/RadiantHeatingWithGroundHeatTransfer.mos" "Simulate and plot"),
     experiment(
-      StartTime=7776000,
-      StopTime=9504000,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Cvode"),
+      StopTime=432000,
+      Tolerance=1e-06),
     Documentation(
       info="<html>
 <p>
