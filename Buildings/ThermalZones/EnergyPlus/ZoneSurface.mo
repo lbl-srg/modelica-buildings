@@ -33,7 +33,7 @@ protected
     "Number of inputs";
   constant Integer nOut=1
     "Number of outputs";
-  constant Integer nDer=1
+  constant Integer nDer=0
     "Number of derivatives";
   constant Integer nY=nOut+nDer+1
     "Size of output vector of exchange function";
@@ -66,10 +66,18 @@ protected
     outNames={"Q_flow"},
     outUnits={"W"},
     nOut=nOut,
-    derivatives_structure={{1,1}},
+    derivatives_structure=fill(fill(nDer,2),nDer),
     nDer=nDer,
-    derivatives_delta={0.1})
+    derivatives_delta=fill(0,nDer))
     "Class to communicate with EnergyPlus";
+  //////////
+  // The derivative structure was:
+  //  derivatives_structure={{1,1}},
+  //  nDer=nDer,
+  //  derivatives_delta={0.1
+  // This has been removed due to numerical noise,
+  // see https://github.com/lbl-srg/modelica-buildings/issues/2358#issuecomment-819578850
+  //////////
   Real yEP[nY]
     "Output of exchange function";
   Modelica.SIunits.Time tNext(
@@ -88,9 +96,9 @@ protected
     fixed=false,
     start=0)
     "Surface heat flow rate if T = TLast";
-  discrete Real dQ_flow_dT(
-    final unit="W/K")
-    "Derivative dQCon_flow / dT";
+//  discrete Real dQ_flow_dT(
+//    final unit="W/K")
+//    "Derivative dQCon_flow / dT";
 
 initial equation
   assert(
@@ -119,11 +127,13 @@ equation
       u={T,round(time,1E-3)},
       dummy=A);
     QLast_flow=yEP[1];
-    dQ_flow_dT=yEP[2];
-    tNext=yEP[3];
+    //dQ_flow_dT=yEP[2];
+    //tNext=yEP[3];
+    tNext=yEP[2];
     tLast=time;
   end when;
-  Q_flow=QLast_flow+(T-TLast)*dQ_flow_dT;
+  //Q_flow=QLast_flow+(T-TLast)*dQ_flow_dT;
+  Q_flow=QLast_flow;
   q_flow=Q_flow/A;
   nObj=synBui.synchronize.done;
   annotation (

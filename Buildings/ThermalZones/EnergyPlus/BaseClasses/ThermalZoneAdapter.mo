@@ -84,7 +84,7 @@ protected
     "Number of inputs";
   constant Integer nOut=4
     "Number of outputs";
-  constant Integer nDer=1
+  constant Integer nDer=0
     "Number of derivatives";
   constant Integer nY=nOut+nDer+1
     "Size of output vector of exchange function";
@@ -120,10 +120,18 @@ protected
     outNames={"TRad","QConSen_flow","QLat_flow","QPeo_flow"},
     outUnits={"K","W","W","W"},
     nOut=nOut,
-    derivatives_structure={{2,1}},
+    derivatives_structure=fill(fill(nDer,2),nDer),
     nDer=nDer,
-    derivatives_delta={0.1})
+    derivatives_delta=fill(0,nDer))
     "Class to communicate with EnergyPlus";
+  //////////
+  // The derivative structure was:
+  //     derivatives_structure={{2,1}},
+  //  nDer=nDer,
+  //  derivatives_delta={0.1}
+  // This has been removed due to numerical noise,
+  // see https://github.com/lbl-srg/modelica-buildings/issues/2358#issuecomment-819578850
+  //////////
   parameter Modelica.SIunits.Time startTime(
     fixed=false)
     "Simulation start time";
@@ -148,15 +156,13 @@ protected
     "Time averaged inlet temperature";
   discrete Modelica.SIunits.Temperature TRooLast
     "Room air temperature at last sampling";
-  discrete Real dQCon_flow_dT(
-    final unit="W/K")
-    "Derivative dQCon_flow / dT";
+//  discrete Real dQCon_flow_dT(
+//    final unit="W/K")
+//    "Derivative dQCon_flow / dT";
   discrete Modelica.SIunits.HeatFlowRate QConLast_flow(
     fixed=false,
     start=0)
     "Convective sensible heat to be added to zone air if T = TRooLast";
-  Modelica.SIunits.TemperatureDifference dTLast
-    "Difference current room air temperature minus room air temperature at the last synchronization";
   function round
     input Real u;
     input Real accuracy;
@@ -233,12 +239,13 @@ equation
     QConLast_flow=yEP[2];
     QLat_flow=yEP[3];
     QPeo_flow=yEP[4];
-    dQCon_flow_dT=yEP[5];
-    tNext=yEP[6];
+    //dQCon_flow_dT=yEP[5];
+    //tNext=yEP[6];
+    tNext=yEP[5];
     tLast=time;
   end when;
-  dTLast = T-TRooLast;
-  QCon_flow=QConLast_flow+dTLast*dQCon_flow_dT;
+  //QCon_flow=QConLast_flow+(T-TRooLast)*dQCon_flow_dT;
+  QCon_flow=QConLast_flow;
   synBui.synchronize.done=nObj;
   annotation (
     defaultComponentName="fmuZon",
