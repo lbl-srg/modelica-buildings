@@ -155,6 +155,8 @@ protected
     fixed=false,
     start=0)
     "Convective sensible heat to be added to zone air if T = TRooLast";
+  Modelica.SIunits.TemperatureDifference dTLast
+    "Difference current room air temperature minus room air temperature at the last synchronization";
   function round
     input Real u;
     input Real accuracy;
@@ -235,7 +237,8 @@ equation
     tNext=yEP[6];
     tLast=time;
   end when;
-  QCon_flow=QConLast_flow+(T-TRooLast)*dQCon_flow_dT;
+  dTLast = T-TRooLast;
+  QCon_flow=QConLast_flow+dTLast*dQCon_flow_dT;
   synBui.synchronize.done=nObj;
   annotation (
     defaultComponentName="fmuZon",
