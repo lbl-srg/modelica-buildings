@@ -26,7 +26,7 @@ model BaseNoEquipment
       nPorts=1)
     annotation (Placement(transformation(extent={{80,-10},{60,10}})));
   replaceable UserProject.TerminalUnits.BaseNoEquipment ter
-    constrainedby Buildings.Templates.TerminalUnits.VAVReheat(
+    constrainedby Buildings.Templates.TerminalUnits.VAVBox(
       redeclare final package MediumAir = MediumAir,
       redeclare final package MediumHea = MediumHea)
     "Terminal unit"

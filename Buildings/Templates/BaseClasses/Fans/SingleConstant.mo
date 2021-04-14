@@ -20,31 +20,31 @@ model SingleConstant "Single fan - Constant speed"
         rotation=-90,
         origin={0,30})));
   Modelica.Blocks.Routing.BooleanPassThrough yFanSup if
-                                                       braStr=="Supply"
+                                                       locStr=="Supply"
     "Supply fan start/stop" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-60,70})));
   Modelica.Blocks.Routing.BooleanPassThrough yFanRet if
-                                                       braStr=="Return"
+                                                       locStr=="Return"
     "Return fan start/stop" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={60,70})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold evaSta(t=1E-2, h=
-        0.5E-2) if                                               braStr=="Supply"
+        0.5E-2) if                                               locStr=="Supply"
     "Evaluate fan status" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={0,-30})));
   Modelica.Blocks.Routing.BooleanPassThrough yFanSup_actual if
-                                                    braStr=="Supply"
+                                                    locStr=="Supply"
     "Supply fan status" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-20,-70})));
   Modelica.Blocks.Routing.BooleanPassThrough yFanRet_actual if
-                                                    braStr=="Return"
+                                                    locStr=="Return"
     "Return fan status" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,

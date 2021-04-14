@@ -1,13 +1,11 @@
 within Buildings.Templates.TerminalUnits.Validation.UserProject.TerminalUnits;
 model VAVReheatCoilWater
-  extends Buildings.Templates.TerminalUnits.VAVReheat(
-    redeclare BaseClasses.Dampers.PressureIndependent damVAV
-      "Pressure independent damper",
-    redeclare BaseClasses.Coils.WaterBased coiReh(redeclare
+  extends Buildings.Templates.TerminalUnits.VAVBox(redeclare
+      Templates.BaseClasses.Coils.WaterBasedHeating coiReh(redeclare
         Buildings.Templates.BaseClasses.Coils.Actuators.TwoWayValve act,
         redeclare
-        Buildings.Templates.BaseClasses.Coils.HeatExchangers.DryCoilEffectivenessNTU
-        hex),
+        Templates.BaseClasses.Coils.HeatExchangers.DryCoilEffectivenessNTU hex
+        "Epsilon-NTU heat exchanger model") "Water-based",
     id="Box_1");
   annotation (
     defaultComponentName="ter",

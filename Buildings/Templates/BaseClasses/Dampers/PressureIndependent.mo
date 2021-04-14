@@ -4,8 +4,8 @@ model PressureIndependent
     final typ=Types.Damper.PressureIndependent);
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=
-    if braStr=="Terminal" then
-    dat.getReal(varName=id + ".Supply air mass flow rate")
+    if locStr=="Terminal" then
+    dat.getReal(varName=id + ".Discharge air mass flow rate")
     else 0
     "Mass flow rate"
     annotation (Dialog(group="Nominal condition"), Evaluate=true);

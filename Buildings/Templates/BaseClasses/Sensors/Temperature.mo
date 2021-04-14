@@ -10,7 +10,7 @@ model Temperature
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Blocks.Routing.RealPassThrough THea if
     Modelica.Utilities.Strings.find(insNam, "THea")<>0 or
-    Modelica.Utilities.Strings.find(insNam, "coiHea")<>0
+    Modelica.Utilities.Strings.find(insNam, "coiHea.TLvg")<>0
     "Pass through to connect with specific control signal" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -18,7 +18,7 @@ model Temperature
         origin={-54,50})));
   Modelica.Blocks.Routing.RealPassThrough TCoo if
     Modelica.Utilities.Strings.find(insNam, "TCoo")<>0 or
-    Modelica.Utilities.Strings.find(insNam, "coiCoo")<>0
+    Modelica.Utilities.Strings.find(insNam, "coiCoo.TLvg")<>0
     "Pass through to connect with specific control signal" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -46,15 +46,17 @@ model Temperature
         rotation=90,
         origin={-80,50})));
   Modelica.Blocks.Routing.RealPassThrough TRet if
-    Modelica.Utilities.Strings.find(insNam, "TSup")<>0
+    Modelica.Utilities.Strings.find(insNam, "TRet")<>0
     "Pass through to connect with specific control signal" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={82,50})));
   Modelica.Blocks.Routing.RealPassThrough TDis if
-    Modelica.Utilities.Strings.find(insNam, "TDis")<>0
-    "Pass through to connect with specific control signal" annotation (
+    Modelica.Utilities.Strings.find(insNam, "TDis")<>0 or
+    Modelica.Utilities.Strings.find(insNam, "coiReh.TLvg")<>0
+    "Pass through to connect with specific control signal"
+    annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,

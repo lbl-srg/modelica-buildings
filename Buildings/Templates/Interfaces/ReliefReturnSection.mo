@@ -19,7 +19,10 @@ partial model ReliefReturnSection "Exhaust/relief/return section"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Boolean have_recHea
     "Set to true in case of heat recovery"
-    annotation (Evaluate=true, Dialog(group="Configuration"));
+    annotation (Evaluate=true,
+      Dialog(
+        group="Configuration",
+        enable=typ<>Templates.Types.ReliefReturn.NoRelief));
 
   outer parameter String id
     "System identifier";
@@ -39,7 +42,8 @@ partial model ReliefReturnSection "Exhaust/relief/return section"
   Modelica.Fluid.Interfaces.FluidPort_b port_b(
     redeclare final package Medium = MediumAir,
     m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
-    h_outflow(start=MediumAir.h_default, nominal=MediumAir.h_default))
+    h_outflow(start=MediumAir.h_default, nominal=MediumAir.h_default)) if
+    typ<>Templates.Types.ReliefReturn.NoRelief
     "Fluid connector b (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{-170,-10},{-190,10}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_aHeaRec(
@@ -67,8 +71,9 @@ partial model ReliefReturnSection "Exhaust/relief/return section"
         origin={0,140})));
 
   BaseClasses.PassThroughFluid pas(
-    redeclare final package Medium = MediumAir) if not have_recHea
-     "Direct pass through (conditional)"
+    redeclare final package Medium = MediumAir) if not have_recHea and
+    typ<>Types.ReliefReturn.NoRelief
+    "Direct pass through (conditional)"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
 
   Modelica.Fluid.Interfaces.FluidPort_b port_bRet(
@@ -90,7 +95,8 @@ protected
   Modelica.Fluid.Interfaces.FluidPort_a port_aIns(
     redeclare final package Medium = MediumAir,
     m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
-    h_outflow(start=MediumAir.h_default, nominal=MediumAir.h_default))
+    h_outflow(start=MediumAir.h_default, nominal=MediumAir.h_default)) if
+    typ<>Templates.Types.ReliefReturn.NoRelief
     "Inside fluid connector a (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
 equation

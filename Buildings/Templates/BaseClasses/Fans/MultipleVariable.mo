@@ -20,14 +20,14 @@ model MultipleVariable
       Placement(transformation(extent={{-10,10},{10,30}})));
 
   Modelica.Blocks.Routing.RealPassThrough ySpeFanSup if
-                                                     braStr=="Supply"
+                                                     locStr=="Supply"
     "Pass through to connect with specific control signal" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-20,80})));
   Modelica.Blocks.Routing.RealPassThrough ySpeFanRet if
-                                                    braStr=="Return"
+                                                    locStr=="Return"
     "Pass through to connect with specific control signal" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -57,24 +57,24 @@ model MultipleVariable
     "Zero flow boundary condition"
     annotation (Placement(transformation(extent={{54,-30},{34,-10}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal yFanSup if
-                                                                 braStr=="Supply"
+                                                                 locStr=="Supply"
     "Supply fan start/stop" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-46,80})));
   Buildings.Controls.OBC.CDL.Continuous.Product conSup1 if
-                                                          braStr=="Supply"
+                                                          locStr=="Supply"
     "Resulting control signal" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-40,50})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal yFanRet if
-                                                                 braStr=="Return"
+                                                                 locStr=="Return"
     "Return fan start/stop" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={46,80})));
-  Buildings.Controls.OBC.CDL.Continuous.Product conRet1 if braStr=="Return"
+  Buildings.Controls.OBC.CDL.Continuous.Product conRet1 if locStr=="Return"
     "Resulting control signal"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -90,19 +90,19 @@ model MultipleVariable
         origin={0,-50})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold evaSta(
     t=1E-2,
-    h=0.5E-2) if braStr=="Supply"
+    h=0.5E-2) if locStr=="Supply"
     "Evaluate fan status" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={0,-80})));
   Modelica.Blocks.Routing.BooleanPassThrough yFanSup_actual if
-                                                       braStr=="Supply"
+                                                       locStr=="Supply"
     "Supply fan status" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={-40,-80})));
   Modelica.Blocks.Routing.BooleanPassThrough yFanRet_actual if
-                                                       braStr=="Return"
+                                                       locStr=="Return"
     "Return fan status" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,

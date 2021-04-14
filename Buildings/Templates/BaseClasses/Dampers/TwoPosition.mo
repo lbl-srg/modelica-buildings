@@ -4,20 +4,20 @@ model TwoPosition
     final typ=Types.Damper.TwoPosition);
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=
-    if braStr=="Outdoor air" then
+    if locStr=="Outdoor air" then
     dat.getReal(varName=id + ".Supply air mass flow rate")
-    elseif braStr=="Minimum outdoor air" then
+    elseif locStr=="Minimum outdoor air" then
     dat.getReal(varName=id + ".Economizer.Minimum outdoor air mass flow rate")
-    elseif braStr=="Return air" then
+    elseif locStr=="Return air" then
     dat.getReal(varName=id + ".Return air mass flow rate")
-    elseif braStr=="Relief air" then
+    elseif locStr=="Relief air" then
     dat.getReal(varName=id + ".Return air mass flow rate")
     else 0
     "Mass flow rate"
     annotation (Dialog(group="Nominal condition"), Evaluate=true);
   parameter Modelica.SIunits.PressureDifference dpDamper_nominal(
     min=0, displayUnit="Pa")=
-    dat.getReal(varName=id + ".Economizer." + braStr + " damper pressure drop")
+    dat.getReal(varName=id + ".Economizer." + locStr + " damper pressure drop")
     "Pressure drop of open damper"
     annotation (Dialog(group="Nominal condition"));
 
@@ -28,14 +28,14 @@ model TwoPosition
     "Exponential damper"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Blocks.Routing.BooleanPassThrough yDamOutMin if
-    braStr=="Minimum outdoor air"
+    locStr=="Minimum outdoor air"
     "Pass through to connect with specific control signal" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-40,70})));
   Modelica.Blocks.Routing.BooleanPassThrough yDamRel if
-    braStr=="Relief air"
+    locStr=="Relief air"
     "Pass through to connect with specific control signal" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -53,28 +53,28 @@ model TwoPosition
         rotation=-90,
         origin={0,-30})));
   Modelica.Blocks.Routing.BooleanPassThrough yDamOutMin_actual if
-    braStr=="Minimum outdoor air"
+    locStr=="Minimum outdoor air"
     "Pass through to connect with specific control signal" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-40,-70})));
   Modelica.Blocks.Routing.BooleanPassThrough yDamRel_actual if
-    braStr=="Relief air"
+    locStr=="Relief air"
     "Pass through to connect with specific control signal" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={40,-70})));
   Modelica.Blocks.Routing.BooleanPassThrough yDamOut if
-    braStr=="Outdoor air"
+    locStr=="Outdoor air"
     "Pass through to connect with specific control signal" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={0,70})));
   Modelica.Blocks.Routing.BooleanPassThrough yDamOut_actual if
-    braStr=="Outdoor air"
+    locStr=="Outdoor air"
     "Pass through to connect with specific control signal" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},

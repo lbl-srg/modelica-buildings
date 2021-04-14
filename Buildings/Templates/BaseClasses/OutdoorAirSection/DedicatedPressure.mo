@@ -70,4 +70,12 @@ equation
     annotation (Line(points={{10,0},{180,0}}, color={0,127,255}));
   connect(port_a, pas.port_a)
     annotation (Line(points={{-180,0},{-110,0}}, color={0,127,255}));
+  annotation (Documentation(info="<html>
+<p>
+Two classes are used depending on the type of sensor used to control the
+OA flow rate because the type of sensor conditions the type of 
+damper: two-position in case of differential pressure, modulated in case
+of AFMS. 
+</p>
+</html>"));
 end DedicatedPressure;

@@ -6,7 +6,7 @@ partial model Damper
 
   parameter Types.Damper typ "Equipment type"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  final parameter String braStr=
+  final parameter String locStr=
     if Modelica.Utilities.Strings.length(insNam) -
       Modelica.Utilities.Strings.find(insNam, "damOut")==5 or
       Modelica.Utilities.Strings.find(insNam, ".damOutIso")<>0 or

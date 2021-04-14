@@ -11,14 +11,14 @@ partial model Fan
       Evaluate=true,
       Dialog(
         group="Configuration",
-        enable=braStr=="Return" and typ<>Types.Fan.None));
+        enable=locStr=="Return" and typ<>Types.Fan.None));
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=if typ <> Types.Fan.None
-       then dat.getReal(varName=id + "." + braStr + " air mass flow rate")
+       then dat.getReal(varName=id + "." + locStr + " air mass flow rate")
        else 0 "Mass flow rate" annotation (Dialog(group="Nominal condition",
         enable=typ <> Types.Fan.None));
   parameter Modelica.SIunits.PressureDifference dp_nominal=if typ <> Types.Fan.None
-       then dat.getReal(varName=id + "." + braStr + " fan.Total pressure rise")
+       then dat.getReal(varName=id + "." + locStr + " fan.Total pressure rise")
        else 0 "Total pressure rise" annotation (Dialog(group=
           "Nominal condition", enable=typ <> Types.Fan.None));
 
@@ -33,7 +33,7 @@ partial model Fan
       Dialog(enable=typ <> Types.Fan.None),
       Placement(transformation(extent={{-90,-88},{-70,-68}})));
 
-  final parameter String braStr=
+  final parameter String locStr=
     if Modelica.Utilities.Strings.find(insNam, "fanSup")<>0 then "Supply"
     elseif Modelica.Utilities.Strings.find(insNam, "fanRe")<>0 then "Return"
     else "Undefined"

@@ -1,6 +1,7 @@
 within Buildings.Templates.AHUs.Controls;
 block Guideline36 "Guideline 36 VAV single duct controller"
-  extends Buildings.Templates.BaseClasses.Controls.AHUs.SupplyReturn;
+  extends Buildings.Templates.BaseClasses.Controls.AHUs.SingleDuct(
+    final typ=Templates.Types.ControllerAHU.Guideline36);
 
   /* 
   *  Parameters assigned from external file

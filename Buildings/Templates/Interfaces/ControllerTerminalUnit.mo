@@ -1,6 +1,10 @@
 within Buildings.Templates.Interfaces;
 partial block ControllerTerminalUnit
 
+  parameter Types.ControllerTU typ
+    "Type of controller"
+    annotation (Evaluate=true, Dialog(group="Configuration"));
+
   outer parameter String id
     "System identifier";
   outer parameter ExternData.JSONFile dat

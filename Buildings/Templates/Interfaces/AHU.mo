@@ -11,14 +11,13 @@ partial model AHU "Interface class for air handling unit"
   parameter Types.AHU typ
     "Type of system"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  parameter Types.Supply typSup
-    "Type of supply branch"
-    annotation (Evaluate=
-        true, Dialog(group="Configuration", enable=typ <> Types.AHU.ExhaustOnly));
-  parameter Types.Return typRet
-    "Type of return branch"
-    annotation (Evaluate=
-        true, Dialog(group="Configuration", enable=typ <> Types.AHU.SupplyOnly));
+  parameter Boolean have_porExh=typ == Types.AHU.ExhaustOnly
+    "Set to true for exhaust/relief fluid port"
+    annotation (
+      Evaluate=true,
+      Dialog(
+        group="Configuration",
+        enable=false));
 
   inner parameter String id
     annotation (
@@ -42,21 +41,19 @@ partial model AHU "Interface class for air handling unit"
           extent={{-310,-210},{-290,-190}}), iconTransformation(extent={{-210,
             -110},{-190,-90}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_Sup(
-    redeclare final package Medium =MediumAir) if typ <> Types.AHU.ExhaustOnly and
-    typSup == Types.Supply.SingleDuct
+    redeclare final package Medium =MediumAir) if typ == Types.AHU.SupplyOnly or
+    typ == Types.AHU.SingleDuct
     "Supply air" annotation (
       Placement(transformation(extent={{290,-210},{310,-190}}),
         iconTransformation(extent={{190,-110},{210,-90}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_SupCol(
-    redeclare final package Medium =MediumAir) if typ <> Types.AHU.ExhaustOnly and
-    typSup == Types.Supply.DualDuct
+    redeclare final package Medium =MediumAir) if typ == Types.AHU.DualDuct
     "Dual duct cold deck air supply"
     annotation (Placement(transformation(
           extent={{290,-250},{310,-230}}), iconTransformation(extent={{190,
             -180},{210,-160}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_SupHot(
-    redeclare final package Medium =MediumAir) if typ <> Types.AHU.ExhaustOnly and
-    typSup == Types.Supply.DualDuct
+    redeclare final package Medium =MediumAir) if typ == Types.AHU.DualDuct
     "Dual duct hot deck air supply"
     annotation (Placement(
         transformation(extent={{290,-170},{310,-150}}), iconTransformation(
@@ -67,14 +64,16 @@ partial model AHU "Interface class for air handling unit"
     annotation (Placement(transformation(extent={{290,-90},{310,-70}}),
         iconTransformation(extent={{190,90},{210,110}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_Exh(
-    redeclare final package Medium = MediumAir) if typ == Types.AHU.ExhaustOnly or (
-    typ == Types.AHU.SupplyReturn and typRet == Types.Return.WithRelief)
+    redeclare final package Medium = MediumAir) if typ <> Types.AHU.SupplyOnly and
+    have_porExh
     "Exhaust/relief air"
     annotation (Placement(transformation(
           extent={{-310,-90},{-290,-70}}), iconTransformation(extent={{-210,90},
             {-190,110}})));
 
-  BaseClasses.Connectors.BusAHU busAHU "AHU control bus" annotation (Placement(
+  BaseClasses.Connectors.BusAHU busAHU
+    "AHU control bus"
+    annotation (Placement(
         transformation(
         extent={{-20,-20},{20,20}},
         rotation=90,
@@ -84,7 +83,8 @@ partial model AHU "Interface class for air handling unit"
         origin={-199,160})));
 
   BaseClasses.Connectors.BusTerminalUnit busTer[nZon]
-    "Terminal unit control bus" annotation (Placement(transformation(
+    "Terminal unit control bus"
+    annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=-90,
         origin={300,0}), iconTransformation(
@@ -93,9 +93,7 @@ partial model AHU "Interface class for air handling unit"
         origin={198,160})));
 
     annotation (
-      Evaluate=true,
-      Dialog(group="Configuration"),
-              Icon(coordinateSystem(preserveAspectRatio=false,
+    Icon(coordinateSystem(preserveAspectRatio=false,
     extent={{-200,-200},{200,200}}), graphics={
         Text(
           extent={{-155,-218},{145,-258}},
@@ -105,7 +103,7 @@ partial model AHU "Interface class for air handling unit"
           lineColor={0,0,255},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid)}),
-                                       Diagram(
+    Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-300,-280},{300,
             280}}), graphics={
         Rectangle(

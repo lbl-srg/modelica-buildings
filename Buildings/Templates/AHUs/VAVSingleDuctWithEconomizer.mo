@@ -1,9 +1,8 @@
 within Buildings.Templates.AHUs;
-model VAVSingleDuctWithEconomizer "VAV single duct with relief"
+model VAVSingleDuctWithEconomizer "VAV single duct with air economizer"
   extends Buildings.Templates.Interfaces.AHU(
-    final typ=Buildings.Templates.Types.AHU.SupplyReturn,
-    final typSup=Buildings.Templates.Types.Supply.SingleDuct,
-    final typRet=Buildings.Templates.Types.Return.WithRelief);
+    final typ=Buildings.Templates.Types.AHU.SingleDuct,
+    final have_porExh=secRel.typ<>Templates.Types.ReliefReturn.NoRelief);
 
   replaceable package MediumCoo=Buildings.Media.Water
     constrainedby Modelica.Media.Interfaces.PartialMedium
@@ -40,13 +39,21 @@ model VAVSingleDuctWithEconomizer "VAV single duct with relief"
         group="Outdoor air section"),
       Placement(transformation(extent={{-206,-214},{-170,-186}})));
 
-  inner replaceable BaseClasses.ReliefReturnSection.NoEconomizer secRel
+  inner replaceable BaseClasses.ReliefReturnSection.ReturnFan secRel
     constrainedby Templates.Interfaces.ReliefReturnSection(
       redeclare final package MediumAir = MediumAir,
       final have_recHea=false)
     "Exhaust/relief/return section"
     annotation (
-      choicesAllMatching=true,
+      choices(
+        choice(redeclare BaseClasses.ReliefReturnSection.ReturnFan secRel
+          "Return fan - Modulated relief damper"),
+        choice(redeclare BaseClasses.ReliefReturnSection.ReliefFan secRel
+          "Relief fan - Two-position relief damper"),
+        choice(redeclare BaseClasses.ReliefReturnSection.ReliefDamper secRel
+          "No relief fan - Modulated relief damper"),
+        choice(redeclare BaseClasses.ReliefReturnSection.NoRelief secRel
+          "No relief branch")),
       Dialog(
         group="Exhaust/relief/return section"),
       Placement(transformation(extent={{-138,-94},{-102,-66}})));

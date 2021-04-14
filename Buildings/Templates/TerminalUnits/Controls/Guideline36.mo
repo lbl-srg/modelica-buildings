@@ -1,6 +1,7 @@
 within Buildings.Templates.TerminalUnits.Controls;
 block Guideline36
-  extends Buildings.Templates.BaseClasses.Controls.TerminalUnits.SingleDuct;
+  extends Buildings.Templates.BaseClasses.Controls.TerminalUnits.SingleDuct(
+    final typ=Templates.Types.ControllerTU.Guideline36);
 
   /* 
   *  Parameters assigned from external file
@@ -10,7 +11,7 @@ block Guideline36
     dat.getReal(varName=id + ".Zone.Floor area")
     "Zone floor area";
   parameter Modelica.SIunits.VolumeFlowRate V_flow_nominal=
-    dat.getReal(varName=id + ".Supply air mass flow rate") / 1.2
+    dat.getReal(varName=id + ".Discharge air mass flow rate") / 1.2
     "Volume flow rate"
     annotation (Dialog(group="Nominal condition"));
 

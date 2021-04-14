@@ -1,6 +1,7 @@
 within Buildings.Templates.AHUs.Controls;
 block OpenLoop "Open loop controller (output signals only)"
-  extends Buildings.Templates.BaseClasses.Controls.AHUs.SupplyReturn;
+  extends Buildings.Templates.BaseClasses.Controls.AHUs.SingleDuct(
+    final typ=Templates.Types.ControllerAHU.OpenLoop);
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yDamOut(k=1) if
     secOut.typDamOut==Buildings.Templates.Types.Damper.Modulated

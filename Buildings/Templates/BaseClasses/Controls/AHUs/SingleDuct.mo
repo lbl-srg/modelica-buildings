@@ -1,5 +1,5 @@
 within Buildings.Templates.BaseClasses.Controls.AHUs;
-partial block SupplyReturn "Base class for controllers for AHU with supply and return"
+partial block SingleDuct "Base class for controllers of single duct AHU"
   extends Buildings.Templates.Interfaces.ControllerAHU;
 
   outer replaceable Buildings.Templates.Interfaces.OutdoorAirSection secOut
@@ -29,4 +29,4 @@ partial block SupplyReturn "Base class for controllers for AHU with supply and r
     "Type of return fan"
     annotation (Evaluate=true);
 
-end SupplyReturn;
+end SingleDuct;

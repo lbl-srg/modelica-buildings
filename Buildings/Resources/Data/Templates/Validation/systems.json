@@ -1,6 +1,6 @@
 {
     "Box_1": {
-        "Supply air mass flow rate": 1,
+        "Discharge air mass flow rate": 1,
         "VAV damper pressure drop": 10,
         "Reheat coil": {
             "Capacity": 10000,

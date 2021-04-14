@@ -1,6 +1,6 @@
 within Buildings.Templates.AHUs.Validation.UserProject.AHUs;
 model WrapperFans
-  extends Buildings.Templates.AHUs.VAVSingleDuct_wrapper(
+  extends Buildings.Templates.AHUs.Obsolete.VAVSingleDuct_wrapper(
     typRel=Buildings.Templates.Types.ReliefReturn.ReturnFanPressure,
     typFanSupPos=Buildings.Templates.Types.FanSupplyPosition.DrawThrough,
     typFanSup=Buildings.Templates.Types.Fan.SingleVariable,

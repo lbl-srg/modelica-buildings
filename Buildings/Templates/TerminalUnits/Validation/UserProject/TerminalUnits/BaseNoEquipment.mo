@@ -1,6 +1,6 @@
 within Buildings.Templates.TerminalUnits.Validation.UserProject.TerminalUnits;
 model BaseNoEquipment
-  extends Buildings.Templates.TerminalUnits.VAVReheat(
+  extends Buildings.Templates.TerminalUnits.VAVBox(
     id="Box_1");
   annotation (
     defaultComponentName="ter",

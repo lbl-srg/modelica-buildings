@@ -18,8 +18,23 @@ package Types "AHU types"
       "Supply only system",
       ExhaustOnly
       "Exhaust only system",
-      SupplyReturn
-      "Supply and return system") "Enumeration to configure the AHU";
+      DualDuct
+      "Dual duct system with supply and return",
+      SingleDuct
+      "Single duct system with supply and return")
+      "Enumeration to configure the AHU";
+  type ControllerAHU = enumeration(
+      Guideline36
+      "Guideline 36 control sequence",
+      OpenLoop
+      "Open loop")
+      "Enumeration to configure the AHU controller";
+  type ControllerTU = enumeration(
+      Guideline36
+      "Guideline 36 control sequence",
+      OpenLoop
+      "Open loop")
+      "Enumeration to configure the terminal unit controller";
   type Coil = enumeration(
       DirectExpansion
       "Direct expansion",
@@ -82,12 +97,6 @@ package Types "AHU types"
       MultipleVariable
       "Multiple fans (identical) - Variable speed")
     "Enumeration to configure the fan";
-  type FanSupplyPosition = enumeration(
-      BlowThrough
-      "Blow-through (upstream position)",
-      DrawThrough
-      "Draw-through (downstream position)")
-    "Enumeration to configure the supply fan position";
   type OutdoorAir = enumeration(
       NoEconomizer
       "No economizer",
@@ -101,6 +110,8 @@ package Types "AHU types"
   type ReliefReturn = enumeration(
       NoEconomizer
       "No economizer",
+      NoRelief
+      "No relief branch",
       Barometric
       "No relief fan - Barometric relief damper",
       ReliefDamper
@@ -110,12 +121,6 @@ package Types "AHU types"
       ReturnFan
       "Return fan - Modulated relief damper")
     "Enumeration to configure the exhaust/relief/return section";
-  type Return = enumeration(
-      NoRelief
-      "No air relief",
-      WithRelief
-      "With air relief")
-    "Enumeration to configure the return/exhaust branch";
   type ReturnFanControlSensor = enumeration(
       None
       "Not applicable",
@@ -142,12 +147,6 @@ package Types "AHU types"
       VolumeFlowRate
       "Volume flow rate")
     "Enumeration to configure the sensor";
-  type Supply = enumeration(
-      SingleDuct
-      "Single duct system",
-      DualDuct
-      "Dual duct system")
-    "Enumeration to configure the supply branch";
   type TerminalUnit = enumeration(
       SingleDuct
       "Single duct system",

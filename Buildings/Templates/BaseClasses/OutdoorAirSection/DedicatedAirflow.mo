@@ -15,7 +15,7 @@ model DedicatedAirflow
           rotation=0,
           origin={0,0})));
 
-  Dampers.TwoPosition damOutMin(
+  Dampers.Modulated damOutMin(
     redeclare final package Medium = MediumAir)
     "Minimum outdoor air damper"
     annotation (
@@ -78,4 +78,12 @@ equation
     annotation (Line(points={{40,60},{50,60}}, color={0,127,255}));
   connect(port_aIns, damOutMin.port_a) annotation (Line(points={{-80,0},{-20,0},
           {-20,60},{20,60}}, color={0,127,255}));
+  annotation (Documentation(info="<html>
+<p>
+Two classes are used depending on the type of sensor used to control the
+OA flow rate because the type of sensor conditions the type of 
+damper: two-position in case of differential pressure, modulated in case
+of AFMS. 
+</p>
+</html>"));
 end DedicatedAirflow;

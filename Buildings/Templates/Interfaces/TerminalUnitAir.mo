@@ -18,32 +18,33 @@ partial model TerminalUnitAir
     redeclare final package Medium =MediumAir) if typ <> Types.TerminalUnit.DualDuct
     "Supply air"
     annotation (
-      Placement(transformation(extent={{-310,-150},{-290,-130}}),
+      Placement(transformation(extent={{-310,-210},{-290,-190}}),
         iconTransformation(extent={{-210,-10},{-190,10}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_SupCol(
     redeclare final package Medium =MediumAir) if typ == Types.TerminalUnit.DualDuct
     "Dual duct cold deck air supply"
     annotation (Placement(transformation(
-          extent={{-310,-190},{-290,-170}}), iconTransformation(extent={{-210,-80},
-            {-190,-60}})));
+          extent={{-310,-250},{-290,-230}}), iconTransformation(extent={{-210,-110},
+            {-190,-90}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_SupHot(
     redeclare final package Medium =MediumAir) if typ == Types.TerminalUnit.DualDuct
     "Dual duct hot deck air supply"
     annotation (Placement(
-        transformation(extent={{-310,-110},{-290,-90}}),iconTransformation(
-          extent={{-210,60},{-190,80}})));
+        transformation(extent={{-310,-170},{-290,-150}}),
+                                                        iconTransformation(
+          extent={{-210,90},{-190,110}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_Dis(
     redeclare final package Medium =MediumAir)
     "Discharge air"
-    annotation (Placement(transformation(extent={{290,-150},{310,-130}}),
+    annotation (Placement(transformation(extent={{290,-210},{310,-190}}),
         iconTransformation(extent={{190,-10},{210,10}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_Ret(
     redeclare final package Medium =MediumAir) if typ == Types.TerminalUnit.FanPowered
     or typ == Types.TerminalUnit.Induction
     "Return air"
     annotation (Placement(
-        transformation(extent={{-310,-230},{-290,-210}}), iconTransformation(
-          extent={{-210,-150},{-190,-130}})));
+        transformation(extent={{290,-90},{310,-70}}),     iconTransformation(
+          extent={{190,90},{210,110}})));
 
   BaseClasses.Connectors.BusTerminalUnit busTer
     "Terminal unit control bus"

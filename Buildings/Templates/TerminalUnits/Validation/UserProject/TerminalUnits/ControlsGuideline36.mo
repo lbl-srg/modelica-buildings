@@ -1,15 +1,10 @@
 within Buildings.Templates.TerminalUnits.Validation.UserProject.TerminalUnits;
 model ControlsGuideline36
-  extends Buildings.Templates.TerminalUnits.VAVReheat(
-    redeclare BaseClasses.Sensors.Temperature TDis "Temperature sensor",
+  extends Buildings.Templates.TerminalUnits.VAVBox(
     redeclare Controls.Guideline36 conTer,
-    redeclare BaseClasses.Dampers.PressureIndependent damVAV
-      "Pressure independent damper",
-    redeclare BaseClasses.Coils.WaterBased coiReh(redeclare
-        Buildings.Templates.BaseClasses.Coils.Actuators.TwoWayValve act,
-        redeclare
-        Buildings.Templates.BaseClasses.Coils.HeatExchangers.DryCoilEffectivenessNTU
-        hex),
+    redeclare Templates.BaseClasses.Coils.WaterBasedHeating coiReh(redeclare
+        Buildings.Templates.BaseClasses.Coils.Actuators.TwoWayValve act)
+      "Water-based",
     id="Box_1");
   annotation (
     defaultComponentName="ter",
