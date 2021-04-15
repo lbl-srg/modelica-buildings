@@ -260,9 +260,8 @@ void setValueReferences(FMUBuilding* bui){
   return;
 }
 
-void generateFMU(FMUBuilding* bui, const char* modelicaBuildingsJsonFile){
+int generateFMU(FMUBuilding* bui, const char* spawnExe, bool returnOnError, const char* modelicaBuildingsJsonFile){
   /* Generate the FMU */
-  char* cmd;
   char* optionFlags;
   char* outputFlag;
   char* createFlag;
@@ -280,35 +279,38 @@ void generateFMU(FMUBuilding* bui, const char* modelicaBuildingsJsonFile){
   if( access(modelicaBuildingsJsonFile, F_OK ) == -1 ) {
     SpawnFormatError("Requested to use json file '%s' which does not exist.", modelicaBuildingsJsonFile);
   }
-#ifdef _WIN32 /* Win32 or Win64 */
-  cmd = "/Resources/bin/spawn-win64/bin/spawn.exe";
-#elif __APPLE__
-  cmd = "/Resources/bin/spawn-darwin64/bin/spawn";
-#else
-  cmd = "/Resources/bin/spawn-linux64/bin/spawn";
-#endif
+
   optionFlags = " --no-compress "; /* Flag for command */
   outputFlag = " --output-path "; /* Flag for command */
   createFlag = " --create "; /* Flag for command */
-  len = strlen(bui->buildingsLibraryRoot) + strlen(cmd) + strlen(optionFlags)
+  /* Build maximum length of command, which uses cmd1 rather than cmd2. */
+  len = strlen(bui->buildingsLibraryRoot) + strlen(spawnExe) + strlen(optionFlags)
     + strlen(outputFlag) + strlen("\"") + strlen(bui->fmuAbsPat) + strlen("\"")
     + strlen(createFlag) + strlen("\"") + strlen(modelicaBuildingsJsonFile) + strlen("\"")
     + 1;
 
   mallocString(len, "Failed to allocate memory in generateFMU().", &fulCmd, SpawnFormatError);
   memset(fulCmd, '\0', len);
+
+  /* Build command with full path */
   strcpy(fulCmd, bui->buildingsLibraryRoot); /* This is for example /mtn/shared/Buildings */
-  strcat(fulCmd, cmd);
+  strcat(fulCmd, spawnExe);
   /* Check if the executable exists
      Linux return 0, and Windows returns 2 if file does not exist */
   if( access(fulCmd, F_OK ) != 0 ) {
-    SpawnFormatError("Executable '%s' does not exist: '%s'.", fulCmd, strerror(errno));
+    if (returnOnError)
+      return 1;
+    else
+      SpawnFormatError("Executable '%s' does not exist: '%s'.", fulCmd, strerror(errno));
   }
   /* Make sure the file is executable */
   /* Windows has no mode X_OK = 1, see https://docs.microsoft.com/en-us/cpp/c-runtime-library/reference/access-waccess?view=vs-2019 */
 #ifndef _WIN32
   if( access(fulCmd, X_OK ) != 0 ) {
-    SpawnFormatError("File '%s' exists, but fails to have executable flag set: '%s.", fulCmd, strerror(errno));
+    if (returnOnError)
+      return 1;
+    else
+      SpawnFormatError("File '%s' exists, but fails to have executable flag set: '%s.", fulCmd, strerror(errno));
   }
 #endif
   /* Continue building the command line */
@@ -329,12 +331,20 @@ void generateFMU(FMUBuilding* bui, const char* modelicaBuildingsJsonFile){
   retVal = system(fulCmd);
   /* Check if generated FMU indeed exists */
   if( access( bui->fmuAbsPat, F_OK ) != 0 ) {
-    SpawnFormatError("%.3f %s: Executing '%s' failed to generate fmu '%s'.", bui->time, bui->modelicaNameBuilding, fulCmd, bui->fmuAbsPat);
+    if (returnOnError)
+      return 1;
+    else
+       SpawnFormatError("%.3f %s: Executing '%s' failed to generate fmu '%s'.", bui->time, bui->modelicaNameBuilding, fulCmd, bui->fmuAbsPat);
   }
   if (retVal != 0){
-    SpawnFormatError("%.3f %s: Generating FMU returned value %d, but FMU exists.\n", bui->time, bui->modelicaNameBuilding, retVal);
+    if (returnOnError)
+      return 1;
+    else
+      SpawnFormatError("%.3f %s: Generating FMU returned value %d, but FMU exists.\n", bui->time, bui->modelicaNameBuilding, retVal);
+
   }
   free(fulCmd);
+  return 0;
 }
 
 
@@ -612,6 +622,8 @@ void generateAndInstantiateBuilding(FMUBuilding* bui){
      Allocate memory and load the fmu.
   */
   char* modelicaBuildingsJsonFile;
+  char* spawnExe1;
+  char* spawnExe2;
 
   void (*SpawnFormatMessage)(const char *string, ...) = bui->SpawnFormatMessage;
   void (*SpawnFormatError)(const char *string, ...) = bui->SpawnFormatError;
@@ -640,8 +652,33 @@ void generateAndInstantiateBuilding(FMUBuilding* bui){
         bui->time, bui->modelicaNameBuilding, bui->precompiledFMUAbsPat, bui->fmuAbsPat);
     copyBinaryFile(bui->precompiledFMUAbsPat, bui->fmuAbsPat, SpawnFormatError);
   }
-  else
-    generateFMU(bui, modelicaBuildingsJsonFile);
+  else{
+    /* Try to generate FMU with absolute path */
+#ifdef _WIN32 /* Win32 or Win64 */
+    spawnExe1 = "/Resources/bin/spawn-win64/bin/spawn.exe";
+    spawnExe2 = "spawn.exe";
+#elif __APPLE__
+    spawnExe1 = "/Resources/bin/spawn-darwin64/bin/spawn";
+    spawnExe2 = "spawn";
+#else
+    spawnExe1 = "/Resources/bin/spawn-linux64/bin/spawn";
+    spawnExe2 = "spawn";
+#endif
+
+    if (generateFMU(bui, spawnExe1, true, modelicaBuildingsJsonFile) != 0){
+      /* Generating FMU failed, try if Spawn is on PATH */
+      SpawnFormatMessage("Fixme: This needs to guard against old spawn versions. Maybe put hash into json file?");
+      if (generateFMU(bui, spawnExe2, true, modelicaBuildingsJsonFile) != 0){
+        SpawnFormatMessage(
+          "%.3f %s: Attempted to generate FMU with absolute path to spawn and with assuming spawn to be on path. Both failed.",
+          bui->time, bui->modelicaNameBuilding);
+        /* Generating FMU also failed with assuming Spawn in on PATH.
+           Run command once more to generate error message.
+           This will call SpawnFormatError with the appropriate message. */
+        generateFMU(bui, spawnExe2, false, modelicaBuildingsJsonFile);
+      }
+    }
+  }
 
   free(modelicaBuildingsJsonFile);
 

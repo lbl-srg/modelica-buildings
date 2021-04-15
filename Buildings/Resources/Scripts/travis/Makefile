@@ -33,6 +33,11 @@ test-bestest:
 	git status --porcelain $(ROOT)/Buildings/Resources/Data/BoundaryConditions/Validation/BESTEST
 	git diff --exit-code $(ROOT)/Buildings/Resources/Data/BoundaryConditions/Validation/BESTEST
 
+test-optimica-spawn-fmu:
+	@echo "*** Check if Spawn is portable to another location in the file system"
+	(cd  $(ROOT) && \
+	  python3 Buildings/Resources/Scripts/travis/pyfmi/runSpawnFromOtherDirectory.py)
+
 test-omc:
 	(cd $(ROOT) && $(TRAVIS_BUILD_DIR)/Buildings/Resources/Scripts/travis/omc/testOpenModelica.sh)
 
