@@ -21,6 +21,12 @@ model ElectricEIR "Electric chiller based on the DOE-2.1 model"
             -84}}), iconTransformation(extent={{100,-100},{120,-80}})));
   Controls.OBC.CDL.Continuous.Gain gai(k=-1)
     annotation (Placement(transformation(extent={{40,-50},{60,-30}})));
+  Modelica.Blocks.Interfaces.RealOutput yPLR1(unit="1")
+    "Chiller part load ratio"
+                   annotation (Placement(transformation(extent={{100,-126},{120,
+            -106}}),iconTransformation(extent={{-10,-10},{10,10}},
+        rotation=180,
+        origin={-110,90})));
 protected
   final parameter Modelica.SIunits.Conversions.NonSIunits.Temperature_degC
     TConEnt_nominal_degC=
@@ -62,6 +68,8 @@ equation
     EIRFunT   = 0;
     EIRFunPLR = 0;
   end if;
+
+  yPLR1 = PLR1;
 
   connect(gai.y, QEva) annotation (Line(points={{62,-40},{82,-40},{82,-94},{110,
           -94}}, color={0,0,127}));
@@ -144,7 +152,10 @@ equation
           fillPattern=FillPattern.Solid),
         Text(extent={{56,-82},{106,-96}},
           lineColor={0,0,127},
-          textString="QEva")}),
+          textString="QEva"),
+        Text(extent={{-102,98},{-52,84}},
+          lineColor={0,0,127},
+          textString="yPLR1")}),
 defaultComponentName="chi",
 Documentation(info="<html>
 <p>
