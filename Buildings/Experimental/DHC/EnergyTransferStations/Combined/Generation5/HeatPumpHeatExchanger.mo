@@ -690,7 +690,7 @@ for instance 40&deg;C.
 <h4>Controls</h4>
 <p>
 Heating (resp. cooling) is enabled based on the input signal <code>uHea</code>
-(resp. <code>uCoo</code>) which is held for 15', meaning that,
+(resp. <code>uCoo</code>) which is held for <i>15</i> minutes, meaning that,
 when enabled, the mode remains active for at least <i>15</i> minutes and,
 when disabled, the mode cannot be enabled again for at least <i>15</i> minutes.
 The heating and cooling enable signals should be computed externally based
