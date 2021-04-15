@@ -50,8 +50,6 @@ def simulate():
         print_output("stdout", stdout)
         print_output("stderr", stderr)
         raise RuntimeError("Failed to simulate fmu.")
-#    print(f"stdout: {stdout}")
-#    print(f"stderr: {stderr}")
 
 from buildingspy.simulate.Optimica import Simulator
 #model = "Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse.Unconditioned"
