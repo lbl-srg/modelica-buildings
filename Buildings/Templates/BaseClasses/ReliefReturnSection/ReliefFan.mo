@@ -1,7 +1,7 @@
 within Buildings.Templates.BaseClasses.ReliefReturnSection;
 model ReliefFan "Relief fan - Two-position relief damper"
   extends Buildings.Templates.Interfaces.ReliefReturnSection(
-    final typ=Templates.Types.ReliefReturn.ReliefFan,
+    final typ=Templates.Types.ReliefReturnSection.ReliefFan,
     final typDamRel=damRel.typ,
     final typFan=fanRet.typ,
     final have_porPre=fanRet.typCtr==Templates.Types.ReturnFanControlSensor.Pressure);

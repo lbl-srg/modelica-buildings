@@ -26,9 +26,6 @@ partial model Coil
   parameter Boolean have_weaBus = false
     "Set to true to use a waether bus"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  parameter Boolean have_senTem = false
-    "Set to true to use a leaving air temperature sensor"
-    annotation (Evaluate=true, Dialog(group="Configuration"));
 
   outer parameter String id
     "System identifier";
@@ -68,29 +65,6 @@ partial model Coil
         rotation=0,
         origin={0,100})));
 
-  BaseClasses.Sensors.Wrapper TLvg(
-    redeclare final package Medium=MediumAir,
-    final typ=if have_senTem then Templates.Types.Sensor.Temperature else
-      Templates.Types.Sensor.None)
-    "Leaving air temperature sensor"
-    annotation (Placement(transformation(extent={{70,-10},{90,10}})));
-protected
-  Modelica.Fluid.Interfaces.FluidPort_b port_bIns(
-    redeclare final package Medium = Medium,
-    m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
-    h_outflow(start=Medium.h_default, nominal=Medium.h_default))
-    "Inside fluid connector b (positive design flow direction is from port_a to port_b)"
-    annotation (Placement(transformation(extent={{70,-10},{50,10}})));
-
-equation
-  connect(port_bIns, TLvg.port_a)
-    annotation (Line(points={{60,0},{70,0}},          color={0,127,255}));
-  connect(TLvg.port_b, port_b)
-    annotation (Line(points={{90,0},{100,0}},           color={0,127,255}));
-  connect(busCon, TLvg.busCon) annotation (Line(
-      points={{0,100},{0,96},{80,96},{80,10}},
-      color={255,204,51},
-      thickness=0.5));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
                                                               Rectangle(
           extent={{-100,100},{100,-100}},

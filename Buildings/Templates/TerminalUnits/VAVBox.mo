@@ -26,8 +26,7 @@ model VAVBox "VAV terminal unit"
   inner replaceable Templates.BaseClasses.Coils.None coiReh
     constrainedby Templates.Interfaces.Coil(
       redeclare final package MediumAir = MediumAir,
-      redeclare final package MediumSou = MediumHea,
-      final have_senTem=false)
+      redeclare final package MediumSou = MediumHea)
     "Reheat coil"
     annotation (
       choices(

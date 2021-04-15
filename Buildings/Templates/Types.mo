@@ -105,7 +105,7 @@ package Types "AHU types"
       Supply,
       Terminal)
     "Enumeration to specify the equipment location";
-  type OutdoorAir = enumeration(
+  type OutdoorSection = enumeration(
       NoEconomizer
       "No economizer",
       SingleCommon
@@ -115,7 +115,15 @@ package Types "AHU types"
       DedicatedAirflow
       "Dedicated minimum OA damper (modulated) with AFMS")
     "Enumeration to configure the outdoor air section";
-  type ReliefReturn = enumeration(
+  type OutdoorReliefReturnSection = enumeration(
+      Economizer
+      "Air economizer",
+      HeatRecovery
+      "Heat recovery",
+      NoRelief
+      "No relief branch")
+    "Enumeration to configure the outdoor/relief/return air section";
+  type ReliefReturnSection = enumeration(
       NoEconomizer
       "No economizer",
       NoRelief
@@ -128,7 +136,7 @@ package Types "AHU types"
       "Relief fan - Two-position relief damper",
       ReturnFan
       "Return fan - Modulated relief damper")
-    "Enumeration to configure the exhaust/relief/return section";
+    "Enumeration to configure the relief/return air section";
   type ReturnFanControlSensor = enumeration(
       None
       "Not applicable",

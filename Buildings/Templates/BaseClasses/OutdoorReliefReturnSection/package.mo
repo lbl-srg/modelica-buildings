@@ -1,5 +1,5 @@
 within Buildings.Templates.BaseClasses;
-package OutdoorAirSection
+package OutdoorReliefReturnSection
   extends Modelica.Icons.Package;
 
-end OutdoorAirSection;
+end OutdoorReliefReturnSection;

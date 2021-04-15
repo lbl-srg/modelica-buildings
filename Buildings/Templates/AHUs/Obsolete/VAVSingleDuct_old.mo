@@ -14,22 +14,22 @@ model VAVSingleDuct_old "VAV single duct with relief"
     "Heating medium (such as HHW)"
     annotation(Dialog(enable=have_souCoiHea or have_souCoiReh));
 
-  /*** Outdoor air section 
+  /*** Outdoor air section
   ***/
 
-  parameter Buildings.Templates.Types.OutdoorAir typOut
+  parameter Buildings.Templates.Types.OutdoorSection typOut
     "Type of outdoor air section"
     annotation (
       Dialog(group="Outdoor air section"),
       Evaluate=true);
 
-  /*** Supply air section 
+  /*** Supply air section
   ***/
 
-  /*** Exhaust/relief/return section 
+  /*** Exhaust/relief/return section
   ***/
 
-  parameter Buildings.Templates.Types.ReliefReturn typRel
+  parameter Buildings.Templates.Types.ReliefReturnSection typRel
     "Type of exhaust/relief/return section"
     annotation (
       Dialog(group="Exhaust/relief/return section"),
@@ -180,9 +180,9 @@ model VAVSingleDuct_old "VAV single duct with relief"
         group="Outdoor air section"),
       __Linkage(
         modification(
-          condition=typOut<>Buildings.Templates.Types.OutdoorAir.SingleCommon,
+          condition=typOut<>Buildings.Templates.Types.OutdoorSection.SingleCommon,
           redeclare BaseClasses.Sensors.None VOut_flow "No sensor"),
-          condition=typOut==Buildings.Templates.Types.OutdoorAir.SingleCommon,
+          condition=typOut==Buildings.Templates.Types.OutdoorSection.SingleCommon,
           redeclare BaseClasses.Sensors.VolumeFlowRate VOut_flow "Volume flow rate sensor"),
       Placement(transformation(extent={{-180,-210},{-160,-190}})));
 
@@ -197,9 +197,9 @@ model VAVSingleDuct_old "VAV single duct with relief"
       Dialog(group="Outdoor air section", enable=damOutMin.typ <> Buildings.Templates.Types.Damper.NoPath),
       __Linkage(
         modification(
-          condition=typOut <> Buildings.Templates.Types.OutdoorAir.DedicatedAirflow,
+          condition=typOut <> Buildings.Templates.Types.OutdoorSection.DedicatedAirflow,
             redeclare BaseClasses.Sensors.None VOutMin_flow "No sensor"),
-        condition=typOut == Buildings.Templates.Types.OutdoorAir.DedicatedAirflow,
+        condition=typOut == Buildings.Templates.Types.OutdoorSection.DedicatedAirflow,
         redeclare BaseClasses.Sensors.VolumeFlowRate VOutMin_flow "Volume flow rate sensor"),
     Placement(transformation(extent={{-182,-150},{-162,-130}})));
 
@@ -215,9 +215,9 @@ model VAVSingleDuct_old "VAV single duct with relief"
       group="Outdoor air section",
       enable=damOutMin.typ <> Buildings.Templates.Types.Damper.NoPath),
     __Linkage(
-      modification=if typOut <> Buildings.Templates.Types.OutdoorAir.DedicatedPressure then
+      modification=if typOut <> Buildings.Templates.Types.OutdoorSection.DedicatedPressure then
         BaseClasses.Sensors.None elseif
-        typOut == Buildings.Templates.Types.OutdoorAir.DedicatedPressure then
+        typOut == Buildings.Templates.Types.OutdoorSection.DedicatedPressure then
         BaseClasses.Sensors.DifferentialPressure else
         Buildings.Templates.BaseClasses.Sensors.None),
     Placement(transformation(extent={{-270,-150},{-250,-130}})));
@@ -232,9 +232,9 @@ model VAVSingleDuct_old "VAV single duct with relief"
         choice(redeclare BaseClasses.Sensors.Temperature TMix "Temperature sensor")),
       __Linkage(
         modification(
-          condition=typOut <> Buildings.Templates.Types.OutdoorAir.DedicatedPressure,
+          condition=typOut <> Buildings.Templates.Types.OutdoorSection.DedicatedPressure,
             redeclare BaseClasses.Sensors.None dpOutMin "No sensor",
-          condition=typOut == Buildings.Templates.Types.OutdoorAir.DedicatedPressure,
+          condition=typOut == Buildings.Templates.Types.OutdoorSection.DedicatedPressure,
             redeclare BaseClasses.Sensors.DifferentialPressure dpOutMin "Differential pressure sensor")),
     Dialog(group="Supply air section"),
     Placement(transformation(extent={{-100,-210},{-80,-190}})));
@@ -359,8 +359,8 @@ model VAVSingleDuct_old "VAV single duct with relief"
       choicesAllMatching=true,
       Dialog(
         group="Exhaust/relief/return section",
-        enable=typRel==Buildings.Templates.Types.ReliefReturn.ReturnFanPressure or
-          typRel==Buildings.Templates.Types.ReliefReturn.ReturnFanAirflow),
+        enable=typRel==Buildings.Templates.Types.ReliefReturnSection.ReturnFanPressure or
+          typRel==Buildings.Templates.Types.ReliefReturnSection.ReturnFanAirflow),
       Placement(transformation(extent={{20,-90},{0,-70}})));
 
   inner replaceable Buildings.Templates.BaseClasses.Fans.None fanRel
@@ -371,7 +371,7 @@ model VAVSingleDuct_old "VAV single duct with relief"
     choicesAllMatching=true,
     Dialog(
       group="Exhaust/relief/return section",
-      enable=typRel==Buildings.Templates.Types.ReliefReturn.ReliefFan),
+      enable=typRel==Buildings.Templates.Types.ReliefReturnSection.ReliefFan),
     Placement(transformation(extent={{-140,-90},{-160,-70}})));
 
   replaceable Buildings.Templates.BaseClasses.Sensors.None VRet_flow
@@ -384,7 +384,7 @@ model VAVSingleDuct_old "VAV single duct with relief"
       choice(redeclare BaseClasses.Sensors.VolumeFlowRate VRet "Volume flow rate sensor")),
     Dialog(
       group="Exhaust/relief/return section",
-      enable=typRel==Buildings.Templates.Types.ReliefReturn.ReturnFanAirflow),
+      enable=typRel==Buildings.Templates.Types.ReliefReturnSection.ReturnFanAirflow),
     Placement(transformation(extent={{-10,-90},{-30,-70}})));
 
   Fluid.Sensors.RelativePressure pInd_rel(
@@ -467,7 +467,7 @@ equation
           80,-220},{86,-220},{86,-210}}, color={0,127,255}));
   connect(coiReh.port_bSou, port_coiRehRet) annotation (Line(points={{94,-210},{
           94,-220},{100,-220},{100,-280}}, color={0,127,255}));
-  connect(damRel.port_b, port_Exh)
+  connect(damRel.port_b,port_Rel)
     annotation (Line(points={{-244,-80},{-300,-80}}, color={0,127,255}));
   connect(fanRel.port_b, damRel.port_a)
     annotation (Line(points={{-160,-80},{-224,-80}}, color={0,127,255}));
@@ -689,12 +689,12 @@ Dedicated OA damper
 
 Relief fan => Two position relief damper
 
-Return fan 
+Return fan
 
 - Modulated relief (exhaust) damper
 - For AHUs with return fans, the outdoor air damper remains
 fully open whenever the AHU is on. But AO point specified nevertheless.
-- Control either return fan discharge pressure (fan) and building pressure (damper), 
+- Control either return fan discharge pressure (fan) and building pressure (damper),
 or airflow (fan) and exhaust damper modulated in tandem with return damper
 
 Modulateded relief damper
@@ -703,6 +703,6 @@ Modulateded relief damper
 - Control building static pressure
 
 
- 
+
 </html>"));
 end VAVSingleDuct_old;

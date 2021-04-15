@@ -14,11 +14,11 @@ model VAVSingleDuct_wrapper "VAV single duct with relief"
     "Heating medium (such as HHW)"
     annotation(Dialog(enable=have_souCoiHea or have_souCoiReh));
 
-  /*** Outdoor air section 
+  /*** Outdoor air section
   ***/
 
-  parameter Buildings.Templates.Types.OutdoorAir typOut=
-    Buildings.Templates.Types.OutdoorAir.NoEconomizer
+  parameter Buildings.Templates.Types.OutdoorSection typOut=
+    Buildings.Templates.Types.OutdoorSection.NoEconomizer
     "Type of outdoor air section"
     annotation (
       Dialog(group="Outdoor air section"),
@@ -31,7 +31,7 @@ model VAVSingleDuct_wrapper "VAV single duct with relief"
         group="Outdoor air section"),
       Evaluate=true);
 
-  /*** Supply air section 
+  /*** Supply air section
   ***/
 
   parameter Buildings.Templates.Types.Fan typFanSup=
@@ -163,13 +163,13 @@ model VAVSingleDuct_wrapper "VAV single duct with relief"
         group="Supply air section"),
       Evaluate=true);
 
-  /*** Exhaust/relief/return section 
+  /*** Exhaust/relief/return section
   ***/
 
   // Need for a vendor annotation to restrict the enumeration to a subset
   // based on Boolean expression?
-  parameter Buildings.Templates.Types.ReliefReturn typRel=
-    Buildings.Templates.Types.ReliefReturn.NoEconomizer
+  parameter Buildings.Templates.Types.ReliefReturnSection typRel=
+    Buildings.Templates.Types.ReliefReturnSection.NoEconomizer
     "Type of exhaust/relief/return section"
     annotation (
       Dialog(group="Exhaust/relief/return section"),
@@ -181,9 +181,9 @@ model VAVSingleDuct_wrapper "VAV single duct with relief"
     annotation (
       Dialog(
         group="Exhaust/relief/return section",
-        enable=typRel<>Buildings.Templates.Types.ReliefReturn.NoEconomizer and
-          typRel<>Buildings.Templates.Types.ReliefReturn.Barometric and
-          typRel<>Buildings.Templates.Types.ReliefReturn.ReliefDamper),
+        enable=typRel<>Buildings.Templates.Types.ReliefReturnSection.NoEconomizer and
+          typRel<>Buildings.Templates.Types.ReliefReturnSection.Barometric and
+          typRel<>Buildings.Templates.Types.ReliefReturnSection.ReliefDamper),
       Evaluate=true);
 
   final inner parameter Boolean have_souCoiCoo = coiCoo.have_sou
@@ -235,11 +235,11 @@ model VAVSingleDuct_wrapper "VAV single duct with relief"
       iconTransformation(extent={{-20,182},{20,218}})));
 
   inner Buildings.Templates.BaseClasses.Dampers.Wrapper damOutMin(
-    final typ=if typOut==Buildings.Templates.Types.OutdoorAir.SingleCommon
+    final typ=if typOut==Buildings.Templates.Types.OutdoorSection.SingleCommon
       then Buildings.Templates.Types.Damper.NoPath elseif
-      typOut==Buildings.Templates.Types.OutdoorAir.DedicatedPressure
+      typOut==Buildings.Templates.Types.OutdoorSection.DedicatedPressure
       then Buildings.Templates.Types.Damper.TwoPosition elseif
-      typOut==Buildings.Templates.Types.OutdoorAir.DedicatedAirflow then
+      typOut==Buildings.Templates.Types.OutdoorSection.DedicatedAirflow then
       Buildings.Templates.Types.Damper.Modulated else
       Buildings.Templates.Types.Damper.NoPath,
     redeclare final package Medium = MediumAir)
@@ -252,7 +252,7 @@ model VAVSingleDuct_wrapper "VAV single duct with relief"
           origin={-232,-140})));
 
   inner Buildings.Templates.BaseClasses.Dampers.Wrapper damOut(
-    final typ=if typOut==Buildings.Templates.Types.OutdoorAir.NoEconomizer
+    final typ=if typOut==Buildings.Templates.Types.OutdoorSection.NoEconomizer
       then Buildings.Templates.Types.Damper.None else
       Buildings.Templates.Types.Damper.Modulated,
     redeclare final package Medium = MediumAir)
@@ -265,7 +265,7 @@ model VAVSingleDuct_wrapper "VAV single duct with relief"
         origin={-230,-200})));
 
   inner Buildings.Templates.BaseClasses.Dampers.Wrapper damRet(
-    final typ=if typRel==Buildings.Templates.Types.ReliefReturn.NoEconomizer
+    final typ=if typRel==Buildings.Templates.Types.ReliefReturnSection.NoEconomizer
       then Buildings.Templates.Types.Damper.NoPath else
       Buildings.Templates.Types.Damper.Modulated,
     redeclare final package Medium = MediumAir)
@@ -278,17 +278,17 @@ model VAVSingleDuct_wrapper "VAV single duct with relief"
           origin={-120,-140})));
 
   inner Buildings.Templates.BaseClasses.Dampers.Wrapper damRel(
-    final typ=if typRel==Buildings.Templates.Types.ReliefReturn.NoEconomizer
+    final typ=if typRel==Buildings.Templates.Types.ReliefReturnSection.NoEconomizer
       then Buildings.Templates.Types.Damper.None else
-      (if typRel==Buildings.Templates.Types.ReliefReturn.Barometric
+      (if typRel==Buildings.Templates.Types.ReliefReturnSection.Barometric
       then Buildings.Templates.Types.Damper.Barometric elseif
-      typRel==Buildings.Templates.Types.ReliefReturn.ReliefDamper
+      typRel==Buildings.Templates.Types.ReliefReturnSection.ReliefDamper
       then Buildings.Templates.Types.Damper.Modulated elseif
-      typRel==Buildings.Templates.Types.ReliefReturn.ReliefFan
+      typRel==Buildings.Templates.Types.ReliefReturnSection.ReliefFan
       then Buildings.Templates.Types.Damper.TwoPosition elseif
-      typRel==Buildings.Templates.Types.ReliefReturn.ReturnFanPressure
+      typRel==Buildings.Templates.Types.ReliefReturnSection.ReturnFanPressure
       then Buildings.Templates.Types.Damper.Modulated elseif
-      typRel==Buildings.Templates.Types.ReliefReturn.ReturnFanAirflow
+      typRel==Buildings.Templates.Types.ReliefReturnSection.ReturnFanAirflow
       then Buildings.Templates.Types.Damper.Modulated else
       Buildings.Templates.Types.Damper.None),
     redeclare final package Medium = MediumAir)
@@ -302,8 +302,8 @@ model VAVSingleDuct_wrapper "VAV single duct with relief"
 
   Buildings.Templates.BaseClasses.Sensors.Wrapper TOut(
     final typ=if have_senTOut and (
-      typOut==Buildings.Templates.Types.OutdoorAir.NoEconomizer or
-      typOut==Buildings.Templates.Types.OutdoorAir.SingleCommon) then
+      typOut==Buildings.Templates.Types.OutdoorSection.NoEconomizer or
+      typOut==Buildings.Templates.Types.OutdoorSection.SingleCommon) then
       Buildings.Templates.Types.Sensor.Temperature else
       Buildings.Templates.Types.Sensor.None,
     redeclare final package Medium =MediumAir)
@@ -314,8 +314,8 @@ model VAVSingleDuct_wrapper "VAV single duct with relief"
 
   Buildings.Templates.BaseClasses.Sensors.Wrapper TOutMin(
     final typ=if have_senTOut and (
-      typOut==Buildings.Templates.Types.OutdoorAir.DedicatedPressure or
-      typOut==Buildings.Templates.Types.OutdoorAir.DedicatedAirflow) then
+      typOut==Buildings.Templates.Types.OutdoorSection.DedicatedPressure or
+      typOut==Buildings.Templates.Types.OutdoorSection.DedicatedAirflow) then
       Buildings.Templates.Types.Sensor.Temperature else
       Buildings.Templates.Types.Sensor.None,
     redeclare final package Medium =MediumAir)
@@ -325,7 +325,7 @@ model VAVSingleDuct_wrapper "VAV single duct with relief"
     Placement(transformation(extent={{-212,-150},{-192,-130}})));
 
   Buildings.Templates.BaseClasses.Sensors.Wrapper VOut_flow(
-    final typ=if typOut==Buildings.Templates.Types.OutdoorAir.SingleCommon then
+    final typ=if typOut==Buildings.Templates.Types.OutdoorSection.SingleCommon then
       Buildings.Templates.Types.Sensor.VolumeFlowRate else
       Buildings.Templates.Types.Sensor.None,
     redeclare final package Medium = MediumAir)
@@ -335,7 +335,7 @@ model VAVSingleDuct_wrapper "VAV single duct with relief"
       Placement(transformation(extent={{-180,-210},{-160,-190}})));
 
   Buildings.Templates.BaseClasses.Sensors.Wrapper VOutMin_flow(
-    final typ=if typOut==Buildings.Templates.Types.OutdoorAir.DedicatedAirflow then
+    final typ=if typOut==Buildings.Templates.Types.OutdoorSection.DedicatedAirflow then
       Buildings.Templates.Types.Sensor.VolumeFlowRate else
       Buildings.Templates.Types.Sensor.None,
     redeclare final package Medium = MediumAir)
@@ -345,7 +345,7 @@ model VAVSingleDuct_wrapper "VAV single duct with relief"
       Placement(transformation(extent={{-182,-150},{-162,-130}})));
 
   Buildings.Templates.BaseClasses.Sensors.Wrapper dpOutMin(
-    final typ=if typOut==Buildings.Templates.Types.OutdoorAir.DedicatedPressure then
+    final typ=if typOut==Buildings.Templates.Types.OutdoorSection.DedicatedPressure then
       Buildings.Templates.Types.Sensor.DifferentialPressure else
       Buildings.Templates.Types.Sensor.None,
     redeclare final package Medium = MediumAir)
@@ -504,7 +504,7 @@ model VAVSingleDuct_wrapper "VAV single duct with relief"
     Placement(transformation(extent={{-140,-90},{-160,-70}})));
 
   Buildings.Templates.BaseClasses.Sensors.Wrapper VRet_flow(
-    final typ=if typRel==Buildings.Templates.Types.ReliefReturn.ReturnFanAirflow then
+    final typ=if typRel==Buildings.Templates.Types.ReliefReturnSection.ReturnFanAirflow then
       Buildings.Templates.Types.Sensor.VolumeFlowRate else
       Buildings.Templates.Types.Sensor.None,
     redeclare final package Medium = MediumAir)
@@ -519,7 +519,7 @@ model VAVSingleDuct_wrapper "VAV single duct with relief"
     annotation (Placement(transformation(extent={{30,230},{10,250}})));
 
   Buildings.Templates.BaseClasses.Sensors.Wrapper pRet_rel(
-    final typ=if typRel==Buildings.Templates.Types.ReliefReturn.ReturnFanPressure then
+    final typ=if typRel==Buildings.Templates.Types.ReliefReturnSection.ReturnFanPressure then
       Buildings.Templates.Types.Sensor.DifferentialPressure else
       Buildings.Templates.Types.Sensor.None,
     redeclare final package Medium = MediumAir)
@@ -593,7 +593,7 @@ equation
           80,-220},{86,-220},{86,-210}}, color={0,127,255}));
   connect(coiReh.port_bSou, port_coiRehRet) annotation (Line(points={{94,-210},{
           94,-220},{100,-220},{100,-280}}, color={0,127,255}));
-  connect(damRel.port_b, port_Exh)
+  connect(damRel.port_b,port_Rel)
     annotation (Line(points={{-244,-80},{-300,-80}}, color={0,127,255}));
   connect(fanRel.port_b, damRel.port_a)
     annotation (Line(points={{-160,-80},{-224,-80}}, color={0,127,255}));
@@ -823,12 +823,12 @@ Dedicated OA damper
 
 Relief fan => Two position relief damper
 
-Return fan 
+Return fan
 
 - Modulated relief (exhaust) damper
 - For AHUs with return fans, the outdoor air damper remains
 fully open whenever the AHU is on. But AO point specified nevertheless.
-- Control either return fan discharge pressure (fan) and building pressure (damper), 
+- Control either return fan discharge pressure (fan) and building pressure (damper),
 or airflow (fan) and exhaust damper modulated in tandem with return damper
 
 Modulateded relief damper
@@ -837,6 +837,6 @@ Modulateded relief damper
 - Control building static pressure
 
 
- 
+
 </html>"));
 end VAVSingleDuct_wrapper;

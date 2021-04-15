@@ -1,12 +1,12 @@
 within Buildings.Templates.Interfaces;
-partial model ReliefReturnSection "Exhaust/relief/return section"
+partial model ReliefReturnSection "Relief/return air section"
 
   replaceable package MediumAir=Buildings.Media.Air
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Air medium";
 
-  parameter Types.ReliefReturn typ
-    "Exhaust/relief/return section type"
+  parameter Types.ReliefReturnSection typ
+    "Relief/return air section type"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Templates.Types.Damper typDamRel
     "Relief damper type"
@@ -22,7 +22,7 @@ partial model ReliefReturnSection "Exhaust/relief/return section"
     annotation (Evaluate=true,
       Dialog(
         group="Configuration",
-        enable=typ<>Templates.Types.ReliefReturn.NoRelief));
+        enable=typ<>Templates.Types.ReliefReturnSection.NoRelief));
 
   outer parameter String id
     "System identifier";
@@ -43,7 +43,7 @@ partial model ReliefReturnSection "Exhaust/relief/return section"
     redeclare final package Medium = MediumAir,
     m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
     h_outflow(start=MediumAir.h_default, nominal=MediumAir.h_default)) if
-    typ<>Templates.Types.ReliefReturn.NoRelief
+    typ<>Templates.Types.ReliefReturnSection.NoRelief
     "Fluid connector b (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{-170,-10},{-190,10}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_aHeaRec(
@@ -58,6 +58,19 @@ partial model ReliefReturnSection "Exhaust/relief/return section"
     h_outflow(start=MediumAir.h_default, nominal=MediumAir.h_default)) if have_recHea
     "Optional fluid connector for heat recovery"
     annotation (Placement(transformation(extent={{-70,-150},{-90,-130}})));
+  Modelica.Fluid.Interfaces.FluidPort_b port_bRet(
+    redeclare final package Medium = MediumAir,
+    m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
+    h_outflow(start=MediumAir.h_default, nominal=MediumAir.h_default)) if
+    typ<>Templates.Types.ReliefReturnSection.NoEconomizer
+    "Optional fluid connector for return branch"
+    annotation (Placement(transformation(extent={{10,-150},{-10,-130}})));
+  Modelica.Fluid.Interfaces.FluidPort_b port_bPre(
+    redeclare final package Medium = MediumAir) if
+    have_porPre
+    "Optional fluid connector for differential pressure sensor"
+    annotation (Placement(transformation(extent={{90,-150},{70,-130}})));
+
   BaseClasses.Connectors.BusInterface busCon
     "Control bus"
     annotation (
@@ -72,31 +85,15 @@ partial model ReliefReturnSection "Exhaust/relief/return section"
 
   BaseClasses.PassThroughFluid pas(
     redeclare final package Medium = MediumAir) if not have_recHea and
-    typ<>Types.ReliefReturn.NoRelief
+    typ<>Types.ReliefReturnSection.NoRelief
     "Direct pass through (conditional)"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
-
-  Modelica.Fluid.Interfaces.FluidPort_b port_bRet(
-    redeclare final package Medium = MediumAir,
-    m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
-    h_outflow(start=MediumAir.h_default, nominal=MediumAir.h_default)) if
-    typ<>Templates.Types.ReliefReturn.NoEconomizer
-    "Optional fluid connector for return branch"
-    annotation (Placement(transformation(extent={{10,-150},{-10,-130}})));
-
-  Modelica.Fluid.Interfaces.FluidPort_b port_bPre(
-    redeclare final package Medium = MediumAir,
-    m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
-    h_outflow(start=MediumAir.h_default, nominal=MediumAir.h_default)) if
-    have_porPre
-    "Optional fluid connector for differential pressure sensor"
-    annotation (Placement(transformation(extent={{90,-150},{70,-130}})));
 protected
   Modelica.Fluid.Interfaces.FluidPort_a port_aIns(
     redeclare final package Medium = MediumAir,
     m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
     h_outflow(start=MediumAir.h_default, nominal=MediumAir.h_default)) if
-    typ<>Templates.Types.ReliefReturn.NoRelief
+    typ<>Templates.Types.ReliefReturnSection.NoRelief
     "Inside fluid connector a (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
 equation

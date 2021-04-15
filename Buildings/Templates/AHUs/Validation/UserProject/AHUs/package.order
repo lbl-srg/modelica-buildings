@@ -16,6 +16,3 @@ FanSupplyDrawMultipleVariable
 FanSupplyDrawSingleVariable
 SectionDedicatedPressure
 SectionNoEconomizer
-WrapperCoils
-WrapperEconomizerDampers
-WrapperFans

@@ -102,7 +102,7 @@ equation
       points={{-20,40},{-20,28},{-20,16},{-19.9,16}},
       color={255,204,51},
       thickness=0.5));
-  connect(ahu.port_Exh, res2.port_a)
+  connect(ahu.port_Rel, res2.port_a)
     annotation (Line(points={{-20,10},{-30,10}}, color={0,127,255}));
   connect(res2.port_b, bou.ports[2]) annotation (Line(points={{-50,10},{-60,10},
           {-60,-2},{-70,-2}}, color={0,127,255}));

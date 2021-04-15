@@ -1,6 +1,10 @@
 within Buildings.Templates.AHUs.Validation.UserProject.AHUs;
 model CompleteAHU
   extends Buildings.Templates.AHUs.VAVSingleDuctWithEconomizer(
+    secOutRel(redeclare BaseClasses.OutdoorSection.SingleCommon secOut
+        "Single common OA damper (modulated) with AFMS", secRel(redeclare
+          Templates.BaseClasses.Fans.SingleVariable fanRet
+          "Single fan - Variable speed")),
     redeclare Templates.BaseClasses.Coils.WaterBasedCooling coiCoo(redeclare
         Buildings.Templates.BaseClasses.Coils.Actuators.TwoWayValve act,
         redeclare Templates.BaseClasses.Coils.HeatExchangers.WetCoilCounterFlow
@@ -10,11 +14,6 @@ model CompleteAHU
         redeclare
         Templates.BaseClasses.Coils.HeatExchangers.DryCoilEffectivenessNTU hex
         "Epsilon-NTU heat exchanger model") "Water-based",
-    redeclare BaseClasses.ReliefReturnSection.ReliefFan secRel(redeclare
-        Templates.BaseClasses.Fans.SingleVariable fanRet
-        "Single fan - Variable speed"),
-    redeclare BaseClasses.OutdoorAirSection.SingleCommon secOut
-      "Outdoor air section - Single common OA damper (modulated) with AFMS",
     redeclare BaseClasses.Fans.SingleVariable fanSupDra,
     nZon=1,
     nGro=1,

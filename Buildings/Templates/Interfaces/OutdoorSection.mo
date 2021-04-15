@@ -1,11 +1,11 @@
 within Buildings.Templates.Interfaces;
-partial model OutdoorAirSection "Outdoor air section"
+partial model OutdoorSection "Outdoor air section"
 
   replaceable package MediumAir=Buildings.Media.Air
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Air medium";
 
-  parameter Types.OutdoorAir typ
+  parameter Types.OutdoorSection typ
     "Outdoor air section type"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Templates.Types.Damper typDamOut
@@ -89,4 +89,4 @@ equation
           lineColor={0,0,255},
           textString="%name")}),                                 Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-180,-140},{180,140}})));
-end OutdoorAirSection;
+end OutdoorSection;

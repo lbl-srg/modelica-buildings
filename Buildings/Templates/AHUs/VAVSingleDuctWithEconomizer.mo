@@ -2,7 +2,7 @@ within Buildings.Templates.AHUs;
 model VAVSingleDuctWithEconomizer "VAV single duct with air economizer"
   extends Buildings.Templates.Interfaces.AHU(
     final typ=Buildings.Templates.Types.AHU.SingleDuct,
-    final have_porExh=secRel.typ<>Templates.Types.ReliefReturn.NoRelief);
+    final have_porRel=secOutRel.typ<>Templates.Types.OutdoorReliefReturnSection.NoRelief);
 
   replaceable package MediumCoo=Buildings.Media.Water
     constrainedby Modelica.Media.Interfaces.PartialMedium
@@ -12,63 +12,6 @@ model VAVSingleDuctWithEconomizer "VAV single duct with air economizer"
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Heating medium (such as HHW)"
     annotation(Dialog(enable=have_souCoiHea or have_souCoiReh));
-
-  /*** Outdoor air section 
-  ***/
-
-  final parameter Buildings.Templates.Types.OutdoorAir typOut = secOut.typ
-    "Type of outdoor air section"
-    annotation (
-      Dialog(group="Outdoor air section"),
-      Evaluate=true);
-
-  inner replaceable BaseClasses.OutdoorAirSection.SingleCommon secOut
-    constrainedby Buildings.Templates.Interfaces.OutdoorAirSection(
-      redeclare final package MediumAir = MediumAir,
-      final have_recHea=false)
-    "Outdoor air section - Single common OA damper (modulated) with AFMS"
-    annotation (
-      choices(
-        choice(redeclare BaseClasses.OutdoorAirSection.SingleCommon secOut
-          "Outdoor air section - Single common OA damper (modulated) with AFMS"),
-        choice(redeclare BaseClasses.OutdoorAirSection.DedicatedAirflow secOut
-          "Outdoor air section - Dedicated minimum OA damper (modulated) with AFMS"),
-        choice(redeclare BaseClasses.OutdoorAirSection.DedicatedPressure secOut
-          "Outdoor air section - Dedicated minimum OA damper (two-position) with differential pressure sensor")),
-      Dialog(
-        group="Outdoor air section"),
-      Placement(transformation(extent={{-206,-214},{-170,-186}})));
-
-  inner replaceable BaseClasses.ReliefReturnSection.ReturnFan secRel
-    constrainedby Templates.Interfaces.ReliefReturnSection(
-      redeclare final package MediumAir = MediumAir,
-      final have_recHea=false)
-    "Exhaust/relief/return section"
-    annotation (
-      choices(
-        choice(redeclare BaseClasses.ReliefReturnSection.ReturnFan secRel
-          "Return fan - Modulated relief damper"),
-        choice(redeclare BaseClasses.ReliefReturnSection.ReliefFan secRel
-          "Relief fan - Two-position relief damper"),
-        choice(redeclare BaseClasses.ReliefReturnSection.ReliefDamper secRel
-          "No relief fan - Modulated relief damper"),
-        choice(redeclare BaseClasses.ReliefReturnSection.NoRelief secRel
-          "No relief branch")),
-      Dialog(
-        group="Exhaust/relief/return section"),
-      Placement(transformation(extent={{-138,-94},{-102,-66}})));
-
-  /*** Supply air section 
-  ***/
-
-  /*** Exhaust/relief/return section 
-  ***/
-
-  final parameter Buildings.Templates.Types.ReliefReturn typRel=secRel.typ
-    "Type of exhaust/relief/return section"
-    annotation (
-      Dialog(group="Exhaust/relief/return section"),
-      Evaluate=true);
 
   final inner parameter Boolean have_souCoiCoo = coiCoo.have_sou
     "Set to true for fluid ports on the source side"
@@ -117,22 +60,21 @@ model VAVSingleDuctWithEconomizer "VAV single duct with air economizer"
     annotation (Placement(transformation(extent={{-20,260},{20,300}}),
       iconTransformation(extent={{-20,182},{20,218}})));
 
-  replaceable BaseClasses.Dampers.Modulated damRet(
-    redeclare final package Medium = MediumAir,
-    final loc=Buildings.Templates.Types.Location.Return)
-    "Return air damper"
+  inner replaceable Templates.BaseClasses.OutdoorReliefReturnSection.Economizer secOutRel
+    constrainedby Templates.Interfaces.OutdoorReliefReturnSection(
+      redeclare final package MediumAir = MediumAir)
+    "Outdoor/relief/return air section"
     annotation (
-      Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={-120,-140})));
+      choicesAllMatching=true,
+      Dialog(
+        group="Outdoor/relief/return air section"),
+      Placement(transformation(extent={{-178,-104},{-142,-76}})));
 
   // FIXME: bind typ to control option.
   Buildings.Templates.BaseClasses.Sensors.Wrapper TMix(
     redeclare final package Medium = MediumAir,
     typ=Types.Sensor.Temperature,
-    final loc=Types.Location.Supply)
-    "Mixed air temperature sensor"
+    final loc=Types.Location.Supply) "Mixed air temperature sensor"
     annotation (
       Dialog(
         group="Supply air section",
@@ -154,9 +96,7 @@ model VAVSingleDuctWithEconomizer "VAV single duct with air economizer"
   inner replaceable Templates.BaseClasses.Coils.None coiHea
     constrainedby Templates.Interfaces.Coil(
       redeclare final package MediumAir = MediumAir,
-      redeclare final package MediumSou = MediumHea,
-      final have_senTem=coiHea.typ<>Templates.Types.Coil.None and
-        coiCoo.typ<>Templates.Types.Coil.None)
+      redeclare final package MediumSou = MediumHea)
     "Heating coil"
     annotation (
       choices(
@@ -165,12 +105,20 @@ model VAVSingleDuctWithEconomizer "VAV single duct with air economizer"
       Dialog(group="Heating coil"),
       Placement(transformation(extent={{-40,-210},{-20,-190}})));
 
+  BaseClasses.Sensors.Wrapper THea(
+    redeclare final package Medium = MediumAir,
+    final typ=if coiHea.typ<>Templates.Types.Coil.None and
+      coiCoo.typ<>Templates.Types.Coil.None then Types.Sensor.Temperature
+      else Types.Sensor.None,
+    final loc=Types.Location.Supply)
+    "Heating coil leaving air temperature sensor"
+    annotation (Dialog(group="Supply air section",
+        enable=false), Placement(transformation(extent={{-10,-210},{10,-190}})));
+
   inner replaceable Buildings.Templates.BaseClasses.Coils.None coiCoo
     constrainedby Buildings.Templates.Interfaces.Coil(
       redeclare final package MediumAir = MediumAir,
-      redeclare final package MediumSou = MediumCoo,
-      final have_senTem=coiCoo.typ<>Buildings.Templates.Types.Coil.None and
-      coiReh.typ<>Buildings.Templates.Types.Coil.None)
+      redeclare final package MediumSou = MediumCoo)
     "Cooling coil"
     annotation (
       choices(
@@ -178,6 +126,15 @@ model VAVSingleDuctWithEconomizer "VAV single duct with air economizer"
         choice(redeclare Templates.BaseClasses.Coils.WaterBasedCooling coiCoo "Water-based")),
       Dialog(group="Cooling coil"),
       Placement(transformation(extent={{20,-210},{40,-190}})));
+
+  BaseClasses.Sensors.Wrapper TCoo(
+    redeclare final package Medium = MediumAir,
+    final typ=if coiCoo.typ<>Buildings.Templates.Types.Coil.None and
+      coiReh.typ<>Buildings.Templates.Types.Coil.None then Types.Sensor.Temperature
+      else Types.Sensor.None,
+    final loc=Types.Location.Supply)
+    "Cooling coil leaving air temperature sensor" annotation (Dialog(group="Supply air section",
+        enable=false), Placement(transformation(extent={{50,-210},{70,-190}})));
 
   inner replaceable Buildings.Templates.BaseClasses.Coils.None coiReh
     constrainedby Buildings.Templates.Interfaces.Coil(
@@ -280,7 +237,7 @@ model VAVSingleDuctWithEconomizer "VAV single duct with air economizer"
   Fluid.Sources.Outside out(
     redeclare final package Medium=MediumAir,
     final nPorts=1 +
-      (if secRel.have_porPre then 1 else 0))
+      (if secOutRel.have_porPre then 1 else 0))
     "Outdoor conditions"
     annotation (
       Placement(transformation(
@@ -322,7 +279,6 @@ model VAVSingleDuctWithEconomizer "VAV single duct with air economizer"
       group="Exhaust/relief/return section",
         enable=false),
       Placement(transformation(extent={{252,-90},{232,-70}})));
-
 
 equation
 
@@ -452,34 +408,34 @@ equation
       points={{242,-70},{242,0},{-300,0}},
       color={255,204,51},
       thickness=0.5));
-  connect(coiCoo.port_b, coiReh.port_a)
-    annotation (Line(points={{40,-200},{80,-200}}, color={0,127,255}));
-  connect(coiHea.port_b, coiCoo.port_a)
-    annotation (Line(points={{-20,-200},{20,-200}}, color={0,127,255}));
-  connect(port_Out,secOut. port_a)
-    annotation (Line(points={{-300,-200},{-206,-200}}, color={0,127,255}));
-  connect(secOut.port_b, TMix.port_a)
-    annotation (Line(points={{-170,-200},{-100,-200}}, color={0,127,255}));
-  connect(secOut.busCon, busAHU) annotation (Line(
-      points={{-188,-186},{-188,0},{-300,0}},
+  connect(coiHea.port_b, THea.port_a)
+    annotation (Line(points={{-20,-200},{-10,-200}}, color={0,127,255}));
+  connect(THea.port_b, coiCoo.port_a)
+    annotation (Line(points={{10,-200},{20,-200}}, color={0,127,255}));
+  connect(coiCoo.port_b, TCoo.port_a)
+    annotation (Line(points={{40,-200},{50,-200}}, color={0,127,255}));
+  connect(TCoo.port_b, coiReh.port_a)
+    annotation (Line(points={{70,-200},{80,-200}}, color={0,127,255}));
+  connect(THea.busCon, busAHU) annotation (Line(
+      points={{0,-190},{0,0},{-300,0}},
       color={255,204,51},
       thickness=0.5));
-  connect(secRel.port_b, port_Exh)
-    annotation (Line(points={{-138,-80},{-300,-80}}, color={0,127,255}));
-  connect(secRel.port_a, resRet.port_b)
-    annotation (Line(points={{-102,-80},{170,-80}}, color={0,127,255}));
-  connect(secRel.busCon, busAHU) annotation (Line(
-      points={{-120,-66},{-120,0},{-300,0}},
+  connect(TCoo.busCon, busAHU) annotation (Line(
+      points={{60,-190},{60,0},{-300,0}},
       color={255,204,51},
       thickness=0.5));
-  connect(out.ports[2], secRel.port_bPre) annotation (Line(points={{-40,240},{-40,
-          240},{-40,-100},{-112,-100},{-112,-94}}, color={0,127,255}));
-  connect(secRel.port_bRet, damRet.port_a)
-    annotation (Line(points={{-120,-94},{-120,-130}}, color={0,127,255}));
-  connect(damRet.port_b, TMix.port_a) annotation (Line(points={{-120,-150},{-120,
-          -200},{-100,-200}}, color={0,127,255}));
-  connect(damRet.busCon, busAHU) annotation (Line(
-      points={{-110,-140},{-94,-140},{-94,0},{-300,0}},
+  connect(port_Rel, secOutRel.port_Rel)
+    annotation (Line(points={{-300,-80},{-178,-80}}, color={0,127,255}));
+  connect(secOutRel.port_Out, port_Out) annotation (Line(points={{-178,-100},{-200,
+          -100},{-200,-200},{-300,-200}}, color={0,127,255}));
+  connect(secOutRel.port_Sup, TMix.port_a) annotation (Line(points={{-142,-100},
+          {-120,-100},{-120,-200},{-100,-200}}, color={0,127,255}));
+  connect(secOutRel.port_Ret, resRet.port_b)
+    annotation (Line(points={{-142,-80},{170,-80}}, color={0,127,255}));
+  connect(secOutRel.port_bPre, out.ports[2]) annotation (Line(points={{-152,-76},
+          {-152,-60},{-40,-60},{-40,240},{-40,240}}, color={0,127,255}));
+  connect(secOutRel.busCon, busAHU) annotation (Line(
+      points={{-160,-76},{-160,0},{-300,0}},
       color={255,204,51},
       thickness=0.5));
   annotation (
@@ -510,12 +466,12 @@ Dedicated OA damper
 
 Relief fan => Two position relief damper
 
-Return fan 
+Return fan
 
 - Modulated relief (exhaust) damper
 - For AHUs with return fans, the outdoor air damper remains
 fully open whenever the AHU is on. But AO point specified nevertheless.
-- Control either return fan discharge pressure (fan) and building pressure (damper), 
+- Control either return fan discharge pressure (fan) and building pressure (damper),
 or airflow (fan) and exhaust damper modulated in tandem with return damper
 
 Modulateded relief damper
@@ -524,6 +480,6 @@ Modulateded relief damper
 - Control building static pressure
 
 
- 
+
 </html>"));
 end VAVSingleDuctWithEconomizer;

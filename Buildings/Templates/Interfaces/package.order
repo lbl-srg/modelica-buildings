@@ -8,7 +8,8 @@ Fan
 HeatExchangerDX
 HeatExchangerWater
 HeatRecovery
-OutdoorAirSection
+OutdoorSection
+OutdoorReliefReturnSection
 ReliefReturnSection
 Sensor
 TerminalUnitAir
