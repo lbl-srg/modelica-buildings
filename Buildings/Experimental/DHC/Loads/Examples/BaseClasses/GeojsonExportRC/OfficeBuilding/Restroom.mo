@@ -21,7 +21,7 @@ model Restroom
     "Correction factor for solar transmission"
     annotation (Placement(transformation(extent={{6,54},{26,74}})));
   Buildings.ThermalZones.ReducedOrder.RC.TwoElements thermalZoneTwoElements(
-    redeclare package Medium=Modelica.Media.Air.DryAirNasa,
+    redeclare package Medium=Buildings.Media.Air,
     VAir=521.8867414172162,
     hConExt=2.0490178828959125,
     hConWin=2.7000000000000006,

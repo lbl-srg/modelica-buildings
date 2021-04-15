@@ -401,7 +401,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
-  connect(temAirPer5.T, multiplex5_1.u5[1]) annotation (Line(
+  connect(temAirCor.T, multiplex5_1.u5[1]) annotation (Line(
       points={{314,228},{322,228},{322,228},{332,228},{332,280},{338,280}},
       color={0,0,127},
       smooth=Smooth.None,
@@ -422,7 +422,7 @@ equation
       points={{31,56},{70,56},{70,114},{186,114},{186,258},{292,258}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(cor.heaPorAir, temAirPer5.port) annotation (Line(
+  connect(cor.heaPorAir, temAirCor.port) annotation (Line(
       points={{163,56},{162,56},{162,228},{294,228}},
       color={191,0,0},
       smooth=Smooth.None));

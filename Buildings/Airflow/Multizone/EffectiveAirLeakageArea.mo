@@ -137,12 +137,12 @@ Changed base class to remove the parameters <code>A</code> and <code>CD</code>
 which are not used by this model.<br/>
 This change is non-backward compatible.<br/>
 This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/932\">Buildings, #932</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/932\">IBPSA, #932</a>.
 </li>
 <li>
 May 30, 2018, by Michael Wetter:<br/>
 Improved documentation for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/546\">Buildings, #546</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/546\">IBPSA, #546</a>.
 </li>
 <li>
 April 24, 2017, by Filip Jorissen:<br/>

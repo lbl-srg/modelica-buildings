@@ -255,6 +255,15 @@ For more details, please see the release notes below.
 The following <b style=\"color:blue\">new libraries</b> have been added:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\">
+<tr><td colspan=\"2\"><b>Buildings.BoundaryConditions</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.BoundaryConditions.Validation.BESTEST
+    </td>
+    <td valign=\"top\">Packages with validation models for the weather data BESTEST.<br/>
+                     This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1314\">IBPSA, issue 1314</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Experimental</b>
     </td>
 </tr>
@@ -470,19 +479,12 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td colspan=\"2\"><b>Buildings.Examples</b>
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Examples.VAVReheat.Guideline36
+<tr><td valign=\"top\">Buildings.Examples.HydronicHeating.TwoRoomsWithStorage
     </td>
-    <td valign=\"top\">Upgraded sequence of specifying operating mode according to G36 official release.<br/>
-                       This is for
-                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1893\">issue 1893</a>.
+    <td valign=\"top\">Changed <code>dpVal_nominal</code> to 6 kPa.
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2378\">issue 2378</a>.
     </td>
-    <tr><td valign=\"top\">Buildings.Examples.VAVReheat.BaseClasses.PartialOpenLoop
-    </td>
-    <td valign=\"top\">Declared the rooms in a new model <code>Buildings.Examples.VAVReheat.BaseClasses.Floor</code>
-                       to allow use of the model with the Modelica or the Spawn envelope model.<br/>
-                       This is for
-                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1502\">issue 1502</a>.
-    </td>
+</tr>
 <tr><td valign=\"top\">Buildings.Examples.VAVReheat.BaseClasses.Floor
     </td>
     <td valign=\"top\">Refactored model to extend from the newly added <code>Buildings.Examples.VAVReheat.BaseClasses.PartialFloor</code> model.<br/>
@@ -490,39 +492,40 @@ have been <b style=\"color:blue\">improved</b> in a
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1502\">issue 1502</a>.
     </td>
 </tr>
-<tr><td colspan=\"2\"><b>Buildings.Fluid.HeatExchangers.RadiantSlabs</b>
-    </td>
-    </tr>
-<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Functions.AverageResistance
-    </td>
-    <td valign=\"top\">Corrected inequality test on <code>alpha</code>,
-                       and changed print statement to an assertion with assertion level set to warning.<br/>
-                       This is for
-                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2009\">issue 2009</a>.
-    </td>
-</tr>
-<tr><td colspan=\"2\"><b>Buildings.Media</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">Buildings.Media.Refrigerants.R410A
-    </td>
-    <td valign=\"top\">Improved implementation, which now works with OpenModelica.<br/>
-                       This is for
-                       <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1414\">IBPSA, issue 1414</a>.
-    </td>
-</tr>
-<tr><td colspan=\"2\"><b>Buildings.Examples</b>
-    </td>
-</tr>
+<tr><td valign=\"top\">Buildings.Examples.VAVReheat.BaseClasses.PartialOpenLoop
+    <td valign=\"top\">Declared the rooms in a new model <code>Buildings.Examples.VAVReheat.BaseClasses.Floor</code>
+                       to allow use of the model with the Modelica or the Spawn envelope model.<br/>
 <tr><td valign=\"top\">Buildings.Examples.DualFanDualDuct.ClosedLoop<br/>
-                       Buildings.Examples.VAVReheat.ASHRAE2006<br/>
-                       Buildings.Examples.VAVReheat.Guideline36<br/>
                        Buildings.Examples.ScalableBenchmarks.BuildingVAV.Examples.OneFloor_OneZone<br/>
-                       Buildings.Examples.ScalableBenchmarks.BuildingVAV.Examples.TwoFloor_TwoZone
+                       Buildings.Examples.ScalableBenchmarks.BuildingVAV.Examples.TwoFloor_TwoZone<br/>
+                       Buildings.Examples.VAVReheat.ASHRAE2006<br/>
+                       Buildings.Examples.VAVReheat.Guideline36
     </td>
     <td valign=\"top\">Adapted the model to the updated control of supply air temperature.<br/>
                        This is for
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2024\">issue 2024</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Examples.VAVReheat.Guideline36
+    </td>
+    <td valign=\"top\">Upgraded sequence of specifying operating mode according to G36 official release.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1893\">issue 1893</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Examples.VAVReheat.Guideline36
+    </td>
+    <td valign=\"top\">Change component name <code>yOutDam</code> to <code>yExhDam</code>
+                       and update documentation graphic to include relief damper.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2399\">#2399</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Examples.VAVReheat.ASHRAE2006
+    </td>
+    <td valign=\"top\">Update documentation graphic to include relief damper.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2399\">#2399</a>.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
@@ -535,6 +538,38 @@ have been <b style=\"color:blue\">improved</b> in a
                      <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1427\">IBPSA, issue 1427</a>.
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.DryCoilEffectivenessNTU<br/>
+                           Buildings.Fluid.HeatExchangers.PlateHeatExchangerEffectivenessNTU<br/>
+                           Buildings.Fluid.HeatExchangers.PartialEffectivenessNTU
+    </td>
+    <td valign=\"top\">Added a warning for when <code>Q_flow_nominal</code> is specified with the wrong sign.
+    </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.RadiantSlabs<br/>
+                           Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Functions.AverageResistance
+    </td>
+    <td valign=\"top\">Corrected inequality test on <code>alpha</code>,
+                       and changed print statement to an assertion with assertion level set to warning.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2009\">issue 2009</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.DryCoilEffectivenessNTU<br/>
+                           Buildings.Fluid.HeatExchangers.PlateHeatExchangerEffectivenessNTU<br/>
+                           Buildings.Fluid.HeatExchangers.PartialEffectivenessNTU
+    </td>
+    <td valign=\"top\">Added a warning for when <code>Q_flow_nominal</code> is specified with the wrong sign.
+    </td>
+    </tr>
+<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.RadiantSlabs<br/>
+                       Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Functions.AverageResistance
+    </td>
+    <td valign=\"top\">Corrected inequality test on <code>alpha</code>,
+                       and changed print statement to an assertion with assertion level set to warning.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2009\">issue 2009</a>.
+    </td>
+</tr>
 <tr><td valign=\"top\">Buildings.Fluid.Sensors.EnthalpyFlowRate<br/>
                        Buildings.Fluid.Sensors.EntropyFlowRate<br/>
                        Buildings.Fluid.Sensors.LatentEnthalpyFlowRate<br/>
@@ -544,6 +579,25 @@ have been <b style=\"color:blue\">improved</b> in a
     <td valign=\"top\">Changed parameter values to use as default a steady-state sensor signal.<br/>
                      This is for
                      <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1406\">IBPSA, issue 1406</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Media</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Media.Refrigerants.R410A
+    </td>
+    <td valign=\"top\">Improved implementation, which now works with OpenModelica.<br/>
+                       This is for
+                       <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1414\">IBPSA, issue 1414</a>.
+    </td>
+</tr>
+
+<tr><td colspan=\"2\"><b>Buildings.Utilities</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Utilities.Cryptographics.sha
+    </td>
+    <td valign=\"top\">Corrected memory leak.
     </td>
 </tr>
 </table>
@@ -703,7 +757,8 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Logical.Sources.SampleTrigger<br/>
                        Buildings.Controls.OBC.CDL.Logical.Sources.Pulse
     </td>
-    <td valign=\"top\">Removed <code>startTime</code> parameter. Introduced <code>shift</code> parameter.<br/>
+    <td valign=\"top\">Removed <code>startTime</code> parameter. Introduced <code>shif"
+               + "t</code> parameter.<br/>
                        This is for
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2170\">issue 2170</a>
                        and <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2282\">issue 2282</a>.<br/>
@@ -756,7 +811,15 @@ have been <b style=\"color:blue\">improved</b> in a
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2245\">#2245</a>.
     </td>
 </tr>
-<tr><td colspan=\"2\"><b>Buildings.Examples.VAVReheat.Controls</b>
+<tr><td colspan=\"2\"><b>Buildings.Examples.VAVReheat</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Examples.VAVReheat.BaseClasses.VAVBranch
+    </td>
+    <td valign=\"top\">Moved to <code>Buildings.Obsolete.Examples.VAVReheat.BaseClasses.VAVBranch</code>
+    and replaced by <code>Buildings.Examples.VAVReheat.BaseClasses.VAVReheatBox</code>.
+    <br/> This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2059\">issue #2059</a>.
+    <br/> For Dymola, a conversion script makes this change.
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Examples.VAVReheat.Controls.Economizer

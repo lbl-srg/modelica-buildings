@@ -40,7 +40,7 @@ This component computes the solar incidence angle on a tilted surface using the 
 April 27, 2018, by Michael Wetter:<br/>
 Corrected <code>displayUnit</code>.<br/>
 This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/912\">Buildings, issue 912</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/912\">IBPSA, issue 912</a>.
 </li>
 <li>
 Dec 7, 2010, by Michael Wetter:<br/>
