@@ -1,11 +1,12 @@
-within Buildings.Fluid.BuriedPipes.BaseClasses.Functions;
+within Buildings.Fluid.BuriedPipes.BaseClasses;
 function groundCouplingFactors
   "Geometric factors for buried pipe-ground coupling"
   extends Modelica.Icons.Function;
   input Integer nPip(min=1, fixed=true) "Number of pipes";
 
   input Modelica.SIunits.Length dep[nPip] "Pipes Buried Depth";
-  input Modelica.SIunits.Length pos[nPip] "Pipes Horizontal Coordinate (to an arbitrary reference point)";
+  input Modelica.SIunits.Length pos[nPip]
+    "Pipes Horizontal Coordinate (to an arbitrary reference point)";
   input Modelica.SIunits.Length rad[nPip] "Pipes external radius";
 
   output Real P[nPip, nPip] "Thermal coupling geometric factors";
@@ -25,11 +26,12 @@ algorithm
 
   annotation (Documentation(info="<html>
 <p>
-This function computes the multiple buried pipe system coupling matrix P described by Kusuda (1981).
+This function computes the multiple buried pipe system coupling matrix P 
+described by Kusuda (1981).
 </p>
 <p>
-For a network of n buried pipes that are coaxial, the matrix P of size n x n is 
-computed from the system geometry:
+For a network of n buried pipes that are coaxial, the matrix P of size 
+n x n is computed from the system geometry:
 </p>
 <p>
 <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/BuriedPipes/groundCouplingFactors.svg\" />

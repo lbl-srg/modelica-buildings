@@ -16,7 +16,8 @@ model UndisturbedSoilTemperature "Example model for undisturbed soil temperature
     annotation (Placement(transformation(extent={{-10,-72},{10,-52}})));
 
 protected
-  replaceable parameter ClimaticConstants.Boston cliCon "Surface temperature climatic conditions";
+  replaceable parameter ClimaticConstants.Boston cliCon
+    "Surface temperature climatic conditions";
   replaceable parameter Buildings.HeatTransfer.Data.Soil.Generic soiDat(
     k=1.58,c=1150,d=1600) "Soil thermal properties";
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
@@ -24,8 +25,9 @@ protected
     experiment(StopTime=31536000, __Dymola_Algorithm="Cvode", Tolerance=1e-6),
     Documentation(info="<html>
 <p>
-This example model illustrates how the undisturbed soil temperature model decreases
-seasonal temperature oscillations and increases delay as depth is increasing.
+This example model illustrates how the undisturbed soil temperature model 
+decreases seasonal temperature oscillations and increases delay as depth is 
+increasing.
 </p>
 </html>", revisions="<html>
 <ul>

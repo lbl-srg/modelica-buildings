@@ -1,5 +1,15 @@
 within Buildings.BoundaryConditions;
-package GroundTemperature
+package GroundTemperature "Package with models to compute ground temperature"
   extends Modelica.Icons.VariantsPackage;
 
+  annotation (Documentation(info="<html>
+This package contains models to compute ground temperature
+</html>", revisions="<html>
+<ul>
+<li>
+March 17, 2021, by Baptiste Ravache:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end GroundTemperature;

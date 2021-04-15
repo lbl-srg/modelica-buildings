@@ -2,10 +2,13 @@ within Buildings.Fluid.BuriedPipes.Examples;
 model TwoBuriedPipes "Example model of two buried pipes in close proximity"
   extends Modelica.Icons.Example;
 
-  replaceable parameter Buildings.BoundaryConditions.GroundTemperature.ClimaticConstants.Boston cliCon "Surface temperature climatic conditions";
-  replaceable parameter Buildings.HeatTransfer.Data.Soil.Generic soiDat(k=1.58,c=1150,d=1600) "Soil thermal properties";
-  replaceable package Medium = Buildings.Media.Water "Medium in the pipe" annotation (
-      choicesAllMatching=true);
+  replaceable parameter
+    Buildings.BoundaryConditions.GroundTemperature.ClimaticConstants.Boston
+    cliCon "Surface temperature climatic conditions";
+  replaceable parameter Buildings.HeatTransfer.Data.Soil.Generic
+    soiDat(k=1.58,c=1150,d=1600) "Soil thermal properties";
+  replaceable package Medium = Buildings.Media.Water "Medium in the pipe"
+    annotation (choicesAllMatching=true);
 
   Buildings.Fluid.BuriedPipes.GroundCoupling gro(
     nPip=2,
@@ -31,7 +34,8 @@ model TwoBuriedPipes "Example model of two buried pipes in close proximity"
     thickness=0.0032,
     T_start_in=TChW,
     T_start_out=TChW,
-    nPorts=1) "Buried chilled water pipe" annotation (Placement(transformation(extent={{0,-10},{20,10}})));
+    nPorts=1) "Buried chilled water pipe"
+    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Modelica.Blocks.Sources.Sine TinChW(
     amplitude=2,
     freqHz=1/180/24/60/60,
@@ -140,9 +144,10 @@ equation
       __Dymola_Algorithm="Cvode"),
     Documentation(info="<html>
 <p>
-This example showcases the ground thermal coupling for a network of two uninsulated
-buried pipes that are in close proximity. One pipe carries chilled water oscillating around
-10degC whereas the other carries hot water oscillating around 80degC.
+This example showcases the ground thermal coupling for a network of two 
+uninsulated buried pipes that are in close proximity. One pipe carries 
+chilled water oscillating around 10degC whereas the other carries hot water 
+oscillating around 80degC.
 </p>
 </html>", revisions="<html>
 <ul>

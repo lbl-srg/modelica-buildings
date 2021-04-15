@@ -1,20 +1,29 @@
 within Buildings.BoundaryConditions.GroundTemperature;
 model UndisturbedSoilTemperature "Undisturbed soil temperature"
   parameter Modelica.SIunits.Length dep "Depth";
-  replaceable parameter Buildings.HeatTransfer.Data.Soil.Generic soiDat "Soil thermal properties";
-  replaceable parameter ClimaticConstants.Generic cliCon "Surface temperature climatic conditions";
+  replaceable parameter Buildings.HeatTransfer.Data.Soil.Generic
+    soiDat "Soil thermal properties";
+  replaceable parameter ClimaticConstants.Generic
+    cliCon "Surface temperature climatic conditions";
 
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b port "Boundary heat port";
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b
+    port "Boundary heat port";
 protected
   constant Modelica.SIunits.Angle pi = Modelica.Constants.pi;
-  constant Modelica.SIunits.Duration Year = 365.2422*24*60*60 "Annual period length";
+  constant Modelica.SIunits.Duration Year = 365.2422*24*60*60
+    "Annual period length";
 
-  parameter Modelica.SIunits.ThermalDiffusivity soiDif = soiDat.k / soiDat.c / soiDat.d "Soil diffusivity";
-  parameter Modelica.SIunits.Duration timLag = cliCon.sinPhaDay*24*60*60 "Start time of surface temperature sinusoid";
-  parameter Real pha = - dep * (pi/soiDif/Year)^0.5 "Phase angle of ground temperature sinusoid";
+  parameter Modelica.SIunits.ThermalDiffusivity
+    soiDif = soiDat.k / soiDat.c / soiDat.d "Soil diffusivity";
+  parameter Modelica.SIunits.Duration
+    timLag = cliCon.sinPhaDay*24*60*60
+    "Start time of surface temperature sinusoid";
+  parameter Real pha = - dep * (pi/soiDif/Year)^0.5
+    "Phase angle of ground temperature sinusoid";
 
 equation
-  port.T = cliCon.TMeaSur + cliCon.TSurAmp * exp(pha) * sin(2*pi*(time-timLag)/Year - pha);
+  port.T = cliCon.TSurMea + cliCon.TSurAmp * exp(pha) *
+    sin(2*pi*(time-timLag)/Year + pha);
     annotation (Placement(transformation(extent={{-6,-104},{6,-92}}),
         iconTransformation(extent={{-6,-104},{6,-92}})),
               Icon(coordinateSystem(preserveAspectRatio=false), graphics={
@@ -55,18 +64,19 @@ equation
 <p>
 This model provides a prescribed temperature boundary counditions for buried objects,
 where the temperature is computed per the ASCE (1996) equation:
-
-</p>
-<p align=\"center\">
-<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/BoundaryConditions/GroundTemperature/UndisturbedGroundTemperature.png\" />
 </p>
 <p>
-where T<sub>s,z</sub> is the ground temperature at depth z, 
-&tau; is the annual period length (constant 365.25 days),
-&alpha; is the soil thermal diffusivity, and t is the time.
-T<sub>ms</sub>, A<sub>s</sub> and t<sub>lag</sub> are function of the
-climate and represent the offset, amplitude and phase, respectively,
-of the representative surface temperature sinusoid.
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/BoundaryConditions/GroundTemperature/UndisturbedGroundTemperature.svg\" />
+</p>
+<p>
+where: <br>
+<i>T<sub>s,z</sub></i> = ground temperature at depth <i>z</i>,<br>
+<i>&tau;</i> = annual period length (constant 365.25 days),<br>
+<i>&alpha;</i> = soil thermal diffusivity, <br>
+<i>t</i> = time, <br>
+<i>T<sub>ms</sub></i> = mean annual surface temperature<br>
+<i>A<sub>s</sub></i> = temperature amplitude throughout the year (max - min) 
+<i>t<sub>lag</sub></i> = phase lag of the surface temperature sinusoid
 </p>
 <h4>References</h4>
 <p>

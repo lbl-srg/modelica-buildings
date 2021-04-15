@@ -2,10 +2,13 @@
 model SingleBuriedPipe "Example model of a single buried pipe"
   extends Modelica.Icons.Example;
 
-  replaceable parameter Buildings.BoundaryConditions.GroundTemperature.ClimaticConstants.Boston cliCon "Surface temperature climatic conditions";
-  replaceable parameter Buildings.HeatTransfer.Data.Soil.Generic soiDat(k=1.58,c=1150,d=1600) "Soil thermal properties";
-  replaceable package Medium = Buildings.Media.Water "Medium in the pipe" annotation (
-      choicesAllMatching=true);
+  replaceable parameter
+    Buildings.BoundaryConditions.GroundTemperature.ClimaticConstants.Boston
+    cliCon "Surface temperature climatic conditions";
+  replaceable parameter Buildings.HeatTransfer.Data.Soil.Generic
+    soiDat(k=1.58,c=1150,d=1600) "Soil thermal properties";
+  replaceable package Medium = Buildings.Media.Water "Medium in the pipe"
+    annotation (choicesAllMatching=true);
 
   FixedResistances.PlugFlowPipe pip(
     redeclare package Medium=Medium,
@@ -121,7 +124,8 @@ equation
   connect(pip.ports_b[1], senTemOut.port_a)
     annotation (Line(points={{20,40},{46,40}},
                                              color={0,127,255}));
-  connect(pip.heatPort, gro.ports[1]) annotation (Line(points={{10,50},{10,80}},
+  connect(pip.heatPort, gro.ports[1]) annotation (Line(points={{10,50},{10,66},
+          {10,80.1},{9.9,80.1}},
                            color={191,0,0}));
   connect(souRev.ports[1], senTemOutRev.port_a)
     annotation (Line(points={{-46,-60},{-36,-60}}, color={0,127,255}));
@@ -132,7 +136,8 @@ equation
   connect(pipRev.ports_b[1], senTemInlRev.port_a)
     annotation (Line(points={{20,-60},{46,-60}}, color={0,127,255}));
   connect(pipRev.heatPort, groRev.ports[1])
-    annotation (Line(points={{10,-50},{10,-20}}, color={191,0,0}));
+    annotation (Line(points={{10,-50},{10,-34},{10,-19.9},{9.9,-19.9}},
+                                                 color={191,0,0}));
   connect(Tin.y, sinRev.T_in) annotation (Line(points={{-89,-40},{110,-40},{110,
           -56},{102,-56}}, color={0,0,127}));
   annotation (Diagram(

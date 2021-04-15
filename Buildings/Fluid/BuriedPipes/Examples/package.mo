@@ -3,6 +3,7 @@ package Examples "Collection of models that illustrate model use and test models
   extends Modelica.Icons.ExamplesPackage;
 
 annotation (Documentation(info="<html>
-This package contains examples for the use of models that can be found in <code>Buildings.Fluid.BuriedPipes</code>. 
+This package contains examples for the use of models that can be found in 
+<a href=\"modelica://Buildings.Fluid.BuriedPipes\">Buildings.Fluid.BuriedPipes</a>. 
 </html>"));
 end Examples;

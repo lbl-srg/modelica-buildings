@@ -1,36 +1,43 @@
 within Buildings.Fluid.BuriedPipes;
 model GroundCoupling "Thermal coupling between buried pipes and ground"
-  parameter Integer nPip(min=1, fixed=true) "Number of buried pipes";
+  parameter Integer nPip(min=1) "Number of buried pipes";
 
-  replaceable parameter Buildings.HeatTransfer.Data.Soil.Generic soiDat "Soil thermal properties";
-  replaceable parameter Buildings.BoundaryConditions.GroundTemperature.ClimaticConstants.Generic cliCon "Surface temperature climatic conditions";
+  replaceable parameter Buildings.HeatTransfer.Data.Soil.Generic soiDat
+    "Soil thermal properties";
+  replaceable parameter
+    Buildings.BoundaryConditions.GroundTemperature.ClimaticConstants.Generic
+    cliCon "Surface temperature climatic conditions";
 
   parameter Modelica.SIunits.Length len "Pipes length";
 
   parameter Modelica.SIunits.Length dep[nPip] "Pipes buried depth";
-  parameter Modelica.SIunits.Length pos[nPip] "Pipes horizontal coordinate (to an arbitrary reference point)";
+  parameter Modelica.SIunits.Length pos[nPip]
+    "Pipes horizontal coordinate (to an arbitrary reference point)";
   parameter Modelica.SIunits.Length rad[nPip] "Pipes external radius";
 
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a ports[nPip] "Buried pipes heatports" annotation (Placement(transformation(extent={{-10,-40},
-            {10,40}},
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a ports[nPip]
+    "Buried pipes heatports"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90,
         origin={0,-100}),
                         iconTransformation(
-        extent={{-10,-40},{10,40}},
+        extent={{-9,-9},{9,9}},
         rotation=270,
-        origin={0,-100})));
-  Buildings.BoundaryConditions.GroundTemperature.UndisturbedSoilTemperature soi(cliCon=cliCon, soiDat=soiDat, dep=depMea) "Soil temperature";
+        origin={-1,-99})));
+  Buildings.BoundaryConditions.GroundTemperature.UndisturbedSoilTemperature
+    soi(cliCon=cliCon, soiDat=soiDat, dep=depMea) "Soil temperature";
 
 protected
   parameter Modelica.SIunits.Length depMea = sum(dep) / nPip "Average depth";
-  parameter Real P[nPip,nPip]=BaseClasses.Functions.groundCouplingFactors(
+  parameter Real P[nPip,nPip]=BaseClasses.groundCouplingFactors(
       nPip,
       dep,
       pos,
       rad) "Thermal coupling geometric factors";
 
 equation
-  ports.T .- soi.port.T = P * ports.Q_flow / (2 * Modelica.Constants.pi * soiDat.k * len);
+  ports.T .- soi.port.T = P * ports.Q_flow /
+    (2 * Modelica.Constants.pi * soiDat.k * len);
 
   annotation (Icon(graphics={
         Text(
@@ -225,23 +232,29 @@ equation
           color={0,0,0},
           thickness=0.5)}), Documentation(info="<html>
 <p>
-This model simulates the heat transfer between multiple buried pipes and the ground,
-using climate and soil information and the geometry of the pipes network.
+This model simulates the heat transfer between multiple buried pipes and the 
+ground, using climate and soil information and the geometry of the pipes 
+network.
 
-The heat transfer solution is based upon the potential flow theory and obtained by the use
-of \"mirror-image\" technique suggested by Eckert (1959). This technique is extended to
-a network with multiple pipes by Kusuda (1981) in the equation:
-</p>
-<p align=\"center\">
-<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/BuriedPipes/BuriedPipesHeatTransfer.png\" />
+The heat transfer solution is based upon the potential flow theory and 
+obtained by the use of \"mirror-image\" technique suggested by Eckert (1959).
+This technique is extended to a network with multiple pipes by Kusuda (1981) 
+in the equation:
 </p>
 <p>
-where k<sub>s</sub> is the soil thermal conductivity, P<sub>ij</sub> is a 
-geometric factor that is function of the pipes and mirror images positions (see 
-<code>Buildings.Fluid.BuriedPipes.Functions.groundCouplingFactors</code> for more information),
-Q<sub>i</sub> is the heat transfer from the ith pipe, T<sub>i</sub> is the temperature at
-the exterior surface of the ith pipe, and T<sub>g</sub> is the undisturbed ground 
-temperature at the depth of the network.
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/BuriedPipes/GroundCoupling.svg\" />
+</p>
+<p>
+where: <br>
+<i>k<sub>s</sub></i> = soil thermal conductivity <br>
+<i>P<sub>ij</sub></i> = geometric factor (see 
+<a href=\"modelica://Buildings.Fluid.BuriedPipes.Functions.groundCouplingFactors\">
+Buildings.Fluid.BuriedPipes.Functions.groundCouplingFactors</a>
+for more information) <br>
+<i>Q<sub>i</sub></i> = net heat transfer from pipe <i>i</i> <br>
+<i>T<sub>i</sub></i> = temperature atthe exterior surface of pipe <i>i</i> <br>
+<i>T<sub>g</sub></i> = undisturbed ground temperature at the depth of the 
+network.
 </p>
 <p>
 This model relies on the following assumptions.
