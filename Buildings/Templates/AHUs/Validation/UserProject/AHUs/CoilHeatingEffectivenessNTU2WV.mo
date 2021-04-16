@@ -1,6 +1,6 @@
 within Buildings.Templates.AHUs.Validation.UserProject.AHUs;
 model CoilHeatingEffectivenessNTU2WV
-  extends VAVSingleDuctWithEconomizer(
+  extends VAVSingleDuct(
     redeclare Templates.BaseClasses.Coils.WaterBasedHeating coiHea(redeclare
         Buildings.Templates.BaseClasses.Coils.Actuators.TwoWayValve act,
         redeclare

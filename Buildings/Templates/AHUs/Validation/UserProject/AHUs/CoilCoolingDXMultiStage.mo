@@ -1,6 +1,6 @@
 within Buildings.Templates.AHUs.Validation.UserProject.AHUs;
 model CoilCoolingDXMultiStage
-  extends VAVSingleDuctWithEconomizer(
+  extends VAVSingleDuct(
     final id="VAV_1",
     nZon=1,
     nGro=1,

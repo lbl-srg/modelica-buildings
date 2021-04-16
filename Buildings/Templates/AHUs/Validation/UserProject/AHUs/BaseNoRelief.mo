@@ -1,8 +1,7 @@
 within Buildings.Templates.AHUs.Validation.UserProject.AHUs;
 model BaseNoRelief
-  extends VAVSingleDuctWithEconomizer(
-    redeclare BaseClasses.ReliefReturnSection.NoRelief secRel
-      "No relief branch",
+  extends VAVSingleDuct(
+    redeclare BaseClasses.OutdoorReliefReturnSection.NoRelief secOutRel,
     final id="VAV_1",
     nZon=1,
     nGro=1);

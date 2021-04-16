@@ -1,6 +1,6 @@
 within Buildings.Templates.AHUs.Validation.UserProject.AHUs;
 model CoilCoolingCounterFlow
-  extends VAVSingleDuctWithEconomizer(
+  extends VAVSingleDuct(
     redeclare Templates.BaseClasses.Coils.WaterBasedCooling coiCoo(redeclare
         Templates.BaseClasses.Coils.HeatExchangers.WetCoilCounterFlow hex
         "Discretized heat exchanger model") "Water-based",

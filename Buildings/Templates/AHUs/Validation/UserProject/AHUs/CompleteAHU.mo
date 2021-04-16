@@ -1,6 +1,6 @@
 within Buildings.Templates.AHUs.Validation.UserProject.AHUs;
 model CompleteAHU
-  extends Buildings.Templates.AHUs.VAVSingleDuctWithEconomizer(
+  extends Buildings.Templates.AHUs.VAVSingleDuct(
     secOutRel(redeclare BaseClasses.OutdoorSection.SingleCommon secOut
         "Single common OA damper (modulated) with AFMS", secRel(redeclare
           Templates.BaseClasses.Fans.SingleVariable fanRet

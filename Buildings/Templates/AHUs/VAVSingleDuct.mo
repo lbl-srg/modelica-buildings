@@ -1,5 +1,5 @@
 within Buildings.Templates.AHUs;
-model VAVSingleDuctWithEconomizer "VAV single duct with air economizer"
+model VAVSingleDuct "VAV single duct"
   extends Buildings.Templates.Interfaces.AHU(
     final typ=Buildings.Templates.Types.AHU.SingleDuct,
     final have_porRel=secOutRel.typ<>Templates.Types.OutdoorReliefReturnSection.NoRelief);
@@ -154,15 +154,16 @@ model VAVSingleDuctWithEconomizer "VAV single duct with air economizer"
       final loc=Templates.Types.Location.Supply)
     "Supply fan - Draw through"
     annotation (
-    choicesAllMatching=true,
-    Dialog(
-      group="Supply air section",
-      enable=fanSupBlo==Buildings.Templates.Types.Fan.None),
-    Placement(transformation(extent={{110,-210},{130,-190}})));
+      choicesAllMatching=true,
+      Dialog(
+        group="Supply air section",
+        enable=fanSupBlo==Buildings.Templates.Types.Fan.None),
+      Placement(transformation(extent={{110,-210},{130,-190}})));
 
   // FIXME: bind typ to control option.
   Buildings.Templates.BaseClasses.Sensors.Wrapper VSup_flow(
     redeclare final package Medium = MediumAir,
+    final loc=Templates.Types.Location.Supply,
     typ=Types.Sensor.VolumeFlowRate)
     "Supply air volume flow rate sensor"
     annotation (
@@ -482,4 +483,4 @@ Modulateded relief damper
 
 
 </html>"));
-end VAVSingleDuctWithEconomizer;
+end VAVSingleDuct;
