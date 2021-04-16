@@ -8,7 +8,7 @@ partial model ReliefReturnSection "Relief/return air section"
   parameter Types.ReliefReturnSection typ
     "Relief/return air section type"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  parameter Templates.Types.Damper typDamRel
+  parameter Templates.Types.Damper typDam
     "Relief damper type"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Templates.Types.Fan typFan

@@ -2,7 +2,7 @@ within Buildings.Templates.BaseClasses.ReliefReturnSection;
 model NoEconomizer "No economizer"
   extends Buildings.Templates.Interfaces.ReliefReturnSection(
     final typ=Templates.Types.ReliefReturnSection.NoEconomizer,
-    final typDamRel=damRel.typ,
+    final typDam=damRel.typ,
     final typFan=fanRet.typ,
     final have_porPre=fanRet.typCtr==Templates.Types.ReturnFanControlSensor.Pressure);
 

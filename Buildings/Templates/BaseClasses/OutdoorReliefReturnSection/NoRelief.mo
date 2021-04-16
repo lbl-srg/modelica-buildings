@@ -2,7 +2,11 @@ within Buildings.Templates.BaseClasses.OutdoorReliefReturnSection;
 model NoRelief " No relief branch"
   extends Templates.Interfaces.OutdoorReliefReturnSection(
     final typ=Templates.Types.OutdoorReliefReturnSection.NoRelief,
-    final have_porPre=secRel.have_porPre);
+    final have_porPre=secRel.have_porPre,
+    final typDamOut=secOut.typDamOut,
+    final typDamOutMin=secOut.typDamOutMin,
+    final typDamRel=secRel.typDam,
+    final typFanRet=secRel.typFan);
 
   replaceable OutdoorSection.SingleCommon secOut
     constrainedby Templates.Interfaces.OutdoorSection(

@@ -2,7 +2,7 @@
 model ReturnFan "Return fan - Modulated relief damper"
   extends Buildings.Templates.Interfaces.ReliefReturnSection(
     final typ=Templates.Types.ReliefReturnSection.ReturnFan,
-    final typDamRel=damRel.typ,
+    final typDam=damRel.typ,
     final typFan=fanRet.typ,
     final have_porPre=fanRet.typCtr==Templates.Types.ReturnFanControlSensor.Pressure);
 

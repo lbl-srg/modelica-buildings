@@ -2,7 +2,7 @@ within Buildings.Templates.BaseClasses.ReliefReturnSection;
 model NoRelief "No relief branch"
   extends Buildings.Templates.Interfaces.ReliefReturnSection(
     final typ=Templates.Types.ReliefReturnSection.NoRelief,
-    final typDamRel=Templates.Types.Damper.None,
+    final typDam=Templates.Types.Damper.None,
     final typFan=fanRet.typ,
     have_recHea=false,
     final have_porPre=fanRet.typCtr==Templates.Types.ReturnFanControlSensor.Pressure);

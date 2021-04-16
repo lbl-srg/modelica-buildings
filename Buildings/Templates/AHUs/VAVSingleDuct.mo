@@ -23,6 +23,16 @@ model VAVSingleDuct "VAV single duct"
     "Set to true for fluid ports on the source side"
     annotation (Evaluate=true, Dialog(group="Reheat coil"));
 
+  final inner parameter Templates.Types.Fan typFanSup=
+    if fanSupDra.typ <> Templates.Types.Fan.None then fanSupDra.typ
+    elseif fanSupBlo.typ <> Templates.Types.Fan.None then fanSupBlo.typ
+    else Templates.Types.Fan.None
+    "Type of supply fan"
+    annotation (Evaluate=true);
+  final inner parameter Templates.Types.Fan typFanRet = secOutRel.typFanRet
+    "Type of return fan"
+    annotation (Evaluate=true);
+
   Modelica.Fluid.Interfaces.FluidPort_b port_coiCooRet(
     redeclare final package Medium = MediumCoo) if have_souCoiCoo
     "Cooling coil return port"

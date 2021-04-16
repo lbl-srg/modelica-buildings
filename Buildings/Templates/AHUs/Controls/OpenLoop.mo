@@ -4,25 +4,25 @@ block OpenLoop "Open loop controller (output signals only)"
     final typ=Templates.Types.ControllerAHU.OpenLoop);
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yDamOut(k=1) if
-    secOutRel.secOut.typDamOut==Buildings.Templates.Types.Damper.Modulated
+    secOutRel.typDamOut==Buildings.Templates.Types.Damper.Modulated
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-180,170})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant yDamOut1(k=true) if
-    secOutRel.secOut.typDamOut==Buildings.Templates.Types.Damper.TwoPosition
+    secOutRel.typDamOut==Buildings.Templates.Types.Damper.TwoPosition
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-170,144})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yDamOutMin(k=1) if
-    secOutRel.secOut.typDamOutMin==Buildings.Templates.Types.Damper.Modulated
+    secOutRel.typDamOutMin==Buildings.Templates.Types.Damper.Modulated
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-150,170})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant yDamOutMin1(k=true) if
-    secOutRel.secOut.typDamOutMin==Buildings.Templates.Types.Damper.TwoPosition
+    secOutRel.typDamOutMin==Buildings.Templates.Types.Damper.TwoPosition
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
@@ -33,13 +33,13 @@ block OpenLoop "Open loop controller (output signals only)"
         rotation=-90,
         origin={-120,170})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yDamRel(k=1) if
-    secOutRel.secRel.typDamRel==Buildings.Templates.Types.Damper.Modulated
+    secOutRel.typDamRel==Buildings.Templates.Types.Damper.Modulated
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-90,170})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant yDamRel1(k=true) if
-    secOutRel.secRel.typDamRel==Buildings.Templates.Types.Damper.TwoPosition
+    secOutRel.typDamRel==Buildings.Templates.Types.Damper.TwoPosition
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
