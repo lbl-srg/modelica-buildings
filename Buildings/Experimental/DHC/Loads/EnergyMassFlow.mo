@@ -1,6 +1,10 @@
 ﻿within Buildings.Experimental.DHC.Loads;
 block EnergyMassFlow
   extends Modelica.Blocks.Icons.Block;
+
+  parameter Boolean have_masFlo = false
+    "Set to true in case of prescribed mass flow rate"
+    annotation(Evaluate=true);
   parameter Boolean have_pum
     "Set to true if the system has a pump"
     annotation(Evaluate=true);
@@ -11,99 +15,135 @@ block EnergyMassFlow
     "Nominal mass flow rate";
   parameter Modelica.SIunits.Temperature TLoa = 20+273.15
     "Load temperature";
-  parameter Real fra_m_flow_min = 0.1
-    "Minimum flow rate (ratio to nominal)";
-  parameter Modelica.SIunits.Time tau = 60
-    "Time constant for mass dynamics"
-    annotation (Dialog(tab="Dynamics", group="Nominal condition"));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput Q_flow(
-    final unit="W") "Connector of actuator output signal"
-    annotation (Placement(transformation(extent={{-140,70},{-100,110}}),
-      iconTransformation(extent={{-140,70},{-100,110}})));
+  parameter Real fra_m_flow_min = if have_pum then 0.1 else 0
+    "Minimum flow rate (ratio to nominal)"
+    annotation(Dialog(enable=have_pum));
+
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput ena
+    "Enable signal"
+    annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
+        iconTransformation(extent={{-140,60},{-100,100}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput QPre_flow(
+    final unit="W") "Prescribed load"
+    annotation (Placement(transformation(extent={{-140,30},{-100,70}}),
+              iconTransformation(extent={{-140,30},{-100,70}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput mPre_flow(
+    final unit="kg/s") if have_masFlo
+    "Prescribed mass flow rate"
+    annotation (Placement(transformation(extent={{-140,0},{-100,40}}),
+      iconTransformation(extent={{-140,0},{-100,40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSupSet(
     final unit="K",
     displayUnit="degC")
-    "Connector of actuator output signal"
-    annotation (Placement(transformation(extent={{-140,10},{-100,50}}),
-      iconTransformation(extent={{-140,10},{-100,50}})));
+    "Supply temperature set point"
+    annotation (Placement(transformation(extent={{-140,-30},{-100,10}}),
+      iconTransformation(extent={{-140,-30},{-100,10}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSup_actual(
     final unit="K",
     displayUnit="degC")
-    "Connector of actuator output signal"
+    "Actual supply temperature"
     annotation (Placement(transformation(
-          extent={{-140,-50},{-100,-10}}), iconTransformation(extent={{-140,-50},
-            {-100,-10}})));
+      extent={{-140,-60},{-100,-20}}), iconTransformation(extent={{-140,-60},{-100,
+            -20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput m_flow_actual(
     final unit="kg/s")
-    "Connector of actuator output signal"
+    "Actual mass flow rate"
     annotation (Placement(transformation(
-          extent={{-140,-108},{-100,-68}}), iconTransformation(extent={{-140,-108},
-            {-100,-68}})));
+      extent={{-140,-90},{-100,-50}}),  iconTransformation(extent={{-140,-90},{-100,
+            -50}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput m_flow(
     final unit="kg/s")
-    "Connector of actuator output signal"
+    "Mass flow rate required to meet prescribed load"
     annotation (Placement(transformation(extent={{100,40},{140,80}}),
       iconTransformation(extent={{100,40}, {140,80}})));
   // Unit set to "1" to allow GUI connection with HeaterCooler_u.
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput Q_flow_actual(
     unit="1")
-    "Connector of actuator output signal"
+    "Load that can be met under actual operating conditions"
     annotation (Placement(transformation(
-          extent={{100,-20},{140,20}}), iconTransformation(extent={{100,-20},{140,
-            20}})));
+      extent={{100,-20},{140,20}}), iconTransformation(extent={{100,-20},{140,
+        20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput Q_flow_residual(
     final unit="W")
-    "Connector of actuator output signal"
+    "Residual load that cannot be met under actual operating conditions"
     annotation (Placement(transformation(
-          extent={{100,-80},{140,-40}}), iconTransformation(extent={{100,-80},{140,
-            -40}})));
+      extent={{100,-80},{140,-40}}), iconTransformation(extent={{100,-80},{140,
+        -40}})));
   Modelica.Blocks.Continuous.Filter filter(
-     final order=1,
-     f_cut=5/(2*Modelica.Constants.pi*120),
-     final init=Modelica.Blocks.Types.Init.InitialOutput,
-     final y_start=1,
-     final analogFilter=Modelica.Blocks.Types.AnalogFilter.CriticalDamping,
-     final filterType=Modelica.Blocks.Types.FilterType.LowPass,
-     x(each stateSelect=StateSelect.always,
-       each start=1))
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+    final order=1,
+    f_cut=5/(2*Modelica.Constants.pi*120),
+    final init=Modelica.Blocks.Types.Init.InitialOutput,
+    final y_start=1,
+    final analogFilter=Modelica.Blocks.Types.AnalogFilter.CriticalDamping,
+    final filterType=Modelica.Blocks.Types.FilterType.LowPass,
+    x(each stateSelect=StateSelect.always, each start=1))
+    "First-order filter";
+
 protected
   Real rat_m_flow_cha
-    "Mass flow rate ratio based on characteristics";
+    "Mass flow rate ratio from characteristics or prescribed value";
   Real rat_m_flow_cor
     "Mass flow rate ratio corrected for supply temperature mismatch";
-  Real rat2_m_flow_cor
-    "Correction factor in case of low mass flow rate";
+  Real rat_Q_flow_cor
+    "Heat flow rate correction factor for mass flow rate mismatch";
+  Modelica.SIunits.MassFlowRate m_flow_internal
+    "Mass flow rate for internal use when mPre_flow is removed";
+
+  function characteristics "m_flow -> Q_flow characteristics"
+    /* FE: implement exponential characteristics based on OS load data.
+    Currently a linear relationship to the prescribed load is used.
+    */
+    extends Modelica.Icons.Function;
+    input Real rat_m_flow;
+    output Real rat_Q_flow;
+  algorithm
+    rat_Q_flow := rat_m_flow;
+  end characteristics;
+
+  function inverseCharacteristics "Inverse of m_flow -> Q_flow characteristics"
+    /* FE: implement exponential characteristics based on OS load data.
+    Currently a linear relationship to the prescribed load is used.
+    */
+    extends Modelica.Icons.Function;
+    input Real rat_Q_flow;
+    output Real rat_m_flow;
+  algorithm
+    rat_m_flow := rat_Q_flow;
+  end inverseCharacteristics;
+
 equation
-  // TODO: implement exponential Q_flow / m_flow characteristics
-  rat_m_flow_cha = Q_flow / Q_flow_nominal;
+  if have_masFlo then
+    connect(mPre_flow, m_flow_internal);
+  else
+    m_flow_internal = m_flow_nominal;
+  end if;
+  rat_m_flow_cha = if have_masFlo then m_flow_internal / m_flow_nominal else
+    inverseCharacteristics(QPre_flow / Q_flow_nominal);
   // Correction for supply temperature mismatch.
-  // TODO: regularize
-  rat_m_flow_cor = rat_m_flow_cha * abs((TSupSet - TLoa) *
-    Utilities.Math.Functions.inverseXRegularized(TSup_actual - TLoa, 0.1));
-  // rat_m_flow_cor = filter.y;
+  rat_m_flow_cor = rat_m_flow_cha *
+    abs((TSupSet - TLoa) * Utilities.Math.Functions.inverseXRegularized(
+      TSup_actual - TLoa,
+      0.1));
   filter.u = rat_m_flow_cor;
-  // TODO: smoothmin/max
-  m_flow = max(
-    fra_m_flow_min,
-    min(filter.y, 1)) * m_flow_nominal;
-  rat2_m_flow_cor = if have_pum then 1 else
-    Buildings.Utilities.Math.Functions.smoothLimit(
-      x=m_flow_actual * Utilities.Math.Functions.inverseXRegularized(
-        m_flow,
-        1E-4 * m_flow_nominal),
-      l=0,
-      u=1,
-      deltaX=1E-4);
-  // Use actual Q_flow / m_flow characteristics to compute Q_flow_actual?
-  // Why
-  Q_flow_actual = -Q_flow * exp(-max(0, rat_m_flow_cor - 1)) * rat2_m_flow_cor;
-  Q_flow_residual = -Q_flow - Q_flow_actual;
+  m_flow = Utilities.Math.Functions.smoothLimit(
+    x=filter.y,
+    l=if ena then fra_m_flow_min else 0,
+    u=1,
+    deltaX=1E-4) * m_flow_nominal;
+  rat_Q_flow_cor = if have_masFlo then
+    exp(-Utilities.Math.Functions.smoothMax(
+      x1=0,
+      x2=filter.y - m_flow_actual / m_flow_nominal,
+      deltaX=1E-4)) else
+    characteristics(m_flow_actual / m_flow_nominal) / characteristics(filter.y);
+  Q_flow_actual = -QPre_flow * rat_Q_flow_cor;
+  Q_flow_residual = -QPre_flow - Q_flow_actual;
+
   annotation (
-  defaultComponentName="masFlo",
-  Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)),
-    Documentation(info="<html>
+    defaultComponentName="masFlo",
+    Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+          coordinateSystem(preserveAspectRatio=false)),
+      Documentation(info="<html>
 <p>
 TODO:
 Criteria for unmet load: 
@@ -112,14 +152,7 @@ supply temperature mismatch (because a permanent temperature mismatch
 only leads to a transient mismatch in Q_flow, so the user
 can have bad insight on degraded operating conditions.)
 
-Include On/Off signal or Boolean for zero flow rate at zero load.
-
-Decide if the filtered mass flow rate is better to compute Q_flow_actual
-cf. risk when transitioning from zero mass flow.
-
-Include input of mass flow rate (and supply temperature?) from time series 
-(such as for loose coupling with EnergyPlus).
-
+Document enable signal for zero flow rate at zero load: is it really needed?
 </p>
 <p>
 This block approximates the relationship between a cumulated load
