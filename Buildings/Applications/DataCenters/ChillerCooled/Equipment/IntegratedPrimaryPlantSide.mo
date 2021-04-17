@@ -32,8 +32,9 @@ equation
     annotation (Line(points={{-20,-20},{-30,-20}}, color={0,127,255}));
   connect(spl3.port_3, chiPar.port_a2)
     annotation (Line(points={{-10,-10},{-10,24},{-40,24}}, color={0,127,255}));
-  connect(senTem.port_b, jun3.port_3) annotation (Line(points={{8,24},{0,24},{0,
-          -4},{20,-4},{20,-10}}, color={0,127,255}));
+  connect(senTem.port_b, jun3.port_3)
+    annotation (Line(points={{8,24},{0,24},{0,-4},{20,-4},{20,-10}},
+        color={0,127,255}));
   annotation (Documentation(info="<html>
 <p>
 This model implements an integrated water-side economizer (WSE)

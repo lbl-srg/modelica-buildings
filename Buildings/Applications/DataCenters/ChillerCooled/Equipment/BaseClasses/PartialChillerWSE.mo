@@ -1,26 +1,20 @@
 within Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses;
 partial model PartialChillerWSE
   "Partial model for chiller and WSE package"
-  extends
-    Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.PartialChillerWSEInterface(
+  extends Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.PartialChillerWSEInterface(
      final num=numChi+1);
-  extends
-    Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.FourPortResistanceChillerWSE(
+  extends Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.FourPortResistanceChillerWSE(
      final computeFlowResistance1=true,
      final computeFlowResistance2=true);
-  extends
-    Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.PartialControllerInterface(
+  extends Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.PartialControllerInterface(
      final reverseActing=false);
-  extends
-    Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.ValvesParameters(
+  extends Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.ValvesParameters(
      numVal=4,
      final deltaM=deltaM1);
-  extends
-    Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.SignalFilterParameters(
+  extends Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.SignalFilterParameters(
      final numFil=1,
      final yValve_start={yValWSE_start});
-  extends
-    Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.ThreeWayValveParameters(
+  extends Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.ThreeWayValveParameters(
      final activate_ThrWayVal=use_controller);
 
   constant Boolean homotopyInitialization = true "= true, use homotopy method"

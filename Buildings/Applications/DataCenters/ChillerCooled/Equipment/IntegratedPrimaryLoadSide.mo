@@ -1,8 +1,7 @@
 within Buildings.Applications.DataCenters.ChillerCooled.Equipment;
 model IntegratedPrimaryLoadSide
   "Integrated water-side economizer on the load side in a primary-only chilled water system"
-  extends
-    Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.PartialIntegratedPrimary(
+  extends Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.PartialIntegratedPrimary(
     final m_flow_nominal={m1_flow_chi_nominal,m2_flow_chi_nominal,m1_flow_wse_nominal,
       m2_flow_chi_nominal,numChi*m2_flow_chi_nominal,m2_flow_wse_nominal},
     rhoStd = {Medium1.density_pTX(101325, 273.15+4, Medium1.X_default),
