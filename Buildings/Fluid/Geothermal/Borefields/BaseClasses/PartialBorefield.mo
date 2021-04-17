@@ -136,8 +136,8 @@ protected
 
   Modelica.Blocks.Sources.Constant TSoiUnd[nSeg](
     k = TExt_start,
-    y(each unit="K",
-      each displayUnit="degC"))
+    each y(unit="K",
+           displayUnit="degC"))
     "Undisturbed soil temperature"
     annotation (Placement(transformation(extent={{-40,14},{-20,34}})));
 
@@ -295,6 +295,11 @@ temperature after calculating and/or read (from a previous calculation) the bore
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 9, 2021, by Michael Wetter:<br/>
+Corrected placement of <code>each</code> keyword.<br/>
+See <a href=\"https://github.com/lbl-srg/modelica-buildings/pull/2440\">Buidings, PR #2440</a>.
+</li>
 <li>
 August 25, 2020, by Filip Jorissen:<br/>
 Switched port connections for <code>masFloDiv</code>.
