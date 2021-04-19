@@ -99,10 +99,7 @@ model CoolingTowerParallel
     nominalValuesDefineDefaultPressureCurve=true)
     "Pump for chilled water loop"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
-initial equation
-  Modelica.Utilities.Streams.print(
-    "Warning:\n  In " + getInstanceName() +
-    ": This model is a beta version and is not fully validated yet.");
+
 equation
   connect(onOffCon.y,swi.u2)
     annotation (Line(points={{11,-80},{28,-80}},color={255,0,255}));

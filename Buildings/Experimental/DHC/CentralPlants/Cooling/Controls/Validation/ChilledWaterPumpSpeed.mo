@@ -23,10 +23,7 @@ model ChilledWaterPumpSpeed
     startTime=150)
     "Total chilled water mass flow rate"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
-initial equation
-  Modelica.Utilities.Streams.print(
-    "Warning:\n  In " + getInstanceName() +
-    ": This model is a beta version and is not fully validated yet.");
+
 equation
   connect(dpMea.y,chiWatPumSpe.dpMea)
     annotation (Line(points={{-39,-30},{-30,-30},{-30,-4},{-12,-4}},color={0,0,127}));
