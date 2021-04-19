@@ -4,12 +4,12 @@ model ChillerStage
   extends Modelica.Blocks.Icons.Block;
   parameter Modelica.SIunits.Time tWai
     "Waiting time";
-  parameter Modelica.SIunits.Power QEva_nominal(
+  parameter Modelica.SIunits.Power QChi_nominal(
     final max=0)
     "Nominal cooling capaciaty (negative)";
-  parameter Modelica.SIunits.Power criPoiLoa=0.55*QEva_nominal
+  parameter Modelica.SIunits.Power criPoiLoa=0.55*QChi_nominal
     "Critical point of cooling load for switching one chiller on or off";
-  parameter Modelica.SIunits.Power dQ=0.25*QEva_nominal
+  parameter Modelica.SIunits.Power dQ=0.25*QChi_nominal
     "Deadband for critical point of cooling load";
   Modelica.Blocks.Interfaces.BooleanInput on
     "Enabling signal of the plant. True: chiller should be enabled"
@@ -96,9 +96,7 @@ model ChillerStage
   Buildings.Controls.OBC.CDL.Logical.Not notOn
     "Not on"
     annotation (Placement(transformation(extent={{-90,10},{-70,30}})));
-initial equation
-  Modelica.Utilities.Streams.print(
-    "Warning:\n  In "+getInstanceName()+": This model is a beta version and is not fully validated yet.");
+
 equation
   connect(off.outPort[1],offToOne.inPort)
     annotation (Line(points={{-50,59.5},{-50,44}},color={0,0,0}));
