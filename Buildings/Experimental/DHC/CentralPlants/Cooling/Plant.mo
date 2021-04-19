@@ -245,8 +245,7 @@ model Plant "District cooling plant model"
     "Condenser water expansion tank"
     annotation (Placement(transformation(extent={{40,110},{20,130}})));
   Buildings.Fluid.Sources.Boundary_pT expTanCHW(
-    redeclare final package Medium=Medium,
-    nPorts=1)
+    redeclare final package Medium=Medium, nPorts=1)
     "Chilled water expansion tank"
     annotation (Placement(transformation(extent={{-110,-40},{-90,-20}})));
   Buildings.Fluid.Sensors.MassFlowRate senMasFlo(
@@ -269,6 +268,22 @@ model Plant "District cooling plant model"
   Buildings.Controls.OBC.CDL.Continuous.MultiSum totPCoo(nin=2)
     "Total cooling power"
     annotation (Placement(transformation(extent={{260,230},{280,250}})));
+  Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses.Junction joiCHWRet(
+    redeclare final package Medium = Medium,
+    final m_flow_nominal=mCHW_flow_nominal .* {1,-1,1})
+    "Flow joint for the chilled water return side" annotation (Placement(
+        transformation(
+        extent={{10,10},{-10,-10}},
+        rotation=-90,
+        origin={-80,-90})));
+  Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses.Junction splCHWSup(
+    redeclare final package Medium = Medium,
+    final m_flow_nominal=mCHW_flow_nominal .* {1,-1,-1})
+    "Flow splitter for the chilled water supply side" annotation (Placement(
+        transformation(
+        extent={{10,-10},{-10,10}},
+        rotation=90,
+        origin={80,-90})));
 protected
   final parameter Medium.ThermodynamicState sta_default=Medium.setState_pTX(
     T=Medium.T_default,
@@ -282,8 +297,6 @@ equation
   connect(senMasFloByp.port_b,valByp.port_a)
     annotation (Line(points={{20,-90},{-20,-90}},
                                                 color={0,127,255}));
-  connect(senMasFloByp.port_a,senTCHWSup.port_a)
-    annotation (Line(points={{40,-90},{200,-90}},         color={0,127,255}));
   connect(cooTowWitByp.port_b,pumCW.port_a)
     annotation (Line(points={{-20,90},{20,90}},   color={0,127,255}));
   connect(on,chiStaCon.on)
@@ -315,8 +328,6 @@ equation
                                              color={0,0,127}));
   connect(pumCHW.port_b,mulChiSys.port_a2)
     annotation (Line(points={{-30,-6},{-10,-6}},                  color={0,127,255}));
-  connect(mulChiSys.port_b2,senTCHWSup.port_a)
-    annotation (Line(points={{10,-6},{80,-6},{80,-90},{200,-90}},color={0,127,255}));
   connect(pumCW.port_b,mulChiSys.port_a1)
     annotation (Line(points={{40,90},{80,90},{80,6},{10,6}},  color={0,127,255}));
   connect(mulChiSys.port_b1,cooTowWitByp.port_a)
@@ -326,9 +337,6 @@ equation
   connect(senTCHWRet.port_b,senMasFlo.port_a)
     annotation (Line(points={{-230,-90},{-190,-90}},
                                                color={0,127,255}));
-  connect(pumCHW.port_a,senMasFlo.port_b)
-    annotation (Line(points={{-50,-6},{-80,-6},{-80,-90},{-170,-90}},
-                                              color={0,127,255}));
   connect(senMasFlo.m_flow,pro.u2)
     annotation (Line(points={{-180,-79},{-180,44},{-172,44}},         color={0,0,127}));
   connect(mSetSca_flow.y,bypValCon.u_s)
@@ -359,10 +367,6 @@ equation
           -280,-40},{-280,-90},{-250,-90}}, color={0,127,255}));
   connect(senTCHWSup.port_b, port_bSerCoo) annotation (Line(points={{220,-90},{280,
           -90},{280,-40},{300,-40}}, color={0,127,255}));
-  connect(valByp.port_b, senMasFlo.port_b)
-    annotation (Line(points={{-40,-90},{-170,-90}}, color={0,127,255}));
-  connect(expTanCHW.ports[1], senMasFlo.port_b) annotation (Line(points={{-90,-30},
-          {-80,-30},{-80,-90},{-170,-90}}, color={0,127,255}));
   connect(TCHWSupSet, mulChiSys.TSet) annotation (Line(points={{-320,140},{-280,
           140},{-280,180},{120,180},{120,0},{12,0}}, color={0,0,127}));
   connect(cp.y, chiStaCon.QLoa) annotation (Line(points={{-119,50},{-112,50},{-112,
@@ -382,6 +386,20 @@ equation
     annotation (Line(points={{282,240},{320,240}}, color={0,0,127}));
   connect(mulChiSys.P, totPCoo.u[1:2]) annotation (Line(points={{-11,2},{-14,2},
           {-14,40},{234,40},{234,239},{258,239}}, color={0,0,127}));
+  connect(mulChiSys.port_b2, splCHWSup.port_1)
+    annotation (Line(points={{10,-6},{80,-6},{80,-80}}, color={0,127,255}));
+  connect(splCHWSup.port_3, senTCHWSup.port_a)
+    annotation (Line(points={{90,-90},{200,-90}}, color={0,127,255}));
+  connect(splCHWSup.port_2, senMasFloByp.port_a) annotation (Line(points={{80,-100},
+          {80,-110},{60,-110},{60,-90},{40,-90}}, color={0,127,255}));
+  connect(joiCHWRet.port_2, pumCHW.port_a)
+    annotation (Line(points={{-80,-80},{-80,-6},{-50,-6}}, color={0,127,255}));
+  connect(joiCHWRet.port_1, senMasFlo.port_b) annotation (Line(points={{-80,-100},
+          {-80,-110},{-100,-110},{-100,-90},{-170,-90}}, color={0,127,255}));
+  connect(joiCHWRet.port_3, valByp.port_b)
+    annotation (Line(points={{-70,-90},{-40,-90}}, color={0,127,255}));
+  connect(expTanCHW.ports[1], pumCHW.port_a) annotation (Line(points={{-90,-30},
+          {-80,-30},{-80,-6},{-50,-6}}, color={0,127,255}));
   annotation (
     defaultComponentName="pla",
     Documentation(
