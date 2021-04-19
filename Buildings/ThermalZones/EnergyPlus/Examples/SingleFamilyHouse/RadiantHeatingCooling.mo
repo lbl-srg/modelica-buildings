@@ -357,8 +357,7 @@ equation
     experiment(
       StartTime=7776000,
       StopTime=9504000,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Cvode"),
+      Tolerance=1e-06),
     Documentation(
       info="<html>
 <p>
