@@ -14,7 +14,7 @@ model Plant "Example to test the chiller cooling plant"
     "Nominal chilled water side pressure";
   parameter Modelica.SIunits.PressureDifference dpCW_nominal=46.2*1000
     "Nominal condenser water side pressure";
-  parameter Modelica.SIunits.Power QEva_nominal=mCHW_flow_nominal*4200*(6.67-18.56)
+  parameter Modelica.SIunits.Power QChi_nominal=mCHW_flow_nominal*4200*(6.67-18.56)
     "Nominal cooling capaciaty (Negative means cooling)";
   parameter Modelica.SIunits.MassFlowRate mMin_flow=0.03
     "Minimum mass flow rate of single chiller";
@@ -36,10 +36,10 @@ model Plant "Example to test the chiller cooling plant"
       V_flow=mCW_flow_nominal/1000*{0.2,0.6,1.0,1.2},
       dp=(dpCW_nominal+60000+6000)*{1.2,1.1,1.0,0.6}))
     "Performance data for condenser water pumps";
-  parameter Modelica.SIunits.Pressure dpCHWPum_nominal=6000
-    "Nominal pressure drop of chilled water pumps";
-  parameter Modelica.SIunits.Pressure dpCWPum_nominal=6000
-    "Nominal pressure drop of chilled water pumps";
+  parameter Modelica.SIunits.Pressure dpCHWPumVal_nominal=6000
+    "Nominal pressure drop of chilled water pump valve";
+  parameter Modelica.SIunits.Pressure dpCWPumVal_nominal=6000
+    "Nominal pressure drop of chilled water pump valve";
   Buildings.Experimental.DHC.CentralPlants.Cooling.Plant pla(
     perChi=perChi,
     dTApp=3,
@@ -47,7 +47,7 @@ model Plant "Example to test the chiller cooling plant"
     perCWPum=perCWPum,
     mCHW_flow_nominal=mCHW_flow_nominal,
     dpCHW_nominal=dpCHW_nominal,
-    QEva_nominal=QEva_nominal,
+    QChi_nominal=QChi_nominal,
     mMin_flow=mMin_flow,
     mCW_flow_nominal=mCW_flow_nominal,
     dpCW_nominal=dpCW_nominal,
@@ -56,8 +56,8 @@ model Plant "Example to test the chiller cooling plant"
     dT_nominal=5.56,
     TMin=288.15,
     PFan_nominal=5000,
-    dpCHWPum_nominal=dpCHWPum_nominal,
-    dpCWPum_nominal=dpCWPum_nominal,
+    dpCHWPumVal_nominal=dpCHWPumVal_nominal,
+    dpCWPumVal_nominal=dpCWPumVal_nominal,
     tWai=tWai,
     dpSetPoi=dpSetPoi,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)

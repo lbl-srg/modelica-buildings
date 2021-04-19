@@ -67,11 +67,11 @@ model Plant "District cooling plant model"
     "Performance data of condenser water pump"
     annotation (Dialog(group="Pump"),choicesAllMatching=true,Placement(transformation(extent={{204,264},
             {218,278}})));
-  parameter Modelica.SIunits.Pressure dpCHWPum_nominal
-    "Nominal pressure drop of chilled water pumps"
+  parameter Modelica.SIunits.Pressure dpCHWPumVal_nominal
+    "Nominal pressure drop of chilled water pump valve"
     annotation (Dialog(group="Pump"));
-  parameter Modelica.SIunits.Pressure dpCWPum_nominal
-    "Nominal pressure drop of condenser water pumps"
+  parameter Modelica.SIunits.Pressure dpCWPumVal_nominal
+    "Nominal pressure drop of condenser water pump valve"
     annotation (Dialog(group="Pump"));
   // control settings
   parameter Modelica.SIunits.Time tWai
@@ -160,7 +160,7 @@ model Plant "District cooling plant model"
     yValve_start=fill(1, numChi),
     final energyDynamics=energyDynamics,
     final m_flow_nominal=mCHW_flow_nominal,
-    final dpValve_nominal=dpCHWPum_nominal,
+    final dpValve_nominal=dpCHWPumVal_nominal,
     final num=numChi)
     "Chilled water pumps"
     annotation (Placement(transformation(extent={{-50,-16},{-30,4}})));
@@ -171,7 +171,7 @@ model Plant "District cooling plant model"
       numChi),
     final energyDynamics=energyDynamics,
     final m_flow_nominal=mCW_flow_nominal,
-    final dpValve_nominal=dpCWPum_nominal,
+    final dpValve_nominal=dpCWPumVal_nominal,
     final num=numChi)
     "Condenser water pumps"
     annotation (Placement(transformation(extent={{20,80},{40,100}})));
