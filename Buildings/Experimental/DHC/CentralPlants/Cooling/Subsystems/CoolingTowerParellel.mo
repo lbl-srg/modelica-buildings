@@ -93,7 +93,8 @@ model CoolingTowerParellel
     each final TWatIn_nominal=TWatIn_nominal,
     each final TWatOut_nominal=TWatIn_nominal-dT_nominal,
     each final PFan_nominal=PFan_nominal)
-    constrainedby Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.CoolingTower(
+    constrainedby
+    Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.CoolingTower(
       redeclare each final package Medium=Medium,
       each show_T=show_T,
       each final m_flow_nominal=m_flow_nominal,
