@@ -1,26 +1,31 @@
 within Buildings.Experimental.DHC.CentralPlants.Cooling;
-model Plant
-  "District cooling plant model"
-  package Medium=Buildings.Media.Water
-    "Medium model";
-  parameter Integer numChi(
-    min=1,
-    max=2)=2
-    "Number of chillers, maximum is 2";
+model Plant "District cooling plant model"
+  extends Buildings.Experimental.DHC.CentralPlants.BaseClasses.PartialPlant(
+    have_eleCoo=true,
+    have_pum=true,
+    have_fan=true,
+      have_weaBus=true,                                                     typ=
+       Buildings.Experimental.DHC.Types.DistrictSystemType.Cooling);
   parameter Boolean show_T=false
     "= true, if actual temperature at port is computed"
     annotation (Dialog(tab="Advanced",group="Diagnostics"));
   // chiller parameters
-  parameter Buildings.Fluid.Chillers.Data.ElectricEIR.Generic perChi
+  parameter Integer numChi(
+    min=1,
+    max=2)=2
+    "Number of chillers, maximum is 2"
+    annotation (Dialog(group="Chiller"));
+  replaceable parameter Buildings.Fluid.Chillers.Data.ElectricEIR.Generic perChi
     "Performance data of chiller"
-    annotation (Dialog(group="Chiller"),choicesAllMatching=true,Placement(transformation(extent={{98,82},{112,96}})));
+    annotation (Dialog(group="Chiller"),choicesAllMatching=true,Placement(transformation(extent={{124,264},
+            {138,278}})));
   parameter Modelica.SIunits.MassFlowRate mCHW_flow_nominal
     "Nominal chilled water mass flow rate"
     annotation (Dialog(group="Chiller"));
   parameter Modelica.SIunits.Pressure dpCHW_nominal
     "Pressure difference at the chilled water side"
     annotation (Dialog(group="Chiller"));
-  parameter Modelica.SIunits.HeatFlowRate QEva_nominal
+  parameter Modelica.SIunits.HeatFlowRate QChi_nominal
     "Nominal cooling capacity of single chiller (negative means cooling)"
     annotation (Dialog(group="Chiller"));
   parameter Modelica.SIunits.MassFlowRate mMin_flow
@@ -42,6 +47,9 @@ model Plant
   parameter Modelica.SIunits.TemperatureDifference dT_nominal
     "Temperature difference between inlet and outlet of the tower"
     annotation (Dialog(group="Cooling Tower"));
+  parameter Modelica.SIunits.TemperatureDifference dTApp
+    "Approach temperature"
+    annotation (Dialog(group="Cooling Tower"));
   parameter Modelica.SIunits.Temperature TMin
     "Minimum allowed water temperature entering chiller"
     annotation (Dialog(group="Cooling Tower"));
@@ -49,12 +57,16 @@ model Plant
     "Fan power"
     annotation (Dialog(group="Cooling Tower"));
   // pump parameters
-  parameter Buildings.Fluid.Movers.Data.Generic perCHWPum
+  replaceable parameter Buildings.Fluid.Movers.Data.Generic perCHWPum
+    constrainedby Buildings.Fluid.Movers.Data.Generic
     "Performance data of chilled water pump"
-    annotation (Dialog(group="Pump"),choicesAllMatching=true,Placement(transformation(extent={{120,82},{134,96}})));
-  parameter Buildings.Fluid.Movers.Data.Generic perCWPum
+    annotation (Dialog(group="Pump"),choicesAllMatching=true,Placement(transformation(extent={{164,264},
+            {178,278}})));
+  replaceable parameter Buildings.Fluid.Movers.Data.Generic perCWPum
+    constrainedby Buildings.Fluid.Movers.Data.Generic
     "Performance data of condenser water pump"
-    annotation (Dialog(group="Pump"),choicesAllMatching=true,Placement(transformation(extent={{142,82},{156,96}})));
+    annotation (Dialog(group="Pump"),choicesAllMatching=true,Placement(transformation(extent={{204,264},
+            {218,278}})));
   parameter Modelica.SIunits.Pressure dpCHWPum_nominal
     "Nominal pressure drop of chilled water pumps"
     annotation (Dialog(group="Pump"));
@@ -96,35 +108,24 @@ model Plant
       actualStream(
         port_b.Xi_outflow))) if show_T
     "Medium properties in port_b";
-  Modelica.Fluid.Interfaces.FluidPort_a port_a(
-    redeclare final package Medium=Medium,
-    m_flow(
-      start=mCHW_flow_nominal))
-    "Fluid connector a (positive design flow direction is from port_a to port_b)"
-    annotation (Placement(transformation(extent={{150,40},{170,60}}),iconTransformation(extent={{90,40},{110,60}})));
-  Modelica.Fluid.Interfaces.FluidPort_b port_b(
-    redeclare final package Medium=Medium,
-    m_flow(
-      start=-mCHW_flow_nominal))
-    "Fluid connector b (positive design flow direction is from port_a to port_b)"
-    annotation (Placement(transformation(extent={{150,-60},{170,-40}}),iconTransformation(extent={{90,-60},{110,-40}})));
   Modelica.Blocks.Interfaces.BooleanInput on
     "On signal of the plant"
-    annotation (Placement(transformation(extent={{-180,40},{-140,80}}),iconTransformation(extent={{-140,60},{-100,100}})));
+    annotation (Placement(transformation(extent={{-340,180},{-300,220}}),
+                                                                       iconTransformation(extent={{-342,
+            202},{-302,242}})));
   Modelica.Blocks.Interfaces.RealInput TCHWSupSet(
     final unit="K",
     displayUnit="degC")
     "Set point for chilled water supply temperature"
-    annotation (Placement(transformation(extent={{-180,0},{-140,40}}),iconTransformation(extent={{-140,10},{-100,50}})));
-  Modelica.Blocks.Interfaces.RealInput TWetBul(
-    final unit="K",
-    displayUnit="degC")
-    "Entering air wetbulb temperature"
-    annotation (Placement(transformation(extent={{-180,-80},{-140,-40}}),iconTransformation(extent={{-140,-100},{-100,-60}})));
+    annotation (Placement(transformation(extent={{-340,120},{-300,160}}),
+                                                                      iconTransformation(extent={{-340,
+            138},{-300,178}})));
   Modelica.Blocks.Interfaces.RealInput dpMea(
     final unit="Pa")
     "Measured pressure difference"
-    annotation (Placement(transformation(extent={{-180,-40},{-140,0}}),iconTransformation(extent={{-140,-50},{-100,-10}})));
+    annotation (Placement(transformation(extent={{-340,60},{-300,100}}),
+                                                                       iconTransformation(extent={{-340,78},
+            {-300,118}})));
   Buildings.Applications.DataCenters.ChillerCooled.Equipment.ElectricChillerParallel mulChiSys(
     final per=fill(
       perChi,
@@ -137,7 +138,7 @@ model Plant
     redeclare final package Medium1=Medium,
     redeclare final package Medium2=Medium)
     "Chillers connected in parallel"
-    annotation (Placement(transformation(extent={{10,20},{-10,0}})));
+    annotation (Placement(transformation(extent={{10,-10},{-10,10}})));
   Buildings.Experimental.DHC.CentralPlants.Cooling.Subsystems.CoolingTowerWithBypass cooTowWitByp(
     redeclare final package Medium=Medium,
     final num=numChi,
@@ -146,21 +147,23 @@ model Plant
     final TAirInWB_nominal=TAirInWB_nominal,
     final TWatIn_nominal=TCW_nominal,
     final dT_nominal=dT_nominal,
+    final dTApp=dTApp,
     final PFan_nominal=PFan_nominal,
     final TMin=TMin)
     "Cooling towers with bypass valve"
-    annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
+    annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
   Buildings.Applications.DataCenters.ChillerCooled.Equipment.FlowMachine_y pumCHW(
     redeclare final package Medium=Medium,
     final per=fill(
       perCHWPum,
       numChi),
+    yValve_start=fill(1, numChi),
     final energyDynamics=energyDynamics,
     final m_flow_nominal=mCHW_flow_nominal,
     final dpValve_nominal=dpCHWPum_nominal,
     final num=numChi)
     "Chilled water pumps"
-    annotation (Placement(transformation(extent={{10,40},{-10,60}})));
+    annotation (Placement(transformation(extent={{-50,-16},{-30,4}})));
   Buildings.Applications.DataCenters.ChillerCooled.Equipment.FlowMachine_m pumCW(
     redeclare final package Medium=Medium,
     final per=fill(
@@ -171,38 +174,38 @@ model Plant
     final dpValve_nominal=dpCWPum_nominal,
     final num=numChi)
     "Condenser water pumps"
-    annotation (Placement(transformation(extent={{-10,-60},{10,-40}})));
+    annotation (Placement(transformation(extent={{20,80},{40,100}})));
   Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage valByp(
     redeclare final package Medium=Medium,
     final allowFlowReversal=false,
     final m_flow_nominal=mCHW_flow_nominal*0.05,
     final dpValve_nominal=dpCHW_nominal)
     "Chilled water bypass valve"
-    annotation (Placement(transformation(extent={{-10,10},{10,-10}},rotation=90,origin={80,0})));
+    annotation (Placement(transformation(extent={{10,10},{-10,-10}},rotation=0, origin={-30,-90})));
   Buildings.Fluid.Sensors.MassFlowRate senMasFloByp(
     redeclare final package Medium=Medium)
     "Chilled water bypass valve mass flow meter"
-    annotation (Placement(transformation(extent={{10,-10},{-10,10}},rotation=-90,origin={80,-30})));
+    annotation (Placement(transformation(extent={{-10,10},{10,-10}},rotation=180,origin={30,-90})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTCHWSup(
     redeclare final package Medium=Medium,
     final m_flow_nominal=mCHW_flow_nominal)
     "Chilled water supply temperature"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,origin={130,-50})));
+    annotation (Placement(transformation(extent={{-10,10},{10,-10}},rotation=0,origin={210,-90})));
   Buildings.Experimental.DHC.CentralPlants.Cooling.Controls.ChilledWaterPumpSpeed
     chiWatPumCon(
     tWai=0,
     final m_flow_nominal=mCHW_flow_nominal,
     final dpSetPoi=dpSetPoi) "Chilled water pump controller"
-    annotation (Placement(transformation(extent={{-120,-26},{-100,-6}})));
+    annotation (Placement(transformation(extent={{-140,-12},{-120,8}})));
   Buildings.Experimental.DHC.CentralPlants.Cooling.Controls.ChillerStage chiStaCon(
     final tWai=tWai,
-    final QEva_nominal=QEva_nominal)
+    final QChi_nominal=QChi_nominal)
     "Chiller staging controller"
-    annotation (Placement(transformation(extent={{-120,46},{-100,66}})));
+    annotation (Placement(transformation(extent={{-240,186},{-220,206}})));
   Modelica.Blocks.Sources.RealExpression mPum_flow(
     final y=pumCHW.port_a.m_flow)
     "Total chilled water pump mass flow rate"
-    annotation (Placement(transformation(extent={{-100,-2},{-120,18}})));
+    annotation (Placement(transformation(extent={{-210,-8},{-190,12}})));
   Modelica.Blocks.Sources.RealExpression mValByp_flow(
     final y=valByp.port_a.m_flow/(
       if chiStaCon.y[numChi] then
@@ -210,7 +213,7 @@ model Plant
       else
         mMin_flow))
     "Chilled water bypass valve mass flow rate"
-    annotation (Placement(transformation(extent={{160,-40},{140,-20}})));
+    annotation (Placement(transformation(extent={{-120,-210},{-100,-190}})));
   Buildings.Controls.Continuous.LimPID bypValCon(
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     k=1,
@@ -218,45 +221,54 @@ model Plant
     reset=Buildings.Types.Reset.Parameter,
     y_reset=0)
     "Chilled water bypass valve controller"
-    annotation (Placement(transformation(extent={{140,-10},{120,10}})));
+    annotation (Placement(transformation(extent={{-80,-170},{-60,-150}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTCHWRet(
     redeclare final package Medium=Medium,
     final m_flow_nominal=mCHW_flow_nominal)
     "Chilled water return temperature"
-    annotation (Placement(transformation(extent={{10,-10},{-10,10}},rotation=0,origin={130,50})));
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,origin={-240,-90})));
   Modelica.Blocks.Math.Add dT(
     final k1=-1,
     final k2=+1)
     "Temperature difference"
-    annotation (Placement(transformation(extent={{80,70},{60,90}})));
+    annotation (Placement(transformation(extent={{-210,40},{-190,60}})));
   Modelica.Blocks.Math.Product pro
     "Product"
-    annotation (Placement(transformation(extent={{40,70},{20,90}})));
+    annotation (Placement(transformation(extent={{-170,40},{-150,60}})));
   Modelica.Blocks.Math.Gain cp(
     final k=cp_default)
     "Specific heat multiplier to calculate heat flow rate"
-    annotation (Placement(transformation(extent={{0,70},{-20,90}})));
+    annotation (Placement(transformation(extent={{-140,40},{-120,60}})));
   Buildings.Fluid.Sources.Boundary_pT expTanCW(
     redeclare final package Medium=Medium,
     nPorts=1)
     "Condenser water expansion tank"
-    annotation (Placement(transformation(extent={{-50,-30},{-30,-10}})));
+    annotation (Placement(transformation(extent={{40,110},{20,130}})));
   Buildings.Fluid.Sources.Boundary_pT expTanCHW(
     redeclare final package Medium=Medium,
-    final nPorts=1)
+    nPorts=1)
     "Chilled water expansion tank"
-    annotation (Placement(transformation(extent={{50,20},{70,40}})));
+    annotation (Placement(transformation(extent={{-110,-40},{-90,-20}})));
   Buildings.Fluid.Sensors.MassFlowRate senMasFlo(
     redeclare final package Medium=Medium)
     "Chilled water return mass flow"
-    annotation (Placement(transformation(extent={{50,40},{30,60}})));
+    annotation (Placement(transformation(extent={{-190,-100},{-170,-80}})));
   Modelica.Blocks.Sources.Constant mSetSca_flow(
     final k=1)
     "Scaled bypass valve mass flow setpoint"
-    annotation (Placement(transformation(extent={{90,10},{110,30}})));
+    annotation (Placement(transformation(extent={{-120,-170},{-100,-150}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal chiOn[numChi]
     "Convert chiller on signal from boolean to real"
-    annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
+    annotation (Placement(transformation(extent={{-40,184},{-20,204}})));
+  Buildings.Controls.OBC.CDL.Continuous.MultiSum totPPum(nin=4)
+    "Total pump power"
+    annotation (Placement(transformation(extent={{260,150},{280,170}})));
+  Buildings.Controls.OBC.CDL.Continuous.MultiSum totPFan(nin=2)
+    "Total fan power"
+    annotation (Placement(transformation(extent={{260,190},{280,210}})));
+  Buildings.Controls.OBC.CDL.Continuous.MultiSum totPCoo(nin=2)
+    "Total cooling power"
+    annotation (Placement(transformation(extent={{260,230},{280,250}})));
 protected
   final parameter Medium.ThermodynamicState sta_default=Medium.setState_pTX(
     T=Medium.T_default,
@@ -266,84 +278,112 @@ protected
   final parameter Modelica.SIunits.SpecificHeatCapacity cp_default=Medium.specificHeatCapacityCp(
     sta_default)
     "Specific heat capacity of the fluid";
-initial equation
-  Modelica.Utilities.Streams.print(
-    "Warning:\n  In "+getInstanceName()+": This model is a beta version and is not fully validated yet.");
 equation
-  connect(senTCHWSup.port_b,port_b)
-    annotation (Line(points={{140,-50},{160,-50}},color={0,127,255}));
   connect(senMasFloByp.port_b,valByp.port_a)
-    annotation (Line(points={{80,-20},{80,-10}},color={0,127,255}));
+    annotation (Line(points={{20,-90},{-20,-90}},
+                                                color={0,127,255}));
   connect(senMasFloByp.port_a,senTCHWSup.port_a)
-    annotation (Line(points={{80,-40},{80,-50},{120,-50}},color={0,127,255}));
+    annotation (Line(points={{40,-90},{200,-90}},         color={0,127,255}));
   connect(cooTowWitByp.port_b,pumCW.port_a)
-    annotation (Line(points={{-40,-50},{-10,-50}},color={0,127,255}));
+    annotation (Line(points={{-20,90},{20,90}},   color={0,127,255}));
   connect(on,chiStaCon.on)
-    annotation (Line(points={{-160,60},{-122,60}},color={255,0,255}));
-  connect(TWetBul,cooTowWitByp.TWetBul)
-    annotation (Line(points={{-160,-60},{-76,-60},{-76,-52},{-62,-52}},color={0,0,127}));
+    annotation (Line(points={{-320,200},{-242,200}},
+                                                  color={255,0,255}));
   connect(chiWatPumCon.dpMea, dpMea)
-    annotation (Line(points={{-122,-20},{-160,-20}}, color={0,0,127}));
-  connect(mPum_flow.y, chiWatPumCon.masFloPum) annotation (Line(points={{-121,8},
-          {-132,8},{-132,-12},{-122,-12}}, color={0,0,127}));
-  connect(chiWatPumCon.y, pumCHW.u) annotation (Line(points={{-99,-16},{-80,-16},
-          {-80,8},{-40,8},{-40,60},{20,60},{20,54},{12,54}}, color={0,0,127}));
+    annotation (Line(points={{-142,-6},{-280,-6},{-280,80},{-320,80}},
+                                                     color={0,0,127}));
+  connect(mPum_flow.y, chiWatPumCon.masFloPum) annotation (Line(points={{-189,2},
+          {-142,2}},                       color={0,0,127}));
+  connect(chiWatPumCon.y, pumCHW.u) annotation (Line(points={{-119,-2},{-52,-2}},
+                                                             color={0,0,127}));
   connect(bypValCon.y,valByp.y)
-    annotation (Line(points={{119,0},{92,0}},color={0,0,127}));
+    annotation (Line(points={{-59,-160},{-30,-160},{-30,-102}},
+                                             color={0,0,127}));
   connect(mValByp_flow.y,bypValCon.u_m)
-    annotation (Line(points={{139,-30},{130,-30},{130,-12}},color={0,0,127}));
-  connect(port_a,senTCHWRet.port_a)
-    annotation (Line(points={{160,50},{140,50}},color={0,127,255}));
+    annotation (Line(points={{-99,-200},{-70,-200},{-70,-172}},
+                                                            color={0,0,127}));
   connect(senTCHWSup.T,dT.u2)
-    annotation (Line(points={{130,-39},{130,-32},{116,-32},{116,74},{82,74}},color={0,0,127}));
+    annotation (Line(points={{210,-101},{210,-120},{-220,-120},{-220,44},{-212,44}},
+                                                                             color={0,0,127}));
   connect(senTCHWRet.T,dT.u1)
-    annotation (Line(points={{130,61},{130,78},{88,78},{88,86},{82,86}},color={0,0,127}));
+    annotation (Line(points={{-240,-79},{-240,56},{-212,56}},           color={0,0,127}));
   connect(dT.y,pro.u1)
-    annotation (Line(points={{59,80},{54,80},{54,86},{42,86}},color={0,0,127}));
+    annotation (Line(points={{-189,50},{-180,50},{-180,56},{-172,56}},
+                                                              color={0,0,127}));
   connect(cp.u,pro.y)
-    annotation (Line(points={{2,80},{19,80}},color={0,0,127}));
-  connect(cp.y,chiStaCon.QLoa)
-    annotation (Line(points={{-21,80},{-130,80},{-130,52},{-122,52}},color={0,0,127}));
+    annotation (Line(points={{-142,50},{-149,50}},
+                                             color={0,0,127}));
   connect(pumCHW.port_b,mulChiSys.port_a2)
-    annotation (Line(points={{-10,50},{-20,50},{-20,16},{-10,16}},color={0,127,255}));
+    annotation (Line(points={{-30,-6},{-10,-6}},                  color={0,127,255}));
   connect(mulChiSys.port_b2,senTCHWSup.port_a)
-    annotation (Line(points={{10,16},{32,16},{32,-50},{120,-50}},color={0,127,255}));
+    annotation (Line(points={{10,-6},{80,-6},{80,-90},{200,-90}},color={0,127,255}));
   connect(pumCW.port_b,mulChiSys.port_a1)
-    annotation (Line(points={{10,-50},{20,-50},{20,4},{10,4}},color={0,127,255}));
+    annotation (Line(points={{40,90},{80,90},{80,6},{10,6}},  color={0,127,255}));
   connect(mulChiSys.port_b1,cooTowWitByp.port_a)
-    annotation (Line(points={{-10,4},{-70,4},{-70,-50},{-60,-50}},color={0,127,255}));
+    annotation (Line(points={{-10,6},{-80,6},{-80,90},{-40,90}},  color={0,127,255}));
   connect(expTanCW.ports[1],pumCW.port_a)
-    annotation (Line(points={{-30,-20},{-26,-20},{-26,-50},{-10,-50}},color={0,127,255}));
+    annotation (Line(points={{20,120},{0,120},{0,90},{20,90}},        color={0,127,255}));
   connect(senTCHWRet.port_b,senMasFlo.port_a)
-    annotation (Line(points={{120,50},{50,50}},color={0,127,255}));
+    annotation (Line(points={{-230,-90},{-190,-90}},
+                                               color={0,127,255}));
   connect(pumCHW.port_a,senMasFlo.port_b)
-    annotation (Line(points={{10,50},{30,50}},color={0,127,255}));
+    annotation (Line(points={{-50,-6},{-80,-6},{-80,-90},{-170,-90}},
+                                              color={0,127,255}));
   connect(senMasFlo.m_flow,pro.u2)
-    annotation (Line(points={{40,61},{40,66},{54,66},{54,74},{42,74}},color={0,0,127}));
-  connect(expTanCHW.ports[1],senMasFlo.port_a)
-    annotation (Line(points={{70,30},{80,30},{80,50},{50,50}},color={0,127,255}));
-  connect(valByp.port_b,senMasFlo.port_a)
-    annotation (Line(points={{80,10},{80,50},{50,50}},color={0,127,255}));
-  connect(mulChiSys.TSet,TCHWSupSet)
-    annotation (Line(points={{12,10},{20,10},{20,20},{-160,20}},color={0,0,127}));
+    annotation (Line(points={{-180,-79},{-180,44},{-172,44}},         color={0,0,127}));
   connect(mSetSca_flow.y,bypValCon.u_s)
-    annotation (Line(points={{111,20},{150,20},{150,0},{142,0}},color={0,0,127}));
+    annotation (Line(points={{-99,-160},{-82,-160}},            color={0,0,127}));
   connect(chiStaCon.y,mulChiSys.on)
-    annotation (Line(points={{-99,56},{-92,56},{-92,24},{24,24},{24,6},{12,6}},color={255,0,255}));
+    annotation (Line(points={{-219,196},{-160,196},{-160,160},{100,160},{100,4},
+          {12,4}},                                                             color={255,0,255}));
   connect(chiStaCon.y[1],bypValCon.trigger)
-    annotation (Line(points={{-99,55.5},{-92,55.5},{-92,24},{40,24},{40,-18},{138,-18},{138,-12}},color={255,0,255}));
+    annotation (Line(points={{-219,195.5},{-160,195.5},{-160,160},{-260,160},{-260,
+          -180},{-78,-180},{-78,-172}},                                                           color={255,0,255}));
   connect(chiStaCon.y,chiOn.u)
-    annotation (Line(points={{-99,56},{-92,56},{-92,50},{-82,50}},color={255,0,255}));
+    annotation (Line(points={{-219,196},{-160,196},{-160,194},{-42,194}},
+                                                                  color={255,0,255}));
   connect(chiOn.y,pumCW.u)
-    annotation (Line(points={{-58,50},{-22,50},{-22,-46},{-12,-46}},color={0,0,127}));
+    annotation (Line(points={{-18,194},{8,194},{8,94},{18,94}},     color={0,0,127}));
   connect(chiStaCon.y,cooTowWitByp.on)
-    annotation (Line(points={{-99,56},{-92,56},{-92,-46},{-62,-46}},color={255,0,255}));
+    annotation (Line(points={{-219,196},{-160,196},{-160,94},{-42,94}},
+                                                                    color={255,0,255}));
+  connect(weaBus.TWetBul, cooTowWitByp.TWetBul) annotation (Line(
+      points={{1,266},{0,266},{0,238},{-50,238},{-50,88},{-42,88}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%first",
+      index=-1,
+      extent={{-6,3},{-6,3}},
+      horizontalAlignment=TextAlignment.Right));
+  connect(port_aSerCoo, senTCHWRet.port_a) annotation (Line(points={{-300,-40},{
+          -280,-40},{-280,-90},{-250,-90}}, color={0,127,255}));
+  connect(senTCHWSup.port_b, port_bSerCoo) annotation (Line(points={{220,-90},{280,
+          -90},{280,-40},{300,-40}}, color={0,127,255}));
+  connect(valByp.port_b, senMasFlo.port_b)
+    annotation (Line(points={{-40,-90},{-170,-90}}, color={0,127,255}));
+  connect(expTanCHW.ports[1], senMasFlo.port_b) annotation (Line(points={{-90,-30},
+          {-80,-30},{-80,-90},{-170,-90}}, color={0,127,255}));
+  connect(TCHWSupSet, mulChiSys.TSet) annotation (Line(points={{-320,140},{-280,
+          140},{-280,180},{120,180},{120,0},{12,0}}, color={0,0,127}));
+  connect(cp.y, chiStaCon.QLoa) annotation (Line(points={{-119,50},{-112,50},{-112,
+          80},{-252,80},{-252,192},{-242,192}}, color={0,0,127}));
+  connect(totPPum.y, PPum)
+    annotation (Line(points={{282,160},{320,160}}, color={0,0,127}));
+  connect(pumCW.P, totPPum.u[1:2]) annotation (Line(points={{41,94},{80,94},{80,
+          140},{240,140},{240,160.5},{258,160.5}}, color={0,0,127}));
+  connect(pumCHW.P, totPPum.u[3:4]) annotation (Line(points={{-29,-2},{-20,-2},{
+          -20,20},{84,20},{84,136},{242,136},{242,158.5},{258,158.5}}, color={0,
+          0,127}));
+  connect(totPFan.y, PFan)
+    annotation (Line(points={{282,200},{320,200}}, color={0,0,127}));
+  connect(cooTowWitByp.PFan, totPFan.u[1:2]) annotation (Line(points={{-19,96},{
+          -6,96},{-6,200},{258,200},{258,199}}, color={0,0,127}));
+  connect(totPCoo.y, PCoo)
+    annotation (Line(points={{282,240},{320,240}}, color={0,0,127}));
+  connect(mulChiSys.P, totPCoo.u[1:2]) annotation (Line(points={{-11,2},{-14,2},
+          {-14,40},{234,40},{234,239},{258,239}}, color={0,0,127}));
   annotation (
     defaultComponentName="pla",
-    Diagram(
-      coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-140,-80},{160,100}})),
     Documentation(
       info="<html>
 <p>
@@ -360,85 +400,15 @@ First implementation.
 </html>"),
     Icon(
       coordinateSystem(
-        extent={{-100,-100},{100,100}}),
+        extent={{-300,-300},{300,300}}),
       graphics={
-        Rectangle(
-          extent={{-100,-100},{100,100}},
-          lineColor={0,0,127},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
         Polygon(
           points={{-62,-14},{-62,-14}},
           lineColor={238,46,47},
           fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Polygon(
-          points={{80,-60},{-80,-60},{-80,60},{-60,60},{-60,0},{-40,0},{-40,20},{0,0},{0,20},{40,0},{40,20},{80,0},{80,-60}},
-          lineColor={95,95,95},
-          fillColor={28,108,200},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{46,-38},{58,-26}},
-          lineColor={255,255,255},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{62,-38},{74,-26}},
-          lineColor={255,255,255},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{62,-54},{74,-42}},
-          lineColor={255,255,255},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{46,-54},{58,-42}},
-          lineColor={255,255,255},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{22,-54},{34,-42}},
-          lineColor={255,255,255},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{6,-54},{18,-42}},
-          lineColor={255,255,255},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{6,-38},{18,-26}},
-          lineColor={255,255,255},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{22,-38},{34,-26}},
-          lineColor={255,255,255},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-18,-54},{-6,-42}},
-          lineColor={255,255,255},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-34,-54},{-22,-42}},
-          lineColor={255,255,255},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-34,-38},{-22,-26}},
-          lineColor={255,255,255},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-18,-38},{-6,-26}},
-          lineColor={255,255,255},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Text(
-          extent={{-149,-114},{151,-154}},
-          lineColor={0,0,255},
-          textString="%name")}));
+          fillPattern=FillPattern.Solid)}),
+    Diagram(
+      coordinateSystem(
+        preserveAspectRatio=false,
+        extent={{-300,-300},{300,300}})));
 end Plant;
