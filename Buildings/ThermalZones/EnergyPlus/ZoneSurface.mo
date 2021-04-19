@@ -151,7 +151,6 @@ and produces at the output <code>Q_flow</code>
 the net heat flow rate added to the surface from the air-side.
 This heat flow rate consists of
 </p>
-<p>
 <ul>
 <li>
 convective heat flow rate,
@@ -163,7 +162,6 @@ absorbed solar radiation,
 absorbed infrared radiation minus emitted infrared radiation.
 </li>
 </ul>
-</p>
 <p>
 By convention, <code>Q_flow &gt; 0</code> if there is net heat flow rate from the thermal zone to the surface,
 e.g., if the surface cools the thermal zone.
