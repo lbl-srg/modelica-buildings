@@ -138,10 +138,10 @@ equation
       nY=nY,
       u={heaPorFro.T,heaPorBac.T,round(time,1E-3)},
       dummy=A);
-    QFroLast_flow=yEP[1];
-    QBacLast_flow=yEP[2];
-    //dQFro_flow_dT=yEP[3];
-    //dQBac_flow_dT=yEP[4];
+    QFroLast_flow=-yEP[1];
+    QBacLast_flow=-yEP[2];
+    //dQFro_flow_dT=-yEP[3];
+    //dQBac_flow_dT=-yEP[4];
     tNext=yEP[3];
     tLast=time;
   end when;
