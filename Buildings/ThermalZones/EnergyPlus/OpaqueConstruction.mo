@@ -27,7 +27,7 @@ protected
     "Number of inputs";
   constant Integer nOut=2
     "Number of outputs";
-  constant Integer nDer=2
+  constant Integer nDer=0
     "Number of derivatives";
   constant Integer nY=nOut+nDer+1
     "Size of output vector of exchange function";
@@ -42,6 +42,7 @@ protected
     modelicaInstanceName=modelicaInstanceName,
     idfName=idfName,
     weaName=weaName,
+    relativeSurfaceTolerance=relativeSurfaceTolerance,
     epName=surfaceName,
     usePrecompiledFMU=usePrecompiledFMU,
     fmuName=fmuName,
@@ -59,10 +60,18 @@ protected
     outNames={"QFront_flow","QBack_flow"},
     outUnits={"W","W"},
     nOut=nOut,
-    derivatives_structure={{1,1},{2,2}},
+    derivatives_structure=fill(fill(nDer,2),nDer),
     nDer=nDer,
-    derivatives_delta={0.01,0.01})
+    derivatives_delta=fill(0,nDer))
     "Class to communicate with EnergyPlus";
+  //////////
+  // The derivative structure was:
+  //  derivatives_structure={{1,1},{2,2}},
+  //  nDer=nDer,
+  //  derivatives_delta={0.01,0.01}
+  // This has been removed due to numerical noise,
+  // see https://github.com/lbl-srg/modelica-buildings/issues/2358#issuecomment-819578850
+  //////////
   Real yEP[nY]
     "Output of exchange function";
   Modelica.SIunits.Time tNext(
@@ -87,12 +96,12 @@ protected
     fixed=false,
     start=0)
     "Surface heat flow rate at back if T = TLast";
-  discrete Real dQFro_flow_dT(
-    final unit="W/K")
-    "Derivative dQFroCon_flow / dT";
-  discrete Real dQBac_flow_dT(
-    final unit="W/K")
-    "Derivative dQBacCon_flow / dT";
+//   discrete Real dQFro_flow_dT(
+//     final unit="W/K")
+//     "Derivative dQFroCon_flow / dT";
+//   discrete Real dQBac_flow_dT(
+//     final unit="W/K")
+//     "Derivative dQBacCon_flow / dT";
 
 initial equation
   assert(
@@ -123,13 +132,13 @@ equation
       dummy=A);
     QFroLast_flow=yEP[1];
     QBacLast_flow=yEP[2];
-    dQFro_flow_dT=yEP[3];
-    dQBac_flow_dT=yEP[4];
+    //dQFro_flow_dT=yEP[3];
+    //dQBac_flow_dT=yEP[4];
     tNext=yEP[3];
     tLast=time;
   end when;
-  heaPorFro.Q_flow=QFroLast_flow+(heaPorFro.T-TFroLast)*dQFro_flow_dT;
-  heaPorBac.Q_flow=QBacLast_flow+(heaPorBac.T-TBacLast)*dQBac_flow_dT;
+  heaPorFro.Q_flow=QFroLast_flow; //+(heaPorFro.T-TFroLast)*dQFro_flow_dT;
+  heaPorBac.Q_flow=QBacLast_flow; //+(heaPorBac.T-TBacLast)*dQBac_flow_dT;
   qFro_flow=heaPorFro.Q_flow/A;
   qBac_flow=heaPorBac.Q_flow/A;
   nObj=synBui.synchronize.done;
