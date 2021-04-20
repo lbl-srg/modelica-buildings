@@ -99,7 +99,7 @@ void buildJSONModelStructureForEnergyPlus(
   size_t iMod = 0;
   int objectType;
   const int nObjectTypes = 6;
-  size_t objectCount[] = {0, 0, 0, 0, 0};
+  size_t objectCount[nObjectTypes];
 
   void (*SpawnFormatError)(const char *string, ...) = bui->SpawnFormatError;
 
@@ -108,6 +108,7 @@ void buildJSONModelStructureForEnergyPlus(
 
   /* Count number of objects */
   for(objectType = 0; objectType < nObjectTypes; objectType++){
+    objectCount[objectType] = 0;
     for(i = 0; i < bui->nExcObj; i++){
         if ( ptrSpaObj[i]->objectType == (objectType+1) ){ /* Modelica uses 1-based objectType */
           objectCount[objectType]++;
