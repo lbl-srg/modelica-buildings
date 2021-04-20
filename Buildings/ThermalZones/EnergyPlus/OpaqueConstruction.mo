@@ -117,8 +117,16 @@ initial equation
   assert(
     A > 0,
     "Surface area must not be zero.");
-
 equation
+  // Make sure the heat ports are connected.
+  // These statements must be in the equation section. Otherwise,
+  // Dymola 2021 does trigger an error during the symbolic processing
+  // rather than these assertions if the heat port is not connected.
+  assert(cardinality(heaPorFro) > 0,
+    "In " + getInstanceName() +": The heat port heaPorFro must be connected to another heat port.");
+  assert(cardinality(heaPorBac) > 0,
+    "In " + getInstanceName() +": The heat port heaPorBac must be connected to another heat port.");
+
   when {initial(),time >= pre(tNext)} then
     // Initialization of output variables.
     TFroLast=heaPorFro.T;
