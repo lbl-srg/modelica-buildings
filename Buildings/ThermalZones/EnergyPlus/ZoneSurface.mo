@@ -74,7 +74,7 @@ protected
   // The derivative structure was:
   //  derivatives_structure={{1,1}},
   //  nDer=nDer,
-  //  derivatives_delta={0.1
+  //  derivatives_delta={0.1}
   // This has been removed due to numerical noise,
   // see https://github.com/lbl-srg/modelica-buildings/issues/2358#issuecomment-819578850
   //////////
