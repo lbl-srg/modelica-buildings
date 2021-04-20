@@ -76,6 +76,7 @@ typedef struct FMUBuilding
   char* modelicaNameBuilding; /* Name of the Modelica instance of this zone */
   fmi2Byte* idfName; /* if usePrecompiledFMU == true, the user-specified fmu name, else the idf name */
   fmi2Byte* weather;
+  double relativeSurfaceTolerance; /* Relative surface tolerance for heat balance calculations */
   size_t nExcObj; /* Number of exc that use this FMU */
   void** exchange; /* Pointers to all exchange objects*/
 

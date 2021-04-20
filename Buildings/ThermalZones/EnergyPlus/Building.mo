@@ -5,6 +5,8 @@ model Building
   final constant String modelicaNameBuilding=getInstanceName()
     "Name of this instance"
     annotation (HideResult=true);
+  constant Real relativeSurfaceTolerance(min=1E-20) = 1E-6
+    "Relative tolerance of surface temperature calculations";
   parameter String idfName
     "Name of the IDF file"
     annotation (Evaluate=true);

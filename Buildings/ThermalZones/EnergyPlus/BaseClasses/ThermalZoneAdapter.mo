@@ -13,6 +13,8 @@ model ThermalZoneAdapter
     "Name of the IDF file that contains this zone";
   parameter String weaName
     "Name of the Energyplus weather file";
+  parameter Real relativeSurfaceTolerance
+    "Relative tolerance of surface temperature calculations";
   parameter String zoneName
     "Name of the thermal zone as specified in the EnergyPlus input";
   parameter Boolean usePrecompiledFMU=false
@@ -82,7 +84,7 @@ protected
     "Number of inputs";
   constant Integer nOut=4
     "Number of outputs";
-  constant Integer nDer=1
+  constant Integer nDer=0
     "Number of derivatives";
   constant Integer nY=nOut+nDer+1
     "Size of output vector of exchange function";
@@ -100,6 +102,7 @@ protected
     modelicaInstanceName=modelicaInstanceName,
     idfName=idfName,
     weaName=weaName,
+    relativeSurfaceTolerance=relativeSurfaceTolerance,
     epName=zoneName,
     usePrecompiledFMU=usePrecompiledFMU,
     fmuName=fmuName,
@@ -117,10 +120,18 @@ protected
     outNames={"TRad","QConSen_flow","QLat_flow","QPeo_flow"},
     outUnits={"K","W","W","W"},
     nOut=nOut,
-    derivatives_structure={{2,1}},
+    derivatives_structure=fill(fill(nDer,2),nDer),
     nDer=nDer,
-    derivatives_delta={0.01})
+    derivatives_delta=fill(0,nDer))
     "Class to communicate with EnergyPlus";
+  //////////
+  // The derivative structure was:
+  //     derivatives_structure={{2,1}},
+  //  nDer=nDer,
+  //  derivatives_delta={0.1}
+  // This has been removed due to numerical noise,
+  // see https://github.com/lbl-srg/modelica-buildings/issues/2358#issuecomment-819578850
+  //////////
   parameter Modelica.SIunits.Time startTime(
     fixed=false)
     "Simulation start time";
@@ -145,9 +156,9 @@ protected
     "Time averaged inlet temperature";
   discrete Modelica.SIunits.Temperature TRooLast
     "Room air temperature at last sampling";
-  discrete Real dQCon_flow_dT(
-    final unit="W/K")
-    "Derivative dQCon_flow / dT";
+//  discrete Real dQCon_flow_dT(
+//    final unit="W/K")
+//    "Derivative dQCon_flow / dT";
   discrete Modelica.SIunits.HeatFlowRate QConLast_flow(
     fixed=false,
     start=0)
@@ -159,7 +170,8 @@ protected
 
   algorithm
     y :=
-      if(u > 0) then
+      if
+        (u > 0) then
         floor(
           u/accuracy+0.5)*accuracy
       else
@@ -227,11 +239,13 @@ equation
     QConLast_flow=yEP[2];
     QLat_flow=yEP[3];
     QPeo_flow=yEP[4];
-    dQCon_flow_dT=yEP[5];
-    tNext=yEP[6];
+    //dQCon_flow_dT=yEP[5];
+    //tNext=yEP[6];
+    tNext=yEP[5];
     tLast=time;
   end when;
-  QCon_flow=QConLast_flow+(T-TRooLast)*dQCon_flow_dT;
+  //QCon_flow=QConLast_flow+(T-TRooLast)*dQCon_flow_dT;
+  QCon_flow=QConLast_flow;
   synBui.synchronize.done=nObj;
   annotation (
     defaultComponentName="fmuZon",

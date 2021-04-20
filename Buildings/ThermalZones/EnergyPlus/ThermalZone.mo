@@ -90,6 +90,7 @@ protected
     final modelicaInstanceName=modelicaInstanceName,
     final idfName=idfName,
     final weaName=weaName,
+    final relativeSurfaceTolerance=relativeSurfaceTolerance,
     final zoneName=zoneName,
     final nFluPor=nPorts,
     final usePrecompiledFMU=usePrecompiledFMU,
@@ -120,10 +121,8 @@ protected
   Modelica.Blocks.Math.Gain mWat_flow(
     final k(
       unit="kg/J")=1/h_fg,
-    u(
-      final unit="W"),
-    y(
-      final unit="kg/s"))
+    u(final unit="W"),
+    y(final unit="kg/s"))
     "Water flow rate due to latent heat gain"
     annotation (Placement(transformation(extent={{-82,-64},{-62,-44}})));
   Modelica.Blocks.Math.Add QConLat_flow(
@@ -155,7 +154,8 @@ protected
   Modelica.Blocks.Math.Add CTot_flow[Medium.nC](
     each final k1=1,
     final k2={
-      if(Modelica.Utilities.Strings.isEqual(
+      if
+        (Modelica.Utilities.Strings.isEqual(
         string1=Medium.extraPropertiesNames[i],
         string2=substanceName,
         caseSensitive=false)) then
