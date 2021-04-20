@@ -127,6 +127,7 @@ model Plant "District cooling plant model"
                                                                        iconTransformation(extent={{-340,78},
             {-300,118}})));
   Buildings.Applications.DataCenters.ChillerCooled.Equipment.ElectricChillerParallel mulChiSys(
+    use_inputFilter=false,
     final per=fill(
       perChi,
       numChi),
@@ -157,6 +158,7 @@ model Plant "District cooling plant model"
     final per=fill(
       perCHWPum,
       numChi),
+    use_inputFilter=false,
     yValve_start=fill(1, numChi),
     final energyDynamics=energyDynamics,
     final m_flow_nominal=mCHW_flow_nominal,

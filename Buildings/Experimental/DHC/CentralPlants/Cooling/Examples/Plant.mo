@@ -28,7 +28,7 @@ model Plant "Example to test the chiller cooling plant"
   // pumps
   parameter Buildings.Fluid.Movers.Data.Generic perCHWPum(
     pressure=Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters(
-      V_flow=mCHW_flow_nominal/1000*{0.2,0.6,1.0,1.2},
+      V_flow=mCHW_flow_nominal/1000*{0.2,0.6,0.8,1.0},
       dp=(dpCHW_nominal+dpSetPoi+18000+30000)*{1.5,1.3,1.0,0.6}))
     "Performance data for chilled water pumps";
   parameter Buildings.Fluid.Movers.Data.Generic perCWPum(
@@ -63,11 +63,6 @@ model Plant "Example to test the chiller cooling plant"
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "District cooling plant"
     annotation (Placement(transformation(extent={{-10,0},{10,20}})));
-  Buildings.Fluid.Sources.Boundary_pT watSin(
-    redeclare package Medium=Medium,
-    nPorts=1)
-    "Water sink"
-    annotation (Placement(transformation(extent={{80,0},{60,20}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
     final computeWetBulbTemperature=true,
     filNam=Modelica.Utilities.Files.loadResource(
@@ -87,23 +82,21 @@ model Plant "Example to test the chiller cooling plant"
     duration=21600)
     "Measured pressure difference"
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
-  Buildings.Fluid.Sources.MassFlowSource_T watSou(
-    redeclare package Medium=Medium,
-    m_flow=pla.numChi*mCHW_flow_nominal,
-    T=291.15,
-    nPorts=1)
-    "Water source"
-    annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
-  Buildings.Fluid.FixedResistances.PressureDrop res(
-    dp_nominal=6000,
-    redeclare package Medium=Medium,
-    m_flow_nominal=pla.numChi*mCHW_flow_nominal)
-    "Flow resistance"
-    annotation (Placement(transformation(extent={{30,0},{50,20}})));
   Modelica.Blocks.Sources.Constant TCHWSupSet(
     k=TCHWSet)
     "Chilled water supply temperature setpoint"
     annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
+  Fluid.MixingVolumes.MixingVolume           vol(
+    nPorts=3,
+    redeclare package Medium = Medium,
+    m_flow_nominal=pla.numChi*mCHW_flow_nominal,
+    V=0.5,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    annotation (Placement(transformation(extent={{30,0},{50,20}})));
+  Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow fixHeaFlo(Q_flow=pla.numChi
+        *mCHW_flow_nominal*4200*10, T_ref=293.15)
+    "Fixed heat flow rate"
+    annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
 equation
   connect(weaDat.weaBus,weaBus)
     annotation (Line(points={{-60,-50},{-50,-50}},color={255,204,51},thickness=0.5));
@@ -113,8 +106,6 @@ equation
   connect(on.y,pla.on)
     annotation (Line(points={{-39,70},{-30,70},{-30,17.4},{-10.7333,17.4}},
                                                                   color={255,0,255}));
-  connect(res.port_b,watSin.ports[1])
-    annotation (Line(points={{50,10},{60,10}},  color={0,127,255}));
   connect(TCHWSupSet.y,pla.TCHWSupSet)
     annotation (Line(points={{-39,40},{-32,40},{-32,15.2667},{-10.6667,15.2667}},
                                                                   color={0,0,127}));
@@ -127,10 +118,12 @@ equation
       extent={{-3,6},{-3,6}},
       horizontalAlignment=TextAlignment.Right));
 
-  connect(pla.port_bSerCoo, res.port_a) annotation (Line(points={{10,8.66667},{20,
-          8.66667},{20,10},{30,10}}, color={0,127,255}));
-  connect(watSou.ports[1], pla.port_aSerCoo) annotation (Line(points={{-60,10},{
-          -30,10},{-30,8.66667},{-10,8.66667}}, color={0,127,255}));
+  connect(fixHeaFlo.port,vol.heatPort)
+    annotation (Line(points={{20,-30},{26,-30},{26,10},{30,10}}, color={191,0,0}));
+  connect(pla.port_bSerCoo, vol.ports[1]) annotation (Line(points={{10,8.66667},
+          {20,8.66667},{20,0},{37.3333,0}}, color={0,127,255}));
+  connect(vol.ports[2], pla.port_aSerCoo) annotation (Line(points={{40,0},{60,0},
+          {60,-10},{-16,-10},{-16,8.66667},{-10,8.66667}}, color={0,127,255}));
   annotation (
     Icon(
       coordinateSystem(
