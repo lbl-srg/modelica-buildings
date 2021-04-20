@@ -1,12 +1,14 @@
 within Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse;
 model RadiantHeatingCooling
   "Example model with one thermal zone with a radiant floor"
-  extends Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse.Unconditioned;
+  extends Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse.Unconditioned(building(
+        idfName=Modelica.Utilities.Files.loadResource(
+          "modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus/Examples/SingleFamilyHouse_TwoSpeed_ZoneAirBalance/SingleFamilyHouse_TwoSpeed_ZoneAirBalance_aboveSoil.idf")));
   package MediumW=Buildings.Media.Water
     "Water medium";
   constant Modelica.SIunits.Area AFlo=185.8
     "Floor area";
-  parameter Modelica.SIunits.HeatFlowRate QHea_flow_nominal=5000
+  parameter Modelica.SIunits.HeatFlowRate QHea_flow_nominal=7500
     "Nominal heat flow rate for heating";
   parameter Modelica.SIunits.MassFlowRate mHea_flow_nominal=QHea_flow_nominal/4200/10
     "Design water mass flow rate for heating";
@@ -14,28 +16,31 @@ model RadiantHeatingCooling
     "Nominal heat flow rate for cooling";
   parameter Modelica.SIunits.MassFlowRate mCoo_flow_nominal=-QCoo_flow_nominal/4200/5
     "Design water mass flow rate for heating";
-  parameter HeatTransfer.Data.OpaqueConstructions.Generic layFlo(
-    nLay=3,
-    material={Buildings.HeatTransfer.Data.Solids.Concrete(
-      x=0.08),Buildings.HeatTransfer.Data.Solids.InsulationBoard(
-      x=0.05),Buildings.HeatTransfer.Data.Solids.Concrete(
-      x=0.2)})
-    "Material layers from surface a to b (8cm concrete, 5 cm insulation, 20 cm concrete)"
+  parameter HeatTransfer.Data.OpaqueConstructions.Generic layFloSoi(nLay=4,
+      material={Buildings.HeatTransfer.Data.Solids.Concrete(x=0.08),
+        Buildings.HeatTransfer.Data.Solids.InsulationBoard(x=0.10),
+        Buildings.HeatTransfer.Data.Solids.Concrete(x=0.2),
+        HeatTransfer.Data.Solids.Generic(
+        x=2,
+        k=1.3,
+        c=800,
+        d=1500)})
+    "Material layers from surface a to b (8cm concrete, 10 cm insulation, 20 cm concrete, 200 cm soil, below which is the undisturbed soil assumed)"
     annotation (Placement(transformation(extent={{-20,-240},{0,-220}})));
   parameter HeatTransfer.Data.OpaqueConstructions.Generic layCei(
     nLay=4,
-    material={Buildings.HeatTransfer.Data.Solids.Concrete(
-      x=0.08),Buildings.HeatTransfer.Data.Solids.InsulationBoard(
-      x=0.05),Buildings.HeatTransfer.Data.Solids.Concrete(
-      x=0.18),Buildings.HeatTransfer.Data.Solids.Concrete(
-      x=0.02)})
-    "Material layers from surface a to b (8cm concrete, 5 cm insulation, 18+2 cm concrete)"
+    material={
+      Buildings.HeatTransfer.Data.Solids.Concrete(x=0.08),
+      Buildings.HeatTransfer.Data.Solids.InsulationBoard(x=0.10),
+      Buildings.HeatTransfer.Data.Solids.Concrete(x=0.18),
+      Buildings.HeatTransfer.Data.Solids.Concrete(x=0.02)})
+    "Material layers from surface a to b (8cm concrete, 10 cm insulation, 18+2 cm concrete)"
     annotation (Placement(transformation(extent={{-20,140},{0,160}})));
   // Floor slab
   Fluid.HeatExchangers.RadiantSlabs.ParallelCircuitsSlab slaFlo(
-    redeclare package Medium=MediumW,
+    redeclare package Medium = MediumW,
     allowFlowReversal=false,
-    layers=layFlo,
+    layers=layFloSoi,
     iLayPip=1,
     pipe=Fluid.Data.Pipes.PEX_DN_15(),
     sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.SystemType.Floor,
@@ -45,13 +50,11 @@ model RadiantHeatingCooling
     m_flow_nominal=mHea_flow_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     from_dp=true,
-    show_T=true)
-    "Slab for floor with embedded pipes, connected to soil"
+    show_T=true) "Slab for floor with embedded pipes, connected to soil"
     annotation (Placement(transformation(extent={{0,-270},{20,-250}})));
   Fluid.Sources.Boundary_ph pre(
     redeclare package Medium=MediumW,
-    p(
-      displayUnit="Pa")=300000,
+    p(displayUnit="Pa")=300000,
     nPorts=1)
     "Pressure boundary condition"
     annotation (Placement(transformation(extent={{70,-270},{50,-250}})));
@@ -63,11 +66,9 @@ model RadiantHeatingCooling
     "Controller for heating"
     annotation (Placement(transformation(extent={{-200,-140},{-180,-120}})));
   Controls.OBC.CDL.Continuous.Sources.Constant TSetRooHea(
-    k(
-      final unit="K",
+    k(final unit="K",
       displayUnit="degC")=293.15,
-    y(
-      final unit="K",
+    y(final unit="K",
       displayUnit="degC"))
     "Room temperture set point for heating"
     annotation (Placement(transformation(extent={{-240,-140},{-220,-120}})));
@@ -132,8 +133,7 @@ model RadiantHeatingCooling
   Fluid.Sources.Boundary_ph prePre(
     redeclare package Medium=MediumW,
     nPorts=1,
-    p(
-      displayUnit="Pa")=300000)
+    p(displayUnit="Pa")=300000)
     "Pressure boundary condition"
     annotation (Placement(transformation(extent={{72,110},{52,130}})));
   Fluid.Sources.MassFlowSource_T masFloSouCoo(
@@ -163,11 +163,9 @@ model RadiantHeatingCooling
     "Controller for cooling"
     annotation (Placement(transformation(extent={{-270,130},{-250,150}})));
   Controls.OBC.CDL.Continuous.Sources.Constant TSetRooCoo(
-    k(
-      final unit="K",
+    k(final unit="K",
       displayUnit="degC")=299.15,
-    y(
-      final unit="K",
+    y(final unit="K",
       displayUnit="degC"))
     "Room temperture set point for heating"
     annotation (Placement(transformation(extent={{-300,130},{-280,150}})));
@@ -182,11 +180,9 @@ model RadiantHeatingCooling
     "Cooling water mass flow rate"
     annotation (Placement(transformation(extent={{-150,130},{-130,150}})));
   Controls.OBC.CDL.Continuous.Sources.Constant TSupMin(
-    k(
-      final unit="K",
+    k(final unit="K",
       displayUnit="degC")=289.15,
-    y(
-      final unit="K",
+    y(final unit="K",
       displayUnit="degC"))
     "Minimum cooling supply water temperature"
     annotation (Placement(transformation(extent={{-300,60},{-280,80}})));
@@ -202,10 +198,11 @@ model RadiantHeatingCooling
     surfaceName="Attic:LivingFloor")
     "Floor of the attic above the living room"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=270,origin={100,120})));
-  OpaqueConstruction attFlo1(
-    surfaceName="Living:Floor")
-    "Floor of the attic above the living room"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=270,origin={100,-260})));
+  OpaqueConstruction livFlo(surfaceName="Living:Floor")
+    "Floor of the living room" annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=270,
+        origin={100,-260})));
 
 initial equation
   // The floor area can be obtained from EnergyPlus, but it is a structural parameter used to
@@ -280,10 +277,10 @@ equation
     annotation (Line(points={{-60,-260},{-40,-260}},color={0,127,255}));
   connect(hea.port_b,slaFlo.port_a)
     annotation (Line(points={{-20,-260},{0,-260}},color={0,127,255}));
-  connect(attFlo1.heaPorFro,slaFlo.surf_a)
-    annotation (Line(points={{100,-250},{100,-240},{14,-240},{14,-250}},color={191,0,0}));
-  connect(slaFlo.surf_b,attFlo1.heaPorBac)
-    annotation (Line(points={{14,-270},{14,-280},{100,-280},{100,-269.8}},color={191,0,0}));
+  connect(livFlo.heaPorFro, slaFlo.surf_a) annotation (Line(points={{100,-250},{
+          100,-240},{14,-240},{14,-250}}, color={191,0,0}));
+  connect(slaFlo.surf_b, livFlo.heaPorBac) annotation (Line(points={{14,-270},{14,
+          -280},{100,-280},{100,-269.8}}, color={191,0,0}));
   connect(slaFlo.port_b,pum.port_a)
     annotation (Line(points={{20,-260},{40,-260},{40,-300},{-100,-300},{-100,-260},{-80,-260}},color={0,127,255}));
   connect(zon.TAir,conHea.u_m)
@@ -296,7 +293,8 @@ equation
     experiment(
       StartTime=7776000,
       StopTime=9504000,
-      Tolerance=1e-06),
+      Tolerance=1e-06,
+      __Dymola_Algorithm="Cvode"),
     Documentation(
       info="<html>
 <p>
@@ -346,7 +344,7 @@ using the model
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.RadiantSlabs.ParallelCircuitsSlab\">
 Buildings.Fluid.HeatExchangers.RadiantSlabs.ParallelCircuitsSlab</a>.
 This instance models the heat transfer from surface of the floor to the lower surface of the slab.
-In this example, the construction is defined by the instance <code>layFlo</code>.
+In this example, the construction is defined by the instance <code>layFloSoi</code>.
 (See the <a href=\"modelica://Buildings.Fluid.HeatExchangers.RadiantSlabs.UsersGuide\">
 Buildings.Fluid.HeatExchangers.RadiantSlabs.UsersGuide</a>
 for how to configure a radiant slab.)
@@ -356,6 +354,10 @@ are connected to the instance
 <code>flo</code>.
 In EnergyPlus, the surface <code>flo.heaPorBac</code> is connected
 to the boundary condition of the soil because this building has no basement.
+</p>
+<p>
+Note that the floor construction is modelled with <i>2</i> m of soil because the soil temperature
+in EnergyPlus is assumed to be undisturbed.
 </p>
 </html>",
       revisions="<html>

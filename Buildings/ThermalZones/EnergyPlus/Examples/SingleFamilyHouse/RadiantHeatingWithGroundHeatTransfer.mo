@@ -12,11 +12,11 @@ model RadiantHeatingWithGroundHeatTransfer
     "Design water mass flow rate for heating";
   parameter HeatTransfer.Data.OpaqueConstructions.Generic layFlo(
     nLay=3,
-    material={Buildings.HeatTransfer.Data.Solids.Concrete(
-      x=0.08),Buildings.HeatTransfer.Data.Solids.InsulationBoard(
-      x=0.05),Buildings.HeatTransfer.Data.Solids.Concrete(
-      x=0.2)})
-    "Material layers from surface a to b (8cm concrete, 5 cm insulation, 20 cm concrete)"
+    material={
+      Buildings.HeatTransfer.Data.Solids.Concrete(x=0.08),
+      Buildings.HeatTransfer.Data.Solids.InsulationBoard(x=0.10),
+      Buildings.HeatTransfer.Data.Solids.Concrete(x=0.2)})
+    "Material layers from surface a to b (8cm concrete, 10 cm insulation, 20 cm concrete)"
     annotation (Placement(transformation(extent={{-20,-240},{0,-220}})));
   parameter HeatTransfer.Data.Solids.Generic soil(
     x=2,
