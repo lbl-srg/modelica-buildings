@@ -134,8 +134,9 @@ equation
     experiment(
       StopTime=86400,
       Tolerance=1e-06),
-    __Dymola_Commands(
-      file="Resources/Scripts/Dymola/Experimental/DHC/CentralPlants/Cooling/Examples/CoolingPlantOpenLoop.mos" "Simulate and Plot"),
+    __Dymola_Commands(file=
+          "Resources/Scripts/Dymola/Experimental/DHC/CentralPlants/Cooling/Examples/Plant.mos"
+        "Simulate and Plot"),
     Documentation(
       info="<html>
 <p>This model validates the district central cooling plant implemented in 
