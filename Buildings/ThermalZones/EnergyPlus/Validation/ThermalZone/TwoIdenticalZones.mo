@@ -110,6 +110,7 @@ model TwoIdenticalZones
     BoundaryConditions.WeatherData.Bus weaBus
       "Bus with weather data"
       annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
+
   equation
     connect(qRadGai_flow.y,multiplex3_1.u1[1])
       annotation (Line(points={{-69,70},{-62,70},{-62,47},{-52,47}},color={0,0,127},smooth=Smooth.None));
@@ -136,6 +137,7 @@ model TwoIdenticalZones
     connect(bou.weaBus,weaBus)
       annotation (Line(points={{-80,-79.8},{-86,-79.8},{-86,-80},{-94,-80},{-94,0},{-100,0}},color={255,204,51},thickness=0.5));
   end Zone;
+
 equation
   connect(TAirEnePlu.u,datRea.y[3])
     annotation (Line(points={{-2,70},{-39,70}},color={0,0,127}));

@@ -8,6 +8,7 @@ model HeatPumpHeatExchanger
     final have_heaWat=true,
     have_hotWat=false,
     final have_eleHea=true,
+    final nFue=0,
     final have_eleCoo=false,
     final have_pum=true,
     final have_fan=false,
@@ -265,8 +266,9 @@ model HeatPumpHeatExchanger
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
       rotation=-90,
       origin={60,150})));
-  Buildings.Fluid.Sources.Boundary_pT bouChiWat(redeclare final package Medium =
-        MediumBui, nPorts=1)
+  Buildings.Fluid.Sources.Boundary_pT bouChiWat(
+    redeclare final package Medium = MediumBui,
+    nPorts=1)
     "Pressure boundary condition representing the expansion vessel"
     annotation (Placement(transformation(extent={{-162,-290},{-142,-270}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiSum PPumCooTot(nin=1)
@@ -688,9 +690,9 @@ for instance 40&deg;C.
 <h4>Controls</h4>
 <p>
 Heating (resp. cooling) is enabled based on the input signal <code>uHea</code>
-(resp. <code>uCoo</code>) which is held for 15', meaning that,
-when enabled, the mode remains active for at least 15' and,
-when disabled, the mode cannot be enabled again for at least 15'.
+(resp. <code>uCoo</code>) which is held for <i>15</i> minutes, meaning that,
+when enabled, the mode remains active for at least <i>15</i> minutes and,
+when disabled, the mode cannot be enabled again for at least <i>15</i> minutes.
 The heating and cooling enable signals should be computed externally based
 on a schedule (to lock out the system during off-hours), ideally in conjunction
 with the number of requests yielded by the terminal unit controllers, or any

@@ -189,7 +189,6 @@ partial model PartialSeries "Partial model for series network"
   Buildings.Experimental.DHC.Loads.BaseClasses.ConstraintViolation conVio(
     final uMin=datDes.TLooMin,
     final uMax=datDes.TLooMax,
-    priTer=true,
     final nu=3+nBui)
     "Check if loop temperatures are within given range"
     annotation (Placement(transformation(extent={{320,10},{340,30}})));
@@ -279,7 +278,7 @@ equation
 <li>
 February 23, 2021, by Antoine Gautier:<br/>
 Refactored with base classes from the <code>DHC</code> package.<br/>
-This is for 
+This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1769\">
 issue 1769</a>.
 </li>

@@ -106,9 +106,20 @@ equation
       extent={{-3,6},{-3,6}},
       horizontalAlignment=TextAlignment.Right),
     Documentation(info="<html>
-
-DOCUMENT facSca and facMul choices
-
+<p>
+This model is composed of a heat pump based energy transfer station model
+<a href=\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.HeatPumpHeatExchanger\">
+Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.HeatPumpHeatExchanger</a>
+connected to a simplified building model where the space heating, cooling
+and hot water loads are provided as time series.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+February 23, 2021, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-300,-300},{
             300,300}})));

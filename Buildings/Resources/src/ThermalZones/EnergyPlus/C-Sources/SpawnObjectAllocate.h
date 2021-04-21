@@ -18,6 +18,7 @@ LBNL_Spawn_EXPORT void* EnergyPlusSpawnAllocate(
   const char* modelicaName,
   const char* idfName,
   const char* weaName,
+  double relativeSurfaceTolerance,
   const char* epName,
   int usePrecompiledFMU,
   const char* fmuName,

@@ -131,8 +131,8 @@ Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.ChillerBo
 <li>
 Heating (resp. cooling) is enabled based on the input signal <code>uHea</code>
 (resp. <code>uCoo</code>) which is held for 15', meaning that,
-when enabled, the mode remains active for at least 15' and,
-when disabled, the mode cannot be enabled again for at least 15'.
+when enabled, the mode remains active for at least <i>15</i> minutes and,
+when disabled, the mode cannot be enabled again for at least <i>15</i> minutes.
 The heating and cooling enable signals should be computed externally based on a schedule
 (to lock out the system during off-hours), ideally in conjunction with the number
 of requests yielded by the terminal unit controllers, or any

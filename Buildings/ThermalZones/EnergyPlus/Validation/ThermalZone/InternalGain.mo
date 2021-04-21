@@ -28,6 +28,7 @@ model InternalGain
     qLat_flow=5)
     "Zone with only latent heat gains from Modelica"
     annotation (Placement(transformation(extent={{-10,-60},{10,-40}})));
+
 protected
   model OneZoneWithGainExposed
     "Internal model for building with one thermal zone"

@@ -42,7 +42,7 @@ model SwitchBox "Validation of flow switch box"
     annotation (Placement(transformation(extent={{-10,-60},{10,-40}})));
   Fluid.Sensors.MassFlowRate senMasFlo(
     redeclare final package Medium = Medium) "District water mass flow rate"
-    annotation (Placement(transformation(extent={{10,-10},{-10,10}},rotation=0,origin={0,-80})));
+    annotation (Placement(transformation(extent={{10,-10},{-10,10}},rotation=0,origin={0,-100})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant setMasFlo1(k=0.5)
     "Set point for mass flow rate (normalized)"
     annotation (Placement(transformation(extent={{-90,30},{-70,50}})));
@@ -51,7 +51,7 @@ model SwitchBox "Validation of flow switch box"
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-70,-80})));
+        origin={-70,-90})));
   Modelica.Blocks.Sources.CombiTimeTable setMasFlo2(
     tableName="tab1",
     table=[0,0; 0.6,1; 0.7,0; 1,1],
@@ -79,11 +79,14 @@ equation
   connect(floSwiBox.port_aRet, volRet.ports[3]) annotation (Line(points={{6,-40},
           {6,-20},{60,-20},{60,2.66667}}, color={0,127,255}));
   connect(floSwiBox.port_bRet, senMasFlo.port_a) annotation (Line(points={{6,-60},
-          {60,-60},{60,-80},{10,-80}}, color={0,127,255}));
-  connect(senMasFlo.port_b, disWatBou.ports[1]) annotation (Line(points={{-10,-80},
-          {-60,-80},{-60,-78}},      color={0,127,255}));
-  connect(disWatBou.ports[2], floSwiBox.port_aSup) annotation (Line(points={{-60,-82},
-          {-60,-60},{-6,-60}},      color={0,127,255}));
+          {6,-80},{60,-80},{60,-100},{10,-100}},
+                                       color={0,127,255}));
+  connect(senMasFlo.port_b, disWatBou.ports[1]) annotation (Line(points={{-10,
+          -100},{-60,-100},{-60,-88}},
+                                     color={0,127,255}));
+  connect(disWatBou.ports[2], floSwiBox.port_aSup) annotation (Line(points={{-60,-92},
+          {-60,-80},{-6,-80},{-6,-60}},
+                                    color={0,127,255}));
   connect(pum1.m_flow_actual, floSwiBox.mRev_flow) annotation (Line(points={{-11,
           5},{-20,5},{-20,-54},{-12,-54}}, color={0,0,127}));
   connect(setMasFlo2.y[1], gai2.u)

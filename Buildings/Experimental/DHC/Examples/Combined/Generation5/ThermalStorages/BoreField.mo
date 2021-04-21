@@ -21,17 +21,18 @@ model BoreField "Geothermal borefield model"
           Buildings.Fluid.Geothermal.Borefields.Data.Configuration.Example(
           borCon=Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.DoubleUTubeParallel,
           dp_nominal=35000,
-          hBor=250,
-          rBor=0.19,
+          hBor=300,
+          rBor=0.095,
           nBor=350,
           cooBor={dBor*{mod(i - 1, 10),floor((i - 1)/10)} for i in 1:350},
-          rTub=0.04,
-          kTub=0.4,
+          dBor=dBor,
+          rTub=0.02,
+          kTub=0.5,
           eTub=0.0037,
-          xC=0.08)),
+          xC=0.05)),
     final show_T=true);
   parameter Integer dBor = 10
-  "Distance between boreholes";
+    "Distance between boreholes";
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput Q_flow(final unit="W")
     "Rate at which heat is extracted from soil"
     annotation (Placement(transformation(extent={{100,-50},{120,-30}}),
@@ -40,4 +41,40 @@ equation
   connect(gaiQ_flow.y, Q_flow) annotation (Line(points={{1,80},{14,80},{14,54},{
           96,54},{96,-40},{110,-40}},
                                     color={0,0,127}));
+  annotation (Documentation(info="<html>
+<p>
+This model represents a borefield composed of 350 boreholes,
+with the following main assumptions.
+</p>
+<ul>
+<li>
+The soil is made of sandstone.
+</li>
+<li>
+The boreholes are filled with a bentonite grout.
+</li>
+<li>
+The boreholes have a height of 300 m and a diameter of 190 mm.
+They are discretized vertically in five segments.
+</li>
+<li>
+A distance of 10 m between each borehole is considered.
+</li>
+<li>
+HDPE pipes with a diameter of 40 mm are considered, in a
+double U-tube parallel configuration.
+</li>
+</ul>
+</html>", revisions="<html>
+<ul>
+<li>
+February 23, 2021, by Antoine Gautier:<br/>
+Updated documentation.
+</li>
+<li>
+January 12, 2020, by Michael Wetter:<br/>
+Added documentation.
+</li>
+</ul>
+</html>"));
 end BoreField;
