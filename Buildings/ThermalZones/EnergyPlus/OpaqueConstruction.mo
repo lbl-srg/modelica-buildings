@@ -156,7 +156,8 @@ equation
       info="<html>
 <p>
 Model that interfaces with the EnergyPlus object <code>BuildingSurface:Detailed</code>.
-It sets in EnergyPlus the surface temperature obtained from Modelica through the heat ports
+It sets in EnergyPlus the temperature of the front and back surface
+to the values obtained from Modelica through the heat ports
 of this model,
 and imposes the heat flow rate obtained from EnergyPlus at the heat ports
 of this model.
@@ -180,7 +181,7 @@ absorbed infrared radiation minus emitted infrared radiation.
 <p>
 For the back-side surface, the above quanties, but now for the back-side of the construction,
 are also returned if the back-side faces another thermal zone or the outside.
-If the back-side surface is above ground, then then heat flow rate from the ground is returned.
+If the back-side surface is above ground, then the heat flow rate from the ground is returned.
 </p>
 <h4>Usage</h4>
 <p>
