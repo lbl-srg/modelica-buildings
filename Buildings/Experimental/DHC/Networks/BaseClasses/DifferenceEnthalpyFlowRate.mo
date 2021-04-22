@@ -10,8 +10,11 @@ model DifferenceEnthalpyFlowRate
     final m1_flow_small=m_flow_small,
     final m2_flow_small=m_flow_small,
     final show_T=false);
-  parameter Boolean have_integrator=false
+  parameter Boolean have_integrator = false
     "Set to true to output the time integral"
+    annotation (Evaluate=true);
+  parameter Boolean have_massFlow = false
+    "Set to true to output the mass flow rates"
     annotation (Evaluate=true);
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal(
     min=0)
@@ -42,8 +45,7 @@ model DifferenceEnthalpyFlowRate
     "Small mass flow rate for regularization of zero flow"
     annotation (Dialog(tab="Advanced"));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput dH_flow(
-    final unit="W")
-    "Difference in enthalpy flow rate between stream 1 and 2"
+    final unit="W") "Difference in enthalpy flow rate between stream 1 and 2"
     annotation (Placement(transformation(origin={120,20},extent={{-20,-20},{20,20}},rotation=0),
       iconTransformation(extent={{-20,-20},{20,20}},rotation=0,origin={120,30})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput E(
@@ -51,6 +53,28 @@ model DifferenceEnthalpyFlowRate
     "Time integral of enthalpy flow rate difference between stream 1 and 2"
     annotation (Placement(transformation(origin={120,-20},extent={{-20,-20},{20,20}},rotation=0),
       iconTransformation(extent={{-20,-20},{20,20}},rotation=0,origin={120,-30})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput m_flow1(
+    final unit="kg/s") if have_massFlow
+    "Mass flow rate of fluid stream 1"
+    annotation (Placement(transformation(
+        origin={120,80},
+        extent={{-20,-20},{20,20}},
+        rotation=0),
+        iconTransformation(
+        extent={{-20,-20},{20,20}},
+        rotation=0,
+        origin={120,90})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput m_flow2(
+    final unit="kg/s") if have_massFlow
+    "Mass flow rate of fluid stream 2"
+    annotation (Placement(transformation(
+        origin={120,-80},
+        extent={{-20,-20},{20,20}},
+        rotation=0),
+        iconTransformation(
+        extent={{-20,-20},{20,20}},
+        rotation=0,
+        origin={120,-90})));
   Fluid.Sensors.EnthalpyFlowRate senEntFlo1(
     redeclare final package Medium=Medium1,
     final m_flow_nominal=m_flow_nominal,
@@ -78,6 +102,14 @@ model DifferenceEnthalpyFlowRate
     y(unit="J")) if have_integrator
     "Time integral computation"
     annotation (Placement(transformation(extent={{40,-30},{60,-10}})));
+  Modelica.Blocks.Sources.RealExpression masFlo1(
+    final y=port_a1.m_flow) if have_massFlow
+    "Mass flow rate of fluid stream 1"
+    annotation (Placement(transformation(extent={{60,70},{80,90}})));
+  Modelica.Blocks.Sources.RealExpression masFlo2(
+    final y=port_a2.m_flow) if have_massFlow
+    "Mass flow rate of fluid stream 2"
+    annotation (Placement(transformation(extent={{60,-90},{80,-70}})));
 equation
   connect(port_a1,senEntFlo1.port_a)
     annotation (Line(points={{-100,60},{-10,60}},color={0,127,255}));
@@ -97,6 +129,10 @@ equation
     annotation (Line(points={{61,-20},{120,-20}},color={0,0,127}));
   connect(dif.y,int.u)
     annotation (Line(points={{62,20},{80,20},{80,0},{20,0},{20,-20},{38,-20}},color={0,0,127}));
+  connect(masFlo1.y, m_flow1)
+    annotation (Line(points={{81,80},{120,80}}, color={0,0,127}));
+  connect(masFlo2.y, m_flow2)
+    annotation (Line(points={{81,-80},{120,-80}}, color={0,0,127}));
   annotation (
     defaultComponentName="senDifEntFlo",
     Icon(
@@ -174,7 +210,10 @@ equation
 This model outputs the difference in enthalpy flow rate
 between two different streams:
 <i>&Delta;H&#775; = m&#775;<sub>1</sub> h<sub>1</sub> - m&#775;<sub>2</sub> h<sub>2</sub></i>.
-Optionally the time integral of this quantity can be output.
+Optionally the time integral of this quantity can be output
+(if <code>have_integrator</code> is <code>true</code>) as
+well as the mass flow rate of each fluid stream
+(if <code>have_massFlow</code> is <code>true</code>).
 The sensor is ideal, i.e., it does not influence the fluid.
 </p>
 <p>

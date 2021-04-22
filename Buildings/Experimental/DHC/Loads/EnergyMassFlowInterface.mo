@@ -49,10 +49,6 @@ model EnergyMassFlowInterface
     final m_flow_nominal=m_flow_nominal)
     "Supply temperature sensor"
     annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
-  Fluid.Sensors.MassFlowRate senMasFlo(
-    redeclare final package Medium = Medium)
-    "Mass flow rate sensor"
-    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   Fluid.Movers.FlowControlled_m_flow pum(
     redeclare final package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
@@ -61,7 +57,7 @@ model EnergyMassFlowInterface
     use_inputFilter=false,
     final dp_nominal=dp_nominal) if have_pum
     "Pump (optional)"
-    annotation (Placement(transformation(extent={{-10,10},{10,30}})));
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Fluid.Delays.DelayFirstOrder del(
     redeclare final package Medium = Medium,
     final tau=tau,
@@ -77,7 +73,7 @@ model EnergyMassFlowInterface
     final energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     final Q_flow_nominal=1)
     "Actual load on the fluid stream"
-    annotation (Placement(transformation(extent={{66,-10},{86,10}})));
+    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Fluid.Actuators.Valves.TwoWayPressureIndependent valPreInd(
     redeclare final package Medium = Medium,
     final m_flow_nominal=m_flow_nominal,
@@ -109,41 +105,39 @@ model EnergyMassFlowInterface
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={0,-30})));
+        origin={-40,-20})));
 
+  Networks.BaseClasses.DifferenceEnthalpyFlowRate senDifEntFlo(
+    redeclare final package Medium1 = Medium,
+    redeclare final package Medium2 = Medium,
+    final have_massFlow=true,
+    final m_flow_nominal=m_flow_nominal)
+    "Change in enthalpy flow rate"
+    annotation (Placement(transformation(extent={{-60,-76},{-40,-56}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput dH_flow(final unit="W")
+                    "Difference in enthalpy flow rate between stream 1 and 2"
+    annotation (Placement(transformation(origin={120,-60},
+                                                         extent={{-20,-20},{20,20}},rotation=0),
+      iconTransformation(extent={{-20,-20},{20,20}},rotation=0,origin={120,60})));
 equation
   connect(port_a, senTSup.port_a)
     annotation (Line(points={{-100,0},{-90,0}}, color={0,127,255}));
-  connect(senTSup.port_b, senMasFlo.port_a)
-    annotation (Line(points={{-70,0},{-60,0}}, color={0,127,255}));
-  connect(hea.port_b, port_b)
-    annotation (Line(points={{86,0},{100,0}}, color={0,127,255}));
-  connect(pum.port_b, del.ports[1]) annotation (Line(points={{10,20},{20,20},{20,
-          0},{38,0}},      color={0,127,255}));
-  connect(senMasFlo.port_b, pum.port_a) annotation (Line(points={{-40,0},{-30,0},
-          {-30,20},{-10,20}}, color={0,127,255}));
-  connect(senMasFlo.port_b, valPreInd.port_a) annotation (Line(points={{-40,0},{
-          -30,0},{-30,-60},{-10,-60}}, color={0,127,255}));
+  connect(pum.port_b, del.ports[1]) annotation (Line(points={{10,0},{38,0}},
+                           color={0,127,255}));
   connect(valPreInd.port_b, del.ports[1]) annotation (Line(points={{10,-60},{20,
           -60},{20,0},{38,0}}, color={0,127,255}));
   connect(del.ports[2], hea.port_a)
-    annotation (Line(points={{42,0},{66,0}},      color={0,127,255}));
+    annotation (Line(points={{42,0},{60,0}},      color={0,127,255}));
   connect(eneMasFlo.m_flow, pum.m_flow_in) annotation (Line(points={{-28,86},{-20,
-          86},{-20,40},{0,40},{0,32}}, color={0,0,127}));
-  connect(eneMasFlo.Q_flow_actual, hea.u) annotation (Line(points={{-28,80},{60,
-          80},{60,6},{64,6}}, color={0,0,127}));
+          86},{-20,20},{0,20},{0,12}}, color={0,0,127}));
+  connect(eneMasFlo.Q_flow_actual, hea.u) annotation (Line(points={{-28,80},{52,
+          80},{52,6},{58,6}}, color={0,0,127}));
   connect(eneMasFlo.Q_flow_residual, heaFlo.Q_flow)
     annotation (Line(points={{-28,74},{24,74},{24,60}}, color={0,0,127}));
   connect(heaFlo.port, del.heatPort)
     annotation (Line(points={{24,40},{24,10},{30,10}}, color={191,0,0}));
-  connect(valPreInd.y, gai.y) annotation (Line(points={{0,-48},{0,-46},{-2.22045e-15,
-          -46},{-2.22045e-15,-42}}, color={0,0,127}));
-  connect(eneMasFlo.m_flow, gai.u) annotation (Line(points={{-28,86},{-20,86},{-20,
-          -10},{0,-10},{0,-18}}, color={0,0,127}));
   connect(senTSup.T, eneMasFlo.TSup_actual)
     annotation (Line(points={{-80,11},{-80,76},{-52,76}}, color={0,0,127}));
-  connect(senMasFlo.m_flow, eneMasFlo.m_flow_actual) annotation (Line(points={{-50,
-          11},{-50,20},{-60,20},{-60,73},{-52,73}}, color={0,0,127}));
   connect(ena, eneMasFlo.ena) annotation (Line(points={{-120,90},{-94,90},{-94,88},
           {-52,88}}, color={255,0,255}));
   connect(QPre_flow, eneMasFlo.QPre_flow) annotation (Line(points={{-120,70},{-94,
@@ -152,6 +146,25 @@ equation
           50},{-90,82},{-52,82}}, color={0,0,127}));
   connect(TSupSet, eneMasFlo.TSupSet) annotation (Line(points={{-120,30},{-86,30},
           {-86,79},{-52,79}}, color={0,0,127}));
+  connect(senTSup.port_b, senDifEntFlo.port_a1) annotation (Line(points={{-70,0},
+          {-66,0},{-66,-60},{-60,-60}}, color={0,127,255}));
+  connect(senDifEntFlo.port_b1, pum.port_a) annotation (Line(points={{-40,-60},{
+          -20,-60},{-20,0},{-10,0}}, color={0,127,255}));
+  connect(senDifEntFlo.port_b1, valPreInd.port_a)
+    annotation (Line(points={{-40,-60},{-10,-60}}, color={0,127,255}));
+  connect(hea.port_b, senDifEntFlo.port_a2) annotation (Line(points={{80,0},{84,
+          0},{84,-72},{-40,-72}}, color={0,127,255}));
+  connect(senDifEntFlo.port_b2, port_b) annotation (Line(points={{-60,-72},{-66,
+          -72},{-66,-80},{90,-80},{90,0},{100,0}}, color={0,127,255}));
+  connect(gai.y, valPreInd.y) annotation (Line(points={{-40,-32},{-40,-40},{0,-40},
+          {0,-48}}, color={0,0,127}));
+  connect(eneMasFlo.m_flow, gai.u) annotation (Line(points={{-28,86},{-20,86},{-20,
+          20},{-40,20},{-40,-8}}, color={0,0,127}));
+  connect(senDifEntFlo.dH_flow, dH_flow) annotation (Line(points={{-38,-63},{
+          -30,-63},{-30,-68},{40,-68},{40,-60},{120,-60}}, color={0,0,127}));
+  connect(senDifEntFlo.m_flow1, eneMasFlo.m_flow_actual) annotation (Line(
+        points={{-38,-57},{-30,-57},{-30,-48},{-60,-48},{-60,73},{-52,73}},
+        color={0,0,127}));
   annotation (
     defaultComponentName="eneMasFlo",
     Icon(graphics={   Rectangle(

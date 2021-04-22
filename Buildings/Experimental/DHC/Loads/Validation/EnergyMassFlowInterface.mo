@@ -139,12 +139,6 @@ model EnergyMassFlowInterface "Validation of the model EnergyMassFlowInterface"
     annotation (Placement(transformation(extent={{170,-50},{190,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.Division NMBE1
     annotation (Placement(transformation(extent={{210,-40},{230,-20}})));
-  Networks.BaseClasses.DifferenceEnthalpyFlowRate senDifEntFlo1(redeclare
-      package Medium1 = Medium, final m_flow_nominal=m_flow_nominal)
-    annotation (Placement(transformation(extent={{-170,-130},{-150,-110}})));
-  Networks.BaseClasses.DifferenceEnthalpyFlowRate senDifEntFlo(redeclare
-      package Medium1 = Medium, final m_flow_nominal=m_flow_nominal)
-    annotation (Placement(transformation(extent={{-170,50},{-150,70}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant ena(
     k=true) "Enable signal"
     annotation (Placement(transformation(extent={{-240,170},{-220,190}})));
@@ -220,25 +214,6 @@ equation
           {208,-36}},        color={0,0,127}));
   connect(int2.y, NMBE1.u1) annotation (Line(points={{151,-20},{200,-20},{200,-24},
           {208,-24}},        color={0,0,127}));
-  connect(serSup1.ports[1], senDifEntFlo1.port_a1) annotation (Line(points={{-220,
-          -100},{-180,-100},{-180,-114},{-170,-114}},      color={0,127,255}));
-  connect(serRet1.ports[1], senDifEntFlo1.port_b2) annotation (Line(points={{-220,
-          -140},{-180,-140},{-180,-126},{-170,-126}},      color={0,127,255}));
-  connect(senDifEntFlo1.port_a2, senTRet1.port_b) annotation (Line(points={{-150,
-          -126},{-140,-126},{-140,-140},{-70,-140}},      color={0,127,255}));
-  connect(senDifEntFlo1.dH_flow, add1.u2) annotation (Line(points={{-148,-117},{
-          -140,-117},{-140,-6},{78,-6}},                        color={0,0,127}));
-  connect(serSup.ports[1], senDifEntFlo.port_a1) annotation (Line(points={{-220,80},
-          {-180,80},{-180,66},{-170,66}},         color={0,127,255}));
-  connect(senDifEntFlo.port_b1, val.port_a) annotation (Line(points={{-150,66},{
-          -144,66},{-144,80},{-130,80}},     color={0,127,255}));
-  connect(senDifEntFlo.port_a2, hex.port_b1) annotation (Line(points={{-150,54},
-          {-140,54},{-140,40},{-100,40},{-100,50}},     color={0,127,255}));
-  connect(senDifEntFlo.port_b2, serRet.ports[1]) annotation (Line(points={{-170,54},
-          {-180,54},{-180,40},{-220,40}},         color={0,127,255}));
-  connect(senDifEntFlo.dH_flow, add2.u2) annotation (Line(points={{-148,63},{-140,
-          63},{-140,160},{70,160},{70,174},{78,174}},
-        color={0,0,127}));
   connect(ena.y, eneMasFlo.ena) annotation (Line(points={{-218,180},{-40,180},{-40,
           89},{8,89}},   color={255,0,255}));
   connect(bou2.ports[1], hex.port_a2)
@@ -260,10 +235,20 @@ equation
           -40,-91},{8,-91}},   color={255,0,255}));
   connect(loa.y[2], eneMasFlo1.QPre_flow) annotation (Line(points={{-219,-20},{0,
           -20},{0,-93},{8,-93}},      color={0,0,127}));
-  connect(senDifEntFlo1.port_b1, senTSup1.port_a) annotation (Line(points={{
-          -150,-114},{-142,-114},{-142,-100},{-68,-100}}, color={0,127,255}));
   connect(senTSup1.port_b, eneMasFlo1.port_a)
     annotation (Line(points={{-48,-100},{10,-100}}, color={0,127,255}));
+  connect(serSup1.ports[1], senTSup1.port_a)
+    annotation (Line(points={{-220,-100},{-68,-100}}, color={0,127,255}));
+  connect(serRet1.ports[1], senTRet1.port_b)
+    annotation (Line(points={{-220,-140},{-70,-140}}, color={0,127,255}));
+  connect(serSup.ports[1], val.port_a)
+    annotation (Line(points={{-220,80},{-130,80}}, color={0,127,255}));
+  connect(serRet.ports[1], hex.port_b1) annotation (Line(points={{-220,40},{
+          -100,40},{-100,50}}, color={0,127,255}));
+  connect(eneMasFlo.dH_flow, add2.u2) annotation (Line(points={{32,86},{60,86},
+          {60,174},{78,174}}, color={0,0,127}));
+  connect(eneMasFlo1.dH_flow, add1.u2) annotation (Line(points={{32,-94},{60,
+          -94},{60,-6},{78,-6}}, color={0,0,127}));
   annotation (Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-260,-240},{260,240}})),
       experiment(

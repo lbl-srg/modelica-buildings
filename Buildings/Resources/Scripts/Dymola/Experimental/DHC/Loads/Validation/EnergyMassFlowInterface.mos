@@ -16,11 +16,13 @@ createPlot(
 createPlot(
     id=2,
     position={729, 27, 760, 888},
-    y={"loa.y[2]", "senDifEntFlo.dH_flow", "movMea.y", "Q_flow_nominal"},
+    y={"loa.y[2]", "eneMasFlo.dH_flow", "movMea.y", "Q_flow_nominal"},
     grid=true);
 createPlot(
     id=3,
     position={1499, 27, 714, 890},
+    range={0, 360000, -0.05, 0.05},
+    autoscale=false,
     y={"NMBE.y"},
     grid=true);
 createPlot(
@@ -43,11 +45,13 @@ createPlot(
 createPlot(
     id=5,
     position={729, 947, 760, 888},
-    y={"loa.y[2]", "senDifEntFlo1.dH_flow", "movMea1.y", "Q_flow_nominal"},
+    y={"loa.y[2]", "eneMasFlo1.dH_flow", "movMea1.y", "Q_flow_nominal"},
     grid=true);
 createPlot(
     id=6,
     position={1495, 947, 714, 890},
+    range={0, 360000, -0.05, 0.05},
+    autoscale=false,
     y={"NMBE1.y"},
     grid=true);
 createPlot(
