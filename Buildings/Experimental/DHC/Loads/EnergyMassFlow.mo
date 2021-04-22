@@ -91,7 +91,7 @@ protected
     "Mass flow rate for internal use when mPre_flow is removed";
 
   function characteristics "m_flow -> Q_flow characteristics"
-    /* FE: implement exponential characteristics based on OS load data for 
+    /* FE: implement exponential characteristics based on OS load data for
     the case where have_masFlo is false.
     Currently a linear relationship to the prescribed load is used.
     */
@@ -138,14 +138,18 @@ equation
   filter.u = rat_m_flow_cor;
   m_flow =if have_masFlo then filter.y else
     Utilities.Math.Functions.smoothLimit(
-    x=filter.y,
-    l=if uEna then fra_m_flow_min else 0,
-    u=1,
-    deltaX=1E-4) * m_flow_nominal;
-  rat_Q_flow_cor = characteristics(m_flow_actual / m_flow_nominal, have_masFlo) *
-    Utilities.Math.Functions.inverseXRegularized(
-      characteristics(m_flow / m_flow_nominal, have_masFlo),
-      1E-4);
+      x=filter.y,
+      l=if uEna then fra_m_flow_min else 0,
+      u=1,
+      deltaX=1E-4) * m_flow_nominal;
+  rat_Q_flow_cor = Utilities.Math.Functions.smoothLimit(
+    x = characteristics(m_flow_actual / m_flow_nominal, have_masFlo) *
+      Utilities.Math.Functions.inverseXRegularized(
+        characteristics(m_flow / m_flow_nominal, have_masFlo),
+        1E-4),
+      l=0,
+      u=1,
+      deltaX=1E-4);
   Q_flow_actual = -QPre_flow * rat_Q_flow_cor;
   Q_flow_residual = -QPre_flow - Q_flow_actual;
 
@@ -156,8 +160,8 @@ equation
       Documentation(info="<html>
 <p>
 TODO:
-Criteria for unmet load: 
-moving average of Q_flow difference AND 
+Criteria for unmet load:
+moving average of Q_flow difference AND
 supply temperature mismatch (because a permanent temperature mismatch
 only leads to a transient mismatch in Q_flow, so the user
 can have bad insight on degraded operating conditions.)
@@ -176,7 +180,7 @@ TODO: compute the characteristics based on
 https://github.com/urbanopt/openstudio-prototype-loads
 </li>
 <li>
-This mass flow rate is then corrected to account for the impact 
+This mass flow rate is then corrected to account for the impact
 of a transient mismatch between the supply temperature set point
 <i>TSupSet</i> and the actual supply temperature <i>TSup_actual</i>.
 <p style=\"font-style:italic;\">
@@ -192,7 +196,7 @@ the load temperature.
 <li>
 The corrected mass flow rate is then filtered to approximate the
 response time of the terminal actuators and the distribution pump.
-This also provides a means to break the algebraic loop between the 
+This also provides a means to break the algebraic loop between the
 mass flow rate and the supply temperature.
 See
 <a href=\"modelica://Buildings.Fluid.Actuators.UsersGuide\">
@@ -205,15 +209,15 @@ flow rate at minimum pump speed, and the nominal mass flow rate.
 <li>
 </ul>
 <p>
-The block also implements the following equations that allow to split 
+The block also implements the following equations that allow to split
 the load between a steady state term—the part of the load that can be met
-under the actual operating conditions—and a delayed term—the part of the load 
-that cannot be met and that will contribute to a variation of the average 
+under the actual operating conditions—and a delayed term—the part of the load
+that cannot be met and that will contribute to a variation of the average
 temperature of the fluid inside the distribution system.
 </p>
 <ul>
 <li>
-The delayed term is computed from the load <i>Q&#775;</i> and the 
+The delayed term is computed from the load <i>Q&#775;</i> and the
 corrected mass flow rate <i>m&#775;Cor</i> (unbounded) as follows.
 TODO: Document the correction based on m_flow_actual, cf. case with an
 active ETS and a pressure-independent valve.
@@ -222,13 +226,13 @@ Q&#775;Del = Q&#775; * (1 - exp(-max(0, m&#775;Cor - m&#775;Nom) / m&#775;Nom)).
 </p>
 </li>
 <li>
-The steady-state term is then simply computed as 
+The steady-state term is then simply computed as
 <i>Q&#775;Ste = Q&#775; - Q&#775;Del</i>.
 </li>
 <li>
 According to the above equations, when the corrected mass flow rate is
-below the nominal mass flow rate, the delayed term is zero and the 
-steady-state term is equal to the load. 
+below the nominal mass flow rate, the delayed term is zero and the
+steady-state term is equal to the load.
 The delayed term corresponds to the part of the corrected mass flow
 rate required to meet the load, which exceeds the nominal mass flow rate.
 </li>
