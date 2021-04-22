@@ -9,7 +9,8 @@ model ASHRAE2006
     sou(ratVFloHea=ratVFloHea),
     eas(ratVFloHea=ratVFloHea),
     nor(ratVFloHea=ratVFloHea),
-    wes(ratVFloHea=ratVFloHea));
+    wes(ratVFloHea=ratVFloHea),
+    amb(nPorts=3));
 
   parameter Real ratVMinCor_flow(final unit="1")=
     max(1.5*VCorOA_flow_nominal, 0.15*mCor_flow_nominal/1.2) /
@@ -44,9 +45,8 @@ model ASHRAE2006
   Controls.Economizer conEco(
     have_reset=true,
     have_frePro=true,
-    VOut_flow_min=Vot_flow_nominal,
-    Ti=120,
-    k=0.1) "Controller for economizer"
+    VOut_flow_min=Vot_flow_nominal)
+           "Controller for economizer"
     annotation (Placement(transformation(extent={{-80,140},{-60,160}})));
   Controls.RoomTemperatureSetpoint TSetRoo(
     final THeaOn=THeaOn,
@@ -81,6 +81,12 @@ model ASHRAE2006
   Controls.SupplyAirTemperatureSetpoint TSupSet
     "Supply air temperature set point"
     annotation (Placement(transformation(extent={{-200,-230},{-180,-210}})));
+  Buildings.Fluid.Actuators.Dampers.Exponential damExh(
+    dpFixed_nominal=5,
+    redeclare package Medium = MediumA,
+    m_flow_nominal=m_flow_nominal,
+    dpDamper_nominal=10) "Exhaust air damper"
+    annotation (Placement(transformation(extent={{-30,-20},{-50,0}})));
 equation
   connect(controlBus, modeSelector.cb) annotation (Line(
       points={{-240,-342},{-152,-342},{-152,-303.182},{-196.818,-303.182}},
@@ -128,12 +134,7 @@ equation
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
   connect(conEco.VOut_flow, VOut1.V_flow) annotation (Line(
-      points={{-81.3333,142.667},{-90,142.667},{-90,80},{-61,80},{-61,-20.9}},
-      color={0,0,127},
-      smooth=Smooth.None,
-      pattern=LinePattern.Dash));
-  connect(conEco.yOA, eco.yOut) annotation (Line(
-      points={{-58.6667,152},{-10,152},{-10,-34}},
+      points={{-81.3333,142.667},{-90,142.667},{-90,80},{-80,80},{-80,-29}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
@@ -225,14 +226,6 @@ equation
           255}));
   connect(conFanSup.y, fanSup.y) annotation (Line(points={{261,0},{280,0},{280,
           -20},{310,-20},{310,-28}}, color={0,0,127}));
-  connect(eco.yExh, conEco.yOA) annotation (Line(
-      points={{-3,-34},{-2,-34},{-2,152},{-58.6667,152}},
-      color={0,0,127},
-      pattern=LinePattern.Dash));
-  connect(eco.yRet, conEco.yRet) annotation (Line(
-      points={{-16.8,-34},{-16.8,146.667},{-58.6667,146.667}},
-      color={0,0,127},
-      pattern=LinePattern.Dash));
   connect(freSta.y, or2.u1) annotation (Line(points={{22,-90},{40,-90},{40,-160},
           {-80,-160},{-80,-240},{-62,-240}},                 color={255,0,255}));
   connect(or2.u2, modeSelector.yFan) annotation (Line(points={{-62,-248},{-80,
@@ -295,6 +288,19 @@ equation
           {1017,-37.5},{1016,-37.5},{1016,44}}, color={0,0,127}));
   connect(conVAVWes.yVal, gaiHeaCoiWes.u) annotation (Line(points={{1207,-119},
           {1207,-37.5},{1206,-37.5},{1206,44}}, color={0,0,127}));
+  connect(damRet.y, conEco.yRet) annotation (Line(points={{-12,-10},{-18,-10},{
+          -18,146.667},{-58.6667,146.667}},
+                                        color={0,0,127}));
+  connect(damExh.y, conEco.yOA) annotation (Line(points={{-40,2},{-40,152},{
+          -58.6667,152}},
+                 color={0,0,127}));
+  connect(damOut.y, conEco.yOA) annotation (Line(points={{-40,-28},{-40,-20},{
+          -22,-20},{-22,152},{-58.6667,152}},
+                                          color={0,0,127}));
+  connect(damExh.port_a, TRet.port_b) annotation (Line(points={{-30,-10},{-26,-10},
+          {-26,140},{90,140}}, color={0,127,255}));
+  connect(damExh.port_b, amb.ports[3]) annotation (Line(points={{-50,-10},{-100,
+          -10},{-100,-45},{-114,-45}}, color={0,127,255}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-380,-400},{1440,
             660}})),
@@ -362,6 +368,14 @@ ASHRAE, Atlanta, GA, 2006.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 16, 2021, by Michael Wetter:<br/>
+Refactored model to implement the economizer dampers directly in
+<code>Buildings.Examples.VAVReheat.BaseClasses.PartialOpenLoop</code> rather than through the
+model of a mixing box. Since the version of the Guideline 36 model has no exhaust air damper,
+this leads to simpler equations.
+<br/> This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2454\">issue #2454</a>.
+</li>
 <li>
 March 15, 2021, by David Blum:<br/>
 Update documentation graphic to include relief damper.<br/>

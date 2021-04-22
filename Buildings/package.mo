@@ -814,6 +814,17 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td colspan=\"2\"><b>Buildings.Examples.VAVReheat</b>
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Examples.VAVReheat.ASHRAE2006<br/>
+                     Buildings.Examples.VAVReheat.Guideline36<br/>
+                     Buildings.Examples.VAVReheat.BaseClasses.PartialOpenLoop
+    </td>
+    <td valign=\"top\">Refactored model to implement the economizer dampers directly in
+    <code>Buildings.Examples.VAVReheat.BaseClasses.PartialOpenLoop</code> rather than through the
+    model of a mixing box. Since the version of the Guideline 36 model has no exhaust air damper,
+    this leads to simpler equations.
+    <br/> This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2454\">issue #2454</a>.
+    </td>
+</tr>
 <tr><td valign=\"top\">Buildings.Examples.VAVReheat.BaseClasses.VAVBranch
     </td>
     <td valign=\"top\">Moved to <code>Buildings.Obsolete.Examples.VAVReheat.BaseClasses.VAVBranch</code>
