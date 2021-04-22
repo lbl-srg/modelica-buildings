@@ -301,14 +301,6 @@ equation
     annotation (Line(points={{-238,-220},{-160,-220},{-160,-158},{-101,-158}},color={0,0,127}));
   connect(TSetSecHea.y,disFloHea.TSupSet)
     annotation (Line(points={{-238,-180},{-180,-180},{-180,-118},{-101,-118}},color={0,0,127}));
-  connect(ports_aHeaWat[1],disFloHea.port_a)
-    annotation (Line(points={{-300,-60},{-220,-60},{-220,-110},{-100,-110}},color={0,127,255}));
-  connect(ports_aChiWat[1],disFloCoo.port_a)
-    annotation (Line(points={{-300,-260},{-140,-260},{-140,-150},{-100,-150}},color={0,127,255}));
-  connect(ports_bHeaWat[1],disFloHea.port_b)
-    annotation (Line(points={{300,-60},{-20,-60},{-20,-110},{-80,-110}},color={0,127,255}));
-  connect(ports_bChiWat[1],disFloCoo.port_b)
-    annotation (Line(points={{300,-260},{-60,-260},{-60,-150},{-80,-150}},color={0,127,255}));
   connect(mulSum.y, mulPPum.u)
     annotation (Line(points={{262,80},{268,80}}, color={0,0,127}));
   connect(disFloHea.QActTot_flow, mulQHea_flow.u) annotation (Line(points={{-79,
@@ -317,6 +309,14 @@ equation
           -156},{214,-156},{214,240},{268,240}}, color={0,0,127}));
   connect(terUni.PFan, mulPFan.u) annotation (Line(points={{-139.167,-48},{206,
           -48},{206,120},{268,120}}, color={0,0,127}));
+  connect(mulHeaWatInl[1].port_b, disFloHea.port_a) annotation (Line(points={{
+          -260,-60},{-220,-60},{-220,-110},{-100,-110}}, color={0,127,255}));
+  connect(disFloHea.port_b, mulHeaWatOut[1].port_a) annotation (Line(points={{
+          -80,-110},{-20,-110},{-20,-60},{260,-60}}, color={0,127,255}));
+  connect(mulChiWatInl[1].port_b, disFloCoo.port_a) annotation (Line(points={{
+          -260,-260},{-140,-260},{-140,-150},{-100,-150}}, color={0,127,255}));
+  connect(disFloCoo.port_b, mulChiWatOut[1].port_a) annotation (Line(points={{
+          -80,-150},{-60,-150},{-60,-260},{260,-260}}, color={0,127,255}));
   annotation (
     Documentation(
       info="

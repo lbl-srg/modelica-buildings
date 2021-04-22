@@ -1,8 +1,8 @@
-simulateModel("Buildings.Experimental.DHC.Loads.Validation.EnergyMassFlow",
+simulateModel("Buildings.Experimental.DHC.Loads.Validation.EnergyMassFlowInterface",
     method="cvode",
     tolerance=1e-6,
     stopTime=360000.0,
-    resultFile="EnergyMassFlow");
+    resultFile="EnergyMassFlowInterface");
 createPlot(
     id=1,
     position={23, 29, 694, 886},
@@ -10,7 +10,7 @@ createPlot(
     grid=true);
 createPlot(
     id=1,
-    y={"masFlo.m_flow_nominal", "masFlo.m_flow", "masFlo.m_flow_actual"},
+    y={"eneMasFlo.m_flow_nominal", "eneMasFlo.eneMasFlo.m_flow", "eneMasFlo.eneMasFlo.m_flow_actual"},
     grid=true,
     subPlot=102);
 createPlot(
@@ -25,11 +25,11 @@ createPlot(
     grid=true);
 createPlot(
     id=3,
-    y={"Q_flow_nominal", "masFlo.Q_flow"},
+    y={"Q_flow_nominal", "eneMasFlo.QPre_flow"},
     grid=true,
     subPlot=102);
-plotExpression(apply( -EnergyMassFlow.masFlo.Q_flow_actual), false, "-masFlo.Q_flow_actual", 3);
-plotExpression(apply( -EnergyMassFlow.masFlo.Q_flow_residual), false, "-masFlo.Q_flow_residual", 3);
+plotExpression(apply( -EnergyMassFlowInterface.eneMasFlo.eneMasFlo.Q_flow_actual), false, "-Q_flow_actual", 3);
+plotExpression(apply( -EnergyMassFlowInterface.eneMasFlo.eneMasFlo.Q_flow_residual), false, "-Q_flow_residual", 3);
 createPlot(
     id=4,
     position={23, 947, 694, 886},
@@ -37,7 +37,7 @@ createPlot(
     grid=true);
 createPlot(
     id=4,
-    y={"masFlo1.m_flow_nominal", "masFlo1.m_flow", "masFlo1.m_flow_actual"},
+    y={"eneMasFlo1.eneMasFlo.m_flow_nominal", "eneMasFlo1.eneMasFlo.m_flow", "eneMasFlo1.eneMasFlo.m_flow_actual"},
     grid=true,
     subPlot=2);
 createPlot(
@@ -52,8 +52,8 @@ createPlot(
     grid=true);
 createPlot(
     id=6,
-    y={"Q_flow_nominal", "masFlo1.Q_flow"},
+    y={"Q_flow_nominal", "eneMasFlo1.QPre_flow"},
     grid=true,
     subPlot=2);
-plotExpression(apply( -EnergyMassFlow.masFlo1.Q_flow_actual), false, "-masFlo1.Q_flow_actual", 6);
-plotExpression(apply( -EnergyMassFlow.masFlo1.Q_flow_residual), false, "-masFlo1.Q_flow_residual", 6);
+plotExpression(apply( -EnergyMassFlowInterface.eneMasFlo1.eneMasFlo.Q_flow_actual), false, "-Q_flow_actual", 6);
+plotExpression(apply( -EnergyMassFlowInterface.eneMasFlo1.eneMasFlo.Q_flow_residual), false, "-Q_flow_residual", 6);

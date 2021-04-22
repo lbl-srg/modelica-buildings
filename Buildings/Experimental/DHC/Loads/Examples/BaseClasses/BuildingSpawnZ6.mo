@@ -137,7 +137,7 @@ model BuildingSpawnZ6
     nPorts_a1=nZon,
     nPorts_b1=nZon)
     "Heating water distribution system"
-    annotation (Placement(transformation(extent={{-236,-188},{-216,-168}})));
+    annotation (Placement(transformation(extent={{-220,-190},{-200,-170}})));
   Buildings.Experimental.DHC.Loads.FlowDistribution disFloCoo(
     redeclare package Medium=Medium,
     m_flow_nominal=sum(
@@ -189,23 +189,24 @@ equation
   connect(terUni[5].port_bLoa,znPerimeter_ZN_4.ports[2])
     annotation (Line(points={{-140,20},{-20,20},{-20,-119.1},{46,-119.1}},color={0,127,255}));
   connect(terUni.port_bHeaWat,disFloHea.ports_a1)
-    annotation (Line(points={{-116,0},{-40,0},{-40,-172},{-216,-172}},color={0,127,255}));
+    annotation (Line(points={{-116,0},{-40,0},{-40,-174},{-200,-174}},color={0,127,255}));
   connect(disFloHea.ports_b1,terUni.port_aHeaWat)
-    annotation (Line(points={{-236,-172},{-260,-172},{-260,0},{-140,0}},color={0,127,255}));
+    annotation (Line(points={{-220,-174},{-246,-174},{-246,0},{-140,0}},color={0,127,255}));
   connect(disFloCoo.ports_b1,terUni.port_aChiWat)
-    annotation (Line(points={{-160,-214},{-264,-214},{-264,2},{-140,2}},color={0,127,255}));
+    annotation (Line(points={{-160,-214},{-252,-214},{-252,2},{-140,2}},color={0,127,255}));
   connect(terUni.port_bChiWat,disFloCoo.ports_a1)
     annotation (Line(points={{-116,2},{-38,2},{-38,-214},{-140,-214}},color={0,127,255}));
   connect(terUni.mReqChiWat_flow,disFloCoo.mReq_flow)
     annotation (Line(points={{-115,4},{-104,4},{-104,-80},{-180,-80},{-180,-224},
           {-161,-224}},                                                                       color={0,0,127}));
   connect(terUni.mReqHeaWat_flow,disFloHea.mReq_flow)
-    annotation (Line(points={{-115,6},{-100,6},{-100,-90.5},{-237,-90.5},{-237,-182}},color={0,0,127}));
+    annotation (Line(points={{-115,6},{-100,6},{-100,-90.5},{-221,-90.5},{-221,
+          -184}},                                                                     color={0,0,127}));
   connect(terUni.PFan,mulSum.u)
     annotation (Line(points={{-115,10},{-100,10},{-100,220},{216,220},{216,120},
           {228,120}},                                                                      color={0,0,127}));
   connect(disFloHea.PPum,mulSum3.u[1])
-    annotation (Line(points={{-215,-186},{216,-186},{216,81},{228,81}},    color={0,0,127}));
+    annotation (Line(points={{-199,-188},{216,-188},{216,81},{228,81}},    color={0,0,127}));
   connect(disFloCoo.PPum,mulSum3.u[2])
     annotation (Line(points={{-139,-228},{222,-228},{222,79},{228,79}},color={0,0,127}));
   connect(znCore_ZN.TAir,terUni[1].TSen)
@@ -227,24 +228,23 @@ equation
     annotation (Line(points={{-258,220},{-200,220},{-200,14},{-141,14}},color={0,0,127}));
   connect(minTSet.y,terUni.TSetHea)
     annotation (Line(points={{-258,260},{-180,260},{-180,16},{-141,16}},color={0,0,127}));
-  connect(ports_aChiWat[1],disFloCoo.port_a)
-    annotation (Line(points={{-300,-260},{-230,-260},{-230,-220},{-160,-220}},
-                                                      color={0,127,255}));
   connect(ports_bChiWat[1],disFloCoo.port_b)
-    annotation (Line(points={{300,-260},{80,-260},{80,-220},{-140,-220}},
+    annotation (Line(points={{300,-260},{240,-260},{240,-220},{-140,-220}},
                                                      color={0,127,255}));
-  connect(ports_aHeaWat[1],disFloHea.port_a)
-    annotation (Line(points={{-300,-60},{-280,-60},{-280,-178},{-236,-178}},color={0,127,255}));
-  connect(disFloHea.port_b,ports_bHeaWat[1])
-    annotation (Line(points={{-216,-178},{280,-178},{280,-60},{300,-60}},color={0,127,255}));
-  connect(disFloHea.QActTot_flow, mulQHea_flow.u) annotation (Line(points={{-215,
-          -184},{214,-184},{214,280},{268,280}}, color={0,0,127}));
+  connect(disFloHea.QActTot_flow, mulQHea_flow.u) annotation (Line(points={{-199,
+          -186},{214,-186},{214,280},{268,280}}, color={0,0,127}));
   connect(mulSum3.y, mulPPum.u)
     annotation (Line(points={{252,80},{268,80}}, color={0,0,127}));
   connect(mulSum.y, mulPFan.u)
     annotation (Line(points={{252,120},{268,120}}, color={0,0,127}));
   connect(disFloCoo.QActTot_flow, mulQCoo_flow.u) annotation (Line(points={{
           -139,-226},{218,-226},{218,240},{268,240}}, color={0,0,127}));
+  connect(mulHeaWatInl[1].port_b, disFloHea.port_a) annotation (Line(points={{
+          -260,-60},{-240,-60},{-240,-180},{-220,-180}}, color={0,127,255}));
+  connect(mulChiWatInl[1].port_b, disFloCoo.port_a) annotation (Line(points={{
+          -260,-260},{-240,-260},{-240,-220},{-160,-220}}, color={0,127,255}));
+  connect(disFloHea.port_b, mulHeaWatOut[1].port_a) annotation (Line(points={{
+          -200,-180},{240,-180},{240,-60},{260,-60}}, color={0,127,255}));
   annotation (
     Documentation(
       info="

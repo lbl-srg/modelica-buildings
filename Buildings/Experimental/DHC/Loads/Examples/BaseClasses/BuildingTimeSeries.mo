@@ -2,82 +2,83 @@ within Buildings.Experimental.DHC.Loads.Examples.BaseClasses;
 model BuildingTimeSeries
   "Building model with heating and cooling loads provided as time series"
   extends Buildings.Experimental.DHC.Loads.BaseClasses.PartialBuilding(
-    redeclare package Medium=Buildings.Media.Water,
     have_heaWat=true,
     have_chiWat=true,
+    have_pum=true,
     final have_fan=false,
-    final have_pum=true,
     final have_eleHea=false,
     final have_eleCoo=false,
     final have_weaBus=false);
-  replaceable package Medium2=Buildings.Media.Air
-    constrainedby Modelica.Media.Interfaces.PartialMedium
-    "Load side medium";
   parameter Boolean have_hotWat = false
     "Set to true if SHW load is included in the time series"
     annotation (Evaluate=true, Dialog(group="Configuration"));
+  parameter Types.TimeSeriesType typTimSer = Types.TimeSeriesType.Load
+    "Type of time series"
+    annotation (Evaluate=true, Dialog(group="Configuration"));
+
+  parameter Real fra_m_flow_min = if have_pum then 0.1 else 0
+    "Minimum flow rate (ratio to nominal)"
+    annotation(Dialog(enable=have_pum));
+  parameter Modelica.SIunits.Time tau = 600
+    "Time constant at nominal flow"
+    annotation (Dialog(tab="Dynamics", group="Nominal condition"));
+
   parameter String filNam
     "File name with thermal loads as time series";
-  parameter Real facMulHea=1
-    "Heating terminal unit multiplier factor"
-    annotation(Dialog(enable=have_heaWat, group="Scaling"));
-  parameter Real facMulCoo=1
-    "Cooling terminal unit scaling factor"
-    annotation(Dialog(enable=have_chiWat, group="Scaling"));
-  parameter Modelica.SIunits.Temperature T_aHeaWat_nominal=313.15
-    "Heating water inlet temperature at nominal conditions"
+  parameter Modelica.SIunits.Temperature T_aHeaWat_nominal(
+    start=313.15)
+    "Heating hot water inlet temperature at nominal conditions"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.Temperature T_bHeaWat_nominal(
     min=273.15,
-    displayUnit="degC")=T_aHeaWat_nominal-5
-    "Heating water outlet temperature at nominal conditions"
+    displayUnit="degC",
+    start=T_aHeaWat_nominal-5)
+    "Heating hot water outlet temperature at nominal conditions"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Temperature T_aChiWat_nominal=291.15
+  parameter Modelica.SIunits.Temperature T_aChiWat_nominal(
+    start=291.15)
     "Chilled water inlet temperature at nominal conditions "
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.Temperature T_bChiWat_nominal(
     min=273.15,
-    displayUnit="degC")=T_aChiWat_nominal+5
+    displayUnit="degC",
+    start=T_aChiWat_nominal+5)
     "Chilled water outlet temperature at nominal conditions"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Temperature T_aLoaHea_nominal=273.15 + 20
-    "Load side inlet temperature at nominal conditions in heating mode"
+  parameter Modelica.SIunits.PressureDifference dpChiWat_nominal
+    "Chilled water distribution system overall pressure drop"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Temperature T_aLoaCoo_nominal=273.15 + 24
-    "Load side inlet temperature at nominal conditions in cooling mode"
+  parameter Modelica.SIunits.Temperature TLoaHea_nominal(
+    start=273.15 + 20)
+    "Load temperature at nominal heating conditions"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.MassFlowRate mLoaHea_flow_nominal=1
-    "Load side mass flow rate at nominal conditions in heating mode (single unit)"
+  parameter Modelica.SIunits.Temperature TLoaCoo_nominal(
+    start=273.15 + 24)
+    "Load temperature at nominal cooling conditions"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.MassFlowRate mLoaCoo_flow_nominal=mLoaHea_flow_nominal
-    "Load side mass flow rate at nominal conditions in cooling mode (single unit)"
+  parameter Modelica.SIunits.PressureDifference dpHeaWat_nominal
+    "Heating hot water distribution system overall pressure drop"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.HeatFlowRate QCoo_flow_nominal(
+  final parameter Modelica.SIunits.HeatFlowRate QCoo_flow_nominal(
     max=-Modelica.Constants.eps)=Buildings.Experimental.DHC.Loads.BaseClasses.getPeakLoad(
     string="#Peak space cooling load",
     filNam=Modelica.Utilities.Files.loadResource(filNam))
     "Design cooling heat flow rate (<=0)"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.HeatFlowRate QHea_flow_nominal(
+  final parameter Modelica.SIunits.HeatFlowRate QHea_flow_nominal(
     min=Modelica.Constants.eps)=Buildings.Experimental.DHC.Loads.BaseClasses.getPeakLoad(
     string="#Peak space heating load",
     filNam=Modelica.Utilities.Files.loadResource(filNam))
     "Design heating heat flow rate (>=0)"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.MassFlowRate mChiWat_flow_nominal=abs(
-    QCoo_flow_nominal/cp_default/(T_aChiWat_nominal-T_bChiWat_nominal))
+  final parameter Modelica.SIunits.MassFlowRate mChiWat_flow_nominal(
+    start=abs(QCoo_flow_nominal/cp_default/(T_bChiWat_nominal-T_aChiWat_nominal)))
     "Chilled water mass flow rate at nominal conditions (all units)"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.MassFlowRate mHeaWat_flow_nominal=abs(
-    QHea_flow_nominal/cp_default/(T_aHeaWat_nominal-T_bHeaWat_nominal))
-    "Heating water mass flow rate at nominal conditions (all units)"
+  final parameter Modelica.SIunits.MassFlowRate mHeaWat_flow_nominal(
+    start=abs(QHea_flow_nominal/cp_default/(T_bHeaWat_nominal-T_aHeaWat_nominal)))
+    "Heating hot water mass flow rate at nominal conditions (all units)"
     annotation (Dialog(group="Nominal condition"));
-  parameter Real k(
-    min=0)=0.1
-    "Gain of controller";
-  parameter Modelica.SIunits.Time Ti(
-    min=Modelica.Constants.small)=10
-    "Time constant of integrator block";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput QReqHotWat_flow(
     final unit="W") if have_hotWat
@@ -98,18 +99,6 @@ model BuildingTimeSeries
     "Cooling load"
     annotation (Placement(transformation(extent={{300,-20},{340,20}}),
       iconTransformation(extent={{-40,-40},{40,40}},rotation=-90,origin={240,-340})));
-  Modelica.Blocks.Sources.CombiTimeTable loa(
-    tableOnFile=true,
-    tableName="tab1",
-    fileName=Modelica.Utilities.Files.loadResource(
-      filNam),
-    extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
-    y(each unit="W"),
-    offset={0,0,0},
-    columns={2,3,4},
-    smoothness=Modelica.Blocks.Types.Smoothness.MonotoneContinuousDerivative1)
-    "Reader for thermal loads (y[1] is cooling load, y[2] is heating load)"
-    annotation (Placement(transformation(extent={{-280,-10},{-260,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTSet(
     k=293.15,
     y(final unit="K",
@@ -122,77 +111,6 @@ model BuildingTimeSeries
       displayUnit="degC"))
     "Maximum temperature set point"
     annotation (Placement(transformation(extent={{-280,210},{-260,230}})));
-  replaceable DHC.Loads.Validation.BaseClasses.FanCoil2PipeHeating terUniHea(
-    final k=k,
-    final Ti=Ti) if have_heaWat
-  constrainedby DHC.Loads.BaseClasses.PartialTerminalUnit(
-    redeclare final package Medium1=Medium,
-    redeclare final package Medium2=Medium2,
-    final allowFlowReversal=allowFlowReversal,
-    final facMul=facMulHea,
-    final facMulZon=1,
-    final QHea_flow_nominal=QHea_flow_nominal/facMulHea,
-    final mLoaHea_flow_nominal=mLoaHea_flow_nominal,
-    final T_aHeaWat_nominal=T_aHeaWat_nominal,
-    final T_bHeaWat_nominal=T_bHeaWat_nominal,
-    final T_aLoaHea_nominal=T_aLoaHea_nominal)
-    "Heating terminal unit"
-    annotation (Placement(transformation(extent={{70,-22},{90,-2}})));
-  Buildings.Experimental.DHC.Loads.FlowDistribution disFloHea(
-    redeclare final package Medium=Medium,
-    final allowFlowReversal=allowFlowReversal,
-    m_flow_nominal=mHeaWat_flow_nominal,
-    have_pum=true,
-    typCtr=Buildings.Experimental.DHC.Loads.Types.PumpControlType.ConstantHead,
-    dp_nominal=100000,
-    nPorts_a1=1,
-    nPorts_b1=1) if have_heaWat
-    "Heating water distribution system"
-    annotation (Placement(transformation(extent={{120,-70},{140,-50}})));
-  Buildings.Experimental.DHC.Loads.FlowDistribution disFloCoo(
-    redeclare final package Medium=Medium,
-    final allowFlowReversal=allowFlowReversal,
-    m_flow_nominal=mChiWat_flow_nominal,
-    typDis=Buildings.Experimental.DHC.Loads.Types.DistributionType.ChilledWater,
-    have_pum=true,
-    typCtr=Buildings.Experimental.DHC.Loads.Types.PumpControlType.ConstantHead,
-    dp_nominal=100000,
-    nPorts_b1=1,
-    nPorts_a1=1) if have_chiWat
-    "Chilled water distribution system"
-    annotation (Placement(transformation(extent={{120,-270},{140,-250}})));
-  replaceable DHC.Loads.Validation.BaseClasses.FanCoil2PipeCooling terUniCoo(
-    final QHea_flow_nominal=QHea_flow_nominal/facMulHea,
-    final T_aLoaHea_nominal=T_aLoaHea_nominal,
-    final k=k,
-    final Ti=Ti) if have_chiWat
-  constrainedby DHC.Loads.BaseClasses.PartialTerminalUnit(
-    redeclare final package Medium1=Medium,
-    redeclare final package Medium2=Medium2,
-    final allowFlowReversal=allowFlowReversal,
-    final facMul=facMulCoo,
-    final facMulZon=1,
-    final QCoo_flow_nominal=QCoo_flow_nominal/facMulCoo,
-    final mLoaCoo_flow_nominal=mLoaCoo_flow_nominal,
-    final T_aChiWat_nominal=T_aChiWat_nominal,
-    final T_bChiWat_nominal=T_bChiWat_nominal,
-    final T_aLoaCoo_nominal=T_aLoaCoo_nominal)
-    "Cooling terminal unit"
-    annotation (Placement(transformation(extent={{70,36},{90,56}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add addPPum
-    "Sum pump power"
-    annotation (Placement(transformation(extent={{240,70},{260,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant noCoo(
-    k=0) if not have_chiWat
-    "No cooling system"
-    annotation (Placement(transformation(extent={{130,70},{150,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant noHea(
-    k=0) if not have_heaWat
-    "No heating system"
-    annotation (Placement(transformation(extent={{130,110},{150,130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add addPFan
-    "Sum fan power"
-    annotation (Placement(transformation(extent={{240,110},{260,130}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain mulQReqHea_flow(
     u(final unit="W"),
     final k=facMul) if have_heaLoa "Scaling"
@@ -201,74 +119,97 @@ model BuildingTimeSeries
     u(final unit="W"),
     final k=facMul) if have_cooLoa "Scaling"
     annotation (Placement(transformation(extent={{272,-10},{292,10}})));
+  Modelica.Blocks.Sources.CombiTimeTable loa(
+    tableOnFile=true,
+    tableName="tab1",
+    fileName=Modelica.Utilities.Files.loadResource(filNam),
+    extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
+    y(each unit="W"),
+    offset={0,0,0},
+    columns={2:4},
+    smoothness=Modelica.Blocks.Types.Smoothness.MonotoneContinuousDerivative1) if
+    typTimSer == Types.TimeSeriesType.Load
+    "Reader for thermal loads: y[1] cooling load, y[2] heating load, y[3] SHW load"
+    annotation (Placement(transformation(extent={{-240,50},{-220,70}})));
+  Modelica.Blocks.Sources.CombiTimeTable loaFlo(
+    tableOnFile=true,
+    tableName="tab1",
+    fileName=Modelica.Utilities.Files.loadResource(filNam),
+    extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
+    y(each unit="W"),
+    offset={0,0,0},
+    columns={2:6},
+    smoothness=Modelica.Blocks.Types.Smoothness.MonotoneContinuousDerivative1) if
+    typTimSer == Types.TimeSeriesType.LoadFlow
+    "y[1] cooling load, y[2] heating load, y[3] SHW load, y[4] CHW flow rate, y[5] HHW flow rate"
+    annotation (Placement(transformation(extent={{-240,10},{-220,30}})));
+  Modelica.Blocks.Sources.CombiTimeTable loaFloTem(
+    tableOnFile=true,
+    tableName="tab1",
+    fileName=Modelica.Utilities.Files.loadResource(filNam),
+    extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
+    y(each unit="W"),
+    offset={0,0,0},
+    columns={2:8},
+    smoothness=Modelica.Blocks.Types.Smoothness.MonotoneContinuousDerivative1) if
+    typTimSer == Types.TimeSeriesType.LoadFlowTemperature
+    "y[1] cooling load, y[2] heating load, y[3] SHW load, y[4] CHW flow rate, y[5] HHW flow rate, y[6] CHWST, y[7] HHWST"
+    annotation (Placement(transformation(extent={{-240,-30},{-220,-10}})));
+  EnergyMassFlowInterface eneMasFloHea(
+    redeclare final package Medium=Medium,
+    final have_masFlo=typTimSer==Types.TimeSeriesType.LoadFlow or
+      typTimSer==Types.TimeSeriesType.LoadFlowTemperature,
+    final have_pum=have_pum,
+    final Q_flow_nominal=QHea_flow_nominal,
+    final m_flow_nominal=mHeaWat_flow_nominal,
+    final dp_nominal=dpHeaWat_nominal,
+    final TLoa_nominal=TLoaHea_nominal)
+    "Hot water energy and mass flow rate"
+    annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));
+
+  EnergyMassFlowInterface eneMasFloCoo(
+    redeclare final package Medium=Medium,
+    final have_masFlo=typTimSer==Types.TimeSeriesType.LoadFlow or
+      typTimSer==Types.TimeSeriesType.LoadFlowTemperature,
+    final have_pum=have_pum,
+    final Q_flow_nominal=QCoo_flow_nominal,
+    final m_flow_nominal=mChiWat_flow_nominal,
+    final dp_nominal=dpChiWat_nominal,
+    final TLoa_nominal=TLoaCoo_nominal)
+    "Chilled water energy and mass flow rate"
+    annotation (Placement(transformation(extent={{-10,-270},{10,-250}})));
 equation
-  connect(terUniHea.port_bHeaWat,disFloHea.ports_a1[1])
-    annotation (Line(points={{90,-20.3333},{90,-20},{146,-20},{146,-54},{140,
-          -54}},                                                                   color={0,127,255}));
-  connect(disFloHea.ports_b1[1],terUniHea.port_aHeaWat)
-    annotation (Line(points={{120,-54},{64,-54},{64,-20.3333},{70,-20.3333}},color={0,127,255}));
-  connect(terUniHea.mReqHeaWat_flow,disFloHea.mReq_flow[1])
-    annotation (Line(points={{90.8333,-15.3333},{100,-15.3333},{100,-64},{119,
-          -64}},                                                                     color={0,0,127}));
-  connect(loa.y[1],terUniCoo.QReqCoo_flow)
-    annotation (Line(points={{-259,0},{40,0},{40,42.5},{69.1667,42.5}}, color={0,0,127}));
-  connect(loa.y[2],terUniHea.QReqHea_flow)
-    annotation (Line(points={{-259,0},{40,0},{40,-13.6667},{69.1667,-13.6667}}, color={0,0,127}));
-  connect(disFloCoo.ports_b1[1],terUniCoo.port_aChiWat)
-    annotation (Line(points={{120,-254},{60,-254},{60,39.3333},{70,39.3333}},color={0,127,255}));
-  connect(terUniCoo.port_bChiWat,disFloCoo.ports_a1[1])
-    annotation (Line(points={{90,39.3333},{160,39.3333},{160,-254},{140,-254}}, color={0,127,255}));
-  connect(terUniCoo.mReqChiWat_flow,disFloCoo.mReq_flow[1])
-    annotation (Line(points={{90.8333,41},{108,41},{108,-264},{119,-264}},color={0,0,127}));
-  connect(minTSet.y,terUniHea.TSetHea)
-    annotation (Line(points={{-258,180},{-20,180},{-20,-7},{69.1667,-7}}, color={0,0,127}));
-  connect(maxTSet.y,terUniCoo.TSetCoo)
-    annotation (Line(points={{-258,220},{0,220},{0,49.3333},{69.1667,49.3333}},color={0,0,127}));
-  connect(disFloHea.PPum,addPPum.u1)
-    annotation (Line(points={{141,-68},{170,-68},{170,86},{238,86}},color={0,0,127}));
-  connect(disFloCoo.PPum,addPPum.u2)
-    annotation (Line(points={{141,-268},{200,-268},{200,74},{238,74}},color={0,0,127}));
-  connect(noHea.y,addPPum.u1)
-    annotation (Line(points={{152,120},{170,120},{170,86},{238,86}}, color={0,0,127}));
-  connect(noCoo.y,addPPum.u2)
-    annotation (Line(points={{152,80},{200,80},{200,74},{238,74}}, color={0,0,127}));
-  connect(noHea.y,addPFan.u1)
-    annotation (Line(points={{152,120},{180,120},{180,126},{238,126}},
-                                                                     color={0,0,127}));
-  connect(noCoo.y,addPFan.u2)
-    annotation (Line(points={{152,80},{200,80},{200,114},{238,114}},
-                                                                   color={0,0,127}));
-  connect(terUniCoo.PFan,addPFan.u2)
-    annotation (Line(points={{90.8333,46},{160,46},{160,114},{238,114}},color={0,0,127}));
-  connect(terUniHea.PFan,addPFan.u1)
-    annotation (Line(points={{90.8333,-12},{180,-12},{180,126},{238,126}},color={0,0,127}));
-  connect(loa.y[3], QReqHotWat_flow) annotation (Line(points={{-259,0},{40,0},{
-          40,-120},{320,-120}},
-                             color={0,0,127}));
-  connect(disFloCoo.port_b, mulChiWatOut[1].port_a)
-    annotation (Line(points={{140,-260},{260,-260}}, color={0,127,255}));
-  connect(disFloHea.port_b, mulHeaWatOut[1].port_a)
-    annotation (Line(points={{140,-60},{260,-60}}, color={0,127,255}));
-  connect(mulHeaWatInl[1].port_b, disFloHea.port_a)
-    annotation (Line(points={{-260,-60},{120,-60}}, color={0,127,255}));
-  connect(mulChiWatInl[1].port_b, disFloCoo.port_a)
-    annotation (Line(points={{-260,-260},{120,-260}}, color={0,127,255}));
-  connect(addPFan.y, mulPFan.u)
-    annotation (Line(points={{262,120},{268,120}}, color={0,0,127}));
-  connect(addPPum.y, mulPPum.u)
-    annotation (Line(points={{262,80},{268,80}}, color={0,0,127}));
+  connect(loa.y[3], QReqHotWat_flow) annotation (Line(points={{-219,60},{240,60},
+          {240,-120},{320,-120}}, color={0,0,127}));
   connect(mulQReqCoo_flow.y, QReqCoo_flow)
     annotation (Line(points={{294,0},{320,0}}, color={0,0,127}));
   connect(mulQReqHea_flow.y, QReqHea_flow)
     annotation (Line(points={{294,40},{320,40}}, color={0,0,127}));
   connect(loa.y[1], mulQReqCoo_flow.u)
-    annotation (Line(points={{-259,0},{270,0}}, color={0,0,127}));
-  connect(loa.y[2], mulQReqHea_flow.u) annotation (Line(points={{-259,0},{260,0},
+    annotation (Line(points={{-219,60},{260,60},{260,0},{270,0}},
+                                                color={0,0,127}));
+  connect(loa.y[2], mulQReqHea_flow.u) annotation (Line(points={{-219,60},{260,60},
           {260,40},{270,40}}, color={0,0,127}));
-  connect(disFloHea.QActTot_flow, mulQHea_flow.u) annotation (Line(points={{141,
-          -66},{220,-66},{220,280},{268,280}}, color={0,0,127}));
-  connect(disFloCoo.QActTot_flow, mulQCoo_flow.u) annotation (Line(points={{141,
-          -266},{224,-266},{224,240},{268,240}}, color={0,0,127}));
+  connect(mulHeaWatInl[1].port_b, eneMasFloHea.port_a)
+    annotation (Line(points={{-260,-60},{-10,-60}}, color={0,127,255}));
+  connect(eneMasFloHea.port_b, mulHeaWatOut[1].port_a)
+    annotation (Line(points={{10,-60},{260,-60}}, color={0,127,255}));
+  connect(mulChiWatInl[1].port_b, eneMasFloCoo.port_a)
+    annotation (Line(points={{-260,-260},{-10,-260}}, color={0,127,255}));
+  connect(eneMasFloCoo.port_b, mulChiWatOut[1].port_a)
+    annotation (Line(points={{10,-260},{260,-260}}, color={0,127,255}));
+  connect(loa.y[2], eneMasFloHea.QPre_flow) annotation (Line(points={{-219,60},{
+          -20,60},{-20,-53},{-12,-53}}, color={0,0,127}));
+  connect(loa.y[1], eneMasFloCoo.QPre_flow) annotation (Line(points={{-219,60},{
+          -20,60},{-20,-253},{-12,-253}}, color={0,0,127}));
+  connect(loaFlo.y[5], eneMasFloHea.mPre_flow) annotation (Line(points={{-219,20},
+          {-40,20},{-40,-55},{-12,-55}}, color={0,0,127}));
+  connect(loaFlo.y[4], eneMasFloCoo.mPre_flow) annotation (Line(points={{-219,20},
+          {-40,20},{-40,-255},{-12,-255}}, color={0,0,127}));
+  connect(loaFloTem.y[7], eneMasFloHea.TSupSet) annotation (Line(points={{-219,-20},
+          {-60,-20},{-60,-57},{-12,-57}}, color={0,0,127}));
+  connect(loaFloTem.y[6], eneMasFloCoo.TSupSet) annotation (Line(points={{-219,-20},
+          {-60,-20},{-60,-257},{-12,-257}}, color={0,0,127}));
     annotation (Line(points={{90.8333,-12},{180,-12},{180,126},{238,126}},color={0,0,127}),
     Documentation(
       info="

@@ -12,9 +12,11 @@ block EnergyMassFlow
     "Design heating heat flow rate"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal
-    "Nominal mass flow rate";
-  parameter Modelica.SIunits.Temperature TLoa = 20+273.15
-    "Load temperature";
+    "Nominal mass flow rate"
+    annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.SIunits.Temperature TLoa_nominal = 20+273.15
+    "Load temperature"
+    annotation (Dialog(group="Nominal condition"));
   parameter Real fra_m_flow_min = if have_pum then 0.1 else 0
     "Minimum flow rate (ratio to nominal)"
     annotation(Dialog(enable=have_pum));
@@ -121,8 +123,8 @@ equation
     inverseCharacteristics(QPre_flow / Q_flow_nominal);
   // Correction for supply temperature mismatch.
   rat_m_flow_cor = rat_m_flow_cha *
-    abs((TSupSet - TLoa) * Utilities.Math.Functions.inverseXRegularized(
-      TSup_actual - TLoa,
+    abs((TSupSet - TLoa_nominal) * Utilities.Math.Functions.inverseXRegularized(
+      TSup_actual - TLoa_nominal,
       0.1));
   filter.u = rat_m_flow_cor;
   m_flow = Utilities.Math.Functions.smoothLimit(
@@ -140,7 +142,7 @@ equation
   Q_flow_residual = -QPre_flow - Q_flow_actual;
 
   annotation (
-    defaultComponentName="masFlo",
+    defaultComponentName="eneMasFlo",
     Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
           coordinateSystem(preserveAspectRatio=false)),
       Documentation(info="<html>
