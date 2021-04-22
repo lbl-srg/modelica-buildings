@@ -19,10 +19,9 @@ block EnergyMassFlow
     annotation (Dialog(group="Nominal condition"));
   parameter Real fra_m_flow_min = if have_pum then 0.1 else 0
     "Minimum flow rate (ratio to nominal)"
-    annotation(Dialog(enable=have_pum));
+    annotation(Dialog(enable=have_pum and not have_masFlo));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput ena
-    "Enable signal"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uEna "Enable signal"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
         iconTransformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput QPre_flow(
@@ -92,14 +91,24 @@ protected
     "Mass flow rate for internal use when mPre_flow is removed";
 
   function characteristics "m_flow -> Q_flow characteristics"
-    /* FE: implement exponential characteristics based on OS load data.
+    /* FE: implement exponential characteristics based on OS load data for 
+    the case where have_masFlo is false.
     Currently a linear relationship to the prescribed load is used.
     */
     extends Modelica.Icons.Function;
-    input Real rat_m_flow;
-    output Real rat_Q_flow;
+    parameter Real k = 2.5
+      "Shape factor of typical characteristics";
+    input Real rat_m_flow(min=0, max=1)
+      "Fraction mass flow rate";
+    input Boolean have_masFlo = false;
+    output Real rat_Q_flow(min=0, max=1)
+      "Fraction heat flow rate";
   algorithm
-    rat_Q_flow := rat_m_flow;
+    if have_masFlo then
+      rat_Q_flow := (1 - exp(-k * rat_m_flow)) / (1 - exp(-k));
+    else
+      rat_Q_flow := rat_m_flow;
+    end if;
   end characteristics;
 
   function inverseCharacteristics "Inverse of m_flow -> Q_flow characteristics"
@@ -127,17 +136,16 @@ equation
       TSup_actual - TLoa_nominal,
       0.1));
   filter.u = rat_m_flow_cor;
-  m_flow = Utilities.Math.Functions.smoothLimit(
+  m_flow =if have_masFlo then filter.y else
+    Utilities.Math.Functions.smoothLimit(
     x=filter.y,
-    l=if ena then fra_m_flow_min else 0,
+    l=if uEna then fra_m_flow_min else 0,
     u=1,
     deltaX=1E-4) * m_flow_nominal;
-  rat_Q_flow_cor = if have_masFlo then
-    exp(-Utilities.Math.Functions.smoothMax(
-      x1=0,
-      x2=filter.y - m_flow_actual / m_flow_nominal,
-      deltaX=1E-4)) else
-    characteristics(m_flow_actual / m_flow_nominal) / characteristics(filter.y);
+  rat_Q_flow_cor = characteristics(m_flow_actual / m_flow_nominal, have_masFlo) *
+    Utilities.Math.Functions.inverseXRegularized(
+      characteristics(m_flow / m_flow_nominal, have_masFlo),
+      1E-4);
   Q_flow_actual = -QPre_flow * rat_Q_flow_cor;
   Q_flow_residual = -QPre_flow - Q_flow_actual;
 

@@ -138,8 +138,8 @@ equation
     annotation (Line(points={{24,40},{24,10},{30,10}}, color={191,0,0}));
   connect(senTSup.T, eneMasFlo.TSup_actual)
     annotation (Line(points={{-80,11},{-80,76},{-52,76}}, color={0,0,127}));
-  connect(ena, eneMasFlo.ena) annotation (Line(points={{-120,90},{-94,90},{-94,88},
-          {-52,88}}, color={255,0,255}));
+  connect(ena, eneMasFlo.uEna) annotation (Line(points={{-120,90},{-94,90},{-94,
+          88},{-52,88}}, color={255,0,255}));
   connect(QPre_flow, eneMasFlo.QPre_flow) annotation (Line(points={{-120,70},{-94,
           70},{-94,85},{-52,85}}, color={0,0,127}));
   connect(mPre_flow, eneMasFlo.mPre_flow) annotation (Line(points={{-120,50},{-90,

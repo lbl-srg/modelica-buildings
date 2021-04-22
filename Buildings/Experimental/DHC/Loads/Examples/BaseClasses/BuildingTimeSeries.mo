@@ -76,12 +76,12 @@ model BuildingTimeSeries
     filNam=Modelica.Utilities.Files.loadResource(filNam))
     "Design heating heat flow rate (>=0)"
     annotation (Dialog(group="Nominal condition"));
-  final parameter Modelica.SIunits.MassFlowRate mChiWat_flow_nominal(
-    start=abs(QCoo_flow_nominal/cp_default/(T_bChiWat_nominal-T_aChiWat_nominal)))
+  final parameter Modelica.SIunits.MassFlowRate mChiWat_flow_nominal=
+    abs(QCoo_flow_nominal/cp_default/(T_bChiWat_nominal-T_aChiWat_nominal))
     "Chilled water mass flow rate at nominal conditions (all units)"
     annotation (Dialog(group="Nominal condition"));
-  final parameter Modelica.SIunits.MassFlowRate mHeaWat_flow_nominal(
-    start=abs(QHea_flow_nominal/cp_default/(T_bHeaWat_nominal-T_aHeaWat_nominal)))
+  final parameter Modelica.SIunits.MassFlowRate mHeaWat_flow_nominal=
+    abs(QHea_flow_nominal/cp_default/(T_bHeaWat_nominal-T_aHeaWat_nominal))
     "Heating hot water mass flow rate at nominal conditions (all units)"
     annotation (Dialog(group="Nominal condition"));
 

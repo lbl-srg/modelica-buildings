@@ -24,8 +24,7 @@ model CouplingTimeSeries
     nPorts=1)
     "Sink for chilled water"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},rotation=0,origin={130,-20})));
-  Modelica.Blocks.Sources.RealExpression THeaWatSup(
-    y=bui.T_aHeaWat_nominal)
+  Modelica.Blocks.Sources.RealExpression THeaWatSup(y=bui.T_aHeaWat_nominal)
     "Heating water supply temperature"
     annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
   Modelica.Blocks.Sources.RealExpression TChiWatSup(
@@ -121,7 +120,9 @@ equation
   annotation (
     experiment(
       StopTime=604800,
-      Tolerance=1e-06),
+      __Dymola_NumberOfIntervals=5000,
+      Tolerance=1e-06,
+      __Dymola_Algorithm="Dassl"),
     Documentation(
       info="<html>
 <p>

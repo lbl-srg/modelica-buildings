@@ -8,9 +8,7 @@ model BuildingTimeSeriesWithETS
       T_aHeaWat_nominal=ets.THeaWatSup_nominal,
       T_bHeaWat_nominal=ets.THeaWatRet_nominal,
       T_aChiWat_nominal=ets.TChiWatSup_nominal,
-      T_bChiWat_nominal=ets.TChiWatRet_nominal,
-      facMulHea=10*QHea_flow_nominal/(1.7E5),
-      facMulCoo=40*QCoo_flow_nominal/(-1.5E5)),
+      T_bChiWat_nominal=ets.TChiWatRet_nominal),
     ets(
       have_hotWat=true,
       QChiWat_flow_nominal=QCoo_flow_nominal,
