@@ -10,7 +10,6 @@ model Guideline36
     wes(ratVFloHea=ratVFloHea),
     amb(nPorts=3),
     damOut(
-      from_dp=true,
       use_inputFilter=false,
       dpDamper_nominal=10,
       dpFixed_nominal=10),
