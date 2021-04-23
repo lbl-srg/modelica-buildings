@@ -498,12 +498,12 @@ public
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90,
         origin={222,-174})));
-  Buildings.Controls.OBC.CDL.Logical.OnOffController freSta(bandwidth=1)
+  FreezeStat                                         freSta(bandwidth=1)
     "Freeze stat for heating coil"
-    annotation (Placement(transformation(extent={{-80,-100},{-60,-80}})));
+    annotation (Placement(transformation(extent={{-60,-100},{-40,-80}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant freStaTSetPoi(k=273.15
          + 3) "Freeze stat set point for heating coil"
-    annotation (Placement(transformation(extent={{-120,-120},{-100,-100}})));
+    annotation (Placement(transformation(extent={{-110,-94},{-90,-74}})));
   Fluid.Sources.MassFlowSource_T souHeaCor(
     redeclare package Medium = MediumW,
     T=THotWatInl_nominal,
@@ -598,14 +598,6 @@ public
     dpDamper_nominal=5,
     dpFixed_nominal=5)   "Outdoor air damper"
     annotation (Placement(transformation(extent={{-50,-50},{-30,-30}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueDelay delFreSta(delayTime(displayUnit=
-          "min") = 900)
-    "If freeze stat triggers, keep it on for specified time"
-    annotation (Placement(transformation(extent={{-20,-100},{0,-80}})));
-  Buildings.Controls.OBC.CDL.Logical.Not negFreSta "Negation of freeze stat"
-    annotation (Placement(transformation(extent={{-50,-100},{-30,-80}})));
-  Buildings.Controls.OBC.CDL.Logical.Not freStaSig "Signal for freeze stat"
-    annotation (Placement(transformation(extent={{10,-100},{30,-80}})));
 protected
   constant Modelica.SIunits.SpecificHeatCapacity cpAir=
     Buildings.Utilities.Psychrometrics.Constants.cpAir
@@ -840,9 +832,8 @@ equation
   connect(senRetFlo.port_b, TRet.port_a) annotation (Line(points={{340,140},{
           226,140},{110,140}}, color={0,127,255}));
   connect(freStaTSetPoi.y, freSta.reference)
-    annotation (Line(points={{-98,-110},{-88,-110},{-88,-84},{-82,-84}},
-                                                  color={0,0,127}));
-  connect(freSta.u, TMix.T) annotation (Line(points={{-82,-96},{-84,-96},{-84,
+    annotation (Line(points={{-88,-84},{-62,-84}},color={0,0,127}));
+  connect(freSta.u, TMix.T) annotation (Line(points={{-62,-96},{-70,-96},{-70,
           -68},{20,-68},{20,-20},{40,-20},{40,-29}},
                                                 color={0,0,127}));
   connect(TMix.port_b, heaCoi.port_a2) annotation (Line(
@@ -902,12 +893,6 @@ equation
     annotation (Line(points={{0,0},{0,140},{90,140}}, color={0,127,255}));
   connect(damRet.port_b, TMix.port_a)
     annotation (Line(points={{0,-20},{0,-40},{30,-40}}, color={0,127,255}));
-  connect(freSta.y, negFreSta.u)
-    annotation (Line(points={{-58,-90},{-52,-90}}, color={255,0,255}));
-  connect(delFreSta.u, negFreSta.y)
-    annotation (Line(points={{-22,-90},{-28,-90}}, color={255,0,255}));
-  connect(delFreSta.y, freStaSig.u)
-    annotation (Line(points={{2,-90},{8,-90}}, color={255,0,255}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-380,
             -400},{1420,660}})), Documentation(info="<html>
 <p>

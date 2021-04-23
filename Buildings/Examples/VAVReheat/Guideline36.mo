@@ -531,10 +531,10 @@ equation
   connect(conVAVWes.yVal, gaiHeaCoiWes.u) annotation (Line(points={{1262,95},{1262,
           82},{1196,82},{1196,44},{1206,44}},
                                     color={0,0,127}));
-  connect(swiFreSta.u2, freStaSig.y) annotation (Line(points={{58,-192},{40,
-          -192},{40,-90},{32,-90}}, color={255,0,255}));
   connect(amb.ports[3], TRet.port_b) annotation (Line(points={{-114,-45},{-100,
           -45},{-100,140},{90,140}}, color={0,127,255}));
+  connect(freSta.y, swiFreSta.u2) annotation (Line(points={{-38,-90},{40,-90},{
+          40,-192},{58,-192}}, color={255,0,255}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-380,-320},{1400,
             680}})),
