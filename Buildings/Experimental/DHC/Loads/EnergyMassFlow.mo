@@ -81,11 +81,11 @@ block EnergyMassFlow
     "First-order filter";
 
 protected
-  Real rat_m_flow_cha
-    "Mass flow rate ratio from characteristics or prescribed value";
   Real rat_m_flow_cor
     "Mass flow rate ratio corrected for supply temperature mismatch";
-  Real rat_Q_flow_cor
+  Real rat_Q_flow_tem
+    "Heat flow rate correction factor for supply temperature mismatch";
+  Real rat_Q_flow_mas
     "Heat flow rate correction factor for mass flow rate mismatch";
   Modelica.SIunits.MassFlowRate m_flow_internal
     "Mass flow rate for internal use when mPre_flow is removed";
@@ -93,33 +93,31 @@ protected
   function characteristics "m_flow -> Q_flow characteristics"
     /* FE: implement exponential characteristics based on OS load data for
     the case where have_masFlo is false.
-    Currently a linear relationship to the prescribed load is used.
     */
     extends Modelica.Icons.Function;
-    parameter Real k = 2.5
-      "Shape factor of typical characteristics";
-    input Real rat_m_flow(min=0, max=1)
+    input Real rat_m_flow
       "Fraction mass flow rate";
     input Boolean have_masFlo = false;
-    output Real rat_Q_flow(min=0, max=1)
+    input Real k = 2.5 "Shape factor of typical characteristics";
+    output Real rat_Q_flow
       "Fraction heat flow rate";
   algorithm
-    if have_masFlo then
-      rat_Q_flow := (1 - exp(-k * rat_m_flow)) / (1 - exp(-k));
-    else
-      rat_Q_flow := rat_m_flow;
-    end if;
+    rat_Q_flow := (1 - exp(-k * rat_m_flow)) / (1 - exp(-k));
   end characteristics;
 
   function inverseCharacteristics "Inverse of m_flow -> Q_flow characteristics"
-    /* FE: implement exponential characteristics based on OS load data.
-    Currently a linear relationship to the prescribed load is used.
+    /* FE: implement exponential characteristics based on OS load data for
+    the case where have_masFlo is false.
     */
     extends Modelica.Icons.Function;
-    input Real rat_Q_flow;
-    output Real rat_m_flow;
+    input Real rat_Q_flow
+      "Fraction heat flow rate";
+    input Boolean have_masFlo = false;
+    input Real k = 2.5 "Shape factor of typical characteristics";
+    output Real rat_m_flow
+      "Fraction mass flow rate";
   algorithm
-    rat_m_flow := rat_Q_flow;
+    rat_m_flow := log(rat_Q_flow * (exp(-k) -1) + 1) / (-k);
   end inverseCharacteristics;
 
 equation
@@ -128,29 +126,35 @@ equation
   else
     m_flow_internal = m_flow_nominal;
   end if;
-  rat_m_flow_cha = if have_masFlo then m_flow_internal / m_flow_nominal else
-    inverseCharacteristics(QPre_flow / Q_flow_nominal);
   // Correction for supply temperature mismatch.
-  rat_m_flow_cor = rat_m_flow_cha *
-    abs((TSupSet - TLoa_nominal) * Utilities.Math.Functions.inverseXRegularized(
+  rat_Q_flow_tem = abs((TSupSet - TLoa_nominal) *
+    Utilities.Math.Functions.inverseXRegularized(
       TSup_actual - TLoa_nominal,
       0.1));
+  // FIX case have_masFlo with ratio of inverseCharacteristics
+  rat_m_flow_cor =
+    if have_masFlo then
+      m_flow_internal / m_flow_nominal
+    else
+      inverseCharacteristics(QPre_flow / Q_flow_nominal * rat_Q_flow_tem);
   filter.u = rat_m_flow_cor;
-  m_flow =if have_masFlo then filter.y else
+  m_flow = if have_masFlo then filter.y else
     Utilities.Math.Functions.smoothLimit(
       x=filter.y,
       l=if uEna then fra_m_flow_min else 0,
       u=1,
       deltaX=1E-4) * m_flow_nominal;
-  rat_Q_flow_cor = Utilities.Math.Functions.smoothLimit(
-    x = characteristics(m_flow_actual / m_flow_nominal, have_masFlo) *
-      Utilities.Math.Functions.inverseXRegularized(
-        characteristics(m_flow / m_flow_nominal, have_masFlo),
-        1E-4),
+  // Correction for mass flow rate shortage.
+  rat_Q_flow_mas = if have_pum then 1 else
+    Utilities.Math.Functions.smoothLimit(
+      x = characteristics(m_flow_actual / m_flow_nominal, have_masFlo) *
+        Utilities.Math.Functions.inverseXRegularized(
+          characteristics(filter.y / m_flow_nominal, have_masFlo),
+          1E-4),
       l=0,
       u=1,
       deltaX=1E-4);
-  Q_flow_actual = -QPre_flow * rat_Q_flow_cor;
+  Q_flow_actual = -QPre_flow * rat_Q_flow_mas;
   Q_flow_residual = -QPre_flow - Q_flow_actual;
 
   annotation (

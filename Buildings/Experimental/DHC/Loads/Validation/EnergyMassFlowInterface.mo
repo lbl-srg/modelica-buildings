@@ -78,6 +78,7 @@ model EnergyMassFlowInterface "Validation of the model EnergyMassFlowInterface"
     annotation (Placement(transformation(extent={{-240,-70},{-220,-50}})));
   Buildings.Experimental.DHC.Loads.EnergyMassFlowInterface eneMasFlo(
     redeclare package Medium=Medium,
+    del(T_start=TSupSet_nominal),
     have_pum=true,
     Q_flow_nominal=Q_flow_nominal,
     m_flow_nominal=m_flow_nominal,
@@ -113,7 +114,7 @@ model EnergyMassFlowInterface "Validation of the model EnergyMassFlowInterface"
     annotation (Placement(transformation(extent={{210,140},{230,160}})));
   Fluid.Sources.Boundary_pT serSup1(
     redeclare package Medium = Medium,
-    p=Medium.p_default + dp_nominal/6,
+    p=Medium.p_default + dp_nominal/20,
     T=TSupSet_nominal,
     nPorts=1) "Service supply"
     annotation (Placement(transformation(extent={{-240,-110},{-220,-90}})));
@@ -147,6 +148,7 @@ model EnergyMassFlowInterface "Validation of the model EnergyMassFlowInterface"
     annotation (Placement(transformation(extent={{-70,70},{-50,90}})));
   Buildings.Experimental.DHC.Loads.EnergyMassFlowInterface eneMasFlo1(
     redeclare package Medium = Medium,
+    del(T_start=TSupSet_nominal),
     have_pum=false,
     Q_flow_nominal=Q_flow_nominal,
     m_flow_nominal=m_flow_nominal,
