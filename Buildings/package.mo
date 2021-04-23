@@ -237,6 +237,14 @@ The new media <code>Buildings.Media.Antifreeze.PropyleneGlycolWater</code> allow
 of propylene-glycol water mixtures.
 </li>
 <li>
+A new cooling coil model <code>Buildings.Fluid.HeatExchangers.WetCoilEffectivenessNTU</code>
+has been added. This model is applicable for fully-dry, partially-wet, and fully-wet regimes.
+In contrast to <code>Buildings.Fluid.HeatExchangers.WetCoilCounterFlow</code> and
+to <code>Buildings.Fluid.HeatExchangers.WetCoilDiscretized</code>,
+this model uses the epsilon-NTU relationship rather than a spatial discretization of the coil.
+This leads to fewer state variables and generally to a faster simulation.
+</li>
+<li>
 New simplified door models for bi-directional air exchange between thermal zones are
 implemented in <code>Buildings.Airflow.Multizone</code>.
 </li>
@@ -391,6 +399,15 @@ to <b style=\"color:blue\">existing</b> libraries:
     </td>
     <td valign=\"top\">Two way valve with the flow characteristic of a butterfly valve.<br/>
                        This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/975\">IBPSA, issue 975</a>.</td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.WetCoilEffectivenessNTU
+    </td>
+    <td valign=\"top\">Cooling coil model applicable for fully-dry, partially-wet, and fully-wet regimes.
+                       In contrast to <code>Buildings.Fluid.HeatExchangers.WetCoilCounterFlow</code> and
+                       to <code>Buildings.Fluid.HeatExchangers.WetCoilDiscretized</code>,
+                       this model uses the epsilon-NTU relationship rather than a spatial discretization of the coil.
+                       This leads to fewer state variables and generally to a faster simulation.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/622\">issue 622</a>.</td>
 </tr>
 </table>
 <!-- Backward compatible changes -->
@@ -757,8 +774,7 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Logical.Sources.SampleTrigger<br/>
                        Buildings.Controls.OBC.CDL.Logical.Sources.Pulse
     </td>
-    <td valign=\"top\">Removed <code>startTime</code> parameter. Introduced <code>shif"
-               + "t</code> parameter.<br/>
+    <td valign=\"top\">Removed <code>startTime</code> parameter. Introduced <code>shift</code> parameter.<br/>
                        This is for
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2170\">issue 2170</a>
                        and <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2282\">issue 2282</a>.<br/>

@@ -26,6 +26,7 @@ size_t AllocateBuildingDataStructure(
   const char* modelicaNameBuilding,
   const char* idfName,
   const char* weaName,
+  double relativeSurfaceTolerance,
   int usePrecompiledFMU,
   const char* fmuName,
   const char* buildingsLibraryRoot,
@@ -130,6 +131,8 @@ size_t AllocateBuildingDataStructure(
     SpawnFormatError("Cannot read weather file '%s' specified in '%s' through %s (obtained after changing extension): %s.",
       Buildings_FMUS[nFMU]->weather, modelicaNameBuilding, weaName, strerror(errno));
 
+  /* Set relative surface tolerance */
+  Buildings_FMUS[nFMU]->relativeSurfaceTolerance = relativeSurfaceTolerance;
   /* Set the model hash to null */
   Buildings_FMUS[nFMU]->modelHash = NULL;
   /* Set the number of this FMU */

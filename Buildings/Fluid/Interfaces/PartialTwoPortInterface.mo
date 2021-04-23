@@ -14,7 +14,9 @@ partial model PartialTwoPortInterface
   // Diagnostics
    parameter Boolean show_T = false
     "= true, if actual temperature at port is computed"
-    annotation(Dialog(tab="Advanced",group="Diagnostics"));
+    annotation(
+      Dialog(tab="Advanced", group="Diagnostics"),
+      HideResult=true);
 
   Modelica.SIunits.MassFlowRate m_flow(start=_m_flow_start) = port_a.m_flow
     "Mass flow rate from port_a to port_b (m_flow > 0 is design flow direction)";
@@ -64,6 +66,12 @@ Buildings.Fluid.Interfaces.StaticTwoPortHeatMassExchanger</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 30, 2021, by Michael Wetter:<br/>
+Added annotation <code>HideResult=true</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1459\">IBPSA, #1459</a>.
+</li>
 <li>
 November 3, 2016, by Michael Wetter:<br/>
 Renamed protected parameter <code>m_flow_start</code> to avoid

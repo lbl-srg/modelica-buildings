@@ -92,7 +92,8 @@ model ReverseBuoyancy
     nPorts=3,
     p_start=101325) "Volume of bottom floor, west room"
     annotation (Placement(transformation(extent={{-161,-29},{-141,-9}})));
-  Modelica.Blocks.Sources.Constant ope(k=1) annotation (Placement(
+  Modelica.Blocks.Sources.Constant ope(k=1) "Constant signal for door opening"
+                                            annotation (Placement(
         transformation(extent={{-102,-23},{-82,-3}})));
   Buildings.Airflow.Multizone.MediumColumn col1EasBot(
     redeclare package Medium = Medium,
@@ -265,7 +266,7 @@ instead of three rooms.
 The outdoor conditions are held constant at <i>10</i>&deg;C and
 atmospheric pressure.
 All four rooms are at different temperatures, with the rooms on the bottom
-floor being initially at a higher temperature than the rooms on the bottom floor.
+floor being initially at a higher temperature than the rooms on the top floor.
 As time progresses, the temperatures of the two rooms on the respective floors
 asymptotically approach each other. The bottom floor eventually cools below
 the temperature of the top floor, because the

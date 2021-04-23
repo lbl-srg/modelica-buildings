@@ -1,6 +1,9 @@
 within Buildings.ThermalZones.EnergyPlus.BaseClasses;
-package Synchronize "Package with classes to synchronize Spawn objects"
-  annotation (Documentation(info="<html>
+package Synchronize
+  "Package with classes to synchronize Spawn objects"
+  annotation (
+    Documentation(
+      info="<html>
 <p>
 This class is used to synchronize the constructor calls
 for Spawn.

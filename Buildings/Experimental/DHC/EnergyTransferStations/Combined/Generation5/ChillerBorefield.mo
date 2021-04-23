@@ -246,7 +246,7 @@ Buildings.Experimental.DHC.EnergyTransferStations.Combined.Generation5.Controls.
 </p>
 <p>
 <img alt=\"System schematics\"
-src=\"modelica://Buildings/Resources/Images/Experimental/DHC/EnergyTransferStations/Combined/Generation5/ChillerBorefield.png\"/>.
+src=\"modelica://Buildings/Resources/Images/Experimental/DHC/EnergyTransferStations/Combined/Generation5/ChillerBorefield.png\"/>
 </p>
 </html>"));
 end ChillerBorefield;
