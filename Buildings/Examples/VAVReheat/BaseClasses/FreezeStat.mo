@@ -1,5 +1,5 @@
 within Buildings.Examples.VAVReheat.BaseClasses;
-model FreezeStat "Freeze thermostat with delayed reset"
+model FreezeStat "Freeze thermostat with timed lockout"
 
   parameter Real lockoutTime(
     final quantity="Time",
@@ -12,6 +12,7 @@ model FreezeStat "Freeze thermostat with delayed reset"
     final quantity="ThermodynamicTemperature",
     final unit="K",
     displayUnit="degC") = 276.15 "Temperature below which the freeze protection starts";
+
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u(
     final quantity="ThermodynamicTemperature",
     final unit="K",
@@ -29,7 +30,7 @@ model FreezeStat "Freeze thermostat with delayed reset"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
     final t=TSet,
-    final h=0)
+    final h=0) "Greater comparison"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
 equation
   connect(locOut.y, freStaSig.u)
@@ -63,8 +64,9 @@ equation
         Text(
           extent={{-160,140},{140,100}},
           lineColor={0,0,255},
-          textString="%name")}),                                 Diagram(
-        coordinateSystem(preserveAspectRatio=false)),
+          textString="%name")}),
+Diagram(
+    coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>
 Freeze stat that outputs <code>true</code> if freeze protection should be engaged.
