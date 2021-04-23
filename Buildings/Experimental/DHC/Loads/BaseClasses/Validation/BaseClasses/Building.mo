@@ -85,8 +85,8 @@ equation
       coordinateSystem(
         preserveAspectRatio=false)),
     Documentation(info="<html>
-<p> 
-This is a minimum example of a class extending 
+<p>
+This is a minimum example of a class extending
 <a href=\"modelica://Buildings.Experimental.DHC.Loads.BaseClasses.PartialBuilding\">
 Buildings.Experimental.DHC.Loads.BaseClasses.PartialBuilding</a>
 developed for testing purposes only.

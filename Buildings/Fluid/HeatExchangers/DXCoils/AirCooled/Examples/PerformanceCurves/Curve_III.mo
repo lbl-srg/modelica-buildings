@@ -2,12 +2,12 @@ within Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Examples.PerformanceCurv
 record Curve_III "Performance curve III"
   extends
     Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.PerformanceCurve(
-    each capFunT={0.476428,0.0401147000,0.0002264110,-0.0008271360,-0.0000073224,
+    capFunT={0.476428,0.0401147000,0.0002264110,-0.0008271360,-0.0000073224,
         -0.0004462780},
-    each capFunFF={0.47278589,1.2433415,-1.0387055,0.32257813},
-    each EIRFunT={0.632475,-0.0121321000,0.0005077730,0.0155377000,0.0002728400,
+    capFunFF={0.47278589,1.2433415,-1.0387055,0.32257813},
+    EIRFunT={0.632475,-0.0121321000,0.0005077730,0.0155377000,0.0002728400,
         -0.0006792010},
-    each EIRFunFF={1.0079484,0.34544129,-0.6922891,0.33889943},
+    EIRFunFF={1.0079484,0.34544129,-0.6922891,0.33889943},
     TConInMin=297.03889,
     TConInMax=319.26111,
     TEvaInMin=285.92778,
@@ -23,6 +23,11 @@ It has been obtained from the EnergyPlus 7.1 example file
 </html>",
 revisions="<html>
 <ul>
+<li>
+April 9, 2021, by Michael Wetter:<br/>
+Corrected placement of <code>each</code> keyword.<br/>
+See <a href=\"https://github.com/lbl-srg/modelica-buildings/pull/2440\">Buidings, PR #2440</a>.
+</li>
 <li>
 September 25, 2012 by Michael Wetter:<br/>
 Revised documentation.
