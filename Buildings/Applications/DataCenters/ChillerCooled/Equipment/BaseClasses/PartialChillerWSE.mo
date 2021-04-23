@@ -47,11 +47,6 @@ partial model PartialChillerWSE
   parameter Real[2] lValWSE(each min=1e-10, each max=1) = {0.0001,0.0001}
     "Valve leakage, l=Kv(y=0)/Kv(y=1)"
     annotation(Dialog(group="Two-way valve"));
-  parameter Real[2] kFixedValWSE(each unit="", each min=0)=
-    {m1_flow_wse_nominal,m2_flow_wse_nominal} ./ sqrt({dp1_wse_nominal,dp2_wse_nominal})
-    "Flow coefficient of fixed resistance that may be in series with valves
-    in WSE, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)."
-    annotation(Dialog(group="Two-way valve"));
   parameter Real yValWSE_start=0
     "Initial value of output from on/off valve in WSE"
     annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilter));
@@ -213,7 +208,6 @@ partial model PartialChillerWSE
     final deltaM2=deltaM2,
     final homotopyInitialization=homotopyInitialization,
     final l=lValWSE,
-    final kFixed=kFixedValWSE,
     final use_inputFilter=use_inputFilter,
     final riseTimeValve=riseTimeValve,
     final initValve=initValve,
@@ -271,14 +265,14 @@ partial model PartialChillerWSE
 
   Fluid.FixedResistances.Junction spl1(
     redeclare package Medium = Medium1,
-    m_flow_nominal={numChi*m1_flow_chi_nominal,-numChi*m1_flow_chi_nominal,-
-        m1_flow_wse_nominal},
+    m_flow_nominal={numChi*m1_flow_chi_nominal,-m1_flow_wse_nominal,-numChi*
+        m1_flow_chi_nominal},
     dp_nominal={0,0,0}) "Splitter"
     annotation (Placement(transformation(extent={{-80,46},{-60,66}})));
   Fluid.FixedResistances.Junction jun1(
     redeclare package Medium = Medium1,
-    m_flow_nominal={numChi*m1_flow_chi_nominal,m1_flow_wse_nominal,-numChi*
-        m1_flow_chi_nominal},
+    m_flow_nominal={numChi*m1_flow_chi_nominal,-numChi*m1_flow_chi_nominal,
+        m1_flow_wse_nominal},
     dp_nominal={0,0,0}) "Junction"
     annotation (Placement(transformation(extent={{70,50},{90,70}})));
 initial equation

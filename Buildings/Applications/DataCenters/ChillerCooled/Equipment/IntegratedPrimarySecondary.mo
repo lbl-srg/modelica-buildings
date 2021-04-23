@@ -146,7 +146,7 @@ model IntegratedPrimarySecondary
     annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
   Fluid.FixedResistances.Junction jun2(
     redeclare package Medium = Medium2,
-    m_flow_nominal={m2_flow_wse_nominal,numChi*m2_flow_chi_nominal,-numChi*
+    m_flow_nominal={m2_flow_wse_nominal,-numChi*m2_flow_chi_nominal,numChi*
         m2_flow_chi_nominal},
     dp_nominal={0,0,0}) "Junction"
     annotation (Placement(transformation(extent={{-60,-50},{-80,-70}})));
@@ -158,8 +158,8 @@ model IntegratedPrimarySecondary
     annotation (Placement(transformation(extent={{90,-50},{70,-70}})));
   Fluid.FixedResistances.Junction jun3(
     redeclare package Medium = Medium2,
-    m_flow_nominal={numChi*m2_flow_chi_nominal,m2_flow_wse_nominal,-numChi*
-        m2_flow_chi_nominal},
+    m_flow_nominal={numChi*m2_flow_chi_nominal,-numChi*m2_flow_chi_nominal,
+        m2_flow_wse_nominal},
     dp_nominal={0,0,0}) "Junction"
     annotation (Placement(transformation(extent={{36,-10},{16,-30}})));
   Fluid.FixedResistances.Junction spl3(

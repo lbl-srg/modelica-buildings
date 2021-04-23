@@ -4,7 +4,7 @@ model WatersideEconomizer "Waterside economizer"
     final num=1,
     val2(each final dpFixed_nominal=dp2_nominal),
     val1(each final dpFixed_nominal=dp1_nominal),
-    kFixed={m1_flow_nominal,m2_flow_nominal} ./ sqrt({dp1_nominal,dp2_nominal}),
+    final kFixed={m1_flow_nominal,m2_flow_nominal} ./ sqrt({dp1_nominal,dp2_nominal}),
     final yValve_start={yValWSE_start});
   extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations(
     final mSenFac=1,
@@ -43,6 +43,7 @@ model WatersideEconomizer "Waterside economizer"
   Buildings.Applications.DataCenters.ChillerCooled.Equipment.HeatExchanger_TSet heaExc(
     redeclare final replaceable package Medium1 = Medium1,
     redeclare final replaceable package Medium2 = Medium2,
+    final dpThrWayVal_nominal=dpThrWayVal_nominal,
     final use_controller=use_controller,
     final m1_flow_nominal=m1_flow_nominal,
     final m2_flow_nominal=m2_flow_nominal,
