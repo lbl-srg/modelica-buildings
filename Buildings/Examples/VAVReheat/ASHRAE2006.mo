@@ -76,16 +76,19 @@ model ASHRAE2006
 
   Buildings.Controls.OBC.CDL.Logical.Or or2
     annotation (Placement(transformation(extent={{-60,-250},{-40,-230}})));
-  Controls.SupplyAirTemperature conTSup "Supply air temperature controller"
+  Controls.SupplyAirTemperature conTSup
+    "Supply air temperature and economizer controller"
     annotation (Placement(transformation(extent={{30,-230},{50,-210}})));
   Controls.SupplyAirTemperatureSetpoint TSupSet
     "Supply air temperature set point"
     annotation (Placement(transformation(extent={{-200,-230},{-180,-210}})));
   Buildings.Fluid.Actuators.Dampers.Exponential damExh(
+    from_dp=true,
+    riseTime=15,
     dpFixed_nominal=5,
     redeclare package Medium = MediumA,
     m_flow_nominal=m_flow_nominal,
-    dpDamper_nominal=10) "Exhaust air damper"
+    dpDamper_nominal=5)  "Exhaust air damper"
     annotation (Placement(transformation(extent={{-30,-20},{-50,0}})));
 equation
   connect(controlBus, modeSelector.cb) annotation (Line(
@@ -113,7 +116,7 @@ equation
       index=1,
       extent={{6,3},{6,3}}));
   connect(TRet.T, conEco.TRet) annotation (Line(
-      points={{100,151},{100,172},{-94,172},{-94,153.333},{-81.3333,153.333}},
+      points={{100,151},{100,174},{-94,174},{-94,153.333},{-81.3333,153.333}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
@@ -226,8 +229,6 @@ equation
           255}));
   connect(conFanSup.y, fanSup.y) annotation (Line(points={{261,0},{280,0},{280,
           -20},{310,-20},{310,-28}}, color={0,0,127}));
-  connect(freSta.y, or2.u1) annotation (Line(points={{22,-90},{40,-90},{40,-160},
-          {-80,-160},{-80,-240},{-62,-240}},                 color={255,0,255}));
   connect(or2.u2, modeSelector.yFan) annotation (Line(points={{-62,-248},{-80,
           -248},{-80,-305.455},{-179.091,-305.455}},
                                      color={255,0,255}));
@@ -255,7 +256,7 @@ equation
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(conTSup.yOA, conEco.uOATSup) annotation (Line(
-      points={{52,-220},{60,-220},{60,180},{-86,180},{-86,158.667},{-81.3333,
+      points={{52,-220},{60,-220},{60,170},{-86,170},{-86,158.667},{-81.3333,
           158.667}},
       color={0,0,127},
       pattern=LinePattern.Dash));
@@ -301,6 +302,8 @@ equation
           {-26,140},{90,140}}, color={0,127,255}));
   connect(damExh.port_b, amb.ports[3]) annotation (Line(points={{-50,-10},{-100,
           -10},{-100,-45},{-114,-45}}, color={0,127,255}));
+  connect(or2.u1, freStaSig.y) annotation (Line(points={{-62,-240},{-80,-240},{
+          -80,-120},{40,-120},{40,-90},{32,-90}}, color={255,0,255}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-380,-400},{1440,
             660}})),

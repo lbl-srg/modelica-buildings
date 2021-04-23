@@ -16,7 +16,7 @@ block Economizer "Controller for economizer"
   parameter Modelica.Blocks.Types.SimpleController controllerType=Modelica.Blocks.Types.SimpleController.PI
     "Type of controller";
   parameter Real k = 0.05 "Gain of controller";
-  parameter Modelica.SIunits.Time Ti = 300 "Time constant of integrator block";
+  parameter Modelica.SIunits.Time Ti = 120 "Time constant of integrator block";
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uEna
     "Enable signal for economizer"
     annotation (Placement(transformation(extent={{-140,170},{-100,210}}),

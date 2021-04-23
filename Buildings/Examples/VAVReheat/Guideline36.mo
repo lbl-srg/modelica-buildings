@@ -8,7 +8,13 @@ model Guideline36
     eas(ratVFloHea=ratVFloHea),
     nor(ratVFloHea=ratVFloHea),
     wes(ratVFloHea=ratVFloHea),
-    amb(nPorts=3));
+    amb(nPorts=3),
+    damOut(
+      from_dp=true,
+      use_inputFilter=false,
+      dpDamper_nominal=10,
+      dpFixed_nominal=10),
+    damRet(use_inputFilter=false));
 
   parameter Modelica.SIunits.VolumeFlowRate VPriSysMax_flow=m_flow_nominal/1.2
     "Maximum expected system primary airflow rate at design stage";
@@ -279,8 +285,6 @@ equation
           {1168,-20},{1168,86},{1238,86}}, color={0,0,127}));
   connect(swiFreSta.y, gaiHeaCoi.u) annotation (Line(points={{82,-192},{88,-192},
           {88,-184},{124,-184}},color={0,0,127}));
-  connect(freSta.y, swiFreSta.u2) annotation (Line(points={{22,-90},{40,-90},{
-          40,-192},{58,-192}}, color={255,0,255}));
   connect(yFreHeaCoi.y, swiFreSta.u1) annotation (Line(points={{22,-182},{40,-182},
           {40,-184},{58,-184}}, color={0,0,127}));
   connect(zonToSys.ySumDesZonPop, conAHU.sumDesZonPop) annotation (Line(points={{302,589},
@@ -527,8 +531,10 @@ equation
   connect(conVAVWes.yVal, gaiHeaCoiWes.u) annotation (Line(points={{1262,95},{1262,
           82},{1196,82},{1196,44},{1206,44}},
                                     color={0,0,127}));
-  connect(TRet.port_b, amb.ports[3]) annotation (Line(points={{90,140},{-100,140},
-          {-100,-45},{-114,-45}}, color={0,127,255}));
+  connect(swiFreSta.u2, freStaSig.y) annotation (Line(points={{58,-192},{40,
+          -192},{40,-90},{32,-90}}, color={255,0,255}));
+  connect(amb.ports[3], TRet.port_b) annotation (Line(points={{-114,-45},{-100,
+          -45},{-100,140},{90,140}}, color={0,127,255}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-380,-320},{1400,
             680}})),
