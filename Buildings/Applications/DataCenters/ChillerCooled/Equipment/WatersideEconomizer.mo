@@ -43,6 +43,7 @@ model WatersideEconomizer "Waterside economizer"
   Buildings.Applications.DataCenters.ChillerCooled.Equipment.HeatExchanger_TSet heaExc(
     redeclare final replaceable package Medium1 = Medium1,
     redeclare final replaceable package Medium2 = Medium2,
+    final dpThrWayVal_nominal=dpThrWayVal_nominal,
     final use_controller=use_controller,
     final m1_flow_nominal=m1_flow_nominal,
     final m2_flow_nominal=m2_flow_nominal,
