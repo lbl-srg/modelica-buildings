@@ -498,12 +498,9 @@ public
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90,
         origin={222,-174})));
-  FreezeStat                                         freSta(bandwidth=1)
+  FreezeStat freSta
     "Freeze stat for heating coil"
     annotation (Placement(transformation(extent={{-60,-100},{-40,-80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant freStaTSetPoi(k=273.15
-         + 3) "Freeze stat set point for heating coil"
-    annotation (Placement(transformation(extent={{-110,-94},{-90,-74}})));
   Fluid.Sources.MassFlowSource_T souHeaCor(
     redeclare package Medium = MediumW,
     T=THotWatInl_nominal,
@@ -831,9 +828,7 @@ equation
       pattern=LinePattern.Dot));
   connect(senRetFlo.port_b, TRet.port_a) annotation (Line(points={{340,140},{
           226,140},{110,140}}, color={0,127,255}));
-  connect(freStaTSetPoi.y, freSta.reference)
-    annotation (Line(points={{-88,-84},{-62,-84}},color={0,0,127}));
-  connect(freSta.u, TMix.T) annotation (Line(points={{-62,-96},{-70,-96},{-70,
+  connect(freSta.u, TMix.T) annotation (Line(points={{-62,-90},{-70,-90},{-70,
           -68},{20,-68},{20,-20},{40,-20},{40,-29}},
                                                 color={0,0,127}));
   connect(TMix.port_b, heaCoi.port_a2) annotation (Line(

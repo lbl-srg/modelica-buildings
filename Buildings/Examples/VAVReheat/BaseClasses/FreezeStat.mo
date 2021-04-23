@@ -4,14 +4,18 @@ model FreezeStat "Freeze thermostat with delayed reset"
   parameter Real lockoutTime(
     final quantity="Time",
     final unit="s",
-    displayUnit="min") = 900
+    displayUnit="min",
+    min=60) = 900
     "Delay time";
 
   parameter Real TSet(
     final quantity="ThermodynamicTemperature",
     final unit="K",
-    displayUnit="degC") = 3 "Temperature below which the freeze protection starts";
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput u
+    displayUnit="degC") = 276.15 "Temperature below which the freeze protection starts";
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput u(
+    final quantity="ThermodynamicTemperature",
+    final unit="K",
+    displayUnit="degC")
     "Connector of Real input signal used as measurement signal"
     annotation (Placement(transformation(extent={{-140,20},{-100,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
