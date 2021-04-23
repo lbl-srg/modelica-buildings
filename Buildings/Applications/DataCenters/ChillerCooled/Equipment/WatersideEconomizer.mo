@@ -4,7 +4,7 @@ model WatersideEconomizer "Waterside economizer"
     final num=1,
     val2(each final dpFixed_nominal=dp2_nominal),
     val1(each final dpFixed_nominal=dp1_nominal),
-    kFixed={m1_flow_nominal,m2_flow_nominal} ./ sqrt({dp1_nominal,dp2_nominal}),
+    final kFixed={m1_flow_nominal,m2_flow_nominal} ./ sqrt({dp1_nominal,dp2_nominal}),
     final yValve_start={yValWSE_start});
   extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations(
     final mSenFac=1,
