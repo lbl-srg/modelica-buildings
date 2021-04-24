@@ -10,10 +10,9 @@ model Guideline36
     wes(ratVFloHea=ratVFloHea),
     amb(nPorts=3),
     damOut(
-      use_inputFilter=false,
       dpDamper_nominal=10,
       dpFixed_nominal=10),
-    damRet(use_inputFilter=false));
+    freSta(lockoutTime=3600));
 
   parameter Modelica.SIunits.VolumeFlowRate VPriSysMax_flow=m_flow_nominal/1.2
     "Maximum expected system primary airflow rate at design stage";
