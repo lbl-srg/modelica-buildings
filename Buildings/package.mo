@@ -666,6 +666,14 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.ASHRAE.G36_PR1</b>
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.Economizers.Subsequences.Modulation
+    </td>
+    <td valign=\"top\">Removed parameter <code>samplePeriod</code> and removed delay on actuator signal
+                       to avoid a large delay in this feedback loop.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2454\">issue 2454</a>.
+    </td>
+</tr>
 <tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.Controller
     </td>
     <td valign=\"top\">Updated the block of specifying operating mode and setpoints.<br/>
