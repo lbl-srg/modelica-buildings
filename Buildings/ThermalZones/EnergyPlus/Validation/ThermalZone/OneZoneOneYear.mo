@@ -2,16 +2,18 @@ within Buildings.ThermalZones.EnergyPlus.Validation.ThermalZone;
 model OneZoneOneYear
   "Validation model for one zone"
   extends Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse.Unconditioned;
-
-  Controls.OBC.CDL.Continuous.MovingMean TAirMea(delta(displayUnit="d") = 86400,
-      y(
+  Controls.OBC.CDL.Continuous.MovingMean TAirMea(
+    delta(
+      displayUnit="d")=86400,
+    y(
       final unit="K",
       displayUnit="degC"))
-              "Moving mean of air temperature"
+    "Moving mean of air temperature"
     annotation (Placement(transformation(extent={{60,8},{80,28}})));
+
 equation
-  connect(TAirMea.u, zon.TAir)
-    annotation (Line(points={{58,18},{41,18}}, color={0,0,127}));
+  connect(TAirMea.u,zon.TAir)
+    annotation (Line(points={{58,18},{41,18}},color={0,0,127}));
   annotation (
     Documentation(
       info="<html>

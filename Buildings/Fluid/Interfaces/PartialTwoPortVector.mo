@@ -34,7 +34,9 @@ partial model PartialTwoPortVector "Partial component with two ports, one of whi
   // Diagnostics
    parameter Boolean show_T = false
     "= true, if actual temperature at port is computed"
-    annotation(Dialog(tab="Advanced",group="Diagnostics"));
+    annotation(
+      Dialog(tab="Advanced", group="Diagnostics"),
+      HideResult=true);
 
   Medium.ThermodynamicState sta_a=
       Medium.setState_phX(port_a.p,
@@ -70,6 +72,12 @@ users have not used this global definition to assign parameters.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 30, 2021, by Michael Wetter:<br/>
+Added annotation <code>HideResult=true</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1459\">IBPSA, #1459</a>.
+</li>
 <li>
 January 31, 2019, by Michael Mans:<br/>
 Added optional temperature state calculation as diagnostics option.
