@@ -87,16 +87,21 @@ model Plant "Example to test the chiller cooling plant"
     "Chilled water supply temperature setpoint"
     annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
   Fluid.MixingVolumes.MixingVolume           vol(
-    nPorts=3,
+    nPorts=2,
     redeclare package Medium = Medium,
     m_flow_nominal=pla.numChi*mCHW_flow_nominal,
     V=0.5,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
-    annotation (Placement(transformation(extent={{30,0},{50,20}})));
+    annotation (Placement(transformation(extent={{40,20},{60,40}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow fixHeaFlo(Q_flow=pla.numChi
         *mCHW_flow_nominal*4200*10, T_ref=293.15)
     "Fixed heat flow rate"
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
+  Fluid.FixedResistances.PressureDrop res(
+    redeclare package Medium = Medium,
+    m_flow_nominal=pla.numChi*mCHW_flow_nominal,
+    dp_nominal=6000) "Flow resistance"
+    annotation (Placement(transformation(extent={{60,-20},{40,0}})));
 equation
   connect(weaDat.weaBus,weaBus)
     annotation (Line(points={{-60,-50},{-50,-50}},color={255,204,51},thickness=0.5));
@@ -119,11 +124,13 @@ equation
       horizontalAlignment=TextAlignment.Right));
 
   connect(fixHeaFlo.port,vol.heatPort)
-    annotation (Line(points={{20,-30},{26,-30},{26,10},{30,10}}, color={191,0,0}));
+    annotation (Line(points={{20,-30},{26,-30},{26,30},{40,30}}, color={191,0,0}));
   connect(pla.port_bSerCoo, vol.ports[1]) annotation (Line(points={{10,8.66667},
-          {20,8.66667},{20,0},{37.3333,0}}, color={0,127,255}));
-  connect(vol.ports[2], pla.port_aSerCoo) annotation (Line(points={{40,0},{60,0},
-          {60,-10},{-16,-10},{-16,8.66667},{-10,8.66667}}, color={0,127,255}));
+          {20,8.66667},{20,20},{48,20}},    color={0,127,255}));
+  connect(vol.ports[2], res.port_a) annotation (Line(points={{52,20},{70,20},{
+          70,-10},{60,-10}}, color={0,127,255}));
+  connect(res.port_b, pla.port_aSerCoo) annotation (Line(points={{40,-10},{-14,
+          -10},{-14,8.66667},{-10,8.66667}}, color={0,127,255}));
   annotation (
     Icon(
       coordinateSystem(
@@ -134,8 +141,7 @@ equation
     experiment(
       StopTime=86400,
       Tolerance=1e-06),
-    __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Experimental/DHC/CentralPlants/Cooling/Examples/Plant.mos"
+    __Dymola_Commands(file="Resources/Scripts/Dymola/Experimental/DHC/CentralPlants/Cooling/Examples/Plant.mos"
         "Simulate and Plot"),
     Documentation(
       info="<html>
