@@ -67,13 +67,11 @@ model ChillerStage
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt(
     final integerTrue=1,
-    final integerFalse=0)
-    "Boolean to real"
+    final integerFalse=0) "Boolean to integer"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt1(
     final integerTrue=2,
-    final integerFalse=0)
-    "Boolean to real"
+    final integerFalse=0) "Boolean to integer"
     annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
   Buildings.Controls.OBC.CDL.Integers.Add addInt
     "Calculator of chiller stage index. 0: off; 1: one chiller enabled; 2: two chillers enabled"
