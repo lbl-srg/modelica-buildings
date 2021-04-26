@@ -98,7 +98,7 @@ model EnergyMassFlowInterface
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={24,50})));
+        origin={20,50})));
   Buildings.Controls.OBC.CDL.Continuous.Gain gai(
     final k=1/m_flow_nominal)
     "Normalize mass flow rate"
@@ -133,9 +133,9 @@ equation
   connect(eneMasFlo.Q_flow_actual, hea.u) annotation (Line(points={{-28,80},{52,
           80},{52,6},{58,6}}, color={0,0,127}));
   connect(eneMasFlo.Q_flow_residual, heaFlo.Q_flow)
-    annotation (Line(points={{-28,74},{24,74},{24,60}}, color={0,0,127}));
+    annotation (Line(points={{-28,74},{20,74},{20,60}}, color={0,0,127}));
   connect(heaFlo.port, del.heatPort)
-    annotation (Line(points={{24,40},{24,10},{30,10}}, color={191,0,0}));
+    annotation (Line(points={{20,40},{20,10},{30,10}}, color={191,0,0}));
   connect(senTSup.T, eneMasFlo.TSup_actual)
     annotation (Line(points={{-80,11},{-80,76},{-52,76}}, color={0,0,127}));
   connect(ena, eneMasFlo.uEna) annotation (Line(points={{-120,90},{-94,90},{-94,
@@ -171,5 +171,15 @@ equation
         extent={{-100,-100},{100,100}},
         lineColor={0,0,127},
         fillColor={255,255,255},
-        fillPattern=FillPattern.Solid)}));
+        fillPattern=FillPattern.Solid)}),
+    Documentation(info="<html>
+<p>
+TODO:
+Criteria for unmet load:
+moving average of Q_flow difference AND
+supply temperature mismatch (because a permanent temperature mismatch
+only leads to a transient mismatch in Q_flow, so the user
+can have bad insight on degraded operating conditions.)
+</p>
+</html>"));
 end EnergyMassFlowInterface;

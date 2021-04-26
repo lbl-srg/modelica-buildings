@@ -97,35 +97,41 @@ protected
   Modelica.SIunits.MassFlowRate m_flow_internal
     "Mass flow rate for internal use when mPre_flow is removed";
 
-  function characteristics "m_flow -> Q_flow characteristics"
-    /* FE: implement exponential characteristics based on OS load data for
+  function characteristic "m_flow -> Q_flow characteristic"
+    /* FE: implement exponential characteristic based on OS load data for
     the case where have_masFlo is false.
     */
     extends Modelica.Icons.Function;
     input Real rat_m_flow
       "Fraction mass flow rate";
     input Boolean have_masFlo = false;
-    input Real k = 2.5 "Shape factor of typical characteristics";
+    input Real k = 2.5 "Shape factor of typical characteristic";
     output Real rat_Q_flow
       "Fraction heat flow rate";
   algorithm
     rat_Q_flow := (1 - exp(-k * rat_m_flow)) / (1 - exp(-k));
-  end characteristics;
+    annotation (
+      inverse(
+        rat_m_flow=inverseCharacteristic(rat_Q_flow=rat_Q_flow, have_masFlo=have_masFlo, k=k)));
+  end characteristic;
 
-  function inverseCharacteristics "Inverse of m_flow -> Q_flow characteristics"
-    /* FE: implement exponential characteristics based on OS load data for
+  function inverseCharacteristic "Inverse of m_flow -> Q_flow characteristic"
+    /* FE: implement exponential characteristic based on OS load data for
     the case where have_masFlo is false.
     */
     extends Modelica.Icons.Function;
     input Real rat_Q_flow
       "Fraction heat flow rate";
     input Boolean have_masFlo = false;
-    input Real k = 2.5 "Shape factor of typical characteristics";
+    input Real k = 2.5 "Shape factor of typical characteristic";
     output Real rat_m_flow
       "Fraction mass flow rate";
   algorithm
     rat_m_flow := log(rat_Q_flow * (exp(-k) -1) + 1) / (-k);
-  end inverseCharacteristics;
+    annotation (
+      inverse(
+        rat_Q_flow=characteristic(rat_m_flow=rat_m_flow, have_masFlo=have_masFlo, k=k)));
+  end inverseCharacteristic;
 
 equation
   if have_masFlo then
@@ -146,14 +152,14 @@ equation
     if have_masFlo then
       min(1,
         m_flow_internal / m_flow_nominal *
-        inverseCharacteristics(rat_Q_flow_tem_bou) *
+        inverseCharacteristic(rat_Q_flow_tem_bou) *
         Utilities.Math.Functions.inverseXRegularized(
-          inverseCharacteristics(QPre_flow / Q_flow_nominal),
+          inverseCharacteristic(QPre_flow / Q_flow_nominal),
           kReg))
     elseif not have_varFlo then
       1
     else
-      inverseCharacteristics(rat_Q_flow_tem_bou);
+      inverseCharacteristic(rat_Q_flow_tem_bou);
   filter.u = rat_m_flow_cor;
   m_flow = if have_masFlo then filter.y else
     Utilities.Math.Functions.smoothLimit(
@@ -163,9 +169,9 @@ equation
       deltaX=kReg) * m_flow_nominal;
   // Correction for mass flow rate shortage.
   rat_Q_flow_mas = if have_pum then 1 else
-    characteristics(m_flow_actual / m_flow_nominal, have_masFlo) *
+    characteristic(m_flow_actual / m_flow_nominal, have_masFlo) *
       Utilities.Math.Functions.inverseXRegularized(
-        characteristics(filter.y, have_masFlo),
+        characteristic(filter.y, have_masFlo),
         kReg);
   Q_flow_actual = -QPre_flow * Utilities.Math.Functions.smoothLimit(
     rat_Q_flow_mas + rat_Q_flow_tem_bou - rat_Q_flow_tem,
@@ -181,17 +187,45 @@ equation
       Documentation(info="<html>
 <p>
 TODO:
-Criteria for unmet load:
-moving average of Q_flow difference AND
-supply temperature mismatch (because a permanent temperature mismatch
-only leads to a transient mismatch in Q_flow, so the user
-can have bad insight on degraded operating conditions.)
-
 Document enable signal for zero flow rate at zero load: is it really needed?
 </p>
 <p>
-This block approximates the relationship between a cumulated load
-on a hydronic distribution system and the mass flow rate.
+This block computes the mass flow rate and heat flow rate variables 
+that enable coupling steady-state thermal loads provided as 
+time series to a dynamic one-dimensional thermo-fluid flow model,
+typically representing the in-building chilled water or hot water
+distribution system.
+</p>
+<ul>
+<li>
+It approximates the limit of the system capacity considering the actual
+supply temperature and mass flow rate values. 
+The part of the load that can be met under the actual operating conditions
+is <code>Q_flow_actual</code>. 
+The part of the load that cannot be met under the actual operating conditions
+is <code>Q_flow_residual</code>. 
+</li>
+</li>
+<li>
+It approximates the relationship between the cumulated load on the hydronic 
+distribution system and the chilled or hot water mass flow rate.
+</li>
+</ul>
+<h4>Implementation</h4>
+<p>
+To compute the relationships between the
+heat flow rate and the supply temperature and mass flow rate,
+the whole distribution system and the terminal units it serves are considered
+as a heat exchanger between the heating or cooling medium and the load.
+Under that assumption, the total heat flow rate <i>Q&#775;</i> transferred to 
+the load may be written as a function of the heat exchanger effectiveness, 
+which does not depend on the supply temperature.
+</p>
+<p>
+<i>Q&#775; = ε * CMin * (TSup - TLoa),</i>
+</p>
+<p>
+where...
 </p>
 <ul>
 <li>
