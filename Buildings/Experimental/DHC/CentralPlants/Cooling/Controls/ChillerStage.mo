@@ -26,47 +26,52 @@ model ChillerStage
   Modelica.StateGraph.InitialStep off(
     nIn=1)
     "No cooling is demanded"
-    annotation (Placement(transformation(extent={{-10,10},{10,-10}},rotation=-90,origin={-50,70})));
+    annotation (Placement(transformation(extent={{-10,10},{10,-10}},rotation=-90,
+      origin={-50,70})));
   Modelica.StateGraph.StepWithSignal oneOn(
     nOut=2,
     nIn=2)
     "Status of one chiller on"
-    annotation (Placement(transformation(extent={{10,-10},{-10,10}},rotation=90,origin={-50,0})));
+    annotation (Placement(transformation(extent={{10,-10},{-10,10}},rotation=90,
+      origin={-50,0})));
   Modelica.StateGraph.StepWithSignal twoOn
     "Status of two chillers on"
-    annotation (Placement(transformation(extent={{10,-10},{-10,10}},rotation=90,origin={-50,-70})));
+    annotation (Placement(transformation(extent={{10,-10},{-10,10}},rotation=90,
+      origin={-50,-70})));
   Modelica.StateGraph.TransitionWithSignal offToOne(
     enableTimer=true,
     waitTime=tWai)
     "Condition of transition from off to one chiller on"
-    annotation (Placement(transformation(extent={{10,10},{-10,-10}},rotation=90,origin={-50,40})));
+    annotation (Placement(transformation(extent={{10,10},{-10,-10}},rotation=90,
+      origin={-50,40})));
   Modelica.StateGraph.TransitionWithSignal oneToTwo(
     enableTimer=true,
     waitTime=tWai)
     "Condition of transition from one chiller to two chillers"
-    annotation (Placement(transformation(extent={{10,10},{-10,-10}},rotation=90,origin={-50,-40})));
+    annotation (Placement(transformation(extent={{10,10},{-10,-10}},rotation=90,
+      origin={-50,-40})));
   Modelica.StateGraph.TransitionWithSignal twoToOne(
     enableTimer=true,
     waitTime=tWai)
     "Condition of transion from two chillers to one chiller"
-    annotation (Placement(transformation(extent={{-10,10},{10,-10}},rotation=90,origin={0,-40})));
+    annotation (Placement(transformation(extent={{-10,10},{10,-10}},rotation=90,
+      origin={0,-40})));
   Modelica.StateGraph.TransitionWithSignal oneToOff(
     enableTimer=true,
     waitTime=tWai)
     "Condition of transition from one chiller to off"
-    annotation (Placement(transformation(extent={{-10,10},{10,-10}},rotation=90,origin={-20,40})));
+    annotation (Placement(transformation(extent={{-10,10},{10,-10}},rotation=90,
+      origin={-20,40})));
   inner Modelica.StateGraph.StateGraphRoot stateGraphRoot
     "State graph root"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt(
     final integerTrue=1,
-    final integerFalse=0)
-    "Boolean to integer"
+    final integerFalse=0) "Boolean to integer"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt1(
     final integerTrue=2,
-    final integerFalse=0)
-    "Boolean to integer"
+    final integerFalse=0) "Boolean to integer"
     annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
   Buildings.Controls.OBC.CDL.Integers.Add addInt
     "Calculator of chiller stage index. 0: off; 1: one chiller enabled; 2: two chillers enabled"
@@ -89,6 +94,7 @@ model ChillerStage
   Buildings.Controls.OBC.CDL.Logical.Not notOn
     "Not on"
     annotation (Placement(transformation(extent={{-90,10},{-70,30}})));
+
 equation
   connect(off.outPort[1],offToOne.inPort)
     annotation (Line(points={{-50,59.5},{-50,44}},color={0,0,0}));
@@ -164,12 +170,12 @@ First implementation.
 <p>This model implements staging control logic of two chillers according to the measured total cooling load. The control logic is as follows:</p>
 <ul>
 <li>When the plant enabling signal <code>on</code> changes from <code>false</code> to <code>true</code>, one chiller is enabled.</li>
-<li>When the total cooling load <code>QLoa</code> exceeds 80 percent (adjustable) of one chiller&apos;s nominal capacity <code>QEva_nominal</code>, a second chiller is enabled.</li>
-<li>When the total cooling load <code>QLoa</code> drops below 60 percent (adjustable) of one chiller&apos;s nominal capacity <code>QEva_nominal </code>(i.e., 30 percent each chiller), the second chiller is disabled. </li>
+<li>When the total cooling load <code>QLoa</code> exceeds 80 percent (adjustable) of one chiller&apos;s nominal capacity <code>QChi_nominal</code>, a second chiller is enabled.</li>
+<li>When the total cooling load <code>QLoa</code> drops below 60 percent (adjustable) of one chiller&apos;s nominal capacity <code>QChi_nominal </code>(i.e., 30 percent each chiller), the second chiller is disabled. </li>
 <li>When the plant enabling signal <code>on</code> changes from <code>true</code> to <code>false</code>, the operating chiller is disabled.</li>
 <li>Parameter <code>tWai</code> assures a transitional time is kept between each operation.</li>
 </ul>
-<p><br>It is assumed that both chillers have the same capacity of <code>QEva_nominal</code>.</p>
+<p><br>It is assumed that both chillers have the same capacity of <code>QChi_nominal</code>.</p>
 <p>Note: This model can be used for plants with two chillers with or without waterside econimizer (WSE). For plants with WSE, extra control logic on top of this model needs to be added.</p>
 </html>"));
 end ChillerStage;
