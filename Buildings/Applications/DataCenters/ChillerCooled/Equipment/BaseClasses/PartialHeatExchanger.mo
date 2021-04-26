@@ -64,7 +64,7 @@ partial model PartialHeatExchanger "Partial model for heat exchangers "
     final R=R,
     final delta0=delta0,
     final fraK=fraK_ThrWayVal,
-    final dpFixed_nominal={dp2_nominal,0},
+    final dpFixed_nominal={if activate_ThrWayVal then dp2_nominal else 0, 0},
     final energyDynamics=energyDynamics,
     final massDynamics=massDynamics,
     final p_start=p_start,
@@ -104,7 +104,7 @@ partial model PartialHeatExchanger "Partial model for heat exchangers "
     final deltaM2=deltaM2,
     final eps=eta,
     final homotopyInitialization=homotopyInitialization,
-    final dp2_nominal=0)
+    final dp2_nominal=if activate_ThrWayVal then 0 else dp2_nominal)
     "Heat exchanger"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 

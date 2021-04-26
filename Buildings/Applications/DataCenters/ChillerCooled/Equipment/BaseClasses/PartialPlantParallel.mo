@@ -18,10 +18,6 @@ partial model PartialPlantParallel
   parameter Real l[2](each min=1e-10, each max=1) = {0.0001,0.0001}
     "Valve leakage, l=Kv(y=0)/Kv(y=1)"
     annotation(Dialog(group="Two-way valve"));
-  parameter Real kFixed[2](each unit="", each min=0)=
-    {m1_flow_nominal,m2_flow_nominal} ./ sqrt({dp1_nominal,  dp2_nominal})
-    "Flow coefficient of fixed resistance that may be in series with valve 1, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)."
-   annotation(Dialog(group="Two-way valve"));
 
   Buildings.Fluid.Actuators.Valves.TwoWayLinear val2[num](
     redeclare each replaceable package Medium = Medium2,
@@ -35,7 +31,7 @@ partial model PartialPlantParallel
     each final use_inputFilter=false,
     each final deltaM=deltaM2,
     each final l=l[2],
-    each final kFixed=kFixed[2],
+    each final kFixed=m2_flow_nominal/sqrt(dp2_nominal),
     final y_start=yValve_start,
     each final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
     each final from_dp=from_dp2,
@@ -53,6 +49,7 @@ partial model PartialPlantParallel
     each final m_flow_nominal=m1_flow_nominal,
     each dpFixed_nominal=dp1_nominal,
     each final show_T=show_T,
+    each final kFixed=m1_flow_nominal/sqrt(dp1_nominal),
     each final homotopyInitialization=homotopyInitialization,
     each final use_inputFilter=false,
     each final riseTime=riseTimeValve,
@@ -60,7 +57,6 @@ partial model PartialPlantParallel
     final y_start=yValve_start,
     each final deltaM=deltaM1,
     each final l=l[1],
-    each final kFixed=kFixed[1],
     each final dpValve_nominal=dpValve_nominal[1],
     each final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
     each final from_dp=from_dp1,
