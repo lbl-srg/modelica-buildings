@@ -64,7 +64,7 @@ partial model PartialHeatExchanger "Partial model for heat exchangers "
     final R=R,
     final delta0=delta0,
     final fraK=fraK_ThrWayVal,
-    final dpFixed_nominal={if activate_ThrWayVal then dp2_nominal else 0, 0},
+    final dpFixed_nominal={dp2_nominal,0},
     final energyDynamics=energyDynamics,
     final massDynamics=massDynamics,
     final p_start=p_start,
