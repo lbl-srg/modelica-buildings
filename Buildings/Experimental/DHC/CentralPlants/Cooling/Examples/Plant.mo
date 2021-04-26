@@ -1,6 +1,5 @@
 within Buildings.Experimental.DHC.CentralPlants.Cooling.Examples;
-model Plant
-  "Example to test the chiller cooling plant"
+model Plant "Example to test the chiller cooling plant"
   extends Modelica.Icons.Example;
   package Medium=Buildings.Media.Water
     "Medium model for water";
@@ -69,61 +68,59 @@ model Plant
     filNam=Modelica.Utilities.Files.loadResource(
       "modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos"))
     "Weather data"
-    annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
-  Buildings.BoundaryConditions.WeatherData.Bus weaBus
-    "Weather data bus"
-    annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
+    annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
   Modelica.Blocks.Sources.BooleanConstant on
     "On signal of the plant"
-    annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
+    annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
   Modelica.Blocks.Sources.Ramp dpMea(
     offset=0.5*dpSetPoi,
     height=0.4*dpSetPoi,
     startTime=21600,
     duration=21600)
     "Measured pressure difference"
-    annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
+    annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
   Modelica.Blocks.Sources.Constant TCHWSupSet(
     k=TCHWSet)
     "Chilled water supply temperature setpoint"
-    annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
-  Fluid.MixingVolumes.MixingVolume vol(
+    annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
+  Fluid.MixingVolumes.MixingVolume           vol(
     nPorts=2,
-    redeclare package Medium=Medium,
+    redeclare package Medium = Medium,
     m_flow_nominal=pla.numChi*mCHW_flow_nominal,
     V=0.5,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     annotation (Placement(transformation(extent={{40,20},{60,40}})));
-  Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow fixHeaFlo(
-    Q_flow=pla.numChi*mCHW_flow_nominal*4200*10,
-    T_ref=293.15)
+  Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow fixHeaFlo(Q_flow=pla.numChi
+        *mCHW_flow_nominal*4200*10, T_ref=293.15)
     "Fixed heat flow rate"
-    annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
+    annotation (Placement(transformation(extent={{0,40},{20,60}})));
   Fluid.FixedResistances.PressureDrop res(
-    redeclare package Medium=Medium,
+    redeclare package Medium = Medium,
     m_flow_nominal=pla.numChi*mCHW_flow_nominal,
-    dp_nominal=6000)
-    "Flow resistance"
+    dp_nominal=6000) "Flow resistance"
     annotation (Placement(transformation(extent={{60,-20},{40,0}})));
 equation
-  connect(weaDat.weaBus,weaBus)
-    annotation (Line(points={{-60,-50},{-50,-50}},color={255,204,51},thickness=0.5));
   connect(dpMea.y,pla.dpMea)
-    annotation (Line(points={{-39,-10},{-32,-10},{-32,13.2667},{-10.6667,13.2667}},color={0,0,127}));
-  connect(on.y,pla.on)
-    annotation (Line(points={{-39,70},{-30,70},{-30,17.4},{-10.7333,17.4}},color={255,0,255}));
+    annotation (Line(points={{-39,-50},{-20,-50},{-20,13.2667},{-10.6667,
+          13.2667}},                                              color={0,0,127}));
   connect(TCHWSupSet.y,pla.TCHWSupSet)
-    annotation (Line(points={{-39,40},{-32,40},{-32,15.2667},{-10.6667,15.2667}},color={0,0,127}));
-  connect(weaBus,pla.weaBus)
-    annotation (Line(points={{-50,-50},{-20,-50},{-20,24},{0.0333333,24},{0.0333333,18.8667}},color={255,204,51},thickness=0.5),Text(string="%first",index=-1,extent={{-3,6},{-3,6}},horizontalAlignment=TextAlignment.Right));
+    annotation (Line(points={{-39,-10},{-32,-10},{-32,15.2667},{-10.6667,
+          15.2667}},                                              color={0,0,127}));
+
   connect(fixHeaFlo.port,vol.heatPort)
-    annotation (Line(points={{20,-30},{26,-30},{26,30},{40,30}},color={191,0,0}));
-  connect(pla.port_bSerCoo,vol.ports[1])
-    annotation (Line(points={{10,8.66667},{20,8.66667},{20,20},{48,20}},color={0,127,255}));
-  connect(vol.ports[2],res.port_a)
-    annotation (Line(points={{52,20},{70,20},{70,-10},{60,-10}},color={0,127,255}));
-  connect(res.port_b,pla.port_aSerCoo)
-    annotation (Line(points={{40,-10},{-14,-10},{-14,8.66667},{-10,8.66667}},color={0,127,255}));
+    annotation (Line(points={{20,50},{26,50},{26,30},{40,30}},   color={191,0,0}));
+  connect(pla.port_bSerCoo, vol.ports[1]) annotation (Line(points={{10,8.66667},
+          {20,8.66667},{20,20},{48,20}},    color={0,127,255}));
+  connect(vol.ports[2], res.port_a) annotation (Line(points={{52,20},{70,20},{
+          70,-10},{60,-10}}, color={0,127,255}));
+  connect(res.port_b, pla.port_aSerCoo) annotation (Line(points={{40,-10},{-14,
+          -10},{-14,8.66667},{-10,8.66667}}, color={0,127,255}));
+  connect(on.y, pla.on) annotation (Line(points={{-39,30},{-32,30},{-32,17.4},{
+          -10.7333,17.4}}, color={255,0,255}));
+  connect(weaDat.weaBus, pla.weaBus) annotation (Line(
+      points={{-40,70},{-20,70},{-20,24},{0.0333333,24},{0.0333333,18.8667}},
+      color={255,204,51},
+      thickness=0.5));
   annotation (
     Icon(
       coordinateSystem(
@@ -149,6 +146,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    __Dymola_Commands(
-      file="Resources/Scripts/Dymola/Experimental/DHC/CentralPlants/Cooling/Examples/Plant.mos" "Simulate and Plot"));
+    __Dymola_Commands(file=
+          "Resources/Scripts/Dymola/Experimental/DHC/CentralPlants/Cooling/Examples/Plant.mos"
+        "Simulate and Plot"));
 end Plant;
