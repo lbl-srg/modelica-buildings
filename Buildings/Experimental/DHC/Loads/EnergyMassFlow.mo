@@ -5,6 +5,9 @@ block EnergyMassFlow
   parameter Boolean have_masFlo = false
     "Set to true in case of prescribed mass flow rate"
     annotation(Evaluate=true);
+  parameter Boolean have_varFlo = true
+    "Set to true in case of variable flow system"
+    annotation(Evaluate=true, Dialog(enable=not have_masFlo));
   parameter Boolean have_pum
     "Set to true if the system has a pump"
     annotation(Evaluate=true);
@@ -81,11 +84,15 @@ block EnergyMassFlow
     "First-order filter";
 
 protected
-  Real rat_m_flow_cor
+  parameter Real kReg(final unit="1") = 1E-4
+    "Regularization parameter";
+  Real rat_m_flow_cor(final unit="1")
     "Mass flow rate ratio corrected for supply temperature mismatch";
-  Real rat_Q_flow_tem
-    "Heat flow rate correction factor for supply temperature mismatch";
-  Real rat_Q_flow_mas
+  Real rat_Q_flow_tem(final unit="1")
+    "Heat flow rate to transfer at supply temperature set point";
+  Real rat_Q_flow_tem_bou(final unit="1")
+    "Heat flow rate to transfer at supply temperature set point (bounded)";
+  Real rat_Q_flow_mas(final unit="1")
     "Heat flow rate correction factor for mass flow rate mismatch";
   Modelica.SIunits.MassFlowRate m_flow_internal
     "Mass flow rate for internal use when mPre_flow is removed";
@@ -127,34 +134,44 @@ equation
     m_flow_internal = m_flow_nominal;
   end if;
   // Correction for supply temperature mismatch.
-  rat_Q_flow_tem = abs((TSupSet - TLoa_nominal) *
+  rat_Q_flow_tem = QPre_flow / Q_flow_nominal *
+    (TSupSet - TLoa_nominal) / TLoa_nominal *
     Utilities.Math.Functions.inverseXRegularized(
-      TSup_actual - TLoa_nominal,
-      0.1));
-  // FIX case have_masFlo with ratio of inverseCharacteristics
+      (TSup_actual - TLoa_nominal) / TLoa_nominal,
+      kReg);
+  rat_Q_flow_tem_bou = max(0, min(rat_Q_flow_tem, 1));
+
+  // TODO: constant flow
   rat_m_flow_cor =
     if have_masFlo then
-      m_flow_internal / m_flow_nominal
+      min(1,
+        m_flow_internal / m_flow_nominal *
+        inverseCharacteristics(rat_Q_flow_tem_bou) *
+        Utilities.Math.Functions.inverseXRegularized(
+          inverseCharacteristics(QPre_flow / Q_flow_nominal),
+          kReg))
+    elseif not have_varFlo then
+      1
     else
-      inverseCharacteristics(QPre_flow / Q_flow_nominal * rat_Q_flow_tem);
+      inverseCharacteristics(rat_Q_flow_tem_bou);
   filter.u = rat_m_flow_cor;
   m_flow = if have_masFlo then filter.y else
     Utilities.Math.Functions.smoothLimit(
       x=filter.y,
       l=if uEna then fra_m_flow_min else 0,
       u=1,
-      deltaX=1E-4) * m_flow_nominal;
+      deltaX=kReg) * m_flow_nominal;
   // Correction for mass flow rate shortage.
   rat_Q_flow_mas = if have_pum then 1 else
-    Utilities.Math.Functions.smoothLimit(
-      x = characteristics(m_flow_actual / m_flow_nominal, have_masFlo) *
-        Utilities.Math.Functions.inverseXRegularized(
-          characteristics(filter.y / m_flow_nominal, have_masFlo),
-          1E-4),
-      l=0,
-      u=1,
-      deltaX=1E-4);
-  Q_flow_actual = -QPre_flow * rat_Q_flow_mas;
+    characteristics(m_flow_actual / m_flow_nominal, have_masFlo) *
+      Utilities.Math.Functions.inverseXRegularized(
+        characteristics(filter.y, have_masFlo),
+        kReg);
+  Q_flow_actual = -QPre_flow * Utilities.Math.Functions.smoothLimit(
+    rat_Q_flow_mas + rat_Q_flow_tem_bou - rat_Q_flow_tem,
+    l=0,
+    u=1,
+    deltaX=kReg);
   Q_flow_residual = -QPre_flow - Q_flow_actual;
 
   annotation (
