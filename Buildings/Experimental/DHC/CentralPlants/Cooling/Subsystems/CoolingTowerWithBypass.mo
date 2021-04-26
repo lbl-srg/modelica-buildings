@@ -174,7 +174,6 @@ model CoolingTowerWithBypass
     k=1)
     "Add approach temperature on top of wetbulb temperature"
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
-
 equation
   connect(cooTowSys.TWetBul,TWetBul)
     annotation (Line(points={{-12,-6},{-40,-6},{-40,-20},{-120,-20}},color={0,0,127}));

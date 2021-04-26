@@ -18,7 +18,6 @@ model ChillerStage
     offset=0.5*chiStaCon.QChi_nominal)
     "Total cooling load"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
-
 equation
   connect(on.y,chiStaCon.on)
     annotation (Line(points={{-39,30},{-28,30},{-28,4},{-12,4}},color={255,0,255}));

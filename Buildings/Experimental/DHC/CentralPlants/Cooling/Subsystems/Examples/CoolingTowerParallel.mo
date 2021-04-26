@@ -29,7 +29,8 @@ model CoolingTowerParallel
     reference(
       unit="K",
       displayUnit="degC"),
-    u(unit="K",
+    u(
+      unit="K",
       displayUnit="degC"))
     "On/off controller"
     annotation (Placement(transformation(extent={{-10,-90},{10,-70}})));
@@ -99,7 +100,6 @@ model CoolingTowerParallel
     nominalValuesDefineDefaultPressureCurve=true)
     "Pump for chilled water loop"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
-
 equation
   connect(onOffCon.y,swi.u2)
     annotation (Line(points={{11,-80},{28,-80}},color={255,0,255}));

@@ -23,7 +23,6 @@ model ChilledWaterPumpSpeed
     startTime=150)
     "Total chilled water mass flow rate"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
-
 equation
   connect(dpMea.y,chiWatPumSpe.dpMea)
     annotation (Line(points={{-39,-30},{-30,-30},{-30,-4},{-12,-4}},color={0,0,127}));

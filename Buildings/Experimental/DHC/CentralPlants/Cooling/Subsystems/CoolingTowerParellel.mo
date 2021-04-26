@@ -93,8 +93,7 @@ model CoolingTowerParellel
     each final TWatIn_nominal=TWatIn_nominal,
     each final TWatOut_nominal=TWatIn_nominal-dT_nominal,
     each final PFan_nominal=PFan_nominal)
-    constrainedby
-    Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.CoolingTower(
+    constrainedby Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.CoolingTower(
       redeclare each final package Medium=Medium,
       each show_T=show_T,
       each final m_flow_nominal=m_flow_nominal,
@@ -111,7 +110,6 @@ model CoolingTowerParellel
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea[num]
     "Boolean signal to real signal"
     annotation (Placement(transformation(extent={{-90,50},{-70,70}})));
-
 equation
   for i in 1:num loop
     connect(port_a,val[i].port_a)

@@ -84,7 +84,6 @@ model ChilledWaterPumpSpeed
     final k=1)
     "Scaled differential pressure setpoint"
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
-
 equation
   connect(pumStaCon.masFloPum,masFloPum)
     annotation (Line(points={{-12,8},{-20,8},{-20,40},{-120,40}},color={0,0,127}));
