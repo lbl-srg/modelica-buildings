@@ -476,8 +476,9 @@ inclduing chillers and integrated/non-integrated water-side economizers.
 revisions="<html>
 <ul>
 <li>
-April 9, 2021, by Kathryn Hinkelman:<br/>
-Changed <code>kFixedValWSE[2]</code> to nonzero value with reorganized pressure drops and added junctions.
+April 26, 2021, by Kathryn Hinkelman:<br/>
+Removed <code>kFixed</code> redundancies. See
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1472\">IBPSA, #1472</a>.
 </li>
 <li>
 April 14, 2020, by Michael Wetter:<br/>
