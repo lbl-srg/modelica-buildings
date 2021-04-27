@@ -172,6 +172,11 @@ the thermal behaviour of the circulating fluid in each case.
 revisions="<html>
 <ul>
 <li>
+April 8, 2021, by Michael Wetter:<br/>
+Added missing <code>parameter</code> keyword.<br/>
+For <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1464\">IBPSA, issue 1464</a>.
+</li>
+<li>
 June 2018, by Damien Picard:<br/>
 First implementation.
 </li>
