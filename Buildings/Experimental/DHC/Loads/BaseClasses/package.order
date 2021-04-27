@@ -1,4 +1,6 @@
 ConstraintViolation
+EnergyMassFlow
+EnergyMassFlowInterface
 PartialBuilding
 PartialBuildingWithPartialETS
 PartialTerminalUnit

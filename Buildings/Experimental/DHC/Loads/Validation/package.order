@@ -1,6 +1,5 @@
 BenchmarkFlowDistribution1
 BenchmarkFlowDistribution2
-EnergyMassFlowInterface
 FlowDistributionPumpControl
 SimpleRoomODE
 TerminalUnitScaling
