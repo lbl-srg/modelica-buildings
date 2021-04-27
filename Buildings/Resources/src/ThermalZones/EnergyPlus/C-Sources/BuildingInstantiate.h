@@ -22,9 +22,17 @@
 #include "fmilib.h"
 #include "JM/jm_portability.h"
 
-void buildJSONKeyValue(
+void buildJSONKeyLiteralValue(
     char* *buffer, size_t level, const char* key, const char* value, bool addComma, size_t* size,
     void (*SpawnFormatError)(const char *string, ...));
+
+void buildJSONKeyStringValue(
+    char* *buffer, size_t level, const char* key, const char* value, bool addComma, size_t* size,
+    void (*SpawnFormatError)(const char *string, ...));
+
+void buildJSONKeyDoubleValue(
+  char* *buffer, size_t level, const char* key, double value, bool addComma, size_t* size,
+  void (*SpawnFormatError)(const char *string, ...));
 
 void generateAndInstantiateBuilding(FMUBuilding* bui);
 
