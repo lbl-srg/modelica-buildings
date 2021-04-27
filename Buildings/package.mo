@@ -666,6 +666,14 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.ASHRAE.G36_PR1</b>
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.Economizers.Subsequences.Modulation
+    </td>
+    <td valign=\"top\">Removed parameter <code>samplePeriod</code> and removed delay on actuator signal
+                       to avoid a large delay in this feedback loop.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2454\">issue 2454</a>.
+    </td>
+</tr>
 <tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.Controller
     </td>
     <td valign=\"top\">Updated the block of specifying operating mode and setpoints.<br/>
@@ -828,6 +836,17 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Examples.VAVReheat</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Examples.VAVReheat.ASHRAE2006<br/>
+                     Buildings.Examples.VAVReheat.Guideline36<br/>
+                     Buildings.Examples.VAVReheat.BaseClasses.PartialOpenLoop
+    </td>
+    <td valign=\"top\">Refactored model to implement the economizer dampers directly in
+    <code>Buildings.Examples.VAVReheat.BaseClasses.PartialOpenLoop</code> rather than through the
+    model of a mixing box. Since the version of the Guideline 36 model has no exhaust air damper,
+    this leads to simpler equations.
+    <br/> This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2454\">issue #2454</a>.
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Examples.VAVReheat.BaseClasses.VAVBranch
