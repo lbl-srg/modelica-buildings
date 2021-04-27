@@ -160,7 +160,7 @@ model BuildingTimeSeries
     typTimSer == Types.TimeSeriesType.LoadFlowTemperature
     "y[1] cooling load, y[2] heating load, y[3] SHW load, y[4] CHW flow rate, y[5] HHW flow rate, y[6] CHWST, y[7] HHWST"
     annotation (Placement(transformation(extent={{-280,50},{-260,70}})));
-  EnergyMassFlowInterface eneMasFloHea(
+  DHC.Loads.BaseClasses.EnergyMassFlowInterface eneMasFloHea(
     redeclare final package Medium=Medium,
     final have_masFlo=typTimSer==Types.TimeSeriesType.LoadFlow or
       typTimSer==Types.TimeSeriesType.LoadFlowTemperature,
@@ -172,7 +172,7 @@ model BuildingTimeSeries
     "Hot water energy and mass flow rate"
     annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));
 
-  EnergyMassFlowInterface eneMasFloCoo(
+  DHC.Loads.BaseClasses.EnergyMassFlowInterface eneMasFloCoo(
     redeclare final package Medium=Medium,
     final have_masFlo=typTimSer==Types.TimeSeriesType.LoadFlow or
       typTimSer==Types.TimeSeriesType.LoadFlowTemperature,
