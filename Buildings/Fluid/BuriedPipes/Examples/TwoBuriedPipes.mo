@@ -35,34 +35,34 @@ model TwoBuriedPipes "Example model of two buried pipes in close proximity"
     T_start_in=TChW,
     T_start_out=TChW,
     nPorts=1) "Buried chilled water pipe"
-    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
+    annotation (Placement(transformation(extent={{0,10},{20,30}})));
   Modelica.Blocks.Sources.Sine TinChW(
     amplitude=2,
     freqHz=1/180/24/60/60,
     offset=TChW) "Chilled water pipe inlet temperature signal"
-    annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
+    annotation (Placement(transformation(extent={{-100,10},{-80,30}})));
   Sources.MassFlowSource_T souChW(
     nPorts=1,
     redeclare package Medium = Medium,
     use_T_in=true,
     m_flow=3) "Chilled water flow source"
-    annotation (Placement(transformation(extent={{-66,-10},{-46,10}})));
+    annotation (Placement(transformation(extent={{-66,10},{-46,30}})));
   Sensors.TemperatureTwoPort senTemChWIn(
     redeclare package Medium = Medium,
     m_flow_nominal=1,
     T_start=TChW) "Chilled water pipe inlet temperature sensor"
-    annotation (Placement(transformation(extent={{-36,-10},{-16,10}})));
+    annotation (Placement(transformation(extent={{-30,10},{-10,30}})));
   Sources.Boundary_pT sinChW(
     redeclare package Medium = Medium,
     T=TChW,
     nPorts=1,
     p(displayUnit="Pa") = 101325) "Chilled water pressure boundary condition"
-    annotation (Placement(transformation(extent={{100,-10},{80,10}})));
+    annotation (Placement(transformation(extent={{100,10},{80,30}})));
   Sensors.TemperatureTwoPort senTemChWOut(
     redeclare package Medium = Medium,
     m_flow_nominal=1,
     T_start=TChW) "Chilled water pipe outlet temperature sensor"
-    annotation (Placement(transformation(extent={{46,-10},{66,10}})));
+    annotation (Placement(transformation(extent={{50,10},{70,30}})));
 
   FixedResistances.PlugFlowPipe pipHotW(
     redeclare package Medium = Medium,
@@ -76,65 +76,72 @@ model TwoBuriedPipes "Example model of two buried pipes in close proximity"
     thickness=0.0032,
     T_start_in=THotW,
     T_start_out=THotW,
-    nPorts=1) annotation (Placement(transformation(extent={{0,-70},{20,-50}})));
+    nPorts=1) annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
   Modelica.Blocks.Sources.Sine TinHotW(
     amplitude=5,
     freqHz=1/90/24/60/60,
     phase=3.1415926535898,
     offset=THotW) "Hot water pipe inlet temperature signal"
-    annotation (Placement(transformation(extent={{-100,-70},{-80,-50}})));
+    annotation (Placement(transformation(extent={{-100,-50},{-80,-30}})));
   Sources.MassFlowSource_T souHotW(
     redeclare package Medium = Medium,
     use_T_in=true,
     m_flow=3,
     nPorts=1) "Hot water flow source"
-    annotation (Placement(transformation(extent={{-66,-70},{-46,-50}})));
+    annotation (Placement(transformation(extent={{-66,-50},{-46,-30}})));
   Sensors.TemperatureTwoPort senTemHotWIn(
     redeclare package Medium = Medium,
     m_flow_nominal=1,
     T_start=THotW) "Hot water pipe inlet temperature sensor"
-    annotation (Placement(transformation(extent={{-36,-70},{-16,-50}})));
+    annotation (Placement(transformation(extent={{-30,-50},{-10,-30}})));
   Sources.Boundary_pT sinHotW(
     redeclare package Medium = Medium,
     T=THotW,
     p(displayUnit="Pa") = 101325,
     nPorts=1)                     "Pressure boundary condition"
-    annotation (Placement(transformation(extent={{100,-70},{80,-50}})));
+    annotation (Placement(transformation(extent={{100,-50},{80,-30}})));
   Sensors.TemperatureTwoPort senTemHotWOut(
     redeclare package Medium = Medium,
     m_flow_nominal=1,
     T_start=THotW) "Hot water pipe outlet temperature sensor"
-    annotation (Placement(transformation(extent={{46,-70},{66,-50}})));
+    annotation (Placement(transformation(extent={{50,-50},{70,-30}})));
 
 protected
   parameter Modelica.SIunits.Temperature TChW = 273.15 + 10;
   parameter Modelica.SIunits.Temperature THotW = 273.15 + 80;
 
 equation
-  connect(TinChW.y, souChW.T_in) annotation (Line(points={{-79,0},{-72,0},{-72,4},
-          {-68,4}}, color={0,0,127}));
+  connect(TinChW.y, souChW.T_in) annotation (Line(points={{-79,20},{-72,20},{
+          -72,24},{-68,24}},
+                    color={0,0,127}));
   connect(souChW.ports[1], senTemChWIn.port_a)
-    annotation (Line(points={{-46,0},{-36,0}}, color={0,127,255}));
+    annotation (Line(points={{-46,20},{-30,20}},
+                                               color={0,127,255}));
   connect(senTemChWOut.port_b, sinChW.ports[1])
-    annotation (Line(points={{66,0},{80,0}}, color={0,127,255}));
+    annotation (Line(points={{70,20},{80,20}},
+                                             color={0,127,255}));
   connect(senTemChWIn.port_b, pipChW.port_a)
-    annotation (Line(points={{-16,0},{0,0}}, color={0,127,255}));
+    annotation (Line(points={{-10,20},{0,20}},
+                                             color={0,127,255}));
   connect(pipChW.ports_b[1], senTemChWOut.port_a)
-    annotation (Line(points={{20,0},{46,0}}, color={0,127,255}));
+    annotation (Line(points={{20,20},{50,20}},
+                                             color={0,127,255}));
   connect(pipChW.heatPort, gro.ports[1])
-    annotation (Line(points={{10,10},{10,60},{28,60}}, color={191,0,0}));
-  connect(TinHotW.y, souHotW.T_in) annotation (Line(points={{-79,-60},{-72,-60},
-          {-72,-56},{-68,-56}}, color={0,0,127}));
+    annotation (Line(points={{10,30},{10,40},{30,40},{30,60},{29.9,60},{29.9,
+          60.55}},                                     color={191,0,0}));
+  connect(TinHotW.y, souHotW.T_in) annotation (Line(points={{-79,-40},{-72,-40},
+          {-72,-36},{-68,-36}}, color={0,0,127}));
   connect(pipHotW.heatPort, gro.ports[2])
-    annotation (Line(points={{10,-50},{32,-50},{32,60}}, color={191,0,0}));
+    annotation (Line(points={{10,-30},{10,-20},{30,-20},{30,30},{29.9,30},{29.9,
+          59.65}},                                       color={191,0,0}));
   connect(souHotW.ports[1], senTemHotWIn.port_a)
-    annotation (Line(points={{-46,-60},{-36,-60}}, color={0,127,255}));
+    annotation (Line(points={{-46,-40},{-30,-40}}, color={0,127,255}));
   connect(senTemHotWIn.port_b, pipHotW.port_a)
-    annotation (Line(points={{-16,-60},{0,-60}}, color={0,127,255}));
+    annotation (Line(points={{-10,-40},{0,-40}}, color={0,127,255}));
   connect(pipHotW.ports_b[1], senTemHotWOut.port_a)
-    annotation (Line(points={{20,-60},{46,-60}}, color={0,127,255}));
+    annotation (Line(points={{20,-40},{50,-40}}, color={0,127,255}));
   connect(senTemHotWOut.port_b, sinHotW.ports[1])
-    annotation (Line(points={{66,-60},{80,-60}}, color={0,127,255}));
+    annotation (Line(points={{70,-40},{80,-40}}, color={0,127,255}));
   annotation (Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-120,-120},{120,
             120}})),

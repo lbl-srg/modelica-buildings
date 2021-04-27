@@ -38,5 +38,12 @@ See <a href=\"https://tc0602.ashraetcs.org/Climatic_constants_using_ASHRAE_CD_Ve
 Climatic Constants for Calculating Subsurface Soil Temperatures</a> for
 more information and a table of values
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+March 17, 2021, by Baptiste Ravache:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end ClimaticConstants;
