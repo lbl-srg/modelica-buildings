@@ -145,10 +145,7 @@ equation
   annotation (Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-120,-120},{120,
             120}})),
-    experiment(
-      StopTime=63072000,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Cvode"),
+    experiment(StopTime=63072000, Tolerance=1e-06),
     Documentation(info="<html>
 <p>
 This example showcases the ground thermal coupling for a network of two 
