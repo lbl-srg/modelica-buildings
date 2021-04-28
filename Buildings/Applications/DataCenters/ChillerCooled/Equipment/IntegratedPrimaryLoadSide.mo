@@ -41,10 +41,6 @@ model IntegratedPrimaryLoadSide
   parameter Real lValPum = 0.0001
     "Valve leakage, l=Kv(y=0)/Kv(y=1)"
     annotation(Dialog(group="Pump"));
-  parameter Real kFixedValPum = pum.m_flow_nominal/sqrt(pum.dpValve_nominal)
-    "Flow coefficient of fixed resistance that may be in series with valve,
-    k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)."
-    annotation(Dialog(group="Pump"));
   Modelica.Blocks.Interfaces.RealInput yPum[numPum](
     each final unit = "1",
     each min=0,
@@ -84,7 +80,6 @@ model IntegratedPrimaryLoadSide
     final riseTimeValve=riseTimeValve,
     final yValve_start=yValPum_start,
     final l=lValPum,
-    final kFixed=kFixedValPum,
     final yPump_start=yPum_start,
     final from_dp=from_dp2,
     final homotopyInitialization=homotopyInitialization,
@@ -125,8 +120,10 @@ equation
   annotation (Documentation(revisions="<html>
 <ul>
 <li>
-April 13, 2021, by Kathryn Hinkelman:<br/>
-Added junctions.
+April 26, 2021, by Kathryn Hinkelman:<br/>
+Added junctions and removed <code>kFixed</code> redundancies.<br/>
+See
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1472\">IBPSA, #1472</a>.
 </li>
 <li>
 January 12, 2019, by Michael Wetter:<br/>

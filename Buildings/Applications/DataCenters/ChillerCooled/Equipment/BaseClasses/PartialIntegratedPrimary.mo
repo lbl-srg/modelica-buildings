@@ -62,7 +62,6 @@ model PartialIntegratedPrimary
     final dpFixed_nominal=0,
     final dpValve_nominal=dpValve_nominal[5],
     final l=lVal5,
-    final kFixed=0,
     final rhoStd=rhoStd[5],
     final y_start=yVal5_start)
     "Bypass valve: closed when fully mechanic cooling is activated;
@@ -84,7 +83,6 @@ model PartialIntegratedPrimary
     final dpFixed_nominal=0,
     final dpValve_nominal=dpValve_nominal[6],
     final l=lVal6,
-    final kFixed=0,
     final rhoStd=rhoStd[6],
     final y_start=yVal6_start)
     "Bypass valve: closed when free cooling mode is deactivated;
