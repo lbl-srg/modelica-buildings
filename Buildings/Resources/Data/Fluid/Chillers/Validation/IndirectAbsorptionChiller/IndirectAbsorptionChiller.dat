@@ -12,7 +12,7 @@ double EnergyPlus(2881,12)
 #Column 8: BIG CHILLER:Chiller Condenser Outlet Temperature [C](TimeStep)
 #Column 9: BIG CHILLER:Chiller Condenser Mass Flow Rate [kg/s](TimeStep)
 #Column 10: BIG CHILLER:Chiller Source Steam Rate [W](TimeStep)
-#Column 11: BIG CHILLER:Chiller Steam Heat Loss Rate [W](TimeStep) 
+#Column 11: BIG CHILLER:Chiller Steam Heat Loss Rate [W](TimeStep)
 0,0.000e+00,0.000e+00,1.430e+01,1.430e+01,0.000e+00,0.000e+00,2.993e+01,2.993e+01,0.000e+00,0.000e+00,0.000e+00
 60,0.000e+00,0.000e+00,1.430e+01,1.430e+01,0.000e+00,0.000e+00,2.993e+01,2.993e+01,0.000e+00,0.000e+00,0.000e+00
 120,0.000e+00,0.000e+00,1.430e+01,1.430e+01,0.000e+00,0.000e+00,2.993e+01,2.993e+01,0.000e+00,0.000e+00,0.000e+00

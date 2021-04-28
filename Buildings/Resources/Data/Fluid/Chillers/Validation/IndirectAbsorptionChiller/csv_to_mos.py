@@ -16,7 +16,7 @@ if __name__ == '__main__':
    "BIG CHILLER:Chiller Condenser Outlet Temperature [C](TimeStep)",
    "BIG CHILLER:Chiller Condenser Mass Flow Rate [kg/s](TimeStep)",
    "BIG CHILLER:Chiller Source Steam Rate [W](TimeStep)",
-   "BIG CHILLER:Chiller Steam Heat Loss Rate [W](TimeStep) "
+   "BIG CHILLER:Chiller Steam Heat Loss Rate [W](TimeStep)"
   ]
 
   e.energyplus_csv_to_mos(
