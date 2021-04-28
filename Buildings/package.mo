@@ -887,6 +887,27 @@ The following <b style=\"color:red\">critical errors</b> have been fixed (i.e., 
 that can lead to wrong simulation results):
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.Applications.DataCenters.ChillerCooled.Equipment</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.FourPortResistanceChillerWSE<br/>
+                        Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.PartialChillerWSE<br/>
+                        Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.PartialCoolingCoilHumidifyingHeating<br/>
+                        Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.PartialHeatExchanger<br/>
+                        Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.PartialIntegratedPrimary<br/>
+                        Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.PartialPlantParallel<br/>
+                        Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.PartialPumpParallel<br/>
+                        Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.ThreeWayValveParameters<br/>
+                        Buildings.Applications.DataCenters.ChillerCooled.Equipment.IntegratedPrimaryLoadSide<br/>
+                        Buildings.Applications.DataCenters.ChillerCooled.Equipment.IntegratedPrimaryPlantSide<br/>
+                        Buildings.Applications.DataCenters.ChillerCooled.Equipment.IntegratedPrimarySecondary<br/>
+                        Buildings.Applications.DataCenters.ChillerCooled.Equipment.NonIntegrated<br/>
+                        Buildings.Applications.DataCenters.ChillerCooled.Equipment.WatersideEconomizer
+    </td>
+    <td valign=\"top\">Corrected fixed flow resistance settings and added ideal mixing junctions.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2446\">issue 2446</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL.Integers</b>
     </td>
 </tr>
