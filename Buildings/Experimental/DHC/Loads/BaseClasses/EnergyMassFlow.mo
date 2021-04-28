@@ -17,12 +17,17 @@ block EnergyMassFlow
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal
     "Nominal mass flow rate"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Temperature TLoa_nominal=293.15
+  parameter Modelica.SIunits.Temperature TSup_nominal(
+    start=if Q_flow_nominal<0 then 280.15 else 333.15)
+    "Supply temperature"
+    annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.SIunits.Temperature TLoa_nominal(
+    start=if Q_flow_nominal<0 then 294.15 else 293.15)
     "Load temperature"
     annotation (Dialog(group="Nominal condition"));
   parameter Real fra_m_flow_min = if have_pum then 0.1 else 0
     "Minimum flow rate (ratio to nominal)"
-    annotation(Dialog(enable=have_pum and not have_masFlo));
+    annotation(Dialog(enable=have_pum and not have_masFlo and have_varFlo));
   parameter Real k = 2.5
     "Shape factor of emission/flow rate characteristic";
 
@@ -92,13 +97,14 @@ protected
     "Mass flow rate (ratio to nominal) corrected for supply temperature mismatch";
   Real fra_QCap_flow
     "Heating or cooling capacity (ratio to nominal) at actual supply temperature";
-  Real fra_QSet_flow
-    "Heat flow rate (ratio to nominal) transferred at supply temperature set point";
-  Real fra_QSetBou_flow
-    "Heat flow rate (ratio to nominal) transferred at supply temperature set point (bounded)";
+  Real fra_QPre_flow
+    "Ratio of prescribed heat flow rate to actual capacity";
+  Real fra_QPreBou_flow
+    "Bounded ratio of prescribed heat flow rate to actual capacity";
   Real fra_Q_flow(final unit="1")
     "Heat flow rate correction factor for mass flow rate mismatch";
-  Modelica.SIunits.MassFlowRate m_flow_internal
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput m_flow_internal(
+    final unit="kg/s")
     "Mass flow rate for internal use when mPre_flow is removed";
 
 
@@ -145,31 +151,33 @@ equation
   end if;
 
   // Correction for supply temperature mismatch.
-  fra_QCap_flow = (TSup_actual - TLoa_nominal) / TLoa_nominal *
-    Utilities.Math.Functions.inverseXRegularized(
-      (TSupSet - TLoa_nominal) / TLoa_nominal,
-      kReg);
+  fra_QCap_flow = (TSup_actual - TLoa_nominal) / (TSup_nominal - TLoa_nominal);
 
-  fra_QSet_flow = QPre_flow / Q_flow_nominal *
+  fra_QPre_flow = QPre_flow / Q_flow_nominal *
     Utilities.Math.Functions.inverseXRegularized(
       fra_QCap_flow,
       kReg);
-  fra_QSetBou_flow = max(0, min(1, fra_QSet_flow));
+  fra_QPreBou_flow = max(0, min(1, fra_QPre_flow));
 
   // Computation of prescribed mass flow rate.
   fra_m_flow =
     if uEna then (
-      if have_masFlo then
-        min(1,
-          m_flow_internal / m_flow_nominal *
-          inverseCharacteristic(fra_QSetBou_flow, have_masFlo, k) *
-          Utilities.Math.Functions.inverseXRegularized(
-            inverseCharacteristic(QPre_flow / Q_flow_nominal, have_masFlo, k),
-            kReg))
+      if have_masFlo then max(0, min(1,
+        m_flow_internal / m_flow_nominal *
+        inverseCharacteristic(max(0, min(1,
+          fra_QPre_flow * (TSupSet - TLoa_nominal) / TLoa_nominal *
+            Utilities.Math.Functions.inverseXRegularized(
+              (TSup_actual - TLoa_nominal) / TLoa_nominal,
+              kReg))),
+          have_masFlo,
+          k) *
+        Utilities.Math.Functions.inverseXRegularized(
+          inverseCharacteristic(fra_QPreBou_flow, have_masFlo, k),
+          kReg)))
       elseif not have_varFlo then
         1
       else
-        max(fra_m_flow_min, inverseCharacteristic(fra_QSetBou_flow)))
+        max(fra_m_flow_min, inverseCharacteristic(fra_QPreBou_flow)))
     else 0;
   filter.u = fra_m_flow;
   m_flow = filter.y * m_flow_nominal;
@@ -259,9 +267,10 @@ where <i>U</i> is the overall uniform heat transfer coefficient, and
 Identifying the proper heat exchanger configuration and parameters
 is practically challenging and likely irrelevant here, considering the modeling
 uncertainty introduced by the heat exchanger approximation.
-So we rather adopt the following simplified formulation (with a straightforward 
-inverse) using a shape factor <i>k</i> to approximate a typical emission/flow 
-rate characteristic for variable flow systems, given a fixed supply temperature.
+So we rather adopt the following simplified formulation (which also provides 
+a straightforward inverse) using a shape factor <i>k</i> to approximate a typical 
+emission/flow rate characteristic for variable flow systems, given a fixed supply 
+temperature.
 </p>
 <p>
 <i>Q&#775; / Q&#775;_nominal = (1 - exp(-k * m&#775; / m&#775;_nominal)) / (1 - exp(-k))</i>.
@@ -303,20 +312,17 @@ follows.
 <b>Correction for supply temperature mismatch</b>
 </p>
 <p>
-First, we assess 
+First, we compute 
 </p>
 <ul>
 <li>
-the system heating or cooling capacity <i>Q&#775;Cap</i> given the actual 
-supply temperature: 
-<i>Q&#775;Cap / Q&#775;_nominal = (TSup_actual - TLoa) / (TSupSet - TLoa)</i>,
+the system heating or cooling capacity <i>Q&#775;Cap</i> (at nominal mass flow rate)
+given the actual supply temperature: 
+<i>Q&#775;Cap / Q&#775;_nominal = (TSup_actual - TLoa) / (TSup_nominal - TLoa)</i>,
 </li>
 <li>
-the heat flow rate <i>Q&#775;Set</i> that would be transferred given the mass flow 
-rate needed to meet the prescribed load <i>Q&#775;Pre</i>, and if the supply temperature 
-was equal to the set point:
-<i>Q&#775;Set / Q&#775;_nominal = Q&#775;Pre / Q&#775;_nominal * (TSupSet - TLoa) / (TSup_actual - TLoa) 
-= Q&#775;Pre / Q&#775;Cap</i>.
+the part load ratio corresponding to the prescribed heat flow rate: 
+<i>fra_Q&#775;Pre = Q&#775;Pre / Q&#775;Cap</i>.
 </li>
 </ul>
 <p>
@@ -333,15 +339,15 @@ if the mass flow rate is not provided as an input, it is computed by
 applying the inverse of the emission/flow rate characteristic and 
 considering the minimum value given by the recirculation flow rate 
 at minimum pump speed:
-<i>m&#775; / m&#775;_nominal = max(m&#775;Min / m&#775;_nominal,
-f<sup>-1</sup>(min(1, Q&#775;Set / Q&#775;_nominal)))</i>,
+<i>m&#775; / m&#775;_nominal = min(1, max(m&#775;Min / m&#775;_nominal,
+f<sup>-1</sup>(fra_Q&#775;Pre)))</i>,
 </li>
 <li>
 if the mass flow rate is provided as an input (<i>m&#775;Pre</i>), it still needs
 to be corrected in case of a supply temperature mismatch:
 <i>m&#775; / m&#775;_nominal = min(1, m&#775;Pre / m&#775;_nominal *
-f<sup>-1</sup>(min(1, Q&#775;Set / Q&#775;_nominal)) /
-f<sup>-1</sup>(Q&#775;Pre / Q&#775;_nominal))</i>.
+f<sup>-1</sup>(fra_Q&#775;Pre * (TSupSet - TLoa) / (TSup_actual - TLoa)) /
+f<sup>-1</sup>(fra_Q&#775;Pre))</i>.
 </li>
 </ul>
 <p>
@@ -359,7 +365,7 @@ for a description of the filter.
 <b>Correction for mass flow rate shortage</b>
 </p>
 <p>
-The corresponding heat flow rate correction factor <i>fra_Q_flow</i> is computed 
+The corresponding heat flow rate correction factor <i>fra_Q&#775;</i> is computed 
 as the ratio between the heat flow rate transferred with the actual mass flow rate 
 and the heat flow rate transferred with the prescribed mass flow rate—the
 emission/flow rate characteristic being used to assess those terms.
@@ -380,7 +386,7 @@ The heat flow rate that can be transferred under the actual
 operating conditions is computed as
 </p>
 <p>
-<i>Q&#775;_actual = min(Q&#775;Pre, Q&#775;Cap) * fra_Q_flow</i>.   
+<i>Q&#775;_actual = min(Q&#775;Pre, Q&#775;Cap) * fra_Q&#775;</i>.   
 </p> 
 <p>
 The residual heat flow rate is then simply

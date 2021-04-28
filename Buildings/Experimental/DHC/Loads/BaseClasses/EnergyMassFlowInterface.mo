@@ -14,7 +14,12 @@ model EnergyMassFlowInterface
   parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal
     "Design heating heat flow rate"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Temperature TLoa_nominal
+  parameter Modelica.SIunits.Temperature TSup_nominal(
+    start=if Q_flow_nominal<0 then 280.15 else 333.15)
+    "Supply temperature"
+    annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.SIunits.Temperature TLoa_nominal(
+    start=if Q_flow_nominal<0 then 294.15 else 293.15)
     "Load temperature"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.PressureDifference dp_nominal
@@ -94,8 +99,10 @@ model EnergyMassFlowInterface
     final have_pum=have_pum,
     final Q_flow_nominal=Q_flow_nominal,
     final m_flow_nominal=m_flow_nominal,
+    final TSup_nominal=TSup_nominal,
     final TLoa_nominal=TLoa_nominal,
-    final fra_m_flow_min=fra_m_flow_min) "Block that computes the actual load"
+    final fra_m_flow_min=fra_m_flow_min)
+    "Block that computes the actual load"
     annotation (Placement(transformation(extent={{-50,70},{-30,90}})));
   HeatTransfer.Sources.PrescribedHeatFlow heaFlo
     "Heat flow rate"
