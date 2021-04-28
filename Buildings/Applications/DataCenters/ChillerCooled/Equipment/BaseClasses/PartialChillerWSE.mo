@@ -30,11 +30,6 @@ partial model PartialChillerWSE
   parameter Real[2] lValChi(each min=1e-10, each max=1) = {0.0001,0.0001}
     "Valve leakage, l=Kv(y=0)/Kv(y=1)"
     annotation(Dialog(group="Two-way valve"));
-  parameter Real[2] kFixedValChi(each unit="",each min=0)=
-    {m1_flow_chi_nominal,m2_flow_chi_nominal} ./ sqrt({dp1_chi_nominal,dp2_chi_nominal})
-    "Flow coefficient of fixed resistance that may be in series with valves
-    in chillers, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)."
-    annotation(Dialog(group="Two-way valve"));
   parameter Real[numChi] yValChi_start=fill(0,numChi)
     "Initial value of output from on/off valves in chillers"
     annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilter));
@@ -181,7 +176,6 @@ partial model PartialChillerWSE
     final C2_start=C2_start,
     final C2_nominal=C2_nominal,
     final l=lValChi,
-    final kFixed=kFixedValChi,
     final dp2_nominal=dp2_chi_nominal,
     final dpValve_nominal=dpValve_nominal[1:2],
     final rhoStd=rhoStd[1:2],
@@ -482,8 +476,9 @@ inclduing chillers and integrated/non-integrated water-side economizers.
 revisions="<html>
 <ul>
 <li>
-April 9, 2021, by Kathryn Hinkelman:<br/>
-Changed <code>kFixedValWSE[2]</code> to nonzero value with reorganized pressure drops and added junctions.
+April 26, 2021, by Kathryn Hinkelman:<br/>
+Removed <code>kFixed</code> redundancies. See
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1472\">IBPSA, #1472</a>.
 </li>
 <li>
 April 14, 2020, by Michael Wetter:<br/>

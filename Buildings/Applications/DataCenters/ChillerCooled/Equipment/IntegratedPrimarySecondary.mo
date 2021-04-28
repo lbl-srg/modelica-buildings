@@ -49,10 +49,6 @@ model IntegratedPrimarySecondary
   parameter Real lValPum=0.0001
     "Valve leakage, l=Kv(y=0)/Kv(y=1)"
     annotation(Dialog(group="Pump"));
-  parameter Real kFixedValPum=pum.m_flow_nominal/sqrt(pum.dpValve_nominal)
-    "Flow coefficient of fixed resistance that may be in series with valve,
-    k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)."
-    annotation(Dialog(group="Pump"));
   parameter Modelica.SIunits.PressureDifference dpValPum_nominal = 6000
    "Nominal differential pressure of the shutoff valves for primary pumps"
    annotation(Dialog(group="Pump"));
@@ -102,7 +98,6 @@ model IntegratedPrimarySecondary
     final init=initValve,
     final dpFixed_nominal=0,
     final dpValve_nominal=dpValve_nominal[5],
-    final kFixed=0,
     final rhoStd=rhoStd[5],
     final y_start=yVal5_start,
     final l=lVal5)
@@ -130,7 +125,6 @@ model IntegratedPrimarySecondary
     final deltaM=deltaM2,
     final dpValve_nominal=dpValPum_nominal,
     final l=lValPum,
-    final kFixed=kFixedValPum,
     final riseTimeValve=riseTimeValve,
     final yValve_start=yValPum_start,
     final from_dp=from_dp2,
@@ -297,8 +291,10 @@ Otherwise, V5 is off.
 </html>", revisions="<html>
 <ul>
 <li>
-April 13, 2021, by Kathryn Hinkelman:<br/>
-Added junctions.
+April 26, 2021, by Kathryn Hinkelman:<br/>
+Added junctions and removed <code>kFixed</code> redundancies.<br/>
+See
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1472\">IBPSA, #1472</a>.
 </li>
 <li>
 January 12, 2019, by Michael Wetter:<br/>
