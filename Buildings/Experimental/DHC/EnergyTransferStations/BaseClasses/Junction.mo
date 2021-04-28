@@ -1,8 +1,8 @@
 within Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses;
 model Junction
-  "Fluid junction"
+  "Fluid junction with zero pressure drop"
   extends Fluid.FixedResistances.Junction(
-    final energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     final dp_nominal=fill(
       0,
       3),
@@ -17,7 +17,8 @@ model Junction
     Documentation(
       info="<html>
 <p>
-This is a model of a fluid junction, configured with zero pressure drop.
+This is a model of a fluid junction with zero pressure drop.
+By default the model is configured in steady-state. 
 </p>
 </html>"));
 end Junction;

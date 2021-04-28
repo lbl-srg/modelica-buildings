@@ -1,0 +1,8 @@
+compareVars :=
+  {
+    "pum1.m_flow_actual",
+    "pum2.m_flow_actual",
+    "senMasFlo.m_flow",
+    "floSwiBox.valSup.y_actual",
+    "floSwiBox.valRet.y_actual"
+  };
