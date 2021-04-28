@@ -5,6 +5,9 @@ model EnergyMassFlowInterface
   parameter Boolean have_masFlo = false
     "Set to true in case of prescribed mass flow rate"
     annotation(Evaluate=true);
+  parameter Boolean have_varFlo = true
+    "Set to true in case of variable flow system"
+    annotation(Evaluate=true, Dialog(enable=not have_masFlo));
   parameter Boolean have_pum
     "Set to true if the system has a pump"
     annotation(Evaluate=true);
@@ -53,8 +56,10 @@ model EnergyMassFlowInterface
     redeclare final package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     final m_flow_nominal=m_flow_nominal,
-    per(pressure(V_flow=m_flow_nominal/1000*{0,1,2}, dp=dp_nominal*{2,1,0})),
-    use_inputFilter=false,
+    per(final motorCooledByFluid=false),
+    final nominalValuesDefineDefaultPressureCurve=true,
+    final use_inputFilter=false,
+    final addPowerToMedium=false,
     final dp_nominal=dp_nominal) if have_pum
     "Pump (optional)"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
@@ -85,6 +90,7 @@ model EnergyMassFlowInterface
     annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));
   BaseClasses.EnergyMassFlow eneMasFlo(
     final have_masFlo=have_masFlo,
+    final have_varFlo=have_varFlo,
     final have_pum=have_pum,
     final Q_flow_nominal=Q_flow_nominal,
     final m_flow_nominal=m_flow_nominal,
