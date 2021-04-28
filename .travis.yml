@@ -114,7 +114,7 @@ before_install:
        cp Buildings/Resources/Scripts/travis/jmodelica/jm_ipython.sh $HOME/bin/jm_ipython.sh;
     fi;
   - if [[ "$TEST_ARG" == *test-energyplus* ]]; then
-      wget --no-verbose https://github.com/NREL/EnergyPlus/releases/download/v9.5.0/{ENERGYPLUS_VERSION}.tar.gz;
+      wget --no-verbose https://github.com/NREL/EnergyPlus/releases/download/v9.5.0/${ENERGYPLUS_VERSION}.tar.gz;
       tar xzf ${ENERGYPLUS_VERSION}.tar.gz;
       rm ${ENERGYPLUS_VERSION}.tar.gz;
       mv -v ${ENERGYPLUS_VERSION}/energyplus ${ENERGYPLUS_VERSION}/EnergyPlus;
