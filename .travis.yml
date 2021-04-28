@@ -117,6 +117,9 @@ before_install:
       wget --no-verbose https://github.com/NREL/EnergyPlus/releases/download/v9.5.0/{ENERGYPLUS_VERSION}.tar.gz;
       tar xzf ${ENERGYPLUS_VERSION}.tar.gz;
       rm ${ENERGYPLUS_VERSION}.tar.gz;
+      mv -v ${ENERGYPLUS_VERSION}/energyplus ${ENERGYPLUS_VERSION}/EnergyPlus;
+      file ${ENERGYPLUS_VERSION}/EnergyPlus
+      ls -l ${ENERGYPLUS_VERSION}
       echo "Installed EnergyPlus in ${PWD}/${ENERGYPLUS_VERSION}";
     fi;
   - if [[ "$TEST_ARG" == *test-cdl-conformance* ]]; then
