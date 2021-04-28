@@ -107,7 +107,6 @@ protected
     final unit="kg/s")
     "Mass flow rate for internal use when mPre_flow is removed";
 
-
   function characteristic "m_flow -> Q_flow characteristic"
     /* FE: implement exponential characteristic based on OS load data for
     the case where have_masFlo is false.
@@ -212,8 +211,8 @@ Document enable signal for zero flow rate at zero load.
 Effectiveness approximation and plot.
 </p>
 <p>
-This block computes the mass flow rate and heat flow rate variables 
-that enable coupling steady-state thermal loads provided as 
+This block computes the mass flow rate and heat flow rate variables
+that enable coupling steady-state thermal loads provided as
 time series to a dynamic one-dimensional thermo-fluid flow model,
 typically representing the in-building chilled water or hot water
 distribution system.
@@ -221,15 +220,15 @@ distribution system.
 <ul>
 <li>
 The block approximates the limit of the system capacity considering the actual
-supply temperature and mass flow rate values. 
+supply temperature and mass flow rate values.
 The part of the load that can be met under the actual operating conditions
-is <i>Q&#775;_actual</i>. 
+is <i>Q&#775;_actual</i>.
 The part of the load that cannot be met under the actual operating conditions
 is <i>Q&#775;_residual</i>.
 </li>
 </li>
 <li>
-The block approximates the relationship between the cumulated load on the hydronic 
+The block approximates the relationship between the cumulated load on the hydronic
 distribution system and the chilled water or hot water mass flow rate.
 </li>
 </ul>
@@ -242,16 +241,16 @@ In order to formulate generic relationships between the
 heat flow rate and the supply temperature and mass flow rate,
 the whole distribution system and the terminal units that it serves are abstracted
 as a unique heat exchanger between the heating or cooling medium and the load.
-Under that assumption, the total heat flow rate <i>Q&#775;</i> transferred to 
-the load may be written as a function of the heat exchanger effectiveness <i>ε</i>, 
+Under that assumption, the total heat flow rate <i>Q&#775;</i> transferred to
+the load may be written as a function of the heat exchanger effectiveness <i>ε</i>,
 which is independent of the heat exchanger inlet temperatures.
 </p>
 <p>
 <i>Q&#775; = ε * CMin * (TSup - TLoa)</i>,
 </p>
 <p>
-where <i>CMin</i> is the minimum capacity flow rate, <i>TSup</i> 
-is the supply temperature and <i>TLoa</i> is the load temperature which is 
+where <i>CMin</i> is the minimum capacity flow rate, <i>TSup</i>
+is the supply temperature and <i>TLoa</i> is the load temperature which is
 considered constant here.
 Various correlations are available to compute the effectiveness from the ratio
 of the capacity flow rates and/or the minimum capacity flow rate.
@@ -259,24 +258,24 @@ For instance, in case of a load at uniform temperature, we have the following
 equation.
 </p>
 <p>
-<i>Q&#775; = (1 - exp(UA / CMin)) * CMin * (TSup - TLoa)</i>,
+<i>Q&#775; = (1 - exp(-UA / CMin)) * CMin * (TSup - TLoa)</i>,
 </p>
 <p>
-where <i>U</i> is the overall uniform heat transfer coefficient, and 
+where <i>U</i> is the overall uniform heat transfer coefficient, and
 <i>A</i> is the area associated with the coefficient <i>U</i>.
 Identifying the proper heat exchanger configuration and parameters
 is practically challenging and likely irrelevant here, considering the modeling
 uncertainty introduced by the heat exchanger approximation.
-So we rather adopt the following simplified formulation (which also provides 
-a straightforward inverse) using a shape factor <i>k</i> to approximate a typical 
-emission/flow rate characteristic for variable flow systems, given a fixed supply 
+So we rather adopt the following simplified formulation (which also provides
+a straightforward inverse) using a shape factor <i>k</i> to approximate a typical
+emission/flow rate characteristic for variable flow systems, given a fixed supply
 temperature.
 </p>
 <p>
 <i>Q&#775; / Q&#775;_nominal = (1 - exp(-k * m&#775; / m&#775;_nominal)) / (1 - exp(-k))</i>.
 </p>
 <p>
-The figure hereunder compares that characteristic with the ones 
+The figure hereunder compares that characteristic with the ones
 obtained with the ε-NTU method applied to two different configurations:
 a case where the load has a uniform temperature (or infinite capacity flow rate)
 and a counterflow heat exchanger.
@@ -285,7 +284,7 @@ provides a characteristic which is typical of (Petitjean, 1994)
 </p>
 <ul>
 <li>
-a cooling coil with water entering at a temperature of <code>6</code> degC and 
+a cooling coil with water entering at a temperature of <code>6</code> degC and
 exhibiting a temperature rise of <code>6</code> K at nominal conditions, with
 air entering at <code>24</code> degC, or
 </li>
@@ -312,16 +311,16 @@ follows.
 <b>Correction for supply temperature mismatch</b>
 </p>
 <p>
-First, we compute 
+First, we compute
 </p>
 <ul>
 <li>
 the system heating or cooling capacity <i>Q&#775;Cap</i> (at nominal mass flow rate)
-given the actual supply temperature: 
+given the actual supply temperature:
 <i>Q&#775;Cap / Q&#775;_nominal = (TSup_actual - TLoa) / (TSup_nominal - TLoa)</i>,
 </li>
 <li>
-the part load ratio corresponding to the prescribed heat flow rate: 
+the part load ratio corresponding to the prescribed heat flow rate:
 <i>fra_Q&#775;Pre = Q&#775;Pre / Q&#775;Cap</i>.
 </li>
 </ul>
@@ -335,9 +334,9 @@ For variable flow systems,
 </p>
 <ul>
 <li>
-if the mass flow rate is not provided as an input, it is computed by 
-applying the inverse of the emission/flow rate characteristic and 
-considering the minimum value given by the recirculation flow rate 
+if the mass flow rate is not provided as an input, it is computed by
+applying the inverse of the emission/flow rate characteristic and
+considering the minimum value given by the recirculation flow rate
 at minimum pump speed:
 <i>m&#775; / m&#775;_nominal = min(1, max(m&#775;Min / m&#775;_nominal,
 f<sup>-1</sup>(fra_Q&#775;Pre)))</i>,
@@ -352,7 +351,7 @@ f<sup>-1</sup>(fra_Q&#775;Pre))</i>.
 </ul>
 <p>
 The mass flow rate is then filtered to approximate the
-response time of the terminal actuators and the distribution pump 
+response time of the terminal actuators and the distribution pump
 or main control valve.
 This also provides a means to break the algebraic loop between the
 mass flow rate and the supply temperature.
@@ -365,17 +364,17 @@ for a description of the filter.
 <b>Correction for mass flow rate shortage</b>
 </p>
 <p>
-The corresponding heat flow rate correction factor <i>fra_Q&#775;</i> is computed 
-as the ratio between the heat flow rate transferred with the actual mass flow rate 
+The corresponding heat flow rate correction factor <i>fra_Q&#775;</i> is computed
+as the ratio between the heat flow rate transferred with the actual mass flow rate
 and the heat flow rate transferred with the prescribed mass flow rate—the
 emission/flow rate characteristic being used to assess those terms.
-This is for passive systems with a differential pressure at their supply 
+This is for passive systems with a differential pressure at their supply
 and control valves to modulate the flow.
-In case of active systems with a pump, an ideal mover is expected to be used 
-as in 
+In case of active systems with a pump, an ideal mover is expected to be used
+as in
 <a href=\"modelica://Buildings.Experimental.DHC.Loads.BaseClasses.EnergyMassFlowInterface\">
 Buildings.Experimental.DHC.Loads.BaseClasses.EnergyMassFlowInterface</a>
-to impose the prescribed mass flow rate (whatever the flow resistance of the system) 
+to impose the prescribed mass flow rate (whatever the flow resistance of the system)
 so the correction factor is <code>1</code>.
 </p>
 <p>
@@ -386,20 +385,20 @@ The heat flow rate that can be transferred under the actual
 operating conditions is computed as
 </p>
 <p>
-<i>Q&#775;_actual = min(Q&#775;Pre, Q&#775;Cap) * fra_Q&#775;</i>.   
-</p> 
+<i>Q&#775;_actual = min(Q&#775;Pre, Q&#775;Cap) * fra_Q&#775;</i>.
+</p>
 <p>
 The residual heat flow rate is then simply
 </p>
 <p>
-<i>Q&#775;_residual = Q&#775;Pre - Q&#775;_actual</i>.   
+<i>Q&#775;_residual = Q&#775;Pre - Q&#775;_actual</i>.
 </p>
 <p>
 <b>Enable signal</b>
 </p>
 <p>
-A Boolean \"enable\" signal forces (when false) the output mass flow rate and 
-heat flow rate variables to zero, and may be used to represent a lock out of 
+A Boolean \"enable\" signal forces (when false) the output mass flow rate and
+heat flow rate variables to zero, and may be used to represent a lock out of
 the system during off-hours or after a prolonged period with no load.
 </p>
 <h4>References</h4>
