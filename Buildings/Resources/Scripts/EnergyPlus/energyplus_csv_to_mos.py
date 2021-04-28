@@ -22,6 +22,9 @@ def energyplus_csv_to_mos(output_list, dat_file_name, step_size, final_time):
     #print("\n".join(column_names))
 
     column_names = df.columns.tolist()
+    first_time_stamp = '01/01  00:10:00'
+    if df['Date/Time'][0].strip() != first_time_stamp:
+        raise ValueError(f"Expected first time stamp to be '{first_time_stamp}', but received '{df['Date/Time'][0]}'")
 
     # EnergyPlus reports the first results after the first time step.
     # In order to have a value at time=0, we add one time step, and
